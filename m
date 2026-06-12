@@ -4,60 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C79CBCD98CF
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 15:53:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70FCFCD98CF
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 15:58:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E748A10EA73;
-	Fri, 12 Jun 2026 15:53:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98BB110E2A3;
+	Fri, 12 Jun 2026 15:58:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Z8S8P5jC";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="oef47UAI";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4DD310EA75
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 15:53:04 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7554F497;
- Fri, 12 Jun 2026 17:52:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1781279552;
- bh=Xi4zr6K4kn0ZEMvzzLUuNwWw60sZlDm3SVBSJ/YtuQg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Z8S8P5jCFyTJtycXMMjLt/8TwqBV+eybltV90qrojoPBmml1+uvKj11t9HxOnmrmX
- B0MOPpBIJsPGPWeh/6ZHZB9OWAvNXvY5ERFpaziK2fsszUVeqh8fdo+0W8uJoicdOL
- p3qRuinDJo5SSUZ6aAxCQrkyjnpPiJHBcc8erDIg=
-Date: Fri, 12 Jun 2026 18:53:01 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
-Message-ID: <20260612155301.GC1982714@killaraus.ideasonboard.com>
-References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
- <20260515-rcar-du-dsc-v3-4-164157820498@ideasonboard.com>
- <20260611000324.GH1632628@killaraus.ideasonboard.com>
- <11f27d38-0224-4fce-a975-7c3f7d8d1d38@ideasonboard.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id ED9D510E2A3
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 15:58:49 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 685062BCA;
+ Fri, 12 Jun 2026 08:58:44 -0700 (PDT)
+Received: from [10.57.28.189] (unknown [10.57.28.189])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CF9703FAA1;
+ Fri, 12 Jun 2026 08:58:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1781279929; bh=0fx0Dq7zyRQ76LZRlNtxeqc2HkYLx+Ws+JAm3R9LdIU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=oef47UAIeNbza1ToGJPvvgPBLz80UT5fpMXnatTpooJynbAG6nl8P8Sv2pjypXxyL
+ CdTJief9X08Ump9m7CvHJNBlcB0pWj7LplqikCMkBrj2eRKV6UqbmaV0KMzCQUFxMY
+ /ED1IAYKhWc1dILE82EEblq5oYhIvWTNzsoPUo10=
+Message-ID: <f7ae00e8-1d5e-48ef-83c8-a3e8c24507d5@arm.com>
+Date: Fri, 12 Jun 2026 16:58:39 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <11f27d38-0224-4fce-a975-7c3f7d8d1d38@ideasonboard.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 06/18] drm/panthor: Derive MMU AS register addresses
+ from base and stride
+To: Karunika Choo <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
+Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org
+References: <20260528150546.3168527-1-karunika.choo@arm.com>
+ <20260528150546.3168527-7-karunika.choo@arm.com>
+ <ca983479-efcf-4b8d-825d-69b5ab54d92e@arm.com>
+ <6462b21f-a624-4505-b0aa-b2d96d7a8564@arm.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <6462b21f-a624-4505-b0aa-b2d96d7a8564@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,99 +64,312 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jun 12, 2026 at 02:56:11PM +0300, Tomi Valkeinen wrote:
-> On 11/06/2026 03:03, Laurent Pinchart wrote:
-> > On Fri, May 15, 2026 at 12:09:29PM +0300, Tomi Valkeinen wrote:
-> >> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
-> >> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
-> >> crtc, when enabling the crtc.
-> >>
-> >> With DSC (added in upcoming patch) in the pipeline, between the DU and
-> >> the DSI, the above call path is broken as the crtc tries to call
-> >> rcar_mipi_dsi_pclk_enable() on the DSC.
-> >>
-> >> Adjust the rcar_mipi_dsi_pclk_enable() so that it detects the DSC, and
-> >> in that case gets the next bridge from the DSC, which is the DSI.
-> >>
-> >> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> >> ---
-> >>   drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c | 36 +++++++++++++++++++++++--
-> >>   1 file changed, 34 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> >> index 4ef2e3c129ed..085e229bcb0b 100644
-> >> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> >> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
-> >> @@ -88,6 +88,8 @@ struct dsi_setup_info {
-> >>   	const struct dsi_clk_config *clkset;
-> >>   };
-> >>   
-> >> +static const struct drm_bridge_funcs rcar_mipi_dsi_bridge_ops;
-> >> +
-> >>   static inline struct rcar_mipi_dsi *
-> >>   bridge_to_rcar_mipi_dsi(struct drm_bridge *bridge)
-> >>   {
-> >> @@ -844,15 +846,39 @@ static void rcar_mipi_dsi_atomic_disable(struct drm_bridge *bridge,
-> >>   	rcar_mipi_dsi_stop_video(dsi);
-> >>   }
-> >>   
-> >> +/*
-> >> + * We need to skip the DSC bridge when we have DSC in between the DU and
-> >> + * the DSI. We detect the DSI bridge via bridge->funcs, and assume the
-> >> + * next_bridge is the DSI bridge. If this is not the case, the DT data
-> >> + * is wrong (so it shouldn't really happen).
-> >> + */
-> >> +static struct drm_bridge *
-> >> +rcar_mipi_dsi_resolve_bridge(struct drm_bridge *bridge)
-> >> +{
-> >> +	if (bridge->funcs != &rcar_mipi_dsi_bridge_ops)
-> >> +		bridge = bridge->next_bridge;
-> >> +
-> >> +	if (!bridge || bridge->funcs != &rcar_mipi_dsi_bridge_ops)
-> >> +		return NULL;
-> >> +
-> >> +	return bridge;
-> >> +}
-> > 
-> > Hmmmm... It's quite a bit of a hack. It would be nicer to do this in
-> > rcar_du_crtc.c instead, where we cache the dsi bridge pointer. The
+On 11/06/2026 17:11, Karunika Choo wrote:
+> On 11/06/2026 15:45, Steven Price wrote:
+>> On 28/05/2026 16:05, Karunika Choo wrote:
+>>> Move the MMU address-space register layout into the hardware description
+>>> by storing the MMU_AS base offset and per-AS stride in the Panthor HW
+>>> map.
+>>>
+>>> Use those values to compute the iomem pointer for each AS slot and make
+>>> the MMU AS register definitions relative to the per-slot register window
+>>> instead of hard-coding the slot offset in every register macro.
+>>>
+>>> This prepares the MMU code for GPUs where the MMU AS register region is
+>>> not at a fixed offset while keeping the existing register accesses
+>>> scoped to a single AS window.
+>>>
+>>> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+>>> ---
+>>>  drivers/gpu/drm/panthor/panthor_hw.c       |  8 +++++
+>>>  drivers/gpu/drm/panthor/panthor_hw.h       |  8 +++++
+>>>  drivers/gpu/drm/panthor/panthor_mmu.c      | 35 ++++++++++++++--------
+>>>  drivers/gpu/drm/panthor/panthor_mmu_regs.h | 23 ++++++--------
+>>>  4 files changed, 47 insertions(+), 27 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
+>>> index 1f7fab4caf4d..e677f1a8f488 100644
+>>> --- a/drivers/gpu/drm/panthor/panthor_hw.c
+>>> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
+>>> @@ -41,6 +41,10 @@ static struct panthor_hw panthor_hw_arch_v10 = {
+>>>  	.map = {
+>>>  		.gpu_control_base = 0x0,
+>>>  		.mcu_control_base = 0x700,
+>>> +		.mmu_as = {
+>>> +			.base = 0x2400,
+>>> +			.stride = 0x40,
+>>> +		},
+>>>  	},
+>>>  };
+>>>  
+>>> @@ -54,6 +58,10 @@ static struct panthor_hw panthor_hw_arch_v14 = {
+>>>  		.gpu_control_base = 0x0,
+>>>  		.pwr_control_base = 0x800,
+>>>  		.mcu_control_base = 0x700,
+>>> +		.mmu_as = {
+>>> +			.base = 0x2400,
+>>> +			.stride = 0x40,
+>>> +		},
+>>>  	},
+>>>  };
+>>>  
+>>> diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
+>>> index 58673a427bc9..0ae11b78c77e 100644
+>>> --- a/drivers/gpu/drm/panthor/panthor_hw.h
+>>> +++ b/drivers/gpu/drm/panthor/panthor_hw.h
+>>> @@ -38,6 +38,14 @@ struct panthor_hw_regmap {
+>>>  
+>>>  	/** @mcu_control_base: MCU_CONTROL base address */
+>>>  	u32 mcu_control_base;
+>>> +
+>>> +	struct {
+>>> +		/** @mmu_as.base: MMU_AS base address */
+>>> +		u32 base;
+>>> +
+>>> +		/** @mmu_as.stride: Stride between subsequent MMU_AS register blocks */
+>>> +		u32 stride;
+>>> +	} mmu_as;
+>>>  };
+>>>  
+>>>  /**
+>>> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+>>> index 48127313332f..9a64f977d28c 100644
+>>> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+>>> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+>>> @@ -36,6 +36,7 @@
+>>>  #include "panthor_gpu.h"
+>>>  #include "panthor_gpu_regs.h"
+>>>  #include "panthor_heap.h"
+>>> +#include "panthor_hw.h"
+>>>  #include "panthor_mmu.h"
+>>>  #include "panthor_mmu_regs.h"
+>>>  #include "panthor_sched.h"
+>>> @@ -57,7 +58,7 @@ struct panthor_as_slot {
+>>>   */
+>>>  struct panthor_mmu {
+>>>  	/** @iomem: CPU mapping of MMU_AS_CONTROL iomem region */
+>>> -	void __iomem *iomem;
+>>> +	void __iomem *iomem[MAX_AS_SLOTS];
+>>
+>> I'm not convinced that having a iomem pointer per AS is worth it. It 
+>> seems excessive.
+>>
+>> Boris's suggestion of moving it to panthor_as_slot at least avoids the 
+>> array indexing, but I did wonder about just having a helper function. AI 
+>> cooked up the below diff (untested, applies on top) which demonstrates
+>> the idea.
+>>
+>> I think the AI was a bit over the top with the as_present check in the
+>> helper, although that would clearly indicate a serious bug if it
+>> triggered.
+>>
+>> What do you think?
+>>
+>> Thanks,
+>> Steve
 > 
-> It's actually cached in rcar_du_encoder.c, but used in rcar_du_crtc.c.
+> TBF, with Boris's suggestion, I included a new as_iomem() helper
+> anyways, this isn't that far off as an option. Perhaps maybe
+> rename `iomem` to `as_iomem` to clarify that this isn't the
+> MMU_CONTROL iomem. 
 > 
-> If I understand right, you'd like to do the DSC detection in 
-> rcar_du_crtc, and skip the DSC, if needed, before calling 
-> rcar_mipi_dsi_pclk_enable()?
+> I don't really mind either way, this option has the ambiguity
+> of where the iomem belongs to, while Boris' solution adds a
+> little more baggage to the struct but ownership is clear.
 
-That would be the idea, yes. Knowledge that there's a DSC in the
-pipeline would be in the DU driver, not the DSI driver. I think it would
-be better, as the DU driver is the one that should have an overall view
-of the display pipeline.
+Yeah I wasn't really happy with the AI's output - I just wanted to see
+what it would look like and it was a quick way of doing that. There's
+definitely some cases where the helper makes the code easier to read and
+I disliked the array.
 
-> > question is how to then identify the right bridge, as we won't have
-> > access to rcar_mipi_dsi_bridge_ops. Should this driver set the bridge
-> > type field to DRM_MODE_CONNECTOR_DSI ?
+It sounds like you've already got something with Boris's suggestion and
+a helper, so I think we're probably good to stick with that.
+
+Thanks,
+Steve
+
+> Kind regards,
+> Karunika
 > 
-> I'm not sure how that would help. Or, I can, as the dsi driver does not 
-> set the bridge type, so only DSC would set it. But isn't that even more 
-> hacky?
+>>
+>> ----8<-----
+>> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+>> index 53c5744609fa..6127df893476 100644
+>> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+>> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+>> @@ -58,7 +58,7 @@ struct panthor_as_slot {
+>>   */
+>>  struct panthor_mmu {
+>>  	/** @iomem: CPU mapping of MMU_AS_CONTROL iomem region */
+>> -	void __iomem *iomem[MAX_AS_SLOTS];
+>> +	void __iomem *iomem;
+>>  
+>>  	/** @irq: The MMU irq. */
+>>  	struct panthor_irq irq;
+>> @@ -112,6 +112,20 @@ struct panthor_mmu {
+>>  	} vm;
+>>  };
+>>  
+>> +static void __iomem *
+>> +panthor_mmu_as_iomem(struct panthor_device *ptdev, u32 as_nr)
+>> +{
+>> +	struct panthor_mmu *mmu = ptdev->mmu;
+>> +
+>> +	if (drm_WARN_ON(&ptdev->base, as_nr >= MAX_AS_SLOTS))
+>> +		return mmu->iomem;
+>> +
+>> +	if (drm_WARN_ON(&ptdev->base, !(ptdev->gpu_info.as_present & BIT(as_nr))))
+>> +		return mmu->iomem;
+>> +
+>> +	return mmu->iomem + (ptdev->hw->map.mmu_as.stride * as_nr);
+>> +}
+>> +
+>>  /**
+>>   * struct panthor_vm_pool - VM pool object
+>>   */
+>> @@ -522,14 +536,14 @@ static void free_pt(void *cookie, void *data, size_t size)
+>>  
+>>  static int wait_ready(struct panthor_device *ptdev, u32 as_nr)
+>>  {
+>> -	struct panthor_mmu *mmu = ptdev->mmu;
+>> +	void __iomem *as_iomem = panthor_mmu_as_iomem(ptdev, as_nr);
+>>  	int ret;
+>>  	u32 val;
+>>  
+>>  	/* Wait for the MMU status to indicate there is no active command, in
+>>  	 * case one is pending.
+>>  	 */
+>> -	ret = gpu_read_relaxed_poll_timeout_atomic(mmu->iomem[as_nr], AS_STATUS, val,
+>> +	ret = gpu_read_relaxed_poll_timeout_atomic(as_iomem, AS_STATUS, val,
+>>  						   !(val & AS_STATUS_AS_ACTIVE), 10, 100000);
+>>  
+>>  	if (ret) {
+>> @@ -542,12 +556,13 @@ static int wait_ready(struct panthor_device *ptdev, u32 as_nr)
+>>  
+>>  static int as_send_cmd_and_wait(struct panthor_device *ptdev, u32 as_nr, u32 cmd)
+>>  {
+>> +	void __iomem *as_iomem = panthor_mmu_as_iomem(ptdev, as_nr);
+>>  	int status;
+>>  
+>>  	/* write AS_COMMAND when MMU is ready to accept another command */
+>>  	status = wait_ready(ptdev, as_nr);
+>>  	if (!status) {
+>> -		gpu_write(ptdev->mmu->iomem[as_nr], AS_COMMAND, cmd);
+>> +		gpu_write(as_iomem, AS_COMMAND, cmd);
+>>  		status = wait_ready(ptdev, as_nr);
+>>  	}
+>>  
+>> @@ -595,14 +610,14 @@ PANTHOR_IRQ_HANDLER(mmu, panthor_mmu_irq_handler);
+>>  static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
+>>  				 u64 transtab, u64 transcfg, u64 memattr)
+>>  {
+>> -	struct panthor_mmu *mmu = ptdev->mmu;
+>> +	void __iomem *as_iomem = panthor_mmu_as_iomem(ptdev, as_nr);
+>>  
+>>  	panthor_mmu_irq_enable_events(&ptdev->mmu->irq,
+>>  				      panthor_mmu_as_fault_mask(ptdev, as_nr));
+>>  
+>> -	gpu_write64(mmu->iomem[as_nr], AS_TRANSTAB, transtab);
+>> -	gpu_write64(mmu->iomem[as_nr], AS_MEMATTR, memattr);
+>> -	gpu_write64(mmu->iomem[as_nr], AS_TRANSCFG, transcfg);
+>> +	gpu_write64(as_iomem, AS_TRANSTAB, transtab);
+>> +	gpu_write64(as_iomem, AS_MEMATTR, memattr);
+>> +	gpu_write64(as_iomem, AS_TRANSCFG, transcfg);
+>>  
+>>  	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
+>>  }
+>> @@ -610,8 +625,8 @@ static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
+>>  static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
+>>  				  bool recycle_slot)
+>>  {
+>> -	struct panthor_mmu *mmu = ptdev->mmu;
+>>  	struct panthor_vm *vm = ptdev->mmu->as.slots[as_nr].vm;
+>> +	void __iomem *as_iomem = panthor_mmu_as_iomem(ptdev, as_nr);
+>>  	int ret;
+>>  
+>>  	lockdep_assert_held(&ptdev->mmu->as.slots_lock);
+>> @@ -638,9 +653,9 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
+>>  	if (recycle_slot)
+>>  		return 0;
+>>  
+>> -	gpu_write64(mmu->iomem[as_nr], AS_TRANSTAB, 0);
+>> -	gpu_write64(mmu->iomem[as_nr], AS_MEMATTR, 0);
+>> -	gpu_write64(mmu->iomem[as_nr], AS_TRANSCFG, AS_TRANSCFG_ADRMODE_UNMAPPED);
+>> +	gpu_write64(as_iomem, AS_TRANSTAB, 0);
+>> +	gpu_write64(as_iomem, AS_MEMATTR, 0);
+>> +	gpu_write64(as_iomem, AS_TRANSCFG, AS_TRANSCFG_ADRMODE_UNMAPPED);
+>>  
+>>  	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
+>>  }
+>> @@ -1740,7 +1755,7 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
+>>  	mutex_lock(&ptdev->mmu->as.slots_lock);
+>>  	if (vm->as.id >= 0 && size) {
+>>  		/* Lock the region that needs to be updated */
+>> -		gpu_write64(ptdev->mmu->iomem[vm->as.id], AS_LOCKADDR,
+>> +		gpu_write64(panthor_mmu_as_iomem(ptdev, vm->as.id), AS_LOCKADDR,
+>>  			    pack_region_range(ptdev, &start, &size));
+>>  
+>>  		/* If the lock succeeded, update the locked_region info. */
+>> @@ -1789,21 +1804,21 @@ static void panthor_vm_unlock_region(struct panthor_vm *vm)
+>>  
+>>  static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
+>>  {
+>> -	struct panthor_mmu *mmu = ptdev->mmu;
+>>  	bool has_unhandled_faults = false;
+>>  
+>>  	status = panthor_mmu_fault_mask(ptdev, status);
+>>  	while (status) {
+>>  		u32 as = ffs(status | (status >> 16)) - 1;
+>>  		u32 mask = panthor_mmu_as_fault_mask(ptdev, as);
+>> +		void __iomem *as_iomem = panthor_mmu_as_iomem(ptdev, as);
+>>  		u64 addr;
+>>  		u32 fault_status;
+>>  		u32 exception_type;
+>>  		u32 access_type;
+>>  		u32 source_id;
+>>  
+>> -		fault_status = gpu_read(mmu->iomem[as], AS_FAULTSTATUS);
+>> -		addr = gpu_read64(mmu->iomem[as], AS_FAULTADDRESS);
+>> +		fault_status = gpu_read(as_iomem, AS_FAULTSTATUS);
+>> +		addr = gpu_read64(as_iomem, AS_FAULTADDRESS);
+>>  
+>>  		/* decode the fault status */
+>>  		exception_type = fault_status & 0xFF;
+>> @@ -1834,7 +1849,7 @@ static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
+>>  		 * Note that COMPLETED irqs are never cleared, but this is fine
+>>  		 * because they are always masked.
+>>  		 */
+>> -		gpu_write(mmu->irq.iomem, INT_CLEAR, mask);
+>> +		gpu_write(ptdev->mmu->irq.iomem, INT_CLEAR, mask);
+>>  
+>>  		if (ptdev->mmu->as.slots[as].vm)
+>>  			ptdev->mmu->as.slots[as].vm->unhandled_fault = true;
+>> @@ -3239,11 +3254,8 @@ static void panthor_mmu_release_wq(struct drm_device *ddev, void *res)
+>>  int panthor_mmu_init(struct panthor_device *ptdev)
+>>  {
+>>  	u32 va_bits = GPU_MMU_FEATURES_VA_BITS(ptdev->gpu_info.mmu_features);
+>> -	unsigned long as_present_mask = ptdev->gpu_info.as_present;
+>> -	struct panthor_hw_regmap *regmap = &ptdev->hw->map;
+>>  	struct panthor_mmu *mmu;
+>>  	int ret, irq;
+>> -	u32 as_id;
+>>  
+>>  	mmu = drmm_kzalloc(&ptdev->base, sizeof(*mmu), GFP_KERNEL);
+>>  	if (!mmu)
+>> @@ -3260,12 +3272,7 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+>>  	if (ret)
+>>  		return ret;
+>>  
+>> -	for_each_set_bit(as_id, &as_present_mask, MAX_AS_SLOTS) {
+>> -		u64 offset = regmap->mmu_as.base + (regmap->mmu_as.stride * as_id);
+>> -
+>> -		mmu->iomem[as_id] = ptdev->iomem + offset;
+>> -	}
+>> -
+>> +	mmu->iomem = ptdev->iomem + ptdev->hw->map.mmu_as.base;
+>>  	ptdev->mmu = mmu;
+>>  
+>>  	irq = platform_get_irq_byname(to_platform_device(ptdev->base.dev), "mmu");
+>>
 > 
-> Or did you rather mean that the DSI driver would set the bridge type, 
-> and DSC would not? We can then do:
-> 
-> 		if (bridge->type != DRM_MODE_CONNECTOR_DSI)
-> 			bridge = bridge->next_bridge;
 
-Yes that's what I meant.
-
-> in the crtc driver. This works. It's still a bit hacky, but I think the 
-> chances of the code getting it wrong are quite low. If the output port 
-> is RCAR_DU_OUTPUT_DSIx, then the next bridge must be rcar-dsi or 
-> rcar-dsc, so it's all under our control. Also, it's less code than this 
-> patch, so I'll go with that.
-
-Thanks.
-
--- 
-Regards,
-
-Laurent Pinchart
