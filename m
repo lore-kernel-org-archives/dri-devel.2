@@ -4,42 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D99E8CD98CF
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 20:14:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15648CD98CF
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 20:17:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34A0A10EB4A;
-	Fri, 12 Jun 2026 20:14:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E38210EB6B;
+	Fri, 12 Jun 2026 20:17:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FfWLrYTI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GdpxwRGB";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA95810EB4A
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 20:14:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6FF510F5D8;
+ Fri, 12 Jun 2026 20:17:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 96E3F406D9;
- Fri, 12 Jun 2026 20:14:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DEFB1F00A3A;
- Fri, 12 Jun 2026 20:14:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A9F2B41665;
+ Fri, 12 Jun 2026 20:17:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E2371F000E9;
+ Fri, 12 Jun 2026 20:17:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781295268;
- bh=Q1WgzzWtae49IzVg/1puhgls6sVjv6vHzuGqYisHvV8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FfWLrYTITFCP7YE40z3mvuA14Nv2BVmZw5Vye2aOMVxJfUEGQRBCZmV9oTA1VgJue
- ZCwGg9SH/OIwqBWW97JbJhFqFe2G9T32oCorfQHRzrURpITD8SYjGpfofpE17hhLRL
- /2zKDnm5FJ2+FaUlrAvxCU3Qa9eg27b3LH8DalzNSJFmC61sMuASCxMKXBFBWACt6p
- EvpPE1MbVvd9+pmjXoyMOFWBqJiX6xdpVkPnEwGUih98iZYs7ykGoM9Mk7zb/JhuHx
- XL4rgyN2Zq4WXX4JLCD1gMoA3hvwku2+mLt+ErGkzjVeh6obvKke1n1tTNsnsUNe9m
- btmrRCaOqVcOw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v21 3/4] rust: faux: Allow retrieving a bound Device
-To: "Lyude Paul" <lyude@redhat.com>
-Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260612194436.585385-4-lyude@redhat.com>
-References: <20260612194436.585385-4-lyude@redhat.com>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1781295456;
+ bh=pJzuNVWTNf+53sy5yuKPcqhP0sKI2LYYj8cvjNu/tSM=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=GdpxwRGBrf+qpXAR4d0Nz/svA8GnlSNp4xm1JkRSb71qW3Vv6kndMHbj1bAUWD/NM
+ clLsSWhWXgMw0G4JPYmRM1CVs9R4G39GEuZpZ8fhyLOmcvFBNi/AdHdY76Jjw9J8le
+ HVVbR0yVWHjAT7t0VQT1yh5x+i4wH10aW4joDeSLt0a5oqmAlMnSdwwk6OBm4FMmF7
+ ap9Q4T0B+POpHfHaBJVwAdSxLuXzvSiaMfoJvQP2RVNluhx8jpaR13jfqs3ewInCWY
+ 7PYGYcg87etPCjusox7PGggnG6MQ9ng+hjaQeZQ3PMA9sVyoKm3sDk98mVHBeK8PkO
+ AN9JkZRDDvjNg==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 20:14:27 +0000
-Message-Id: <20260612201428.3DEFB1F00A3A@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 12 Jun 2026 22:17:30 +0200
+Message-Id: <DJ7CJCZRHT1R.3LZDILZ7HTXQ3@kernel.org>
+Subject: Re: [PATCH v20 3/4] rust: faux: Allow retrieving a bound Device
+Cc: "Lyude Paul" <lyude@redhat.com>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, <nouveau@lists.freedesktop.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, <driver-core@lists.linux.dev>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Simona Vetter" <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, "Sumit
+ Semwal" <sumit.semwal@linaro.org>, <linux-media@vger.kernel.org>, "Rafael J
+ . Wysocki" <rafael@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>,
+ "Maxime Ripard" <mripard@kernel.org>, "David Airlie" <airlied@gmail.com>,
+ "Benno Lossin" <lossin@kernel.org>, <linaro-mm-sig@lists.linaro.org>,
+ "Mukesh Kumar Chaurasiya" <mkchauras@gmail.com>, "Asahi Lina"
+ <lina+kernel@asahilina.net>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>
+To: "Gary Guo" <gary@garyguo.net>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260610162433.923550-1-lyude@redhat.com>
+ <20260610162433.923550-4-lyude@redhat.com>
+ <DJ7AXOH0W92V.1L1869KO4C1H9@garyguo.net>
+In-Reply-To: <DJ7AXOH0W92V.1L1869KO4C1H9@garyguo.net>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,68 +69,23 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] Missing `// INVARIANT:` comment in `Registration::new` to justify t=
-he newly added struct invariant.
-- [Low] Documentation typo: states the object is 'bound to a device' instea=
-d of 'bound to a driver'.
---
+On Fri Jun 12, 2026 at 9:02 PM CEST, Gary Guo wrote:
+>> +impl AsRef<device::Device<device::Bound>> for Registration {
+>> +    fn as_ref(&self) -> &device::Device<device::Bound> {
+>> +        // SAFETY:
+>> +        // - The underlying `device` in `faux_device` is guaranteed by =
+the C API to be a valid
+>> +        //   initialized `device`.
+>> +        // - faux_match() always returns 1, and probe runs synchronousl=
+y (PROBE_FORCE_SYNCHRONOUS).
+>
+> Please quote all code with backticks.
 
-commit 53b3c6bd4c01a202375ed187c918196f25a37895
-Author: Lyude Paul <lyude@redhat.com>
+As far as I'm concerned there's no need to do that for things that are not
+rendered anyway. But also feel free to do it anyway of course.
 
-rust: faux: Allow retrieving a bound Device
-
-This commit updates faux::Registration to implement AsRef for a
-device::Device<device::Bound>. It relies on the registration object being
-proof that a driver is bound to the device.
-
-> diff --git a/rust/kernel/faux.rs b/rust/kernel/faux.rs
-> index 43b4974f48cd2..36c92ae2943c0 100644
-> --- a/rust/kernel/faux.rs
-> +++ b/rust/kernel/faux.rs
-> @@ -25,7 +25,8 @@
->  ///
->  /// # Invariants
->  ///
-> -/// `self.0` always holds a valid pointer to an initialized and register=
-ed [`struct faux_device`].
-> +/// - `self.0` always holds a valid pointer to an initialized and regist=
-ered [`struct faux_device`].
-> +/// - This object is proof that the object described by this `Registrati=
-on` is bound to a device.
-
-[Severity: Low]
-This isn't a bug, but there appears to be a typo in the documentation. The
-invariant states the object is bound to a "device", but the commit message
-and the code (device::Device<device::Bound>) indicate it should be bound
-to a "driver". Should this be updated to say "bound to a driver"?
-
-[Severity: Low]
-This isn't a bug, but since a new invariant was added here, does it need to
-be explicitly justified when the struct is constructed?
-
-According to the subsystem guidelines, constructing a struct with an
-# Invariants section requires an // INVARIANT: comment explaining why the
-invariants are satisfied.
-
-Looking at Registration::new():
-
-    // The above function will return either a valid device, or NULL on fai=
-lure
-    // INVARIANT: The device will remain registered until faux_device_destr=
-oy() is called, which
-    // happens in our Drop implementation.
-    Ok(Self(NonNull::new(dev).ok_or(ENODEV)?))
-
-Could we add a comment here justifying the new invariant about the driver
-being bound?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612194436.5853=
-85-1-lyude@redhat.com?part=3D3
+Thanks,
+Danilo
