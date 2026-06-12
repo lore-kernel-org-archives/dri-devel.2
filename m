@@ -4,88 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED601CD8CA8
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 14:06:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B82CBCD8CA8
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 14:12:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52C9710E2F5;
-	Fri, 12 Jun 2026 14:06:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2521A10F524;
+	Fri, 12 Jun 2026 14:12:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="ty4h82a5";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="mf9mLtBC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Q/MmAbnQ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mf9mLtBC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Q/MmAbnQ";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45B8110E2F5
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 14:06:24 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2bf22c18ad3so119895ad.0
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 07:06:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1781273184; x=1781877984;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=7gWNes2hHFmdqgzisSBTrBhiO7t0Lprwi8AqbjigE24=;
- b=ty4h82a5oh9U/SdsvRKcrptjaSTVeYrKj30CNbGU1Lv7VfOYqjf7hz4FEKz9WPSonu
- /4PZeJ1DPn1L61o8mF3LdM5+jsqe7ccyG4DNQzP2rCpq4fXBaSMWpgr5wUG1JMQYj+UP
- 9vVlPyh1hEFff9ooGa0VhrBPb/GTIRlIWFdUhJvukWnSM4WQY9WZkNE0+LapOGQTBcwZ
- wISe1DveLPbqeQsBqmEUzs+IFqZNqCq52Fu9ZTUy6/DTcSSCCLIfhIuMEjo2NPyFhxTB
- 4KrfcGWpaQkU9lQYVbolZBHZml9Y8hDfq3nzzoI4WD3zcwG3b5ccl/KTtJUzkMVmyWc1
- xNmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781273184; x=1781877984;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=7gWNes2hHFmdqgzisSBTrBhiO7t0Lprwi8AqbjigE24=;
- b=RnDxs1+4cVFfzciG9unUnmca3RwMOzQRF4bIce3iqAeXTqkr1rMIbwBfuVf7Q27nPX
- Gs7DP4xwQ0BMUmoiyMY2p8W7uwADB5dqvfp1Lq/yQOhTrXvM756OYTGvevSdtrt1wJjW
- NanP3C9QFx7ra/gEVgl8ia+KjeeXCERTOSq24DimHAJMdZ+QsH/nW2Y6lwy7obtFHA3b
- Ufrw6bdzA9f7rXlsuJRJVBRmDZrBw404Q9aiE770IgWd4wspyL1gH5FSOf1JWtA4GQEy
- qUkqAJoiHNyIO5zMG/G7saJD2UZaQVdOZAulUieWIGTxZ1kLwl0z8xuIA0BN0F56nUUb
- aD7w==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8bScy5WbAsk/hsf88Qs1CFm8bhNRoD0lMbCXwTPrymwBPY/rwd7ZcrwNYNRv/n/hvvUCBfjiwKuaI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxefUg01LHLGlf6WMLl7aLzwXrmeRX9ys+fxHjmX+zXaFTOOgqS
- 4M3ZEeyE44jVz0vBMnY9iN7FOlm7tfDlwpgfeqzETVUC+gTyE0bK7DJnHc5NhUNAsg==
-X-Gm-Gg: Acq92OGbr2+cw5ImmXUGfFmvcNPc6ex1iwhJUDl9lY8WjmKtlOXnmWQ/L0ee0UdjoaO
- 99ORMQpVyysp6HHw9yz85dbT1Pb9IsJp2CFoeHgIdJ4djRx7yvLT7bknkh5XkAHjB/8tjkf/mgM
- mQFfu8RnNoJA6kaGcbobVBoQ0q9y++lwXaeQZEMMirUPIr5E8LuNsxt17bzJzlio40+GbNImyT9
- 9xjFq+7h6TBsx72D/mM/df9KkP4/6GH2BXQZa+TkKBjASWOZLdCptIOmzhh20devean47yezUh2
- AiTfMQNg1SyNJ4KDQUBrbEoajyajckNKf+SqZtbU/4muIe207DkwKJmi/fDi/n04ekM/IWCel6X
- AbpJa+wgzZnopEvHMD0BA5LuNw/cYsERilERMYn7f825O5JqsIKGGgaM2YppL5u5kUKItCaN7f+
- tERbWNVlgCaxzzGgtT4t4aOuGdkYaTjnILmtkJWUz7FsAtWKI7pQhVniYbrSLigVbY/nrMZc8=
-X-Received: by 2002:a17:903:46c6:b0:2bd:6dad:3df9 with SMTP id
- d9443c01a7336-2c405f85829mr1700165ad.23.1781273183096; 
- Fri, 12 Jun 2026 07:06:23 -0700 (PDT)
-Received: from google.com (199.255.142.34.bc.googleusercontent.com.
- [34.142.255.199]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-37a25ecd5dcsm2325236a91.9.2026.06.12.07.06.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Jun 2026 07:06:22 -0700 (PDT)
-Date: Fri, 12 Jun 2026 14:06:14 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Matt Evans <matt@ozlabs.org>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v3 5/9] vfio/pci: Provide a user-facing name for BAR
- mappings
-Message-ID: <aiwSVk4n9mCQEln2@google.com>
-References: <20260610154327.37758-1-matt@ozlabs.org>
- <20260610154327.37758-6-matt@ozlabs.org>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2E4110F524
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 14:12:10 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 08EC76E137;
+ Fri, 12 Jun 2026 13:46:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1781271983; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=c/FmAs6vbDcwp7q5Sv1XH6dsatQVIdKLtjBr9BuZXg0=;
+ b=mf9mLtBCR7JOIRxwuBb+hbK4//s6FoScuSYdg1aShETwjHr1zwyuKAd+nCg/8RSvxAuq78
+ urUv8o0A+mfQmE5wl1nluyqaCsW0d7t1TNNYpofdGHmFugQzdDDDTwutFJ8skTgI3TL20C
+ rgTwBDOBvr4mA8d1NE5eunEUj8PYZI4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1781271983;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=c/FmAs6vbDcwp7q5Sv1XH6dsatQVIdKLtjBr9BuZXg0=;
+ b=Q/MmAbnQN88XvRYp5pnye3I7l8v98aYnkhuYBf9RheyH5aImYKndL933PFHbA1Oaoyl6r2
+ V304vENaYJW7klDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1781271983; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=c/FmAs6vbDcwp7q5Sv1XH6dsatQVIdKLtjBr9BuZXg0=;
+ b=mf9mLtBCR7JOIRxwuBb+hbK4//s6FoScuSYdg1aShETwjHr1zwyuKAd+nCg/8RSvxAuq78
+ urUv8o0A+mfQmE5wl1nluyqaCsW0d7t1TNNYpofdGHmFugQzdDDDTwutFJ8skTgI3TL20C
+ rgTwBDOBvr4mA8d1NE5eunEUj8PYZI4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1781271983;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=c/FmAs6vbDcwp7q5Sv1XH6dsatQVIdKLtjBr9BuZXg0=;
+ b=Q/MmAbnQN88XvRYp5pnye3I7l8v98aYnkhuYBf9RheyH5aImYKndL933PFHbA1Oaoyl6r2
+ V304vENaYJW7klDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 63E66779A7;
+ Fri, 12 Jun 2026 13:46:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id G+T6Fq4NLGqzeAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 12 Jun 2026 13:46:22 +0000
+Message-ID: <c7866bc4-bf37-4f8c-ae64-2d1d3a23f1ef@suse.de>
+Date: Fri, 12 Jun 2026 15:46:21 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260610154327.37758-6-matt@ozlabs.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 01/30] drm/fb-helper: Remove unused local variable in
+ hotplug_event()
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
+ <20260602-dw-hdmi-qp-scramb-v7-1-445eb54ee1ed@collabora.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260602-dw-hdmi-qp-scramb-v7-1-445eb54ee1ed@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ TAGGED_RCPT(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[24];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_TO(0.00)[collabora.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,intel.com,linaro.org,ideasonboard.com,kwiboo.se,bootlin.com,rock-chips.com,sntech.de,raspberrypi.com,igalia.com];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid, suse.com:url,
+ imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,108 +153,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 10, 2026 at 04:43:19PM +0100, Matt Evans wrote:
-> Since converting BAR mmap()s to using DMABUFs, we lose the original
-> device path in /proc/<pid>/maps, lsof, etc.  Generate a debug-oriented
-> synthetic 'filename' based on the cdev, plus BDF, plus resource index.
-> 
-> This applies only to BAR mappings via the VFIO device fd, as
-> explicitly-exported DMABUFs are named by userspace via the
-> DMA_BUF_SET_NAME ioctl.
-> 
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
+
+
+Am 02.06.26 um 00:44 schrieb Cristian Ciocaltea:
+> Remove the 'err' local variable in drm_fb_helper_hotplug_event() which
+> only stores a return value that is never used beyond the immediate
+> return statement.  This simplifies the code without behavior changes.
+>
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+But why is this patch hidden in this series? It has nothing to do with 
+HDMI support.
+
 > ---
->  drivers/vfio/pci/vfio_pci_dmabuf.c | 27 +++++++++++++++++++++++++--
->  1 file changed, 25 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> index 2fd3629789bf..8f7f1b909b94 100644
-> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> @@ -4,6 +4,7 @@
->  #include <linux/dma-buf-mapping.h>
->  #include <linux/pci-p2pdma.h>
->  #include <linux/dma-resv.h>
-> +#include <uapi/linux/dma-buf.h>
->  
->  #include "vfio_pci_priv.h"
->  
-> @@ -470,6 +471,7 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
->  {
->  	struct vfio_pci_dma_buf *priv;
->  	unsigned long vma_pgoff = vma->vm_pgoff & (VFIO_PCI_OFFSET_MASK >> PAGE_SHIFT);
-> +	char *bufname;
->  	int ret;
->  
->  	priv = kzalloc_obj(*priv);
-> @@ -482,6 +484,20 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
->  		goto err_free_priv;
->  	}
->  
-> +	bufname = kzalloc(DMA_BUF_NAME_LEN, GFP_KERNEL);
-> +	if (!bufname) {
-> +		ret = -ENOMEM;
-> +		goto err_free_phys;
-> +	}
-> +
-> +	/*
-> +	 * Maximum size of the friendly debug name is
-> +	 * vfio1234567890:ffff:ff:3f.7/5 = 30, which fits within
-> +	 * DMA_BUF_NAME_LEN.
-> +	 */
-> +	snprintf(bufname, DMA_BUF_NAME_LEN, "%s:%s/%x",
-> +		 dev_name(&vdev->vdev.device), pci_name(vdev->pdev), res_index);
-> +
+>   drivers/gpu/drm/drm_fb_helper.c | 11 +++--------
+>   1 file changed, 3 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+> index 7b11a582f8ec..3316bb00a662 100644
+> --- a/drivers/gpu/drm/drm_fb_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_helper.c
+> @@ -1744,21 +1744,17 @@ EXPORT_SYMBOL(drm_fb_helper_initial_config);
+>    */
+>   int drm_fb_helper_hotplug_event(struct drm_fb_helper *fb_helper)
+>   {
+> -	int err = 0;
+> -
+>   	if (!drm_fbdev_emulation || !fb_helper)
+>   		return 0;
+>   
+>   	mutex_lock(&fb_helper->lock);
+> -	if (fb_helper->deferred_setup) {
+> -		err = __drm_fb_helper_initial_config_and_unlock(fb_helper);
+> -		return err;
+> -	}
+> +	if (fb_helper->deferred_setup)
+> +		return __drm_fb_helper_initial_config_and_unlock(fb_helper);
+>   
+>   	if (!fb_helper->fb || !drm_master_internal_acquire(fb_helper->dev)) {
+>   		fb_helper->delayed_hotplug = true;
+>   		mutex_unlock(&fb_helper->lock);
+> -		return err;
+> +		return 0;
+>   	}
+>   
+>   	drm_master_internal_release(fb_helper->dev);
+> @@ -1802,4 +1798,3 @@ bool drm_fb_helper_gem_is_fb(const struct drm_fb_helper *fb_helper,
+>   	return gem == obj;
+>   }
+>   EXPORT_SYMBOL_GPL(drm_fb_helper_gem_is_fb);
+> -
+>
 
-Nit: Could we instead use:
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
 
-	bufname = kasprintf(GFP_KERNEL, "%s:%s/%x",
-	                    dev_name(&vdev->vdev.device), pci_name(vdev->pdev), res_index);
-	if (!bufname)
-	    ret = -ENOMEM;
-	    [...]
 
->  	/*
->  	 * The DMABUF begins from the mmap()'s BAR offset, i.e. the
->  	 * start of the VMA corresponds to byte 0 of the DMABUF and
-> @@ -500,7 +516,7 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
->  	priv->provider = pcim_p2pdma_provider(vdev->pdev, res_index);
->  	if (!priv->provider) {
->  		ret = -EINVAL;
-> -		goto err_free_phys;
-> +		goto err_free_name;
->  	}
->  
->  	priv->phys_vec[0].paddr = phys_start + ((u64)vma_pgoff << PAGE_SHIFT);
-> @@ -508,7 +524,7 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
->  
->  	ret = vfio_pci_dmabuf_export(vdev, priv, O_CLOEXEC | O_RDWR);
->  	if (ret)
-> -		goto err_free_phys;
-> +		goto err_free_name;
->  
->  	/*
->  	 * Ownership of the DMABUF file transfers to the VMA so that
-> @@ -523,8 +539,15 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
->  	vma->vm_file = priv->dmabuf->file;
->  	vma->vm_private_data = priv;
->  
-> +	spin_lock(&priv->dmabuf->name_lock);
-> +	kfree(priv->dmabuf->name);
-> +	priv->dmabuf->name = bufname;
-> +	spin_unlock(&priv->dmabuf->name_lock);
-> +
->  	return 0;
->  
-> +err_free_name:
-> +	kfree(bufname);
->  err_free_phys:
->  	kfree(priv->phys_vec);
->  err_free_priv:
-
-Apart from that,
-
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
-
-Thanks,
-Praan
