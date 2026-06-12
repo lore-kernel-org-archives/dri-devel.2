@@ -4,64 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97F77CD98CE
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 16:05:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65B68CD98CF
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 16:09:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0211510EA87;
-	Fri, 12 Jun 2026 16:05:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAB8810EA7A;
+	Fri, 12 Jun 2026 16:09:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l777kD8V";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H6k8mWy4";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A360910EA7A
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 16:05:20 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A74810EA7A
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 16:09:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 09DD640D6F;
- Fri, 12 Jun 2026 16:05:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B24351F00A3D;
- Fri, 12 Jun 2026 16:05:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A7D90600AF;
+ Fri, 12 Jun 2026 16:09:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 730D61F000E9;
+ Fri, 12 Jun 2026 16:09:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781280319;
- bh=xD8fHD0dBqI+BHWfEGmw4yez/dwz1dD2SEmToWisjAQ=;
+ s=k20260515; t=1781280595;
+ bh=aq30D6zmaSTWmTNk1Ul9iMUE0E6w3wNjjVKpsq5EvFk=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=l777kD8VtCnF+vbkmTpbqVw2e3E1/M679W4VlXzwQeqa4kTJ/wLIFUC3feaj0o1VL
- WjsGN+zFA1bff5XeGcbbYx+h52tYZIErrevvGi/wzafNwNuW6kXJsX2aYx6pJ6/e1x
- Hm6bIYi8h8W5XlEnGnVODxXeNVRj43cJrK/WpatG0Tkx7mbrRCprxQSxz0ES2MjriZ
- qKidJqMVeeFO/d9+jQZOQ7GyX/tVYsJHAD6d7AYaPEvAZ4aDEjTqBw1PFeEuNBGFek
- TNg+rgshXRBpHq0p9RaaaZcsIUhd91sqEzXsJ1UWwP9H9Fwwn6GU/VSSnmMnSdkOIs
- ZIyfyJpST+yZw==
-Date: Fri, 12 Jun 2026 11:05:19 -0500
-From: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, rob.clark@oss.qualcomm.com,
+ b=H6k8mWy4TC8tyaXRV2lAwWRt+GtZq9P8UssA7HzpXGV7c59YQAA+QA7bFju+UCbhi
+ hh7mT3ggZdykbP//wPq0+ISWJILWKaX86hFTCYKPiXrFSQKbOF+O2RlUpuwcJYf7gp
+ 8aITC0X04i0rN5jdZ/TLNFmGIWyaBn1NbnmE6vJM9Vsvx8g2cLbE0g9pkgp4ponSDi
+ CjGdnhAgyqn49qYaVmTC79tvMqeLKmLTq7ns2VqYbTmduxZa3rnqFDm/dW1lkCU9qH
+ 1F6EERd3sztheY6UkJbXynr54DcZxqWMiyBIhkoTfHXR8GPdcb+m2VcR2f3N4EHN+H
+ t/c78+cbb/tzg==
+Date: Fri, 12 Jun 2026 17:09:48 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Douglas Anderson <dianders@chromium.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH 2/4] dt-bindings: arm: qcom: Add Lenovo Yoga Slim 7x Gen11
-Message-ID: <20260612160519.GA1118842-robh@kernel.org>
-References: <20260604-topic-yoga_submission-v1-0-57c70c23d0d6@oss.qualcomm.com>
- <20260604-topic-yoga_submission-v1-2-57c70c23d0d6@oss.qualcomm.com>
- <7a330941-8715-4523-9f39-10b57586c69d@kernel.org>
- <CACSVV03J7Y4-ADRNE+4qArqsWvQZ3qmTc04r7vmY64s0qDYFkw@mail.gmail.com>
- <799fea04-e7d0-4184-b9ae-4cebfdac38d5@kernel.org>
- <841a54ff-6287-48d2-a513-a7442d624ab6@oss.qualcomm.com>
- <uieb6ukjokwnppc5zfr6bjychqsnpikwmiy7j7dmt2kgk7k4zi@2stv37ijv36o>
- <ac191a18-bcb4-4fa5-a179-b72a6ac928cb@kernel.org>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/5] dt-bindings: display: bridge: Document Renesas
+ R-Car V4H DSC bindings
+Message-ID: <20260612-landed-remedial-79582e900699@spud>
+References: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
+ <20260515-rcar-du-dsc-v2-2-f6b9240a1240@ideasonboard.com>
+ <20260515-fraying-trickle-7511a2eeaf44@spud>
+ <81f89aa1-84d8-44e1-813b-2bbcafe3687e@ideasonboard.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="M3NyARh4jghnVALM"
 Content-Disposition: inline
-In-Reply-To: <ac191a18-bcb4-4fa5-a179-b72a6ac928cb@kernel.org>
+In-Reply-To: <81f89aa1-84d8-44e1-813b-2bbcafe3687e@ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,38 +80,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2026 at 03:48:15PM +0200, Krzysztof Kozlowski wrote:
-> On 10/06/2026 15:31, Abel Vesa wrote:
-> >>>>>> @@ -68,6 +68,7 @@ properties:
-> >>>>>>
-> >>>>>>        - items:
-> >>>>>>            - enum:
-> >>>>>> +              - lenovo,yoga-slim7x-gen11
-> >>>>>
-> >>>>> I imagine you might want different panel variants, just like T14s has
-> >>>>> LCD and OLED?
-> >>>>
-> >>>> I expect this will be the case.
-> >>>
-> >>> Then better to prepare for this now, otherwise later you need to change
-> >>> bindings. If unsure what other variants are, then at least make this
-> >>> compatible panel-specific, e.g. lenovo,yoga-slim7x-gen11-oled-foo-bar.
-> >>
-> >> I took another look at psref [1] and there's only OLED SKUs (today?).
-> >> There are however, two different resolutions available and both can be
-> >> touch/notouch.
-> > 
-> > If the other SKU doesn't have touch, then you might as well mark now this
-> > one with touch suffix or something like that.
-> 
-> 
-> If you decide not to have any changes (new compatibles), then at least
-> please document the above reasoning in commit msg.
 
-If the difference is just the panel or touch, then isn't that captured 
-by the panel and/or touch nodes?
+--M3NyARh4jghnVALM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-OTOH, if it's different firmware builds and generally treated as 2 
-different devices, then different top-level compatible is probably fine.
+On Fri, Jun 12, 2026 at 01:43:44PM +0300, Tomi Valkeinen wrote:
+> Hi,
+>=20
+> On 15/05/2026 20:32, Conor Dooley wrote:
+> > On Fri, May 15, 2026 at 10:56:15AM +0300, Tomi Valkeinen wrote:
+> > > From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> > >=20
+> > > The Renesas DSC Display Stream Compression is a bridge embedded in the
+> > > Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
+> > > 8k or 400 Mpixel/s .
+> > >=20
+> > > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> > > [tomi.valkeinen: fix the example]
+> > > Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.co=
+m>
+> > > ---
+> > >   .../bindings/display/bridge/renesas,dsc.yaml       | 96 +++++++++++=
++++++++++++
+> > >   1 file changed, 96 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/display/bridge/renesas=
+,dsc.yaml b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.ya=
+ml
+> > > new file mode 100644
+> > > index 000000000000..2918d592732b
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.ya=
+ml
+> >=20
+> > Filename matching the compatible please.
+>=20
+> All the other Documentation/devicetree/bindings/display/bridge/renesas,*
+> files follow the same style, where the file name is in a generic format, =
+but
+> the actual compat strings are per SoC (and no generic compat string).
 
-Rob
+No idea why it's like that currently, but filename matching compatible
+is the policy.
+
+--M3NyARh4jghnVALM
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiwvTAAKCRB4tDGHoIJi
+0qMpAP4jTzOgRW+PnemiZMAnA+L5VxOTwHJSxg1B/d89AGSqYQD9EtGaiGfY4js1
+HpJoegRSMqdIGa0omBue8WXQpiD9XQ8=
+=IqDA
+-----END PGP SIGNATURE-----
+
+--M3NyARh4jghnVALM--
