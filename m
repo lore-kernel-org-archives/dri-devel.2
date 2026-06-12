@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 383F0CD8CA8
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 04:09:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32C73CD98CC
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 05:22:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C83710E925;
-	Fri, 12 Jun 2026 04:09:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AC1710E56F;
+	Fri, 12 Jun 2026 05:22:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AlQ65+fT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CmNX+O9c";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAD0110E925
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 04:09:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC7E210E56F
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 05:22:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E23EC600AF;
- Fri, 12 Jun 2026 04:09:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75BE31F000E9;
- Fri, 12 Jun 2026 04:09:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DEAA9600AF;
+ Fri, 12 Jun 2026 05:22:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D6A31F000E9;
+ Fri, 12 Jun 2026 05:22:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781237367;
- bh=PlBrPTcTpjxitHOGggBdDMD8fH+YHlnzLgB7/gk5gGs=;
+ s=k20260515; t=1781241744;
+ bh=3OUi/fZ4O5cAGJga82bovgYpsNJ9yDhcWDduwocyh5M=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=AlQ65+fTEkBgzDslZpBVAFwHfUBw6h+tqKhmEimxKpKbuTF/c+xynrE3083OkjXpt
- Ac0tJRPBQSOc6kkHeEx9G+KZrea0gd5U2DZvCNk5u83ExdFY8Em3ELna8HCajzKc+E
- Ukmk0PgLSE+7iEALfkKAtJrAxRPnCVa681JPmuDnp8vdYlsjz5hPQYF5sgWBMPEH0r
- WHeS+ZzVonv3qhzj6GFqwAR1jKjlzCVH/w2+QgKGVJ0nfy6yBGL4hS16NsxQAqpGkM
- wj8js0+ZiHB7WlyP2ecPHdP5Q7j6AWrGlkivPehdbSMk1jZSRxomplPcZGjxb+PE/G
- 0C7lIhcPLP4oA==
+ b=CmNX+O9cjs9qhWWn19MlEkS9b61KT2yC2ryk9jXv/blWnvw82F/54ImovUAp6khXb
+ Tmf8IJ61Yh3HIE3ZaJv6hXyvyfZqWIZPDaAmZTzU6wfw/DGVbFy4Cn3ubs2CVyHui5
+ ma4nXFgN+S2IMdzbC/g7JpVV4CH9MlWM5CEUSqeQVf+JPjfh+PH1KpW9R2b+8EYTxf
+ UKDtbLZ04r2yGyvBMfFU1QJPzmN3UzVlDA9DC9g27gSJpzXuQaG2PDQYYZQwcZ+Z+a
+ jgNSSN2kgdpG8p9D4fGhODezm5WInuBNOtyGwcjOtJfbLLi6Vj/mdlbPxYIwPjXc52
+ xXmP2of26pqCA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] drm/i915: clear CRTC color blob pointers after
- dropping refs
-To: "Guangshuo Li" <lgs201920130244@gmail.com>
+Subject: Re: [PATCH v2 1/2] drm/drm_ras: Add drm_ras netlink error event
+To: "Riana Tauro" <riana.tauro@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260612035310.3013066-1-lgs201920130244@gmail.com>
-References: <20260612035310.3013066-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260611052144.784969-5-riana.tauro@intel.com>
+References: <20260611052144.784969-5-riana.tauro@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 04:09:27 +0000
-Message-Id: <20260612040927.75BE31F000E9@smtp.kernel.org>
+Date: Fri, 12 Jun 2026 05:22:23 +0000
+Message-Id: <20260612052224.1D6A31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,94 +56,159 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [Medium] drm_ras_nl_error_event() restricts netlink multicast notificatio=
+ns to the initial network namespace, breaking netnsok =3D true functionalit=
+y.
+
 Pre-existing issues:
-- [High] Shallow copy of `pre_csc_lut` and `post_csc_lut` in `copy_joiner_c=
-rtc_state_modeset` causes reference count underflow.
+- [Critical] Missing RCU read lock or refcounting during xarray iteration a=
+nd node lookup causes a Use-After-Free vulnerability.
+- [High] Uninitialized stack variable `ret` is returned to userspace in net=
+link dumpit operations.
 --
 
-commit d8903c83c49bdd10049bb0f1ca2cc52040717077
-Author: Guangshuo Li <lgs201920130244@gmail.com>
+commit 162404af4b01c208febc1891d2805e74285b3e40
+Author: Riana Tauro <riana.tauro@intel.com>
 
-drm/i915: clear CRTC color blob pointers after dropping refs
+drm/drm_ras: Add drm_ras netlink error event
 
-intel_crtc_put_color_blobs() drops the CRTC color blob references, but leav=
-es
-the corresponding pointers unchanged. Clear the blob pointers after dropping
-the references so repeated cleanup of the same CRTC hw state is safe.
+Define a new netlink event 'error-event' and a new multicast group
+'error-notify' in drm_ras. Each event contains device name, node and
+error information to identify the error triggering the event.
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/dr=
-m/i915/display/intel_atomic.c
-> index 0e4f0678c53cd..9d0d47c79dd12 100644
-> --- a/drivers/gpu/drm/i915/display/intel_atomic.c
-> +++ b/drivers/gpu/drm/i915/display/intel_atomic.c
-> @@ -288,6 +288,12 @@ static void intel_crtc_put_color_blobs(struct intel_=
-crtc_state *crtc_state)
-> =20
->  	drm_property_blob_put(crtc_state->pre_csc_lut);
->  	drm_property_blob_put(crtc_state->post_csc_lut);
-> +
-> +	crtc_state->hw.degamma_lut =3D NULL;
-> +	crtc_state->hw.gamma_lut =3D NULL;
-> +	crtc_state->hw.ctm =3D NULL;
-> +	crtc_state->pre_csc_lut =3D NULL;
-> +	crtc_state->post_csc_lut =3D NULL;
+> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
+> index d6eab29a1394c..503d555e067c0 100644
+> --- a/drivers/gpu/drm/drm_ras.c
+> +++ b/drivers/gpu/drm/drm_ras.c
+
+[Severity: Critical]
+This is a pre-existing issue, but missing RCU read locks or refcounting
+during xarray iteration and node lookup might cause a use-after-free.
+
+Looking at get_node_error_counter(), drm_ras_nl_clear_error_counter_doit(),
+and drm_ras_nl_list_nodes_dumpit(), they retrieve a node pointer from
+drm_ras_xa:
+
+	node =3D xa_load(&drm_ras_xa, node_id);
+	if (!node || !node->query_error_counter)
+		return -ENOENT;
+	...
+	return node->query_error_counter(node, error_id, name, value);
+
+Since xa_load() releases the RCU read lock before returning, and the caller
+does not hold an outer rcu_read_lock(), could a concurrent call to
+drm_ras_node_unregister() free the node and result in a use-after-free
+when accessing node fields?
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does the current state
-duplication logic cause a refcount underflow for pre_csc_lut and
-post_csc_lut?
+This isn't a bug introduced by this patch, but returning an uninitialized
+stack variable could cause issues in the netlink dumpit operations.
 
-In copy_joiner_crtc_state_modeset(), the primary CRTC state is duplicated
-and shallow-copied to the secondary CRTC state using memcpy():
+In drm_ras_nl_list_nodes_dumpit() and drm_ras_nl_get_error_counter_dumpit(),
+the local variable ret is declared without initialization:
 
-drivers/gpu/drm/i915/display/intel_display.c:copy_joiner_crtc_state_modeset=
-() {
-    ...
-    memcpy(secondary_crtc_state, saved_state, sizeof(*secondary_crtc_state)=
-);
-    ...
-}
+	int ret;
 
-This transfers the pre_csc_lut and post_csc_lut pointers to the secondary
-state without acquiring a reference.=20
+	xa_for_each_start(&drm_ras_xa, id, node, ctx->restart) {
+	...
+	}
 
-While copy_joiner_crtc_state_nomodeset() is subsequently called and correct=
-ly
-acquires references for the hw color blobs (degamma_lut, gamma_lut, ctm) via
-drm_property_replace_blob(), it completely omits pre_csc_lut and post_csc_l=
-ut:
+	if (ret =3D=3D -EMSGSIZE)
+		ctx->restart =3D id;
 
-drivers/gpu/drm/i915/display/intel_display.c:copy_joiner_crtc_state_nomodes=
-et() {
-    ...
-    drm_property_replace_blob(&secondary_crtc_state->hw.degamma_lut,
-                              primary_crtc_state->hw.degamma_lut);
-    drm_property_replace_blob(&secondary_crtc_state->hw.gamma_lut,
-                              primary_crtc_state->hw.gamma_lut);
-    drm_property_replace_blob(&secondary_crtc_state->hw.ctm,
-                              primary_crtc_state->hw.ctm);
-    ...
-}
+	return ret;
 
-As a result, the secondary CRTC state holds these pointers without holding a
-corresponding reference.=20
+If the xarray is empty or ctx->restart is beyond the last element (such as
+on the final dump iteration), the loop is entirely skipped.
 
-When intel_crtc_free_hw_state() eventually destroys both states, it calls
-drm_property_blob_put() on the same pre_csc_lut and post_csc_lut pointers f=
-or
-both the primary and secondary states.
+Could this return an uninitialized ret to userspace, potentially leaking
+stack memory or causing netlink_dump() to loop indefinitely if ret happens
+to be a positive value?
 
-While this patch successfully prevents a double-free when a single state
-fails and is retried, will it still result in a use-after-free and refcount
-underflow across the two different CRTC states?
+[ ... ]
 
+> @@ -222,6 +255,61 @@ static int doit_reply_value(struct genl_info *info, =
+u32 node_id,
+>  	return genlmsg_reply(msg, info);
 >  }
 > =20
->  void intel_crtc_free_hw_state(struct intel_crtc_state *crtc_state)
+> +/**
+> + * drm_ras_nl_error_event() - Notify listeners of an error event
+> + * @node: Node structure
+> + * @error_id: ID of the error
+> + * @error_name: Name of the error
+> + * @value: Value associated with the error
+> + * @flags: GFP flags for memory allocation
+> + *
+> + * Sends a notification to all listeners about an error event on a speci=
+fic
+> + * RAS node.
+> + *
+> + * Return: 0 on success, or negative errno on failure.
+> + */
+> +int drm_ras_nl_error_event(struct drm_ras_node *node, u32 error_id, cons=
+t char *error_name,
+> +			   u32 value, gfp_t flags)
+> +{
+> +	struct genl_info info;
+> +	struct sk_buff *msg;
+> +	struct nlattr *hdr;
+> +	int ret;
+> +
+> +	if (!error_name)
+> +		return -EINVAL;
+> +
+> +	if (!genl_has_listeners(&drm_ras_nl_family, &init_net, DRM_RAS_NLGRP_ER=
+ROR_NOTIFY))
+> +		return 0;
+
+[Severity: Medium]
+Since the drm_ras_nl_family is configured with .netnsok =3D true, does this
+check inadvertently restrict multicast notifications to only the initial
+network namespace?
+
+By checking &init_net and subsequently using genlmsg_multicast(), it
+appears that subscribers in other network namespaces might not receive
+these error events.
+
+Would it be better to use genlmsg_multicast_allns() here to properly
+broadcast to all namespaces?
+
+> +
+> +	genl_info_init_ntf(&info, &drm_ras_nl_family, DRM_RAS_CMD_ERROR_EVENT);
+> +
+> +	msg =3D genlmsg_new(NLMSG_GOODSIZE, flags);
+> +	if (!msg)
+> +		return -ENOMEM;
+> +
+> +	hdr =3D genlmsg_iput(msg, &info);
+> +	if (!hdr) {
+> +		ret =3D -EMSGSIZE;
+> +		goto free_msg;
+> +	}
+> +
+> +	ret =3D msg_put_error_event_attrs(msg, node, error_id, error_name, valu=
+e);
+> +	if (ret)
+> +		goto cancel_msg;
+> +
+> +	genlmsg_end(msg, hdr);
+> +	genlmsg_multicast(&drm_ras_nl_family, msg, 0, DRM_RAS_NLGRP_ERROR_NOTIF=
+Y, flags);
+> +	return 0;
+> +
+> +cancel_msg:
+> +	genlmsg_cancel(msg, hdr);
+> +free_msg:
+> +	nlmsg_free(msg);
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(drm_ras_nl_error_event);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612035310.3013=
-066-1-lgs201920130244@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611052144.7849=
+69-4-riana.tauro@intel.com?part=3D1
