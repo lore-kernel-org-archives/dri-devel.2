@@ -4,85 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 402CBCD98CE
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 16:59:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAA77CD98CF
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 17:01:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C5BE10F5BD;
-	Fri, 12 Jun 2026 16:59:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10A7B10EAE2;
+	Fri, 12 Jun 2026 17:01:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="NLBMOfLN";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="MDNDcZwo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EISqL4Dk";
 	dkim-atps=neutral
-Received: from fout-a2-smtp.messagingengine.com
- (fout-a2-smtp.messagingengine.com [103.168.172.145])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B834510EAA3
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 16:59:31 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfout.phl.internal (Postfix) with ESMTP id 2579CEC0183;
- Fri, 12 Jun 2026 12:59:31 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Fri, 12 Jun 2026 12:59:31 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm3; t=1781283571;
- x=1781369971; bh=JA1Rl6a/vTeZ5IR6A573kEspO/Oh48ACbWZzEGhjKYc=; b=
- NLBMOfLNDWpdi0Vvge5UxNOVvf8DPbKjEWFL2hwGqOmMicqs2joTm07bhYuLNzGz
- 0SXIw0hlPPtAtYFouuhHrcRXxGvtHyQHO+w48jMDqzdK8XboAFXP8b4IA1TCh2Xc
- hC/13b2GfiZVgwn4sfLPgxNxiw0MhrEKTG0Q2Ia3JEMHWQavOgeUd8ntaut/Lp81
- vxATdMbOS+525pQnJr/QsFhg5dx/9EviIDInmyfoVlbIPgY6pyfk7mGTF598+cyT
- 9T5jrD1OAGYc0o0o2D91m10uCubWYuB5axSKYNZN45dBTydeWLBP0ES6SwtwU3Bx
- i18RWHOjCWMXULd3HF7bkw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781283571; x=
- 1781369971; bh=JA1Rl6a/vTeZ5IR6A573kEspO/Oh48ACbWZzEGhjKYc=; b=M
- DNDcZwo/L6xYyGJxFCF6pyBupDWXBOJk+KRBMREjRp7JpLREQvZ1wxnVmhw9srA0
- 7Z94iCE2RPAZ87LL9GtEYMvSPB6TwfGZgWQlSefNClA1MMyGxf/NSTWKA9a6vCjg
- 2PS3t2Eyk8ukpeEDJy4Gt9lvplCRU/jzn/SFGRhXJGf5ADPJXKstQRO6YNhLDCn3
- s8mO7eVf3SZsXLGbeseKlY9ebxuRAYZYqGl4DoC5qE21BOfv8tRKqb+DXTC92VQJ
- OWH65Ab2dCBA+B8MaqcfZyla8edeiPDAuQfB5zaT9RcknmwBRAcQPkIjrsiMk+EP
- mRKcbs1B44RkPFYc/j03w==
-X-ME-Sender: <xms:8zosar6F5gbc--qU4lnqGAB8juW7oAwCMFdu8Vh7_UMYSArHmLBybQ>
- <xme:8zosajKqRRred1fBo61zbHzpYkR97aHHhgMvwj1CikwzV7jltaSGOcFqG42vty_E8
- 9fe1sCTChTxiNVNxhnbqBUnDbO3bJGgfP3gTq9DnVpzPVSzDjDTag>
-X-ME-Received: <xmr:8zosaks_7vOydPJVTRqHVFuhi92EJvtx3Z1WLnLpr_jAqUXTjDxfqonolrU>
-X-ME-Proxy-Cause: dmFkZTFK4BbIWe0NOhjcdMO6xfngXvxjqtqEanh4IEr51RKD//T1XvD8FBwDZTTz09hMDI
- G2UjD2RzCDFOFbXpXMdiydmD2vEEmpRrdEDzJGAZeCJL99C5B1ClcaSO0WCV8J7gkln1Uf
- b056NtK6X2GzkH2n4uC4dHto4d0LSDeW+4t6l6tpTwG9Lb50Mt58bRACHKPpE68T8b0SWG
- j1SRW6GpkFceHFoJeZRRFyQH2I8YeqN8hmPOL9AqFKyJ1lmmvsb/SFaIBm8uw21305JoRg
- 3jqGCNtnOUiDXi11lrH82K8Pq1/tDynd19x2jjfTinaJfDcOSTeNoQfVYMZeO6PKcKP1Zc
- eEoF5jWeKik+VS15W/wIQ0pk92aaWZKh7sPzk0TMwP9lpptu/LpwJqQbJ+I+yDjrf+Eeal
- LLvBkCddtQtHIJE/fced4290aHk+KyeAilRG28tYjS4lYK7azMVrv1F0QFN3mebF5vifw+
- NWC34+wyKjwPHP7zgJ6lnSQ8FBaHl9j9S2J9afDbdNwYH31MQ+5+FfkRhJROoNwXCZeyah
- V+d41URJqyHxFNT3n67qluGSKWlZqU/l1L2CN17bNSk9AianiE5tficxTgX15F6Y9S9fLK
- 7osyEzDgaLOpQ8H8QGc6xQ0az9oNhVILLIuOdun6BWWkg1LTqP+TqajcDnrQ
-X-ME-Proxy: <xmx:8zosaiLDIdvCu0iA17DKPUuAtoHtGpAFlrWV45g5zm1PGi6_KEa2mw>
- <xmx:8zosat91vUmE8zZvnIiLE28mpP9PgATMnG1nGwxHwsDuwWq-nxTK2w>
- <xmx:8zosarzpcvuk2a3b5raV4I5YOXjn1SQU5KSQI2kVapcWOdkKpn3u8A>
- <xmx:8zosaq7IFkOCOxkCz3nb1L1CgQEsnyoRp-yfpnBlaTbgUgjNghH18w>
- <xmx:8zosamfvzh2UcyxTWsCtpSynCSyClYEeUvo2H2fCNXIGDaPJaWLzyq3z>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 12 Jun 2026 12:59:30 -0400 (EDT)
-Date: Fri, 12 Jun 2026 10:59:28 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Zhiping Zhang <zhipingz@meta.com>
-Cc: sashiko-reviews@lists.linux.dev, linux-pci@vger.kernel.org,
- kvm@vger.kernel.org, dri-devel@lists.freedesktop.org, alex@shazbot.org
-Subject: Re: [PATCH v7 4/5] vfio/pci: implement get_tph and DMA_BUF_TPH feature
-Message-ID: <20260612105928.200220b8@shazbot.org>
-In-Reply-To: <CAH3zFs3FjiCfOceVRin0ytKNdZ7Pgyv4ds=Dd_GhrRC_XcbNOg@mail.gmail.com>
-References: <20260610193158.2614209-5-zhipingz@meta.com>
- <20260611202555.B0FE31F000E9@smtp.kernel.org>
- <CAH3zFs3FjiCfOceVRin0ytKNdZ7Pgyv4ds=Dd_GhrRC_XcbNOg@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6F2A10EAA4
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 17:01:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1DCB260008;
+ Fri, 12 Jun 2026 17:01:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AED001F000E9;
+ Fri, 12 Jun 2026 17:01:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781283689;
+ bh=Sck3LThsSIr+171jgbzLZAZgH1+y4HbpYmn7nUQN93s=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=EISqL4DkFdbPyWRxx2GpCQvcfpqEFVsxr1IW6Pf3ousb+rw6kp2lnuY5XWaWpOLJv
+ iEU86tfAr+YmA71+28ahOwMjeHUeIn6faRaH+yUYddSPn7YOPJTnlTPveIOjO4jci4
+ zvMWP9LRG0RZB6M0e6+yTAEtWrKY6zBP+VTE8teQKELd95ibazDgnlR6dN+m2oZmEv
+ IZ/tREWFoCXlgUmH3i9gHVYwO7twFDxtenX56NdRVmLbhk7TsjWo62leHVCu5r00HO
+ LqK8e0O5jMSqEFJzk40xpU9ys7qPZiMP1UjlZgQXBW/KHRM1VHAS4qaa39+vbiiIKE
+ 5RrNaSzU36FDw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/nouveau: Simplify nouveau_cli_work
+To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260612165409.54447-1-tvrtko.ursulin@igalia.com>
+References: <20260612165409.54447-1-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 17:01:28 +0000
+Message-Id: <20260612170129.AED001F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,89 +52,64 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 11 Jun 2026 16:02:25 -0700
-Zhiping Zhang <zhipingz@meta.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] The patch introduces a use-after-free vulnerability by reading=
+ `work->fence` after calling `work->func(work)`, which frees the `work` str=
+ucture.
+--
 
-> On Thu, Jun 11, 2026 at 1:25=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
-> > =20
-> > > =20
-> > Thank you for your contribution! Sashiko AI review found 2 potential is=
-sue(s) to consider:
-> > - [Medium] Unconditional validation of the flag-gated 'ph' parameter ca=
-n lead to spurious -EINVAL errors, breaking the syscall trust boundary.
-> > - [Medium] VFIO_DEVICE_FEATURE_PROBE falsely reports that VFIO_DEVICE_F=
-EATURE_DMA_BUF_TPH is supported even if the hardware lacks TPH support.
-> > --
-> >
-> > commit d57637d667ca6dc95def77a0a5bd339d62d4f506
-> > Author: Zhiping Zhang <zhipingz@meta.com>
-> >
-> > vfio/pci: implement get_tph and DMA_BUF_TPH feature
-> >
-> > This commit implements dma-buf get_tph for vfio-pci exported dma-bufs a=
-nd
-> > adds the VFIO_DEVICE_FEATURE_DMA_BUF_TPH feature. This allows userspace=
- to
-> > publish TPH metadata for a VFIO-owned device. It checks completer suppo=
-rt
-> > and protects the metadata under dmabuf->resv.
-> > =20
-> > > diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vf=
-io_pci_dmabuf.c
-> > > index 1a177ce7de546..0a0705c8dbea6 100644
-> > > --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > > +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c =20
-> >
-> > [ ... ]
-> > =20
-> > > @@ -333,6 +360,71 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pc=
-i_core_device *vdev, u32 flags,
-> > >       return ret;
-> > >  }
-> > >
-> > > +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *v=
-dev,
-> > > +                                   u32 flags,
-> > > +                                   struct vfio_device_feature_dma_bu=
-f_tph __user *arg,
-> > > +                                   size_t argsz)
-> > > +{
-> > > +     struct vfio_device_feature_dma_buf_tph set_tph;
-> > > +     struct vfio_pci_dma_buf *priv;
-> > > +     struct dma_buf *dmabuf;
-> > > +     u8 comp;
-> > > +     int ret;
-> > > +
-> > > +     ret =3D vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SE=
-T,
-> > > +                              sizeof(set_tph));
-> > > +     if (ret !=3D 1)
-> > > +             return ret; =20
-> >
-> > [Severity: Medium]
-> > vfio_check_feature() returns 0 for VFIO_DEVICE_FEATURE_PROBE, causing an
-> > early return of success.
-> >
-> > Should the hardware capability check (pcie_tph_completer_type) occur be=
-fore
-> > checking the feature flags, to avoid falsely reporting that the feature=
- is
-> > supported on devices that lack TPH?
-> > =20
->=20
-> Will fix it with a change like below:
->  -     if (ret !=3D 1)
-> +     if (ret !=3D 1) {
-> +             if (ret =3D=3D 0 &&
-> +                 pcie_tph_completer_type(vdev->pdev) =3D=3D
-> +                     PCI_EXP_DEVCAP2_TPH_COMP_NONE)
-> +                     return -EOPNOTSUPP;
->                 return ret;
-> +     }
+commit 5f500d0384ad49806cf724c1cd7f76a580d6bc42
+Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Typically this is done before the check feature call.  Thanks,
+drm/nouveau: Simplify nouveau_cli_work
 
-Alex
+This patch simplifies the nouveau_cli_work function by removing the
+nouveau_cli_work_ready wrapper. As part of this cleanup, the
+dma_fence_put() call is moved to execute after the work callback
+has been invoked.
+
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouv=
+eau/nouveau_drm.c
+> index e16f59b00f6fa..a3e38a30fbdab 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+[ ... ]
+> @@ -176,9 +160,10 @@ nouveau_cli_work(struct work_struct *w)
+>  	struct nouveau_cli_work *work, *wtmp;
+>  	mutex_lock(&cli->lock);
+>  	list_for_each_entry_safe(work, wtmp, &cli->worker, head) {
+> -		if (!work->fence || nouveau_cli_work_ready(work->fence)) {
+> +		if (!work->fence || dma_fence_is_signaled(work->fence)) {
+>  			list_del(&work->head);
+>  			work->func(work);
+> +			dma_fence_put(work->fence);
+
+[Severity: Critical]
+Does moving dma_fence_put() after work->func() introduce a use-after-free
+here?
+
+Looking at the callback implementation in nouveau_gem_object_delete_work()
+(in drivers/gpu/drm/nouveau/nouveau_gem.c), the work structure is freed:
+
+nouveau_gem_object_delete_work(...)
+{
+	...
+	nouveau_gem_object_delete(work->vma);
+	kfree(work);
+}
+
+If the callback frees the work structure, accessing work->fence immediately
+afterwards in dma_fence_put() would read from freed memory.
+
+>  		}
+>  	}
+>  	mutex_unlock(&cli->lock);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612165409.5444=
+7-1-tvrtko.ursulin@igalia.com?part=3D1
