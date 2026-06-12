@@ -4,67 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F246FCD98D8
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 13:54:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24ACFCD98CE
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 13:56:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F9B410F544;
-	Fri, 12 Jun 2026 13:54:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A7AE10F540;
+	Fri, 12 Jun 2026 13:56:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IwA3Vtka";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IlgLuP5e";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EbdrtNtF";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C66C10F531;
- Fri, 12 Jun 2026 13:54:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781272470; x=1812808470;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=x0WBenL+tYyEWxbwyAiUMsF2Sul7xYWiNZv7X+Mi0zg=;
- b=IwA3Vtka3Nru8qDFotg72QmkOEBvakfsVveFqrGBcnBbbeltG8I5Zqc4
- Nq5Zg/lzXOx8CgW8YSb/UUytoleLcIrlspI9FkPobs36cjcFyIkvaXFfB
- IYFYNPKha4TN/ga+6v+XB5oK3HV6xrYAIT3lb8SCKuhfzs5obnfoaqhO3
- U64+sjkaJGCAIW7/VHKnlQtZMyD023WLD9RsDV4NIGXsg+xR1EgCNBqYa
- tzY+o6XuJrxBpGcgQVvsrJgFinJAjqFOdhcgNKj/LWg3RsCIH9qUOGXdm
- LkVdYWEMvWPk/aEhqzfihwVjT+lgcf303aoT6yBAtorAnkKjCR3pgS4vz A==;
-X-CSE-ConnectionGUID: NwgQK1G4Q6O1FVfFW7GcBw==
-X-CSE-MsgGUID: QpVLjpgySNiC7IbAfx8Usg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="82163324"
-X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; d="scan'208";a="82163324"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2026 06:54:30 -0700
-X-CSE-ConnectionGUID: QJv0tLjURmi95u1C2Gmu3w==
-X-CSE-MsgGUID: VqeW38znQPysJkw45T3XMw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; d="scan'208";a="242446604"
-Received: from slindbla-desk.ger.corp.intel.com (HELO fedora) ([10.245.245.68])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2026 06:54:26 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A646110F53B
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 13:56:25 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65CCjGCR3721712
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 13:56:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=lj9iP4K0GcPnNCW95XMo8tVN
+ jOPr4RfYCBOREwlPyGg=; b=IlgLuP5epKG7Z5khBWGVWey9TcvkzndL34gn+BRL
+ wbvqAp7hbNbX81s1YbPiX7vmpFIfJH+h7VAPVJq4p8ifKI3T5XT8RBMqYSMstXHS
+ ZChjsp16KOYilHe2GvI93MdroXzY/O0MsPLRyw1uUu8BkyiSBOubv5PValHc2rCu
+ aD30yxKF5QIbdvvvpgXVXFGP+Kb6MblChW4vCdglMMF8cogrY5+BgQ+BHTAvedsI
+ e+QC6dyVvfIPdXUD0PWalBxRuJ1SMovpDQW7z3K5saTUUgq4JePSDhT1ohia1Dtx
+ SQm2OOijXfcwoGbdikDVHlcXCHeKI1orwQMKGk7bPczKBQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er1cbkh74-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 13:56:24 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-915c1997732so237641885a.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 06:56:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1781272584; x=1781877384;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=lj9iP4K0GcPnNCW95XMo8tVNjOPr4RfYCBOREwlPyGg=;
+ b=EbdrtNtFm0TsMcLV2uvuNYaUj8YKbJboAI68HhqQqb3RJytJxbFJoq/WLAM5KLtVGe
+ ExQ4hXcXrczvLl1Bn646fdSkbKkBAVfeaULSad+R/Gr4e+AKvEKGuCc/6bkSUWxZVjZG
+ Zv1e8tAV27CemYEZXR0LXWQGcPBkGhLm5Yv+OJ/dZ0yZxpeMjoTD5o0RcOZErr0mylJp
+ qmsPhsC4hmOxusXOtWsoVtWJb/FJdaCSglOailYzK+yTbYVHTZVGuPLUH8iaeWL0AcIb
+ z1awzj7mK5lkRpkULM2z7BuayMT/hIp8lS5G/MuNX3Og9a0qO6yvuFzmzAT47OdhuqCW
+ TYjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781272584; x=1781877384;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=lj9iP4K0GcPnNCW95XMo8tVNjOPr4RfYCBOREwlPyGg=;
+ b=moOcZOkkpdwhmJFn4FGh6Uj40sjXGZe0Zluzz1pkb40iDRacm+kHb09j8lkY8vGmcv
+ R1qcYPfcNQxIVwvw6tw7AN5eBj6vwhgYQWIF5DmV/PQYNMhfC+vTA3vhEIAuG/R6WM9U
+ L7jAbLzIEhQ1wiu7OEOWajDWyKQ0H5ZZdo0Jeh1IVls2TOyixzqfyR/f1KbvSK0h8Rfw
+ 3bGtkszLxzy5d5m2xZPJpnnh8zCYVQZrvIhbEgZuiojazsdMhbxkqT9eDX1hiycov5Hk
+ WCPL/mljWzlelDDtkbXqtlqv2zS+fAtSE+XvU43C1UmS8DxjaZQn+1cKQm7EMxG6CHxz
+ /ZOA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9PWTc7RQnc1ZxH1S0BNA09k6oZmXGzL2ZfVQ4QSLXK/nDiJv1YO25kYd+naQpX6Rws1w9dw2NqLP0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyyYX93f78wdUm0wHZnfwcTXQTnr86F3BkAgBgfWsRIbNSi/s/G
+ 7WBdiSEYzY/qJTClx9GJfXS6xEaBJFBSG/0da5Lxkah2VyZV7ZAqn5DdSgKi74O9ySpVb9hv38K
+ /aRHYG46X157lw5z1zF9vtUG59/mwC5rOm/yL0q8SYDWnOZWyLTKSXkTVprVujaPq2IIQ7Ig=
+X-Gm-Gg: Acq92OHMu4Ikf9b7Ym6jFPrFNIVywRbdTXnmulrU60k3+0Cr+HFr9lTPMHfGeAWaTwv
+ fosft4lRtQ1VNYiUa/4rv+DIjZB2d4SbUqoVPlFkFi+LpkFqKGpF1wQIxRsPyDmh92XXf3ltSGG
+ AlTDUYZOO1+teRmevb7m8/aap8rUQW7tQOMqsAn8MpWbiWm7sGHgtEmhRwiVCEE6vfuOfQj8jlY
+ OLivOueM0bI4IHbJfhNuteDIssSExm6RR/WgfTkS22Q6fRUc22rM4vjkVQgsqtGLDHgvtk/uEl+
+ fl4ePtqkwlM3DDuCdnXmVdsU7oNTnYHEKWFZyKlcFS3eIQlvGpRlAn1peOLgUtZEs2W9M9z4Mxx
+ bq0KokUNsu63oaF1xtWxth6bUC+Ncun1BwbTdkg34FGuejXRjiFKqoSrZqe/WGpZHcBHUpBWvC9
+ c9c3tDVQOC/0f1Foal7EY40yvV5cmt9K074x0=
+X-Received: by 2002:a05:620a:2411:10b0:915:75ba:179e with SMTP id
+ af79cd13be357-9161bc9f023mr286845085a.30.1781272583868; 
+ Fri, 12 Jun 2026 06:56:23 -0700 (PDT)
+X-Received: by 2002:a05:620a:2411:10b0:915:75ba:179e with SMTP id
+ af79cd13be357-9161bc9f023mr286837985a.30.1781272583368; 
+ Fri, 12 Jun 2026 06:56:23 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5ad2e1b4869sm563523e87.75.2026.06.12.06.56.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Jun 2026 06:56:22 -0700 (PDT)
+Date: Fri, 12 Jun 2026 16:56:19 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Alex Hung <alex.hung@amd.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Liviu Dudau <liviu.dudau@arm.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Michal Mrozek <michal.mrozek@intel.com>,
- John Falkowski <john.falkowski@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Lahtinen Joonas <joonas.lahtinen@linux.intel.com>,
- David Howells <dhowells@redhat.com>,
- Christian Brauner <brauner@kernel.org>, Kees Cook <kees@kernel.org>,
- Davidlohr Bueso <dave@stgolabs.net>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>,
- dri-devel@lists.freedesktop.org, LMKL <linux-kernel@vger.kernel.org>
-Subject: [PATCH 4/4] drm/xe: Add watch_queue-based device event notification
-Date: Fri, 12 Jun 2026 15:53:40 +0200
-Message-ID: <20260612135340.116100-5-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260612135340.116100-1-thomas.hellstrom@linux.intel.com>
-References: <20260612135340.116100-1-thomas.hellstrom@linux.intel.com>
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v5 2/8] drm/amd/display: use
+ drmm_writeback_connector_init()
+Message-ID: <kkfb5lvudgo3curnoakp3qre7pofaobaxynz7qhrn6jy2ll55f@clhfe664z5ci>
+References: <20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com>
+ <20260505-wb-drop-encoder-v5-2-42567b7c7af2@oss.qualcomm.com>
+ <27db214f-b57b-45ab-8deb-da2aa8efb9d7@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <27db214f-b57b-45ab-8deb-da2aa8efb9d7@amd.com>
+X-Proofpoint-GUID: 7o4lFpWNFAU7S1HqjosSXLhsxxt5K1bu
+X-Proofpoint-ORIG-GUID: 7o4lFpWNFAU7S1HqjosSXLhsxxt5K1bu
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDEyNyBTYWx0ZWRfX/iYjk3nWAtMB
+ 86/OLrCO/NdC8dcWByyPFf3RLVpQUFoz/0onogb1EYTxQe4YE/kSIVUyCnE0ZZR7ln1hSWo5oCJ
+ YWKLAQjSckYmlSam7GO31W/OX0gWF8g=
+X-Authority-Analysis: v=2.4 cv=S57pBosP c=1 sm=1 tr=0 ts=6a2c1008 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=P-IC7800AAAA:8
+ a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8 a=t-2y4xJzw7g1bk7x_BQA:9 a=CjuIK1q_8ugA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDEyNyBTYWx0ZWRfX37HYwP2YZ6eC
+ xk2VYGXcD2XTkWQlZ4PFWeHF2iM7VOXXbx11iiqsL/Wezwf6F4T8eEF1VGU5RbuStTNHFLhBZ1P
+ mRtjB11JCxwViWnCr6FZh+P6vNHJsWD0COJhEjPl8OU8iatCbjT9BHdCRQAYyuq+JexXYOa2Y9r
+ +eLE6UFGZ1RYkDLBwiDWWGsTPErWAyn0LB//gkSWrvyaJXYyWz67JECULAw4ZWhWAkxoCk3Y3JA
+ 6vUdFuY0S6JiFMa9CsCCJ8V795+Ehc/7udOAw3aqWftZg1e9MXYNImoMAoC9zwiENDXrOQsklAu
+ 2aaCz7vIEyFUmxjvveVtOtOOtmdns6E3ERCKDe5Itt+BetoaW88wOyi9V/gcqvZMwbxhgi3cfqx
+ GIdmKtFPjzgHa+2lYYkULWz6otmXI49yxJK0Twy9hd8QcbhibmHZwR9BW2bMgMgVt+vD4mJrDZm
+ tScrMPeXFWlEKbbvGYw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-12_01,2026-06-12_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 adultscore=0 phishscore=0 bulkscore=0
+ lowpriorityscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
+ definitions=main-2606120127
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,491 +172,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a watch_queue notification channel tied to struct xe_file so that
-userspace can subscribe to asynchronous GPU device events via the
-general kernel notification mechanism.
+On Tue, May 26, 2026 at 12:46:30PM -0600, Alex Hung wrote:
+> Will allocating wbcon with drmm_kzalloc before calling
+> amdgpu_dm_wb_connector_init be more memory-safe as below?
 
-Introduce DRM_IOCTL_XE_WATCH_QUEUE to let userspace subscribe a
-notification pipe (opened with pipe2(O_NOTIFICATION_PIPE)) to the device
-event stream.  Embed the watch_id field (0-255) in the WATCH_INFO_ID
-field of every notification, allowing multiple watches to share a single
-pipe and be told apart by the reader.
+Sorry, it took me a while. Yes, it seems to be a correct idea. I'll
+implement it slightly differently.
 
-Deliver notifications as struct drm_xe_watch_notification records, with
-type always set to WATCH_TYPE_DRM_XE_NOTIFY and subtype drawn from enum
-drm_xe_watch_event.  Define DRM_XE_WATCH_EVENT_VM_ERR as the first
-event, posted by the preempt-rebind worker when a VM encounters an
-unrecoverable error.  Expose xe_watch_queue_post_vm_err_event() as the
-in-kernel posting API.
+> 
+> 
+> @@ -5790,7 +5791,8 @@ static int amdgpu_dm_initialize_drm_device(struct
+> amdgpu_device *adev)
+>  		link = dc_get_link_at_index(dm->dc, i);
+> 
+>  		if (link->connector_signal == SIGNAL_TYPE_VIRTUAL) {
+> -			struct amdgpu_dm_wb_connector *wbcon = kzalloc_obj(*wbcon);
+> +			struct amdgpu_dm_wb_connector *wbcon =
+> +				drmm_kzalloc(adev_to_drm(adev), sizeof(*wbcon), GFP_KERNEL);
+> 
+>  			if (!wbcon) {
+>  				drm_err(adev_to_drm(adev), "KMS: Failed to allocate writeback
+> connector\n");
+> @@ -5799,7 +5801,6 @@ static int amdgpu_dm_initialize_drm_device(struct
+> amdgpu_device *adev)
+> 
+>  			if (amdgpu_dm_wb_connector_init(dm, wbcon, i)) {
+>  				drm_err(adev_to_drm(adev), "KMS: Failed to initialize writeback
+> connector\n");
+> -				kfree(wbcon);
+>  				continue;
+>  			}
+> 
+> On 5/4/26 18:24, Dmitry Baryshkov wrote:
+> > The driver uses drm_writeback_connector_init() instead of its drmm
+> > counterpart, but it doesn't perform the job queue cleanup (neither
+> > manually nor by calling drm_writeback_connector_cleanup()). On the
+> > contrary, the drmm_writeback_connector_init() function ensures the
+> > proper cleanup of the job queue.
+> > 
+> > Use drmm_plain_encoder_alloc() to allocate simple encoder and
+> > drmm_writeback_connector_init() in order to initialize writeback
+> > connector instance.
+> > 
+> > Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+> > Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > ---
+> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  2 +-
+> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c | 18 +++++++++++++-----
+> >   2 files changed, 14 insertions(+), 6 deletions(-)
 
-Add event definitions in a separate uapi header, <drm/xe_drm_events.h>.
-The main reason is that the header needs to include <linux/watch_queue.h>
-which in turn includes <linux/fcntl.h> which may conflict with the
-system <fcntl.h>. Hence user-space must pay special attention when
-including this file.
-
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- MAINTAINERS                          |   1 +
- drivers/gpu/drm/xe/Kconfig           |   1 +
- drivers/gpu/drm/xe/Makefile          |   1 +
- drivers/gpu/drm/xe/xe_device.c       |   7 ++
- drivers/gpu/drm/xe/xe_device_types.h |   6 ++
- drivers/gpu/drm/xe/xe_vm.c           |   4 +
- drivers/gpu/drm/xe/xe_vm_types.h     |   2 +
- drivers/gpu/drm/xe/xe_watch_queue.c  | 111 +++++++++++++++++++++++++++
- drivers/gpu/drm/xe/xe_watch_queue.h  |  20 +++++
- include/uapi/drm/xe_drm.h            |  45 +++++++++++
- include/uapi/drm/xe_drm_events.h     |  62 +++++++++++++++
- 11 files changed, 260 insertions(+)
- create mode 100644 drivers/gpu/drm/xe/xe_watch_queue.c
- create mode 100644 drivers/gpu/drm/xe/xe_watch_queue.h
- create mode 100644 include/uapi/drm/xe_drm_events.h
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 8c0d9965c636..b7e02cfa692b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -12900,6 +12900,7 @@ F:	Documentation/gpu/xe/
- F:	drivers/gpu/drm/xe/
- F:	include/drm/intel/
- F:	include/uapi/drm/xe_drm.h
-+F:	include/uapi/drm/xe_drm_events.h
- 
- INTEL ELKHART LAKE PSE I/O DRIVER
- M:	Raag Jadav <raag.jadav@intel.com>
-diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig
-index 4d7dcaff2b91..dbdc2fb49c53 100644
---- a/drivers/gpu/drm/xe/Kconfig
-+++ b/drivers/gpu/drm/xe/Kconfig
-@@ -25,6 +25,7 @@ config DRM_XE
- 	select DRM_MIPI_DSI
- 	select RELAY
- 	select IRQ_WORK
-+	select WATCH_QUEUE
- 	# xe depends on ACPI_VIDEO when ACPI is enabled
- 	# but for select to work, need to select ACPI_VIDEO's dependencies, ick
- 	select BACKLIGHT_CLASS_DEVICE if ACPI
-diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
-index 8e7b146880f4..fc8b4023a044 100644
---- a/drivers/gpu/drm/xe/Makefile
-+++ b/drivers/gpu/drm/xe/Makefile
-@@ -150,6 +150,7 @@ xe-y += xe_bb.o \
- 	xe_vsec.o \
- 	xe_wa.o \
- 	xe_wait_user_fence.o \
-+	xe_watch_queue.o \
- 	xe_wopcm.o
- 
- xe-$(CONFIG_I2C)	+= xe_i2c.o
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index 867d7c55dc03..788ef2fbd6e5 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -9,6 +9,7 @@
- #include <linux/delay.h>
- #include <linux/fault-inject.h>
- #include <linux/units.h>
-+#include <linux/watch_queue.h>
- 
- #include <drm/drm_client.h>
- #include <drm/drm_gem_ttm_helper.h>
-@@ -77,6 +78,7 @@
- #include "xe_vsec.h"
- #include "xe_wait_user_fence.h"
- #include "xe_wa.h"
-+#include "xe_watch_queue.h"
- 
- #include <generated/xe_device_wa_oob.h>
- #include <generated/xe_wa_oob.h>
-@@ -112,6 +114,8 @@ static int xe_file_open(struct drm_device *dev, struct drm_file *file)
- 	file->driver_priv = xef;
- 	kref_init(&xef->refcount);
- 
-+	init_watch_list(&xef->watch_list, NULL);
-+
- 	task = get_pid_task(rcu_access_pointer(file->pid), PIDTYPE_PID);
- 	if (task) {
- 		xef->process_name = kstrdup(task->comm, GFP_KERNEL);
-@@ -126,6 +130,8 @@ static void xe_file_destroy(struct kref *ref)
- {
- 	struct xe_file *xef = container_of(ref, struct xe_file, refcount);
- 
-+	remove_watch_from_object(&xef->watch_list, NULL, 0, true);
-+
- 	xa_destroy(&xef->exec_queue.xa);
- 	mutex_destroy(&xef->exec_queue.lock);
- 	xa_destroy(&xef->vm.xa);
-@@ -216,6 +222,7 @@ static const struct drm_ioctl_desc xe_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(XE_VM_GET_PROPERTY, xe_vm_get_property_ioctl,
- 			  DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(XE_VM_RESTART, xe_vm_restart_ioctl, DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(XE_WATCH_QUEUE, xe_watch_queue_ioctl, DRM_RENDER_ALLOW),
- };
- 
- static long xe_drm_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
-diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
-index 32dd2ffbc796..ca726ada30a7 100644
---- a/drivers/gpu/drm/xe/xe_device_types.h
-+++ b/drivers/gpu/drm/xe/xe_device_types.h
-@@ -11,6 +11,7 @@
- #include <drm/drm_device.h>
- #include <drm/drm_file.h>
- #include <drm/ttm/ttm_device.h>
-+#include <linux/watch_queue.h>
- 
- #include "xe_devcoredump_types.h"
- #include "xe_drm_ras_types.h"
-@@ -632,6 +633,11 @@ struct xe_file {
- 
- 	/** @refcount: ref count of this xe file */
- 	struct kref refcount;
-+
-+#ifdef CONFIG_WATCH_QUEUE
-+	/** @watch_list: per-file notification source for device events */
-+	struct watch_list watch_list;
-+#endif
- };
- 
- #endif
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index b69a2e5bd9c9..232de0d948d2 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -13,6 +13,7 @@
- #include <drm/drm_print.h>
- #include <drm/ttm/ttm_tt.h>
- #include <uapi/drm/xe_drm.h>
-+#include <uapi/drm/xe_drm_events.h>
- #include <linux/ascii85.h>
- #include <linux/delay.h>
- #include <linux/kthread.h>
-@@ -45,6 +46,7 @@
- #include "xe_trace_bo.h"
- #include "xe_vm_madvise.h"
- #include "xe_wa.h"
-+#include "xe_watch_queue.h"
- 
- #ifdef CONFIG_FAULT_INJECTION
- static DECLARE_FAULT_ATTR(rebind_enospc);
-@@ -584,6 +586,7 @@ static void preempt_rebind_work_func(struct work_struct *w)
- 	}
- 
- 	if (err) {
-+		xe_watch_queue_post_vm_err_event(vm->xef, vm->id, err);
- 		if ((err == -ENOMEM || err == -ENOSPC) && xe_vm_is_restartable(vm)) {
- 			vm->preempt.rebind_deactivated = true;
- 			drm_dbg(&vm->xe->drm, "Rebind deactivated VM on error %pe\n",
-@@ -2229,6 +2232,7 @@ int xe_vm_create_ioctl(struct drm_device *dev, void *data,
- 	if (err)
- 		goto err_close_and_put;
- 
-+	vm->id = id;
- 	args->vm_id = id;
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/xe/xe_vm_types.h b/drivers/gpu/drm/xe/xe_vm_types.h
-index 7d295c3b8456..19a673099588 100644
---- a/drivers/gpu/drm/xe/xe_vm_types.h
-+++ b/drivers/gpu/drm/xe/xe_vm_types.h
-@@ -407,6 +407,8 @@ struct xe_vm {
- 	bool batch_invalidate_tlb;
- 	/** @xef: Xe file handle for tracking this VM's drm client */
- 	struct xe_file *xef;
-+	/** @id: The id of the VM in the VM table of @xef. */
-+	u32 id;
- };
- 
- /** struct xe_vma_op_map - VMA map operation */
-diff --git a/drivers/gpu/drm/xe/xe_watch_queue.c b/drivers/gpu/drm/xe/xe_watch_queue.c
-new file mode 100644
-index 000000000000..32763591075b
---- /dev/null
-+++ b/drivers/gpu/drm/xe/xe_watch_queue.c
-@@ -0,0 +1,111 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2026 Intel Corporation
-+ */
-+
-+#include <linux/slab.h>
-+#include <linux/timekeeping.h>
-+#include <linux/watch_queue.h>
-+
-+#include <uapi/drm/xe_drm.h>
-+#include <uapi/drm/xe_drm_events.h>
-+
-+#include "xe_device.h"
-+#include "xe_device_types.h"
-+#include "xe_macros.h"
-+#include "xe_watch_queue.h"
-+
-+/**
-+ * struct xe_watch_notification_vm_err - kernel-side VM error event notification
-+ * @base: common watch notification header; type is %WATCH_TYPE_DRM_XE_NOTIFY,
-+ *        subtype is %DRM_XE_WATCH_EVENT_VM_ERR
-+ * @vm_id: ID of the VM that hit error
-+ * @error_code: error code describing the error condition (negative errno)
-+ * @timestamp_ns: CLOCK_MONOTONIC timestamp in nanoseconds at the point the
-+ *                error was detected
-+ *
-+ * Layout mirrors &struct drm_xe_watch_notification_vm_err.
-+ */
-+struct xe_watch_notification_vm_err {
-+	struct watch_notification base;
-+	u32 vm_id;
-+	s32 error_code;
-+	u64 timestamp_ns;
-+};
-+
-+/**
-+ * xe_watch_queue_ioctl() - Subscribe a pipe to per-file device event notifications
-+ * @dev: DRM device
-+ * @data: pointer to &struct drm_xe_watch_queue from userspace
-+ * @file: DRM file handle of the subscribing process
-+ *
-+ * Subscribes a notification pipe to receive Xe device events for the calling
-+ * process's file handle.  Only events scoped to this file (e.g. VM error on a
-+ * VM owned by this file) are delivered.  The pipe must have been opened with
-+ * O_NOTIFICATION_PIPE and sized with %IOC_WATCH_QUEUE_SET_SIZE before calling
-+ * this IOCTL.
-+ *
-+ * Return: 0 on success, negative errno on failure.
-+ */
-+int xe_watch_queue_ioctl(struct drm_device *dev, void *data, struct drm_file *file)
-+{
-+	struct xe_file *xef = file->driver_priv;
-+	struct xe_device *xe = to_xe_device(dev);
-+	struct drm_xe_watch_queue *args = data;
-+	struct watch_queue *wqueue;
-+	struct watch *watch;
-+	int ret;
-+
-+	if (XE_IOCTL_DBG(xe, args->flags || args->pad))
-+		return -EINVAL;
-+	if (XE_IOCTL_DBG(xe, args->watch_id > 0xff))
-+		return -EINVAL;
-+
-+	wqueue = get_watch_queue(args->fd);
-+	if (XE_IOCTL_DBG(xe, IS_ERR(wqueue)))
-+		return PTR_ERR(wqueue);
-+
-+	watch = kzalloc_obj(*watch, GFP_KERNEL | __GFP_ACCOUNT);
-+	if (XE_IOCTL_DBG(xe, !watch)) {
-+		ret = -ENOMEM;
-+		goto out_put_queue;
-+	}
-+
-+	init_watch(watch, wqueue);
-+	watch->id = 0;
-+	watch->info_id = (u32)args->watch_id << WATCH_INFO_ID__SHIFT;
-+
-+	ret = add_watch_to_object(watch, &xef->watch_list);
-+	if (XE_IOCTL_DBG(xe, ret))
-+		kfree(watch);
-+
-+out_put_queue:
-+	put_watch_queue(wqueue);
-+	return ret;
-+}
-+
-+/**
-+ * xe_watch_queue_post_vm_err_event() - Post a VM error event
-+ * @xef: xe file handle that owns the VM
-+ * @vm_id: userspace ID of the VM that hit error
-+ * @error_code: error code describing the error condition (negative errno)
-+ *
-+ * Posts a %DRM_XE_WATCH_EVENT_VM_ERR notification carrying @vm_id and
-+ * @error_code to every pipe that @xef has subscribed via
-+ * %DRM_IOCTL_XE_WATCH_QUEUE.  Only the owning process is notified,
-+ * preventing information leaks to other clients.
-+ */
-+void xe_watch_queue_post_vm_err_event(struct xe_file *xef, u32 vm_id,
-+				      int error_code)
-+{
-+	struct xe_watch_notification_vm_err n = {};
-+
-+	n.base.type    = WATCH_TYPE_DRM_XE_NOTIFY;
-+	n.base.subtype = DRM_XE_WATCH_EVENT_VM_ERR;
-+	n.base.info    = watch_sizeof(struct xe_watch_notification_vm_err);
-+	n.vm_id        = vm_id;
-+	n.error_code   = error_code;
-+	n.timestamp_ns = ktime_get_ns();
-+
-+	post_watch_notification(&xef->watch_list, &n.base, current_cred(), 0);
-+}
-diff --git a/drivers/gpu/drm/xe/xe_watch_queue.h b/drivers/gpu/drm/xe/xe_watch_queue.h
-new file mode 100644
-index 000000000000..ad199ee68205
---- /dev/null
-+++ b/drivers/gpu/drm/xe/xe_watch_queue.h
-@@ -0,0 +1,20 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2026 Intel Corporation
-+ */
-+
-+#ifndef _XE_WATCH_QUEUE_H_
-+#define _XE_WATCH_QUEUE_H_
-+
-+#include <linux/types.h>
-+
-+struct drm_device;
-+struct drm_file;
-+struct xe_file;
-+
-+int xe_watch_queue_ioctl(struct drm_device *dev, void *data,
-+			 struct drm_file *file);
-+void xe_watch_queue_post_vm_err_event(struct xe_file *xef, u32 vm_id,
-+				      int error_code);
-+
-+#endif /* _XE_WATCH_QUEUE_H_ */
-diff --git a/include/uapi/drm/xe_drm.h b/include/uapi/drm/xe_drm.h
-index 8d5e3f06b8d4..0083dd712f7e 100644
---- a/include/uapi/drm/xe_drm.h
-+++ b/include/uapi/drm/xe_drm.h
-@@ -86,6 +86,7 @@ extern "C" {
-  *  - &DRM_IOCTL_XE_EXEC_QUEUE_SET_PROPERTY
-  *  - &DRM_IOCTL_XE_VM_GET_PROPERTY
-  *  - &DRM_IOCTL_XE_VM_RESTART
-+ *  - &DRM_IOCTL_XE_WATCH_QUEUE
-  */
- 
- /*
-@@ -112,6 +113,7 @@ extern "C" {
- #define DRM_XE_EXEC_QUEUE_SET_PROPERTY	0x0e
- #define DRM_XE_VM_GET_PROPERTY		0x0f
- #define DRM_XE_VM_RESTART		0x10
-+#define DRM_XE_WATCH_QUEUE		0x11
- 
- /* Must be kept compact -- no holes */
- 
-@@ -132,6 +134,7 @@ extern "C" {
- #define DRM_IOCTL_XE_EXEC_QUEUE_SET_PROPERTY	DRM_IOW(DRM_COMMAND_BASE + DRM_XE_EXEC_QUEUE_SET_PROPERTY, struct drm_xe_exec_queue_set_property)
- #define DRM_IOCTL_XE_VM_GET_PROPERTY		DRM_IOWR(DRM_COMMAND_BASE + DRM_XE_VM_GET_PROPERTY, struct drm_xe_vm_get_property)
- #define DRM_IOCTL_XE_VM_RESTART			DRM_IOW(DRM_COMMAND_BASE + DRM_XE_VM_RESTART, struct drm_xe_vm_restart)
-+#define DRM_IOCTL_XE_WATCH_QUEUE		DRM_IOW(DRM_COMMAND_BASE + DRM_XE_WATCH_QUEUE, struct drm_xe_watch_queue)
- 
- /**
-  * DOC: Xe IOCTL Extensions
-@@ -2653,6 +2656,48 @@ enum drm_xe_ras_error_component {
- 	[DRM_XE_RAS_ERR_COMP_SOC_INTERNAL] = "soc-internal"		\
- }
- 
-+/**
-+ * DOC: DRM_XE_WATCH_QUEUE
-+ *
-+ * Subscribe a notification pipe to receive device events for the calling
-+ * process's DRM file handle.  Events are scoped to the subscribing file:
-+ * only events that belong to that file (for example, VM error on a VM created
-+ * through the same file) are delivered, preventing information leaks between
-+ * processes sharing the same GPU device.
-+ *
-+ * The pipe must first be opened with O_NOTIFICATION_PIPE (i.e. O_EXCL passed
-+ * to pipe2()) and sized via %IOC_WATCH_QUEUE_SET_SIZE before subscribing.
-+ *
-+ * Events are delivered as notification records read from the pipe.  The
-+ * @watch_id field is embedded in the notification info field and can be used
-+ * to distinguish multiple watches sharing a pipe.
-+ *
-+ * Currently defined event subtypes:
-+ *  - %DRM_XE_WATCH_EVENT_VM_ERR - a VM owned by this file has encountered an error
-+ */
-+
-+/**
-+ * struct drm_xe_watch_queue - subscribe to device event notifications
-+ *
-+ * Used with %DRM_IOCTL_XE_WATCH_QUEUE.  Notifications are scoped to the
-+ * DRM file handle used to issue this IOCTL.
-+ */
-+struct drm_xe_watch_queue {
-+	/** @fd: file descriptor of pipe opened with O_NOTIFICATION_PIPE */
-+	__u32 fd;
-+
-+	/**
-+	 * @watch_id: identifier (0–255) embedded in the watch notification
-+	 * info field; allows multiplexing several watches on one pipe
-+	 */
-+	__u32 watch_id;
-+
-+	/** @flags: must be zero */
-+	__u32 flags;
-+
-+	/** @pad: reserved, must be zero */
-+	__u32 pad;
-+};
- #if defined(__cplusplus)
- }
- #endif
-diff --git a/include/uapi/drm/xe_drm_events.h b/include/uapi/drm/xe_drm_events.h
-new file mode 100644
-index 000000000000..6cc7528bfb9b
---- /dev/null
-+++ b/include/uapi/drm/xe_drm_events.h
-@@ -0,0 +1,62 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2026 Intel Corporation
-+ */
-+
-+#ifndef _UAPI_XE_DRM_EVENTS_H_
-+#define _UAPI_XE_DRM_EVENTS_H_
-+
-+#include <linux/types.h>
-+#include <linux/watch_queue.h>
-+
-+#if defined(__cplusplus)
-+extern "C" {
-+#endif
-+
-+/**
-+ * enum drm_xe_watch_event - Xe device watch event subtypes
-+ *
-+ * Subtypes for notifications delivered via %WATCH_TYPE_DRM_XE_NOTIFY when
-+ * reading from a pipe subscribed with %DRM_IOCTL_XE_WATCH_QUEUE.
-+ */
-+enum drm_xe_watch_event {
-+	/**
-+	 * @DRM_XE_WATCH_EVENT_VM_ERR: a VM has encountered an error.
-+	 *
-+	 * Indicates that a fatal or resource error occurred within the given
-+	 * VM.  The vm_id of the affected VM is carried in the
-+	 * @drm_xe_watch_notification_vm_err::vm_id field of the extended
-+	 * notification record.
-+	 */
-+	DRM_XE_WATCH_EVENT_VM_ERR = 0,
-+};
-+
-+/**
-+ * struct drm_xe_watch_notification_vm_err - VM error event notification
-+ *
-+ * Notification record delivered for %DRM_XE_WATCH_EVENT_VM_ERR.
-+ * The record type is always %WATCH_TYPE_DRM_XE_NOTIFY and the subtype is
-+ * %DRM_XE_WATCH_EVENT_VM_ERR.
-+ */
-+struct drm_xe_watch_notification_vm_err {
-+	/** @base: common watch notification header */
-+	struct watch_notification base;
-+
-+	/** @vm_id: ID of the VM that encountered an error */
-+	__u32 vm_id;
-+
-+	/** @error_code: error code describing the error condition (negative errno) */
-+	__s32 error_code;
-+
-+	/**
-+	 * @timestamp_ns: CLOCK_MONOTONIC timestamp in nanoseconds at the
-+	 * point the error was detected
-+	 */
-+	__u64 timestamp_ns;
-+};
-+
-+#if defined(__cplusplus)
-+}
-+#endif
-+
-+#endif /* _UAPI_XE_DRM_EVENTS_H_ */
 -- 
-2.54.0
-
+With best wishes
+Dmitry
