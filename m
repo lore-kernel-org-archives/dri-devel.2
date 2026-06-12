@@ -4,63 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65EEFCD98CF
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 17:01:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFC6ECD98CE
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 17:10:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A335710EAA3;
-	Fri, 12 Jun 2026 17:01:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23C8010EAA4;
+	Fri, 12 Jun 2026 17:10:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="llm605R7";
+	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="MNb6Ua7Y";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="jbCkp2gL";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C24C910EAA3
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 17:01:49 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6A615225;
- Fri, 12 Jun 2026 19:01:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1781283677;
- bh=KVbtAEEtprqp5yyIoAXBQcwpPK0XelSa5kEMMWYCbAI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=llm605R7ZrLc9err8IAkvdf4IzX4Spd6MKK7m6pw5EdHUOYoTigYq5B62jlv0yazg
- mbg/joeHg1oy1aTU96k+hDxZ+KHpvqentcezJiiytYRIT/SPXAZ6sC5Np6Zi7D7Han
- 0pCNsBhLoieIxwIdVVc1UQ6I5cQalETck5BgagGw=
-Date: Fri, 12 Jun 2026 20:01:46 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/5] dt-bindings: display: bridge: Document Renesas
- R-Car V4H DSC bindings
-Message-ID: <20260612170146.GA2094246@killaraus.ideasonboard.com>
-References: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
- <20260515-rcar-du-dsc-v2-2-f6b9240a1240@ideasonboard.com>
- <20260515-fraying-trickle-7511a2eeaf44@spud>
- <81f89aa1-84d8-44e1-813b-2bbcafe3687e@ideasonboard.com>
- <20260612-landed-remedial-79582e900699@spud>
+Received: from fhigh-a7-smtp.messagingengine.com
+ (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B1BD10EAA4
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 17:10:08 +0000 (UTC)
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 8B83D1400093;
+ Fri, 12 Jun 2026 13:10:07 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-09.internal (MEProxy); Fri, 12 Jun 2026 13:10:07 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm3; t=1781284207;
+ x=1781370607; bh=uXPu8m1b4LfsdazZMZSxqNEOeTjV++CgcADUhsyfUeM=; b=
+ MNb6Ua7YSu32IApBA5mRd7kQOUSLa5/s3TA3r7AL09THGdZ4eUyQuHYJyfeizhNY
+ WHLd/AeTmGmkLS5jU9UMuVe0DtfmKybvzS/wt/BDVhLqCirqtOqfGmasbirgubnK
+ sKjsUlFgc+W25QTOeO8L60bxX5NqXA4yAKS/4cF/OIS1b+9CIjJCaA/AwRr0zobC
+ g7nULtbDR35uZFm1Dx9HlAtEa7XdYzw5kGRaCc/RLVPskCpHsNSADP5w58ONIXjF
+ Sh5tyRM8InYSFZ5GtpYDx0ZEhwCgEzKpwEnbiz2mvn13t0ktxdtkv24JYiWDPVHx
+ WtdgVyXnJWaLeVQFGndDXQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781284207; x=
+ 1781370607; bh=uXPu8m1b4LfsdazZMZSxqNEOeTjV++CgcADUhsyfUeM=; b=j
+ bCkp2gLg6Hj0/adO0GXnpecpBWhL2Yp4hm9hpDZPMN0aoTfX7zS6n5QllELA1VSd
+ X42f9X7vcjOuiKi/jbZY71p6QpoJM5ZR/OpMBJfdka9seTyqyNJFQ8Tg+NLDI/6Q
+ qpIr4dnm5V8Rz85jkUoPhV2WisSuahFlnD1XHfayVIQe5/a3HHFPFofAEuZWiqP3
+ KgBzPl3+wUW3kl/0p/bd2/WZEksLY4sfBJCWVQY/9V1Bb2WEoX3wN1sDySKPmOi9
+ NhGY/Xf3ay+94cwPPR1tqoCTUXuq6LeUfMO7xsCGxQXDiDy7HmfUTPL0FjbFratk
+ FziaYsnePaQRPbyxSW8MQ==
+X-ME-Sender: <xms:bj0sajOjKj_TAl1L9--J7mGO49zQgCFQSykkn1A0KM4KyyBVo0T01g>
+ <xme:bj0san9stFVx11t1qgq2L5flwXSXDgchRBqVlbOKu2D25fWO56JfTjp-s7gqwAao8
+ YyIWeQ3ExX_eYz60Qjk31adNqxk5CFAAw1gwAT_bsaH448GXdwwGA>
+X-ME-Received: <xmr:bj0sao7anuaFR8uSNLIywxQ6tO8L2YxbQSZMHQn8-sFVJ4lAqx-JLAbA740>
+X-ME-Proxy-Cause: dmFkZTFq8oIRNnYTRa5VsIWKAotKciRe7g5kPPez2qGfRxO7xJ2ESUxldZb++Gn240UZJG
+ cN9mBkn5NoSA+Cl+XRikFU9KyryI5lA5oLityp4dVYPDM282yKokcsWwNrnETMgeummea3
+ tsE43v7JVYidxlFiWvgxVCrT8em5Fj+uvkqhLE7qKQUPlASOf9+wd3+h5CvfGiYCR8x6fE
+ k0MBl0k3btXl+aepFawep9OOkzzfBK8iEcXwvwW+yZ0INKrpUrGT3/ki9bvxvUe2pc9OM5
+ 3BVue8yJ4jd/tFQSApCl9nS4QOGrvZxdbeAK6kBOKS7qHOEtLTGQG2LIeZxCeTOkhCN+I+
+ 8ozEiY1pKdMidmH/GP7/DQfPKt9jPG7+yivnAtxqbHlQGbfItHpUuw6hnUiKsOjP+dfCDR
+ tvt0wviDwWGXTnOuRDqVsPQ1PXD6TDsYfFfH9FsaKypsvlt+wRZDjxz/non5FqgUCbv9ev
+ Kv2bYThO7HwikI4T6dWFlaM4+9cD99pIJGO06ZfBtI+0Tb/WNOpI96uinZ8zgdln/W7oFf
+ FKxs10RLKq0xe7nXfRmwMfthJOtxlWURiTZwSFY6HPAo+8UNRp27RprLLj09CpspHa2vuU
+ UV9aUaVO4s5e4htTv6x6QkRLanXDa8L8i4+OwCI0FOFypQeK7YdlYRLCaAFA
+X-ME-Proxy: <xmx:bj0sal6gnmkK_RtnXhqBMdsT3UiwI-d8aHF_C-wdQYPfyWqYNsqylQ>
+ <xmx:bj0sapoMCloFMcnly2OyJDDg5XH4nvaEi6JmValIKjBgNtt1fGQ_wg>
+ <xmx:bj0sauOZRbrLkITgz7UJeBeSc4_SvHSQkibge7BUvgA-oHe3fCWK5g>
+ <xmx:bj0sap1MRha2KEF3R9tOy3k4bVhFCCCzUurzeP8yVsqpKtXnDHl2vw>
+ <xmx:bz0sanHXQSl09-4_NdiCZ1zJ2yyhNsoyFiOAaA5KIKwABvqWpB-xTUNl>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 12 Jun 2026 13:10:05 -0400 (EDT)
+Date: Fri, 12 Jun 2026 11:10:01 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Zhiping Zhang <zhipingz@meta.com>
+Cc: <netdev@vger.kernel.org>, <kvm@vger.kernel.org>,
+ <linux-rdma@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, alex@shazbot.org
+Subject: Re: [PATCH v7 4/5] vfio/pci: implement get_tph and DMA_BUF_TPH feature
+Message-ID: <20260612111001.5b7206eb@shazbot.org>
+In-Reply-To: <20260611161546.4075580-5-zhipingz@meta.com>
+References: <20260611161546.4075580-1-zhipingz@meta.com>
+ <20260611161546.4075580-5-zhipingz@meta.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260612-landed-remedial-79582e900699@spud>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,86 +98,271 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jun 12, 2026 at 05:09:48PM +0100, Conor Dooley wrote:
-> On Fri, Jun 12, 2026 at 01:43:44PM +0300, Tomi Valkeinen wrote:
-> > On 15/05/2026 20:32, Conor Dooley wrote:
-> > > On Fri, May 15, 2026 at 10:56:15AM +0300, Tomi Valkeinen wrote:
-> > > > From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> > > > 
-> > > > The Renesas DSC Display Stream Compression is a bridge embedded in the
-> > > > Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
-> > > > 8k or 400 Mpixel/s .
-> > > > 
-> > > > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> > > > [tomi.valkeinen: fix the example]
-> > > > Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> > > > ---
-> > > >   .../bindings/display/bridge/renesas,dsc.yaml       | 96 ++++++++++++++++++++++
-> > > >   1 file changed, 96 insertions(+)
-> > > > 
-> > > > diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
-> > > > new file mode 100644
-> > > > index 000000000000..2918d592732b
-> > > > --- /dev/null
-> > > > +++ b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
-> > > 
-> > > Filename matching the compatible please.
-> > 
-> > All the other Documentation/devicetree/bindings/display/bridge/renesas,*
-> > files follow the same style, where the file name is in a generic format, but
-> > the actual compat strings are per SoC (and no generic compat string).
+On Thu, 11 Jun 2026 09:11:19 -0700
+Zhiping Zhang <zhipingz@meta.com> wrote:
+
+> Implement dma-buf get_tph for vfio-pci exported dma-bufs and add
+> VFIO_DEVICE_FEATURE_DMA_BUF_TPH so userspace can publish TPH metadata
+> for a VFIO-owned device.
 > 
-> No idea why it's like that currently, but filename matching compatible
-> is the policy.
+> 8-bit ST and 16-bit Extended ST are distinct PCIe TPH namespaces; the
+> uAPI carries both with explicit validity flags, and get_tph() returns
+> the value matching the importer's requested namespace or -EOPNOTSUPP.
+> 
+> Publish and read the TPH descriptor under dmabuf->resv, matching the
+> locking used for other importer-visible dma-buf state. The SET ioctl
+> takes dma_resv_lock_interruptible(), while the callback runs under
+> DMA-buf's asserted resv lock.
+> 
+> Reject requests the device cannot consume as a completer:
+> pcie_tph_completer_type() must report at least
+> PCI_EXP_DEVCAP2_TPH_COMP_TPH_ONLY, and Extended ST requires
+> PCI_EXP_DEVCAP2_TPH_COMP_EXT_TPH. Validate fields before the completer
+> check so userspace gets the narrowest errno.
+> 
+> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+> ---
+>  drivers/vfio/pci/vfio_pci_core.c   |  3 +
+>  drivers/vfio/pci/vfio_pci_dmabuf.c | 94 +++++++++++++++++++++++++++++-
+>  drivers/vfio/pci/vfio_pci_priv.h   | 12 ++++
+>  include/uapi/linux/vfio.h          | 37 ++++++++++++
+>  4 files changed, 145 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+> index 050e7542952e..4fa36f2f7555 100644
+> --- a/drivers/vfio/pci/vfio_pci_core.c
+> +++ b/drivers/vfio/pci/vfio_pci_core.c
+> @@ -1569,6 +1569,9 @@ int vfio_pci_core_ioctl_feature(struct vfio_device *device, u32 flags,
+>  		return vfio_pci_core_feature_token(vdev, flags, arg, argsz);
+>  	case VFIO_DEVICE_FEATURE_DMA_BUF:
+>  		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
+> +	case VFIO_DEVICE_FEATURE_DMA_BUF_TPH:
+> +		return vfio_pci_core_feature_dma_buf_tph(vdev, flags, arg,
+> +							 argsz);
+>  	default:
+>  		return -ENOTTY;
+>  	}
+> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> index 1a177ce7de54..0a0705c8dbea 100644
+> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> @@ -3,6 +3,7 @@
+>   */
+>  #include <linux/dma-buf-mapping.h>
+>  #include <linux/pci-p2pdma.h>
+> +#include <linux/pci-tph.h>
+>  #include <linux/dma-resv.h>
+>  
+>  #include "vfio_pci_priv.h"
+> @@ -19,7 +20,12 @@ struct vfio_pci_dma_buf {
+>  	u32 nr_ranges;
+>  	struct kref kref;
+>  	struct completion comp;
+> -	u8 revoked : 1;
+> +	u8 tph_st_valid:1;
+> +	u8 tph_st_ext_valid:1;
+> +	u8 tph_ph:2;
+> +	u8 tph_st;
+> +	u16 tph_st_ext;
+> +	u8 revoked:1;
 
-I wonder if we should use
+If these bitfields are now all protected under dma_resv_lock they
+should be grouped together with a comment to that effect, no need for
+revoked to get kicked out to its own storage unit.  In [1] I'm
+proposing runtime modified flags each get their own storage unit, but
+for more isolated cases, so long as we keep track and enforce serialized
+updates, I'm ok with runtime bitfields.  Thanks,
 
-  compatible:
-    items:
-      - enum:
-          - renesas,r8a779g0-dsc
-      - const: renesas,rcar-dsc
+Alex
 
-to prepare for the other SoCs that include a DSC. It's of course hard to
-predict how compatible all new silicon will be, but we know there will
-be some compatible ones.
+[1]https://lore.kernel.org/all/20260611213539.4100590-1-alex.williamson@nvidia.com/
 
-This being said, looking for instance at renesas,du.yaml in the same
-directory, we have
+>  };
+>  
+>  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+> @@ -69,6 +75,26 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attachment,
+>  	return ret;
+>  }
+>  
+> +static int vfio_pci_dma_buf_get_tph(struct dma_buf *dmabuf, bool extended,
+> +				    u16 *steering_tag, u8 *ph)
+> +{
+> +	struct vfio_pci_dma_buf *priv = dmabuf->priv;
+> +
+> +	dma_resv_assert_held(dmabuf->resv);
+> +
+> +	if (extended) {
+> +		if (!priv->tph_st_ext_valid)
+> +			return -EOPNOTSUPP;
+> +		*steering_tag = priv->tph_st_ext;
+> +	} else {
+> +		if (!priv->tph_st_valid)
+> +			return -EOPNOTSUPP;
+> +		*steering_tag = priv->tph_st;
+> +	}
+> +	*ph = priv->tph_ph;
+> +	return 0;
+> +}
+> +
+>  static void vfio_pci_dma_buf_unmap(struct dma_buf_attachment *attachment,
+>  				   struct sg_table *sgt,
+>  				   enum dma_data_direction dir)
+> @@ -101,6 +127,7 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
+>  
+>  static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+>  	.attach = vfio_pci_dma_buf_attach,
+> +	.get_tph = vfio_pci_dma_buf_get_tph,
+>  	.map_dma_buf = vfio_pci_dma_buf_map,
+>  	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
+>  	.release = vfio_pci_dma_buf_release,
+> @@ -333,6 +360,71 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>  	return ret;
+>  }
+>  
+> +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
+> +				      u32 flags,
+> +				      struct vfio_device_feature_dma_buf_tph __user *arg,
+> +				      size_t argsz)
+> +{
+> +	struct vfio_device_feature_dma_buf_tph set_tph;
+> +	struct vfio_pci_dma_buf *priv;
+> +	struct dma_buf *dmabuf;
+> +	u8 comp;
+> +	int ret;
+> +
+> +	ret = vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET,
+> +				 sizeof(set_tph));
+> +	if (ret != 1)
+> +		return ret;
+> +
+> +	if (copy_from_user(&set_tph, arg, sizeof(set_tph)))
+> +		return -EFAULT;
+> +
+> +	if (set_tph.flags & ~(VFIO_DMA_BUF_TPH_ST | VFIO_DMA_BUF_TPH_ST_EXT))
+> +		return -EINVAL;
+> +
+> +	if (set_tph.ph & ~0x3)
+> +		return -EINVAL;
+> +
+> +	comp = pcie_tph_completer_type(vdev->pdev);
+> +	if (comp == PCI_EXP_DEVCAP2_TPH_COMP_NONE)
+> +		return -EOPNOTSUPP;
+> +	if ((set_tph.flags & VFIO_DMA_BUF_TPH_ST_EXT) &&
+> +	    comp != PCI_EXP_DEVCAP2_TPH_COMP_EXT_TPH)
+> +		return -EOPNOTSUPP;
+> +
+> +	dmabuf = dma_buf_get(set_tph.dmabuf_fd);
+> +	if (IS_ERR(dmabuf))
+> +		return PTR_ERR(dmabuf);
+> +
+> +	if (dmabuf->ops != &vfio_pci_dmabuf_ops) {
+> +		ret = -EINVAL;
+> +		goto out_put;
+> +	}
+> +
+> +	priv = dmabuf->priv;
+> +	if (priv->vdev != vdev) {
+> +		ret = -EINVAL;
+> +		goto out_put;
+> +	}
+> +
+> +	ret = dma_resv_lock_interruptible(dmabuf->resv, NULL);
+> +	if (ret)
+> +		goto out_put;
+> +
+> +	priv->tph_st         = set_tph.steering_tag;
+> +	priv->tph_st_ext     = set_tph.steering_tag_ext;
+> +	priv->tph_ph         = set_tph.ph;
+> +	priv->tph_st_valid   = !!(set_tph.flags & VFIO_DMA_BUF_TPH_ST);
+> +	priv->tph_st_ext_valid =
+> +		!!(set_tph.flags & VFIO_DMA_BUF_TPH_ST_EXT);
+> +	dma_resv_unlock(dmabuf->resv);
+> +	ret = 0;
+> +
+> +out_put:
+> +	dma_buf_put(dmabuf);
+> +	return ret;
+> +}
+> +
+>  void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
+>  {
+>  	struct vfio_pci_dma_buf *priv;
+> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+> index fca9d0dfac90..c58f369be4b3 100644
+> --- a/drivers/vfio/pci/vfio_pci_priv.h
+> +++ b/drivers/vfio/pci/vfio_pci_priv.h
+> @@ -118,6 +118,10 @@ static inline bool vfio_pci_is_vga(struct pci_dev *pdev)
+>  int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>  				  struct vfio_device_feature_dma_buf __user *arg,
+>  				  size_t argsz);
+> +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
+> +				      u32 flags,
+> +				      struct vfio_device_feature_dma_buf_tph __user *arg,
+> +				      size_t argsz);
+>  void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev);
+>  void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked);
+>  #else
+> @@ -128,6 +132,14 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>  {
+>  	return -ENOTTY;
+>  }
+> +
+> +static inline int
+> +vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev, u32 flags,
+> +				  struct vfio_device_feature_dma_buf_tph __user *arg,
+> +				  size_t argsz)
+> +{
+> +	return -ENOTTY;
+> +}
+>  static inline void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
+>  {
+>  }
+> diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
+> index 5de618a3a5ee..5dd693220a0d 100644
+> --- a/include/uapi/linux/vfio.h
+> +++ b/include/uapi/linux/vfio.h
+> @@ -1534,6 +1534,43 @@ struct vfio_device_feature_dma_buf {
+>   */
+>  #define VFIO_DEVICE_FEATURE_MIG_PRECOPY_INFOv2  12
+>  
+> +/**
+> + * Upon VFIO_DEVICE_FEATURE_SET associate TPH (TLP Processing Hints) metadata
+> + * with a vfio-exported dma-buf. The dma-buf must have been created by
+> + * VFIO_DEVICE_FEATURE_DMA_BUF on this device, and the device must report
+> + * TPH Completer support in Device Capabilities 2 (bits 13:12); requests
+> + * carrying VFIO_DMA_BUF_TPH_ST_EXT additionally require the device to
+> + * report the Extended TPH Completer encoding. Otherwise the ioctl
+> + * returns -EOPNOTSUPP.
+> + *
+> + * dmabuf_fd is the file descriptor returned by VFIO_DEVICE_FEATURE_DMA_BUF.
+> + *
+> + * 8-bit ST (steering_tag) and 16-bit Extended ST (steering_tag_ext) are
+> + * distinct namespaces. Userspace supplies whichever values are valid and sets
+> + * the matching VFIO_DMA_BUF_TPH_ST / VFIO_DMA_BUF_TPH_ST_EXT bits in @flags;
+> + * an importer requests one namespace and receives the matching value.
+> + *
+> + * @flags == 0 marks any previously published ST / Extended-ST as invalid
+> + * for future get_tph() requests on this dma-buf.
+> + *
+> + * ph is the 2-bit TLP Processing Hint and must be in the range [0, 3].
+> + *
+> + * Userspace must publish TPH before handing the dma-buf fd to an importer.
+> + * Calling SET again replaces the published values.
+> + */
+> +#define VFIO_DEVICE_FEATURE_DMA_BUF_TPH 13
+> +
+> +#define VFIO_DMA_BUF_TPH_ST		(1 << 0)
+> +#define VFIO_DMA_BUF_TPH_ST_EXT		(1 << 1)
+> +
+> +struct vfio_device_feature_dma_buf_tph {
+> +	__s32	dmabuf_fd;
+> +	__u32	flags;
+> +	__u16	steering_tag_ext;
+> +	__u8	steering_tag;
+> +	__u8	ph;
+> +};
+> +
+>  /* -------- API for Type1 VFIO IOMMU -------- */
+>  
+>  /**
 
-  compatible:
-    enum:
-      - renesas,du-r8a7742 # for RZ/G1H compatible DU
-      - renesas,du-r8a7743 # for RZ/G1M compatible DU
-      - renesas,du-r8a7744 # for RZ/G1N compatible DU
-      - renesas,du-r8a7745 # for RZ/G1E compatible DU
-      - renesas,du-r8a77470 # for RZ/G1C compatible DU
-      - renesas,du-r8a774a1 # for RZ/G2M compatible DU
-      - renesas,du-r8a774b1 # for RZ/G2N compatible DU
-      - renesas,du-r8a774c0 # for RZ/G2E compatible DU
-      - renesas,du-r8a774e1 # for RZ/G2H compatible DU
-      - renesas,du-r8a7779 # for R-Car H1 compatible DU
-      - renesas,du-r8a7790 # for R-Car H2 compatible DU
-      - renesas,du-r8a7791 # for R-Car M2-W compatible DU
-      - renesas,du-r8a7792 # for R-Car V2H compatible DU
-      - renesas,du-r8a7793 # for R-Car M2-N compatible DU
-      - renesas,du-r8a7794 # for R-Car E2 compatible DU
-      - renesas,du-r8a7795 # for R-Car H3 compatible DU
-      - renesas,du-r8a7796 # for R-Car M3-W compatible DU
-      - renesas,du-r8a77961 # for R-Car M3-W+ compatible DU
-      - renesas,du-r8a77965 # for R-Car M3-N compatible DU
-      - renesas,du-r8a77970 # for R-Car V3M compatible DU
-      - renesas,du-r8a77980 # for R-Car V3H compatible DU
-      - renesas,du-r8a77990 # for R-Car E3 compatible DU
-      - renesas,du-r8a77995 # for R-Car D3 compatible DU
-      - renesas,du-r8a779a0 # for R-Car V3U compatible DU
-      - renesas,du-r8a779g0 # for R-Car V4H compatible DU
-      - renesas,du-r8a779h0 # for R-Car V4M compatible DU
-
-Could the file have been named renesas,du-r8a7790.yaml ? Sure. Would it
-be better for users than renesas,du.yaml ? I'm less sure.
-
--- 
-Regards,
-
-Laurent Pinchart
