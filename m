@@ -4,42 +4,161 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D876CD4F2C
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 08:24:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 372F0CD4F2C
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 08:27:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA38710F31F;
-	Fri, 12 Jun 2026 08:24:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74E6410F323;
+	Fri, 12 Jun 2026 08:27:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AmQowg6e";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a4zBHTrj";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AC0610F31F
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 08:24:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 75AA26001D;
- Fri, 12 Jun 2026 08:24:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 100A21F000E9;
- Fri, 12 Jun 2026 08:24:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781252692;
- bh=s4n9V7EMGvwMOkWCX0IR/+KyNRi44ffOtWWATfLVMuE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=AmQowg6eh3M1trNOrTt90T1rddr+HNr4gQb+JpUzo08ScbdkUTPn0tR3p283gPoEJ
- 1tFM3yAlsUjJWgrShIHYOwRXO8C/CgJ8Mn/MzVoU7Mt7ewSGuqo+jgcjFD315F+bDD
- 59s5859b13uCnateM1A3R54KFrpgsHNNGVgJQ2jjqjlqKjZraGwReWSRhTo6Hl/XSs
- FTUMivA8aFaH1GHLA3hDyxZSmwgROhSDDvlQJzPY4ZCDCXr1Bj72FV61x1yzQW+m5o
- OLeLOtbrXIlIiazszLMsZ5DOjC5LeGlq2VsAQhfLLzIPqJSX4P9lpGL4Mz8oGXmnZm
- /PpMl/VUHwVzw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 1/6] Introduce Xe Uncorrectable Error Handling
-To: "Mallesh Koujalagi" <mallesh.koujalagi@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260612080722.26726-9-mallesh.koujalagi@intel.com>
-References: <20260612080722.26726-9-mallesh.koujalagi@intel.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00F8910F323
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 08:27:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781252856; x=1812788856;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=Scb76004SgJJMbwX89xSDCDis8uU4cknL3wBhWI/W5M=;
+ b=a4zBHTrj7dqln/vG5jNDlJI7/4M1sB+67tRjdrG2vZHHqzFqcTRBVdXg
+ fwAJICl3+gOz/9IwkXC9xdm8EK+uXpDxfSs3JZroogYLKkrqIuYVHTC8r
+ bPgW+5CqfqhxYSyOyE7vFvKpXHcdPBgxPTYFei1AbtDTeylWH6TkB4g7u
+ 97xa8Z1Ng5haoYAnTpxLxcNrWodxCO/eCpEfXudwPN0AR+0MKlwJPLKoX
+ t13rqBRvfkRZk1MdXdgmhLSWznvobLBPmXLdiXUumowSCEle2mMKsCgt1
+ oSFr9rzj0+E9RRERJsokJOelG6eHQt2I2MP/+Tb78fgyYzErShrBuusrC g==;
+X-CSE-ConnectionGUID: xknukT2FToG01aI2tGuG9A==
+X-CSE-MsgGUID: UDdpdL4NQ2ONR4TdXIcbCA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="82143462"
+X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; d="scan'208";a="82143462"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2026 01:27:35 -0700
+X-CSE-ConnectionGUID: TSnLhAI1SyO6OqZPOxuRbA==
+X-CSE-MsgGUID: 1zCa3usYQGOYnPHyz7iWJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; d="scan'208";a="250692369"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2026 01:27:35 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Fri, 12 Jun 2026 01:27:34 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Fri, 12 Jun 2026 01:27:34 -0700
+Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.34) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Fri, 12 Jun 2026 01:27:34 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PR5EwXp6DFixvyeSBAJFx413fLSvORFsU6VsGj35gy80P7UZwEG+qSnkj0UdWsr77WXrAutW6AV63HKLLDEYc22ez5oN5uNdYMlwEIlHEap/FycvTtzhdjzE808BRmtskT/KEUQTP8oip2U+oInNStuFstEEJSgIK1zVt0HomCJsScA2xoQuKXCFrKNOX/UI7zOtyGuLGf5tBOYwHiAuv4Lc+eyhuZHdn3HSQDhitU3ZJMSl1RITUzS7TGw6GrjX5uvNnlSjXXWdCx+hgWMBXnxK7M4c9UT9Zlj0nDXP0kPk9k1XeEo8e1MxkUHXeoCvBvKlVSWgtLAwOeoF8L+A4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ko0CuUljGWKcTaBRoa59PGwmcyv/SvANLh+u6jPTiKw=;
+ b=hsDdzNWuowsFbdd0DEUzePWkCGhjIQcGma/9f55nEsu/fJUdDS397/9x12NrKsbXP399r1dykT8meua2LcnEq6CZDk8E90+3wmlJ2ShVh84LSVkNb/gxR99eBzH6GSKLbd0u4EqC+ui8iVSBxMa8dH1erpeRfL8LeROmcw2TKPcRU26RBevGWP+e5CnUlcuEy/t8ePmtYa6JUvnBonbiNCqA3B9Wpgo+1aVPiqb2qTAznYhM3UnaV0Oo2simw0QENoYC3/g4iZ+al5jHcleQMbSKa/dXJOLzoCCu0Te2MI9tx7jqu5V7qBqQTZ6txAxXNQ5wAi/rt7Tedevp42wg9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM6PR11MB3690.namprd11.prod.outlook.com (2603:10b6:5:13d::32)
+ by DM4PR11MB8131.namprd11.prod.outlook.com (2603:10b6:8:190::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Fri, 12 Jun
+ 2026 08:27:31 +0000
+Received: from DM6PR11MB3690.namprd11.prod.outlook.com
+ ([fe80::7db8:f6b3:30f8:ee4b]) by DM6PR11MB3690.namprd11.prod.outlook.com
+ ([fe80::7db8:f6b3:30f8:ee4b%4]) with mapi id 15.21.0113.013; Fri, 12 Jun 2026
+ 08:27:30 +0000
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>, "Leon
+ Romanovsky" <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro
+ <amastro@fb.com>, =?iso-8859-1?Q?Christian_K=F6nig?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>, "Logan
+ Gunthorpe" <logang@deltatee.com>
+CC: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>, "Pranjal
+ Shrivastava" <praan@google.com>, Alistair Popple <apopple@nvidia.com>,
+ "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-pci@vger.kernel.org"
+ <linux-pci@vger.kernel.org>
+Subject: RE: [PATCH v3 0/9] vfio/pci: Add mmap() for DMABUFs
+Thread-Topic: [PATCH v3 0/9] vfio/pci: Add mmap() for DMABUFs
+Thread-Index: AQHc+PAJB2FDg3e4hU+WfDDhtpmx/7Y6l0AA
+Date: Fri, 12 Jun 2026 08:27:30 +0000
+Message-ID: <DM6PR11MB3690A65EA9D8A9B77AF93E198C182@DM6PR11MB3690.namprd11.prod.outlook.com>
+References: <20260610154327.37758-1-matt@ozlabs.org>
+In-Reply-To: <20260610154327.37758-1-matt@ozlabs.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR11MB3690:EE_|DM4PR11MB8131:EE_
+x-ms-office365-filtering-correlation-id: 5cff3f8f-030b-4525-2ec3-08dec85c7205
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|23010399003|1800799024|376014|7416014|18002099003|22082099003|38070700021|56012099006|11063799006;
+x-microsoft-antispam-message-info: NlGyh0URd4H6dIh3TENlsWwGCB0iC0NjN32prAl5HAJzf3MeIwxnLP3Q25XlDTbo/itC7EYwRO2Qn0/drqFQ7FtFdmXrRQtfc23uCO1MvJPmXKyMV9BZWBW9fLMOyw2D4X0WZbO2QesM7GB3p45T6aNdTVNSFbrU1j1crcJpJaPqFWg8xQpWZ2E6xa0x4LqU7wAKtJy4aKalJF9cK/svar45f2crdVOpu8+1hULcElVnJCDNbf6URYearByIVcy9LGemYwx7T4NSn2c3PeUt6T/CoJ7h3IWeMuM11Syo8SidOnTf6nfiRI5ks9gI4UlvITf4WWSIpqaCMUSyABYhjQih7I2YFhL/a4egauUQ3j8mzx5qQ2EztfP3PAJSUDcnvZnTr2kB5+nsN5pFfXknoGC1GTOJphDRxmqcOpG3hZ4F3dEnavgLxTdWS6BcVRRMuzqMiZLoXjbVurBxxeNv7IXa/M1fdsg11MBN7M+LqNLlq1Qpz19G5IS3x9eyz+QsdkX5lBO5p+DDfPmX0pFCI2HOoitOCxdIHzRR70pskdeJ+2Wv3RTKlNjgPDYbXErP45jvJp0kfX7NUGpEhEzY7Q/SGTr3EXjbp8bFu9bt2sRRQ+gkpMxXNxgx7y5cjkLX2u5NvY4RZI9j2CN2R7Wy/UMiVyU1eSf2/J+HriVLvDddMdoTjxnBViOT7EYmasfjGsUJl7xD9cPKowsy8PULWIU7Yax+7zuL3ZeABhK1MhNjMH6P+A2hu+YOwNVPRLAT
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR11MB3690.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(18002099003)(22082099003)(38070700021)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?wdBCHg/kZqLf6d+yeIRt6dy+WKRjGPDhTGLWjhZN4BuinO32/w01JhwWfz?=
+ =?iso-8859-1?Q?61O8a0UZMYQOmaiJoJjBzN3Xss9cX44aAXIyV6Qfb6huOPSlSEbjer7IQx?=
+ =?iso-8859-1?Q?U/IeHiwO1Azb8esFuYrVBoeagQLW4B9zAHmxaeWcu+w+5cU5PcFyK9h/Dv?=
+ =?iso-8859-1?Q?2FZFFNGvDuh8vSBf+936++lmobFyBcVUDIRKQXlkchN9rb8+LG1ZKdhE/G?=
+ =?iso-8859-1?Q?12TzELjWox4/DQhzmJJbLk4LiedZ/rFKl8mnS4R+SjaoS4QILnKGaABCO1?=
+ =?iso-8859-1?Q?zBu6xlwaMMfqB+x2dA9e0LIySm0wEqpRNPvqUStaFGDaJ8n5YWXaZ5So6D?=
+ =?iso-8859-1?Q?jsrKMu+1kkdknVWbsRgsX8wezL1+SWmM7YKCIavhgUnJXn6kGsuQR9KDgc?=
+ =?iso-8859-1?Q?Y61Ub2ZB4Ij5f6nx4p/jo1wK1ONcIbhae59kdmyvkxdtycVc2j8GfjXibH?=
+ =?iso-8859-1?Q?wj7hNVySjNnBenXCLC3XWZzWlFOBd1rxDoLDTKS7aas6amqcpaFH8hQGhV?=
+ =?iso-8859-1?Q?zv0D+OmKLYh4vVhT7IBAVfEIYG8djltsvAhQ4XNAAY4up1lOsnSdZPp2LO?=
+ =?iso-8859-1?Q?NJpl3JKJo0n3DZA0CpO604XawrTWClg032vt4ihIOJhl2LxHuRFYV2zaea?=
+ =?iso-8859-1?Q?1U3Y/lnobrMXFXRjxybqrY4KhoAy8kW/85Y6gsvKm3KjUQBhs0X2OAdRLY?=
+ =?iso-8859-1?Q?4nUh0xKRRv2NLHblxqI4heZRjbET/sEO86+P6kK/9k7bKMVJ8wz61rvq66?=
+ =?iso-8859-1?Q?Ev3En2GNI+w1/8ApOn0DOC09mbzSpTi41NEjZ+Tr+EeRnet4rK2/CnlW4k?=
+ =?iso-8859-1?Q?9EQSlABeZ3XMjsc3toTiYNEelodd901+RcvQ1I5vohhqS9iHcn0fWt1KYH?=
+ =?iso-8859-1?Q?qEWSC1737Cm9d5hvH+GcA7VVtJRJubS5WlNmkmwqO+II8rZm7i9tuCsO+D?=
+ =?iso-8859-1?Q?GNTu+GrlcqLpiYJBMFex+xD0A+ytBJBGyNn3zEaubiXGGxrdNbjZyAPaOO?=
+ =?iso-8859-1?Q?0ghr3x3DyywWlr/tC1DQ+cN/glbuu2pqwTFXLu5nrvKfY5sFf+ayCww05n?=
+ =?iso-8859-1?Q?DaapjVUaUM3ru3l2ceUug1L3PZjkGzDfnVe7PryrXt2LJWKJQfIeBYQzNV?=
+ =?iso-8859-1?Q?98ZHVmaLvcFSWgK+zUr9JRJTRtdin2DB7wSSIQD/O4PEKmEmE0ZCEmhLaF?=
+ =?iso-8859-1?Q?f/NjT/d44ZlfgAzwuPadf3BO/4D2/ztSvUkR9lPD4kWsslDaUmAUxgwqat?=
+ =?iso-8859-1?Q?4hryjJ19j2mPQWZXw/njyMjOgLn6nBVPjrZ/uSgvn4Zd0uJ7qLspZ3aMCk?=
+ =?iso-8859-1?Q?TjjKsE9Suvn4liuWtCo3RVdTk5FCyM2iqEtp8PJCBU97MXCqoe9rUqXBua?=
+ =?iso-8859-1?Q?pg35X60V2Eih8pbypUPzdBRUAaTCR37i2i6MF9QMmtff6NVxANhZ60XAV0?=
+ =?iso-8859-1?Q?qGjHw0Rza4tyScbJaFOz+vQoeo0BlVjAubFjEt5ttGCPGq2zyc1GsVsmvM?=
+ =?iso-8859-1?Q?Huagl2ODsXN5omhu2mjll/hktNbINBDzi3UAHJLwJfuCQVrb81EFsB4T/F?=
+ =?iso-8859-1?Q?USLaz7Vf+2X3gI3aiiEmNfz2xxeZraWmZTCVhifxJC530MUsoZJFHdT+gb?=
+ =?iso-8859-1?Q?pdkOUASVaQQbwvmaKbbPCsefoRv/DazLnW2f3GsJjji+T1elFm70dv1rdx?=
+ =?iso-8859-1?Q?AfPSxVYAmKhgAtodwBKzJ9V6rm+fJPW60xDgeT4clgrpmbEQ/JLdUS4Gfc?=
+ =?iso-8859-1?Q?wNMnsPFMs4YsX5i7LXJ6yDT22d8ikiyTrCrkEGFSvRHsvK?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 08:24:51 +0000
-Message-Id: <20260612082452.100A21F000E9@smtp.kernel.org>
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: lbX5x1Lp50hqgvYCnt3GFy0N+8gY0W857gBkICKa0gIZqdkw9MWucCHQ3JmD2Fe0XSNxYOUOBWoyUjNuhExvZ+nrxx/00bTx5MxnSQNvmDr13P9vbRCT3xgdui5b3mkCDc+OtjoOBnOak19zIkot0/WIaDtL6WGEU34+0vkeqfq68Uz1IB+3Wf+tuwo3PZXBW5+l8InXybBypEy6uQcoEsHjpcrUbLYGvPwGlICjHxCbACSsATlzifOozDdYsZULxYpUkGpHNpHLOJFCjhm2PSCGYkqBRFWzmJ7zpXTQf1RHTcFSRr/7Rptx1BHKH5J7H787tcxCrnI1Zqdkqbl3BA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB3690.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5cff3f8f-030b-4525-2ec3-08dec85c7205
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jun 2026 08:27:30.8241 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: oc5DbL8m/CcrmFFTCEO81uIIfKq67+lj7UuarbmNcvInxV2HP2Y0XTRTxF0dUu/VYmmJioMzD4Gd/hrk9kPkxQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB8131
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,267 +171,43 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [Critical] Manually calling `pdev->driver->probe()` and `remove()` in `xe=
-_pci_error_slot_reset()` bypasses the device core's lifecycle and synchroni=
-zation, leading to Use-After-Free, resource leaks, state corruption, and cr=
-ashes.
-- [High] Unbalanced `xe_device_wedged_put()` in PCI error resume path perma=
-nently wedges the device.
-- [High] The endpoint driver directly modifies the Upstream Switch Port (US=
-P) AER configuration registers, leading to layering violations, unprotected=
- RMW race conditions, and permanently leaked hardware state modifications.
-- [High] Lockless checks of the `in_reset` flag create a Time-Of-Check to T=
-ime-Of-Use race with the PCI error handler, potentially causing MMIO aborts.
-- [Medium] Integer overflow in page offline processing loops allows a compr=
-omised firmware to trap the kernel in an infinite loop.
-- [Medium] Use of C bitfields to define hardware data structures makes the =
-layout compiler- and architecture-dependent.
-- [Medium] Unconditional page offlining due to commented-out address fault =
-handling.
---
+> From: Matt Evans <matt@ozlabs.org>
+> Sent: Wednesday, June 10, 2026 11:43 PM
+>
+[...]
+>=20
+>  vfio/pci: Support mmap() of a VFIO DMABUF
+>=20
+>    Adds mmap() for a DMABUF fd exported from vfio-pci.
+>=20
+>    It was a goal to keep the VFIO device fd lifetime behaviour
+>    unchanged with respect to the DMABUFs.  An application can close
+>    all device fds, and this will revoke/clean up all DMABUFs; no
+>    mappings or other access can be performed now.  When enabling
+>    mmap() of the DMABUFs, this means access through the VMA is also
+>    revoked.  This complicates the fault handler because whilst the
+>    DMABUF exists, it has no guarantee that the corresponding VFIO
+>    device is still alive.  Adds synchronisation ensuring the vdev is
+>    available before vdev->memory_lock is touched; this holds the
+>    device registration so that even if the buffer has been cleaned up,
+>    vdev hasn't been freed and so the lock can be safely taken.
+>=20
+>    This commit makes VFIO_PCI_CORE depend on PCI_P2PDMA_CORE
+> (commit
+>    1) to bring in (only) the P2PDMA provider code.
 
-commit 428443bc3d7fc4298f440e96ee0492972d733535
-Author: Riana Tauro <riana.tauro@intel.com>
-Subject: Introduce Xe Uncorrectable Error Handling
+the last sentence is stale as the dependency is now added in patch4.
 
-This commit introduces uncorrectable error handling for the Xe driver. It
-includes PCI error handlers for recovery and reset operations. It also
-integrates RAS error processing via system controller mailboxes.
+>=20
+> End
+> =3D=3D=3D
+>=20
+> This is based on VFIO next (e.g. at b9285405c5f6).
+>=20
 
-Link: https://patchwork.freedesktop.org/series/160482/
+Sashiko failed to apply this series. Is there dependent work in vfio-next?
 
-> diff --git a/drivers/gpu/drm/xe/xe_guc_submit.c b/drivers/gpu/drm/xe/xe_g=
-uc_submit.c
-> --- a/drivers/gpu/drm/xe/xe_guc_submit.c
-> +++ b/drivers/gpu/drm/xe/xe_guc_submit.c
-[ ... ]
-> @@ -1511,7 +1511,7 @@ guc_exec_queue_timedout_job(struct drm_sched_job *d=
-rm_job)
->  	 * If devcoredump not captured and GuC capture for the job is not ready
->  	 * do manual capture first and decide later if we need to use it
->  	 */
-> -	if (!exec_queue_killed(q) && !xe->devcoredump.captured &&
-> +	if (!xe_device_is_in_reset(xe) && !exec_queue_killed(q) && !xe->devcore=
-dump.captured &&
->  	    !xe_guc_capture_get_matching_and_lock(q)) {
->  		/* take force wake before engine register manual capture */
->  		CLASS(xe_force_wake, fw_ref)(gt_to_fw(q->gt), XE_FORCEWAKE_ALL);
-
-[Severity: High]
-Could this lockless check of the in_reset flag create a race condition with
-the PCI error handler?
-
-If this worker thread evaluates xe_device_is_in_reset() as false just before
-prepare_device_for_reset() sets the flag and disables the PCI device, the
-worker might attempt MMIO access on a disabled device. Will this cause a
-master abort or system hang?
-
-> diff --git a/drivers/gpu/drm/xe/xe_pci.c b/drivers/gpu/drm/xe/xe_pci.c
-> --- a/drivers/gpu/drm/xe/xe_pci.c
-> +++ b/drivers/gpu/drm/xe/xe_pci.c
-[ ... ]
-> @@ -1102,6 +1104,10 @@ static int xe_pci_probe(struct pci_dev *pdev, cons=
-t struct pci_device_id *ent)
->  	if (xe_display_driver_probe_defer(pdev))
->  		return -EPROBE_DEFER;
-> =20
-> +	devres_id =3D devres_open_group(&pdev->dev, NULL, GFP_KERNEL);
-> +	if (!devres_id)
-> +		return -ENOMEM;
-> +
-
-[Severity: Critical]
-Is devres_open_group() intentionally left without a matching close call?
-
-All subsequent devres allocations will be tied to this group. As seen below
-in xe_pci_error_slot_reset(), this group is forcefully released, which could
-leak resources if a manual probe fails.
-
-> diff --git a/drivers/gpu/drm/xe/xe_pci_error.c b/drivers/gpu/drm/xe/xe_pc=
-i_error.c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/xe/xe_pci_error.c
-[ ... ]
-> +static pci_ers_result_t xe_pci_error_detected(struct pci_dev *pdev, pci_=
-channel_state_t state)
-> +{
-> +	struct xe_device *xe =3D pdev_to_xe_device(pdev);
-> +
-> +	xe_err(xe, "PCI error: detected state =3D %u\n", state);
-> +
-> +	if (state =3D=3D pci_channel_io_perm_failure)
-> +		return PCI_ERS_RESULT_DISCONNECT;
-> +
-> +	/* If the device is already wedged or in survivability mode, do not att=
-empt recovery */
-> +	if (xe_survivability_mode_is_boot_enabled(xe) || xe_device_wedged(xe))
-> +		return PCI_ERS_RESULT_DISCONNECT;
-> +
-> +	switch (state) {
-> +	case pci_channel_io_normal:
-> +		return PCI_ERS_RESULT_CAN_RECOVER;
-
-[Severity: High]
-Does this path need to call xe_device_wedged_get() like the frozen state do=
-es?
-
-Returning PCI_ERS_RESULT_CAN_RECOVER here bypasses prepare_device_for_reset=
-().
-When the recovery finishes and xe_pci_error_resume() calls
-xe_device_wedged_put(), it might underflow the reference count and permanen=
-tly
-wedge the device.
-
-[ ... ]
-> +static pci_ers_result_t xe_pci_error_slot_reset(struct pci_dev *pdev)
-> +{
-[ ... ]
-> +	/*
-> +	 * Secondary Bus Reset causes all VRAM state to be lost along with
-> +	 * hardware state. As an initial step, re-probe the device to
-> +	 * re-initialize the driver and hardware.
-> +	 * TODO: optimize by re-initializing only the hardware state and re-cre=
-ating
-> +	 * kernel BOs.
-> +	 */
-> +	xe_device_clear_in_reset(xe);
-> +	pdev->driver->remove(pdev);
-> +	devres_release_group(&pdev->dev, xe->devres_group_id);
-> +
-> +	if (pdev->driver->probe(pdev, ent))
-> +		return PCI_ERS_RESULT_DISCONNECT;
-
-[Severity: Critical]
-Are we bypassing the Linux device model here? Directly calling
-pdev->driver->remove() and probe() misses devres lifecycle management,
-device links, PM runtime, and sysfs synchronization.
-
-If the manual probe() fails, it seems like we leak all newly allocated
-devm_ resources since the driver core is not involved. Would a later
-normal driver unbind cause a use-after-free by calling remove on a
-partially initialized device?
-
-> diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-> --- a/drivers/gpu/drm/xe/xe_ras.c
-> +++ b/drivers/gpu/drm/xe/xe_ras.c
-[ ... ]
-> +static int handle_page_offline(struct xe_device *xe, u64 page_address, b=
-ool send_offline_cmd)
-> +{
-> +	enum xe_ras_page_action action;
-> +	int ret =3D 0;
-> +
-> +	if (!IS_ALIGNED(page_address, XE_PAGE_SIZE)) {
-> +		xe_err(xe, "sysctrl: Unaligned page address: 0x%llx\n", page_address);
-> +		return -EINVAL;
-> +	}
-> +
-> +	/*
-> +	 * TODO: Call function to handle address fault
-> +	 * ret =3D xe_ttm_vram_handle_addr_fault(xe, page_address);
-> +	 */
-> +
-> +	/*
-> +	 * Handle return code from address fault handling function:
-> +	 *  0: Address is valid and can be offlined
-> +	 * -EIO: Address belongs to a critical BO that cannot be offlined
-> +	 * -EOPNOTSUPP: Address is valid and can be offlined but user policy is=
- not to offline
-> +	 *
-> +	 * For any other non-zero error code, skip offlining.
-> +	 */
-> +
-> +	switch (ret) {
-> +	case 0:
-> +		action =3D XE_RAS_PAGE_ACTION_OFFLINE;
-> +		break;
-
-[Severity: Medium]
-Is it intended to leave the address fault handling function commented out?
-
-Because ret remains 0, the switch statement will unconditionally execute the
-success case and set the action to XE_RAS_PAGE_ACTION_OFFLINE. Could this
-instruct the firmware to offline memory pages even if they hold critical
-kernel structures, potentially crashing the system?
-
-[ ... ]
-> +static void get_queued_pages(struct xe_device *xe)
-> +{
-[ ... ]
-> +		for (i =3D 0; i < response.pages_returned && i < XE_RAS_NUM_PAGES; i++)
-> +			handle_page_offline(xe, response.page_addresses[i], true);
-> +
-> +		count +=3D response.pages_returned;
-> +		if (!response.pages_returned)
-> +			break;
-> +
-> +		if (count > response.total_pages) {
-
-[Severity: Medium]
-Can the addition to count overflow?
-
-Both count and response.pages_returned are 32-bit unsigned integers. If the
-system controller firmware returns a crafted value like 0xFFFFFFFF, count
-could wrap around to a small value, bypassing the safety check. Since the
-loop lacks an explicit maximum iteration limit, could this trap the kernel
-thread in an infinite loop?
-
-[ ... ]
-> +static void aer_unmask_and_downgrade_internal_error(struct xe_device *xe)
-> +{
-> +	struct pci_dev *pdev =3D to_pci_dev(xe->drm.dev);
-> +	u32 aer_uncorr_mask, aer_uncorr_sev, aer_uncorr_status;
-> +	struct pci_dev *usp;
-> +	u16 aer_cap;
-[ ... ]
-> +	/* Initialize Uncorrectable Error Severity Register */
-> +	pci_read_config_dword(usp, aer_cap + PCI_ERR_UNCOR_SEVER, &aer_uncorr_s=
-ev);
-> +	aer_uncorr_sev &=3D ~PCI_ERR_UNC_INTN;
-> +	pci_write_config_dword(usp, aer_cap + PCI_ERR_UNCOR_SEVER, aer_uncorr_s=
-ev);
-
-[Severity: High]
-Is it safe for the endpoint driver to directly perform read-modify-write
-operations on the Upstream Switch Port AER configuration registers?
-
-Since the upstream bridge is owned by the PCI core and pcieport service
-driver, wouldn't these unprotected operations race with concurrent updates
-from the AER core or userspace? Also, since these modifications aren't
-reverted during driver unload or after reset, will they permanently alter
-the behavior of the slot?
-
-> diff --git a/drivers/gpu/drm/xe/xe_ras_types.h b/drivers/gpu/drm/xe/xe_ra=
-s_types.h
-> --- a/drivers/gpu/drm/xe/xe_ras_types.h
-> +++ b/drivers/gpu/drm/xe/xe_ras_types.h
-[ ... ]
-> +/**
-> + * struct xe_ras_soc_error_source - Source of SoC error
-> + */
-> +struct xe_ras_soc_error_source {
-> +	/** @csc: CSC */
-> +	u32 csc:1;
-> +	/** @ieh: IEH (Integrated Error Handler) */
-> +	u32 ieh:1;
-> +	/** @reserved: Reserved for future use */
-> +	u32 reserved:30;
-> +} __packed;
-
-[Severity: Medium]
-Since this structure maps directly to System Controller Mailbox payloads, is
-it safe to use C bitfields here?
-
-The packing order of bitfields is compiler-defined and dependent on
-architecture endianness. Could this result in incorrect parsing of hardware
-error sources on big-endian architectures?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612080722.2672=
-6-8-mallesh.koujalagi@intel.com?part=3D1
+otherwise getting a Sashiko review is helpful here.
