@@ -4,62 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 866E2CD8CA8
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 12:04:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20CEDCD8CA8
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 12:06:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED5FC10F47A;
-	Fri, 12 Jun 2026 12:04:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EA0E10E9EA;
+	Fri, 12 Jun 2026 12:06:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SsHVtJYB";
+	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="mkgUzi+h";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFA7C10F47A
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 12:04:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9177D43B05;
- Fri, 12 Jun 2026 12:04:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 026D51F000E9;
- Fri, 12 Jun 2026 12:04:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781265849;
- bh=U/hoWKqrqO5Af0SxH9P+WFR6kvfBz1uNYfF72kTSWEE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=SsHVtJYBZzDd7cTYHW2syvS3kQq5UK2GvOVMVroXqTR8m3FH+s2tS6lMUC/+aDMsu
- V9WTR27EmCZBI3eil2XJbXiBbSsQYFjicu9yrw9bOHwjrlY5aucIBxXDH82kffSWyr
- RQeis86qsyVKUAgl7igLXmTM1AHr/WQ4522v+GGVwYAjZjGlFsY7Qz8juC2Y4VJGlQ
- OZHRKp7Y0pWGxAFzZHqKl2hEspTMlIJGLIscZtGWZeo2+GrPLpjoTi0fzwPwLHOo69
- drwXvj4Rwn2l6UQtKSTcwnrNDfNnNyvXTYqn70q1RyqhKvhNEojMIey9PXZkHaHU5B
- cRx9MkpbKgQ9w==
-Date: Fri, 12 Jun 2026 14:04:07 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH v7 25/30] drm/vc4: hdmi: Convert to common HDMI 2.0 SCDC
- scrambling helpers
-Message-ID: <20260612-primitive-chital-of-tempering-18bc7c@houat>
-References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
- <20260602-dw-hdmi-qp-scramb-v7-25-445eb54ee1ed@collabora.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="dptwuanfutj3vasr"
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazon11012013.outbound.protection.outlook.com [52.101.66.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E4CF10E9EA
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 12:06:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DgxSt19v7hABTBiLXlW6QZ4lxtKQF65mHFy1R8b3HFeGkzwNMdZMXf5xYjIbG0Rxvhj/FgoBhUm9rOVheB0sFOQTv3/K8KXDb49uNKCUUZMT426MYtPMX0CEbexSeoR246QqbuOmPqSyiWrPJ6hskC8EPAjUrcEHExW6jg9ytBNcPOv71CfqN0ODsXesRd2FFy2OiNT8oeBCYbvPhT+dE6bn2sxDGVSt1dJHam8X0BkS4p2VmV8iainXWADInsok/4tV64OioD1BxssAYeejytRGA/Uy80cbUyOxxYFjTsz74YXh6ldWq80y/MViFvZiyZ7oYVQ0/R4seMAMyReniA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FYSm7T0MpOCdG75PhBhiIgFNCNrvtpS8R0u/tqJ+e0E=;
+ b=vg0FCT/nry+c5JPjpqO8bHg9SnMLHpN5ES8VTFSOPA3Dwm2g8vTWTjH1IOFs4xhzGOy7xAdmyONGCW8yWYOcRZlaHUC4biD+tE6QZMagGLD9Tc7urCYyPspB9TdKs5oFoSssnIJM172Pe1mZitpi6QdFcsnWtIiBqDjLnuwKttxxYQ5OkjFiLTL/vR6fY5+YmmnpLENnnGyx5qD1L0ZzS+radLpjInbM8jgb8Kjmf38Ihitt0fq65qp/FsIX6wDc06sG6sW5LjkMJGXAOQ04L/rHJgOpvyJ8hpUMa9lLrM1G1V/+WHCo5hUzuuZZdpXak8343fqLEUF9o72cHb9Avg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FYSm7T0MpOCdG75PhBhiIgFNCNrvtpS8R0u/tqJ+e0E=;
+ b=mkgUzi+h7hEbM1OuECw8rB5wV0ajiyBK9CDwWbXcRD2CPQdHZLqKKNieXoczMqut94wXoglTym0+0WKRRArgBbdSf9Zk/8g6u01sVGWXfZu1TiCg8zFoOhAXKyJbEffqRAcIheTvXztxe8YSXfYGnuFIMMjC5fxB6lEXIfHjy7ScIPCoiZOl/ub82A4Niaq0nAreUP6Ix6/oy+TqQEYQTQHG6If0eiggK3YXXi9nAHrHlVZlLCARSfyEiJVLE4O2h3j0dEjW3wgp0pjEUflfi63sQlFJ8lfhCS9WSKizE63Z3FNRqHK69NV9sqg5aj3NjDpEOPjvKH+d0Dq3T7p+Cg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19) by GV2PR04MB12583.eurprd04.prod.outlook.com
+ (2603:10a6:150:36e::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
+ 2026 12:06:09 +0000
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa%5]) with mapi id 15.21.0092.010; Fri, 12 Jun 2026
+ 12:06:09 +0000
+Date: Fri, 12 Jun 2026 15:06:04 +0300
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Liu Ying <victor.liu@nxp.com>
+Cc: imx@lists.linux.dev, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 8/9] arm64: dts: imx943-evk: Add display support using
+ IT6263
+Message-ID: <j5vepskpvtth6s23zv6p56wjxjwjqgmvi54ot2lntkifyagda3@35jsrhyvoktp>
+References: <20260304-dcif-upstreaming-v8-0-bec5c047edd4@oss.nxp.com>
+ <20260304-dcif-upstreaming-v8-8-bec5c047edd4@oss.nxp.com>
+ <1a3d466c-c1b5-49f1-a9ab-1c827e906e91@nxp.com>
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260602-dw-hdmi-qp-scramb-v7-25-445eb54ee1ed@collabora.com>
+In-Reply-To: <1a3d466c-c1b5-49f1-a9ab-1c827e906e91@nxp.com>
+X-ClientProxiedBy: AS4P192CA0016.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5e1::11) To GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|GV2PR04MB12583:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79806e62-ba6a-434d-b64f-08dec87afd26
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|19092799006|1800799024|366016|23010399003|7416014|376014|18002099003|22082099003|4143699003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: oH+2xIZMPCWSWRq+5YJ6IrnOZROPJeq6QtYyMWfKtrNgQ4tmumRWg/8AzLXffPP0Br+/fgMATArcXPXyrSPf5FdLKz+CHjp/m0U1awgJ+cxogankZOAlYW+LPqNCgpyFaXJzJNawPY81cEMIxyw2ZIT0OCCSjPCy13HNNa8ioSCwxuNT/fM1CB9fcvPiOXPEnHkEhuz7rwH2EEjUp5TNIi4rgjLgBzKSAwTbVBueCC4r1j3ei6Ju5j1Oka1s8WtA50nrdTLpTOWuWe6hWDTzRT4bpc8T1GnbIReXMWDZ/vovpc5bSflXOYARnJ/bBI22wQCuANKrsHDFNyNygmMz7Zwaw+jZbbKsNciawde4rjcQB+Mvm1dAgbs42riM+nXjJWnx6kCoVf2TWtwkuE+fIhe3pBf6QXbgywk9R9R+HU07cf04a1s6IH0oxLXP5p8j0qqllPuMTzXBP3Drwb5dlPDGTusYHjwuRH4uxf9uqZYT7Jam08jkCSNXcPs5CklTfcrdJFd9l8s3oWxLONMlbjHr4Q9J732XMve//pSBfya7MVMbviF+A7WR0dekd5KkvjHQ6SqnFn4kd6ttXO6+h4/r/iQaUJgn1+kGjtoqUMJu/OB10JokdSHGiKV3yRMDjd4CQuS2236VEVHPfMqTaqLsIAt+43Y9ppAMxydV510dqzwN/JxNIRKBk4yV+jcu
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(19092799006)(1800799024)(366016)(23010399003)(7416014)(376014)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?5vWrvRMbKzfToJAAw2xHLpcBclBfG8t4g1yI2ifjK0AeuJ4vg6dh/FmvqCUO?=
+ =?us-ascii?Q?YpF8d8xRJAoi9Ujvpmp53dVYAhcibvOO/7GqhqMsfVopA8UWP16P61iBD3G5?=
+ =?us-ascii?Q?9x5YHQHzk3UKyphvi8EXY3XwaLZfBTzIQ0R0aUxTqh7M4kK1sHYxZX2x+6Va?=
+ =?us-ascii?Q?WersVY6KNqBuFdNRQw8061DVLVZXMym5FZi+x/SGm2/Hda3ApA55lkDSceTz?=
+ =?us-ascii?Q?glLihju7wHkjACBdw9fyAxqY+aiazwCB152Ht9sQWPuYPrVcHsNCPJ+1eQvu?=
+ =?us-ascii?Q?qOCK7n5B++rgMxfx8XAROjTUrb79nlEcxtv7l97Cry+23to/Cun0o4JZTh1A?=
+ =?us-ascii?Q?gItKe+Mdj7Z9Ie+L+47rQ8H2aByAITtdSkXHM36SLOSEn0JiKr/PHYgVGg8R?=
+ =?us-ascii?Q?RePXN7anv3BtnCNKOtyk+/JjhrHXIB15KGk3NqpFw4QeB99yuecAQW9Xt7wZ?=
+ =?us-ascii?Q?E+JwVGEi7kWB4CLkeblXdU5o1QmRYXqgkFYx7A5cyAnQxgX1cBC7ud+FeDdB?=
+ =?us-ascii?Q?ly9dNV546rj1l194GKab1TjDo0pQxIDAGmHxd5qeobeoS6vMBHOzZ4qvmyKb?=
+ =?us-ascii?Q?BYbgW4fyXJyrjIZFKs7Udj+kd7fGXIkSnjvk/F5YCjQPBWAqtjTVaotOs8Wv?=
+ =?us-ascii?Q?4qPT7XZG/ExcVzmhwvkJpBe3c5MnpTidKNYftw+h5OhMCMK1KHvbqOCbAdRb?=
+ =?us-ascii?Q?/fWDTEWezlLFLOcDkZmQxe0TC1LKo9JfeUZi9xRmPI9zyk1pnxhvl2XfSy88?=
+ =?us-ascii?Q?pAi8H2cHnqiNKidW6lp329MQ5H0iowx3YHdj/XoQkr4NUNIlcV9kukvUQL70?=
+ =?us-ascii?Q?LVdmQV/2oBFbBLEWqsuhdxLwEmbjj88KeRNkdB6b8Jk6AN1lCHh27npv4KNV?=
+ =?us-ascii?Q?RzN2QVS35ZoCfZjEWYrZMr0aAVhOkYLhJVTXiZno/HovQWkxTOb/2Lik9TW6?=
+ =?us-ascii?Q?y55P98cv13GMUomZBIghDQ5rV0ZbOfnI01e4bYrD2z7o2aGv8Dc3cnRprU1v?=
+ =?us-ascii?Q?3zAx1y9nkalaPq2MLsaU/GFxTTDeg5JpCthhRC3iScM0PS1UNNz0FRsVldXi?=
+ =?us-ascii?Q?HG6AW1zfPw3swn6QkGu9lf+dlu5yGVkvteRjF/0KKl2qrfUc5/J/KTXVtwqD?=
+ =?us-ascii?Q?434Rc9h4r/h9FTI5FKuW7bsqGDkddK3tdETHrjHRgPyg+C1sYRYqvblBXobu?=
+ =?us-ascii?Q?62T0uS6CrY7gEMzwRIV+1/UvOQMTChK17HtDa13el0e98+a4GEegdkaNQvdp?=
+ =?us-ascii?Q?yEDskZ79Eddqty6W7gtB65iE/zL/xOLYaBZddy1Pgqz1vV64c3VH951lgjbV?=
+ =?us-ascii?Q?eH5HQl0/IVfG6FqkEl02AwZd/eR/1wLETWvXf5dMUP1rDjO7z3hB9XuqrVmy?=
+ =?us-ascii?Q?8Uo10eiKUXsW7erdK/tqMRmTQTcLJxlFo+7Kw2P6otL2Eb6WgfIQSfZjxoYs?=
+ =?us-ascii?Q?nPWgwwzMNftP2v5holRAE7TMye9zW751abJJOlLOjtXqBi+1wXgZiwAKfl0y?=
+ =?us-ascii?Q?KXSeqOrF0orIfJ/SYR+n8JhoL4MiRWpFr8dtFxM/wtJbdJ4ELZT6dO8Sj92O?=
+ =?us-ascii?Q?Low8W75ysQCXpV9qkSCfGYKvr/Dfgds2tqOqX695HY4wGvpLJfyPKZYMunkH?=
+ =?us-ascii?Q?z7OMUtRRgbKdTZSSWiBHOnb0MNq4oPr2n+P537BlNUyZkHffFyCJvQHrKdUd?=
+ =?us-ascii?Q?xKAor/gTmfUNd87hsJZh4cMXUZMFPY5DlROiwsUitrMOnCbcxAgEo2cJlqPn?=
+ =?us-ascii?Q?hfUUoM2/hUubcOqcM4jPrBXHN5U0I9E=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79806e62-ba6a-434d-b64f-08dec87afd26
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 12:06:09.3193 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nFPP9P8QWnJVma5DHNwllYUYP7NGp/+la5OacBR4FyLHOSAe0jG3+KcZg+CzpQncYeIJXNhT/lO4G1HHjuWQFw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB12583
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,473 +135,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Ying,
 
---dptwuanfutj3vasr
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v7 25/30] drm/vc4: hdmi: Convert to common HDMI 2.0 SCDC
- scrambling helpers
-MIME-Version: 1.0
+On Fri, Mar 06, 2026 at 04:45:25PM +0800, Liu Ying wrote:
+> On Wed, Mar 04, 2026 at 11:34:17AM +0000, Laurentiu Palcu wrote:
+> > The ITE IT6263 based NXP LVDS to HDMI converter can be attached to the
+> > i.MX943 EVK board LVDS port using the mini-SAS connector. Since this is
+> 
+> Since the LVDS to HDMI converter can be attached or detached to the EVK
+> board, it would be appropriate to use a DT overlay instead?
 
-Hi,
+AFAIK, imx943 EVK ships with the IT6263 LVDS to HDMI adapter. So, I
+believe it's preferable to have support for the adapter in the default
+DTB instead of a DT overlay. 
 
-On Tue, Jun 02, 2026 at 01:44:25AM +0300, Cristian Ciocaltea wrote:
-> Replace the vc4-local scrambling implementation with the newly
-> introduced DRM common SCDC scrambling infrastructure:
->=20
-> - Advertise source-side scrambling support by setting
->   connector->hdmi.scrambling_supported based on the variant's
->   max_pixel_clock before drmm_connector_hdmi_init().
->=20
-> - Provide minimal .scrambler_{enable|disable} connector callbacks that
->   only toggle the VC5 HDMI_SCRAMBLER_CTL register.  Sink-side SCDC
->   programming and periodic status monitoring are now delegated to
->   drm_scdc_{start|stop}_scrambling().
->=20
-> - Replace vc4_hdmi_enable_scrambling() with a conditional call to
->   drm_scdc_start_scrambling() in post_crtc_enable, gated on
->   conn_state->hdmi.scrambler_needed (computed by the HDMI state helper).
->=20
-> - Replace vc4_hdmi_disable_scrambling() with drm_scdc_stop_scrambling()
->   in post_crtc_disable.
->=20
-> - Drop vc4_hdmi_reset_link() and vc4_hdmi_handle_hotplug(), switching
->   the .detect_ctx() path to
->   drm_atomic_helper_connector_hdmi_hotplug_ctx() which internally calls
->   drm_scdc_sync_status() to trigger a CRTC reset on reconnection.
->=20
-> - Drop the local scrambling_work delayed workqueue and scdc_enabled
->   flag, now tracked by the common drm_connector_hdmi layer.
->=20
-> - Drop vc4_hdmi_supports_scrambling() and
->   vc4_hdmi_mode_needs_scrambling() helpers, inlining the remaining 4KP60
->   warning with an explicit drm_hdmi_compute_mode_clock() check.
->=20
-> - Seed connector->hdmi.scrambler_enabled =3D true in connector_init() to
->   ensure drm_scdc_stop_scrambling() runs at boot and disables any stale
->   scrambling state left by the bootloader.
->=20
-> No functional change is expected for the supported modes.
->=20
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-
-I'd really like it to be broken down into several patches:
-
-> ---
->  drivers/gpu/drm/vc4/vc4_hdmi.c | 265 ++++++-----------------------------=
-------
->  drivers/gpu/drm/vc4/vc4_hdmi.h |   8 --
->  2 files changed, 35 insertions(+), 238 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdm=
-i.c
-> index 046ac4f43ba8..02f6ca6ab52b 100644
-> --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-> +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-> @@ -114,31 +114,6 @@
->  #define HSM_MIN_CLOCK_FREQ	120000000
->  #define CEC_CLOCK_FREQ 40000
-> =20
-> -static bool vc4_hdmi_supports_scrambling(struct vc4_hdmi *vc4_hdmi)
-> -{
-> -	struct drm_display_info *display =3D &vc4_hdmi->connector.display_info;
-> -
-> -	lockdep_assert_held(&vc4_hdmi->mutex);
-> -
-> -	if (!display->is_hdmi)
-> -		return false;
-> -
-> -	if (!display->hdmi.scdc.supported ||
-> -	    !display->hdmi.scdc.scrambling.supported)
-> -		return false;
-> -
-> -	return true;
-> -}
-> -
-> -static bool vc4_hdmi_mode_needs_scrambling(const struct drm_display_mode=
- *mode,
-> -					   unsigned int bpc,
-> -					   enum drm_output_color_format fmt)
-> -{
-> -	unsigned long long clock =3D drm_hdmi_compute_mode_clock(mode, bpc, fmt=
-);
-> -
-> -	return clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
-> -}
-> -
->  static int vc4_hdmi_debugfs_regs(struct seq_file *m, void *unused)
->  {
->  	struct drm_debugfs_entry *entry =3D m->private;
-> @@ -272,124 +247,6 @@ static void vc4_hdmi_cec_update_clk_div(struct vc4_=
-hdmi *vc4_hdmi)
->  static void vc4_hdmi_cec_update_clk_div(struct vc4_hdmi *vc4_hdmi) {}
->  #endif
-> =20
-> -static int vc4_hdmi_reset_link(struct drm_connector *connector,
-> -			       struct drm_modeset_acquire_ctx *ctx)
-> -{
-> -	struct drm_device *drm;
-> -	struct vc4_hdmi *vc4_hdmi;
-> -	struct drm_connector_state *conn_state;
-> -	struct drm_crtc_state *crtc_state;
-> -	struct drm_crtc *crtc;
-> -	bool scrambling_needed;
-> -	u8 config;
-> -	int ret;
-> -
-> -	if (!connector)
-> -		return 0;
-> -
-> -	drm =3D connector->dev;
-> -	ret =3D drm_modeset_lock(&drm->mode_config.connection_mutex, ctx);
-> -	if (ret)
-> -		return ret;
-> -
-> -	conn_state =3D connector->state;
-> -	crtc =3D conn_state->crtc;
-> -	if (!crtc)
-> -		return 0;
-> -
-> -	ret =3D drm_modeset_lock(&crtc->mutex, ctx);
-> -	if (ret)
-> -		return ret;
-> -
-> -	crtc_state =3D crtc->state;
-> -	if (!crtc_state->active)
-> -		return 0;
-> -
-> -	vc4_hdmi =3D connector_to_vc4_hdmi(connector);
-> -	mutex_lock(&vc4_hdmi->mutex);
-> -
-> -	if (!vc4_hdmi_supports_scrambling(vc4_hdmi)) {
-> -		mutex_unlock(&vc4_hdmi->mutex);
-> -		return 0;
-> -	}
-> -
-> -	scrambling_needed =3D vc4_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_a=
-djusted_mode,
-> -							   vc4_hdmi->output_bpc,
-> -							   vc4_hdmi->output_format);
-> -	if (!scrambling_needed) {
-> -		mutex_unlock(&vc4_hdmi->mutex);
-> -		return 0;
-> -	}
-> -
-> -	if (conn_state->commit &&
-> -	    !try_wait_for_completion(&conn_state->commit->hw_done)) {
-> -		mutex_unlock(&vc4_hdmi->mutex);
-> -		return 0;
-> -	}
-> -
-> -	ret =3D drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
-> -	if (ret < 0) {
-> -		drm_err(drm, "Failed to read TMDS config: %d\n", ret);
-> -		mutex_unlock(&vc4_hdmi->mutex);
-> -		return 0;
-> -	}
-> -
-> -	if (!!(config & SCDC_SCRAMBLING_ENABLE) =3D=3D scrambling_needed) {
-> -		mutex_unlock(&vc4_hdmi->mutex);
-> -		return 0;
-> -	}
-> -
-> -	mutex_unlock(&vc4_hdmi->mutex);
-> -
-> -	/*
-> -	 * HDMI 2.0 says that one should not send scrambled data
-> -	 * prior to configuring the sink scrambling, and that
-> -	 * TMDS clock/data transmission should be suspended when
-> -	 * changing the TMDS clock rate in the sink. So let's
-> -	 * just do a full modeset here, even though some sinks
-> -	 * would be perfectly happy if were to just reconfigure
-> -	 * the SCDC settings on the fly.
-> -	 */
-> -	return drm_atomic_helper_reset_crtc(crtc, ctx);
-> -}
-
-This one doesn't look functionally equivalent to me to
-drm_scdc_reset_crtc: this part was, in part, making sure we would only
-reset the scrambler if it was enabled in the first place.
-drm_scdc_reset_crtc() doesn't and will always trigger a modeset on
-hotplug. That's unnecessary and a significant functional different.
-
-I'd argue that it's drm_scdc_reset_crtc() that needs to align to what
-vc4 was doing, not the opposite.
-
-> -static void vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
-> -				    struct drm_modeset_acquire_ctx *ctx,
-> -				    enum drm_connector_status status)
-> -{
-> -	struct drm_connector *connector =3D &vc4_hdmi->connector;
-> -	int ret;
-> -
-> -	/*
-> -	 * NOTE: This function should really be called with vc4_hdmi->mutex
-> -	 * held, but doing so results in reentrancy issues since
-> -	 * cec_s_phys_addr() might call .adap_enable, which leads to that
-> -	 * funtion being called with our mutex held.
-> -	 *
-> -	 * A similar situation occurs with vc4_hdmi_reset_link() that
-> -	 * will call into our KMS hooks if the scrambling was enabled.
-> -	 *
-> -	 * Concurrency isn't an issue at the moment since we don't share
-> -	 * any state with any of the other frameworks so we can ignore
-> -	 * the lock for now.
-> -	 */
-> -
-> -	drm_atomic_helper_connector_hdmi_hotplug(connector, status);
-> -
-> -	if (status !=3D connector_status_connected)
-> -		return;
-> -
-> -	for (;;) {
-> -		ret =3D vc4_hdmi_reset_link(connector, ctx);
-> -		if (ret =3D=3D -EDEADLK) {
-> -			drm_modeset_backoff(ctx);
-> -			continue;
-> -		}
-> -
-> -		break;
-> -	}
-> -}
-> -
->  static int vc4_hdmi_connector_detect_ctx(struct drm_connector *connector,
->  					 struct drm_modeset_acquire_ctx *ctx,
->  					 bool force)
-> @@ -401,8 +258,8 @@ static int vc4_hdmi_connector_detect_ctx(struct drm_c=
-onnector *connector,
->  	/*
->  	 * NOTE: This function should really take vc4_hdmi->mutex, but
->  	 * doing so results in reentrancy issues since
-> -	 * vc4_hdmi_handle_hotplug() can call into other functions that
-> -	 * would take the mutex while it's held here.
-> +	 * drm_atomic_helper_connector_hdmi_hotplug_ctx() can call into other
-> +	 * functions that would take the mutex while it's held here.
->  	 *
->  	 * Concurrency isn't an issue at the moment since we don't share
->  	 * any state with any of the other frameworks so we can ignore
-> @@ -425,10 +282,11 @@ static int vc4_hdmi_connector_detect_ctx(struct drm=
-_connector *connector,
->  			status =3D connector_status_connected;
->  	}
-> =20
-> -	vc4_hdmi_handle_hotplug(vc4_hdmi, ctx, status);
-> +	ret =3D drm_atomic_helper_connector_hdmi_hotplug_ctx(connector, status,=
- ctx);
-> +
->  	pm_runtime_put(&vc4_hdmi->pdev->dev);
-> =20
-> -	return status;
-> +	return ret =3D=3D -EDEADLK ? ret : status;
->  }
-> =20
->  static int vc4_hdmi_connector_get_modes(struct drm_connector *connector)
-> @@ -441,9 +299,12 @@ static int vc4_hdmi_connector_get_modes(struct drm_c=
-onnector *connector)
->  	if (!vc4->hvs->vc5_hdmi_enable_hdmi_20) {
->  		struct drm_device *drm =3D connector->dev;
->  		const struct drm_display_mode *mode;
-> +		unsigned long long clock;
-> =20
->  		list_for_each_entry(mode, &connector->probed_modes, head) {
-> -			if (vc4_hdmi_mode_needs_scrambling(mode, 8, DRM_OUTPUT_COLOR_FORMAT_R=
-GB444)) {
-> +			clock =3D drm_hdmi_compute_mode_clock(mode, 8,
-> +							    DRM_OUTPUT_COLOR_FORMAT_RGB444);
-> +			if (clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ) {
-
-This should be a patch of its own, but I think we should turn
-vc4_hdmi_mode_needs_scrambling() into a helper, instead of checking the
-clock rate in every driver that might need it. From a logical standpoint
-it's equivalent, but not from a semantic one.
-
->  				drm_warn_once(drm, "The core clock cannot reach frequencies high eno=
-ugh to support 4k @ 60Hz.");
->  				drm_warn_once(drm, "Please change your config.txt file to add hdmi_e=
-nable_4kp60.");
->  			}
-> @@ -540,6 +401,9 @@ static int vc4_hdmi_connector_init(struct drm_device =
-*dev,
->  	if (vc4_hdmi->variant->supports_hdr)
->  		max_bpc =3D 12;
-> =20
-> +	connector->hdmi.scrambler_supported =3D
-> +		vc4_hdmi->variant->max_pixel_clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
-> +
->  	ret =3D drmm_connector_hdmi_init(dev, connector,
->  				       "Broadcom", "Videocore",
->  				       &vc4_hdmi_connector_funcs,
-> @@ -561,6 +425,14 @@ static int vc4_hdmi_connector_init(struct drm_device=
- *dev,
-> =20
->  	drm_connector_helper_add(connector, &vc4_hdmi_connector_helper_funcs);
-> =20
-> +	/*
-> +	 * Since we don't know the state of the controller and its
-> +	 * display (if any), let's assume it's always enabled.
-> +	 * drm_scdc_stop_scrambling() will thus run at boot, make
-> +	 * sure it's disabled, and avoid any inconsistency.
-> +	 */
-> +	connector->hdmi.scrambler_enabled =3D connector->hdmi.scrambler_support=
-ed;
-> +
->  	/*
->  	 * Some of the properties below require access to state, like bpc.
->  	 * Allocate some default initial connector state with our reset helper.
-> @@ -786,93 +658,30 @@ static int vc4_hdmi_write_spd_infoframe(struct drm_=
-connector *connector,
->  					buffer, len);
->  }
-> =20
-> -#define SCRAMBLING_POLLING_DELAY_MS	1000
-> -
-> -static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
-> +static int vc4_hdmi_scrambler_enable(struct drm_connector *connector)
->  {
-> -	struct vc4_hdmi *vc4_hdmi =3D encoder_to_vc4_hdmi(encoder);
-> -	struct drm_connector *connector =3D &vc4_hdmi->connector;
-> -	struct drm_device *drm =3D connector->dev;
-> -	const struct drm_display_mode *mode =3D &vc4_hdmi->saved_adjusted_mode;
-> +	struct vc4_hdmi *vc4_hdmi =3D connector_to_vc4_hdmi(connector);
->  	unsigned long flags;
-> -	int idx;
-> -
-> -	lockdep_assert_held(&vc4_hdmi->mutex);
-> -
-> -	if (!vc4_hdmi_supports_scrambling(vc4_hdmi))
-> -		return;
-> -
-> -	if (!vc4_hdmi_mode_needs_scrambling(mode,
-> -					    vc4_hdmi->output_bpc,
-> -					    vc4_hdmi->output_format))
-> -		return;
-> -
-> -	if (!drm_dev_enter(drm, &idx))
-> -		return;
-
-drm_dev_enter should be kept here
-
-> -	drm_scdc_set_high_tmds_clock_ratio(connector, true);
-> -	drm_scdc_set_scrambling(connector, true);
-> =20
->  	spin_lock_irqsave(&vc4_hdmi->hw_lock, flags);
->  	HDMI_WRITE(HDMI_SCRAMBLER_CTL, HDMI_READ(HDMI_SCRAMBLER_CTL) |
->  		   VC5_HDMI_SCRAMBLER_CTL_ENABLE);
->  	spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
-> =20
-> -	drm_dev_exit(idx);
-
-And exit here.
-
-> -static void vc4_hdmi_disable_scrambling(struct drm_encoder *encoder)
-> +static int vc4_hdmi_scrambler_disable(struct drm_connector *connector)
->  {
-> -	struct vc4_hdmi *vc4_hdmi =3D encoder_to_vc4_hdmi(encoder);
-> -	struct drm_connector *connector =3D &vc4_hdmi->connector;
-> -	struct drm_device *drm =3D connector->dev;
-> +	struct vc4_hdmi *vc4_hdmi =3D connector_to_vc4_hdmi(connector);
->  	unsigned long flags;
-> -	int idx;
-> -
-> -	lockdep_assert_held(&vc4_hdmi->mutex);
-> -
-> -	if (!vc4_hdmi->scdc_enabled)
-> -		return;
-> -
-> -	vc4_hdmi->scdc_enabled =3D false;
-> -
-> -	if (delayed_work_pending(&vc4_hdmi->scrambling_work))
-> -		cancel_delayed_work_sync(&vc4_hdmi->scrambling_work);
-> -
-> -	if (!drm_dev_enter(drm, &idx))
-> -		return;
-
-Ditto
-
->  	spin_lock_irqsave(&vc4_hdmi->hw_lock, flags);
->  	HDMI_WRITE(HDMI_SCRAMBLER_CTL, HDMI_READ(HDMI_SCRAMBLER_CTL) &
->  		   ~VC5_HDMI_SCRAMBLER_CTL_ENABLE);
->  	spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
-> =20
-> -	drm_scdc_set_scrambling(connector, false);
-> -	drm_scdc_set_high_tmds_clock_ratio(connector, false);
-> -
-> -	drm_dev_exit(idx);
-> -}
-> -
-> -static void vc4_hdmi_scrambling_wq(struct work_struct *work)
-> -{
-> -	struct vc4_hdmi *vc4_hdmi =3D container_of(to_delayed_work(work),
-> -						 struct vc4_hdmi,
-> -						 scrambling_work);
-> -	struct drm_connector *connector =3D &vc4_hdmi->connector;
-> -
-> -	if (drm_scdc_get_scrambling_status(connector))
-> -		return;
-> -
-> -	drm_scdc_set_high_tmds_clock_ratio(connector, true);
-> -	drm_scdc_set_scrambling(connector, true);
-> -
-> -	queue_delayed_work(system_percpu_wq, &vc4_hdmi->scrambling_work,
-> -			   msecs_to_jiffies(SCRAMBLING_POLLING_DELAY_MS));
-> +	return 0;
->  }
-> =20
->  static void vc4_hdmi_encoder_post_crtc_disable(struct drm_encoder *encod=
-er,
-> @@ -917,7 +726,7 @@ static void vc4_hdmi_encoder_post_crtc_disable(struct=
- drm_encoder *encoder,
->  		spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
->  	}
-> =20
-> -	vc4_hdmi_disable_scrambling(encoder);
-> +	drm_scdc_stop_scrambling(&vc4_hdmi->connector);
-
-I don't think the names here are right. It's not *only* related to scdc
-but also to the HDMI controller. I'm fine with using a scdc prefix but
-only for the things related to scdc. This is related (in part) to the
-HDMI controller, so it should use a drm_connector_hdmi prefix.
-
->  	drm_dev_exit(idx);
-> =20
-> @@ -1625,6 +1434,7 @@ static void vc4_hdmi_encoder_post_crtc_enable(struc=
-t drm_encoder *encoder,
->  	struct drm_display_info *display =3D &vc4_hdmi->connector.display_info;
->  	bool hsync_pos =3D mode->flags & DRM_MODE_FLAG_PHSYNC;
->  	bool vsync_pos =3D mode->flags & DRM_MODE_FLAG_PVSYNC;
-> +	struct drm_connector_state *conn_state;
->  	unsigned long flags;
->  	int ret;
->  	int idx;
-> @@ -1693,7 +1503,10 @@ static void vc4_hdmi_encoder_post_crtc_enable(stru=
-ct drm_encoder *encoder,
->  	}
-> =20
->  	vc4_hdmi_recenter_fifo(vc4_hdmi);
-> -	vc4_hdmi_enable_scrambling(encoder);
-> +
-> +	conn_state =3D drm_atomic_get_new_connector_state(state, connector);
-> +	if (conn_state && conn_state->hdmi.scrambler_needed)
-> +		drm_scdc_start_scrambling(connector);
-
-And the nice thing with a drm_connector_hdmi_* prefix is that you don't
-have to shoehorn it into SCDC support anymore, so you can take a state
-as an argument, and do the check in the helper instead of doing it in
-every driver and hoping they get it right.
-
-Maxime
-
---dptwuanfutj3vasr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaiv1rgAKCRAnX84Zoj2+
-dgjiAYCujTAkPDFNSONvWn1TGWHP1snswHAl+KoW3O2aWnlv5B/ZzqreRdMgzT90
-D833M6oBfiW/cN4+iyLO2kQf/cAEO/Twbp+xEqTxtRMlP9GkYRleIJ87HOvXvcQS
-9rQh4ecGVw==
-=oUC5
------END PGP SIGNATURE-----
-
---dptwuanfutj3vasr--
+-- 
+Thanks,
+Laurentiu
