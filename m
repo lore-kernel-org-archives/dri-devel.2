@@ -4,122 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20CEDCD8CA8
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 12:06:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57438CD8CA8
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 12:06:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EA0E10E9EA;
-	Fri, 12 Jun 2026 12:06:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B503F10F48F;
+	Fri, 12 Jun 2026 12:06:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="mkgUzi+h";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kMSkzSzW";
 	dkim-atps=neutral
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazon11012013.outbound.protection.outlook.com [52.101.66.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E4CF10E9EA
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 12:06:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DgxSt19v7hABTBiLXlW6QZ4lxtKQF65mHFy1R8b3HFeGkzwNMdZMXf5xYjIbG0Rxvhj/FgoBhUm9rOVheB0sFOQTv3/K8KXDb49uNKCUUZMT426MYtPMX0CEbexSeoR246QqbuOmPqSyiWrPJ6hskC8EPAjUrcEHExW6jg9ytBNcPOv71CfqN0ODsXesRd2FFy2OiNT8oeBCYbvPhT+dE6bn2sxDGVSt1dJHam8X0BkS4p2VmV8iainXWADInsok/4tV64OioD1BxssAYeejytRGA/Uy80cbUyOxxYFjTsz74YXh6ldWq80y/MViFvZiyZ7oYVQ0/R4seMAMyReniA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FYSm7T0MpOCdG75PhBhiIgFNCNrvtpS8R0u/tqJ+e0E=;
- b=vg0FCT/nry+c5JPjpqO8bHg9SnMLHpN5ES8VTFSOPA3Dwm2g8vTWTjH1IOFs4xhzGOy7xAdmyONGCW8yWYOcRZlaHUC4biD+tE6QZMagGLD9Tc7urCYyPspB9TdKs5oFoSssnIJM172Pe1mZitpi6QdFcsnWtIiBqDjLnuwKttxxYQ5OkjFiLTL/vR6fY5+YmmnpLENnnGyx5qD1L0ZzS+radLpjInbM8jgb8Kjmf38Ihitt0fq65qp/FsIX6wDc06sG6sW5LjkMJGXAOQ04L/rHJgOpvyJ8hpUMa9lLrM1G1V/+WHCo5hUzuuZZdpXak8343fqLEUF9o72cHb9Avg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FYSm7T0MpOCdG75PhBhiIgFNCNrvtpS8R0u/tqJ+e0E=;
- b=mkgUzi+h7hEbM1OuECw8rB5wV0ajiyBK9CDwWbXcRD2CPQdHZLqKKNieXoczMqut94wXoglTym0+0WKRRArgBbdSf9Zk/8g6u01sVGWXfZu1TiCg8zFoOhAXKyJbEffqRAcIheTvXztxe8YSXfYGnuFIMMjC5fxB6lEXIfHjy7ScIPCoiZOl/ub82A4Niaq0nAreUP6Ix6/oy+TqQEYQTQHG6If0eiggK3YXXi9nAHrHlVZlLCARSfyEiJVLE4O2h3j0dEjW3wgp0pjEUflfi63sQlFJ8lfhCS9WSKizE63Z3FNRqHK69NV9sqg5aj3NjDpEOPjvKH+d0Dq3T7p+Cg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by GV2PR04MB12583.eurprd04.prod.outlook.com
- (2603:10a6:150:36e::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
- 2026 12:06:09 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%5]) with mapi id 15.21.0092.010; Fri, 12 Jun 2026
- 12:06:09 +0000
-Date: Fri, 12 Jun 2026 15:06:04 +0300
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: imx@lists.linux.dev, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 8/9] arm64: dts: imx943-evk: Add display support using
- IT6263
-Message-ID: <j5vepskpvtth6s23zv6p56wjxjwjqgmvi54ot2lntkifyagda3@35jsrhyvoktp>
-References: <20260304-dcif-upstreaming-v8-0-bec5c047edd4@oss.nxp.com>
- <20260304-dcif-upstreaming-v8-8-bec5c047edd4@oss.nxp.com>
- <1a3d466c-c1b5-49f1-a9ab-1c827e906e91@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1a3d466c-c1b5-49f1-a9ab-1c827e906e91@nxp.com>
-X-ClientProxiedBy: AS4P192CA0016.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:20b:5e1::11) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D762F10F47F
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 12:06:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 252E5600AB;
+ Fri, 12 Jun 2026 12:06:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FB3D1F000E9;
+ Fri, 12 Jun 2026 12:06:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781265991;
+ bh=jR50a81IxiDBn56oWWFPyUlJDk//wHbnB3DYWlUT9x4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=kMSkzSzWMeXL+OsB2eVrT0bTnlZbCubqG6qaotFF+XT8pDdgAl8WSLM7+t2LOo89z
+ zPVoLtejnkGzduXs/OfewzZod/fU+tAOwXjuaz2MiKC3hGyO7RC+WkntXyXlNfN3fl
+ ykLX0Ozk1e11viX7u0vwr01fIZimt/x8nbK4LKCMVbfNgtGhLZAXsWAl1pOP22ebja
+ L194BJfYnSz1Lm0Q27SHehbwkutHe/Ml6HnmCW6bFsdluS1U7bF3KJvJhytn5VpZrP
+ G4KqFKEY74W3fFOgIMxXhDuTgnhrzvppBRMzYEtQzNE43xgtkZFdXD1PbW896dEnK4
+ TLpXWpUx8edNw==
+Date: Fri, 12 Jun 2026 14:06:29 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ kernel@collabora.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH v7 02/30] drm/connector: Add HDMI 2.0 scrambler
+ infrastructure
+Message-ID: <20260612-subtle-shapeless-rattlesnake-4b6af8@houat>
+References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
+ <20260602-dw-hdmi-qp-scramb-v7-2-445eb54ee1ed@collabora.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|GV2PR04MB12583:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79806e62-ba6a-434d-b64f-08dec87afd26
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|19092799006|1800799024|366016|23010399003|7416014|376014|18002099003|22082099003|4143699003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: oH+2xIZMPCWSWRq+5YJ6IrnOZROPJeq6QtYyMWfKtrNgQ4tmumRWg/8AzLXffPP0Br+/fgMATArcXPXyrSPf5FdLKz+CHjp/m0U1awgJ+cxogankZOAlYW+LPqNCgpyFaXJzJNawPY81cEMIxyw2ZIT0OCCSjPCy13HNNa8ioSCwxuNT/fM1CB9fcvPiOXPEnHkEhuz7rwH2EEjUp5TNIi4rgjLgBzKSAwTbVBueCC4r1j3ei6Ju5j1Oka1s8WtA50nrdTLpTOWuWe6hWDTzRT4bpc8T1GnbIReXMWDZ/vovpc5bSflXOYARnJ/bBI22wQCuANKrsHDFNyNygmMz7Zwaw+jZbbKsNciawde4rjcQB+Mvm1dAgbs42riM+nXjJWnx6kCoVf2TWtwkuE+fIhe3pBf6QXbgywk9R9R+HU07cf04a1s6IH0oxLXP5p8j0qqllPuMTzXBP3Drwb5dlPDGTusYHjwuRH4uxf9uqZYT7Jam08jkCSNXcPs5CklTfcrdJFd9l8s3oWxLONMlbjHr4Q9J732XMve//pSBfya7MVMbviF+A7WR0dekd5KkvjHQ6SqnFn4kd6ttXO6+h4/r/iQaUJgn1+kGjtoqUMJu/OB10JokdSHGiKV3yRMDjd4CQuS2236VEVHPfMqTaqLsIAt+43Y9ppAMxydV510dqzwN/JxNIRKBk4yV+jcu
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(19092799006)(1800799024)(366016)(23010399003)(7416014)(376014)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?5vWrvRMbKzfToJAAw2xHLpcBclBfG8t4g1yI2ifjK0AeuJ4vg6dh/FmvqCUO?=
- =?us-ascii?Q?YpF8d8xRJAoi9Ujvpmp53dVYAhcibvOO/7GqhqMsfVopA8UWP16P61iBD3G5?=
- =?us-ascii?Q?9x5YHQHzk3UKyphvi8EXY3XwaLZfBTzIQ0R0aUxTqh7M4kK1sHYxZX2x+6Va?=
- =?us-ascii?Q?WersVY6KNqBuFdNRQw8061DVLVZXMym5FZi+x/SGm2/Hda3ApA55lkDSceTz?=
- =?us-ascii?Q?glLihju7wHkjACBdw9fyAxqY+aiazwCB152Ht9sQWPuYPrVcHsNCPJ+1eQvu?=
- =?us-ascii?Q?qOCK7n5B++rgMxfx8XAROjTUrb79nlEcxtv7l97Cry+23to/Cun0o4JZTh1A?=
- =?us-ascii?Q?gItKe+Mdj7Z9Ie+L+47rQ8H2aByAITtdSkXHM36SLOSEn0JiKr/PHYgVGg8R?=
- =?us-ascii?Q?RePXN7anv3BtnCNKOtyk+/JjhrHXIB15KGk3NqpFw4QeB99yuecAQW9Xt7wZ?=
- =?us-ascii?Q?E+JwVGEi7kWB4CLkeblXdU5o1QmRYXqgkFYx7A5cyAnQxgX1cBC7ud+FeDdB?=
- =?us-ascii?Q?ly9dNV546rj1l194GKab1TjDo0pQxIDAGmHxd5qeobeoS6vMBHOzZ4qvmyKb?=
- =?us-ascii?Q?BYbgW4fyXJyrjIZFKs7Udj+kd7fGXIkSnjvk/F5YCjQPBWAqtjTVaotOs8Wv?=
- =?us-ascii?Q?4qPT7XZG/ExcVzmhwvkJpBe3c5MnpTidKNYftw+h5OhMCMK1KHvbqOCbAdRb?=
- =?us-ascii?Q?/fWDTEWezlLFLOcDkZmQxe0TC1LKo9JfeUZi9xRmPI9zyk1pnxhvl2XfSy88?=
- =?us-ascii?Q?pAi8H2cHnqiNKidW6lp329MQ5H0iowx3YHdj/XoQkr4NUNIlcV9kukvUQL70?=
- =?us-ascii?Q?LVdmQV/2oBFbBLEWqsuhdxLwEmbjj88KeRNkdB6b8Jk6AN1lCHh27npv4KNV?=
- =?us-ascii?Q?RzN2QVS35ZoCfZjEWYrZMr0aAVhOkYLhJVTXiZno/HovQWkxTOb/2Lik9TW6?=
- =?us-ascii?Q?y55P98cv13GMUomZBIghDQ5rV0ZbOfnI01e4bYrD2z7o2aGv8Dc3cnRprU1v?=
- =?us-ascii?Q?3zAx1y9nkalaPq2MLsaU/GFxTTDeg5JpCthhRC3iScM0PS1UNNz0FRsVldXi?=
- =?us-ascii?Q?HG6AW1zfPw3swn6QkGu9lf+dlu5yGVkvteRjF/0KKl2qrfUc5/J/KTXVtwqD?=
- =?us-ascii?Q?434Rc9h4r/h9FTI5FKuW7bsqGDkddK3tdETHrjHRgPyg+C1sYRYqvblBXobu?=
- =?us-ascii?Q?62T0uS6CrY7gEMzwRIV+1/UvOQMTChK17HtDa13el0e98+a4GEegdkaNQvdp?=
- =?us-ascii?Q?yEDskZ79Eddqty6W7gtB65iE/zL/xOLYaBZddy1Pgqz1vV64c3VH951lgjbV?=
- =?us-ascii?Q?eH5HQl0/IVfG6FqkEl02AwZd/eR/1wLETWvXf5dMUP1rDjO7z3hB9XuqrVmy?=
- =?us-ascii?Q?8Uo10eiKUXsW7erdK/tqMRmTQTcLJxlFo+7Kw2P6otL2Eb6WgfIQSfZjxoYs?=
- =?us-ascii?Q?nPWgwwzMNftP2v5holRAE7TMye9zW751abJJOlLOjtXqBi+1wXgZiwAKfl0y?=
- =?us-ascii?Q?KXSeqOrF0orIfJ/SYR+n8JhoL4MiRWpFr8dtFxM/wtJbdJ4ELZT6dO8Sj92O?=
- =?us-ascii?Q?Low8W75ysQCXpV9qkSCfGYKvr/Dfgds2tqOqX695HY4wGvpLJfyPKZYMunkH?=
- =?us-ascii?Q?z7OMUtRRgbKdTZSSWiBHOnb0MNq4oPr2n+P537BlNUyZkHffFyCJvQHrKdUd?=
- =?us-ascii?Q?xKAor/gTmfUNd87hsJZh4cMXUZMFPY5DlROiwsUitrMOnCbcxAgEo2cJlqPn?=
- =?us-ascii?Q?hfUUoM2/hUubcOqcM4jPrBXHN5U0I9E=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79806e62-ba6a-434d-b64f-08dec87afd26
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 12:06:09.3193 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nFPP9P8QWnJVma5DHNwllYUYP7NGp/+la5OacBR4FyLHOSAe0jG3+KcZg+CzpQncYeIJXNhT/lO4G1HHjuWQFw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB12583
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="jvytzggqrwbv5ab3"
+Content-Disposition: inline
+In-Reply-To: <20260602-dw-hdmi-qp-scramb-v7-2-445eb54ee1ed@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,20 +75,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Ying,
 
-On Fri, Mar 06, 2026 at 04:45:25PM +0800, Liu Ying wrote:
-> On Wed, Mar 04, 2026 at 11:34:17AM +0000, Laurentiu Palcu wrote:
-> > The ITE IT6263 based NXP LVDS to HDMI converter can be attached to the
-> > i.MX943 EVK board LVDS port using the mini-SAS connector. Since this is
-> 
-> Since the LVDS to HDMI converter can be attached or detached to the EVK
-> board, it would be appropriate to use a DT overlay instead?
+--jvytzggqrwbv5ab3
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v7 02/30] drm/connector: Add HDMI 2.0 scrambler
+ infrastructure
+MIME-Version: 1.0
 
-AFAIK, imx943 EVK ships with the IT6263 LVDS to HDMI adapter. So, I
-believe it's preferable to have support for the adapter in the default
-DTB instead of a DT overlay. 
+On Tue, Jun 02, 2026 at 01:44:02AM +0300, Cristian Ciocaltea wrote:
+> Add the connector-level infrastructure to support HDMI 2.0 scrambling:
+>=20
+> - A scrambler_supported flag to indicate whether the source supports the
+>   scrambling capability, in which case the newly introduced
+>   .scrambler_{enable|disable}() callbacks in drm_connector_hdmi_funcs
+>   are mandatory
+> - A scrambler_needed flag to be managed by the hdmi state helpers based
+>   on the negotiated TMDS character rate and the source/sink scrambling
+>   capabilities
+> - A scrambler_enabled flag to track whether scrambling is currently
+>   active
+> - A delayed work item (scdc_work) with an associated callback (scdc_cb)
+>   to monitor sink-side scrambling status and retry the setup if the sink
+>   resets it
+>=20
+> These are intended to be used by SCDC scrambling helpers to coordinate
+> scrambling setup and teardown between the source driver and the DRM
+> core.
+>=20
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> ---
+>  drivers/gpu/drm/drm_connector.c | 18 +++++++++
+>  include/drm/drm_connector.h     | 81 +++++++++++++++++++++++++++++++++++=
+++++++
+>  2 files changed, 99 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
+tor.c
+> index a5d13b92b665..526dc2931b8a 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -220,6 +220,19 @@ void drm_connector_free_work_fn(struct work_struct *=
+work)
+>  	}
+>  }
+> =20
+> +static void drm_connector_hdmi_scdc_work(struct work_struct *work)
+> +{
+> +	struct drm_connector *connector;
+> +	struct drm_connector_hdmi *hdmi;
+> +
+> +	hdmi =3D container_of(to_delayed_work(work), struct drm_connector_hdmi,
+> +			    scdc_work);
+> +	connector =3D container_of(hdmi, struct drm_connector, hdmi);
+> +
+> +	if (hdmi->scdc_cb)
+> +		hdmi->scdc_cb(connector);
+> +}
+> +
+>  static int drm_connector_init_only(struct drm_device *dev,
+>  				   struct drm_connector *connector,
+>  				   const struct drm_connector_funcs *funcs,
+> @@ -285,6 +298,7 @@ static int drm_connector_init_only(struct drm_device =
+*dev,
+>  	mutex_init(&connector->edid_override_mutex);
+>  	mutex_init(&connector->hdmi.infoframes.lock);
+>  	mutex_init(&connector->hdmi_audio.lock);
+> +	INIT_DELAYED_WORK(&connector->hdmi.scdc_work, drm_connector_hdmi_scdc_w=
+ork);
+>  	connector->edid_blob_ptr =3D NULL;
+>  	connector->epoch_counter =3D 0;
+>  	connector->tile_blob_ptr =3D NULL;
+> @@ -606,6 +620,10 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
+>  	    !hdmi_funcs->hdmi.write_infoframe)
+>  		return -EINVAL;
+> =20
+> +	if (connector->hdmi.scrambler_supported &&
+> +	    (!hdmi_funcs->scrambler_enable || !hdmi_funcs->scrambler_disable))
+> +		return -EINVAL;
+> +
+>  	ret =3D drmm_connector_init(dev, connector, funcs, connector_type, ddc);
+>  	if (ret)
+>  		return ret;
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index 529755c2e862..f1c5c15a6cce 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -28,6 +28,7 @@
+>  #include <linux/ctype.h>
+>  #include <linux/hdmi.h>
+>  #include <linux/notifier.h>
+> +#include <linux/workqueue.h>
+>  #include <drm/drm_mode_object.h>
+>  #include <drm/drm_util.h>
+>  #include <drm/drm_property.h>
+> @@ -1057,6 +1058,19 @@ struct drm_connector_hdmi_state {
+>  	 * @tmds_char_rate: TMDS Character Rate, in Hz.
+>  	 */
+>  	unsigned long long tmds_char_rate;
+> +
+> +	/**
+> +	 * @scrambler_needed: Whether HDMI 2.0 SCDC scrambling is required
+> +	 * for the negotiated mode/bpc/format.
+> +	 *
+> +	 * Computed by drm_atomic_helper_connector_hdmi_check() from
+> +	 * @tmds_char_rate and the source/sink scrambling capabilities.
+> +	 *
+> +	 * Per HDMI 2.0, scrambling is mandatory above 340 MHz TMDS
+> +	 * character rate. Optional scrambling at lower rates is
+> +	 * deliberately not requested by the helper.
+> +	 */
+> +	bool scrambler_needed;
+>  };
+> =20
+>  /**
+> @@ -1358,6 +1372,36 @@ struct drm_connector_hdmi_funcs {
+>  	 */
+>  	const struct drm_edid *(*read_edid)(struct drm_connector *connector);
+> =20
+> +	/**
+> +	 * @scrambler_enable:
+> +	 *
+> +	 * This callback is invoked through @drm_scdc_start_scrambling during
+> +	 * a commit to setup SCDC scrambling and high TMDS clock ratio on
+> +	 * source side.
+> +	 *
+> +	 * The @scrambler_enable callback is mandatory if HDMI 2.0 is to be
+> +	 * supported.
+> +	 *
+> +	 * Returns:
+> +	 * 0 on success, a negative error code otherwise
+> +	 */
+> +	int (*scrambler_enable)(struct drm_connector *connector);
+> +
+> +	/**
+> +	 * @scrambler_disable:
+> +	 *
+> +	 * This callback is invoked through @drm_scdc_stop_scrambling during
+> +	 * a commit to disable SCDC scrambling and high TMDS clock ratio on
+> +	 * source side.
+> +	 *
+> +	 * The @scrambler_disable callback is mandatory if HDMI 2.0 is to be
+> +	 * supported.
+> +	 *
+> +	 * Returns:
+> +	 * 0 on success, a negative error code otherwise
+> +	 */
+> +	int (*scrambler_disable)(struct drm_connector *connector);
+> +
+>  	/**
+>  	 * @avi:
+>  	 *
+> @@ -1960,6 +2004,43 @@ struct drm_connector_hdmi {
+>  	 */
+>  	unsigned long supported_formats;
+> =20
+> +	/**
+> +	 * @scrambler_supported: Indicates whether the HDMI controller
+> +	 * (source) supports HDMI 2.0 SCDC scrambling.
+> +	 *
+> +	 * When true, @drm_connector_hdmi_funcs.scrambler_enable and
+> +	 * @drm_connector_hdmi_funcs.scrambler_disable are mandatory.
+> +	 * This is enforced by drmm_connector_hdmi_init().
+> +	 *
+> +	 * For HDMI bridge based drivers using drm_bridge_connector_init(),
+> +	 * this is propagated automatically from bridges that set the
+> +	 * DRM_BRIDGE_OP_HDMI_SCRAMBLER flag in their &drm_bridge->ops.
+> +	 * Other drivers must set this field on @connector->hdmi before calling
+> +	 * drmm_connector_hdmi_init().
+> +	 */
+> +	bool scrambler_supported;
+> +
+> +	/**
+> +	 * @scrambler_enabled: Tracks whether HDMI 2.0 scrambler is currently e=
+nabled.
+> +	 */
+> +	bool scrambler_enabled;
 
--- 
-Thanks,
-Laurentiu
+This is already in the state. Why do you need to copy it over here, and
+if you do, you'll need a lock.
+
+Maxime
+
+--jvytzggqrwbv5ab3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaiv2RQAKCRAnX84Zoj2+
+dpOzAX9fWVyZgzIa+Lwod4+RU9bVyTQIx/zbt9tFgexdmHs0vTf1n0ZU73nrvkpF
+RDnEJ6EBfAztXT42zpjOHCEXHtNxA/RtY+modkrjS8RhNEgWKZ1SifKU6JxOd1OF
+1sNJW47dJQ==
+=ViGe
+-----END PGP SIGNATURE-----
+
+--jvytzggqrwbv5ab3--
