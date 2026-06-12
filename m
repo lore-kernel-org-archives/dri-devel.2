@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D9F2CD98CE
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 12:56:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58D66CD98CE
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 12:57:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C0F110EA14;
-	Fri, 12 Jun 2026 12:56:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8BFE10EA2B;
+	Fri, 12 Jun 2026 12:57:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="08oWSqoR";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="YBj5v2Tl";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D4A610EA14
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 12:56:41 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3996810EA1C
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 12:57:53 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 58A311A38E3;
- Fri, 12 Jun 2026 12:56:40 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id C22534E42E6A;
+ Fri, 12 Jun 2026 12:57:51 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 2103B60012;
- Fri, 12 Jun 2026 12:56:40 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 8DF0160012;
+ Fri, 12 Jun 2026 12:57:51 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 08CF4106C8A54; 
- Fri, 12 Jun 2026 14:56:27 +0200 (CEST)
+ with ESMTPSA id 356A1106C8654; 
+ Fri, 12 Jun 2026 14:57:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1781268998; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1781269070; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=QWgaATuoAKFQpxfZIkw0EI47Xu+CY02gQbwSENrgRrc=;
- b=08oWSqoRpdjvs/baLaFBFKfqQKGcttUE+15yalrO+7G0oIcDfFlazuHuTuPalT8w6tUXHl
- H2M3D8KcQljoSCY/vWa/Co/s1CCAeQt8UrpDYp5zeCjSWsjpc6c+DN1zbn6owZT3T9Mj5d
- yolr65EuEGx5SLMIBHHfxQYy2fW10HLDXOx0wHG9be2QkY8S//pZVyBqDxsGWAw4Ul8DN5
- Hwe3IibqJeY8JRcRiVYY0lwW1NDbOnSrdNzsT2Abtl8pWxp6UsCP+hXDf4bMMN/axupjkR
- 5dZWc0DJlQJRJvnIYPtGjtugZCd5vYk9wG2+LP4uECWVV5P7q5CjGPcmLINjUQ==
+ bh=6B714fJIr1cKyRvLd8BqwboTpStsTovlsXJpNPNfh5M=;
+ b=YBj5v2TlRFS7FzMpVJFcW9745pOLogkHXsOYMGcZc9CEbYT+XBawiZy9kRXA34i5OMG8n5
+ IOU66bs2FCFw6mhk7OJsKDtj4qQ8L5sydbxQdb+bz3u9uj6uWjQes1KzkHfnANBKMnQW2O
+ YjF38hRS2hqAsNuVZozosRTEgGfG1Cmb85s0XwlJczq1BesI8dZiX+u9NkDtTSZXAi4GeG
+ xjBJXH4rLkIpQmPZJWUrF/p3lnYBTja4/7UHoofCpsthpcbkJy6DC8U5Ap5mZ4R7IJxsIK
+ dtnliPNKVLCNbAnoAm4MTbSux2lUMax2Gi9dEuwhjaquhb89xSpxsPhxwP3QKw==
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 12 Jun 2026 14:56:24 +0200
-Message-Id: <DJ735MTNMYD1.3LPNV404V8PIU@bootlin.com>
+Date: Fri, 12 Jun 2026 14:57:39 +0200
+Message-Id: <DJ736L2DR8H8.35296DRNZ1OW@bootlin.com>
 Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
  Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
  "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
@@ -57,13 +57,13 @@ Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
 To: "Maxime Ripard" <mripard@kernel.org>, "Luca Ceresoli"
  <luca.ceresoli@bootlin.com>
 From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH 05/37] drm/display: bridge-connector: split code
- creating the connector to a subfunction
+Subject: Re: [PATCH 06/37] drm/display: bridge-connector: use a
+ drm_bridge_connector internally, not a drm_connector
 X-Mailer: aerc 0.21.0
 References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
- <20260519-drm-bridge-hotplug-v1-5-45e2bdb3dfb4@bootlin.com>
- <20260608-mindful-heavy-frigatebird-be9faf@houat>
-In-Reply-To: <20260608-mindful-heavy-frigatebird-be9faf@houat>
+ <20260519-drm-bridge-hotplug-v1-6-45e2bdb3dfb4@bootlin.com>
+ <20260608-little-lyrebird-of-competition-c25f7d@houat>
+In-Reply-To: <20260608-little-lyrebird-of-competition-c25f7d@houat>
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,42 +80,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jun 8, 2026 at 1:40 PM CEST, Maxime Ripard wrote:
-> On Tue, May 19, 2026 at 12:37:22PM +0200, Luca Ceresoli wrote:
->> In preparation to introduce bridge hotplug, split out from
->> drm_bridge_connector_init() the code adding the drm_connector into a
->> dedicated function. This will be needed to be able to add (and re-add) t=
-he
->> connector from different code paths.
+On Mon Jun 8, 2026 at 1:41 PM CEST, Maxime Ripard wrote:
+> On Tue, May 19, 2026 at 12:37:23PM +0200, Luca Ceresoli wrote:
+>> Currently drm_bridge_connector_init() always returns the added connector=
+ or
+>> errors out. When adding bridge hotplug the bridge-connector can be
+>> successfully initialized without creating a connector, which can be adde=
+d
+>> later when the pipeline will be complete.
+>>
+>> For this the internal function drm_bridge_connector_add_connector() must=
+ be
+>> able to return a valid drm_bridge_connector even without any drm_connect=
+or.
+>>
+>> In preparation to support bridge hotplug, change its return value to be =
+the
+>> same drm_bridge_connector pointer it gets as input, or a PTR_ERR.
+>>
+>> No functional changes, just changing an internal API.
+>>
+>> Note the return value could now become an int (0 or negative error) beca=
+use
+>> returning the same value received as input does not carry any added
+>> value. However this would be change a lot of lines, so leave such change=
+ as
+>> a future cleanup.
 >
-> Same story here, explaining what you need later on that calls for that
-> change would be nice.
+> You just created that function and changed "a lot of lines" already, so
+> I'm not sure that argument holds.
 
-Here's a more verbose version:
+Do you refer to the previous patch?
 
-    Currently drm_bridge_connector_init() does two things:
+My comment is more about the following patches. It means I separated
+changes moving code to a subfunction from changes to the the return value
+in separate patches, so that each patch is trivial to review for
+correctness.
 
-     * allocate and initialize the drm_bridge_connector
-       (which embeds a drm_connector)
-     * initialize and register the embedded drm_connector
-
-    For bridge hotplug we need to separate these two actions:
-
-     * the drm_connector needs to be added and removed at any time based on
-       hotplug events
-     * the drm_bridge_connector is designated to create and remove the
-       drm_connector, so it must be persistent for the card lifetime
-
-    As the lifetimes of drm_bridge_connector and drm_connector become
-    different, we need to create them in different moments.
-
-    In preparation to support that, split out from
-    drm_bridge_connector_init() the code adding the drm_connector into a
-    dedicated function. No functional changes, just moving code around for
-    now. A future commit will make the drm_connector be created based on
-    hotplug events.
-
-Looks good?
+Makes sense?
 
 Luca
 
