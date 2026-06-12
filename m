@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3F69CD98CF
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 18:44:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0AFDCD98D2
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 18:44:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3553710F657;
-	Fri, 12 Jun 2026 18:44:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2916C10F666;
+	Fri, 12 Jun 2026 18:44:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GpDmB1Lz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c2WGr5Cy";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5286310F657
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 18:44:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D92B10F666
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 18:44:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2B7BE43405;
- Fri, 12 Jun 2026 18:44:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D34CC1F00A3A;
- Fri, 12 Jun 2026 18:44:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 666A14436F;
+ Fri, 12 Jun 2026 18:44:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17DF01F000E9;
+ Fri, 12 Jun 2026 18:44:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781289858;
- bh=NGGyYPvZKhfJWH1ghv7K9nFMhvSw06uy95Z4ZOpDoTk=;
+ s=k20260515; t=1781289874;
+ bh=b8Jo6qHTytRrEZTDb7wJE/6PN70bUtG9d5l/BfyVZiY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GpDmB1LzlcbJgQn9cNnO57JWIMDeDFssNh7KnkHUGDvu8RaovIht1xDJmOQAywWkO
- HHjYLYqUwpdidDFdqKVLj2nhl6r4iN4x5JueyJ2VN1m/BnBPIcS/umTkty2QDpR20z
- yWz587lufpByvSioO+dz8eHe8B6cY8UaSAY23pmj2YrgjjJpO5b1XMGzApI+e8egH5
- 5htVUy/cpW3reEl1+WBvbb5E64Zwrm71PdCXfG7hc+/PEum6CXlrQa1AFmr0YuwyFc
- z302BsGSHVLxQ+IEysolVt6z1IyifrDH91OwFh2FjEVAyJ52e61XBSPB93dnMwavT8
- E8GFULTR2+vAw==
+ b=c2WGr5Cy8Sii3fY1lcka79JmHScjsuPpE/h64uRJi9BX+TcDLVZSfpKpUoWD9sNXh
+ kiyO59UiRqwgF1J4uchqUuhQ5NiJtWgY+Kp2/6/iabdhEaQFxKSwUIYXR6GfGxHaY7
+ Nqd++FUaYDWe8/5eq+sBJyqJazBue22P1yf+z+e/aRH/WvZzgIW5z6VJ1A7SAPsH3z
+ lS/FEErHXMmb6t8ehI990glN9uyIBnPhT7382DEz5L0JDjVKs4gwUkwh8RGhGXBoM5
+ P65z/fLcWCHzu9NeFsAhbBFeu2Z5MQ+VC4fOpRl/+PeTmshlGAtyGzbN5XRXsuit5H
+ Vy9H6Nm3y7QHg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/9] drm/amd/display: use drmm allocation for
- writeback connector
+Subject: Re: [PATCH v6 7/9] drm/vc4: use drmm_writeback_connector_init()
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260612-wb-drop-encoder-v6-2-9f3a54f81310@oss.qualcomm.com>
-References: <20260612-wb-drop-encoder-v6-2-9f3a54f81310@oss.qualcomm.com>
+In-Reply-To: <20260612-wb-drop-encoder-v6-7-9f3a54f81310@oss.qualcomm.com>
+References: <20260612-wb-drop-encoder-v6-7-9f3a54f81310@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 18:44:17 +0000
-Message-Id: <20260612184417.D34CC1F00A3A@smtp.kernel.org>
+Date: Fri, 12 Jun 2026 18:44:33 +0000
+Message-Id: <20260612184434.17DF01F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,72 +58,80 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [Low] Compilation error due to missing argument in drmm_kfree().
-
-Pre-existing issues:
-- [High] Use-After-Free of `aencoder` and `aconnector` on error path.
+- [High] The patch converts the writeback connector to use DRM-managed init=
+ialization (`drmm_writeback_connector_init`) but leaves the manual cleanup =
+in `vc4_txp_unbind`, causing a double-free and NULL pointer dereference dur=
+ing device teardown.
+- [Medium] The commit message claims a change to encoder allocation that is=
+ entirely absent from the patch.
 --
 
-commit 0f53c9b8f894290640afe2ed4a23503b2ea87d24
+commit 2e74a8f54aeae971a4434e6be6dd5849a3cfa4ff
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-drm/amd/display: use drmm allocation for writeback connector
+drm/vc4: use drmm_writeback_connector_init()
 
-Currently memory used for writeback connectors isn't freed on driver
-unbinding, leaking the memory. Use drm_device-memory allocation
-function for the writeback connector, making sure that the memory is
-freed on the driver unbinding.
+The driver uses drm_writeback_connector_init() instead of its drmm
+counterpart, but it doesn't perform the job queue cleanup. The
+drmm_writeback_connector_init() function ensures the proper cleanup of
+the job queue.
 
-Reported-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Suggested-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Use drmm_plain_encoder_alloc() to allocate simple encoder and
+> drmm_writeback_connector_init() in order to initialize writeback
+> connector instance.
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 97ab1e83b3186..638335ff7d019 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+[Severity: Medium]
+This isn't a bug, but the commit message mentions using
+drmm_plain_encoder_alloc(), yet this function isn't used anywhere in the pa=
+tch.
 
+The encoder remains embedded in struct vc4_txp and continues to be initiali=
+zed
+via drmm_encoder_init() in vc4_txp_bind().
+
+Could the commit message be updated to match the actual code?
+
+> diff --git a/drivers/gpu/drm/vc4/vc4_txp.c b/drivers/gpu/drm/vc4/vc4_txp.c
+> index 66b6f2acf8626..3fd89fccfa10a 100644
+> --- a/drivers/gpu/drm/vc4/vc4_txp.c
+> +++ b/drivers/gpu/drm/vc4/vc4_txp.c
 [ ... ]
-
-> @@ -5874,7 +5875,7 @@ static int amdgpu_dm_initialize_drm_device(struct a=
-mdgpu_device *adev)
+> @@ -602,10 +601,10 @@ static int vc4_txp_bind(struct device *dev, struct =
+device *master, void *data)
 > =20
->  			if (amdgpu_dm_wb_connector_init(dm, wbcon, i)) {
->  				drm_err(adev_to_drm(adev), "KMS: Failed to initialize writeback conn=
-ector\n");
-> -				kfree(wbcon);
-> +				drmm_kfree(wbcon);
-
-[Severity: Low]
-Does this code fail to compile?  Looking at include/drm/drm_managed.h, the
-function drmm_kfree() requires both a drm_device pointer and the data point=
-er,
-but it is being called with only the data pointer here.
+>  	drm_connector_helper_add(&txp->connector.base,
+>  				 &vc4_txp_connector_helper_funcs);
+> -	ret =3D drm_writeback_connector_init_with_encoder(drm, &txp->connector,
+> -							encoder,
+> -							&vc4_txp_connector_funcs,
+> -							drm_fmts, ARRAY_SIZE(drm_fmts));
+> +	ret =3D drmm_writeback_connector_init(drm, &txp->connector,
+> +					    &vc4_txp_connector_funcs,
+> +					    encoder,
+> +					    drm_fmts, ARRAY_SIZE(drm_fmts));
 
 [Severity: High]
-This isn't a bug introduced by this patch, but can the fail block in
-amdgpu_dm_initialize_drm_device() trigger a use-after-free during teardown?
+Since we are moving to drmm_writeback_connector_init(), which automatically
+handles cleanup by registering a managed action, is it still safe to keep
+the manual drm_connector_cleanup() call in vc4_txp_unbind()?
 
-If amdgpu_dm_encoder_init() succeeds, the encoder is registered to the DRM
-core list.  If a subsequent step fails, the code jumps to the fail block:
+drivers/gpu/drm/vc4/vc4_txp.c:vc4_txp_unbind() {
+	struct vc4_txp *txp =3D dev_get_drvdata(dev);
 
-fail:
-        kfree(aencoder);
-        kfree(aconnector);
+	drm_connector_cleanup(&txp->connector.base);
+}
 
-        return -EINVAL;
+During teardown, vc4_txp_unbind() will manually clean up the connector,
+but the drmm-managed action will later attempt to clean it up again when
+the drm_device is released.
 
-Since the encoder remains registered in the DRM subsystem, will
-drm_mode_config_cleanup() later traverse the list and call the destroy hook,
-resulting in a double-free of the encoder?
+Does this cause a double-free or NULL pointer dereference on device teardow=
+n?
 
->  				continue;
->  			}
+>  	if (ret)
+>  		return ret;
 >
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-wb-drop-en=
-coder-v6-0-9f3a54f81310@oss.qualcomm.com?part=3D2
+coder-v6-0-9f3a54f81310@oss.qualcomm.com?part=3D7
