@@ -4,87 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 350DECD98CF
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 20:35:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCD11CD98CE
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 20:42:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A17C10EB68;
-	Fri, 12 Jun 2026 20:35:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35F9810EB51;
+	Fri, 12 Jun 2026 20:42:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="s2VXyKrq";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="jJWzVQuR";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31C4610EB68
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 20:35:13 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-2bf22c18ad3so25365ad.0
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 13:35:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1781296513; x=1781901313;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ddJRP/HCOdDtAL2h34nFkdEDW/TddVVb74Su299sjvc=;
- b=s2VXyKrq5ZItQ19HfCASvlSh0MmjFwdXGucBzFJoYcwmYDlrkIazfgFXnY95FoPNX4
- 2bHHoP17zCiBYVCjylx4tXc44BAQJfCNTgamrLJQlhEMInrlly8ZNhsZiIcIeT8paDTf
- cb5GZW3+DOScELrmFigtqH0CkaiJTt2viObmrie2zgkK/m22P7RErzXpajx60B6zHD6b
- nbEIN2/nvnBpEs5Tn9LzWNNdK+2bRMV3RY0Q/49kH1Tnj+sNIxHpYKzPjD9a+yQ5o39/
- fFTaTWkLtvgvfKb6CO0L/JUCriYnEw413sAFtyoMf72ngrGb7yHNhnp1rXDNF4GT61NC
- nqOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781296513; x=1781901313;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ddJRP/HCOdDtAL2h34nFkdEDW/TddVVb74Su299sjvc=;
- b=R63HFHCVZKN+TYewVbWMmbi4VQTwgUGHBLmjCimf0ZrxRGUfiOecY5MrWJ0sxmUEC0
- tRXSXYM+qpBoUSkknt+V8KlDSoRUoFxpDA8Q6KYp/1/b5Y+rJQ+U1RAaDCn1f7Vfbmz5
- Azqt1wC4RYlYeQTJo/V01y/buErznSW7ZRCJlaQAejOqy9MhuwIAL0l1cRu5CJajCGe4
- xy2oFNk3SKELOrI2Q4nYhzYXT44Mioaa2K3wSXvJcMB+aIJwD0V1myEccSSlXNOacZjw
- leJvlZBGVkN4pGoCCEEmaPNwdcfJRCPlxzjKN+U5ScFIIkboZjOHjKs+ns5T6G4mfNyt
- OxTw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8akEcm4Fgq5d7dByDRPxTa5j6RWV/o+hi4wUCIAJGepOE5jesOF+6a282JII0iS7zTsp5SP64UVkg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxg023VjaWUhcLJbm7Dis99TzoxI09tEUMj4QAsZQaZ8wBEmyFV
- PuXr6n2E1Chj+LuuuXfYqzXEJd3MBjJlOWAXk2vLy7jvxUsBAjvYtb5JqnJYDCDtjw==
-X-Gm-Gg: Acq92OHpyUcnLXqPLIVq/eMzCB5PIT3WAuagy1/NNvzzg/warKPa33/WVgTAz/SlH6M
- 6ipqF8oUS51j4VSEM2VVg43kipKRzqrcpne4u+NrNC95vcGJSi+/OSUVrO/vupnSx8gpyAuqf6W
- UjYMx4+rj3HK+lyCiPdWqFADxoT5NVnbzIlGoCzLVeMbEU/E2epDsEAvYC9hz3eg698HioYpbGx
- J2J3qegQ1bXJdH6UtR5a1DafZglqXhfIKyyuH+GDqcO8wljHSciw0Y7+mBZDXHUqPo4H8lHN1IC
- hbJwq8PR344EtJu0Rm7aLkzXqulkON50lDAmCXcvsbpZvr72AqnaC7p4nYODQ4OidSL4KVmLrVA
- cbKvRcXAn1qkJ46+Kz5j+8vNRCdk8lpDoxTAOO5AFY0BfoApIsaZStNCEZew0XyM/63g3guxIeN
- RxZRfTNknoWwwQ2xnkQWEia4/h2VvGzWxIxyZkfo1elg+2cl5uc0v2T5HboNok
-X-Received: by 2002:a17:902:e743:b0:2c1:ee6e:4e4d with SMTP id
- d9443c01a7336-2c665142269mr504685ad.30.1781296511981; 
- Fri, 12 Jun 2026 13:35:11 -0700 (PDT)
-Received: from google.com (199.255.142.34.bc.googleusercontent.com.
- [34.142.255.199]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c42f1f0f19sm28160925ad.10.2026.06.12.13.35.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Jun 2026 13:35:11 -0700 (PDT)
-Date: Fri, 12 Jun 2026 20:35:03 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Matt Evans <matt@ozlabs.org>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v3 7/9] vfio/pci: Support mmap() of a VFIO DMABUF
-Message-ID: <aixtd_7gDhf2kisJ@google.com>
-References: <20260610154327.37758-1-matt@ozlabs.org>
- <20260610154327.37758-8-matt@ozlabs.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6894C10EB51
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 20:42:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1781296927;
+ bh=EwJnim2UySXl/C8gGWgVbYK2jiPjZuEGJl0kKvx+JJQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=jJWzVQuRji0oWgxnebSLfoQRnObVZavrZh4J1bnyxVeYBDwKTJ+Hp1hFy6PJtV/8J
+ n0DCJQEtId+w0/MRGmPfPBGYYip+crbavyBzp8vo3aXyXcCAyHJk7IAQhNOIvkFgIG
+ GahQ/csYaccDz1y7/V99iAYRa0t9BCIFeSBKvQnb4L1pKZUo1Gy2yEShSB3J0eiR3Q
+ Z8D97yKABYROKzZV+hUT/ong/MpjaSqxKrepBm9ZjTD8Is7ZYrIk9oazCHHwfLbQMX
+ 9fXZU8vBVOjzN/YahJhPFk0J12CJ3jNPRY73c//o/kapbTUvMuI8jvPsygJpl84XNp
+ It4MArU596hhw==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id F0BD717E03D7;
+ Fri, 12 Jun 2026 22:42:06 +0200 (CEST)
+Message-ID: <b14af457-0799-43cc-80b5-7ffff5901f24@collabora.com>
+Date: Fri, 12 Jun 2026 23:42:06 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260610154327.37758-8-matt@ozlabs.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 11/30] drm/display: bridge_connector: Wire up HDMI 2.0
+ scrambler callbacks
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
+ <20260602-dw-hdmi-qp-scramb-v7-11-445eb54ee1ed@collabora.com>
+ <20260612-attractive-dashing-mule-309598@houat>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20260612-attractive-dashing-mule-309598@houat>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,153 +77,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 10, 2026 at 04:43:21PM +0100, Matt Evans wrote:
+On 6/12/26 11:52 AM, Maxime Ripard wrote:
+> On Tue, Jun 02, 2026 at 01:44:11AM +0300, Cristian Ciocaltea wrote:
+>> Connect the bridge connector's .scrambler_{enable|disable} callbacks to
+>> the underlying bridge's .hdmi_scrambler_{enable|disable} funcs when
+>> DRM_BRIDGE_OP_HDMI_SCRAMBLER is advertised.
+>>
+>> This completes the bridge connector plumbing so that the SCDC
+>> scrambling helpers can control source-side scrambling through the
+>> bridge chain.
+>>
+>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+>> ---
+>>  drivers/gpu/drm/display/drm_bridge_connector.c | 41 +++++++++++++++++++++++++-
+>>  1 file changed, 40 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+>> index 9d21b1b57b0d..d048ab49eade 100644
+>> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
+>> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+>> @@ -555,6 +555,32 @@ static int drm_bridge_connector_write_spd_infoframe(struct drm_connector *connec
+>>  	return bridge->funcs->hdmi_write_spd_infoframe(bridge, buffer, len);
+>>  }
+>>  
+>> +static int drm_bridge_connector_scrambler_enable(struct drm_connector *connector)
+>> +{
+>> +	struct drm_bridge_connector *bridge_connector =
+>> +		to_drm_bridge_connector(connector);
+>> +	struct drm_bridge *bridge;
+>> +
+>> +	bridge = bridge_connector->bridge_hdmi;
+>> +	if (!bridge)
+>> +		return -EINVAL;
+>> +
+>> +	return bridge->funcs->hdmi_scrambler_enable(bridge);
+>> +}
+>> +
+>> +static int drm_bridge_connector_scrambler_disable(struct drm_connector *connector)
+>> +{
+>> +	struct drm_bridge_connector *bridge_connector =
+>> +		to_drm_bridge_connector(connector);
+>> +	struct drm_bridge *bridge;
+>> +
+>> +	bridge = bridge_connector->bridge_hdmi;
+>> +	if (!bridge)
+>> +		return -EINVAL;
+>> +
+>> +	return bridge->funcs->hdmi_scrambler_disable(bridge);
+>> +}
+>> +
+>>  static const struct drm_edid *
+>>  drm_bridge_connector_read_edid(struct drm_connector *connector)
+>>  {
+>> @@ -580,7 +606,7 @@ static const struct drm_connector_hdmi_funcs drm_bridge_connector_hdmi_funcs = {
+>>  		.clear_infoframe = drm_bridge_connector_clear_hdmi_infoframe,
+>>  		.write_infoframe = drm_bridge_connector_write_hdmi_infoframe,
+>>  	},
+>> -	/* audio, hdr_drm and spd are set dynamically during init */
+>> +	/* scrambler, audio, hdr_drm and spd are set dynamically during init */
+>>  };
+>>  
+>>  static const struct drm_connector_infoframe_funcs drm_bridge_connector_hdmi_audio_infoframe = {
+>> @@ -886,6 +912,11 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+>>  			     !bridge->funcs->hdmi_clear_spd_infoframe))
+>>  				return ERR_PTR(-EINVAL);
+>>  
+>> +			if (bridge->ops & DRM_BRIDGE_OP_HDMI_SCRAMBLER &&
+>> +			    (!bridge->funcs->hdmi_scrambler_enable ||
+>> +			     !bridge->funcs->hdmi_scrambler_disable))
+>> +				return ERR_PTR(-EINVAL);
+>> +
+>>  			bridge_connector->bridge_hdmi = drm_bridge_get(bridge);
+>>  
+>>  			if (bridge->supported_formats)
+>> @@ -990,6 +1021,14 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+>>  			bridge_connector->hdmi_funcs.spd =
+>>  				drm_bridge_connector_hdmi_spd_infoframe;
+>>  
+>> +		if (bridge_connector->bridge_hdmi->ops & DRM_BRIDGE_OP_HDMI_SCRAMBLER) {
+>> +			bridge_connector->hdmi_funcs.scrambler_enable =
+>> +				drm_bridge_connector_scrambler_enable;
+>> +			bridge_connector->hdmi_funcs.scrambler_disable =
+>> +				drm_bridge_connector_scrambler_disable;
+>> +			connector->hdmi.scrambler_supported = true;
+>> +		}
+>> +
+> 
+> I think we're taking this backwards. The scrambler support isn't
+> optional: either the controller supports HDMI < 2.0, and then it doesn't
+> exist, or it supports >= 2.0 and then it's mandatory.
+> 
+> You're considering it optional here, when it's never actually optional
+> (unlike YUV420 for example)
+> 
+> I still think we should list, somehow, the capabilities of the
+> controller to the helpers, like max tmds rate supported, formats, etc.
+> We've so far put everything as an argument to drmm_connector_hdmi_init
+> but it becomes a bit overloaded, and I wonder if introducing a callback
+> wouldn't solve this, kind of like what we have for planes and formats.
 
-Hi Matt,
 
-[...]
+What about introducing something like:
 
-> +	 *
-> +	 * With the goal of taking vdev->memory_lock in a world where
-> +	 * vdev might not still exist:
-> +	 *
-> +	 * 1. Take the resv lock on the DMABUF:
-> +	 *  - If racing cleanup got in first, the buffer is revoked;
-> +	 *    stop/exit if so.
-> +	 *  - If we got in first, the buffer is not revoked so vdev is
-> +	 *    non-NULL, accessible, and cleanup _has not yet put the
-> +	 *    VFIO device registration_.  So, the device refcount must
-> +	 *    be >0.
-> +	 *
-> +	 * 2. Take vfio_device registration (refcount guaranteed >0
-> +	 *    hereafter).
-> +	 *
-> +	 * 3. Unlock the DMABUF's resv lock:
-> +	 *  - A racing cleanup can now complete.
-> +	 *  - But, the device refcount >0, meaning the vfio_device
-> +	 *    (and vfio_pcie_core device vdev) have not yet been
-> +	 *    freed.  vdev is accessible, even if the DMABUF has been
-> +	 *    revoked or cleanup has happened, because
-> +	 *    vfio_unregister_group_dev() can't complete.
-> +	 *
-> +	 * 4. Take the vdev->memory_lock
-> +	 *  - Either the DMABUF is usable, or has been cleaned up.
-> +	 *    Whichever, it can no longer change under us.
-> +	 *  - Test the DMABUF revocation status again: if it was
-> +	 *    revoked between 1 and 4 return a SIGBUS. Otherwise,
-> +	 *    return a PFN.
-> +	 *  - It's not necessary to also take the resv lock, because
-> +	 *    the status/vdev can't change while memory_lock is held.
-> +	 *
-> +	 * 5. Unlock, done.
->  	 */
-> +
-> +	dma_resv_lock(priv->dmabuf->resv, NULL);
-> +
-> +	if (priv->revoked) {
-> +		pr_debug_ratelimited("%s VA 0x%lx, pgoff 0x%lx: DMABUF revoked/cleaned up\n",
-> +				     __func__, vmf->address, vma->vm_pgoff);
-> +		dma_resv_unlock(priv->dmabuf->resv);
-> +		return VM_FAULT_SIGBUS;
-> +	}
-> +
-> +	/* If the buffer isn't revoked, vdev is valid */
->  	vdev = priv->vdev;
->  
-> +	if (!vfio_device_try_get_registration(&vdev->vdev)) {
-> +		/*
-> +		 * If vdev != NULL (above), the registration should
-> +		 * already be >0 and so this try_get should never
-> +		 * fail.
-> +		 */
-> +		dev_warn(&vdev->pdev->dev, "%s: Unexpected registration failure\n",
-> +			 __func__);
-> +		dma_resv_unlock(priv->dmabuf->resv);
-> +		return VM_FAULT_SIGBUS;
-> +	}
-> +	dma_resv_unlock(priv->dmabuf->resv);
-> +
+struct drm_connector_hdmi_caps {
+    ...
+    unsigned int supported_formats;
+    enum hdmi_version supported_hdmi_ver;
+};
 
+struct drm_connector_hdmi_funcs {
+    ...
+    int (*get_caps)(struct drm_connector *connector,
+                    struct drm_connector_hdmi_caps *caps);
+    ...
+};
 
->  	scoped_guard(rwsem_read, &vdev->memory_lock) {
-> +		/* Revocation status must be re-read, under memory_lock */
->  		if (!priv->revoked) {
->  			int pres = vfio_pci_dma_buf_find_pfn(priv, vma,
->  							     vmf->address,
-
-Wait, I noticed that the is_aligned_for_order() check from mainline was 
-removed here. Was that intentional? 
-
-For hugepage faults (order > 0), we must ensure the PFN and address are
-properly aligned before calling vfio_pci_vmf_insert_pfn().
-
-In the current upstream code, we have:
-  if (is_aligned_for_order(vma, addr, pfn, order))
-
-Should we restore that check here?
-
-> @@ -1766,6 +1827,7 @@ static vm_fault_t vfio_pci_mmap_huge_fault(struct vm_fault *vmf,
->  			    __func__, order, pfn, vmf->address,
->  			    vma->vm_pgoff, (unsigned int)ret);
->  
-> +	vfio_device_put_registration(&vdev->vdev);
->  	return ret;
->  }
->  
-> @@ -1774,7 +1836,7 @@ static vm_fault_t vfio_pci_mmap_page_fault(struct vm_fault *vmf)
->  	return vfio_pci_mmap_huge_fault(vmf, 0);
->  }
->  
-> -static const struct vm_operations_struct vfio_pci_mmap_ops = {
-> +const struct vm_operations_struct vfio_pci_mmap_ops = {
->  	.fault = vfio_pci_mmap_page_fault,
-
-Nit: Instead of making this global, should we add a helper? E.g.:
-
-void vfio_pci_set_vma_ops(struct vm_area_struct *vma)
+int drmm_connector_hdmi_init(struct drm_device *dev, ...)
 {
-     vma->vm_ops = &vfio_pci_mmap_ops;
+    ...
+    if (hdmi_funcs->get_caps) {
+        struct drm_connector_hdmi_caps caps = { };
+
+        ret = hdmi_funcs->get_caps(connector, &caps);
+        if (ret)
+            return ret;
+
+        connector->hdmi.supported_formats  = caps.supported_formats;
+        ...
+        if (caps.supported_hdmi_ver > HDMI_2_0)
+            connector->hdmi.frl_supported = true;
+        else if (caps.supported_hdmi_ver == HDMI_2_0)
+            connector->hdmi.scrambler_supported = true;
+    }
+    ...
 }
 
-[...]
+Not sure if max_tmds_char_rate should be listed as a capability, as we already
+have the .tmds_char_rate_valid() callback.
 
-> +
-> +static int vfio_pci_dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma)
-> +{
-> +	struct vfio_pci_dma_buf *priv = dmabuf->priv;
-> +
-> +	/*
-> +	 * If we observe that the buffer is revoked now then refuse
-> +	 * the mmap().  This is a belt-and-braces early failure to
-> +	 * ease debugging a revoked buffer being used.  Userspace
-> +	 * might also race an mmap() against an explicit revocation,
-> +	 * or an action doing a temporary revoke; race scenarios are
-> +	 * still safe because the fault handler ultimately prevents
-> +	 * access to a revoked buffer if it isn't caught here.
-> +	 */
-> +	if (READ_ONCE(priv->revoked))
-> +		return -ENODEV;
-> +	if ((vma->vm_flags & VM_SHARED) == 0)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * dma_buf_mmap_internal() has asserted that the VMA is
-> +	 * contained within the DMABUF size before calling this.
-> +	 */
-> +
-> +	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
-> +	vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
-> +
-> +	/* See comments in vfio_pci_core_mmap() re VM_ALLOW_ANY_UNCACHED. */
-> +	vm_flags_set(vma, VM_ALLOW_ANY_UNCACHED | VM_IO | VM_PFNMAP |
-> +		     VM_DONTEXPAND | VM_DONTDUMP);
-> +	vma->vm_private_data = priv;
-> +	vma->vm_ops = &vfio_pci_mmap_ops;
-> +
-> +	return 0;
-> +}
->  #endif /* CONFIG_VFIO_PCI_DMABUF */
->  
-
-Thanks,
-Praan
+Cristian
