@@ -4,88 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02F8CCD8CA8
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 09:20:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 359A3CD4F2C
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 09:23:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55F3210E9D5;
-	Fri, 12 Jun 2026 09:20:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DE6510E999;
+	Fri, 12 Jun 2026 09:23:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="sExaVeKu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BlcWJkn4";
 	dkim-atps=neutral
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4210D10F3B5
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 09:20:10 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-2bf2d865383so61475ad.1
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 02:20:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1781256010; x=1781860810;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=zvPmlCR2+M8z2It1PyWjRPyBRhJXBH/RxmRhWYVyMeM=;
- b=sExaVeKun8VHdqelA/9YQnoOM/Iv1WeQE5EBM2MChFQEi5OyYopEBeEjfiqRCo54pg
- ylVzrNCtZ3McNBaXTDnqp0vJQnM9MbdtTU0V2b4PDOj+MTxc9kM0LXjUl+qq/FBtq3Wu
- BAnRisYTtQSJ0B/XVkkK5Ntg5EA4LL7oU6n/1FYBvljo71Z+OkTzVK7gIYL85nGHcEoe
- ISDuigW7ZlBFoDXxDBwsg0nIEWwgKAps0N83mMUkuh9LNcCTgm/HUm9lWN7Y4+2UnG9J
- D4Cl1gcL72WxaKxHP2LzZAABHuxd2xNjUP3xt1JzPNhiC3aXS+n2gnd0GyRMQwuuw0T2
- prgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781256010; x=1781860810;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zvPmlCR2+M8z2It1PyWjRPyBRhJXBH/RxmRhWYVyMeM=;
- b=KhQN0d8LKrvHOCdv2WDXIj3B4CAwZZ8MTboOPjYdTvLywXf/+wI+bv3VR1xlra4MZ2
- RlcWn+bPb9dpT99NBYyjZy0sBuNScrlLi9zls1ahxIbfi0YNknGZEIg4PzGix3n1qzG0
- mHQf9nQXIc+saz1h3JBbkkOJhhH6vR24VrN0xjBvDTc+h+TGOsW8/rWhXk6FuCZGelTb
- ty9r9GCI12AXH8lpScjjOCHCpBsUjjQB5peSSn9sVFu4jNwXnHInSzi0w/6hx5tdK32Y
- eDXwyuLQLgZUj1WmnbSNjs/R4XvCeWvIpoxPxXqtbzBPnGNF7EXXUQD82kJq2Bv7S+SJ
- L2AQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8pRtQtB2avgIiNKa1Gtvtv8oemIs2WWrSAN5ps69jRQitrExf1bD+DRPK8aNRl1j51srn6PaR42Ro=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyvH6Dv5QNJvpQRxhkw1pOL07lTxARlDmI4Ci8EvPdJNVuZblW7
- /VxBM2u+qk5E+VjqU80xTw/s3sVsXH5h0gWmKCIY+I5/wXVv3R8vzANqHOuHNwZrOQ==
-X-Gm-Gg: Acq92OEa729JxNB123YZxJvhOP9rGT8DcRnF7VOTz/n+LlV94oFj0GuWIg3oWw9pwV6
- O4d3VqlBOJp3/GLTdN/uDlA9fgoAsN+La25PqE/mioGITi8H8/toG+bVplfvlzVlVs/my6hqlz3
- vsQ+0pDKOn4B81Nm+eOfP51Y+XreYZiS5MPFBTYNqDnJAijjD70kf/HmqDmFP6ZrCaGFVVLjmMc
- KR497QQjWtuqPN91HCe/V3sC9t8WqxfLd4944aGvALMl7nJBAm3TwV8Z86xLGLhKCLmlR6CK4dl
- GWqOAnc0mIv1C1j5aN+GhIm4j+EbTmYlrwYO0tk7B/Enxbw7fco1CMcgH/hTCXiVYAeM6UZJvVh
- zvUqkm9VTcWrM3L0DzRzU7zkO9v6uQB1ZEvdKbpiELaMHzXmuxcozZkD1IseTqWVOb+k2tPMhsz
- hTflC7KU2wZVed/oE5nFjeg/tr7m948jQUf3SukbuEbQT57DxUxTfdsXCEupBz+XOM47xcjps=
-X-Received: by 2002:a17:902:e811:b0:2bf:139c:dcf3 with SMTP id
- d9443c01a7336-2c405c8817fmr1345405ad.19.1781256009183; 
- Fri, 12 Jun 2026 02:20:09 -0700 (PDT)
-Received: from google.com (199.255.142.34.bc.googleusercontent.com.
- [34.142.255.199]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8434afd17f5sm1476657b3a.39.2026.06.12.02.20.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Jun 2026 02:20:08 -0700 (PDT)
-Date: Fri, 12 Jun 2026 09:20:01 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Matt Evans <matt@ozlabs.org>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v3 3/9] vfio/pci: Add a helper to create a DMABUF for a
- BAR-map VMA
-Message-ID: <aivPQcSlolwptnB6@google.com>
-References: <20260610154327.37758-1-matt@ozlabs.org>
- <20260610154327.37758-4-matt@ozlabs.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260610154327.37758-4-matt@ozlabs.org>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1A6910E999
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 09:23:09 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E21D660052;
+ Fri, 12 Jun 2026 09:23:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E99B1F000E9;
+ Fri, 12 Jun 2026 09:23:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781256188;
+ bh=UZFcOIrMM2XkaCEtWkrlDnPijr29gtuwGAt5pLCcpsQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=BlcWJkn4TUrx9oqvSiNSTdmvA0F9RaC5R4iHoYrtzlplyG/5ObTjbKKt+zzeMLkhq
+ RBylxE94Tb6unAYiK+pPO0woiDm3lXKX13tlIdXXlITWYCBC57oiGnKUgi5SELg+Xs
+ GfQ4IfwiRQNgki0t+yN9akVvehiFGUHh11cUVagikghmhlSbJjvE2uSAQ1Boz3roNK
+ dal77G7fgeJvFxo5HAQ1LfENWFkh3FJDwKXt+mhhA9LziGP1enWhWl/yGj+rzsmx1q
+ gHhF80RFc3bYzWBQQQNFmg1ecAMvpCer1bM/POzpK0hh5TepIT6iDxNPPsPfO/WViS
+ udI+wYZ+aBlzw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 02/18] drm/amdgpu: add SVM core header and VM
+ integration
+To: "Huang Rui" <ray.huang@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260612090928.29682-3-ray.huang@amd.com>
+References: <20260612090928.29682-3-ray.huang@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 09:23:07 +0000
+Message-Id: <20260612092308.2E99B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,47 +53,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 10, 2026 at 04:43:17PM +0100, Matt Evans wrote:
-> This helper, vfio_pci_core_mmap_prep_dmabuf(), creates a single-range
-> DMABUF for the purpose of mapping a PCI BAR.  This is used in a future
-> commit by VFIO's ordinary mmap() path.
-> 
-> This function transfers ownership of the VFIO device fd to the
-> DMABUF, which fput()s when it's released.
-> 
-> Refactor the existing vfio_pci_core_feature_dma_buf() to split out
-> export code common to the two paths, VFIO_DEVICE_FEATURE_DMA_BUF and
-> this new VFIO_BAR mmap().
-> 
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> ---
->  drivers/vfio/pci/vfio_pci_dmabuf.c | 142 +++++++++++++++++++++++------
->  drivers/vfio/pci/vfio_pci_priv.h   |   5 +
->  2 files changed, 117 insertions(+), 30 deletions(-)
->
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Missing Memcg Accounting in SVM Caches
+--
 
-[...]
+commit c7235f541841c86e76bfeba1fd000ec628328f01
+Author: Honglei Huang <honghuan@amd.com>
+
+drm/amdgpu: add SVM core header and VM integration
+
+This commit adds the core header file amdgpu_svm.h defining the data
+structures, public API, and caching macros for SVM integration. It also adds
+an experimental SVM pointer to struct amdgpu_vm.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_svm.h
+> new file mode 100644
+> index 0000000000000..9884a1f834d67
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h
+[ ... ]
+> +#define AMDGPU_SVM_ERR(fmt, ...) \
+> +	pr_err("%s: " fmt, __func__, ##__VA_ARGS__)
+> +
+> +#define AMDGPU_SVM_KMEM_CACHE_CREATE(name, type) \
+> +	kmem_cache_create((name), sizeof(type), 0, 0, NULL)
+
+[Severity: High]
+Does this hardcoded flag value prevent proper memory cgroup accounting?
+
+This macro hardcodes the flags parameter of kmem_cache_create() to 0, which
+omits SLAB_ACCOUNT.
+
+If user-controlled structures like the SVM memory range tracking cache
+are instantiated using this macro, omitting memory cgroup accounting allows
+a containerized process to allocate unbounded amounts of kernel memory with=
+out
+being charged to its cgroup. Could this bypass container resource limits and
+potentially exhaust system kernel memory?
 
 > +
-> +	/*
-> +	 * Ownership of the DMABUF file transfers to the VMA so that
-> +	 * other users can locate the DMABUF via a VA.  Ownership of
-> +	 * the original VFIO device file being mmap()ed transfers to
-> +	 * priv, and is put when the DMABUF is released.  This
-> +	 * intentionally does not use get_file()/vma_set_file()
-> +	 * because the references are already held, and ownership
-> +	 * moves.
-> +	 */
-> +	priv->vfile = vma->vm_file;
-> +	vma->vm_file = priv->dmabuf->file;
-> +	vma->vm_private_data = priv;
+> +#define AMDGPU_SVM_KMEM_CACHE_DESTROY(cache) \
+> +	do { \
+[ ... ]
 
-I appreciate this comment. Thanks for being clear!
-
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
-
-Thanks,
-Praan
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612090928.2968=
+2-1-ray.huang@amd.com?part=3D2
