@@ -4,135 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A826CD98D6
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 14:27:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A176CD98D6
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 14:27:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C3FC10F53B;
-	Fri, 12 Jun 2026 14:27:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D285A10F55B;
+	Fri, 12 Jun 2026 14:27:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ezwPk28S";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lmEo6g9I";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012053.outbound.protection.outlook.com [40.107.209.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F3E910EA53;
- Fri, 12 Jun 2026 14:27:05 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47B0E10F54F;
+ Fri, 12 Jun 2026 14:27:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781274447; x=1812810447;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
+ in-reply-to:mime-version;
+ bh=MNS6Iw41eroIosMlZYP00Tein9WUs1axGfhONy1kfwg=;
+ b=lmEo6g9IyN1+DEsaYqLzyjBNDLbSd/uM5dzObK1PYhEDQ9OUAJar1ph2
+ 1uvDQdoTrjJTwzjfTnx7hBHK379ktaB55GUtoT+4ZimvoGZixviCtx2CI
+ aYY/l6iOfcXTQtQY1HbSI8G+XgTDNG6D6cq6tPRZ6bfV5DP91jtxdPXNX
+ DL3ANOUKUW8kHEatt4kB6jtwyaibx9PawS/sE536KZ3bq0bjscJyyj0PV
+ 7UH2uEX3M55QpmHMiZlfp/pAHL8kLvW/HEVkHdpwilUkluCIkWCjVzD6b
+ zXVXljPp4KztlQYdvbRGuKPRUCS0usDIYcAh9smxyBIipXAlwidGxH9C8 Q==;
+X-CSE-ConnectionGUID: OMJATM2fRpS3TgHFEOOClA==
+X-CSE-MsgGUID: yD3ge3WwTG+INSIsmON5oA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="81116252"
+X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; d="scan'208";a="81116252"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2026 07:27:26 -0700
+X-CSE-ConnectionGUID: AubY8WohS3iP30lB6Po+KQ==
+X-CSE-MsgGUID: JcphWJ0/TJOuVwWCTU9ZAA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; d="scan'208";a="243902777"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2026 07:27:26 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Fri, 12 Jun 2026 07:27:26 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Fri, 12 Jun 2026 07:27:26 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.57) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Fri, 12 Jun 2026 07:27:26 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EH8OyWDk+XtlSP71itlFKOsDgKexwodFWNMCtGgauruYsv3sBeu1TzdC7EIaZHqDeNvf9xLNdD1xHGIsgU96AGm/0J948OvTlO+T2NuoxgV0SBVcK8ZXJG7c/Y8oIE9bjqZm5ThAxdQyBCYkSHuW6yyRngba788xna9WIoTZTusxLvVHX1Wg7LKlvhKdfts2e1JzbKq57atQ/HjPrnYpm6P0xPvUQgFYGaZDux2VmfFza+JKHAc60TkS3QgetS3AVL+8osw2juJEzQMSYxqLPl+Zn0m5AIf0ZZ/hmFWfSIVncwmm5MzFkmv7rK98NMRhx8HDo/BCqLsMZ3DO1kIRLA==
+ b=OyKmQV/4Cq054dzsn1ynBaTXKKkyEjA51VphJoKKKQic8986aLTGxSE2R87sQxMtIAjl4oQd+MChWM2m7iKxbvQQVynZWkG2XHVyRc0bopu1fKsib/4UjviB2Uuttj/94ddkUF6BYl2h3hWNYO4zbDnj6gckcO4gjS0bjksTrd5nZLlkXthAxb5tJfLjwQpNe6iH8P/MfAclTen1jrkVerv6PFHFnfkkHn2DpjLye5lJqNAWIcc5XIVowIK0hdBBmw9KzcOcudUXxfoZrXIcrPM/feDytI8hp7/I/jlFrfFrA51xCuBdYLQz6WZH0AysvXjURlnfHipKfk1UAHTTjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o2YyawoS85KETQow29a8ZYO7QrM1Pv4nmeY43qUUFkw=;
- b=ojwxOGRLcsHeEHdrjotMVshDppP06hwB4gFtEgFpIplfVA4sKbD9K3ifpwdq1Wt5btHHQih+9sPRLvh3lHj6/F7AXRDixlhhXTALx/I+pFu9OMpscKOGKPi0ZR1Bku/YZeU/FSwt7WQYbVDOdAcqdjIdhlK8OLOcUcK+9bJ6ORnBh/P7ego1+kmR1dSS45Lft+dCOGVUBUNXkb36OpevbLzfxBFoQx+EKPMcGN42bO4PVVboNqaUveuVs2sEvmAUnEv2bNDYbMbosCZu9wAusbEHqh34htTdInC+6rmni/4HWFSCRhMdzG8oWj0ZLM8kbvQ5EWeIOpqEL6l+x525Fw==
+ bh=IZK6kcP535YUZ0gcUlZ3EJISVSswhySfqjEUqpK92eI=;
+ b=ZiIkGq7eTIBHjtkLkCz2JRE+5Dtkl/cZ8JDTFltDjYvrKAAB2UmKvudhgQMEZ7xuAzY50KagVXoSLyL9vAJuXUDSGjFoinmMxnUSXQW3S59W/MPZgnqiVADZCmsqM70nZ+Ypmbg+bbFmUMlIw8LtafK4PE9Rjq3rXIxZLu9foEQlSKdVsGX80R3vtTL/VInjYa/LpaKhmM4dY1Vb3b5IHpwWSXdTil2kn92cI/4rFuu2upSxKru44Eq3F0Xt2r8JV+oFdfrEYLVbxvaJXTLjePZlTYT03FsHWFm6oHXwVeOOHJpa4nBWu2OnYacJJyDguVjxKiTxPZKXiuqrSx6dHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o2YyawoS85KETQow29a8ZYO7QrM1Pv4nmeY43qUUFkw=;
- b=ezwPk28SLT4Mpyl6xHuaDx2EgYreO0MFWi1RzNijppxDXDWH68xk8552KNxDOpqmiGeqiJGfLrPuSktdHRTNOi1SPNqmGAyMbrmInV06oO3aRx2451uDf7Z5ibVKU0+x251WpckjTSjImIUB/IvzYsZNNKVBN5942hBdJraHkaI=
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB6435.namprd12.prod.outlook.com (2603:10b6:208:3ad::10)
- by IA1PR12MB6531.namprd12.prod.outlook.com (2603:10b6:208:3a4::7)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA3PR11MB9273.namprd11.prod.outlook.com (2603:10b6:208:573::17)
+ by CY5PR11MB6283.namprd11.prod.outlook.com (2603:10b6:930:21::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.13; Fri, 12 Jun
- 2026 14:26:58 +0000
-Received: from IA1PR12MB6435.namprd12.prod.outlook.com
- ([fe80::8b77:7cdb:b17a:a8e2]) by IA1PR12MB6435.namprd12.prod.outlook.com
- ([fe80::8b77:7cdb:b17a:a8e2%5]) with mapi id 15.21.0113.013; Fri, 12 Jun 2026
- 14:26:58 +0000
-Message-ID: <70bd2f07-957f-4235-b9ce-e5be55f4fa78@amd.com>
-Date: Fri, 12 Jun 2026 22:26:46 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 04/18] drm/amdgpu: implement SVM attribute tree and
- helper functions
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>
-Cc: Xiaogang Chen <xiaogang.chen@amd.com>, Oak Zeng <Oak.Zeng@amd.com>,
- Jenny Liu <Jenny-Jing.Liu@amd.com>, Zhu Lingshan <lingshan.zhu@amd.com>,
- Honglei Huang <honglei1.huang@amd.com>, Junhua Shen <Junhua.Shen@amd.com>,
- Yiru Ma <yiru.ma@amd.com>, Simona Vetter <simona@ffwll.ch>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-References: <20260612090928.29682-1-ray.huang@amd.com>
- <20260612090928.29682-5-ray.huang@amd.com>
- <e9d48794-ac52-47f9-a9d5-4e6e11d6e0cb@amd.com>
-Content-Language: en-US
-From: "Huang, Honglei" <honghuan@amd.com>
-In-Reply-To: <e9d48794-ac52-47f9-a9d5-4e6e11d6e0cb@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI1PR02CA0056.apcprd02.prod.outlook.com
- (2603:1096:4:1f5::7) To IA1PR12MB6435.namprd12.prod.outlook.com
- (2603:10b6:208:3ad::10)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
+ 2026 14:27:18 +0000
+Received: from IA3PR11MB9273.namprd11.prod.outlook.com
+ ([fe80::31a4:58c:e3b5:43fa]) by IA3PR11MB9273.namprd11.prod.outlook.com
+ ([fe80::31a4:58c:e3b5:43fa%4]) with mapi id 15.21.0092.017; Fri, 12 Jun 2026
+ 14:27:18 +0000
+Date: Fri, 12 Jun 2026 17:27:11 +0300
+From: Imre Deak <imre.deak@intel.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+CC: Jani Nikula <jani.nikula@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, =?utf-8?Q?Micha=C5=82?= Grzelak
+ <michal.grzelak@intel.com>, Uma Shankar <uma.shankar@intel.com>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] drm/i915: clear CRTC color blob pointers after
+ dropping refs
+Message-ID: <aiwXPz0u6HAgSg51@ideak-desk.lan>
+References: <20260612035310.3013066-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260612035310.3013066-1-lgs201920130244@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-ClientProxiedBy: GVZP280CA0007.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:150:273::11) To IA3PR11MB9273.namprd11.prod.outlook.com
+ (2603:10b6:208:573::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB6435:EE_|IA1PR12MB6531:EE_
-X-MS-Office365-Filtering-Correlation-Id: 04729314-512a-40ab-cba0-08dec88ea8bf
+X-MS-TrafficTypeDiagnostic: IA3PR11MB9273:EE_|CY5PR11MB6283:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7883ef85-a76c-4a3b-41d3-08dec88eb51a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|18002099003|22082099003|4143699003|3023799007|11063799006|6133799003|56012099006;
-X-Microsoft-Antispam-Message-Info: XY1WNC2B8x0+azPKb4FAXsIteGVbOazF2VFEgHUPHwPWWMQ5MRFo4kxbLP1VvdkPya3o6U2BNW5eQotAgEGD8am87KgzNJYeEXLIlUetZ52KeWqmoEioAMl8iDLTJleOUEi6JZvZzTfr+tzeo+tQaGpx6I2Wl+r6NSe4c6BY4ad37TiYU3/tsHiZutHBvPynS/KD1G4/M6X36EbG1oRJWyb/WrR+XpNeIHTdyydNRqA5NNdf2KITkpegMngvANxpbMY1kS+7RgZRAfqbkVGTs3ekXS1IGFnDl5a8HBsqZUMOtSwpNBhXo3inENpXJY6ReBkGFlReIjB8eodR9YC5d7tN3Fy9r3K28oRXJG9DQmM1cOc7EdMJmnAbFyBtPlHNTiHUqb8GRIccE7fn9r/fP/IaMqv4LjwEq3V434wDlJbc00tORlV3jay1MXsn/nGXZoe/3Cibx7s4MzqqQkzdhJihyFW0wLtCf7iGJmCnOS+Vw2zlzFNSDMJH5RLm038lIDuQ1HRVFNiZLJ1hav+d2QJYin5mms0T+A7IH+GSAUClCVmsJQvNeuMn0th1SwW5KlW3g7hVydZE75VvECwtZzz+aTNCs1hT4unR+2wJqNqUC0KNN+KWzM5h4hIBnAujVBQyCYaF5jcpLKF2GGZEPRY4sAgAI/sfEj53VI869ZA0HhyG66TgjR7ZLs2yoiVh
+ ARA:13230040|366016|7416014|376014|1800799024|23010399003|56012099006|11063799006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: U3tpPOjQy9Qg+6TOqdZy8eXgv9hzASWyi4wtDpd7Wz6H2KmaNoBhR27QsmxIYlJ6wov+pfYgRpPKVaWRO56OPE9H2RMXoFsCx+jaX9428aqltWJ8DZCSVch0wzUi7Sp2+pHWOXsxAnXxPQcpqP876mlPzmMy9t2L4FelYMqhjvscYyDFx6XTerbNDNO+jmI0XrPCwhL7SyB49f6Olu4FniHR6CxsSJb0YTJOi9HXmoECaxEj6JEzo/HeIp1UKCAd2qoLiKuTBWOCuenrbhnYaIziHplpN2oyPsO3YN0/Qfw5WwhMip+lLW+zyJLL2NmkRs5lAAjy0OCZZ7QNYQbuAngKPQ6rUwn0w+APGegB14ghc8nMtO9mMCDXekYFACA9c3Itg/wxiqDaHYnbjUvEAppE6kYJgGUuw7nd0SsGSQzAUpXf5z3QGaApkJ68jnzxsTkwI1lElMwbYKgPSRu0HIavwinmvxmYP1Pn36c6lSOTeHQhIDKTt5D5Tat3Jz4QHom2Jc3ffW5ZHg9CCGz4rQNeICuw9AVNSFNwbrcBoQw2I7H+iJ4LOjr3R3BRgeM5fTs5NwDdDQaM9qn6+piXLyOATl9MOLQvNIyggxtwJB61yx0wtOgopVqEFyt6VloCBieiv5bcw10NV721z2WdfwRWC8N8M8fpmVHsvJjt1KEkgV3blCNAJIxu7oLfrQmc
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR12MB6435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(18002099003)(22082099003)(4143699003)(3023799007)(11063799006)(6133799003)(56012099006);
+ IPV:NLI; SFV:NSPM; H:IA3PR11MB9273.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(56012099006)(11063799006)(6133799003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TVE1OWgvRDVtTXRBS1dZVXNMcHgzMG15eFRLVlBOaEx5SktKaXBDT1lTaHIw?=
- =?utf-8?B?U3NDeDZQRHBNb0tVWFFrZ3JUYnJGTkt4cmhHUEpHRCtSSy81MGlKUS9lbVdq?=
- =?utf-8?B?OXRzRHRjTXBOTDdiVHU0V3R4dWI4RXM2RVhPQ3FaZWVqdStzWTBBZ0xVamMw?=
- =?utf-8?B?ZHN6ZHh3eUlhTGVzZVFZd3ZYUDJEUE1TbmIrV1h3WW1yaDhIdHY3TjdZWlR6?=
- =?utf-8?B?SlpCMzFTbUUrSVI1MGIxZ1Z1dTkxVStvVHkwM0tDejBZUUc0NWVmTEpkd1F2?=
- =?utf-8?B?VjBpWWRvUkhSZHJjUVQrS0U2K1VYdnJXSUhreE9IRm0rSUtlT0MrRndudFZJ?=
- =?utf-8?B?WWRyaDhndkdubHBGM3UzWnVQM2lCeUZVQis5RFZhM2RiWG1BZktCZ3hWQXJt?=
- =?utf-8?B?OVFhTVFTc2liTGd0c1NXRmlVY0FnK0hlcVN4cXdxNkNXYVA0czhDM3BIanNG?=
- =?utf-8?B?a2NPYTM3WjdWelBSNmVOREpRa0ZZN2tTWnN5OTlBZDdnS3hFUjQ2UXljM3lT?=
- =?utf-8?B?ZzFtTTBBbVpUbERhYkdnRHdXVU91ZkhwMmpWcEY5ZWFPZGZGR050NGJQUDEr?=
- =?utf-8?B?Tmh1d3FOZmZMK0VaYXhtd2N5MFFJN3pzeENYQzdoaEoxc3JYNHVnNnlXK2p6?=
- =?utf-8?B?VERIKzNaallKTnJmYmF6OTNabzVGWmJWb2J6aE5OQ3poSnJIT20zWkpIelgy?=
- =?utf-8?B?KzRMM0NJNUJidVNMeVc4VWlhTlZKUm42cTJydnJmNmxmcUt5b0RtNkNLa09L?=
- =?utf-8?B?WHVmNDJRbWdERDVLWThQZ1p6RGtwcnZkRSszUG5mVjk4OHh2cDV1ckVzMlA4?=
- =?utf-8?B?KzJCc2EzS3NVMVpiQVNuVW9CdDNDUXErdm1zZUZrTm1FdGlCTHlkUVhLa3hr?=
- =?utf-8?B?T3d3d3A0N1Z1M01zb2tGTXlQVW1UVm5HN0hWQmwwV3VVZTdUUnNYNWpvRXFw?=
- =?utf-8?B?anIwWU9MZFV3TURhQVNGaytBTUlpbS9RYVlhVUVpaUNEblRxb2lYMTJqL0Y5?=
- =?utf-8?B?RlVGcmxZMUJOcE9HcFE4Ulo3dk1aUSs3NkRIc29MMkNTOXRwS1ptYjRXMyt1?=
- =?utf-8?B?RHcwM0tIb2JmWFFqZUhXa2ZFem5oNHV5RmtTb09sckM2cEViVFFIZXp6bFln?=
- =?utf-8?B?dlZYaWJTWkxnRnJ6WXA0anNRTjRmMUl5dDg1V0NRTXl5ZEQ3QklndGY0MHlo?=
- =?utf-8?B?alliOGtTMWNBYXM1M3RoTFpaN0JIQTZjTTE4ekd6MjJuWVpGL0hDdFlMbEN0?=
- =?utf-8?B?bHo0eVdoTEczVXFYdmZJRjRHMUMxWXRzN0NaK3FWczUrMEN4dWZ4ZWFDWmNC?=
- =?utf-8?B?aUEzL21TUzcyb1BSRWtjS0pERytFcUs1MW95cW01MXhXeS9uWmlCeUhvK29P?=
- =?utf-8?B?WW40Tit6WHFiWHZsN0psd2orL1EvUms5SlhlQzFxMlkwS3lrNWhaK0taM1hx?=
- =?utf-8?B?bmdBejdXbkJuU2FXSnBCRUpqeHQ2VTNOamJPK2Y5TmQwNlpQTWZBT2wyZlkw?=
- =?utf-8?B?YlRmYWN1VmVxZlZCajlIWFBOMFU4UEFMaHBmclNPT1JNMnl4akhTTE5BTVhQ?=
- =?utf-8?B?ZWpicG4zYW5HazUxYTJpWDMxNldESVQzeTFnL1g3Q01zYzZQNUZWejV4Tmdh?=
- =?utf-8?B?dERPNkV1aDgxOEFpeXQ1a3BPSW5HRzZOZHphZlhDOXZsVWFQb0lvVm12R3B3?=
- =?utf-8?B?RHJWdHJjdzQrYnYvcTBqQTNRZzZvRW5TdUI5VDgvMU0yekdFTVExUjlBUG9O?=
- =?utf-8?B?ZXpQdzJNRWpLUzgybnorVG0yaUU1STlBekNoa2Q3SnFuQTArZjAxL3Yyakk5?=
- =?utf-8?B?NERPUEZjbTZ2a0dVbGZmWlpldUUvWm1TQU9yd0FwVE0zT2d0bFgxbHpqS1dQ?=
- =?utf-8?B?dFBhZklQYTNQNnp1ZHBxSmlwQkZJSDVDL3A1NzFSR2hiWGltZU9lckFqNWdM?=
- =?utf-8?B?NjlYUzN2RmVXdm5QcW4zOVdPZGhVZUZQeE5aeHVDODYvWDR6aUJvRFk4a2xB?=
- =?utf-8?B?a3BFU21kd3VSN3JhRlg1NWdKRndBN2JkdGNuaVlxa01neVdvSmJiRWxtbm1H?=
- =?utf-8?B?K3RyY1pvSEZqK1gzcHBIZnBVY3FWWFowZGJZZ214eGo4U1R1SktIRElpb0dp?=
- =?utf-8?B?S3dJK1hoNm5MajkzWnBDZlFNa2UvcmY1ckRrazlUZEEwUW9wNGR0OUcyV04x?=
- =?utf-8?B?bmswc1pxVEFlSlhRTzJmNlh6ZmRoMmgvT0FOenlmM0ZZM1piMGo3MmZlREhn?=
- =?utf-8?B?SzlNeS90Y2xCUEozM0NUdTBsZ1V5MHcrQ1djQ3N2MzlNWkdLYkN5ZVVlNTF0?=
- =?utf-8?Q?YyXw0+6t9soSsmMQ2V?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04729314-512a-40ab-cba0-08dec88ea8bf
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB6435.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Zsxguk+exyjkkuDflZm5io0JmCtNFJwXaL2F8oZHtF78XdiNCYP59i/pzPyC?=
+ =?us-ascii?Q?RGfPJ5R1AcIavmAhxHqePFAmAq5kn4ZAl7cfRU3aAgglmv78GcZ8ZG5TwVnU?=
+ =?us-ascii?Q?8H9VF9CgHi6PN36DrROKAsURHHx7+aoWQKl8xv6nS/IzuqeJeS0Gp9P/KAiI?=
+ =?us-ascii?Q?P3Nm9vFZOgDqBSrnHq+fIiDtxggeRs532m+ptIvKFRtUWftquxG8B38nBEWE?=
+ =?us-ascii?Q?Fs3FTAPK/4CDV2YDvDJe3aq29yksXNu11vXgcryMpob1VhUWllI4TbX8roQM?=
+ =?us-ascii?Q?8Cix8t4qoxnKSWvxkakEXw2cBVegUADOXp/UohWVHpFrkz/iCvUV9NFHlBbB?=
+ =?us-ascii?Q?uf9sfblAF0RYjTJjE3RlSiVF9lQlgy7N3vGf2nhGnQ9SeUOYxe96QAEyl0sn?=
+ =?us-ascii?Q?nfdYKVa07bTpAznSIvRjVnjmqEtPj2IyCMxp9iMUVIrAG+geKXSI0Bv8Cyro?=
+ =?us-ascii?Q?d1rS4LKL6qxkOduJbtRCnjnkiiRU7xB2jrBvjQYnhAJQQGGfgz0diRdZa5Jf?=
+ =?us-ascii?Q?0l+6OW7zXTf2Za8sThc85xwVNu6+jsI6YSNvAdiMzL6wWP8T2EATYZDxZwvI?=
+ =?us-ascii?Q?Ha4lzuUPOszInN1EVXV5rVelVCmSahlwjthQVcAlD+ETbkkd9df95/4SO4Vh?=
+ =?us-ascii?Q?M2r3+EH8kMVECe6n2rDSxZLaaHQxoGDCx/MzLfkVjZe+ScmqMG99V94E00qm?=
+ =?us-ascii?Q?99wxNbzYptViibJtfOcwUqeH/YcIGTXYmN32AN2mQwgbqjBwuMv93ahG6lu/?=
+ =?us-ascii?Q?N+ym1AlZiiTTYOB1fNbRkiHDHr7SuFje3LCirHUuaOXs66TkrJnTLmIZrTF4?=
+ =?us-ascii?Q?+e66tn/mU5lpSfIZF9M0ghdD927xmVnLQMrkKJx21wZ6YdPlDxBZ/sEtIWGv?=
+ =?us-ascii?Q?LqzKPhDjvy3WX9+xtL3oSsYYj9e5QPGOtjM0qU3mWN2VSw6Tj/xyKqQckWwn?=
+ =?us-ascii?Q?+exIflKtt3h3t4kLyJd1rxjw+0W6V5ezTUeQb0zOX3djHi/fEKoydTZS2se4?=
+ =?us-ascii?Q?3Wc/f+rHhVhseTPXQWjp/ggipaWX2EzSpH5BBlcKvI83NSntLRphwOqFf/qt?=
+ =?us-ascii?Q?PQhhQ0ubv7LSumGecPPgtEWFyVH8cxEaPX8Hg3VF7HW/Tp2dqArFazGamige?=
+ =?us-ascii?Q?6vmzIesCtlsWyxxxHSDcNR+PTs9TMChMSHZm/f4ZSoN5XJXfbUctjsoTQC9O?=
+ =?us-ascii?Q?JcaT5l7jxfcum9rzFn6xtMig31unJV47ML1OXjPrr0blsnBGohScKAjjmWh+?=
+ =?us-ascii?Q?7FQQvQQn6f4f+ukKXZ7CRb50K4cw/3EV0+tzMa/J/V3i1AmsqMGecvIsbGzX?=
+ =?us-ascii?Q?udL6FkXxMVbR/Zj8WoZU/lYqF0OIsEs2KuZJQi+X1gwwd3OHJ5jHWLqGYO4c?=
+ =?us-ascii?Q?fND88FuIWoGVitIDPqIBwmkLwM7cZJMfgs3eAv9Eg1LlnfD6UK0gRndOi65r?=
+ =?us-ascii?Q?1z+94Fk7M3iunxrgtO9UZcWEMfDcF/0uNAkxLxSVOC6Letp8HClmIBJmoh9r?=
+ =?us-ascii?Q?56RIVqqwID87i7dpXa9FmttDfSoE8q3wURFLd6IRMLyZUUy4lOp+4PsrMCv4?=
+ =?us-ascii?Q?wF2AVDpsEa5//4V37vviY8bjaK7VlLX+r0+CADmfSB63gTiQ6p6Dmgv49ljU?=
+ =?us-ascii?Q?d6j+JJtX6F3XuBT8zNMriN7apIjbZOgMPTWCyCQtLhMStum85O8w6S2VIxm9?=
+ =?us-ascii?Q?GBtXGoYVVFbqkQPjg4/pLYRZO3qpbahn5Yse7ljquv7VTkst2gqlJUn5vik8?=
+ =?us-ascii?Q?+WepghMBZQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: Rh5LXE8/dzkuN5qeYOmyVI1DFYFYN+z1RxVTmzzLtKJOXoymamJQudUBsCiDTLgq+2uir+A0zRH3zZ+0A1H2bzLQglGwRpa57HEeyJB1aT4eOZOpuujJTRTi0vFo39ULVkx1ljBqlZ9jiRn1ykl74GtRncEYJdimmsrbIwd9Uv5aUHYbUfNvAhS9/iIOXOfhi691rTyPQ3U321YwBFDb8xazzMO87NjIUvrATRJcVwVxej84k95dMw+lTZocM4sPQLcXnqJyIg3ChSt4Jv/czOMjP0hjblE5KhWx1DLlSw8NWlcUX8TbOf8oJLGVQnxv8KCvSAailRBsSAL9hUKA/g==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7883ef85-a76c-4a3b-41d3-08dec88eb51a
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9273.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 14:26:58.0695 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 14:27:18.4175 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Uc5klp5CE55m5GM2ouP6dwzZpbbkBzx9eSE2ViXLzy2HQfV+stzELDNNLUkgIxePk/l/CtyH/+Fx7bs10TjEzw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6531
+X-MS-Exchange-CrossTenant-UserPrincipalName: cwMjgIXeUp72qH9ZdBatDMkpmDA7AtzmW2lBzgwjcHDwJTpKaZGJgT7SU16IHmXLK+IwdYf/sNImJsO7IZFwZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6283
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,283 +163,64 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: imre.deak@intel.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 6/12/2026 8:07 PM, Christian König wrote:
-> On 6/12/26 11:09, Huang Rui wrote:
->> From: Honglei Huang <honghuan@amd.com>
->>
->> Implement attribute tree foundations in amdgpu_svm_attr.c:
->> - Slab cache management: amdgpu_svm_attr_cache_init/fini
+On Fri, Jun 12, 2026 at 11:53:10AM +0800, Guangshuo Li wrote:
+> intel_crtc_put_color_blobs() drops the CRTC color blob references, but
+> leaves the corresponding pointers unchanged.
 > 
-> That's superflous as far as I can see. Why is not simply kmalloc used?
+> This can matter in intel_crtc_prepare_cleared_state(), which frees the
+> old CRTC hw state before calling intel_dp_tunnel_atomic_clear_stream_bw().
+> The latter can fail while looking up the DP tunnel group state, for
+> example with -EDEADLK.
+> 
+> If that happens, the function returns without completing the cleared
+> state preparation. The failed atomic state will then be cleared by the
+> atomic core and intel_crtc_free_hw_state() can be called again for the
+> same state, dropping the same blob references again.
+> 
+> Clear the blob pointers after dropping the references so repeated cleanup
+> of the same CRTC hw state is safe.
+> 
+> Fixes: fb69d0076e68 ("drm/i915/dp_tunnel: Fix error handling when clearing stream BW in atomic state")
+> Suggested-by: Imre Deak <imre.deak@intel.com>
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 
-Got it will use kmalloc instead of slab cache.>
->> - Default attribute initialization: amdgpu_svm_attr_set_default
->> - Device memory and VRAM preference helpers
->> - VMA validity checker: amdgpu_svm_check_vma
->> - Attribute equality comparison: attr_equal
->> - Interval tree CRUD operations: find, get_bounds,
->>    alloc, insert, and remove
->> - attr_set_interval helper for range boundary updates
-> 
-> You need to squash that patch together with the one who adds the header.
+Looks ok to me, thanks for the fix:
+Reviewed-by: Imre Deak <imre.deak@intel.com>
 
-Got it will fix.
-
+> ---
+> v3:
+>   - Move the blob pointer clearing to the end of
+>     intel_crtc_put_color_blobs(), as suggested by Imre.
 > 
->>
->> Signed-off-by: Honglei Huang <honghuan@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.c | 234 +++++++++++++++++++
->>   1 file changed, 234 insertions(+)
->>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.c
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.c
->> new file mode 100644
->> index 0000000000000..ba09aa3c3fe4d
->> --- /dev/null
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.c
->> @@ -0,0 +1,234 @@
->> +// SPDX-License-Identifier: GPL-2.0 OR MIT
->> +/*
->> + * Copyright 2026 Advanced Micro Devices, Inc.
->> + *
->> + * Permission is hereby granted, free of charge, to any person obtaining a
->> + * copy of this software and associated documentation files (the "Software"),
->> + * to deal in the Software without restriction, including without limitation
->> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
->> + * and/or sell copies of the Software, and to permit persons to whom the
->> + * Software is furnished to do so, subject to the following conditions:
->> + *
->> + * The above copyright notice and this permission notice shall be included in
->> + * all copies or substantial portions of the Software.
->> + *
->> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
->> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
->> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
->> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
->> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
->> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
->> + * OTHER DEALINGS IN THE SOFTWARE.
->> + *
->> + */
->> +
->> +#include "amdgpu_svm.h"
->> +#include "amdgpu_svm_attr.h"
->> +#include "amdgpu.h"
->> +
->> +#include <linux/err.h>
->> +#include <linux/errno.h>
->> +#include <linux/gfp.h>
->> +#include <linux/lockdep.h>
->> +#include <linux/minmax.h>
->> +#include <linux/mm.h>
->> +#include <linux/slab.h>
->> +
->> +static struct kmem_cache *amdgpu_svm_attr_range_cache;
->> +
->> +struct attr_set_ctx {
->> +	struct amdgpu_svm_attrs old_attrs;
->> +	struct amdgpu_svm_attrs new_attrs;
->> +	unsigned long start_page;
->> +	unsigned long last_page;
->> +};
->> +
->> +struct attr_get_ctx {
->> +	int32_t preferred_loc;
->> +	int32_t prefetch_loc;
->> +	enum amdgpu_ioctl_svm_access access;
->> +	uint32_t granularity;
->> +	uint32_t flags_and;
->> +	bool has_range;
->> +};
->> +
->> +bool amdgpu_svm_attr_prefer_vram(const struct amdgpu_svm_attrs *attrs)
->> +{
->> +	if (attrs->preferred_loc != AMDGPU_SVM_LOCATION_UNDEFINED &&
->> +	    attrs->preferred_loc != AMDGPU_SVM_LOCATION_SYSMEM)
->> +		return true;
->> +
->> +	if (attrs->prefetch_loc != AMDGPU_SVM_LOCATION_UNDEFINED &&
->> +	    attrs->prefetch_loc != AMDGPU_SVM_LOCATION_SYSMEM)
->> +		return true;
->> +
->> +	return false;
->> +}
->> +
->> +struct vm_area_struct *amdgpu_svm_check_vma(struct mm_struct *mm,
->> +					unsigned long addr)
->> +{
->> +	const unsigned long flags = VM_IO | VM_PFNMAP | VM_MIXEDMAP;
+> v2:
+>   - Keep the original ordering in intel_crtc_prepare_cleared_state().
+>   - Clear the blob reference pointers in intel_crtc_free_hw_state(), as
+>     suggested by Imre.
 > 
-> That needs a better name.
+>  drivers/gpu/drm/i915/display/intel_atomic.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
 > 
->> +	struct vm_area_struct *vma = vma_lookup(mm, addr);
->> +
->> +	if (!vma)
->> +		return ERR_PTR(-EFAULT);
->> +
->> +	if (vma->vm_flags & flags)
->> +		return ERR_PTR(-EOPNOTSUPP);
->> +
->> +	return vma;
->> +}
->> +
->> +int amdgpu_svm_attr_cache_init(void)
->> +{
->> +	amdgpu_svm_attr_range_cache = AMDGPU_SVM_KMEM_CACHE_CREATE(
->> +				"amdgpu_svm_attr_range_cache", struct amdgpu_svm_attr_range);
->> +	if (!amdgpu_svm_attr_range_cache)
->> +		return -ENOMEM;
->> +
->> +	return 0;
->> +}
->> +
->> +void amdgpu_svm_attr_cache_fini(void)
->> +{
->> +	AMDGPU_SVM_KMEM_CACHE_DESTROY(amdgpu_svm_attr_range_cache);
->> +}
->> +
->> +static void attr_set_interval(struct amdgpu_svm_attr_range *range,
->> +				unsigned long start_page,
->> +				unsigned long last_page)
->> +{
->> +	range->it_node.start = start_page;
->> +	range->it_node.last = last_page;
->> +}
->> +
->> +void amdgpu_svm_attr_set_default(struct amdgpu_svm *svm,
->> +				 struct amdgpu_svm_attrs *attrs)
->> +{
->> +	attrs->preferred_loc = AMDGPU_SVM_LOCATION_UNDEFINED;
->> +	attrs->prefetch_loc = AMDGPU_SVM_LOCATION_UNDEFINED;
->> +	attrs->granularity = svm->default_granularity;
->> +	attrs->flags = AMDGPU_SVM_ATTR_BIT_HOST_ACCESS | AMDGPU_SVM_ATTR_BIT_COHERENT;
->> +	attrs->access = svm->xnack_enabled ?
->> +		AMDGPU_SVM_ACCESS_ALLOW_MIGRATE : AMDGPU_SVM_ACCESS_INACCESSIBLE;
->> +}
->> +
->> +struct amdgpu_svm_attr_range *
->> +amdgpu_svm_attr_find_locked(struct amdgpu_svm_attr_tree *attr_tree,
->> +			   unsigned long page)
->> +{
->> +	struct interval_tree_node *node;
->> +
->> +	node = interval_tree_iter_first(&attr_tree->tree, page, page);
->> +	if (node)
->> +		return container_of(node, struct amdgpu_svm_attr_range, it_node);
->> +
->> +	return NULL;
->> +}
->> +
->> +struct amdgpu_svm_attr_range *
->> +amdgpu_svm_attr_get_bounds_locked(struct amdgpu_svm_attr_tree *attr_tree,
->> +				  unsigned long page,
->> +				  unsigned long *start_page,
->> +				  unsigned long *last_page)
->> +{
->> +	struct amdgpu_svm_attr_range *attr_range;
->> +	struct interval_tree_node *node;
->> +	struct rb_node *rb;
->> +
->> +	attr_range = amdgpu_svm_attr_find_locked(attr_tree, page);
->> +	if (attr_range) {
->> +		*start_page = amdgpu_svm_attr_start_page(attr_range);
->> +		*last_page = amdgpu_svm_attr_last_page(attr_range);
->> +		return attr_range;
->> +	}
->> +
->> +	*start_page = 0;
->> +	*last_page = ULONG_MAX;
->> +
->> +	if (page == ULONG_MAX)
->> +		return NULL;
->> +
->> +	node = interval_tree_iter_first(&attr_tree->tree, page + 1, ULONG_MAX);
->> +	if (node) {
->> +		if (node->start > page)
->> +			*last_page = node->start - 1;
->> +
->> +		rb = rb_prev(&node->rb);
->> +		if (rb) {
->> +			node = container_of(rb, struct interval_tree_node, rb);
->> +			if (node->last < page)
->> +				*start_page = node->last + 1;
->> +		}
->> +	} else {
->> +		rb = rb_last(&attr_tree->tree.rb_root);
->> +
->> +		if (rb) {
->> +			node = container_of(rb, struct interval_tree_node, rb);
->> +			if (node->last < page)
->> +				*start_page = node->last + 1;
->> +		}
->> +	}
->> +
->> +	return NULL;
->> +}
->> +
->> +static bool attr_equal(const struct amdgpu_svm_attrs *a,
->> +				 const struct amdgpu_svm_attrs *b)
->> +{
->> +	return a->flags == b->flags &&
->> +	       a->preferred_loc == b->preferred_loc &&
->> +	       a->prefetch_loc == b->prefetch_loc &&
->> +		       a->granularity == b->granularity &&
->> +		       a->access == b->access;
->> +}
->> +
->> +struct amdgpu_svm_attr_range *
->> +amdgpu_svm_attr_range_alloc(unsigned long start_page,
->> +			   unsigned long last_page,
->> +			   const struct amdgpu_svm_attrs *attrs)
->> +{
->> +	struct amdgpu_svm_attr_range *range;
->> +
->> +	range = kmem_cache_zalloc(amdgpu_svm_attr_range_cache, GFP_KERNEL);
->> +	if (!range)
->> +		return NULL;
->> +
->> +	INIT_LIST_HEAD(&range->list);
->> +	attr_set_interval(range, start_page, last_page);
->> +	range->attrs = *attrs;
->> +	return range;
->> +}
->> +
->> +void amdgpu_svm_attr_range_insert_locked(struct amdgpu_svm_attr_tree *attr_tree,
->> +					 struct amdgpu_svm_attr_range *range)
->> +{
->> +	struct interval_tree_node *node;
->> +	struct amdgpu_svm_attr_range *next;
->> +
->> +	lockdep_assert_held(&attr_tree->lock);
->> +
->> +	node = interval_tree_iter_first(&attr_tree->tree, amdgpu_svm_attr_start_page(range),
->> +					ULONG_MAX);
->> +	if (node) {
->> +		next = container_of(node, struct amdgpu_svm_attr_range, it_node);
->> +		list_add_tail(&range->list, &next->list);
->> +	} else {
->> +		list_add_tail(&range->list, &attr_tree->range_list);
->> +	}
->> +
->> +	interval_tree_insert(&range->it_node, &attr_tree->tree);
->> +}
->> +
->> +static void attr_remove_range_locked(struct amdgpu_svm_attr_tree *attr_tree,
->> +					  struct amdgpu_svm_attr_range *range,
->> +					  bool free_range)
->> +{
->> +	lockdep_assert_held(&attr_tree->lock);
->> +
->> +	interval_tree_remove(&range->it_node, &attr_tree->tree);
->> +	list_del_init(&range->list);
->> +	if (free_range)
->> +		kmem_cache_free(amdgpu_svm_attr_range_cache, range);
->> +}
+> diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
+> index 71b7325917b6..a16e1cb7d41e 100644
+> --- a/drivers/gpu/drm/i915/display/intel_atomic.c
+> +++ b/drivers/gpu/drm/i915/display/intel_atomic.c
+> @@ -289,6 +289,12 @@ static void intel_crtc_put_color_blobs(struct intel_crtc_state *crtc_state)
+>  
+>  	drm_property_blob_put(crtc_state->pre_csc_lut);
+>  	drm_property_blob_put(crtc_state->post_csc_lut);
+> +
+> +	crtc_state->hw.degamma_lut = NULL;
+> +	crtc_state->hw.gamma_lut = NULL;
+> +	crtc_state->hw.ctm = NULL;
+> +	crtc_state->pre_csc_lut = NULL;
+> +	crtc_state->post_csc_lut = NULL;
+>  }
+>  
+>  void intel_crtc_free_hw_state(struct intel_crtc_state *crtc_state)
+> -- 
+> 2.43.0
 > 
-
