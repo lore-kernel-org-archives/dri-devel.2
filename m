@@ -4,132 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E131CD8CA8
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 12:03:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 866E2CD8CA8
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 12:04:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B82BE10F47B;
-	Fri, 12 Jun 2026 12:03:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED5FC10F47A;
+	Fri, 12 Jun 2026 12:04:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZlCoUQBJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SsHVtJYB";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011002.outbound.protection.outlook.com [40.107.208.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6312B10F47F;
- Fri, 12 Jun 2026 12:03:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZwfwNj5bb3ozOj+H7zuM9jzJlq47abon136+DVpXZAQcWbFfnk9BpkWuUL9JvyMVR/Lb1YnlJul+k04lX76ivcbUW0J3zTPjXMuB8UMoxrvnuNQw9ndzYD3z0fhKPSBpw6CDFaZp3ZYwmiC3bE5Bz9ypgxj/TR8fsAVI+/38dOa5PbBVCRerRJF9MOj8D7M2Cd0AQnxH+Kc4i+DAsEXb6oC2+EqT+tOChlf0lbo5zZU3Tb18A15lKGiNw7sylAQx9bGrvuoj2lB7pZW+0usyjbOVVaLLk/Qh1t6dI9eAp519eTSm/294O+KUp/XFVDmk/27M4Ua/GzAPnghHiIW2Yg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kxuhCQvD6vqi+TJg423ISeegzxj5pqfu4E54MZG//1Q=;
- b=kpueOY6Jlgm0Y06/DpxlYADksvD6rxrOo1uuV6GplDAK2hkTNm2DUSEsJAd0VJXAmk1SAu3CdhqSp//U71enzSwaW33hda+BctwwM9wSGX+9BtS1Fq2lWfTrDKbl8ME1CK0VrNbHXrtP9/bHMrT6ch9FLwuwydNdJatCHsuYD4KBZfeUd5jtknmVYnw6N8nKNIuyOvLV8XdccHlxMx40wdbrfX7bu/fBLCoY66LJ/RKhr3Kg7sT0mcV/Kbg1RGbVXtD802q1F/MFcVPObRR3yvJTpWWsKWxeNhorKnGVMoCzLHwCPbfg0M6Mqm5FvXhma7YbZ6zDQ9wl1ViMxnujfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kxuhCQvD6vqi+TJg423ISeegzxj5pqfu4E54MZG//1Q=;
- b=ZlCoUQBJbgSye395oBsJXX6g9Z3mZVaTv9nvulN1Zk/mbUVhXWgI9D171tZKgAo0UrLFT7vfc17gdKV8mT4eRgxGce+9vdgx74vh8tCy55NF0OLlVgfsHXUzrGxxje5PFtoL6SFDyvyQozO1bjkDih7Y1xehpr9bE5PSxuTeRq8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA0PR12MB8895.namprd12.prod.outlook.com (2603:10b6:208:491::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
- 2026 12:03:41 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Fri, 12 Jun 2026
- 12:03:40 +0000
-Message-ID: <e71a85ef-2b75-4870-841c-c23849918275@amd.com>
-Date: Fri, 12 Jun 2026 14:03:32 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 03/18] drm/amdgpu: add SVM attribute subsystem types
-To: Huang Rui <ray.huang@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>, Simona Vetter <simona@ffwll.ch>,
- Matthew Brost <matthew.brost@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Xiaogang Chen <xiaogang.chen@amd.com>, Oak Zeng <Oak.Zeng@amd.com>,
- Jenny Liu <Jenny-Jing.Liu@amd.com>, Zhu Lingshan <lingshan.zhu@amd.com>,
- Honglei Huang <honglei1.huang@amd.com>, Junhua Shen <Junhua.Shen@amd.com>,
- Yiru Ma <yiru.ma@amd.com>, Honglei Huang <honghuan@amd.com>
-References: <20260612090928.29682-1-ray.huang@amd.com>
- <20260612090928.29682-4-ray.huang@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260612090928.29682-4-ray.huang@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: IA4P220CA0006.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:558::7) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFA7C10F47A
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 12:04:09 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9177D43B05;
+ Fri, 12 Jun 2026 12:04:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 026D51F000E9;
+ Fri, 12 Jun 2026 12:04:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781265849;
+ bh=U/hoWKqrqO5Af0SxH9P+WFR6kvfBz1uNYfF72kTSWEE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=SsHVtJYBZzDd7cTYHW2syvS3kQq5UK2GvOVMVroXqTR8m3FH+s2tS6lMUC/+aDMsu
+ V9WTR27EmCZBI3eil2XJbXiBbSsQYFjicu9yrw9bOHwjrlY5aucIBxXDH82kffSWyr
+ RQeis86qsyVKUAgl7igLXmTM1AHr/WQ4522v+GGVwYAjZjGlFsY7Qz8juC2Y4VJGlQ
+ OZHRKp7Y0pWGxAFzZHqKl2hEspTMlIJGLIscZtGWZeo2+GrPLpjoTi0fzwPwLHOo69
+ drwXvj4Rwn2l6UQtKSTcwnrNDfNnNyvXTYqn70q1RyqhKvhNEojMIey9PXZkHaHU5B
+ cRx9MkpbKgQ9w==
+Date: Fri, 12 Jun 2026 14:04:07 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ kernel@collabora.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH v7 25/30] drm/vc4: hdmi: Convert to common HDMI 2.0 SCDC
+ scrambling helpers
+Message-ID: <20260612-primitive-chital-of-tempering-18bc7c@houat>
+References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
+ <20260602-dw-hdmi-qp-scramb-v7-25-445eb54ee1ed@collabora.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB8895:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef2dfc02-40aa-40e1-0ada-08dec87aa4a0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|366016|1800799024|921020|11063799006|3023799007|6133799003|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 3JGfQIm6CZkDfI90eaPPna0/+G13hmFYQPr7OBYiAyXcU/+bHpWYOmhUPEtAEPjjKNllXBOCt4DrIw/Gl3vUxj3PO/qHvpCSY1oAb0PQRJqytXUJLkDjLtRgDeJoHzEAyIPkpv1g4Q6ZN577dLbvwNGToGokNlEpgBiuh6PwqP73NJ6z0L+jzH23/IU96F47JCKgSjC+jxav4jm3CBsXqb2G5kuWfRaMgSy7Xscmrm0lWwECMsiiPzhRrwsqL9fxszIGH7sn8ASgy3VCsm5T4jMhzPKy0ELLUVjOgJbXtIk1fz5NPXUmAhsZd14/T/Z/xPZpqNwbWCwqVtoxCVCpyQCBilQ6zYKVyUSRUKFu4ZbWCYVJ6IevTf1ZWmAbfIxdqFXzsCG0xGR2etjTOg2yh8683bWNtUz91ZAU1zODOy+IiLP/fFBp9X/446pR21xSjYuoBxOK+R8oKwnYxdKeRqgico0as+cxfdJ7EYBs1Otz8wFl24CNqG3kjZPcaqWINc5zWWNtLCd1PFvgph6IYj+/o33c7UCHELS1zNM6PEn9D279d4FhQ2m4DyvL55hUq+7NHAU6oUsrUJmm+H/PrkB2073E2ErEC6IX7/JwR/XyEBy3/Spg2U5yxDKO6Wvfe+j8HVDcYHpgVRhhvWF0jkd2ovtp2k4x7U7sdHSoag3slN3UhpLcI5CqMSI2B9BRCw3oxLfUnPFk+4Pkca3ElM5YZwZY1KYyVPtVVCR1hNM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(921020)(11063799006)(3023799007)(6133799003)(4143699003)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MnVLaDdiZXRrdHZuMGRwdk1wenlhVC8rWEk5c243OVJBaHB1ODYwMGVkOFBD?=
- =?utf-8?B?OTNVeHJ4dk0zSHJucy9OUW5NT3NkOFhSSjA4Q0tYak9qeUlBck5XVDZJb3ZV?=
- =?utf-8?B?N3VYM2pWd1hraGRTd01qa0Q5ZVk4WUFjS1R1czBLVlpTa3FRL3k4N0ZsSUxk?=
- =?utf-8?B?ZEM3a3Zxb3AwT1ZGVjB3cFEzbUhqeG1yTitqQXpkUkxubnFjVUJENEZYdTBM?=
- =?utf-8?B?RjdveGNuRnIrWm9Tcm9tZjgyV00wNm5OQXR1ckR0ZGZnNWhLL2ZraU9yRGtI?=
- =?utf-8?B?N0tQSzNsd2lpTjcycko3RmQ1enRscnBqcyt2ZnJvQmpUQmdBbUZSVTkwK3hy?=
- =?utf-8?B?djJRdXVBZy8zQm9FeDRVQUdaQ0lDclVtTUo0ZGZuQU5HS0JhWXlOSjU0bDMy?=
- =?utf-8?B?Nmwwa2VUMGF1UnJkc3MwL1hzZUg4aGExbFMyR0ZWbk1KZUx0cUtrYlJEamxI?=
- =?utf-8?B?MWNZNm5OYUMyNVdJTEVRUzQxSlpSQ1czbzVETUNJVTFoZ3Y2M0xxYzY1cGlS?=
- =?utf-8?B?dUpBSlhDZXRsOEI3UTNqa3FoUko2d0dXTkt5SGxtcFM4MkVaL1krSm50S0x6?=
- =?utf-8?B?UUNQMThUL0ZQMW0ralpTTUI2WnBFSnIzcm1YVjUyZzJJWmtOUFdESFVYRjFi?=
- =?utf-8?B?ZzEzOHVuSEFQeEZrZzV2eUVBS2lONlJjT29ZYVUwbDRFeXZrR2RNZXErcVJo?=
- =?utf-8?B?d0o0NlZKYWsxc2lvSXEzZVJxU3hCbkU4WHozUWhjMEM3bUpvVnZDRE8rVEJK?=
- =?utf-8?B?SUhiemNSa3Rqc2dhUThvM3l5OUlMRFBXYi9Jbkh6Y2hvc1hBdGZsQSs2VzRE?=
- =?utf-8?B?OG5yMklFMmlNZWhEMDI4cTdFaGlOMG80YWRCemRxaVpTWXF1UHBtdzRuNWZJ?=
- =?utf-8?B?eDNPOEhmSXJuYUdRN2lJK2xleDU2bWRQL1U4SzRiL1pWWmp4VzZVTEo5SWQ0?=
- =?utf-8?B?QURHaVYwUUxnVXEvdFYyZXMzUXpCek1LOUlCZnZyVEdEVkpSVlhCSUdGeldD?=
- =?utf-8?B?V1hnK3NSSWhGZm5jd0luR2pJK01USUh5UURFYzN6S2ovaUlBdkkyRllqN29n?=
- =?utf-8?B?SjBnalI1ZndRemdZZlpxQ0dDUVVHaGpPczdGVVRBMmFTdFdUMmNLS3ZZZVFn?=
- =?utf-8?B?U1JySWQwUVlpczhZYXV1UG5FbzNMcklENnJYQXlRbER5Ymc0NFRoZVRzcjk5?=
- =?utf-8?B?T0tTam5JTW9sWnFCMDAzQXl0TVpqQXlIVDVqdXFrZjZlRE5NOTlwQ0hxcUI1?=
- =?utf-8?B?TVo2VmhvRzFQVmZWZTc2a1VCdmlqWHA4b1lVVU9PSVBQRk1YUzRaZWJUbm1J?=
- =?utf-8?B?MjFuYmxMZ0lSZUd1dm8ySWpmNElLZW9tYXA1Y2VQV2lCSld1V3pmai9scFBt?=
- =?utf-8?B?ZXkrRDZISCt0ek90K3NuUTJXY2tpVkgwVDVYTDR2QkRGUGs0U0puTk5iaEsy?=
- =?utf-8?B?MTdxRXdJdTRKaWE3TWZmeTREUzc3bWhHVGNHa1g2a29IbXBpakdGMytpc2gv?=
- =?utf-8?B?Qk9iaWM3Z0NnellmV1pCcHdVc21OaHU1SjdZS3QvVldvaVplcWpzVGNucVRl?=
- =?utf-8?B?K2dWaldrbGhNWVFyRXJzbkRjTW1rMDBadVNjaDZNMEdTZElhNlk4M0FOM2Vx?=
- =?utf-8?B?eCtISFNnaGljUGpWYzFrTDIzTmhlZitucmhzMVZaeEhTYng0SVBidEtORXcw?=
- =?utf-8?B?M2xhOE1iRExqWithQnJscEJZTzdjb0dlMklVazJRNWEyTzdGSzREakFHNE5j?=
- =?utf-8?B?TVR1RHg4c1Zncm5kZEdkbVJuSXdFZUViY1duZW9zVDJrdlFtam9iOUh2Q2N5?=
- =?utf-8?B?RlA0ZnpCVGVUSmVyTDYxblhEY3lIUnRSQWhxYVp1NW9jd3dVZGFEc0Q3emFy?=
- =?utf-8?B?U011bzR0TC9BaEJRcnBHMll4QndhUElKdWVrVlFnaTRsVEZCcTRNTllqKzdN?=
- =?utf-8?B?NnJtWmNsUUUxWG8veWtyQUZMTHF5d0pyUjdrblVCOENta2NLMkJlcFIxREt5?=
- =?utf-8?B?WmJrREtLMGtwVnpqdmNaNW5xd3BpYlMwVGtzNEV5RW5RTFY4Qk1tZzliUXNH?=
- =?utf-8?B?dlpidVlRdzl1cUFyM2t2RWpYbnFldnd0aUJEWnprV1Q0bFE3SFpaZGxWRnFx?=
- =?utf-8?B?d0IxS1lqOGd1SFY4QTNiaEFWRWwyVTF5aGxvcVZJL2FUZExuR0pwYzQ4MHVR?=
- =?utf-8?B?MmpseDJpRDNKbnN4bUpqRXVWUjhoSVJleXBUUTFKRGYzdjBPeDFRSENSL3FQ?=
- =?utf-8?B?cFJDTCtMUlBMQk5Vczl0S0kvMVJPUjI2OTR1TFhXblFEaXhLWFBwTVk2Rm9i?=
- =?utf-8?Q?i6TxAENcXJMFaM0eSH?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef2dfc02-40aa-40e1-0ada-08dec87aa4a0
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 12:03:40.8775 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: c5pkko99GabAbc2gyyuJ26fG+FXWVTVK/bQA/QlLYy+vIoqf5WYwfxX5laFpEBjH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8895
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="dptwuanfutj3vasr"
+Content-Disposition: inline
+In-Reply-To: <20260602-dw-hdmi-qp-scramb-v7-25-445eb54ee1ed@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,203 +75,473 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/12/26 11:09, Huang Rui wrote:
-> From: Honglei Huang <honghuan@amd.com>
-> 
-> Add amdgpu_svm_attr.h with attribute types and tree infrastructure:
-> - Internal flag bitmask definitions mapping from UAPI attr types
-> - PTE_FLAG_MASK and MAPPING_FLAG_MASK for change detection
-> - struct amdgpu_svm_attrs: user set attribute range
-> - struct amdgpu_svm_attr_range: interval tree node with attrs
-> - struct amdgpu_svm_attr_tree: mutex protected RB tree for store and
->   search
-> - enum amdgpu_svm_attr_change_trigger: change flags of user attributes
->   change tirgger
-> 
-> Signed-off-by: Honglei Huang <honghuan@amd.com>
+
+--dptwuanfutj3vasr
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v7 25/30] drm/vc4: hdmi: Convert to common HDMI 2.0 SCDC
+ scrambling helpers
+MIME-Version: 1.0
+
+Hi,
+
+On Tue, Jun 02, 2026 at 01:44:25AM +0300, Cristian Ciocaltea wrote:
+> Replace the vc4-local scrambling implementation with the newly
+> introduced DRM common SCDC scrambling infrastructure:
+>=20
+> - Advertise source-side scrambling support by setting
+>   connector->hdmi.scrambling_supported based on the variant's
+>   max_pixel_clock before drmm_connector_hdmi_init().
+>=20
+> - Provide minimal .scrambler_{enable|disable} connector callbacks that
+>   only toggle the VC5 HDMI_SCRAMBLER_CTL register.  Sink-side SCDC
+>   programming and periodic status monitoring are now delegated to
+>   drm_scdc_{start|stop}_scrambling().
+>=20
+> - Replace vc4_hdmi_enable_scrambling() with a conditional call to
+>   drm_scdc_start_scrambling() in post_crtc_enable, gated on
+>   conn_state->hdmi.scrambler_needed (computed by the HDMI state helper).
+>=20
+> - Replace vc4_hdmi_disable_scrambling() with drm_scdc_stop_scrambling()
+>   in post_crtc_disable.
+>=20
+> - Drop vc4_hdmi_reset_link() and vc4_hdmi_handle_hotplug(), switching
+>   the .detect_ctx() path to
+>   drm_atomic_helper_connector_hdmi_hotplug_ctx() which internally calls
+>   drm_scdc_sync_status() to trigger a CRTC reset on reconnection.
+>=20
+> - Drop the local scrambling_work delayed workqueue and scdc_enabled
+>   flag, now tracked by the common drm_connector_hdmi layer.
+>=20
+> - Drop vc4_hdmi_supports_scrambling() and
+>   vc4_hdmi_mode_needs_scrambling() helpers, inlining the remaining 4KP60
+>   warning with an explicit drm_hdmi_compute_mode_clock() check.
+>=20
+> - Seed connector->hdmi.scrambler_enabled =3D true in connector_init() to
+>   ensure drm_scdc_stop_scrambling() runs at boot and disables any stale
+>   scrambling state left by the bootloader.
+>=20
+> No functional change is expected for the supported modes.
+>=20
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+
+I'd really like it to be broken down into several patches:
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.h | 171 +++++++++++++++++++
->  1 file changed, 171 insertions(+)
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.h
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.h
-> new file mode 100644
-> index 0000000000000..4181ec3bdb046
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.h
-> @@ -0,0 +1,171 @@
-> +/* SPDX-License-Identifier: GPL-2.0 OR MIT */
-> +/*
-> + * Copyright 2026 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a
-> + * copy of this software and associated documentation files (the "Software"),
-> + * to deal in the Software without restriction, including without limitation
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +
-> +#ifndef __AMDGPU_SVM_ATTR_H__
-> +#define __AMDGPU_SVM_ATTR_H__
-> +
-> +#include <drm/amdgpu_drm.h>
-> +#include <linux/interval_tree.h>
-> +#include <linux/list.h>
-> +#include <linux/mutex.h>
-> +#include <linux/rbtree.h>
-> +#include <linux/types.h>
-> +
-> +/* Internal SVM attribute bitmask flags mapped from UAPI ioctl definitions */
-> +#define AMDGPU_SVM_ATTR_BIT_HOST_ACCESS		(1u << 0)
-> +#define AMDGPU_SVM_ATTR_BIT_COHERENT		(1u << 1)
-> +#define AMDGPU_SVM_ATTR_BIT_EXT_COHERENT	(1u << 2)
-> +#define AMDGPU_SVM_ATTR_BIT_HIVE_LOCAL		(1u << 3)
-> +#define AMDGPU_SVM_ATTR_BIT_GPU_RO		(1u << 4)
-> +#define AMDGPU_SVM_ATTR_BIT_GPU_EXEC		(1u << 5)
-> +#define AMDGPU_SVM_ATTR_BIT_GPU_READ_MOSTLY	(1u << 6)
-> +
-> +#define AMDGPU_SVM_PTE_FLAG_MASK \
-> +	(AMDGPU_SVM_ATTR_BIT_COHERENT | AMDGPU_SVM_ATTR_BIT_EXT_COHERENT | \
-> +	 AMDGPU_SVM_ATTR_BIT_GPU_RO | AMDGPU_SVM_ATTR_BIT_GPU_EXEC)
-> +
-> +#define AMDGPU_SVM_MAPPING_FLAG_MASK \
-> +	(AMDGPU_SVM_ATTR_BIT_HOST_ACCESS | AMDGPU_SVM_ATTR_BIT_HIVE_LOCAL | \
-> +	 AMDGPU_SVM_ATTR_BIT_GPU_READ_MOSTLY)
-> +
-> +struct amdgpu_svm_attrs {
-> +	/* keep preferred_loc to adapt to kfd API */
-> +	int32_t preferred_loc;
-> +	int32_t prefetch_loc;
-> +	uint32_t flags;
-> +	uint32_t granularity;
-> +	enum amdgpu_ioctl_svm_access access;
-> +};
-> +
-> +struct amdgpu_svm_attr_range {
-> +	struct interval_tree_node it_node;
-> +	struct list_head list;
+>  drivers/gpu/drm/vc4/vc4_hdmi.c | 265 ++++++-----------------------------=
+------
+>  drivers/gpu/drm/vc4/vc4_hdmi.h |   8 --
+>  2 files changed, 35 insertions(+), 238 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdm=
+i.c
+> index 046ac4f43ba8..02f6ca6ab52b 100644
+> --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
+> +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+> @@ -114,31 +114,6 @@
+>  #define HSM_MIN_CLOCK_FREQ	120000000
+>  #define CEC_CLOCK_FREQ 40000
+> =20
+> -static bool vc4_hdmi_supports_scrambling(struct vc4_hdmi *vc4_hdmi)
+> -{
+> -	struct drm_display_info *display =3D &vc4_hdmi->connector.display_info;
+> -
+> -	lockdep_assert_held(&vc4_hdmi->mutex);
+> -
+> -	if (!display->is_hdmi)
+> -		return false;
+> -
+> -	if (!display->hdmi.scdc.supported ||
+> -	    !display->hdmi.scdc.scrambling.supported)
+> -		return false;
+> -
+> -	return true;
+> -}
+> -
+> -static bool vc4_hdmi_mode_needs_scrambling(const struct drm_display_mode=
+ *mode,
+> -					   unsigned int bpc,
+> -					   enum drm_output_color_format fmt)
+> -{
+> -	unsigned long long clock =3D drm_hdmi_compute_mode_clock(mode, bpc, fmt=
+);
+> -
+> -	return clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
+> -}
+> -
+>  static int vc4_hdmi_debugfs_regs(struct seq_file *m, void *unused)
+>  {
+>  	struct drm_debugfs_entry *entry =3D m->private;
+> @@ -272,124 +247,6 @@ static void vc4_hdmi_cec_update_clk_div(struct vc4_=
+hdmi *vc4_hdmi)
+>  static void vc4_hdmi_cec_update_clk_div(struct vc4_hdmi *vc4_hdmi) {}
+>  #endif
+> =20
+> -static int vc4_hdmi_reset_link(struct drm_connector *connector,
+> -			       struct drm_modeset_acquire_ctx *ctx)
+> -{
+> -	struct drm_device *drm;
+> -	struct vc4_hdmi *vc4_hdmi;
+> -	struct drm_connector_state *conn_state;
+> -	struct drm_crtc_state *crtc_state;
+> -	struct drm_crtc *crtc;
+> -	bool scrambling_needed;
+> -	u8 config;
+> -	int ret;
+> -
+> -	if (!connector)
+> -		return 0;
+> -
+> -	drm =3D connector->dev;
+> -	ret =3D drm_modeset_lock(&drm->mode_config.connection_mutex, ctx);
+> -	if (ret)
+> -		return ret;
+> -
+> -	conn_state =3D connector->state;
+> -	crtc =3D conn_state->crtc;
+> -	if (!crtc)
+> -		return 0;
+> -
+> -	ret =3D drm_modeset_lock(&crtc->mutex, ctx);
+> -	if (ret)
+> -		return ret;
+> -
+> -	crtc_state =3D crtc->state;
+> -	if (!crtc_state->active)
+> -		return 0;
+> -
+> -	vc4_hdmi =3D connector_to_vc4_hdmi(connector);
+> -	mutex_lock(&vc4_hdmi->mutex);
+> -
+> -	if (!vc4_hdmi_supports_scrambling(vc4_hdmi)) {
+> -		mutex_unlock(&vc4_hdmi->mutex);
+> -		return 0;
+> -	}
+> -
+> -	scrambling_needed =3D vc4_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_a=
+djusted_mode,
+> -							   vc4_hdmi->output_bpc,
+> -							   vc4_hdmi->output_format);
+> -	if (!scrambling_needed) {
+> -		mutex_unlock(&vc4_hdmi->mutex);
+> -		return 0;
+> -	}
+> -
+> -	if (conn_state->commit &&
+> -	    !try_wait_for_completion(&conn_state->commit->hw_done)) {
+> -		mutex_unlock(&vc4_hdmi->mutex);
+> -		return 0;
+> -	}
+> -
+> -	ret =3D drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
+> -	if (ret < 0) {
+> -		drm_err(drm, "Failed to read TMDS config: %d\n", ret);
+> -		mutex_unlock(&vc4_hdmi->mutex);
+> -		return 0;
+> -	}
+> -
+> -	if (!!(config & SCDC_SCRAMBLING_ENABLE) =3D=3D scrambling_needed) {
+> -		mutex_unlock(&vc4_hdmi->mutex);
+> -		return 0;
+> -	}
+> -
+> -	mutex_unlock(&vc4_hdmi->mutex);
+> -
+> -	/*
+> -	 * HDMI 2.0 says that one should not send scrambled data
+> -	 * prior to configuring the sink scrambling, and that
+> -	 * TMDS clock/data transmission should be suspended when
+> -	 * changing the TMDS clock rate in the sink. So let's
+> -	 * just do a full modeset here, even though some sinks
+> -	 * would be perfectly happy if were to just reconfigure
+> -	 * the SCDC settings on the fly.
+> -	 */
+> -	return drm_atomic_helper_reset_crtc(crtc, ctx);
+> -}
 
-This needs more documentation. Why do you have an interval tree and a linked list here?
+This one doesn't look functionally equivalent to me to
+drm_scdc_reset_crtc: this part was, in part, making sure we would only
+reset the scrambler if it was enabled in the first place.
+drm_scdc_reset_crtc() doesn't and will always trigger a modeset on
+hotplug. That's unnecessary and a significant functional different.
 
-> +	struct amdgpu_svm_attrs attrs;
-> +};
-> +
-> +static inline unsigned long
-> +amdgpu_svm_attr_start_page(const struct amdgpu_svm_attr_range *range)
-> +{
-> +	return range->it_node.start;
-> +}
-> +
-> +static inline unsigned long
-> +amdgpu_svm_attr_last_page(const struct amdgpu_svm_attr_range *range)
-> +{
-> +	return range->it_node.last;
-> +}
-> +
-> +static inline unsigned long
-> +amdgpu_svm_attr_start(const struct amdgpu_svm_attr_range *range)
-> +{
-> +	return range->it_node.start << PAGE_SHIFT;
-> +}
-> +
-> +static inline unsigned long
-> +amdgpu_svm_attr_end(const struct amdgpu_svm_attr_range *range)
-> +{
-> +	return (range->it_node.last + 1) << PAGE_SHIFT;
-> +}
-> +
-> +struct amdgpu_svm;
-> +struct mm_struct;
-> +struct vm_area_struct;
-> +
-> +static inline bool
-> +amdgpu_svm_attr_has_access(enum amdgpu_ioctl_svm_access access)
-> +{
-> +	return access == AMDGPU_SVM_ACCESS_ALLOW_MIGRATE ||
-> +	       access == AMDGPU_SVM_ACCESS_IN_PLACE;
-> +}
-> +
-> +struct amdgpu_svm_attr_tree {
-> +	struct mutex lock;
-> +	struct rb_root_cached tree;
-> +	struct list_head range_list;
-> +	struct amdgpu_svm *svm;
-> +};
-> +
-> +enum amdgpu_svm_attr_change_trigger {
-> +	AMDGPU_SVM_ATTR_TRIGGER_ACCESS_CHANGE = (1U << 0),
-> +	AMDGPU_SVM_ATTR_TRIGGER_PTE_FLAG_CHANGE = (1U << 1),
-> +	AMDGPU_SVM_ATTR_TRIGGER_MAPPING_FLAG_CHANGE = (1U << 2),
-> +	AMDGPU_SVM_ATTR_TRIGGER_LOCATION_CHANGE = (1U << 3),
-> +	AMDGPU_SVM_ATTR_TRIGGER_GRANULARITY_CHANGE = (1U << 4),
-> +	AMDGPU_SVM_ATTR_TRIGGER_PREFETCH = (1U << 5),
-> +};
-> +
-> +#define AMDGPU_SVM_ATTR_TRIGGER_NEED_INVALIDATE \
-> +	(AMDGPU_SVM_ATTR_TRIGGER_ACCESS_CHANGE | \
-> +	 AMDGPU_SVM_ATTR_TRIGGER_PTE_FLAG_CHANGE | \
-> +	 AMDGPU_SVM_ATTR_TRIGGER_MAPPING_FLAG_CHANGE | \
-> +	 AMDGPU_SVM_ATTR_TRIGGER_LOCATION_CHANGE)
-> +
-> +struct amdgpu_svm_attr_tree *
-> +amdgpu_svm_attr_tree_create(struct amdgpu_svm *svm);
-> +void amdgpu_svm_attr_tree_destroy(struct amdgpu_svm_attr_tree *attr_tree);
-> +int amdgpu_svm_attr_cache_init(void);
-> +void amdgpu_svm_attr_cache_fini(void);
-> +struct amdgpu_svm_attr_range *
-> +amdgpu_svm_attr_find_locked(struct amdgpu_svm_attr_tree *attr_tree,
-> +			   unsigned long page);
-> +struct amdgpu_svm_attr_range *
-> +amdgpu_svm_attr_get_bounds_locked(struct amdgpu_svm_attr_tree *attr_tree,
-> +				  unsigned long page,
-> +				  unsigned long *start_page,
-> +				  unsigned long *last_page);
-> +void amdgpu_svm_attr_set_default(struct amdgpu_svm *svm,
-> +				 struct amdgpu_svm_attrs *attrs);
-> +
-> +int amdgpu_svm_attr_set(struct amdgpu_svm_attr_tree *attr_tree,
-> +			   uint64_t start,
-> +			   uint64_t size,
-> +			   uint32_t nattr,
-> +			   const struct drm_amdgpu_svm_attribute *attrs);
-> +int amdgpu_svm_attr_get(struct amdgpu_svm_attr_tree *attr_tree,
-> +				       uint64_t start,
-> +				       uint64_t size,
-> +				       uint32_t nattr,
-> +				       struct drm_amdgpu_svm_attribute *attrs);
-> +int amdgpu_svm_attr_clear(struct amdgpu_svm_attr_tree *attr_tree,
-> +			  unsigned long start_page,
-> +			  unsigned long last_page);
-> +int amdgpu_svm_attr_reset(struct amdgpu_svm_attr_tree *attr_tree,
-> +			  unsigned long start_page,
-> +			  unsigned long last_page);
-> +struct amdgpu_svm_attr_range *
-> +amdgpu_svm_attr_range_alloc(unsigned long start_page,
-> +			   unsigned long last_page,
-> +			   const struct amdgpu_svm_attrs *attrs);
-> +void amdgpu_svm_attr_range_insert_locked(struct amdgpu_svm_attr_tree *attr_tree,
-> +					 struct amdgpu_svm_attr_range *range);
-> +bool amdgpu_svm_attr_prefer_vram(const struct amdgpu_svm_attrs *attrs);
-> +struct vm_area_struct *amdgpu_svm_check_vma(struct mm_struct *mm,
-> +					unsigned long addr);
-> +int amdgpu_svm_attr_check_vm_bo(struct amdgpu_svm_attr_tree *attr_tree,
-> +				unsigned long start_page,
-> +				unsigned long last_page,
-> +				unsigned long *bo_start,
-> +				unsigned long *bo_last);
-> +
-> +#endif /* __AMDGPU_SVM_ATTR_H__ */
+I'd argue that it's drm_scdc_reset_crtc() that needs to align to what
+vc4 was doing, not the opposite.
 
+> -static void vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
+> -				    struct drm_modeset_acquire_ctx *ctx,
+> -				    enum drm_connector_status status)
+> -{
+> -	struct drm_connector *connector =3D &vc4_hdmi->connector;
+> -	int ret;
+> -
+> -	/*
+> -	 * NOTE: This function should really be called with vc4_hdmi->mutex
+> -	 * held, but doing so results in reentrancy issues since
+> -	 * cec_s_phys_addr() might call .adap_enable, which leads to that
+> -	 * funtion being called with our mutex held.
+> -	 *
+> -	 * A similar situation occurs with vc4_hdmi_reset_link() that
+> -	 * will call into our KMS hooks if the scrambling was enabled.
+> -	 *
+> -	 * Concurrency isn't an issue at the moment since we don't share
+> -	 * any state with any of the other frameworks so we can ignore
+> -	 * the lock for now.
+> -	 */
+> -
+> -	drm_atomic_helper_connector_hdmi_hotplug(connector, status);
+> -
+> -	if (status !=3D connector_status_connected)
+> -		return;
+> -
+> -	for (;;) {
+> -		ret =3D vc4_hdmi_reset_link(connector, ctx);
+> -		if (ret =3D=3D -EDEADLK) {
+> -			drm_modeset_backoff(ctx);
+> -			continue;
+> -		}
+> -
+> -		break;
+> -	}
+> -}
+> -
+>  static int vc4_hdmi_connector_detect_ctx(struct drm_connector *connector,
+>  					 struct drm_modeset_acquire_ctx *ctx,
+>  					 bool force)
+> @@ -401,8 +258,8 @@ static int vc4_hdmi_connector_detect_ctx(struct drm_c=
+onnector *connector,
+>  	/*
+>  	 * NOTE: This function should really take vc4_hdmi->mutex, but
+>  	 * doing so results in reentrancy issues since
+> -	 * vc4_hdmi_handle_hotplug() can call into other functions that
+> -	 * would take the mutex while it's held here.
+> +	 * drm_atomic_helper_connector_hdmi_hotplug_ctx() can call into other
+> +	 * functions that would take the mutex while it's held here.
+>  	 *
+>  	 * Concurrency isn't an issue at the moment since we don't share
+>  	 * any state with any of the other frameworks so we can ignore
+> @@ -425,10 +282,11 @@ static int vc4_hdmi_connector_detect_ctx(struct drm=
+_connector *connector,
+>  			status =3D connector_status_connected;
+>  	}
+> =20
+> -	vc4_hdmi_handle_hotplug(vc4_hdmi, ctx, status);
+> +	ret =3D drm_atomic_helper_connector_hdmi_hotplug_ctx(connector, status,=
+ ctx);
+> +
+>  	pm_runtime_put(&vc4_hdmi->pdev->dev);
+> =20
+> -	return status;
+> +	return ret =3D=3D -EDEADLK ? ret : status;
+>  }
+> =20
+>  static int vc4_hdmi_connector_get_modes(struct drm_connector *connector)
+> @@ -441,9 +299,12 @@ static int vc4_hdmi_connector_get_modes(struct drm_c=
+onnector *connector)
+>  	if (!vc4->hvs->vc5_hdmi_enable_hdmi_20) {
+>  		struct drm_device *drm =3D connector->dev;
+>  		const struct drm_display_mode *mode;
+> +		unsigned long long clock;
+> =20
+>  		list_for_each_entry(mode, &connector->probed_modes, head) {
+> -			if (vc4_hdmi_mode_needs_scrambling(mode, 8, DRM_OUTPUT_COLOR_FORMAT_R=
+GB444)) {
+> +			clock =3D drm_hdmi_compute_mode_clock(mode, 8,
+> +							    DRM_OUTPUT_COLOR_FORMAT_RGB444);
+> +			if (clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ) {
+
+This should be a patch of its own, but I think we should turn
+vc4_hdmi_mode_needs_scrambling() into a helper, instead of checking the
+clock rate in every driver that might need it. From a logical standpoint
+it's equivalent, but not from a semantic one.
+
+>  				drm_warn_once(drm, "The core clock cannot reach frequencies high eno=
+ugh to support 4k @ 60Hz.");
+>  				drm_warn_once(drm, "Please change your config.txt file to add hdmi_e=
+nable_4kp60.");
+>  			}
+> @@ -540,6 +401,9 @@ static int vc4_hdmi_connector_init(struct drm_device =
+*dev,
+>  	if (vc4_hdmi->variant->supports_hdr)
+>  		max_bpc =3D 12;
+> =20
+> +	connector->hdmi.scrambler_supported =3D
+> +		vc4_hdmi->variant->max_pixel_clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
+> +
+>  	ret =3D drmm_connector_hdmi_init(dev, connector,
+>  				       "Broadcom", "Videocore",
+>  				       &vc4_hdmi_connector_funcs,
+> @@ -561,6 +425,14 @@ static int vc4_hdmi_connector_init(struct drm_device=
+ *dev,
+> =20
+>  	drm_connector_helper_add(connector, &vc4_hdmi_connector_helper_funcs);
+> =20
+> +	/*
+> +	 * Since we don't know the state of the controller and its
+> +	 * display (if any), let's assume it's always enabled.
+> +	 * drm_scdc_stop_scrambling() will thus run at boot, make
+> +	 * sure it's disabled, and avoid any inconsistency.
+> +	 */
+> +	connector->hdmi.scrambler_enabled =3D connector->hdmi.scrambler_support=
+ed;
+> +
+>  	/*
+>  	 * Some of the properties below require access to state, like bpc.
+>  	 * Allocate some default initial connector state with our reset helper.
+> @@ -786,93 +658,30 @@ static int vc4_hdmi_write_spd_infoframe(struct drm_=
+connector *connector,
+>  					buffer, len);
+>  }
+> =20
+> -#define SCRAMBLING_POLLING_DELAY_MS	1000
+> -
+> -static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
+> +static int vc4_hdmi_scrambler_enable(struct drm_connector *connector)
+>  {
+> -	struct vc4_hdmi *vc4_hdmi =3D encoder_to_vc4_hdmi(encoder);
+> -	struct drm_connector *connector =3D &vc4_hdmi->connector;
+> -	struct drm_device *drm =3D connector->dev;
+> -	const struct drm_display_mode *mode =3D &vc4_hdmi->saved_adjusted_mode;
+> +	struct vc4_hdmi *vc4_hdmi =3D connector_to_vc4_hdmi(connector);
+>  	unsigned long flags;
+> -	int idx;
+> -
+> -	lockdep_assert_held(&vc4_hdmi->mutex);
+> -
+> -	if (!vc4_hdmi_supports_scrambling(vc4_hdmi))
+> -		return;
+> -
+> -	if (!vc4_hdmi_mode_needs_scrambling(mode,
+> -					    vc4_hdmi->output_bpc,
+> -					    vc4_hdmi->output_format))
+> -		return;
+> -
+> -	if (!drm_dev_enter(drm, &idx))
+> -		return;
+
+drm_dev_enter should be kept here
+
+> -	drm_scdc_set_high_tmds_clock_ratio(connector, true);
+> -	drm_scdc_set_scrambling(connector, true);
+> =20
+>  	spin_lock_irqsave(&vc4_hdmi->hw_lock, flags);
+>  	HDMI_WRITE(HDMI_SCRAMBLER_CTL, HDMI_READ(HDMI_SCRAMBLER_CTL) |
+>  		   VC5_HDMI_SCRAMBLER_CTL_ENABLE);
+>  	spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
+> =20
+> -	drm_dev_exit(idx);
+
+And exit here.
+
+> -static void vc4_hdmi_disable_scrambling(struct drm_encoder *encoder)
+> +static int vc4_hdmi_scrambler_disable(struct drm_connector *connector)
+>  {
+> -	struct vc4_hdmi *vc4_hdmi =3D encoder_to_vc4_hdmi(encoder);
+> -	struct drm_connector *connector =3D &vc4_hdmi->connector;
+> -	struct drm_device *drm =3D connector->dev;
+> +	struct vc4_hdmi *vc4_hdmi =3D connector_to_vc4_hdmi(connector);
+>  	unsigned long flags;
+> -	int idx;
+> -
+> -	lockdep_assert_held(&vc4_hdmi->mutex);
+> -
+> -	if (!vc4_hdmi->scdc_enabled)
+> -		return;
+> -
+> -	vc4_hdmi->scdc_enabled =3D false;
+> -
+> -	if (delayed_work_pending(&vc4_hdmi->scrambling_work))
+> -		cancel_delayed_work_sync(&vc4_hdmi->scrambling_work);
+> -
+> -	if (!drm_dev_enter(drm, &idx))
+> -		return;
+
+Ditto
+
+>  	spin_lock_irqsave(&vc4_hdmi->hw_lock, flags);
+>  	HDMI_WRITE(HDMI_SCRAMBLER_CTL, HDMI_READ(HDMI_SCRAMBLER_CTL) &
+>  		   ~VC5_HDMI_SCRAMBLER_CTL_ENABLE);
+>  	spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
+> =20
+> -	drm_scdc_set_scrambling(connector, false);
+> -	drm_scdc_set_high_tmds_clock_ratio(connector, false);
+> -
+> -	drm_dev_exit(idx);
+> -}
+> -
+> -static void vc4_hdmi_scrambling_wq(struct work_struct *work)
+> -{
+> -	struct vc4_hdmi *vc4_hdmi =3D container_of(to_delayed_work(work),
+> -						 struct vc4_hdmi,
+> -						 scrambling_work);
+> -	struct drm_connector *connector =3D &vc4_hdmi->connector;
+> -
+> -	if (drm_scdc_get_scrambling_status(connector))
+> -		return;
+> -
+> -	drm_scdc_set_high_tmds_clock_ratio(connector, true);
+> -	drm_scdc_set_scrambling(connector, true);
+> -
+> -	queue_delayed_work(system_percpu_wq, &vc4_hdmi->scrambling_work,
+> -			   msecs_to_jiffies(SCRAMBLING_POLLING_DELAY_MS));
+> +	return 0;
+>  }
+> =20
+>  static void vc4_hdmi_encoder_post_crtc_disable(struct drm_encoder *encod=
+er,
+> @@ -917,7 +726,7 @@ static void vc4_hdmi_encoder_post_crtc_disable(struct=
+ drm_encoder *encoder,
+>  		spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
+>  	}
+> =20
+> -	vc4_hdmi_disable_scrambling(encoder);
+> +	drm_scdc_stop_scrambling(&vc4_hdmi->connector);
+
+I don't think the names here are right. It's not *only* related to scdc
+but also to the HDMI controller. I'm fine with using a scdc prefix but
+only for the things related to scdc. This is related (in part) to the
+HDMI controller, so it should use a drm_connector_hdmi prefix.
+
+>  	drm_dev_exit(idx);
+> =20
+> @@ -1625,6 +1434,7 @@ static void vc4_hdmi_encoder_post_crtc_enable(struc=
+t drm_encoder *encoder,
+>  	struct drm_display_info *display =3D &vc4_hdmi->connector.display_info;
+>  	bool hsync_pos =3D mode->flags & DRM_MODE_FLAG_PHSYNC;
+>  	bool vsync_pos =3D mode->flags & DRM_MODE_FLAG_PVSYNC;
+> +	struct drm_connector_state *conn_state;
+>  	unsigned long flags;
+>  	int ret;
+>  	int idx;
+> @@ -1693,7 +1503,10 @@ static void vc4_hdmi_encoder_post_crtc_enable(stru=
+ct drm_encoder *encoder,
+>  	}
+> =20
+>  	vc4_hdmi_recenter_fifo(vc4_hdmi);
+> -	vc4_hdmi_enable_scrambling(encoder);
+> +
+> +	conn_state =3D drm_atomic_get_new_connector_state(state, connector);
+> +	if (conn_state && conn_state->hdmi.scrambler_needed)
+> +		drm_scdc_start_scrambling(connector);
+
+And the nice thing with a drm_connector_hdmi_* prefix is that you don't
+have to shoehorn it into SCDC support anymore, so you can take a state
+as an argument, and do the check in the helper instead of doing it in
+every driver and hoping they get it right.
+
+Maxime
+
+--dptwuanfutj3vasr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaiv1rgAKCRAnX84Zoj2+
+dgjiAYCujTAkPDFNSONvWn1TGWHP1snswHAl+KoW3O2aWnlv5B/ZzqreRdMgzT90
+D833M6oBfiW/cN4+iyLO2kQf/cAEO/Twbp+xEqTxtRMlP9GkYRleIJ87HOvXvcQS
+9rQh4ecGVw==
+=oUC5
+-----END PGP SIGNATURE-----
+
+--dptwuanfutj3vasr--
