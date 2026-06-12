@@ -4,64 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCD11CD98CE
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 20:42:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AF25CD98CF
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 20:55:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35F9810EB51;
-	Fri, 12 Jun 2026 20:42:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57D2010EB70;
+	Fri, 12 Jun 2026 20:55:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="jJWzVQuR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AdyP5SMB";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6894C10EB51
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 20:42:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1781296927;
- bh=EwJnim2UySXl/C8gGWgVbYK2jiPjZuEGJl0kKvx+JJQ=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=jJWzVQuRji0oWgxnebSLfoQRnObVZavrZh4J1bnyxVeYBDwKTJ+Hp1hFy6PJtV/8J
- n0DCJQEtId+w0/MRGmPfPBGYYip+crbavyBzp8vo3aXyXcCAyHJk7IAQhNOIvkFgIG
- GahQ/csYaccDz1y7/V99iAYRa0t9BCIFeSBKvQnb4L1pKZUo1Gy2yEShSB3J0eiR3Q
- Z8D97yKABYROKzZV+hUT/ong/MpjaSqxKrepBm9ZjTD8Is7ZYrIk9oazCHHwfLbQMX
- 9fXZU8vBVOjzN/YahJhPFk0J12CJ3jNPRY73c//o/kapbTUvMuI8jvPsygJpl84XNp
- It4MArU596hhw==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id F0BD717E03D7;
- Fri, 12 Jun 2026 22:42:06 +0200 (CEST)
-Message-ID: <b14af457-0799-43cc-80b5-7ffff5901f24@collabora.com>
-Date: Fri, 12 Jun 2026 23:42:06 +0300
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E60C210EB70
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 20:55:19 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3A31260008;
+ Fri, 12 Jun 2026 20:55:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04C881F000E9;
+ Fri, 12 Jun 2026 20:55:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781297718;
+ bh=iCD70DUh8GsBEQIl7jFunndrZwyktErUOz2kaJjSLO4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=AdyP5SMBxoQmwUxAYAsCtfbTuHIeupqTy6Bw/dKFOOnVjjm3GP9mH52RW1R1Q/oAW
+ L0C2I6UUMQNSpwujny51K2FRCC6i0+Aj1S2QMjU6Z56UkxvEisR2XENqzn86Rh1Wtq
+ xYEVx+KjcXCn6UN3YYo81s5Bdo4ygY1+Qn3FeiwMWOozEMqVDQ4iHoV70/dpthpTTl
+ O/EpAmkGvd9ZC0eBkKnuX96rMtwK5jAp/5+hRHwQJ/zBQEgTfNcAWuPcXYsR22AdNH
+ hXQt9ECqX8g8PcQM4e4Cw9yDaUyEbD31uLjN6BEzTbKiC5t0Rl0Eph4FX4c0s6iiZV
+ 3AZF7+TbKX7KQ==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Deborah Brouwer <deborah.brouwer@collabora.com>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ samitolvanen@google.com, laura.nao@collabora.com,
+ boris.brezillon@collabora.com
+Subject: Re: [PATCH] rust: drm: gpuvm: update DriverGpuVm for DeviceContext
+Date: Fri, 12 Jun 2026 22:55:05 +0200
+Message-ID: <20260612205504.836026-2-dakr@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260610-gpuvm_device_context_v1-v1-1-01a890b17448@collabora.com>
+References: <20260610-gpuvm_device_context_v1-v1-1-01a890b17448@collabora.com>
+X-Patch-Reply: applied
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 11/30] drm/display: bridge_connector: Wire up HDMI 2.0
- scrambler callbacks
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
- <20260602-dw-hdmi-qp-scramb-v7-11-445eb54ee1ed@collabora.com>
- <20260612-attractive-dashing-mule-309598@houat>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <20260612-attractive-dashing-mule-309598@houat>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,142 +69,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/12/26 11:52 AM, Maxime Ripard wrote:
-> On Tue, Jun 02, 2026 at 01:44:11AM +0300, Cristian Ciocaltea wrote:
->> Connect the bridge connector's .scrambler_{enable|disable} callbacks to
->> the underlying bridge's .hdmi_scrambler_{enable|disable} funcs when
->> DRM_BRIDGE_OP_HDMI_SCRAMBLER is advertised.
->>
->> This completes the bridge connector plumbing so that the SCDC
->> scrambling helpers can control source-side scrambling through the
->> bridge chain.
->>
->> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->> ---
->>  drivers/gpu/drm/display/drm_bridge_connector.c | 41 +++++++++++++++++++++++++-
->>  1 file changed, 40 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
->> index 9d21b1b57b0d..d048ab49eade 100644
->> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
->> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
->> @@ -555,6 +555,32 @@ static int drm_bridge_connector_write_spd_infoframe(struct drm_connector *connec
->>  	return bridge->funcs->hdmi_write_spd_infoframe(bridge, buffer, len);
->>  }
->>  
->> +static int drm_bridge_connector_scrambler_enable(struct drm_connector *connector)
->> +{
->> +	struct drm_bridge_connector *bridge_connector =
->> +		to_drm_bridge_connector(connector);
->> +	struct drm_bridge *bridge;
->> +
->> +	bridge = bridge_connector->bridge_hdmi;
->> +	if (!bridge)
->> +		return -EINVAL;
->> +
->> +	return bridge->funcs->hdmi_scrambler_enable(bridge);
->> +}
->> +
->> +static int drm_bridge_connector_scrambler_disable(struct drm_connector *connector)
->> +{
->> +	struct drm_bridge_connector *bridge_connector =
->> +		to_drm_bridge_connector(connector);
->> +	struct drm_bridge *bridge;
->> +
->> +	bridge = bridge_connector->bridge_hdmi;
->> +	if (!bridge)
->> +		return -EINVAL;
->> +
->> +	return bridge->funcs->hdmi_scrambler_disable(bridge);
->> +}
->> +
->>  static const struct drm_edid *
->>  drm_bridge_connector_read_edid(struct drm_connector *connector)
->>  {
->> @@ -580,7 +606,7 @@ static const struct drm_connector_hdmi_funcs drm_bridge_connector_hdmi_funcs = {
->>  		.clear_infoframe = drm_bridge_connector_clear_hdmi_infoframe,
->>  		.write_infoframe = drm_bridge_connector_write_hdmi_infoframe,
->>  	},
->> -	/* audio, hdr_drm and spd are set dynamically during init */
->> +	/* scrambler, audio, hdr_drm and spd are set dynamically during init */
->>  };
->>  
->>  static const struct drm_connector_infoframe_funcs drm_bridge_connector_hdmi_audio_infoframe = {
->> @@ -886,6 +912,11 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
->>  			     !bridge->funcs->hdmi_clear_spd_infoframe))
->>  				return ERR_PTR(-EINVAL);
->>  
->> +			if (bridge->ops & DRM_BRIDGE_OP_HDMI_SCRAMBLER &&
->> +			    (!bridge->funcs->hdmi_scrambler_enable ||
->> +			     !bridge->funcs->hdmi_scrambler_disable))
->> +				return ERR_PTR(-EINVAL);
->> +
->>  			bridge_connector->bridge_hdmi = drm_bridge_get(bridge);
->>  
->>  			if (bridge->supported_formats)
->> @@ -990,6 +1021,14 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
->>  			bridge_connector->hdmi_funcs.spd =
->>  				drm_bridge_connector_hdmi_spd_infoframe;
->>  
->> +		if (bridge_connector->bridge_hdmi->ops & DRM_BRIDGE_OP_HDMI_SCRAMBLER) {
->> +			bridge_connector->hdmi_funcs.scrambler_enable =
->> +				drm_bridge_connector_scrambler_enable;
->> +			bridge_connector->hdmi_funcs.scrambler_disable =
->> +				drm_bridge_connector_scrambler_disable;
->> +			connector->hdmi.scrambler_supported = true;
->> +		}
->> +
-> 
-> I think we're taking this backwards. The scrambler support isn't
-> optional: either the controller supports HDMI < 2.0, and then it doesn't
-> exist, or it supports >= 2.0 and then it's mandatory.
-> 
-> You're considering it optional here, when it's never actually optional
-> (unlike YUV420 for example)
-> 
-> I still think we should list, somehow, the capabilities of the
-> controller to the helpers, like max tmds rate supported, formats, etc.
-> We've so far put everything as an argument to drmm_connector_hdmi_init
-> but it becomes a bit overloaded, and I wonder if introducing a callback
-> wouldn't solve this, kind of like what we have for planes and formats.
-
-
-What about introducing something like:
-
-struct drm_connector_hdmi_caps {
-    ...
-    unsigned int supported_formats;
-    enum hdmi_version supported_hdmi_ver;
-};
-
-struct drm_connector_hdmi_funcs {
-    ...
-    int (*get_caps)(struct drm_connector *connector,
-                    struct drm_connector_hdmi_caps *caps);
-    ...
-};
-
-int drmm_connector_hdmi_init(struct drm_device *dev, ...)
-{
-    ...
-    if (hdmi_funcs->get_caps) {
-        struct drm_connector_hdmi_caps caps = { };
-
-        ret = hdmi_funcs->get_caps(connector, &caps);
-        if (ret)
-            return ret;
-
-        connector->hdmi.supported_formats  = caps.supported_formats;
-        ...
-        if (caps.supported_hdmi_ver > HDMI_2_0)
-            connector->hdmi.frl_supported = true;
-        else if (caps.supported_hdmi_ver == HDMI_2_0)
-            connector->hdmi.scrambler_supported = true;
-    }
-    ...
-}
-
-Not sure if max_tmds_char_rate should be listed as a capability, as we already
-have the .tmds_char_rate_valid() callback.
-
-Cristian
+On Wed, 10 Jun 2026 17:01:26 -0700, Deborah Brouwer wrote:=0D
+> [PATCH] rust: drm: gpuvm: update DriverGpuVm for DeviceContext=0D
+=0D
+Applied, thanks!=0D
+=0D
+  Branch: drm-rust-next=0D
+  Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git=0D
+=0D
+[1/1] rust: drm: gpuvm: update DriverGpuVm for DeviceContext=0D
+      commit: 20003c1a1fd8=0D
