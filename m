@@ -4,42 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAA77CD98CF
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 17:01:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65EEFCD98CF
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 17:01:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10A7B10EAE2;
-	Fri, 12 Jun 2026 17:01:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A335710EAA3;
+	Fri, 12 Jun 2026 17:01:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EISqL4Dk";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="llm605R7";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6F2A10EAA4
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 17:01:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1DCB260008;
- Fri, 12 Jun 2026 17:01:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AED001F000E9;
- Fri, 12 Jun 2026 17:01:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781283689;
- bh=Sck3LThsSIr+171jgbzLZAZgH1+y4HbpYmn7nUQN93s=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=EISqL4DkFdbPyWRxx2GpCQvcfpqEFVsxr1IW6Pf3ousb+rw6kp2lnuY5XWaWpOLJv
- iEU86tfAr+YmA71+28ahOwMjeHUeIn6faRaH+yUYddSPn7YOPJTnlTPveIOjO4jci4
- zvMWP9LRG0RZB6M0e6+yTAEtWrKY6zBP+VTE8teQKELd95ibazDgnlR6dN+m2oZmEv
- IZ/tREWFoCXlgUmH3i9gHVYwO7twFDxtenX56NdRVmLbhk7TsjWo62leHVCu5r00HO
- LqK8e0O5jMSqEFJzk40xpU9ys7qPZiMP1UjlZgQXBW/KHRM1VHAS4qaa39+vbiiIKE
- 5RrNaSzU36FDw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/nouveau: Simplify nouveau_cli_work
-To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260612165409.54447-1-tvrtko.ursulin@igalia.com>
-References: <20260612165409.54447-1-tvrtko.ursulin@igalia.com>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C24C910EAA3
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 17:01:49 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6A615225;
+ Fri, 12 Jun 2026 19:01:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1781283677;
+ bh=KVbtAEEtprqp5yyIoAXBQcwpPK0XelSa5kEMMWYCbAI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=llm605R7ZrLc9err8IAkvdf4IzX4Spd6MKK7m6pw5EdHUOYoTigYq5B62jlv0yazg
+ mbg/joeHg1oy1aTU96k+hDxZ+KHpvqentcezJiiytYRIT/SPXAZ6sC5Np6Zi7D7Han
+ 0pCNsBhLoieIxwIdVVc1UQ6I5cQalETck5BgagGw=
+Date: Fri, 12 Jun 2026 20:01:46 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/5] dt-bindings: display: bridge: Document Renesas
+ R-Car V4H DSC bindings
+Message-ID: <20260612170146.GA2094246@killaraus.ideasonboard.com>
+References: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
+ <20260515-rcar-du-dsc-v2-2-f6b9240a1240@ideasonboard.com>
+ <20260515-fraying-trickle-7511a2eeaf44@spud>
+ <81f89aa1-84d8-44e1-813b-2bbcafe3687e@ideasonboard.com>
+ <20260612-landed-remedial-79582e900699@spud>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 17:01:28 +0000
-Message-Id: <20260612170129.AED001F000E9@smtp.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20260612-landed-remedial-79582e900699@spud>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,64 +73,89 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] The patch introduces a use-after-free vulnerability by reading=
- `work->fence` after calling `work->func(work)`, which frees the `work` str=
-ucture.
---
+On Fri, Jun 12, 2026 at 05:09:48PM +0100, Conor Dooley wrote:
+> On Fri, Jun 12, 2026 at 01:43:44PM +0300, Tomi Valkeinen wrote:
+> > On 15/05/2026 20:32, Conor Dooley wrote:
+> > > On Fri, May 15, 2026 at 10:56:15AM +0300, Tomi Valkeinen wrote:
+> > > > From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> > > > 
+> > > > The Renesas DSC Display Stream Compression is a bridge embedded in the
+> > > > Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
+> > > > 8k or 400 Mpixel/s .
+> > > > 
+> > > > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> > > > [tomi.valkeinen: fix the example]
+> > > > Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> > > > ---
+> > > >   .../bindings/display/bridge/renesas,dsc.yaml       | 96 ++++++++++++++++++++++
+> > > >   1 file changed, 96 insertions(+)
+> > > > 
+> > > > diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
+> > > > new file mode 100644
+> > > > index 000000000000..2918d592732b
+> > > > --- /dev/null
+> > > > +++ b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
+> > > 
+> > > Filename matching the compatible please.
+> > 
+> > All the other Documentation/devicetree/bindings/display/bridge/renesas,*
+> > files follow the same style, where the file name is in a generic format, but
+> > the actual compat strings are per SoC (and no generic compat string).
+> 
+> No idea why it's like that currently, but filename matching compatible
+> is the policy.
 
-commit 5f500d0384ad49806cf724c1cd7f76a580d6bc42
-Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+I wonder if we should use
 
-drm/nouveau: Simplify nouveau_cli_work
+  compatible:
+    items:
+      - enum:
+          - renesas,r8a779g0-dsc
+      - const: renesas,rcar-dsc
 
-This patch simplifies the nouveau_cli_work function by removing the
-nouveau_cli_work_ready wrapper. As part of this cleanup, the
-dma_fence_put() call is moved to execute after the work callback
-has been invoked.
+to prepare for the other SoCs that include a DSC. It's of course hard to
+predict how compatible all new silicon will be, but we know there will
+be some compatible ones.
 
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouv=
-eau/nouveau_drm.c
-> index e16f59b00f6fa..a3e38a30fbdab 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-[ ... ]
-> @@ -176,9 +160,10 @@ nouveau_cli_work(struct work_struct *w)
->  	struct nouveau_cli_work *work, *wtmp;
->  	mutex_lock(&cli->lock);
->  	list_for_each_entry_safe(work, wtmp, &cli->worker, head) {
-> -		if (!work->fence || nouveau_cli_work_ready(work->fence)) {
-> +		if (!work->fence || dma_fence_is_signaled(work->fence)) {
->  			list_del(&work->head);
->  			work->func(work);
-> +			dma_fence_put(work->fence);
+This being said, looking for instance at renesas,du.yaml in the same
+directory, we have
 
-[Severity: Critical]
-Does moving dma_fence_put() after work->func() introduce a use-after-free
-here?
+  compatible:
+    enum:
+      - renesas,du-r8a7742 # for RZ/G1H compatible DU
+      - renesas,du-r8a7743 # for RZ/G1M compatible DU
+      - renesas,du-r8a7744 # for RZ/G1N compatible DU
+      - renesas,du-r8a7745 # for RZ/G1E compatible DU
+      - renesas,du-r8a77470 # for RZ/G1C compatible DU
+      - renesas,du-r8a774a1 # for RZ/G2M compatible DU
+      - renesas,du-r8a774b1 # for RZ/G2N compatible DU
+      - renesas,du-r8a774c0 # for RZ/G2E compatible DU
+      - renesas,du-r8a774e1 # for RZ/G2H compatible DU
+      - renesas,du-r8a7779 # for R-Car H1 compatible DU
+      - renesas,du-r8a7790 # for R-Car H2 compatible DU
+      - renesas,du-r8a7791 # for R-Car M2-W compatible DU
+      - renesas,du-r8a7792 # for R-Car V2H compatible DU
+      - renesas,du-r8a7793 # for R-Car M2-N compatible DU
+      - renesas,du-r8a7794 # for R-Car E2 compatible DU
+      - renesas,du-r8a7795 # for R-Car H3 compatible DU
+      - renesas,du-r8a7796 # for R-Car M3-W compatible DU
+      - renesas,du-r8a77961 # for R-Car M3-W+ compatible DU
+      - renesas,du-r8a77965 # for R-Car M3-N compatible DU
+      - renesas,du-r8a77970 # for R-Car V3M compatible DU
+      - renesas,du-r8a77980 # for R-Car V3H compatible DU
+      - renesas,du-r8a77990 # for R-Car E3 compatible DU
+      - renesas,du-r8a77995 # for R-Car D3 compatible DU
+      - renesas,du-r8a779a0 # for R-Car V3U compatible DU
+      - renesas,du-r8a779g0 # for R-Car V4H compatible DU
+      - renesas,du-r8a779h0 # for R-Car V4M compatible DU
 
-Looking at the callback implementation in nouveau_gem_object_delete_work()
-(in drivers/gpu/drm/nouveau/nouveau_gem.c), the work structure is freed:
+Could the file have been named renesas,du-r8a7790.yaml ? Sure. Would it
+be better for users than renesas,du.yaml ? I'm less sure.
 
-nouveau_gem_object_delete_work(...)
-{
-	...
-	nouveau_gem_object_delete(work->vma);
-	kfree(work);
-}
+-- 
+Regards,
 
-If the callback frees the work structure, accessing work->fence immediately
-afterwards in dma_fence_put() would read from freed memory.
-
->  		}
->  	}
->  	mutex_unlock(&cli->lock);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612165409.5444=
-7-1-tvrtko.ursulin@igalia.com?part=3D1
+Laurent Pinchart
