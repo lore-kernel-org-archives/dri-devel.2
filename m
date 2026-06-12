@@ -4,61 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EA1ECD98D6
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 17:17:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DFC7CD98CE
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 17:18:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8F5D10F5D0;
-	Fri, 12 Jun 2026 17:17:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2FCF10F5DF;
+	Fri, 12 Jun 2026 17:18:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DUNJwzub";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SxMRnvNI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3058310F5BC
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 17:17:37 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 6C0AD601E9;
- Fri, 12 Jun 2026 17:17:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 087A5C2BCB4;
- Fri, 12 Jun 2026 17:17:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1781284656;
- bh=GDjHfQZoc7scZybjReCblcY+AxvZchQJmL41JDZKmoE=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=DUNJwzuboUf8yIKCS2LCWrnVGEfv3MmF5hIw6XH16lK42518nY5GwHVZKmrxv2syi
- XcQxehLr98ZWz30KoGsicWi6Mr9xEz2IOjL6Y01xUxVHCx488UHFXN4z+r510/LLpw
- OkOZYAZWeSwtoexqrNcKsWvCDBsuhI/VJ8J9WvYjsTeZkhniu2uxwO5Y1zHFYinAiA
- 8sb01g4ySQvQxxMyaviaMX/HfgcRuKlPSIUSKGCvgjq2sZsCdtsaMmggfOGjHO5Pgo
- 7e1s1C49YvSN7pg3j+kyCopJYXnIUqwyGW/Lh8DLwiVkmBQdu9bMcT1S+CSgz0w/WK
- leLE3AqyLWAdw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id EDD61CD98CF;
- Fri, 12 Jun 2026 17:17:35 +0000 (UTC)
-From: Alberto Ruiz via B4 Relay <devnull+aruiz.redhat.com@kernel.org>
-Date: Fri, 12 Jun 2026 18:17:18 +0100
-Subject: [PATCH 3/4] drm/solomon: use ssd130x_run_cmd_seq() in ssd132x_init()
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8916E10F5DF;
+ Fri, 12 Jun 2026 17:18:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=YUUTaHVRoPtS1HtgR3Iw4hFLtlpzPkDp4HslgQlS3ng=; b=SxMRnvNI921FmkddfLNMjHNeAm
+ 6ReigP5W2YwGQo+yXPGE1gNon8BB8a1KGm/MjeRQPcYfXF+uP0bT1jOGKKmX7AKnTpDzxy/q6gO0s
+ C22dvKPQaWLaD4wtFzQPliezHutSd6K+nS7BuovPtjg4bNxQS5oTMDS2FkYt53g88KxZso/8/L/0Q
+ Q2hLFucX4qlVMIOHnb0pF0nIz9TuI7A4d+5czlID5GV/hH92lLN064PintaFAgzur2LuJgy0XtSqt
+ xjdIKFj8I6SzPac7bpQsmK3e6G2RVL3ZXdCMNp4dP1QSWadmfR2TVZvHmTclH/RIepLUsVBxKFePn
+ yF4IuN4A==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wY5Wu-00Ghg9-NS; Fri, 12 Jun 2026 19:18:52 +0200
+Message-ID: <e6e016bc-cddf-43f4-830d-cf047183a9bf@igalia.com>
+Date: Fri, 12 Jun 2026 18:18:52 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260612-ssd-batchcmd-v1-3-c61e5f7c24bc@redhat.com>
-References: <20260612-ssd-batchcmd-v1-0-c61e5f7c24bc@redhat.com>
-In-Reply-To: <20260612-ssd-batchcmd-v1-0-c61e5f7c24bc@redhat.com>
-To: Javier Martinez Canillas <javierm@redhat.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Alberto Ruiz <aruiz@redhat.com>
-X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781284654; l=4164;
- i=aruiz@redhat.com; s=20260612; h=from:subject:message-id;
- bh=ZxVXIKcONNxgJZO+E12kfo8TLu8zbFtcaxkY6PeGK/0=;
- b=Rgp07uO1vB8/K6eVI0Dy6qTinRPB49rkb668M2Vdk6yJwDqe1/QOoMyo1D0d9Ozw52J7H7GmW
- 7kyiW9863txD+O8P7jAtIrhHdD2GQ5rjVvyGdGSqB8PELvQy/D+EFvO
-X-Developer-Key: i=aruiz@redhat.com; a=ed25519;
- pk=d1doFQwve1B/jU9nG5oPl1W5d+t+iFrjkkwk/hD97Ow=
-X-Endpoint-Received: by B4 Relay for aruiz@redhat.com/20260612 with auth_id=818
-X-Original-From: Alberto Ruiz <aruiz@redhat.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/nouveau: Simplify nouveau_cli_work
+To: phasta@kernel.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>, nouveau@lists.freedesktop.org
+References: <20260612165409.54447-1-tvrtko.ursulin@igalia.com>
+ <6f929f2e1c55f7945b41593eea44f28d3b93abf7.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <6f929f2e1c55f7945b41593eea44f28d3b93abf7.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,146 +59,87 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: aruiz@redhat.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Alberto Ruiz <aruiz@redhat.com>
 
-Replace individual ssd130x_write_cmd() calls and per-command error
-checks with a flat command array dispatched through ssd130x_run_cmd_seq().
+On 12/06/2026 18:14, Philipp Stanner wrote:
+> On Fri, 2026-06-12 at 17:54 +0100, Tvrtko Ursulin wrote:
+>> I don't claim this fixes anything but the code certainly was a bit
+>> roundabout and this at least cleans it up.
+>>
+>> The only semantic difference is releasing the fence reference after
+>> the work callback is called. Which kind of make sense anyway.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Philipp Stanner <phasta@kernel.org>
+>> Cc: Lyude Paul <lyude@redhat.com>
+>> Cc: Danilo Krummrich <dakr@kernel.org>
+>> Cc: nouveau@lists.freedesktop.org
+>> ---
+>>   drivers/gpu/drm/nouveau/nouveau_drm.c | 19 ++-----------------
+>>   1 file changed, 2 insertions(+), 17 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+>> index 42a81166f3a9..7de174537fc7 100644
+>> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+>> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+>> @@ -153,22 +153,6 @@ nouveau_name(struct drm_device *dev)
+>>   		return nouveau_platform_name(to_platform_device(dev->dev));
+>>   }
+>>   
+>> -static inline bool
+>> -nouveau_cli_work_ready(struct dma_fence *fence)
+>> -{
+>> -	unsigned long flags;
+>> -	bool ret = true;
+>> -
+>> -	dma_fence_lock_irqsave(fence, flags);
+>> -	if (!dma_fence_is_signaled_locked(fence))
+>> -		ret = false;
+>> -	dma_fence_unlock_irqrestore(fence, flags);
+>> -
+>> -	if (ret == true)
+>> -		dma_fence_put(fence);
+>> -	return ret;
+>> -}
+>> -
+>>   static void
+>>   nouveau_cli_work(struct work_struct *w)
+>>   {
+>> @@ -176,9 +160,10 @@ nouveau_cli_work(struct work_struct *w)
+>>   	struct nouveau_cli_work *work, *wtmp;
+>>   	mutex_lock(&cli->lock);
+>>   	list_for_each_entry_safe(work, wtmp, &cli->worker, head) {
+>> -		if (!work->fence || nouveau_cli_work_ready(work->fence)) {
+>> +		if (!work->fence || dma_fence_is_signaled(work->fence)) {
+>>   			list_del(&work->head);
+>>   			work->func(work);
+>> +			dma_fence_put(work->fence);
+> 
+> Dave had addressed a UAF with that patch.
+> 
+> So if this would fix it, then the claim would be that work->func(work)
+> was the user of that fence, and not some other party elsewhere.
+> 
+> I don't know whether that's the case.
 
-Signed-off-by: Alberto Ruiz <aruiz@redhat.com>
----
- drivers/gpu/drm/solomon/ssd130x.c | 112 +++++++++-----------------------------
- 1 file changed, 27 insertions(+), 85 deletions(-)
+Me neither. I say in the commit I don't claim to fix anything. But it is 
+more logical and avoids the silly games with ret and all.
 
-diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
-index ec6bf9f6c7c8..a9914365ad27 100644
---- a/drivers/gpu/drm/solomon/ssd130x.c
-+++ b/drivers/gpu/drm/solomon/ssd130x.c
-@@ -551,92 +551,34 @@ static int ssd130x_init(struct ssd130x_device *ssd130x)
- 
- static int ssd132x_init(struct ssd130x_device *ssd130x)
- {
--	int ret;
--
--	/* Set initial contrast */
--	ret = ssd130x_write_cmd(ssd130x, 2, SSD13XX_CONTRAST, 0x80);
--	if (ret < 0)
--		return ret;
--
--	/* Set column start and end */
--	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_COL_RANGE, 0x00,
--				ssd130x->width / SSD132X_SEGMENT_WIDTH - 1);
--	if (ret < 0)
--		return ret;
--
--	/* Set row start and end */
--	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_ROW_RANGE, 0x00, ssd130x->height - 1);
--	if (ret < 0)
--		return ret;
--	/*
--	 * Horizontal Address Increment
--	 * Re-map for Column Address, Nibble and COM
--	 * COM Split Odd Even
--	 */
--	ret = ssd130x_write_cmd(ssd130x, 2, SSD13XX_SET_SEG_REMAP, 0x53);
--	if (ret < 0)
--		return ret;
--
--	/* Set display start and offset */
--	ret = ssd130x_write_cmd(ssd130x, 2, SSD132X_SET_DISPLAY_START, 0x00);
--	if (ret < 0)
--		return ret;
--
--	ret = ssd130x_write_cmd(ssd130x, 2, SSD132X_SET_DISPLAY_OFFSET, 0x00);
--	if (ret < 0)
--		return ret;
--
--	/* Set display mode normal */
--	ret = ssd130x_write_cmd(ssd130x, 1, SSD132X_SET_DISPLAY_NORMAL);
--	if (ret < 0)
--		return ret;
--
--	/* Set multiplex ratio value */
--	ret = ssd130x_write_cmd(ssd130x, 2, SSD13XX_SET_MULTIPLEX_RATIO, ssd130x->height - 1);
--	if (ret < 0)
--		return ret;
--
--	/* Set phase length */
--	ret = ssd130x_write_cmd(ssd130x, 2, SSD132X_SET_PHASE_LENGTH, 0x55);
--	if (ret < 0)
--		return ret;
--
--	/* Select default linear gray scale table */
--	ret = ssd130x_write_cmd(ssd130x, 1, SSD132X_SELECT_DEFAULT_TABLE);
--	if (ret < 0)
--		return ret;
--
--	/* Set clock frequency */
--	ret = ssd130x_write_cmd(ssd130x, 2, SSD132X_SET_CLOCK_FREQ, 0x01);
--	if (ret < 0)
--		return ret;
--
--	/* Enable internal VDD regulator */
--	ret = ssd130x_write_cmd(ssd130x, 2, SSD132X_SET_FUNCTION_SELECT_A, 0x1);
--	if (ret < 0)
--		return ret;
--
--	/* Set pre-charge period */
--	ret = ssd130x_write_cmd(ssd130x, 2, SSD132X_SET_PRECHARGE_PERIOD, 0x01);
--	if (ret < 0)
--		return ret;
--
--	/* Set pre-charge voltage */
--	ret = ssd130x_write_cmd(ssd130x, 2, SSD132X_SET_PRECHARGE_VOLTAGE, 0x08);
--	if (ret < 0)
--		return ret;
--
--	/* Set VCOMH voltage */
--	ret = ssd130x_write_cmd(ssd130x, 2, SSD130X_SET_VCOMH_VOLTAGE, 0x07);
--	if (ret < 0)
--		return ret;
--
--	/* Enable second pre-charge and internal VSL */
--	ret = ssd130x_write_cmd(ssd130x, 2, SSD132X_SET_FUNCTION_SELECT_B, 0x62);
--	if (ret < 0)
--		return ret;
-+	const u8 cmds[] = {
-+		2, SSD13XX_CONTRAST, 0x80,
-+		3, SSD132X_SET_COL_RANGE, 0x00,
-+					ssd130x->width / SSD132X_SEGMENT_WIDTH - 1,
-+		3, SSD132X_SET_ROW_RANGE, 0x00, ssd130x->height - 1,
-+		/*
-+		 * Horizontal Address Increment
-+		 * Re-map for Column Address, Nibble and COM
-+		 * COM Split Odd Even
-+		 */
-+		2, SSD13XX_SET_SEG_REMAP, 0x53,
-+		2, SSD132X_SET_DISPLAY_START, 0x00,
-+		2, SSD132X_SET_DISPLAY_OFFSET, 0x00,
-+		1, SSD132X_SET_DISPLAY_NORMAL,
-+		2, SSD13XX_SET_MULTIPLEX_RATIO, ssd130x->height - 1,
-+		2, SSD132X_SET_PHASE_LENGTH, 0x55,
-+		1, SSD132X_SELECT_DEFAULT_TABLE,
-+		2, SSD132X_SET_CLOCK_FREQ, 0x01,
-+		2, SSD132X_SET_FUNCTION_SELECT_A, 0x1,
-+		2, SSD132X_SET_PRECHARGE_PERIOD, 0x01,
-+		2, SSD132X_SET_PRECHARGE_VOLTAGE, 0x08,
-+		2, SSD130X_SET_VCOMH_VOLTAGE, 0x07,
-+		/* Enable second pre-charge and internal VSL */
-+		2, SSD132X_SET_FUNCTION_SELECT_B, 0x62,
-+		0,
-+	};
- 
--	return 0;
-+	return ssd130x_run_cmd_seq(ssd130x, cmds);
- }
- 
- static int ssd133x_init(struct ssd130x_device *ssd130x)
+What I missed though is that work->func(work) frees the work.
 
--- 
-2.53.0
+So patch needs to cache the fence... v2 incoming..
 
+Regards,
+
+Tvrtko
+
+> 
+> 
+> P.
+> 
+>>   		}
+>>   	}
+>>   	mutex_unlock(&cli->lock);
 
