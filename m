@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89A4ACD4F2C
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 09:31:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91AB2CD8CA8
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 09:32:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE50810F3CC;
-	Fri, 12 Jun 2026 09:31:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F121F10F3BD;
+	Fri, 12 Jun 2026 09:32:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MFUd2GpI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YPDcjYvJ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 644A310F3F0
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 09:31:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AC7B10F3BD
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 09:32:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3DC93429E0;
- Fri, 12 Jun 2026 09:31:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BEF41F000E9;
- Fri, 12 Jun 2026 09:31:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5467642DC8;
+ Fri, 12 Jun 2026 09:32:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D95A1F000E9;
+ Fri, 12 Jun 2026 09:32:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781256673;
- bh=UJW4XF53hK7NwBRrMBSzRFsEi5qHSfhs+v5WNAqcv+c=;
+ s=k20260515; t=1781256762;
+ bh=GWEd0jJ5UDT2r6vAar+aoThdG6/XUp2e5xaLgQjERrA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MFUd2GpIpUXukBmUjbAEvEGVQ/ykCF8K9ODdE6d3ast48KU5qUlFGo1rDo3HElh99
- /w38uKpXe2N7gpVhacaQvY10FfaXynNlHO+JY69jkWADzyW40svoqDy6RUjhX1z2yW
- PKCHHUrrfDC2gZ5McPY45fFoh+Iygk5EDpOVW6VrnI8Pv7qVPdXipKJorYBU3BJwoY
- i1vtZMeqvj4zP6Pd4DYUR9u/7BLZYv0FErJB6E7BOEeh5xJqrL8hKuQ/wMSUyq4JzV
- qLasL0B3xX49echgtUycq3qCFtCllu4R9txC2gJvzLf0p5n23Hr2c29sPeBBonjyS9
- aZ+8eiyoWGrnw==
+ b=YPDcjYvJ7ToS6sE6/0Fosp/5KuED1dqzuy9+bABD7JiFwCtYlQOD1CYfVq47dUzvy
+ 2GOTsj6GilTF5hvBdlyXVFbXYMmGzIXLztfbJPdPUMCFzxtQmjwK9YQJ4j8rtQV9T4
+ cy5aFxFkXwqEnUGJy2uXACrW3MmdGQ1YnhRWYIOCF+K/HhGuolU4op3Qg38j6RLyXq
+ RhctvoZ3jwV2WnKgIM1X6KecOOBX6XA2GJoisn0Wsz6un+mDS03DX5wPJBOJGNowo1
+ Dltrn1zOkoEmrpcE/TbIa8jDkcGdjRI+aktGqxdqIrD1DR5Csu9ctSYbFV1vCQ8N80
+ Jaau9Sp4iYoXg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 15/18] drm/amdgpu: implement synchronous TTM eviction
- for SVM BOs
+Subject: Re: [PATCH v8 07/18] drm/amdgpu: implement SVM range GPU mapping core
 To: "Huang Rui" <ray.huang@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260612090928.29682-16-ray.huang@amd.com>
-References: <20260612090928.29682-16-ray.huang@amd.com>
+In-Reply-To: <20260612090928.29682-8-ray.huang@amd.com>
+References: <20260612090928.29682-8-ray.huang@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 09:31:12 +0000
-Message-Id: <20260612093113.0BEF41F000E9@smtp.kernel.org>
+Date: Fri, 12 Jun 2026 09:32:41 +0000
+Message-Id: <20260612093242.1D95A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,142 +56,200 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-
-New issues:
-- [Critical] The SVM BO eviction path migrates VRAM to system memory synchr=
-onously without waiting for pending GPU operations (`ttm_bo_wait_ctx`), ris=
-king data corruption and violating `ctx->no_wait_gpu`.
-- [High] Using `GFP_KERNEL` allocations inside `drm_pagemap_evict_to_ram()`=
- while holding the BO's `dma_resv` lock creates a deadlock risk with memory=
- reclaim.
-- [High] Early return during SVM BO eviction bypasses `amdgpu_bo_move_notif=
-y()` and TTM BO statistics tracking.
-
-Pre-existing issues:
-- [High] `amdgpu_svm_copy_to_ram` completely ignores the `pre_migrate_fence=
-`, risking data corruption on the destination.
+- [Critical] Updating `range->gpu_mapped` outside `notifier_lock` creates a=
+ TOCTOU race with MMU notifiers, leading to GPU UAF.
+- [Critical] Fallible memory allocation inside the MMU notifier callback (`=
+amdgpu_svm_range_zap_ptes`) can cause a GPU use-after-free.
+- [High] Missing `goto retry;` logic after `-EOPNOTSUPP` eviction in `amdgp=
+u_svm_range_get_pages` permanently fails mapping.
+- [High] TLB is flushed and mapping is marked complete before asynchronous =
+PDE updates finish.
+- [High] `amdgpu_svm_range_map_attrs` fails the ioctl with `-EAGAIN` upon M=
+MU notifier invalidation instead of retrying.
+- [Medium] Ignored return value of `dma_fence_wait` in `amdgpu_svm_range_up=
+date_mapping` masks `-ERESTARTSYS` errors.
 --
 
-commit 9be611c0396613a1f2f1bba63eacdcd1d3dd9964
-Author: Junhua Shen <Junhua.Shen@amd.com>
+commit fcda6b5ee02461678a8cd1586240f44fb136a85f
+Author: Honglei Huang <honghuan@amd.com>
+Subject: drm/amdgpu: implement SVM range GPU mapping core
 
-drm/amdgpu: implement synchronous TTM eviction for SVM BOs
+This patch implements GPU page table mapping in amdgpu_svm_range.c. It
+introduces functions for validating, finding, evicting, and updating SVM
+ranges, as well as handling PTE flags and updating mappings.
 
-Implement the TTM eviction path for SVM (Shared Virtual Memory) BOs,
-enabling VRAM overcommit scenarios where device-private pages must be
-migrated back to system memory when VRAM is full.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_migrate.c
-> index 3756404ec334c..88079221eeca7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c
-> @@ -645,6 +645,34 @@ static const struct drm_pagemap_devmem_ops amdgpu_pa=
-gemap_ops =3D {
->  	.copy_to_ram         =3D amdgpu_svm_copy_to_ram,
-
-[Severity: High]
-This is a pre-existing issue, but does amdgpu_svm_copy_to_ram() ignore the
-pre_migrate_fence?
-
-Looking at the implementation of amdgpu_svm_copy_to_ram() referenced here:
-
-amdgpu_svm_copy_to_ram(struct page **pages,
-                       struct drm_pagemap_addr *pagemap_addr,
-                       unsigned long npages,
-                       struct dma_fence *pre_migrate_fence)
-{
-    ...
-}
-
-The function takes pre_migrate_fence as a parameter but does not appear to
-wait on it. During P2P migration, could ignoring this fence cause the source
-device to begin copying data into the destination device's memory before the
-destination is ready, leading to data corruption?
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_svm_range.c
+> new file mode 100644
+> index 0000000000000..e1b392b2cf56a
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
 
 [ ... ]
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index 6c6ab4dd6ea95..9d3deec7cedec 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-[ ... ]
-> @@ -575,6 +585,16 @@ static int amdgpu_bo_move(struct ttm_buffer_object *=
-bo, bool evict,
->  		abo->flags &=3D ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
->  	}
-> =20
-> +	/* SVM BO eviction: migrate device-private pages back to RAM */
-> +	if (amdgpu_svm_bo_is_svm(bo) &&
-> +	    old_mem->mem_type =3D=3D TTM_PL_VRAM &&
-> +	    new_mem->mem_type =3D=3D TTM_PL_SYSTEM) {
-> +		r =3D amdgpu_svm_bo_evict(abo);
+
+> +int
+> +amdgpu_svm_range_zap_ptes(struct amdgpu_svm *svm,
+> +			  struct amdgpu_svm_range *range,
+> +			  unsigned long start_page,
+> +			  unsigned long last_page)
+> +{
+> +	struct dma_fence *fence =3D NULL;
+> +	unsigned int flags;
+> +	int ret;
+> +
+> +	if (last_page < start_page)
+> +		return 0;
+> +
+> +	flags =3D memalloc_noreclaim_save();
+> +	ret =3D amdgpu_vm_update_range(svm->adev, svm->vm, false, true, true, f=
+alse,
+> +				     NULL, start_page, last_page, 0, 0, 0, NULL,
+> +				     NULL, &fence);
+> +	memalloc_noreclaim_restore(flags);
 
 [Severity: Critical]
-Does this migration skip synchronizing with pending GPU operations?
+Is it safe to rely on amdgpu_vm_update_range() inside the MMU notifier
+callback path?
 
-Since amdgpu_svm_bo_evict() synchronously migrates VRAM to system memory via
-SDMA, missing a call to ttm_bo_wait_ctx() could allow the copy to start whi=
-le
-the GPU is still executing shaders that access this VRAM.
+amdgpu_vm_update_range() dynamically allocates memory even when called
+within a memalloc_noreclaim_save() block (e.g., allocating tlb_cb). Under
+memory pressure, if this allocation fails, the PTEs will not be cleared.
+Since the MMU notifier cannot fail gracefully to prevent the physical page
+from being freed, could this result in the GPU retaining valid access to
+freed memory and causing a use-after-free?
 
-Additionally, does bypassing ttm_bo_wait_ctx() ignore the ctx->no_wait_gpu
-flag, potentially causing illegal stalls if a non-blocking move is requeste=
-d?
+[ ... ]
 
-[Severity: High]
-Can this lead to a deadlock with memory reclaim?
+> +int amdgpu_svm_range_get_pages(struct amdgpu_svm *svm,
+> +			       struct drm_gpusvm_range *range,
+> +			       struct drm_gpusvm_ctx *ctx)
+> +{
 
-This path calls amdgpu_svm_bo_evict() while the TTM buffer object's dma_resv
-lock is held. This delegates to drm_pagemap_evict_to_ram(), which performs
-an allocation using GFP_KERNEL:
+[ ... ]
 
-drm_pagemap_evict_to_ram() {
-    ...
-    buf =3D kvcalloc(npages, 2 * sizeof(*src) + sizeof(*pagemap_addr) +
-                   sizeof(*pages), GFP_KERNEL);
-    ...
-}
-
-Allocating with GFP_KERNEL while holding a dma_resv lock can invoke the
-shrinker (fs_reclaim). If the shrinker attempts to acquire dma_resv locks or
-waits on fences depending on the held lock, will this cause a circular lock
-dependency?
-
-> +		if (!r)
-> +			ttm_bo_move_null(bo, new_mem);
-> +		return r;
-
-[Severity: High]
-Does returning early here bypass mandatory notifications and statistics
-updates?
-
-A successful eviction returns immediately, skipping the call to
-amdgpu_bo_move_notify() which handles VM tracking cleanup and tracepoints.
-
-It also entirely skips the statistics updates at the tail of
-amdgpu_bo_move():
-
-amdgpu_bo_move() {
-    ...
-    if (evict)
-        atomic64_inc(&adev->num_evictions);
-    atomic64_add(bo->base.size, &adev->num_bytes_moved);
-    return 0;
-}
-
-Will missing these updates cause underreporting of evictions and moved byte=
-s,
-impacting driver debugging metrics and migration throttling?
-
+> +	if (ret =3D=3D -EOPNOTSUPP) {
+> +		AMDGPU_SVM_ERR(
+> +			"range get pages -EOPNOTSUPP, evict and retry: gpuva=3D[0x%lx-0x%lx) =
+ret=3D%d\n",
+> +			drm_gpusvm_range_start(range),
+> +			drm_gpusvm_range_end(range), ret);
+> +		amdgpu_svm_range_evict(svm, range);
 > +	}
 > +
->  	if (adev->mman.buffer_funcs_enabled &&
->  	    ((old_mem->mem_type =3D=3D TTM_PL_SYSTEM &&
->  	      new_mem->mem_type =3D=3D TTM_PL_VRAM) ||
+> +	return ret;
+> +}
+
+[Severity: High]
+Should there be a retry loop after the eviction?
+
+When drm_gpusvm_range_get_pages() returns -EOPNOTSUPP for unmappable
+device memory, this code successfully evicts it back to system RAM but
+then just falls through and returns -EOPNOTSUPP anyway. Does this lack of
+a "goto retry" statement permanently fail the mapping operation instead of
+recovering it?
+
+[ ... ]
+
+> +int amdgpu_svm_range_update_mapping(struct amdgpu_svm *svm,
+> +				    struct amdgpu_svm_range *range,
+> +				    const struct amdgpu_svm_attrs *attrs,
+> +				    bool read_only,
+> +				    bool intr, bool wait,
+> +				    bool flush_tlb)
+> +{
+
+[ ... ]
+
+> +	drm_gpusvm_notifier_unlock(&svm->gpusvm);
+> +	memalloc_noreclaim_restore(flags);
+> +
+> +	if (!ret && fence)
+> +		dma_fence_wait(fence, intr);
+
+[Severity: Medium]
+Is it intentional to discard the return value of dma_fence_wait() here?
+
+If the wait is interrupted by a signal (since intr can be true), it
+returns -ERESTARTSYS. Because ret remains 0, the code proceeds as if the
+GPU mapping completed successfully. Could this lead to userspace
+scheduling GPU execution on memory whose page tables have not finished
+updating?
+
+> +	dma_fence_put(fence);
+> +
+> +	if (!ret)
+> +		ret =3D amdgpu_vm_update_pdes(svm->adev, svm->vm, false);
+> +
+> +	if (!ret) {
+> +		if (flush_tlb)
+> +			svm->flush_tlb(svm);
+
+[Severity: High]
+Should we wait for the asynchronous PDE updates to finish before returning?
+
+The amdgpu_vm_update_pdes() call uses immediate=3Dfalse, meaning PDE updates
+are asynchronously queued to the SDMA ring. However, this function
+immediately flushes the CPU-side TLB and returns success to userspace.
+
+Can a user compute shader begin executing immediately and hit a GPU page
+fault because the hardware page directory entries have not yet been
+written?
+
+> +		WRITE_ONCE(range->attr_flags, attrs->flags);
+> +		WRITE_ONCE(range->gpu_mapped, true);
+
+[Severity: Critical]
+Could updating range->gpu_mapped outside the notifier_lock create a TOCTOU
+race with MMU notifiers?
+
+The lock is released before setting WRITE_ONCE(range->gpu_mapped, true).
+Concurrently, an MMU notifier could run on another CPU, acquire the
+notifier_lock, and check the flag. Because it hasn't been updated yet,
+the notifier sees false, skips zapping the hardware PTEs, and allows the
+CPU to free the physical memory.
+
+Should gpu_mapped be updated inside the notifier_lock critical section to
+prevent a GPU use-after-free?
+
+> +		range->validate_timestamp =3D ktime_get_boottime();
+> +	}
+> +
+> +	drm_exec_fini(&exec);
+> +	return ret;
+> +}
+
+[ ... ]
+
+> +int
+> +amdgpu_svm_range_map_attrs(struct amdgpu_svm *svm,
+
+[ ... ]
+
+> +		ret =3D amdgpu_svm_range_update_mapping(svm, range, attrs,
+> +						      map_ctx.read_only,
+> +						      true, true,
+> +						      true);
+> +		if (ret) {
+> +			AMDGPU_SVM_ERR("failed to update gpu map for range [0x%lx-0x%lx), ret=
+=3D%d\n",
+> +					drm_gpusvm_range_start(&range->base),
+> +					drm_gpusvm_range_end(&range->base), ret);
+> +			return ret;
+> +		}
+
+[Severity: High]
+Should this handle -EAGAIN by retrying instead of propagating the error
+to userspace?
+
+If the MMU notifier sequence changes concurrently during mapping,
+amdgpu_svm_range_update_mapping() safely catches this and returns -EAGAIN.
+However, there is no retry loop here to handle that expected condition.
+Will normal concurrent memory reclaim cause spurious ioctl failures to
+userspace if we abort the entire ioctl instead of transparently retrying
+the get_pages() and locking sequence?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612090928.2968=
-2-1-ray.huang@amd.com?part=3D15
+2-1-ray.huang@amd.com?part=3D7
