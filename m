@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9538ECD98CE
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 07:11:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C7EECD98CE
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 07:12:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 035F810E974;
-	Fri, 12 Jun 2026 07:11:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 533E710F2A9;
+	Fri, 12 Jun 2026 07:12:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MDkXmbBm";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BIuT9w9u";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F65410F2A9
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 07:11:13 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0050210F2A9
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 07:12:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781248274; x=1812784274;
+ t=1781248358; x=1812784358;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=965j2jOjO7j8y7YMLNYUsZddQ8uEg0Q6P7SW9614e/U=;
- b=MDkXmbBmmqq10hfio9KbIZGwxyk1vnqmxSRKaHnuokE3YpRgeX2VHmSS
- DAyo6+wLvymeuwbXAGVW/KCtS89B6NdeZQaTSzcq87ZSZqz3y4aVJ5TM7
- N5N3y03hNhZZ/OzBRTSYYp4gI3SMSEUIB89WKhH5XGKQI9+F3ozKIY5D0
- 4gCB8NrPonqbgNUE/PjFoZkC7i75uXO4jBIAWY/qgQDtN06Lbg6dH662j
- pr4QYr5+a3SI3MyMDh2lqxdXkMcWAJL6OZaOLCU5oIhAYzmWhMILF/oU/
- KNI6j2okt13Q/Pzfz//YIIKllnW7IKyisQVyOqatGdL6zoRJxd0MYxzOe Q==;
-X-CSE-ConnectionGUID: kzjUXJpRTpqjXnVdpenDOg==
-X-CSE-MsgGUID: bTT0uDkpRBWn4lB9zVTNGw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="85705791"
-X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; d="scan'208";a="85705791"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2026 00:11:12 -0700
-X-CSE-ConnectionGUID: Z1YBbPiaSO6tR1nrzTJx4w==
-X-CSE-MsgGUID: 2/130etIRDWKQfExxn03xQ==
+ bh=bUJPVlwGV7oV3DLjYRgJflQae7CbAxZLA9Hg13GQ8Qc=;
+ b=BIuT9w9uLVUYM6wPWYynPCMCegp8iK8DHjL6TeefJaIYGjTsor83gRL/
+ y+93rZ0oET94ypjAm00EulaTqcefVCs7JTu8KztZhnF1gsw6mhLOVx4+P
+ O6ScoqSXGaqLIhkYF51dA9sCLT6uk6jlxsK4o9CT0lRvH3cmMWHYvjr0i
+ pVtnsxA53s1D7n1HkWa8sCAvVJNEGiJdsNSGn1yBhJlot15ud8uFYzePJ
+ Eg1Blhzme2v9DJBEdNgsZ10PNRa/JDBrSe2XQbxIAR6UQKEaEoT5ACtNq
+ qkg1A9Dy8dchtkzo2lytYA+HD0KOVDZuhEzoXEiR4VSdRBmoMp6RXn5WF w==;
+X-CSE-ConnectionGUID: IEO3O0wATMyaDpZxQOhHcw==
+X-CSE-MsgGUID: rhdUkl4mQq2RcGQ6xPudpA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="93566178"
+X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; d="scan'208";a="93566178"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2026 00:12:37 -0700
+X-CSE-ConnectionGUID: dtVWLf3STJqT2X8V43wT/g==
+X-CSE-MsgGUID: RdTfT7JcQcO/czNOr0GC5A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; d="scan'208";a="244322604"
+X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; d="scan'208";a="248628500"
 Received: from soc-5cg43972ff.clients.intel.com (HELO [10.102.88.80])
  ([10.102.88.80])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2026 00:11:10 -0700
-Message-ID: <737f87af-7d54-4117-851c-2f097781bf5c@linux.intel.com>
-Date: Fri, 12 Jun 2026 09:10:37 +0200
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2026 00:12:36 -0700
+Message-ID: <0eab4c8a-65e6-4644-a6ef-e46a0d262980@linux.intel.com>
+Date: Fri, 12 Jun 2026 09:12:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/ivpu: fix HWS command queue leak on registration
- failure
+Subject: Re: [PATCH] accel/ivpu: use kmem_cache for IPC rx_msg allocations
 To: Karol Wachowski <karol.wachowski@linux.intel.com>,
  dri-devel@lists.freedesktop.org
 Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
  dawid.osuchowski@linux.intel.com
-References: <20260611055140.948684-1-karol.wachowski@linux.intel.com>
+References: <20260611055214.948748-1-karol.wachowski@linux.intel.com>
 Content-Language: en-US
 From: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-In-Reply-To: <20260611055140.948684-1-karol.wachowski@linux.intel.com>
+In-Reply-To: <20260611055214.948748-1-karol.wachowski@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,56 +72,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 11-Jun-26 7:51 AM, Karol Wachowski wrote:
-> A command queue is considered valid and usable by the driver only when
-> it has a doorbell ID assigned (db_id != 0), meaning both the FW cmdq
-> creation and doorbell registration completed successfully.
+On 11-Jun-26 7:52 AM, Karol Wachowski wrote:
+> Use a dedicated kmem_cache for ivpu_ipc_rx_msg allocations instead of
+> the generic kmalloc. This gives each CPU its own hot freelist for this
+> object type, reducing allocator overhead in the IRQ handler and threaded
+> IRQ path where rx_msg objects are allocated and freed at high frequency.
 > 
-> However, when either ivpu_register_db() or set_context_sched_properties()
-> fails after ivpu_hws_cmdq_init() has already created the cmdq in FW,
-> the command queue is left registered in FW while the driver treats it as
-> uninitialized (db_id remains 0). On the next submission attempt the
-> driver tries to register the same cmdq again, which fails because FW
-> already has an entry for it.
-> 
-> Fix by calling ivpu_jsm_hws_destroy_cmdq() on error paths to properly
-> unwind FW state and allow subsequent registration attempts to succeed.
-> 
-> Fixes: 0c7c13186866 ("accel/ivpu: Add API for command queue create/destroy/submit")
 > Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
 > ---
->   drivers/accel/ivpu/ivpu_job.c | 10 +++++-----
->   1 file changed, 5 insertions(+), 5 deletions(-)
+>   drivers/accel/ivpu/ivpu_ipc.c | 17 ++++++++++++++---
+>   drivers/accel/ivpu/ivpu_ipc.h |  1 +
+>   2 files changed, 15 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/accel/ivpu/ivpu_job.c b/drivers/accel/ivpu/ivpu_job.c
-> index 521931d1f7fc..b24f31a8b567 100644
-> --- a/drivers/accel/ivpu/ivpu_job.c
-> +++ b/drivers/accel/ivpu/ivpu_job.c
-> @@ -208,9 +208,9 @@ static int ivpu_hws_cmdq_init(struct ivpu_file_priv *file_priv, struct ivpu_cmdq
->   	ret = ivpu_jsm_hws_set_context_sched_properties(vdev, file_priv->ctx.id, cmdq->id,
->   							priority);
->   	if (ret)
-> -		return ret;
-> +		ivpu_jsm_hws_destroy_cmdq(vdev, file_priv->ctx.id, cmdq->id);
+> diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ivpu_ipc.c
+> index 64864e9d8a0a..c5f11be86c8c 100644
+> --- a/drivers/accel/ivpu/ivpu_ipc.c
+> +++ b/drivers/accel/ivpu/ivpu_ipc.c
+> @@ -146,7 +146,7 @@ ivpu_ipc_rx_msg_add(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
 >   
-> -	return 0;
-> +	return ret;
+>   	lockdep_assert_held(&ipc->cons_lock);
+>   
+> -	rx_msg = kzalloc_obj(*rx_msg, GFP_ATOMIC);
+> +	rx_msg = kmem_cache_zalloc(ipc->rx_msg_cache, GFP_ATOMIC);
+>   	if (!rx_msg) {
+>   		ivpu_ipc_rx_mark_free(vdev, ipc_hdr, jsm_msg);
+>   		return;
+> @@ -174,7 +174,7 @@ ivpu_ipc_rx_msg_del(struct ivpu_device *vdev, struct ivpu_ipc_rx_msg *rx_msg)
+>   	list_del(&rx_msg->link);
+>   	ivpu_ipc_rx_mark_free(vdev, rx_msg->ipc_hdr, rx_msg->jsm_msg);
+>   	atomic_dec(&vdev->ipc->rx_msg_count);
+> -	kfree(rx_msg);
+> +	kmem_cache_free(vdev->ipc->rx_msg_cache, rx_msg);
 >   }
 >   
->   static int ivpu_register_db(struct ivpu_file_priv *file_priv, struct ivpu_cmdq *cmdq)
-> @@ -281,10 +281,10 @@ static int ivpu_cmdq_register(struct ivpu_file_priv *file_priv, struct ivpu_cmdq
+>   void ivpu_ipc_consumer_add(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
+> @@ -490,10 +490,18 @@ int ivpu_ipc_init(struct ivpu_device *vdev)
+>   	struct ivpu_ipc_info *ipc = vdev->ipc;
+>   	int ret;
+>   
+> +	ipc->rx_msg_cache = kmem_cache_create("ivpu_ipc_rx_msg", sizeof(struct ivpu_ipc_rx_msg), 0,
+> +					      SLAB_HWCACHE_ALIGN, NULL);
+> +	if (!ipc->rx_msg_cache) {
+> +		ivpu_err(vdev, "Failed to create rx_msg_cache\n");
+> +		return -ENOMEM;
+> +	}
+> +
+>   	ipc->mem_tx = ivpu_bo_create_global(vdev, SZ_16K, DRM_IVPU_BO_WC | DRM_IVPU_BO_MAPPABLE);
+>   	if (!ipc->mem_tx) {
+>   		ivpu_err(vdev, "Failed to allocate mem_tx\n");
+> -		return -ENOMEM;
+> +		ret = -ENOMEM;
+> +		goto err_destroy_cache;
 >   	}
 >   
->   	ret = ivpu_register_db(file_priv, cmdq);
-> -	if (ret)
-> -		return ret;
-> +	if (ret && vdev->fw->sched_mode == VPU_SCHEDULING_MODE_HW)
-> +		ivpu_jsm_hws_destroy_cmdq(vdev, file_priv->ctx.id, cmdq->id);
->   
-> -	return 0;
-> +	return ret;
+>   	ipc->mem_rx = ivpu_bo_create_global(vdev, SZ_16K, DRM_IVPU_BO_WC | DRM_IVPU_BO_MAPPABLE);
+> @@ -532,6 +540,8 @@ int ivpu_ipc_init(struct ivpu_device *vdev)
+>   	ivpu_bo_free(ipc->mem_rx);
+>   err_free_tx:
+>   	ivpu_bo_free(ipc->mem_tx);
+> +err_destroy_cache:
+> +	kmem_cache_destroy(ipc->rx_msg_cache);
+>   	return ret;
 >   }
 >   
->   static int ivpu_cmdq_unregister(struct ivpu_file_priv *file_priv, struct ivpu_cmdq *cmdq)
-
+> @@ -544,6 +554,7 @@ void ivpu_ipc_fini(struct ivpu_device *vdev)
+>   	drm_WARN_ON(&vdev->drm, atomic_read(&ipc->rx_msg_count) > 0);
+>   
+>   	ivpu_ipc_mem_fini(vdev);
+> +	kmem_cache_destroy(ipc->rx_msg_cache);
+>   }
+>   
+>   void ivpu_ipc_enable(struct ivpu_device *vdev)
+> diff --git a/drivers/accel/ivpu/ivpu_ipc.h b/drivers/accel/ivpu/ivpu_ipc.h
+> index 1c9cf67f1e5b..fb3e5816ca50 100644
+> --- a/drivers/accel/ivpu/ivpu_ipc.h
+> +++ b/drivers/accel/ivpu/ivpu_ipc.h
+> @@ -70,6 +70,7 @@ struct ivpu_ipc_info {
+>   	struct gen_pool *mm_tx;
+>   	struct ivpu_bo *mem_tx;
+>   	struct ivpu_bo *mem_rx;
+> +	struct kmem_cache *rx_msg_cache;
+>   
+>   	atomic_t rx_msg_count;
+>   
 Reviewed-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
