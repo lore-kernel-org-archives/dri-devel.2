@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91AB2CD8CA8
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 09:32:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8927CD4F2C
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 09:33:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F121F10F3BD;
-	Fri, 12 Jun 2026 09:32:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BC1410F3C1;
+	Fri, 12 Jun 2026 09:33:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YPDcjYvJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D7rJrvHQ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AC7B10F3BD
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 09:32:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A82310F3BF
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 09:33:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5467642DC8;
- Fri, 12 Jun 2026 09:32:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D95A1F000E9;
- Fri, 12 Jun 2026 09:32:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3346A43702;
+ Fri, 12 Jun 2026 09:33:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF1531F000E9;
+ Fri, 12 Jun 2026 09:33:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781256762;
- bh=GWEd0jJ5UDT2r6vAar+aoThdG6/XUp2e5xaLgQjERrA=;
+ s=k20260515; t=1781256820;
+ bh=/6wlpkTUbP462yCKECOi/tyoRwJkE3NiAWC0la5EDoM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=YPDcjYvJ7ToS6sE6/0Fosp/5KuED1dqzuy9+bABD7JiFwCtYlQOD1CYfVq47dUzvy
- 2GOTsj6GilTF5hvBdlyXVFbXYMmGzIXLztfbJPdPUMCFzxtQmjwK9YQJ4j8rtQV9T4
- cy5aFxFkXwqEnUGJy2uXACrW3MmdGQ1YnhRWYIOCF+K/HhGuolU4op3Qg38j6RLyXq
- RhctvoZ3jwV2WnKgIM1X6KecOOBX6XA2GJoisn0Wsz6un+mDS03DX5wPJBOJGNowo1
- Dltrn1zOkoEmrpcE/TbIa8jDkcGdjRI+aktGqxdqIrD1DR5Csu9ctSYbFV1vCQ8N80
- Jaau9Sp4iYoXg==
+ b=D7rJrvHQ3jZ/Dci9yKrcv7kKtrgVtJKozMKZSsvn4XJ20od0fwvSKXGhqvxfjFAzC
+ mh8v6vNBk7RsgQBCJL3dhjC2mBH/efwU9O75BbiJoc9EZkbEUKpJ7lOzKYcrP5N7f+
+ YGCWYEggWZxwhu7h/GP5bdkK3WhxJD7ZUr23viE1a82pJiE5FXOl957gp9N0Pfzt3K
+ 0W9y2MBxry19tdk8cbnbKyd1FCTjiCQBFxhSw7Ng5AF11ygnWYvTSDryx3klXzT/ZX
+ ohBcAUr5hk9cAqfWOaj9xmhXYDgfLs04dLLvn9fkBSue3m4JJ70x3QHcdJCnRZkWSa
+ qvsbc4kACH6yA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 07/18] drm/amdgpu: implement SVM range GPU mapping core
+Subject: Re: [PATCH v8 12/18] drm/amdgpu: integrate SVM into build system
+ and VM fault path
 To: "Huang Rui" <ray.huang@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260612090928.29682-8-ray.huang@amd.com>
-References: <20260612090928.29682-8-ray.huang@amd.com>
+In-Reply-To: <20260612090928.29682-13-ray.huang@amd.com>
+References: <20260612090928.29682-13-ray.huang@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 09:32:41 +0000
-Message-Id: <20260612093242.1D95A1F000E9@smtp.kernel.org>
+Date: Fri, 12 Jun 2026 09:33:39 +0000
+Message-Id: <20260612093339.EF1531F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,200 +57,255 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 9 potential issue(=
 s) to consider:
-- [Critical] Updating `range->gpu_mapped` outside `notifier_lock` creates a=
- TOCTOU race with MMU notifiers, leading to GPU UAF.
-- [Critical] Fallible memory allocation inside the MMU notifier callback (`=
-amdgpu_svm_range_zap_ptes`) can cause a GPU use-after-free.
-- [High] Missing `goto retry;` logic after `-EOPNOTSUPP` eviction in `amdgp=
-u_svm_range_get_pages` permanently fails mapping.
-- [High] TLB is flushed and mapping is marked complete before asynchronous =
-PDE updates finish.
-- [High] `amdgpu_svm_range_map_attrs` fails the ioctl with `-EAGAIN` upon M=
-MU notifier invalidation instead of retrying.
-- [Medium] Ignored return value of `dma_fence_wait` in `amdgpu_svm_range_up=
-date_mapping` masks `-ERESTARTSYS` errors.
+
+New issues:
+- [High] Unprotected lazy initialization of SVM in `amdgpu_gem_svm_ioctl` a=
+llows concurrent threads to leak memory and duplicate MMU notifiers.
+- [High] `amdgpu_svm_handle_fault` passes a Page Frame Number (PFN) instead=
+ of a byte address to `amdgpu_gmc_filter_faults_remove`, breaking fault fil=
+tering.
+- [High] Concurrent SVM lookup by PASID during VM teardown can lead to a us=
+e-after-free of the amdgpu_svm context.
+- [High] Failure path in `amdgpu_svm_cache_init` leaves a dangling pointer =
+leading to a Use-After-Free on subsequent calls.
+- [Medium] The commit message claims to add KBUILD_EXTRA_SYMBOLS for drm Mo=
+dule.symvers, but this is missing from the Makefile.
+- [Medium] Missing module unload cleanup for `amdgpu_svm_range_cache` and `=
+amdgpu_svm_attr_range_cache`.
+- [Low] CONFIG_DRM_AMDGPU_SVM is a boolean option that selects CONFIG_DRM_G=
+PUSVM (a tristate), causing unmet direct dependencies and link errors when =
+DRM is built as a module.
+- [Low] The custom `clean-svm` phony target in the AMDGPU Makefile bypasses=
+ standard Kbuild conventions.
+
+Pre-existing issues:
+- [High] Preexisting bug: `svm_range_restore_pages` passes a PFN instead of=
+ a byte address to `amdgpu_gmc_filter_faults_remove`.
 --
 
-commit fcda6b5ee02461678a8cd1586240f44fb136a85f
+commit 639687153f86cdb4a60c3608d22867b66fce3a14
 Author: Honglei Huang <honghuan@amd.com>
-Subject: drm/amdgpu: implement SVM range GPU mapping core
 
-This patch implements GPU page table mapping in amdgpu_svm_range.c. It
-introduces functions for validating, finding, evicting, and updating SVM
-ranges, as well as handling PTE flags and updating mappings.
+drm/amdgpu: integrate SVM into build system and VM fault path
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_svm_range.c
-> new file mode 100644
-> index 0000000000000..e1b392b2cf56a
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
+This commit wires up the AMDGPU SVM subsystem, including adding Kconfig
+options, Makefile rules, registering the ioctl, and routing GPU page
+faults to the new SVM handler.
 
-[ ... ]
-
-> +int
-> +amdgpu_svm_range_zap_ptes(struct amdgpu_svm *svm,
-> +			  struct amdgpu_svm_range *range,
-> +			  unsigned long start_page,
-> +			  unsigned long last_page)
-> +{
-> +	struct dma_fence *fence =3D NULL;
-> +	unsigned int flags;
-> +	int ret;
-> +
-> +	if (last_page < start_page)
-> +		return 0;
-> +
-> +	flags =3D memalloc_noreclaim_save();
-> +	ret =3D amdgpu_vm_update_range(svm->adev, svm->vm, false, true, true, f=
-alse,
-> +				     NULL, start_page, last_page, 0, 0, 0, NULL,
-> +				     NULL, &fence);
-> +	memalloc_noreclaim_restore(flags);
-
-[Severity: Critical]
-Is it safe to rely on amdgpu_vm_update_range() inside the MMU notifier
-callback path?
-
-amdgpu_vm_update_range() dynamically allocates memory even when called
-within a memalloc_noreclaim_save() block (e.g., allocating tlb_cb). Under
-memory pressure, if this allocation fails, the PTEs will not be cleared.
-Since the MMU notifier cannot fail gracefully to prevent the physical page
-from being freed, could this result in the GPU retaining valid access to
-freed memory and causing a use-after-free?
-
-[ ... ]
-
-> +int amdgpu_svm_range_get_pages(struct amdgpu_svm *svm,
-> +			       struct drm_gpusvm_range *range,
-> +			       struct drm_gpusvm_ctx *ctx)
-> +{
-
-[ ... ]
-
-> +	if (ret =3D=3D -EOPNOTSUPP) {
-> +		AMDGPU_SVM_ERR(
-> +			"range get pages -EOPNOTSUPP, evict and retry: gpuva=3D[0x%lx-0x%lx) =
-ret=3D%d\n",
-> +			drm_gpusvm_range_start(range),
-> +			drm_gpusvm_range_end(range), ret);
-> +		amdgpu_svm_range_evict(svm, range);
-> +	}
-> +
-> +	return ret;
-> +}
-
-[Severity: High]
-Should there be a retry loop after the eviction?
-
-When drm_gpusvm_range_get_pages() returns -EOPNOTSUPP for unmappable
-device memory, this code successfully evicts it back to system RAM but
-then just falls through and returns -EOPNOTSUPP anyway. Does this lack of
-a "goto retry" statement permanently fail the mapping operation instead of
-recovering it?
-
-[ ... ]
-
-> +int amdgpu_svm_range_update_mapping(struct amdgpu_svm *svm,
-> +				    struct amdgpu_svm_range *range,
-> +				    const struct amdgpu_svm_attrs *attrs,
-> +				    bool read_only,
-> +				    bool intr, bool wait,
-> +				    bool flush_tlb)
-> +{
-
-[ ... ]
-
-> +	drm_gpusvm_notifier_unlock(&svm->gpusvm);
-> +	memalloc_noreclaim_restore(flags);
-> +
-> +	if (!ret && fence)
-> +		dma_fence_wait(fence, intr);
+> Makefile:
+> - Build amdgpu_svm.o, amdgpu_svm_attr.o, amdgpu_svm_fault.o,
+>   amdgpu_svm_range.o when CONFIG_DRM_AMDGPU_SVM=3Dy
+> - KBUILD_EXTRA_SYMBOLS for drm Module.symvers
 
 [Severity: Medium]
-Is it intentional to discard the return value of dma_fence_wait() here?
+The commit message mentions adding KBUILD_EXTRA_SYMBOLS, but this doesn't
+appear in the actual Makefile changes.
 
-If the wait is interrupted by a signal (since intr can be true), it
-returns -ERESTARTSYS. Because ret remains 0, the code proceeds as if the
-GPU mapping completed successfully. Could this lead to userspace
-scheduling GPU execution on memory whose page tables have not finished
-updating?
+Was this accidentally omitted, potentially causing unresolved symbol warnin=
+gs
+during out-of-tree builds?
 
-> +	dma_fence_put(fence);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amd=
+gpu/Kconfig
+> index 12e4a41bf1f04..68f519b3479db 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> @@ -81,6 +81,16 @@ config DRM_AMDGPU_USERPTR
+>  	  This option selects CONFIG_HMM and CONFIG_HMM_MIRROR if it
+>  	  isn't already selected to enabled full userptr support.
+> =20
+> +config DRM_AMDGPU_SVM
+> +	bool "Enable AMDGPU SVM support (experimental)"
+> +	depends on DRM_AMDGPU
+> +	depends on DEVICE_PRIVATE
+> +	select DRM_GPUSVM
+
+[Severity: Low]
+Does selecting a tristate (DRM_GPUSVM) from a boolean (DRM_AMDGPU_SVM) break
+dependency inheritance?
+
+If DRM is built as a module, this will force DRM_GPUSVM to be built-in,
+leading to Kconfig unmet dependency warnings and vmlinux link errors since
+the core DRM symbols won't be built-in.
+
+> +	select HMM_MIRROR
+> +	select MMU_NOTIFIER
+> +	help
+> +	  Experimental SVM support based on DRM GPUSVM.
 > +
-> +	if (!ret)
-> +		ret =3D amdgpu_vm_update_pdes(svm->adev, svm->vm, false);
-> +
-> +	if (!ret) {
-> +		if (flush_tlb)
-> +			svm->flush_tlb(svm);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/am=
+dgpu/Makefile
+> index ba80542ead9d9..884cdc5c1e4af 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -322,6 +322,15 @@ amdgpu-$(CONFIG_VGA_SWITCHEROO) +=3D amdgpu_atpx_han=
+dler.o
+>  amdgpu-$(CONFIG_ACPI) +=3D amdgpu_acpi.o
+>  amdgpu-$(CONFIG_HMM_MIRROR) +=3D amdgpu_hmm.o
+> =20
+> +# svm support
+> +amdgpu-$(CONFIG_DRM_AMDGPU_SVM) +=3D amdgpu_svm.o amdgpu_svm_attr.o \
+> +	amdgpu_svm_fault.o amdgpu_svm_range.o
+
+[Severity: Medium]
+Since we are integrating the SVM subsystem here, does the module exit hook
+(amdgpu_exit) properly clean up the kmem caches created in
+amdgpu_svm_cache_init()?
+
+It looks like amdgpu_svm_range_cache and amdgpu_svm_attr_range_cache might =
+be
+permanently leaked on module unload because amdgpu_svm_cache_fini() is never
+called.
 
 [Severity: High]
-Should we wait for the asynchronous PDE updates to finish before returning?
+Also regarding amdgpu_svm_cache_init(), if amdgpu_svm_attr_cache_init()
+fails, the error path destroys amdgpu_svm_range_cache but doesn't set its
+pointer to NULL:
 
-The amdgpu_vm_update_pdes() call uses immediate=3Dfalse, meaning PDE updates
-are asynchronously queued to the SDMA ring. However, this function
-immediately flushes the CPU-side TLB and returns success to userspace.
+free_out:
+	amdgpu_svm_attr_cache_fini();
+	AMDGPU_SVM_KMEM_CACHE_DESTROY(amdgpu_svm_range_cache);
+	// missing: amdgpu_svm_range_cache =3D NULL;
 
-Can a user compute shader begin executing immediately and hit a GPU page
-fault because the hardware page directory entries have not yet been
-written?
+Could this leave a dangling pointer that causes a use-after-free or panic
+on subsequent initialization attempts, since the check
+if (amdgpu_svm_range_cache) would incorrectly succeed?
 
-> +		WRITE_ONCE(range->attr_flags, attrs->flags);
-> +		WRITE_ONCE(range->gpu_mapped, true);
-
-[Severity: Critical]
-Could updating range->gpu_mapped outside the notifier_lock create a TOCTOU
-race with MMU notifiers?
-
-The lock is released before setting WRITE_ONCE(range->gpu_mapped, true).
-Concurrently, an MMU notifier could run on another CPU, acquire the
-notifier_lock, and check the flag. Because it hasn't been updated yet,
-the notifier sees false, skips zapping the hardware PTEs, and allows the
-CPU to free the physical memory.
-
-Should gpu_mapped be updated inside the notifier_lock critical section to
-prevent a GPU use-after-free?
-
-> +		range->validate_timestamp =3D ktime_get_boottime();
-> +	}
 > +
-> +	drm_exec_fini(&exec);
-> +	return ret;
-> +}
+> +.PHONY: clean-svm
+> +clean-svm:
+> +	rm -f $(obj)/amdgpu_svm.o $(obj)/amdgpu_svm_attr.o $(obj)/amdgpu_svm_fa=
+ult.o $(obj)/amdgpu_svm_range.o \
+> +	      $(obj)/.amdgpu_svm.o.cmd $(obj)/.amdgpu_svm_attr.o.cmd $(obj)/.am=
+dgpu_svm_fault.o.cmd $(obj)/.amdgpu_svm_range.o.cmd
 
+[Severity: Low]
+Is this custom clean target necessary?
+
+Kbuild should automatically manage the cleanup of *.o and .*.cmd files duri=
+ng
+the standard make clean phase.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index 503bb64c1e55f..46a074caba53a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
 [ ... ]
-
-> +int
-> +amdgpu_svm_range_map_attrs(struct amdgpu_svm *svm,
-
-[ ... ]
-
-> +		ret =3D amdgpu_svm_range_update_mapping(svm, range, attrs,
-> +						      map_ctx.read_only,
-> +						      true, true,
-> +						      true);
-> +		if (ret) {
-> +			AMDGPU_SVM_ERR("failed to update gpu map for range [0x%lx-0x%lx), ret=
-=3D%d\n",
-> +					drm_gpusvm_range_start(&range->base),
-> +					drm_gpusvm_range_end(&range->base), ret);
-> +			return ret;
-> +		}
+> @@ -3077,6 +3078,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] =3D=
+ {
+>  	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|=
+DRM_RENDER_ALLOW),
+>  	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioct=
+l, DRM_AUTH|DRM_RENDER_ALLOW),
+>  	DRM_IOCTL_DEF_DRV(AMDGPU_PROC_OPTIONS, amdgpu_proc_options_ioctl, DRM_A=
+UTH|DRM_RENDER_ALLOW),
+> +	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_SVM, amdgpu_gem_svm_ioctl, DRM_AUTH|DRM_RE=
+NDER_ALLOW),
 
 [Severity: High]
-Should this handle -EAGAIN by retrying instead of propagating the error
-to userspace?
+Is there a Time-of-Check to Time-of-Use (TOCTOU) race condition when
+initializing SVM via this ioctl?
 
-If the MMU notifier sequence changes concurrently during mapping,
-amdgpu_svm_range_update_mapping() safely catches this and returns -EAGAIN.
-However, there is no retry loop here to handle that expected condition.
-Will normal concurrent memory reclaim cause spurious ioctl failures to
-userspace if we abort the entire ioctl instead of transparently retrying
-the get_pages() and locking sequence?
+When multiple threads concurrently issue the ioctl, they both might see
+vm->svm =3D=3D NULL and proceed to allocate amdgpu_svm, initialize workqueu=
+es,
+and register MMU interval notifiers:
+
+	if (!amdgpu_svm_is_enabled(vm)) {
+		ret =3D amdgpu_svm_init(adev, vm);
+
+Could this lack of synchronization cause the first thread's allocation to be
+overwritten and permanently leaked, leaving dangling MMU notifiers register=
+ed
+on the mm struct?
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index 2f3470208829e..9274b0359a164 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+[ ... ]
+> @@ -2763,6 +2769,9 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, str=
+uct amdgpu_vm *vm)
+>  	unsigned long flags;
+>  	int i;
+> =20
+> +	amdgpu_svm_close(vm);
+> +	amdgpu_svm_fini(vm);
+> +
+>  	amdgpu_amdkfd_gpuvm_destroy_cb(adev, vm);
+> =20
+>  	root =3D amdgpu_bo_ref(vm->root.bo);
+
+[Severity: High]
+Can calling amdgpu_svm_fini() here cause a use-after-free if there is a
+concurrent page fault?
+
+amdgpu_svm_fini() destroys the internal SVM components before the PASID is
+removed from adev->vm_manager.pasids (which happens later in the function).
+
+If a concurrent page fault occurs, amdgpu_svm_handle_fault() might look up
+the SVM context by PASID, grab a reference, and dereference svm->attr_tree
+after it has been freed here.
+
+[ ... ]
+> @@ -2995,14 +3005,23 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device =
+*adev, u32 pasid,
+>  		return false;
+> =20
+>  	is_compute_context =3D vm->is_compute_context;
+> +	use_amdgpu_svm =3D !!vm->svm;
+> =20
+>  	if (is_compute_context) {
+>  		/* Unreserve root since svm_range_restore_pages might try to reserve i=
+t. */
+>  		/* TODO: rework svm_range_restore_pages so that this isn't necessary. =
+*/
+>  		amdgpu_bo_unreserve(root);
+> =20
+> -		if (!svm_range_restore_pages(adev, pasid, vmid,
+> -					     node_id, addr >> PAGE_SHIFT, ts, write_fault)) {
+> +		if (use_amdgpu_svm)
+> +			r =3D amdgpu_svm_handle_fault(adev, pasid,
+> +						    addr >> PAGE_SHIFT, ts,
+> +						    write_fault);
+
+[Severity: High]
+Does amdgpu_svm_handle_fault() expect a byte address rather than a Page Fra=
+me
+Number (PFN)?
+
+Passing addr >> PAGE_SHIFT sends a PFN to amdgpu_svm_handle_fault(), which
+in turn passes it to amdgpu_gmc_filter_faults_remove().
+
+Since the filter expects a byte address to compute its hash key
+(addr << 4 | pasid), the stale fault is never properly removed from the
+filter. This could cause legitimate new faults on the same page to be ignor=
+ed,
+potentially hanging the GPU.
+
+> +		else
+> +			r =3D svm_range_restore_pages(adev, pasid, vmid, node_id,
+> +						    addr >> PAGE_SHIFT, ts,
+> +						    write_fault);
+
+[Severity: High]
+This is a pre-existing issue, but does svm_range_restore_pages() also suffer
+from the same PFN vs byte address bug?
+
+It receives addr >> PAGE_SHIFT here and passes it directly to
+amdgpu_gmc_filter_faults_remove(), which would fail to remove the fault from
+the GMC fault filter for the same reason.
+
+> +
+> +		if (!r) {
+>  			amdgpu_bo_unref(&root);
+>  			return true;
+>  		}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612090928.2968=
-2-1-ray.huang@amd.com?part=3D7
+2-1-ray.huang@amd.com?part=3D12
