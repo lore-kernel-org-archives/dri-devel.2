@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DE3BCD4F2C
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 09:30:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89A4ACD4F2C
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 09:31:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8D6E10F3BC;
-	Fri, 12 Jun 2026 09:30:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE50810F3CC;
+	Fri, 12 Jun 2026 09:31:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L+F+S/qJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MFUd2GpI";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75E6510F3BC
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 09:30:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 644A310F3F0
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 09:31:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 591E741797;
- Fri, 12 Jun 2026 09:30:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18AD71F000E9;
- Fri, 12 Jun 2026 09:30:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3DC93429E0;
+ Fri, 12 Jun 2026 09:31:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BEF41F000E9;
+ Fri, 12 Jun 2026 09:31:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781256619;
- bh=O0WUKvXKAjM7FFvR2tMNH4pMo3e6KBVehNgYc+hXxlM=;
+ s=k20260515; t=1781256673;
+ bh=UJW4XF53hK7NwBRrMBSzRFsEi5qHSfhs+v5WNAqcv+c=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=L+F+S/qJDe7Gi4oycVZUGO4hgDCSLw8wxnKIJhLDyQ9mtO32lyiyMhxhIcy+0eWdU
- z6EiUmqGngVX5/M+PODdxQSbOcYJOvG2jWvG1lhnRZZW1DpTYRArWORhZfQF0A0FGe
- OtH6jLx5z1zbY86B/nSM/Vuz16seMJRaOvtd0LvtaKVTJPjktORnt2uvH2FeMja5Lt
- q8o2PC+wcAqMYPuYbpG9kdU7hKs3/esHUWU6k/XhSy8odFDn0Z2gzldqiDDhchXQci
- YfHWI9Vr0HBZqyjadE7Hjuw1Iqc7KFg0Yg9NqUI04NWgNV/v66qe3rwXc0uJzLhpOR
- BEUUHov/ReMxw==
+ b=MFUd2GpIpUXukBmUjbAEvEGVQ/ykCF8K9ODdE6d3ast48KU5qUlFGo1rDo3HElh99
+ /w38uKpXe2N7gpVhacaQvY10FfaXynNlHO+JY69jkWADzyW40svoqDy6RUjhX1z2yW
+ PKCHHUrrfDC2gZ5McPY45fFoh+Iygk5EDpOVW6VrnI8Pv7qVPdXipKJorYBU3BJwoY
+ i1vtZMeqvj4zP6Pd4DYUR9u/7BLZYv0FErJB6E7BOEeh5xJqrL8hKuQ/wMSUyq4JzV
+ qLasL0B3xX49echgtUycq3qCFtCllu4R9txC2gJvzLf0p5n23Hr2c29sPeBBonjyS9
+ aZ+8eiyoWGrnw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 13/18] drm/amdgpu: add VRAM migration infrastructure
- for drm_pagemap
+Subject: Re: [PATCH v8 15/18] drm/amdgpu: implement synchronous TTM eviction
+ for SVM BOs
 To: "Huang Rui" <ray.huang@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260612090928.29682-14-ray.huang@amd.com>
-References: <20260612090928.29682-14-ray.huang@amd.com>
+In-Reply-To: <20260612090928.29682-16-ray.huang@amd.com>
+References: <20260612090928.29682-16-ray.huang@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 09:30:18 +0000
-Message-Id: <20260612093019.18AD71F000E9@smtp.kernel.org>
+Date: Fri, 12 Jun 2026 09:31:12 +0000
+Message-Id: <20260612093113.0BEF41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,99 +57,142 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Missing drm_pagemap teardown leads to module/drm_device reference =
-leaks, and devm_kzalloc usage leads to use-after-free and kfree() panic.
-- [Medium] Resource leak in amdgpu_svm_migration_init error path.
+
+New issues:
+- [Critical] The SVM BO eviction path migrates VRAM to system memory synchr=
+onously without waiting for pending GPU operations (`ttm_bo_wait_ctx`), ris=
+king data corruption and violating `ctx->no_wait_gpu`.
+- [High] Using `GFP_KERNEL` allocations inside `drm_pagemap_evict_to_ram()`=
+ while holding the BO's `dma_resv` lock creates a deadlock risk with memory=
+ reclaim.
+- [High] Early return during SVM BO eviction bypasses `amdgpu_bo_move_notif=
+y()` and TTM BO statistics tracking.
+
+Pre-existing issues:
+- [High] `amdgpu_svm_copy_to_ram` completely ignores the `pre_migrate_fence=
+`, risking data corruption on the destination.
 --
 
-commit 3b8c30d59e9fe758a437cc04f508914b553acea9
+commit 9be611c0396613a1f2f1bba63eacdcd1d3dd9964
 Author: Junhua Shen <Junhua.Shen@amd.com>
 
-drm/amdgpu: add VRAM migration infrastructure for drm_pagemap
+drm/amdgpu: implement synchronous TTM eviction for SVM BOs
 
-This commit introduces the VRAM migration infrastructure for AMDGPU SVM
-using drm_pagemap. It adds the amdgpu_pagemap wrapper, defines the relevant
-owner macros, and implements amdgpu_svm_migration_init() to register
-ZONE_DEVICE pages and initialize the pagemap.
+Implement the TTM eviction path for SVM (Shared Virtual Memory) BOs,
+enabling VRAM overcommit scenarios where device-private pages must be
+migrated back to system memory when VRAM is full.
 
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c b/drivers/gpu/dr=
 m/amd/amdgpu/amdgpu_migrate.c
-> new file mode 100644
-> index 0000000000000..6b40f7477793a
-> --- /dev/null
+> index 3756404ec334c..88079221eeca7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c
-[ ... ]
-> +const struct drm_pagemap_ops amdgpu_svm_drm_pagemap_ops =3D { };
+> @@ -645,6 +645,34 @@ static const struct drm_pagemap_devmem_ops amdgpu_pa=
+gemap_ops =3D {
+>  	.copy_to_ram         =3D amdgpu_svm_copy_to_ram,
 
 [Severity: High]
-Does this missing .destroy callback cause issues during teardown?
+This is a pre-existing issue, but does amdgpu_svm_copy_to_ram() ignore the
+pre_migrate_fence?
 
-If drm_pagemap_destroy() falls back to kfree(dpagemap), will calling kfree()
-on memory allocated via devm_kzalloc() below trigger a kernel panic?
+Looking at the implementation of amdgpu_svm_copy_to_ram() referenced here:
+
+amdgpu_svm_copy_to_ram(struct page **pages,
+                       struct drm_pagemap_addr *pagemap_addr,
+                       unsigned long npages,
+                       struct dma_fence *pre_migrate_fence)
+{
+    ...
+}
+
+The function takes pre_migrate_fence as a parameter but does not appear to
+wait on it. During P2P migration, could ignoring this fence cause the source
+device to begin copying data into the destination device's memory before the
+destination is ready, leading to data corruption?
 
 [ ... ]
-> +int amdgpu_svm_migration_init(struct amdgpu_device *adev)
-> +{
-> +	struct amdgpu_pagemap *svm_dm;
-> +	struct dev_pagemap *pgmap;
-> +	struct resource *res =3D NULL;
-> +	unsigned long size;
-> +	void *r;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ttm.c
+> index 6c6ab4dd6ea95..9d3deec7cedec 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
 [ ... ]
-> +	svm_dm =3D devm_kzalloc(adev->dev, sizeof(*svm_dm), GFP_KERNEL);
-> +	if (!svm_dm)
-> +		return -ENOMEM;
-[ ... ]
-> +	r =3D devm_memremap_pages(adev->dev, pgmap);
-> +	if (IS_ERR(r)) {
-> +		dev_err(adev->dev, "SVM: failed to register HMM device memory\n");
-> +		if (pgmap->type =3D=3D MEMORY_DEVICE_PRIVATE && res)
-> +			devm_release_mem_region(adev->dev, res->start, resource_size(res));
-> +		pgmap->type =3D 0;
-> +		return PTR_ERR(r);
-> +	}
-> +
-> +	if (drm_pagemap_init(&svm_dm->dpagemap, pgmap, adev_to_drm(adev),
-> +							&amdgpu_svm_drm_pagemap_ops)) {
+> @@ -575,6 +585,16 @@ static int amdgpu_bo_move(struct ttm_buffer_object *=
+bo, bool evict,
+>  		abo->flags &=3D ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
+>  	}
+> =20
+> +	/* SVM BO eviction: migrate device-private pages back to RAM */
+> +	if (amdgpu_svm_bo_is_svm(bo) &&
+> +	    old_mem->mem_type =3D=3D TTM_PL_VRAM &&
+> +	    new_mem->mem_type =3D=3D TTM_PL_SYSTEM) {
+> +		r =3D amdgpu_svm_bo_evict(abo);
+
+[Severity: Critical]
+Does this migration skip synchronizing with pending GPU operations?
+
+Since amdgpu_svm_bo_evict() synchronously migrates VRAM to system memory via
+SDMA, missing a call to ttm_bo_wait_ctx() could allow the copy to start whi=
+le
+the GPU is still executing shaders that access this VRAM.
+
+Additionally, does bypassing ttm_bo_wait_ctx() ignore the ctx->no_wait_gpu
+flag, potentially causing illegal stalls if a non-blocking move is requeste=
+d?
 
 [Severity: High]
-Can this initialization leak drm_device and module references?
+Can this lead to a deadlock with memory reclaim?
 
-Since there isn't a teardown action registered (like devm_add_action) to ca=
-ll
-drm_pagemap_put() on unbind, it seems these references might never be relea=
-sed.
+This path calls amdgpu_svm_bo_evict() while the TTM buffer object's dma_resv
+lock is held. This delegates to drm_pagemap_evict_to_ram(), which performs
+an allocation using GFP_KERNEL:
 
-Additionally, if the device unbinds while VRAM pages are active, devm will
-free svm_dm. Could this cause a use-after-free when active pages later
-access the freed dpagemap?
+drm_pagemap_evict_to_ram() {
+    ...
+    buf =3D kvcalloc(npages, 2 * sizeof(*src) + sizeof(*pagemap_addr) +
+                   sizeof(*pages), GFP_KERNEL);
+    ...
+}
 
-> +		dev_err(adev->dev, "SVM: failed to init drm_pagemap\n");
-> +		return -EINVAL;
+Allocating with GFP_KERNEL while holding a dma_resv lock can invoke the
+shrinker (fs_reclaim). If the shrinker attempts to acquire dma_resv locks or
+waits on fences depending on the held lock, will this cause a circular lock
+dependency?
 
-[Severity: Medium]
-If drm_pagemap_init() fails, does this error path permanently leak the
-ZONE_DEVICE pagemap structures and the IO region?
+> +		if (!r)
+> +			ttm_bo_move_null(bo, new_mem);
+> +		return r;
 
-Because the caller might continue device initialization without unbinding,
-the devm-managed resources from devm_request_free_mem_region() and
-devm_memremap_pages() seem to remain active indefinitely. Should this path
-manually clean up these resources before returning?
+[Severity: High]
+Does returning early here bypass mandatory notifications and statistics
+updates?
+
+A successful eviction returns immediately, skipping the call to
+amdgpu_bo_move_notify() which handles VM tracking cleanup and tracepoints.
+
+It also entirely skips the statistics updates at the tail of
+amdgpu_bo_move():
+
+amdgpu_bo_move() {
+    ...
+    if (evict)
+        atomic64_inc(&adev->num_evictions);
+    atomic64_add(bo->base.size, &adev->num_bytes_moved);
+    return 0;
+}
+
+Will missing these updates cause underreporting of evictions and moved byte=
+s,
+impacting driver debugging metrics and migration throttling?
 
 > +	}
-> +	svm_dm->adev =3D adev;
-> +	svm_dm->hpa_base =3D pgmap->range.start;
-> +	svm_dm->initialized =3D true;
-> +	adev->apagemap =3D svm_dm;
 > +
-> +	dev_info(adev->dev, "SVM: registered %ldMB device memory, hpa_base=3D0x=
-%llx\n",
-> +			size >> 20, svm_dm->hpa_base);
-> +	return 0;
-> +}
+>  	if (adev->mman.buffer_funcs_enabled &&
+>  	    ((old_mem->mem_type =3D=3D TTM_PL_SYSTEM &&
+>  	      new_mem->mem_type =3D=3D TTM_PL_VRAM) ||
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612090928.2968=
-2-1-ray.huang@amd.com?part=3D13
+2-1-ray.huang@amd.com?part=3D15
