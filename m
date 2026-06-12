@@ -4,43 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F2ADCD8CA8
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 09:42:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97588CD8CA8
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 10:01:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 634B710F3D5;
-	Fri, 12 Jun 2026 09:42:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4A5410E9BF;
+	Fri, 12 Jun 2026 10:01:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X4cVNeyZ";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Nxo8nx+s";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 048BA10F3D5
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 09:42:18 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D30D743CC5;
- Fri, 12 Jun 2026 09:42:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7770B1F000E9;
- Fri, 12 Jun 2026 09:42:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781257337;
- bh=izpShOSwhha1G1pl80b2V5W6pEvEQBrT/+tQe62Kbzc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=X4cVNeyZYc0dQ9jL7Vw8PxDOS6v/0D1F27ddPWUtB5bkLmiCGxSvnjPbUCCbWlROb
- vAN05JRqNll8YTb3g6Bm+6bauGbN7+3fr0lHvLH/3uRIEI7GNDThGeHx2yhUDakjX1
- HimcPU1lZn0UyOqjSBI/PSSezU2Pd1Tphb8k9BA7Z3f6iSPmbxx+nxiFYgv1RDxSBi
- PVwL8EXpwshoXCONJ7e9zWLxl8Re2gLYyfXwOVE+T6CscVrROsYwqE4udX8808Z2BI
- Vy4Zo2zYTgkqjmYInWrH8toGYAgAKaD1Pwzm6x6csl7QTDBrWXDw1+wPhIFmg9q5XJ
- oJgv+5Hp9jAuw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 18/18] drm/amdgpu: integrate VRAM migration into SVM
- fault and prefetch paths
-To: "Huang Rui" <ray.huang@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260612090928.29682-19-ray.huang@amd.com>
-References: <20260612090928.29682-19-ray.huang@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 12 Jun 2026 09:42:17 +0000
-Message-Id: <20260612094217.7770B1F000E9@smtp.kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51CA110E9BF
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 10:01:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1781258499;
+ bh=QWz/NnIpQ/tgJMgqCseSLhJn4QG66Z8YNoUhv7tJ5QM=;
+ h=From:Date:Subject:To:Cc:From;
+ b=Nxo8nx+spDC7UmghhkCZl8ZY3C7oc3KJfPG4xTDCYVKEYprVsqaXiObzNC+S+m15m
+ SV8BzD3oyElpJQ6bA8p19cScZPEtlXZ/iG6j4Pi/n16IaYRrtwOoFCUE/c8/+XJDxk
+ JRI9InulItPIEj8E7Plp7mSridItdSOaEXfYpeqWqMhyGOknBifxIXHOjIvtVA6SZ9
+ 38ewavdMix/Js4vQkXujL92F/dFEsYW3DQGnMWM1dnTcpKvnTb82zn4+Rr3iCDfXEM
+ XoQ2hyilabflOyiyjI7i/7e6WE1XrySNxufaik7CuN44OK8pQt8Kfulj18E5Ji6z4M
+ Thqsl4atsANxw==
+Received: from localhost (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id AD7EB17E00FE;
+ Fri, 12 Jun 2026 12:01:39 +0200 (CEST)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Date: Fri, 12 Jun 2026 13:01:29 +0300
+Subject: [PATCH v2] MAINTAINERS: Track dw-hdmi-qp under Rockchip DRM
+ drivers
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260612-maintainers-rk-drm-upd-v2-1-3ff65fc41a93@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQ6CMBBFr0Jm7ZhSoARX3sOwaMsgVaFkCkRDu
+ LsFD+DiL17y/38rBGJHAS7JCkyLC84PEeQpAdvp4U7omsgghVSiEAp77YYphjggP7HhHuexQZu
+ rrFVG5KWqII5Hpta9j+Nb/eMwmwfZaX/bG50Lk+fPYV7SvfdXsqSYYqvKIitNboysrta/Xtp41
+ mfre6i3bfsCbVAimNIAAAA=
+X-Change-ID: 20260506-maintainers-rk-drm-upd-c463f6b04769
+To: Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>, 
+ Andy Yan <andy.yan@rock-chips.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ kernel@collabora.com
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,144 +70,51 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+The DW HDMI QP TX library was developed for and is currently only used
+by Rockchip platforms.  Add it to the Rockchip DRM drivers section to
+ensure all relevant parties are kept in the loop on any changes.
 
-New issues:
-- [Medium] VRAM prefetch silently skips migrating mixed ranges where only s=
-ome pages are in VRAM.
+As its file paths fall outside the generic wildcard patterns defined in
+the ARM/Rockchip SoC support section, also add the
+linux-rockchip@lists.infradead.org mailing list to avoid any
+notification gaps.
 
-Pre-existing issues:
-- [Critical] Stale GPU mappings are left in the page tables if `amdgpu_svm_=
-range_update_gpu_range` fails midway, leading to a Use-After-Free.
---
+Acked-by: Andy Yan <andy.yan@rock-chips.com>
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+Changes in v2:
+- Collected Acked-by from Andy
+- Removed the RFC prefix
+- Rebased onto next-20260611
+- Link to v1: https://patch.msgid.link/20260506-maintainers-rk-drm-upd-v1-1-f67537b4bb29@collabora.com
+---
+ MAINTAINERS | 3 +++
+ 1 file changed, 3 insertions(+)
 
-commit a10d03ff5d198ccb21336100307e785425a497b5
-Author: Junhua Shen <Junhua.Shen@amd.com>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f1caa6e5198b..ac68fdd9879e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8849,11 +8849,14 @@ M:	Sandy Huang <hjc@rock-chips.com>
+ M:	Heiko Stübner <heiko@sntech.de>
+ M:	Andy Yan <andy.yan@rock-chips.com>
+ L:	dri-devel@lists.freedesktop.org
++L:	linux-rockchip@lists.infradead.org
+ S:	Maintained
+ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+ F:	Documentation/devicetree/bindings/display/rockchip/
++F:	drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.*
+ F:	drivers/gpu/drm/ci/xfails/rockchip*
+ F:	drivers/gpu/drm/rockchip/
++F:	include/drm/bridge/dw_hdmi_qp.h
+ 
+ DRM DRIVERS FOR STI
+ M:	Alain Volmat <alain.volmat@foss.st.com>
 
-drm/amdgpu: integrate VRAM migration into SVM fault and prefetch paths
+---
+base-commit: ec039126b7fac4e3af35ebccaa7c6f9b6875ba81
+change-id: 20260506-maintainers-rk-drm-upd-c463f6b04769
 
-This commit integrates VRAM migration into the SVM page fault and prefetch
-paths. It calls amdgpu_svm_range_migrate_to_vram() when VRAM migration is
-needed and allows prefetch to actively move pages to VRAM by bypassing the
-valid-mapping fast path.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_svm_range.c
-> index 6ac785a3b5cba..62b4e0c306682 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
-
-[ ... ]
-
-> @@ -275,7 +277,8 @@ amdgpu_svm_range_update_gpu_range(struct amdgpu_svm *=
-svm,
->  		unsigned long start_page, last_page;
->  		bool is_last_seg;
-> =20
-> -		if (entry->proto !=3D DRM_INTERCONNECT_SYSTEM)
-> +		if (entry->proto !=3D DRM_INTERCONNECT_SYSTEM &&
-> +		    entry->proto !=3D AMDGPU_INTERCONNECT_VRAM)
->  			return -EOPNOTSUPP;
-
-[Severity: Critical]
-This is a pre-existing issue, but does this loop leave stale GPU mappings if
-it fails midway?
-
-Looking at amdgpu_svm_range_update_gpu_range(), it loops over DMA addresses
-and updates the GPU page tables. If it hits an unsupported protocol or
-amdgpu_vm_update_range() fails, it returns an error immediately:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c:amdgpu_svm_range_update_gpu_r=
-ange() {
-	while (mapped_pages < npages) {
-		...
-		if (entry->proto !=3D DRM_INTERCONNECT_SYSTEM &&
-		    entry->proto !=3D AMDGPU_INTERCONNECT_VRAM)
-			return -EOPNOTSUPP;
-		...
-		ret =3D amdgpu_vm_update_range(...);
-		if (ret)
-			return ret;
-	}
-}
-
-Because it returns without rolling back the successful segments,
-amdgpu_svm_range_update_mapping() will leave range->gpu_mapped set to false.
-
-Later, when the MMU notifier fires to unmap the memory, it will skip zapping
-the PTEs because gpu_mapped is false:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c:amdgpu_svm_range_notifier_eve=
-nt_begin() {
-	...
-	if (range->pages.flags.unmapped || !svm_range->gpu_mapped)
-		return false;
-	...
-	amdgpu_svm_range_zap_ptes(svm, svm_range, start_page, last_page);
-}
-
-Could this result in the GPU continuing to access memory after the CPU has
-freed it?
-
-[ ... ]
-
-> @@ -449,12 +454,24 @@ amdgpu_svm_range_map_attrs(struct amdgpu_svm *svm,
->  		if (next_addr <=3D addr)
->  			return -EINVAL;
-> =20
-> -		if (amdgpu_svm_range_is_valid(svm, range, attrs)) {
-> +		/*
-> +		 * Prefetch to device memory should still run migration logic even if
-> +		 * the current GPU mapping is already valid. This allows prefetch
-> +		 * requests to actively move backing pages to VRAM instead of being
-> +		 * skipped by the valid-mapping fast path.
-> +		 */
-> +		if (amdgpu_svm_range_is_valid(svm, range, attrs) &&
-> +		    !need_vram_migration) {
->  			addr =3D next_addr;
->  			continue;
->  		}
-> =20
-> -		/* TODO: add migration */
-> +		if (need_vram_migration) {
-> +			AMDGPU_SVM_RANGE_DEBUG(range, "MIGRATE PAGES");
-> +			ret =3D amdgpu_svm_range_migrate_to_vram(svm, &range->base);
-> +			if (ret)
-> +				return ret;
-> +		}
-
-[Severity: Medium]
-Is it possible that this prefetch logic silently skips migrating mixed rang=
-es
-where only some pages are in VRAM?
-
-The new logic explicitly bypasses the valid mapping check to allow
-prefetching, but amdgpu_svm_range_migrate_to_vram() relies on
-range_needs_migrate_to_vram():
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range_migrate.c:range_needs_migrate_t=
-o_vram() {
-	if (range_in_vram(range))
-		return false;
-	...
-}
-
-And range_in_vram() checks if there are ANY device memory pages:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range_migrate.c:range_in_vram() {
-	return flags.has_devmem_pages;
-}
-
-If a range is mixed (contains both system memory and VRAM pages),
-range_in_vram() returns true, causing amdgpu_svm_range_migrate_to_vram()
-to return immediately without migrating the remaining system pages. Might
-this defeat the explicit prefetch intent for partially resident ranges?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612090928.2968=
-2-1-ray.huang@amd.com?part=3D18
