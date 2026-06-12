@@ -4,105 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B967CD98D9
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 08:14:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8A2ECD8CA8
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 08:21:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B03110F328;
-	Fri, 12 Jun 2026 08:14:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ABF210E9A1;
+	Fri, 12 Jun 2026 08:21:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="tRbi+o4E";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tKFQHzFj";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oMcXLtIl";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4cy5Oi+s";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AwIzVwuK";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F062310F319
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 08:14:22 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8DFC875D71;
- Fri, 12 Jun 2026 08:14:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781252061; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=jdx8SoUNOMjnR2OzjfkwDvrV5yiZw1e14hAOBhRbT4o=;
- b=tRbi+o4EAel0O6v1Y2H9cEl0DXIRGztlS2hzvTlDtggV29rsQ1tYZIZ18V0tgNT6iFGNDc
- b0uOb8zcddvpv4TSidtVJMQYNPcHAVWhSgPmeqxv3jU5cwyCRd7jO91DL6/E6ddlT4oEyG
- skKDLhe1eEhtvltG/8vZ8cjS78wTsPY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781252061;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=jdx8SoUNOMjnR2OzjfkwDvrV5yiZw1e14hAOBhRbT4o=;
- b=tKFQHzFjWdF/p84xfVw5sTk1uwn4eNmauF1AhHHhmd2z1VHB8LUAwYgr+FUFgXE2WYLJx3
- fXxaMwoJXAu19nBA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781252060; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=jdx8SoUNOMjnR2OzjfkwDvrV5yiZw1e14hAOBhRbT4o=;
- b=oMcXLtIlekN/QR/+dtJzTC1m8T9BWtud7+MAEN2AmOwNDfqYCwtLOWax5GGPPtZbsDK+vj
- NuLuE5HpbMXUU9XCzxxZE5QFC7Z0IlFZRnwgajPgrhXfHrEf7jZuUsFlLDAmd1QXiCGcv9
- /0ioenki52ff/4OVU9l62y78eKL+BlM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781252060;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=jdx8SoUNOMjnR2OzjfkwDvrV5yiZw1e14hAOBhRbT4o=;
- b=4cy5Oi+scto49X28Z/kWcqF3viZ7s6YzDK9DcnlhyIXGZ2s/RfpCg4IYnA76Bwwg99R3U8
- fP8i6tFZwOPMk5Cw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 291F4779A7;
- Fri, 12 Jun 2026 08:14:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id iu7gCNy/K2o5OAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 12 Jun 2026 08:14:20 +0000
-Date: Fri, 12 Jun 2026 10:14:18 +0200
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-misc-fixes
-Message-ID: <20260612081418.GA17001@2a02-2455-9062-2500-e496-5a17-62ba-545e.dyn6.pyur.net>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[16];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- FREEMAIL_TO(0.00)[gmail.com,ffwll.ch];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, gitlab.freedesktop.org:url,
- 2a02-2455-9062-2500-e496-5a17-62ba-545e.dyn6.pyur.net:mid,
- imap1.dmz-prg2.suse.org:helo]
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22EE710E9A1
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 08:21:08 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C2AC643AF7;
+ Fri, 12 Jun 2026 08:21:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B5531F00A3A;
+ Fri, 12 Jun 2026 08:21:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781252467;
+ bh=F5w5S8OKL17yyMFRpGTR20zSGOcC2E/ynRlOXp2I59E=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=AwIzVwuKbVgCwslFxLc0SV8SFT9psMzeouYujKZO+V8QstSj62KZFl966cU064LuW
+ 6Z4FRdIMaW+T3ykwyKPcKa+kUJIB0ujyyBbVGtDKYJmZqQaKv4n+bEla5PF1OtN6Sv
+ EsmLkb/KyqmSdpFBWC2+0UygtRZJQMdAptU53LSTIKBzHkqw5UFqz/tGo+NbCiDt9I
+ 2eh7SciE7cyN9MT+ijToLEEdDG4wb+ixOCMn/L+wMZUsgYQHJr3yGhDRjmjwlhntCR
+ khDKIWMjPc7CRmwYavPPUr/HTmTEvZ8rY/pSTb0c1XIWpd5G4OiAV7qDvY2NjcCBcQ
+ Kiu1Ww53yiVGQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 5/6] drm/xe: Suppress Surprise Link Down on device
+To: "Mallesh Koujalagi" <mallesh.koujalagi@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260612080722.26726-13-mallesh.koujalagi@intel.com>
+References: <20260612080722.26726-13-mallesh.koujalagi@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 08:21:07 +0000
+Message-Id: <20260612082107.8B5531F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,111 +52,123 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave, Sima, 
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Masking Surprise Link Down on the Upstream Switch Port violates PC=
+Ie AER specifications.
+- [High] Directly mutating AER registers without verifying OS native AER ow=
+nership.
+- [High] Permanent masking of PCI_ERR_UNC_SURPDN with no restoration mechan=
+ism.
+- [High] Blind PCIe hierarchy traversal modifies unrelated upstream bridges.
+- [Medium] Data race due to unprotected read-modify-write on a shared AER m=
+ask register.
+--
 
-here's the fixes PR for drm-misc for this week.
+commit 7a2dc1d13a9370ceb4dd62a9d15aa26d2212058a
+Author: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+drm/xe: Suppress Surprise Link Down on device
 
-Best regards
-Thomas
+This commit attempts to prevent fatal AER events during a recovery-induced
+cold reset. It masks the Surprise Link Down (SLD) bit in the upstream
+port's AER Uncorrectable Error Mask register before triggering the reset.
 
-drm-misc-fixes-2026-06-12:
-Short summary of fixes pull:
+> diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
+> index 93a56a0269f1e..15c2fa0d323a6 100644
+> --- a/drivers/gpu/drm/xe/xe_ras.c
+> +++ b/drivers/gpu/drm/xe/xe_ras.c
+> @@ -209,8 +209,57 @@ static enum xe_ras_recovery_action handle_core_compu=
+te_errors(struct xe_ras_erro
+>  	return XE_RAS_RECOVERY_ACTION_RECOVERED;
+>  }
+> =20
+> +static struct pci_dev *find_usp_dev(struct pci_dev *pdev)
+> +{
+> +	struct pci_dev *vsp;
+> +
+> +	/*
+> +	 * Device Hierarchy:
+> +	 *
+> +	 * Upstream Switch Port (USP) --> Virtual Switch Port (VSP) --> SGunit =
+(GPU endpoint)
+> +	 */
+> +	vsp =3D pci_upstream_bridge(pdev);
+> +	if (!vsp)
+> +		return NULL;
+> +
+> +	return pci_upstream_bridge(vsp);
 
-amd:
-- track colorop changes correctly
+[Severity: High]
+Does this blind traversal safely handle diverse PCIe topologies? If the GPU
+is connected to a standard motherboard switch, passed through a hypervisor,=
+ or
+connected directly to a Root Port, might this return an unrelated bridge
+device owned by the host system? Should this verify the Vendor ID or Device
+ID of the USP before proceeding?
 
-amdxdna:
-- fix possible leak of mm_struct
+> +}
+> +
+> +#ifdef CONFIG_PCIEAER
+> +static void pcie_suppress_surprise_link_down(struct pci_dev *usp)
+> +{
+> +	u32 aer_uncorr_mask;
+> +	u16 aer_cap;
+> +
+> +	aer_cap =3D usp->aer_cap;
+> +	if (!aer_cap) {
+> +		dev_dbg(&usp->dev,
+> +			"AER capability not present\n");
+> +		return;
+> +	}
+> +
+> +	pci_read_config_dword(usp, aer_cap + PCI_ERR_UNCOR_MASK, &aer_uncorr_ma=
+sk);
 
-colorop:
-- make lut interpolation mutable
-- track colorop updates correctly
+[Severity: Medium]
+Since the Upstream Switch Port is a shared bridge managed by the pcieport
+driver, could this lockless read-modify-write sequence race with the AER
+driver handling other hotplug events, or with other endpoints on the same
+switch experiencing concurrent errors?
 
-ivpu:
-- fix integer truncation
+> +	aer_uncorr_mask |=3D PCI_ERR_UNC_SURPDN;
 
-vc4:
-- fix leak in krealloc() error handling
+[Severity: High]
+Is there a mechanism to unmask this bit after the cold reset completes? If
+the Surprise Link Down bit is set here but never cleared during driver
+probe, resume, or a post-reset callback, will it permanently disable AER
+reporting for genuine link failures on this port?
 
-virtio:
-- fix dma_fence ref-count leak
-The following changes since commit c0837b9cf6eabbad8b8cbddaff1a46a6d0a2e29d:
+> +	pci_write_config_dword(usp, aer_cap + PCI_ERR_UNCOR_MASK, aer_uncorr_ma=
+sk);
 
-  accel/ethosu: fix OOB write in ethosu_gem_cmdstream_copy_and_validate() (2026-06-04 22:07:59 -0500)
+[Severity: High]
+According to the PCIe Base Specification, Surprise Down errors are exclusiv=
+ely
+detected and reported by Downstream Ports. On Upstream Ports, the Surprise
+Down Error Status and Mask bits are reserved and hardwired to 0. Does maski=
+ng
+PCI_ERR_UNC_SURPDN on the Upstream Switch Port actually prevent the downstr=
+eam
+port (the VSP or Root Port) that detects the link drop from generating the
+fatal AER event?
 
-are available in the Git repository at:
+[Severity: High]
+Is it safe to mutate the AER mask registers directly without verifying OS
+native AER ownership? On platforms where firmware retains control of AER
+(such as ACPI APEI Firmware First setups), could mutating these registers
+directly from the OS conflict with platform management firmware? Is a check
+like pcie_aer_is_native(usp) needed here?
 
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-06-12
+> +	dev_dbg(&usp->dev, "Surprise Link Down masked for cold reset\n");
+> +}
+> +#endif /* CONFIG_PCIEAER */
 
-for you to fetch changes up to 2f41af638c92bac6f1f9275ea2d1901baef578f3:
+[ ... ]
 
-  accel/amdxdna: Fix mm_struct reference leak in aie2_populate_range() (2026-06-11 09:50:07 -0700)
-
-----------------------------------------------------------------
-Short summary of fixes pull:
-
-amd:
-- track colorop changes correctly
-
-amdxdna:
-- fix possible leak of mm_struct
-
-colorop:
-- make lut interpolation mutable
-- track colorop updates correctly
-
-ivpu:
-- fix integer truncation
-
-vc4:
-- fix leak in krealloc() error handling
-
-virtio:
-- fix dma_fence ref-count leak
-
-----------------------------------------------------------------
-Alex Hung (1):
-      drm/colorop: Remove read-only comments from interpolation fields
-
-Alexander A. Klimov (1):
-      drm/vc4: fix krealloc() memory leak
-
-Andrzej Kacprowski (1):
-      accel/ivpu: Fix signed integer truncation in IPC receive
-
-Dmitry Osipenko (1):
-      drm/virtio: Fix driver removal with disabled KMS
-
-Lizhi Hou (1):
-      accel/amdxdna: Fix mm_struct reference leak in aie2_populate_range()
-
-Melissa Wen (3):
-      drm/colorop: make lut(1/3)d_interpolation props correctly behave as mutable
-      drm/atomic: track individual colorop updates
-      drm/amd/display: use plane color_mgmt_changed to track colorop changes
-
-Wentao Liang (1):
-      drm/virtio: fix dma_fence refcount leak on error in virtio_gpu_dma_fence_wait()
-
- drivers/accel/amdxdna/aie2_ctx.c                  |  3 +
- drivers/accel/ivpu/ivpu_ipc.c                     |  2 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 +-
- drivers/gpu/drm/drm_atomic.c                      |  4 +-
- drivers/gpu/drm/drm_atomic_uapi.c                 | 68 ++++++++++++++++++-----
- drivers/gpu/drm/drm_colorop.c                     | 16 +++++-
- drivers/gpu/drm/vc4/vc4_validate_shaders.c        | 13 +++--
- drivers/gpu/drm/virtio/virtgpu_drv.c              |  5 +-
- drivers/gpu/drm/virtio/virtgpu_submit.c           |  4 +-
- include/drm/drm_atomic_uapi.h                     |  4 +-
- include/drm/drm_colorop.h                         | 34 ++++++------
- 11 files changed, 111 insertions(+), 48 deletions(-)
-
--- 
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612080722.2672=
+6-8-mallesh.koujalagi@intel.com?part=3D5
