@@ -4,136 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34164CD98D2
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 18:42:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F51CCD98D2
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 18:43:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90BD010F652;
-	Fri, 12 Jun 2026 18:42:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD19A10F659;
+	Fri, 12 Jun 2026 18:43:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="HrHXfTMR";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="t9D9nNrP";
 	dkim-atps=neutral
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022081.outbound.protection.outlook.com [52.101.101.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AB2E10F652;
- Fri, 12 Jun 2026 18:42:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GsPP9qZAXHtdaFYVoT8Qs/2qJznO7FVlidxjzI3uIIbqxlxgrcsWftA6S6lM/Uf9dIeBH1f0gT++ivR+jjeU6V2SC6IW7MJOE6sCIlMPqHDz90h0Go/wjlEskXX7GTIOdcS76GOgZKU2ozkBV+pATs3RjRAbmlLcxZzd4QyL9SQIrnD0OzRY/6j+mQLE6riEcYS0kIhdDCJoGlJ3vo/5/9g9HIjw/fHWa37M9cRO1BWgg9e5GamGguwuvzv3U/UcAYTO7jeF4G0dn1BgOT273vQqyQOP9PP6OxA19hGf3wBGJud40XlgbyWxtcMq/oikQb9pG1Eyb7N7RstTtEdPUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vU2Fth49zfwW8O+jvi6kKRYh+COxCP1+tEcO4OhODgY=;
- b=pEzfuQEoP1EbqFSvEtLy8I5yndjcfEi3sAoTSrvdUOAWWipi26LbE0B5dqWLVuUP6voEN00WUVbCV4bc2YcDDcJqc0fnA7sjUoOekYbqT4Mgo+6nfGJ2oNbeunJHsxmX0gy2AoSKg3G6AatiH5u6qKOdYarTJysN/ADwSyX7SJ5pneVtOq0t0HNuSZ/eqd3dNbo37kn146Axi0jSgASMLQ1OhWSWqq7tK6iljByJh52FvKqXOqlTlEcrYKOxd5lF8z1hc+zI3rwwFnhiXCdB8LZ1tU5djwmwi4G+iwyayBQT4bxOLzrT+d9PoAoVf7YCa5eFZGVMOEOgDK7COwPR+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vU2Fth49zfwW8O+jvi6kKRYh+COxCP1+tEcO4OhODgY=;
- b=HrHXfTMRvL0hEnm3L1i6+A4c3ebRt4iynq1r5pIshkxwkQW3ywXHirAH8i4/zzyys7u6zP8Mb5vfJ4DfA0z7tFtxRyaH2gInKfAs++bCXy8TnsWSh34TuiLdKH58i+j5bzH0WgKu8p5phrXDQ0DrTO6KJCoRineXvdiVsIuvO7o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27c::13)
- by LO0P265MB2841.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:180::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
- 2026 18:41:56 +0000
-Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- ([fe80::6c9e:93c8:10db:e995]) by CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- ([fe80::6c9e:93c8:10db:e995%6]) with mapi id 15.21.0113.011; Fri, 12 Jun 2026
- 18:41:56 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 12 Jun 2026 19:41:55 +0100
-Message-Id: <DJ7AI6E1YIF1.34AQ9WVWKR0IG@garyguo.net>
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, <driver-core@lists.linux.dev>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Alice Ryhl" <aliceryhl@google.com>,
- "Simona Vetter" <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, "Sumit
- Semwal" <sumit.semwal@linaro.org>, <linux-media@vger.kernel.org>, "Rafael J
- . Wysocki" <rafael@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Maxime Ripard" <mripard@kernel.org>, "David Airlie" <airlied@gmail.com>,
- "Benno Lossin" <lossin@kernel.org>, <linaro-mm-sig@lists.linaro.org>,
- "Danilo Krummrich" <dakr@kernel.org>, "Mukesh Kumar Chaurasiya"
- <mkchauras@gmail.com>, "Asahi Lina" <lina+kernel@asahilina.net>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH v20 1/4] rust: drm: gem: shmem: Add DmaResvGuard helper
-From: "Gary Guo" <gary@garyguo.net>
-To: "Lyude Paul" <lyude@redhat.com>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <nouveau@lists.freedesktop.org>
-X-Mailer: aerc 0.21.0
-References: <20260610162433.923550-1-lyude@redhat.com>
- <20260610162433.923550-2-lyude@redhat.com>
-In-Reply-To: <20260610162433.923550-2-lyude@redhat.com>
-X-ClientProxiedBy: LO4P123CA0528.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:2c5::10) To CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:27c::13)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA9F210F659
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 18:43:56 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-68cec9f4c6cso1796969a12.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 11:43:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781289835; cv=none;
+ d=google.com; s=arc-20240605;
+ b=VOmkvB7hFq9MjBzvdPh5VnsTM1BIeR227uklvge1FQ4bfz7LaJIL6lJmrcJOH5QTau
+ rAKvdZhhHTRa+xUk+Ez9ZktIYOGYauG7C6gR8t2Mn80K7WPlNFFc9fbPpQoqpVfqIKWa
+ Go1A1jsIaok8QMDXNg/SvWmqdlO6PlOTK9/PPipJLkE+DvD5Ob6vaZiExWXUIMD1UmfL
+ Q9Q85g6Bktg2QHpRykqf/ziSQxapE6YUoDNtkbFzbulrEV6fWxfwhFrmfPHeor+SvXt5
+ Zo3IbL3kLLla/EIrk4yRYT9ferTW323zX4UFOw3X2bolHMlpeGbMLyE+1ExHCaO/8Qqg
+ ReUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=6DnumblQJH/uXGfU059VkkZKwxZmNHcGuyxEw+XU2qE=;
+ fh=IBii0uFKWlKzTQMSLId2LIv6sMGvcsg86YjPYT6FRV0=;
+ b=HVQTsToze1AxQzzCdlVzrrchY8n1DFIrZs9HwlR+fgx/92HYBgsS8LjoaGQ5Q9ip4c
+ P/UJKI5MgmXwbRTgffQltUxnaFR0yba4s/7MWfu1DSa9I2HSFeWp3UWcuh1jiES6TbpT
+ HvtLHKX1llpxwnU1NR+Fif2VtKH1JzLyIMJlQ7zfiXl9LIK1OGxHYX3x/tCEUAVAXqja
+ otAHc6hGlkPA9+I3ZeLV3wT7lmunwGa0ckFaGKU61UfS3bA41uI/PRzKPy5vn5rx788+
+ AFbHdamBBwVgq2+xuaZUdFdbVjuJVzzxWzcbIIsWj/iVWnv+zbWIlk0qL/XJOt9krB31
+ Bucw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=usp.br; s=usp-google; t=1781289835; x=1781894635; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=6DnumblQJH/uXGfU059VkkZKwxZmNHcGuyxEw+XU2qE=;
+ b=t9D9nNrPoDo6ftXuNApa2mKr7APo9WSckCfd5/tp/tdZN+lObIJiwHeWWaW5rRc0Gy
+ iasYRngq+9UWDO0R24kXkePwbL+PCDuUQEmu607hhpePJQzOiBwC5SB/pTqdXm0LRuas
+ TKP08Fb/SOwAdUglUTloexF8YmvwVmQIYnSdDYOZXzUfdlfeiufucPcTarOYug12pkiY
+ xoH3tAGTS++L7EwkHbIMDQPtzcgyuEWUZ1BYEzqbdoBiFTM2AybSv81QIU0gAx1iBWvF
+ j0/DGuNgXRTEgP2Y0uKpcYQqpwzxQ3p3TGFdWUdUrb2cwtxDNZw+qs6EzlCsp7N8EsTi
+ JElg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781289835; x=1781894635;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=6DnumblQJH/uXGfU059VkkZKwxZmNHcGuyxEw+XU2qE=;
+ b=QRzTkcsi99iHR+xOm0KoODNfSTY3MquSsL7xFpYdYktG1RvJ8cVj1kosdIvPEMoHC1
+ yj+OSwMfBhLjFXqHyUfjFeDsmvaNqrFiBwEiep4NpNBgSBzwlsIZ4swoybO0Bubu5R8W
+ D7rZAoUC/Dek89nnATqSPb8Bh+2LkwTbupgHot/QFQtSoH6NsQ622j8PnuDaaqLgZ3LY
+ olrKeu7Fan6Zs4EayYrRDrjPUOg5ApA1msnh+9DQC41+3oTBPjTBcSCEXHsW4+v1cNf8
+ /kOOCMH3+KCWk6uqPKyQuXYKsE/Ihi2kXdceJv32lSJBGjezEB7orCIIIVb7DDw3yAQ9
+ eWXg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ946t5qdo4l1xl60Hth1ViAwEBlRiXAeSOdeJMHvKe+WJHnYqL18stXfS3ue4hW4ma4cDgeIi4Gqck=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy901t0aW2fNdGPWvgHeO5xNxIIUgSdwTlR2vHSbvNeIJXR8CiQ
+ yQKQrQqMbpvcqQTFue1ySZ6nCFQSHFIjeRvYwkihaLQuh+3/8AUTAWrYrGNP4XrS9RUZQ8Z0645
+ fnDffImSP04nM6/B4/FglOC6whx7e5Y96y1/KcsVgwQ==
+X-Gm-Gg: Acq92OHczbK2tieAz+XWogKkHr7W4aOx3y4I5rbUHKKVzHM12Aa/BdICBDkZc6zlh2w
+ CWtKHD0yPZGfnbmBBcYKcn51j2OwPFKJjygubOJKx2qN+tihd0VHb7d2VEIr3TotOeucrbeHsIq
+ r5vNK/bwh9Or9r+xlhoQLe2D+anIklUkLqZWp7ZIfzzWrn9Nzrs5n9Ss1+cr2aAOK16h9okXkV/
+ 5woW2k5l538idUdbHCwvUQd85OpcNoXZFYbWPyazb0pV6pdBt15hk6Y/OYfIgvhbNfnrsqzSPk1
+ 3/ta37tqMjc2gYMJi2/suwNq1f77fsJ+TdWYeVq/bVOzDGfdEY5jevJeY8iDBLBFvRCVbD1g04x
+ VRtlknUKbNEkfTxKrR0G3XZgOfhgki5pvnEW3
+X-Received: by 2002:a05:6402:e85:b0:691:a699:da5c with SMTP id
+ 4fb4d7f45d1cf-693c6a6ae83mr166917a12.17.1781289835396; Fri, 12 Jun 2026
+ 11:43:55 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|LO0P265MB2841:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe0ba968-a043-4887-b52e-08dec8b24783
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|10070799003|376014|7416014|366016|18002099003|22082099003|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info: dvHYgYQj1cwThgyvymKotGpqbY28k8iWSfn2UP3Kkjbx1kXddyCdjzrM6A0RtfCOzkiOtdOer1Qh2vXR5R+r60Elj+/bstQYrpjOPjnsXWlVb3KY2TJ0Mtk0RM3la+6+D4TySDA1EArvtD8Y0GWYH8ONsnOCkFF+g0Fvxx8aj8jJ3Bi3JTLZdTuDMVxWdi9ZaEAFiqkYSLTQkJ85mUwdAcrPV3nQ8XrqEzM5a5sRNziCICGL81tK4EZgwhAxUAovXnCTlB6BF1TjRxAxJ1DIPe5EoyKi+h6MA51CqfqE2dRtHkCQO7tivPRjHCPuZmKjKCyLb9EWW99YRSdzACrNEN+BgFU6LVJ/YfBdy16pPYjGlGTlNajh6e0+mb5LpLIakhYySSqKoGlXySAk+kX5BY+Gib6TQ+CIqAWO9H7N0DQL96+3BgwBcY6Bg/UmPsd8ccB1SI3lr02mS08dIE3R6m8303ojlVuKtqlj3QGA9DjvombNjTHfuMJbCKyZr6wpnewBkVeMTJsgwGY9AwwTW4hh0ecR8MV6QDTA0+4eGSuEwJM992hhUIOblh/UygViJDZkMv3hgTQFPzhHl+fc8AdjgbeEyR0m+ZAXMzEQrjcn1coHY5ETY+0C1SBSMzd3Ri5beOz4XyUtmF9D3XT97pWxZulQ326z1SsGmp4kiYKuzpjgZqa43uGjVRpVdNMB
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(10070799003)(376014)(7416014)(366016)(18002099003)(22082099003)(4143699003)(56012099006);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NjdsdDJNK1dnL3poTmQ5TzRwU0hGUHljRFhHSW9WZlJ0SS9WWnA5d0ZqQ0dl?=
- =?utf-8?B?azNoS1NQOVFZTzZndDhWUXQ5OEQzQjZKZk0vMWc3UVF6R0hEdnVkMnlvNlU0?=
- =?utf-8?B?cUdTMHhyMlBTemw3RU45ZkhsVThENUlUWXpXNmpYZ3hRWno1dGRKa3FqU2Q1?=
- =?utf-8?B?UzZvMzgxTmh6VEUxUlcrcXlmbkJPRW91S0Q4RUdDb2NQbWU2bjNvR0JqTjkw?=
- =?utf-8?B?bUJJcWFtRDF1clJhbHlON0k4NEVSMlpxZkwrc2J6cFA1a1lRUzM3bnlScXlX?=
- =?utf-8?B?T0RZYzJ1M0xEcnlsMFJjSmlvVlV1T1RRV2VOR21jZVhoRkY5S3VJenoyRkNQ?=
- =?utf-8?B?eXVXbG1sSEpmdDB6SzVRYzJnRG5PZncxNzVEMzFTMldpUHNaZ00yS1pINDdH?=
- =?utf-8?B?RG1BaktUcERQNkh4elU3ZlpFQTd1RW15SGxEZFdONVlSeUVCZnV0OWV2U2xh?=
- =?utf-8?B?ZGFPSmxXaEcvbGV3d3F4Y2U3Vmh1aUtpRVo1RnkxTndkN0Z3Y1Z3N2lRZVVn?=
- =?utf-8?B?UCtLRFZlS2VnQXNhMkxYdDA1Skk3eExmcnc3VjZXU2R3dTNYVk9uS0s3MVE4?=
- =?utf-8?B?OEM1SnBPdFhJcVJ2ZnJocDVHYXZUSkRZZkFpMWNZTmdsL2svUlFvdkU1NFFx?=
- =?utf-8?B?TDhWeTNHYWptVm5XTTlyR1I3ZGlSc1BvbE9mb0s3RVhNVHZzVmpKWjRYd1pF?=
- =?utf-8?B?a1ZhOCtoeE9tSHhNTU96bFl5MklWWmIyaVlVaWljR0FERTBwbm9ueWg2dGJt?=
- =?utf-8?B?RVFYRVp6OFNCT2pPb2QzckZtOXhLdmV6Vi8xSzN1V21qSGlWclp2bWpXK0Jj?=
- =?utf-8?B?T2JGSG0rTUM1RU4zRWZVL21URDhXQXh2akMvWENiS0ZFZWFna2gyUW1Qd1Ny?=
- =?utf-8?B?TUdtYkxVVGt1ZUFCUkJHZUpMTDFTcm4vN1F0YmprNDhlODJ0SkZUYS9JaG56?=
- =?utf-8?B?c3JMVlFyNjNTcnBheVpxWVVMdEc2OVl6WE5MeXJTZ1hES2FMRzVEMVRLUTBi?=
- =?utf-8?B?U2w0ZWhEMERtQUR5NWdZcFdCR2hGVmtwL0hheFp5dzFpZnBXUFFGZVN4cVMx?=
- =?utf-8?B?WXVMbjVURThSakc3Y3lZTkxWVDY3OUN6cENIWE5idEQvWnlNQVV0QTdNR3pM?=
- =?utf-8?B?cDJoOVBmbmR1WmJsWDlVbi9zdVRRcnZZbjd1alVvUlRvMjB0T09kWjFFa0lo?=
- =?utf-8?B?MDBmeSszYmx1ckNVcG9OZ25pR2ZBOG16RkZ6TmpqbkpQRmp1NVJNYkFMVzBl?=
- =?utf-8?B?ZEllMmFmUEpVSmtDK01kVWJDbmlWbWc2RW9sN21SbEZqOExWNFA0UWJVcEUw?=
- =?utf-8?B?L3gyNzV2SmFZTWV5Y3U0K2NxZmF2aG1ZQ0JudW92TUhhaDFnc1NaVzVMZmZW?=
- =?utf-8?B?SHVQbitCcTEwejB6aUdVLzhWU1VGTUVLelhZbmZrbWN1dUFsSENmM1NCS3RF?=
- =?utf-8?B?bkt0ejYyTFdsMWdwQ2YzRzhSOUlrSmxGdmU0ZjRPWFU2d1NPZkdndkhuYTkv?=
- =?utf-8?B?Sm52bENtYnZBL0k5QWMzeFJ1UFUyQUZmdHIwZEFPUDg4U0doc3gyUk14Z2Yx?=
- =?utf-8?B?Z3VWaFM4TGdORURheEFNQndnWVU4aW8vazUrek93Vm5rci8vUGZQMjBKRFUx?=
- =?utf-8?B?V2xNRG9CaDVwTnA3YWppdzVRK1VYVStlR0MxaWk1K3VPOEtrUW9UZVpEN2tx?=
- =?utf-8?B?S0wrZHl1NTBhcHg3a3d6bWVLVG9CNGpvZXF5ZXIxMDhvZHpnbjQ0c3UwRTly?=
- =?utf-8?B?TVZZMTFIL2h1T25DS2ExZUl4V1EyNXljQ0M1Wmt0cW80TWJFaTNWOVEzNVZw?=
- =?utf-8?B?SUdxL2d2QUR4YStrODZ0N3crbFFUZXlia0FvRWRoR2MvRGZsQVRWVFRSbHhK?=
- =?utf-8?B?TXlRSkJyMkxaRDJIRmx5OGVEQ2l0SDZvT2FjWm1YNGcvWWJDUnd5NzFzNC9I?=
- =?utf-8?B?c05tQ2todmJkMitEdkVibmRGWFdFRVpRSWt6Y3lVWnZzTHRKQkMrWjBoSnVl?=
- =?utf-8?B?VnJvVmlmT2U2RmxjOFdQQjE1dWhEbWdZaGtVMjV2YlR0TDczUjd5T25PNXZi?=
- =?utf-8?B?WWdlWllkTzR2NDVXbkE5MzR5elJodmpCWHdOZjk1TWt0cW5GMTJUTi9tVnFy?=
- =?utf-8?B?eWtyd3NLcFQwcUt0bDRTUHhsbTRmL0xLR0lIZWNSbHg1aWd2UDBmcktxejNS?=
- =?utf-8?B?aUpCa2dSTVBHMnExczF5azAvcDJubFByZnBJMXJQVVV1T05VdFlEb1dNVDUx?=
- =?utf-8?B?VlptdXBieTJBV1RIMWw0eEszVTFVekxLaUJMdWEwRTBZdExIa1dzMXNRcm5z?=
- =?utf-8?B?ZHpCcWdBRUh0VWFqVXRIWmJyaGp0dnhaNGxIQlJ5emNvbEZySEhxdz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe0ba968-a043-4887-b52e-08dec8b24783
-X-MS-Exchange-CrossTenant-AuthSource: CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 18:41:56.3980 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oFgo5OWH//L/jCCR6twz7aAgicNKXSZ9VhKIE5bwnQk05gkBlLKbYpfZo2bzDMxf9RArzxXyI0tdufzNN7dBpw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB2841
+References: <20260611195026.25125-1-guilherme.bozi@usp.br>
+ <33b42033-a5ae-4fa2-bafa-ea007a29eab1@amd.com>
+In-Reply-To: <33b42033-a5ae-4fa2-bafa-ea007a29eab1@amd.com>
+From: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
+Date: Fri, 12 Jun 2026 15:43:42 -0300
+X-Gm-Features: AVVi8CcfB6VWasgjDsXNWWEnkpmrEqTP8ocKbH7N_vHLj19h1d7NE8oW539gptM
+Message-ID: <CAJgF-xtvOSwB4S8Xw1JwkyWQVEMEMfpmVyTxAKaESi0s9XoRkQ@mail.gmail.com>
+Subject: Re: [PATCH RESEND 0/9] drm/amd/display: convert GPIO translation
+ logic to lookup tables
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ airlied@gmail.com, alexander.deucher@amd.com, harry.wentland@amd.com, 
+ simona@ffwll.ch, siqueira@igalia.com, sunpeng.li@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,25 +109,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Jun 10, 2026 at 5:21 PM BST, Lyude Paul wrote:
-> Just a temporary holdover to make locking/unlocking the dma_resv lock muc=
-h
-> easier.
->=20
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Co-authored-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+On Fri, Jun 12, 2026 at 4:34=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 6/11/26 21:49, Guilherme Ivo Bozi wrote:
+> > This series converts the GPIO HW translation logic used by
+> > multiple DCN generations from large switch statements to
+> > static lookup tables with shared helper functions.
+>
+> Not to block this patch set, but please keep in mind that when some array=
+ index comes from userspace to use array_index_nospec() to avoid security p=
+roblems caused by speculative execution.
+>
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+Thanks for the feedback. I reviewed the relevant GPIO and DDC paths.
+In all cases, the offsets and indices are derived from DC BIOS tables
+or internal DC GPIO service mappings, not userspace-controlled input.
 
-> ---
-> V17:
-> * Fix format of commit message title
-> V19:
-> * Add NotThreadSafe to DmaResvGuard
-> V20:
-> * s/inline(always)/inline/
->=20
->  rust/kernel/drm/gem/shmem.rs | 39 ++++++++++++++++++++++++++++++++++--
->  1 file changed, 37 insertions(+), 2 deletions(-)
+If you still prefer additional hardening for consistency, I can send a
+v2 with array_index_nospec().
 
+> We already had problems with that in the past when people converted switc=
+h statements into an array lockup.
+>
+
+I=E2=80=99ll keep this in mind for other paths where array indices may be
+influenced by userspace.
+
+Kind regards,
+Guilherme Ivo
+
+
+> Regards,
+> Christian.
+>
+> >
+> > The new implementation reduces duplicated translation logic
+> > across generations and makes the GPIO mappings easier to
+> > maintain and extend.
+> >
+> > The series introduces generic GPIO translation helpers first,
+> > followed by per-generation conversions.
+> >
+> > The following generations were converted:
+> >
+> >   - dcn10
+> >   - dcn20
+> >   - dcn21
+> >   - dcn30
+> >   - dcn315
+> >   - dcn32
+> >   - dcn401
+> >   - dcn42
+> >
+> > The dce60, dce80, dce110 and dce120 implementations were
+> > left unchanged for now.
+> >
+> > dce60 and dce80 contain special switch-case handling paths
+> > that currently do not map cleanly to the new table-based
+> > representation, so they were intentionally excluded from
+> > this refactor.
+> >
+> > No functional changes intended.
+> >
+> > v1 resend:
+> >
+> > No changes since original submission.
+> >
+> > Automated review:
+> > https://lore.gitlab.freedesktop.org/drm-ai-reviews/review-overall-20260=
+512190019.228440-1-guilherme.bozi@usp.br/
+> >
+> > Guilherme Ivo Bozi (9):
+> >   drm/amd/display: add GPIO HW translation helpers
+> >   drm/amd/display: convert dcn10 GPIO translation to lookup tables
+> >   drm/amd/display: convert dcn20 GPIO translation to lookup tables
+> >   drm/amd/display: convert dcn21 GPIO translation to lookup tables
+> >   drm/amd/display: convert dcn30 GPIO translation to lookup tables
+> >   drm/amd/display: convert dcn315 GPIO translation to lookup tables
+> >   drm/amd/display: convert dcn32 GPIO translation to lookup tables
+> >   drm/amd/display: convert dcn401 GPIO translation to lookup tables
+> >   drm/amd/display: convert dcn42 GPIO translation to lookup tables
+> >
+> >  .../dc/gpio/dcn10/hw_translate_dcn10.c        | 484 +++++++-----------
+> >  .../dc/gpio/dcn20/hw_translate_dcn20.c        | 432 ++++++----------
+> >  .../dc/gpio/dcn21/hw_translate_dcn21.c        | 417 ++++++---------
+> >  .../dc/gpio/dcn30/hw_translate_dcn30.c        | 432 ++++++----------
+> >  .../dc/gpio/dcn315/hw_translate_dcn315.c      | 418 ++++++---------
+> >  .../dc/gpio/dcn32/hw_translate_dcn32.c        | 386 +++++---------
+> >  .../dc/gpio/dcn401/hw_translate_dcn401.c      | 392 +++++---------
+> >  .../dc/gpio/dcn42/hw_translate_dcn42.c        | 193 +++----
+> >  .../drm/amd/display/dc/gpio/hw_translate.c    |  86 ++++
+> >  .../drm/amd/display/dc/gpio/hw_translate.h    |  21 +
+> >  .../gpu/drm/amd/display/include/gpio_types.h  |  48 ++
+> >  11 files changed, 1274 insertions(+), 2035 deletions(-)
+> >
+>
