@@ -4,58 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80032CD8CA8
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 17:45:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4618CD98CF
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 18:00:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD4C510F60B;
-	Fri, 12 Jun 2026 17:45:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2763210EAD4;
+	Fri, 12 Jun 2026 18:00:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WqwK4WzI";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="jTnNPHmj";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A382510F60B
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 17:44:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:Message-ID:References:
- In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=6xKptOxkaRdU2m+AIgIG1b6ebA9/IB66ovcPFEqOg4A=; b=WqwK4WzIcw1R+2dgpp2MGaxqgi
- YnRTPcWYxLe6M94vz5YLSh06lpdciAPOQhWM5KNvurQIlOcT20Ag93b8WRGD5HX0sei/WZmNHFSOm
- lXJAwfL13yhAcjfP+53tRpld1MuQ1hAeYzm1TQH0QH1zVoDY6HWW1tHK6X8P9IRrndhYjKws1lK/Y
- fYS5RuJw2jbiDxFQ7tKBYJJ0PHIbSmpkTqY67bV4Id7y81dOvO7TqUvnMYWpkVv2h/0DXYiic8N2X
- 5oPC7At5emH2Z3/k8ZxujcidgdI2c5d+e2vwfxH9zH99dVeh3/YJX0My86Kyj+GOCX9S22VeWJ/cj
- L0d+/H1A==;
-Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtps 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wY5w8-00GiGQ-H8; Fri, 12 Jun 2026 19:44:56 +0200
-Received: from webmail.service.igalia.com ([192.168.21.45])
- by mail.igalia.com with esmtp (Exim)
- id 1wY5w6-003WKG-2i; Fri, 12 Jun 2026 19:44:56 +0200
-Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
- by webmail.service.igalia.com with esmtp (Exim 4.98.2)
- (envelope-from <anholt@igalia.com>) id 1wY5w5-000000099Ms-3dU8;
- Fri, 12 Jun 2026 19:44:53 +0200
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 484DD10E0CD
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 18:00:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1781287252;
+ bh=omFKO4EP3ToAvJxa8cmB8JXZlOhJFnubM/2euZVUsQI=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=jTnNPHmjgKurL8iYKgop38z+EuApKXzKYpVcMtEBFWm/imiWuD71Fis2GkByv8XCZ
+ a9USebMYJ4BcD32a+s4KBKkWDo9cNeCdU8CaPq3Vpf14VVTcc7Q3q/BAq3rx4KsOOb
+ 9nVFZ5RphSbV2wbQl3t/XynTBAqQDVt/rG6cXPWqFOCfswjQ+LmNO1rgYKNcizbPfs
+ gprb3Ykt7O2lkL5f+gBHQa40NIW9cVUObYNfEeS5O2k6KXwE2zBcV7dA5/sObDFmQd
+ qL9jDyzcYYptRfFPmBnMqwYg+UIPZofU1LGmiyeGuSz/7XG+rRQqjkdvrDbR3M8OAT
+ J3KoG4pJCfchQ==
+Received: from jupiter.universe (unknown [100.64.1.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: sre)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id B795417E040C;
+ Fri, 12 Jun 2026 20:00:52 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+ id 7A048480029; Fri, 12 Jun 2026 20:00:52 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Fri, 12 Jun 2026 20:00:48 +0200
+Subject: [PATCH v3 02/10] drm/bridge: synopsys: dw-dp: Support
+ MEDIA_BUS_FMT_FIXED
 MIME-Version: 1.0
-Date: Fri, 12 Jun 2026 10:44:53 -0700
-From: Emma Anholt <anholt@igalia.com>
-To: Iago Toral <itoral@igalia.com>
-Cc: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, Melissa Wen
- <mwen@igalia.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 1/3] drm/v3d: Associate BOs with every job that accesses
- them
-In-Reply-To: <4a83fb4434459846c2e2936e4bbd297b75d70af1.camel@igalia.com>
-References: <20260610-v3d-cpu-job-fixes-v1-0-0d9c88989edc@igalia.com>
- <20260610-v3d-cpu-job-fixes-v1-1-0d9c88989edc@igalia.com>
- <4a83fb4434459846c2e2936e4bbd297b75d70af1.camel@igalia.com>
-Message-ID: <b61d3055e59f0c83ac5b72ddc0befd04@igalia.com>
-X-Sender: anholt@igalia.com
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260612-synopsys-dw-dp-improvements-v3-2-dc61e6352508@collabora.com>
+References: <20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com>
+In-Reply-To: <20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@collabora.com, 
+ linux-arm-kernel@lists.infradead.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1544;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=omFKO4EP3ToAvJxa8cmB8JXZlOhJFnubM/2euZVUsQI=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGosSVSDh4EWGtKE+GX79p0vuT1Lhykh22BUQ
+ 1RPnFyDk/XPYokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqLElUAAoJENju1/PI
+ O/qaBjkQAKlK6B99B5tae3/4Yf4pTYBrJyN5R92oNxB++rD7yEBXDogdrHCiMz4Ve5htpU2sIUt
+ CMSSIx9pCHz13DHpekX/9sHCXei1M27AImROaJXlJRqAVRo7xX3NwfSk7Z9CB5p0Ou+xfG2XT+j
+ 3ihnLQKWWEDt6S94jJtkmckT/MMgMizxMwoupzGUT+Qu2o7jDDoz9nQqH8HR/Z+WrnauvOCK3SW
+ 699lg5sqkS5OvuvfNsJOTZmRXIYgbayqjVDgc5YBbtEVLwv3iOKlfjBLEc+DJ+yVC1Sm3kmvNG8
+ Yc9ycTZQp6eDvx3ETm5A+8U1bd0X41Dg8QMzoejg6/C1kJoHVz2ePUpPA4GcewC8Pqrrq0Ki9i/
+ pFFpzJwJbf6T+/R5zMuliWz0Wqjo6hbAMtpEMTkT5RUoVDqRHZnXN2O0PksdHTfOLGlAp3zeTuX
+ HqnJhnuZEFt9ieZ8i+JPOpPoCfRItHD153TWYNapyLIu03Ljm3axPmgsXIVnC1JyqOw7izbhaNA
+ fAlqB2toQahqwJP4B1PKW5CNiMRbimShuBzm2RV99sxXjVLXfeKC29jtkYF0aru4J1xh57fuxcU
+ vhbl8RU9BW0LjCQg/qCYZy0U49qiiCh81fTu/yrkmstkPkv++UqATQbPB4landLYg9OIQZpEvZS
+ vdSTV/LQXFm4sIkcAmvMguw==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,197 +98,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-06-10 23:17, Iago Toral wrote:
-> Hi Maíra,
-> 
-> I have a couple of thoughts here:
-> 
-> 1. The original code seems to very specifica about targeting this only
-> for the last job, which makes it look like a very intentional decision,
-> so I wonder if there is something we are missing here. I am adding Emma
-> to the CC in case she has any thoughts about it.
-> 
-> 2. I am not aware of any issues despite not having implicit sync for
-> all the jobs in the chanin. Like you mention, this is because user-
-> space is already trying to handle job depedencies, so I wonder if we
-> should instead work on the opposite direction and try to drop implicit
-> sync in the kernel entirely. Would that make sense? What are other
-> drivers doing in this regard?
+Add support for MEDIA_BUS_FMT_FIXED, which is e.g. requested for USB-C
+DP chains as the last bridge in the chain (aux-hpd-bridge) does not
+implement atomic_get_output_bus_fmts(), which results in the generic
+drm_atomic_bridge_chain_select_bus_fmts() code using MEDIA_BUS_FMT_FIXED
+instead.
 
-Yeah, you should be working toward dropping implicit sync entirely. 
-tu's VM_BIND is really nice and where you want to be eventually, but
-even if not, then you at least want something like
-MSM_SUBMIT_NO_IMPLICIT.
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-I probably just didn't think about this implicit sync case in the
-initial implementation, because a bin job dependency on results from
-another context is just not a thing that's going to happen in practice. 
-The implicit sync was mostly about render targets / texturing to be
-ordered correctly with X11, and about lifetime management of the BO
-(which only needed the last use).
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index 36ee6e027af5..ac7779e42bb2 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -1528,6 +1528,7 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 				     struct drm_connector_state *conn_state)
+ {
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
++	unsigned int out_bus_format = bridge_state->output_bus_cfg.format;
+ 	struct dw_dp *dp = bridge_to_dp(bridge);
+ 	struct dw_dp_bridge_state *state;
+ 	const struct dw_dp_output_format *fmt;
+@@ -1538,7 +1539,10 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 	state = to_dw_dp_bridge_state(bridge_state);
+ 	mode = &state->mode;
+ 
+-	fmt = dw_dp_get_output_format(bridge_state->output_bus_cfg.format);
++	if (out_bus_format == MEDIA_BUS_FMT_FIXED)
++		out_bus_format = MEDIA_BUS_FMT_RGB888_1X24;
++
++	fmt = dw_dp_get_output_format(out_bus_format);
+ 	if (!fmt)
+ 		return -EINVAL;
+ 
 
-> As for the patch itself, I have a comment below:
-> 
-> El mié, 10-06-2026 a las 19:50 -0300, Maíra Canal escribió:
->> A submission can expand into a chain of jobs (e.g. bin + render +
->> cache
->> clean), but v3d_lookup_bos() only looked up the user's BO list onto
->> the
->> *last* job of the submission. Every earlier job was left with
->> bo_count == 0 and an empty bo[] array.
->> 
->> As a consequence, when implicit synchronization happens in
->> v3d_submit_lock_reservations(), earlier jobs get no implicit
->> dependencies at all, as the loop is gated on job->bo_count and
->> earlier
->> jobs don't have any BO attached to them. With that, the BIN job reads
->> the
->> same buffers as the RENDER job, yet nothing made it wait for a prior
->> writer to finish. The BIN job could therefore be dispatched to the
->> hardware and read a BO while another context was still writing it,
->> leading to data corruption that was only avoided as the userspace
->> adds
->> explicit syncobjs.
->> 
->> Fix this by calling v3d_lookup_bos() for each job that references the
->> submission's BOs, so every job carries its own bo[]/bo_count and
->> picks
->> up the correct implicit dependencies during reservation locking.
->> 
->> Fixes: dffa9b7a78c4 ("drm/v3d: Add missing implicit
->> synchronization.")
->> Signed-off-by: Maíra Canal <mcanal@igalia.com>
->> ---
->>  drivers/gpu/drm/v3d/v3d_submit.c | 41 +++++++++++++++++++++---------
->> ----------
->>  1 file changed, 22 insertions(+), 19 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c
->> b/drivers/gpu/drm/v3d/v3d_submit.c
->> index ee2ac2540ed5..3d6582dfb1bf 100644
->> --- a/drivers/gpu/drm/v3d/v3d_submit.c
->> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
->> @@ -68,7 +68,6 @@ v3d_submit_unlock_reservations(struct v3d_submit
->> *submit)
->>  /**
->>   * v3d_lookup_bos() - Sets up job->bo[] with the GEM objects
->>   * referenced by the job.
->> - * @dev: DRM device
->>   * @file_priv: DRM file for this fd
->>   * @job: V3D job being set up
->>   * @bo_handles: GEM handles
->> @@ -82,23 +81,19 @@ v3d_submit_unlock_reservations(struct v3d_submit
->> *submit)
->>   * failure, because that will happen at `v3d_job_free()`.
->>   */
->>  static int
->> -v3d_lookup_bos(struct v3d_submit *submit, u64 bo_handles, u32
->> bo_count)
->> +v3d_lookup_bos(struct drm_file *file_priv, struct v3d_job *job,
->> +	       u64 bo_handles, u32 bo_count)
->>  {
-> 
-> Wouldn't it make more sense to have this function take the submit like
-> it did originally and loop through all the jobs in a chain instead of
-> calling this multiple times for each job in a chain?
-> 
->> -	struct v3d_job *last_job = submit->jobs[submit->job_count -
->> 1];
->> -
->> -	last_job->bo_count = bo_count;
->> -
->> -	if (!last_job->bo_count) {
->> -		/* See comment on bo_index for why we have to check
->> -		 * this.
->> -		 */
->> -		drm_warn(&submit->v3d->drm, "Rendering requires
->> BOs\n");
->> +	if (!bo_count) {
->> +		drm_warn(&job->v3d->drm, "Rendering requires
->> BOs\n");
->>  		return -EINVAL;
->>  	}
->>  
->> -	return drm_gem_objects_lookup(submit->file_priv,
->> +	job->bo_count = bo_count;
->> +
->> +	return drm_gem_objects_lookup(file_priv,
->>  				      (void __user
->> *)(uintptr_t)bo_handles,
->> -				      last_job->bo_count, &last_job-
->> >bo);
->> +				      job->bo_count, &job->bo);
->>  }
->>  
->>  static void
->> @@ -446,7 +441,8 @@ v3d_setup_csd_jobs_and_bos(struct v3d_submit
->> *submit,
->>  	if (IS_ERR(clean_job))
->>  		return PTR_ERR(clean_job);
->>  
->> -	return v3d_lookup_bos(submit, args->bo_handles, args-
->> >bo_handle_count);
->> +	return v3d_lookup_bos(submit->file_priv, &job->base,
->> +			      args->bo_handles, args-
->> >bo_handle_count);
->>  }
->>  
->>  static void
->> @@ -1066,6 +1062,11 @@ v3d_submit_cl_ioctl(struct drm_device *dev,
->> void *data,
->>  					   &se);
->>  		if (ret)
->>  			goto fail;
->> +
->> +		ret = v3d_lookup_bos(submit.file_priv, &bin->base,
->> +				     args->bo_handles, args-
->> >bo_handle_count);
->> +		if (ret)
->> +			goto fail;
->>  	}
->>  
->>  	render = (struct v3d_render_job
->> *)v3d_submit_add_job(&submit, V3D_RENDER);
->> @@ -1085,6 +1086,11 @@ v3d_submit_cl_ioctl(struct drm_device *dev,
->> void *data,
->>  	if (ret)
->>  		goto fail;
->>  
->> +	ret = v3d_lookup_bos(submit.file_priv, &render->base,
->> +			     args->bo_handles, args-
->> >bo_handle_count);
->> +	if (ret)
->> +		goto fail;
->> +
->>  	if (args->flags & DRM_V3D_SUBMIT_CL_FLUSH_CACHE) {
->>  		clean_job = v3d_submit_add_job(&submit,
->> V3D_CACHE_CLEAN);
->>  		if (IS_ERR(clean_job)) {
->> @@ -1097,10 +1103,6 @@ v3d_submit_cl_ioctl(struct drm_device *dev,
->> void *data,
->>  	if (ret)
->>  		goto fail;
->>  
->> -	ret = v3d_lookup_bos(&submit, args->bo_handles, args-
->> >bo_handle_count);
->> -	if (ret)
->> -		goto fail;
->> -
->>  	ret = v3d_submit_lock_reservations(&submit);
->>  	if (ret)
->>  		goto fail;
->> @@ -1359,7 +1361,8 @@ v3d_submit_cpu_ioctl(struct drm_device *dev,
->> void *data,
->>  	 * the CSD and clean jobs in the case of indirect CSD job.
->>  	 */
->>  	if (args->bo_handle_count) {
->> -		ret = v3d_lookup_bos(&submit, args->bo_handles,
->> args->bo_handle_count);
->> +		ret = v3d_lookup_bos(submit.file_priv, &cpu_job-
->> >base,
->> +				     args->bo_handles, args-
->> >bo_handle_count);
->>  		if (ret)
->>  			goto fail;
->>  	}
->>
+-- 
+2.53.0
+
