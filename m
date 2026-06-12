@@ -4,49 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD751CD98CF
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 21:52:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 852B1CD98CF
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 21:58:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0228F10E110;
-	Fri, 12 Jun 2026 21:52:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC54710E331;
+	Fri, 12 Jun 2026 21:58:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fi/8K/sD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RgU7FJGu";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 400FD10E110
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 21:52:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE39710E331
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 21:58:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5A05F601DD;
- Fri, 12 Jun 2026 21:52:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DADEE1F00A3D;
- Fri, 12 Jun 2026 21:52:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 01D1860008
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 21:58:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A6181F000E9
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 21:58:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781301132;
- bh=fSxRWIcl9qU/LEj4Rcxpx/wptYk0R48ylx0jgepqy34=;
- h=From:To:Cc:Subject:Date;
- b=fi/8K/sDey3qBtFAbLERDJWoUDVQJdX/x0+AuxxgJvu1yp+9MddIaMB4X+pvvGwHG
- CgBw9xO55Fs4BpkTtz4PRRYn3z3y2JkiiyJ/QYWsXBWGOcKFco9aDxEuwF59lIuY7U
- 5utLrGbAMhp/S3tsDMtbUiVBrhR5NJ4XDhZoNBS8+95G0+rBDHYEk0AyFFDTKvI3CY
- E+5OheY3OCEc2aAtxMi1C1Dco65DmTBq6bQScFt6A/baGtwO11+blbpoplxAwxlCT+
- X9HDnJBABFl6R82je5uxMDkSgTPTkzMy2EOgs2kPLsYzEFb571PfxgGmJ+mf6VzKln
- L01bhI+K+x6jw==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/bridge: sii902x: Read "sil,i2s-data-lanes" as u32
-Date: Fri, 12 Jun 2026 16:52:04 -0500
-Message-ID: <20260612215205.1887206-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1781301486;
+ bh=Bj6w17bcLBZGeRUnuXkk2OlLENN7RLEchwDDqC4m0FM=;
+ h=From:Subject:Reply-To:Cc:In-Reply-To:References:Date;
+ b=RgU7FJGu4BxGt2fpWGIVqqpOI24R2EBXGaNJdtyaFo6m6l2ViXF9Y7C35uOvTNluE
+ f/B6sCAfocsbNrOQvWX6O4JfuL/JGA9MqmUb1xxLHcXMSy6I0NODwDoEnakyuBb3Ul
+ FekoHzhy9+yDD2NUOHhLJsmfy/+9OUAN5u/Gzk7xYU9gn8df0xxWyQ+A4+ZoPU7Bs5
+ hoIAxnboTo4W0kJVg3anq9h+WE5HxyhGseRuQ7979P6bS+vdFSNG/QduAvVoQ2MftR
+ BtCbfTHPGJsi0hzQXNZA1FnylpOF57K4Be+gDaP1OTgkPPQFdMNgE8S3/DTTc/jLS8
+ be4M3HbP9uOMA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/bridge: sii902x: Read "sil,i2s-data-lanes" as u32
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260612215205.1887206-1-robh@kernel.org>
+References: <20260612215205.1887206-1-robh@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 21:58:06 +0000
+Message-Id: <20260612215806.9A6181F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,48 +51,63 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The "sil,i2s-data-lanes" binding and in-tree DTS files use normal
-uint32 cells. Reading the array as u8 only works because the values are
-small, but it does not match the documented DT element size.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Use the u32 array helper so the driver follows the binding.
+Pre-existing issues:
+- [High] Missing bounds check on 'sil,i2s-data-lanes' values leads to out-o=
+f-bounds array read.
+--
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- drivers/gpu/drm/bridge/sii902x.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+commit 460b61bf52ca50a54beb619610726eb8680ea41a
+Author: Rob Herring (Arm) <robh@kernel.org>
 
-diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
-index 12497f5ce4ff..c27e41573b19 100644
---- a/drivers/gpu/drm/bridge/sii902x.c
-+++ b/drivers/gpu/drm/bridge/sii902x.c
-@@ -862,7 +862,7 @@ static int sii902x_audio_codec_init(struct sii902x *sii902x,
- 		.max_i2s_channels = 0,
- 		.no_capture_mute = 1,
- 	};
--	u8 lanes[4];
-+	u32 lanes[4];
- 	int num_lanes, i;
- 
- 	if (!of_property_present(dev->of_node, "#sound-dai-cells")) {
-@@ -871,10 +871,10 @@ static int sii902x_audio_codec_init(struct sii902x *sii902x,
- 		return 0;
- 	}
- 
--	num_lanes = of_property_read_variable_u8_array(dev->of_node,
--						       "sil,i2s-data-lanes",
--						       lanes, 1,
--						       ARRAY_SIZE(lanes));
-+	num_lanes = of_property_read_variable_u32_array(dev->of_node,
-+							"sil,i2s-data-lanes",
-+							lanes, 1,
-+							ARRAY_SIZE(lanes));
- 
- 	if (num_lanes == -EINVAL) {
- 		dev_dbg(dev,
--- 
-2.53.0
+drm/bridge: sii902x: Read "sil,i2s-data-lanes" as u32
 
+The commit updates the sii902x driver to read the "sil,i2s-data-lanes"
+device tree property as a u32 array instead of a u8 array. This change makes
+the driver follow the documented DT element size and binding specifications.
+
+> diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/si=
+i902x.c
+> index ea543be4ae3e2..7c90194449e1a 100644
+> --- a/drivers/gpu/drm/bridge/sii902x.c
+> +++ b/drivers/gpu/drm/bridge/sii902x.c
+> @@ -862,7 +862,7 @@ static int sii902x_audio_codec_init(struct sii902x *s=
+ii902x,
+>  		.max_i2s_channels =3D 0,
+>  		.no_capture_mute =3D 1,
+>  	};
+> -	u8 lanes[4];
+> +	u32 lanes[4];
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does changing the type of la=
+nes
+from u8 to u32 increase the severity of a potential out-of-bounds read?
+
+Later in sii902x_audio_codec_init() around line 894 of
+drivers/gpu/drm/bridge/sii902x.c, the values parsed from the device tree are
+used directly as indices into the i2s_lane_id array:
+
+	for (i =3D 0; i < num_lanes; i++)
+		sii902x->audio.i2s_fifo_sequence[i] |=3D audio_fifo_id[i] |
+			i2s_lane_id[lanes[i]] | SII902X_TPI_I2S_FIFO_ENABLE;
+
+Because i2s_lane_id has a fixed size of 4 elements and there is no validati=
+on
+on the parsed values, a malformed device tree could provide a value larger
+than 3. When lanes was an array of u8, the read offset was limited, but as a
+u32 it could hit unmapped memory and trigger a kernel oops during device pr=
+obe.
+
+Could we add a bounds check to ensure the values are within the correct ran=
+ge?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612215205.1887=
+206-1-robh@kernel.org?part=3D1
