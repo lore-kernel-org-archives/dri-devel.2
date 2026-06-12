@@ -4,92 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25E25CD98CF
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 15:17:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43A9DCD98CF
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 15:34:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6863A10EA97;
-	Fri, 12 Jun 2026 15:17:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D6AE10E558;
+	Fri, 12 Jun 2026 15:34:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="rJ5/kS37";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="YlPeCQRM";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BC4C10EA97
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 15:17:31 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-2bf22c18ad3so130675ad.0
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 08:17:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1781277451; x=1781882251;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=TlOQuFqEcpnxb6HFkKMVShmOdVTUgHEmVlFieGLUVKw=;
- b=rJ5/kS37VJcYGhASzAad/u1PMhVT10Ld+tNchtO1in6Ql30t/Z4G7qIzxMiTkUkfYA
- a/BSXFZTcAB4HUUsm+uVYn3pn+z9KHOVAD+STanDyK4Iuh3lq/si7sUEXjH0uWKYa44p
- 7H/2LvNL6DWR92rutlnq2HcpeqcXqrJt8DTUlsBvqjxoDpgCrlb9oL6dG+cPE0frOPoy
- cy3zG5UdMa3H5FJJ/Vuwuj0duYLZAIi5dGEPq903K8ZZbxR3U96AX4gnQFZ/88bYkXuF
- mLeLf5m08oE6ZckXr2fqDhpG4k8vDn3NHHxo/5dDHVMvx1oZaZgUl5dSrMrAyb4ZzQUS
- if1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781277451; x=1781882251;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=TlOQuFqEcpnxb6HFkKMVShmOdVTUgHEmVlFieGLUVKw=;
- b=dqiLcl6LkeRdh6CGp/1aVrOAA8l6UvabIA0ggnqmT+5HlpAJTigtrEfnYzK6YFmSNi
- mif1jMuXdsBk3AGBB29ljWIQR4/LpgcfkD82+9hGXtRpwL+cpCbCqKit/EbXo2RPQEU3
- TQhS9vjy4LM84VIiHPUfMYC/2roOt0M7tT0ABYsyxSjruMDkW94VlMdIDdEJpd5bVQk7
- ts1wQnXmrmCCh/pFEO+8s7QRyvsI0GUsFnqgjnUgmXQ/Ggz17EVN/056GgRD8qvTxwcH
- JC5A3wd86M+Ho3ZHhJJ6T1ZxyknQJROTskCIAKKpQDX2EGxSxnaHN/sy3aZfo4YjEC6G
- 6FQg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+dAAOkNOjQ2F9qTFD4la5QOug7YFSIKNaiUdpLgjVIWY58Asx4sIBevr93Xe4l6ZIJAeMvxUkvpfU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwaIw7LRusfGja2Ym9QN/kXoLvX3L5pZMc6l4Wh0dgzBUM7+zza
- 1V4X1QZx0cVwL25jot9N9C1eSef/Lz5KEOiZ63aZm3i3ikZBoKThSj7ubIHhyf0BUw==
-X-Gm-Gg: Acq92OHJ3WTWCdvSXq1+tCGqQXFLUM89D9o6zCoDtsebDuURMbeZuw/0s4ZDPa5/BoW
- pcwZHb2dnoLAYdgSvbv7sGCkbw7xs5czKjqshuKtV2U1GXJ0R8nDe+Na014q/U60drb/cmtu54s
- W73H3t/Ii3faj4DkAA40GmGyO6jCIR7lTGWAIFzp9qHye0drGmyE6koq1cbUYXmJdZFYK0RqxFq
- LMbVQY1rGqLLB48xKBwZKyxuOUqE2Y/9iwJO7HYDGK/5+aTCoSn18iyDW0lh/L5RbkeOdYwrs9o
- kEGxBTS2wCQ9f9MB+quU0ENu9U72U+/pr1EojfqMEq+Ae9CoP0LttuVBIb84y2tEjoeWRaL1TCD
- BzGaCCZ8AdLlkwAMwMTdJISsL1QR8c+8CLNuVFRmnMPq24b1ABf9hL9lNjoSaoE99Ifrl+VgXin
- CYrS7LoXAje5SKuourqLUzdvM1gAYCHABxwyFUAxQpumeoaDSf3EMKdvUIkS1qfRpCk0ByesU=
-X-Received: by 2002:a17:902:e805:b0:2b2:70ba:305c with SMTP id
- d9443c01a7336-2c3e1160718mr2635095ad.8.1781277450033; 
- Fri, 12 Jun 2026 08:17:30 -0700 (PDT)
-Received: from google.com (199.255.142.34.bc.googleusercontent.com.
- [34.142.255.199]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c4328a4c14sm22623545ad.43.2026.06.12.08.17.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Jun 2026 08:17:29 -0700 (PDT)
-Date: Fri, 12 Jun 2026 15:17:21 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Matt Evans <matt@ozlabs.org>
-Cc: "Tian, Kevin" <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
- Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v3 0/9] vfio/pci: Add mmap() for DMABUFs
-Message-ID: <aiwjAbFVhPkkj-6U@google.com>
-References: <20260610154327.37758-1-matt@ozlabs.org>
- <DM6PR11MB3690A65EA9D8A9B77AF93E198C182@DM6PR11MB3690.namprd11.prod.outlook.com>
- <9812ae0f-8f22-4d62-a706-4c7232a5656b@ozlabs.org>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2FB710E558;
+ Fri, 12 Jun 2026 15:34:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1781278470; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=kLzPmBojgbZ89L7mItxlMRXaGm/sP2L5lbzOADmpl3rgiGocJBB7mO+L/AGWLONgOFh8tPxJVCqI+mSEkAyJfAEFbpEk5Mt3IlQzpNQ/srYqTxONayC9nOflTWNB6yeXYo+Tw21a62V5KgMJnXZGY5lWLzJaJu7cKWOTUy96HqA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1781278470;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=JvW5RBKZmjkVrwbWVi7jTvtQpJXzpc7vzunZ6bs2MO0=; 
+ b=dymCwxceYixe2u2v+5oXx4+G0qRtCZZtRf/kYG9EUQfDh7bQQn5vV2/ZrJBoTmrQL68TUzS7zOF68LKbI/n+9LawMel0ezAf7YkoEDK6RrWEzoQKTuQgV54vLsUZLiZegYKLSG9vUy3eNcMWTzyn2HtbluyvDsgV5vPB9P67+zc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781278470; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=JvW5RBKZmjkVrwbWVi7jTvtQpJXzpc7vzunZ6bs2MO0=;
+ b=YlPeCQRMuMUHnVLlzXjjaXhTWlvzpAEdRM7P9bdy5cY6y3yaYoQ7WpQKpB3AZ0Aw
+ CDbSSHH68npVNAcRsv12fTYUki2grkE7+GB4ZpLxUnaToqYv9EcOtRKpcTkNJcSYGSC
+ r/VvJmXeICjlThj+qr3vkwzgv6eEjNfICTZMgtvk=
+Received: by mx.zohomail.com with SMTPS id 1781278467260367.5835464573727;
+ Fri, 12 Jun 2026 08:34:27 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Subject: [PATCH 0/2] Add a "min bpc" connector property
+Date: Fri, 12 Jun 2026 17:34:11 +0200
+Message-Id: <20260612-min-bpc-v1-0-bba88c2c4836@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9812ae0f-8f22-4d62-a706-4c7232a5656b@ozlabs.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NwQqDMBBEfyXsuUtjRA/+SvGQTdZ2C4k2iaUg/
+ nvT6ml48GZmg8xJOMOgNkj8lixzrNBcFLiHjXdG8ZXBaNPrXncYJCItDj3R1FJrTWcaqPaSeJL
+ Pf+k2HpxXerIrv/ppJH6t9aIcGpDNjG4OQcqgfApYZLmeCeO+fwH72x9tngAAAA==
+X-Change-ID: 20260605-min-bpc-dbbf3b3a2521
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Xaver Hugl <xaver.hugl@kde.org>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Mario Kleiner <mario.kleiner.de@gmail.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, 
+ Daniel Stone <daniel@fooishbar.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, wayland-devel@lists.freedesktop.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,63 +77,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jun 12, 2026 at 04:11:50PM +0100, Matt Evans wrote:
-> Hi Kevin,
-> 
-> On 12/06/2026 09:27, Tian, Kevin wrote:
-> >> From: Matt Evans <matt@ozlabs.org>
-> >> Sent: Wednesday, June 10, 2026 11:43 PM
-> >>
-> > [...]
-> >>
-> >>  vfio/pci: Support mmap() of a VFIO DMABUF
-> >>
-> >>    Adds mmap() for a DMABUF fd exported from vfio-pci.
-> >>
-> >>    It was a goal to keep the VFIO device fd lifetime behaviour
-> >>    unchanged with respect to the DMABUFs.  An application can close
-> >>    all device fds, and this will revoke/clean up all DMABUFs; no
-> >>    mappings or other access can be performed now.  When enabling
-> >>    mmap() of the DMABUFs, this means access through the VMA is also
-> >>    revoked.  This complicates the fault handler because whilst the
-> >>    DMABUF exists, it has no guarantee that the corresponding VFIO
-> >>    device is still alive.  Adds synchronisation ensuring the vdev is
-> >>    available before vdev->memory_lock is touched; this holds the
-> >>    device registration so that even if the buffer has been cleaned up,
-> >>    vdev hasn't been freed and so the lock can be safely taken.
-> >>
-> >>    This commit makes VFIO_PCI_CORE depend on PCI_P2PDMA_CORE
-> >> (commit
-> >>    1) to bring in (only) the P2PDMA provider code.
-> > 
-> > the last sentence is stale as the dependency is now added in patch4.
-> 
-> Right, will fix.
-> 
-> >>
-> >> End
-> >> ===
-> >>
-> >> This is based on VFIO next (e.g. at b9285405c5f6).
-> >>
-> > 
-> > Sashiko failed to apply this series. Is there dependent work in vfio-next?
-> > 
-> > otherwise getting a Sashiko review is helpful here.
-> 
-> It _did_ depend on (at least the context of) some fixes in vfio-next.
-> Looks like it'll rebase on master now those are merged.  I should've
-> re-checked this for v3, oops. :|
-> 
-> (FWIW, I had Robot Claude Opus 4.8 to review several times up to v3.
-> But I agree, Sashiko would be interesting too.  Can it be manually
-> triggered with branch guidance?)
+This series is an alternative to the link-bpc[1] series, which
+implemented an immutable property to determine the output's bit depth.
+The link bpc property wasn't very liked as it'd only be updated after an
+atomic commit went through. For a userspace that's trying to evaluate
+all available bit depths at a certain configuration, this was untenable.
 
-I guess relevant steps to run locally are here:
-https://github.com/sashiko-dev/sashiko/blob/main/README.md
+After some discussion at Display Next Hackfest 2026, the general
+consensus seemed to be that a "min bpc" property would be a better way
+forward. By setting it and "max bpc" to the same value, userspace can
+probe for supported BPCs of a configuration with repeated atomic test
+commits, without actually doing a modeset.
 
-Additionally, we can try providing a base-commit (which points to a
-public commit). 
+At the same time, it satisfies a common userspace use case: often times,
+userspace just wants to ensure that its deep color plane it's submitting
+is not being degraded by the driver to 8bpc for bandwidth reasons. By
+setting "min bpc" accordingly, userspace will get definitive feedback
+(an atomic commit failure) and can then make content-specific trade-off
+decisions that the kernel wouldn't be able to do, such as by lowering
+the framerate, or once "color format" is in, by subsampling the chroma.
+Alternatively, userspace can of course also accept that there's really
+nothing better it can do, and lower "min bpc" to accept the degradation.
 
-Thanks,
-Praan
+This series adds the property (including documentation) and implements
+it in the common HDMI state helpers (including new KUnit tests). Drivers
+that don't use the common HDMI state helpers will need to register the
+property and implement the (fairly simple) logic themselves.
+
+There is no draft userspace implementation this time around. Something
+that would adequately make the case for all the uses of "min bpc" would
+take a lot of effort to add to weston, and anything less than a full
+implementation will then be used as ammo to argue against the property.
+
+[1]: https://lore.kernel.org/dri-devel/20260330-link-bpc-v6-0-ff124af93e48@collabora.com/T/
+
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+Nicolas Frattaroli (2):
+      drm/connector: Introduce "min bpc" connector property
+      drm/connector: hdmi: Implement "min bpc" property
+
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  10 +-
+ drivers/gpu/drm/drm_atomic_helper.c                |   4 +
+ drivers/gpu/drm/drm_atomic_uapi.c                  |   4 +
+ drivers/gpu/drm/drm_connector.c                    |  81 ++++++++++++
+ drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 146 +++++++++++++++++++++
+ include/drm/drm_connector.h                        |  13 ++
+ 6 files changed, 254 insertions(+), 4 deletions(-)
+---
+base-commit: 8372c3177e62bca48fdca142601d3d3804ff3129
+change-id: 20260605-min-bpc-dbbf3b3a2521
+
+Best regards,
+--  
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+
