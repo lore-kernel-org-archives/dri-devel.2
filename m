@@ -4,61 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CF58CD98CE
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 10:43:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE8E9CD8CA8
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 10:56:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77B2C10F401;
-	Fri, 12 Jun 2026 10:43:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5035110F45D;
+	Fri, 12 Jun 2026 10:56:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="UjpMHCvQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jUT09DO3";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD31B10F401
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 10:43:50 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3749A497;
- Fri, 12 Jun 2026 12:43:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1781260998;
- bh=F5dcDiD4LJuUQlgCPut/E2WG8SDpGWV9olfhiUg5X7o=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=UjpMHCvQ+jzTq1gAsaDygtz+EnTPnHOVkExle/ostJ+/2d0aMvVKqwh10WBcXYRDd
- mTh38ELH3SJ5Rt3+6mm2fejvDLonRSjWHJiqdyPCOuEAjYEPPU4WZXRIVVoddwtsWH
- MJcWFBrwmGinqpe+t/9j+gSB2jzTpBz7g2Z/3UHo=
-Message-ID: <81f89aa1-84d8-44e1-813b-2bbcafe3687e@ideasonboard.com>
-Date: Fri, 12 Jun 2026 13:43:44 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] dt-bindings: display: bridge: Document Renesas
- R-Car V4H DSC bindings
-To: Conor Dooley <conor@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com>
- <20260515-rcar-du-dsc-v2-2-f6b9240a1240@ideasonboard.com>
- <20260515-fraying-trickle-7511a2eeaf44@spud>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20260515-fraying-trickle-7511a2eeaf44@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E392D10F43B
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 10:56:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id A8D8C4063F
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 10:56:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 782161F000E9;
+ Fri, 12 Jun 2026 10:56:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781261800;
+ bh=0QgIPsrSN1hhANEaXwlX+8JHAZcTYFG5WUFpdRZ4NEo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=jUT09DO35amoo5yNjbekq7dj5n91ZU4BH86/lJn9qxOS3eEhYYgEpnGnDBqmRlj0g
+ X5wabzD05rohxG3Y5vXc41IpTcLeiqpeAESzO985xCb4QCMj25asX2G2R6cnlFSDFK
+ 8o1dVyTk3MLkxz4u+zTJUtu4WHJz/XZO+jUV8bYE7B18ur730ln5yPRqCc1rRvEpkz
+ nYhQueEpmqO67GxgcDBtdGNbKaxNj8KEEQ/H06Y46vBh1THmGSmFN6j98yQ9eRPjy9
+ 4UviIJ5GEMUFTjdUYZZ36zPw3M7ll3XomFnCnRWjZxclNeoWgV3wgKBmT/+scRgvve
+ 5NIIepZ3q743A==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH] dma-buf/dma_fence: Make races for
+ dma_fence_is_signaled() less likely
+To: "Philipp Stanner" <phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260612104251.2264707-2-phasta@kernel.org>
+References: <20260612104251.2264707-2-phasta@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 10:56:39 +0000
+Message-Id: <20260612105640.782161F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,160 +53,117 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Critical] Moving the signaled bit update creates a window where `fence->=
+ops` is cleared to NULL but the fence is not yet marked as signaled, causin=
+g a NULL pointer dereference in lockless accessors.
+- [High] Missing release memory barrier before setting the signaled bit, de=
+feating the purpose of the patch on weakly-ordered architectures and riskin=
+g use-after-free.
+- [High] Delaying the signaled bit breaks the fast-path lockless check in `=
+dma_fence_is_signaled()`, leading to lock contention, recursive deadlocks, =
+and API contract violations.
+--
 
-On 15/05/2026 20:32, Conor Dooley wrote:
-> On Fri, May 15, 2026 at 10:56:15AM +0300, Tomi Valkeinen wrote:
->> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
->>
->> The Renesas DSC Display Stream Compression is a bridge embedded in the
->> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
->> 8k or 400 Mpixel/s .
->>
->> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->> [tomi.valkeinen: fix the example]
->> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
->> ---
->>   .../bindings/display/bridge/renesas,dsc.yaml       | 96 ++++++++++++++++++++++
->>   1 file changed, 96 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
->> new file mode 100644
->> index 000000000000..2918d592732b
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
-> 
-> Filename matching the compatible please.
+commit 0ba6de5d00b831f763affe10965d5c591e6f0b5f
+Author: Philipp Stanner <phasta@kernel.org>
 
-All the other Documentation/devicetree/bindings/display/bridge/renesas,* 
-files follow the same style, where the file name is in a generic format, 
-but the actual compat strings are per SoC (and no generic compat string).
+dma-buf/dma_fence: Make races for dma_fence_is_signaled() less likely
 
-So is the fix here to just add "renesas,dsc" compat string (and perhaps 
-later fix the other binding files too)? I'd rather not name this file 
-"renesas,r8a779g0-dsc.yaml".
+This commit addresses a race condition where dma_fence_is_signaled() can
+return true while fence callbacks are still executing. It delays setting
+the DMA_FENCE_FLAG_SIGNALED_BIT until after the callbacks have completed,
+instead of setting it at the beginning of dma_fence_signal_timestamp_locked=
+().
 
-> 
-> pw-bot: changes-requested
-> 
->> @@ -0,0 +1,96 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/display/bridge/renesas,dsc.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Renesas R-Car DSC Display Stream Compression
->> +
->> +maintainers:
->> +  - Marek Vasut <marek.vasut+renesas@mailbox.org>
->> +
->> +description: |
->> +  This binding describes the VESA DSC Display Stream Compression encoder
->> +  embedded in the Renesas R-Car V4H SoC. The encoder supports all DSC1.1
->> +  encoding mechanisms, configurable bits-per-pixel, resolution up to 8k.
->> +
->> +properties:
->> +  compatible:
->> +    const: renesas,r8a779g0-dsc
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  clocks:
->> +    maxItems: 1
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +
->> +  power-domains:
->> +    maxItems: 1
->> +
->> +  resets:
->> +    maxItems: 1
->> +
->> +  ports:
->> +    $ref: /schemas/graph.yaml#/properties/ports
->> +
->> +    properties:
->> +      port@0:
->> +        $ref: /schemas/graph.yaml#/properties/port
->> +        description: R-Car DU input port
->> +
->> +      port@1:
->> +        $ref: /schemas/graph.yaml#/properties/port
->> +        description: R-Car DSI output port
->> +
->> +    required:
->> +      - port@0
->> +      - port@1
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - clocks
->> +  - interrupts
->> +  - power-domains
->> +  - resets
->> +  - ports
->> +
->> +unevaluatedProperties: false
->> +
->> +examples:
->> +  - |
->> +    #include <dt-bindings/clock/r8a779g0-cpg-mssr.h>
->> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->> +    #include <dt-bindings/power/r8a779g0-sysc.h>
->> +
->> +    dsc@feb8d000 {
-> 
-> Speaking of fixing the example, should this not be "decoder" or
-> "bridge"?
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -359,8 +359,19 @@ void dma_fence_signal_timestamp_locked(struct dma_fe=
+nce *fence,
+> =20
+>  	dma_fence_assert_held(fence);
+> =20
+> -	if (unlikely(test_and_set_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
+> -				      &fence->flags)))
+> +	/*
+> +	 * First test the bit, so we don't signal an already signaled fence aga=
+in.
+> +	 * The lock protects against multiple parties setting the bit. The bit
+> +	 * is then set at the end of the function.
+> +	 *
+> +	 * The background is that there is a fast path check in
+> +	 * dma_fence_is_signaled() which does not use lock protection and can
+> +	 * return true *while* the fence callbacks are still executing.
+> +	 *
+> +	 * This fast path check supposedly cannot be guarded by the lock because
+> +	 * of significant performance regressions.
+> +	 */
+> +	if (unlikely(test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)))
+>  		return;
+> =20
+>  	trace_dma_fence_signaled(fence);
 
-Indeed, bridge or encoder. Both seem to be used in the existing bindings.
+[Severity: Critical]
+Because the signaled bit is no longer set here, is there a risk of a NULL
+pointer dereference for concurrent lockless readers?
 
-  Tomi
+Just below this in dma_fence_signal_timestamp_locked(), fence->ops can be
+cleared:
 
-> Not a big deal though.
-> With the changed filename
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> 
-> 
-> Cheers,
-> Conor.
-> 
->> +        compatible = "renesas,r8a779g0-dsc";
->> +        reg = <0xfeb8d000 0x400>;
->> +        interrupts = <GIC_SPI 559 IRQ_TYPE_LEVEL_HIGH>;
->> +        clocks = <&cpg CPG_MOD 2819>;
->> +        power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
->> +        resets = <&cpg 2819>;
->> +
->> +        ports {
->> +            #address-cells = <1>;
->> +            #size-cells = <0>;
->> +
->> +            port@0 {
->> +                reg = <0>;
->> +                dsc_in_dsi1: endpoint {
->> +                    remote-endpoint = <&du_out_dsi1>;
->> +                };
->> +            };
->> +
->> +            port@1 {
->> +                reg = <1>;
->> +                dsc_out_dsi1: endpoint {
->> +                    remote-endpoint = <&dsi1_in>;
->> +                };
->> +            };
->> +        };
->> +    };
->> +...
->>
->> -- 
->> 2.43.0
->>
+    ops =3D rcu_dereference_protected(fence->ops, true);
+    if (!ops->release && !ops->wait)
+        RCU_INIT_POINTER(fence->ops, NULL);
 
+With the signaled bit still false, could lockless accessors like
+dma_fence_driver_name() see the unsignaled state and evaluate
+ops->get_driver_name(fence) on the NULL ops pointer?
+
+[ ... ]
+> @@ -384,6 +395,9 @@ void dma_fence_signal_timestamp_locked(struct dma_fen=
+ce *fence,
+>  		INIT_LIST_HEAD(&cur->node);
+>  		cur->func(fence, cur);
+>  	}
+
+[Severity: High]
+If a callback executes while the signaled bit is still false, won't this
+break the lockless fast-path check in dma_fence_is_signaled()?
+
+If dma_fence_is_signaled() or dma_fence_timestamp() is called from within
+a callback, the unsignaled state would cause dma_fence_timestamp() to hit
+a WARN_ON(!test_bit(...)).
+
+Additionally, dma_fence_is_signaled() would fall back to dma_fence_signal(),
+which attempts to acquire the fence->lock. Since the lock is already held
+by the current thread executing the callbacks, would this result in a
+recursive deadlock?
+
+> +
+> +	// TODO: we need some barrier here, don't we?
+> +	set_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+
+[Severity: High]
+Does this missing memory barrier reintroduce the use-after-free risk on
+weakly-ordered architectures?
+
+Since set_bit() does not imply a memory barrier, could the CPU reorder
+this assignment to become globally visible before the memory writes perform=
+ed
+by the callbacks?
+
+If a concurrent lockless reader using dma_fence_test_signaled_flag()
+observes the bit as set but reads stale data, this might defeat the purpose
+of the patch. Is an explicit smp_mb__before_atomic() needed here?
+
+>  }
+>  EXPORT_SYMBOL(dma_fence_signal_timestamp_locked);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612104251.2264=
+707-2-phasta@kernel.org?part=3D1
