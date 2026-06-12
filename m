@@ -4,99 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0807BCD98D2
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 18:39:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC2DBCD98CF
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 18:39:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11B7210F64A;
-	Fri, 12 Jun 2026 18:39:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FA9A10F67D;
+	Fri, 12 Jun 2026 18:39:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="gJqWBQgO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n2efuH84";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0224B10F64A
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 18:39:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1781289574;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=9hjvIQdDCosfn7FQViIiZN3fmJqSK0XtflTNuA4kTRI=;
- b=gJqWBQgO1fNUmJ5E/GXTE7jw1xKsYo76pvJRmcu8r0dBrVhWfyN94F2gZLnzjHI8ItueSm
- iMLSwKXoGt8Ef9nWBOlDbuCtNVhSw852gM6koRIL0dH2xdE4w0Pq9gcxpWnZIHfq+UqEua
- 2Ot7szzdZEGCr0eTMOmUSYQjpUMwqic=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-320-MT3K1DRuOv-xu8rxHzwsQQ-1; Fri, 12 Jun 2026 14:39:32 -0400
-X-MC-Unique: MT3K1DRuOv-xu8rxHzwsQQ-1
-X-Mimecast-MFC-AGG-ID: MT3K1DRuOv-xu8rxHzwsQQ_1781289572
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-91598af506cso131542485a.0
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 11:39:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781289572; x=1781894372;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=9hjvIQdDCosfn7FQViIiZN3fmJqSK0XtflTNuA4kTRI=;
- b=eYnBRY1LzbimVzjAw5LQir6iRJZweoiKiaGwuwFqvqUzoO7lZm4qa+JlJwqh4MXZiR
- pA+NU40PQab2hwKzOjt7c9Q6s2DP6q2p8pEn8SvgsvQYMAsgNF1mILhHFw0XHy0Rz4z5
- MT/542QnSjR407VRQtIfqGTPMvk3qvIRPt9Uk2cvW20IN5YB5gxsHi4AKhroiIyP0+b8
- XJ8e22ctaBzcR8mZhzCIdOpGTLCi5XjtaY9Igyrp3KZALq10B8DGolza8jAKbaxSKGn3
- aXVwz/p2BvVPEfKFCYiVd3kQFHQSbPMCdqNLK6tP4ONRuYqIMdNAijErJrj2iXXj1Cds
- 7bCA==
-X-Gm-Message-State: AOJu0YxemhYxCRJ6Poe5B1JUUeHNAxcnqNoS6/5+fRPKGF4k6iTTvscK
- +GTFmsz4NHCWjRbksUm+2COwu4rr+b41XctyW0XBuLtKSngw0K+Dx1FR9rZzolBaEFarRPgXj+V
- 0wy/yZqt2BClB31VILF6QwH03zkFoJN5GPpHMHsd7zjgyULWt3kA2+wGK412Xp6v2i6XAIg==
-X-Gm-Gg: Acq92OESNlLRNF7HRwdvudfPWiEYextALTu+99NdZLihr+di8nN1iilw3rGAKz2BSxU
- oBFRYS4hv3X+3CagVJLpE302wBtglogI/JUAStT0wh1Mqbnpc8TgSwoqPMq2inLuhBewC0n/oMB
- AiArUpNmF+wWr3Z0zIHic5c+EtJgiiigqbNtIO41s2LILoDuHsyLHNg0kogTdXX1O1nf4BwEEBf
- qgdXMLUgjraFbmGX81mqeCjswUb8R2YLfmATZBUiT3wIqRUaZbTcA2oWtr66Yg/uKhKTZa8vbJ9
- rR0aAP4t9B8yqFp5Le31iokwkHMfodG22h19bIv4rY8EErhp+EiB7aCOKLY4ccP2iKUaP9h/rwO
- Em3JhlootMmUYIphOkQ==
-X-Received: by 2002:a05:620a:8012:b0:914:c032:5870 with SMTP id
- af79cd13be357-9161bd604f9mr617287685a.38.1781289571979; 
- Fri, 12 Jun 2026 11:39:31 -0700 (PDT)
-X-Received: by 2002:a05:620a:8012:b0:914:c032:5870 with SMTP id
- af79cd13be357-9161bd604f9mr617282985a.38.1781289571521; 
- Fri, 12 Jun 2026 11:39:31 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9161a03d6fcsm272275585a.35.2026.06.12.11.39.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Jun 2026 11:39:30 -0700 (PDT)
-Message-ID: <da0dd5cf287f8739d6b099646b3fb98153670f3b.camel@redhat.com>
-Subject: Re: [Linaro-mm-sig] Re: [PATCH v20 2/4] rust: drm: gem: shmem: Add
- vmap functions
-From: lyude@redhat.com
-To: Deborah Brouwer <deborah.brouwer@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- nouveau@lists.freedesktop.org, Alexandre Courbot <acourbot@nvidia.com>,
- Gary Guo	 <gary@garyguo.net>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, driver-core@lists.linux.dev, Miguel Ojeda	
- <ojeda@kernel.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Alice Ryhl <aliceryhl@google.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org,  Sumit Semwal <sumit.semwal@linaro.org>,
- linux-media@vger.kernel.org, "Rafael J . Wysocki" <rafael@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard
- <mripard@kernel.org>, David Airlie <airlied@gmail.com>, Benno Lossin
- <lossin@kernel.org>, linaro-mm-sig@lists.linaro.org, Danilo Krummrich
- <dakr@kernel.org>,  Mukesh Kumar Chaurasiya	 <mkchauras@gmail.com>, Asahi
- Lina <lina+kernel@asahilina.net>, Daniel Almeida	
- <daniel.almeida@collabora.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>
-Date: Fri, 12 Jun 2026 14:39:29 -0400
-In-Reply-To: <airp4AHxiJKWn5tr@um790>
-References: <20260610162433.923550-1-lyude@redhat.com>
- <20260610162433.923550-3-lyude@redhat.com> <airp4AHxiJKWn5tr@um790>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: b2wv-DhXZGjb5yM06Rbt98be7sI1fIx79TwC12BMk_E_1781289572
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D0F810F666
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 18:39:46 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4152A407EF;
+ Fri, 12 Jun 2026 18:39:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA4EE1F000E9;
+ Fri, 12 Jun 2026 18:39:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781289586;
+ bh=ZArZBaKKFiZlPiUp+LHSS2hiX1yWfDWAC9LuhEn735o=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=n2efuH84u3UqaYAE1B2+lTueGuKPUUBQa2rL+rug5AkqO8BsYuv8o0wxX4XKa+SpM
+ bW4+v3mTtECr+fquN/Fy5LU7+4JVaOcpWCy1uChaZO/QcPVzIzVGtFmp/T95zuu/G0
+ TumGUDvXfqn9UGuunfSlyzUOZV1ciMlwYV6u6OLg155lgapLOrXH2+jMTOFLwo6FNk
+ 0WfERXci8Aj4uWIXYF+Z7x6TUI6A0BYzWVAlc7ZkHmHwA+1RjetLgjtl+SREFlzn1H
+ L3s+zh5aVnPxylnI/0AkLdmVC5WiHZBXL5beNQfDnvVeuwHrCXqTGk3EenRvrSBjoi
+ 9w45Irh5VmnQg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 4/9] drm/komeda: use drmm_writeback_connector_init()
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: wsa+renesas@sang-engineering.com, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260612-wb-drop-encoder-v6-4-9f3a54f81310@oss.qualcomm.com>
+References: <20260612-wb-drop-encoder-v6-4-9f3a54f81310@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Fri, 12 Jun 2026 18:39:45 +0000
+Message-Id: <20260612183945.EA4EE1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,18 +52,114 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 2026-06-11 at 10:01 -0700, Deborah Brouwer wrote:
->=20
-> Hi Lyude, i've got a clippy error here that "into_iter()" is
-> redundant
-> because it converts a Range<usize> into a Range<usize>.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Calling kfree() on a pointer allocated by drmm_kzalloc() will caus=
+e a kernel panic or slab corruption.
+- [Medium] The dynamically allocated `formats` array is leaked if `drmm_pla=
+in_encoder_alloc()` fails.
+--
 
-Yep, that's completely correct! It looks like I was running my kunit
-tests without WERROR and CLIPPY by mistake, which would explain how I
-missed this :).
+commit 05d31d945f92ca6cf7a26ad265d8715c134b9631
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Will fix in the next respin in just a moment
+drm/komeda: use drmm_writeback_connector_init()
 
+This commit converts the writeback connector and its encoder initialization
+to use DRM managed equivalents.
+
+> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c b/d=
+rivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+> --- a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
+
+[ ... ]
+
+> @@ -143,13 +137,15 @@ static int komeda_wb_connector_add(struct komeda_km=
+s_dev *kms,
+>  	struct komeda_wb_connector *kwb_conn;
+>  	struct drm_writeback_connector *wb_conn;
+>  	struct drm_display_info *info;
+> +	struct drm_encoder *encoder;
+> +
+>  	u32 *formats, n_formats =3D 0;
+>  	int err;
+> =20
+>  	if (!kcrtc->master->wb_layer)
+>  		return 0;
+> =20
+> -	kwb_conn =3D kzalloc_obj(*kwb_conn);
+> +	kwb_conn =3D drmm_kzalloc(&kms->base, sizeof(*kwb_conn), GFP_KERNEL);
+>  	if (!kwb_conn)
+>  		return -ENOMEM;
+> =20
+> @@ -165,11 +161,19 @@ static int komeda_wb_connector_add(struct komeda_km=
+s_dev *kms,
+>  		return -ENOMEM;
+>  	}
+
+[Severity: High]
+Does this error path in komeda_wb_connector_add() call kfree() on a DRM
+managed allocation?
+
+The kwb_conn pointer is now allocated via drmm_kzalloc(), which manages
+memory via the DRM device lifecycle and returns a pointer pointing inside a
+slab object (after the drmres tracking header).
+
+The error path just above this context shows:
+
+	if (!formats) {
+		kfree(kwb_conn);
+		return -ENOMEM;
+	}
+
+Calling kfree() on this managed pointer will pass an offset pointer to the
+slab allocator, which can result in an invalid free that triggers a kernel
+panic. DRM-managed memory must not be manually freed with kfree().
+
+> -	err =3D drm_writeback_connector_init(&kms->base, wb_conn,
+> -					   &komeda_wb_connector_funcs,
+> -					   &komeda_wb_encoder_helper_funcs,
+> -					   formats, n_formats,
+> -					   BIT(drm_crtc_index(&kcrtc->base)));
+> +	encoder =3D drmm_plain_encoder_alloc(&kms->base, NULL,
+> +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
+> +	if (IS_ERR(encoder))
+> +		return PTR_ERR(encoder);
+
+[Severity: Medium]
+Does this error path leak the formats array in komeda_wb_connector_add()?
+
+The formats array was dynamically allocated earlier, but returning directly
+here skips calling komeda_put_fourcc_list(formats), leaking the memory.
+
+> +
+> +	drm_encoder_helper_add(encoder, &komeda_wb_encoder_helper_funcs);
+> +
+> +	encoder->possible_crtcs =3D drm_crtc_mask(&kcrtc->base);
+> +
+> +	err =3D drmm_writeback_connector_init(&kms->base, wb_conn,
+> +					    &komeda_wb_connector_funcs,
+> +					    encoder,
+> +					    formats, n_formats);
+>  	komeda_put_fourcc_list(formats);
+>  	if (err) {
+>  		kfree(kwb_conn);
+
+[Severity: High]
+Can this kfree() corrupt memory in komeda_wb_connector_add()?
+
+Similar to the previous error path, kwb_conn is now allocated with
+drmm_kzalloc(), and manually calling kfree() on a DRM managed pointer
+can lead to a kernel panic.
+
+>  		return err;
+>  	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-wb-drop-en=
+coder-v6-0-9f3a54f81310@oss.qualcomm.com?part=3D4
