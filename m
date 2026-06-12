@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D5C3CD98CF
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 17:17:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EA1ECD98D6
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 17:17:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34FCE10F5BC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8F5D10F5D0;
 	Fri, 12 Jun 2026 17:17:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I+zMYdUf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DUNJwzub";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0506D10EAEC
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3058310F5BC
  for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 17:17:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 34154601E1;
+ by tor.source.kernel.org (Postfix) with ESMTP id 6C0AD601E9;
  Fri, 12 Jun 2026 17:17:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F327CC2BCB8;
- Fri, 12 Jun 2026 17:17:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 087A5C2BCB4;
+ Fri, 12 Jun 2026 17:17:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1781284656;
- bh=lonMWUk3tdHkzE//oyRyvMIpUZlUAdavhA4XYi3iZ5A=;
+ bh=GDjHfQZoc7scZybjReCblcY+AxvZchQJmL41JDZKmoE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=I+zMYdUfbcqk41yn78YQ7piKTwj5LbiK+zglOuN+Gw21xFv2qu0zIF9q3kHuCojuQ
- b4K1ZvcSl0fKYxuDnFs4qzVxuZJ3RGeHJY/eLQrwclOkYKOPXzTRWXJBKAc5eaWNlT
- wha2eXWLN4LvTWy01vjyO7VXTaDSHenIlBEnuSek5rKNbeeHdP3v31bTFNDB8jwHHw
- kIFomodhOwniVA6X0fBh+/rEl7IUj4EYgnSP6kkA8pCIeQnQmJBBsQqoH5nsfKiMfv
- YW62Bel5SSkZY/woRWbrna6BFfqp4rLqWheSOhWLBIhzB1bc05nh6v8CzH4P7K1UI1
- uml3xqB05qIfQ==
+ b=DUNJwzuboUf8yIKCS2LCWrnVGEfv3MmF5hIw6XH16lK42518nY5GwHVZKmrxv2syi
+ XcQxehLr98ZWz30KoGsicWi6Mr9xEz2IOjL6Y01xUxVHCx488UHFXN4z+r510/LLpw
+ OkOZYAZWeSwtoexqrNcKsWvCDBsuhI/VJ8J9WvYjsTeZkhniu2uxwO5Y1zHFYinAiA
+ 8sb01g4ySQvQxxMyaviaMX/HfgcRuKlPSIUSKGCvgjq2sZsCdtsaMmggfOGjHO5Pgo
+ 7e1s1C49YvSN7pg3j+kyCopJYXnIUqwyGW/Lh8DLwiVkmBQdu9bMcT1S+CSgz0w/WK
+ leLE3AqyLWAdw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id D6C7FCD98CE;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id EDD61CD98CF;
  Fri, 12 Jun 2026 17:17:35 +0000 (UTC)
 From: Alberto Ruiz via B4 Relay <devnull+aruiz.redhat.com@kernel.org>
-Date: Fri, 12 Jun 2026 18:17:16 +0100
-Subject: [PATCH 1/4] drm/solomon: add ssd130x_run_cmd_seq() for batch
- command execution
+Date: Fri, 12 Jun 2026 18:17:18 +0100
+Subject: [PATCH 3/4] drm/solomon: use ssd130x_run_cmd_seq() in ssd132x_init()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260612-ssd-batchcmd-v1-1-c61e5f7c24bc@redhat.com>
+Message-Id: <20260612-ssd-batchcmd-v1-3-c61e5f7c24bc@redhat.com>
 References: <20260612-ssd-batchcmd-v1-0-c61e5f7c24bc@redhat.com>
 In-Reply-To: <20260612-ssd-batchcmd-v1-0-c61e5f7c24bc@redhat.com>
 To: Javier Martinez Canillas <javierm@redhat.com>, 
@@ -51,11 +50,11 @@ To: Javier Martinez Canillas <javierm@redhat.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Alberto Ruiz <aruiz@redhat.com>
 X-Mailer: b4 0.15.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781284654; l=2024;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781284654; l=4164;
  i=aruiz@redhat.com; s=20260612; h=from:subject:message-id;
- bh=7aY1PLlc9EJ6kLHma9AUr2Hy4BkrCZ+OPY9RYqNraa8=;
- b=lu5PX75vL6lQbkOsRQQAYv7YUE1Tn1Fv/pH2+a55vb6vriNela8AXX4bkuWcnPNH6hDqA6LPX
- CJagk3r8LwEArDW0Hm5Ro+cruvB2clp02mOo6F3mEZNHvRxpdB38+bq
+ bh=ZxVXIKcONNxgJZO+E12kfo8TLu8zbFtcaxkY6PeGK/0=;
+ b=Rgp07uO1vB8/K6eVI0Dy6qTinRPB49rkb668M2Vdk6yJwDqe1/QOoMyo1D0d9Ozw52J7H7GmW
+ 7kyiW9863txD+O8P7jAtIrhHdD2GQ5rjVvyGdGSqB8PELvQy/D+EFvO
 X-Developer-Key: i=aruiz@redhat.com; a=ed25519;
  pk=d1doFQwve1B/jU9nG5oPl1W5d+t+iFrjkkwk/hD97Ow=
 X-Endpoint-Received: by B4 Relay for aruiz@redhat.com/20260612 with auth_id=818
@@ -78,69 +77,138 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Alberto Ruiz <aruiz@redhat.com>
 
-Introduce ssd130x_run_cmd_seq() that interprets a flat byte array of
-length-prefixed command entries terminated by a zero byte, removing the
-need for per-command error checking at each call site.
+Replace individual ssd130x_write_cmd() calls and per-command error
+checks with a flat command array dispatched through ssd130x_run_cmd_seq().
 
 Signed-off-by: Alberto Ruiz <aruiz@redhat.com>
 ---
- drivers/gpu/drm/solomon/ssd130x.c | 43 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 43 insertions(+)
+ drivers/gpu/drm/solomon/ssd130x.c | 112 +++++++++-----------------------------
+ 1 file changed, 27 insertions(+), 85 deletions(-)
 
 diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
-index c77455b1834d..46e2c277a9bf 100644
+index ec6bf9f6c7c8..a9914365ad27 100644
 --- a/drivers/gpu/drm/solomon/ssd130x.c
 +++ b/drivers/gpu/drm/solomon/ssd130x.c
-@@ -276,6 +276,49 @@ static int ssd130x_write_cmd(struct ssd130x_device *ssd130x, int count,
- 	return ret;
+@@ -551,92 +551,34 @@ static int ssd130x_init(struct ssd130x_device *ssd130x)
+ 
+ static int ssd132x_init(struct ssd130x_device *ssd130x)
+ {
+-	int ret;
+-
+-	/* Set initial contrast */
+-	ret = ssd130x_write_cmd(ssd130x, 2, SSD13XX_CONTRAST, 0x80);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* Set column start and end */
+-	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_COL_RANGE, 0x00,
+-				ssd130x->width / SSD132X_SEGMENT_WIDTH - 1);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* Set row start and end */
+-	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_ROW_RANGE, 0x00, ssd130x->height - 1);
+-	if (ret < 0)
+-		return ret;
+-	/*
+-	 * Horizontal Address Increment
+-	 * Re-map for Column Address, Nibble and COM
+-	 * COM Split Odd Even
+-	 */
+-	ret = ssd130x_write_cmd(ssd130x, 2, SSD13XX_SET_SEG_REMAP, 0x53);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* Set display start and offset */
+-	ret = ssd130x_write_cmd(ssd130x, 2, SSD132X_SET_DISPLAY_START, 0x00);
+-	if (ret < 0)
+-		return ret;
+-
+-	ret = ssd130x_write_cmd(ssd130x, 2, SSD132X_SET_DISPLAY_OFFSET, 0x00);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* Set display mode normal */
+-	ret = ssd130x_write_cmd(ssd130x, 1, SSD132X_SET_DISPLAY_NORMAL);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* Set multiplex ratio value */
+-	ret = ssd130x_write_cmd(ssd130x, 2, SSD13XX_SET_MULTIPLEX_RATIO, ssd130x->height - 1);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* Set phase length */
+-	ret = ssd130x_write_cmd(ssd130x, 2, SSD132X_SET_PHASE_LENGTH, 0x55);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* Select default linear gray scale table */
+-	ret = ssd130x_write_cmd(ssd130x, 1, SSD132X_SELECT_DEFAULT_TABLE);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* Set clock frequency */
+-	ret = ssd130x_write_cmd(ssd130x, 2, SSD132X_SET_CLOCK_FREQ, 0x01);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* Enable internal VDD regulator */
+-	ret = ssd130x_write_cmd(ssd130x, 2, SSD132X_SET_FUNCTION_SELECT_A, 0x1);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* Set pre-charge period */
+-	ret = ssd130x_write_cmd(ssd130x, 2, SSD132X_SET_PRECHARGE_PERIOD, 0x01);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* Set pre-charge voltage */
+-	ret = ssd130x_write_cmd(ssd130x, 2, SSD132X_SET_PRECHARGE_VOLTAGE, 0x08);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* Set VCOMH voltage */
+-	ret = ssd130x_write_cmd(ssd130x, 2, SSD130X_SET_VCOMH_VOLTAGE, 0x07);
+-	if (ret < 0)
+-		return ret;
+-
+-	/* Enable second pre-charge and internal VSL */
+-	ret = ssd130x_write_cmd(ssd130x, 2, SSD132X_SET_FUNCTION_SELECT_B, 0x62);
+-	if (ret < 0)
+-		return ret;
++	const u8 cmds[] = {
++		2, SSD13XX_CONTRAST, 0x80,
++		3, SSD132X_SET_COL_RANGE, 0x00,
++					ssd130x->width / SSD132X_SEGMENT_WIDTH - 1,
++		3, SSD132X_SET_ROW_RANGE, 0x00, ssd130x->height - 1,
++		/*
++		 * Horizontal Address Increment
++		 * Re-map for Column Address, Nibble and COM
++		 * COM Split Odd Even
++		 */
++		2, SSD13XX_SET_SEG_REMAP, 0x53,
++		2, SSD132X_SET_DISPLAY_START, 0x00,
++		2, SSD132X_SET_DISPLAY_OFFSET, 0x00,
++		1, SSD132X_SET_DISPLAY_NORMAL,
++		2, SSD13XX_SET_MULTIPLEX_RATIO, ssd130x->height - 1,
++		2, SSD132X_SET_PHASE_LENGTH, 0x55,
++		1, SSD132X_SELECT_DEFAULT_TABLE,
++		2, SSD132X_SET_CLOCK_FREQ, 0x01,
++		2, SSD132X_SET_FUNCTION_SELECT_A, 0x1,
++		2, SSD132X_SET_PRECHARGE_PERIOD, 0x01,
++		2, SSD132X_SET_PRECHARGE_VOLTAGE, 0x08,
++		2, SSD130X_SET_VCOMH_VOLTAGE, 0x07,
++		/* Enable second pre-charge and internal VSL */
++		2, SSD132X_SET_FUNCTION_SELECT_B, 0x62,
++		0,
++	};
+ 
+-	return 0;
++	return ssd130x_run_cmd_seq(ssd130x, cmds);
  }
  
-+/*
-+ * Write a command byte sequence from a buffer.
-+ *
-+ * Like ssd130x_write_cmd() but takes a pre-built byte array instead of
-+ * variadic arguments, handy when the command is already in an array or
-+ * when the caller wants to use sizeof() for the length.
-+ */
-+static int ssd130x_write_cmds(struct ssd130x_device *ssd130x, const u8 *cmd,
-+			      size_t len)
-+{
-+	unsigned int i;
-+	int ret;
-+
-+	for (i = 0; i < len; i++) {
-+		ret = regmap_write(ssd130x->regmap, SSD13XX_COMMAND, cmd[i]);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * Run a packed command sequence.  The format is a flat byte array where each
-+ * entry starts with a length byte followed by that many command bytes.  A
-+ * zero length byte terminates the sequence.
-+ *
-+ * Example: { 2, 0x81, 0x80, 1, 0xAF, 0 }
-+ *   sends command {0x81, 0x80}, then command {0xAF}, then stops.
-+ */
-+static int ssd130x_run_cmd_seq(struct ssd130x_device *ssd130x, const u8 *seq)
-+{
-+	while (*seq) {
-+		u8 len = *seq++;
-+		int ret = ssd130x_write_cmds(ssd130x, seq, len);
-+
-+		if (ret)
-+			return ret;
-+		seq += len;
-+	}
-+
-+	return 0;
-+}
- /* Set address range for horizontal/vertical addressing modes */
- static int ssd130x_set_col_range(struct ssd130x_device *ssd130x,
- 				 u8 col_start, u8 cols)
+ static int ssd133x_init(struct ssd130x_device *ssd130x)
 
 -- 
 2.53.0
