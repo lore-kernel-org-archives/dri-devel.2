@@ -4,59 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C7EECD98CE
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 07:12:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70F50CD98CE
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 07:23:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 533E710F2A9;
-	Fri, 12 Jun 2026 07:12:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC6D710F2AD;
+	Fri, 12 Jun 2026 07:23:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BIuT9w9u";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hwKrzARM";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dny47B7L";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0050210F2A9
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 07:12:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781248358; x=1812784358;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=bUJPVlwGV7oV3DLjYRgJflQae7CbAxZLA9Hg13GQ8Qc=;
- b=BIuT9w9uLVUYM6wPWYynPCMCegp8iK8DHjL6TeefJaIYGjTsor83gRL/
- y+93rZ0oET94ypjAm00EulaTqcefVCs7JTu8KztZhnF1gsw6mhLOVx4+P
- O6ScoqSXGaqLIhkYF51dA9sCLT6uk6jlxsK4o9CT0lRvH3cmMWHYvjr0i
- pVtnsxA53s1D7n1HkWa8sCAvVJNEGiJdsNSGn1yBhJlot15ud8uFYzePJ
- Eg1Blhzme2v9DJBEdNgsZ10PNRa/JDBrSe2XQbxIAR6UQKEaEoT5ACtNq
- qkg1A9Dy8dchtkzo2lytYA+HD0KOVDZuhEzoXEiR4VSdRBmoMp6RXn5WF w==;
-X-CSE-ConnectionGUID: IEO3O0wATMyaDpZxQOhHcw==
-X-CSE-MsgGUID: rhdUkl4mQq2RcGQ6xPudpA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="93566178"
-X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; d="scan'208";a="93566178"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2026 00:12:37 -0700
-X-CSE-ConnectionGUID: dtVWLf3STJqT2X8V43wT/g==
-X-CSE-MsgGUID: RdTfT7JcQcO/czNOr0GC5A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; d="scan'208";a="248628500"
-Received: from soc-5cg43972ff.clients.intel.com (HELO [10.102.88.80])
- ([10.102.88.80])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2026 00:12:36 -0700
-Message-ID: <0eab4c8a-65e6-4644-a6ef-e46a0d262980@linux.intel.com>
-Date: Fri, 12 Jun 2026 09:12:34 +0200
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5D8210E2CC
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 07:23:15 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65C3CAR12534828
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 07:23:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=Oi02IyzSr2sjg28TGbtMd8Pl
+ 3gIGWlHwztSqBTj9Kew=; b=hwKrzARMcTQhsrFdvIsZn/qzAlg7kEDPSZhEWjt7
+ Z2byHXJe0EU9fhILDX6Y7/KJxV9io9bDE+aN3kY7JxgMRKhxHNVOipJ86zpR/4ER
+ pYj3yvVpGw2OLYu3cdD0cNxJYWM/w6oDVH4k7/TyJO82o3YL+iMag6BIZpb9k/I8
+ XSftKm1s771YfesjyHfyJaceyuL/EBm4tEXNEwqUFLeNNK5KDoULunbyVYHZgkDm
+ /MEdAE5bCvZakblrN7mYe6H2jOpJcuJud6EFC5DzU1oxK8HAQ+LS1NxtN1uW+Bmo
+ JjeKJkR+IU7fBg5D7EitRiZ1radArMrND+lLo5pFNpfvqA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4er76eh1su-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 07:23:14 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-5178aed25baso11839021cf.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 00:23:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1781248994; x=1781853794;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Oi02IyzSr2sjg28TGbtMd8Pl3gIGWlHwztSqBTj9Kew=;
+ b=Dny47B7LhbLf9+b1grJ7DmaLXx/9uuDO5qerSLJ+XXPHkJ5NFhXzvGh4GADK5I3zVq
+ czLBiMinvSK5jUULRmsCRUAWWm/RNidQK//VxRmDds1hKXtTVgja2PzPXSyhBxdDfxgw
+ 9obY/0xJZi3hCqF7ZXF9EdcXb3kDam37aaywgb3xZGEBdCHKDPQzgMKbu+BraUhpqqT+
+ cLJ0KKZkAeYxSOZKypmSOd+5L74QBrdpXizLg0nLO9VCU9bKw5mkhWMedkUnTg3emPkG
+ BLcNkLEWouKfWIDpR7f9TsNrUBOVyyH4uWVz/keSGvxSb6nf9ML5IZizeBQxn2Z+Kzac
+ b6MA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781248994; x=1781853794;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Oi02IyzSr2sjg28TGbtMd8Pl3gIGWlHwztSqBTj9Kew=;
+ b=gXusCQYkMcgceHfj2GJSvV9kLEAFWcDxi62+1dNBpMCx1JK+WtAieNN+zhgAaLYw/h
+ /hrOehXYHzHVKaFgWADPlFLEWa8utGobazHj0p7viGPiri50qtFaIsNPs9SOebKoHbsg
+ 0B4mF1OjAOUviWBvOvmrYURQ/erGmJZjcRka+4JGZNJuZIaE1Bj6PcZKixY/gZtH1LxL
+ hMlRyal3gUQ/NIzs1/TBPdnFWUCNXpMVLYXhN1FFeFiWt2bGvtwdyXvDlYkzymUAx84M
+ +E2XqqlAuE2RGUMCbFpHG6xUDtJ6SHLSLjLdvbzR5PeKW9+zI7ObeBFdPRAP1Ig3gzAW
+ mjMQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/ejhuLWMgayu0WjoVlTfFHzBnRwgtmAPCgZHMmd+9080SvSKYhgpxeVrUv0YeHe6Lz8MhD3b9u9KM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzU8Dnb3zFw1yROog23IutN+dA7S/MOfnUo0tyHwxDE8pSMHyfe
+ Hfg45ugqi1eiNxMv/powvyFArkHjjWf3BlICSsqoyfUSu/I+bWKeOBoZkrnKYGUKo4cZbznFPMA
+ L+pfz1yGf8u+Lc07tGaXTY/X6V9zHY5Ff9hK31PP42I9YkYLXi7oz+OgchEaXM30yeNQiOxo=
+X-Gm-Gg: Acq92OFY8yks5w+oEiSIrTgZA4Cp7n4OUd1RPQthzBzyO0zYCwRnfHZAXgLu8pmuiRL
+ youlvtcMkO4gjo6501u85rvYhhvaKwhzwcmWrJcbIF2DDEvki+IdKth8zVtFDRWzvofrDWDnFJe
+ AtE2e+iX6YWMcUHJDODC7Os/McPfTApouZUJKpR5wde872EfvX/hDW1JdYkZw3TCOAxV0uiqcSt
+ trnsu2QBM3KYFIIDJMiYSipR9VaCJPuNxM+RERMim5cJJL3WrjK8+PIrGfc1boDX0rrJvwmuEA6
+ AUa8pu8+1b1FNjqY6+2d5iZG43cn1nAPOCQTPsZ9aYtgs2vDmVBrD7qrx9QQnwkiNeOb6s2m4dc
+ srTOkuXYEZmkHVmPxtSQN4de2fVpJJup+LUFF/JvDVskn9FmL+7JvcPBI3nKCwKL4oQd0B5YLs/
+ X7O4Q5TvhapXIZK0NKgz2V0AXLpu6drS+NbUY=
+X-Received: by 2002:ac8:7c4f:0:b0:517:71ac:83f5 with SMTP id
+ d75a77b69052e-517fe1aa0fcmr22361271cf.3.1781248994292; 
+ Fri, 12 Jun 2026 00:23:14 -0700 (PDT)
+X-Received: by 2002:ac8:7c4f:0:b0:517:71ac:83f5 with SMTP id
+ d75a77b69052e-517fe1aa0fcmr22361041cf.3.1781248993841; 
+ Fri, 12 Jun 2026 00:23:13 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5ad2e161ee7sm297670e87.13.2026.06.12.00.23.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Jun 2026 00:23:11 -0700 (PDT)
+Date: Fri, 12 Jun 2026 10:23:10 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: contact@alex-min.fr
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org
+Subject: Re: [PATCH 1/2] drm/msm/mdp4: keep the bus clock enabled while a
+ CRTC is active
+Message-ID: <eopgalgvpit2o633qqma26nailhgmktuhdwhrthh3qgkyg7f45@qjcxwiw2x4yk>
+References: <20260611-mainline-fix-mdp4-blue-screen-sending-v1-v1-0-22925600e4f2@alex-min.fr>
+ <20260611-mainline-fix-mdp4-blue-screen-sending-v1-v1-1-22925600e4f2@alex-min.fr>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/ivpu: use kmem_cache for IPC rx_msg allocations
-To: Karol Wachowski <karol.wachowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
- dawid.osuchowski@linux.intel.com
-References: <20260611055214.948748-1-karol.wachowski@linux.intel.com>
-Content-Language: en-US
-From: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-In-Reply-To: <20260611055214.948748-1-karol.wachowski@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260611-mainline-fix-mdp4-blue-screen-sending-v1-v1-1-22925600e4f2@alex-min.fr>
+X-Authority-Analysis: v=2.4 cv=O94Jeh9W c=1 sm=1 tr=0 ts=6a2bb3e2 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=DVHo1nXE2ezVO6JEMkYA:9
+ a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: vJ7K66_ulSZsdEnS9y_SkM5VkFxi2F1K
+X-Proofpoint-GUID: vJ7K66_ulSZsdEnS9y_SkM5VkFxi2F1K
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEyMDA2NSBTYWx0ZWRfX7LuduxlhfmcJ
+ Ja2qLQDUXfnIOhPFyehPgTXcL5qzj5d3yFcPYA0XW1IREAtbc5Eoo8Ve5zvCn5nb1QWQupj3+8O
+ FL0EoItm5jloTVrALgGDf2H+94k3nbQgczj6BYGJ8C0NukjIEkkQdR6bqvDKDszRE0kv5cseh/N
+ grUDGzayVZWLeJKnCiV3OloI32goQChuuv/KB9RSyRt8QQD5WmZvc/cwXrEL0miwWZj19152JDi
+ JEW4UvtXW91Pp9/ZSb6n2EHiGqslbFDoyRiI7+usP2LLN2hThoSLpKBaDm8NpKERt8cX1e1KaOZ
+ VCCgH21zC7OJC01SaSiyy587OBsccZwMQJ1TefADDe5091QABLkik0HyS+pod9vxOhpJVDkseUG
+ iTL43SpspsNXkl1iajfU10wCLoJNAARIw8NHAqzxCO95cJqJQGGc1Vn17i6iMo5IC5rDmTEVI2c
+ +75+Txs+J2tQ1FGUYDA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEyMDA2NSBTYWx0ZWRfX1GD/IBKWp3OI
+ HVIxcuLZMwTkdCfUq4dr3LHA6e0MGI/r+shIveK3JTThR8HODgnK+phwv1s815B7vUkTQdK5cjV
+ FLnP3rPsZ9bHnTk8QyGvkYXjzqIVi3o=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-12_01,2026-06-11_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 clxscore=1015 bulkscore=0 adultscore=0
+ impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
+ definitions=main-2606120065
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,87 +150,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 11-Jun-26 7:52 AM, Karol Wachowski wrote:
-> Use a dedicated kmem_cache for ivpu_ipc_rx_msg allocations instead of
-> the generic kmalloc. This gives each CPU its own hot freelist for this
-> object type, reducing allocator overhead in the IRQ handler and threaded
-> IRQ path where rx_msg objects are allocated and freed at high frequency.
+On Thu, Jun 11, 2026 at 08:07:46AM +0200, Alexandre MINETTE via B4 Relay wrote:
+> From: Alexandre MINETTE <contact@alex-min.fr>
 > 
-> Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+> MDP4 scanout continues to fetch framebuffer data while the CRTC is
+> active. Keep the AXI/bus clock enabled for the lifetime of each active
+> CRTC so that temporary MDP4 disable paths do not gate the bus clock
+> while scanout is still running.
+> 
+> This avoids display corruption seen on the Samsung Galaxy S4 when the
+> display pipeline is active.
+
+Please describe, when do you observe a corruption?
+
+> 
+> Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
 > ---
->   drivers/accel/ivpu/ivpu_ipc.c | 17 ++++++++++++++---
->   drivers/accel/ivpu/ivpu_ipc.h |  1 +
->   2 files changed, 15 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c |  2 ++
+>  drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c  | 42 +++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h  |  6 +++++
+>  3 files changed, 50 insertions(+)
 > 
-> diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ivpu_ipc.c
-> index 64864e9d8a0a..c5f11be86c8c 100644
-> --- a/drivers/accel/ivpu/ivpu_ipc.c
-> +++ b/drivers/accel/ivpu/ivpu_ipc.c
-> @@ -146,7 +146,7 @@ ivpu_ipc_rx_msg_add(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
->   
->   	lockdep_assert_held(&ipc->cons_lock);
->   
-> -	rx_msg = kzalloc_obj(*rx_msg, GFP_ATOMIC);
-> +	rx_msg = kmem_cache_zalloc(ipc->rx_msg_cache, GFP_ATOMIC);
->   	if (!rx_msg) {
->   		ivpu_ipc_rx_mark_free(vdev, ipc_hdr, jsm_msg);
->   		return;
-> @@ -174,7 +174,7 @@ ivpu_ipc_rx_msg_del(struct ivpu_device *vdev, struct ivpu_ipc_rx_msg *rx_msg)
->   	list_del(&rx_msg->link);
->   	ivpu_ipc_rx_mark_free(vdev, rx_msg->ipc_hdr, rx_msg->jsm_msg);
->   	atomic_dec(&vdev->ipc->rx_msg_count);
-> -	kfree(rx_msg);
-> +	kmem_cache_free(vdev->ipc->rx_msg_cache, rx_msg);
->   }
->   
->   void ivpu_ipc_consumer_add(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
-> @@ -490,10 +490,18 @@ int ivpu_ipc_init(struct ivpu_device *vdev)
->   	struct ivpu_ipc_info *ipc = vdev->ipc;
->   	int ret;
->   
-> +	ipc->rx_msg_cache = kmem_cache_create("ivpu_ipc_rx_msg", sizeof(struct ivpu_ipc_rx_msg), 0,
-> +					      SLAB_HWCACHE_ALIGN, NULL);
-> +	if (!ipc->rx_msg_cache) {
-> +		ivpu_err(vdev, "Failed to create rx_msg_cache\n");
-> +		return -ENOMEM;
+> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c b/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
+> index e8066f9fd534..9e53c9d956ca 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c
+> @@ -271,6 +271,7 @@ static void mdp4_crtc_atomic_disable(struct drm_crtc *crtc,
+>  
+>  	mdp_irq_unregister(&mdp4_kms->base, &mdp4_crtc->err);
+>  	mdp4_disable(mdp4_kms);
+> +	mdp4_crtc_bus_put(mdp4_kms);
+>  
+>  	if (crtc->state->event && !crtc->state->active) {
+>  		WARN_ON(mdp4_crtc->event);
+> @@ -295,6 +296,7 @@ static void mdp4_crtc_atomic_enable(struct drm_crtc *crtc,
+>  		return;
+>  
+>  	mdp4_enable(mdp4_kms);
+> +	mdp4_crtc_bus_get(mdp4_kms);
+
+This is a bit suspicious. mdp4_enable() already votes on the AXI clock.
+As the CCF has enable count for each clock, it should be enough to keep
+the vote for as long as the CRTC is active.
+
+My only assumption would be that the CRTC scanout happens for some time
+even after the atomic_disable(), but without a description of the issue
+it's hard to determine the cause.
+
+>  
+>  	/* Restore vblank irq handling after power is enabled */
+>  	drm_crtc_vblank_on(crtc);
+> @@ -137,6 +170,13 @@ static void mdp4_destroy(struct msm_kms *kms)
+>  	if (mdp4_kms->rpm_enabled)
+>  		pm_runtime_disable(dev);
+>  
+> +	mutex_lock(&mdp4_kms->clock_lock);
+> +	if (mdp4_kms->crtc_bus_count) {
+> +		clk_disable_unprepare(mdp4_kms->axi_clk);
+> +		mdp4_kms->crtc_bus_count = 0;
 > +	}
+
+Is it not taken care by drm_atomic_helper_shutdown()?
+
+> +	mutex_unlock(&mdp4_kms->clock_lock);
 > +
->   	ipc->mem_tx = ivpu_bo_create_global(vdev, SZ_16K, DRM_IVPU_BO_WC | DRM_IVPU_BO_MAPPABLE);
->   	if (!ipc->mem_tx) {
->   		ivpu_err(vdev, "Failed to allocate mem_tx\n");
-> -		return -ENOMEM;
-> +		ret = -ENOMEM;
-> +		goto err_destroy_cache;
->   	}
->   
->   	ipc->mem_rx = ivpu_bo_create_global(vdev, SZ_16K, DRM_IVPU_BO_WC | DRM_IVPU_BO_MAPPABLE);
-> @@ -532,6 +540,8 @@ int ivpu_ipc_init(struct ivpu_device *vdev)
->   	ivpu_bo_free(ipc->mem_rx);
->   err_free_tx:
->   	ivpu_bo_free(ipc->mem_tx);
-> +err_destroy_cache:
-> +	kmem_cache_destroy(ipc->rx_msg_cache);
->   	return ret;
->   }
->   
-> @@ -544,6 +554,7 @@ void ivpu_ipc_fini(struct ivpu_device *vdev)
->   	drm_WARN_ON(&vdev->drm, atomic_read(&ipc->rx_msg_count) > 0);
->   
->   	ivpu_ipc_mem_fini(vdev);
-> +	kmem_cache_destroy(ipc->rx_msg_cache);
->   }
->   
->   void ivpu_ipc_enable(struct ivpu_device *vdev)
-> diff --git a/drivers/accel/ivpu/ivpu_ipc.h b/drivers/accel/ivpu/ivpu_ipc.h
-> index 1c9cf67f1e5b..fb3e5816ca50 100644
-> --- a/drivers/accel/ivpu/ivpu_ipc.h
-> +++ b/drivers/accel/ivpu/ivpu_ipc.h
-> @@ -70,6 +70,7 @@ struct ivpu_ipc_info {
->   	struct gen_pool *mm_tx;
->   	struct ivpu_bo *mem_tx;
->   	struct ivpu_bo *mem_rx;
-> +	struct kmem_cache *rx_msg_cache;
->   
->   	atomic_t rx_msg_count;
->   
-Reviewed-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+>  	mdp_kms_destroy(&mdp4_kms->base);
+>  }
+>  
+
+-- 
+With best wishes
+Dmitry
