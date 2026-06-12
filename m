@@ -4,62 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A856CD98D6
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 15:34:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C79CBCD98CF
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 15:53:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62E4F10F5DC;
-	Fri, 12 Jun 2026 15:34:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E748A10EA73;
+	Fri, 12 Jun 2026 15:53:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="cldmpPxX";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Z8S8P5jC";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 534D910EA7A;
- Fri, 12 Jun 2026 15:34:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781278478; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=lsF2VJ7B8+l20Pd/Zp6BFhPVwINl3ZZR7Xw/11iPcPVvxL1r2LbHTH3xEjfIVt2WYk1mDf0i0Ph5vZxsdtmpFnTeLdxaqtm83gKwfeE2e1z7T/O5/Ynxm8VpR+PWwzgcxb8X9vlA+Uk0FLsqEdCfXsvM74jukDNBPvG31GAbMrE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1781278478;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=+EtspAyGVseUF7Zng9uHYjm1bzuWl1xd6UMlcSQGtEE=; 
- b=Kqx0uK/Jqu2apDPSmv/HCSBVXL16z3xJ5+AbeRMt4JA8Oo+YLkNqCjEN7IBt6Utn1ZKw8MQevWpli3zS9Y0d+bG6ctph92uW04Me2dxhQqT9ZsC8P2eMb+NL2UvaLTKS0UWcr/OKTkn4g0UWz/E2OBtq/ImZNa7cpzJOQwf5tW0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781278478; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=+EtspAyGVseUF7Zng9uHYjm1bzuWl1xd6UMlcSQGtEE=;
- b=cldmpPxXroPLdUceaunrKlii0dW8bxAwWAUsVuZAZ6vTLAHf+CyPpjTE4qEdHdq9
- WJ1dy3smHICLuy39wC7gN3lwDb0LsrDpGCqoy9U6g0cGizfWFbITNi17lRu8xOaWgZy
- tuWUxEHqR9dQWZe7EZGnp0VNy3JeEC4T2QK+asdw=
-Received: by mx.zohomail.com with SMTPS id 1781278476243899.1003711846738;
- Fri, 12 Jun 2026 08:34:36 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Fri, 12 Jun 2026 17:34:13 +0200
-Subject: [PATCH 2/2] drm/connector: hdmi: Implement "min bpc" property
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4DD310EA75
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 15:53:04 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7554F497;
+ Fri, 12 Jun 2026 17:52:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1781279552;
+ bh=Xi4zr6K4kn0ZEMvzzLUuNwWw60sZlDm3SVBSJ/YtuQg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Z8S8P5jCFyTJtycXMMjLt/8TwqBV+eybltV90qrojoPBmml1+uvKj11t9HxOnmrmX
+ B0MOPpBIJsPGPWeh/6ZHZB9OWAvNXvY5ERFpaziK2fsszUVeqh8fdo+0W8uJoicdOL
+ p3qRuinDJo5SSUZ6aAxCQrkyjnpPiJHBcc8erDIg=
+Date: Fri, 12 Jun 2026 18:53:01 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
+Message-ID: <20260612155301.GC1982714@killaraus.ideasonboard.com>
+References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
+ <20260515-rcar-du-dsc-v3-4-164157820498@ideasonboard.com>
+ <20260611000324.GH1632628@killaraus.ideasonboard.com>
+ <11f27d38-0224-4fce-a975-7c3f7d8d1d38@ideasonboard.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260612-min-bpc-v1-2-bba88c2c4836@collabora.com>
-References: <20260612-min-bpc-v1-0-bba88c2c4836@collabora.com>
-In-Reply-To: <20260612-min-bpc-v1-0-bba88c2c4836@collabora.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Xaver Hugl <xaver.hugl@kde.org>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Mario Kleiner <mario.kleiner.de@gmail.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, 
- Daniel Stone <daniel@fooishbar.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- kernel@collabora.com, wayland-devel@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <11f27d38-0224-4fce-a975-7c3f7d8d1d38@ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,229 +73,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Act on the "min bpc" property's min_requested_bpc state in the common
-HDMI state helpers, and register the property on HDMI connectors.
+On Fri, Jun 12, 2026 at 02:56:11PM +0300, Tomi Valkeinen wrote:
+> On 11/06/2026 03:03, Laurent Pinchart wrote:
+> > On Fri, May 15, 2026 at 12:09:29PM +0300, Tomi Valkeinen wrote:
+> >> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
+> >> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
+> >> crtc, when enabling the crtc.
+> >>
+> >> With DSC (added in upcoming patch) in the pipeline, between the DU and
+> >> the DSI, the above call path is broken as the crtc tries to call
+> >> rcar_mipi_dsi_pclk_enable() on the DSC.
+> >>
+> >> Adjust the rcar_mipi_dsi_pclk_enable() so that it detects the DSC, and
+> >> in that case gets the next bridge from the DSC, which is the DSI.
+> >>
+> >> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> >> ---
+> >>   drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c | 36 +++++++++++++++++++++++--
+> >>   1 file changed, 34 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> >> index 4ef2e3c129ed..085e229bcb0b 100644
+> >> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> >> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> >> @@ -88,6 +88,8 @@ struct dsi_setup_info {
+> >>   	const struct dsi_clk_config *clkset;
+> >>   };
+> >>   
+> >> +static const struct drm_bridge_funcs rcar_mipi_dsi_bridge_ops;
+> >> +
+> >>   static inline struct rcar_mipi_dsi *
+> >>   bridge_to_rcar_mipi_dsi(struct drm_bridge *bridge)
+> >>   {
+> >> @@ -844,15 +846,39 @@ static void rcar_mipi_dsi_atomic_disable(struct drm_bridge *bridge,
+> >>   	rcar_mipi_dsi_stop_video(dsi);
+> >>   }
+> >>   
+> >> +/*
+> >> + * We need to skip the DSC bridge when we have DSC in between the DU and
+> >> + * the DSI. We detect the DSI bridge via bridge->funcs, and assume the
+> >> + * next_bridge is the DSI bridge. If this is not the case, the DT data
+> >> + * is wrong (so it shouldn't really happen).
+> >> + */
+> >> +static struct drm_bridge *
+> >> +rcar_mipi_dsi_resolve_bridge(struct drm_bridge *bridge)
+> >> +{
+> >> +	if (bridge->funcs != &rcar_mipi_dsi_bridge_ops)
+> >> +		bridge = bridge->next_bridge;
+> >> +
+> >> +	if (!bridge || bridge->funcs != &rcar_mipi_dsi_bridge_ops)
+> >> +		return NULL;
+> >> +
+> >> +	return bridge;
+> >> +}
+> > 
+> > Hmmmm... It's quite a bit of a hack. It would be nicer to do this in
+> > rcar_du_crtc.c instead, where we cache the dsi bridge pointer. The
+> 
+> It's actually cached in rcar_du_encoder.c, but used in rcar_du_crtc.c.
+> 
+> If I understand right, you'd like to do the DSC detection in 
+> rcar_du_crtc, and skip the DSC, if needed, before calling 
+> rcar_mipi_dsi_pclk_enable()?
 
-Also add two KUnit tests to verify that the property behaves as
-expected.
+That would be the idea, yes. Knowledge that there's a DSC in the
+pipeline would be in the DU driver, not the DSI driver. I think it would
+be better, as the DU driver is the one that should have an overall view
+of the display pipeline.
 
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  10 +-
- drivers/gpu/drm/drm_connector.c                    |   4 +
- drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 146 +++++++++++++++++++++
- 3 files changed, 156 insertions(+), 4 deletions(-)
+> > question is how to then identify the right bridge, as we won't have
+> > access to rcar_mipi_dsi_bridge_ops. Should this driver set the bridge
+> > type field to DRM_MODE_CONNECTOR_DSI ?
+> 
+> I'm not sure how that would help. Or, I can, as the dsi driver does not 
+> set the bridge type, so only DSC would set it. But isn't that even more 
+> hacky?
+> 
+> Or did you rather mean that the DSI driver would set the bridge type, 
+> and DSC would not? We can then do:
+> 
+> 		if (bridge->type != DRM_MODE_CONNECTOR_DSI)
+> 			bridge = bridge->next_bridge;
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-index ce17eeefc2da..fa015d218b41 100644
---- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -636,10 +636,12 @@ hdmi_compute_format_bpc(const struct drm_connector *connector,
- 			unsigned int max_bpc, enum drm_output_color_format fmt)
- {
- 	struct drm_device *dev = connector->dev;
--	unsigned int bpc;
-+	unsigned int bpc, min_bpc;
- 	int ret;
- 
--	for (bpc = max_bpc; bpc >= 8; bpc -= 2) {
-+	min_bpc = max(conn_state->min_requested_bpc, 8);
-+
-+	for (bpc = max_bpc; bpc >= min_bpc; bpc -= 2) {
- 		ret = hdmi_try_format_bpc(connector, conn_state, mode, bpc, fmt);
- 		if (!ret)
- 			continue;
-@@ -657,8 +659,8 @@ hdmi_compute_format_bpc(const struct drm_connector *connector,
- 		return 0;
- 	}
- 
--	drm_dbg_kms(dev, "Failed. %s output format not supported for any bpc count.\n",
--		    drm_hdmi_connector_get_output_format_name(fmt));
-+	drm_dbg_kms(dev, "Failed. %s output format not supported for any bpc <= %u and >= %u.\n",
-+		    drm_hdmi_connector_get_output_format_name(fmt), max_bpc, min_bpc);
- 
- 	return -EINVAL;
- }
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index dcf53cc113b0..5cf512add4ef 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -640,6 +640,10 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
- 	if (ret)
- 		return ret;
- 
-+	ret = drm_connector_attach_min_bpc_property(connector, max_bpc);
-+	if (ret)
-+		return ret;
-+
- 	connector->hdmi.funcs = hdmi_funcs;
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-index 353a261d42da..8f8f7a528e08 100644
---- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-+++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-@@ -1361,6 +1361,150 @@ static void drm_test_check_tmds_char_rate_rgb_12bpc(struct kunit *test)
- 	drm_modeset_acquire_fini(&ctx);
- }
- 
-+/*
-+ * Test that an atomic check with a min bpc of 10 fails on a connector that
-+ * maxes out at 8bpc even if the EDID could go higher.
-+ */
-+static void drm_test_check_min_bpc_10bit_connector_fail(struct kunit *test)
-+{
-+	struct drm_atomic_helper_connector_hdmi_priv *priv;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_connector_state *conn_state;
-+	struct drm_display_mode *preferred;
-+	struct drm_atomic_commit *state;
-+	struct drm_connector *conn;
-+	struct drm_device *drm;
-+	int ret;
-+
-+	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-+				BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
-+				BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420) |
-+				BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
-+				BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444),
-+				8,
-+				&dummy_connector_hdmi_funcs,
-+				test_edid_hdmi_1080p_rgb_yuv_dc_max_340mhz);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	drm = &priv->drm;
-+	conn = &priv->connector;
-+	preferred = find_preferred_mode(conn);
-+	KUNIT_ASSERT_NOT_NULL(test, preferred);
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+retry_conn_enable:
-+	ret = drm_kunit_helper_enable_crtc_connector(test, drm, priv->crtc,
-+						     conn, preferred, &ctx);
-+	if (ret == -EDEADLK) {
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_conn_enable;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	state = drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+
-+retry_conn_state:
-+	conn_state = drm_atomic_get_connector_state(state, conn);
-+	if (PTR_ERR(conn_state) == -EDEADLK) {
-+		drm_atomic_commit_clear(state);
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_conn_state;
-+	}
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
-+
-+	conn_state->min_requested_bpc = 10;
-+
-+	ret = drm_atomic_check_only(state);
-+	if (ret == -EDEADLK) {
-+		drm_atomic_commit_clear(state);
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_conn_state;
-+	}
-+	KUNIT_EXPECT_LT(test, ret, 0);
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+}
-+
-+/*
-+ * Test that an atomic check with a min bpc of 10 succeeds on a connector that
-+ * can do 10bpc if the EDID can also do 10bpc.
-+ */
-+static void drm_test_check_min_bpc_10bit_success(struct kunit *test)
-+{
-+	struct drm_atomic_helper_connector_hdmi_priv *priv;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_connector_state *conn_state;
-+	struct drm_display_mode *preferred;
-+	struct drm_atomic_commit *state;
-+	struct drm_connector *conn;
-+	struct drm_device *drm;
-+	int ret;
-+
-+	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-+				BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
-+				12,
-+				&dummy_connector_hdmi_funcs,
-+				test_edid_hdmi_1080p_rgb_yuv_dc_max_340mhz);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	drm = &priv->drm;
-+	conn = &priv->connector;
-+	preferred = find_preferred_mode(conn);
-+	KUNIT_ASSERT_NOT_NULL(test, preferred);
-+	KUNIT_ASSERT_TRUE(test, conn->display_info.edid_hdmi_rgb444_dc_modes &
-+				DRM_EDID_HDMI_DC_30);
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+retry_conn_enable:
-+	ret = drm_kunit_helper_enable_crtc_connector(test, drm, priv->crtc,
-+						     conn, preferred, &ctx);
-+	if (ret == -EDEADLK) {
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_conn_enable;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	state = drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+
-+retry_conn_state:
-+	conn_state = drm_atomic_get_connector_state(state, conn);
-+	if (PTR_ERR(conn_state) == -EDEADLK) {
-+		drm_atomic_commit_clear(state);
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_conn_state;
-+	}
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
-+
-+	conn_state->min_requested_bpc = 10;
-+
-+	ret = drm_atomic_check_only(state);
-+	if (ret == -EDEADLK) {
-+		drm_atomic_commit_clear(state);
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_conn_state;
-+	}
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+
-+	conn_state = drm_atomic_get_new_connector_state(state, conn);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
-+	KUNIT_EXPECT_GE(test, conn_state->hdmi.output_bpc, 10);
-+	KUNIT_ASSERT_EQ(test, conn_state->hdmi.output_format, DRM_OUTPUT_COLOR_FORMAT_RGB444);
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+}
-+
- /*
-  * Test that if we filter a rate through our hook, it's indeed rejected
-  * by the whole atomic_check logic.
-@@ -2476,6 +2620,8 @@ static struct kunit_case drm_atomic_helper_connector_hdmi_check_tests[] = {
- 	KUNIT_CASE(drm_test_check_tmds_char_rate_rgb_8bpc),
- 	KUNIT_CASE(drm_test_check_tmds_char_rate_rgb_10bpc),
- 	KUNIT_CASE(drm_test_check_tmds_char_rate_rgb_12bpc),
-+	KUNIT_CASE(drm_test_check_min_bpc_10bit_connector_fail),
-+	KUNIT_CASE(drm_test_check_min_bpc_10bit_success),
- 	KUNIT_CASE_PARAM(drm_test_check_hdmi_color_format,
- 			 check_hdmi_color_format_gen_params),
- 	KUNIT_CASE_PARAM(drm_test_check_hdmi_color_format_420_only,
+Yes that's what I meant.
+
+> in the crtc driver. This works. It's still a bit hacky, but I think the 
+> chances of the code getting it wrong are quite low. If the output port 
+> is RCAR_DU_OUTPUT_DSIx, then the next bridge must be rcar-dsi or 
+> rcar-dsc, so it's all under our control. Also, it's less code than this 
+> patch, so I'll go with that.
+
+Thanks.
 
 -- 
-2.54.0
+Regards,
 
+Laurent Pinchart
