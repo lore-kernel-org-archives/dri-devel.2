@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A24A5CD98D6
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 18:25:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22AA6CD98D2
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 18:26:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FAAE10EAFD;
-	Fri, 12 Jun 2026 18:25:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C38310EB07;
+	Fri, 12 Jun 2026 18:26:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O1kHwmd8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NlJAul/y";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 384C010EAFD
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 18:25:43 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C76DD10F604
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 18:26:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 06ECC43705;
- Fri, 12 Jun 2026 18:25:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F13E1F00A3A;
- Fri, 12 Jun 2026 18:25:42 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0FD12601E2;
+ Fri, 12 Jun 2026 18:26:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C1D81F000E9;
+ Fri, 12 Jun 2026 18:26:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781288742;
- bh=WaUf1YVYcCYJGuNoId8/t188E3/+RbJhWQtJZWB54eg=;
+ s=k20260515; t=1781288774;
+ bh=wOea2Ye6ENtPHQE7QpRHQxyqzhCYN0SXleObykbZXk0=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=O1kHwmd8/XDm/6WY3lxP5uVO2Ubpvz0SVTbloJqzlkCYWGNWY1CJGD3lR6J//O8cy
- S72r7IEqZr7sy5RpKMZZau6uMJ3vj3EsvKGpfV3fe61RqgZ/akE0jUdK4cOZDcCHAs
- CBVlmC00qKIABCpNQfA0VsYKijxQyRKbbpnhr+dOMyQtl4BGwJbxMkZUr22O2h4uRz
- ZwMu3xFrUFL9pz5aiRQs8xJh9BnUAZ0qfTfS54C8Wcjm2s0Zs+2TRPcMFRCICcIQr4
- ruVGqLoMKIISrRbSk9TEak5sK+gt2myOcuGqk+/YUFAynG5hL28GB+c4S0I4FMXgBt
- GCGIyGc01KgkQ==
-Message-ID: <7a9d6acd-90db-4dfe-9fe5-55ba8adab577@kernel.org>
-Date: Fri, 12 Jun 2026 13:25:41 -0500
+ b=NlJAul/yiejd5UhYzPpXYQ9C0jaANZIZl/2bNjuKqjnuPldStWIJWgfv3x1txQqho
+ uMbqaNArYfjZXkai+WsKWLtgGxRnptMzS66KCpf4JkriwTayL8VsM2PsP1FeL3nw+B
+ xqT7MMtAKt1GDNKADcE43Lku1+nP+lvvj7LzoGE5AvgfQH9MoHY8TEw97A9UqmqvhV
+ 8a5eAPI6K+D2sQB7Bpvaj7JZgH8s+86HKkRX43vYhStX1clVIQ/4mY1VzKWCLix2/7
+ r98nu3/00G9YS5gS5DtKPBwh0sh/ytqEjIH2xRM3QNqhccjgUf6dN89fhrYWg6j1F+
+ VQUy9hPUnEnTg==
+Message-ID: <3f22f651-c99e-402d-b373-329189a96863@kernel.org>
+Date: Fri, 12 Jun 2026 13:26:13 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V3 1/3] accel/amdxdna: Fix amdxdna_client lifetime race
+Subject: Re: [PATCH V3 2/3] accel/amdxdna: Fix notifier_wq lifetime race
  during device removal
 Content-Language: en-US
 To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
@@ -42,8 +42,9 @@ To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
  karol.wachowski@linux.intel.com
 Cc: linux-kernel@vger.kernel.org, max.zhen@amd.com, sonal.santan@amd.com
 References: <20260611055150.3070216-1-lizhi.hou@amd.com>
+ <20260611055150.3070216-2-lizhi.hou@amd.com>
 From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260611055150.3070216-1-lizhi.hou@amd.com>
+In-Reply-To: <20260611055150.3070216-2-lizhi.hou@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -64,107 +65,63 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 On 6/11/26 00:51, Lizhi Hou wrote:
-> In amdxdna_remove(), all amdxdna_client structures are freed after
-> calling drm_dev_unplug(). However, drm_dev_unplug() does not force
-> existing file descriptors to be closed, so amdxdna_drm_close() may be
-> called after amdxdna_remove() has completed.
+> amdxdna_remove() destroys notifier_wq. If amdxdna_gem_obj_free() is
+> called after device removal, it may attempt to flush notifier_wq,
+> resulting in a use-after-free.
 > 
-> As a result, accessing client->pid for debug output in
-> amdxdna_drm_close() can lead to a use-after-free, since the access is
-> not protected by drm_dev_enter().
+> Fix the race by allocating notifier_wq with
+> drmm_alloc_ordered_workqueue(), so its lifetime is managed by DRM and
+> remains valid until all managed resources are released.
 > 
-> Fix this by decoupling hardware teardown from client cleanup.
-> amdxdna_remove() only performs hardware-related cleanup, while
-> per-client resources are released from amdxdna_drm_close() when the
-> corresponding file is closed.
-> 
-> Fixes: be462c97b7df ("accel/amdxdna: Add hardware context")
+> Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
 > Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
 Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 > ---
->   drivers/accel/amdxdna/amdxdna_pci_drv.c | 23 ++++++++++-------------
->   drivers/accel/amdxdna/amdxdna_pci_drv.h |  1 +
->   2 files changed, 11 insertions(+), 13 deletions(-)
+>   drivers/accel/amdxdna/amdxdna_pci_drv.c | 12 ++++--------
+>   1 file changed, 4 insertions(+), 8 deletions(-)
 > 
 > diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> index 65489bb3f2b0..470bf4fc744b 100644
+> index 470bf4fc744b..b943c06a451e 100644
 > --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
 > +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> @@ -138,9 +138,11 @@ static int amdxdna_drm_open(struct drm_device *ddev, struct drm_file *filp)
->   		    xdna->dev_info->dev_heap_max_size);
->   	mutex_init(&client->mm_lock);
+> @@ -389,9 +389,9 @@ static int amdxdna_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>   	if (ret)
+>   		return ret;
 >   
-> +	mutex_lock(&xdna->client_lock);
->   	mutex_lock(&xdna->dev_lock);
->   	list_add_tail(&client->node, &xdna->client_list);
+> -	xdna->notifier_wq = alloc_ordered_workqueue("notifier_wq", WQ_MEM_RECLAIM);
+> -	if (!xdna->notifier_wq) {
+> -		ret = -ENOMEM;
+> +	xdna->notifier_wq = drmm_alloc_ordered_workqueue(ddev, "notifier_wq", WQ_MEM_RECLAIM);
+> +	if (IS_ERR(xdna->notifier_wq)) {
+> +		ret = PTR_ERR(xdna->notifier_wq);
+>   		goto iommu_fini;
+>   	}
+>   
+> @@ -400,7 +400,7 @@ static int amdxdna_probe(struct pci_dev *pdev, const struct pci_device_id *id)
 >   	mutex_unlock(&xdna->dev_lock);
-> +	mutex_unlock(&xdna->client_lock);
+>   	if (ret) {
+>   		XDNA_ERR(xdna, "Hardware init failed, ret %d", ret);
+> -		goto destroy_notifier_wq;
+> +		goto iommu_fini;
+>   	}
 >   
->   	filp->driver_priv = client;
->   	client->filp = filp;
-> @@ -174,18 +176,14 @@ static void amdxdna_drm_close(struct drm_device *ddev, struct drm_file *filp)
->   {
->   	struct amdxdna_client *client = filp->driver_priv;
->   	struct amdxdna_dev *xdna = to_xdna_dev(ddev);
-> -	int idx;
->   
->   	XDNA_DBG(xdna, "closing pid %d", client->pid);
->   
-> -	if (!drm_dev_enter(&xdna->ddev, &idx))
-> -		return;
-> -
-> +	mutex_lock(&xdna->client_lock);
+>   	ret = amdxdna_sysfs_init(xdna);
+> @@ -424,8 +424,6 @@ static int amdxdna_probe(struct pci_dev *pdev, const struct pci_device_id *id)
 >   	mutex_lock(&xdna->dev_lock);
->   	amdxdna_client_cleanup(client);
+>   	xdna->dev_info->ops->fini(xdna);
 >   	mutex_unlock(&xdna->dev_lock);
+> -destroy_notifier_wq:
+> -	destroy_workqueue(xdna->notifier_wq);
+>   iommu_fini:
+>   	amdxdna_iommu_fini(xdna);
+>   	return ret;
+> @@ -436,8 +434,6 @@ static void amdxdna_remove(struct pci_dev *pdev)
+>   	struct amdxdna_dev *xdna = pci_get_drvdata(pdev);
+>   	struct amdxdna_client *client;
+>   
+> -	destroy_workqueue(xdna->notifier_wq);
 > -
-> -	drm_dev_exit(idx);
-> +	mutex_unlock(&xdna->client_lock);
->   }
->   
->   static int amdxdna_drm_get_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
-> @@ -372,6 +370,7 @@ static int amdxdna_probe(struct pci_dev *pdev, const struct pci_device_id *id)
->   		return -ENODEV;
->   
->   	drmm_mutex_init(ddev, &xdna->dev_lock);
-> +	drmm_mutex_init(ddev, &xdna->client_lock);
->   	init_rwsem(&xdna->notifier_lock);
->   	INIT_LIST_HEAD(&xdna->client_list);
->   	pci_set_drvdata(pdev, xdna);
-> @@ -442,18 +441,16 @@ static void amdxdna_remove(struct pci_dev *pdev)
 >   	drm_dev_unplug(&xdna->ddev);
 >   	amdxdna_sysfs_fini(xdna);
 >   
-> +	mutex_lock(&xdna->client_lock);
->   	mutex_lock(&xdna->dev_lock);
-> -	client = list_first_entry_or_null(&xdna->client_list,
-> -					  struct amdxdna_client, node);
-> -	while (client) {
-> -		amdxdna_client_cleanup(client);
-> -
-> -		client = list_first_entry_or_null(&xdna->client_list,
-> -						  struct amdxdna_client, node);
-> +	list_for_each_entry(client, &xdna->client_list, node) {
-> +		amdxdna_hwctx_remove_all(client);
-> +		amdxdna_sva_fini(client);
->   	}
->   
->   	xdna->dev_info->ops->fini(xdna);
->   	mutex_unlock(&xdna->dev_lock);
-> +	mutex_unlock(&xdna->client_lock);
->   
->   	amdxdna_iommu_fini(xdna);
->   }
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> index 34271c14d359..a997d27a504d 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> @@ -120,6 +120,7 @@ struct amdxdna_dev {
->   
->   	struct mutex			dev_lock; /* per device lock */
->   	struct list_head		client_list;
-> +	struct mutex			client_lock; /* client_list */
->   	struct amdxdna_fw_ver		fw_ver;
->   	struct rw_semaphore		notifier_lock; /* for mmu notifier*/
->   	struct workqueue_struct		*notifier_wq;
 
