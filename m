@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE457CD98D8
-	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 13:54:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6707FCD98D8
+	for <dri-devel@archiver.kernel.org>; Fri, 12 Jun 2026 13:54:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2909F10F529;
-	Fri, 12 Jun 2026 13:54:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C88F610F521;
+	Fri, 12 Jun 2026 13:54:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KOpV0D7I";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Vh/onb7d";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 226D110F521;
- Fri, 12 Jun 2026 13:54:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF4FD10F53B;
+ Fri, 12 Jun 2026 13:54:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781272462; x=1812808462;
+ t=1781272466; x=1812808466;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=kILQ85veuIrcULzo1G8jHYeL8gmTmoLkPT7LMDIHXQ0=;
- b=KOpV0D7IUx4+tCpANCtCMykhLyvIVAUfMmL1OOvwaaLK9vWuzDROrnKg
- hilhKzrZyEezYNVcsve/BHCVzlq+EYMwn4o8Lxt9uPMgeDCbcbyiYGC6P
- eTOYlJq9KpDqqASgA2xgd44Htpcc2tSxZnV0rjTvD8MrpI7boz48/jPWB
- c/jH5b1N0dbGyH9WyKh35DPfH6Q+eMTpa2pndW1KHCisuj9ldDfYIxrdb
- KYG6OcNcqvygg/20/0l1hdtcuAUADE+1qppVvdo9zLuitX8PlX7Of9ans
- UTuhUYVeFsPaRXCNZCwwQBMybljX+fHcv3bxOF5nIJC7CaweyxltdHY/S w==;
-X-CSE-ConnectionGUID: qVitL+JmS2eIDFj0F6zPnA==
-X-CSE-MsgGUID: VghXZSodRW2isuUXzBrjTg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="82163307"
-X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; d="scan'208";a="82163307"
+ bh=mpmpGW+MCEfXXyWOnroMWvjhaZ0eijkdkHSn/yk15Vo=;
+ b=Vh/onb7d5LXcB9xJkl/NLOsrQi/76yrFLlT2AS4pn262JlkBixGYSle6
+ xYKk/NLwm40sMvE5b2gJZLH7X0oU7vuBzJA5KEZMvWoWw2q0j4T5oPXff
+ 6GG4FFUeKQJdn8s1V31fhpaBabLVAKwH2qKEwODQCDpIPS+23M6COc4Zr
+ chH8eFGzJgLVNy8tktbnYVNc33PScpfxFnkoBjHYD6apqZPNgL7DsRCgn
+ umvnEjcZ5oP816VkgFodk46k+EinCv3IklNSyKENCtcvtkdc83mUqkSjY
+ qVoB50hHFasgdI4zVUHUUZryUEwzOTkC6UXkPJyD+MCGsWoTmMLGDEgwP w==;
+X-CSE-ConnectionGUID: woRQO+PWQwyh8e1/TGOLXA==
+X-CSE-MsgGUID: Y7+TX8LlTBqC1nEh88dxjw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="82163316"
+X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; d="scan'208";a="82163316"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2026 06:54:22 -0700
-X-CSE-ConnectionGUID: 3CyBZ6NlS2WgezIvRIyQvw==
-X-CSE-MsgGUID: cle2O9uAQtGl90O/1adiGw==
+ 12 Jun 2026 06:54:26 -0700
+X-CSE-ConnectionGUID: C77P05NFQuqrguWisOlbUA==
+X-CSE-MsgGUID: 09WONNwoR3itXxQQQ50Qsg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; d="scan'208";a="242446553"
+X-IronPort-AV: E=Sophos;i="6.24,200,1774335600"; d="scan'208";a="242446577"
 Received: from slindbla-desk.ger.corp.intel.com (HELO fedora) ([10.245.245.68])
  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2026 06:54:18 -0700
+ 12 Jun 2026 06:54:22 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
@@ -56,9 +56,10 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>,
  dri-devel@lists.freedesktop.org, LMKL <linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/4] drm/xe: Add fault injection for rebind worker -ENOSPC
-Date: Fri, 12 Jun 2026 15:53:38 +0200
-Message-ID: <20260612135340.116100-3-thomas.hellstrom@linux.intel.com>
+Subject: [PATCH 3/4] watch_queue: Add a DRM_XE_NOTIFY watch type and export
+ init_watch()
+Date: Fri, 12 Jun 2026 15:53:39 +0200
+Message-ID: <20260612135340.116100-4-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260612135340.116100-1-thomas.hellstrom@linux.intel.com>
 References: <20260612135340.116100-1-thomas.hellstrom@linux.intel.com>
@@ -80,129 +81,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add fault injection support using the kernel fault injection
-infrastructure to inject -ENOSPC early in the success path of
-preempt_rebind_work_func(), before xe_svm_notifier_lock() is taken,
-testing the error handling paths without interference from real
-resource exhaustion.
+Add a DRM_XE_NOTIFY watch type for asynchronous error notifications
+from the DRM_XE kernel module.
 
-Injection is restricted to restartable VMs. When triggered, the
-worker deactivates the VM (rebind_deactivated).
-Upcoming patches will then also post an error event to userspace.
+The reason for not registering a DRM - wide notification type is
+that the notification type is 24 bits wide, the subtype is only 8,
+If this is a concern one could define the DRM - wide subtypes
+to be per driver, not common across DRM.
 
-Enable via debugfs:
-
-  echo 1 > /sys/kernel/debug/dri/0/fail_rebind/times
-  echo 100 > /sys/kernel/debug/dri/0/fail_rebind/probability
+Also export the init_watch() function for use from kernel drivers.
+Use EXPORT_SYMBOL() to align with other exports from the same file.
 
 Assisted-by: GitHub_Copilot:claude-sonnet-4.6
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/xe/xe_debugfs.c |  4 +++-
- drivers/gpu/drm/xe/xe_vm.c      | 32 ++++++++++++++++++++++++++++++++
- drivers/gpu/drm/xe/xe_vm.h      |  5 +++++
- 3 files changed, 40 insertions(+), 1 deletion(-)
+ include/uapi/drm/xe_drm.h        |  4 ++--
+ include/uapi/linux/watch_queue.h |  3 ++-
+ kernel/watch_queue.c             | 13 ++++++++++---
+ 3 files changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_debugfs.c b/drivers/gpu/drm/xe/xe_debugfs.c
-index 22b471303984..1a92c52ccd83 100644
---- a/drivers/gpu/drm/xe/xe_debugfs.c
-+++ b/drivers/gpu/drm/xe/xe_debugfs.c
-@@ -35,8 +35,8 @@
- #ifdef CONFIG_DRM_XE_DEBUG
- #include "xe_bo_evict.h"
- #include "xe_migrate.h"
--#include "xe_vm.h"
- #endif
-+#include "xe_vm.h"
+diff --git a/include/uapi/drm/xe_drm.h b/include/uapi/drm/xe_drm.h
+index bebb0167bd31..8d5e3f06b8d4 100644
+--- a/include/uapi/drm/xe_drm.h
++++ b/include/uapi/drm/xe_drm.h
+@@ -2550,8 +2550,8 @@ struct drm_xe_exec_queue_set_property {
+  * preempt-fence mode or not restartable.
+  *
+  * An optional @timestamp_ns can be provided to measure the latency between
+- * event delivery and the point the worker is queued; the driver logs this
+- * once all sanity checks have passed.
++ * event delivery and locking; the driver logs this regardless of whether the
++ * VM was paused.
+  */
  
- DECLARE_FAULT_ATTR(gt_reset_failure);
- DECLARE_FAULT_ATTR(inject_csc_hw_error);
-@@ -612,6 +612,8 @@ void xe_debugfs_register(struct xe_device *xe)
+ /**
+diff --git a/include/uapi/linux/watch_queue.h b/include/uapi/linux/watch_queue.h
+index c3d8320b5d3a..c800c153989d 100644
+--- a/include/uapi/linux/watch_queue.h
++++ b/include/uapi/linux/watch_queue.h
+@@ -14,7 +14,8 @@
+ enum watch_notification_type {
+ 	WATCH_TYPE_META		= 0,	/* Special record */
+ 	WATCH_TYPE_KEY_NOTIFY	= 1,	/* Key change event notification */
+-	WATCH_TYPE__NR		= 2
++	WATCH_TYPE_DRM_XE_NOTIFY	= 2,	/* DRM device event notification */
++	WATCH_TYPE__NR		= 3
+ };
  
- 	fault_create_debugfs_attr("fail_gt_reset", root, &gt_reset_failure);
- 
-+	xe_vm_debugfs_register(root);
-+
- 	if (IS_SRIOV_PF(xe))
- 		xe_sriov_pf_debugfs_register(xe, root);
- 	else if (IS_SRIOV_VF(xe))
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index 86ed8f31a219..b69a2e5bd9c9 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -18,6 +18,9 @@
- #include <linux/kthread.h>
- #include <linux/mm.h>
- #include <linux/swap.h>
-+#ifdef CONFIG_DEBUG_FS
-+#include <linux/debugfs.h>
-+#endif
- 
- #include <generated/xe_wa_oob.h>
- 
-@@ -43,6 +46,17 @@
- #include "xe_vm_madvise.h"
- #include "xe_wa.h"
- 
-+#ifdef CONFIG_FAULT_INJECTION
-+static DECLARE_FAULT_ATTR(rebind_enospc);
-+
-+static void xe_vm_register_fault_attrs(struct dentry *root)
-+{
-+	fault_create_debugfs_attr("fail_rebind", root, &rebind_enospc);
-+}
-+#else
-+static inline void xe_vm_register_fault_attrs(struct dentry *root) {}
-+#endif
-+
- static struct drm_gem_object *xe_vm_obj(struct xe_vm *vm)
- {
- 	return vm->gpuvm.r_obj;
-@@ -529,6 +543,13 @@ static void preempt_rebind_work_func(struct work_struct *w)
- 		goto out_unlock;
- 	}
- 
-+#ifdef CONFIG_FAULT_INJECTION
-+	if (xe_vm_is_restartable(vm) && should_fail(&rebind_enospc, 1)) {
-+		err = -ENOSPC;
-+		goto out_unlock;
-+	}
-+#endif
-+
- #define retry_required(__tries, __vm) \
- 	(IS_ENABLED(CONFIG_DRM_XE_USERPTR_INVAL_INJECT) ? \
- 	(!(__tries)++ || __xe_vm_userptr_needs_repin(__vm)) : \
-@@ -5042,3 +5063,14 @@ void xe_vm_remove_exec_queue(struct xe_vm *vm, struct xe_exec_queue *q)
- 	}
- 	up_write(&vm->exec_queues.lock);
+ enum watch_meta_notification_subtype {
+diff --git a/kernel/watch_queue.c b/kernel/watch_queue.c
+index 538520861e8b..701b5c388808 100644
+--- a/kernel/watch_queue.c
++++ b/kernel/watch_queue.c
+@@ -445,11 +445,17 @@ static void put_watch(struct watch *watch)
  }
-+
-+#ifdef CONFIG_DEBUG_FS
-+/**
-+ * xe_vm_debugfs_register() - Register xe_vm debugfs entries
-+ * @root: debugfs root dentry for this device
-+ */
-+void xe_vm_debugfs_register(struct dentry *root)
-+{
-+	xe_vm_register_fault_attrs(root);
-+}
-+#endif
-diff --git a/drivers/gpu/drm/xe/xe_vm.h b/drivers/gpu/drm/xe/xe_vm.h
-index 9ee44599cacd..0f9a38d97bf6 100644
---- a/drivers/gpu/drm/xe/xe_vm.h
-+++ b/drivers/gpu/drm/xe/xe_vm.h
-@@ -216,6 +216,11 @@ int xe_vm_restart_ioctl(struct drm_device *dev, void *data,
- 			struct drm_file *file);
- void xe_vm_close_and_put(struct xe_vm *vm);
  
-+#ifdef CONFIG_DEBUG_FS
-+struct dentry;
-+void xe_vm_debugfs_register(struct dentry *root);
-+#endif
-+
- static inline bool xe_vm_in_fault_mode(struct xe_vm *vm)
+ /**
+- * init_watch - Initialise a watch
++ * init_watch() - Initialise a watch subscription
+  * @watch: The watch to initialise.
+- * @wqueue: The queue to assign.
++ * @wqueue: The watch queue (notification pipe) to associate with the watch.
+  *
+- * Initialise a watch and set the watch queue.
++ * Initialise a newly allocated watch object and associate it with @wqueue.
++ * The caller must subsequently set @watch->id and @watch->info_id before
++ * calling add_watch_to_object() to subscribe the watch to a notification
++ * source.
++ *
++ * The watch queue reference is held internally; call put_watch_queue() if
++ * the watch is not successfully passed to add_watch_to_object().
+  */
+ void init_watch(struct watch *watch, struct watch_queue *wqueue)
  {
- 	return vm->flags & XE_VM_FLAG_FAULT_MODE;
+@@ -458,6 +464,7 @@ void init_watch(struct watch *watch, struct watch_queue *wqueue)
+ 	INIT_HLIST_NODE(&watch->queue_node);
+ 	rcu_assign_pointer(watch->queue, wqueue);
+ }
++EXPORT_SYMBOL(init_watch);
+ 
+ static int add_one_watch(struct watch *watch, struct watch_list *wlist, struct watch_queue *wqueue)
+ {
 -- 
 2.54.0
 
