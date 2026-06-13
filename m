@@ -4,56 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94B8BCD8CA8
-	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 06:57:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1B9DCD8CA8
+	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 06:58:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAC2710E0FA;
-	Sat, 13 Jun 2026 06:57:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47AB010E108;
+	Sat, 13 Jun 2026 06:58:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WIt6qvl0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i0sKmdtp";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B1C910E0FA
- for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 06:57:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3CD4160018;
- Sat, 13 Jun 2026 06:57:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D62021F000E9;
- Sat, 13 Jun 2026 06:57:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781333854;
- bh=HXMcWqVL4rhJfUtDNL48hP6X+JRWPZSdVUk8u3ls2X8=;
- h=Date:From:Subject:To:Cc:References:In-Reply-To;
- b=WIt6qvl05fIvYc3Qdl5NzbES/rxVeJrSgg4T2FN+o2m93f8SfFl6ZcPZlBcqUfQR1
- LCxXdyaSR2Mk5+QQ/GkgYzQJ2CpVgM6JBHOyyPYR06YQ963Sp9+BQbV1znj42uTrLf
- HKb3V3kvpdWHIwXnIG7mvsFmxs2XCzz8qeW/wWjZ598rvxI4YiYd3DaM7kScMG+hgh
- Qrc2/QEio8TYkbw+t1EaYnzQq+D+57kU1wuBwieY12QtQ8vLdPqn1U5hJjNUhGwN9p
- lnrWQJfKfAsifvfxW8jtJetAi6ZBrVzxim5vGrXGXi2Xr/NZc69VlhhShnKCRf9g7K
- CBwNYySCGv+xA==
-Message-ID: <ae219b64-c8ce-4798-995a-cd8fdd74d8a4@kernel.org>
-Date: Sat, 13 Jun 2026 08:57:29 +0200
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7E6610E108
+ for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 06:58:21 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-490b3e03939so13518515e9.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 23:58:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781333900; x=1781938700; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=4QsU3lUuOvN1fkkJCd/R0PVYRNNXIyBXyGs7tF0ADRs=;
+ b=i0sKmdtplHtuQENUshKn3MDqpf5209UfOrcrVnbceKsPkMLeVsjA+TBs9UHfc25J/n
+ LnfTX2jV24zjWoQrgl56hvlTWtBuJubm6O75QnroEG9U/WVJQaLCgHLkvqx3wJFUsa0g
+ likCoc5SgUjorclDPNgtKlUiB5WZRlZQwHisyEGV0rV8LZpURsUw0QVEjsz5FDaUYlGV
+ 4NNkTRZ5JNOLb2trDgm2NtO5HBd7SmBcJPW/dHsWCzQ4BDQqQkQkOHHkE2C3jFJavq/v
+ f5U1bxGRTJB40fJK1fFP4Eqao4IcidSByNkOcpPnL0lzTnu8snW3/IdDKM98tSWXEAAA
+ cFjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781333900; x=1781938700;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4QsU3lUuOvN1fkkJCd/R0PVYRNNXIyBXyGs7tF0ADRs=;
+ b=EQVHBHu9ZHw6VMgQ6OlDrTIQuPfa+21jTFQAqYJFS22umft5gFuw7oZ+VuSkcarTby
+ G+r+V0xSjHvCRM2LCMR9dcECIOlFSRglToCg/2IYPfk12Fhs6RZOoq6oNdCCaeOuOXW6
+ dBAmkHPw65WTUb+8ItUiEv20Hw0uVc6wP+TWCSW1N7mIKfRkO3IlswzWmGUj+F/rn+XI
+ Xfu3K+IsCgfHu4ydPMDqWmITK/iIf61yO6+Alb3ZtyGvYZr+C/+ZtuQXquE2O4qUBIzr
+ kq/FN98fuzUtkEwBv7hhRoC5GyncZ91B6PK+r0kzlRxJQvnTRBTxzX6+EyVnWR1hLi6d
+ wWUA==
+X-Gm-Message-State: AOJu0YwWwsg6feufsY9wSMxl9x1wX/lo3cyA+r3GdRHWnHVM3XkUiJPq
+ LdFvNM/JLOpfD1KuIXirYyB4icepmrIzZ24k9TSz0h9ttrODmtg6q+EO
+X-Gm-Gg: Acq92OFgrfBeTRRgDcr31S/7RvBi8Nde5jAYN0gssiYMe65Ori/oW0Xfz+UjRkq+hdR
+ Si2gNNMSDEjwr3yICH0C0+LfQyP8F58iSovIQ2OrbpzeQz06qCwztFQeXWGcdDGZt0oPeyXUG/O
+ TcXXISQcMpfmf0VOGPYPHjhIkDhX66mgM0bF0T8J0Ba2UOVpPpsRDZIxnrCIKW+JHKDLRjUDoXk
+ xdKDmr2QI3xHOYOqK6sHOlw2HVW+opYdeMx/k2U574rmnndHW1vX+pUFs0fFdZUCdS1Un3AisW5
+ YW2kxRQk3AqCKLVXX916iF+oJjx9PxeuFor2Gojq8pLYSHmVNgjmbwgmhrI4bV/LM2o83c1Vu9n
+ HkGHYCPQqEiyVpTZ4Adotg1jIVJYJR9NR3MI28dPGc2znklsUw5KQCVdmGGSBK2nPWnlwnVuBto
+ ySvEXzFFu1f5Z1V7MDIlt9cmH4YwmeyP8FpJw2mj9QFg==
+X-Received: by 2002:a05:600c:c171:b0:48a:53cb:8604 with SMTP id
+ 5b1f17b1804b1-490ec4dfb03mr56249045e9.14.1781333900211; 
+ Fri, 12 Jun 2026 23:58:20 -0700 (PDT)
+Received: from debian.tailb81abf.ts.net
+ ([2a01:e0a:104a:4d80:14c0:9448:1c38:77df])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-492202e5cbasm42917705e9.2.2026.06.12.23.58.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Jun 2026 23:58:19 -0700 (PDT)
+From: MidG971 <midgy971@gmail.com>
+To: tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ ulf.hansson@linaro.org
+Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-pm@vger.kernel.org, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, xxm@rock-chips.com,
+ chaoyi.chen@rock-chips.com, finley.xiao@rock-chips.com,
+ diederik@cknow-tech.com, jonas@kwiboo.se, Midgy BALON <midgy971@gmail.com>
+Subject: [RFC PATCH v4 0/9] accel: rocket: Add RK3568 NPU support
+Date: Sat, 13 Jun 2026 09:01:07 +0200
+Message-Id: <20260613070116.438906-1-midgy971@gmail.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v6 0/4] Add SCDC information to connector debugfs
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Daniel Stone <daniel@fooishbar.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com, Daniel Stone <daniels@collabora.com>
-References: <20260611-scdc-link-health-v6-0-6307875a6b5e@collabora.com>
-Content-Language: en-US, nl
-In-Reply-To: <20260611-scdc-link-health-v6-0-6307875a6b5e@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,115 +91,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Nicolas,
+From: Midgy BALON <midgy971@gmail.com>
 
-On 11/06/2026 14:57, Nicolas Frattaroli wrote:
-> HDMI uses the DDC I2C bus for communicating various bits of link status
-> out of band with the actual HDMI video signal. This information can be
-> useful for debugging issues like questionable cables sabotaged by feline
-> teeth, Enthusiast Grade cables made of cow fencing wire, and other such
-> problems that ruin one's media viewing plans.
-> 
-> Consequently, this series exposes various bits of pertinent information
-> from the SCDC protocol in an HDMI connector's debugfs. To continually
-> poll the link status, userspace can poll the debugfs file.
+RFC, not for merge. End-to-end inference does not produce correct output
+yet (see Status), so per the v2 discussion this is a request for design
+feedback. It probes, attaches, and submits cleanly on a stock v7.1-rc6
+tree; what remains is one hardware-internal issue.
 
-Something is not quite right: I've been testing this series with my i915
-based laptop with HDMI connector, and I never see the scdc_status file.
-And that's because CONFIG_DRM_BRIDGE_CONNECTOR is not set for my configuration.
+The RK3568 has a single NVDLA-derived NPU core, the same IP family as the
+RK3588 NPU the driver already supports; the register layout matches. The
+RK3568 differences are a 32-bit NPU AXI/IOMMU (vs 40-bit) and explicit
+PVTPLL/PMU bring-up to power and de-idle the NPU before it is reachable.
 
-So I think you are creating the debugfs entry in the wrong place.
+Patches:
+  1-2  rocket: per-SoC data struct, then derive DMA width and core count
+       from match data (refactors, no functional change); patch 2 also
+       bounds-checks the per-SoC cores array.
+  3    rocket: RK3568 SoC data; start the PVTPLL compute clock via SCMI.
+       Powering on and de-idling the NPU NoC are left to the power domain.
+  4    rocket: reset the NPU before detaching the IOMMU on a job timeout
+       (the detach otherwise stalls a wedged AXI master and WARNs).
+  5    rocket: keep the IOMMU domain attached across jobs instead of
+       re-attaching per job (the per-job rk_iommu handshake on the idle
+       NPU MMU is slow and noisy); also drop the domain on reset and stop
+       the scheduler before IOMMU teardown.
+  6    dt-bindings: add the RK3568 NPU compatible; require rockchip,pmu
+       for RK3568.
+  7-8  arm64 dts: add the NPU and its IOMMU, and enable them on ROCK 3B.
+  9    pmdomain: give the RK3568 NPU power domain a regulator so genpd
+       owns vdd_npu via domain-supply (Suggested-by Chaoyi Chen).
 
-I can read the SCDC from the display using edid-decode with the right /dev/i2c-X
-device, so it's definitely there.
+Dependencies. This series no longer touches the IOMMU driver; two
+in-flight Rockchip IOMMU changes are relevant but not part of it:
+  - Simon Xue's "iommu/rockchip: Drop global rk_ops in favor of
+    per-device ops" [1]. On boards with more than 4 GiB of RAM the NPU
+    MMU's DTE must stay below 4 GiB (its DTE address is 32-bit), so the
+    NPU IOMMU is described with the "rockchip,iommu" compatible, whose ops
+    allocate the page tables with GFP_DMA32; the SoC's other IOMMUs use
+    the "rockchip,rk3568-iommu" (40-bit) ops. The driver keeps a single
+    global ops pointer, so two ops on one SoC trip its coexistence check;
+    this series therefore sits on top of Simon's per-device-ops change,
+    which Rockchip (Chaoyi Chen) confirmed is the intended way to give the
+    NPU MMU its 32-bit DTE.
+  - "iommu/rockchip: disable fetch dte time limit" [2] (Simon Xue / Sven
+    Pueschel, in the iommu tree), which sets AUTO_GATING bit 31. v3 carried
+    a local AUTO_GATING patch; that unconditional fix has since been merged,
+    so this series drops its IOMMU patch. The bit is a no-op on this
+    hardware in any case (the page walk completes on its reset value).
 
-Regards,
+Power bring-up. The NPU is brought up through the power-domain layer (no
+driver hack): the NPU power-domain keeps its clocks but drops the pm_qos
+phandle (qos_npu sits behind the gated NPU NoC, so genpd's power-off QoS
+save faults reading it), and vdd_npu is wired as the domain's
+domain-supply with the domain marked need_regulator (patch 9), so genpd
+brings the rail up before it de-idles the NoC at power-on. The PMU de-idle
+then ACKs without PVTPLL running; PVTPLL is only needed for compute.
 
-	Hans
+Status. On v7.1-rc6 the driver probes, creates /dev/accel/accel0,
+attaches an IOMMU domain, and submits jobs; the program controller
+fetches and broadcasts the command list. Inference output is still
+wrong. The kernel side (this series) appears complete; what remains is
+mesa/Teflon userspace, which still emits RK3588-tuned config (to be
+filed on mesa-dev), and the hardware: with corrected config the NPU
+reads the full input and weight tensors (per its DMA counters) but the
+MAC/output stage never completes and the job times out, leaving the
+output at the buffer's zero-point. It is not in the command list (a
+byte-exact replay of the vendor's command list behaves the same).
+Pointers from anyone with RK3568 NPU experience welcome.
 
-> 
-> ---
-> Changes in v6:
-> - Fix off-by-one error in drm_scdc_read_state
-> - Link to v5: https://patch.msgid.link/20260604-scdc-link-health-v5-0-11173b0ac3de@collabora.com
-> 
-> Changes in v5:
-> - Read all SCDC data regardless of update flags
-> - Dump SCDC data as hex before the human-readable output. It's separated
->   with "\n----------------\n\n".
-> - No longer write 0 to read-only registers
-> - Add Reed-Solomon Corrections counter parsing
-> - Parsing has been kept. A desire was expressed to get this data without
->   any external userspace tooling, and the kernel will need to parse it
->   eventually anyway to set the link status.
-> - Functions have been made static as of right now, since external users
->   may do another pass over the function signatures anyway.
-> - Link to v4: https://patch.msgid.link/20260527-scdc-link-health-v4-0-622ea40a1f59@collabora.com
-> 
-> Changes in v4:
-> - Don't use C struct bitfields for parsing status flags. Switch to
->   bitwise AND for boolean flags, and FIELD_GET for multi-bit values.
-> - Drop the superfluous !! and parens
-> - Drop the __pure attributes on static functions
-> - Initialise stack local arrays with {}, not { 0 }.
-> - I've kept the print macros and %-30s format. Reason being that I don't
->   want to repeat the format specifier and str_yes_no(foo) a bunch, and I
->   like the %-30s format because it means all values are aligned with the
->   value of the longest field, which is 30 chars long.
-> - Link to v3: https://patch.msgid.link/20260526-scdc-link-health-v3-0-59e4a4aaead1@collabora.com
-> 
-> Changes in v3:
-> - Add patch to change return type of drm_scdc_read/write.
-> - Rework error counter reading to duplicate less code.
-> - Also check lane 3 counter valid flag when reading its error counter.
-> - Use memset to clear buf for error counters, rather than doing it in
->   the loop.
-> - Make read_error_counters not accept 0 as num_lanes; fix it up in the
->   caller instead.
-> - Link to v2: https://patch.msgid.link/20260520-scdc-link-health-v2-0-511af18cd64b@collabora.com
-> 
-> Changes in v2:
-> - Add HDMI 2.1 SCDC status reporting
-> - Link to v1: https://patch.msgid.link/20260415-scdc-link-health-v1-0-8e731e88eaf0@collabora.com
-> 
-> To: Jani Nikula <jani.nikula@linux.intel.com>
-> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> To: Maxime Ripard <mripard@kernel.org>
-> To: Thomas Zimmermann <tzimmermann@suse.de>
-> To: David Airlie <airlied@gmail.com>
-> To: Simona Vetter <simona@ffwll.ch>
-> To: Andrzej Hajda <andrzej.hajda@intel.com>
-> To: Neil Armstrong <neil.armstrong@linaro.org>
-> To: Robert Foss <rfoss@kernel.org>
-> To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-> To: Jonas Karlman <jonas@kwiboo.se>
-> To: Jernej Skrabec <jernej.skrabec@gmail.com>
-> To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> To: Daniel Stone <daniel@fooishbar.org>
-> To: Hans Verkuil <hverkuil+cisco@kernel.org>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: kernel@collabora.com
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> 
-> ---
-> Nicolas Frattaroli (4):
->       drm/scdc-helper: Don't use ssize_t return type for scdc_read/write
->       drm/scdc-helper: Add scdc_status debugfs entry
->       drm/display: bridge_connector: init scdc debugfs for HDMI
->       drm/scdc-helper: Implement parsing and printing HDMI 2.1 fields
-> 
->  drivers/gpu/drm/display/drm_bridge_connector.c |   4 +
->  drivers/gpu/drm/display/drm_scdc_helper.c      | 285 ++++++++++++++++++++++++-
->  include/drm/display/drm_scdc.h                 |  21 +-
->  include/drm/display/drm_scdc_helper.h          | 103 ++++++++-
->  4 files changed, 404 insertions(+), 9 deletions(-)
-> ---
-> base-commit: 4fdfaadba04dc0f2f2490dbc91922caa290463a5
-> change-id: 20260413-scdc-link-health-89326013d96c
-> 
-> Best regards,
-> --  
-> Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> 
+Known residual. On the first IOMMU attach the NPU MMU is idle with paging
+already enabled; the rk_iommu stall/reset handshake does not complete in
+that state and logs one burst of timeouts before the (kept) domain
+settles. It is harmless here because the job times out regardless, but it
+points at an idle-MMU reconfiguration corner the rk_iommu code does not
+handle on this block.
+
+[1] https://lore.kernel.org/linux-rockchip/20260310105303.128859-1-xxm@rock-chips.com/
+[2] https://lore.kernel.org/all/20260428-spu-iommudtefix-v2-1-f592f579e508@pengutronix.de/
+
+Changes since v3:
+  - Dropped the local AUTO_GATING patch: the correct fix (set AUTO_GATING
+    bit 31, "disable fetch dte time limit") has since been merged upstream
+    [2], so the series no longer touches the IOMMU driver.
+  - vdd_npu: new pmdomain patch (9) gives the RK3568 NPU domain a regulator
+    (need_regulator) and the board wires domain-supply, dropping the
+    regulator-always-on workaround (Suggested-by Chaoyi Chen). It relies on
+    the in-tree pmdomain default-off-if-need_regulator handling. The
+    "Failed to create device link ... <pmic>" line at pmdomain probe is a
+    pre-existing fw_devlink cyclic-dependency warning (the single
+    power-controller provides every domain, including the one the I2C PMIC
+    needs), seen the same way on RK3588; it is harmless here beyond a few
+    wasted EPROBE_DEFER retries, and a proper fix belongs in the
+    power-controller driver, not this series.
+  - rk356x dts: also assign the CRU CLK_NPU so the NPU AXI bus clock comes
+    up at 200 MHz instead of the 12 MHz boot default; order the NPU/IOMMU
+    nodes by unit address.
+  - rocket RK3568: fetch the SCMI/PVTPLL clock by name (the v3 bulk index
+    resolved to the wrong clock); drop the redundant driver PMU de-idle
+    writes (handled by the power domain).
+  - rocket: clear the attached IOMMU domain on reset; unwind through
+    rocket_core_fini() on noc_init failure; stop the scheduler before the
+    IOMMU teardown.
+  - rocket: bounds-check the cores array against the per-SoC core count.
+  - Binding: require rockchip,pmu on RK3568.
+  - Dependency framing: confirmed by Rockchip as v2 + 32-bit DTE via
+    Simon's per-device-ops series (was framed as v1 in v3).
+
+Midgy BALON (9):
+  accel: rocket: Introduce per-SoC rocket_soc_data
+  accel: rocket: Derive DMA width and core count from match data
+  accel: rocket: Add RK3568 SoC support
+  accel: rocket: Reset the NPU before detaching the IOMMU on timeout
+  accel: rocket: Keep the IOMMU domain attached across jobs
+  dt-bindings: npu: rockchip,rk3588-rknn-core: Add RK3568
+  arm64: dts: rockchip: rk356x: Add the NPU and its IOMMU
+  arm64: dts: rockchip: rk3568-rock-3b: Enable the NPU
+  pmdomain: rockchip: Add a regulator to the RK3568 NPU power domain
+
+ .../npu/rockchip,rk3588-rknn-core.yaml        | 27 +++++++++-
+ .../boot/dts/rockchip/rk3568-rock-3b.dts      | 18 ++++++-
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 38 ++++++++++++++
+ drivers/accel/rocket/rocket_core.c            | 30 ++++++++++-
+ drivers/accel/rocket/rocket_core.h            | 19 +++++++
+ drivers/accel/rocket/rocket_device.c          | 15 ++----
+ drivers/accel/rocket/rocket_device.h          |  3 +-
+ drivers/accel/rocket/rocket_drv.c             | 50 ++++++++++++++++++-
+ drivers/accel/rocket/rocket_job.c             | 45 ++++++++++++++---
+ drivers/pmdomain/rockchip/pm-domains.c        | 36 +++++++++----
+ 10 files changed, 245 insertions(+), 36 deletions(-)
+
+
+base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
+-- 
+2.39.5
 
