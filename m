@@ -4,53 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46357CD98CF
-	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 00:55:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4D7ECD98CF
+	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 01:30:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7463510E728;
-	Sat, 13 Jun 2026 00:55:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CD4510EB9F;
+	Sat, 13 Jun 2026 01:30:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OzXDcYgt";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oRtcAJW/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B33C10E728
- for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 00:55:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 34C894095B;
- Sat, 13 Jun 2026 00:55:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08F611F000E9;
- Sat, 13 Jun 2026 00:55:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781312145;
- bh=8eDS5x8qEvQ1BGyRWxttMIoyL3CwuR9WwCwXJqq8C4s=;
- h=Subject:From:In-Reply-To:References:Date:To:Cc;
- b=OzXDcYgtZGUAXpZDGfQgcVAHl1Hp4mFYzNzJ7ZM6ZtP2QfKWQWOnChaIOXsTsYgzg
- izMvrBgBjyILlwYd3N5i6z9y7GA7e6mGziR1Ehi9il+tdb5RLvuOoIi3RfNG/0W/nA
- n2RFGCdkWfOeuJxgciclZl2hjOMsk+UZKMvRkUb+wieD4unhVVszjAueiJo7PiBDyj
- dfptkUd40nzjYZCYZCyFsXhrk6KWnd7nU3pNWDRlB64vj9xLftZn8jVHYV7vhtwsbL
- Yz2VVIx9Ft4hde0KJiY9+Li8hapk1AeYWJb+9HtzDC+F6KS1J84cwoLGm2gWxZj4p7
- B4ZSGPuze/U8g==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- D14EB39E9609; Sat, 13 Jun 2026 00:55:42 +0000 (UTC)
-Subject: Re: [git pull] drm fixes for 7.1-rc8/final
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <CAPM=9twRD5OAYencEyAtjTq7uqWek9C2CcrWrV1Bmtz8EpJFcA@mail.gmail.com>
-References: <CAPM=9twRD5OAYencEyAtjTq7uqWek9C2CcrWrV1Bmtz8EpJFcA@mail.gmail.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <CAPM=9twRD5OAYencEyAtjTq7uqWek9C2CcrWrV1Bmtz8EpJFcA@mail.gmail.com>
-X-PR-Tracked-Remote: https://gitlab.freedesktop.org/drm/kernel.git
- tags/drm-fixes-2026-06-13
-X-PR-Tracked-Commit-Id: 7c62657a10625e4e113de248d41f543d5a2f3a1a
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 4fa048ed72531d6c2a2147fa9b52b6a5451213a2
-Message-Id: <178131214247.1313529.3598595060713954755.pr-tracker-bot@kernel.org>
-Date: Sat, 13 Jun 2026 00:55:42 +0000
-To: Dave Airlie <airlied@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 791CF10EB9F
+ for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 01:30:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1781314204;
+ bh=A0Fhtf7gjqLJuhoBRBiXhWj0GB7XnVMNfK4IpemDFWI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=oRtcAJW/8KbnGXk89e/jzIq16DQOsRVAid2oW1M2rMIgNizldVcQu7EEkMJg6vaGH
+ nBqkwPrnVMBUP2SEpHcJrqfX4J1PDNQYzA9i9nFfuEzjDK2oxpsX3peMPkaVLysDfs
+ zl9FHuMbw5RBTkiMKYDsQHotRUDWzftvaPWIPEGiariaCMOe38XdWUAh5yPdZYsXsg
+ Xr5wimHa+J1VX/GbE3AG6a4ZiUxLOZZisillPJIBZk4vyij0qsvnTIrEKETWCI1o1T
+ K9RWaETDo4JbpKzY6C+PxOBdD0Q9bKQVmgP9pEX93QPDmnHFVEcbIytSpWWnr9Zj/H
+ U5XoBLBqVU7oA==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 30ABF17E03C6;
+ Sat, 13 Jun 2026 03:30:03 +0200 (CEST)
+Message-ID: <2f5ce8eb-ef47-4238-ad68-ce62981a1845@collabora.com>
+Date: Sat, 13 Jun 2026 04:30:02 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 04/30] drm/display: scdc_helper: Add HDMI 2.0
+ scrambling management helpers
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
+ <20260602-dw-hdmi-qp-scramb-v7-4-445eb54ee1ed@collabora.com>
+ <20260612-cordial-steadfast-cow-fcaf01@houat>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20260612-cordial-steadfast-cow-fcaf01@houat>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,15 +77,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The pull request you sent on Sat, 13 Jun 2026 08:17:04 +1000:
+On 6/12/26 4:43 PM, Maxime Ripard wrote:
+> On Tue, Jun 02, 2026 at 01:44:04AM +0300, Cristian Ciocaltea wrote:
+>> +/**
+>> + * drm_scdc_start_scrambling - activate scrambling and monitor SCDC status
+>> + * @connector: connector
+>> + *
+>> + * Enables scrambling and high TMDS clock ratio on both source and sink sides.
+>> + * Additionally, use a delayed work item to monitor the scrambling status on
+>> + * the sink side and retry the operation, as some displays refuse to set the
+>> + * scrambling bit right away.
+>> + *
+>> + * Returns:
+>> + * Zero if scrambling is set successfully, an error code otherwise.
+>> + */
+>> +int drm_scdc_start_scrambling(struct drm_connector *connector)
+>> +{
+>> +	struct drm_display_info *info = &connector->display_info;
+>> +	struct drm_connector_hdmi *hdmi = &connector->hdmi;
+>> +	int ret;
+>> +	u8 ver;
+>> +
+>> +	if (!hdmi->scrambler_supported) {
+>> +		drm_scdc_dbg(connector, "Scrambler not supported, bailing.\n");
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	if (!info->is_hdmi ||
+>> +	    !info->hdmi.scdc.supported ||
+>> +	    !info->hdmi.scdc.scrambling.supported) {
+>> +		drm_scdc_dbg(connector, "Sink doesn't support scrambling.\n");
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	drm_scdc_dbg(connector, "Enabling scrambling\n");
+>> +
+>> +	ret = drm_scdc_readb(connector->ddc, SCDC_SINK_VERSION, &ver);
+>> +	if (ret) {
+>> +		drm_scdc_dbg(connector, "Failed to read SCDC_SINK_VERSION: %d\n", ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	ret = drm_scdc_writeb(connector->ddc, SCDC_SOURCE_VERSION,
+>> +			      min_t(u8, ver, SCDC_MAX_SOURCE_VERSION));
+>> +	if (ret) {
+>> +		drm_scdc_dbg(connector, "Failed to write SCDC_SOURCE_VERSION: %d\n", ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	hdmi->scdc_cb = drm_scdc_monitor_scrambler;
+>> +	WRITE_ONCE(hdmi->scrambler_enabled, true);
+>> +
+>> +	ret = drm_scdc_try_scrambling_setup(connector);
+>> +	if (!ret)
+>> +		ret = hdmi->funcs->scrambler_enable(connector);
+>> +
+>> +	if (ret) {
+>> +		WRITE_ONCE(hdmi->scrambler_enabled, false);
+>> +		cancel_delayed_work_sync(&hdmi->scdc_work);
+>> +		hdmi->scdc_cb = NULL;
+>> +
+>> +		drm_scdc_set_scrambling(connector, false);
+>> +		drm_scdc_set_high_tmds_clock_ratio(connector, false);
+>> +	}
+>> +
+>> +	return ret;
+>> +}
+>> +EXPORT_SYMBOL(drm_scdc_start_scrambling);
+> 
+> This is also pretty significantly different than what vc4 implemented. I
+> don't necessarily mind, but claiming that it's functionally equivalent
+> isn't true. I think it would be a much better strategy to turn the vc4
+> code into helpers as is because it's been merged 4 years ago and we know
+> it's solid.
 
-> https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-06-13
+As explained in patch 25, I think there's been a slight misunderstanding of how
+the CRTC reset logic was actually implemented.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/4fa048ed72531d6c2a2147fa9b52b6a5451213a2
+> Then, if you want to add additional checks and constraints (like the
+> SCDC_SINK_VERSION) that's fine, but it should come on top, and with its
+> own explanation.
 
-Thank you!
+I'll recheck if there's anything that I might have missed from the original
+implementation, while moving the additional changes to separate patch(es).
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Thanks,
+Cristian
