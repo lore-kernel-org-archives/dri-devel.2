@@ -4,109 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1917CD98C5
-	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 10:05:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B239DCD98D2
+	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 12:22:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDBB810ED75;
-	Sat, 13 Jun 2026 10:05:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C70E110E521;
+	Sat, 13 Jun 2026 12:22:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="G2EU0shD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YzneGPgH";
 	dkim-atps=neutral
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
- [74.125.82.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C96D510ED75
- for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 10:05:44 +0000 (UTC)
-Received: by mail-dy1-f169.google.com with SMTP id
- 5a478bee46e88-304dc707bfbso108636eec.2
- for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 03:05:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781345144; cv=none;
- d=google.com; s=arc-20240605;
- b=NmCa+rS2RcoAIKaqzxF7B00+TaZiRyzGDkpHNzerYlmEZmYYFhvOMNg5scStmwnLBA
- GbHN6M5bOkPTL7NXgVPkmtYUa11NqrSJVEhTD1NELHwm1xDPHmeR/emeKL4yxiv2HJ9Q
- yraRBkPVFQQU4H36lw8WboWI17eGuk3Ax/w08u5DdCmeUXmCwItuANJ8voaAJc0hdjfc
- HRg1ZFUgvZlOAMbaN2v2WjazNPEIcWoCDTVgQyj5e5DHjALllPtxsChsZaGm7Hn6LsUT
- WMchVoTpiutS40pztxJy5Tvr9/Z0hwWOHo9WEH8qkG2Lv9NUbkax9f7Wu2DupBiWsla0
- nOpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=CBjNOSpJlw+yD+1WI2YpvIUWPKEOoXhGnrq65FYW9Fw=;
- fh=f/LkzcYB2z9+gXO8dUVylimpgZ8Dq1Ilxy7qJMKCIQg=;
- b=ZRwJL9yNlPnu9ckppsu6O/8k9S+yaf9igesH4SwM9yAT1UzAcLSAI2c6zYphivRXm2
- +qqZbxVZwtP+w287VhUL5sDdvohJYqQf3COmP1iFRpShQ0FTceOuzzBGrI5UDXFqCPzO
- YI+YBf1WLIcD4bvy1+cBHAaIg17Mp8moA4J6yLrS+OJuM0UY2gLMBKdDXri1bBmBVggu
- Cl1b5/XDg0hqLT7XcdiK2s1P/RXNdUwXt3hh9S4IbrueA8SJQ/ZmtO3hx2716OpkrkyJ
- TEKf1/A/nCBSvXkcGbtmilSRVa/hdniJpU3wL1VpSaqkPOtGC8O6CchR6hK3Q1CwFXSS
- u4gw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3033810E521
+ for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 12:22:28 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-490b9318997so13342005e9.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 05:22:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781345144; x=1781949944; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1781353347; x=1781958147; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=CBjNOSpJlw+yD+1WI2YpvIUWPKEOoXhGnrq65FYW9Fw=;
- b=G2EU0shDXGd1BTDKaLU/UDH7C21yCvWpHpB2OcVTSVEaw7D8RJL5Rk5pCDBprNu2yi
- loB0/Tj5ISwobfd3mUL1KUOo+FCUUSbcBT+ngJZHpBrywpLP2hSnMrowoDsnGzwaWiN9
- +Fwap3PfaqPZbhJpbYSve8PnEaYJn5E+ezJ7GWjkri5WroV/CvELEIGvL7zEkb1qtqGR
- 03DL18PNpTu36IFmD8MuXI18baaB6n/BmS+3QKenRe4cFI0qwb1pRCUGb9PGqjxsS+SN
- yQi0lpWDGuzFwxWAHInpv/Qhgu5T9jtWSdtYaVyxLK8N161imWRLfSY2/a2zZdXgvNSE
- fyfg==
+ bh=PLEQjlHPyxb7qmLXVpiD2viGlLngNz3OwPerweNOL9c=;
+ b=YzneGPgHPZtQyCWh0MRiqTx5eCP90T7dAqOjjyJvwA2FVt4vbvXI+NR/2fUi7afafM
+ 73QePLJu/w/xANgqtCzqXvELltMW0Ams436hkIlbQbyDBEims5B5ic+L8x+/1UsVJFCM
+ LCHIeWZZtwO+dl/dJujBdQ1u5ThZY+zwWzkDNWAGvnKbb5NLPjRgdZW2l/6ZBNjsVIIa
+ MThFSfouN9ZFjqQ/PCIXJznEfTLNwGFqIH7CZoBVO4UVMweAdRWUMFoHf0OvazxkkDvt
+ N//APXykLMnJyAzbyE9x3Lv8o4CMYzQtAb5pDV23qsRMJXgOVVu5SBz8+Etgxf04FaUs
+ 0iig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781345144; x=1781949944;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1781353347; x=1781958147;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=CBjNOSpJlw+yD+1WI2YpvIUWPKEOoXhGnrq65FYW9Fw=;
- b=WR6ZnIJAGbx/XkFEoh4U2qLW6/hOCZ0RnuUKHJa3SYCsQqnqnz3x1+CYNpvJ+DC5tI
- UjiLT0DL2r4gPL/VrpPzbXq9eszPY26f8VOifyL+iCqOAVz4He+dOtzJHg6Q7Y34g8ln
- WxXmpgY0FcgtKuWSe8K1cBXJTmJUZQTwba4OjUt6SHJ3cs+2UrTj+3+7sxw0TTaqsSv0
- +soBnYQiamwoTzLCT/vWQwM2viMWpHWx1qwKCXfYFebpzdkLksVFoTLqhUoXLxkkSvkw
- L1bYca7w9wiBK06/2LqtUQ2gLwqNFBjHnxcnjWV0q4A7P38kS1WHmu+VURUV1IQsjrea
- yYSQ==
+ bh=PLEQjlHPyxb7qmLXVpiD2viGlLngNz3OwPerweNOL9c=;
+ b=FVqvgnq1+hwgme8HB23cwfgjlgN4z+aZ8nhwt7T+N19PBd4CwfGdD8jcOFeqqn6MjN
+ u2BUPQmqQwPaek3rKbMssgG92PCvNVcKfK6Nb2Ban5p6xMc2HjMcbKDtPu6OpliXJgKJ
+ rzBkQ0iMFP8twVxkmjssQFIBCFDyFdBCXI/1tpETuNt2nAmxJ8DxirHocN1cO+I0dGhj
+ QXAl546j4Eifu//UMQXjMUX5M4k1NViAeVAR3Ml683x7DKb38tCsN2PGuukbnYNjjMur
+ xlrXTY8AxhuVaq7yXRr2qrdC1Hy1Fom9Zlm+ip1CGt1shaaw7MfvXCAAWzdTQpJZTBoM
+ 026g==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+j6ByNJg8JBg+Dw4HgpEVoXVzzo1oAppn5ULNMFj5WlrX1mC2v87TjCMvat9usCJH+iUhVMzNRmfQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzf60bYxE5LHvglBj9KbBRLuOUCR8CQxpPgRcBFcQ3FqAYjak+P
- gRIZD7NFE/UVd3s4/0mTHKKJH317Ir06KJNP8fileNWilp/HwCLcp5TEUwNLUtXxWbMCiGU1E8y
- TyRGNiORl4su/dt5XMdgrhogSFxRYzVKcB33C
-X-Gm-Gg: Acq92OGqTWLscRMr8sNQ2QsOX/QvAEi/A7icigsYk6m2wYnaExywG/mhfseik4GyH1F
- YkAPBLTJxKU99zcPBnXe3rzdZxoeI6+BgIaIcnA1gwpq7exN+9Z101O055ZVDc4V2s/iFHFIefC
- B4tX0PcTya3j+tQL1fM6F4IJj8Te41sbmB5l4pbxoca0wwl9aWFxM4wpPBmhyZAHIh0TKRWaJGO
- SHdGrpd/IpjwEf89M86GMVTOv5NkojwFvXloX3ThvB/ntyCDnGgctC0cMO0+6WK3XkFvpeveqEd
- InIN/v5GCXONA0uw5TR3skTdMPDOe8c1d2X2AfiStwXPaD/A3tvtiHC0h6GFu3xcIL3yfQSbVOI
- xU4zfcJ1tMiT1YDJUNLBWGlk=
-X-Received: by 2002:a05:7300:641a:b0:304:e327:aef8 with SMTP id
- 5a478bee46e88-3081ff62e8fmr1477519eec.2.1781345143929; Sat, 13 Jun 2026
- 03:05:43 -0700 (PDT)
+ AFNElJ/K6htrIMwdDsujv/5z89TtbP3Wj1ZXn6e9LT2cTbz6LlPSeI7tUVZgazdSNT1F0RgBms/NPzNgSX4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwIAkH6O3Jwt5do6hFFl7jP0l90aLF9FFnbU5JPV+l/MdbVyVJr
+ jz+ThSHnrUgI5C8dAyU6teQYOYlGxQvgeSHG5ipZ7UO4eP6+FUPRJYpC
+X-Gm-Gg: Acq92OHsbmJ0/7rRcUVya2B36shTVdORV0lKEZPmuoYsT37zDBeTcguJA3yZxrfPCjF
+ q7EEMNhPNsMJpsyB3AINnlGLmQEtwTKkdyyqLnldBKnoJDSSrbUuunxjfen+2fXI2+yFbN+F0+j
+ piTT2OQD9YuQN/16uxGcpNUFuxprWLicv2r6T+PR1Tx9HoPT3jrDixEjQbomQStGdeGjnsO3SDp
+ abSf3kFpehAMprMTtxqwmm/52hMcc4rGXwAqHFzj0UnIxbARZGARtbkg8XiJGa4JLL85dH9edQ3
+ xU3aFh2kWOgmvOkZ/UhFUvEY0Eix7uCRfghrB3Uv1ae5ghQItjwiv6JmkI1Qec3rzstIac/46hQ
+ Fe2OpGzat21GStz0WgncEo4FWMs+oMgtyBQYA1ttkcg/3a5wiXynSwhk09h1LxCzB0gkoZhjR6D
+ NlurM42dzOmzGnrzPtN1fXsBsBGa7zjsnHtU5JBL+ldIfBKkM/oM8GPG4mFmFU2cYAX0z124Zvy
+ onDpaqYMo4nGsUYOpxJB//aOKy9+Q==
+X-Received: by 2002:a7b:c017:0:b0:48e:6db3:ff2e with SMTP id
+ 5b1f17b1804b1-49220093459mr29113745e9.15.1781353346482; 
+ Sat, 13 Jun 2026 05:22:26 -0700 (PDT)
+Received: from timur-max.localnet
+ (20014C4E24EDFA00ACE56DB4A62D1E35.dsl.pool.telekom.hu.
+ [2001:4c4e:24ed:fa00:ace5:6db4:a62d:1e35])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4606f26434dsm15521120f8f.1.2026.06.13.05.22.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 13 Jun 2026 05:22:25 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>, 
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Kees Cook <kees@kernel.org>,
+ Leo Li <sunpeng.li@amd.com>, Mario Limonciello <mario.limonciello@amd.com>,
+ Ray Wu <ray.wu@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Rong Zhang <i@rong.moe>, Simona Vetter <simona@ffwll.ch>,
+ Tom Chung <chiahsuan.chung@amd.com>, Markus Elfring <Markus.Elfring@web.de>
+Cc: LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 0/3] drm/amd/display: More efficient data output in four
+ functions
+Date: Sat, 13 Jun 2026 13:05:54 +0200
+Message-ID: <2796386.vuYhMxLoTh@timur-max>
+In-Reply-To: <e0689a10-9cd6-4d74-a276-99f8f01c83fa@web.de>
+References: <e0689a10-9cd6-4d74-a276-99f8f01c83fa@web.de>
 MIME-Version: 1.0
-References: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net>
- <20260611-io_projection-v4-1-1f7224b02dcb@garyguo.net>
-In-Reply-To: <20260611-io_projection-v4-1-1f7224b02dcb@garyguo.net>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sat, 13 Jun 2026 12:05:30 +0200
-X-Gm-Features: AVVi8Ce5ZWN0tgHXx4wgAxeDGhIDTq9KOdKjeJ9s14OzuckvDKwA8hSyjUXURv0
-Message-ID: <CANiq72mLqrcdZEAGM1wJ6OE7yUxzDT4dRsYjO91kPzoB5h6mfw@mail.gmail.com>
-Subject: Re: [PATCH v4 01/20] rust: io: add dynamically-sized `Region` type
-To: Gary Guo <gary@garyguo.net>
-Cc: Alice Ryhl <aliceryhl@google.com>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Bjorn Helgaas <bhelgaas@google.com>, 
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,38 +100,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2026 at 6:28=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
->
-> +    /// Create a raw mutable pointer from given base address and size.
-> +    ///
-> +    /// The alignment of `base` is checked, and `size` is checked agains=
-t the minimum size specified
-> +    /// via const generics.
-> +    #[inline]
-> +    pub fn ptr_try_from_raw_parts_mut(base: *mut u8, size: usize) -> Res=
-ult<*mut Self> {
-> +        if size < SIZE || base.align_offset(4) !=3D 0 || !size.is_multip=
-le_of(4) {
-> +            return Err(EINVAL);
-> +        }
-> +
-> +        Ok(Self::ptr_from_raw_parts_mut(base, size))
-> +    }
+On 2026. j=C3=BAnius 5., p=C3=A9ntek 13:30:13 k=C3=B6z=C3=A9p-eur=C3=B3pai =
+ny=C3=A1ri id=C5=91 Markus Elfring=20
+wrote:
+> From: Markus Elfring <elfring@users.sourceforge.net>
+> Date: Fri, 5 Jun 2026 13:00:03 +0200
+>=20
+> A few update suggestions were taken into account
+> from static source code analysis.
 
-Hmm... I wonder if, at least for the `try_` one, we should have `//
-INVARIANT:` on top of the `Ok`, since we at least checked that part.
+The series looks good to me. Thank you!
 
-> +// Stable since Rust 1.87.0.
-> +#![feature(unsigned_is_multiple_of)]
+Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 
-It indeed appears available without changes since Rust 1.82.0 <=3D MSRV.
+>=20
+> Markus Elfring (3):
+>   Simplify data output in psr_capability_show()
+>   Simplify data output in ips_status_show()
+>   Use seq_putc() in three functions
+>=20
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c   | 13 ++++++-------
+>  1 file changed, 6 insertions(+), 7 deletions(-)
 
-Acked-by: Miguel Ojeda <ojeda@kernel.org>
 
-I think Danilo asked for the Acked-by back in the first version but
-you dropped it since the patch changed, so here it is again :)
 
-Thanks!
 
-Cheers,
-Miguel
