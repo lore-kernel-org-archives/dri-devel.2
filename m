@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6D26CD98D2
-	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 07:09:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFD5ACD98D2
+	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 07:09:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FC6010ECBB;
-	Sat, 13 Jun 2026 07:09:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1932510ECBE;
+	Sat, 13 Jun 2026 07:09:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HS0Vt6ou";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XhBP/2Nf";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6361310ECBB
- for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 07:09:16 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB26210ECBE
+ for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 07:09:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 26E35437D7;
- Sat, 13 Jun 2026 07:09:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A362E1F000E9;
- Sat, 13 Jun 2026 07:09:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 170D860018;
+ Sat, 13 Jun 2026 07:09:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90D1D1F000E9;
+ Sat, 13 Jun 2026 07:09:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781334555;
- bh=UB3uAjFnfhInw5+4dO1bH2vnDbZT3yG6O7bCyCmnOwU=;
+ s=k20260515; t=1781334596;
+ bh=LllGNlIctgRpFkMe6kZ0cZis/unjKDzySoabPYqAJQU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HS0Vt6ouKAIXqUNd2hLd+H6Sgn/LRnTdVMiy/PtJuglpeCFCJE2erTYo8J/CD6VrQ
- XQVdHm2c++31BxPBMXQRmGCxzyQfaouvaRzS/vbE68pPAodbITePM8tcN1WC4baJJu
- kRq88kDC+4LYsjHSadxCCK38aptYIGxQIX1W39aGPxPYRC7EgRvZPW9OfvzuDBmYQ/
- h0gUA8TgSPKfobJGWt6K41mGJtzcMt3loudRpWWddKPQDTq2Xqw57b8/E7/NXRLEB6
- 2/HgqBOm4IAm5zJDxLksKzmsB4yeHDHliSl1HUw2ORRDr7f7mieDg1jlH865ih8mHm
- HgVPRq0mIcYYw==
+ b=XhBP/2NfT7Oza1BkefenP5hDKBDPcAOPdZ9lw2RiNMSNJMwwoPEYU3dBqetVaUpbn
+ 7WRGl2o33MHxabhMRZOgJUY/b8qJXJsgxgS//2wm9IMXTWXKqFwBSoyKixpEtolPma
+ qNno1ieIp5kVDUaq6ynrlCfNECu7faaTM/7DeKgtm6vdicyf7ZtKnaXmHxbkqA7IuI
+ NO1wz+whpxnszVNMO8DgNO32MuxAQq8wnqXhdeBZCqrGqn1PUZtIn7wDiKptWpS32b
+ TOY8EvH0Yz33X8A4EuHIcXBI93j6Ka/0mpJubpyTdatCUMQb6WBpLVzBEqf5gyrDFx
+ 9OmhY4lilhsxA==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v4 7/9] arm64: dts: rockchip: rk356x: Add the NPU
- and its IOMMU
+Subject: Re: [RFC PATCH v4 2/9] accel: rocket: Derive DMA width and core
+ count from match data
 To: MidG971 <midgy971@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260613070116.438906-8-midgy971@gmail.com>
-References: <20260613070116.438906-8-midgy971@gmail.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260613070116.438906-3-midgy971@gmail.com>
+References: <20260613070116.438906-3-midgy971@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 13 Jun 2026 07:09:15 +0000
-Message-Id: <20260613070915.A362E1F000E9@smtp.kernel.org>
+Date: Sat, 13 Jun 2026 07:09:56 +0000
+Message-Id: <20260613070956.90D1D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,84 +58,214 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [High] Incorrect IOMMU compatible string 'rockchip,iommu' is used for the=
- RK3568 NPU IOMMU, which will cause translation faults.
-- [High] The assigned clock rates for the NPU AXI bus and compute core are =
-swapped, severely overclocking the AXI bus.
+
+New issues:
+- [High] The bounds check for the 'cores' array uses the current node's mat=
+ch data rather than the allocated capacity, allowing an out-of-bounds write=
+ if the device tree has mixed compatible strings.
+
+Pre-existing issues:
+- [High] If `rocket_device_init()` fails, the global `rdev` pointer is left=
+ containing an `ERR_PTR`, causing a kernel panic on subsequent core probes.
+- [High] Global DRM device and core arrays are allocated using `devm_` help=
+ers tied to the first probed core's lifecycle, causing a Use-After-Free whe=
+n that core is unbound.
+- [High] Removing and re-probing NPU cores out of order corrupts the 'cores=
+' array because 'num_cores' is incorrectly used as both an active count and=
+ the array index.
+- [High] Missing locking around the global `rdev` initialization and `rdev-=
+>num_cores` access allows concurrent probes to corrupt device tracking and =
+leak allocations.
+- [High] The DRM device is registered before its hardware cores are fully i=
+nitialized, allowing userspace to trigger a NULL pointer dereference.
 --
 
-commit a304190b5b1e8ffa602c7c5d7dbdfed3a2c3dcae
+commit a4289515ae9af5aaa001a280a8b52c1288f26e24
 Author: Midgy BALON <midgy971@gmail.com>
-Subject: arm64: dts: rockchip: rk356x: Add the NPU and its IOMMU
+One line subject: accel: rocket: Derive DMA width and core count from match=
+ data
 
-This patch adds the device tree nodes for the NVDLA-derived NPU and its
-associated IOMMU on the RK3568 SoC. It configures the clocks, resets, power
-domains, and assigns the PMU syscon to manage the NPU NoC bus-idle. The
-configuration also intends to bring up the NPU AXI bus clock at 200 MHz.
+The probe already has the per-SoC match data, which now records the core
+count and DMA width. This patch uses it for the cores array allocation and
+the device DMA mask instead of re-scanning the device tree for available
+core nodes. It also rejects a device tree that declares more NPU core nodes
+than the SoC has to prevent overrun.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/b=
-oot/dts/rockchip/rk356x-base.dtsi
-> index 64bdd8b7754b5..313db59c1aed8 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-[ ... ]
-> @@ -572,6 +579,37 @@ power-domain@RK3568_PD_RKVENC {
->  		};
->  	};
+> diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/=
+rocket_device.c
+> index 46e6ee1e72c5f..6186f4faa3a2a 100644
+> --- a/drivers/accel/rocket/rocket_device.c
+> +++ b/drivers/accel/rocket/rocket_device.c
+> @@ -6,18 +6,16 @@
+>  #include <linux/clk.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/platform_device.h>
+> -#include <linux/of.h>
 > =20
-> +	rknn_core_0: npu@fde40000 {
-> +		compatible =3D "rockchip,rk3568-rknn-core";
-> +		reg =3D <0x0 0xfde40000 0x0 0x1000>,
-> +		      <0x0 0xfde41000 0x0 0x1000>,
-> +		      <0x0 0xfde43000 0x0 0x1000>;
-> +		reg-names =3D "pc", "cna", "core";
-> +		interrupts =3D <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>;
-> +		clocks =3D <&cru ACLK_NPU>, <&cru HCLK_NPU>,
-> +			 <&scmi_clk SCMI_CLK_NPU>, <&cru PCLK_NPU_PRE>;
-> +		clock-names =3D "aclk", "hclk", "npu", "pclk";
-> +		assigned-clocks =3D <&scmi_clk SCMI_CLK_NPU>, <&cru CLK_NPU>;
-> +		assigned-clock-rates =3D <200000000>, <600000000>;
+>  #include "rocket_device.h"
+> =20
+>  struct rocket_device *rocket_device_init(struct platform_device *pdev,
+> -					 const struct drm_driver *rocket_drm_driver)
+> +					 const struct drm_driver *rocket_drm_driver,
+> +					 const struct rocket_soc_data *soc_data)
+>  {
+>  	struct device *dev =3D &pdev->dev;
+> -	struct device_node *core_node;
+>  	struct rocket_device *rdev;
+>  	struct drm_device *ddev;
+> -	unsigned int num_cores =3D 0;
+>  	int err;
+> =20
+>  	rdev =3D devm_drm_dev_alloc(dev, rocket_drm_driver, struct rocket_devic=
+e, ddev);
+> @@ -27,17 +25,14 @@ struct rocket_device *rocket_device_init(struct platf=
+orm_device *pdev,
+>  	ddev =3D &rdev->ddev;
+>  	dev_set_drvdata(dev, rdev);
+> =20
+> -	for_each_compatible_node(core_node, NULL, "rockchip,rk3588-rknn-core")
+> -		if (of_device_is_available(core_node))
+> -			num_cores++;
+> -
+> -	rdev->cores =3D devm_kcalloc(dev, num_cores, sizeof(*rdev->cores), GFP_=
+KERNEL);
+> +	rdev->cores =3D devm_kcalloc(dev, soc_data->num_cores, sizeof(*rdev->co=
+res),
+> +				   GFP_KERNEL);
 
 [Severity: High]
-Will this configuration inadvertently overclock the AXI bus?
+This is a pre-existing issue, but does using devres tied to the first
+probed core's lifecycle cause a use-after-free when that core is unbound?
 
-The commit message states the intent to assign the CRU CLK_NPU so the NPU
-AXI bus clock comes up at 200 MHz. However, based on the positional mapping
-of assigned-clocks to assigned-clock-rates, this assigns 200 MHz to the SCMI
-compute core and 600 MHz to CLK_NPU.
+If userspace unbinds this first core via sysfs, rocket_remove() decrements
+num_cores but does not explicitly clean up the DRM device because other
+cores are still bound. Upon returning from remove, the driver core
+automatically frees all devres tied to the first core's device. This
+would destroy the global rdev memory, causing a use-after-free when any
+remaining cores attempt to access it.
 
-Should the values in assigned-clock-rates be swapped to match the order
-in assigned-clocks to prevent bus hangs?
+[Severity: High]
+This is a pre-existing issue, but does registering the DRM device
+before its hardware cores are fully initialized allow userspace to
+trigger a NULL pointer dereference?
 
-> +		resets =3D <&cru SRST_A_NPU>, <&cru SRST_H_NPU>;
-> +		reset-names =3D "srst_a", "srst_h";
-> +		power-domains =3D <&power RK3568_PD_NPU>;
-> +		rockchip,pmu =3D <&pmu>;
-> +		iommus =3D <&rknn_mmu_0>;
-> +		status =3D "disabled";
-> +	};
+In rocket_device_init(), the driver calls drm_dev_register() to expose
+the character device to userspace. This occurs before the caller,
+rocket_probe(), populates rdev->cores[0].dev and initializes the hardware.
+
+If userspace opens the device during this small timing window,
+rocket_open() is called and invokes:
+
+    rocket_iommu_domain_create(rdev->cores[0].dev);
+
+Since the device pointer is still NULL, this would attempt to dereference
+a NULL device pointer in the IOMMU subsystem, crashing the system.
+
+[ ... ]
+
+> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
+ket_drv.c
+> index 384c38e13acce..f0beed2d522c7 100644
+> --- a/drivers/accel/rocket/rocket_drv.c
+> +++ b/drivers/accel/rocket/rocket_drv.c
+> @@ -159,11 +159,15 @@ static const struct drm_driver rocket_drm_driver =
+=3D {
+> =20
+>  static int rocket_probe(struct platform_device *pdev)
+>  {
+> +	const struct rocket_soc_data *soc_data =3D of_device_get_match_data(&pd=
+ev->dev);
+>  	int ret;
+> =20
+> +	if (!soc_data)
+> +		return -EINVAL;
 > +
-> +	rknn_mmu_0: iommu@fde4b000 {
-> +		compatible =3D "rockchip,iommu";
+>  	if (rdev =3D=3D NULL) {
 
 [Severity: High]
-Does this compatible string correctly identify the v2 IOMMU hardware
-present on the RK3568?
+This is a pre-existing issue, but does the lack of locking around the global
+rdev initialization allow concurrent probes to corrupt device tracking
+and leak memory?
 
-Using rockchip,iommu binds to the v1 hardware operations in the Rockchip
-IOMMU driver. Because the RK3568 features a v2 IOMMU, configuring it with
-v1 driver operations could result in incorrect page table programming and
-translation faults when the NPU attempts DMA.
+If concurrent probes occur (for example, via asynchronous probing or
+concurrent sysfs binds), multiple threads can pass this if check,
+causing multiple DRM device allocations. They can also read the same
+num_cores value, leading both threads to overwrite the same index in the
+rdev->cores array.
 
-Other IOMMU nodes in rk356x-base.dtsi use rockchip,rk3568-iommu. Should
-this node use that compatible string instead?
+>  		/* First core probing, initialize DRM device. */
+> -		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver);
+> +		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver, soc_data);
+>  		if (IS_ERR(rdev)) {
+>  			dev_err(&pdev->dev, "failed to initialize rocket device\n");
+>  			return PTR_ERR(rdev);
 
-> +		reg =3D <0x0 0xfde4b000 0x0 0x40>;
-> +		interrupts =3D <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>;
-> +		clock-names =3D "aclk", "iface";
+[Severity: High]
+This is a pre-existing issue, but does this error path leave the global
+rdev pointer containing an ERR_PTR?
+
+If rocket_device_init() fails, it returns an error pointer which is
+assigned to the global rdev. The function then returns the error but fails
+to reset rdev to NULL.
+
+When the next core probes, the (rdev =3D=3D NULL) check is bypassed, and the
+driver immediately dereferences the error pointer when reading
+rdev->num_cores:
+
+    unsigned int core =3D rdev->num_cores;
+
+Could this lead to a reproducible kernel panic?
+
+> @@ -172,6 +176,12 @@ static int rocket_probe(struct platform_device *pdev)
+> =20
+>  	unsigned int core =3D rdev->num_cores;
+> =20
+> +	if (core >=3D soc_data->num_cores) {
+
+[Severity: High]
+Does this bounds check use the current node's capacity rather than the
+array's actual allocated size?
+
+The array rdev->cores is permanently allocated using soc_data->num_cores
+from the first probed device in rocket_device_init(). However, this bounds
+check evaluates against the soc_data of the current probing device.
+
+If a device tree or overlay declares a node with a smaller num_cores
+followed by one with a larger num_cores, the check will pass for an index
+that exceeds the initial allocation size. Will this cause a direct
+out-of-bounds write into the rdev->cores array, corrupting kernel memory?
+
+> +		dev_err(&pdev->dev, "too many NPU core nodes (max %u)\n",
+> +			soc_data->num_cores);
+> +		return -EINVAL;
+> +	}
+> +
+>  	dev_set_drvdata(&pdev->dev, rdev);
+> =20
+>  	rdev->cores[core].rdev =3D rdev;
+
+[Severity: High]
+This is a pre-existing issue, but does removing and re-probing NPU cores
+out of order corrupt the cores array?
+
+When a core is removed, rocket_remove() decrements rdev->num_cores
+without shifting the remaining cores in the array to close the gap:
+
+    rdev->num_cores--;
+
+If cores are removed out of order, active cores are left at indices equal
+to or greater than the new num_cores. The driver later uses num_cores as its
+search bound, making those trailing active cores unreachable.
+
+Furthermore, if a new core is probed, it assigns itself to the index
+rdev->num_cores, blindly overwriting a still-active core:
+
+    rdev->cores[core].rdev =3D rdev;
+
+Could this cause state corruption and resource leaks?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260613070116.4389=
-06-1-midgy971@gmail.com?part=3D7
+06-1-midgy971@gmail.com?part=3D2
