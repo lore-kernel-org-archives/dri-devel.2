@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EEFBCD98DF
-	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 06:58:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B01BCD98D8
+	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 06:58:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81FF110ECAB;
-	Sat, 13 Jun 2026 06:58:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE7EB10ECAF;
+	Sat, 13 Jun 2026 06:58:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Zec3FF/z";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Boj/9WR3";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AD5E10ECAB
- for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 06:58:45 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-490b64c8311so17694915e9.3
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 23:58:45 -0700 (PDT)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F242510EC74
+ for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 06:58:43 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-490b211ee6aso12149805e9.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 23:58:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781333924; x=1781938724; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781333922; x=1781938722; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6qXDWY05NWH/jJuuAS5m9EpuxlsKXS/Zj0XFrGsO4MM=;
- b=Zec3FF/zRwmH5Qw7SuRFItwEeEnKR7+yXVp4fIbNbeOGSDvRE5K1PNK5ta3VF32eZT
- zfCuKlzqdsDK2pUuaef2mWy8qjTEev00N/WyRsa8bQ6pURJLJnvpDVavds2caMt4OUls
- /KmLHR1oPtDahHroGwONZSmdQ4CAb4/L2h6mZ0/ekQb/rOlpukHCmyeM5/QzZHa5wVel
- wUlWcH9liCOMVsMRfw+7AkvGqJMh1MhzeqCXIcPesL1ZRGzQDO687arluhyP/DxnBRXI
- muKuQeNdmfu4u0H1MnEGO3FfHHUCM+z2cRgm6njjM6E0+n1XdlBRUr+eqSd3Q6Hmnft6
- YWSQ==
+ bh=6JonI5tVCKFVj4EE3HntNYMlqngF+zGzezn1FD6cSzY=;
+ b=Boj/9WR3zVRLinscXUdeuhGIMxTFbxUJ44CwOufpXzcgpyfzzuOdhzKv6Er0zqMg5B
+ mupz5NpjanmjdUwi6/5cw7cSxwYx27BiY1qPUghVxCcaWAyUXjCSjxOJu0rtwfnu+6Ix
+ IJifLNSRRhS/NuG/nDAQ1PgvpcoDRIhMvIwg2dh2DW3Sz10YAECJ5PgcZiotuibk3yP0
+ ZyXlOFmV9bPYd+BlsiIF97Nmm4nqkxfSyb1gh36PZXMWRjVZoW7pPBftPQameHZafxgL
+ UwDKEyUD6J33x18ieC0YJKJu/m2SrnDc5iPxj+0DbtmWagbe1Py6z2/OKKKzsNS8+cV9
+ jn2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781333924; x=1781938724;
+ d=1e100.net; s=20251104; t=1781333922; x=1781938722;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=6qXDWY05NWH/jJuuAS5m9EpuxlsKXS/Zj0XFrGsO4MM=;
- b=lEw8UGwCQC/K9MIRZ2w9IfBst1tSyaTmSruQplxuGIPl4IoYxMvV60JAHO5zUB+bIC
- W/GAmLTm+8LPLpNu56vLcGwbD5VWjxgIlr3z4+TA4I8BV0zOncjoe393UKVeOy5akgfa
- BOKTpd3PYyx2Yz8acZrlcqpalWhyZwFD0O+g8oxeyuNiTA2SfHQ/NYQEWyQgEVwQpQwA
- SJcH0fu7GwvcahcSFJSJkzww/r03yxsSayvtULwHCRuaJZ3MeeT0YjPUPU1u20dsSoaq
- U/VPYuPWBNJVvS7BKp/CDVeGtfVSiHD2vakp6UMkWwDzTp4UlMyvzIC2A2iiknzBt7bb
- m5ZQ==
-X-Gm-Message-State: AOJu0YzskAo0u5c1dNXeS+09BNH1lp4wa40NGh+OCaM0/8jz09qGz4Vj
- xyFpV261LD8WApIw5jj2NJJSiFHR1bKkbkFCixKoqmBPQGCQVZeAUxJy
-X-Gm-Gg: Acq92OGZfMxSZcAce6VD658bCwHS+fHP4YQKbY7VcOWdG88927WxXr1AOtn94HMIrpU
- lku2KLxWPl+L1nsSDSiTueyLQacA8wYESppv/57y8hrd0WsJWSPmxuhQ59F1D4/gOHyIO2gHFpY
- SwwVAkLBJVF21gxKRp1FWcXAxxsBKPrGfW9nzQBlHyWquC51hvfMiFND5weceAsN75zUuYjz4rw
- Qe7zTaLVuPwbnuHA748/8NYpvunHIOOQbRBySxMo4/lvB+iByZhSnu5RCVmqX4brub28REDg+VG
- oFhLIXJyM34MFsBOKx6f3XyqNSTjZwqgWJKmfHdwzCZmHvRTb3IhexJutmQlK6W0bE/KDitFEiU
- 7Y6d/elQAAZ6/8eLBJUlXRo7LqC1ldFKUjmF01D8iVbH3AG1jpGk3Bllsw+xXAma//hwYC4qYJz
- COS4oX64kOdyeBTh7dZN21nmoqPHDMXLVoGnh3jUbdUw==
-X-Received: by 2002:a05:600c:46c4:b0:490:b355:9c8c with SMTP id
- 5b1f17b1804b1-490ec4fbcb7mr81233115e9.23.1781333924116; 
- Fri, 12 Jun 2026 23:58:44 -0700 (PDT)
+ bh=6JonI5tVCKFVj4EE3HntNYMlqngF+zGzezn1FD6cSzY=;
+ b=P10aXg3HUGu750g4vZU/AiJDaBeprgGrlzYxesOEduTaRnzK1M880kRRze9zpNdeuc
+ tjjvHOTNNlaV12hxS6g8hzRQYoec3FhKox4hqnCG6oU4m5BNvG6B65SX8CHEVVyK+Fx3
+ DdukiApYyyrybBQK9gLNzasgspvFEOfZqC+HMHNZ1Pdbs53om2FHD+eVZkloUa0RPelF
+ UWA+8nIGflM0zPZzopVOkU42OUPtHrzUE658WrIDLpE04bXJQycrtIXGtng2oLXxPIAu
+ Seeaz5JpqWUHef0OofeAjkPEZEqe1gA2AljfkntWuH+rpoJQHUZmzmaCh2ZZ7hDE1DAy
+ /GCg==
+X-Gm-Message-State: AOJu0Yxw8liPEJedIkTAwbVY2BDu3i66kTSrwRHRfgbZAhds5S4E92kM
+ 6Qh0tyUbkOTywgsQwa+TRIVesN2dpS39wAjy+yPrKIUrX/qHVdry/gh1
+X-Gm-Gg: Acq92OFDvA8d3DluQD6ih83h5529tuHssqvD2RLof873k8EBlXDEpJC/MVzw030TX/W
+ rxha8AxB592cwr9S8NhpAlGJDQJJ6ZNNptP1P+lz3CCGSRg2TkCfCws6hfcjDMmXRjBlHOxWROt
+ gvAcBuoRA2sLi0onT7YOuNJRIgayybyur0NIOk07sabGOtygeORyFtZtvsVfRU7q12GeAomG9B/
+ zgYJ2R4nPJfelii0OMmP5/naMCMmBu8cWwo8kTBi4U9iRS8UmLHXHb4sdOJU5z99r4JvV4yjfhr
+ Kc8cSpRnJyNe9RHrzwmmrcMOepW5nVqUh1to7NEcpBEh86/iG80bkL+Osd4ATPfLOapFa/htJXR
+ ZGGATVh9Xyvwn5iWJX4T4v1vvcV8HFW3x5Iai4VMF/STxfuFfKo5plLZNKsq3z3q6qMIWaEXd00
+ rFpylsWGF2MHzfqLu+F4fkTgjHiDqvxMFXgRSB4SYh4Q==
+X-Received: by 2002:a05:600c:83c8:b0:492:1e36:d16e with SMTP id
+ 5b1f17b1804b1-4921e36d1a9mr40797495e9.36.1781333922475; 
+ Fri, 12 Jun 2026 23:58:42 -0700 (PDT)
 Received: from debian.tailb81abf.ts.net
  ([2a01:e0a:104a:4d80:14c0:9448:1c38:77df])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-492202e5cbasm42917705e9.2.2026.06.12.23.58.43
+ 5b1f17b1804b1-492202e5cbasm42917705e9.2.2026.06.12.23.58.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Jun 2026 23:58:43 -0700 (PDT)
+ Fri, 12 Jun 2026 23:58:42 -0700 (PDT)
 From: MidG971 <midgy971@gmail.com>
 To: tomeu@tomeuvizoso.net, ogabbay@kernel.org, heiko@sntech.de,
  robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
@@ -71,10 +71,10 @@ Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org, xxm@rock-chips.com,
  chaoyi.chen@rock-chips.com, finley.xiao@rock-chips.com,
  diederik@cknow-tech.com, jonas@kwiboo.se, Midgy BALON <midgy971@gmail.com>
-Subject: [RFC PATCH v4 9/9] pmdomain: rockchip: Add a regulator to the RK3568
- NPU power domain
-Date: Sat, 13 Jun 2026 09:01:16 +0200
-Message-Id: <20260613070116.438906-10-midgy971@gmail.com>
+Subject: [RFC PATCH v4 8/9] arm64: dts: rockchip: rk3568-rock-3b: Enable the
+ NPU
+Date: Sat, 13 Jun 2026 09:01:15 +0200
+Message-Id: <20260613070116.438906-9-midgy971@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260613070116.438906-1-midgy971@gmail.com>
 References: <20260613070116.438906-1-midgy971@gmail.com>
@@ -97,79 +97,55 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Midgy BALON <midgy971@gmail.com>
 
-The RK3568 NPU rail (vdd_npu) needs to be enabled before the domain is
-powered on and disabled after it is powered off. Give DOMAIN_RK3568 a
-regulator parameter (like DOMAIN_RK3588 already has) so the NPU domain
-can set need_regulator, letting genpd manage the rail wired up as the
-domain's domain-supply instead of marking it always-on in DT.
+Enable the NPU and its IOMMU on ROCK 3B and wire vdd_npu as the NPU
+power domain's domain-supply, so genpd brings the rail up and down with
+the domain (the domain is marked need_regulator). The PVTPLL compute
+clock is brought up later by the driver.
 
-Suggested-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+The rail is no longer kept always-on, so pin it to 1000 mV (the NPU's
+1 GHz operating voltage; the driver runs a fixed compute rate with no
+devfreq voltage scaling) and mark it boot-on, so it is up before the
+power domain de-idles the NPU NoC at power-on.
+
 Signed-off-by: Midgy BALON <midgy971@gmail.com>
 ---
- drivers/pmdomain/rockchip/pm-domains.c | 36 ++++++++++++++++++--------
- 1 file changed, 25 insertions(+), 11 deletions(-)
+ .../arm64/boot/dts/rockchip/rk3568-rock-3b.dts | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
-index 490bbb1d1d8e8..19db307e3811d 100644
---- a/drivers/pmdomain/rockchip/pm-domains.c
-+++ b/drivers/pmdomain/rockchip/pm-domains.c
-@@ -138,6 +138,20 @@ struct rockchip_pmu {
- 	.active_wakeup = wakeup,			\
- }
+diff --git a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
+index 69001e453732e..d3f9776c2bdc3 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
+@@ -330,9 +330,10 @@ regulator-state-mem {
  
-+#define DOMAIN_M_R(_name, pwr, status, req, idle, ack, wakeup, regulator)	\
-+{							\
-+	.name = _name,				\
-+	.pwr_w_mask = (pwr) << 16,			\
-+	.pwr_mask = (pwr),				\
-+	.status_mask = (status),			\
-+	.req_w_mask = (req) << 16,			\
-+	.req_mask = (req),				\
-+	.idle_mask = (idle),				\
-+	.ack_mask = (ack),				\
-+	.active_wakeup = wakeup,			\
-+	.need_regulator = regulator,			\
-+}
+ 			vdd_npu: DCDC_REG4 {
+ 				regulator-name = "vdd_npu";
++				regulator-boot-on;
+ 				regulator-initial-mode = <0x2>;
+-				regulator-min-microvolt = <500000>;
+-				regulator-max-microvolt = <1350000>;
++				regulator-min-microvolt = <1000000>;
++				regulator-max-microvolt = <1000000>;
+ 				regulator-ramp-delay = <6001>;
+ 
+ 				regulator-state-mem {
+@@ -787,3 +788,16 @@ vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
+ 		remote-endpoint = <&hdmi_in_vp0>;
+ 	};
+ };
 +
- #define DOMAIN_M_G(_name, pwr, status, req, idle, ack, g_mask, wakeup, keepon)	\
- {							\
- 	.name = _name,					\
-@@ -241,8 +255,8 @@ struct rockchip_pmu {
- #define DOMAIN_RK3562(name, pwr, req, g_mask, mem, wakeup)		\
- 	DOMAIN_M_G_SD(name, pwr, pwr, req, req, req, g_mask, mem, wakeup, false)
- 
--#define DOMAIN_RK3568(name, pwr, req, wakeup)		\
--	DOMAIN_M(name, pwr, pwr, req, req, req, wakeup)
-+#define DOMAIN_RK3568(name, pwr, req, wakeup, regulator)		\
-+	DOMAIN_M_R(name, pwr, pwr, req, req, req, wakeup, regulator)
- 
- #define DOMAIN_RK3576(name, p_offset, pwr, status, r_status, r_offset, req, idle, g_mask, wakeup)	\
- 	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_offset, req, idle, idle, g_mask, wakeup)
-@@ -1274,15 +1288,15 @@ static const struct rockchip_domain_info rk3562_pm_domains[] = {
- };
- 
- static const struct rockchip_domain_info rk3568_pm_domains[] = {
--	[RK3568_PD_NPU]		= DOMAIN_RK3568("npu",  BIT(1), BIT(2),  false),
--	[RK3568_PD_GPU]		= DOMAIN_RK3568("gpu",  BIT(0), BIT(1),  false),
--	[RK3568_PD_VI]		= DOMAIN_RK3568("vi",   BIT(6), BIT(3),  false),
--	[RK3568_PD_VO]		= DOMAIN_RK3568("vo",   BIT(7), BIT(4),  false),
--	[RK3568_PD_RGA]		= DOMAIN_RK3568("rga",  BIT(5), BIT(5),  false),
--	[RK3568_PD_VPU]		= DOMAIN_RK3568("vpu",  BIT(2), BIT(6),  false),
--	[RK3568_PD_RKVDEC]	= DOMAIN_RK3568("vdec", BIT(4), BIT(8),  false),
--	[RK3568_PD_RKVENC]	= DOMAIN_RK3568("venc", BIT(3), BIT(7),  false),
--	[RK3568_PD_PIPE]	= DOMAIN_RK3568("pipe", BIT(8), BIT(11), false),
-+	[RK3568_PD_NPU]		= DOMAIN_RK3568("npu",  BIT(1), BIT(2),  false, true),
-+	[RK3568_PD_GPU]		= DOMAIN_RK3568("gpu",  BIT(0), BIT(1),  false, false),
-+	[RK3568_PD_VI]		= DOMAIN_RK3568("vi",   BIT(6), BIT(3),  false, false),
-+	[RK3568_PD_VO]		= DOMAIN_RK3568("vo",   BIT(7), BIT(4),  false, false),
-+	[RK3568_PD_RGA]		= DOMAIN_RK3568("rga",  BIT(5), BIT(5),  false, false),
-+	[RK3568_PD_VPU]		= DOMAIN_RK3568("vpu",  BIT(2), BIT(6),  false, false),
-+	[RK3568_PD_RKVDEC]	= DOMAIN_RK3568("vdec", BIT(4), BIT(8),  false, false),
-+	[RK3568_PD_RKVENC]	= DOMAIN_RK3568("venc", BIT(3), BIT(7),  false, false),
-+	[RK3568_PD_PIPE]	= DOMAIN_RK3568("pipe", BIT(8), BIT(11), false, false),
- };
- 
- static const struct rockchip_domain_info rk3576_pm_domains[] = {
++&pd_npu {
++	domain-supply = <&vdd_npu>;
++};
++
++&rknn_core_0 {
++	npu-supply = <&vdd_npu>;
++	status = "okay";
++};
++
++&rknn_mmu_0 {
++	status = "okay";
++};
 -- 
 2.39.5
 
