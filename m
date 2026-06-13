@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A083ACD8CA8
-	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 07:46:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3257ECD98C5
+	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 07:46:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7A8910ECE7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B91D110ECE8;
 	Sat, 13 Jun 2026 07:46:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cyefMFHX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nNsfCW+9";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7981210ECE7
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E576210ECE7
  for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 07:46:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 49D7440DFD;
+ by sea.source.kernel.org (Postfix) with ESMTP id CEC0D4024C;
  Sat, 13 Jun 2026 07:46:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06E9B1F000E9;
- Sat, 13 Jun 2026 07:46:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9771E1F000E9;
+ Sat, 13 Jun 2026 07:46:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1781336778;
- bh=X5tlP2d67yfGVGCCX1vjE9M91EpXRf2OWl+G5t+r7Bk=;
+ bh=PYE4HvMrL3pc2k3JwB1CNaEw5rcSLTHD6S/Wt3v7KYM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=cyefMFHXXIeDA2zYZVgMyWoV/kmSaObIzxsSrSEh2QPVvbJg5WPF9eVA8J+dTL58A
- Wo9BvBZb5FeNtLh5Q+DmhOJU2MJndqXiFka3sBSywEgN4cEfUVRrQtd0fzFYdGkHls
- s3ePMaEKPT6YhpAcHVVSts92LZcUPABpiuYZW+1P3KDxqGIt2Ea94rffgE63od4zzn
- VdUyy7aP/HGkg3qEkXle+FBzz/CjMOS4BwkpRiM9yWKGbwiqgYoyERm4Tcanjvkixp
- a/C0r/Af/6eW1Td9FP8Cr/0CS35Mw8NFvOJSWoFq+jyvRoWcYBWQBus3bdlLjHi25F
- u08NmQ8f5hrEA==
+ b=nNsfCW+96SLciectEBIf89mdGl4KoNs/LZ+8LDg1I2T0BXiWVP7+Rg8uMdQ5cbNOC
+ wXvhGGR4aX3e+pM33XxOCJHftli6QieL3LqGinGFl5ZgPvAhZVXMoNWu9SBS9kXH0+
+ jyhR1BkFb3F6IAbzUvfH+WCbFr0QOdQodACEROzBRejb361AQfohLjFmiGd5E9780Y
+ LGVe2qCu7upqK/H1UU0yBN0263FpuLMjb8BGY6zCmM64VOgyqZUBoRZggJ+BnuD7Ij
+ q4u52Txy7VR68EqjQKhZiIC5U8fkISyviBmQHbGvayRiyI2j0zjhxXH7x4m889U6zz
+ t+HH56P2Rx/sw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v2 1/4] net: devmem: allow rx-buf-size >
- PAGE_SIZE per dmabuf binding
+Subject: Re: [PATCH net-next v2 2/4] udmabuf: emit one sg entry per pinned
+ folio
 To: "Bobby Eshleman" <bobbyeshleman@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260611-tcpdm-large-niovs-v2-1-ee2bf15e7523@meta.com>
-References: <20260611-tcpdm-large-niovs-v2-1-ee2bf15e7523@meta.com>
+In-Reply-To: <20260611-tcpdm-large-niovs-v2-2-ee2bf15e7523@meta.com>
+References: <20260611-tcpdm-large-niovs-v2-2-ee2bf15e7523@meta.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 13 Jun 2026 07:46:17 +0000
-Message-Id: <20260613074618.06E9B1F000E9@smtp.kernel.org>
+Date: Sat, 13 Jun 2026 07:46:18 +0000
+Message-Id: <20260613074618.9771E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,71 +57,120 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Coalesced scatterlist entries bypass the importer device's maximum=
+ segment size and boundary limits, and can overflow the 32-bit scatterlist =
+length field (`UINT_MAX`), leading to DMA mapping failures or hardware trun=
+cation.
+
 Pre-existing issues:
-- [Critical] Double free of `rsp` sk_buff in `netdev_nl_bind_rx_doit` on th=
-e `genlmsg_reply` error path
+- [High] Concurrent CPU access ioctls cause a race in `begin_cpu_udmabuf`, =
+leaking `sg_table` structures and DMA mappings.
+- [High] Unmapping `ubuf->sg` with `DMA_BIDIRECTIONAL` when it was mapped w=
+ith an arbitrary `direction` violates the DMA API.
 --
 
-commit d5aaaaf7bcf98f7060fb724bf8b3e6c07879798d
+commit be9ab332488f96f68bf591e95126d2d679acf5e3
 Author: Bobby Eshleman <bobbyeshleman@meta.com>
 
-net: devmem: allow rx-buf-size > PAGE_SIZE per dmabuf binding
+udmabuf: emit one sg entry per pinned folio
 
-Every devmem dmabuf binding today hands the page_pool PAGE_SIZE niovs.
-This caps a single RX descriptor at PAGE_SIZE, burning CPU on buffer
-churn for large flows.
+This commit modifies udmabuf to emit one scatterlist entry per folio rather
+than one per page. It aggregates contiguous pages within a folio to emit
+larger scatterlist entries.
 
-> diff --git a/net/core/netdev-genl.c b/net/core/netdev-genl.c
-> index b4d48f3672a5b..8709e9c94389f 100644
-> --- a/net/core/netdev-genl.c
-> +++ b/net/core/netdev-genl.c
+> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+> index 94b8ecb892bb1..9b751dd98b120 100644
+> --- a/drivers/dma-buf/udmabuf.c
+> +++ b/drivers/dma-buf/udmabuf.c
 [ ... ]
-> @@ -1078,7 +1092,8 @@ int netdev_nl_bind_rx_doit(struct sk_buff *skb, str=
-uct genl_info *info)
->  	}
-> =20
->  	binding =3D net_devmem_bind_dmabuf(netdev, NULL, dma_dev, DMA_FROM_DEVI=
-CE,
-> -					 dmabuf_fd, priv, info->extack);
-> +					 dmabuf_fd, niov_shift, priv,
-> +					 info->extack);
->  	if (IS_ERR(binding)) {
->  		err =3D PTR_ERR(binding);
->  		goto err_rxq_bitmap;
+> +static unsigned int udmabuf_sg_nents(struct udmabuf *ubuf)
+> +{
+> +	unsigned int nents =3D 0;
+> +	pgoff_t i;
+> +
+> +	for (i =3D 0; i < ubuf->pagecount; i +=3D udmabuf_folio_nr_pages(ubuf, =
+i))
+> +		nents++;
+> +	return nents;
+> +}
 
-[Severity: Critical]
-This is a pre-existing issue, but while reviewing this function I noticed a
-potential double-free in the error path of netdev_nl_bind_rx_doit().
+[Severity: High]
+Does udmabuf_sg_nents() calculate the number of SG entries without accounti=
+ng
+for necessary segment splits based on device limits?=20
 
-When genlmsg_reply() is called, it unconditionally consumes the rsp skb
-(either by successfully transmitting it or freeing it internally via
-kfree_skb() inside netlink_unicast()).
+If the importer device has a smaller maximum segment size, passing an
+oversized segment might violate the DMA API contract.
 
-If genlmsg_reply() fails, it returns an error and jumps to err_unbind, which
-falls through to err_genlmsg_free:
+>  static struct sg_table *get_sg_table(struct device *dev, struct dma_buf =
+*buf,
+>  				     enum dma_data_direction direction)
+>  {
+[ ... ]
+> -	for_each_sg(sg->sgl, sgl, ubuf->pagecount, i)
+> -		sg_set_folio(sgl, ubuf->folios[i], PAGE_SIZE,
+> +	sgl =3D sg->sgl;
+> +	for (i =3D 0; i < ubuf->pagecount; i +=3D run) {
+> +		run =3D udmabuf_folio_nr_pages(ubuf, i);
+> +		sg_set_folio(sgl, ubuf->folios[i], run << PAGE_SHIFT,
+>  			     ubuf->offsets[i]);
+> +		sgl =3D sg_next(sgl);
+> +	}
 
-	err =3D genlmsg_reply(rsp, info);
-	if (err)
-		goto err_unbind;
+[Severity: High]
+Can the coalesced size in get_sg_table() bypass the importer device's
+maximum segment size and boundary limits?
 
-...
+Since the coalesced segment is never bounded by dma_get_max_seg_size(dev),
+a very large segment could cause IOMMU faults or hardware truncation when
+programmed.
 
-err_unbind:
-	net_devmem_unbind_dmabuf(binding);
+Additionally, for huge folios on architectures supporting sizes greater
+than 4GB, is it possible that run << PAGE_SHIFT overflows the 32-bit length
+field in struct scatterlist, causing sg_set_folio() to silently truncate
+the value?
 
-...
+[ ... ]
+> static int begin_cpu_udmabuf(struct dma_buf *buf,
+>                              enum dma_data_direction direction)
+> {
+[ ... ]
+> 	if (!ubuf->sg) {
+> 		ubuf->sg =3D get_sg_table(dev, buf, direction);
+> 		if (IS_ERR(ubuf->sg)) {
 
-err_genlmsg_free:
-	nlmsg_free(rsp);
-	return err;
+[Severity: High]
+This isn't a bug introduced by this patch, but does checking and populating
+the ubuf->sg pointer concurrently in begin_cpu_udmabuf() without
+synchronization allow multiple threads to map and overwrite the same pointe=
+r?
 
-Since nlmsg_free() is an alias for kfree_skb(), won't this result in a
-double-free on the same pointer? Does this error path need to be updated to
-avoid freeing the already consumed skb?
+If multiple tasks invoke the DMA_BUF_IOCTL_SYNC ioctl simultaneously without
+holding dmabuf->resv or any other lock, they could see !ubuf->sg as true.
+This could allocate multiple sg_table structures and leak the previously
+assigned tables and their DMA mappings.
+
+[ ... ]
+> static int release_udmabuf(struct inode *inode, struct file *file)
+> {
+[ ... ]
+> 	if (ubuf->sg)
+> 		put_sg_table(dev, ubuf->sg, DMA_BIDIRECTIONAL);
+
+[Severity: High]
+This is a pre-existing issue, but does unconditionally unmapping the cached
+sg_table with DMA_BIDIRECTIONAL in release_udmabuf() violate the DMA API if
+it was initially mapped with an arbitrary direction?
+
+In begin_cpu_udmabuf(), ubuf->sg is mapped using a caller-provided direction
+such as DMA_FROM_DEVICE. Unmapping with a mismatched direction can cause
+IOMMU faults, corrupt state tracking, or lead to kernel panics on systems
+with strict IOMMUs.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260611-tcpdm-larg=
-e-niovs-v2-0-ee2bf15e7523@meta.com?part=3D1
+e-niovs-v2-0-ee2bf15e7523@meta.com?part=3D2
