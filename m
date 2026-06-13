@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF8F4CD98CF
-	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 18:39:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C0DACD98C5
+	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 18:39:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2906B10E2A2;
-	Sat, 13 Jun 2026 18:39:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B058C10E2D1;
+	Sat, 13 Jun 2026 18:39:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XOSIZk78";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W9gYxJmO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36E7310E2A2
- for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 18:39:03 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07FB910E2D1
+ for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 18:39:57 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 13B9843B20
- for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 18:39:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E8301C19425
- for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 18:39:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6D691600AB
+ for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 18:39:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id ECDBEC2BCB9
+ for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 18:39:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1781375942;
- bh=f1xwSuHvjrZQs3LNB4BRI0nEdc1v87f1u8HG4rCt5P4=;
+ s=k20201202; t=1781375995;
+ bh=p7qYgxFocbKaXM/Bfb5PLeBSO5UHtJLlE4n/c5IHml4=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=XOSIZk78kFJVOTDdYKqBd2enjO9bwMG8cMxqjDgR1GlaaAxtKWn8EjRyXKiuLzK2T
- gn0mtdNUGeMQvqa15+PyokWP3JYxpfHwSEgt/JAv4yioAOY8NWFaPnFF6KLF42kbE8
- CQMBHuNirlMsUpRi7QVP9HPijzCRkmyW2lWhFWifVSNvOI9VWVDpKb7hjj9nXcjE7M
- km+rs0pYau5TzrcREnT5VeTK0Cxzw0mtcZ311YkeJrM4ov95yn2WcBJ27bN5EugTJW
- mjVy0AEa8YV87A1e6TfWdYDVYhv5/Wg/ygHBF+g3Zb+VmAK0gU9AA5DjmqjdRNFkYH
- 2GocEgYj/pGGA==
+ b=W9gYxJmOLiRBM9AAoKjjnkjt+QEkNjEUQjBb31pL1w9op3LpkYBzlCXDMT1du+3R9
+ WPLe61+zFRyy2E3kRmQsefLIOoi5rC5IKkq4XISZdvXwARCADZSkkD73XLszr7aa1O
+ r8Jte+tlNB4YAnh08tW4MKDVtNuA5zE59aFff6vMCN8/12X/TIPPmrHItDVA7FY8/V
+ dODW5yQeRjh+psue7T+7koqO0Slax4/4Xnt11hm7X8yG20goSkT/EA+2J91/h5j2Wk
+ TWk1x+K0cGMk0asSQJ21Tk2aeK2QQEacWTBbqu2qZDEAvcljl6t5AFugoU/rNA0Vfd
+ cMjgENhIZ3fmA==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
- from userid 48) id DF272C41616; Sat, 13 Jun 2026 18:39:02 +0000 (UTC)
+ from userid 48) id E59FFC433E1; Sat, 13 Jun 2026 18:39:54 +0000 (UTC)
 From: bugzilla-daemon@kernel.org
 To: dri-devel@lists.freedesktop.org
 Subject: [Bug 221649] amdgpu regression on RX 5700 (Navi10): 6.17.9 works,
  6.18.x causes GPU hangs
-Date: Sat, 13 Jun 2026 18:39:02 +0000
+Date: Sat, 13 Jun 2026 18:39:54 +0000
 X-Bugzilla-Reason: None
 X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
@@ -52,7 +52,7 @@ X-Bugzilla-Priority: P3
 X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
 X-Bugzilla-Changed-Fields: attachments.created
-Message-ID: <bug-221649-2300-PH8DkcEXJZ@https.bugzilla.kernel.org/>
+Message-ID: <bug-221649-2300-MbWSr0jIVx@https.bugzilla.kernel.org/>
 In-Reply-To: <bug-221649-2300@https.bugzilla.kernel.org/>
 References: <bug-221649-2300@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
@@ -77,10 +77,10 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 https://bugzilla.kernel.org/show_bug.cgi?id=3D221649
 
---- Comment #1 from JamesDoucet@protonmail.com ---
-Created attachment 310319
-  --> https://bugzilla.kernel.org/attachment.cgi?id=3D310319&action=3Dedit
-Kernel logs immediate of the crash
+--- Comment #2 from JamesDoucet@protonmail.com ---
+Created attachment 310320
+  --> https://bugzilla.kernel.org/attachment.cgi?id=3D310320&action=3Dedit
+Proton log, if necessary
 
 --=20
 You may reply to this email to add a comment.
