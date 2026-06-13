@@ -4,64 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4D7ECD98CF
-	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 01:30:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5401ACD98D2
+	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 02:29:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CD4510EB9F;
-	Sat, 13 Jun 2026 01:30:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CC2610EBCF;
+	Sat, 13 Jun 2026 02:28:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oRtcAJW/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WyOByydZ";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 791CF10EB9F
- for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 01:30:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1781314204;
- bh=A0Fhtf7gjqLJuhoBRBiXhWj0GB7XnVMNfK4IpemDFWI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=oRtcAJW/8KbnGXk89e/jzIq16DQOsRVAid2oW1M2rMIgNizldVcQu7EEkMJg6vaGH
- nBqkwPrnVMBUP2SEpHcJrqfX4J1PDNQYzA9i9nFfuEzjDK2oxpsX3peMPkaVLysDfs
- zl9FHuMbw5RBTkiMKYDsQHotRUDWzftvaPWIPEGiariaCMOe38XdWUAh5yPdZYsXsg
- Xr5wimHa+J1VX/GbE3AG6a4ZiUxLOZZisillPJIBZk4vyij0qsvnTIrEKETWCI1o1T
- K9RWaETDo4JbpKzY6C+PxOBdD0Q9bKQVmgP9pEX93QPDmnHFVEcbIytSpWWnr9Zj/H
- U5XoBLBqVU7oA==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 30ABF17E03C6;
- Sat, 13 Jun 2026 03:30:03 +0200 (CEST)
-Message-ID: <2f5ce8eb-ef47-4238-ad68-ce62981a1845@collabora.com>
-Date: Sat, 13 Jun 2026 04:30:02 +0300
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4697810EBCF
+ for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 02:28:58 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-2c0c35980fdso15898545ad.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 19:28:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781317738; x=1781922538; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=kLHJ0DrZbAxmSP/INU6NP0BNF9ycUzCW6F9L82yYfNc=;
+ b=WyOByydZUKgmo2zrlvfyBmDvzOdxEDso2az6gnIv+oTtogL+LwRMbBeXGPvH+kEior
+ r2bpQYjeomq6CNO0cVuQIoVIxmqMlrP60CmD5Es9+lZ7G191JIwla/dFMEl+g3L5nJcn
+ OGNgQQfPPMMw757APz8kp9f/T/ez6hqf8Y3g0XrXx++BaDBWqnyiz9TS+jB6exqp6ckU
+ ltQXkKDTXsldUTC+n7YWbvpUGseDq2UM2SexjBf7SLlz873yhgfqGwZUrMl49KaQzY7h
+ uVEyQorwMaiHGExJ44E2AMg4/teFnX7fk4LTRAUjK7T47MO6n4FEhPhq8s4vsPXMwP1Q
+ AV+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781317738; x=1781922538;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=kLHJ0DrZbAxmSP/INU6NP0BNF9ycUzCW6F9L82yYfNc=;
+ b=BE3GXWI+/d4rVEmOjUd/m9jPpon/i8sBFkZd4CbhHeAANtSbYXxnHyi/gRILmA816Y
+ GUx/Eo1PPG3V0Gs5pNW5jclB4FvtryMZ475CnZQ10//x7z8tz0eck0mUscaHRteo7wc6
+ kI/HJrmOKvwr9iGrWPDi32qQOHlhEAcUjC0omkoP/tN+VaKXfxEg9cx+UPbugl87kwkQ
+ j7Mxefd5gTiAagqXSLsR/gRFFq6eM5pb31TlkF4q+zcHu0JoSXbLjiADuewJBvyZ/vTr
+ SM3YYdUMHDwehtu0UcP9D7K3TiOCadwnlngqAMvUy+q2QHSxhre/iI68mLwJ2J+V5vCE
+ +i1g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/ysYRFuaLoxW1moi7woPygxkNtQG84k/AoC1gu1HgZSKnL0HubIIw22Bk6yQWqz5hkeK/K4EcO1HQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YztFzBvpT/IWJNrtD7EkHNp8epwO9WD16T6F29OX9FIoBCgtb4M
+ Dm1snqdS0DRP1IYhrgfptFwtwBaP0316WVIBeX1RBG3D2pP/P55aRww5
+X-Gm-Gg: Acq92OGZq+O3MJzFLlTvErfEOIU0vx6XDj4MoRcTsgb2iBd/TcOlS8bIfk1g40z3ksa
+ eepQVt4l5pp5oclPBfoYm+ulVCw3kKVJZCtE9Zh5yO7HvWngGoZ5PjXO9Y4YoR6GQN9fMaqIG3Q
+ tkWlt/iONbVdZrObYHoggfeR3U5TB0nV61WfvyCyttZbaSZYZdapNrBXY1zkVj7jneOH5vYZvSZ
+ +rEuHhd5sgLmejqnZh3mFn59UXXTsMEkGEk4FYFpwv4QekOy/znzr4iclLuDa0e+X3L1HXNnSRV
+ gBfLtX+sszmA7wyN2dcHL7VxC2Cm6nxG06qZ8ynMTYPVMMSyPVOmkJ2ZEnaSJuI9EOqBiJlkoWR
+ FD76UkKY6bJG2+R6TDSCZNeKKZkFXG1q0D86pdZcza9Bh6vzW7fakxPntcZRKAcftsMzVyxxlwG
+ 21hWB8UZJpmknvE5Z5UqEtDz7/q4G3l3EoE40/8f+CfxuxcTOtIqEU2CQNxmU2m1oGF4cccHX9k
+ M6tMM78fLGXRMyDWb5pwz29g9+0TlGCA64/VGHLVmFxbUDJs1CR6DAc+RSNVfD9fvMeTxNf9iV+
+ UQhSSO9bgwnJr5jmNkGpMwziI2sSrIAj1A==
+X-Received: by 2002:a17:902:e84a:b0:2ba:4ad9:70f6 with SMTP id
+ d9443c01a7336-2c412d2854fmr68416635ad.31.1781317737604; 
+ Fri, 12 Jun 2026 19:28:57 -0700 (PDT)
+Received: from ?IPV6:2601:1c0:5780:9200:2220:80f5:c3dc:900f?
+ ([2601:1c0:5780:9200:2220:80f5:c3dc:900f])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2c4327ac79fsm29829035ad.45.2026.06.12.19.28.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 12 Jun 2026 19:28:57 -0700 (PDT)
+Message-ID: <713470d1-0eee-461c-98ee-b7a378ebd0c2@gmail.com>
+Date: Fri, 12 Jun 2026 19:28:56 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 04/30] drm/display: scdc_helper: Add HDMI 2.0
- scrambling management helpers
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
- <20260602-dw-hdmi-qp-scramb-v7-4-445eb54ee1ed@collabora.com>
- <20260612-cordial-steadfast-cow-fcaf01@houat>
+Subject: Re: [PATCH] fbdev: claim Cyber2000 SPARC I/O aperture before ioremap
+To: Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux@armlinux.org.uk
+References: <20260611035243.16192-1-chintanlike@gmail.com>
+ <9df39aa0-4bac-4479-87d3-667c8dd8000a@gmx.de>
 Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <20260612-cordial-steadfast-cow-fcaf01@houat>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Chintan Patel <chintanlike@gmail.com>
+In-Reply-To: <9df39aa0-4bac-4479-87d3-667c8dd8000a@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,89 +96,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/12/26 4:43 PM, Maxime Ripard wrote:
-> On Tue, Jun 02, 2026 at 01:44:04AM +0300, Cristian Ciocaltea wrote:
->> +/**
->> + * drm_scdc_start_scrambling - activate scrambling and monitor SCDC status
->> + * @connector: connector
->> + *
->> + * Enables scrambling and high TMDS clock ratio on both source and sink sides.
->> + * Additionally, use a delayed work item to monitor the scrambling status on
->> + * the sink side and retry the operation, as some displays refuse to set the
->> + * scrambling bit right away.
->> + *
->> + * Returns:
->> + * Zero if scrambling is set successfully, an error code otherwise.
->> + */
->> +int drm_scdc_start_scrambling(struct drm_connector *connector)
->> +{
->> +	struct drm_display_info *info = &connector->display_info;
->> +	struct drm_connector_hdmi *hdmi = &connector->hdmi;
->> +	int ret;
->> +	u8 ver;
->> +
->> +	if (!hdmi->scrambler_supported) {
->> +		drm_scdc_dbg(connector, "Scrambler not supported, bailing.\n");
->> +		return -EINVAL;
->> +	}
->> +
->> +	if (!info->is_hdmi ||
->> +	    !info->hdmi.scdc.supported ||
->> +	    !info->hdmi.scdc.scrambling.supported) {
->> +		drm_scdc_dbg(connector, "Sink doesn't support scrambling.\n");
->> +		return -EINVAL;
->> +	}
->> +
->> +	drm_scdc_dbg(connector, "Enabling scrambling\n");
->> +
->> +	ret = drm_scdc_readb(connector->ddc, SCDC_SINK_VERSION, &ver);
->> +	if (ret) {
->> +		drm_scdc_dbg(connector, "Failed to read SCDC_SINK_VERSION: %d\n", ret);
->> +		return ret;
->> +	}
->> +
->> +	ret = drm_scdc_writeb(connector->ddc, SCDC_SOURCE_VERSION,
->> +			      min_t(u8, ver, SCDC_MAX_SOURCE_VERSION));
->> +	if (ret) {
->> +		drm_scdc_dbg(connector, "Failed to write SCDC_SOURCE_VERSION: %d\n", ret);
->> +		return ret;
->> +	}
->> +
->> +	hdmi->scdc_cb = drm_scdc_monitor_scrambler;
->> +	WRITE_ONCE(hdmi->scrambler_enabled, true);
->> +
->> +	ret = drm_scdc_try_scrambling_setup(connector);
->> +	if (!ret)
->> +		ret = hdmi->funcs->scrambler_enable(connector);
->> +
->> +	if (ret) {
->> +		WRITE_ONCE(hdmi->scrambler_enabled, false);
->> +		cancel_delayed_work_sync(&hdmi->scdc_work);
->> +		hdmi->scdc_cb = NULL;
->> +
->> +		drm_scdc_set_scrambling(connector, false);
->> +		drm_scdc_set_high_tmds_clock_ratio(connector, false);
->> +	}
->> +
->> +	return ret;
->> +}
->> +EXPORT_SYMBOL(drm_scdc_start_scrambling);
+
+>>        */
+>>       unsigned char __iomem *iop;
+>> +    if (!request_mem_region(0x3000000, 0x5000, "cyber2000fb iop")) {
+>> +        printk(KERN_ERR "iga5000: cannot reserve I/O area 0x3000000\n");
 > 
-> This is also pretty significantly different than what vc4 implemented. I
-> don't necessarily mind, but claiming that it's functionally equivalent
-> isn't true. I think it would be a much better strategy to turn the vc4
-> code into helpers as is because it's been merged 4 years ago and we know
-> it's solid.
+> pci_err() or pr_err() please.
+> 
+>> +        return -EBUSY;
+>> +    }
+>>       iop = ioremap(0x3000000, 0x5000);
+>>       if (iop == NULL) {
+>>           printk(KERN_ERR "iga5000: cannot map I/O\n");
+> 
+> while at it, use pci_err() here too then.
+> 
+> Helge
 
-As explained in patch 25, I think there's been a slight misunderstanding of how
-the CRTC reset logic was actually implemented.
+Hi Helge,
 
-> Then, if you want to add additional checks and constraints (like the
-> SCDC_SINK_VERSION) that's fine, but it should come on top, and with its
-> own explanation.
+I initially left the existing printk() usage unchanged to keep the patch
+focused on the memory resource reservation change and avoid unrelated
+churn. Since you've suggested updating the error reporting as well, I'll
+switch both messages to pci_err() in v2.
 
-I'll recheck if there's anything that I might have missed from the original
-implementation, while moving the additional changes to separate patch(es).
+Thanks for the review.
 
-Thanks,
-Cristian
+Regards,
+Chintan
