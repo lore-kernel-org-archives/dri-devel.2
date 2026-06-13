@@ -4,80 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15543CD98C5
-	for <dri-devel@archiver.kernel.org>; Sun, 14 Jun 2026 15:44:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5163DCD98C5
+	for <dri-devel@archiver.kernel.org>; Sun, 14 Jun 2026 15:44:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46FD010E0C0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23A9E10E0BA;
 	Sun, 14 Jun 2026 15:44:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Kp58wPgl";
+	dkim=pass (2048-bit key; unprotected) header.d=asu.edu header.i=@asu.edu header.b="GZfcfI+n";
 	dkim-atps=neutral
-Received: from mail-dy1-f195.google.com (mail-dy1-f195.google.com
- [74.125.82.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BB6110E304
- for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 23:39:21 +0000 (UTC)
-Received: by mail-dy1-f195.google.com with SMTP id
- 5a478bee46e88-30807ba471bso6209091eec.1
- for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 16:39:21 -0700 (PDT)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 143D510E0D2
+ for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 21:17:34 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-2bf22d29dabso13639415ad.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 14:17:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781385454; cv=none;
+ d=google.com; s=arc-20240605;
+ b=C5Z0MSfTshLcxa4PNO32dIXOEqeSwTjTvyDBq5Nfa3TKk6BqO7CxnUA6KCXVA9Gsil
+ lywkO93GjVyKZV3Ft+JytJpD8uJ6d9qI/zwO/0hQ0baAn2LaNxI5MevweigeuBxssGeV
+ HaOAYp55m4Ub2+OOFrL9ru3KqybClhh914xGCozwj/9EWpKaKzEJlBI9eSZO3B/3VeQa
+ FNh0TOyTHfykBGEo+wX0/WJUVxfizIqOk2VQf08rSmK7r25JvYwO7hajE9EldUVnauz8
+ zXLMl7+HVvfsOnVN20ZyvFN3ttBwwGJUCzHYB7FL90J7F9VjvZeyfNld93ZavR1NgK/L
+ ECHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=P5mXzsGRWKo5p82tVmxYirj6uc69tm3cPXgLYl40MD4=;
+ fh=TtajIdewxLj9gyUJHHT1ccYIMDz3/yfxP4gcQYcRsXA=;
+ b=PpWclseJpPloRAB2HDcruN8zK8c4WpgE0APRYa+idc/+qunF3/KonJfxaom5yf1t+a
+ ZA0hbxdifZvGTMlNzScx7QYpop9j2/cxCbDXuvnIhfjT0DqKqZTt8lUthFB5MqLNJfcb
+ VbweMgTKgj88oH7SWgnoWBG4sN4s6Lv3muJcxDyFG8h/zaDZPr1rVAknoqIuX6znbmR8
+ 77FrfYeKj4zMNp5rSlOh8MIEjITt2vyhouAi8Lopae7eeImKpNfalf4E05WZlhza+3b+
+ Y9VBLadtjb4/C65su0AziqiXmV4wLPq0427ee+bF6RWqnzbEGVjoFNPF+iSavpiNOVZL
+ LxEw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781393960; x=1781998760; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=S3IGYtRAOjokZ2Tfpw10/wbISXUnINIpuDnnOueQf1E=;
- b=Kp58wPgl5A/OKRIDLwcJ4N7kYSwEdVj73YYRqDaUbTvoshOM1/d4zBtROYVLPOQMvz
- o+8aoiRzOJ/rcQ3Nyi2R0GlPAHY4FAQOdocr8lJ4YTXIUj/er4ZRKpNBxdOraaOdw/Nf
- 8kvHoR5fahDrk04JnfxGwNUgtHBexcJNy3xjL0omBvgqwmM/LYgw/P1xqx1Fakz+Lp3M
- DEtHbrmbSMgb+jkWIhoWBnJlOFUCT8Rpel5amqkbhYtCfzljxkScdbtOqTIB/0TF4GNc
- 7CGLwSRzhp8DBihV2TnIy4FpmQ647lDqVGD24xjv0GN5lnZFcxE7gPnp7wyeP8y2JeCd
- i9Mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781393960; x=1781998760;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=asu.edu; s=google; t=1781385454; x=1781990254; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=S3IGYtRAOjokZ2Tfpw10/wbISXUnINIpuDnnOueQf1E=;
- b=eNT3sHT+FORAO9/ofkKBfuvBxYL3eQwAXImuuRNtB2fJdLvc4UkhhrZs5zVIzAPfcr
- /JxpSbYkklsbxh8wYk725129ehcNBm8mtAjfQLxrtk3LjJXbKdeRyq4+dIcy4jmoUbIG
- iCMXPRYUKesLR9vAMEuDLpObxd/CmYC9BZLFprVdCL94rS2ocGjr6qWiYB8SeTUcR4pj
- 72dAdLFRK6XmTxgQNq7jdAEh2itw3oaS9bPtuk5Ict5vmcysKFFX+5xhSuPjw0aNMu/d
- cIheeEw4Z5n6Sq1QVF4yZkmfrCg/EPL1wkFz5q/k44BQaz0hG0323pC93wpb4P7Z4eUG
- LVYQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ97eAQacIIlyDc6yT88GElsGwWHIL/+NL4B20BFMxW4SeeHrU8eilxUuGUFpUukldnFO6cImKhacWM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyN68BnFoxdgCW91bKffE6A0ufrbnvMb0+F+/0Q+oi21X3pxjf0
- Hz0/J7joSIy98o/jBKNalI2QMwMJZ9qMHgCiMBN2Ub32cxupP/2KhExO
-X-Gm-Gg: Acq92OFO/omXTA3nzF7Dn2ytR0ENRmIfpwRQEneKSMoiWMWg+Lc9EwtBRvyFS2gN9GN
- nFIg8zPNAnOBq+tEHVnxoDscfztH6ZCTMRMxQQcARcSWCsk5zsjHAC7DuyeJKEuNr/qTXQWvVyO
- uXJjab3qnavnmvuwVw5tj1YM5EOiSNC/OH4uxSHYS55d9mhu/fUL03zZoM5uFboHIY9cU5Xvo6z
- W+HzPFxxbV5GPKi+qp/mePIENxZSQx1CoDd0vkU5bidUTQUAj7NxPCWSc1CjwX/X6FV3kfrtDLu
- 3tIUAcZxeUurqkeXcAlDNpLb8azUWloi8uLP2Lk1ccJeULClfPkPx/MxIE3nUUNnOymEX2BqhDx
- MsWH51+e75IxjQtRq2+pYM+VLR+rYF4+CN+QgivAIIDiae29mrirS+y9OEhM3bqtmY3hX78p1Rf
- oeaAag/zl1rBXqULcrfl6Y+gX1T0gbS7XFnif7XnvXzTBohk8LVKEDu0CQjomQXwMBHOSmMgFIA
- 5oKp6zy9VDKZwLR2DXhTogpF5eIdrps0LavJ9DpoJfnV27ZzMsHLXwaFdSP5k/txG5Mc5l8qDcF
- 5qavRhyp2+mbNVbbDA==
-X-Received: by 2002:a05:7300:b54b:b0:304:de28:1b16 with SMTP id
- 5a478bee46e88-308200a60b5mr5164144eec.28.1781393960271; 
- Sat, 13 Jun 2026 16:39:20 -0700 (PDT)
-Received: from ethan-latitude5420..
- (host-127-24.cafrjco.fresno.ca.us.clients.pavlovmedia.net. [68.180.127.24])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3081ea4fe55sm9194414eec.25.2026.06.13.16.39.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 13 Jun 2026 16:39:19 -0700 (PDT)
-From: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH] drm/xe/pf: remove code guarded by nonexistent config option
-Date: Sat, 13 Jun 2026 16:39:14 -0700
-Message-ID: <20260613233915.162661-1-enelsonmoore@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ bh=P5mXzsGRWKo5p82tVmxYirj6uc69tm3cPXgLYl40MD4=;
+ b=GZfcfI+nI1Xdrw+E/w+sXz0gaxIB/zvPsyrNp10NxBQxDGxy8nXfjNuyMdsVAfUDGZ
+ xF84fXe9K6ZIvtUp+xY5jFgXgnjoE/uRETPjzUuG2R9kFj8trdl3Dln1YOYzNbCgHGVD
+ 41AxCjY/VUbc9CCiYhUTaLaA9aKadVsA9Oq73hsI6pZ4eXBvVytELsTbbWu0RCkD3sX7
+ 7DGQk7t5ju5MYI16ubaAbOXOCif017e9gD8W+hpkEXk1taAzz7Ylpe1J97rwrEeCxfk6
+ iJycaf6AKvTI5DNi34NQVJDugEjOrAIWVpXriLMFjqPE80CGqQZIOwGc7r+U3+oxDdhX
+ gZzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781385454; x=1781990254;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=P5mXzsGRWKo5p82tVmxYirj6uc69tm3cPXgLYl40MD4=;
+ b=oqZ7qp1eZNRxRbDao73U1UDYObuBo5foL4B4yr/PWz/m0TW4EGaToVUvAEPFobcY1X
+ JogtSJSNTWIAiqKI+Vpt7H1nQgMPIjm+hSXixvr7ZmW0OZCEsxVCeE7QoFwwiHXPFOmB
+ xsl3bKOTV8hF5LUqBeuIQyFVB74CpCmo73o5ErJgYL17syLzYx57WnVraSJ2hAu+qLJ4
+ DhRDHDwDa9P1n3WHjqUjTIl9Z2KzdcP1auHQjLMlpUfwhcPXbSzAt0HfPax84Rsn3Iyl
+ rUoh2dE8x3ZgpyjDzkzAEHIQ2Q8lrPssUR+iBo4vt4MWrXylNinWC/n7NPO6RpOoo2Tf
+ QzFA==
+X-Gm-Message-State: AOJu0YywgcsLjLCSmEp8H98ECsV5KMLkiz9vaL8MdUAD3vJOqqDYPdkH
+ CyDkxkPZjy5B5s2kKVkFZLb1x5rV5qSREFkzlAPYChM6IR3gyn9pmLCSTCxWu7fSniO2lALc9fr
+ BKrOYM7OQ+ky5Of8oI6Ec8YUImx6MxLR+tukYsy/v
+X-Gm-Gg: Acq92OHZdWl+z0KR1FwfJICUKa8sS7y8MjWO+2rUEO/ofGyN7W7kdX3hNboIV+jGKP5
+ FpdVkokHPDXvveRaR6AR3lcnR2IrBcokBD2Ce2KyHYrX6UwZQpOZCHh0uW75HKksBfkqZNPyc3c
+ ZAbp3Wo8tUtdh83ktWVJOZrgiRbyObks6MwwDFIkYR6AtAOjqpwMAA+NlsSGicocF4qAxBcU0FB
+ YL+6aPt4iqswEOp0I9o9rq6FczRvDXqBU9c2kJiN/9xpNr+BpcJlCRYBS+4stae0C091iVU6Q+U
+ mjkltHrb/KKUPg6R/LNl9m3SrO108bL5lajPIEw=
+X-Received: by 2002:a17:903:19cf:b0:2bf:211c:4980 with SMTP id
+ d9443c01a7336-2c412a32d6amr92152015ad.35.1781385454383; Sat, 13 Jun 2026
+ 14:17:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260609064038.2799482-1-xmei5@asu.edu>
+ <4e784cad86c91595b6d5da64ca854dab38357658@intel.com>
+In-Reply-To: <4e784cad86c91595b6d5da64ca854dab38357658@intel.com>
+From: Xiang Mei <xmei5@asu.edu>
+Date: Sat, 13 Jun 2026 14:17:23 -0700
+X-Gm-Features: AVVi8CcrY1i-woSBF4uaCqaxUh4AzZQ03JzY63--20Z0J0-Ud6VsKO77X4s3EgI
+Message-ID: <CAPpSM+RXTg6KCAVHRESi8=7=3pAWGfc1bjrdS_OTf+dsSwyL7A@mail.gmail.com>
+Subject: Re: [PATCH] drm/edid: fix OOB read in drm_parse_tiled_block()
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+ bestswngs@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Sun, 14 Jun 2026 15:44:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,54 +106,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Some code in drivers/gpu/drm/xe/xe_lmtt_2l.c depends on
-CONFIG_DRM_XE_LMTT_2L_128GB, which has never been defined in the
-kernel. Remove this dead code and correct a related comment.
+On Wed, Jun 10, 2026 at 5:49=E2=80=AFAM Jani Nikula <jani.nikula@linux.inte=
+l.com> wrote:
+>
+> On Mon, 08 Jun 2026, Xiang Mei <xmei5@asu.edu> wrote:
+> > drm_parse_tiled_block() casts the DisplayID block to a
+> > struct displayid_tiled_block and reads the full fixed layout up to
+> > tile->topology_id[7] without checking block->num_bytes. The DisplayID
+> > iterator only validates the declared payload length, so a crafted EDID
+> > can advertise a tiled-display block (tag DATA_BLOCK_TILED_DISPLAY, or
+> > DATA_BLOCK_2_TILED_DISPLAY_TOPOLOGY for v2.0) with a small num_bytes at
+> > the end of a DisplayID extension. The read then runs past the end of th=
+e
+> > exact-sized kmemdup()'d EDID allocation, a heap out-of-bounds read.
+> >
+> > Add a minimum-length check, as drm_parse_vesa_mso_data() already does.
+> >
+> >   BUG: KASAN: slab-out-of-bounds in drm_edid_connector_update
+> >   Read of size 2 at addr ffff888010077700 by task exploit/147
+> >    dump_stack_lvl (lib/dump_stack.c:94 ...)
+> >    print_report (mm/kasan/report.c:378 ...)
+> >    kasan_report (mm/kasan/report.c:595)
+> >    drm_edid_connector_update (drivers/gpu/drm/drm_edid.c:7581)
+> >    bochs_connector_helper_get_modes (drivers/gpu/drm/tiny/bochs.c:574)
+> >    drm_helper_probe_single_connector_modes (drivers/gpu/drm/drm_probe_h=
+elper.c:426)
+> >    status_store (drivers/gpu/drm/drm_sysfs.c:219)
+> >    ...
+> >    vfs_write (fs/read_write.c:595 fs/read_write.c:688)
+> >    ksys_write (fs/read_write.c:740)
+> >
+> > Fixes: 40d9b043a89e ("drm/connector: store tile information from displa=
+yid (v3)")
+> > Reported-by: Weiming Shi <bestswngs@gmail.com>
+> > Assisted-by: Claude:claude-opus-4-8
+> > Signed-off-by: Xiang Mei <xmei5@asu.edu>
+> > ---
+> >  drivers/gpu/drm/drm_edid.c | 7 +++++++
+> >  1 file changed, 7 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> > index 404208bf23a6..92054ac82fe2 100644
+> > --- a/drivers/gpu/drm/drm_edid.c
+> > +++ b/drivers/gpu/drm/drm_edid.c
+> > @@ -7575,6 +7575,13 @@ static void drm_parse_tiled_block(struct drm_con=
+nector *connector,
+> >       u8 num_v_tile, num_h_tile;
+> >       struct drm_tile_group *tg;
+> >
+> > +     if (block->num_bytes < sizeof(*tile) - sizeof(*block)) {
+>
+> I'd prefer using fixed values here. If the tiled display topology data
+> block is ever expanded, we'll need to have them anyway.
+>
+> This should be if (block->num_bytes < 22).
+>
 
-Discovered while searching for CONFIG_* symbols referenced in code but
-not defined in any Kconfig file.
+I've been advised on other patches that it's better to avoid magic
+numbers, and I think sizeof(*tile) - sizeof(*block) is preferable here
+for two reasons:
 
-Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
----
- drivers/gpu/drm/xe/xe_lmtt_2l.c | 9 ++-------
- 1 file changed, 2 insertions(+), 7 deletions(-)
+1. It's easier to understand. A bare 22 forces the reader to know what
+it stands for, while sizeof(*tile) - sizeof(*block) reads as exactly
+what it is: the number of payload bytes the code dereferences.
 
-diff --git a/drivers/gpu/drm/xe/xe_lmtt_2l.c b/drivers/gpu/drm/xe/xe_lmtt_2l.c
-index 84bc5c4212b5..707e0d090c62 100644
---- a/drivers/gpu/drm/xe/xe_lmtt_2l.c
-+++ b/drivers/gpu/drm/xe/xe_lmtt_2l.c
-@@ -14,9 +14,9 @@
- /**
-  * DOC: Two-Level LMTT Structure
-  *
-- * LMHAW (Local Memory Host Address Width) is 37 bit (128GB)
-+ * LMHAW (Local Memory Host Address Width) is 35 bit (32GB)
-  *
-- * LMGAW (Local Memory Guest Address Width) is 37 bit (128GB)
-+ * LMGAW (Local Memory Guest Address Width) is 35 bit (32GB)
-  *
-  * The following figure illustrates the structure and function of the 2L LMTT::
-  *
-@@ -54,11 +54,7 @@
- typedef u32 lmtt_2l_pde_t;
- typedef u32 lmtt_2l_pte_t;
- 
--#if IS_ENABLED(CONFIG_DRM_XE_LMTT_2L_128GB)
--#define LMTT_2L_HAW			37 /* 128 GiB */
--#else
- #define LMTT_2L_HAW			35 /* 32 GiB */
--#endif
- 
- #define LMTT_2L_PDE_MAX_NUM		64 /* SRIOV with PF and 63 VFs, index 0 (PF) is unused */
- #define LMTT_2L_PDE_LMTT_PTR		GENMASK(LMTT_2L_HAW - 13, 4)
-@@ -79,7 +75,6 @@ static unsigned int lmtt_2l_pte_num(unsigned int level)
- 	case 1:
- 		return LMTT_2L_PDE_MAX_NUM;
- 	case 0:
--		BUILD_BUG_ON(LMTT_2L_HAW == 37 && LMTT_2L_PTE_MAX_NUM != SZ_64K);
- 		BUILD_BUG_ON(LMTT_2L_HAW == 35 && LMTT_2L_PTE_MAX_NUM != SZ_16K);
- 		return LMTT_2L_PTE_MAX_NUM;
- 	default:
--- 
-2.43.0
+2. It's more maintainable for the expansion case you mention. It stays
+in lockstep with the struct, so once topology_id is corrected to 9
+bytes (below) it becomes 22 automatically and the patch still works
+with no edit. A hardcoded 21 would silently re-open the OOB when the
+struct grows, and a hardcoded 22 doesn't match what the current code
+reads today.
 
+> And reviewing this, I realize struct displayid_tiled_block definition is
+> actually only 21 bytes. The topology_id member is 8 bytes, while it
+> consists of
+>
+> - Tiled Display Manufacturer/Vendor ID Field (3 bytes)
+> - Tiled Display Product ID Code Field (2 bytes)
+> - Tiled Display Serial Number Field (4 bytes)
+>
+> i.e. total of 9 bytes.
+>
+Good catch. This looks like a separate, pre-existing issue from the
+OOB read fixed here, and it also touches group_data[8] and the
+memcpy/memcmp sites in drm_mode_{get,create}_tile_group(). We don't
+have much experience with this part of the code, so if it's okay we'd
+rather leave it for you to assess the impact and the right fix, and
+keep this patch as the minimal OOB fix.
+
+
+Xiang
+
+> BR,
+> Jani.
+>
+>
+> > +             drm_dbg_kms(connector->dev,
+> > +                         "[CONNECTOR:%d:%s] Unexpected tiled block siz=
+e %u\n",
+> > +                         connector->base.id, connector->name, block->n=
+um_bytes);
+> > +             return;
+> > +     }
+> > +
+> >       w =3D tile->tile_size[0] | tile->tile_size[1] << 8;
+> >       h =3D tile->tile_size[2] | tile->tile_size[3] << 8;
+>
+> --
+> Jani Nikula, Intel
