@@ -4,83 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5401ACD98D2
-	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 02:29:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94B8BCD8CA8
+	for <dri-devel@archiver.kernel.org>; Sat, 13 Jun 2026 06:57:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CC2610EBCF;
-	Sat, 13 Jun 2026 02:28:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAC2710E0FA;
+	Sat, 13 Jun 2026 06:57:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WyOByydZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WIt6qvl0";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4697810EBCF
- for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 02:28:58 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-2c0c35980fdso15898545ad.2
- for <dri-devel@lists.freedesktop.org>; Fri, 12 Jun 2026 19:28:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781317738; x=1781922538; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=kLHJ0DrZbAxmSP/INU6NP0BNF9ycUzCW6F9L82yYfNc=;
- b=WyOByydZUKgmo2zrlvfyBmDvzOdxEDso2az6gnIv+oTtogL+LwRMbBeXGPvH+kEior
- r2bpQYjeomq6CNO0cVuQIoVIxmqMlrP60CmD5Es9+lZ7G191JIwla/dFMEl+g3L5nJcn
- OGNgQQfPPMMw757APz8kp9f/T/ez6hqf8Y3g0XrXx++BaDBWqnyiz9TS+jB6exqp6ckU
- ltQXkKDTXsldUTC+n7YWbvpUGseDq2UM2SexjBf7SLlz873yhgfqGwZUrMl49KaQzY7h
- uVEyQorwMaiHGExJ44E2AMg4/teFnX7fk4LTRAUjK7T47MO6n4FEhPhq8s4vsPXMwP1Q
- AV+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781317738; x=1781922538;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=kLHJ0DrZbAxmSP/INU6NP0BNF9ycUzCW6F9L82yYfNc=;
- b=BE3GXWI+/d4rVEmOjUd/m9jPpon/i8sBFkZd4CbhHeAANtSbYXxnHyi/gRILmA816Y
- GUx/Eo1PPG3V0Gs5pNW5jclB4FvtryMZ475CnZQ10//x7z8tz0eck0mUscaHRteo7wc6
- kI/HJrmOKvwr9iGrWPDi32qQOHlhEAcUjC0omkoP/tN+VaKXfxEg9cx+UPbugl87kwkQ
- j7Mxefd5gTiAagqXSLsR/gRFFq6eM5pb31TlkF4q+zcHu0JoSXbLjiADuewJBvyZ/vTr
- SM3YYdUMHDwehtu0UcP9D7K3TiOCadwnlngqAMvUy+q2QHSxhre/iI68mLwJ2J+V5vCE
- +i1g==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/ysYRFuaLoxW1moi7woPygxkNtQG84k/AoC1gu1HgZSKnL0HubIIw22Bk6yQWqz5hkeK/K4EcO1HQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YztFzBvpT/IWJNrtD7EkHNp8epwO9WD16T6F29OX9FIoBCgtb4M
- Dm1snqdS0DRP1IYhrgfptFwtwBaP0316WVIBeX1RBG3D2pP/P55aRww5
-X-Gm-Gg: Acq92OGZq+O3MJzFLlTvErfEOIU0vx6XDj4MoRcTsgb2iBd/TcOlS8bIfk1g40z3ksa
- eepQVt4l5pp5oclPBfoYm+ulVCw3kKVJZCtE9Zh5yO7HvWngGoZ5PjXO9Y4YoR6GQN9fMaqIG3Q
- tkWlt/iONbVdZrObYHoggfeR3U5TB0nV61WfvyCyttZbaSZYZdapNrBXY1zkVj7jneOH5vYZvSZ
- +rEuHhd5sgLmejqnZh3mFn59UXXTsMEkGEk4FYFpwv4QekOy/znzr4iclLuDa0e+X3L1HXNnSRV
- gBfLtX+sszmA7wyN2dcHL7VxC2Cm6nxG06qZ8ynMTYPVMMSyPVOmkJ2ZEnaSJuI9EOqBiJlkoWR
- FD76UkKY6bJG2+R6TDSCZNeKKZkFXG1q0D86pdZcza9Bh6vzW7fakxPntcZRKAcftsMzVyxxlwG
- 21hWB8UZJpmknvE5Z5UqEtDz7/q4G3l3EoE40/8f+CfxuxcTOtIqEU2CQNxmU2m1oGF4cccHX9k
- M6tMM78fLGXRMyDWb5pwz29g9+0TlGCA64/VGHLVmFxbUDJs1CR6DAc+RSNVfD9fvMeTxNf9iV+
- UQhSSO9bgwnJr5jmNkGpMwziI2sSrIAj1A==
-X-Received: by 2002:a17:902:e84a:b0:2ba:4ad9:70f6 with SMTP id
- d9443c01a7336-2c412d2854fmr68416635ad.31.1781317737604; 
- Fri, 12 Jun 2026 19:28:57 -0700 (PDT)
-Received: from ?IPV6:2601:1c0:5780:9200:2220:80f5:c3dc:900f?
- ([2601:1c0:5780:9200:2220:80f5:c3dc:900f])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c4327ac79fsm29829035ad.45.2026.06.12.19.28.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Jun 2026 19:28:57 -0700 (PDT)
-Message-ID: <713470d1-0eee-461c-98ee-b7a378ebd0c2@gmail.com>
-Date: Fri, 12 Jun 2026 19:28:56 -0700
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B1C910E0FA
+ for <dri-devel@lists.freedesktop.org>; Sat, 13 Jun 2026 06:57:36 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3CD4160018;
+ Sat, 13 Jun 2026 06:57:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D62021F000E9;
+ Sat, 13 Jun 2026 06:57:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781333854;
+ bh=HXMcWqVL4rhJfUtDNL48hP6X+JRWPZSdVUk8u3ls2X8=;
+ h=Date:From:Subject:To:Cc:References:In-Reply-To;
+ b=WIt6qvl05fIvYc3Qdl5NzbES/rxVeJrSgg4T2FN+o2m93f8SfFl6ZcPZlBcqUfQR1
+ LCxXdyaSR2Mk5+QQ/GkgYzQJ2CpVgM6JBHOyyPYR06YQ963Sp9+BQbV1znj42uTrLf
+ HKb3V3kvpdWHIwXnIG7mvsFmxs2XCzz8qeW/wWjZ598rvxI4YiYd3DaM7kScMG+hgh
+ Qrc2/QEio8TYkbw+t1EaYnzQq+D+57kU1wuBwieY12QtQ8vLdPqn1U5hJjNUhGwN9p
+ lnrWQJfKfAsifvfxW8jtJetAi6ZBrVzxim5vGrXGXi2Xr/NZc69VlhhShnKCRf9g7K
+ CBwNYySCGv+xA==
+Message-ID: <ae219b64-c8ce-4798-995a-cd8fdd74d8a4@kernel.org>
+Date: Sat, 13 Jun 2026 08:57:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fbdev: claim Cyber2000 SPARC I/O aperture before ioremap
-To: Helge Deller <deller@gmx.de>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux@armlinux.org.uk
-References: <20260611035243.16192-1-chintanlike@gmail.com>
- <9df39aa0-4bac-4479-87d3-667c8dd8000a@gmx.de>
-Content-Language: en-US
-From: Chintan Patel <chintanlike@gmail.com>
-In-Reply-To: <9df39aa0-4bac-4479-87d3-667c8dd8000a@gmx.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v6 0/4] Add SCDC information to connector debugfs
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Daniel Stone <daniel@fooishbar.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com, Daniel Stone <daniels@collabora.com>
+References: <20260611-scdc-link-health-v6-0-6307875a6b5e@collabora.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260611-scdc-link-health-v6-0-6307875a6b5e@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,32 +69,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Nicolas,
 
->>        */
->>       unsigned char __iomem *iop;
->> +    if (!request_mem_region(0x3000000, 0x5000, "cyber2000fb iop")) {
->> +        printk(KERN_ERR "iga5000: cannot reserve I/O area 0x3000000\n");
+On 11/06/2026 14:57, Nicolas Frattaroli wrote:
+> HDMI uses the DDC I2C bus for communicating various bits of link status
+> out of band with the actual HDMI video signal. This information can be
+> useful for debugging issues like questionable cables sabotaged by feline
+> teeth, Enthusiast Grade cables made of cow fencing wire, and other such
+> problems that ruin one's media viewing plans.
 > 
-> pci_err() or pr_err() please.
-> 
->> +        return -EBUSY;
->> +    }
->>       iop = ioremap(0x3000000, 0x5000);
->>       if (iop == NULL) {
->>           printk(KERN_ERR "iga5000: cannot map I/O\n");
-> 
-> while at it, use pci_err() here too then.
-> 
-> Helge
+> Consequently, this series exposes various bits of pertinent information
+> from the SCDC protocol in an HDMI connector's debugfs. To continually
+> poll the link status, userspace can poll the debugfs file.
 
-Hi Helge,
+Something is not quite right: I've been testing this series with my i915
+based laptop with HDMI connector, and I never see the scdc_status file.
+And that's because CONFIG_DRM_BRIDGE_CONNECTOR is not set for my configuration.
 
-I initially left the existing printk() usage unchanged to keep the patch
-focused on the memory resource reservation change and avoid unrelated
-churn. Since you've suggested updating the error reporting as well, I'll
-switch both messages to pci_err() in v2.
+So I think you are creating the debugfs entry in the wrong place.
 
-Thanks for the review.
+I can read the SCDC from the display using edid-decode with the right /dev/i2c-X
+device, so it's definitely there.
 
 Regards,
-Chintan
+
+	Hans
+
+> 
+> ---
+> Changes in v6:
+> - Fix off-by-one error in drm_scdc_read_state
+> - Link to v5: https://patch.msgid.link/20260604-scdc-link-health-v5-0-11173b0ac3de@collabora.com
+> 
+> Changes in v5:
+> - Read all SCDC data regardless of update flags
+> - Dump SCDC data as hex before the human-readable output. It's separated
+>   with "\n----------------\n\n".
+> - No longer write 0 to read-only registers
+> - Add Reed-Solomon Corrections counter parsing
+> - Parsing has been kept. A desire was expressed to get this data without
+>   any external userspace tooling, and the kernel will need to parse it
+>   eventually anyway to set the link status.
+> - Functions have been made static as of right now, since external users
+>   may do another pass over the function signatures anyway.
+> - Link to v4: https://patch.msgid.link/20260527-scdc-link-health-v4-0-622ea40a1f59@collabora.com
+> 
+> Changes in v4:
+> - Don't use C struct bitfields for parsing status flags. Switch to
+>   bitwise AND for boolean flags, and FIELD_GET for multi-bit values.
+> - Drop the superfluous !! and parens
+> - Drop the __pure attributes on static functions
+> - Initialise stack local arrays with {}, not { 0 }.
+> - I've kept the print macros and %-30s format. Reason being that I don't
+>   want to repeat the format specifier and str_yes_no(foo) a bunch, and I
+>   like the %-30s format because it means all values are aligned with the
+>   value of the longest field, which is 30 chars long.
+> - Link to v3: https://patch.msgid.link/20260526-scdc-link-health-v3-0-59e4a4aaead1@collabora.com
+> 
+> Changes in v3:
+> - Add patch to change return type of drm_scdc_read/write.
+> - Rework error counter reading to duplicate less code.
+> - Also check lane 3 counter valid flag when reading its error counter.
+> - Use memset to clear buf for error counters, rather than doing it in
+>   the loop.
+> - Make read_error_counters not accept 0 as num_lanes; fix it up in the
+>   caller instead.
+> - Link to v2: https://patch.msgid.link/20260520-scdc-link-health-v2-0-511af18cd64b@collabora.com
+> 
+> Changes in v2:
+> - Add HDMI 2.1 SCDC status reporting
+> - Link to v1: https://patch.msgid.link/20260415-scdc-link-health-v1-0-8e731e88eaf0@collabora.com
+> 
+> To: Jani Nikula <jani.nikula@linux.intel.com>
+> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> To: Maxime Ripard <mripard@kernel.org>
+> To: Thomas Zimmermann <tzimmermann@suse.de>
+> To: David Airlie <airlied@gmail.com>
+> To: Simona Vetter <simona@ffwll.ch>
+> To: Andrzej Hajda <andrzej.hajda@intel.com>
+> To: Neil Armstrong <neil.armstrong@linaro.org>
+> To: Robert Foss <rfoss@kernel.org>
+> To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+> To: Jonas Karlman <jonas@kwiboo.se>
+> To: Jernej Skrabec <jernej.skrabec@gmail.com>
+> To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> To: Daniel Stone <daniel@fooishbar.org>
+> To: Hans Verkuil <hverkuil+cisco@kernel.org>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: kernel@collabora.com
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> 
+> ---
+> Nicolas Frattaroli (4):
+>       drm/scdc-helper: Don't use ssize_t return type for scdc_read/write
+>       drm/scdc-helper: Add scdc_status debugfs entry
+>       drm/display: bridge_connector: init scdc debugfs for HDMI
+>       drm/scdc-helper: Implement parsing and printing HDMI 2.1 fields
+> 
+>  drivers/gpu/drm/display/drm_bridge_connector.c |   4 +
+>  drivers/gpu/drm/display/drm_scdc_helper.c      | 285 ++++++++++++++++++++++++-
+>  include/drm/display/drm_scdc.h                 |  21 +-
+>  include/drm/display/drm_scdc_helper.h          | 103 ++++++++-
+>  4 files changed, 404 insertions(+), 9 deletions(-)
+> ---
+> base-commit: 4fdfaadba04dc0f2f2490dbc91922caa290463a5
+> change-id: 20260413-scdc-link-health-89326013d96c
+> 
+> Best regards,
+> --  
+> Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> 
+
