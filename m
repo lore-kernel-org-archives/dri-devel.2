@@ -4,124 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7B67CD98D6
-	for <dri-devel@archiver.kernel.org>; Sun, 14 Jun 2026 07:06:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AA0ACD98D6
+	for <dri-devel@archiver.kernel.org>; Sun, 14 Jun 2026 08:24:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFD0A10E056;
-	Sun, 14 Jun 2026 07:06:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F77610E04B;
+	Sun, 14 Jun 2026 08:24:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="H38huAW7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i98yjZ9I";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010012.outbound.protection.outlook.com [52.101.56.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 328E710E04B
- for <dri-devel@lists.freedesktop.org>; Sun, 14 Jun 2026 07:06:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v04IG7k/bxejBQC77qJcfbr2JJBjiu9hBztC4QlcLMN9rZDXU4bngeBBOh8r4J8NJTI+GlEwOP9opXsVJr9+WlweIrwpWsb4NQSiSguMrqlE77fv0rcUU7LmpJ673ql4HEcM+Je/0JO8CvxB/ydjqHhtl0eSyzUdWyJCBaP/7fp+s7EHVzsjjYSaixmpUlBDFQPy2ZiQS61WVK1HHPqTj3MYAVWdrw7rvYR/8wfhlugFeg6Ei0OhaNwkqZ4LPlJ8iy4p3HAau7QzwNJCeNl4u0UmR+AublZt39oVr2ip4VGeNgqoHS2Lo6mmaEbLRvhl+MhgQLCLl/WcPqXSD07aEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7Y8U4VVar/U7P3CogtXUGlmsQmYsQNLmnXsyOIF+OWY=;
- b=b9eFDUfkL6GED4zRYoMInoAVJfv0vbvV7rIGAotsltjkZCHiFsvZu6Uhiadi1urf+c/Pjyv+NrusdRr3hyy8R4srJ1IALoLv9d0y0LNA753ZtIZQ6Bir6yHvP1+nPbIxz6oBDoSA6Z3UR8iHpACweDFyj8Vf7tue8N4nVUY4qA03h1KEkXhdu4sctMb0bMkTFw5Vq964GV5CSp61ZIcX5owAcoCVwpP980ivjwGz3QbO6oPReKM10dyToJks6zE0hFRw/O7uk7GRasOmqHpbwETrYAfBIzWSnkEaC+mlfoiqhj108CPVtmF6DKKY+4fgj93EFN8N69MmN0VJKwGXIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7Y8U4VVar/U7P3CogtXUGlmsQmYsQNLmnXsyOIF+OWY=;
- b=H38huAW7vXP5dsMi1FJW/ImHy9ZU7Wo6BTOecJSGPNEf57IqM+NNMFGYT7Mzf1tqQSNA9FdoQ2eBHxRACrLL9lUqzasAXBrWm2WyqitXwMhuLTubtAePkECnkv5rnNSmcpTMAa4+GgqMhhHu6URmlLksdPVXivzq90r7dhAfvKbKQj+5NT5iV5yzMfqT6Ywg/scUeS0f/z2ySVmSkdaWBg+sJ93thldwFjQH/UPkXtkiZiYtBIvHOMKXhuwFS7jzi1tMX6JN1KinwFRjk9q2vQOZ2Yxkk0nHDkdyCwVBwtve27YsGHYYlXzlcSNx1RbA9eIuIFxueULgf0FFbvvBsQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9715.namprd12.prod.outlook.com (2603:10b6:408:2a0::7)
- by DS7PR12MB8274.namprd12.prod.outlook.com (2603:10b6:8:da::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.16; Sun, 14 Jun
- 2026 07:06:40 +0000
-Received: from LV8PR12MB9715.namprd12.prod.outlook.com
- ([fe80::e74f:2cf8:cf2c:142]) by LV8PR12MB9715.namprd12.prod.outlook.com
- ([fe80::e74f:2cf8:cf2c:142%6]) with mapi id 15.21.0113.015; Sun, 14 Jun 2026
- 07:06:39 +0000
-Message-ID: <9b31fd6e-9c26-4f4d-804e-832fc64ca512@nvidia.com>
-Date: Sun, 14 Jun 2026 10:06:36 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/5] net/mlx5: free mlx5_st_idx_data on final dealloc
-To: Zhiping Zhang <zhipingz@meta.com>, netdev@vger.kernel.org
-Cc: kvm@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20260611161546.4075580-1-zhipingz@meta.com>
- <20260611161546.4075580-2-zhipingz@meta.com>
-Content-Language: en-US
-From: Michael Gur <michaelgur@nvidia.com>
-In-Reply-To: <20260611161546.4075580-2-zhipingz@meta.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0402.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cf::14) To LV8PR12MB9715.namprd12.prod.outlook.com
- (2603:10b6:408:2a0::7)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2060010E04B
+ for <dri-devel@lists.freedesktop.org>; Sun, 14 Jun 2026 08:24:36 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4D26F601DD
+ for <dri-devel@lists.freedesktop.org>; Sun, 14 Jun 2026 08:24:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 033DAC2BCC7
+ for <dri-devel@lists.freedesktop.org>; Sun, 14 Jun 2026 08:24:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1781425475;
+ bh=3Te565K0gUy9KVFTA4F+Y98WUnS+0aqu2sBRRCLvIFE=;
+ h=From:To:Subject:Date:In-Reply-To:References:From;
+ b=i98yjZ9IEMWlxRl7r846HD6Euwd988VE0lma3oj7ej8pBlJbQZNYhop/3JOGKE/Fr
+ vp7cT3sWjETzELKTKdMfNY58lk4hruI8JElKP5MniL3Kn2zDot/vJzm2Zevg40CGe2
+ HQ6oZ27mbuzBzykXgztRuTFmMoELf8gDYBxBToUhVQjnRw6BTiClFFmwBEfH/kX3po
+ EDHjONqT+wKJcvbYqOhXp03XGffqOirg1yFq3KJ/CrlctNKYh56Y+29gjnQSB8rDSj
+ ooQu0dmj50AXzNbd8eVLhAzbIflINsaiVnHGkJ8LeqvjwSSiVBkWP7hoENcKDeIraC
+ Sz+aTQ3z8byoA==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
+ from userid 48) id EBD4AC53BBF; Sun, 14 Jun 2026 08:24:34 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: dri-devel@lists.freedesktop.org
+Subject: [Bug 221649] amdgpu regression on RX 5700 (Navi10): 6.17.9 works,
+ 6.18.x causes GPU hangs
+Date: Sun, 14 Jun 2026 08:24:34 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Product: Drivers
+X-Bugzilla-Component: Video(DRI - non Intel)
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: high
+X-Bugzilla-Who: aros@gmx.com
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: ANSWERED
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_status resolution
+Message-ID: <bug-221649-2300-BApoKS7GcZ@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-221649-2300@https.bugzilla.kernel.org/>
+References: <bug-221649-2300@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9715:EE_|DS7PR12MB8274:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0136a356-cbb1-4740-ded8-08dec9e37b59
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|22082099003|18002099003|4143699003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: vw4AgVUWDdXBhDdqENHC3BQOe5Nf1OfKwRKePb7XPjH6Me2gnNQjSXmayzjujhCfQ5sHQwNDlsVbQKHJMHfA4ZR4M8hA0Zmei9cVi4oy1/irP0bDqzWfkeVnB/q0GpUGOowTkkQsRGuXkjBYBOH51kOW7O/6Vxl+qIFKrvtsbMSsmR1wvULbLkTK/pNokeZbUx7PWFPSfkLdlHa86nMFb8lmEEv0zJTCQW4e5xtSTGaAy1FZ+a9eonE5lXZfZR4JNlMlr0DLmDMa4LZxfbhXIMSSRhdXsEsU11pZHxDC0LEEKhzLmO9U8LVuKkzEcrShq2EL/Wz3Y+8VGwd8yDAo5PzV7+X/luqXaDmU66OKz2VtoK+bCx0D67B/UzIzoQ75IRO+cOXCiZ7aG4+zqV2krV0TngMDMZso6KF0SCFYNF/QScFrA/ynNXCLbQAwNScJ13Qh7ftCLTHhYtdGZ1CrdTq0Gymv9/8O7R+j5uym+j3Eih0DwiaRHfGDbkZkHrEiqRc2xmIboqJWMgN976bRulXNr/ZJrc/MJgBq5ycPXRMKDk0gEmdK6VTtWYRgpqqK191Bj4GO9eMD45SC/Jur9w2HOqs4ebfh3yQwfj5eXjyv1nYXUNkFg+XgZL/8sVKsvM1PclUDi5sq3flmNXL5lrGphQVj+hPqRum4JzIbazC3xC449dB2PtxxeW/X2Q7r
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV8PR12MB9715.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(22082099003)(18002099003)(4143699003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aVkwWlY3dTlST0VsL2dVK25jbmhvSjJPNFFISFlPc3dWN2NZRWx3WS9EbzVQ?=
- =?utf-8?B?T3RoQlhDd3AvNndMd0Ivbld4WHh2c3FnTEJXekRxamo0OU44RUJuNHJydjEr?=
- =?utf-8?B?eFVzUU8vUE11ZDZTdGtOc0pSaURGMlJ0bmc1UVdKT0NiUkYxYnZJVGRxUUlr?=
- =?utf-8?B?QzRyTHowMUMrZzA5UFZhVWlhNFYwcFN1QkRKVm1BVFA4SW9EY1JkQWJpcTRH?=
- =?utf-8?B?UkhpU1BQTWw0WWV5anhhSm11OGdFTzdzd1N4akxCMjgwMFpIRjRCM0JHZVdT?=
- =?utf-8?B?Vmw4bFlLUHVSQUpra1hkeVhqL1BidE1FdUswY2U4ZHEyUGUxN05Yd0tNUGtl?=
- =?utf-8?B?V2ZKcHBEUlU4bnRFM01LWnNBN3BpaldZY1ByTmlVajBJV2dFNEMraWJrbVRL?=
- =?utf-8?B?dnFVaUdrZW45TEpJQWFhZ2l4ZFdLay9LeWRyajl6OTZTQyt6RzRzbVljNkln?=
- =?utf-8?B?eDR1Q0FOMitrcllsTEtta2xoaUZMNXlWWTBSZTRoaWxYSnprYW1RemwrQm5G?=
- =?utf-8?B?MVZteElFV0lzYnpYMlI5andBWGhZVW1UeXVkSk9BbVUwOG5KajQ3WTlxa2du?=
- =?utf-8?B?ZkdzQWp1VDErcHc4ek50RGdvVTRzamJHbXpBYXBXUllsZ2hJdDkzWElLWElG?=
- =?utf-8?B?d0JWb1VvTHZCTHVEL0RGczFMRnl2KzRmelZWcnBCck5ucVVqUExqd3laZWlG?=
- =?utf-8?B?QVFEQ2E0VG8zL1VCTVFZYVhCRU82UmFLcjhkQU9RWE82dlozb1VoangrbTF5?=
- =?utf-8?B?YlFLRVl0TjZOa0dnZnJSRnc5STB5bTZNUGYwbkJ5YTlKaHNjdXlFN2J2V2tW?=
- =?utf-8?B?MWY5TVl6aFFiSU5uVGZUK1BHNnhuNkRaL2NJdktvekVMdEFFNDRiRXZ3N0Q5?=
- =?utf-8?B?NS8rQ01FakhvTkN3b2k4SHJmMmJySkxWcE9ZTlBUOUd6NmYzV2twSll1bGFU?=
- =?utf-8?B?U1pObzgrb09lcTB3QW01aXdYS1RqRnhuS3IyV1pxdU5xaCtMbzBvR3RjSjNr?=
- =?utf-8?B?eW1wcWVjZStxQjVKWEFyR0kxSWhmQXVTbG1QVWcvR3BpbU9yM093TGc5dG9j?=
- =?utf-8?B?V1VzZWlzWVViN0IwVU1ETjNwR3JFZDRGN1EzbXhVc1FmdmtoeFdDdkdkOFJa?=
- =?utf-8?B?Z2VmbU4xbmxpeTlzMFhQL2t0VHMxZ0FMNnN0c0xtaEdnRFRDSnNUc0pRTjIy?=
- =?utf-8?B?SHdDN1I3a2JTV3dueW16d3g4YTV2M1diMkpERzI3WnpDbHNPSHJxQ29kUzE5?=
- =?utf-8?B?a3hKMm5acElJQ1Z2OVU4b2I2dC9taktBQlNRRlk2d0N3ZnhDTlZyalo0QU40?=
- =?utf-8?B?NlFhUFp2Vk93S040eUtleWtWUGNHKzV2dEdxYWFHZjRDZ3FUbi82R1BTN0VI?=
- =?utf-8?B?azhSem4yMUFUVGgraCsrRnQzQWI4ZzI0aFIxY00zZlFvQUg2S2o5Sk16aXI4?=
- =?utf-8?B?TngrNWhYVEhlUHlrenFSTnlNTW1qV242N2Nkb2YrQ3VOd281NU9hOXUzQjl3?=
- =?utf-8?B?Smk1THZ4QVJFODhyT1prZ3FGVEgxRmU0TnRNZXRIUTVndENzM0JDVmp2bmJ0?=
- =?utf-8?B?MUlITzhURUNHQjJKczA1aUlYblB0V0QxcW9UTEhLUWxnQWk3WURzSkhpMGtl?=
- =?utf-8?B?eDdZMUNDY0doK2VSZGhFd3RFWU15KzgvSXdVU0h6WVJPcUQxVGo3TEpwRmQy?=
- =?utf-8?B?M29WWmE2c2IwTjQyQnk5V3Q1T0NzOWJrN1hQNCtmeVN6Z0VEN3BXTnQ4TUJP?=
- =?utf-8?B?ck5HR3FKdVRuVWE0a1k4S1k0RG5OK2psVGd6emFVczdPMVlUT3JOVmNPZGdj?=
- =?utf-8?B?ZVFsM3BmVjZ5ZDluM0UvOVBCNm50dUd4NmxaUzNIZGMzbE91ZjV0dUNPSlcx?=
- =?utf-8?B?Z2Rpd255a01QS2YxRWdqNndLQVNDbjRkL25rNExCelZ1WHQ1dFBKUHdLYThm?=
- =?utf-8?B?Wm5iQlZuWGp5dGcreVAxUTE4Sm5vTklobnUrdWl3dnZELzhZQllLRVMyNVNC?=
- =?utf-8?B?cFREZnlocFVIU3pUU0RCdzNpYml1a0VhbDZaOCtHRlpscjI5bk1lQnFYblVs?=
- =?utf-8?B?dWp1eDYyb2h1MFpxNVBWSEQzVXdDN3pLRDdmZCs2RkYwV2JLVXVzSEo3MFpH?=
- =?utf-8?B?WHZtZGg4SHo4TldtNDdtK3hsNEtaRnJaOHNxRjJrL0w3TG9pcXd3N3ZJenpK?=
- =?utf-8?B?Q3lQVUs1MzFjT3JsMU95Zjh1djdiMGZQVlgrS0pHMjlzTmxQKytIbGRtMHRE?=
- =?utf-8?B?eHE4azBETXlCVEs4TDYzYTRtaEdKcmFKMDlKNXQ0S2szRlVwcjMrOWlpamNB?=
- =?utf-8?B?UFhheVBYQTFpWmJXSXFIN0xkUGtFNVVnbDBYbDlwYjBEdW5CcVNKZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0136a356-cbb1-4740-ded8-08dec9e37b59
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9715.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2026 07:06:39.9370 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tW7wRCbDQIXXOMizw1Xj5+M+rQu7YY4HdFOtwingCIq0DRD6xejlyy9cwUe2TsDPaPnwWJ+7xX3iCpxYqps4Fg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8274
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,36 +75,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+https://bugzilla.kernel.org/show_bug.cgi?id=3D221649
 
-On 6/11/2026 7:11 PM, Zhiping Zhang wrote:
-> When the last reference to an ST table entry is dropped,
-> mlx5_st_dealloc_index() removed the entry from idx_xa but leaked the
-> backing mlx5_st_idx_data allocation. Repeated alloc/dealloc cycles
-> therefore accumulate one struct mlx5_st_idx_data per cycle.
->
-> Free idx_data after the xa_erase() so the lifetime of the bookkeeping
-> struct matches the lifetime of the ST entry it tracks.
->
-> Fixes: 888a7776f4fb ("net/mlx5: Add support for device steering tag")
-> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
-> ---
->   drivers/net/ethernet/mellanox/mlx5/core/lib/st.c | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-> index 997be91f0a13..7cedc348790d 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-> @@ -175,6 +175,7 @@ int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index)
->   
->   	if (refcount_dec_and_test(&idx_data->usecount)) {
->   		xa_erase(&st->idx_xa, st_index);
-> +		kfree(idx_data);
->   		/* We leave PCI config space as was before, no mkey will refer to it */
->   	}
->   
+Artem S. Tashkinov (aros@gmx.com) changed:
 
-Reviewed-by: Michael Gur <michaelgur@nvidia.com>
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+             Status|NEW                         |RESOLVED
+         Resolution|---                         |ANSWERED
 
-Thanks.
+--- Comment #3 from Artem S. Tashkinov (aros@gmx.com) ---
+Please refile here:
 
+https://gitlab.freedesktop.org/drm/amd/-/issues
+
+Would be great if you bisected first:
+
+https://docs.kernel.org/admin-guide/bug-bisect.html
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
