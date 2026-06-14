@@ -4,43 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6EE0CD98D2
-	for <dri-devel@archiver.kernel.org>; Sun, 14 Jun 2026 13:27:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE8AACD98C5
+	for <dri-devel@archiver.kernel.org>; Sun, 14 Jun 2026 14:08:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2133510E091;
-	Sun, 14 Jun 2026 13:27:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8B9E10E057;
+	Sun, 14 Jun 2026 14:08:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qo4fMyJQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MaldF1My";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE25410E091
- for <dri-devel@lists.freedesktop.org>; Sun, 14 Jun 2026 13:27:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A604B44201;
- Sun, 14 Jun 2026 13:27:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62D1E1F000E9;
- Sun, 14 Jun 2026 13:27:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781443663;
- bh=bk45U+t4TwyR+phWC+nvxtVuk4SPyd4zkrkB0boJyU8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Qo4fMyJQU1SX20qbg/AxHHV0IPYd065ErJm2GqUi2AB1RAMazfOFQjFLZxAD/Q+LE
- JGphNKJvGGn9CGCXvjNQzdLkVXSj2ZEWJmVjaDUsyiAMkauCj08qicC0/KN9WbR3wY
- IAJe/5h5tp01ldCQcwUe/U09H+YqztWgrzfOgo3lQxyJMOJax7P/2xSyaIiVLt8GZw
- ANXgxNaAchBKp1QMS9/7e3Bg3+XnFOv6xlB/tPLN+/y+EWo848eJOy9qN1Kf8neTsn
- FdGAimxlO7Ch5txmkDFEtY1TR4oMsUh2Xg/ZlsKeUAesrhC87hjb6meMFiQ6AECZyz
- ac4W/m20N3DxQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/v3d: add KUnit reproducer for the copy-query
- out-of-bounds write
-To: "Michael Bommarito" <michael.bommarito@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260614131100.2525157-3-michael.bommarito@gmail.com>
-References: <20260614131100.2525157-3-michael.bommarito@gmail.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 475BD10E057
+ for <dri-devel@lists.freedesktop.org>; Sun, 14 Jun 2026 14:08:10 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-4600ddc4017so1778116f8f.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 14 Jun 2026 07:08:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781446089; x=1782050889; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vZ6sLuNEBwb2pkhd5qu/rn+wBwxOy1DXeVTlXK6rZDU=;
+ b=MaldF1MyWGd5Bk8EYT6SaMOb9n80GVhIDwIlOmX+IznCvT4FQaYE1ILhxusjvgU9R6
+ RbO3WlaibS6bgAMNNXnOMqQTEvIB2OjYBGkkI4fjRbtdUrMMjs+bNcXWi3BMfE2igqRb
+ bUxGkRi+WxcZJcrlvoOyWK3vGThzYay+p+kdnu9GJOiRz8f8BwCGEnffOz8SX4ZDNUkU
+ nY2wRqSm9dmVwpIRXmFXkPAxIn2cOTSScAnwAsWtnRvxPMixqP4R27cj+0QkFvN5o3In
+ dG2o4r2DX23uI1ZY50CetZU7lCllcL+UdEii4vH88n9lrKyuftxzpy29/dNHTzYFbXU4
+ 24Dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781446089; x=1782050889;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=vZ6sLuNEBwb2pkhd5qu/rn+wBwxOy1DXeVTlXK6rZDU=;
+ b=LeNDxLdCtp/rjMbdQBiH+T9/cQR3+HfnDHQNQfp6QQmBKDxWh9uHR3nVhvjDvhyjk/
+ C8yhJlhwS+kNn4ZRtidW8Lslv5Esuvtxdn4LMU6o1V43b1NZQeJY1Gd0+PoClYhphqWP
+ GFzoScU6BGz2wnoteTAkTsiWkZZwp1I2AmHxqB8JMf/3RNUsdJG5JoBYulaxxzDbHZP/
+ JTC3KYTsjFvgxdI9Lfp/ImOtD6oBHz4AhpYS+HsPhnxWjc5aNz/vaKkGJWvRoIyzcRgF
+ UJZGUnf8RPDDxDuB3LfqVPhr1cJ1mQF7I4Fw+8Pvvz0bJisIekeIbjMFNHFgH2L81tpU
+ E4CA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/irTkQ7XzQ5yPNmRvMrRncSTPIk6i7jfGxrCvMfjf8srH4ZUuUDTO68CrBbQ2qGctJ2z8C2aBGAxQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx0tS+9CVfgwJwUgyzDFiohUT//U862X8AEiBiaMmr2cd2kgi3W
+ J4SGwQUjmvFCXd5KzNtPFcffmRIZpXqUo9w+/TsFriF34+76epkUs/lB
+X-Gm-Gg: Acq92OEOFfOAmfWwTzvF9LJvMYq8rSumogWQNahYMWRMiA1z0eOWbkrlqBL00Ym/gfo
+ iE4RKsLa/FVK/1UFxMVBR9AXYywskNl/jsghdHDHOZin3IlUYUcTzzEflKGgRWqeFIL9KcMzRdk
+ 4gT8TbedkwlSyP2nXc4Cmpphx3WKH4KFiP6kSeOQW4bD0nAX16t096OlH5ICnic3gZmBPIB3bNh
+ hWfI37nVRIBacVtKDiNC9ELzSW1fvexLCogNm20Ml85FUI/VwfqXdbtP62Qtxdo3uyupyxnQwWa
+ p7AykBvbs3obh7+kTLfeaeeYNpv17rSoNqicO+EhNzpdG0Ykb6r6kKpT8oLrVxCDmpYZj1jf38F
+ pn1vOdDvxBDrviib6MZk8f4lAtAzuIX7KqvPnb2rUBjrF5dApEx7XM1TXDlFPBPmujLGUjPkgN8
+ Gf4Vkq2GdPYZ8FjJ84Bu3sze3HiG/ox2JACZx7bUeQwuKk
+X-Received: by 2002:a05:6000:984:b0:460:3234:293d with SMTP id
+ ffacd0b85a97d-4606dbce8a5mr14655307f8f.40.1781446086390; 
+ Sun, 14 Jun 2026 07:08:06 -0700 (PDT)
+Received: from jernej-laptop.localnet ([188.159.248.16])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4606f26f450sm27152837f8f.10.2026.06.14.07.08.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 14 Jun 2026 07:08:05 -0700 (PDT)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: wens@kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
+Cc: samuel@sholland.org, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ mturquette@baylibre.com, sboyd@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org
+Subject: Re: [PATCH v2 7/8] dt-bindings: display: allwinner: Split H616 DE33
+ layer reg space
+Date: Sun, 14 Jun 2026 16:08:04 +0200
+Message-ID: <nIKN_benRn2Bk8SDZrkMCA@gmail.com>
+In-Reply-To: <032c1099-40ab-470e-8cc3-af6d3cad22d4@kernel.org>
+References: <20260509190015.79086-1-jernej.skrabec@siol.net>
+ <ahNuuaVlDl0KvOSj@home.wens.tw>
+ <032c1099-40ab-470e-8cc3-af6d3cad22d4@kernel.org>
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 14 Jun 2026 13:27:43 +0000
-Message-Id: <20260614132743.62D1E1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,169 +94,72 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+Dne ponedeljek, 25. maj 2026 ob 14:10:38 Srednjeevropski poletni =C4=8Das j=
+e Krzysztof Kozlowski napisal(a):
+> On 24/05/2026 23:33, Chen-Yu Tsai wrote:
+> > Hi,
+> >=20
+> > (resent from new email)
+> >=20
+> > On Thu, May 14, 2026 at 2:04=E2=80=AFPM Krzysztof Kozlowski <krzk@kerne=
+l.org> wrote:
+> >>
+> >> On Sat, May 09, 2026 at 09:00:14PM +0200, Jernej Skrabec wrote:
+> >>> From: Jernej Skrabec <jernej.skrabec@gmail.com>
+> >>>
+> >>> As it turns out, current H616 DE33 binding was written based on
+> >>> incomplete understanding of DE33 design. Namely, planes are shared
+> >>> resource and not tied to specific mixer, which was the case for previ=
+ous
+> >>> generations of Display Engine (DE3 and earlier).
+> >>>
+> >>> This means that current DE33 binding doesn't properly reflect HW and
+> >>> using it would mean that second mixer (used for second display output)
+> >>> can't be supported.
+> >>>
+> >>> Remove layer register space, which will be represented with additional
+> >>> node, and replace it with phandle, which will point to that new, shar=
+ed
+> >>> node. That way, all mixers can share same layers.
+> >>>
+> >>> There is no user of this binding yet, so changes can be made safely,
+> >>> without breaking any backward compatibility.
+> >>
+> >> There is user. git grep gives me:
+> >> drivers/gpu/drm/sun4i/sun8i_mixer.c
+> >>
+> >> which means this is a released ABI. As I understood, the old code was
+> >=20
+> > We held off on merging the DT changes so that we could rework this.
+> > I can't find the actual request though. It was probably over IRC.
+> >=20
+> >> working fine but just did not support all use cases. Why this cannot be
+> >> kept backwards compatible?
+> >=20
+> > AFAIK the "planes" block is shared between two display mixers. As the
+> > commit message explains, this prevents using the second mixer, since
+> > only one of them can claim and map the register space. And on the H700
+> > (which is the same die as the H616 discussed here but with more exposed
+> > interfaces), there could actually be a use case for the second mixer.
+>=20
+> It explains why you want to make the changes but not why you cannot keep
+> it backwards compatible.
 
-Pre-existing issues:
-- [Critical] Missing bounds validation for CPU jobs other than COPY operati=
-ons allows arbitrary out-of-bounds memory accesses.
-- [High] Missing NULL check for `vmap()` return value causes NULL pointer d=
-ereference across all CPU job handlers.
-- [High] Missing alignment checks for userspace-provided offsets in CPU cop=
-y jobs trigger fatal alignment faults on ARM architectures.
-- [High] Unbounded memory allocation from userspace-controlled counts in CP=
-U job submission.
-- [High] Repeated calls to `vmap()` leak kernel vmap space when the same BO=
- is supplied multiple times.
---
+I guess it can be backward compatible, but I don't think it makes sense.
+Yes, original driver implemented original DT bindings, but there is no node
+which uses that binding. If there is no user of that, why would driver
+need to support it nevertheless? Supporting only actually used DT binding
+allows for better code architecture, as there is no need to support second,
+unused path. It also simplifies testing, since developer doesn't need to
+test both paths if code is changed in that area.
 
-commit 3ca0a930a22512f0b8cf72cfb659ccbf12f82409
-Author: Michael Bommarito <michael.bommarito@gmail.com>
+Best regards,
+Jernej
 
-drm/v3d: add KUnit reproducer for the copy-query out-of-bounds write
-   =20
-Add a KUnit suite (CONFIG_DRM_V3D_COPY_QUERY_KUNIT_TEST, builds under
-COMPILE_TEST) that drives the real v3d_copy_query_results() CPU-job
-handler over a shmem-backed BO and exercises the destination-buffer
-bounds the previous patch adds. Under KASAN the trigger case reproduces
-the vmalloc-out-of-bounds write on the stock tree and passes once the
-bounds patch is applied; two in-bounds controls pass on both trees.
-
-> diff --git a/drivers/gpu/drm/v3d/v3d_copy_query_kunit.c b/drivers/gpu/drm=
-/v3d/v3d_copy_query_kunit.c
-> new file mode 100644
-> index 0000000000000..e7a795ed2a3ff
-> --- /dev/null
-> +++ b/drivers/gpu/drm/v3d/v3d_copy_query_kunit.c
-
-[ ... ]
-
-> +static void v3d_copy_test_run(struct kunit *test, u32 offset, u32 stride,
-> +			      u32 count)
-> +{
-
-[ ... ]
-
-> +	c->bo_array[0] =3D &c->dst->base.base;
-> +	c->bo_array[1] =3D &c->ts->base.base;
-
-[Severity: High]
-This is a pre-existing issue, but does the driver handle cases where the
-same buffer object is passed multiple times in a single job?
-
-If userspace passes the same BO handle for both the source and timestamp
-arrays, the CPU job handler calls v3d_get_bo_vaddr() twice on the identical
-buffer object.
-
-In drivers/gpu/drm/v3d/v3d_bo.c:v3d_get_bo_vaddr(), the mapping is
-unconditionally overwritten:
-
-bo->vaddr =3D vmap(obj->pages, obj->base.size >> PAGE_SHIFT, VM_MAP,
-                 pgprot_writecombine(PAGE_KERNEL));
-
-Does the second call to vmap() overwrite the pointer from the first without
-unmapping it, permanently leaking the first vmap mapping and potentially
-exhausting virtual memory space?
-
-[ ... ]
-
-> +	c->job.timestamp_query.queries =3D c->queries;
-> +	c->job.timestamp_query.count =3D count;
-
-[Severity: High]
-This is a pre-existing issue, but does the ioctl submission path validate
-the bounds of this user-provided count?
-
-During CPU job submission in
-drivers/gpu/drm/v3d/v3d_submit.c:v3d_get_cpu_timestamp_query_params(),
-the unbounded userspace count is passed directly to the memory allocator:
-
-query_info->queries =3D kvmalloc_objs(struct v3d_timestamp_query,
-                                    timestamp.count);
-
-If an unprivileged user provides an extremely large count value, could this
-attempt a massive virtual memory allocation, exhausting system memory and
-triggering the OOM killer?
-
-[ ... ]
-
-> +	v3d_copy_query_results(&c->job);
-
-[Severity: High]
-This is a pre-existing issue, but is it possible for the CPU job handlers to
-dereference a NULL pointer if mapping fails?
-
-In drivers/gpu/drm/v3d/v3d_bo.c:v3d_get_bo_vaddr(), the code maps the buffe=
-r:
-
-bo->vaddr =3D vmap(obj->pages, obj->base.size >> PAGE_SHIFT, VM_MAP,
-                 pgprot_writecombine(PAGE_KERNEL));
-
-If vmap() returns NULL under memory pressure, is this safely handled?
-Handlers like v3d_copy_query_results() in v3d_sched.c immediately compute
-addresses using this pointer:
-
-data =3D ((u8 *)bo->vaddr) + copy->offset;
-
-Could this result in a NULL pointer dereference and kernel crash?
+Best regards,
+Jernej
 
 
-[Severity: High]
-This is also a pre-existing issue, but does this copy handler properly align
-memory accesses for userspace-controlled offsets?
-
-In drivers/gpu/drm/v3d/v3d_sched.c:v3d_copy_query_results(), the driver
-computes memory addresses directly from the userspace offsets and performs
-64-bit operations:
-
-query_addr =3D ((u8 *)timestamp->vaddr) + queries[i].offset;
-write_to_buffer(data, 0, copy->do_64bit, *((u64 *)query_addr));
-
-Since V3D hardware typically runs on ARM architectures that strictly require
-4-byte or 8-byte alignment for 64-bit load/store instructions, could an
-unaligned userspace offset trigger a fatal alignment fault and kernel panic?
-
-> +}
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_s=
-ubmit.c
-> index 23e19dacfdce2..ec0b94ada73ff 100644
-> --- a/drivers/gpu/drm/v3d/v3d_submit.c
-> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-
-[ ... ]
-
->  /* Bound the copy-query CPU-job writes; the exec-time copy does not. */
-> -static int
-> +int
->  v3d_cpu_job_check_copy_bounds(struct v3d_cpu_job *job)
->  {
-
-[Severity: Critical]
-This is a pre-existing issue, but does this function properly validate boun=
-ds
-for all CPU job types?
-
-For CPU jobs other than COPY operations (like TIMESTAMP_QUERY or
-RESET_TIMESTAMP_QUERY), the switch statement defaults to returning 0 without
-validation:
-
-drivers/gpu/drm/v3d/v3d_submit.c:v3d_cpu_job_check_copy_bounds() {
-        ...
-        default:
-                return 0;
-}
-
-Could a malicious user exploit this by passing arbitrary out-of-bounds
-offsets? If the offset isn't checked, handlers like v3d_timestamp_query()
-might add it directly to bo->vaddr and perform out-of-bounds memory writes.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260614131100.2525=
-157-1-michael.bommarito@gmail.com?part=3D2
