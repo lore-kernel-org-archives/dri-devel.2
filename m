@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 891B4CD98C5
-	for <dri-devel@archiver.kernel.org>; Sun, 14 Jun 2026 13:11:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 728EFCD98D2
+	for <dri-devel@archiver.kernel.org>; Sun, 14 Jun 2026 13:11:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B48C310E082;
-	Sun, 14 Jun 2026 13:11:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99A3710E088;
+	Sun, 14 Jun 2026 13:11:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rPLxvLiG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tJZA95US";
 	dkim-atps=neutral
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com
- [209.85.160.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA8AC10E082
- for <dri-devel@lists.freedesktop.org>; Sun, 14 Jun 2026 13:11:05 +0000 (UTC)
-Received: by mail-qt1-f173.google.com with SMTP id
- d75a77b69052e-517b1f2c668so27805121cf.2
- for <dri-devel@lists.freedesktop.org>; Sun, 14 Jun 2026 06:11:05 -0700 (PDT)
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
+ [209.85.160.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E58C10E088
+ for <dri-devel@lists.freedesktop.org>; Sun, 14 Jun 2026 13:11:07 +0000 (UTC)
+Received: by mail-qt1-f170.google.com with SMTP id
+ d75a77b69052e-5174a3a025aso27931221cf.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 14 Jun 2026 06:11:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781442664; x=1782047464; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=skavo0y6NZljDzpBk3mdJQvAzCJLC2KJg10+24Pw1cU=;
- b=rPLxvLiGGeZM+ARvyWM8MgaAgj8h8iGrLmRDvMXpuOiIjTChRwVbMUmJUmd9CJRcpT
- KlRCHAlYQEJ1gWal8lzP1mNG5R1rybH2bLb2Qgk6UL+Kr+WDRualrLQ0OARuWS6Bv4Cd
- 3RXCxdeldpZoAu+L50Ba+YgNBoH3QUCyQnbhiaatymlaj1mmX1kCJ910e0NwjQR7jIEO
- risDaasrU9x1IFV+dds4QZsUGWE8aDI4+ZG87VbTN8AIFV464WSEW35UQtA/QiKAsQqj
- t6nsaovID6Ia6x+qkJfqx1WbnT37B7Ahu0zqxI6Yu/NPukjUVqKIm0CRqBk2Y6avo/8D
- zqRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781442664; x=1782047464;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1781442666; x=1782047466; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=skavo0y6NZljDzpBk3mdJQvAzCJLC2KJg10+24Pw1cU=;
- b=OSv2rMXPpWrrv+2W9cNKVJyIfPMgtd35mXvdM58F+YgcwvRXbSLYURkdCOi7fuwB++
- t2kj3P/EKhc1OP8sm2cSrDxzJyrXrjqF4KOFQcUNvxmXxBUcb6mv7zm/Qr7316OpV1ot
- VEfGyVSl1GZR2Ahv/xyx1Z/qyCV+YteyXZbh65XBC7JGKTRbpjflwkkb1Mx1sZqk6YWu
- XF3eTBurdESN6So3ZGLdm62lqkYhMhAk+1/GRfePMwcl/SDZG8I50lTIFEWPNzJ2J6+O
- WW+TKcjcnufMNCjbbvFphisDF6m2Mc9j55tT+v4GMhQK6FOlatOv3qwhjk7jABUSo7e/
- HA6A==
+ bh=yzg/YOIIjYEH15Di+UXqiKscgR5aDMncmsvi0n7iLLw=;
+ b=tJZA95USo484BLQ7Ja82qu28USrxas85x09Z5r51CgiC5H9l9hL0jhUm2BCmU7YGdQ
+ Gm8ewb/91M4u8gnlOFIY8l2R68kibAw2gMP7A7rN5p1mg/RNSzG9VxtiQOKJ9Vg+suTM
+ YSTLwHtYgu+VRW9YnlAXFmn2IkHzkquh8Zp3EpzJsv2K3x2GYUGq/6iOcYcB8iFJ6/y8
+ mq+Lxo4h3zczAPacyC6+ab84TPcvf9/PgV895pMDx74PLa32jdcpqZABzQ1pMqDzKac2
+ bjXKnPARxHiU/jVat2Ayh/+elSnOG18xCts6JVIJLTe/uEdLnTADAvcB6HD47aRdi5C7
+ YInw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781442666; x=1782047466;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=yzg/YOIIjYEH15Di+UXqiKscgR5aDMncmsvi0n7iLLw=;
+ b=En76GXrD3Gg42412R2h5tzPn5g/Y+KY11wKBqtK1hA4uwPKQalzvEbaVS+/icz1cjz
+ xQtvNKWBfODqzooqqUoCYMPc7pbArg0VPxfH5lGjofg1Qf9Pyk0K1AhLA9JvyuRdZCSd
+ B1aaoeU1ws36+LilnS0KxazLlXeBRFavRkblNPnG9n07vKI06ZVINmR5vFLGB85jlmeT
+ 3YqBXQ1mQ/wQmSBGzIygOoU7GCXm751u9OhO2kVJ96aP7sqmPdaj3DQefgYPo1Rv+5CH
+ UlzX7NSrl+XoUsb6PL3o8yv/Sfr3dA9D6wgtSyrzL3QFARVAnwlLkRrnzz7h6qo22+C0
+ fAWg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8r+oyA2Dll49hjc7NPYTRWJeCoae1EnlnZ6j49T9Pso4GqFlyRiE/OTV1WPSJWLRVy71lUcQLEqTc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzV7pk8aTwEscO912I/kKHEfHxP8UzaSDDu6BP7rssrmvpQoGVl
- lensDQ3ceuaBlkUWVsp2V9GdmoB8EQyYlFRwgAHjLI2JC2gRjqnHjHSp
-X-Gm-Gg: Acq92OFwi9g7baHco0HynsmdzVVhuVQObo/O/nJ1fzMk2UnUXOJQrr5udqbDQaWu3Yf
- C54Gum3K2a7tdT/6309SC+9chu/OGfe59s3gFek5CDWqYxjaCroN8Az8/8fssllj2zfqgjahyFP
- HgKqjeuioU3Qp1pRimuXuf7C+1hYL3OdLOs1PqrlLgU5/OuHTHKGr61B4ZVtCvPVrQsc9jscmgC
- MQrmGy3ZRIK+gvKmd5ezNCZOUPET/iR7qCFv0SdUCaYf9Gh1zCnDjHxwfVcdAf/jljq0p0hn7OL
- MjkrQnGK9DLp14zwzO70YvV5Df6qi5xBjMk2zxHt00pyIeco+NKDC87775iABAj7Vu5aBFSbbqO
- 7YttjE59+j1EIyfc8qZ8QryHDtmYdDFgzYODIeXM67HC8ryKolyHgAXDku320uiBPD6ugoQYC8q
- f3U/QdHq++sIv90as70qwOz42NwvzGzyiUj+uZg3tlwDKaxglTGHV3oT6dQty1fBeLpM2gYOzEQ
- fZ+ESlsDS3OjdJRLnC0vPvwFCT9xtioF7ehYb4e8rk=
-X-Received: by 2002:ac8:7c4d:0:b0:517:7e3a:5ee1 with SMTP id
- d75a77b69052e-517fe18fe18mr153439521cf.1.1781442664493; 
- Sun, 14 Jun 2026 06:11:04 -0700 (PDT)
+ AFNElJ8uszk12KfTfgNrYGINm7AxDNxiVytMwLru/QofjP+/8rjnnnY1IzRcZIk0VA1ytzwB/d99ty4EAGQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YySjRcc7N4s0ORR6QZn4Us7V+erSKm/2RWYzKj0qEU2+LFeTXrz
+ 62lAmqecWxFnS4Wo48BgZR69Id3Iw45j9aYOy8kZXWj7Gea8rFv3bq+TfvKeq251LNg=
+X-Gm-Gg: Acq92OGMDWlKgy+H2I0HMB7Bw75XVrByvC0P6cN6cHTGW/iIaigE95Yir8wO5mqWgeH
+ kMRkQHoyxtilhe1e23JGvz0L3xjLqvPXdTpSkM0zRzh5LeA0I+jxirEihunioNZO7Qac5Cri4+r
+ MMTPYdmC7/4zLt0MWwy+aeaNnjIPVB8EgWRKuGZ1GJ9gzwivfMWa29N4QLNxKMkZbSDSJDZ6o0h
+ eQhOhqtuM+MFRuDAh7NrFdj9Z+x2L4LApzG+ySN2mmsbWfundK2PCtOge4ebUXhZsKAGA/PK3g6
+ qVKrwgzk5whGP+cGH/4SB+wFX1M04SYLOpblZ7NKSwEft6GfE2cMtnKFjJA2ItiFRMZ5DglDDl/
+ 4Y134lift/Fze3YZ2JgV/SFn241iW4Q4vt9kpR0F1IH9Udg5DsDbpFFHvCcT2CDy5l6gPxW7+/h
+ KfIDjY9wZQOeENhpeNvfquM2HGYDQM2mfqcXy5WUEvSM08aRnVS47OMxfOe7Zb6sCgWFIx8BYZ7
+ srjGRip1IPA2PvjbHdkV3YmEN8Imjn7qbAh79coTRA=
+X-Received: by 2002:a05:622a:1456:b0:517:5beb:9b17 with SMTP id
+ d75a77b69052e-519533573cemr115073121cf.1.1781442666031; 
+ Sun, 14 Jun 2026 06:11:06 -0700 (PDT)
 Received: from server0.tail6e7dd.ts.net (c-68-48-65-54.hsd1.mi.comcast.net.
  [68.48.65.54]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-5196073d7fbsm25145811cf.30.2026.06.14.06.11.03
+ d75a77b69052e-5196073d7fbsm25145811cf.30.2026.06.14.06.11.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 14 Jun 2026 06:11:03 -0700 (PDT)
+ Sun, 14 Jun 2026 06:11:05 -0700 (PDT)
 From: Michael Bommarito <michael.bommarito@gmail.com>
 To: Melissa Wen <mwen@igalia.com>,
 	Maira Canal <mcanal@igalia.com>
@@ -69,11 +70,13 @@ Cc: Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, Iago Toral Quiroga <itoral@igalia.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] drm/v3d: bound CPU-job copy-query writes to the
- destination BO
-Date: Sun, 14 Jun 2026 09:10:58 -0400
-Message-ID: <20260614131100.2525157-1-michael.bommarito@gmail.com>
+Subject: [PATCH 1/2] drm/v3d: validate copy-query buffer bounds against
+ destination BO size
+Date: Sun, 14 Jun 2026 09:10:59 -0400
+Message-ID: <20260614131100.2525157-2-michael.bommarito@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260614131100.2525157-1-michael.bommarito@gmail.com>
+References: <20260614131100.2525157-1-michael.bommarito@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -92,35 +95,143 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 The V3D_SUBMIT_CPU COPY_TIMESTAMP_QUERY and COPY_PERFORMANCE_QUERY
-extensions take a destination offset, per-query stride and query count
-from userspace and consume them at job exec without checking the write
-extent against the destination BO. A render-node user (DRM_RENDER_ALLOW,
-no master, no capability) can drive a controlled-offset out-of-bounds
-write past the BO's vmap mapping; the timestamp variant also reads each
-result from an unchecked offset into the second BO.
+extensions store a user-supplied destination offset, per-query stride and
+query count on the job and consume them at exec without checking that
+offset + (count - 1) * stride + per-query write size stays inside the
+destination BO. The copy then writes counter values and the availability
+bit past the BO's vmap mapping; the timestamp variant also reads each
+result from an unchecked offset into the second BO. A render-node user
+(DRM_RENDER_ALLOW, no master, no capability) controls the offset.
 
-Patch 1 validates the full write extent against the BO size before the
-job is queued, using check_*_overflow() so a u32 product cannot wrap.
-Patch 2 adds a KUnit reproducer the maintainer may take or drop.
+Validate the full write extent against the destination BO size once the
+BOs are looked up, before the job is queued, rejecting overflow or
+out-of-range geometry with -EINVAL; the per-query write size is computed
+with check_*_overflow() so a u32 product cannot wrap the bound, and the
+timestamp source offsets are bounded in the same pass. A KUnit reproducer
+follows.
 
-Reproduced under KASAN via the KUnit over a shmem-backed BO: the trigger
-faults on stock and is rejected at submit on patched; two in-bounds
-controls pass on both.
+Fixes: 6745f3e44a20 ("drm/v3d: Create a CPU job extension to copy timestamp query to a buffer")
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+Assisted-by: Claude:claude-opus-4-8
+---
+Reproduced under KASAN via a KUnit (patch 2) driving the real
+v3d_copy_query_results() over a shmem-backed BO; a copy offset at the BO
+size writes past the one-page vmap mapping:
 
-Michael Bommarito (2):
-  drm/v3d: validate copy-query buffer bounds against destination BO size
-  drm/v3d: add KUnit reproducer for the copy-query out-of-bounds write
+  BUG: KASAN: vmalloc-out-of-bounds in v3d_copy_query_results+0x807/0x900
 
- drivers/gpu/drm/v3d/Kconfig                |  10 ++
- drivers/gpu/drm/v3d/v3d_copy_query_kunit.c | 172 +++++++++++++++++++++
- drivers/gpu/drm/v3d/v3d_drv.h              |   3 +
- drivers/gpu/drm/v3d/v3d_sched.c            |   4 +
- drivers/gpu/drm/v3d/v3d_submit.c           |  86 +++++++++++
- 5 files changed, 275 insertions(+)
- create mode 100644 drivers/gpu/drm/v3d/v3d_copy_query_kunit.c
+The trigger faults on stock and is rejected at submit time on the patched
+tree; two in-bounds controls pass on both. The performance-query copy
+shares the bound; its write values come from perfmon counters and were
+checked by source review rather than this hardware-free run.
 
+ drivers/gpu/drm/v3d/v3d_submit.c | 86 ++++++++++++++++++++++++++++++++
+ 1 file changed, 86 insertions(+)
 
-base-commit: 5200f5f493f79f14bbdc349e402a40dfb32f23c8
+diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+index ee4512db294b3..23e19dacfdce2 100644
+--- a/drivers/gpu/drm/v3d/v3d_submit.c
++++ b/drivers/gpu/drm/v3d/v3d_submit.c
+@@ -1246,6 +1246,88 @@ static const unsigned int cpu_job_bo_handle_count[] = {
+ 	[V3D_CPU_JOB_TYPE_COPY_PERFORMANCE_QUERY] = 1,
+ };
+ 
++/* Reject offset + (count - 1) * stride + write_size if it leaves the BO. */
++static int
++v3d_check_copy_extent(struct drm_device *dev, size_t bo_size,
++		      u32 offset, u32 stride, u32 count, u32 write_size)
++{
++	u32 span, last;
++
++	if (!count)
++		return 0;
++
++	if (check_mul_overflow(stride, count - 1, &span) ||
++	    check_add_overflow(span, write_size, &span) ||
++	    check_add_overflow(span, offset, &last) ||
++	    last > bo_size) {
++		drm_dbg(dev, "CPU job copy buffer exceeds the destination BO.\n");
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++/* Bound the copy-query CPU-job writes; the exec-time copy does not. */
++static int
++v3d_cpu_job_check_copy_bounds(struct v3d_cpu_job *job)
++{
++	struct drm_device *dev = &job->base.v3d->drm;
++	struct v3d_copy_query_results_info *copy = &job->copy;
++	u32 elem = copy->do_64bit ? sizeof(u64) : sizeof(u32);
++	struct v3d_bo *bo, *timestamp;
++	u32 slots, write_size;
++	int i;
++
++	switch (job->job_type) {
++	case V3D_CPU_JOB_TYPE_COPY_TIMESTAMP_QUERY:
++		bo = to_v3d_bo(job->base.bo[0]);
++		timestamp = to_v3d_bo(job->base.bo[1]);
++
++		slots = copy->availability_bit ? 2 : 1;
++		if (check_mul_overflow(slots, elem, &write_size))
++			return -EINVAL;
++
++		if (v3d_check_copy_extent(dev, bo->base.base.size, copy->offset,
++					  copy->stride, job->timestamp_query.count,
++					  write_size))
++			return -EINVAL;
++
++		for (i = 0; i < job->timestamp_query.count; i++) {
++			u32 end;
++
++			if (check_add_overflow(job->timestamp_query.queries[i].offset,
++					       (u32)sizeof(u64), &end) ||
++			    end > timestamp->base.base.size) {
++				drm_dbg(dev, "CPU job timestamp query offset exceeds the BO.\n");
++				return -EINVAL;
++			}
++		}
++		return 0;
++	case V3D_CPU_JOB_TYPE_COPY_PERFORMANCE_QUERY:
++		bo = to_v3d_bo(job->base.bo[0]);
++
++		if (check_mul_overflow(job->performance_query.nperfmons,
++				       (u32)DRM_V3D_MAX_PERF_COUNTERS, &slots))
++			return -EINVAL;
++		if (copy->availability_bit) {
++			u32 avail_slots;
++
++			if (check_add_overflow(job->performance_query.ncounters,
++					       1u, &avail_slots))
++				return -EINVAL;
++			slots = max(slots, avail_slots);
++		}
++		if (check_mul_overflow(slots, elem, &write_size))
++			return -EINVAL;
++
++		return v3d_check_copy_extent(dev, bo->base.base.size, copy->offset,
++					     copy->stride, job->performance_query.count,
++					     write_size);
++	default:
++		return 0;
++	}
++}
++
+ /**
+  * v3d_submit_cpu_ioctl() - Submits a CPU job to the V3D.
+  * @dev: DRM device
+@@ -1317,6 +1399,10 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+ 		if (ret)
+ 			goto fail;
+ 
++		ret = v3d_cpu_job_check_copy_bounds(cpu_job);
++		if (ret)
++			goto fail;
++
+ 		ret = v3d_lock_bo_reservations(&cpu_job->base, &acquire_ctx);
+ 		if (ret)
+ 			goto fail;
 -- 
 2.53.0
 
