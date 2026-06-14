@@ -4,101 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13BADCD98D2
-	for <dri-devel@archiver.kernel.org>; Sun, 14 Jun 2026 10:28:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 891B4CD98C5
+	for <dri-devel@archiver.kernel.org>; Sun, 14 Jun 2026 13:11:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9790B10E033;
-	Sun, 14 Jun 2026 10:28:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B48C310E082;
+	Sun, 14 Jun 2026 13:11:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=quora.org header.i=@quora.org header.b="XXn7PcIA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rPLxvLiG";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3D9010E033
- for <dri-devel@lists.freedesktop.org>; Sun, 14 Jun 2026 10:28:03 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-2c0c2c7d45eso21435655ad.1
- for <dri-devel@lists.freedesktop.org>; Sun, 14 Jun 2026 03:28:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781432883; cv=none;
- d=google.com; s=arc-20240605;
- b=bCBeksDA0lAeqJQBASFcef6DMFeY3YUZ/jkv4Ip+qUJpTpXxSWos+eivvJtS/GBV/y
- CrNOFD2SUfmZ3xU8KL3M3xgRgC0GkLeEFSM4BRDrzpCmy142ptdNkjVK5bB0XHPVaTIe
- vCcgmsxnyW5UYlR4W2ltIkuFyhHnHm4os/oVcJA50WlRxMelMdYeDBzyy+Sa01gFMLOh
- JshI4+bBpXjRRYJHEolkLdGiqu7SCFElFxGc9X+yTu26xA6s15c/VVGabVTKjJfdCMJw
- FIS9Xoz9rAMA4BbQKL3xoxbo50zkuHAOZYrssMWb3Oh+dJEiMHw1DlDTjijS6zmoU7YM
- vN1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=yzePJ3jQDgqzUoVchbve1mIf57FTjpX6L66SunK2+KA=;
- fh=/FiBp+GFAlEoS7T19FQzrJ/XgSt6W5d53O7SlTW3Ap0=;
- b=OXmMJf0hNaKAFL5vLQRdaiOQ1TAbwavK3n5xJK/EZTtuR1M/4fP8/scj3kjfXGftJJ
- 5Oay/C3LxJuF6LG2tD5GnBrZotM1JhvpXZ2cA9XVzdaFYFQXX0KXkYDWQfFZRwLIJo89
- 5A3BRMRBBXvxXZ7BIBoW48cu8IhdbXwyynJeK8M/SovBO2uKtaXOJ3GyveaK9mmcqBVv
- TPT12Imkaw88cAqNNUq5yNoK94UzCxmihlDPhGvdKdnQ2fTF4MYoUEMANWFr1iCYeWWf
- xk5xLJDX0D7VzzyMtY8jOfVjMPFyA4qm+Ct8uFauYd+2o3E0y1hvF5i4JAAZyFC2VjK5
- JTlw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com
+ [209.85.160.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA8AC10E082
+ for <dri-devel@lists.freedesktop.org>; Sun, 14 Jun 2026 13:11:05 +0000 (UTC)
+Received: by mail-qt1-f173.google.com with SMTP id
+ d75a77b69052e-517b1f2c668so27805121cf.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 14 Jun 2026 06:11:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quora.org; s=google; t=1781432883; x=1782037683; darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=yzePJ3jQDgqzUoVchbve1mIf57FTjpX6L66SunK2+KA=;
- b=XXn7PcIAwRYUuI2bVvMIgvJETQGVb3LAXqGCZEMYf8AN6OHuGlOtDXDgVsVFN01dvy
- pHOI58ZhKG54b2Ca+KmH1NTDMP4nF/ambfx4LYBoBr+7A4gZ4+je6EQxA2qANPrLf6+T
- TSY71Bme8odH+dR1JYUe6I9qRoKXWkQyaqgRY=
+ d=gmail.com; s=20251104; t=1781442664; x=1782047464; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=skavo0y6NZljDzpBk3mdJQvAzCJLC2KJg10+24Pw1cU=;
+ b=rPLxvLiGGeZM+ARvyWM8MgaAgj8h8iGrLmRDvMXpuOiIjTChRwVbMUmJUmd9CJRcpT
+ KlRCHAlYQEJ1gWal8lzP1mNG5R1rybH2bLb2Qgk6UL+Kr+WDRualrLQ0OARuWS6Bv4Cd
+ 3RXCxdeldpZoAu+L50Ba+YgNBoH3QUCyQnbhiaatymlaj1mmX1kCJ910e0NwjQR7jIEO
+ risDaasrU9x1IFV+dds4QZsUGWE8aDI4+ZG87VbTN8AIFV464WSEW35UQtA/QiKAsQqj
+ t6nsaovID6Ia6x+qkJfqx1WbnT37B7Ahu0zqxI6Yu/NPukjUVqKIm0CRqBk2Y6avo/8D
+ zqRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781432883; x=1782037683;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1781442664; x=1782047464;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=yzePJ3jQDgqzUoVchbve1mIf57FTjpX6L66SunK2+KA=;
- b=Q8eI3t+sgbadjyXRfb4dov0sw/SKE/J1wDs58l0pJPcqN6pjzatUP/dhx6gnbwT8f5
- iAP6A3iXdzxj50lZ+bSw7rJA/4BmLw8r2YIFrfxxkGSXMKH4ubKXDHS4Hyx19rV6lbwH
- FAmXcLpKlEE/yE01PVSVCntxF7LIkI+wZlS3zwRk5kkuFCs4N9RrIY7hOh14X7M3MgBc
- MIGPuUvP9rfIfY9btL5BvUtuuVUMQRrBelqNMyzWMnBgGIW1oZDZ/NiS2LdXlphf1+QU
- zkpCuBZfW2Unm+9kdc/pn+aqe6q/qyEdWPyFr6EQyvKUZwh86X4tT93SY2EmKWxW+crW
- q/7A==
+ bh=skavo0y6NZljDzpBk3mdJQvAzCJLC2KJg10+24Pw1cU=;
+ b=OSv2rMXPpWrrv+2W9cNKVJyIfPMgtd35mXvdM58F+YgcwvRXbSLYURkdCOi7fuwB++
+ t2kj3P/EKhc1OP8sm2cSrDxzJyrXrjqF4KOFQcUNvxmXxBUcb6mv7zm/Qr7316OpV1ot
+ VEfGyVSl1GZR2Ahv/xyx1Z/qyCV+YteyXZbh65XBC7JGKTRbpjflwkkb1Mx1sZqk6YWu
+ XF3eTBurdESN6So3ZGLdm62lqkYhMhAk+1/GRfePMwcl/SDZG8I50lTIFEWPNzJ2J6+O
+ WW+TKcjcnufMNCjbbvFphisDF6m2Mc9j55tT+v4GMhQK6FOlatOv3qwhjk7jABUSo7e/
+ HA6A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+XISwsO/Ri2aMo0LUT+jtQtP1fF6uC4jT+8uWE8aPTaobw9s18OObQy0pTvj7Ap213BXZqwUh0C6E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzRxucIU6/1hCtPEHFCfg0QGYLDthdPynNaU9C1VJxbtUKpxgEG
- uNp+YipOoq/7Dk0njNbDeU35bJSZVdRjKU/123TLUjLhAr5TP8yrZP5zpmaoUyBrYStBOWeUIVe
- xUHcIKRped7lNULzgHfoRaMWJTKlaM2qbsRy/MAa8vg==
-X-Gm-Gg: Acq92OEbclEo+yHwzSrVDZ4C0cOKd0H5xO8unGjYMKdssKGTIomPQ4wrL+IGM1aGiqK
- TGv/01E3MkdBRGKccrB97i8Q3vYD3jUtpujnT2A8ZtwEF+Z39WlFLaVSN54gKT+QHyGBnypb5l2
- oJCmi4HqI1Y4FLReNc4+8E2Bu1vAAQ9FejF+gP4V4GYlVsfQSkDzB2rplnN141OdqTa43iY/JJL
- Y0QWBWOWQ6QmMrAriheSOVuI1X25EWnFvzx9wbtaJeR9yKOKTa5QjehgI8Lxtr0HIKhe6CpaAXH
- 3bxodruApCgO6xeqx+yTC3UI4Z3SWCsclzQw6ykX2V3cZqbT+ccQ1ZzkdFBVQ2QLmGcLtcYlYIa
- JVLAkl4hLvvb2jFHXEsbw5bP9cxbO0Ru77j5gyAY443YDp3RbyptJaBPmN4WbUvo8AArqY0X85j
- ByLg+bi5/Yjm6ZUFV942jgt18TNt1RdXMZNRXwMAEbxgGXNEL2YwMToS1gtEMiavpQL5aZwnOEX
- XlMLZA=
-X-Received: by 2002:a17:903:1a4e:b0:2c0:c940:dc32 with SMTP id
- d9443c01a7336-2c4111b93fcmr108749535ad.16.1781432883171; Sun, 14 Jun 2026
- 03:28:03 -0700 (PDT)
+ AFNElJ8r+oyA2Dll49hjc7NPYTRWJeCoae1EnlnZ6j49T9Pso4GqFlyRiE/OTV1WPSJWLRVy71lUcQLEqTc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzV7pk8aTwEscO912I/kKHEfHxP8UzaSDDu6BP7rssrmvpQoGVl
+ lensDQ3ceuaBlkUWVsp2V9GdmoB8EQyYlFRwgAHjLI2JC2gRjqnHjHSp
+X-Gm-Gg: Acq92OFwi9g7baHco0HynsmdzVVhuVQObo/O/nJ1fzMk2UnUXOJQrr5udqbDQaWu3Yf
+ C54Gum3K2a7tdT/6309SC+9chu/OGfe59s3gFek5CDWqYxjaCroN8Az8/8fssllj2zfqgjahyFP
+ HgKqjeuioU3Qp1pRimuXuf7C+1hYL3OdLOs1PqrlLgU5/OuHTHKGr61B4ZVtCvPVrQsc9jscmgC
+ MQrmGy3ZRIK+gvKmd5ezNCZOUPET/iR7qCFv0SdUCaYf9Gh1zCnDjHxwfVcdAf/jljq0p0hn7OL
+ MjkrQnGK9DLp14zwzO70YvV5Df6qi5xBjMk2zxHt00pyIeco+NKDC87775iABAj7Vu5aBFSbbqO
+ 7YttjE59+j1EIyfc8qZ8QryHDtmYdDFgzYODIeXM67HC8ryKolyHgAXDku320uiBPD6ugoQYC8q
+ f3U/QdHq++sIv90as70qwOz42NwvzGzyiUj+uZg3tlwDKaxglTGHV3oT6dQty1fBeLpM2gYOzEQ
+ fZ+ESlsDS3OjdJRLnC0vPvwFCT9xtioF7ehYb4e8rk=
+X-Received: by 2002:ac8:7c4d:0:b0:517:7e3a:5ee1 with SMTP id
+ d75a77b69052e-517fe18fe18mr153439521cf.1.1781442664493; 
+ Sun, 14 Jun 2026 06:11:04 -0700 (PDT)
+Received: from server0.tail6e7dd.ts.net (c-68-48-65-54.hsd1.mi.comcast.net.
+ [68.48.65.54]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-5196073d7fbsm25145811cf.30.2026.06.14.06.11.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 14 Jun 2026 06:11:03 -0700 (PDT)
+From: Michael Bommarito <michael.bommarito@gmail.com>
+To: Melissa Wen <mwen@igalia.com>,
+	Maira Canal <mcanal@igalia.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Iago Toral Quiroga <itoral@igalia.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] drm/v3d: bound CPU-job copy-query writes to the
+ destination BO
+Date: Sun, 14 Jun 2026 09:10:58 -0400
+Message-ID: <20260614131100.2525157-1-michael.bommarito@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <CAMVG2st2udHCUHZ_2j=jNmwTAVi2Cvda0qGgH4tDZHwsGVfLKQ@mail.gmail.com>
-In-Reply-To: <CAMVG2st2udHCUHZ_2j=jNmwTAVi2Cvda0qGgH4tDZHwsGVfLKQ@mail.gmail.com>
-From: Daniel J Blueman <daniel@quora.org>
-Date: Sun, 14 Jun 2026 18:27:50 +0800
-X-Gm-Features: AVVi8CdcXb4-gMPYfo_2MKrfEemE11HwTvuMlcaF21UGcMmG1gPdvrVoSsDvb1k
-Message-ID: <CAMVG2stuY5aTwfmJkL_cLDn86hfuFD+sT-LdqdmN5m21y2aL5g@mail.gmail.com>
-Subject: Re: [BUG] qcom: x1: GAMMA_LUT corruption on DPMS wake
-To: linux-arm-msm@vger.kernel.org, Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jun Nie <jun.nie@linaro.org>, Federico Amedeo Izzo <federico@izzo.pro>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
- Randy Dunlap <rdunlap@infradead.org>,
- Linux Kernel <linux-kernel@vger.kernel.org>, 
- Val Packett <val@packett.cool>, Steev Klimaszewski <threeway@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,82 +91,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 1 Jun 2026 at 13:37, Daniel J Blueman <daniel@quora.org> wrote:
-> Since Adreno X1-85 GAMMA_LUT support was introduced in Linux v7.0 (eg
-> Ubuntu 26.04), when waking from DPMS-off, palette corruption is
-> frequently seen; this manifests as purple banding. If GNOME night
-> light or similar is enabled, the visual impact is greater.
->
-> Further, on larger panel monitors or laptops eg the Lenovo Yoga Slim
-> 7x (2944x1840), a second INT2 block is used for the right half of the
-> screen, which may remain totally blank on wake; major usability
-> impact.
->
-> Intuitively, the symptoms feel like the LUT SRAM clock isn't being
-> driven soon enough during the wakeup, thus state loss may depend on
-> silicon binning/variation or related. No such symptom is seen in
-> Windows on the same hardware. I found a workaround supporting this
-> mechanism is to activate the GNOME night light and adjust the slider
-> to update the LUT - any black right half of the screen always
-> reappears.
->
-> Please can someone with X1-85 Adreno insight check the Linux clock and
-> power domain behaviour around GC_EN, Layer Mixer, INTerFace and INT2
-> on DPMS wake? Happy to test changes; this is a stunning platform
-> otherwise.
-...
-> Link: https://gitlab.freedesktop.org/drm/msm/-/work_items/89
+The V3D_SUBMIT_CPU COPY_TIMESTAMP_QUERY and COPY_PERFORMANCE_QUERY
+extensions take a destination offset, per-query stride and query count
+from userspace and consume them at job exec without checking the write
+extent against the destination BO. A render-node user (DRM_RENDER_ALLOW,
+no master, no capability) can drive a controlled-offset out-of-bounds
+write past the BO's vmap mapping; the timestamp variant also reads each
+result from an unchecked offset into the second BO.
 
-Just a heads-up on this with additional findings. Note this issue
-could be the only remaining daily friction on X1 laptops with suspend,
-once my video decode reboot workaround or similar is merged. Also note
-in my case, without GNOME night light active, only a few LUT entries
-render purple so visual artifacts often go unnoticed until a gradient
-eg in an image is visible.
+Patch 1 validates the full write extent against the BO size before the
+job is queued, using check_*_overflow() so a u32 product cannot wrap.
+Patch 2 adds a KUnit reproducer the maintainer may take or drop.
 
-From DPMS wake on a dual-LM panel (>2560 pixels wide) with
-INTF_5/DSPP_0 (master) and INTF_6/DSPP_1, I find DSPP_1's registers
-are intermittently unresponsive just after MDSS resume. DSPP_0 doesn't
-exhibit this issue, suggesting some missing slave/second unit setup,
-despite booting clk_ignore_unused pd_ignore_unused.
+Reproduced under KASAN via the KUnit over a shmem-backed BO: the trigger
+faults on stock and is rejected at submit on patched; two in-bounds
+controls pass on both.
 
-I found the extracted Windows DSDT \_SB.PEP0.G0MD F-state EXIT block
-enables disp_cc_mdss_rscc_ahb_clk and disp_cc_mdss_rscc_vsync_clk;
-could this relate? RSCC being the RPMh bridge subblock. Also, could
-any of the *1_CLK or MDSS_INT2_GDSC entries in dispcc-x1e80100.c lack
-setup?
+Michael Bommarito (2):
+  drm/v3d: validate copy-query buffer bounds against destination BO size
+  drm/v3d: add KUnit reproducer for the copy-query out-of-bounds write
 
-Does Qualcomm also see this readback failure [1]?
+ drivers/gpu/drm/v3d/Kconfig                |  10 ++
+ drivers/gpu/drm/v3d/v3d_copy_query_kunit.c | 172 +++++++++++++++++++++
+ drivers/gpu/drm/v3d/v3d_drv.h              |   3 +
+ drivers/gpu/drm/v3d/v3d_sched.c            |   4 +
+ drivers/gpu/drm/v3d/v3d_submit.c           |  86 +++++++++++
+ 5 files changed, 275 insertions(+)
+ create mode 100644 drivers/gpu/drm/v3d/v3d_copy_query_kunit.c
 
-Thanks!
-  Dan
 
--- [1]
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
-b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
-index 23dcbe1ce1b8..xxxxxxxxxxxx 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_dspp.c
-@@ -83,7 +83,7 @@ static void dpu_setup_dspp_pcc(struct dpu_hw_dspp *ctx,
- static void dpu_setup_dspp_gc(struct dpu_hw_dspp *ctx,
-         struct dpu_hw_gc_lut *gc_lut)
- {
-     int i = 0;
--    u32 base, reg;
-+    u32 base, reg, rb;
-
-     if (!ctx) {
-         DRM_ERROR("invalid ctx\n");
-@@ -113,4 +113,8 @@ static void dpu_setup_dspp_gc(struct dpu_hw_dspp *ctx,
-
-     reg = GC_EN | ((gc_lut->flags & PGC_8B_ROUND) ? GC_8B_ROUND_EN : 0);
-     DPU_REG_WRITE(&ctx->hw, base, reg);
-+
-+    rb = DPU_REG_READ(&ctx->hw, base);
-+    if (rb != reg)
-+        pr_warn("dpu_dspp_gc: dspp %u wrote %08X but read back %08X\n",
-+            ctx->idx - DSPP_0, reg, rb);
- }
+base-commit: 5200f5f493f79f14bbdc349e402a40dfb32f23c8
 -- 
-Daniel J Blueman
+2.53.0
+
