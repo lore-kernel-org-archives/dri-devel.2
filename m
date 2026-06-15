@@ -4,54 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCE6BCD98C7
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 11:11:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76C75CD98DA
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 11:14:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EF0510E358;
-	Mon, 15 Jun 2026 11:11:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA8B710E353;
+	Mon, 15 Jun 2026 11:14:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="LK9Id9nZ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hc6VJmRd";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EF5E10E3AB
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 11:11:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=J8z5/sBeVOpFzThk6XKqFMnyqBylHs8OOOz6fH6jtSs=; b=LK9Id9nZVRTEVSssYLvokciwVF
- BmeDksX8NLhe6ZIf2XcuE5640CK+bd7DozUbOoclTOnIMy/E7RtjBLksHWEwKowsr0OXn/mx3UQWn
- /sXmgIHX8zEGm0rSR6zWLotak07zwZlXZqFtiFZKVXZUDztW7jW5ypzi48CCaGqc3wF0s9AFjNGqi
- ITQZNMvwSKWU7xPYtRxWprhCMCatddtamFprgedV+58N5pWrYF5idbvJKBAbRScjJGJWxMBTbQygV
- 0EzVoUXb/1znnnaTM+vCRqekQQ6vH2NAlF4gcSlMlJvo2gqnDqOcFjcp81BfpZfQ6k7bKbzbsyOmz
- kOpUkZBQ==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wZ5EA-000CQq-Qf; Mon, 15 Jun 2026 13:11:38 +0200
-Message-ID: <3834b1d6-c78f-45b8-aa12-d464a770747c@igalia.com>
-Date: Mon, 15 Jun 2026 12:11:37 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7A6610E353;
+ Mon, 15 Jun 2026 11:14:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781522072; x=1813058072;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=LibXhyMWEbKvNHjik8IFLmy2/nZh6PunuZu7k3YS+z0=;
+ b=hc6VJmRdPgj8TN5o6bc4r215ASX+04hSiGNOp5loTH1DXg9ifOokqmjT
+ ez+sjMRL5ugzzBr9oGrWdtAhd3foLPRQXXeUeTBQguT4wJ9bmfue3zmoG
+ b16YbO+fMO8YBUJPoBRJkU2v0yOSguuR3Z2iNTwLAkF7sy7odF4NVw4IF
+ OQOZTwXIJWy6RtORL0xkKfTbflidVgFPjTTnvT1JmmOMNTYfRbIdXNauk
+ pwb5rEnKd6z8m/4Il6uNOnHK8NsvMUKLZSoK0LhGKYL5RY1LNNbRIQx7y
+ IylYCnhx7X5yL0Q8xrCFmcbuNjLaF8U1tqN7XSFxdzx7BtWhcJ6Kh8sdV Q==;
+X-CSE-ConnectionGUID: oK3BTEeiSFCG6OY+0dzzpw==
+X-CSE-MsgGUID: HY8n2NHrRGKbdByZ4cBgsw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11817"; a="82158850"
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="82158850"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2026 04:14:32 -0700
+X-CSE-ConnectionGUID: iKcVKx5yR8+DuAT4tOIruQ==
+X-CSE-MsgGUID: htb7nWH5SkSRTdP0bB6xIA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="251363199"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.28])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2026 04:14:30 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: David Airlie <airlied@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/displayid: fix Tiled Display Topology ID size
+In-Reply-To: <CAMwc25ow-MehYN8u0EFkEW-JB2CYL+od9xja0WBK0-msWMHOww@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260610141549.555605-1-jani.nikula@intel.com>
+ <CAMwc25ow-MehYN8u0EFkEW-JB2CYL+od9xja0WBK0-msWMHOww@mail.gmail.com>
+Date: Mon, 15 Jun 2026 14:14:27 +0300
+Message-ID: <dcce02bcee216f44cbbd4e597a2a0b3e4e9977e4@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] dma-buf/dma_fence: Make races for
- dma_fence_is_signaled() less likely
-To: Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- "Paul E . McKenney" <paulmck@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260612104251.2264707-2-phasta@kernel.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260612104251.2264707-2-phasta@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,80 +72,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, 11 Jun 2026, David Airlie <airlied@redhat.com> wrote:
+> On Thu, Jun 11, 2026 at 12:16=E2=80=AFAM Jani Nikula <jani.nikula@intel.c=
+om> wrote:
+>>
+>> The Tiled Display Topology ID of a DisplayID Tiled Display Topology Data
+>> Block consists of three fields:
+>>
+>> - Tiled Display Manufacturer/Vendor ID Field (3 bytes)
+>> - Tiled Display Product ID Code Field (2 bytes)
+>> - Tiled Display Serial Number Field (4 bytes)
+>>
+>> i.e. a total of 9 bytes, not 8.
+>>
+>> The DisplayID Tiled Display Topology ID is used as the tile group
+>> identifier.
+>>
+>> Update both struct displayid_tiled_block topology_id member and struct
+>> drm_tile_group group_data member to full 9 bytes.
+>>
+>> The group data was missing the last byte of the serial number. I don't
+>> know whether there are known bug reports that might be linked to this,
+>> but it's plausible the last byte could be the differentiating part for
+>> the tile groups, and fewer tile groups might have been created than
+>> intended.
+>
+> I pulled out my spec, and indeed I can confirm this is the correct readin=
+g!
+>
+> Reviewed-by: Dave Airlie <airlied@redhat.com>
 
-On 12/06/2026 11:42, Philipp Stanner wrote:
-> dma_fence_is_signaled() returns whether a fence has been signaled
-> already. That function contains a fast path opportunistic check which is
-> not guarded by the lock and, according to Christian, cannot be guarded
-> by the lock without causing a massive performance regression.
-> 
-> This now means that dma_fence_is_signaled() can return true WHILE the
-> fence callbacks are still being executed. This is razy and has lead to
-> at least one bug solved in:
-> 
-> commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
-> 
-> Make this race impossible, by simply setting the bit only once the
-> callbacks are actually completed.
+Thanks for the review, pushed to drm-misc-fixes.
 
-My 2c is that I would be wary of trying to turn around the semantics of 
-the callbacks. They are not "run these to make the fence signaled" but 
-instead "let me know please when fence is signaled". I do not see a good 
-justification for the change.
+BR,
+Jani.
 
-The bugs such as above quoted c8a5d5ea3ba6 are in fact more about 
-nouveau itself pulling data underneath fences with callbacks and not a 
-bug in dma-fence. With the opportunistic cleanup it is doing in 
-nouveau_cli_work() perhaps it would want to use 
-dma_fence_remove_callback() to appear somewhat sensible, although that 
-too may be racy, I did not think about it. Anyway, I've sent a patch to 
-make that one clearer and more documented, even faster for the 
-unsignaled case.
 
-Regards,
-
-Tvrtko
-
-> 
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> ---
->   drivers/dma-buf/dma-fence.c | 18 ++++++++++++++++--
->   1 file changed, 16 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index c7ea1e75d38a..2416cc86ce93 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -359,8 +359,19 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
->   
->   	dma_fence_assert_held(fence);
->   
-> -	if (unlikely(test_and_set_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
-> -				      &fence->flags)))
-> +	/*
-> +	 * First test the bit, so we don't signal an already signaled fence again.
-> +	 * The lock protects against multiple parties setting the bit. The bit
-> +	 * is then set at the end of the function.
-> +	 *
-> +	 * The background is that there is a fast path check in
-> +	 * dma_fence_is_signaled() which does not use lock protection and can
-> +	 * return true *while* the fence callbacks are still executing.
-> +	 *
-> +	 * This fast path check supposedly cannot be guarded by the lock because
-> +	 * of significant performance regressions.
-> +	 */
-> +	if (unlikely(test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)))
->   		return;
->   
->   	trace_dma_fence_signaled(fence);
-> @@ -384,6 +395,9 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
->   		INIT_LIST_HEAD(&cur->node);
->   		cur->func(fence, cur);
->   	}
-> +
-> +	// TODO: we need some barrier here, don't we?
-> +	set_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
->   }
->   EXPORT_SYMBOL(dma_fence_signal_timestamp_locked);
->   
-
+--=20
+Jani Nikula, Intel
