@@ -4,130 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 894B7CD98DA
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 17:24:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53C7ECD98DA
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 17:50:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E083610E4BC;
-	Mon, 15 Jun 2026 17:24:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8599910E4B2;
+	Mon, 15 Jun 2026 17:50:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="OaO7aFkT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="q90RLtpV";
 	dkim-atps=neutral
-Received: from LO2P265CU024.outbound.protection.outlook.com
- (mail-uksouthazon11021098.outbound.protection.outlook.com [52.101.95.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D1C910E4BC
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 17:24:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jFNTRfCHsnJ8dsdoUI8IGsb4m05gAnc38kiDgDEpefZO7muoNdnLY1yAOh1wWRHB0t3gNsuKY25jwbVAcVhsfwqqaEbsSULBxj2qKFtW6gLuLAWKdyYqVbf1H4wmZIKUdyOnracBSoyYjeBZ56QRlbmrEorB26S+z3o+swz63QxkPQwClexawbz4Yylh6sSfT9wPY9sdLxVVzBAEOGvYEA3fNgibJ5mrK/VzyZrIKy1b3Ae4v9jzTpfhVaXqvwhtabEX1naQYbBmCy7tX46LLWN5RoboR/oFm7dB+2soxS+DKsifEHqt8bWAMKn5YaZ/gqAEmDo2aDrLxlY1oL6Rrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h/fbH3oTh4s5DUJn0KdUp5O8d01WkPoPM76oOz3dxEM=;
- b=tWdxMbdCFSesbiaQR1HrGIs547JuKmffanhabv+1CfMSvX5sQh68uMoh8mKUmrIXTCAp5sm4uCyTb2qg988knQ7NCau4oIKRwL16ujKOeegop11AuO3C6X4IvLkxxULW5fS/dVlJ0AEuACGdgHeG+IasvFWzEM4cIRGhQaeR5Ps6k9mDBNSlCejfQafLZhPgopKEc+rDCfuBpHiHeDpz7Lti3gLRtx6foDHBT5pPACZHaAu4mUArkMzHXyVo3rYhrikftjjhmRiB7erpqlkheKaK6Y+/UbIdZRcfPk7zHmpeBs+4KTYZ2XKvVKeJPtQYjcBoRfJHbhlSHHn42TGMWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h/fbH3oTh4s5DUJn0KdUp5O8d01WkPoPM76oOz3dxEM=;
- b=OaO7aFkT39vbBJktgy07Hpz86JizgSg5/q4K4pIpxDMucPHYEpXP7zG45JBZB/4sZKWaDz/DusirztDPcdCRVjKBkKYOdwSAwgBuSGd3Ulkd6nD5ht6M7Wzh7pLANZfPNVieO6vZ4UDD3o55w/leZvNW1SkRgxfJSWBvbJEYbss=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO0P265MB3385.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:168::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
- 2026 17:24:19 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
- 17:24:19 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 15 Jun 2026 18:24:18 +0100
-Message-Id: <DJ9SQDVZDCBW.1KCX09EOWZ3CL@garyguo.net>
-From: "Gary Guo" <gary@garyguo.net>
-To: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
- <gary@garyguo.net>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 06/13] gpu: nova-core: fsp: move FMC firmware loading
- into wait_secure_boot
-X-Mailer: aerc 0.21.0
-References: <20260615-blackwell-fixes-v1-0-f2853e49ff7d@nvidia.com>
- <20260615-blackwell-fixes-v1-6-f2853e49ff7d@nvidia.com>
-In-Reply-To: <20260615-blackwell-fixes-v1-6-f2853e49ff7d@nvidia.com>
-X-ClientProxiedBy: LO4P265CA0297.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:38f::6) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
+ [74.125.82.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7364010E5C4
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 17:50:07 +0000 (UTC)
+Received: by mail-dy1-f176.google.com with SMTP id
+ 5a478bee46e88-304dc707bfbso230305eec.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 10:50:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781545806; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Y2q4cYTWqQqiFYkwe+VSUpsgpWf15zhg7uglUtLAQ75Ctv7SDJi20l6WzOhrLmVjGQ
+ +qBvl+R+I7xNTsJnuzfTUtFaUH5IlS9RapEn+nQFp+O/nV1NoxZw+LVr41s91EiV/yvN
+ oFuoqKQXHKaP0TrxzCq2FTqoDu/bjhjJsTmw2xz8rxx0Pm5yywrDmOnkE3HpqT1kWzry
+ 5dX+FE6FLouT4BWuMJJ/2PGHXTJA1ksmX1pzGxKa/g8F1TIBqMdil45ehTKnTnYsFlAc
+ EujRyGAiSSlWceuF2PB0PEm+g8TChsR4FU0tEg5ryxoQOBpK2sJ/vVxu9hAsNjbJ6/ox
+ Q2Iw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=QH6edDiZYrunzmCwgOfYr96OEZNPihGP8JCdMp4/enM=;
+ fh=N9kH4MJaRK7JMmzqJrp9R1tSGqbMqv4Do83honOITjs=;
+ b=G8bR1pbHhj4JojW63XYb9GAnfAUUB50UJ3Gzgt0nVrsRPpQFlFlQC9dABfQL2l3AGI
+ uYUgjaEeI+hOQP9LUM/R3cwWTMnlnwWG0yYqBrGY51lg9jDe1mCGQppa2gaVSz9VegtM
+ vCMAOl6LNthy7OXgrREWBizJYTIC1Kzqqk2SDNGarRx/VKKiB18AZ3VYAmSp1UnOohIM
+ 0bA7XB9KmgpnvFcxJylzLHOGS0CIsTOrtF7iaVyfw5Zo38j8CqGUt0FPpTXM05EzFojk
+ 84wGVZ/WwPD76uF0k9XL2zDvsq312ucGNfbawzR5K7DXFdTG8bDANKDKXegdQtJRj6Qo
+ W+aA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781545806; x=1782150606; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QH6edDiZYrunzmCwgOfYr96OEZNPihGP8JCdMp4/enM=;
+ b=q90RLtpVolusTw1dbX529iGvNtTi1QB4uiWZPxWyQd3z+e46GrKH/lb376qXqlzBYB
+ f3D9wcF1v6krPolWKR04f9NlwfW7qQmuAzYxjzX3FpFW9wBMRjOveXAGiFc+hbVXwsrJ
+ efyXp7Eo0wql0usmSiuctOSOaJhbrFOPUmJ7xbDx6uKJBSuFvMNQRuaZHvk3o1+VzVzm
+ nQ3LfUD92XMxtY47vih4YiQAGOIts33jKHULFzeQTeGRiaP6e/P0YyQVoBvNLH3qGoUr
+ pqEHFh4ZAGEG71QpgEJ/D+S4SCWllk25aoQYr6q7QWcG+UsPNNJM1M6Xy8E2rH8tud9F
+ TuIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781545806; x=1782150606;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=QH6edDiZYrunzmCwgOfYr96OEZNPihGP8JCdMp4/enM=;
+ b=AQzsuJn2UljrfO4ialrKmk8BSbLvpXw1vLcAeUKwVYjfGaNF+aLiVYS5EJckjVXIWU
+ eNy8IxpN2adEiu4x99TiMI1EmDc9XTaP7qhp89O6E46qYDX5ImiemHnJ6d0LernIlpde
+ gicavJ4244kQ4vOoqzFwRQ8L5RHBvFfiVHMLsOchMi4+JLTWfgVsntlZJcaJSrAEx3F7
+ a4JN8fY5j1S2dWrSCfXbtOw66d9Lh29kOz15kb1TeAzaWl58g7JlLQNEPF1Q+9FueXbB
+ j1b03TqZTTL830gp2iZ8fkhZRXYM05baPPQZnSkkFL2Xq6WBFC2VH2Zo/MeqeA0Rxy5P
+ p1lg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ80KhD6IKbLHZ5/o3DK6WlaVcBPW7PK+qG0Uyek4etCK3UTM0bakwvSTh07xCVeWARJNZVYvkCot9A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzNXMqv3bJWuDtCoSiWjyFF+TztyIJkmXfwwqelFMHjnysFveYZ
+ nZgJ/wdqqNU1CiAJEymhZS72jITZmdSv6kY1eWl6X6Oj0iKQPxWfnlZTvmmn1uyAmEONdJBC7Ut
+ xl+WBoR2RiO8qS1fmPIiuVPr8ZucJX/8=
+X-Gm-Gg: Acq92OGgKgGyLeg2QDKJVrlhjt8GmlcwEDr/dHAyunHLOumAuCYvKI6yRxJlskC8q3r
+ K2GicBKK8e4M5/yi7fyleybtXoZdVeTKg/c/qUPXuqZiq0ZWWF7JeHUqQJTL3MDKip4NIz3HtXL
+ Q23MIwYZMcSavov5hYKXEUaX7XRFcPmoNnWJ1fRlb0hcgDPgBOXmUr1202VEjb8ZHpgJw2vN2Ms
+ l9HbSm9u+hwQJZkQxkxYHb+183P+rXeZk8+Als/X2Z7xwu14Bwdz+9ydJE+WxsbblMcmV6JvL2z
+ oL0/+Zi7FGwroCpDND44f1gJwjI/de/BSKMmaH9axWyD1WXXi0LfvOZ78ZgQh6MEbf3+Xw==
+X-Received: by 2002:a05:7022:688a:b0:138:63d:e43e with SMTP id
+ a92af1059eb24-1384bb7c5e9mr3340297c88.4.1781545806352; Mon, 15 Jun 2026
+ 10:50:06 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO0P265MB3385:EE_
-X-MS-Office365-Filtering-Correlation-Id: c27c9d3e-2b78-4669-41d6-08decb02eed9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|23010399003|10070799003|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: qe+kpipPCGKhx4+KcBnEoy8bPDMF5z924jz+Ei8uFa3ZT350JkbpFpmq5o18c8LuN90rgyGCGYylvQ0D1goXt+3sM5CajGaeM5UrxfuZRkcJgdt6EHsfPiT2o5Rl4495ZVUb5qmQkRMASahqgFhmU7s7Y/Hq0jnmGDQi8RdludHCZJ8yke8Vp77G0RzjQJZJbkufIOimqO+yHUL86N7pzkcwRpCvAkVZA3JfIiR/d5CU7DYGpZrCRMcqaq3LyLapQxLvYGOTLfB3TTqONBDj+Qs66meqvwA8yAxNfOwS61kjmIkNlJVDE5M49Yh4mRMmYto8ojtPiWUTkIsS7cV+zk8k0zzU3Gkr6o8V379mWx+XyAvLePUn55z3NJBPULNjZz5fudXUg5ltopE4dFAIWVEvd22q2/OYXEqhgvOQKXRv52PRqG3Ui5Y98GohSNKiM6XIgLAKvMaJwVZwEaSuaXJCXrhzp5U+tSxv1Nnc3COUorLRbaEB7SLkxaDVvkWgU6x1GSzgf37Ncx9fR6w1ypaHbirsPV7W5VskQBOdQh8UUcXlm6kW7OBA5uhFAZ4CBBit2iZ9mTW9CwZkt16rnQQqwToUu76SsXgDjI9PkFo6wCNbLj+pKG0TudmXLfCTKN4ulpY0hDObSLuOfylmEYvgyGEBFoSfqmFFFPlu53DG1LDveKRw+CrdUBuXO7ZS
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(10070799003)(56012099006)(4143699003)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?LzVCWjV3TFJKKzRhZk1PTmlQODhLSXk4MEZHVmVCaDN5c1U5dVR3bEc3VjBU?=
- =?utf-8?B?ZmIwd0lsZHA1NlAxaXRmNXRtdGZNc0FyL3FKWU00RFJ0bXFwclRMeElQbE1q?=
- =?utf-8?B?Q3F3U2lMWExpR05rWGQ5cnd3Y0hjczJxSHhEcVJlQkllWlJYL1FXakFBM3Z3?=
- =?utf-8?B?ckpGZ0FzYTRZVWtPay9YWTkvcmZnK0UzUENFc0owc29CMDJqdkNkeFhJeGVJ?=
- =?utf-8?B?dGhLdFlnOHBnSVp2Q2x2SE8xYWIwZDZyUFkyeHpmNTl5bnV2T3MwT2tRNFFz?=
- =?utf-8?B?OHlHTW5LcDdCSlpvWVdZRWhYZGNGajA5a0FmOC84ODJFcThxaVRqbmJYclRq?=
- =?utf-8?B?bmw4YWxpZ25uMTI5aHJ0cjZlN1dnODlTUzNlY3JyUkN4amI4RWZBT3htU1VF?=
- =?utf-8?B?ZXpiNGRUdHYzd0pNc2ZBa2MydGRiM1MyZ3d1bTFGdlpRQXFoYkprTzY3NlVk?=
- =?utf-8?B?R0lEUURheWxyRms2UFNpeCtxMkp3b21vN0crcnYra2hMWS9VN0hDdEZueXow?=
- =?utf-8?B?RFcySElVYmE4K2lOcnJDaVJpbUtMSzVPUlBHYktqWVovYzkrTVV1WWZXWVQy?=
- =?utf-8?B?WGhXd1ZTYTFWWlNxVmQ4TlVremdQR2JjV3NQOWxTbmgvL1A2RmFCK1A1VFI0?=
- =?utf-8?B?TkFGNnRvdU9naGc2aHZrRmxCMDdiYWNXV2tqUXJmYlo1dkxyMno3cGlXd2N5?=
- =?utf-8?B?NTdXbmRBNTM1N2FIT0l5RnJXazhLV25lWUhGR1gwblp6SkNVUVNsZi9TdjJC?=
- =?utf-8?B?Wkp5VHFraUtmRDlsQmRLVFg4c21tUmFtd3doMkpNbG9BSm9UZVlBelNkSFNp?=
- =?utf-8?B?RTNLUWhLTTh1TXYzQmkzL3RBeWszaC8vRytBSThGdmtOWlNHSU9oL09zQXdZ?=
- =?utf-8?B?WmdaOVF5Sy9FcjVFdWd1NDhKMjF5aGRxbFExanBkcVY2azNvV1N3VGZPdUVq?=
- =?utf-8?B?M1FGTFlkeDZmVmhBdUdyQWJ4MldTZndlSVUrSCtKNG1QdnlQTENvNk55RVBy?=
- =?utf-8?B?WXpjQi9DeThjcEtoMzBPbitRd0pNUUVlaVRwRThBTXhudnJGMmxpaG5PeWxj?=
- =?utf-8?B?bWdwQVhTUUFsb2E4L0NSbHhiYmMzZUtPUXlLOHdRWmJlVVBrYmRjK1VkcDVw?=
- =?utf-8?B?ZU1mRUtHRFpBM0EvNUFtTnlrSUtkaXY4MERuSUhaNW9LM1NXa1JRV08xMnh3?=
- =?utf-8?B?V0VQMzJGNUQ0dTltKzlWUDBibUJ5WTRRcElUN3VwVEU2MzR6SXdrOU1HRVpk?=
- =?utf-8?B?emloMDJ0YStuUzc3OXVWK2dzdFQrM0IrcFB2N2dveXgwZkV3bFpnaHNaaTdL?=
- =?utf-8?B?aTIwQnRYM3VmUmxUQU4xKzgzZ241Skk3aHVoU2FqdDRJVE5HUHJvRFlwUVlQ?=
- =?utf-8?B?M3FNN0krQnhGcGtLZitRSjkzZFRGV2F1WG9XU2JhMUVNY29Kc0NZYnJ3aGd4?=
- =?utf-8?B?ZFZ3WW0wNTFlMHFrckgwSTFLV0U4eVJrL1VSRlZFSXNLTDI4OUx6NTRxU3du?=
- =?utf-8?B?bzZ0cFhDMnVzSk04YjFoTTNkb2RYZnRiWHdDSmw1V3RnYmtsWWFuRkQ4aitL?=
- =?utf-8?B?NldwbzN6c1NaejhHV05UeFREWHJPOGhUVVduU0xYbWQzWkU0Vjc4WEFPaDll?=
- =?utf-8?B?cS9OWDIvUGN4djEwVnZTU3haakYvM01vTHVNeUc2T2ZMWXVVU1JIVDlRYXFz?=
- =?utf-8?B?YWhPQVJaV0FGdi95VnFTS1ZMelRyaGJYLy9qR3JkZUtlY0dvMHd5QTlQZ0NG?=
- =?utf-8?B?UHJpc1I1bUV5U2o4MElRQktpbGkyL2N6TDFTUCt0amY5b1JraElwNUJkSnJQ?=
- =?utf-8?B?cDNMeldWbm1hMTJHL0xVcW1yUmlxQjFhRG5HRERpYWh0ZUtscG4xaURCeG1N?=
- =?utf-8?B?cmZZVjMvdTlHQTlOMy9mSXdUNEFuL1F4VTc3dHJnaFphT1dXRGl2aUZhVjUr?=
- =?utf-8?B?aVlNU21NNTJLdytmRnBHY1dvcmtTWW12aUI1Q2I4NFVPV25PNHlRYzh4ZC93?=
- =?utf-8?B?ckxWayswdk5yZm9vSzBqM3pqWE9Fa3JrdUYyZG5WNmRCY21YbXIyMTNpR3pi?=
- =?utf-8?B?RXMxL053by9pTEswM2lEbm5yUk4zd1NJUUwzU01yMXIyYTFCelBieGI5TEhV?=
- =?utf-8?B?bndBQis5UnRYYVBra0xtNHE4aGJrZFd5TzdyOXVmeVFQaktQdHNYZEhLcGFT?=
- =?utf-8?B?aHJJbzI2VENLSGJwTzJ2VlhOVzduRUhSWDRCRzM5VTVGa0U3dFdnY2xvWHVW?=
- =?utf-8?B?cTRVenl5VWRmbVRlR3pmdTYrdVNycVFyWmRlRnpBOFFaZ05TQ1N6SmtUYjVz?=
- =?utf-8?B?aTlIc3c0OE4xbjdyK0RwTW53K1FlN0hmSDZVelR6Q3hMTjNwR0I4dz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: c27c9d3e-2b78-4669-41d6-08decb02eed9
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 17:24:19.1511 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: anxFyHWDhXEJDaeH0iPZbOReNnsfNHUGWqfK3JiodQfMXEjsejoLWdgsytYvtv4rxW3gnUxtCOT/Zs5cuGoUsA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB3385
+References: <e0689a10-9cd6-4d74-a276-99f8f01c83fa@web.de>
+ <e2023393-da68-4775-9f55-16363191328a@web.de>
+In-Reply-To: <e2023393-da68-4775-9f55-16363191328a@web.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 15 Jun 2026 13:49:54 -0400
+X-Gm-Features: AVVi8CfMO9SzD3O4Xa5h3nVjisRImAqG6YrgxabGoNCulRONqwvNst645q0TcYo
+Message-ID: <CADnq5_P6aSFKefO+f3aofhfNh7kELEQWxid4EWgwAUr2saEh8Q@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amd/display: Simplify data output in
+ psr_capability_show()
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Alex Deucher <alexander.deucher@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>, 
+ Ivan Lipski <ivan.lipski@amd.com>, Kees Cook <kees@kernel.org>,
+ Leo Li <sunpeng.li@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, Ray Wu <ray.wu@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, Rong Zhang <i@rong.moe>,
+ Simona Vetter <simona@ffwll.ch>, 
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ Tom Chung <chiahsuan.chung@amd.com>, LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,16 +116,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jun 15, 2026 at 3:40 PM BST, Eliot Courtney wrote:
-> `FspFirmware` is constructed and immediately passed into `Fsp`. It makes
-> sense for `Fsp` to ask to load its firmware, so move it there.
->=20
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-
-Reviewed-by: Gary Guo <gary@garyguo.net>
-
+On Fri, Jun 5, 2026 at 7:49=E2=80=AFAM Markus Elfring <Markus.Elfring@web.d=
+e> wrote:
+>
+> From: Markus Elfring <elfring@users.sourceforge.net>
+> Date: Fri, 5 Jun 2026 11:39:13 +0200
+>
+> Move the specification for a line break from a seq_puts() call
+> to a seq_printf() call.
+>
+> The source code was transformed by using the Coccinelle software.
+>
+> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
 > ---
->  drivers/gpu/nova-core/fsp.rs           | 11 +++++++----
->  drivers/gpu/nova-core/gsp/hal/gh100.rs |  8 +-------
->  2 files changed, 8 insertions(+), 11 deletions(-)
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> index 4b09a740f205..6e6f391b640e 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> @@ -1076,9 +1076,9 @@ static int psr_capability_show(struct seq_file *m, =
+void *data)
+>         seq_printf(m, "Sink support: %s", str_yes_no(link->dpcd_caps.psr_=
+info.psr_version !=3D 0));
+>         if (link->dpcd_caps.psr_info.psr_version)
+>                 seq_printf(m, " [0x%02x]", link->dpcd_caps.psr_info.psr_v=
+ersion);
+> -       seq_puts(m, "\n");
 
+Why not just convert this to seq_putc() and drop the rest?  It seems
+more logical from a code structure perspective.
+
+Alex
+
+>
+> -       seq_printf(m, "Driver support: %s", str_yes_no(link->psr_settings=
+.psr_feature_enabled));
+> +       seq_printf(m, "\nDriver support: %s",
+> +                  str_yes_no(link->psr_settings.psr_feature_enabled));
+>         if (link->psr_settings.psr_version)
+>                 seq_printf(m, " [0x%02x]", link->psr_settings.psr_version=
+);
+>         seq_puts(m, "\n");
+> --
+> 2.54.0
+>
