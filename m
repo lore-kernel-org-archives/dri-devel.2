@@ -4,89 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4B50CD98C5
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 15:08:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC50CCD98CF
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 15:10:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 235DE10E4A8;
-	Mon, 15 Jun 2026 15:08:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 421AA10E4E3;
+	Mon, 15 Jun 2026 15:10:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="ZGFauvW4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AkDdiArm";
 	dkim-atps=neutral
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A56F10E49D
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 15:08:05 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-2c0b1a48855so177685ad.0
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 08:08:05 -0700 (PDT)
+Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com
+ [209.85.222.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4761110E4E3
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 15:10:11 +0000 (UTC)
+Received: by mail-ua1-f50.google.com with SMTP id
+ a1e0cc1a2514c-963a1640c19so101516241.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 08:10:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781536210; cv=none;
+ d=google.com; s=arc-20240605;
+ b=iRYck+wb+c0tbas4PtKGTuCgzJCzbqTguBdR/AZWm43/33KqnDXiKfEXD+Buw/hoc2
+ uIbxu5K3Tt1uagh9l37Iap0cYq/xxJ/cO8pO1y4wPrSibrzsYpWU9iZGEZ6HQZQ/0h8T
+ MyN4KAZ+tgcsJ1v7Tm3pWQnXv71KRon6XXbpqAYVBDVufQw//JjjVPuEy9zwajhsqPDw
+ 5Xd5ndTQXbpN4rglbcCfL4e71kuNmbW6Cpk5ZYyBxO+yRgI4jhKXmeG71IwToqiwwrUl
+ r+/DW0CujPHVXj2HkfVrD+pK2/bMb+xSRD5mVa70p+nnySrHpwDZSsu1x95bn13/ZcLZ
+ mrIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=13hVYdB7l/k+KcGd/9SBchGGp4mNuBG4mo9ptCsOsMw=;
+ fh=6MtCzcPPvGIaXXy46Q/AHTSIgZJK4Z0E0F42g2Jy6Dw=;
+ b=SL2oCymhDlQsLaemNb63wWkw16hEWC1FxbZU5r3mnOztoKHRqEpue5XbphlOjKFabX
+ +2j2gAvWBRsPrs4MOwSTTBdf67UIYE54+IEz8BIJDwbEHjSVkXkVn1iE1YDTIlLJj6+7
+ noA3e0LlqEuvkQupavxMrdmoskEhMco+Jnemrf8BG2JEmw+4kFvUZB9roIXmjLwTvF4Q
+ UKCwc6Xgdeaus20XSEiYy1QFO1Y7+X72VV2SIo/XIpyK3Cdmf5DzQHp+ZVK0Nzbl/rJd
+ Nned3JMz5gYWvaHC0L8P1IPTAjyf+nysS8DLO6T78p3c4GXVOrG6HDofQOwhZQF6+Py7
+ 9pEg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1781536085; x=1782140885;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=EeLNOUGcyQ4NWkfW/DAB6S96aMOzAOJTH9w4j6T6BeY=;
- b=ZGFauvW4KyJDHQewYyG3qgH2wsPQ/gMFvL/3CscLgDajZkOoVGuA0CxcomrBvVXBKZ
- hJM2uBqslNNBv/ygBDSrZoQWq/fQw7kvV1UMsEatWp2NigqXOFS+lt6TJWOH+f+P33Nh
- lYVgY+STeXLsogDMSLXzypgmL716cLX7HxOr6uwEd0Un2Gm2GN1hyAJJ7oKgkTvG2phk
- Ig344n0MRfB3BkGexDK9mVHToxAZGAzYCIrEcWN2fKNwnS6+O9JLIOhEB7aXQa9xrEt4
- VWW6xfOqITvbaIar1k4PG+c0EwZA4J7xPQiGg9vJoHFLSLeflrx26qSZmv4pJimEW+7l
- 3ayg==
+ d=gmail.com; s=20251104; t=1781536210; x=1782141010; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=13hVYdB7l/k+KcGd/9SBchGGp4mNuBG4mo9ptCsOsMw=;
+ b=AkDdiArmVgzY7ypu3tT5g16tBL8BNCPhhY7slGpSyk7bOZZEwskHYhnJBu3jPmPjMX
+ AcUVs+eNNcS+xbVjV+45LsgghLvYGwFmlm7rPcE375JpKX5h2FoRJOmGL2BSBfG2GF8h
+ kSfQ8jGNhFeqjLb7WzFPU7bPunZU4L5SPUIcMhBIiFYGYVrGC/p/jEgJFhMaZlGb4Rge
+ /0ppAYWi8UvfnBRe5UAXJQEm7ML+m6nzx4dG/8xYytelF9X26OgEUcjIcqUJWNIn4rDe
+ p5gFGWOG/oDL9rnjpilKOX0LO51PNFL03hUMsaixY6IUbAejeSVpU+9xRNPfg6WsG07J
+ 08Bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781536085; x=1782140885;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=EeLNOUGcyQ4NWkfW/DAB6S96aMOzAOJTH9w4j6T6BeY=;
- b=ZPCQf4hBiw2LMSM/DOg4oKogcdTMvyM1ewxKfNExmdu5iyBM6eca9LKLz9SxkVHaci
- rIwp1NS2ol3Zk3wfns/rhDwuQPBx5HI2bDJw4OruIksH+cJEjh8aNDuRrPOicBtW5L4A
- Z4oL4BeI3aN0ifEMQoXP3CHTNKxmRmhE9gyaz5CbOhcnMqKfpsyZeWNUMdcZOv2QtT3k
- 3cuhr7yr3uCp04OBM6r0yZWG3tn1AuHLdNhhraR5PCTQhZK3ObybtvN5zJzrxGIvaKwr
- NduvuaB69rNHxY+iHo63psMRijZ9ALazeBoIKOWnknDgnI57qq/RYY1joZbSrLMFksv9
- flOQ==
+ d=1e100.net; s=20251104; t=1781536210; x=1782141010;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=13hVYdB7l/k+KcGd/9SBchGGp4mNuBG4mo9ptCsOsMw=;
+ b=JAGXb4RaEFtbqJZ4+Ips/FaUgMvtHJIiY8/Y3JnM6HzW30q3ZfeIPQcyl1KK7DrXJM
+ q9AjTErUjFiUNZ+tFBUR/yzd2/1vvWBe+uNHM/fbJFPWGC/sqpsBV+RQN9q2YCaA42k6
+ D/xHzIp5UrTJy+xbTiAVezNf7FCtIxpMfIcUhlH75Zfhnz7WSAhsKGqJDYst/mw+RFbU
+ Cs0hoqo+jRU8UtPJ0q2KojUY9Su+GbTZqWx+e+pyZqff/whhbgiFc0ZM7TU88TaVcQni
+ w/fJM6QIva4U9Ezae6IH77xUrkENGqA3t9ZytN2FqDagSrx+TN09iHP/svFj9z6XU4+J
+ fRAg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+DwdYSrp7GuQZP1SCpy3OYoDkrCczU20CjWlUi0AuuqDSmVCo2DByThj7QhgTsEA9U8QleiYt/yWA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz45Lhn36eNH+ctqMCohrzSF8//vzlLMDzC9ir+a/i74/kexNDB
- 7EmviWhwBVxNcq5kSRyN1GEjz55XsLb+tG+ISQvnKJe/dLTgOguszdCUnoDmXd/iZw==
-X-Gm-Gg: Acq92OEvF15LHK4Ll37RLxYrodi6W55lRi/I7KUeDXxEzNWwfFo/PCOC6XHYubErOst
- 1dOL+xB6zeNSXSCWgvd7nO+TxUL4h/YFK3tRX0p8aIbpudTiK5p82KsTZ2ILs89PUdqrtAUMsy9
- Wnvn1mciwEMW0N3ZVyTySiZwNu/iiVH4g/T6yOnJqYnCdTgnQEY63bKjl2acGQXdGH3MV5j8f4Y
- mo395NHcJTLVHfUpXEPvOoQNdZ5A0rErB9wx7W9JNu+JZKOjcTQfqvi/gaB0nAgyMfr8820uL5D
- 4oQdb0EgjFPiiMPYLDoto9bDQzkWnfTw1vhlEjVintmK+lXdZDqmbgzmZ3nj4T1Hm8j0/CvfRfA
- p0x2ZbVWbnxpe4k22sIzJcpC2xXstjqxyXO+QA9oV+pe+b2fHDWvYD+g2knLsR5VaUvZIhBinXI
- uqBDBYhMiYnkN5zwQ5n//wXeRIGPjyA1cJrQN6carhGd+zjILuynp+TK2xDcKl
-X-Received: by 2002:a17:903:320b:b0:2c0:c3ac:fdf9 with SMTP id
- d9443c01a7336-2c69689a4aamr525115ad.14.1781536084472; 
- Mon, 15 Jun 2026 08:08:04 -0700 (PDT)
-Received: from google.com (199.255.142.34.bc.googleusercontent.com.
- [34.142.255.199]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c42f7c6c5dsm102831385ad.21.2026.06.15.08.07.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Jun 2026 08:08:03 -0700 (PDT)
-Date: Mon, 15 Jun 2026 15:07:55 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Matt Evans <matt@ozlabs.org>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v3 2/9] vfio/pci: Add a helper to look up PFNs for DMABUFs
-Message-ID: <ajAVSx9gPz1KkIbF@google.com>
-References: <20260610154327.37758-1-matt@ozlabs.org>
- <20260610154327.37758-3-matt@ozlabs.org>
- <aisa6H-a-176MXhC@google.com>
- <effb66ee-764b-4823-b6e4-c932a1f60f8d@ozlabs.org>
+ AFNElJ/4v/DkT3hZ8lA8AL6QcRRC/hVQHIcXD+T1JtyK6AOfydvoIQDKrlEe4vGQEpryBo8acu9ltO/Rtic=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy/QfgrXyMWSI383EJTw1Ci6HLIA1TtQA+mrZSn30FjvkexdYjW
+ ttQ7f+SpOGZ3MZuCC7tFCE5+uyI8SjynNucy6RxK4wPzzw1PiPiEf82GCH/57I+5UX32eIYK5oj
+ kkJMwsSbIzaAXRR0ZRcF9osxjucltwCM=
+X-Gm-Gg: Acq92OHQFrzxCOd9glpFnAFke4/zbaSuoMa+wOX7iD5utUCqaDrhRX4di48NCz2fquP
+ HMHp8FRsqdr+UL30948zrtxiOuJ3nR4d9bX3odFsYwk9HnDaDducJGNVcQwG/Dk4ACm75VUdgkE
+ +LzOZ+WcB2rnTdN362HlhFok2eNTNK8be3DSq4e6KoGdr+idZ6+NeJh7yrxmVSuJFOs5I4oYleF
+ ezgd9uS1lRDTT32piwsxG6AX9fUyE8L42mnbykGN8slY5lquPVsankCWdxGxv/LBKwmsXqfkFvR
+ PwA6SGVTJD1sVU1uIloCY7KvNr7bMm2HecILFo3W8EiI209V+9ngIEd6d1uRggDIjNJD5A==
+X-Received: by 2002:a05:6102:3e8e:b0:65b:c17:7052 with SMTP id
+ ada2fe7eead31-71e88901b2fmr2314582137.0.1781536209683; Mon, 15 Jun 2026
+ 08:10:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <effb66ee-764b-4823-b6e4-c932a1f60f8d@ozlabs.org>
+References: <20260608-amdgpu-mutex-fix-2-v1-1-1d850180ed19@igalia.com>
+ <2660d09d-b549-447e-a28c-ca8550c3b288@igalia.com>
+In-Reply-To: <2660d09d-b549-447e-a28c-ca8550c3b288@igalia.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 15 Jun 2026 11:09:56 -0400
+X-Gm-Features: AVVi8CdwS2MMG0H1zzBQynG0YAIyC1zlvEr24KuG7IBFRX6FoZNz8vEgGeCWHFc
+Message-ID: <CADnq5_OkcK6dPLXnBqWr10Dat8oRLp6CLdin6dHcUGUNwoaTtQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: initialize irq.lock spinlock earlier
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel-dev@igalia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,208 +111,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 15, 2026 at 03:27:01PM +0100, Matt Evans wrote:
+Applied.  Thanks!
 
-Hi Matt,
-> 
-> On 11/06/2026 21:30, Pranjal Shrivastava wrote:
-> > On Wed, Jun 10, 2026 at 04:43:16PM +0100, Matt Evans wrote:
-> >> Add vfio_pci_dma_buf_find_pfn(), which a VMA fault handler can use to
-> >> find a PFN.
-> >>
-> >> This supports multi-range DMABUFs, which typically would be used to
-> >> represent scattered spans but might even represent overlapping or
-> >> aliasing spans of PFNs.
-> >>
-> >> Because this is intended to be used in vfio_pci_core.c, we also need
-> >> to expose the struct vfio_pci_dma_buf in the vfio_pci_priv.h header.
-> >>
-> >> Signed-off-by: Matt Evans <matt@ozlabs.org>
-
-[...]
-
-> >> +
-> >> +	const unsigned long pagesize = PAGE_SIZE << order;
-> >> +	unsigned long vma_off = ((vma->vm_pgoff - priv->vma_pgoff_adjust) <<
-> >> +				 PAGE_SHIFT) & VFIO_PCI_OFFSET_MASK;
-> >> +	unsigned long rounded_page_addr = ALIGN_DOWN(address, pagesize);
-> >> +	unsigned long rounded_page_end = rounded_page_addr + pagesize;
-> >> +	unsigned long page_buf_offset;
-> >> +	unsigned long page_buf_offset_end;
-> >> +	unsigned long range_buf_offset = 0;
-> >> +	unsigned int i;
-> >> +
-> >> +	if (rounded_page_addr < vma->vm_start || rounded_page_end > vma->vm_end) {
-> >> +		if (order > 0)
-> >> +			return -EAGAIN;
-> >> +
-> >> +		/* A fault address outside of the VMA is absurd. */
-> >> +		WARN(1, "Fault addr 0x%lx outside VMA 0x%lx-0x%lx\n",
-> >> +		     address, vma->vm_start, vma->vm_end);
-> > 
-> > This could flood dmesg if triggered repeatedly by userspace :( 
-> > Since a fault outside the VMA is an invalid access that already results
-> > in a SIGBUS, we could probably avoid the WARN here?
-> > Perhaps pr_warn_ratelimited() should suffice?
-> 
-> I'm OK moving to a pr_warn_ratelimited().  Note though that this case is
-> "genuinely impossible" currently and the check exists in case something
-> changes elsewhere.  (Re your flood comment, am I missing a way for
-> userspace to trigger this?  The scenario is a faulthandler for a VMA
-> getting a VA outside the bounds of that VMA; such a fault address
-> wouldn't match that VMA.)
-
-I should've been explicit, I guess I worded it wrong, my bad.
-I didn't mean that a user-space could hit this on it's own. However,
-I meant to say if there's a bug in core mm during some future work,
-dmesg being flooded by stackdumps gets messy (especially during dev) as
-the underlying reason might get missed in the flood. Hence, I prefer
-moving to pr_warn_ratelimited.
-
-> 
-> >> +		return -EFAULT;
-> >> +	}
-> >> +
-> >> +	/*
-> >> +	 * page_buff_offset[_end] is the span of DMABUF offsets
-> >> +	 * corresponding to the faulting page:
-> >> +	 */
-> >> +	if (unlikely(check_add_overflow(rounded_page_addr - vma->vm_start,
-> >> +					vma_off, &page_buf_offset) ||
-> >> +		     check_add_overflow(page_buf_offset, pagesize,
-> >> +					&page_buf_offset_end)))
-> >> +		return -EFAULT;
-> >> +
-> >> +	for (i = 0; i < priv->nr_ranges; i++) {
-> >> +		size_t range_len = priv->phys_vec[i].len;
-> >> +		phys_addr_t range_start = priv->phys_vec[i].paddr;
-> >> +
-> >> +		/*
-> >> +		 * If the current range starts after the page's span,
-> >> +		 * this and any future range won't match.  Bail early.
-> >> +		 */
-> >> +		if (page_buf_offset_end <= range_buf_offset)
-> >> +			break;
-> >> +
-> >> +		if (page_buf_offset >= range_buf_offset &&
-> >> +		    page_buf_offset_end <= range_buf_offset + range_len) {
-> >> +			/*
-> >> +			 * The faulting page is wholly contained
-> >> +			 * within the span represented by the range.
-> >> +			 * Validate PFN alignment for the order:
-> >> +			 */
-> >> +			unsigned long pfn = (range_start + page_buf_offset -
-> >> +					     range_buf_offset) / PAGE_SIZE;
-> > 
-> > Minor nit: I'm aware that decent compilers convert pow(2) divides to >> 
-> > However, we seem to be using `>> PAGE_SHIFT` across vfio-pci. E.g.:
-> > 
-> > return (pci_resource_start(vdev->pdev, index) >> PAGE_SHIFT) + pgoff;
-> > unsigned long pgoff = (addr - vma->vm_start) >> PAGE_SHIFT;
-> > 
-> > Let's consider using the same pattern?
-> 
-> (Do you know of a compiler that both builds the kernel and does NOT
-> perform this transformation?  I am confident that resulting object code
-> will be OK here.)
-> 
-
-I guess most of the modern compiler do, I was just referring to the
-style across the file. I don't have any strong opinion.
-
-> In an earlier revision I was using shifts but they were fairly messy
-> compared to this expression, which arises from a request by Jason.
-> 
-
-Yea, looking back at Jason's comment [1], I think he was mainly pointing out
-that the common factor (PAGE_SIZE) could be grouped together. But again,
-no strong feeling about this, just picked up a pattern across the file. 
-If it breaks on some compiler we can fix it later..
-
-> >> +
-> >> +			if (IS_ALIGNED(pfn, 1 << order)) {
-> >> +				*out_pfn = pfn;
-> >> +				return 0;
-> >> +			}
-> >> +			/* Retry with smaller order */
-> >> +			return -EAGAIN;
-> >> +		}
-> >> +		range_buf_offset += range_len;
-> >> +	}
-> >> +
-> >> +	/*
-> >> +	 * A hugepage straddling a range boundary will fail to match a
-> >> +	 * range, but the address will (eventually) match when retried
-> >> +	 * with a smaller page.
-> >> +	 */
-> >> +	if (order > 0)
-> >> +		return -EAGAIN;
-> >> +
-> >> +	/*
-> >> +	 * If we get here, the address fell outside of the span
-> >> +	 * represented by the (concatenated) ranges.  Setup of a
-> > 
-> > Nit: double space before "Setup" and "But" below.
-> 
-> I liked Alex's response :-)  This is common practice for monospaced text
-> since increasing inter-sentence spacing helps readability in paragraph
-> blocks (see Documentation/ for many examples ...).
-> 
-
-Ack. :)
-
-> >> +	 * mapping must ensure that the VMA is <= the total size of
-> >> +	 * the ranges, so this should never happen.  But, if it does,
-> >> +	 * force SIGBUS for the access and warn.
-> >> +	 */
-> >> +	WARN_ONCE(1, "No range for addr 0x%lx, order %d: VMA 0x%lx-0x%lx pgoff 0x%lx, %u ranges, size 0x%zx\n",
-> >> +		  address, order, vma->vm_start, vma->vm_end, vma->vm_pgoff,
-> >> +		  priv->nr_ranges, priv->size);
-> >> +
-> >> +	return -EFAULT;
-> > 
-> > The fall-through logic at the end feels a bit redundant.
-> > 
-> > If we've exhausted the phys_vec list without finding a match, returning
-> > -EAGAIN for order > 0 seems like the correct fallback behavior.
-> 
-> This path can happen (for order > 0) e.g. mis-alignment of VA versus the
-> PFN, i.e. is likely...
-> 
-> > However, the subsequent WARN_ONCE for the order == 0 seems unnecessary?
-> > An out-of-bounds access is an error that should simply return -EFAULT 
-> > (converting to SIGBUS) without polluting the kernel log with stackdumps?
-> 
-> ...but the only way this can happen, for order == 0, is if the VMA
-> extends beyond the underlying resource.  For example, if the VMA is
-> larger than the DMABUF size (the total length of phys ranges set up
-> inside the DMABUF).  Both VFIO BAR mmap() and a DMABUF mmap() disallow
-> mapping off the end of the underlying resource.  That is, this also
-> "cannot happen" but if logic changes elsewhere then we will really want
-> to know about hitting this case -- the check is not redundant.
-
-I didn't mean to imply that the path itself is impossible or won't 
-happen.. I just meant that the logic / structure felt a bit redundant at
-the end of the function..
-
-Instead of having the separate `if (order > 0)` block falling through to
-the base case, I suggest it could be cleaner as:
-
-	ret = order ? -EAGAIN : -EFAULT;
-
-	if (ret == -EFAULT)
-		pr_warn_ratelimited(...);
-
-	return ret;
-
-But again, that's a preference. I'd leave that to your judgement.
-
-> 
-> Still, it doesn't need a regdump/backtrace (at least while this is only
-> called from one spot), so a pr_warn_* is better.
-> 
-
-Ack.
-
-Thanks,
-Praan
+On Tue, Jun 9, 2026 at 4:07=E2=80=AFAM Tvrtko Ursulin <tvrtko.ursulin@igali=
+a.com> wrote:
+>
+>
+> On 08/06/2026 20:22, Thadeu Lima de Souza Cascardo wrote:
+> > If there is an early failure during amdgpu probe, like missing firmware=
+, it
+> > will end up calling amdgpu_irq_disable_all, which takes irq.lock spinlo=
+ck
+> > without it being initialized.
+> >
+> > Initializing irq.lock earlier at amdgpu_device_init fixes the issue.
+> >
+> > [   79.334079] INFO: trying to register non-static key.
+> > [   79.334081] The code is fine but needs lockdep annotation, or maybe
+> > [   79.334083] you didn't initialize this object before use?
+> > [   79.334084] turning off the locking correctness validator.
+> > [   79.334088] CPU: 2 UID: 0 PID: 1819 Comm: bash Not tainted 7.1.0-rc5=
+-gfd06300b2348 #96 PREEMPT  8e8f461221633dae3c832d6689eaf0546c0ed4cd
+> > [   79.334092] Hardware name: Valve Jupiter/Jupiter, BIOS F7A0133 08/05=
+/2024
+> > [   79.334094] Call Trace:
+> > [   79.334095]  <TASK>
+> > [   79.334097]  dump_stack_lvl+0x5d/0x80
+> > [   79.334103]  register_lock_class+0x7af/0x7c0
+> > [   79.334109]  __lock_acquire+0x416/0x2610
+> > [   79.334114]  lock_acquire+0xcf/0x310
+> > [   79.334117]  ? amdgpu_irq_disable_all+0x3b/0xf0 [amdgpu c88bab43d391=
+d519ad0d5c8e5a099b4aceefa180]
+> > [   79.334503]  ? _raw_spin_lock_irqsave+0x53/0x60
+> > [   79.334508]  _raw_spin_lock_irqsave+0x3f/0x60
+> > [   79.334510]  ? amdgpu_irq_disable_all+0x3b/0xf0 [amdgpu c88bab43d391=
+d519ad0d5c8e5a099b4aceefa180]
+> > [   79.334881]  amdgpu_irq_disable_all+0x3b/0xf0 [amdgpu c88bab43d391d5=
+19ad0d5c8e5a099b4aceefa180]
+> > [   79.335240]  amdgpu_device_fini_hw+0x90/0x32c [amdgpu c88bab43d391d5=
+19ad0d5c8e5a099b4aceefa180]
+> > [   79.335704]  amdgpu_driver_load_kms.cold+0x22/0x44 [amdgpu c88bab43d=
+391d519ad0d5c8e5a099b4aceefa180]
+> > [   79.336159]  amdgpu_pci_probe+0x204/0x440 [amdgpu c88bab43d391d519ad=
+0d5c8e5a099b4aceefa180]
+> > [   79.336494]  local_pci_probe+0x3c/0x80
+> > [   79.336500]  pci_call_probe+0x55/0x2e0
+> > [   79.336505]  ? _raw_spin_unlock+0x2d/0x50
+> > [   79.336508]  ? pci_match_device+0x157/0x180
+> > [   79.336512]  pci_device_probe+0x9b/0x170
+> > [   79.336516]  really_probe+0xd5/0x370
+> > [   79.336521]  __driver_probe_device+0x84/0x150
+> > [   79.336525]  device_driver_attach+0x47/0xb0
+> > [   79.336528]  bind_store+0x73/0xc0
+> > [   79.336531]  kernfs_fop_write_iter+0x176/0x250
+> > [   79.336536]  vfs_write+0x24d/0x560
+> > [   79.336542]  ksys_write+0x71/0xe0
+> > [   79.336546]  do_syscall_64+0x122/0x710
+> > [   79.336550]  ? do_syscall_64+0xd1/0x710
+> > [   79.336553]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+> > [   79.336557] RIP: 0033:0x7f92fd675006
+> > [   79.336561] Code: 5d e8 41 8b 93 08 03 00 00 59 5e 48 83 f8 fc 75 19=
+ 83 e2 39 83 fa 08 75 11 e8 26 ff ff ff 66 0f 1f 44 00 00 48 8b 45 10 0f 05=
+ <48> 8b 5d f8 c9 c3 0f 1f 40 00 f3 0f 1e fa 55 48 89 e5 48 83 ec 08
+> > [   79.336562] RSP: 002b:00007ffe4fa867a0 EFLAGS: 00000202 ORIG_RAX: 00=
+00000000000001
+> > [   79.336565] RAX: ffffffffffffffda RBX: 000000000000000d RCX: 00007f9=
+2fd675006
+> > [   79.336567] RDX: 000000000000000d RSI: 000055b2dfce59b0 RDI: 0000000=
+000000001
+> > [   79.336568] RBP: 00007ffe4fa867c0 R08: 0000000000000000 R09: 0000000=
+000000000
+> > [   79.336569] R10: 0000000000000000 R11: 0000000000000202 R12: 0000000=
+00000000d
+> > [   79.336570] R13: 000055b2dfce59b0 R14: 00007f92fd7ca5c0 R15: 000055b=
+2dfdbaf70
+> > [   79.336574]  </TASK>
+> >
+> > Fixes: 9950cda2a018 ("drm/amdgpu: drop the drm irq pre/post/un install =
+callbacks")
+> > Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 ++
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c    | 2 --
+> >   2 files changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_device.c
+> > index 21a3fb574d53..e5a9f6325c4a 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -3749,6 +3749,8 @@ int amdgpu_device_init(struct amdgpu_device *adev=
+,
+> >       mutex_init(&adev->gfx.workload_profile_mutex);
+> >       mutex_init(&adev->vcn.workload_profile_mutex);
+> >
+> > +     spin_lock_init(&adev->irq.lock);
+>
+> The fix and the Fixes: target look correct to me:
+>
+> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>
+> The init paths are a bit of a mess though. The driver could use a
+> systematic cleanup in this area path. Maybe consistent
+> init/init_hw/init_early for purely software state, or something. It
+> would be a gargantuan task probably. Some years ago we strived for a
+> clean design along these lines in i915 and I think without a solid
+> continuos integration with fault injection it possibly shouldn't be even
+> attempted.
+>
+> Regards,
+>
+> Tvrtko
+>
+> > +
+> >       amdgpu_device_init_apu_flags(adev);
+> >
+> >       r =3D amdgpu_device_check_arguments(adev);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_irq.c
+> > index 254a4e983f40..40b8506ac66f 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+> > @@ -309,8 +309,6 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
+> >       unsigned int irq, flags;
+> >       int r;
+> >
+> > -     spin_lock_init(&adev->irq.lock);
+> > -
+> >       /* Enable MSI if not disabled by module parameter */
+> >       adev->irq.msi_enabled =3D false;
+> >
+> >
+> > ---
+> > base-commit: 60dc0946bbad3eef8bc66a5a8b09b98dbc6e09c0
+> > change-id: 20260608-amdgpu-mutex-fix-2-381a3bed81f0
+> >
+> > Best regards,
+> > --
+> > Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> >
+>
