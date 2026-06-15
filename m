@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 702EFCD98E0
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 20:39:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24FE4CD98DA
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 20:39:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFE5110E704;
-	Mon, 15 Jun 2026 20:39:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 711E710E707;
+	Mon, 15 Jun 2026 20:39:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mntxH7gs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jY7Y1UcH";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E9F010E704
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 20:39:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54B0010E704
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 20:39:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 279C141683;
+ by sea.source.kernel.org (Postfix) with ESMTP id 3CCA44393B;
+ Mon, 15 Jun 2026 20:39:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC82C1F00A3A;
  Mon, 15 Jun 2026 20:39:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1FF31F00AC4;
- Mon, 15 Jun 2026 20:39:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781555960;
- bh=scSenvRwQgNOvKR1Zl0j7oum31fzyXpf5R0kTw0E7Vc=;
+ s=k20260515; t=1781555961;
+ bh=iL0+LzwDzKicZ+OepsYbjZLaoKTKwCI5GYrCq0JYgQ0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mntxH7gsyaz1hilRV9PsMwIC9sk7uSiWSgfzPRLrRnV4FmbVSRPBIGIpQtL+zwq+8
- iJmEaMOdPx2EiTj5bskPrItujYMOj0cwUW+afLbQ5o9zFOe1RTGc7ieIWWbLlaNKa6
- KyTiSZoBhZXn1oPr0rBxkMarXyZMbyUpZkPUH20QodU/fLV1yddn0tJwjjF4EujDwy
- hfulCd+cv0aNmWnURQcdLPu6LviZ2+qkUlsKGVAgCFk3zM/FngZVxI33HhsRTcIJDz
- /FjZ8TqWDpRuo+/9nkPRZPqOZspAU2HvOqS+9Ughs0RtaYsdAjPHnyPLKBrVLkrRUl
- 2iCwgNlUiYm8w==
+ b=jY7Y1UcH+h02udWSHlm5YQK3XEp2d4v8q+EAaZNB1OuSR4Lag99eG8b2HbA4mwMCq
+ lgdDyfxICaYx3qSY5RdEoPRBB9D4TgHgSCEWNGGn3ztrAyqYFZl76VShE78UaOAcuM
+ Zsxzq8Qd26/kyJZcKWH8y0s4MIZNSYGotvbalc2CgrjaAVyinjoLXg9v+4gKdXKWDo
+ kPYNj6Mz9qK7SWBkU8wqgFJMsVda6uCTh5gu58Ja5BngMa0ybMgUHLAIIRnGX4GItV
+ c3sFpe1Bw557J4OokN3rFM1D3xo4He/5swhNuJnrDuVLGEgphjb7gQtPQ9luV5i0dK
+ O2vm7MwmytARA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 26/27] drm/xe/display: Always use system memory on
- PREEMPT_RT for DPT.
+Subject: Re: [PATCH v8 15/27] drm/i915/gt: Use spin_lock_irq() instead of
+ local_irq_disable() + spin_lock()
 To: "Maarten Lankhorst" <dev@lankhorst.se>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260615201846.307297-27-dev@lankhorst.se>
-References: <20260615201846.307297-27-dev@lankhorst.se>
+In-Reply-To: <20260615201846.307297-16-dev@lankhorst.se>
+References: <20260615201846.307297-16-dev@lankhorst.se>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 20:39:19 +0000
-Message-Id: <20260615203919.E1FF31F00AC4@smtp.kernel.org>
+Date: Mon, 15 Jun 2026 20:39:20 +0000
+Message-Id: <20260615203920.EC82C1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,52 +59,63 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Meaningful code and commit message mismatch: The patch unconditi=
-onally removes STOLEN memory for DPT allocations, but the commit title stat=
-es it should only apply to PREEMPT_RT.
+- [High] Removing local_irq_disable() exposes the ELSP (ExecList Submit Por=
+t) MMIO writes to hardirq preemption, risking hardware hangs due to interle=
+aved MMIO accesses.
 --
 
-commit 8469a8535d5587b09893e7c1628a8713f1ca3cb9
-Author: Maarten Lankhorst <dev@lankhorst.se>
+commit 417d04153bfb15dc2291029341c85c1b4a51d8bb
+Author: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+drm/i915/gt: Use spin_lock_irq() instead of local_irq_disable() + spin_lock=
+()
 
-drm/xe/display: Always use system memory on PREEMPT_RT for DPT.
+This patch modifies the execlists dequeue paths by replacing the explicit
+local_irq_disable() wrapper with spin_lock_irq() semantics on the schedule
+engine lock.
 
-We were using stolen memory because it was unused memory, but
-on recent platforms this adds extra latency when waking from
-RC6, because memory accesses go through the media IP.
+> diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drive=
+rs/gpu/drm/i915/gt/intel_execlists_submission.c
+> index 1359fc9cb88ef..e11db81dca9c5 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+[ ... ]
+> @@ -1588,7 +1588,7 @@ static void execlists_dequeue(struct intel_engine_c=
+s *engine)
+>  	 */
+>  	sched_engine->queue_priority_hint =3D queue_prio(sched_engine);
+>  	i915_sched_engine_reset_on_empty(sched_engine);
+> -	spin_unlock(&sched_engine->lock);
+> +	spin_unlock_irq(&sched_engine->lock);
+> =20
+>  	/*
+>  	 * We can skip poking the HW if we ended up with exactly the same set
+[ ... ]
+> -static void execlists_dequeue_irq(struct intel_engine_cs *engine)
+> -{
+> -	local_irq_disable(); /* Suspend interrupts across request submission */
+> -	execlists_dequeue(engine);
+> -	local_irq_enable(); /* flush irq_work (e.g. breadcrumb enabling) */
+> -}
 
-> diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/=
-display/xe_fb_pin.c
-> --- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
-> +++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
-> @@ -173,14 +173,6 @@ static int __xe_pin_fb_vma_dpt(struct drm_gem_object=
- *obj,
->  						   XE_BO_FLAG_PAGETABLE,
->  						   pin_params->alignment, false);
->  	else
-> -		dpt =3D xe_bo_create_pin_map_at_novm(xe, tile0,
-> -						   dpt_size,  ~0ull,
-> -						   ttm_bo_type_kernel,
-> -						   XE_BO_FLAG_STOLEN |
-> -						   XE_BO_FLAG_GGTT |
-> -						   XE_BO_FLAG_PAGETABLE,
-> -						   pin_params->alignment, false);
-> -	if (IS_ERR(dpt))
->  		dpt =3D xe_bo_create_pin_map_at_novm(xe, tile0,
->  						   dpt_size,  ~0ull,
->  						   ttm_bo_type_kernel,
+[Severity: High]
+Does removing the local_irq_disable() wrapper expose the ELSP MMIO writes
+to hardirq preemption?
 
-[Severity: Medium]
-The commit title indicates this change should only apply "on PREEMPT_RT", b=
-ut
-does this code in __xe_pin_fb_vma_dpt() unconditionally remove the stolen
-memory fallback for all configurations?
+With the move to spin_unlock_irq() earlier in the function, hardware=20
+interrupts are re-enabled before execlists_submit_ports() is called at the
+end of execlists_dequeue().
 
-If the intention is to unconditionally allocate new framebuffers in system
-memory rather than stolen memory, could the commit title be updated to
-accurately reflect that this applies to all configurations and not just
-PREEMPT_RT?
+Inside the submission path, write_desc() performs multiple 32-bit writel()=
+=20
+operations to the ELSP register:
+
+	writel(upper_32_bits(desc), execlists->submit_reg);
+	writel(lower_32_bits(desc), execlists->submit_reg);
+
+If an interrupt occurs between these consecutive MMIO writes and performs
+other GPU MMIO accesses, could this disrupt the hardware submission state
+machine and lead to GPU hangs?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615201846.3072=
-97-1-dev@lankhorst.se?part=3D26
+97-1-dev@lankhorst.se?part=3D15
