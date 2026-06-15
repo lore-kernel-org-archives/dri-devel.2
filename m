@@ -4,42 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ACF1CD98E0
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 19:49:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8A28CD98CE
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 19:51:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF77910E4C3;
-	Mon, 15 Jun 2026 19:49:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 354D110E600;
+	Mon, 15 Jun 2026 19:51:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KxrliL2t";
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="rBMYUfAd";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94B4E10E4C3
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 19:49:16 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D7E90601E4;
- Mon, 15 Jun 2026 19:49:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73E291F000E9;
- Mon, 15 Jun 2026 19:49:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781552955;
- bh=O2ortx0H9lyMCTxQYUdVMHd3Sh4tnK9erEHODjEgKT8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KxrliL2tyVt/JoeqTo3YsrDrzLS1kfe5oZKRROZJWvbJ8xyR88vtzPqaju/WniXyW
- z05XJl95bRxuqRL6NqQskvAxmiba2jzXrBmJShN/VJHe6cwMQlAqQuwQpuTy5pCgzU
- qCMVNU0v3+hDsUq+y+QKDykdKb30Z5skbt/K3WkFXsS9soqH6ZMt898eA6u7WfmWJ9
- IcyslHJase7j+F0Oo5n10ywB005LvqXk1wsbJaC0nL5ysvtkArRuaGDPLbkM6JdEnA
- jYJ3r5BbHzZ1nnsiFgtVas2DqwotUkdjGZpFNXcIpye3TZEyc0c4DlfVS4LK+Miep6
- KCjxb+PhkgLYA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1] drm/mipi-dsi: Use put_device() on device_add() failure
-To: "Yuho Choi" <dbgh9129@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260615193555.757498-1-dbgh9129@gmail.com>
-References: <20260615193555.757498-1-dbgh9129@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 19:49:15 +0000
-Message-Id: <20260615194915.73E291F000E9@smtp.kernel.org>
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012022.outbound.protection.outlook.com
+ [40.93.195.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77CDD10E600
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 19:51:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H8nTaPpkC8WzKLI6I1kHVCBGAOSnCNvGWnryB3wfv1BHX6hS+6qoFTM3R7A0ZOvfEzamxcNjZvXeL9Do9PV0YsczGnAWxH93yqNXkfE+C3A36ERRk48zQa821SOExC9BSrnOyCuFRNikv+6wR96DRMijYNBhUDtNfMi7SSwO8tPIzX1jz8FwNRnv3hicrpcLRWQlT5QAWowi3DX0/6eFbDPLAthYJDJfXXWExNPsy8Cnce30oIjHCm+dBaVnschg0UZdBNT+bQHkdVtkyM7X+VGAaO5kB2nQNlQ7IpUKokp2FBv3SYU6gudzfYO2lhj/YyLZ6s3Bqjk2cUDZB+b+kA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WDeOwpAWRdBANqjw6XgMeY5weRjy5M+3KF/WJ6hfr3U=;
+ b=Cxi1L4cFMAkdP8Ti6NZV7+SGZcXIOpwtHip6Ebdrzvf+83dTh1DPzmYRQyFfknWW3eEdWmGaiyCgLXM7B+R2y3VqbOJylHbHUZNo3ygXvG3vHbOlk0HkJ6VCbXLnLIzxAqOSlgS1Es6553bs6jXqkN/TifQ+AcO4oGvSEt9ftZSRea89xuFaaI/hvIqXjztogZxJROVFL/cPlStfEJsY6n15ysa+hDquMkZg5zT0c+/l+g40A8h77N/WwvhXIbSOd8/q3i6Jy8Ac7i7S9/z7B6+lMQ52NvjoueLzYzj5VIlwPJ5ecvijsVRBjCLpzeNeMDIWUNUOujxgx8gn8pezRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WDeOwpAWRdBANqjw6XgMeY5weRjy5M+3KF/WJ6hfr3U=;
+ b=rBMYUfAdBt4V0nTRQ3Ywp7b+s1dVQNELBIbkfs1ZzUASKUnWPLSbXJW/r5+sQRPpIJFFyNLKJl3wANec2lvOMqS1RWXgpBvJ79bwuTyU66jSflbt1c+YGTsYRHWokL32nynQoa69jog/Z4eKukArhnjkxR8XhsoJ3xKI61gVgcI=
+Received: from IA1P220CA0001.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:461::15)
+ by PH5PR10MB997711.namprd10.prod.outlook.com (2603:10b6:510:39d::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.18; Mon, 15 Jun
+ 2026 19:51:50 +0000
+Received: from BL6PEPF00022575.namprd02.prod.outlook.com
+ (2603:10b6:208:461:cafe::2e) by IA1P220CA0001.outlook.office365.com
+ (2603:10b6:208:461::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.18 via Frontend Transport; Mon,
+ 15 Jun 2026 19:51:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ BL6PEPF00022575.mail.protection.outlook.com (10.167.249.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Mon, 15 Jun 2026 19:51:48 +0000
+Received: from DFLE206.ent.ti.com (10.64.6.64) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 15 Jun
+ 2026 14:51:35 -0500
+Received: from DFLE211.ent.ti.com (10.64.6.69) by DFLE206.ent.ti.com
+ (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 15 Jun
+ 2026 14:51:35 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE211.ent.ti.com
+ (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Mon, 15 Jun 2026 14:51:35 -0500
+Received: from [10.249.42.149] ([10.249.42.149])
+ by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 65FJpYBv2610506;
+ Mon, 15 Jun 2026 14:51:34 -0500
+Message-ID: <0b39450b-559b-43d4-a1e9-bb6684691cb5@ti.com>
+Date: Mon, 15 Jun 2026 14:51:33 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] backlight: lp8864: Convert from LED to backlight
+ class driver
+To: "A. Sverdlin" <alexander.sverdlin@siemens.com>,
+ <linux-leds@vger.kernel.org>
+CC: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, "Jingoo
+ Han" <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-fbdev@vger.kernel.org>
+References: <20260615120353.3409035-1-alexander.sverdlin@siemens.com>
+ <20260615120353.3409035-4-alexander.sverdlin@siemens.com>
+Content-Language: en-US
+From: Andrew Davis <afd@ti.com>
+In-Reply-To: <20260615120353.3409035-4-alexander.sverdlin@siemens.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022575:EE_|PH5PR10MB997711:EE_
+X-MS-Office365-Filtering-Correlation-Id: f3259372-dbad-4573-5594-08decb1789cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|23010399003|7416014|376014|36860700016|4143699003|56012099006|3023799007|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: XXHIB/caL/fq+5c9Ih3Ee5uJNiJq4RN1zpmuFptpKCQ9pYjU37JsCuPKmSOFb6zlQOnk37oG6P5wvNhwA5praXeVkNo/UXDUKRQSwIVqveKRqiA+rBm66bmJoFr/JWt8SqYl2h0PB4Wj8h8VhAODbEJii99gV5Rxpr0OIEh54duqHVmekhudvdjBwIuhQNXyh2augcqfe+WZ5cIUXp6dyRBryqPUeooSSVd4RnH6ixBGEHghpAdU64TBkFeITPLXAhNcoZwx4BCD1Nx4s2z8Tg82BbDRCie7sEwRVjogB/lnLTIntmRww9evZz04K9bTP+vizlgff2PSF4qh+iJ5F+EtiywraeqxVlY++qpJGB47U3XvxoQLV+lBST6olkCsVbbEF7h2dald544CoD1YhP/dh1ETiCub0bsteRud7mBG0Z8J5OEoYDYgj49PbocMzKrF7rV7kyFqsAsN1egphX8QbxUHVssqRWlc6szsrwRbrt8qYjnxfWD4MGVLUXKnqIplAUM3QK/sc0S7WJ8oD2omxWOJfObkgMh0EBX6poEYrNhQLnoXxbCIXzDT62dqQ3o38EhZUqjJ/Z/wW20Gzhvhg5y7D253EM772fgPWHd4lfWOq6O+gSHO9ORbWaiPl/iNozcP7u+LYSjdSTof6KPPM/iyaOyUsYDtdDyewufXSUEKaQVQilX87gOon9hU9qI8Pj7uYiEc/P/H04bBWdJB8+fah05LbMbKb8Bhvzg=
+X-Forefront-Antispam-Report: CIP:198.47.21.195; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:flwvzet201.ext.ti.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(23010399003)(7416014)(376014)(36860700016)(4143699003)(56012099006)(3023799007)(18002099003)(22082099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: xK3xJ+jVE6jE4CTMO/aM4pe6RyHTmr8yEDOD7Fw72dhXI54VDZV3/EUWxVQ0+Bpm25IpaIvgiNaP9Em6pGAK4NQQmO3yZ5mXq3OgqLI3G+YQ6E1kc1R7TwxhiLswjFoVBrPb3kSoQh7hzPHtSdZ4RIxD7p3zpY/cNHlJgz3tncJzA6EoYDEDIndsgW+Z8vEJnvYC55NVpSVDBNQOfWttpFJl+yuois0PgDshU5AaCDmua9BxDf1u+Z96J+obSZoLhCQjG9CgnkvhJ198t9F09tTrnSTEWSQEVwflV8jhtWIWHwfTJpu1idf5QSL+mpzO0rtALm2hNAnCWn4eksNw0hyl2nTDsyJigS7qFvs5pXMNSFJn6QbHLi1BLVXZlTpT0vhvOQPPWYk7HBrs/4i8cSdyoD77n8sXKZAMP+zj+wWV8gJmYWW9Lqx2KRuLASS3
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 19:51:48.8766 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3259372-dbad-4573-5594-08decb1789cf
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.21.195];
+ Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00022575.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH5PR10MB997711
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,106 +126,368 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On 6/15/26 7:03 AM, A. Sverdlin wrote:
+> From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+> 
+> Move the TI LP8864/LP8866 driver from drivers/leds/ to
+> drivers/video/backlight/
 
-New issues:
-- [High] The patch introduces an inconsistent API contract for ownership of=
- the `info->node` reference in `mipi_dsi_device_register_full()`. By using =
-`put_device()` on `device_add()` failure, it now consumes the reference (vi=
-a `mipi_dsi_dev_release()`) on that specific error path. However, on earlie=
-r error paths (like invalid channel or `mipi_dsi_device_alloc()` failure), =
-it returns an error pointer without dropping the reference. Because the fun=
-ction returns an opaque `ERR_PTR` on all failures, the caller cannot know w=
-hether it still owns the reference, making it structurally impossible for c=
-allers to safely handle errors without risking a double-put or memory leak.
+Why move it? You can register a backlight device from any directory.
 
-Pre-existing issues:
-- [High] Double-put of OF node in `rm69380_probe()` due to the API contract=
- of `mipi_dsi_device_register_full()`.
---
+> and convert it to register a backlight class
+> device as its primary interface.
+> 
 
-commit d11ddeaad1a55c59a2b2250f973cf5d648093cee
-Author: Yuho Choi <dbgh9129@gmail.com>
+What do you mean by "primary"? You should be able to register with
+both frameworks and have the driver interop between as needed.
 
-drm/mipi-dsi: Use put_device() on device_add() failure
+> The motivation is a use case on a hot-pluggable segment of an I2C bus.
+> The generic led-backlight driver (drivers/video/backlight/led_bl.c) is a
+> platform driver and as such inherently non-hotpluggable.
 
-mipi_dsi_device_alloc() initializes the embedded struct device before
-mipi_dsi_device_register_full() calls mipi_dsi_device_add(). If
-device_add() fails, the code frees the DSI object directly with kfree(),
-bypassing the device release callback.
+That isn't strictly true, there is platform_device_{del,unregister}(), so
+whatever your mechanism for removing the I2C device would be, the same
+could be done to the led_bl device before then removing the I2C device.
 
-Drop the initialized device reference with put_device() instead, so
-mipi_dsi_dev_release() runs and releases resources owned by the device,
-including the OF node reference.
+We don't want to have to move every LED driver that could possibly
+be used as a backlight to the backlight framework, the led_bl.c
+handles adapting LED->backlight as needed. So what you really need
+here is to de-couple led_bl.c from DT so it can better handle dynamic
+add/remove. Then this LED driver simply could register a "led-backlight"
+platform driver to handle the backlight interface, and remove the
+backlight device when it itself (the LED device) is removed.
 
-> diff --git a/drivers/gpu/drm/drm_mipi_dsi.c b/drivers/gpu/drm/drm_mipi_ds=
-i.c
-> index 3ac1dd5ad640a..1b4c0acbd30d2 100644
-> --- a/drivers/gpu/drm/drm_mipi_dsi.c
-> +++ b/drivers/gpu/drm/drm_mipi_dsi.c
+Andrew
 
-[ ... ]
+  It cannot react
+> to dynamic appearance/disappearance of the underlying I2C device. By
+> making the LP8864 driver directly register a backlight class device, it
+> becomes a native I2C driver that properly supports hot-plug/unplug
+> events on the I2C bus.
+> 
+> Key changes:
+> - Register a backlight class device using
+>    devm_backlight_device_register() as the primary interface
+> - Implement backlight_ops (update_status, get_brightness)
+> - The hardware 16-bit brightness register (0x0000-0xFFFF) is directly
+>    exposed as the backlight brightness range
+> - Support DT properties "default-brightness" and "max-brightness"
+>    from the backlight common binding
+> - Include BL_CORE_SUSPENDRESUME for proper power management integration
+> - Preserve backward-compatible LED class device registration: if the
+>    "led" child node is present in the DT, an LED class device is also
+>    registered (same as the original driver behavior)
+> - Preserve the CONFIG_LEDS_LP8864 Kconfig symbol name so that existing
+>    kernel configurations are not affected
+> - Update MAINTAINERS to reflect the new file location
+> 
+> This will be noticeable for applications which already used the LP8864
+> as a backend for the generic led-backlight platform driver, as a
+> backlight device will now appear directly in addition to the LED class
+> device. However, no in-tree device-trees reference this driver, so
+> there is no mainline impact.
+> 
+> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+> ---
+>   MAINTAINERS                                   |   2 +-
+>   drivers/leds/Kconfig                          |  12 --
+>   drivers/leds/Makefile                         |   1 -
+>   drivers/video/backlight/Kconfig               |  15 +++
+>   drivers/video/backlight/Makefile              |   1 +
+>   .../backlight/lp8864_bl.c}                    | 111 ++++++++++++++----
+>   6 files changed, 106 insertions(+), 36 deletions(-)
+>   rename drivers/{leds/leds-lp8864.c => video/backlight/lp8864_bl.c} (70%)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index dbd4552236e64..250e8b1ed4bb5 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -26481,7 +26481,7 @@ M:	Alexander Sverdlin <alexander.sverdlin@siemens.com>
+>   L:	linux-leds@vger.kernel.org
+>   S:	Maintained
+>   F:	Documentation/devicetree/bindings/leds/backlight/ti,lp8864.yaml
+> -F:	drivers/leds/leds-lp8864.c
+> +F:	drivers/video/backlight/lp8864_bl.c
+>   
+>   TEXAS INSTRUMENTS' SYSTEM CONTROL INTERFACE (TISCI) PROTOCOL DRIVER
+>   M:	Nishanth Menon <nm@ti.com>
+> diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
+> index f4a0a3c8c8705..990cb9ef18c1e 100644
+> --- a/drivers/leds/Kconfig
+> +++ b/drivers/leds/Kconfig
+> @@ -529,18 +529,6 @@ config LEDS_LP8860
+>   	  on the LP8860 4 channel LED driver using the I2C communication
+>   	  bus.
+>   
+> -config LEDS_LP8864
+> -	tristate "LED support for the TI LP8864/LP8866 4/6 channel LED drivers"
+> -	depends on LEDS_CLASS && I2C && OF
+> -	select REGMAP_I2C
+> -	help
+> -	  If you say yes here you get support for the TI LP8864-Q1,
+> -	  LP8864S-Q1, LP8866-Q1, LP8866S-Q1 4/6 channel LED backlight
+> -	  drivers with I2C interface.
+> -
+> -	  To compile this driver as a module, choose M here: the
+> -	  module will be called leds-lp8864.
+> -
+>   config LEDS_CLEVO_MAIL
+>   	tristate "Mail LED on Clevo notebook"
+>   	depends on LEDS_CLASS && BROKEN
+> diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
+> index 8fdb45d5b4393..5e624a48aa2a5 100644
+> --- a/drivers/leds/Makefile
+> +++ b/drivers/leds/Makefile
+> @@ -59,7 +59,6 @@ obj-$(CONFIG_LEDS_LP55XX_COMMON)	+= leds-lp55xx-common.o
+>   obj-$(CONFIG_LEDS_LP8501)		+= leds-lp8501.o
+>   obj-$(CONFIG_LEDS_LP8788)		+= leds-lp8788.o
+>   obj-$(CONFIG_LEDS_LP8860)		+= leds-lp8860.o
+> -obj-$(CONFIG_LEDS_LP8864)		+= leds-lp8864.o
+>   obj-$(CONFIG_LEDS_LT3593)		+= leds-lt3593.o
+>   obj-$(CONFIG_LEDS_MAX5970)		+= leds-max5970.o
+>   obj-$(CONFIG_LEDS_MAX77650)		+= leds-max77650.o
+> diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
+> index a7a3fbaf7c29e..82ecd7e46236d 100644
+> --- a/drivers/video/backlight/Kconfig
+> +++ b/drivers/video/backlight/Kconfig
+> @@ -514,6 +514,21 @@ config BACKLIGHT_LED
+>   	  If you have a LCD backlight adjustable by LED class driver, say Y
+>   	  to enable this driver.
+>   
+> +config LEDS_LP8864
+> +	tristate "Backlight driver for TI LP8864/LP8866 4/6 channel LED drivers"
+> +	depends on I2C && OF
+> +	select REGMAP_I2C
+> +	select NEW_LEDS
+> +	select LEDS_CLASS
+> +	help
+> +	  If you say yes here you get support for the TI LP8864-Q1,
+> +	  LP8864S-Q1, LP8866-Q1, LP8866S-Q1 4/6 channel LED backlight
+> +	  drivers with I2C interface. The driver registers a backlight
+> +	  class device and optionally an LED class device.
+> +
+> +	  To compile this driver as a module, choose M here: the
+> +	  module will be called lp8864_bl.
+> +
+>   endif # BACKLIGHT_CLASS_DEVICE
+>   
+>   endmenu
+> diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
+> index 794820a98ed49..6a7287d01d81b 100644
+> --- a/drivers/video/backlight/Makefile
+> +++ b/drivers/video/backlight/Makefile
+> @@ -62,3 +62,4 @@ obj-$(CONFIG_BACKLIGHT_WM831X)		+= wm831x_bl.o
+>   obj-$(CONFIG_BACKLIGHT_ARCXCNN) 	+= arcxcnn_bl.o
+>   obj-$(CONFIG_BACKLIGHT_RAVE_SP)		+= rave-sp-backlight.o
+>   obj-$(CONFIG_BACKLIGHT_LED)		+= led_bl.o
+> +obj-$(CONFIG_LEDS_LP8864)		+= lp8864_bl.o
+> diff --git a/drivers/leds/leds-lp8864.c b/drivers/video/backlight/lp8864_bl.c
+> similarity index 70%
+> rename from drivers/leds/leds-lp8864.c
+> rename to drivers/video/backlight/lp8864_bl.c
+> index d05211b970c94..67b28f7daedd2 100644
+> --- a/drivers/leds/leds-lp8864.c
+> +++ b/drivers/video/backlight/lp8864_bl.c
+> @@ -1,12 +1,13 @@
+>   // SPDX-License-Identifier: GPL-2.0-only
+>   /*
+> - * TI LP8864/LP8866 4/6 Channel LED Driver
+> + * TI LP8864/LP8866 4/6 Channel LED Backlight Driver
+>    *
+> - * Copyright (C) 2024 Siemens AG
+> + * Copyright (C) 2024-2026 Siemens AG
+>    *
+>    * Based on LP8860 driver by Dan Murphy <dmurphy@ti.com>
+>    */
+>   
+> +#include <linux/backlight.h>
+>   #include <linux/gpio/consumer.h>
+>   #include <linux/i2c.h>
+>   #include <linux/init.h>
+> @@ -27,6 +28,8 @@
+>   #define LP8864_LED_STATUS		0x12
+>   #define   LP8864_LED_STATUS_WR_MASK	GENMASK(14, 9)	/* Writeable bits in the LED_STATUS reg */
+>   
+> +#define LP8864_MAX_BRIGHTNESS		0xffff
+> +
+>   /* Textual meaning for status bits, starting from bit 1 */
+>   static const char *const lp8864_supply_status_msg[] = {
+>   	"Vin under-voltage fault",
+> @@ -71,13 +74,15 @@ static const char *const lp8864_led_status_msg[] = {
+>   /**
+>    * struct lp8864
+>    * @client: Pointer to the I2C client
+> - * @led_dev: led class device pointer
+> + * @led_dev: optional led class device pointer
+> + * @bl: backlight device pointer
+>    * @regmap: Devices register map
+>    * @led_status_mask: Helps to report LED fault only once
+>    */
+>   struct lp8864 {
+>   	struct i2c_client *client;
+> -	struct led_classdev led_dev;
+> +	struct led_classdev *led_dev;
+> +	struct backlight_device *bl;
+>   	struct regmap *regmap;
+>   	u16 led_status_mask;
+>   };
+> @@ -157,28 +162,59 @@ static int lp8864_fault_check(struct lp8864 *priv)
+>   	return ret;
+>   }
+>   
+> -static int lp8864_brightness_set(struct led_classdev *led_cdev,
+> -				 enum led_brightness brt_val)
+> +static int lp8864_brightness_set(struct lp8864 *priv, unsigned int brightness)
+>   {
+> -	struct lp8864 *priv = container_of(led_cdev, struct lp8864, led_dev);
+> -	/* Scale 0..LED_FULL into 16-bit HW brightness */
+> -	unsigned int val = brt_val * 0xffff / LED_FULL;
+>   	int ret;
+>   
+>   	ret = lp8864_fault_check(priv);
+>   	if (ret)
+>   		return ret;
+>   
+> -	ret = regmap_write(priv->regmap, LP8864_BRT_CONTROL, val);
+> +	ret = regmap_write(priv->regmap, LP8864_BRT_CONTROL, brightness);
+>   	if (ret)
+>   		dev_err(&priv->client->dev, "Failed to write brightness value\n");
+>   
+>   	return ret;
+>   }
+>   
+> -static enum led_brightness lp8864_brightness_get(struct led_classdev *led_cdev)
+> +static int lp8864_backlight_update_status(struct backlight_device *bl)
+> +{
+> +	return lp8864_brightness_set(bl_get_data(bl), backlight_get_brightness(bl));
+> +}
+> +
+> +static int lp8864_backlight_get_brightness(struct backlight_device *bl)
+>   {
+> -	struct lp8864 *priv = container_of(led_cdev, struct lp8864, led_dev);
+> +	struct lp8864 *priv = bl_get_data(bl);
+> +	unsigned int val;
+> +	int ret;
+> +
+> +	ret = regmap_read(priv->regmap, LP8864_BRT_CONTROL, &val);
+> +	if (ret) {
+> +		dev_err(&priv->client->dev, "Failed to read brightness value\n");
+> +		return ret;
+> +	}
+> +
+> +	return val;
+> +}
+> +
+> +static const struct backlight_ops lp8864_backlight_ops = {
+> +	.options = BL_CORE_SUSPENDRESUME,
+> +	.update_status = lp8864_backlight_update_status,
+> +	.get_brightness = lp8864_backlight_get_brightness,
+> +};
+> +
+> +static int lp8864_led_brightness_set(struct led_classdev *led_cdev,
+> +				     enum led_brightness brt_val)
+> +{
+> +	struct lp8864 *priv = dev_get_drvdata(led_cdev->dev->parent);
+> +
+> +	/* Scale 0..LED_FULL into 16-bit HW brightness */
+> +	return lp8864_brightness_set(priv, brt_val * 0xffff / LED_FULL);
+> +}
+> +
+> +static enum led_brightness lp8864_led_brightness_get(struct led_classdev *led_cdev)
+> +{
+> +	struct lp8864 *priv = dev_get_drvdata(led_cdev->dev->parent);
+>   	unsigned int val;
+>   	int ret;
+>   
+> @@ -212,18 +248,15 @@ static int lp8864_probe(struct i2c_client *client)
+>   	struct device_node *np = dev_of_node(&client->dev);
+>   	struct device_node *child_node;
+>   	struct led_init_data init_data = {};
+> +	struct backlight_device *bl;
+> +	struct backlight_properties props;
+>   	struct gpio_desc *enable_gpio;
+> +	u32 val;
+>   
+>   	priv = devm_kzalloc(&client->dev, sizeof(*priv), GFP_KERNEL);
+>   	if (!priv)
+>   		return -ENOMEM;
+>   
+> -	child_node = of_get_next_available_child(np, NULL);
+> -	if (!child_node) {
+> -		dev_err(&client->dev, "No LED function defined\n");
+> -		return -EINVAL;
+> -	}
+> -
+>   	ret = devm_regulator_get_enable_optional(&client->dev, "vled");
+>   	if (ret && ret != -ENODEV)
+>   		return dev_err_probe(&client->dev, ret, "Failed to enable vled regulator\n");
+> @@ -238,8 +271,7 @@ static int lp8864_probe(struct i2c_client *client)
+>   		return ret;
+>   
+>   	priv->client = client;
+> -	priv->led_dev.brightness_set_blocking = lp8864_brightness_set;
+> -	priv->led_dev.brightness_get = lp8864_brightness_get;
+> +	i2c_set_clientdata(client, priv);
+>   
+>   	priv->regmap = devm_regmap_init_i2c(client, &lp8864_regmap_config);
+>   	if (IS_ERR(priv->regmap))
+> @@ -258,11 +290,46 @@ static int lp8864_probe(struct i2c_client *client)
+>   	if (ret)
+>   		return ret;
+>   
+> +	/* Register backlight class device */
+> +	memset(&props, 0, sizeof(props));
+> +	props.type = BACKLIGHT_RAW;
+> +	props.max_brightness = LP8864_MAX_BRIGHTNESS;
+> +	props.brightness = LP8864_MAX_BRIGHTNESS;
+> +	props.scale = BACKLIGHT_SCALE_LINEAR;
+> +
+> +	if (!device_property_read_u32(&client->dev, "max-brightness", &val))
+> +		props.max_brightness = val;
+> +
+> +	if (!device_property_read_u32(&client->dev, "default-brightness", &val))
+> +		props.brightness = val;
+> +
+> +	bl = devm_backlight_device_register(&client->dev, "lp8864-backlight",
+> +					    &client->dev, priv,
+> +					    &lp8864_backlight_ops, &props);
+> +	if (IS_ERR(bl))
+> +		return dev_err_probe(&client->dev, PTR_ERR(bl),
+> +				     "Failed to register backlight device\n");
+> +
+> +	priv->bl = bl;
+> +	backlight_update_status(bl);
+> +
+> +	/* Register LED class device if "led" child node is present */
+> +	child_node = of_get_available_child_by_name(np, "led");
+> +	if (!child_node)
+> +		return 0;
+> +
+> +	priv->led_dev = devm_kzalloc(&client->dev, sizeof(*priv->led_dev), GFP_KERNEL);
+> +	if (!priv->led_dev)
+> +		return -ENOMEM;
+> +
+> +	priv->led_dev->brightness_set_blocking = lp8864_led_brightness_set;
+> +	priv->led_dev->brightness_get = lp8864_led_brightness_get;
+> +
+>   	init_data.fwnode = of_fwnode_handle(child_node);
+>   	init_data.devicename = "lp8864";
+>   	init_data.default_label = ":display_cluster";
+>   
+> -	ret = devm_led_classdev_register_ext(&client->dev, &priv->led_dev, &init_data);
+> +	ret = devm_led_classdev_register_ext(&client->dev, priv->led_dev, &init_data);
+>   	if (ret)
+>   		dev_err(&client->dev, "Failed to register LED device (%pe)\n", ERR_PTR(ret));
+>   
+> @@ -291,6 +358,6 @@ static struct i2c_driver lp8864_driver = {
+>   };
+>   module_i2c_driver(lp8864_driver);
+>   
+> -MODULE_DESCRIPTION("Texas Instruments LP8864/LP8866 LED driver");
+> +MODULE_DESCRIPTION("Texas Instruments LP8864/LP8866 LED Backlight driver");
+>   MODULE_AUTHOR("Alexander Sverdlin <alexander.sverdlin@siemens.com>");
+>   MODULE_LICENSE("GPL");
 
-> @@ -233,7 +233,7 @@ mipi_dsi_device_register_full(struct mipi_dsi_host *h=
-ost,
->  	ret =3D mipi_dsi_device_add(dsi);
->  	if (ret) {
->  		dev_err(host->dev, "failed to add DSI device %d\n", ret);
-> -		kfree(dsi);
-> +		put_device(&dsi->dev);
-
-[Severity: High]
-Does this introduce an inconsistent API contract for ownership of the
-info->node reference?
-
-Earlier in mipi_dsi_device_register_full(), if mipi_dsi_device_alloc()
-fails, the function returns ERR_PTR without dropping the reference:
-
-    dsi =3D mipi_dsi_device_alloc(host);
-    if (IS_ERR(dsi)) {
-        dev_err(host->dev, "failed to allocate DSI device %ld\n",
-                PTR_ERR(dsi));
-        return dsi;
-    }
-
-By using put_device() here, this specific error path now consumes the
-reference via mipi_dsi_dev_release().
-
-Since the caller receives an opaque ERR_PTR in both failure cases, they
-have no way to distinguish whether the reference was consumed or not, making
-it structurally impossible to safely handle errors without risking a
-double-put or a memory leak.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this API contract lead
-to a double-put of the OF node in callers like rm69380_probe()?
-
-In drivers/gpu/drm/panel/panel-raydium-rm69380.c, rm69380_probe() calls
-of_node_put() explicitly before passing the node to the register function:
-
-    of_node_put(dsi_sec);
-    if (!dsi_sec_host)
-        return dev_err_probe(dev, -EPROBE_DEFER,
-                             "Cannot get secondary DSI host\n");
-
-    ctx->dsi[1] =3D
-        devm_mipi_dsi_device_register_full(dev, dsi_sec_host, &info);
-
-Because mipi_dsi_device_register_full() assigns the node without acquiring
-its own reference, and mipi_dsi_dev_release() calls of_node_put(dev->of_nod=
-e)
-when the device is released (or when device_add() fails via this patch),
-this results in a use-after-free and double-put of the OF node.
-
->  		return ERR_PTR(ret);
->  	}
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615193555.7574=
-98-1-dbgh9129@gmail.com?part=3D1
