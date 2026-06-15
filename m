@@ -4,129 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E707ECD98C5
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 09:56:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F64FCD98DA
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 09:58:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A2AD10E22E;
-	Mon, 15 Jun 2026 09:56:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB11710E31C;
+	Mon, 15 Jun 2026 09:58:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="Vuixw01c";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qIyRg3TD";
 	dkim-atps=neutral
-Received: from CWXP265CU008.outbound.protection.outlook.com
- (mail-ukwestazon11020098.outbound.protection.outlook.com [52.101.195.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B75710E22E;
- Mon, 15 Jun 2026 09:56:45 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010060.outbound.protection.outlook.com [52.101.85.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3DD910E31C
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 09:58:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YvPXr+xyL6MFdjJJakXruha4hO/B4qsSlnGNsRV5y5lQVQgweTBOuTdvy2k+doU9cisldDO8vR1kA9MF3jAzUMtBApw70yT2qmlCacpkPMCFBy4iF2OTuGReLceZV6orAlqWTDlHS8EySlz0OGIFnkb8GpOaJGUzlJK89dZqiz54YokzaDPT6IYrTrKUdH4hLRxWOUmmCSbSBpUi79ajz595HnbMfXI9U3BgOsQXpr+0zdNaNVJkWuuOj0G8dkuMlmxhrC9EqDl3+EaxJkHa67/vL5STL/Ri/eqAWEUoHf2wBQcbPQ/eg2cdIQg1FnzFnaal/Y3BgRoA8FFXFKtbTg==
+ b=pFd16rlYkWkUOcUYwHSsOCdop477Hokm9ACJi7wNSxz+sqwZeUt5lnx7SvlrZTzCM0UchZe4OpprwDjA5TGETzQuBhJAzAf+/KqXoGqlIacQA3VbYXlY63wBMSEnnEGl0GJrkNDiKdqDxw4jFVW2q0VC1uRI0mqQwS3wTjzp0LaxPrlJWxmk5lDi+oV6P7Yx27PU+I5AAgPYB0Rq4CiHVMgV38+6P4U4XS4HsGlM8c5D49iT/WHyuLiWHgpLMfeySfGShZvw/+yrc8NMhr6+bmz8Tq5du2f9aoSFWZZzwe3UhcBh4k84LAdsXfIhBK5vgoHpgaivAjcpBeGvPUWMXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UuR84foPB0UkKC4uXITgkPuzJyAqZdfBIPrNXCYKo/4=;
- b=NLY/P/DYXBwpTzeXU+zvUPYvbtkiCzO/1BaHKc9UrV78MdO0JLmLHfUPoce0ZYAfCFaA8KEpwP/b3/Tk6K4lJPmcv3F4TmizAK7GzQD00AwslhIEjTixnhow4HbKUbZFqcvnmVukJDzJ3Fva1Q5Mbo83eS3bZiLBSLQr4vKUdFnOohfmgwb1dQtobb4SD/D2wfPP03eAw0+Msc3S/Wdk7WuaYOxbjUU2kuj+c89UF9lVb+PwABXIl3OuKhH4V+HLIAeVhMiZT6V5z3pH1xAK+so8djXPai1DmjFl1GtFIwFgQbeEUBwnsKUxNKKws6FVp0lBRGbGq2W1u8hY/Y17dQ==
+ bh=S9S+1wwVElBFSB1eGUyQGB3yDrqAFwBt+AvGUwrLVvs=;
+ b=i2QAOCubCUp8KSv3SbORgL2QPjW8g7HuS2enFIvIlm1/zTpmfnZAtDpiPK56bF/5ATaw6motrqj5l8xG3ixMc8DSUM3qloYCi6O4Mxsl1bm/su9TK1/Xw8ol7G7iknQA+N1SaLtFuFxoAsOBDZG/nYyjdd1b0iBMw1Xo3g13QZbMSghIvhX/eHc46djbyUVXdllsjAm/xdsyZUfF2QuldhHNEUIHu/vWUNMz0h8jaW5SFJSF+TG0NA0VIHd+ZaiigUa7lEzyFpKhII1lU09iGyJwhFWK3aAlgXtG5C5V9xneoBPbGDnYKoTu+Nx7knk9cZaxSflSSAfMc+oJPiKlsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UuR84foPB0UkKC4uXITgkPuzJyAqZdfBIPrNXCYKo/4=;
- b=Vuixw01ck90MWkrZ/dMdCCiOEVSkEMnioTXKLvPVLuazhhwu6gcq/CKYO7XJMT+XV8cbbcAyiZRW8rpI8f/+PXJJ+97YbZLLr9uh5UUiy3hiBuaOw7GDEyX6BCvT5ywkf9PM+2hHQxI2ZxkfoHwDE0KT/ltEEr5Lp6LOXfN1Hj8=
+ bh=S9S+1wwVElBFSB1eGUyQGB3yDrqAFwBt+AvGUwrLVvs=;
+ b=qIyRg3TDm8XdkpVVJEW56Wdsir4eZ0gQ83ra1fnp4hZmFsO1OLkdAkFpBJd1e7JlbrGNPznGESlO6azJL9MF4JqReRoBj4BAp877vOEqJqEJPmQBNs3WMqC4K0gYn10vBHjFCZWRQ8zj0zTvrOV1dv6YDit5UNx+xUdaj6gPqE4=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO0P265MB5022.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:228::7) with
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM4PR12MB6663.namprd12.prod.outlook.com (2603:10b6:8:8f::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
- 2026 09:56:37 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
- 09:56:37 +0000
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Mon, 15 Jun
+ 2026 09:58:02 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Mon, 15 Jun 2026
+ 09:58:02 +0000
+Message-ID: <6ea6c373-c6cb-4221-ad9d-e60b04d1368f@amd.com>
+Date: Mon, 15 Jun 2026 11:57:58 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: Properly synchronize dma_fence->signaled bit (Was: Re: [RFC
+ PATCH] dma-fence: Fix races of fence callbacks versus destructors by locking)
+To: phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>, Daniel Almeida <dwlsalmeida@gmail.com>,
+ Gary Guo <gary@garyguo.net>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260608142436.265820-2-phasta@kernel.org>
+ <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
+ <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
+ <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
+ <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
+ <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
+ <fa0dc9757bf8343516c4b156a2b70ec91b64ef8f.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <fa0dc9757bf8343516c4b156a2b70ec91b64ef8f.camel@mailbox.org>
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 15 Jun 2026 10:56:36 +0100
-Message-Id: <DJ9J7LOD4NKC.LUC2DF5MC5ZQ@garyguo.net>
-Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [RFC PATCH] dma-buf/dma_fence: Make races for
- dma_fence_is_signaled() less likely
-From: "Gary Guo" <gary@garyguo.net>
-To: "Philipp Stanner" <phasta@kernel.org>, "Danilo Krummrich"
- <dakr@kernel.org>, "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Sumit Semwal" <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>,
- "Boris Brezillon" <boris.brezillon@collabora.com>, "Paul E . McKenney"
- <paulmck@kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20260612104251.2264707-2-phasta@kernel.org>
-In-Reply-To: <20260612104251.2264707-2-phasta@kernel.org>
-X-ClientProxiedBy: LO0P123CA0007.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:354::16) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0424.namprd13.prod.outlook.com
+ (2603:10b6:208:2c3::9) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO0P265MB5022:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49e121bf-7db1-4f2f-2fcc-08decac463e7
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB6663:EE_
+X-MS-Office365-Filtering-Correlation-Id: edca0677-d2d0-4b37-b6c7-08decac496af
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|23010399003|10070799003|921020|56012099006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 7O4vNTJKuvyw34l529IK9kifg0Qo5SSfZV/aKgXTEGOJLirchmCIJPIOtRq61Tb5QQ3BFJM4kku8cN1VOgAxUlcySte+l3fG5K999dQlFTuCCKdeCAdEbMixEpbWHOJblJcCCeaW63jAHZlUL62A/7uSM4/Ag2a4Xt9e8F/n6SOuJERjMtWbpyjQTw2LwoHqyl+GLc8PuDO7tjjqE3MT9BO+dNsMn7pBNGFediY4nOwDeYQSyqjYW7gGWsNjQSWyyB2eqzeOyB76IVmS7PsYAZkiZYzbjgja0iGb+0uDcvLt+zuuYqYZUwrMdzufx7UcmXiiSyQQD6UKMxpkb9bFq5mGk3vhdZmE95l2HuiJSRVH2ev0QZXMNlnDHC8e8vFtuSKRCecyHai7ImE69GFH1ZxAm/o7tLWPBtId8WUnOba6N7v4n/zeT8wSVty8lzYEM/7+UHgxsF9ZMl9wvMN6boy8jR/4YHXeEB9cMpPM587qOITRfFyisYSlEu1Dy7dN7ZZhdpU7jl9X6LoU5uhispqa/BV+YnxAyy0ojE5Ny2mO9RCWX/qwyEj0PD5sKz+z5ToCfCgHndPrz4/w9nb70NtKblHK7RDapp5bngGZv84sFUX7O/u1whF3qyRSELWwlK/Bk9k3lUIZBa3nBcmvIqQl7QmHS3gyUZAlkXRj2Cgcr8Mb9QYtRchp3F8qsFXq1lVP4+zM3GsXPNNxx/vaTwu+NL+gq7SGyHg3ICqFCzY=
+ ARA:13230040|1800799024|23010399003|7416014|376014|366016|18002099003|22082099003|11063799006|5023799004|4143699003|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info: IE8C1cOguqDX+jXUu5uroic95d/v66rdCQ+SE9wlBdZzBxt3ISKIyeP4yEqxekt/m8tgtscpaJiwGfCPnLzuRZT+nCmi7cKi8v3oQDioobywvwsoxbmpmFvmNPif66NZ6UPD8MkBHZduBxOmOBpCN4Xyy4nyiv4J6SwzD8uSdztWNBGIxQlk+KWg3K1gEamJwo3xIlHYu3VtiRWx7QA0fAMXZ5raMrXf5C9ehHsR/CKmFdsUSDxddOfgjiq+UJ62GwsoFw+GIAUSGEgzR+TUvRbtQ3IGKzpjbEIVUDw7RCZm1HstEbaEo/x+2yS0m2X71l62+iBWcMw3KWT/sxTKdSPPeUqbq7DvXAcUFyj3fnhI6fW3RfggrlpIbXUmS2Gbn8dUI0CCz2WA8x+eaCaGuSJQ+4igfFKjctNHzG72Knn1AWpVw8P9duubgAQ8BXe6ZzhLLPVgPg6ulvS6mBkp3Odcq7VqdDHT64EsoPn/xMEUpnTIT22nRmbf01dXUx95j9sLlRXonN+Vnqpnl/8brCK4rN96W5VohukKv/MeKRzzGQc8CtX8QT007LpflmdTs/zSJHNhYduFYp2/zfHV2rUjhq1m8+rdCKlz6bRq2eyLU0KaOoXNGnEIT2OUpSR97GvTBd9ko0sXPMPggA3ssOC5d4A2f6zbY3qhyT3I7FlKe4gJxldMRLeHP7+OJfDYy0a8XUwqn7f3wmdTOEa5Wg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(10070799003)(921020)(56012099006)(6133799003)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(18002099003)(22082099003)(11063799006)(5023799004)(4143699003)(56012099006)(6133799003);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U0ZKTXZPRzFLYVZmZERTbyt6TGVsQlRHbW9HT0FxVmVoaXM4U1ZYWXpFOFRl?=
- =?utf-8?B?Y2k0ODdJYXN0eWgySnpBSVhlL1RSWldHTHcrSHBvSjl4aWdDWmU2aWVvRzA5?=
- =?utf-8?B?cW5CdVZMQlNpZW9ZZTNXUE9rdFZBZ0ZOTTdNL242dDR4VUwzUHpRckRwcjM0?=
- =?utf-8?B?R29OQTMzT2JaaEdETk9QTVJDVDJmRE1MbmZnN0NKT3p2ZDNKY3B3MDBQcGR3?=
- =?utf-8?B?dHJaRUpyNXVoSThzbE5ZUzNJdkZoWUJFVHNxN0U0K2c3azk5NitoQUNPTlBi?=
- =?utf-8?B?bnRIa0VjQnhjZ1VPUEo3M1ZaZnNCdlNjSHg4QnNNMVJxSGwrdUp1QjBMc2ZU?=
- =?utf-8?B?ajczblQxOHZUVWJLZE1wRm5UcnFzV2U5d2Z4Nit4a3lhalVnOWcrMUdTbmlM?=
- =?utf-8?B?OWZBZERGa1YwRlZkbSt6ZHdOeWxpZGVLRDZuU0NnQ2NEVkV5elJVcE9zQmlk?=
- =?utf-8?B?djVoT0dIYWxEU0NCQ1pBOVBQdzNHQk5sNDNnMEZFMG1MVDRhdTBlSzFJamw0?=
- =?utf-8?B?bDNmM3JTM0x3WFllNWtlekV1NUNvWEpqNndCU0RFb1FQSGF2MnZ4ZlFjcklU?=
- =?utf-8?B?cVdQeWduTU5iSklkUnJXYUlEWW9ucDllTlZ3U2RHU0pDRXlaSTVXMHNpUVZY?=
- =?utf-8?B?UmxISHRRazhNdEc3aFh4aWd0RnplQmc2L2VzUG9zSWc3Y1F2NXM4dGZieGhq?=
- =?utf-8?B?ZmU4MXlyTmtYUktmTGVBbXRydW8xcW4zeU5jdDBET0hKUG9MbEJMWGxHTE1F?=
- =?utf-8?B?UlF0cFlBdDVWZlF5RHYxTlZIVWtVaGpQSTN2SkFFeGdDYjl6bngvemlqWDU0?=
- =?utf-8?B?UG42YUtyWnFvZEg4QUxyV2crRFlKT2xRVlBBUkFBeGNIZTZYL2ZMY09uNDVE?=
- =?utf-8?B?bXFmeHQ3SUZYNE5ia0d1RFZJQnBkTjNXVjNpRUlnRnhmVG1MU1doUEkzZ2NR?=
- =?utf-8?B?QmFOVUUyVjB1dmpmZVdweXlYWldsK1UwYlFpVHlBb1VrYmFiS2o5UDFGYzJt?=
- =?utf-8?B?OTR3U0xuKzZDekhIdjBZK2dJaGxsZndnQUJwY2NoS1gyNDRRS1VFeEZiNFc3?=
- =?utf-8?B?ZHdBSWJnOElhRGlpZWhVbHNWTkhuaG93OTRpWHZ3VUk1N3Nta0R6TWN2dTAv?=
- =?utf-8?B?ak9LMU1mUWJNOE54bzZYaWNOdjUvZkw1eGtRMzB6cStaSzJ0NW1Pc1o4NXV2?=
- =?utf-8?B?dGg2amFLSFBzMU14SU5VelZTMzc1ZDF0eGxYczR6akx6M2hxTkFpdTNkUEN4?=
- =?utf-8?B?dXp4UmJxNnZDZ2hOZGxIcVJwS1A5NXBaVkJuY0RuOTFjbytDYXFrOHUzb1J3?=
- =?utf-8?B?LzVVYXcyTEpzL2tsSFJJMjZqYSs1N1RQcG1sUmhzcEc4K2lIckFZa3c2R1BX?=
- =?utf-8?B?VnN3WWNlUUpEYjB1WnVIOHQ2TzNFS1RuYnU3d1dCcTVMZnIvMGF4MFQwQ2t4?=
- =?utf-8?B?M0xXaEorRHU4aXdZUFk1d0ZTaE1yb3lSM0lCWmJqa0hBWm1CK3NZQzdPTFFO?=
- =?utf-8?B?aEs0OFFzb0pzMkQ0OXM2VFFoNEkybkJQaDRyTlZnTGpaRHJxeXM3ZkwySVJ4?=
- =?utf-8?B?RE1EcmExR2hsRjg5WS8xZ3lVaXIrbENoZHY4TERkMUJtVnRPSW5rcjVyVWtI?=
- =?utf-8?B?Ri8xSkNUTm9vMTVYRm1LNG1zZ0xmb2o0cjBQc1VNamxnYW9nRldZN2lzcE9X?=
- =?utf-8?B?SUwrVnZsNVNZcDNMWUh4a2daQXEzNkVqbUp3UVg5RXlOOEJ1Z0JRN09xNnF1?=
- =?utf-8?B?dXBOeThObW9xcVZMUHFjT3c3WURnRWNrL3I3ZHhTZUt1eXZlMXB4bUowbytr?=
- =?utf-8?B?TmdsdURkQ01LZU80a0hGS1lZOUFySTM0TlllN05NN0xJdE1SNUYrRGtMOUtq?=
- =?utf-8?B?WWZoVks3UXY4SG1sZ3UrWkJMSDdOU2lSTkJuMTFJNC9qaHNFa2ZwaDBodTFC?=
- =?utf-8?B?L3ZqbVhUaXlWNWNLK0VCaDZUY0NxR1ZIbUFPM0lKRmhqQVlvanl3eGRsMTR6?=
- =?utf-8?B?MTAzeUU1dFNHNFgyOUI1SUdtb0VPM2kxZ2xYalQxU2s1eUpUQWRxd2NHSnVO?=
- =?utf-8?B?d3paSVF5UFNUdnVrL0FVMzFMYkNsM3VDL3dlb1JvMXRGcjlBSTdZVGlmVTVm?=
- =?utf-8?B?aDd6Rld3ZVk2ZlJWalBPZHoxOEhBNjNVeFFNbS93TXpHcVorNWVDeVBpanpX?=
- =?utf-8?B?QzhtTzBKdzllcW9UM1B2VUpzK05aVVBQQWNSUmlYZ2tZRU5rVnF4L05MeWpa?=
- =?utf-8?B?dHZONlpSdGdEM2xzZEIzSVFWRTc2VkRja1hFMW9VZXpmUzNpSGdZWmJYcnpr?=
- =?utf-8?B?KzYrWjZuNlFRdGdJSys1M3IvNUh2OWIrbktXd2Mva0ZMOUhSZEZ1Zz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49e121bf-7db1-4f2f-2fcc-08decac463e7
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NkpKc2V0cjNYdncya3AzSFdnOGRWYVRuL3Rza3ZpSk5FUmcxK3FkaUloUjRp?=
+ =?utf-8?B?dU9TNnk0eEl2aGc4ZWUxWTlWTFE5Q0dPTTg3Nzhja0tFYlFGWFdZREVHUG5D?=
+ =?utf-8?B?OFpxaHQ3bndqTndoRnZlK0w1czdMR2w2b0FOTksvL1h6MnJ1SlVrMDE3WFI0?=
+ =?utf-8?B?MmovSUZYOXByczJSVFI2WVdrd2xVd2U3MCt4eXdoTkpVbStwdXVwMWJOOE9t?=
+ =?utf-8?B?a2I0b2lWOGoxem1ROG9TRHp6WkVtelNlY0JUSmFlZFMvcGp5TEJOVU5ObFo5?=
+ =?utf-8?B?Z1JsNXBJVXcrWEw2aXd4bDgyUEMxYTk2SXBmMFRncFh6RnpVcDVieWkxSEla?=
+ =?utf-8?B?dU05Wk5yaGtQajFJSittQ1piRmI2R0x2MlF0WlNMM0F4Mmx3bVd6aURkUEI3?=
+ =?utf-8?B?Y1c3SFJtWmJCMkZwREszbWlBaUtVQVh4ZS9DSk5jV0EyT1NmVjRpM0RWejU2?=
+ =?utf-8?B?VmhyUGtEWktJSEZYMlh5dzdPVDdvSHZuN0lLVlRzUjQxTEFxZWk3dlZTa3Jp?=
+ =?utf-8?B?OGFVL0FqYXJ2TG05VktLYkRobnhqWGFnSnY3WDlMNk9RL0pkUUdjQTBJWHVQ?=
+ =?utf-8?B?VGxVT2ZsN0crckRUTTd5WG90NUVSNlVWU05TUDVCY2hkQ3VMcXNxM0J4M0lo?=
+ =?utf-8?B?MFlxa1JPZlF3S1NEdUFBQk05VUJZQm53a0hmQTlrTkltdkZzQi9DMytyRTRs?=
+ =?utf-8?B?c2lOVnB5VjArR2lEbUJOdVpGb09FZHMxNjYrTjBNN0xCK0h6NS9GNmx1TjZR?=
+ =?utf-8?B?UXdwSTBWd0dBTUhjRjF3RnZtY0p3ZGpib2twYXh1OVZJbXBpTm04bjBZdDBS?=
+ =?utf-8?B?VXdmU1grWkREUS9BeHpvQjdjMmtKekhNaWlEcTBnWnBSdmdaeWFRT1lNWkw3?=
+ =?utf-8?B?TnBIYithbVcvcnFXOFM2UlB2SGpKTGR1SGxMYnlDVHVUZ3cwU2tWSmJ0UHlQ?=
+ =?utf-8?B?N0JKaytRVkRtaXVWaUZncGhPbndqL0lQOXNLTTgvNzdSWHdDUjk2eWV3UERU?=
+ =?utf-8?B?MGlvc1prU3FNVCtTSkR6ZWNJWUxFUmhUVTVYalM2Mm9aYndieVJkb2hCWjhX?=
+ =?utf-8?B?VG9nenZvRnNFUHA2VlRaYkJWYUJVNUpybFZnZlREaXRreW9VYUJOaTdnaEc5?=
+ =?utf-8?B?MzRRc3dEU2NiSzUweHZUVTRsUk9PeUd2cTZqWS83Sk5RczhSb3NNdkZ2VEJI?=
+ =?utf-8?B?MWpRVW5ONEVCcHFaTDNqTHJrSDZ0OE5RQytaY1A0VUkzY2ZiS0swWWt1T1p6?=
+ =?utf-8?B?Vk9OYzdXWjB6TFZ4Zlc3U2taOExGWlI5N1dpcEM1S0pJMTZSbDhrWTZMcENN?=
+ =?utf-8?B?ejdpTWJXV2krdzJCQ2Z1bmxtNEF2aUd4azNJTWxCN3dweFBsOXR5YVo2YzJK?=
+ =?utf-8?B?UldqalFVS1RaMjhNbWVMNlFBZC9DMG1PTFFYWFNmN21aQU1nQXhaZUdCckhs?=
+ =?utf-8?B?bUJseDFHb3J2ZXpXYnVKTG55TldWYk95SnRHcmRRZ1l0Wmg4bUdweVkwbjNH?=
+ =?utf-8?B?SmlQdFh3ZWZCSjFuK3pCVzNyWlZHZ0o3aUQ3KzVDL1ZEc1hwMFpOYmMvRUtq?=
+ =?utf-8?B?cEc2K1lSNERkKzB1akZLRXJkZTFhOEt4cjVUeTgvRllsOHdkVjdLUlhIMEVa?=
+ =?utf-8?B?QkZpV09naHhOL0hlRVJMVS82TDEvMEMyUUp6K0JyMi9BK2ZZcjNPWGJqRDZa?=
+ =?utf-8?B?a2J0aWI5bVdSL0RRaHpwTDhrQnprR0JycGhWNkxDZ2NPcDdPeHNRREpFK0kx?=
+ =?utf-8?B?Nm1oa1hYV0tIL2hDZHdYTytObWZqelVwWTllenkxRUJESm9DeGh3WmttZzBM?=
+ =?utf-8?B?VE5oUGcxS3VNekk0a2FRWlVLYmpSZTVWODIrN3Y4RXNZVjlWOERSWE1yZDJH?=
+ =?utf-8?B?d0dZbS9wajRRSVZoVnAzSzRUb2JkQVZtYmk3NVBpQi8vRnBISDBsNmtlMlhs?=
+ =?utf-8?B?WDN5QU8rSzdmb1lZRFNsTU5aTmJZU0ZIWWFaUFAwTTcreWEyMWNGeERzS1M2?=
+ =?utf-8?B?bkxXMlk1eE5XMkptUjNpRVZxcWRyR0t3blprSE5IVFBtNGd1RUlLb05YajVv?=
+ =?utf-8?B?eXk0ZUhxaVZVR1o1anBWVS9VU2ZjejNkVlJ4YlVLYmE3eUk1RG9FZXIvYXBX?=
+ =?utf-8?B?ajh2RWY2NHl6TUFBTUlNNEwzRXcyL0swL0xLRlNQWjcxN2JOSjhzVjlxNlFU?=
+ =?utf-8?B?ZmplRXIrTkZFNEhONndscjVMTHpDR2YxQllBTFdxTVJaSTdEWkRzU1o1YlRH?=
+ =?utf-8?B?SE9EOUF6Um83ck40SEtNL2NTOXdERHArWUl3cy9hQXpXeXFrSnpiYng4eWxD?=
+ =?utf-8?Q?dUsO4WJyIZ7bAYIOMk?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: edca0677-d2d0-4b37-b6c7-08decac496af
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 09:56:37.2563 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 09:58:02.5027 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8JZTS0sjN6F+ehy4NrsBR0mPhWtm6hjyx6ZBfrIVQ+eTMRpA+sLz7wa49N0qnXDVuzUK8Um6awetlAly6fmOIw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB5022
+X-MS-Exchange-CrossTenant-UserPrincipalName: vSsOjyV9FOjSE1iOIY4KTnQE2/CbNysrTeThi9g/KGrPfnJ+LAgONmR9hvSdsdSY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6663
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,80 +146,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jun 12, 2026 at 11:42 AM BST, Philipp Stanner wrote:
-> dma_fence_is_signaled() returns whether a fence has been signaled
-> already. That function contains a fast path opportunistic check which is
-> not guarded by the lock and, according to Christian, cannot be guarded
-> by the lock without causing a massive performance regression.
->
-> This now means that dma_fence_is_signaled() can return true WHILE the
-> fence callbacks are still being executed. This is razy and has lead to
-> at least one bug solved in:
->
-> commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
->
-> Make this race impossible, by simply setting the bit only once the
-> callbacks are actually completed.
->
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> ---
->  drivers/dma-buf/dma-fence.c | 18 ++++++++++++++++--
->  1 file changed, 16 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index c7ea1e75d38a..2416cc86ce93 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -359,8 +359,19 @@ void dma_fence_signal_timestamp_locked(struct dma_fe=
-nce *fence,
-> =20
->  	dma_fence_assert_held(fence);
-> =20
-> -	if (unlikely(test_and_set_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
-> -				      &fence->flags)))
-> +	/*
-> +	 * First test the bit, so we don't signal an already signaled fence aga=
-in.
-> +	 * The lock protects against multiple parties setting the bit. The bit
-> +	 * is then set at the end of the function.
-> +	 *
-> +	 * The background is that there is a fast path check in
-> +	 * dma_fence_is_signaled() which does not use lock protection and can
-> +	 * return true *while* the fence callbacks are still executing.
-> +	 *
-> +	 * This fast path check supposedly cannot be guarded by the lock becaus=
-e
-> +	 * of significant performance regressions.
-> +	 */
-> +	if (unlikely(test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)))
->  		return;
-> =20
->  	trace_dma_fence_signaled(fence);
-> @@ -384,6 +395,9 @@ void dma_fence_signal_timestamp_locked(struct dma_fen=
-ce *fence,
->  		INIT_LIST_HEAD(&cur->node);
->  		cur->func(fence, cur);
->  	}
-> +
-> +	// TODO: we need some barrier here, don't we?
+On 6/15/26 10:29, Philipp Stanner wrote:
+> On Mon, 2026-06-08 at 20:32 +0200, Christian König wrote:
+>> On 6/8/26 19:59, Danilo Krummrich wrote:
+>>> On Mon Jun 8, 2026 at 7:34 PM CEST, Christian König wrote:
+>>>> That's why we need the RCU grace period to make sure that nobody
+>>>> is
+>>>> referencing the driver stuff any more.
+>>>
+>>> Right, and that's what Philipp tries to address, the requirement to
+>>> wait for an
+>>> RCU grace period is perfectly fine if it is only about freeing
+>>> memory, but it
+>>> can become painful if the fence private data contains data also
+>>> needs to be
+>>> destructed in some way.
+>>
+>> Yeah that makes sense.
+>>
+>>> IOW, if a driver signals a fence, it is lifecycle-wise reasonable
+>>> to destruct
+>>> the private data that is no longer needed (remaining users only
+>>> deal with struct
+>>> dma_fence) and having to wait for a full grace period adds sublety
+>>> and
+>>> complication that can be avoided with the proposed approach.
+>>
+>> Yeah, I've run into that when I tried to make the amdgpu fences
+>> independent as well.
+>>> That said, I'd like to ask the opposite question: What are the
+>>> concerns with the
+>>> proposed approach over (pure) RCU?
+>>
+>> For example the reason why we have the dma_fence_is_signaled() and
+>> dma_fence_is_signaled_locked() variants is because there is a
+>> measurable difference in some specific use cases for not grabbing the
+>> locks.
+> 
+> Yeah, certainly, not taking locks makes your code go faster. drm_sched
+> can sing a song about that -.-
+> 
+>>
+>> I personally find those micro-optimizations rather questionable, but
+>> the community agreement is that we should have them.
+> 
+> Yeah so this is most definitely broken and needs to be removed. Proof
+> is that various parties already need to work around that issue. You
+> just never know what drivers do. It's very conceivable that the Nouveau
+> case will often happen:
+> 
+> if (dma_fence_is_signaled(f))
+>   dma_fence_put(f);
+> 
+> 
+> This fast path check in my mind certainly breaks the intended dma_fence
+> design:
+> 
+> void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+> 				      ktime_t timestamp)
+> {
+> 	const struct dma_fence_ops *ops;
+> 	struct dma_fence_cb *cur, *tmp;
+> 	struct list_head cb_list;
+> 
+> 	dma_fence_assert_held(fence);
+> 
+> 	if (unlikely(test_and_set_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
+> 				      &fence->flags)))
+> 		return;
+> 
+> 
+> Modifying the bit is consistently done under lock protection, so
+> reading must be done, too.
+> 
+> Do you remember who wanted those fast path checks? Who is spinning on
+> that lock?
 
-You want a release barrier here, which we don't have currently, but you can=
- use
-`smp_mb__before_atomic`.
+Simona Vetter and basically the rest of the community.
 
-However note that barriers must be paired, so in order for the added barrie=
-r to
-do anything, dma_fence_is_signaled lockless fast path would need to have an
-acquire barrier, which we also don't have, so you need a `smp_mb()` there a=
-fter
-the flag test.
+And I can clearly say even if I don't like them that those optimizations are a must have.
 
-Best,
-Gary
+> In any case, that needs to be repaired.
 
-> +	set_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
->  }
->  EXPORT_SYMBOL(dma_fence_signal_timestamp_locked);
-> =20
+No, see my discussion with Simona on the mailing list. I need to dig that up as well, but it was around the time I added the same workaround to amdgpu.
 
+You are basically trying what I have been suggesting as well, but there is a very wide agreement that the current design is a must have.
+
+Regards,
+Christian.
+
+
+> A hacky lockless way might
+> hypothetically be doable by setting barriers, as I suggest here:
+> 
+> https://lore.kernel.org/dri-devel/20260612104251.2264707-2-phasta@kernel.org/
+> 
+> But note that the ops-decoupling in e.g. dma_fence_timeline_name()
+> already depends on lockless ordering mechanisms in
+> dma_fence_signal_timestamp_locked(). So we're already a bit fragile
+> here.
+> 
+>>
+>> So my take would rather be that the dma_fence_is_signaled_locked()
+>> variant goes away and we consistently call the ops pointers without
+>> holding the dma_fence lock and the driver implementations can then
+>> optionally take it if necessary.
+> 
+> That might work.
+> 
+>>
+>> I think for this we would just need to replace most calls to
+>> dma_fence_is_signaled_locked() with dma_fence_test_signaled().
+> 
+> That would not fix the cleanup race in Nouveau.
+> 
+> I do get the idealistic idea of fence->signaled really just
+> representing whether the hardware is done, without any further
+> guarantees, but having this fast-path lockless magic in functions
+> checking the signaled state is really asking for trouble.
+> 
+> So it would seem that both dma_fence_is_signaled() and
+> dma_fence_test_signaled_flag() need to be properly synchronized.
+> 
+> 
+> P.
+> 
+>>
+>> In the long term that would also allow cleaning up the container
+>> handling and simplifying the DRM scheduler a bit.
+>>
+>> Regards,
+>> Christian.
 
