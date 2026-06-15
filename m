@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3392DCD98DE
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 14:42:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 225BFCD98CF
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 14:42:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7189710E4A9;
-	Mon, 15 Jun 2026 14:42:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80E6D10E4BF;
+	Mon, 15 Jun 2026 14:42:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="UXl59XOC";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="RgtDjEfN";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011055.outbound.protection.outlook.com [40.107.208.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC62410E4C0
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 14:42:14 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011047.outbound.protection.outlook.com [52.101.57.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29DB110E4BF
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 14:42:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AaSi2wnJ7kTaqkbWVNrFGtDTJ1FVNDxCTtUUPmX+YV/7VG+ouMWYBAXHq01UuKU9pkGr7CjNzMmYK+cKXXJoo85kBUYwWPD/vSMbJEFHvUHTSs93WHW3qQQ3piKbtuhRloNLs9OmaNIffwjlGsSOEEtciLU04I22jjOz0uQqRFvAaPe1ULJJcuHrr3iPlVoRHrmnZaLn7iS/IZP7oRxiFMg13EQ8PfwhL2PaTP7qDl1V0u5AQCd4TUhsVN+lnLQxUag3W9V6oLClwiIYcckANU2wcVnK6IPBIqG/o54W6eXqQB4Cv+jubJyL/w8rXzu+32WaJhQNocIB42cltDqpVA==
+ b=DZZl3HSlskF8XWBm3qQqMUyLX50sPXoMynA++HMOG19WNesf5gJuqvJPRJEp/lzNhNahssdTP3xz0HHs4qgHxahU+E3kTRMp6GIyzieAu2ujo+didgr/aGxyz7DCKKbUP72+euQ6D/PH2VGV51bb4ZroP6pSKC0m84XaSBFg0I0n7ELdBkDuB40z8AULLmfdK8qsUQDc/GefYKpKaGyeAqkTcM8nikcJDdWfsm0zGYAJmBn6mUM7ix62UNKjQcb+PFs7kzxMRwIiUAHdVsB0ATxGAIT36Mn/2grUpypJ5/al+nRI5kHM7ozfxT2xf3/E6RN7n6UlZp+ZTzgW0pCrpA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TfZMpf7wKGYDz9HFap/PYSNDjkuQiw08uz/CLfDqVu4=;
- b=lxfZlmk2qmKhQl9GaZ15VFJ/wteinPklxNUxm+h6tkQbDybOjScjl2aoLjBXnGgXwSHPN3jCucBHl2hhDIxmKCIGllFT65fuhH7L09+1UKMw3l7DixorgEQmJMR8nPtMoJa7ib9pF/nPL6q9/6W8PDmanPEA3/Rr/PW6oWpW9SyJYa9HcrjJYy0EoeGKbKmPGAEgUzdvDYLMEMsuD4q/VFryCH7Ysr18OAguuIM5zAaau9THkz9xiEbXVdOxdrnQSTcWlGHoAnMjTT+72FbZYiegZwNMwENgjuqa2j8zZ/NDBjcAs8YBR1ZX4zykDgwviVefyg3OTzfcowKulgGCHA==
+ bh=pbVRsdLzGJ9/2tihhKZuoRkm+V1nkk2isC+reHIFo2I=;
+ b=j6embeasI7JXjmX9xwkPmhX7Dl4Cznredeyw+exGlzM9ajT5F+uH1yJbzU8O/kI7jlL6DXilL+ZzCa1HjIoWPoPHs6nRuZby0nEqUP+h+tP3lrNKYSVE2mFPuRTnJn9LtS8Uvby/vCuQstHaJr+cRAX8SXiJm+82uYOffMhWLJTynIcbbuSvp3WJJaadHULeOWN3m20EXTpxNhxHWnMfh5yUdSKuogZth1r8BJgq2cGYAc41Pr5nmhAOObl+rxBB448uaWFengO4EPbOUYMSvKM1UCr5ktVuQRQXN1Oes8M78RS5tC1FpYvG+PvCh34u2kAbCruSjP5U6+upPYy1Sg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TfZMpf7wKGYDz9HFap/PYSNDjkuQiw08uz/CLfDqVu4=;
- b=UXl59XOC8+j2worWd6C9LbnSOXolhK6Ci+trKxa7uMEXMaE0vLEne92rqigEcWIbrTPwlctlrG/4LniT4vaw5HXGJMrpysfi+D6TdRcgkE3l+yNa/HTQbjnEawrAZuy7JHHMekmeJLDn+5aOfTJMJOnvf/Ew5DlBgJUMHacdHr8sUzHpH4hHyaCT8illMta2WYRfwhkMR0/hLN/q8M/mNtqUi3WiWHJwXfhaHRaH/68fb97kqI3WEXuqadCXA6U9PKbwPj+2Af3/nXKXcnTCruovvMqqDxAO3qBjeWWYd7VRfqkTRyVF1R8dgSn2ipTiHzajyyv04IVHws6Kel6BJw==
+ bh=pbVRsdLzGJ9/2tihhKZuoRkm+V1nkk2isC+reHIFo2I=;
+ b=RgtDjEfNgGsxN0umPg6qjXMygq+Q0ZYLWiyzJNIrgHH4qvduSW+qH3Nsj+SZ17HkZsm88f1uBkuuKoE5cGGKckCdBScDv3mjQF+5suDdCdgGQMx+Wv2aSWsUyL5/XCbZgQyTRJm2wdlkT4LycxNZcr2EfoLc56pAdrlFPbQBHiWONSsRkvQJGbtcmMfD+uEemgJKGDq9hTbyuodq4dnzB855GOfypDv0IZIDUuZYcQghrZ/wIuMov6Kxw+t63B9/bBZiAh2bl8WjRyw1nZLBfTjRyckFprhmQGeyKGf1rKL7x8SJAV615nJ6IYRXlXjFxBgoF8+XSehTM6B7WzADng==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
  by LV8PR12MB9668.namprd12.prod.outlook.com (2603:10b6:408:295::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.17; Mon, 15 Jun
- 2026 14:42:09 +0000
+ 2026 14:42:13 +0000
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
- 14:42:09 +0000
+ 14:42:13 +0000
 From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Mon, 15 Jun 2026 23:40:49 +0900
-Subject: [PATCH 09/13] gpu: nova-core: wait for FSP boot earlier
+Date: Mon, 15 Jun 2026 23:40:50 +0900
+Subject: [PATCH 10/13] gpu: nova-core: split FbLayout into FSP and non-FSP
+ versions
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260615-blackwell-fixes-v1-9-f2853e49ff7d@nvidia.com>
+Message-Id: <20260615-blackwell-fixes-v1-10-f2853e49ff7d@nvidia.com>
 References: <20260615-blackwell-fixes-v1-0-f2853e49ff7d@nvidia.com>
 In-Reply-To: <20260615-blackwell-fixes-v1-0-f2853e49ff7d@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, 
@@ -60,73 +61,73 @@ Cc: John Hubbard <jhubbard@nvidia.com>,
  linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
  Eliot Courtney <ecourtney@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TY4P301CA0037.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:2be::6) To BL0PR12MB2353.namprd12.prod.outlook.com
+X-ClientProxiedBy: TYCP301CA0074.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:7d::14) To BL0PR12MB2353.namprd12.prod.outlook.com
  (2603:10b6:207:4c::31)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|LV8PR12MB9668:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8b268263-ae85-4c26-9cf8-08decaec4744
+X-MS-Office365-Filtering-Correlation-Id: 8a3fb82c-857e-4728-9271-08decaec49ed
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|376014|7416014|10070799003|23010399003|366016|1800799024|11063799006|3023799007|6133799003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: ROq6n0aCPigvZZlMlrhvFZ0Sn7qj/vXvAhTLo2Kb7g06p9UqejVHiCxQoOoOLYv/iuERa5kLwbhSyx8nLCD7Y7o8cPR5UYzI1khBYP23mymVIVG1XoGPnfFEPrR0eUosV/bc9p00krHeUjEebAfik3nS7eUH5xVtkFyaYpP8wH8hx3Xx+LCG3qzvtGvQdArsV9fDNqfHJgNNKofPahwaEViRRNmp7+Y4LbB7q8lEGVHjvJQxyVLTgY3E+J+ViCr9FtlkwK2O2Gy0c07CJUjYReaA37fcJ4mpLWKnnt1+lr8RqbJ048gRhPg59yiDM7id0elukbfbosDwXiPoqIdJY87dhAOoDd9Yj1aAStyS7S8jjnScTk49DpUjwJDOuNjqJuI6cZLRHXId6Tj3G5K22pwVr3pSgSLJSm3AJ7Mj4Vlxah0ajd7jTVqft8LawZcEQ6Emk/ewBQZboshRi4MFG5peAFR9Bp4mLumnjOc0kUUguM+GhylDzc6NmqML+0tAG+KRlkett8Mlnbx+n4Fs9BkyW+9L/e+3Zkti0hSbA6qC3i5EAQaK1VHHycqu8wgK7ANRQ2CWe9J9xxdno/u0wOlqY2hJraxk6pQ0Wgzfj2p362YrX3xKgXl2vsIuxS+CM+LE8biWfWaj+sf2UYxG9z+50pML2U/7lgw7CcVcnkIWryH/v1JcoEoYcPT/R3x5
+X-Microsoft-Antispam-Message-Info: gxBbN8Yo4onONaNoZQUdc8h+6HyzdTGktFf4uAGod6/IUrk2Eko9diHUNu24fpclbyz1lPfdFpUTEOtMK9RvajZehu2APoHy4G7tM/jezYXAd3GGj3PrVaXj50HWkMSs3ZAoLgyhjYJ+i9vwu7K4LyjO/M21v5d/Et1DrjIIeDcTN57hJ0a9MM2kVwjEMvWy3g1NjJU4ODmH6m466LiU/jIcyeb9cVwEzzXj4cfr/dgGiwRV8x50PNfgNKnNpO3pP92GX77d6kcGr1i44N4aSrf4LkD68ABBWXNxUV8N+aMyeb79TcE7XMF7X8vjljghfJESJ9KghwrU7h42o04W+rqyPA9jxFNW8DengfLX0NORG1wzkXkdSRWnrThXmUraYcMbgkBL2N2Cfge7lwubqgrI3yrWwHkoXH5vLDH8CYm4uk6+Ri5tUvXtE/4n/Yz7jwRRJrLX9bJFLbtpKFkUZXPMHHChNM6LS3+s6RE+6yG+CBGtTjy2a/RdNaTJf7oTlNpVH83lfZX+JFNHbrH9qvAa5qnIvfKlf/NvsKloeLrXce1MccROBtyv6GdDBQOrZRWB99zaMfzQR66u6pj3oDyo6pj4q3gCgfqpjmfNTknBbPqhcY/zcs63Rk3wE8dJI4hUaNbM/zlpgPPlb/zXggPZrtc59YL8qkpkD/FVr8hHJaNBcP3IdvtFlezIwBRb
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(376014)(7416014)(10070799003)(23010399003)(366016)(1800799024)(11063799006)(3023799007)(6133799003)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QUNuVlRJRSs3dXBmTGRWM3M4bTVPUmczNFVEWWFDUjlkUGlUeU5XNS9odnJx?=
- =?utf-8?B?NHdUY21PdkQ3M0duKy8wM3NoeUQ0ZS84S2k1Y2Z6RTNiRnF1cUxmSnBldndB?=
- =?utf-8?B?cTMrbUNtQXAreXlQbWxORlQzOTMwYjQyNVkxWXdsUGRRUHM4bWxpNnBrWjh1?=
- =?utf-8?B?dTUzM2Q0VUxBT2t0NjdCMVcxUWs3V2pTVXdBYW5GVWgyZExkb3VZTUhsZ0ND?=
- =?utf-8?B?SlVycUcrT0huanM2b01vV3kwUEFYNzliK1FBT0llNmVDUWZTcUoxYkJveTR3?=
- =?utf-8?B?R29jYmlPZUVEWW82OWQ3RlFSZlNSd0lveHh0OStybFRSR1NwTk5WeTFJMlU2?=
- =?utf-8?B?dmZ0KzU5Rmt0VUJ6Qkd6QmhKZmtDbkhnaTNsMko4SDQxVksyVkx6cHJSUThk?=
- =?utf-8?B?UG1GQVJuNVdRazE3RnN4c2xMUjZ0ZDE3K3dBdjdQUThMM1A2VlZ2QjUwY2Vv?=
- =?utf-8?B?YXNJbjg3MkNCMkhMUm4xRG1CdlBMdjBHOXV0MDNZcmVaa3JLdWdRYlVOL0lL?=
- =?utf-8?B?YnkyZlBwanM0b1NhSjNuZGlCR2RuTmVrV0NVbWF2clcvOGxOSUtmV2Y2S0NK?=
- =?utf-8?B?QlcxKzFYYXNib3lUR2FWY2QwNTRPbFhGeGhRTlJ0VWJRTTFJeExoQWhKb3dY?=
- =?utf-8?B?clRxamFhMUtuRS9WWEVFZHk2cXRFd01hUGw5Qk1jRzY5SERhVFlkeS9jdWNE?=
- =?utf-8?B?WnZxOHZVaCtGbnFOVXBUTVNZb3ZMUDYvZk83WmJhWG12VWd0eDlsMmZIWVBO?=
- =?utf-8?B?c1FGcGpud2l3WFZ5Vm5aZkR2NnZUS2JwREQ5b2NVc0pSSnlPeVVlTEZZVDVq?=
- =?utf-8?B?UnlCNXU2ZXFQdGdXd2VGZ2xQbGhiU0xjZURybEtJM1RTdmgrUXYvd0h2ckxw?=
- =?utf-8?B?N3BXZTU0Zkpzcm9PVzgrcEgzRVBzaWZ6bnpBMDJRdXQzaTloZDM3MklQWDdE?=
- =?utf-8?B?MVhpaThoUWhYR1lVZVFrazFTZ3V1YmFsREJIelVqS1pnSnN6Y3hPMEI5akE4?=
- =?utf-8?B?SVJoSHpkNWdpMUlGS0J1TFJKNUhXemdaNE1qUHlHNjZKRnFkV041UHVXM2or?=
- =?utf-8?B?RlNmMXQvNzJ3QkluaDFGdW9WNzI3cm5nNmZCT0JaOE5OUmtVWkF0UjNiTzlC?=
- =?utf-8?B?YU9TaWwrakRmN284K0RtTnpPbitRc0VnZUo4ZmxNSlhBeDVuaHBaK3I1azJZ?=
- =?utf-8?B?VGxjZXhjS2kwMHF4OXhGQXc2cWJtOTY5ZmZIVndISEMyaWt4QkpHUDBNK3pu?=
- =?utf-8?B?YW1mR0tnMGtGcUFxN2JnQTVENHRSMHJoMkVoc2JNaWVKNitlbnI1dEx5Z3Vq?=
- =?utf-8?B?VHpTMjh6VzFxblJQQzZPS05jdWhhelRzV3hWRDhIRzZOY0djZFJFT3RLM1dD?=
- =?utf-8?B?Rkt0dUhJS1phY3lEbWMwRzRVTGZyTlpGVXcvaTVmTlAzUmJLQlV6YmZiWnhC?=
- =?utf-8?B?Njd3cytHZU9iZnExdU5nemNjS2JCbU9wZ0ErZTBCeGtjTWZGS2R1QjhySFdj?=
- =?utf-8?B?YmQ1SnptcUwvZ1VGWHcxZi95TVJYT2lrVjZYUFkvUmw3bFlWODg3UE9iQWZG?=
- =?utf-8?B?RlpMTDVtenpYSjh1WWxnRlZ3aDdNRmdsSTVmMUpCR0RCR3hVMStycWQyM3BX?=
- =?utf-8?B?TWFvakUwR1Q0dWNyaHloUDI3NmhjU0cyNjVhN0tDeHI5RkhFQVNtb2RsYkhX?=
- =?utf-8?B?NEkzU0xXMmsraHYrcVRQeVRsUVZVbFBiTlFFK3JXb2RxK2NnVmNjdkR3Mk1D?=
- =?utf-8?B?bWxhNTh5d2xGT3BVNW44UFJVcWlaSHNlWHpYV0pveWhWQmQ0QmlvUTlST3ZI?=
- =?utf-8?B?UWszcEdqTVM2ZmpTYWZJaVhWRzBta0prQW50MnRhN0t5eXVkZmNoaXQxcE5x?=
- =?utf-8?B?MXg4eG1TTi91dHorK3Ezd0tKOExSOGZuT2FwMTlaR1kxSFhZWlpuRFVzOFNZ?=
- =?utf-8?B?SkhmdG1Ib051T1I3R3hYdjc2a0VjL0g3aWRjZCs1NUV5M216SUlGZEtlUFdN?=
- =?utf-8?B?bDNUSG5OS05ZenVrL2x5d0QyMCtqYWliRWZEcXFCV1BpZVo2MnBqSnFpRnJt?=
- =?utf-8?B?OC9DRmx6VTR2a0pkTzUyVmZqZy8veExXUkprT0lTTGNzNC9XcEV3NVAvQzNI?=
- =?utf-8?B?cnd1ZmdZRERDVUt0Q3lEVkp6UEdTcFpHb3FXa1gyUERBYWZ5WlAyNVpHeTYw?=
- =?utf-8?B?Q0VNZVFNM1greGJobEZNclY4bkkvRWlTU2lNVmdpRW9vRDJ3UnlucEJPZlBF?=
- =?utf-8?B?U2hReFcrSXVPcS81QStTK3h5Y0JGYy9rTzh2M2dVWm1zTDJSRjdmUjloSE42?=
- =?utf-8?B?MkZNdkFQalB1ZDE4c2I2SytqcTBGU00vZmpSNXhFZS80TFVVSkRFZzlYaWJa?=
- =?utf-8?Q?prNo42W1raLNs+q4x+QwetYFvr2wtiiwLWxQsdW9oj9OI?=
-X-MS-Exchange-AntiSpam-MessageData-1: hGh4tlEE/XtXwg==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cTQrTXYwMGMrLzM4eVI5M0JuV3dnTnJ5M1NDQzVESFNIVDZDUnRlMHJ3Qytu?=
+ =?utf-8?B?cFExYlZqVjlkQ1lTZnFib2RLTXZNOTdvb04zR0dmWUw0ejBCZU9FM0FNMG8z?=
+ =?utf-8?B?bjQyVEJJRFBlaEpOZksvdXpuWHRRU3ZRQ2t4OVIyU1N2cStITmN4blZsVitE?=
+ =?utf-8?B?c3hqelBZSnEwbk9sK1ZPMm1KbkNPRmliRFZRbUxEWVNTcE52S0Z0aDI0SVpv?=
+ =?utf-8?B?RzBTT2U5cWVYM2FPVHJBTEREeFQ4YUFNdGV4V0FldVl5T2lDVHIrVGthWEpN?=
+ =?utf-8?B?Sk9ZK213Tys4NHpCbEt4SW13ZHVwS1pIMTRqWkJBTHpGMHN5UjdTYytyYXRr?=
+ =?utf-8?B?T3IrSk1LTlRUV1ZJMHVRM0VIajBHeDNCVXRod0tVMnlhL1JQdFFMNzErSDY3?=
+ =?utf-8?B?ZmVhRDVlNzkxRzdvSkRsMWx2ZGd1ZDByTC90WWx5RGl1YWhRN1B5ak1BQmFS?=
+ =?utf-8?B?TlJPdzlzeWkveGZwL2VUdXEvK29zZHFXQk9XRThzbEV1R0ttbGlmL3RQdXJD?=
+ =?utf-8?B?VkRaeXQ1Y3pmN2VhOW11VVdta0l3RG50ODQxNE5sck9XOVNKZkF5WE14S3ZU?=
+ =?utf-8?B?cHBmOG1PZlVZWEJrRjhhbUFlVU5saXZJNk1jaXpvbEtYbmM1VFhnZnJzbWJk?=
+ =?utf-8?B?cDArTmZSb2pBYmhkS3p1MjdiZFdHb3AvVEFmOG55eFpIbjhtSGJhVEQraDZi?=
+ =?utf-8?B?QnFJVnRGWTg2TC9FTWNLUmZ6WSt2a1N3OVA5aTl6c3JhMXpTeDJ6YWNQQkMw?=
+ =?utf-8?B?Q1BKeUh6VUlDL2U4cUJrQzlzTCtrcWdVZGkyc0c3KzByTTdnWkJOTnZrS3lR?=
+ =?utf-8?B?bTFUTjRzK2RsV2RqV2ZzNDY0RlVmaGdPbXY4L2ZUaGJST3pNajY0QkIrYTVn?=
+ =?utf-8?B?Wmp6RXBVdGI4L3lwVkRjZFphbUJ3NGFFZk4rUGk3bDg1K3kzOXJYbDlFV0d1?=
+ =?utf-8?B?TjArUE9oRXhzelR5eXRaUTVvVFplOWU4eWVWTEk2bEcwajJ5OFZOSGxqUWgr?=
+ =?utf-8?B?Y090T3h0U05zUzZPN0tVMDBHTm1PMkhNY2FOR3B4UEZacEsvbEhGbm9VNXhk?=
+ =?utf-8?B?NWtaV2xac3BLbk82Z05Sdm8xaUlPWkRMaDFLNjVyc0w4Z3V4U0dWRnppYnVn?=
+ =?utf-8?B?VEFWWW1McFhBbHZsUmovNnBQY0d1UjlpcjFVM1BKcTV3LzBlcGZqbjFaMmNG?=
+ =?utf-8?B?TjFTSXdtejRqMzFMcE5MZjlaZ2hEcnZheFFlbFViNVYwQjJKUnpQQ295WGo2?=
+ =?utf-8?B?V2p5bENnNlBiV2xPcTllZWZYZ3oxdjJIMmd1Y21NSEx4ZGcrSmUxZU9iR1hJ?=
+ =?utf-8?B?bDBiY25uaDJtNnpTTDBLVTdUU2MybUVyQ1huL2NGbXl2TVFiME9jVzFqTVRp?=
+ =?utf-8?B?aHhxTUhSUmNRWCtrSGt6MzJpbmpoSWFvZDUva1UvaTEvYWd5eW15N2FIaVBX?=
+ =?utf-8?B?T1puS3ZRTFdJVm9qK1FBdUcxWEZlcW0ya0h3QTFUYWxDbjg3ZkE0OVlXTU1V?=
+ =?utf-8?B?QmFaUy9yc09rTytsVjQvaThadExlZWE4NkZITCtkVWNQS2N6WHFUU2VCbHhY?=
+ =?utf-8?B?dUdwOGtyb2luandOak85dWhaRzFtVmhHdWo4dGl3R1cxMVpodi9CRSs1MzhN?=
+ =?utf-8?B?Uzk0OXVOaGw0NzNFVnBqY3FLTmlRKzdXMEJ3L0xGbTYwUlBWUFlYdE4vS1pY?=
+ =?utf-8?B?T1g4WTVtaDIvdVVNSFMza29HSzNpV0plaFcyQThXSys0UXFZRDVSS2pXaE5G?=
+ =?utf-8?B?U3A5WUEyTHFBdUlCTHFoWVdXMVRORE1lUnpxWFY3dTk2bTR5dE9ZTzZUSDFE?=
+ =?utf-8?B?MnlyWFYzRGUwWWNlSGEzT0t0L0lkZE8zR0lwUVcrdmxsRVU2azNlQ2crUkt1?=
+ =?utf-8?B?TWVOaTROckF1czdNMm9XWGRBYktIMGdqRmk1L2dCWllaeThUR3MzN2JBVmxL?=
+ =?utf-8?B?YVFLRE9oMVRoQkNjZnhaTUwyM3dnVnZyck1vMjZDY0ZJMWVRZTd1bXRGbUF4?=
+ =?utf-8?B?cWRmazJUWURha3o3MmdyclNlc0ZnYkZhMEFaMVBsWEpFTmdUbStncHI5TVpY?=
+ =?utf-8?B?OElUODN1NlFKWGwvUWFVbmxzMUR1T0NBN3pTV0Jiak1ocWFzWlNpMWRtVDA3?=
+ =?utf-8?B?YU1Hcjhpc0kvQmhta3V5dVlCR0JYU09pR01kQTBGK3hiYTRYYksxeHdVcVRq?=
+ =?utf-8?B?VDgxZHlpRm5GaWl2UWRuelc3TXVPc3hDemt6eDN0VytWMFppZHp1ZDNpd2Ns?=
+ =?utf-8?B?Wk5xT1YzbDlpRmRvZzhUU2pPeFJlOHF0RUh0MXQ2WmQ1eFoxT1lLQ1ZmYy95?=
+ =?utf-8?B?U1pSVU00WGx3dUNCVlpjOWphVWFDVy81RnRIU25kbEhIQU1Cb3BXRWhHcUc0?=
+ =?utf-8?Q?1S6foKHs5LkPCwZyxPd4bzOJUPijYxePhjT+7DN1UWw1N?=
+X-MS-Exchange-AntiSpam-MessageData-1: f84VyQjGjBKwAg==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b268263-ae85-4c26-9cf8-08decaec4744
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a3fb82c-857e-4728-9271-08decaec49ed
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 14:42:09.3072 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 14:42:13.5812 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Oz/CW8Jfjb+oczOaGzxOCoOeMcw/XtdFozfBX9tFwdNelKgUoVClX6jbtL8Nc8VXEu3FRHuR7AvrfGcnFne5eQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: B9ZHYclxNmkglQRh3csmNHqLs+yqExGPbSzKVZHo2ygXqEpxw4bqLKqyUBKKmXoboZJpAvURu1vL31Q6USrlFw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9668
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,275 +144,478 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For GPU architectures that use FSP CoT boot, ensure that FSP itself is
-booted before trying to use it. In particular, accessing registers like
-`NV_USABLE_FB_SIZE_IN_MB` for `FbHal::vidmem_size` should happen after
-FSP is booted. Currently, we wait for FSP boot too late. So, move this
-wait to a new preboot phase.
+`FbLayout` is currently used for both pre and post FSP architectures. It
+contains ranges for each region of framebuffer, but on post FSP
+architectures, only the size is actually used by GSP. The offsets are
+not decided by the driver. So, for post FSP architectures `FbLayout`
+contains essentially guesses for the offsets. Instead, make separate
+types so that we only store the information that's actually needed,
+rather than keeping around offsets that may not be correct.
 
 Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- drivers/gpu/nova-core/fsp.rs           | 40 +++++++++++++++-------------------
- drivers/gpu/nova-core/fsp/hal.rs       |  4 ++--
- drivers/gpu/nova-core/fsp/hal/gb100.rs |  4 ++--
- drivers/gpu/nova-core/fsp/hal/gb202.rs |  4 ++--
- drivers/gpu/nova-core/fsp/hal/gh100.rs | 10 ++++-----
- drivers/gpu/nova-core/gpu.rs           |  7 +++---
- drivers/gpu/nova-core/gpu/hal.rs       |  6 +++--
- drivers/gpu/nova-core/gpu/hal/gh100.rs | 10 ++++++---
- drivers/gpu/nova-core/gpu/hal/tu102.rs |  3 ++-
- drivers/gpu/nova-core/gsp/hal/gh100.rs |  2 +-
- 10 files changed, 46 insertions(+), 44 deletions(-)
+ drivers/gpu/nova-core/fb.rs            | 69 +++++++++++++++++++++---
+ drivers/gpu/nova-core/fsp.rs           | 15 +++---
+ drivers/gpu/nova-core/gsp/boot.rs      | 10 ++--
+ drivers/gpu/nova-core/gsp/fw.rs        | 95 ++++++++++++++++++++++++++--------
+ drivers/gpu/nova-core/gsp/hal.rs       |  4 +-
+ drivers/gpu/nova-core/gsp/hal/gh100.rs | 10 ++--
+ drivers/gpu/nova-core/gsp/hal/tu102.rs | 24 +++++----
+ 7 files changed, 170 insertions(+), 57 deletions(-)
 
+diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
+index 725e428154cf..facecb8b411f 100644
+--- a/drivers/gpu/nova-core/fb.rs
++++ b/drivers/gpu/nova-core/fb.rs
+@@ -144,11 +144,29 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+     }
+ }
+ 
+-/// Layout of the GPU framebuffer memory.
+-///
+-/// Contains ranges of GPU memory reserved for a given purpose during the GSP boot process.
++/// Framebuffer information required for GSP boot.
+ #[derive(Debug)]
+-pub(crate) struct FbLayout {
++pub(crate) enum GspFbInfo {
++    /// Concrete framebuffer ranges for host computed framebuffer layout.
++    Ranges(FbRanges),
++    /// Sizes of framebuffer ranges for GSP-FMC computed ranges.
++    Sizes(FbSizes),
++}
++
++impl GspFbInfo {
++    /// Computes the framebuffer region information required for boot.
++    pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, gsp_fw: &GspFirmware) -> Result<Self> {
++        if chipset.uses_fsp() {
++            FbSizes::new(chipset, bar).map(Self::Sizes)
++        } else {
++            FbRanges::new(chipset, bar, gsp_fw).map(Self::Ranges)
++        }
++    }
++}
++
++/// Framebuffer ranges needed for GSP boot process.
++#[derive(Debug)]
++pub(crate) struct FbRanges {
+     /// Range of the framebuffer. Starts at `0`.
+     pub(crate) fb: FbRange,
+     /// VGA workspace, small area of reserved memory at the end of the framebuffer.
+@@ -163,15 +181,17 @@ pub(crate) struct FbLayout {
+     pub(crate) wpr2_heap: FbRange,
+     /// WPR2 region range, starting with an instance of `GspFwWprMeta`.
+     pub(crate) wpr2: FbRange,
++    /// Non-WPR heap, located just below WPR2.
+     pub(crate) heap: FbRange,
++    /// Number of VF partitions.
+     pub(crate) vf_partition_count: u8,
+     /// PMU reserved memory size, in bytes.
+     pub(crate) pmu_reserved_size: u32,
+ }
+ 
+-impl FbLayout {
+-    /// Computes the FB layout for `chipset` required to run the `gsp_fw` GSP firmware.
+-    pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, gsp_fw: &GspFirmware) -> Result<Self> {
++impl FbRanges {
++    /// Computes concrete framebuffer ranges required on non-FSP booting architectures.
++    fn new(chipset: Chipset, bar: Bar0<'_>, gsp_fw: &GspFirmware) -> Result<Self> {
+         let hal = hal::fb_hal(chipset);
+ 
+         let fb = {
+@@ -270,3 +290,38 @@ pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, gsp_fw: &GspFirmware) -> Resu
+         })
+     }
+ }
++
++/// Framebuffer region sizes needed for GSP-FMC boot.
++#[derive(Debug)]
++pub(crate) struct FbSizes {
++    /// VGA workspace size, in bytes.
++    pub(crate) vga_workspace_size: u64,
++    /// FRTS size, in bytes.
++    pub(crate) frts_size: u64,
++    /// WPR2 heap size, in bytes.
++    pub(crate) wpr2_heap_size: u64,
++    /// Non-WPR heap size, in bytes.
++    pub(crate) heap_size: u64,
++    /// PMU reserved memory size, in bytes.
++    pub(crate) pmu_reserved_size: u32,
++    /// Number of VF partitions.
++    pub(crate) vf_partition_count: u8,
++}
++
++impl FbSizes {
++    /// Computes the framebuffer region sizes for GSP-FMC boot.
++    fn new(chipset: Chipset, bar: Bar0<'_>) -> Result<Self> {
++        let hal = hal::fb_hal(chipset);
++        let fb_size = hal.vidmem_size(bar);
++
++        Ok(Self {
++            vga_workspace_size: u64::SZ_128K,
++            frts_size: hal.frts_size(),
++            wpr2_heap_size: gsp::LibosParams::from_chipset(chipset)
++                .wpr_heap_size(chipset, fb_size)?,
++            heap_size: u64::from(hal.non_wpr_heap_size()),
++            pmu_reserved_size: hal.pmu_reserved_size(),
++            vf_partition_count: 0,
++        })
++    }
++}
 diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
-index 3f3211eae4d0..bf0baa5ac4ae 100644
+index bf0baa5ac4ae..6778e5546cee 100644
 --- a/drivers/gpu/nova-core/fsp.rs
 +++ b/drivers/gpu/nova-core/fsp.rs
-@@ -49,8 +49,7 @@
-         NvdmHeader,
-         NvdmType, //
+@@ -30,7 +30,7 @@
+         fsp::Fsp as FspEngine,
+         Falcon, //
      },
--    num,
--    regs, //
-+    num, //
+-    fb::FbLayout,
++    fb::FbSizes,
+     firmware::{
+         fsp::{
+             FmcSignatures,
+@@ -134,14 +134,14 @@ struct FspCotMessage {
+ impl FspCotMessage {
+     /// Returns an in-place initializer for [`FspCotMessage`].
+     fn new<'a>(
+-        fb_layout: &FbLayout,
++        fb_info: &FbSizes,
+         fsp_fw: &'a FspFirmware,
+         args: &'a FmcBootArgs<'_>,
+     ) -> Result<impl Init<Self> + 'a> {
+         // frts_vidmem_offset is measured from the end of FB, so FRTS sits at
+         // (end of FB) - frts_vidmem_offset.
+         let frts_vidmem_offset = if !args.resume {
+-            let frts_reserved_size = fb_layout.heap.len() + u64::from(fb_layout.pmu_reserved_size);
++            let frts_reserved_size = fb_info.heap_size + u64::from(fb_info.pmu_reserved_size);
+ 
+             frts_reserved_size
+                 .align_up(Alignment::new::<SZ_2M>())
+@@ -151,7 +151,7 @@ fn new<'a>(
+         };
+ 
+         let frts_size: u32 = if !args.resume {
+-            fb_layout.frts.len().try_into()?
++            fb_info.frts_size.try_into()?
+         } else {
+             0
+         };
+@@ -333,15 +333,12 @@ pub(crate) fn boot_fmc(
+         &mut self,
+         dev: &device::Device<device::Bound>,
+         bar: Bar0<'_>,
+-        fb_layout: &FbLayout,
++        fb_info: &FbSizes,
+         args: &FmcBootArgs<'_>,
+     ) -> Result {
+         dev_dbg!(dev, "Starting FSP boot sequence for {}\n", args.chipset);
+ 
+-        let msg = KBox::init(
+-            FspCotMessage::new(fb_layout, &self.fsp_fw, args)?,
+-            GFP_KERNEL,
+-        )?;
++        let msg = KBox::init(FspCotMessage::new(fb_info, &self.fsp_fw, args)?, GFP_KERNEL)?;
+ 
+         let _response_buf = self.send_sync_fsp(dev, bar, &*msg)?;
+ 
+diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
+index 8afb62d689cb..670a94545b61 100644
+--- a/drivers/gpu/nova-core/gsp/boot.rs
++++ b/drivers/gpu/nova-core/gsp/boot.rs
+@@ -19,7 +19,7 @@
+         sec2::Sec2,
+         Falcon, //
+     },
+-    fb::FbLayout,
++    fb::GspFbInfo,
+     firmware::{
+         gsp::GspFirmware,
+         FIRMWARE_VERSION, //
+@@ -114,10 +114,10 @@ pub(crate) fn boot(
+ 
+         let gsp_fw = KBox::pin_init(GspFirmware::new(dev, chipset, FIRMWARE_VERSION), GFP_KERNEL)?;
+ 
+-        let fb_layout = FbLayout::new(chipset, bar, &gsp_fw)?;
+-        dev_dbg!(dev, "{:#x?}\n", fb_layout);
++        let fb_info = GspFbInfo::new(chipset, bar, &gsp_fw)?;
++        dev_dbg!(dev, "{:#x?}\n", fb_info);
+ 
+-        let wpr_meta = Coherent::init(dev, GFP_KERNEL, GspFwWprMeta::new(&gsp_fw, &fb_layout))?;
++        let wpr_meta = Coherent::init(dev, GFP_KERNEL, GspFwWprMeta::new(&gsp_fw, &fb_info))?;
+ 
+         // Perform the chipset-specific boot sequence, and retrieve the unload bundle.
+         let unload_guard = hal.boot(
+@@ -125,7 +125,7 @@ pub(crate) fn boot(
+             dev,
+             bar,
+             chipset,
+-            &fb_layout,
++            &fb_info,
+             &wpr_meta,
+             gsp_falcon,
+             sec2_falcon,
+diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
+index 4db0cfa4dc4d..042b0122e98d 100644
+--- a/drivers/gpu/nova-core/gsp/fw.rs
++++ b/drivers/gpu/nova-core/gsp/fw.rs
+@@ -28,7 +28,7 @@
  };
- 
- mod hal;
-@@ -229,41 +228,36 @@ pub(crate) fn boot_params(&self) -> &Coherent<GspFmcBootParams> {
- 
- /// FSP interface for Hopper/Blackwell GPUs.
- ///
--/// An `Fsp` is produced by [`Fsp::wait_secure_boot`], which only returns once FSP secure boot
--/// has completed. It owns the FSP falcon and the FMC firmware, which are used for the subsequent
--/// Chain of Trust boot.
-+/// It owns the FSP falcon and the FMC firmware, which are used for the subsequent Chain of Trust
-+/// boot.
- pub(crate) struct Fsp {
-     falcon: Falcon<FspEngine>,
-     fsp_fw: FspFirmware,
- }
- 
- impl Fsp {
--    /// Waits for FSP secure boot completion, then returns the [`Fsp`] interface.
--    ///
--    /// Polls the thermal scratch register until FSP signals boot completion or the timeout
--    /// elapses. Returning an [`Fsp`] only on success guarantees, at the API level, that the
--    /// interface is not used before secure boot has completed.
--    pub(crate) fn wait_secure_boot(
--        dev: &device::Device<device::Bound>,
--        bar: Bar0<'_>,
--        chipset: Chipset,
--    ) -> Result<Fsp> {
-+    /// Waits for FSP secure boot completion. This must be called before trying to create the `Fsp`
-+    /// interface or read any registers dependent on FSP boot completion.
-+    pub(crate) fn wait_for_secure_boot(bar: Bar0<'_>, chipset: Chipset) -> Result {
-         /// FSP secure boot completion timeout in milliseconds.
-         const FSP_SECURE_BOOT_TIMEOUT_MS: i64 = 5000;
- 
-         let hal = hal::fsp_hal(chipset).ok_or(ENOTSUPP)?;
--        let falcon = Falcon::<FspEngine>::new(dev, chipset)?;
--        let fsp_fw = FspFirmware::new(dev, chipset, FIRMWARE_VERSION)?;
- 
-         read_poll_timeout(
--            || Ok(hal.fsp_boot_status(bar)),
--            |&status| status == regs::NV_THERM_I2CS_SCRATCH_FSP_BOOT_COMPLETE_STATUS_SUCCESS,
-+            || Ok(hal.fsp_boot_done(bar)),
-+            |&done| done,
-             Delta::from_millis(10),
-             Delta::from_millis(FSP_SECURE_BOOT_TIMEOUT_MS),
--        )
--        .inspect_err(|e| {
--            dev_err!(dev, "FSP secure boot completion error: {:?}\n", e);
--        })?;
-+        )?;
-+
-+        Ok(())
-+    }
-+
-+    /// Creates an FSP interface.
-+    pub(crate) fn new(dev: &device::Device<device::Bound>, chipset: Chipset) -> Result<Self> {
-+        let falcon = Falcon::<FspEngine>::new(dev, chipset)?;
-+        let fsp_fw = FspFirmware::new(dev, chipset, FIRMWARE_VERSION)?;
- 
-         Ok(Fsp { falcon, fsp_fw })
-     }
-diff --git a/drivers/gpu/nova-core/fsp/hal.rs b/drivers/gpu/nova-core/fsp/hal.rs
-index b6f2624bb13d..7c5a7e61835c 100644
---- a/drivers/gpu/nova-core/fsp/hal.rs
-+++ b/drivers/gpu/nova-core/fsp/hal.rs
-@@ -14,8 +14,8 @@
- mod gh100;
- 
- pub(super) trait FspHal {
--    /// Returns the secure boot status from the architecture-specific `NV_THERM_I2CS_SCRATCH` register.
--    fn fsp_boot_status(&self, bar: Bar0<'_>) -> u32;
-+    /// Returns whether FSP secure boot is done.
-+    fn fsp_boot_done(&self, bar: Bar0<'_>) -> bool;
- 
-     /// Returns the FSP Chain of Trust protocol version this chipset advertises.
-     fn cot_version(&self) -> u16;
-diff --git a/drivers/gpu/nova-core/fsp/hal/gb100.rs b/drivers/gpu/nova-core/fsp/hal/gb100.rs
-index 42f5ecfc6400..a95b2dde2a04 100644
---- a/drivers/gpu/nova-core/fsp/hal/gb100.rs
-+++ b/drivers/gpu/nova-core/fsp/hal/gb100.rs
-@@ -9,9 +9,9 @@
- struct Gb100;
- 
- impl FspHal for Gb100 {
--    fn fsp_boot_status(&self, bar: Bar0<'_>) -> u32 {
-+    fn fsp_boot_done(&self, bar: Bar0<'_>) -> bool {
-         // GB10x shares Hopper's FSP secure boot status register.
--        super::gh100::fsp_boot_status_gh100(bar)
-+        super::gh100::fsp_boot_done_gh100(bar)
-     }
- 
-     fn cot_version(&self) -> u16 {
-diff --git a/drivers/gpu/nova-core/fsp/hal/gb202.rs b/drivers/gpu/nova-core/fsp/hal/gb202.rs
-index 1091b169a645..a3010717c57d 100644
---- a/drivers/gpu/nova-core/fsp/hal/gb202.rs
-+++ b/drivers/gpu/nova-core/fsp/hal/gb202.rs
-@@ -12,10 +12,10 @@
- struct Gb202;
- 
- impl FspHal for Gb202 {
--    fn fsp_boot_status(&self, bar: Bar0<'_>) -> u32 {
-+    fn fsp_boot_done(&self, bar: Bar0<'_>) -> bool {
-         bar.read(regs::gb202::NV_THERM_I2CS_SCRATCH_FSP_BOOT_COMPLETE)
-             .fsp_boot_complete()
--            .into()
-+            == regs::NV_THERM_I2CS_SCRATCH_FSP_BOOT_COMPLETE_STATUS_SUCCESS
-     }
- 
-     fn cot_version(&self) -> u16 {
-diff --git a/drivers/gpu/nova-core/fsp/hal/gh100.rs b/drivers/gpu/nova-core/fsp/hal/gh100.rs
-index 291acaf2845a..a440b68205e2 100644
---- a/drivers/gpu/nova-core/fsp/hal/gh100.rs
-+++ b/drivers/gpu/nova-core/fsp/hal/gh100.rs
-@@ -11,16 +11,16 @@
- 
- struct Gh100;
- 
--/// Reads the FSP secure boot status from the Hopper/GB10x thermal scratch register.
--pub(super) fn fsp_boot_status_gh100(bar: Bar0<'_>) -> u32 {
-+/// Returns whether FSP secure boot is done on Hopper/GB10x.
-+pub(super) fn fsp_boot_done_gh100(bar: Bar0<'_>) -> bool {
-     bar.read(regs::gh100::NV_THERM_I2CS_SCRATCH_FSP_BOOT_COMPLETE)
-         .fsp_boot_complete()
--        .into()
-+        == regs::NV_THERM_I2CS_SCRATCH_FSP_BOOT_COMPLETE_STATUS_SUCCESS
- }
- 
- impl FspHal for Gh100 {
--    fn fsp_boot_status(&self, bar: Bar0<'_>) -> u32 {
--        fsp_boot_status_gh100(bar)
-+    fn fsp_boot_done(&self, bar: Bar0<'_>) -> bool {
-+        fsp_boot_done_gh100(bar)
-     }
- 
-     fn cot_version(&self) -> u16 {
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index b3c91731db45..ca37892c3b38 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -295,7 +295,8 @@ pub(crate) fn new(
-                 dev_info!(pdev,"NVIDIA ({})\n", spec);
-             })?,
- 
--            // We must wait for GFW_BOOT completion before doing any significant setup on the GPU.
-+            // We must wait for some architecture specific setup to complete before doing any
-+            // significant setup on the GPU.
-             _: {
-                 let hal = hal::gpu_hal(spec.chipset);
-                 let dma_mask = hal.dma_mask();
-@@ -304,8 +305,8 @@ pub(crate) fn new(
-                 // still constructing it, so no concurrent DMA allocations can exist.
-                 unsafe { pdev.dma_set_mask_and_coherent(dma_mask)? };
- 
--                hal.wait_gfw_boot_completion(bar)
--                    .inspect_err(|_| dev_err!(pdev, "GFW boot did not complete\n"))?;
-+                hal.wait_preboot_completion(bar, spec.chipset)
-+                    .inspect_err(|_| dev_err!(pdev, "preboot firmware did not complete\n"))?;
-             },
- 
-             sysmem_flush: SysmemFlush::register(pdev.as_ref(), bar, spec.chipset)?,
-diff --git a/drivers/gpu/nova-core/gpu/hal.rs b/drivers/gpu/nova-core/gpu/hal.rs
-index 3f25882d0e56..232f073ccc06 100644
---- a/drivers/gpu/nova-core/gpu/hal.rs
-+++ b/drivers/gpu/nova-core/gpu/hal.rs
-@@ -19,8 +19,10 @@
- mod tu102;
- 
- pub(crate) trait GpuHal {
--    /// Waits for GFW_BOOT completion if required by this hardware family.
--    fn wait_gfw_boot_completion(&self, bar: Bar0<'_>) -> Result;
-+    /// Waits for architecture specific operations to complete before we can try to boot the GSP.
-+    /// For example, may wait on GFW_BOOT completion or FSP secure boot completion, depending on the
-+    /// architecture.
-+    fn wait_preboot_completion(&self, bar: Bar0<'_>, chipset: Chipset) -> Result;
- 
-     /// Returns the DMA mask for the current architecture.
-     fn dma_mask(&self) -> DmaMask;
-diff --git a/drivers/gpu/nova-core/gpu/hal/gh100.rs b/drivers/gpu/nova-core/gpu/hal/gh100.rs
-index e3f8ba0fab33..3aa18feec1f7 100644
---- a/drivers/gpu/nova-core/gpu/hal/gh100.rs
-+++ b/drivers/gpu/nova-core/gpu/hal/gh100.rs
-@@ -7,15 +7,19 @@
-     prelude::*, //
- };
- 
--use crate::driver::Bar0;
-+use crate::{
-+    driver::Bar0,
-+    fsp::Fsp,
-+    gpu::Chipset, //
-+};
- 
- use super::GpuHal;
- 
- struct Gh100;
- 
- impl GpuHal for Gh100 {
--    fn wait_gfw_boot_completion(&self, _bar: Bar0<'_>) -> Result {
--        Ok(())
-+    fn wait_preboot_completion(&self, bar: Bar0<'_>, chipset: Chipset) -> Result {
-+        Fsp::wait_for_secure_boot(bar, chipset)
-     }
- 
-     fn dma_mask(&self) -> DmaMask {
-diff --git a/drivers/gpu/nova-core/gpu/hal/tu102.rs b/drivers/gpu/nova-core/gpu/hal/tu102.rs
-index b0732e53edea..34b63a7c0ada 100644
---- a/drivers/gpu/nova-core/gpu/hal/tu102.rs
-+++ b/drivers/gpu/nova-core/gpu/hal/tu102.rs
-@@ -32,6 +32,7 @@
  
  use crate::{
-     driver::Bar0,
-+    gpu::Chipset,
-     regs, //
- };
+-    fb::FbLayout,
++    fb::GspFbInfo,
+     firmware::gsp::GspFirmware,
+     gpu::{
+         Architecture,
+@@ -214,11 +214,65 @@ unsafe impl FromBytes for GspFwWprMeta {}
  
-@@ -55,7 +56,7 @@ impl GpuHal for Tu102 {
-     /// This function waits for a signal indicating that core initialization is complete. Before
-     /// this signal is received, little can be done with the GPU. This signal is set by the FWSEC
-     /// running on the GSP in Heavy-secured mode.
--    fn wait_gfw_boot_completion(&self, bar: Bar0<'_>) -> Result {
-+    fn wait_preboot_completion(&self, bar: Bar0<'_>, _chipset: Chipset) -> Result {
-         // Before accessing the completion status in `NV_PGC6_AON_SECURE_SCRATCH_GROUP_05`, we must
-         // first check `NV_PGC6_AON_SECURE_SCRATCH_GROUP_05_PRIV_LEVEL_MASK`. This is because
-         // `NV_PGC6_AON_SECURE_SCRATCH_GROUP_05` becomes accessible only after the secure firmware
+ impl GspFwWprMeta {
+     /// Returns an initializer for a `GspFwWprMeta` suitable for booting `gsp_firmware` using the
+-    /// `fb_layout` layout.
++    /// framebuffer information.
+     pub(crate) fn new<'a>(
+         gsp_firmware: &'a GspFirmware,
+-        fb_layout: &'a FbLayout,
++        fb_info: &'a GspFbInfo,
+     ) -> impl Init<Self> + 'a {
++        #[derive(Default)]
++        struct WprMetaFields {
++            gsp_fw_rsvd_start: u64,
++            non_wpr_heap_offset: u64,
++            non_wpr_heap_size: u64,
++            gsp_fw_wpr_start: u64,
++            gsp_fw_heap_offset: u64,
++            gsp_fw_heap_size: u64,
++            gsp_fw_offset: u64,
++            boot_bin_offset: u64,
++            frts_offset: u64,
++            frts_size: u64,
++            gsp_fw_wpr_end: u64,
++            gsp_fw_heap_vf_partition_count: u8,
++            fb_size: u64,
++            vga_workspace_offset: u64,
++            vga_workspace_size: u64,
++            pmu_reserved_size: u32,
++        }
++
++        let fields = match fb_info {
++            GspFbInfo::Ranges(ranges) => WprMetaFields {
++                gsp_fw_rsvd_start: ranges.heap.start,
++                non_wpr_heap_offset: ranges.heap.start,
++                non_wpr_heap_size: ranges.heap.len(),
++                gsp_fw_wpr_start: ranges.wpr2.start,
++                gsp_fw_heap_offset: ranges.wpr2_heap.start,
++                gsp_fw_heap_size: ranges.wpr2_heap.len(),
++                gsp_fw_offset: ranges.elf.start,
++                boot_bin_offset: ranges.boot.start,
++                frts_offset: ranges.frts.start,
++                frts_size: ranges.frts.len(),
++                gsp_fw_wpr_end: ranges
++                    .vga_workspace
++                    .start
++                    .align_down(Alignment::new::<SZ_128K>()),
++                gsp_fw_heap_vf_partition_count: ranges.vf_partition_count,
++                fb_size: ranges.fb.len(),
++                vga_workspace_offset: ranges.vga_workspace.start,
++                vga_workspace_size: ranges.vga_workspace.len(),
++                pmu_reserved_size: ranges.pmu_reserved_size,
++            },
++            GspFbInfo::Sizes(sizes) => WprMetaFields {
++                non_wpr_heap_size: sizes.heap_size,
++                gsp_fw_heap_size: sizes.wpr2_heap_size,
++                frts_size: sizes.frts_size,
++                gsp_fw_heap_vf_partition_count: sizes.vf_partition_count,
++                vga_workspace_size: sizes.vga_workspace_size,
++                pmu_reserved_size: sizes.pmu_reserved_size,
++                // When only sizes are supplied, offsets and several other parameters are not used.
++                ..Default::default()
++            },
++        };
++
+         #[allow(non_snake_case)]
+         let init_inner = init!(bindings::GspFwWprMeta {
+             // CAST: we want to store the bits of `GSP_FW_WPR_META_MAGIC` unmodified.
+@@ -237,25 +291,22 @@ pub(crate) fn new<'a>(
+                     sizeOfSignature: u64::from_safe_cast(gsp_firmware.signatures.size()),
+                 },
+             },
+-            gspFwRsvdStart: fb_layout.heap.start,
+-            nonWprHeapOffset: fb_layout.heap.start,
+-            nonWprHeapSize: fb_layout.heap.end - fb_layout.heap.start,
+-            gspFwWprStart: fb_layout.wpr2.start,
+-            gspFwHeapOffset: fb_layout.wpr2_heap.start,
+-            gspFwHeapSize: fb_layout.wpr2_heap.end - fb_layout.wpr2_heap.start,
+-            gspFwOffset: fb_layout.elf.start,
+-            bootBinOffset: fb_layout.boot.start,
+-            frtsOffset: fb_layout.frts.start,
+-            frtsSize: fb_layout.frts.end - fb_layout.frts.start,
+-            gspFwWprEnd: fb_layout
+-                .vga_workspace
+-                .start
+-                .align_down(Alignment::new::<SZ_128K>()),
+-            gspFwHeapVfPartitionCount: fb_layout.vf_partition_count,
+-            fbSize: fb_layout.fb.end - fb_layout.fb.start,
+-            vgaWorkspaceOffset: fb_layout.vga_workspace.start,
+-            vgaWorkspaceSize: fb_layout.vga_workspace.end - fb_layout.vga_workspace.start,
+-            pmuReservedSize: fb_layout.pmu_reserved_size,
++            gspFwRsvdStart: fields.gsp_fw_rsvd_start,
++            nonWprHeapOffset: fields.non_wpr_heap_offset,
++            nonWprHeapSize: fields.non_wpr_heap_size,
++            gspFwWprStart: fields.gsp_fw_wpr_start,
++            gspFwHeapOffset: fields.gsp_fw_heap_offset,
++            gspFwHeapSize: fields.gsp_fw_heap_size,
++            gspFwOffset: fields.gsp_fw_offset,
++            bootBinOffset: fields.boot_bin_offset,
++            frtsOffset: fields.frts_offset,
++            frtsSize: fields.frts_size,
++            gspFwWprEnd: fields.gsp_fw_wpr_end,
++            gspFwHeapVfPartitionCount: fields.gsp_fw_heap_vf_partition_count,
++            fbSize: fields.fb_size,
++            vgaWorkspaceOffset: fields.vga_workspace_offset,
++            vgaWorkspaceSize: fields.vga_workspace_size,
++            pmuReservedSize: fields.pmu_reserved_size,
+             ..Zeroable::init_zeroed()
+         });
+ 
+diff --git a/drivers/gpu/nova-core/gsp/hal.rs b/drivers/gpu/nova-core/gsp/hal.rs
+index 04f004856c60..aa41da9902b5 100644
+--- a/drivers/gpu/nova-core/gsp/hal.rs
++++ b/drivers/gpu/nova-core/gsp/hal.rs
+@@ -18,7 +18,7 @@
+         sec2::Sec2,
+         Falcon, //
+     },
+-    fb::FbLayout,
++    fb::GspFbInfo,
+     firmware::gsp::GspFirmware,
+     gpu::{
+         Architecture,
+@@ -60,7 +60,7 @@ fn boot<'a>(
+         dev: &'a device::Device<device::Bound>,
+         bar: Bar0<'a>,
+         chipset: Chipset,
+-        fb_layout: &FbLayout,
++        fb_info: &GspFbInfo,
+         wpr_meta: &Coherent<GspFwWprMeta>,
+         gsp_falcon: &'a Falcon<GspEngine>,
+         sec2_falcon: &'a Falcon<Sec2>,
 diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova-core/gsp/hal/gh100.rs
-index 31498ae7abd2..35554d92fda9 100644
+index 35554d92fda9..ddf3f67e6338 100644
 --- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
 +++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
-@@ -159,7 +159,7 @@ fn boot<'a>(
+@@ -17,7 +17,7 @@
+         sec2::Sec2,
+         Falcon, //
+     },
+-    fb::FbLayout,
++    fb::GspFbInfo,
+     fsp::{
+         FmcBootArgs,
+         Fsp, //
+@@ -152,11 +152,15 @@ fn boot<'a>(
+         dev: &'a device::Device<device::Bound>,
+         bar: Bar0<'a>,
+         chipset: Chipset,
+-        fb_layout: &FbLayout,
++        fb_info: &GspFbInfo,
+         wpr_meta: &Coherent<GspFwWprMeta>,
+         gsp_falcon: &'a Falcon<GspEngine>,
+         sec2_falcon: &'a Falcon<Sec2>,
      ) -> Result<BootUnloadGuard<'a>> {
++        let GspFbInfo::Sizes(fb_sizes) = fb_info else {
++            return Err(EINVAL);
++        };
++
          let args = FmcBootArgs::new(dev, chipset, wpr_meta, &gsp.libos, false)?;
  
--        let mut fsp = Fsp::wait_secure_boot(dev, bar, chipset)?;
-+        let mut fsp = Fsp::new(dev, chipset)?;
+         let mut fsp = Fsp::new(dev, chipset)?;
+@@ -169,7 +173,7 @@ fn boot<'a>(
+         let unload_guard =
+             BootUnloadGuard::new(gsp, dev, bar, gsp_falcon, sec2_falcon, Some(unload_bundle));
  
-         let unload_bundle = crate::gsp::UnloadBundle(
-             KBox::new(FspUnloadBundle, GFP_KERNEL)? as KBox<dyn UnloadBundle>
+-        fsp.boot_fmc(dev, bar, fb_layout, &args)?;
++        fsp.boot_fmc(dev, bar, fb_sizes, &args)?;
+ 
+         wait_for_gsp_lockdown_release(dev, bar, gsp_falcon, args.boot_params())?;
+ 
+diff --git a/drivers/gpu/nova-core/gsp/hal/tu102.rs b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+index 1e08c482fd39..e809deb72055 100644
+--- a/drivers/gpu/nova-core/gsp/hal/tu102.rs
++++ b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+@@ -16,7 +16,10 @@
+         sec2::Sec2,
+         Falcon, //
+     },
+-    fb::FbLayout,
++    fb::{
++        FbRanges,
++        GspFbInfo, //
++    },
+     firmware::{
+         booter::{
+             BooterFirmware,
+@@ -185,7 +188,7 @@ fn run_fwsec_frts(
+     falcon: &Falcon<GspEngine>,
+     bar: Bar0<'_>,
+     bios: &Vbios,
+-    fb_layout: &FbLayout,
++    fb_ranges: &FbRanges,
+ ) -> Result {
+     // Check that the WPR2 region does not already exist - if it does, we cannot run
+     // FWSEC-FRTS until the GPU is reset.
+@@ -204,8 +207,8 @@ fn run_fwsec_frts(
+         bar,
+         bios,
+         FwsecCommand::Frts {
+-            frts_addr: fb_layout.frts.start,
+-            frts_size: fb_layout.frts.len(),
++            frts_addr: fb_ranges.frts.start,
++            frts_size: fb_ranges.frts.len(),
+         },
+     )?;
+ 
+@@ -244,12 +247,12 @@ fn run_fwsec_frts(
+ 
+             Err(EIO)
+         }
+-        (wpr2_lo, _) if wpr2_lo != fb_layout.frts.start => {
++        (wpr2_lo, _) if wpr2_lo != fb_ranges.frts.start => {
+             dev_err!(
+                 dev,
+                 "WPR2 region created at unexpected address {:#x}; expected {:#x}\n",
+                 wpr2_lo,
+-                fb_layout.frts.start,
++                fb_ranges.frts.start,
+             );
+ 
+             Err(EIO)
+@@ -272,11 +275,14 @@ fn boot<'a>(
+         dev: &'a device::Device<device::Bound>,
+         bar: Bar0<'a>,
+         chipset: Chipset,
+-        fb_layout: &FbLayout,
++        fb_info: &GspFbInfo,
+         wpr_meta: &Coherent<GspFwWprMeta>,
+         gsp_falcon: &'a Falcon<GspEngine>,
+         sec2_falcon: &'a Falcon<Sec2>,
+     ) -> Result<BootUnloadGuard<'a>> {
++        let GspFbInfo::Ranges(fb_ranges) = fb_info else {
++            return Err(EINVAL);
++        };
+         let bios = Vbios::new(dev, bar)?;
+ 
+         // Try and prepare the unload bundle.
+@@ -301,8 +307,8 @@ fn boot<'a>(
+             BootUnloadGuard::new(gsp, dev, bar, gsp_falcon, sec2_falcon, unload_bundle);
+ 
+         // FWSEC-FRTS is not executed on chips where the FRTS region size is 0 (e.g. GA100).
+-        if !fb_layout.frts.is_empty() {
+-            run_fwsec_frts(dev, chipset, gsp_falcon, bar, &bios, fb_layout)?;
++        if !fb_ranges.frts.is_empty() {
++            run_fwsec_frts(dev, chipset, gsp_falcon, bar, &bios, fb_ranges)?;
+         }
+ 
+         gsp_falcon.reset(bar)?;
 
 -- 
 2.54.0
