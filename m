@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E73DCD98E4
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 20:18:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D348CD98E5
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 20:18:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E7A010E662;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3D1310E668;
 	Mon, 15 Jun 2026 20:18:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="AHtLXfE5";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="XyW2bLpP";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12C7510E651;
- Mon, 15 Jun 2026 20:18:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06C3810E636;
+ Mon, 15 Jun 2026 20:18:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1781554718;
- bh=ALbia/61W347pafx6roK8tZ0v9st1/H0ivVM62ph0GU=;
+ s=default; t=1781554715;
+ bh=cQJ+/My1yGCFFoJg8C+cw2ag6ScIvaGNw4in4m2KFus=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=AHtLXfE5MQXVUUTt6HroEJsIv2G4EGEJkN7VUIgdL662ashAEeq5/gYkzsIjs0ceH
- Fx2xZJokA5tcRxErWKZTmgqVv7ad+cwpdkE9aSUCyNmhoIW5TaCPy3jLfeRVRXpcKC
- gncrnaxmadWLbEPDTg4+vW//d7/Ns8lxrpNuV9ReV3utD1/dtqlZORPw8giJS6hWrF
- HXGBuCbGIdYFq3S3ueQcadHdpCBoYP45gXbKwcxFVhNtFPGwEnWNvT36PXA9NKenJ2
- 1742bqFv2iWry6xmE5/20e3hEs5VXlLxdS4ypRQZ0nkSuSRI+LnHGNQMFtn2fL4uNM
- EucDRCvrGqP/A==
+ b=XyW2bLpP38q2CXybw5S/wIOSy8FtHhb6L52kJr26UfFleqTjahQIGlyJz5iJxeZGO
+ KUqR3NcwW7L+KktPpreeiiK/V0SeOcUw//J/229cASg3ORo7Y64optMiiBuHCeqGxA
+ vudM0cMHy3UrAI6erivQNYOA1UjlwXlwyi7+ItZOtavd2AebyHcy1H5yHRyx61oD0m
+ 1M3I3cMfWrIr7z8UqdFkfTnlUY4nTfJtZkYLznXCDcXJOpeh1qRBLwjUVYuL3/+Rum
+ tyfvFCkLovBC9AtW4o2l78mWdQIwsWfj/OmpPlBTBOkpjkKwf7mNHdAmfB7lgOtp5o
+ si9sY6n52GuDA==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v8 10/27] drm/i915/display: Do not take uncore lock in
- i915_get_vblank_counter
-Date: Mon, 15 Jun 2026 22:18:28 +0200
-Message-ID: <20260615201846.307297-11-dev@lankhorst.se>
+Cc: dri-devel@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
+ Uma Shankar <uma.shankar@intel.com>
+Subject: [PATCH v8 05/27] drm/i915/display: Move vblank put until after
+ critical section
+Date: Mon, 15 Jun 2026 22:18:23 +0200
+Message-ID: <20260615201846.307297-6-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260615201846.307297-1-dev@lankhorst.se>
 References: <20260615201846.307297-1-dev@lankhorst.se>
@@ -54,124 +54,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This fixes a lockdep splat that occurs in the code that should be run
-with interrupts disabled. The uncore and DMC locks should not be taken
-and released repeatedly in a timing sensitive path.
+drm_crtc_vblank_put may take some locks, this should probably
+not be the first thing we do after entering the time sensitive
+part.
+
+A better place is after programming is completed. Add a flag
+to put the vblank after completion.
+
+In the case of drm_vblank_work_schedule, we may not even need
+to disable the vblank interrupt any more if it takes its own
+reference.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_de.h       |  8 ++++++
- drivers/gpu/drm/i915/display/intel_vblank.c   |  4 +--
- drivers/gpu/drm/i915/intel_uncore.h           | 26 +++++++++++++------
- .../drm/xe/compat-i915-headers/intel_uncore.h |  7 +++++
- 4 files changed, 35 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cursor.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i915/display/intel_de.h
-index 1029790194296..497a308322847 100644
---- a/drivers/gpu/drm/i915/display/intel_de.h
-+++ b/drivers/gpu/drm/i915/display/intel_de.h
-@@ -65,6 +65,14 @@ intel_de_read64_2x32(struct intel_display *display, intel_reg_t reg)
- 	return (u64)upper << 32 | lower;
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+index 88384dea868b4..68b44a00567e4 100644
+--- a/drivers/gpu/drm/i915/display/intel_cursor.c
++++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+@@ -816,6 +816,7 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
+ 		to_intel_crtc_state(crtc->base.state);
+ 	struct intel_crtc_state *new_crtc_state;
+ 	struct intel_vblank_evade_ctx evade;
++	bool has_vblank = false;
+ 	int ret;
  
-+static inline u64
-+intel_de_read64_2x32_fw(struct intel_display *display,
-+			i915_reg_t lower_reg, i915_reg_t upper_reg)
-+{
-+	return intel_uncore_read64_2x32_fw(__to_uncore(display),
-+					   lower_reg, upper_reg);
-+}
+ 	/*
+@@ -913,6 +914,8 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
+ 	intel_psr_lock(crtc_state);
+ 
+ 	if (!drm_WARN_ON(display->drm, drm_crtc_vblank_get(&crtc->base))) {
++		has_vblank = true;
 +
- static inline void
- intel_de_posting_read(struct intel_display *display, intel_reg_t reg)
- {
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
-index c0cc0a4c25dbe..5ca22899055d7 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.c
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -109,8 +109,8 @@ u32 i915_get_vblank_counter(struct drm_crtc *crtc)
- 	 * we get a low value that's stable across two reads of the high
- 	 * register.
- 	 */
--	frame = intel_de_read64_2x32_volatile(display, PIPEFRAMEPIXEL(display, pipe),
--					      PIPEFRAME(display, pipe));
-+	frame = intel_de_read64_2x32_fw(display, PIPEFRAMEPIXEL(display, pipe),
-+				        PIPEFRAME(display, pipe));
+ 		/*
+ 		 * TODO: maybe check if we're still in PSR
+ 		 * and skip the vblank evasion entirely?
+@@ -922,8 +925,6 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
+ 		local_irq_disable();
  
- 	pixel = frame & PIPE_PIXEL_MASK;
- 	frame = (frame >> PIPE_FRAME_LOW_SHIFT) & 0xffffff;
-diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/intel_uncore.h
-index fafc2ca9a2376..507398a562649 100644
---- a/drivers/gpu/drm/i915/intel_uncore.h
-+++ b/drivers/gpu/drm/i915/intel_uncore.h
-@@ -449,13 +449,28 @@ static inline void intel_uncore_rmw_fw(struct intel_uncore *uncore,
- 		intel_uncore_write_fw(uncore, reg, val);
- }
+ 		intel_vblank_evade(&evade);
+-
+-		drm_crtc_vblank_put(&crtc->base);
+ 	} else {
+ 		local_irq_disable();
+ 	}
+@@ -939,6 +940,9 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
  
-+static inline u64
-+intel_uncore_read64_2x32_fw(struct intel_uncore *uncore,
-+			    i915_reg_t lower_reg, i915_reg_t upper_reg)
-+{
-+	u32 upper, lower, old_upper, loop = 0;
-+	upper = intel_uncore_read_fw(uncore, upper_reg);
-+	do {
-+		old_upper = upper;
-+		lower = intel_uncore_read_fw(uncore, lower_reg);
-+		upper = intel_uncore_read_fw(uncore, upper_reg);
-+	} while (upper != old_upper && loop++ < 2);
+ 	intel_psr_unlock(crtc_state);
+ 
++	if (has_vblank)
++		drm_crtc_vblank_put(&crtc->base);
 +
-+	return (u64)upper << 32 | lower;
-+}
-+
- static inline u64
- intel_uncore_read64_2x32(struct intel_uncore *uncore,
- 			 i915_reg_t lower_reg, i915_reg_t upper_reg)
- {
--	u32 upper, lower, old_upper, loop = 0;
- 	enum forcewake_domains fw_domains;
- 	unsigned long flags;
-+	u64 ret;
- 
- 	fw_domains = intel_uncore_forcewake_for_reg(uncore, lower_reg,
- 						    FW_REG_READ);
-@@ -466,17 +481,12 @@ intel_uncore_read64_2x32(struct intel_uncore *uncore,
- 	spin_lock_irqsave(&uncore->lock, flags);
- 	intel_uncore_forcewake_get__locked(uncore, fw_domains);
- 
--	upper = intel_uncore_read_fw(uncore, upper_reg);
--	do {
--		old_upper = upper;
--		lower = intel_uncore_read_fw(uncore, lower_reg);
--		upper = intel_uncore_read_fw(uncore, upper_reg);
--	} while (upper != old_upper && loop++ < 2);
-+	ret = intel_uncore_read64_2x32_fw(uncore, lower_reg, upper_reg);
- 
- 	intel_uncore_forcewake_put__locked(uncore, fw_domains);
- 	spin_unlock_irqrestore(&uncore->lock, flags);
- 
--	return (u64)upper << 32 | lower;
-+	return ret;
- }
- 
- static inline int intel_uncore_write_and_verify(struct intel_uncore *uncore,
-diff --git a/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h b/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
-index 08d7ab9336725..764bc94044537 100644
---- a/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
-+++ b/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
-@@ -74,6 +74,13 @@ intel_uncore_read64_2x32(struct intel_uncore *uncore,
- 	return (u64)upper << 32 | lower;
- }
- 
-+static inline u64
-+intel_uncore_read64_2x32_fw(struct intel_uncore *uncore,
-+			    i915_reg_t i915_lower_reg, i915_reg_t i915_upper_reg)
-+{
-+	return intel_uncore_read64_2x32(uncore, i915_lower_reg, i915_upper_reg);
-+}
-+
- static inline void intel_uncore_posting_read(struct intel_uncore *uncore,
- 					     i915_reg_t i915_reg)
- {
+ 	if (old_plane_state->ggtt_vma != new_plane_state->ggtt_vma) {
+ 		drm_vblank_work_init(&old_plane_state->unpin_work, &crtc->base,
+ 				     intel_cursor_unpin_work);
 -- 
 2.53.0
 
