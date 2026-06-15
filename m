@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC3E4CD98E0
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 20:39:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54611CD98E2
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 20:41:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56C0F10E708;
-	Mon, 15 Jun 2026 20:39:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACA9710E70B;
+	Mon, 15 Jun 2026 20:41:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZVjB7Q7S";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ir17i+uW";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A44510E708
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 20:39:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6512D10E70B
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 20:41:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3385C44486;
- Mon, 15 Jun 2026 20:39:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6E231F000E9;
- Mon, 15 Jun 2026 20:39:36 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C0FCC60137;
+ Mon, 15 Jun 2026 20:41:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59C6E1F000E9;
+ Mon, 15 Jun 2026 20:41:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781555977;
- bh=98bAbI4gaGex3JmSfN5+zCVhCyTvdoXAT92LvlqfEOk=;
+ s=k20260515; t=1781556113;
+ bh=oBrIL6dLRZR5+rSnZGF/lNBopruvX9pj8rnd5vHKThk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZVjB7Q7SgqZPhQlIkzt3kj0EvDWvw8+kHCrYnkgldyOK/phmSC1jnZXbSH/5Vzqdb
- ncjuXSRqeprJQzQHAYhBlNiv2QJiRVclKRVErSj6MAU6nXASJBBq3ccwvkCXbROdgt
- bYylMCQg/OjpRgV0vH6pRXkaLjxof3BtMxJ8zhsMwdr64TvHOD1h7DvlTaOYMC17Qr
- XK28rwQMJaSY9xXQXMPJguNPZqR5j35VswUoCOolJ+IdSOdM3NVbPHqrwWRZ0daBAZ
- i+M9dHurjhy+1t1kTKy7fWGY2Ferb0S21Vo/fDuir14RvU0C+12pueKKZXrooRoKLR
- mcDuGqL/gik6Q==
+ b=Ir17i+uWtdwhHqxBfqu4lBcsDCxg0SB8AIVF6upAQOZBpe733t3P5oTlPcISDuswE
+ pY/nP5Mp9xO4qo3h2NtMD/NBD3PQm7Uj/YPbT9ZGfwholsSu81QkNcURe/Aw+/4EYZ
+ uGkbVeXyL249P8bxqbnPtp3FpjMBeYtI3TzD11vDg35mIbiBqQra0zJhXcUbzgdtrI
+ cAC9Tb8P8mc11CfhxTr/c37c1+roWgg+/PToh/lDwdyEeFBiVZRNxZVNKW0acSmroy
+ jnV5RxEQrOQvjqYJUUsox4LaqForKSC25j3JtREUMEJBsgPa48Caxjsvdd3pJotPQ4
+ W6u3eVl1RWyqQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 23/27] PREEMPT_RT injection
+Subject: Re: [PATCH v8 27/27] drm/xe/display: Prefer not to allocate a
+ framebuffers in stolen memory
 To: "Maarten Lankhorst" <dev@lankhorst.se>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260615201846.307297-24-dev@lankhorst.se>
-References: <20260615201846.307297-24-dev@lankhorst.se>
+In-Reply-To: <20260615201846.307297-28-dev@lankhorst.se>
+References: <20260615201846.307297-28-dev@lankhorst.se>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 20:39:36 +0000
-Message-Id: <20260615203936.E6E231F000E9@smtp.kernel.org>
+Date: Mon, 15 Jun 2026 20:41:52 +0000
+Message-Id: <20260615204153.59C6E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,108 +59,83 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] PREEMPT_RT is unconditionally enabled for all supported architectu=
-res, removing the user prompt.
-- [High] DRM_I915_DEBUG_VBLANK_EVADE is moved to the DRM_XE Kconfig and for=
-cefully enabled, breaking i915-only builds.
+- [Medium] Incomplete PREEMPT_RT restriction and misleading diagnostic log =
+for stolen framebuffers.
+- [Low] The `IS_DGFX(xe)` check within `xe_display_bo_fbdev_prefer_stolen()=
+` is dead code.
 --
 
-commit 64632b1f6e588fa66b14871b397cbf599d637abc
+commit a0d8e97afbc7423ba7650eec1d396883f1234659
 Author: Maarten Lankhorst <dev@lankhorst.se>
 
-PREEMPT_RT injection
+drm/xe/display: Prefer not to allocate a framebuffers in stolen memory
 
-This commit forces PREEMPT_RT to be unconditionally enabled for supported
-architectures. It also moves DRM_I915_DEBUG_VBLANK_EVADE from the i915
-Kconfig to the xe Kconfig, enabling it by default.
+For the same reasons as using stolen memory for DPT, it's also a bad
+idea for framebuffers. Allocate new framebuffers always in system memory
+when we don't inherit them, and prohibit inheriting stolen framebuffers
+when CONFIG_PREEMPT_RT is enabled.
 
-> diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kc=
-onfig.debug
-> index 52a3a59b4ba2c..5977d0b262b85 100644
-> --- a/drivers/gpu/drm/i915/Kconfig.debug
-> +++ b/drivers/gpu/drm/i915/Kconfig.debug
+> diff --git a/drivers/gpu/drm/xe/display/xe_display_bo.c b/drivers/gpu/drm=
+/xe/display/xe_display_bo.c
+> index 7fbac223b0977..5b54d247cb212 100644
+> --- a/drivers/gpu/drm/xe/display/xe_display_bo.c
+> +++ b/drivers/gpu/drm/xe/display/xe_display_bo.c
+> @@ -127,7 +127,7 @@ bool xe_display_bo_fbdev_prefer_stolen(struct xe_devi=
+ce *xe, unsigned int size)
+>  	if (!stolen)
+>  		return false;
+> =20
+> -	if (IS_DGFX(xe))
+> +	if (IS_DGFX(xe) || IS_ENABLED(CONFIG_PREEMPT_RT))
+
+[Severity: Medium]
+Will this RT restriction be bypassed if fbcon or fbdev emulation are disabl=
+ed?
+
+Looking at the only caller, initial_plane_bo() in
+drivers/gpu/drm/xe/display/xe_initial_plane.c:
+
+    if (IS_ENABLED(CONFIG_FRAMEBUFFER_CONSOLE) &&
+        IS_ENABLED(CONFIG_DRM_FBDEV_EMULATION) &&
+        !xe_display_bo_fbdev_prefer_stolen(xe, plane_config->size)) {
+            drm_info(&xe->drm, "Initial FB size exceeds half of stolen, dis=
+carding\n");
+            return NULL;
+    }
+
+If a PREEMPT_RT kernel is built without fbcon or fbdev emulation, the
+condition short-circuits, the RT check is skipped, and it appears the
+driver would incorrectly proceed to inherit the stolen framebuffer.
+
+Additionally, if the RT restriction does trigger, it will unconditionally
+print "Initial FB size exceeds half of stolen, discarding". Is this
+misleading when the rejection is actually due to RT constraints?
+
+[Severity: Low]
+Is the IS_DGFX(xe) check now dead code?
+
+The patch removes the usage of xe_display_bo_fbdev_prefer_stolen() from
+xe_display_bo_fbdev_create(), leaving initial_plane_bo() as its only
+caller. Since initial_plane_bo() already guards against discrete graphics
+before making the function call:
+
+    if (IS_DGFX(xe)) {
+        ...
+    } else {
+        ...
+        if (IS_ENABLED(CONFIG_FRAMEBUFFER_CONSOLE) &&
+            IS_ENABLED(CONFIG_DRM_FBDEV_EMULATION) &&
+            !xe_display_bo_fbdev_prefer_stolen(xe, plane_config->size)) {
+
+IS_DGFX(xe) appears to be guaranteed false whenever
+xe_display_bo_fbdev_prefer_stolen() is executed.
+
+>  		return false;
+> =20
+>  	if (XE_DEVICE_WA(xe, 22019338487_display))
 
 [ ... ]
-
-> -config DRM_I915_DEBUG_VBLANK_EVADE
-> -	bool "Enable extra debug warnings for vblank evasion"
-> -	depends on DRM_I915
-> -	default n
-> -	help
-> -	  Choose this option to turn on extra debug warnings for the
-> -	  vblank evade mechanism. This gives a warning every time the
-> -	  the deadline allotted for the vblank evade critical section
-> -	  is exceeded, even if there isn't an actual risk of missing
-> -	  the vblank.
-> -
-> -	  Recommended for driver developers only.
-> -
-> -	  If in doubt, say "N".
-> -
->  config DRM_I915_DEBUG_RUNTIME_PM
-> diff --git a/drivers/gpu/drm/xe/Kconfig.debug b/drivers/gpu/drm/xe/Kconfi=
-g.debug
-> index 01227c77f6d70..1d5f11c6e88f3 100644
-> --- a/drivers/gpu/drm/xe/Kconfig.debug
-> +++ b/drivers/gpu/drm/xe/Kconfig.debug
-
-[ ... ]
-
-> @@ -30,6 +30,11 @@ config DRM_XE_DEBUG
-> =20
->  	  If in doubt, say "N".
-> =20
-> +config DRM_I915_DEBUG_VBLANK_EVADE
-> +        def_bool y
-> +        depends on DRM_XE
-> +
-
-[Severity: High]
-Does this code break the vblank evasion debug logic for i915-only builds?
-
-By moving DRM_I915_DEBUG_VBLANK_EVADE out of i915 and defining it as
-def_bool y with a dependency on DRM_XE, developers building only i915 can
-no longer enable this feature.=20
-
-Additionally, does this unconditionally force the extra debug warnings and
-overhead on all xe driver users without providing a way to opt out?
-
-> +
->  config DRM_XE_DEBUG_VM
-> diff --git a/kernel/Kconfig.preempt b/kernel/Kconfig.preempt
-> index 88c594c6d7fcd..11bec9be95405 100644
-> --- a/kernel/Kconfig.preempt
-> +++ b/kernel/Kconfig.preempt
-
-[ ... ]
-
-> @@ -90,9 +90,9 @@ config PREEMPT_LAZY
->  endchoice
-> =20
->  config PREEMPT_RT
-> -	bool "Fully Preemptible Kernel (Real-Time)"
-> -	depends on EXPERT && ARCH_SUPPORTS_RT && !COMPILE_TEST
-> +	def_bool y
->  	select PREEMPTION
-> +	depends on ARCH_SUPPORTS_RT
-
-[Severity: High]
-Does this change unintentionally force a Real-Time kernel build on any
-architecture where ARCH_SUPPORTS_RT is true?
-
-By changing PREEMPT_RT to def_bool y and removing the prompt, it appears
-users are completely prevented from selecting standard preemption models
-like PREEMPT_NONE or PREEMPT_VOLUNTARY.=20
-
-This universally alters locking semantics across the entire kernel (for
-example, converting spinlocks to rt_mutexes) regardless of whether drivers =
-or
-systems are prepared for RT.
-
->  	help
->  	  This option turns the kernel into a real-time kernel by replacing
->  	  various locking primitives (spinlocks, rwlocks, etc.) with
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615201846.3072=
-97-1-dev@lankhorst.se?part=3D23
+97-1-dev@lankhorst.se?part=3D27
