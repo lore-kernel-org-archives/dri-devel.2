@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B764CD98C5
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 12:14:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7BADCD98DA
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 12:14:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2537E10E3C6;
-	Mon, 15 Jun 2026 12:14:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35B3F10E3CC;
+	Mon, 15 Jun 2026 12:14:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="Sdtzkth+";
+	dkim=pass (2048-bit key; secure) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="VJIW+hB1";
 	dkim-atps=neutral
-X-Greylist: delayed 602 seconds by postgrey-1.36 at gabe;
- Mon, 15 Jun 2026 12:14:03 UTC
-Received: from mta-64-225.siemens.flowmailer.net
- (mta-64-225.siemens.flowmailer.net [185.136.64.225])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9204510E3C6
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 12:14:03 +0000 (UTC)
-Received: by mta-64-225.siemens.flowmailer.net with ESMTPSA id
- 2026061512035839fb20f26500020702
+X-Greylist: delayed 603 seconds by postgrey-1.36 at gabe;
+ Mon, 15 Jun 2026 12:14:05 UTC
+Received: from mta-64-226.siemens.flowmailer.net
+ (mta-64-226.siemens.flowmailer.net [185.136.64.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3EB810E3BD
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 12:14:05 +0000 (UTC)
+Received: by mta-64-226.siemens.flowmailer.net with ESMTPSA id
+ 20260615120357eb2c953a880002077a
  for <dri-devel@lists.freedesktop.org>;
  Mon, 15 Jun 2026 14:03:58 +0200
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
  d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=Xz6nCVPweiRhv904vuI6Sdj8uMkOdjwCRi1d8097nvw=;
- b=Sdtzkth+3PIHjyY2UXv2FeZV0gnPita2a3sykTGPaSIBNta968LbZmEaA4nmrUTcy0/wMp
- q6t+fzXVizcDmEbSwVf2WuYZomYaAoOHYYJomCmzPwY3lQU+Ff45k9eA4QSpMOx4muTyihPY
- Vr1RnCIaRGB+TKU3otTUbredSgsw8Rr3eOLttGbVP5XvewKRsrWtaQhayQVHpagrAMx6R+h/
- n3R6d5LyyQvCPsenONGLWFyPErOBcf7mLZoQozffUIqmKHh7sJ0Xw3fBzeCwOfguTeOMvOX0
- vGkxMz2CXB9sHoPepUExwKo4zV8yzyI5PoRDbn5LjMyuEhS8Az5vnyEA==;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
+ bh=lCOoc1nkAj9LM105Jbsd+SDj6HDskDfhiImH70CCtpM=;
+ b=VJIW+hB1r1v2BVNgjuHpz6m0c3XuTFAuC/jxb2JCOs91V5KqN1/rIudfcyLJzmwMVZcyu3
+ k4kYp6CZ1PwOIxG8TelhNFFt1GTde3wxRMv4THGZFLSHEZPVkh9//BGZYZEJC8VNJAIP6Nwf
+ 2UXdbonCtfumlbbYGnB9IGuA0Q3MU7iDYLL0bM1BwnLn7HZkhBsLlmKC1fg9QaSxtWhcz8lx
+ S37v3jWBHhxulH3QQHqvux22KJSG5S5EokxDK3y2mDzJ1CVmuLXKEi+beE4JKcnLLynlU0IE
+ STyI2qoMO+ZTrxK7VvWSSCMZ1mgkLnIetYx98tLDOYi2spHtQ8KPIelQ==;
 From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
 To: linux-leds@vger.kernel.org
 Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
@@ -41,12 +41,9 @@ Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
  Andrew Davis <afd@ti.com>, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-fbdev@vger.kernel.org
-Subject: [PATCH 1/3] dt-bindings: backlight: ti,
- lp8864: Add backlight class properties
-Date: Mon, 15 Jun 2026 14:03:47 +0200
-Message-ID: <20260615120353.3409035-2-alexander.sverdlin@siemens.com>
-In-Reply-To: <20260615120353.3409035-1-alexander.sverdlin@siemens.com>
-References: <20260615120353.3409035-1-alexander.sverdlin@siemens.com>
+Subject: [PATCH 0/3] Convert LP8864 LED driver to backlight class
+Date: Mon, 15 Jun 2026 14:03:46 +0200
+Message-ID: <20260615120353.3409035-1-alexander.sverdlin@siemens.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Flowmailer-Platform: Siemens
@@ -68,87 +65,43 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-Extend the TI LP8864/LP8866 device-tree binding to support backlight
-class properties alongside the existing LED class child node.
+This series converts the TI LP8864/LP8866 driver from a pure LED class
+driver to a backlight class driver, while preserving backward-compatible
+LED class device registration.
 
-This is a preparatory change for converting the LP8864 driver from a
-pure LED class driver to additionally register a backlight class device,
-motivated by a use case on a hot-pluggable segment of an I2C bus. The
-generic led-backlight driver (led_bl.c) is a platform driver and thus
-inherently non-hotpluggable, which makes it unsuitable for hardware
-topologies where the backlight controller resides on a hot-pluggable I2C
-bus segment. By making the LP8864 driver itself register a backlight
-class device, it becomes a native I2C driver that properly supports
-hot-plug/unplug events.
+The motivation is a use case on a hot-pluggable segment of an I2C bus.
+The generic led-backlight driver (drivers/video/backlight/led_bl.c) is
+a platform driver and thus inherently non-hotpluggable -- it cannot react
+to dynamic appearance/disappearance of the underlying I2C device. By
+making the LP8864 driver directly register a backlight class device, it
+becomes a self-contained I2C driver that properly supports hot-plug/unplug
+events without depending on a separate platform device for backlight
+functionality.
 
-The binding is updated to:
-- Reference backlight common.yaml at the top level, making
-  default-brightness and max-brightness valid optional properties
-- Make the "led" child node optional rather than required, since the
-  backlight class device is now the primary interface
-- Use unevaluatedProperties instead of additionalProperties to properly
-  allow properties inherited from the referenced common schema
+The LED class device registration is retained for backward compatibility:
+if the "led" child node is present in the device-tree, an LED class device
+is registered in addition to the backlight device.
 
-The LED child node is preserved for backward compatibility with existing
-device-trees. No in-tree device-trees reference this binding, so this
-change has no impact on existing mainline users.
+No in-tree device-trees reference this driver, so there is no mainline
+impact. Out-of-tree users who previously relied on the LP8864 as a backend
+for the generic led-backlight platform driver will notice a backlight class
+device appearing directly.
 
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
----
- .../bindings/leds/backlight/ti,lp8864.yaml       | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+Alexander Sverdlin (3):
+  dt-bindings: backlight: ti,lp8864: Add backlight class properties
+  leds: lp8864: Rename struct lp8864_led and local variables
+  backlight: lp8864: Convert from LED to backlight class driver
 
-diff --git a/Documentation/devicetree/bindings/leds/backlight/ti,lp8864.yaml b/Documentation/devicetree/bindings/leds/backlight/ti,lp8864.yaml
-index d44232d462bde..11d7e3840c6fb 100644
---- a/Documentation/devicetree/bindings/leds/backlight/ti,lp8864.yaml
-+++ b/Documentation/devicetree/bindings/leds/backlight/ti,lp8864.yaml
-@@ -4,7 +4,7 @@
- $id: http://devicetree.org/schemas/leds/backlight/ti,lp8864.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: Texas Instruments - LP8864/LP8866 4/6-Channel LED Driver family
-+title: Texas Instruments - LP8864/LP8866 4/6-Channel LED Backlight Driver family
- 
- maintainers:
-   - Andrew Davis <afd@ti.com>
-@@ -21,6 +21,9 @@ description: |
-     https://www.ti.com/product/LP8866-Q1
-     https://www.ti.com/product/LP8866S-Q1
- 
-+allOf:
-+  - $ref: common.yaml#
-+
- properties:
-   compatible:
-     const: ti,lp8864
-@@ -36,9 +39,15 @@ properties:
-   vled-supply:
-     description: LED supply
- 
-+  default-brightness:
-+    maximum: 65535
-+
-+  max-brightness:
-+    maximum: 65535
-+
-   led:
-     type: object
--    $ref: common.yaml#
-+    $ref: /schemas/leds/common.yaml#
-     properties:
-       function: true
-       color: true
-@@ -50,9 +59,8 @@ properties:
- required:
-   - compatible
-   - reg
--  - led
- 
--additionalProperties: false
-+unevaluatedProperties: false
- 
- examples:
-   - |
+ .../bindings/leds/backlight/ti,lp8864.yaml    |  16 +-
+ MAINTAINERS                                   |   2 +-
+ drivers/leds/Kconfig                          |  12 --
+ drivers/leds/Makefile                         |   1 -
+ drivers/video/backlight/Kconfig               |  15 ++
+ drivers/video/backlight/Makefile              |   1 +
+ .../backlight/lp8864_bl.c}                    | 169 ++++++++++++------
+ 7 files changed, 147 insertions(+), 69 deletions(-)
+ rename drivers/{leds/leds-lp8864.c => video/backlight/lp8864_bl.c} (55%)
+
 -- 
 2.54.0
 
