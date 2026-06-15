@@ -4,93 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A9A5CD98CE
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 21:29:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40F88CD98CE
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 21:46:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E19C410E6CD;
-	Mon, 15 Jun 2026 21:29:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7889210E65B;
+	Mon, 15 Jun 2026 21:46:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="k/yBeLwq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mDQLCYuG";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA6A510E695
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 21:29:41 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-36c68964315so2123785a91.2
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 14:29:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781558981; cv=none;
- d=google.com; s=arc-20240605;
- b=G1Qsvo39RsV3/d3tUdqcVMx+8/CgyuQ10wY+jVzfOjduTFWl+AW4ROj1xjlDZM0vrv
- OVUKlhiSlFNK69Zab+qZA7BDDkQoZt+ICSAsUyVMwMW/24gvD6g7ynrzTNFf0F8WYQGB
- rsramaaAJI6Jm+l8bVEXExD9EA+In+eCZoXd9xgPiLWNe8IrS0XgMt+obCYk036z5GOb
- nksCaTiY6bMWHG/BqUjZ7Qz82wb5WSYrf7cTAUwztRYtHcSvBpVxQhR8f8KrDMrKJ3fK
- sMIJmXNzSrKtgprzgbmZjxE+GMxOqJ+VgsKSq9TqBG4hSKCHqAg3oSkBxyJgxAO7/w1F
- 8yFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=wgYo7VLpeFYmsBuL2Aaa8Uz9HGtMHARrdfAhOGMsVTA=;
- fh=53GiFqdY9riU1kicXHvkp60aDZQOg9oFBlqMfqLUSY0=;
- b=acQxfw10A0RPEV7iRFmq5MiPwUoP9DcVFzbJJWlNchup/ujVyJCf9biORr4mkAk/B7
- rwPrpDL/x1INRzu+BaNVQJ427T+CF955WidiKLZA5HUHqbf3RnN2gXi0RVTLbd9qjyos
- pyJF0sYdEYk82i4lr7a3E36RJelT4npyHIjsHQ3+KnOZrgW7mcQy937Okk69jsmmwBHF
- Oh5L0OTSl2SCFY1Fkpxfzd4fgGve4Qh7Tm//bYm+6m7Ygk+kwOacaYhpXCR7rgBrbW6w
- rUfo+BwFPAaU1YEa0F5Z2kYBvAGOLincOUPxWkhV8NzqCaVbgsfuSJPBkhei1LwWUyZ5
- u+7A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 555A010E73E
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 21:46:17 +0000 (UTC)
+Received: by mail-pg1-f171.google.com with SMTP id
+ 41be03b00d2f7-c858b5de728so2438389a12.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 14:46:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1781558981; x=1782163781;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=wgYo7VLpeFYmsBuL2Aaa8Uz9HGtMHARrdfAhOGMsVTA=;
- b=k/yBeLwq+dpYwJHkJ+eXmPCZWmCO2Ir8TUN9cov+GJh4Qxg0zHCOatLhLNoSXD7puS
- OqZK4IvTLJ538OVm/Myjvv0a4kbAPGQimewgfg1DuFW6eU3ISw0aIdJB3fYMfMCzrGaJ
- bK3iZDjDMaIJOwjqvVQOFdb3NKuCXg157HIj8pn/ATxZMeBUfm4mepjw2MWaCOJi/DF7
- wkhbaF4S1hcDUbv9gx+HwRNTfXZTcSr4xDNrj2QKC5rMPxm+0XFf2a5ev6tGnRzTeC3T
- BrzAH0vTqYzrkp0qL9EX+TWI0gfjRFTLF+0C00JAIR+JZ6JpJduFtIE1qIHmh1o23NnX
- EJVA==
+ d=gmail.com; s=20251104; t=1781559977; x=1782164777; darn=lists.freedesktop.org;
+ h=mime-version:content-transfer-encoding:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=vz6stOMSk3vpFUFzv+jJpjA2EoqJIkxHHZXo5ER0nFI=;
+ b=mDQLCYuG6UH0FvBVVXeuwqRGdj1oi8lEN5sPvSAfrchgI/dNb6lzCOKqCBvvmv3fmQ
+ BtljOGnv0tJEMCMixTGVtHHLUEFrP+dsnekg2bPzXByd8Yn2PhVxnX74g3KFlKfz/4Ep
+ x873TDqS+aHmJSm+c6EIPPOb8NPEx+QPZQkzUK52N7bx5dhwm7aoKI+2pnWudYOaY+Xx
+ mEx1dszAx2oDRXqEiLjAT8qsYAWk+Mh4y8PUu8SyCUrYnSHyyHaNW5+o6DKJDgpj5hPB
+ ibp/pjCUwnjfKrDVtAlJFGAcGl5MKROsW1D4hq1ofRTP1gfvTxiMNY5MAb2lydXvWsDZ
+ n7fQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781558981; x=1782163781;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1781559977; x=1782164777;
+ h=mime-version:content-transfer-encoding:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wgYo7VLpeFYmsBuL2Aaa8Uz9HGtMHARrdfAhOGMsVTA=;
- b=aX5ISVDcLAuaLWZMyLWbP4fNyg0aLar55hypKW5yHSVBm2BdGRdOWoomXP9QMrLYks
- IvI1ooNC5E1Yr5ObnJYaDz9IPBylpeVzVOZBI5HvMWur7cSd5pOjxoJdPEWdNyp1O2d/
- mKJmuYQOhxFu3eBrrd2f6ZwhYPoLomsxQT2/ZA9dkl9a7Le8QghZ4MpgQa6AB1Y5JBxW
- v7melIkhxPRPI84o7fe6wytQs80Mzw5X6C60HtlVydJa6rUxtJgS/zhiW8GT4q9msnS/
- G213F2H/TKwoy4nRrI6JBv83ub/tv5LhO4F8FIc30wSy1P1xpk6bupJCWw4rGyZvc9Xq
- lUJQ==
-X-Gm-Message-State: AOJu0YyCvhiZJhF1YpJADHksvm2g2QYTjoMWaRx4QLIUR2FQWW2KVbW+
- iNEISpf+M+Nzrgi5SidiY+GwY1Adq4U7FUfTS3JPdfY1Xd8yqUhROp2PMsHTimQXfTqgLlGbE5N
- /t6/Qpc5+1uv8RHIc3uw9WonoomPuAPfULNmyeviAhNpKpMv4W1J4
-X-Gm-Gg: Acq92OEPhsImG4vahh1q8W4nQ5H+8lvBg5zWnl7M0Kj1wTzxn0QNgRHVoA9/dZ0SCVf
- JLzt/pw8W7aqrLnLaJnIsfwY0S1193Iau2p/bmYcXMp1nfrqb/OBgCPMPOEWw21MVAI6qn6Z8av
- sdIiKcqDfGqOws83W7fU3Ec+Alva2hXkdmBq/WVHLeS+oCa1pvVlzOZPDLYwDERtNY4Ni74rrsc
- 4Ws6/KHZlkYxVuRsxKLMWw0+khU4JFtcSaRd/p4kspWbGKfKkHREPG2hHT73gjwPPetekQt+yel
- zBjPIGs=
-X-Received: by 2002:a17:90b:4c09:b0:368:3d3e:efa6 with SMTP id
- 98e67ed59e1d1-37c523fb93cmr1122216a91.20.1781558981034; Mon, 15 Jun 2026
- 14:29:41 -0700 (PDT)
+ bh=vz6stOMSk3vpFUFzv+jJpjA2EoqJIkxHHZXo5ER0nFI=;
+ b=hy1zAj3SjfEmJl6hlKMUcuHNv5MSqNc8aLlwNZe5nqRVh3qMYNa6ewlODpf5dUZl9j
+ v0OIaYQ7Qc/yRjINFF9w4FB78eRsB+p1D6JxM7va9EGQ9GwrSBlEVfzryMUT/WAXutnQ
+ jEIMUwIDsLEHZTEn9RTL9X7sv+GmvGzjyHe66KHRNP7dB8P5fIYPJN2VmpAiiEoJ6NjL
+ p6eY16/DlC32ZKjCA1cSrtdsCBPmXA6Benle/sqOvBd5KxJk0UkDZRaXywUhB95sK7Hx
+ hc8B4TIYOH75L1CmaQyet/sPa9c7kRMj19R9+Rl0ltWfQ6xDAp+Rxql/X25r/EeDPYFT
+ xooA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9I+YNKMXq5XicYl9+oVe9jqRO5o7NGNOF8BoCrywEQUlPktXttpohrLIvbv6lAr2tlISuC9rE1Z2c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzLi55nbnzb2lh4+FtFozOSUB0zpaZkLtJOPo+M842nnTKztNvM
+ 90BoZ7iljM3dODeqVEHo6P+4PcQJQ+sTsVwS2j0o6F3owaq+LCNCPc+j
+X-Gm-Gg: Acq92OFQf1epW6ZpGq5pgMB7M1RjDvO05/702hSwNcBJM++SKwLJQs/TUDPuqx3XHo3
+ CRP7TlNtlPnE7Ji438oaEODX3v1nr3CIgbhDfAwIZLOzKw+UKLFlrJnSAdsl4+r/Acn7H2SUsLH
+ vs1SR4g4sY5qUgYScHSSVfOjteR2GtvIn10h9Zcn80fA42u2jWdQa5qJ5lKZm5aRfnPFjvYty5S
+ 2PzTO7I3s4LBm/BKzrBIW2Br8JFygDblnX161rJFBwV90M1Hlq/GuB1GF4OOjyVVJqbq1NYyKP6
+ 8wEFGGTq99eXplmz74yTtiIPCcBmgiyQFriE8C+HKx8rEqo7jgslM/0XMhZKAlUoeSs6+RE53Ad
+ 6k69fO9HqgLJbOI14MqIunR+Sh4+FI7bo+taGSJJVcsQ+Btc3QIDX07RpeJ9cPz9rCczX1buQdn
+ TuPdaneiW/deXKLxceNubcWkqL3s1NzDKhwH6dGL/QGv69puo/m6EqFHFw10wd6yOmvnPO7uCcE
+ uQbBBZRhNfkiXFCaBK3e0ZMrlzgmw==
+X-Received: by 2002:a05:6a20:748a:b0:3b4:7aae:1ee8 with SMTP id
+ adf61e73a8af0-3b79624cb18mr14017944637.14.1781559976818; 
+ Mon, 15 Jun 2026 14:46:16 -0700 (PDT)
+Received: from 1.0.0.127.in-addr.arpa ([103.129.135.168])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-c8661b5e509sm9835799a12.3.2026.06.15.14.46.12
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 15 Jun 2026 14:46:16 -0700 (PDT)
+From: shuvampandey1@gmail.com
+To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Donald Robson <donald.robson@imgtec.com>,
+ Sarah Walker <sarah.walker@imgtec.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] drm/imagination: Fix user array stride in pvr_set_uobj_array()
+Date: Tue, 16 Jun 2026 03:31:09 +0545
+Message-ID: <178155996993.4848.8618351576278880213@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <20260602191754.79047-1-derek.foreman@collabora.com>
-In-Reply-To: <20260602191754.79047-1-derek.foreman@collabora.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Mon, 15 Jun 2026 22:29:30 +0100
-X-Gm-Features: AVVi8CddNKZCyvln3YagaRkOsAjvQ6tGtxnUWttjn63qXxcXTUItYaJMnXKD-gY
-Message-ID: <CAPj87rOyM1_UFKbNLrZXDNHTwVQ-oK0kpUrhw6-04efJiD4VQA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm: writeback: Document behaviour for framebuffer
- size mismatch
-To: Derek Foreman <derek.foreman@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,23 +91,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Derek,
+pvr_set_uobj_array() copies an array of kernel objects to a userspace
+array whose element size is described by out->stride. When out->stride
+is different from the kernel object size, the slow path advances the
+userspace pointer by the kernel object size and the kernel pointer by the
+userspace stride.
 
-On Tue, 2 Jun 2026 at 20:18, Derek Foreman <derek.foreman@collabora.com> wrote:
-> Currently we have not explicitly defined the behaviour when the width
-> and height of the writeback framebuffer do not match the width and
-> height of the attached CRTC.
->
-> Allow the driver to perform a scale operation to fit the content, so
-> systems with scaling blocks in the writeback path can easily expose them.
-> A partially filled buffer should never be returned, so failure remains
-> an option for all the systems that don't have a scaler, or when scaler
-> limits are exceeded.
->
-> Cropping would make less sense, as the region to crop is underspecified
-> without some other properties to define an origin.
+This reverses the intended layout. For larger userspace strides, later
+copies read from the wrong kernel addresses. For smaller userspace
+strides, later copies are written at the wrong userspace offsets. The
+padding clear is also done only for the first element instead of the
+padding area for each element.
 
-Thanks, I've applied this now.
+Advance the userspace pointer by out->stride and the kernel pointer by
+obj_size, and clear per-element padding while the current userspace
+pointer is still available.
 
-Cheers,
-Daniel
+Fixes: f99f5f3ea7ef ("drm/imagination: Add GPU ID parsing and firmware loadin=
+g")
+Cc: stable@vger.kernel.org # v6.8+
+Signed-off-by: Shuvam Pandey <shuvampandey1@gmail.com>
+---
+ drivers/gpu/drm/imagination/pvr_drv.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imaginat=
+ion/pvr_drv.c
+index 268900464ab6..0a68a9c32361 100644
+--- a/drivers/gpu/drm/imagination/pvr_drv.c
++++ b/drivers/gpu/drm/imagination/pvr_drv.c
+@@ -1252,14 +1252,13 @@ pvr_set_uobj_array(const struct drm_pvr_obj_array *ou=
+t, u32 min_stride, u32 obj_
+ 			if (copy_to_user(out_ptr, in_ptr, cpy_elem_size))
+ 				return -EFAULT;
+=20
+-			out_ptr +=3D obj_size;
+-			in_ptr +=3D out->stride;
+-		}
++			if (out->stride > obj_size &&
++			    clear_user(out_ptr + cpy_elem_size, out->stride - obj_size)) {
++				return -EFAULT;
++			}
+=20
+-		if (out->stride > obj_size &&
+-		    clear_user(u64_to_user_ptr(out->array + obj_size),
+-			       out->stride - obj_size)) {
+-			return -EFAULT;
++			out_ptr +=3D out->stride;
++			in_ptr +=3D obj_size;
+ 		}
+ 	}
+=20
