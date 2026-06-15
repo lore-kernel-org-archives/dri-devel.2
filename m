@@ -4,54 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D977CCD98C5
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 08:24:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17920CD98C5
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 08:29:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4984210E2AA;
-	Mon, 15 Jun 2026 08:24:16 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D8FA10E2A9
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 08:24:13 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.167])
- by APP-03 (Coremail) with SMTP id rQCowABHK+Knti9qMTnKFA--.4089S2;
- Mon, 15 Jun 2026 16:24:08 +0800 (CST)
-Message-ID: <155be53c188ba9743ee5b9da4b9181ebc2db9310.camel@iscas.ac.cn>
-Subject: Re: [PATCH v4 2/6] drm/verisilicon: add register-level macros for
- DC8000
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 15 Jun 2026 16:24:07 +0800
-In-Reply-To: <20260615065003.76661-3-a0987203069@gmail.com>
-References: <20260615065003.76661-1-a0987203069@gmail.com>
- <20260615065003.76661-3-a0987203069@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3665210E2A9;
+	Mon, 15 Jun 2026 08:29:27 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="RTIihpBk";
+	dkim-atps=neutral
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3010710E2A9
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 08:29:24 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gf3FF57wgz9typ;
+ Mon, 15 Jun 2026 10:29:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1781512161; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=lEvqAeUxKmIsy9wRoec7qShb0uF4BOCSiCsGM2G9nhg=;
+ b=RTIihpBk6ax/Q2S0VoCykT/ZViJnQGj7wL4BFDGsfWhUlhcosxiG7WNUOa8r+76CuPc18f
+ G9uPrwwTcnGncoMfGxGBSqHduGa8luEZy5U/EBwlV60R8GHEcZzWZRPp8Cr2GV/Oda2rll
+ g9CCBtIbdORieG4kvW7QiAYlXjghLFSgO0iafN3c8N+I4cv7fZHEsBnVT+zfK9/CjTu5B6
+ nymkSQ1c988SR1N8IvwoiGjo67r/v2RlDSM87mKOigpnoXAjM75gOLL9yLtA4YULayjnjF
+ VjaI2G7+QggZkXuKHjbZ4iMzjpxT6z7EQp/mNcNK8o6GrMCF+pwGoaEhqHtm0w==
+Message-ID: <fa0dc9757bf8343516c4b156a2b70ec91b64ef8f.camel@mailbox.org>
+Subject: Properly synchronize dma_fence->signaled bit (Was: Re: [RFC PATCH]
+ dma-fence: Fix races of fence callbacks versus destructors by locking)
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Danilo
+ Krummrich <dakr@kernel.org>
+Cc: phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Boris
+ Brezillon	 <boris.brezillon@collabora.com>, Alice Ryhl
+ <aliceryhl@google.com>, Daniel Almeida <dwlsalmeida@gmail.com>, Gary Guo
+ <gary@garyguo.net>, Tvrtko Ursulin	 <tvrtko.ursulin@igalia.com>,
+ linux-media@vger.kernel.org, 	dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 15 Jun 2026 10:29:16 +0200
+In-Reply-To: <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
+References: <20260608142436.265820-2-phasta@kernel.org>
+ <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
+ <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
+ <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
+ <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
+ <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-X-CM-TRANSID: rQCowABHK+Knti9qMTnKFA--.4089S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tFWxGF4xJw4kGw4UGFy7Awb_yoW8Kryfpr
- 47AayktryFy39a9397ta40kFZxG3W7Jw4ruFy8ZrZ8XF40ywn8urWjqFWfGFyqqry7A3yx
- Krnakw43u3ya93JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
- c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
- 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
- 14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
- IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
- 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
- IFyTuYvjxUzOJ5UUUUU
-X-Originating-IP: [112.94.100.167]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+X-MBO-RS-ID: 6086604dc72c2201643
+X-MBO-RS-META: 14ux6w14mjcr1uk7qf8nzuyosu8jfsdh
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,71 +71,125 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-06-15=E4=B8=80=E7=9A=84 14:49 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
-> Add register-level constants needed by the forthcoming DC8000
-> (DCUltraLite)
-> hardware ops:
+On Mon, 2026-06-08 at 20:32 +0200, Christian K=C3=B6nig wrote:
+> On 6/8/26 19:59, Danilo Krummrich wrote:
+> > On Mon Jun 8, 2026 at 7:34 PM CEST, Christian K=C3=B6nig wrote:
+> > > That's why we need the RCU grace period to make sure that nobody
+> > > is
+> > > referencing the driver stuff any more.
+> >=20
+> > Right, and that's what Philipp tries to address, the requirement to
+> > wait for an
+> > RCU grace period is perfectly fine if it is only about freeing
+> > memory, but it
+> > can become painful if the fence private data contains data also
+> > needs to be
+> > destructed in some way.
 >=20
-> =C2=A0 VSDC_DISP_IRQ_VSYNC(n) in vs_crtc_regs.h: bit mask for per-output
-> =C2=A0 VSYNC interrupt bits in DISP_IRQ_STA (0x147C) / DISP_IRQ_EN
-> (0x1480),
-> =C2=A0 which are the IRQ registers used by DCUltraLite in place of the
-> DC8200
-> =C2=A0 TOP_IRQ_ACK / TOP_IRQ_EN registers.
+> Yeah that makes sense.
 >=20
-> =C2=A0 VSDC_FB_CONFIG_ENABLE (bit 0), VSDC_FB_CONFIG_VALID (bit 3) and
-> =C2=A0 VSDC_FB_CONFIG_RESET (bit 4) in vs_primary_plane_regs.h: control
-> bits
-> =C2=A0 in the FB_CONFIG register used by DCUltraLite for framebuffer
-> enable
-> =C2=A0 and per-frame commit handshake.
+> > IOW, if a driver signals a fence, it is lifecycle-wise reasonable
+> > to destruct
+> > the private data that is no longer needed (remaining users only
+> > deal with struct
+> > dma_fence) and having to wait for a full grace period adds sublety
+> > and
+> > complication that can be avoided with the proposed approach.
+>=20
+> Yeah, I've run into that when I tried to make the amdgpu fences
+> independent as well.
+> > That said, I'd like to ask the opposite question: What are the
+> > concerns with the
+> > proposed approach over (pure) RCU?
+>=20
+> For example the reason why we have the dma_fence_is_signaled() and
+> dma_fence_is_signaled_locked() variants is because there is a
+> measurable difference in some specific use cases for not grabbing the
+> locks.
 
-Validated against DC8000 register list.
-
-Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Yeah, certainly, not taking locks makes your code go faster. drm_sched
+can sing a song about that -.-
 
 >=20
-> No behaviour change for existing DC8200 platforms.
->=20
-> Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> ---
-> =C2=A0drivers/gpu/drm/verisilicon/vs_crtc_regs.h=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 1 +
-> =C2=A0drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h | 3 +++
-> =C2=A02 files changed, 4 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
-> b/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
-> index c7930e817635..d4da22b08cd5 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
-> @@ -54,6 +54,7 @@
-> =C2=A0#define VSDC_DISP_GAMMA_DATA(n)			(0x1460 +
-> 0x4 * (n))
-> =C2=A0
-> =C2=A0#define VSDC_DISP_IRQ_STA			0x147C
-> +#define VSDC_DISP_IRQ_VSYNC(n)			BIT(n)
-> =C2=A0
-> =C2=A0#define VSDC_DISP_IRQ_EN			0x1480
-> =C2=A0
-> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
-> b/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
-> index cbb125c46b39..67d4b00f294e 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
-> @@ -16,6 +16,9 @@
-> =C2=A0#define VSDC_FB_STRIDE(n)			(0x1408 + 0x4 * (n))
-> =C2=A0
-> =C2=A0#define VSDC_FB_CONFIG(n)			(0x1518 + 0x4 * (n))
-> +#define VSDC_FB_CONFIG_ENABLE			BIT(0)
-> +#define VSDC_FB_CONFIG_VALID			BIT(3)
-> +#define VSDC_FB_CONFIG_RESET			BIT(4)
-> =C2=A0#define VSDC_FB_CONFIG_CLEAR_EN			BIT(8)
-> =C2=A0#define VSDC_FB_CONFIG_ROT_MASK			GENMASK(13,
-> 11)
-> =C2=A0#define VSDC_FB_CONFIG_ROT(v)			((v) << 11)
+> I personally find those micro-optimizations rather questionable, but
+> the community agreement is that we should have them.
 
+Yeah so this is most definitely broken and needs to be removed. Proof
+is that various parties already need to work around that issue. You
+just never know what drivers do. It's very conceivable that the Nouveau
+case will often happen:
+
+if (dma_fence_is_signaled(f))
+  dma_fence_put(f);
+
+
+This fast path check in my mind certainly breaks the intended dma_fence
+design:
+
+void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+				      ktime_t timestamp)
+{
+	const struct dma_fence_ops *ops;
+	struct dma_fence_cb *cur, *tmp;
+	struct list_head cb_list;
+
+	dma_fence_assert_held(fence);
+
+	if (unlikely(test_and_set_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
+				      &fence->flags)))
+		return;
+
+
+Modifying the bit is consistently done under lock protection, so
+reading must be done, too.
+
+Do you remember who wanted those fast path checks? Who is spinning on
+that lock?
+
+
+In any case, that needs to be repaired. A hacky lockless way might
+hypothetically be doable by setting barriers, as I suggest here:
+
+https://lore.kernel.org/dri-devel/20260612104251.2264707-2-phasta@kernel.or=
+g/
+
+But note that the ops-decoupling in e.g. dma_fence_timeline_name()
+already depends on lockless ordering mechanisms in
+dma_fence_signal_timestamp_locked(). So we're already a bit fragile
+here.
+
+>=20
+> So my take would rather be that the dma_fence_is_signaled_locked()
+> variant goes away and we consistently call the ops pointers without
+> holding the dma_fence lock and the driver implementations can then
+> optionally take it if necessary.
+
+That might work.
+
+>=20
+> I think for this we would just need to replace most calls to
+> dma_fence_is_signaled_locked() with dma_fence_test_signaled().
+
+That would not fix the cleanup race in Nouveau.
+
+I do get the idealistic idea of fence->signaled really just
+representing whether the hardware is done, without any further
+guarantees, but having this fast-path lockless magic in functions
+checking the signaled state is really asking for trouble.
+
+So it would seem that both dma_fence_is_signaled() and
+dma_fence_test_signaled_flag() need to be properly synchronized.
+
+
+P.
+
+>=20
+> In the long term that would also allow cleaning up the container
+> handling and simplifying the DRM scheduler a bit.
+>=20
+> Regards,
+> Christian.
