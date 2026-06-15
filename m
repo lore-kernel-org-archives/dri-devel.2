@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D17DCD98E7
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 20:18:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E591CD98F0
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 20:18:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F33F910E65D;
-	Mon, 15 Jun 2026 20:18:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87CB610E66D;
+	Mon, 15 Jun 2026 20:18:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="AGnJ5kJk";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="g/VpS5W0";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 977BD10E636;
- Mon, 15 Jun 2026 20:18:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 598F610E65D;
+ Mon, 15 Jun 2026 20:18:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1781554716;
- bh=xF/Z0Myz+A8ZRO9Nq1ZV67SO0YqRqvq7QO8j8B3ElGg=;
+ s=default; t=1781554720;
+ bh=/Z0rHBfQ2RPiDNObOAdc6wP/4bNn6B17ebb9xTUmis8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=AGnJ5kJkMafZV7peQQ+SOR7yV1iNEmOsv06CyIoYoeQpySSVwbpce+Ho/gwFiStlm
- 04wAwZL4bn8EDjfMUeGhG5bpAfpAnYSReyJtU4gk/9DoLNNvLMEcIRqgjn1iuh71Fd
- eH1NH9KvlrAyXcwBur8v9cZz9AEQCsd5wFcFSlFGN3I0otDx2XpTstyYvD20EzqxtF
- t2Wz98nkwpxaeS/5aTbbfoJh3vxH/XrmbCHxg75/WLL80Cs/NrkoUXwFAYP8OgFVsk
- haccvJ5Iy6DkBfKQZd3fyAIFq81LmVJ310cVha3natnbMn+RGluAnC5Y4O0ALXhgJ1
- tnc+UHJgcbCKg==
+ b=g/VpS5W0rESFTDEcOWbsy+M0j3ZrlEk1Db3w99lyuR9wwuqOY+V6oPepND/UDfHfy
+ ydMuRfi5urFfZTzBvbLezW1D7HVEhLFn2/T2t1bFRY3xy60JEA3z17b37WSHhJCLi5
+ wMvja9o5sg2j4UuZTeQPeMmY8smo9ioJA36w8tastfHTPVFBBUFzF8XJGB34ohpic7
+ CMpM8zbH1LqD2Oca6kAIzlfd+Lwzn/wc/3IVPq4oFjE6ZYibzgMPYJmnEjgAFMh6pF
+ Rj981kdSscgl5hOlWk5zbeMMJ6rWRnKbxO11nMaqfy+SvRC8tHeOxHtKbcTt+WwPps
+ 8Hdf+GoWmYDkQ==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v8 06/27] drm/i915/display: Remove locking from
- intel_vblank_evade critical section
-Date: Mon, 15 Jun 2026 22:18:24 +0200
-Message-ID: <20260615201846.307297-7-dev@lankhorst.se>
+Cc: dri-devel@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
+ Uma Shankar <uma.shankar@intel.com>
+Subject: [PATCH v8 12/27] drm/i915/display: Use intel_de_read/write_fw in
+ colorops
+Date: Mon, 15 Jun 2026 22:18:30 +0200
+Message-ID: <20260615201846.307297-13-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260615201846.307297-1-dev@lankhorst.se>
 References: <20260615201846.307297-1-dev@lankhorst.se>
@@ -54,117 +54,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-finish_wait() may take a lock, which means that it can take any amount
-of time. On PREEMPT-RT we should not be taking any lock after disabling
-preemption, so ensure that the completion is done before disabling
-interrupts.
+Using the _fw variants fixes a module load error on PTL:
 
-This also has the benefit of making vblank evasion more deterministic,
-by performing the final vblank check after all locking is done.
+<4> [363.690050] Call Trace:
+<4> [363.690052]  <TASK>
+<4> [363.690055]  dump_stack_lvl+0x91/0xf0
+<4> [363.690067]  dump_stack+0x10/0x20
+<4> [363.690074]  __might_resched+0x174/0x260
+<4> [363.690087]  rt_spin_lock+0x63/0x200
+<4> [363.690092]  ? intel_dmc_wl_get+0x3c/0x140 [xe]
+<4> [363.690470]  ? __lock_acquire+0x1195/0x2860
+<4> [363.690487]  intel_dmc_wl_get+0x3c/0x140 [xe]
+<4> [363.690842]  intel_color_plane_commit_arm+0xbc/0x140 [xe]
+<4> [363.691246]  icl_plane_update_arm+0x23f/0x280 [xe]
+<4> [363.691605]  intel_plane_update_arm+0x74/0x170 [xe]
+<4> [363.691970]  intel_crtc_planes_update_arm+0x3cb/0x4c0 [xe]
+<4> [363.692338]  intel_update_crtc+0x1c3/0x840 [xe]
+<4> [363.692742]  ? intel_pre_update_crtc+0x2ce/0x470 [xe]
+<4> [363.693125]  ? intel_enable_crtc+0x123/0x150 [xe]
+<4> [363.693508]  skl_commit_modeset_enables+0x4c4/0x720 [xe]
+<4> [363.693888]  intel_atomic_commit_tail+0xd9d/0x1b30 [xe]
+<4> [363.694274]  intel_atomic_commit+0x2e8/0x330 [xe]
+<4> [363.694621]  ? intel_atomic_commit+0x2e8/0x330 [xe]
+<4> [363.694956]  drm_atomic_commit+0xaf/0xf0
+<4> [363.694962]  ? __pfx___drm_printfn_info+0x10/0x10
+<4> [363.694978]  drm_client_modeset_commit_atomic+0x25c/0x2b0
+<4> [363.695018]  drm_client_modeset_commit_locked+0x63/0x1b0
+<4> [363.695029]  drm_client_modeset_commit+0x26/0x50
+<4> [363.695035]  __drm_fb_helper_restore_fbdev_mode_unlocked+0xdc/0x110
+<4> [363.695045]  drm_fb_helper_set_par+0x2f/0x50
+<4> [363.695052]  intel_fbdev_set_par+0x39/0x90 [xe]
+<4> [363.695365]  fbcon_init+0x283/0x680
+<4> [363.695382]  visual_init+0xf2/0x190
+<4> [363.695396]  do_bind_con_driver.isra.0+0x1f1/0x4c0
+<4> [363.695416]  do_take_over_console+0x181/0x220
+<4> [363.695422]  ? vprintk_default+0x1d/0x30
+<4> [363.695436]  do_fbcon_takeover+0x85/0x160
+<4> [363.695447]  do_fb_registered+0x24c/0x2b0
+<4> [363.695460]  fbcon_fb_registered+0x3a/0x90
+<4> [363.695469]  do_register_framebuffer+0x216/0x320
+<4> [363.695488]  register_framebuffer+0x23/0x50
+<4> [363.695494]  __drm_fb_helper_initial_config_and_unlock+0x3ea/0x670
+<4> [363.695502]  ? trace_hardirqs_on+0x1e/0xd0
+<4> [363.695526]  drm_fb_helper_initial_config+0x3f/0x50
+<4> [363.695534]  drm_fbdev_client_hotplug+0x80/0xd0
+<4> [363.695543]  drm_client_register+0x8a/0xe0
+<4> [363.695556]  drm_fbdev_client_setup+0x127/0x1f0
+<4> [363.695563]  drm_client_setup+0xa7/0xe0
+<4> [363.695569]  drm_client_setup_with_color_mode+0x24/0x40
+<4> [363.695575]  intel_fbdev_setup+0x1c6/0x510 [xe]
+<4> [363.695857]  intel_display_driver_register+0xb5/0x100 [xe]
+<4> [363.696188]  ? __pfx___drm_printfn_dbg+0x10/0x10
+<4> [363.696194]  ? intel_display_driver_register+0x2e/0x100 [xe]
+<4> [363.696515]  xe_display_register+0x29/0x40 [xe]
+<4> [363.696858]  xe_device_probe+0x51a/0x9e0 [xe]
+<4> [363.697102]  ? __drmm_add_action+0x98/0x110
+<4> [363.697108]  ? __pfx___drmm_mutex_release+0x10/0x10
+<4> [363.697116]  ? __drmm_add_action_or_reset+0x1e/0x50
+<4> [363.697130]  xe_pci_probe+0x396/0x620 [xe]
+<4> [363.697423]  local_pci_probe+0x47/0xb0
+<4> [363.697431]  pci_device_probe+0xf3/0x260
+<4> [363.697444]  really_probe+0xf1/0x3c0
+<4> [363.697451]  __driver_probe_device+0x8c/0x180
+<4> [363.697458]  driver_probe_device+0x24/0xd0
+<4> [363.697464]  __driver_attach+0x10f/0x220
+<4> [363.697468]  ? __pfx___driver_attach+0x10/0x10
+<4> [363.697472]  bus_for_each_dev+0x7f/0xe0
+<4> [363.697484]  driver_attach+0x1e/0x30
+<4> [363.697487]  bus_add_driver+0x154/0x290
+<4> [363.697498]  driver_register+0x5e/0x130
+<4> [363.697504]  __pci_register_driver+0x84/0xa0
+<4> [363.697509]  xe_register_pci_driver+0x23/0x30 [xe]
+<4> [363.697762]  xe_init+0x2c/0x110 [xe]
+<4> [363.698007]  ? __pfx_xe_init+0x10/0x10 [xe]
+<4> [363.698239]  do_one_initcall+0x60/0x3f0
+<4> [363.698250]  ? __kmalloc_cache_noprof+0x470/0x690
+<4> [363.698267]  do_init_module+0x97/0x2b0
+<4> [363.698275]  load_module+0x2d08/0x2e30
+<4> [363.698280]  ? __kernel_read+0x164/0x310
+<4> [363.698312]  ? kernel_read_file+0x2ca/0x340
+<4> [363.698328]  init_module_from_file+0x96/0xe0
+<4> [363.698330]  ? init_module_from_file+0x96/0xe0
+<4> [363.698357]  idempotent_init_module+0x11d/0x340
+<4> [363.698384]  __x64_sys_finit_module+0x73/0xe0
+<4> [363.698393]  x64_sys_call+0x1e3d/0x26a0
+<4> [363.698399]  do_syscall_64+0x93/0xab0
+<4> [363.698413]  ? ext4_llseek+0xc3/0x130
+<4> [363.698425]  ? ksys_lseek+0x55/0xd0
+<4> [363.698438]  ? do_syscall_64+0x1b7/0xab0
+<4> [363.698444]  ? switch_fpu_return+0xea/0x150
+<4> [363.698454]  ? do_syscall_64+0x1b7/0xab0
+<4> [363.698465]  ? kernfs_fop_read_iter+0x197/0x210
+<4> [363.698470]  ? rw_verify_area+0x16f/0x200
+<4> [363.698482]  ? vfs_read+0x22a/0x360
+<4> [363.698498]  ? do_syscall_64+0x1b7/0xab0
+<4> [363.698506]  ? ksys_read+0x72/0xf0
+<4> [363.698520]  ? do_syscall_64+0x1b7/0xab0
+<4> [363.698526]  ? do_syscall_64+0x1b7/0xab0
+<4> [363.698532]  ? do_syscall_64+0x1b7/0xab0
+<4> [363.698535]  ? exc_page_fault+0xbd/0x2c0
+<4> [363.698545]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+<4> [363.698549] RIP: 0033:0x715af255025d
+
+And a similar backtrace in hsw_color_commit_arm().
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_crtc.c   |  2 +-
- drivers/gpu/drm/i915/display/intel_vblank.c | 30 +++++++++------------
- drivers/gpu/drm/i915/display/intel_vblank.h |  1 +
- 3 files changed, 15 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/i915/display/intel_color.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-index 34a159f7c9a43..8218938985b41 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -734,7 +734,7 @@ void intel_pipe_update_end(struct intel_atomic_state *state,
- 	struct intel_crtc_state *new_crtc_state =
- 		intel_atomic_get_new_crtc_state(state, crtc);
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index 87ced9f6ff408..cc3cdb90d6975 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -1050,7 +1050,7 @@ static void hsw_color_commit_arm(struct intel_dsb *dsb,
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	struct intel_display *display = to_intel_display(crtc);
+ 
+-	intel_de_write(display, GAMMA_MODE(crtc->pipe),
++	intel_de_write_fw(display, GAMMA_MODE(crtc->pipe),
+ 		       crtc_state->gamma_mode);
+ 
+ 	intel_de_write_fw(display, PIPE_CSC_MODE(crtc->pipe),
+@@ -4066,7 +4066,7 @@ static void glk_load_lut_3d(struct intel_dsb *dsb,
+ 	int i, lut_size = drm_color_lut32_size(blob);
  	enum pipe pipe = crtc->pipe;
--	int scanline_end = intel_get_crtc_scanline(crtc);
-+	int scanline_end = __intel_get_crtc_scanline(crtc);
- 	u32 end_vbl_count = intel_crtc_get_vblank_counter(crtc);
- 	ktime_t end_vbl_time = ktime_get();
  
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
-index 28d81199792ef..ca08059e088ea 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.c
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -241,7 +241,7 @@ int intel_crtc_scanline_offset(const struct intel_crtc_state *crtc_state)
-  * intel_de_read_fw(), only for fast reads of display block, no need for
-  * forcewake etc.
-  */
--static int __intel_get_crtc_scanline(struct intel_crtc *crtc)
-+int __intel_get_crtc_scanline(struct intel_crtc *crtc)
- {
- 	struct intel_display *display = to_intel_display(crtc);
- 	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(&crtc->base);
-@@ -732,6 +732,16 @@ void intel_vblank_evade_init(const struct intel_crtc_state *old_crtc_state,
- 		evade->min -= vblank_delay;
- }
+-	if (!dsb && intel_de_read(display, LUT_3D_CTL(pipe)) & LUT_3D_READY) {
++	if (!dsb && intel_de_read_fw(display, LUT_3D_CTL(pipe)) & LUT_3D_READY) {
+ 		drm_err(display->drm, "[CRTC:%d:%s] 3D LUT not ready, not loading LUTs\n",
+ 			crtc->base.base.id, crtc->base.name);
+ 		return;
+@@ -4084,7 +4084,7 @@ static void glk_lut_3d_commit(struct intel_dsb *dsb, struct intel_crtc *crtc, bo
+ 	enum pipe pipe = crtc->pipe;
+ 	u32 val = 0;
  
-+static bool scanline_in_safe_range(struct intel_vblank_evade_ctx *evade, int *scanline, bool unlocked)
-+{
-+	if (unlocked)
-+		*scanline = intel_get_crtc_scanline(evade->crtc);
-+	else
-+		*scanline = __intel_get_crtc_scanline(evade->crtc);
-+
-+	return *scanline < evade->min || *scanline > evade->max;
-+}
-+
- /* must be called with vblank interrupt already enabled! */
- int intel_vblank_evade(struct intel_vblank_evade_ctx *evade)
- {
-@@ -739,24 +749,12 @@ int intel_vblank_evade(struct intel_vblank_evade_ctx *evade)
- 	struct intel_display *display = to_intel_display(crtc);
- 	long timeout = msecs_to_jiffies_timeout(1);
- 	wait_queue_head_t *wq = drm_crtc_vblank_waitqueue(&crtc->base);
--	DEFINE_WAIT(wait);
- 	int scanline;
- 
- 	if (evade->min <= 0 || evade->max <= 0)
- 		return 0;
- 
--	for (;;) {
--		/*
--		 * prepare_to_wait() has a memory barrier, which guarantees
--		 * other CPUs can see the task state update by the time we
--		 * read the scanline.
--		 */
--		prepare_to_wait(wq, &wait, TASK_UNINTERRUPTIBLE);
--
--		scanline = intel_get_crtc_scanline(crtc);
--		if (scanline < evade->min || scanline > evade->max)
--			break;
--
-+	while (!scanline_in_safe_range(evade, &scanline, false)) {
- 		if (!timeout) {
- 			drm_dbg_kms(display->drm,
- 				    "Potential atomic update failure on pipe %c\n",
-@@ -766,13 +764,11 @@ int intel_vblank_evade(struct intel_vblank_evade_ctx *evade)
- 
- 		local_irq_enable();
- 
--		timeout = schedule_timeout(timeout);
-+		timeout = wait_event_timeout(*wq, scanline_in_safe_range(evade, &scanline, true), timeout);
- 
- 		local_irq_disable();
- 	}
- 
--	finish_wait(wq, &wait);
--
- 	/*
- 	 * On VLV/CHV DSI the scanline counter would appear to
- 	 * increment approx. 1/3 of a scanline before start of vblank.
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.h b/drivers/gpu/drm/i915/display/intel_vblank.h
-index 98d04cacd65f8..aa1974400e9fc 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.h
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.h
-@@ -38,6 +38,7 @@ u32 g4x_get_vblank_counter(struct drm_crtc *crtc);
- bool intel_crtc_get_vblank_timestamp(struct drm_crtc *crtc, int *max_error,
- 				     ktime_t *vblank_time, bool in_vblank_irq);
- int intel_get_crtc_scanline(struct intel_crtc *crtc);
-+int __intel_get_crtc_scanline(struct intel_crtc *crtc);
- void intel_wait_for_pipe_scanline_stopped(struct intel_crtc *crtc);
- void intel_wait_for_pipe_scanline_moving(struct intel_crtc *crtc);
- void intel_crtc_update_active_timings(const struct intel_crtc_state *crtc_state,
+-	if (!dsb && intel_de_read(display, LUT_3D_CTL(pipe)) & LUT_3D_READY) {
++	if (!dsb && intel_de_read_fw(display, LUT_3D_CTL(pipe)) & LUT_3D_READY) {
+ 		drm_err(display->drm, "[CRTC:%d:%s] 3D LUT not ready, not committing change\n",
+ 			crtc->base.base.id, crtc->base.name);
+ 		return;
 -- 
 2.53.0
 
