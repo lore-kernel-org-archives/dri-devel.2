@@ -4,162 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1263ACD98DE
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 08:17:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E19F1CD98C5
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 08:18:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DEEB10E298;
-	Mon, 15 Jun 2026 08:17:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DDEA10E27D;
+	Mon, 15 Jun 2026 08:18:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lHC28/8T";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="M8uBGiJh";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5664210E27D;
- Mon, 15 Jun 2026 08:17:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781511447; x=1813047447;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=xA1pLRZEPPVVHTQliQMNXHFtWXDqLOOEw144R0tT0SI=;
- b=lHC28/8TV97WQs8BfLg2ffJqopuR8R/9bLZb3sOSsRZpICKBXETCXlKS
- yLMhWdL/mXpFo/t73gk+H9iw6MTMOio9Zsg+HypV/QAOHhFAusPYPMX9e
- sdO2GPuglDKUQN7vUpGck4l0ldEk8KlmTbEYYUWKkyuuoVxFuThVFKZUd
- rtH7q86iPEbmKSo3Fxz4JobicFJk2LNsywKlU+nJm4VU1nTMzE8W/xxw1
- r5blMr6Jp/Ur5BxXHFS94G17357Q7jPO9llLMtn15WaSojxQIPGWp5Wkn
- L0FKNLRE0E6ZlZaDKyBinSAZMYhfwO33TN700rVckcxSGmhMNLE1fjUUL A==;
-X-CSE-ConnectionGUID: yKrCznQHQ2aMpGWFZ9ESrA==
-X-CSE-MsgGUID: pCaOA4ltTSCEm3lmOAOR+Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11817"; a="93361816"
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="93361816"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2026 01:17:19 -0700
-X-CSE-ConnectionGUID: 9fedjiecQ2mJQ9eD/N87Mw==
-X-CSE-MsgGUID: BpBfha36RiSDKYgvstFU3g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="251685958"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2026 01:17:19 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 15 Jun 2026 01:17:18 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Mon, 15 Jun 2026 01:17:18 -0700
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.25) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 15 Jun 2026 01:17:18 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NHQQKTkjH/PhVsj6GCP6kB1kAsf5no1QTLhz/OQ2IOfuu4JJ+45Oq7jnWUenZ15z7hDyIp2AU4XXULbSHcZrHXHRqlemscG7Kc+UURT5IdD7MvxbiBue3ZHMD9BnSc1md1FflgnbBxVI6H3XWD0EauGIZSB/3xhhatol0KyNmn1UcRbbrMsfu9LQ/pctODyMHImY3h5Nk74BB70J0QSG56/lLybXpWxcI0o+hwZnjbqz0IrAjqmzcjdig3VhXYisDFFE48/lEtMDlD4QrQ0pN+vz4y1BRZsjU4svCgPaE3ok97I4ocNGlaoyTnPQxzdw+S6Jl/CJ7sDnC9ngBrT3KA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8aKb+omOlyTexOqnpFFlX4y01eUIwcpmQwXGldg2TCg=;
- b=Om9gY3A0XUOhLDxyU51rbO0oCN/lc63ho1LQiiO9HfYdz3rDDGtMnI/ToxyvqbBLtw+BL5UYUzymKbb2JWoqhIoNv+jDEMM68PyudzE4ZqVd1LWsBx4uf+7vL2gi2PaUvuw2vzGzbdJ12Ytj5hXRph8bAhcrb9X8LBb6iXwgIPbytpzLm8Wzpvngsb969YK8NhFMolCW73S2G6Z7I+cevc1DEL1koZkB9vvf4TVP2VzY3aQs3nJu51y0ffZOTJTSIN6Gdt9P66GMKx+GdKjC+9fAnk/0LcKe52vBN0oUaCr7gLIvS4XYv4on6nZUjYU3tatORE5OY3XC0PuMF7ankA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
- CYYPR11MB8429.namprd11.prod.outlook.com (2603:10b6:930:c2::15) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.16; Mon, 15 Jun 2026 08:17:13 +0000
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99%4]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
- 08:17:13 +0000
-Message-ID: <4d3720e1-1268-4a17-a8f8-f03e82aa1c5b@intel.com>
-Date: Mon, 15 Jun 2026 13:47:02 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] drm/xe/ras: Add support for error threshold
-To: Raag Jadav <raag.jadav@intel.com>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <netdev@vger.kernel.org>
-CC: <simona.vetter@ffwll.ch>, <airlied@gmail.com>, <kuba@kernel.org>,
- <lijo.lazar@amd.com>, <Hawking.Zhang@amd.com>, <davem@davemloft.net>,
- <pabeni@redhat.com>, <edumazet@google.com>, <dev@lankhorst.se>,
- <zachary.mckevitt@oss.qualcomm.com>, <rodrigo.vivi@intel.com>,
- <michal.wajdeczko@intel.com>, <matthew.d.roper@intel.com>,
- <mallesh.koujalagi@intel.com>
-References: <20260604184849.1011985-1-raag.jadav@intel.com>
- <20260604184849.1011985-4-raag.jadav@intel.com>
-Content-Language: en-US
-From: "Tauro, Riana" <riana.tauro@intel.com>
-In-Reply-To: <20260604184849.1011985-4-raag.jadav@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0296.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:21e::7) To DS0PR11MB7958.namprd11.prod.outlook.com
- (2603:10b6:8:f9::19)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A154010E27D
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 08:18:07 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-490acbb0f89so19358515e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 01:18:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1781511486; x=1782116286; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=QNqioZHrsjWA41muwL0WomeMCYNtpCqX/QJC/W3MLQo=;
+ b=M8uBGiJhFc0Gc8s7NY2loom+MgdNYuame+PAQZa0j6Vc4gfypenvmwTinRRkNOhtwK
+ AIL7JJezUH+t1HnJZdVt/uJ83kn1IDoLKR+V12O1ow4MpyUomSCLcaUB64M+Hc2kCVsE
+ TIs2iepbviCbAcBBCR7GAGubXiAdfZ0Da7tX8dZOS1WDaaci+sHLQdPenY99Q3YaKF6y
+ As96VYuVql2egnYLA98r0At1MePL15dQZ0fdnkuPPBI+TPtf8v731Np22JAkBY0JbwFm
+ M9uhef/aKnFMoeSbsTKPNjBbLnwsHYxqlMyOr7YYj+GX4qk+d459nvV+otKJtoViFhlB
+ B3mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781511486; x=1782116286;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=QNqioZHrsjWA41muwL0WomeMCYNtpCqX/QJC/W3MLQo=;
+ b=p1FoJip6sA3fjtVZJ10LiZXEjiCRFFBw2kMedJwlrDP74vCPkUyQOXcXoDQLi+ewDU
+ ubQGOapQQsq0svD2rTpkiJUY1MU+iLYB8RH1LwZRnrKoikWnxXXUbsI0Ku8zXGcRwvc2
+ 3mrgqCzaB7GMdxuvnWLGNRkMCHS0X/6ixJj6/xyxk1OUEuOK1NrNTDhq/WUh/edB/BiL
+ ZGGYtZXA5e5aq4S9EgXor4iY4TBIUO9efzCQJHXRDq1mrDnmF9i8ORPuLHVarjlQahb7
+ U/AswMJE3o7yKudVzHzVJ/V5GIntCKRJ8FoerkQ7rsFB7/Jf58UA+rqXQupw6uW16spY
+ mEOw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8hjs+Xj8dx9mlNYFAE+JLpWdbXdPE7+gTN0uE9lOe6HgDnjCwamKrZ609PhDqc7d05/6uFApTUZJU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyK68w9LU8h3GeCfC+FH0eSfZzP3IB9325ucRkB8ZKaXInPb9Z1
+ J4I0xafBZ2BcXl+XOV5522kh2TaVHs1dBCHjtvcSiFnuxZztrIzwNQF9CoM/PlFACJ0=
+X-Gm-Gg: Acq92OESm/lNtKRJz9ELbHmHxqolpVF0YQHtPCKco0BVRahPkQ04W9Hc0aq0koD//yo
+ 3KbUpocoWCGzS5dnXSEG0byxc6Mv3qP7h0H/QBMCqhIUucGUejoaVttqj+EESOnVaqwPJDEpSFP
+ ThJGRKkcTOSHD+a8HgUdk24Ck98ku0kpDaHUTMTo/sb3O9nVSDNSNPwZvPAirKy1cnO6vsi9Gpo
+ n0KVjLos4PHnYafLFXF/xp/IRDzPLrS21Tqe7idS4a9muNo/bBwy4vvYf6y0R8vHEC2ltOYQoqT
+ 3eO7h0DhmpyTsS3skJk1OtJ5tlnFz2qVhmbIg4zcfqmkTpzHizQ2ua9oSYh6TkqH6uddFvDNDn+
+ uFccMWy8kMaddnllB5Xm8pbsDculyon4FVFvj8HBm6nH9eLg5lepuTgBNT+bjTHY3C6KXd9/Hsk
+ CsEACUGO5cLait8l3nz7zQoDTJQ+bAQQW+gGPmG7gYsTatOEjQTEhBnpNHXpqnS1MdbEpaQhcxt
+ 2FX+I0=
+X-Received: by 2002:a05:600c:1509:b0:490:9d1b:f086 with SMTP id
+ 5b1f17b1804b1-4922009348fmr84439445e9.14.1781511485563; 
+ Mon, 15 Jun 2026 01:18:05 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:fdaf:c588:880d:106a?
+ ([2a01:e0a:106d:1080:fdaf:c588:880d:106a])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-492202e5cbasm211485645e9.2.2026.06.15.01.18.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Jun 2026 01:18:05 -0700 (PDT)
+Message-ID: <e1eabaab-b035-4b3a-b1ef-02257387d824@linaro.org>
+Date: Mon, 15 Jun 2026 10:18:04 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|CYYPR11MB8429:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e85a7e2-71c7-4c87-6c1d-08decab6811f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|23010399003|56012099006|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: kFvgWoA68CQkDCnODOnlqt+RfN1g+Atxo53KddoJEQHutpfuu/b5SfTgRnoCIM7N8Ps5ngET1L7Uj2Asfb9eeB1wlKW/xau9Fzo2sbvWsuDNSeQOjQQtfjve1ylHRBHrznEdxsrLFe+hY08f5fQMLtL5o7N/zH2TBxlf3jzFBw8G80DZ1jU0dVK9E1EXmjeyFZ00Zh7TY+71HqsxaC/RqBRENuPr2JMcM4ggyzR84WJ5pRMa9Q0J+mOLboatwh9Wp7uHRc7RotT0cVLvVDk/BP47f1BDFs5OxEgOdthQRabtk2BeTN6AvYefKY8uEo0tRdmFqhI8+8TUEqxJdNXjv5fgI3wZvNPpXLNRqZeGT/uCFcSK8inxhrljuj8W7IdUZbMc8c2qr3whGUO496zjauCyi/ebhd9RNVvzSm0HE/lfr90fKtlYUg2SZR0jEIFgvQtxHakAnfQM/3uRRe0imFdOon25JVfPbL/pRRv1n9rb/4TmNRRFRUTgQyoeJqUE5O5AWxeswbemmbe0Lc0zjNF7BzZihasyA2Me78Cpz1bReKqvJd9HcHCiljKTcvRa5r0jdI+jsgPoMfXzgEl4PyEF4TgosA7LGV8EiUTiwlAACuMN6tXMYRqVHW3DphuJprUaiAzhzNmHz4Az+IithjPdgmvg0kQzSSBDa3fBIWIZVMJRL+KmFFyQliz19tbh
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dCtybk1rbzJ6Nk1GSjFBcnNYTGh3ZXBvM2hXQjZJeS9neUFqb3NPQy80YUdN?=
- =?utf-8?B?cnVEWm1ULzBmcFhHZlhPYXdjZjRWak1vSC9aMU9rY2N5YWpzSXRpWnBwZ3lV?=
- =?utf-8?B?b2JhRDNiMHJHRDZqYmVnYnlpeTh2VG9xR0lNcmIwMmNoY2JxYjdLQWhqZlVY?=
- =?utf-8?B?YytsVVQwS1VVSFgyMnFPcUFkeXJPSDI3ZmF6V2ZXUVRzaklPWTV6QmE0ZGtn?=
- =?utf-8?B?YmtPNysvTDZ3dzZRMVRxdUI0MFB6cmlCK1RMRkVhTGoyTnBoV3lxMEFFRjh6?=
- =?utf-8?B?Wnc3YUR2S2FGSHBJQjc4QnYwKzlubHFQL2JWUWloeDNGeGlDblV2OFI1cDhk?=
- =?utf-8?B?T0FBa3k0cmpIaDBTQXM2eSs3NE9ic2o1Zy95WGhWU1FoR2t6TVBTR3ZHeStv?=
- =?utf-8?B?QW9naFZCZ1RYTzJxYjhPNEVEdEJ2R0kveE1nRXhvMUtsYXQxbjlTbWpHUTlo?=
- =?utf-8?B?LzlnNS8zbFBxc3Jsci9SVm9NVmd1OXdTSjNZUW1aaG8yN2tWQ1Fsb2RoUHNl?=
- =?utf-8?B?WlZCR1NiSVQwMHJ6eXp6RzhaUllaZ0JEd2NPbERVUVJoRjBNT3IrRURoVEpX?=
- =?utf-8?B?ckM2WElEUTY5SlVnbklPSk0waGc2Ny9STjBsNmt6bEpFb0MvOHdLUDU2a3M4?=
- =?utf-8?B?WWk2bXlGNG5STTNLZUJQYVZiM3ByaURDanJGZ0ErczFMNldieC82dkxudVZv?=
- =?utf-8?B?K1poTUQ5V21aeHQwQ3NkVE1RakJ3d0Nrd2pTb0dSYjVOWFd1b1ZkdXFHeXdZ?=
- =?utf-8?B?VGxpdnhBaWRRdXA5SU5MbFBsZUludVRpM1FYNEdiTTlPOGNGS3dBUXZKSUh6?=
- =?utf-8?B?YTlQYm1PU0ErQXVrVWVNaDRvUGNCVW5Ra1loYWtoby9MYjZRa2tIUXF4d1ZO?=
- =?utf-8?B?SWtTeEQyUlkzZEllRE44MFg4Wm9USndmcFdxa3Y4MkZXRkpHQ1d1K015ZTMz?=
- =?utf-8?B?VmhLK0Z2ZDRxbk5ack45YktxdjdXVW01aVZKTkk3Zk9UYXVSZDhvYnFrY0hI?=
- =?utf-8?B?MCtyY1BrVlFOYkticTlRYlNVTHNtVERDdTExbEFoRUwxKzdpMm5IRHl4cUh0?=
- =?utf-8?B?allEUWdPTmRJTFFYYWtEQ2JzdjJ5bFl1R3NIQ1ZoQW5FcTRlRi9MdHBqWCsz?=
- =?utf-8?B?QWMwR0oxN0JqSmhEWjRBWFRVSzlmMjd1LzF5UWcxUDlrbWFUTDQ4b1pKcUtx?=
- =?utf-8?B?MGN3V2ZZN3U1ZTBITTNKSExxOE9qY09oQmJ3dllsTzBuaVpHWkRKT1Q5amVu?=
- =?utf-8?B?WURWQ0tBZTAyditGaHBmK1VNcm11amkrbG1NRkJNMGY0QWZUdFpvZXhjOU9y?=
- =?utf-8?B?Ym05VDNlUmZuZWVQcUx6aWtISlRHcDBQWmhFK0hOVjBCQmlkclBBdTJSZWFt?=
- =?utf-8?B?U2pZZFAvVnkrc1V5Qjd4VG4rWjFHdmE1SkFuSHE4YXVYNlR2VVRuTW1NMjRw?=
- =?utf-8?B?QnM1azRocVBHVkhvRTRvWVRlYnNucW9VdWQ2NUtpbU1WMDdGNGIwOFlZaEpn?=
- =?utf-8?B?RWxYRC8wc0hFS2xlbW55VXFmc2diWFB3OU44UWdlMFUvOVdzOHY4amxnbTVQ?=
- =?utf-8?B?UU5uWWpTYlNQd1VYWndkRlMySkNycmdHVjNmUkFpNGd0cEtvdGpkZ2orWlAv?=
- =?utf-8?B?TkI0bjhvV2haVUR1VjdmK3dDTS80VmQwc1Bya2s4bmZXZWlFSi9Idi9KbHhX?=
- =?utf-8?B?TUl2c1Z6VGN1N3FETUh1dzhvb05hTFJVMjZGUElYZzlVT0RKaDVhL2lhcnk2?=
- =?utf-8?B?NWowbzVkV0pVRnREbmt2cDBvK2ZiMXlFdm1TdWozYWhUZysyakZwWHJ4MUJu?=
- =?utf-8?B?aTVwWGJnaEtlY1l5SU81YStuQ1g4SFA5Z1F4QWlad21YUDVJYityN2tJeXVw?=
- =?utf-8?B?bThyYmhWdGt3SUg2K094U2lkaWZDSGtacU9FWnNXSDcxeHh5dFFEVmJ6QlQ0?=
- =?utf-8?B?ZnEyci9CTG5hUTJaUFg1akxVdTdseGtsd1lsV0JmVzBFYVVDUGw0Mjc5eks2?=
- =?utf-8?B?ZGNNVS9PbE1vTnpXekt1bzJYelYrdjJDTnpiVFZSdC91U0JMZ1lXMUxnVyty?=
- =?utf-8?B?WFhkTWVKTTR5VXp6SmF5clNUSGxtTlB1OTM4TzdLa1NqVTN0T2FkbG1rdGNL?=
- =?utf-8?B?eG9wcks3UDBwZ1lHRk96TnlIVmxWTXgybTZRTUdxODl6SWQ0cTVjaTIzUUhV?=
- =?utf-8?B?RXVZcHZlMzdteFBMUU1pTnBRdWVEVVVBL0k4MHhTa2hKTnhFNnMyWmYxZXY1?=
- =?utf-8?B?VkZGN0tLaEVma3NpOWJWUGd2Q0tWTi9IS0JhYm15VUcwT1lFbTFFMlBZeWky?=
- =?utf-8?B?eThtWk5hL2l5cmxlNERNbmNSaEcvVzcyQkp0QmIyTG8yMW54VThDdz09?=
-X-Exchange-RoutingPolicyChecked: D+tZV0gbX/KVmHcJmuaDo2qAxD8nK/xPs8Tq/6wdokqMulQO3MJaJdx+79Z/pn8iqZz7wgp52C8/hl4kLy8D1s2GTxyKczk5SWlVY//qhb5Tx3WZHQB8dG7KWNtR3a4QJrLVKl/1uMAdy5so9cgitN5PbTiDBFAFNUob5Mcn1x/G6xju4QAGtET5SebAnRiJnH30hv65Z3dS1mizXQeCazcpNGNMdYfok3pc52rmAzE6bpZtKheNDvZJNAU2ZJCndNdU/MTPo3ecu9hHEms+gh9PZD1QY0PBvb8Bb+SS6ncn5N1vpLEgECw8B3dr6cKrVApX9DQB839uu6oYOy7Sfw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e85a7e2-71c7-4c87-6c1d-08decab6811f
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 08:17:13.5816 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rSZTtRHx/0pT6WOUnACsXqn5uVsr6IveEp8Qj2sWKdu6uRCs79U/1feLUs0c0NW6XCmZeavrfbx3jeb9pui5vA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR11MB8429
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v3 1/4] drm: panel: Add LG LH609QH1 Panel with SW49410
+ controller
+To: Paul Sajna <sajattack@postmarketos.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Thierry Reding
+ <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, David Heidelberg <david@ixit.cz>,
+ phone-devel@vger.kernel.org, Amir Dahan <system64fumo@tuta.io>
+References: <20260614-judyln-panel-v3-0-07f4134441bd@postmarketos.org>
+ <20260614-judyln-panel-v3-1-07f4134441bd@postmarketos.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260614-judyln-panel-v3-1-07f4134441bd@postmarketos.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,251 +126,624 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 05-06-2026 00:16, Raag Jadav wrote:
-> System controller allows getting/setting per counter threshold, which it
-
-for correctable errors.
-
-> uses to raise error events to the driver. Get/set it using the respective
-> mailbox command.
->
-> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+On 6/15/26 02:07, Paul Sajna wrote:
+> From: Amir Dahan <system64fumo@tuta.io>
+> 
+> Add panel driver used by LG G7 ThinQ (judyln)
+> 
+> Signed-off-by: Amir Dahan <system64fumo@tuta.io>
+> Co-developed-by: Paul Sajna <sajattack@postmarketos.org>
+> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
 > ---
-> v2: Add RAS operation status codes (Riana)
-> v3: Reuse status codes and uapi mapping from counter series (Riana)
->      Access request/response counter using local pointer (Riana)
->      Mark unused field as reserved (Riana)
-> ---
->   drivers/gpu/drm/xe/xe_ras.c                   | 105 ++++++++++++++++++
->   drivers/gpu/drm/xe/xe_ras.h                   |   2 +
->   drivers/gpu/drm/xe/xe_ras_types.h             |  51 +++++++++
->   drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h |   4 +
->   4 files changed, 162 insertions(+)
->
-> diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-> index 7cb6fcb1254a..d6f89b429cec 100644
-> --- a/drivers/gpu/drm/xe/xe_ras.c
-> +++ b/drivers/gpu/drm/xe/xe_ras.c
-> @@ -270,6 +270,111 @@ int xe_ras_clear_counter(struct xe_device *xe, u8 severity, u8 component)
->   	return 0;
->   }
+>   drivers/gpu/drm/panel/Kconfig            |  15 +
+>   drivers/gpu/drm/panel/Makefile           |   1 +
+>   drivers/gpu/drm/panel/panel-lg-sw49410.c | 528 +++++++++++++++++++++++++++++++
+>   3 files changed, 544 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index 7450b27622a2..ecf6a45224d3 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -498,6 +498,21 @@ config DRM_PANEL_LG_SW43408
+>   	  pixel. It provides a MIPI DSI interface to the host and has a
+>   	  built-in LED backlight.
 >   
-> +/**
-> + * xe_ras_get_threshold() - Get error counter threshold
-> + * @xe: Xe device instance
-> + * @severity: Error severity to be queried (&enum drm_xe_ras_error_severity)
-> + * @component: Error component to be queried (&enum drm_xe_ras_error_component)
-> + * @threshold: Counter threshold
-> + *
-> + * This function retrieves the error threshold of a specific counter based on
-> + * severity and component.
-> + *
-> + * Return: 0 on success, negative error code on failure.
-> + */
-> +int xe_ras_get_threshold(struct xe_device *xe, u8 severity, u8 component, u32 *threshold)
+> +config DRM_PANEL_LG_SW49410
+> +	tristate "LG SW49410 panel"
+> +	depends on OF
+> +	depends on DRM_MIPI_DSI
+> +	depends on BACKLIGHT_CLASS_DEVICE
+> +	select DRM_DISPLAY_DSC_HELPER
+> +	select DRM_DISPLAY_HELPER
+> +	help
+> +	  Say Y here if you want to enable support for LG/SiliconWorks SW49410 controller
+> +	  (found in LG G7 ThinQ).
+> +	  The LH609QH1 panel has a 1440x3120@60Hz resolution and uses 24 bit RGB per
+> +	  pixel. It provides a MIPI DSI interface to the host and has a
+> +	  built-in LED backlight.
+> +	  To compile this driver as a module, choose M here.
+> +
+>   config DRM_PANEL_LXD_M9189A
+>   	tristate "LXD M9189A MIPI-DSI LCD panel"
+>   	depends on OF
+> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+> index c2c5cf817116..153970480269 100644
+> --- a/drivers/gpu/drm/panel/Makefile
+> +++ b/drivers/gpu/drm/panel/Makefile
+> @@ -49,6 +49,7 @@ obj-$(CONFIG_DRM_PANEL_LG_LB035Q02) += panel-lg-lb035q02.o
+>   obj-$(CONFIG_DRM_PANEL_LG_LD070WX3) += panel-lg-ld070wx3.o
+>   obj-$(CONFIG_DRM_PANEL_LG_LG4573) += panel-lg-lg4573.o
+>   obj-$(CONFIG_DRM_PANEL_LG_SW43408) += panel-lg-sw43408.o
+> +obj-$(CONFIG_DRM_PANEL_LG_SW49410) += panel-lg-sw49410.o
+>   obj-$(CONFIG_DRM_PANEL_LXD_M9189A) += panel-lxd-m9189a.o
+>   obj-$(CONFIG_DRM_PANEL_MAGNACHIP_D53E6EA8966) += panel-magnachip-d53e6ea8966.o
+>   obj-$(CONFIG_DRM_PANEL_MOTOROLA_MOT) += panel-motorola-mot.o
+> diff --git a/drivers/gpu/drm/panel/panel-lg-sw49410.c b/drivers/gpu/drm/panel/panel-lg-sw49410.c
+> new file mode 100644
+> index 000000000000..02d1b85c3aff
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-lg-sw49410.c
+> @@ -0,0 +1,528 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +// Generated with linux-mdss-dsi-panel-driver-generator from vendor device tree:
+> +// Copyright (c) 2025, The Linux Foundation. All rights reserved.
+> +
+> +#include <linux/backlight.h>
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/regulator/consumer.h>
+> +
+> +#include <video/mipi_display.h>
+> +
+> +#include <drm/drm_mipi_dsi.h>
+> +#include <drm/drm_panel.h>
+> +#include <drm/drm_probe_helper.h>
+> +#include <drm/display/drm_dsc.h>
+> +#include <drm/display/drm_dsc_helper.h>
+> +
+> +static const struct regulator_bulk_data sw49410_supplies[] = {
+> +	{ .supply = "vsp"},
+> +	{ .supply = "vsn"},
+> +};
+> +
+> +
+Spurious empty line
+
+> +struct sw49410_panel {
+> +	struct drm_panel panel;
+> +	struct mipi_dsi_device *dsi;
+> +	struct drm_dsc_config dsc;
+> +
+> +	struct regulator_bulk_data *supplies;
+> +
+> +	struct gpio_desc *reset_gpio;
+> +};
+> +
+> +static inline
+> +struct sw49410_panel *to_sw49410_panel(struct drm_panel *panel)
 > +{
-> +	struct xe_ras_get_threshold_response response = {};
-> +	struct xe_ras_get_threshold_request request = {};
-> +	struct xe_sysctrl_mailbox_command command = {};
-> +	struct xe_ras_error_class *counter;
-> +	size_t len;
-> +	int ret;
-> +
-> +	counter = &request.counter;
-> +	counter->common.severity = drm_to_xe_ras_severity(severity);
-> +	counter->common.component = drm_to_xe_ras_component(component);
-> +
-> +	xe_sysctrl_create_command(&command, XE_SYSCTRL_GROUP_GFSP, XE_SYSCTRL_CMD_GET_THRESHOLD,
-> +				  &request, sizeof(request), &response, sizeof(response));
-> +
-> +	guard(xe_pm_runtime)(xe);
-> +	ret = xe_sysctrl_send_command(&xe->sc, &command, &len);
-> +	if (ret) {
-> +		xe_err(xe, "sysctrl: failed to get threshold %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	if (len != sizeof(response)) {
-> +		xe_err(xe, "sysctrl: unexpected get threshold response length %zu (expected %zu)\n",
-> +		       len, sizeof(response));
-> +		return -EIO;
-> +	}
-> +
-> +	counter = &response.counter;
-> +	*threshold = response.threshold;
-> +
-> +	xe_dbg(xe, "[RAS]: get counter threshold %u for %s %s\n", *threshold,
-> +	       comp_to_str(counter->common.component), sev_to_str(counter->common.severity));
-
-"get threshold" to be consistent with <operation> <value> <component> 
-<severity>
-and other prints
-
-> +	return 0;
+> +	return container_of(panel, struct sw49410_panel, panel);
 > +}
 > +
-> +/**
-> + * xe_ras_set_threshold() - Set error counter threshold
-> + * @xe: Xe device instance
-> + * @severity: Error severity to be set (&enum drm_xe_ras_error_severity)
-> + * @component: Error component to be set (&enum drm_xe_ras_error_component)
-> + * @threshold: Counter threshold
-> + *
-> + * This function sets the error threshold of a specific counter based on
-> + * severity and component.
-> + *
-> + * Return: 0 on success, negative error code on failure.
-> + */
-> +int xe_ras_set_threshold(struct xe_device *xe, u8 severity, u8 component, u32 threshold)
+> +static void sw49410_panel_reset(struct sw49410_panel *ctx)
 > +{
-> +	struct xe_ras_set_threshold_response response = {};
-> +	struct xe_ras_set_threshold_request request = {};
-> +	struct xe_sysctrl_mailbox_command command = {};
-> +	struct xe_ras_error_class *counter;
-> +	size_t len;
-> +	int ret;
-> +
-> +	counter = &request.counter;
-> +	counter->common.severity = drm_to_xe_ras_severity(severity);
-> +	counter->common.component = drm_to_xe_ras_component(component);
-> +	request.threshold = threshold;
-> +
-> +	xe_sysctrl_create_command(&command, XE_SYSCTRL_GROUP_GFSP, XE_SYSCTRL_CMD_SET_THRESHOLD,
-> +				  &request, sizeof(request), &response, sizeof(response));
-> +
-> +	guard(xe_pm_runtime)(xe);
-> +	ret = xe_sysctrl_send_command(&xe->sc, &command, &len);
-> +	if (ret) {
-> +		xe_err(xe, "sysctrl: failed to set threshold %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	if (len != sizeof(response)) {
-> +		xe_err(xe, "sysctrl: unexpected set threshold response length %zu (expected %zu)\n",
-> +		       len, sizeof(response));
-> +		return -EIO;
-> +	}
-> +
-> +	ret = ras_status_to_errno(response.status);
-> +	if (ret) {
-> +		xe_err(xe, "sysctrl: set threshold command failed with status %#x\n",
-> +		       response.status);
-> +		return ret;
-> +	}
-> +
-> +	counter = &response.counter;
-> +
-> +	xe_dbg(xe, "[RAS]: set counter threshold %u for %s %s\n", response.threshold,
-
-set threshold
-
-> +	       comp_to_str(counter->common.component), sev_to_str(counter->common.severity));
-> +	return 0;
+> +	gpiod_set_value(ctx->reset_gpio, 0);
+> +	usleep_range(9000, 10000);
+> +	gpiod_set_value(ctx->reset_gpio, 1);
+> +	usleep_range(1000, 2000);
+> +	gpiod_set_value(ctx->reset_gpio, 0);
+> +	usleep_range(9000, 10000);
 > +}
 > +
->   /**
->    * xe_ras_init - Initialize Xe RAS
->    * @xe: xe device instance
-> diff --git a/drivers/gpu/drm/xe/xe_ras.h b/drivers/gpu/drm/xe/xe_ras.h
-> index ba0b0224df23..1aa43c54b710 100644
-> --- a/drivers/gpu/drm/xe/xe_ras.h
-> +++ b/drivers/gpu/drm/xe/xe_ras.h
-> @@ -15,6 +15,8 @@ void xe_ras_counter_threshold_crossed(struct xe_device *xe,
->   				      struct xe_sysctrl_event_response *response);
->   int xe_ras_get_counter(struct xe_device *xe, u8 severity, u8 component, u32 *value);
->   int xe_ras_clear_counter(struct xe_device *xe, u8 severity, u8 component);
-> +int xe_ras_get_threshold(struct xe_device *xe, u8 severity, u8 component, u32 *threshold);
-> +int xe_ras_set_threshold(struct xe_device *xe, u8 severity, u8 component, u32 threshold);
->   void xe_ras_init(struct xe_device *xe);
->   
->   #endif
-> diff --git a/drivers/gpu/drm/xe/xe_ras_types.h b/drivers/gpu/drm/xe/xe_ras_types.h
-> index c6392435d1c6..8ea817583eed 100644
-> --- a/drivers/gpu/drm/xe/xe_ras_types.h
-> +++ b/drivers/gpu/drm/xe/xe_ras_types.h
-> @@ -121,4 +121,55 @@ struct xe_ras_clear_counter_response {
->   	/** @reserved1: Reserved for future use */
->   	u32 reserved1[3];
->   } __packed;
+> +static int sw49410_panel_program(struct sw49410_panel *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +	struct drm_dsc_picture_parameter_set pps;
 > +
-> +/**
-> + * struct xe_ras_get_threshold_request - Request structure for get threshold
-> + */
-> +struct xe_ras_get_threshold_request {
-> +	/** @counter: Counter to get threshold for */
-> +	struct xe_ras_error_class counter;
-> +	/** @reserved: Reserved for future use */
-> +	u32 reserved;
-> +} __packed;
 > +
-> +/**
-> + * struct xe_ras_get_threshold_response - Response structure for get threshold
-> + */
-> +struct xe_ras_get_threshold_response {
-> +	/** @counter: Counter ID */
-> +	struct xe_ras_error_class counter;
-> +	/** @threshold: Threshold value */
-> +	u32 threshold;
-> +	/** @reserved: Reserved for future use */
-> +	u32 reserved[4];
-> +} __packed;
-> +
-> +/**
-> + * struct xe_ras_set_threshold_request - Request structure for set threshold
-> + */
-> +struct xe_ras_set_threshold_request {
-> +	/** @counter: Counter to set threshold for */
-> +	struct xe_ras_error_class counter;
-> +	/** @threshold: Threshold value to set */
-> +	u32 threshold;
-> +	/** @reserved: Reserved for future use */
-> +	u32 reserved;
-> +} __packed;
-> +
-> +/**
-> + * struct xe_ras_set_threshold_response - Response structure for set threshold
-> + */
-> +struct xe_ras_set_threshold_response {
-> +	/** @counter: Counter ID */
-> +	struct xe_ras_error_class counter;
-> +	/** @reserved: Reserved */
-> +	u32 reserved;
-> +	/** @threshold: Updated threshold value */
-> +	u32 threshold;
-> +	/** @status: Set threshold operation status */
 
-Nit: Already part of set threshold.  Can be just operation status
+Spurious empty line
 
-Thanks
-Riana
-
-> +	u32 status;
-> +	/** @reserved1: Reserved for future use */
-> +	u32 reserved1[2];
-> +} __packed;
+> +	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
+> +	mipi_dsi_dcs_set_page_address_multi(&dsi_ctx, 0x0000, 0x0c2f);
+> +	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0x00ff);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY,
+> +				     0x2c);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_CABC_MIN_BRIGHTNESS,
+> +				     0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x81);
 > +
->   #endif
-> diff --git a/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h b/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
-> index 6e3753554510..10f06aa5c4b5 100644
-> --- a/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
-> +++ b/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
-> @@ -24,11 +24,15 @@ enum xe_sysctrl_group {
->    *
->    * @XE_SYSCTRL_CMD_GET_COUNTER: Get error counter value
->    * @XE_SYSCTRL_CMD_CLEAR_COUNTER: Clear error counter value
-> + * @XE_SYSCTRL_CMD_GET_THRESHOLD: Retrieve error threshold
-> + * @XE_SYSCTRL_CMD_SET_THRESHOLD: Set error threshold
->    * @XE_SYSCTRL_CMD_GET_PENDING_EVENT: Retrieve pending event
->    */
->   enum xe_sysctrl_gfsp_cmd {
->   	XE_SYSCTRL_CMD_GET_COUNTER		= 0x03,
->   	XE_SYSCTRL_CMD_CLEAR_COUNTER		= 0x04,
-> +	XE_SYSCTRL_CMD_GET_THRESHOLD		= 0x05,
-> +	XE_SYSCTRL_CMD_SET_THRESHOLD		= 0x06,
->   	XE_SYSCTRL_CMD_GET_PENDING_EVENT	= 0x07,
->   };
->   
+> +	/* Manufacturer protection */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb0, 0xac);
+> +
+> +	/* Source Control */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb3,
+> +				     0x04, 0x04, 0x28, 0x08, 0x5a, 0x12, 0x23,
+> +				     0x02);
+> +
+> +	/* Gate & Mux Control */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb4,
+> +				     0x11, 0x04, 0x02, 0x02, 0x02, 0x02, 0x02,
+> +				     0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0xd0,
+> +				     0xe4, 0xe4, 0xe4, 0x93, 0x4e, 0x39, 0x0a,
+> +				     0x10, 0x18, 0x25, 0x24, 0x00, 0x00, 0x00,
+> +				     0x00, 0x00, 0x00);
+> +
+> +	/* Sync Setup */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb5,
+> +				     0x2e, 0x0f, 0x10, 0xc0, 0x00, 0x10, 0xc0,
+> +				     0x00);
+> +
+> +	/* Panel Setting */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb6,
+> +				     0x03, 0x05, 0x0b, 0xb3, 0x30);
+> +
+> +	/* Touch Timing Control */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb8,
+> +				     0x57, 0x02, 0x90, 0x40, 0x5d, 0xd0, 0x05,
+> +				     0x00, 0x00, 0x18, 0x22, 0x04, 0x01, 0x02,
+> +				     0x90, 0x40, 0x4c, 0xc0, 0x04, 0x00, 0x00,
+> +				     0x18, 0x22, 0x04, 0x01, 0x08, 0x00, 0x3a,
+> +				     0x86, 0x83, 0x00);
+> +
+> +	/* Touch Source Setting */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb9,
+> +				     0x64, 0x64, 0x2a, 0x3f, 0xee);
+> +
+> +	/* DSC Configuration */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
+> +				     0x3d, 0x1f, 0x01, 0xff, 0x01, 0x3c, 0x1f,
+> +				     0x01, 0xff, 0x01, 0x00);
+> +
+> +	/* Low Rate Refresh Setting */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xbc, 0x00, 0x00, 0x00, 0x90);
+> +
+> +	/* Black Frame Setting */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xbd, 0x00, 0x00);
+> +
+> +	/* U2 Corner Down */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xbf, 0x4f, 0x02);
+> +
+> +	/* Internal Oscillator Setting */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc0,
+> +				     0x00, 0x04, 0x18, 0x07, 0x11, 0x11, 0x3c,
+> +				     0x00, 0x0a, 0x0a);
+> +
+> +	/* Power Control1 */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc1,
+> +				     0x01, 0x00, 0xf0, 0xc2, 0xcf, 0x0c);
+> +
+> +	/* Power Control2 */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc2,
+> +				     0xcc, 0x44, 0x44, 0x20, 0x22, 0x26, 0x21,
+> +				     0x00);
+> +
+> +	/* Power Control3 */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc3,
+> +				     0x92, 0x11, 0x09, 0x09, 0x11, 0xcc, 0x02,
+> +				     0x02, 0xa4, 0xa4, 0x02, 0xa2, 0x38, 0x28,
+> +				     0x14, 0x40, 0x38, 0xc0);
+> +
+> +	/* Vcom Setting */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc4, 0x26, 0x00);
+> +
+> +	/* Power Sequence Option Configuration */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc9,
+> +				     0x05, 0x5d, 0x03, 0x04, 0x00);
+> +
+> +	/* Abrupt Power Off Control */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xca, 0x9b, 0x10);
+> +
+> +	/* LFD Control */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xcb,
+> +				     0xf3, 0x90, 0x3d, 0x30, 0xcc);
+> +
+> +	/* Tail TFT Setting */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xcc,
+> +				     0x00, 0x40, 0x50, 0x90, 0x41);
+> +
+> +	/* U2 Option */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xce, 0x00, 0x00);
+> +
+> +	/* Gamma */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xd0,
+> +				     0x12, 0x05, 0x20, 0x1b, 0x2c, 0x28, 0x3f,
+> +				     0x3d, 0x4f, 0x4f, 0x66, 0x66, 0x6e, 0x6e,
+> +				     0x76, 0x76, 0x80, 0x80, 0x88, 0x88, 0x95,
+> +				     0x95, 0x3f, 0x3f, 0xa2, 0xa2, 0x94, 0x94,
+> +				     0x8b, 0x8b, 0x81, 0x81, 0x75, 0x75, 0x66,
+> +				     0x66, 0x47, 0x47, 0x2d, 0x2d, 0x00, 0x01,
+> +				     0x12, 0x05, 0x20, 0x1b, 0x2c, 0x28, 0x3f,
+> +				     0x3d, 0x4f, 0x4f, 0x66, 0x66, 0x6e, 0x6e,
+> +				     0x76, 0x76, 0x80, 0x80, 0x88, 0x88, 0x95,
+> +				     0x95, 0x3f, 0x3f, 0xa2, 0xa2, 0x94, 0x94,
+> +				     0x8b, 0x8b, 0x81, 0x81, 0x75, 0x75, 0x66,
+> +				     0x66, 0x47, 0x47, 0x2d, 0x2d, 0x00, 0x01,
+> +				     0x12, 0x05, 0x20, 0x1b, 0x2c, 0x28, 0x3f,
+> +				     0x3d, 0x4f, 0x4f, 0x66, 0x66, 0x6e, 0x6e,
+> +				     0x76, 0x76, 0x80, 0x80, 0x88, 0x88, 0x95,
+> +				     0x95, 0x3f, 0x3f, 0xa2, 0xa2, 0x94, 0x94,
+> +				     0x8b, 0x8b, 0x81, 0x81, 0x75, 0x75, 0x66,
+> +				     0x66, 0x47, 0x47, 0x2d, 0x2d, 0x00, 0x01,
+> +				     0x12, 0x05, 0x20, 0x1b, 0x2c, 0x28, 0x3f,
+> +				     0x3d, 0x4f, 0x4f, 0x66, 0x66, 0x6e, 0x6e,
+> +				     0x76, 0x76, 0x80, 0x80, 0x88, 0x88, 0x94,
+> +				     0x94, 0x3f, 0x3f, 0xa4, 0xa4, 0x95, 0x95,
+> +				     0x8b, 0x8b, 0x81, 0x81, 0x75, 0x75, 0x66,
+> +				     0x66, 0x47, 0x47, 0x2d, 0x2d, 0x00, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xd1,
+> +				     0x12, 0x05, 0x20, 0x1b, 0x2e, 0x29, 0x41,
+> +				     0x3f, 0x52, 0x52, 0x6a, 0x6a, 0x72, 0x72,
+> +				     0x7a, 0x7a, 0x84, 0x84, 0x8c, 0x8c, 0x9a,
+> +				     0x9a, 0x3f, 0x3f, 0x9b, 0x9b, 0x8d, 0x8d,
+> +				     0x84, 0x84, 0x7a, 0x7a, 0x6e, 0x6e, 0x5f,
+> +				     0x5f, 0x41, 0x41, 0x2a, 0x2a, 0x00, 0x01,
+> +				     0x12, 0x05, 0x20, 0x1b, 0x2e, 0x29, 0x41,
+> +				     0x3f, 0x52, 0x52, 0x6a, 0x6a, 0x72, 0x72,
+> +				     0x7a, 0x7a, 0x84, 0x84, 0x8c, 0x8c, 0x9a,
+> +				     0x9a, 0x3f, 0x3f, 0x9b, 0x9b, 0x8d, 0x8d,
+> +				     0x84, 0x84, 0x7a, 0x7a, 0x6e, 0x6e, 0x5f,
+> +				     0x5f, 0x41, 0x41, 0x2a, 0x2a, 0x00, 0x01,
+> +				     0x12, 0x05, 0x20, 0x1b, 0x2e, 0x29, 0x41,
+> +				     0x3f, 0x52, 0x52, 0x6a, 0x6a, 0x72, 0x72,
+> +				     0x7a, 0x7a, 0x84, 0x84, 0x8c, 0x8c, 0x9a,
+> +				     0x9a, 0x3f, 0x3f, 0x9b, 0x9b, 0x8d, 0x8d,
+> +				     0x84, 0x84, 0x7a, 0x7a, 0x6e, 0x6e, 0x5f,
+> +				     0x5f, 0x41, 0x41, 0x2a, 0x2a, 0x00, 0x01,
+> +				     0x12, 0x05, 0x20, 0x1b, 0x2e, 0x29, 0x41,
+> +				     0x3f, 0x52, 0x52, 0x6a, 0x6a, 0x72, 0x72,
+> +				     0x7a, 0x7a, 0x84, 0x84, 0x8c, 0x8c, 0x9a,
+> +				     0x9a, 0x3f, 0x3f, 0x9b, 0x9b, 0x8d, 0x8d,
+> +				     0x84, 0x84, 0x7a, 0x7a, 0x6e, 0x6e, 0x5f,
+> +				     0x5f, 0x41, 0x41, 0x2a, 0x2a, 0x00, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xd2,
+> +				     0x12, 0x05, 0x20, 0x1b, 0x2f, 0x2a, 0x43,
+> +				     0x41, 0x55, 0x55, 0x6e, 0x6e, 0x76, 0x76,
+> +				     0x7e, 0x7e, 0x88, 0x88, 0x90, 0x90, 0x9f,
+> +				     0x9f, 0x3f, 0x3f, 0x95, 0x95, 0x86, 0x86,
+> +				     0x7d, 0x7d, 0x74, 0x74, 0x68, 0x68, 0x59,
+> +				     0x59, 0x3c, 0x3c, 0x26, 0x26, 0x00, 0x01,
+> +				     0x12, 0x05, 0x20, 0x1b, 0x2f, 0x2a, 0x43,
+> +				     0x41, 0x55, 0x55, 0x6e, 0x6e, 0x76, 0x76,
+> +				     0x7e, 0x7e, 0x88, 0x88, 0x90, 0x90, 0x9f,
+> +				     0x9f, 0x3f, 0x3f, 0x95, 0x95, 0x86, 0x86,
+> +				     0x7d, 0x7d, 0x74, 0x74, 0x68, 0x68, 0x59,
+> +				     0x59, 0x3c, 0x3c, 0x26, 0x26, 0x00, 0x01,
+> +				     0x12, 0x05, 0x20, 0x1b, 0x2f, 0x2a, 0x43,
+> +				     0x41, 0x55, 0x55, 0x6e, 0x6e, 0x76, 0x76,
+> +				     0x7e, 0x7e, 0x88, 0x88, 0x90, 0x90, 0x9f,
+> +				     0x9f, 0x3f, 0x3f, 0x95, 0x95, 0x86, 0x86,
+> +				     0x7d, 0x7d, 0x74, 0x74, 0x68, 0x68, 0x59,
+> +				     0x59, 0x3c, 0x3c, 0x26, 0x26, 0x00, 0x01,
+> +				     0x12, 0x05, 0x20, 0x1b, 0x2f, 0x2a, 0x43,
+> +				     0x41, 0x55, 0x55, 0x6e, 0x6e, 0x76, 0x76,
+> +				     0x7e, 0x7e, 0x88, 0x88, 0x90, 0x90, 0x9f,
+> +				     0x9f, 0x3f, 0x3f, 0x95, 0x95, 0x86, 0x86,
+> +				     0x7d, 0x7d, 0x74, 0x74, 0x68, 0x68, 0x59,
+> +				     0x59, 0x3c, 0x3c, 0x26, 0x26, 0x00, 0x01);
+> +
+> +	/* MPLUS Control */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xd3, 0x12, 0x01, 0x00, 0x00);
+> +
+> +	/* MPLUS Setting */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xd4,
+> +				     0xdc, 0x5f, 0x9c, 0xbe, 0x39, 0x39, 0x39,
+> +				     0x47, 0x48, 0x48, 0x48, 0x3a, 0x00, 0x03,
+> +				     0x6d, 0x80, 0x00, 0x00, 0x8c, 0x66, 0x00,
+> +				     0x00, 0x8c, 0x66, 0x00, 0x00, 0x8c, 0x66,
+> +				     0x00, 0x0a, 0x48, 0x80, 0x00, 0x0a, 0x48,
+> +				     0x80, 0x00, 0x0a, 0x48, 0x80, 0x00, 0x0a,
+> +				     0x48, 0x80, 0x20, 0x0a, 0x14, 0x0a, 0x18,
+> +				     0x00, 0x1c, 0xcc, 0x23, 0x9e, 0x23, 0x9e,
+> +				     0x01, 0x01, 0x01, 0x01, 0x04, 0x04, 0x04,
+> +				     0x04, 0x01, 0x00, 0x02, 0x80, 0x00, 0x10,
+> +				     0x00, 0x10, 0x00, 0x10, 0x13, 0x9e, 0x13,
+> +				     0x9e, 0x13, 0x9e, 0x13, 0x9e, 0x05, 0x05,
+> +				     0x05, 0x05, 0x05, 0x05, 0x05, 0x05, 0x23,
+> +				     0x9e, 0xff, 0xff, 0x13, 0x33, 0x18, 0x00,
+> +				     0x16, 0x66, 0x10, 0x00, 0xff, 0x01, 0x00,
+> +				     0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05,
+> +				     0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00,
+> +				     0x09, 0x00, 0x0a, 0x00, 0x0b, 0x00, 0x0c,
+> +				     0x00, 0x0d, 0x00, 0x0e, 0x00, 0x0f, 0x00,
+> +				     0x1b, 0x25, 0xdc, 0x18, 0x00, 0x20, 0x00,
+> +				     0x1c, 0xe1, 0x00, 0xff, 0xe0, 0xc8, 0xc8,
+> +				     0x41, 0x8f);
+> +
+> +	/* Notch Up Gradation */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xad,
+> +				     0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x06,
+> +				     0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+> +				     0x06, 0x06, 0x20, 0x40, 0x60, 0x90, 0xc0,
+> +				     0xf0, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+> +				     0xff, 0xff, 0xff, 0xff);
+> +
+> +	/* Notch Down Gradation */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xae,
+> +				     0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x06,
+> +				     0x06, 0x06, 0x06, 0x06, 0x06, 0x06, 0x06,
+> +				     0x06, 0x06, 0x20, 0x40, 0x60, 0x90, 0xc0,
+> +				     0xf0, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+> +				     0xff, 0xff, 0xff, 0xff);
+> +
+> +	/* GIP Setting */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xe5,
+> +				     0x0b, 0x0a, 0x0c, 0x00, 0x02, 0x04, 0x06,
+> +				     0x08, 0x0f, 0x1b, 0x02, 0x1a, 0x1a, 0x0b,
+> +				     0x0a, 0x0c, 0x01, 0x03, 0x05, 0x07, 0x09,
+> +				     0x10, 0x1b, 0x03, 0x1a, 0x1a);
+> +
+> +	/* Mux Setting */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xe6,
+> +				     0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17,
+> +				     0x18, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16,
+> +				     0x17, 0x18);
+> +
+> +	/* Test1 */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xed,
+> +				     0x21, 0x49, 0x00, 0x00, 0x00, 0x00);
+> +
+> +	/* BLU Control */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x81);
+> +
+> +	/* Sharpness */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf3,
+> +				     0x00, 0x01, 0x00, 0x0d, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf4,
+> +				     0x00, 0x00, 0x40, 0x83, 0xc5, 0x00, 0x01,
+> +				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfb,
+> +				     0x20, 0x40, 0x60, 0x80, 0xa0, 0xc0, 0xe0,
+> +				     0x13, 0x18, 0x18, 0x18, 0x16, 0x0d, 0x0d,
+> +				     0x00, 0xc7, 0xcf, 0xd8, 0xe1, 0xea, 0xf3,
+> +				     0xf9, 0xff);
+> +
+> +	/* Gamma Correction */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf5, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf6,
+> +				     0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40,
+> +				     0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+> +				     0x00, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf7,
+> +				     0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40,
+> +				     0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+> +				     0x00, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf8,
+> +				     0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40,
+> +				     0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+> +				     0x00, 0x00);
+> +
+> +	/* BLU PWM Control */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfc,
+> +				     0x13, 0x70, 0xd0, 0x26, 0x30, 0x7c, 0x02,
+> +				     0xff, 0x12, 0x22, 0x22, 0x10, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_ENTER_NORMAL_MODE);
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 135);
+> +
+> +	/* Black frame setting */
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xbd, 0x01, 0x05);
+> +
+> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 50);
+> +
+> +	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
+> +
+> +	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> +
+> +	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
+> +
+> +	mipi_dsi_compression_mode_ext_multi(&dsi_ctx, true, MIPI_DSI_COMPRESSION_DSC, 1);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static int sw49410_panel_disable(struct drm_panel *panel)
+> +{
+> +	struct sw49410_panel *ctx = to_sw49410_panel(panel);
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +
+> +	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 128);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static int sw49410_panel_prepare(struct drm_panel *panel)
+> +{
+> +	struct sw49410_panel *ctx = to_sw49410_panel(panel);
+> +	int ret;
+> +
+> +	ret = regulator_bulk_enable(ARRAY_SIZE(sw49410_supplies), ctx->supplies);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	usleep_range(5000, 6000);
+> +
+> +	sw49410_panel_reset(ctx);
+> +
+> +	ret = sw49410_panel_program(ctx);
+> +	if (ret)
+> +		goto poweroff;
+> +
+> +	return 0;
+> +
+> +poweroff:
+> +	gpiod_set_value(ctx->reset_gpio, 1);
+> +	regulator_bulk_disable(ARRAY_SIZE(sw49410_supplies), ctx->supplies);
+> +	return ret;
+> +}
+> +
+> +static int sw49410_panel_unprepare(struct drm_panel *panel)
+> +{
+> +	struct sw49410_panel *ctx = to_sw49410_panel(panel);
+> +
+> +	gpiod_set_value(ctx->reset_gpio, 1);
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 100);
+> +
+> +	gpiod_set_value(ctx->reset_gpio, 1);
+> +
+> +	regulator_bulk_disable(ARRAY_SIZE(sw49410_supplies), ctx->supplies);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static const struct drm_display_mode sw49410_panel_mode = {
+> +	.clock = (1440 + 168 + 4 + 84) * (3120 + 2 + 18 + 18) * 60 / 1000,
+> +	.hdisplay = 1440,
+> +	.hsync_start = 1440 + 168,
+> +	.hsync_end = 1440 + 168 + 4,
+> +	.htotal = 1440 + 168 + 4 + 84,
+> +	.vdisplay = 3120,
+> +	.vsync_start = 3120 + 2,
+> +	.vsync_end = 3120 + 2 + 18,
+> +	.vtotal = 3120 + 2 + 18 + 18,
+> +	.width_mm = 65,
+> +	.height_mm = 140,
+> +	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
+> +};
+> +
+> +static int sw49410_panel_get_modes(struct drm_panel *panel, struct drm_connector *connector)
+> +{
+> +	return drm_connector_helper_get_modes_fixed(connector, &sw49410_panel_mode);
+> +}
+> +
+> +static const struct drm_panel_funcs sw49410_panel_funcs = {
+> +	.disable = sw49410_panel_disable,
+> +	.prepare = sw49410_panel_prepare,
+> +	.unprepare = sw49410_panel_unprepare,
+> +	.get_modes = sw49410_panel_get_modes,
+> +};
+> +
+> +static int sw49410_panel_probe(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev = &dsi->dev;
+> +	struct sw49410_panel *ctx;
+> +	int ret;
+> +
+> +	ctx = devm_drm_panel_alloc(&dsi->dev, __typeof(*ctx), panel,
+> +				   &sw49410_panel_funcs, DRM_MODE_CONNECTOR_DSI);
+> +
+
+Spurious empty line
+
+> +	if (IS_ERR(ctx))
+> +		return PTR_ERR(ctx);
+> +
+> +	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(sw49410_supplies),
+> +		sw49410_supplies,
+> +		&ctx->supplies
+> +	);
+
+Alignment is wrong, it should be:
+
+ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(sw49410_supplies),
+				    sw49410_supplies, &ctx->supplies);
+
+> +
+
+Spurious empty line
+
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to get regulators\n");
+> +
+> +	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(ctx->reset_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
+> +				     "Failed to get reset-gpios\n");
+> +
+> +	ctx->dsi = dsi;
+> +	mipi_dsi_set_drvdata(dsi, ctx);
+> +
+> +	dsi->lanes = 4;
+> +	dsi->format = MIPI_DSI_FMT_RGB888;
+> +	dsi->mode_flags = MIPI_DSI_MODE_VIDEO_BURST |
+> +			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
+> +
+> +	ctx->panel.prepare_prev_first = true;
+> +
+> +	ret = drm_panel_of_backlight(&ctx->panel);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+> +
+> +	drm_panel_add(&ctx->panel);
+
+Use the devm variant
+
+> +
+> +	/* This panel only supports DSC; unconditionally enable it */
+> +	dsi->dsc = &ctx->dsc;
+> +
+> +	ctx->dsc.dsc_version_major = 1;
+> +	ctx->dsc.dsc_version_minor = 1;
+> +
+> +	ctx->dsc.slice_height = 60;
+> +	ctx->dsc.slice_width = 720;
+> +
+> +	WARN_ON(1440 % ctx->dsc.slice_width);
+> +	ctx->dsc.slice_count = 1440 / ctx->dsc.slice_width;
+> +	ctx->dsc.bits_per_component = 8;
+> +	ctx->dsc.bits_per_pixel = 8 << 4; /* 4 fractional bits */
+> +	ctx->dsc.block_pred_enable = true;
+> +
+> +	return mipi_dsi_attach(dsi);
+
+Use the devm variant
+
+> +}
+> +
+> +static void sw49410_panel_remove(struct mipi_dsi_device *dsi)
+> +{
+> +	struct sw49410_panel *ctx = mipi_dsi_get_drvdata(dsi);
+> +	int ret;
+> +
+> +	ret = mipi_dsi_detach(dsi);
+> +	if (ret < 0)
+> +		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+> +
+> +	drm_panel_remove(&ctx->panel);
+> +}
+
+Drop the remove after switching to the devm_ variants.
+
+> +
+> +static const struct of_device_id sw49410_of_match[] = {
+> +	{ .compatible = "lg,sw49410" },
+> +	{ .compatible = "lg,sw49410-lh609qh1" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, sw49410_of_match);
+> +
+> +static struct mipi_dsi_driver sw49410_panel_driver = {
+> +	.driver = {
+> +		.name = "panel-lg-sw49410",
+> +		.of_match_table = sw49410_of_match,
+> +	},
+> +	.probe = sw49410_panel_probe,
+> +	.remove = sw49410_panel_remove,
+> +};
+> +module_mipi_dsi_driver(sw49410_panel_driver);
+> +
+> +MODULE_AUTHOR("Amir Dahan <system64fumo@tuta.io>");
+> +MODULE_DESCRIPTION("DRM driver for LG DSI Panel with SW49410 controller");
+> +MODULE_LICENSE("GPL");
+> 
+
+
+Thanks,
+Neil
