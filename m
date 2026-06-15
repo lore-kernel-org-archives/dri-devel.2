@@ -4,140 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4F65CD98C5
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 09:02:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EA08CD98C5
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 09:05:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1950210E2E2;
-	Mon, 15 Jun 2026 09:02:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A9ED10E2E3;
+	Mon, 15 Jun 2026 09:05:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y6cHb2o2";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UsSmWc66";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wp7iFXX3";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A77710E300
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 09:02:35 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65F8r1Dr2211373
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 09:02:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 8Cc4D/6k3H0E0CITsdFqF/FNnfsipdjLFJuu35eAJpM=; b=Y6cHb2o2fCuKJbl+
- axs0yLnX/NWVtHNyvAsyxF8I5rEGDvtdg4ZYezbKpX06xQdrJg6EqUjLCr7rKu6R
- nuk/erGsQWK5GDT0WEz21aMKGzUiC1lIhHO6JqnCXW5hKhTJJ4qE8LlbdE5GsxBY
- iDW9od0ChadxO1uORdCjkjBb/nnPfQ+54xd2Pp1dOo2UYoQKbA9irTDrCJYWy/+6
- t8jJkGZtqWtasvXBUAqoI7P/TA11Kgj9YpUkoRPHI/P1x3/0/frUgeRNZmPrbGwB
- UG9mPHOVXMN8B0fdGZDIhFsVIRDmwnbZW6QPP9pi2FiQzds+8zixrw5l+fvBhhqw
- qpGQxg==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ete98019n-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 09:02:34 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-36bbdcf36f0so2508850a91.0
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 02:02:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1781514154; x=1782118954;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=8Cc4D/6k3H0E0CITsdFqF/FNnfsipdjLFJuu35eAJpM=;
- b=UsSmWc66cKPwq5kX3VwOfaL7yHLoB4gInXI0cqd+NPH9kvVSDIYBUlLRdZViDgwZtC
- jyfTm8TuOEA5AgU0lMHNfZvHPPSp9PESGDt20PXDP8+kn07E7woF/R1muM8m5l+i6rjO
- liCGyenAMgD4KGESeMBK4sKfuKVpsxqF/alAcw5f5qC2tyJm0QHel6WuEfLGuwgz3Yg/
- Q1akCTFYBc2oRb9gbMRLaWeVGMxiZuJgiT1eyDYezCIsUfTgYBTs5mn2IbSp2YsJdTvV
- ny67y99A3rgd6ypxkYd3BmxJjBdwpNLBqkGpvtpUmAntOcRLnkGn1M8OAyriLfGIfjTM
- z/kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781514154; x=1782118954;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=8Cc4D/6k3H0E0CITsdFqF/FNnfsipdjLFJuu35eAJpM=;
- b=XQ4LIV0DdfTgEGhIuKIa8opvOC8z+CeGROLJ0uT6kXEyxopJLVTtmwwvd+R0/lSjup
- ADYT2LmZdhXTaiVtsrteYQX71GIyzYFWBfyiKmOQOvIwEADFnE9i0OpYlhXyqhiexS9d
- 1joCBBdRksbw+GUV5j3HIORpnuZ0+YaBvRpengEHMrI2PW2mrqKp5n2aiZYdsWNXSr6A
- idE+KQRSD1y4wRSt0Jd+RHSvv+CLgOG91tlrw+qgHTeU3+g4ZjsjskQ3LmRG2oaWWaeR
- fNlqubrlNk+vuZu2Nh+OOnrSPKn8fueZskz4O/1JegVdU06JFHd9NwJAQkpZ3AXGBeHD
- rpSw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8F/RvOdFDYW/Y3JUX51KDfiQL/A6liwKwKMbu1gZSZZIvJ9x0mf2kWHi3/gOSP4JdKTHaowRbyn0A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx6Z7xSM2J4q1qCv0ghwnj+BVzcR2A+Zk5ghIZ9kgsYKccE2iTg
- KsaYbiKlnap4ozkjKj5lW8jx9YMllpWkdBxblhKFwKPkC/6cwRR5P/6AA6XZJabKNufwPB5BJf1
- UMjZrKBBeick2axaPk67cVGpvpnIzRCMMZDP4xRgg+AaLcqcbER6y9zz7NRRLl0DJBjfuW54=
-X-Gm-Gg: Acq92OFLTe6+axqXM1TkKS5jzbWjsBnYclXiCU9RB45givueuBm1f6PcTX8JFti0jYi
- PbKPJ3H49e47X0ZdL+usYiyV9/SAmojDboQwTVYmyJh+Dp6E5mGWRpKns5Q/pqnVnAWN/AxtCn4
- TXSAaVj+V3pOByt0UbkP3qsJX68SwjK0I5G6ITluhQH9BJr58iUGSgWRta67EcucNOtGUuI+9eA
- 0HnRWE6drJI2TuboukslZvwseQwEJVxTDJF3Jyef9NLvF3ZiY1tlkG/eceRMJKLHI3eMykhbNxU
- jNeLJQP6Kv1HtLZ0cIlczmBNrL1h4spb+HdWAY+KN1zsVSTWqM6zGh2d6KR9KB8rfJ7THBCEoTN
- bqoefjKsTlvWeIDJ1gk802cc1BerS12nfOrAe1fT4u6K2OCvaXs6pDe9AmuyMS5Utux+r/AM42Q
- GPTxExs7XZYUSavByjZw==
-X-Received: by 2002:a17:90b:3c90:b0:36d:633a:c7fc with SMTP id
- 98e67ed59e1d1-37a1fc2a147mr9020643a91.10.1781514153612; 
- Mon, 15 Jun 2026 02:02:33 -0700 (PDT)
-X-Received: by 2002:a17:90b:3c90:b0:36d:633a:c7fc with SMTP id
- 98e67ed59e1d1-37a1fc2a147mr9020553a91.10.1781514153018; 
- Mon, 15 Jun 2026 02:02:33 -0700 (PDT)
-Received: from [10.133.33.122] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-37a2678375fsm11760041a91.17.2026.06.15.02.02.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jun 2026 02:02:32 -0700 (PDT)
-Message-ID: <1fe8d286-7182-49ed-b6fc-dfa3766f851a@oss.qualcomm.com>
-Date: Mon, 15 Jun 2026 17:02:27 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 29/39] drm/msm/dp: add an API to initialize MST on sink
- side
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20260410-msm-dp-mst-v4-0-b20518dea8de@oss.qualcomm.com>
- <20260410-msm-dp-mst-v4-29-b20518dea8de@oss.qualcomm.com>
- <32jtwnkusxultvsgvnalrvccfkcyk7744yf4d42pqm7wudysvt@l4pnrzfxh2f4>
-Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <32jtwnkusxultvsgvnalrvccfkcyk7744yf4d42pqm7wudysvt@l4pnrzfxh2f4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=V5tNF+ni c=1 sm=1 tr=0 ts=6a2fbfaa cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=tepjUtBTXmVVZiRr_ggA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: gK7eqSTFqUIWIbsdLSTpHY25CqKbu_JO
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDA5NCBTYWx0ZWRfX+2h0+K6pnGO4
- UyYB+5rO+yLVmr2NLH7LDa6Gy+qyaneElchOu0wPQ8TGd25EZFmtBnKgY5njkX0MIAZL16RHb6v
- IeX6J6HrlLTcu6p7oS15kwNFu09mV9k=
-X-Proofpoint-ORIG-GUID: gK7eqSTFqUIWIbsdLSTpHY25CqKbu_JO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDA5NCBTYWx0ZWRfXxbUnuE1a1B5k
- z9VISpJtPinLyN7VJmyCCFzL4AjOIATpobSYbRsTgF/mqAnCi9RtS1Q1sGHrPVU8Y4KxKtxETtg
- cw/7VfKhG6J5p1QzounjWrN6MkErWv+yaHfjx6qer+pgUjVG3nOmllP3KgZg+NO5Pm9VtMnG1vF
- GO5Lg2gU1O5NJUU4k8t/X+ghnKcKaWMgrGNz4KkKhR25iSnm1y20l1+EksN7hDlz7iqbZximtK6
- BBwWo50qW41mFfcBWoTuZWymkjaJhVV/vV+WjyN6cxUfzBy6jnhKpWAU0S21sD8fJLvVxbhQoUk
- 2hhRBAyDyFnVN0/LIYgtA8vxl26fElMYPCP+Gp3w3wVmqI6VL9ykfJTDuzOOZk+4BhvRo9Dm9Cs
- /xIRN6OsnXDo4onSiAKwql5fDdmNwAE0Nz4GytDI66r0u/ODMoL2RGvEGucXvkZsSI8oWfNyoOZ
- Lw14kSyb7Z4lScHDuHw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-15_02,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 impostorscore=0 phishscore=0 malwarescore=0 priorityscore=1501
- adultscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150094
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6072010E2B7
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 09:04:58 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8331D6008A;
+ Mon, 15 Jun 2026 09:04:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F34011F000E9;
+ Mon, 15 Jun 2026 09:04:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781514297;
+ bh=qLw2SCqcDFLa4nvdw6UC4l6oTRH8NFq2j+M0ojC1c1Y=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Wp7iFXX360GrpOsrhERHy8KJf+bfsZ/6OWAVKW0OE6D4PKMD+iD0Gf/mLWFZFGJlQ
+ 8y+zmhKQ6vqxNUSYh9kYRwv4lyPcWyNLWEevwPPAYuxCClI+ItOmoun7dsspxEhK6o
+ 4r13IAZPtAZ/FwwB8zVb8jhrCgQdSWr7pKtXst5ROJw9n7vR8bTp0peDaNSV9QTi66
+ ET5lK6PWH/ySM03dCJTRh8XtDQWzcu24GaWSvWvCXbvNPlfeQYnIp7YqrMz5cofplS
+ sIp4co83LbwUCf9NB/fTKAircpB9fbYKFLgwwlymuSbCTOpTB7j2x07WQbQUohYdFB
+ gIUT84723SFQA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 4/6] drm/verisilicon: add DC8000 (DCUltraLite)
+ display controller support
+To: "Joey Lu" <a0987203069@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260615065003.76661-5-a0987203069@gmail.com>
+References: <20260615065003.76661-5-a0987203069@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 15 Jun 2026 09:04:56 +0000
+Message-Id: <20260615090456.F34011F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,139 +54,183 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
 
+New issues:
+- [High] Missing RUNNING bit configuration in panel_enable_ex prevents pane=
+l output.
+- [High] Framebuffer enable bit placed in CRTC callbacks prevents independe=
+nt plane disablement, causing Use-After-Free.
+- [High] Pixel clock is disabled before writing to CRTC registers during di=
+sablement.
+- [High] Uninitialized stack memory leak when reading IRQ status registers.
+- [Medium] Positional clock-names array causes schema validation failure fo=
+r abbreviated clock topologies.
 
-On 4/12/2026 8:15 AM, Dmitry Baryshkov wrote:
-> On Fri, Apr 10, 2026 at 05:34:04PM +0800, Yongxing Mou wrote:
->> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>
->> If the DP controller is capable of supporting multiple streams
->> then initialize the DP sink in MST mode by programming the DP_MSTM_CTRL
->> DPCD register to enable MST mode.
->>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->> ---
->>   drivers/gpu/drm/msm/dp/dp_display.c | 57 ++++++++++++++++++++++++++++++++-----
->>   1 file changed, 50 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
->> index 8ae690ce2b9f..abf26951819a 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->> @@ -14,6 +14,7 @@
->>   #include <linux/string_choices.h>
->>   #include <drm/display/drm_dp_aux_bus.h>
->>   #include <drm/display/drm_hdmi_audio_helper.h>
->> +#include <drm/display/drm_dp_mst_helper.h>
->>   #include <drm/drm_edid.h>
->>   
->>   #include "msm_drv.h"
->> @@ -270,6 +271,40 @@ static int msm_dp_display_lttpr_init(struct msm_dp_display_private *dp, u8 *dpcd
->>   	return lttpr_count;
->>   }
->>   
->> +static void msm_dp_display_mst_init(struct msm_dp_display_private *dp)
->> +{
->> +	const unsigned long clear_mstm_ctrl_timeout_us = 100000;
->> +	u8 old_mstm_ctrl;
->> +	struct msm_dp *msm_dp = &dp->msm_dp_display;
->> +	int ret;
->> +
->> +	/* clear sink MST state */
->> +	drm_dp_dpcd_read_byte(dp->aux, DP_MSTM_CTRL, &old_mstm_ctrl);
->> +
->> +	ret = drm_dp_dpcd_write_byte(dp->aux, DP_MSTM_CTRL, 0);
->> +	if (ret < 0) {
->> +		DRM_ERROR("failed to clear DP_MSTM_CTRL, ret=%d\n", ret);
->> +		return;
->> +	}
->> +
->> +	/* add extra delay if MST old state is on*/
->> +	if (old_mstm_ctrl) {
->> +		drm_dbg_dp(dp->drm_dev, "wait %luus to set DP_MSTM_CTRL set 0\n",
->> +			   clear_mstm_ctrl_timeout_us);
->> +		usleep_range(clear_mstm_ctrl_timeout_us,
->> +			     clear_mstm_ctrl_timeout_us + 1000);
-> 
-> For 100 ms you should be using msleep() instead. But where is that
-> timeout coming from?
-> 
-Will switch to msleep(100).
+Pre-existing issues:
+- [High] DC8200 primary plane disable hook erroneously sets the enable bit.
+- [High] IRQ handler registration races with drm_dev initialization, causin=
+g NULL pointer dereference.
+--
 
-The 100 ms is an empirical workaround carried over from downstream — 
-some sinks don't exit MST immediately after writing DP_MSTM_CTRL = 0, 
-and re-enabling MST too quickly broke topology probe. It's not a DP spec 
-requirement, and other drivers (drm_dp_mst core, i915, amdgpu, nouveau) 
-don't have an equivalent delay.
+commit 7f62f89410b84fe09c3b006e2a2c8a7c5dedfeaa
+Author: Joey Lu <a0987203069@gmail.com>
 
->> +	}
->> +
->> +	ret = drm_dp_dpcd_write_byte(dp->aux, DP_MSTM_CTRL,
->> +				     DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC);
-> 
-> Isn't it too early to enable MST? (I don't remember this part of the
-> standard).
-> 
-No, this follows the DP 1.4a MST spec. DP_MSTM_CTRL must be set before 
-topology discovery. Topology discovery uses AUX sideband messages, which 
-don’t require link training.
-So we enable MST first, then discover topology, and only do link 
-training and payload allocation later in atomic_enable().
->> +	if (ret < 0) {
->> +		DRM_ERROR("sink MST enablement failed\n");
->> +		return;
->> +	}
->> +
->> +	msm_dp->mst_active = true;
->> +}
->> +
->>   static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
->>   {
->>   	struct drm_connector *connector = dp->msm_dp_display.connector;
->> @@ -288,14 +323,19 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
->>   	if (rc)
->>   		goto end;
->>   
->> -	drm_edid = drm_edid_read_ddc(connector, &dp->aux->ddc);
->> -	drm_edid_connector_update(connector, drm_edid);
->> +	if (!(dp->max_stream > 1) || !drm_dp_read_mst_cap(dp->aux, dp->panel->dpcd)) {
->> +		drm_edid = drm_edid_read_ddc(connector, &dp->aux->ddc);
->> +		drm_edid_connector_update(connector, drm_edid);
->>   
->> -	if (!drm_edid) {
->> -		DRM_ERROR("panel edid read failed\n");
->> -		/* check edid read fail is due to unplug */
->> -		if (!msm_dp_aux_is_link_connected(dp->aux))
->> -			return -ETIMEDOUT;
->> +		if (!drm_edid) {
->> +			DRM_ERROR("panel edid read failed\n");
->> +			/* check edid read fail is due to unplug */
->> +			if (!msm_dp_aux_is_link_connected(dp->aux))
->> +				return -ETIMEDOUT;
->> +		}
->> +
->> +		if (rc)
->> +			goto end;
->>   	}
->>   
->>   	msm_dp_link_process_request(dp->link);
->> @@ -317,6 +357,9 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
->>   	 */
->>   	msm_dp_link_psm_config(dp->link, &dp->panel->link_info, false);
->>   
->> +	if (dp->max_stream > 1 && drm_dp_read_mst_cap(dp->aux, dp->panel->dpcd))
->> +		msm_dp_display_mst_init(dp);
->> +
->>   	msm_dp_link_reset_phy_params_vx_px(dp->link);
->>   
->>   end:
->>
->> -- 
->> 2.43.0
->>
-> 
+drm/verisilicon: add DC8000 (DCUltraLite) display controller support
 
+This commit adds support for the Verisilicon DC8000 (DCUltraLite) display
+controller found on the Nuvoton MA35D1 SoC. It handles differences in regis=
+ter
+layout, commit cycles, and clock topology by introducing a new vs_dc8000_fu=
+ncs
+structure.
+
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisi=
+licon/vs_dc.c
+> index 9729b693d360e..9499fffbca58e 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
+[ ... ]
+> @@ -134,7 +134,10 @@ static int vs_dc_probe(struct platform_device *pdev)
+>  	dev_info(dev, "Found DC%x rev %x customer %x\n", dc->identity.model,
+>  		 dc->identity.revision, dc->identity.customer_id);
+> =20
+> -	dc->funcs =3D &vs_dc8200_funcs;
+> +	if (dc->identity.generation =3D=3D VSDC_GEN_DC8200)
+> +		dc->funcs =3D &vs_dc8200_funcs;
+
+[Severity: High]
+This is a pre-existing issue, but does vs_dc8200_primary_plane_disable_ex()
+fail to disable the hardware plane?=20
+
+It uses regmap_set_bits() for VSDC_FB_CONFIG_EX_FB_EN instead of clearing i=
+t:
+
+vs_dc8200.c:vs_dc8200_primary_plane_disable_ex() {
+    regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+                    VSDC_FB_CONFIG_EX_FB_EN);
+    ...
+}
+
+Will the display controller continue accessing the freed memory when DRM fr=
+ees
+the framebuffer after the atomic commit, leading to a use-after-free?
+
+[Severity: High]
+This is also a pre-existing issue, but does vs_dc_probe() register the IRQ
+handler before the DRM device is fully initialized?
+
+If an interrupt fires immediately after devm_request_irq(), could
+vs_drm_handle_irq() dereference dc->drm_dev->crtcs[i] and dc->drm_dev->base
+before vs_drm_initialize() has allocated dc->drm_dev?
+
+> +	else
+> +		dc->funcs =3D &vs_dc8000_funcs;
+> =20
+>  	if (port_count > dc->identity.display_count) {
+>  		dev_err(dev, "too many downstream ports than HW capability\n");
+[ ... ]
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8000.c b/drivers/gpu/drm/ve=
+risilicon/vs_dc8000.c
+> new file mode 100644
+> index 0000000000000..be0c0d7baf52e
+> --- /dev/null
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc8000.c
+> @@ -0,0 +1,78 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+[ ... ]
+> +static void vs_dc8000_panel_enable_ex(struct vs_dc *dc, unsigned int out=
+put)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_RESET);
+> +}
+
+[Severity: High]
+Does this function miss configuring the RUNNING bit?=20
+
+The commit message states that panel output starts when PANEL_CONFIG.RUNNING
+is set, but this implementation only sets VSDC_FB_CONFIG_RESET. Will the
+display controller fail to output pixels to the panel without setting
+VSDC_DISP_PANEL_CONFIG_RUNNING?
+
+[ ... ]
+> +static void vs_dc8000_crtc_enable(struct vs_dc *dc, unsigned int output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_ENABLE);
+> +}
+
+[Severity: High]
+Does placing the framebuffer enable bit in the CRTC enable callback prevent
+independent plane disablement?
+
+If the DRM core disables the primary plane while keeping the CRTC active,
+vs_primary_plane_atomic_disable() will act as a no-op because the plane
+disable hook is NULL in vs_dc8000_funcs. Will the hardware continue scanning
+out from the freed framebuffer, resulting in a use-after-free and potential
+IOMMU faults?
+
+> +static void vs_dc8000_crtc_disable(struct vs_dc *dc, unsigned int output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			  VSDC_FB_CONFIG_ENABLE);
+> +}
+
+[Severity: High]
+Will writing to the CRTC register during disablement cause a bus fault?
+
+In vs_crtc_atomic_disable(), clk_disable_unprepare() is called on the
+pixel clock before invoking the crtc_disable hook:
+
+vs_crtc.c:vs_crtc_atomic_disable() {
+    clk_disable_unprepare(dc->pix_clk[output]);
+
+    if (dc->funcs->crtc_disable)
+        dc->funcs->crtc_disable(dc, output);
+    ...
+}
+
+Does this cause vs_dc8000_crtc_disable() to access hardware registers
+after their corresponding clock is disabled?
+
+[ ... ]
+> +static u32 vs_dc8000_irq_ack(struct vs_dc *dc)
+> +{
+> +	u32 irqs;
+> +
+> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &irqs);
+> +	return irqs;
+> +}
+
+[Severity: High]
+Can this leak uninitialized stack memory?
+
+If regmap_read() fails, the irqs variable remains uninitialized. Will this
+cause the function to return garbage data that is then passed to
+vs_drm_handle_irq(), potentially causing an information leak when logged by
+drm_warn_once or spurious execution of VBLANK handlers?
+
+[ ... ]
+
+[Severity: Medium]
+Will the abbreviated clock topology cause device tree validation failures?
+
+Since the commit makes the axi and ahb clocks optional, the device tree cou=
+ld
+use a simpler topology with just core and pix0. However, the DT binding sch=
+ema
+in verisilicon,dc.yaml uses a rigid positional items array for clock-names
+(expecting axi at index 1). Would a node using clock-names =3D "core", "pix=
+0"
+fail validation because pix0 is evaluated against the const: axi requiremen=
+t?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615065003.7666=
+1-1-a0987203069@gmail.com?part=3D4
