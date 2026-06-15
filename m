@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5FDCCD98C5
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 00:17:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6716CD8CA8
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 00:17:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC64010E139;
-	Mon, 15 Jun 2026 00:17:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0870810E149;
+	Mon, 15 Jun 2026 00:17:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VN22ZDVY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hoNvYfSG";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBAEE10E139
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 00:17:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B05610E149
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 00:17:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7FE984088A;
- Mon, 15 Jun 2026 00:17:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C39A1F000E9;
- Mon, 15 Jun 2026 00:17:20 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 42CBE40836;
+ Mon, 15 Jun 2026 00:17:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E20EF1F000E9;
+ Mon, 15 Jun 2026 00:17:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781482640;
- bh=TeleR8b6oZ63JIpS+Q77i0lyZ3TTh1J6938G8aEtEKE=;
+ s=k20260515; t=1781482652;
+ bh=bkg4OeOIcwwOnOaOevDw5KNxb45k8KO+LmgAiyCyxvs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VN22ZDVYcSvPC9MLeTRhxVlJlrRIef5mqIgcl2/tPd7FX1WUwJlF5/Y0uGAYueeVZ
- N51QtimnYvGn4zaJ6v6JxfObGVIC45Z0yas2wDiYdqYcZnFH9lrwVrDB+2uNh9pUdr
- Yu85pWbBM4VKC5ept52U3g6s6f22ur8ZMOPNNVNseiAICOt3zPxsz6SNVP+ZfrKkr6
- Aq524M9JSjU4Et/utX5CIhxLvR/AeqgrmjYUB4l3xUCSKHrqq1d0qzqK6Tn9n3OnT4
- IoC4gHl2Df6AFjfFDRMr7HRfHsy2xrnARjjj/fPRxP+E10/3cNs17N4RYkSYb52+i4
- M9rhrbRk8f1Xw==
+ b=hoNvYfSGTQog8EySiAHhquR1AWGjHCyDGOKTfdPFLKAVk5kN4xewKNZBybxxBTR1k
+ pIHDEilwZSo+FB4+X42FTgu+Rf7cxgiWoInbrzTrEh++Xeq7bRjtxPLUce/0R+L3pr
+ x9guBHrvHnU+Ktwz6ToSVG1fUQONvpw8Am0L4ulZiL6OGhSjfeEHDbykGN1t9wWl9A
+ GXW+heUrBHn463UzMzaIa5MAB4zHO0lyN9NPjJTLeQUNACHgdB6ZUwSYlGejw3vLEs
+ EwTXzMzVkhccNzX9eNaAMWduNrrnDbBWvKA2vYwzZGuATkiyH71BhdsreYb7TISING
+ WkKaNgiUTh1zg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/4] Revert "dt-bindings: display: panel:
- panel-simple: Add lg,sw49410 compatible"
+Subject: Re: [PATCH v3 2/4] dt-bindings: display: panel: Add documentation
+ for lg,sw49410-lh609qh1
 To: "Paul Sajna" <sajattack@postmarketos.org>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260614-judyln-panel-v3-4-07f4134441bd@postmarketos.org>
-References: <20260614-judyln-panel-v3-4-07f4134441bd@postmarketos.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260614-judyln-panel-v3-2-07f4134441bd@postmarketos.org>
+References: <20260614-judyln-panel-v3-2-07f4134441bd@postmarketos.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 00:17:19 +0000
-Message-Id: <20260615001720.1C39A1F000E9@smtp.kernel.org>
+Date: Mon, 15 Jun 2026 00:17:30 +0000
+Message-Id: <20260615001731.E20EF1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,88 +58,109 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Missing drm_panel_remove() on the mipi_dsi_attach() error path in =
-probe causes a Use-After-Free.
-- [High] Panel reset is erroneously asserted before sending DSI sleep comma=
-nds in the unprepare sequence.
+- [High] Sending DSI commands in `unprepare` after asserting the reset GPIO=
+ will cause DSI transmission timeouts.
+- [High] The `MIPI_DSI_MODE_LPM` flag toggle for the PPS transfer is wrappe=
+d around the wrong function, rendering it ineffective.
+- [Medium] The `compatible` property definition enforces an incorrect gener=
+ic-first string order and mismatches the device tree example, causing valid=
+ation to fail.
 --
 
-commit 591497f012912dfaa02eb5ec6c5c1e0d8e61f126
+commit faf055f392f23751b6b923b1d2e80556b912da18
 Author: Paul Sajna <sajattack@postmarketos.org>
 
-Revert "dt-bindings: display: panel: panel-simple: Add lg,sw49410 compatibl=
-e"
+dt-bindings: display: panel: Add documentation for lg,sw49410-lh609qh1
 
-This reverts commit a74c2e55ab66519ffa2069ac9ae83cd937bff4c4. The panel
-isn't actually panel-simple-compatible.
+This commit documents the bindings for the LG LH609QH1 MIPI DSI panel. It
+also introduces the DRM panel driver for the SW49410 controller found in the
+LG G7 ThinQ smartphone.
 
-> diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple=
-.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-> index 3e41ed0ef5d51..1abdc8698a865 100644
-> --- a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-> @@ -200,8 +200,6 @@ properties:
->        - lemaker,bl035-rgb-002
->          # LG 7" (800x480 pixels) TFT LCD panel
->        - lg,lb070wv8
-> -        # LG 6.1" (1440x3120) IPS LCD panel
-> -      - lg,sw49410
+> diff --git a/Documentation/devicetree/bindings/display/panel/lg,sw49410.y=
+aml b/Documentation/devicetree/bindings/display/panel/lg,sw49410.yaml
+> new file mode 100644
+> index 0000000000000..4c4bf4d89353f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/lg,sw49410.yaml
+> @@ -0,0 +1,79 @@
+[ ... ]
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: lg,sw49410
+> +      - const: lg,sw49410-lh609qh1
+
+[Severity: Medium]
+Does the compatible array enforce a generic-to-specific order?
+
+Device tree standard typically dictates specific-to-generic ordering.
+Additionally, since the device tree example further down only provides a
+single string:
+
+	compatible =3D "lg,sw49410-lh609qh1";
+
+Will this single-string example fail validation against the two-item schema
+constraint defined here?
+
+> +
+> +  reg:
+[ ... ]
+> diff --git a/drivers/gpu/drm/panel/panel-lg-sw49410.c b/drivers/gpu/drm/p=
+anel/panel-lg-sw49410.c
+> new file mode 100644
+> index 0000000000000..02d1b85c3affb
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-lg-sw49410.c
+> @@ -0,0 +1,528 @@
+[ ... ]
+> +static int sw49410_panel_program(struct sw49410_panel *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+> +	struct drm_dsc_picture_parameter_set pps;
+[ ... ]
+> +	ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+> +
+> +	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
+> +
+> +	ctx->dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
+> +
+> +	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but while looking at the sw49410
-panel driver code, I noticed a missing drm_panel_remove() on the
-mipi_dsi_attach() error path in probe which causes a use-after-free:
+Are the MIPI_DSI_MODE_LPM flags being toggled around the right function?
 
-drivers/gpu/drm/panel/panel-lg-sw49410.c:sw49410_panel_probe() {
-	drm_panel_add(&ctx->panel);
+This code wraps the local memory packing function drm_dsc_pps_payload_pack()
+instead of the actual transmission function
+mipi_dsi_picture_parameter_set_multi().=20
 
-	/* This panel only supports DSC; unconditionally enable it */
-	dsi->dsc =3D &ctx->dsc;
-...
-	return mipi_dsi_attach(dsi);
-}
+Does this mean the PPS command is still incorrectly sent in low-power mode?
 
-If mipi_dsi_attach() fails, the function returns an error without calling
-drm_panel_remove(). Because ctx was allocated with devm_drm_panel_alloc(),
-the kernel devres mechanism will free ctx upon probe failure.
-
-This leaves a dangling pointer in the global panel_list. Any subsequent
-operations iterating over panel_list (such as another driver calling
-drm_panel_get()) will dereference the freed memory, causing a
-use-after-free kernel panic.
-
-Could we add a call to drm_panel_remove() to the error path here?
+> +
+> +	mipi_dsi_compression_mode_ext_multi(&dsi_ctx, true, MIPI_DSI_COMPRESSIO=
+N_DSC, 1);
+[ ... ]
+> +static int sw49410_panel_unprepare(struct drm_panel *panel)
+> +{
+> +	struct sw49410_panel *ctx =3D to_sw49410_panel(panel);
+> +
+> +	gpiod_set_value(ctx->reset_gpio, 1);
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+> +
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
 
 [Severity: High]
-This is a pre-existing issue, but the panel reset is erroneously asserted
-before sending DSI sleep commands in the unprepare sequence:
+Could asserting the reset GPIO before sending DSI commands lead to
+transmission timeouts?
 
-drivers/gpu/drm/panel/panel-lg-sw49410.c:sw49410_panel_unprepare() {
-	gpiod_set_value(ctx->reset_gpio, 1);
-	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+Because the panel is already put into reset by gpiod_set_value(..., 1),
+it seems like it won't be able to acknowledge the display_off and
+enter_sleep_mode commands sent immediately after.
 
-	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-}
-
-The reset GPIO is asserted (gpiod_set_value(ctx->reset_gpio, 1)) before
-executing the MIPI DCS sleep commands.
-
-Attempting to send MIPI DCS commands to a panel that is held in hardware
-reset will cause the DSI host to fail to communicate, resulting in severe
-command timeouts and error logs. The unprepare sequence is functionally
-broken because the panel cannot gracefully enter sleep mode.
-
-Should the panel reset be delayed until after the DSI sleep commands are
-sent?
-
->          # Logic Technologies LT161010-2NHC 7" WVGA TFT Cap Touch Module
->        - logictechno,lt161010-2nhc
+> +	mipi_dsi_msleep(&dsi_ctx, 100);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260614-judyln-pan=
-el-v3-0-07f4134441bd@postmarketos.org?part=3D4
+el-v3-0-07f4134441bd@postmarketos.org?part=3D2
