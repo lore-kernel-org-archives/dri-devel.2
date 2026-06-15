@@ -4,83 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50B63CD98D6
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 07:58:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4B90CD98DE
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 08:04:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0CE410E24F;
-	Mon, 15 Jun 2026 07:58:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4F7D10E144;
+	Mon, 15 Jun 2026 08:04:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="J+cnWCKs";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="LgEu5eic";
 	dkim-atps=neutral
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
- [74.125.82.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4134C10E1FB
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 06:50:26 +0000 (UTC)
-Received: by mail-dy1-f175.google.com with SMTP id
- 5a478bee46e88-304cf518c9dso4665161eec.1
- for <dri-devel@lists.freedesktop.org>; Sun, 14 Jun 2026 23:50:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781506225; x=1782111025; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RCnGy4eyt7vZGs3J5YesXgpvuGxv5PNGr2RCRubwVqI=;
- b=J+cnWCKshKSRwiXfVCaBq5j8V0jCxoCa+wi0E3F4HixdCAO3nal4f2S4De/l/65YHF
- tVUltO8mTf8yfm1EAX4T1VKHDBuVY+bJFEZBuR/PDdJqG9C7Nd+jZpz4tOFOKtcH1sJq
- T9SyxwnEEU+eCOz7ih7/Q/VDYpd4Z5doT/LWPydsEKICn4NhMQMhLUN+r6mJSXWijh1Z
- 7loi1TFkID5lndCJzfXTIyqVhAHfqvNVwuRZc7y4bAiyFQI1y7sXTkUh4tiTjBwYoRvA
- 5R+bAgK4V+c6nwzTzdei1oJAj2MFRXh7mpQ+33nnIeK7yUyEmu9Fa/LAfWU2l1CzO6Yh
- ieLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781506225; x=1782111025;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=RCnGy4eyt7vZGs3J5YesXgpvuGxv5PNGr2RCRubwVqI=;
- b=MM8VWZe+VIAsOjGJ4xPDrdhtsKr7zrkR0V298p9nIy3RRYci+sRrY8QLbOlvfCTWSY
- GqnN1XLY1QW5FXxaNMfgOzV7rptX8kbo3hndNXY3lsN8KOqkL6N++rxbWAwqoKrCkJnx
- 4JAiyHaRFEe3syqE0+XSk830xrB8aL/LmUDg0DGXtQrvOJlA03G33O1NLKeB0HGhllFj
- fmBw6n49ZetxrKQ2phuohCbkFSUcmpjshURMHiFAt+L1o0lXVQh040fJTbOD3qJuIn5q
- bVK5UuQ6QFpGSEcwF2dEbvaVUp7f4l+vXh/7Plc0jk4jz5DwrhTvQ+jZzKm/J13n7n42
- 3uwg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/CxHzv8FNWxdF6Joicg3gIsh6diq0JSVpuNC33f8mp/OoJIwaC9YgaYGDDOLplElGyThtqFpCqUxY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwwTXGO9fuAiruDFH9yFDtEJoxrKb+RqETlucsh1Oe7MgRKUm53
- zUyF2bnX56pjDDf70skDlIfSD+2sW6nc6z258+JKnDOH1/gHZ3yvHKgl
-X-Gm-Gg: Acq92OE2HHQATB5YoZogbU4Kt8+LTulDcq98SnHU0ZdJKA3+/8PjwMvGXWSknIkZK5M
- Jq9aqmVkQhiHPobs7DJDfsg2fRj0/AhJaZGY97qnCQfmvNrK5D/cxY0JsdTTObP/e3P3/bNYWhf
- pvkL3a/Zpbu5WTLHcfA9c/5LpDPjuJM2+ABF1te5IxavMQW8hL5dWAGG1TCO7tBqj7hOH6455BF
- XOCdC2f0Kcynr/+5JBHEw8xzGTnvuFFfeRbc5nSxVf015wQ5XAtvUv1iIzOzIKnrZLs52U6ERki
- qKyCgiwda6q+Do4UlYQmk42JpLI8XxtipxRIYO9akI2nq++FTAEpmYujiA7TDxnfZwjU2kXqZsl
- qTciJyOOwMQMOYK0WUCb9IHkCwt1A95cj22IaERAb0qW9KzUixXFhDfQdLTPbhb/xleArdGLBOy
- TGW6W3y6P53GIH4poe3xylAVvflw1cWeS5Y7YZpr3TeXsCRJVg7c4rq3lOyJutwxq/PjuETu7+l
- 6r/PVRzV5Hr
-X-Received: by 2002:a05:7300:542:b0:2ea:e93a:ff9b with SMTP id
- 5a478bee46e88-30936a4b1bfmr5180127eec.13.1781506225470; 
- Sun, 14 Jun 2026 23:50:25 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3081eb9a2e7sm13516812eec.30.2026.06.14.23.50.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 14 Jun 2026 23:50:25 -0700 (PDT)
-From: Joey Lu <a0987203069@gmail.com>
-To: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH v4 4/6] drm/verisilicon: add DC8000 (DCUltraLite) display
- controller support
-Date: Mon, 15 Jun 2026 14:50:01 +0800
-Message-ID: <20260615065003.76661-5-a0987203069@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260615065003.76661-1-a0987203069@gmail.com>
-References: <20260615065003.76661-1-a0987203069@gmail.com>
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011020.outbound.protection.outlook.com [52.101.57.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E46AC10E144
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 08:04:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GTw7bwCTrXWwDsC2qUypDEbzmMzeOWDYV87jBvywc7ttPWB434DHdCgIOFyWcaBV1fLeguZtP8PkS+fAL5WVCUtDCWKK7h1nKrCuDTSbX9C3JmVpLtFtsXhqIXOIdAayp4dgyBfBDgAHoSdYMQHXe9gk85GPyt93mly/NTFu+siwa/PScwVhuVhW4CPMMeKf+yuAqjaolpJSxDeEQMD1xkAx5We1pSsM5kcR5W7EUAVwD9BHTuoeOGTTyyKu5a4v8JXes+AcEuJR3Gpvbov0dz8GI5Xe15bBLP1ZMphEochDEEa2NifPqylhJEhAJ2d1fMMGKXAwUloK9s00s7ZKzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LdrUzyCRdCXSlXWO52Gd61y+RzmnJPx4kvNE8nFN768=;
+ b=DJxXzgKGcBr2KuP7XviysZkdY0ba3Xqiwhq6O8jt+5m/gMxWFjdUMV+ZWC9sqiv1N01bZ1BCYnKfcGEEWIsNHYdbCt/93ZMGEXg1HUEBsHAIZH8B5uA1GrOW4YJvr/h1/bEExKNMhDQtAIRX3At/WUUc7dDMtc6J0Y/zacpbenbSeUE9LP9Pr3hPk2q0SJ1CcDD3a8SY+XL36ZVQsrY43JClGK7oyVlhb9pMumM1VaGPJBzE4T8sj5xZMx1wIljoqSOMMf0llh3c41BhxApw4hanhHHLZY5yXRQubtNwZtqioHL3JMdSTuQwrAufmoKtWHoBbtNINYrVBLlnFsRsGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LdrUzyCRdCXSlXWO52Gd61y+RzmnJPx4kvNE8nFN768=;
+ b=LgEu5eic4PjsYOxiznyyZRpM1PHgN7OPeMGLCTIpNxBCGXqNVEmF+R7rRSNiAdNUgK5cAEHOMot0wtJQR2m4M7fALkLOW43Iluo2agvAx36CiNdeRDBY27P6NyEeKZ6viZ88ACctXgWfjg6a2K3TGrAsMYKuH9R6S06YYdbs7OttEd1mnMTP91XtcOZcuLRaDBi0xiA/cStl64+9263gLryHrwzkoiOxVZySrRZRd5V47SYVqBlcUxEb/RPJ/Iv01pIbLlPPZFHsopwqqhJh1NZmx0hIYCm6gs5gv3QipNT4u+fZk/uMUMj/0aT36tifX8uCk3PqVFph2MLjaijO6Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by IA0PPFFEC453979.namprd12.prod.outlook.com
+ (2603:10b6:20f:fc04::beb) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
+ 2026 08:04:23 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
+ 08:04:22 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 15 Jun 2026 17:04:19 +0900
+Message-Id: <DJ9GTMO2NKMD.1SAVC9OBXNXI9@nvidia.com>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Abdiel
+ Janulgue" <abdiel.janulgue@gmail.com>, "Robin Murphy"
+ <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Danilo Krummrich" <dakr@kernel.org>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v4 05/20] rust: io: generalize `MmioRaw` to pointer to
+ arbitrary type
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+References: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net>
+ <20260611-io_projection-v4-5-1f7224b02dcb@garyguo.net>
+In-Reply-To: <20260611-io_projection-v4-5-1f7224b02dcb@garyguo.net>
+X-ClientProxiedBy: TYCPR01CA0173.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b2::11) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 15 Jun 2026 07:58:00 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|IA0PPFFEC453979:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b26bd4e-095b-4591-f1ad-08decab4b5ad
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|1800799024|23010399003|10070799003|56012099006|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: oighCIf+QAL6WFSF12f4cP6zI2NU+/NyP5ixAnMXRacv0HvXd2DuVjMtirYXDHH0T9xQnyOa1pcLwREcOYwEIT1EpzmZOrwXmlN/rwGfuq+rb9zrfa5Qd2q7N9pzz52G0uAQNiQyFG2LsBLDhgsjSwVrNvaRiFSR3VGxKh8x6MZgTXRURiD70XgHxiZcUkV2zGVYDVjZS99nMkzrI2CWZ+7gXO5CWNuKHFdjV/2Jvy0npYBRaMO+rnfLK8kZF2pGLPv79gdQrak6/Xy5SlRDVz2KnODF94KfoCiuHhcjgA/0PeK7bNWra0SxhqLexEBhWAl4xJ0Nq9ksZRMrnWjt1YK3ME2QuiC0tDX6a36Wpx2l38B74BQ6ivPeoNZqwN907NSmYhfKn1RGEkY4n9Ye03e4qc5rDmtopD41FHcsNXpUPRPOmiiaM5RhcpTanbgWtyswWE5MKkKLM4TrzAiYMh9fyH9NC2t/IS1/z8ae8F/z8buNKVt2zvUpFM0+oEUY4ZlOe81q4/YlmvHxsAREksBbJCQA01SPtZsYthhNovI/i4O1KY0A/vK8Oz399ffLkVN6V6BI1gKCIisZ7eHKYmKfqs2xTnGmMNZNyTWItI0t/0Tuf3eyuw00ZbrSFT2+h6rnzedaFMWyO7XMSS+WZnm8fV/Yvaehuen77dIyAvtuJiljDeCrc/6N9iiPDr6B
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(10070799003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WElYZU5RTHVDTDY4WFNPQ2tSYkZRSWRDcVcvYVpWbDVQWEZIblZqc2d5Z05H?=
+ =?utf-8?B?c0VpS2tDeFFGbmlwOHcrbWZvUTZQblNPRXJEL2tXK3ExK2l3STJNR0xhY1Bv?=
+ =?utf-8?B?S3J1RURMdllpaDh3clJXZUpoRVVEczlOWUtvbnJhV2E1QVhQOStsTWJMVDVl?=
+ =?utf-8?B?WnVRd3hKbDlZK0NCeXFMRkgwZ0puaElyUjJnMFRkQnZURzJuUnVnMXd0R0hL?=
+ =?utf-8?B?bHJvVU8vQ2FKaUI4dS9JNHQxN3FabEliNW9JQ3RRNzBZZlVxYVhuKzJNM1px?=
+ =?utf-8?B?Qy8yaUQxdlplOExvNTFwWTZ3dTRtOFNraVovVW1nZGx5MTB0Vkg0N041Q2lE?=
+ =?utf-8?B?cC9NL0wyUWh1N2ZNUDZFOWdWQlBEc1Z1Q21NQ3IzL0NUcjBSRk9SVTlyT3pW?=
+ =?utf-8?B?TnFxbWpLTXdJZncyUkxrME9NNzYyU0lIT21wVEFzZXYwTkFMTmRvSDVvS3Ax?=
+ =?utf-8?B?TUJVK3JaSVZFWE1ZWGpVUk1HUXFXTytmNEw0V1dGTDJ5Rnc1clZhRHM5UU5I?=
+ =?utf-8?B?RmhWcVpKSWt6MFJXNkJ3ZUNneXRuVjlRYUJDTnBnaFNzNzdFeUJxdFF3S01h?=
+ =?utf-8?B?Y2EyNHpjeFR1M1ZSdmV6TjRCWWVMZWtZUTRraUowV3BMWkxHUlB3YjZmbHA1?=
+ =?utf-8?B?dlVtTWdsZ3FSMTYrbXRGb3AzMDUrYk4xdTZsa3dlTEJpZ1Y3ME05WG1XQmJr?=
+ =?utf-8?B?MmtKLzQyOGVVVjNXZThVcDlRcm9XUXZYejlLdzRZNFZqdk9wdXpqdlJMR1kw?=
+ =?utf-8?B?UTdaQXA1U0ZGNWJ6K1kzZ2VXV2RPWlE2V1ppYnJxazFZWGNIYTBZWm5UdjB6?=
+ =?utf-8?B?MHpEYjN6NTFTajNHMDlVOGdOQWNIeE14amI3U0JDdXY0eWh6cDlMK3g1bjZH?=
+ =?utf-8?B?SWREc2dPSnlSMWx4NG9iak4xRk95a2FOMEZFNnZyb3lUWFdWSHNlYU1vRnJP?=
+ =?utf-8?B?Sm1JY0hNU0JOOC80OThmL08xVmN0R0krMlJUZUtMTlFrL2U3L2JqVDV5WTNa?=
+ =?utf-8?B?NjNjRjlBb2kvVjlkeGttTHQyYmFpdUhuc1RvRlpaOGw1R3ZZZS8yeFRrd05q?=
+ =?utf-8?B?bkVSYlZJZE9EU3d6K3AxS01CeE9uUHNRdkFtUWU4SUU5VVF6NTlUWjV6bjlQ?=
+ =?utf-8?B?bTVJYkdRVkhnU1JuUEdobFJGSVhCRzhKUURvSENRaitIRXc1SWNXZzNDYmNT?=
+ =?utf-8?B?ZHJBZWp6Z1Q3alptVkxIeHhsci9GT1NpaERaY081THAxWG1qTG52OWZaVk91?=
+ =?utf-8?B?dmpBcFM1TmVPcW44NjdOYmRja1E1MitkZWZsUTc1WS84SHNESmp2WlRzRmRE?=
+ =?utf-8?B?WlBxZ0dJdGJ1ZmVSOXhXN0RoTnlFVFd0Nm9DaTdVaW1LV2gxTkpDejArZGNj?=
+ =?utf-8?B?dndablNFaW5HZ2gwVGluMUMxdjZZYVI0STVzV1dBb3N4UWRaUnc0Tmo4VXh6?=
+ =?utf-8?B?ZDF0K3hYY3ZjZFpLUWpZYlI4SlVGMXppZDEySWtGRk11a05OczNBVXJMeGlP?=
+ =?utf-8?B?Z2lZVTlmQUVWajFoNmJuK3ArRTQzaDJNR0NmZEJqZmJIcUZkbDhrR3Q5dkt5?=
+ =?utf-8?B?dVdyTVp4TFRobzh4c2NuUXBQeEppY3J5VmdZbWxRUW9VQ2I1dEdxNkZHZTIr?=
+ =?utf-8?B?M2NBNGpFSkxiY3J2RnVHVlhlZDRrREkyNTF3U0prUDJUWEIzYzkvRmE1YkFz?=
+ =?utf-8?B?T0xPS2xpeTlsc0FLK2ZhaGNJYThoSm5UaFlZdStOTmhZUHFheFdzYkZWN2g5?=
+ =?utf-8?B?RkdwbFJVSUd2TXVVdzFXKzZjODBmNnpaZTJ2OEwyaGo5OWt3alFYUjlHZGE2?=
+ =?utf-8?B?K0hTU2p6eGdzYjVsQUdUdXZXSkFZcVkrdG5MQk1Ld0JqdXNUdE5aMEdnMEw3?=
+ =?utf-8?B?TGlTTittZEhyMmUzM0p5cWNkc085U014c1RsVTVnTFRsajFzL1NVUU1LbjRy?=
+ =?utf-8?B?Z1pJeElwcnp2SjE5eG4xWVVYZFNpYTdKdnN5NDVqTGNobllKMmhaTWRIMTdX?=
+ =?utf-8?B?cUF2eGd4elg4Zit0TkpaMCtNcWlCSVFJc1FDT21Xc2RIZkFueURHcjZvYXh3?=
+ =?utf-8?B?Z1NacXM0UUxwck10ejNtNHE1cFJlclVQNEFLQW5GNkpSbEZKRHhWQjhVbnlU?=
+ =?utf-8?B?dUtoMlV6V1U1VDJkNmFyMS96Um5xRzZvdkNjWHM0RXp1bXhha1BHRjVmdVNy?=
+ =?utf-8?B?bm9INEVoOWNoOGxta2lxb3dKN3FzZE1tTW5nbTFndzE1U2luenVmNEpab2w0?=
+ =?utf-8?B?WDYrUmM5M0ZUS20rUVNwRlFUVHBWeVMvL3lxSXFvTlUwekxyOVQ1eHd0RUtS?=
+ =?utf-8?B?YVNzY2ZpSVJLVGQzMDRTMjFtR2dBL2c2R3RxZGppTVAxM3pIVzBpMGdkaVVR?=
+ =?utf-8?Q?8EOur2cz3dE1lIwzrsw0TrGsf0f8sMeMqVBPk+sAVbAVA?=
+X-MS-Exchange-AntiSpam-MessageData-1: TLuedq/QAkVOvA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b26bd4e-095b-4591-f1ad-08decab4b5ad
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 08:04:22.7772 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /3gWSzTGwWE9vz2y83uxDpfmqsSJOo3GzGFvot6AlBynuyUzElNGrqw2xpxL8srWhwofR5EEYoSxzQJz/I/v/w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFFEC453979
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,185 +150,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Nuvoton MA35D1 SoC integrates a Verisilicon DCUltraLite display
-controller whose register layout differs from the DC8200 in several
-important ways:
+On Fri Jun 12, 2026 at 1:28 AM JST, Gary Guo wrote:
+> Conceptually, `MmioRaw` is just `__iomem *`, so it should work for any
+> types. Update the existing use case where it represents a region of
+> compile-time known minimum size and run-time known actual size to use the
+> dynamic-sized type `Region<SIZE>` instead. Rename `maxsize` method to
+> reflect that it is the actual size (not a bound) of the region.
+>
+> Implement `Clone` and `Copy` manually, which cannot be derived due to the
+> generic parameter. The use of raw pointers also cause the `Send` and `Syn=
+c`
+> auto trait implementation to be lost, so add them back by manual
+> implementation.
+>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
 
-1. No CONFIG_EX commit path: framebuffer updates use the enable (bit 0)
-   and reset (bit 4) bits in FB_CONFIG instead of the DC8200 staging
-   registers (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT,
-   FB_BLEND_CONFIG, PANEL_CONFIG_EX).
+Sashiko's potential leak on ioremap's error path seems worthy of
+investigation, but it is not introduced by this patch so:
 
-2. No PANEL_START register: panel output starts when
-   PANEL_CONFIG.RUNNING is set; there is no multi-display sync start
-   register.
-
-3. Different IRQ registers: DCUltraLite uses DISP_IRQ_STA (0x147C) /
-   DISP_IRQ_EN (0x1480) versus DC8200's TOP_IRQ_ACK (0x0010) /
-   TOP_IRQ_EN (0x0014).
-
-4. Per-frame commit cycle: DCUltraLite requires the VALID bit in
-   FB_CONFIG to be set at the start of each atomic commit (crtc_begin)
-   and cleared after (crtc_flush).
-
-5. Simpler clock topology: only 'core' (bus gate) and 'pix0' (pixel
-   divider) clocks; no axi or ahb clocks required.  Make axi_clk and
-   ahb_clk optional (devm_clk_get_optional_enabled) so DC8000 nodes
-   without those clocks are handled gracefully.
-
-Add vs_dc8000.c implementing the vs_dc_funcs vtable for the above
-differences.  The probe now selects vs_dc8000_funcs when the identified
-generation is VSDC_GEN_DC8000 (DCUltraLite reads model 0x0,
-revision 0x5560, customer_id 0x305).
-
-Signed-off-by: Joey Lu <a0987203069@gmail.com>
----
- drivers/gpu/drm/verisilicon/Makefile    |  2 +-
- drivers/gpu/drm/verisilicon/vs_dc.c     |  9 ++-
- drivers/gpu/drm/verisilicon/vs_dc.h     |  1 +
- drivers/gpu/drm/verisilicon/vs_dc8000.c | 78 +++++++++++++++++++++++++
- 4 files changed, 86 insertions(+), 4 deletions(-)
- create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8000.c
-
-diff --git a/drivers/gpu/drm/verisilicon/Makefile b/drivers/gpu/drm/verisilicon/Makefile
-index 9d4cd16452fa..d2fd8e4dff24 100644
---- a/drivers/gpu/drm/verisilicon/Makefile
-+++ b/drivers/gpu/drm/verisilicon/Makefile
-@@ -1,6 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
--verisilicon-dc-objs := vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o vs_drm.o vs_hwdb.o \
-+verisilicon-dc-objs := vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o vs_dc8000.o vs_drm.o vs_hwdb.o \
- 	vs_plane.o vs_primary_plane.o vs_cursor_plane.o
- 
- obj-$(CONFIG_DRM_VERISILICON_DC) += verisilicon-dc.o
-diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisilicon/vs_dc.c
-index 9729b693d360..9499fffbca58 100644
---- a/drivers/gpu/drm/verisilicon/vs_dc.c
-+++ b/drivers/gpu/drm/verisilicon/vs_dc.c
-@@ -90,13 +90,13 @@ static int vs_dc_probe(struct platform_device *pdev)
- 		return PTR_ERR(dc->core_clk);
- 	}
- 
--	dc->axi_clk = devm_clk_get_enabled(dev, "axi");
-+	dc->axi_clk = devm_clk_get_optional_enabled(dev, "axi");
- 	if (IS_ERR(dc->axi_clk)) {
- 		dev_err(dev, "can't get axi clock\n");
- 		return PTR_ERR(dc->axi_clk);
- 	}
- 
--	dc->ahb_clk = devm_clk_get_enabled(dev, "ahb");
-+	dc->ahb_clk = devm_clk_get_optional_enabled(dev, "ahb");
- 	if (IS_ERR(dc->ahb_clk)) {
- 		dev_err(dev, "can't get ahb clock\n");
- 		return PTR_ERR(dc->ahb_clk);
-@@ -134,7 +134,10 @@ static int vs_dc_probe(struct platform_device *pdev)
- 	dev_info(dev, "Found DC%x rev %x customer %x\n", dc->identity.model,
- 		 dc->identity.revision, dc->identity.customer_id);
- 
--	dc->funcs = &vs_dc8200_funcs;
-+	if (dc->identity.generation == VSDC_GEN_DC8200)
-+		dc->funcs = &vs_dc8200_funcs;
-+	else
-+		dc->funcs = &vs_dc8000_funcs;
- 
- 	if (port_count > dc->identity.display_count) {
- 		dev_err(dev, "too many downstream ports than HW capability\n");
-diff --git a/drivers/gpu/drm/verisilicon/vs_dc.h b/drivers/gpu/drm/verisilicon/vs_dc.h
-index 544e1a37065b..5218e8cf63e2 100644
---- a/drivers/gpu/drm/verisilicon/vs_dc.h
-+++ b/drivers/gpu/drm/verisilicon/vs_dc.h
-@@ -66,5 +66,6 @@ struct vs_dc {
- };
- 
- extern const struct vs_dc_funcs vs_dc8200_funcs;
-+extern const struct vs_dc_funcs vs_dc8000_funcs;
- 
- #endif /* _VS_DC_H_ */
-diff --git a/drivers/gpu/drm/verisilicon/vs_dc8000.c b/drivers/gpu/drm/verisilicon/vs_dc8000.c
-new file mode 100644
-index 000000000000..be0c0d7baf52
---- /dev/null
-+++ b/drivers/gpu/drm/verisilicon/vs_dc8000.c
-@@ -0,0 +1,78 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2026 Joey Lu <yclu4@nuvoton.com>
-+ */
-+
-+#include <linux/regmap.h>
-+
-+#include "vs_crtc_regs.h"
-+#include "vs_dc.h"
-+#include "vs_primary_plane_regs.h"
-+
-+static void vs_dc8000_panel_enable_ex(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			VSDC_FB_CONFIG_RESET);
-+}
-+
-+static void vs_dc8000_panel_disable_ex(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			  VSDC_FB_CONFIG_RESET);
-+}
-+
-+static void vs_dc8000_crtc_begin(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			VSDC_FB_CONFIG_VALID);
-+}
-+
-+static void vs_dc8000_crtc_flush(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			  VSDC_FB_CONFIG_VALID);
-+}
-+
-+static void vs_dc8000_crtc_enable(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			VSDC_FB_CONFIG_ENABLE);
-+}
-+
-+static void vs_dc8000_crtc_disable(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-+			  VSDC_FB_CONFIG_ENABLE);
-+}
-+
-+static void vs_dc8000_enable_vblank(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_set_bits(dc->regs, VSDC_DISP_IRQ_EN,
-+			VSDC_DISP_IRQ_VSYNC(output));
-+}
-+
-+static void vs_dc8000_disable_vblank(struct vs_dc *dc, unsigned int output)
-+{
-+	regmap_clear_bits(dc->regs, VSDC_DISP_IRQ_EN,
-+			  VSDC_DISP_IRQ_VSYNC(output));
-+}
-+
-+static u32 vs_dc8000_irq_ack(struct vs_dc *dc)
-+{
-+	u32 irqs;
-+
-+	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &irqs);
-+	return irqs;
-+}
-+
-+const struct vs_dc_funcs vs_dc8000_funcs = {
-+	.panel_enable_ex	= vs_dc8000_panel_enable_ex,
-+	.panel_disable_ex	= vs_dc8000_panel_disable_ex,
-+	.crtc_begin		= vs_dc8000_crtc_begin,
-+	.crtc_flush		= vs_dc8000_crtc_flush,
-+	.crtc_enable		= vs_dc8000_crtc_enable,
-+	.crtc_disable		= vs_dc8000_crtc_disable,
-+	.enable_vblank		= vs_dc8000_enable_vblank,
-+	.disable_vblank		= vs_dc8000_disable_vblank,
-+	.irq_ack		= vs_dc8000_irq_ack,
-+};
--- 
-2.43.0
-
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
