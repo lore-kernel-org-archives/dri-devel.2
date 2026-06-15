@@ -4,60 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70857CD98C7
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 11:07:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCE6BCD98C7
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 11:11:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C146110E315;
-	Mon, 15 Jun 2026 11:07:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EF0510E358;
+	Mon, 15 Jun 2026 11:11:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="rkWpy4Gt";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="LK9Id9nZ";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE18E10E315
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 11:07:35 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id DBB5919DC;
- Mon, 15 Jun 2026 13:07:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1781521622;
- bh=N/hg2A20qBERMOLfSOzyDt/oeRbtkj0OfMiW3erTfHo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=rkWpy4GttUssHAa8nVGl5LH4bkj3hko5jqVKbyA2rwz/86ZBDBOBAZSbHSErOnrVx
- 31idD8dgTs4jUlh9EnmI6PfqaYLIyg8CEFii8/zyJ/6BoXDgKIGdRxTbqJZ933hxAY
- s8Adgbr4vMTqvQ7EyEMrF1T/R5lPf8tzy6Dk6HIY=
-Message-ID: <9789d4e8-8afc-4349-bff7-5f546eec795a@ideasonboard.com>
-Date: Mon, 15 Jun 2026 14:07:30 +0300
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EF5E10E3AB
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 11:11:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=J8z5/sBeVOpFzThk6XKqFMnyqBylHs8OOOz6fH6jtSs=; b=LK9Id9nZVRTEVSssYLvokciwVF
+ BmeDksX8NLhe6ZIf2XcuE5640CK+bd7DozUbOoclTOnIMy/E7RtjBLksHWEwKowsr0OXn/mx3UQWn
+ /sXmgIHX8zEGm0rSR6zWLotak07zwZlXZqFtiFZKVXZUDztW7jW5ypzi48CCaGqc3wF0s9AFjNGqi
+ ITQZNMvwSKWU7xPYtRxWprhCMCatddtamFprgedV+58N5pWrYF5idbvJKBAbRScjJGJWxMBTbQygV
+ 0EzVoUXb/1znnnaTM+vCRqekQQ6vH2NAlF4gcSlMlJvo2gqnDqOcFjcp81BfpZfQ6k7bKbzbsyOmz
+ kOpUkZBQ==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wZ5EA-000CQq-Qf; Mon, 15 Jun 2026 13:11:38 +0200
+Message-ID: <3834b1d6-c78f-45b8-aa12-d464a770747c@igalia.com>
+Date: Mon, 15 Jun 2026 12:11:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/7] dt-bindings: display: bridge: Document Renesas
- R-Car V4H DSC bindings
-To: Conor Dooley <conor.dooley@microchip.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+Subject: Re: [RFC PATCH] dma-buf/dma_fence: Make races for
+ dma_fence_is_signaled() less likely
+To: Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <20260615-rcar-du-dsc-v4-0-93096a1b56a3@ideasonboard.com>
- <20260615-rcar-du-dsc-v4-2-93096a1b56a3@ideasonboard.com>
- <20260615-undiluted-gallery-d7318905c8fe@wendy>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20260615-undiluted-gallery-d7318905c8fe@wendy>
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ "Paul E . McKenney" <paulmck@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260612104251.2264707-2-phasta@kernel.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260612104251.2264707-2-phasta@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,37 +67,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
 
-On 15/06/2026 12:38, Conor Dooley wrote:
-> On Mon, Jun 15, 2026 at 09:28:07AM +0300, Tomi Valkeinen wrote:
->> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
->>
->> The Renesas DSC Display Stream Compression is a bridge embedded in the
->> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
->> 8k or 400 Mpixel/s .
->>
->> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->> [tomi.valkeinen: fix the example]
->> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
->> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
->> Acked-by: Conor Dooley <conor.dooley@microchip.com>
->> ---
->>   .../bindings/display/bridge/renesas,dsc.yaml       | 99 ++++++++++++++++++++++
->>   1 file changed, 99 insertions(+)
+On 12/06/2026 11:42, Philipp Stanner wrote:
+> dma_fence_is_signaled() returns whether a fence has been signaled
+> already. That function contains a fast path opportunistic check which is
+> not guarded by the lock and, according to Christian, cannot be guarded
+> by the lock without causing a massive performance regression.
 > 
->> +properties:
->> +  compatible:
->> +    items:
->> +      - enum:
->> +          - renesas,r8a779g0-dsc
->> +      - const: renesas,rcar-dsc
+> This now means that dma_fence_is_signaled() can return true WHILE the
+> fence callbacks are still being executed. This is razy and has lead to
+> at least one bug solved in:
 > 
-> I didn't provide an ack for this FYI, I was giving the ack for the
-> file being called renesas,r8a779g0-dsc.yaml. Since Geert isn't happy
-> with what's here, could you drop my ack when you send another version?
-Yep, I took too much liberty there, sorry about that. I'll drop your 
-ack, unless I move to just renaming the file to "renesas,r8a779g0-dsc.yaml".
+> commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
+> 
+> Make this race impossible, by simply setting the bit only once the
+> callbacks are actually completed.
 
-  Tomi
+My 2c is that I would be wary of trying to turn around the semantics of 
+the callbacks. They are not "run these to make the fence signaled" but 
+instead "let me know please when fence is signaled". I do not see a good 
+justification for the change.
+
+The bugs such as above quoted c8a5d5ea3ba6 are in fact more about 
+nouveau itself pulling data underneath fences with callbacks and not a 
+bug in dma-fence. With the opportunistic cleanup it is doing in 
+nouveau_cli_work() perhaps it would want to use 
+dma_fence_remove_callback() to appear somewhat sensible, although that 
+too may be racy, I did not think about it. Anyway, I've sent a patch to 
+make that one clearer and more documented, even faster for the 
+unsignaled case.
+
+Regards,
+
+Tvrtko
+
+> 
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> ---
+>   drivers/dma-buf/dma-fence.c | 18 ++++++++++++++++--
+>   1 file changed, 16 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index c7ea1e75d38a..2416cc86ce93 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -359,8 +359,19 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+>   
+>   	dma_fence_assert_held(fence);
+>   
+> -	if (unlikely(test_and_set_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
+> -				      &fence->flags)))
+> +	/*
+> +	 * First test the bit, so we don't signal an already signaled fence again.
+> +	 * The lock protects against multiple parties setting the bit. The bit
+> +	 * is then set at the end of the function.
+> +	 *
+> +	 * The background is that there is a fast path check in
+> +	 * dma_fence_is_signaled() which does not use lock protection and can
+> +	 * return true *while* the fence callbacks are still executing.
+> +	 *
+> +	 * This fast path check supposedly cannot be guarded by the lock because
+> +	 * of significant performance regressions.
+> +	 */
+> +	if (unlikely(test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)))
+>   		return;
+>   
+>   	trace_dma_fence_signaled(fence);
+> @@ -384,6 +395,9 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+>   		INIT_LIST_HEAD(&cur->node);
+>   		cur->func(fence, cur);
+>   	}
+> +
+> +	// TODO: we need some barrier here, don't we?
+> +	set_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+>   }
+>   EXPORT_SYMBOL(dma_fence_signal_timestamp_locked);
+>   
 
