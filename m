@@ -4,76 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00548CD98CE
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 20:18:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92AB2CD98E0
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 20:18:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B40610E61E;
-	Mon, 15 Jun 2026 20:18:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D90E110E620;
+	Mon, 15 Jun 2026 20:18:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dVOgcuNS";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="hWsvC5kb";
 	dkim-atps=neutral
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
- [209.85.215.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BB6D10E61E
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 20:18:06 +0000 (UTC)
-Received: by mail-pg1-f171.google.com with SMTP id
- 41be03b00d2f7-c8629bed4e7so2705491a12.2
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 13:18:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781554686; x=1782159486; darn=lists.freedesktop.org;
- h=mime-version:content-transfer-encoding:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ZBqFtiSeOSQRIEswK+IwUUFhan45ti0foUrddU+Y3VQ=;
- b=dVOgcuNSFSRax/Cg+wXgHYnVUu3lEYVBzfud/ODKjyf9NBfn4eh7T/izsWwTNC+fMb
- 54ljDshJ5F2GwUX3Sbktmeb50jvih8KpoKp+swxOvdwaapZrfABcEYNfVep0AUk5pgnS
- mmeZf4ZjVOYMju4fh9K6PnNhSkpqdvRuFD4YE9bMHWaijCAIB0dsrzY/hhl6Ne50A8lL
- dd6iku9FRSRTefWA5JCPWl7DdP3Dcf0KrTm9PZ0ptyyDH0av+a/mH9V9sPJkN0jNQ6D4
- Lba8WN6UQal/bCwbnNfO36oOOixuxny5XyFUdBEBYtgO8RVdLIETMMIL1orT0QA4T6wc
- Gaow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781554686; x=1782159486;
- h=mime-version:content-transfer-encoding:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ZBqFtiSeOSQRIEswK+IwUUFhan45ti0foUrddU+Y3VQ=;
- b=fXgJmxIfKq4J+DQEWpFmI2gpnSfKV8mcc/Ol7i6u0gJ1rZoOH9fxDllKs/zFiKgfzB
- 1cJiCwW/iaRY5sopVfxt4xWrS7qmeh11SB7Gtizd9FFhXk8F+1SAAmazVL6rxiwvEpRH
- U0KF/yls8mHG5pOzn30QyTwJ2+D+hJ/kzGnLp2GN7u8V0Mqs5u7oAKkN45Fl+UP3kMsc
- hxofIYujBS5TXYU//qaE4U4T/eoIyq5wdxfej17jYvbqhFrHWUC6hDPf5BGs3npRaLV+
- ipqn8E2+HhlvsPcvAiozOXWVqo0ryYQt0+z3BWoPKO4pZ2gkkQJX9mbgxXEW3EreALpw
- m/3Q==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+aDPV/KYDOnsfxQLHQ/pwOT8lRdpuQ+E+oE9PbQyWoQxJQEAeB3DfP6Ku7K/h8oLpcIow0H+qM2Ws=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxwCbuD4gBfMitfH2BbUHHzGRTucdAsnH9Ws6jTk0FdqCR+gX/j
- wOIlDYulcR+34Cua4LUyg8kuBFBs1jbCpq8nYGm7Vsyv1lmRl2WntELj
-X-Gm-Gg: Acq92OFSE4vKjmk3lKtXmkTfaAfaQIiFRvvhX/VE99ddSv6HRzDuDR5HTe224RLIxWq
- a/dy0ENcqwYj9it5kbTE6wQewVksq2mZRZ6xe4ggCqeErfw+oNJHaUFPwcOGer/pQs7CadjqfpU
- vmaWSKj69VXx+GcWHtHHqlEGCLMDtdisYj+57ea/qJUXpFQgiIunUgNW11P9SMtP9L9EJIFSS8Q
- GVEFE0t3Ngamdbd+ZA2kMoL4RgoJEPFlhf+jKZJR8NJ7BxGtQZE2WSzF6x47vbqyvHUODAKfVut
- JexMSn0c6KrGCcfd/F9PdlNd9V+uMjrI+FrzXKzMbGH/HIVvPjnBxNHfkL4cEsi+JxOF4MR63Ua
- 5+NnYtTpIbFbWrltEWUR5HFYymgVcbgmLb1ZZYxw1SZN5Itg6YAro5QbjzsdYrAKSPi+NFHvQgL
- NapHI69Lw32N86tmtnjOO/th1DYFGWJLxg91j3UEs/JxKdrEdS13LmKrc/aYQMD8MIhPIuo3mX8
- ql/OsuwmSn26mB7d8Ab
-X-Received: by 2002:a05:6a20:db0c:b0:3b2:924c:567d with SMTP id
- adf61e73a8af0-3b7e4baf716mr580096637.46.1781554686460; 
- Mon, 15 Jun 2026 13:18:06 -0700 (PDT)
-Received: from Shuvs-MacBook-Air.local ([103.129.135.168])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c8665186aefsm9576342a12.15.2026.06.15.13.18.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Jun 2026 13:18:06 -0700 (PDT)
-From: Shuvam Pandey <shuvampandey1@gmail.com>
-To: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>,
- Oded Gabbay <ogabbay@kernel.org>
-Cc: "Mario Limonciello (AMD)" <superm1@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: [PATCH] accel/amdxdna: Use caller client for debug BO sync
-Date: Tue, 16 Jun 2026 02:03:00 +0545
-Message-ID: <178155468039.81818.12173237984867749651@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7F2C10E616;
+ Mon, 15 Jun 2026 20:18:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1781554712;
+ bh=rh8Y6NZwjk2eDjLaUkNU/wh6pQZuOlddjoCGCnpAwuk=;
+ h=From:To:Cc:Subject:Date:From;
+ b=hWsvC5kboTePxSBDiZ4hdkWrP83g483s7YI/hoUnbO1sQ/9N0YNODbFDio8VdvGJd
+ WfOK/9KR+oy/sE/++L/semGagRW+1cw9YtfC85HiUiylbuzu8A/ouMi9Pj7LtpFnQm
+ s1/ZSgTQG+uu3M30d4BEHmnzGzqZQUlU9MDN7dA/pzrA3oXXufQhO9F2bQRn9UUJyj
+ ZnaKAhvWbyMfwL242SmlGCMTiAJUzZ+B1eIseTqWZWFLoXDsIzAvWRyKwZ2l+zyStz
+ 0Kvg+n0s21FnkmSdeNzbVjM/qI1ZNxPnDRa5K/BqVTObefYptdZ/KE9fBJ4BmWweoM
+ PVczk/A2vrycg==
+From: Maarten Lankhorst <dev@lankhorst.se>
+To: intel-xe@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+	Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v8 00/27] drm/i915/display: All patches to make PREEMPT_RT
+ work on i915 + xe.
+Date: Mon, 15 Jun 2026 22:18:18 +0200
+Message-ID: <20260615201846.307297-1-dev@lankhorst.se>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,46 +52,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdxdna_drm_sync_bo_ioctl() looks up args->handle in the ioctl caller's
-drm_file. For SYNC_DIRECT_FROM_DEVICE, it then calls
-amdxdna_hwctx_sync_debug_bo(), but passes abo->client.
+New version, rebased with updates to pipeconf patch, and dropping upstreamed patch.
 
-amdxdna_hwctx_sync_debug_bo() uses the passed client both as the handle
-namespace for debug_bo_hdl and as the owner of the hardware context xarray.
-Those must match the file that supplied args->handle. The BO's stored
-client pointer is object state, not the ioctl context.
+Still waiting for feedback on the vblank approach, and check to see if there are some
+bugs left.
 
-Pass filp->driver_priv instead, matching the original handle lookup.
+Hoping this passes BAT on i915, and still mostly the full run on xe.
 
-Fixes: 7ea046838021 ("accel/amdxdna: Support firmware debug buffer")
-Cc: stable@vger.kernel.org # v6.19+
-Signed-off-by: Shuvam Pandey <shuvampandey1@gmail.com>
----
- drivers/accel/amdxdna/amdxdna_gem.c | 3 ++-
+For Xe, we also prohibit the use of DSM when CONFIG_PREEMPT_RT is enabled,
+and avoid the use of DSM if we cannot take over the framebuffer from the
+firmware.
 
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdx=
-dna_gem.c
-index 6e367ddb9e1becb8d03cb4badec25deed38a851d..6c16b21994abc8f0ce58ee6dede21=
-9a84ade6825 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.c
-+++ b/drivers/accel/amdxdna/amdxdna_gem.c
-@@ -1027,6 +1027,7 @@ int amdxdna_drm_get_bo_info_ioctl(struct drm_device *de=
-v, void *data, struct drm
- int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
- 			      void *data, struct drm_file *filp)
- {
-+	struct amdxdna_client *client =3D filp->driver_priv;
- 	struct amdxdna_dev *xdna =3D to_xdna_dev(dev);
- 	struct amdxdna_drm_sync_bo *args =3D data;
- 	struct amdxdna_gem_obj *abo;
-@@ -1061,7 +1062,7 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
- 		 args->handle, args->offset, args->size);
-=20
- 	if (args->direction =3D=3D SYNC_DIRECT_FROM_DEVICE)
--		ret =3D amdxdna_hwctx_sync_debug_bo(abo->client, args->handle);
-+		ret =3D amdxdna_hwctx_sync_debug_bo(client, args->handle);
-=20
- put_obj:
- 	drm_gem_object_put(gobj);
---=20
-2.50.0
+Ideally we copy the framebuffer after intel_fbdev_init_bios(),
+when we decide to preserve the framebuffer and the hardware is
+completely initialized.
+
+At that point we can use the migration engine to copy the contents over,
+this can potentially be used for preserving the initial framebuffer
+in the other cases where we cannot not use the initial FB too.
+
+Maarten Lankhorst (21):
+  drm/vblank_work: Add methods to schedule vblank_work in 2 stages
+  drm/vblank: Add a 2-stage version of drm_crtc_arm_vblank_event
+  drm/intel/display: Make intel_crtc_arm_vblank_event static
+  drm/intel/display: Convert vblank event handling to 2-stage arming
+  drm/i915/display: Move vblank put until after critical section
+  drm/i915/display: Remove locking from intel_vblank_evade critical
+    section
+  drm/i915/display: Handle vlv dsi workaround in scanline_in_safe_range
+    too
+  drm/i915/display: Make get_vblank_counter use intel_de_read_fw()
+  drm/i915/display: Do not take uncore lock in i915_get_vblank_counter
+  drm/i915/display: Make icl_dsi_frame_update use _fw too
+  drm/i915/display: Use intel_de_read/write_fw in colorops
+  drm/i915/display: Use intel_de_write_fw in intel_pipe_fastset
+  drm/i915/display: Make set_pipeconf use the fw variants
+  drm/i915/gt: Fix selftests on PREEMPT_RT
+  drm/i915/gt: Set stop_timeout() correctly on PREEMPT-RT
+  drm/i915/display: Remove uncore lock from vlv_atomic_update_fifo
+  drm/i915: Use sleeping selftests for igt_atomic on PREEMPT_RT
+  PREEMPT_RT injection
+  FOR-CI: bump MAX_STACK_TRACE_ENTRIES
+  drm/xe/display: Always use system memory on PREEMPT_RT for DPT.
+  drm/xe/display: Prefer not to allocate a framebuffers in stolen memory
+
+Mike Galbraith (1):
+  drm/i915: Use preempt_disable/enable_rt() where recommended
+
+Sebastian Andrzej Siewior (5):
+  drm/i915/gt: Use spin_lock_irq() instead of local_irq_disable() +
+    spin_lock()
+  drm/i915: Drop the irqs_disabled() check
+  drm/i915/guc: Consider also RCU depth in busy loop.
+  Revert "drm/i915: Depend on !PREEMPT_RT."
+  drm/i915/gt: Add a spinlock to prevent starvation of irq_work.
+
+ drivers/gpu/drm/drm_vblank.c                  |  61 +++++++++-
+ drivers/gpu/drm/drm_vblank_work.c             | 106 ++++++++++++----
+ drivers/gpu/drm/i915/Kconfig                  |   1 -
+ drivers/gpu/drm/i915/Kconfig.debug            |  15 ---
+ drivers/gpu/drm/i915/display/i9xx_wm.c        |   4 -
+ drivers/gpu/drm/i915/display/icl_dsi.c        |   4 +-
+ drivers/gpu/drm/i915/display/intel_color.c    |   6 +-
+ drivers/gpu/drm/i915/display/intel_crtc.c     |  86 ++++++-------
+ drivers/gpu/drm/i915/display/intel_crtc.h     |   1 -
+ drivers/gpu/drm/i915/display/intel_cursor.c   |   8 +-
+ drivers/gpu/drm/i915/display/intel_de.h       |   8 ++
+ drivers/gpu/drm/i915/display/intel_display.c  |  52 ++++----
+ drivers/gpu/drm/i915/display/intel_vblank.c   | 115 ++++++++++--------
+ drivers/gpu/drm/i915/display/intel_vblank.h   |   1 +
+ drivers/gpu/drm/i915/display/intel_vrr.c      |  18 +--
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   |   8 +-
+ .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |   1 +
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   2 +-
+ .../drm/i915/gt/intel_execlists_submission.c  |  17 +--
+ drivers/gpu/drm/i915/gt/selftest_engine_pm.c  |   8 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   2 +-
+ drivers/gpu/drm/i915/i915_request.c           |   2 -
+ drivers/gpu/drm/i915/intel_uncore.h           |  26 ++--
+ drivers/gpu/drm/i915/selftests/igt_atomic.c   |   7 ++
+ drivers/gpu/drm/xe/Kconfig.debug              |   5 +
+ .../drm/xe/compat-i915-headers/intel_uncore.h |   7 ++
+ drivers/gpu/drm/xe/display/xe_display_bo.c    |  35 ++----
+ drivers/gpu/drm/xe/display/xe_fb_pin.c        |   8 --
+ include/drm/drm_vblank.h                      |  14 ++-
+ include/drm/drm_vblank_work.h                 |  12 ++
+ kernel/Kconfig.preempt                        |   4 +-
+ lib/Kconfig.debug                             |   5 +-
+ 32 files changed, 400 insertions(+), 249 deletions(-)
+
+-- 
+2.53.0
+
