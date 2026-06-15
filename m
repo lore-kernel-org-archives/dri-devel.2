@@ -4,80 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B38ACD98EE
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 18:18:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B6EFCD98E1
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 18:18:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1EE10EB26;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7454010EAFF;
 	Tue, 16 Jun 2026 18:17:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ibcdUB9Y";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="S1wL0MJo";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAC8910E5C7
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 18:13:39 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-490b1bbcf3aso27435235e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 11:13:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781547218; x=1782152018; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CMIhznq4b/swPnkGP6rrvAKBGuzPasq5bzsDh1wVz04=;
- b=ibcdUB9YYvigqcocfOY3SEuz83wxSPBN1bFcGUZHcyJUysjeg4mrQLMRT8n2XqzpZx
- e4t1oUa9k2QrPK3MohvA0ZP2qTd08FzHs53+NMU2o5O0APaLy7SEm5nPVNY5IvVqINzM
- d+YEDczg43rtCUw1pwm4uaUB4w3aJmY0RvufVD9JQgrpIy/n94mHY/tuxiQ1hm56yVuF
- E1GSWAFoG+doLTnxJJjnH1ze+jhYumusfTaN5qqoFTo8EZYOE7D5k5m2Kj17PI20LrTt
- cHnT+Hy6lQOfY6YRcKW/roFpfdQbprlEx6YBBh0obik9y1RS2tJWeRxiS1RD6KDHzkSo
- eGXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781547218; x=1782152018;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=CMIhznq4b/swPnkGP6rrvAKBGuzPasq5bzsDh1wVz04=;
- b=E0F0QIVCZB6n6WEIGQCs8bYeBALGBerRBuXJJjKK6/zrRIBpUCIiYbqXpnX1VvAbaj
- yEZPwKZP6Qzzs/dVBzidE1CbLXumMDto9OPI1xlqoZa8G/Ab3iWgT/33Bem1EZ5aKE30
- 1FTS1r2BMbWRCC3fMCQXq2FPTSUWu9L77qCkMpw9O9JbyXxGbnNTjA5yUGZs7I1N/dV7
- J3mR1c9pP2fY31GNh1tOJdVjsmNGWKfIn4iOKWwpPq9KkQDATc+tIH2BLTF+OQf96Ge+
- 6Tqy7ya4BtUI1GMDNInAkPdvE2/5eywWVCXy1tBypTNMyG13aCyIn5fSsjbgJRtBU99S
- 4Hgg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+nbNdJL/ZaxnehS29b8H0CUDA/2PXYnfb+OJ90v2vXlms6AUjKmEl2tu0aCmEzfv1W2YXgjr3S0cM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxRAgS3bpEJ+mfU62q3Fx5RhJz4Ep9/kfyBYeQXFB9a7yPOBmsM
- H87oGok5hofTck1A9jjPmZhQZuwZ58ZOdAwUdBgjRELjoxLk/yx9a+KI
-X-Gm-Gg: Acq92OFH2UVv4PV4UfJ15W51HMRPp7oF9C2/Eg8AXCkUAPCtRmnmPedVNSpc7uxGqXq
- 6Z4+XpsGF7OJ89ixZSDIlQYZ/wuxKDRB23pHdBUlBujNdh/d1RDKbtFRkFlHm5dtAEBQMPTf3e1
- ZZwwxQ5XsgvFZhaiHtruyDjyCEE2e2VIy508a6cegQOE92UCH8oGz7BoyGfJxG+Jaw/kIcp4u8U
- 0uYn0w2Ibb0Y2So5swZ8Ebx9Ms8mraq/7wGXj+k0Uw2mI/tCV/upSme0LMyzfcBXEYYqjqWFrLD
- /0iN0Zc4DOqWOANJ63RCuhb6Vv+c3YPJFZQB3UwkVKKr4dhqU1i1UA8JVA0x5CI44SgWaZVgS0L
- khVMTwhcdd8fW8AI4NzGXKF0Tep/ghrHQ1X135CndHDxoqDAcyj0KGZVbNrgYWI8J6ibhhl/RHL
- Rg/KIdOpp+6zTEVzORk8W1eHNg37btzRnnDQTLlx4u
-X-Received: by 2002:a05:600c:34c3:b0:490:c2a2:e91e with SMTP id
- 5b1f17b1804b1-4922ffc0622mr4405035e9.34.1781547218243; 
- Mon, 15 Jun 2026 11:13:38 -0700 (PDT)
-Received: from anthony ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4619b9b7750sm8954343f8f.6.2026.06.15.11.13.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Jun 2026 11:13:37 -0700 (PDT)
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-To: Javier Martinez Canillas <javierm@redhat.com>
-Cc: Amit Barzilai <amit.barzilai22@gmail.com>, airlied@gmail.com,
- conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, krzk+dt@kernel.org,
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, robh@kernel.org, simona@ffwll.ch, tzimmermann@suse.de
-Subject: Re: [PATCH 0/2] drm: Add driver for the Solomon SSD1351 OLED
- controller
-Date: Mon, 15 Jun 2026 21:12:49 +0300
-Message-ID: <20260615181253.97551-1-amit.barzilai22@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <877bo576o1.fsf@ocarina.mail-host-address-is-not-set>
-References: 
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 907EE10E517
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 15:33:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1781537627;
+ bh=1mJsClNx/G2flqy/GWs9bnUaqG6Fe9NMYeb2HFZgaHI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=S1wL0MJo4k35FFb3jGunM7ez67P3C13pBFUQhx1CVwaMa+OOas/gpBx2h/mGl7bun
+ wLSGEUIxqaJ70kXp2tQc06/50OxM8WBbx0J2voXpFPI7/yHSK0tMaf1p7l/Shp2d4A
+ F6XsWHRZiWAYgdifWpXvUOZlIHHqks3cuQEzAlAFVn9gwKh22hIMBo5ljbzwr1ee7H
+ qvUXavgqIh+Kf2+A9Ky13oPg1PT9zf/jsQ5wWudAE9X2k4y6o57ky+Hccum1Vn7S6m
+ +wM3Fuf0TgZM5onsu+l/KYyQ5RoIvoqqW47xsHPMaUEg/3eUf5Rt7z8lL7XS4LG+e7
+ 3WQJKk2t+De9Q==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519) (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4gfDfr2149z4wT4;
+ Tue, 16 Jun 2026 01:33:39 +1000 (AEST)
+Message-ID: <cfbf7eb8-8fa2-4c21-af1b-7fd3765f6eca@ozlabs.org>
+Date: Mon, 15 Jun 2026 16:33:35 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/9] vfio/pci: Convert BAR mmap() to use a DMABUF
+Content-Language: en-GB
+To: "Tian, Kevin" <kevin.tian@intel.com>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Pranjal Shrivastava <praan@google.com>, Alistair Popple
+ <apopple@nvidia.com>, "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
+References: <20260610154327.37758-1-matt@ozlabs.org>
+ <20260610154327.37758-5-matt@ozlabs.org>
+ <DM6PR11MB369015C590F462592D3E508D8C182@DM6PR11MB3690.namprd11.prod.outlook.com>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <DM6PR11MB369015C590F462592D3E508D8C182@DM6PR11MB3690.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 16 Jun 2026 18:17:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,41 +75,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Javier,
+Hi Kevin,
 
-Thanks you for the detailed review and for the Reviewed-by on the binding.
+On 12/06/2026 09:46, Tian, Kevin wrote:
+>> From: Matt Evans <matt@ozlabs.org>
+>> Sent: Wednesday, June 10, 2026 11:43 PM
+>>
+>> Convert the VFIO device fd fops->mmap to create a DMABUF representing
+>> the BAR mapping, and make the VMA fault handler look up PFNs from the
+>> corresponding DMABUF.  This supports future code mmap()ing BAR
+>> DMABUFs, and iommufd work to support Type1 P2P.
+>>
+>> First, vfio_pci_core_mmap() uses the new
+>> vfio_pci_core_mmap_prep_dmabuf() helper to export a DMABUF
+>> representing a single BAR range.  Then, the vfio_pci_mmap_huge_fault()
+>> callback is updated to understand revoked buffers, and uses the new
+>> vfio_pci_dma_buf_find_pfn() helper to determine the PFN for a given
+>> fault address.
+>>
+>> Now that the VFIO DMABUFs can be mmap()ed, vfio_pci_dma_buf_move()
+>> zaps PTEs (used on the revocation and cleanup paths).
+>>
+>> CONFIG_VFIO_PCI_CORE now unconditionally depends on
+>> CONFIG_DMA_SHARED_BUFFER and CONFIG_PCI_P2PDMA_CORE.  The
+>> CONFIG_VFIO_PCI_DMABUF feature conditionally includes support for
+>> VFIO_DEVICE_FEATURE_DMA_BUF, depending on the availability of
+>> CONFIG_PCI_P2PDMA.
+>>
+>> Signed-off-by: Matt Evans <matt@ozlabs.org>
+> 
+> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+> 
+> with a nit:
+> 
+>> -	vma->vm_private_data = vdev;
+>> +	/*
+>> +	 * Create a DMABUF with a single range corresponding to this
+>> +	 * mapping, and wire it into vma->vm_private_data.  The VMA's
+>> +	 * vm_file becomes that of the DMABUF, and the DMABUF takes
+>> +	 * ownership of the VFIO device file (put upon DMABUF
+>> +	 * release).  This maintains the behaviour of a live VMA
+>> +	 * mapping holding the VFIO device file open.
+>> +	 */
+>> +	ret = vfio_pci_core_mmap_prep_dmabuf(vdev, vma,
+>> +					     pci_resource_start(pdev, index),
+>> +					     req_len, index);
+> 
+> the comment is redundant as it's about internal logic of the callee
+> and is well covered by the comment there.
 
-I agree with folding the SSD1351 into ssd130x rather than keeping it
-standalone. My plan for the v2 driver series follows your two steps:
+Thanks on both points!  I see what you mean, removed.
 
-  1. Add RGB565 support to the existing SSD133X family (so the SSD1331 gains
-     65k color), gating the format on a per-variant flag in device_info so the
-     existing RGB332 path is untouched.
-  2. Add a new SSD135X family for the SSD1351 on top of that, reusing the
-     ssd133x data path (the update_rect window logic is already
-     format-agnostic) and adding only the SSD1351-specific bits - the 0x5c
-     write-RAM command and its init sequence.
 
-I'm deferring step 3 (native 256k color) for now since, as you suspected, 
-there's no matching DRM fourcc, and I'm dropping the 0/180 rotation support
-to keep the series focused; it can come back later.
+Matt
 
-Two things I'd like to confirm before I send the series:
-
-  - I have an SSD1331 panel, but it is currently unsoldered and I don't have
-    the means to solder it myself. I'm trying to arrange testing through
-    someone else - I can't promise it will work out. If it doesn't, the
-    SSD1331 RGB565 change would be compile-tested only (I do have SSD1351
-    hardware to test the new family). Is compile-tested-only acceptable for
-    the SSD1331 part, or would you prefer I hold that piece until it can be
-    verified on hardware?
-  - Could you confirm the RGB565 byte order the SSD1331 expects? The
-    standalone SSD1351 code used big-endian (drm_fb_xrgb8888_to_rgb565be);
-    I want the shared conversion helper to match the SSD1331 datasheet.
-
-Separately, I've sent the DT binding as a standalone v2. Since I dropped the
-width/height and rotation properties per Krzysztof's review, I did not carry
-your Reviewed-by forward - please re-review at your convenience.
-
-Thanks,
-Amit
