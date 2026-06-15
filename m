@@ -4,137 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E228ACD98CE
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 04:28:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DA08CD98CE
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 04:29:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD73F10E181;
-	Mon, 15 Jun 2026 04:28:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B90FA10E184;
+	Mon, 15 Jun 2026 04:29:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="MSuB7p7v";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gIBjQVoV";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011056.outbound.protection.outlook.com [52.101.62.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC75C10E181
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 04:28:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Gx/5vCFHDsS8NEFoRpqrdvwPxMQL658wU+Cs9jtqJkW/t/f9qcfHHerpyjmCTR6UJ+PEQa3Bd6vFG0v3Vxi0rjk4w3Ors51TrsvPCx+0WkUj5AvfaiYR5KtPVxvHdwxRcJgQOGKlNHAsn0dm4aHXVvJmLRBJbZAr4Zp11xqKZjxEvPSuUCYRr2PlqglsUBMinH4BgbcJ4QZewRyfRTadfbEGO4Rwa72OG9qDEkS/eYlFLb2T7+X/TJD0YgzWYkYrRe7a3P4aklGTD3aia9fjAHSljpykCxmsIqphJbul4ki/qLTLA57LP0cQyMbFzrCaP6OtPgJgg/EvjWJolGJF0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2TL9H16R+hCnSLgNvERojlQBlGTCtKxV/ON/T24Lq4E=;
- b=jwAJV7t8FFSDubs+YgdvYmd+HR1vZZCq28yGJShaF84wBtKspHExEAu+aIakUmZ5zcn0Hy0es61plv6qLez/X1wd9QIruSaNteVJMk5mMSeBCLOdYlDxmsBavgAYwmeDHOtUY+I3Qj1GCQzE+KhOJQMMpeH06/KIWZYX6aOLx2nIcoYishep8JEAP/wfzihlwZpcYSZPxPcKhGehqtm7BOQasyaBP4oyNKPgXuHfTpbzemg9iD+wExn8y4s2xsyIbvdQGx3UTTVfYgz0+yHKeL+fVKPGTBq3OjCbwyTqldrsnmhDNKkgYOzbloZLaydfzv/9DVsAqYpWGdqHe7+Acw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2TL9H16R+hCnSLgNvERojlQBlGTCtKxV/ON/T24Lq4E=;
- b=MSuB7p7vpG1UL8F2i1lKz9xgg/q+BDwfyhJVkwj0HrxU0aUohQnw78jJOSYo1JY5s4dE/2lP92n+oqXRyYz3DRTXs/sYQNLptToiQvTeXLFx/x8JWJd0dQMHYz33PnMW2MBf+OitrjBFWwMSW9yFPrGx0HSPN9UERJWJXExqLakOEszFbDnocNARn6RRpnfBNsQ0KO97zBLfZzNHBKp0ZjF/jNtOqLuBjpwQcD98eWJL79T+RNJMZgI3P2izoVaBkT8yKo/EWwLWgwrE+L0Fd9rkv47veWwtPaYn9B0uNHOQQXuJWpEIUG+uGQVtfzfjS5nHS5iEzNsSsPNnxvnm5A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by MN0PR12MB6366.namprd12.prod.outlook.com (2603:10b6:208:3c1::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
- 2026 04:28:06 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
- 04:28:06 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 15 Jun 2026 13:28:02 +0900
-Message-Id: <DJ9C815EGU4Q.3L04WWDJAUK1H@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Abdiel
- Janulgue" <abdiel.janulgue@gmail.com>, "Robin Murphy"
- <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Danilo Krummrich" <dakr@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v4 02/20] rust: io: add missing safety requirement in
- `IoCapable` methods
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net>
- <20260611-io_projection-v4-2-1f7224b02dcb@garyguo.net>
-In-Reply-To: <20260611-io_projection-v4-2-1f7224b02dcb@garyguo.net>
-X-ClientProxiedBy: TY4P286CA0016.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:2b0::14) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42A4110E184
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 04:29:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 10A5A4097D;
+ Mon, 15 Jun 2026 04:29:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A50261F000E9;
+ Mon, 15 Jun 2026 04:28:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781497742;
+ bh=4zOF8ACcQnGINtLJ1j5EoUWcnRZyFCDbQM5I2mI8cJI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=gIBjQVoVnGaNXBlOLr/2kvjLqa0XSsytCf8icoDPAioCUFGNWQnfNXRXxu4NikDqv
+ D0oOU+SqepW8a21COfHEblvn+oLteTPOrSQ0Drb8i+VwxagY1aFakmjhNDYf6qqpcs
+ lmTDU1wkB1A9YSjy9fJcbbQw7HnkdfNSLjsZ4rPi3++mWCYn314MRTNMAFGdnpeZHg
+ 2r+tIu+CPbyOVJUrJuNQK5I/HYxYSuGqaapRKH6Vnb5ubmupjB6SSGzWDa3hF2aML0
+ BkAm7uMysMiPkdAw09NttKj5XwD+g7ToWZixfZf0mMiL5934O0kX6b4Uvs1Sv1fefv
+ WMXzXpB8kFWSQ==
+Message-ID: <86943057-f5b4-4fae-9172-45f13814494f@kernel.org>
+Date: Mon, 15 Jun 2026 06:28:54 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|MN0PR12MB6366:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9b854fa2-9f14-4579-a3c4-08deca967f43
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|23010399003|10070799003|1800799024|56012099006|4143699003|11063799006|5023799004|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Fr/et14eNcbrgjYmoEtuB1/3Bcdy9trG3/6HHio67HLnrZKAhWAWpXwnc61vYHRTZMK0jyIvHDSXEcWH4lyftMF6UqlwlcQa42ejQpXYYATGcNlgMtxhk4GDBBeRjf8GVVXea4y4rrbJr8EgYRUJUIrTK04j32UGTp38PrdQpb6lMaoeKD27RD7xm+RX65Zhae0ZsrP0vyOFvWOI6EnYoYcexCUouuxWhxRHSbIpryNhvRSkpO1eLaLrgEc2RQ+KVYYgHXX7sLbWVdN5DWXJnzdcdRoaExmby7WHl9xLCsn3qEMR/BErfw4NcqZbCLAaphEUZn3Sl5YkAWpz8VR43oTe4cocgC0bVdTHwPDxyfdeAd1Ru7QAazb3eBABYdZlck8bARi3GzhkGptuAz9SaXt81zarZUcDXW0/reIum8p6i+2G3tMPIhrOtpLDItD01xp/VNhBh5Pci5pwYjCSiHT9rWlLXZk0teJDH8l8Kgbb+gQfQTLnHK2jiMp+bC2GrfUBsdV3ehvwhF1Ehmc/65IRgj7nMHsGmw201YCxZhVpC59R6J1hKrlychW/ODniv5KiMznwBT8G4nQb+mE9XIgyJUeagnPnQJDTpWa+d6/JXcD+BG5POZNKm7wFbqHQimg95Jpg3dLOZxpwLkgZIeNNn+9Etb7/sP9lSwGoUI3GQzQnmlhHsEIbEgj6WXfD
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(23010399003)(10070799003)(1800799024)(56012099006)(4143699003)(11063799006)(5023799004)(6133799003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UzJxTVljWVJaMEE2eGFVdkJSeE9JNy9ZUHR5VDZLK2RBdzdCYjBzd3ZGZlpE?=
- =?utf-8?B?YVNFYzcwYzZmSGMxcmtGT0Qrb21DdE81OXd4OHY3WGNUUmVORTF6VHhWdWRO?=
- =?utf-8?B?V0hoTHhtd0U1eVJEaGRaZ3lBMGZNSmkzK3pHS2VwRTJJYU5Ndm1tQkp1Y0Vp?=
- =?utf-8?B?SDEwQmZ6TE5FSnYya2p0aVkveTlaSEZrSlFaanpMM0NSeUN2N3ZGVGI1QWVP?=
- =?utf-8?B?ZmdySWpZNklQOWNPeTBydEJ1V3o1V0ZxUXVzL1BqRk14dnBsUjF2U2JWWm5U?=
- =?utf-8?B?ZEJTcGI4dFR6VVV4bU1VUUp0N1VuUnRVZzFCWmpMaHBQS2RUYk5CMmQwdFZl?=
- =?utf-8?B?ZGdRaFZYNm9vZGtSR2FGSTh2N1h2WW41bkRYT2lVQlBGdy9qT1llcFdEc1ls?=
- =?utf-8?B?a2lpWHNFVVAxNkpTcmdkTVBsa2Rzc0V2VWQvU051N3hLZjBYUzhUdnp2WkRx?=
- =?utf-8?B?ZDV3MTJPTmRFSzJPem1BQ1JnWWpSNDNpbEROTUFTTVFyaTB4SXIyRFBuSmJX?=
- =?utf-8?B?bm8yVEZOT2NRNklkTEVqLzlPQ1ZUZEJ0OU1saGNha2dCK2JHTVlsMmRSVzhT?=
- =?utf-8?B?Vk9wZklPSUhqSllCNGN2SGVaa3UzZUpxcUVaUktNZnUySUhyWThPVzN4aFhI?=
- =?utf-8?B?OWhld3daNWZBUHBjTGdJcE5ndEdvQ0JZdWo2VG9IV0pHS1VKUkNkd2NsRkli?=
- =?utf-8?B?MlhWVks0ZEhTNzdFVW5iajVqQkpuRmtmVHJnald6MFRFaHJ4L29HaFdxN2Q1?=
- =?utf-8?B?UFV5azFTbnFvYmJTZ1lkZkpuV0dXV0dvcnRxSWhrWEN4YmNHTWdOdDdUQjhz?=
- =?utf-8?B?UG9NNFpxL0lOdXRwWmpDQ2tpWDZUQTVJclh5VTMxYWxJQjZOT0lxVW96UU1y?=
- =?utf-8?B?cVVNOXZabmtiSE0vU3VnUWNIYkZSZWtzV205UG5jRzIydmIwVnBCWHhvRk5U?=
- =?utf-8?B?Y29JWFFYYlBQemhHMEFXMURiQXY1M3p6eEF0eUF2VGlQQktUdHJoVnVCQnIz?=
- =?utf-8?B?WjJ5MGRNQXhPOGhsejJUWXdsUTFZZllxYlB5YUlYdU50Tk9zMDJ2cEVHV1Mw?=
- =?utf-8?B?RENlME9EYTJiUDgyQktwb1VUb0xYRXJIdnp1TGxyRVlpSlIxTVZvZThnWmZp?=
- =?utf-8?B?VTJ3VlZKVVJXUHFMa0VlbHB6NFlmTEhMRGNVeWtBMmZlcDhSR2Mxb09zMS9D?=
- =?utf-8?B?UC9YWWNUMjdRZFp4SnhDVVhkMmd5R2N3clRvOWdKcDhZYnhrUytHV1FuRS9Y?=
- =?utf-8?B?YXYxV0FGYmp1d2c3cnFVenFTOWFGU3gzMlQvMVdTdHUyT0UyTmRibTJzOWFj?=
- =?utf-8?B?VlUvamR4RC9WdEc4cnZISmh1TlVkYXNheXIyYWNmMVEwVWRib2J4d2NyRWdo?=
- =?utf-8?B?R1FRZml3OHJsT2NzK2VnVW03bFFUKzk1Ylk1blU4c3p0VzVUSnhPci9vMWVU?=
- =?utf-8?B?OE1ieThFOW9YcmhzNEtrN3hJVzlrUnpoRGh5TFMyOGI4cmV2UWRWRHdYcCt3?=
- =?utf-8?B?YTB2aW9wNXVQRWtyZXVGcjVSSmVvS1Y0alBmeEpKdisvTnlxU09NL3I3OGxL?=
- =?utf-8?B?WVJuWGJScUxyL2FoOFBYUkhvcDVhM01PT1o2dUkvL1A2b29iMzdsUDg0VkVs?=
- =?utf-8?B?d2RCL1dMWW45THE2elhURFhkcWZCRUpGZ05PcENTM0dhaS9Tb01zOHlPN2w3?=
- =?utf-8?B?WjlwTTVOb1gvd0ZuZUxqTWdxY0tDa0lMSGtqTlFjazhtaXNTak5xWFltMnpK?=
- =?utf-8?B?c1BabXNLL0NGdHk0bU5kdDVOMUVlMTJIR1FGL3JEZU1qdDh4clhXWHdYclVa?=
- =?utf-8?B?dlA2ZG1aSnp1MzNmSERBazk5YWJZdXJtV3dSc2lTQmdNRDdzZVhSNWIzMG1t?=
- =?utf-8?B?eWE3T3FDb1hFN2Jkb3RxTnl3clhhb3FzU1gxWGYxY3oyU1FMMXNEVll1Rnpl?=
- =?utf-8?B?NXk0YUxkZUlWZ2RXWlI5SG9UQTJoNXVmdzdISWtCU01GQTIrK09kTzZqNVdU?=
- =?utf-8?B?ZVVBT0lGZ3VsSWNGQU1xa3lka0h4M1hGTnVPT2NPK044alUwSm50SVpQY0kz?=
- =?utf-8?B?MDlSYlhPSjFjOU5YNUdteVpXZi9BaU4zUDRGU25DTEVPTk9MOU5ZdHNiSmMv?=
- =?utf-8?B?WnArbVhKUHowbStOdG5iaTNGZFhYb2RlbGV2VU5Cdm0rNkpzMnVWMmhKOGt2?=
- =?utf-8?B?TWdDRVRmQXM2R0tYL0RqemtxWTdPNWJxMXpkMmJUTzM2SlZaTXFjSlhOQVZZ?=
- =?utf-8?B?UDJSK3hKNkxZYnJkKzNKWTFnNjk1MVdCMWRUZ0V4N2FEZEg0Z1ZLQ3JXTFI0?=
- =?utf-8?B?N0N2N29GQVhxMlo0YXlZY0ltNk1DWUtlM2o1U0NhV3F1d0dKTWQzNFY4TW9h?=
- =?utf-8?Q?dBs5QMvZDnHmBpkOf6CcGEXOKpUickXa+WmgI7VJl7vf6?=
-X-MS-Exchange-AntiSpam-MessageData-1: KFjM8rSwGrHoBQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b854fa2-9f14-4579-a3c4-08deca967f43
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 04:28:06.5382 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: poHMNo0TA9tIxTb0VFajrmvFdDVS7DjHRUt2TOUrpbhSu2ekis7YEZ0a8nyNG+fI4qR5RpW3TJEwlHvjJyLIhw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6366
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/8] dt-bindings: display: allwinner: Split H616 DE33
+ layer reg space
+To: =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>, wens@kernel.org
+Cc: samuel@sholland.org, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ mturquette@baylibre.com, sboyd@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org
+References: <20260509190015.79086-1-jernej.skrabec@siol.net>
+ <ahNuuaVlDl0KvOSj@home.wens.tw>
+ <032c1099-40ab-470e-8cc3-af6d3cad22d4@kernel.org>
+ <nIKN_benRn2Bk8SDZrkMCA@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <nIKN_benRn2Bk8SDZrkMCA@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,100 +111,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jun 12, 2026 at 1:28 AM JST, Gary Guo wrote:
-> The current safety comment on `io_read`/`io_write` does not cover the top=
-ic
-> about alignment. Add it so it can be relied on by implementor of
-> `IoCapable`.
->
-> Expand the check `Io` by taking `self.addr()` into consideration when
+On 14/06/2026 16:08, Jernej Škrabec wrote:
+> Dne ponedeljek, 25. maj 2026 ob 14:10:38 Srednjeevropski poletni čas je Krzysztof Kozlowski napisal(a):
+>> On 24/05/2026 23:33, Chen-Yu Tsai wrote:
+>>> Hi,
+>>>
+>>> (resent from new email)
+>>>
+>>> On Thu, May 14, 2026 at 2:04 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>>>
+>>>> On Sat, May 09, 2026 at 09:00:14PM +0200, Jernej Skrabec wrote:
+>>>>> From: Jernej Skrabec <jernej.skrabec@gmail.com>
+>>>>>
+>>>>> As it turns out, current H616 DE33 binding was written based on
+>>>>> incomplete understanding of DE33 design. Namely, planes are shared
+>>>>> resource and not tied to specific mixer, which was the case for previous
+>>>>> generations of Display Engine (DE3 and earlier).
+>>>>>
+>>>>> This means that current DE33 binding doesn't properly reflect HW and
+>>>>> using it would mean that second mixer (used for second display output)
+>>>>> can't be supported.
+>>>>>
+>>>>> Remove layer register space, which will be represented with additional
+>>>>> node, and replace it with phandle, which will point to that new, shared
+>>>>> node. That way, all mixers can share same layers.
+>>>>>
+>>>>> There is no user of this binding yet, so changes can be made safely,
+>>>>> without breaking any backward compatibility.
+>>>>
+>>>> There is user. git grep gives me:
+>>>> drivers/gpu/drm/sun4i/sun8i_mixer.c
+>>>>
+>>>> which means this is a released ABI. As I understood, the old code was
+>>>
+>>> We held off on merging the DT changes so that we could rework this.
+>>> I can't find the actual request though. It was probably over IRC.
+>>>
+>>>> working fine but just did not support all use cases. Why this cannot be
+>>>> kept backwards compatible?
+>>>
+>>> AFAIK the "planes" block is shared between two display mixers. As the
+>>> commit message explains, this prevents using the second mixer, since
+>>> only one of them can claim and map the register space. And on the H700
+>>> (which is the same die as the H616 discussed here but with more exposed
+>>> interfaces), there could actually be a use case for the second mixer.
+>>
+>> It explains why you want to make the changes but not why you cannot keep
+>> it backwards compatible.
+> 
+> I guess it can be backward compatible, but I don't think it makes sense.
+> Yes, original driver implemented original DT bindings, but there is no node
+> which uses that binding. If there is no user of that, why would driver
 
-"the check performed by `Io`" maybe?
+Did you check all out of tree users of the ABI? All vendor kernels,
+forks and all of them for which the ABI was made for?
 
-> checking if `offset` is aligned. For the compile-time `io_addr_assert`
-> check, check using the known minimum alignment of `IO::Target` and the
+If there is no single downstream/out of tree kernel using this ABI, then
+of course you do not need to consider it. I don't know how would you
+prove that but I am open for suggestions.
 
-typo: s/IO/Io.
-
-> accessed type.
->
-> While at it, fix the alignment check to use `align_of` instead of
-> `size_of`. The values match for all primitives (including u64, given that
-> we do not provide u64 accessor on 32-bit platforms), but are not
-> necessarily true for custom types.
->
-> Signed-off-by: Gary Guo <gary@garyguo.net>
-> ---
->  rust/kernel/io.rs | 25 ++++++++++++++++---------
->  1 file changed, 16 insertions(+), 9 deletions(-)
->
-> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-> index bef571dad6eb..fa9ae39ad9d2 100644
-> --- a/rust/kernel/io.rs
-> +++ b/rust/kernel/io.rs
-> @@ -196,13 +196,14 @@ pub fn maxsize(&self) -> usize {
->  #[repr(transparent)]
->  pub struct Mmio<const SIZE: usize =3D 0>(MmioRaw<SIZE>);
-> =20
-> -/// Checks whether an access of type `U` at the given `offset`
-> +/// Checks whether an access of type `U` at the given `base` and the giv=
-en `offset`
->  /// is valid within this region.
-> +///
-> +/// The `base` is used for alignment checking only. This can be set to 0=
- to skip the check.
->  #[inline]
-> -const fn offset_valid<U>(offset: usize, size: usize) -> bool {
-> -    let type_size =3D core::mem::size_of::<U>();
-> -    if let Some(end) =3D offset.checked_add(type_size) {
-> -        end <=3D size && offset % type_size =3D=3D 0
-> +const fn offset_valid<U>(base: usize, offset: usize, size: usize) -> boo=
-l {
-> +    if let Some(end) =3D offset.checked_add(size_of::<U>()) {
-> +        end <=3D size && (base.wrapping_add(offset) % align_of::<U>() =
-=3D=3D 0)
->      } else {
->          false
->      }
-> @@ -221,14 +222,16 @@ pub trait IoCapable<T> {
->      ///
->      /// # Safety
->      ///
-> -    /// The range `[address..address + size_of::<T>()]` must be within t=
-he bounds of `Self`.
-> +    /// - The range `[address..address + size_of::<T>()]` must be within=
- the bounds of `Self`.
-> +    /// - `address` must be aligned.
->      unsafe fn io_read(&self, address: usize) -> T;
-> =20
->      /// Performs an I/O write of `value` at `address`.
->      ///
->      /// # Safety
->      ///
-> -    /// The range `[address..address + size_of::<T>()]` must be within t=
-he bounds of `Self`.
-> +    /// - The range `[address..address + size_of::<T>()]` must be within=
- the bounds of `Self`.
-> +    /// - `address` must be aligned.
->      unsafe fn io_write(&self, value: T, address: usize);
->  }
-> =20
-> @@ -310,7 +313,11 @@ pub trait Io {
->      // Always inline to optimize out error path of `build_assert`.
->      #[inline(always)]
->      fn io_addr_assert<U>(&self, offset: usize) -> usize {
-> -        build_assert!(offset_valid::<U>(offset, Self::Target::MIN_SIZE))=
-;
-> +        // We cannot check alignment with `offset_valid` using `self.add=
-r()`. So set 0 for it and
-> +        // ensure alignment by checking that the alignment of `U` is sma=
-ller or equal to the
-> +        // alignment of `Self::Target`.
-> +        const_assert!(Alignment::of::<U>().as_usize() <=3D Self::Target:=
-:MIN_ALIGN.as_usize());
-> +        build_assert!(offset_valid::<U>(0, offset, Self::Target::MIN_SIZ=
-E));
-
-IIUC this can allow unaligned accesses if `self.addr()` itself is not
-properly aligned. Do we need a new `Io` invariant for that or is it
-already enforced somewhere?
+> need to support it nevertheless? Supporting only actually used DT binding
+> allows for better code architecture, as there is no need to support second,
+> unused path. It also simplifies testing, since developer doesn't need to
+> test both paths if code is changed in that area.
+> 
+Best regards,
+Krzysztof
