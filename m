@@ -4,63 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A957CD98CF
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 13:06:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CD91CD98CF
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 13:12:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F40510E41C;
-	Mon, 15 Jun 2026 13:06:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC53210E3F4;
+	Mon, 15 Jun 2026 13:12:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="encmUAsI";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="uFKfuJpP";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D8F310E401;
- Mon, 15 Jun 2026 13:06:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781528792; x=1813064792;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=Trj5PNTJ+Sg3X9GsjLKqCqikR7SQD/GFcUnRAHjLHb0=;
- b=encmUAsIca8wfXtg3TKFz4YbyrAUl1ryYMDbelWUSlquAFD9FizQU+Tn
- LybsSYq2dvTgiUrEXrbKnUsjykcpsh8dbodjhUGBgsH7h9gwBote2ECWU
- bGGf34sClynxVQ6Nxs5uj4EeiUE6VT4Snvb06b5rPfSHRz1IMj45MgyJP
- aWdnjLy92U2HmqDG6k0p1xbgX6dDHM0VEMXE9mj7QVwpEZtyJrQ/2A1Yf
- 2+YNN9MIi4WtI8v1UnWMjOTjk+Mc/kj7MXpV13/gQ23/aIBtHfL8hSjau
- /RdupvK6wk5Y+VN2QDP3m3dAxL0Iyauf8zZ6PAGS+xZ6zaumus9kDA2yi Q==;
-X-CSE-ConnectionGUID: HGWL7W9OSdOtaIFpcl231A==
-X-CSE-MsgGUID: nQdSKUCRR/Kc2Bw3XvkNlw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="81405351"
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="81405351"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2026 06:06:31 -0700
-X-CSE-ConnectionGUID: BxVNk0qTTk2C0Mg4jbDAkg==
-X-CSE-MsgGUID: PFETyrIrR9SHXyCBIKfwCw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="244557959"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.245.230])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2026 06:06:29 -0700
-Date: Mon, 15 Jun 2026 16:06:26 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH 0/4] drm/i915: Work harder to enable VRR based refresh
- rate changes on eDP
-Message-ID: <ai_40qUa-MVdbOEf@intel.com>
-References: <20260612144203.31715-1-ville.syrjala@linux.intel.com>
- <3d441831-71bc-49fd-823f-3af443e55b20@mailbox.org>
- <31da350f-adfc-4b2c-a7c5-5ed884ffd9ca@mailbox.org>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47E9310E3F4
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 13:12:28 +0000 (UTC)
+Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id EE39A241;
+ Mon, 15 Jun 2026 15:11:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1781529114;
+ bh=32Shx7TCKv3Qlm21pR+zetQqXjWhiye5TRnx0tFj7W4=;
+ h=From:Subject:Date:To:Cc:From;
+ b=uFKfuJpPGa1AL48Q70CA4sC1JIwS0/x8NistfrsvAccaZ67PW5YNEjVcC136jexnU
+ J5XprOLSZ4XakJK+MUyKIpW6w4c9DzUQaO9TD+U21pus3E0kfNnjIYt/iPytxNWubB
+ ROyxwC27L/HFy3ycQBJphWUqVXEtJQAUb6bkRVPg=
+From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Subject: [PATCH v5 0/7] drm/rcar-du: Add support for DSI pipelines with DSC
+Date: Mon, 15 Jun 2026 16:11:53 +0300
+Message-Id: <20260615-rcar-du-dsc-v5-0-aed1a28610e4@ideasonboard.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <31da350f-adfc-4b2c-a7c5-5ed884ffd9ca@mailbox.org>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABr6L2oC/33MyQrCMBSF4VeRrI1kbuPK9xAXGW0WNpJoUErf3
+ bQbB1o3F/4L5xtAdim4DPabASRXQg6xr8G3G2A61Z8dDLY2IIgIxDGDyagE7R3abCDj2nhkiHe
+ tAHVxTc6Hx6wdT7W7kG8xPWe84Om77BQMEbSC+0ZJJ1uGD8E6lWOvo0p2Z+IFTFwhnwT/Jkglv
+ NCSMKRwPSsE/UPQSmDBMG9agphsVwj2JsQvwSohKZJCYc2FogvEOI4vhxmV03YBAAA=
+X-Change-ID: 20260514-rcar-du-dsc-45bcf0c2fe86
+To: Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+ Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4239;
+ i=tomi.valkeinen+renesas@ideasonboard.com; h=from:subject:message-id;
+ bh=32Shx7TCKv3Qlm21pR+zetQqXjWhiye5TRnx0tFj7W4=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqL/ozdFtcRAnNYsXWYwB7iQ65JS05bhMdNu276
+ YtVJloqFpyJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCai/6MwAKCRD6PaqMvJYe
+ 9WYCD/9yr9V2UlynqXbHRGP0j8LIDZK7WVtZzg1BZ1OK2eCRu0N2D7gpiVA1GbRdrPxF2PEmhy/
+ XTumN/UC9bVin9ndxGDYczPMzH0y3ysG28DRQVTeRu8bLG5+7SVt4JTDDVix7EZZrv6EvD66BCy
+ nOsRjan6i4DWJPqBk+Shp+ssPgzo0o3Zm5mkzvqDap6GDAOY7izkNVdVdbaJipWnJ3gdeAc/+G1
+ jvwDNf2xUoYpc1m2NpN4VzKCxQCVXmJOI6VpfY3vGpYZuuFOzyoM3SV06D700TguDof4Qj6Altd
+ RBWz3stKsOIyMP5URHxz2szij4NFfhWTmJCQFUZl0fcyBS9bx1hlCghDdoNPzBA/kL2TwWFbiHN
+ 5xWc8oU9XzXLkNAs9aPnxwEuy+jm0Oe+ftHfBObNsbAsPq+FjZrfs0WHZTSALFaFVOJwzFpBdWg
+ P2yPaWOEvBTDkPsRGY8PFUdv8U+iudFD76lyukpRdoaBqzymB5gq00TNfp7Fa98I1DykwfEuRWY
+ 8DTroy+1Jeun+A2KcwT9BGS4qcKX8EWH8TK/pzLdJLTY3DFzFS9EWQ2n5YVa3M7Vio2KPOxk1fk
+ Nm4fpVGCV8kSJAIruyC40MTxbOPNkQoO3CxFHuWJaqmY9q0Tm9Hoe0C/G7gceLWQ9o2CnVOM52+
+ Ru3nNhDVMhcDBqA==
+X-Developer-Key: i=tomi.valkeinen+renesas@ideasonboard.com; a=openpgp;
+ fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,51 +92,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 15, 2026 at 11:08:59AM +0200, Michel Dänzer wrote:
-> 
-> Adding wayland-devel list for awareness, see also https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5091.
-> 
-> 
-> On 6/15/26 11:06, Michel Dänzer wrote:
-> > On 6/12/26 16:41, Ville Syrjala wrote:
-> >> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> >>
-> >> Tweak the eDP fixed mode selection algorithm to allow
-> >> userspace to do refresh rate changes on VRR capable
-> >> eDP panels without full modesets.
-> >>
-> >> Ville Syrjälä (4):
-> >>   drm/modes: Add DRM_MODE_MATCH_TIMINGS_VRR
-> >>   drm/i915: Pass the full atomic state to .compute_config()
-> >>   drm/i915/panel: Adjust intel_panel_compute_config() calling convention
-> >>   drm/i915/panel: Attempt VRR based refresh rate change for
-> >>     !allow_modeset
-> > 
-> > What's the motivation for this approach?
-> > 
-> > Per https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5091#note_2784749 , it comes as a bit of a surprise. The approach we've been discussing at display hackfests instead is to add properties for controlling the maximum & minimum refresh rates.
+Some DSI pipelines have DSC (Display Stream Compression) IP block
+between the DU and the DSI. Even if DSC is not needed, the IP must be
+enabled for the DSI output to work.
 
-This has nothing to do with limiting the VRR range. What we're doing
-here is selecting the actual timings to drive an internal laptop panel,
-given some random cooked up modeline from userspace.
+This series adds a basic DSC driver, so that the DSC IP gets enabled in
+bypass mode. This enables DisplayPort output on Sparrow Hawk board, as
+the DP output comes from DSI and sn65dsi86 bridge, and also White Hawk
+board's second mini-DP output.
 
-We pick the actual mode from the set of "fixed modes" (ie. the modes
-that the panel/system itself has reported as supported via
-EDID/VBT/ACPI/etc.). For non-VRR panels we just pick the fixed mode
-whose refresh rate is closest to the user specified mode, and reject
-the commit if it's not close enough (<= 1 Hz). For VRR panels we
-can avoid that rejection part by adjusting the vtotal appropriately,
-assuming the user specified mode's refresh rate is withing the
-VRR range of the panel.
+Original series from Marek.
 
-> > 
-> > While the approach in this series could be considered an alternative for the maximum, AFAICT it doesn't allow enforcing a minimum refresh rate which differs from the maximum and default minimum.
+Note: I see that not every run of kms++'s kmstest gives me a picture on
+my monitor. Sometimes the monitor seems to be trying to repeatedly sync,
+but fails, and the screen stays black. However, I see this same issue on
+WhiteHawk, which uses DSI0 pipeline, without DSC, so I think that is a
+separate issue.
 
-The timings specify the absolute max refresh rate you can achieve. So
-a separate max VRR refresh rate knob would be mostly redundant, but as
-we've discussed before, it could have its uses for the non-integer
-vtotal use cases (CMRR in Intel parlance).
+ Tomi
 
--- 
-Ville Syrjälä
-Intel
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+---
+Changes in v5:
+- Drop the "renesas,rcar-dsc" compatible, and rename the binding file to renesas,r8a779g0-dsc.yaml
+- Check pm_runtime_get_sync() < 0 for error, instead of
+  pm_runtime_get_sync() != 0
+- Move pm_runtime_enable() before drm_bridge_add(), so that runtime PM
+  is ready when we publish the bridge
+- Fix "DCS" typo in commit desc
+- Rewrite "drm/rcar-du: dsi: Support DSC in the pipeline" again, this
+  time solving the DSI/DSC question in rcar_du_encoder_init()
+- Link to v4: https://patch.msgid.link/20260615-rcar-du-dsc-v4-0-93096a1b56a3@ideasonboard.com
+
+Changes in v4:
+- Add 'renesas,rcar-dsc' compatible, in addition to the SoC specific
+  compatible
+- Use 'bridge' as the name of the DT node
+- Arrange Kconfig and Makefile entries alphabetically
+- Rebase on drm-misc-next, and fix the drm_atomic_state rename issue
+- Use pm_runtime_get_sync() in .atomic_enable() instead of
+  pm_runtime_resume_and_get() to fix the possible runtime PM get/put
+  discrepancy
+- Drop ioremap and mmio field, as the driver does not touch the
+  registers
+- Use of_drm_get_bridge_by_endpoint() to get the next bridge
+- Rewrite "drm/rcar-du: dsi: Support DSC in the pipeline" to use
+  bridge->type to detect the DSI and the DSC
+- And some cosmetic fixes pointed out in the review comments
+- Link to v3: https://patch.msgid.link/20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com
+
+Changes in v3:
+- Simplify DSC driver: drop reset control, drop clk handling, use runtime PM
+- Split dts changes for r8a779g0 and sparrow-hawk to separate patches
+- Add "arm64: dts: renesas: white-hawk: Add second mini-DP output
+  support"
+- Link to v2: https://patch.msgid.link/20260515-rcar-du-dsc-v2-0-f6b9240a1240@ideasonboard.com
+
+Changes in v2:
+- Fixed the dts example in "dt-bindings: display: bridge: Document
+  Renesas R-Car V4H DSC bindings"
+- Link to v1: https://lore.kernel.org/r/20260514-rcar-du-dsc-v1-0-d65f7a9e9841@ideasonboard.com
+
+---
+Geert Uytterhoeven (1):
+      arm64: dts: renesas: white-hawk: Add second mini-DP output support
+
+Marek Vasut (5):
+      clk: renesas: r8a779g0: Add DSC clock
+      dt-bindings: display: bridge: Document Renesas R-Car V4H DSC bindings
+      drm/rcar-du: dsc: Add rudimentary Renesas R-Car V4H DSC driver
+      arm64: dts: renesas: r8a779g0: Add DSC
+      arm64: dts: renesas: sparrow-hawk: Enable DisplayPort by adding DSC
+
+Tomi Valkeinen (1):
+      drm/rcar-du: dsi: Support DSC in the pipeline
+
+ .../display/bridge/renesas,r8a779g0-dsc.yaml       |  96 +++++++++++++
+ .../arm64/boot/dts/renesas/r8a779g0-white-hawk.dts |  94 +++++++++++++
+ arch/arm64/boot/dts/renesas/r8a779g0.dtsi          |  31 ++++-
+ .../boot/dts/renesas/r8a779g3-sparrow-hawk.dts     |   5 +
+ drivers/clk/renesas/r8a779g0-cpg-mssr.c            |   1 +
+ drivers/gpu/drm/renesas/rcar-du/Kconfig            |  12 ++
+ drivers/gpu/drm/renesas/rcar-du/Makefile           |   1 +
+ drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c         | 154 +++++++++++++++++++++
+ drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c  |  18 ++-
+ drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c    |   1 +
+ 10 files changed, 410 insertions(+), 3 deletions(-)
+---
+base-commit: a56a73ec85c81c7e533bc249ff0fd996256053fd
+change-id: 20260514-rcar-du-dsc-45bcf0c2fe86
+
+Best regards,
+--  
+Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+
