@@ -4,59 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E337BCD98E1
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 18:57:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36B30CD98CF
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 19:36:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E96BC10E5EA;
-	Mon, 15 Jun 2026 18:57:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A800210E5F8;
+	Mon, 15 Jun 2026 19:36:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i+44SHLS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ifamvkoi";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BA3510E5E0;
- Mon, 15 Jun 2026 18:57:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 38306600AB;
- Mon, 15 Jun 2026 18:57:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B149D1F000E9;
- Mon, 15 Jun 2026 18:57:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781549826;
- bh=ZkxUGDLSZMr0Dq+DdzIPtXTXVSaYiY2WHl9OHQk/HmE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=i+44SHLSEjFboHQKldJvgVHf3fFqesutTGQKBKUoBaYf1PDwTRUkh2KCBbfiv/zxK
- AHpovUOYmMej8NestBeihJK5CrLS5z7Hbvwf2Of7QJjOK4OxZokXnmRA73OfXZFZAn
- zdKEoHoe6a87h8z8m5TuXlcVyhmvLeMTAqSWmn5NjhSpJnBXUR32tU15ovJ5Bj/OXc
- 8g1oze2ON0nj84ddT6EiR8PjTYFECnDbTWQA60ql8B4kdR38mVdBh5ej7Kfj+/6GO8
- iVlzkdwBGzWKAGCJ4MeDNp2MKoqtAIWvXoY3pt6YTKAE3kd6Qlra7H+r4/Tu+eEHVg
- yjEBRjBz88cPQ==
-Date: Mon, 15 Jun 2026 08:57:06 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Cc: intel-xe@lists.freedesktop.org, Natalie Vock <natalie.vock@gmx.de>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
- cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
+ [209.85.222.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7112E10E5F8
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 19:36:01 +0000 (UTC)
+Received: by mail-qk1-f172.google.com with SMTP id
+ af79cd13be357-9159da9bba5so278180685a.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 12:36:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781552160; x=1782156960; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ilAD6oyPZ7+Z6NH640c4kq09bsKFwmP8miYWEEZmjKc=;
+ b=ifamvkoiC4tCVG9RGMu/kXyCzrmBZX0vagr2NEkweTkZYl3IQeELnUTV0bQpixPlTA
+ rm4gVwddHFT4nwlUiGmNk70QE5EKTbfOSO1uYI27fai7x8Jc9J5xGlPX+cWiOhhy0TUa
+ r/LRcxvIgIl6SwTbcvMhsq+DYJKGTBF1BQF7HKQN7B/bX1GOjXJRLle+IhIQ0RWLCtKw
+ XcY9z2Ml9W/f6w4uiNbL6KLMUjIZatjqGAh8Lno+Cz+9vNU5XJo8anFFq6KWF4e3rM4R
+ 9lO7C3KoWVg4JzwkWoj+AwFZz+u1P2oOtiddB7eA0lNFJuAp3YFEGYldEoJYdKzHhGi7
+ hKug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781552160; x=1782156960;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ilAD6oyPZ7+Z6NH640c4kq09bsKFwmP8miYWEEZmjKc=;
+ b=JbT3hSp/IgF5TBPfxF70bkBEtGVn5Q3kMaWWxQAmL9Q4DcmnEqRD+tvSc4PG907GGu
+ VUkGnZYtDV1PgRtZQNC4E4LeTZ7QO/2zJgDtVglckRK7J8E24CLUIsrQ2CAtQnj8YftI
+ EeCa0aXDYhrAfWpCGSiF8M1E9DUItiJtG8fxiVxIcFatCfyqVGagmhNxRlxF5iYWi/D3
+ 8iHkLg1Zi9LULzmURQD5P0fclcXSLgPwKWSi1tOsFwv6ENpfEo+BEVX9qAv5xZbfLhJ5
+ iqEQwkyfOCR8dC/HJGHrP4aLxla9g/pftKq3kjaX7BxCC39dlFmvx9P9amJKp7wUhDKx
+ x6YA==
+X-Gm-Message-State: AOJu0YxhniaHJWpcMAdldPI89/4IeTGa+NM1qcRmHgoPdssXkVUhOd3Q
+ fr0zJc42XQMsTTlVrPmfaiNNsG688ZbdOiBZxd5IiHuoM16v1B5UA7zd
+X-Gm-Gg: Acq92OGYtMY7esZOqsf6tq6+lPZyKQiVC6yTIFERtUqyxhxupFrCj8/zvmXayzhgbwD
+ IsDKyLVnQGGeS2SElyXKJKM7UEXeLA1Z7yAUDGvZipZnE0agmwB58rjYsi5A3TuFEjV7HBO2w+o
+ S1JC2aPh+EYjC76phxyKsX02E+o3n/8HAJtiU8yVzp8Mn0cURLAqJ9mL8ZDvzPuVU10hxpX5/q4
+ uUt+4hoB/0Xc8lAeg3QWdcjVEVBhssRSudVoa+1Uyw2TllDDm0cgxu+XI2SSxQehDEkRDSov/6+
+ zEI5HS/Dx7gJj1iMQB8LMgzTE6tj2WDMYFA+E+KjjmmrOcrN53GkRfGV5ajJRF9VbFAgMPc6Lgv
+ WZI3wRu6jZkjat+FZMN/pnEkCGJChBOVjUupphRLlMW8FqnIaqv7Ng43QtYoloH453cGV0+/iZ6
+ FcBT6rM5u4RBeI5drEubfE8LT9dugrmWPuLEcwmQYa2Z39lIxU/F8=
+X-Received: by 2002:a05:620a:19a7:b0:915:7732:ea7c with SMTP id
+ af79cd13be357-91c48072442mr80258585a.43.1781552160197; 
+ Mon, 15 Jun 2026 12:36:00 -0700 (PDT)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-9161a00af50sm1319190785a.30.2026.06.15.12.35.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 15 Jun 2026 12:35:59 -0700 (PDT)
+From: Yuho Choi <dbgh9129@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 0/6] [PATCH v6 0/6] Add reclaim to the dmem cgroup
- controller
-Message-ID: <ajBLAsNoKesXmFcs@slm.duckdns.org>
-References: <20260611173301.17473-1-thomas.hellstrom@linux.intel.com>
- <ajBJU-Jp2QVy14qt@slm.duckdns.org>
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Yuho Choi <dbgh9129@gmail.com>
+Subject: [PATCH v1] drm/mipi-dsi: Use put_device() on device_add() failure
+Date: Mon, 15 Jun 2026 15:35:55 -0400
+Message-ID: <20260615193555.757498-1-dbgh9129@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ajBJU-Jp2QVy14qt@slm.duckdns.org>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,27 +87,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 15, 2026 at 08:49:55AM -1000, Tejun Heo wrote:
-> The canonical behavior for cgroup2 would be not failing the write at all
-> even when the usage can't be brought down below the new max. Updating the
-> target configuration and tracking the current usage are separate operations.
-> The former should just set max and trigger reclaim and a writer should not
-> assume that a successful write indicates that the usage is below the written
-> max value.
+mipi_dsi_device_alloc() initializes the embedded struct device before
+mipi_dsi_device_register_full() calls mipi_dsi_device_add(). If
+device_add() fails, the code frees the DSI object directly with kfree(),
+bypassing the device release callback.
 
-Sent too early. One of the reasons is that cgroup is hierarchical and there
-can be multiple delegation layers and if you tie application of configuration
-to immediate enforcement, some hierarchical control actions become racy and
-awkward.
+Drop the initialized device reference with put_device() instead, so
+mipi_dsi_dev_release() runs and releases resources owned by the device,
+including the OF node reference.
 
-Here's an example: Imagine a system agent trying to lower usage in a subtree
-which contains multiple delegated containers. If max can be set below what
-reclaim can achieve immediately, it can just set the max and if the usage is
-still too high, can go around and e.g. kill some of the containers. If max
-write fails, it'd have to kill and then try again and inbetween someone else
-might push up the usage.
+Fixes: 068a00233969 ("drm: Add MIPI DSI bus support")
+Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
+---
+ drivers/gpu/drm/drm_mipi_dsi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks.
-
+diff --git a/drivers/gpu/drm/drm_mipi_dsi.c b/drivers/gpu/drm/drm_mipi_dsi.c
+index 0390e14d3157..862d56eaf934 100644
+--- a/drivers/gpu/drm/drm_mipi_dsi.c
++++ b/drivers/gpu/drm/drm_mipi_dsi.c
+@@ -233,7 +233,7 @@ mipi_dsi_device_register_full(struct mipi_dsi_host *host,
+ 	ret = mipi_dsi_device_add(dsi);
+ 	if (ret) {
+ 		dev_err(host->dev, "failed to add DSI device %d\n", ret);
+-		kfree(dsi);
++		put_device(&dsi->dev);
+ 		return ERR_PTR(ret);
+ 	}
+ 
 -- 
-tejun
+2.43.0
+
