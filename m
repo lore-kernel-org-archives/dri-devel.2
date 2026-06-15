@@ -4,65 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D747DCD98E1
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 17:00:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25507CD98C5
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 17:11:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E11B10E4C6;
-	Mon, 15 Jun 2026 17:00:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8086710E4A6;
+	Mon, 15 Jun 2026 17:11:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="H6ifrwii";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="clmc3lVa";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EE6A10E4C6;
- Mon, 15 Jun 2026 17:00:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781542817; x=1813078817;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=G4RW0DOAXCOiFUvbjF7GDJDVbr5prJgzFp1ayrsFn6Y=;
- b=H6ifrwiizCqCafkSJqJEewmOXC5Olpz0nsSV0257HpWjqBzPtPbNLzv+
- ZzyvGTLlEId4kCWoRLIEpJ3Q9TlMZIQ3XXnKAp4grlr96IzQBHLpdEaoK
- EQ7zG0Bsu9VqegXwaxerKSsxZXjl6KdKfMDOX7pakQY7I1Gcs8Db6zk/k
- Ee9x23E52/Uwnw9sQfO1WHuUFBZPn8RWG6/+ohHWciXGKQgn8Q6sH4gwA
- eXLbtLTl2KPCxOELesL9Y9395IeCC52uD0m3ia5QYTPFCuXwoYezTwhWV
- kQPDoEwUROSH8U2+7ZsjFS+A6/qQRzBczqze3D9O5ZshuSE42Wk5A4H71 w==;
-X-CSE-ConnectionGUID: 5C5dtPgzQae4PxUSfSA3WA==
-X-CSE-MsgGUID: 1A0aSn/8TDSNrfQFlVBNzA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="82354607"
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="82354607"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2026 10:00:16 -0700
-X-CSE-ConnectionGUID: yDx0XeIoSxOdERLXxeoxAQ==
-X-CSE-MsgGUID: fMdObLw+S16sLcSZDfWrtQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="271235747"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.244.114])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2026 10:00:11 -0700
-Date: Mon, 15 Jun 2026 20:00:07 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH 0/4] drm/i915: Work harder to enable VRR based refresh
- rate changes on eDP
-Message-ID: <ajAvYfrLu8aRilkc@intel.com>
-References: <20260612144203.31715-1-ville.syrjala@linux.intel.com>
- <3d441831-71bc-49fd-823f-3af443e55b20@mailbox.org>
- <31da350f-adfc-4b2c-a7c5-5ed884ffd9ca@mailbox.org>
- <ai_40qUa-MVdbOEf@intel.com>
- <7402a175-a1d9-4428-8536-e37f06c1e186@mailbox.org>
+Received: from CWXP265CU009.outbound.protection.outlook.com
+ (mail-ukwestazon11021131.outbound.protection.outlook.com [52.101.100.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B69010E4A6
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 17:11:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FNu6BeCaN1U0hNzX8/nuabbfE65EiYKP79wu6PAOwXihujvMl5WclgQD+Frd8din+hB6k43kbAMs42jaLjCbllUqiEPDLKYfqyhLt70Ks383Tk+j6uwrmOMM0JvCBiHelxs7ph2xrnjhNeUmo52LnE5pmDYtPMNohJssgdxC5m6YufheQyHm7CTeLLx24WVzLxtz0VL4n6L449D4egxvkw4tSonsXvkGJstIIjqSZuHedAXRB8Fl9pWU5OlpW/Xfrr0HArZ6wh8JXMn3UdqOSBX6lK3UPRE+gn0WYn69YsoeoXcLzyAbZiTn19C59j8CHFJocm7WF4gWaxg3HPOp/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qebyRJPEpG7Gp1bI5VWjLXKM2B9erhMe20TRNgjjxSs=;
+ b=Hq2b1nrpJzsbzaXunaO8yGl3P15BxZjjl6cZtke2psHBb3YKQGgv6DVQMb53idn10c0hXHltLw2I1ef7IDIc3V5qCEEQCKyubZnQmxOQb42rhGgfEkWsNLQitaxkmoV2uUTz1ufUh6OpRuRLzdnR+7R8tCgOxkm6i89eXIeW+ttBYH/nNWtBfTbqlHNik1B00aFmSeW13U+zQl938dat/W0rnZGNQTwK/djVKPQfDhUIfZiMmfpdu7MCIopdOGElUuaQbdxTKVhLWqPL2zTFuAy/izEYu7zHETo0YTui6KPNxwbAOTCMzax5rYx4c44iGJyEmmY3N4IVvgRweDJdAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qebyRJPEpG7Gp1bI5VWjLXKM2B9erhMe20TRNgjjxSs=;
+ b=clmc3lVa8VzaQmMea/XhKH2P50/Q5dt5ssDKTvNzf+Q5/INJUIfWi8S2XWOhqd4rBZ4tvuYbdMueMSbmt63uLS5kBtLBQj23aPh6GYYYJthkiIPf2vSwAGFQ84gQBY7Q94M0JLAIjo5S0vpAsu0/7vxQZ2s02HD7UkOGVaa2tTQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CW1P265MB9152.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:270::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
+ 2026 17:11:17 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
+ 17:11:17 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 15 Jun 2026 18:11:16 +0100
+Message-Id: <DJ9SGEPBEHR0.R2JB1EQJQKT6@garyguo.net>
+From: "Gary Guo" <gary@garyguo.net>
+To: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH 01/13] gpu: nova-core: fsp: limit FSP receive message
+ allocation size
+X-Mailer: aerc 0.21.0
+References: <20260615-blackwell-fixes-v1-0-f2853e49ff7d@nvidia.com>
+ <20260615-blackwell-fixes-v1-1-f2853e49ff7d@nvidia.com>
+In-Reply-To: <20260615-blackwell-fixes-v1-1-f2853e49ff7d@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0686.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:37b::18) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7402a175-a1d9-4428-8536-e37f06c1e186@mailbox.org>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CW1P265MB9152:EE_
+X-MS-Office365-Filtering-Correlation-Id: 336429f8-0645-4681-9525-08decb011ccd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|366016|376014|23010399003|10070799003|1800799024|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: awEAhZ3rwOnScHwdV5NlwyAEIYarQVx97rIOteGmvcVceAS0gXWr11g2Dsdpqr6SPzGkf/Gv30Z12tHTUywbSG7Xca/qYk+ePPXH2kKeWVtWs305fpZGlaeFxTBKbJYtkFe4aC4J5dfj2gXozeXiVn3Tg2cyHLP1MRzRwJCQGxvRnVHuPGs7e6VyIdTcGxnxjAspjsVw8hpW0e4dx/A8imdRnOyUBZ/J9ZVlQCuZ+LwOiNBMw/9DjqcpWwy2m2MatDr0J+W/c8czLNS5CMH70hR9fCzb1xrDi4AlAZOLm0iZrgaE4z2Ov8yb2b9Hujat/W2wawdhj8aThYsvpy2vbI6j1DmHQKt8t3m2+aWHaGpKMDVIqggDvoCpeBZ0gLljoIfnerVVz9gRxEtx6C1FINnbQIgoslTogiCk1GfL/IBTtEf65pUFpI4l9wh45dEI8Bxze9M/5GRphYGJ2Uy0TIjkg2a9t4Oa5ON/rW9dk+1N+Xo1gzje9jRJbN0kUuKYk5pQe9uxdzpba6P8K3MgrOHrc6ul94k14hSVV+gXf8hqF+8dMTT2ivxrJ19iCUH4M7eyMyZaQv1bfJJkodug1YsUrN0E/dp/tPg9sJYLa5tfHbGpeIPHNs8ypi3iSUZ+9uUUt8QFiCmnNJVTPdkknY+oVRuDWBxKapDOrM6fMvR6CjClo2wovcN8pF2H+ny/
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(366016)(376014)(23010399003)(10070799003)(1800799024)(56012099006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TFFabG1BR256cEZVMHF1RVlNbHp3bVRnekkyVW9lcWVlRGg0T0Z2Zjh5MWJU?=
+ =?utf-8?B?M21OSTZuZXhCSWtWbDA2V3VZMlg2aVdDTjBKd3Jiemx4QzdWb2tzVVZKY1Bu?=
+ =?utf-8?B?ZnpGekIwckQ2YzhVdG8yKzV3SjhMNkl1Wkc3SENqclZibHhSYktPRmlKbGwy?=
+ =?utf-8?B?RVlOZHFGSkNMQTA2b1I5bjZDcGlDWVE1NTMzdjJ5SmhiSkRJazJhVE5OUWw1?=
+ =?utf-8?B?NDFBWnZVZTRLN292dld3TERreXdkd29ZY0VVL3dxR0dzeWxCcldIVml0WEJJ?=
+ =?utf-8?B?aURZNUp0b2VjNmx2ZmZtMDVKT0RJYXlXNVhqNk5jN1hFQlZYYXNLelQzYzY1?=
+ =?utf-8?B?bTNaNk5MZmUxYktKeWM2VEJJMmE5Z1ptemdXdG9xdC9wLzREdU96NWJTWk9S?=
+ =?utf-8?B?RG01ZnJLTk0rRmN6cFZLUXo1cW5JZFR3NmJOckYzdlNQaHRVWVBwY2k5WFNu?=
+ =?utf-8?B?bEFnUzNJMkNpamNobUFXK1YxNkVOSWtKMHJIUXBXenRNQURHNkVuRVB1OWps?=
+ =?utf-8?B?Sjhhb1ViaUg1ci9mOTN4Q3kyTThkcXNhdXViYlFOU3JvcUhtZ3B2cWp3eFp6?=
+ =?utf-8?B?RzIxZjJCdTI0QnRPRExYWWZhNUVqTGZtQkhpNGVaaVFuVHBtNUtCY3J1eWZQ?=
+ =?utf-8?B?SU5rWm9kRDI2UXUvZnNubEhFQWdNK0VKQkFlYm1sOTRTMEJZVmFaVmNvY0tS?=
+ =?utf-8?B?UnZ0aG5yQmc1VU1FeXphY2EyRnV5QURMNlhxUlNBcE1zYm5EVlpDWmdkS1pL?=
+ =?utf-8?B?Tmw3SS80OGlpT0o5Qm5aMjY4b2wxcE5IWDZXYVBtNzJuTmU1K0F6citBNloy?=
+ =?utf-8?B?cjBCRnpNc0VDMjE3cWZoMWlDRjhVQW82cHpFbktRNi90K083OUNocnZpaXRr?=
+ =?utf-8?B?cytyM3VEVDFqUVJqUm90dGl2WHZobkNKT0RaR1M1V3NDbGpNZXBKaXRlNlBD?=
+ =?utf-8?B?akhnNmVXbEwrQmhKVWtCR2ZVTWpWZnJKbXp5UXljb3plWDZWakh5RW53N0cx?=
+ =?utf-8?B?ZTZJWFRhdER6SmUwQ3Z3b3doRmxXUzZZN1k4UmFMV2Y2eHFnOU81M243SzM4?=
+ =?utf-8?B?aDRKRFplR0VGK1k0azNjdG93bkZLTng3amZFRWdyODFDTERTWlZRZ3ZQT2lm?=
+ =?utf-8?B?c1RCdm1VREYvTVNBcnEvbkJCbE40NURIdCtZd280VkowaGF1ZWd5ZTRMZVda?=
+ =?utf-8?B?dUo5cnFuVGVrTHhzVDYxVEhQZ3FGaldHL1J3NktmeHFXVXlUeUl5a3YxUml3?=
+ =?utf-8?B?K1VHQ1F1cjlUNXVOZm1MNDl3eCtUdGR2NnlFeW0yYlJzRzhTZk5yU29YSU9Y?=
+ =?utf-8?B?Njc4Znc3R3Fya3g3RVVoNXVmSmhTUCtUc1c5eDNhZWRYLzVWM01yVWd3YUww?=
+ =?utf-8?B?ZmpqVWR4ZUk2cDFjU1c1LzhWOEJkN1N0QmxFTXNyamhVV2hFSUVXWDlWd0Yx?=
+ =?utf-8?B?V0lNaFhodzVuNmN2Q2ZOSmVOcFN0L0pPVzF0K0hLUG8rS3EzTForQWtJV2RH?=
+ =?utf-8?B?N3FEWkYyNGE4K01YTndCMFBsUUhvYkVlN1VTY0RtcVM3TUliUzk5eWloTzRr?=
+ =?utf-8?B?dEFGSGt5ZnVjcVIxejE3dXdGYks1V01kUmJGRXdqL2h6dFVnazZQRTBhYng4?=
+ =?utf-8?B?V1ptREpyUlVVc2pXYXlWUEc5OVFWSkh0UGswWjVXRzdPQzlaZjBrWkwwcHYz?=
+ =?utf-8?B?dlhaNDJNTjdoc29WSXVYK3VxZXV1NXNBRW5tRmw5eG84T3BjcHNVWThPanRW?=
+ =?utf-8?B?T3lmU09CMitQSnNUZXMyUmtlcjJYSW05dUoyMHVKb1pQRVlzd0RUWHJBcE9U?=
+ =?utf-8?B?clVwc083a0t2OGk1TUR2UTF4Zk9lcnR0TC9VeEdqUjdjSnJHbGZjWDh3NGQw?=
+ =?utf-8?B?dWVkUkh0K1hwREt4WWpySGhLUUhUZVA3QlBtNndkWktFSzA3Q0pTMHliV0I1?=
+ =?utf-8?B?L2wwazNTWjl0OGV4bFVPQUpMZjl0VGhLQXIrR1FqcXBSbDArNHh5WHNQaUVI?=
+ =?utf-8?B?YXo5TGhEZmhpa3JYTXoya09NR01PdGdhNDJNTFVwODlJZUQyZXB6VHJLa0RK?=
+ =?utf-8?B?WE5CQVlJd2RzUER2bkxEZGVTWFBNNlVaUlNXK0JtbUt0WUVoc21sSm1jVEdG?=
+ =?utf-8?B?VWswRjlPZnFkc3JvNVM4cFFBY2lBSFl2NUJkUS9WWnRMdFNOK2lKWjhyOEJK?=
+ =?utf-8?B?b05HQWpyR2xDRmdrM3luMW4vRGxxQUgxbWFzMjQyRmxsYktZMVpMYXdzNE9J?=
+ =?utf-8?B?VXlxeExNRGtGV2gzYVB4aUhzNEI2VU1rZTlvS2xnNXFWa0dmSDRSQmUzanZY?=
+ =?utf-8?B?cDZGakxrYUNiTGh6NXBaNFIxT0ZXbHNHaENOMzVOTGI1R2dCZVF0Zz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 336429f8-0645-4681-9525-08decb011ccd
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 17:11:17.2387 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KzKKXYBR9nLurKQ2OafNIKY767EwfvCFLYwvWUzQ+o9I/8b5iicoms6qbNDHA/6KZaEYLZwQhFZePtiDE5xYXg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB9152
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,60 +143,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 15, 2026 at 03:30:00PM +0200, Michel Dänzer wrote:
-> On 6/15/26 15:06, Ville Syrjälä wrote:
-> > On Mon, Jun 15, 2026 at 11:08:59AM +0200, Michel Dänzer wrote:
-> >> On 6/15/26 11:06, Michel Dänzer wrote:
-> >>> On 6/12/26 16:41, Ville Syrjala wrote:
-> >>>> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> >>>>
-> >>>> Tweak the eDP fixed mode selection algorithm to allow
-> >>>> userspace to do refresh rate changes on VRR capable
-> >>>> eDP panels without full modesets.
-> >>>>
-> >>>> Ville Syrjälä (4):
-> >>>>   drm/modes: Add DRM_MODE_MATCH_TIMINGS_VRR
-> >>>>   drm/i915: Pass the full atomic state to .compute_config()
-> >>>>   drm/i915/panel: Adjust intel_panel_compute_config() calling convention
-> >>>>   drm/i915/panel: Attempt VRR based refresh rate change for
-> >>>>     !allow_modeset
-> >>>
-> >>> What's the motivation for this approach?
-> >>>
-> >>> Per https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5091#note_2784749 , it comes as a bit of a surprise. The approach we've been discussing at display hackfests instead is to add properties for controlling the maximum & minimum refresh rates.
-> > 
-> > This has nothing to do with limiting the VRR range. What we're doing
-> > here is selecting the actual timings to drive an internal laptop panel,
-> > given some random cooked up modeline from userspace.
-> 
-> This use case would be covered by setting the same values for both properties.
+On Mon Jun 15, 2026 at 3:40 PM BST, Eliot Courtney wrote:
+> Currently, the FSP receive message code will try to allocate whatever
+> was sent without checking it at all. But the actual size allowed is
+> limited to 1024 anyway, so discard any messages over that size as bogus.
+>=20
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
-It's all irrelevant here. We might not even have VRR enabled in this
-case. All we want is to set the mode (or something close enough) to what
-userspace has requested.
+Reviewed-by: Gary Guo <gary@garyguo.net>
 
-> 
-> (There are other use cases where changing mode alone isn't enough though, e.g. involving the compositor setting a narrow range between maximum & minimum refresh rate)
-> 
-> 
-> > For non-VRR panels we just pick the fixed mode whose refresh rate is closest to the
-> > user specified mode, and reject the commit if it's not close enough (<= 1 Hz).
-> 
-> Sounds like that wouldn't be good enough for some video use cases I'm afraid.
-> 
-> 
-> >>> While the approach in this series could be considered an alternative for the maximum, AFAICT it doesn't allow enforcing a minimum refresh rate which differs from the maximum and default minimum.
-> > 
-> > The timings specify the absolute max refresh rate you can achieve. So
-> > a separate max VRR refresh rate knob would be mostly redundant, but as
-> > we've discussed before, it could have its uses for the non-integer
-> > vtotal use cases (CMRR in Intel parlance).
-> 
-> None of that addresses the lack of control of the minimum refresh range.
+> ---
+>  drivers/gpu/nova-core/falcon/fsp.rs | 36 ++++++++++++++++++++++++-------=
+-----
+>  1 file changed, 24 insertions(+), 12 deletions(-)
 
-We've been over this before. Yes, a new property would be needed to
-limit the min refresh rate if someone wants to do that.
-
--- 
-Ville Syrjälä
-Intel
