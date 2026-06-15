@@ -4,154 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C97ACD98DA
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 12:05:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF467CD98C7
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 12:14:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75B5110E3B5;
-	Mon, 15 Jun 2026 12:05:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B28110E3BD;
+	Mon, 15 Jun 2026 12:14:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="oGbVwr4/";
+	dkim=pass (2048-bit key; secure) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="aN6lteHj";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 989FD10E3AE;
- Mon, 15 Jun 2026 12:05:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781525126; x=1813061126;
- h=date:from:to:subject:message-id:reply-to:references:
- in-reply-to:mime-version;
- bh=ahlwrESDLn/pJnKHRO4BrDpKZ/6eWuKZSHAtnSI0hxU=;
- b=oGbVwr4/RMg3SApOkebLv3ZmymqkeOuZDH8CL8zVsk83qmixfcZlqimL
- c3I54ArMcGIxzm1ql8dddGzuym1xKORVflaUWKnwDl86wJWtkJLjz0+Mi
- PIF8bmp9/RJgQMx/RmJTBh1FHIRU77Dc8uUBvmWJcX3MOQDiolwiaPMt/
- E4fyPY6nrit9LpdbBjXU0kkpsM2i5tqMiPSzCoDUJiQ7/xOySp7GEm7DS
- 3GF3OaRE+WWanZWfRtrSJZAQdRLo73BMeTU+g/cdIHwSOzIaOshKwzSi7
- jLOfkEPN+i/qOtZuAhszbgUiCzMpOnTrBZf4CjZTcOMT37F7ZRElT7eVq Q==;
-X-CSE-ConnectionGUID: vbczemG3TpSqniW+L3kMBg==
-X-CSE-MsgGUID: SmwITlAJTQGWqzhK+fLT9g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11817"; a="84827649"
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="84827649"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2026 05:05:26 -0700
-X-CSE-ConnectionGUID: 66M4XXxLQ06fvE2P+j9Asg==
-X-CSE-MsgGUID: NMHn6SrRTcapbLrlSEVvUQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="252544051"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2026 05:05:26 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 15 Jun 2026 05:05:25 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Mon, 15 Jun 2026 05:05:25 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.0) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 15 Jun 2026 05:05:25 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IN8uoVjXzEW9s5m0959lI0pO/XX8/EpvVVyhwnWwhFvv3d5y1EFu7pAGX3je466z4IK/l+RDJMEEiPV/lj64lEn2V5+mjsLWMUsLZZl9DNF9Y2aA/HOj8Uhr9tWFNuhQiiYFVf8a3ULNEl8l3eE9OybX0kDI44azCglGX++Q2hOBSjt7BySK6lIGDGaJy6yeRrTrtH3CJILd+0xb5we/tda1jVfhhP3UEf6JNdYXOaXB9HezYwq20LTj09W4Y9HMdCU9LWN5go+FnojF/ThLjMAwLvR3YC2X6CuRKMX+eqQYdB8OOimvl2b1gbKiT4O6ao46ISYXWXDUfjyNhqKHKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ant5XeQyWedsodMkMx+ucKPXxZ3NGW3V03OB98qKGCU=;
- b=ECoRLzkE1bP2E4TJ+obEKShTSCGWHWWq5FSKoQsbkEKqDlFQ2AUuwaqhsnMpJXszpoDS4EbFEpADw2EqKAiFVmvuUA/St+VpB6rQF3zTtSCKCrJVY85dbj2jMs4m7KOQJgKeCr6zR3EPAf0RA1EK4lvIVlKT1ApMqhutDMlLfn7q3u0FVUe9AEZz0ql0lezdmbT/X81NDHxIP2TacDzHLAH2pR968sSXBDFulyS7rXt1qmuNoOdFrIChqllbURYKprX9Lj+le18vOma3dMQBS8x8pQHQGH4ki5ZZ5WQko8xD1KVxuKgKQdeNQM1TaYIyT+x5L43KpzKFYsNecTsuoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA3PR11MB9273.namprd11.prod.outlook.com (2603:10b6:208:573::17)
- by SJ0PR11MB5070.namprd11.prod.outlook.com (2603:10b6:a03:2d5::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
- 2026 12:05:17 +0000
-Received: from IA3PR11MB9273.namprd11.prod.outlook.com
- ([fe80::31a4:58c:e3b5:43fa]) by IA3PR11MB9273.namprd11.prod.outlook.com
- ([fe80::31a4:58c:e3b5:43fa%4]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
- 12:05:17 +0000
-Date: Mon, 15 Jun 2026 15:04:52 +0300
-From: Imre Deak <imre.deak@intel.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>, Jani Nikula
- <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, "Joonas
- Lahtinen" <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, =?utf-8?Q?Micha=C5=82?= Grzelak
- <michal.grzelak@intel.com>, Uma Shankar <uma.shankar@intel.com>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3] drm/i915: clear CRTC color blob pointers after
- dropping refs
-Message-ID: <ai_qZKu5pKVIWz67@ideak-desk.lan>
-References: <20260612035310.3013066-1-lgs201920130244@gmail.com>
- <aiwXPz0u6HAgSg51@ideak-desk.lan>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <aiwXPz0u6HAgSg51@ideak-desk.lan>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-X-ClientProxiedBy: GV2PEPF000239FE.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:158:400::2b2) To IA3PR11MB9273.namprd11.prod.outlook.com
- (2603:10b6:208:573::17)
+X-Greylist: delayed 602 seconds by postgrey-1.36 at gabe;
+ Mon, 15 Jun 2026 12:14:03 UTC
+Received: from mta-65-226.siemens.flowmailer.net
+ (mta-65-226.siemens.flowmailer.net [185.136.65.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91FC710E3BD
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 12:14:03 +0000 (UTC)
+Received: by mta-65-226.siemens.flowmailer.net with ESMTPSA id
+ 20260615120359b46d0bfee1000207bf
+ for <dri-devel@lists.freedesktop.org>;
+ Mon, 15 Jun 2026 14:03:59 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
+ d=siemens.com; i=alexander.sverdlin@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=XjubY+Oh7WrvZuuR0c/SqxZ8wz+Iz0kfD8bDny81Jxs=;
+ b=aN6lteHjfYiuU2UfzbzC08aCDT6K7TtaW20De4LNNY21I3pZRU8sSgO9zGNsCbeU1qzDpT
+ A66pGhPnrFP8Nt5QgARh1ceqhD+3OZ40SJ0BIoJyQmucal18iMaSf7aEAMsNz38rLQtQu8yS
+ 6tQ6TqFhl3kfJ4lXm7tphenLnM2GjMqe0KLVWH0t/M9DaaPAFEPwcc31/hHe1OwP/WSrGkFg
+ 6p//EQLLXe8hfpqEl+tKca3RJqHaKaVu0hkC+whyA+nO6EtSwRlmA0RcJFBfGwN7mhjEov/h
+ jX5HmvE4Fn+3Ftmo3hy3YRiZKDhcZCzzVSYAUUUq9pvEDcgDZBBZ2wtw==;
+From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+To: linux-leds@vger.kernel.org
+Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+ Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+ Andrew Davis <afd@ti.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org
+Subject: [PATCH 3/3] backlight: lp8864: Convert from LED to backlight class
+ driver
+Date: Mon, 15 Jun 2026 14:03:49 +0200
+Message-ID: <20260615120353.3409035-4-alexander.sverdlin@siemens.com>
+In-Reply-To: <20260615120353.3409035-1-alexander.sverdlin@siemens.com>
+References: <20260615120353.3409035-1-alexander.sverdlin@siemens.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA3PR11MB9273:EE_|SJ0PR11MB5070:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c729f9c-4030-4b0c-cd63-08decad65d9a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|7416014|1800799024|376014|921020|18002099003|22082099003|56012099006|6133799003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: m2jvDlSbRBWEfOFp0LNqoSfUdG4ClHWLA+Ft7P7Je+AKlpRtjEvoVaLcBClLrB6M+zMg6LglWbumaOFBnn4JUTC2i1NS9TfBbBe6cr/8+eUtPY8hqBfkux5wtAeJXfiNiZF/33aHtYYCYHEdulmGoCJclYkQ+akWAz8Ewe7BOJgX/8Tbc7tzO34BUgcwC7t8yg3VFgOaNxLkTAXfiAs+/GioTtsAlllgIUraO7A6T4IuYkqyNkYyc5wnzmbueeQwkgYVc32/6ohSzf/utUK4DEQPacwmd2hoG6y+F0J9FP6ZEz8sS2af4WxF14yuewRWweqXBlQHPRfmnsZAl77V8cjpUnu0sFNebX2JbKO/uepqgtUM0ZwHDlD374wO+WGFAqIYPLypF8kapNvhIdqpbjcGSPanOvt1F4Dd/mXpfMwHpoxMv3pUpGBjEsidci6wPUjniLATdWrUo93+gZGqVUCkQKw1wJKaPUhAlSQKtEpmKCDTt0JQ1vrNFWwn4aC3v3UDYIk4dggfSaKEzoutK1tPHq4QVW+rZD+cLEjVCbj/KrFuvf5azzSy/n1kfHmFwSQ/sCA/MV0kIAiU3l32nkVlIc2O5gNNq07xVzma9iZAEVQW6mzJIswmZ0ymLFZySN/3pCoaLJrhY0ePSrVr+hA7VKx2uKq8yX+Iwc+UkzfKsk3FuYShEpWoV5f/8T7WNu77ZXD4PMEqLjOOP1rp4g2TH31jcCrO9+iwG9Y7A6o=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA3PR11MB9273.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(7416014)(1800799024)(376014)(921020)(18002099003)(22082099003)(56012099006)(6133799003)(4143699003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?1kP/FJGreImEtoF0H8DpPUjuaKcu2FHajTQHxYr6kHPbIVVjMeXdO8TZFbB4?=
- =?us-ascii?Q?DkshGhp67chkzxx3+agBLvXHmWCM2DRg4DrUfL4WPxrmaqXK2DMXzPEkNQOk?=
- =?us-ascii?Q?7peDXoiEbKx/GSXOBETx3bpZU8GwXliJUO7aHzoajQuHym0CJtX9rFtTGoDO?=
- =?us-ascii?Q?gqbqFD/9unmBWcuZa0ClHr3vxvDi1kc3W/TbUi0q2uPcEvyxsxYOs0S78aBc?=
- =?us-ascii?Q?oM+p1mHvaw5vrhsGiAP4ZyUXJTUyN5WhiDDi4789kwFmU3EgaTa0dTXCOkIp?=
- =?us-ascii?Q?y91tGxZloI2IxjdR04SXFDSKeU0ft9NdjI9cDnHIUmnP6JCbyHWWfsm+4wKY?=
- =?us-ascii?Q?WGxuT7rCWuEGpyKb620s1aJcjk8v1L3+feNLsBuefBKImL1N58IcK4V0qwvy?=
- =?us-ascii?Q?i20PGLS7iLaLXQPeFFO5iHbsUHeNxLI2NQy3nozXUikIAAmusQBbCP8rWnMK?=
- =?us-ascii?Q?XWFNHvHYf0WhkF/weiqY25hQxKkx5d1+WquhQY5dMXRXNX8msPaSDi4DoSRT?=
- =?us-ascii?Q?5BnVKG1/Jl+zEvBk2mYbJN/WfHJI4h1ErtQj8aaNHaN3KHFwWN2107vHpc5i?=
- =?us-ascii?Q?5AiX1e75eeuXzh41aDjLpdyGd/nZAMu0QZjnY/OxSd1F8u/JDOuqSfdSnWZK?=
- =?us-ascii?Q?jm1Fir+y3jbTbY/XNpCUa0GWd8klAMRa8vfeoP5hlsys1B96wToyROCdMODS?=
- =?us-ascii?Q?PZhru4UpuzvbCLXAKqZGrklrdBYG3egRS5feTTFAM8Tu5ezhsKagJG5aHMDT?=
- =?us-ascii?Q?Qlr9KMCo5lZhlTUmH1R+cEd8mQTsNb/hY7ZgzF/scSFB5Ney/HfdwbbW7TAL?=
- =?us-ascii?Q?71Iw3n+9d/a3sb9h+Obt7ilt1tNroR/vKi19G6xkssK8uHNS1goOnKVE2ImE?=
- =?us-ascii?Q?14QqclD8XV92qmvijLnB8YiHZaTuM3yrU7Wz4q17UY6jsBjP1CzxP9CtOPwZ?=
- =?us-ascii?Q?Shm5h+H9bvRMlOFwpvZK/qvxa8hGSUaY0nmZyNBP3Y+lVMLb7P3X83wMhAs8?=
- =?us-ascii?Q?so1RJRw77wDNhBUaUSpRumroVh80Kpy0F6cmA0UcJQz6oRLCwXdUfqHwIGdo?=
- =?us-ascii?Q?o2MDFD9K0viJn0vZplM5dBlW8O45avjeSGlglDPzu7CHIzQvRQvAu/HI3j80?=
- =?us-ascii?Q?qsMt6pzjX+hzIAbVBuJdno/hkDvnoSZR3ogad142HqvEFGDx2NVX30mbX4Lx?=
- =?us-ascii?Q?7xnhFaoVvFynXM8O9a5JPmvPdZ6QYmWU/SUh9wF9H5V8vpD8cqq3HcsQtonZ?=
- =?us-ascii?Q?J3tkYJDsi8BkTheOqy3ttMYZJ23F6myXJQE3dnZiAVCKYEJZayZyConodvSk?=
- =?us-ascii?Q?TySg3pCdw9whSoUikUVxT6hiQHcw0YglKNPd2bjHWKyFlq5xakasYKyxLH8u?=
- =?us-ascii?Q?E5c038Zc0vX/AUxgDooQTbfSbn1q5/RXFgu5YLhCj1asdU9F6ugWThnKGYhw?=
- =?us-ascii?Q?xkPkR+TgrrF23Msj5LUkTr71bqyDcZ4vU5OLnlNpcOqK24VeEDNcKygz20FN?=
- =?us-ascii?Q?7eHU8NrA6XUmoTuUuXjMr/bIZKcOF4USQu+elMGRReUUcu25tInv6evArdHr?=
- =?us-ascii?Q?f3YMHm3JmWO60n+oscfF8oy1pqco0krf72nw2m/B3QpJOuYqP0pQQiHVHfu9?=
- =?us-ascii?Q?Op+chTdVdDqBr7ORaWFuT9u9zb+Ixj8HwngrjkJPmfWaU+ROo0GqIDquQPlN?=
- =?us-ascii?Q?CUB+Cwx1nng68aySvPX7UVQU8ut8KXU0l0Vo6KVrsj+i8XmpTKsHM2JuhdCo?=
- =?us-ascii?Q?jDRx3fioUw=3D=3D?=
-X-Exchange-RoutingPolicyChecked: D7MI/uSs82b9qvXalM3kfIDLP7u3XzmtnBH44b16yElcT2hv9Mk8SBrzEihb19ALtNGhT98BpXypIOEShulLPRDO/I/1cZKezeVBbb7HBmLdKDfo7Rxfv14tiDo6EEwXcqpX8HiEw5le/PzpsG/DV07m22UV7CgcChMerWPEE+VPzMo/RBXLDKmnRaHNHXfLjzUTISwr29US0pWLPtZT6JJKT6sd0CMBktqP6J1EzoZTmwceFMZMq/jhf11p0kZmebj3b/pr9o6RP9doJkSc0o4C2MBQqX1b6+j3IbQhgt6vM77u/+WY1TxPP4xQAaK4xOOjsganKIZO2q8GPPRFyw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c729f9c-4030-4b0c-cd63-08decad65d9a
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9273.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 12:05:17.8191 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OoYsKTv544wAc3SwftC2QkelDHI4ZGZtAcFNAIoEcjePR2ub/rr+aPnK+102hkc3/MSmVzfbu2sNALJe++kovA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB5070
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-456497:519-21489:flowmailer
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,68 +63,345 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jun 12, 2026 at 05:27:11PM +0300, Imre Deak wrote:
-> On Fri, Jun 12, 2026 at 11:53:10AM +0800, Guangshuo Li wrote:
-> > intel_crtc_put_color_blobs() drops the CRTC color blob references, but
-> > leaves the corresponding pointers unchanged.
-> > 
-> > This can matter in intel_crtc_prepare_cleared_state(), which frees the
-> > old CRTC hw state before calling intel_dp_tunnel_atomic_clear_stream_bw().
-> > The latter can fail while looking up the DP tunnel group state, for
-> > example with -EDEADLK.
-> > 
-> > If that happens, the function returns without completing the cleared
-> > state preparation. The failed atomic state will then be cleared by the
-> > atomic core and intel_crtc_free_hw_state() can be called again for the
-> > same state, dropping the same blob references again.
-> > 
-> > Clear the blob pointers after dropping the references so repeated cleanup
-> > of the same CRTC hw state is safe.
-> > 
-> > Fixes: fb69d0076e68 ("drm/i915/dp_tunnel: Fix error handling when clearing stream BW in atomic state")
-> > Suggested-by: Imre Deak <imre.deak@intel.com>
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> 
-> Looks ok to me, thanks for the fix:
-> Reviewed-by: Imre Deak <imre.deak@intel.com>
+From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-Patch is pushed to drm-intel-next, thanks.
+Move the TI LP8864/LP8866 driver from drivers/leds/ to
+drivers/video/backlight/ and convert it to register a backlight class
+device as its primary interface.
 
-> 
-> > ---
-> > v3:
-> >   - Move the blob pointer clearing to the end of
-> >     intel_crtc_put_color_blobs(), as suggested by Imre.
-> > 
-> > v2:
-> >   - Keep the original ordering in intel_crtc_prepare_cleared_state().
-> >   - Clear the blob reference pointers in intel_crtc_free_hw_state(), as
-> >     suggested by Imre.
-> > 
-> >  drivers/gpu/drm/i915/display/intel_atomic.c | 6 ++++++
-> >  1 file changed, 6 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
-> > index 71b7325917b6..a16e1cb7d41e 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_atomic.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_atomic.c
-> > @@ -289,6 +289,12 @@ static void intel_crtc_put_color_blobs(struct intel_crtc_state *crtc_state)
-> >  
-> >  	drm_property_blob_put(crtc_state->pre_csc_lut);
-> >  	drm_property_blob_put(crtc_state->post_csc_lut);
-> > +
-> > +	crtc_state->hw.degamma_lut = NULL;
-> > +	crtc_state->hw.gamma_lut = NULL;
-> > +	crtc_state->hw.ctm = NULL;
-> > +	crtc_state->pre_csc_lut = NULL;
-> > +	crtc_state->post_csc_lut = NULL;
-> >  }
-> >  
-> >  void intel_crtc_free_hw_state(struct intel_crtc_state *crtc_state)
-> > -- 
-> > 2.43.0
-> > 
+The motivation is a use case on a hot-pluggable segment of an I2C bus.
+The generic led-backlight driver (drivers/video/backlight/led_bl.c) is a
+platform driver and as such inherently non-hotpluggable. It cannot react
+to dynamic appearance/disappearance of the underlying I2C device. By
+making the LP8864 driver directly register a backlight class device, it
+becomes a native I2C driver that properly supports hot-plug/unplug
+events on the I2C bus.
+
+Key changes:
+- Register a backlight class device using
+  devm_backlight_device_register() as the primary interface
+- Implement backlight_ops (update_status, get_brightness)
+- The hardware 16-bit brightness register (0x0000-0xFFFF) is directly
+  exposed as the backlight brightness range
+- Support DT properties "default-brightness" and "max-brightness"
+  from the backlight common binding
+- Include BL_CORE_SUSPENDRESUME for proper power management integration
+- Preserve backward-compatible LED class device registration: if the
+  "led" child node is present in the DT, an LED class device is also
+  registered (same as the original driver behavior)
+- Preserve the CONFIG_LEDS_LP8864 Kconfig symbol name so that existing
+  kernel configurations are not affected
+- Update MAINTAINERS to reflect the new file location
+
+This will be noticeable for applications which already used the LP8864
+as a backend for the generic led-backlight platform driver, as a
+backlight device will now appear directly in addition to the LED class
+device. However, no in-tree device-trees reference this driver, so
+there is no mainline impact.
+
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+---
+ MAINTAINERS                                   |   2 +-
+ drivers/leds/Kconfig                          |  12 --
+ drivers/leds/Makefile                         |   1 -
+ drivers/video/backlight/Kconfig               |  15 +++
+ drivers/video/backlight/Makefile              |   1 +
+ .../backlight/lp8864_bl.c}                    | 111 ++++++++++++++----
+ 6 files changed, 106 insertions(+), 36 deletions(-)
+ rename drivers/{leds/leds-lp8864.c => video/backlight/lp8864_bl.c} (70%)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index dbd4552236e64..250e8b1ed4bb5 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -26481,7 +26481,7 @@ M:	Alexander Sverdlin <alexander.sverdlin@siemens.com>
+ L:	linux-leds@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/leds/backlight/ti,lp8864.yaml
+-F:	drivers/leds/leds-lp8864.c
++F:	drivers/video/backlight/lp8864_bl.c
+ 
+ TEXAS INSTRUMENTS' SYSTEM CONTROL INTERFACE (TISCI) PROTOCOL DRIVER
+ M:	Nishanth Menon <nm@ti.com>
+diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
+index f4a0a3c8c8705..990cb9ef18c1e 100644
+--- a/drivers/leds/Kconfig
++++ b/drivers/leds/Kconfig
+@@ -529,18 +529,6 @@ config LEDS_LP8860
+ 	  on the LP8860 4 channel LED driver using the I2C communication
+ 	  bus.
+ 
+-config LEDS_LP8864
+-	tristate "LED support for the TI LP8864/LP8866 4/6 channel LED drivers"
+-	depends on LEDS_CLASS && I2C && OF
+-	select REGMAP_I2C
+-	help
+-	  If you say yes here you get support for the TI LP8864-Q1,
+-	  LP8864S-Q1, LP8866-Q1, LP8866S-Q1 4/6 channel LED backlight
+-	  drivers with I2C interface.
+-
+-	  To compile this driver as a module, choose M here: the
+-	  module will be called leds-lp8864.
+-
+ config LEDS_CLEVO_MAIL
+ 	tristate "Mail LED on Clevo notebook"
+ 	depends on LEDS_CLASS && BROKEN
+diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
+index 8fdb45d5b4393..5e624a48aa2a5 100644
+--- a/drivers/leds/Makefile
++++ b/drivers/leds/Makefile
+@@ -59,7 +59,6 @@ obj-$(CONFIG_LEDS_LP55XX_COMMON)	+= leds-lp55xx-common.o
+ obj-$(CONFIG_LEDS_LP8501)		+= leds-lp8501.o
+ obj-$(CONFIG_LEDS_LP8788)		+= leds-lp8788.o
+ obj-$(CONFIG_LEDS_LP8860)		+= leds-lp8860.o
+-obj-$(CONFIG_LEDS_LP8864)		+= leds-lp8864.o
+ obj-$(CONFIG_LEDS_LT3593)		+= leds-lt3593.o
+ obj-$(CONFIG_LEDS_MAX5970)		+= leds-max5970.o
+ obj-$(CONFIG_LEDS_MAX77650)		+= leds-max77650.o
+diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
+index a7a3fbaf7c29e..82ecd7e46236d 100644
+--- a/drivers/video/backlight/Kconfig
++++ b/drivers/video/backlight/Kconfig
+@@ -514,6 +514,21 @@ config BACKLIGHT_LED
+ 	  If you have a LCD backlight adjustable by LED class driver, say Y
+ 	  to enable this driver.
+ 
++config LEDS_LP8864
++	tristate "Backlight driver for TI LP8864/LP8866 4/6 channel LED drivers"
++	depends on I2C && OF
++	select REGMAP_I2C
++	select NEW_LEDS
++	select LEDS_CLASS
++	help
++	  If you say yes here you get support for the TI LP8864-Q1,
++	  LP8864S-Q1, LP8866-Q1, LP8866S-Q1 4/6 channel LED backlight
++	  drivers with I2C interface. The driver registers a backlight
++	  class device and optionally an LED class device.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called lp8864_bl.
++
+ endif # BACKLIGHT_CLASS_DEVICE
+ 
+ endmenu
+diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
+index 794820a98ed49..6a7287d01d81b 100644
+--- a/drivers/video/backlight/Makefile
++++ b/drivers/video/backlight/Makefile
+@@ -62,3 +62,4 @@ obj-$(CONFIG_BACKLIGHT_WM831X)		+= wm831x_bl.o
+ obj-$(CONFIG_BACKLIGHT_ARCXCNN) 	+= arcxcnn_bl.o
+ obj-$(CONFIG_BACKLIGHT_RAVE_SP)		+= rave-sp-backlight.o
+ obj-$(CONFIG_BACKLIGHT_LED)		+= led_bl.o
++obj-$(CONFIG_LEDS_LP8864)		+= lp8864_bl.o
+diff --git a/drivers/leds/leds-lp8864.c b/drivers/video/backlight/lp8864_bl.c
+similarity index 70%
+rename from drivers/leds/leds-lp8864.c
+rename to drivers/video/backlight/lp8864_bl.c
+index d05211b970c94..67b28f7daedd2 100644
+--- a/drivers/leds/leds-lp8864.c
++++ b/drivers/video/backlight/lp8864_bl.c
+@@ -1,12 +1,13 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ /*
+- * TI LP8864/LP8866 4/6 Channel LED Driver
++ * TI LP8864/LP8866 4/6 Channel LED Backlight Driver
+  *
+- * Copyright (C) 2024 Siemens AG
++ * Copyright (C) 2024-2026 Siemens AG
+  *
+  * Based on LP8860 driver by Dan Murphy <dmurphy@ti.com>
+  */
+ 
++#include <linux/backlight.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/init.h>
+@@ -27,6 +28,8 @@
+ #define LP8864_LED_STATUS		0x12
+ #define   LP8864_LED_STATUS_WR_MASK	GENMASK(14, 9)	/* Writeable bits in the LED_STATUS reg */
+ 
++#define LP8864_MAX_BRIGHTNESS		0xffff
++
+ /* Textual meaning for status bits, starting from bit 1 */
+ static const char *const lp8864_supply_status_msg[] = {
+ 	"Vin under-voltage fault",
+@@ -71,13 +74,15 @@ static const char *const lp8864_led_status_msg[] = {
+ /**
+  * struct lp8864
+  * @client: Pointer to the I2C client
+- * @led_dev: led class device pointer
++ * @led_dev: optional led class device pointer
++ * @bl: backlight device pointer
+  * @regmap: Devices register map
+  * @led_status_mask: Helps to report LED fault only once
+  */
+ struct lp8864 {
+ 	struct i2c_client *client;
+-	struct led_classdev led_dev;
++	struct led_classdev *led_dev;
++	struct backlight_device *bl;
+ 	struct regmap *regmap;
+ 	u16 led_status_mask;
+ };
+@@ -157,28 +162,59 @@ static int lp8864_fault_check(struct lp8864 *priv)
+ 	return ret;
+ }
+ 
+-static int lp8864_brightness_set(struct led_classdev *led_cdev,
+-				 enum led_brightness brt_val)
++static int lp8864_brightness_set(struct lp8864 *priv, unsigned int brightness)
+ {
+-	struct lp8864 *priv = container_of(led_cdev, struct lp8864, led_dev);
+-	/* Scale 0..LED_FULL into 16-bit HW brightness */
+-	unsigned int val = brt_val * 0xffff / LED_FULL;
+ 	int ret;
+ 
+ 	ret = lp8864_fault_check(priv);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = regmap_write(priv->regmap, LP8864_BRT_CONTROL, val);
++	ret = regmap_write(priv->regmap, LP8864_BRT_CONTROL, brightness);
+ 	if (ret)
+ 		dev_err(&priv->client->dev, "Failed to write brightness value\n");
+ 
+ 	return ret;
+ }
+ 
+-static enum led_brightness lp8864_brightness_get(struct led_classdev *led_cdev)
++static int lp8864_backlight_update_status(struct backlight_device *bl)
++{
++	return lp8864_brightness_set(bl_get_data(bl), backlight_get_brightness(bl));
++}
++
++static int lp8864_backlight_get_brightness(struct backlight_device *bl)
+ {
+-	struct lp8864 *priv = container_of(led_cdev, struct lp8864, led_dev);
++	struct lp8864 *priv = bl_get_data(bl);
++	unsigned int val;
++	int ret;
++
++	ret = regmap_read(priv->regmap, LP8864_BRT_CONTROL, &val);
++	if (ret) {
++		dev_err(&priv->client->dev, "Failed to read brightness value\n");
++		return ret;
++	}
++
++	return val;
++}
++
++static const struct backlight_ops lp8864_backlight_ops = {
++	.options = BL_CORE_SUSPENDRESUME,
++	.update_status = lp8864_backlight_update_status,
++	.get_brightness = lp8864_backlight_get_brightness,
++};
++
++static int lp8864_led_brightness_set(struct led_classdev *led_cdev,
++				     enum led_brightness brt_val)
++{
++	struct lp8864 *priv = dev_get_drvdata(led_cdev->dev->parent);
++
++	/* Scale 0..LED_FULL into 16-bit HW brightness */
++	return lp8864_brightness_set(priv, brt_val * 0xffff / LED_FULL);
++}
++
++static enum led_brightness lp8864_led_brightness_get(struct led_classdev *led_cdev)
++{
++	struct lp8864 *priv = dev_get_drvdata(led_cdev->dev->parent);
+ 	unsigned int val;
+ 	int ret;
+ 
+@@ -212,18 +248,15 @@ static int lp8864_probe(struct i2c_client *client)
+ 	struct device_node *np = dev_of_node(&client->dev);
+ 	struct device_node *child_node;
+ 	struct led_init_data init_data = {};
++	struct backlight_device *bl;
++	struct backlight_properties props;
+ 	struct gpio_desc *enable_gpio;
++	u32 val;
+ 
+ 	priv = devm_kzalloc(&client->dev, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
+-	child_node = of_get_next_available_child(np, NULL);
+-	if (!child_node) {
+-		dev_err(&client->dev, "No LED function defined\n");
+-		return -EINVAL;
+-	}
+-
+ 	ret = devm_regulator_get_enable_optional(&client->dev, "vled");
+ 	if (ret && ret != -ENODEV)
+ 		return dev_err_probe(&client->dev, ret, "Failed to enable vled regulator\n");
+@@ -238,8 +271,7 @@ static int lp8864_probe(struct i2c_client *client)
+ 		return ret;
+ 
+ 	priv->client = client;
+-	priv->led_dev.brightness_set_blocking = lp8864_brightness_set;
+-	priv->led_dev.brightness_get = lp8864_brightness_get;
++	i2c_set_clientdata(client, priv);
+ 
+ 	priv->regmap = devm_regmap_init_i2c(client, &lp8864_regmap_config);
+ 	if (IS_ERR(priv->regmap))
+@@ -258,11 +290,46 @@ static int lp8864_probe(struct i2c_client *client)
+ 	if (ret)
+ 		return ret;
+ 
++	/* Register backlight class device */
++	memset(&props, 0, sizeof(props));
++	props.type = BACKLIGHT_RAW;
++	props.max_brightness = LP8864_MAX_BRIGHTNESS;
++	props.brightness = LP8864_MAX_BRIGHTNESS;
++	props.scale = BACKLIGHT_SCALE_LINEAR;
++
++	if (!device_property_read_u32(&client->dev, "max-brightness", &val))
++		props.max_brightness = val;
++
++	if (!device_property_read_u32(&client->dev, "default-brightness", &val))
++		props.brightness = val;
++
++	bl = devm_backlight_device_register(&client->dev, "lp8864-backlight",
++					    &client->dev, priv,
++					    &lp8864_backlight_ops, &props);
++	if (IS_ERR(bl))
++		return dev_err_probe(&client->dev, PTR_ERR(bl),
++				     "Failed to register backlight device\n");
++
++	priv->bl = bl;
++	backlight_update_status(bl);
++
++	/* Register LED class device if "led" child node is present */
++	child_node = of_get_available_child_by_name(np, "led");
++	if (!child_node)
++		return 0;
++
++	priv->led_dev = devm_kzalloc(&client->dev, sizeof(*priv->led_dev), GFP_KERNEL);
++	if (!priv->led_dev)
++		return -ENOMEM;
++
++	priv->led_dev->brightness_set_blocking = lp8864_led_brightness_set;
++	priv->led_dev->brightness_get = lp8864_led_brightness_get;
++
+ 	init_data.fwnode = of_fwnode_handle(child_node);
+ 	init_data.devicename = "lp8864";
+ 	init_data.default_label = ":display_cluster";
+ 
+-	ret = devm_led_classdev_register_ext(&client->dev, &priv->led_dev, &init_data);
++	ret = devm_led_classdev_register_ext(&client->dev, priv->led_dev, &init_data);
+ 	if (ret)
+ 		dev_err(&client->dev, "Failed to register LED device (%pe)\n", ERR_PTR(ret));
+ 
+@@ -291,6 +358,6 @@ static struct i2c_driver lp8864_driver = {
+ };
+ module_i2c_driver(lp8864_driver);
+ 
+-MODULE_DESCRIPTION("Texas Instruments LP8864/LP8866 LED driver");
++MODULE_DESCRIPTION("Texas Instruments LP8864/LP8866 LED Backlight driver");
+ MODULE_AUTHOR("Alexander Sverdlin <alexander.sverdlin@siemens.com>");
+ MODULE_LICENSE("GPL");
+-- 
+2.54.0
+
