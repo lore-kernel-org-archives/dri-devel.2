@@ -4,103 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17C95CD98DA
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 17:54:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3AEFCD98CF
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 18:27:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D13F88DE5;
-	Mon, 15 Jun 2026 17:54:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B05610E5AF;
+	Mon, 15 Jun 2026 18:27:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A9v93ZkL";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="GE/yVCfk";
 	dkim-atps=neutral
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
- [74.125.82.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3E9E10E511
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 17:54:06 +0000 (UTC)
-Received: by mail-dy1-f178.google.com with SMTP id
- 5a478bee46e88-306f1213aadso323008eec.1
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 10:54:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781546046; cv=none;
- d=google.com; s=arc-20240605;
- b=Ywy+N6rbul65DcNWQYsTDEC3jh/MyiXnuX51q2q8pG2EdRJKaGRGk3QTBbLyXczTlt
- nyfWEH6Npu7kHxZCqJjiOyP6tS3yKL8/gxIR7uIG7Trqxv4ul52+RUJG373wENv0fvyE
- Ulf9n/TJhVd+i7yhFbsWDq9m7AqjuvPJKHbmMwJYsuVlkTSHDocdeDo3XYnALPpeZXDk
- m6WbWNcVR5k0kn/v+Q3DhN67mO7aNf/yC97GG0R68i2ZzfCqRehOr/O0Zzd2F/kVSUeO
- rBogDlG4dvfGX6yYQeEWMXsVGvjOb2InOQ172d88V+9SoxKwMmRh7DUJyRdQHpKRHD3q
- j6NQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=9Rqy3CrWBr5mXZd21QMPU6BJ30DbF1dOpUcQYTCdhx0=;
- fh=ol9AFyl8ICwFb33QMN/obdxfupovej1VjgU0xz6X1D0=;
- b=AiLbPT8Ofb8nFKgU65i6Gz1mdRxM4Hla2X4pUa9yM+Vk9UD0i05VCbhN+kkRCtBlZh
- 4GgB27n4OpvaM42oNTrUNGvbSY+a7czZpHHhXygjuqWtcoPM0t+E57dCLQa3Kk3GGYYD
- NsHDCt9pbcVyisNdn1WPjcmnV4Jjj9BjDQHuNwEnHKOvRVMueDS7cNOlutsqqJxUC2qQ
- YYsxHKR1RSSjZ20V127Tm9/mh0esoMndGPWIjyDQ/VL5EP0vLris9FHtnK1qziqe5cik
- Ze53M4LIVTe8PsVzDQJ2JJCest3VAkmoXoUFHOOTZjJw52d3la5G+8RpoqTYnM3jFNP1
- MYLQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781546046; x=1782150846; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9Rqy3CrWBr5mXZd21QMPU6BJ30DbF1dOpUcQYTCdhx0=;
- b=A9v93ZkL1JXCrZLCLp+kilr4+5swFWxF5esqbMSYTea+4n+eQ4TY9056FTUt4Aztgq
- jButYOx+1rbOEX1aAP9F6eMEwju6xf0eiotmgS9Qg7LteWoCgVyolNSHxfkGRHh/tVnB
- tSyAXssnGL9mXO5j1/8qcrzekvoAb2VK9y/F/HACHuY1GFoj/a5i01qWy/MAz379D8ij
- K5L4FXAaDwnKdu8tAT7w3lkfCsDHF1R17OpgQoEZRAvEEt8ktB+1GaFay0KdO+0033aG
- 0XFw43mk/dHd/XsTXvP2Ai/5yJaAvB/8ahwyRkLGx0ItIFGjeRpXiZGj8eRCJHMWLBlI
- gZSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781546046; x=1782150846;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=9Rqy3CrWBr5mXZd21QMPU6BJ30DbF1dOpUcQYTCdhx0=;
- b=oIG/81SrX2wdunMgYwN95L1ccLWs2HQr755SDDg6SekjuBFRmZBSgBxWhUszz02cSI
- fEByLlfab2ClKl2tZ/TLlbSTZ1ohJFHUipL5KXXiqV4CXK7pcrbTqREOsMd4bYmglPOV
- dtKHUCGIegRNSUnWkqajOs8MRMR/izi9kyefVv+7HNgvMrHGcXvWTYPoHtBhWfASAkTv
- Taspl96Xk2zL4uNntnaqneyfiWsro9Wi3l6HIwTNuiMiKOWt6VWXrEmiEqng3YWRXMh6
- PhcqdwCCMC8QPrQDhh6KNMnwwlt75abWVItiNEvkCyQUs/TpT1bTAJ/H8cF/LIH/81Yk
- HXsw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+uMv6CCE2riJGmqkbhzeP35nw2XPKLyOHyvhaNFp34KXxphAyXzKY6HjDm0LjbU6WNfonn7l9ZNYI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwmDXbc2ZMbPWnN6XHxWHXMGVKzucwaqR8AyshbI2Pfasd8Vmmf
- u/ISGGvdlY14KnsxiYSGmsKQxrtHc/t618df1NArgG+IYjqGYeB4YZh6oF146DsUvgDuieLb9PS
- EpClvJ0/FzFJYGpAQKJs8BRB0FA5krzA=
-X-Gm-Gg: Acq92OG8PdMSdUrlfJ5Piy7kbe09a9xjCwGcdo5yqS2hyqu2/L26H7vTUAwqrNFm4TS
- HBVUsGyFAw0V9uQcfTBwRar1lmkBPv8IkHp3e5rMkcATgkzD5oWlbFCj+oge/caTXmgABo+sQtl
- 05QbQDvQH/R4a66ynWIp5r8tG7M5VCAqytLleyXfTNqp2G7NolbKgANQnr9QR7EpbQG0MVZguzO
- 7tFdcuuNXYLdOnetHN64T6S/ibHZZ5O4jE2uMwcPh9cNcnsutES6y/MRYwLYZ+7NP06+l960eDY
- 2ZK48+jjGxEt/Xnuw3QzeWMP12kdAcojVt3pfdKKh/EmKwVaNmhMGxEMXaanZIsiBmXvGlPWORY
- uALtQ
-X-Received: by 2002:a05:7300:2d07:b0:304:cec4:dbdb with SMTP id
- 5a478bee46e88-3082008977cmr3599528eec.4.1781546045858; Mon, 15 Jun 2026
- 10:54:05 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E686410E5AF
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 18:27:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Xdvmpa02NvRDCnlFtecMMZM6My+GX1DYEYglA7Z1Bro=; b=GE/yVCfk78acpv9YH5tMCuIV/V
+ v1UJPZQ9PLUoBIMAttSL+CnDztnjc6XiCeS0bMWuF2lRqi+ycErHzwv2Bww7xwrAxbdhSrdBkkDTg
+ wiaC6ZIqQdzClxyKkcyZhXWHlLqXFVhXTprZ1jnXPtSBHqHVSI2ApFvPjrvoV3rFHPZuJb9w44n/c
+ ZOiCVh8oC50xe5Fj6VXhK18Y24n0bgj1aP7fU64F4Vn0PJbQG9BwYEnh5yIxUuqIkXyEGN0HUfSLu
+ euXTlj5cy+y+Ayuakbdnuk5NTjqSAgnBu4I2AknlsTrZy+oYPpU4hpzh2NrLiM4ZHp5Pd0j1hREkQ
+ 2jaNfF3A==;
+Received: from 216-176-47-241.ptr.pdx.com ([216.176.47.241]
+ helo=[10.132.7.237]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wZC1k-000Mqb-Ed; Mon, 15 Jun 2026 20:27:16 +0200
+Message-ID: <e98e6632-20a1-4e76-a6e5-916066c7438a@Igalia.com>
+Date: Mon, 15 Jun 2026 11:27:12 -0700
 MIME-Version: 1.0
-References: <e0689a10-9cd6-4d74-a276-99f8f01c83fa@web.de>
- <da65ea0b-81bd-4109-89cd-f4a5120edba0@web.de>
-In-Reply-To: <da65ea0b-81bd-4109-89cd-f4a5120edba0@web.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 15 Jun 2026 13:53:52 -0400
-X-Gm-Features: AVVi8CdqwiWNBPSphn3J7yyMq6FkhbfPshSymt8PKr3c0v0L9dqT3Suxzi8nKmw
-Message-ID: <CADnq5_P0WSMb1ALbKO-mqRWa+Et3Qe+04um_r0B-cDdxiYo0nA@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amd/display: Use seq_putc() in three functions
-To: Markus Elfring <Markus.Elfring@web.de>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Alex Deucher <alexander.deucher@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>, 
- Ivan Lipski <ivan.lipski@amd.com>, Kees Cook <kees@kernel.org>,
- Leo Li <sunpeng.li@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, Ray Wu <ray.wu@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, Rong Zhang <i@rong.moe>,
- Simona Vetter <simona@ffwll.ch>, 
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- Tom Chung <chiahsuan.chung@amd.com>, LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 3/9] drm/amd/display: use
+ drmm_writeback_connector_init()
+To: sashiko-reviews@lists.linux.dev,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, wsa+renesas@sang-engineering.com
+References: <20260612-wb-drop-encoder-v6-3-9f3a54f81310@oss.qualcomm.com>
+ <20260612185828.C0D241F00A3E@smtp.kernel.org>
+Content-Language: en-GB
+From: John Harrison <John.Harrison@Igalia.com>
+In-Reply-To: <20260612185828.C0D241F00A3E@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,62 +63,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied patches 2 and 3.  Thanks!
-
-Alex
-
-On Fri, Jun 5, 2026 at 8:09=E2=80=AFAM Markus Elfring <Markus.Elfring@web.d=
-e> wrote:
+On 6/12/26 11:58, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
 >
-> From: Markus Elfring <elfring@users.sourceforge.net>
-> Date: Fri, 5 Jun 2026 12:44:01 +0200
+> New issues:
+> - [High] Dangling drmm cleanup action on writeback connector initialization error path leads to Use-After-Free, and possible build failure with drmm_kfree.
 >
-> Single characters should occasionally be put into a sequence.
-> Thus use the corresponding function =E2=80=9Cseq_putc=E2=80=9D.
->
-> The source code was transformed by using the Coccinelle software.
->
-> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/=
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> index 885e9b7bc27a..e45fa6e97fc6 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> @@ -606,7 +606,7 @@ static int dp_lttpr_status_show(struct seq_file *m, v=
-oid *unused)
->                 break;
->         }
->
-> -       seq_puts(m, "\n");
-> +       seq_putc(m, '\n');
->         return 0;
->  }
->
-> @@ -1081,7 +1081,7 @@ static int psr_capability_show(struct seq_file *m, =
-void *data)
->                    str_yes_no(link->psr_settings.psr_feature_enabled));
->         if (link->psr_settings.psr_version)
->                 seq_printf(m, " [0x%02x]", link->psr_settings.psr_version=
-);
-> -       seq_puts(m, "\n");
-> +       seq_putc(m, '\n');
->
->         return 0;
->  }
-> @@ -1266,7 +1266,7 @@ static int hdcp_sink_capability_show(struct seq_fil=
-e *m, void *data)
->         if (!hdcp_cap && !hdcp2_cap)
->                 seq_printf(m, "%s ", "None");
->
-> -       seq_puts(m, "\n");
-> +       seq_putc(m, '\n');
->
->         return 0;
->  }
+> Pre-existing issues:
+> - [High] Pre-existing memory leak of `wb_info` and sleeping in atomic context in `dm_set_writeback()`.
 > --
-> 2.54.0
 >
+> commit 946e1af8401710237d25526b5d87b4357eceb542
+> Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>
+> drm/amd/display: use drmm_writeback_connector_init()
+>
+> The patch converts the driver to use drmm_writeback_connector_init() and
+> drmm_plain_encoder_alloc() to ensure proper cleanup of the writeback
+> connector instance and its job queue.
+>
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> [ ... ]
+>> @@ -11086,7 +11086,7 @@ static void dm_set_writeback(struct amdgpu_display_manager *dm,
+>>   		return;
+>>   	}
+>>   
+>> -	acrtc = to_amdgpu_crtc(wb_conn->encoder.crtc);
+>> +	acrtc = to_amdgpu_crtc(crtc_state->base.crtc);
+> [Severity: High]
+> This is a pre-existing issue, but does dm_set_writeback() allocate memory
+> using GFP_KERNEL in an atomic context?
+>
+> It appears that wb_info is allocated using kzalloc_obj() earlier in this
+> function, which implicitly uses GFP_KERNEL. However, this function is called
+> from amdgpu_dm_atomic_commit_tail(), which is an atomic context where sleeping
+> functions are forbidden.
+>
+> Additionally, dc_stream_add_writeback() copies the contents of wb_info by
+> value, but the originally allocated pointer seems to never be freed before
+> dm_set_writeback() returns. Does this introduce a memory leak every time a
+> writeback job is queued?
+>
+>>   	if (!acrtc) {
+>>   		drm_err(adev_to_drm(adev), "no amdgpu_crtc found\n");
+>>   		kfree(wb_info);
+> [ ... ]
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
+> [ ... ]
+>> @@ -188,17 +187,26 @@ int amdgpu_dm_wb_connector_init(struct amdgpu_display_manager *dm,
+>>   	struct dc *dc = dm->dc;
+>>   	struct dc_link *link = dc_get_link_at_index(dc, link_index);
+>>   	int res = 0;
+>> +	struct drm_encoder *encoder;
+>> +
+>> +	encoder = drmm_plain_encoder_alloc(&dm->adev->ddev, NULL,
+>> +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
+>> +	if (IS_ERR(encoder))
+>> +		return PTR_ERR(encoder);
+>> +
+>> +	drm_encoder_helper_add(encoder, &amdgpu_dm_wb_encoder_helper_funcs);
+>> +
+>> +	encoder->possible_crtcs = amdgpu_dm_get_encoder_crtc_mask(dm->adev);
+>>   
+>>   	wbcon->link = link;
+>>   
+>>   	drm_connector_helper_add(&wbcon->base.base, &amdgpu_dm_wb_conn_helper_funcs);
+>>   
+>> -	res = drm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
+>> +	res = drmm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
+>>   					    &amdgpu_dm_wb_connector_funcs,
+>> -					    &amdgpu_dm_wb_encoder_helper_funcs,
+>> +					    encoder,
+>>   					    amdgpu_dm_wb_formats,
+>> -					    ARRAY_SIZE(amdgpu_dm_wb_formats),
+>> -					    amdgpu_dm_get_encoder_crtc_mask(dm->adev));
+>> +					    ARRAY_SIZE(amdgpu_dm_wb_formats));
+> [Severity: High]
+> If drmm_writeback_connector_init() fails internally after successfully calling
+> drmm_connector_init(), will it leave the drmm_connector_cleanup_action
+> registered?
+I'm not following this one. everything that 
+drmm_writeback_connector_init() does has a check on the return code and 
+only if everything works does it register the cleanup function as the 
+last action. So how do you get a dangling anything?
+
+>
+> The caller, amdgpu_dm_initialize_drm_device(), appears to handle this failure
+> by attempting to free the connector using drmm_kfree(). Since drmm_kfree()
+> requires a dev argument, will this missing argument result in a build failure?
+Bizarre that it is complaining about something in a totally different patch.
+
+>
+> More importantly, since drmm_kfree() frees the memory but does not unregister
+> actions, will the managed resource list later execute
+> drmm_connector_cleanup_action on the already-freed pointer, resulting in a
+> use-after-free when the DRM device is torn down?
+Isn't this just lying? The whole point of drmm_kfree() is surely that it 
+does unregister the cleanup of the allocation?
+
+>
+>>   
+>>   	if (res)
+>>   		return res;
+
