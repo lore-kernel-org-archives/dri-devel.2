@@ -4,55 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FBF6CD98C5
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 05:40:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48DD5CD98C5
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 06:03:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F7AF10E1DA;
-	Mon, 15 Jun 2026 05:40:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC61010E1C8;
+	Mon, 15 Jun 2026 06:03:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="abhgOm2o";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oeSMN76Q";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29B3410E1C2
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 05:40:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88E0A10E1C8;
+ Mon, 15 Jun 2026 06:03:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1152540270;
- Mon, 15 Jun 2026 05:40:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 357E61F000E9;
- Mon, 15 Jun 2026 05:40:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3D22D416AF;
+ Mon, 15 Jun 2026 06:03:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF33D1F000E9;
+ Mon, 15 Jun 2026 06:03:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781502042;
- bh=dDVcmZyuekvrV/bG465ak3v4VzU5afIIbXurQUsiLRc=;
+ s=k20260515; t=1781503389;
+ bh=NH91vhgtpim2mvTKLEXlcggfytTmn9NzXEfuRjaO5Q0=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=abhgOm2ormq9i5VHIdfl5jLbLsiHoTSn2RzNPGRI4t7IzJYHyTZo+A4/hN19oOWSy
- GoX1d41wlOuDMv8YuXS1KMCBBxDkN8eCcVCJa1W3tzHTZY5jMwcVMeIxCNrMeJM6P4
- B+f02rwAv2dmFt3p/3tbHE2JLjlvswSYeuxJTL5rY7stIG8Pz66SvoOZKwzxD2aU/f
- TflxzGZQzRQarXKcxfoi9D1yvdIjcXymtw45L4ZCjtAR63oZy9HLgS5XoEihxRwWSJ
- is3dHbkuWbNlH6DsoBbunrapeVBRiMBQyBit+N2bpTK9+V0gMBpDn5XQb5HLVGZXql
- FudBEJJjUdRVQ==
-Date: Mon, 15 Jun 2026 07:40:38 +0200
+ b=oeSMN76QlgQpFNDQ9ZPs97txznTmGvIYY10j/7nHqew76rsgUzAdF3HKX/zNtettd
+ W96YkR/xavSqS7/9H5conjE9VOzTCZaUQN2aZhs80VnT8sj/EvHMTi716P8Q0B8x8h
+ rk6zLDKBnSylGlM+U7txGlav+5I7I8TlSndqWzW3jLspx7NnFgODc7yxR2NlARYukm
+ 30Kfa6fhqS0jGn6tpUX94n3t6xh/FycJl1CwOJPSvWH5tU+Qm8AEzZTrRZnIfvfN1i
+ C7K8cxTIQ77oKFV8XecAv/hdwlNGncM/5yX3uCiUfW9RNQOKRwvTQAa7OxzUTD4te+
+ 7UPX4idfRPqew==
+Date: Mon, 15 Jun 2026 08:03:05 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Paul Sajna <sajattack@postmarketos.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, linux-kernel@vger.kernel.org,
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, David Heidelberg <david@ixit.cz>,
- phone-devel@vger.kernel.org, Amir Dahan <system64fumo@tuta.io>
-Subject: Re: [PATCH v3 1/4] drm: panel: Add LG LH609QH1 Panel with SW49410
- controller
-Message-ID: <20260615-purring-shrew-of-defense-5a19fe@quoll>
-References: <20260614-judyln-panel-v3-0-07f4134441bd@postmarketos.org>
- <20260614-judyln-panel-v3-1-07f4134441bd@postmarketos.org>
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev
+Subject: Re: [PATCH v2 3/3] dt-bindings: arm-smmu: Document GPU SMMU for
+ Shikra SoC
+Message-ID: <20260615-quirky-horned-chital-543dce@quoll>
+References: <20260615-shikra-gpu-v2-0-2f2d1347c3fb@oss.qualcomm.com>
+ <20260615-shikra-gpu-v2-3-2f2d1347c3fb@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260614-judyln-panel-v3-1-07f4134441bd@postmarketos.org>
+In-Reply-To: <20260615-shikra-gpu-v2-3-2f2d1347c3fb@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,19 +72,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jun 14, 2026 at 05:07:58PM -0700, Paul Sajna wrote:
-> From: Amir Dahan <system64fumo@tuta.io>
+On Mon, Jun 15, 2026 at 03:02:59AM +0530, Akhil P Oommen wrote:
+> From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
 > 
-> Add panel driver used by LG G7 ThinQ (judyln)
+> Add specific compatible strings to document the GPU SMMU present
+> in the Shikra SoC.
 > 
-> Signed-off-by: Amir Dahan <system64fumo@tuta.io>
-> Co-developed-by: Paul Sajna <sajattack@postmarketos.org>
-> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
+>  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
-Please organize the patch documenting the compatible (DT bindings)
-before the patch using that compatible.
-See also: https://elixir.bootlin.com/linux/v6.14-rc6/source/Documentation/devicetree/bindings/submitting-patches.rst#L46
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
