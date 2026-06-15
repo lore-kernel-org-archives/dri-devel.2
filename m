@@ -4,137 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B037FCD98CE
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 05:29:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EB33CD98CE
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 05:38:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E05A610E1B0;
-	Mon, 15 Jun 2026 05:29:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7FC910E1B3;
+	Mon, 15 Jun 2026 05:38:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="esTtbZFQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cIS22vpz";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010009.outbound.protection.outlook.com [52.101.61.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B405F10E1B0
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 05:29:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x+b8OiLL29E/2hEY2qaqUfp2Am2I3+/dBmRosgos2NsSAv423diW3fQvWfwBk0sd2VSXm8ZFhThsIXf/byC8qIWhV0voya6qgXE9INKUuAA+aqCjMRw2S8i48O858L60wi96ZE7gioJm9LWcewhplJ7mj7AphqXtR23Crn/vg4hxFmvHfnMX7mb3V9PUwYvNaoQa5Y36LZTCU5o7wagEDAU2iEdMOCI0U9IVGHeUlF55aLHkjPJLbzkwj8OUrImlzkz+bRcrlmpkWV1wSzw2FvMz2z/l4JKzMVM+xlIbxNHcg2Mu+mEUQGnWqLZdp3IC9wye32ghfXGULY5RPpNFvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e49TG8bSOkcCjh3RY8jLexbQ8J4wVg1Xijjai1ktfuc=;
- b=rlorGNElh63YkI8KkqQ8ZLV4wNPONTGtC7G3PKCGZhmMjW0aa2E4bQiv0pl1vKObnbkqPqM9TrCqB2h77IFQa4VPpjQKXXZSJhiIjxCSU9Zf+t1/lgd0/zqD6txeht12/uR9oJmcv52Zt9hlSKqi1UD9/lTJf42BrCppUhwCD62E0bu1YpsEbaSa6wpqt0UwQkqHYz/BY9/so1njt9Eu8/VEkjTU28xCPjy7522a4Lm0y7l26+j7sT/XWV0UZwR1c+cR6LqvqKyL9VMoIDuTAebpSKUYZi2ixKJWOjCTw4SHGtFocEs8R0DoYy88gytzeN/LMSuI8IeruIht2UCeYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e49TG8bSOkcCjh3RY8jLexbQ8J4wVg1Xijjai1ktfuc=;
- b=esTtbZFQ4JM4FSuKwqG1LymUkQqJe9vXRoPh0JqA/gI94NCz+wwRjSmy0waWc54lY2YI1BDMs+uG86ylvll81QNYrM+8ZeWUFs6cgSfzrkRRu4s5uOFDBFPxH8WXic5qw3LR/Qtnwxcm9fCd65+Wy26pGxpdMxXxAV378cMHV4rfrCLULvxcZWunwMkmozjMCSmdszoUHSCSgX1JAod5R8Da1ZB56tkv+xEIcE4Bu7T7ynOTte2WZA1AjRAlSy1G/DHDEtUSGCtj1eD61hjshy7CsjY3nCU0DjGe0HMJSHmsH6aDjtcY0fJN7mLLxJYcAPOLIFZSFSI2PnQnpw3M3Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by SJ2PR12MB8928.namprd12.prod.outlook.com (2603:10b6:a03:53e::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Mon, 15 Jun
- 2026 05:29:25 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
- 05:29:25 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 15 Jun 2026 14:29:19 +0900
-Message-Id: <DJ9DIY622MHM.3RXBNI25DNAG4@nvidia.com>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Abdiel
- Janulgue" <abdiel.janulgue@gmail.com>, "Robin Murphy"
- <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Danilo Krummrich" <dakr@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v4 04/20] rust: io: implement `Io` on reference types
- instead
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
-Content-Transfer-Encoding: quoted-printable
-References: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net>
- <20260611-io_projection-v4-4-1f7224b02dcb@garyguo.net>
-In-Reply-To: <20260611-io_projection-v4-4-1f7224b02dcb@garyguo.net>
-X-ClientProxiedBy: TYCP286CA0249.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:456::7) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09D1110E1B3
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 05:38:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1D8BB6008A;
+ Mon, 15 Jun 2026 05:38:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 172EA1F000E9;
+ Mon, 15 Jun 2026 05:38:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781501926;
+ bh=61hhhHxcLFdnYxc73vAonQrotow/c6tshPZMdlSimBs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=cIS22vpzTpXb6oBTunY9fHvKllDKVLyTg9aFbuSKk45xfnJEICk4G0/WRGZtMPhkT
+ C3craMqr9NSt0FB3EY/idQnvhVy1Z0gPbe0A6uPT8umjArxH9wFS0RdKyfQ4HdMZYE
+ vOvsa1tQvisyYjnFZDgfnXmwvbsYKwc2Z1Ux/bHsQPgNsewjeLbrLg1jDWohkdxaew
+ Xjwcv6pF0UdwG4UxW1/vftfcLqts3+fuiTOdHVHnaMsDtoo+3XNFmWPg2T82v3rSkv
+ R7ysCXACp4FkPL/5mMbVxleWTPAdw8NsO/yEMz0mEVCbelFAmZx0IX2vKJ3mpIDDRK
+ R8gQhXv87tL0w==
+Date: Mon, 15 Jun 2026 07:38:42 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Paul Sajna <sajattack@postmarketos.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, David Heidelberg <david@ixit.cz>,
+ phone-devel@vger.kernel.org, Amir Dahan <system64fumo@tuta.io>
+Subject: Re: [PATCH v3 2/4] dt-bindings: display: panel: Add documentation
+ for lg,sw49410-lh609qh1
+Message-ID: <20260615-thick-trout-of-inquire-4e4251@quoll>
+References: <20260614-judyln-panel-v3-0-07f4134441bd@postmarketos.org>
+ <20260614-judyln-panel-v3-2-07f4134441bd@postmarketos.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SJ2PR12MB8928:EE_
-X-MS-Office365-Filtering-Correlation-Id: dff503a9-7cbb-434f-dc0d-08deca9f0e83
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|10070799003|7416014|1800799024|376014|366016|4143699003|11063799006|56012099006|5023799004|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: ky0b/Mu7MbIR9zy29dGoCyemdBZ3G6mFzdNG4Zhqq4B73qj93EHypLjtAqoCp5tK7jRUquiYkx9JIhLdc+8GHAcCkWa7BGiUHzcofuEW6kTBcIhhfOwHztBiVfyS1leaARvDDAMtvmTcAr6ZCVE3IyPyxENZqwv41yDC5K0KB1fgvA6YLkNsc1t0RJFUgWbgOQ+v8WxNDr3H+/mRVwGsp5n0n67DAgji2fE7TAKKKjbV/FVnKhGyAfFG8khR7c88IHR71Na1hD+cPyeaeCcbr0PA+psHlYoi13ssVaIEd52UjADds/JumnrDrquKuL6R7adccRWVbPS7+OtWOvHYRUcOnU2Ql9RNWkBJgvOr48fwoIj6pUnI0IMHn7pD71aVCA6QO3HncMXKhkv8z/UoJtxdT51XbmnKMJ+0ACoXun4tfXzymk8cS2h56dUMPClbqfhNBqDpnnspsmNc9HTf9Og/FF4oliAjHaIx+voRqjwkOXUUC+07STTPWVyH3bXF+mPjsKeAn8JwBFCeE2W156gIW3Am56k9ztPp8eenHtap+fwuKCew1rC2qtUdZp1Tttc5L1lyW02YTDMsSL7Ouo0ftV00WydI9qe8rGyGbSCRgXGPtdDRM7ODC6nOIhc5SdAqmseAjeTR/m2XgsRqnsd+rnAakh/C8bfdFIgMKRi1YsP1aZZ4bd3OyOQXrLzf
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(10070799003)(7416014)(1800799024)(376014)(366016)(4143699003)(11063799006)(56012099006)(5023799004)(22082099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K2RvS01zQ3U5YjBYR2UvYjBLMXFmTVBrVzFzMmhOaWtubmhrZW9CUUFxSHQr?=
- =?utf-8?B?aEgweit0TmYxZkUrNFIwRk5scUhkRVZZc0E2b2xLNG5sZWtmcW12VkRpZGlx?=
- =?utf-8?B?anY5WFVycG5SRWlJaEd3WDFvWjh2L1Y2bGZZa3lxR01FUXhKSWwxaHNOYzJa?=
- =?utf-8?B?ejZKVEVQd1NDaWRoc3NKVU0vYTdZMklKenFEc0luNFNzeDVpWWVabE9YOGls?=
- =?utf-8?B?cE5BcnR5N1k0SksrMDdaS3NITFErbVRwVFFLWWFKZldTZTBJU0hheGpmbWhQ?=
- =?utf-8?B?bGxPVDVnejBTYWdnaFNVbFFqRklnd280dmFwQ1BqRHc0cyszWXBhcy94bVJ1?=
- =?utf-8?B?czZoeXVSZ01LQXlLVUxRYk1kS09SaUJvWmNaakliQTFlN1R3VmtPKzJpY1Vh?=
- =?utf-8?B?TGI1V0wvLzVYUTV3ODVRRWYxNXpvN0pUd2tRWGtYem1qVVZnQ1lDWncvZmJu?=
- =?utf-8?B?TTFFUFI1MXUvYm45eDl1aUpkMnd5STlRZ3BNc3N5dDdwWVZLTVljOEZOdlpx?=
- =?utf-8?B?Rk45UkdhcUg1MDM1TzN6Rk5aNGxYY1Z3MVg5aHNJWjB2UGVMUUorUjBnVnc0?=
- =?utf-8?B?NjVlcTBHbXRYV1M2T2RQR0FwY3JFS2ovNGZvekJBUFpublJFRUhKNlorV1U4?=
- =?utf-8?B?MklXd3h1cmx5YWVLWXN0T1hES210aTJCN3ByQjM1TGRTT2JyN0RBQmJTdFhV?=
- =?utf-8?B?emtYLytUaWdveWdTVG5kZEhXS1V0N1pvMVJiSnk0Ykd1VERJblFqaURyOVQx?=
- =?utf-8?B?VjdzZUdWRWFhNkdzb0pTUnZQVk5JUVAyRGlGOFBwYmRZTVVWZ1YzSGUzSGxo?=
- =?utf-8?B?M3dWZ2gycTJSWkR4eHg1ZGpXRzFVNlZWS050RThGcmg1bk1Mc1haR1Y4aWsz?=
- =?utf-8?B?QU1DQ1ZtUHJKYzNxRlpoVkxuemVvTXZLVEIxT2NXd3hQNHlWaUloS0Z6MGpH?=
- =?utf-8?B?WjNZdDhBbVdsTmN5Wjl4ZUpSSVZPK1RwTkNGTGxsT3htVDNmUUpab242bjV4?=
- =?utf-8?B?TlArb0lkK3hYTDY1T2dkOHBDTEVxZGhsSHhibnJaRExhVEJWK3o1UUQwRDdJ?=
- =?utf-8?B?cnAxSGJSSWFOYmJUY1VDTDZIazFIZFkwbFF1WVJGSTFsd0Z1RWxsYzczVERG?=
- =?utf-8?B?NFkvNUNmT1YyWGtkeWgxd3EyVjlVVkdoQmFnU1Jlb3VaaThKVUVqNXhYVk5X?=
- =?utf-8?B?VWpBcUtzd3B1SkVjb1gxQU5hNjkyRmRodWdUYURWVXhPL3FQYnBCdEp0N1Zt?=
- =?utf-8?B?TUNvcVJpR1hEdTdReFBMSTNIaW1DSU1ZZkZqamRod1FEUW0rNEZoYTBETTRu?=
- =?utf-8?B?WnB1ZlZBOVdpUkE0Q2prcGp5NHVSQU9weWNjVU5IL0dBUVZWRGdGTWtuemhp?=
- =?utf-8?B?NTUvNHFEdmRJclVJYW5JOEZUeEFzclFJcnlnZXp0REdJUkJkbW0zM2FrT1kx?=
- =?utf-8?B?V0Y3eGN0TW1DcUFQS1pCSTRjZW9lSFVDSDU5UzNkWE1qQXFETzV1MVVtOFZE?=
- =?utf-8?B?bGRaZ3I3a000aG4xU0lYUmJRMEp0elNVWkJxcnFLNlNUSlZQZHUrblZ5bFhL?=
- =?utf-8?B?SnNBWi9sSHVlcjNLUDdLbXdjQnllUjBnbllENjJhKzE1eXBFS2ZsakNxNzI1?=
- =?utf-8?B?Q0Qrc0o4V2tsQjkyL0grM01PdWZoMXdXK21iSGVxVklSd3E5anhUTXdVcTFy?=
- =?utf-8?B?YktIZUxhMCt2bVEwV0kwVEx0ZHhCRUhTZlcxWm5PcVZ1eXAyNFFXamxjajZS?=
- =?utf-8?B?dDY4TDgwTDY3T0ZTRXZTNUNqVkpleWVObXF2NzhMREwrQ3V5Tm9nYnljUmxu?=
- =?utf-8?B?ZndrZGpJTkYvbEFTRHdEYU9VT2c1bXdOU3BDb1lOcGo1bDF4WjRkTlU1em1r?=
- =?utf-8?B?S2NQb1NoU2drL1hodVRNVXh2ajVWUm92dTZyeHJpcU1xNTNucjZvTlVxQlBZ?=
- =?utf-8?B?MmlaL3F0aW1LMDJhOGVZY2NZZzZqc0I3VjV1M3B6TWw0MkRKb1l4aE9LTWt0?=
- =?utf-8?B?NGdOL2FaNUgwS1AzK0IwTVJNN1FOUURLV29ENEM5ZjdkdGp6UU04Wk1CT1pJ?=
- =?utf-8?B?NDZRQXRyMnBZRUg3TWNQVVpGRFhucGtjVDJCUXpRNHJOVzFYYytQdHJNNSsz?=
- =?utf-8?B?eWJrRXlUcFZTL3M5eERRQ1lUNVJXYmZSQWM4VVcxcW1GbjB6MWRLV3Q3OVht?=
- =?utf-8?B?clkyb29pVjZJZVNzdXkvUGZEQUFINXpIR0dQSmtCbW5jMTJidUJsR1g5RWlE?=
- =?utf-8?B?bkhGdy9NdWZXM0I0M2dlTnNneHlzNXB3Mmh6MXFWQVJkcUcrakg2NitLNDc3?=
- =?utf-8?B?UHF5d0h1MmZvZlpIRzBvZytLZ3dyTjJjUHgwSnlDb0drWVF2YU43R1Bwc016?=
- =?utf-8?Q?+vnhccAE5inV4jXuu2WRrJ81W347nm8apBAD2rfy5Igyf?=
-X-MS-Exchange-AntiSpam-MessageData-1: KvW/wL5Wq+Vz6w==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dff503a9-7cbb-434f-dc0d-08deca9f0e83
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 05:29:25.0461 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Dz6G2t8M/3qX9bp0mSyDvF/SgLxPeIXg9VHlnHdAix0puy93jteG1t3+gxA8H0iOaZvtWasaXSEARKJGgIz8ng==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8928
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260614-judyln-panel-v3-2-07f4134441bd@postmarketos.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,70 +68,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jun 12, 2026 at 1:28 AM JST, Gary Guo wrote:
-> Currently, `Io` is implemented on owned I/O objects (e.g. `Bar`). This is
-> going to change with I/O projections, as then `Io` need to work both for
+On Sun, Jun 14, 2026 at 05:07:59PM -0700, Paul Sajna wrote:
+> Document how to use lg,sw49410-lh609qh1 in a devicetree
 
-nit: s/need/needs.
+"Add Foo bar MIPI DSI panel, which suppors somehing something resolution
+etc."
 
-> owned objects and views of them. Views are themselves reference-like
-> (however they obviously cannot be references, because they belong to a
-> different address space).
->
-> To faciliate the change, change `Io` to be implemented on reference types
+You describe hardware.
 
-typo: facilitate.
-
-> for the owned I/O objects, and make methods take `self` instead of `&self=
-`.
-> When I/O views are implemented, we can then naturally implement `Io` for
-> these objects.
->
-> Signed-off-by: Gary Guo <gary@garyguo.net>
+> 
+> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
 > ---
->  rust/kernel/io.rs     | 80 +++++++++++++++++++++++++--------------------=
-------
->  rust/kernel/pci/io.rs | 12 ++++----
->  2 files changed, 46 insertions(+), 46 deletions(-)
->
-> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-> index 38281636b4da..3b478dcf10f9 100644
-> --- a/rust/kernel/io.rs
-> +++ b/rust/kernel/io.rs
-> @@ -224,7 +224,7 @@ pub trait IoCapable<T> {
->      ///
->      /// - The range `[address..address + size_of::<T>()]` must be within=
- the bounds of `Self`.
->      /// - `address` must be aligned.
-> -    unsafe fn io_read(&self, address: usize) -> T;
-> +    unsafe fn io_read(self, address: usize) -> T;
-> =20
->      /// Performs an I/O write of `value` at `address`.
->      ///
-> @@ -232,7 +232,7 @@ pub trait IoCapable<T> {
->      ///
->      /// - The range `[address..address + size_of::<T>()]` must be within=
- the bounds of `Self`.
->      /// - `address` must be aligned.
-> -    unsafe fn io_write(&self, value: T, address: usize);
-> +    unsafe fn io_write(self, value: T, address: usize);
->  }
-> =20
->  /// Describes a given I/O location: its offset, width, and type to conve=
-rt the raw value from and
-> @@ -299,21 +299,21 @@ fn offset(self) -> usize {
->  ///
->  /// For MMIO regions, all widths (u8, u16, u32, and u64 on 64-bit system=
-s) are typically
->  /// supported. For PCI configuration space, u8, u16, and u32 are support=
-ed but u64 is not.
-> -pub trait Io {
-> +pub trait Io: Copy {
+>  .../bindings/display/panel/lg,sw49410.yaml         | 79 ++++++++++++++++++++++
+>  1 file changed, 79 insertions(+)
+> 
 
-This requirement on `Copy` could seem a bit confusing without context -
-maybe mention explicitly in `Io`'s doccomment that this type is expected
-to be implemented on cheaply copyable handles like references and views?
+A nit, subject: drop second/last, redundant "documentation for". The
+"dt-bindings" prefix is already stating that this is documentation.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
 
-Regardless,
+> diff --git a/Documentation/devicetree/bindings/display/panel/lg,sw49410.yaml b/Documentation/devicetree/bindings/display/panel/lg,sw49410.yaml
+> new file mode 100644
+> index 000000000000..4c4bf4d89353
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/lg,sw49410.yaml
+> @@ -0,0 +1,79 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/panel/lg,sw49410.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: LG LH609QH1 MIPI-DSI panel with SW49410 controller
+> +
+> +maintainers:
+> +  - Paul Sajna <sajattack@postmarketos.org>
+> +
+> +description:
+> +  LG LH609QH1 6.1" 1440x3120 MIPI DSI panel with SW49410 controller found in LG G7 ThinQ smartphone.
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Please wrap code according to the preferred limit expressed in Kernel
+coding style (checkpatch is not a coding style description, but only a
+tool).  However don't wrap blindly (see Kernel coding style).
+
+> +
+> +allOf:
+> +  - $ref: panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: lg,sw49410
+> +      - const: lg,sw49410-lh609qh1
+
+This is very confusing - why two compatibles and why same devices - both
+sw49410 - are compatible with each other?
+
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  backlight:
+> +    description: Backlight device reference
+
+Drop property here, not needed.
+
+> +
+> +  reset-gpios:
+> +    description: Reset pin reference
+> +
+> +  vsp-supply:
+> +    description: Positive voltage supply
+> +
+> +  vsn-supply:
+> +    description: Negative voltage supply
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reset-gpios
+> +  - port
+> +  - vsp-supply
+> +  - vsn-supply
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    dsi {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        panel@0 {
+> +            reg = <0>;
+> +            compatible = "lg,sw49410-lh609qh1";
+> +
+> +            backlight = <&pmi8998_wled>;
+> +            reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
+> +            width-mm = <65>;
+> +            height-mm = <140>;
+> +
+> +            vsp-supply = <&lab>;
+> +            vsn-supply = <&ibb>;
+> +
+> +            pinctrl-0 = <&sde_dsi_active &sde_te_active_sleep>;
+> +            pinctrl-1 = <&sde_dsi_sleep &sde_te_active_sleep>;
+> +            pinctrl-names = "default", "sleep";
+> +
+> +            port {
+> +              panel_in: endpoint {
+
+Messed/inconsistent indentation.
+
+
+Best regards,
+Krzysztof
+
