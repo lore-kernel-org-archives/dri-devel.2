@@ -4,95 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 007E7CD98C5
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 15:13:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7003CCD98CF
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 15:13:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2844210E4EB;
-	Mon, 15 Jun 2026 15:13:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE44410E4F6;
+	Mon, 15 Jun 2026 15:13:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bA0+khJv";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="P4wKzmYP";
 	dkim-atps=neutral
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com
- [209.85.221.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F221410E4E8
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 15:13:10 +0000 (UTC)
-Received: by mail-vk1-f179.google.com with SMTP id
- 71dfb90a1353d-59b5571d3c6so70488e0c.1
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 08:13:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781536390; cv=none;
- d=google.com; s=arc-20240605;
- b=lyAv16kz4CilE1MRb5N3daH6IrQQ+E/WFEW44K4PeyPcIgU7GHv164o8knmTfj9HrE
- hnkiC2XoJ+7SI/1Tek6ts0t9PhrTE/U+dXXSXBq601u0OVswxT9Teu3ZxrJOzUPkmO5H
- akohxofgKvHe4HdxmmWKW/QTB6jusE3Z1jV41j+BTXEIlV1A/L7BON2PrisuGk+OOrbR
- 2k0RHbWvF5rXurAI8BqCQ8gqyKdUAc9Rn5+kS1Eh0xACcu/bbyEMlMCqd+XyXWug5036
- fzG46WHA31l3Pe2IUvUETtc5FGN7UGIt75kgEIniHGO7+2AAqUDUHeXprZz6ESpXKiDO
- ySxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=roATZiTayMkP11ctGTRQ/QSFXQOmjWfML7u319n+/ac=;
- fh=00mYVJznaCzMQJeglZ7nYrozRfr3k/eCinG7Qi6e5lk=;
- b=UaImBwqXGrLGjCz7EoAoIoqr1d3+hfr/5vbsDsC8ucB6ioEWJqd6vo80EiUEmXogQa
- MDyvASXjVEVMYL45W34RHT/VNdNJNdLc0SoECP8Gc0V+/TKNREup5atpO5FEj5L0HmNh
- lUIdDPTlLs0fYPDbEmM7sDNCDZRVRtDeJVShyLI/1kVehP5qnf4XYJfC3XG5TBoNqIN7
- LfNtIdVGosx+nMaFwTgujOEI3ieLg+3ZLts/ovJwjGVUXqR39rcZbkhwE41jChEHpzmj
- PoO8wtXfoSrSTr6XUEZytLwbCR5AHflO3nD5Z9gzRL+XltfFUevBvs2X7jO10BSYlR5B
- AfpQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781536390; x=1782141190; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=roATZiTayMkP11ctGTRQ/QSFXQOmjWfML7u319n+/ac=;
- b=bA0+khJvfxKLGbH12zcMeBwviM9RNP+GF1eGVs5TPwJhhgxJm0+DQv6Bq5W0Nn22oN
- IZ5if9FzH8tJiwYX3Aqw0xwplKnmNcR03d7yPQLEmiagjG9CqKimR2cYG73Do6teHukK
- umiPiJw/p0OKJFSJahMMkY/t5Y2PDtiZ9SQIvjNDcb1kvsL7ISCV1p9Nr8IyWcdQfTNG
- +EFnW8JPk3dnv7gxApiG9e8hpVLRTnnPqPUO8ugGb687jClgzIPq2yw2taTUEuE7jbKL
- Jxg481WP4dWaUHh90Eczg97knt1N9ViNHmKrM1WtrNm/lmvU0lcQVSnPqtHWqftRbklc
- AEzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781536390; x=1782141190;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=roATZiTayMkP11ctGTRQ/QSFXQOmjWfML7u319n+/ac=;
- b=F+8I8fqq/6FXKIHYpIY6W8ThlQz9bBTxqhWQ190ReqTyidOAwVpFThzOki99qO6soW
- AzUnuAllULmC9gQi6QgTNYgj9RxYMxpVE9XqdS8774RvPT0VmKnLJkNdNMBNJWqDX+hZ
- rYkxiSDHqtqGvRAVkW3ookpNlaV4Nrs8bukwHNVZuXmbVAIueVUUsYV68mOAEqsMzapL
- T8GxBfxDf+246rbx3qGtub1e08TP1jFMn3Y/upWatXuC8LHstyUrCaq8JHx7sWfswGLb
- 2ILLV05qdu583CTMqR6XUKSxfH53QY2rylk7hLgnPzgygDlWXhnm6b1HV3plGCW5jXg4
- IchA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/reEURIV1VfqEiBmGc0R4JQKGZkx6Fuu6TXldlTuPJe8oy9krewS6g6AXJBOAq2M1beQG1B3Vd828=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxjlJRXwSsh9bXSeuBSiYK84RTWpBMLMYGawltg2B35ZgDZRkD+
- 1tFtUDH6IYYNYPM8zjtE+JR8lrRD+orsyBUJGHB0xvKt8v5BwAtKTa4nZMK1wNdovMQWFpyTs+o
- zHx+UFhPHSulldZlEh96nswfAwjf7Y5g=
-X-Gm-Gg: Acq92OHhJW66qWlI4jvc2Lkg06Uxl+Y4PcrO8cRvtfLAb0Ys7XTEPM5rpBPYan2/bKD
- e/P3VUydi66nc9AK9satLptGpS5P9CeWxXocX9T/TrAujjLut3sp9+p1VGarPPMaujr4OxWTMUO
- zjlPLdIie5XklU+axRjUdMlr7dcexo1ewb77E4jkjqP4Is3zq/EdU0ddc0jHGIVmRM+whjuzTl1
- VAD+/hoitOVeDLRph7P6+rGpkahIpSjwA5WQm13iovbKdpuwWlyP9/VqhKz2yePbDWE+9Tdjl/b
- EE4NCQxKCKNPEuXyH2LKIzZTVUJ14qQwNYD7asQSmnQi0oY/KncXYt9ya+OQZ59YdzGUvg==
-X-Received: by 2002:a05:6102:c8c:b0:6c1:6ef9:db9d with SMTP id
- ada2fe7eead31-71e88c6e864mr2986309137.3.1781536389962; Mon, 15 Jun 2026
- 08:13:09 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260608063638.24-1-ruoyuw560@gmail.com>
-In-Reply-To: <20260608063638.24-1-ruoyuw560@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 15 Jun 2026 11:12:56 -0400
-X-Gm-Features: AVVi8Cer4GIFMDQbtQ86Y9cQ14WBjF3jDOlUIN6sx-Gkqu9NK1Mrx2Ch-KpOnV0
-Message-ID: <CADnq5_MdEabu0FbbZSvvEMwMwVpogQf_4sXW2R6GQRhq7Xo52A@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: avoid double free in r600 DPM cleanup
-To: Ruoyu Wang <ruoyuw560@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from LO0P265CU003.outbound.protection.outlook.com
+ (mail-uksouthazon11022128.outbound.protection.outlook.com [52.101.96.128])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E83810E4F5
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 15:13:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Dl2ikhImH82hJFh5Rd+oe/1d51WL3cpjyaw0YeUGMNP4W++BXi7n2dXzBnUqmO8/BgyzO6jtLD9pRbcOjHXoBGDNkjHTebSIrzicUnw8jhy0MG9IX4jGEAuiV0ZoUHrEtUpQzYibb2m+F/FyDf5jCf533ycceteifBtO5dm4+EPw2sppE9ECoIlV2ZCyquNkQurmwL61zvR7iV2cAL5yBVIGe5cNUiO6oA4xSlRpENNzaPXQacewjajDMa0yo2rHt2QIv8+CgH5r6hpFYVNVfOcJoL1LUlW14Dh52uGjw7/kV/KKOaB9klUTN2MX2NhA5+ycxfRCp5bp8+ExcSIhDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jPgmbFGRGc+BgS+/4BR6ROcDXAkmehDIC/qNvCJJS6I=;
+ b=w3/monCXno3NsASTH9k4ii0f7NNuypEMEgNGlysJVaI+xN0wHvcUo00EUUpvspH3ahokcDru378miGpkYfXtwfZY1Yj5TSEOh0gwuxWU2KlLbpCLQPOWwllmBQeulIjDINgdy32C0mh9WdlpC1tt+tflUL/OOJL9m5pf/Ve5NgxKGRZNg3lF6g4y+X6GvhtVqNbDhRB/4RGocX01FSxULPYvJY2Fhq/+I3Q3fK+Xcdb+lYvh5sSa4UmBEigsG/O2NUELKIHcZeRrqTyzt8qE7m1VwFmro+Fvqz26tXLi3/zESVN1Fq5D37CgczvEa6B/0EXRjjAgt/H9CHa9PL2B3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jPgmbFGRGc+BgS+/4BR6ROcDXAkmehDIC/qNvCJJS6I=;
+ b=P4wKzmYPohQ7jnB/20Sa4AfuGFkswcodrIHuRK/3Q9/ebBYm5AdxlCsJ2mhIWfrOqAkVevNEC5uuA87QJvXVTQtufYSzt8Ven1HDFDBCdiq500udMMapB1EpwOLc2v4UseANmcOuK1jgfeHVpEkhEA/+LnYFwZxEZFEXRYzTv7c=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CWXP265MB2487.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:9b::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
+ 2026 15:13:09 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
+ 15:13:09 +0000
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 15 Jun 2026 16:13:08 +0100
+Message-Id: <DJ9PXYB91UDG.3BV4EJJ10RIC4@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Abdiel
+ Janulgue" <abdiel.janulgue@gmail.com>, "Robin Murphy"
+ <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Danilo Krummrich" <dakr@kernel.org>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v4 07/20] rust: io: implement `Mmio` as view type
+From: "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.21.0
+References: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net>
+ <20260611-io_projection-v4-7-1f7224b02dcb@garyguo.net>
+ <DJ9PI9NEJ92T.3D0E90RPSCXA2@nvidia.com>
+In-Reply-To: <DJ9PI9NEJ92T.3D0E90RPSCXA2@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0385.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18f::12) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWXP265MB2487:EE_
+X-MS-Office365-Filtering-Correlation-Id: efd169a5-b8b8-4fd8-c406-08decaf09bcc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|10070799003|366016|7416014|376014|23010399003|22082099003|18002099003|4143699003|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info: Up6QCLYUOv+PE9ogj+XSBPxzndc6AUTtMPVpe0m4C54yon1jSc+ogWLm80nDTIy4fS1FBSKCgIzOX/929bqqn6PlPQWBylkZKtHV6mYkxV0fVBR6+sFN58WOQ6PDkoPd5zwvXBJoeYq+BrFsEiDhQYYUaVLS5tn5m8trmJ77funGjz77a3Up5IpQJKZtS58MBcMKbWD1PADnEG8VWa0+BSB/AvTsfLeVsBkvHM1zEJMaBWynLmPIIYzCz36VZSWcm1iphwXxb3YM7PU0WsQynQWMTitmLDECYNpPGnwEI5e8V1Y3Nkat+4krz+AXNVFXk7FeAaGxR/jAilmkFzWgUuLTISVWQy5hAHt3bnxrkcbfJaq518BzYurrKqGMiXOrqGE2+PZlWfprj94uyDZJli4w7Dw8zfUne1zsS49C+Khyg0A1/7BvJzibDyaKBV6+1oTJuLVaDcMTlhoN4l71XgCygUO6KQ+TD+AqUGTJNBh/aiXXzrRUpqmNZW1lMHGtOoz27FwQyjBURzXAG4wAbJXBCnFgH6e0jmZ5vKT3GkGtrXtzRw65Xc8u4hBZqtfkzrjVHUYFZXnLnXkF0KhcwDxHTX013Ypp1OdcICNJqM/C+iJOGh/IgO+ujicAxU4ZdGfr3g/HjjLPvOXLGhfDOVSzBiTDfrY8yLATB9c3UgcHCAxCQ4rVkia478AAEVTw
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(10070799003)(366016)(7416014)(376014)(23010399003)(22082099003)(18002099003)(4143699003)(56012099006)(6133799003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VzNwVlRoK0Q0VEg2b0gwdVI0eFcxaktzcmxvK2tnVFBpek9mSXFHSjFTa1pT?=
+ =?utf-8?B?dDFXUnM2Ukc0NTR5WXVhQkVoZUhKdGhPV2VHRDkvN2wrR2VCZEl0a0JvUnJ6?=
+ =?utf-8?B?WDZHcEpzR1I4TlBTSTFEeFNHaElkQ3p3a2ZMZ1FLUVpGU09PL3haNW9BMGVG?=
+ =?utf-8?B?ckhvbUtwaHZvQzA1SWFZNkdTdGE3Z2VQMEdFSE53dFZDTE9vNmZaM2dmU1My?=
+ =?utf-8?B?aEp4K0hGWnhjYWhhQ3d2UkF1cy9ZMVFwQnNZTXFBekVra2ptOUVsem0vWUhL?=
+ =?utf-8?B?aEoybzBlNW15R3FVNjNiS2p6dENlcTJVeEllVUo0YllIMkpWYlFIQUxKQnlH?=
+ =?utf-8?B?UTRWRUcvZkV1Z2l4NmdUQUF5MzBjYllzL1VRd29vUnBlMmtoUFgyN1UyQlJS?=
+ =?utf-8?B?RXlTOHVzb3hpMmFXYVpOOStVWWR0MDdrSmk2WUxtR0J3Wml2SkE3b1BtTWFM?=
+ =?utf-8?B?L0NNT21mRHIyMWYwMENyRFh2TjRCbDR5YXc4d3R1b2JTVDdpVE4zdEJ5NVIv?=
+ =?utf-8?B?MUtseUlpcUorc0tjTmM3Q0VZV0Rxd01UZXl2NlNvL0hodDJuRDQ0QXN5OFZt?=
+ =?utf-8?B?Qm1SY3lWdUp4bThSaFNlelJGeTJQZ0tRdVkyZHJ5WFNhUFprc0EzemJwMmJ1?=
+ =?utf-8?B?c1VkVUR2ZmI0OTE2T3ltYzRnL1NmRk82TmN2THlRQjBQNWJCanljMWp2WE83?=
+ =?utf-8?B?YWhnOFBFWkxrekQ4RFJmV3ZkSDlhMk5wMnpIWmlZQ2hzNmtYcmFuL1VZeDRo?=
+ =?utf-8?B?NXduamZlRDJpL0RiQ1NLNXFrc05nWlRyaS9hZXpGem1JcGFYOWltWlZRWGlT?=
+ =?utf-8?B?SEx0bjFEY0V2ZXVwR25WV3NUZjVlWHhjZS9PWkgzd3Yra3B1NE9vVHozREdy?=
+ =?utf-8?B?dXIxMDZQY3BIS010SUtPVVlQUXFPWEt6RkNZb0YzZU03bUNPNlRWbkcyaWxr?=
+ =?utf-8?B?bjZnNjl5VHhLeXhWY2NWaU9IdnlHOVdVOTRvODkvNkFWTVl4RllqSlRseGN1?=
+ =?utf-8?B?WnBmajh0VlVVU0t3K2ZkdzZjTXFsMXhYc0lhS2tVMWdBLzFaNVJ0UEpLVHlS?=
+ =?utf-8?B?aG1UMk15V0lMVEhBZWI4M1dHT21iSlNydGZjZldmZVZJdjNZRVIrU3lMMVg2?=
+ =?utf-8?B?Mlg4TnpHbXFhZ01YV2NlT1Q2SEhFWVdZbDZUbFVjUkdubWRLa2xSZWFHNGsw?=
+ =?utf-8?B?eW02OVlmQ3dJek1tMFNwSlk1cXc4M0ZVZjFhT2cwNWh1aXdKVVVZWXN3bmNz?=
+ =?utf-8?B?WHliSnV2WHE3TlpyRkF4UERLSjBucW8rcWVWQWduRXNxeFFQbEhWMi9lQUVE?=
+ =?utf-8?B?U3FjNi9HME1SVWZNTEU1dzluV0ZqWk83WHNJL1hrZy85Q1duR2FxU0ZwN1NV?=
+ =?utf-8?B?QlFXalFmbWdRUWRxYi9UWHZ5NE5aY0V6djNqRXNvNWtXMU1DaENtb0t3MFY2?=
+ =?utf-8?B?d2gyRllFdlV4a1Q1SUU4TnYwUDE3RDRyQldlMjBZQ0d0T1VIWUVXbGwxR2dl?=
+ =?utf-8?B?eWVRblEzZHRhVUdRY3EzUUc2WnBYbHF1ZFQzeWphMVlWYjBrVTVUdlFBUzdN?=
+ =?utf-8?B?VUoxNS9hdUc1NUZnYmdUV3NoRWlsNWtkd0RNM3JSbzFBNHgycDFNRzJyQllk?=
+ =?utf-8?B?WUVCM0RWRXZZancxNEJxdjdLdFRYL1RlVjNPbUZYWURRdmRhVHE5MGxVSUc2?=
+ =?utf-8?B?bGkzYkJiK01BdlRncTNma2Ywc2pRd0dZUWpIanpZeUVZREt1UDJSVGJyRFJ5?=
+ =?utf-8?B?OVVWRmFpYnRVanluNE1SV2t5cmEzOU80U3NXdnMwelBKK0ladVR1eElCQ1Fm?=
+ =?utf-8?B?TWlTUUxLSGpVQU94QnFmUHE4RXZNd1BEbnljSzRrYVgvc3k2NnJFQVlicjlr?=
+ =?utf-8?B?VmZVYzVTUlhoZUc1UXFNOXo0Z1ZxVjFncENKcW5ieWNIQ2Y4RW1JejRBRFJP?=
+ =?utf-8?B?WlN0NldSVnpFYXFuY25VRXJYd3EzdmpLSjl3RDFLTWlSQjIzYitJZ1lrTy93?=
+ =?utf-8?B?LzNtTFl5WUVHK2pSeWNncWxJR1JWQ2JiS0ZHbGl1V3JhaHRpODZqWGYrTDF3?=
+ =?utf-8?B?Z2tneXpxTXo3OU1oNFIwc2tsNk9RQ294UzdtTTY3ejFNVE5wS0FnMzY3aGdP?=
+ =?utf-8?B?aWRHNW1Zb2ZWcE8yT0RRM2RWalJVNThvTE9kWXllRjZ3eVRnLzNXK3BFckYx?=
+ =?utf-8?B?cVNLRGxTUTkwcjN1ZE8zWjA4amprS1daNW9Nd0tTRXd5eC9vU1RJU3FRbVUv?=
+ =?utf-8?B?akhRYjVUd1JOZDRhd2tuWklOUzYwcERLdFVodFNvckpTYjJsQlhHVXRocnpr?=
+ =?utf-8?B?VjRnc2JSOWZzTFJoNWJjWklXS0QvbUxtWEpIT0JnZmhsQ3lwdjFFdz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: efd169a5-b8b8-4fd8-c406-08decaf09bcc
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 15:13:08.8885 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: S37yepC3RpGCnwIy2+jJWzVwlUf88JLar7jx5pkQ4t9kMyoPSq3TE3ylCNY4kUeI1Ae8XHZ81P+Vd+fTsuHXaA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2487
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,110 +149,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 8, 2026 at 5:14=E2=80=AFAM Ruoyu Wang <ruoyuw560@gmail.com> wro=
-te:
+On Mon Jun 15, 2026 at 3:52 PM BST, Alexandre Courbot wrote:
+> On Fri Jun 12, 2026 at 1:28 AM JST, Gary Guo wrote:
+> <...>
+>> +/// A view of memory-mapped I/O region.
+>> +///
+>> +/// # Invariant
+>> +///
+>> +/// `ptr` points to a valid and aligned memory-mapped I/O region for th=
+e duration lifetime `'a`.
+>> +pub struct Mmio<'a, T: ?Sized> {
+>> +    ptr: *mut T,
+>> +    phantom: PhantomData<&'a ()>,
+>> +}
+>> +
+>> +impl<T: ?Sized> Copy for Mmio<'_, T> {}
+>> +impl<T: ?Sized> Clone for Mmio<'_, T> {
+>> +    #[inline]
+>> +    fn clone(&self) -> Self {
+>> +        *self
+>> +    }
+>> +}
+>> +
+>> +impl<'a, T: ?Sized> Mmio<'a, T> {
+>> +    /// Create a `Mmio`, providing the accessors to the MMIO mapping.
+>> +    ///
+>> +    /// # Safety
+>> +    ///
+>> +    /// `raw` represents an valid and aligned memory-mapped I/O region =
+while `'a` is alive.
 >
-> r600_parse_extended_power_table() uses manual kfree() calls for some
-> early allocation failures, but the freed pointers are left in the
-> dynamic power-management state. If device teardown later calls
-> r600_free_extended_power_table(), those stale pointers can be freed
-> again.
+> typo: "a valid".
 >
-> Use the common extended power table cleanup helper for those early
-> failure paths as well, and clear each pointer after freeing it so
-> repeated cleanup stays safe.
+> <...>
+>> -/// [`MmioOwned`] wrapper using relaxed accessors.
+>> +/// [`Mmio`] but using relaxed accessors.
+>>  ///
+>>  /// This type provides an implementation of [`Io`] that uses relaxed I/=
+O MMIO operands instead of
+>>  /// the regular ones.
+>>  ///
+>> -/// See [`MmioOwned::relaxed`] for a usage example.
+>> -#[repr(transparent)]
+>> -pub struct RelaxedMmio<const SIZE: usize =3D 0>(MmioOwned<SIZE>);
+>> +/// See [`Mmio::relaxed`] for a usage example.
+>> +///
+>> +/// # Invariant
+>> +///
+>> +/// `ptr` points to a valid and aligned memory-mapped I/O region for th=
+e duration lifetime `'a`.
+>> +pub struct RelaxedMmio<'a, T: ?Sized> {
+>> +    ptr: *mut T,
+>> +    phantom: PhantomData<&'a ()>,
+>> +}
 >
-> Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+> Is there a reason for not just declaring `RelaxedMmio` as
+>
+>     #[repr(transparent)]
+>     pub struct RelaxedMmio<'a, T: ?Sized>(Mmio<'a, T>);
+>
+> similarly to what the original code did with `MmioOwned`?
+>
+> I tried locally and could build. This avoids declaring `Mmio` and
+> `RelaxedMmio` as basically identical types, and lets us remove the
+> explicit `Send` and `Sync` implementations. IIUC you can also reduce or
+> even remove the invariant section as it is enforced by `Mmio`.
 
-Applied.  Thanks!
+This is what I did originally, but this would cause duplication for
+RelaxedMmioBackend, as now you have to do
 
-> ---
->  drivers/gpu/drm/radeon/r600_dpm.c | 21 +++++++++++++++------
->  1 file changed, 15 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/r600_dpm.c b/drivers/gpu/drm/radeon/r=
-600_dpm.c
-> index 83f1ae31cbdbc..9755e717ca8bb 100644
-> --- a/drivers/gpu/drm/radeon/r600_dpm.c
-> +++ b/drivers/gpu/drm/radeon/r600_dpm.c
-> @@ -932,7 +932,7 @@ int r600_parse_extended_power_table(struct radeon_dev=
-ice *rdev)
->                         ret =3D r600_parse_clk_voltage_dep_table(&rdev->p=
-m.dpm.dyn_state.vddci_dependency_on_mclk,
->                                                                dep_table)=
-;
->                         if (ret) {
-> -                               kfree(rdev->pm.dpm.dyn_state.vddc_depende=
-ncy_on_sclk.entries);
-> +                               r600_free_extended_power_table(rdev);
->                                 return ret;
->                         }
->                 }
-> @@ -943,8 +943,7 @@ int r600_parse_extended_power_table(struct radeon_dev=
-ice *rdev)
->                         ret =3D r600_parse_clk_voltage_dep_table(&rdev->p=
-m.dpm.dyn_state.vddc_dependency_on_mclk,
->                                                                dep_table)=
-;
->                         if (ret) {
-> -                               kfree(rdev->pm.dpm.dyn_state.vddc_depende=
-ncy_on_sclk.entries);
-> -                               kfree(rdev->pm.dpm.dyn_state.vddci_depend=
-ency_on_mclk.entries);
-> +                               r600_free_extended_power_table(rdev);
->                                 return ret;
->                         }
->                 }
-> @@ -955,9 +954,7 @@ int r600_parse_extended_power_table(struct radeon_dev=
-ice *rdev)
->                         ret =3D r600_parse_clk_voltage_dep_table(&rdev->p=
-m.dpm.dyn_state.mvdd_dependency_on_mclk,
->                                                                dep_table)=
-;
->                         if (ret) {
-> -                               kfree(rdev->pm.dpm.dyn_state.vddc_depende=
-ncy_on_sclk.entries);
-> -                               kfree(rdev->pm.dpm.dyn_state.vddci_depend=
-ency_on_mclk.entries);
-> -                               kfree(rdev->pm.dpm.dyn_state.vddc_depende=
-ncy_on_mclk.entries);
-> +                               r600_free_extended_power_table(rdev);
->                                 return ret;
->                         }
->                 }
-> @@ -1296,17 +1293,29 @@ void r600_free_extended_power_table(struct radeon=
-_device *rdev)
->         struct radeon_dpm_dynamic_state *dyn_state =3D &rdev->pm.dpm.dyn_=
-state;
->
->         kfree(dyn_state->vddc_dependency_on_sclk.entries);
-> +       dyn_state->vddc_dependency_on_sclk.entries =3D NULL;
->         kfree(dyn_state->vddci_dependency_on_mclk.entries);
-> +       dyn_state->vddci_dependency_on_mclk.entries =3D NULL;
->         kfree(dyn_state->vddc_dependency_on_mclk.entries);
-> +       dyn_state->vddc_dependency_on_mclk.entries =3D NULL;
->         kfree(dyn_state->mvdd_dependency_on_mclk.entries);
-> +       dyn_state->mvdd_dependency_on_mclk.entries =3D NULL;
->         kfree(dyn_state->cac_leakage_table.entries);
-> +       dyn_state->cac_leakage_table.entries =3D NULL;
->         kfree(dyn_state->phase_shedding_limits_table.entries);
-> +       dyn_state->phase_shedding_limits_table.entries =3D NULL;
->         kfree(dyn_state->ppm_table);
-> +       dyn_state->ppm_table =3D NULL;
->         kfree(dyn_state->cac_tdp_table);
-> +       dyn_state->cac_tdp_table =3D NULL;
->         kfree(dyn_state->vce_clock_voltage_dependency_table.entries);
-> +       dyn_state->vce_clock_voltage_dependency_table.entries =3D NULL;
->         kfree(dyn_state->uvd_clock_voltage_dependency_table.entries);
-> +       dyn_state->uvd_clock_voltage_dependency_table.entries =3D NULL;
->         kfree(dyn_state->samu_clock_voltage_dependency_table.entries);
-> +       dyn_state->samu_clock_voltage_dependency_table.entries =3D NULL;
->         kfree(dyn_state->acp_clock_voltage_dependency_table.entries);
-> +       dyn_state->acp_clock_voltage_dependency_table.entries =3D NULL;
->  }
->
->  enum radeon_pcie_gen r600_get_pcie_gen_support(struct radeon_device *rde=
-v,
-> --
-> 2.51.0
->
+     unsafe { bindings::$read_fn(view.0.ptr.cast_const().cast()) }
+
+and the `.0` causes the macro not being shared with MmioBackend.
+
+Best,
+Gary
