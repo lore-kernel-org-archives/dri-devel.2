@@ -4,55 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E0A6CD98DA
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 09:19:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84770CD98DA
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 09:25:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F42D10E2F6;
-	Mon, 15 Jun 2026 09:19:48 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kA49cMA8";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE9AD10E2F6
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 09:19:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A51DE429F4;
- Mon, 15 Jun 2026 09:19:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14C3B1F000E9;
- Mon, 15 Jun 2026 09:19:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781515186;
- bh=br9QnaTbiZ2vg/7ulLpvZw5fknOcKi18/N9imRPdXg4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=kA49cMA86AwcMwcNsaChkSPTsdN/DDsvJyojhwKPUxHiEjeAbYe/Yd15439IEqvPP
- 7w2VNzD7C7FvlFfEmF0ImzlWbBaW/PDSfioDkOp4YBsd7MZpvCPJQcuKJtcaItEKYO
- +CoiGfi/wXCQBNVqzrzZ71ONVQwAjRIiIxmURq/0AGklJjDYoupgQa4MiRiHCuESUO
- 7+XX0L9r1aUKFrwcui1mcw82GpgAv8JttdFU6e5Tg1Y1X9pvVnrx3AruGBoSrp3MmP
- ckuCsbS1jdy+wM46j/NoSPWi72y6aGA8qw/IxiazjoGOysEyInwYYH+myQhzwYZKOh
- ++PAjq61w/EJw==
-Date: Mon, 15 Jun 2026 11:19:44 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Paul Sajna <sajattack@postmarketos.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, David Heidelberg <david@ixit.cz>,
- phone-devel@vger.kernel.org, Amir Dahan <system64fumo@tuta.io>
-Subject: Re: [PATCH v3 0/4] Add DRM driver for LG LH609QH1 Panel with
- SiliconWorks SW49410 DDIC
-Message-ID: <20260615-celadon-pug-of-teaching-f1eb0a@houat>
-References: <20260614-judyln-panel-v3-0-07f4134441bd@postmarketos.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD9E610E303;
+	Mon, 15 Jun 2026 09:25:12 +0000 (UTC)
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com
+ [209.85.217.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F045510E303
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 09:25:10 +0000 (UTC)
+Received: by mail-vs1-f43.google.com with SMTP id
+ ada2fe7eead31-6efdb57d98fso651674137.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 02:25:10 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781515510; x=1782120310;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ekHktY4/Tubvm6BgE1BfS1UNgz1F/icrKZN3pNx8f0Y=;
+ b=hE6lRgtLvydX2C3id204JF1T6Ts3vrSa8VovlKz6MAPU7kQAXfUe5Pi2s/mVYqZdJ8
+ tQY3XluFwEi/EUueeJO2eq0vihekhcHiGyOTVMs6IknASJK5MkNo2pkZ3itOwdKU1QcT
+ OELYZvenqPF/ZkTeMvXdqzMMRWX0UN+m357cYt0uDeq9yTCqvZEqWB6iMTCFu/Re45zt
+ qkfk3fJ2sBqQ8nhaFtzKN10yHIXopegkaXIo2AoUoBI6ENIs3xAFcXvP75mFfkROfNMk
+ Kl4lpmTacwk34YIhFii2+Dw9UkxhNut/rrGU7Dwj/riF7OwEaXkDoY+HUo01bFedHWGu
+ UW1A==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ91yYVc4NcXCAqSNMB2Oa9puxpk/NjO4pnGFq/bZXDH57ObaEdO7rcgqvmPAbnqKPi5wFgWlfNFw1g=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyEhe09U4jtg0gtGZGinRQvGpUhqHJQLXJ1Dj0EKDBl6sNlBk5A
+ weSrZhp7UeW44dQEJVDAsZduQiBhzIEzPm6eLCKCtGaTs/ZDVqDkzRuH8Nb9zXOh
+X-Gm-Gg: Acq92OHaA0y/CMlF6/MgIznxpMJVr28mRBKCWlKvtY6YhmeR3W/EdzDiDN1T0qHhci0
+ g8dIhSUTk5fFheKuiHYjBQpkV/qgRdWSK7gHKSvtDfVlKa4ZqNI8wxRoGGBYvHoJExPPpXAkM35
+ +8V54Std/LE3tTdiKGv3iM/8U80xVH/cN1wx8ZC31hSvFlT/e1KHWue24GGisJXRtPWsIifrlME
+ AJ40Ed/Bls3EGLoACha5gxI/nPJJevLLQLEefVruBj8deW648kTFb5v0dwagD+V39SjloCymNEJ
+ AwbGyljaniQPEoqb3sUjQW0nMzfHfyBWImlEfA59TBp79sKvxWbq+TmeopWm3gnS12OwOoS2xyM
+ /ayTrtxXcdYJEZjZt+D0yQ7RdydDI2i2u+W4++4xnmMo6JZl1wa6Ok4V4dboK0U3EYJ19Hl9Es1
+ C1x+kPKcN/mQpp40isNWN2MBudo14w8jnvmEJb0AArHEYudRB7C/XsNWtyT4k/
+X-Received: by 2002:a05:6102:f13:b0:631:2cb0:bf8d with SMTP id
+ ada2fe7eead31-71f5e1f25d4mr4071161137.6.1781515509728; 
+ Mon, 15 Jun 2026 02:25:09 -0700 (PDT)
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com.
+ [209.85.222.42]) by smtp.gmail.com with ESMTPSA id
+ a1e0cc1a2514c-966a0149563sm2653658241.0.2026.06.15.02.25.09
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Jun 2026 02:25:09 -0700 (PDT)
+Received: by mail-ua1-f42.google.com with SMTP id
+ a1e0cc1a2514c-9639b1ef167so1130520241.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 02:25:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8/kQuRlYl/z13mnjUAsdI2RwPNAVoto83FjF9qJx+ib8GqIyvz6eZIsV2+jTfyF9/Be/Rhq85r5Oc=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:32c4:b0:6c2:e290:cc69 with SMTP id
+ ada2fe7eead31-71f60e0fc5bmr5388435137.23.1781515508903; Mon, 15 Jun 2026
+ 02:25:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="r3flv32pwoicf25h"
-Content-Disposition: inline
-In-Reply-To: <20260614-judyln-panel-v3-0-07f4134441bd@postmarketos.org>
+References: <20260615-rcar-du-dsc-v4-0-93096a1b56a3@ideasonboard.com>
+ <20260615-rcar-du-dsc-v4-2-93096a1b56a3@ideasonboard.com>
+In-Reply-To: <20260615-rcar-du-dsc-v4-2-93096a1b56a3@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 15 Jun 2026 11:24:57 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVxwvDmRqsdbA_ReCnnaDWbzzTKGCXw-64U-bSJfgiy7g@mail.gmail.com>
+X-Gm-Features: AVVi8Ceq73VEJddOjmb1j9jjrYgT5rbGI4-mYSdD7C_MYewqPqxZACymjTcgJ3U
+Message-ID: <CAMuHMdVxwvDmRqsdbA_ReCnnaDWbzzTKGCXw-64U-bSJfgiy7g@mail.gmail.com>
+Subject: Re: [PATCH v4 2/7] dt-bindings: display: bridge: Document Renesas
+ R-Car V4H DSC bindings
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,46 +103,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Tomi,
 
---r3flv32pwoicf25h
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 0/4] Add DRM driver for LG LH609QH1 Panel with
- SiliconWorks SW49410 DDIC
-MIME-Version: 1.0
+On Mon, 15 Jun 2026 at 08:28, Tomi Valkeinen
+<tomi.valkeinen+renesas@ideasonboard.com> wrote:
+> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>
+> The Renesas DSC Display Stream Compression is a bridge embedded in the
+> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
+> 8k or 400 Mpixel/s .
+>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> [tomi.valkeinen: fix the example]
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-Hi,
+Thanks for the update!
 
-On Sun, Jun 14, 2026 at 05:07:57PM -0700, Paul Sajna wrote:
-> This patch series adds a drm panel driver for the LG SW49410 panel found
-> in the LG G7 ThinQ (codename judyln).
->=20
-> The basic driver skeleton was generated by
-> https://github.com/msm8916-mainline/linux-mdss-dsi-panel-driver-generator=
- from the vendor
-> device-tree.
->=20
-> There seems to still be some power supply issues, the bottom-left
-> corner of the screen is dark, and the rest of the screen develops
-> shadow-y burn-in-like patterns when resumed after being left off for a
-> while. https://i.imgur.com/oJZSHzE.jpeg
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
+> @@ -0,0 +1,99 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/bridge/renesas,dsc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Renesas R-Car DSC Display Stream Compression
+> +
+> +maintainers:
+> +  - Marek Vasut <marek.vasut+renesas@mailbox.org>
+> +
+> +description: |
+> +  This binding describes the VESA DSC Display Stream Compression encoder
+> +  embedded in the Renesas R-Car V4H SoC. The encoder supports all DSC1.1
+> +  encoding mechanisms, configurable bits-per-pixel, resolution up to 8k.
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - renesas,r8a779g0-dsc
+> +      - const: renesas,rcar-dsc
 
-If it's not reliable, why should we merge it, especially if it can lead
-to ABI-breaking changes like it happened already.
+Please do not introduce new "renesas,rcar" fallback compatible values,
+unless you are adding new support for a hardware block that is present
+in SoCs belonging to multiple (nowadays I would say at least three)
+R-Car generations.  The DSC is only found in R-Car Gen4 SoCs, so
+"renesas,rcar-gen4-dsc" sounds more appropriate.
+However, so far R-Car V4H is the only R-Car Gen4 SoC that has a DSC.
+Even the very similar R-Car V4M does not seem to have it.
+R-Car X5H has DSC-functionality integrated in its DisplayPort TX
+controller, so that seems to be a different implementation?
+Hence that rules out any family-specific compatible value for now.
 
-Maxime
+The rest of the (system/core) SoC integration LGTM.
 
---r3flv32pwoicf25h
-Content-Type: application/pgp-signature; name="signature.asc"
+Gr{oetje,eeting}s,
 
------BEGIN PGP SIGNATURE-----
+                        Geert
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCai/DrwAKCRAnX84Zoj2+
-dvSLAYCUeqXkEWCZYPDmb9C4HFz4oPSXwi1Dx6FvQvx1m6GcGlmBxYGudjULAGhD
-BkqFyysBgIaJFNlt8hptIRLxVVW6H9rPZv/sFsX6b+XvM1Xrw+6hqlzLyWoJq04c
-bMMlDVi88Q==
-=3mCa
------END PGP SIGNATURE-----
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
---r3flv32pwoicf25h--
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
