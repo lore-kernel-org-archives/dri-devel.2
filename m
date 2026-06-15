@@ -4,140 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C712BCD98DE
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 08:47:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 157BCCD98C5
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 08:51:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14F2710E2B3;
-	Mon, 15 Jun 2026 08:47:26 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="A/L7l04q";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SQiH3gkQ";
-	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F07DB10E2B3
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 08:47:23 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65F6KukC3828083
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 08:47:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- XdQz1b15fvVu+nGad87JsVN4bifqNqTlT1TALXLaWMI=; b=A/L7l04q06VnUsSS
- 7fbT250j4NRZbzkSAHdTKoOvqCWWLB+Rm72im3e2CJmPfh6A0jNVEb+P4NJjFFIF
- TUgjByUM6gL6weuo5exipo6OXMhXHpayonykmb136o/iDCEI78acUvqkkQlUDpeK
- 6oh4R+gTHnEOERpMgpfRbhnJyid/uBtJe72Yq0QO2EKfVhxpbL3YCD582crUfrSl
- U277hUmHxXtdQy1bfg5BivTOO+40Kp7iKszD06S+/HJqwXKB9oM4gafNirRkQ4Da
- zaYQZ5Y90yPL1xI3sYUsHa+qPOTL4d8zjZe4KIlm01H0iOrKxRqqfH3+gDp8hU1V
- h2ZSKw==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ery7u6fq6-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 08:47:22 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2c2d65d9773so30744875ad.0
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 01:47:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1781513242; x=1782118042;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=XdQz1b15fvVu+nGad87JsVN4bifqNqTlT1TALXLaWMI=;
- b=SQiH3gkQ6bHLyWcNFwPJ/e00xkcZTmfcINT5xqFCAner/PpYUh2hcyDPDievQB+yhF
- orV06Yddu9UmNpw3XPcRCkNYr8ba6EPpTjqKkSKA9GhWWgIzYsW1GyNE3pv4Kb0SjX39
- +QZL9/AfcRlqdtGVe/pqc//TbC0LBYTPut8Z7qcPRaSB8Ce0vA3VS4O+hrqrjV2eW9F5
- WcYpCWW7OxddW3rrTtNgwMzpfjpYPCCqrs4anwVAZyhy40CDCuyJdztny30GjwD1VK5a
- uGQEb8rSDzIoTDgXjKEr0kqfYgz9ggCJtbF/MLwWfinzeJBnnPN37VDM8fEBMexK/wNP
- 2fxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781513242; x=1782118042;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=XdQz1b15fvVu+nGad87JsVN4bifqNqTlT1TALXLaWMI=;
- b=kpTugx/U9MFQhCiLXPqYlTOmcxTKsEGQ6D1zwKJBlfN+e/Gsp99hYcdTaIo0YRvOmj
- Ztc68IwXpZgDioj1fsFRmnpSvs7Vhwdw47iKyNH9sXfXSwuun2OgjNOfe5j7r2aZVKdV
- AQq3eruFS93oiQdkGn8VW+20ALgSy4j5oiBBDne91NMIUvOLKIPkcmKY+o6KlJBJvjRw
- PJ8NTjcN5mQzl+dYd16rtac2rvmtkiBmXQpIYDfJU2KuOijUzWnCSs/1QMHidBnsx0Yn
- uzvJgIeIbW0PoIBE9/FSsTE+pU4rBnjdMubo04qQWRN/HqlmLVvUqr6EUoc9sBgl83Fc
- 2Giw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ88Xw4h6ReBo8JWkSF2WCXc73sW8ofpF1l9jw/z6+NhexZG9dnNaGyFPSv+aFW1fraK7BMCaOyolE8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YykUaJM6HXBwhti6OxQ68TdHMq1nR/nrdZf44irZeUSYbB599IJ
- 4u3slwfVkgGl6V66fGCvZHsBCNn9Iqd86/1T+gVMNcLNUz9VSpGUZTIJWEfLpMB+BJYdmmpoSom
- V5DXUJN2jxTfOtPdyOq7pkFDEUEPFyt2rM4INls76nBfCdcW1artA06Ljk6eP5N/40UJL9dI=
-X-Gm-Gg: Acq92OEnKF1Gsf0G3HEVpolboLPbj4i7Lsn0ta/PFxJ/O2gAzGHooUkIH0gq04FP7hE
- +Itk3Nk9uTgkZrmZlNa/kZ6I37wPrpaBwnlzgcJQZOROj0hFhwX6L/UFswtJxR8JcQfXE6QTcM+
- zDQDGwtaTVbf8oFIiTRA3fAbnFn/a/qw8lZv8VTNLzWaT52S5QCvLHt03rZCRobvNnmhoWwcXyR
- 9gJbaMtP28sB+XFCzd2V34dK/CLcNa1bacTTnOPUqh4R/ieeKu5sKhFXQI38PYweS5Kmgtz6cAg
- qmaJNqf6FcJKY1wpH9PwRmpw4J1r0hV/1SUExI8NvwMVgbx4vcitHRIHEr28IWn/NEsP5vZguzr
- EElpIod69z1AYzvl0VKUiWVvBc60uy/0N+/z5PthBWb1s4dYXHQECBL/Zyp+J88QW2T+sNpsanK
- +EYmSrwmFh7zupL9frVw==
-X-Received: by 2002:a05:6a21:3cc2:b0:3b3:1951:489b with SMTP id
- adf61e73a8af0-3b78409e4c0mr14916134637.45.1781513241954; 
- Mon, 15 Jun 2026 01:47:21 -0700 (PDT)
-X-Received: by 2002:a05:6a21:3cc2:b0:3b3:1951:489b with SMTP id
- adf61e73a8af0-3b78409e4c0mr14916108637.45.1781513241514; 
- Mon, 15 Jun 2026 01:47:21 -0700 (PDT)
-Received: from [10.133.33.122] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c8661b5ccafsm8502219a12.2.2026.06.15.01.47.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jun 2026 01:47:21 -0700 (PDT)
-Message-ID: <df14ba01-7f60-4d4f-b3f2-b74c9db98c97@oss.qualcomm.com>
-Date: Mon, 15 Jun 2026 16:47:16 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7780610E2FA;
+	Mon, 15 Jun 2026 08:51:53 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B53DC10E2C6
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 08:51:51 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.167])
+ by APP-03 (Coremail) with SMTP id rQCowABXddwgvS9q0N_KFA--.599S2;
+ Mon, 15 Jun 2026 16:51:44 +0800 (CST)
+Message-ID: <d5df0e9df3a9a68aae982f2fce830a4b10468476.camel@iscas.ac.cn>
+Subject: Re: [PATCH v4 4/6] drm/verisilicon: add DC8000 (DCUltraLite)
+ display controller support
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Mon, 15 Jun 2026 16:51:43 +0800
+In-Reply-To: <20260615065003.76661-5-a0987203069@gmail.com>
+References: <20260615065003.76661-1-a0987203069@gmail.com>
+ <20260615065003.76661-5-a0987203069@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 28/39] drm/msm/dp: Mark the SST bridge disconnected
- when mst is active
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20260410-msm-dp-mst-v4-0-b20518dea8de@oss.qualcomm.com>
- <20260410-msm-dp-mst-v4-28-b20518dea8de@oss.qualcomm.com>
- <ge2bgx7rn4vcyptf4cd7hnodnycrg7gdjceqq5zdncmdmmnjlu@2cuu3lcotxeb>
-Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <ge2bgx7rn4vcyptf4cd7hnodnycrg7gdjceqq5zdncmdmmnjlu@2cuu3lcotxeb>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=F8BnsKhN c=1 sm=1 tr=0 ts=6a2fbc1a cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=qtCM4fGR6xh4bEnU-0UA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: zGyjLJor3J60mi5BIV0z3s_gEQSKLHMi
-X-Proofpoint-ORIG-GUID: zGyjLJor3J60mi5BIV0z3s_gEQSKLHMi
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDA5MSBTYWx0ZWRfXy6kQt7pgST6F
- SzFM7v1zeQr2NVO3mSm0lhEMtoE3nLmBQHiz8N0sfyV/pY5oX7pLIVbvTY46f4mcuP/DbrHQb23
- SBc8jBklBi5GjoqX8fdoN1uGehFeAXLgdWcfgW8O6OYBHe+gFFioX2amIpJYDYn33HtIRKVFG7K
- MNSGkVsgf+v4l1SV1WDTUy54q3LXFuP1rnbBBZSCcsth/bZw13N2poMbBFiFVuMif67BXI03Tta
- IjVA4kDz/u2afEfoqZ4A3dMityAAlC0X0nzjtlAFlVl5ZnhdKm6hcsL+LwKLQxJv+/LOjz9YM9G
- dOSvi06+de0CawgYBAwX1i3XUMusHNAFY51IP3Yzjy6oC5mXqn2UplP2fuqG3XKU1Sx+I5j4n47
- ZwlhqUeAGzfq0T2CvJofvVLGte4Dx165gzXBuNcTx3ItEvpvNjve0F4R0RSp1xE0cr3xZ5VJPcC
- e23085SCqd8jUHzoLvw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDA5MSBTYWx0ZWRfXwqDmOeXeFFth
- W5UWw1dXEOdpOJex9tAkh7lepxd0GJu5JPhhzbUNzMgO0S9C6qGvFWF7XS4UlJRTz+q8AOQyDxm
- w2Bp60v8+6rUoaTDefDKJuXNo638//8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-15_02,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
- phishscore=0 impostorscore=0 spamscore=0 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150091
+X-CM-TRANSID: rQCowABXddwgvS9q0N_KFA--.599S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxtr18Wr1rGrW5uFW7Xr1xAFb_yoW3ArW7pF
+ 4vyay8Wr4UJayI9r97tFy8KF90kw1xtayrWrZ7G34Yvrn8tFyDWFW0qFyUZayDWrZ7JF4I
+ qFsY9w47CrW2v3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+ 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+ c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+ 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+ 14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+ IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+ 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+ IFyTuYvjxUqVcEUUUUU
+X-Originating-IP: [112.94.100.167]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,26 +67,233 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+=E5=9C=A8 2026-06-15=E4=B8=80=E7=9A=84 14:50 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
+> The Nuvoton MA35D1 SoC integrates a Verisilicon DCUltraLite display
+> controller whose register layout differs from the DC8200 in several
+> important ways:
+>=20
+> 1. No CONFIG_EX commit path: framebuffer updates use the enable (bit
+> 0)
+> =C2=A0=C2=A0 and reset (bit 4) bits in FB_CONFIG instead of the DC8200 st=
+aging
+> =C2=A0=C2=A0 registers (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT,
+> =C2=A0=C2=A0 FB_BLEND_CONFIG, PANEL_CONFIG_EX).
+>=20
+> 2. No PANEL_START register: panel output starts when
+> =C2=A0=C2=A0 PANEL_CONFIG.RUNNING is set; there is no multi-display sync =
+start
+> =C2=A0=C2=A0 register.
+>=20
+> 3. Different IRQ registers: DCUltraLite uses DISP_IRQ_STA (0x147C) /
+> =C2=A0=C2=A0 DISP_IRQ_EN (0x1480) versus DC8200's TOP_IRQ_ACK (0x0010) /
+> =C2=A0=C2=A0 TOP_IRQ_EN (0x0014).
+>=20
+> 4. Per-frame commit cycle: DCUltraLite requires the VALID bit in
+> =C2=A0=C2=A0 FB_CONFIG to be set at the start of each atomic commit
+> (crtc_begin)
+> =C2=A0=C2=A0 and cleared after (crtc_flush).
+>=20
+> 5. Simpler clock topology: only 'core' (bus gate) and 'pix0' (pixel
+> =C2=A0=C2=A0 divider) clocks; no axi or ahb clocks required.=C2=A0 Make a=
+xi_clk and
+> =C2=A0=C2=A0 ahb_clk optional (devm_clk_get_optional_enabled) so DC8000 n=
+odes
+> =C2=A0=C2=A0 without those clocks are handled gracefully.
+>=20
+> Add vs_dc8000.c implementing the vs_dc_funcs vtable for the above
+> differences.=C2=A0 The probe now selects vs_dc8000_funcs when the
+> identified
+> generation is VSDC_GEN_DC8000 (DCUltraLite reads model 0x0,
+> revision 0x5560, customer_id 0x305).
+>=20
+> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+> ---
+> =C2=A0drivers/gpu/drm/verisilicon/Makefile=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
+ 9 ++-
+> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
+ 1 +
+> =C2=A0drivers/gpu/drm/verisilicon/vs_dc8000.c | 78
+> +++++++++++++++++++++++++
+> =C2=A04 files changed, 86 insertions(+), 4 deletions(-)
+> =C2=A0create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8000.c
+>=20
+> diff --git a/drivers/gpu/drm/verisilicon/Makefile
+> b/drivers/gpu/drm/verisilicon/Makefile
+> index 9d4cd16452fa..d2fd8e4dff24 100644
+> --- a/drivers/gpu/drm/verisilicon/Makefile
+> +++ b/drivers/gpu/drm/verisilicon/Makefile
+> @@ -1,6 +1,6 @@
+> =C2=A0# SPDX-License-Identifier: GPL-2.0-only
+> =C2=A0
+> -verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
+> vs_drm.o vs_hwdb.o \
+> +verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
+> vs_dc8000.o vs_drm.o vs_hwdb.o \
+> =C2=A0	vs_plane.o vs_primary_plane.o vs_cursor_plane.o
+> =C2=A0
+> =C2=A0obj-$(CONFIG_DRM_VERISILICON_DC) +=3D verisilicon-dc.o
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c
+> b/drivers/gpu/drm/verisilicon/vs_dc.c
+> index 9729b693d360..9499fffbca58 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
+> @@ -90,13 +90,13 @@ static int vs_dc_probe(struct platform_device
+> *pdev)
+> =C2=A0		return PTR_ERR(dc->core_clk);
+> =C2=A0	}
+> =C2=A0
+> -	dc->axi_clk =3D devm_clk_get_enabled(dev, "axi");
+> +	dc->axi_clk =3D devm_clk_get_optional_enabled(dev, "axi");
+> =C2=A0	if (IS_ERR(dc->axi_clk)) {
+> =C2=A0		dev_err(dev, "can't get axi clock\n");
+> =C2=A0		return PTR_ERR(dc->axi_clk);
+> =C2=A0	}
+> =C2=A0
+> -	dc->ahb_clk =3D devm_clk_get_enabled(dev, "ahb");
+> +	dc->ahb_clk =3D devm_clk_get_optional_enabled(dev, "ahb");
 
+Please make the clock change a separated patch for atomicity.
 
-On 4/12/2026 8:11 AM, Dmitry Baryshkov wrote:
-> On Fri, Apr 10, 2026 at 05:34:03PM +0800, Yongxing Mou wrote:
->> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>
->> The bridge detect function is only applicable for SST. In MST mode,
->> connector detection is handled by MST bridges. This patch skips
->> detection for the SST bridge when MST is active.
-> 
-> "This patch"
-> 
-Sorry, I missed that earlier. I’ve fixed it in this version.
->>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->> ---
->>   drivers/gpu/drm/msm/dp/dp_display.c | 3 +++
->>   1 file changed, 3 insertions(+)
->>
-> 
+BTW the MA35D1 manual's clock tree shows that DCUltra appears on AXI2
+ACLK, AHB_HCLK2, behind a mux of SYS-PLL/EPLL-DIV2 (which seems to be
+the core clock), and behind a divider (which seems to be the pixel
+clock).
+
+However it's weird that only one DCUltra Clock Enable Bit exists
+despite both bus clocks have "ICG" (I think it means "Integrated Clock
+Gating"). In addition the linux clk-ma35d1 driver assigns "dcu_gate" as
+a downstream of "dcu_mux", although the Figure 6.5-2 in the TRM shows
+no ICG after the "Display core CLK" mux.
+
+Is the two bus clocks controlled by a single gate bit, and is the bit
+also gating DC core clock?
+
+Thanks,
+Icenowy
+
+> =C2=A0	if (IS_ERR(dc->ahb_clk)) {
+> =C2=A0		dev_err(dev, "can't get ahb clock\n");
+> =C2=A0		return PTR_ERR(dc->ahb_clk);
+> @@ -134,7 +134,10 @@ static int vs_dc_probe(struct platform_device
+> *pdev)
+> =C2=A0	dev_info(dev, "Found DC%x rev %x customer %x\n", dc-
+> >identity.model,
+> =C2=A0		 dc->identity.revision, dc->identity.customer_id);
+> =C2=A0
+> -	dc->funcs =3D &vs_dc8200_funcs;
+> +	if (dc->identity.generation =3D=3D VSDC_GEN_DC8200)
+> +		dc->funcs =3D &vs_dc8200_funcs;
+> +	else
+> +		dc->funcs =3D &vs_dc8000_funcs;
+> =C2=A0
+> =C2=A0	if (port_count > dc->identity.display_count) {
+> =C2=A0		dev_err(dev, "too many downstream ports than HW
+> capability\n");
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.h
+> b/drivers/gpu/drm/verisilicon/vs_dc.h
+> index 544e1a37065b..5218e8cf63e2 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_dc.h
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc.h
+> @@ -66,5 +66,6 @@ struct vs_dc {
+> =C2=A0};
+> =C2=A0
+> =C2=A0extern const struct vs_dc_funcs vs_dc8200_funcs;
+> +extern const struct vs_dc_funcs vs_dc8000_funcs;
+> =C2=A0
+> =C2=A0#endif /* _VS_DC_H_ */
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8000.c
+> b/drivers/gpu/drm/verisilicon/vs_dc8000.c
+> new file mode 100644
+> index 000000000000..be0c0d7baf52
+> --- /dev/null
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc8000.c
+> @@ -0,0 +1,78 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2026 Joey Lu <yclu4@nuvoton.com>
+> + */
+> +
+> +#include <linux/regmap.h>
+> +
+> +#include "vs_crtc_regs.h"
+> +#include "vs_dc.h"
+> +#include "vs_primary_plane_regs.h"
+> +
+> +static void vs_dc8000_panel_enable_ex(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_RESET);
+> +}
+> +
+> +static void vs_dc8000_panel_disable_ex(struct vs_dc *dc, unsigned
+> int output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			=C2=A0 VSDC_FB_CONFIG_RESET);
+> +}
+> +
+> +static void vs_dc8000_crtc_begin(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_VALID);
+> +}
+> +
+> +static void vs_dc8000_crtc_flush(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			=C2=A0 VSDC_FB_CONFIG_VALID);
+> +}
+> +
+> +static void vs_dc8000_crtc_enable(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_ENABLE);
+> +}
+> +
+> +static void vs_dc8000_crtc_disable(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			=C2=A0 VSDC_FB_CONFIG_ENABLE);
+> +}
+> +
+> +static void vs_dc8000_enable_vblank(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_DISP_IRQ_EN,
+> +			VSDC_DISP_IRQ_VSYNC(output));
+> +}
+> +
+> +static void vs_dc8000_disable_vblank(struct vs_dc *dc, unsigned int
+> output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_DISP_IRQ_EN,
+> +			=C2=A0 VSDC_DISP_IRQ_VSYNC(output));
+> +}
+> +
+> +static u32 vs_dc8000_irq_ack(struct vs_dc *dc)
+> +{
+> +	u32 irqs;
+> +
+> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &irqs);
+> +	return irqs;
+> +}
+> +
+> +const struct vs_dc_funcs vs_dc8000_funcs =3D {
+> +	.panel_enable_ex	=3D vs_dc8000_panel_enable_ex,
+> +	.panel_disable_ex	=3D vs_dc8000_panel_disable_ex,
+> +	.crtc_begin		=3D vs_dc8000_crtc_begin,
+> +	.crtc_flush		=3D vs_dc8000_crtc_flush,
+> +	.crtc_enable		=3D vs_dc8000_crtc_enable,
+> +	.crtc_disable		=3D vs_dc8000_crtc_disable,
+> +	.enable_vblank		=3D vs_dc8000_enable_vblank,
+> +	.disable_vblank		=3D vs_dc8000_disable_vblank,
+> +	.irq_ack		=3D vs_dc8000_irq_ack,
+> +};
 
