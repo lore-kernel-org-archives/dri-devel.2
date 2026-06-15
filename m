@@ -4,63 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 735E5CD98C5
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 00:17:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79D82CD8CA8
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 00:18:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3BA310E14C;
-	Mon, 15 Jun 2026 00:17:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C854710E157;
+	Mon, 15 Jun 2026 00:18:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.b="gEWReboa";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FSSoE0Nb";
 	dkim-atps=neutral
-Received: from out-171.mta0.migadu.com (out-171.mta0.migadu.com
- [91.218.175.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92DD410E14E
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 00:17:49 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
- s=key1; t=1781482108;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Vuvqav2sU6zSRBZDHAzLQ2ucs28StDCHC2l3aV/G/U0=;
- b=gEWReboaLC9ILUVIVaLt9fW/I982/gpbCwY1HkbyuN+C9Q7dWlFCmRMIZOWLqD3gxf81CD
- dubMjf9Uz8KzqfFVbCvAru8FEl0vT5D8EiDxBdNSu2QRn7Qq/GIw0d/DH8X+VRGLWJfvdc
- CJWwRHmhPKmp1r4d8OnDN5WAfgA2MCw5/+XmZNRbcyE4ggcj4a/QMziAZKQLQ39lFWCAZs
- 5vadsLAvFNRvTzp8rOlsZngI0TGRInKUUibq4LYKr5Nm++E3/7R5oekfTQ+3fDv0CjqHfs
- P/AEzDTiaTec84IN4NIRHpldfMGSUmEwg+Zj4dhTGHb+X0klyhmP45TbKcasCQ==
-From: Paul Sajna <sajattack@postmarketos.org>
-Date: Sun, 14 Jun 2026 17:07:59 -0700
-Subject: [PATCH v3 2/4] dt-bindings: display: panel: Add documentation for
- lg,sw49410-lh609qh1
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260614-judyln-panel-v3-2-07f4134441bd@postmarketos.org>
-References: <20260614-judyln-panel-v3-0-07f4134441bd@postmarketos.org>
-In-Reply-To: <20260614-judyln-panel-v3-0-07f4134441bd@postmarketos.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Jessica Zhang <jesszhan0024@gmail.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, David Heidelberg <david@ixit.cz>, 
- phone-devel@vger.kernel.org, Amir Dahan <system64fumo@tuta.io>, 
- Paul Sajna <sajattack@postmarketos.org>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781482095; l=2409;
- i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
- bh=Ks9/ggz0gsVtbuy3t9hg1UTiYS+A12Js0rYjwehxUPU=;
- b=TaxnqGmI3KdzfXiBJe5J0lfduQUw8XGGu66SUV6wR3T4yI6PCsarkN5kFltywOvESRe/X22oU
- o432i6+6lieB3zfduUwHO+HEYi/Ph/LlKNdaUqfNOXv8Bv/QubQIQyR
-X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
- pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
-X-Migadu-Flow: FLOW_OUT
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B30110E157
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 00:18:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E7E2343251;
+ Mon, 15 Jun 2026 00:18:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 982D71F000E9;
+ Mon, 15 Jun 2026 00:18:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781482682;
+ bh=D0M6Ucn4o06rLjKqLhPXilHkISXTrNCsJAeIkz6Dk0o=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=FSSoE0NbVKD8FYDkOiD6TUB+u0URe5FE+w2ViPNTf/lkc4ZDu1Q9d8k48eYxuTMJV
+ p0HaocCwEZipfl6mXpBXW/UueZcqraJ2jgx/RE1XXT6JEVgRMH0R9UgMSqXxxBg5Yl
+ x5xJ31nYnnicfv0o2Qv2RB1PuYZ34I41KG2nFXV7ow7nuwU8Mj7a9sm62iAR1iXW+l
+ ksiklASJVyOznujQ5cjpM0KnfPbmE5gqoaLIZ+eLLQ+/F9whqKr7s0gwfxuvb67A2Q
+ KarNjbcTXcpyw7SfK72QFsgq8HSzQ6ISLF5WJ2a7AbVBLQGxWnsql4Mbm+8QYb8hm1
+ eSXGoyX2+N7vA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/4] drm: panel: Add LG LH609QH1 Panel with SW49410
+ controller
+To: "Paul Sajna" <sajattack@postmarketos.org>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260614-judyln-panel-v3-1-07f4134441bd@postmarketos.org>
+References: <20260614-judyln-panel-v3-1-07f4134441bd@postmarketos.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 15 Jun 2026 00:18:02 +0000
+Message-Id: <20260615001802.982D71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,102 +54,132 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Document how to use lg,sw49410-lh609qh1 in a devicetree
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Missing `drm_panel_remove()` in the `mipi_dsi_attach()` error path=
+ causes a global list corruption and Use-After-Free.
+- [High] DSI commands are sent while the panel is held in reset in `sw49410=
+_panel_unprepare()`.
+- [Medium] Misplaced `MIPI_DSI_MODE_LPM` flag manipulation around a softwar=
+e memory packing function.
+- [Medium] The panel is published to the system before its DSC configuratio=
+n is fully initialized.
+--
 
-Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
----
- .../bindings/display/panel/lg,sw49410.yaml         | 79 ++++++++++++++++++++++
- 1 file changed, 79 insertions(+)
+commit 1a6b069af275d9965692f4acaa02ebd1a8517da9
+Author: Amir Dahan <system64fumo@tuta.io>
+Subject: drm: panel: Add LG LH609QH1 Panel with SW49410 controller
 
-diff --git a/Documentation/devicetree/bindings/display/panel/lg,sw49410.yaml b/Documentation/devicetree/bindings/display/panel/lg,sw49410.yaml
-new file mode 100644
-index 000000000000..4c4bf4d89353
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/lg,sw49410.yaml
-@@ -0,0 +1,79 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/lg,sw49410.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: LG LH609QH1 MIPI-DSI panel with SW49410 controller
-+
-+maintainers:
-+  - Paul Sajna <sajattack@postmarketos.org>
-+
-+description:
-+  LG LH609QH1 6.1" 1440x3120 MIPI DSI panel with SW49410 controller found in LG G7 ThinQ smartphone.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: lg,sw49410
-+      - const: lg,sw49410-lh609qh1
-+
-+  reg:
-+    maxItems: 1
-+
-+  backlight:
-+    description: Backlight device reference
-+
-+  reset-gpios:
-+    description: Reset pin reference
-+
-+  vsp-supply:
-+    description: Positive voltage supply
-+
-+  vsn-supply:
-+    description: Negative voltage supply
-+
-+required:
-+  - compatible
-+  - reg
-+  - reset-gpios
-+  - port
-+  - vsp-supply
-+  - vsn-supply
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        panel@0 {
-+            reg = <0>;
-+            compatible = "lg,sw49410-lh609qh1";
-+
-+            backlight = <&pmi8998_wled>;
-+            reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
-+            width-mm = <65>;
-+            height-mm = <140>;
-+
-+            vsp-supply = <&lab>;
-+            vsn-supply = <&ibb>;
-+
-+            pinctrl-0 = <&sde_dsi_active &sde_te_active_sleep>;
-+            pinctrl-1 = <&sde_dsi_sleep &sde_te_active_sleep>;
-+            pinctrl-names = "default", "sleep";
-+
-+            port {
-+              panel_in: endpoint {
-+                remote-endpoint = <&mdss_dsi0_out>;
-+              };
-+            };
-+        };
-+    };
+This commit adds a new panel driver for the LG SW49410 controller used
+in the LG G7 ThinQ. It configures the panel, sets up the DSI commands,
+and initializes the DSC parameters.
 
--- 
-2.54.0
+> diff --git a/drivers/gpu/drm/panel/panel-lg-sw49410.c b/drivers/gpu/drm/p=
+anel/panel-lg-sw49410.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-lg-sw49410.c
 
+[ ... ]
+
+> +static int sw49410_panel_program(struct sw49410_panel *ctx)
+> +{
+
+[ ... ]
+
+> +	ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+> +
+> +	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
+> +
+> +	ctx->dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
+> +
+> +	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
+
+[Severity: Medium]
+Does this code incorrectly clear and restore the MIPI_DSI_MODE_LPM flag?
+
+The drm_dsc_pps_payload_pack() function merely formats a local structure
+in memory and performs no hardware DSI transactions, so manipulating DSI
+hardware transmission flags around it seems unnecessary.
+
+By restoring the flag immediately after packing, does it cause the
+subsequent mipi_dsi_picture_parameter_set_multi() call to execute in Low
+Power Mode rather than the intended High Speed mode?
+
+[ ... ]
+
+> +static int sw49410_panel_unprepare(struct drm_panel *panel)
+> +{
+> +	struct sw49410_panel *ctx =3D to_sw49410_panel(panel);
+> +
+> +	gpiod_set_value(ctx->reset_gpio, 1);
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+> +
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+
+[Severity: High]
+Is it intentional to assert the reset GPIO before sending the sleep
+commands?
+
+Because the display controller is held in hardware reset, it cannot receive
+or process the display off and sleep commands, which could cause the DSI
+host's transmissions to fail or time out.
+
+Looking further down in this function, the reset GPIO is asserted a second
+time, which suggests this first call might be misplaced.
+
+[ ... ]
+
+> +static int sw49410_panel_probe(struct mipi_dsi_device *dsi)
+> +{
+
+[ ... ]
+
+> +	drm_panel_add(&ctx->panel);
+> +
+> +	/* This panel only supports DSC; unconditionally enable it */
+> +	dsi->dsc =3D &ctx->dsc;
+> +
+> +	ctx->dsc.dsc_version_major =3D 1;
+> +	ctx->dsc.dsc_version_minor =3D 1;
+
+[Severity: Medium]
+Could this cause a race condition where a concurrently probing display
+driver reads uninitialized DSC settings?
+
+Since drm_panel_add() makes the panel visible globally, another driver
+could find it before the DSC parameters like slice_width and
+bits_per_component are fully populated.
+
+Should drm_panel_add() be called as the final step of initialization?
+
+[ ... ]
+
+> +	ctx->dsc.slice_count =3D 1440 / ctx->dsc.slice_width;
+> +	ctx->dsc.bits_per_component =3D 8;
+> +	ctx->dsc.bits_per_pixel =3D 8 << 4; /* 4 fractional bits */
+> +	ctx->dsc.block_pred_enable =3D true;
+> +
+> +	return mipi_dsi_attach(dsi);
+> +}
+
+[Severity: High]
+Does returning the error from mipi_dsi_attach() without calling
+drm_panel_remove() leave a dangling pointer in the global panel list?
+
+If mipi_dsi_attach() fails, the probe function returns the error directly.
+Because the panel context is allocated via devm_drm_panel_alloc(), it will
+be automatically freed by the driver core.
+
+However, since drm_panel_add() was already called, this freed memory would
+remain linked in the global DRM panel list, leading to a use-after-free
+the next time the list is traversed.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260614-judyln-pan=
+el-v3-0-07f4134441bd@postmarketos.org?part=3D1
