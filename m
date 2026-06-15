@@ -4,136 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 211D0CD98DA
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 10:05:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29F9CCD98C5
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 10:05:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F17110E32F;
-	Mon, 15 Jun 2026 10:05:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F89C10E339;
+	Mon, 15 Jun 2026 10:05:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="dUwl1SEB";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aHHdewTV";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="STf8qDEg";
 	dkim-atps=neutral
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021134.outbound.protection.outlook.com [52.101.100.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D826D10E32F
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 10:05:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rXgcQy/NHZfs47zyOaws8vcMMrRtWUYLr0TPN3F7YF6vLqtXM3XCi415OCckYzwhC80pE7RAW+VhAdac+1ZCzW62HAFuKSKtnmFGikX/nNowRFdUMAroxvqcgp1VGV+9sPBEpnxH5DWrViz2310p2i9W7so/Ssz7vebzdCBlSGhFPrK12E6nrlaeyxnPAsWroEi9e+0lqVP1ZLYYW0vfxATaBz44uQ1Yzc48R1A5scpflD1WUUSpObP9DYML4Wy1l5J3q8/QEgU89iGhRY/ZDqk67uW5dMAKyPY0AH/Fg4pxPFe1g8V2l5sy8K34FTX970Sr8HiZ8vsGZHhrhj2z7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7+BPTyh+t6jHP749f/MCfkCPvaOKHfbtFfG14iSYzVk=;
- b=o0fAIGctgTJ617oE+MXloAGbR4bK298qrmyuvRgeHjOckxkTVH27IQWdIUCeN04lFMtT2gYwromBqV95zKfLNW6RlC5aZAC/2DTh+58YRJmRdopyzMGJyeuHEkcLDNe8Atb3aztUxZnm2z6h5S1dS2B6KwHfDvNYvhI97claIpJlTOnrpsUn+gFUoTc6y3HU72BKNfaCKqi+WpIZ71JjVvK4GvLhhF6BNlSuNpjmsXHE9wTx9v585Txg3RlCZlzoZTGmAq+hFfBgR+uFjGjhhbrgFdAiWuujNLEvcQ7YbR4KxFc9Kb67CwRWlesUGiXgY9fY2CfLVhgg6D13J2UlPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7+BPTyh+t6jHP749f/MCfkCPvaOKHfbtFfG14iSYzVk=;
- b=dUwl1SEBUPFxgsDFVoZ9uq9anv8bZ7fyGyQeEwnY6ZG88hZ5kbBQv8tELXdYKkdbcizS6tcKFscQlcdZKsJjsZvM+6mfMBrbkyYMyYVpwEto4U2ZSUr1fy1Rbx5i8fvYRB/TPrPaWNNnXP1xxe2P2WVRbYV3GSBfbyAtHc+C6Dw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO7P265MB7828.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:419::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
- 2026 10:05:06 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
- 10:05:06 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 15 Jun 2026 11:05:05 +0100
-Message-Id: <DJ9JE3I9MCG2.2G88FWQPWRBH3@garyguo.net>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Abdiel
- Janulgue" <abdiel.janulgue@gmail.com>, "Robin Murphy"
- <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Danilo Krummrich" <dakr@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v4 01/20] rust: io: add dynamically-sized `Region` type
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net>
- <20260611-io_projection-v4-1-1f7224b02dcb@garyguo.net>
- <DJ9BPBO51J9U.FQYCSB4SSC8Z@nvidia.com>
-In-Reply-To: <DJ9BPBO51J9U.FQYCSB4SSC8Z@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0370.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18e::15) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CD2D10E338
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 10:05:15 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65F9Td3v4161070
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 10:05:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ t4X6WGiq4FPEq0dd0u+pxDxc4ERsQrYiJnopRFePXIs=; b=aHHdewTVMpBZivXU
+ fn/VX6pRmultlnOvxG63Ju6yQO1ca285YR1TNQSMLzRdAkdhWLTmR+R/lljr3D19
+ 5qr6ByBCKfsyGikQO/1tXJy6FgMpyL5hBlEZEaSVztLPq03Z8q+QR9mCxfjMYfFr
+ uz66vpwbbTV4QI2fegMlxW7+k1RAVHHvj1VHDBdi7J9JWSRQ/OpxZ7kHMqpo3JZC
+ +wOfOA2OinRMXP+ubmfA5v/Myn7oMYABH65KcH9HAwcYWnQbFVuZdTR77sct1+T9
+ nQy2lsl/pQf6Ib5AaEY/i51RRW8br3+PwBvt6GmRRa2HKQ1gagKpBhfwpHW5X0Y4
+ 3r9vAg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4etetf04f7-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 10:05:14 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2bf160f7191so20766435ad.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 03:05:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1781517913; x=1782122713;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=t4X6WGiq4FPEq0dd0u+pxDxc4ERsQrYiJnopRFePXIs=;
+ b=STf8qDEgtWSFoE7tmoxsZFMOHEG/zbsyyLQoWT14K3pxK3wdcOpufIrb9CXOt5Kegw
+ CvSVHzZ0YthwdDWXT5TxT+reml4k7eneeJW3m2CxHz59zK0+FrtNPh5Bt0heRcvDiMjt
+ vAdr5XGP+HpIROBXHMCs2EL3w3ibOWJypk9izeRcXOoZmRNWLadkvrLAnkAGxFkeUVbx
+ VEmYag5PFIgTJZUACX5MDKzIscITq1ihCx8AVphNLVmkTASDhydfm55C1a/oeRArJZ+G
+ YUyiYpwwvQ/fBNfXdnj2H4Qrqu2y/POiGxw9Sq8WqWlzN39DCAAoyBJ/iL5oTaIPNycy
+ Fncg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781517913; x=1782122713;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=t4X6WGiq4FPEq0dd0u+pxDxc4ERsQrYiJnopRFePXIs=;
+ b=mKU4jz+ToFOQjIHOcRe+2XLR2KGCUBeC/m2JF4DARCnu/tZyKjQA2/1z0/4ak+eKx1
+ /oRrKz7fRkeFHp81IZEwDlH64Yxqe6GyJ1xNb1oY0bTIe/od0/nt2RrfMVVaTk08iSLC
+ pPHMq77l5HCdpGprQ4yOweOoaGAO+PDOZZlf4mXmhOEAvCUxeYo3zgiOaKRf04u5Mg8E
+ tNgwPFVA55kxwyi1/mxrrKyjKCt/izEq+Ms06z5zWCaQogb6+Hl+CKNfLoNUnNsID6sC
+ mATGGtRKaP1qgJBFMOzhjnP/jEP9lgSr4KKMYReyGqacIkitxr0QYsXQls7eADrckFjG
+ Os6A==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/fU3/zPO33BWtwsBCNrNQUzWadBI0ILiEdIlLxz92YT5sQgmETBjh34mvVU0YGxrOLmPIxqCGOC5c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy1SmxUtn35JO4kC5qFJWBkS72kiDjIhfH4gwRgQkHCgLgdN+wH
+ NvJ8IbIIEI/6k8Ar0fsRK8/3qRqiG07uFZM+X6h0lwByRo8geqUAxlh0S4FbGABjMZ7WU+iDCFr
+ ZWba9ec5pOxyIq/H85xv5Mn8e0+Hmx4gUEKiU9VXBtAwpv7HzYRssFCWvk+udgDpxV6iXpVg=
+X-Gm-Gg: Acq92OFK63UG1hDvb8iYDXCLzhgBTfcUCHfxqTHzdseWek6nUiP7VVzXo4PZL+E9Gj4
+ IQWD10ybfvKO/6K7bb6X/iR1LgO9rrFT7N3Zir2gwoLuin3uCe8tqZUO4O1aPHWcw3wFQhf6FUd
+ rjYf9OdpCVy4Ldzo+l+8o5mgI+Q1glhno9b6D7MSD/T+/Q6a9UBs2r7Cp4RuHe4mX9FWr0j92la
+ HaqVtw6NmsjO8vWOuKwtorvxm2Uev7ijnxbcROuWspnlYK40Dx1kwfhKcNgQnpX9mpwtVaebWQM
+ D5D8sCu+b/3c9ZwmrjNJ2s1rw0TcSqSbRhm+Nil+MsUXu2ZgY+p4kTURgw8I1jMC7eBfNyrrb7/
+ 15Tg5sW0ZDwr4CZAt5gFTROL3l2N8cZv1lvl8fedv2G32WZ2yVmYS02c9ipX/76aBRaE2ZWiipb
+ QrG/WRQNysBq9/r0A2Sw==
+X-Received: by 2002:a17:903:2f04:b0:2c0:bcb3:86f with SMTP id
+ d9443c01a7336-2c6641488d3mr116824465ad.6.1781517913007; 
+ Mon, 15 Jun 2026 03:05:13 -0700 (PDT)
+X-Received: by 2002:a17:903:2f04:b0:2c0:bcb3:86f with SMTP id
+ d9443c01a7336-2c6641488d3mr116823835ad.6.1781517912493; 
+ Mon, 15 Jun 2026 03:05:12 -0700 (PDT)
+Received: from [10.133.33.122] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2c42fbb50bfsm96866885ad.33.2026.06.15.03.05.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Jun 2026 03:05:12 -0700 (PDT)
+Message-ID: <42c2bbab-dd86-4ba8-94f6-a6f377425be9@oss.qualcomm.com>
+Date: Mon, 15 Jun 2026 18:05:07 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO7P265MB7828:EE_
-X-MS-Office365-Filtering-Correlation-Id: a7ecbabc-6d16-46c0-8746-08decac5934f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|10070799003|7416014|376014|23010399003|366016|56012099006|22082099003|18002099003|4143699003|6133799003;
-X-Microsoft-Antispam-Message-Info: W1d0NzMsKuXF+Tyn4brYyZyANd75eZGwNgOHo1I+U8yhQJP2fgElbQ4hBAP7JGLDulXsPWkGQr05hlk0ADsuLuG7gC/QSwT/ajl+fBADF/29xKWWmM0JhfpznO4/O3QqmyJG8TRpWeBR2rhGeWJnkn4GSi5ZHzAM1gnOAxK+veKZFZLzQK9mKaWo8x8SR8yNMt4S47B2n0W9z+CE/4iDrtVeY5sfV3scGyfaMUJzqZ9EUWxui+RfbXYopowHzRS9dJ0zWRxIaelSfVcuEuRb4lT38KWWJGYsfWsEA5uQxkR+7BZEZpqggs9ayQJ3vjmQqKZh50d1DOjAaPXi+09Fl+XLPDMv390uzpL/nqdNnSwBjeJxQhBGqzuppAUvEqPsn6Usu/j6F3qIyWWnhEFptESpt67ItfDGe53YG1XULtP7Y6Ih++w4TICEixqVCZHSEXDKLCVCGBlwmx3j+cJd+Hzfa5OWgpSM4fo3aAwPXkuN6jTmm9J0gNX8J5Q2IDRSNgIDctZnQ8fJ1VXterj0aEob2AlRjD5LNEwivu/40iQhIJ5z6eYUCx5XlAE7cNxg8rs2BCrLplhRx5KimJ0FGsTinm9+C/5qVslMiPoEp2g1IQ5B8NmM+D+f+dR5A6v8W0lGNFNborNbpjU6+Qt6yPTTIhLYftV/wxNXi1e5ycj4XBa4lQ0gb0gDnXp0gdm4
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(10070799003)(7416014)(376014)(23010399003)(366016)(56012099006)(22082099003)(18002099003)(4143699003)(6133799003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VE13V2lFSzFMeFpTUjNYdDRmNWJoYkZvZzgzRzVyYkloL0g2SzVUWVlWQ1p6?=
- =?utf-8?B?V3N5aWNyWEgvYXV3ZG9kV1EzZ2lTTnNvdS92MVB5WmJEV0NOY2V6TGwzQlBN?=
- =?utf-8?B?L2kwS2NuL3lRWjgwUk1NNk1ZbkdCQUZMMUFMcjZ1T1p6UDZ5ajJXaDZEMTlX?=
- =?utf-8?B?K2p3dzB4bDMzcEY5R3dvRUxSZGlhNDhuNVhyY0xBM2VzazhYcE0vL0FCZlNh?=
- =?utf-8?B?T3hGdDBOdk5pSWFlcGJqendVby9naThESWRESGF4TlJ4U2JjQkRqMnFXNHBQ?=
- =?utf-8?B?LzIvamVObzhwSDhRWXFPNFRWKy9xaFZvV2ZEdTlxWGtHK1lRL254UW5Lb2Nu?=
- =?utf-8?B?TDJOSmZOano0ckswUDUyK3NuZFBFMWVyUXIwSzJFQkhCRVFnTmp6NHRucFNk?=
- =?utf-8?B?ZXl3WUlNbi90QlFmQWs1T2tGMThudUpld0RtcG5reVJ2d0RNT0hPR2x5OHBD?=
- =?utf-8?B?V2ZxSEUzMFNTSGxGWEdXVCtuaE1JUTNPZHppVUJoYThLdnkxYjAyZmg5RDQr?=
- =?utf-8?B?QmFLS21oVU9QTC9RZUVnVE9NbFdlR0Rwb2JCS3A2RFc0TFErS3NwYjZZbTNM?=
- =?utf-8?B?ekRFRCtZQ200bUg1Yk84UXZOY2Z3VUNKbEJDYXh2YzhJYjh2VkZ4YmNqVG1N?=
- =?utf-8?B?TUlvWC9mRmtRa3ZGM0tNVzFhaGdETzY1bDI1Wm1LYzFxUThFK05CNWxJN2Zj?=
- =?utf-8?B?U1VnUFdkQ0gyM2lZdWo2MmROQmV6aWgxRlNsanljclRYWUFYUkxsNEJsNnhI?=
- =?utf-8?B?cU1WVDRRUmcrbUhxWXhNZ3JzMzg2U3BYVHR3SU1GTlNQUFRtT3pRbmNuSXA0?=
- =?utf-8?B?VE5CSzQwMU9rQmdCM1JrNVVkNHJDdElqRi8xTW1lWDZObFJGQU5tL1N1L2Ev?=
- =?utf-8?B?dUdOTTNJbi9ZU1VPenM1OUNwMHFVMHZ4WUVJelNxWGpPc240cHJpTXUrbWtK?=
- =?utf-8?B?a3J1ODNNQ3RqL1N5bW1EYWxHWHhBRXk2VGRGNDdLMDhST0trRVBtQThaUHFF?=
- =?utf-8?B?bXovdDZKSllkSWthMDBKdUtMbm5NM2tHdmFjOVZKUE9ERllRaW81TTNNWnNr?=
- =?utf-8?B?ODJDTEdnenU1QnFiMGNYSVFGOFN6eWRMSnNNYnl5TnQrWUhxanFQV2dkRGNY?=
- =?utf-8?B?RGpqaWw5NVZ0SWtqajQrNXZDZTdtM3VGWGxHbFVlNUxSRnE4V2FkRUdKMWYy?=
- =?utf-8?B?dlhwd0p6N2pHaWxOVUdEc09sREpMY0pTbGtJT0NVM2htVml6VVc0OWRaaG5E?=
- =?utf-8?B?RXBKbTNGL1A5NnFueHJSNkQwN3BJc3dHdmo5aVN2c3lVNlNBb1BiaHVrUm85?=
- =?utf-8?B?M0NwSmRZUm4xeEpTZ3dudWs0Qyt5cGZ6dHl4TmdoOXFVUVEyYUI2NllBdUp5?=
- =?utf-8?B?SzRmbjFTQ0ZDTkNBV2dxQTQ3SXBqZS8zYTJJb1BsU0pZR3BOcXBmYUxNcUVl?=
- =?utf-8?B?QTJtZjhwejNZdk1jUjBSL3doRXQyUDRjWlpwemh6bmRTSng5ejUxbXpUMEgz?=
- =?utf-8?B?bHZ0Rm5JdHlMcTNyTDNWNkc4WmM2SldkUnorVFEwM1NFdldaNUxDaGl6UVNk?=
- =?utf-8?B?bXp5bGFheU1QODNMcTA3VEJiNnZYYUs0NnBic0EraWRPbXhTd2tuVVR1cW1q?=
- =?utf-8?B?bEY1VWExUzl5WVZaM0dOQ1hWWjZndFc3dG5TZUxscWwrck02dWhHRUxLUmg5?=
- =?utf-8?B?S2lRY0dkZG92NDhDZS9pU3B5eHN2bkhPRjR1blQwRFAyK1F2V3MxbEJjMXhx?=
- =?utf-8?B?NXVWWUJDTkNxOTFRWTZRQzVSaHovS0huNnFyUUpQbHdrVURnOTNXYjM5cnN6?=
- =?utf-8?B?d0d6ZEpHT1FSN1hHU2haNlBNVzQ5bFM2RFNOMXhKRXdFVzhzbW1JWGFuYVA4?=
- =?utf-8?B?T1BCaENYc3FJVHkydUNlcnNsazlZUFQ3WjQwOXVLMENzTCtPYmdKUXFjMmFn?=
- =?utf-8?B?Sitmc2lIODlhbDNudmdWanhsTWRQVXV3UVJQeEw3RFluTFZFWThXcWNuU1pK?=
- =?utf-8?B?RmJnYlhSNXNsZDRsblFNT2JNaklLNDRkWHpmQm95a1U3cUVZZ2FPSmJHUTAv?=
- =?utf-8?B?eG5ER1B0L3BhRWp0NkZ5eDhqcFpkcWpMeVQ5N0pkdDRrL1hHUlNuTTBxc2Q0?=
- =?utf-8?B?WnMvcTd3VWpJYWhEZk9qbG9sODBwLzFqMGpwRUFyaENLd21Pd2NzK2cxMG1E?=
- =?utf-8?B?Tk52Y01NZUV3dEVNZXBXajYzZ3BxK1RGYTAvTDJ4YU94WUowRlV0dzQxU1Vk?=
- =?utf-8?B?TUoyS1dtQTFTWW41cHgzcWMrRnFoVUdOMGl6R2FoYjZQRkhuU2Z3ZHlPN0VS?=
- =?utf-8?B?c2RsWThwSEVPWmJyUk52ZUlFcStUVGhQQkRCQzZtaHlOa0JZaVpXZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7ecbabc-6d16-46c0-8746-08decac5934f
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 10:05:06.2903 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xvuM3rJ2/gm9xnWOzilm0OtU5O7ng3ipO0Sis/B8aDVCa7X5Fazrhzr+DD/c9PPbl/vsJHr56xa7hmOgSAwo2w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB7828
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 37/39] drm/msm/dp: add HPD callback for dp MST
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20260410-msm-dp-mst-v4-0-b20518dea8de@oss.qualcomm.com>
+ <20260410-msm-dp-mst-v4-37-b20518dea8de@oss.qualcomm.com>
+ <ml35zldwr6f7euzmw6noy7j5mufyhfhmwoigkwq5ykyyl3amgb@5eo63mfnd4tg>
+Content-Language: en-US
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <ml35zldwr6f7euzmw6noy7j5mufyhfhmwoigkwq5ykyyl3amgb@5eo63mfnd4tg>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=adxRWxot c=1 sm=1 tr=0 ts=6a2fce5a cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=e5mUnYsNAAAA:8 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=99inU4qtSHyG9fJ7QXwA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+ a=Vxmtnl_E_bksehYqCbjh:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: geOjFIBzAjKaOtmCrdDNu7-ZrZgGOmYH
+X-Proofpoint-ORIG-GUID: geOjFIBzAjKaOtmCrdDNu7-ZrZgGOmYH
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDEwNiBTYWx0ZWRfX+FF2rtrxk1Ig
+ tg2c89a6OoY0umPNv2HpgBvqbIuRdym+ZTO+w7WwGkFMfy9BzLcyDE/pj8DKlJegtHttn+m/Fg1
+ sOb9JgCwPAeJulFanwunknEXnM+VkfA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDEwNiBTYWx0ZWRfX6ebhN1aO84hg
+ aASFKQzgQoqgpWpClqakB19mBvvFzXUi5a5hoIdlmHuFhjhbFZ2iaOPz/ELH2+9DzJa3Uh2T6dR
+ p5NUJZLtbVgjEbRaC2PteBx3dbjQfre8flhOOMzdr3iS3JtBZOUZXT/JMOnbs9fwhvLAPGTGe+7
+ Nd4tQ2jV7jYXhNgXFlhOWbO+mPoPKT5d0YJaH2VCE8wNleoGtBUbt7r74HaKjej+RpTYOg2YZuR
+ ymbdEMlCTZkWgT4E+4UsjuBmPJ2AiYbApa1mXhxTND7V3S+mSHSB1FEABnhlqt6ekXJKBUdk1C4
+ CB11Ff/jlqpIU4FVDC72aZnYCA9d2uZkHCpO1WEtBmTh1cywlqjVQ/QOVmMvLEQjv/1NbXNl/bL
+ 5PTr+r/CMGY+oZyhONLxVVxlIlGsxIwR0/zcuLe+pMLuyHFZ/AvFGDktRvyDK0niPf0Nd6jneac
+ +QgfIRRrqSOgGK6azLA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-15_02,2026-06-12_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ malwarescore=0 suspectscore=0 spamscore=0 phishscore=0 adultscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
+ definitions=main-2606150106
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,150 +154,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jun 15, 2026 at 5:03 AM BST, Alexandre Courbot wrote:
-> On Fri Jun 12, 2026 at 1:28 AM JST, Gary Guo wrote:
->> Currently many I/O related structs carry a `SIZE` parameter to denote th=
-e
->> minimum size of the I/O region, while they also carry a field indicating
->> the actual size. Proliferation of the pattern creates a lot of duplicate=
-d
->> code, and makes it hard to create typed views of I/O.
+
+
+On 4/12/2026 6:00 AM, Dmitry Baryshkov wrote:
+> On Fri, Apr 10, 2026 at 05:34:12PM +0800, Yongxing Mou wrote:
+>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 >>
->> Introduce a `Region` type that carries the `SIZE` parameter. It is a
->> wrapper of `[u8]`, which makes it dynamically sized with a metadata of
->> `usize`. This way, pointers to `Region` naturally carry size information=
-.
->> This type is required to be 4-byte aligned.
+>> Add HPD callback for the MST module which shall be invoked from the
+>> dp_display's HPD handler to perform MST specific operations in case
+>> of HPD. In MST case, route the HPD messages to MST module.
 >>
->> Expose the minimum size information via `MIN_SIZE` constant of the
->> `KnownSize` trait. Similarly, expose the minimum alignment information v=
-ia
->> `KnownSize::MIN_ALIGN`.
->>
->> With these changes, it is possible to add an associated type to `Io` tra=
-it
->> to represent the type of I/O region. For untyped regions, this is the ne=
-wly
->> added `Region` type. Remove `IoKnownSize` as it is no longer necessary. =
-Use
->> the same mechanism to indicate minimum size of PCI config spaces.
->>
->> Signed-off-by: Gary Guo <gary@garyguo.net>
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 >> ---
->>  rust/kernel/devres.rs |   6 +--
->>  rust/kernel/io.rs     | 130 +++++++++++++++++++++++++++++++++----------=
--------
->>  rust/kernel/lib.rs    |   3 ++
->>  rust/kernel/pci.rs    |   1 -
->>  rust/kernel/pci/io.rs |  40 +++++++---------
->>  rust/kernel/ptr.rs    |  12 +++++
->>  6 files changed, 118 insertions(+), 74 deletions(-)
+>>   drivers/gpu/drm/msm/dp/dp_display.c | 23 +++++++++++++++++++----
+>>   drivers/gpu/drm/msm/dp/dp_mst_drm.c | 34 ++++++++++++++++++++++++++++++++++
+>>   drivers/gpu/drm/msm/dp/dp_mst_drm.h |  1 +
+>>   3 files changed, 54 insertions(+), 4 deletions(-)
 >>
->> diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
->> index 11ce500e9b76..ed30ccc6e68e 100644
->> --- a/rust/kernel/devres.rs
->> +++ b/rust/kernel/devres.rs
->> @@ -68,7 +68,6 @@ struct Inner<T> {
->>  ///     devres::Devres,
->>  ///     io::{
->>  ///         Io,
->> -///         IoKnownSize,
->>  ///         Mmio,
->>  ///         MmioRaw,
->>  ///         PhysAddr, //
->> @@ -297,10 +296,7 @@ pub fn device(&self) -> &Device {
->>      /// use kernel::{
->>      ///     device::Core,
->>      ///     devres::Devres,
->> -    ///     io::{
->> -    ///         Io,
->> -    ///         IoKnownSize, //
->> -    ///     },
->> +    ///     io::Io,
->>      ///     pci, //
->>      /// };
->>      ///
->> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
->> index fcc7678fd9e3..bef571dad6eb 100644
->> --- a/rust/kernel/io.rs
->> +++ b/rust/kernel/io.rs
->> @@ -6,7 +6,11 @@
->> =20
->>  use crate::{
->>      bindings,
->> -    prelude::*, //
->> +    prelude::*,
->> +    ptr::{
->> +        Alignment,
->> +        KnownSize, //
->> +    }, //
->>  };
->> =20
->>  pub mod mem;
->> @@ -31,6 +35,58 @@
->>  /// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a u64 even on 32-bit arch=
-itectures.
->>  pub type ResourceSize =3D bindings::resource_size_t;
->> =20
->> +/// Untyped I/O region.
->> +///
->> +/// This type can be used when an I/O region without known type informa=
-tion has a compile-time known
->> +/// minimum size (and a runtime known actual size).
->> +///
->> +/// This must be 4-byte aligned.
->> +///
->> +/// # Invariants
->> +///
->> +/// Size of the region is at least as large as the `SIZE` generic param=
-eter.
->
-> I noticed that patch 13 adds the "size must be multiple of 4" invariant.
-> The doccomment for `ptr_from_raw_parts_mut` says that "size should be
-> 4-bytes aligned" though, which sounds like the same to me. So should
-> that second invariant be introduced in this patch instead of patch 13?
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index 919767945ba5..ca89e20b7563 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -454,6 +454,9 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_display_private *dp)
+>>   			dp->msm_dp_display.connector_type,
+>>   			dp->link->sink_count);
+>>   
+>> +	if (dp->plugged)
+>> +		return 0;
+>> +
+>>   	mutex_lock(&dp->plugged_lock);
+>>   
+>>   	ret = pm_runtime_resume_and_get(&pdev->dev);
+>> @@ -556,12 +559,19 @@ static int msm_dp_irq_hpd_handle(struct msm_dp_display_private *dp)
+>>   {
+>>   	u32 sink_request;
+>>   	int rc = 0;
+>> +	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
+>>   
+>>   	/* irq_hpd can happen at either connected or disconnected state */
+>>   	drm_dbg_dp(dp->drm_dev, "Before, type=%d, sink_count=%d\n",
+>>   			dp->msm_dp_display.connector_type,
+>>   			dp->link->sink_count);
+>>   
+>> +	if (msm_dp_display->mst_active) {
+>> +		if (msm_dp_aux_is_link_connected(dp->aux) != ISR_DISCONNECTED)
+> 
+> Will this work for USB-C?
+> 
+Hmm not work for USB-C. We can remove this check here, as the IRQ thread 
+can handle the disconnect case itself.
+>> +			msm_dp_mst_display_hpd_irq(&dp->msm_dp_display);
+>> +		return 0;
+>> +	}
+>> +
+>>   	/* check for any test request issued by sink */
+>>   	rc = msm_dp_link_process_request(dp->link);
+>>   	if (!rc) {
+>> @@ -1125,9 +1135,13 @@ static irqreturn_t msm_dp_display_irq_thread(int irq, void *dev_id)
+>>   				      connector_status_connected);
+>>   
+>>   	/* Send HPD as connected and distinguish it in the notifier */
+>> -	if (hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK)
+>> -		drm_bridge_hpd_notify(dp->msm_dp_display.bridge,
+>> -				      connector_status_connected);
+>> +	if (hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK) {
+>> +		if (dp->msm_dp_display.mst_active)
+>> +			msm_dp_irq_hpd_handle(dp);
+> 
+> No, don't touch this code. HPD notifications might be coming from the
+> other entities. This IRQ thread can only send the HPD notification.
+> There rest should be handled in the notifier.
+> 
+Ok. From my understanding, after this series 
+(https://patchwork.freedesktop.org/series/164954/#rev5) is rebased, we 
+should use drm_aux_hpd_bridge_notify_extra() here to notify the IRQ?
+>> +		else
+>> +			drm_bridge_hpd_notify(dp->msm_dp_display.bridge,
+>> +					      connector_status_connected);
+>> +	}
+>>   
+>>   	ret = IRQ_HANDLED;
+>>   
+>> @@ -1793,7 +1807,8 @@ void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
+>>   			msm_dp_hpd_plug_handle(dp);
+>>   		}
+>>   	} else {
+>> -		msm_dp_hpd_unplug_handle(dp);
+>> +		if (hpd_link_status == ISR_DISCONNECTED)
+> 
+> Why?
+> 
+Let me explain this in more detail here.
+Currently, MST hotplug and IRQ events are handled through the SST bridge.
+This guards against spurious unplug handling caused by 
+msm_dp_bridge_hpd_notify() being invoked from non-HPD contexts where 
+status == connector_status_disconnected does not actually mean the cable 
+is gone.
 
-Oops, I think this is a bad `git absorb` operation that I didn't checked
-carefully.
+In addition to the real HPD IRQ path, drm_bridge_connector_detect() also 
+calls drm_bridge_connector_hpd_notify() to broadcast the detect result 
+to all bridges in the chain. So a single physical plug-in produces 
+multiple msm_dp_bridge_hpd_notify() calls — one from the real IRQ, then 
+several more from various probe/poll paths. Stack traces from a single 
+insertion on QCS8300:
 
->
->> +#[repr(C, align(4))]
->> +pub struct Region<const SIZE: usize =3D 0> {
->> +    inner: [u8],
+   1. msm_dp_display_irq_thread → real HPD plug, status=connected
+   2. fbdev probe triggered by (1) → drm_bridge_connector_detect → 
+status=disconnected (link not ready yet)
+   3. output_poll_execute worker → same path → status=disconnected
+   4. drm_dp_mst_link_probe_work → same path → status=disconnected
+   5. output_poll_execute again → status=disconnected
+
+Here not work for USB-C case yet, I’d like to switch to using 
+drm_dp_read_sink_count to detect whether the sink is actually 
+disconnected or no sink devices.
+
+>> +			msm_dp_hpd_unplug_handle(dp);
+>>   	}
+>>   
+>>   	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+>> index bb3898b1f6b1..71d3f63973e6 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+>> @@ -490,6 +490,40 @@ int msm_dp_mst_display_set_mgr_state(struct msm_dp *dp_display, bool state)
+>>   	return rc;
+>>   }
+>>   
+>> +/* DP MST HPD IRQ callback */
+> 
+> Useless comment.
+> 
+Got it.
+>> +void msm_dp_mst_display_hpd_irq(struct msm_dp *dp_display)
+>> +{
+>> +	int rc;
+>> +	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
+>> +	u8 ack[8] = {};
+>> +	u8 esi[4];
+>> +	unsigned int esi_res = DP_SINK_COUNT_ESI + 1;
+>> +	bool handled;
+>> +
+>> +	rc = drm_dp_dpcd_read_data(mst->dp_aux, DP_SINK_COUNT_ESI, esi, 4);
+>> +	if (rc < 0) {
+>> +		DRM_ERROR("DPCD sink status read failed, rlen=%d\n", rc);
+>> +		return;
+>> +	}
+>> +
+>> +	drm_dbg_dp(dp_display->drm_dev, "MST irq: esi1[0x%x] esi2[0x%x] esi3[%x]\n",
+>> +		   esi[1], esi[2], esi[3]);
+>> +
+>> +	rc = drm_dp_mst_hpd_irq_handle_event(&mst->mst_mgr, esi, ack, &handled);
+>> +
+>> +	/* ack the request */
+>> +	if (handled) {
+>> +		rc = drm_dp_dpcd_write_byte(mst->dp_aux, esi_res, ack[1]);
+>> +		if (rc < 0) {
+>> +			DRM_ERROR("DPCD esi_res failed. rc=%d\n", rc);
+>> +			return;
+>> +		}
+>> +
+>> +		drm_dp_mst_hpd_irq_send_new_request(&mst->mst_mgr);
+>> +	}
+>> +	drm_dbg_dp(dp_display->drm_dev, "MST display hpd_irq handled:%d rc:%d\n", handled, rc);
 >> +}
 >> +
->> +impl<const SIZE: usize> Region<SIZE> {
->> +    /// Create a raw mutable pointer from given base address and size.
->> +    ///
->> +    /// `size` should be at least as large as the minimum size `SIZE`, =
-and `base` and `size` should
->> +    /// be 4-byte aligned to uphold the type invariant.
->
-> s/should/must? I guess we are running into all sort of issues if we
-> create regions which runtime size is smaller than the compile-time one,
-> and this is an invariant of `Region` itself.
->
-> Maybe this method should even be made `unsafe` for this reason? The
-> caller will need to write a `SAFETY` comment before dereferencing the
-> pointer, but IIUC this comment is bound to cover the pointer invariants,
-> not necessarily those of `Region`. Making the method `unsafe` would
-> force the user to cover them here.
+>>   /* DP MST Connector OPs */
+>>   static int
+>>   msm_dp_mst_connector_detect(struct drm_connector *connector,
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.h b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+>> index 5d411529f681..08e145399cfc 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+>> +++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+>> @@ -9,5 +9,6 @@
+>>   
+>>   int msm_dp_mst_init(struct msm_dp *dp_display, u32 max_streams, struct drm_dp_aux *drm_aux);
+>>   int msm_dp_mst_display_set_mgr_state(struct msm_dp *dp_display, bool state);
+>> +void msm_dp_mst_display_hpd_irq(struct msm_dp *dp_display);
+>>   
+>>   #endif /* _DP_MST_DRM_H_ */
+>>
+>> -- 
+>> 2.43.0
+>>
+> 
 
-Note that the function implementation is completely safe, and it can be don=
-e
-outside the module, too.
-
-Thus, the real constraint is that user doing raw pointer needs to be carefu=
-l.
-This is true for all pointers. You can safely cast between any raw pointers=
-, and
-dereference requires you to uphold the invariant of target type. This is tr=
-ue
-for all types with invariants, you can do
-
-    *core::ptr::from_ref(&0).cast::<NonZero<u8>>()
-
-And the unsafe part is the dereference, not the cast.
-
-Best,
-Gary
