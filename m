@@ -4,50 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3AEFCD98CF
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 18:27:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAAEDCD98CF
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 18:49:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B05610E5AF;
-	Mon, 15 Jun 2026 18:27:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19EA610E5E7;
+	Mon, 15 Jun 2026 18:49:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="GE/yVCfk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UzdfkPaW";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E686410E5AF
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 18:27:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Xdvmpa02NvRDCnlFtecMMZM6My+GX1DYEYglA7Z1Bro=; b=GE/yVCfk78acpv9YH5tMCuIV/V
- v1UJPZQ9PLUoBIMAttSL+CnDztnjc6XiCeS0bMWuF2lRqi+ycErHzwv2Bww7xwrAxbdhSrdBkkDTg
- wiaC6ZIqQdzClxyKkcyZhXWHlLqXFVhXTprZ1jnXPtSBHqHVSI2ApFvPjrvoV3rFHPZuJb9w44n/c
- ZOiCVh8oC50xe5Fj6VXhK18Y24n0bgj1aP7fU64F4Vn0PJbQG9BwYEnh5yIxUuqIkXyEGN0HUfSLu
- euXTlj5cy+y+Ayuakbdnuk5NTjqSAgnBu4I2AknlsTrZy+oYPpU4hpzh2NrLiM4ZHp5Pd0j1hREkQ
- 2jaNfF3A==;
-Received: from 216-176-47-241.ptr.pdx.com ([216.176.47.241]
- helo=[10.132.7.237]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wZC1k-000Mqb-Ed; Mon, 15 Jun 2026 20:27:16 +0200
-Message-ID: <e98e6632-20a1-4e76-a6e5-916066c7438a@Igalia.com>
-Date: Mon, 15 Jun 2026 11:27:12 -0700
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59D2810E5DC;
+ Mon, 15 Jun 2026 18:49:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 73851600AB;
+ Mon, 15 Jun 2026 18:49:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 066761F000E9;
+ Mon, 15 Jun 2026 18:49:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781549396;
+ bh=/E/EQUQWpDPjINhgmxIfofQL7z7fKAPRGJ0jdZ84qwY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=UzdfkPaWLxvN73MupLzIuTXup5jyw6VsrwSo4tTuTaiM7hsogCNZqzndjDaIZrGAj
+ XoXxpx94/F3n9z6b+KuhnGumNwbqi82G3ufmdjQ/yCt28c9sUVnbSz4tDerk/MxZXZ
+ o4pd8TG4rz/eGa5F03ajmSKeNNEkHyBBIOyLXLweZ7WXCgMwlpvNEd4zXTwFjSHRgg
+ G08vsoOLFZJ44XnnAP4gR9Xd46FGicmp/ZzW8XUfGkYUz4BXQyQPvwJynn7r2yB39c
+ PatIxKPfu5RaGxgoWMBdnoHdrIwXCpdnHLYNC02w4Qa6L+e2sTM4SJcLlXea2sA6Pt
+ DTiqxYMlyMRyw==
+Date: Mon, 15 Jun 2026 08:49:55 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Cc: intel-xe@lists.freedesktop.org, Natalie Vock <natalie.vock@gmx.de>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 0/6] [PATCH v6 0/6] Add reclaim to the dmem cgroup
+ controller
+Message-ID: <ajBJU-Jp2QVy14qt@slm.duckdns.org>
+References: <20260611173301.17473-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/9] drm/amd/display: use
- drmm_writeback_connector_init()
-To: sashiko-reviews@lists.linux.dev,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, wsa+renesas@sang-engineering.com
-References: <20260612-wb-drop-encoder-v6-3-9f3a54f81310@oss.qualcomm.com>
- <20260612185828.C0D241F00A3E@smtp.kernel.org>
-Content-Language: en-GB
-From: John Harrison <John.Harrison@Igalia.com>
-In-Reply-To: <20260612185828.C0D241F00A3E@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260611173301.17473-1-thomas.hellstrom@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,108 +72,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/12/26 11:58, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
->
-> New issues:
-> - [High] Dangling drmm cleanup action on writeback connector initialization error path leads to Use-After-Free, and possible build failure with drmm_kfree.
->
-> Pre-existing issues:
-> - [High] Pre-existing memory leak of `wb_info` and sleeping in atomic context in `dm_set_writeback()`.
-> --
->
-> commit 946e1af8401710237d25526b5d87b4357eceb542
-> Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->
-> drm/amd/display: use drmm_writeback_connector_init()
->
-> The patch converts the driver to use drmm_writeback_connector_init() and
-> drmm_plain_encoder_alloc() to ensure proper cleanup of the writeback
-> connector instance and its job queue.
->
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> [ ... ]
->> @@ -11086,7 +11086,7 @@ static void dm_set_writeback(struct amdgpu_display_manager *dm,
->>   		return;
->>   	}
->>   
->> -	acrtc = to_amdgpu_crtc(wb_conn->encoder.crtc);
->> +	acrtc = to_amdgpu_crtc(crtc_state->base.crtc);
-> [Severity: High]
-> This is a pre-existing issue, but does dm_set_writeback() allocate memory
-> using GFP_KERNEL in an atomic context?
->
-> It appears that wb_info is allocated using kzalloc_obj() earlier in this
-> function, which implicitly uses GFP_KERNEL. However, this function is called
-> from amdgpu_dm_atomic_commit_tail(), which is an atomic context where sleeping
-> functions are forbidden.
->
-> Additionally, dc_stream_add_writeback() copies the contents of wb_info by
-> value, but the originally allocated pointer seems to never be freed before
-> dm_set_writeback() returns. Does this introduce a memory leak every time a
-> writeback job is queued?
->
->>   	if (!acrtc) {
->>   		drm_err(adev_to_drm(adev), "no amdgpu_crtc found\n");
->>   		kfree(wb_info);
-> [ ... ]
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-> [ ... ]
->> @@ -188,17 +187,26 @@ int amdgpu_dm_wb_connector_init(struct amdgpu_display_manager *dm,
->>   	struct dc *dc = dm->dc;
->>   	struct dc_link *link = dc_get_link_at_index(dc, link_index);
->>   	int res = 0;
->> +	struct drm_encoder *encoder;
->> +
->> +	encoder = drmm_plain_encoder_alloc(&dm->adev->ddev, NULL,
->> +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
->> +	if (IS_ERR(encoder))
->> +		return PTR_ERR(encoder);
->> +
->> +	drm_encoder_helper_add(encoder, &amdgpu_dm_wb_encoder_helper_funcs);
->> +
->> +	encoder->possible_crtcs = amdgpu_dm_get_encoder_crtc_mask(dm->adev);
->>   
->>   	wbcon->link = link;
->>   
->>   	drm_connector_helper_add(&wbcon->base.base, &amdgpu_dm_wb_conn_helper_funcs);
->>   
->> -	res = drm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
->> +	res = drmm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
->>   					    &amdgpu_dm_wb_connector_funcs,
->> -					    &amdgpu_dm_wb_encoder_helper_funcs,
->> +					    encoder,
->>   					    amdgpu_dm_wb_formats,
->> -					    ARRAY_SIZE(amdgpu_dm_wb_formats),
->> -					    amdgpu_dm_get_encoder_crtc_mask(dm->adev));
->> +					    ARRAY_SIZE(amdgpu_dm_wb_formats));
-> [Severity: High]
-> If drmm_writeback_connector_init() fails internally after successfully calling
-> drmm_connector_init(), will it leave the drmm_connector_cleanup_action
-> registered?
-I'm not following this one. everything that 
-drmm_writeback_connector_init() does has a check on the return code and 
-only if everything works does it register the cleanup function as the 
-last action. So how do you get a dangling anything?
+Hello,
 
->
-> The caller, amdgpu_dm_initialize_drm_device(), appears to handle this failure
-> by attempting to free the connector using drmm_kfree(). Since drmm_kfree()
-> requires a dev argument, will this missing argument result in a build failure?
-Bizarre that it is complaining about something in a totally different patch.
+On Thu, Jun 11, 2026 at 07:32:55PM +0200, Thomas Hellström wrote:
+> When writing a "max" limit lower than the current usage, the
+> existing code silently failed. This series aims to improve
+> on that by returning -EBUSY on failure and also attempt
+> to synchronously reclaim device memory to push the usage
+> under the new max limit to avoid the error.
 
->
-> More importantly, since drmm_kfree() frees the memory but does not unregister
-> actions, will the managed resource list later execute
-> drmm_connector_cleanup_action on the already-freed pointer, resulting in a
-> use-after-free when the DRM device is torn down?
-Isn't this just lying? The whole point of drmm_kfree() is surely that it 
-does unregister the cleanup of the allocation?
+The canonical behavior for cgroup2 would be not failing the write at all
+even when the usage can't be brought down below the new max. Updating the
+target configuration and tracking the current usage are separate operations.
+The former should just set max and trigger reclaim and a writer should not
+assume that a successful write indicates that the usage is below the written
+max value.
 
->
->>   
->>   	if (res)
->>   		return res;
+Thanks.
 
+-- 
+tejun
