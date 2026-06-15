@@ -4,43 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD4F6CD98C5
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 04:13:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E228ACD98CE
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 04:28:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E87EF10E17F;
-	Mon, 15 Jun 2026 04:13:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD73F10E181;
+	Mon, 15 Jun 2026 04:28:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dIdhwjcp";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="MSuB7p7v";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD30E10E17F
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 04:13:34 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EB6426008A;
- Mon, 15 Jun 2026 04:13:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 887671F000E9;
- Mon, 15 Jun 2026 04:13:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781496813;
- bh=UHmB2RuLEBe4G8W+n/k8tQuqAcee1pijb0u5Bv9d/M4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dIdhwjcpp4k2PjCr5sSptgCERBMgUztZ/DczBhcXfn/it6F+HcxHAhKmtaUKCDVqg
- 2suKDfA8q7Q8fCFO5mLyEqIHN6Wi74Q+FVE0qNYVBCzQgVZRz/AKq2yTWaqXt81pAI
- CLcR5E3lJur6gAUb/sUHhdtaAG8GXroIO1/XrzQ4FfB7RQtuQQ3yQTzvpDckUuTRnH
- ttRjxsaTdGagFD9NV0UL+nCfZfsNYFjweit1ixL8JEKjxxXYGytbETLTiTwDvPZSr1
- oDETTHbs8khORSROFLnffzkVjx9lMgAyOe1pm7gphfZgy6junKJ+n/VUxsSZmB+6h9
- DETTkRTqkRrwQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] fbdev: claim Cyber2000 SPARC I/O aperture before
- ioremap
-To: "Chintan Patel" <chintanlike@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260615040510.9299-1-chintanlike@gmail.com>
-References: <20260615040510.9299-1-chintanlike@gmail.com>
-Content-Type: text/plain; charset=utf-8
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011056.outbound.protection.outlook.com [52.101.62.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC75C10E181
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 04:28:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Gx/5vCFHDsS8NEFoRpqrdvwPxMQL658wU+Cs9jtqJkW/t/f9qcfHHerpyjmCTR6UJ+PEQa3Bd6vFG0v3Vxi0rjk4w3Ors51TrsvPCx+0WkUj5AvfaiYR5KtPVxvHdwxRcJgQOGKlNHAsn0dm4aHXVvJmLRBJbZAr4Zp11xqKZjxEvPSuUCYRr2PlqglsUBMinH4BgbcJ4QZewRyfRTadfbEGO4Rwa72OG9qDEkS/eYlFLb2T7+X/TJD0YgzWYkYrRe7a3P4aklGTD3aia9fjAHSljpykCxmsIqphJbul4ki/qLTLA57LP0cQyMbFzrCaP6OtPgJgg/EvjWJolGJF0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2TL9H16R+hCnSLgNvERojlQBlGTCtKxV/ON/T24Lq4E=;
+ b=jwAJV7t8FFSDubs+YgdvYmd+HR1vZZCq28yGJShaF84wBtKspHExEAu+aIakUmZ5zcn0Hy0es61plv6qLez/X1wd9QIruSaNteVJMk5mMSeBCLOdYlDxmsBavgAYwmeDHOtUY+I3Qj1GCQzE+KhOJQMMpeH06/KIWZYX6aOLx2nIcoYishep8JEAP/wfzihlwZpcYSZPxPcKhGehqtm7BOQasyaBP4oyNKPgXuHfTpbzemg9iD+wExn8y4s2xsyIbvdQGx3UTTVfYgz0+yHKeL+fVKPGTBq3OjCbwyTqldrsnmhDNKkgYOzbloZLaydfzv/9DVsAqYpWGdqHe7+Acw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2TL9H16R+hCnSLgNvERojlQBlGTCtKxV/ON/T24Lq4E=;
+ b=MSuB7p7vpG1UL8F2i1lKz9xgg/q+BDwfyhJVkwj0HrxU0aUohQnw78jJOSYo1JY5s4dE/2lP92n+oqXRyYz3DRTXs/sYQNLptToiQvTeXLFx/x8JWJd0dQMHYz33PnMW2MBf+OitrjBFWwMSW9yFPrGx0HSPN9UERJWJXExqLakOEszFbDnocNARn6RRpnfBNsQ0KO97zBLfZzNHBKp0ZjF/jNtOqLuBjpwQcD98eWJL79T+RNJMZgI3P2izoVaBkT8yKo/EWwLWgwrE+L0Fd9rkv47veWwtPaYn9B0uNHOQQXuJWpEIUG+uGQVtfzfjS5nHS5iEzNsSsPNnxvnm5A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by MN0PR12MB6366.namprd12.prod.outlook.com (2603:10b6:208:3c1::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
+ 2026 04:28:06 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
+ 04:28:06 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 15 Jun 2026 13:28:02 +0900
+Message-Id: <DJ9C815EGU4Q.3L04WWDJAUK1H@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Abdiel
+ Janulgue" <abdiel.janulgue@gmail.com>, "Robin Murphy"
+ <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Danilo Krummrich" <dakr@kernel.org>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v4 02/20] rust: io: add missing safety requirement in
+ `IoCapable` methods
+From: "Alexandre Courbot" <acourbot@nvidia.com>
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 04:13:33 +0000
-Message-Id: <20260615041333.887671F000E9@smtp.kernel.org>
+References: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net>
+ <20260611-io_projection-v4-2-1f7224b02dcb@garyguo.net>
+In-Reply-To: <20260611-io_projection-v4-2-1f7224b02dcb@garyguo.net>
+X-ClientProxiedBy: TY4P286CA0016.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:2b0::14) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|MN0PR12MB6366:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9b854fa2-9f14-4579-a3c4-08deca967f43
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|23010399003|10070799003|1800799024|56012099006|4143699003|11063799006|5023799004|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: Fr/et14eNcbrgjYmoEtuB1/3Bcdy9trG3/6HHio67HLnrZKAhWAWpXwnc61vYHRTZMK0jyIvHDSXEcWH4lyftMF6UqlwlcQa42ejQpXYYATGcNlgMtxhk4GDBBeRjf8GVVXea4y4rrbJr8EgYRUJUIrTK04j32UGTp38PrdQpb6lMaoeKD27RD7xm+RX65Zhae0ZsrP0vyOFvWOI6EnYoYcexCUouuxWhxRHSbIpryNhvRSkpO1eLaLrgEc2RQ+KVYYgHXX7sLbWVdN5DWXJnzdcdRoaExmby7WHl9xLCsn3qEMR/BErfw4NcqZbCLAaphEUZn3Sl5YkAWpz8VR43oTe4cocgC0bVdTHwPDxyfdeAd1Ru7QAazb3eBABYdZlck8bARi3GzhkGptuAz9SaXt81zarZUcDXW0/reIum8p6i+2G3tMPIhrOtpLDItD01xp/VNhBh5Pci5pwYjCSiHT9rWlLXZk0teJDH8l8Kgbb+gQfQTLnHK2jiMp+bC2GrfUBsdV3ehvwhF1Ehmc/65IRgj7nMHsGmw201YCxZhVpC59R6J1hKrlychW/ODniv5KiMznwBT8G4nQb+mE9XIgyJUeagnPnQJDTpWa+d6/JXcD+BG5POZNKm7wFbqHQimg95Jpg3dLOZxpwLkgZIeNNn+9Etb7/sP9lSwGoUI3GQzQnmlhHsEIbEgj6WXfD
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(23010399003)(10070799003)(1800799024)(56012099006)(4143699003)(11063799006)(5023799004)(6133799003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UzJxTVljWVJaMEE2eGFVdkJSeE9JNy9ZUHR5VDZLK2RBdzdCYjBzd3ZGZlpE?=
+ =?utf-8?B?YVNFYzcwYzZmSGMxcmtGT0Qrb21DdE81OXd4OHY3WGNUUmVORTF6VHhWdWRO?=
+ =?utf-8?B?V0hoTHhtd0U1eVJEaGRaZ3lBMGZNSmkzK3pHS2VwRTJJYU5Ndm1tQkp1Y0Vp?=
+ =?utf-8?B?SDEwQmZ6TE5FSnYya2p0aVkveTlaSEZrSlFaanpMM0NSeUN2N3ZGVGI1QWVP?=
+ =?utf-8?B?ZmdySWpZNklQOWNPeTBydEJ1V3o1V0ZxUXVzL1BqRk14dnBsUjF2U2JWWm5U?=
+ =?utf-8?B?ZEJTcGI4dFR6VVV4bU1VUUp0N1VuUnRVZzFCWmpMaHBQS2RUYk5CMmQwdFZl?=
+ =?utf-8?B?ZGdRaFZYNm9vZGtSR2FGSTh2N1h2WW41bkRYT2lVQlBGdy9qT1llcFdEc1ls?=
+ =?utf-8?B?a2lpWHNFVVAxNkpTcmdkTVBsa2Rzc0V2VWQvU051N3hLZjBYUzhUdnp2WkRx?=
+ =?utf-8?B?ZDV3MTJPTmRFSzJPem1BQ1JnWWpSNDNpbEROTUFTTVFyaTB4SXIyRFBuSmJX?=
+ =?utf-8?B?bm8yVEZOT2NRNklkTEVqLzlPQ1ZUZEJ0OU1saGNha2dCK2JHTVlsMmRSVzhT?=
+ =?utf-8?B?Vk9wZklPSUhqSllCNGN2SGVaa3UzZUpxcUVaUktNZnUySUhyWThPVzN4aFhI?=
+ =?utf-8?B?OWhld3daNWZBUHBjTGdJcE5ndEdvQ0JZdWo2VG9IV0pHS1VKUkNkd2NsRkli?=
+ =?utf-8?B?MlhWVks0ZEhTNzdFVW5iajVqQkpuRmtmVHJnald6MFRFaHJ4L29HaFdxN2Q1?=
+ =?utf-8?B?UFV5azFTbnFvYmJTZ1lkZkpuV0dXV0dvcnRxSWhrWEN4YmNHTWdOdDdUQjhz?=
+ =?utf-8?B?UG9NNFpxL0lOdXRwWmpDQ2tpWDZUQTVJclh5VTMxYWxJQjZOT0lxVW96UU1y?=
+ =?utf-8?B?cVVNOXZabmtiSE0vU3VnUWNIYkZSZWtzV205UG5jRzIydmIwVnBCWHhvRk5U?=
+ =?utf-8?B?Y29JWFFYYlBQemhHMEFXMURiQXY1M3p6eEF0eUF2VGlQQktUdHJoVnVCQnIz?=
+ =?utf-8?B?WjJ5MGRNQXhPOGhsejJUWXdsUTFZZllxYlB5YUlYdU50Tk9zMDJ2cEVHV1Mw?=
+ =?utf-8?B?RENlME9EYTJiUDgyQktwb1VUb0xYRXJIdnp1TGxyRVlpSlIxTVZvZThnWmZp?=
+ =?utf-8?B?VTJ3VlZKVVJXUHFMa0VlbHB6NFlmTEhMRGNVeWtBMmZlcDhSR2Mxb09zMS9D?=
+ =?utf-8?B?UC9YWWNUMjdRZFp4SnhDVVhkMmd5R2N3clRvOWdKcDhZYnhrUytHV1FuRS9Y?=
+ =?utf-8?B?YXYxV0FGYmp1d2c3cnFVenFTOWFGU3gzMlQvMVdTdHUyT0UyTmRibTJzOWFj?=
+ =?utf-8?B?VlUvamR4RC9WdEc4cnZISmh1TlVkYXNheXIyYWNmMVEwVWRib2J4d2NyRWdo?=
+ =?utf-8?B?R1FRZml3OHJsT2NzK2VnVW03bFFUKzk1Ylk1blU4c3p0VzVUSnhPci9vMWVU?=
+ =?utf-8?B?OE1ieThFOW9YcmhzNEtrN3hJVzlrUnpoRGh5TFMyOGI4cmV2UWRWRHdYcCt3?=
+ =?utf-8?B?YTB2aW9wNXVQRWtyZXVGcjVSSmVvS1Y0alBmeEpKdisvTnlxU09NL3I3OGxL?=
+ =?utf-8?B?WVJuWGJScUxyL2FoOFBYUkhvcDVhM01PT1o2dUkvL1A2b29iMzdsUDg0VkVs?=
+ =?utf-8?B?d2RCL1dMWW45THE2elhURFhkcWZCRUpGZ05PcENTM0dhaS9Tb01zOHlPN2w3?=
+ =?utf-8?B?WjlwTTVOb1gvd0ZuZUxqTWdxY0tDa0lMSGtqTlFjazhtaXNTak5xWFltMnpK?=
+ =?utf-8?B?c1BabXNLL0NGdHk0bU5kdDVOMUVlMTJIR1FGL3JEZU1qdDh4clhXWHdYclVa?=
+ =?utf-8?B?dlA2ZG1aSnp1MzNmSERBazk5YWJZdXJtV3dSc2lTQmdNRDdzZVhSNWIzMG1t?=
+ =?utf-8?B?eWE3T3FDb1hFN2Jkb3RxTnl3clhhb3FzU1gxWGYxY3oyU1FMMXNEVll1Rnpl?=
+ =?utf-8?B?NXk0YUxkZUlWZ2RXWlI5SG9UQTJoNXVmdzdISWtCU01GQTIrK09kTzZqNVdU?=
+ =?utf-8?B?ZVVBT0lGZ3VsSWNGQU1xa3lka0h4M1hGTnVPT2NPK044alUwSm50SVpQY0kz?=
+ =?utf-8?B?MDlSYlhPSjFjOU5YNUdteVpXZi9BaU4zUDRGU25DTEVPTk9MOU5ZdHNiSmMv?=
+ =?utf-8?B?WnArbVhKUHowbStOdG5iaTNGZFhYb2RlbGV2VU5Cdm0rNkpzMnVWMmhKOGt2?=
+ =?utf-8?B?TWdDRVRmQXM2R0tYL0RqemtxWTdPNWJxMXpkMmJUTzM2SlZaTXFjSlhOQVZZ?=
+ =?utf-8?B?UDJSK3hKNkxZYnJkKzNKWTFnNjk1MVdCMWRUZ0V4N2FEZEg0Z1ZLQ3JXTFI0?=
+ =?utf-8?B?N0N2N29GQVhxMlo0YXlZY0ltNk1DWUtlM2o1U0NhV3F1d0dKTWQzNFY4TW9h?=
+ =?utf-8?Q?dBs5QMvZDnHmBpkOf6CcGEXOKpUickXa+WmgI7VJl7vf6?=
+X-MS-Exchange-AntiSpam-MessageData-1: KFjM8rSwGrHoBQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b854fa2-9f14-4579-a3c4-08deca967f43
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 04:28:06.5382 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: poHMNo0TA9tIxTb0VFajrmvFdDVS7DjHRUt2TOUrpbhSu2ekis7YEZ0a8nyNG+fI4qR5RpW3TJEwlHvjJyLIhw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6366
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,62 +147,103 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Compilation error on SPARC due to referencing a non-existent 'dev' =
-member in 'struct cfb_info' and incorrect macro usage.
---
+On Fri Jun 12, 2026 at 1:28 AM JST, Gary Guo wrote:
+> The current safety comment on `io_read`/`io_write` does not cover the top=
+ic
+> about alignment. Add it so it can be relied on by implementor of
+> `IoCapable`.
+>
+> Expand the check `Io` by taking `self.addr()` into consideration when
 
-commit e068b9e9c10bca9b6d3e0df275aaabe32f0555c2
-Author: Chintan Patel <chintanlike@gmail.com>
+"the check performed by `Io`" maybe?
 
-fbdev: claim Cyber2000 SPARC I/O aperture before ioremap
+> checking if `offset` is aligned. For the compile-time `io_addr_assert`
+> check, check using the known minimum alignment of `IO::Target` and the
 
-This commit claims the memory resource associated with the Cyber2000
-SPARC MMIO aperture before accessing it. It adds calls to request memory
-regions and attempts to update the error logging.
+typo: s/IO/Io.
 
-> diff --git a/drivers/video/fbdev/cyber2000fb.c b/drivers/video/fbdev/cybe=
-r2000fb.c
-> index 2d12f8e96c7ed..0b362842cab34 100644
-> --- a/drivers/video/fbdev/cyber2000fb.c
-> +++ b/drivers/video/fbdev/cyber2000fb.c
-[ ... ]
-> @@ -1620,9 +1621,14 @@ static int cyberpro_pci_enable_mmio(struct cfb_inf=
-o *cfb)
->  	 */
->  	unsigned char __iomem *iop;
+> accessed type.
+>
+> While at it, fix the alignment check to use `align_of` instead of
+> `size_of`. The values match for all primitives (including u64, given that
+> we do not provide u64 accessor on 32-bit platforms), but are not
+> necessarily true for custom types.
+>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
+>  rust/kernel/io.rs | 25 ++++++++++++++++---------
+>  1 file changed, 16 insertions(+), 9 deletions(-)
+>
+> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+> index bef571dad6eb..fa9ae39ad9d2 100644
+> --- a/rust/kernel/io.rs
+> +++ b/rust/kernel/io.rs
+> @@ -196,13 +196,14 @@ pub fn maxsize(&self) -> usize {
+>  #[repr(transparent)]
+>  pub struct Mmio<const SIZE: usize =3D 0>(MmioRaw<SIZE>);
 > =20
-> +	if (!request_mem_region(0x3000000, 0x5000, "cyber2000fb iop")) {
-> +		pci_err(cfb->dev, "cannot reserve I/O area 0x3000000\n");
+> -/// Checks whether an access of type `U` at the given `offset`
+> +/// Checks whether an access of type `U` at the given `base` and the giv=
+en `offset`
+>  /// is valid within this region.
+> +///
+> +/// The `base` is used for alignment checking only. This can be set to 0=
+ to skip the check.
+>  #[inline]
+> -const fn offset_valid<U>(offset: usize, size: usize) -> bool {
+> -    let type_size =3D core::mem::size_of::<U>();
+> -    if let Some(end) =3D offset.checked_add(type_size) {
+> -        end <=3D size && offset % type_size =3D=3D 0
+> +const fn offset_valid<U>(base: usize, offset: usize, size: usize) -> boo=
+l {
+> +    if let Some(end) =3D offset.checked_add(size_of::<U>()) {
+> +        end <=3D size && (base.wrapping_add(offset) % align_of::<U>() =
+=3D=3D 0)
+>      } else {
+>          false
+>      }
+> @@ -221,14 +222,16 @@ pub trait IoCapable<T> {
+>      ///
+>      /// # Safety
+>      ///
+> -    /// The range `[address..address + size_of::<T>()]` must be within t=
+he bounds of `Self`.
+> +    /// - The range `[address..address + size_of::<T>()]` must be within=
+ the bounds of `Self`.
+> +    /// - `address` must be aligned.
+>      unsafe fn io_read(&self, address: usize) -> T;
+> =20
+>      /// Performs an I/O write of `value` at `address`.
+>      ///
+>      /// # Safety
+>      ///
+> -    /// The range `[address..address + size_of::<T>()]` must be within t=
+he bounds of `Self`.
+> +    /// - The range `[address..address + size_of::<T>()]` must be within=
+ the bounds of `Self`.
+> +    /// - `address` must be aligned.
+>      unsafe fn io_write(&self, value: T, address: usize);
+>  }
+> =20
+> @@ -310,7 +313,11 @@ pub trait Io {
+>      // Always inline to optimize out error path of `build_assert`.
+>      #[inline(always)]
+>      fn io_addr_assert<U>(&self, offset: usize) -> usize {
+> -        build_assert!(offset_valid::<U>(offset, Self::Target::MIN_SIZE))=
+;
+> +        // We cannot check alignment with `offset_valid` using `self.add=
+r()`. So set 0 for it and
+> +        // ensure alignment by checking that the alignment of `U` is sma=
+ller or equal to the
+> +        // alignment of `Self::Target`.
+> +        const_assert!(Alignment::of::<U>().as_usize() <=3D Self::Target:=
+:MIN_ALIGN.as_usize());
+> +        build_assert!(offset_valid::<U>(0, offset, Self::Target::MIN_SIZ=
+E));
 
-[Severity: Low]
-Does struct cfb_info have a member named dev? It appears this might
-cause a build failure on SPARC architectures when compiling
-cyberpro_pci_enable_mmio due to referencing a non-existent field.=20
-
-Additionally, does pci_err() expect a struct pci_dev pointer as its
-first argument rather than a standard struct device pointer?
-
-> +		return -EBUSY;
-> +	}
->  	iop =3D ioremap(0x3000000, 0x5000);
->  	if (iop =3D=3D NULL) {
-> -		printk(KERN_ERR "iga5000: cannot map I/O\n");
-> +		pci_err(cfb->dev, "cannot map I/O area\n");
-
-[Severity: Low]
-This looks like it will encounter the same compilation issue with
-cfb->dev as the error path above.
-
-> +		release_mem_region(0x3000000, 0x5000);
->  		return -ENOMEM;
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615040510.9299=
--1-chintanlike@gmail.com?part=3D1
+IIUC this can allow unaligned accesses if `self.addr()` itself is not
+properly aligned. Do we need a new `Io` invariant for that or is it
+already enforced somewhere?
