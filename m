@@ -4,141 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29F9CCD98C5
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 10:05:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FEA0CD98DA
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 10:10:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F89C10E339;
-	Mon, 15 Jun 2026 10:05:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E24E010E337;
+	Mon, 15 Jun 2026 10:10:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aHHdewTV";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="STf8qDEg";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VNqoc1HU";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CD2D10E338
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 10:05:15 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65F9Td3v4161070
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 10:05:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- t4X6WGiq4FPEq0dd0u+pxDxc4ERsQrYiJnopRFePXIs=; b=aHHdewTVMpBZivXU
- fn/VX6pRmultlnOvxG63Ju6yQO1ca285YR1TNQSMLzRdAkdhWLTmR+R/lljr3D19
- 5qr6ByBCKfsyGikQO/1tXJy6FgMpyL5hBlEZEaSVztLPq03Z8q+QR9mCxfjMYfFr
- uz66vpwbbTV4QI2fegMlxW7+k1RAVHHvj1VHDBdi7J9JWSRQ/OpxZ7kHMqpo3JZC
- +wOfOA2OinRMXP+ubmfA5v/Myn7oMYABH65KcH9HAwcYWnQbFVuZdTR77sct1+T9
- nQy2lsl/pQf6Ib5AaEY/i51RRW8br3+PwBvt6GmRRa2HKQ1gagKpBhfwpHW5X0Y4
- 3r9vAg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4etetf04f7-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 10:05:14 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2bf160f7191so20766435ad.3
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 03:05:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1781517913; x=1782122713;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=t4X6WGiq4FPEq0dd0u+pxDxc4ERsQrYiJnopRFePXIs=;
- b=STf8qDEgtWSFoE7tmoxsZFMOHEG/zbsyyLQoWT14K3pxK3wdcOpufIrb9CXOt5Kegw
- CvSVHzZ0YthwdDWXT5TxT+reml4k7eneeJW3m2CxHz59zK0+FrtNPh5Bt0heRcvDiMjt
- vAdr5XGP+HpIROBXHMCs2EL3w3ibOWJypk9izeRcXOoZmRNWLadkvrLAnkAGxFkeUVbx
- VEmYag5PFIgTJZUACX5MDKzIscITq1ihCx8AVphNLVmkTASDhydfm55C1a/oeRArJZ+G
- YUyiYpwwvQ/fBNfXdnj2H4Qrqu2y/POiGxw9Sq8WqWlzN39DCAAoyBJ/iL5oTaIPNycy
- Fncg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781517913; x=1782122713;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=t4X6WGiq4FPEq0dd0u+pxDxc4ERsQrYiJnopRFePXIs=;
- b=mKU4jz+ToFOQjIHOcRe+2XLR2KGCUBeC/m2JF4DARCnu/tZyKjQA2/1z0/4ak+eKx1
- /oRrKz7fRkeFHp81IZEwDlH64Yxqe6GyJ1xNb1oY0bTIe/od0/nt2RrfMVVaTk08iSLC
- pPHMq77l5HCdpGprQ4yOweOoaGAO+PDOZZlf4mXmhOEAvCUxeYo3zgiOaKRf04u5Mg8E
- tNgwPFVA55kxwyi1/mxrrKyjKCt/izEq+Ms06z5zWCaQogb6+Hl+CKNfLoNUnNsID6sC
- mATGGtRKaP1qgJBFMOzhjnP/jEP9lgSr4KKMYReyGqacIkitxr0QYsXQls7eADrckFjG
- Os6A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/fU3/zPO33BWtwsBCNrNQUzWadBI0ILiEdIlLxz92YT5sQgmETBjh34mvVU0YGxrOLmPIxqCGOC5c=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy1SmxUtn35JO4kC5qFJWBkS72kiDjIhfH4gwRgQkHCgLgdN+wH
- NvJ8IbIIEI/6k8Ar0fsRK8/3qRqiG07uFZM+X6h0lwByRo8geqUAxlh0S4FbGABjMZ7WU+iDCFr
- ZWba9ec5pOxyIq/H85xv5Mn8e0+Hmx4gUEKiU9VXBtAwpv7HzYRssFCWvk+udgDpxV6iXpVg=
-X-Gm-Gg: Acq92OFK63UG1hDvb8iYDXCLzhgBTfcUCHfxqTHzdseWek6nUiP7VVzXo4PZL+E9Gj4
- IQWD10ybfvKO/6K7bb6X/iR1LgO9rrFT7N3Zir2gwoLuin3uCe8tqZUO4O1aPHWcw3wFQhf6FUd
- rjYf9OdpCVy4Ldzo+l+8o5mgI+Q1glhno9b6D7MSD/T+/Q6a9UBs2r7Cp4RuHe4mX9FWr0j92la
- HaqVtw6NmsjO8vWOuKwtorvxm2Uev7ijnxbcROuWspnlYK40Dx1kwfhKcNgQnpX9mpwtVaebWQM
- D5D8sCu+b/3c9ZwmrjNJ2s1rw0TcSqSbRhm+Nil+MsUXu2ZgY+p4kTURgw8I1jMC7eBfNyrrb7/
- 15Tg5sW0ZDwr4CZAt5gFTROL3l2N8cZv1lvl8fedv2G32WZ2yVmYS02c9ipX/76aBRaE2ZWiipb
- QrG/WRQNysBq9/r0A2Sw==
-X-Received: by 2002:a17:903:2f04:b0:2c0:bcb3:86f with SMTP id
- d9443c01a7336-2c6641488d3mr116824465ad.6.1781517913007; 
- Mon, 15 Jun 2026 03:05:13 -0700 (PDT)
-X-Received: by 2002:a17:903:2f04:b0:2c0:bcb3:86f with SMTP id
- d9443c01a7336-2c6641488d3mr116823835ad.6.1781517912493; 
- Mon, 15 Jun 2026 03:05:12 -0700 (PDT)
-Received: from [10.133.33.122] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c42fbb50bfsm96866885ad.33.2026.06.15.03.05.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jun 2026 03:05:12 -0700 (PDT)
-Message-ID: <42c2bbab-dd86-4ba8-94f6-a6f377425be9@oss.qualcomm.com>
-Date: Mon, 15 Jun 2026 18:05:07 +0800
-MIME-Version: 1.0
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012024.outbound.protection.outlook.com
+ [40.93.195.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E50C610E337
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 10:10:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BZ50hXdST1Z/MvVUVaQ0NgtpfF3dmvHiaF6EGBYurgOWd6DaF7WV5o2Jlt/u5w2k/WZ1n2Rg2U8mUmAgkoiBoEPJ5FCGniNuBRuGY6iX1tKyrvIGMbTm1r+yo+bRaagSuVNTGv1PYDUYfq6nGd08KBao13oX1BkDTfVCT8odjO3/dcnzqB82/1QC7P/yWaM6zJGh3hm14o/xMnZJp+Mos97jp+/0fKoQUcaDCc0G8IsouDBmUj5ebVfGtS/oXDda/g7aVQgXOd92FXyb7g0Jb+Yo0sSyx64rbX8TDqjrTFnQs+mZBFuqVSrrtaUIY0YDxLZIzF0p2jr/1Bucwxx0Uw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RpkU7eP0CL6UyXuuWM4tgUpoclR4cNpl5SdiiVVUKdc=;
+ b=oAfPyIpo8gRQsUQi+0lX/5Q+BZMnU0OnobPNdKvTvjKWLtsB6DE5klklI/VrbGCnUFI8rJhnwVL1x5CRPnFKfA/jCEIwpYQxAZ/oIf4HLGQc6+FHheJ4ehECYtA+NzNUcKQI20H6ASBnWKvv8XcRlYnlzz0NxoXF5Q4lHLq7F1Mirc9+Pve25zwO7t4uudEpFevfo3Te0wsIMoT+1z9rj/boW7O/LLThw0gUTiMhVTDM5WHzxeDslc9mqxmHRdeSSHSlFXh+T1VwKw0Ae8GwIcFIn4wMkg5jxjxUG6mheTIoAdhQlsMdx1dLkke50F+8fbElQZ2YS82tV9hs1AFm5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RpkU7eP0CL6UyXuuWM4tgUpoclR4cNpl5SdiiVVUKdc=;
+ b=VNqoc1HUM6d6FBb2d9Y/fDIDs6oAGrGhek/aHQDd+2lnWHaPn7hrvjRud8d/CUHR1QzGHfikhIigWdWKs/h97m2qxfzcj5udQzdANR1OwKtgwI6F1/QTjuRYHU/QTWy9Fn5N3gGj9yH3wkekCExVHCp2eXA8OAMDZUI3HRzhWLE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM4PR12MB7742.namprd12.prod.outlook.com (2603:10b6:8:102::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
+ 2026 10:10:01 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Mon, 15 Jun 2026
+ 10:10:00 +0000
+Message-ID: <2c59904c-9e04-4d96-94db-aa5306fe40c6@amd.com>
+Date: Mon, 15 Jun 2026 12:09:56 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 37/39] drm/msm/dp: add HPD callback for dp MST
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Subject: Re: [RFC PATCH] dma-buf/dma_fence: Make races for
+ dma_fence_is_signaled() less likely
+To: phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20260410-msm-dp-mst-v4-0-b20518dea8de@oss.qualcomm.com>
- <20260410-msm-dp-mst-v4-37-b20518dea8de@oss.qualcomm.com>
- <ml35zldwr6f7euzmw6noy7j5mufyhfhmwoigkwq5ykyyl3amgb@5eo63mfnd4tg>
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ "Paul E . McKenney" <paulmck@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260612104251.2264707-2-phasta@kernel.org>
+ <600885fc-7e07-4713-b5c2-a470637040c8@amd.com>
+ <bf3917fb3ba6bd34611f5aff63178d80c13ebc4d.camel@mailbox.org>
 Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <ml35zldwr6f7euzmw6noy7j5mufyhfhmwoigkwq5ykyyl3amgb@5eo63mfnd4tg>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <bf3917fb3ba6bd34611f5aff63178d80c13ebc4d.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=adxRWxot c=1 sm=1 tr=0 ts=6a2fce5a cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=e5mUnYsNAAAA:8 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=99inU4qtSHyG9fJ7QXwA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
- a=Vxmtnl_E_bksehYqCbjh:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: geOjFIBzAjKaOtmCrdDNu7-ZrZgGOmYH
-X-Proofpoint-ORIG-GUID: geOjFIBzAjKaOtmCrdDNu7-ZrZgGOmYH
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDEwNiBTYWx0ZWRfX+FF2rtrxk1Ig
- tg2c89a6OoY0umPNv2HpgBvqbIuRdym+ZTO+w7WwGkFMfy9BzLcyDE/pj8DKlJegtHttn+m/Fg1
- sOb9JgCwPAeJulFanwunknEXnM+VkfA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDEwNiBTYWx0ZWRfX6ebhN1aO84hg
- aASFKQzgQoqgpWpClqakB19mBvvFzXUi5a5hoIdlmHuFhjhbFZ2iaOPz/ELH2+9DzJa3Uh2T6dR
- p5NUJZLtbVgjEbRaC2PteBx3dbjQfre8flhOOMzdr3iS3JtBZOUZXT/JMOnbs9fwhvLAPGTGe+7
- Nd4tQ2jV7jYXhNgXFlhOWbO+mPoPKT5d0YJaH2VCE8wNleoGtBUbt7r74HaKjej+RpTYOg2YZuR
- ymbdEMlCTZkWgT4E+4UsjuBmPJ2AiYbApa1mXhxTND7V3S+mSHSB1FEABnhlqt6ekXJKBUdk1C4
- CB11Ff/jlqpIU4FVDC72aZnYCA9d2uZkHCpO1WEtBmTh1cywlqjVQ/QOVmMvLEQjv/1NbXNl/bL
- 5PTr+r/CMGY+oZyhONLxVVxlIlGsxIwR0/zcuLe+pMLuyHFZ/AvFGDktRvyDK0niPf0Nd6jneac
- +QgfIRRrqSOgGK6azLA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-15_02,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 impostorscore=0 lowpriorityscore=0
- malwarescore=0 suspectscore=0 spamscore=0 phishscore=0 adultscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
- definitions=main-2606150106
+X-ClientProxiedBy: BL1PR13CA0198.namprd13.prod.outlook.com
+ (2603:10b6:208:2be::23) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB7742:EE_
+X-MS-Office365-Filtering-Correlation-Id: 580028f1-bd5d-484d-9d02-08decac642b4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|7416014|376014|23010399003|1800799024|56012099006|4143699003|11063799006|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: Jqw47c+Wc1bcnjqeTW4XRqSGaH/mkXlNctRtmdJJEaAPPo59lSd/BIBaX7mg6Gd0RSqp98W0nURp9Rd8YQ7AEZhCeLJ6cVbrVg+rh+Ch9fmHC4tb8axLOHqs5IlsCX060Sh2JD+a5JRiiCLvSkrDNyiQbId0RsDqllBVKnuCr32Ns3r1bqvPgdeb01p90HE+FruoG7O8WAUKQwe0IzCPUY2e0uzLlCeVJF6Se2V4NstOhJ8Df1LV3uNLE1ZDkuq4PGnurR3dznkdfJF/+As2wWa6yCvu8Gb4zL/OtAMpUKQA781ovbMKtfYS3ffkKVG+USdAiLMf7m1ok4UzfBQVkvNisp0Q6yN2fRKRFwS10RDWpmaVOI7G/vUAxudLQwsW4r+JOtdApAMAPveHajy6pbVSEv59XHuVnMvZ1LL4FQwSPrYpWIM+oGmuLksB/z9daTLFPolY6HZFqQC1j9UfGN6uPLORoYenb4SwIImRLwGPBf4Uh0rTbc+ES3eCXDhcld2uvMVWMjSJ/pX5xuxNfld4NiD7AdVhnQuoPXuCbrfqEkthP1HpX+Z31b+qBSUMQn9JmV29HOEqn33j4bO9J6OuplDXY8vWom5Y81jGaJKpMEsGBwvVyoYqTsRqo78Dbw0g/2WmQHkgAacj5kwXkjDJ4GEQvGNoPffwZjpBjl8+GAfQEWDyf16l0Hj+5C3K
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Rm43QnVpM3llN1NVMXdHUkZFcnNrTTNFdFUxeWlXdmlEY1pKaFl3SzZQUlpX?=
+ =?utf-8?B?bEZxLzgxZnhhMmp0UHIyZDJzZnZNb0JMa2N0V2NMV201em9FUHN3ZzQ0ZnhI?=
+ =?utf-8?B?UHdNNm5mc3ZkdnBXb3Z3a3lmeU9ZT25mRzVJWlVKSWZNZFFJRzBXZVhaTUQz?=
+ =?utf-8?B?V2loWWRJOTJ3aEVIdEZsc1BiR0VBb2s0MkIrTG95WkRLalR2d0hDU1AxWEJl?=
+ =?utf-8?B?RWMzWlY0V0k2SUJhUWsvWExpcE5nVVhTQWpwTlU0QWNCTXQyMDZjQjV6WWsr?=
+ =?utf-8?B?bmYzMnR3V1BpY29LR3BURFpPdUEzS1F1V0I3VVF3MWNxMmFyditWQXpzNC9Y?=
+ =?utf-8?B?Mzg1RWtHRm9sVzFSSXBpVDY1NWdxcVFXZXFMQ0lJZElLM0M3ei9YbEloeG5U?=
+ =?utf-8?B?SG9XNGR5Vzh2b3U1OGUyNXZPK0pNekEwVzI1bXR3NnNweS9IYklYNTNOSmJl?=
+ =?utf-8?B?UmR2OFRxUXRlREVGUHlRZ0p5NEtHV1NjMXIwbUlMSUt3MkhTK3ZRS2hiVHBi?=
+ =?utf-8?B?SXlpRGZPS05EWTFjbnJQRnZyN0k5WG1hOW12ejc5dEJkVllwSWdTcVRhNzlu?=
+ =?utf-8?B?VGJTVVgvM09iTnVZSTlQeFRpTEIrY1dDcEd2SU4xZ2ZiT1B2Tk1ZelFldk5o?=
+ =?utf-8?B?a1RpdnRHMGNWVVMzTkhiYUhreFV5c25vZnhKeDh1WkhIUVVJTWRKQjhYaHVo?=
+ =?utf-8?B?OFBEUityL3ppVnRKcmQxNjQxdTh3ZEZKZEpwcnNTV29Ha2lqMVJ4cVc2Yjdk?=
+ =?utf-8?B?SkVjZzJ4V3lHcmRKQktlSDMwMFcwVFVqMlZUeWlBWisweWtQSDducmd0L1JI?=
+ =?utf-8?B?MXdwcEZwdjFtekF2V3lhQ205K2dKWm41YzJYUUNmeGFLeCttbHZ3SENlOXY5?=
+ =?utf-8?B?R1crdnZxM3RCSGtQVHZ1NFdoUEtTeGsvTjg1U1JkTXk3V0FJSithSVRxWENR?=
+ =?utf-8?B?UENhTXVRL3AvVU5xeXdtL1J5alBhTGxkM3hmSThRazJvMytYWXhiRDVvZkw0?=
+ =?utf-8?B?OWU2R2dNV09sM3NySitJZ2NHM0lwSzRyMXJkMlpQS3JQWGlWa2hmSUdoOUpa?=
+ =?utf-8?B?VVlvc1RzaFhJNFVkaU44Rlk1cEpOeGNlN0Nnb29UajhIbDhNOW1iZGs4QzV5?=
+ =?utf-8?B?UjV4NHB3TXZrOW0rM1o5RFdpcmVMajlCMTZoS2czcUNnTEFmQ2dtM1M3WVY0?=
+ =?utf-8?B?SnBvSCtWcC9NR2JZWmRCZzNkdTJjdUlsRzZTSUZxbnZXK1BHMGtvYmVzN01Q?=
+ =?utf-8?B?OEk4Ykw5azZCR0VZL0tmekVDY1BNSndKWEZxYXNZcHQxc3hTZHJsTWVoMjNu?=
+ =?utf-8?B?cHA2UWh4MjdIUXVRL3RwR3R4ZW5IK2NvRkdGZ21INEVickRhRUp6QlpVVkNi?=
+ =?utf-8?B?SWJweEJNanlCQmR0eXdzbW15ZldRbmJjNDVpODVVWEhkR0NHSlJ5a3JRc1F5?=
+ =?utf-8?B?YUFwMmZ4UlYxVmRUN2JqUjlKcisrTXIrUllteGZHeUQ3K05PN0lSdW4yZTl2?=
+ =?utf-8?B?UW1tdjNQZElHdEFPTzFLUzdEQUtoR01mTDhzaE5vVngveFBhbktWZmIySnNB?=
+ =?utf-8?B?Nm5uSGtHdnhUTFU3SGdZdUN1ZXZIZmdXdEZCOXQvMXAvYmxOaVFCVFVxUUNZ?=
+ =?utf-8?B?RWEyRFRVdWVuaGx1NHRXUnBCOXJwUVFuSW4yOW1nbHh2K0ZMYlAxdkJHSEVV?=
+ =?utf-8?B?d2VrdVV3OVd1Z1QwblRlbVBBbEl5MkNpeE1tWDhSUzhzb2Frb2UyTXZsRlps?=
+ =?utf-8?B?Y2ZpYThGQWg3b00xYTZDdkMvL2dWQkFQVjBSZXNZMVk1MjRlajUvNzFPaWIx?=
+ =?utf-8?B?c3M5cXFQdGNHak8xYlN3RDNYQTFKU1BVVVBZUGRTQnJKR3NjajBOLzBYVktB?=
+ =?utf-8?B?SktITDkxeWc5VGM0RFBISWsweFI3NWxkTGtqaUJKNklJN2xDeXVDbVFFTGx4?=
+ =?utf-8?B?VmJQQVlKWm1PdHVtY0FJdTlQQ25zcFllSWFJSmpsSGZ5S1ZhRCtsdjNLeElh?=
+ =?utf-8?B?ckxpekFZSGZxSlJOdmJ2TWJuUE94TkFqRGkrRlNkRUJ0YXoxTW1FYVVhSmhO?=
+ =?utf-8?B?YldrZ09BMDJOTlJCV3dEWXlCN2Q4L01zbnhhc3lzRmdKYzk4djRSWjk1aFRi?=
+ =?utf-8?B?RkE1aFdCc2VJNk0zaUFtbVVxbEZXZ3JrR0VDZEJsMWU2eklOMnRIS1JGZkt0?=
+ =?utf-8?B?NnpyRDBFeTM4bkE2T0tQWDlab1gwN3ZlUUxaOXZKNTRPUWZZWGtseGZpSEtR?=
+ =?utf-8?B?ODhTaXJjWDhQR1NBOG9BM2ZlTTlzMXRwRStRcVA1UU9wUmI2cHhoM09IL0Fm?=
+ =?utf-8?Q?4wt3Jjbne5DPBIlEH3?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 580028f1-bd5d-484d-9d02-08decac642b4
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 10:10:00.6127 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: D4UzxH55xU1j9MhytHzhgy7fR0L0H0HUGumLm9totlYfuU7IxXzhTmKTXupiZuGD
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7742
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,189 +144,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 4/12/2026 6:00 AM, Dmitry Baryshkov wrote:
-> On Fri, Apr 10, 2026 at 05:34:12PM +0800, Yongxing Mou wrote:
->> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+On 6/15/26 12:04, Philipp Stanner wrote:
+> On Mon, 2026-06-15 at 11:53 +0200, Christian König wrote:
+>> On 6/12/26 12:42, Philipp Stanner wrote:
+>>> dma_fence_is_signaled() returns whether a fence has been signaled
+>>> already. That function contains a fast path opportunistic check which is
+>>> not guarded by the lock and, according to Christian, cannot be guarded
+>>> by the lock without causing a massive performance regression.
+>>>
+>>> This now means that dma_fence_is_signaled() can return true WHILE the
+>>> fence callbacks are still being executed. This is razy and has lead to
+>>> at least one bug solved in:
+>>>
+>>> commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
+>>>
+>>> Make this race impossible, by simply setting the bit only once the
+>>> callbacks are actually completed.
 >>
->> Add HPD callback for the MST module which shall be invoked from the
->> dp_display's HPD handler to perform MST specific operations in case
->> of HPD. In MST case, route the HPD messages to MST module.
+>> Groundhog day, that has been suggested before and it simply doesn't work.
 >>
->> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->> ---
->>   drivers/gpu/drm/msm/dp/dp_display.c | 23 +++++++++++++++++++----
->>   drivers/gpu/drm/msm/dp/dp_mst_drm.c | 34 ++++++++++++++++++++++++++++++++++
->>   drivers/gpu/drm/msm/dp/dp_mst_drm.h |  1 +
->>   3 files changed, 54 insertions(+), 4 deletions(-)
+>> The flag is intentional set before calling the callbacks because the state needs to be visible.
+> 
+> It will be visible. Just later.
+
+It must be visible *before* the callbacks are called. The whole idea with the callbacks is that you can install a notification of state change.
+
+>> Just see dma_fence_default_wait() for an example why that approach doesn't work.
+> 
+> What's the issue? It will be set. Just later. Who is ordering with
+> whom?
+
+See the functions dma_fence_default_wait() and dma_fence_default_wait_cb().
+
+It wakes up the sleeping thread which in turn needs to observes the new state.
+
+Regards,
+Christian.
+
+> I BTW suggest to write more code comments in the future to document all
+> these supposed pitfalls for those who will hack on that code base once
+> we have left.
+> 
+> 
+> P.
+> 
 >>
->> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
->> index 919767945ba5..ca89e20b7563 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->> @@ -454,6 +454,9 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_display_private *dp)
->>   			dp->msm_dp_display.connector_type,
->>   			dp->link->sink_count);
->>   
->> +	if (dp->plugged)
->> +		return 0;
->> +
->>   	mutex_lock(&dp->plugged_lock);
->>   
->>   	ret = pm_runtime_resume_and_get(&pdev->dev);
->> @@ -556,12 +559,19 @@ static int msm_dp_irq_hpd_handle(struct msm_dp_display_private *dp)
->>   {
->>   	u32 sink_request;
->>   	int rc = 0;
->> +	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
->>   
->>   	/* irq_hpd can happen at either connected or disconnected state */
->>   	drm_dbg_dp(dp->drm_dev, "Before, type=%d, sink_count=%d\n",
->>   			dp->msm_dp_display.connector_type,
->>   			dp->link->sink_count);
->>   
->> +	if (msm_dp_display->mst_active) {
->> +		if (msm_dp_aux_is_link_connected(dp->aux) != ISR_DISCONNECTED)
-> 
-> Will this work for USB-C?
-> 
-Hmm not work for USB-C. We can remove this check here, as the IRQ thread 
-can handle the disconnect case itself.
->> +			msm_dp_mst_display_hpd_irq(&dp->msm_dp_display);
->> +		return 0;
->> +	}
->> +
->>   	/* check for any test request issued by sink */
->>   	rc = msm_dp_link_process_request(dp->link);
->>   	if (!rc) {
->> @@ -1125,9 +1135,13 @@ static irqreturn_t msm_dp_display_irq_thread(int irq, void *dev_id)
->>   				      connector_status_connected);
->>   
->>   	/* Send HPD as connected and distinguish it in the notifier */
->> -	if (hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK)
->> -		drm_bridge_hpd_notify(dp->msm_dp_display.bridge,
->> -				      connector_status_connected);
->> +	if (hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK) {
->> +		if (dp->msm_dp_display.mst_active)
->> +			msm_dp_irq_hpd_handle(dp);
-> 
-> No, don't touch this code. HPD notifications might be coming from the
-> other entities. This IRQ thread can only send the HPD notification.
-> There rest should be handled in the notifier.
-> 
-Ok. From my understanding, after this series 
-(https://patchwork.freedesktop.org/series/164954/#rev5) is rebased, we 
-should use drm_aux_hpd_bridge_notify_extra() here to notify the IRQ?
->> +		else
->> +			drm_bridge_hpd_notify(dp->msm_dp_display.bridge,
->> +					      connector_status_connected);
->> +	}
->>   
->>   	ret = IRQ_HANDLED;
->>   
->> @@ -1793,7 +1807,8 @@ void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
->>   			msm_dp_hpd_plug_handle(dp);
->>   		}
->>   	} else {
->> -		msm_dp_hpd_unplug_handle(dp);
->> +		if (hpd_link_status == ISR_DISCONNECTED)
-> 
-> Why?
-> 
-Let me explain this in more detail here.
-Currently, MST hotplug and IRQ events are handled through the SST bridge.
-This guards against spurious unplug handling caused by 
-msm_dp_bridge_hpd_notify() being invoked from non-HPD contexts where 
-status == connector_status_disconnected does not actually mean the cable 
-is gone.
-
-In addition to the real HPD IRQ path, drm_bridge_connector_detect() also 
-calls drm_bridge_connector_hpd_notify() to broadcast the detect result 
-to all bridges in the chain. So a single physical plug-in produces 
-multiple msm_dp_bridge_hpd_notify() calls — one from the real IRQ, then 
-several more from various probe/poll paths. Stack traces from a single 
-insertion on QCS8300:
-
-   1. msm_dp_display_irq_thread → real HPD plug, status=connected
-   2. fbdev probe triggered by (1) → drm_bridge_connector_detect → 
-status=disconnected (link not ready yet)
-   3. output_poll_execute worker → same path → status=disconnected
-   4. drm_dp_mst_link_probe_work → same path → status=disconnected
-   5. output_poll_execute again → status=disconnected
-
-Here not work for USB-C case yet, I’d like to switch to using 
-drm_dp_read_sink_count to detect whether the sink is actually 
-disconnected or no sink devices.
-
->> +			msm_dp_hpd_unplug_handle(dp);
->>   	}
->>   
->>   	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
->> diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
->> index bb3898b1f6b1..71d3f63973e6 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_mst_drm.c
->> +++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
->> @@ -490,6 +490,40 @@ int msm_dp_mst_display_set_mgr_state(struct msm_dp *dp_display, bool state)
->>   	return rc;
->>   }
->>   
->> +/* DP MST HPD IRQ callback */
-> 
-> Useless comment.
-> 
-Got it.
->> +void msm_dp_mst_display_hpd_irq(struct msm_dp *dp_display)
->> +{
->> +	int rc;
->> +	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
->> +	u8 ack[8] = {};
->> +	u8 esi[4];
->> +	unsigned int esi_res = DP_SINK_COUNT_ESI + 1;
->> +	bool handled;
->> +
->> +	rc = drm_dp_dpcd_read_data(mst->dp_aux, DP_SINK_COUNT_ESI, esi, 4);
->> +	if (rc < 0) {
->> +		DRM_ERROR("DPCD sink status read failed, rlen=%d\n", rc);
->> +		return;
->> +	}
->> +
->> +	drm_dbg_dp(dp_display->drm_dev, "MST irq: esi1[0x%x] esi2[0x%x] esi3[%x]\n",
->> +		   esi[1], esi[2], esi[3]);
->> +
->> +	rc = drm_dp_mst_hpd_irq_handle_event(&mst->mst_mgr, esi, ack, &handled);
->> +
->> +	/* ack the request */
->> +	if (handled) {
->> +		rc = drm_dp_dpcd_write_byte(mst->dp_aux, esi_res, ack[1]);
->> +		if (rc < 0) {
->> +			DRM_ERROR("DPCD esi_res failed. rc=%d\n", rc);
->> +			return;
->> +		}
->> +
->> +		drm_dp_mst_hpd_irq_send_new_request(&mst->mst_mgr);
->> +	}
->> +	drm_dbg_dp(dp_display->drm_dev, "MST display hpd_irq handled:%d rc:%d\n", handled, rc);
->> +}
->> +
->>   /* DP MST Connector OPs */
->>   static int
->>   msm_dp_mst_connector_detect(struct drm_connector *connector,
->> diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.h b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
->> index 5d411529f681..08e145399cfc 100644
->> --- a/drivers/gpu/drm/msm/dp/dp_mst_drm.h
->> +++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
->> @@ -9,5 +9,6 @@
->>   
->>   int msm_dp_mst_init(struct msm_dp *dp_display, u32 max_streams, struct drm_dp_aux *drm_aux);
->>   int msm_dp_mst_display_set_mgr_state(struct msm_dp *dp_display, bool state);
->> +void msm_dp_mst_display_hpd_irq(struct msm_dp *dp_display);
->>   
->>   #endif /* _DP_MST_DRM_H_ */
+>> Regards,
+>> Christian.
 >>
->> -- 
->> 2.43.0
->>
-> 
+>>>
+>>> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+>>> ---
+>>>  drivers/dma-buf/dma-fence.c | 18 ++++++++++++++++--
+>>>  1 file changed, 16 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+>>> index c7ea1e75d38a..2416cc86ce93 100644
+>>> --- a/drivers/dma-buf/dma-fence.c
+>>> +++ b/drivers/dma-buf/dma-fence.c
+>>> @@ -359,8 +359,19 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+>>>  
+>>>  	dma_fence_assert_held(fence);
+>>>  
+>>> -	if (unlikely(test_and_set_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
+>>> -				      &fence->flags)))
+>>> +	/*
+>>> +	 * First test the bit, so we don't signal an already signaled fence again.
+>>> +	 * The lock protects against multiple parties setting the bit. The bit
+>>> +	 * is then set at the end of the function.
+>>> +	 *
+>>> +	 * The background is that there is a fast path check in
+>>> +	 * dma_fence_is_signaled() which does not use lock protection and can
+>>> +	 * return true *while* the fence callbacks are still executing.
+>>> +	 *
+>>> +	 * This fast path check supposedly cannot be guarded by the lock because
+>>> +	 * of significant performance regressions.
+>>> +	 */
+>>> +	if (unlikely(test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)))
+>>>  		return;
+>>>  
+>>>  	trace_dma_fence_signaled(fence);
+>>> @@ -384,6 +395,9 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+>>>  		INIT_LIST_HEAD(&cur->node);
+>>>  		cur->func(fence, cur);
+>>>  	}
+>>> +
+>>> +	// TODO: we need some barrier here, don't we?
+>>> +	set_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+>>>  }
+>>>  EXPORT_SYMBOL(dma_fence_signal_timestamp_locked);
+>>>  
 
