@@ -4,54 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03321CD98E3
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 15:30:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 850CCCD98C5
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 15:33:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67ACB10E50D;
-	Mon, 15 Jun 2026 15:30:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCD7D10E514;
+	Mon, 15 Jun 2026 15:33:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gQRUH/Fh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ar3iybqO";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8874410E50D
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 15:30:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781537433; x=1813073433;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=ct3JzO6uCcAqlIAJk0gvE3VcYD1iFW+dQuk31sqNrG4=;
- b=gQRUH/FhZxuQnTStZeMmsYGyAKn0rHucrGUKXY2+ql7W0oqpDX+8skfv
- q16oN3/JU+uIx+SP+kfbTRhTBlJVuRV23ekU4AoXLBStHE2f8RfRlXlwW
- ux2WIaIjLFNwsIw4yWHLwrjwtBZo9IHEbePKQLt6wex09LPsieZaG15bk
- fVntb+ixlae96TZ9QY6PPIFtBGboW8UIO8pHOV7LUCLNg+w9d2UNATpru
- EL/Pi5c08ODXgxLsgaL9giLqW4IDtURjz3q9DjYzCfnev+B4fkyGaDYup
- N/c18YKXXBGR2jAkAMWTf9QfqIxxR2LYBMlMq1sSiDRBdlrKqrhNVXImY A==;
-X-CSE-ConnectionGUID: +pgqCim5Q+2J9oP2bN/A8g==
-X-CSE-MsgGUID: 2qbaQ641SOink9PW5OurCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="82018807"
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="82018807"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2026 08:30:32 -0700
-X-CSE-ConnectionGUID: DIg973CVQSiIOvI9CDtU7Q==
-X-CSE-MsgGUID: ftG0jduiRkGHzeSGiJbbxQ==
-X-ExtLoop1: 1
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.28])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2026 08:30:31 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: jani.nikula@intel.com
-Subject: [PATCH] drm/dp: fix kernel-doc for struct drm_dp_vsc_sdp
-Date: Mon, 15 Jun 2026 18:30:27 +0300
-Message-ID: <20260615153027.1899784-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
-MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34F7410E514
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 15:33:43 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 5CA2D601E1;
+ Mon, 15 Jun 2026 15:33:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F18D81F000E9;
+ Mon, 15 Jun 2026 15:33:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781537622;
+ bh=6AjC6XjOX61yxIs9K83xQ18hyh50u0vg4kCu1YoanDg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Ar3iybqOKQYIXZWMkcncNUVVj0sdj44I16Q4OOLjfpOxZ97audLQD+Q+ApxNyv6vx
+ Ff+QTYTB93tLmGggD07BC1+1dXnAvUrpcXN6oF9S6TaBzAAcS2LYWS+2NIjqa7/cSG
+ xHjILUGxlZzqTnFE1FxxBZ00ZvXemkIEedcLxZWxuMFXDwqzOllEFANQW0dzxSbCx7
+ MX1GCOzAb+bTAhjf3qjzDJb9jg2r0DotuY93wBEBU10eIERIMDukNfY/dva062wfjH
+ F7cA4xIpz5lD8wf5RjKigCm8zOe4aXXs93lJmWibsCNw5bjCYBmrApB/c7ZqBSOzi0
+ 09gycpLH1w6/w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/dp: fix kernel-doc for struct drm_dp_vsc_sdp
+To: "Jani Nikula" <jani.nikula@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260615153027.1899784-1-jani.nikula@intel.com>
+References: <20260615153027.1899784-1-jani.nikula@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 15 Jun 2026 15:33:41 +0000
+Message-Id: <20260615153341.F18D81F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,29 +52,58 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the missing coasting_vtotal kernel-doc member documentation for
-struct drm_dp_vsc_sdp.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The commit title and message incorrectly reference `struct drm_d=
+p_vsc_sdp` instead of `struct drm_dp_as_sdp`.
+--
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- include/drm/display/drm_dp_helper.h | 1 +
- 1 file changed, 1 insertion(+)
+commit 8304279d14f731f52c93218e1e0ba5c553ab15f4
+Author: Jani Nikula <jani.nikula@intel.com>
 
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index 8c2d77a032f0..ab16c1be3900 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -115,6 +115,7 @@ struct drm_dp_vsc_sdp {
-  * @duration_decr_ms: Successive frame duration decrease
-  * @target_rr_divider: Target refresh rate divider
-  * @mode: Adaptive Sync Operation Mode
-+ * @coasting_vtotal: Coasting vtotal
-  */
- struct drm_dp_as_sdp {
- 	unsigned char sdp_type;
--- 
-2.47.3
+drm/dp: fix kernel-doc for struct drm_dp_vsc_sdp
 
+This commit aims to add the missing coasting_vtotal kernel-doc member
+documentation.
+
+> drm/dp: fix kernel-doc for struct drm_dp_vsc_sdp
+>=20
+> Add the missing coasting_vtotal kernel-doc member documentation for
+> struct drm_dp_vsc_sdp.
+
+[Severity: Medium]
+Are the commit title and message referencing the correct structure?
+
+The commit message states the documentation is being added for
+struct drm_dp_vsc_sdp, but looking at the diff below, the code modifies
+the kernel-doc block for struct drm_dp_as_sdp instead.
+
+> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/dr=
+m_dp_helper.h
+> --- a/include/drm/display/drm_dp_helper.h
+> +++ b/include/drm/display/drm_dp_helper.h
+> @@ -115,6 +115,7 @@ struct drm_dp_vsc_sdp {
+>   * @duration_decr_ms: Successive frame duration decrease
+>   * @target_rr_divider: Target refresh rate divider
+>   * @mode: Adaptive Sync Operation Mode
+> + * @coasting_vtotal: Coasting vtotal
+>   */
+>  struct drm_dp_as_sdp {
+
+[Severity: Medium]
+Does this coasting_vtotal member belong to struct drm_dp_as_sdp as modified
+here, or was it intended for struct drm_dp_vsc_sdp?
+
+It appears the git diff hunk header might have misleadingly displayed
+struct drm_dp_vsc_sdp as the context, while the actual modification is
+applied to the documentation block for struct drm_dp_as_sdp. Could the
+commit message be updated to match the code, or was the documentation
+added to the wrong structure?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615153027.1899=
+784-1-jani.nikula@intel.com?part=3D1
