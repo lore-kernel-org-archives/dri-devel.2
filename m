@@ -4,94 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5957ECD98EE
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 18:18:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7271FCD98EF
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 18:18:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43B6210ECEB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 050B710ECE5;
 	Tue, 16 Jun 2026 18:18:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oqKDcgiP";
+	dkim=pass (2048-bit key; unprotected) header.d=asu.edu header.i=@asu.edu header.b="GExlg0z6";
 	dkim-atps=neutral
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
- [209.85.208.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 460DB10E7FA
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 03:42:24 +0000 (UTC)
-Received: by mail-lj1-f174.google.com with SMTP id
- 38308e7fff4ca-397e391cb2aso35335761fa.2
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 20:42:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781581342; cv=none;
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D47510E5DC
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 18:49:17 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-36d630c0e35so3702282a91.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 11:49:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781549357; cv=none;
  d=google.com; s=arc-20240605;
- b=JjkHGf8adlzfwtT5VmsRG+jaHAElVUtLvPaAXgUMBhr3/O6wL/3Pg7Ddnn5wBFe1or
- w/EMNKAYjvhcHvP2vKKg70t+igkGxmGW0EixiZNfIBFdguATxeZrvvx+kU72BWAdF6iE
- wbKC+depjgCVrmR4sUxWOP+IKoHQ/KoH09ezA9iuMUIBxvV5ycBs3SOtP2KgbUoOuU1a
- KbD+BpNiF42e8Bq+G7inNodFuH+i9WiejEEUzNxXk8Bznf08qCs8lCxscp1WYrpm/jPA
- 9ZdBpCMv0uUpFYmR68hIr1Z0+OmLMZi5lrgbeTRrIibApXxTap7pfEKOq1ooq/1uBmWK
- xd7Q==
+ b=Yx8knq2KKOPjmXSE7TXorKQIJGsdbhoKE4Fo3YjhUsQvHQiWe2FJeCAgQxy1NLvZxg
+ mjjeu7Wtbu5NKdOeLoaE3FF7uW5fnYtDm9YMWLIItoQqeyJuLGqtO8fWIv/8R/KBo6mR
+ rB1MC+vq4ev3EhVaBYN4aDwQnC+GGwQ3q2yYcloQ4GNrsbjGyPKyQmyrxn0YC95TdZb+
+ xBq4VjI64Z8yeHiEDl9gRfGob3yqDyrD4i6bY5vSi3TYhyWiqrg3pSEZm1U7FsCcinnb
+ GeAouyVDMFCJuJ1edibkeTIVGPniB2Q0OeT9IFvEidor3jFU9QSqy60vV3NxJH766DPs
+ LP8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=6QkO242zjqJOUCCQGA9Iv8kbh0YooY0Noa0v7iQvj0Q=;
- fh=4wdKYRDkqAnZisD+GgyEp2t+2kwjw34G4AbDoRz6acs=;
- b=CKa++sNnOFuBVYVGYwVIEyX3uv7DErpO5eXLxNesqpVbGFZZ4AB499H+/FSEveync5
- qFULN206EpiNWcinqqfnKtbKQp2WxjzDK7lK//WO+P7pFNdiWDtA34x1YTS3XBASCLAj
- mtZAu3vOFHJxWK48u+q6XxxO7kuYPxziYbNJ7NYWLDFz5xcWjUAqkUei8+7qxr3sIe1+
- kWoSHiBq7whiCmF7jwTdkbnDmKVwJjqE9tXqu64/oILg9NkI3rUgiwUefwBzpRsBdliL
- oySfDwQlUfeIRg6obU/jU5Vtfp8bIex3m7dEBAQEjDnDPCzXanVbAEb9b4oUa6G8YiQ9
- 4spA==; darn=lists.freedesktop.org
+ bh=d5/DJ9DNGuShuLcbXqMZ2Vz9TuI3CFZzJNzSjnAzN5o=;
+ fh=TtajIdewxLj9gyUJHHT1ccYIMDz3/yfxP4gcQYcRsXA=;
+ b=iLjiTsw0/vJonDflnvQFYTiYGXeKN+J93HhhT20r1uLSuygUDi02ffXxtVizGh0waj
+ E7nc7rOUJcGARoNnueD56SXAmJWcmjvoOUGYPW+5Jjy5/8XIHeZMzTvPlPLHfMx8J8TX
+ zceIbS7iwMJueLT0DE+s5Uu66hausT5orWUMHzpw7TpY75wlcyGG+Lh0/c0NDyxT4Jrp
+ 0G/JIcrpLDXhv7rKqoD/sbLzCGDhzXZ0RXKcfQAqSputcU3yLTfLpaWBRf42YlauJnNZ
+ oe4OuTbiHvraNpdX9qLeidx414moPlrjhAOsuHpHXJwWw+AQEFaElhJ2B7SbUE5L+w1M
+ ltuQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781581342; x=1782186142; darn=lists.freedesktop.org;
+ d=asu.edu; s=google; t=1781549357; x=1782154157; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6QkO242zjqJOUCCQGA9Iv8kbh0YooY0Noa0v7iQvj0Q=;
- b=oqKDcgiP7+QssIFwqiPoCCekXCBYMU8wyhPRhHABNtzQbiPfKMBTCicEwfkmwfyWhl
- H0RbCfrevWi7LTKYYb23MG9DlDgilLJTV77GGMV36xX7xSpb6hLUj12BuYgjhRI4RgwQ
- JZ85Vk3qFu/cR7whDBCD8LBTd4piuRXDsxn0pjXh110WbR4J0Ww/c6NlGTMTQJvsCQXj
- sGBuR92A5iKl146QgksHzDhxCR/xbg1scTRy7cG84MdY3hbzDHhU7qO9W1hreqwxff4J
- hX2WMGIoPW9igX1HFUGgm/qwlCVm2W+fiSK5zmlQt1gFoa5tYvF5OxKiZTj/V8NHdzSU
- nQvQ==
+ bh=d5/DJ9DNGuShuLcbXqMZ2Vz9TuI3CFZzJNzSjnAzN5o=;
+ b=GExlg0z6uzmJuo+C7ivozo0FeQSVzRTrwkXmrkJ/lgwWqhUXXfMb45iTAZlEFWvTBw
+ 4O+liPz3C8/GdjLx+F4v0XgeAeUypWBTIVuUOkxosr+w+cHi15GOt4p62e/XNxAuxG70
+ yukdmEuhtuhUdeutu2zpgReOTd3KX5EYw9PvM1ndKn4M11u7ayBNI6cPt8iF5KUC9J3Q
+ X/BlcVzFXJwXG6lCvI8tNc/qvnckcLmRFIag5g99NcADGaH5KHpqX3EaKAlNu0/vwoBo
+ AOhjtWq/CnEN2YqulIspPj1IJvqyj3l2JdjLBJPdfCvuOt4L7urNm11VqvS5yGNLqsdN
+ gVTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781581342; x=1782186142;
+ d=1e100.net; s=20251104; t=1781549357; x=1782154157;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=6QkO242zjqJOUCCQGA9Iv8kbh0YooY0Noa0v7iQvj0Q=;
- b=J6VDwRBUy02UCRvmJ2VW8WOZjtOYCQZlOG41hXAh4M4+rkxzn1L7IF/Lh8cKyFad2f
- cf03RdNgfH/9Jifugc6pqR/8yk0GibEDCMtR3720iDn02rAZNlczRnHK6HOPrOdjY/IT
- HrJyXeCRI7oBe2KRtyjrj+xJOpiIE59AvozCWKGKQ/z7bN0Lg/mn7X8ziapGBHEsdf9y
- 46X7vtuW6FgwIiChpzTZM6cUNrbAerkIgiRW7UljmtGkqcykV7w0/u8+7pR0KNcZgXcv
- pJzmemDN0naw8JT/qo1onQZ6oJ2ringr7CJzZrNSd7Ir2F1F4uPdZp5a/5Foa3A9HkMB
- y5qg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8ACAtZqKHXmw96pKgrwidRSmr/mPrn4zGcow0Cv1GM1BOgXMbNk1Y9VI+cZrl+aHvdcEHoMWawx6E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxC/EYSF8n7LTURRz9GWJMo28ETQuC7JyknPS5tyz9o+UBbrplf
- 4BtIv80b/VmBZ8fJK0dekQHosbMPQmPKNQqm8zrJoJRKZYi240KFFUZXKBH6FSOOLT4LlClzk8B
- IZ2WfKElWz1/FT1omtXlPUZFiLDlN4ik=
-X-Gm-Gg: Acq92OFO8KPoF9Ed7f2ryxY6PHiRnPpi8glUxS0Er/9yHZBJZ4jxGnj6xnTu72fS8aJ
- B7IIzC3hMtOZwuBqv7PbkEoyBJJh9XKpuQXVyF8vU9p+GrvuGpwrmt11ehD3EcBk3IPHGGBdS4C
- lv16qbkTILqsfA4mjo+fLAJsjEXsdZiTS06KNpqFij8psXDcRQ8zHTiRLZ2P4qEZFhxW161U63P
- 4CbY3FAn45Kzo4FuTn+sGt0o4CD7YgOJhKl6snuJncvY9OazbPBC/sQNj8nK8iiNVJPY8b72V/I
- eQE0hF/vBuIjOydM/Sb6tMuM2TVrdop/suiDZpgPxzIu/1E=
-X-Received: by 2002:a2e:bd8a:0:b0:393:a7d7:7e84 with SMTP id
- 38308e7fff4ca-39935773dd6mr36326101fa.24.1781581342125; Mon, 15 Jun 2026
- 20:42:22 -0700 (PDT)
+ bh=d5/DJ9DNGuShuLcbXqMZ2Vz9TuI3CFZzJNzSjnAzN5o=;
+ b=O3gJTVr7IR2RUYSqBlp+rAbnD+XQB739k4Ncn3tx2a/iwhednWmoJmnXvuEYL6FmlE
+ HEx24/+jhoFViNWUKGMrCAIm73lVCvzJkvye2Yn8aqttSuibo0VIRbI8U9+jGqQoE851
+ YaVF2HDEUbSxXc86exVVf2gDaQ4l2ZtOXlEHUomd9WuRYNUqC0yOOI5qoAwr2Tzxrz0F
+ +NfV23pAjlP4oHtJks6kWJAKxEWVOomflqzGoUBedZVgEwEVAdGqV6PtRztwx+Z/QJOV
+ JBdOtP12C1R3ilRxe1Z7d96YAWoEZq/gSntLJVFzcfcCE+9Zwsumvd3EOJ+ujByY94Le
+ tAiw==
+X-Gm-Message-State: AOJu0YxJQemPLAzvoakXXJzUJTuhELepBrEUoWOhE7BMy4MWW9fL6gLi
+ B83Qw+hjiY2228NkAsi25M0g0AhrYz4/f5yLs68Xe8PVkPnKdKZ8MmD5FnZWRnwQVDArC+62EVN
+ dcDwJGSfYvWFk9575roZQezSztczfp3ZiHawlAwHS
+X-Gm-Gg: Acq92OGOX/ZGgpSzOp1kGgrs7RCau4XrQHw/EaNyMUL9XVuu7JCWOtWq/T6cW9rE86M
+ WSHGzavaeWLxDBFakpijjpmi29eN2iPhR78noIu1I5hMJddmtslxjXfA5Xqz0m1rTAgb51nprpS
+ Tw1WQJ9d8Yh9/ku+BBhGhq0hTcwnXYkrhLKmLAQurCHGHe1tgeFVFjHzetuCGPpMAX70xs2jpMk
+ 9LSOIijayRmCbbOSmVvBS8hR0jJ+q9AyFWDyhUD/tFwE/4mkjDp7qpkbAlMI5uiEGWygCp/HpuN
+ C7jZuj/OGCH/0lQBNhD5oSRJFzHgTaoOIsvBSv8=
+X-Received: by 2002:a17:90b:53cc:b0:36b:7f69:c152 with SMTP id
+ 98e67ed59e1d1-37c2bd494e7mr12595357a91.18.1781549356834; Mon, 15 Jun 2026
+ 11:49:16 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260615234922.151263-1-skainsworth@gmail.com>
- <CAHYiNPbJ59kWedhzZh9pCOvdd82jPd0mPSvqUcAcpAB_GuYaTA@mail.gmail.com>
-In-Reply-To: <CAHYiNPbJ59kWedhzZh9pCOvdd82jPd0mPSvqUcAcpAB_GuYaTA@mail.gmail.com>
-From: Samuel Ainsworth <skainsworth@gmail.com>
-Date: Tue, 16 Jun 2026 03:41:44 +0000
-X-Gm-Features: AVVi8CeqzzoRgnheQTFzthQuFy62FqPdkdsu_fToWpW-W3S4M8fVlIw4YMeHeVs
-Message-ID: <CAHYiNPacyFu0Pft2SSS_to6-KZ+zoiF0LGtJk1Gd93Fn84aASg@mail.gmail.com>
-Subject: Re: [PATCH v1 0/2] drm/ttm: fix bulk_move cursor use-after-free for
- unevictable resources
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Huang Rui <ray.huang@amd.com>
-Cc: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260609064038.2799482-1-xmei5@asu.edu>
+ <4e784cad86c91595b6d5da64ca854dab38357658@intel.com>
+ <CAPpSM+RXTg6KCAVHRESi8=7=3pAWGfc1bjrdS_OTf+dsSwyL7A@mail.gmail.com>
+ <f9bc5c32e22198e957adcfaab5e4849a3b0e5268@intel.com>
+In-Reply-To: <f9bc5c32e22198e957adcfaab5e4849a3b0e5268@intel.com>
+From: Xiang Mei <xmei5@asu.edu>
+Date: Mon, 15 Jun 2026 11:49:06 -0700
+X-Gm-Features: AVVi8Cf9VDwqb7LL4w7_VjZiHvKtklhoHqqRuT4PxckdQrdNEKMOou4IdDuZTX8
+Message-ID: <CAPpSM+Swx6Hu-xEj+5qoCN_jPE2i=rJqaR8YP72Ca_HpchHa2A@mail.gmail.com>
+Subject: Re: [PATCH] drm/edid: fix OOB read in drm_parse_tiled_block()
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+ bestswngs@gmail.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 16 Jun 2026 18:18:52 +0000
@@ -110,190 +108,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Welp, I spoke too soon. v1 is broken.
-
-While stress-testing the fix on the affected machine (KASAN + DEBUG_LIST,
-ordinary desktop use rather than only hibernate cycles), I hit a new
-use-after-free that this patch introduces:
-
-  BUG: KASAN: slab-use-after-free in ttm_lru_bulk_move_tail+0xa93/0xcb0 [tt=
-m]
-  Read of size 8 ... by task .swayosd-server
-   ttm_lru_bulk_move_tail+0xa93/0xcb0 [ttm]
-   amdgpu_vm_move_to_lru_tail+0x29/0x40 [amdgpu]
-   amdgpu_cs_ioctl+0x4247/0x5090 [amdgpu]
-  Freed by:
-   ttm_resource_free+0x1f8/0x390 [ttm]
-   ttm_bo_delayed_delete+0x69/0x100 [ttm]
-
-By dropping the ttm_resource_unevictable() gate from
-ttm_resource_del_bulk_move() and removing any tracked resource, the del now=
- runs
-for resources that have become unevictable. ttm_lru_bulk_move_del() updates
-pos->first/pos->last by walking the manager LRU
-(ttm_lru_next_res()/ttm_lru_prev_res()), but an unevictable resource's lru.=
-link
-has been moved to bdev->unevictable, so the walk lands on an unrelated reso=
-urce
-and leaves the cursor pointing outside the bulk-move range. That resource i=
-s
-freed later, and the next ttm_lru_bulk_move_tail() dereferences the danglin=
-g
-cursor.
-
-IIUC the resource needs to be taken off the cursor at the point it becomes
-unevictable (while its link is still on the manager LRU), not deferred to
-free/teardown. The kunit tests passed only because they used a single-eleme=
-nt
-cursor, where ttm_lru_bulk_move_del() clears pos without walking; they did
-not cover the multi-element / moved-link case that this UAF needs.
-
-I am not 100% convinced I have this pinned down yet, but I believe I may be
-making progress. Feedback welcome!
-
-I'll try to follow up with a v2 that fixes it at the unevictable transition=
- and
-adds tests that actually exercise the multi-element case. Apologies for the
-confusion.
-
-Best,
-Sam
-
-
-On Tue, Jun 16, 2026 at 12:46=E2=80=AFAM Samuel Ainsworth <skainsworth@gmai=
+On Mon, Jun 15, 2026 at 1:53=E2=80=AFAM Jani Nikula <jani.nikula@linux.inte=
 l.com> wrote:
 >
-> Welp, I spoke too soon. v1 is broken.
->
-> While stress-testing the fix on the affected machine (KASAN + DEBUG_LIST,
-> ordinary desktop use rather than only hibernate cycles), I hit a new
-> use-after-free that this patch introduces:
->
->   BUG: KASAN: slab-use-after-free in ttm_lru_bulk_move_tail+0xa93/0xcb0 [=
-ttm]
->   Read of size 8 ... by task .swayosd-server
->    ttm_lru_bulk_move_tail+0xa93/0xcb0 [ttm]
->    amdgpu_vm_move_to_lru_tail+0x29/0x40 [amdgpu]
->    amdgpu_cs_ioctl+0x4247/0x5090 [amdgpu]
->   Freed by:
->    ttm_resource_free+0x1f8/0x390 [ttm]
->    ttm_bo_delayed_delete+0x69/0x100 [ttm]
->
-> By dropping the ttm_resource_unevictable() gate from
-> ttm_resource_del_bulk_move() and removing any tracked resource, the del n=
-ow runs
-> for resources that have become unevictable. ttm_lru_bulk_move_del() updat=
-es
-> pos->first/pos->last by walking the manager LRU
-> (ttm_lru_next_res()/ttm_lru_prev_res()), but an unevictable resource's lr=
-u.link
-> has been moved to bdev->unevictable, so the walk lands on an unrelated re=
-source
-> and leaves the cursor pointing outside the bulk-move range. That resource=
- is
-> freed later, and the next ttm_lru_bulk_move_tail() dereferences the dangl=
-ing
-> cursor.
->
-> IIUC the resource needs to be taken off the cursor at the point it become=
-s
-> unevictable (while its link is still on the manager LRU), not deferred to
-> free/teardown. The kunit tests passed only because they used a single-ele=
-ment
-> cursor, where ttm_lru_bulk_move_del() clears pos without walking; they di=
-d
-> not cover the multi-element / moved-link case that this UAF needs.
->
-> I am not 100% convinced I have this pinned down yet, but I believe I may =
-be
-> making progress. Feedback welcome!
->
-> I'll try to follow up with a v2 that fixes it at the unevictable transiti=
-on and
-> adds tests that actually exercise the multi-element case. Apologies for t=
-he
-> confusion.
->
-> Best,
-> Sam
->
-> On Mon, Jun 15, 2026 at 11:49=E2=80=AFPM Samuel Ainsworth <skainsworth@gm=
-ail.com> wrote:
->>
->> A resource added to a bo's bulk_move LRU cursor can become unevictable
->> (pinned or swapped) after it has been added. ttm_resource_del_bulk_move(=
-)
->> then skips removing it -- both on free and on ttm_bo_set_bulk_move() dur=
-ing
->> bo teardown -- because the resource is unevictable, leaving the cursor's
->> pos->first/pos->last pointing at it. Once freed, the next allocation on =
-that
->> bulk_move dereferences the dangling cursor (use-after-free) and corrupts=
- the
->> LRU list, which CONFIG_DEBUG_LIST turns into a fatal BUG.
->>
->> In the field this is a hibernation-triggered panic on a Framework 13 (AM=
+> On Sat, 13 Jun 2026, Xiang Mei <xmei5@asu.edu> wrote:
+> > On Wed, Jun 10, 2026 at 5:49=E2=80=AFAM Jani Nikula <jani.nikula@linux.=
+intel.com> wrote:
+> >>
+> >> On Mon, 08 Jun 2026, Xiang Mei <xmei5@asu.edu> wrote:
+> >> > drm_parse_tiled_block() casts the DisplayID block to a
+> >> > struct displayid_tiled_block and reads the full fixed layout up to
+> >> > tile->topology_id[7] without checking block->num_bytes. The DisplayI=
 D
->> Ryzen 7040): a buffer swapped out during hibernate is closed after resum=
-e
->> (amdgpu_gem_object_close -> amdgpu_vm_bo_del -> ttm_bo_set_bulk_move()),
->> which leaves its unevictable resource on the VM's bulk_move cursor; a la=
-ter
->> GEM allocation on that cursor then faults (drm/amd issue #5387).
->>
->> Patch 1 tracks cursor membership explicitly so the del always undoes the
->> add, regardless of any pin/swap transition. Patch 2 adds kunit regressio=
-n
->> coverage.
->>
->> Validating the bug (no GPU required, patch 2):
->>
->>  - ttm_bo_bulk_move_swapped_free_dangles allocates a resource on a
->>    bulk_move cursor, swaps out its bo's ttm so the resource becomes
->>    unevictable, frees it, and asserts the cursor no longer references th=
-e
->>    freed resource. Without the fix this fails: pos->first/pos->last stil=
-l
->>    equal the freed pointer.
->>
->>  - ttm_bo_bulk_move_dangling_corrupts then allocates on the same
->>    bulk_move; without the fix, KASAN reports a slab-use-after-free in
->>    ttm_resource_add_bulk_move().
->>
->> On the affected machine, a throwaway debug kernel that WARN_ONCE()s when
->> ttm_resource_del_bulk_move() skips an unevictable resource still on the
->> cursor was used to test. It fired during a normal hibernate/resume cycle=
-, via
->> amdgpu_gem_object_close() -> amdgpu_vm_bo_del() -> ttm_bo_set_bulk_move(=
-).
->> That confirmed the production trigger and that the planted state matches
->> the field crash (the ttm_resource.c WARN_ON, then list_del corruption).
->>
->> With the patch 1 fix, both kunit tests pass and the full TTM kunit suite=
- is
->> green (no KASAN report, no CONFIG_DEBUG_LIST splat). Furthermore, I set =
-up a
->> kernel with the fix, built with KASAN + CONFIG_DEBUG_LIST + lockdep, and=
- ran 10
->> hibernate/resume/GEM-close cycles under GPU load with no use-after-free =
-nor LRU
->> list corruption.
->>
->> I am new to this area, so review of the approach is very welcome -- in
->> particular whether tracking membership on the resource is preferrable vs
->> removing it from the cursor at the point it becomes unevictable.
->>
->> Samuel Ainsworth (2):
->>   drm/ttm: don't leave bulk_move cursor dangling for unevictable
->>     resources
->>   drm/ttm/tests: add bulk_move cursor regression tests
->>
->>  drivers/gpu/drm/ttm/tests/ttm_bo_test.c | 163 ++++++++++++++++++++++++
->>  drivers/gpu/drm/ttm/ttm_resource.c      |  18 ++-
->>  include/drm/ttm/ttm_resource.h          |   9 ++
->>  3 files changed, 187 insertions(+), 3 deletions(-)
->>
->>
->> base-commit: 2c7d5b0a5ec0fc713a7f350806553643e87e6f43
->> --
->> 2.54.0
+> >> > iterator only validates the declared payload length, so a crafted ED=
+ID
+> >> > can advertise a tiled-display block (tag DATA_BLOCK_TILED_DISPLAY, o=
+r
+> >> > DATA_BLOCK_2_TILED_DISPLAY_TOPOLOGY for v2.0) with a small num_bytes=
+ at
+> >> > the end of a DisplayID extension. The read then runs past the end of=
+ the
+> >> > exact-sized kmemdup()'d EDID allocation, a heap out-of-bounds read.
+> >> >
+> >> > Add a minimum-length check, as drm_parse_vesa_mso_data() already doe=
+s.
+> >> >
+> >> >   BUG: KASAN: slab-out-of-bounds in drm_edid_connector_update
+> >> >   Read of size 2 at addr ffff888010077700 by task exploit/147
+> >> >    dump_stack_lvl (lib/dump_stack.c:94 ...)
+> >> >    print_report (mm/kasan/report.c:378 ...)
+> >> >    kasan_report (mm/kasan/report.c:595)
+> >> >    drm_edid_connector_update (drivers/gpu/drm/drm_edid.c:7581)
+> >> >    bochs_connector_helper_get_modes (drivers/gpu/drm/tiny/bochs.c:57=
+4)
+> >> >    drm_helper_probe_single_connector_modes (drivers/gpu/drm/drm_prob=
+e_helper.c:426)
+> >> >    status_store (drivers/gpu/drm/drm_sysfs.c:219)
+> >> >    ...
+> >> >    vfs_write (fs/read_write.c:595 fs/read_write.c:688)
+> >> >    ksys_write (fs/read_write.c:740)
+> >> >
+> >> > Fixes: 40d9b043a89e ("drm/connector: store tile information from dis=
+playid (v3)")
+> >> > Reported-by: Weiming Shi <bestswngs@gmail.com>
+> >> > Assisted-by: Claude:claude-opus-4-8
+> >> > Signed-off-by: Xiang Mei <xmei5@asu.edu>
+> >> > ---
+> >> >  drivers/gpu/drm/drm_edid.c | 7 +++++++
+> >> >  1 file changed, 7 insertions(+)
+> >> >
+> >> > diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> >> > index 404208bf23a6..92054ac82fe2 100644
+> >> > --- a/drivers/gpu/drm/drm_edid.c
+> >> > +++ b/drivers/gpu/drm/drm_edid.c
+> >> > @@ -7575,6 +7575,13 @@ static void drm_parse_tiled_block(struct drm_=
+connector *connector,
+> >> >       u8 num_v_tile, num_h_tile;
+> >> >       struct drm_tile_group *tg;
+> >> >
+> >> > +     if (block->num_bytes < sizeof(*tile) - sizeof(*block)) {
+> >>
+> >> I'd prefer using fixed values here. If the tiled display topology data
+> >> block is ever expanded, we'll need to have them anyway.
+> >>
+> >> This should be if (block->num_bytes < 22).
+> >>
+> >
+> > I've been advised on other patches that it's better to avoid magic
+> > numbers, and I think sizeof(*tile) - sizeof(*block) is preferable here
+> > for two reasons:
+> >
+> > 1. It's easier to understand. A bare 22 forces the reader to know what
+> > it stands for, while sizeof(*tile) - sizeof(*block) reads as exactly
+> > what it is: the number of payload bytes the code dereferences.
+> >
+> > 2. It's more maintainable for the expansion case you mention. It stays
+> > in lockstep with the struct, so once topology_id is corrected to 9
+> > bytes (below) it becomes 22 automatically and the patch still works
+> > with no edit. A hardcoded 21 would silently re-open the OOB when the
+> > struct grows, and a hardcoded 22 doesn't match what the current code
+> > reads today.
+>
+> I'm not referring to struct changes, I'm referring to spec changes.
+>
+> If the spec gets changed, the struct needs to reflect the newest/biggest
+> size, and access to the end of the struct needs to be gated on the size
+> available. If you add that sizeof thing now, it'll need to be changed if
+> the spec gets exended.
+>
+> I'll argue that adding the sizeof or < 21 check now is *wrong* because
+> it does not match the *spec*. It's not about the struct, it's about the
+> spec. The check should be < 22.
+
+Thanks for the explanation. v2 uses 22 instead of sizeof.
+
+>
+> >> And reviewing this, I realize struct displayid_tiled_block definition =
+is
+> >> actually only 21 bytes. The topology_id member is 8 bytes, while it
+> >> consists of
+> >>
+> >> - Tiled Display Manufacturer/Vendor ID Field (3 bytes)
+> >> - Tiled Display Product ID Code Field (2 bytes)
+> >> - Tiled Display Serial Number Field (4 bytes)
+> >>
+> >> i.e. total of 9 bytes.
+> >>
+> > Good catch. This looks like a separate, pre-existing issue from the
+> > OOB read fixed here, and it also touches group_data[8] and the
+> > memcpy/memcmp sites in drm_mode_{get,create}_tile_group(). We don't
+> > have much experience with this part of the code, so if it's okay we'd
+> > rather leave it for you to assess the impact and the right fix, and
+> > keep this patch as the minimal OOB fix.
+>
+> The fix is at [1].
+>
+Thanks for the patch!
+
+Xiang
+>
+> BR,
+> Jani.
+>
+>
+> [1] https://lore.kernel.org/r/20260610141549.555605-1-jani.nikula@intel.c=
+om
+>
+> >
+> >
+> > Xiang
+> >
+> >> BR,
+> >> Jani.
+> >>
+> >>
+> >> > +             drm_dbg_kms(connector->dev,
+> >> > +                         "[CONNECTOR:%d:%s] Unexpected tiled block =
+size %u\n",
+> >> > +                         connector->base.id, connector->name, block=
+->num_bytes);
+> >> > +             return;
+> >> > +     }
+> >> > +
+> >> >       w =3D tile->tile_size[0] | tile->tile_size[1] << 8;
+> >> >       h =3D tile->tile_size[2] | tile->tile_size[3] << 8;
+> >>
+> >> --
+> >> Jani Nikula, Intel
+>
+> --
+> Jani Nikula, Intel
