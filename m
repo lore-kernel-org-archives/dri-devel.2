@@ -4,52 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42A52CD98C5
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 12:14:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22439CD98C5
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 12:15:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCA1D10E3CE;
-	Mon, 15 Jun 2026 12:14:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 745C210E3BB;
+	Mon, 15 Jun 2026 12:15:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="lGYvKlmS";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="oU35YR8c";
 	dkim-atps=neutral
-X-Greylist: delayed 604 seconds by postgrey-1.36 at gabe;
- Mon, 15 Jun 2026 12:14:06 UTC
-Received: from mta-65-227.siemens.flowmailer.net
- (mta-65-227.siemens.flowmailer.net [185.136.65.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82E4F10E3C6
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 12:14:06 +0000 (UTC)
-Received: by mta-65-227.siemens.flowmailer.net with ESMTPSA id
- 202606151203581fe6f5e4fa00020751
- for <dri-devel@lists.freedesktop.org>;
- Mon, 15 Jun 2026 14:03:58 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=kfviCFmmVXESKpqwYOHN1tzc25WNDVOaT5tGn2iOj50=;
- b=lGYvKlmSoizJac/jQQQED7veF6GXTVcUrAb6xb0R1eFO3C0jINpA8+xBcM1WZQl1+H8Y5G
- /Mc1kTJDpHNUnzgwv8vDvyIfb72piXQQXt8XBUCjxYmwd8TcKqn4XZhzS2JXBKu+ncBhnRBI
- OeiquP2ZjhRzS2mnI48REWmfE5dzbJjDZF8mHkU8hfnEZlCW/D26tVZxucdOxVvZYqx/8TU/
- KoQxiYnHPPpsCnl+14OcB/YrwrH9exy0v+WbiB3yzl3mDW6/++HxrrWNxCu6Po3SpmemhZQm
- n4IZLGmH4f4/ZI8GRiFlPTknXkfJWDIqpnQk+vsUOMG9L/uh4G39YvDA==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: linux-leds@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
- Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
- Andrew Davis <afd@ti.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org
-Subject: [PATCH 2/3] leds: lp8864: Rename struct lp8864_led and local variables
-Date: Mon, 15 Jun 2026 14:03:48 +0200
-Message-ID: <20260615120353.3409035-3-alexander.sverdlin@siemens.com>
-In-Reply-To: <20260615120353.3409035-1-alexander.sverdlin@siemens.com>
-References: <20260615120353.3409035-1-alexander.sverdlin@siemens.com>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7ACEA10E3BB
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 12:15:32 +0000 (UTC)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id EDF7A227;
+ Mon, 15 Jun 2026 14:14:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1781525698;
+ bh=S3qYVE+IsQdmBW/YqaJdxU4w3VEbDSI3GdWVg9g6mQk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=oU35YR8c4uvW8k5J9DXStw65+9RcZWov1x86+/Ngmm1XxbVSNrTiRvlsvhBwm7vMa
+ Pa2A6WIuhWokS/xEamL1yqwj7z7rbfYIz4hh6l1IsL2Mvr5r+JgkgbG1P58AiMWRCt
+ oSIvXrR4/whmh2cZ0W7qR/brvih6O459pa4yh9Ks=
+Message-ID: <72189515-4566-46fb-9277-50570b8d28d6@ideasonboard.com>
+Date: Mon, 15 Jun 2026 15:15:26 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+References: <20260615-rcar-du-dsc-v4-0-93096a1b56a3@ideasonboard.com>
+ <20260615-rcar-du-dsc-v4-4-93096a1b56a3@ideasonboard.com>
+ <20260615091911.GB2821720@killaraus.ideasonboard.com>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <20260615091911.GB2821720@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,231 +72,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Hi,
 
-Rename struct lp8864_led to struct lp8864 and the local variable 'led'
-to 'priv' throughout the driver. The LED functionality will become
-optional in a subsequent patch that adds backlight class support, so
-having the driver's private data structure and variables named after
-LED-specifics is misleading.
+On 15/06/2026 12:19, Laurent Pinchart wrote:
+> Hi Tomi,
+> 
+> Thank you for the patch.
+> 
+> On Mon, Jun 15, 2026 at 09:28:09AM +0300, Tomi Valkeinen wrote:
+>> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
+>> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
+>> crtc, when enabling the crtc.
+>>
+>> With DSC (added in upcoming patch) in the pipeline, between the DU and
+>> the DSI, the above call path is broken as the crtc tries to call
+>> rcar_mipi_dsi_pclk_enable() on the DSC.
+>>
+>> To solve this problem, add checks to rcar_du_crtc_atomic_enable() and
+>> rcar_du_crtc_atomic_disable() to detect the DSC via the bridge type, and
+>> skip the DCS bridge when needed.
+>>
+>> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+>> ---
+>>   drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c  | 18 ++++++++++++++++++
+>>   drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c |  1 +
+>>   2 files changed, 19 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
+>> index 6c07c406f725..f14fd89f9104 100644
+>> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
+>> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
+>> @@ -754,6 +754,15 @@ static void rcar_du_crtc_atomic_enable(struct drm_crtc *crtc,
+>>   	     (BIT(RCAR_DU_OUTPUT_DSI0) | BIT(RCAR_DU_OUTPUT_DSI1)))) {
+>>   		struct drm_bridge *bridge = rcdu->dsi[rcrtc->index];
+>>   
+>> +		/*
+>> +		 * When we have a DSC block between the DU and the DSI,
+>> +		 * the "bridge" points to the DSC. Detect the DSC by looking
+>> +		 * at the bridge type, and skip the DSC if the bridge is not
+>> +		 * the DSI bridge.
+>> +		 */
+>> +		if (bridge->type != DRM_MODE_CONNECTOR_DSI)
+>> +			bridge = bridge->next_bridge;
+>> +
+> 
+> Is there a reason you don't do this in rcar_du_encoder_init() instead ?
+> It would avoid running this code on every enable/disable.
+That works too.
 
-No functional change.
+Both options feel a bit confusing, in different ways. Your suggestion is 
+less code and, I think, more correct as rcdu->dsi[] will always point to 
+a DSI bridge (although that itself is a bit confusing, as one could 
+expect it to point to a neighboring bridge from DU...), so I'll switch 
+to that.
 
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
----
- drivers/leds/leds-lp8864.c | 70 +++++++++++++++++++-------------------
- 1 file changed, 35 insertions(+), 35 deletions(-)
-
-diff --git a/drivers/leds/leds-lp8864.c b/drivers/leds/leds-lp8864.c
-index 3afd729d2f8a6..d05211b970c94 100644
---- a/drivers/leds/leds-lp8864.c
-+++ b/drivers/leds/leds-lp8864.c
-@@ -69,32 +69,32 @@ static const char *const lp8864_led_status_msg[] = {
- };
- 
- /**
-- * struct lp8864_led
-+ * struct lp8864
-  * @client: Pointer to the I2C client
-  * @led_dev: led class device pointer
-  * @regmap: Devices register map
-  * @led_status_mask: Helps to report LED fault only once
-  */
--struct lp8864_led {
-+struct lp8864 {
- 	struct i2c_client *client;
- 	struct led_classdev led_dev;
- 	struct regmap *regmap;
- 	u16 led_status_mask;
- };
- 
--static int lp8864_fault_check(struct lp8864_led *led)
-+static int lp8864_fault_check(struct lp8864 *priv)
- {
- 	int ret, i;
- 	unsigned int val;
- 
--	ret = regmap_read(led->regmap, LP8864_SUPPLY_STATUS, &val);
-+	ret = regmap_read(priv->regmap, LP8864_SUPPLY_STATUS, &val);
- 	if (ret)
- 		goto err;
- 
- 	/* Odd bits are status bits, even bits are clear bits */
- 	for (i = 0; i < ARRAY_SIZE(lp8864_supply_status_msg); i++)
- 		if (val & BIT(i * 2 + 1))
--			dev_warn(&led->client->dev, "%s\n", lp8864_supply_status_msg[i]);
-+			dev_warn(&priv->client->dev, "%s\n", lp8864_supply_status_msg[i]);
- 
- 	/*
- 	 * Clear bits have an index preceding the corresponding Status bits;
-@@ -102,25 +102,25 @@ static int lp8864_fault_check(struct lp8864_led *led)
- 	 * Status bit.
- 	 */
- 	if (val)
--		ret = regmap_write(led->regmap, LP8864_SUPPLY_STATUS, val >> 1 | val);
-+		ret = regmap_write(priv->regmap, LP8864_SUPPLY_STATUS, val >> 1 | val);
- 	if (ret)
- 		goto err;
- 
--	ret = regmap_read(led->regmap, LP8864_BOOST_STATUS, &val);
-+	ret = regmap_read(priv->regmap, LP8864_BOOST_STATUS, &val);
- 	if (ret)
- 		goto err;
- 
- 	/* Odd bits are status bits, even bits are clear bits */
- 	for (i = 0; i < ARRAY_SIZE(lp8864_boost_status_msg); i++)
- 		if (val & BIT(i * 2 + 1))
--			dev_warn(&led->client->dev, "%s\n", lp8864_boost_status_msg[i]);
-+			dev_warn(&priv->client->dev, "%s\n", lp8864_boost_status_msg[i]);
- 
- 	if (val)
--		ret = regmap_write(led->regmap, LP8864_BOOST_STATUS, val >> 1 | val);
-+		ret = regmap_write(priv->regmap, LP8864_BOOST_STATUS, val >> 1 | val);
- 	if (ret)
- 		goto err;
- 
--	ret = regmap_read(led->regmap, LP8864_LED_STATUS, &val);
-+	ret = regmap_read(priv->regmap, LP8864_LED_STATUS, &val);
- 	if (ret)
- 		goto err;
- 
-@@ -128,31 +128,31 @@ static int lp8864_fault_check(struct lp8864_led *led)
- 	 * Clear already reported faults that maintain their value until device
- 	 * power-down
- 	 */
--	val &= ~led->led_status_mask;
-+	val &= ~priv->led_status_mask;
- 
- 	for (i = 0; i < ARRAY_SIZE(lp8864_led_status_msg); i++)
- 		if (lp8864_led_status_msg[i] && val & BIT(i))
--			dev_warn(&led->client->dev, "%s\n", lp8864_led_status_msg[i]);
-+			dev_warn(&priv->client->dev, "%s\n", lp8864_led_status_msg[i]);
- 
- 	/*
- 	 * Mark those which maintain their value until device power-down as
- 	 * "already reported"
- 	 */
--	led->led_status_mask |= val & ~LP8864_LED_STATUS_WR_MASK;
-+	priv->led_status_mask |= val & ~LP8864_LED_STATUS_WR_MASK;
- 
- 	/*
- 	 * Only bits 14, 12, 10 have to be cleared here, but others are RO,
- 	 * we don't care what we write to them.
- 	 */
- 	if (val & LP8864_LED_STATUS_WR_MASK)
--		ret = regmap_write(led->regmap, LP8864_LED_STATUS, val >> 1 | val);
-+		ret = regmap_write(priv->regmap, LP8864_LED_STATUS, val >> 1 | val);
- 	if (ret)
- 		goto err;
- 
- 	return 0;
- 
- err:
--	dev_err(&led->client->dev, "Failed to read/clear faults (%pe)\n", ERR_PTR(ret));
-+	dev_err(&priv->client->dev, "Failed to read/clear faults (%pe)\n", ERR_PTR(ret));
- 
- 	return ret;
- }
-@@ -160,31 +160,31 @@ static int lp8864_fault_check(struct lp8864_led *led)
- static int lp8864_brightness_set(struct led_classdev *led_cdev,
- 				 enum led_brightness brt_val)
- {
--	struct lp8864_led *led = container_of(led_cdev, struct lp8864_led, led_dev);
-+	struct lp8864 *priv = container_of(led_cdev, struct lp8864, led_dev);
- 	/* Scale 0..LED_FULL into 16-bit HW brightness */
- 	unsigned int val = brt_val * 0xffff / LED_FULL;
- 	int ret;
- 
--	ret = lp8864_fault_check(led);
-+	ret = lp8864_fault_check(priv);
- 	if (ret)
- 		return ret;
- 
--	ret = regmap_write(led->regmap, LP8864_BRT_CONTROL, val);
-+	ret = regmap_write(priv->regmap, LP8864_BRT_CONTROL, val);
- 	if (ret)
--		dev_err(&led->client->dev, "Failed to write brightness value\n");
-+		dev_err(&priv->client->dev, "Failed to write brightness value\n");
- 
- 	return ret;
- }
- 
- static enum led_brightness lp8864_brightness_get(struct led_classdev *led_cdev)
- {
--	struct lp8864_led *led = container_of(led_cdev, struct lp8864_led, led_dev);
-+	struct lp8864 *priv = container_of(led_cdev, struct lp8864, led_dev);
- 	unsigned int val;
- 	int ret;
- 
--	ret = regmap_read(led->regmap, LP8864_BRT_CONTROL, &val);
-+	ret = regmap_read(priv->regmap, LP8864_BRT_CONTROL, &val);
- 	if (ret) {
--		dev_err(&led->client->dev, "Failed to read brightness value\n");
-+		dev_err(&priv->client->dev, "Failed to read brightness value\n");
- 		return ret;
- 	}
- 
-@@ -208,14 +208,14 @@ static void lp8864_disable_gpio(void *data)
- static int lp8864_probe(struct i2c_client *client)
- {
- 	int ret;
--	struct lp8864_led *led;
-+	struct lp8864 *priv;
- 	struct device_node *np = dev_of_node(&client->dev);
- 	struct device_node *child_node;
- 	struct led_init_data init_data = {};
- 	struct gpio_desc *enable_gpio;
- 
--	led = devm_kzalloc(&client->dev, sizeof(*led), GFP_KERNEL);
--	if (!led)
-+	priv = devm_kzalloc(&client->dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
- 		return -ENOMEM;
- 
- 	child_node = of_get_next_available_child(np, NULL);
-@@ -237,24 +237,24 @@ static int lp8864_probe(struct i2c_client *client)
- 	if (ret)
- 		return ret;
- 
--	led->client = client;
--	led->led_dev.brightness_set_blocking = lp8864_brightness_set;
--	led->led_dev.brightness_get = lp8864_brightness_get;
-+	priv->client = client;
-+	priv->led_dev.brightness_set_blocking = lp8864_brightness_set;
-+	priv->led_dev.brightness_get = lp8864_brightness_get;
- 
--	led->regmap = devm_regmap_init_i2c(client, &lp8864_regmap_config);
--	if (IS_ERR(led->regmap))
--		return dev_err_probe(&client->dev, PTR_ERR(led->regmap),
-+	priv->regmap = devm_regmap_init_i2c(client, &lp8864_regmap_config);
-+	if (IS_ERR(priv->regmap))
-+		return dev_err_probe(&client->dev, PTR_ERR(priv->regmap),
- 				     "Failed to allocate regmap\n");
- 
- 	/* Control brightness by DISPLAY_BRT register */
--	ret = regmap_update_bits(led->regmap, LP8864_USER_CONFIG1, LP8864_BRT_MODE_MASK,
-+	ret = regmap_update_bits(priv->regmap, LP8864_USER_CONFIG1, LP8864_BRT_MODE_MASK,
- 								   LP8864_BRT_MODE_REG);
- 	if (ret) {
--		dev_err(&led->client->dev, "Failed to set brightness control mode\n");
-+		dev_err(&priv->client->dev, "Failed to set brightness control mode\n");
- 		return ret;
- 	}
- 
--	ret = lp8864_fault_check(led);
-+	ret = lp8864_fault_check(priv);
- 	if (ret)
- 		return ret;
- 
-@@ -262,7 +262,7 @@ static int lp8864_probe(struct i2c_client *client)
- 	init_data.devicename = "lp8864";
- 	init_data.default_label = ":display_cluster";
- 
--	ret = devm_led_classdev_register_ext(&client->dev, &led->led_dev, &init_data);
-+	ret = devm_led_classdev_register_ext(&client->dev, &priv->led_dev, &init_data);
- 	if (ret)
- 		dev_err(&client->dev, "Failed to register LED device (%pe)\n", ERR_PTR(ret));
- 
--- 
-2.54.0
+  Tomi
 
