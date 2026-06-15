@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32E8CCD98CF
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 14:41:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACDB7CD98C5
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 14:41:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76E9910E499;
-	Mon, 15 Jun 2026 14:41:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09B1910E4B0;
+	Mon, 15 Jun 2026 14:41:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="DvXjqiFT";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="aLd/hKxP";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010040.outbound.protection.outlook.com [52.101.201.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46D4910E499
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 14:41:41 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013038.outbound.protection.outlook.com
+ [40.107.201.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7798910E4AB
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 14:41:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q0wSIHYUmni/R+VFY2UA3yjlZWmdqH82KrLoZTIWia7vCCybv8FqDMZgJgJK4KbeqKC4rprl8U2sINTvWk/L+yRznOr6vW6ZSFZz7ADKoZeHdwZwJnL1LrW9O3y7Z4U3+vJE9teUW5/C3/24RrnGyRzaLtxFhVYKnYgPt6CY3hQ8VHZlaKf1ggP4lpumlbVN0Qq9sS9dBNUIgMFIZUmJnZxaM+4xskN2Ez3wV6bgoEqm38WpVloTxSEffDrL1GPQg0M5yGRC+QkvZYdso/J7O/VoaHoVe+DkG9rqtG8Z604zP+kqQs21/gChFRXyDPlGnIsAqP3+Z7nAuNOwp7wGkQ==
+ b=e7EOqIEnVfKtNZxXwvcLXwdpQAcwCa2veg27aW+gRHKooHOh0bNr33Exn3kFtKooAerV+DGgaOQc2rRcHcLsbt07/YkHLNWkb86+FUqPivzD+YO2SElsfUUTffVqLFIOPxPpp5WXHYRlEgoVbbjTzZFQfFhtehEBqaiplr4ITwXBgxmMI8nB+8JcfBIjEl+8degGuhcXxkl1KE7hu4FxqCYCZsnEgGsju2xpWHO+r+4BeP2PZ5ZBbmote+dpnuQsHMkdh1OFnhe3PK7i2E29ktjKciIOrYTHS26GpaIeYpi7KZfs9NmcUy+w6ONELqUXbTti9yd82BMcLbJwoslJYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G1yCR59ApZg/MwoMKCCf688qkC5lDfz+6wr0BPZ5GiQ=;
- b=L43lEbdg0KVXq0a3/AAz8d+HF28ZxMM6cS9AEwI6RV/hWoY5C3KrE/YeGXHl17gIcXWSOYKWU0J4G+VkgejNnIbEF9HfSIeTBkbVoAO91KZednXNVyv+3xTOpxhS4vRb4qqyHAG5geMroLMFozy24miSr48oEc4TmtJ2JO1txVEJAAjbeCtNLKA6h+pR+blZQYs47zwgu0qu3+2aBAuLShrmI1xl4ttAYUK1uWZJUDVQoryFGLaUlUdtQs9dYx+38PevIweZyXT9/6KvuGPByLuDKGdXT0tgjB0Z7Kog5II0FspGtUjEPkVQnIp1zMZueGAWOiQQ5yEE6PvXFbAJpw==
+ bh=UAwjfGdAEE0aqEsregsTwBvqAhzSwP44ptO9Lz612eY=;
+ b=Q0R9zOg/z4p80FvhtkJfnM9fgxlAqAnfSy7DzR2tPi/WmOB9BACTJtkmlxMINgHJ/i688vFkXLA1iLAqAhPFG9AOvLl2uqPmtpiN5CQVdlJmymg+EhrYk6vsiJjUjGFg16/wEhuHwC15LpT4xpr8AQFimfI/HHMLe16QWZpOkKMViKyD+yd3rSdXT1Ue5u4dO4s3M0Da0HhpH4hX7P4QUef5d+N6fcPuy5pcINo9IoQyNPYGDajyr9SWQyFR7vv1Q7GFolfJacDXu/PLn11C/OKZ8giKUoDTOn4zjAjUJ9rf22SG7ibOzCO0I9+NQyHDcudz2BCou+fIwWT3YUUTGA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G1yCR59ApZg/MwoMKCCf688qkC5lDfz+6wr0BPZ5GiQ=;
- b=DvXjqiFTAytXifWjBEFvS7B0gvKPE2uQU5AIvfK6qPH95ykLzoVmHIdvRbXDCi3dmXujWVAlJZi299XSzNbdg65Q601SPhvYA3DgOpHVthOQoqBHF0ZhswTLyQQWBJIp4hMQO3DaItBCPimr1WQwBDVVN5mlQEZOUHJNTdKbybPJGvyem4hCiEOq7PPK5cGNAuFvYrvEEWTjetiLUcTVtQt8u+bjbBxP8K9ZFYB5/vatZ8B5kdANrkhL/O/a602C+D2vgEX0DBn3I+CXItbLY5+QcxIi1951ScHZAyTygfTMGoLWVCedPc0QvSdso6qc2ociup0voHDAPF8tsx8m9g==
+ bh=UAwjfGdAEE0aqEsregsTwBvqAhzSwP44ptO9Lz612eY=;
+ b=aLd/hKxPd3GapN0IOf21ys+tOwuL51WbPMCIJMkj+IVEDKWQ67B5CNNUD92GLcW5q9NNBw9BYM6h7QkkwyAXKNaV85ZQ76lQChvlYHWzPLedfVukqKgrSE5CIaSkC0tGhdpiw672NbusqyQkQyeWes2/G1cDOUKFKSCT5HBuDXLCbF2vG7nDQL7Jwo/LmPyWMPrmkWPK8U/wGGN1kigajG92zs4a+0hmgeCC8LeFC9CGMlxDs6mdKfhly12a/Bm+ruZY3FsiD+AslE64AWiTuVhKmWOUn2pZv+8R+Gx9nBVCbTMo+f9imyMz2iEoK2Iivtl6tz5yfY0yw4aX+WRSkw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
  by PH7PR12MB8105.namprd12.prod.outlook.com (2603:10b6:510:2b7::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
- 2026 14:41:37 +0000
+ 2026 14:41:41 +0000
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
- 14:41:37 +0000
+ 14:41:41 +0000
 From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Mon, 15 Jun 2026 23:40:42 +0900
-Subject: [PATCH 02/13] gpu: nova-core: fsp: catch bogus queue pointer
- issues
+Date: Mon, 15 Jun 2026 23:40:43 +0900
+Subject: [PATCH 03/13] gpu: nova-core: fsp: try to enforce exclusive access
+ to FSP channel
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260615-blackwell-fixes-v1-2-f2853e49ff7d@nvidia.com>
+Message-Id: <20260615-blackwell-fixes-v1-3-f2853e49ff7d@nvidia.com>
 References: <20260615-blackwell-fixes-v1-0-f2853e49ff7d@nvidia.com>
 In-Reply-To: <20260615-blackwell-fixes-v1-0-f2853e49ff7d@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, 
@@ -61,73 +62,73 @@ Cc: John Hubbard <jhubbard@nvidia.com>,
  linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
  Eliot Courtney <ecourtney@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TY4PR01CA0094.jpnprd01.prod.outlook.com
- (2603:1096:405:37d::18) To BL0PR12MB2353.namprd12.prod.outlook.com
+X-ClientProxiedBy: TY4PR01CA0086.jpnprd01.prod.outlook.com
+ (2603:1096:405:37d::14) To BL0PR12MB2353.namprd12.prod.outlook.com
  (2603:10b6:207:4c::31)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|PH7PR12MB8105:EE_
-X-MS-Office365-Filtering-Correlation-Id: c371cedb-45a1-47e0-7bbe-08decaec342b
+X-MS-Office365-Filtering-Correlation-Id: 7bb612b7-1d8d-494b-b200-08decaec3696
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|10070799003|366016|376014|7416014|23010399003|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: aYatQ8pKfVpbA9WuWJTFGNnfouDibxYZkaMfXU7JTknqiUiPAVetIfokEneCO6vQnslWkEf+2KFQaFEcJcYGc5tRaLWL3aQOr9BhE2dfTuyMr0Vgz5u0VHe/bRGFfezd3sVfDKtQrby1JvhSPM2/Ty0nM3WErrn9/wNEYvv5+V2avbN52ywm9TD6MqB/Ok3VzJKR/y4Pg0IDsWQh2P9OP1BEtIAW8gczU41A48Uue3wRXqgytZKzMo+EWV1e/To1LwPRJ0NigMw4A/6P7IpexC71bFnNwW+HhonLCQDwAR+Vj8E3Q7dpCk04wdPXYRC34Nd75f277uhRA0pS5VnpgkHegdqxfcO69yWmR9zreA0JYFsw9K4CKMAYxVZbY0oTXmL/2r9qthg/lmyLgnYHOzTiiVLcpAbgThOCm1/mSyecfYcw/+dOzqNxcBjfTOfQAvi2u6Mfhp9cw1YdcusaEyFihxFxZAzl+i7h694USi1D3R2GcOCvYlUqUgk/vvit4V7VNjmpN6mob1cM5v2r2Q2EFBGTApog15+fUNN3QSAL4YqzlA72sxCzP4gbbzJQfiK8wCfd679RK8CstphTnQrm3ln935GAn4z13CYAQxhbu/eTpQUukquAfvAjcYL2ID6dY4H8X/d+xMcT6JygQ50EogsP3yx5ADP7p2vaS6BCAP8Bh1vXR4zCExroyMba
+X-Microsoft-Antispam-Message-Info: MBKrWK7xgoekZXNOIgs0sPGlNmP/dLFi2xL3oCmy+78+YQHsJh5ZVtj7QebTiVDyAHlDaASZXF1VlqxkjFsrDWyAB9uGRpNvEuD+u+jXKDTCxqtCVjrUj0rB+lonUIQEvP2CpGeiLVwu5lEn1EYuTQsxH/T3/0LmKT6zw6A4vFIHAweMpBklTphBbaAizwI+si+L6uVNlM7TPVPIZxw3tJQUMj0ZoQC9DkdvkJrMbXRQmEoNStgEfaDBAO2R+ml17pweOdyzg7jms3IEp5brdZqazEIe3dWun3o1lQODhsow/xvS/rawL3MIttECjd8Y+4UCNDhaJtsil8MMsPdawOLPVU4snOsPsq4qcD8mjvT8VRITFsrM3rrWrq4P/05PSWNRi9pG4A7wdLflZRnzV2eh3tFCDJY9mollOq5HGXvUaH6KWjCE+XjGnqMQKwpr6LyITcaWcI79EaUHyyYAiIo3Q3sAh7fdrzhv8+4Iejzp/5zeL5oIgoINhsyq49lB1xS21oeezR/7N3z0XYwM5YMbnknP9adldLuh3WDuq5MMlCaJTT4rCKunvWtWcVPYkMjvqL3L5oJL/WVw+vNOOKrTcgk1hXh192MYuxoAM2+72qa2kb7usQ+cF1DeQBVnJc6LNUXkkr3DXzyBP+D7u/h/NiNmQ2BeFjMwf6iVAs/KVwhd3NA7L1x1AG61xyZa
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(10070799003)(366016)(376014)(7416014)(23010399003)(18002099003)(22082099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YlZ4anMycVZEamxVeXpqL3NtVjM1MlV5TzhORU9JMjRGVkRSczhEbDN5S2lx?=
- =?utf-8?B?Z0lCbGdBU3ZvVWwwa3pSa0RaQUZYbC9pM3B1N1V1amRuNW41MnFjbW1tQTV5?=
- =?utf-8?B?RnpIV2Z5eEwyU2VyeVdKRXpKakNZOXk1NTU1a2twVjI4V29aNGx0blROdGQv?=
- =?utf-8?B?L2tibnRaNkRjdkw0RTQyZENEL204VFp4b21JMW9rU1NkODVGMnRQdWlEaktn?=
- =?utf-8?B?WGVnbkw5Z2VVeW5YbXhvQTFWQ2lzdzRRT2tJUkNnU2F4M2FoMnRmdU9Ba1lF?=
- =?utf-8?B?TjE0ektoblE1aWdvajFFaDNuMWdGYXh4WmpjS1RnNUhkczhab1BONkxBekpk?=
- =?utf-8?B?T0YzeWhaZHE3YUlrd2hiemh3alBUb1duQk5oSUNqOG5OZ3RGUXBPUWw0TC9k?=
- =?utf-8?B?bHZGVklYdkZlTURSN3BPRjlSNTZuRGRWUTAyOE5PMFpYQWtWRnB2ZGp1QWtl?=
- =?utf-8?B?QlZtNkR1bEtiNWJBR29aZkxDNk02bldQRHlaYTZVN1NYMFEyUmMxVDczZGF3?=
- =?utf-8?B?WWZ1SXFpNzNoS3cwRGZHWGNBZVgreGplV3ZGWU0xNDhObUxJcHQ5aVZrdUFq?=
- =?utf-8?B?TitPSks1aWk2Ym42cnlZZlNOS2RTT2NnWjBrT2pEcHBoNE5kRFdiRk9uejBn?=
- =?utf-8?B?MWdiRkRRWjZnTUNLRGZrNHYrMkdxNmlPMEFFdGhwUWtqRE12UmdPYXorcjU2?=
- =?utf-8?B?UlEwanlld3NpRUZYRyswL2tYWG5DY0xsVXRiMUIwcXZaMmV3dmVETUNldWV2?=
- =?utf-8?B?cENTN1JFSktjcHFsdncwM0RHMittQXhtSW1HWW04Z3ZGbGdlbEpGcHIyeVpU?=
- =?utf-8?B?RVlvVTYrdUl5OHZsd3BLN0w1T2FTMlhOdkRTTzViZTJZdzViclBKVFo3Wkh5?=
- =?utf-8?B?bmhOT29VaE1MQWVYa0tDejhnbmhMR20wWHBZd01kYWl6UVUwZDlyZjk3eGlB?=
- =?utf-8?B?S3YvM01tdWlBc1pPVnA3Nk9DWnR0TkJ4NXNtdVhSMnMxTFhWMEZGK3pDUUxL?=
- =?utf-8?B?dmlQdUlzTk5wZ0pTQ3ZVa0o4cGh0N1d1cmczUjAzTi94U1RpZXd5dkdyYWxU?=
- =?utf-8?B?L1VnejdzaXYveTlsWDlmNVZJZEZuTmhhNTc5UndTQUtlcUVIZUxlVTkzZUNj?=
- =?utf-8?B?RGUyRUF4WWp6aXVxLzFpcGJvbkd2VEp0WEMwQ3JxbStQTWxxUWp4MGpVNTd2?=
- =?utf-8?B?dXdiOXVUNXFJTXl5MDVveWZnNUhXYkt5TjhRV3FBKzNkQThmMTlscDMwcm5t?=
- =?utf-8?B?NHZpemhmNFdkT2VYMnh0WklITXFnNVpjdTVvb1BmdDVDZEsyZnUwZndtczBm?=
- =?utf-8?B?M3E2QWhwZHU1OVU1QzlFRkxjdWVOTmxBUzg4WVdjRFBFbmErRzdvRkdTQXpx?=
- =?utf-8?B?WXdmR2VMV003aTljQjlZRitlQzFFU0lLMzJjUnhEMVRtWnBKWGkwWnozYTI3?=
- =?utf-8?B?TnF4STkydFR2bkttWGZiT3d6ZEVYVHl3RTcyb29WRVFDME1FWWJtakRNVWJ5?=
- =?utf-8?B?T0pJRG9rRm5oN1JVbXYwK0J4MEh6T0Y4YVpYYmYrSEl3cXQ3UkUwQWdLNlhr?=
- =?utf-8?B?djJBaDdUanlKYjdFbnBjWEZLZkhKRkpzQ0p5MWZPV1BBbk1ZMFVpWWx5dDV3?=
- =?utf-8?B?MkN3VGR6a0s3UGNEeC9STjdqeTA1eFRuYzA5RVp4WmRkUXAvaUpNU3RnU3FI?=
- =?utf-8?B?RGpMVlVXQ0s1cUlXL0tFSWpTbjh6T3NXTUtndmpKWUdIZmlHQ3FXWGYrTnRj?=
- =?utf-8?B?VUY1dmN3MTRUZWxMMDgzYW5qNUg3cVZBOEFyYWhBZXJBMTFRRlBOb0ZMRWk0?=
- =?utf-8?B?VTRLMWdxMVdSU3JReXBhSVdhYWh2TlpsSVBBTW8zQ1d3MGhpb2ZmNE9USjNE?=
- =?utf-8?B?Uy80QlRObjcwbW5DTUZpM1ZOK3Y5RFhlZFB5Q0poaXN3Z0RGNE9ySzdOakYy?=
- =?utf-8?B?OGxSTjRBakZlMmVJSXNpR3U2c0dGVzBsYkFwdllOQ0YxZUU4SFdMVW4xa2R1?=
- =?utf-8?B?Tzltd3drSTdCSTlnVWFKMlRwRTRwL3J6SHJDWWU0Rkord1pDTE9kSUNab1Z0?=
- =?utf-8?B?SDk3cXg4NzBreE1IaDhJWjVoclVLRngxdWNNNG5yZW56V280MTBlZGR0bTNW?=
- =?utf-8?B?VUhrbnRlVWhXNFo4Yk9zaFpJY09Mem9pMDBvbUtuWGR5MXgrMmdWMnVmbXJN?=
- =?utf-8?B?TUdMOEUrdFlFUkt6bndZc1pmMzRSbWZ3NU1tTmhMc3ZMWW5wMnFCMkZ6VFpl?=
- =?utf-8?B?U2RFODZNcVZrU0Q1NThGdHF0djRFQ3NpY3IwbEJQdm9iWDhTb0RwUjFXYzlx?=
- =?utf-8?B?akppdlhNbGhPRTY1VG5PbWxDMTRXZ3dReTF3K3BMVHpMZXdieDhPc3YrQkNi?=
- =?utf-8?Q?9KvjNoyFhaSW+cG5N8oLsKqQSG9m6oh3JnQIQlKfoUiY6?=
-X-MS-Exchange-AntiSpam-MessageData-1: q78ncgFJ8LuPjw==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TVFqdUthTXczNTd6aGxlcjFCbi9JaVpiRHpUMFE5LytOOFByckFwTzRzbFJ5?=
+ =?utf-8?B?dmo5ZE1pLzJ2VlA4S2p1MHh3aWhuaGhsdkltV2tjbDdYMUhScnJJZnRpcStY?=
+ =?utf-8?B?SEVNMzJqTHFNRHFLbnhJaC9GdkVrUkUzem1VQ1FtQzVtamtLZ0lram1iMysr?=
+ =?utf-8?B?cTZVbDNnSnRqL1NiUzNoaWxsOUhnSDEvSDhHRzU4S2FLYzFjWlFkdk4rdUZH?=
+ =?utf-8?B?TUlCSEhvODZWZlBHTkxRNFZCT0ZxUmptSm52b1JJTHlBcmlLOVF2eGFDaXBS?=
+ =?utf-8?B?Z3RLaUIxcklRdFg2dUtPc0cwNmtQa0tXTTFiWnlLaklya3hsYTZvcUpmajFV?=
+ =?utf-8?B?aWdTam1lREErc2dpdXUyci8vRlQ4ckVBNm1RZnpHbmJGdWFaTEN1RG91Z0hC?=
+ =?utf-8?B?T1pTUTVCcVhORWNGWHp2MDBxc01tZ1d1dC9UNzgyWk9ZMEhSVVdUd2MyNXR1?=
+ =?utf-8?B?WW56N0d4d0ZyU0FLZnB1WW8wVUwwQ3RrR2pNN3lqQVU0ZTJFME1LNnExQkJl?=
+ =?utf-8?B?N21HbGtCNlQ2bEVZYWExYWFQWVRjUklwbWpYVFdmMkhwVGpxa0tndExMOTds?=
+ =?utf-8?B?QXBiLzBDU1A4NS82U2lYT2xKVzYzVkx3R0pIbnp3SjhXWDRoY3V4TVhITXNx?=
+ =?utf-8?B?Yy9haCtGSHNoUy8rYlRud1NFTU5HVFZoemdDWFBOUFVMOTlsR2FESHJvTjhw?=
+ =?utf-8?B?RHhoWGt4MTZsOEwxUk5OeEtTYnVRWm9RYXRwNFNFMmpFR2lySFR4Y3VvbStI?=
+ =?utf-8?B?cFFIN2dzdFFQenQvRUwvbnVKc1VmcVRzYkVVdkFQN0lFcmxMaXhGZVNCcFJo?=
+ =?utf-8?B?Y3RKakpNZ1pLZVJoYnB3MldoTFphUzdvWFR6cXc0TEFsYkUzMHlYRUdUem5Q?=
+ =?utf-8?B?aG9GMCs3MWxUNVRyVFdBdWd5M0NqQU1YRlNKS0pydHlWakhwUEIvOGtKaTEy?=
+ =?utf-8?B?SHRUSzFIMy90Q2M1YzNoMGtBa2FheXdXUE9PeVd0dGxKTjVzOG5udVZ0S1l2?=
+ =?utf-8?B?UDA5SWlncWVidU5BVi90RUlib2tMUW9BQW5JcmNKcU42RXBUK3JEWWZGeWFi?=
+ =?utf-8?B?c2Y3ZlNUbmlneFViN2hyeFhZWCtacjNNS2wwV2cyQmR5RUFER2RMMk5EWnBu?=
+ =?utf-8?B?V3pIT0JnSE5CMEpVVmNPSUtOV3U2bnVXQ29GREdueUprdE93WUdJdTVrZ3hv?=
+ =?utf-8?B?blRQMmQxajJmVTZkczkyYWFTU2R3U0ltYUFSQldoWnlVblRkeWYyK0pzU29h?=
+ =?utf-8?B?TFBSbkEyd3BpbFdSVzFzajcyV3RzaTBBMFA4WHJaMGpwWjlQb0RXSVI0QXRW?=
+ =?utf-8?B?NWp1dUxKS29PZ2o1c21QUTIxM3dMN2lXY2V5R3VST1FGc3lsSWRZZkdNM2V0?=
+ =?utf-8?B?M2lFVkRnay9ySW9Ud2FlM0VjbFh0b0Q5cHVFRW1hei9Ra09vYkF1S3RzT3l2?=
+ =?utf-8?B?NWFoVTNnNjRnRFlFYmhpeE1CTWNsL2lHWHYrdk5iTjRSSTVsQS9KS1Y3NU9t?=
+ =?utf-8?B?OEduOWYwbmhIQ2NrejUrTlFiVC95M2hBeTU0TmRPUk8xWlNTZndtbjVUdVg2?=
+ =?utf-8?B?a1h2ZlR5Zk40U1UrMXJRdzBUc2U1RGtTMW4yckZwMjhGQk15RUVwT1VXY1NI?=
+ =?utf-8?B?K256bWwraGdTSCt5SVVQd1pyUUFyMDhnTlFtcTlIcDlsSE53T2QyTWNWNWdK?=
+ =?utf-8?B?cy9saUhPa2JXMGVKY2JlL3daVGlZQng1RDdDc1NYZVg0Q2ZTM3MzSE9wRjhn?=
+ =?utf-8?B?QVpGUjd6cEEreS9NT08vaHRSK29xQTRHMHVQRzYvYWxPM0ZOVkZNRjkrei92?=
+ =?utf-8?B?WEF3SmFXTFdETHBvRDdtQk56bG5HZEl2b2laVzM3ZlJnWlBUM3lkdGpkZzhE?=
+ =?utf-8?B?TjR5WWtFUTZTOUMrYTZNelpNQ2JZSEh5VmtwQmFWUkJkVmJDdFIvMUdzM2to?=
+ =?utf-8?B?WEc4TnRRMnBobU5QNzVqZ2REOCtrbEIxVjcyOEFJOHFqV3BlWi9oeUwvVERF?=
+ =?utf-8?B?eGpYbWQrNlZjNW82WGZWa2NvSUJSSlZicnZKYWlwSGhybFk3YkViMjFwSVFz?=
+ =?utf-8?B?VkpHU285dVNQUXl2MnRyVld3QnYrZmZGZE8yQzBUTUdtUHNUMkxsV2huTWNQ?=
+ =?utf-8?B?Zkp4WnNnanJFS0gzenBMV055QWdUWm84Z0NUMGFkMkJhSjlGYXlxd2J5aGlV?=
+ =?utf-8?B?SjM4Vjc2NitNanhzeVRBNWNnaUJBTVFyWmhacWEyV2dQcVpEaHBXdU1nczNy?=
+ =?utf-8?B?MlNyUDJyN1ZtZDZWOUNPUkRjRk1INXUxT3dDNDdra3VnaGI5UHpZdmg0NS9N?=
+ =?utf-8?B?dWZObEh2SHpaV0phT1RrWE0rdmxqeWt3ZUdWQk5MblllSnozVGVHN2hNTUNq?=
+ =?utf-8?Q?XKcMYa9ZL/DI1FqyhHXbmrlaldYmbVvV3WrpUP7SWnwfB?=
+X-MS-Exchange-AntiSpam-MessageData-1: d0+Ekz+8Vilhfw==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c371cedb-45a1-47e0-7bbe-08decaec342b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7bb612b7-1d8d-494b-b200-08decaec3696
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 14:41:37.0612 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 14:41:41.1233 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Fgxpaw1NMrrgvXcG4YQAv6wZHJawHvFhDLcv5CeGwtHDvt6LKBOmMzi9ZgK2RBiIF7kM3WWE7mI7SqYzAEpCIQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: umP5o9wueZzux0Uon2pjGdeYTHO+86d1XQ0G4UjV9r6+2IFRBD4Py4Ujvw9zHGJHqHv8h13ZIqwNLdvd3uIFZQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8105
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,56 +145,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently, `poll_msgq` will report a message of size 4 if the queue
-pointers are broken. It's easy to catch this if it occurs, so have
-`poll_msgq` return an error in this case.
+Currently, `send_msg` assumes that the channel to FSP is free to write
+into. But, it might not be. Both the kernel driver and GSP communicate
+with FSP. The way they should attempt to keep exclusive access to this
+channel to FSP is by making sure they don't try to start writing if
+there's pending data until the full round trip has finished.
 
 Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- drivers/gpu/nova-core/falcon/fsp.rs | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ drivers/gpu/nova-core/falcon/fsp.rs | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
 diff --git a/drivers/gpu/nova-core/falcon/fsp.rs b/drivers/gpu/nova-core/falcon/fsp.rs
-index e7419a6e71e2..21eaa8e261ce 100644
+index 21eaa8e261ce..cdb476894e1a 100644
 --- a/drivers/gpu/nova-core/falcon/fsp.rs
 +++ b/drivers/gpu/nova-core/falcon/fsp.rs
-@@ -107,19 +107,22 @@ fn read_emem(&mut self, bar: Bar0<'_>, data: &mut [u8]) -> Result {
-     /// Poll FSP for incoming data.
-     ///
-     /// Returns the size of available data in bytes, or 0 if no data is available.
-+    /// Returns an error if the queue pointers are bogus (`tail < head`).
-     ///
-     /// The FSP message queue is not circular. Pointers are reset to 0 after each
-     /// message exchange, so `tail >= head` is always true when data is present.
--    fn poll_msgq(&self, bar: Bar0<'_>) -> u32 {
-+    fn poll_msgq(&self, bar: Bar0<'_>) -> Result<u32> {
-         let head = bar.read(regs::NV_PFSP_MSGQ_HEAD::at(0)).val();
-         let tail = bar.read(regs::NV_PFSP_MSGQ_TAIL::at(0)).val();
- 
-         if head == tail {
--            return 0;
-+            Ok(0)
-+        } else {
-+            // TAIL points at the last DWORD written, so the size is `tail - head + 4`.
-+            tail.checked_sub(head)
-+                .and_then(|delta| delta.checked_add(4))
-+                .ok_or(EIO)
+@@ -125,6 +125,26 @@ fn poll_msgq(&self, bar: Bar0<'_>) -> Result<u32> {
          }
--
--        // TAIL points at last DWORD written, so add 4 to get total size.
--        tail.saturating_sub(head).saturating_add(4)
      }
  
++    /// Both the kernel driver and GSP talk to FSP. Try to ensure exclusive access to the FSP is
++    /// enforced by making sure there is not a pending message already sent to FSP, and that there
++    /// is no pending message from FSP to be read.
++    fn wait_until_ready(&mut self, bar: Bar0<'_>) -> Result {
++        read_poll_timeout(
++            || {
++                let qhead = bar.read(regs::NV_PFSP_QUEUE_HEAD::at(0)).address();
++                let qtail = bar.read(regs::NV_PFSP_QUEUE_TAIL::at(0)).address();
++                let mhead = bar.read(regs::NV_PFSP_MSGQ_HEAD::at(0)).val();
++                let mtail = bar.read(regs::NV_PFSP_MSGQ_TAIL::at(0)).val();
++
++                Ok(qhead == qtail && mhead == mtail)
++            },
++            |&ready| ready,
++            Delta::from_millis(10),
++            Delta::from_millis(FSP_MSG_TIMEOUT_MS),
++        )?;
++        Ok(())
++    }
++
      /// Writes `packet` to FSP EMEM and updates the queue pointers to notify FSP.
-@@ -154,7 +157,7 @@ pub(crate) fn send_msg(&mut self, bar: Bar0<'_>, packet: &[u8]) -> Result {
-     pub(crate) fn recv_msg(&mut self, bar: Bar0<'_>) -> Result<KVec<u8>> {
-         let result = (|| {
-             let msg_size = read_poll_timeout(
--                || Ok(self.poll_msgq(bar)),
-+                || self.poll_msgq(bar),
-                 |&size| size > 0,
-                 Delta::from_millis(10),
-                 Delta::from_millis(FSP_MSG_TIMEOUT_MS),
+     ///
+     /// Returns `EINVAL` if `packet` is empty or its length is not 4-byte aligned.
+@@ -133,6 +153,9 @@ pub(crate) fn send_msg(&mut self, bar: Bar0<'_>, packet: &[u8]) -> Result {
+             return Err(EINVAL);
+         }
+ 
++        // Try to make sure we have exclusive access to the FSP at this point.
++        self.wait_until_ready(bar)?;
++
+         self.write_emem(bar, packet)?;
+ 
+         // Update queue pointers. TAIL points at the last DWORD written.
 
 -- 
 2.54.0
