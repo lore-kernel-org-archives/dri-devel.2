@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A233BCD98CE
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 06:41:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09EABCD98CE
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 06:43:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BEDC10E1F8;
-	Mon, 15 Jun 2026 06:41:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60ABF10E1F9;
+	Mon, 15 Jun 2026 06:43:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iRqP6/B/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ERyZn/Mo";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B738410E1F8
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 06:40:59 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A4F310E1F9
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 06:43:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E28176008A;
- Mon, 15 Jun 2026 06:40:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 481A71F000E9;
- Mon, 15 Jun 2026 06:40:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4A4DF44041;
+ Mon, 15 Jun 2026 06:43:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9A001F000E9;
+ Mon, 15 Jun 2026 06:43:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781505658;
- bh=tWnt9Ww98hhgzq9XvVcEyk8KWxVkx9x5gfaAj+61UtQ=;
+ s=k20260515; t=1781505785;
+ bh=0w6I8VMmN9Q/iegzq4Rf7GsdRGX6rTdWBQ5+OmKoUKQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=iRqP6/B/ftxNnLHcGWeD/pIMZyhxa3KjXxJilXEmi9ktJxFhlAZ3xjCL2O4hZiZw8
- gtizn5gpwU4WGOrtMEzUuUHEZ88OYgMIqDhtA6pUOdB8xfHehUwJH54ijtckAYjiJ+
- X2TfdvqMUiHxIQvPmml+8pqCgc7BrGGGFe39ZtrfMIPaBduOGWH6F43OmPBSkF43YL
- 3GAHg9Hv21ZPRFbwGkTYr266wF2MLMlp6C2c2/7E9QrUcExRX6GhRpr5ZwilK15cuF
- iguPDILrYkcoGaMBkrDJB8JTyOgcHsYLL5W8QIZas2sDE9aLUF5l1oNtHjG9MwxgqA
- rprPDLaXngRfw==
+ b=ERyZn/MomrjgXh5c/kcHssJh1b3r3UCI8JpNcsYRhZyUtDo6bUbF1evYfIk6NhTTC
+ VD0fQw8XM6csS4Fu+n5fqb8QqwkcCXd8/n2gHpKrx/ROjWntULG6I+XNMrmOfDWokb
+ JsjZFyXBJvb6QokG/IpJgcNztB32dm4UiABSQ0BBTkaeG1fVgxMCSln+me3+p8TOih
+ emD9vvtmD9sm0/PmQ7VlCtgn/8+bInLHJsQqrZa7wxZ5R+SiI1rFvwOEao3d75HL4F
+ kQGkmGcEIkjK0XAs/nFqmz7oLgV/ZHL/GbnGsSpnQmnUdHa/tXOBVTkKvlW0DciyG8
+ tavHAzlY9X7rA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
+Subject: Re: [PATCH v4 6/7] arm64: dts: renesas: sparrow-hawk: Enable
+ DisplayPort by adding DSC
 To: "Tomi Valkeinen" <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, wsa+renesas@sang-engineering.com,
- conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260615-rcar-du-dsc-v4-4-93096a1b56a3@ideasonboard.com>
-References: <20260615-rcar-du-dsc-v4-4-93096a1b56a3@ideasonboard.com>
+Cc: wsa+renesas@sang-engineering.com, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260615-rcar-du-dsc-v4-6-93096a1b56a3@ideasonboard.com>
+References: <20260615-rcar-du-dsc-v4-6-93096a1b56a3@ideasonboard.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 06:40:57 +0000
-Message-Id: <20260615064058.481A71F000E9@smtp.kernel.org>
+Date: Mon, 15 Jun 2026 06:43:04 +0000
+Message-Id: <20260615064304.D9A001F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,22 +58,131 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Unsafe bridge advancement leads to NULL pointer dereference and ty=
-pe confusion
+- [High] Incorrect PM Runtime error handling and improper use of `WARN_ON`.
+- [High] DRM bridge registration occurs before PM runtime is enabled.
+- [High] Blind dereference of an unvalidated bridge pointer when skipping t=
+he DSC block.
+- [High] Hardcoding the DSC bridge in the SoC `.dtsi` breaks the display fo=
+r boards that disable the DSC.
+- [Low] Call to a non-existent function `of_drm_get_bridge_by_endpoint`.
 --
 
-commit 1b871953b11e075ad828c5d792325efbdffe6d91
-Author: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+commit 9f241229b3364b6a9d83e1e7ed9e9076efdd0876
+Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-drm/rcar-du: dsi: Support DSC in the pipeline
+arm64: dts: renesas: sparrow-hawk: Enable DisplayPort by adding DSC
 
-This commit adds checks to rcar_du_crtc_atomic_enable() and disable() to
-detect the DSC via the bridge type. It skips the DSC bridge when needed so
-that the crtc correctly calls rcar_mipi_dsi_pclk_enable() on the DSI instead
-of the DSC.
+This commit enables the DisplayPort output on the sparrowhawk board by
+activating the newly defined DSC block in the SoC device tree. It completes
+the DSC series by wiring up the components for this specific board.
 
+> diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/=
+dts/renesas/r8a779g0.dtsi
+> index 82a7278836e57..123baaea8db45 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+> @@ -2298,6 +2298,35 @@ du_out_dsi0: endpoint {
+>  				port@1 {
+>  					reg =3D <1>;
+>  					du_out_dsi1: endpoint {
+> +						remote-endpoint =3D <&dsc_in_dsi1>;
+
+[Severity: High]
+Will hardcoding the remote-endpoint to the DSC bridge break the display for
+boards that disable the DSC?
+
+Because the DSC node is marked status =3D "disabled" by default below, the =
+DRM
+OF helpers will return -ENODEV when the DU driver traverses this graph. This
+would cause the DU probe to return -EPROBE_DEFER or -ENODEV indefinitely,
+breaking the display pipeline for all boards based on this SoC that do not
+explicitly enable the DSC.
+
+> +					};
+> +				};
+> +			};
+> +		};
+> +
+> +		dsc: bridge@feb8d000 {
+[ ... ]
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c b/drivers/gpu/drm=
+/renesas/rcar-du/rcar_dsc.c
+> new file mode 100644
+> index 0000000000000..5a2ff31491360
+> --- /dev/null
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c
+[ ... ]
+> +static void rcar_dsc_atomic_enable(struct drm_bridge *bridge,
+> +				   struct drm_atomic_commit *commit)
+> +{
+> +	struct rcar_dsc *dsc =3D bridge_to_rcar_dsc(bridge);
+> +
+> +	WARN_ON(pm_runtime_get_sync(dsc->dev));
+
+[Severity: High]
+Is it safe to wrap pm_runtime_get_sync() directly in a WARN_ON()?
+
+If the device is already active, pm_runtime_get_sync() returns 1, which will
+falsely trigger a warning and stack trace here on valid hot paths. If the
+function returns a negative error code, the warning is printed but the
+PM usage counter is not decremented, leaking the PM reference and attempting
+to configure an unpowered device.
+
+> +}
+[ ... ]
+> +static int rcar_dsc_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct rcar_dsc *dsc;
+> +	int ret;
+> +
+> +	dsc =3D devm_drm_bridge_alloc(dev, struct rcar_dsc, bridge,
+> +				    &rcar_dsc_bridge_ops);
+> +	if (IS_ERR(dsc))
+> +		return PTR_ERR(dsc);
+> +
+> +	platform_set_drvdata(pdev, dsc);
+> +
+> +	dsc->dev =3D &pdev->dev;
+> +
+> +	dsc->bridge.next_bridge =3D of_drm_get_bridge_by_endpoint(dev->of_node,
+> +								1, 0);
+
+[Severity: Low]
+Could you clarify if the function of_drm_get_bridge_by_endpoint() exists in
+the kernel tree?
+
+It appears the correct API might be devm_drm_of_get_bridge() or
+drm_of_find_panel_or_bridge(). Using a non-existent function will cause an
+immediate build failure due to -Werror=3Dimplicit-function-declaration.
+
+> +	if (IS_ERR(dsc->bridge.next_bridge))
+> +		return PTR_ERR(dsc->bridge.next_bridge);
+> +
+> +	dsc->bridge.of_node =3D dev->of_node;
+> +
+> +	ret =3D devm_drm_bridge_add(dev, &dsc->bridge);
+> +	if (ret)
+> +		return ret;
+> +
+> +	pm_runtime_enable(&pdev->dev);
+
+[Severity: High]
+Can registering the DRM bridge before enabling PM runtime introduce a race
+condition?
+
+Calling devm_drm_bridge_add() exposes the bridge globally to other drivers
+like the DU driver while its PM runtime is still disabled. If another driver
+attaches and enables the bridge during this window, pm_runtime_get_sync() w=
+ill
+fail with -EACCES.
+
+> +
+> +	return 0;
+> +}
+[ ... ]
 > diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c b/drivers/gpu=
 /drm/renesas/rcar-du/rcar_du_crtc.c
 > index 1a246ebbfc613..5679983fc4d1a 100644
@@ -80,11 +190,6 @@ of the DSC.
 > +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
 > @@ -754,6 +754,15 @@ static void rcar_du_crtc_atomic_enable(struct drm_cr=
 tc *crtc,
-
-[ ... ]
-
->  	if ((rcdu->info->dsi_clk_mask & BIT(rcrtc->index)) &&
->  	    (rstate->outputs &
 >  	     (BIT(RCAR_DU_OUTPUT_DSI0) | BIT(RCAR_DU_OUTPUT_DSI1)))) {
 >  		struct drm_bridge *bridge =3D rcdu->dsi[rcrtc->index];
 > =20
@@ -97,34 +202,24 @@ tc *crtc,
 > +		if (bridge->type !=3D DRM_MODE_CONNECTOR_DSI)
 > +			bridge =3D bridge->next_bridge;
 > +
+>  		rcar_mipi_dsi_pclk_enable(bridge, state);
 
 [Severity: High]
-Could this lead to a NULL pointer dereference or type confusion if the devi=
-ce
-tree is misconfigured?
+What prevents a blind dereference of bridge->next_bridge from causing an
+invalid pointer computation here?
 
-If bridge->next_bridge is NULL, passing it to rcar_mipi_dsi_pclk_enable()
-would dereference a NULL pointer when it accesses bridge->encoder.
+If next_bridge is NULL (e.g., due to a disconnected or missing OF graph nod=
+e)
+or is not a MIPI DSI bridge, passing it into rcar_mipi_dsi_pclk_enable() wi=
+ll
+cause bridge_to_rcar_mipi_dsi() to compute an invalid pointer via
+container_of. This regression could result in memory corruption or an
+immediate system crash.
 
-Additionally, if the next bridge exists but is not an rcar_mipi_dsi bridge
-(for instance, a generic panel bridge), the container_of() cast in
-bridge_to_rcar_mipi_dsi() would result in type confusion and potential
-memory corruption.
-
-Should we verify that the new bridge is valid and is actually the expected =
-DSI
-bridge before proceeding?
-
->  		rcar_mipi_dsi_pclk_enable(bridge, state);
 >  	}
 > =20
 > @@ -796,6 +805,15 @@ static void rcar_du_crtc_atomic_disable(struct drm_c=
 rtc *crtc,
-
-[ ... ]
-
->  	if ((rcdu->info->dsi_clk_mask & BIT(rcrtc->index)) &&
->  	    (rstate->outputs &
 >  	     (BIT(RCAR_DU_OUTPUT_DSI0) | BIT(RCAR_DU_OUTPUT_DSI1)))) {
 >  		struct drm_bridge *bridge =3D rcdu->dsi[rcrtc->index];
 > =20
@@ -137,18 +232,18 @@ rtc *crtc,
 > +		if (bridge->type !=3D DRM_MODE_CONNECTOR_DSI)
 > +			bridge =3D bridge->next_bridge;
 > +
-
-[Severity: High]
-Would this have the same risk of a NULL pointer dereference or type confusi=
-on
-during the disable path when passed to rcar_mipi_dsi_pclk_disable()?
-
 >  		/*
 >  		 * Disable the DSI clock output, see
 >  		 * rcar_du_crtc_atomic_enable().
->  		 */
->  		rcar_mipi_dsi_pclk_disable(bridge);
+
+[Severity: High]
+Similarly to the enable path, is this unchecked dereference of
+bridge->next_bridge safe in the disable path?
+
+If next_bridge is NULL or not a MIPI DSI bridge, it will be passed to
+rcar_mipi_dsi_pclk_disable() where bridge_to_rcar_mipi_dsi() will compute an
+invalid pointer, leading to a similar regression where memory is corrupted.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615-rcar-du-ds=
-c-v4-0-93096a1b56a3@ideasonboard.com?part=3D4
+c-v4-0-93096a1b56a3@ideasonboard.com?part=3D6
