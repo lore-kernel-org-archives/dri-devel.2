@@ -4,61 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE74ECD98C5
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 07:02:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E16F3CD98CE
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 07:02:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57F7110E20C;
-	Mon, 15 Jun 2026 07:02:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45B2310E20F;
+	Mon, 15 Jun 2026 07:02:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WU1fh3UV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cfc6tNOr";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1988310E20C
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 07:02:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781506950; x=1813042950;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=HUgIZoq2/zUpBGQAYFZzW5uj30BMloz46p6UkY/MDp0=;
- b=WU1fh3UVMP5l1PMwRNojS95p0MgaJUXhUQRj+Z3nKadeghZvizSmC6rK
- HDrbzpuU0XaDPHxVgjbPgvjgNPH8wN575xEms+ZgpToqQ6s7G2E97Syl1
- KxHPNvv2Mp3zNwQpQV2AM+1CFfXM/0nYQlLi9/DKLNZpiXF85WU6FcUB9
- 5DD6CgoYiqdlPNQJbXf/mbwliFmRuTU3JHp9DeeCHKooVPB7jRabvQ61p
- Pn5p9wz+/ugEv+p+qJYMIX9Hwl1bW14XTsQoRLYSw7n5NppgjeSwXfW3m
- h9GLT1m02vq+HXBcT2L8sbBWkbwZR1NdeMbtKrH47vAMmPgiudUawm/y3 w==;
-X-CSE-ConnectionGUID: m7c756LjQdW5e6fIbmX62Q==
-X-CSE-MsgGUID: 9TjuhDy4Qf2QYnHdUUfuog==
-X-IronPort-AV: E=McAfee;i="6800,10657,11817"; a="104910809"
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="104910809"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2026 00:02:29 -0700
-X-CSE-ConnectionGUID: lXad/FNtQR+EtPP2PqcTLg==
-X-CSE-MsgGUID: yPdv00d4RQSEiVH7RxWdGw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="285500291"
-Received: from pgcooper-mobl.ger.corp.intel.com (HELO [10.246.16.57])
- ([10.246.16.57])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2026 00:02:27 -0700
-Message-ID: <ca3ce7e9-7262-4432-bd83-c0c78afc0ef1@linux.intel.com>
-Date: Mon, 15 Jun 2026 09:02:24 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/ivpu: fix HWS command queue leak on registration
- failure
-To: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
- dawid.osuchowski@linux.intel.com
-References: <20260611055140.948684-1-karol.wachowski@linux.intel.com>
- <737f87af-7d54-4117-851c-2f097781bf5c@linux.intel.com>
-Content-Language: en-US
-From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
-In-Reply-To: <737f87af-7d54-4117-851c-2f097781bf5c@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6975410E20F
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 07:02:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 42B7544157;
+ Mon, 15 Jun 2026 07:02:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E115A1F00A3A;
+ Mon, 15 Jun 2026 07:02:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781506951;
+ bh=ROhl+H8CKmwP05tul4I5SAinWh6QnIH18Sd7+LacEz0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=cfc6tNOrpqQq3jgkHsTHoXKc+pqxYdm5uas/QATVGjnJjMexN1TXRKvFcPdL2YqzX
+ dXiTK7e0mzSYpE5t30NDuMBSz+ZcUpZLDwd1HdCwGjxH/f8OLxcmCl7BQ4VTmol2OC
+ ZgUFPvOPtRaa/Bp6CSj+y/BzCaOzPoqnZVJyr4DcVYG2mwTnDXcTBSFcCT6zCoRXd/
+ /iaDJJtyp41Y+xGXutxR70GA/4xxLgRj7ZhYwv8oC/RI7R1wWP4DVWCjiaFaDLZgFC
+ wmW1x171CjGUAbqYxZuf5FV5/tHxILZp6npiZjaJDeBGMOjw1je0feISfo7AxP34TP
+ s1R8ueQjTlX7A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/6] drm/verisilicon: introduce per-variant hardware
+ ops table
+To: "Joey Lu" <a0987203069@gmail.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260615065003.76661-4-a0987203069@gmail.com>
+References: <20260615065003.76661-4-a0987203069@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 15 Jun 2026 07:02:30 +0000
+Message-Id: <20260615070230.E115A1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,63 +54,182 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 12-Jun-26 9:10, Andrzej Kacprowski wrote:
-> On 11-Jun-26 7:51 AM, Karol Wachowski wrote:
->> A command queue is considered valid and usable by the driver only when
->> it has a doorbell ID assigned (db_id != 0), meaning both the FW cmdq
->> creation and doorbell registration completed successfully.
->>
->> However, when either ivpu_register_db() or set_context_sched_properties()
->> fails after ivpu_hws_cmdq_init() has already created the cmdq in FW,
->> the command queue is left registered in FW while the driver treats it as
->> uninitialized (db_id remains 0). On the next submission attempt the
->> driver tries to register the same cmdq again, which fails because FW
->> already has an entry for it.
->>
->> Fix by calling ivpu_jsm_hws_destroy_cmdq() on error paths to properly
->> unwind FW state and allow subsequent registration attempts to succeed.
->>
->> Fixes: 0c7c13186866 ("accel/ivpu: Add API for command queue create/ 
->> destroy/submit")
->> Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
->> ---
->>   drivers/accel/ivpu/ivpu_job.c | 10 +++++-----
->>   1 file changed, 5 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/accel/ivpu/ivpu_job.c b/drivers/accel/ivpu/ 
->> ivpu_job.c
->> index 521931d1f7fc..b24f31a8b567 100644
->> --- a/drivers/accel/ivpu/ivpu_job.c
->> +++ b/drivers/accel/ivpu/ivpu_job.c
->> @@ -208,9 +208,9 @@ static int ivpu_hws_cmdq_init(struct 
->> ivpu_file_priv *file_priv, struct ivpu_cmdq
->>       ret = ivpu_jsm_hws_set_context_sched_properties(vdev, file_priv- 
->> >ctx.id, cmdq->id,
->>                               priority);
->>       if (ret)
->> -        return ret;
->> +        ivpu_jsm_hws_destroy_cmdq(vdev, file_priv->ctx.id, cmdq->id);
->> -    return 0;
->> +    return ret;
->>   }
->>   static int ivpu_register_db(struct ivpu_file_priv *file_priv, struct 
->> ivpu_cmdq *cmdq)
->> @@ -281,10 +281,10 @@ static int ivpu_cmdq_register(struct 
->> ivpu_file_priv *file_priv, struct ivpu_cmdq
->>       }
->>       ret = ivpu_register_db(file_priv, cmdq);
->> -    if (ret)
->> -        return ret;
->> +    if (ret && vdev->fw->sched_mode == VPU_SCHEDULING_MODE_HW)
->> +        ivpu_jsm_hws_destroy_cmdq(vdev, file_priv->ctx.id, cmdq->id);
->> -    return 0;
->> +    return ret;
->>   }
->>   static int ivpu_cmdq_unregister(struct ivpu_file_priv *file_priv, 
->> struct ivpu_cmdq *cmdq)
-> 
-> Reviewed-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-Pushed to drm-misc-fixes.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+
+New issues:
+- [High] The newly introduced `crtc_disable` hardware hook is invoked after=
+ disabling the pixel clock, which will cause unclocked hardware accesses an=
+d potential bus hangs.
+- [High] The disable sequence for the display panel incorrectly swaps the o=
+rder of clearing PANEL_START and PANEL_CONFIG, violating the required rever=
+se-enable hardware sequence.
+
+Pre-existing issues:
+- [High] Sleepable clock control functions (`clk_prepare_enable` and `clk_d=
+isable_unprepare`) are called inside DRM atomic commit callbacks where slee=
+ping is strictly forbidden.
+- [High] The primary plane disable logic incorrectly sets the `VSDC_FB_CONF=
+IG_EX_FB_EN` bit instead of clearing it, failing to actually disable the pl=
+ane.
+- [High] Calling `regmap_read` in a hardirq handler uses a standard spinloc=
+k which maps to a sleeping `rt_mutex` on PREEMPT_RT.
+- [High] Primary plane update programs hardware registers with unclipped de=
+stination coordinates (`state->crtc_x` / `state->crtc_y`) which can be nega=
+tive.
+--
+
+commit 7db852133467fb896e651ada4802a06233540439
+Author: Joey Lu <a0987203069@gmail.com>
+drm/verisilicon: introduce per-variant hardware ops table
+
+This commit introduces a hardware operations table for different variants
+of the Verisilicon display controller. It extracts DC8200-specific ops
+into a new file and updates the bridge, CRTC, and plane code to use the
+new vtable instead of direct register access.
+
+> diff --git a/drivers/gpu/drm/verisilicon/vs_crtc.c b/drivers/gpu/drm/veri=
+silicon/vs_crtc.c
+> index 0b8a35d09cd2e..679d6541ba1b9 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_crtc.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_crtc.c
+
+[ ... ]
+
+> @@ -26,10 +49,16 @@ static void vs_crtc_atomic_disable(struct drm_crtc *c=
+rtc,
+>  	struct vs_dc *dc =3D vcrtc->dc;
+>  	unsigned int output =3D vcrtc->id;
+> =20
+>  	drm_crtc_vblank_off(crtc);
+> =20
+>  	clk_disable_unprepare(dc->pix_clk[output]);
+
+[Severity: High]
+This is a pre-existing issue, but does calling clk_disable_unprepare() here
+and clk_prepare_enable() in vs_crtc_atomic_enable() cause a sleep in atomic
+context?
+
+Since atomic_enable and atomic_disable callbacks execute in an atomic
+context during non-blocking commits, calling sleepable clock control
+functions could lead to deadlocks or kernel panics.
+
+> +
+> +	if (dc->funcs->crtc_disable)
+> +		dc->funcs->crtc_disable(dc, output);
+>  }
+
+[Severity: High]
+Does this sequence write to hardware registers while the pixel clock is
+disabled?
+
+Calling dc->funcs->crtc_disable(dc, output) after clk_disable_unprepare()
+means we are performing register accesses without a running clock, which
+could lead to bus hangs or failed writes.
+
+Should the order be reversed to match the symmetric enable sequence?
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c b/drivers/gpu/drm/ve=
+risilicon/vs_dc8200.c
+> new file mode 100644
+> index 0000000000000..800df9279e9b6
+> --- /dev/null
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
+
+[ ... ]
+
+> +static void vs_dc8200_panel_disable_ex(struct vs_dc *dc, unsigned int ou=
+tput)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
+> +			  VSDC_DISP_PANEL_CONFIG_RUNNING);
+> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
+> +			  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC |
+> +			  VSDC_DISP_PANEL_START_RUNNING(output));
+> +
+> +	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(output),
+> +			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
+> +}
+
+[Severity: High]
+Does this swap the order of clearing the panel registers compared to the
+original vs_bridge_atomic_disable() code?
+
+The original code correctly cleared VSDC_DISP_PANEL_START before
+VSDC_DISP_PANEL_CONFIG.
+
+Clearing CONFIG while the display pipeline is still actively running could
+cause an unprotected hardware state transition, leading to pipeline
+underflows or hardware hangs.
+
+[ ... ]
+
+> +static void vs_dc8200_primary_plane_disable_ex(struct vs_dc *dc, unsigne=
+d int output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+> +			VSDC_FB_CONFIG_EX_FB_EN);
+> +
+> +	vs_dc8200_plane_commit(dc, output);
+> +}
+
+[Severity: High]
+This is a pre-existing issue, but does this function actually disable the
+plane?
+
+It looks like regmap_set_bits() is used on VSDC_FB_CONFIG_EX_FB_EN, which
+would keep the plane enabled in hardware.
+
+Should this use regmap_clear_bits() instead to properly clear the bit and
+disable the plane?
+
+> +static void vs_dc8200_primary_plane_update_ex(struct vs_dc *dc, unsigned=
+ int output,
+> +				       struct drm_plane_state *state)
+> +{
+> +	regmap_write(dc->regs, VSDC_FB_TOP_LEFT(output),
+> +		     VSDC_MAKE_PLANE_POS(state->crtc_x, state->crtc_y));
+> +	regmap_write(dc->regs, VSDC_FB_BOTTOM_RIGHT(output),
+> +		     VSDC_MAKE_PLANE_POS(state->crtc_x + state->crtc_w,
+> +					 state->crtc_y + state->crtc_h));
+
+[Severity: High]
+This is a pre-existing issue, but what happens if the user provides negative
+coordinates when a plane is partially off-screen?
+
+Because state->crtc_x and state->crtc_y are unclipped, a negative value
+passed to VSDC_MAKE_PLANE_POS() might be bitwise ANDed with 0x7fff,
+producing a massive positive value (for example, -10 becomes 32758).
+
+Should clipped coordinates be used here instead to avoid incorrect display
+output?
+
+[ ... ]
+
+> +static u32 vs_dc8200_irq_ack(struct vs_dc *dc)
+> +{
+> +	u32 irqs;
+> +
+> +	regmap_read(dc->regs, VSDC_TOP_IRQ_ACK, &irqs);
+> +	return irqs;
+> +}
+
+[Severity: High]
+This is a pre-existing issue, but could this regmap_read() cause a
+sleep-in-atomic panic on PREEMPT_RT systems?
+
+Since this is invoked from vs_dc_irq_handler() in hardirq context, and the
+regmap configuration does not seem to set use_raw_spinlock =3D true, the
+regmap infrastructure uses a standard spinlock.
+
+On PREEMPT_RT, this maps to a sleepable rt_mutex.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615065003.7666=
+1-1-a0987203069@gmail.com?part=3D3
