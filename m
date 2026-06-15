@@ -4,54 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 157BCCD98C5
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 08:51:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CBC7CD98E0
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 08:53:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7780610E2FA;
-	Mon, 15 Jun 2026 08:51:53 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B53DC10E2C6
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 08:51:51 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.167])
- by APP-03 (Coremail) with SMTP id rQCowABXddwgvS9q0N_KFA--.599S2;
- Mon, 15 Jun 2026 16:51:44 +0800 (CST)
-Message-ID: <d5df0e9df3a9a68aae982f2fce830a4b10468476.camel@iscas.ac.cn>
-Subject: Re: [PATCH v4 4/6] drm/verisilicon: add DC8000 (DCUltraLite)
- display controller support
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9395310E2C5;
+	Mon, 15 Jun 2026 08:52:59 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="oBzUUdym";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49B8210E2C5
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 08:52:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781513578; x=1813049578;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=ZDVr3i9Yu7tYRqrmPANfv9Dj23e9viHLFjxVPis/OOs=;
+ b=oBzUUdymEsA+QJQs6Nufr9cT7c08R6K7lxUIar5BqgSU6Jz9FpURUiPn
+ kR/xVSwh314HFvezhZbArb5BCn7E6eyyl4uPg4BgSPSytnM9w3Mz3tuGa
+ RbqLIHo63QBRnv4EmFs+FtRm2CHjXvTerAMfhFTMjfRJ46OXGVDXXRQUt
+ qSLyS6tFwizw2SPQA1QX/VPGANdt5zzmoUJNP163fSc04pmcEEWP97gB8
+ TxtxigBz6zQ2uZchpI9WjrwmlYoia2cvSsYvj6OKU8a58NOKVhFvFdrjE
+ MN/K/QEksJqSoqkuTWV8sNagxG59K5YDlByQbUlQ8iXypYGluF6/g0zgq A==;
+X-CSE-ConnectionGUID: 3yt7oZPsScaceVKtZ172lg==
+X-CSE-MsgGUID: UqpD4Kt9QGiXlotcMgBW4w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11817"; a="107678246"
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="107678246"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2026 01:52:58 -0700
+X-CSE-ConnectionGUID: y7wa29YESamUZqjGVSutiA==
+X-CSE-MsgGUID: fFeYKAlKQAiN/rY+4gXITA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="277613918"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.28])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2026 01:52:55 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Xiang Mei <xmei5@asu.edu>
+Cc: dri-devel@lists.freedesktop.org, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 15 Jun 2026 16:51:43 +0800
-In-Reply-To: <20260615065003.76661-5-a0987203069@gmail.com>
-References: <20260615065003.76661-1-a0987203069@gmail.com>
- <20260615065003.76661-5-a0987203069@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+ simona@ffwll.ch, bestswngs@gmail.com
+Subject: Re: [PATCH] drm/edid: fix OOB read in drm_parse_tiled_block()
+In-Reply-To: <CAPpSM+RXTg6KCAVHRESi8=7=3pAWGfc1bjrdS_OTf+dsSwyL7A@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260609064038.2799482-1-xmei5@asu.edu>
+ <4e784cad86c91595b6d5da64ca854dab38357658@intel.com>
+ <CAPpSM+RXTg6KCAVHRESi8=7=3pAWGfc1bjrdS_OTf+dsSwyL7A@mail.gmail.com>
+Date: Mon, 15 Jun 2026 11:52:52 +0300
+Message-ID: <f9bc5c32e22198e957adcfaab5e4849a3b0e5268@intel.com>
 MIME-Version: 1.0
-X-CM-TRANSID: rQCowABXddwgvS9q0N_KFA--.599S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxtr18Wr1rGrW5uFW7Xr1xAFb_yoW3ArW7pF
- 4vyay8Wr4UJayI9r97tFy8KF90kw1xtayrWrZ7G34Yvrn8tFyDWFW0qFyUZayDWrZ7JF4I
- qFsY9w47CrW2v3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
- c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
- 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
- 14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
- IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
- 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
- IFyTuYvjxUqVcEUUUUU
-X-Originating-IP: [112.94.100.167]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,233 +74,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-06-15=E4=B8=80=E7=9A=84 14:50 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
-> The Nuvoton MA35D1 SoC integrates a Verisilicon DCUltraLite display
-> controller whose register layout differs from the DC8200 in several
-> important ways:
->=20
-> 1. No CONFIG_EX commit path: framebuffer updates use the enable (bit
-> 0)
-> =C2=A0=C2=A0 and reset (bit 4) bits in FB_CONFIG instead of the DC8200 st=
-aging
-> =C2=A0=C2=A0 registers (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT,
-> =C2=A0=C2=A0 FB_BLEND_CONFIG, PANEL_CONFIG_EX).
->=20
-> 2. No PANEL_START register: panel output starts when
-> =C2=A0=C2=A0 PANEL_CONFIG.RUNNING is set; there is no multi-display sync =
-start
-> =C2=A0=C2=A0 register.
->=20
-> 3. Different IRQ registers: DCUltraLite uses DISP_IRQ_STA (0x147C) /
-> =C2=A0=C2=A0 DISP_IRQ_EN (0x1480) versus DC8200's TOP_IRQ_ACK (0x0010) /
-> =C2=A0=C2=A0 TOP_IRQ_EN (0x0014).
->=20
-> 4. Per-frame commit cycle: DCUltraLite requires the VALID bit in
-> =C2=A0=C2=A0 FB_CONFIG to be set at the start of each atomic commit
-> (crtc_begin)
-> =C2=A0=C2=A0 and cleared after (crtc_flush).
->=20
-> 5. Simpler clock topology: only 'core' (bus gate) and 'pix0' (pixel
-> =C2=A0=C2=A0 divider) clocks; no axi or ahb clocks required.=C2=A0 Make a=
-xi_clk and
-> =C2=A0=C2=A0 ahb_clk optional (devm_clk_get_optional_enabled) so DC8000 n=
-odes
-> =C2=A0=C2=A0 without those clocks are handled gracefully.
->=20
-> Add vs_dc8000.c implementing the vs_dc_funcs vtable for the above
-> differences.=C2=A0 The probe now selects vs_dc8000_funcs when the
-> identified
-> generation is VSDC_GEN_DC8000 (DCUltraLite reads model 0x0,
-> revision 0x5560, customer_id 0x305).
->=20
-> Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> ---
-> =C2=A0drivers/gpu/drm/verisilicon/Makefile=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
- 9 ++-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
- 1 +
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dc8000.c | 78
-> +++++++++++++++++++++++++
-> =C2=A04 files changed, 86 insertions(+), 4 deletions(-)
-> =C2=A0create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8000.c
->=20
-> diff --git a/drivers/gpu/drm/verisilicon/Makefile
-> b/drivers/gpu/drm/verisilicon/Makefile
-> index 9d4cd16452fa..d2fd8e4dff24 100644
-> --- a/drivers/gpu/drm/verisilicon/Makefile
-> +++ b/drivers/gpu/drm/verisilicon/Makefile
-> @@ -1,6 +1,6 @@
-> =C2=A0# SPDX-License-Identifier: GPL-2.0-only
-> =C2=A0
-> -verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
-> vs_drm.o vs_hwdb.o \
-> +verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
-> vs_dc8000.o vs_drm.o vs_hwdb.o \
-> =C2=A0	vs_plane.o vs_primary_plane.o vs_cursor_plane.o
-> =C2=A0
-> =C2=A0obj-$(CONFIG_DRM_VERISILICON_DC) +=3D verisilicon-dc.o
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c
-> b/drivers/gpu/drm/verisilicon/vs_dc.c
-> index 9729b693d360..9499fffbca58 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
-> @@ -90,13 +90,13 @@ static int vs_dc_probe(struct platform_device
-> *pdev)
-> =C2=A0		return PTR_ERR(dc->core_clk);
-> =C2=A0	}
-> =C2=A0
-> -	dc->axi_clk =3D devm_clk_get_enabled(dev, "axi");
-> +	dc->axi_clk =3D devm_clk_get_optional_enabled(dev, "axi");
-> =C2=A0	if (IS_ERR(dc->axi_clk)) {
-> =C2=A0		dev_err(dev, "can't get axi clock\n");
-> =C2=A0		return PTR_ERR(dc->axi_clk);
-> =C2=A0	}
-> =C2=A0
-> -	dc->ahb_clk =3D devm_clk_get_enabled(dev, "ahb");
-> +	dc->ahb_clk =3D devm_clk_get_optional_enabled(dev, "ahb");
+On Sat, 13 Jun 2026, Xiang Mei <xmei5@asu.edu> wrote:
+> On Wed, Jun 10, 2026 at 5:49=E2=80=AFAM Jani Nikula <jani.nikula@linux.in=
+tel.com> wrote:
+>>
+>> On Mon, 08 Jun 2026, Xiang Mei <xmei5@asu.edu> wrote:
+>> > drm_parse_tiled_block() casts the DisplayID block to a
+>> > struct displayid_tiled_block and reads the full fixed layout up to
+>> > tile->topology_id[7] without checking block->num_bytes. The DisplayID
+>> > iterator only validates the declared payload length, so a crafted EDID
+>> > can advertise a tiled-display block (tag DATA_BLOCK_TILED_DISPLAY, or
+>> > DATA_BLOCK_2_TILED_DISPLAY_TOPOLOGY for v2.0) with a small num_bytes at
+>> > the end of a DisplayID extension. The read then runs past the end of t=
+he
+>> > exact-sized kmemdup()'d EDID allocation, a heap out-of-bounds read.
+>> >
+>> > Add a minimum-length check, as drm_parse_vesa_mso_data() already does.
+>> >
+>> >   BUG: KASAN: slab-out-of-bounds in drm_edid_connector_update
+>> >   Read of size 2 at addr ffff888010077700 by task exploit/147
+>> >    dump_stack_lvl (lib/dump_stack.c:94 ...)
+>> >    print_report (mm/kasan/report.c:378 ...)
+>> >    kasan_report (mm/kasan/report.c:595)
+>> >    drm_edid_connector_update (drivers/gpu/drm/drm_edid.c:7581)
+>> >    bochs_connector_helper_get_modes (drivers/gpu/drm/tiny/bochs.c:574)
+>> >    drm_helper_probe_single_connector_modes (drivers/gpu/drm/drm_probe_=
+helper.c:426)
+>> >    status_store (drivers/gpu/drm/drm_sysfs.c:219)
+>> >    ...
+>> >    vfs_write (fs/read_write.c:595 fs/read_write.c:688)
+>> >    ksys_write (fs/read_write.c:740)
+>> >
+>> > Fixes: 40d9b043a89e ("drm/connector: store tile information from displ=
+ayid (v3)")
+>> > Reported-by: Weiming Shi <bestswngs@gmail.com>
+>> > Assisted-by: Claude:claude-opus-4-8
+>> > Signed-off-by: Xiang Mei <xmei5@asu.edu>
+>> > ---
+>> >  drivers/gpu/drm/drm_edid.c | 7 +++++++
+>> >  1 file changed, 7 insertions(+)
+>> >
+>> > diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+>> > index 404208bf23a6..92054ac82fe2 100644
+>> > --- a/drivers/gpu/drm/drm_edid.c
+>> > +++ b/drivers/gpu/drm/drm_edid.c
+>> > @@ -7575,6 +7575,13 @@ static void drm_parse_tiled_block(struct drm_co=
+nnector *connector,
+>> >       u8 num_v_tile, num_h_tile;
+>> >       struct drm_tile_group *tg;
+>> >
+>> > +     if (block->num_bytes < sizeof(*tile) - sizeof(*block)) {
+>>
+>> I'd prefer using fixed values here. If the tiled display topology data
+>> block is ever expanded, we'll need to have them anyway.
+>>
+>> This should be if (block->num_bytes < 22).
+>>
+>
+> I've been advised on other patches that it's better to avoid magic
+> numbers, and I think sizeof(*tile) - sizeof(*block) is preferable here
+> for two reasons:
+>
+> 1. It's easier to understand. A bare 22 forces the reader to know what
+> it stands for, while sizeof(*tile) - sizeof(*block) reads as exactly
+> what it is: the number of payload bytes the code dereferences.
+>
+> 2. It's more maintainable for the expansion case you mention. It stays
+> in lockstep with the struct, so once topology_id is corrected to 9
+> bytes (below) it becomes 22 automatically and the patch still works
+> with no edit. A hardcoded 21 would silently re-open the OOB when the
+> struct grows, and a hardcoded 22 doesn't match what the current code
+> reads today.
 
-Please make the clock change a separated patch for atomicity.
+I'm not referring to struct changes, I'm referring to spec changes.
 
-BTW the MA35D1 manual's clock tree shows that DCUltra appears on AXI2
-ACLK, AHB_HCLK2, behind a mux of SYS-PLL/EPLL-DIV2 (which seems to be
-the core clock), and behind a divider (which seems to be the pixel
-clock).
+If the spec gets changed, the struct needs to reflect the newest/biggest
+size, and access to the end of the struct needs to be gated on the size
+available. If you add that sizeof thing now, it'll need to be changed if
+the spec gets exended.
 
-However it's weird that only one DCUltra Clock Enable Bit exists
-despite both bus clocks have "ICG" (I think it means "Integrated Clock
-Gating"). In addition the linux clk-ma35d1 driver assigns "dcu_gate" as
-a downstream of "dcu_mux", although the Figure 6.5-2 in the TRM shows
-no ICG after the "Display core CLK" mux.
+I'll argue that adding the sizeof or < 21 check now is *wrong* because
+it does not match the *spec*. It's not about the struct, it's about the
+spec. The check should be < 22.
 
-Is the two bus clocks controlled by a single gate bit, and is the bit
-also gating DC core clock?
+>> And reviewing this, I realize struct displayid_tiled_block definition is
+>> actually only 21 bytes. The topology_id member is 8 bytes, while it
+>> consists of
+>>
+>> - Tiled Display Manufacturer/Vendor ID Field (3 bytes)
+>> - Tiled Display Product ID Code Field (2 bytes)
+>> - Tiled Display Serial Number Field (4 bytes)
+>>
+>> i.e. total of 9 bytes.
+>>
+> Good catch. This looks like a separate, pre-existing issue from the
+> OOB read fixed here, and it also touches group_data[8] and the
+> memcpy/memcmp sites in drm_mode_{get,create}_tile_group(). We don't
+> have much experience with this part of the code, so if it's okay we'd
+> rather leave it for you to assess the impact and the right fix, and
+> keep this patch as the minimal OOB fix.
 
-Thanks,
-Icenowy
+The fix is at [1].
 
-> =C2=A0	if (IS_ERR(dc->ahb_clk)) {
-> =C2=A0		dev_err(dev, "can't get ahb clock\n");
-> =C2=A0		return PTR_ERR(dc->ahb_clk);
-> @@ -134,7 +134,10 @@ static int vs_dc_probe(struct platform_device
-> *pdev)
-> =C2=A0	dev_info(dev, "Found DC%x rev %x customer %x\n", dc-
-> >identity.model,
-> =C2=A0		 dc->identity.revision, dc->identity.customer_id);
-> =C2=A0
-> -	dc->funcs =3D &vs_dc8200_funcs;
-> +	if (dc->identity.generation =3D=3D VSDC_GEN_DC8200)
-> +		dc->funcs =3D &vs_dc8200_funcs;
-> +	else
-> +		dc->funcs =3D &vs_dc8000_funcs;
-> =C2=A0
-> =C2=A0	if (port_count > dc->identity.display_count) {
-> =C2=A0		dev_err(dev, "too many downstream ports than HW
-> capability\n");
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.h
-> b/drivers/gpu/drm/verisilicon/vs_dc.h
-> index 544e1a37065b..5218e8cf63e2 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_dc.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc.h
-> @@ -66,5 +66,6 @@ struct vs_dc {
-> =C2=A0};
-> =C2=A0
-> =C2=A0extern const struct vs_dc_funcs vs_dc8200_funcs;
-> +extern const struct vs_dc_funcs vs_dc8000_funcs;
-> =C2=A0
-> =C2=A0#endif /* _VS_DC_H_ */
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8000.c
-> b/drivers/gpu/drm/verisilicon/vs_dc8000.c
-> new file mode 100644
-> index 000000000000..be0c0d7baf52
-> --- /dev/null
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc8000.c
-> @@ -0,0 +1,78 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2026 Joey Lu <yclu4@nuvoton.com>
-> + */
-> +
-> +#include <linux/regmap.h>
-> +
-> +#include "vs_crtc_regs.h"
-> +#include "vs_dc.h"
-> +#include "vs_primary_plane_regs.h"
-> +
-> +static void vs_dc8000_panel_enable_ex(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			VSDC_FB_CONFIG_RESET);
-> +}
-> +
-> +static void vs_dc8000_panel_disable_ex(struct vs_dc *dc, unsigned
-> int output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			=C2=A0 VSDC_FB_CONFIG_RESET);
-> +}
-> +
-> +static void vs_dc8000_crtc_begin(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			VSDC_FB_CONFIG_VALID);
-> +}
-> +
-> +static void vs_dc8000_crtc_flush(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			=C2=A0 VSDC_FB_CONFIG_VALID);
-> +}
-> +
-> +static void vs_dc8000_crtc_enable(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			VSDC_FB_CONFIG_ENABLE);
-> +}
-> +
-> +static void vs_dc8000_crtc_disable(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			=C2=A0 VSDC_FB_CONFIG_ENABLE);
-> +}
-> +
-> +static void vs_dc8000_enable_vblank(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_DISP_IRQ_EN,
-> +			VSDC_DISP_IRQ_VSYNC(output));
-> +}
-> +
-> +static void vs_dc8000_disable_vblank(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_DISP_IRQ_EN,
-> +			=C2=A0 VSDC_DISP_IRQ_VSYNC(output));
-> +}
-> +
-> +static u32 vs_dc8000_irq_ack(struct vs_dc *dc)
-> +{
-> +	u32 irqs;
-> +
-> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &irqs);
-> +	return irqs;
-> +}
-> +
-> +const struct vs_dc_funcs vs_dc8000_funcs =3D {
-> +	.panel_enable_ex	=3D vs_dc8000_panel_enable_ex,
-> +	.panel_disable_ex	=3D vs_dc8000_panel_disable_ex,
-> +	.crtc_begin		=3D vs_dc8000_crtc_begin,
-> +	.crtc_flush		=3D vs_dc8000_crtc_flush,
-> +	.crtc_enable		=3D vs_dc8000_crtc_enable,
-> +	.crtc_disable		=3D vs_dc8000_crtc_disable,
-> +	.enable_vblank		=3D vs_dc8000_enable_vblank,
-> +	.disable_vblank		=3D vs_dc8000_disable_vblank,
-> +	.irq_ack		=3D vs_dc8000_irq_ack,
-> +};
 
+BR,
+Jani.
+
+
+[1] https://lore.kernel.org/r/20260610141549.555605-1-jani.nikula@intel.com
+
+>
+>
+> Xiang
+>
+>> BR,
+>> Jani.
+>>
+>>
+>> > +             drm_dbg_kms(connector->dev,
+>> > +                         "[CONNECTOR:%d:%s] Unexpected tiled block si=
+ze %u\n",
+>> > +                         connector->base.id, connector->name, block->=
+num_bytes);
+>> > +             return;
+>> > +     }
+>> > +
+>> >       w =3D tile->tile_size[0] | tile->tile_size[1] << 8;
+>> >       h =3D tile->tile_size[2] | tile->tile_size[3] << 8;
+>>
+>> --
+>> Jani Nikula, Intel
+
+--=20
+Jani Nikula, Intel
