@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7BADCD98DA
-	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 12:14:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42A52CD98C5
+	for <dri-devel@archiver.kernel.org>; Mon, 15 Jun 2026 12:14:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35B3F10E3CC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCA1D10E3CE;
 	Mon, 15 Jun 2026 12:14:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="VJIW+hB1";
+	dkim=pass (2048-bit key; secure) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="lGYvKlmS";
 	dkim-atps=neutral
-X-Greylist: delayed 603 seconds by postgrey-1.36 at gabe;
- Mon, 15 Jun 2026 12:14:05 UTC
-Received: from mta-64-226.siemens.flowmailer.net
- (mta-64-226.siemens.flowmailer.net [185.136.64.226])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3EB810E3BD
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 12:14:05 +0000 (UTC)
-Received: by mta-64-226.siemens.flowmailer.net with ESMTPSA id
- 20260615120357eb2c953a880002077a
+X-Greylist: delayed 604 seconds by postgrey-1.36 at gabe;
+ Mon, 15 Jun 2026 12:14:06 UTC
+Received: from mta-65-227.siemens.flowmailer.net
+ (mta-65-227.siemens.flowmailer.net [185.136.65.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82E4F10E3C6
+ for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 12:14:06 +0000 (UTC)
+Received: by mta-65-227.siemens.flowmailer.net with ESMTPSA id
+ 202606151203581fe6f5e4fa00020751
  for <dri-devel@lists.freedesktop.org>;
  Mon, 15 Jun 2026 14:03:58 +0200
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
  d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
- bh=lCOoc1nkAj9LM105Jbsd+SDj6HDskDfhiImH70CCtpM=;
- b=VJIW+hB1r1v2BVNgjuHpz6m0c3XuTFAuC/jxb2JCOs91V5KqN1/rIudfcyLJzmwMVZcyu3
- k4kYp6CZ1PwOIxG8TelhNFFt1GTde3wxRMv4THGZFLSHEZPVkh9//BGZYZEJC8VNJAIP6Nwf
- 2UXdbonCtfumlbbYGnB9IGuA0Q3MU7iDYLL0bM1BwnLn7HZkhBsLlmKC1fg9QaSxtWhcz8lx
- S37v3jWBHhxulH3QQHqvux22KJSG5S5EokxDK3y2mDzJ1CVmuLXKEi+beE4JKcnLLynlU0IE
- STyI2qoMO+ZTrxK7VvWSSCMZ1mgkLnIetYx98tLDOYi2spHtQ8KPIelQ==;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=kfviCFmmVXESKpqwYOHN1tzc25WNDVOaT5tGn2iOj50=;
+ b=lGYvKlmSoizJac/jQQQED7veF6GXTVcUrAb6xb0R1eFO3C0jINpA8+xBcM1WZQl1+H8Y5G
+ /Mc1kTJDpHNUnzgwv8vDvyIfb72piXQQXt8XBUCjxYmwd8TcKqn4XZhzS2JXBKu+ncBhnRBI
+ OeiquP2ZjhRzS2mnI48REWmfE5dzbJjDZF8mHkU8hfnEZlCW/D26tVZxucdOxVvZYqx/8TU/
+ KoQxiYnHPPpsCnl+14OcB/YrwrH9exy0v+WbiB3yzl3mDW6/++HxrrWNxCu6Po3SpmemhZQm
+ n4IZLGmH4f4/ZI8GRiFlPTknXkfJWDIqpnQk+vsUOMG9L/uh4G39YvDA==;
 From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
 To: linux-leds@vger.kernel.org
 Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
@@ -41,9 +41,11 @@ Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
  Andrew Davis <afd@ti.com>, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-fbdev@vger.kernel.org
-Subject: [PATCH 0/3] Convert LP8864 LED driver to backlight class
-Date: Mon, 15 Jun 2026 14:03:46 +0200
-Message-ID: <20260615120353.3409035-1-alexander.sverdlin@siemens.com>
+Subject: [PATCH 2/3] leds: lp8864: Rename struct lp8864_led and local variables
+Date: Mon, 15 Jun 2026 14:03:48 +0200
+Message-ID: <20260615120353.3409035-3-alexander.sverdlin@siemens.com>
+In-Reply-To: <20260615120353.3409035-1-alexander.sverdlin@siemens.com>
+References: <20260615120353.3409035-1-alexander.sverdlin@siemens.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Flowmailer-Platform: Siemens
@@ -65,43 +67,229 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-This series converts the TI LP8864/LP8866 driver from a pure LED class
-driver to a backlight class driver, while preserving backward-compatible
-LED class device registration.
+Rename struct lp8864_led to struct lp8864 and the local variable 'led'
+to 'priv' throughout the driver. The LED functionality will become
+optional in a subsequent patch that adds backlight class support, so
+having the driver's private data structure and variables named after
+LED-specifics is misleading.
 
-The motivation is a use case on a hot-pluggable segment of an I2C bus.
-The generic led-backlight driver (drivers/video/backlight/led_bl.c) is
-a platform driver and thus inherently non-hotpluggable -- it cannot react
-to dynamic appearance/disappearance of the underlying I2C device. By
-making the LP8864 driver directly register a backlight class device, it
-becomes a self-contained I2C driver that properly supports hot-plug/unplug
-events without depending on a separate platform device for backlight
-functionality.
+No functional change.
 
-The LED class device registration is retained for backward compatibility:
-if the "led" child node is present in the device-tree, an LED class device
-is registered in addition to the backlight device.
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+---
+ drivers/leds/leds-lp8864.c | 70 +++++++++++++++++++-------------------
+ 1 file changed, 35 insertions(+), 35 deletions(-)
 
-No in-tree device-trees reference this driver, so there is no mainline
-impact. Out-of-tree users who previously relied on the LP8864 as a backend
-for the generic led-backlight platform driver will notice a backlight class
-device appearing directly.
-
-Alexander Sverdlin (3):
-  dt-bindings: backlight: ti,lp8864: Add backlight class properties
-  leds: lp8864: Rename struct lp8864_led and local variables
-  backlight: lp8864: Convert from LED to backlight class driver
-
- .../bindings/leds/backlight/ti,lp8864.yaml    |  16 +-
- MAINTAINERS                                   |   2 +-
- drivers/leds/Kconfig                          |  12 --
- drivers/leds/Makefile                         |   1 -
- drivers/video/backlight/Kconfig               |  15 ++
- drivers/video/backlight/Makefile              |   1 +
- .../backlight/lp8864_bl.c}                    | 169 ++++++++++++------
- 7 files changed, 147 insertions(+), 69 deletions(-)
- rename drivers/{leds/leds-lp8864.c => video/backlight/lp8864_bl.c} (55%)
-
+diff --git a/drivers/leds/leds-lp8864.c b/drivers/leds/leds-lp8864.c
+index 3afd729d2f8a6..d05211b970c94 100644
+--- a/drivers/leds/leds-lp8864.c
++++ b/drivers/leds/leds-lp8864.c
+@@ -69,32 +69,32 @@ static const char *const lp8864_led_status_msg[] = {
+ };
+ 
+ /**
+- * struct lp8864_led
++ * struct lp8864
+  * @client: Pointer to the I2C client
+  * @led_dev: led class device pointer
+  * @regmap: Devices register map
+  * @led_status_mask: Helps to report LED fault only once
+  */
+-struct lp8864_led {
++struct lp8864 {
+ 	struct i2c_client *client;
+ 	struct led_classdev led_dev;
+ 	struct regmap *regmap;
+ 	u16 led_status_mask;
+ };
+ 
+-static int lp8864_fault_check(struct lp8864_led *led)
++static int lp8864_fault_check(struct lp8864 *priv)
+ {
+ 	int ret, i;
+ 	unsigned int val;
+ 
+-	ret = regmap_read(led->regmap, LP8864_SUPPLY_STATUS, &val);
++	ret = regmap_read(priv->regmap, LP8864_SUPPLY_STATUS, &val);
+ 	if (ret)
+ 		goto err;
+ 
+ 	/* Odd bits are status bits, even bits are clear bits */
+ 	for (i = 0; i < ARRAY_SIZE(lp8864_supply_status_msg); i++)
+ 		if (val & BIT(i * 2 + 1))
+-			dev_warn(&led->client->dev, "%s\n", lp8864_supply_status_msg[i]);
++			dev_warn(&priv->client->dev, "%s\n", lp8864_supply_status_msg[i]);
+ 
+ 	/*
+ 	 * Clear bits have an index preceding the corresponding Status bits;
+@@ -102,25 +102,25 @@ static int lp8864_fault_check(struct lp8864_led *led)
+ 	 * Status bit.
+ 	 */
+ 	if (val)
+-		ret = regmap_write(led->regmap, LP8864_SUPPLY_STATUS, val >> 1 | val);
++		ret = regmap_write(priv->regmap, LP8864_SUPPLY_STATUS, val >> 1 | val);
+ 	if (ret)
+ 		goto err;
+ 
+-	ret = regmap_read(led->regmap, LP8864_BOOST_STATUS, &val);
++	ret = regmap_read(priv->regmap, LP8864_BOOST_STATUS, &val);
+ 	if (ret)
+ 		goto err;
+ 
+ 	/* Odd bits are status bits, even bits are clear bits */
+ 	for (i = 0; i < ARRAY_SIZE(lp8864_boost_status_msg); i++)
+ 		if (val & BIT(i * 2 + 1))
+-			dev_warn(&led->client->dev, "%s\n", lp8864_boost_status_msg[i]);
++			dev_warn(&priv->client->dev, "%s\n", lp8864_boost_status_msg[i]);
+ 
+ 	if (val)
+-		ret = regmap_write(led->regmap, LP8864_BOOST_STATUS, val >> 1 | val);
++		ret = regmap_write(priv->regmap, LP8864_BOOST_STATUS, val >> 1 | val);
+ 	if (ret)
+ 		goto err;
+ 
+-	ret = regmap_read(led->regmap, LP8864_LED_STATUS, &val);
++	ret = regmap_read(priv->regmap, LP8864_LED_STATUS, &val);
+ 	if (ret)
+ 		goto err;
+ 
+@@ -128,31 +128,31 @@ static int lp8864_fault_check(struct lp8864_led *led)
+ 	 * Clear already reported faults that maintain their value until device
+ 	 * power-down
+ 	 */
+-	val &= ~led->led_status_mask;
++	val &= ~priv->led_status_mask;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(lp8864_led_status_msg); i++)
+ 		if (lp8864_led_status_msg[i] && val & BIT(i))
+-			dev_warn(&led->client->dev, "%s\n", lp8864_led_status_msg[i]);
++			dev_warn(&priv->client->dev, "%s\n", lp8864_led_status_msg[i]);
+ 
+ 	/*
+ 	 * Mark those which maintain their value until device power-down as
+ 	 * "already reported"
+ 	 */
+-	led->led_status_mask |= val & ~LP8864_LED_STATUS_WR_MASK;
++	priv->led_status_mask |= val & ~LP8864_LED_STATUS_WR_MASK;
+ 
+ 	/*
+ 	 * Only bits 14, 12, 10 have to be cleared here, but others are RO,
+ 	 * we don't care what we write to them.
+ 	 */
+ 	if (val & LP8864_LED_STATUS_WR_MASK)
+-		ret = regmap_write(led->regmap, LP8864_LED_STATUS, val >> 1 | val);
++		ret = regmap_write(priv->regmap, LP8864_LED_STATUS, val >> 1 | val);
+ 	if (ret)
+ 		goto err;
+ 
+ 	return 0;
+ 
+ err:
+-	dev_err(&led->client->dev, "Failed to read/clear faults (%pe)\n", ERR_PTR(ret));
++	dev_err(&priv->client->dev, "Failed to read/clear faults (%pe)\n", ERR_PTR(ret));
+ 
+ 	return ret;
+ }
+@@ -160,31 +160,31 @@ static int lp8864_fault_check(struct lp8864_led *led)
+ static int lp8864_brightness_set(struct led_classdev *led_cdev,
+ 				 enum led_brightness brt_val)
+ {
+-	struct lp8864_led *led = container_of(led_cdev, struct lp8864_led, led_dev);
++	struct lp8864 *priv = container_of(led_cdev, struct lp8864, led_dev);
+ 	/* Scale 0..LED_FULL into 16-bit HW brightness */
+ 	unsigned int val = brt_val * 0xffff / LED_FULL;
+ 	int ret;
+ 
+-	ret = lp8864_fault_check(led);
++	ret = lp8864_fault_check(priv);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = regmap_write(led->regmap, LP8864_BRT_CONTROL, val);
++	ret = regmap_write(priv->regmap, LP8864_BRT_CONTROL, val);
+ 	if (ret)
+-		dev_err(&led->client->dev, "Failed to write brightness value\n");
++		dev_err(&priv->client->dev, "Failed to write brightness value\n");
+ 
+ 	return ret;
+ }
+ 
+ static enum led_brightness lp8864_brightness_get(struct led_classdev *led_cdev)
+ {
+-	struct lp8864_led *led = container_of(led_cdev, struct lp8864_led, led_dev);
++	struct lp8864 *priv = container_of(led_cdev, struct lp8864, led_dev);
+ 	unsigned int val;
+ 	int ret;
+ 
+-	ret = regmap_read(led->regmap, LP8864_BRT_CONTROL, &val);
++	ret = regmap_read(priv->regmap, LP8864_BRT_CONTROL, &val);
+ 	if (ret) {
+-		dev_err(&led->client->dev, "Failed to read brightness value\n");
++		dev_err(&priv->client->dev, "Failed to read brightness value\n");
+ 		return ret;
+ 	}
+ 
+@@ -208,14 +208,14 @@ static void lp8864_disable_gpio(void *data)
+ static int lp8864_probe(struct i2c_client *client)
+ {
+ 	int ret;
+-	struct lp8864_led *led;
++	struct lp8864 *priv;
+ 	struct device_node *np = dev_of_node(&client->dev);
+ 	struct device_node *child_node;
+ 	struct led_init_data init_data = {};
+ 	struct gpio_desc *enable_gpio;
+ 
+-	led = devm_kzalloc(&client->dev, sizeof(*led), GFP_KERNEL);
+-	if (!led)
++	priv = devm_kzalloc(&client->dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
+ 		return -ENOMEM;
+ 
+ 	child_node = of_get_next_available_child(np, NULL);
+@@ -237,24 +237,24 @@ static int lp8864_probe(struct i2c_client *client)
+ 	if (ret)
+ 		return ret;
+ 
+-	led->client = client;
+-	led->led_dev.brightness_set_blocking = lp8864_brightness_set;
+-	led->led_dev.brightness_get = lp8864_brightness_get;
++	priv->client = client;
++	priv->led_dev.brightness_set_blocking = lp8864_brightness_set;
++	priv->led_dev.brightness_get = lp8864_brightness_get;
+ 
+-	led->regmap = devm_regmap_init_i2c(client, &lp8864_regmap_config);
+-	if (IS_ERR(led->regmap))
+-		return dev_err_probe(&client->dev, PTR_ERR(led->regmap),
++	priv->regmap = devm_regmap_init_i2c(client, &lp8864_regmap_config);
++	if (IS_ERR(priv->regmap))
++		return dev_err_probe(&client->dev, PTR_ERR(priv->regmap),
+ 				     "Failed to allocate regmap\n");
+ 
+ 	/* Control brightness by DISPLAY_BRT register */
+-	ret = regmap_update_bits(led->regmap, LP8864_USER_CONFIG1, LP8864_BRT_MODE_MASK,
++	ret = regmap_update_bits(priv->regmap, LP8864_USER_CONFIG1, LP8864_BRT_MODE_MASK,
+ 								   LP8864_BRT_MODE_REG);
+ 	if (ret) {
+-		dev_err(&led->client->dev, "Failed to set brightness control mode\n");
++		dev_err(&priv->client->dev, "Failed to set brightness control mode\n");
+ 		return ret;
+ 	}
+ 
+-	ret = lp8864_fault_check(led);
++	ret = lp8864_fault_check(priv);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -262,7 +262,7 @@ static int lp8864_probe(struct i2c_client *client)
+ 	init_data.devicename = "lp8864";
+ 	init_data.default_label = ":display_cluster";
+ 
+-	ret = devm_led_classdev_register_ext(&client->dev, &led->led_dev, &init_data);
++	ret = devm_led_classdev_register_ext(&client->dev, &priv->led_dev, &init_data);
+ 	if (ret)
+ 		dev_err(&client->dev, "Failed to register LED device (%pe)\n", ERR_PTR(ret));
+ 
 -- 
 2.54.0
 
