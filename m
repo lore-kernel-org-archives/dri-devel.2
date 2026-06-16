@@ -4,106 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62593CD98E4
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 18:51:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6ABECD98E4
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 18:52:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFC8610E60E;
-	Tue, 16 Jun 2026 18:51:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09B6788EBA;
+	Tue, 16 Jun 2026 18:52:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sZ4BuJOI";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="iQwVxooz";
 	dkim-atps=neutral
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 008A410E60E
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 18:51:52 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-30bc5fa5a2aso67123eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 11:51:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781635912; cv=none;
- d=google.com; s=arc-20240605;
- b=b+Kzr4FovTDbuYjoqgYx/8E/k3ywG3asQ0N9GsQmOz6wd2MJxizKOBW5/mxW4y9PRi
- pxefq8VM5txj34aOOFOqyStG7463KwQ09HvVI10UK34FEFO0+U0iRzWpHJug6iRbDI94
- 5aqckQTN8oMCu7ETzkaXY8+eNN2WD7VcBTM3CV+/rDbkcvaxRhkzV4pbxDUdf3SR0Ic6
- FA25I70MIrjfj8qBaWbRQQRP/1JOmVQ1L19pT4H0Ki4m/RZbx/BO4oYahcAeHFYZwENB
- Q4z9vQszBSARypeyNEqZBzTd9OGjYesiPOlWNhfJDcs0G/mWEsQt3NuRzpF2c/qkbu1B
- LPEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=lLZGG1vL2Dqwzut/Q/EWnM0Po9IOyB/nN+ycn9QeZq0=;
- fh=S3cBxcMxJ8yefvuqzH1VhIpE/b8Ua4ON6POaT1InPDI=;
- b=UxQOjPaEZsCw1HX42kFS116/s/cgUNVf+a/p53Np+G7n5Wyoub8b3DIJ2RfRz1y0pZ
- FTtUJ/NhEtAduVDO/P/7RplY35+zfoeGxPSL5eBC0qASDxu355sHuR/bd8huCMsupZ1L
- q/+iVtb/7QKXe2PZtCYfwLpHnxjgHrSwnlU8zlf2jSFJy0vDN7n6VMim971Ny1vyhyy3
- o1d7m9RjcrfNb0gLV3kB9Iq4ipMRG0RpA6Ok2aHoqYa8SwJztkXnMxlHsIsmmrX8wT3u
- 1YZiHMB1gAYaSUkVFAvPZYQUKXrm0yLeOKOYPRjLwYS2bwRujG24/8SCJVIAD6eHF2Z2
- tzcw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4595310EB0F
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 18:51:58 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-2c6a4eccab1so8775ad.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 11:51:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781635912; x=1782240712; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lLZGG1vL2Dqwzut/Q/EWnM0Po9IOyB/nN+ycn9QeZq0=;
- b=sZ4BuJOIRfRaU6AZFHTsC/XDxviprJhubhgqmb/DpxXWCzPFV7QGFAWqMqeIZJLhYY
- WhLowUflXYp+5rAxZejAbZeYFv7DEOucKw4YJCh6E9qWNwwkdj63z04q0bh1d8uXxv+k
- L8wPeCFzekwSDee1eZ9WDRI5Oo5Zd+2ksiBSRElbdGmPq33Gd4awv3cfbdgv7B4iq5yZ
- IUZi7vVQIx8m9awpcQbG+d6DgKSDeuewSKU1qiqwWkzzVz/iwP2ra4m6LD9pxYpgCuIW
- mT90pQTkK0HxNwzhiUb1qgGu8gB4d8zhoCu/ORAT1YP1GjtRpW+lFLMQzubSSHbWeDEo
- kb6g==
+ d=google.com; s=20251104; t=1781635918; x=1782240718;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=wvE0aCg+gv1l26GtSCjQQyNi/5Rf7OW5qgPEji4d+Bg=;
+ b=iQwVxoozr2pd+LDaOvBERDb+4ilLS39PCaIu661ixA37OBvZeByDncIMtgLbxe8JmE
+ 9jtvzJPsJNVebj9L83QdHjf4HvMaWxN65dOweSZfHEAmbqZqAhN3RihtoAVBzOXotAUJ
+ Ed3lQCRfsK0e18+JNcLqhi+KXaKC5KGJmiAn/QjYgujAamS2SKSQcBuw6qT/M9n6NTJK
+ GSxEgfudxEraVwR+CK2mgCcV0LgpdBzgNMI94AlCsicRoiHroh6ktKL2h0o55OUk9Pjn
+ 9ij44b/W5GfJqlQHGK8TX62IhSVuZe6t2q+H8ExXyZ3/kjG9L5l5avQXKHBlrOx7uRRM
+ VXvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781635912; x=1782240712;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=lLZGG1vL2Dqwzut/Q/EWnM0Po9IOyB/nN+ycn9QeZq0=;
- b=DIJl5x/MgAWt1o+NBzbj0pRAYEgorYoZP2NYV7q2cA57Jtm0kcAjOPhvYLyKoimp7I
- Zq5/hcWTK2uCgvaHEWdVLTQD/ry0MlNQMeT2s9NUCSwKU3SbqmF5Pd/xxLSMp07NGqGy
- ZR8iXhvJZxZb/jQqxkq6U5E2k50inR/iYhqaGuz7P4ew/M3ATarDmKj5bfbY3kt3uQUw
- VZI2p1LUV5uEXDq6/bydDXHlejxK8iB8eQ28l++p3RcTt3KQIzktg4MvgMYA+8c5uOiU
- k7HdwlNdBxXvkcbullrh2HvUNzg8TEIw08peL5gSD3dO180jRfyPUuS+9qRXO1XcQlhb
- l8tw==
+ d=1e100.net; s=20251104; t=1781635918; x=1782240718;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=wvE0aCg+gv1l26GtSCjQQyNi/5Rf7OW5qgPEji4d+Bg=;
+ b=XbJGS0BTeiOfUKOuFAqN2j9U8mat5CPxZEmA6ct+0+ToaNpYmEC54wcBKTStPmrhqZ
+ 932al4Ep4g1X/YRgd54AEzCshDLqnY9ttmnLHmcv5UE6qH/Cp1WNHfQ3fdFYa1C8ZhYf
+ Rl/IxwiNYISib/ZaqSMaPlcqM1IAIjLxvgUqKd0KWK8CcfWpQS231iCjGBbP6FcsFbOL
+ ur6sphHTZvezrpKuM7Ot3dONIu3WLCMfvJBxpIMhEEQ2qS9vL2XTYA/CJEjijUL0FFTC
+ BLjQt6h3OPV4pXUkN2agolGYorxaSbpKLYN8h/x1yM27aE6aQ61CDBnndNVJTSeAcGDO
+ 0sYg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8FuFDv4+ImXbQjV6isMntl+7Ul8rlz7LuA58RYqI4N/pgkA0Xc81N+/MFIbc/wPjXwjJ5TVA/uPiY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyHEgYOfG0OgQ7qrskC6Td/ehj0SGxPSMdzlF+yMI2UVA13EYzP
- 8P8iHUO0NsMmuMULi8G2Ursx1myA/zaB1HI4BX/cOQnvg18C+94zA77I+PVTyGn7+w3dHwXfhsg
- zpmUlMjcuvYcoY0VwHF9g5ZJLQp9lXeg=
-X-Gm-Gg: Acq92OFkVwEPBZHlRGicmezoIfXjUmpZqml9+74MdErDLKP3JZP8X6MNXEk1CYnIFJ1
- ltGBctEf5qmQiAOQxKZjqLQhPhBgWNFAX8SJtFqKuGfQTtNXJI8AA7b8ySQLaD2h390ZhXmDMYg
- m6YWhA7+VDTOr74BEEqcbbZxVaJNUVRCLYmV0pMFjkV9AoqQCO5O3rTndJTJ3mOmPeILOWNaNU5
- 0IF7UwG38pI5qSocPI4JUd9rolg/SBP5crAE+oFR+Y1Mvw/EiZLEPzu9q+A14cP9om/x4c4P5UW
- 9IeWrPnQSce42uHEj/lo6zuM9TMSLHIeJIiozpsGySn1HmWPYWEPPUHkgc4TpAkh0u7NstLrxZy
- 2mOV0
-X-Received: by 2002:a05:7022:110:b0:136:d029:451 with SMTP id
- a92af1059eb24-1398f6ab309mr34977c88.4.1781635912245; Tue, 16 Jun 2026
- 11:51:52 -0700 (PDT)
+ AFNElJ+mUlzsJN2lTz2x/LMWY+EYvweYIfGJwzFJUmwLSaGn2vwiC+CpnXzJuhwpfpMrq+zurDrBrRwlzKk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy/d34cKmGTzhK1RayRdxcghROyk8qQvt79GGZbDxodhW8NPYss
+ dygxnKkiiJJkQmkD2a+zE3NrZKb00dqeb90f6JaTMlmCf5deQ5WUdFppJuaavSeCJA==
+X-Gm-Gg: AfdE7cmHh/SsnjYOb+P5x808zqFG5gpt2H5Bji4gPxcG5iPlQdFGvy6JeSfX7liGLIo
+ xPXgcpHPx/MKvd7YhOJ+UXhoo22XQyhqXUzChCmoz7unYAx0wowhjCOq3uwIXBhnpDi7/ViOPY5
+ KIH/jca2WBD0p8rYVjMjsF6C7nGzG36QqIudUKLcV8BFlxLfP8+h/tUcgft9Xk+K30PPv3prcIW
+ IZrDNe5IQC6jmhyScZasUt8N1ILoKyIAHnvluyFlJ/JwKoa+pcfmIkl3Ts2lg0GdjCiOwbVYC+a
+ PoTTQ8VMDjHvnTbCt2yezE0omQtkBfyjvP2WaG/wtry6yaDRuS8lN+1sKjmrdy9lhD7Y7alilK3
+ rcbOU8NtfDtFUOSy2pemnuEfDmnfS8lUoUIbnbW3P0BcnjL+3QgKwJ5d7TzY3xxQmj5EBCtqKvB
+ dLk7kBDQ+tudBMhMB/G+FZMepI+mepvl3z7337MrjVvmtUchQKLMQ4d41oQO7L
+X-Received: by 2002:a17:903:2f84:b0:2b0:b925:da98 with SMTP id
+ d9443c01a7336-2c6bbc5d4eemr256505ad.19.1781635917134; 
+ Tue, 16 Jun 2026 11:51:57 -0700 (PDT)
+Received: from google.com (199.255.142.34.bc.googleusercontent.com.
+ [34.142.255.199]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8434ad03fdcsm13472996b3a.24.2026.06.16.11.51.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Jun 2026 11:51:56 -0700 (PDT)
+Date: Tue, 16 Jun 2026 18:51:48 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: "Tian, Kevin" <kevin.tian@intel.com>
+Cc: Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>,
+ Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v3 6/9] vfio/pci: Clean up BAR zap and revocation
+Message-ID: <ajGbRE3WWJxNxcrg@google.com>
+References: <20260610154327.37758-1-matt@ozlabs.org>
+ <20260610154327.37758-7-matt@ozlabs.org>
+ <aixgZQiBQKgS7yIM@google.com>
+ <DM6PR11MB3690489DB5FA611413BF60558CE52@DM6PR11MB3690.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-References: <e0689a10-9cd6-4d74-a276-99f8f01c83fa@web.de>
- <e2023393-da68-4775-9f55-16363191328a@web.de>
- <CADnq5_P6aSFKefO+f3aofhfNh7kELEQWxid4EWgwAUr2saEh8Q@mail.gmail.com>
- <1ed4140f-83b6-4393-a67d-ed321b72ecb2@web.de>
-In-Reply-To: <1ed4140f-83b6-4393-a67d-ed321b72ecb2@web.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 16 Jun 2026 14:51:40 -0400
-X-Gm-Features: AVVi8CefSVV3ctlIm4JKXFEe2ToHhWyUVnA3pqitzvirCD1F3rsg-SVQpZJKAs4
-Message-ID: <CADnq5_PSRrvhUvzkZQGiA=U7kyyowXjO+GC_bPP95jg_OzpOUA@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/amd/display: Simplify data output in
- psr_capability_show()
-To: Markus Elfring <Markus.Elfring@web.de>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Alex Deucher <alexander.deucher@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>, 
- Ivan Lipski <ivan.lipski@amd.com>, Kees Cook <kees@kernel.org>,
- Leo Li <sunpeng.li@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, Ray Wu <ray.wu@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, Rong Zhang <i@rong.moe>,
- Simona Vetter <simona@ffwll.ch>, 
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- Tom Chung <chiahsuan.chung@amd.com>, LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DM6PR11MB3690489DB5FA611413BF60558CE52@DM6PR11MB3690.namprd11.prod.outlook.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,59 +106,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 16, 2026 at 3:19=E2=80=AFAM Markus Elfring <Markus.Elfring@web.=
-de> wrote:
->
-> >> Move the specification for a line break from a seq_puts() call
-> >> to a seq_printf() call.
-> >>
-> >> The source code was transformed by using the Coccinelle software.
-> >>
-> >> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
-> >> ---
-> >>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 4 ++--
-> >>  1 file changed, 2 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c=
- b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> >> index 4b09a740f205..6e6f391b640e 100644
-> >> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> >> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> >> @@ -1076,9 +1076,9 @@ static int psr_capability_show(struct seq_file *=
-m, void *data)
-> >>         seq_printf(m, "Sink support: %s", str_yes_no(link->dpcd_caps.p=
-sr_info.psr_version !=3D 0));
-> >>         if (link->dpcd_caps.psr_info.psr_version)
-> >>                 seq_printf(m, " [0x%02x]", link->dpcd_caps.psr_info.ps=
-r_version);
-> >> -       seq_puts(m, "\n");
-> >
-> > Why not just convert this to seq_putc() and drop the rest?  It seems
-> > more logical from a code structure perspective.
->
-> I obviously propose to omit a function call at this source code place
-> because an intended line break output can be achieved also with the subse=
-quent function call.
->
-> Do you insist to preserve a similar statement here?
+On Tue, Jun 16, 2026 at 09:48:14AM +0000, Tian, Kevin wrote:
+> > From: Pranjal Shrivastava <praan@google.com>
+> > Sent: Saturday, June 13, 2026 3:39 AM
+> > 
+> > On Wed, Jun 10, 2026 at 04:43:20PM +0100, Matt Evans wrote:
+> > > @@ -1264,7 +1265,7 @@ static int vfio_pci_ioctl_reset(struct
+> > vfio_pci_core_device *vdev,
+> > >  	if (!vdev->reset_works)
+> > >  		return -EINVAL;
+> > >
+> > > -	vfio_pci_zap_and_down_write_memory_lock(vdev);
+> > > +	down_write(&vdev->memory_lock);
+> > >
+> > >  	/*
+> > >  	 * This function can be invoked while the power state is non-D0. If
+> > > @@ -1277,10 +1278,11 @@ static int vfio_pci_ioctl_reset(struct
+> > vfio_pci_core_device *vdev,
+> > >  	 */
+> > >  	vfio_pci_set_power_state(vdev, PCI_D0);
+> > >
+> > > -	vfio_pci_dma_buf_move(vdev, true);
+> > > +	vfio_pci_zap_revoke_bars(vdev);
+> > 
+> > I'm wondering if this change in behavior is correct?
+> > BEFORE this patch the sequence was:
+> > 
+> > 1. zap vma mappings
+> > 2. Enter D0
+> > 
+> > After this patch the sequence becomes
+> > 
+> > 1. Take the lock
+> > 2. Enter D0
+> > 3. zap vma mappings
+> > 
+> > My worry is if user-space accesses a BAR *during* the transition to D0,
+> > it could crash since the mappings still exist during the transition?
+> 
+> not 'crash' as you also noted later with all Fs on read and dropped writes.
 
-I think the code reads more cleanly that way, but it's not a big deal
-either way.
+Ack, "crash" is definitely a strong word, I just meant that the
+user-space program isn't expecting to see all Fs today. Since today any
+access during reset is faulted, however with this all apps may have to
+lookout for all Fs during a read. Could this change cause existing apps
+to crash?
 
-Alex
+> 
+> > 
+> > The old code is immune to it because it removed user-mappings first.
+> > 
+> > Following the discussion from v1 regarding the ordering of
+> > vfio_pci_dma_buf_move() and the D0 transition.. while it makes sense to
+> > perform the DMABUF revocation/move after the hardware is in D0.. I'm not
+> > too confident about moving zap after D0 :/
+> 
+> probably add a comment to remind that ordering requirement for dma
+> 
 
->
->
-> >>
-> >> -       seq_printf(m, "Driver support: %s", str_yes_no(link->psr_setti=
-ngs.psr_feature_enabled));
-> >> +       seq_printf(m, "\nDriver support: %s",
-> >> +                  str_yes_no(link->psr_settings.psr_feature_enabled))=
-;
-> >>         if (link->psr_settings.psr_version)
-> >>                 seq_printf(m, " [0x%02x]", link->psr_settings.psr_vers=
-ion);
-> >>         seq_puts(m, "\n");
->
-> Regards,
-> Markus
++1. That'd be helpful.
+
+> > 
+> > I mean, sure, the user would just see all Fs on a read and writes will
+> > be dropped silently until we are in D0.. but the behaviour before this
+> > change was that the user access will fault and hang on the memory_lock
+> > instead which ensures that the user observes a consistent dev state..
+> > 
+> 
+> I see this more consistent from another angle.
+> 
+> Old code only removes/blocks cpu access but not for device. DMAs
+> are allowed to this device while it's transitioning between D0/D3.
+> 
+> New code at least make this part consistent - both cpu/p2p are allowed
+> in the transition window.
+> 
+> Ideally a sane userspace shouldn't rely on the content read back when
+> it has initiated a reset in parallel. So this behavior change sounds ok?
+
+I agree on the CPU / P2P consistency part. However, my concern is for a
+shared reset scenario where a reset triggered by one process (I guess it
+was vfio_assign_device_set?) can affect multiple devices in a dev_set
+that are owned by different, unrelated processes. 
+
+In the old code, these peer processes are protected because their BAR
+mappings are zapped immediately. Their MMIO threads simply stall in
+a page fault until the reset is complete.
+
+I agree for a single-reset scenario, sane user-space should never access
+regions during a self-triggered reset.
+
+Am I missing something?
+
+Thanks,
+Praan
