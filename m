@@ -4,106 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21BFECD98DA
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 06:21:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 953C0CD8CA8
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 06:29:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DCAD10E641;
-	Tue, 16 Jun 2026 06:21:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED67610E849;
+	Tue, 16 Jun 2026 06:29:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QvrJvF7y";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ANqxB3rb";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010060.outbound.protection.outlook.com [52.101.56.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACB4F10E641
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 06:21:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pRzRVUuDCGNvlrbIUiq8VYL1iBldMJVcwMMbqgILFCP7GZ4nbvay3BT/TW6IdHhPVZ3CZ4FbJd8uf6XvY8+qJdTrMlRQogPFWx84JILn0WyF3ZFZizFLpJGXxfmyLDkQyLbU6livkT4qvsQfFVLiiYpEHNYNmgMuXZhPt0c+0U//q1cUkzxSWi97OcLbmROcCIs708JbNJaq8jHRcylSBffdPkeSWr9XzYrK7VpwkGgqLufyv7KGynH9eCCrQVqqPbkRcBiROzBYRsAqB0G7UAs1svh4nKl4/qLJuC26/xaKRNXHEH92sNIcpoWuTQhwPOfWqJSgu1Eh6r6S2R5ocA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9cB6P2+tyZTLKtGoy6mgG/qD4+1j9y5ubF2jkRvopps=;
- b=uf8PR+cpwXjDv72mD8Ec52q6/dIoM+LNir0ZiMAu6uwwUm9TYJinE1wA3PXBBiRSXL9Ncm5C3zhNEurflBefgc9lFKqBwpzH1VZuBxLSGx2xE3FV+RHMlI9g4m1yLjFIX8EBR/r4Ekwg/eSeMs70NmyC+B49bAdMQLT9+JfaYi/tELsosfPNYdSRh9+kFWiiB9XOKe147r0bqGhMlA5Jby/keaWpNMMD46LHTblpnQEhfnGQORYzHd/RJsTJScXqeIl/DTdz/ICTKRfKtNGc1Se+/FS/lH4QZC5RIfYVBAO6l296gXqZ5woHhiC6TlSnuI/HLKPBuVVjLAqN8AHg9Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9cB6P2+tyZTLKtGoy6mgG/qD4+1j9y5ubF2jkRvopps=;
- b=QvrJvF7yO0WApNXzzxrUooQb8qSCSw+Cpc1ROmZF3HXKbZW7r2XQctc+eTM5mm0hJYL+sUZGOei7aFzmEgMGAT5iWXOzZzyWpog+EiFtzWvXNVjVbVPTSN3n8kR0VtyGmCZ13w3LWbsIzvApxX6j6FYNGVTIqBUcQSlHtr170xY=
-Received: from MW4PR03CA0160.namprd03.prod.outlook.com (2603:10b6:303:8d::15)
- by IA1PR12MB6234.namprd12.prod.outlook.com (2603:10b6:208:3e6::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
- 2026 06:21:24 +0000
-Received: from SJ5PEPF000001CF.namprd05.prod.outlook.com
- (2603:10b6:303:8d:cafe::6a) by MW4PR03CA0160.outlook.office365.com
- (2603:10b6:303:8d::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.18 via Frontend Transport; Tue,
- 16 Jun 2026 06:21:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001CF.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Tue, 16 Jun 2026 06:21:23 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 16 Jun
- 2026 01:21:23 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 16 Jun
- 2026 01:21:22 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 16 Jun 2026 01:21:22 -0500
-Message-ID: <be23dd53-78a2-0753-26bb-76b9ef7dbe02@amd.com>
-Date: Mon, 15 Jun 2026 23:21:17 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] accel/amdxdna: Use caller client for debug BO sync
-Content-Language: en-US
-To: Shuvam Pandey <shuvampandey1@gmail.com>, Min Ma <mamin506@gmail.com>,
- "Oded Gabbay" <ogabbay@kernel.org>
-CC: "Mario Limonciello (AMD)" <superm1@kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>
-References: <178155468039.81818.12173237984867749651@gmail.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <178155468039.81818.12173237984867749651@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CF:EE_|IA1PR12MB6234:EE_
-X-MS-Office365-Filtering-Correlation-Id: cce13be2-ea2b-4522-2ebf-08decb6f7d54
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: Ci5bvn0TmayUn+ynqyxiXG9Us4DAGcr7OC2A32U8rbFQDWOG0MbpW8VFgDVptTz/vHWoMuJ3idAt2FrIQwpPaBYIONVS56PRvXKdhDtQP5uJxGqawG2cbYdtcEfaXiUt3N+NhhrIrilZpRUDSwN0ZYA8sMZGrdixv+1nRSuAGgooh/BuFoMZmUs5bwoGGVFP7af75zcxB5+T/C7Bmk6tA/OHyZqYH5bvsN7e8oTRuaELgPUvmg8gubI0lIIvbsigIie/vq46AGLw7NM7zNY2JPyAQp3fE8/r1NiCgxwu/lin44t6lKuae1Gv94yNmGHt/1cyTE/mgtLxQgFgg6m3EKjOBQXpKTBdUhNfpFE6Njx4GXAvUtlRdaf84GIiyQZHV+lDXc3X5sHnAQcN04ZbQOwFaK+K+gRz0jON+aKFof6x9T8KAsF0fHyflq48tvjTTYMq1aWdAT9UR9O/TDjgaf+hz+TucI1QAhV8tWiLW3+Ho6AkubYLNNh+C8oJwikKE24hEkVG9GgQATF8pXmWXlpBvUSSOOwpfklu/SF57JLK6a4m4jdjFi1M8vWkIqmRFKNPCArZLMVQqLOkjtl7bNK9JdRNAnQ3k392uwubUIfNDB4dT7Ruj09rYAw6Q5V9BJW/JE9IgHNPi0XBhSwLQdtGtW0ufNH54bRy85WSwcXNrATinkUqY2HTFN/0iIPb9wVkJWiTVi5srXvnVVxFVE6LlG56jPJW5i8b8tZzKZo=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: T92CPbzbncDncsQjjsufw+TbbC+mu7zsTs5e5lFewKpJx9ERgKBn9+oKpubntxEUidqiaZ1JbHGRcImm9ti+L37AJNkEdWu2cQZlMUxZMg4E5hSXUFXUQW7SAHNusnIvmHLweoMzIFLs+E0/4EQGnoASuLoksXcDiYjPz8bE2eWfy2ZKwdhaR1wO/rLYXqzH+jrmds3UIB96VmkJgvwg1IaEIb85NIgEv1kgjQYL5RQfLUp6Tvvai86FCsPCdAeM3FnI8WWfZkIXDbsvZsIuLz1weFOLaouIFHpc7velsAKUuQ8IBQ8jV+stKLEMaSvMCdaPxB1RsZxcLeRhGTVAE5F3Q77Zh2TD0YlgYuyxBriduryFnoKGXRTugkcKQ0duY67r9Bu/xMHq+12o3ZraZw5M0I9KFyKVAs2y3TWWs2Ml706CHvYLCLI9Pap8w22u
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 06:21:23.6638 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cce13be2-ea2b-4522-2ebf-08decb6f7d54
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CF.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6234
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CC6410E840
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 06:29:56 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 985CF601E1;
+ Tue, 16 Jun 2026 06:29:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B3261F000E9;
+ Tue, 16 Jun 2026 06:29:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781591395;
+ bh=GaGnbuaHmanJqEhAvcvvUfMWra7s0De1/R491K0mhgk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ANqxB3rb2+yOlZ2LRI8DstAyw3DYa9XWFt5jeL/50cK5arAIzEDfFfZZHpVdOCfvc
+ MUR2Kx9NnN+v5fhAuS7NRiV8zOI0jgr7gw/bHKO+hnGRvO3M+93PYzUKbfD1l6y/Ja
+ NgBxHE+1AGnewNyAjN1hTlULdKQjV1fQmE1ofa6VplwiRd/hIHbG3qEnyhzn+Xa253
+ TwZdYUUg81lpmV7oZS01IW3epy5NGKxo3xx7hyQEsFMZQB1oWmOLciKCPMFA/aAQzG
+ ltk6Y2eI/zACsJhYwT1ABcdp29N4c1Map5xFYeBvHLdKatkXlAmgh78fTDYWgPSRWI
+ F6UwH3+ndp2/A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V1] accel/amdxdna: Prevent PM resume deadlock in
+ hwctx_sync_debug_bo()
+To: "Lizhi Hou" <lizhi.hou@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260616062008.3533989-1-lizhi.hou@amd.com>
+References: <20260616062008.3533989-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 16 Jun 2026 06:29:54 +0000
+Message-Id: <20260616062955.3B3261F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,47 +53,72 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Mixing `goto` and `guard()` causes undefined behavior/build error
+--
 
-On 6/15/26 13:18, Shuvam Pandey wrote:
-> amdxdna_drm_sync_bo_ioctl() looks up args->handle in the ioctl caller's
-> drm_file. For SYNC_DIRECT_FROM_DEVICE, it then calls
-> amdxdna_hwctx_sync_debug_bo(), but passes abo->client.
->
-> amdxdna_hwctx_sync_debug_bo() uses the passed client both as the handle
-> namespace for debug_bo_hdl and as the owner of the hardware context xarray.
-> Those must match the file that supplied args->handle. The BO's stored
-> client pointer is object state, not the ioctl context.
->
-> Pass filp->driver_priv instead, matching the original handle lookup.
->
-> Fixes: 7ea046838021 ("accel/amdxdna: Support firmware debug buffer")
-> Cc: stable@vger.kernel.org # v6.19+
-> Signed-off-by: Shuvam Pandey <shuvampandey1@gmail.com>
-> ---
->   drivers/accel/amdxdna/amdxdna_gem.c | 3 ++-
->
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-> index 6e367ddb9e1becb8d03cb4badec25deed38a851d..6c16b21994abc8f0ce58ee6dede219a84ade6825 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-> @@ -1027,6 +1027,7 @@ int amdxdna_drm_get_bo_info_ioctl(struct drm_device *dev, void *data, struct drm
->   int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
->   			      void *data, struct drm_file *filp)
->   {
-> +	struct amdxdna_client *client = filp->driver_priv;
->   	struct amdxdna_dev *xdna = to_xdna_dev(dev);
->   	struct amdxdna_drm_sync_bo *args = data;
->   	struct amdxdna_gem_obj *abo;
-> @@ -1061,7 +1062,7 @@ int amdxdna_drm_sync_bo_ioctl(struct drm_device *dev,
->   		 args->handle, args->offset, args->size);
->   
->   	if (args->direction == SYNC_DIRECT_FROM_DEVICE)
-> -		ret = amdxdna_hwctx_sync_debug_bo(abo->client, args->handle);
-> +		ret = amdxdna_hwctx_sync_debug_bo(client, args->handle);
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
->   
->   put_obj:
->   	drm_gem_object_put(gobj);
+commit e82723d9f7a656583eeaed6e8880da6e23ecb6df
+Author: Lizhi Hou <lizhi.hou@amd.com>
+
+accel/amdxdna: Prevent PM resume deadlock in hwctx_sync_debug_bo()
+
+This commit reorders amdxdna_pm_resume_get() to execute before acquiring
+xdna->dev_lock. This prevents a potential deadlock that occurs if the
+device is suspended during the callback.
+
+> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/=
+amdxdna_ctx.c
+> index 855da8c79a1cd..20e2fd096c913 100644
+> --- a/drivers/accel/amdxdna/amdxdna_ctx.c
+> +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
+> @@ -412,16 +412,25 @@ int amdxdna_hwctx_sync_debug_bo(struct amdxdna_clie=
+nt *client, u32 debug_bo_hdl)
+>  	if (!gobj)
+>  		return -EINVAL;
+> =20
+> +	ret =3D amdxdna_pm_resume_get(xdna);
+> +	if (ret) {
+> +		XDNA_ERR(xdna, "Resume failed, ret %d", ret);
+> +		goto put_obj;
+> +	}
+> +
+>  	abo =3D to_xdna_obj(gobj);
+>  	guard(mutex)(&xdna->dev_lock);
+
+[Severity: High]
+Does jumping forward over the guard(mutex) declaration with the goto put_obj
+statement above trigger a compilation error?
+
+Jumping over a variable initialized with __attribute__((cleanup)) is usually
+rejected by modern compilers. If a compiler allowed it, the destructor would
+execute at the end of the function using uninitialized stack memory for the
+lock pointer, causing a kernel panic.
+
+Additionally, include/linux/cleanup.h notes that mixing goto-based error
+handling and scope-based cleanups in the same function should be avoided to
+prevent issues like this.
+
+>  	hwctx =3D xa_load(&client->hwctx_xa, abo->assigned_hwctx);
+>  	if (!hwctx) {
+>  		ret =3D -EINVAL;
+> -		goto put_obj;
+> +		goto suspend_put;
+>  	}
+> =20
+>  	ret =3D xdna->dev_info->ops->hwctx_sync_debug_bo(hwctx, debug_bo_hdl);
+> =20
+> +suspend_put:
+> +	amdxdna_pm_suspend_put(xdna);
+> +
+>  put_obj:
+>  	drm_gem_object_put(gobj);
+>  	return ret;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616062008.3533=
+989-1-lizhi.hou@amd.com?part=3D1
