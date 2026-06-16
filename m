@@ -4,138 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30A86CD98CF
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 11:13:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB108CD98DA
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 11:15:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79C6B10E6E2;
-	Tue, 16 Jun 2026 11:13:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1744E10EA34;
+	Tue, 16 Jun 2026 11:15:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="feHoVzyX";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="IaDpQ8b/";
 	dkim-atps=neutral
-Received: from LO0P265CU003.outbound.protection.outlook.com
- (mail-uksouthazon11022081.outbound.protection.outlook.com [52.101.96.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18DAE10E6E2
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 11:13:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k18WeP+fyi/Can4UgmubAtoV7oDFd96w3GT7VeuZsRTzlHKTVcAAJNb1U9n8vaSaz3B5nl/HW5PN6dV1CCSSD7BoxldWbwn6WCaXDWC19M5QtLamTJFFqNg5LmKwKmDVExNk6n5X1Riu7BsnUd625QOKz8w9tRa0NnfGYCmtDhrkuCxnCrJIggQ0cS4+TJPuzFXJyxSve8GF9Pu6GDRC4ya4EspBsAxT5o8FbhVua1G2wtQ8/NdrdIl608CADXqYLWSL7A7i7enBe8KgCWvTYac+XrdetBcrxKQWUAPXUXK2d2tSRY8eL8RZ/c8c/sEN9w0tCjpMHiKnOlXuNJAkoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E7WFIft6NXMpF/MvPJjpDVvNiULb+piafNvfCxbyhlk=;
- b=CR0+RzN7iSJX4MXv9kvK2q9/182DtjPsEvUDc+GW2Jsrd+5pblrW+MQpWwzykMLtlmwVQTOmE3fdCNZqNdrMYYkf4Uj+66melXQUOTae67Pj6CFmGoe+6YJERHfKUptoEJ32QKYZJHEQNmcBSDaQKNlkkJkZoNhE+vdne5hLjiPJiXu9q8ohU+VQSj4A3MNiOxfXPVFB/jt8u6RLOlSiX5/hCfdDqpWBA4lcHrE9NZaDDjU7baOVzjzi0iZQBaulTchogp1uncfVCDuwBBW2J+B/2zcW8vzn9POl5lZ0N2I6TTKbRTHwScQ8RuRs3ASeDxDB/t8Gu4aRcd3FTFh1tA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E7WFIft6NXMpF/MvPJjpDVvNiULb+piafNvfCxbyhlk=;
- b=feHoVzyXOw1AMWe+lSaR0IbSZREveC/ablN0QUdzB3v/JzD5owl0liPHrMYZJ9zh1/Qtf3yJOWkZrHgRXlo3uVgYEvKjzsffq8nn3J2P/Lhwhtk60sBv2wgwqwiKRvsxhZQM06FSyuSFzQjN8P9SEhICNNqdXRlIhJ1b8uRGByg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO2P265MB3280.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:198::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
- 2026 11:12:57 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0113.015; Tue, 16 Jun 2026
- 11:12:57 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 16 Jun 2026 12:12:56 +0100
-Message-Id: <DJAFGLBC8WQY.L3P1T92AFN45@garyguo.net>
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Abdiel
- Janulgue" <abdiel.janulgue@gmail.com>, "Robin Murphy"
- <robin.murphy@arm.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Danilo Krummrich" <dakr@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v4 07/20] rust: io: implement `Mmio` as view type
-X-Mailer: aerc 0.21.0
-References: <20260611-io_projection-v4-0-1f7224b02dcb@garyguo.net>
- <20260611-io_projection-v4-7-1f7224b02dcb@garyguo.net>
- <DJ9PI9NEJ92T.3D0E90RPSCXA2@nvidia.com>
- <DJ9PXYB91UDG.3BV4EJJ10RIC4@garyguo.net>
- <DJA1J6H6Z6CI.3LLUM4T35FXXK@nvidia.com>
-In-Reply-To: <DJA1J6H6Z6CI.3LLUM4T35FXXK@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0431.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18b::22) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 521FE10EA34;
+ Tue, 16 Jun 2026 11:15:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1781608552;
+ bh=PnbQ1xdDkx5xnCx+GVnqLVs3foZ1ofE2DGmfTeKnbSk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=IaDpQ8b/s68r0Fgk4rk/Tdl5MkFucfKqYWip6qo0qKAXFwhrP6wJb3LkfGYbL5dgS
+ UqATox8X9actXZN54ue7z6CIDeqIXicFZgkgztTC4fSkukBjcVFuqAGoV6e01gus8u
+ pb9hwnNogLTbiUpkY7qeuTlauDRoaNIYu8P1v7N7IJOId/VL3i3YbWO1e2a1aELbEO
+ KjqRawKfM6zV8JoTb0K2Zn/mwftX+91je1W2DhRo7dw1ahix/Uo9C7hLcQTK5KJ0Ct
+ k2zPg6Vu7zSl051XlpuyqQdRMMhGOzOpcBmyBB801Ye2B4+AnuKYynujtdiWhdK8If
+ vD9vXU2TrvRtA==
+Received: from fluorite (unknown [100.64.0.208])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: pq)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A5B6C17E03CE;
+ Tue, 16 Jun 2026 13:15:51 +0200 (CEST)
+Date: Tue, 16 Jun 2026 14:15:46 +0300
+From: Pekka Paalanen <pekka.paalanen@collabora.com>
+To: Simon Ser <contact@emersion.fr>
+Cc: dri-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
+ Daniel Stone <daniel@fooishbar.org>, Michel =?UTF-8?B?RMOkbnplcg==?=
+ <michel.daenzer@mailbox.org>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Simona Vetter <simona@ffwll.ch>
+Subject: Re: [PATCH] drm/atomic: introduce PAGE_FLIP_EVENT property
+Message-ID: <20260616141546.653a21b0@fluorite>
+In-Reply-To: <20260530171422.4615-1-contact@emersion.fr>
+References: <20260530171422.4615-1-contact@emersion.fr>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO2P265MB3280:EE_
-X-MS-Office365-Filtering-Correlation-Id: c443ae29-f02b-46c7-4417-08decb983841
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|366016|376014|23010399003|10070799003|1800799024|56012099006|4143699003|5023799004|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: 3LezqJ3tBdCOHmEKbUXsWDUM7f3hp9hY+HQmi1zGqZ5gDhV21TpQOHIzJji2v26w7qcA/2lnvFn407WUI57pr9oe+k9RE2CyCsbdvq1nWuV8CE1aTbmzTnPQb/VMc/btpMPY+gFkGg/b+p7XxpHl+it4Dy9CIzrCmbH+fAX9m2v7lQRIMNNU4haULE5XChUfeWiqjqQF9TOU4vlT3J3+Yg0s014bzzlxfdh3Jejn0nihLwMSFt8B+FcSlAH1usPYc3ujpxK0ZyhnJIAheQeRr0pG+kYLG6LPSXpHR+Ejpf3WvjlUjrGQoPudoz9QuXBL5mcQSX+kwqE+RrEtcWzcwL4XrlGoDfI1n6098Qxds1JbYwcn5MHeRrvk5AE43QL0mq+LNEeG2tu0sd1cfoOs8oM0Weo8iHrZoOQU+NGc6ty5JxjX94Hl8oxjz/I1YpKdvB4xhRhAtdJqMzU9Lgmo7KOabb3FFDbsedACkc7Xqpm5o+9b8Q8MdoSztTZ8edW77+l0h6hOqElHPRV3trhoEcSipSlllsAuaN5D6ktdw5UPZ16MQ2zzBxedEvYkT2f/CNQi+29A29l233gRlPwFPN1IVa3bPOnCk+kFNZUNIZO9aIq9xKVtbDglrjGZiGVVMlj3ucIAik4P2iyBstBWuT32WFF22cx6CCHVlXqBajrSlFJDvD8kaBTPVs6G+D6P
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(366016)(376014)(23010399003)(10070799003)(1800799024)(56012099006)(4143699003)(5023799004)(22082099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K2RseE1PdnFXS2pldU5YMkJ2SFQ0T3E0T2pSRzUyWVNPREJGODE2SGd6MDdk?=
- =?utf-8?B?aFVSV3RvazJ2RlhaOGYrM0dvYlU2UVYwQ2RLa3RSRGVOMjc5U0lMODMwcWlo?=
- =?utf-8?B?WDFvbmRtY0NHbUpZM0ZoMUNDdlVZWnpiQ1ZwVXhycmpQYm5KdFJQS2ZXaWZW?=
- =?utf-8?B?UHpEcHlVbS9oalpzc0FvMTEwUlBXVGJqQi9sY0lGbjBEOThMakRqQ3p4Q0VQ?=
- =?utf-8?B?S0ZQYTNxYm1xYkNHYTZESDZBcW03QjRHeGlQNFordzRiTXFqUTdET0g1VlQy?=
- =?utf-8?B?TEF6aW5xZFp4TWVHSXh0dDZlWU0yTXFMZUlzTDhXSjV6bVdkVEc0TEp0QzVH?=
- =?utf-8?B?S0FwcUxLeS9RZUVnZzZPa3J2M2srSGpDRVMyTDdXWk5BeXVuRUdienN4WEZ4?=
- =?utf-8?B?UGNRaUNVa1NjenJhNkJySWhOb1lHYUxkdnV5MW5tN2pGTHNBYkZqU0dnUjR5?=
- =?utf-8?B?TVRpb3o3R0pVckxURkpKc0g5Vi9hMHdwOVduNDIyM01yY0RUU1N4UGNzd1l2?=
- =?utf-8?B?ZEpHTXAzRTFpb0F0dHNwSE9aSWxjTXNPU2JVcUt1cHpDL1V0dWRWM0lIeE4r?=
- =?utf-8?B?bmdmbHlRM29KdHlKM1ArdVU0cGZwdUhLVzhGM3J0Z1c3d2RIMUlhcEQ4Qngz?=
- =?utf-8?B?eVhtR3NCaGRuZ3VPRkNFYTVVL2o5YUhNaXBJVFk1UDhBdlZBc0M2aHlMQWx2?=
- =?utf-8?B?THdXWklsL0NOS2FOdkhyWVhVOVNoUmowZmE5UFF5Qm40MGMvTDkrWit0Rk1o?=
- =?utf-8?B?R1V0dS9HMFBWNVN3OFFiMGpFOGpHbjR6RnA4S3BmT3BwYUlISEhPRGs2cVdP?=
- =?utf-8?B?RmtpZlJIaHJoN2JEUktoRjhIMDBldzhNUHRDU2dHa2djSm1jZXY0dVNUbUox?=
- =?utf-8?B?ZStGMHc5bzdBRWFXM2dxOFQ3Y3F2MDdjMElUemdmT0htSTNMUCticG4zK3Q3?=
- =?utf-8?B?aGxsc2Q3V0crRFRhWUlQU0FlTEtmOXRQMXRVUkxqWGZndUZEN25aTEpFdkNN?=
- =?utf-8?B?KzdubkhLTXJWZEZoMG5QZUFteS9NbUhCZkQ5YkZhOUhlUGpqaktkbXN0UWFW?=
- =?utf-8?B?Q3psdGJSRHNKcHIvTUh0U3Q0QnpOSUowQjAxdWJGU29zRU5EREYzN0ZpY2xq?=
- =?utf-8?B?K0s3UlhTWXVFUk5oVVY4NStqT3dXRmlScjBQOTVCUFpETHRpQXkyVlk1MFBO?=
- =?utf-8?B?T1hXUmNpUE55WUtlZS9OeUxxa3NKSy9MT2YxYXF3RnFtTnF3LzJOb1BaRHJB?=
- =?utf-8?B?c3JWZEZGS1B3VXJiODdzVUY1NmJOZ1VvMTNCUjNDaGlUSEozWGxRK0hXWi9j?=
- =?utf-8?B?RDdRcnQxb210SGxkVXRkdUVyaUNiYUFkQUlnbXBoTDFlMERuak8xeXFoLzNn?=
- =?utf-8?B?NUd6Skp0Vks5Z0dwVlBkdkw4SCtBemp2Nmd6dndqdkFnRklQckxBdCtKWGhw?=
- =?utf-8?B?VkREaVVkMjBkWGtYOG1CWXU0eDNEaU1zNzRwaFRQY2VsVWlwMEh5aE9JR2dS?=
- =?utf-8?B?dEZ0U3R3S214Y3ZVZng2Z3Y5NjNDTGQ1QjNDMWcwM2hKZWl3UFhGT1NXN3VT?=
- =?utf-8?B?Zk96cmY4VE9aNDVFRC8xTUwvMnFMTkNaSVVtRGwxWkFxbitLQXl5TDZzT1pM?=
- =?utf-8?B?MTk3Qi9PNldYTndWYkFmQ2g2cFRmc3lYZ2c0SUNWb3dtdTFyS0RkU1JzK3Fv?=
- =?utf-8?B?M0lSM2dOUjNyNG9kTGVtUFpBUDA5Q2xsdmsvUjhYeWVRV0lua1UwN0lwZzRa?=
- =?utf-8?B?MGZycDA1eTUveDJweDRQUTlueUdFYUZmcTNqamFZbVZFZVZPYzM4N09rWVpZ?=
- =?utf-8?B?OEQ2eTVlUmM3M2hkRDFPMURTNHZBY0NZK0oxd1JwUnJyTEU0azNmUlprVjh4?=
- =?utf-8?B?cS9MRnRRS2ZRNWZoaVpDQW9kZmltMmpYUyt0QWh3RmQ1SG9CUitZeEJNZEJj?=
- =?utf-8?B?Q3ZBNG04cGZ1bHRpOWRHZTZjSGhuMVNXMEc5VGVBUVdiajR0SkJRNXZRZ1hJ?=
- =?utf-8?B?K2dDZHE2am9MeVN0d3ZpbCtrSnBhcExKZmFuazl1a21RamNlSGhtRnVwVm9M?=
- =?utf-8?B?V1dLSGlVRS9PVEZ4aC9pVWRMYzJ3ZnR4SUdvR2N4Y2psb1F2RDI2eG55OUhG?=
- =?utf-8?B?Rlk1eTZWME5wMjVrckdDQnN2SDkzSmJRTHZuL1NHSUJROW9HRDAxRmJzNE8z?=
- =?utf-8?B?VEJIMDFvWEw2TEFNcWZ6aWc0WTRMcmtwZEJsaG1jZElwS0xoblFDWUZqR25K?=
- =?utf-8?B?R0d0RlEySmJrUzBoMXZlSnU2VzVVLzZrZ2VweFQvNTZURTdwc1hkdnhDcmtD?=
- =?utf-8?B?VVh3UnZVNEliRmxsZEU3cEcybTNLMmlRdlFkeDM4QkxYaUU3NUx2UT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: c443ae29-f02b-46c7-4417-08decb983841
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 11:12:57.3394 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rJRx9XqZRJz08cebERdMilGw0czS/nFJ9JJbckH5mkJYgYLMNu0QQLwc1nUTZvG+fNbYZH30C0QfKCtWE7UpTQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB3280
+Content-Type: multipart/signed; boundary="Sig_/kgKFHimo5SlKhYJtI0s2qbH";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,138 +63,252 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Jun 16, 2026 at 1:18 AM BST, Alexandre Courbot wrote:
-> On Tue Jun 16, 2026 at 12:13 AM JST, Gary Guo wrote:
->>> Is there a reason for not just declaring `RelaxedMmio` as
->>>
->>>     #[repr(transparent)]
->>>     pub struct RelaxedMmio<'a, T: ?Sized>(Mmio<'a, T>);
->>>
->>> similarly to what the original code did with `MmioOwned`?
->>>
->>> I tried locally and could build. This avoids declaring `Mmio` and
->>> `RelaxedMmio` as basically identical types, and lets us remove the
->>> explicit `Send` and `Sync` implementations. IIUC you can also reduce or
->>> even remove the invariant section as it is enforced by `Mmio`.
->>
->> This is what I did originally, but this would cause duplication for
->> RelaxedMmioBackend, as now you have to do
->>
->>      unsafe { bindings::$read_fn(view.0.ptr.cast_const().cast()) }
->>
->> and the `.0` causes the macro not being shared with MmioBackend.
->
-> Since `MmioBackend` and `RelaxedMmioBackend` both implement `IoBackend`,
-> I think using `IoBackend::as_ptr` in the macro should let you avoid the
-> duplication?
+--Sig_/kgKFHimo5SlKhYJtI0s2qbH
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Good point. Are you okay with the following diff?
+On Sat, 30 May 2026 17:14:44 +0000
+Simon Ser <contact@emersion.fr> wrote:
 
-Best,
-Gary
+> Currently user-space can only request page-flip events for all CRTCs incl=
+uded
+> in an atomic commit. This is cumbersome with multi-CRTC commits: when mov=
+ing a
+> plane from a different CRTC, or when disabling a plane, user-space has no=
+ way
+> to opt-out of the page-flip events.
+>=20
+> Additionally, page-flip events are invalid for already-disable planes, so
 
-diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-index c6f3ab530b4f..a8da625560a0 100644
---- a/rust/kernel/io.rs
-+++ b/rust/kernel/io.rs
-@@ -1136,14 +1136,16 @@ macro_rules! impl_mmio_io_capable {
-         impl IoCapable<$ty> for $backend {
-             #[inline]
-             fn io_read(view: <$backend as IoBackend>::View<'_, $ty>) -> $t=
-y {
--                // SAFETY: By the type invariant, `view.ptr` is a valid ad=
-dress for MMIO operations.
--                unsafe { bindings::$read_fn(view.ptr.cast_const().cast()) =
-}
-+                // SAFETY: `$backend::as_ptr(view)` is a valid address for=
- MMIO operations for both
-+                // `MmioBackend` and `RelaxedMmioBackend`.
-+                unsafe { bindings::$read_fn($backend::as_ptr(view).cast_co=
-nst().cast()) }
-             }
-=20
-             #[inline]
-             fn io_write(view: <$backend as IoBackend>::View<'_, $ty>, valu=
-e: $ty) {
--                // SAFETY: By the type invariant, `view.ptr` is a valid ad=
-dress for MMIO operations.
--                unsafe { bindings::$write_fn(value, view.ptr.cast()) }
-+                // SAFETY: `$backend::as_ptr(view)` is a valid address for=
- MMIO operations for both
-+                // `MmioBackend` and `RelaxedMmioBackend`.
-+                unsafe { bindings::$write_fn(value, $backend::as_ptr(view)=
-.cast()) }
-             }
-         }
-     };
-@@ -1185,14 +1187,7 @@ unsafe fn copy_to_io(view: Self::View<'_, [u8]>, buf=
-fer: *const u8) {
- /// the regular ones.
- ///
- /// See [`Mmio::relaxed`] for a usage example.
--///
--/// # Invariant
--///
--/// `ptr` points to a valid and aligned memory-mapped I/O region for the d=
-uration lifetime `'a`.
--pub struct RelaxedMmio<'a, T: ?Sized> {
--    ptr: *mut T,
--    phantom: PhantomData<&'a ()>,
--}
-+pub struct RelaxedMmio<'a, T: ?Sized>(Mmio<'a, T>);
-=20
- impl<T: ?Sized> Copy for RelaxedMmio<'_, T> {}
- impl<T: ?Sized> Clone for RelaxedMmio<'_, T> {
-@@ -1202,12 +1197,6 @@ fn clone(&self) -> Self {
-     }
- }
-=20
--// SAFETY: `RelaxedMmio<'_, T>` is conceptually `&T` but in I/O memory.
--unsafe impl<T: ?Sized + Sync> Send for RelaxedMmio<'_, T> {}
--
--// SAFETY: `RelaxedMmio<'_, T>` is conceptually `&T` but in I/O memory.
--unsafe impl<T: ?Sized + Sync> Sync for RelaxedMmio<'_, T> {}
--
- /// I/O Backend for memory-mapped I/O, with relaxed access semantics.
- pub struct RelaxedMmioBackend;
-=20
-@@ -1216,20 +1205,16 @@ impl IoBackend for RelaxedMmioBackend {
-=20
-     #[inline]
-     fn as_ptr<'a, T: ?Sized + KnownSize>(view: Self::View<'a, T>) -> *mut =
-T {
--        view.ptr
-+        MmioBackend::as_ptr(view.0)
-     }
-=20
-     #[inline]
-     unsafe fn project_view<'a, T: ?Sized + KnownSize, U: ?Sized + KnownSiz=
-e>(
--        _view: Self::View<'a, T>,
-+        view: Self::View<'a, T>,
-         ptr: *mut U,
-     ) -> Self::View<'a, U> {
--        // INVARIANT: Per safety requirement, `ptr` is projection from `vi=
-ew`, so it is also a valid
--        // memory-mapped I/O region.
--        RelaxedMmio {
--            ptr,
--            phantom: PhantomData,
--        }
-+        // SAFETY: Per safety requirement.
-+        RelaxedMmio(unsafe { MmioBackend::project_view(view.0, ptr) })
-     }
- }
-=20
-@@ -1267,11 +1252,7 @@ impl<'a, T: ?Sized> Mmio<'a, T> {
-     /// ```
-     #[inline]
-     pub fn relaxed(self) -> RelaxedMmio<'a, T> {
--        // INVARIANT: `RelaxedMmio` has the same invariant as `Mmio`.
--        RelaxedMmio {
--            ptr: self.ptr,
--            phantom: PhantomData,
--        }
-+        RelaxedMmio(self)
-     }
- }
+Hi Simon,
+
+do you mean CRTCs? I find "already disabled" to be not really clear
+that you mean off->off transition.
+
+> user-space needs to add special cases [1]. Libraries cannot add planes to=
+ the
+> commit without risking causing unexpected page-flip events for the
+> compositor [2].
+
+If a library adds a plane that is currently associated with another
+CRTC, would it not be a logic error in userspace if it didn't expect
+that CRTC to be involved? Mostly likely if it succeeds, the plane
+would disappear from its old CRTC unintended.
+
+If a CRTC is unexpectedly involved, userspace risks EBUSY when it wants
+to update that CRTC for real.
+
+> Figuring out what CRTCs get implicitly included in a commit is
+> non-trivial [3].
+
+Yes, but is this actually helpful rather than making the failures more
+rare and harder to debug?
+
+> Introduce a new PAGE_FLIP_EVENT CRTC property so that user-space can sele=
+ct
+> explicitly which CRTCs will get page-flip events. The property is very
+> similar to IN_FENCE_FD/OUT_FENCE_PTR: it always reads as zero, and 1 can
+> be written to request an event.
+>=20
+> A user-space implementation is available at [4].
+>=20
+> [1]: https://github.com/ValveSoftware/gamescope/blob/67fcb3aebae0ae1eb2d1=
+cff60f29e6d9fe1d128f/src/Backends/DRMBackend.cpp#L2897
+> [2]: https://gitlab.freedesktop.org/emersion/libliftoff/-/merge_requests/=
+85
+> [3]: https://lore.kernel.org/dri-devel/20250501112945.6448-1-contact@emer=
+sion.fr/
+> [4]: https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/5387
+>=20
+> Signed-off-by: Simon Ser <contact@emersion.fr>
+> Cc: Daniel Stone <daniel@fooishbar.org>
+> Cc: Michel D=C3=A4nzer <michel.daenzer@mailbox.org>
+> Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> ---
+>  drivers/gpu/drm/drm_atomic_uapi.c | 17 +++++++++++++++--
+>  drivers/gpu/drm/drm_crtc.c        |  7 +++++++
+>  drivers/gpu/drm/drm_mode_config.c |  6 ++++++
+>  include/drm/drm_crtc.h            |  6 ++++++
+>  include/drm/drm_mode_config.h     |  4 ++++
+>  5 files changed, 38 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
+ic_uapi.c
+> index 6441b55cc274..21f2b0df4f63 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -466,6 +466,14 @@ static int drm_atomic_crtc_set_property(struct drm_c=
+rtc *crtc,
+>  			return -EFAULT;
+> =20
+>  		set_out_fence_for_crtc(state->state, crtc, fence_ptr);
+> +	} else if (property =3D=3D config->prop_page_flip_event) {
+> +		if (val !=3D 1) {
+> +			drm_dbg_atomic(crtc->dev,
+> +				       "[CRTC:%d:%s] PAGE_FLIP_EVENT can only be set to 1",
+> +				       crtc->base.id, crtc->name);
+> +			return -EINVAL;
+> +		}
+> +		state->page_flip_event_requested =3D val;
+>  	} else if (property =3D=3D crtc->scaling_filter_property) {
+>  		state->scaling_filter =3D val;
+>  	} else if (property =3D=3D crtc->sharpness_strength_property) {
+> @@ -507,6 +515,8 @@ drm_atomic_crtc_get_property(struct drm_crtc *crtc,
+>  		*val =3D state->background_color;
+>  	else if (property =3D=3D config->prop_out_fence_ptr)
+>  		*val =3D 0;
+> +	else if (property =3D=3D config->prop_page_flip_event)
+> +		*val =3D 0;
+>  	else if (property =3D=3D crtc->scaling_filter_property)
+>  		*val =3D state->scaling_filter;
+>  	else if (property =3D=3D crtc->sharpness_strength_property)
+> @@ -1385,6 +1395,7 @@ static int prepare_signaling(struct drm_device *dev,
+>  	struct drm_connector *conn;
+>  	struct drm_connector_state *conn_state;
+>  	int i, c =3D 0, ret;
+> +	bool page_flip_event_requested;
+> =20
+>  	if (arg->flags & DRM_MODE_ATOMIC_TEST_ONLY)
+>  		return 0;
+> @@ -1392,9 +1403,11 @@ static int prepare_signaling(struct drm_device *de=
+v,
+>  	for_each_new_crtc_in_state(state, crtc, crtc_state, i) {
+>  		s32 __user *fence_ptr;
+> =20
+> +		page_flip_event_requested =3D arg->flags & DRM_MODE_PAGE_FLIP_EVENT ||
+> +					    crtc_state->page_flip_event_requested;
+>  		fence_ptr =3D get_out_fence_for_crtc(crtc_state->state, crtc);
+> =20
+> -		if (arg->flags & DRM_MODE_PAGE_FLIP_EVENT || fence_ptr) {
+> +		if (page_flip_event_requested || fence_ptr) {
+>  			struct drm_pending_vblank_event *e;
+> =20
+>  			e =3D create_vblank_event(crtc, arg->user_data);
+> @@ -1404,7 +1417,7 @@ static int prepare_signaling(struct drm_device *dev,
+>  			crtc_state->event =3D e;
+>  		}
+> =20
+> -		if (arg->flags & DRM_MODE_PAGE_FLIP_EVENT) {
+> +		if (page_flip_event_requested) {
+>  			struct drm_pending_vblank_event *e =3D crtc_state->event;
+> =20
+>  			if (!file_priv)
+> diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
+> index 63ead8ba6756..5ad6681bd47c 100644
+> --- a/drivers/gpu/drm/drm_crtc.c
+> +++ b/drivers/gpu/drm/drm_crtc.c
+> @@ -248,6 +248,11 @@ struct dma_fence *drm_crtc_create_fence(struct drm_c=
+rtc *crtc)
+>   *	The sharpness effect takes place post blending on the final composed =
+output.
+>   *	If the feature is disabled, the content remains same without any shar=
+pening effect
+>   *	and when this feature is applied, it enhances the clarity of the cont=
+ent.
+> + * PAGE_FLIP_EVENT:
+> + *	Atomic property for requesting a page-flip event on this CRTC.
+> + *
+> + *	The value of this property is an integer value which always reads as
+> + *	zero and can be written with 1 to request the event.
+
+It took me a while to realise; should probably explain here that if one
+uses this, then they would not use DRM_MODE_PAGE_FLIP_EVENT at the same
+time.
+
+Does this allow asking for an event for a CRTC off->off
+transition?
+
+
+Thanks,
+pq
+
+>   */
+> =20
+>  __printf(6, 0)
+> @@ -322,6 +327,8 @@ static int __drm_crtc_init_with_planes(struct drm_dev=
+ice *dev, struct drm_crtc *
+>  					   config->prop_out_fence_ptr, 0);
+>  		drm_object_attach_property(&crtc->base,
+>  					   config->prop_vrr_enabled, 0);
+> +		drm_object_attach_property(&crtc->base,
+> +					   config->prop_page_flip_event, 0);
+>  	}
+> =20
+>  	return 0;
+> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode=
+_config.c
+> index f432f485a914..688937d2e1ec 100644
+> --- a/drivers/gpu/drm/drm_mode_config.c
+> +++ b/drivers/gpu/drm/drm_mode_config.c
+> @@ -496,6 +496,12 @@ static int drm_mode_create_standard_properties(struc=
+t drm_device *dev)
+>  		return -ENOMEM;
+>  	dev->mode_config.prop_out_fence_ptr =3D prop;
+> =20
+> +	prop =3D drm_property_create_range(dev, DRM_MODE_PROP_ATOMIC,
+> +			"PAGE_FLIP_EVENT", 0, 1);
+> +	if (!prop)
+> +		return -ENOMEM;
+> +	dev->mode_config.prop_page_flip_event =3D prop;
+> +
+>  	prop =3D drm_property_create_object(dev, DRM_MODE_PROP_ATOMIC,
+>  			"CRTC_ID", DRM_MODE_OBJECT_CRTC);
+>  	if (!prop)
+> diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+> index 152349f973e3..b0f9130d263a 100644
+> --- a/include/drm/drm_crtc.h
+> +++ b/include/drm/drm_crtc.h
+> @@ -311,6 +311,12 @@ struct drm_crtc_state {
+>  	 */
+>  	bool vrr_enabled;
+> =20
+> +	/**
+> +	 * @page_flip_event_requested: indicates whether a page-flip event has
+> +	 * been requested on this CRTC.
+> +	 */
+> +	bool page_flip_event_requested;
+> +
+>  	/**
+>  	 * @self_refresh_active:
+>  	 *
+> diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+> index d8f5b7e9673e..13f39677c32f 100644
+> --- a/include/drm/drm_mode_config.h
+> +++ b/include/drm/drm_mode_config.h
+> @@ -670,6 +670,10 @@ struct drm_mode_config {
+>  	 * value of type s32, and then cast that pointer to u64.
+>  	 */
+>  	struct drm_property *prop_out_fence_ptr;
+> +	/**
+> +	 * @page_flip_event_property: property to request page-flip events.
+> +	 */
+> +	struct drm_property *prop_page_flip_event;
+>  	/**
+>  	 * @prop_crtc_id: Default atomic plane property to specify the
+>  	 * &drm_crtc.
+
+
+--Sig_/kgKFHimo5SlKhYJtI0s2qbH
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmoxMGIACgkQI1/ltBGq
+qqcj0hAAtC0YWOL0kr/On0gepVCvwK+ul/cPHqDCr+Gz3qiosYMn9Gg/dFhRzy8g
+WPKNS40wicDfG+KiwIEApGFAN/ll43jOT0w4EZzeg4rfn71nUyo6ePXe2mkxckRe
+X0hN+CZwTiS+Ef7pg/yB9+bzOnETJtMVk2VxD72gN5Fwy0pVZBC97rLBs/dOwBm/
+xp8tIUOZiZBKOmGWqKdSlrtR22I4WcDckhg8+8MtEOHAWpWvnbwG76FgE3ODsXwD
+t6Qwr776v+w1izK4XCod0VUXziCDk6C0a0+Miog23zNJGI5ERHyqz48Boxtu1v7W
+9qNXljaFjmLpqyEFzSkn0Hc3rpE11PysXWdKVcOFh6rWnfPed0gwIOCg+9VBarON
+j5yopIT7KHURadS3fah1pa38m5naHtZZfcTQdb+NBkB9YhHFNyiDt0echzicxqqn
+UPDZTXcEmdETwIHRmhbTGuyfO7oXugSTWZ9fBKghGqcPBqPp2lZ4V4qlT/3fsWwc
+fe3TCabxv43StPPfu69v/gN4G2p3d7YRetJ96vnByMjpzJ6NKsOGN4jeQrNQUuFc
+jFYTh1Q8/+/MdrwW/xTG58XsMCxDSozcROO0Ts6mm5Od3oldtS68PYMLZiLViAg5
+6IFyxfT2B35+NLUqqQDy3DVFfiRlnVdeEYtGvAFwUayUhKx2kN4=
+=+TSN
+-----END PGP SIGNATURE-----
+
+--Sig_/kgKFHimo5SlKhYJtI0s2qbH--
