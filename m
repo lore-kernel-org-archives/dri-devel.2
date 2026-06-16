@@ -4,121 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9F94CD98D2
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 08:02:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ACD7CD98DA
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 08:05:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 554E010E8A7;
-	Tue, 16 Jun 2026 08:02:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 106A710E88E;
+	Tue, 16 Jun 2026 08:05:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="QCHP5lvD";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="G9n+55Eb";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012061.outbound.protection.outlook.com
- [40.107.200.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 551BE10E8A7
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 08:02:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xm7HJTnTI50WTwadKrZajLX2g5KV3Ki2KeLFvOe81lMVDFVfRmLoJsCWGwVIraP5hcIw/xoM3vfjd2ElFfPBj/p9gOS5jEVzOhBc0xqL24pRNevT7ythxDrsRhRvYawHuaLYGYCsUZuzH3uKxCn4nMLCP/J9r0M8Yb9nKgx1jAeifKS6trYK21wSECTuXT/IFGzgbawEOuRTBcyYcUhLp1NxM2BUkEZyGf9diG+eDpPttYjDMhAo21c/M7pzAq1+bsv0jD8R9f7HQM61Ns2xdIDPXQ28T3NDmK0BDrCurnXkB0VQTemobSdIPXMn5+D0VlONcwyudNLo9wNVWXb7mw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qG7/Fo0HXshbdurjZU6INnzuCq9FnmRv+02N+cbiTa0=;
- b=WHIDUDquI7505e83zyG/QyLZ/TV+IdIkyz2IJ2x9tb0UJyu2iOMjhcfIGZe0EaTDxlq4+hY3ICPqaF2b+e6c+S/Ufxa7s1roP00gRv6q5Q1CP4lnTsOUu17K4BvZq0CkdNnsjbaE0fbi468fApJc6b/V4dzhv4WyFiLeyHOUWew/E0suHHDVrt/7TB53ybnk2LpDXuMUxVrEbrqxUC2p83Vc1kC9YqfJM30f4DnikPCtMGuJPbJZFm+bcKAQ6G4a8/TJTMskYPIHqY82NkMbjSwS9/BtqOVGNTN+bqBD8QSbGQhjBlGrQ5RnlASqGk8/7DopNSWBqU0dWBGdrHo/LA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qG7/Fo0HXshbdurjZU6INnzuCq9FnmRv+02N+cbiTa0=;
- b=QCHP5lvDC5W98jrBeApI3ZV0lrOfo5gEgjsvNHwi38mGii4Wb0AAh8n8FY7UX7BeADEgknvNMzgmYIWBH/+uIExGEIMORuaZEslqK7ghY7TIkP9RhaDvEQbpGyU2aqZlA+CGgdJfgnrpdD0g/4b4W/MsMA9NkfTsqADn4W2UxI8AyuHp738M7V7G/T03gooqim53F2Gdei68ysBRFYb8yNVluAgbG1pO333fHCV+XQD17bv6o8L8GacYweivRZ/a9r9q1NzM31RHdExtDZ9TvWiXTW1qXS2kTO8tX76nKfKjLgBRruz+YHbnsa10pwzWTp2qbDPKiGMIbaEyOSySjw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
- CH2PR12MB4264.namprd12.prod.outlook.com (2603:10b6:610:a4::15) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.18; Tue, 16 Jun 2026 08:02:18 +0000
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0113.015; Tue, 16 Jun 2026
- 08:02:18 +0000
-Date: Tue, 16 Jun 2026 18:02:13 +1000
-From: Alistair Popple <apopple@nvidia.com>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>,
- John Hubbard <jhubbard@nvidia.com>, 
- Timur Tabi <ttabi@nvidia.com>, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH 04/13] gpu: nova-core: falcon: gsp: move PRIV target mask
- constants
-Message-ID: <ajECnjYY3i4IjW0Z@nvdebian.thelocal>
-References: <20260615-blackwell-fixes-v1-0-f2853e49ff7d@nvidia.com>
- <20260615-blackwell-fixes-v1-4-f2853e49ff7d@nvidia.com>
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF59B10E8AD
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 08:05:51 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-2bf2d865383so28965ad.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 01:05:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1781597151; x=1782201951;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=dOsiBDHauJNUL/mHLBlXDW8Xe2gvOcwU/fMCh1N6uL8=;
+ b=G9n+55EbQkE+aKYZ09FIgtPWeceJ5f/AJyeVid4HrkmbdTqyr7hiLJcgmeFz2RoKCC
+ xBA7ise21QufBR8AOo8j+VZaESQQgOS5650nS6+wHwjELIw2jQrJDP1BT02t3noz57vj
+ XACqn797Labmb08jbRiqnFVu6a/8CWfk/SYzEHTQKljNZbBnpxW7G7oqREfKqk37+PCf
+ sX+5RiDi9epWg86x6V8jKDi+vbtxzS+OqACVW+1jXQRX2XZ/9AXxAfrmvUq5i6HRpC+o
+ nrJ6IZQ5S6Vpn1E8M41G0EpQsBLZlC4gYdmDcqbcpibiJ+xVJtJcKZ2ag+qpoVMPOviY
+ zDiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781597151; x=1782201951;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=dOsiBDHauJNUL/mHLBlXDW8Xe2gvOcwU/fMCh1N6uL8=;
+ b=fvvEjT0DkWLICBD0GWb4TAcdn8jlLC9r8wN3Er/762Hh9ZBD4hNfg2pm0kwAZ3ksnB
+ T5OffYHKt0vybsSe+sxcMC3VJps35rRqXEudRcWSqYW3Wa3roJLNzdYP7SjxvuVnEGM3
+ 14Yhs4Y1MP939UC4Q5Pyz1axkHyKF73d7OWL//57zyPJd2fTbNBqoYcuVyq81ukgIQaO
+ 8rsStrz8hB1rTEmxUSo2LLRPARlFTsiHTcglLJyU6qap/ToU1O+W41RRJbw/6gFBbPXv
+ diAmeKo0XEnT44Sd7S4deWYhJU1x5ZbTVcj9Ao4wu5fhS09d2S7uWedrFA4ys3el365I
+ +OQA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9zp6tseFy6A9daxgJIcUR205vhPAjTozTgL03fYUK1H+MRskHRP/j+bOkiQCRGBiam0Z6O68QmgXo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx2oywAl3crTFYWoVPnBnwCr67voAtIeDRnSBJCZmw7B3nteat0
+ FP+wwLVIEaJO6KY4LWFz8lBbZUjBIjCmKK4D91glM7naZz8Yz92q3A6PrHr9nb+3TQ==
+X-Gm-Gg: Acq92OFnFQzfIrdj3wmC4h6+iT2XB5ZhGqfcHSNYHK1YQIQs9MHwB3UOEJ9QO2rnl3I
+ rokF3YxUoKclztJruMu2BcCoqXtwiTDUqEuKKfJjNd2Mvhmoze0dHv0KiQSNZAvaYXs1UbxguVr
+ O5ybb5/ZMVxUM4N0Ux9LQYQEg1Ah5W2584GRFBF/T+2c3vC4OulsJEJidPVZNRO+gfSj8NLkOGh
+ sHRyyDVraS+NptMt0hTo9OKdsCGC9iC92o63KmS1nYMdjn7NhkQgJrSAG2G3UWwzvf6RrMrZ5X+
+ v0sNsIxzI1DCzLbftbW6jYhkmXkUjpcmPzRZDIk0XTbG+iHuZVpcrbHuDIecqYNY2N5dV4lro3x
+ 22tRze1LRsO9qJB4De0jTulErGsn5nuQ7q/t1qSNoStJW0I6TK9bKWDdfMk33wnaMhLwrwFoS/Q
+ VVlgn4cUbN9+dxQzzNS8Rgf+pTvPks6lEPNfLzhewoQfmT8Lf7hKzStXFu/ryQ
+X-Received: by 2002:a17:903:1b0e:b0:2bd:6dad:7cca with SMTP id
+ d9443c01a7336-2c69a357a8cmr1809945ad.22.1781597150664; 
+ Tue, 16 Jun 2026 01:05:50 -0700 (PDT)
+Received: from google.com (199.255.142.34.bc.googleusercontent.com.
+ [34.142.255.199]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8434ac9c016sm12271540b3a.8.2026.06.16.01.05.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Jun 2026 01:05:50 -0700 (PDT)
+Date: Tue, 16 Jun 2026 08:05:42 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Matt Evans <matt@ozlabs.org>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v3 8/9] vfio/pci: Permanently revoke a DMABUF on request
+Message-ID: <ajED1v846hZkyq9z@google.com>
+References: <20260610154327.37758-1-matt@ozlabs.org>
+ <20260610154327.37758-9-matt@ozlabs.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260615-blackwell-fixes-v1-4-f2853e49ff7d@nvidia.com>
-X-ClientProxiedBy: SY5P300CA0055.AUSP300.PROD.OUTLOOK.COM
- (2603:10c6:10:1fe::10) To DS0PR12MB7726.namprd12.prod.outlook.com
- (2603:10b6:8:130::6)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|CH2PR12MB4264:EE_
-X-MS-Office365-Filtering-Correlation-Id: df3e0fd1-51d3-4943-8905-08decb7d9629
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|23010399003|366016|18002099003|22082099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info: keKwuacKYkGGr0Tir0WcdmvMo+8Fh7Ruw+ztb8ZgKBCxnxekDmq3IgK4mCA9+G/J4x0MPOuo+tnO6g32rXkRjC2w9U5AcbrNJv36wl9ZIsImFOo/ayL9MWP+N1yAQ+XMMc3Z4pIApT/ESClCSTZzeslrMntXzU+Yi0WxCtAFMB+OYGUSHFvbHHPLeN5G7Khuji//o8MWnli59C/2gMOYFvGFQeOJdcxiF9tJ/Lpkw9gfbRx3o3OlcUVTjtJOdYZedfryuJVzvnfKyyb3t8vXgZYdds76t+HHGkZRDQXIJxFPKVQoz3BrcGCi6uPiof1BPwW3Ptw/fDkyLBFr0QarTGRGZ1/EkMAt73tIYUTRKs6zttv/MXHMxsMhLNgOdEIWViqV4vTQGp1/akZx7QSqk2aI5fuIyJQ9LLbHJfEm0dnpcmSikmd8Do94zKinR9AqlTxqTONDudAfFalPTuovmdRW9WSbclVCEBK96zG8jKYPtgLwAYkfpED7HmraiNS16fC82WD37sSQQZVfQvGJXLJ6IyFuwgz6xOTr+leSZHA/aAEaS3UdRnnl4hK+kUS68ZRXAslX/ABP7hjahtnGRT0yF687gjFRzMcjnHwhw//GW7EzUEKXJZEOpyCVjOOH0pqy5iwEj/uBQKsHOFaoQEBHmaMO6Qg/wvTAXDbrNisFvQiycOKhhOdUpGExxpTm
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?AKnKg+/xx22HENvQPf99JXcUaSvo7XQrA6VtD4p4OyKLRnq+kVZOb/zWxOwQ?=
- =?us-ascii?Q?1pPH/rd3j3t3jh0OmSXywWrf7L74xtXUJVKTmxl36sMdotuihNfWYWrAdX2k?=
- =?us-ascii?Q?cnnsn67rkdiamcwQxYfiC8yxP//k35aI8b09f/Ve6FtGqOm6u2LP9bDWX5Wa?=
- =?us-ascii?Q?qtG9UE+nKtk1uWMdFKvo1r/ehO3RONjzdvPSkuuEs62yFbIB1O0T8dTuVPE4?=
- =?us-ascii?Q?vOfk0KEKxx0FAELeXYSYvP6gw5yHaHTy50maU7nvkvmhOhiRgJnDOGgWQoTt?=
- =?us-ascii?Q?Xoop0HDLe4XL9lg2SSzLQXdBH2444noSsh33F3dOELi3KbpmyjGMwiD3zRel?=
- =?us-ascii?Q?ICk8tMQlaMCieGoOT/cuwWZXuwA9jeTZZyi0hnhA0NAH6Pzkj+Fp6eT5MGQa?=
- =?us-ascii?Q?f9s22EsyA8JhFfebqcW+1/+TPQSAveBLd6o/dh/nAhq5ElRkwvKNp6PgWzxF?=
- =?us-ascii?Q?mQXHDGkl6Rjsc1FPAIZQDxviaCArH3vwYzDrWMEQj7xDvt0ZDXJWUp3IILvq?=
- =?us-ascii?Q?495KLuaexqUSooy4CQ9tiqMibzFFXwdhBaFRTHepwO4WxTV0GdjB2DpI54Lq?=
- =?us-ascii?Q?YKwmAnrbIemJ5CEyxvqgGv5JI8hmKwKp5ZkQ50PLjBKetMelqYe+ef2ixp+b?=
- =?us-ascii?Q?EPmWJGvaKUP/1fbNVs8ptBMgop3RXpvzWhePyNtb60wb5tiODSXUIRRv6AG2?=
- =?us-ascii?Q?sj0zz8B3rkZ3+++sM22Kf/A84yaOcXO4gC8sE0gkz43hXmC3kLDVZJYzhLqF?=
- =?us-ascii?Q?TWHB8kK53df7JNM4alDfAMRrSDNPZ5Su+t7Lu060iygKUIFXs8k9q1b+xhAK?=
- =?us-ascii?Q?lyCSOpHOdeXjQsJiRKmVrbt24+UIjk+pLSLS1Yf+VvzYDV2Smkav2I5beGY7?=
- =?us-ascii?Q?0BCGEVv7QXFZfy0lZOtnad2giSwoMQO19Qvn/jAxF2egpG9WqdwyWjohdIAz?=
- =?us-ascii?Q?wYshKNZP9jxpo+bXs1U02hUKiLPXv/rGyTI3EJji+Vk/cM0ibJOWhZqYlkDw?=
- =?us-ascii?Q?Lc6KgHQMg214Zqn2XtbKBPvZ+2QebjhAUlpiGqORbRRaP3Bb+x8COZqqbhu0?=
- =?us-ascii?Q?9lYIyxhlKq2di52H57gtRffKXVzuHo4Kc3zNL7K1R7v6+vd3+gaFbAJ/RX04?=
- =?us-ascii?Q?lcri5NPCnyZYbjFygc4DeeiI9cWT1AWsVSwUJfT+t2Mmt2YoHk+HPRTyYD4B?=
- =?us-ascii?Q?MqOmwXn3C2E6db96rimgMRkEloVZgqUZO0MOuv6R0mtuMHgsx5tjnOw84sUp?=
- =?us-ascii?Q?0J3sM3QLEApW03t3+MNam1ul2Ya8uB8HoNjG3f9xLZBPzzbbdadd7QwY9M1X?=
- =?us-ascii?Q?zYNAkvSszbc5/vRWYmZ95wBaw208dz/yHZGXbDV3Lse7Sbyk7BYvjbO+KP4c?=
- =?us-ascii?Q?iX/pXRtnvTrM/xNY/ZEQH2Sos8VYSnraCHsRggJRtaqHiCvW1K9rGtTiPYcP?=
- =?us-ascii?Q?C3EDhRlxkCKr+iK5E71CJlW1k8IFEF0XRapOUe5mjvTHax7c/dGFh6h6Jp1n?=
- =?us-ascii?Q?8NUjQ+MiT6Jhx8gC08yYjPyr343CxFeQWzGbp+ojyRmEjcKWith06/CY6Jxf?=
- =?us-ascii?Q?WdveR9LTT5bQe1eLXU4ajqaijaEEkD8Ug/ZK49RLKvfVCQlpfFlS99oJ3BBg?=
- =?us-ascii?Q?OCZAcKkJJ/Xj7EXuFdd5nKsyJFSuaN3E/nXzXN9NSTLXjcQtnAv/NMf/ImDg?=
- =?us-ascii?Q?HYZUSTRZdrFJh27wAXozLWAkaGd4fqS5GqfMOL3BxIjdVw7LzhQtUooz5pho?=
- =?us-ascii?Q?XIUEIs8/eA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: df3e0fd1-51d3-4943-8905-08decb7d9629
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 08:02:18.6398 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HzlC4GSuxciS4O0raoTKna1E7eQGTY/hU84wgr4eV80wzDHRVWjFahI33gspFJuFyBjAYWIu8oXcC0kdN2Ey2Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4264
+In-Reply-To: <20260610154327.37758-9-matt@ozlabs.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,54 +100,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-06-16 at 00:40 +1000, Eliot Courtney <ecourtney@nvidia.com> wrote...
-> Small cleanup to move these constants which are only used once closer to
-> their use location.
+On Wed, Jun 10, 2026 at 04:43:22PM +0100, Matt Evans wrote:
+> Expand the VFIO DMABUF revocation state to three states:
+> Not revoked, temporarily revoked, and permanently revoked.
 > 
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> The first two are for existing transient revocation, e.g. across a
+> function reset, and the DMABUF is put into the last in response to a
+> new VFIO feature VFIO_DEVICE_FEATURE_DMA_BUF.
+> 
+> VFIO_DEVICE_FEATURE_DMA_BUF passes a DMABUF by fd and requests that
+> the DMABUF is permanently revoked.  On success, it's guaranteed that
+> the buffer can never be imported/attached/mmap()ed in future, that
+> dynamic imports have been cleanly detached, and that all mappings have
+> been made inaccessible/PTEs zapped.
+> 
+> This is useful for lifecycle management, to reclaim VFIO PCI BAR
+> ranges previously delegated to a subordinate client process: The
+> driver process can ensure that the loaned resources are revoked when
+> the client is deemed "done", and exported ranges can be safely re-used
+> elsewhere.
+> 
+> Refactor the revocation code out of vfio_pci_dma_buf_move() to a
+> function common to move and the new feature request path.
+> 
+> Signed-off-by: Matt Evans <matt@ozlabs.org>
 > ---
->  drivers/gpu/nova-core/falcon/gsp.rs | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
+>  drivers/vfio/pci/vfio_pci_core.c   |   6 +-
+>  drivers/vfio/pci/vfio_pci_dmabuf.c | 169 ++++++++++++++++++++++-------
+>  drivers/vfio/pci/vfio_pci_priv.h   |  19 +++-
+>  include/uapi/linux/vfio.h          |  20 ++++
+>  4 files changed, 173 insertions(+), 41 deletions(-)
 > 
-> diff --git a/drivers/gpu/nova-core/falcon/gsp.rs b/drivers/gpu/nova-core/falcon/gsp.rs
-> index d1f6f7fcffff..f788b87bd951 100644
-> --- a/drivers/gpu/nova-core/falcon/gsp.rs
-> +++ b/drivers/gpu/nova-core/falcon/gsp.rs
-> @@ -24,10 +24,6 @@
->      regs,
->  };
->  
-> -/// Pattern returned by GSP register reads while the PRIV target mask still blocks CPU access.
-> -const GSP_TARGET_MASK_LOCKED_PATTERN: u32 = 0xbadf_4100;
-> -const GSP_TARGET_MASK_LOCKED_MASK: u32 = 0xffff_ff00;
-> -
->  /// Type specifying the `Gsp` falcon engine. Cannot be instantiated.
->  pub(crate) struct Gsp(());
->  
-> @@ -70,10 +66,15 @@ pub(crate) fn riscv_branch_privilege_lockdown(&self, bar: Bar0<'_>) -> bool {
->  
->      /// Returns whether GSP registers can be read by the CPU.
->      pub(crate) fn priv_target_mask_released(&self, bar: Bar0<'_>) -> bool {
-> +        /// Pattern returned by GSP register reads while the PRIV target mask still blocks CPU
-> +        /// access. The low byte varies; the upper 24 bits are fixed.
-> +        const LOCKED_PATTERN: u32 = 0xbadf_4100;
-> +        const LOCKED_MASK: u32 = 0xffff_ff00;
+> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+> index 508a5eca910a..064906b25467 100644
 
-Confirmed this error code doesn't appear to be used more generically across our
-driver stack so agree it makes sense to localise it here.
+[...]
 
-Reviewed-by: Alistair Popple <apopple@nvidia.com>
-
+>  
+> +/* Set the DMABUF's revocation status (OK or temporarily/permanently revoked) */
+> +static void vfio_pci_dma_buf_set_status(struct vfio_pci_dma_buf *priv,
+> +					enum vfio_pci_dma_buf_status new_status)
+> +{
+> +	bool was_revoked;
 > +
->          let hwcfg2 = bar
->              .read(regs::NV_PFALCON_FALCON_HWCFG2::of::<Gsp>())
->              .into_raw();
->  
-> -        hwcfg2 != 0 && (hwcfg2 & GSP_TARGET_MASK_LOCKED_MASK) != GSP_TARGET_MASK_LOCKED_PATTERN
-> +        hwcfg2 != 0 && (hwcfg2 & LOCKED_MASK) != LOCKED_PATTERN
->      }
->  }
-> 
-> -- 
-> 2.54.0
-> 
+> +	lockdep_assert_held_write(&priv->vdev->memory_lock);
+> +
+> +	if (priv->status == VFIO_PCI_DMABUF_PERM_REVOKED ||
+> +	    priv->status == new_status) {
+> +		return;
+> +	}
+> +
+> +	dma_resv_lock(priv->dmabuf->resv, NULL);
+> +	was_revoked = (priv->status == VFIO_PCI_DMABUF_TEMP_REVOKED);
+> +
+> +	if (new_status != VFIO_PCI_DMABUF_OK) {
+> +		priv->status = new_status; /* Temp or permanently revoked */
+> +
+> +		if (was_revoked) {
+> +			/*
+> +			 * TEMP_REVOKED is being upgraded to
+> +			 * PERM_REVOKED.  The buffer is already gone,
+> +			 * don't wait on it again.
+> +			 */
+> +			dma_resv_unlock(priv->dmabuf->resv);
+> +			return;
+> +		}
+> +	}
+> +
+> +	dma_buf_invalidate_mappings(priv->dmabuf);
+
+Nit: We seem to be calling this even if new_status == OK, while it works
+as importers (like IOMMUFD and RDMA core) are immune to a double 
+invalidate / revoke. I'm wondering if we could move this within the 
+if (new_status != VFIO_PCI_DMABUF_OK) block? 
+
+Since this is only needed to be called when we TEMP/PERM _REVOKE?
+
+I'm just worried that this may overload the dma_buf_invalidate_mappings 
+to be a state-change notification instead of a revoke / invalidate
+notification.
+
+> +	dma_resv_wait_timeout(priv->dmabuf->resv,
+> +			      DMA_RESV_USAGE_BOOKKEEP, false,
+> +			      MAX_SCHEDULE_TIMEOUT);
+> +	dma_resv_unlock(priv->dmabuf->resv);
+> +	if (new_status != VFIO_PCI_DMABUF_OK) {
+> +		kref_put(&priv->kref, vfio_pci_dma_buf_done);
+> +		wait_for_completion(&priv->comp);
+> +		unmap_mapping_range(priv->dmabuf->file->f_mapping,
+> +				    0, priv->size, 1);
+> +		/*
+> +		 * Re-arm the registered kref reference and the
+> +		 * completion so the post-revoke state matches the
+> +		 * post-creation state.	 An un-revoke followed by a
+> +		 * new mapping needs the kref to be non-zero before
+> +		 * kref_get(), and vfio_pci_dma_buf_cleanup()
+> +		 * delegates its drain back through this revoke
+> +		 * path on a possibly-already-revoked dma-buf.
+> +		 */
+> +		kref_init(&priv->kref);
+> +		reinit_completion(&priv->comp);
+> +	} else {
+> +		dma_resv_lock(priv->dmabuf->resv, NULL);
+> +		priv->status = VFIO_PCI_DMABUF_OK;
+> +		dma_resv_unlock(priv->dmabuf->resv);
+> +	}
+> +}
+> +
+
+Otherwise, 
+Reviewed-by: Pranjal Shrivastava <praan@google.com>
+
+Thanks,
+Praan
