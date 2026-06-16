@@ -4,91 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92ECCCD98E1
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 11:54:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28871CD98DA
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 11:55:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F10AC10EA8C;
-	Tue, 16 Jun 2026 11:54:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85C6510EA80;
+	Tue, 16 Jun 2026 11:55:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="qO/dWV0u";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="ECJlL/ND";
 	dkim-atps=neutral
-Received: from mail-ed1-f73.google.com (mail-ed1-f73.google.com
- [209.85.208.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72B6C10EA8B
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 11:54:36 +0000 (UTC)
-Received: by mail-ed1-f73.google.com with SMTP id
- 4fb4d7f45d1cf-68f9f08cfcaso4074558a12.2
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 04:54:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1781610875; x=1782215675;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=Fkz/8WHSlc5z8mgSFYgivmaJvolb4fXApnGq7F/IsFs=;
- b=qO/dWV0ug4avwiqcoRFY7BztTUiHWvFmb6tCydmPYBnmSwUwkSLDCH5XEbcq8ioUv/
- p7NFTX36fIVmD47INcZINFQ2LYZ6jWs2B7PGM4g/xRZ6ZsyZbvptHt4XtnFOTgdBu50Y
- 9R5wbuu7tfWuf6q9pR5p6KXvA+ac3BewE4tuLBzUahYe7xzQYacFDtXOkF54fxDfwl+z
- gMBw0M6WHuDg8td9zpcd+3jiYEXoiXav0PRjlDSEDgN7EWbWlHLcjUN6Cy0C20bdgCmv
- 6qsAg4lCX1pKu7Y/8/Q92cY3+8u77MJUa9swjhTTImSRfOHNVGSJGM2GCTs5fdW+Wdup
- gwCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781610875; x=1782215675;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Fkz/8WHSlc5z8mgSFYgivmaJvolb4fXApnGq7F/IsFs=;
- b=ARL5sPdHyHhvQ1x1DSuBLEf9kB7kxxtG3TadxRoWYbdLownjH8ZshNNs8Q0pSQytiu
- NhB/Hptz2QABdQE2ijgpJ0+eWV5VbLPAVfw6uchTOtRKgSGcp+YG8tLmgFp5YN+G9i8Y
- 0G2vxd7E6ZtFvkkDzux452yiTAWWECFz6UDQ4x3cXONLjyJVBse7YB9yXcFeQBnyh5MX
- C1TMGj6Is8ZZs5jiXKbFltzz4G29LPfW9zHk0hWf0cM60EKEWxtozdqqqs50dOmSJhN+
- huSGAR89emnLCGiLS0bDaxr7kfA4/DdHVHuZ3jDnhIlNskByg9f48KwGg00FMGKO2WOG
- qrZA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9oa+ri5iySupuEG71cFN1KGz3bdVJSN/PEGDpb/3mk57ftlNmcakYDEerD4nZrHIq14dqMpaDdZ8c=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwAlLJFueUhgOr3TYZX86eh72eAOZAXMMfmLJUsXxESZ+B3B1yU
- mIGe9Heyw4Stx5EV6kzgDKes1n6+0PJVH6IlAnUYlF4HPH4qwjv9cj71b6Pd/SDmhuzlrbycZbd
- c9xG2poMgyidrgaD5Yg==
-X-Received: from edrc26.prod.google.com ([2002:aa7:d61a:0:b0:68d:205:9a90])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:35c5:b0:695:865:47cd with SMTP id
- 4fb4d7f45d1cf-695086ebec3mr1540972a12.7.1781610868582; 
- Tue, 16 Jun 2026 04:54:28 -0700 (PDT)
-Date: Tue, 16 Jun 2026 11:54:27 +0000
-In-Reply-To: <20260604-unique-ref-v17-2-7b4c3d2930b9@kernel.org>
-Mime-Version: 1.0
+Received: from LO0P265CU003.outbound.protection.outlook.com
+ (mail-uksouthazon11022122.outbound.protection.outlook.com [52.101.96.122])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3640010EA80
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 11:55:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WiASH47eSi/aIxZ7qR/KQo/j78oNqPwWUUfa1OWBAy4I65vzUKK+rXQGomUKPPnRlknliWlhqwf6ndb3xKf/MiDTFuZ7bf9KI4rGZV37DRm0nHatN6iRTZGIXGPuIWNgyLy40MYe91YdvuLG/y/NrWskkql6cYumfL7DmKSlvh436g7oCYXDcuvrOgvDUUD5BhqtYbsW9USXn7PCDK/B7J5nka48N2Og4GVEcYX+XwkNiLbjA7Co8XSCRs3S0JrwyiKJ9SfADV7jQy3FSTY5nHVc+yjJgRcm5h0FDnlkl8l6VyKiaZNtfjbyCZhNNbenwgXv9vKwB5ovmRLjvt+FqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=o+PHvsyef5ecY47vB1MQKewJdzm0KSVB9RdjG34EUhw=;
+ b=v8oeLeEEWnMMRG1RysmB9qqnLG59J5CT3R331a4ByCmsyMskOEi2qG2n5O9TQcixOLxBC6iLdThL4pOxrdAV+YvRtiNNaLev44oIHoJ080DFdYuftmq3bEEmVX26RTis9VsSZzI+jCkoAujtrcTCagFzOKG8zP9vRGqxju/KQ0YuRzIe2oaWXn8qedA66DT4HCNSaFQvdyZZZPfH0Cv1pxslu33+dsxEvZqkS5w0eEjtLsAj50Y6p/Iiltxyu0Qe/uL0S7Lbz5DZZlRzuxZGOte988BgJACwLKmDRzpWYKhvjDi9onEVq27PcFOY3Armq+xRI+IVgb/qe6X+1OTh4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o+PHvsyef5ecY47vB1MQKewJdzm0KSVB9RdjG34EUhw=;
+ b=ECJlL/NDD4OasxBhriowz1k81X6PPnpzyxwT1mGNiNMMeQjn6Q0GXqMvRY8cSK7MHzuYzLiGoKcc0ln9gWfvhVqsFpdMH2wXRqQ8vfUnKeaoZMSWSXt9iWBwSJWlgFF5tA0QTBIJbKx4ysrHn5b5JDSDXhn/tg2GzvudxNbAUZc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CW1P265MB7593.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:211::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
+ 2026 11:55:53 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0113.015; Tue, 16 Jun 2026
+ 11:55:53 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 16 Jun 2026 12:55:52 +0100
+Message-Id: <DJAGDGPKZ4HX.M47NMAU53PCJ@garyguo.net>
+To: "Andreas Hindborg" <a.hindborg@kernel.org>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Trevor Gross"
+ <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "Dave Ertman"
+ <david.m.ertman@intel.com>, "Ira Weiny" <ira.weiny@intel.com>, "Leon
+ Romanovsky" <leon@kernel.org>, "Paul Moore" <paul@paul-moore.com>, "Serge
+ Hallyn" <sergeh@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>, "Christian Brauner"
+ <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Viresh Kumar" <vireshk@kernel.org>,
+ "Nishanth Menon" <nm@ti.com>, "Stephen Boyd" <sboyd@kernel.org>, "Bjorn
+ Helgaas" <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Uladzislau
+ Rezki" <urezki@gmail.com>, "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil
+ Babka" <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Igor
+ Korotin" <igor.korotin@linux.dev>, "Pavel Tikhomirov"
+ <ptikhomirov@virtuozzo.com>
+Cc: <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-block@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-fsdevel@vger.kernel.org>,
+ <linux-mm@kvack.org>, <linux-pm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <driver-core@lists.linux.dev>
+Subject: Re: [PATCH v17 03/10] rust: implement `ForeignOwnable` for `Owned`
+From: "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.21.0
 References: <20260604-unique-ref-v17-0-7b4c3d2930b9@kernel.org>
- <20260604-unique-ref-v17-2-7b4c3d2930b9@kernel.org>
-Message-ID: <ajE5c-5gZtJRoadx@google.com>
-Subject: Re: [PATCH v17 02/10] rust: types: Add Ownable/Owned types
-From: Alice Ryhl <aliceryhl@google.com>
-To: Andreas Hindborg <a.hindborg@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
- "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dave Ertman <david.m.ertman@intel.com>, 
- Ira Weiny <ira.weiny@intel.com>, Leon Romanovsky <leon@kernel.org>,
- Paul Moore <paul@paul-moore.com>, 
- Serge Hallyn <sergeh@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Viresh Kumar <vireshk@kernel.org>, 
- Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, 
- "Krzysztof =?utf-8?Q?Wilczy=C5=84ski?=" <kwilczynski@kernel.org>,
- Boqun Feng <boqun@kernel.org>, 
- Uladzislau Rezki <urezki@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Igor Korotin <igor.korotin@linux.dev>, 
- Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-block@vger.kernel.org, 
- linux-security-module@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, linux-pm@vger.kernel.org, 
- linux-pci@vger.kernel.org, driver-core@lists.linux.dev, 
- Asahi Lina <lina+kernel@asahilina.net>, Oliver Mangold <oliver.mangold@pm.me>
-Content-Type: text/plain; charset="utf-8"
+ <20260604-unique-ref-v17-3-7b4c3d2930b9@kernel.org>
+In-Reply-To: <20260604-unique-ref-v17-3-7b4c3d2930b9@kernel.org>
+X-ClientProxiedBy: LO2P265CA0512.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:13b::19) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CW1P265MB7593:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3457848e-0f2b-4fc3-dc24-08decb9e37d1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|366016|376014|23010399003|10070799003|1800799024|56012099006|4143699003|6133799003|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info: ywg0hO6cdJbxJ+MWCMNAwvM/9Xym9x6OdouXwN/k9VaG9CjN/S009Cplhxv66RTwE9RbwRvC4AKhEUgZJAKnXiEmujN2CnUgqdtzy1Ty380td+JjmmYyOfmxakaA5+XcpDMbqBjT3R7eE+mHVaQQt4SRrb9pa9Zh9nNc3h+mgF2ppUqmKysSiYHDIECf9ySfVOxnkU+qhQtd9xUPe5UtZJIHRktRlXMYL0lcy+SSiLyd/NBosNi9LRJrxvVzQmJ8WL9LoC5PnycgnucQrbDLUs5cgNSzRbHBv5dD75X7PfEYjK84jsK6bPGb5BJR5gzput6yYIRh4UyASzp2m/9Rcy2zzTMNGd3nJGJJkwPxhqLJSnMm+sPxs7LDyI5RxmiSmrsCz98Kb4EMO5aoXCxSPDTGqsl60NUpcWqx/wXE5At0khdYvbnPGdSWDqE634bYYFJUuL8A1OdaBYUzo9bySUkpdotKWxRn0jlRpgiJvN4Ed8UZ8Sk5KH316lsOtdTBXy0qXQG2/XoC1xKfYfdwEdt3Ys2s9Gg6NxEcg7tzKl4eJv4W97GhSZU6s8dp4wEc/A7w3bdXqR6zk7xi6AEAbsM4KlHRnK8MsXnh16uEZEqjihXpM5WB++uKlkkM/E90tnm2HlS9p94Pzy+7LQHosxmzN5MRLTihO1W/M0LgK5Yvpb6DwiUUtbBLJE2pAQ0+vS7lKmUXqN0ddK0gSnVni++wYzsyuFfGqnUu4PPIhvc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(366016)(376014)(23010399003)(10070799003)(1800799024)(56012099006)(4143699003)(6133799003)(22082099003)(18002099003)(921020);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UTh6d0VaQUs1cG1VQno4OEpNMUZSYlg0cjZUa0dNQ2ZZYnpzOTlKUzNRMlFJ?=
+ =?utf-8?B?OURYN0U3S1o5blRSeFZnV2tGWXR0TTNGT25GRWNrS0ZBS01BRzRkcnI0Q2JH?=
+ =?utf-8?B?cVpwMm1KdDZOdDgzcDB5b2QxeksrSnNVZFBiL21mUlBwcE8zTmtCSG5hcXFD?=
+ =?utf-8?B?elY1bTU3ai9WdXNlb2dXNmlyR0hJY1phSWpUOGZ5c0JoMHQ2NUlaa3ZFR292?=
+ =?utf-8?B?T2JvdGxnVkV6dEgzY1o5WExhL0wvdmNCK2ZmM3E5VGYxY1c3ZzIwT3RWVnRZ?=
+ =?utf-8?B?eUZFcmZXcjAwa2g5NUlib3dUM1NjTlNZK01sT1JTbktYMTh5bnBFd1pVamxQ?=
+ =?utf-8?B?cFhHRU9yWEphL09DM01uQ3hyMldmYmdDa3Fzd2JrajZwK3k1emhLWkpNUzRR?=
+ =?utf-8?B?cXorR2pVQW9qeVpTa2VVUWQyMEx0Mm9kN2l6bTc3bng0WWF6TFNWNEM3RWZI?=
+ =?utf-8?B?OHIxbitybVRucXl1aE9xMDkxaVhSeWJnOW5lV01pWFQwUEhWUHVwOGdLSEwz?=
+ =?utf-8?B?N0dmUnR5Sk1mWTZrdElrVElGRTFMMG1INGxxenRsa2lIektMTkI4Z09VVjNq?=
+ =?utf-8?B?bzA4ZjZ6NnpiSnY2UFVqb1dGMExlcmY2QlNmM1Z5TmdpaTNacXNrbXlmd0VW?=
+ =?utf-8?B?WnVrYUdjMit4UHlZYitROGkrRENFVHhwTndtc05EVW9aME95U01IalYraXVN?=
+ =?utf-8?B?RUV4S2IxdW5xc056NkxhdGZwajU4Q3NOQjZTMmRQNTFRenozTDVXTThkL1Rk?=
+ =?utf-8?B?ZERoalRqb0NVSnRRUG9tbXhnaDB2VGtzcG5EUHFTMmFaMGJmRHA3YkZuNFFt?=
+ =?utf-8?B?Z0QrQTh6aXUyT3hGNFAvdjh2Qy9wTldXNHQvOG5ISzZMamFnZ2IyZWJvaHVD?=
+ =?utf-8?B?MGprM1JPNENyd0dLbnNoNVgrYXBmeUZYVjBDbkl3UmMzNWhIbGFuMlZGR2FE?=
+ =?utf-8?B?bDR3ODd2dU9PcXA5TmJ6Sk84L1BOVUhWY3RSSGVhNkJ2clpEZmo2YVhHbEE0?=
+ =?utf-8?B?VWVMSmZ5eS9qNUVIc2JMT1lmOVI2Rlh5dkFhbWFXeHYvQXlJOXVkQkxsTWk0?=
+ =?utf-8?B?WXBzWE5Hd2FRUTR0MzNxczVhUkhGVTFoV2NsQlZtS0VZek9aZTBUYkpkbnZa?=
+ =?utf-8?B?YTFEaDhPU3FpZ25mbWFQN3JYa2pyYjk5NjFqMTZSOXB6N0JCQWQ3c0pKTFNI?=
+ =?utf-8?B?MDJNbGFBaVpJUG8yT0hBUVFqWm1waW9ka00vQTIvZU9wTkNsRjFLOHVqd2Q3?=
+ =?utf-8?B?cSt4TGNJMmM1YytKbThqTmFqOU1leFlIT3VKTXdDSXNSZGZnNy9ncmVnVzJL?=
+ =?utf-8?B?bXhXeUV0b2Fzb0JpZUFhSXhLUXNBdkRxcUtLQW05QlVYdGtvRXlUcXJ3V2xC?=
+ =?utf-8?B?clhlVUpsbjM5dFFKdC96MDVMaFpDWjJQYkhHNmlibWs4anRwVXJCdWl4cVdN?=
+ =?utf-8?B?V1dLbEt5QWh3czdNNmRCNW5aUjI3aElrL2h5WG1ubnp5Y09aRUNpaUNOZSs1?=
+ =?utf-8?B?V1p4UURyaEk1TzFGaHgvak81a2x3L3g3Y2xreVVjdjQvcmtPMlFEMVhUcitu?=
+ =?utf-8?B?WUtsQ0lHRWYzWGJxdzkvMFE4WSs1THo0NGdKbzR2WmZ5WXNld0w3VHVsbktO?=
+ =?utf-8?B?eCsyK1dKSGVjWjZmeGVHVG5kNEx1Q0Y2R0U3bEZHT3RJMWNCMTNuU1hDM0Fn?=
+ =?utf-8?B?elE4ZkpiS3ZXSi9iTEg4eXd6Z21mLzhhUlZvMWpQNWdjZG1ZQ0lCRjRVSXBu?=
+ =?utf-8?B?cTRBNW13Skk1YTYyT2tSNjM5a1dCUEJHZ21zZU9NdjlVWTlZTXUybXYvWGMr?=
+ =?utf-8?B?V3dXenlFbTZwTndGYnRSZXNDd3MwenpNSEdWbW1QMlBEb0F6akVmQjdGZHgy?=
+ =?utf-8?B?OFZkRVdVcnlwTU53VG1icDJqVnZYVnZRdlpkZElaQ1dlWXE0YmJEZ2pPUDJS?=
+ =?utf-8?B?OHR2V1NWRlNxVVNsL1htc0kwNlNnbEhpZDNDdzNkRGN2QWk1enB6SjlPZXlq?=
+ =?utf-8?B?ZlovdGVyMG8yVnNFcnQ3bVlEYy9iMTgwbndQbHl0ckNrVXVsZUEzdWFFRGps?=
+ =?utf-8?B?L21EZkdZS1RWZkxEQ2lpekxqOEVJR1hQTk8xMlhKcWdFWlpoZzR2aVFFWVpv?=
+ =?utf-8?B?YWozeDZYWTZGSTZDNUc1dithdGZKY0Z3cUx4Mm5tK2VVYXRYV2plWXRvN1hv?=
+ =?utf-8?B?d0M2VENLV2JaWkJjUTUvaldWYk45OGdqbTFEZHFOaWpLWmFTSWV3L3RvclRj?=
+ =?utf-8?B?YzN6WHhtUFg3ZDVicmVReTBUSzF2SzY4dExkZU9PU3M0RVhzR0xHSWdhcExs?=
+ =?utf-8?B?ODh3SUJ5WlZMejhDSm9KZmI0Q0lPcjBCNHZmcFhmY2dTN0FtekZwdz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3457848e-0f2b-4fc3-dc24-08decb9e37d1
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 11:55:53.5940 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: U0WU7QSlklUpsYgZNN5x1HSn09hUhovE0hWzquC6ZxGfRYbQrB0U6jtqdMUt4eR0YlAZ7mdKVX7LvR6d11Q0iA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB7593
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,75 +158,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 04, 2026 at 10:11:14PM +0200, Andreas Hindborg wrote:
-> From: Asahi Lina <lina+kernel@asahilina.net>
-> 
-> By analogy to `AlwaysRefCounted` and `ARef`, an `Ownable` type is a
-> (typically C FFI) type that *may* be owned by Rust, but need not be. Unlike
-> `AlwaysRefCounted`, this mechanism expects the reference to be unique
-> within Rust, and does not allow cloning.
-> 
-> Conceptually, this is similar to a `KBox<T>`, except that it delegates
-> resource management to the `T` instead of using a generic allocator.
-> 
-> [ om:
->   - Split code into separate file and `pub use` it from types.rs.
->   - Make from_raw() and into_raw() public.
->   - Remove OwnableMut, and make DerefMut dependent on Unpin instead.
->   - Usage example/doctest for Ownable/Owned.
->   - Fixes to documentation and commit message.
-> ]
-> 
-> Link: https://lore.kernel.org/all/20250202-rust-page-v1-1-e3170d7fe55e@asahilina.net/
-> Signed-off-by: Asahi Lina <lina+kernel@asahilina.net>
-> Co-developed-by: Oliver Mangold <oliver.mangold@pm.me>
-> Signed-off-by: Oliver Mangold <oliver.mangold@pm.me>
-> Reviewed-by: Boqun Feng <boqun.feng@gmail.com>
-> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-> [ Andreas: Updated documentation, examples, and formatting. Change safety
->   requirements, safety comments. Use a reference for `release`. ]
-> Reviewed-by: Gary Guo <gary@garyguo.net>
-> Co-developed-by: Andreas Hindborg <a.hindborg@kernel.org>
+On Thu Jun 4, 2026 at 9:11 PM BST, Andreas Hindborg wrote:
+> Implement `ForeignOwnable` for `Owned<T>`. This allows use of `Owned<T>` =
+in
+> places such as the `XArray`.
+>
+> Note that `T` does not need to implement `ForeignOwnable` for `Owned<T>` =
+to
+> implement `ForeignOwnable`.
+>
 > Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
-
-Overall looks good to me, but two nits below. With them fixed:
-
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-
-> +pub trait Ownable {
-> +    /// Tear down this `Ownable`.
-> +    ///
-> +    /// Implementers of `Ownable` can use this function to clean up the use of `Self`. This can
-> +    /// include freeing the underlying object.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// Callers must ensure that the caller has exclusive ownership of `T`, and this ownership can
-> +    /// be transferred to the `release` method.
-> +    unsafe fn release(&mut self);
-
-I'd make this take a raw pointer because the pointer can be freed during
-the execution of release(), which references don't allow.
-
-> diff --git a/rust/kernel/types.rs b/rust/kernel/types.rs
-> index 4329d3c2c2e5..4aec7b699269 100644
-> --- a/rust/kernel/types.rs
-> +++ b/rust/kernel/types.rs
-> @@ -11,6 +11,17 @@
+> ---
+>  rust/kernel/owned.rs | 46 ++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 46 insertions(+)
+>
+> diff --git a/rust/kernel/owned.rs b/rust/kernel/owned.rs
+> index 456e239e906e..5eacdf327d12 100644
+> --- a/rust/kernel/owned.rs
+> +++ b/rust/kernel/owned.rs
+> @@ -15,6 +15,8 @@
+>      ptr::NonNull, //
 >  };
->  use pin_init::{PinInit, Wrapper, Zeroable};
->  
-> +pub use crate::{
-> +    owned::{
-> +        Ownable,
-> +        Owned, //
-> +    },
-> +    sync::aref::{
-> +        ARef,
-> +        AlwaysRefCounted, //
-> +    }, //
-> +};
+> =20
+> +use kernel::types::ForeignOwnable;
+> +
+>  /// Types that specify their own way of performing allocation and destru=
+ction. Typically, this trait
+>  /// is implemented on types from the C side.
+>  ///
+> @@ -108,6 +110,7 @@ pub trait Ownable {
+>  ///
+>  /// - Until `T::release` is called, this `Owned<T>` exclusively owns the=
+ underlying `T`.
+>  /// - The `T` value is pinned.
+> +#[repr(transparent)]
 
-We removed the types::ARef re-export, so you shouldn't add it back.
+AFAIT this `#[repr(transparent)]` isn't actually needed.
 
-Alice
+>  pub struct Owned<T: Ownable> {
+>      ptr: NonNull<T>,
+>  }
+> @@ -185,3 +188,46 @@ fn drop(&mut self) {
+>          unsafe { T::release(self.ptr.as_mut()) };
+>      }
+>  }
+> +
+> +// SAFETY: We derive the pointer to `T` from a valid `T`, so the returne=
+d
+> +// pointer satisfy alignment requirements of `T`.
+> +unsafe impl<T: Ownable + 'static> ForeignOwnable for Owned<T> {
+
+You should drop the `'static` bound and put where bound on the GAT below
+instead. See how `Box` is doing it.
+
+Best,
+Gary
+
+> +    const FOREIGN_ALIGN: usize =3D core::mem::align_of::<Owned<T>>();
+> +
+> +    type Borrowed<'a> =3D &'a T;
+> +    type BorrowedMut<'a> =3D Pin<&'a mut T>;
+> +
+> +    #[inline]
+> +    fn into_foreign(self) -> *mut kernel::ffi::c_void {
+> +        let ptr =3D self.ptr.as_ptr().cast();
+> +        core::mem::forget(self);
+> +        ptr
+> +    }
+> +
+> +    #[inline]
+> +    unsafe fn from_foreign(ptr: *mut kernel::ffi::c_void) -> Self {
+> +        Self {
+> +            // SAFETY: By function safety contract, `ptr` came from
+> +            // `into_foreign` and cannot be null.
+> +            ptr: unsafe { NonNull::new_unchecked(ptr.cast()) },
+> +        }
+> +    }
+> +
+> +    #[inline]
+> +    unsafe fn borrow<'a>(ptr: *mut kernel::ffi::c_void) -> Self::Borrowe=
+d<'a> {
+> +        // SAFETY: By function safety requirements, `ptr` is valid for u=
+se as a
+> +        // reference for `'a`.
+> +        unsafe { &*ptr.cast() }
+> +    }
+> +
+> +    #[inline]
+> +    unsafe fn borrow_mut<'a>(ptr: *mut kernel::ffi::c_void) -> Self::Bor=
+rowedMut<'a> {
+> +        // SAFETY: By function safety requirements, `ptr` is valid for u=
+se as a
+> +        // unique reference for `'a`.
+> +        let inner =3D unsafe { &mut *ptr.cast() };
+> +
+> +        // SAFETY: We never move out of inner, and we do not hand out mu=
+table
+> +        // references when `T: !Unpin`.
+> +        unsafe { Pin::new_unchecked(inner) }
+> +    }
+> +}
+
+
