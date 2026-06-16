@@ -4,43 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 551E7CD98E3
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 15:25:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 686AECD98E1
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 15:28:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9482610E1E6;
-	Tue, 16 Jun 2026 15:25:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CE3C10E7BA;
+	Tue, 16 Jun 2026 15:28:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JUV8Po3t";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BrxioINo";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1447A10E1E6
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 15:25:38 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C64710E7BA
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 15:28:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 517C760122;
- Tue, 16 Jun 2026 15:25:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D81FB1F000E9;
- Tue, 16 Jun 2026 15:25:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D545E415FE;
+ Tue, 16 Jun 2026 15:28:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 795211F00A3A;
+ Tue, 16 Jun 2026 15:28:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781623537;
- bh=yasEz4Tq+eUaI6JGQsAnSpTU53AkTnLLp12eYN07HE0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JUV8Po3tjzCUY546QlfKhCSnMjmPICeJL5Kh+t5qisQAITKG+Q72XTxWHZ8qYTO0c
- kGgVHaYHoiYul6YPklOxYQJy7QO7IHzB4FSIfdng4rnDrQGy7AZF6oRmNM4+41Y6RA
- zhtMCPxLFXcG5KA1D4mBdX7Wlg2GmeE4pC1ZWBI2dxtE07uWrBoGpXhEh0whr7v/CT
- lb1qSM7RGpRLvbb3jDAoFi5OhvQtAIRCHVaQg8mt5WfOctoSMF4VsaG/1tqrS/oDe2
- y0yK9gTDHhsXpw4yBMz1QhjDrBgy1QEMCF2/HWt4Sio8I14hH+z0H9tcHj0XE3knNK
- jA3UQMZ15uw+g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1] drm/msm/dp: return 0 from audio_prepare when cable
- is disconnected
-To: "Kumar Anurag" <kumar.singh@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260616151252.3599089-2-kumar.singh@oss.qualcomm.com>
-References: <20260616151252.3599089-2-kumar.singh@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1781623693;
+ bh=KTPFzRNp3UqELYgoWeZnt3CM5M9+y07XBMT3rlA91bo=;
+ h=Date:To:From:Subject:Cc:References:In-Reply-To;
+ b=BrxioINockLKwWsvcBd9ayjh5CHH4WSzRwy1vkp85RTyeFH4zBaP0BInXvxmMVKnz
+ h/sYVd8wWdUxioziefxH6Kq7kyIyIBnxiE83DrD7sb8OXmAt4/wmZezjTHQrOxbMbf
+ o5Ju1PeFdvWHMYBipOYkoRoVL4AKgeTYeBUGA6VkBEDqo2Lkss6nwGOLjMR2i0hChv
+ tDa+0ESYVWUygGAXw4bPPUI/eZRNtuY+bqmVrWa/SF/6Yxga2bswqGftqF7BqOj+g5
+ 6dBuqsS/B6zEOvT4LAxT2plEXHn0GgRG3xews+mOa9PcD5nKbijw3DPtB7v3Y5zr1c
+ 67tnL8yvAyy0g==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 16 Jun 2026 15:25:36 +0000
-Message-Id: <20260616152536.D81FB1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 16 Jun 2026 17:28:04 +0200
+Message-Id: <DJAKVXTHQJ99.152VRPFJDPTRU@kernel.org>
+To: =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v2 5/6] rust: Add dma_fence abstractions
+Cc: "Philipp Stanner" <phasta@mailbox.org>, "Philipp Stanner"
+ <phasta@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Sumit
+ Semwal" <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, "Paul E. McKenney" <paulmck@kernel.org>,
+ "Frederic Weisbecker" <frederic@kernel.org>, "Neeraj Upadhyay"
+ <neeraj.upadhyay@kernel.org>, "Joel Fernandes" <joelagnelf@nvidia.com>,
+ "Josh Triplett" <josh@joshtriplett.org>, "Uladzislau Rezki"
+ <urezki@gmail.com>, "Steven Rostedt" <rostedt@goodmis.org>, "Mathieu
+ Desnoyers" <mathieu.desnoyers@efficios.com>, "Lai Jiangshan"
+ <jiangshanlai@gmail.com>, "Zqiang" <qiang.zhang@linux.dev>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Igor Korotin" <igor.korotin@linux.dev>,
+ "Lorenzo Stoakes" <ljs@kernel.org>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "FUJITA Tomonori" <fujita.tomonori@gmail.com>,
+ "Krishna Ketan Rai" <prafulrai522@gmail.com>, "Shankari Anand"
+ <shankari.ak0208@gmail.com>, <manos@pitsidianak.is>, "Boris Brezillon"
+ <boris.brezillon@collabora.com>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <rcu@vger.kernel.org>
+References: <20260616082819.2943886-2-phasta@kernel.org>
+ <20260616082819.2943886-7-phasta@kernel.org>
+ <20260616124755.460550-1-work@onurozkan.dev>
+ <d074d3105a2c1d4f594bc6d7b0b09e62757790d5.camel@mailbox.org>
+ <20260616145112.14201-1-work@onurozkan.dev>
+In-Reply-To: <20260616145112.14201-1-work@onurozkan.dev>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,84 +79,18 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Tue Jun 16, 2026 at 4:51 PM CEST, Onur =C3=96zkan wrote:
+> repr(C) only makes sense when the type have multiple fields.
 
-New issues:
-- [High] Returning success (0) from `msm_dp_audio_prepare` when the display=
- is disconnected causes silent audio failures upon hotplug and NoC errors d=
-ue to unclocked DSP hardware access.
-
-Pre-existing issues:
-- [High] Race condition between `msm_dp_audio_prepare` and `msm_dp_display_=
-disable` causes unclocked MMIO accesses.
---
-
-commit bfb65364e66313dc1385a42e09172f44a1e1fbd1
-Author: Kumar Anurag <kumar.singh@oss.qualcomm.com>
-
-drm/msm/dp: return 0 from audio_prepare when cable is disconnected
-
-PipeWire treats a non-zero return from prepare as fatal, marking the
-DP audio device as a dummy sink when the cable is unplugged.
-
-> The active_stream_cnt guard already prevents any unclocked hardware acces=
-s,
-> so return success instead of -EINVAL when the link is not active.
-
-[Severity: High]
-Is this commit message accurate for the upstream tree? There doesn't appear
-to be an active_stream_cnt guard in the mainline driver. Without this guard,
-will the DSP push data to powered-off, unclocked DP hardware and cause NoC
-errors?
-
-> diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/d=
-p_audio.c
-> index 41018e82efa10..df222943ae57f 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_audio.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_audio.c
-> @@ -284,10 +284,8 @@ int msm_dp_audio_prepare(struct drm_bridge *bridge,
->  	 * such cases check for connection status and bail out if not
->  	 * connected.
->  	 */
-> -	if (!msm_dp_display->power_on) {
-> -		rc =3D -EINVAL;
-> +	if (!msm_dp_display->power_on)
->  		goto end;
-
-[Severity: High]
-Does returning 0 here trick the ALSA/ASoC framework into marking the stream
-as successfully prepared?
-
-If the stream is marked RUNNING, ALSA won't re-invoke prepare() when the
-display is later connected. Could this regression result in silent playback
-because the DP hardware is never actually configured?
-
-[Severity: High]
-This is a pre-existing issue, but does this lockless check of power_on
-race with msm_dp_display_disable()?
-
-If msm_dp_display_disable() runs concurrently (e.g., from a hotplug interru=
-pt)
-immediately after this check but before audio_enabled is set to true, it wi=
-ll
-skip waiting and disable the DP link and clocks.
-
-When msm_dp_audio_prepare() resumes, it will call msm_dp_audio_setup_sdp() =
-and
-attempt MMIO operations on unclocked DP audio registers. Could this lead to=
- a
-synchronous external abort?
-
-> -	}
-> =20
->  	audio =3D msm_dp_audio_get_data(msm_dp_display);
->  	if (IS_ERR(audio)) {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616151252.3599=
-089-2-kumar.singh@oss.qualcomm.com?part=3D1
+I don't think that's universally true. repr(transparent) guarantees the lay=
+out
+and ABI match the inner field. The wrapper is passed through calls exactly =
+as
+the field would be. repr(C) guarantees C-compatible layout and makes the ty=
+pe
+follow the platform's C ABI for passing an aggregate, which isn't always ho=
+w the
+bare field is passed.
