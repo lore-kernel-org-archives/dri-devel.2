@@ -4,42 +4,168 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2957FCD98D2
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 05:46:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D61C5CD8CA8
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 06:04:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86ABD10E578;
-	Tue, 16 Jun 2026 05:46:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A829D10E567;
+	Tue, 16 Jun 2026 06:04:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mb7SKKk2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eitVheU4";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D058310E578
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 05:46:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 31C1D60137
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 05:46:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1E431F00A3A
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 05:46:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781588805;
- bh=+iHCJ8jlcKK5iztp6C4JOjGls+rHpxiubSaODOaUoAg=;
- h=From:Subject:Reply-To:Cc:In-Reply-To:References:Date;
- b=mb7SKKk2/5IIGOj5AOdNqWDE3NDeOuMFomQ5FxqMENHnxknAqfv+NdHuF4qlIEry9
- ejwJzn3fAmjCDVgZL5U6tNhjwEUQ7bGS8+GLl/8DHCjy/j1syLH0YMSZDk2jzt2E2z
- GK2gt0lCPYzwOClehAt6N/Kd1ngECF/8FnYEfjhsXOTxUSlt7/Ybrcb+r0a4gisnhf
- XIic8+vtPitt3elQjjY+cUhdWM3X1xzvVIOPt1Vpr6k3wLjOz2AVGqkFUXiuMyF3mj
- KEgJ6YWjQGpNICRomifs8zNkOcX5Ucb6Kjhuoja1Pu5SQ1jE1mbYPhKmC16BB0MghM
- U8kcs+rcwLT+Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/dp: Move byte-by-byte AUX read fallback to
- drm_dp_dpcd_read()
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260616053802.1673782-1-acelan.kao@canonical.com>
-References: <20260616053802.1673782-1-acelan.kao@canonical.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7735110E567
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 06:04:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781589850; x=1813125850;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=PkJs7iJ/Dd8WSHrt53MaWqE43esM+iZqlpwGMN92l8w=;
+ b=eitVheU4UglnkfcAskCXOZucH4DUzhIfU5Ynt8bEk/V91N/9cruiPmFn
+ E9ktCu483QXVqCvxIMlJ7/YP64fQqmn5gowQncUnlHnjtS6Mmp7gh1EDt
+ HqC2DfZPsPkngpjOeclcyAKrMFwMezc8qGC1p6NNeuXex7er2OOk8qB5B
+ Y1UE4dq69IyM27Gvjj0wkzDrL6Y9eQv48vVMirw5mkUWwzzK1OdoudN0I
+ +swpWPknBqGWa8aMCZVsOhGNvYo4+vddzUZmv9ES6cNLL8Dnzormc7BTg
+ K+ckn4jDRhbgO8LLK3C7WoluUydOO5dWL3pJUHXEyaYeQAo+7ownyA+gk w==;
+X-CSE-ConnectionGUID: gQoRaNinQYKwvl+/oGrk4A==
+X-CSE-MsgGUID: 1DURODZKTAKaeDr8GPVYTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="93833692"
+X-IronPort-AV: E=Sophos;i="6.24,207,1774335600"; d="scan'208";a="93833692"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2026 23:04:09 -0700
+X-CSE-ConnectionGUID: vNmextl+T8Ojd4mDDFUrGQ==
+X-CSE-MsgGUID: +sirEM8oSeOs2TgL0a/PCw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,207,1774335600"; d="scan'208";a="277869229"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2026 23:04:08 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 15 Jun 2026 23:04:08 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Mon, 15 Jun 2026 23:04:08 -0700
+Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.56) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 15 Jun 2026 23:04:07 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aAe5JnRY04zjPLQIG17qVQ+D/s8aiBP0k/MP4kX2swDLD38bFB3gCeNr713DR2gY2EO6OwSz855uDmM4nz0GmNMiQOjUepCyXDn9hmeFmJ6x3SdwPUcu8Rm+3mLDjNwqOpLT4qzpza2Rxs2UvXjy8B60L0wYMU2PW+U1Q9MF00eEm5WA5Bp/IOInFMZzidXrD9WoJqcMEwUqa7zNbrrB3GVRpU+0fLdFyLN0j5nuLiabgJitkIhFsspMrDoEPlaUVUdwJ8Rv3iCl4z//Zv/sL7g9whwjGlwykFYhxruSPATMAEAbPX66s1JhpDqYDI0Istsl8iB7EwhDyJgVqQrTVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=o9QsLiFb2NmbJArXd5IxCe88MBG3jHftP2M8zoX0DCY=;
+ b=VyOX/N66sEq4TSlIFSmS40KX/u/lcU16T7uDPtplRUp1b20mqJ9tLwkiQdVNSL40+t+kBv+lP4DNq9xogyR2BcbOvXoCdh23qIan2E+u+ErOBzi9gAJAZsqWTdfuX5nT+Zj4lkGWTOXbpJPbxpHJpoTTAAhZNOPd55fiwQ/h3nJZKYeTgTIgvWFhP7pv+SL+sSSY2tlU0HHyC0qV2UtysB/rz/BqexjNn6su1hSSBL2qMBEyhYCaqPQY/hNk+tdyT+LsZizQ7mhPtErRF8O6EXqaL6HEJ0IJ22F3PvJ26Cthw8G2e9UQBx9/bb9AKTGRXDgD+CnwYK3JD9PpQfHJ1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA0PR11MB7185.namprd11.prod.outlook.com (2603:10b6:208:432::20)
+ by SA1PR11MB8474.namprd11.prod.outlook.com (2603:10b6:806:3ac::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
+ 2026 06:04:04 +0000
+Received: from IA0PR11MB7185.namprd11.prod.outlook.com
+ ([fe80::9f37:cb81:5463:300e]) by IA0PR11MB7185.namprd11.prod.outlook.com
+ ([fe80::9f37:cb81:5463:300e%6]) with mapi id 15.21.0113.015; Tue, 16 Jun 2026
+ 06:04:03 +0000
+From: "Kasireddy, Vivek" <vivek.kasireddy@intel.com>
+To: Bobby Eshleman <bobbyeshleman@gmail.com>, Donald Hunter
+ <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Paolo
+ Abeni" <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, Gerd Hoffmann <kraxel@redhat.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>, =?iso-8859-1?Q?Christian_K=F6nig?=
+ <christian.koenig@amd.com>, Shuah Khan <shuah@kernel.org>, Jason Gunthorpe
+ <jgg@ziepe.ca>
+CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+ "sdf@fomichev.me" <sdf@fomichev.me>, "razor@blackwall.org"
+ <razor@blackwall.org>, "daniel@iogearbox.net" <daniel@iogearbox.net>,
+ "almasrymina@google.com" <almasrymina@google.com>, "matttbe@kernel.org"
+ <matttbe@kernel.org>, "skhawaja@google.com" <skhawaja@google.com>,
+ "dw@davidwei.uk" <dw@davidwei.uk>, Bobby Eshleman <bobbyeshleman@meta.com>
+Subject: RE: [PATCH net-next v2 2/4] udmabuf: emit one sg entry per pinned
+ folio
+Thread-Topic: [PATCH net-next v2 2/4] udmabuf: emit one sg entry per pinned
+ folio
+Thread-Index: AQHc+b3PSBoLk1+d5026A21Ds4F9PLZAdSfQ
+Date: Tue, 16 Jun 2026 06:04:03 +0000
+Message-ID: <IA0PR11MB71852246277F773AC41DAAA3F8E52@IA0PR11MB7185.namprd11.prod.outlook.com>
+References: <20260611-tcpdm-large-niovs-v2-0-ee2bf15e7523@meta.com>
+ <20260611-tcpdm-large-niovs-v2-2-ee2bf15e7523@meta.com>
+In-Reply-To: <20260611-tcpdm-large-niovs-v2-2-ee2bf15e7523@meta.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA0PR11MB7185:EE_|SA1PR11MB8474:EE_
+x-ms-office365-filtering-correlation-id: fd316922-80db-447d-94d9-08decb6d1182
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|7416014|376014|921020|38070700021|3023799007|18002099003|22082099003|56012099006|11063799006|6133799003|4143699003;
+x-microsoft-antispam-message-info: ZqE1x8EHyNik83Qf80EnpnsFPjXUM0vrYe+CWbMKw//YjLX7bbb4A5I4f9v7qh64iRQA6MGbsbKpIuaMT9ijcABXT/h8txIgk2JnQwlxLlMS5OlTZOtdcDvgHQFVY/tVG7ExW2GUJqQYQP+TRsyAs7apHj37TreY+B6SQorJugz8rc/hVDiylgcvO/56FMVFyc8UmHo07F9ZceSwSgheQkim64SCqT8sYPAkyuKqA8sfEyNsOFm1DvMu2NzxKio+PLrfd9m2wDHp5OQkL6jratR0oVFoIRjL9yUXfN9p3gYHgrS1YF0r6dGPzIJ1jBmx7DoY+FWTEWUuw61xx53YwkbvinoGKIw3BZyFdGSVyD0nhDNzbdeSQum9ueqtq3x+zxSvPneTg/YjW6W7Yj9YWqTjUMRJuheGOO+amNllkXQam80nzPr2B8v9HSKc5x4OIVFT1Hy8908QYeO2bPji5zQ6mzYOj0+TJv5WIJF4KjIbfFste94iH2w39tk1jyhc0aecrkC9ffg4vtNWqGCkBqm9m2YVUQr3bh7QTIVH5oR2TGVGkWjNbBzCJFtYI/Eoyle37BLZm8ItvmRwmZUa4IFgzk53ymWd5nQ83GSOXK9JU7uMIBb8lcyZ8Okd0do/ABOzvrLQsXjfWpAd+J7XYoqSnzlY0EVeuVRe0L4Gf0yO7xSMlh2lgyzFAeNlFrnI1/NJYVoZM8qzoGgOvze6bs/jWe4hYszEfRB0vwHYv4A=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR11MB7185.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(921020)(38070700021)(3023799007)(18002099003)(22082099003)(56012099006)(11063799006)(6133799003)(4143699003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?nyO2RRTqmcvdvsx7PGDtZ66TOkEDQWyFvcKGJF4hqQGAVykBfjlZPdfRVX?=
+ =?iso-8859-1?Q?Uqa9XsOflDl6fDtcD+8eoR639Z9Gb2gSobfT1J+0YiUbusWou9w5KQsUrM?=
+ =?iso-8859-1?Q?m2QpG2kRXHBTkTqeqrtyxvMypwkz7nTMcQI5GFjIoO2Am4hx2J77S56ngF?=
+ =?iso-8859-1?Q?+eyMBki9+5UImLOXcaQY+z1fNul+4yBhO4OFZl8YGhPPkDO4wwLOyHhL3f?=
+ =?iso-8859-1?Q?zFENl1ACRTqpJkE/aaDG3dVIbYEmmVLBVUgzuaaRPDBmwG7TGl4wsq95qv?=
+ =?iso-8859-1?Q?lZw+WzTT23CItXdmEcva+vUwFNudtUuqedlq+J9KfrvWzzJm/ZT2BxGzj5?=
+ =?iso-8859-1?Q?s56MEIh5GknbeH9uv1hvC7fPICBe+NY0BTIElx1ilaATns4fP0k2bsXVYS?=
+ =?iso-8859-1?Q?5LV3cs86sm1CUCuighF9xzLIfhvqYBup8TvKacsuxfNppkh6AA9QnvaZRE?=
+ =?iso-8859-1?Q?wH1cJJ7buIdAvggWSKLPB9DpihSl1aDjFusW9CXzA3kOiv6oVfXOundrsI?=
+ =?iso-8859-1?Q?HkaWi5K/gN76px6Zn18IfGn4f2VTstF01EEK/IBsyKPCxGX7oNSs0VqLVl?=
+ =?iso-8859-1?Q?yRF0sWkqLOKb0iuj/OxTM5ARJ4hXAmogLrIQkk4nAdK7ZyQGJ4D0ZsssGf?=
+ =?iso-8859-1?Q?6Gg++wSEu9O68eZMGvFr7KGKtW8BBbi2WVWhW+LSAx5EyfoW6PPFmJU1AK?=
+ =?iso-8859-1?Q?lNAV18hNWNq6FAmvtxtGTNToihzLPxlh2TVQhiQb/BTjy9TD2uLomWjvCG?=
+ =?iso-8859-1?Q?MZs1T3TZxQXiR3Bo4R5+1BVPb1Ngm8pEV74zi+rv5eaoMrLan3cP6O8jI4?=
+ =?iso-8859-1?Q?5IAB/9iyqsbyGANOdsMn6IvKCpDjSCxu7PxTZPF4psDol06ac0K3pZ+oPS?=
+ =?iso-8859-1?Q?02wvfTVieyZanYXKqsryt80/GiWOBG7vwFbyIrE/xxhlJw0wK/MkZBwUWH?=
+ =?iso-8859-1?Q?gCcz5azVS0iuxseUFGmFHjqL/jlSwRNhXQsGWYJGby9jZKIDqRXJpbDqCp?=
+ =?iso-8859-1?Q?eld267/PF4vFmXeqw01KoF1tClVbffqZpAsU6YBCS9hnpqly3lL+uSP7P4?=
+ =?iso-8859-1?Q?fCVa+MNfRwvCrnBCMsKhoXja6fXFU+OpDa0Mmf2IPjE4JCJCxTj10Dfa06?=
+ =?iso-8859-1?Q?5aEz4uqSkw6k1kTwv6EaI1AqHRmqhFIt4bYq4ii4KVDjlXC1WR9i9dFdPg?=
+ =?iso-8859-1?Q?PpwaJYbciSujWML6MiqRxRXQGb6WSCgLp7IcZkam9z5V9ddV4AVhtYAKqc?=
+ =?iso-8859-1?Q?SjggO7qKnD++IGxaHaLir8Owflcvu3jg3p9ev2lAco/ujcBeCaKNjMJ5Xk?=
+ =?iso-8859-1?Q?PkkUz6IgjqAR9Uxr+BUQ4yXMapydtAyTofHZ5IowS2fPe0kx7zmoULnzP+?=
+ =?iso-8859-1?Q?Zn9QwNh1e2dx+Kmy8uD3x6R062rFNxWfczFNIw2DbgfmkH3bs+bCMzCGFQ?=
+ =?iso-8859-1?Q?6RCGtdxgtwETYXzb8gy6gahTxrfAFP2c2CMPbzRp6APkzRO+2nvUy2NLvx?=
+ =?iso-8859-1?Q?SnQy1XyyGxGTdKAtcWKMMpuBGRCOXvmHZqg2Ix6J4Ya3riO36rdGROZN0C?=
+ =?iso-8859-1?Q?WISOOmivdoTPQ/xWUyaERDNRBVsYLcTYBtoYnirWcGN6K5fIJAvWlv3gVt?=
+ =?iso-8859-1?Q?UuSUisG6MjMygjaZav0Uj+/mFrmhvsaWWEkz2huCCdGY7UqWViCPH5tjDW?=
+ =?iso-8859-1?Q?SohmnsWpMlQNGpOMxEatP7xZexsV7a70UVAtv4J1naFUfCQ/s3zFSaSQge?=
+ =?iso-8859-1?Q?ZaKbRTjDWqLqpCZJE/XxvbYi5r27j73/pZu0UMev8siVunEVlVIeOLSyOx?=
+ =?iso-8859-1?Q?11VfhgFpNg=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 16 Jun 2026 05:46:45 +0000
-Message-Id: <20260616054645.C1E431F00A3A@smtp.kernel.org>
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: P80HmHgQ7XI+5KcluQYW94r2VaU463cplUyss1QawSZ7qLfZykaD9ua0CPUSoyahbL9l7Ur/gHbzoyPW9m9O3e2m2iEb/WBCHnaQbHIOiRKFnXKkoeYHkC6NGFLvyH0CAEHH4h+chycRp11a9ZPD7xYzBmi9GnoQtQYQnXwe8nhkPhRV14r2/gcJK+TZcsV26zzJ5uXd/mMpK1e+/YNtLLNlVFthhOxtlYW8mjTo9XLDL8+KDMScS/l7knDTwHf6qIeTFCMzJiPdtBSIWEziN78XgSXpQ6LaO+LvkuT5DWu3oNbFVh8Q+QCP3tjI8BZQjP/udhUtApubDKU65aJX+A==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7185.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fd316922-80db-447d-94d9-08decb6d1182
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jun 2026 06:04:03.8643 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: gLtuwpWUu8d00xVGUiqWUsmAk11l4os/oFm6QtH7kdbAmbDziezxQgG0FI5gYm3myR+/VnArIuRXgDRjo9NmRmsK5WFIuv7M6cj2zNZAE1U=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB8474
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,81 +178,144 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The fallback loop bypasses or corrupts the DP AUX transaction tr=
-acing provided by `drm_dp_dump_access()`, hiding hardware failures and inje=
-cting fake successful transactions into the debug logs.
---
+Adding Jason to this discussion.
 
-commit bfb3e55f35cdb8d13250c7d1d77fedcf644031fd
-Author: Chia-Lin Kao (AceLan) <acelan.kao@canonical.com>
+Hi Bobby,
 
-drm/dp: Move byte-by-byte AUX read fallback to drm_dp_dpcd_read()
+> Subject: [PATCH net-next v2 2/4] udmabuf: emit one sg entry per pinned
+> folio
+>=20
+> From: Bobby Eshleman <bobbyeshleman@meta.com>
+>=20
+> get_sg_table() emitted one PAGE_SIZE sg entry per page even when the
+> underlying folio was larger.
+>=20
+> Instead, walk folios[] and emit one sg entry per folio. When folios
+We have recently merged a patch (that will make it into 7.2) from Jason tha=
+t
+replaced sg_set_folio() with sg_alloc_table_from_pages() in udmabuf driver:
+https://gitlab.freedesktop.org/drm/tip/-/commit/5bf888673e0dda5a53220fa0c49=
+56271a46c353c
 
-This commit moves the workaround for USB-C hubs with buggy firmware from
-drm_dp_dpcd_read_data() down into drm_dp_dpcd_read(). It ensures all direct
-and indirect callers benefit from the fallback mechanism and uses
-drm_dp_dpcd_read_byte() to properly handle short transfers.
+Since you are relying on sg_set_folio(), the core argument against its usag=
+e
+in udmabuf is that it doesn't work well with offsets > PAGE_SIZE, resulting
+in a malformed scatterlist. Not sure if this can be fixed easily.
 
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/di=
-splay/drm_dp_helper.c
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> represent large pages (as is for MFD_HUGETLB), each sg entry is a large
+> page. Normal PAGE_SIZE sg tables are unchanged.
+>=20
+> This is helpful for importers like net/core/devmem that expect dmabuf sg
+IMO, udmabuf needs to detect whether importers can handle segments that
+are > PAGE_SIZE and set the entries appropriately. Please look into how the
+GPU drivers and other dmabuf exporters/importers handle this situation, so
+that we can adopt best practices to address this issue.
 
-[ ... ]
+Thanks,
+Vivek
 
-> @@ -762,6 +762,27 @@ ssize_t drm_dp_dpcd_read(struct drm_dp_aux *aux, uns=
-igned int offset,
->  		ret =3D drm_dp_dpcd_access(aux, DP_AUX_NATIVE_READ, offset,
->  					 buffer, size);
-> =20
-> +	if (ret < 0 && size > 1) {
-> +		size_t i;
-> +		u8 *buf =3D buffer;
-> +		int err;
-> +
-> +		/*
-> +		 * Workaround for USB-C hubs/adapters with buggy firmware that fail
-> +		 * multi-byte AUX reads but work with single-byte reads.
-> +		 * Known affected devices:
-> +		 * - Lenovo USB-C to VGA adapter (VIA VL817, idVendor=3D17ef, idProduc=
-t=3D7217)
-> +		 * - Dell DA310 USB-C hub (idVendor=3D413c, idProduct=3Dc010)
-> +		 * Attempt byte-by-byte reading as a fallback.
-> +		 */
-> +		for (i =3D 0; i < size; i++) {
-> +			err =3D drm_dp_dpcd_read_byte(aux, offset + i, &buf[i]);
-> +			if (err < 0)
-> +				return err;
-
-[Severity: Medium]
-Does this early return bypass the tracing for the initial failed multi-byte
-read? If the fallback loop fails halfway, returning err directly skips the
-drm_dp_dump_access() call at the end of the function, which means the
-initial multi-byte hardware failure is silently lost from the DP trace.
-
-> +		}
-> +		ret =3D size;
-
-[Severity: Medium]
-If the fallback loop succeeds, ret is set to size and falls through to
-drm_dp_dump_access(). Does this incorrectly log a single successful
-multi-byte physical transaction that never actually occurred on the wire?
-Since it was fulfilled via single-byte reads (which themselves were also
-logged), this might inject fake successful transactions into the debug logs
-and degrade debuggability for hardware transaction issues.
-
-> +	}
-> +
->  	drm_dp_dump_access(aux, DP_AUX_NATIVE_READ, offset, buffer, ret);
->  	return ret;
+> entries to be size and length aligned. Prior to this patch udmabuf
+> handed over one PAGE_SIZE sg entry per page, so devmem only saw
+> PAGE_SIZE chunks regardless of the underlying folio size.
+>=20
+> dma_map_sgtable() does not always merge contiguous pages for us, so we
+> do this internally before exporting.
+>=20
+> Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
+> ---
+>  drivers/dma-buf/udmabuf.c | 52
+> ++++++++++++++++++++++++++++++++++++++++++-----
+>  1 file changed, 47 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+> index 94b8ecb892bb..9b751dd98b12 100644
+> --- a/drivers/dma-buf/udmabuf.c
+> +++ b/drivers/dma-buf/udmabuf.c
+> @@ -141,26 +141,68 @@ static void vunmap_udmabuf(struct dma_buf
+> *buf, struct iosys_map *map)
+>  	vm_unmap_ram(map->vaddr, ubuf->pagecount);
 >  }
+>=20
+> +/* Return the number of contiguous pages backed by the folio at @i.
+> + * A udmabuf may map only part of a folio, or reference the same folio
+> + * in multiple non-contiguous runs, so folio_nr_pages() can't be used.
+> + */
+> +static pgoff_t udmabuf_folio_nr_pages(struct udmabuf *ubuf, pgoff_t i)
+> +{
+> +	struct folio *f =3D ubuf->folios[i];
+> +	pgoff_t j;
+> +
+> +	for (j =3D 1; i + j < ubuf->pagecount; j++) {
+> +		if (ubuf->folios[i + j] !=3D f)
+> +			break;
+> +		/* Same folio, but not a sequential offset within it. */
+> +		if (ubuf->offsets[i + j] !=3D ubuf->offsets[i] + j * PAGE_SIZE)
+> +			break;
+> +	}
+> +	return j;
+> +}
+> +
+> +/* Count the contiguous folio runs in @ubuf, one sg entry per run.
+> + *
+> + * Coalescing folios into a single sg entry up front lets importers actu=
+ally
+> + * see large chunks. We can't rely on dma_map_sgtable() to do this for u=
+s
+> as
+> + * the dma_map_direct() path preserves the input scatterlist lengths
+> verbatim.
+> + */
+> +static unsigned int udmabuf_sg_nents(struct udmabuf *ubuf)
+> +{
+> +	unsigned int nents =3D 0;
+> +	pgoff_t i;
+> +
+> +	for (i =3D 0; i < ubuf->pagecount; i +=3D udmabuf_folio_nr_pages(ubuf,
+> i))
+> +		nents++;
+> +	return nents;
+> +}
+> +
+>  static struct sg_table *get_sg_table(struct device *dev, struct dma_buf
+> *buf,
+>  				     enum dma_data_direction direction)
+>  {
+>  	struct udmabuf *ubuf =3D buf->priv;
+> -	struct sg_table *sg;
+>  	struct scatterlist *sgl;
+> -	unsigned int i =3D 0;
+> +	struct sg_table *sg;
+> +	pgoff_t i, run;
+> +	unsigned int nents;
+>  	int ret;
+>=20
+> +	nents =3D udmabuf_sg_nents(ubuf);
+> +
+>  	sg =3D kzalloc_obj(*sg);
+>  	if (!sg)
+>  		return ERR_PTR(-ENOMEM);
+>=20
+> -	ret =3D sg_alloc_table(sg, ubuf->pagecount, GFP_KERNEL);
+> +	ret =3D sg_alloc_table(sg, nents, GFP_KERNEL);
+>  	if (ret < 0)
+>  		goto err_alloc;
+>=20
+> -	for_each_sg(sg->sgl, sgl, ubuf->pagecount, i)
+> -		sg_set_folio(sgl, ubuf->folios[i], PAGE_SIZE,
+> +	sgl =3D sg->sgl;
+> +	for (i =3D 0; i < ubuf->pagecount; i +=3D run) {
+> +		run =3D udmabuf_folio_nr_pages(ubuf, i);
+> +		sg_set_folio(sgl, ubuf->folios[i], run << PAGE_SHIFT,
+>  			     ubuf->offsets[i]);
+> +		sgl =3D sg_next(sgl);
+> +	}
+>=20
+>  	ret =3D dma_map_sgtable(dev, sg, direction, 0);
+>  	if (ret < 0)
+>=20
+> --
+> 2.53.0-Meta
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616053802.1673=
-782-1-acelan.kao@canonical.com?part=3D1
