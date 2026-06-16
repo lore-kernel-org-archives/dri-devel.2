@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7976DCD98E4
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 19:48:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00675CD98E1
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 20:18:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE3EA10E665;
-	Tue, 16 Jun 2026 19:48:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5666210E861;
+	Tue, 16 Jun 2026 20:18:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="GeNCVNxJ";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Ghv1pScj";
 	dkim-atps=neutral
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
  [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30DB210E665
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 19:48:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781639305; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BBEC10E861
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 20:18:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1781641080; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=OwQmF6a0MBQulcy9vsdQV2YD+kMRaIVrNR12C1u/kVUl+XnalMOYATNh4nr7KlYsxU7GizDfV11L2/YOOSSx99VhJg3aLah8y/5OezWdWoRiOrCr1qR/L+irJIzZXfx48H3FwQUT2cR+Z/PCaPCiVB+KCDv95wscDyJBG+wGt2c=
+ b=jXS7m2mRItTBfh1bSCJmwSG8JqcVIPfds8FiTX4bkkEmwAesdCu/+SlH2YOIYLrrOwdF041ufy+fJhN023SycUxBvqMMWu+ch2l/ZKFoka58US008KAheeoDa1Q6Ijjl62bH5+wFoJjTJuAl7JvyR+SMe3K6WF6GCKPtt7LoJ5o=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1781639305;
+ s=zohoarc; t=1781641080;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=P1zqWBMiSEg6eraAaC2x1b5nQhRS3dgZDM0hA0HtxG4=; 
- b=oC3kp1DQP9zt+D3UF12BRE/cF8R0CR4G6e3zdR3GqzVRd9ImiHfDISqAz//BNZ14+kATB/IJLyyJ7aoKwVTJl0itjIIlt+zFptz8O4ByQ4cMVdMcasx2z2O2QKJOI0XdBumuaIQKHsHFPYh0gunT6IIv7a43vfc05IGHyrPXbiM=
+ bh=7i/i/rfSGAKD4jv6l+xF2KCC9w4D3tojuR0zfnb0cds=; 
+ b=Xem0T5Sn813FH1cYEp5zFHQLP7yZFd3e3NdGrHZJuCO9PuNOVq3s6adAH0lEvEabGfqYhtMiVfqmMYxqc7aKBuh3TB1jCVCKq74tGYriIDplykGjh5HlOZbFITBMxNYo5SffyZN/NjwrFY7Sp/8H9SV239LM/bgouu+cwMW1Hps=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781639305; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781641080; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
- bh=P1zqWBMiSEg6eraAaC2x1b5nQhRS3dgZDM0hA0HtxG4=;
- b=GeNCVNxJGhNFUq+DyjVjlauK6xYcx+SPN/Ez/D/O1HOW22g9Sq8HnB7RH0dmaLa2
- OXr/WaysOCMG009+b1tjciFnbCcRH0KCGnn/mtbtAXYqFCIhzA6fLCG0RnFsED4zpLS
- 7M35XDT+nrH5wiM4LFiho4ZxLzrweaOXENXaIMFs=
-Received: by mx.zohomail.com with SMTPS id 1781639304959241.30848604580262;
- Tue, 16 Jun 2026 12:48:24 -0700 (PDT)
-Date: Tue, 16 Jun 2026 20:48:19 +0100
+ bh=7i/i/rfSGAKD4jv6l+xF2KCC9w4D3tojuR0zfnb0cds=;
+ b=Ghv1pScjFioZd5ijyXqzQuz9wafZ4WbconutIrGr1uWODgsC9SomzqDykkkbkjX2
+ wgVFTzhIKObrRBardycnpKyjVcmMOwEV7amEMHBdl/aE/xqrT4Cx6kmjyGCM50H2cbe
+ gjeON8CwOdn/q38fzNhbmMY6ViNmXnmtofhUTkE8=
+Received: by mx.zohomail.com with SMTPS id 1781641079082910.101149085434;
+ Tue, 16 Jun 2026 13:17:59 -0700 (PDT)
+Date: Tue, 16 Jun 2026 21:17:53 +0100
 From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>,
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>,
+ "Marty E. Plummer" <hanetzer@startmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
  Collabora Kernel Team <kernel@collabora.com>,
  Neil Armstrong <neil.armstrong@linaro.org>
 Subject: Re: [PATCH v2 6/7] drm/panfrost: Fix PM usage_count mishandling
-Message-ID: <ajGicH-AkZlDAtEd@sobremesa>
+Message-ID: <ajGpN5x-SnC9y6pa@sobremesa>
 References: <20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com>
  <20260604-claude-fixes-v2-6-57c6bd4c1655@collabora.com>
- <57571cae-dac7-4550-a634-c2889a961c7b@arm.com>
+ <20260604203631.20e76f5f@fedora-2.home>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <57571cae-dac7-4550-a634-c2889a961c7b@arm.com>
+In-Reply-To: <20260604203631.20e76f5f@fedora-2.home>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,8 +77,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 05.06.2026 11:48, Steven Price wrote:
-> On 04/06/2026 18:35, Adrián Larumbe wrote:
+On 04.06.2026 20:36, Boris Brezillon wrote:
+> On Thu, 04 Jun 2026 18:35:25 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> 
 > > During device probe(), failure to do a PM get() will leave the usage_count
 > > set to 0, which is the value assigned at device creation time. That means
 > > when the autosuspend delay expires, runtime suspend callback won't be
@@ -127,46 +128,52 @@ On 05.06.2026 11:48, Steven Price wrote:
 > >  
 > >  err_out1:
 > > +	pm_runtime_put_noidle(pfdev->base.dev);
+> 
+> Do we really need this get_noresume/put_noidle dance, can't use call
+> pm_runtime_dont_use_autosuspend() instead like is done in panthor, or
+> is panthor broken too?
+
+We need get_noresume() because after panfrost_device_init(), the device is powered
+up but that is not reflected in the device's PM refcnt. Then pm_runtime_put_autosuspend()
+will decrement the refcnt back to 0 and let the autosuspend window expire before
+suspending the device, unless someone starts using it immediately.
+
+pm_runtime_dont_use_autosuspend() is not mandatory if we manually call pm_runtime_disable()
+at device unplug time or when probe() fails. pm_runtime_use_autosuspend()'s docs say:
+
+pm_runtime_use_autosuspend - Allow autosuspend to be used for a device.
+@dev: Target device.
+Allow the runtime PM autosuspend mechanism to be used for @dev whenever
+requested (or "autosuspend" will be handled as direct runtime-suspend for
+it).
+NOTE: It's important to undo this with pm_runtime_dont_use_autosuspend()
+at driver exit time unless your driver initially enabled pm_runtime
+with devm_pm_runtime_enable() (which handles it for you).
+
+Panthor uses devm_pm_runtime_enable(), which makes me suspect perhaps it doesn't need
+to explicitly call pm_runtime_dont_use_autosuspend().
+
+Panthor also manages PM refcnt fine at driver probe(), inside panthor_device_init():
+
+``` c
+ret = pm_runtime_resume_and_get(ptdev->base.dev);
+if (ret)
+	return ret;
+
+/* If PM is disabled, we need to call panthor_device_resume() manually. */
+if (!IS_ENABLED(CONFIG_PM)) {
+	ret = panthor_device_resume(ptdev->base.dev);
+	if (ret)
+		return ret;
+}
+```
+
+If we want a similar thing in Panfrost, then we should move all clock and devfreq enablement
+into panfrost_device_runtime_resume() and do pm_runtime_resume_and_get() right before
+panfrost_gpu_init().
+
 > >  	pm_runtime_disable(pfdev->base.dev);
 > >  	panfrost_device_fini(pfdev);
-> 
-> Sashiko is concerned that dropping the usage count before
-> pm_runtime_disable() could cause things to turn off too early, and I
-> have to agree it sounds like it could be a problem:
-> 
-> Sashiko wrote:
-> > Does dropping the usage count before pm_runtime_disable() create a race
-> > condition where the suspend callback can run and disable clocks before
-> > hardware shutdown?
-> > Because the usage count is dropped early, a concurrent PM event could trigger
-> > the suspend callback, disabling clocks. Then, panfrost_device_fini() calls
-> > panfrost_gpu_fini() which writes to MMIO registers. Could writing to
-> > unclocked registers on ARM SoCs cause fatal bus errors or panics?
-
-I think this could be an issue if the device were already registered and someone
-could drive the pm resume and then suspend sequence through an ioctl, but because
-this is an error path and yet the device was never made available, I can't imagine
-how this could happen.
-
-Maybe if the panfrost device had any children devices, and when one of them did a
-put autosuspend, the refcnt would be propagdated back to Panfrost and then trigger
-the scenario described by shashiko.
-
-However, I've just realised it's alright to call pm_runtime_put_noidle() even after
-pm_runtime_disable(). Seems that the latter just prevents any further suspends or
-resumes on the PM device, but we're still in control of the refcnt, so moving
-pm_runtime_put_noidle() right after panfrost_device_fini() should be fine.
-
-> Sashiko also suggests we might have some other (partially pre-existing)
-> issues here.
-> 
-> https://sashiko.dev/#/patchset/20260604-claude-fixes-v2-0-57c6bd4c1655%40collabora.com
-
-I'll look into all the pre-existing issues and write fixes for the next patch series revision.
-
-> Thanks,
-> Steve
-> 
 > >  	pm_runtime_set_suspended(pfdev->base.dev);
 > > @@ -1018,8 +1021,9 @@ static void panfrost_remove(struct platform_device *pdev)
 > >  	drm_dev_unregister(&pfdev->base);
@@ -180,6 +187,5 @@ I'll look into all the pre-existing issues and write fixes for the next patch se
 > >  }
 > >  
 > > 
-
 
 Adrian Larumbe
