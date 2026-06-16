@@ -4,87 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ACD7CD98DA
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 08:05:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 524A4CD98CF
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 08:28:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 106A710E88E;
-	Tue, 16 Jun 2026 08:05:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B75BA10E8E3;
+	Tue, 16 Jun 2026 08:28:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="G9n+55Eb";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ufW02ZY9";
 	dkim-atps=neutral
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF59B10E8AD
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 08:05:51 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-2bf2d865383so28965ad.1
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 01:05:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1781597151; x=1782201951;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=dOsiBDHauJNUL/mHLBlXDW8Xe2gvOcwU/fMCh1N6uL8=;
- b=G9n+55EbQkE+aKYZ09FIgtPWeceJ5f/AJyeVid4HrkmbdTqyr7hiLJcgmeFz2RoKCC
- xBA7ise21QufBR8AOo8j+VZaESQQgOS5650nS6+wHwjELIw2jQrJDP1BT02t3noz57vj
- XACqn797Labmb08jbRiqnFVu6a/8CWfk/SYzEHTQKljNZbBnpxW7G7oqREfKqk37+PCf
- sX+5RiDi9epWg86x6V8jKDi+vbtxzS+OqACVW+1jXQRX2XZ/9AXxAfrmvUq5i6HRpC+o
- nrJ6IZQ5S6Vpn1E8M41G0EpQsBLZlC4gYdmDcqbcpibiJ+xVJtJcKZ2ag+qpoVMPOviY
- zDiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781597151; x=1782201951;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=dOsiBDHauJNUL/mHLBlXDW8Xe2gvOcwU/fMCh1N6uL8=;
- b=fvvEjT0DkWLICBD0GWb4TAcdn8jlLC9r8wN3Er/762Hh9ZBD4hNfg2pm0kwAZ3ksnB
- T5OffYHKt0vybsSe+sxcMC3VJps35rRqXEudRcWSqYW3Wa3roJLNzdYP7SjxvuVnEGM3
- 14Yhs4Y1MP939UC4Q5Pyz1axkHyKF73d7OWL//57zyPJd2fTbNBqoYcuVyq81ukgIQaO
- 8rsStrz8hB1rTEmxUSo2LLRPARlFTsiHTcglLJyU6qap/ToU1O+W41RRJbw/6gFBbPXv
- diAmeKo0XEnT44Sd7S4deWYhJU1x5ZbTVcj9Ao4wu5fhS09d2S7uWedrFA4ys3el365I
- +OQA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9zp6tseFy6A9daxgJIcUR205vhPAjTozTgL03fYUK1H+MRskHRP/j+bOkiQCRGBiam0Z6O68QmgXo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx2oywAl3crTFYWoVPnBnwCr67voAtIeDRnSBJCZmw7B3nteat0
- FP+wwLVIEaJO6KY4LWFz8lBbZUjBIjCmKK4D91glM7naZz8Yz92q3A6PrHr9nb+3TQ==
-X-Gm-Gg: Acq92OFnFQzfIrdj3wmC4h6+iT2XB5ZhGqfcHSNYHK1YQIQs9MHwB3UOEJ9QO2rnl3I
- rokF3YxUoKclztJruMu2BcCoqXtwiTDUqEuKKfJjNd2Mvhmoze0dHv0KiQSNZAvaYXs1UbxguVr
- O5ybb5/ZMVxUM4N0Ux9LQYQEg1Ah5W2584GRFBF/T+2c3vC4OulsJEJidPVZNRO+gfSj8NLkOGh
- sHRyyDVraS+NptMt0hTo9OKdsCGC9iC92o63KmS1nYMdjn7NhkQgJrSAG2G3UWwzvf6RrMrZ5X+
- v0sNsIxzI1DCzLbftbW6jYhkmXkUjpcmPzRZDIk0XTbG+iHuZVpcrbHuDIecqYNY2N5dV4lro3x
- 22tRze1LRsO9qJB4De0jTulErGsn5nuQ7q/t1qSNoStJW0I6TK9bKWDdfMk33wnaMhLwrwFoS/Q
- VVlgn4cUbN9+dxQzzNS8Rgf+pTvPks6lEPNfLzhewoQfmT8Lf7hKzStXFu/ryQ
-X-Received: by 2002:a17:903:1b0e:b0:2bd:6dad:7cca with SMTP id
- d9443c01a7336-2c69a357a8cmr1809945ad.22.1781597150664; 
- Tue, 16 Jun 2026 01:05:50 -0700 (PDT)
-Received: from google.com (199.255.142.34.bc.googleusercontent.com.
- [34.142.255.199]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8434ac9c016sm12271540b3a.8.2026.06.16.01.05.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jun 2026 01:05:50 -0700 (PDT)
-Date: Tue, 16 Jun 2026 08:05:42 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Matt Evans <matt@ozlabs.org>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v3 8/9] vfio/pci: Permanently revoke a DMABUF on request
-Message-ID: <ajED1v846hZkyq9z@google.com>
-References: <20260610154327.37758-1-matt@ozlabs.org>
- <20260610154327.37758-9-matt@ozlabs.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260610154327.37758-9-matt@ozlabs.org>
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2690610E8E3
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 08:28:17 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 0EE334E42F1A;
+ Tue, 16 Jun 2026 08:28:16 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id CEC81601A9;
+ Tue, 16 Jun 2026 08:28:15 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id CFA09106C9A90; 
+ Tue, 16 Jun 2026 10:28:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1781598494; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=aaxq/M/Ply1BeAL0um/t7/Wtp1Nk5iB+eJILsXeAgPM=;
+ b=ufW02ZY9/n2G9CS0p2r1Ke0nPW5lO7C8vkFPk39GqxJKlHiJBdvi2W3n5nKVVq0Tvyng4T
+ 9buq65P/tAVUzT3eohWLEBicl4fuG6orL5mysJTOIsoGNWsg1HMsXAiHAYckPCE5KN2WPC
+ YLLnSR5VM3VGsUPbTND0uoLCDGUb+6cNckVWA4+5ULK0+ErTdJbdLfQ8FxDA5VVR7Z2Bxz
+ qLTo4LGS03Hb0F2O+iZycWE256Cc6mSuQMoM519ACS3N7ivBQX34cG8IgWwgSJ6nv9JvYa
+ xD8jTuC3nAu0Vv7QvSP3J40SV/yjALQr/wOCB1Wrk1EZYRIZD9lUwS4rJXpDJw==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 16 Jun 2026 10:28:07 +0200
+Message-Id: <DJABYEB3V5O9.3N8KN13VZ70B1@bootlin.com>
+Subject: Re: [PATCH v4 2/2] drm: bridge: ti-sn65dsi83: Disable video burst
+ mode for LVDS stability
+Cc: "Sean Nyekjaer" <sean@geanix.com>, "Sudarshan Shetty"
+ <tessolveupstream@gmail.com>, <andrzej.hajda@intel.com>,
+ <neil.armstrong@linaro.org>, <rfoss@kernel.org>, <jonas@kwiboo.se>,
+ <jernej.skrabec@gmail.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <alexander.stein@ew.tq-group.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Marek
+ Vasut" <marex@denx.de>
+To: "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.21.0
+References: <ahsxWhXMhzbAj_3G@Seans-MacBook-Pro.local>
+ <DJ17SSAYCT51.28YSD262KHNKK@bootlin.com>
+ <20260605160946.GC4350@killaraus.ideasonboard.com>
+ <DJ19VYINRU7X.MAJ2N3K941SP@bootlin.com>
+ <20260605173156.GA108156@killaraus.ideasonboard.com>
+In-Reply-To: <20260605173156.GA108156@killaraus.ideasonboard.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,116 +74,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 10, 2026 at 04:43:22PM +0100, Matt Evans wrote:
-> Expand the VFIO DMABUF revocation state to three states:
-> Not revoked, temporarily revoked, and permanently revoked.
-> 
-> The first two are for existing transient revocation, e.g. across a
-> function reset, and the DMABUF is put into the last in response to a
-> new VFIO feature VFIO_DEVICE_FEATURE_DMA_BUF.
-> 
-> VFIO_DEVICE_FEATURE_DMA_BUF passes a DMABUF by fd and requests that
-> the DMABUF is permanently revoked.  On success, it's guaranteed that
-> the buffer can never be imported/attached/mmap()ed in future, that
-> dynamic imports have been cleanly detached, and that all mappings have
-> been made inaccessible/PTEs zapped.
-> 
-> This is useful for lifecycle management, to reclaim VFIO PCI BAR
-> ranges previously delegated to a subordinate client process: The
-> driver process can ensure that the loaned resources are revoked when
-> the client is deemed "done", and exported ranges can be safely re-used
-> elsewhere.
-> 
-> Refactor the revocation code out of vfio_pci_dma_buf_move() to a
-> function common to move and the new feature request path.
-> 
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> ---
->  drivers/vfio/pci/vfio_pci_core.c   |   6 +-
->  drivers/vfio/pci/vfio_pci_dmabuf.c | 169 ++++++++++++++++++++++-------
->  drivers/vfio/pci/vfio_pci_priv.h   |  19 +++-
->  include/uapi/linux/vfio.h          |  20 ++++
->  4 files changed, 173 insertions(+), 41 deletions(-)
-> 
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> index 508a5eca910a..064906b25467 100644
+Hello Laurent, Marek,
 
-[...]
+On Fri Jun 5, 2026 at 7:31 PM CEST, Laurent Pinchart wrote:
+> On Fri, Jun 05, 2026 at 06:56:54PM +0200, Luca Ceresoli wrote:
+>> On Fri Jun 5, 2026 at 6:09 PM CEST, Laurent Pinchart wrote:
+>> > On Fri, Jun 05, 2026 at 05:18:43PM +0200, Luca Ceresoli wrote:
+>> >> Hello Sean,
+>> >>
+>> >> +Cc Marek, Maxime.
+>> >>
+>> >> On Sat May 30, 2026 at 8:51 PM CEST, Sean Nyekjaer wrote:
+>> >> > On Wed, May 27, 2026 at 02:27:36PM +0100, Sudarshan Shetty wrote:
+>> >> >> The current DSI configuration enables MIPI_DSI_MODE_VIDEO_BURST.
+>> >> >> while burst mode is supported by the hardware, its use
+>> >> >> depends on continuous clock behavior from the DSI host. In practic=
+e,
+>> >> >> burst mode may introduce instability depending on the host control=
+ler
+>> >> >> implementation, as the DSI link may transition to low-power state
+>> >> >> between bursts.
+>> >> >>
+>> >> >> Testing showed improved display stability when using non-burst mod=
+e on
+>> >> >> affected panels.
+>> >> >>
+>> >> >> Remove MIPI_DSI_MODE_VIDEO_BURST and use non-burst video mode.
+>> >> >
+>> >> > We briefly talked about this at Embedded Recipes
+>> >> > I promised to sent a link:
+>> >> > https://lore.kernel.org/all/E35054BA-FBE5-4CEE-905C-1F5D20140590@ge=
+anix.com/
+>> >>
+>> >> Thanks for the discussion at ER and for this follow-up e-mail.
+>> >>
+>> >> > When burst mode is enabled, the LVDS clock gets way to high for my
+>> >> > panel. I don't know if it's the DSI controller in the STM32MP1 or
+>> >> > something not supported on the TI side.
+>> >> >
+>> >> > We have been running with this fix for 2 years :)
+>> >>
+>> >> If I can summarize the situation in the last 4 years:
+>> >>
+>> >>  * Several users reported the same trouble
+>> >>  * Those users patch their kernel out of tree to disable burst mode a=
+s a
+>> >>    workaround
+>> >>  * According to Marek the correct way to make burst mode work is
+>> >>    implementing link negotiation
+>> >>  * Nobody is willing to implement link negotiation as of now
+>> >>
+>> >> And this leads me to some questions.
+>> >>
+>> >>  * Do we want to keep the current situation (everybody beats their he=
+ad on
+>> >>    the wall until they discover disabling burst mode "fixes" their pa=
+nel,
+>> >>    and keep an out of tree patch)?
+>> >>
+>> >>  * Assuming the priority is getting a screen working (and not saving =
+power
+>> >>    on a black screen), would it make sense to apply this patch, and l=
+et
+>> >>    people improve in the future by implementing link negotiation?
+>> >>
+>> >>    Let's pretend for a moment this is a new driver being developed: w=
+ould
+>> >>    it be OK to have a basic working driver, without some power optimi=
+zation
+>> >>    features which can be added later on? The only valid answer to thi=
+s
+>> >>    question is obviously "yes". Doesn't the same principle apply here=
+? If
+>> >>    it doesn't, why?
+>> >>
+>> >>  * What is the expected power saving with burst mode?
+>> >>
+>> >>    I'm afraid I don't have precise numbers but I measured the total b=
+oard
+>> >>    consumption with or without burst mode (the former with a black sc=
+reen
+>> >>    but backlight enabled) and found no difference: exactly 12.74 W in=
+ both
+>> >>    cases.
+>> >>
+>> >> Thanks for you rpatience in reading this. I hope it helps in finding =
+a
+>> >> better solution.
+>> >
+>> > Rephrasing this a bit, is the discussion about dropping support for a
+>> > supported feature (burst mode) because users who suffer from the lack =
+of
+>> > another feature (link negotiation) are not willing to spend time
+>> > implementing it,
+>>
+>> That's the question I have, more or less. I have no answer yet, I'm most=
+ly
+>> trying to clarify the situation in the first place, for myself and anyon=
+e
+>> interested.
+>>
+>> Maybe it's worth pointing out that AFAICU any driver enabling burst mode=
+ is
+>> buggy because in lack of link negotiation it may work or not, based on p=
+ure
+>> luck.
+>>
+>> > and would prefer if users of burst mode were forced to
+>> > do the work instead ? That doesn't seem very fair to me.
+>>
+>> Link negotiation is not just "another feature" w.r.t. burts mode. It's a
+>> prerequisite for burst mode to work reliably. So hard-enabling burst mod=
+e
+>> was building a roof without solid walls (link negotiation).
+>>
+>> So I'm rephrasing your the question :) as: shouldn't users of burst mode=
+ be
+>> forced to implement link negotiation, since _they_ need it?
+>
+> It's quite annoying when both positions have compelling arguments :-)
+>
+> Has anyone analyzed what work would be needed to implement the link
+> negotiation ?
 
->  
-> +/* Set the DMABUF's revocation status (OK or temporarily/permanently revoked) */
-> +static void vfio_pci_dma_buf_set_status(struct vfio_pci_dma_buf *priv,
-> +					enum vfio_pci_dma_buf_status new_status)
-> +{
-> +	bool was_revoked;
-> +
-> +	lockdep_assert_held_write(&priv->vdev->memory_lock);
-> +
-> +	if (priv->status == VFIO_PCI_DMABUF_PERM_REVOKED ||
-> +	    priv->status == new_status) {
-> +		return;
-> +	}
-> +
-> +	dma_resv_lock(priv->dmabuf->resv, NULL);
-> +	was_revoked = (priv->status == VFIO_PCI_DMABUF_TEMP_REVOKED);
-> +
-> +	if (new_status != VFIO_PCI_DMABUF_OK) {
-> +		priv->status = new_status; /* Temp or permanently revoked */
-> +
-> +		if (was_revoked) {
-> +			/*
-> +			 * TEMP_REVOKED is being upgraded to
-> +			 * PERM_REVOKED.  The buffer is already gone,
-> +			 * don't wait on it again.
-> +			 */
-> +			dma_resv_unlock(priv->dmabuf->resv);
-> +			return;
-> +		}
-> +	}
-> +
-> +	dma_buf_invalidate_mappings(priv->dmabuf);
+Marek did multiple attempts in the past, I think it's the best analysis
+available in public as of now. Following the link provided by Sean Nyekjaer
+in this thread on May 30 leads to them:
 
-Nit: We seem to be calling this even if new_status == OK, while it works
-as importers (like IOMMUFD and RDMA core) are immune to a double 
-invalidate / revoke. I'm wondering if we could move this within the 
-if (new_status != VFIO_PCI_DMABUF_OK) block? 
+ * https://lore.kernel.org/dri-devel/20220801131113.182487-1-marex@denx.de/
+ * https://lore.kernel.org/all/20220219002844.362157-1-marex@denx.de/
 
-Since this is only needed to be called when we TEMP/PERM _REVOKE?
+> Dropping burst mode without any plan to support it will be
+> demotivating for some people. If asking for link negotiation support to
+> support non-burst mode is too much yak shaving, would researching a
+> technical plan be an acceptable middleground ?
 
-I'm just worried that this may overload the dma_buf_invalidate_mappings 
-to be a state-change notification instead of a revoke / invalidate
-notification.
+On my side I haven't gone into the details. But I'm not sure having a plan
+would help: Marek had one, but it didn't fly.
 
-> +	dma_resv_wait_timeout(priv->dmabuf->resv,
-> +			      DMA_RESV_USAGE_BOOKKEEP, false,
-> +			      MAX_SCHEDULE_TIMEOUT);
-> +	dma_resv_unlock(priv->dmabuf->resv);
-> +	if (new_status != VFIO_PCI_DMABUF_OK) {
-> +		kref_put(&priv->kref, vfio_pci_dma_buf_done);
-> +		wait_for_completion(&priv->comp);
-> +		unmap_mapping_range(priv->dmabuf->file->f_mapping,
-> +				    0, priv->size, 1);
-> +		/*
-> +		 * Re-arm the registered kref reference and the
-> +		 * completion so the post-revoke state matches the
-> +		 * post-creation state.	 An un-revoke followed by a
-> +		 * new mapping needs the kref to be non-zero before
-> +		 * kref_get(), and vfio_pci_dma_buf_cleanup()
-> +		 * delegates its drain back through this revoke
-> +		 * path on a possibly-already-revoked dma-buf.
-> +		 */
-> +		kref_init(&priv->kref);
-> +		reinit_completion(&priv->comp);
-> +	} else {
-> +		dma_resv_lock(priv->dmabuf->resv, NULL);
-> +		priv->status = VFIO_PCI_DMABUF_OK;
-> +		dma_resv_unlock(priv->dmabuf->resv);
-> +	}
-> +}
-> +
+Maybe Marek can comment on this?
 
-Otherwise, 
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
+Luca
 
-Thanks,
-Praan
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
