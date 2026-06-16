@@ -4,86 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3C7CCD98DA
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 08:39:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37974CD98DA
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 08:44:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 615BD10E8FD;
-	Tue, 16 Jun 2026 08:39:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86F2110E889;
+	Tue, 16 Jun 2026 08:44:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NuIHvlcE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JCyB6PI6";
 	dkim-atps=neutral
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
- [209.85.210.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DE3610E8FD
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 08:39:30 +0000 (UTC)
-Received: by mail-pf1-f175.google.com with SMTP id
- d2e1a72fcca58-842358aaf36so1664737b3a.2
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 01:39:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781599170; x=1782203970; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+4Je8IwSJvG/jfPJ4CeCInyfi1a6CXtfdj6NR9s+scU=;
- b=NuIHvlcE5CcO2oc/OV5KXDl/zxg+lMUp5TeXqfo8uBeetDhqCJDrKBzsqiJFUpythw
- Nx4R+XPmycjhVMe8RgSv1UP7BvOqP1LjQgMeshiMoG9aEFM+XDK8jGbx6faf4UecuILw
- 1WjeLIoGnWV1D0okoujLygfqKaba47NUx09JI3V64rcNTZagOxnYmG3+XEnUt9DDyto3
- 75OpJ0aiP2jEnCJwJCMniW+/GmgIepSFh6mYfRKd+FrTtL1i6el044BL7AR10vAeu0MT
- EhzWKzISrovqfiYJPQ64Sbqmn55XrWEawuX/fOvhZLYxODV3IFQkKe9CsV10ZJLxJajf
- tCiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781599170; x=1782203970;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=+4Je8IwSJvG/jfPJ4CeCInyfi1a6CXtfdj6NR9s+scU=;
- b=UTF8tdEntKqF3qC0/+YuO/f6V6UIqfa8sDWLuLHYTmNjJ1OYH1tLm4ZC0ogPPgZ91A
- siuhkq7PnI2djT/ENcUZUyXgzQTkjyh5kinzPyENoxflek8QUvNpYm+cY4eAHpzDMbZ1
- Uf+quYESTqCJh2GasCHSsYuKjavcZdFmpiREeoLfhLz9fowwgR4JLiTZoTkeJFtX/Aof
- zF4R19wp0Y18vivqMf5nUDLFgE5Vsea5yoWGBO0PCaEtPbDtoy3SPtNlsQwLstOtHfsC
- e58+IuCOY+bsxTlDQaplQDdJUY51v/3zyMVHyeMiXz4mkaCPv/2YIxfrSrfrskRRJszk
- 4t6g==
-X-Gm-Message-State: AOJu0YwzvXzKtgvQeoXviWqTfW1phr/kwiKsWU28w5L4Bo2OB1hI5HK6
- EvG7c0Wls6jucBhprgyBVyfkahWDdKQBqpSCFaCgUpj8Hjc2F4Pgp+xd
-X-Gm-Gg: Acq92OGUOFfu8Pr70+/P0juqn3zs6OaaDYhvlXTj15vujXF+C71lMBzB31udlrEHMne
- tZOjHsI1NyKAMxg7jdsxXi1+anFJOHDJAPCoZUnhveCUeEj4DTdZ8jGk77on5MI48PV2sthVu1y
- fIB+ATvFCfAavNluEWo8ZH1Dkg0VQST4wqxjvR3scmrBnSlCOwIgEM93aqPSmfAXgdx2QVRhfd5
- 1cQ1eDbBi9kdmYRAgmHLP8bZ8AMKpZrtQt/Ji80f6UF+v/tHC96oK87f5CoekAsPzkHMA6Aeykm
- AlnYA6KH72azKZBSY78BNSllHNaP6+pV+XPWdSy/PQ8jSmSSnOLBW2h2yfzDEDFW0pLP/6lVsxr
- L496UUHouCYF5/fpapXxGp19kjhWNRzZU5741RCZ4nibxtlX6JxHX7YuvY1uaKVJyDwUMHRc7a6
- /PaTDcQb/dqXfmsQRnSjB+UtBt3sLjbB28PkuxLnNmepDX75WpJn0bnu1t7U2QVnO95PuU7C1iU
- 19grPqtpkhZS1SibS36eTbIOjCH/G/Rh8A=
-X-Received: by 2002:a05:6a00:4399:b0:842:2419:6c0b with SMTP id
- d2e1a72fcca58-844e19676f0mr15311972b3a.10.1781599170061; 
- Tue, 16 Jun 2026 01:39:30 -0700 (PDT)
-Received: from lcwang-Precision-3630-Tower.. (211-23-39-77.hinet-ip.hinet.net.
- [211.23.39.77]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8434ac9dc87sm11497535b3a.4.2026.06.16.01.39.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jun 2026 01:39:29 -0700 (PDT)
-From: LiangCheng Wang <zaq14760@gmail.com>
-To: Devarsh Thakkar <devarsht@ti.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Wig Cheng <onlywig@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- LiangCheng Wang <zaq14760@gmail.com>
-Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
- e-ink panel
-Date: Tue, 16 Jun 2026 16:39:21 +0800
-Message-Id: <20260616083921.4066690-1-zaq14760@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
-References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
- <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
- <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1020310E889
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 08:44:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4714E600AB
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 08:44:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC2DB1F000E9;
+ Tue, 16 Jun 2026 08:44:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781599496;
+ bh=R2vIEwgGFKHdT3GJRSCAhTclN6o/zAyXEEKO07A0YSg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=JCyB6PI66acx2aq8zrwmAxLj4LZPNufouomEvbtRHbjl7o+7XKx1yzOUUhTnqAq5V
+ mQ8deSt/3G6ryY+lJMDSw0UK3n0SY5EQ0+gHyglBCguOI3T8lBmlSeLb0xhTQFcCw2
+ 5bTG/EJLlvNtiO7hTYZ3cnhMtvIybGfRi8v74dTMdL2vHSBeZqlXwDzY/h3PrAN4ki
+ XL4Q8eqgld4vcbpSh1WbyVN8MEAuiBUbETvelubyFGs+QFlKG+4EOGH/7zAp7PTwqO
+ 9ze8sRubrthevo6+YpC8uBot31+OPVQklaIZ2sOXEI5+q3mTs7bxLeRuoP6/noiCMU
+ 4af0hvqrxMv4Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 5/6] rust: Add dma_fence abstractions
+To: "Philipp Stanner" <phasta@kernel.org>
+Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260616082819.2943886-7-phasta@kernel.org>
+References: <20260616082819.2943886-7-phasta@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 16 Jun 2026 08:44:55 +0000
+Message-Id: <20260616084455.CC2DB1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,47 +52,290 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Devarsh,
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [Critical] Incorrect struct layout in `DriverFenceData` places `rcu_head`=
+ before `inner: Fence`, causing misaligned pointer casts and SLUB corruptio=
+n when the C backend frees the interior pointer.
+- [Critical] `DriverFence::drop` prematurely destroys `FenceCtx` and user d=
+ata before the `dma_fence` reference count reaches 0, causing Use-After-Fre=
+e.
+- [High] `FenceCtx<T>` and `DriverFence<T>` lack a `'static` bound on `T`, =
+allowing safe Rust code to erase lifetimes and cause Use-After-Free.
+- [High] `FenceCbRegistration::new` leaks an `ARef<Fence>` reference count =
+on the error path.
+- [High] Dropping the last reference to `FenceCtx` from the RCU callback wi=
+ll execute the user's `T` (context data) `Drop` implementation in softirq c=
+ontext.
+--
 
-Thanks for the detailed review.
+commit 95eb8ea421a40fbf4b3b019ea0a7b2c3928e1e11
+Author: Philipp Stanner <phasta@kernel.org>
+rust: Add dma_fence abstractions
 
-> 1) Could you please share the datasheet for the display controller used
-> inside this pixpaper version ?
+This commit introduces Rust abstractions for the C dma_fence framework.
+It provides types such as DriverFence, Fence, and FenceCtx to cleanly=20
+decouple fence issuers and consumers while interacting with the C backend.
 
-Unfortunately I'm not able to share the controller datasheet publicly; it
-was provided to us under NDA.
+> diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
+ence.rs
+> new file mode 100644
+> index 0000000000000..3af2dee58e13f
+> --- /dev/null
+> +++ b/rust/kernel/dma_buf/dma_fence.rs
+> @@ -0,0 +1,884 @@
+[ ... ]
+> +/// A dma-fence context. A fence context takes care of associating relat=
+ed fences with each other,
+> +/// providing each with raising sequence numbers and a common identifier.
+> +#[pin_data]
+> +pub struct FenceCtx<T: Send + Sync> {
 
-> 2) Does 0xFF or 0xF7 mode work as well for your display or is it strictly
-> 0xF4 which seems to mean that analog and osc bits are disabled ?
+[Severity: High]
+Does T need a static bound here?
 
-I'll test whether the standard 0xF7/0xFF sequences also work on this panel
-and follow up with the result.
+Fence contains an Opaque<bindings::dma_fence> without lifetime parameters,
+making it implicitly static. DriverFence::as_fence allows extracting an
+owned ARef<Fence>. Because it is static, safe Rust code could send this
+ARef to threads that outlive T.=20
 
-> 3) Also could you confirm which display controller IC does the PIXPAPER
-> 4.26 use ?
+If T contains non-static references, the ARef<Fence> will keep
+DriverFenceData alive beyond T's lifetime. Could this allow lifetime
+erasure and a subsequent use-after-free?
 
-The PIXPAPER 4.26 uses the Solomon SSD1677, so you're right that it is an
-SSD16xx-family controller -- the commands it uses (0x01, 0x0C, 0x18, 0x20,
-0x22, 0x24, 0x3C, 0x44/0x45, 0x4E/0x4F) match the standard SSD16xx set.
+> +    /// The fence context number.
+> +    nr: u64,
+> +    /// The sequence number for the next fence created.
+> +    seqno: AtomicU64,
+[ ... ]
+> +#[allow(unused_unsafe)]
+> +impl<T: Send + Sync + FenceCtxOps> FenceCtx<T> {
+> +    // This can later be extended as a vtable in case other parties need=
+ support
+> +    // for the more "exotic" callbacks.
+> +    const OPS: bindings::dma_fence_ops =3D bindings::dma_fence_ops {
+> +        get_driver_name: Some(Self::get_driver_name),
+> +        get_timeline_name: Some(Self::get_timeline_name),
+> +        enable_signaling: None,
+> +        signaled: None,
+> +        wait: None,
+> +        release: None,
+> +        set_deadline: None,
+> +    };
 
-> it would be appropriate to add this panel as a new display panel entry in
-> panel-ssd16xx.c rather than a separate driver to avoid code duplication.
+[Severity: Critical]
+Will the C backend crash when trying to free this fence?=20
 
-I agree that consolidating SSD16xx panels under panel-ssd16xx.c is the right
-long-term direction, and I'd be glad to converge there.
+By leaving release as None, the dma_fence backend defaults to using
+dma_fence_free(). As defined later in DriverFenceData, the dma_fence is
+embedded at a non-zero offset. dma_fence_free() will call kfree_rcu() on
+this interior pointer. Does this trigger a bad pointer panic in the SLUB
+allocator?
 
-I'm not yet sure how SSD1677 would fit with the controllers your series
-currently targets (SSD1673/SSD1680/SSD1681/SSD1683) -- ours is a larger
-4.26" 800x480 panel, so I suspect it may need a new controller variant.
-Would you expect panel-ssd16xx.c to be able to support SSD1677?
+[ ... ]
+> +    /// Create a [`FenceCtx`] from an associated [`bindings::dma_fence`].
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// `ptr` must be a valid pointer to a dma_fence which resides withi=
+n a [`Fence`],
+> +    /// which in turn resides in a [`DriverFenceData`].
+> +    unsafe fn from_raw_fence<'a>(ptr: *mut bindings::dma_fence) -> &'a S=
+elf {
+> +        let opaque_fence =3D Opaque::cast_from(ptr);
+> +
+> +        // SAFETY: Safe due to the function's overall safety requirement=
+s.
+> +        let fence_ptr =3D unsafe { container_of!(opaque_fence, Fence, in=
+ner) };
+> +
+> +        // DriverFenceData is repr(C) and a Fence is its first member.
+> +        let fence_data_ptr =3D fence_ptr as *mut DriverFenceData<T>;
 
-In the meantime, would it be reasonable to take this smaller standalone
-driver, and migrate the panel into panel-ssd16xx.c once that driver lands
-with SSD1677 support? I'd be happy to help with the migration, and of course
-I'll defer to your and the maintainers' preference here.
+[Severity: Critical]
+Can this direct cast lead to misaligned structure access?=20
 
-Regards,
-LiangCheng
+The comment states Fence is the first member, but rcu_head is actually
+defined before it in DriverFenceData. Casting the pointer directly to
+DriverFenceData without accounting for the 16-byte offset of the inner
+field could cause memory corruption when fctx is accessed later.
+
+[ ... ]
+> +    pub fn new<'a>(fence: &'a Fence, callback: T) -> impl PinInit<Self, =
+CallbackError<T>> + 'a
+> +    where
+> +        T: 'a,
+> +    {
+[ ... ]
+> +        unsafe {
+> +            pin_init_from_closure(move |slot: *mut Self| {
+> +                let slot_callback =3D &raw mut (*slot).callback;
+> +                let slot_fence =3D &raw mut (*slot).fence;
+> +                let slot_cb =3D &raw mut (*slot).cb;
+> +
+> +                // Write callback and fence first =E2=80=94 must be visi=
+ble before
+> +                // dma_fence_add_callback makes the registration live.
+> +                core::ptr::write(slot_callback, callback);
+> +                core::ptr::write(slot_fence, ARef::from(fence));
+> +
+> +                let ret =3D to_result(bindings::dma_fence_add_callback(
+> +                    fence.inner.get(),
+> +                    Opaque::cast_into(slot_cb),
+> +                    Some(Self::dma_fence_callback),
+> +                ));
+> +
+> +                match ret {
+> +                    Ok(()) =3D> Ok(()),
+> +                    Err(e) =3D> {
+> +                        // Read back what we wrote to leave the slot cle=
+an.
+> +                        let cb_back =3D core::ptr::read(slot_callback);
+> +
+> +                        if e.to_errno() =3D=3D ENOENT.to_errno() {
+> +                            Err(CallbackError::AlreadySignaled(cb_back))
+> +                        } else {
+> +                            Err(CallbackError::Other(e))
+> +                        }
+> +                    }
+> +                }
+> +            })
+> +        }
+> +    }
+
+[Severity: High]
+Does this error path leak the ARef reference count?
+
+Earlier in this closure, ARef::from(fence) is written into slot_fence,
+which increments the reference count. If dma_fence_add_callback() fails,
+the error path reads back slot_callback to return it, but slot_fence is
+neither read back nor manually dropped.=20
+
+Since pin_init_from_closure assumes the slot is uninitialized on error
+and won't run drop on it, will this permanently leak the ARef<Fence> and
+its memory allocation?
+
+[ ... ]
+> +#[repr(C)] // Necessary to guarantee that `inner` always comes first so =
+that we can cast.
+> +#[pin_data]
+> +struct DriverFenceData<T: Send + Sync + FenceCtxOps> {
+> +    /// Callback head for dropping this in a deferred manner through RCU.
+> +    rcu_head: bindings::callback_head,
+> +    #[pin]
+> +    /// The inner fence.
+> +    inner: Fence,
+
+[Severity: Critical]
+Is the inner Fence guaranteed to be at offset 0 here?=20
+
+The struct is marked repr(C), but rcu_head precedes inner. This shifts
+the embedded Fence by the size of the callback_head, directly conflicting
+with the assumption in from_raw_fence that Fence is the first member.
+
+[ ... ]
+> +pub struct DriverFence<T: Send + Sync + FenceCtxOps> {
+> +    /// The actual content of the fence. Lives in a raw pointer so that =
+its
+> +    /// memory can be managed independently. Valid until both the [`Driv=
+erFence`]
+> +    /// and all associated [`Fence`]s have disappeared.
+> +    data: NonNull<DriverFenceData<T>>,
+> +}
+
+[Severity: High]
+Similar to FenceCtx, does DriverFence also require a static bound on T to
+prevent safe code from erasing lifetimes and causing a use-after-free?
+
+[ ... ]
+> +/// Finally really drop this `DriverFence<T>`
+> +///
+> +/// # Safety
+> +///
+> +/// `head` references the `rcu_head` field of an `DriverFenceData<T>`. A=
+ll
+> +/// accessors to that `DriverFenceData<T>` must be gone by now. This mus=
+t be
+> +/// ensured by signalling the associated `DriverFence<T>` and then waiti=
+ng
+> +/// for a grace period until calling this function here.
+> +unsafe extern "C" fn drop_driver_fence_data<T: Send + Sync + FenceCtxOps=
+>(
+> +    head: *mut bindings::callback_head,
+> +) {
+> +    // SAFETY: Caller provides a pointer to the `rcu_head` field of a `D=
+riverFenceData<C>`.
+> +    let fence_data =3D unsafe { container_of!(head, DriverFenceData<T>, =
+rcu_head) };
+> +
+> +    // SAFETY: `fence_data` was created validly above. All the fence's d=
+ata will
+> +    // only drop below, but the raw pointer to the raw C `dma_fence` rem=
+ains
+> +    // valid because the reference count is only decremented at the end =
+of the
+> +    // function.
+> +    let fence =3D unsafe { (*fence_data).inner.inner.get() };
+> +
+> +    // SAFETY: A grace period has passed. All accessors to that `DriverF=
+enceData`
+> +    // are gone now. We have exclusive access and can now drop it.
+> +    unsafe { drop_in_place(fence_data) };
+
+[Severity: High]
+Could this drop the user's data T in softirq context?
+
+Since drop_driver_fence_data runs as an RCU callback, it executes in atomic
+(softirq) context. If this drop_in_place() puts the last reference to the
+Arc<FenceCtx<T>>, it will trigger the deallocation of the context and drop
+its inner data T.
+
+There appear to be no trait bounds or documentation enforcing that T must
+only perform operations legal in atomic context. If a user provides context
+data whose Drop implementation sleeps (like acquiring a mutex or freeing
+large structures), would this trigger a sleeping in atomic context kernel
+panic?
+
+[Severity: Critical]
+Does this prematurely destroy the user data and FenceCtx before the
+dma_fence reference count actually reaches zero?
+
+The dma_fence refcount is shared with ARef<Fence>. If an ARef<Fence> is
+still alive when DriverFence drops, this RCU callback will execute
+drop_in_place(fence_data). This destroys the Arc<FenceCtx> and the
+user data. However, the C dma_fence is still alive with a non-zero
+refcount.
+
+When the refcount eventually hits zero later on, the C backend could
+trigger callbacks like get_driver_name() via trace_dma_fence_destroy().
+Could those callbacks access the already-freed fence_data.fctx, leading
+to a use-after-free?=20
+
+Should the Rust data instead be dropped in a custom release callback in
+dma_fence_ops when the refcount actually reaches 0?
+
+> +
+> +    // The `drop_in_place()` above might drop the `FenceCtx` by putting =
+the last
+> +    // reference.
+> +
+> +    // SAFETY: Once a `DriverFence` is initialized, the inner `fence` is
+> +    // valid and initialized. It is valid until the refcount drops
+> +    // to 0, which can earliest happen once we drop the `DriverFence`'s =
+reference
+> +    // here.
+> +    unsafe { bindings::dma_fence_put(fence) };
+> +
+> +    // The actual memory the data associated with a `DriverFence` lives =
+in
+> +    // gets freed by the C dma_fence backend once the fence's refcount r=
+eaches 0.
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616082819.2943=
+886-2-phasta@kernel.org?part=3D5
