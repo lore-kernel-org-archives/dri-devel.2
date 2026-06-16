@@ -4,61 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 524A4CD98CF
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 08:28:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5A9FCD98CF
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 08:29:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B75BA10E8E3;
-	Tue, 16 Jun 2026 08:28:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34BE210E8EC;
+	Tue, 16 Jun 2026 08:29:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ufW02ZY9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DZUqxcth";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2690610E8E3
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 08:28:17 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 0EE334E42F1A;
- Tue, 16 Jun 2026 08:28:16 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id CEC81601A9;
- Tue, 16 Jun 2026 08:28:15 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id CFA09106C9A90; 
- Tue, 16 Jun 2026 10:28:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1781598494; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=aaxq/M/Ply1BeAL0um/t7/Wtp1Nk5iB+eJILsXeAgPM=;
- b=ufW02ZY9/n2G9CS0p2r1Ke0nPW5lO7C8vkFPk39GqxJKlHiJBdvi2W3n5nKVVq0Tvyng4T
- 9buq65P/tAVUzT3eohWLEBicl4fuG6orL5mysJTOIsoGNWsg1HMsXAiHAYckPCE5KN2WPC
- YLLnSR5VM3VGsUPbTND0uoLCDGUb+6cNckVWA4+5ULK0+ErTdJbdLfQ8FxDA5VVR7Z2Bxz
- qLTo4LGS03Hb0F2O+iZycWE256Cc6mSuQMoM519ACS3N7ivBQX34cG8IgWwgSJ6nv9JvYa
- xD8jTuC3nAu0Vv7QvSP3J40SV/yjALQr/wOCB1Wrk1EZYRIZD9lUwS4rJXpDJw==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 16 Jun 2026 10:28:07 +0200
-Message-Id: <DJABYEB3V5O9.3N8KN13VZ70B1@bootlin.com>
-Subject: Re: [PATCH v4 2/2] drm: bridge: ti-sn65dsi83: Disable video burst
- mode for LVDS stability
-Cc: "Sean Nyekjaer" <sean@geanix.com>, "Sudarshan Shetty"
- <tessolveupstream@gmail.com>, <andrzej.hajda@intel.com>,
- <neil.armstrong@linaro.org>, <rfoss@kernel.org>, <jonas@kwiboo.se>,
- <jernej.skrabec@gmail.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <alexander.stein@ew.tq-group.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Marek
- Vasut" <marex@denx.de>
-To: "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.21.0
-References: <ahsxWhXMhzbAj_3G@Seans-MacBook-Pro.local>
- <DJ17SSAYCT51.28YSD262KHNKK@bootlin.com>
- <20260605160946.GC4350@killaraus.ideasonboard.com>
- <DJ19VYINRU7X.MAJ2N3K941SP@bootlin.com>
- <20260605173156.GA108156@killaraus.ideasonboard.com>
-In-Reply-To: <20260605173156.GA108156@killaraus.ideasonboard.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21FA110E8EC
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 08:29:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3C6BB600AB;
+ Tue, 16 Jun 2026 08:29:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 973EE1F000E9;
+ Tue, 16 Jun 2026 08:28:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781598543;
+ bh=nwjdFbfnfPzy5MFpaG+40dlKcUPGMH1BdGJi8LOKcvk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=DZUqxcthi5ZMT1K1S3XI9wRabvel3Rk34VN4y1cGuJpKhgUEt9qkBJp2YoTCV5nW5
+ Nhavv2LhokxnXKwIN5+vYoxJtzBC5HlzY51gVojmO5EeUuw2guHEAcV97QGzhzY0v3
+ UnZKLzoSV55HBCewq6DGf4Eu6LOQ58D7hg6RFPoMr0sYXsMjA04BMaODDCE0OUiHwn
+ 71kbgXUIlsM255O0ZLeQ+il2Q2u+8V2p6mZ47PdTQVenjayLKr01DponxBHQVMyUA5
+ gvK3Uzu+oOX0CBicye+o0kZXODRk/y/qt8GJaUAu93j1jlrNVL5t2iz+kwyt3V+Wmh
+ gNLQc9dY20flg==
+From: Philipp Stanner <phasta@kernel.org>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ "Paul E. McKenney" <paulmck@kernel.org>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+ Joel Fernandes <joelagnelf@nvidia.com>,
+ Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Igor Korotin <igor.korotin@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Krishna Ketan Rai <prafulrai522@gmail.com>,
+ Shankari Anand <shankari.ak0208@gmail.com>, manos@pitsidianak.is,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ rcu@vger.kernel.org
+Subject: [PATCH v2 2/6] rust: sync: Add abstraction for rcu_barrier()
+Date: Tue, 16 Jun 2026 10:28:14 +0200
+Message-ID: <20260616082819.2943886-4-phasta@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616082819.2943886-2-phasta@kernel.org>
+References: <20260616082819.2943886-2-phasta@kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,149 +81,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Laurent, Marek,
+rcu_barrier() is a frequently used C function which is always safe to be
+called.
 
-On Fri Jun 5, 2026 at 7:31 PM CEST, Laurent Pinchart wrote:
-> On Fri, Jun 05, 2026 at 06:56:54PM +0200, Luca Ceresoli wrote:
->> On Fri Jun 5, 2026 at 6:09 PM CEST, Laurent Pinchart wrote:
->> > On Fri, Jun 05, 2026 at 05:18:43PM +0200, Luca Ceresoli wrote:
->> >> Hello Sean,
->> >>
->> >> +Cc Marek, Maxime.
->> >>
->> >> On Sat May 30, 2026 at 8:51 PM CEST, Sean Nyekjaer wrote:
->> >> > On Wed, May 27, 2026 at 02:27:36PM +0100, Sudarshan Shetty wrote:
->> >> >> The current DSI configuration enables MIPI_DSI_MODE_VIDEO_BURST.
->> >> >> while burst mode is supported by the hardware, its use
->> >> >> depends on continuous clock behavior from the DSI host. In practic=
-e,
->> >> >> burst mode may introduce instability depending on the host control=
-ler
->> >> >> implementation, as the DSI link may transition to low-power state
->> >> >> between bursts.
->> >> >>
->> >> >> Testing showed improved display stability when using non-burst mod=
-e on
->> >> >> affected panels.
->> >> >>
->> >> >> Remove MIPI_DSI_MODE_VIDEO_BURST and use non-burst video mode.
->> >> >
->> >> > We briefly talked about this at Embedded Recipes
->> >> > I promised to sent a link:
->> >> > https://lore.kernel.org/all/E35054BA-FBE5-4CEE-905C-1F5D20140590@ge=
-anix.com/
->> >>
->> >> Thanks for the discussion at ER and for this follow-up e-mail.
->> >>
->> >> > When burst mode is enabled, the LVDS clock gets way to high for my
->> >> > panel. I don't know if it's the DSI controller in the STM32MP1 or
->> >> > something not supported on the TI side.
->> >> >
->> >> > We have been running with this fix for 2 years :)
->> >>
->> >> If I can summarize the situation in the last 4 years:
->> >>
->> >>  * Several users reported the same trouble
->> >>  * Those users patch their kernel out of tree to disable burst mode a=
-s a
->> >>    workaround
->> >>  * According to Marek the correct way to make burst mode work is
->> >>    implementing link negotiation
->> >>  * Nobody is willing to implement link negotiation as of now
->> >>
->> >> And this leads me to some questions.
->> >>
->> >>  * Do we want to keep the current situation (everybody beats their he=
-ad on
->> >>    the wall until they discover disabling burst mode "fixes" their pa=
-nel,
->> >>    and keep an out of tree patch)?
->> >>
->> >>  * Assuming the priority is getting a screen working (and not saving =
-power
->> >>    on a black screen), would it make sense to apply this patch, and l=
-et
->> >>    people improve in the future by implementing link negotiation?
->> >>
->> >>    Let's pretend for a moment this is a new driver being developed: w=
-ould
->> >>    it be OK to have a basic working driver, without some power optimi=
-zation
->> >>    features which can be added later on? The only valid answer to thi=
-s
->> >>    question is obviously "yes". Doesn't the same principle apply here=
-? If
->> >>    it doesn't, why?
->> >>
->> >>  * What is the expected power saving with burst mode?
->> >>
->> >>    I'm afraid I don't have precise numbers but I measured the total b=
-oard
->> >>    consumption with or without burst mode (the former with a black sc=
-reen
->> >>    but backlight enabled) and found no difference: exactly 12.74 W in=
- both
->> >>    cases.
->> >>
->> >> Thanks for you rpatience in reading this. I hope it helps in finding =
-a
->> >> better solution.
->> >
->> > Rephrasing this a bit, is the discussion about dropping support for a
->> > supported feature (burst mode) because users who suffer from the lack =
-of
->> > another feature (link negotiation) are not willing to spend time
->> > implementing it,
->>
->> That's the question I have, more or less. I have no answer yet, I'm most=
-ly
->> trying to clarify the situation in the first place, for myself and anyon=
-e
->> interested.
->>
->> Maybe it's worth pointing out that AFAICU any driver enabling burst mode=
- is
->> buggy because in lack of link negotiation it may work or not, based on p=
-ure
->> luck.
->>
->> > and would prefer if users of burst mode were forced to
->> > do the work instead ? That doesn't seem very fair to me.
->>
->> Link negotiation is not just "another feature" w.r.t. burts mode. It's a
->> prerequisite for burst mode to work reliably. So hard-enabling burst mod=
-e
->> was building a roof without solid walls (link negotiation).
->>
->> So I'm rephrasing your the question :) as: shouldn't users of burst mode=
- be
->> forced to implement link negotiation, since _they_ need it?
->
-> It's quite annoying when both positions have compelling arguments :-)
->
-> Has anyone analyzed what work would be needed to implement the link
-> negotiation ?
+Add a safe abstraction for rcu_barrier().
 
-Marek did multiple attempts in the past, I think it's the best analysis
-available in public as of now. Following the link provided by Sean Nyekjaer
-in this thread on May 30 leads to them:
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+ rust/kernel/sync/rcu.rs | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
- * https://lore.kernel.org/dri-devel/20220801131113.182487-1-marex@denx.de/
- * https://lore.kernel.org/all/20220219002844.362157-1-marex@denx.de/
+diff --git a/rust/kernel/sync/rcu.rs b/rust/kernel/sync/rcu.rs
+index a32bef6e490b..eef34bf86259 100644
+--- a/rust/kernel/sync/rcu.rs
++++ b/rust/kernel/sync/rcu.rs
+@@ -50,3 +50,9 @@ fn drop(&mut self) {
+ pub fn read_lock() -> Guard {
+     Guard::new()
+ }
++
++/// Wait for all pending call_rcu() callbacks, if there are any.
++pub fn rcu_barrier() {
++    // SAFETY: `rcu_barrier()` is always safe to be called. It just might wait for a grace period.
++    unsafe { bindings::rcu_barrier() };
++}
+-- 
+2.54.0
 
-> Dropping burst mode without any plan to support it will be
-> demotivating for some people. If asking for link negotiation support to
-> support non-burst mode is too much yak shaving, would researching a
-> technical plan be an acceptable middleground ?
-
-On my side I haven't gone into the details. But I'm not sure having a plan
-would help: Marek had one, but it didn't fly.
-
-Maybe Marek can comment on this?
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
