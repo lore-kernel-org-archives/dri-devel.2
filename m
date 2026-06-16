@@ -4,119 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A417CD98E1
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 15:09:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 570BDCD98E4
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 15:13:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E6FB10EC2F;
-	Tue, 16 Jun 2026 15:09:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAC9D10EC49;
+	Tue, 16 Jun 2026 15:13:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="xerLUgv9";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ez4FUjsk";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012017.outbound.protection.outlook.com [52.101.43.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 972D910EC2F
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 15:09:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GTpoRGoy+cJD4S/zMI+2elrf9Aks98u7sM7ZQ2lCLibvuikxpZKGJ6BgwShZ7crN3ZD+OnKFTGT9YTbn/A3HYQTScbhTKUVeHLedZ6Xnv3Du/dNLoGsuN/08UP2XvhsHFmeTt+c38ffx9Tlzs8/hmccDrFxqLWRG407W9+W4ksIsWtse3sy9KbB8cA8mxI5KhuP5T6ob1THKvqXsNXLzNwLpB1OdKMRHXMP1cUGE8wS8Cui6dhm6Kp4V3U9GryVvkntU17wZS0/jCuB0NH9fRdOmUvj8eQLlaUal16CRSIDtQoQIf8ggHc+jaR80YDr7vIyCBnw58XgdruhnhHg3Gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NfO/dInM6yttWsyz3txZtJASIVYsEszz7SW7Cw/64Vk=;
- b=VxjkMSbHkC7FkR1lSdIpXYjyjQkSx61b0eD2jbOXzexmlkI4zCV9q059cYBsP1rCbnBTM7hteOmGtxVrN3V8Isqj5D1VZb7vXRy+T0yw0XmUsU9XtxVHFyxFbVw7wDmozVQhbeFtSanWphpdwKuNOqGBsdZu8YvGZAnjkBZ1/b3mMrPcV1mAsvgEmS3LjRV/XEY6zmEmLdVZeZPQwaBfpjwgYgftc5SpUKVGkuDdRJ79xFKrjld8EkwjFYlR3FLiXJvrgZxSKr132JXTtgwlfWx0BVHY9QYUr642Pjg16xQkBAZDEk4z/JHn/Ruml0PT+WP9VD+UByT4G3Bsi5uIQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NfO/dInM6yttWsyz3txZtJASIVYsEszz7SW7Cw/64Vk=;
- b=xerLUgv9xsFt9mQyL/Y+WROhRFXT1Ha4YRAH1uk8Roc7jayP8ap7xCE9GFlK49GP2k0h8JXRSSmTl0spFLds0Ige8cN1Z5M6vgCRRvRQ3WOlQ1efWPwQbthZM94CLXgAyNohfo2lh2u0rZVb3LOtxTWWpO8Cn8dKbcHDUKTfvTc=
-Received: from BN0PR04CA0050.namprd04.prod.outlook.com (2603:10b6:408:e8::25)
- by IA1PR10MB7286.namprd10.prod.outlook.com (2603:10b6:208:3ff::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
- 2026 15:09:11 +0000
-Received: from BL6PEPF00020E64.namprd04.prod.outlook.com
- (2603:10b6:408:e8:cafe::8b) by BN0PR04CA0050.outlook.office365.com
- (2603:10b6:408:e8::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.18 via Frontend Transport; Tue,
- 16 Jun 2026 15:09:11 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- BL6PEPF00020E64.mail.protection.outlook.com (10.167.249.25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Tue, 16 Jun 2026 15:09:10 +0000
-Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 16 Jun
- 2026 10:08:50 -0500
-Received: from DFLE207.ent.ti.com (10.64.6.65) by DFLE204.ent.ti.com
- (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 16 Jun
- 2026 10:08:50 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE207.ent.ti.com
- (10.64.6.65) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Tue, 16 Jun 2026 10:08:50 -0500
-Received: from [10.24.51.87] (devarsh-precision-tower-3620.dhcp.ti.com
- [10.24.51.87])
- by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 65GF8kVs258336;
- Tue, 16 Jun 2026 10:08:47 -0500
-Message-ID: <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com>
-Date: Tue, 16 Jun 2026 20:38:45 +0530
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9830710EC49;
+ Tue, 16 Jun 2026 15:13:06 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65GDxWq13731534; Tue, 16 Jun 2026 15:13:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=NGCTyYltHtin+edsBwFNobrH2uF2WSC4Gqv
+ rDXhOO/s=; b=ez4FUjskBKAMM8IX9hyZ24OA5asajAv2nUG3D5ksiYiKf7sT3J4
+ /MfOe3A+F0ZDh2EjJI3tSJAnrJCx4IKa/MDMJDS+uz51scDaaFu7nUoZ6VEuV5sE
+ caFjUuj2W2bnifuJ9d32qzcKavVuEBUBcdYZr8JHVTRfCB+elp5VGQt05UAhUjzJ
+ F91+pm/UzuYP+EFW/VA/2cN+tX23jeeVrqusPKNrdGNt/8uhJFrMBMw86ZcRWG9l
+ t54PqJXgAZDi/NR9U65RXHtqQ4ZwUZ0NnyNKbmIdFE58Jy8e7fjEKWCE5mdA5VB7
+ 7TLlQ5Um2khYLuAdlgsir8RhZ3q+T0NGpoQ==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eu1yst28b-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Jun 2026 15:13:00 +0000 (GMT)
+Received: from pps.filterd (NALASPPMTA03.qualcomm.com [127.0.0.1])
+ by NALASPPMTA03.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 65GFCxHe009579; 
+ Tue, 16 Jun 2026 15:12:59 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by NALASPPMTA03.qualcomm.com (PPS) with ESMTPS id 4eu371bkat-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Jun 2026 15:12:59 +0000 (GMT)
+Received: from NALASPPMTA03.qualcomm.com (NALASPPMTA03.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 65GFCxDS009483;
+ Tue, 16 Jun 2026 15:12:59 GMT
+Received: from hu-devc-lv-u22-c.qualcomm.com (hu-kumaranu-lv.qualcomm.com
+ [10.81.89.194])
+ by NALASPPMTA03.qualcomm.com (PPS) with ESMTPS id 65GFCw71009380
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 16 Jun 2026 15:12:59 +0000 (GMT)
+Received: by hu-devc-lv-u22-c.qualcomm.com (Postfix, from userid 4187942)
+ id AFFF26E4; Tue, 16 Jun 2026 08:12:58 -0700 (PDT)
+From: Kumar Anurag <kumar.singh@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Kumar Anurag <kumar.singh@oss.qualcomm.com>,
+ Kumar Anurag <kumar.anurag@oss.qualcomm.com>
+Subject: [PATCH] drm/msm/dp: return 0 from audio_prepare when cable is
+ disconnected
+Date: Tue, 16 Jun 2026 08:12:51 -0700
+Message-Id: <20260616151252.3599089-1-kumar.singh@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
- e-ink panel
-To: LiangCheng Wang <zaq14760@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Wig
- Cheng <onlywig@gmail.com>
-CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, Tomi Valkeinen
- <tomi.valkeinen@ideasonboard.com>
-References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
- <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
- <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
- <20260616083921.4066690-1-zaq14760@gmail.com>
-Content-Language: en-US
-From: Devarsh Thakkar <devarsht@ti.com>
-In-Reply-To: <20260616083921.4066690-1-zaq14760@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E64:EE_|IA1PR10MB7286:EE_
-X-MS-Office365-Filtering-Correlation-Id: e4b8394f-0f55-453a-0147-08decbb93882
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|7416014|23010399003|1800799024|22082099003|18002099003|921020|4143699003|3023799007|56012099006;
-X-Microsoft-Antispam-Message-Info: YkKiyS+RMGKuSvvwgSOrB1c3JVIHx0np9gIZ3x9oewEkDjkCDflcOCmdVdjOrmlWEADKEBC9YkhNZaqmu0/R4lcL4EW8UtSYlJgDfWunmuJpDLIQo0VLa3VxbFuiYuWfWrgh+lp4CWlmubpnGYx3cbvJb6Wm6v1tANkeRc/7YsJTyKI1Kh529OrKHD461LnU2VMggwvKVGrjgXfGUG/U9SYSLSOL6YQmaje0sew4REebhXbS3ShekYdWQX7mOZFgDEKgLw4u6WbpnkdS0SGjSGBkWbfbKaQOdKhBRpOWK96eXQ3I3ATzH1sWGIZUeV8zbNtcCHSi17L6YveyOC9I4wu41SAl34smizdCMbbb4oq0+2Lsf2vWzf6ekjBSOo2ofAH9ZvgsHb78WhRq0DbYraNwYsveVGecstWcUB/7niHlo0ThPsz8dBsAmgf6zRRbe7SXhHNt1tzZRwCp6JDid4G16wBtrJihf22rpW47VCP1M+j+t+EVuJjPMq9JAZBAJb/46Zm9K4rN1jjKFEO/SuhhP5pdVQIQz2d7r14wId9rxElw3LM4SP4bvvd8A4OuDe5AIS2ROrdGUUYSET1+BxdCpjtBePoakZDhc8+8YM9ZUbYhzP7jXRoEiAFdriqEfKAYMFEgWvMiuKd1FFrfpgnML0Qoo1pa/7rR0Fmb7yt4uBoc0GfWaSmZQBePXJ2nZBtaGKOmAohDnWxOFYp3s7NENwNCObBQsK42qfVmsv2oMnZaGKU/k+1xtfKvVSfjuDYwo6hnh00q3g21OAXDlw==
-X-Forefront-Antispam-Report: CIP:198.47.21.195; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:flwvzet201.ext.ti.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(7416014)(23010399003)(1800799024)(22082099003)(18002099003)(921020)(4143699003)(3023799007)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: z3xbVCn/aGqu/16RqZN+VEoE6DLJe2x0lq2JNacTaAJ7uhmGV2GwWXwY2G/xpuphmoXf4fmmfXt3RWwEfeZFKBz6097UE+ILESUuJflL51Y83dH7NtDyDZSv4gO8izhhsx7hxzGdjgwT3snammfRYMKweZZeIgIuAvPbeQHiB2o3Z3A2k5Dw+Xm6viOC3fqG2tRLtHU+N8iw2wIHRJj6HMvuVlb0wQcn8hHUyVYNVzTbEcJ8lyYbKD30Hi8IXwQVyd6p/U2V2q5K10bFe36V4XBpP5uZI5F+Tn/uafPLrVepR7coX7cDD6ftf8r0cFqTOYdMs9/bO5T+bQ4uhD8fR+aQYlqgti3OB6E8lFQ2x+FIhsDc+E99aWjq8K/oqgeX/+nwlzBuM0+Davg+ZsoZ+PQCfKq9JKF8wTTEZLMkbm0W0rA/6XBHxyX4ujpZo4Wh
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 15:09:10.9382 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e4b8394f-0f55-453a-0147-08decbb93882
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.21.195];
- Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E64.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR10MB7286
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: o1NDbWc_iquCSxvXsJYvOBoqSMXT37Y8
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDE1NSBTYWx0ZWRfX4BMhFA9Sib/T
+ AW3x8FvkLvQN5AZyAQiyf86HDKu38qr6F5NhrOPWEuVjNaBlzwAKTRq+stPvEY6NzGbsXos0cw2
+ JmW3RFR87ahTeQchnfLoAVbECdoRSI4=
+X-Proofpoint-ORIG-GUID: o1NDbWc_iquCSxvXsJYvOBoqSMXT37Y8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDE1NSBTYWx0ZWRfX3nb4aP+sNPda
+ vFqi2Fm140mbOYU4/wX6wcP/5HqP6jo1P0djvfNhMpau1FPqoM6lbU4/ha1t7d1Ts64jziPFysu
+ Mzmd+ebo6C/fBJsV313CknOV7CmjWlGznSVGpjhKcw08aRQJNbeglUD6OqmRBx/5MR6K0ka9ipD
+ LAk2xw+qE8NLQkWT3bpj/tCo3dP2TVAt3ExpHlqwJV1MADYURrHZnmmHeEArUGT4znPCbyCYIle
+ jlw+E3gbZkxRI8ugZXcew6A8yMRMujzHmpdOqYmyDZwdX8PJ0LmPtsKsCAB0B0MAx1fN4K4qNnr
+ 9jH74sQFKcuKJCOKridQduR9MYdd9bvN6R2g7dMNpxzHkx46FqQ7+JklFhSnOTP6aQgFazw+0DW
+ EdeRhsgYFc1e1SSfqubDE2BtQ/6DstrUz+WQBiQYKj7sJ3mdcapyAkjuIitk24TMtD71OfyM0x8
+ 6rlTtLDG+14yRb8qOOA==
+X-Authority-Analysis: v=2.4 cv=JJcLdcKb c=1 sm=1 tr=0 ts=6a3167fc cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8 a=CIlbYoHKnxLhYvk64zEA:9
+ a=zZCYzV9kfG8A:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-16_04,2026-06-15_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1011 bulkscore=0 malwarescore=0 suspectscore=0
+ phishscore=0 priorityscore=1501 adultscore=0 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
+ definitions=main-2606160155
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,77 +113,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi LiangCheng,
+PipeWire treats a non-zero return from prepare as fatal, marking the
+DP audio device as a dummy sink when the cable is unplugged. The
+active_stream_cnt guard already prevents any unclocked hardware access,
+so return success instead of -EINVAL when the link is not active.
 
-On 16/06/26 14:09, LiangCheng Wang wrote:
-> Hi Devarsh,
-> 
-> Thanks for the detailed review.
-> 
->> 1) Could you please share the datasheet for the display controller used
->> inside this pixpaper version ?
-> 
-> Unfortunately I'm not able to share the controller datasheet publicly; it
-> was provided to us under NDA.
-> 
->> 2) Does 0xFF or 0xF7 mode work as well for your display or is it strictly
->> 0xF4 which seems to mean that analog and osc bits are disabled ?
-> 
-> I'll test whether the standard 0xF7/0xFF sequences also work on this panel
-> and follow up with the result.
-> 
->> 3) Also could you confirm which display controller IC does the PIXPAPER
->> 4.26 use ?
-> 
-> The PIXPAPER 4.26 uses the Solomon SSD1677, so you're right that it is an
-> SSD16xx-family controller -- the commands it uses (0x01, 0x0C, 0x18, 0x20,
-> 0x22, 0x24, 0x3C, 0x44/0x45, 0x4E/0x4F) match the standard SSD16xx set.
-> 
->> it would be appropriate to add this panel as a new display panel entry in
->> panel-ssd16xx.c rather than a separate driver to avoid code duplication.
-> 
-> I agree that consolidating SSD16xx panels under panel-ssd16xx.c is the right
-> long-term direction, and I'd be glad to converge there.
-> 
-> I'm not yet sure how SSD1677 would fit with the controllers your series
-> currently targets (SSD1673/SSD1680/SSD1681/SSD1683) 
+Signed-off-by: Kumar Anurag <kumar.anurag@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/dp/dp_audio.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Thanks for sharing this information, yes it makes sense now that it is 
-using ssd1677.I have the SSD1677 datasheet and I think there should be 
-minimal change in the driver to support this controller, I will be 
-adding that in v2.
-
--- ours is a larger
-> 4.26" 800x480 panel, so I suspect it may need a new controller variant.
-> Would you expect panel-ssd16xx.c to be able to support SSD1677?
-> 
-
-Yes, I will be adding SSD1677 controller support in V2 of my series, 
-hopefully that should help and after that it's just a matter of adding 
-panel entry for your pixpaper panel. I can share you my branch with 
-ssd1677 support once I have it ready.
-
-Also, I don't have PIXPAPER 4.26 panel but if you want I can share you 
-my branch having ssd1677 support and additionally I can quickly add 
-boilerplate pixpaper 4.26 panel entries on top of my V2 series referring 
-from your patch so that it switches to using standard ssd16xx commands 
-and ssd1677 quirks wherever necessary and you can then validate and modify.
-
-> In the meantime, would it be reasonable to take this smaller standalone
-> driver, and migrate the panel into panel-ssd16xx.c once that driver lands
-> with SSD1677 support? I'd be happy to help with the migration, and of course
-> I'll defer to your and the maintainers' preference here.
-> 
-
-I think it makes more sense to use already posted unified ssd16xx driver 
-which already supports standard controller flow for the ssd16xx family 
-with additional controller/panel specific quirks and has interface to 
-support different panels thus avoiding massive code duplication and 
-leveraging already developed functionalities.
-
-Regards
-Devarsh
-
-> Regards,
-> LiangCheng
+diff --git a/drivers/gpu/drm/msm/dp/dp_audio.c b/drivers/gpu/drm/msm/dp/dp_audio.c
+index 035e230201fd..8118130a3220 100644
+--- a/drivers/gpu/drm/msm/dp/dp_audio.c
++++ b/drivers/gpu/drm/msm/dp/dp_audio.c
+@@ -284,10 +284,8 @@ int msm_dp_audio_prepare(struct drm_bridge *bridge,
+ 	 * such cases check for connection status and bail out if not
+ 	 * connected.
+ 	 */
+-	if (!msm_dp_display->active_stream_cnt) {
+-		rc = -EINVAL;
++	if (!msm_dp_display->active_stream_cnt)
+ 		goto end;
+-	}
+ 
+ 	audio = msm_dp_audio_get_data(msm_dp_display);
+ 	if (IS_ERR(audio)) {
+-- 
+2.34.1
 
