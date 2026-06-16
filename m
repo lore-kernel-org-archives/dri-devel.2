@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 915A5CD98D2
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 23:48:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 115B3CD98EC
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 23:48:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB21210E8C3;
-	Tue, 16 Jun 2026 23:48:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A45C10E8CF;
+	Tue, 16 Jun 2026 23:48:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JqNi/MG4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IPsHo9Mb";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E21C710E8BD
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AF0910E8BD
  for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 23:48:27 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1DFB1600B0;
+ by sea.source.kernel.org (Postfix) with ESMTP id 068E54060B;
  Tue, 16 Jun 2026 23:48:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C0AC3C4AF0E;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CEEAAC4AF0F;
  Tue, 16 Jun 2026 23:48:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1781653706;
- bh=R/dPhydugb82yP3bSoWG07FHhwtHFJwKwoxbhoTSuWY=;
+ bh=Sw0CArHglrOPy8B/0AvzyTGPre7dhIz218l0RWsNwT0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=JqNi/MG4GGShFIFnBgreI/7r27szXKsy2IHrinyCQWszOi0hpiP2swXHaUwjcyI3o
- iIPBeu7nikh3JP1z67Ug+LbUrLYlYP7OIdWnSVcf1qDtH8DgIyQchhWLbjUILfcmaT
- jOVY9m/1Kjh9/mIgMQ+onOyr/5PP1xjo7drrY/yFK33+6Ie25JZbOZEGDdAWK3tqAM
- aR4zPHa0i33CftHlghHTuZ//8sG2EInYn9uaE9OlX5HzFSdVneG+HPker7F9tDc0G4
- rNIjckTPkAsk7pkNI97Mn4MoyRupZ3A+dxKpcQt7ZIaiwDLDmUl75lO0JilWJsSgAG
- gMn5FD4R0UvhQ==
+ b=IPsHo9MblOQ+sVzsjAYnKM2Vaygyjoyc1pVF4ekM+dlYgnC4BTBw1zX6XyTiQi2MK
+ rlouRCRp52MBJrwaF64oVP4cnu094vYNltn9DZGhNZwCPKxb4J7hopuOMnqaMmKwCU
+ M0kjIUPXOoc2GUCqBYPa3luG8U8Lel9eFzvUiTZT4BeMuUxHLwjSdLoB6BtNISuzM+
+ Oi/G/r+36yngMBN7PFaeKEOEBT2/koRKMHoLkL4byHL6aKXSUqUvKwSq4oCiAGCMIo
+ pIWIGVUJKhEt1KqA2RqgfJP/ntzTWaFtttV/vikPhHLMGifBCuPSpZ9c4e25ndJ0BK
+ OFwcsa+mHW2xA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id ACEE4CD98E1;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id BE6D5CD98D2;
  Tue, 16 Jun 2026 23:48:26 +0000 (UTC)
 From: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>
-Date: Wed, 17 Jun 2026 01:48:12 +0200
-Subject: [PATCH 1/5] gpu: nova-core: fb: Move PDISP register definition
+Date: Wed, 17 Jun 2026 01:48:13 +0200
+Subject: [PATCH 2/5] gpu: nova-core: gsp: Move PBUS register definition
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-nova-core-regs-split-v1-1-4c7dc4450ea7@nanonej.com>
+Message-Id: <20260617-nova-core-regs-split-v1-2-4c7dc4450ea7@nanonej.com>
 References: <20260617-nova-core-regs-split-v1-0-4c7dc4450ea7@nanonej.com>
 In-Reply-To: <20260617-nova-core-regs-split-v1-0-4c7dc4450ea7@nanonej.com>
 To: Danilo Krummrich <dakr@kernel.org>, 
@@ -50,21 +50,21 @@ To: Danilo Krummrich <dakr@kernel.org>,
 Cc: linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
  dri-devel@lists.freedesktop.org, daniel.almeida@collabora.com
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2778; i=dev@nanonej.com;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3832; i=dev@nanonej.com;
  h=from:subject:message-id;
- bh=gfZ8p0lcgJadZ5MMUJuVLlpeInmCNJQIxDjgT106Pck=;
- b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqMeDImgHNj1U3GHegI63rytAyZVE1xsHPS2Q2z
- sgomRE6sXSJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCajHgyAAKCRBmh/EjChUV
- /ReoEACYsKid5SSONiRqQ2WbnmeF5NibxXQxRTdhTFqROcLGcn2YyyRQv5aV6R5UjjUGgN/ABSO
- B/cRnUq8oVjdFVd+qcNew3sIPs4LPIFSzseb0kRwA8HekerPUKOpQHJhIdFTSuGxnFVaLB/oc/y
- ASxiEV3NJ5DPG2acTlI4sJgh98UgLpZfeciIMv7ED176uuTABlmlO90E2mJpgPQSoakP0tXoU3K
- rrMcE3/fs/WX1E0QxQfiQWkpjxLy2tOkI3F/9M3dvj6unM1oEOdFoGPuZ3zuw1XhIErw/iBa05f
- UBNAaTUY8jX9SaG1H3dzQanHJW/gI14idHIsh/k3cIf8Yul2WNGdPEi5u78S+/dm9PLowzN62TC
- GJuIUzLqePtnjc019F7eXGtUkxc8nHKZ7Pu2MgOlib72zeGdY0aDeqR3eU6fTAQ+JXFxzVl37Nu
- gyQeYYyaHQBGompzFOqY0YtSOhqLPr/upCbHaOGmzrk+Xy8tgobCyBTX5KGFUxcmG7RkeWTNXTD
- DsV0mW/x/54zpT9wiOmII+IEVZeGq6AY0LcnbRoT4ZsuJlK7dFzCzpK6tBUF8pONF6XOsuh96RZ
- UMGoRp9Q4/9Wpcd9s4IQ/bSq1z20w7XZCwkRp5s/SDuJYUSWkWFw4nyh/lngg5ZD45ZLYsXtTBN
- AmZCT9TFgqIOcKg==
+ bh=oJAAn5nH+lW2zNbhawIFPb0gkR+jFc56SN0jbmio4SQ=;
+ b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqMeDIgyMxZgaQDKC5D2iuOxdFRWPBFEB87gJHM
+ JWP/6EVNWeJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCajHgyAAKCRBmh/EjChUV
+ /R6sD/sEtMw3y/cjwGBxeKA08Drtgbq8US+9GlLzrpRraHGuiIwDkjECBM5eOxpI+wtRaJyjlMs
+ pcR1Us4mJAOcwkNJwu4X8jxiIRtvzE4uKpEJvMu5NTDZ1Nlw06VlcbsK15715GAyJqFxFlRQ156
+ 4qJ3CPWEb1Oxmo48eFi61wt1iO4W/GOd1GTeaMgUgY27U8Lz9wNqOfse4DFPiF3IcBaahQwCA2L
+ QmebeumkEindkQvHZd71z6UJ/HRl0d6ynKNkTZxMmi9dqvz2o/UmtOU2Pw1PinTP3Tpse7BB2rv
+ gld8MZ36ZVRYYgU63LCpM1oosAjR1pRMWjr3PFd58ksuH4b38Uf0XkU98fHL0LQCNAudEriGmIp
+ TfcuIVRo/B8t9++ydut0t1KXQtyWAY3Wi6SdDY/b1Uj6uGFJtOz+uxZhjgsqOW5o8EZT5ziXLoa
+ 7IpDORShpXzWbBgn7P04osVQ9+cQLviKu7jPrjts8bsIdF3fX36gr7xYlk33s/TCyCYj67md2TQ
+ xmG4b3wSTRN8RY+yoB0iExpULrTQUwqIWPNVnNk2ON/NhRV8lzsJHN9XG3FXS0SlDsBhecRu/zl
+ QzuhZGk9ax1mgREDUwfWPEWEJR4rdA1pmpjJz6T3q0BKNEfB2P3y18Tv7WrBwupzpxbxf+NGcW/
+ s5Zaq+xzW77xg2w==
 X-Developer-Key: i=dev@nanonej.com; a=openpgp;
  fpr=83B64FB07C91212F5285227D6687F1230A1515FD
 X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with auth_id=825
@@ -87,98 +87,118 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Antonin Malzieu Ridolfi <dev@nanonej.com>
 
-Move PDISP register definition into fb module and update register
+Move PBUS register definition into gsp module and update registers
 visibility.
 
 Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
 ---
- drivers/gpu/nova-core/fb.rs      |  4 ++--
- drivers/gpu/nova-core/fb/regs.rs | 25 +++++++++++++++++++++++++
- drivers/gpu/nova-core/regs.rs    | 22 ----------------------
- 3 files changed, 27 insertions(+), 24 deletions(-)
+ drivers/gpu/nova-core/gsp/hal/tu102.rs | 12 ++++++------
+ drivers/gpu/nova-core/gsp/regs.rs      | 11 +++++++++++
+ drivers/gpu/nova-core/regs.rs          | 11 -----------
+ 3 files changed, 17 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
-index 725e428154cf..4385b5d53e85 100644
---- a/drivers/gpu/nova-core/fb.rs
-+++ b/drivers/gpu/nova-core/fb.rs
-@@ -23,11 +23,11 @@
-     firmware::gsp::GspFirmware,
-     gpu::Chipset,
-     gsp,
--    num::FromSafeCast,
--    regs, //
-+    num::FromSafeCast //
+diff --git a/drivers/gpu/nova-core/gsp/hal/tu102.rs b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+index eb7166148cc9..d46e8ec65785 100644
+--- a/drivers/gpu/nova-core/gsp/hal/tu102.rs
++++ b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+@@ -37,6 +37,7 @@
+             GspHal,
+             UnloadBundle, //
+         },
++        regs,
+         sequencer::{
+             GspSequencer,
+             GspSequencerParams, //
+@@ -44,7 +45,6 @@
+         Gsp,
+         GspFwWprMeta, //
+     },
+-    regs,
+     vbios::Vbios, //
  };
  
- mod hal;
-+mod regs;
+@@ -141,7 +141,7 @@ fn run(
+             .inspect_err(|e| dev_err!(dev, "FWSEC-SB failed to run: {:?}\n", e));
  
- /// Type holding the sysmem flush memory page, a page of memory to be written into the
- /// `NV_PFB_NISO_FLUSH_SYSMEM_ADDR*` registers and used to maintain memory coherency.
-diff --git a/drivers/gpu/nova-core/fb/regs.rs b/drivers/gpu/nova-core/fb/regs.rs
-new file mode 100644
-index 000000000000..b2ec02f584be
---- /dev/null
-+++ b/drivers/gpu/nova-core/fb/regs.rs
-@@ -0,0 +1,25 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+use kernel::io::register;
-+
-+// PDISP
+         // Remove WPR2 region if set.
+-        let wpr2_hi = bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI);
++        let wpr2_hi = bar.read(crate::regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI);
+         let booter_unloader_res = (|| {
+             if !wpr2_hi.is_wpr2_set() {
+                 return Ok(());
+@@ -160,7 +160,7 @@ fn run(
+             }
+ 
+             // Confirm that the WPR2 region has been removed.
+-            let wpr2_hi = bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI);
++            let wpr2_hi = bar.read(crate::regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI);
+             if wpr2_hi.is_wpr2_set() {
+                 dev_err!(
+                     dev,
+@@ -189,7 +189,7 @@ fn run_fwsec_frts(
+ ) -> Result {
+     // Check that the WPR2 region does not already exist - if it does, we cannot run
+     // FWSEC-FRTS until the GPU is reset.
+-    if bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI).higher_bound() != 0 {
++    if bar.read(crate::regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI).higher_bound() != 0 {
+         dev_err!(
+             dev,
+             "WPR2 region already exists - GPU needs to be reset to proceed\n"
+@@ -234,8 +234,8 @@ fn run_fwsec_frts(
+ 
+     // Check that the WPR2 region has been created as we requested.
+     let (wpr2_lo, wpr2_hi) = (
+-        bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_LO).lower_bound(),
+-        bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI).higher_bound(),
++        bar.read(crate::regs::NV_PFB_PRI_MMU_WPR2_ADDR_LO).lower_bound(),
++        bar.read(crate::regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI).higher_bound(),
+     );
+ 
+     match (wpr2_lo, wpr2_hi) {
+diff --git a/drivers/gpu/nova-core/gsp/regs.rs b/drivers/gpu/nova-core/gsp/regs.rs
+index a76dea3c3ab0..571b7e0a95ee 100644
+--- a/drivers/gpu/nova-core/gsp/regs.rs
++++ b/drivers/gpu/nova-core/gsp/regs.rs
+@@ -2,6 +2,17 @@
+ 
+ use kernel::io::register;
+ 
++// PBUS
 +
 +register! {
-+    pub(super) NV_PDISP_VGA_WORKSPACE_BASE(u32) @ 0x00625f04 {
-+        /// VGA workspace base address divided by 0x10000.
-+        31:8    addr;
-+        /// Set if the `addr` field is valid.
-+        3:3     status_valid => bool;
++    pub(super) NV_PBUS_SW_SCRATCH(u32)[64] @ 0x00001400 {}
++
++    /// Scratch register 0xe used as FRTS firmware error code.
++    pub(super) NV_PBUS_SW_SCRATCH_0E_FRTS_ERR(u32) => NV_PBUS_SW_SCRATCH[0xe] {
++        31:16   frts_err_code;
 +    }
 +}
 +
-+impl NV_PDISP_VGA_WORKSPACE_BASE {
-+    /// Returns the base address of the VGA workspace, or `None` if none exists.
-+    pub(super) fn vga_workspace_addr(self) -> Option<u64> {
-+        if self.status_valid() {
-+            Some(u64::from(self.addr()) << 16)
-+        } else {
-+            None
-+        }
-+    }
-+}
+ // PGSP
+ 
+ register! {
 diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index 73339a0cff99..6a86ac05e59f 100644
+index 6a86ac05e59f..59d36870b92b 100644
 --- a/drivers/gpu/nova-core/regs.rs
 +++ b/drivers/gpu/nova-core/regs.rs
-@@ -286,28 +286,6 @@ pub(crate) fn usable_fb_size(self) -> u64 {
+@@ -105,17 +105,6 @@ fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
      }
  }
  
--// PDISP
+-// PBUS
 -
 -register! {
--    pub(crate) NV_PDISP_VGA_WORKSPACE_BASE(u32) @ 0x00625f04 {
--        /// VGA workspace base address divided by 0x10000.
--        31:8    addr;
--        /// Set if the `addr` field is valid.
--        3:3     status_valid => bool;
+-    pub(crate) NV_PBUS_SW_SCRATCH(u32)[64] @ 0x00001400 {}
+-
+-    /// Scratch register 0xe used as FRTS firmware error code.
+-    pub(crate) NV_PBUS_SW_SCRATCH_0E_FRTS_ERR(u32) => NV_PBUS_SW_SCRATCH[0xe] {
+-        31:16   frts_err_code;
 -    }
 -}
 -
--impl NV_PDISP_VGA_WORKSPACE_BASE {
--    /// Returns the base address of the VGA workspace, or `None` if none exists.
--    pub(crate) fn vga_workspace_addr(self) -> Option<u64> {
--        if self.status_valid() {
--            Some(u64::from(self.addr()) << 16)
--        } else {
--            None
--        }
--    }
--}
--
- // FUSE
+ // PFB
  
- pub(crate) const NV_FUSE_OPT_FPF_SIZE: usize = 16;
+ register! {
 
 -- 
 2.54.0
