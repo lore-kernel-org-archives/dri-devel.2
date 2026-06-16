@@ -4,49 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B255ECD98E8
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 11:54:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92ECCCD98E1
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 11:54:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1731C10EA8A;
-	Tue, 16 Jun 2026 11:54:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F10AC10EA8C;
+	Tue, 16 Jun 2026 11:54:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="df6uXJRF";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="qO/dWV0u";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80C4910EA80
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 11:54:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1781610872;
- bh=jC+FAM3EW54MLhU3yGmuzjo8IWqD8uHcIWces1mre1w=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=df6uXJRFBPQ8mJOw4V2ugIhBbyJEBrvc5ZRPwpZRkoR6SaMaG07aVbvztMHxM0IGT
- 6g5YwHflSBylgWymhKG/YD1ez+QMyYeNDtcjeqrPF8Xb0JH6Hkc7B8bU0QcuI4xsso
- 8ZkbF2IEhkRkn+yafqMq6IPkS5PtC63rG87IMaR6deLet7lrOirwCWLrXzS0KsrbtH
- 4hxWxkTiv6DguN6y94/c+B1Cu3QVBGpPelU2AL3FfeVI/ZjgHBwX0WoCW/TZ5eoeUe
- cBqDEViQyWFBGBMPfrNUo/kvBhH+C819Lnd/GuJkMvDM2ZrJduTlTGVMNutH4WZuXp
- KiYVtNrxDUYJg==
-Received: from vignesh-thinkpad.. (unknown [100.64.0.157])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: vignesh)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id A67A117E0CAC;
- Tue, 16 Jun 2026 13:54:29 +0200 (CEST)
-From: Vignesh Raman <vignesh.raman@collabora.com>
-To: dri-devel@lists.freedesktop.org
-Cc: daniels@collabora.com, helen.fornazier@gmail.com, airlied@gmail.com,
- simona.vetter@ffwll.ch, dmitry.baryshkov@oss.qualcomm.com,
- lumag@kernel.org, robdclark@gmail.com, robin.clark@oss.qualcomm.com,
- valentine.burley@collabora.com, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] drm/ci: add sc7180-trogdor-wormdingler-rev1-boe
-Date: Tue, 16 Jun 2026 17:24:05 +0530
-Message-ID: <20260616115410.325837-3-vignesh.raman@collabora.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260616115410.325837-1-vignesh.raman@collabora.com>
-References: <20260616115410.325837-1-vignesh.raman@collabora.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from mail-ed1-f73.google.com (mail-ed1-f73.google.com
+ [209.85.208.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72B6C10EA8B
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 11:54:36 +0000 (UTC)
+Received: by mail-ed1-f73.google.com with SMTP id
+ 4fb4d7f45d1cf-68f9f08cfcaso4074558a12.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 04:54:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1781610875; x=1782215675;
+ darn=lists.freedesktop.org; 
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Fkz/8WHSlc5z8mgSFYgivmaJvolb4fXApnGq7F/IsFs=;
+ b=qO/dWV0ug4avwiqcoRFY7BztTUiHWvFmb6tCydmPYBnmSwUwkSLDCH5XEbcq8ioUv/
+ p7NFTX36fIVmD47INcZINFQ2LYZ6jWs2B7PGM4g/xRZ6ZsyZbvptHt4XtnFOTgdBu50Y
+ 9R5wbuu7tfWuf6q9pR5p6KXvA+ac3BewE4tuLBzUahYe7xzQYacFDtXOkF54fxDfwl+z
+ gMBw0M6WHuDg8td9zpcd+3jiYEXoiXav0PRjlDSEDgN7EWbWlHLcjUN6Cy0C20bdgCmv
+ 6qsAg4lCX1pKu7Y/8/Q92cY3+8u77MJUa9swjhTTImSRfOHNVGSJGM2GCTs5fdW+Wdup
+ gwCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781610875; x=1782215675;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Fkz/8WHSlc5z8mgSFYgivmaJvolb4fXApnGq7F/IsFs=;
+ b=ARL5sPdHyHhvQ1x1DSuBLEf9kB7kxxtG3TadxRoWYbdLownjH8ZshNNs8Q0pSQytiu
+ NhB/Hptz2QABdQE2ijgpJ0+eWV5VbLPAVfw6uchTOtRKgSGcp+YG8tLmgFp5YN+G9i8Y
+ 0G2vxd7E6ZtFvkkDzux452yiTAWWECFz6UDQ4x3cXONLjyJVBse7YB9yXcFeQBnyh5MX
+ C1TMGj6Is8ZZs5jiXKbFltzz4G29LPfW9zHk0hWf0cM60EKEWxtozdqqqs50dOmSJhN+
+ huSGAR89emnLCGiLS0bDaxr7kfA4/DdHVHuZ3jDnhIlNskByg9f48KwGg00FMGKO2WOG
+ qrZA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9oa+ri5iySupuEG71cFN1KGz3bdVJSN/PEGDpb/3mk57ftlNmcakYDEerD4nZrHIq14dqMpaDdZ8c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwAlLJFueUhgOr3TYZX86eh72eAOZAXMMfmLJUsXxESZ+B3B1yU
+ mIGe9Heyw4Stx5EV6kzgDKes1n6+0PJVH6IlAnUYlF4HPH4qwjv9cj71b6Pd/SDmhuzlrbycZbd
+ c9xG2poMgyidrgaD5Yg==
+X-Received: from edrc26.prod.google.com ([2002:aa7:d61a:0:b0:68d:205:9a90])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:35c5:b0:695:865:47cd with SMTP id
+ 4fb4d7f45d1cf-695086ebec3mr1540972a12.7.1781610868582; 
+ Tue, 16 Jun 2026 04:54:28 -0700 (PDT)
+Date: Tue, 16 Jun 2026 11:54:27 +0000
+In-Reply-To: <20260604-unique-ref-v17-2-7b4c3d2930b9@kernel.org>
+Mime-Version: 1.0
+References: <20260604-unique-ref-v17-0-7b4c3d2930b9@kernel.org>
+ <20260604-unique-ref-v17-2-7b4c3d2930b9@kernel.org>
+Message-ID: <ajE5c-5gZtJRoadx@google.com>
+Subject: Re: [PATCH v17 02/10] rust: types: Add Ownable/Owned types
+From: Alice Ryhl <aliceryhl@google.com>
+To: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dave Ertman <david.m.ertman@intel.com>, 
+ Ira Weiny <ira.weiny@intel.com>, Leon Romanovsky <leon@kernel.org>,
+ Paul Moore <paul@paul-moore.com>, 
+ Serge Hallyn <sergeh@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Viresh Kumar <vireshk@kernel.org>, 
+ Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ "Krzysztof =?utf-8?Q?Wilczy=C5=84ski?=" <kwilczynski@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Igor Korotin <igor.korotin@linux.dev>, 
+ Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, linux-block@vger.kernel.org, 
+ linux-security-module@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, linux-pm@vger.kernel.org, 
+ linux-pci@vger.kernel.org, driver-core@lists.linux.dev, 
+ Asahi Lina <lina+kernel@asahilina.net>, Oliver Mangold <oliver.mangold@pm.me>
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,151 +104,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add job that executes the IGT test suite for
-sc7180-trogdor-wormdingler-rev1-boe.
+On Thu, Jun 04, 2026 at 10:11:14PM +0200, Andreas Hindborg wrote:
+> From: Asahi Lina <lina+kernel@asahilina.net>
+> 
+> By analogy to `AlwaysRefCounted` and `ARef`, an `Ownable` type is a
+> (typically C FFI) type that *may* be owned by Rust, but need not be. Unlike
+> `AlwaysRefCounted`, this mechanism expects the reference to be unique
+> within Rust, and does not allow cloning.
+> 
+> Conceptually, this is similar to a `KBox<T>`, except that it delegates
+> resource management to the `T` instead of using a generic allocator.
+> 
+> [ om:
+>   - Split code into separate file and `pub use` it from types.rs.
+>   - Make from_raw() and into_raw() public.
+>   - Remove OwnableMut, and make DerefMut dependent on Unpin instead.
+>   - Usage example/doctest for Ownable/Owned.
+>   - Fixes to documentation and commit message.
+> ]
+> 
+> Link: https://lore.kernel.org/all/20250202-rust-page-v1-1-e3170d7fe55e@asahilina.net/
+> Signed-off-by: Asahi Lina <lina+kernel@asahilina.net>
+> Co-developed-by: Oliver Mangold <oliver.mangold@pm.me>
+> Signed-off-by: Oliver Mangold <oliver.mangold@pm.me>
+> Reviewed-by: Boqun Feng <boqun.feng@gmail.com>
+> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+> [ Andreas: Updated documentation, examples, and formatting. Change safety
+>   requirements, safety comments. Use a reference for `release`. ]
+> Reviewed-by: Gary Guo <gary@garyguo.net>
+> Co-developed-by: Andreas Hindborg <a.hindborg@kernel.org>
+> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
 
-Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
----
+Overall looks good to me, but two nits below. With them fixed:
 
-v3:
-  - Rebase with msm-next
-  - https://gitlab.freedesktop.org/drm/msm/-/merge_requests/221
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 
-v2:
-  - Add comments to clarify panel configurations for sc7180 trogdor devices
-  - https://gitlab.freedesktop.org/drm/msm/-/merge_requests/221
-  - Failure pipeline - https://gitlab.freedesktop.org/vigneshraman/msm/-/pipelines/1642103
+> +pub trait Ownable {
+> +    /// Tear down this `Ownable`.
+> +    ///
+> +    /// Implementers of `Ownable` can use this function to clean up the use of `Self`. This can
+> +    /// include freeing the underlying object.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// Callers must ensure that the caller has exclusive ownership of `T`, and this ownership can
+> +    /// be transferred to the `release` method.
+> +    unsafe fn release(&mut self);
 
-v1:
-  - https://gitlab.freedesktop.org/drm/msm/-/merge_requests/221
-  - Depends on https://lore.kernel.org/dri-devel/20260210071138.2256773-1-vignesh.raman@collabora.com/
+I'd make this take a raw pointer because the pointer can be freed during
+the execution of release(), which references don't allow.
 
----
- drivers/gpu/drm/ci/arm64.config               |  4 +++
- drivers/gpu/drm/ci/build.sh                   |  1 +
- drivers/gpu/drm/ci/test.yml                   | 12 +++++++++
- ...180-trogdor-wormdingler-rev1-boe-fails.txt | 23 ++++++++++++++++
- ...180-trogdor-wormdingler-rev1-boe-skips.txt | 27 +++++++++++++++++++
- 5 files changed, 67 insertions(+)
- create mode 100644 drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-fails.txt
- create mode 100644 drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-skips.txt
+> diff --git a/rust/kernel/types.rs b/rust/kernel/types.rs
+> index 4329d3c2c2e5..4aec7b699269 100644
+> --- a/rust/kernel/types.rs
+> +++ b/rust/kernel/types.rs
+> @@ -11,6 +11,17 @@
+>  };
+>  use pin_init::{PinInit, Wrapper, Zeroable};
+>  
+> +pub use crate::{
+> +    owned::{
+> +        Ownable,
+> +        Owned, //
+> +    },
+> +    sync::aref::{
+> +        ARef,
+> +        AlwaysRefCounted, //
+> +    }, //
+> +};
 
-diff --git a/drivers/gpu/drm/ci/arm64.config b/drivers/gpu/drm/ci/arm64.config
-index 563a69669a7b..f601b662c82f 100644
---- a/drivers/gpu/drm/ci/arm64.config
-+++ b/drivers/gpu/drm/ci/arm64.config
-@@ -214,3 +214,7 @@ CONFIG_PWM_TEGRA=y
- CONFIG_DRM_PANTHOR=m
- CONFIG_PHY_ROCKCHIP_NANENG_COMBO_PHY=y
- CONFIG_PHY_ROCKCHIP_SAMSUNG_HDPTX=y
-+
-+# For sc7180-trogdor-wormdingler-rev1-boe
-+CONFIG_DRM_PANEL_BOE_TV101WUM_NL6=y
-+CONFIG_GPIO_SHARED_PROXY=y
-diff --git a/drivers/gpu/drm/ci/build.sh b/drivers/gpu/drm/ci/build.sh
-index fdaa26ad79d6..61ac2d043ce3 100644
---- a/drivers/gpu/drm/ci/build.sh
-+++ b/drivers/gpu/drm/ci/build.sh
-@@ -28,6 +28,7 @@ if [[ "$KERNEL_ARCH" = "arm64" ]]; then
-     DEVICE_TREES+=" arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dtb"
-     DEVICE_TREES+=" arch/arm64/boot/dts/qcom/sc7180-trogdor-kingoftown.dtb"
-     DEVICE_TREES+=" arch/arm64/boot/dts/qcom/sm8350-hdk.dtb"
-+    DEVICE_TREES+=" arch/arm64/boot/dts/qcom/sc7180-trogdor-wormdingler-rev1-boe.dtb"
- elif [[ "$KERNEL_ARCH" = "arm" ]]; then
-     GCC_ARCH="arm-linux-gnueabihf"
-     DEBIAN_ARCH="armhf"
-diff --git a/drivers/gpu/drm/ci/test.yml b/drivers/gpu/drm/ci/test.yml
-index 3777189e9737..d9b21d63fb65 100644
---- a/drivers/gpu/drm/ci/test.yml
-+++ b/drivers/gpu/drm/ci/test.yml
-@@ -102,6 +102,7 @@
-     KERNEL_IMAGE_TYPE: ""
-     LAVA_FIRMWARE: qcom-lava
- 
-+# eDP panel (parade ps8640 dsi->edp bridge)
- msm:sc7180-trogdor-kingoftown:
-   extends:
-     - .msm-sc7180
-@@ -112,6 +113,17 @@ msm:sc7180-trogdor-kingoftown:
-     GPU_VERSION: ${DEVICE_TYPE}
-     RUNNER_TAG: mesa-ci-x86-64-lava-sc7180-trogdor-kingoftown
- 
-+# MIPI DSI panel
-+msm:sc7180-trogdor-wormdingler:
-+  extends:
-+    - .msm-sc7180
-+  parallel: 6
-+  variables:
-+    DEVICE_TYPE: sc7180-trogdor-wormdingler-rev1-boe
-+    DTB: sc7180-trogdor-wormdingler-rev1-boe
-+    GPU_VERSION: ${DEVICE_TYPE}
-+    RUNNER_TAG: mesa-ci-x86-64-lava-sc7180-trogdor-wormdingler-rev1-boe
-+
- msm:apq8016:
-   extends:
-     - .lava-igt:arm64
-diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-fails.txt
-new file mode 100644
-index 000000000000..4af93eeeaf99
---- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-fails.txt
-@@ -0,0 +1,23 @@
-+core_setmaster@master-drop-set-user,Fail
-+kms_color@ctm-0-25,Fail
-+kms_color@ctm-0-50,Fail
-+kms_color@ctm-0-75,Fail
-+kms_color@ctm-blue-to-red,Fail
-+kms_color@ctm-green-to-red,Fail
-+kms_color@ctm-negative,Fail
-+kms_color@ctm-red-to-blue,Fail
-+kms_color@ctm-signed,Fail
-+kms_color@gamma,Fail
-+kms_color@legacy-gamma,Fail
-+kms_cursor_legacy@cursor-vs-flip-toggle,Fail
-+kms_cursor_legacy@cursor-vs-flip-varying-size,Fail
-+kms_flip@flip-vs-modeset-vs-hang,Fail
-+kms_flip@flip-vs-panning-vs-hang,Fail
-+kms_invalid_mode@overflow-vrefresh,Fail
-+kms_lease@lease-uevent,Fail
-+kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail
-+kms_plane@pixel-format,Fail
-+kms_plane@pixel-format-source-clamping,Fail
-+kms_plane_alpha_blend@alpha-7efc,Fail
-+kms_plane_alpha_blend@coverage-7efc,Fail
-+kms_plane_alpha_blend@coverage-vs-premult-vs-constant,Fail
-diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-skips.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-skips.txt
-new file mode 100644
-index 000000000000..8d1768de90cc
---- /dev/null
-+++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-skips.txt
-@@ -0,0 +1,27 @@
-+# Skip driver specific tests
-+^amdgpu.*
-+nouveau_.*
-+^panfrost.*
-+^v3d.*
-+^vc4.*
-+^vmwgfx*
-+
-+# Skip intel specific tests
-+gem_.*
-+i915_.*
-+tools_test.*
-+kms_dp_link_training.*
-+
-+# Currently fails and causes coverage loss for other tests
-+# since core_getversion also fails.
-+core_hotunplug.*
-+
-+# IGT issue. is_joiner_mode() should return false for non-Intel hardware.
-+# https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/issues/162
-+kms_display_modes@extended-mode-basic
-+kms_display_modes@mst-extended-mode-negative
-+
-+# sc7180 does not have APRIV, so memptrs is not protected.
-+# (Preemption is not supported on devices that do not have
-+# APRIV, so this is ok)
-+msm/msm_mapping@memptrs
--- 
-2.47.3
+We removed the types::ARef re-export, so you shouldn't add it back.
 
+Alice
