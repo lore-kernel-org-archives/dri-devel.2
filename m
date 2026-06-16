@@ -4,53 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39FA2CD98DA
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 12:13:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B582ECD98DA
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 12:40:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9501310EAA0;
-	Tue, 16 Jun 2026 12:13:13 +0000 (UTC)
-X-Greylist: delayed 388 seconds by postgrey-1.36 at gabe;
- Tue, 16 Jun 2026 12:13:11 UTC
-Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA78410E78C
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 12:13:11 +0000 (UTC)
-Received: by sphereful.davidgow.net (Postfix, from userid 119)
- id AFC621EA012; Tue, 16 Jun 2026 20:06:40 +0800 (AWST)
-Received: from [IPV6:2001:8003:8810:ea00::9c4] (unknown
- [IPv6:2001:8003:8810:ea00::9c4])
- by sphereful.davidgow.net (Postfix) with ESMTPSA id AA7691EA00D;
- Tue, 16 Jun 2026 20:06:33 +0800 (AWST)
-Message-ID: <51f89811-2976-44c7-99f3-5e24d5535aa8@davidgow.net>
-Date: Tue, 16 Jun 2026 20:06:31 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E04210EAB3;
+	Tue, 16 Jun 2026 12:40:23 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="QHdXLbGR";
+	dkim-atps=neutral
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
+ [209.85.160.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E87A310EAB3
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 12:40:21 +0000 (UTC)
+Received: by mail-qt1-f171.google.com with SMTP id
+ d75a77b69052e-517b1f2c6adso43738781cf.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 05:40:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1781613621; x=1782218421; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=tPbjX8dfzPLu8onhnfm0DNzfCkJoWXqGLy1Lxvc2NUs=;
+ b=QHdXLbGRwDzgvjP4d/nuuSx1tuJI7/pik9fIp6TMxwUyCBic2A9Vnh5KqWFqnZ/5O2
+ TOIsZDuSI99vwI5Z5G4CFWZMsh6aKJ5CvDKSc2yn7cpjoMDYB7LhTkSWPyFvoRSlaGzJ
+ 4VDHUI4jHTBZaVZ/3Mk1VsJLHMqheDCb1RMpqeZAk6hGVIZ2R8EGLPoLpEyYxGoBVgOb
+ 8QKZL0vt1xhJ2vK6B/l/Ery/SRFMgoZwZ/ElxOp95vvoSyfvhEUt9f/D2nUR4sz0UnyF
+ auIXj/gkyxBp6nouXkdju+VKg2DR/akR8S1ac0GivoqffeBM10tt4lOEA2RWvrH+1zJt
+ 38BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781613621; x=1782218421;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=tPbjX8dfzPLu8onhnfm0DNzfCkJoWXqGLy1Lxvc2NUs=;
+ b=YUmgsIzQ8JBqnd1RHzn1+8boNl6dNkHh3Gir/peCPl/VidE6FtKtPU1NYqZQHDTR4+
+ sst/gnLNaR2JdQe7ZhJkyYSlFyyRcbvmGrB0jEUD2Gw76keP1PFqcY6wY/ZcRpCEaGYS
+ 3yfXs3VNYeZkDj+Blc1JqfZYwf82ghgC9/MgXanDfogv2I0ZL2lF5s4zanDx7zf1EZ91
+ U6OvZXc1/5rgEDNBoQgufcZVX2npLEV74hkvkGwsBMEp2+aQZegNIS025Ly7idcFD/jT
+ MsTAIfv0lA5q+6iIsFJHL/JRUUdOKm8femjpcM9UjTHmpKyhup2Z6288RYRpk5WdRAFu
+ zc9A==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+H7iXEMjAEdmyxwXw6R9eS3KQe3ujdakL7anV0rI9+7MUxtWT/LHMzmaBBzPbXp2jVHI6z7KBtDWI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzL1+MdMW3t3R5NIk0+rQ0TfUTDwK541uMmDtP5CIo6MOkPMM0u
+ keRLeWD0nivWW7dzPJorDUMuMIx0ty36hT7SG080c8OqIp52aQWKHdBH2k61FiVaJbY=
+X-Gm-Gg: Acq92OEhraoE8TnhV2aOf1BUw9fVeWjz0wyaKOI3ekirDV+zA5KlMpV2XU7cnL+1BK1
+ 2DNGwn+SSBb/aeqwOISEnBQE7Wxq3e9ez95bVzGhzFkZgHD9sDwlGvfhp5etx4XxNw3JMrfoERJ
+ E0GCzx7xQ0+r/yru8i0y2m61pY0wIt9DgKAHse8IWNxnzmQUF0zylqBvZhvcosJV1gDF4/rTbbr
+ ClPsJn5Nh2pWqu1fl3Jtn9sFXgSgW9uRPXZmJBd+XNsxEyds3+73xhzFxfVoyojCAD+B9X7TE7n
+ XLDD1oBXIH+83RUt9Ck5K3CkH7pzzRAAV+tB7ulKZwmhFzcrq/aTEPThwL49JNv3wKCiXEM6w2c
+ bTIbAv5vInnYIZdf51poJWSh1SORj5COuVgbnJJar9yVzpfX0tufmniJX0B/J+VfZ8NsQ6f4cuP
+ r4eDpZ+4cUKVfEkd5cXy5YWRMHPIWbZori1pacM5XF/Dncmb0aG2NEia2CcHieelK6O4u/uWyyy
+ 3fMaw==
+X-Received: by 2002:a05:622a:2282:b0:517:6804:1fb3 with SMTP id
+ d75a77b69052e-517fe230d82mr282972431cf.18.1781613620607; 
+ Tue, 16 Jun 2026 05:40:20 -0700 (PDT)
+Received: from ziepe.ca
+ (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
+ [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-517fb61d948sm133785221cf.1.2026.06.16.05.40.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Jun 2026 05:40:19 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1wZT5X-0000000Fzb5-0uZr;
+ Tue, 16 Jun 2026 09:40:19 -0300
+Date: Tue, 16 Jun 2026 09:40:19 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Kasireddy, Vivek" <vivek.kasireddy@intel.com>
+Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
+ Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Gerd Hoffmann <kraxel@redhat.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Shuah Khan <shuah@kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+ "sdf@fomichev.me" <sdf@fomichev.me>,
+ "razor@blackwall.org" <razor@blackwall.org>,
+ "daniel@iogearbox.net" <daniel@iogearbox.net>,
+ "almasrymina@google.com" <almasrymina@google.com>,
+ "matttbe@kernel.org" <matttbe@kernel.org>,
+ "skhawaja@google.com" <skhawaja@google.com>,
+ "dw@davidwei.uk" <dw@davidwei.uk>, Bobby Eshleman <bobbyeshleman@meta.com>
+Subject: Re: [PATCH net-next v2 2/4] udmabuf: emit one sg entry per pinned
+ folio
+Message-ID: <20260616124019.GA3577091@ziepe.ca>
+References: <20260611-tcpdm-large-niovs-v2-0-ee2bf15e7523@meta.com>
+ <20260611-tcpdm-large-niovs-v2-2-ee2bf15e7523@meta.com>
+ <IA0PR11MB71852246277F773AC41DAAA3F8E52@IA0PR11MB7185.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 0/4] kunit: Add support for suppressing warning
- backtraces
-To: Albert Esteve <aesteve@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
- Brendan Higgins <brendan.higgins@linux.dev>, Rae Moar <raemoar63@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Andrew Morton <akpm@linux-foundation.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
- dri-devel@lists.freedesktop.org, workflows@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-doc@vger.kernel.org,
- peterz@infradead.org, Alessandro Carminati <acarmina@redhat.com>,
- Guenter Roeck <linux@roeck-us.net>, Kees Cook <kees@kernel.org>,
- Linux Kernel Functional Testing <lkft@linaro.org>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Dan Carpenter <error27@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-References: <20260515-kunit_add_support-v13-0-18ee42f96e7b@redhat.com>
- <CADSE00+typ3Zi5Vf0Z276+e0G7PuS7mt7oA9h5awBu3YgYKw0g@mail.gmail.com>
-From: David Gow <david@davidgow.net>
-Content-Language: fr
-In-Reply-To: <CADSE00+typ3Zi5Vf0Z276+e0G7PuS7mt7oA9h5awBu3YgYKw0g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <IA0PR11MB71852246277F773AC41DAAA3F8E52@IA0PR11MB7185.namprd11.prod.outlook.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,207 +115,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Le 16/06/2026 à 7:44 PM, Albert Esteve a écrit :
-> On Fri, May 15, 2026 at 2:29 PM Albert Esteve <aesteve@redhat.com> wrote:
->>
->> Some unit tests intentionally trigger warning backtraces by passing bad
->> parameters to kernel API functions. Such unit tests typically check the
->> return value from such calls, not the existence of the warning backtrace.
->>
->> Such intentionally generated warning backtraces are neither desirable
->> nor useful for a number of reasons:
->> - They can result in overlooked real problems.
->> - A warning that suddenly starts to show up in unit tests needs to be
->>   investigated and has to be marked to be ignored, for example by
->>   adjusting filter scripts. Such filters are ad hoc because there is
->>   no real standard format for warnings. On top of that, such filter
->>   scripts would require constant maintenance.
->>
->> One option to address the problem would be to add messages such as
->> "expected warning backtraces start/end here" to the kernel log.
->> However, that would again require filter scripts, might result in
->> missing real problematic warning backtraces triggered while the test
->> is running, and the irrelevant backtrace(s) would still clog the
->> kernel log.
->>
->> Solve the problem by providing a means to suppress warning backtraces
->> originating from the current kthread while executing test code.
->> Since each KUnit test runs in its own kthread, this effectively scopes
->> suppression to the test that enabled it, without requiring any
->> architecture-specific code.
->>
->> Overview:
->> Patch#1 Introduces the suppression infrastructure integrated into
->>         KUnit's hook mechanism.
->> Patch#2 Adds selftests to validate the functionality.
->> Patch#3 Demonstrates real-world usage in the DRM subsystem.
->> Patch#4 Documents the new API and usage guidelines.
->>
->> Design Notes:
->> Suppression is integrated into the existing KUnit hooks infrastructure,
->> reusing the kunit_running static branch for zero overhead
->> when no tests are running. The implementation lives entirely in the
->> kunit module; only a static-inline wrapper and a function pointer
->> slot are added to built-in code.
->>
->> Suppression is checked at three points in the warning path:
->> - In `warn_slowpath_fmt()` (kernel/panic.c), for architectures without
->>   __WARN_FLAGS. The check runs before any output, fully suppressing
->>   both message and backtrace.
->> - In `__warn_printk()` (kernel/panic.c), for architectures that define
->>   __WARN_FLAGS but not their own __WARN_printf (arm64, loongarch,
->>   parisc, powerpc, riscv, sh). The check suppresses the warning message
->>   text that is printed before the trap enters __report_bug().
->> - In `__report_bug()` (lib/bug.c), for architectures that define
->>   __WARN_FLAGS. The check runs before `__warn()` is called, suppressing
->>   the backtrace and stack dump.
->>
->> To avoid double-counting on architectures where both `__warn_printk()`
->> and `__report_bug()` run for the same warning, the hook takes a bool
->> parameter: true to increment the suppression counter, false to suppress
->> without counting.
->>
->> The suppression state is dynamically allocated via kunit_kzalloc() and
->> tied to the KUnit test lifecycle via `kunit_add_action()`, ensuring
->> automatic cleanup at test exit. Writer-side access to the global
->> suppression list is serialized with a spinlock; readers use RCU.
->>
->> Two API forms are provided:
->> - kunit_warning_suppress(test) { ... }: scoped blocks with automatic
->>   cleanup. The suppression handle is not accessible outside the block,
->>   so warning counts (if needed) must be checked inside. Multiple
->>   sequential suppression blocks are allowed.
->> - kunit_start/end_suppress_warning(test): direct functions that return
->>   an explicit handle. Use when the handle needs to be retained, or passed
->>   across helpers. Multiple sequential suppression blocks are allowed.
->>
->> This series is based on the RFC patch and subsequent discussion at
->> https://patchwork.kernel.org/project/linux-kselftest/patch/02546e59-1afe-4b08-ba81-d94f3b691c9a@moroto.mountain/
->> and offers a more comprehensive solution of the problem discussed there.
->>
->> Changes since RFC:
->> - Introduced CONFIG_KUNIT_SUPPRESS_BACKTRACE
->> - Minor cleanups and bug fixes
->> - Added support for all affected architectures
->> - Added support for counting suppressed warnings
->> - Added unit tests using those counters
->> - Added patch to suppress warning backtraces in dev_addr_lists tests
->>
->> Changes since v1:
->> - Rebased to v6.9-rc1
->> - Added Tested-by:, Acked-by:, and Reviewed-by: tags
->>   [I retained those tags since there have been no functional changes]
->> - Introduced KUNIT_SUPPRESS_BACKTRACE configuration option, enabled by
->>   default.
->>
->> Changes since v2:
->> - Rebased to v6.9-rc2
->> - Added comments to drm warning suppression explaining why it is needed.
->> - Added patch to move conditional code in arch/sh/include/asm/bug.h
->>   to avoid kerneldoc warning
->> - Added architecture maintainers to Cc: for architecture specific patches
->> - No functional changes
->>
->> Changes since v3:
->> - Rebased to v6.14-rc6
->> - Dropped net: "kunit: Suppress lock warning noise at end of dev_addr_lists tests"
->>   since 3db3b62955cd6d73afde05a17d7e8e106695c3b9
->> - Added __kunit_ and KUNIT_ prefixes.
->> - Tested on interessed architectures.
->>
->> Changes since v4:
->> - Rebased to v6.15-rc7
->> - Dropped all code in __report_bug()
->> - Moved all checks in WARN*() macros.
->> - Dropped all architecture specific code.
->> - Made __kunit_is_suppressed_warning nice to noinstr functions.
->>
->> Changes since v5:
->> - Rebased to v7.0-rc3
->> - Added RCU protection for the suppressed warnings list.
->> - Added static key and branching optimization.
->> - Removed custom `strcmp` implementation and reworked
->>   __kunit_is_suppressed_warning() entrypoint function.
->>
->> Changes since v6:
->> - Moved suppression checks from WARN*() macros to warn_slowpath_fmt()
->>   and __report_bug().
->> - Replaced stack-allocated suppression struct with kunit_kzalloc() heap
->>   allocation tied to the KUnit test lifecycle.
->> - Changed suppression strategy from function-name matching to task-scoped:
->>   all warnings on the current task are suppressed between START and END,
->>   rather than only warnings originating from a specific named function.
->> - Simplified macro API: removed KUNIT_DECLARE_SUPPRESSED_WARNING(),
->>   the START macro now takes (test) and handles allocation internally.
->> - Removed static key and branching optiomization, as by the time it
->>   was executed, callers are already in warn slowpaths.
->> - Link to v6: https://lore.kernel.org/r/20260317-kunit_add_support-v6-0-dd22aeb3fe5d@redhat.com
->>
->> Changes since v7:
->> - Integrated suppression into existing KUnit hooks infrastructure
->> - Removed CONFIG_KUNIT_SUPPRESS_BACKTRACE
->> - Added suppression check in __warn_printk()
->> - Added spinlock for writer-side RCU protection
->> - Replaced explicit rcu_read_lock/unlock with guard(rcu)()
->> - Added scoped API (kunit_warning_suppress) using __cleanup attribute
->> - Updated DRM patch to use scoped API
->> - Expanded self-tests: incremental counting, cross-kthread isolation
->> - Rewrote documentation covering all three API forms with examples
->> - Link to v7: https://lore.kernel.org/r/20260420-kunit_add_support-v7-0-e8bc6e0f70de@redhat.com
->>
->> Changes since v8:
->> - Rebased to v7.1-rc2
->> - Remove KUNIT_START/END_SUPPRESSED_WARNING() macros
->> - Add KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT checks to drm tests
->> - Link to v8: https://lore.kernel.org/r/20260504-kunit_add_support-v8-0-3e5957cdd235@redhat.com
->>
->> Changes since v9:
->> - Fix silent false-pass when kunit_start_suppress_warning() returns NULL
->> - Fix RCU lockdep splat for kunit_is_suppressed_warning() calls
->> - Move disable_trace_on_warning() in __report_bug()
->> - Make suppress counter atomic
->> - Mark helper warn functions in selftest as noinline
->> - Add kunit_skip() for CONFIG_BUG=n in selftests
->> - Fix potentially uninitialized data.was_active in kthread seltest
->> - Add kthread_stop() in kthread selftest early exit
->> - Initialize scaling_factor to INT_MIN in DRM scaling tests
->> - Add include for bool in test-bug.h to fix CONFIG_KUNIT=n case
->> - Link to v9: https://lore.kernel.org/r/20260508-kunit_add_support-v9-0-99df7aa880f6@redhat.com
->>
->> Changes since v10:
->> - Remove synchronize_rcu() to avoid sleeping in atomic context
->> - Pin task_struct refcount to prevent ABA false-positive matches
->> - Loop in suppression selftest to prevent use-after-free on kthread exit
->> - Skip DRM rect tests on CONFIG_BUG=n
->> - Link to v10: https://lore.kernel.org/r/20260513-kunit_add_support-v10-0-e379d206c8cd@redhat.com
->>
->> Changes since v11:
->> - Use call_rcu() to defer free without blocking
->> - Remove #ifdef CONFIG_KUNIT guard in lib/bug.c
->> - Remove stale config checks from selftest
->> - Replace skip on DRM rect tests with conditional expectation
->> - Link to v11: https://lore.kernel.org/r/20260514-kunit_add_support-v11-0-b36a530a6d8f@redhat.com
->>
->> Changes since v12:
->> - Reverted to the v9 synchronize_rcu() approach
->> - Add in_task() check at the top of __kunit_is_suppressed_warning_impl()
->> - Link to v12: https://lore.kernel.org/r/20260515-kunit_add_support-v12-0-a216dc228be8@redhat.com
-> 
-> Hi all,
-> 
-> I am not sure if there is a decision to merge this series or if any
-> work remains to be done.
-> 
-> I reckon I sent a few versions back-to-back last time as I was
-> struggling with Sashiko. However, there are no significant changes,
-> the core strategy remains unchanged, involving only the addition of
-> safety checks and the removal of some redundancies to satisfy the AI.
-> I am just clarifying in case the last versions/respins were unclear. I
-> tried running AI reviews locally but Sashiko always found more issues
-> than my local model could.
-> 
-The latest version was fine. It's just landed for 7.2:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=42eb3a5ef6bc56192bf450c79a3f274e081f8131
+On Tue, Jun 16, 2026 at 06:04:03AM +0000, Kasireddy, Vivek wrote:
 
-Thanks for all of your work,
--- David
+> > This is helpful for importers like net/core/devmem that expect dmabuf sg
+> IMO, udmabuf needs to detect whether importers can handle segments that
+> are > PAGE_SIZE and set the entries appropriately. Please look into how the
+> GPU drivers and other dmabuf exporters/importers handle this situation, so
+> that we can adopt best practices to address this issue.
+
+Importers have to handle arbitary scatterlists, devmem is just broken
+if it can't handle the output of sg_alloc_table_from_pages().
+
+Jason
