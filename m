@@ -4,81 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB486CD98E4
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 18:19:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78F75CD98E1
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 18:28:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CAC110ECD9;
-	Tue, 16 Jun 2026 18:19:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0D0810ECE2;
+	Tue, 16 Jun 2026 18:28:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R1LFrXy4";
+	dkim=pass (2048-bit key; unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.b="mMXCNUNW";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="VVsXPiOA";
 	dkim-atps=neutral
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
- [209.85.222.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 857E910E563
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 23:50:03 +0000 (UTC)
-Received: by mail-qk1-f172.google.com with SMTP id
- af79cd13be357-915aa0a9293so485066585a.1
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 16:50:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781567402; x=1782172202; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gMomLA5yc+OAXvOs3SpKTXvia9aXXpiO5BxVYuDjyFA=;
- b=R1LFrXy4gIycIJLbsi4rpYpJGMc6NH0ho+f9eWJbTXTQxNAf5hWaORlNsRFzhNWio3
- wPG1CqiN6dydRQqSfv37Y7bSYchfSkBjzBhZVSRphX+pW9/YY6K0IyzNKlrOK85Woc9u
- FaeLhDS9hOpAackAeMiNl6/mBbe+q2d526XWqwJ6C5D/Ql37PvF/76fdtYkgMXNwKgY0
- ZeRhjdN5AiC+SWnkHBd9YgXNUYaLkaomu7SF/8H/SvSsItpo81ZE6SWRCmNtn81dm/+T
- u73zHsR2K7XoeHt9ghi8kfKuXN7uRxOaszFbnsYRsyjHX5EFe66WwqImu1LfEbQX90qW
- WnvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781567402; x=1782172202;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=gMomLA5yc+OAXvOs3SpKTXvia9aXXpiO5BxVYuDjyFA=;
- b=LJMsj2FFgiLlL4aO/ocXVKwlOGCgLfJ1490jzIam9Eq1Ef/4BZnXPOxHGbD/Oy6oP7
- dFg9+l4fYaFerNykFqBjl0w9cUYhcP/z8vTKLCtiCev2u1LjH0Sw0bVXHq+t04sN1ofL
- ReMfHiM1bWxUF+f8XsJZ0e2piJAiub7jKkLAyQGsjjv1BWMA5JBy7yeVaNv0d6Mt4MyP
- ZbcdYJTpuGoUvG3z0w5w3vTmIhz7NcnmhRxDhrEWwbxJofz6rXfsij+6QSfkD6M/zYv6
- hEI2putDpPB8t6edzrkyQieAnf6NUKv7KqJXt+RCn3kdqtevQ0soY1ZOIgwTMTGlEK7E
- l0sw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/hudmQKc6Dkg357nTKI4xn5Fs1KdMoWRixQtXcq82HG0QG1yEnOmrZsRmDDv5ce+0eYyt5jDKQMwE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyiOcGEHISYWIm0jWjllNkZjl3n9zMZfwr8c2/7nj3SjbPK8L2p
- 5hsyn8uRMGi4imzneN+FNz38R7X7oLmjhzyhTw2lOc+tVSpFnPJLSaMb
-X-Gm-Gg: Acq92OHHBkSjvwERt6Il57FPcFPm3/VaLoEH7KjXDP8wes5ndYGpu9r+Xt6aIu+gNEL
- /IJJ5p6RP16AtjIBluUDYcl2ZAaL91n0VdwkhE9ZeBKsL1HPgnQBEHY8ZBoqoPyt6w7mURgo/7f
- Fl1oDb4Z6umjBEr7dImsbbhIC6dm9R5uz0zGMUivUCyBwHzxwrFGyNY5/wieSrjMMLcnQaN+s/0
- XLuHRKDxcNmT8JFCZB8rfVHfmOUjIUCDbS1Fa7IeO/+/Q2DTgdaRPfJ/yCRY4D93vAIMJZ65fLJ
- vT6fJUjFOVJwWl5G+fm/f/ls4+YvveQ32DX+QpkIPF79ywtYiUK5iaco1C9v/qJ/OGEQTpBSitV
- FGSEk8MYR8o+lFAglIliYSrsspdBlocPEbT990SkThGg51QfD9mvIAVsPS9r7IdBNQwybtLiCKd
- iTwXMLRoLliDu69H+z9FBOqfFViztaRGixS9BEPS0lh2rrOf6ojlafltytUTTCmLE5ycG2RwChg
- /UiqJzS53ua
-X-Received: by 2002:a05:620a:4008:b0:8f2:1ccf:46d2 with SMTP id
- af79cd13be357-91c2f1caa82mr230132685a.32.1781567402022; 
- Mon, 15 Jun 2026 16:50:02 -0700 (PDT)
-Received: from tropical-turnip.tail32462.ts.net ([216.132.43.94])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9161a00af50sm1387942285a.30.2026.06.15.16.50.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Jun 2026 16:50:01 -0700 (PDT)
-From: Samuel Ainsworth <skainsworth@gmail.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Samuel Ainsworth <skainsworth@gmail.com>
-Subject: [PATCH v1 2/2] drm/ttm/tests: add bulk_move cursor regression tests
-Date: Mon, 15 Jun 2026 19:49:22 -0400
-Message-ID: <20260615234922.151263-3-skainsworth@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260615234922.151263-1-skainsworth@gmail.com>
-References: <20260615234922.151263-1-skainsworth@gmail.com>
+Received: from fhigh-b7-smtp.messagingengine.com
+ (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1796210ECE2
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 18:28:07 +0000 (UTC)
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id D51697A0178;
+ Tue, 16 Jun 2026 14:28:05 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-09.internal (MEProxy); Tue, 16 Jun 2026 14:28:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+ cc:content-transfer-encoding:content-type:content-type:date:date
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm3; t=1781634485;
+ x=1781720885; bh=VC7DCe11ZyrzA2G7vkYOQT1GcSliXObtOSZKwBmMzRo=; b=
+ mMXCNUNWUNg65wsus5Oisk4uOqeWdq87vg0PeR9Xz2Fn4JjPraVN1PFC+aGrNxDS
+ BBmiaOvXAl+ILHZng+aRU/XnPR2DJQde5J1zN9fet7S0If4HnH68XXkzTSlBYXw9
+ 2hFUAJffe3nL0Hld/Vm8erzHgcExKPUjLp0xokmd0eOhENfNacCAzWQPLhr5J+2c
+ jOoDOozEJAfF/oLdVepx7V/Uf3axTCJps25FnL1FapYhdKHJGoDVicZuiCAyJ2dN
+ 1zsEhsOJ8OxCOdLiH+vCQoRsd3tWuXQyavnifdh4G921DbRNmHcB5KvQrpaoAdat
+ J33fusBM+G9kXLlri87GKQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; t=1781634485; x=1781720885; bh=V
+ C7DCe11ZyrzA2G7vkYOQT1GcSliXObtOSZKwBmMzRo=; b=VVsXPiOAWff6HReYo
+ 7U+j2lc3tJeL9fb0eflW8kxp5Dvqez2Q1UgrGMDACP57morRDwXXMvKy4SF4qzr+
+ x/NrBvThFgDo8eC8tDyELb5KEn1JVRTe6uydpy/eP7u6uwPbtYGbI7dVhiv7sEFw
+ VAIEqBG8tTgFGg4KcD3g/GEfM3s4Gmin38q8DG33I++zgcoEwjLd9sOd1DjY259j
+ QLGBBVvkichLTXCLcC9YYjQzBv/IpCOghGNud/MjzML3iQVn6AqMMpzwc+1CJ5jY
+ d8+1YpDFuLIFR9yVI7u0X8rMXIkcBugEiZlsrJU8a0yMhW+I6j5QUAbNsZZeugxE
+ +ZpDg==
+X-ME-Sender: <xms:tJUxajtoRbiRmW1poiSDMiZC1UlZY2lixfA34fldFqhN1uRegCHOiA>
+ <xme:tJUxai-hHPEnPbxyCqUm9UQRNxyOAeYQL0kxc5mVNyNh8_XQTpVbrlSTx8U4MOQY-
+ m5b3SwULEnMENtoWnHJB_KDRd7zybyZuwtt-h545d8MorTbIBcR2g>
+X-ME-Received: <xmr:tJUxatn2UDE9O17qYGRdNPUibemkUX04LFE8Hv5Z_fpX-XRCkGR9RMdMvNfRdGJqCA9E5t_QN4zcjorSbs-8H57iFb5Y>
+X-ME-Proxy-Cause: dmFkZTGrC5DYJP9mSxqJd1fDXc0Oh1AGx3JLF0BRoNGPbCwDKFsaw0D49sQCZTbacGELJP
+ NPTNfLWvLgiPPk8vfyWDXR9pvW4cjmDKY+4hStnqjC00ax5yRqzEy7s74FV3Hst0oRau05
+ +ZOMSZTUF108LlkZ2bYRXRXyXUJeSS8XHpZ+B6zsfyqUVuJYZ+5HIS98pyiXjS3nRQlNe+
+ ZjHbBYR5RgivqZj4ZTUGyl3488WbqeP2qTbAGbkO61UP/cMkWZvsgOuuB9JTEbsBXmiGDy
+ dOAAnO+9yWExe3+wxZw7oKyr7SKFr6rnJQISOhv7KbwSDOJwPFjdu7d/V6aiFdPml6XCrS
+ R3JqRpkUv/4qoe+0fvmTytcOSlFdsKxpKg58u6aYZ1z2A3fSQCnTWefZ7HjiUwuE8hQC4p
+ G/S2m8yrTFEuKFnGlmbqljvKuVc4mAf+rhAiyDy+56MoV2x5W9ScAn+N3UFkqMBOEWuWKs
+ s1KiXcknlIA1fYSBCXyT82MmaoJeODLfHNnAA4C4Aj66F/UzmJot110c9VuWCAPk8gIFqc
+ 39cazJKohx853+MZmwELfMmd4I63YViLryT7pYGNiJ6oxH3RsuFHnRYhsgQ80XhvZG0bun
+ OdKWBXU4jTx2h2XZ8ZkIrmuHQC/plGNTA6FFsJ8tesDFJ7uRuYAjilFy+eIQ
+X-ME-Proxy: <xmx:tJUxaiNcskzLMEK9Oa4ndBu1OwgYuJIrLUAIiDoo4HCVgda1wh4MZw>
+ <xmx:tJUxasLq-wBc_WmQiFYIfvkEeQiO87MJrIWsIEZjY-nXrCiG2P2ldw>
+ <xmx:tJUxatG-PaNMzX79RsuzDlf73S5K2776QWiJy45vAH0PPrkYrX_WEg>
+ <xmx:tJUxatAKEwAlT0SKZCJlMNWm-i3LYQHDuShGmKhdGhq2Qkyt58ha3A>
+ <xmx:tZUxaoXRy8ZHUNEoYu_jK99k0OMhk0rJEh0xohBXEX_-uKrw9VAdShL7>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 16 Jun 2026 14:28:03 -0400 (EDT)
+Date: Tue, 16 Jun 2026 20:28:02 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ Frank Binns <frank.binns@imgtec.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Matt Coster <matt.coster@imgtec.com>,
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: gpu: img,powervr-rogue: Document
+ GE8300 GPU in Renesas R-Car D3
+Message-ID: <20260616182802.GB1662668@fsdn.se>
+References: <20260616175835.2109336-1-niklas.soderlund+renesas@ragnatech.se>
+ <20260616175835.2109336-2-niklas.soderlund+renesas@ragnatech.se>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 16 Jun 2026 18:18:52 +0000
+In-Reply-To: <20260616175835.2109336-2-niklas.soderlund+renesas@ragnatech.se>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,202 +106,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add two kunit tests for the bulk_move LRU cursor accounting fixed in the
-previous commit:
+On 2026-06-16 19:58:34 +0200, Niklas Söderlund wrote:
+> Document Imagination Technologies PowerVR Rogue GE8300 BNVC 22.67.54.30
+> present in Renesas R-Car R8A77995 D3 SoCs.
+> 
+> Compared to other R-Car Gen3 SoCs the D3 only have one power domain and
+> it is always on. Extend the list of special cases for this to also cover
+> R8A77995 and update the description of it.
+> 
+> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
+> * Changes since v1
+> - Sort img,img-ge8300 after img,img-ge7800.
+> - Fold special case for power domain into an existing one and update the
+>   description.
+> ---
+>  .../devicetree/bindings/gpu/img,powervr-rogue.yaml | 14 ++++++++++----
+>  1 file changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
+> index a1f54dbae3f3..b93f49f1fa0a 100644
+> --- a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
+> +++ b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
+> @@ -25,6 +25,11 @@ properties:
+>                - renesas,r8a779a0-gpu
+>            - const: img,img-ge7800
+>            - const: img,img-rogue
+> +      - items:
+> +          - enum:
+> +              - renesas,r8a77995-gpu
+> +          - const: img,img-ge8300
+> +          - const: img,img-rogue
+>        - items:
+>            - enum:
+>                - ti,am62-gpu
+> @@ -114,6 +119,7 @@ allOf:
+>            contains:
+>              enum:
+>                - img,img-ge7800
+> +              - img,img-ge8300
+>                - img,img-gx6250
+>                - thead,th1520-gpu
+>      then:
+> @@ -159,14 +165,14 @@ allOf:
+>    - if:
+>        properties:
+>          compatible:
+> -          contains:
 
-  - ttm_bo_bulk_move_swapped_free_dangles frees a swapped (unevictable)
-    resource that is still referenced by the bulk_move cursor and
-    asserts the cursor no longer points at the freed resource.
+The 'contains' node should have been kept, my bad. I wonder why 'make 
+dt_binding_check' or `make dtbs_check' did not catch it. Sorry for the 
+noise.
 
-  - ttm_bo_bulk_move_dangling_corrupts then allocates on the same
-    bulk_move, which without the fix dereferences the dangling cursor --
-    reported by KASAN as a slab-use-after-free in
-    ttm_resource_add_bulk_move().
+> -            const: thead,th1520-gpu
+> +          enum:
+> +            - renesas,r8a77995-gpu
+> +            - thead,th1520-gpu
+>      then:
+>        properties:
+>          power-domains:
+>            items:
+> -            - description: The single, unified power domain for the GPU on the
+> -                TH1520 SoC, integrating all internal IP power domains.
+> +            - description: The single, unified power domain for the GPU.
+>          power-domain-names: false
+>        required:
+>          - power-domains
+> -- 
+> 2.54.0
+> 
 
-Both run with no GPU under the existing TTM mock device. Without the fix
-the first fails its expectation and the second triggers the
-use-after-free; with it the whole TTM kunit suite passes.
-
-Signed-off-by: Samuel Ainsworth <skainsworth@gmail.com>
----
- drivers/gpu/drm/ttm/tests/ttm_bo_test.c | 163 ++++++++++++++++++++++++
- 1 file changed, 163 insertions(+)
-
-diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
-index d468f8322072..07ad1a7821fd 100644
---- a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
-+++ b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
-@@ -603,7 +603,170 @@ static void ttm_bo_multiple_pin_one_unpin(struct kunit *test)
- 	ttm_resource_free(bo, &res);
- }
- 
-+/*
-+ * Regression tests for bulk_move LRU cursor accounting: a resource added to a
-+ * bo's bulk_move cursor can become unevictable (pinned or swapped) before it is
-+ * freed. ttm_resource_del_bulk_move() must still take it off the cursor, or
-+ * pos->first/last are left dangling at the freed resource.
-+ */
-+
-+/*
-+ * Free a swapped (unevictable) resource that is still referenced by the
-+ * bulk_move cursor and check that the cursor no longer points at it.
-+ */
-+static void ttm_bo_bulk_move_swapped_free_dangles(struct kunit *test)
-+{
-+	struct ttm_test_devices *priv = test->priv;
-+	struct ttm_lru_bulk_move lru_bulk_move;
-+	struct ttm_lru_bulk_move_pos *pos;
-+	struct ttm_operation_ctx ctx = { };
-+	struct ttm_resource *res1, *res1_saved;
-+	struct ttm_buffer_object *bo1;
-+	struct ttm_device *ttm_dev;
-+	struct ttm_place *place;
-+	struct dma_resv *resv;
-+	struct ttm_tt *tt;
-+	int err;
-+
-+	ttm_lru_bulk_move_init(&lru_bulk_move);
-+	place = ttm_place_kunit_init(test, TTM_PL_SYSTEM, 0);
-+
-+	ttm_dev = kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
-+	err = ttm_device_kunit_init(priv, ttm_dev, 0);
-+	KUNIT_ASSERT_EQ(test, err, 0);
-+	priv->ttm_dev = ttm_dev;
-+
-+	resv = kunit_kzalloc(test, sizeof(*resv), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, resv);
-+	dma_resv_init(resv);
-+
-+	bo1 = ttm_bo_kunit_init(test, priv, BO_SIZE, resv);
-+
-+	/* bo1: put a SYSTEM resource on the bulk_move pos */
-+	dma_resv_lock(bo1->base.resv, NULL);
-+	ttm_bo_set_bulk_move(bo1, &lru_bulk_move);
-+	err = ttm_resource_alloc(bo1, place, &res1, NULL);
-+	KUNIT_ASSERT_EQ(test, err, 0);
-+	bo1->resource = res1;
-+
-+	pos = &lru_bulk_move.pos[TTM_PL_SYSTEM][bo1->priority];
-+	/* res1 is now tracked by the bulk_move pos */
-+	KUNIT_EXPECT_PTR_EQ(test, pos->first, res1);
-+	KUNIT_EXPECT_PTR_EQ(test, pos->last, res1);
-+
-+	/* make bo1->ttm swapped so res1 is "unevictable" (ttm_resource_is_swapped) */
-+	tt = kunit_kzalloc(test, sizeof(*tt), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, tt);
-+	err = ttm_tt_init(tt, bo1, 0, ttm_cached, 0);
-+	KUNIT_ASSERT_EQ(test, err, 0);
-+	bo1->ttm = tt;
-+	err = ttm_tt_populate(ttm_dev, tt, &ctx);
-+	KUNIT_ASSERT_EQ(test, err, 0);
-+	ttm_tt_swapout(ttm_dev, tt, GFP_KERNEL);
-+	KUNIT_ASSERT_TRUE(test, tt->page_flags & TTM_TT_FLAG_SWAPPED);
-+
-+	/* res1 is still tracked by the pos right before the free */
-+	KUNIT_EXPECT_PTR_EQ(test, pos->first, res1);
-+
-+	/*
-+	 * Free res1 while it is swapped (unevictable). ttm_resource_free() calls
-+	 * ttm_resource_del_bulk_move(), which is a no-op for an unevictable
-+	 * resource -- so res1 is NOT removed from the bulk_move pos before the
-+	 * underlying memory is freed.
-+	 */
-+	res1_saved = res1;
-+	ttm_resource_free(bo1, &res1);
-+	dma_resv_unlock(bo1->base.resv);
-+
-+	/*
-+	 * A correct implementation must not leave the bulk_move pos pointing at
-+	 * the freed resource. On the buggy code these still equal the freed
-+	 * res1_saved (a dangling pointer that the next add/move dereferences).
-+	 */
-+	KUNIT_EXPECT_PTR_NE(test, pos->first, res1_saved);
-+	KUNIT_EXPECT_PTR_NE(test, pos->last, res1_saved);
-+
-+	dma_resv_fini(resv);
-+}
-+
-+/*
-+ * After a swapped-free leaves the bulk_move cursor dangling, a later
-+ * ttm_resource_alloc() on the same bulk_move dereferences the freed cursor in
-+ * ttm_lru_bulk_move_add() (use-after-free, catchable with KASAN) and corrupts
-+ * the LRU list.
-+ */
-+static void ttm_bo_bulk_move_dangling_corrupts(struct kunit *test)
-+{
-+	struct ttm_test_devices *priv = test->priv;
-+	struct ttm_lru_bulk_move lru_bulk_move;
-+	struct ttm_operation_ctx ctx = { };
-+	struct ttm_buffer_object *bo1, *bo2;
-+	struct ttm_resource *res1, *res2;
-+	struct ttm_device *ttm_dev;
-+	struct ttm_place *place;
-+	struct dma_resv *resv1, *resv2;
-+	struct ttm_tt *tt;
-+	int err;
-+
-+	ttm_lru_bulk_move_init(&lru_bulk_move);
-+	place = ttm_place_kunit_init(test, TTM_PL_SYSTEM, 0);
-+
-+	ttm_dev = kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
-+	err = ttm_device_kunit_init(priv, ttm_dev, 0);
-+	KUNIT_ASSERT_EQ(test, err, 0);
-+	priv->ttm_dev = ttm_dev;
-+
-+	resv1 = kunit_kzalloc(test, sizeof(*resv1), GFP_KERNEL);
-+	resv2 = kunit_kzalloc(test, sizeof(*resv2), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, resv1);
-+	KUNIT_ASSERT_NOT_NULL(test, resv2);
-+	dma_resv_init(resv1);
-+	dma_resv_init(resv2);
-+
-+	bo1 = ttm_bo_kunit_init(test, priv, BO_SIZE, resv1);
-+	bo2 = ttm_bo_kunit_init(test, priv, BO_SIZE, resv2);
-+
-+	/* bo1: resource on the bulk_move pos, then swap + free -> dangling pos */
-+	dma_resv_lock(bo1->base.resv, NULL);
-+	ttm_bo_set_bulk_move(bo1, &lru_bulk_move);
-+	err = ttm_resource_alloc(bo1, place, &res1, NULL);
-+	KUNIT_ASSERT_EQ(test, err, 0);
-+	bo1->resource = res1;
-+
-+	tt = kunit_kzalloc(test, sizeof(*tt), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, tt);
-+	err = ttm_tt_init(tt, bo1, 0, ttm_cached, 0);
-+	KUNIT_ASSERT_EQ(test, err, 0);
-+	bo1->ttm = tt;
-+	err = ttm_tt_populate(ttm_dev, tt, &ctx);
-+	KUNIT_ASSERT_EQ(test, err, 0);
-+	ttm_tt_swapout(ttm_dev, tt, GFP_KERNEL);
-+
-+	ttm_resource_free(bo1, &res1);
-+	dma_resv_unlock(bo1->base.resv);
-+
-+	/*
-+	 * bo2 allocates on the SAME bulk_move. ttm_lru_bulk_move_add() reads the
-+	 * dangling pos->first (freed res1) and list_move()s relative to the freed
-+	 * pos->last -> use-after-free + list corruption.
-+	 */
-+	dma_resv_lock(bo2->base.resv, NULL);
-+	ttm_bo_set_bulk_move(bo2, &lru_bulk_move);
-+	err = ttm_resource_alloc(bo2, place, &res2, NULL);
-+	KUNIT_ASSERT_EQ(test, err, 0);
-+	bo2->resource = res2;
-+	ttm_resource_free(bo2, &res2);
-+	dma_resv_unlock(bo2->base.resv);
-+
-+	dma_resv_fini(resv1);
-+	dma_resv_fini(resv2);
-+}
-+
- static struct kunit_case ttm_bo_test_cases[] = {
-+	KUNIT_CASE(ttm_bo_bulk_move_swapped_free_dangles),
-+	KUNIT_CASE(ttm_bo_bulk_move_dangling_corrupts),
- 	KUNIT_CASE_PARAM(ttm_bo_reserve_optimistic_no_ticket,
- 			 ttm_bo_reserve_gen_params),
- 	KUNIT_CASE(ttm_bo_reserve_locked_no_sleep),
 -- 
-2.54.0
-
+Kind Regards,
+Niklas Söderlund
