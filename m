@@ -4,142 +4,161 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FD81CD98CF
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 09:44:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE25BCD98CF
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 09:48:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB77F10E9AD;
-	Tue, 16 Jun 2026 09:44:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CFAF10E997;
+	Tue, 16 Jun 2026 09:48:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q6nsevqV";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kY6dr21g";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QLQeqWN3";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B7ED10E9AD
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 09:44:42 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65G6PWDu2402291
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 09:44:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Ts+qkX0CT/TNnoWo6imVaA144yQNGuUf5VYhOjXuCiU=; b=Q6nsevqVbhjF+QP8
- Zj24Owc8CMZmLnEnqXXutEvBGVA8odT/jIFrz+WzLJ+pSOso6i3dvCK6YfgHTiEA
- 3i2IKolcGfg/EBOcr7ffhpUzkG/SIbLYPKHp36iDnDXo5mVvyuCPxsZuzwc/kA9y
- UI2g4Kfy6yPKkZIKVakoOpFjIgO7CCxjAF4uigw1qwaDhI7LJHLt52BaneavxjwB
- gdm63KK5SaujRmAZ9fw9Y7CWom+og6a6JaT3Vk26qGxVJIy8gPRCrUZOFJz+IUBq
- m/ZHjxWw4JKMHL2084cGf8+zRIJfodSA0QRaL5Eqt1K5YJ02O8Ld9Fe3fpdzCn7P
- 9zWfdg==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eu1760tqa-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 09:44:41 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id
- d2e1a72fcca58-84247fed609so2388020b3a.0
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 02:44:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1781603081; x=1782207881;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Ts+qkX0CT/TNnoWo6imVaA144yQNGuUf5VYhOjXuCiU=;
- b=kY6dr21g+kP6/GgfVOQCyjLKBI6exL82XaBGvlmo/h808JTPKxhYIq0CU8xDoMHbvq
- zt8JDOhALLERxqsOmaJn+Rd6hg1ZHZ8up52SQNS7TghwpOIb51RvQKSK2bvD2m+EmjBU
- oWof+14ZjPf+ePqupREVLhasWSE+RLYRd09Z2nF2gJU3yOmt6NJquUTyAlDHWoSkk2Sb
- /jQVvbb7iA8HxFb9gUdI3tx9Pvf3ZbdrwVmyo0z2S/21muMwgs60XvDV6VEw7xEIuy9b
- 7QZ+TtPa7F8TvIjN2prPOkzr78lz4W4WbCuM7fjtAwkT8wGt2uSyfQgVagx8Bby6/42V
- b29A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781603081; x=1782207881;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Ts+qkX0CT/TNnoWo6imVaA144yQNGuUf5VYhOjXuCiU=;
- b=LZna/lbLGgSMKYU95/E0s/JxzsIstt2nRU6vv8nE3NFLBlCDcdCw0brbwUxT9e8CL7
- SttSENBHy7Ym1KBK3I13NqXIvF7NSPtUypyEx8ZvtldMtP0aLKdGEDrvMcEb2IzY7WHn
- 4H8Sz1PVo0QPmPx+T8rJdVbEMJ4jZKfSPkLjo7ziujWf1j7LyOf0o5/BC+mMbe3T2HaA
- RZTm/vGiG03/UD1emc/mfAOF9l+fLzsfvSTR9ycRo9FTwxwGI6hxT28lyjPJiLve9t/Q
- UPI2hViumeVZmsnWa+tuBol3zCIpoGTbTMH1HF6/buasmXyktaZ/pblsna1fBOveZe7d
- 0k4Q==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8sG2yV1EIugyxiujBesypmWM2bvyn9urLejARocajZdG3Cyc/F8SWGUlugDJRFftQysEYtWEp15og=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxsJDLddHYbLPzfrcy9rAnDcsMxvMQA4/JbxI4TOSqnWOr69UFC
- Ru6yxmUoV7RYCMzmAzRYE0WVu27+DD0LyM+kvQL6TSLDTK92xbL8fK/W4Fy5joIJaXvNIWfJSOb
- aIZaSWbDH8BgbVsgsHWxE4iTdbzpFbwa0zyW4wsolC4sv4r58KAS1HLuT/rR/q71vPWwB+Wk=
-X-Gm-Gg: Acq92OHDJMPVD90QIExhFPt4YeTMWo34gdP3AiM/b53MItPQUQWLTVmr3x3EMW+YoVA
- sKSVfGZY3yS9+9gea2BESU200S3Ggmq3Z2uP2UFB1Cr+Q+eCcJlCd3cfJWgelwUpEOemYLcshca
- 1ehUiI/Y4oQQX1pmjzWmdZRSkaB61YuZcZ3gVyF+HUEyEIXSLldsgM4YvefrYUqUmiXbNsYbICO
- CsTzPJfYCajsEy/9kBB5ouuKQ0hnCW3B7ZCZjoNnNFBuLmNj0UndYP6TtHTkFp81TBmK8dIslbX
- T70sIZrWH7N3rrVXrgGeJ5LGlDVaOEk+zf2KE/YROpMwm9cusKcCzZOUrmVV1noqWuWe1dLnu9h
- imkgATLfsDSYuJgKHjg2SYxN5mH8NVfm7K/JHEgRGgsSIPnOUOVxIns7TZKkBN/LOt/Q1DRW/6C
- a8Nds9Ze95xIJy4cRt
-X-Received: by 2002:a05:6a00:3a29:b0:842:5b63:6118 with SMTP id
- d2e1a72fcca58-8434cd0b6e4mr17240740b3a.3.1781603080727; 
- Tue, 16 Jun 2026 02:44:40 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3a29:b0:842:5b63:6118 with SMTP id
- d2e1a72fcca58-8434cd0b6e4mr17240725b3a.3.1781603080221; 
- Tue, 16 Jun 2026 02:44:40 -0700 (PDT)
-Received: from [10.133.33.98] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8434accae18sm13133819b3a.17.2026.06.16.02.44.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jun 2026 02:44:39 -0700 (PDT)
-Message-ID: <521918c4-fea2-4fc3-bfc6-ab2abc275ec0@oss.qualcomm.com>
-Date: Tue, 16 Jun 2026 17:44:34 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 29/39] drm/msm/dp: add an API to initialize MST on sink
- side
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20260410-msm-dp-mst-v4-0-b20518dea8de@oss.qualcomm.com>
- <20260410-msm-dp-mst-v4-29-b20518dea8de@oss.qualcomm.com>
- <32jtwnkusxultvsgvnalrvccfkcyk7744yf4d42pqm7wudysvt@l4pnrzfxh2f4>
- <1fe8d286-7182-49ed-b6fc-dfa3766f851a@oss.qualcomm.com>
- <kr6obgjfl3c6ggbzkb54pyb4zevcmjvhlq4xho2yej6kynj6t3@36kxpiliyt2u>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9A6310E997
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 09:48:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781603299; x=1813139299;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=S8+6+13CRuHgOpz59PQ7Qun4r+Vairlky0FUQzQZl6I=;
+ b=QLQeqWN3rhhrH1P/U/6M/6DC4Gj/bI836hb9FXV2GH0HULid1BXniz/u
+ S6mKHIwcn8j8kvCYz6yQpEiiSHpoGFug2SJoLZ+itTs3kI8GlFzZYw2Ph
+ f9kfRnBnlQ5ujK0N8d0mN0uNmLavxUs84U5m9uO6CVEM9TYHjCMU9CEH4
+ pEmoSwAEv2FNRMVNG2NIjiT6KcaORFJ+sBARQIunmBHZyMSQjg/tGgujy
+ Ra9kPFv0Vm83p+Zk/R+wPH8ZsLx3DbcxAl4/YC59rcH2LPxix6uHXBHOs
+ ONPzwkbebbq33nwwPep3QtQpFUdl7XdE1qH9CN6HMi5JjluHCe/V8/bdU Q==;
+X-CSE-ConnectionGUID: nSXbv2flSGKBGg5xMawl2Q==
+X-CSE-MsgGUID: TdBlQ4zoTBuyjGbpzoKoPQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="82426659"
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="82426659"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2026 02:48:18 -0700
+X-CSE-ConnectionGUID: pdir8RGJSC+llBtMPnikRQ==
+X-CSE-MsgGUID: ZFHMg0xUQAmjgiTO6JohLQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="252031368"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2026 02:48:18 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 16 Jun 2026 02:48:17 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Tue, 16 Jun 2026 02:48:17 -0700
+Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.9) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 16 Jun 2026 02:48:17 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=W2V8IrRJyPw2ynsGTNpHC+oPgz74ZkCHdJQCvDpaqvZOq5fu3jEYxNEft6mfRQCNasJ/WEDgEy6PcUHMBwTLJz5A8p2u0C2J0K4/CNYaD0mKVHNqH+u6e1y0kj1smrEVsV+n2Gvfgal48hOxZBzVE35x16og1HlHcF+M9osVlMKe9IJyPKUFb/goIxHT5mhY83/bMt6fahyYaG29nk0S0/mgtD+1MYs+KcySdjI1s4i8w8bBtoWWHUj+Ki7qG9p6D7Pq6WgRqmu26mF1uLH/v8QhyijMmqjQRcUA6Oja1vWQDhzicrMjISWwr3eoaSwJeMPEvO9eYUxGc3JgE5JOQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=abPYk6hrSq4dKOLfRdKwntD8kDy/fuJZ416UyRO3lOQ=;
+ b=XPBrc6MtRxwPOmfm9fZzgme6pWDfEOxW4VBlobWaZ4Oy2V0LsW51M/XfDHcmllLKW0NtY0CmjwYKSpe/0V4nUBkroLYxzXfHH6DO7jLV0cyZEFS69jhzodhoNhoNZD2qZFN7Kp/Jvaxw1RGhXv0vD9KHT0R8Fs13LOHe1s7q7/4zFVAOpByVy+TLOtIN3xPVK0dIX162DZtyvEJPb21PBlIdM1XUXWRBCfyO6L/SIIsokz/67eyg6G+ht2i0+Z5DgBfGpY1Ojwv5AN8AFpmeF8nrIK58x+uIuiYR4cRdWWG8K7ng7oME42oWE+F125chtzLmDe0YUp9Wf9OtJXerLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM6PR11MB3690.namprd11.prod.outlook.com (2603:10b6:5:13d::32)
+ by PH7PR11MB6652.namprd11.prod.outlook.com (2603:10b6:510:1aa::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
+ 2026 09:48:14 +0000
+Received: from DM6PR11MB3690.namprd11.prod.outlook.com
+ ([fe80::7db8:f6b3:30f8:ee4b]) by DM6PR11MB3690.namprd11.prod.outlook.com
+ ([fe80::7db8:f6b3:30f8:ee4b%4]) with mapi id 15.21.0113.015; Tue, 16 Jun 2026
+ 09:48:14 +0000
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Pranjal Shrivastava <praan@google.com>, Matt Evans <matt@ozlabs.org>
+CC: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>, Mahmoud Adam
+ <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>, Alistair Popple
+ <apopple@nvidia.com>, "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-pci@vger.kernel.org"
+ <linux-pci@vger.kernel.org>
+Subject: RE: [PATCH v3 6/9] vfio/pci: Clean up BAR zap and revocation
+Thread-Topic: [PATCH v3 6/9] vfio/pci: Clean up BAR zap and revocation
+Thread-Index: AQHc+PAbYETvhcTyrUu/DN8Pu72QKLY7VG+AgAWiCfA=
+Date: Tue, 16 Jun 2026 09:48:14 +0000
+Message-ID: <DM6PR11MB3690489DB5FA611413BF60558CE52@DM6PR11MB3690.namprd11.prod.outlook.com>
+References: <20260610154327.37758-1-matt@ozlabs.org>
+ <20260610154327.37758-7-matt@ozlabs.org> <aixgZQiBQKgS7yIM@google.com>
+In-Reply-To: <aixgZQiBQKgS7yIM@google.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <kr6obgjfl3c6ggbzkb54pyb4zevcmjvhlq4xho2yej6kynj6t3@36kxpiliyt2u>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: qBUVkHN0zkj07AmFUfxRxn1ysWif7J66
-X-Proofpoint-ORIG-GUID: qBUVkHN0zkj07AmFUfxRxn1ysWif7J66
-X-Authority-Analysis: v=2.4 cv=I4RVgtgg c=1 sm=1 tr=0 ts=6a311b09 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=iQs2M_KxR2iUDnadKT8A:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDA5OCBTYWx0ZWRfX08hoZogNW1l4
- X9MXT8R/1syHPFdSOsXVYiwQvliUNza+XVqG9/Xe1dzsUuWJjELTClCnoibx8HZzIg838mLrjpe
- xxsMcDIcfyJ6lleOMq0+cdGU77eDm9o=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDA5OCBTYWx0ZWRfX+j5Gs+LaIF7L
- Gvy5RDFRpNRGkQ6T7bs+x2cwR41UZxpOnY64zN0VNUH3Rtv7N/ExcJvHFKQdBWGvNH+7xCXmU7W
- dw/aBU3kvDLQWvEaYYXq9BZiKZojkbZ8t5iiQzY+yaH/xMBwYLMWnxQhw0htZPdyjNif8Jita9u
- y+5EPmOPZDO2UPvGC5jnTpuvWqfh1WsqaXCDzErrFvf3draQ0KnS01RUjlAujMGmFtU/ZE821b1
- 2vPcpT0LwkL277m4HJpJXFF+dR7FXyra14AyG5SnmtNBlBwpbEC3eaO/5RDYTGeERbjU1Rym95p
- KgMtziqTmBwxHZ0KnaSelfGyshntDn8LqFnRRrahai9tFBZkY42gzI08m/TDiY1kZnZi0n/fxRI
- 8i2laFaTuZBo6cXGHve2gWCSCcMWCavt1xu/hXc+AOOWA0R51LpkGK0Y7sgIPpjWBqLYVxL3ibh
- v8AG1un6QocqptSotXg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-16_02,2026-06-15_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0
- priorityscore=1501 clxscore=1015 bulkscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606160098
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR11MB3690:EE_|PH7PR11MB6652:EE_
+x-ms-office365-filtering-correlation-id: 0b756e2c-e4d3-4945-4b5a-08decb8c62a5
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|7416014|376014|366016|1800799024|56012099006|5023799004|11063799006|4143699003|6133799003|38070700021|18002099003|22082099003;
+x-microsoft-antispam-message-info: h7nKpIpHfrGZ7ayPPXQ5MjcbmwYqDwtswSVzvVSqNu/tnPp20sjnVaVdPaFID91DPRsQ1GXJ28m2XK+TE+OsiDG71p+LmsgKiYVbo22EQSthf0GHkham+5FCSail3q+jwTC9FOAAjoiFop3j6tvoMKEMAeoXgPvkB11CYWwkC4IMbrh1LIopsH4gOMpLG3IT0VvZyV1eV1Q2wI02pUwowd93zMumIIpR7QURVww8P/QO3yCuI5yPYiO4NovVY34ZLJuEBf3MGWh1nio3mlZWK/Sdh0WFpAxyBkl8CBhEYKLD1qmou9mjrbiscU8F7xd7GmDhmh5I5WwzewFER4AytyrmaSsxuqIYzNotcpbSMAspCsGLF6YuyuU5Im5pRkkY7amBly8rGra3OdaBn5gK4/0T95ZIVhGdDKQ0ZBscVey+ypZ41HSl4r6SyRh4HHy1866DMfZIVkrWAPSG0Kj6wSmpVFKM6VFahOIHdqm/31tGpU+hucVGZBlTk2SDTdhvlGOmi/gpwK+sIWc1uESN/1v9CCh3hM5hiCNqkXH20j6Uz6qmzTARm/Ctqlj2lnq++7EonitiRpZ//1NFZcIhg39OA5ySwlFt+zDD7lQVEyJ5to2swh6Oh/pwck5D3fEUrjFtmc+u0U+clgO6ZZB2qSXVLK0ksDArKTWKeqK0Rz00ORtyav/ULmMrQiNIOzL20R1PIDFAC4JlsYZX5M/LdP5hQFIjQz/ebSm9Z54u0wEUwi8lRK7KBte2sOK/5C3n
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR11MB3690.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(56012099006)(5023799004)(11063799006)(4143699003)(6133799003)(38070700021)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?bRUygWBZ+Lv/yMNtDIFtTtLUWIYJWlDZ8tuoz0HCiXKIPe9vnF5MKQe+wg?=
+ =?iso-8859-1?Q?VZzzeCv4HeM4DgggCY9aAW/L1Wj3TbtLi7rPQWsVhU2ngVR9XfH2a33JHV?=
+ =?iso-8859-1?Q?VXPWq8tdx8cIpsJdopy87wcA5+XjIgG/z3k/mOHTmRZVo9tyghzGlXzzk9?=
+ =?iso-8859-1?Q?uHvbV6NvdV2+IoshwDlV8ctUO3tgUi4wcvBxALZF0xIi3fyNlv1GzMZ8m+?=
+ =?iso-8859-1?Q?Rl8mjmfdRuKBVqL/IRBL8zq8RE71ujcPU03t/FPWDHIQTiChJcNJNitchd?=
+ =?iso-8859-1?Q?C6W+4HTOKO2AVO17hrHKFAfC4iyIX9fFWYM3MzCwSIrP32aC8BTBEcRK/L?=
+ =?iso-8859-1?Q?N1v9dEVmQYs06cSTu60rDaERZUoqZy3tKCUy35Q+vkizv/I8siXRd+2zHF?=
+ =?iso-8859-1?Q?+IyIaenNseeZuChCZhXTsmG5Xm8AeA7zXK1tGhkFblUENBeOCFLp56u41c?=
+ =?iso-8859-1?Q?uUq3zTMySc4saCIArqB/HXZeuwflp1sjUj8RPsb+w8u64L+HSaPA/4FP6g?=
+ =?iso-8859-1?Q?3l6wnbGqJGE9/AW1XG6VHRQA9xYUMr4UvzTIFHqZg9vdCLRfv6uf73ACVG?=
+ =?iso-8859-1?Q?C6ekv1pICygq6B2L45mxzToiRnTug2fTrp1IamYVNZbj4vW0B102UzzLo6?=
+ =?iso-8859-1?Q?haVA8kMB0m3j65SjVNzrI6xSs97YO2mzghsIO7INg3k7uQxTlxMutOJ8bd?=
+ =?iso-8859-1?Q?bnPAwt4lcYDs9endeoc2cRsSCn4nSSYbv/9f/3PjBSk2TCGiJLEktnmpt9?=
+ =?iso-8859-1?Q?ggAsmQQYm/a3UWNipqbeN+CDVSyiYatCDU8ln8xXQgmfwrKPXAC0Ozlurk?=
+ =?iso-8859-1?Q?BauZKypAjeXzjuDCz+8Q2krHz32T99V+Xh2Ge7Ll/r/NvwcMbrKQdrlbZk?=
+ =?iso-8859-1?Q?RVMw1v0Xonr434l6ACOl1G661H3EQFHwzSAfhbSX4MlXHuW3uiYIC28FSL?=
+ =?iso-8859-1?Q?vGFRP363zR/a58tPyy/B8NvR4zkmR8BQhkftkD2K4FwScYGZIsKJAK7YvG?=
+ =?iso-8859-1?Q?8K1A7VVDfTsHhV55xY1CU4lnXyNQbLyKBys6iyIKbVymKCXKroBXJJK1g2?=
+ =?iso-8859-1?Q?PE6GCB00qKuIQczFh4JI43WVmOo2toMJ0zme4TtMQ3KdBRHMEzR1bikncm?=
+ =?iso-8859-1?Q?5cpnslXgvbjwkUPsba6f0Zhn7WO9U0jDvLDLV7eMSOVuGRrhfrrrNfrMr3?=
+ =?iso-8859-1?Q?eJmcnTrhYcfXR/+tRxdhS6p9gXf6X2avCWbXYwJhYHkBYRUxXSk/AiWP57?=
+ =?iso-8859-1?Q?n8eczcbzO5IGct4WAuIZY2Qc2TlFqmZ9h7gnJuJHWwIrMPl/JlerLblpZD?=
+ =?iso-8859-1?Q?1wPYwzekPdI0zjN6w0ImEhf7/52VgYoHTk54AAG4g1pgQaI3rBWflvROWZ?=
+ =?iso-8859-1?Q?FrBAh2AM8mxMsN01BjSlP1u6w4f+IdQ6mT95YqK/E4dsuJ0BqQlDXGvpPy?=
+ =?iso-8859-1?Q?5mRNmFhU3pD7YYZ1lIplBU8wf08s+AXS1SWdHT+ssqbg3xSPnyk687CzyS?=
+ =?iso-8859-1?Q?JCjKtvthJirMqiEmxYUOMSG7wy1OJ7sgCl75MWW0R+WVUdxjHuJDIpSH5g?=
+ =?iso-8859-1?Q?xPBn2UjPSRJ81ze7vABELU4+OEKkRI/RQi2U5HDNT+czNB9eLpPUyXp9A2?=
+ =?iso-8859-1?Q?MMnhy1PgN4YkPW3wvXlhCHvtB6Xbc5vHoKfTFgOnkOXtnJhCLnlokv6nLd?=
+ =?iso-8859-1?Q?ZQKZeDGqSynyw0kT0rg3CH9UhnyKpgO199t1kgdLtV1fZLfqAuyKNSCypb?=
+ =?iso-8859-1?Q?0yK7sZxCul5vCzi3o0wLzp/CknHTW+C1Wnc+B9I2w3Mu3F?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: H8+QHx1yc8AKgysVyBhD34Ke5A2Qy8IBF4gGtdSpnbuaPa/KTzJgq0R+3A3iPMXaIj1y/mqu4aOX50vtc1HdIqcC2TRpiwbo5Oy1Tc/AY+jnouvzm6cxF3np3XkaN1cTq5LLE+yAc11MGXSiBGp8p/rxUjjMBn80gdNYzZPf5F+jMIUwWOcK++MPgSwKqMSM/m5pAb0dGZUuw4VIIdaeXENijBeHeRjcH3Fh50ts6Axe2LjW2U9HnzoEttacYoJMVqQNyL9INVrDfxhTB0M8FOZCOQkONIogYd1pwLRq8SJjDgqhAzjUfjLgzb0dN/pEKz3Yc5DNO+8Jf3+UESQW7g==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB3690.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b756e2c-e4d3-4945-4b5a-08decb8c62a5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jun 2026 09:48:14.3936 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ZcKfp1K6cB9Y9JdoRLABeFsmit5tH4CmssCSt0eh4naDBUg0KSJs72M2Gq3z0OoPIus6CWNAKEchmSFE/1UDwA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6652
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,103 +174,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+> From: Pranjal Shrivastava <praan@google.com>
+> Sent: Saturday, June 13, 2026 3:39 AM
+>=20
+> On Wed, Jun 10, 2026 at 04:43:20PM +0100, Matt Evans wrote:
+> > @@ -1264,7 +1265,7 @@ static int vfio_pci_ioctl_reset(struct
+> vfio_pci_core_device *vdev,
+> >  	if (!vdev->reset_works)
+> >  		return -EINVAL;
+> >
+> > -	vfio_pci_zap_and_down_write_memory_lock(vdev);
+> > +	down_write(&vdev->memory_lock);
+> >
+> >  	/*
+> >  	 * This function can be invoked while the power state is non-D0. If
+> > @@ -1277,10 +1278,11 @@ static int vfio_pci_ioctl_reset(struct
+> vfio_pci_core_device *vdev,
+> >  	 */
+> >  	vfio_pci_set_power_state(vdev, PCI_D0);
+> >
+> > -	vfio_pci_dma_buf_move(vdev, true);
+> > +	vfio_pci_zap_revoke_bars(vdev);
+>=20
+> I'm wondering if this change in behavior is correct?
+> BEFORE this patch the sequence was:
+>=20
+> 1. zap vma mappings
+> 2. Enter D0
+>=20
+> After this patch the sequence becomes
+>=20
+> 1. Take the lock
+> 2. Enter D0
+> 3. zap vma mappings
+>=20
+> My worry is if user-space accesses a BAR *during* the transition to D0,
+> it could crash since the mappings still exist during the transition?
 
+not 'crash' as you also noted later with all Fs on read and dropped writes.
 
-On 6/16/2026 8:45 AM, Dmitry Baryshkov wrote:
-> On Mon, Jun 15, 2026 at 05:02:27PM +0800, Yongxing Mou wrote:
->>
->>
->> On 4/12/2026 8:15 AM, Dmitry Baryshkov wrote:
->>> On Fri, Apr 10, 2026 at 05:34:04PM +0800, Yongxing Mou wrote:
->>>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>>
->>>> If the DP controller is capable of supporting multiple streams
->>>> then initialize the DP sink in MST mode by programming the DP_MSTM_CTRL
->>>> DPCD register to enable MST mode.
->>>>
->>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->>>> ---
->>>>    drivers/gpu/drm/msm/dp/dp_display.c | 57 ++++++++++++++++++++++++++++++++-----
->>>>    1 file changed, 50 insertions(+), 7 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
->>>> index 8ae690ce2b9f..abf26951819a 100644
->>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->>>> @@ -14,6 +14,7 @@
->>>>    #include <linux/string_choices.h>
->>>>    #include <drm/display/drm_dp_aux_bus.h>
->>>>    #include <drm/display/drm_hdmi_audio_helper.h>
->>>> +#include <drm/display/drm_dp_mst_helper.h>
->>>>    #include <drm/drm_edid.h>
->>>>    #include "msm_drv.h"
->>>> @@ -270,6 +271,40 @@ static int msm_dp_display_lttpr_init(struct msm_dp_display_private *dp, u8 *dpcd
->>>>    	return lttpr_count;
->>>>    }
->>>> +static void msm_dp_display_mst_init(struct msm_dp_display_private *dp)
->>>> +{
->>>> +	const unsigned long clear_mstm_ctrl_timeout_us = 100000;
->>>> +	u8 old_mstm_ctrl;
->>>> +	struct msm_dp *msm_dp = &dp->msm_dp_display;
->>>> +	int ret;
->>>> +
->>>> +	/* clear sink MST state */
->>>> +	drm_dp_dpcd_read_byte(dp->aux, DP_MSTM_CTRL, &old_mstm_ctrl);
->>>> +
->>>> +	ret = drm_dp_dpcd_write_byte(dp->aux, DP_MSTM_CTRL, 0);
->>>> +	if (ret < 0) {
->>>> +		DRM_ERROR("failed to clear DP_MSTM_CTRL, ret=%d\n", ret);
->>>> +		return;
->>>> +	}
->>>> +
->>>> +	/* add extra delay if MST old state is on*/
->>>> +	if (old_mstm_ctrl) {
->>>> +		drm_dbg_dp(dp->drm_dev, "wait %luus to set DP_MSTM_CTRL set 0\n",
->>>> +			   clear_mstm_ctrl_timeout_us);
->>>> +		usleep_range(clear_mstm_ctrl_timeout_us,
->>>> +			     clear_mstm_ctrl_timeout_us + 1000);
->>>
->>> For 100 ms you should be using msleep() instead. But where is that
->>> timeout coming from?
->>>
->> Will switch to msleep(100).
->>
->> The 100 ms is an empirical workaround carried over from downstream — some
->> sinks don't exit MST immediately after writing DP_MSTM_CTRL = 0, and
->> re-enabling MST too quickly broke topology probe.
-> 
-> Comment.
-> 
-Got it.
->> It's not a DP spec
->> requirement, and other drivers (drm_dp_mst core, i915, amdgpu, nouveau)
->> don't have an equivalent delay.
-> 
-> Why?
-> 
-This comes from the downstream implementation and was added due to 
-issues observed with some dongles, which reportedly required a ~100 ms 
-delay. However, it’s unclear whether such a long delay is actually 
-necessary (e.g. if a shorter delay would be sufficient).
-Alternatively, we could follow nouveau and avoid adding the delay for 
-now, and only introduce it if it turns out to be required.
->>
->>>> +	}
->>>> +
->>>> +	ret = drm_dp_dpcd_write_byte(dp->aux, DP_MSTM_CTRL,
->>>> +				     DP_MST_EN | DP_UP_REQ_EN | DP_UPSTREAM_IS_SRC);
->>>
->>> Isn't it too early to enable MST? (I don't remember this part of the
->>> standard).
->>>
->> No, this follows the DP 1.4a MST spec. DP_MSTM_CTRL must be set before
->> topology discovery. Topology discovery uses AUX sideband messages, which
->> don’t require link training.
->> So we enable MST first, then discover topology, and only do link training
->> and payload allocation later in atomic_enable().
-> 
-> Ack, thanks.
-> 
-> 
+>=20
+> The old code is immune to it because it removed user-mappings first.
+>=20
+> Following the discussion from v1 regarding the ordering of
+> vfio_pci_dma_buf_move() and the D0 transition.. while it makes sense to
+> perform the DMABUF revocation/move after the hardware is in D0.. I'm not
+> too confident about moving zap after D0 :/
 
+probably add a comment to remind that ordering requirement for dma
+
+>=20
+> I mean, sure, the user would just see all Fs on a read and writes will
+> be dropped silently until we are in D0.. but the behaviour before this
+> change was that the user access will fault and hang on the memory_lock
+> instead which ensures that the user observes a consistent dev state..
+>=20
+
+I see this more consistent from another angle.
+
+Old code only removes/blocks cpu access but not for device. DMAs
+are allowed to this device while it's transitioning between D0/D3.
+
+New code at least make this part consistent - both cpu/p2p are allowed
+in the transition window.
+
+Ideally a sane userspace shouldn't rely on the content read back when
+it has initiated a reset in parallel. So this behavior change sounds ok?
