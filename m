@@ -4,46 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB2D0CD98DA
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 09:11:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93D69CD98DA
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 09:16:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2674610E962;
-	Tue, 16 Jun 2026 09:11:16 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="qWmwIP52";
-	dkim-atps=neutral
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99CCE10E978
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 09:11:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1781601067; x=1781860267;
- bh=S+6be2btIBiv/YTcyjYWr+pF8QqliJqsOq0sfn5hBtg=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=qWmwIP52Rh1VNKN6DFoStkdrIFLwhTnfUEahM9MOBDmm1F7S7vu3X37uOxjhy1Ogu
- BSwsAc+8zvu1mRq77woScNznlPq0Y/UkYvDzgNnTb3ALwviTCfNIQ0WXbbEwn42gqf
- 4esIpCoRiqIMsp32C6R3IBwFX5TYMQActrI53Dm7q0SLkGhXvg5iMOvX1Y8jE89Pgl
- nMXiEpz9GG/YWR6kmUUQKwYxDisF0p8HAP8z3JpN2F+Ce+u3gEQFb/zIqZrSnWfRkV
- YnvPKLc4slmoKPIsM0JMNW0orYGlN/VEo14TkiOy7trZbtDA7L3Ac3ECQCGkuq/7Qy
- JfW7DDtiTTIeg==
-Date: Tue, 16 Jun 2026 09:11:01 +0000
-To: amd-gfx@lists.freedesktop.org
-From: Gerhard Schwanzer <geschw@pm.me>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Xiaogang Chen <xiaogang.chen@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- regressions@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdkfd: Use last + 1 of vm range to check 2MB huge page
- alignment
-Message-ID: <20260616091050.110064-1-geschw@pm.me>
-Feedback-ID: 110185885:user:proton
-X-Pm-Message-ID: 6cd50045133fa6b4bcf7839c16fc7869883bc537
+	by gabe.freedesktop.org (Postfix) with ESMTP id E421210E96E;
+	Tue, 16 Jun 2026 09:16:21 +0000 (UTC)
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com
+ [209.85.221.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF72A10E96E
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 09:16:20 +0000 (UTC)
+Received: by mail-vk1-f172.google.com with SMTP id
+ 71dfb90a1353d-59be89d310aso3303583e0c.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 02:16:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781601380; x=1782206180;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=u6QcGlPDQFiHbxd4De/gInfn9HKdUcPfKNWsAjhcdk8=;
+ b=cU0c6KRL0xJgrkzZY93qt1v7kpWnNphkNnkLgkUcthxVW01nUejg5WUwlZJbjlRLRB
+ PgQXY5Xs0VaC2FzaW7sJaV0mTeytFNMYya4XX952xx5EJlyWp36FtZLzYyds6zQ/k0Vq
+ ts4w9EDh/f5w28ujnNyo6GsjeRhEd6CpX1JyW4RAiGG7lTApC7qjgRz449VMe77UV+Dn
+ tmy5WhWcXQyBF9nZfFylzFjgrgc/l0Szj/hYiuCQvBZooSuIrkosfsyiBlijUWuU3vZe
+ m4jQK3iDoXQsUIkuDhBS0pWmGaZ3hjeGCefP3dG4jN2H+o0O989+EMjC4Th0BaoDO/2h
+ PNBA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8bNdr0ruoKEt2KfBXzE8Pflm/Uj+aWzpLCJkxbWXesZIHLQQdDnnz6zl53AJmK7uPno02TviQJVqg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxifF6yBSZzDUSdlEwmfeWNEZRQ4Y2SRSUgemqWJ4WIdaH618yR
+ wp/QCT6dw71t4msvik/u7wfbRKqXVBX1S7GblC07rtso3y/1aWk2S41nDpprzVtT
+X-Gm-Gg: Acq92OGqrcZLrf5taeStkk+WgOnoYV4aghBiNfdJC+JiKVTVHT/jyk/Ljk20caJywBu
+ vZTWAQ3Mxn6G5zzHqEUvKY+N4BBcrsxQtw7fGXfEF4MZlRvRs8DYY7LlTLkUS9Se+hMITgOLQC/
+ RSWW8rmxHawYQtHLbUlE7n80jVptBfxrrIYC+dQZtsaeLLVxm86FrEMvGfamk15nj3saEoDscbI
+ BfwVuBBa1kybacwrJGUmKHpJ6QvtZSFnmorpq5kxr/uDW/QMDQBuPEHnWIPprYsS/7ByBFQjfkB
+ 4J5ZBooJ4UlP6nxNuMUskiKBSa+g1U8w7h0VVEAhNN4wwaaWdOtmylkTLz5oXbTZmxk1OUPP28C
+ cnenJO7REarmVrVTQUCLvs3WDmkF+8YZxtc11tqS2KpHT7RVPXF+QjNUrT9LMEkkO0RvK7/5+9J
+ 5dguiBeKnhmj9tQ273nRsLtPBTsfO0Q0z/VkCkRSdKYX4CJ8l0H1Uko5Jj2/E7JWrnEE408da/2
+ mI=
+X-Received: by 2002:a05:6122:2785:b0:575:9f5:ac57 with SMTP id
+ 71dfb90a1353d-5bbad920c51mr981026e0c.4.1781601379651; 
+ Tue, 16 Jun 2026 02:16:19 -0700 (PDT)
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com.
+ [209.85.221.169]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5bb8ff94a24sm5384005e0c.2.2026.06.16.02.16.19
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 16 Jun 2026 02:16:19 -0700 (PDT)
+Received: by mail-vk1-f169.google.com with SMTP id
+ 71dfb90a1353d-59be89d310aso3303574e0c.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 02:16:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/9s1lps4hl/v9s4IwTrf2CryGZEnr8Q2t1m6+Zxw8feosu5+VXwRYiAqBo7DWZD//nY/5xnI1b8rk=@lists.freedesktop.org
+X-Received: by 2002:a05:6122:2390:b0:59a:7b23:16f5 with SMTP id
+ 71dfb90a1353d-5bbad8b1798mr1101874e0c.1.1781601379326; Tue, 16 Jun 2026
+ 02:16:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+References: <aiq-GWegHjzdYJ2S@sirena.co.uk>
+In-Reply-To: <aiq-GWegHjzdYJ2S@sirena.co.uk>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 16 Jun 2026 11:16:08 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWxP4obaZ=U6fudN3q_sFaAAYFuoq-L-dZ1GYgszw_ezg@mail.gmail.com>
+X-Gm-Features: AVVi8CcR6hXTmkeMKxaguE45TU4JWmRqgQ7Cb_Qg-Nr7jquYVQsTuunb8azs3Jk
+Message-ID: <CAMuHMdWxP4obaZ=U6fudN3q_sFaAAYFuoq-L-dZ1GYgszw_ezg@mail.gmail.com>
+Subject: Re: linux-next: manual merge of the drm tree with the drm-misc-fixes
+ tree
+To: Mark Brown <broonie@kernel.org>
+Cc: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>, 
+ Jani Nikula <jani.nikula@intel.com>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Melissa Wen <melissa.srw@gmail.com>, Melissa Wen <mwen@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,79 +90,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SVM ranges use inclusive page indices: prange->last is the last page in
-the range. The split-remap logic introduced by commit 448ee45353ef
-("drm/amdkfd: Use huge page size to check split svm range alignment")
-uses ALIGN_DOWN(prange->last, 512) to determine whether the original
-range can contain a 2MB huge-page mapping.
+Hi Mark,
 
-That aligns the last page itself down. Thus a range ending one page
-before the next 2MB boundary is classified as if the final 2MB block did
-not exist. When such a range is split inside that final block, the
-split head or tail can be left off the remap list even though it was
-derived from an original range that may have PMD mappings.
+On Thu, 11 Jun 2026 at 15:59, Mark Brown <broonie@kernel.org> wrote:
+> Today's linux-next merge of the drm tree got a conflict in:
+>
+>   drivers/gpu/drm/drm_atomic.c
+>   include/drm/drm_colorop.h
+>
+> between commit:
+>
+>   94ff735296d371 ("drm/colorop: make lut(1/3)d_interpolation props correctly behave as mutable")
+>
+> from the drm-misc-fixes tree and commits:
+>
+>   5164f7e7ff8ec7 ("drm: Rename struct drm_atomic_state to drm_atomic_commit")
+>   0c44d8dc6df988 ("drm/atomic: prefer drm_printf_indent() over inline \t")
+>
+> from the drm tree.
+>
+> I fixed it up (see below) and can carry the fix as necessary. This
+> is now fixed as far as linux-next is concerned, but any non trivial
+> conflicts should be mentioned to your upstream maintainer when your tree
+> is submitted for merging.  You may also want to consider cooperating
+> with the maintainer of the conflicting tree to minimise any particularly
+> complex conflicts.
 
-Use prange->last + 1 as the exclusive upper bound when computing the
-original range's last 2MB-aligned boundary. For the head-side remap
-check, compare the inclusive head->last directly against that exclusive
-aligned boundary; this catches a split head ending one page before the
-boundary while preserving the existing alignment check.
+You forgot to include the fix, but I can confirm the fix in linux-next
+LGTM.
 
-Xiaogang Chen identified this cause and posted the candidate fix in the
-regression thread. With the culprit change active and the local revert not
-applied, the unchanged C/HSA reproducer completes 10/10 runs with this
-change on an RX 7600 XT.
+Gr{oetje,eeting}s,
 
-Fixes: 448ee45353ef ("drm/amdkfd: Use huge page size to check split svm ran=
-ge alignment")
-Cc: stable@vger.kernel.org
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/4914
-Link: https://lore.kernel.org/stable/IA1PR12MB85172F7FE9157C092EDA46A0E3112=
-@IA1PR12MB8517.namprd12.prod.outlook.com/
-Suggested-by: Xiaogang Chen <xiaogang.chen@amd.com>
-Signed-off-by: Gerhard Schwanzer <geschw@pm.me>
----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+                        Geert
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amd=
-kfd/kfd_svm.c
-index 72cfb4a..30693ed 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1144,7 +1144,7 @@ static int
- svm_range_split_tail(struct svm_range *prange, uint64_t new_last,
- =09=09     struct list_head *insert_list, struct list_head *remap_list)
- {
--=09unsigned long last_align_down =3D ALIGN_DOWN(prange->last, 512);
-+=09unsigned long last_align_down =3D ALIGN_DOWN(prange->last + 1, 512);
- =09unsigned long start_align =3D ALIGN(prange->start, 512);
- =09bool huge_page_mapping =3D last_align_down > start_align;
- =09struct svm_range *tail =3D NULL;
-@@ -1168,7 +1168,7 @@ static int
- svm_range_split_head(struct svm_range *prange, uint64_t new_start,
- =09=09     struct list_head *insert_list, struct list_head *remap_list)
- {
--=09unsigned long last_align_down =3D ALIGN_DOWN(prange->last, 512);
-+=09unsigned long last_align_down =3D ALIGN_DOWN(prange->last + 1, 512);
- =09unsigned long start_align =3D ALIGN(prange->start, 512);
- =09bool huge_page_mapping =3D last_align_down > start_align;
- =09struct svm_range *head =3D NULL;
-@@ -1181,8 +1181,8 @@ svm_range_split_head(struct svm_range *prange, uint64=
-_t new_start,
-=20
- =09list_add(&head->list, insert_list);
-=20
--=09if (huge_page_mapping && head->last + 1 > start_align &&
--=09    head->last + 1 < last_align_down && (!IS_ALIGNED(head->last, 512)))
-+=09if (huge_page_mapping && head->last > start_align &&
-+=09    head->last < last_align_down && (!IS_ALIGNED(head->last, 512)))
- =09=09list_add(&head->update_list, remap_list);
-=20
- =09return 0;
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-base-commit: 2c7d5b0a5ec0fc713a7f350806553643e87e6f43
---=20
-2.54.0
-
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
