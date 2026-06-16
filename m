@@ -4,63 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9BB7CD98E1
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 12:04:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39FA2CD98DA
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 12:13:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 265D710EA9A;
-	Tue, 16 Jun 2026 12:04:32 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="WUXUGWLC";
-	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E178010EA9A
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 12:04:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781611462; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=dLAXd5sN2L14bG9hkzkm0CxW55uRvk/1mqGi7+lMBL1Xm7hOJGxAQnOMjr3xnKoiZUZqrvp91cBw3jsMWXPJteBMiHY6dGSFcN7eLLFP83L3Jab0HalqZV1b8VA/fGSKR1O4uRcbwxg51cszRTI+4d6oV69Evt5C4US9PnMh2As=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1781611462;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=SYmKzwI4nq4EDUtuPmTgrXKdRMpJnM/v7Sv+byW3jhw=; 
- b=l3Kr2nPoOMon9Q686nR+Id5NiqOO5+VuTJrB5kyVcGLwLbrsnkr5s5aIy2eSyj4Fm3yOsfO0amm4QO6pmfUaaL0PE4AbDHRpGoCbxf67Qqf0GIB90AwroLsB2wUG9KxcitDvur/f8kjcWMMWkK+xJUnOx0vcsCoIkVN1sR0Sd/k=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781611462; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=SYmKzwI4nq4EDUtuPmTgrXKdRMpJnM/v7Sv+byW3jhw=;
- b=WUXUGWLC4/k5zkqgzOeJ04wOcdqL/6LNR+RhsSSlNQxyUsu6khBaoM6VC0HTkEvI
- bUFwUy4M35D02y4uGWWRgIcWiy5l6wP+z6k3sVmZkL7puZkqAuZqPnqaVqn37LMEfot
- RmlgufSEuNirRJ6iE+n1+hTR2mPbUHTuu1N2AcT0=
-Received: by mx.zohomail.com with SMTPS id 1781611460351423.87744694676974;
- Tue, 16 Jun 2026 05:04:20 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Hans Verkuil <hverkuil+cisco@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, kernel@collabora.com,
- Daniel Stone <daniels@collabora.com>
-Subject: Re: [PATCH v6 0/4] Add SCDC information to connector debugfs
-Date: Tue, 16 Jun 2026 14:04:13 +0200
-Message-ID: <GWBGXfaiTF64ibliB2zCRg@collabora.com>
-In-Reply-To: <20260615-mature-frog-of-certainty-d05f99@houat>
-References: <20260611-scdc-link-health-v6-0-6307875a6b5e@collabora.com>
- <5DBSVhedT12K_nGj0amyCw@collabora.com>
- <20260615-mature-frog-of-certainty-d05f99@houat>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9501310EAA0;
+	Tue, 16 Jun 2026 12:13:13 +0000 (UTC)
+X-Greylist: delayed 388 seconds by postgrey-1.36 at gabe;
+ Tue, 16 Jun 2026 12:13:11 UTC
+Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA78410E78C
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 12:13:11 +0000 (UTC)
+Received: by sphereful.davidgow.net (Postfix, from userid 119)
+ id AFC621EA012; Tue, 16 Jun 2026 20:06:40 +0800 (AWST)
+Received: from [IPV6:2001:8003:8810:ea00::9c4] (unknown
+ [IPv6:2001:8003:8810:ea00::9c4])
+ by sphereful.davidgow.net (Postfix) with ESMTPSA id AA7691EA00D;
+ Tue, 16 Jun 2026 20:06:33 +0800 (AWST)
+Message-ID: <51f89811-2976-44c7-99f3-5e24d5535aa8@davidgow.net>
+Date: Tue, 16 Jun 2026 20:06:31 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 0/4] kunit: Add support for suppressing warning
+ backtraces
+To: Albert Esteve <aesteve@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
+ Brendan Higgins <brendan.higgins@linux.dev>, Rae Moar <raemoar63@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
+ dri-devel@lists.freedesktop.org, workflows@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-doc@vger.kernel.org,
+ peterz@infradead.org, Alessandro Carminati <acarmina@redhat.com>,
+ Guenter Roeck <linux@roeck-us.net>, Kees Cook <kees@kernel.org>,
+ Linux Kernel Functional Testing <lkft@linaro.org>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Dan Carpenter <error27@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+References: <20260515-kunit_add_support-v13-0-18ee42f96e7b@redhat.com>
+ <CADSE00+typ3Zi5Vf0Z276+e0G7PuS7mt7oA9h5awBu3YgYKw0g@mail.gmail.com>
+From: David Gow <david@davidgow.net>
+Content-Language: fr
+In-Reply-To: <CADSE00+typ3Zi5Vf0Z276+e0G7PuS7mt7oA9h5awBu3YgYKw0g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,72 +66,207 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Monday, 15 June 2026 18:33:11 Central European Summer Time Maxime Ripard wrote:
-> On Mon, Jun 15, 2026 at 10:07:02AM +0200, Nicolas Frattaroli wrote:
-> > On Saturday, 13 June 2026 08:57:29 Central European Summer Time Hans Verkuil wrote:
-> > > Hi Nicolas,
-> > > 
-> > > On 11/06/2026 14:57, Nicolas Frattaroli wrote:
-> > > > HDMI uses the DDC I2C bus for communicating various bits of link status
-> > > > out of band with the actual HDMI video signal. This information can be
-> > > > useful for debugging issues like questionable cables sabotaged by feline
-> > > > teeth, Enthusiast Grade cables made of cow fencing wire, and other such
-> > > > problems that ruin one's media viewing plans.
-> > > > 
-> > > > Consequently, this series exposes various bits of pertinent information
-> > > > from the SCDC protocol in an HDMI connector's debugfs. To continually
-> > > > poll the link status, userspace can poll the debugfs file.
-> > > 
-> > > Something is not quite right: I've been testing this series with my i915
-> > > based laptop with HDMI connector, and I never see the scdc_status file.
-> > > And that's because CONFIG_DRM_BRIDGE_CONNECTOR is not set for my configuration.
-> > 
-> > That's to be expected. i915 does not use bridge connectors, and neither
-> > does amdgpu iirc. I am working on embedded boards that do use bridge
-> > connectors, along with all the rest of the HDMI state helpers.
-> > 
-> > Implementing something new in DRM usually involves having to triplicate
-> > certain parts of the work in order to have i915 and amdgpu behave the
-> > same as everyone else.
-> > 
-> > > So I think you are creating the debugfs entry in the wrong place.
-> > 
-> > I can't create it for all drm_connectors as Maxime suggested due to the
-> > cyclical dependency that would create. If someone has any idea on how
-> > to break that dependency cycle, I'm open to suggestions.
+Le 16/06/2026 à 7:44 PM, Albert Esteve a écrit :
+> On Fri, May 15, 2026 at 2:29 PM Albert Esteve <aesteve@redhat.com> wrote:
+>>
+>> Some unit tests intentionally trigger warning backtraces by passing bad
+>> parameters to kernel API functions. Such unit tests typically check the
+>> return value from such calls, not the existence of the warning backtrace.
+>>
+>> Such intentionally generated warning backtraces are neither desirable
+>> nor useful for a number of reasons:
+>> - They can result in overlooked real problems.
+>> - A warning that suddenly starts to show up in unit tests needs to be
+>>   investigated and has to be marked to be ignored, for example by
+>>   adjusting filter scripts. Such filters are ad hoc because there is
+>>   no real standard format for warnings. On top of that, such filter
+>>   scripts would require constant maintenance.
+>>
+>> One option to address the problem would be to add messages such as
+>> "expected warning backtraces start/end here" to the kernel log.
+>> However, that would again require filter scripts, might result in
+>> missing real problematic warning backtraces triggered while the test
+>> is running, and the irrelevant backtrace(s) would still clog the
+>> kernel log.
+>>
+>> Solve the problem by providing a means to suppress warning backtraces
+>> originating from the current kthread while executing test code.
+>> Since each KUnit test runs in its own kthread, this effectively scopes
+>> suppression to the test that enabled it, without requiring any
+>> architecture-specific code.
+>>
+>> Overview:
+>> Patch#1 Introduces the suppression infrastructure integrated into
+>>         KUnit's hook mechanism.
+>> Patch#2 Adds selftests to validate the functionality.
+>> Patch#3 Demonstrates real-world usage in the DRM subsystem.
+>> Patch#4 Documents the new API and usage guidelines.
+>>
+>> Design Notes:
+>> Suppression is integrated into the existing KUnit hooks infrastructure,
+>> reusing the kunit_running static branch for zero overhead
+>> when no tests are running. The implementation lives entirely in the
+>> kunit module; only a static-inline wrapper and a function pointer
+>> slot are added to built-in code.
+>>
+>> Suppression is checked at three points in the warning path:
+>> - In `warn_slowpath_fmt()` (kernel/panic.c), for architectures without
+>>   __WARN_FLAGS. The check runs before any output, fully suppressing
+>>   both message and backtrace.
+>> - In `__warn_printk()` (kernel/panic.c), for architectures that define
+>>   __WARN_FLAGS but not their own __WARN_printf (arm64, loongarch,
+>>   parisc, powerpc, riscv, sh). The check suppresses the warning message
+>>   text that is printed before the trap enters __report_bug().
+>> - In `__report_bug()` (lib/bug.c), for architectures that define
+>>   __WARN_FLAGS. The check runs before `__warn()` is called, suppressing
+>>   the backtrace and stack dump.
+>>
+>> To avoid double-counting on architectures where both `__warn_printk()`
+>> and `__report_bug()` run for the same warning, the hook takes a bool
+>> parameter: true to increment the suppression counter, false to suppress
+>> without counting.
+>>
+>> The suppression state is dynamically allocated via kunit_kzalloc() and
+>> tied to the KUnit test lifecycle via `kunit_add_action()`, ensuring
+>> automatic cleanup at test exit. Writer-side access to the global
+>> suppression list is serialized with a spinlock; readers use RCU.
+>>
+>> Two API forms are provided:
+>> - kunit_warning_suppress(test) { ... }: scoped blocks with automatic
+>>   cleanup. The suppression handle is not accessible outside the block,
+>>   so warning counts (if needed) must be checked inside. Multiple
+>>   sequential suppression blocks are allowed.
+>> - kunit_start/end_suppress_warning(test): direct functions that return
+>>   an explicit handle. Use when the handle needs to be retained, or passed
+>>   across helpers. Multiple sequential suppression blocks are allowed.
+>>
+>> This series is based on the RFC patch and subsequent discussion at
+>> https://patchwork.kernel.org/project/linux-kselftest/patch/02546e59-1afe-4b08-ba81-d94f3b691c9a@moroto.mountain/
+>> and offers a more comprehensive solution of the problem discussed there.
+>>
+>> Changes since RFC:
+>> - Introduced CONFIG_KUNIT_SUPPRESS_BACKTRACE
+>> - Minor cleanups and bug fixes
+>> - Added support for all affected architectures
+>> - Added support for counting suppressed warnings
+>> - Added unit tests using those counters
+>> - Added patch to suppress warning backtraces in dev_addr_lists tests
+>>
+>> Changes since v1:
+>> - Rebased to v6.9-rc1
+>> - Added Tested-by:, Acked-by:, and Reviewed-by: tags
+>>   [I retained those tags since there have been no functional changes]
+>> - Introduced KUNIT_SUPPRESS_BACKTRACE configuration option, enabled by
+>>   default.
+>>
+>> Changes since v2:
+>> - Rebased to v6.9-rc2
+>> - Added comments to drm warning suppression explaining why it is needed.
+>> - Added patch to move conditional code in arch/sh/include/asm/bug.h
+>>   to avoid kerneldoc warning
+>> - Added architecture maintainers to Cc: for architecture specific patches
+>> - No functional changes
+>>
+>> Changes since v3:
+>> - Rebased to v6.14-rc6
+>> - Dropped net: "kunit: Suppress lock warning noise at end of dev_addr_lists tests"
+>>   since 3db3b62955cd6d73afde05a17d7e8e106695c3b9
+>> - Added __kunit_ and KUNIT_ prefixes.
+>> - Tested on interessed architectures.
+>>
+>> Changes since v4:
+>> - Rebased to v6.15-rc7
+>> - Dropped all code in __report_bug()
+>> - Moved all checks in WARN*() macros.
+>> - Dropped all architecture specific code.
+>> - Made __kunit_is_suppressed_warning nice to noinstr functions.
+>>
+>> Changes since v5:
+>> - Rebased to v7.0-rc3
+>> - Added RCU protection for the suppressed warnings list.
+>> - Added static key and branching optimization.
+>> - Removed custom `strcmp` implementation and reworked
+>>   __kunit_is_suppressed_warning() entrypoint function.
+>>
+>> Changes since v6:
+>> - Moved suppression checks from WARN*() macros to warn_slowpath_fmt()
+>>   and __report_bug().
+>> - Replaced stack-allocated suppression struct with kunit_kzalloc() heap
+>>   allocation tied to the KUnit test lifecycle.
+>> - Changed suppression strategy from function-name matching to task-scoped:
+>>   all warnings on the current task are suppressed between START and END,
+>>   rather than only warnings originating from a specific named function.
+>> - Simplified macro API: removed KUNIT_DECLARE_SUPPRESSED_WARNING(),
+>>   the START macro now takes (test) and handles allocation internally.
+>> - Removed static key and branching optiomization, as by the time it
+>>   was executed, callers are already in warn slowpaths.
+>> - Link to v6: https://lore.kernel.org/r/20260317-kunit_add_support-v6-0-dd22aeb3fe5d@redhat.com
+>>
+>> Changes since v7:
+>> - Integrated suppression into existing KUnit hooks infrastructure
+>> - Removed CONFIG_KUNIT_SUPPRESS_BACKTRACE
+>> - Added suppression check in __warn_printk()
+>> - Added spinlock for writer-side RCU protection
+>> - Replaced explicit rcu_read_lock/unlock with guard(rcu)()
+>> - Added scoped API (kunit_warning_suppress) using __cleanup attribute
+>> - Updated DRM patch to use scoped API
+>> - Expanded self-tests: incremental counting, cross-kthread isolation
+>> - Rewrote documentation covering all three API forms with examples
+>> - Link to v7: https://lore.kernel.org/r/20260420-kunit_add_support-v7-0-e8bc6e0f70de@redhat.com
+>>
+>> Changes since v8:
+>> - Rebased to v7.1-rc2
+>> - Remove KUNIT_START/END_SUPPRESSED_WARNING() macros
+>> - Add KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT checks to drm tests
+>> - Link to v8: https://lore.kernel.org/r/20260504-kunit_add_support-v8-0-3e5957cdd235@redhat.com
+>>
+>> Changes since v9:
+>> - Fix silent false-pass when kunit_start_suppress_warning() returns NULL
+>> - Fix RCU lockdep splat for kunit_is_suppressed_warning() calls
+>> - Move disable_trace_on_warning() in __report_bug()
+>> - Make suppress counter atomic
+>> - Mark helper warn functions in selftest as noinline
+>> - Add kunit_skip() for CONFIG_BUG=n in selftests
+>> - Fix potentially uninitialized data.was_active in kthread seltest
+>> - Add kthread_stop() in kthread selftest early exit
+>> - Initialize scaling_factor to INT_MIN in DRM scaling tests
+>> - Add include for bool in test-bug.h to fix CONFIG_KUNIT=n case
+>> - Link to v9: https://lore.kernel.org/r/20260508-kunit_add_support-v9-0-99df7aa880f6@redhat.com
+>>
+>> Changes since v10:
+>> - Remove synchronize_rcu() to avoid sleeping in atomic context
+>> - Pin task_struct refcount to prevent ABA false-positive matches
+>> - Loop in suppression selftest to prevent use-after-free on kthread exit
+>> - Skip DRM rect tests on CONFIG_BUG=n
+>> - Link to v10: https://lore.kernel.org/r/20260513-kunit_add_support-v10-0-e379d206c8cd@redhat.com
+>>
+>> Changes since v11:
+>> - Use call_rcu() to defer free without blocking
+>> - Remove #ifdef CONFIG_KUNIT guard in lib/bug.c
+>> - Remove stale config checks from selftest
+>> - Replace skip on DRM rect tests with conditional expectation
+>> - Link to v11: https://lore.kernel.org/r/20260514-kunit_add_support-v11-0-b36a530a6d8f@redhat.com
+>>
+>> Changes since v12:
+>> - Reverted to the v9 synchronize_rcu() approach
+>> - Add in_task() check at the top of __kunit_is_suppressed_warning_impl()
+>> - Link to v12: https://lore.kernel.org/r/20260515-kunit_add_support-v12-0-a216dc228be8@redhat.com
 > 
-> Back when we introduce the audio support, we floated the idea to
-> de-midlayer this and turn it into a debugfs_init helper. We don't have a
-> lot of users yet so it might be the best time to do so, and would solve
-> your issue.
-
-I agree and will be happy to do that. I need some more concrete info
-though on what "de-midlayer" means here. From what I can tell, the
-core problem is that drm_connector.c directly calls into
-drm_debugfs_connector_add of drm_debugfs.c, which if it did also
-do a direct call into drm_scdc_helper.c would mean drm_scdc_helper.c
-needs drm_connector.c but drm_connector.c needs drm_scdc_helper.c.
-
-So I guess the de-midlayer and turn it into helper part is that
-drm_connector does an indirect call to a function pointer instead,
-which is default-filled at runtime with the helper debugfs_init
-function? I don't know if we can then do this by default for all
-drivers in drm_connector.c or if it needs to be done per-driver
-like some of the other helpers. If the latter, then we don't
-really gain much over what I'm doing with bridge connector.
-
-The other maybe less intrusive change is that
-drm_scdc_debugfs_init and scdc_status_fops travels to drm_debugfs.c,
-while the actual implementation of the read op remains in
-drm_scdc_helper.c. I think that would solve it without a big refactor?
-
-Kind regards,
-Nicolas Frattaroli
-
+> Hi all,
 > 
-> Maxime
+> I am not sure if there is a decision to merge this series or if any
+> work remains to be done.
 > 
+> I reckon I sent a few versions back-to-back last time as I was
+> struggling with Sashiko. However, there are no significant changes,
+> the core strategy remains unchanged, involving only the addition of
+> safety checks and the removal of some redundancies to satisfy the AI.
+> I am just clarifying in case the last versions/respins were unclear. I
+> tried running AI reviews locally but Sashiko always found more issues
+> than my local model could.
+> 
+The latest version was fine. It's just landed for 7.2:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=42eb3a5ef6bc56192bf450c79a3f274e081f8131
 
-
-
-
+Thanks for all of your work,
+-- David
