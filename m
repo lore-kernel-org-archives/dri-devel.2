@@ -4,97 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E36CCD98F4
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 07:07:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3A08CD98F0
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 07:07:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E284F10EE39;
-	Wed, 17 Jun 2026 07:07:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C078D10EE3F;
+	Wed, 17 Jun 2026 07:07:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nem46vzL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ejWpcK9Z";
 	dkim-atps=neutral
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
- [209.85.210.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 385FD10ED14
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 21:59:16 +0000 (UTC)
-Received: by mail-ot1-f50.google.com with SMTP id
- 46e09a7af769-7e6e9408e30so3637318a34.2
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 14:59:16 -0700 (PDT)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFF9E10ECE6
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 18:20:07 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-37c8e7c8137so165841a91.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 11:20:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781647155; x=1782251955; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=MdIhJ92yHcSeuARKRFApaFACq6jQgJFrqu8oVo70t/I=;
- b=Nem46vzLeN2Yum696uh7nLpzXZXe3IGj92BZHn5LBKF5D39UQW1iRYtzm03r/h8yde
- Bxku+J+KVzrVi6rF4FviogAHqme8dZ/8OlDpUSL1nV+lBaAqtWBIDDzmasL6iFDA0zOC
- TT4iP3PCjy8UreMwA0AbhMoDybfFenpDixOPQbcFl6ngtHO3mk5pu32j8M0jnseM3iQm
- OfHjwYKJMslkDpCkjMtvUIyaWLgtxEX7EJlpF1MLocHfy0NXGYDjdDVLQRQviI2brf7F
- KKoHbPKoJUATLt7BAWXWOLbkCbbtNZf5v00AxxdHdameDuYrJQk3V8AIXei6h8KpOGW7
- E/6g==
+ d=gmail.com; s=20251104; t=1781634007; x=1782238807; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=UwpVureg07QbjRnL27mIYEGwVaOJw7DuUq/siGYlqU4=;
+ b=ejWpcK9Z0FP37z7UhCAhYEoZVXGF+dRsL7KzbOUy8DrmpEnubmQ0ittMRg3GielWJj
+ sWyVYoYe1D+tLSk+wxJiai9tHCSTr9mD94cNBHpSpj2o8rMVgcwnIx66AQAJpo/0LfJF
+ UE2xe5AyI586Q9dxxJ5vDTsx4z5HqIwD64IdwJl6xYbZKJY/uO05L8Ee+1IP6guFaMFe
+ u5z4caJmKQUF2nFqcB2tLdIagiIcFgcjUBv30hlq63gktPAERPk/giyrbph3E/MsCp0Y
+ MGh1lQnjm9TKoCYWk3pXUULa6wR3wf35pLI+iPhUf9z/aQKwCQzCdFZ6X/xeMzHNcnpy
+ E5YA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781647155; x=1782251955;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MdIhJ92yHcSeuARKRFApaFACq6jQgJFrqu8oVo70t/I=;
- b=EMsiu27oFHwl/17HBnTh1yQr47dL2L286ICrSai0nsd+hsPkL/uEAab/Z3hW8xf7fl
- CHhtaXj96DhF1xGlg+kjhiDywHJub0QCJBIoBq8AjdWKkD2AjBupUTVt7I3CdqtTCBgN
- GTvdPMUsQVBexDcxi3BmfL3MExh1NBU+BGiOZF1+OHiFptw8IX/eg9OPXSHo6452bd21
- KLsUkYyTE6PK2glgVjU+g/SReNQ2/y41EwLC7pedfa4hWGoShVwSYSqaw9NL+xLEGZRP
- JjoIgaVGS8QULEBbCHyEfJ0ePexmz6DLMXVLZhhufFMBgjWRxoI5RIe165RFLz0ZhtAs
- IKrA==
+ d=1e100.net; s=20251104; t=1781634007; x=1782238807;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UwpVureg07QbjRnL27mIYEGwVaOJw7DuUq/siGYlqU4=;
+ b=oIFQix+I+ybaNxmbboSvoINMVwPrzqTZ4n2PGkGgQkOqyyqQfTJkxkbSkTz4eCVosN
+ EMlrw6tBlCHnaXXMIWa4twwNmeIVUQLHaQcht94GKMIgKGF2L17T5P9uqG0/tkQpr/aC
+ sKuT3o4VSDwzFZzu2RCzn4YCGbac73XTd4QATmYYo7yzlRxZsJ/SbJrUrboL5x5l5E0b
+ r4qgDSCXoYj2iUfgIvAsRNPSfBFq25uLFcQrEaIdUZvGzGrE1qbiQKtv0Jnu4eEj56ru
+ AcSdO78NzIYMK6qc1+4jhOD1CQy4njOEfrYwlagMUCox+emqKb+WLL3pvFselmY4VjEY
+ 0TrA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/Xbkh/aIDnbrpclJuQZY1iUWQijHNkshVq4Zv+Xb58Yr/eC39FYKKnXx9MMkcGMNOyStCKHi3pIuI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy7f/xzCKltIRbpwjD/3kpG4srwxtazar802WOGxTGEUaSjbank
- Mi5MTY7/Bv89TSACzK4kYwC8Gp+8i2S3cVfuPnMsUsNvS8e23jCySsDs
-X-Gm-Gg: Acq92OE3Y2QTNoK/NxOk8rrBpnLC4/U312zQlF5NE0x8FxEs4Qvbs3GbCcMEUaXjeBU
- 6NPNcaxCtEmLGixOiVIau1EztcSeGKBHHK88SFPPCT+EM62juefd4D+AhfrsiDEHvvshdZVc61j
- PoHm2+Wj6LGkIIi4auuyY50+FdPp7o7C7sMeH/xo6kAcKF7qEX4eMpjZGV92QQML02+5YzpIv+3
- QwU1WZnM4MlDrRqgzxbthbN7ytSh5ezpWar/toGvg+gF51OMnL43aRR4sZqKGEl34S3QWTjvmz3
- t9CYFDmDr6DL8JjvmiBKkl93fVnghxhlyvK9IouaD8/FQtoRY+BTqlaLz0meUsw/qQMn3GphDWb
- W4wZTOxG/Ujzdz5b/yzHVQEQ5egY+2nWWJ4KZa69R898feYUxaqDGPiTGRgc23ttPV9ei3zNNhl
- +MJLUcXT7cRC+Q5nqUtylfESs8Nf5yrwcPKox8qfeTSl+G
-X-Received: by 2002:a05:6830:2783:b0:7e7:352:2f74 with SMTP id
- 46e09a7af769-7e90b43fae5mr1228845a34.13.1781647155303; 
- Tue, 16 Jun 2026 14:59:15 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:54::])
+ AFNElJ8xg/DUysmmk7OGFa7SDze/bTI2nRxC5EEe8ITkXzIHpkkfJc1Nv9CJrVn8aLE+pBWIYEVyMA7dWTM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxGa5ELIcvJ/qrOg9WK3NLPp2BTMEBiC1m2y+nxU/E0YD/olbCD
+ 0RH16RCYnvF3/N9DD3CVASjpt9MwKWEJIGk7GksrrdZwOYl998AqaH3hTZx+MVHt
+X-Gm-Gg: AfdE7cntCvDMSv6eksJSxEctjTr8jEBSEtrwhVk02lJsyQkyhKsmMzCuidRWt8LcnEP
+ PVHocIQ3elc5iNRydxYVrcZsukBRd1OptP2M95zP4b/9koQJk2Kw4vmqNLT1ZYoPnaBZvPAHdOZ
+ LtdT9O/ciQplKpGVijcs2MfbY0sHgCtguXc5+nNMP5MRo77ugrZfmTAuiyPYdBTddhaWrUrClsY
+ i1Va4kBML2cCPK3yZxCCJ5YDsX58O7qiQ8hMclo0V7O2ogNPVQUuHbtAyQP6+1glQrDIqAnv4xL
+ eiv68A5Dj9LJAPPUlgIn76pYOixKFtKmaI1BSD7sUn1GCb0sdFtMYFuWJ3s7M/Pa6AlUHeyqcz5
+ 24dWqalplhX9j7jcB7RSAwAfMeescZ50hR/adEyVR8stVoFX9fS9GGxYbO+YVrBh3FcxuutNduZ
+ mJBCiajcqUzDcLVNybr+M0htvl5B7eeF+3UNb5mTfsfZyxSmquG37GLjlrNbSgnhE=
+X-Received: by 2002:a17:90b:4ac7:b0:36b:7c2a:263e with SMTP id
+ 98e67ed59e1d1-37c9e9d408dmr178965a91.20.1781634007158; 
+ Tue, 16 Jun 2026 11:20:07 -0700 (PDT)
+Received: from localhost.localdomain ([49.207.217.37])
  by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-7e7a3c2b08fsm6625336a34.8.2026.06.16.14.59.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jun 2026 14:59:14 -0700 (PDT)
-Date: Tue, 16 Jun 2026 14:59:09 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: "Kasireddy, Vivek" <vivek.kasireddy@intel.com>
-Cc: Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Gerd Hoffmann <kraxel@redhat.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Shuah Khan <shuah@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
- "sdf@fomichev.me" <sdf@fomichev.me>,
- "razor@blackwall.org" <razor@blackwall.org>,
- "daniel@iogearbox.net" <daniel@iogearbox.net>,
- "almasrymina@google.com" <almasrymina@google.com>,
- "matttbe@kernel.org" <matttbe@kernel.org>,
- "skhawaja@google.com" <skhawaja@google.com>,
- "dw@davidwei.uk" <dw@davidwei.uk>, Bobby Eshleman <bobbyeshleman@meta.com>
-Subject: Re: [PATCH net-next v2 2/4] udmabuf: emit one sg entry per pinned
- folio
-Message-ID: <ajHHLfgY+pZ8AD97@devvm29614.prn0.facebook.com>
-References: <20260611-tcpdm-large-niovs-v2-0-ee2bf15e7523@meta.com>
- <20260611-tcpdm-large-niovs-v2-2-ee2bf15e7523@meta.com>
- <IA0PR11MB71852246277F773AC41DAAA3F8E52@IA0PR11MB7185.namprd11.prod.outlook.com>
- <ajG4zaK9zu7qZT1+@devvm29614.prn0.facebook.com>
+ 98e67ed59e1d1-37c521ef803sm3605560a91.11.2026.06.16.11.20.02
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Tue, 16 Jun 2026 11:20:06 -0700 (PDT)
+From: Biren Pandya <birenpandya@gmail.com>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: sumit.semwal@linaro.org, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Biren Pandya <birenpandya@gmail.com>
+Subject: [PATCH] drm/gem: modernize locks to use scoped_guard()
+Date: Tue, 16 Jun 2026 23:49:57 +0530
+Message-ID: <20260616181956.61476-2-birenpandya@gmail.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ajG4zaK9zu7qZT1+@devvm29614.prn0.facebook.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 17 Jun 2026 07:07:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -111,53 +90,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 16, 2026 at 01:57:49PM -0700, Bobby Eshleman wrote:
-> On Tue, Jun 16, 2026 at 06:04:03AM +0000, Kasireddy, Vivek wrote:
-> > Adding Jason to this discussion.
-> > 
-> > Hi Bobby,
-> > 
-> > > Subject: [PATCH net-next v2 2/4] udmabuf: emit one sg entry per pinned
-> > > folio
-> > > 
-> > > From: Bobby Eshleman <bobbyeshleman@meta.com>
-> > > 
-> > > get_sg_table() emitted one PAGE_SIZE sg entry per page even when the
-> > > underlying folio was larger.
-> > > 
-> > > Instead, walk folios[] and emit one sg entry per folio. When folios
-> > We have recently merged a patch (that will make it into 7.2) from Jason that
-> > replaced sg_set_folio() with sg_alloc_table_from_pages() in udmabuf driver:
-> > https://gitlab.freedesktop.org/drm/tip/-/commit/5bf888673e0dda5a53220fa0c4956271a46c353c
-> > 
-> > Since you are relying on sg_set_folio(), the core argument against its usage
-> > in udmabuf is that it doesn't work well with offsets > PAGE_SIZE, resulting
-> > in a malformed scatterlist. Not sure if this can be fixed easily.
-> > 
-> > > represent large pages (as is for MFD_HUGETLB), each sg entry is a large
-> > > page. Normal PAGE_SIZE sg tables are unchanged.
-> > > 
-> > > This is helpful for importers like net/core/devmem that expect dmabuf sg
-> > IMO, udmabuf needs to detect whether importers can handle segments that
-> > are > PAGE_SIZE and set the entries appropriately. Please look into how the
-> > GPU drivers and other dmabuf exporters/importers handle this situation, so
-> > that we can adopt best practices to address this issue.
-> > 
-> > Thanks,
-> > Vivek
-> 
-> Hey Vivek,
-> 
-> It sounds looks like that patch might solve my problem. I'll apply and
-> troubleshoot from there.
-> 
-> Thanks!
-> 
-> Best,
-> Bobby
+Several GEM core functions manually managed mutex_lock() and
+mutex_unlock() over single scopes or error paths. This adds boilerplate
+and carries the risk of lock leaks if error paths are refactored.
 
-Good news for me, that patch solves the problem. Thanks for bringing
-that up! I can drop my udmabuf patch when I respin the series.
+Modernize these locks by deploying the <linux/cleanup.h> scoped_guard()
+macro. This ensures that the locks are reliably dropped when the block
+exits, cleanly removing goto out_unlock paths and tightening the
+lifecycle.
 
-Best,
-Bobby
+Signed-off-by: Biren Pandya <birenpandya@gmail.com>
+
+Compiled locally, but requires IGT validation by the DRM CI.
+---
+ drivers/gpu/drm/drm_gem.c | 66 ++++++++++++++++++---------------------
+ 1 file changed, 30 insertions(+), 36 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index 891c3bff5ae0..d3a061d42ba7 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -346,13 +346,13 @@ void drm_gem_object_handle_put_unlocked(struct drm_gem_object *obj)
+ 	 * we checked for a name.
+ 	 */
+ 
+-	mutex_lock(&dev->object_name_lock);
+-	if (--obj->handle_count == 0) {
+-		drm_gem_object_handle_free(obj);
+-		drm_gem_object_exported_dma_buf_free(obj);
+-		final = true;
++	scoped_guard(mutex, &dev->object_name_lock) {
++		if (--obj->handle_count == 0) {
++			drm_gem_object_handle_free(obj);
++			drm_gem_object_exported_dma_buf_free(obj);
++			final = true;
++		}
+ 	}
+-	mutex_unlock(&dev->object_name_lock);
+ 
+ 	if (final)
+ 		drm_gem_object_put(obj);
+@@ -374,11 +374,8 @@ drm_gem_object_release_handle(int id, void *ptr, void *data)
+ 	if (obj->funcs->close)
+ 		obj->funcs->close(obj, file_priv);
+ 
+-	mutex_lock(&file_priv->prime.lock);
+-
+-	drm_prime_remove_buf_handle(&file_priv->prime, id);
+-
+-	mutex_unlock(&file_priv->prime.lock);
++	scoped_guard(mutex, &file_priv->prime.lock)
++		drm_prime_remove_buf_handle(&file_priv->prime, id);
+ 
+ 	drm_vma_node_revoke(&obj->vma_node, file_priv);
+ 
+@@ -1021,37 +1018,34 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
+ 		goto out;
+ 	}
+ 
+-	mutex_lock(&file_priv->prime.lock);
++	scoped_guard(mutex, &file_priv->prime.lock) {
++		spin_lock(&file_priv->table_lock);
++		ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1,
++				GFP_NOWAIT);
++		spin_unlock(&file_priv->table_lock);
+ 
+-	spin_lock(&file_priv->table_lock);
+-	ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1,
+-			GFP_NOWAIT);
+-	spin_unlock(&file_priv->table_lock);
++		if (ret < 0)
++			break;
+ 
+-	if (ret < 0)
+-		goto out_unlock;
++		if (obj->dma_buf) {
++			ret = drm_prime_add_buf_handle(&file_priv->prime, obj->dma_buf,
++						       handle);
++			if (ret < 0) {
++				spin_lock(&file_priv->table_lock);
++				idr_remove(&file_priv->object_idr, handle);
++				spin_unlock(&file_priv->table_lock);
++				break;
++			}
+ 
+-	if (obj->dma_buf) {
+-		ret = drm_prime_add_buf_handle(&file_priv->prime, obj->dma_buf,
+-					       handle);
+-		if (ret < 0) {
+-			spin_lock(&file_priv->table_lock);
+-			idr_remove(&file_priv->object_idr, handle);
+-			spin_unlock(&file_priv->table_lock);
+-			goto out_unlock;
++			drm_prime_remove_buf_handle(&file_priv->prime, args->handle);
+ 		}
+ 
+-		drm_prime_remove_buf_handle(&file_priv->prime, args->handle);
+-	}
+-
+-	ret = 0;
+-
+-	spin_lock(&file_priv->table_lock);
+-	idr_remove(&file_priv->object_idr, args->handle);
+-	spin_unlock(&file_priv->table_lock);
++		ret = 0;
+ 
+-out_unlock:
+-	mutex_unlock(&file_priv->prime.lock);
++		spin_lock(&file_priv->table_lock);
++		idr_remove(&file_priv->object_idr, args->handle);
++		spin_unlock(&file_priv->table_lock);
++	}
+ out:
+ 	drm_gem_object_put(obj);
+ 
+
+base-commit: 72c25183cac9bc584c9de21797a5883af44bcc7a
+-- 
+2.50.1 (Apple Git-155)
+
