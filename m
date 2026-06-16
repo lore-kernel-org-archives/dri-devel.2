@@ -4,77 +4,163 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93D69CD98DA
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 09:16:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3FD0CD98CF
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 09:18:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E421210E96E;
-	Tue, 16 Jun 2026 09:16:21 +0000 (UTC)
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com
- [209.85.221.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF72A10E96E
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 09:16:20 +0000 (UTC)
-Received: by mail-vk1-f172.google.com with SMTP id
- 71dfb90a1353d-59be89d310aso3303583e0c.0
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 02:16:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781601380; x=1782206180;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=u6QcGlPDQFiHbxd4De/gInfn9HKdUcPfKNWsAjhcdk8=;
- b=cU0c6KRL0xJgrkzZY93qt1v7kpWnNphkNnkLgkUcthxVW01nUejg5WUwlZJbjlRLRB
- PgQXY5Xs0VaC2FzaW7sJaV0mTeytFNMYya4XX952xx5EJlyWp36FtZLzYyds6zQ/k0Vq
- ts4w9EDh/f5w28ujnNyo6GsjeRhEd6CpX1JyW4RAiGG7lTApC7qjgRz449VMe77UV+Dn
- tmy5WhWcXQyBF9nZfFylzFjgrgc/l0Szj/hYiuCQvBZooSuIrkosfsyiBlijUWuU3vZe
- m4jQK3iDoXQsUIkuDhBS0pWmGaZ3hjeGCefP3dG4jN2H+o0O989+EMjC4Th0BaoDO/2h
- PNBA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8bNdr0ruoKEt2KfBXzE8Pflm/Uj+aWzpLCJkxbWXesZIHLQQdDnnz6zl53AJmK7uPno02TviQJVqg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxifF6yBSZzDUSdlEwmfeWNEZRQ4Y2SRSUgemqWJ4WIdaH618yR
- wp/QCT6dw71t4msvik/u7wfbRKqXVBX1S7GblC07rtso3y/1aWk2S41nDpprzVtT
-X-Gm-Gg: Acq92OGqrcZLrf5taeStkk+WgOnoYV4aghBiNfdJC+JiKVTVHT/jyk/Ljk20caJywBu
- vZTWAQ3Mxn6G5zzHqEUvKY+N4BBcrsxQtw7fGXfEF4MZlRvRs8DYY7LlTLkUS9Se+hMITgOLQC/
- RSWW8rmxHawYQtHLbUlE7n80jVptBfxrrIYC+dQZtsaeLLVxm86FrEMvGfamk15nj3saEoDscbI
- BfwVuBBa1kybacwrJGUmKHpJ6QvtZSFnmorpq5kxr/uDW/QMDQBuPEHnWIPprYsS/7ByBFQjfkB
- 4J5ZBooJ4UlP6nxNuMUskiKBSa+g1U8w7h0VVEAhNN4wwaaWdOtmylkTLz5oXbTZmxk1OUPP28C
- cnenJO7REarmVrVTQUCLvs3WDmkF+8YZxtc11tqS2KpHT7RVPXF+QjNUrT9LMEkkO0RvK7/5+9J
- 5dguiBeKnhmj9tQ273nRsLtPBTsfO0Q0z/VkCkRSdKYX4CJ8l0H1Uko5Jj2/E7JWrnEE408da/2
- mI=
-X-Received: by 2002:a05:6122:2785:b0:575:9f5:ac57 with SMTP id
- 71dfb90a1353d-5bbad920c51mr981026e0c.4.1781601379651; 
- Tue, 16 Jun 2026 02:16:19 -0700 (PDT)
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com.
- [209.85.221.169]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5bb8ff94a24sm5384005e0c.2.2026.06.16.02.16.19
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jun 2026 02:16:19 -0700 (PDT)
-Received: by mail-vk1-f169.google.com with SMTP id
- 71dfb90a1353d-59be89d310aso3303574e0c.0
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 02:16:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ/9s1lps4hl/v9s4IwTrf2CryGZEnr8Q2t1m6+Zxw8feosu5+VXwRYiAqBo7DWZD//nY/5xnI1b8rk=@lists.freedesktop.org
-X-Received: by 2002:a05:6122:2390:b0:59a:7b23:16f5 with SMTP id
- 71dfb90a1353d-5bbad8b1798mr1101874e0c.1.1781601379326; Tue, 16 Jun 2026
- 02:16:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F6BB10E985;
+	Tue, 16 Jun 2026 09:18:29 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Wfm7sPQA";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2821D10E985
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 09:18:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781601507; x=1813137507;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=/z4gfBjvaSCKwiZmEZfin2WxPQPTEM3/+W2Xi5y6O+c=;
+ b=Wfm7sPQAkpDkPUENJnzcFGaqagceUVyXeP3lh9iZRmKqLgqInsQkM7Ae
+ xmCwE2plytd3kHsQsTLZiZOMMHN282oEGMUIW08cl5oPig1n1pq7C1X68
+ DYWDgm9/PDIC8AY6ShrGg8QWctOaA1/v3SoL9Ug5wMtc4XakQarX6wr93
+ zp2B4xwTuEUH84onXLg+qm2ZE4rnCKSki/lIVyvgJ1HoKQbfRPbLfq7b9
+ /ECNXiSnXwyYbxc6DO6cicyvPyW1Xb4HIBGXRAbwLSXRzHgCQnG+s+cql
+ uW5PxpywhxyeEtt+fKC+lAlpGru4BE6GmaZxEygeGl9DjWd030leMHeLw w==;
+X-CSE-ConnectionGUID: XhiXjW9tQn2tpnk/uvhCiA==
+X-CSE-MsgGUID: Og3c8QqvQ1Wr77+kGQ//Jw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="82347133"
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="82347133"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2026 02:18:15 -0700
+X-CSE-ConnectionGUID: lZiJa12ZQ+S5E+tqjOGV2Q==
+X-CSE-MsgGUID: RT9vP4HuSDODf8TWEaQkDw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="249612518"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2026 02:18:15 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 16 Jun 2026 02:18:14 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Tue, 16 Jun 2026 02:18:14 -0700
+Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.43) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 16 Jun 2026 02:18:14 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YCawg1uP8WwUDkwQnSsayCo/r9YUv9ZfiBO1NBkih66Duz6YD93O0/d0wXPi3ty7QP+R6wWOvsbytKFpq+3mEqAN9fWmBhm/MguKSjPa81R5C3Ea2MyX9FtOCcfZKbvBjOP3JlEeX73d3+t84ghOMk3ILelIcEU+g87m0V5+2sVm1d4pvbUUIFIWHcdhM2WungYNizhyhPV8HMFesPx6nYBPDHbTQDdq/kYcQl91YHRbgtdNMP5Ossi5t1kOPPhnpsVJ3U1v1OQg7NJsCIBhxsqcpvT5dRLsrLcVVRyH8vOoru/OumcfMdvV3rcDclltm1QxPjfgfuL23jYPlsUvwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DTu4Wz1X/swhQ5Wot1kQ81exdlvxuEM5CnXCP7yLkKI=;
+ b=M7Z7421NCjKiUzSOEUNIUCvehGquBqwRaIGTQCZAQx9Ak0WNr5y6D+ybfhGWW5ud10jA5LrEXJgasucFpuYs5fyUIRR4vYJepX3QDDP0IPyr+WtCWg0qjLT5MMl210c8LABHCRoGiC4h51xCyDOOcAwmfEhwPpuSBxRuc1bZKnegITQHsSAsJsqPeJ0tmEpDFXF1K48iGo8S+nwYDQvNMMV1K+vYEkM9iHFGSwZQih3PZOt+5gK1R6PRqHTP9q3voX5LJweRRLvaj3r4U0oChS414fyPrbEccpqbamqMG2dKe6KumoE8qUE3F1CrQm/v3nfvqCMQmrvj8L1pXdmENw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM6PR11MB3690.namprd11.prod.outlook.com (2603:10b6:5:13d::32)
+ by CY8PR11MB7777.namprd11.prod.outlook.com (2603:10b6:930:71::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
+ 2026 09:18:12 +0000
+Received: from DM6PR11MB3690.namprd11.prod.outlook.com
+ ([fe80::7db8:f6b3:30f8:ee4b]) by DM6PR11MB3690.namprd11.prod.outlook.com
+ ([fe80::7db8:f6b3:30f8:ee4b%4]) with mapi id 15.21.0113.015; Tue, 16 Jun 2026
+ 09:18:12 +0000
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>, "Leon
+ Romanovsky" <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro
+ <amastro@fb.com>, =?iso-8859-1?Q?Christian_K=F6nig?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>, "Logan
+ Gunthorpe" <logang@deltatee.com>
+CC: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>, "Pranjal
+ Shrivastava" <praan@google.com>, Alistair Popple <apopple@nvidia.com>,
+ "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-pci@vger.kernel.org"
+ <linux-pci@vger.kernel.org>
+Subject: RE: [PATCH v3 6/9] vfio/pci: Clean up BAR zap and revocation
+Thread-Topic: [PATCH v3 6/9] vfio/pci: Clean up BAR zap and revocation
+Thread-Index: AQHc+PAbYETvhcTyrUu/DN8Pu72QKLZA7eCw
+Date: Tue, 16 Jun 2026 09:18:12 +0000
+Message-ID: <DM6PR11MB3690CA709415069FFA5121838CE52@DM6PR11MB3690.namprd11.prod.outlook.com>
+References: <20260610154327.37758-1-matt@ozlabs.org>
+ <20260610154327.37758-7-matt@ozlabs.org>
+In-Reply-To: <20260610154327.37758-7-matt@ozlabs.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR11MB3690:EE_|CY8PR11MB7777:EE_
+x-ms-office365-filtering-correlation-id: 476c51f0-b4f8-49dc-147d-08decb883066
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|366016|7416014|376014|38070700021|22082099003|18002099003|4143699003|56012099006|3023799007|11063799006;
+x-microsoft-antispam-message-info: eRNi1u3C/BYF+ENG9WQg943nCU5pX35J6PFs5APrSH7lgnoiuSm7/KPN/OE+23PDBLeKCqYx4JvYk+y2OQQwWQqqx08AA9Gw2XsyMJVJgIt6Lb0uMuXG0lIeXGkbuy+K+egk4ccUhW3KmkpsBr6vskQJQTjlKoH1W4h9HMPBtzTLpEYwGw7GoyQ4f31KhlVYK9Iimc6+kzpfp0mDu53wkLf3YaJQ1f/kCgegRLuSMx6vfnxyiHeXW5NuESAix77WUvm3fDCWMyJKDtw/E+gK7SBNPgZ1Kbg/xV2IF/PJXHkrYr0qEhY86ajuqrNNLVA6WCxcbodsoWfa+cBZNVLcrNIBUn9S6uPfh70N4twkrhMXpxPqxKWcneNKZmcCJN0vIV0pMh5Q/CPboyPfgzDkk1AkukqySn8WjCcH4e7V8UH6ZuDfhbLHQe9pu5mQYkijCRj5875TikWJc4qPDx6sB5NnWqbzLbegtPsOlOgm4Uv/bKsI1Lg+yG4cmSRnv3pucGA5tTtj09uzJqDdE5wqFAQ9CoZ51Fg1AGn+erQEQg21TLDh4ezo44CvdqMS6cADWBI6wSb4zriYmTfcMdFghJxSbL4laD1vgGR/DUUpzCRcQ0N8juiWOU2SRFTQ02BM/6ARuZuSxev2q2R7bvJN0iNH21zgCvVDJKLGy4+Nikrtbgif5yfp6PhOzNUk6DRD0qY1PsmlxaGrIlW9t86Ygj7k1p3r7DoyykYoBJuoF4YxUD6dWaI4Ff4t9k4b6aOv
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR11MB3690.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(38070700021)(22082099003)(18002099003)(4143699003)(56012099006)(3023799007)(11063799006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?Q1UblXzsvVxn+5jtbJpcIus+SSNFqbORyDEJUcC3Ae/C6QCUdJNJjeMYVW?=
+ =?iso-8859-1?Q?1wuXMtSRfKCZueU8ha1O2mAxcpiB4N2nrl/4K77U2O05TV3qv5tvmZ+tpt?=
+ =?iso-8859-1?Q?/7xJXqNLLxakXCstDKGQlOxEdOa8wgOlUOb2OtAs/dQwvg5eiAQHxa0QsP?=
+ =?iso-8859-1?Q?HKDxCoB/nGrWaTG5S1Xp4nbKVIwMJ4SqPk6P+xomKc7Ef2tYYqLA0zjnLQ?=
+ =?iso-8859-1?Q?W2zfQSoUeOMyG7qM3Zt6jQwW0+Pz/oQt3X5tdfRo6oIHOd7VWc6RmjZlcQ?=
+ =?iso-8859-1?Q?bfivhySiC1MyyY3s0F2czCOXSvU/KVdt+xMzkeyN5jiRaBeOAMLq5ZhCCT?=
+ =?iso-8859-1?Q?WFNc3hbGe73GDY3cV3HK+fDAl/bhKLFwE7xab0yuAyLIp/FPwh9FjGK12v?=
+ =?iso-8859-1?Q?j8QALYt7FlZuQSBVIR0T00ep1tiAXKAaMgsfroC8RcRvy5KjvrqxjNadZB?=
+ =?iso-8859-1?Q?LkE3sTZoSF1sXyC3hcjH87WjqNuU6HOKyybwgKjUK+19WhDWZkK9Aly16J?=
+ =?iso-8859-1?Q?ttMSaqBqX0Qds3iO+i9eDiOjLiQD0s6pUpL9QvSt7UlIzo84Wd5U8JtutI?=
+ =?iso-8859-1?Q?UWpzYSOPNJ+iPTwhPOxcfdVjcaaY7aZtu+3gKmzsLx23gmozqxmTqk/E47?=
+ =?iso-8859-1?Q?7jAvD9eMrKet8FdI+X5eP0v/C0S6NftNhGp3pBNBXBm9pb7xyOboSEyT0p?=
+ =?iso-8859-1?Q?nHX5zS5a9FeCNboN2GxmCR1w0g+FH0kfYJvMlvcewA3NAL191IUJzJASIB?=
+ =?iso-8859-1?Q?p5VMbsxjlrAD7sUZWTDTvEjtgMobxS7jYFqQuAmmHjDemL/MD6Eh+9mrBP?=
+ =?iso-8859-1?Q?9wy4Dug7wsln04p7zyCp3CC0qYboIVES0eGdctXsY9geYzKpnLYQsFoCHr?=
+ =?iso-8859-1?Q?lQIGTywFWGOazLMlbrZcuUZPVLe67dlS4ceeJ+STWVhYqCkzuyHeeG9den?=
+ =?iso-8859-1?Q?Dqf9NYE0ZhBDzgrSZF6NkCz4GJlc5JgyjJFSsxBEcMqU0yLLz7ggUyS+uy?=
+ =?iso-8859-1?Q?PUDhyy46t48Ir6aUP/LYD5KuILcSi9YdkinWva9dr47xgpI9WGhZFDkCRd?=
+ =?iso-8859-1?Q?kfWLa+ama12B6UPWD/ESEviiHB04n2LS/9SIjw1nKHWVUQNfbsLkoWMS5v?=
+ =?iso-8859-1?Q?ETbtM1vpKwJiwoKdpEkbLd0TKnXwqg0C0YZuUXJ9+eqkzDR7NbNCbCVNGY?=
+ =?iso-8859-1?Q?ejRcJDpw5NhDUopFlYi5s51a/6gQ5A0inUMZCnuB52LMxfTUoPWP3OKWUY?=
+ =?iso-8859-1?Q?TRKeQTnnzP6go08YtanNqJySKJ+FG4Lwy0d9kt3y5EH8kAY7hAPdqU6Cgh?=
+ =?iso-8859-1?Q?W3+RNWRPu+Yd2Ru/ao7LSDWmA9PypmusUIsLVIAdfJiRJ/rd5nFMJLqYrJ?=
+ =?iso-8859-1?Q?H6/H2KinLYzlAd2H/Asn3TaZumKUeiTQKrVWLMVPJ1vhMBHw/2gdOOhzab?=
+ =?iso-8859-1?Q?uw7Hf2zmMSAOeODxbHR/MQ7xj1cC2GhINKhsHCEkwwfa8h4CbpH1Bu1JAb?=
+ =?iso-8859-1?Q?LATT+5IuG3dODkyC7u5fMeBJzKEeU1jINQtcykr9c1cMVudTtbeVlUuuKj?=
+ =?iso-8859-1?Q?mAcetttbF+RV82BHNK+baRPGFA9BZlczi07jxEhe/cnzgvrs13yWlvqvnS?=
+ =?iso-8859-1?Q?XT03Woi/3ljRLBZQvRvErm82UTnFxMlPOngz0WvVkIhvLzpkyU/CjMhc7C?=
+ =?iso-8859-1?Q?BrYqIjUG2nGG2pKWeaisjQ7HJireYlmpKwYY93SYty/AUY3oVnFzPSWsct?=
+ =?iso-8859-1?Q?Fo8/4ztnbHXlFIHUJBbVMEW+qbTFI/5VapCb32w5c0JKlorknSz3Wv1cAN?=
+ =?iso-8859-1?Q?ufYD0OOhCA=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <aiq-GWegHjzdYJ2S@sirena.co.uk>
-In-Reply-To: <aiq-GWegHjzdYJ2S@sirena.co.uk>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 16 Jun 2026 11:16:08 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWxP4obaZ=U6fudN3q_sFaAAYFuoq-L-dZ1GYgszw_ezg@mail.gmail.com>
-X-Gm-Features: AVVi8CcR6hXTmkeMKxaguE45TU4JWmRqgQ7Cb_Qg-Nr7jquYVQsTuunb8azs3Jk
-Message-ID: <CAMuHMdWxP4obaZ=U6fudN3q_sFaAAYFuoq-L-dZ1GYgszw_ezg@mail.gmail.com>
-Subject: Re: linux-next: manual merge of the drm tree with the drm-misc-fixes
- tree
-To: Mark Brown <broonie@kernel.org>
-Cc: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>, 
- Jani Nikula <jani.nikula@intel.com>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Maxime Ripard <mripard@kernel.org>, 
- Melissa Wen <melissa.srw@gmail.com>, Melissa Wen <mwen@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
+X-Exchange-RoutingPolicyChecked: HoIdOWK34CoOozZENlb8GGrt/a3xR9IhmVONUDUb+uF0nJxti/5POpqqAcSB7Ou70BtgHWycdS0UEIqtB3SvHWuTxvbtFMYQeqLpGl6VBh4Q6VII2EGvdsPgO6a3vFJ5roukA4uBXfldFl4e6aYh0CvDqxciVw8mYYk6Zq/zzlf42Na8pYbSiP17I1RurZ5atp4CusU5aEA9KM9F5xDxgCH8T+xu6BNATjNiOvK8D9b6De3fGBhVFT573lNp+pNY/biyQD39FctiopFMBKLXIM3YoadYJ5HNONnQUpJHXjJCoMzxHua90CEiYk5neeksmeA+USRQ8gbR7QVX1WG+Mg==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB3690.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 476c51f0-b4f8-49dc-147d-08decb883066
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jun 2026 09:18:12.0735 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dUGHXJUQWP/vQtqRe966HKl0HbvIlJXLLBdwiyLhju2UtazPq1EBnWX9y3OGambjMTOEmhv32bhqfZ/DyS1C/w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7777
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,42 +176,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Mark,
+> From: Matt Evans <matt@ozlabs.org>
+> Sent: Wednesday, June 10, 2026 11:43 PM
+>=20
+> Previously, vfio_pci_zap_bars() (and the wrapper
+> vfio_pci_zap_and_down_write_memory_lock()) calls were paired with
+> calls to vfio_pci_dma_buf_move().
+>=20
+> This commit replaces them with a unified new function,
+> vfio_pci_zap_revoke_bars() containing both the vfio_pci_dma_buf_move()
+> and the unmap_mapping_range(), making it harder for callers to omit
+> one.  It adds a wrapper, vfio_pci_lock_zap_revoke_bars(), which takes
+> the write memory_lock before zapping, and adds a new
+> vfio_pci_unrevoke_bars() for the re-enable path.
 
-On Thu, 11 Jun 2026 at 15:59, Mark Brown <broonie@kernel.org> wrote:
-> Today's linux-next merge of the drm tree got a conflict in:
->
->   drivers/gpu/drm/drm_atomic.c
->   include/drm/drm_colorop.h
->
-> between commit:
->
->   94ff735296d371 ("drm/colorop: make lut(1/3)d_interpolation props correctly behave as mutable")
->
-> from the drm-misc-fixes tree and commits:
->
->   5164f7e7ff8ec7 ("drm: Rename struct drm_atomic_state to drm_atomic_commit")
->   0c44d8dc6df988 ("drm/atomic: prefer drm_printf_indent() over inline \t")
->
-> from the drm tree.
->
-> I fixed it up (see below) and can carry the fix as necessary. This
-> is now fixed as far as linux-next is concerned, but any non trivial
-> conflicts should be mentioned to your upstream maintainer when your tree
-> is submitted for merging.  You may also want to consider cooperating
-> with the maintainer of the conflicting tree to minimise any particularly
-> complex conflicts.
+It's unusual to have three verbs (lock/zap/revoke) in one function name.
 
-You forgot to include the fix, but I can confirm the fix in linux-next
-LGTM.
+I wonder whether it's simpler to have:
+	vfio_pci_zap_bars_locked() 	// caller already holds the lock
+	vfio_pci_zap_bars()
 
-Gr{oetje,eeting}s,
+'revoke' is just a side-effect of 'zap', not necessarily to highlight it in
+the name.
 
-                        Geert
+>=20
+> As of "vfio/pci: Convert BAR mmap() to use a DMABUF", the
+> unmap_mapping_range() to zap is no longer performed for vfio-pci since
+> the DMABUFs used for BAR mappings already zap PTEs when the
+> vfio_pci_dma_buf_move() occurs.
+>=20
+> However, it must be assumed that VFIO drivers which override the .mmap
+> op could create mappings _not_ backed by DMABUFs.  So, the zap is
+> still performed on revoke if .mmap is overridden, using a new
+> zap_bars_on_revoke flag.  A driver can explicitly opt out; the flag is
+> cleared by the hisi_acc_vfio_pci driver, since its .mmap just wraps
+> vfio_pci_core_mmap() and so still uses DMABUFs.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+the cost of unmap_mapping_range() is trivial when there is no mmap
+on the device fd.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+so it could be simpler by always doing:
+
+	vfio_pci_dma_buf_move();
+	unmap_mapping_range();
+
+and remove the flag.
