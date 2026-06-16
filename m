@@ -4,93 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78F75CD98E1
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 18:28:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73A98CD98E4
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 18:28:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0D0810ECE2;
-	Tue, 16 Jun 2026 18:28:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8C1A10ECE6;
+	Tue, 16 Jun 2026 18:28:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.b="mMXCNUNW";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="VVsXPiOA";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Zk7iH9gt";
 	dkim-atps=neutral
-Received: from fhigh-b7-smtp.messagingengine.com
- (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1796210ECE2
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 18:28:07 +0000 (UTC)
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
- by mailfhigh.stl.internal (Postfix) with ESMTP id D51697A0178;
- Tue, 16 Jun 2026 14:28:05 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-09.internal (MEProxy); Tue, 16 Jun 2026 14:28:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
- cc:content-transfer-encoding:content-type:content-type:date:date
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm3; t=1781634485;
- x=1781720885; bh=VC7DCe11ZyrzA2G7vkYOQT1GcSliXObtOSZKwBmMzRo=; b=
- mMXCNUNWUNg65wsus5Oisk4uOqeWdq87vg0PeR9Xz2Fn4JjPraVN1PFC+aGrNxDS
- BBmiaOvXAl+ILHZng+aRU/XnPR2DJQde5J1zN9fet7S0If4HnH68XXkzTSlBYXw9
- 2hFUAJffe3nL0Hld/Vm8erzHgcExKPUjLp0xokmd0eOhENfNacCAzWQPLhr5J+2c
- jOoDOozEJAfF/oLdVepx7V/Uf3axTCJps25FnL1FapYhdKHJGoDVicZuiCAyJ2dN
- 1zsEhsOJ8OxCOdLiH+vCQoRsd3tWuXQyavnifdh4G921DbRNmHcB5KvQrpaoAdat
- J33fusBM+G9kXLlri87GKQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; t=1781634485; x=1781720885; bh=V
- C7DCe11ZyrzA2G7vkYOQT1GcSliXObtOSZKwBmMzRo=; b=VVsXPiOAWff6HReYo
- 7U+j2lc3tJeL9fb0eflW8kxp5Dvqez2Q1UgrGMDACP57morRDwXXMvKy4SF4qzr+
- x/NrBvThFgDo8eC8tDyELb5KEn1JVRTe6uydpy/eP7u6uwPbtYGbI7dVhiv7sEFw
- VAIEqBG8tTgFGg4KcD3g/GEfM3s4Gmin38q8DG33I++zgcoEwjLd9sOd1DjY259j
- QLGBBVvkichLTXCLcC9YYjQzBv/IpCOghGNud/MjzML3iQVn6AqMMpzwc+1CJ5jY
- d8+1YpDFuLIFR9yVI7u0X8rMXIkcBugEiZlsrJU8a0yMhW+I6j5QUAbNsZZeugxE
- +ZpDg==
-X-ME-Sender: <xms:tJUxajtoRbiRmW1poiSDMiZC1UlZY2lixfA34fldFqhN1uRegCHOiA>
- <xme:tJUxai-hHPEnPbxyCqUm9UQRNxyOAeYQL0kxc5mVNyNh8_XQTpVbrlSTx8U4MOQY-
- m5b3SwULEnMENtoWnHJB_KDRd7zybyZuwtt-h545d8MorTbIBcR2g>
-X-ME-Received: <xmr:tJUxatn2UDE9O17qYGRdNPUibemkUX04LFE8Hv5Z_fpX-XRCkGR9RMdMvNfRdGJqCA9E5t_QN4zcjorSbs-8H57iFb5Y>
-X-ME-Proxy-Cause: dmFkZTGrC5DYJP9mSxqJd1fDXc0Oh1AGx3JLF0BRoNGPbCwDKFsaw0D49sQCZTbacGELJP
- NPTNfLWvLgiPPk8vfyWDXR9pvW4cjmDKY+4hStnqjC00ax5yRqzEy7s74FV3Hst0oRau05
- +ZOMSZTUF108LlkZ2bYRXRXyXUJeSS8XHpZ+B6zsfyqUVuJYZ+5HIS98pyiXjS3nRQlNe+
- ZjHbBYR5RgivqZj4ZTUGyl3488WbqeP2qTbAGbkO61UP/cMkWZvsgOuuB9JTEbsBXmiGDy
- dOAAnO+9yWExe3+wxZw7oKyr7SKFr6rnJQISOhv7KbwSDOJwPFjdu7d/V6aiFdPml6XCrS
- R3JqRpkUv/4qoe+0fvmTytcOSlFdsKxpKg58u6aYZ1z2A3fSQCnTWefZ7HjiUwuE8hQC4p
- G/S2m8yrTFEuKFnGlmbqljvKuVc4mAf+rhAiyDy+56MoV2x5W9ScAn+N3UFkqMBOEWuWKs
- s1KiXcknlIA1fYSBCXyT82MmaoJeODLfHNnAA4C4Aj66F/UzmJot110c9VuWCAPk8gIFqc
- 39cazJKohx853+MZmwELfMmd4I63YViLryT7pYGNiJ6oxH3RsuFHnRYhsgQ80XhvZG0bun
- OdKWBXU4jTx2h2XZ8ZkIrmuHQC/plGNTA6FFsJ8tesDFJ7uRuYAjilFy+eIQ
-X-ME-Proxy: <xmx:tJUxaiNcskzLMEK9Oa4ndBu1OwgYuJIrLUAIiDoo4HCVgda1wh4MZw>
- <xmx:tJUxasLq-wBc_WmQiFYIfvkEeQiO87MJrIWsIEZjY-nXrCiG2P2ldw>
- <xmx:tJUxatG-PaNMzX79RsuzDlf73S5K2776QWiJy45vAH0PPrkYrX_WEg>
- <xmx:tJUxatAKEwAlT0SKZCJlMNWm-i3LYQHDuShGmKhdGhq2Qkyt58ha3A>
- <xmx:tZUxaoXRy8ZHUNEoYu_jK99k0OMhk0rJEh0xohBXEX_-uKrw9VAdShL7>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 16 Jun 2026 14:28:03 -0400 (EDT)
-Date: Tue, 16 Jun 2026 20:28:02 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
- Frank Binns <frank.binns@imgtec.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Magnus Damm <magnus.damm@gmail.com>, Matt Coster <matt.coster@imgtec.com>,
- Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
- Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: gpu: img,powervr-rogue: Document
- GE8300 GPU in Renesas R-Car D3
-Message-ID: <20260616182802.GB1662668@fsdn.se>
-References: <20260616175835.2109336-1-niklas.soderlund+renesas@ragnatech.se>
- <20260616175835.2109336-2-niklas.soderlund+renesas@ragnatech.se>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3285010ECE6
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 18:28:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 5DABA6001A;
+ Tue, 16 Jun 2026 18:28:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 075A01F000E9;
+ Tue, 16 Jun 2026 18:28:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1781634517;
+ bh=nRr9yY4rsZDWgjx0oBkUNCMa040om/w+COr8DXq2zTI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=Zk7iH9gteL9OORtaasHXxpPom//+DdnCVHOJAs3L6wpPuyPidEwCtm4XKV0TvOMX5
+ Lg5LWUd8i867CgPWe1l2oYAYFmxS3uRJCNw81Ds1zTQ5hPCMbwKLDPYrrtWlgy6pNv
+ dqd/ZodbdcMHAxQcZC3+wvhrJOPtogIBqWUG9sjc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>, Helge Deller <deller@gmx.de>,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15 280/411] fbdev: defio: Disconnect deferred I/O from the
+ lifetime of struct fb_info
+Date: Tue, 16 Jun 2026 20:28:38 +0530
+Message-ID: <20260616145116.032660421@linuxfoundation.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260616145100.376842714@linuxfoundation.org>
+References: <20260616145100.376842714@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260616175835.2109336-2-niklas.soderlund+renesas@ragnatech.se>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,77 +60,334 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-06-16 19:58:34 +0200, Niklas Söderlund wrote:
-> Document Imagination Technologies PowerVR Rogue GE8300 BNVC 22.67.54.30
-> present in Renesas R-Car R8A77995 D3 SoCs.
-> 
-> Compared to other R-Car Gen3 SoCs the D3 only have one power domain and
-> it is always on. Extend the list of special cases for this to also cover
-> R8A77995 and update the description of it.
-> 
-> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> ---
-> * Changes since v1
-> - Sort img,img-ge8300 after img,img-ge7800.
-> - Fold special case for power domain into an existing one and update the
->   description.
-> ---
->  .../devicetree/bindings/gpu/img,powervr-rogue.yaml | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-> index a1f54dbae3f3..b93f49f1fa0a 100644
-> --- a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-> +++ b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-> @@ -25,6 +25,11 @@ properties:
->                - renesas,r8a779a0-gpu
->            - const: img,img-ge7800
->            - const: img,img-rogue
-> +      - items:
-> +          - enum:
-> +              - renesas,r8a77995-gpu
-> +          - const: img,img-ge8300
-> +          - const: img,img-rogue
->        - items:
->            - enum:
->                - ti,am62-gpu
-> @@ -114,6 +119,7 @@ allOf:
->            contains:
->              enum:
->                - img,img-ge7800
-> +              - img,img-ge8300
->                - img,img-gx6250
->                - thead,th1520-gpu
->      then:
-> @@ -159,14 +165,14 @@ allOf:
->    - if:
->        properties:
->          compatible:
-> -          contains:
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-The 'contains' node should have been kept, my bad. I wonder why 'make 
-dt_binding_check' or `make dtbs_check' did not catch it. Sorry for the 
-noise.
+------------------
 
-> -            const: thead,th1520-gpu
-> +          enum:
-> +            - renesas,r8a77995-gpu
-> +            - thead,th1520-gpu
->      then:
->        properties:
->          power-domains:
->            items:
-> -            - description: The single, unified power domain for the GPU on the
-> -                TH1520 SoC, integrating all internal IP power domains.
-> +            - description: The single, unified power domain for the GPU.
->          power-domain-names: false
->        required:
->          - power-domains
-> -- 
-> 2.54.0
-> 
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
--- 
-Kind Regards,
-Niklas Söderlund
+[ Upstream commit 9ded47ad003f09a94b6a710b5c47f4aa5ceb7429 ]
+
+Hold state of deferred I/O in struct fb_deferred_io_state. Allocate an
+instance as part of initializing deferred I/O and remove it only after
+the final mapping has been closed. If the fb_info and the contained
+deferred I/O meanwhile goes away, clear struct fb_deferred_io_state.info
+to invalidate the mapping. Any access will then result in a SIGBUS
+signal.
+
+Fixes a long-standing problem, where a device hot-unplug happens while
+user space still has an active mapping of the graphics memory. The hot-
+unplug frees the instance of struct fb_info. Accessing the memory will
+operate on undefined state.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 60b59beafba8 ("fbdev: mm: Deferred IO support")
+Cc: Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: stable@vger.kernel.org # v2.6.22+
+Signed-off-by: Helge Deller <deller@gmx.de>
+[ replaced `kzalloc_obj()` with `kzalloc(sizeof(*fbdefio_state), GFP_KERNEL)` ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/video/fbdev/core/fb_defio.c |  152 +++++++++++++++++++++++++++++++-----
+ include/linux/fb.h                  |    4 
+ 2 files changed, 138 insertions(+), 18 deletions(-)
+
+--- a/drivers/video/fbdev/core/fb_defio.c
++++ b/drivers/video/fbdev/core/fb_defio.c
+@@ -23,6 +23,75 @@
+ #include <linux/rmap.h>
+ #include <linux/pagemap.h>
+ 
++/*
++ * struct fb_deferred_io_state
++ */
++
++struct fb_deferred_io_state {
++	struct kref ref;
++
++	struct mutex lock; /* mutex that protects the pageref list */
++	/* fields protected by lock */
++	struct fb_info *info;
++};
++
++static struct fb_deferred_io_state *fb_deferred_io_state_alloc(void)
++{
++	struct fb_deferred_io_state *fbdefio_state;
++
++	fbdefio_state = kzalloc(sizeof(*fbdefio_state), GFP_KERNEL);
++	if (!fbdefio_state)
++		return NULL;
++
++	kref_init(&fbdefio_state->ref);
++	mutex_init(&fbdefio_state->lock);
++
++	return fbdefio_state;
++}
++
++static void fb_deferred_io_state_release(struct fb_deferred_io_state *fbdefio_state)
++{
++	mutex_destroy(&fbdefio_state->lock);
++
++	kfree(fbdefio_state);
++}
++
++static void fb_deferred_io_state_get(struct fb_deferred_io_state *fbdefio_state)
++{
++	kref_get(&fbdefio_state->ref);
++}
++
++static void __fb_deferred_io_state_release(struct kref *ref)
++{
++	struct fb_deferred_io_state *fbdefio_state =
++		container_of(ref, struct fb_deferred_io_state, ref);
++
++	fb_deferred_io_state_release(fbdefio_state);
++}
++
++static void fb_deferred_io_state_put(struct fb_deferred_io_state *fbdefio_state)
++{
++	kref_put(&fbdefio_state->ref, __fb_deferred_io_state_release);
++}
++
++/*
++ * struct vm_operations_struct
++ */
++
++static void fb_deferred_io_vm_open(struct vm_area_struct *vma)
++{
++	struct fb_deferred_io_state *fbdefio_state = vma->vm_private_data;
++
++	fb_deferred_io_state_get(fbdefio_state);
++}
++
++static void fb_deferred_io_vm_close(struct vm_area_struct *vma)
++{
++	struct fb_deferred_io_state *fbdefio_state = vma->vm_private_data;
++
++	fb_deferred_io_state_put(fbdefio_state);
++}
++
+ static struct page *fb_deferred_io_page(struct fb_info *info, unsigned long offs)
+ {
+ 	void *screen_base = (void __force *) info->screen_base;
+@@ -93,17 +162,31 @@ static void fb_deferred_io_pageref_put(s
+ /* this is to find and return the vmalloc-ed fb pages */
+ static vm_fault_t fb_deferred_io_fault(struct vm_fault *vmf)
+ {
++	struct fb_info *info;
+ 	unsigned long offset;
+ 	struct page *page;
+-	struct fb_info *info = vmf->vma->vm_private_data;
++	vm_fault_t ret;
++	struct fb_deferred_io_state *fbdefio_state = vmf->vma->vm_private_data;
++
++	mutex_lock(&fbdefio_state->lock);
++
++	info = fbdefio_state->info;
++	if (!info) {
++		ret = VM_FAULT_SIGBUS; /* our device is gone */
++		goto err_mutex_unlock;
++	}
+ 
+ 	offset = vmf->pgoff << PAGE_SHIFT;
+-	if (offset >= info->fix.smem_len)
+-		return VM_FAULT_SIGBUS;
++	if (offset >= info->fix.smem_len) {
++		ret = VM_FAULT_SIGBUS;
++		goto err_mutex_unlock;
++	}
+ 
+ 	page = fb_deferred_io_page(info, offset);
+-	if (!page)
+-		return VM_FAULT_SIGBUS;
++	if (!page) {
++		ret = VM_FAULT_SIGBUS;
++		goto err_mutex_unlock;
++	}
+ 
+ 	get_page(page);
+ 
+@@ -115,8 +198,14 @@ static vm_fault_t fb_deferred_io_fault(s
+ 	BUG_ON(!page->mapping);
+ 	page->index = vmf->pgoff; /* for page_mkclean() */
+ 
++	mutex_unlock(&fbdefio_state->lock);
++
+ 	vmf->page = page;
+ 	return 0;
++
++err_mutex_unlock:
++	mutex_unlock(&fbdefio_state->lock);
++	return ret;
+ }
+ 
+ int fb_deferred_io_fsync(struct file *file, loff_t start, loff_t end, int datasync)
+@@ -143,8 +232,9 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_fsync);
+ static vm_fault_t fb_deferred_io_mkwrite(struct vm_fault *vmf)
+ {
+ 	struct page *page = vmf->page;
+-	struct fb_info *info = vmf->vma->vm_private_data;
+-	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_deferred_io_state *fbdefio_state = vmf->vma->vm_private_data;
++	struct fb_info *info;
++	struct fb_deferred_io *fbdefio;
+ 	struct fb_deferred_io_pageref *pageref;
+ 	unsigned long offset;
+ 	vm_fault_t ret;
+@@ -160,7 +250,15 @@ static vm_fault_t fb_deferred_io_mkwrite
+ 	file_update_time(vmf->vma->vm_file);
+ 
+ 	/* protect against the workqueue changing the page list */
+-	mutex_lock(&fbdefio->lock);
++	mutex_lock(&fbdefio_state->lock);
++
++	info = fbdefio_state->info;
++	if (!info) {
++		ret = VM_FAULT_SIGBUS; /* our device is gone */
++		goto err_mutex_unlock;
++	}
++
++	fbdefio = info->fbdefio;
+ 
+ 	/* first write in this cycle, notify the driver */
+ 	if (fbdefio->first_io && list_empty(&fbdefio->pagereflist))
+@@ -182,18 +280,20 @@ static vm_fault_t fb_deferred_io_mkwrite
+ 	 */
+ 	lock_page(pageref->page);
+ 
+-	mutex_unlock(&fbdefio->lock);
++	mutex_unlock(&fbdefio_state->lock);
+ 
+ 	/* come back after delay to process the deferred IO */
+ 	schedule_delayed_work(&info->deferred_work, fbdefio->delay);
+ 	return VM_FAULT_LOCKED;
+ 
+ err_mutex_unlock:
+-	mutex_unlock(&fbdefio->lock);
++	mutex_unlock(&fbdefio_state->lock);
+ 	return ret;
+ }
+ 
+ static const struct vm_operations_struct fb_deferred_io_vm_ops = {
++	.open		= fb_deferred_io_vm_open,
++	.close		= fb_deferred_io_vm_close,
+ 	.fault		= fb_deferred_io_fault,
+ 	.page_mkwrite	= fb_deferred_io_mkwrite,
+ };
+@@ -215,7 +315,10 @@ int fb_deferred_io_mmap(struct fb_info *
+ 	vma->vm_flags |= VM_DONTEXPAND | VM_DONTDUMP;
+ 	if (!(info->flags & FBINFO_VIRTFB))
+ 		vma->vm_flags |= VM_IO;
+-	vma->vm_private_data = info;
++	vma->vm_private_data = info->fbdefio_state;
++
++	fb_deferred_io_state_get(info->fbdefio_state); /* released in vma->vm_ops->close() */
++
+ 	return 0;
+ }
+ 
+@@ -225,9 +328,10 @@ static void fb_deferred_io_work(struct w
+ 	struct fb_info *info = container_of(work, struct fb_info, deferred_work.work);
+ 	struct fb_deferred_io_pageref *pageref, *next;
+ 	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
+ 
+ 	/* here we mkclean the pages, then do all deferred IO */
+-	mutex_lock(&fbdefio->lock);
++	mutex_lock(&fbdefio_state->lock);
+ 	list_for_each_entry(pageref, &fbdefio->pagereflist, list) {
+ 		struct page *cur = pageref->page;
+ 		lock_page(cur);
+@@ -242,12 +346,13 @@ static void fb_deferred_io_work(struct w
+ 	list_for_each_entry_safe(pageref, next, &fbdefio->pagereflist, list)
+ 		fb_deferred_io_pageref_put(pageref, info);
+ 
+-	mutex_unlock(&fbdefio->lock);
++	mutex_unlock(&fbdefio_state->lock);
+ }
+ 
+ int fb_deferred_io_init(struct fb_info *info)
+ {
+ 	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_deferred_io_state *fbdefio_state;
+ 	struct fb_deferred_io_pageref *pagerefs;
+ 	unsigned long npagerefs, i;
+ 	int ret;
+@@ -257,7 +362,11 @@ int fb_deferred_io_init(struct fb_info *
+ 	if (WARN_ON(!info->fix.smem_len))
+ 		return -EINVAL;
+ 
+-	mutex_init(&fbdefio->lock);
++	fbdefio_state = fb_deferred_io_state_alloc();
++	if (!fbdefio_state)
++		return -ENOMEM;
++	fbdefio_state->info = info;
++
+ 	INIT_DELAYED_WORK(&info->deferred_work, fb_deferred_io_work);
+ 	INIT_LIST_HEAD(&fbdefio->pagereflist);
+ 	if (fbdefio->delay == 0) /* set a default of 1 s */
+@@ -276,10 +385,12 @@ int fb_deferred_io_init(struct fb_info *
+ 	info->npagerefs = npagerefs;
+ 	info->pagerefs = pagerefs;
+ 
++	info->fbdefio_state = fbdefio_state;
++
+ 	return 0;
+ 
+ err:
+-	mutex_destroy(&fbdefio->lock);
++	fb_deferred_io_state_release(fbdefio_state);
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(fb_deferred_io_init);
+@@ -320,11 +431,18 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_release
+ 
+ void fb_deferred_io_cleanup(struct fb_info *info)
+ {
+-	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
+ 
+ 	fb_deferred_io_lastclose(info);
+ 
++	info->fbdefio_state = NULL;
++
++	mutex_lock(&fbdefio_state->lock);
++	fbdefio_state->info = NULL;
++	mutex_unlock(&fbdefio_state->lock);
++
++	fb_deferred_io_state_put(fbdefio_state);
++
+ 	kvfree(info->pagerefs);
+-	mutex_destroy(&fbdefio->lock);
+ }
+ EXPORT_SYMBOL_GPL(fb_deferred_io_cleanup);
+--- a/include/linux/fb.h
++++ b/include/linux/fb.h
+@@ -213,12 +213,13 @@ struct fb_deferred_io {
+ 	unsigned long delay;
+ 	bool sort_pagereflist; /* sort pagelist by offset */
+ 	int open_count; /* number of opened files; protected by fb_info lock */
+-	struct mutex lock; /* mutex that protects the pageref list */
+ 	struct list_head pagereflist; /* list of pagerefs for touched pages */
+ 	/* callback */
+ 	void (*first_io)(struct fb_info *info);
+ 	void (*deferred_io)(struct fb_info *info, struct list_head *pagelist);
+ };
++
++struct fb_deferred_io_state;
+ #endif
+ 
+ /*
+@@ -480,6 +481,7 @@ struct fb_info {
+ 	unsigned long npagerefs;
+ 	struct fb_deferred_io_pageref *pagerefs;
+ 	struct fb_deferred_io *fbdefio;
++	struct fb_deferred_io_state *fbdefio_state;
+ #endif
+ 
+ 	const struct fb_ops *fbops;
+
+
