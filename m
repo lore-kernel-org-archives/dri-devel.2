@@ -4,69 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 686AECD98E1
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 15:28:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAD33CD98E1
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 15:35:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CE3C10E7BA;
-	Tue, 16 Jun 2026 15:28:15 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BrxioINo";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C64710E7BA
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 15:28:14 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D545E415FE;
- Tue, 16 Jun 2026 15:28:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 795211F00A3A;
- Tue, 16 Jun 2026 15:28:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781623693;
- bh=KTPFzRNp3UqELYgoWeZnt3CM5M9+y07XBMT3rlA91bo=;
- h=Date:To:From:Subject:Cc:References:In-Reply-To;
- b=BrxioINockLKwWsvcBd9ayjh5CHH4WSzRwy1vkp85RTyeFH4zBaP0BInXvxmMVKnz
- h/sYVd8wWdUxioziefxH6Kq7kyIyIBnxiE83DrD7sb8OXmAt4/wmZezjTHQrOxbMbf
- o5Ju1PeFdvWHMYBipOYkoRoVL4AKgeTYeBUGA6VkBEDqo2Lkss6nwGOLjMR2i0hChv
- tDa+0ESYVWUygGAXw4bPPUI/eZRNtuY+bqmVrWa/SF/6Yxga2bswqGftqF7BqOj+g5
- 6dBuqsS/B6zEOvT4LAxT2plEXHn0GgRG3xews+mOa9PcD5nKbijw3DPtB7v3Y5zr1c
- 67tnL8yvAyy0g==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 16 Jun 2026 17:28:04 +0200
-Message-Id: <DJAKVXTHQJ99.152VRPFJDPTRU@kernel.org>
-To: =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v2 5/6] rust: Add dma_fence abstractions
-Cc: "Philipp Stanner" <phasta@mailbox.org>, "Philipp Stanner"
- <phasta@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Sumit
- Semwal" <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Paul E. McKenney" <paulmck@kernel.org>,
- "Frederic Weisbecker" <frederic@kernel.org>, "Neeraj Upadhyay"
- <neeraj.upadhyay@kernel.org>, "Joel Fernandes" <joelagnelf@nvidia.com>,
- "Josh Triplett" <josh@joshtriplett.org>, "Uladzislau Rezki"
- <urezki@gmail.com>, "Steven Rostedt" <rostedt@goodmis.org>, "Mathieu
- Desnoyers" <mathieu.desnoyers@efficios.com>, "Lai Jiangshan"
- <jiangshanlai@gmail.com>, "Zqiang" <qiang.zhang@linux.dev>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Igor Korotin" <igor.korotin@linux.dev>,
- "Lorenzo Stoakes" <ljs@kernel.org>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "FUJITA Tomonori" <fujita.tomonori@gmail.com>,
- "Krishna Ketan Rai" <prafulrai522@gmail.com>, "Shankari Anand"
- <shankari.ak0208@gmail.com>, <manos@pitsidianak.is>, "Boris Brezillon"
- <boris.brezillon@collabora.com>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <rcu@vger.kernel.org>
-References: <20260616082819.2943886-2-phasta@kernel.org>
- <20260616082819.2943886-7-phasta@kernel.org>
- <20260616124755.460550-1-work@onurozkan.dev>
- <d074d3105a2c1d4f594bc6d7b0b09e62757790d5.camel@mailbox.org>
- <20260616145112.14201-1-work@onurozkan.dev>
-In-Reply-To: <20260616145112.14201-1-work@onurozkan.dev>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14FF810E042;
+	Tue, 16 Jun 2026 15:35:20 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F4F010E042;
+ Tue, 16 Jun 2026 15:35:17 +0000 (UTC)
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+ by APP-05 (Coremail) with SMTP id zQCowAD3Z+subTFqAR3GEw--.19654S2;
+ Tue, 16 Jun 2026 23:35:10 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: lijo.lazar@amd.com, aurabindo.pillai@amd.com, superm1@kernel.org,
+ xiaogang.chen@amd.com, chongli2@amd.com,
+ pierre-eric.pelloux-prayer@amd.com, Victor.Zhao@amd.com,
+ Jesse.Zhang@amd.com, lang.yu@amd.com, vulab@iscas.ac.cn, Jack.Xiao@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v2] drm/amdgpu: fix fence reference leak in
+ amdgpu_gfx_run_cleaner_shader_job
+Date: Tue, 16 Jun 2026 15:35:06 +0000
+Message-Id: <20260616153506.1713376-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowAD3Z+subTFqAR3GEw--.19654S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr13AFWUur43Cr45Ar18Krg_yoW8AF4xpF
+ s3Kry3tr48Za17K347A3Wjqa409w13XFy8WrnFya4I93Z8JFn8Jr15JayFqF1kurWkCa17
+ Kryqg3y5X3Z0kF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9014x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+ n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+ kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+ 67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+ CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+ MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+ VFxhVjvjDU0xZFpf9x0JUFdgAUUUUU=
+X-Originating-IP: [36.110.52.2]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgoAA2oxZbUPKgABsg
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,15 +65,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Jun 16, 2026 at 4:51 PM CEST, Onur =C3=96zkan wrote:
-> repr(C) only makes sense when the type have multiple fields.
+In amdgpu_gfx_run_cleaner_shader_job(), amdgpu_job_submit() returns a
+dma_fence with an elevated reference count. The function correctly
+releases this reference on the success path after dma_fence_wait().
+However, if dma_fence_wait() fails (though with infinite timeout and
+non-interruptible it never does), the code jumps to the error label
+without calling dma_fence_put(), resulting in a reference leak.
 
-I don't think that's universally true. repr(transparent) guarantees the lay=
-out
-and ABI match the inner field. The wrapper is passed through calls exactly =
-as
-the field would be. repr(C) guarantees C-compatible layout and makes the ty=
-pe
-follow the platform's C ABI for passing an aggregate, which isn't always ho=
-w the
-bare field is passed.
+Fix the potential leak by adding dma_fence_put(f) before the goto err
+when dma_fence_wait() returns an error.
+
+Fixes: 559a285816af ("drm/amdgpu: Replace 'amdgpu_job_submit_direct' with 'drm_sched_entity' in cleaner shader")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+v2: Also cleanup the scheduler entity and simplify error handling paths.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index b8ca876694ff..be13ce6ce377 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1658,7 +1658,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+ 				  &sched, 1, NULL);
+ 	if (r) {
+ 		dev_err(adev->dev, "Failed setting up GFX kernel entity.\n");
+-		goto err;
++		return r;
+ 	}
+ 
+ 	/*
+@@ -1686,16 +1686,13 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+ 	f = amdgpu_job_submit(job);
+ 
+ 	r = dma_fence_wait(f, false);
+-	if (r)
+-		goto err;
++	goto err;
+ 
+ 	dma_fence_put(f);
+ 
++err:
+ 	/* Clean up the scheduler entity */
+ 	drm_sched_entity_destroy(&entity);
+-	return 0;
+-
+-err:
+ 	return r;
+ }
+ 
+-- 
+2.34.1
+
