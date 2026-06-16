@@ -4,60 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF6B5CD98EE
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 18:18:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1CB3CD98E1
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 18:18:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEA6410EB44;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E388410EB52;
 	Tue, 16 Jun 2026 18:18:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="jKn5+DbH";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="Gwha8lQv";
 	dkim-atps=neutral
 Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 939C110E569
- for <dri-devel@lists.freedesktop.org>; Mon, 15 Jun 2026 18:04:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E91E10E54C
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 11:37:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1781546658;
- bh=Hx6SLPH67QubJLa+CbT7LpoPHHXCYP1TXeCS4akReO8=;
+ s=201707; t=1781609860;
+ bh=uAgprYITukIDXcpqINMJiY5I+9dV1eJU9keHmx8y09Q=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=jKn5+DbH/xnIIUSSNh6WNwpqwAI/JFz0xqpbCQXeQiEGy4171QNF+wi3cDt3U2g5o
- x3DaXDM1hnoQBBQwB3vR88daGGQMgOmQp4yE/1q+Y+uBaJgdoiqOFD3IVlCntlCvhB
- nHWUaQPDmys6J8RTfGJ83ZE013T2w9douJB0OIJbtLIpwmkQlrjCTMEP+DeF+ovkj5
- Cib22QI5fpBQ5j+fkFdcCZZw3bzvOVTBIf2tdQaoOtxpB74iq6tBi0QqjTEXz2KiHP
- w40N5qBImD2bizUSdF/9YgVd4hHdJR4RvytxwgZNx9FZmKiBQDj3OAxEMqOYjSZGwV
- L++hZZHftCU4A==
+ b=Gwha8lQvPpehVbnVayavcRWqSRAMTH6T8yTt43S0hjAkCB/JTFST48vUr+g4CsHVy
+ ZFi9jystoduorstbVb57npnIRroTBZX9uqXPgcnbBbeB0oLES6/SB0HGElsnPhOjXO
+ Jn+yHRyFrIuSCHZqq8OkxUHRwTAsri/tIkPKm+1XrzWPO11/3f3sF/dvrgRXb8gToW
+ 5Lhgxo1L5Vx1HPwtQwZwSYJj8PZXHkxCLpzuAoipBPNYHmV22S1+BTtKMa0FpXdtPT
+ cB7j00O/GhtTBBhhrmx8QT+QMGaedFoWWdWyzoAuUkSJgGQQZHT7hDcIPZnF6dPQ98
+ 5LVdzjdj+k+JQ==
 Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4gfJ0V0ggTz4wM3;
- Tue, 16 Jun 2026 04:04:09 +1000 (AEST)
-Message-ID: <4d75b948-3b74-4970-97f2-72e54f9c9694@ozlabs.org>
-Date: Mon, 15 Jun 2026 19:04:06 +0100
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4gflMx00Vzz58nk;
+ Tue, 16 Jun 2026 21:37:32 +1000 (AEST)
+Message-ID: <c4a6e367-2f22-4cbf-afcb-674f82fdacd2@ozlabs.org>
+Date: Tue, 16 Jun 2026 12:37:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/9] vfio/pci: Add a helper to look up PFNs for DMABUFs
+Subject: Re: [PATCH v3 9/9] vfio/pci: Add mmap() attributes to DMABUF feature
 Content-Language: en-GB
-To: "Tian, Kevin" <kevin.tian@intel.com>
+To: Pranjal Shrivastava <praan@google.com>
 Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
  Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
  Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
  =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Pranjal Shrivastava <praan@google.com>, Alistair Popple
- <apopple@nvidia.com>, "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
+ Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
 References: <20260610154327.37758-1-matt@ozlabs.org>
- <20260610154327.37758-3-matt@ozlabs.org>
- <DM6PR11MB369091A6F1E32054A95AB6788C182@DM6PR11MB3690.namprd11.prod.outlook.com>
+ <20260610154327.37758-10-matt@ozlabs.org> <ajENiAQkzXjbxgRX@google.com>
 From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <DM6PR11MB369091A6F1E32054A95AB6788C182@DM6PR11MB3690.namprd11.prod.outlook.com>
+In-Reply-To: <ajENiAQkzXjbxgRX@google.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 16 Jun 2026 18:17:58 +0000
@@ -76,159 +72,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Kevin,
+Hi Praan,
 
-On 12/06/2026 09:42, Tian, Kevin wrote:
->> From: Matt Evans <matt@ozlabs.org>
->> Sent: Wednesday, June 10, 2026 11:43 PM
+On 16/06/2026 09:47, Pranjal Shrivastava wrote:
+> On Wed, Jun 10, 2026 at 04:43:23PM +0100, Matt Evans wrote:
+>> A new VFIO feature, VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR, is added to
+>> set CPU-facing memory type attributes for a DMABUF exported from
+>> vfio-pci.  These are used for subsequent mmap()s of the buffer.
 >>
->> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *priv,
->> +			      struct vm_area_struct *vma,
->> +			      unsigned long address,
->> +			      unsigned int order,
->> +			      unsigned long *out_pfn)
+>> There are two attributes supported:
+>>  - The default, VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC
+>>  - VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC, which results in WC
+>>    PTEs for the DMABUF's BAR region.
+>>
+>> Signed-off-by: Matt Evans <matt@ozlabs.org>
+>> ---
+>>  drivers/vfio/pci/vfio_pci_core.c   |  2 ++
+>>  drivers/vfio/pci/vfio_pci_dmabuf.c | 57 +++++++++++++++++++++++++++++-
+>>  drivers/vfio/pci/vfio_pci_priv.h   | 14 ++++++++
+>>  include/uapi/linux/vfio.h          | 27 ++++++++++++++
+>>  4 files changed, 99 insertions(+), 1 deletion(-)
+>>
+> 
+>> +int vfio_pci_core_feature_dma_buf_memattr(
+>> +	struct vfio_pci_core_device *vdev, u32 flags,
+>> +	struct vfio_device_feature_dma_buf_memattr __user *arg,
+>> +	size_t argsz)
 >> +{
->> +	/*
->> +	 * Given a VMA (start, end, pgoffs) and a fault address,
->> +	 * search the corresponding DMABUF's phys_vec[] to find the
->> +	 * range representing the address's offset into the VMA, and
->> +	 * its PFN.
->> +	 *
->> +	 * The phys_vec[] ranges represent contiguous spans of VAs
->> +	 * upwards from the buffer offset 0; the actual PFNs might be
->> +	 * in any order, overlap/alias, etc.  Calculate an offset of
->> +	 * the desired page given VMA start/pgoff and address, then
->> +	 * search upwards from 0 to find which span contains it.
->> +	 *
->> +	 * On success, a valid PFN for a page sized by 'order' is
->> +	 * returned into out_pfn.
->> +	 *
->> +	 * Failure occurs if:
->> +	 * - The page would cross the edge of the VMA
->> +	 * - The page isn't entirely contained within a range
->> +	 * - We find a range, but the final PFN isn't aligned to the
->> +	 *   requested order.
->> +	 *
->> +	 * (Upon failure, the caller is expected to try again with a
->> +	 * smaller order; the tests above will always succeed for
->> +	 * order=0 as the limit case.)
->> +	 *
->> +	 * It's suboptimal if DMABUFs are created with neigbouring
-> 
-> s/neigbouring/neighboring/
-
-Ah, not a typo. :)  That is en_GB and AFAIK is permitted.
-
->> +	 * ranges that are physically contiguous, since hugepages
->> +	 * can't straddle range boundaries.  (The construction of the
->> +	 * ranges vector should merge such ranges.)
-> 
-> though the field is called 'phys_vec', removing 'vector' in description
-> is clearer here.
-
-Fair, reworded.
-
->> +	 *
->> +	 * Finally, vma_pgoff_adjust is used for a DMABUF representing
->> +	 * a VFIO BAR mmap, which is created from the start of the
->> +	 * offset region.
-> 
-> Elaborate it a little bit that the vm_pgoff is already counted in paddr
-> of phys_vec so it should be skipped when finding the pfn.
-
-OK!  Expanded this paragraph slightly to explain that vma_pgoff_adjust
-avoids double-accounting, and that a BAR mmap() DMABUF is created such
-that the start of the VMA (even with an offset) equals the start of the
-DMABUF and equals the start of the physical range.
-
->> +	 */
+>> +	struct vfio_device_feature_dma_buf_memattr db_attr;
+>> +	struct vfio_pci_dma_buf *priv;
+>> +	struct dma_buf *dmabuf;
+>> +	int ret;
 >> +
->> +	const unsigned long pagesize = PAGE_SIZE << order;
->> +	unsigned long vma_off = ((vma->vm_pgoff - priv->vma_pgoff_adjust)
->> <<
->> +				 PAGE_SHIFT) & VFIO_PCI_OFFSET_MASK;
->> +	unsigned long rounded_page_addr = ALIGN_DOWN(address,
->> pagesize);
->> +	unsigned long rounded_page_end = rounded_page_addr + pagesize;
->> +	unsigned long page_buf_offset;
->> +	unsigned long page_buf_offset_end;
-> 
-> what about "fault_offset[_end]"? page_buf is a bit confusing.
-
-I went round several times with these names, thanks for the input.  Just
-tried it out and your suggestion is clearer.
-
->> +	unsigned long range_buf_offset = 0;
-> 
-> could this be called 'range_start' then the 'range_start' in latter loop
-> is renamed to 'phys_start'?
-> 
-> Not strong... just feel such naming helps me understand the logic easier
-
-Anything that helps helps, thanks.  I ended up renaming this to
-range_start_offset (as offset is IMHO important).
-
-I'm a fan of diagrams but this is too large to include in a comment.
-But for posterity on the list, and using the new names, an illustration
-of a DMABUF with 3 ranges in phys_vec, where a mapping's
-faulting page offset lies in range [1]:
-
-                               fault_addr--+
-                                           v                   VMA
-                    +-----------------+----------+-----------------+
-                    |                 | Faulting |                 |
-                    |                 | (hg)page |                 |
-                    |                 |          |                 |
- |---- vma_off ---->+-----------------+----------+-----------------+
- |                                    .          .
- |                                    .          .
- |--------- fault_offset ------------>.          .             DMABUF
- +-------------------------+---------------------------+--------------+
- | phys_vec[0]             | phys_vec[1]         .     | phys_vec[2]  |
- |    .paddr               |          .          .     |              |
- |    .len                 |          .          .     |              |
- +-------------------------+---------------------------+--------------+
- 0                         :          .          .     :              L
- |-- range_start_offset -->:          .          .  -->: range_len
-                           :          .          .     :
-                           V          .          .     :
-                           +----------+----------+-----+
-                           |.paddr    | PFN      |     |
-                           |          |          |     |
-                           |          |          |     |
-                           +----------+----------+-----+
-                                      P
-
- P = paddr + (fault_offset - range_start_offset)
- L = sum(phys_vec[0...2].len)
-
->> +	unsigned int i;
+>> +	if (!vdev->pci_ops || !vdev->pci_ops->get_dmabuf_phys)
+>> +		return -EOPNOTSUPP;
 >> +
->> +	if (rounded_page_addr < vma->vm_start || rounded_page_end >
->> vma->vm_end) {
->> +		if (order > 0)
->> +			return -EAGAIN;
+>> +	ret = vfio_check_feature(flags, argsz,
+>> +				 VFIO_DEVICE_FEATURE_SET,
+>> +				 sizeof(db_attr));
+>> +	if (ret != 1)
+>> +		return ret;
 >> +
->> +		/* A fault address outside of the VMA is absurd. */
->> +		WARN(1, "Fault addr 0x%lx outside VMA 0x%lx-0x%lx\n",
->> +		     address, vma->vm_start, vma->vm_end);
+>> +	if (copy_from_user(&db_attr, arg, sizeof(db_attr)))
 >> +		return -EFAULT;
+>> +
+>> +	dmabuf = dma_buf_get(db_attr.dmabuf_fd);
+>> +	if (IS_ERR(dmabuf))
+>> +		return PTR_ERR(dmabuf);
+>> +
+>> +	/* Verify DMABUF: see comments in vfio_pci_dma_buf_revoke() */
+>> +	priv = dmabuf->priv;
+>> +	if (dmabuf->ops != &vfio_pci_dmabuf_ops ||
+>> +	    READ_ONCE(priv->vdev) != vdev) {
+>> +		ret = -ENODEV;
+>> +		goto out_put_buf;
 >> +	}
 >> +
->> +	/*
->> +	 * page_buff_offset[_end] is the span of DMABUF offsets
->> +	 * corresponding to the faulting page:
->> +	 */
+>> +	switch (db_attr.memattr) {
+>> +	case VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_NC:
+>> +	case VFIO_DEVICE_FEATURE_DMA_BUF_MEMATTR_WC:
+>> +		WRITE_ONCE(priv->memattr, db_attr.memattr);
+>> +		ret = 0;
+>> +		break;
+>> +
+>> +	default:
+>> +		ret = -ENOENT;
 > 
-> if the naming is kept then s/page_buff_offset/page_buf_offset/
+> Nit: Looks like the agreement [1] was on -EOPNOTSUPP / -EINVAL but we 
+> took -ENOENT here and in the doc string? Was that intentional?
 > 
-> otherwise,
+> I tend to agree with Alex's suggestion here, we'd prefer one of those 
+> two (-EINVAL / -EOPNOTSUPP) since it clearly communicates to the user
+> that "You sent a wrong arg" or "We don't support this"
 > 
-> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
 
-Thank you,
+Yes, it was intentional.  This was noted in the v3 changelog entry in
+the cover letter:
+
+ - Removed GET on vfio_pci_core_feature_dma_buf_memattr(), removed
+   unnecessary taking of memory_lock, fixed error return values.  In
+   particular, removes ENOTSUPP, and uses ENOENT to indicate an
+   unknown attribute enum value was passed to SET.  In the discussion
+   here,
+   https://lore.kernel.org/all/20260602131417.41366391@shazbot.org/
+   we'd agreed on EOPNOTSUPP before I realised that's already used
+   elsewhere.  ENOENT uniquely indicates an unknown attribute.
+
+EINVAL/EOPNOTSUPP would indeed be semantically perfect, but after
+posting my reply there I remembered they are already overloaded with a
+load of different meanings.
+
+I think uniqueness is important here so that memattr issues (for example
+any future arch-specific porting issues) show up as an
+immediately-understandable error value.
+
+> -ENOENT means no such file or directory [2] to the user. Users may not
+> be kernel engineers who'd wanna peek into the code and they may simply
+> look at the uAPI files which doesn't give them an answer as to what
+> went wrong.
+
+But surely when they look at the uAPI header they will then see
+"*  ENOENT: The given memattr is not supported." and understand what
+went wrong.
+
+> 
+>> +	}
+>> +
+>>  out_put_buf:
+>>  	dma_buf_put(dmabuf);
+>>  
+> 
+> Apart from that, 
+> Reviewed-by: Pranjal Shrivastava <praan@google.com>
+
+Thanks!
 
 
 Matt
 
+
+> 
+> Thanks,
+> Praan
+> 
+> [1] https://lore.kernel.org/all/20260602131417.41366391@shazbot.org/
+> [2] https://elixir.bootlin.com/linux/v7.1-rc6/source/include/uapi/asm-generic/errno-base.h#L6
+> 
 
