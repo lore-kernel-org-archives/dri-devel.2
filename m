@@ -4,66 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 410C3CD98E1
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 18:43:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62593CD98E4
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 18:51:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72AC210ECF8;
-	Tue, 16 Jun 2026 18:43:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFC8610E60E;
+	Tue, 16 Jun 2026 18:51:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="VIhvJuVh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sZ4BuJOI";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D9F510ECF8
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 18:43:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781635412; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=LK9kAPc9V/Ik42xg5GoqCjA9FPwfl8lTdxf6tC95Gwanuj+Pu2Rl74uLWecwnCtCs8rch83lgyCFkfFX6cWAp9o3gmTuqMbd4oRNj4b21dDv23rAjlQhETAJDXeUoYnC1T9+ZstgjK9Goq3AWrmPpLFMBr+wIPFKDhDGcm/F+MM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1781635412;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=DBkVn3DRoWzdS/oCYqIjq3uAT46L2V1UumcBo4zI86A=; 
- b=L4wwKQrapOWWxc6TYKb85U111YIa05cVUmyci4Ez1d9j9fdiNuZsnoMYeJ+bYIfYbM9PMKLK9nRe9iu7tCR5CvP/H2AjPr00lloXx6d8x+f6NVjOE2f1dJFeCDwj2eQj+ujONtuDtgqZMczr7kafxp6+tD1wE5/visgRcXBdl4A=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781635412; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
- bh=DBkVn3DRoWzdS/oCYqIjq3uAT46L2V1UumcBo4zI86A=;
- b=VIhvJuVhvJHDIRPXzoBvH/q4UDoMkfl0eQssmKxpZRcQ9jdqlfnlvIG1r0zNs+fD
- L8HF6v6vflsGxJpC12u7WQm0j8eS83Bgj5GMWtRXnMntENvR3pJCogndU0K5RTHNxiZ
- ajXA1JJiw4+q22TDrNbUD856C68E8XjGkkCyLwl4=
-Received: by mx.zohomail.com with SMTPS id 1781635410709388.82643536126614;
- Tue, 16 Jun 2026 11:43:30 -0700 (PDT)
-Date: Tue, 16 Jun 2026 19:43:24 +0100
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>,
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Claude <noreply@anthropic.com>
-Subject: Re: [PATCH v2 2/7] drm/panfrost: Prevent division by 0
-Message-ID: <ajGZN-2TTn7YICsn@sobremesa>
-References: <20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com>
- <20260604-claude-fixes-v2-2-57c6bd4c1655@collabora.com>
- <20260604200215.303dbc43@fedora-2.home>
- <19d76abb-baff-4249-9f17-d0460b418d56@arm.com>
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
+ [74.125.82.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 008A410E60E
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 18:51:52 +0000 (UTC)
+Received: by mail-dy1-f180.google.com with SMTP id
+ 5a478bee46e88-30bc5fa5a2aso67123eec.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 11:51:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781635912; cv=none;
+ d=google.com; s=arc-20240605;
+ b=b+Kzr4FovTDbuYjoqgYx/8E/k3ywG3asQ0N9GsQmOz6wd2MJxizKOBW5/mxW4y9PRi
+ pxefq8VM5txj34aOOFOqyStG7463KwQ09HvVI10UK34FEFO0+U0iRzWpHJug6iRbDI94
+ 5aqckQTN8oMCu7ETzkaXY8+eNN2WD7VcBTM3CV+/rDbkcvaxRhkzV4pbxDUdf3SR0Ic6
+ FA25I70MIrjfj8qBaWbRQQRP/1JOmVQ1L19pT4H0Ki4m/RZbx/BO4oYahcAeHFYZwENB
+ Q4z9vQszBSARypeyNEqZBzTd9OGjYesiPOlWNhfJDcs0G/mWEsQt3NuRzpF2c/qkbu1B
+ LPEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=lLZGG1vL2Dqwzut/Q/EWnM0Po9IOyB/nN+ycn9QeZq0=;
+ fh=S3cBxcMxJ8yefvuqzH1VhIpE/b8Ua4ON6POaT1InPDI=;
+ b=UxQOjPaEZsCw1HX42kFS116/s/cgUNVf+a/p53Np+G7n5Wyoub8b3DIJ2RfRz1y0pZ
+ FTtUJ/NhEtAduVDO/P/7RplY35+zfoeGxPSL5eBC0qASDxu355sHuR/bd8huCMsupZ1L
+ q/+iVtb/7QKXe2PZtCYfwLpHnxjgHrSwnlU8zlf2jSFJy0vDN7n6VMim971Ny1vyhyy3
+ o1d7m9RjcrfNb0gLV3kB9Iq4ipMRG0RpA6Ok2aHoqYa8SwJztkXnMxlHsIsmmrX8wT3u
+ 1YZiHMB1gAYaSUkVFAvPZYQUKXrm0yLeOKOYPRjLwYS2bwRujG24/8SCJVIAD6eHF2Z2
+ tzcw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781635912; x=1782240712; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=lLZGG1vL2Dqwzut/Q/EWnM0Po9IOyB/nN+ycn9QeZq0=;
+ b=sZ4BuJOIRfRaU6AZFHTsC/XDxviprJhubhgqmb/DpxXWCzPFV7QGFAWqMqeIZJLhYY
+ WhLowUflXYp+5rAxZejAbZeYFv7DEOucKw4YJCh6E9qWNwwkdj63z04q0bh1d8uXxv+k
+ L8wPeCFzekwSDee1eZ9WDRI5Oo5Zd+2ksiBSRElbdGmPq33Gd4awv3cfbdgv7B4iq5yZ
+ IUZi7vVQIx8m9awpcQbG+d6DgKSDeuewSKU1qiqwWkzzVz/iwP2ra4m6LD9pxYpgCuIW
+ mT90pQTkK0HxNwzhiUb1qgGu8gB4d8zhoCu/ORAT1YP1GjtRpW+lFLMQzubSSHbWeDEo
+ kb6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781635912; x=1782240712;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=lLZGG1vL2Dqwzut/Q/EWnM0Po9IOyB/nN+ycn9QeZq0=;
+ b=DIJl5x/MgAWt1o+NBzbj0pRAYEgorYoZP2NYV7q2cA57Jtm0kcAjOPhvYLyKoimp7I
+ Zq5/hcWTK2uCgvaHEWdVLTQD/ry0MlNQMeT2s9NUCSwKU3SbqmF5Pd/xxLSMp07NGqGy
+ ZR8iXhvJZxZb/jQqxkq6U5E2k50inR/iYhqaGuz7P4ew/M3ATarDmKj5bfbY3kt3uQUw
+ VZI2p1LUV5uEXDq6/bydDXHlejxK8iB8eQ28l++p3RcTt3KQIzktg4MvgMYA+8c5uOiU
+ k7HdwlNdBxXvkcbullrh2HvUNzg8TEIw08peL5gSD3dO180jRfyPUuS+9qRXO1XcQlhb
+ l8tw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8FuFDv4+ImXbQjV6isMntl+7Ul8rlz7LuA58RYqI4N/pgkA0Xc81N+/MFIbc/wPjXwjJ5TVA/uPiY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyHEgYOfG0OgQ7qrskC6Td/ehj0SGxPSMdzlF+yMI2UVA13EYzP
+ 8P8iHUO0NsMmuMULi8G2Ursx1myA/zaB1HI4BX/cOQnvg18C+94zA77I+PVTyGn7+w3dHwXfhsg
+ zpmUlMjcuvYcoY0VwHF9g5ZJLQp9lXeg=
+X-Gm-Gg: Acq92OFkVwEPBZHlRGicmezoIfXjUmpZqml9+74MdErDLKP3JZP8X6MNXEk1CYnIFJ1
+ ltGBctEf5qmQiAOQxKZjqLQhPhBgWNFAX8SJtFqKuGfQTtNXJI8AA7b8ySQLaD2h390ZhXmDMYg
+ m6YWhA7+VDTOr74BEEqcbbZxVaJNUVRCLYmV0pMFjkV9AoqQCO5O3rTndJTJ3mOmPeILOWNaNU5
+ 0IF7UwG38pI5qSocPI4JUd9rolg/SBP5crAE+oFR+Y1Mvw/EiZLEPzu9q+A14cP9om/x4c4P5UW
+ 9IeWrPnQSce42uHEj/lo6zuM9TMSLHIeJIiozpsGySn1HmWPYWEPPUHkgc4TpAkh0u7NstLrxZy
+ 2mOV0
+X-Received: by 2002:a05:7022:110:b0:136:d029:451 with SMTP id
+ a92af1059eb24-1398f6ab309mr34977c88.4.1781635912245; Tue, 16 Jun 2026
+ 11:51:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <19d76abb-baff-4249-9f17-d0460b418d56@arm.com>
+References: <e0689a10-9cd6-4d74-a276-99f8f01c83fa@web.de>
+ <e2023393-da68-4775-9f55-16363191328a@web.de>
+ <CADnq5_P6aSFKefO+f3aofhfNh7kELEQWxid4EWgwAUr2saEh8Q@mail.gmail.com>
+ <1ed4140f-83b6-4393-a67d-ed321b72ecb2@web.de>
+In-Reply-To: <1ed4140f-83b6-4393-a67d-ed321b72ecb2@web.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 16 Jun 2026 14:51:40 -0400
+X-Gm-Features: AVVi8CefSVV3ctlIm4JKXFEe2ToHhWyUVnA3pqitzvirCD1F3rsg-SVQpZJKAs4
+Message-ID: <CADnq5_PSRrvhUvzkZQGiA=U7kyyowXjO+GC_bPP95jg_OzpOUA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amd/display: Simplify data output in
+ psr_capability_show()
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Alex Deucher <alexander.deucher@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>, 
+ Ivan Lipski <ivan.lipski@amd.com>, Kees Cook <kees@kernel.org>,
+ Leo Li <sunpeng.li@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, Ray Wu <ray.wu@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, Rong Zhang <i@rong.moe>,
+ Simona Vetter <simona@ffwll.ch>, 
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ Tom Chung <chiahsuan.chung@amd.com>, LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,52 +119,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 05.06.2026 11:29, Steven Price wrote:
-> On 04/06/2026 19:02, Boris Brezillon wrote:
-> > On Thu, 04 Jun 2026 18:35:21 +0100
-> > Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
-> > 
-> >> When updating and debug-printing devfreq stats, in the very unlikely
-> >> offchance that total device time is less than 100 ns, clamp it to 0 to
-> >> avoid division by 0.
+On Tue, Jun 16, 2026 at 3:19=E2=80=AFAM Markus Elfring <Markus.Elfring@web.=
+de> wrote:
+>
+> >> Move the specification for a line break from a seq_puts() call
+> >> to a seq_printf() call.
 > >>
-> >> Reported-by: Claude <noreply@anthropic.com>
-> >> Closes: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/88
-> >> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-> >> Fixes: f3ba91228e8e ("drm/panfrost: Add initial panfrost driver")
+> >> The source code was transformed by using the Coccinelle software.
+> >>
+> >> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
 > >> ---
-> >>  drivers/gpu/drm/panfrost/panfrost_devfreq.c | 3 ++-
-> >>  1 file changed, 2 insertions(+), 1 deletion(-)
+> >>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 4 ++--
+> >>  1 file changed, 2 insertions(+), 2 deletions(-)
 > >>
-> >> diff --git a/drivers/gpu/drm/panfrost/panfrost_devfreq.c b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
-> >> index b51c30778811..e34de47bf43b 100644
-> >> --- a/drivers/gpu/drm/panfrost/panfrost_devfreq.c
-> >> +++ b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
-> >> @@ -78,7 +78,8 @@ static int panfrost_devfreq_get_dev_status(struct device *dev,
-> >>  
-> >>  	dev_dbg(pfdev->base.dev, "busy %lu total %lu %lu %% freq %lu MHz\n",
-> >>  		status->busy_time, status->total_time,
-> >> -		status->busy_time / (status->total_time / 100),
-> >> +		status->total_time >= 100 ?
-> >> +			status->busy_time / (status->total_time / 100) : 0,
-> > 
-> > or:
-> > 
-> > 		status->busy_time * 100 / MAX(status->total_time, 1),
-> > 
-> 
-> I have to admit I prefer Boris' version ;)
-> 
-> But either way:
+> >> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c=
+ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> >> index 4b09a740f205..6e6f391b640e 100644
+> >> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> >> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> >> @@ -1076,9 +1076,9 @@ static int psr_capability_show(struct seq_file *=
+m, void *data)
+> >>         seq_printf(m, "Sink support: %s", str_yes_no(link->dpcd_caps.p=
+sr_info.psr_version !=3D 0));
+> >>         if (link->dpcd_caps.psr_info.psr_version)
+> >>                 seq_printf(m, " [0x%02x]", link->dpcd_caps.psr_info.ps=
+r_version);
+> >> -       seq_puts(m, "\n");
+> >
+> > Why not just convert this to seq_putc() and drop the rest?  It seems
+> > more logical from a code structure perspective.
+>
+> I obviously propose to omit a function call at this source code place
+> because an intended line break output can be achieved also with the subse=
+quent function call.
+>
+> Do you insist to preserve a similar statement here?
 
-Me too, I'm picking it for the next revision.
+I think the code reads more cleanly that way, but it's not a big deal
+either way.
 
-> Reviewed-by: Steven Price <steven.price@arm.com>
-> 
-> >>  		status->current_frequency / 1000 / 1000);
-> >>  
-> >>  	return 0;
+Alex
+
+>
+>
 > >>
-> > 
-
-Adrian Larumbe
+> >> -       seq_printf(m, "Driver support: %s", str_yes_no(link->psr_setti=
+ngs.psr_feature_enabled));
+> >> +       seq_printf(m, "\nDriver support: %s",
+> >> +                  str_yes_no(link->psr_settings.psr_feature_enabled))=
+;
+> >>         if (link->psr_settings.psr_version)
+> >>                 seq_printf(m, " [0x%02x]", link->psr_settings.psr_vers=
+ion);
+> >>         seq_puts(m, "\n");
+>
+> Regards,
+> Markus
