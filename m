@@ -4,145 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11F72CD98E1
-	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 15:37:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A33F7CD98E1
+	for <dri-devel@archiver.kernel.org>; Tue, 16 Jun 2026 15:38:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C17C10E7D0;
-	Tue, 16 Jun 2026 15:37:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14E8010EC44;
+	Tue, 16 Jun 2026 15:38:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="TL+GVqgg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mn1GiiuA";
 	dkim-atps=neutral
-Received: from LO3P265CU004.outbound.protection.outlook.com
- (mail-uksouthazon11020091.outbound.protection.outlook.com [52.101.196.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A830210E7D0
- for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 15:37:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xVpWVywju3EATtn1VzyO4FcNxoLCBQDFwz5SctuMsq0onDrPCP0Ai7/uT4jghxQ9K85JoBh/TYR/llh5KFX4FDbnOvktB6qMuTGG6VyOHDkAHGSR5VLv8PgylPt1ZOrLOkdA712mqPQ/L651NU73YQVWZg7gcFK7myY4dGTnmCzQuXik3UL4cSiulr92GA8n4GBFKOENAzYcPg0+HzRck6TQhQ2aeGcaAX4256goB+dU0UEmr5PgoNgNgpVncxD0A74lnfN4XsUaGIZx0N0adwE8/ez1FOv0CjdhwvV5G/Utut7Cv9OYKTzpaiLul/SE430PWc9wpn+7paVDINPuvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u8lA3R6FqywJffb1s/x9GBo0txXenIPohBsL9GukA9g=;
- b=ehlkkZVitpETzpIA2PoVYZv+FqOdUEXeWSS6+71vffd7hx+MUpmykRrkaOHYaEnp1tr7FrTAxGxJpjKonUiegNlijMG+ofnZggHjkneIT7rYeHt/XWXZAhpArBxyAKBJ0k2hCzLXZ1RSr015nSMDq1SXqh3kp/2LD+KPrXgwJrwcV9GKKdVJXYK0ODa+9XuKrmJ8Q4yGl4/Y4XzoZXO4DUbDVjf3sy8BjJ1EJRLoCLcT7PSW+yuWnWo/xSK0lwdFXNPKssIjVdscbjGd6ufQo81BWe3cYGanLXMW0VIKDDLrk/09grAzSVjxOWrSCu0G+bOKJABwnA4hprjsSiCEfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u8lA3R6FqywJffb1s/x9GBo0txXenIPohBsL9GukA9g=;
- b=TL+GVqggRuqnSFLTBZSqZncOGkt40FdXAZ92XEPIEcz6sNVhJ3J2eaUhI4FHTy1Why5ypVWvrRjMextZwIQST0DFLoC01tcTpNVGomUqnCEpmyBc9jmOZzzOyYw2ixiTm9Jf6FuUZA9Y7S7F1gLj+93Ujd/4npF0Yl26wPhlxH4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO0P265MB6470.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2cc::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
- 2026 15:37:12 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0113.015; Tue, 16 Jun 2026
- 15:37:12 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D10010EC44
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 15:38:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B2E99416B9;
+ Tue, 16 Jun 2026 15:38:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7680E1F00A3A;
+ Tue, 16 Jun 2026 15:38:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781624332;
+ bh=S99sZTsHTwNIk3dRi2HDnxpPkS1Nm2x4jKGleLKKhWo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=mn1GiiuAcoWpxnJxefDNxde1vIf2X6kl2ciLvy8ULjbJyqfPo7KNltV/VBpSj1fZd
+ QEzIPrB5PY7TADYaTAawllNFEbN0k5GDpwPgjz+B6MAySMhKt6lblA0A4Gv9w1xKJj
+ M4Q3tOIhiDDtu+H+Hb8p2LWrFIvnVMK4KrlC9KTjGEYj7Anm2arKI4X/TdtKMfZF5F
+ ej7PKIm6G7f5+47H8D8lXBR0aiTrUn0BALvIHeuJbwTIfIs8hGPm1hkObwKgBZ5vJ7
+ t2sK+ntvOdZQ4ApkOoNn/Cn3rtXfjd5IgG3uTRMG9W/KXkHu3pwLKTbj6kRxeWzaKT
+ LPmu7S3R+hvOg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/amdgpu: fix fence reference leak in
+ amdgpu_gfx_run_cleaner_shader_job
+To: "Wentao Liang" <vulab@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260616153506.1713376-1-vulab@iscas.ac.cn>
+References: <20260616153506.1713376-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 16 Jun 2026 16:37:11 +0100
-Message-Id: <DJAL2X1X0WS9.32XO3YJFYCW8D@garyguo.net>
-Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Sumit Semwal" <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Paul E. McKenney" <paulmck@kernel.org>,
- "Frederic Weisbecker" <frederic@kernel.org>, "Neeraj Upadhyay"
- <neeraj.upadhyay@kernel.org>, "Joel Fernandes" <joelagnelf@nvidia.com>,
- "Josh Triplett" <josh@joshtriplett.org>, "Uladzislau Rezki"
- <urezki@gmail.com>, "Steven Rostedt" <rostedt@goodmis.org>, "Mathieu
- Desnoyers" <mathieu.desnoyers@efficios.com>, "Lai Jiangshan"
- <jiangshanlai@gmail.com>, "Zqiang" <qiang.zhang@linux.dev>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Igor Korotin" <igor.korotin@linux.dev>,
- "Lorenzo Stoakes" <ljs@kernel.org>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "FUJITA Tomonori" <fujita.tomonori@gmail.com>,
- "Krishna Ketan Rai" <prafulrai522@gmail.com>, "Shankari Anand"
- <shankari.ak0208@gmail.com>, <manos@pitsidianak.is>, "Boris Brezillon"
- <boris.brezillon@collabora.com>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <rcu@vger.kernel.org>
-Subject: Re: [PATCH v2 5/6] rust: Add dma_fence abstractions
-From: "Gary Guo" <gary@garyguo.net>
-To: <phasta@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-X-Mailer: aerc 0.21.0
-References: <20260616082819.2943886-2-phasta@kernel.org>
- <20260616082819.2943886-7-phasta@kernel.org>
- <20260616124755.460550-1-work@onurozkan.dev>
- <d074d3105a2c1d4f594bc6d7b0b09e62757790d5.camel@mailbox.org>
-In-Reply-To: <d074d3105a2c1d4f594bc6d7b0b09e62757790d5.camel@mailbox.org>
-X-ClientProxiedBy: LO3P123CA0033.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:388::11) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO0P265MB6470:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec41858d-de02-424a-04e5-08decbbd22b5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|23010399003|376014|10070799003|1800799024|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 3Y70rvbmrh6P97Le19fjzPCS7GmpNDcgUcN1OivNy4Qtfmiq2WY9dL9T+ug55ZHakMjQ6hA3T/cF3VCEdqU88dibj5DJKCaYfy2H5+hyZ/ZntMIka6pclM/DHpd1+KaHsP7B8Oa+dwlvN17PYMofLX/XMSFC5t1+yeEXYZTNQoP3pBbBSrcGd0kveNrQPfC0SAjsjmjX9tBfEVIisaaMMnTcowT8m8pEmyfGGE79uiFTdf9u+DgzhGqINFt9PgnifakU7pJicFxcUWVZ16sAEvl9+Hu9YIaTrk0RZE/8JukxgvFgJfIvxy4XjMtTYFWixSq/TJ9oXfi3rwmgZFMVTV7D3IMS/f5dP1ekTXGdeMcxvQtdiCwvvf/uolaRJpGVRgxdDgnt/igCS3HqvuzEeW4Kh+an1Tj3Q7XojlcHJoXMHynzl9RfR4fOzBSLArUd3+EEDw9hNxpOn4IVpyBkvA7cTO/BRJak7gqdcBGIftPFxhcjnVvc3O0+txEFzN301FXDNrC3I3rgeccwpomR/8NYPR6jQ5j6m9kzgcJAfuvqomQIUR1y5ki3rqFNMXCdoBMIXHko4sum+Zu/XTJ77lXQgv7HUOxCysZN6wqtUpmz9ard/JJ20CFC+RgY2BW/IM8Hcdjk5m/DsCU6WpE6ePjIdUv92wnM+x/FuPpTCS37TiSq2hxb2Q0gXSuHN2tB
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(23010399003)(376014)(10070799003)(1800799024)(56012099006)(4143699003)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dy9jQmdJKzlkUUZ2ZlIyTEZvNWJ2clg0SkVpSDU2a1VTM2NhNXdJMmlBUnpO?=
- =?utf-8?B?R3JxaERzYXM3Z3JkT25PUU9GVUg2R1M1dWpCcStuVFFUMDV5emFPN2M0NUht?=
- =?utf-8?B?cUpvVjVzSEpSOWVkcXNZNldVREkvUWJNcnk1NkUwMjd5d1FGSGZKTE92dGpV?=
- =?utf-8?B?aHpvaGtqZUNqV3hiUTB5VDQvUU1aS3Z6T1poTzFRVEwxOW1jWm1mcE1mbW50?=
- =?utf-8?B?L212QkNCTFVxcGl3dDV4NnpxRWxsZnUraWlUTm5IVWNFYUNnMkdHeVZzV1BB?=
- =?utf-8?B?SEFaSDRTR1BSK1JWbHFEL3dxWU1mTkt4RjQ3MHZVa1k0LzVZanpPSllzbDgz?=
- =?utf-8?B?YjUwcHhiT3dKVGROVWJEZkFnTkpROXZwOFM0ajR6R3dCcjYraXNrRXR0bHBo?=
- =?utf-8?B?bE1pZW45QUtzTjlYdmRyY2hQOEJLdGpsY3IxNGU5ZmR4b1p3a1NkOHdrWmJS?=
- =?utf-8?B?d0F2QnNIdkJsU1d3MlRUaTNBQkhiU3VCTGJKdnAyOGlycEE2STZoWXBBOXRU?=
- =?utf-8?B?R21rUG13ZGZDa1c5SCs4NFhmWjFBUUMxVHlFMCtkMDNFS0t3TU5UK1lkVE5v?=
- =?utf-8?B?Nzc5VzJyaExucjB4K0d0QUs2MnMwbTJuMllnWVVjQjBTQzRrQnIyamg5SXN2?=
- =?utf-8?B?U3ZScys2VlpyN1NIdkxIK0U3OTNMMXI1TzhUVml3aklBSWJ0N3VpalUvWStB?=
- =?utf-8?B?K1U0VmFnNEErOER4ckxtV3I4Y1R5amFIZEUwMXVBc3RZK2lWZ29ZTExZa0pJ?=
- =?utf-8?B?Z2tPRDl2Zlh0QytEWUhSM2UvSnliWFFZRVUvZWFXVjU5aUo4ZVZlenZ5a3Fz?=
- =?utf-8?B?Q1ZjZmNUN0NwM1ZKdkw2aWJzdG1rbDNSQ2tVclp2ZVdGYWRlWExUUStObHJD?=
- =?utf-8?B?Y2NIV0cvcVlEYTErUFk1blBBLzM1dDZuZkFRMVh0WjUrd0JtcEdFUURFY1Ez?=
- =?utf-8?B?VXBQNkFTWmF3Y1JobmUyRVB5aU1aUU1ObXNEd3Nqb0dFQ1VyM3ZyUGc5akVT?=
- =?utf-8?B?OXNJTmo4S2pmWmltZkExN0RUT2wrZFc1WEdabXdkZW9VbTNrRDErTUhLbW1R?=
- =?utf-8?B?NXgxNlV5U3B2RFhwSWxEdnJBL2YzdU5VbFYyNEVHT1dhb24wQ09FVHZBRCtn?=
- =?utf-8?B?MzZMMEd5MWJvMkxvQWNVYUs4aUpZc3JlWEdpcGdsUkthS3haK2lEcDdyenV2?=
- =?utf-8?B?RzREM0QwV0J4S1hWazNQRW43eUVHeDUraGpNV3hJNklPL3dzOCtRSkJCektq?=
- =?utf-8?B?Y2pIYkVtV0lpVkRkOUgrMFJZNXo0V1EvN1J3ejlDc1puRzdyTjhaaktWWmlj?=
- =?utf-8?B?OFNZQW5TSlBaTUpCZnpuMURjZEM1KzFXcjROWHNUaWRCL3B6UVdYYVh6TEVB?=
- =?utf-8?B?eEpSYSs1T3ZjMmZjVUowR0tGbEpkeEdqK28zYXl2WnlCeS9uR0FRT1ZlcE9X?=
- =?utf-8?B?WlZaRjJScm4rdFRhaWlCT2dRZnorMTBSWGJEbENPTWhUK1libVV0Zm4xUG1n?=
- =?utf-8?B?c3lKYkZpRVc3T0pFSXl5MmVkMWtiZ3FvNkU5U2xuOURwYjZER3V1R09BZkx6?=
- =?utf-8?B?RFUwclVCTmExMHZTYmN5YjYzVDhiUEdzUi9XeXZsSitmS2g3RURLSmJFTXlk?=
- =?utf-8?B?cmt2VnVlQ0JUdlZkb2lpUnRhN0dmeUpjL3EzQ1ZDbytNMWIwK3lhTFJGT2dy?=
- =?utf-8?B?QUs0cUxqVFU2eWp3V201OExsWG1ON2V1OHhTd1lqM3FXdnhRbTZIYVY5WjFz?=
- =?utf-8?B?UlNRSTd1SXNTNyszSTl5c1BjU1lLNGJFcG9NZlMzV1V2OTgvNXVUREdvR1Ar?=
- =?utf-8?B?WDE2S1FrVytRanNCY0g3QWNJc1puaUVqR3JQOE1PQ2VHWnRpTi9ocTlFZngv?=
- =?utf-8?B?elF0VndOZmFpWWwxeUNtZmpVb1A4dDAxczVkc2o0ZEt0UmhtOTBGNnJYcFFK?=
- =?utf-8?B?ZFlKUmZrSG5RcWtrbU12bGhSdngxblVyZHhmRWJOWm41VlFhT1RJNWtWNVhL?=
- =?utf-8?B?WDY1Y1ltRG90MWpJRFp6bjlaU2xpd2NWSmxXVXNUSjNnR2dPeWFzZE1QOVd6?=
- =?utf-8?B?UVEvWkc5c0x0eFNYenNsRGxETjVxcWZFcFdyTFBSWlN4cjhQOUM2MVpQQ2Nm?=
- =?utf-8?B?dDdvS2EzUWVUdFZPY0VMVThucFIrRnhIcXczTFVNcGdYdXRIdlpxVlNmbzJp?=
- =?utf-8?B?SlVrYmRtTGVxUnd0QTl2N054dVpacXdNamxrV1JYcGpQcy9RQjhFeWFkYVZB?=
- =?utf-8?B?SEZCR1kvKzk2WU96cmVtN2lkbERqTVZFYmpFZlZ5dXRYcDZGQ2RlbGw2VEZi?=
- =?utf-8?B?endoRk9WTU96VGU2NzVYYzBlYytnNDdYenZhajJnaW5kcWh0R3RaZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec41858d-de02-424a-04e5-08decbbd22b5
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 15:37:12.5487 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LpgOL60N/IEK5OPyYUQkHw3bci4vWoxVotv3PiEBB+OWC3VcoYh7TLS40fX5P+fmpZxKUII0GduSCp3iPWHmKA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB6470
+Date: Tue, 16 Jun 2026 15:38:51 +0000
+Message-Id: <20260616153852.7680E1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,45 +53,65 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Jun 16, 2026 at 3:38 PM BST, Philipp Stanner wrote:
-> On Tue, 2026-06-16 at 15:47 +0300, Onur =C3=96zkan wrote:
->> On Tue, 16 Jun 2026 10:28:17 +0200
->> > +
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // DriverFenceData is repr=
-(C) and a Fence is its first member.
->> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let fence_data_ptr =3D fen=
-ce_ptr as *mut DriverFenceData<T>;
->>=20
->> Either the field ordering on the type or this code is wrong because the =
-first
->> member of DriverFenceData is `rcu_head`.
->
-> Yeah, that's a bug introduced in this revision. Thx for pointing it
-> out. Already fixed it downstream.
->
-> I'm just wondering why my test did not blow up.
->
->> >=20
->> > +}
->>=20
->> I am unsure whether it is safe to cast the pointer in Fence::from_raw wi=
-thout
->> Fence being #[repr(transparent)] as the layout compatibility is not guar=
-anteed
->> explicitly.
->
-> Shouldn't #[repr(C)] do that trick, too? Do you need both?
->
-> Who can answer that?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The patch introduces an unconditional `goto err;` after `dma_fence=
+_wait()`, making `dma_fence_put(f)` unreachable dead code and causing a gua=
+ranteed fence reference leak.
+--
 
-You have `#[repr(C)]` for DriverFence, but not on `Fence`. `Fence::from_raw=
-`
-does require layout equivalence between `Fence` and `bindings::dma_fence` a=
-nd
-this is done by adding `#[repr(transparent)]` on `Fence`.
+commit c63d121e1a1065f00f4d8966f1c7bd3d065b39ef
+Author: Wentao Liang <vulab@iscas.ac.cn>
 
-Best,
-Gary
+drm/amdgpu: fix fence reference leak in amdgpu_gfx_run_cleaner_shader_job
+
+This commit intends to fix a potential fence reference leak in the error
+handling path of amdgpu_gfx_run_cleaner_shader_job() by ensuring the
+fence is properly released if dma_fence_wait() fails.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.c
+> index ff5a55f5f3c9e..9a79a80078c3d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+
+[ ... ]
+
+> @@ -1729,16 +1729,13 @@ static int amdgpu_gfx_run_cleaner_shader_job(stru=
+ct amdgpu_ring *ring)
+>  	f =3D amdgpu_job_submit(job);
+> =20
+>  	r =3D dma_fence_wait(f, false);
+> -	if (r)
+> -		goto err;
+> +	goto err;
+> =20
+>  	dma_fence_put(f);
+
+[Severity: High]
+Does this unconditional goto make dma_fence_put() unreachable?=20
+
+Since the 'if (r)' condition was removed, execution will always jump to the
+err label, bypassing the dma_fence_put(f) call entirely.=20
+
+This appears to introduce a guaranteed fence reference leak on every
+invocation of amdgpu_gfx_run_cleaner_shader_job(), rather than fixing
+the potential error path leak described in the commit message.
+
+> =20
+> +err:
+>  	/* Clean up the scheduler entity */
+>  	drm_sched_entity_destroy(&entity);
+> -	return 0;
+> -
+> -err:
+>  	return r;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616153506.1713=
+376-1-vulab@iscas.ac.cn?part=3D1
