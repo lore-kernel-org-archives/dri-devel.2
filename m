@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53813CD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 18:52:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77D67CD98F2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 18:52:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5DD110EAF9;
-	Wed, 17 Jun 2026 18:52:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D1B810F0AC;
+	Wed, 17 Jun 2026 18:52:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="p4yoIqz1";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="LNv2OAdL";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FE8210EAF3
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 18:52:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AB8610EAF9
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 18:52:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1781722319;
- bh=EihMJ+MjwJWw3LKzGCW8dkUoe6Mk2y9hm9cHf1RY+70=;
+ s=mail; t=1781722321;
+ bh=IyvNW+/ztTr/dI69pK7Ue2+dgapYZS+JafsBFsJT7cI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=p4yoIqz1k+roX3xgVG83uX9jBwG51o/SWD4kDzbrnjsPEGVC8GBbHP5T5UjwZE/q4
- BVJ/tIOf46dn2SyDILCkVL/MzTYZSrMOdvCcCPLYJV/ECYJqw44bHGAJNNfIp+0tEN
- I5TT17jAGc0OCxThJqqDAEBpmLJ/1y4dhXZXCABrZzPaxH7o2sHuU3ee0pmfwH/Xc9
- 0+F2yPKF64X/Lt5Q8GtLSVbvgJjsd+lnkz10FPTJ9330qa5gIecP8djEWtnqHEyOxj
- j/Y8GbNADtDTWmko3xj/yLicNipgnGpA6FcOK5uEjQJ8gHvGqNcLal3TMDHjSNDvLq
- SoEtqTlhxB4wg==
+ b=LNv2OAdLlMhPJv4rO/O5fK5SQeR6rxGEdctKFClnC38ebGpbUljYItqNLTE76HooX
+ 2pHIf/JxpJqe8pe0TewHGEZitx91UsKdFQ1CFJBkgZ7JXuq87CN7rZxr388o6gOGS2
+ xo13PdKIohKoxo1e8tQYy4PnrfoaRrOLpniprqGINNDYgiDtubsI+6K7AiUp1auMKr
+ XXSAe1aPfPOIIo1o6Vk9h2mJtnZd9xVQeW6mKzPn8c4bwVfbpHX6bB+t7XNpYYkV/Y
+ wy0M62Ephtaf3FhXey5pLIRHndl+UQoffY3wdCcOfumwRa1o9zgQgYSZoUxri9cRmp
+ 2YAxyZWx4WDDA==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 89AA817E05DE;
- Wed, 17 Jun 2026 20:51:59 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 1B52417E0CA9;
+ Wed, 17 Jun 2026 20:52:01 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 17 Jun 2026 21:51:54 +0300
-Subject: [PATCH 1/9] dt-bindings: display: vop2: Add missing reset properties
+Date: Wed, 17 Jun 2026 21:51:56 +0300
+Subject: [PATCH 3/9] drm/rockchip: vop2: Avoid DCLK source switch for
+ 10-bit YUV422 output
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-dw-hdmi-qp-yuv-v1-1-a665cfd06d7d@collabora.com>
+Message-Id: <20260617-dw-hdmi-qp-yuv-v1-3-a665cfd06d7d@collabora.com>
 References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
 In-Reply-To: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -75,96 +76,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Document the VOP2 resets corresponding to the AXI, AHB and DCLK_VP0..2
-clocks, which are common to all supported SoCs, plus DCLK_VP3 which is
-provided only on RK3588.
+Currently the color depth is always factored into the DCLK source
+decision for HDMI output, which can break certain modes when operating
+with depths greater than 8 bpc.
+
+When the required transmission rate exceeds the 600 MHz limit of the
+HDMI PHY PLL, e.g. for 4K@60Hz 10-bit RGB output, VOP2 will normally
+fall back to using the less accurate system CRU as a DCLK source,
+assuming HDMI 2.1 FRL is supported by the pipeline, otherwise the mode
+will be rejected.  For YUV420 output format this never happens, as it
+uses half of the RGB bandwidth, hence the rate remains within the PHY
+PLL limits.
+
+On the other hand, YUV422 always transmits two 12-bit components per
+clock cycle, regardless of the color depth, which from a clock-rate
+perspective is equivalent to three 8-bit RGB components.  For example,
+4K@60Hz 10-bit YUV422 requires the same bandwidth as 4K@60Hz 8-bit RGB,
+typically 594 MHz.  However, VOP2 wrongly assumes it needs 742.5 MHz
+(594 * 10 / 8) and ends up switching the DCLK source.
+
+As a consequence, the modes requiring uncommon pixel clocks, such as
+those corresponding to fractional refresh rates, will fail.  An example
+is 3840x2160@59.94Hz, which would likely rely on the 593.407 MHz clock
+rate unsupported by the system CRU.
+
+Note this only affects YUV422 with color depths greater than 8 bpc; for
+8-bit YUV422 the 8/bpc factor is unity and the bandwidth check is
+already correct.
+
+Prevent the incorrect switches of DCLK source to system CRU for YUV422
+output format by forcing 8 bpc when checking the bandwidth.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- .../bindings/display/rockchip/rockchip-vop2.yaml   | 42 ++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
-index 93da1fb9adc4..d3bc5380f910 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
-@@ -82,6 +82,20 @@ properties:
-       - {}
-       - {}
- 
-+  resets:
-+    minItems: 5
-+    maxItems: 6
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index 2833fb49ad81..17d21e08ad97 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -1922,8 +1922,17 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
+ 	 * to 4K@60Hz, if available, otherwise keep using the system CRU.
+ 	 */
+ 	if (vop2->pll_hdmiphy0 || vop2->pll_hdmiphy1) {
+-		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8,
+-							       vcstate->output_bpc);
++		/*
++		 * YUV422 always transmits two 12-bit components per clock
++		 * cycle, regardless of the color depth, which from a rate
++		 * perspective is equivalent to three 8-bit RGB components.
++		 * Force 8 bpc here so the bandwidth check reflects the actual
++		 * TMDS rate and avoids an unnecessary DCLK source switch.
++		 */
++		unsigned int bpc = vcstate->output_mode == ROCKCHIP_OUT_MODE_YUV422 ?
++					8 : vcstate->output_bpc;
++		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8, bpc);
 +
-+  reset-names:
-+    minItems: 5
-+    items:
-+      - const: axi
-+      - const: ahb
-+      - const: dclk_vp0
-+      - const: dclk_vp1
-+      - const: dclk_vp2
-+      - const: dclk_vp3
-+
-   rockchip,grf:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description:
-@@ -148,6 +162,12 @@ allOf:
-         clock-names:
-           maxItems: 5
- 
-+        resets:
-+          maxItems: 5
-+
-+        reset-names:
-+          maxItems: 5
-+
-         interrupts:
-           maxItems: 1
- 
-@@ -194,6 +214,12 @@ allOf:
-             - {}
-             - const: pll_hdmiphy0
- 
-+        resets:
-+          maxItems: 5
-+
-+        reset-names:
-+          maxItems: 5
-+
-         interrupts:
-           minItems: 4
- 
-@@ -246,6 +272,12 @@ allOf:
-             - const: pll_hdmiphy0
-             - const: pll_hdmiphy1
- 
-+        resets:
-+          minItems: 6
-+
-+        reset-names:
-+          minItems: 6
-+
-         interrupts:
-           maxItems: 1
- 
-@@ -289,6 +321,16 @@ examples:
-                               "dclk_vp0",
-                               "dclk_vp1",
-                               "dclk_vp2";
-+                resets = <&cru SRST_A_VOP>,
-+                         <&cru SRST_H_VOP>,
-+                         <&cru SRST_VOP0>,
-+                         <&cru SRST_VOP1>,
-+                         <&cru SRST_VOP2>;
-+                reset-names = "axi",
-+                              "ahb",
-+                              "dclk_vp0",
-+                              "dclk_vp1",
-+                              "dclk_vp2";
-                 power-domains = <&power RK3568_PD_VO>;
-                 rockchip,grf = <&grf>;
-                 iommus = <&vop_mmu>;
+ 		if (clock <= max_dclk) {
+ 			drm_for_each_encoder_mask(encoder, crtc->dev, crtc_state->encoder_mask) {
+ 				struct rockchip_encoder *rkencoder = to_rockchip_encoder(encoder);
 
 -- 
 2.54.0
