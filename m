@@ -4,52 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DE42CD98D2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 01:55:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCF9CCD98EE
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 02:09:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CB3B10ED9D;
-	Wed, 17 Jun 2026 01:55:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AD8710EDAD;
+	Wed, 17 Jun 2026 02:09:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lT23j29h";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mYOkZHLQ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 173F310ED62;
- Wed, 17 Jun 2026 01:55:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781661338; x=1813197338;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=0JP5tZw7WR+jMXPP/WVObA5k1/Jhslu4XEsAYBk3AXk=;
- b=lT23j29hU0v8iEnZgRtbH1zPaTZK4qzv9OX3BnisczMFkkQ3Mrx4XREU
- 8wzdXp+PfEEn5sIaBUSNWrvWq4k1EqIRkG6SZSHOzNoc5wjQQ/g0OARh5
- bgg3e5W1b67jY5v6A4jnqHI3Xzc4X25Duo6h52aHnqMEqU43nWhXcLXnl
- nxm5dk+bQ0Zya2uH+S/6YDpzLcqIX+I+AxtbWtxE7UxnNUlKRC0ITFTJw
- Dmu30fPBolpUDxSkc0OIxV7zKvS6XoheeUFNEcqGo7V/Q1uVmQ6ClniUH
- JN78w3zqgwqa/GDiMWIdUscKB1YzO3DvyT4g7cOq3Ec8Ge6OaM5PWgpA3 A==;
-X-CSE-ConnectionGUID: ujZcoNpkRSKJEB4XNu+Xcg==
-X-CSE-MsgGUID: facLQIScSMSeTLxiPU03Gg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="93007419"
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="93007419"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2026 18:55:38 -0700
-X-CSE-ConnectionGUID: 0jRvA3U3QZO0JNioLaJ9vg==
-X-CSE-MsgGUID: mqFYk0+cSF+gZzIUl2XvFg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="243770185"
-Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2026 18:55:37 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: [CI] drm/ttm: Drop tt->restore after successful restore
-Date: Tue, 16 Jun 2026 18:55:31 -0700
-Message-Id: <20260617015531.1164189-1-matthew.brost@intel.com>
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5813710EDAD
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 02:09:34 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-2c0c1e0d00bso46892385ad.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 16 Jun 2026 19:09:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781662174; x=1782266974; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=j6fa7wxuUI6ROWGGgOqGoPbRsU6ZtyWphBnp0BvsqR0=;
+ b=mYOkZHLQEnDw46YYDCxV+HNHnxnm7Dg99N88RRCVjfbNbkoL8pHegr3XPyiJMZsJzJ
+ CcVDaFGSK7zrUiN2YBOS8/0nNwq6qx74rrLfOj/7BAnrxrESFMN0Ey19tRUsAVwaNCrk
+ V5LGSoFW+cwVvPkOU6bqqSComxeQDYpXnJsxuEZ1z+GcQpf0tbyCHxa/KUsFPhHP5Eed
+ 1q7rn2QcYyimtOMDDKSJtuNfnGCffP/RhETiHOQXFZ6XRQqhhm5WvZGhvbqnPccAcF+2
+ hc4kIk9QnWQDkPvvFL4H60YQRaaPxFtGNAEXTKV5jihwYywnJvt8tm+SPXALk+u24QOg
+ 4KgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781662174; x=1782266974;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=j6fa7wxuUI6ROWGGgOqGoPbRsU6ZtyWphBnp0BvsqR0=;
+ b=Twe2ftevJQLF8zaIAwvc72QGCHLaA9aDIi1lCrzr5ZM2yQUFYZd4kPMEi4TZqht3XQ
+ xHiT7w6TAsvsLzZQ/8ZzEyaLq8yMH1/S9clgn6R70r1t4sLpkIDuBp3+SkZ6CTWKoVfB
+ C90nAArJa5eiW9txkV56zQOVQxssLT5gna28jM6rxfGf8KEe40xsadKh13+gJwxO3w45
+ TMZLxEjruj/OpA0nPtatBCe9qr+9CsxAdg+Pr5n1RaOG1rxldGV63q+g3KxoDaJwD7FW
+ Kf8rfPSpOgBFhCaUGGl5H8Sva5pQkX6qb7937uHQq0495Tnl66fee48FnazYWOEXpT4i
+ qvIg==
+X-Gm-Message-State: AOJu0Yw8RJ8DDv0rCDjh15q9zyZy6maA80Axl9eFm4lbWU/CG1BpInS3
+ Gz7FnOATOg1xM2Xm42LeZM6sxpMDOimZWE8EghrN3SOOXxIpISV5ID5U
+X-Gm-Gg: AfdE7clLHJAvBwKv31iS9JDPEka8/PB6Gtaqxw94vChugFFHqza4+9msfdhc6DbnNyh
+ Z+InPOef86NricPv5kA05DxcV9vUrhCw+HGPkPRg1QNfiAmKM3JdJmOymKPZjqoqCMGjyYTatC3
+ iDdYPt1L5C4G5UjZt/v4MAsWUU/bDSdqnxufJnGeNeqsz0Ylz3IcDk62FzGX36akxDZku56IHlh
+ YLT0smGq9TlqeaL1s1QZK/CfVHj9Dm3YdITEV7xIo+5cpzXLsgE0L9jeA7gNBN6R68nt8vzVXrx
+ ffO3a90So8PnwbALDTV3LefEr5fJSSUISar2OB/tAK2FcuubRSgVwcWoG9mX+3c8hPvBQCOt3bq
+ DL4bmFiHlToneUgKyHa535W0TTOYWgmF/67FudMacmNLEX+2lYsRRYWcwFhhyVJFpWwjDm0Kfid
+ pjJTZZ2ghy5GHiEjmiFim17z+GZlOs4QR3u3AwlR6i8FX5kIOfIRqeiMlwGGd/VB1nEzL3bYdwj
+ F5SK/pXB5p0YnfDt0Q62sjt
+X-Received: by 2002:a17:902:f785:b0:2c2:33a4:aaa2 with SMTP id
+ d9443c01a7336-2c6bc25d4d0mr16653095ad.35.1781662173785; 
+ Tue, 16 Jun 2026 19:09:33 -0700 (PDT)
+Received: from lcwang-Precision-3630-Tower.. (211-23-39-77.hinet-ip.hinet.net.
+ [211.23.39.77]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2c433369c8asm148322735ad.73.2026.06.16.19.09.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Jun 2026 19:09:32 -0700 (PDT)
+From: LiangCheng Wang <zaq14760@gmail.com>
+To: Devarsh Thakkar <devarsht@ti.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Wig Cheng <onlywig@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ LiangCheng Wang <zaq14760@gmail.com>
+Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
+ e-ink panel
+Date: Wed, 17 Jun 2026 10:09:26 +0800
+Message-Id: <20260617020926.114947-1-zaq14760@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com>
+References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
+ <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
+ <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
+ <20260616083921.4066690-1-zaq14760@gmail.com>
+ <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,111 +101,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ttm_pool_restore_and_alloc() can successfully complete the restore
-process via ttm_pool_restore_commit(), but tt->restore is not dropped
-afterward. As a result, subsequent backup/restore flows observe what
-appears to be a completed restore, while in reality shmem handles are
-still installed in tt->pages, leading to the stack trace below.
+Hi Devarsh,
 
-Fix this by freeing and dropping tt->restore in
-ttm_pool_restore_and_alloc() upon successful completion of the restore.
+Thanks, that sounds great -- let's converge on panel-ssd16xx.c.
 
-20545 [  309.784531] RIP: 0010:sg_alloc_append_table_from_pages+0x38c/0x490
-20547 [  309.809570] RSP: 0018:ffffc9000623b838 EFLAGS: 00010206
-20548 [  309.814827] RAX: 0000000000001000 RBX: ffff88816e42a160 RCX: 0000000000000000
-20549 [  309.821986] RDX: 0000000000002000 RSI: 0000000000000003 RDI: 0000000000001000
-20550 [  309.829147] RBP: ffff88816e42a168 R08: 0000000000000002 R09: 000000007ffff000
-20551 [  309.836310] R10: ffffc9000623b928 R11: 0000000000000000 R12: 000000007ffff000
-20552 [  309.843471] R13: ffff88815ba5a100 R14: 0000000000000000 R15: 0000000000000001
-20553 [  309.850634] FS:  00007f9ff305e700(0000) GS:ffff888276c94000(0000) knlGS:0000000000000000
-20554 [  309.858749] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-20555 [  309.864519] CR2: 00007f9fca701000 CR3: 00000001565e2005 CR4: 0000000008f70ef0
-20556 [  309.871678] PKRU: 55555558
-20557 [  309.874403] Call Trace:
-20558 [  309.876866]  <TASK>
-20559 [  309.878988]  sg_alloc_table_from_pages_segment+0x60/0x100
-20560 [  309.884415]  ? ttm_resource_manager_usage+0x36/0x60 [ttm]
-20561 [  309.889845]  ? xe_tt_map_sg+0x7d/0xd0 [xe]
-20562 [  309.894045]  xe_tt_map_sg+0x7d/0xd0 [xe]
-20563 [  309.898037]  xe_bo_move+0x927/0xaa0 [xe]
-20564 [  309.902029]  ttm_bo_handle_move_mem+0xba/0x170 [ttm]
-20565 [  309.907022]  ttm_bo_validate+0xbe/0x190 [ttm]
-20566 [  309.911405]  xe_bo_validate+0x9a/0x120 [xe]
-20567 [  309.915663]  xe_gpuvm_validate+0xd9/0x140 [xe]
-20568 [  309.920206]  drm_gpuvm_validate+0x2f0/0x5b0 [drm_gpuvm]
-20569 [  309.925459]  ? drm_exec_lock_obj+0x63/0x210 [drm_exec]
-20570 [  309.930627]  xe_vm_validate_rebind+0x46/0xb0 [xe]
-20571 [  309.935428]  xe_exec_fn+0x20/0x40 [xe]
-20572 [  309.939249]  drm_gpuvm_exec_lock+0x78/0xc0 [drm_gpuvm]
-20573 [  309.944410]  xe_validation_exec_lock+0x5a/0xa0 [xe]
-20574 [  309.949385]  xe_exec_ioctl+0x806/0xc30 [xe]
-20575 [  309.953639]  ? ttwu_queue_wakelist+0xd9/0xf0
-20576 [  309.957935]  ? __pfx_xe_exec_fn+0x10/0x10 [xe]
-20577 [  309.962449]  ? __wake_up_common+0x73/0xa0
-20578 [  309.966482]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
-20579 [  309.971263]  drm_ioctl_kernel+0xa3/0x100
-20580 [  309.975209]  drm_ioctl+0x213/0x440
-20581 [  309.978637]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
-20582 [  309.983415]  xe_drm_ioctl+0x67/0xd0 [xe]
-20583 [  309.987408]  __x64_sys_ioctl+0x7f/0xd0
+> Yes, I will be adding SSD1677 controller support in V2 of my series,
+> hopefully that should help and after that it's just a matter of adding
+> panel entry for your pixpaper panel. I can share you my branch with
+> ssd1677 support once I have it ready.
 
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/ttm/ttm_pool.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+That would be very helpful, please do share the branch once it's ready. I
+have the PIXPAPER 4.26 hardware here, so I can validate the SSD1677 support
+and the panel on real hardware and report back any quirks.
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index e76c3a5c67bd..9f0ab99eb289 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -902,6 +902,7 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- {
- 	struct ttm_pool_tt_restore *restore = tt->restore;
- 	struct ttm_pool_alloc_state alloc;
-+	int ret;
- 
- 	if (WARN_ON(!ttm_tt_is_backed_up(tt)))
- 		return -EINVAL;
-@@ -925,14 +926,22 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 	} else {
- 		alloc = restore->snapshot_alloc;
- 		if (ttm_pool_restore_valid(restore)) {
--			int ret = ttm_pool_restore_commit(restore, tt->backup,
--							  ctx, &alloc);
-+			ret = ttm_pool_restore_commit(restore, tt->backup,
-+						      ctx, &alloc);
- 
- 			if (ret)
- 				return ret;
- 		}
--		if (!alloc.remaining_pages)
-+		if (!alloc.remaining_pages) {
-+			ret = ttm_pool_apply_caching(&alloc);
-+			if (ret)
-+				return ret;
-+
-+			kfree(tt->restore);
-+			tt->restore = NULL;
-+
- 			return 0;
-+		}
- 	}
- 
- 	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
--- 
-2.34.1
+> additionally I can quickly add boilerplate pixpaper 4.26 panel entries on
+> top of my V2 series referring from your patch so that it switches to using
+> standard ssd16xx commands and ssd1677 quirks wherever necessary and you can
+> then validate and modify.
 
+Thanks for offering. If it's alright with you, I'd like to take the
+pixpaper-426m panel entry through review myself on top of your series, using
+your boilerplate as a starting point, since I can carry the validation on
+real hardware. I'll credit your help with Co-developed-by/Suggested-by as
+appropriate. Happy to arrange it whichever way is easiest for you.
+
+I'll also follow up with the 0xF7/0xFF test result so we can capture the
+correct SSD1677 update-sequence quirk.
+
+Regards,
+LiangCheng
