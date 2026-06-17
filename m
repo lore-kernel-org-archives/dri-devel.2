@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12514CD98F6
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:16:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19FD0CD98E4
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3653010EF77;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20B1210EF75;
 	Wed, 17 Jun 2026 10:15:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YzpRTSmm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="axS/kEFu";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D12910EF6E
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FB1610EF6C
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 86510443C9;
- Wed, 17 Jun 2026 10:15:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3C111F000E9;
- Wed, 17 Jun 2026 10:15:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 28CA540530;
+ Wed, 17 Jun 2026 10:15:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 899F11F000E9;
+ Wed, 17 Jun 2026 10:15:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781691343;
- bh=Z+3JN5tmTUYzM34sY4QnqzPZBuW2bzoRfr7xnhJ5en0=;
+ s=k20260515; t=1781691354;
+ bh=QlntkkDiLvxpNJMvSGSS0HyU+Acw0VYDqa/CJJzJ6z0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=YzpRTSmmmrGthyQip6y+XIcac9fdgQj0S6NnsDc9qmcfNWznkIdZb0conzAK4TSUJ
- 4pWnMmEWubbD2CUhBaNvsu4BxxptHEAF8MPul8UfbLXE3Il/R4pWXC3CreIY3rRfiC
- OwT+DSfMdjZIeQ9vmG2JwuBtAH5H8Fv3bw3pls6WOj8W9Xpm+VSjdYMz4DE6W/oRHf
- xjvEdN1vfZEUkpaxKK1wAyKWJIp63Mhw7Uct05ZpWZIKgYYxDm4QIlhYFq4oHxiqk6
- qdRene47TP5URG2/ydGrEsQuggZFmTIjAiWj9Td3K6l15A4J+xDwZMCawtHW8NqZ49
- Yp6KkFcB9w2Zg==
+ b=axS/kEFuCphSLGJlnY92qgIoPinqdCYbhLI4NQaiRc8Wlv09/bmoDVLKPhrMjKQzR
+ 5StGBKgEo1fUfqz7Lw+S7A6oEMqZDLpZGXsQbv4n4OowJ7cjMfBpsLvVumxpYHKXPu
+ Z9GWnX5drHgOxNeEuXE7mPBvaBqHQ59vKBAqN9GWbez92mOTZjDDwxWz0IArHwGlyU
+ wFYdFiX5Egdru1yVCnxtuX3ZfEOvSzu8OnvrtERH73oWMC3O63LQbMVx0a5GYG0aCv
+ NzXNIUua59NmFhhGvvE65W9oTgPI4RsygRATP3+5ksBs5a2VyIv2Kzf9SoTXLiEE8A
+ irzD8ywHUr22A==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 17 Jun 2026 12:14:45 +0200
-Subject: [PATCH 20/37] drm/bridge: tc358764: Switch to atomic bridge callbacks
+Date: Wed, 17 Jun 2026 12:14:49 +0200
+Subject: [PATCH 24/37] drm/bridge: thc63lvd1024: Switch to atomic bridge
+ callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-drm-all-atomic-bridges-v1-20-b63e6316166b@kernel.org>
+Message-Id: <20260617-drm-all-atomic-bridges-v1-24-b63e6316166b@kernel.org>
 References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 In-Reply-To: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -49,12 +50,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4756; i=mripard@kernel.org;
- h=from:subject:message-id; bh=OPGlGWenkwwt+fdOQY51DTRnJDatw/EEXlB4JdA7Xxw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxf3t8ybdMDjW/ECo05EnP25FC1vaYjM7JztFX9v//
- 9pvbw3qmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABN5y8rYcPWihP1RmWuJH/4/
- rilzmdLIeXvG2tVLKtem77d6u9ht55F483dTurw1t6o6Gk0KPCLJyVhncUOhYPX5d5dM5wrxPRP
- dZjazVmCH79WZE6ZkWuTalPKXhe0Wf+oTriL8scHo/Z11Na4A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4905; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Faj9dDjaC9DjNDSdnWdwvvaa03iqntfWDzOw6fJTreE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxRNunP0SfNNcxb7Ca1/nigu/U2bnMFme72+svlG6u
+ GJaWfbxjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjARpfeM9X5b1pTzf3Z4Z2fs
+ dOXVdbeECb+nhquVzFf8FMvxR+jF22Q/5Qu176r/btNK2LmiTqm2gLHeW/Ion8vXZQf949fMvWf
+ zUSTLwe2QkNf5bN007wamrE8eF94ZHS5ldixJbvTyZZ957iYA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,7 +73,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The tc358764 bridge still uses the deprecated non-atomic bridge
+The thc63lvd1024 bridge still uses the deprecated non-atomic bridge
 callbacks.
 
 Switch to their atomic counterparts, adding the bridge state
@@ -204,59 +205,73 @@ identifier b;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/tc358764.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/bridge/thc63lvd1024.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/tc358764.c b/drivers/gpu/drm/bridge/tc358764.c
-index 084e9d898e22..343f336a9911 100644
---- a/drivers/gpu/drm/bridge/tc358764.c
-+++ b/drivers/gpu/drm/bridge/tc358764.c
-@@ -265,11 +265,12 @@ static void tc358764_reset(struct tc358764 *ctx)
- 	usleep_range(1000, 2000);
- 	gpiod_set_value(ctx->gpio_reset, 0);
- 	usleep_range(1000, 2000);
+diff --git a/drivers/gpu/drm/bridge/thc63lvd1024.c b/drivers/gpu/drm/bridge/thc63lvd1024.c
+index c804222846c3..679b424ba0c3 100644
+--- a/drivers/gpu/drm/bridge/thc63lvd1024.c
++++ b/drivers/gpu/drm/bridge/thc63lvd1024.c
+@@ -11,10 +11,11 @@
+ #include <linux/of_graph.h>
+ #include <linux/platform_device.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/slab.h>
+ 
++#include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_panel.h>
+ 
+ enum thc63_ports {
+ 	THC63_LVDS_IN0,
+@@ -79,11 +80,12 @@ static enum drm_mode_status thc63_mode_valid(struct drm_bridge *bridge,
+ 		return MODE_CLOCK_HIGH;
+ 
+ 	return MODE_OK;
  }
  
--static void tc358764_post_disable(struct drm_bridge *bridge)
-+static void tc358764_post_disable(struct drm_bridge *bridge,
-+				  struct drm_atomic_commit *commit)
+-static void thc63_enable(struct drm_bridge *bridge)
++static void thc63_enable(struct drm_bridge *bridge,
++			 struct drm_atomic_commit *commit)
  {
- 	struct tc358764 *ctx = bridge_to_tc358764(bridge);
+ 	struct thc63_dev *thc63 = to_thc63(bridge);
  	int ret;
  
- 	tc358764_reset(ctx);
-@@ -277,11 +278,12 @@ static void tc358764_post_disable(struct drm_bridge *bridge)
- 	ret = regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
- 	if (ret < 0)
- 		dev_err(ctx->dev, "error disabling regulators (%d)\n", ret);
+ 	ret = regulator_enable(thc63->vcc);
+@@ -95,11 +97,12 @@ static void thc63_enable(struct drm_bridge *bridge)
+ 
+ 	gpiod_set_value(thc63->pdwn, 0);
+ 	gpiod_set_value(thc63->oe, 1);
  }
  
--static void tc358764_pre_enable(struct drm_bridge *bridge)
-+static void tc358764_pre_enable(struct drm_bridge *bridge,
-+				struct drm_atomic_commit *commit)
+-static void thc63_disable(struct drm_bridge *bridge)
++static void thc63_disable(struct drm_bridge *bridge,
++			  struct drm_atomic_commit *commit)
  {
- 	struct tc358764 *ctx = bridge_to_tc358764(bridge);
+ 	struct thc63_dev *thc63 = to_thc63(bridge);
  	int ret;
  
- 	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-@@ -302,12 +304,15 @@ static int tc358764_attach(struct drm_bridge *bridge,
- 
- 	return drm_bridge_attach(encoder, ctx->next_bridge, bridge, flags);
+ 	gpiod_set_value(thc63->oe, 0);
+@@ -110,14 +113,17 @@ static void thc63_disable(struct drm_bridge *bridge)
+ 		dev_err(thc63->dev,
+ 			"Failed to disable regulator \"vcc\": %d\n", ret);
  }
  
- static const struct drm_bridge_funcs tc358764_bridge_funcs = {
--	.post_disable = tc358764_post_disable,
--	.pre_enable = tc358764_pre_enable,
+ static const struct drm_bridge_funcs thc63_bridge_func = {
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-+	.atomic_post_disable = tc358764_post_disable,
-+	.atomic_pre_enable = tc358764_pre_enable,
- 	.attach = tc358764_attach,
+ 	.attach	= thc63_attach,
+ 	.mode_valid = thc63_mode_valid,
+-	.enable = thc63_enable,
+-	.disable = thc63_disable,
++	.atomic_enable = thc63_enable,
++	.atomic_disable = thc63_disable,
  };
  
- static int tc358764_parse_dt(struct tc358764 *ctx)
+ static int thc63_parse_dt(struct thc63_dev *thc63)
  {
+ 	struct device_node *endpoint;
 
 -- 
 2.54.0
