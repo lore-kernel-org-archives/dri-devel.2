@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F2E1CD98E4
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B692CD98E4
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C41C10EF67;
-	Wed, 17 Jun 2026 10:15:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CD2310EF6B;
+	Wed, 17 Jun 2026 10:15:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oJ3yEwYF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CiDTajZG";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE70F10EF5B
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 402A510EF6A
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 62A5360120;
- Wed, 17 Jun 2026 10:15:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95A9F1F000E9;
- Wed, 17 Jun 2026 10:15:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B07F860120;
+ Wed, 17 Jun 2026 10:15:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A161F000E9;
+ Wed, 17 Jun 2026 10:15:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781691330;
- bh=Z0n88pwqAuMlKwOCcuxbNfQsfJ3qTC4EH9tpG0JC9Nw=;
+ s=k20260515; t=1781691327;
+ bh=pXRTRUskL4XGIU9STM4jKJ1vHOsvWS1UieOiTpX+1Qg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=oJ3yEwYFMK9OWFM4GerX3Nr2nFbEXg2YatYM4FG6yAjKWlQ2L9roo/IuMvQthzN/T
- cZjvk1ZaEtinmt5oIgPJ52gEzsufMVFWDui2esuSU9RJpOKDpUD50YbcZMkAu56zxy
- Tn7A4Te0jKagJF0niavF8hQ29MonPJy1bbfx/UMa7sgkj+Okvz9bkeTZ1Bslc4s9fH
- W4jaA8HVZVOQWY+n5ADQUIwZ+iWLYIBtwIcMFp6XDhG83RTPq8xlLqZ2UECnIs/y++
- FgJRXjA8fVbhlKoUKW2HGUrtokYGGq3NJkxZmqzA/i7r8ggZuv9kyMJYATsuHEm3IB
- OLWjHbfvXUK5Q==
+ b=CiDTajZGbKmDfchvnAcVNcSQLpBf/mkUe7fOrOP/r/yPG6c44u+HVEgigtB0l1+r/
+ Lip2TBWruIyZMWDIhUwC9XzshJgU7mDqOjLJrQYrcQ02gH5fkp58zJoQe/NgwrXVSX
+ eg/vs36Y9BpEctGGpCjTGIibptx/tgdSGUyxYVEhT6Aqn2f5cBS+umGd/5+3pF3UF9
+ yhHPWm9/I5a/Cf/LSBuct9UzvrYzEIeQa8hvbmw9xZVatdsSBLXHl/h3Op90Ro2wUC
+ n7zpeCm6ultNHKeeymDbqI2txP1/6G+4HLiujPOCbgSDHYO0PVRIIOEpeN5FhOEI+H
+ oGSADVWZzgTAA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 17 Jun 2026 12:14:40 +0200
-Subject: [PATCH 15/37] drm/bridge: of-display-mode-bridge: Switch to atomic
- bridge callbacks
+Date: Wed, 17 Jun 2026 12:14:39 +0200
+Subject: [PATCH 14/37] drm/bridge: nxp-ptn3460: Switch to atomic bridge
+ callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-drm-all-atomic-bridges-v1-15-b63e6316166b@kernel.org>
+Message-Id: <20260617-drm-all-atomic-bridges-v1-14-b63e6316166b@kernel.org>
 References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 In-Reply-To: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,12 +50,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3988; i=mripard@kernel.org;
- h=from:subject:message-id; bh=6pQF80tAtyRxwS9yEBlVgCyHYhV662AgBZIskeLuvhc=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxT03FBcftNmfkrjxNKN6z/TCmP2R92ca/NENvOq66
- Lz6/9DOjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjARwVOMDSf1FeK2/fTs+f23
- 0itAinsq78X5Bdtcc4/s//l4fvTht2kByY80lU7v+/B26z4V45+LPzHWKTteT4kNDol7sCNkUbR
- s6Ozbxz8fXBh2esZrm5MzGexKeJwFL7s/Pu3UEOL9dnqTR98KAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5547; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=dPrEEi66oxA2YlKeU21N+X8MAnDhgb+lgBrBvmwQuSA=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxT1z9Z1dqv19Pv+ema81Y9Uik6Agz9hjBoynVlybf
+ yhhodaXjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRO4KMDe/W/uacb6V16cbr
+ +MZZTQcOrZ97xaj4lRJ7vvWfZs8nC3q9TmwNi0kONb7YvSkxwt/7HmOdTfmX52Jti1+y3n9mL7Z
+ KLXzNHvnWaZ/7J+X9O1k65cXBW+ulpdwMdy+tuLtrEvt/lTnmAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,11 +73,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The of-display-mode-bridge bridge still uses the deprecated non-atomic bridge
+The nxp-ptn3460 bridge still uses the deprecated non-atomic bridge
 callbacks.
 
 Switch to their atomic counterparts, adding the bridge state
 handlers if not already present.
+
+The edid_read callback also calls ptn3460_pre_enable() and
+ptn3460_disable() directly to power the bridge on and off for EDID
+reading. Pass NULL as the commit argument at those call sites.
 
 Generated by the following Coccinelle script:
 
@@ -205,39 +209,85 @@ identifier b;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/of-display-mode-bridge.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/bridge/nxp-ptn3460.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/of-display-mode-bridge.c b/drivers/gpu/drm/bridge/of-display-mode-bridge.c
-index cb15713f3a79..fd651d05428a 100644
---- a/drivers/gpu/drm/bridge/of-display-mode-bridge.c
-+++ b/drivers/gpu/drm/bridge/of-display-mode-bridge.c
-@@ -7,10 +7,11 @@
-  * Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-  */
- 
- #include <linux/export.h>
- 
-+#include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_modes.h>
- #include <drm/drm_probe_helper.h>
- #include <drm/bridge/of-display-mode-bridge.h>
- 
-@@ -50,10 +51,13 @@ static int of_display_mode_bridge_get_modes(struct drm_bridge *bridge,
+diff --git a/drivers/gpu/drm/bridge/nxp-ptn3460.c b/drivers/gpu/drm/bridge/nxp-ptn3460.c
+index 7acb11f16dc1..a9b4ac2defc9 100644
+--- a/drivers/gpu/drm/bridge/nxp-ptn3460.c
++++ b/drivers/gpu/drm/bridge/nxp-ptn3460.c
+@@ -109,11 +109,12 @@ static int ptn3460_select_edid(struct ptn3460_bridge *ptn_bridge)
+ 	}
  
  	return 0;
  }
  
- struct drm_bridge_funcs of_display_mode_bridge_funcs = {
+-static void ptn3460_pre_enable(struct drm_bridge *bridge)
++static void ptn3460_pre_enable(struct drm_bridge *bridge,
++			       struct drm_atomic_commit *commit)
+ {
+ 	struct ptn3460_bridge *ptn_bridge = bridge_to_ptn3460(bridge);
+ 	int ret;
+ 
+ 	if (ptn_bridge->enabled)
+@@ -137,11 +138,12 @@ static void ptn3460_pre_enable(struct drm_bridge *bridge)
+ 		DRM_ERROR("Select EDID failed ret=%d\n", ret);
+ 
+ 	ptn_bridge->enabled = true;
+ }
+ 
+-static void ptn3460_disable(struct drm_bridge *bridge)
++static void ptn3460_disable(struct drm_bridge *bridge,
++			    struct drm_atomic_commit *commit)
+ {
+ 	struct ptn3460_bridge *ptn_bridge = bridge_to_ptn3460(bridge);
+ 
+ 	if (!ptn_bridge->enabled)
+ 		return;
+@@ -161,11 +163,11 @@ static const struct drm_edid *ptn3460_edid_read(struct drm_bridge *bridge,
+ 	bool power_off;
+ 	u8 *edid;
+ 	int ret;
+ 
+ 	power_off = !ptn_bridge->enabled;
+-	ptn3460_pre_enable(&ptn_bridge->bridge);
++	ptn3460_pre_enable(&ptn_bridge->bridge, NULL);
+ 
+ 	edid = kmalloc(EDID_LENGTH, GFP_KERNEL);
+ 	if (!edid) {
+ 		DRM_ERROR("Failed to allocate EDID\n");
+ 		goto out;
+@@ -180,11 +182,11 @@ static const struct drm_edid *ptn3460_edid_read(struct drm_bridge *bridge,
+ 
+ 	drm_edid = drm_edid_alloc(edid, EDID_LENGTH);
+ 
+ out:
+ 	if (power_off)
+-		ptn3460_disable(&ptn_bridge->bridge);
++		ptn3460_disable(&ptn_bridge->bridge, NULL);
+ 
+ 	return drm_edid;
+ }
+ 
+ static int ptn3460_connector_get_modes(struct drm_connector *connector)
+@@ -246,12 +248,15 @@ static int ptn3460_bridge_attach(struct drm_bridge *bridge,
+ 
+ 	return ret;
+ }
+ 
+ static const struct drm_bridge_funcs ptn3460_bridge_funcs = {
+-	.pre_enable = ptn3460_pre_enable,
+-	.disable = ptn3460_disable,
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach = of_display_mode_bridge_attach,
- 	.get_modes = of_display_mode_bridge_get_modes,
++	.atomic_pre_enable = ptn3460_pre_enable,
++	.atomic_disable = ptn3460_disable,
+ 	.attach = ptn3460_bridge_attach,
+ 	.edid_read = ptn3460_edid_read,
  };
  
- struct drm_bridge *devm_drm_of_display_mode_bridge(struct device *dev,
+ static int ptn3460_probe(struct i2c_client *client)
 
 -- 
 2.54.0
