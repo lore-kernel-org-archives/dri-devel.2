@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2FF3CD98E4
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FFB4CD98E2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4132510EF63;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B748810EF64;
 	Wed, 17 Jun 2026 10:15:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gmAdC/UZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NxXdV5Vw";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BFDD10EF51
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 466E810EF51
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 840E540919;
- Wed, 17 Jun 2026 10:15:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3E861F00A3D;
- Wed, 17 Jun 2026 10:15:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3041E40455;
+ Wed, 17 Jun 2026 10:15:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 918C91F000E9;
+ Wed, 17 Jun 2026 10:15:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781691311;
- bh=Jm6I7OSbd9CxhZeW9RNRTA0gdz3frDqtB/vpcSOcJYQ=;
+ s=k20260515; t=1781691314;
+ bh=4ZgsSOtuev0AIoJJ1j6t7YN7g5qfuQRpnPVqneAY3zU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=gmAdC/UZGtGXpjkqOv7xXo+QEEC17po9tB9Eph0wun1MLYuj7pmzmdJ15i/UFS/NG
- StaO6lYQ5yBdEJIsf/mkgARobuhBwYlUgTL6nYRrRoFem7OG2oBufVE50l/LRj6eQ8
- GlWj+HykF+X/Dx9uZ/ZAogWP1ZfFR8NCoWPugdysjbcYoBN2OgakH2P0wz59Gaz0u8
- fC+ySIEVOuXriOXJFMHXVoTdn9Q3X1YebSh+yVTdvqtj9ndwRJOS9P6W2QDz0pR7mv
- Dd7iNwJt3y5XLS0eupXbHkypph4M7pmpZVCWyztSG5I9AJ0IAMELVtLk+b1oQYMAa5
- NCf5zbifVpXlA==
+ b=NxXdV5Vww90L0WWKaTVSTK3RF3OjjIm8UhtN87OWetdr9jPSZzeaqhbvCvy6lt42L
+ FspfepUCpjAhDuXYmquell+W60f8h4erTd/pxniuLblTJTNZIwekVzZG/llZTpwoCD
+ lt+xdIFjMMJ4hfgwXbp++qdGy9SisQR8O0u7HOE+fwgos/Oftc0XYAJpwFP/RYlIS/
+ cHv4UyA++3Cj0qOY7LkbF9YlqwH+P4cUzASb36q3NIkexoOxzI3ZalwUIHaT6Lo2x7
+ qoI5kCUvLEPN9Ssv4/ZxCWXAnW+BJXaQWPpEogslu5Xd8P7k54/GqQyxyuvdaTsWiG
+ e7Wto5kllBRfg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 17 Jun 2026 12:14:33 +0200
-Subject: [PATCH 08/37] drm/bridge: lontium-lt8713sx: Switch to atomic
- bridge callbacks
+Date: Wed, 17 Jun 2026 12:14:34 +0200
+Subject: [PATCH 09/37] drm/bridge: lontium-lt8912b: Switch to atomic bridge
+ callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-drm-all-atomic-bridges-v1-8-b63e6316166b@kernel.org>
+Message-Id: <20260617-drm-all-atomic-bridges-v1-9-b63e6316166b@kernel.org>
 References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 In-Reply-To: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -48,14 +48,15 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>
+ Maxime Ripard <mripard@kernel.org>, 
+ Francesco Dolcini <francesco@dolcini.it>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3875; i=mripard@kernel.org;
- h=from:subject:message-id; bh=idrt0rzOKFl+yecZZc4gPLnR8AnJR4qJEkJVEQa5tRs=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxZ38cn0M9rJfH/12KphyOp5ny7dpCcs9bwsoRbYkb
- jHZa3qsYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAExkRzljw6m0ayLLZBadfl77
- zfGBl8cbkV0mOm+XpTYetnAKVTqpOUkyasei93qvj0+ZV5HPInPgI2PD2jkrjeXDOibZ7OOy2j3
- Npua00jUrmbj/k5uW/dx75l/SR/6ICcwdrEucz3PdZ3j9XbAAAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4440; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=6qm1+Qc5hOyYItMDRvJBwThh9VmcdEmT+adVTdIaLtY=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxV0KPv5u0WzvGLtXJvuc+lFRLZCoWRg9UW6vVo+Gr
+ /LKCIOOqSwMwpwMsmKKLE9kwk4vb19c5WC/8gfMHFYmkCEMXJwCMJGnWxgbfrEl3l3RsXsav0XP
+ zJdZJlOudD9+XGxhvixrhmVN9q0dSjpzdNNbGpOE62Uay2oWnN7G2PCxZbJNgPC5l6/8D9Vobq1
+ Q6brWFPAke/Uktz3HDp+YJR6h7ri3ennQw59LzXsd71712Q0A
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,7 +74,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The lontium-lt8713sx bridge still uses the deprecated non-atomic bridge
+The lontium-lt8912b bridge still uses the deprecated non-atomic bridge
 callbacks.
 
 Switch to their atomic counterparts, adding the bridge state
@@ -204,40 +205,51 @@ identifier b;
  }
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/bridge/lontium-lt8713sx.c | 4 ++++
- 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/lontium-lt8713sx.c b/drivers/gpu/drm/bridge/lontium-lt8713sx.c
-index cee485adf5e5..4a6420b876da 100644
---- a/drivers/gpu/drm/bridge/lontium-lt8713sx.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt8713sx.c
-@@ -16,10 +16,11 @@
- #include <linux/regulator/consumer.h>
- #include <linux/sizes.h>
- #include <linux/wait.h>
- #include <linux/workqueue.h>
+---
+To: Francesco Dolcini <francesco@dolcini.it>
+---
+ drivers/gpu/drm/bridge/lontium-lt8912b.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/lontium-lt8912b.c b/drivers/gpu/drm/bridge/lontium-lt8912b.c
+index 729b12b67470..df5d07e7644c 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt8912b.c
++++ b/drivers/gpu/drm/bridge/lontium-lt8912b.c
+@@ -455,11 +455,12 @@ static void lt8912_bridge_mode_set(struct drm_bridge *bridge,
+ 	struct lt8912 *lt = bridge_to_lt8912(bridge);
  
-+#include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_of.h>
+ 	drm_display_mode_to_videomode(adj, &lt->mode);
+ }
  
- #define FW_FILE "lt8713sx_fw.bin"
+-static void lt8912_bridge_enable(struct drm_bridge *bridge)
++static void lt8912_bridge_enable(struct drm_bridge *bridge,
++				 struct drm_atomic_commit *commit)
+ {
+ 	struct lt8912 *lt = bridge_to_lt8912(bridge);
  
-@@ -506,10 +507,13 @@ static const struct attribute_group *lt8713sx_attr_groups[] = {
- 	&lt8713sx_attr_group,
- 	NULL,
- };
+ 	lt8912_video_on(lt);
+ }
+@@ -632,15 +633,18 @@ static const struct drm_edid *lt8912_bridge_edid_read(struct drm_bridge *bridge,
+ 	dev_warn(lt->dev, "The connected bridge does not supports DRM_BRIDGE_OP_EDID\n");
+ 	return NULL;
+ }
  
- static const struct drm_bridge_funcs lt8713sx_bridge_funcs = {
+ static const struct drm_bridge_funcs lt8912_bridge_funcs = {
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach = lt8713sx_bridge_attach,
+ 	.attach = lt8912_bridge_attach,
+ 	.detach = lt8912_bridge_detach,
+ 	.mode_valid = lt8912_bridge_mode_valid,
+ 	.mode_set = lt8912_bridge_mode_set,
+-	.enable = lt8912_bridge_enable,
++	.atomic_enable = lt8912_bridge_enable,
+ 	.detect = lt8912_bridge_detect,
+ 	.edid_read = lt8912_bridge_edid_read,
  };
  
- static int lt8713sx_probe(struct i2c_client *client)
- {
+ static int lt8912_bridge_resume(struct device *dev)
 
 -- 
 2.54.0
