@@ -4,141 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE6FECD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 16:13:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C34B3CD98F3
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 16:18:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F70310EA6F;
-	Wed, 17 Jun 2026 16:13:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E9C710EA74;
+	Wed, 17 Jun 2026 16:18:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="QYVkPHAc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fIcT0lQ4";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [212.227.15.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE65210EA6F
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 16:13:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1781712803; x=1782317603; i=markus.elfring@web.de;
- bh=SE7ZEe6DsVeOYvkxzp1pJK9BKo3pmQnykg6xizDslEM=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=QYVkPHAcWNBuqCihma2VVcPzmwd30NK+Gl16DBkOlehLlDCk/qRDUSiMaeCXbPWW
- uOClQSXkADUjHqFM9L5miriLNz639Or0QAs+C8QAfR5AiEacjSQ3UgmXk5W3lHU9n
- JqVLIYbIBBctS3alQu65XBMM6zl/4uoBQtX2hfTcBY5TpPunR4eMP+EBVd9dmQxIV
- R5PRFBdMaOBxxhaLILUcN/+JT+Cs78PSAfyFan0N1Q74OgmM0b0vl0TPU/GCreRI0
- NMmLBABNgJzlbrXr4juZ0v896IcbN7Gn9n6ds/lCb1I40PmK6yKE5QyicgTW9J7cG
- xwcG84ZoxamCz2cmew==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1M3m9H-1wZbdp3bpj-00AQ0Y; Wed, 17
- Jun 2026 18:13:22 +0200
-Message-ID: <8e4ba35a-534d-4eaa-882d-4998b7371f2d@web.de>
-Date: Wed, 17 Jun 2026 18:13:20 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: Use common error handling code in two
- functions
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Chia-I Wu <olvaffe@gmail.com>, David Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65BC910EA74
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 16:18:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 98B0B6001D;
+ Wed, 17 Jun 2026 16:18:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DD7E1F000E9;
+ Wed, 17 Jun 2026 16:18:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781713111;
+ bh=MBN0+32VLks+dHE0x6u+LU+xl0KGfHu2XZRjiV3EUGM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=fIcT0lQ46LdhcupVk5nq3gUJ34gzplISYa23HsCE8TxD8lgj3biCmtiec8hOlWIkI
+ UF6Ply6OvBjoHOIRzEmXUG03j+bnjAvO9xkjwqbbiR7d6u4p+tnTxk2R2jg9TC9plA
+ 8UNXap6zmTdc9D6JoyU4YH2K/uTCOHEFTUkVHwSkgttQc9zNkDNmz/5TKSo5Nfoptc
+ Zj/DhVp/VxT3kIZW5s7y1PV7vOCg5HdQdZJrcdP43vEtrKAYoVGbqKRfAS0ANLA2u9
+ V6NF4JMq2SJ7RxprstwZNnvqeesqOQhXOWUe80VVU1AmKmgzOF61IPOqNkAFhxYBjs
+ rWf0ZgizCUQ/A==
+Date: Wed, 17 Jun 2026 16:18:29 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Mike Lothian <mike@fireburn.co.uk>
+Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
-References: <b7440806-e9e8-4027-afe1-f6fe9297d8b2@web.de>
- <54d6527d-30c2-4e73-846d-c0e5276c8f74@collabora.com>
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <54d6527d-30c2-4e73-846d-c0e5276c8f74@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:HzJlt0BKkfCkBy/x3J8ajyYblJbRquVnm8XCyF3ffUBklBskKWL
- sGE+SlsxT3pIIE7O/J0WKk4ou5ZSjf9flzKTH1k4xWj79zNA+zwCQorrbJM0UIHcN8PA94c
- 6xRsinwsiCuEgXG65j2Qiy5fvkwlufz77IOKysWSVWgALRRbdZTrX9IAAh1XWz6yiaokfkd
- LBG15GtVZR/NSZHHssTZA==
-UI-OutboundReport: notjunk:1;M01:P0:taWZajQTDH0=;fIkqod6jpxdxJbjckRi0wXkK777
- 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
- PWWZh3+JKRBO/l1Fow=
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 2/7] drm/vino: add the clean-room HDCP 2.2 AKE/LC/SKE
+Message-ID: <20260617161829.GC785086@google.com>
+References: <20260617151249.2937-1-mike@fireburn.co.uk>
+ <20260617151249.2937-3-mike@fireburn.co.uk>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260617151249.2937-3-mike@fireburn.co.uk>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,62 +67,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
->> Use additional labels so that a bit of exception handling can be better
->> reused at the end of two function implementations.
-=E2=80=A6
->> +++ b/drivers/gpu/drm/virtio/virtgpu_vram.c
->> @@ -212,16 +212,12 @@ int virtio_gpu_vram_create(struct virtio_gpu_devi=
-ce *vgdev,
->> =20
->>  	/* Create fake offset */
->>  	ret =3D drm_gem_create_mmap_offset(obj);
->> -	if (ret) {
->> -		kfree(vram);
->> -		return ret;
->> -	}
->> +	if (ret)
->> +		goto free_vram;
->> =20
->>  	ret =3D virtio_gpu_resource_id_get(vgdev, &vram->base.hw_res_handle);
->> -	if (ret) {
->> -		kfree(vram);
->> -		return ret;
->> -	}
->> +	if (ret)
->> +		goto free_vram;
->> =20
->>  	virtio_gpu_cmd_resource_create_blob(vgdev, &vram->base, params, NULL,
->>  					    0);
->> @@ -237,6 +233,10 @@ int virtio_gpu_vram_create(struct virtio_gpu_devic=
-e *vgdev,
->> =20
->>  	*bo_ptr =3D &vram->base;
->>  	return 0;
->> +
->> +free_vram:
->> +	kfree(vram);
->> +	return ret;
->>  }
->> =20
->>  void virtio_gpu_vram_map_deferred(struct virtio_gpu_object_vram *vram)
->=20
-> Please see [1], will be great if you could address the reported issues
-> with this patch in v2
+On Wed, Jun 17, 2026 at 04:12:39PM +0100, Mike Lothian wrote:
+> +/// `AES-CMAC-128(key, data)` (RFC 4493), built on the one-block ECB above.
+> +/// This is DisplayLink's "Dl3Cmac" core -- the CP per-message integrity tag is
+> +/// `AES_CMAC(ks, nonce8 || BE64(counter) || content)` (see `cp::dl3cmac_tag`);
+> +/// verified byte-exact against live DLM data (canonical guide sec 8.6.7).
+> +pub(super) fn aes_cmac(key: &[u8; 16], data: &[u8]) -> Result<[u8; 16]> {
+> +    // dbl: left-shift the 128-bit value by 1, XOR 0x87 if the MSB was set.
+> +    fn dbl(b: &[u8; 16]) -> [u8; 16] {
+> +        let mut o = [0u8; 16];
+> +        for i in 0..15 {
+> +            o[i] = (b[i] << 1) | (b[i + 1] >> 7);
+> +        }
+> +        o[15] = b[15] << 1;
+> +        if b[0] & 0x80 != 0 {
+> +            o[15] ^= 0x87;
+> +        }
+> +        o
+> +    }
+> +    let l = aes128_ecb(key, &[0u8; 16])?;
+> +    let k1 = dbl(&l);
+> +    let k2 = dbl(&k1);
+> +    let n = if data.is_empty() { 1 } else { data.len().div_ceil(16) };
+> +    let complete = !data.is_empty() && data.len() % 16 == 0;
+> +    let mut c = [0u8; 16];
+> +    for i in 0..n {
+> +        let mut blk = [0u8; 16];
+> +        let start = i * 16;
+> +        let end = core::cmp::min(start + 16, data.len());
+> +        blk[..end - start].copy_from_slice(&data[start..end]);
+> +        if i == n - 1 {
+> +            if complete {
+> +                for j in 0..16 {
+> +                    blk[j] ^= k1[j];
+> +                }
+> +            } else {
+> +                blk[end - start] = 0x80; // 10* padding
+> +                for j in 0..16 {
+> +                    blk[j] ^= k2[j];
+> +                }
+> +            }
+> +        }
+> +        for j in 0..16 {
+> +            blk[j] ^= c[j];
+> +        }
+> +        c = aes128_ecb(key, &blk)?;
+> +    }
+> +    Ok(c)
+> +}
 
-Do you indicate that you would prefer an other coding style for the applic=
-ation
-of goto chains?
+There are AES-CMAC library functions that should be used.  See
+include/crypto/aes-cbc-macs.h.  We don't want drivers rolling their own
+modes on top of bare AES unless they have to, for a number of reasons.
 
-
->                       and add another patch fixing the
-> virtio_gpu_resource_id_get() error handling.
->=20
-> [1]
-> https://sashiko.dev/#/patchset/b7440806-e9e8-4027-afe1-f6fe9297d8b2%40we=
-b.de
-Do you request to achieve corresponding resource cleanup after a failed
-virtio_gpu_resource_id_get() call by any other function call instead of kf=
-ree(vram)?
-
-Regards,
-Markus
+- Eric
