@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15036CD98E4
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:49:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C16DECD98E4
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:50:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5872F10EF1B;
-	Wed, 17 Jun 2026 10:49:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 234A310EFA1;
+	Wed, 17 Jun 2026 10:50:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QlcNSjkT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DG3nRRoA";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A388910EF1B
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:49:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D938610EFA1
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:50:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 52EFF4405E;
- Wed, 17 Jun 2026 10:49:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E9A81F00A3A;
- Wed, 17 Jun 2026 10:49:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 16D6B60122;
+ Wed, 17 Jun 2026 10:50:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3D301F000E9;
+ Wed, 17 Jun 2026 10:50:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781693359;
- bh=hkU8XnfEO56YfZAP/E1b3zFxxoxMWvDAV06O7yEkTio=;
+ s=k20260515; t=1781693425;
+ bh=kSRzqpwqMMOpBAbn3saqAFW8oi99L64RR0byDDKWOlM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=QlcNSjkTQP1rRKxZhN/6iEoOwkFFe3Ds6Ec8dG1GiOPf9sunsWky+0xF9FEcdIt9f
- Zuh12f6KRgOVTScw8YWymjjHbSeC5sjjq9pML/v10zLfs56oePOKC3NUb3xwSx2Hr9
- 2QmPleSXwlABjnIHXkWtrL1XhNXkWxED983y6BdwxmWikdtOtV7LOl0d2G0yvSsj6R
- le9wL0ifanmehn3g3KRhEndSUYBah2QoI6Fwwe0Bz+I6uS6n8bwujmtRt22efYo9jd
- qgcy2kYJ9NX4/J3oGfN6dOeqv081u89rRdUXqE2VGGl4SHOZCYFFMI8pvM6wKKKkkz
- fsoolDfEIKD/g==
+ b=DG3nRRoAhOD99XixELD6aSWZMieoMjBFHOugw2xI9xECy07RoYFpeXQPQThrYEF6A
+ UQWF+utDiZsw15OrAXWSFRlQydcSZCsmWkHbEjAh98QcHGpkNo7UyMiq4Mt4MvS51P
+ Ow5moDSjESDv625X7iAo1X2JJ7mUkXGHLTP190hPOBlixJ65wRUFusQTx0WKOzNzuf
+ JL91Fuz2WDAabXqZAw4hZtGN3//TyupfWHdvIYyqBn/Mc1PjAdS383Ke14DNOkSpZm
+ LqXA4XCEWFwpIVPsCVoTyjY7VCwakBPLVXOllVI/8WNtH1aux9TBhsn3nEkUqYGIgB
+ hNR4qaDNS3H9w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/5] drm/gpusvm: embed struct drm_device into
- drm_gpusvm_pages
+Subject: Re: [PATCH v2 1/5] drm/gpusvm: split MM state flags out of
+ drm_gpusvm_pages_flags
 To: "Honglei Huang" <honglei1.huang@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260617103602.1491609-3-honglei1.huang@amd.com>
+In-Reply-To: <20260617103602.1491609-2-honglei1.huang@amd.com>
 References: <20260617103602.1491609-1-honglei1.huang@amd.com>
- <20260617103602.1491609-3-honglei1.huang@amd.com>
+ <20260617103602.1491609-2-honglei1.huang@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 10:49:18 +0000
-Message-Id: <20260617104919.0E9A81F00A3A@smtp.kernel.org>
+Date: Wed, 17 Jun 2026 10:50:25 +0000
+Message-Id: <20260617105025.A3D301F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,161 +58,85 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 New issues:
-- [Medium] The `userptr->pages.drm` field is initialized after the MMU inte=
-rval notifier is inserted, exposing it to concurrent lockless access by not=
-ifier callbacks.
+- [Low] Compilation error due to missing `pages` member in `struct xe_svm_r=
+ange`.
 
 Pre-existing issues:
-- [High] Device pages are leaked on the error path in `drm_gpusvm_get_pages=
-()` because `svm_pages->dpagemap` is not populated before jumping to the un=
-map cleanup logic.
-- [High] `__drm_gpusvm_unmap_pages()` incorrectly passes system pages to th=
-e `device_unmap` callback when a mixed range is mapped on an IOVA-enabled d=
-evice.
-- [High] Uninitialized memory read of `svm_pages->dma_addr[0].dir` in the e=
-rror path of `__drm_gpusvm_unmap_pages`.
+- [High] Critical error paths swallow error codes by jumping to `out`, caus=
+ing an infinite GPU page fault livelock.
 --
 
-commit 5025fa9183334de09c92fc07865022970a487d35
+commit c7d50cf1df054885b8dfd4565b263894bfd104b3
 Author: Honglei Huang <honghuan@amd.com>
-Subject: drm/gpusvm: embed struct drm_device into drm_gpusvm_pages
+Subject: drm/gpusvm: split MM state flags out of drm_gpusvm_pages_flags
 
-drm_gpusvm_pages is the layer that actually represents physical
-pages/mappings it owns the dma_addr array, the dma_iova_state...
-With the previous patch, so drm_gpusvm_pages is now strictly about
-physical pages and their DMA view.
-
-> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-> index 6cb38c76dc7be..d6407c94cdda3 100644
-> --- a/drivers/gpu/drm/drm_gpusvm.c
-> +++ b/drivers/gpu/drm/drm_gpusvm.c
-> @@ -1135,11 +1136,16 @@ static void __drm_gpusvm_unmap_pages(struct drm_g=
-pusvm *gpusvm,
->  				     unsigned long npages)
->  {
->  	struct drm_pagemap *dpagemap =3D svm_pages->dpagemap;
-> -	struct device *dev =3D gpusvm->drm->dev;
-> +	struct device *dev;
->  	unsigned long i, j;
-> =20
->  	lockdep_assert_held(&gpusvm->notifier_lock);
-> =20
-> +	if (!svm_pages->drm)
-> +		return;
-> +
-> +	dev =3D svm_pages->drm->dev;
-> +
->  	if (svm_pages->flags.has_dma_mapping) {
-
-[Severity: High]
-This is a pre-existing issue, but I wanted to ask about the logic when IOVA=
- is
-used in __drm_gpusvm_unmap_pages(). When use_iova is true, system pages
-evaluating this check:
-
-    if (!use_iova && addr->proto =3D=3D DRM_INTERCONNECT_SYSTEM)
-        dma_unmap_page(dev, addr->addr, PAGE_SIZE << addr->order, addr->dir=
-);
-    else if (dpagemap && dpagemap->ops->device_unmap)
-        dpagemap->ops->device_unmap(dpagemap, dev, addr);
-
-would fall through to the else if branch. If the SVM range contains both
-system and device pages, dpagemap would be non-NULL, causing the system pag=
+This commit splits the MM state flags out of drm_gpusvm_pages_flags and mov=
 es
-to be erroneously passed to dpagemap->ops->device_unmap(). Could this result
-in an incompatible address format being passed to the device pagemap driver?
+them to a new drm_gpusvm_range_flags structure. It keeps the mapping state
+flags in drm_gpusvm_pages_flags and updates usage in the amd and xe drivers.
 
-[Severity: High]
-Another pre-existing issue in this same function: when mapping the very fir=
-st
-page fails in drm_gpusvm_get_pages(), the error path calls this unmap funct=
-ion
-with npages (or num_dma_mapped) set to 0. The code here does:
+Link: https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-=
+2025/-/commit/623f6a50c037d9e44f6c9fbe6859a0ba7ad50177
 
-    if (use_iova)
-        dma_iova_destroy(dev, &svm_pages->state, svm_pages->state_offset,
-                         svm_pages->dma_addr[0].dir, 0);
+> diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
+> index e1651e70c8f01..05578e187d204 100644
+> --- a/drivers/gpu/drm/xe/xe_svm.c
+> +++ b/drivers/gpu/drm/xe/xe_svm.c
+> @@ -134,7 +134,8 @@ xe_svm_garbage_collector_add_range(struct xe_vm *vm, =
+struct xe_svm_range *range,
+> =20
+>  	range_debug(range, "GARBAGE COLLECTOR ADD");
+> =20
+> -	drm_gpusvm_range_set_unmapped(&range->base, mmu_range);
+> +	drm_gpusvm_range_set_unmapped(&range->base, &range->pages, 1,
+> +				      mmu_range);
 
-Since svm_pages->dma_addr is allocated with kvmalloc_objs() (which does not
-zero memory) and num_dma_mapped is 0, is it possible this passes
-uninitialized memory as the DMA direction?
+[Severity: Low]
+Does this cause a compilation error due to pages not being a direct member
+of struct xe_svm_range? It looks like the pages struct is located inside the
+embedded base field (range->base.pages).
+
+While this might be fixed in a later patch in the series, should each commit
+compile successfully on its own to preserve bisection?
 
 [ ... ]
 
-> @@ -1590,7 +1599,7 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+> @@ -1248,7 +1249,7 @@ static int __xe_svm_handle_pagefault(struct xe_vm *=
+vm, struct xe_vma *vma,
+> =20
+>  	xe_svm_range_fault_count_stats_incr(gt, range);
+> =20
+> -	if (ctx.devmem_only && !range->base.pages.flags.migrate_devmem) {
+> +	if (ctx.devmem_only && !range->base.flags.migrate_devmem) {
+>  		err =3D -EACCES;
+>  		goto out;
 >  	}
-> =20
->  	if (dma_use_iova(state)) {
-> -		err =3D dma_iova_sync(gpusvm->drm->dev, state, 0,
-> +		err =3D dma_iova_sync(svm_pages->drm->dev, state, 0,
->  				    svm_pages->state_offset);
->  		if (err)
->  			goto err_unmap;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but I have a question about the
-error path here. In drm_gpusvm_get_pages(), if an error occurs while mapping
-a device page:
+This is a pre-existing issue, but can this error path swallow the error cod=
+e by
+jumping to the out label?
 
-    if (dma_mapping_error(svm_pages->drm->dev, svm_pages->dma_addr[j].addr)=
-) {
-        err =3D -EFAULT;
-        goto err_unmap;
-    }
+Looking at __xe_svm_handle_pagefault(), the out label appears to
+unconditionally return 0:
 
-The jump to err_unmap happens before svm_pages->dpagemap is populated
-at the end of the loop. When __drm_gpusvm_unmap_pages() is then called,
-it relies on dpagemap which resolves from svm_pages->dpagemap (which is
-still NULL). Does this mean the device's unmap callback is skipped, leaking
-all device pages previously mapped in the current batch?
+out:
+	xe_svm_range_fault_us_stats_incr(gt, range, start);
+	return 0;
 
-[ ... ]
+If we set err =3D -EACCES and jump to out, or if xe_svm_range_get_pages()
+fails and jumps to out later in the function, does returning 0 cause the
+caller to believe the page fault was handled successfully?
 
-> diff --git a/drivers/gpu/drm/xe/xe_userptr.c b/drivers/gpu/drm/xe/xe_user=
-ptr.c
-> index 6761005c0b900..1b540e62af6c3 100644
-> --- a/drivers/gpu/drm/xe/xe_userptr.c
-> +++ b/drivers/gpu/drm/xe/xe_userptr.c
-> @@ -390,6 +390,7 @@ int xe_userptr_setup(struct xe_userptr_vma *uvma, uns=
-igned long start,
->  		     unsigned long range)
->  {
->  	struct xe_userptr *userptr =3D &uvma->userptr;
-> +	struct xe_vm *vm =3D xe_vma_vm(&uvma->vma);
->  	int err;
-> =20
->  	INIT_LIST_HEAD(&userptr->invalidate_link);
-> @@ -402,6 +403,7 @@ int xe_userptr_setup(struct xe_userptr_vma *uvma, uns=
-igned long start,
->  		return err;
-> =20
->  	userptr->pages.notifier_seq =3D LONG_MAX;
-> +	userptr->pages.drm =3D &vm->xe->drm;
-> =20
->  	return 0;
->  }
-
-[Severity: Medium]
-Could this ordering cause a data race? The MMU interval notifier is inserted
-just before this assignment:
-
-    err =3D mmu_interval_notifier_insert(&userptr->notifier, current->mm,
-                                       start, range,
-                                       &vma_userptr_notifier_ops);
-    if (err)
-        return err;
-
-This immediately exposes the notifier to asynchronous invalidation callback=
-s.
-If the invalidation callback executes concurrently on another CPU, it might
-read userptr->pages.drm before it is initialized here, leading to potential
-KCSAN warnings or lockless access issues. Should the initialization of
-userptr->pages.drm happen before the notifier is inserted?
+Since the pages weren't mapped, wouldn't the GPU immediately retry the
+instruction and fault again, potentially causing an infinite livelock? Shou=
+ld
+these error paths jump to err_out instead?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617103602.1491=
-609-1-honglei1.huang@amd.com?part=3D2
+609-1-honglei1.huang@amd.com?part=3D1
