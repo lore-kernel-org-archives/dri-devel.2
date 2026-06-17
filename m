@@ -4,54 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A965CD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 08:38:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FAA1CD98E2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 08:42:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C74F110EEC3;
-	Wed, 17 Jun 2026 08:38:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 917A610E984;
+	Wed, 17 Jun 2026 08:42:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="IKmQ/iPT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XgHaLhPo";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C77E910EEC3;
- Wed, 17 Jun 2026 08:38:09 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4ggHLQ6XWkz9tg3;
- Wed, 17 Jun 2026 10:38:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1781685486; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=spD7pjCIO/hnKowBxoDw0tQ702lZ3aup/LHEUbJfgM0=;
- b=IKmQ/iPT1RlaFXfDrJ/ESycocbU6Sfz4+BK4GpAZn3JoOKlisRysjWDmkvZQPlFk/96oD4
- cD2fxAHg5dlSEy3RdbXqTSaIQyNQQ6F9/eBu9jPxNELXHrJmW1Qj4cOFRHEYrWZEbslFfr
- +NSVMK/cDQ0Aoee2n1xL3nySoFrz9XNZ4Kn/8TpBj0JB3CxvhJW9aqvdq4II0dD0HKxW33
- zRzWqKmG4unkLMuzrKlpOXJeZTkO6eWdNItAWraLjQnlPv3oFDlebsTpQtI+fjM2+KYLXq
- t7OpmD5/ORVLxRbj2bIkgKKL4bGbV/NiJV2RQLcBb5YTB7B7RxLCPy98HbvBFg==
-Message-ID: <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
-Subject: Re: [RFC] drm/sched: Replace completion with a flush
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
- Brost	 <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>, 
- amd-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Date: Wed, 17 Jun 2026 10:38:01 +0200
-In-Reply-To: <20260611123423.39819-1-tvrtko.ursulin@igalia.com>
-References: <20260611123423.39819-1-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013002.outbound.protection.outlook.com
+ [40.93.196.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32BF210E976;
+ Wed, 17 Jun 2026 08:42:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kxf8hWdjdb4PJ27tRu4BARuhw6SsQxH3qB7d+rqRc9HEaVNMDbUus8a3cI8DFE9ZDEsoJ3/RGePg1Pc+hyGh4KdLrCTQ3OOUwNSyOUG0XRDlqKT0fiBKQ5UqyJJh3yB3w7P/7ROelS6kSZv0NX6hHZSmsN8+cE03pQMGHwyet9MomB8Q1sHXGImU+e55qNAtx/dj5RKQsbSJ/5I04ILMSaKWocQFno+4xejBpY8fHv+7g3v9Tl5D14OJvHJWkvLJ9apYm5R9dgWf5BQULflnRKCKQ97S5IzmC3EKiqhhxozlbkyD4zlQhC1hlvXsPUqOhEBL4Tp2+nE0fruW2WvNXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8uJiETq9EyIqt8B7mb47LcTPX67d9mRzy3kfEYVZpn4=;
+ b=ZH3Xqa2XXzGqZWKnY7SZsAxfx3e1Da6DM5Wzyt42rWcHQe94h5p2WQH+AaO+3Lr5iY6Qg0Dc6cTTLricmK3v55PCyaPdLyH7HWMrpUZgJKEfka7xbfUTm5JohFG0vteSc4Mf9eFdAHs2a5c2ypV/HPr9qOPhsNhK74WVkLDVGswsk/NwR4KzfGm1tar6JkIB4S1j4tkUo8fxBcIEnxEH1ALqv7yeAUvKRfQpMBpVr8RxehonbHIL/fUanvVEabcbUWLwTzjmbyIo87S+pFa5G9T+1PBdPAsHO1czahLDCKClfpGV123n0IWDSUDQu4UyojyzCRqEDjuV64WC+hh5ag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8uJiETq9EyIqt8B7mb47LcTPX67d9mRzy3kfEYVZpn4=;
+ b=XgHaLhPob6eCJQELB82CMzNj+b1jZLaDj21JKO+IHl3HuyrST9+RX8wxIeH0KK+mIHsheTr3rty4GTQhGNjA88CEVBxRytpnT5aVe9cRpFcNC0BAhuJnCd9kT9Z55vGR2F9LOuq3BzDb5E/8O2wpKVh8yYi5j6klcs0ujcu6Ucw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB7855.namprd12.prod.outlook.com (2603:10b6:806:343::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Wed, 17 Jun
+ 2026 08:42:14 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
+ 08:42:14 +0000
+Message-ID: <b65e026c-6864-478e-856d-9acfc254a5f9@amd.com>
+Date: Wed, 17 Jun 2026 10:42:08 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdgpu: fix fence reference leak in
+ amdgpu_gfx_run_cleaner_shader_job
+To: Wentao Liang <vulab@iscas.ac.cn>, alexander.deucher@amd.com,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: lijo.lazar@amd.com, aurabindo.pillai@amd.com, superm1@kernel.org,
+ xiaogang.chen@amd.com, chongli2@amd.com, pierre-eric.pelloux-prayer@amd.com,
+ Victor.Zhao@amd.com, Jesse.Zhang@amd.com, lang.yu@amd.com,
+ Jack.Xiao@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260616153506.1713376-1-vulab@iscas.ac.cn>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260616153506.1713376-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0186.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ca::16) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-X-MBO-RS-ID: 2c5b219a17c02acc025
-X-MBO-RS-META: e1ogaqb1yr7qkmooe7gtbm1jioff1nt6
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7855:EE_
+X-MS-Office365-Filtering-Correlation-Id: 465155c1-042f-46e7-0583-08decc4c5452
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|23010399003|56012099006|6133799003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: yXU0hJO+yXA8ygx9Nq91L4LkB0/P37XYzBR2x7wChuRBRK6ZcabxWgHw4ya05Li1WxEwQF60XADRlMsgjpkKo7WtxQJ6AKNWQymDYFdZrBIuaLuwpKxB1XF+yAt4OgSP1CepqZDkGj71p0yy0fVyAZH6dK8PsQxl3Pt2dzklMSaV2tVQtgT/Vu3J30WkwNmKEmMfpJZMPBxEGbaJZ1AMuC6ip94dZFA2ZnL/97aJJn7N/O0qp8Mmh7HYx8oEOCAczKvQDCU6hfdtVREt/ZJr+0mHTZigrWN3bJEIn2EfWKK2EiTulY5T7StuUz6KoHuwAbLaHJ6Pnu5v1Kbo+EU652L/ud1eYOg6fOVRyK6dpWLFX67/aNzg9Nx5EJtS4bsOO01pxXeeJLvMgiGaMNI7Dzs+19h1ngxCh1EhH+q6CVb51he4e+ox35bbZ8n/YBpHBDyreaK8LNr7Cdd+I/wn5Md1wEuy5ELcUGCt2odzUPABY3qdm4Z0/cNqj8DYGZGEEFTLpthFWrl95ZkG5osp9P+LPHnX3cyos+2Wd2gthApVlJ97vS3IpQVAb+7JPJVLsHTO6cb4jpYCozaTADkOirlBS1GvZlYbsYuKhi9ZMsMKC2IfGa/C3edJgdRDdwYp6uH090UwpOX0DXWIdGMOi1ffzUqjpGtkeePlBYnrcKQr+foHxJ82AUMRNkJ+Bb9k
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(56012099006)(6133799003)(11063799006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ekU4OEVVTUhQMktCQmVabGc0QmsrL3AwaHlwUjNGeUdETXpyM0hUemZHNys2?=
+ =?utf-8?B?UjdSUXg2NkExbnRtK05qSlB2d2Y1ZmNOSXhiaTUxbmhzVUttVUh1SEZ5WExw?=
+ =?utf-8?B?MldZazVKTFNXcHE0Q3BWS0pxZThGZEtMZW1nU0luUk9VM3JmeHBkV25iUTQv?=
+ =?utf-8?B?c1l0QzU0akN3ZFBpd1V4M0FhTHdGWkprem9oaTR2Y2cyUDI2Z3pQZEd2dVdq?=
+ =?utf-8?B?VjBsNzJRTDZyVDNPN29BWGxpSkgrWmxaWTZWY1R2K0hIUmFGZkg2QXVSWFBh?=
+ =?utf-8?B?ZUdWb3lyOXlsOUtHaUx1M055Y2VWcGk1ZklJbjdnaE85clNuYjlsKzV6TWxj?=
+ =?utf-8?B?YXF5V2VTd29GbWlUd2RRc1M5WStsL3VCbDNaeUovaHF0NEhHSTM1MytlR3NK?=
+ =?utf-8?B?dGhQazJhaFFRNU9RdThKNEtvOXZycTU4REljZVQ0eDU4Q0JFSTdEUDBacTV0?=
+ =?utf-8?B?c3NVdFR2WXRrWkxTZnZxM2FGSkY3ZzN2M3lVYzg5WDhEemxwVldJVjN5RkRU?=
+ =?utf-8?B?Zm41Q0VaU0p6T28xaWg2NVZvQ2FhNGR6aUtuZDBSVWQxTENuMUNnbVVsRUh0?=
+ =?utf-8?B?ejRXbWlSc2hoNTVVVVBEeW5KcWU4TUNvcEJucHhiZktob1N0cmdvd0lKaWxF?=
+ =?utf-8?B?SGpCdEZBdkRKbGt4ZXdzeG5wQk0vWXNyYWxmZlF1Sm9QV2pzcm56d3NUaUZC?=
+ =?utf-8?B?TGdQSnVKZjBWcGk1Z0liNGcvbDZKNlpNMkdpaWRiV1ZwSk5vdzY5dnE1SThJ?=
+ =?utf-8?B?WTRCdmtwUDI3MDRXSExVRlloNUZIeWtOeFdmUi9reUJXVXh0WU5Ed0piQ2ky?=
+ =?utf-8?B?KzRnVytzZjJaVTQ4UGRWZVBKUVZFU05nSS9BbC9ETGt3R1YvNXdKM1lZWTJa?=
+ =?utf-8?B?VTM5SEZCK0RDVzJlNzV5R2wwM0xQa1pzeFRqekJWSG5TTlhEb0ZKMVBYSFFE?=
+ =?utf-8?B?M21nSFRyeEhVS1BwUVkyN0FJWXhKZ1lDOUo5SDlWRWZEb3B1cVJQeTRpbWVF?=
+ =?utf-8?B?ekQybUFtMXB4RERRc2VGeEp4dWwyVHRMTGRPSUlIQUZkQ3VpWGhVeEdpbmhy?=
+ =?utf-8?B?OHA5WWFXUEh1YkMxS2xzcTdjOFVpNWE0cHdoRXh3a3MvU0pjdWxzbzNab2t4?=
+ =?utf-8?B?S2x3UncwK1ZIS1pyODZnWVY5R3lFb0VuR1hXR2RFaE9FakRXQk44MjZLRUl5?=
+ =?utf-8?B?SzRMeFc2VVc1SGFlOHVlRmlIWCtIaXVFTHp4TXZpUWNObXRrTUdvcmkvOU9V?=
+ =?utf-8?B?dEhydWxkVkVHbVJ2dW9lRU9IZThpOUl3cnRsd0NJem92WmxLRTJyQlJOT0NR?=
+ =?utf-8?B?ZURUOEpET29RVGg0RFg1RzQ1VUpvSCtVZklVc3NCaElNSWhWVDVmaGVnVkFH?=
+ =?utf-8?B?akEvRnFDUkxOVFNRQ3VMaUlRMG5jNXlSTDNHSm1EWlFwalVFNCtOaHg3emVT?=
+ =?utf-8?B?RTNNcUgrZ3BlaktGT0wwdFVpckU3Z3JsaFdGbDJhOXNVMGRhQXBHdVJ3bmQy?=
+ =?utf-8?B?RGprT0cwb0FOMlhlS1JlV3FlTTJ3cnJtWTFSV3M5VEc2anNzNkltUkkyM1hW?=
+ =?utf-8?B?TGcveFZETTdCdmJuNWR4Y2ZJYjlSQ1pDS0d3WmNxbmJXTUFmZVRWc0hUazZW?=
+ =?utf-8?B?SENLYnZzajJJdHZMMHI5a2RlUGlrVTBZb3QzQVRURVRGL3VOZVpZT0xHUTdT?=
+ =?utf-8?B?aHAzMTFmVmhWeFlqbTc5WkE2WDVwbmlJTG11NkNHUndRUDE2Z0ZhMU0vVFRa?=
+ =?utf-8?B?TXBCTnlYK2lrdXhUaVVDQ0lNSkxIZng5WkZZWXdMZEh3NVIvT1RiVkR4WW95?=
+ =?utf-8?B?Ykd0SG5ZZ3FsSEtRektJVEo5akJPOGY3T3dXZi9xaldhb1JFRjhQbWdPVm94?=
+ =?utf-8?B?aUY1WisvRElQUDJtaHFhcDlXdmpGdEdOOFFPRDNlMnlna0pkbER5TXI0ZTZu?=
+ =?utf-8?B?NlBndkRKM25uRk42NFBndFAxUXZBWUgvMUV5ZXZRUXZka1pkUGtQUjdVYTN0?=
+ =?utf-8?B?ZEtnZlJldzM0c0k4TlRTa3NEYzNHUndkNS9rSVBPUlBJMElzRGFsZCtLNTJr?=
+ =?utf-8?B?R0trcWcrK05uazhKeVhaelkzYXIyY29reVFxNFVWc0RQWThJSEpVZHBWZEpx?=
+ =?utf-8?B?cmxGZVNSaG9UYXJHakRwK21zMnhLMmNGa0huSllIZEh5aEN6d0lIaTdsc2tT?=
+ =?utf-8?B?dnJDdW9LejJBVkNJblo0Z3llMTcyVk9RNmd0eFMvbEs3bU9lZnRxQ3RxUW1U?=
+ =?utf-8?B?dTl1Y0RMaGJQdjd3N24rOWZRTDdyYjBkaldxenBJRW43OU5oelZBK2tuQndT?=
+ =?utf-8?Q?NHRQHtQd25N8GbnyHG?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 465155c1-042f-46e7-0583-08decc4c5452
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 08:42:14.1566 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vSRzHWbQYc9eD9CdamChvjFvJMMZrXS0grog0Wful/dIspcCujh4tyUlm72BcLS2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7855
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,155 +139,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 2026-06-11 at 13:34 +0100, Tvrtko Ursulin wrote:
-> Due the scheduler locking design, and the inability to always lock both
-> the entity and the run-queue in the consistent order, a completion exists
-> which effectively marks the entity as in use from a call path which is no=
-t
-> able to lock it.
->=20
-> When entity is selected from the run job worker, its completion is marked
-> as non-idle all until the code is sure it will not be dereferencing it an=
-y
-> more, at which point it signals it as idle, releasing the potential
-> parallel cleanup path.
->=20
-> We can remove the need for this completion by implementing the identical
-> guarantee by simply flushing the run job work from the cleanup path, afte=
-r
-> having removed the entity from the run queue.
->=20
-> We then know that the entity is no longer reachable by the run queue
-> selection logic, so as soon as any pending work is done the cleanup can
-> safely proceed. And because we have marked the entity as stopped, we also
-> know that the entity cannot re-enter the run queue.
->=20
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: intel-xe@lists.freedesktop.org
+
+
+On 6/16/26 17:35, Wentao Liang wrote:
+> In amdgpu_gfx_run_cleaner_shader_job(), amdgpu_job_submit() returns a
+> dma_fence with an elevated reference count. The function correctly
+> releases this reference on the success path after dma_fence_wait().
+> However, if dma_fence_wait() fails (though with infinite timeout and
+> non-interruptible it never does), the code jumps to the error label
+> without calling dma_fence_put(), resulting in a reference leak.
+> 
+> Fix the potential leak by adding dma_fence_put(f) before the goto err
+> when dma_fence_wait() returns an error.
+> 
+> Fixes: 559a285816af ("drm/amdgpu: Replace 'amdgpu_job_submit_direct' with 'drm_sched_entity' in cleaner shader")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
-> "Perfection is achieved, not when there is nothing more to add, but when
-> =C2=A0there is nothing left to take away." - Antoine de Saint-Exup=C3=A9r=
-y
-
-
-Hmm, alright, so the basic trick just seems to be that the workqueue
-implementation already can ensure the synchronization which we manually
-implemented so far through the completion.
-
-
-It's a bit more LOC, and doesn't solve a bug. However, I kind of like
-the idea because it removes a redundant mechanism. Would be cool to
-hear some other opinions, though.
-
-A comment below
-
->=20
-> Lets see what Intel's CI says about this, not to mention our new AI
-> overlords...
+> v2: Also cleanup the scheduler entity and simplify error handling paths.
 > ---
-> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0 | 25 +++++++++=
-++++++-------
-> =C2=A0drivers/gpu/drm/scheduler/sched_internal.h | 14 ++++++++++--
-> =C2=A0drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 2 --
-> =C2=A0drivers/gpu/drm/scheduler/sched_rq.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 | 14 +++++++-----
-> =C2=A0include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 9 --------
-> =C2=A05 files changed, 38 insertions(+), 26 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
-cheduler/sched_entity.c
-> index c51101ec70c1..e6f7c2fbefce 100644
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> @@ -137,10 +137,6 @@ int drm_sched_entity_init(struct drm_sched_entity *e=
-ntity,
-> =C2=A0	entity->rq =3D &sched_list[0]->rq;
-> =C2=A0	RCU_INIT_POINTER(entity->last_scheduled, NULL);
-> =C2=A0	RB_CLEAR_NODE(&entity->rb_tree_node);
-> -	init_completion(&entity->entity_idle);
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 9 +++------
+>  1 file changed, 3 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index b8ca876694ff..be13ce6ce377 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -1658,7 +1658,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+>  				  &sched, 1, NULL);
+>  	if (r) {
+>  		dev_err(adev->dev, "Failed setting up GFX kernel entity.\n");
+> -		goto err;
+> +		return r;
+>  	}
+>  
+>  	/*
+> @@ -1686,16 +1686,13 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+>  	f = amdgpu_job_submit(job);
+>  
+>  	r = dma_fence_wait(f, false);
+
+I would just drop checking the error code here. A non interruptible dma_fence_wait() can never fail.
+
+> -	if (r)
+> -		goto err;
+> +	goto err;
+
+That goto does looks correct to me. You are now always skipping the dma_fence_put(f) below.
+
+Regards,
+Christian.
+
+>  
+>  	dma_fence_put(f);
+>  
+> +err:
+>  	/* Clean up the scheduler entity */
+>  	drm_sched_entity_destroy(&entity);
+> -	return 0;
 > -
-> -	/* We start in an idle state. */
-> -	complete_all(&entity->entity_idle);
-> =C2=A0
-> =C2=A0	spin_lock_init(&entity->lock);
-> =C2=A0	spsc_queue_init(&entity->job_queue);
-> @@ -276,18 +272,24 @@ static void drm_sched_entity_kill_jobs_cb(struct dm=
-a_fence *f,
-> =C2=A0 */
-> =C2=A0void drm_sched_entity_kill(struct drm_sched_entity *entity)
-> =C2=A0{
-> +	struct drm_gpu_scheduler *sched;
-> =C2=A0	struct drm_sched_job *job;
-> =C2=A0	struct dma_fence *prev;
-> =C2=A0
-> =C2=A0	spin_lock(&entity->lock);
-> =C2=A0	entity->stopped =3D true;
-> -	drm_sched_rq_remove_entity(entity->rq, entity);
-> +	sched =3D drm_sched_rq_remove_entity(entity->rq, entity);
-> =C2=A0	spin_unlock(&entity->lock);
-> =C2=A0
-> -	/* Make sure this entity is not used by the scheduler at the moment */
-> -	wait_for_completion(&entity->entity_idle);
-> +	/*
-> +	 * Make sure this entity is not used by the scheduler at the moment.
-> +	 *
-> +	 * Scheduler is guaranteed to be stable after the entity was stopped an=
-d
-> +	 * removed from the run-queue.
-> +	 */
-> +	if (sched)
-> +		drm_sched_flush_run_work(sched);
-> =C2=A0
-> -	/* The entity is guaranteed to not be used by the scheduler */
-> =C2=A0	prev =3D rcu_dereference_check(entity->last_scheduled, true);
-> =C2=A0	dma_fence_get(prev);
-> =C2=A0	while ((job =3D drm_sched_entity_queue_pop(entity))) {
-> @@ -576,6 +578,13 @@ void drm_sched_entity_select_rq(struct drm_sched_ent=
-ity *entity)
-> =C2=A0		return;
-> =C2=A0
-> =C2=A0	spin_lock(&entity->lock);
-> +
-> +	if (entity->stopped) {
-> +		spin_unlock(&entity->lock);
-> +		return;
-> +
-> +	}
+> -err:
+>  	return r;
+>  }
+>  
 
-Seems unrelated? Why wasn't this needed semantically before?
-
-> +
-> =C2=A0	sched =3D drm_sched_pick_best(entity->sched_list, entity->num_sche=
-d_list);
-> =C2=A0	rq =3D sched ? &sched->rq : NULL;
-> =C2=A0	if (rq !=3D entity->rq) {
-> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm=
-/scheduler/sched_internal.h
-> index 13ecb771d7a2..80dece3be415 100644
-> --- a/drivers/gpu/drm/scheduler/sched_internal.h
-> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
-> @@ -35,12 +35,22 @@ bool drm_sched_can_queue(struct drm_gpu_scheduler *sc=
-hed,
-> =C2=A0			 struct drm_sched_entity *entity);
-> =C2=A0void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
-> =C2=A0
-> +/**
-> + * drm_sched_flush_run_work - flush the run-job work
-
-In v1, you'd probably want to document what this function typically
-will be used for :)
-
-
-Greetings,
-P.
