@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 537D1CD98F2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 18:18:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD3E3CD98F2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 18:19:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A98810F079;
-	Wed, 17 Jun 2026 18:18:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45C7910F092;
+	Wed, 17 Jun 2026 18:19:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="H3LEppdX";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cHnx329k";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55A4E10EACE;
- Wed, 17 Jun 2026 18:18:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF6C510F08F;
+ Wed, 17 Jun 2026 18:18:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781720335; x=1813256335;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=20VQmPzAJOum3oxerNietNBUT+H2HlnVMRxPE37hgRU=;
- b=H3LEppdXNHq5R13RMqPTA1yW/5H6FOJjsX/GUal/AKwUGhKl9KlC9BKJ
- fHw7NUGnFuSynRUqpe7u3b8xtn0Vp6G8gbqCcm3aU6Zv/lqrJDty8NZYS
- tFOoq0+NL6foJi8NkD1IiaINV6L0WDyvmlzq5BeG0CZP7WcdQZSCzIcLg
- MEO3WGNADPt4IOWw59BTbNSN30W2QlVPwku2JMf7LXCst53QTaE6XcJDB
- XBRRy/0kc+8FSAQutcQ5USddO9DyL9HtnIfyselJRsf1g/0kbf06vS3EN
- 2VKlB+p3cTV+7BN2Prv2l+A3YDdxqlOxKRAXuRhfeqJNKdNTNsTtzOy8D w==;
-X-CSE-ConnectionGUID: J6PATXM+TVa/Lmj6HM1Ijg==
-X-CSE-MsgGUID: 9qdcue+IQla316YE62ccxg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11820"; a="82634302"
-X-IronPort-AV: E=Sophos;i="6.24,210,1774335600"; d="scan'208";a="82634302"
+ t=1781720339; x=1813256339;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=7Okvw+fsV9Qg1R8JgSR+HzZFPxVLT2qPwpZWC2AiPSo=;
+ b=cHnx329kSlJRImpqptW7zU0eCFYYRlVQewxQwMi8q0B/hHuEOtqikTGK
+ wDGcOhORFzXXQ/AcFP7mhwhVIw/oXrGGhbvzls/0UF8Grlvo3S2DheGck
+ EYPmdc8SB9eW3LGeM+vTnOJKQFpv4qFdmbbb4MZHNpvIXFzULazlu7gZl
+ 6NGUdpkV7QEFeKlqnddj1dxkSV6cYOpDirO/PY6DSQjL7Bp0YE78E+50Q
+ yucS966Evr3UrjeeE/Pv4FpjclnvroLSH9z2rYbcUuouPIu1hXiALpRa4
+ /ofL06wmscsZM2lBSTbm1VL5hQORNEB1LTWUT0RTyF5K4/6mnkyhCF9YG g==;
+X-CSE-ConnectionGUID: aV7sZImrS2ykSBy9TvKxEQ==
+X-CSE-MsgGUID: 93Vdodl5QFaqfvgDpxRH5Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11820"; a="82634313"
+X-IronPort-AV: E=Sophos;i="6.24,210,1774335600"; d="scan'208";a="82634313"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2026 11:18:55 -0700
-X-CSE-ConnectionGUID: psS/OCEERAaCCqOSXD6kGg==
-X-CSE-MsgGUID: FysfeP9STg6H4/PWpdIQxw==
+ 17 Jun 2026 11:18:58 -0700
+X-CSE-ConnectionGUID: 9mCF6spJTWeD+8R3niq0Ag==
+X-CSE-MsgGUID: goR/fFY0QW2qbqiJ+C9VnA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,210,1774335600"; d="scan'208";a="243968437"
+X-IronPort-AV: E=Sophos;i="6.24,210,1774335600"; d="scan'208";a="243968445"
 Received: from osgc-sh-dragon.sh.intel.com ([10.239.81.44])
  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2026 11:18:51 -0700
+ 17 Jun 2026 11:18:55 -0700
 From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: dri-devel@lists.freedesktop.org
 Cc: saurabhg.gupta@intel.com, alex.zuo@intel.com, jonathan.cavitt@intel.com,
@@ -49,10 +49,12 @@ Cc: saurabhg.gupta@intel.com, alex.zuo@intel.com, jonathan.cavitt@intel.com,
  Rodrigo.vivi@intel.com, matthew.brost@intel.com,
  maarten.lankhorst@linux.intel.com, thomas.hellstrom@linux.intel.com,
  tzimmermann@suse.de
-Subject: [PATCH v3 0/2] drm/xe/pagefault: Add SRCID to pagefault reporting
-Date: Thu, 18 Jun 2026 02:18:46 +0800
-Message-ID: <20260617181849.769247-1-jonathan.cavitt@intel.com>
+Subject: [PATCH v3 1/2] drm/xe/pagefault: Add SRCID to pagefault struct
+Date: Thu, 18 Jun 2026 02:18:47 +0800
+Message-ID: <20260617181849.769247-2-jonathan.cavitt@intel.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260617181849.769247-1-jonathan.cavitt@intel.com>
+References: <20260617181849.769247-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -71,30 +73,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add SRCID to the xe_pagefault struct, which reports the ID of the
-faulting hardware unit.  This will be passed on to the
-xe_vm_get_property_ioctl for reading per-vm faults and will assist in
-diagnosing pagefaults.
+Add SRCID information to pagefault struct for the purpose of reporting
+the hardware unit that resulted in the pagefault.
 
-v2:
-- Readd pad check, as the pad in the ioctl struct was not changed
-  (jcavitt)
-
-v3:
-- Rebase
-
-Jonathan Cavitt (2):
-  drm/xe/pagefault: Add SRCID to pagefault struct
-  drm/xe/vm: Add srcid to xe_vm_get_property_ioctl fault report
-
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+---
  drivers/gpu/drm/xe/xe_guc_pagefault.c   | 1 +
  drivers/gpu/drm/xe/xe_pagefault.c       | 6 ++++--
  drivers/gpu/drm/xe/xe_pagefault_types.h | 4 +++-
- drivers/gpu/drm/xe/xe_vm.c              | 8 ++++++++
- drivers/gpu/drm/xe/xe_vm_types.h        | 2 ++
- include/uapi/drm/xe_drm.h               | 4 ++--
- 6 files changed, 20 insertions(+), 5 deletions(-)
+ 3 files changed, 8 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/xe/xe_guc_pagefault.c b/drivers/gpu/drm/xe/xe_guc_pagefault.c
+index 607e32392f46..17cb7f359261 100644
+--- a/drivers/gpu/drm/xe/xe_guc_pagefault.c
++++ b/drivers/gpu/drm/xe/xe_guc_pagefault.c
+@@ -91,6 +91,7 @@ int xe_guc_pagefault_handler(struct xe_guc *guc, u32 *msg, u32 len)
+ 				   FIELD_GET(PFD_FAULT_TYPE, msg[2]));
+ 	pf.consumer.engine_class = FIELD_GET(PFD_ENG_CLASS, msg[0]);
+ 	pf.consumer.engine_instance = FIELD_GET(PFD_ENG_INSTANCE, msg[0]);
++	pf.consumer.srcid = FIELD_GET(PFD_SRC_ID, msg[0]);
+ 
+ 	pf.producer.private = guc;
+ 	pf.producer.ops = &guc_pagefault_ops;
+diff --git a/drivers/gpu/drm/xe/xe_pagefault.c b/drivers/gpu/drm/xe/xe_pagefault.c
+index dd3c068e1a39..42b682ba5f9b 100644
+--- a/drivers/gpu/drm/xe/xe_pagefault.c
++++ b/drivers/gpu/drm/xe/xe_pagefault.c
+@@ -248,7 +248,8 @@ static void xe_pagefault_print(struct xe_pagefault *pf)
+ 		   "\tAccessType: %lu\n"
+ 		   "\tFaultLevel: %lu\n"
+ 		   "\tEngineClass: %d %s\n"
+-		   "\tEngineInstance: %d\n",
++		   "\tEngineInstance: %d\n"
++		   "\tSRCID: 0x%02x\n",
+ 		   pf->consumer.asid,
+ 		   upper_32_bits(pf->consumer.page_addr),
+ 		   lower_32_bits(pf->consumer.page_addr),
+@@ -260,7 +261,8 @@ static void xe_pagefault_print(struct xe_pagefault *pf)
+ 			     pf->consumer.fault_type_level),
+ 		   pf->consumer.engine_class,
+ 		   xe_hw_engine_class_to_str(pf->consumer.engine_class),
+-		   pf->consumer.engine_instance);
++		   pf->consumer.engine_instance,
++		   pf->consumer.srcid);
+ }
+ 
+ static void xe_pagefault_save_to_vm(struct xe_device *xe, struct xe_pagefault *pf)
+diff --git a/drivers/gpu/drm/xe/xe_pagefault_types.h b/drivers/gpu/drm/xe/xe_pagefault_types.h
+index c4ee625b93dd..60cc269aeea3 100644
+--- a/drivers/gpu/drm/xe/xe_pagefault_types.h
++++ b/drivers/gpu/drm/xe/xe_pagefault_types.h
+@@ -86,8 +86,10 @@ struct xe_pagefault {
+ 		u8 engine_class;
+ 		/** @consumer.engine_instance: engine instance */
+ 		u8 engine_instance;
++		/** @consumer.srcid: ID of hardware unit producing fault */
++		u8 srcid;
+ 		/** @consumer.reserved: reserved bits for future expansion */
+-		u64 reserved;
++		u8 reserved[7];
+ 	} consumer;
+ 	/**
+ 	 * @producer: State for the producer (i.e., HW/FW interface). Populated
 -- 
 2.53.0
 
