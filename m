@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA065CD98F0
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 20:12:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5886ECD98E2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 20:13:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 547A410EB29;
-	Wed, 17 Jun 2026 20:12:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B337210F0FB;
+	Wed, 17 Jun 2026 20:13:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RtmXsN7f";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n1cXs2Di";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BED1C10EB29
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 20:12:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67C8110F0FB
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 20:13:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 67681407C6;
- Wed, 17 Jun 2026 20:12:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 219801F000E9;
- Wed, 17 Jun 2026 20:12:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4525842B64;
+ Wed, 17 Jun 2026 20:13:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED1831F000E9;
+ Wed, 17 Jun 2026 20:13:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781727142;
- bh=2g+vKR6TE7Cu6VCwLuATNVYwi625yjIZq8JKBVHIUV8=;
+ s=k20260515; t=1781727210;
+ bh=mMcMHkcsYFqJoM0tWz/5aUuTE8FhTTShtVlBKlss/7g=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=RtmXsN7fOlxXWYc5JvQp8p9fDFIhKUHKVjGxwCMyupxv5mmrA8G1XVyCcGiC16ZWn
- YR8ewD6obSHXKLGU/YS4rgraK7XA3Pz0elJ9VcFpYMegHVL7KVzSdai28fAfI1rto7
- rrrLaX6LrBXCgItAekca9Cc9pTXBAPczPA+XP7yF68geHbJoqfgDJ8bmnuqVgHoQiV
- 0EGBNUqVZy2QFRaImnWwkrr9FCngPhWRQ/DK3fjohWfpLZ9XkZAsLyI/9D8tVxM2Xu
- K68BWxIgJiHxGkyB07HIvcTnOvNTGPx/Ir3Sr4m6ME++NW8XNPkt7yz08BZ8KOaSff
- VsvCGcNT4ZcNA==
+ b=n1cXs2DiMgzfJLhkPsaElrwAs9HS0eEEakkHp67Q0O2BZwM6GHkVx6bp4+6y5meET
+ 9D6YshkWsD78WgOAkBlKKC+5iyf2WS9NSYQ2n0AckWbrDHMPGwHvprwOwPlk9Gb+Zc
+ RM4rlMTdJA6WDNF3ehk5Rg46+4lKR99lf2CZgeXsbR6HI16zKdXPbipkLg61twvoqY
+ 8V/WrLsAMZGxikg+zeuyICCcSrYt64C2whdmGOq3K9ZzL4BgFQD99LWl3BZ1sMtGLQ
+ oITHVqm9F7Ad78k0Iof9CKK7hcd+la5Fr7VyP6qqWVqj4Dg3ISJAtiHXTRRGO8abXL
+ BuX2SwoXB76vw==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 2/7] drm/vino: add the clean-room HDCP 2.2 AKE/LC/SKE
+Subject: Re: [RFC PATCH 4/7] drm/vino: add the Vino (RawRl mode-2)
+ framebuffer codec
 To: "Mike Lothian" <mike@fireburn.co.uk>
-Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
-In-Reply-To: <20260617151249.2937-3-mike@fireburn.co.uk>
+Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260617151249.2937-5-mike@fireburn.co.uk>
 References: <20260617151249.2937-1-mike@fireburn.co.uk>
- <20260617151249.2937-3-mike@fireburn.co.uk>
+ <20260617151249.2937-5-mike@fireburn.co.uk>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 20:12:21 +0000
-Message-Id: <20260617201222.219801F000E9@smtp.kernel.org>
+Date: Wed, 17 Jun 2026 20:13:29 +0000
+Message-Id: <20260617201329.ED1831F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,110 +58,142 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Buffer truncation and USB Babble errors due to undersized buffer a=
-llocation in `recv_hdcp` and `pace_cap_ack`.
-- [High] Premature pacing abort on short frames in `pace_cap_ack`.
-- [Low] Mismatch between `crypto_selftest` docstring and actual implemented=
- test coverage.
+- [High] The EP08 transport header truncates the payload length to 16 bits,=
+ corrupting frames larger than 64KB.
+- [High] Incorrect indexing of the `SECTION_CODE` array causes `Mode::Rle` =
+and `Mode::Adaptive` to emit the wrong frame-end section codes.
+- [High] The encoded stream uses `KVec<u8>`, which relies on contiguous kma=
+lloc and will fail for large frame updates.
+- [High] The encoder partially updates its shadow buffer before an error oc=
+curs, causing permanent corruption of the differential stream.
 --
 
-commit 102ea10e819242d5dcf97bac1a8fb013c88b76f5
+commit f949babe97f31ea182f0de355c24ec2f2844883f
 Author: Mike Lothian <mike@fireburn.co.uk>
-Subject: drm/vino: add the clean-room HDCP 2.2 AKE/LC/SKE
 
-After the plaintext session init, the DL3 dock requires an HDCP 2.2
-session before it will accept any control-plane traffic. Add a clean-room
-implementation of the HDCP 2.2 authentication.
+drm/vino: add the Vino (RawRl mode-2) framebuffer codec
 
-> diff --git a/drivers/gpu/drm/vino/vino.rs b/drivers/gpu/drm/vino/vino.rs
-> index 79f446041b648..db4c38b6dc92f 100644
-> --- a/drivers/gpu/drm/vino/vino.rs
-> +++ b/drivers/gpu/drm/vino/vino.rs
-[ ... ]
-> @@ -150,6 +150,44 @@ impl WorkItem for BringUp {
->  /// On-device crypto known-answer self-test. Confirms the IN-KERNEL cryp=
-to path (which the CP seal
->  /// depends on) is byte-correct -- something only ever checked offline (=
-Python `verify-kdf.py`)
->  /// before.
->  /// Runs three checks and logs PASS/FAIL:
->  ///   1. AES-128-ECB vs the FIPS-197 test vector.
->  ///   2. AES-CMAC vs the RFC 4493 test vector (subkey + full-block path).
->  ///   3. The full `cp::seal_livemac` vs cold-ref's REAL msg0: known plai=
-ntext + known `ks`/`riv`
+Add the video module: the RawRl ("Raw/RLX" mode-2) encoder, clean-room
+from the AArch64 reference-driver decompile, which emits packed-RGB565
+frames the dock decodes without the impractical Vino Walsh-Hadamard
+entropy codec.
 
-[Severity: Low]
-This isn't a bug, but the docstring mentions a third test for cp::seal_live=
-mac
-that doesn't seem to be implemented in the function body. Could the comment=
- be
-updated to reflect the actual tests?
+> diff --git a/drivers/gpu/drm/vino/video.rs b/drivers/gpu/drm/vino/video.rs
+> new file mode 100644
+> index 0000000000000..bb5ea893575fc
+> --- /dev/null
+> +++ b/drivers/gpu/drm/vino/video.rs
 
 [ ... ]
-> +    fn recv_hdcp(dev: &usb::Device) -> Result<(u8, KVec<u8>)> {
-> +        const SUB_HDCP_RESP: u16 =3D 0x25;
-> +        let mut buf =3D KVec::from_elem(0u8, 4096, GFP_KERNEL)?;
+
+> +    pub(super) fn encode(&mut self, cur: &[u16]) -> Result<KVec<u8>> {
+> +        let mut s =3D KVec::new();
+> +        self.encode_into(cur, &mut s)?;
+> +        Ok(s)
+> +    }
+> +
+> +    /// Like [`encode`](Self::encode) but appends the marker stream to a=
+ caller-owned
+> +    /// `out` instead of allocating a fresh `KVec`. The hot scanout path
+> +    /// ([`encode_and_send`](super::drm_sink::encode_and_send)) uses thi=
+s to encode
+> +    /// straight into a buffer that already reserves the EP08 transport =
+header, so a
+> +    /// frame costs one allocation with no separate framing copy.
+> +    pub(super) fn encode_into(&mut self, cur: &[u16], s: &mut KVec<u8>) =
+-> Result {
 
 [Severity: High]
-Does this buffer allocation correctly size the read for the endpoint?
+Does KVec allocation risk causing kmalloc failures for large frame updates?
 
-The dock's interleaved capability blocks can reach ~5.8 KiB. Because this
-buffer is only 4096 bytes, if the dock pushes a large capability block duri=
-ng
-the AKE sequence, it looks like it will result in a USB truncation error
-(-EOVERFLOW).
+The encode function allocates a KVec to hold the encoded frame. Since the
+encoded output for a full Raw frame or an incompressible Adaptive frame can
+approach or exceed 4 MiB, this vector might grow beyond the page allocator's
+maximum contiguous kmalloc order. Could this lead to page allocator warnings
+and failures during heavy frame updates?
 
-Using the EP84_BUF constant (16384 bytes) here, similar to wait_cap_complet=
-e(),
-might prevent this.
-
-[ ... ]
-> +    fn pace_cap_ack(dev: &usb::Device, want_ctr: u16) {
-> +        let Ok(mut buf) =3D KVec::from_elem(0u8, 4096, GFP_KERNEL) else {
-> +            return;
-> +        };
-
-[Severity: High]
-Can this buffer suffer from the same truncation issue as recv_hdcp()?
-
-If the capability block exceeds 4096 bytes, this looks like it could also
-trigger an -EOVERFLOW error.
-
-[ ... ]
-> +        for _ in 0..8 {
-> +            match dev.bulk_recv(EP_CTRL_IN, &mut buf, Delta::from_millis=
-(30)) {
-> +                Ok(len) if len >=3D 22 =3D> {
-> +                    let wsub =3D u16::from_le_bytes([buf[8], buf[9]]);
-> +                    let iid =3D u16::from_le_bytes([buf[16], buf[17]]);
-> +                    let ictr =3D u16::from_le_bytes([buf[20], buf[21]]);
-> +                    // The per-frame cap-ack: wsub=3D0x25, inner id=3D0x=
-14 sub=3D0x10 ctr=3Dwant.
-> +                    // An interleaved cap push (sub=3D0x84) or earlier a=
-ck -- keep reading.
-> +                    if wsub =3D=3D 0x25 && iid =3D=3D 0x14 && ictr =3D=
-=3D want_ctr {
-> +                        return;
-> +                    }
+> +        s.extend_from_slice(&FRAME_INIT, GFP_KERNEL)?;
+> +        for y in 0..self.height {
+> +            let row =3D y * self.width;
+> +            let mut x =3D 0;
+> +            while x < self.width {
+> +                while x < self.width && cur[row + x] =3D=3D self.shadow[=
+row + x] {
+> +                    x +=3D 1;
 > +                }
-> +                // Nothing queued within the short window -- the dock is=
- idle, don't block.
-> +                _ =3D> return,
+> +                if x >=3D self.width {
+> +                    break;
+> +                }
+> +                let run_start =3D x;
+> +                while x < self.width && cur[row + x] !=3D self.shadow[ro=
+w + x] {
+> +                    x +=3D 1;
+> +                }
+> +                let run_end =3D x;
+> +                let mut p =3D run_start;
+> +                while p < run_end {
+> +                    let n =3D (run_end - p).min(MAX_BLOCK_PIXELS);
+> +                    let coord =3D (((row + p) * 2) & 0xff_ffff) as u32;
+> +                    encode_run_into(s, self.mode, coord, &cur[row + p..r=
+ow + p + n])?;
+> +                    p +=3D n;
+> +                }
+> +                for k in run_start..run_end {
+> +                    self.shadow[row + k] =3D cur[row + k];
+> +                }
 
 [Severity: High]
-Will this catch-all arm prematurely abort the loop on short frames?
+Does this error handling permanently corrupt the differential stream if an
+allocation fails?
 
-If the dock sends short interleaved status or ACK frames (where len is less
-than 22), the match falls through to the catch-all arm instead of continuing
-to wait for the target ACK.
+The shadow buffer is mutated iteratively inside the processing loop after
+encode_run_into(), which can return an error via ?. If it fails, the frame
+processing is aborted and not sent. However, the shadow buffer has already
+been updated with the pixels from successfully processed runs. Because the
+dock never receives the aborted frame, its internal state no longer matches
+the host's self.shadow, which will cause visual artifacts on subsequent
+frames since the encoder will assume the dock already has those pixels.
 
-This seems like it would cause the driver to transmit the next message while
-the dock is mid-NAK, which could trigger a NAK storm and prevent control-pl=
-ane
-engagement.
+> +            }
+> +        }
+> +        let code =3D SECTION_CODE[(self.mode as usize).saturating_sub(1)=
+.min(6)];
+
+[Severity: High]
+Does saturating_sub(1) map the 0-based enum values incorrectly for Mode::Rle
+and Mode::Adaptive?
+
+The Mode enum is 0-based (Raw =3D 0, Rle =3D 1, Adaptive =3D 2). Applying
+saturating_sub(1) evaluates to 0 for both Raw and Rle, making Mode::Rle emit
+SECTION_CODE[0] (0x01). Similarly, Mode::Adaptive evaluates to index 1 and
+emits SECTION_CODE[1] (0x00). This causes the encoder to emit the wrong
+framing codes for RLE and Adaptive modes, breaking hardware decoding.
+
+> +        s.extend_from_slice(&SYNC, GFP_KERNEL)?;
+> +        s.extend_from_slice(&[0xaf, 0x20, 0x1f, code], GFP_KERNEL)?;
+
+[ ... ]
+
+> +pub(super) fn write_ep08_header(hdr: &mut [u8], payload_len: usize, seq:=
+ u32) {
+> +    hdr[0] =3D 0;
+> +    hdr[1] =3D 0;
+> +    hdr[2..4].copy_from_slice(&((payload_len + 12) as u16).to_le_bytes()=
+);
+
+[Severity: High]
+Can casting the payload length to u16 truncate it and break the transport
+header for large frames?
+
+A full 1080p frame encoded in Raw or Adaptive mode produces a payload of
+several megabytes (up to ~4 MiB). Casting this usize payload length to u16
+will silently drop the upper bits. Could this be the reason for the USB res=
+ets
+noted in the module documentation, as the dock would receive a malformed
+header with an incorrect size and lose framing synchronization?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617151249.2937=
--1-mike@fireburn.co.uk?part=3D2
+-1-mike@fireburn.co.uk?part=3D4
