@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B41BCD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 15:13:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 710CCCD98F2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 15:13:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B94710F02F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 107B110F02E;
 	Wed, 17 Jun 2026 15:13:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="AXXNWU4d";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="BYV2Eavf";
 	dkim-atps=neutral
 Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
  [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0586F10F028
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 15:13:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9CEA10F025
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 15:13:04 +0000 (UTC)
 Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-490cf3000f0so59684585e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:13:08 -0700 (PDT)
+ 5b1f17b1804b1-49222fb062bso49526595e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:13:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1781709187; x=1782313987;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1781709183; x=1782313983;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=DOSqDcY55hE/WxXDX9xT6Nc6iiv8+voXa20btNiTsJk=;
- b=AXXNWU4dX4kWxctYAgcr7m5Sk868oreb5ilOupulUFsiSrz1boaBlbcx61VBWdFTZr
- fegMNDSnIMymmwhIdTD75NnEx5HQkvFqy3i8U5iCJxWGigXxkTRMjcO27dYjWVlq2uON
- +xmpN9yFp0fCSs2M/bzoAlarNUmaYcLqQ0NoqzTtIluDSPuQ8ysk58IktKNM/+TD21/x
- vQebrx0aX6L+qcjixWHcp6iJuR5DXPZbzRhwSAleRmlclYzYytWmdWaK/OfARCv/uHm7
- dnySso0ztcxz1kxMiLUcET7NRgbsISswQDHjD/zZcCDL/2/OE/MMT8PJMy25ebVSfqC8
- Y1IQ==
+ bh=bBJh96yZ5tI+OLjcOixK/FxhCGTpV3zo6wCj83uRRkQ=;
+ b=BYV2EavfMuk1GWsnt8XEAvCB5/YtfxEjsnLQbkgq3Xn8uflumJ6HL28s09blPl/gtU
+ u7Wuumgy880N/IewCyDFRnA3lofUuOy+X1py0U5jHooAnud3lwDF/5qbhbjt9cmkqHYG
+ YjUefN/nLm17IH5Ftq7j5Bhgdc4HC0Lk/X3I6g7yfzwJ4ot+4dFRRTf2HhHkSkNlim3H
+ 6Qt9I9J7T72AyKAC4vWhYqmSWcW/r+IhY7q/BXnrvYtvwNe8Es1lWoQHsZRq7fPX5Oxe
+ VFVydSpSuSs5ZNj0U3Sem1CQzYC1FHpd/N+VBkDG2nd5EpW8DZP6Da4SsqCGh5arv9nZ
+ epuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781709187; x=1782313987;
+ d=1e100.net; s=20251104; t=1781709183; x=1782313983;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=DOSqDcY55hE/WxXDX9xT6Nc6iiv8+voXa20btNiTsJk=;
- b=aoICH+7cQwkVlF698u+30KO40/9xC2N60RdZVQZTx9DDt0VYXdLTnGjtMwikj4rrwh
- BH5qGmFsduZyB6lCS8DhmJ48AEAq67R8pvpOV8qogUb3TBvgznv3/6WDlOiOK9m4aXkD
- 0+6Zk+ZW9YxFS89twysUcwRbnaK8sD9g107BIhWE4ILZEOcEakDP/hgIEpVWMs2eqAed
- dhPBLd+QddbEXl68m9W9jvaIRWWqeiVoDpHiwCp0njmwjv4TYe1rKdKl4JpsEWz9EICN
- 4iqFQpqDj7Yd4ZkmuR8BmThNXmE7vMRQaxOLC5tO1DN8wXdqzeNvySSHRm/cU/N0e5Wg
- g50g==
-X-Gm-Message-State: AOJu0YwE4+5AYuhoJ2XZRWgNZWmixiwl+eZnW1q0JMylH6rClxSEEXPV
- eD5XXrWAC2oIEadc9F6JZzioBhFxbMYNDjWV8XD0qsRvU7Ovr8HiSEOhSuDJOX1uqjp8ne9GoAu
- 5My1nDj6a
-X-Gm-Gg: Acq92OGRSrHYTPmpRLa4j1NUmAZtJ9EUhXl2zcZeszutivV6TnQM7vrp/vCeyLN2rA8
- CHEdZu4dJyhr2lGZ8xDN11K0jH6XX7qhQi0KfBmpqHDtasRYZNmz5k8Z3310TAEK7oqWgtMP4B6
- eHoml/5NXpRTYxKengr8LDs6bomh7SXbaRdwnplPgBYFjQ+rVdP/ip5LGGP9/BVyajwxfDKd8oY
- QgHgWqND+uZ7oEfm4AiuYWaJcF1Yf9mf5TksMt6720hSv6KNwVDjZDTn1ujEXZ/8HCikmh3q0si
- sE4gm5PNGkgU6KuSalYiHrpmO5g9BOo8OSGIE5Bh9JPJd9/3nwqtXNcLMABL2E5yH+MRBxYpIcj
- ZoIK1kWfvvImRvghaSIv6b15SwKKFXsRJ48YSNJ+rfMy5saOAVryp2A+fZM8XVaoqxz4vdPDRc6
- eJNGSEvpAKnRX4LeF90kuJhJ/BWwd+0a0D+b7ZWd8/wC9/U02/m05vhg1k
-X-Received: by 2002:a05:600c:4503:b0:490:cdb2:fb5e with SMTP id
- 5b1f17b1804b1-4923412792amr61449095e9.22.1781709187340; 
- Wed, 17 Jun 2026 08:13:07 -0700 (PDT)
+ bh=bBJh96yZ5tI+OLjcOixK/FxhCGTpV3zo6wCj83uRRkQ=;
+ b=ZFminq8KHEZyd2ZKfY6u1IRZClylSA1KHYh7Uq7XEFqreik4G/PtwmQUZebduFKPVu
+ UBh33Sd63JXX8Tp2Hclfyu7s6i0DOn5bgEW9m8DJ0m4hQ9kEUGbMUksTCQ1xv9v6MF4i
+ xwubpEssIreOxbKlB5FVOBD+GysSvoZMOLQRfXj4Sjy9mW6IPUv7sW9FdV5tl/0L+HhH
+ KYgqCQ2+h/EpNXqnfDsXptbnSsGykymq6DfsljYDHUTXHx6mgW+I1DT19oRWzk3Dh6aG
+ /+9KLM8NWOo673MFHe3RzQpqNrLgKvD+7e9nXnkInzWw85q0fEgKgFr2Z6U9/IjY8vOU
+ 4uDA==
+X-Gm-Message-State: AOJu0YxK1Ou0pW2dhJEOKLn7GY7k7TJMRa4CmrfGiIzY0rSv5i8rBk/z
+ DPeWp1jkrxjetXM4oF7sQ1n4+XqAfC564FsXbOCbEV8uaUAWEFHu/w/RaKU7Dn79jKtXrNEHPJ5
+ +hNhH8Akq
+X-Gm-Gg: Acq92OEwYGAbDA65B+8Hbw5hnBl26VDPUoSxISnQC08Pilr1tkvhcdFjbKNLH4050xn
+ BjgCM73RULK1FRbdcfhy7hgIRAlhJH5uBpry2aueBz9NTaNjtcA0ikwtN/6BPWOFbRSr8JBsc3J
+ Tp9c22SSJDL5cHFSIaHsWznGmBXnB4ihabi9ERgcqXLgbF3I7Uj+2nsVJAp1QLp5qeFXO9DR+XX
+ UPKtsiq8BhppDO1ZYk6QmmSpxjziHFsneSOwuqDDJfFJdY12irLmknH+9XwkZ4pACG3s0LJ61gv
+ HojiKuu3UDKARak4bCocHmFdOq7dRlMYCPA6nv9dw8IclW6EdYyIoTAeufQvy5RNydVJLi3n7hP
+ 6N2dRRyPpX/LkdGV5/1c4eoMFt9XPQGMOOCMA0LqYcHkN5jKmvjGIO86mBieeJJ3Tp2DidWu0R5
+ DwOYeDkh8nf1eacnT/k2lnHPKLylkJ9UvrullzdR9/wrejn8g6wlGPVLeF
+X-Received: by 2002:a05:600c:6089:b0:490:4663:691b with SMTP id
+ 5b1f17b1804b1-492333ba290mr76302065e9.7.1781709182958; 
+ Wed, 17 Jun 2026 08:13:02 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([137.220.119.72])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49230a9a399sm151019305e9.14.2026.06.17.08.13.06
+ 5b1f17b1804b1-49230a9a399sm151019305e9.14.2026.06.17.08.13.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2026 08:13:06 -0700 (PDT)
+ Wed, 17 Jun 2026 08:13:02 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: dri-devel@lists.freedesktop.org
 Cc: Mike Lothian <mike@fireburn.co.uk>, rust-for-linux@vger.kernel.org,
@@ -74,10 +74,10 @@ Cc: Mike Lothian <mike@fireburn.co.uk>, rust-for-linux@vger.kernel.org,
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
  Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
  Danilo Krummrich <dakr@kernel.org>, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 7/7] drm/vino: add KUnit self-tests for the protocol and
- crypto paths
-Date: Wed, 17 Jun 2026 16:12:44 +0100
-Message-ID: <20260617151249.2937-8-mike@fireburn.co.uk>
+Subject: [RFC PATCH 4/7] drm/vino: add the Vino (RawRl mode-2) framebuffer
+ codec
+Date: Wed, 17 Jun 2026 16:12:41 +0100
+Message-ID: <20260617151249.2937-5-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260617151249.2937-1-mike@fireburn.co.uk>
 References: <20260617151249.2937-1-mike@fireburn.co.uk>
@@ -98,327 +98,392 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add offline KUnit self-tests for the pure protocol builders/parsers and
-the crypto bindings the control plane relies on. The crypto cases are
-published known-answer vectors (FIPS-197 AES-128, RFC 4493 AES-CMAC) and
-a live seal round-trip; the rest pin wire layout, EDID timing extraction,
-the WHT codec stages and the DDC/CI Set-VCP encoding that have no hardware
-oracle. Gated behind CONFIG_KUNIT, so they have zero effect on a
-production build; run with a KUnit-enabled kernel.
+Add the video module: the RawRl ("Raw/RLX" mode-2) encoder, clean-room
+from the AArch64 reference-driver decompile, which emits packed-RGB565
+frames the dock decodes without the impractical Vino Walsh-Hadamard
+entropy codec. The encode/decode round-trip is unit-tested (keyframe,
+differential, >256-pixel multi-block and >255 RLE run-splits all
+reconstruct byte-exact); that round-trip is the correctness anchor, since
+no real mode-2 capture exists to diff against.
+
+This is the codec library only; the DRM/KMS sink that drives it (vmap the
+framebuffer, encode, push to the EP08 video endpoint on each page-flip)
+is added in the next patch.
 
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 Assisted-by: Claude:claude-opus-4-8 [Claude-Code]
 ---
- drivers/gpu/drm/vino/vino.rs | 299 +++++++++++++++++++++++++++++++++++
- 1 file changed, 299 insertions(+)
+ drivers/gpu/drm/vino/video.rs | 348 ++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/vino/vino.rs  |   1 +
+ 2 files changed, 349 insertions(+)
+ create mode 100644 drivers/gpu/drm/vino/video.rs
 
+diff --git a/drivers/gpu/drm/vino/video.rs b/drivers/gpu/drm/vino/video.rs
+new file mode 100644
+index 000000000000..bb5ea893575f
+--- /dev/null
++++ b/drivers/gpu/drm/vino/video.rs
+@@ -0,0 +1,348 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! RawRl (Raw/RLX) **mode-2 video encoder** -- clean-room from the AArch64 DLM
++//! decompile (sec 8.4 + `docs/decompile/arm64-blockencoder`/`-frame-markers`).
++//! Emits packed-RGB565 frames the dock decodes WITHOUT the impractical Vino
++//! Walsh-Hadamard entropy codec (sec 7.11). This is a **verbatim port** of the
++//! `vino-codec::rawrl` oracle, whose encode/decode round-trip is unit-tested
++//! (keyframe, differential, >256-pixel multi-block and >255 RLE run-splits all
++//! reconstruct byte-exact); keep the two in lockstep. No real mode-2 capture
++//! exists to diff against (sec 7.4), so that round-trip is the correctness anchor.
++//! NOT yet wired into `probe()`: sending a frame the dock rejects USB-resets the
++//! dock, so EP08 streaming is a supervised bring-up step.
++#![allow(dead_code)] // Encoder/Mode variants validated by KUnit; live scanout uses the RLE path
++
++use super::*;
++
++pub(super) const MAGIC_RAW16: u16 = 0x68af;
++pub(super) const MAGIC_RLE16: u16 = 0x69af;
++/// Frame-init `0x40af` (`FUN_003330fc`: u32 `0xaf0440af` + u16 `0x0840`).
++pub(super) const FRAME_INIT: [u8; 6] = [0xaf, 0x40, 0x04, 0xaf, 0x40, 0x08];
++/// Bare `0xa0af` sync (`FUN_00332a38`).
++pub(super) const SYNC: [u8; 2] = [0xaf, 0xa0];
++/// Frame-end section->code table `DAT_005b7860`, indexed by `mode - 1`.
++pub(super) const SECTION_CODE: [u8; 7] = [0x01, 0x00, 0x03, 0x00, 0x05, 0x07, 0x07];
++pub(super) const MAX_BLOCK_PIXELS: usize = 256;
++
++/// Per-run strategy: mode 0 raw-only, 1 RLE-only, 2 adaptive (sec 8.4).
++#[derive(Clone, Copy)]
++pub(super) enum Mode {
++    Raw = 0,
++    Rle = 1,
++    Adaptive = 2,
++}
++
++/// Pack 8-bit RGB into RGB565 (the XRGB framebuffer reduced for the
++/// `0x68af`/`0x69af` path).
++pub(super) fn rgb565(r: u8, g: u8, b: u8) -> u16 {
++    ((r as u16 >> 3) << 11) | ((g as u16 >> 2) << 5) | (b as u16 >> 3)
++}
++
++/// 6-byte block header: magic LE, 24-bit coord BE, count u8 (256 -> 0).
++fn block_header(out: &mut KVec<u8>, magic: u16, coord: u32, count: usize) -> Result {
++    out.extend_from_slice(&magic.to_le_bytes(), GFP_KERNEL)?;
++    out.push(((coord >> 16) & 0xff) as u8, GFP_KERNEL)?;
++    out.push(((coord >> 8) & 0xff) as u8, GFP_KERNEL)?;
++    out.push((coord & 0xff) as u8, GFP_KERNEL)?;
++    out.push((count & 0xff) as u8, GFP_KERNEL)?;
++    Ok(())
++}
++
++fn encode_raw_into(out: &mut KVec<u8>, coord: u32, pix: &[u16]) -> Result {
++    block_header(out, MAGIC_RAW16, coord, pix.len())?;
++    for &p in pix {
++        out.extend_from_slice(&p.to_be_bytes(), GFP_KERNEL)?;
++    }
++    Ok(())
++}
++
++fn encode_rle_into(out: &mut KVec<u8>, coord: u32, pix: &[u16]) -> Result {
++    block_header(out, MAGIC_RLE16, coord, pix.len())?;
++    let mut i = 0;
++    while i < pix.len() {
++        let v = pix[i];
++        let mut run = 1;
++        while i + run < pix.len() && pix[i + run] == v && run < 255 {
++            run += 1;
++        }
++        out.push(run as u8, GFP_KERNEL)?;
++        out.extend_from_slice(&v.to_be_bytes(), GFP_KERNEL)?;
++        i += run;
++    }
++    Ok(())
++}
++
++fn run_count(pix: &[u16]) -> usize {
++    let mut c = 0;
++    let mut i = 0;
++    while i < pix.len() {
++        let v = pix[i];
++        let mut j = i + 1;
++        while j < pix.len() && pix[j] == v {
++            j += 1;
++        }
++        c += 1;
++        i = j;
++    }
++    c
++}
++
++fn encode_run_into(out: &mut KVec<u8>, mode: Mode, coord: u32, pix: &[u16]) -> Result {
++    match mode {
++        Mode::Raw => encode_raw_into(out, coord, pix),
++        Mode::Rle => encode_rle_into(out, coord, pix),
++        Mode::Adaptive => {
++            let l = pix.len();
++            let c = run_count(pix);
++            if 2 * l < 3 * c + 1 {
++                encode_raw_into(out, coord, pix)
++            } else {
++                encode_rle_into(out, coord, pix)
++            }
++        }
++    }
++}
++
++/// Mode-2 frame encoder holding the shadow (previous-frame) buffer.
++pub(super) struct Encoder {
++    width: usize,
++    height: usize,
++    mode: Mode,
++    // vmalloc-backed: a `width*height` u16 buffer is ~4 MiB at 1080p, far above the
++    // contiguous-kmalloc order limit (the page allocator WARNs and fails on it).
++    shadow: VVec<u16>,
++}
++
++impl Encoder {
++    pub(super) fn new(width: usize, height: usize, mode: Mode) -> Result<Self> {
++        let shadow = VVec::from_elem(0u16, width * height, GFP_KERNEL)?;
++        Ok(Self { width, height, mode, shadow })
++    }
++
++    /// Encode `cur` (RGB565) into a mode-2 marker stream; updates the shadow.
++    /// Change-detection is per row; changed runs chunk into <=256-px blocks.
++    pub(super) fn encode(&mut self, cur: &[u16]) -> Result<KVec<u8>> {
++        let mut s = KVec::new();
++        self.encode_into(cur, &mut s)?;
++        Ok(s)
++    }
++
++    /// Like [`encode`](Self::encode) but appends the marker stream to a caller-owned
++    /// `out` instead of allocating a fresh `KVec`. The hot scanout path
++    /// ([`encode_and_send`](super::drm_sink::encode_and_send)) uses this to encode
++    /// straight into a buffer that already reserves the EP08 transport header, so a
++    /// frame costs one allocation with no separate framing copy.
++    pub(super) fn encode_into(&mut self, cur: &[u16], s: &mut KVec<u8>) -> Result {
++        s.extend_from_slice(&FRAME_INIT, GFP_KERNEL)?;
++        for y in 0..self.height {
++            let row = y * self.width;
++            let mut x = 0;
++            while x < self.width {
++                while x < self.width && cur[row + x] == self.shadow[row + x] {
++                    x += 1;
++                }
++                if x >= self.width {
++                    break;
++                }
++                let run_start = x;
++                while x < self.width && cur[row + x] != self.shadow[row + x] {
++                    x += 1;
++                }
++                let run_end = x;
++                let mut p = run_start;
++                while p < run_end {
++                    let n = (run_end - p).min(MAX_BLOCK_PIXELS);
++                    let coord = (((row + p) * 2) & 0xff_ffff) as u32;
++                    encode_run_into(s, self.mode, coord, &cur[row + p..row + p + n])?;
++                    p += n;
++                }
++                for k in run_start..run_end {
++                    self.shadow[row + k] = cur[row + k];
++                }
++            }
++        }
++        let code = SECTION_CODE[(self.mode as usize).saturating_sub(1).min(6)];
++        s.extend_from_slice(&SYNC, GFP_KERNEL)?;
++        s.extend_from_slice(&[0xaf, 0x20, 0x1f, code], GFP_KERNEL)?;
++        s.extend_from_slice(&[0xaf, 0x20, 0xff, 0x00], GFP_KERNEL)?;
++        s.extend_from_slice(&SYNC, GFP_KERNEL)?;
++        Ok(())
++    }
++}
++
++/// Vino (`0x2801`) Walsh-Hadamard codec -- the bandwidth-constrained / 4K path (the RLE path
++/// above is what the dock currently runs; this is the lossy transform codec DLM uses when raw/
++/// RLE won't fit the USB budget). See `docs/WHT-CODEC.md` + `docs/VIDEO.md`.
++///
++/// **Scope.** The colour transform, the quantizer, and the 2-level Walsh-Hadamard transform
++/// are reverse-engineered and **validated offline** (`white -> Y_DC=16320 -> quantized 1020`;
++/// achromatic -> `Cb=Cr=0`; uniform block -> DC=mean, AC=0). The token *bit format* (5-bit
++/// short
++/// 0..=30 / 17-bit long, MSB-first) and the **token-value mapping** are confirmed against DLM's
++/// own frida token trace (`captures/02-solid-white/tokens.jsonl`): the **token value is the
++/// quantized coefficient, directly** -- pure-white strips emit `L,1020` exactly where
++/// `quantize(16320, DC) = 1020`, so the rumoured "entropy codebook" is just this direct value
++/// encoding, not a lookup table (the 1641-byte expression-tree coder is the bit-packer). **What
++/// is still NOT generated here:** the per-strip *framing* -- a uniform strip wraps the DC in a
++/// constant prefix/suffix of framing tokens (`L,2048 L,3072 ... L,3 ... S,19 S,16 ...`) plus
++/// zero-run
++/// AC coding, and the dock's exact sequency ordering -- so a complete `Mode::Wht` would replay
++/// the recovered uniform-strip template with the DC substituted (the `docs/WHT-CODEC.md`
++/// structural model, ~90% desktop coverage). Until that framing is generalized + wired, the
++/// scanout path keeps using RLE.
++// Not yet wired into the scanout path (the per-strip framing template is recovered for white
++// but not yet generalized to arbitrary uniform colour / non-uniform content) -- RLE stays the
++// active codec; this module is validated by its KUnit tests + the frida-trace value mapping.
++#[allow(dead_code)] // Walsh-Hadamard codec: KUnit-validated, not yet on the live scanout path
++pub(super) mod wht {
++    use super::*;
++
++    /// 4x8 transform block geometry (`docs/VIDEO.md`): 4 rows x 8 columns = 32 samples.
++    pub(super) const ROWS: usize = 4;
++    pub(super) const COLS: usize = 8;
++    pub(super) const BLOCK: usize = ROWS * COLS;
++
++    /// Vino colour transform (`docs/VIDEO.md`, exact integer form, no rounding):
++    /// `Y = 16R + 32G + 16B`, `Cb = 64(R-G)`, `Cr = 64(B-G)`. Achromatic (R=G=B) ->
++    /// Cb=Cr=0.
++    pub(super) fn colour(r: u8, g: u8, b: u8) -> (i32, i32, i32) {
++        let (r, g, b) = (r as i32, g as i32, b as i32);
++        (16 * r + 32 * g + 16 * b, 64 * (r - g), 64 * (b - g))
++    }
++
++    /// Per-coefficient `(bias, step)` quantization table (`docs/VIDEO.md` `FUN_0077b140`),
++    /// keyed by coefficient position `0..64`.
++    fn bias_step(i: usize) -> (i32, i32) {
++        match i {
++            0..=2 => (8, 16),
++            3 => (16, 32),
++            4..=11 => (2, 4),
++            12..=15 => (4, 8),
++            16..=47 => (1, 2),
++            _ => (2, 4), // 48..=63
++        }
++    }
++
++    /// Quantize coefficient `coeff` at position `i`: `(coeff + bias) * (65536/step) >> 16`,
++    /// the fixed-point form of `(coeff + bias) / step` (`docs/VIDEO.md`). Clamped to the
++    /// 12-bit signed long-token range (the DC is wider than the +/-127 AC clip -- the
++    /// documented
++    /// `white -> 1020` vector is a 12-bit long token, not a +/-127 value).
++    pub(super) fn quantize(coeff: i32, i: usize) -> i32 {
++        let (bias, step) = bias_step(i);
++        let scale = 65536 / step;
++        (((coeff + bias) * scale) >> 16).clamp(-2048, 2047)
++    }
++
++    /// In-place 1-D Walsh-Hadamard (natural/Hadamard order) on a power-of-two slice,
++    /// unnormalized (pairwise sums/differences); the 2-D transform normalizes afterwards.
++    fn hadamard_1d(v: &mut [i32]) {
++        let n = v.len();
++        let mut h = 1;
++        while h < n {
++            let mut i = 0;
++            while i < n {
++                for j in i..i + h {
++                    let (a, b) = (v[j], v[j + h]);
++                    v[j] = a + b;
++                    v[j + h] = a - b;
++                }
++                i += 2 * h;
++            }
++            h *= 2;
++        }
++    }
++
++    /// 2-level separable Walsh-Hadamard transform of a 4x8 `block` (row-major), normalized so
++    /// the DC coefficient equals the block **mean** -- i.e. a uniform block yields `DC = the
++    /// per-pixel value` and all AC = 0 (`docs/VIDEO.md`). Returns 32 coefficients row-major.
++    /// (Natural Hadamard order; the dock's sequency reorder is not bit-matched -- see the
++    /// module note.)
++    pub(super) fn transform(block: &[i32; BLOCK]) -> [i32; BLOCK] {
++        let mut m = *block;
++        for r in 0..ROWS {
++            hadamard_1d(&mut m[r * COLS..r * COLS + COLS]);
++        }
++        let mut col = [0i32; ROWS];
++        for c in 0..COLS {
++            for r in 0..ROWS {
++                col[r] = m[r * COLS + c];
++            }
++            hadamard_1d(&mut col);
++            for r in 0..ROWS {
++                m[r * COLS + c] = col[r];
++            }
++        }
++        // Normalize by the block size (/32 = >>5) so DC = mean (uniform block -> DC = value).
++        for x in m.iter_mut() {
++            *x >>= 5;
++        }
++        m
++    }
++
++    /// MSB-first bit packer for the Vino token stream (`docs/VIDEO.md`): a 16-bit zero pad at
++    /// the start, then codewords packed most-significant-bit first across byte boundaries.
++    pub(super) struct TokenWriter {
++        out: KVec<u8>,
++        acc: u32,
++        nbits: u32,
++    }
++
++    impl TokenWriter {
++        pub(super) fn new() -> Result<Self> {
++            let mut w = Self { out: KVec::new(), acc: 0, nbits: 0 };
++            w.put(0, 16)?; // 16-bit zero pad at stream start
++            Ok(w)
++        }
++
++        /// Append the low `n` bits of `val` (n <= 24), MSB-first.
++        fn put(&mut self, val: u32, n: u32) -> Result {
++            self.acc = (self.acc << n) | (val & ((1u32 << n) - 1));
++            self.nbits += n;
++            while self.nbits >= 8 {
++                self.nbits -= 8;
++                self.out.push(((self.acc >> self.nbits) & 0xff) as u8, GFP_KERNEL)?;
++            }
++            Ok(())
++        }
++
++        /// Write one token *value* in the Vino short/long encoding: a 5-bit short token for
++        /// `0..=30`, else the 17-bit long token `0b11111` escape + 12-bit value. (The mapping
++        /// from a quantized coefficient to this `value` is the un-RE'd entropy codebook -- see
++        /// the module note -- so callers can only pack values they already know.)
++        pub(super) fn token(&mut self, value: u16) -> Result {
++            if value <= 30 {
++                self.put(value as u32, 5)
++            } else {
++                self.put(0b11111, 5)?;
++                self.put((value & 0x0fff) as u32, 12)
++            }
++        }
++
++        /// Flush any partial byte (zero-padded) and return the packed stream.
++        pub(super) fn finish(mut self) -> Result<KVec<u8>> {
++            if self.nbits > 0 {
++                let pad = 8 - self.nbits;
++                self.put(0, pad)?;
++            }
++            Ok(self.out)
++        }
++    }
++}
++
++/// Length of the EP08 transport header ([`write_ep08_header`]).
++pub(super) const EP08_HDR_LEN: usize = 16;
++
++/// Write the 16-byte EP08 transport header into `hdr` for a `payload_len`-byte codec
++/// stream: `type=4 sub=0x30 sub_len_dw=0` sec 3 framing (matches the live capture).
++/// `size = payload_len + 12`. Used by the in-place scanout path. `hdr` must be at
++/// least 16 bytes.
++pub(super) fn write_ep08_header(hdr: &mut [u8], payload_len: usize, seq: u32) {
++    hdr[0] = 0;
++    hdr[1] = 0;
++    hdr[2..4].copy_from_slice(&((payload_len + 12) as u16).to_le_bytes());
++    hdr[4..8].copy_from_slice(&4u32.to_le_bytes());
++    hdr[8..10].copy_from_slice(&0x30u16.to_le_bytes());
++    hdr[10..12].copy_from_slice(&0u16.to_le_bytes());
++    hdr[12..16].copy_from_slice(&seq.to_le_bytes());
++}
 diff --git a/drivers/gpu/drm/vino/vino.rs b/drivers/gpu/drm/vino/vino.rs
-index ee63ce7e4625..2d22c3f822cd 100644
+index ef44a625cb70..e9e6324b717b 100644
 --- a/drivers/gpu/drm/vino/vino.rs
 +++ b/drivers/gpu/drm/vino/vino.rs
-@@ -1752,3 +1752,302 @@ fn disconnect<'bound>(intf: &'bound usb::Interface<Core<'_>>, _data: Pin<&Self>)
-     description: "DisplayLink DL3 (Vino) open driver",
-     license: "GPL v2",
- }
-+
-+/// Build a minimal valid 128-byte EDID with a 1920x1080@60 detailed timing at base-block
-+/// offset `dtd_at` (54 = preferred slot), a correct checksum, and the standard magic.
-+#[cfg(CONFIG_KUNIT = "y")]
-+fn mk_test_edid(dtd_at: usize) -> [u8; 128] {
-+    let mut e = [0u8; 128];
-+    e[..8].copy_from_slice(&[0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00]);
-+    // 1920x1080@60: pclk 14850 (148.5 MHz, 10 kHz units); hblank 280, vblank 45;
-+    // hsync_front 88, hsync_width 44, vsync_front 4, vsync_width 5.
-+    let dtd: [u8; 18] = [
-+        0x02, 0x3a, // pixel clock 0x3a02 LE
-+        0x80, 0x18, 0x71, // hactive 1920 / hblank 280 (high nibbles in byte 4)
-+        0x38, 0x2d, 0x40, // vactive 1080 / vblank 45 (high nibbles in byte 7)
-+        0x58, 0x2c, 0x45, 0x00, // hsync/vsync front+width
-+        0, 0, 0, 0, 0, 0, // trailing flags (DTD is 18 bytes total)
-+    ];
-+    e[dtd_at..dtd_at + 18].copy_from_slice(&dtd);
-+    let s = e[..127].iter().fold(0u8, |a, &b| a.wrapping_add(b));
-+    e[127] = 0u8.wrapping_sub(s); // base-block checksum: all 128 bytes sum to 0
-+    e
-+}
-+
-+/// Offline self-tests for the pure protocol builders/parsers and the crypto bindings the
-+/// control plane relies on. Gated behind `CONFIG_KUNIT` (the macro adds the cfg), so they
-+/// have zero effect on a production build; run with a KUnit-enabled kernel. The crypto cases
-+/// are published known-answer vectors (FIPS-197 AES-128, RFC 4493 AES-CMAC); the seal case is
-+/// a live round-trip; the rest pin wire layout and EDID parsing that have no hardware oracle.
-+#[kunit_tests(vino_protocol)]
-+mod tests {
-+    use super::*;
-+    use kernel::error::code::EINVAL;
-+
-+    #[test]
-+    fn aes128_ecb_fips197_kat() -> Result {
-+        // FIPS-197 / NIST SP800-38A F.1.1 AES-128 ECB known-answer vector.
-+        let key = [
-+            0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6, 0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf,
-+            0x4f, 0x3c,
-+        ];
-+        let pt = [
-+            0x6b, 0xc1, 0xbe, 0xe2, 0x2e, 0x40, 0x9f, 0x96, 0xe9, 0x3d, 0x7e, 0x11, 0x73, 0x93,
-+            0x17, 0x2a,
-+        ];
-+        assert_eq!(
-+            crypto::aes128_ecb(&key, &pt)?,
-+            [
-+                0x3a, 0xd7, 0x7b, 0xb4, 0x0d, 0x7a, 0x36, 0x60, 0xa8, 0x9e, 0xca, 0xf3, 0x24, 0x66,
-+                0xef, 0x97,
-+            ]
-+        );
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn aes_cmac_rfc4493_kat() -> Result {
-+        // RFC 4493 sec 4 AES-CMAC test vectors (same key as above).
-+        let key = [
-+            0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6, 0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf,
-+            0x4f, 0x3c,
-+        ];
-+        assert_eq!(
-+            crypto::aes_cmac(&key, &[])?,
-+            [
-+                0xbb, 0x1d, 0x69, 0x29, 0xe9, 0x59, 0x37, 0x28, 0x7f, 0xa3, 0x7d, 0x12, 0x9b, 0x75,
-+                0x67, 0x46,
-+            ]
-+        );
-+        let msg = [
-+            0x6b, 0xc1, 0xbe, 0xe2, 0x2e, 0x40, 0x9f, 0x96, 0xe9, 0x3d, 0x7e, 0x11, 0x73, 0x93,
-+            0x17, 0x2a,
-+        ];
-+        assert_eq!(
-+            crypto::aes_cmac(&key, &msg)?,
-+            [
-+                0x07, 0x0a, 0x16, 0xb4, 0x6b, 0x4d, 0x41, 0x44, 0xf7, 0x9b, 0xdd, 0x9d, 0xd0, 0x4a,
-+                0x28, 0x7c,
-+            ]
-+        );
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn seal_livemac_roundtrip() -> Result {
-+        // A sealed CP frame must decrypt back to its content under the IN riv, and its
-+        // appended tag must equal a fresh Dl3Cmac over the ciphertext (encrypt-then-MAC).
-+        let ks = [
-+            0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd,
-+            0xee, 0xff,
-+        ];
-+        let riv = [0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17];
-+        let content = [0xa5u8; 32];
-+        let mut hdr = [0u8; 16];
-+        hdr[12..16].copy_from_slice(&4u32.to_le_bytes()); // wire_seq = 4
-+        let frame = cp::seal_livemac(&ks, &riv, &hdr, &content)?;
-+        assert_eq!(frame.len(), 16 + 32 + 16);
-+        let ct = &frame[16..16 + 32];
-+        assert_eq!(&cp::open_in(&ks, &cp::in_riv(&riv), 4, ct)?[..], &content[..]);
-+        assert_eq!(&frame[16 + 32..], &cp::dl3cmac_tag(&ks, &riv, 4, ct)?[..]);
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn aux_for_id_constants() {
-+        // The CP header `aux` field is a per-inner-id constant, not body_len/4.
-+        assert_eq!(cp::aux_for_id(0x14, 48), 0x0a);
-+        assert_eq!(cp::aux_for_id(0x15, 32), 0x09);
-+        assert_eq!(cp::aux_for_id(0x48, 96), 0x06);
-+        assert_eq!(cp::aux_for_id(0x99, 40), 10); // unknown id falls back to body_len/4
-+    }
-+
-+    #[test]
-+    fn edid_timing_parse_and_validate() {
-+        // A well-formed EDID yields the DTD timing; a bad checksum is rejected; a leading
-+        // monitor descriptor (pclk 0) does not hide the preferred timing in a later slot.
-+        let edid = mk_test_edid(54);
-+        let t = cp::timing_from_edid(&edid).expect("valid EDID parses");
-+        assert_eq!(t.hactive, 1920);
-+        assert_eq!(t.vactive, 1080);
-+        assert_eq!(t.refresh_hz, 60);
-+        assert_eq!(t.pixel_clock_10khz, 14850);
-+
-+        let mut bad = edid;
-+        bad[127] ^= 0xff;
-+        assert!(cp::timing_from_edid(&bad).is_none(), "bad checksum rejected");
-+
-+        let scanned = mk_test_edid(72); // off54 left as a zero (monitor) descriptor
-+        assert_eq!(
-+            cp::timing_from_edid(&scanned).expect("scans past off54").hactive,
-+            1920
-+        );
-+    }
-+
-+    #[test]
-+    fn edid_reply_guards() -> Result {
-+        // The pre-decrypt guards reject non-EDID frames without touching the cipher.
-+        let ks = [0u8; 16];
-+        let riv = [0u8; 8];
-+        assert!(cp::parse_edid_from_reply(&ks, &riv, &[0u8; 10])?.is_none());
-+        let mut wrong_sub = [0u8; 20];
-+        wrong_sub[8] = 0x44; // wire sub != 0x45
-+        assert!(cp::parse_edid_from_reply(&ks, &riv, &wrong_sub)?.is_none());
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn rgb565_packing() {
-+        assert_eq!(video::rgb565(0xff, 0x00, 0x00), 0xf800);
-+        assert_eq!(video::rgb565(0x00, 0xff, 0x00), 0x07e0);
-+        assert_eq!(video::rgb565(0x00, 0x00, 0xff), 0x001f);
-+        let _ = EINVAL; // silence unused import on configs without the assert paths
-+    }
-+
-+    #[test]
-+    fn cursor_messages_structure() -> Result {
-+        // Create: id=0x1b sub=0x42, `00 02 00` marker + w,h at off20.
-+        let c = cp::cursor_create(7, 64, 64)?;
-+        assert_eq!(c.len(), 27);
-+        assert_eq!(&c[0..6], &[0x1b, 0x00, 0x42, 0x00, 0x07, 0x00]); // id, sub, counter (LE)
-+        assert_eq!(&c[20..23], &[0x00, 0x02, 0x00]); // marker
-+        assert_eq!(u16::from_le_bytes([c[23], c[24]]), 64); // width
-+        assert_eq!(u16::from_le_bytes([c[25], c[26]]), 64); // height
-+
-+        // Move: id=0x1a sub=0x43, head@22, flag@23, X@24, Y@26 (LE).
-+        let m = cp::cursor_move(9, 1, 0x0140, 0x00f0)?;
-+        assert_eq!(m.len(), 28);
-+        assert_eq!(&m[0..4], &[0x1a, 0x00, 0x43, 0x00]); // id, sub
-+        assert_eq!(m[22], 1); // head id
-+        assert_eq!(u16::from_le_bytes([m[24], m[25]]), 0x0140); // X
-+        assert_eq!(u16::from_le_bytes([m[26], m[27]]), 0x00f0); // Y
-+
-+        // Image: create-style 27-byte header + w*h*4 BGRA bitmap; wrong-size input rejected.
-+        let bitmap = KVec::from_elem(0xabu8, 64 * 64 * 4, GFP_KERNEL)?;
-+        let img = cp::cursor_image(3, 64, 64, &bitmap)?;
-+        assert_eq!(img.len(), 27 + 64 * 64 * 4);
-+        assert_eq!(&img[0..4], &[0x1c, 0x00, 0x41, 0x00]); // id, sub
-+        assert_eq!(img[27], 0xab); // bitmap begins right after the 27-byte header
-+        assert!(cp::cursor_image(3, 64, 64, &[0u8; 16]).is_err()); // wrong bitmap length
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn timing_from_drm_mode_1080p60() {
-+        // CEA 1920x1080@60: clock 148.5 MHz, h 2008/2052/2200, v 1084/1089/1125.
-+        let mut m = bindings::drm_display_mode::default();
-+        m.clock = 148_500; // kHz
-+        m.hdisplay = 1920;
-+        m.hsync_start = 2008;
-+        m.hsync_end = 2052;
-+        m.htotal = 2200;
-+        m.vdisplay = 1080;
-+        m.vsync_start = 1084;
-+        m.vsync_end = 1089;
-+        m.vtotal = 1125;
-+        // SAFETY: `m` is a fully-initialised local drm_display_mode.
-+        let t = unsafe { cp::timing_from_drm_mode(&m) };
-+        assert_eq!(t.hactive, 1920);
-+        assert_eq!(t.hblank, 280); // htotal - hdisplay
-+        assert_eq!(t.hsync_front, 88); // hsync_start - hdisplay
-+        assert_eq!(t.hsync_width, 44); // hsync_end - hsync_start
-+        assert_eq!(t.vactive, 1080);
-+        assert_eq!(t.vblank, 45); // vtotal - vdisplay
-+        assert_eq!(t.vsync_front, 4);
-+        assert_eq!(t.vsync_width, 5);
-+        assert_eq!(t.pixel_clock_10khz, 14_850); // clock(kHz) / 10
-+        assert_eq!(t.refresh_hz, 60); // via drm_mode_vrefresh
-+    }
-+
-+    #[test]
-+    fn rotation_pixel_mapping() {
-+        use bindings::{
-+            DRM_MODE_REFLECT_X, DRM_MODE_ROTATE_0, DRM_MODE_ROTATE_180, DRM_MODE_ROTATE_270,
-+            DRM_MODE_ROTATE_90,
-+        };
-+        // Source 2x3 (sw=2, sh=3). 0deg is identity; 180deg mirrors both axes.
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_0, 0, 0, 2, 3), (0, 0));
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_0, 1, 2, 2, 3), (1, 2));
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_180, 0, 0, 2, 3), (1, 2));
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_180, 1, 2, 2, 3), (0, 0));
-+        // 90deg: output dims are (sh,sw)=(3,2); (dx,dy) -> (dy, sh-1-dx).
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_90, 0, 0, 2, 3), (0, 2));
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_90, 2, 1, 2, 3), (1, 0));
-+        // 270deg: (dx,dy) -> (sw-1-dy, dx).
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_270, 0, 0, 2, 3), (1, 0));
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_270, 2, 1, 2, 3), (0, 2));
-+        // Reflect-X composes on top of the rotation (here identity): sx -> sw-1-sx.
-+        assert_eq!(drm_sink::rot_src(DRM_MODE_ROTATE_0 | DRM_MODE_REFLECT_X, 0, 0, 2, 3), (1, 0));
-+    }
-+
-+    #[test]
-+    fn wht_colour_and_quantize() {
-+        use video::wht;
-+        // Exact colour transform: white -> Y=16320, achromatic -> Cb=Cr=0.
-+        assert_eq!(wht::colour(255, 255, 255), (16320, 0, 0));
-+        assert_eq!(wht::colour(128, 128, 128), (128 * 64, 0, 0)); // gray: chroma zero
-+        assert_eq!(wht::colour(255, 0, 0), (16 * 255, 64 * 255, 0)); // red: Cb>0, Cr=0
-+        // The documented ground-truth vector: white Y_DC=16320 quantizes (DC, position 0) to 1020.
-+        assert_eq!(wht::quantize(16320, 0), 1020);
-+        // AC clamps to the 12-bit signed long-token range.
-+        assert_eq!(wht::quantize(1_000_000, 16), 2047);
-+        assert_eq!(wht::quantize(-1_000_000, 16), -2048);
-+    }
-+
-+    #[test]
-+    fn wht_transform_uniform() {
-+        use video::wht;
-+        // A uniform block: DC = the per-pixel value, every AC coefficient = 0 (VIDEO.md invariant).
-+        let block = [16320i32; wht::BLOCK];
-+        let c = wht::transform(&block);
-+        assert_eq!(c[0], 16320); // DC = mean = the uniform value
-+        assert!(c[1..].iter().all(|&x| x == 0)); // AC all zero
-+        // End-to-end: white pixel -> Y plane -> WHT DC -> quantize -> 1020.
-+        let (y, _, _) = wht::colour(255, 255, 255);
-+        assert_eq!(wht::quantize(wht::transform(&[y; wht::BLOCK])[0], 0), 1020);
-+    }
-+
-+    #[test]
-+    fn wht_token_bitstream() -> Result {
-+        use video::wht::TokenWriter;
-+        // 16-bit zero pad, then short tokens 5 (00101) and 30 (11110), zero-padded to a byte:
-+        // 0000000000000000 00101 11110 000000 = 0x00 0x00 0x2F 0x80.
-+        let mut w = TokenWriter::new()?;
-+        w.token(5)?;
-+        w.token(30)?;
-+        assert_eq!(&w.finish()?[..], &[0x00, 0x00, 0x2f, 0x80]);
-+        // A value > 30 escapes to a 17-bit long token: 16 pad + 17 + byte-pad = 5 bytes.
-+        let mut w = TokenWriter::new()?;
-+        w.token(100)?;
-+        assert_eq!(w.finish()?.len(), 5);
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn ddc_ci_set_vcp_checksum() {
-+        // VESA DDC/CI 1.1 sec 4.4 worked example: Set brightness (VCP 0x10) to 50 (0x0032).
-+        // Bytes after the 0x6e write address: 51 84 03 10 00 32, checksum = XOR incl. 0x6e.
-+        let p = cp::ddc_ci_set_vcp(cp::VCP_BRIGHTNESS, 50);
-+        assert_eq!(&p[..6], &[0x51, 0x84, 0x03, 0x10, 0x00, 0x32]);
-+        let want = 0x6e ^ 0x51 ^ 0x84 ^ 0x03 ^ 0x10 ^ 0x00 ^ 0x32;
-+        assert_eq!(p[6], want);
-+        // The checksum makes the XOR of {dest, source, len, opcode, vcp, hi, lo, chk} zero.
-+        assert_eq!(0x6eu8 ^ p.iter().fold(0u8, |a, &b| a ^ b), 0);
-+        // Contrast (0x12) and the power VCP (0xd6 = off) carry their codes/values verbatim.
-+        assert_eq!(cp::ddc_ci_set_vcp(cp::VCP_CONTRAST, 0x0140)[3..6], [0x12, 0x01, 0x40]);
-+        assert_eq!(cp::ddc_ci_set_vcp(cp::VCP_POWER_MODE, cp::POWER_OFF)[3..6], [0xd6, 0x00, 0x04]);
-+    }
-+
-+    #[test]
-+    fn ddc_set_vcp_message_structure() -> Result {
-+        // CP wrapper: id=0x15 sub=0x22, counter (LE) at off4, I2C slave 0x37 + len 7 at off20,
-+        // the 7-byte DDC/CI Set-VCP payload at off22, padded to a 32-byte block.
-+        let m = cp::ddc_set_vcp(0x11, cp::VCP_BRIGHTNESS, 75)?;
-+        assert_eq!(m.len(), 32);
-+        assert_eq!(&m[0..6], &[0x15, 0x00, 0x22, 0x00, 0x11, 0x00]); // id, sub, counter (LE)
-+        assert_eq!(&m[20..22], &[0x37, 7]); // monitor DDC/CI I2C slave + payload length
-+        assert_eq!(&m[22..29], &cp::ddc_ci_set_vcp(cp::VCP_BRIGHTNESS, 75)); // DDC/CI payload
-+        assert_eq!(&m[29..32], &[0, 0, 0]); // block padding
-+        Ok(())
-+    }
-+}
+@@ -86,6 +86,7 @@ fn timeout() -> Delta {
+ mod ake;
+ mod golden;
+ mod cp;
++mod video;
+ 
+ /// The shared secrets a completed HDCP 2.2 AKE leaves behind: the SKE session key
+ /// `ks` and content IV `riv` key the AES-CTR control plane (sec 6), and `kd` is kept
 -- 
 2.54.0
 
