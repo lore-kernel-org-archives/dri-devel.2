@@ -4,78 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6D4BCD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:01:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF1B8CD98E4
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:05:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3256910E989;
-	Wed, 17 Jun 2026 10:01:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F84689304;
+	Wed, 17 Jun 2026 10:05:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=huaqin-corp-partner-google-com.20251104.gappssmtp.com header.i=@huaqin-corp-partner-google-com.20251104.gappssmtp.com header.b="HN8/p3Vo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lhBTZB1+";
 	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCA5410E989
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:01:29 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-2c132ac5ec2so55690795ad.1
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 03:01:29 -0700 (PDT)
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com
+ [209.85.222.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43B8E89304
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:05:01 +0000 (UTC)
+Received: by mail-qk1-f176.google.com with SMTP id
+ af79cd13be357-9158fbaa4bbso635350485a.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 03:05:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781690700; cv=none;
+ d=google.com; s=arc-20240605;
+ b=EY4JnEcdIxdSPiJewTg67jvKc6M6+ssLsIxpAfaPe+JF0Sj1LamHLdCGq9kP0GRNc2
+ 73LCLU3kal3Ok2X2Y3/37lvPwBm2Mqfj+sgPRq++5yckeOFiZN20OaBb5qvd2yiH/nDl
+ g5I+USO0nbzkwuGC60Nd0ZZhLFNZmm1QBvmE2ZoNnMPDiR1YDwDcvIXktpXaT2rjfySy
+ 121q/NaHDpnJwimSlC/hi0tJ34JEgu2TFpvI+sWgzKjBjyQqxrclw/nOIq905ZKy3CKL
+ P5sscWhNGtyFkHviacWdVAp+oUncjxROUSUpIwMJYu2rvP7I2gs220qz6sXBy4I3Nz17
+ k/kQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=qSyY8K0IR4Y+Gsz0shZFstWIZJxq9UJAKUi6SU2oTjI=;
+ fh=/IY5ffb5aVd54xHBPrtI8rvXKdkhCbdi9YaOqMiXa7U=;
+ b=SyKOSKlqwK/V4qukL/D7ZaASX1qZ+F7MvDqeXqQs5D4RRHxjSRu5ksbNFxR5MD4O8I
+ EQHzgWshtLCD2A0XWPkDuHXZ5j/qoAWVDBCGcqsrL+RUfwjPd+roB3XOOk3JVaJ+5foi
+ U79JwJphbC4TKH1fv68X3kHusl2AXzrmLRl5D5tfryMImJyQVrbyLoGupGgo166Ifnf/
+ ra1qUaZNrxddydCwiE2peKJDErid9gLdMal5LgtEg7VYuyVrNpOsOslEKzv1f0f9+mTU
+ wzSb5sny+Enu3luuoy8ZN9rpbnQfUJRdHoiaNcoHuZFvKRi2Hq3zbN6afWfGpSHNPIVz
+ e6NA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=huaqin-corp-partner-google-com.20251104.gappssmtp.com; s=20251104;
- t=1781690489; x=1782295289; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=l4eNR1/9Cfer+QiQ4ZHUlzdr0uRo1Bn/ldqEvLIcKeQ=;
- b=HN8/p3Vov+MVXxrEdZsY9v1MKILNx1ng+HnT0zG+IMhtu6RYnAveBagE2HTzTeO2T7
- DCiP/8vTtjNzfS8p4GVMCn4f0lefqfrNgX4C+/lCH+HET9WECoDbkC2sl8YZXvvKTzjv
- XaRAozmPwgfF+dI8llr22++jwwgVPpd0D8BkkY8x4nZcYYZ7MtWCKYqluuVnxikoVgik
- HC3lyp/vYmaGb/hYhFNOBNbqZWdrAD0UZ9gnn4+SIGUQZAgo6KBfNaFQmDqZ3g8qVXNy
- +ismEA6BCLVvfr2rhm3U8gZsEC+jgUJpSYjDwgD+tu7oU6xE3wXDADJXNnGhkA/C+O+I
- M2iw==
+ d=gmail.com; s=20251104; t=1781690700; x=1782295500; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=qSyY8K0IR4Y+Gsz0shZFstWIZJxq9UJAKUi6SU2oTjI=;
+ b=lhBTZB1+I1Nlb7yY6cs1s4PpHTbN5kLYruF1800w2YsyIPPOzThbVaSWA8ERMlimE9
+ ZPRMIjTZYlEj0EvLUh0MAtls8+0Odvx2G5kYrd7em7k0D74X1BVH9keHcp2cGGJZd97+
+ Ta4isfCNNZOo0ARQNmgCT/s5D21Jhpc/1zC3l+mMfgLBMOd0QyMZYtv5e1oq3l8tBN7F
+ y8FOKMTcCavnDB/g6aXc/cFGwVn+Zqhm0uo/UY7uAQACVgkgRO5heyCkXWQ3m3+xFPui
+ aNyI3y1JlrFz+VJ8GwIBWrvLe5lT6uYLEC2WH2wnTWipEJG6qyNiUxuCrLPYCTkOUH85
+ JHrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781690489; x=1782295289;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1781690700; x=1782295500;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=l4eNR1/9Cfer+QiQ4ZHUlzdr0uRo1Bn/ldqEvLIcKeQ=;
- b=Fv0MY8O95tNs13J/CCplqCjMxUcJk3Xg/KAwL6I+BmeHx/H3bOC+pTFDOd0IoK0/hH
- Q8mBDKgwP/cgJi/BUgt7TFT3B3wIjMi0jTFdYEDPDNAo8sxik6QddNmHn9cQMgvxCBZ3
- ziIkihQQC3xH3c6U/tB0G+9ZujPIs69tWXnKWa1BpksAE5urD137RV3FFpi1eGS+S4J4
- RB7gWvF6bwsU23rRy3AIp+LNY4SbYNod4jnG95ku0esLp6vKVsygT9ORZTSyFu7bfwTK
- 7m1W5TiKGJehliuLH0uvEPnh/cx1V16NFhY/F+JTawIV+8FKC/FaUUNJApcyY/ErX6H1
- WReQ==
-X-Gm-Message-State: AOJu0Yy6fN7OXUU1pP3e2sNlhKbvB02JBK7LAu9N3neecm6DMw2g/6xe
- DdBVQ5Fp3cLLlUYEu2txZM5ZjLWBw2dd6ksBRP5o/YpDEF9WwISIuA8FLaxHoEikvCByRtaLALM
- rBTbB3Zr9mA==
-X-Gm-Gg: AfdE7clzYL3ZYFoOg1qQqMHE7+s0yYsBzp4NxEBLEawGaDkwi/k0FV+hhJKE8JHq1Vt
- Od+y6j6yqk/2XnD7xoli32b6xlYt8Rb0dkA9HVUVeZJXCVgRhCEfgu+t2lEzyfE2PQav5vwpsXO
- N108M2ZgaqgN/yTPr55DZBTv2h6Zz+44OP8ehGos6V778bLn2KZnf7KaY12timWh0x8oFcKrJyz
- 7oVyeD/hVLqWUq/alDlL32T35WngV7rvtHJz8OmJa/IcJMlZS5E7Art7MRae4ffa3aJE6lWi106
- sr0j5fnkHeEPHi+vIKBcBdXbuv41hT0Cqm/xFkcttuUar16V//ZnnXaBeTmY5d+z5ArzLyEG//s
- 23BFlJYiTDvO51FrbPB+y1UNDxlTtEqlKld3KY+WNAMQUZSxPWTcG7Fz6IYYp3DUj95XFVK7cA9
- Q+ibAQ8vtpaKnsYcjhT/8CuzFaTWHk8LRPEiK3/YM7M2Mcwv55L82+ogtS7OqYnu4=
-X-Received: by 2002:a17:903:292:b0:2c1:f262:4962 with SMTP id
- d9443c01a7336-2c6bc22756emr31595795ad.20.1781690489323; 
- Wed, 17 Jun 2026 03:01:29 -0700 (PDT)
-Received: from zhk-CBG100025892.huaqin.com ([103.117.77.121])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c432d8a039sm159438825ad.62.2026.06.17.03.01.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2026 03:01:29 -0700 (PDT)
-From: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
-To: dianders@chromium.org, neil.armstrong@linaro.org,
- quic_jesszhan@quicinc.com, sam@ravnborg.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- daniel@ffwll.ch, airlied@gmail.com,
- Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
-Subject: [PATCH] Support new NV140FHM-N5B and TM156VDXP25 edp panel,
- the NV140FHM-N5B need 200ms delays from the backlight to valid data,
- 100ms delays from backlight off to valid data,
- the TM156VDXP25 need 100ms delays from the backlight to valid data.
-Date: Wed, 17 Jun 2026 18:01:20 +0800
-Message-Id: <20260617100120.3426673-1-zhouhaikun5@huaqin.corp-partner.google.com>
-X-Mailer: git-send-email 2.34.1
+ bh=qSyY8K0IR4Y+Gsz0shZFstWIZJxq9UJAKUi6SU2oTjI=;
+ b=F2p4mY8QkzFV6kK+6dTJA4eBEY0oMVX01F573WTnokdby2SV95E3LIYT+9uOuhWYPN
+ frkdr5Ig5y8CUdxTB4Y8xeQlQ3FVDPtTSG5f9M/+yqyLXYOkUepcZVMMp3EzQXon6BbS
+ LHUUgb6YLToyHG0lKXffCzQnjvR9z4L8ov76DiixqJjMT2q0Xn5qGKnRPihdR2Vfry+Y
+ clpxl61tLQxgtU4cHfOIgQCfGJq4KsPhYx0xGk/ENVTM63DFXx+0gjRYDPUNifSSLX7h
+ jH1oTiki/gmVoRSh+lCDQFAQqEAlzjlb/II2/QDktrDjGGcvLcD9nErEhN0nGKHp5wLP
+ saFg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/G0LCAWrx5BeNcd9WeQ3HPRrhMW7rKOfpwnMcCZAVhO1Plz9PJ2Y09mgzDLKQ67dyVoW1X/fBuqEg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyBNGIqu8YadRMwtxfyhspgYTs28LObChv8N8Fmkk4fmuwrGpxE
+ CsLsfCVX8wIv2y11SX8SAjizJICSsRCpbn42gCHopfadNnc1i0ymgbsXEC822Trlq2mwLire3Lx
+ w3gouOYY1Iv1K8kpUJKBaNR95mdPIpyQ=
+X-Gm-Gg: Acq92OEMFvYSTfKz2+HlHEyLWtWgEULfj2e37IlCDb6ZuRyrAED1T1G2qqVT9H6CivK
+ 0ct+sWL9GYGGrMqEehBiqGPo38FiaskSG465APbGLV8jzlEoAgQtlb4N3IN97a6kpFoaeRQJjQB
+ ejBnr0Os925OwaYP86P2A2RFgA9Palgz80mZePsZxGiWfclG21jKjTRNm7stxCwJz1RIRn7+e5Z
+ TK8sa3LlGW/yk41W8fhGXqHxjwAHNDmlvI/UJlJd9xAv2OaZY3+nq8MLbB5ScF6DaQFUkQnGkRb
+ UfLvqhRolzcHJJ81C8vMgs4Xy69TJTF9B+jfDevSeklb97p8CATbBMsXtQ==
+X-Received: by 2002:a05:620a:6488:b0:915:89d4:df18 with SMTP id
+ af79cd13be357-91d8b4bd8admr499751285a.41.1781690700284; Wed, 17 Jun 2026
+ 03:05:00 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAPM=9tyvcK=48vPeSB-DH8yd9=eZi-77kWgJSAP54d+kJWx6Jw@mail.gmail.com>
+ <CAHk-=wizdcwDYToe1d2niV3Qzq+K_zkyN0tn3n+=EqEt3xtvOg@mail.gmail.com>
+In-Reply-To: <CAHk-=wizdcwDYToe1d2niV3Qzq+K_zkyN0tn3n+=EqEt3xtvOg@mail.gmail.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Wed, 17 Jun 2026 20:04:48 +1000
+X-Gm-Features: AVVi8Ce61kndnORy0c2dPm4MzotIAzRrKsrvtRoboUU2NyhBbrOImUgd8PAuapc
+Message-ID: <CAPM=9tzUCOf9PriQ1Wy6+m+xkO3QvsqcCo=vg84oDKphSCRoPw@mail.gmail.com>
+Subject: Re: [git pull] drm for 7.2-rc1
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Sima Vetter <sima@ffwll.ch>, dri-devel <dri-devel@lists.freedesktop.org>, 
+ LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,85 +104,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-NV140FHM-N5B raw edid:
-00 ff ff ff ff ff ff 00 09 e5 98 0d 00 00 00 00
-10 23 01 04 a5 1f 11 78 01 c8 d5 95 5d 59 94 29
-23 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 94 37 80 a0 70 38 3c 40 30 20
-36 00 35 ae 10 00 00 1a 76 2c 80 a0 70 38 3c 40
-30 20 36 00 35 ae 10 00 00 1a 00 00 00 fd 00 28
-3c 44 44 0e 01 0a 20 20 20 20 20 20 00 00 00 fc
-00 4e 56 31 34 30 46 48 4d 2d 4e 35 42 0a 01 87
+On Wed, 17 Jun 2026 at 19:38, Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+>
+> On Wed, 17 Jun 2026 at 07:19, Dave Airlie <airlied@gmail.com> wrote:
+> >
+> > None of them were too confusing, but the panfrost one isn't that
+> > straightforward and amdgpu ones are a bit tricky.
+>
+> I think yours is wrong. You don't do that
+>
+>         op_ctx->rsvd_page_tables.count = pt_count;
 
-70 20 79 02 00 81 00 15 74 1a 00 00 03 01 28 3c
-00 00 53 ff 53 ff 3c 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 f9 90
+Yes I think that is missing in mine, good catch.
 
-TM156VDXP25 raw edid:
-00 ff ff ff ff ff ff 00 51 a1 39 21 00 00 00 00
-0d 24 01 04 a5 22 13 78 03 6e 95 99 5b 58 8d 28
-21 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 af 2b 80 a0 70 38 28 40 30 20
-36 00 58 c2 10 00 00 1a 00 00 00 fd 00 28 3c 43
-43 0e 01 0a 20 20 20 20 20 20 00 00 00 fe 00 3d
-4c 20 20 20 20 20 20 20 20 20 20 ff 00 00 00 fc
-00 54 4d 31 35 36 56 44 58 50 32 35 0a 20 01 ef
+>
+> that I think you should do..
+>
+> Other than that my resolution seems identical (modulo some trivial
+> whitespace around the same area)
+>
+> > The commit list looks fine but the diffstat looks wonky for some reason.
+>
+> Yeah, that's garbage. Did you do it after the merge or before? If
+> before, it must have picked some completely wrong merge base.
 
-70 20 79 02 00 21 00 1d 72 0d 90 07 80 07 38 04
-80 95 69 5b 8d 95 8d 87 42 21 02 35 54 b0 5c b0
-5c 00 42 12 78 22 00 14 ff 21 02 85 7f 07 9f 00
-2f 00 1f 00 37 04 27 00 02 00 05 00 2b 00 0c 27
-00 28 3b 00 00 27 00 28 3b 00 00 2e 00 06 00 42
-b0 5c b0 5c 81 00 1e 72 1a 00 00 03 01 28 3c 00
-00 53 ff 53 ff 3c 00 00 00 00 e3 05 04 00 e6 06
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 90 90
+I did it from a completely different tree where I have drm-next and
+origin/master not sure where it picked the base from there, it has no
+insight into my merge tree at all.
 
-Signed-off-by: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
----
- drivers/gpu/drm/panel/panel-edp.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 81e1866d54e78..3e6d8f17c3072 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -2010,6 +2010,15 @@ static const struct panel_delay delay_80_500_e50_d50 = {
- 	.disable = 50,
- };
- 
-+static const struct panel_delay delay_200_500_e50_po2e200_d100 = {
-+	.hpd_absent = 200,
-+	.unprepare = 500,
-+	.enable = 50,
-+	.powered_on_to_enable = 200,
-+	.disable = 100,
-+};
-+
-+
- #define EDP_PANEL_ENTRY(vend_chr_0, vend_chr_1, vend_chr_2, product_id, _delay, _name) \
- { \
- 	.ident = { \
-@@ -2144,6 +2153,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cfa, &delay_200_500_e50, "NV116WHM-A4D"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d45, &delay_200_500_e80, "NV116WHM-N4B"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d73, &delay_200_500_e80, "NE140WUM-N6S"),
-+	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d98, &delay_200_500_e50_po2e200_d100, "NV140FHM-N5B"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0db3, &delay_200_500_e80, "NV153WUM-N42"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0ddf, &delay_200_500_e80, "NV116WHM-T01"),
- 
-@@ -2250,6 +2260,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 
- 	EDP_PANEL_ENTRY('T', 'M', 'A', 0x0811, &delay_200_500_e80_d50, "TM140VDXP01-04"),
- 	EDP_PANEL_ENTRY('T', 'M', 'A', 0x2094, &delay_200_500_e50_d100, "TL140VDMS03-01"),
-+	EDP_PANEL_ENTRY('T', 'M', 'A', 0x2139, &delay_200_500_e50_d100, "TM156VDXP25"),
- 
- 	{ /* sentinal */ }
- };
--- 
-2.34.1
-
+Dave.
