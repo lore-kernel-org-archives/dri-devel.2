@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8836CD98F3
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 18:52:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC45DCD98F6
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 18:52:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03CF210EB07;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB9F110F0B2;
 	Wed, 17 Jun 2026 18:52:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="fsFzTKxU";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="UQ8W+ubZ";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C246410EAF3
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 18:52:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1F2B10EAF9
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 18:52:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1781722320;
- bh=tDHwRux0qgauDQRJ/SgFhalXY5Xhd44tAAD464FLUWY=;
+ s=mail; t=1781722322;
+ bh=C/AphHeqUmYgEpPCNKjM0R3CijmfEx2tuybcOWNfG/g=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=fsFzTKxUoCR14ChJpZz4mNX+uUsVs2aSQoL9vPhDTEfZ6BNrXwDnhH0UKBRnMdkbf
- JtNkGY1kuxS9iYbg8yxjzcmq5lcK7fuPR4VDWOsYvk8xrVYSgIvFAtJ+eNeSW9LHzh
- pLN8A6klZejQjEDqqfECnoaMHn2bH0C/5j0twmZrr9cjUwv7m8w2vF3g/z81LeVSOt
- vZvMMSyRVYoZa5MamS3b3DY21OQNjDOOStdkn6T3X5CIKzTHRhSZt5eA1+D3bZxfMv
- SaK73uYFyc/Ovs60kOnlb+BZcFWKsJK/v0nPvtUQuHe3cG0Iah7xNuXznDsQyEmssu
- bazzRLNeKAjpw==
+ b=UQ8W+ubZpP133M3xLQmpz7U1GO0LzqC62rTLnNVk+OQ3JIX12gG09317MAabS5im4
+ 3c9zuqQORZpGfERlFdpwcvX/In5U76JJ0iBEWOe1qQW+z3eMvffuVGopcTwLDv+lDQ
+ fJ+OKdPGezm/GWbzsQxH+aE+22DRLyJwS30hFIlQ0LDn+d/L2ES2Z92Qmd602e1jh/
+ v+JNFM5Vb65Orrul2gbeewgoRZfwvR0xO+ZX9pJ8mCfVfyW6GlO9oTO1wz5JumuW7e
+ Pdqpd1Mnu0Do8UycxN8gHOj79MJA7VWs+EaO5RlwvA0X7JArn/CDUFdbw4FyeTcSD2
+ lM3DOPQN4YTmQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 53E0F17E0B81;
- Wed, 17 Jun 2026 20:52:00 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 906CE17E0E64;
+ Wed, 17 Jun 2026 20:52:02 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 17 Jun 2026 21:51:55 +0300
-Subject: [PATCH 2/9] drm/rockchip: vop2: Reset AXI and DCLK to improve
- robustness
+Date: Wed, 17 Jun 2026 21:51:58 +0300
+Subject: [PATCH 5/9] drm/rockchip: vop2: Switch to enum vop_csc_format
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-dw-hdmi-qp-yuv-v1-2-a665cfd06d7d@collabora.com>
+Message-Id: <20260617-dw-hdmi-qp-yuv-v1-5-a665cfd06d7d@collabora.com>
 References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
 In-Reply-To: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -76,136 +75,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Assert the AXI reset in the CRTC disable path, and the VP DCLK reset in
-the enable path.
+Improve code readability in vop2_setup_csc_mode() by using enum
+vop_csc_format for the csc_mode variable, as well as for the return type
+of the vop2_convert_csc_mode() helper, which already returns CSC_*
+enumerators.
 
-These resets are intended to leave the hardware in a clean state for the
-next use, helping recover from exceptions such as IOMMU page faults, as
-well as to prevent random display output glitches, such as a blank
-image, observed when switching modes that also change the color format,
-e.g. from RGB to YUV420 and vice versa.
+While at it, replace the nonsensical 'csc_mode = false' assignment in
+the no-conversion branch with the equivalent CSC_BT601L, which carries
+the same value (0) but is type-correct.
 
-For now this seems to affect only the RK3588, hence the resets are
-optional and will be provided in the device tree for this SoC only.
-
-Co-developed-by: Andy Yan <andy.yan@rock-chips.com>
-Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 35 ++++++++++++++++++++++++++++
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  4 ++++
- 2 files changed, 39 insertions(+)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 4cce3e336f5b..2833fb49ad81 100644
+index df475173dc8e..e0d6e42fedb1 100644
 --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
 +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -17,6 +17,7 @@
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
-+#include <linux/reset.h>
- #include <linux/swab.h>
- 
- #include <drm/drm.h>
-@@ -860,6 +861,26 @@ static int vop2_core_clks_prepare_enable(struct vop2 *vop2)
- 	return ret;
+@@ -648,7 +648,7 @@ static void vop2_setup_scale(struct vop2 *vop2, const struct vop2_win *win,
+ 	}
  }
  
-+static void vop2_clk_reset(struct vop2 *vop2, struct reset_control *rstc)
-+{
-+	int ret;
-+
-+	if (!rstc)
-+		return;
-+
-+	ret = reset_control_assert(rstc);
-+	if (ret < 0) {
-+		drm_warn(vop2->drm, "failed to assert reset: %d\n", ret);
-+		return;
-+	}
-+
-+	udelay(10);
-+
-+	ret = reset_control_deassert(rstc);
-+	if (ret < 0)
-+		drm_err(vop2->drm, "failed to deassert reset: %d\n", ret);
-+}
-+
- static void rk3588_vop2_power_domain_enable_all(struct vop2 *vop2)
+-static int vop2_convert_csc_mode(int csc_mode)
++static enum vop_csc_format vop2_convert_csc_mode(int csc_mode)
  {
- 	u32 pd;
-@@ -938,6 +959,8 @@ static void vop2_disable(struct vop2 *vop2)
- {
- 	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
+ 	switch (csc_mode) {
+ 	case V4L2_COLORSPACE_SMPTE170M:
+@@ -711,7 +711,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
+ 	int input_csc = V4L2_COLORSPACE_DEFAULT;
+ 	int output_csc = vcstate->color_space;
+ 	bool r2y_en, y2r_en;
+-	int csc_mode;
++	enum vop_csc_format csc_mode;
  
-+	vop2_clk_reset(vop2, vop2->axi_rst);
-+
- 	pm_runtime_put_sync(vop2->dev);
+ 	if (is_input_yuv && !is_output_yuv) {
+ 		y2r_en = true;
+@@ -724,7 +724,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
+ 	} else {
+ 		y2r_en = false;
+ 		r2y_en = false;
+-		csc_mode = false;
++		csc_mode = CSC_BT601L;
+ 	}
  
- 	regcache_drop_region(vop2->map, 0, vop2_regmap_config.max_register);
-@@ -1948,6 +1971,8 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 
- 	vop2_crtc_atomic_try_set_gamma(vop2, vp, crtc, crtc_state);
- 
-+	vop2_clk_reset(vop2, vp->dclk_rst);
-+
- 	drm_crtc_vblank_on(crtc);
- 
- 	vop2_unlock(vop2);
-@@ -2531,6 +2556,11 @@ static int vop2_create_crtcs(struct vop2 *vop2)
- 			return dev_err_probe(drm->dev, PTR_ERR(vp->dclk),
- 					     "failed to get %s\n", dclk_name);
- 
-+		vp->dclk_rst = devm_reset_control_get_optional(vop2->dev, dclk_name);
-+		if (IS_ERR(vp->dclk_rst))
-+			return dev_err_probe(drm->dev, PTR_ERR(vp->dclk_rst),
-+					     "failed to get %s reset\n", dclk_name);
-+
- 		np = of_graph_get_remote_node(dev->of_node, i, -1);
- 		if (!np) {
- 			drm_dbg(vop2->drm, "%s: No remote for vp%d\n", __func__, i);
-@@ -2890,6 +2920,11 @@ static int vop2_bind(struct device *dev, struct device *master, void *data)
- 		return dev_err_probe(drm->dev, PTR_ERR(vop2->pll_hdmiphy1),
- 				     "failed to get pll_hdmiphy1\n");
- 
-+	vop2->axi_rst = devm_reset_control_get_optional(vop2->dev, "axi");
-+	if (IS_ERR(vop2->axi_rst))
-+		return dev_err_probe(drm->dev, PTR_ERR(vop2->axi_rst),
-+				     "failed to get axi reset\n");
-+
- 	vop2->irq = platform_get_irq(pdev, 0);
- 	if (vop2->irq < 0)
- 		return dev_err_probe(drm->dev, vop2->irq, "cannot find irq for vop2\n");
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-index ffcb39c130aa..14b437d2d088 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-@@ -165,6 +165,8 @@ enum vop2_win_regs {
- 	VOP2_WIN_MAX_REG,
- };
- 
-+struct reset_control;
-+
- struct vop2_regs_dump {
- 	const char *name;
- 	u32 base;
-@@ -238,6 +240,7 @@ struct vop2_video_port {
- 	struct vop2 *vop2;
- 	struct clk *dclk;
- 	struct clk *dclk_src;
-+	struct reset_control *dclk_rst;
- 	unsigned int id;
- 	const struct vop2_video_port_data *data;
- 
-@@ -329,6 +332,7 @@ struct vop2 {
- 	struct clk *pclk;
- 	struct clk *pll_hdmiphy0;
- 	struct clk *pll_hdmiphy1;
-+	struct reset_control *axi_rst;
- 
- 	/* optional internal rgb encoder */
- 	struct rockchip_rgb *rgb;
+ 	vop2_win_write(win, VOP2_WIN_Y2R_EN, y2r_en);
 
 -- 
 2.54.0
