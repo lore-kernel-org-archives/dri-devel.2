@@ -4,63 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DD6ECD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 18:52:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 946F8CD98F3
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 19:17:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A277610F0BF;
-	Wed, 17 Jun 2026 18:52:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF14910F0E8;
+	Wed, 17 Jun 2026 19:17:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="RK7GLsUG";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kaEkUH+0";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1E2910F0B2
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 18:52:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1781722324;
- bh=JH1vTgjVkIdJAE1r7RblhvR/FnaEHviWfsVAbDTzpzk=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=RK7GLsUGjMBUNNBx6aVGWy8nHM2gjt5W1b01zVfNSX+rupWW7YPt5hrxWuckq0CKe
- 7pTFY34EatpiVtMlKqjxhIuzCDgAf4GBTrac5renWFP4gNK8yufxGlqwF9/yTEoB/n
- MxZVJU6PBtdwO4hnnd/OQmc5NrOA8Fg6dgjxQKXRQdHvTfsRItN9M30k426UP7XtWW
- UNqh30J7ZkE2zT9DiUC3itHBi0sjVzCqZsmkgPE89MviihFoNbsUDg2uxvCBl81kGB
- S/noXvOeGKcVMtgg+jEV/7efqSjStNGxpZpD4ln08KEa8VsBATc3YmIHovptWddLlQ
- oEGIM67C368Iw==
-Received: from localhost (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1753117E1024;
- Wed, 17 Jun 2026 20:52:04 +0200 (CEST)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 17 Jun 2026 21:52:00 +0300
-Subject: [PATCH 7/9] drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422 output
- format
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE09C10EAEF;
+ Wed, 17 Jun 2026 19:17:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781723874; x=1813259874;
+ h=date:from:to:cc:subject:message-id:
+ content-transfer-encoding:mime-version;
+ bh=RlIWZh2s8QC/5qfvRSUoTvrwTYj0y5TCfwe8SjvIeZQ=;
+ b=kaEkUH+04BBv5LCdgEYtQVZ7lO6jZhXgu2u07+VYFUj4DzQCH9IHzUUQ
+ OhCtvQyHVilVta/1lMAc5RqQEAbyLd3r5Vvabi6qr7vsInkMcNiQMbGQS
+ BDdyltn3UsTQXVvHQHqLu1hksQdF0LDr0bLosK88QoczgvupGcaxtd762
+ GUuTA+Hy8YlWRvGSnJ2PBlYwzQH3+vWkT8+FG+RSUlsfAzqLURJUmTRdh
+ 3phL+czkIlsvgcvkt+maaMTqSa4QeiB9GnFNgXAeWjSq8s3EkqU4eiFiW
+ kmtHyrLnF8jjy6ZQ6xE+Dxm/N8gTDagbWguz23Cmm/8ekIJnOGtD6E5lv Q==;
+X-CSE-ConnectionGUID: LI5THpTuSpe7qmn+0r8TjA==
+X-CSE-MsgGUID: dniFNZBsT/a8oUk+k0AwJA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11820"; a="105339038"
+X-IronPort-AV: E=Sophos;i="6.24,210,1774335600"; d="scan'208";a="105339038"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2026 12:17:53 -0700
+X-CSE-ConnectionGUID: hhbvHnKxRXOXJTDrPOPgFw==
+X-CSE-MsgGUID: lJVAaZzRTr2csGjbklZIYw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,210,1774335600"; d="scan'208";a="278345283"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2026 12:17:53 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 17 Jun 2026 12:17:52 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 17 Jun 2026 12:17:52 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.20) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 17 Jun 2026 12:17:52 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y6yiQmUh9x7u6POkxpV7RjDIcMmBK9c1Moa42CV00lI4YBST0YdquYJ1KhNGUjNfOfur6KexqKz0oxLaoF/TDiqB//iMOytclM9yTIcDXhlXgMMpSk7eb109wBZ3F+4ulDOajoZu+n2I3h3sJLPcvUGmdjTr8f4ICm3AUelIpdvjEO4hu1bQmBS6cgGnGiLzk5SR1OaKacDL56rfemH2Y26LQbPaNEXtOwWG+28/0bkSRZTpqRuzYalVM1yJw/KmXpF0mCj/iT1bHh/D1AF7SEomrfBjOvX+P7III/cMK3AcJ49bajSqcHqCL2cymyfRAYZXO4jhfJuNi5N1VdHOvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CbS6Fw0TA1eydrDuHD6DL5GuMblr1e/P4Ri3LuOjAeg=;
+ b=jZCWqsieT26OVEzX+FFWu8veQNcHdBATXLudx0qW3KoK5vEDtgzjSvn5L6rJX9FQWkuFy519jnLJcWg1as1N8wxJLodlYOTS9E3NHVcGyt9FkSyFRmPn3KG9FhqBhriZ0zLFkLxNylqeZOuqC9RhRyLiB/hCy1A8TBNQldMgBdADa/aOXyF15Sj2DWYgBUa+VYTker6kysV5+aD7cQrqO7H9DMMmGyIEouvevOMbTg3CJ5+xS2eHAtCfZfnEVOHk85DU4sAkHFmkMU201YpJaDuK3xk3jtIW3oQEyMo1oODLdEyaX+UAmsixH2Kpq+V/3rVjnVVHvtGHmcV1uUQPng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by SA2PR11MB4971.namprd11.prod.outlook.com (2603:10b6:806:118::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Wed, 17 Jun
+ 2026 19:17:49 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
+ 19:17:49 +0000
+Date: Wed, 17 Jun 2026 12:17:45 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+CC: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, "Oded
+ Gabbay" <ogabbay@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <dim-tools@lists.freedesktop.org>
+Subject: [PULL] drm-xe-next-fixes
+Message-ID: <ajLy2brwvOZEFNNN@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MW4PR03CA0115.namprd03.prod.outlook.com
+ (2603:10b6:303:b7::30) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-dw-hdmi-qp-yuv-v1-7-a665cfd06d7d@collabora.com>
-References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
-In-Reply-To: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|SA2PR11MB4971:EE_
+X-MS-Office365-Filtering-Correlation-Id: 93878337-0ed6-41a1-07f7-08decca51e9f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|7416014|23010399003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: 75zRnMcmiqxVDIC495/Z/x8jc6AqguwXyfDi9iBmCWqbgAZaHFPuUljBFE2KmlxS0R9kgQeSCbr5YeazCdDPvEEX+2G+1xfZy/biqIdsDdM9eevG731eqiri3hRNIgmGZi2Rp1K2ShT2N91zgQAjNsFNiTwvzvF5du9bavgXDLghEIqGD7LI5ZHGxNfP98q1/UHJL2orlOvNholj0EgkVG/GKKaUJazWpmZM6pzbme9gZMBSAyrOkpBJC3/xvCKK552sqIJdibvJEPWaC1nulXPnRqndL6XxnCNijocez3Tx6jwY142Om4BEyBzj+6FOxbVJDVYud4JIEWV3Nm6h0bJLOHmc1xhqMMd9kmqG7q3JeV0dl5aO44No6L3Nn/efEnJ2UzMco01jXZRnr0Z+kXHozC6jq8b9IDSemLB5vTUHYZ+xLEJ9kmE0WZUDVUiEPhq2kOfoLBQaGc4KoK5AdpH4tNwH7BwuTBqEHBZw34t5Pq26lg/iUrI/nLDHljbkdkkNGl81MlSOZwF24+R5r5iK50V82OYvfu38Esny3eI7pNbocJOQBnQGhdKhg//zPCELWS44TjCaSVWmfmBnp9u0tcym8IudA1LSrriap5zRjaWnkln26HvYqjFZFn5//WfG56koW2EuKv9d3NTkmA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(7416014)(23010399003)(18002099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?m5HipVqVMmAhvXsuyLlba9LODC+ZvnfvEMojtCTTO8a+FH3/qAnNoRl4Sc?=
+ =?iso-8859-1?Q?vJVkapC/GV/r5wdde0AqZavF++kI6vKAhuHXIGlxyZDB3vRISVz0I6Qjrq?=
+ =?iso-8859-1?Q?zmSSATWEkh4SSIn/yZt/m4daQbVZo/vGbharzFCOU3vUu7WffgZjp3TgBZ?=
+ =?iso-8859-1?Q?CAkfd4S8yqNSMLAI0ec9VA8YutiV8pKgJ2m4pdEzHwziVYT3eu0iVIk027?=
+ =?iso-8859-1?Q?OlQW/us9fM3U4A5E0wRYDEuZSmUURs/z6xoU6LIcj3ffx/FtH81NFtN27T?=
+ =?iso-8859-1?Q?tYMX6QfNkKm+FKXB/2yOWWGtqPey8KX3M4PryS3YnWOQxOVXsGT+x9HrQr?=
+ =?iso-8859-1?Q?Kb+1MviB0ci3EZzXTWdLef3UzMIdkEPTJZ6gjYOa5rppH9J6rHjGKUsuPn?=
+ =?iso-8859-1?Q?EUaZWN0NeUvdxVG3y1eLaPEsEmKZO3RAiErC8ZpOHdRh/vfiHN22h6DA+E?=
+ =?iso-8859-1?Q?U0su3Lw/JJSOEHIsVAXTfXhgPG+lZ/7OpTbbjwsp7Rcev4aniqLwsVqdMJ?=
+ =?iso-8859-1?Q?zra6IAGwt0xIrux4aFIGlADTWazHuWSKvSEFlxbYQddPjMBAh4NetBWwdD?=
+ =?iso-8859-1?Q?wcfQM1UBn+RCkwvr+u6lHdlrU8wjp4cnlL6W7k2cnSvfg887UKKkrQwfNc?=
+ =?iso-8859-1?Q?vamwhlvQA0lIXLL2ii7hTNTVggcmqqE6iaG0i8PmZVPYrf1L1muYfB/UBa?=
+ =?iso-8859-1?Q?Q/6cggVlfzoxCILYQJBGZGSI1gdcTT6k31FquZRf+21Mi3Gjz36vj8GOVi?=
+ =?iso-8859-1?Q?6LoAGaQL8h6PB71Eer2b8TwvUfTEQdh8xVkTOs5V3p84VBX2zMGH2IC7gm?=
+ =?iso-8859-1?Q?52gyxWn5nb0HJ/kNzjdJM4NQJFmGc5Tw9ugZy6r490J9K8v10g9B75Gvv+?=
+ =?iso-8859-1?Q?mNNAF9JuCrvIT5egz3meVj6+tZmj4QwP8O/xEQQjemupmzVRU2Vxt7Xfh7?=
+ =?iso-8859-1?Q?Slj4nB59YRwb2a6Ge6SrJlJLJJwTc6r3gruAK+7ZFUOEOimZVz/ebwIkTS?=
+ =?iso-8859-1?Q?/YpNFC17R0DqSdNioJv+uTSnDRkuXlIBeHZYrPduAhG9c1a/G6Cdsbx43f?=
+ =?iso-8859-1?Q?52zVtzZPt4l2Ssz0WNLvI9vdXSfbHo7Y9BiM9965+HA7+44mLwIl83wLV4?=
+ =?iso-8859-1?Q?RQst7NFhxAyX32UHRalrtSwuclS98dObWekiNH5DbeZnKZFChIW3JOUw4m?=
+ =?iso-8859-1?Q?oTuhCivdX5xGb8t+Tc9AkpauDHz52XKPCxVC6i4+5NKgwkQ0FqJfA6nIzw?=
+ =?iso-8859-1?Q?nu525/EWvo+JVgrZx3fTxMjlTUiT8CP1p2r5BPcsBvl4q3PTcFNlJNw/Ns?=
+ =?iso-8859-1?Q?w7CFeq/uytNvZLRkJT2HIiQhLdNxATr9WmHpKSGiaZkuwJhJveYgA5YgIq?=
+ =?iso-8859-1?Q?WUerz5EVcu2uTgPhzZgOSa+CAWwAeHdNlTGdooH9t6dvjPwzfcwnH1h9q0?=
+ =?iso-8859-1?Q?JBnl2UMXSq98zZ30LTgEOcDDgV3aEgiMmJe5Vi6FOlKeL6k0QEYJddeVVe?=
+ =?iso-8859-1?Q?femWa3MZxOayQ4E0czkTQtsrwOHIVuQP/aQ/HeIcEJv6P7hkw6olpk8mx0?=
+ =?iso-8859-1?Q?drhw3i5bM95KDGmPShwdJPOZ7zyCaWaS8gHiYP1vSEsba4p85dSsaSaATJ?=
+ =?iso-8859-1?Q?Nwj2beKfuT0ZxKhH28lhtQ6Ii5cn3oh6X/cT2GbciABr5K+TXV7QeHG2YG?=
+ =?iso-8859-1?Q?NGF7FBH7INMRXJSm/5iy6oNwChQ/tLdrgqfZJs66ncSi1c4hbEVvJOZsBb?=
+ =?iso-8859-1?Q?rWYjkd7rEXYGov9eY7dVgveh0r7wkDtOEIWa9sisAzPZYBEwVsbLD9UWCA?=
+ =?iso-8859-1?Q?dPxAzcBqtQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: XmTFDP+zjDKsZsvC3P39Zs8PwWJ37mtFcDZePEZh9JSlHYN7YuMPHZ9M5MNqxmyB+dALgcbekUhbTAKUZ1UgunH2USDsUVmwoBjtgj5bE1lbDRomsBOuD3OduF3ClSJs3AawOk28HNryIsSm/AlvpQ2dBRquFyXqTVQX8emwo+leB4voMLIMnYJkF7effz9S/yUUXu2nWXW2BjGh71se9tb/ZedRXg0dYvYDo8Qt6XPJcTNmqhbRA8wlXaZXTohvasDqk87Y1E3S0cW/zOQswux+IboPM6M51qrfjvJ0/tjoAjexygIEhKPd5RbozZ56buN3Fro0VYBVzBspaweifA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93878337-0ed6-41a1-07f7-08decca51e9f
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 19:17:49.0044 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: V3pqsCsTqddqsAODuPttu/UoYV5ALl5wl+GHt4aGfPRQeC84KHV8qaER+w3GINddxqi4rJXWA1A3U3qwOjWADQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB4971
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,54 +165,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rockchip DW HDMI QP encoder supports YUV 4:2:2 output through
-ROCKCHIP_OUT_MODE_YUV422, but was limited to 8-bit depth via
-MEDIA_BUS_FMT_UYVY8_1X16.  Add support for its 10-bit counterpart
-MEDIA_BUS_FMT_UYVY10_1X20, which carries two 10-bit components per clock
-cycle on a 20-bit wide bus.
+Hi Dave, Sima,
 
-YUV 4:2:2 always transmits two 12-bit components per pixel, regardless
-of the color depth.  From a clock-rate perspective this is equivalent to
-three 8-bit RGB components, so configure the HDMI PHY with 8 bpc when
-YUV 4:2:2 is in use to keep its output clock aligned with the TMDS
-character rate.  Otherwise the PHY PLL output would be scaled by bpc/8
-for higher color depths, producing a clock rate that confuses downstream
-consumers such as the VOP2 display controller.
+Here are drm-xe-next-fixes for 7.2.
 
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
----
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Matt
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 815f9ea7bcbe..3a1c027aa90b 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -216,6 +216,7 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
- 		s->output_mode = ROCKCHIP_OUT_MODE_AAAA;
- 		break;
- 	case MEDIA_BUS_FMT_UYVY8_1X16:
-+	case MEDIA_BUS_FMT_UYVY10_1X20:
- 		s->output_mode = ROCKCHIP_OUT_MODE_YUV422;
- 		break;
- 	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-@@ -227,7 +228,14 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
- 	}
- 
- 	phy_cfg.hdmi.tmds_char_rate = conn_state->hdmi.tmds_char_rate;
--	phy_cfg.hdmi.bpc = conn_state->hdmi.output_bpc;
-+	/*
-+	 * YUV422 always transmits two 12-bit components per clock cycle,
-+	 * regardless of the color depth, which from a rate perspective is
-+	 * equivalent to three 8-bit RGB components.  Force 8 bpc here to
-+	 * keep the PHY PLL output aligned with the TMDS character rate.
-+	 */
-+	phy_cfg.hdmi.bpc = (s->output_mode == ROCKCHIP_OUT_MODE_YUV422 ?
-+				8 : conn_state->hdmi.output_bpc);
- 
- 	ret = phy_configure(hdmi->phy, &phy_cfg);
- 	if (!ret) {
+drm-xe-next-fixes-2026-06-17:
+The following changes since commit 52d4ab1ca790a668cc8f2c27017138b1c467168c:
 
--- 
-2.54.0
+  Merge tag 'drm-misc-next-fixes-2026-06-11' of https://gitlab.freedesktop.org/drm/misc/kernel into drm-next (2026-06-13 08:10:38 +1000)
 
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/xe/kernel.git tags/drm-xe-next-fixes-2026-06-17
+
+for you to fetch changes up to 0b5ed2756d45b04669502a1f13b1657ec7664571:
+
+  drm/xe: Add compact-PT and addr mask handling for page reclaim (2026-06-16 10:18:52 -0700)
+
+----------------------------------------------------------------
+
+----------------------------------------------------------------
+Brian Nguyen (1):
+      drm/xe: Add compact-PT and addr mask handling for page reclaim
+
+Daniele Ceraolo Spurio (1):
+      Revert "drm/xe/nvls: Define GuC firmware for NVL-S"
+
+Matthew Brost (1):
+      drm/xe: Set TTM device beneficial_order to 9 (2M)
+
+Niranjana Vishwanathapura (1):
+      drm/xe/multi_queue: skip submit when primary queue is suspended
+
+Raag Jadav (3):
+      drm/xe/drm_ras: Make counter allocation drm managed
+      drm/xe/drm_ras: Add per node cleanup action
+      drm/xe/hw_error: Use HW_ERR prefix in log
+
+Rodrigo Vivi (1):
+      drm/xe: fix job timeout recovery for unstarted jobs and kernel queues
+
+Tangudu Tilak Tirumalesh (3):
+      Revert "drm/xe: Skip exec queue schedule toggle if queue is idle during suspend"
+      drm/xe: Clear pending_disable before signaling suspend fence
+      drm/xe: include all registered queues in TLB invalidation
+
+Tejas Upadhyay (1):
+      drm/xe/guc: Fix buffer overflow in steered register list allocation
+
+Thomas Hellström (1):
+      drm/xe: Fix wa_oob codegen recipe for external module builds
+
+Wentao Liang (1):
+      drm/xe: fix refcount leak in xe_range_fence_insert()
+
+ drivers/gpu/drm/xe/Makefile             |   4 +-
+ drivers/gpu/drm/xe/regs/xe_gtt_defs.h   |   6 +-
+ drivers/gpu/drm/xe/xe_device.c          |   3 +-
+ drivers/gpu/drm/xe/xe_drm_ras.c         |  61 ++++++---------
+ drivers/gpu/drm/xe/xe_exec_queue.h      |  17 -----
+ drivers/gpu/drm/xe/xe_guc_capture.c     |  10 ++-
+ drivers/gpu/drm/xe/xe_guc_submit.c      | 111 +++++++++++----------------
+ drivers/gpu/drm/xe/xe_guc_tlb_inval.c   |   7 +-
+ drivers/gpu/drm/xe/xe_hw_engine_group.c |  10 +--
+ drivers/gpu/drm/xe/xe_hw_error.c        |  12 +--
+ drivers/gpu/drm/xe/xe_pt.c              | 131 +++++++++++++++++++-------------
+ drivers/gpu/drm/xe/xe_range_fence.c     |   2 +
+ drivers/gpu/drm/xe/xe_uc_fw.c           |   1 -
+ 13 files changed, 174 insertions(+), 201 deletions(-)
