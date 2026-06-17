@@ -4,73 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED67DCD98ED
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 07:12:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B7F5CD98F2
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 07:12:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 218AD10F199;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B17910F1A0;
 	Thu, 18 Jun 2026 07:12:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sxYV8s5b";
+	dkim=pass (1024-bit key; unprotected) header.d=rebhu.com header.i=shubham@rebhu.com header.b="aFKrir2v";
 	dkim-atps=neutral
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
- [74.125.82.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B9E710E0CD
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 18:21:15 +0000 (UTC)
-Received: by mail-dy1-f174.google.com with SMTP id
- 5a478bee46e88-30bc806fcf8so100273eec.1
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 11:21:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781720475; x=1782325275; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=pYk40mpdYuWia4WWcgsPUz1So5Kdav6fDmRlP7pHt3U=;
- b=sxYV8s5bw9uT5L5wi2zoQlRXRhLXOOo17UagaXlcAZefJZep8I+kcT5F4FUWc7knL/
- M4dvWQeDViYEfreJ4GC3vvguqZJdZxGK+jblN54QxVUF06ZLlfjoSVEjHajow6Ir5kCT
- kSEKiHi7dBMWTNh1j29hxcHRCyBD5phok8ADNWTLRlLruTg/HiIGqAfkCVepJIoon0N3
- 27696heBkBbFlaBTrN1beXnb8e4Mp12cMXn/QnEcfQ7AiPNfWbSNpLOZqyQA9HHq6np1
- YT3XealPb6HLYAaE7UA5jIOv8cyf71kxZp8anFFS5txBtZ74IS8x7c64BbfU49F9atBO
- LvIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781720475; x=1782325275;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=pYk40mpdYuWia4WWcgsPUz1So5Kdav6fDmRlP7pHt3U=;
- b=MCUsHTvwDMz/J50tYmCM9SLTH5bRkqcBvky0dP3ohlko58pR6PRGvTPTNTkQucPXyQ
- nebKYxbQ1HknCQ/KWxY9FTIEXNQ/Uvp84zvDJKA7ji9mP2YzXN/6RO66xX2t5s7AwG4p
- L0IHiOWIlU+Im1zfbKJ6h2x6YT4HFTCqAB9vemjVyWRtco/BtxlSjkr0pHv6KVSFfQM6
- 0cbPkhyq4X0j7KcAiH8kkJhSzy1DAKhyN/oadHdnJQ4fB4rFlpop6n9r40DC+04Dsd1R
- sxy3lLrVZRuTrS2JMHlFdUj9Y9fxWQn3NDKibh5kOCuDr1U9F3+0KJMTucsmyiMGmeCO
- m2YQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ++YzBNryDNgiZB0bLt3KynScyckM+4UonKiiTIdPDCbxvALAWDGAZ7/bn/Wnfzkv6j9PgfcFa0xck=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxPiL/tj3MYWRX3gMrxptvipUOrYuKrsYdzj4CE09qriix42sSR
- WIdtPgme3PE51a9ALlaWMu7yKXTq85FXazyEVC9xuumeZ0AicaoGDn1a
-X-Gm-Gg: AfdE7cn2BjteGCPEsHHjjRk0Do6h8DBHvs3Vl0saD4sF6b6ry2unsjl5K7eywzF+XOg
- QSwaq3hy+y9qxJgQF9V6xMpZ4xHhGIMx7yTBi5IZLpYxSO6goQ5VSmXRcbYwaE2aefYt3BsB0S8
- PMOi++kMYPEGD4+tCImrMPGXLkdKyYeQ63lgLr4vayMWLeoUTimRXsYA/f15ahvjmSBPdH9hT2L
- 7SSCWoqpDPkUQgWawE0ZjmkAvK2vM7ee08j/dOlVDlnirBO3ZyzoX2iIGhBZti+ZTW6E1o0Bt9Z
- pCEZd03/asjgdm/IYLV7QsyzMhCh7AHWu3jqrdv6KON7pjFMkJmErr5XfLHfZO0MZMCMlwgFtXZ
- bBv5i9uBTp6F+WGDHlI82AG2MYdYSO/JEbunTcJgRl2vis79g6fv2amJGqM6k3h2aT+1POGn1yN
- HsmCbV8GD7qJUcHuXd6g9QjGez2ctI3cVK
-X-Received: by 2002:a05:7300:6dac:b0:304:2eb0:2726 with SMTP id
- 5a478bee46e88-30bcae22973mr2899309eec.25.1781720474401; 
- Wed, 17 Jun 2026 11:21:14 -0700 (PDT)
-Received: from haichao.tail057a43.ts.net
- ([2001:da8:e000:1206:1886:6b7a:3e78:272c])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-30bd23401ecsm3157945eec.25.2026.06.17.11.21.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2026 11:21:14 -0700 (PDT)
-From: Ruoyu Wang <ruoyuw560@gmail.com>
-To: Yaron Avizrat <yaron.avizrat@intel.com>, Oded Gabbay <ogabbay@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] accel/habanalabs: publish mmap buffers after allocation
-Date: Thu, 18 Jun 2026 02:21:08 +0800
-Message-ID: <20260617182109.953680-1-ruoyuw560@gmail.com>
-X-Mailer: git-send-email 2.51.0
+X-Greylist: delayed 910 seconds by postgrey-1.36 at gabe;
+ Wed, 17 Jun 2026 08:13:08 UTC
+Received: from sender-op-o11.zoho.in (sender-op-o11.zoho.in [103.117.158.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEE9C10EEA2
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:13:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1781683072; cv=none; d=zohomail.in; s=zohoarc; 
+ b=a4knJZIohgWs7l9AAquSJpSA8iTTuT4j+txikLUmacjAq0+cr5L3OPqoU5gTnzwVCmrbb8md0OWXrrFHy1B+Bjlf0mpZp/bFo8yAcBhRrW1PcaGZPXMWmDNorCVHXgyMhdRdM1l5hCd+mLbA7NNCMXeHuOXuyjo2U9UAEQIWtxw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in;
+ s=zohoarc; t=1781683072;
+ h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=owJHIPigLTJg5NpDzWs2WWECxQ51TJud4b7x1ySqR1g=; 
+ b=FsGQH1oWUK88d9fiymjKCqr3gkAqQ6+gg6hc3xlr7NSPGAdiY0kCEMV2lGPQOpCpBWVkRQb1XwP/hwf0sBycKifrl/57+RJJvzwYCwFYQpurT3LcCQCXJXjeIV1Ip3ur/Pp2rhZtYpSlvqlqgmi8J1+mGW0p6+CcovcPyE9KUp8=
+ARC-Authentication-Results: i=1; mx.zohomail.in; dkim=pass  header.i=rebhu.com;
+ spf=pass  smtp.mailfrom=shubham@rebhu.com;
+ dmarc=pass header.from=<shubham@rebhu.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781683072; 
+ s=zmail; d=rebhu.com; i=shubham@rebhu.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=owJHIPigLTJg5NpDzWs2WWECxQ51TJud4b7x1ySqR1g=;
+ b=aFKrir2v0plhtulFPkljXIRAYVRCEbHHC8x+QUCnj7YEdq3T/vQQ6K5Hnm1Px2JS
+ HK1QAlORi3u9IFpaiBS2JwEac9mrOIna8tf6qxHmydSeABHFHbubClHQQ3jGAWGHLcY
+ U23ZsS8MN8tVD/QGAOYGwvDE++VzDcCQ1I9pmJtA=
+Received: by mx.zoho.in with SMTPS id 1781683069725589.2124138024176;
+ Wed, 17 Jun 2026 13:27:49 +0530 (IST)
+From: Shubham <shubham@rebhu.com>
+To: tomi.valkeinen@ideasonboard.com
+Cc: robertcnelson@gmail.com, dri-devel@lists.freedesktop.org, nm@ti.com,
+ vigneshr@ti.com
+Subject: Re: [PATCH v3 00/15] drm/tidss: Add BeagleY-AI display support (and
+ some more)
+Date: Wed, 17 Jun 2026 13:27:38 +0530
+Message-ID: <20260617075738.3065624-1-shubham@rebhu.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
+References: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 X-Mailman-Approved-At: Thu, 18 Jun 2026 07:12:07 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,77 +66,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-hl_mmap_mem_buf_alloc() inserts a new buffer into the memory manager
-IDR before initializing the descriptor and before running the behavior
-allocation callback.
+Hi Tomi,
 
-Handles from this IDR are used by hl_mmap_mem_buf_get() and the mmap
-path. A racing lookup can therefore take the buffer kref or inspect
-behavior-private state before the buffer is ready.
+Robert Nelson pointed me here. I'm bringing up the Raspberry Pi Touch
+Display 2 (5-inch) on a BeagleY-AI (AM67A/J722S) using your DSI work as
+backported in Robert's v7.0.x-arm64-k3 tree (7.0.11-arm64-k3-r20). The
+panel is a native ILI9881C MIPI-DSI panel (720x1280, 2 lanes); a Goodix
+GT911 touch and the RPi "v2" control MCU both sit on the DSI-connector
+i2c bus (i2c-3), and the MCU supplies the panel reset and the touch
+regulator over i2c.
 
-Initialize the descriptor, run the behavior allocation callback, and
-only then publish the object in the IDR. If IDR allocation fails,
-release the behavior-private resources before freeing the descriptor.
+Relevant config: CONFIG_DRM_TIDSS=y, CONFIG_DRM_CDNS_DSI=y,
+CONFIG_DRM_PANEL_ILITEK_ILI9881C=y,
+CONFIG_REGULATOR_RASPBERRYPI_TOUCHSCREEN_V2=y.
 
-Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
----
- drivers/accel/habanalabs/common/memory_mgr.c | 30 ++++++++++----------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+HDMI works. You mention testing the DSI output with the RPi 7" display
+(via the TC358762 DSI->DPI bridge) using extra overlays -- would you be
+able to share that 7" DSI test overlay? It would be an invaluable
+reference for the DSS/DSI videoport wiring. I suspect the crux of my
+problem is that the TD2 5" is a native DSI panel whose reset/power come
+from an i2c MCU, so the panel has a deferred dependency that the
+bridge-based 7" panel does not.
 
-diff --git a/drivers/accel/habanalabs/common/memory_mgr.c b/drivers/accel/habanalabs/common/memory_mgr.c
-index 9fdd34acf389f..b5b92dbbe5ddd 100644
---- a/drivers/accel/habanalabs/common/memory_mgr.c
-+++ b/drivers/accel/habanalabs/common/memory_mgr.c
-@@ -156,6 +156,17 @@ hl_mmap_mem_buf_alloc(struct hl_mem_mgr *mmg,
- 	if (!buf)
- 		return NULL;
- 
-+	buf->mmg = mmg;
-+	buf->behavior = behavior;
-+	kref_init(&buf->refcount);
-+
-+	rc = buf->behavior->alloc(buf, gfp, args);
-+	if (rc) {
-+		dev_err(mmg->dev, "%s: Failure in buffer alloc callback %d\n",
-+			behavior->topic, rc);
-+		goto free_buf;
-+	}
-+
- 	spin_lock(&mmg->lock);
- 	rc = idr_alloc(&mmg->handles, buf, 1, 0, GFP_ATOMIC);
- 	spin_unlock(&mmg->lock);
-@@ -163,27 +174,16 @@ hl_mmap_mem_buf_alloc(struct hl_mem_mgr *mmg,
- 		dev_err(mmg->dev,
- 			"%s: Failed to allocate IDR for a new buffer, rc=%d\n",
- 			behavior->topic, rc);
--		goto free_buf;
-+		goto destroy_buf;
- 	}
- 
--	buf->mmg = mmg;
--	buf->behavior = behavior;
- 	buf->handle = (((u64)rc | buf->behavior->mem_id) << PAGE_SHIFT);
--	kref_init(&buf->refcount);
--
--	rc = buf->behavior->alloc(buf, gfp, args);
--	if (rc) {
--		dev_err(mmg->dev, "%s: Failure in buffer alloc callback %d\n",
--			behavior->topic, rc);
--		goto remove_idr;
--	}
- 
- 	return buf;
- 
--remove_idr:
--	spin_lock(&mmg->lock);
--	idr_remove(&mmg->handles, lower_32_bits(buf->handle >> PAGE_SHIFT));
--	spin_unlock(&mmg->lock);
-+destroy_buf:
-+	hl_mmap_mem_buf_destroy(buf);
-+	return NULL;
- free_buf:
- 	kfree(buf);
- 	return NULL;
--- 
-2.51.0
+Setup
+-----
 
+The DSI-connector i2c and the MIPI mux are not enabled in the
+BeagleY-AI base dtb of this image, so my overlay supplies:
+  - the MIPI mux routing (gpio-hog on main_gpio0: MIPI_SWITCH_OE=high,
+    MIPI_SWITCH_SEL=low, with the two pads muxed to GPIO);
+  - pinctrl-0 = <&main_i2c0_pins_default>, status = "okay" and
+    clock-frequency on the i2c node;
+  - display_mcu@45 (raspberrypi,touchscreen-panel-regulator-v2),
+    gt911@5d, the ili9881c panel@0 on dsi0 (reset-gpio via the MCU,
+    power-supply), the DSS (dss1) / DSI port endpoints, and touch_reg.
+
+With that, every device binds:
+
+  /sys/bus/mipi-dsi/devices/30500000.dsi.0 -> ili9881c-dsi   (panel)
+  /sys/bus/i2c/devices/3-0045/driver       -> rpi_touchscreen_v2 (MCU)
+  Goodix-TS 3-005d: ID 911, version: 1060                    (touch)
+  /sys/kernel/debug/devices_deferred       -> (empty)
+
+Problem: tidss assembles before the DSI bridge is added
+-------------------------------------------------------
+
+  [    2.000378] [drm] Missing drm_bridge_add() before attach
+  [    2.059239] tidss 30220000.dss: [drm] Registered 1 planes with drm panic
+  [    2.061629] [drm] Initialized tidss 1.0.0 for 30220000.dss on minor 0
+  [    2.062051] tidss 30220000.dss: [drm] Cannot find any crtc or sizes
+  [    2.062628] tidss 30220000.dss: [drm] Cannot find any crtc or sizes
+
+tidss initializes at ~2.0s with only HDMI-A-1 (the sole DRM
+connector). But the DSI panel chain finishes binding only ~10s later:
+the panel depends on the MCU regulator reached over i2c-3, and the MCU
+and GT911 bind at the deferred-probe timeout. So at 2.0s the
+cdns-dsi/panel bridge is not added yet ("Missing drm_bridge_add()
+before attach"); tidss reports "Cannot find any crtc" for the DSI
+videoport, comes up HDMI-only, and does not defer or re-scan when the
+panel binds later. Net result: no DSI connector/crtc and the panel is
+never enabled.
+
+Questions:
+  1. Should tidss -EPROBE_DEFER until the DSI output's downstream
+     bridge (cdns-dsi + panel) is added, rather than succeeding with
+     HDMI only?
+  2. Is "Missing drm_bridge_add() before attach" the cdns-dsi bridge
+     or the panel bridge, and is it expected when the panel attaches
+     after tidss has initialized?
+  3. Is there a recommended way to ensure the DSI panel chain is ready
+     before tidss probes, or for tidss to pick up the DSI output once
+     the panel binds?
+
+I'm happy to share the full overlay, dmesg and /sys state, and to test
+patches.
+
+Separately (I'll send a proper patch to the bridge maintainers): a
+cdns-dsi data-lane off-by-one. In cdns_dsi_init_link(),
+
+  for (i = 1; i < output->dev->lanes; i++)
+      val |= DATA_LANE_EN(i);
+
+enables only lanes 1..N-1 because DATA_LANE_EN(x) is BIT(x - 1), so a
+2-lane panel ends up with MCTL_MAIN_PHY_CTL = 0x11 instead of 0x13
+(lane 1 stuck in START). "<" should be "<=". On 6.1 the TD2 panel comes
+up but the image is black for this reason.
+
+Thanks,
+Shubham
