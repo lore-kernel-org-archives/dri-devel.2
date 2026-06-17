@@ -4,94 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D9D2CD98E4
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 14:39:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1568CD98E4
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 14:43:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0500510EFFE;
-	Wed, 17 Jun 2026 14:39:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E285C10EA50;
+	Wed, 17 Jun 2026 14:43:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OufI4x3o";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j0JUZbr+";
 	dkim-atps=neutral
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
- [74.125.82.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3199A10EA50
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 14:39:55 +0000 (UTC)
-Received: by mail-dy1-f169.google.com with SMTP id
- 5a478bee46e88-304f8e80b7eso451446eec.3
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 07:39:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781707194; cv=none;
- d=google.com; s=arc-20240605;
- b=CCE14AND4V2eROXjV/G88WxcMO6IBUErrgwOzzn8VYAA89LopLFwGlevOlqJ16LtTv
- hFYiCoO9/CaSrmT/NLSolvXucCBr7brziHN5983IOzL6h4TWlan+2OQCUPX3ohrltBN4
- F6tx5Dj5+EkE238/XeZp7cQutH3ODXSVf4iR/721C7Ngq9kDigU520gdNZX1HtUib0BP
- QXoq+lSSqmK8WNEjzYle6mgkfni/kURBty50QvZRRbvP5H4rzpW+19iwBgJj0Tnqt0Vx
- SIXDgpktjuL6P+6lRNoCoG6unTuQtDNNdL1On9rYeNvBO50oqNC3TGigxrEeJvWrYmyR
- i26A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=H+dC1Ehi3qgIqIz5guL69Mk1/vs8Hz96N955RLbsg+I=;
- fh=KymoFT0LKK3a6nVyPbNRa7QvlTu5TMDET3SbudhDcyU=;
- b=Bc/S+6jeUspMTodMu2L0OEckFjs9kXlvwwNRHzq4x5auy4e8XVANmzhcFKZz7pHDd3
- LXTGu4AlbhUhkCBLQ+IZqL/z2uol/UkY6Uv658hvTgrln2reYlv2YYKDcXwRG6yuvpnP
- aE50ScEY6RwL85y8lLv98HXsp+QBQl2s6Vxn27ppdQdhKireWNLAf9UYPcc8+011CEXd
- /s86BBnRCCqpXgGuq/tpKk50fPu0xB+6U9X+5m4hlSsrluk08dQctxBa8gPFT3kxMOLA
- MtDWtI6QK5C3q0VmR0yOXE+jCgKhe+t5g5sQc33h17t9NxbIBZuRl22Rln0LP0yB5zcH
- 2WWw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781707194; x=1782311994; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=H+dC1Ehi3qgIqIz5guL69Mk1/vs8Hz96N955RLbsg+I=;
- b=OufI4x3ogDh2D1nCdYoPcJnC8urZoC0WQ7KJyobmEGIDFsU/f0adXIo03Q3CL783tZ
- Kst10F/V9c0dD7jvyR/kNOnkiUGolIozxcjjULf6IffOC+riFrnTOPDNAKQtEMpV2zoF
- 6tpU8k9vCfvEmlKGwdTr+By9Wq6uxQGKH085Mga9YV1kagHUCA+/7wE9dnO7hqbpKwDE
- pGrszkd+Ve0e/YIIxwQjp/1+sV1M6CeXxNOAtWpBf3K3g5rS5VYjiHAoUQyzmkNbox+z
- tx4FQqzJd2a7bkhTmbTKdVDiizU8roEdl4F64QJWwGYxrn3B5HvFMbWA4izEHWUGkl1H
- C0ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781707194; x=1782311994;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=H+dC1Ehi3qgIqIz5guL69Mk1/vs8Hz96N955RLbsg+I=;
- b=kkhdzsb6p6TNaIKSMxRcjcUukI+anTzwmM6Fh2luu2aVBQGcYJVIwxWu4ewHTJJ1Be
- 72ESFM6unPjclyqtmTng9yLYYtUQxTrWuMkSwpxGouuwuf9aZLr2hOMaNCfNp5tfTnce
- ZTL2gAMi/Su6hXLlZVTJjY+I8LlNI7hJnIx2m/2CQZPxqHsvzVxEHmbu9suxxI9qPi2A
- Bzu7A6aNZX1FKJLO7TnC7AFm7S4XPOcbaEYL2aSBbeWWcd8sb7WMjHYZembTfOAewvYH
- VXbvf6NPNa1CDPUarMxUYUw3borv16nEY9CzhUK812CgvlAOKyM7EmpGdIJn6lsyW8ND
- pXVw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8G2J0t6qMO3i5nZkfudKVNM9Bna1+Zi82upTGDJZy/EEgZot53asL7EudkDH9TgxjOu9aSHYkumpQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyQ2tKVW+dKKoiY6tV7bVTjQlM3Q/MpN2nvK0vfKh6H5ZZRxkE2
- UGJDN6Fh+qYU9LAuobmtbYdHejToCSAJ0avTckQ2elVrD4SSiGun1Va97xW7xx26o2WtO3GAkLK
- t+PZMSVvIBI6XjPkg/l1EpxBvEWOA1aI=
-X-Gm-Gg: Acq92OHWt3l2ybPI5Jo68WAPh5wG8O8Q2YrULXbx0hrIRwIRvRMNdad80eV4RuqPTR5
- A0iipXPuXQlTReIQcFY6PgX0N79JYQhSMjUJA7iNbhCrUxDaZyvuFTeLwYa7KmUXmdL6FbCeXgY
- Oudphn8d9voSsnZsAqFPUBI1psp8DWwhukpMjsbYc6RQ00tQ/kZuDGJ13Zb9oyos91A+gX0VdoJ
- mEW+hIo4UwVZkIs5MUG5swsNqMuUiKRaSUZCGIXPsIjtjYCHVyR1EhP6znYiRQGp3ImqopLuTih
- nuFbcw1k6U/TGwtvZhwbgzGEFD8BoNIB9TDiT0xOZ/E9NfZgxJ9McfbH4Cc=
-X-Received: by 2002:a05:7022:622:b0:137:ec1a:f405 with SMTP id
- a92af1059eb24-1398f56699bmr778964c88.0.1781707194261; Wed, 17 Jun 2026
- 07:39:54 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260617062415.19898-1-jakob@linke.cx>
-In-Reply-To: <20260617062415.19898-1-jakob@linke.cx>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 17 Jun 2026 10:39:42 -0400
-X-Gm-Features: AVVi8CeQey_avyCfLu9CoekmKwKkOtyI7rDns3sTfvSTRzhpVqyMectcpzvhhsE
-Message-ID: <CADnq5_Mmf50-psbJH5NzPYu_VboOf=MKFK7oCiGo6bKg=p0EpQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/soc24: reset dGPU if suspend got aborted
-To: Jakob Linke <jakob@linke.cx>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9680810EA50
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 14:43:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id BFDF660052;
+ Wed, 17 Jun 2026 14:43:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 603DE1F000E9;
+ Wed, 17 Jun 2026 14:43:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781707395;
+ bh=14VhWIUkf45rxsa79bBF6+syNwy+BLi4V+fL3VghuS4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=j0JUZbr+q8LG1SCbl4X0tg4LjMRQ1Lgye3OFFHagKwAxBf58EWyAHR1cAKZDAw91V
+ bkhLTaP9XYPANxEXXeU2hdi7xB2ydoe0Ie/b8dtEfsthOpoykLBKMoBWOi5HOgXY3n
+ v+dkULWvSLsk/x5rVxBe/TilwAl1KiQac2KMo1fE4xYs/rhNKW3VmpV1GHdaDjySwE
+ 0r9ReLsGbwZthjNb6P0/J6uFiVze0uXTdNLPUeTKV7CfYvW4XI/QOIJq3mGJKYu1kT
+ TQJqnjfMrNiFk+jNAxoLrPytvTT276/JwUsyA+DQnA2tvhb06bmzUe3BIiCn+dyc+B
+ Ok2I8SfDJs41A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/panfrost: Enable cycle counting when perfcnt is
+ enabled
+To: "Boris Brezillon" <boris.brezillon@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260617-panfrost-perfcnt-timestamp-fix-v1-1-f215f44b55c0@collabora.com>
+References: <20260617-panfrost-perfcnt-timestamp-fix-v1-1-f215f44b55c0@collabora.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Wed, 17 Jun 2026 14:43:14 +0000
+Message-Id: <20260617144315.603DE1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,97 +53,136 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Alex
+New issues:
+- [High] Enabling perfcnt introduces a long-lived cycle counter reference t=
+hat is forcefully and incorrectly cleared by a GPU soft reset, permanently =
+breaking cycle counting.
 
-On Wed, Jun 17, 2026 at 3:54=E2=80=AFAM Jakob Linke <jakob@linke.cx> wrote:
->
-> For SOC24 ASICs (RDNA4 / Navi 4x dGPUs) re-enabling PM features fails if =
-an
-> S3 suspend got aborted, the same issue already handled for SOC21 and SOC1=
-5:
->
->   commit df3c7dc5c58b ("drm/amdgpu: Reset dGPU if suspend got aborted")
->   commit 38e8ca3e4b6d ("amdgpu/soc15: enable asic reset for dGPU in case =
-of suspend abort")
->
-> The aborted resume fails with:
->
->   amdgpu: SMU: No response msg_reg: 6 resp_reg: 0
->   amdgpu: Failed to enable requested dpm features!
->   amdgpu: resume of IP block <smu> failed -62
->
-> Apply the same workaround for soc24: detect the aborted-suspend state at
-> resume via the sign-of-life register and reset the device before re-init.
->
-> This is a workaround till a proper solution is finalized.
->
-> Fixes: 98b912c50e44 ("drm/amdgpu: Add soc24 common ip block (v2)")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jakob Linke <jakob@linke.cx>
-> ---
-> Tested on Navi 44 (RX 9060 XT): recovers the deep->s2idle fallback and pu=
-re
-> s2idle resumes that otherwise fail with "resume of IP block <smu> failed =
--62".
-> It did not recover every case: one resume still failed under sustained ra=
-pid
-> s2idle cycling, so like the SOC21/SOC15 versions this is a mitigation, no=
-t a
-> complete fix. Single suspends in normal use recover.
->
->  drivers/gpu/drm/amd/amdgpu/soc24.c | 28 ++++++++++++++++++++++++++++
->  1 file changed, 28 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amd=
-gpu/soc24.c
-> index ecb6c3fcfbd1..a970d8a76302 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc24.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
-> @@ -521,8 +521,36 @@ static int soc24_common_suspend(struct amdgpu_ip_blo=
-ck *ip_block)
->         return soc24_common_hw_fini(ip_block);
->  }
->
-> +static bool soc24_need_reset_on_resume(struct amdgpu_device *adev)
-> +{
-> +       u32 sol_reg1, sol_reg2;
-> +
-> +       /* Will reset for the following suspend abort cases.
-> +        * 1) Only reset dGPU side.
-> +        * 2) S3 suspend got aborted and TOS is active.
-> +        *    As for dGPU suspend abort cases the SOL value
-> +        *    will be kept as zero at this resume point.
-> +        */
-> +       if (!(adev->flags & AMD_IS_APU) && adev->in_s3) {
-> +               sol_reg1 =3D RREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_81)=
-;
-> +               msleep(100);
-> +               sol_reg2 =3D RREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_81)=
-;
-> +
-> +               return (sol_reg1 !=3D sol_reg2);
-> +       }
-> +
-> +       return false;
-> +}
-> +
->  static int soc24_common_resume(struct amdgpu_ip_block *ip_block)
->  {
-> +       struct amdgpu_device *adev =3D ip_block->adev;
-> +
-> +       if (soc24_need_reset_on_resume(adev)) {
-> +               dev_info(adev->dev, "S3 suspend aborted, resetting...");
-> +               soc24_asic_reset(adev);
-> +       }
-> +
->         return soc24_common_hw_init(ip_block);
->  }
->
-> --
-> 2.54.0
->
+Pre-existing issues:
+- [High] Concurrently submitting a job during a GPU reset causes an unbalan=
+ced `panfrost_cycle_counter_put()`, permanently corrupting the cycle counte=
+r reference count.
+--
+
+commit c238efd4d96ef26a59cfb145cb471bac9ab43fe6
+Author: Boris Brezillon <boris.brezillon@collabora.com>
+
+drm/panfrost: Enable cycle counting when perfcnt is enabled
+   =20
+If we don't do that, we end up with invalid timestamps in the
+block headers.
+
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
+m/panfrost/panfrost_perfcnt.c
+> index 7020c0192e189..63861b4c7d953 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+
+[ ... ]
+
+> @@ -166,6 +167,7 @@ static int panfrost_perfcnt_enable_locked(struct panf=
+rost_device *pfdev,
+>  	/* The BO ref is retained by the mapping. */
+>  	drm_gem_object_put(&bo->base);
+> =20
+> +	panfrost_cycle_counter_get(pfdev);
+
+[Severity: High]
+Does this long-lived cycle counter reference interact correctly with GPU so=
+ft
+resets?
+
+Looking at panfrost_gpu_soft_reset(), it seems to assume only in-flight
+jobs hold the cycle counter reference, and forcefully zeroes it if it's
+non-zero:
+
+drivers/gpu/drm/panfrost/panfrost_gpu.c:panfrost_gpu_soft_reset() {
+	...
+	if (drm_WARN_ON(&pfdev->base, atomic_read(&pfdev->cycle_counter.use_count)=
+ !=3D 0))
+		atomic_set(&pfdev->cycle_counter.use_count, 0);
+	...
+}
+
+If a reset occurs while perfcnt is active, the use_count is zeroed. Later,
+when panfrost_perfcnt_disable_locked() is called, it will call
+panfrost_cycle_counter_put(). Because the count is already 0, the internal
+atomic_add_unless() will decrement it to -1:
+
+drivers/gpu/drm/panfrost/panfrost_gpu.c:panfrost_cycle_counter_put() {
+	...
+	if (atomic_add_unless(&pfdev->cycle_counter.use_count, -1, 1))
+		return;
+	...
+}
+
+Once it reaches -1, future calls to panfrost_cycle_counter_get() will use
+atomic_inc_not_zero() to increment it from -1 to 0, returning early without
+starting the hardware cycle counter.
+
+Can this cause cycle counting to permanently stop working?
+
+>  	perfcnt->user =3D user;
+> =20
+>  	return 0;
+
+[ ... ]
+
+> @@ -207,6 +209,7 @@ static int panfrost_perfcnt_disable_locked(struct pan=
+frost_device *pfdev,
+>  	panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
+>  	panfrost_gem_mapping_put(perfcnt->mapping);
+>  	perfcnt->mapping =3D NULL;
+> +	panfrost_cycle_counter_put(pfdev);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but while reviewing the cycle
+counter refcounting, another issue was found in panfrost_job.c where the
+reference count can also underflow.
+
+If a job is submitted during a GPU reset, panfrost_job_hw_submit() enqueues
+the job but skips calling panfrost_cycle_counter_get() because the reset is
+pending:
+
+drivers/gpu/drm/panfrost/panfrost_job.c:panfrost_job_hw_submit() {
+	subslot =3D panfrost_enqueue_job(pfdev, js, job);
+	/* Don't queue the job if a reset is in progress */
+	if (!atomic_read(&pfdev->reset.pending)) {
+		job->is_profiled =3D pfdev->profile_mode;
+
+		if (job->requirements & PANFROST_JD_REQ_CYCLE_COUNT ||
+		    job->is_profiled)
+			panfrost_cycle_counter_get(pfdev);
+		...
+}
+
+Shortly after, panfrost_reset() iterates over the scheduled jobs and
+unconditionally calls panfrost_cycle_counter_put() if the job requires it:
+
+drivers/gpu/drm/panfrost/panfrost_job.c:panfrost_reset() {
+	...
+	for (j =3D 0; j < ARRAY_SIZE(pfdev->jobs[0]) && pfdev->jobs[i][j]; j++) {
+		if (pfdev->jobs[i][j]->requirements & PANFROST_JD_REQ_CYCLE_COUNT ||
+		    pfdev->jobs[i][j]->is_profiled)
+			panfrost_cycle_counter_put(pfdev->jobs[i][j]->pfdev);
+	...
+}
+
+Could this create a scenario where a put is called without a prior get,
+underflowing use_count to -1 in the same manner and permanently breaking the
+cycle counter?
+
+>  	pm_runtime_put_autosuspend(pfdev->base.dev);
+> =20
+>  	return 0;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617-panfrost-p=
+erfcnt-timestamp-fix-v1-1-f215f44b55c0@collabora.com?part=3D1
