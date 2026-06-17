@@ -4,58 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B281CD98F1
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:54:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BE4BCD98E2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:56:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8151710E9BD;
-	Wed, 17 Jun 2026 10:54:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8831210EFA8;
+	Wed, 17 Jun 2026 10:56:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WncROHv2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C9qYxHP/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 444F210E9BD;
- Wed, 17 Jun 2026 10:54:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781693677; x=1813229677;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=6cQoc0XDwgSC3rq88jE9ZOu9X4zh8mv9B+GVkjwgNbw=;
- b=WncROHv2CJI50sqaakX1bs+7wUEmtor3Sh1E8xN377UHyechN7+GBfD/
- ZF0p8ESlmtSJqzAU2IRd+nKg4CH+SrXiUY959XmAGgKqT9QTZPuzeBiQq
- Dh02/wzuE/9c6RgV0099LqJWNtMPHbETEyBkYZwM5jMO27YPXsFzZypqO
- pJdQ45iGlMjcwK6FXI9tu6RyFbxfatRpQnec8vQBKeUuuDLuDQukNaorG
- voQIZDIVbv3XslZiKXHqeSEHoIUHBdxrL+eb+jaVT6Kj4tYMkG5jywEVe
- vO3AMBNY1HxMOrM2SEBiSqAIx7U4bfYej1Bc5OO5cwnUGrSYE2X6t3fLS w==;
-X-CSE-ConnectionGUID: Lh8ZM0wXQpyJj/J57ac9qA==
-X-CSE-MsgGUID: PctRMx9FQnqbXtTh3ZZ9Pg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="82573613"
-X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; d="scan'208";a="82573613"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2026 03:54:37 -0700
-X-CSE-ConnectionGUID: kZdxgdTaTEWgttFmkm0QHQ==
-X-CSE-MsgGUID: REd9SseKSFm2YWK0wPnkbQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; d="scan'208";a="245129648"
-Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2026 03:54:35 -0700
-Date: Wed, 17 Jun 2026 12:54:32 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Zhan Wei <zhanwei919@gmail.com>
-Cc: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
- rodrigo.vivi@intel.com, corbet@lwn.net, skhan@linuxfoundation.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] drm/xe/hwmon: document DG2 fan speed reporting quirk
-Message-ID: <ajJ86P9MvLmtbPpp@black.igk.intel.com>
-References: <ahqN8Esjz9SmGofH@black.igk.intel.com>
- <20260602161707.18922-1-zhanwei919@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260602161707.18922-1-zhanwei919@gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8095F10EFA8
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:56:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id DA4BD600AA;
+ Wed, 17 Jun 2026 10:56:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73D4B1F000E9;
+ Wed, 17 Jun 2026 10:56:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781693796;
+ bh=fFrUJIRwAC0PpbzdjriZIa15dSDBZjaM5KTM4UbK9JA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=C9qYxHP/SrTWO4RYMo9QbaAs4FjoMM1hwZgfSXILhMBXtJKPJ6mwrubc2wDEoyJtV
+ CvwKBb9iW8wGknGM2nkue6e3tdOEVaj+8egJCrTHg0IdpaHxKQHGDnIhHvwLq2R5zW
+ aryzfSF6EwApZWU8/CYW3jGUyUKWpMMkX5OPF537t+wo/+nePVhpR8Gy13wQ8gESjE
+ Or/HE04YSt2xknn/JsK6722z7MAe5PRjSF2pSJugojWmQ1Tvy+aJSThsL0BRXj0bEj
+ Du7ULOBlSSffZZEnThpA4uYQcs7KNa/xAtrkItyGlhtgzRw85PyC0edMSHyfUoAn0U
+ 3/yTtkuOwTH1Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/5] drm/xe: have xe_svm_range embed one
+ drm_gpusvm_pages
+To: "Honglei Huang" <honglei1.huang@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260617103602.1491609-4-honglei1.huang@amd.com>
+References: <20260617103602.1491609-1-honglei1.huang@amd.com>
+ <20260617103602.1491609-4-honglei1.huang@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 17 Jun 2026 10:56:36 +0000
+Message-Id: <20260617105636.73D4B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,23 +54,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 03, 2026 at 12:17:07AM +0800, Zhan Wei wrote:
-> On DG2 the driver always shows two fan channels, because the
-> FSC_READ_NUM_FANS command does not work on some cards. OEMs decide how
-> the fans map to tach channels, so two fans can share one tach line.
-> When that happens, the second channel reads 0 RPM even though the fan
-> is spinning.
-> 
-> Note this on the fan2_input ABI entry so the steady 0 RPM is not
-> mistaken for a driver bug.
-> 
-> Fixes: 28f79ac609de ("drm/xe/hwmon: expose fan speed")
-> Signed-off-by: Zhan Wei <zhanwei919@gmail.com>
-> Reviewed-by: Raag Jadav <raag.jadav@intel.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-This one seems got lost in the noise. Any takers?
+Pre-existing issues:
+- [High] Device memory mappings are leaked in the error path of drm_gpusvm_=
+get_pages() because device_unmap is skipped.
+--
 
-Raag
+commit 25e4cbe499297aaf84b70f35d35aa1d25e43829b
+Author: Honglei Huang <honghuan@amd.com>
+
+    drm/xe: have xe_svm_range embed one drm_gpusvm_pages
+   =20
+    With drm_gpusvm_pages now self contained, make xe stop relying
+    on the drm_gpusvm_range pages and take responsibility for the page
+    lifecycle on the driver side.
+
+> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+> index d6407c94cdda3..7af535853c380 100644
+> --- a/drivers/gpu/drm/drm_gpusvm.c
+> +++ b/drivers/gpu/drm/drm_gpusvm.c
+[ ... ]
+> @@ -1245,8 +1248,6 @@ void drm_gpusvm_range_remove(struct drm_gpusvm *gpu=
+svm,
+>  		return;
+> =20
+>  	drm_gpusvm_notifier_lock(gpusvm);
+> -	__drm_gpusvm_unmap_pages(gpusvm, &range->pages, npages);
+> -	__drm_gpusvm_free_pages(gpusvm, &range->pages);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the error path in
+drm_gpusvm_get_pages() leak device memory mappings?
+
+In drm_gpusvm_get_pages(), if a device page is successfully mapped via
+dpagemap->ops->device_map(), but a subsequent page mapping fails, the code
+jumps to the err_unmap label and calls __drm_gpusvm_unmap_pages() to clean =
+up:
+
+err_unmap:
+	svm_pages->flags.has_dma_mapping =3D true;
+	__drm_gpusvm_unmap_pages(gpusvm, svm_pages, num_dma_mapped);
+
+Inside __drm_gpusvm_unmap_pages(), the loop uses the dpagemap loaded from
+svm_pages->dpagemap to resolve the callback:
+
+			else if (dpagemap && dpagemap->ops->device_unmap)
+				dpagemap->ops->device_unmap(dpagemap,
+							    dev, addr);
+
+Since svm_pages->dpagemap isn't updated until the end of drm_gpusvm_get_pag=
+es()
+upon complete success, it remains NULL (or holds a stale reference) during
+err_unmap. Will this evaluate to false and skip the required device_unmap
+operations for the newly mapped device pages?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617103602.1491=
+609-1-honglei1.huang@amd.com?part=3D3
