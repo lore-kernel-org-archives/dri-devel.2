@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DAD3CD98E4
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 15:02:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52E78CD98F2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 15:02:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E22D10F000;
-	Wed, 17 Jun 2026 15:02:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 171C410F005;
+	Wed, 17 Jun 2026 15:02:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="tsoQSdIx";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="Mac7bCRa";
 	dkim-atps=neutral
 Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
  [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A90C10EA4C
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 15:02:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80B4110F000
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 15:02:45 +0000 (UTC)
 Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-49222fb062bso49387865e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:02:41 -0700 (PDT)
+ 5b1f17b1804b1-491609cdd8fso31704245e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:02:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1781708560; x=1782313360;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1781708564; x=1782313364;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qmpePbxtzwGXfx66Hl40vv7cxeZbUjsiMgIwVm4k9pY=;
- b=tsoQSdIxGt/syESgMcMaz88WVUOxQWBwmBrpXFiFJM+b5mG9E+sKCrSjdDnwBSmxxH
- rfc2sXdVTLyVQM36cQzjz4QCEdQ6s2jIDHhnOPUvjRS3+qUXeSfYyk41qVZ6X5dAQhoq
- Sml5rvkKHqzz1OQWhuTQMLD/ckDlJcG5Sbz3srUHXt3m9hg5crOBkcZV2Hn98MbfUqu0
- FIu12jCHOlTWBhA7zB1Svxzd9RFDO5T2Uq2wqncnn09qK93P7gOef8e0brF8wFOQHvPQ
- mZ6093cjdbLhIxffS3qZbER8uufzzNHeaJjMQJoabau8S7+3FEHfZBWmG/dqMizYFkeY
- AggA==
+ bh=Ok+RjE4+w5Tv/U34IMQhdlbVd3kP3wRLvfnVhKYPL2M=;
+ b=Mac7bCRaLmfjw+H/NnlQ6x2qGUjOE5DvEneDx5b349Y09DrX/vPPTZM1lRHsX9bldb
+ zYeScTWG12RP6MSa4ahjngYLMVHu7i1ecmeu2q5ASwDx/qNjmP5/8P/Kx1DRmip1nDwq
+ 7eu14Xi4VyAFAnRRktpl5LZqnYSEF3YccgaOCaLAEBP5P77hgoDqR9wBsph2Tb5mKOF/
+ emPdDfaP2kNpK7JJNj1c14XRlnTFPAnH5EGplLB6XMmYLQqq9BQ3l3G8+SIV8mb0sAfa
+ gzvFN5s8c89dIAEikF0R2+KHrd8GCyo4rg+9Uzxk0gcu/uV4eV8oWD/YjfbGWH3ZBSRO
+ ShOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781708560; x=1782313360;
+ d=1e100.net; s=20251104; t=1781708564; x=1782313364;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=qmpePbxtzwGXfx66Hl40vv7cxeZbUjsiMgIwVm4k9pY=;
- b=eih1b8tKZMi8OY6IG2bfMiL9q6zS9DHE+xEh2bD87CjakMeEx57ktqCVOSdkGin8NF
- wpRCMJOAlV98O1CvC5nwI0ZkRr9U4bks/Ukv0wqfNXFrE/XbbvRmDIODtV/Ga4uOrXR6
- 4IgA8bOkIhO2Uu4TUmRnnvTBgGGZZbSWKnRhtYIURKzyb101jtV0rpcGL+gnJ6YjmZRj
- lAtdooSmw1rmSdaJyZq8vEwt1DCn6E39s+K6jUhFrW8FVMLKKl9GzPLacC2wfeCDyyHD
- oeJQcsK2PFTVX6m1kDcfqm3DvedhGAVvODxF78bWvWvE4CJZnT/C2DgeP4/3sdizCPhT
- xUOA==
-X-Gm-Message-State: AOJu0Yz2zPzMSs1GtaZriGeBANmifnSRx3CaAG7Wsk/aqbG35PLuMys4
- djpSOEC+H2jyt4nAkWCxKlBg6a4GJ2xt6jOZPjQNKHf9LhDPwMqbIEXq+Eqpf58W+AqMj2hwAv8
- 0kMBKJnBO
-X-Gm-Gg: Acq92OFLXP4fLrMmU34LioknrClhmCiccWYr86OJvAkP4W3LMIbx2LkqcKAcSRWIe+7
- KF0WY9Av+rshASwEDCzG5/KEnKnOe+wHjmTkjYKmj12ljxRqcspsM6nCGcqEFyKe6EBMWCG8Q9j
- XQn6mbFaDFXeN8ZDZRZKe0DqHrH4Ok9SmQJPuVS717uWQjJ2vNWbDHOGwb9J4x4gPqeon6dR9W6
- 2C3wGQ7VJ5N4i2U5pJgJNzEG4zNm+/QEGW+vn7hUWBl/1pQm8XI9hWErQ/H0W+OVP5KiAybz8Xz
- zGGyOS0QDLKc0t0OfxtesxfUl5ufd6urQQGUcxUQkdvJst+NOEeDiGwDbHVLMbsth8PBqI0yW1a
- aFIQS6QAZTbTVZ+lyADEUt5X0nWKmRlJazrTsNMXjMs/tIwYBIrNsSnH/VORCZaLVh9vPfkBKux
- j+uLsSSe913Ux/up2wALg+wP6rA1MgdcvXCF/qsjvly32DRh3ttp9572Tz
-X-Received: by 2002:a05:600c:4e02:b0:490:c2a3:1781 with SMTP id
- 5b1f17b1804b1-492333f7765mr76370435e9.34.1781708559486; 
- Wed, 17 Jun 2026 08:02:39 -0700 (PDT)
+ bh=Ok+RjE4+w5Tv/U34IMQhdlbVd3kP3wRLvfnVhKYPL2M=;
+ b=L31snUUN6BSrChqq4TJrFFTPcNs6CyKWXH9dek8na5Zvbcbo6gg3HUBWxsX7db7ZBt
+ x8E+G7jHTLmqRLafh489zEJeF2AnXHJQwIDEZrH+jWNmBkgYZ81jTCZ8AHlJeWehd/I7
+ mGUuhYP5Jv0wcHiXU23zwkH6jM91GmT+XjOYhltPptKfFQwSvW0Ek2BgjOjBcFY6tnNc
+ 5ByaRPwDZKs19Z4R9588dAybBYfBDYQ6RVelhxr0Sj8N1tQJaqTrtImcpx0pDx8iA+b0
+ puzlrg1WNkDFMFgKSWDPmgB6Uhk1SrwhrKUSp4xYYDHzD9Mhr/rVf6ZW/hrRdC/DbP9G
+ +O7g==
+X-Gm-Message-State: AOJu0Yw18IdVxJJL7YqmKxM/4PB7YlfK2dw/wlHb/HptvNDo2u9qAyMc
+ j4i5VWYI3E1SxWPebfks6FhlB1L1i24NZv9IvC290cQam7xP/x6V6GrNOb9UrAx1kQ3w0CrtoEn
+ cHWhgCT59
+X-Gm-Gg: Acq92OFIB8nkXAKL6da0070aXFatpVkMlIQXXmrHtPW5CMBO6Daq2q3ozCFUXmqpuVE
+ erGW/L6sPILxufKMxn/7PQjDaUh1HMl4TClLM3BHGnbkfXQWM5h2XHMLgA3p1V57W8GQ0isx4YW
+ JnG/nAt+YZYzgzp+PlukcznpRKTK1CvtJxJMclbTbJ83QNK/dWyqxIfSDjyieGqkHs8mEPQNvok
+ 1DTX0By2rFpn4zGN2I0kk19zzIMcuFtb46vr/uVP5HoUZbVztvb+GHsyA/bg4tnpZQS9IBzFKHY
+ G6Bfrm6+7e5M9NTtsjYMxMehlEqGG/+wFE9L5lOdh+haoWKfiOSKsxn1QmQKhkABeF8diqs+0E+
+ 7geAt/7IyRgNVWIakhdDiUFc7lHHPLdQN8sjS5BVmW9KIYr6n+SqZ0FHM1+pzB+eKqlp8DTANgI
+ ipGj66/K497zlF8LCQ8Bbtdo5TGp9x4a+kskmh8ppFNAdK2u+iZpEIryj/
+X-Received: by 2002:a05:600c:8189:b0:490:b355:9c70 with SMTP id
+ 5b1f17b1804b1-492333aaa9emr69289915e9.11.1781708563939; 
+ Wed, 17 Jun 2026 08:02:43 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([137.220.119.72])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4606f26f1cdsm57264311f8f.11.2026.06.17.08.02.38
+ ffacd0b85a97d-4606f26f1cdsm57264311f8f.11.2026.06.17.08.02.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2026 08:02:38 -0700 (PDT)
+ Wed, 17 Jun 2026 08:02:43 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: dri-devel@lists.freedesktop.org
 Cc: Mike Lothian <mike@fireburn.co.uk>, rust-for-linux@vger.kernel.org,
@@ -77,10 +77,10 @@ Cc: Mike Lothian <mike@fireburn.co.uk>, rust-for-linux@vger.kernel.org,
  Alexandre Courbot <acourbot@nvidia.com>,
  Asahi Lina <lina+kernel@asahilina.net>, Lorenzo Stoakes <ljs@kernel.org>,
  Joel Fernandes <joelagnelf@nvidia.com>, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 1/4] rust: drm: add minimal KMS bindings for
- simple-display-pipe drivers
-Date: Wed, 17 Jun 2026 16:02:23 +0100
-Message-ID: <20260617150232.2210-2-mike@fireburn.co.uk>
+Subject: [RFC PATCH 4/4] rust: drm: expose drm_blend.h and the atomic
+ new-CRTC-state accessor
+Date: Wed, 17 Jun 2026 16:02:26 +0100
+Message-ID: <20260617150232.2210-5-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260617150232.2210-1-mike@fireburn.co.uk>
 References: <20260617150232.2210-1-mike@fireburn.co.uk>
@@ -101,125 +101,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Rust DRM abstractions currently cover GEM and the device/driver
-registration boilerplate, but expose nothing of the KMS (mode-setting)
-API, so a Rust driver cannot bring up a display pipeline without
-dropping to C. Add the minimum needed to drive an atomic mode-setting
-pipeline built on the drm_simple_display_pipe helper (one CRTC + a
-primary plane + encoder), the same path simpledrm/gud/udl use.
+Two further KMS binding prerequisites used by the in-tree DisplayLink
+DL3 (vino) driver, beyond the simple-display-pipe header set:
 
-Two pieces:
+- drm_blend.h, for drm_plane_create_rotation_property() and the
+  DRM_MODE_ROTATE_* / DRM_MODE_REFLECT_* constants, so a driver can
+  attach the standard atomic plane rotation property.
 
- - bindings_helper.h: pull in the KMS headers (drm_atomic_helper,
-   drm_connector, drm_gem_atomic_helper, drm_gem_framebuffer_helper,
-   drm_managed, drm_modes, drm_modeset_helper_vtables,
-   drm_probe_helper, drm_simple_kms_helper) so bindgen emits the
-   drm_simple_display_pipe, drm_connector, drm_display_mode and helper
-   bindings a KMS driver calls (drm_simple_display_pipe_init,
-   drm_connector_init, drm_helper_probe_single_connector_modes,
-   drm_gem_fb_create, drm_cvt_mode and the drm_atomic_helper_* family).
-
- - drm::driver: add FEAT_MODESET / FEAT_ATOMIC and the matching
-   Driver::FEAT_MODESET / Driver::FEAT_ATOMIC associated consts, folded
-   into compute_features() exactly like the existing FEAT_RENDER. They
-   default to false, so GEM-only drivers are unaffected.
-
-No safe CRTC/plane/connector wrappers are added here; this is the raw
-binding surface a driver needs to call the C helpers itself, and is
-meant to be superseded by the in-progress safe KMS layer. The raw
-drm_device pointer those helpers need is exposed by a separate follow-up
-patch ("expose drm::Device::as_raw()") so the escape hatch can be
-reviewed on its own.
+- a rust_helper for drm_atomic_get_new_crtc_state(): it is static
+  inline in <drm/drm_atomic.h> and so is not callable from Rust
+  directly. It returns a CRTC's new state within an atomic commit
+  (NULL when the CRTC is not part of the commit), letting a driver
+  inspect the proposed configuration from its mode_config
+  atomic_check(). vino uses it to sum the pixel clocks of all heads
+  and reject a modeset that would exceed the dock's USB bandwidth.
 
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 Assisted-by: Claude:claude-opus-4-8 [Claude-Code]
 ---
- rust/bindings/bindings_helper.h |  9 +++++++++
- rust/kernel/drm/device.rs       |  8 ++++++++
- rust/kernel/drm/driver.rs       | 17 +++++++++++++++++
- 3 files changed, 34 insertions(+)
+ rust/bindings/bindings_helper.h |  1 +
+ rust/helpers/drm.c              | 12 ++++++++++++
+ 2 files changed, 13 insertions(+)
 
 diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index 14671e1825bb..877f82b927a0 100644
+index 5b311944cc14..5ff21c33385e 100644
 --- a/rust/bindings/bindings_helper.h
 +++ b/rust/bindings/bindings_helper.h
-@@ -32,13 +32,22 @@
- 
+@@ -31,6 +31,7 @@
  #include <linux/acpi.h>
  #include <linux/gpu_buddy.h>
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_connector.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_blend.h>
+ #include <drm/drm_connector.h>
  #include <drm/drm_device.h>
  #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
+diff --git a/rust/helpers/drm.c b/rust/helpers/drm.c
+index 65f3f22b0e1d..5087daa23ed8 100644
+--- a/rust/helpers/drm.c
++++ b/rust/helpers/drm.c
+@@ -1,11 +1,23 @@
+ // SPDX-License-Identifier: GPL-2.0
+ 
++#include <drm/drm_atomic.h>
  #include <drm/drm_gem.h>
-+#include <drm/drm_gem_atomic_helper.h>
-+#include <drm/drm_gem_framebuffer_helper.h>
  #include <drm/drm_gem_shmem_helper.h>
- #include <drm/drm_gpuvm.h>
- #include <drm/drm_ioctl.h>
-+#include <drm/drm_managed.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_modeset_helper_vtables.h>
-+#include <drm/drm_probe_helper.h>
-+#include <drm/drm_simple_kms_helper.h>
- #include <kunit/test.h>
- #include <linux/auxiliary_bus.h>
- #include <linux/bitmap.h>
-diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
-index 477cf771fb10..1d3319b713e2 100644
---- a/rust/kernel/drm/device.rs
-+++ b/rust/kernel/drm/device.rs
-@@ -165,6 +165,14 @@ const fn compute_features() -> u32 {
-             features |= drm::driver::FEAT_RENDER;
-         }
+ #include <drm/drm_vma_manager.h>
  
-+        if T::FEAT_MODESET {
-+            features |= drm::driver::FEAT_MODESET;
-+        }
-+
-+        if T::FEAT_ATOMIC {
-+            features |= drm::driver::FEAT_ATOMIC;
-+        }
-+
-         features
-     }
+ #ifdef CONFIG_DRM
  
-diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
-index 25f7e233884d..6a79594510fd 100644
---- a/rust/kernel/drm/driver.rs
-+++ b/rust/kernel/drm/driver.rs
-@@ -22,6 +22,10 @@
- pub(crate) const FEAT_GEM: u32 = bindings::drm_driver_feature_DRIVER_GEM;
- /// Driver supports render nodes, i.e.: /dev/dri/renderDXX devices.
- pub(crate) const FEAT_RENDER: u32 = bindings::drm_driver_feature_DRIVER_RENDER;
-+/// Driver supports mode setting (KMS).
-+pub(crate) const FEAT_MODESET: u32 = bindings::drm_driver_feature_DRIVER_MODESET;
-+/// Driver supports atomic mode setting.
-+pub(crate) const FEAT_ATOMIC: u32 = bindings::drm_driver_feature_DRIVER_ATOMIC;
- 
- /// Information data for a DRM Driver.
- pub struct DriverInfo {
-@@ -131,6 +135,19 @@ pub trait Driver {
-     /// usable from the render node (i.e. marked DRM_RENDER_ALLOW), whereas
-     /// userspace processes using the master node can invoke any ioctl.
-     const FEAT_RENDER: bool = false;
++/* Read-only accessor for a CRTC's *new* state within an atomic commit (returns NULL if the CRTC
++ * is not part of the commit). It is static-inline in <drm/drm_atomic.h>, so Rust cannot call it
++ * directly; the vino driver uses it in its combined-bandwidth atomic_check.
++ */
++__rust_helper struct drm_crtc_state *
++rust_helper_drm_atomic_get_new_crtc_state(const struct drm_atomic_commit *state,
++					  struct drm_crtc *crtc)
++{
++	return drm_atomic_get_new_crtc_state(state, crtc);
++}
 +
-+    /// Sets the `DRIVER_MODESET` feature for this driver.
-+    ///
-+    /// When enabled, the driver advertises kernel mode-setting (KMS): it owns a
-+    /// `drm_mode_config` and drives CRTCs, planes, encoders and connectors. Leave
-+    /// `false` for a render-only (GEM) driver.
-+    const FEAT_MODESET: bool = false;
-+
-+    /// Sets the `DRIVER_ATOMIC` feature for this driver.
-+    ///
-+    /// When enabled, the driver advertises the atomic mode-setting uAPI. It only
-+    /// has an effect together with [`Driver::FEAT_MODESET`].
-+    const FEAT_ATOMIC: bool = false;
- }
- 
- /// The registration type of a `drm::Device`.
+ __rust_helper void rust_helper_drm_gem_object_get(struct drm_gem_object *obj)
+ {
+ 	drm_gem_object_get(obj);
 -- 
 2.54.0
 
