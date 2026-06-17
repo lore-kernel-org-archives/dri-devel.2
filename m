@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15E97CD98E4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE9D1CD98F1
 	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B97510EF61;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3537710EF5E;
 	Wed, 17 Jun 2026 10:15:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F1w8aIHE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EI1l5Dfn";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF31410EF4A
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EECA10EF5B
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5A8AD600BB;
- Wed, 17 Jun 2026 10:15:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F1881F00A3D;
- Wed, 17 Jun 2026 10:15:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id ADBB5600AA;
+ Wed, 17 Jun 2026 10:15:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E16941F00A3A;
+ Wed, 17 Jun 2026 10:15:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781691306;
- bh=O7eBM+Nc+nmft2tH+wj0mW6daUJ3JkMbvBrQ5ElG/bg=;
+ s=k20260515; t=1781691303;
+ bh=y7diOgYTyoO7ymdTkJ78p4Z8ylJa0ZI3DqAJezanZec=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=F1w8aIHEb7hgXnwnUmk+gz9dnliXyf1eyxR593we2ReVztg1rtdWBt2jQ650XsDD/
- cpfrS2vymYpCIclrYLgQyOfMY6db3Od+uTXkV9tUL+N79vlCy6pNsBJPzJqrlpt+/y
- ycSiaCRV4tkkER7aMf872w7NosDZFxuXCTHUr5kfmrv6uesHVgmnFE7dlmuwadteqK
- ugUXZ001/osyxUviZhq/vPClXxNFBE6yPLJoWUC4bB+I8k4BYo9uIuOhXUdHzFFNNd
- BSHtrN1R7WLU0Fc+1hUFb2WmiRtyhK4eYxdQg2bSTg9qNLqXHnWDnWhN9YUTMCbN7V
- DHAgc9Sedh8Tg==
+ b=EI1l5DfngSaaXVmSM7opAeKbAjVc5t9avHT+VesSJoL1x6JGvkh8/o9q+NLJy5O/R
+ f8n9HGrrI9+qaVwj+TUU7a9tUdkeiAcEZsgFK3wWZocF49h74F/QpTDoo2v7/bFElG
+ jtW1oHaukNuB331OyM76BAO/9UTCnDY4YH13sa2D1Ygd1AIOouQ9WqKdLHM3yI8Gw9
+ ffEaxl1omPhy6Mw4BnIXOkDJ7SeGRxKhckkV72qHJ0VHepGdQ92bim185nzpyAq3Es
+ gSqCrwSQl1JFvKiFErWsQuREipWPMZMI0esvrw9iGGlHBJkSe/1Ctdo/4m3Qhq0tV2
+ xGGh9n0bYtODw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 17 Jun 2026 12:14:31 +0200
-Subject: [PATCH 06/37] drm/bridge: chrontel-ch7033: Switch to atomic bridge
+Date: Wed, 17 Jun 2026 12:14:30 +0200
+Subject: [PATCH 05/37] drm/bridge: aux-hpd-bridge: Switch to atomic bridge
  callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-drm-all-atomic-bridges-v1-6-b63e6316166b@kernel.org>
+Message-Id: <20260617-drm-all-atomic-bridges-v1-5-b63e6316166b@kernel.org>
 References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 In-Reply-To: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,12 +50,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4834; i=mripard@kernel.org;
- h=from:subject:message-id; bh=EZjoy/ZFdH/6v2MBLnVjCd3oiwFvcCZZd8DZ9KHUVjo=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxR0NbVu/G1/bWBXv/rMwqZf5ZWgCc4HAhHPsS08rz
- 2FbPu1px1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjIER7GOoVprLtSXm6w+bpV
- 7MWajvmB1h8u783mXK5x3zfoao3xxwMnF+XnX5/xWnvbjtnbb4sVSzLWKb7I8X1vJTH59I/y/+q
- P5jMfnmyypPCaSlK9+PevVSe2KJQpsc+ttHg/TXBr/oYzB0M0AQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3965; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=402qe/u6QVnL47IOqEcL3AJ1C/bK3jyqZybH1WnaAUY=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxR2e7FNuGtuVbV/DvoL5VXepdT3X8es929rfqDMGT
+ 7XtnfSmYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEykP5CxhmNTN2co/wrt634r
+ 5LmajgoK8hx8doVv1ZwYAyWtnZdOTeXTO2745F7DrKnMzw8v4b++kbFhSuKB8mAxtw098e+8FSM
+ UWGs8FxTtPHKt8oGq5uIld25cun9Gt3zng2KHP24vZs1MXusKAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,7 +73,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The chrontel-ch7033 bridge still uses the deprecated non-atomic bridge
+The aux-hpd-bridge bridge still uses the deprecated non-atomic bridge
 callbacks.
 
 Switch to their atomic counterparts, adding the bridge state
@@ -205,58 +205,39 @@ identifier b;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/chrontel-ch7033.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/bridge/aux-hpd-bridge.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/chrontel-ch7033.c b/drivers/gpu/drm/bridge/chrontel-ch7033.c
-index a237c65ebd69..92d464727e41 100644
---- a/drivers/gpu/drm/bridge/chrontel-ch7033.c
-+++ b/drivers/gpu/drm/bridge/chrontel-ch7033.c
-@@ -328,19 +328,21 @@ static enum drm_mode_status ch7033_bridge_mode_valid(struct drm_bridge *bridge,
- 	if (mode->vdisplay >= 1080)
- 		return MODE_BAD_VVALUE;
- 	return MODE_OK;
- }
+diff --git a/drivers/gpu/drm/bridge/aux-hpd-bridge.c b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
+index f02a38a2638a..a2e525aa5788 100644
+--- a/drivers/gpu/drm/bridge/aux-hpd-bridge.c
++++ b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
+@@ -7,10 +7,11 @@
+ #include <linux/auxiliary_bus.h>
+ #include <linux/export.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
  
--static void ch7033_bridge_disable(struct drm_bridge *bridge)
-+static void ch7033_bridge_disable(struct drm_bridge *bridge,
-+				  struct drm_atomic_commit *commit)
++#include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/bridge/aux-bridge.h>
+ 
+ static DEFINE_IDA(drm_aux_hpd_bridge_ida);
+ 
+@@ -163,10 +164,13 @@ static int drm_aux_hpd_bridge_attach(struct drm_bridge *bridge,
  {
- 	struct ch7033_priv *priv = bridge_to_ch7033_priv(bridge);
- 
- 	regmap_write(priv->regmap, 0x03, 0x04);
- 	regmap_update_bits(priv->regmap, 0x52, RESETDB, 0x00);
+ 	return flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR ? 0 : -EINVAL;
  }
  
--static void ch7033_bridge_enable(struct drm_bridge *bridge)
-+static void ch7033_bridge_enable(struct drm_bridge *bridge,
-+				 struct drm_atomic_commit *commit)
- {
- 	struct ch7033_priv *priv = bridge_to_ch7033_priv(bridge);
- 
- 	regmap_write(priv->regmap, 0x03, 0x04);
- 	regmap_update_bits(priv->regmap, 0x52, RESETDB, RESETDB);
-@@ -512,15 +514,18 @@ static void ch7033_bridge_mode_set(struct drm_bridge *bridge,
- 	regmap_write(priv->regmap, 0x11, mode->clock >> 8);
- 	regmap_write(priv->regmap, 0x12, mode->clock);
- }
- 
- static const struct drm_bridge_funcs ch7033_bridge_funcs = {
+ static const struct drm_bridge_funcs drm_aux_hpd_bridge_funcs = {
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach = ch7033_bridge_attach,
- 	.detach = ch7033_bridge_detach,
- 	.mode_valid = ch7033_bridge_mode_valid,
--	.disable = ch7033_bridge_disable,
--	.enable = ch7033_bridge_enable,
-+	.atomic_disable = ch7033_bridge_disable,
-+	.atomic_enable = ch7033_bridge_enable,
- 	.mode_set = ch7033_bridge_mode_set,
+ 	.attach	= drm_aux_hpd_bridge_attach,
  };
  
- static const struct regmap_config ch7033_regmap_config = {
- 	.reg_bits = 8,
+ static int drm_aux_hpd_bridge_probe(struct auxiliary_device *auxdev,
+ 				    const struct auxiliary_device_id *id)
 
 -- 
 2.54.0
