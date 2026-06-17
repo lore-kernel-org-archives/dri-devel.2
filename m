@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07C0BCD98E2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30301CD98E4
 	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:16:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41CBB10EF83;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D97610EF85;
 	Wed, 17 Jun 2026 10:16:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GB7FQPMs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fgQKQ2S0";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C8B810EF7C
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:16:23 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C087010EF86
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:16:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6C2E6431C1;
- Wed, 17 Jun 2026 10:16:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D18441F00A3A;
- Wed, 17 Jun 2026 10:16:22 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 44BA660137;
+ Wed, 17 Jun 2026 10:16:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79DA41F000E9;
+ Wed, 17 Jun 2026 10:16:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781691383;
- bh=iQoXmcHn0FihvH5JK4uRXj0PUm33SRMKNoGQopMKJ2k=;
+ s=k20260515; t=1781691386;
+ bh=kiRhHAH+v2IYioI/tcRQWqGrql7tCXrBtposdLEE8k0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=GB7FQPMsjMpGjbpmEuDOuggKeGt1hZJUSLJQga2R9XZhP2gQQhBln6OePSSV95rRd
- YPsEL6mdzTHB6+I7HvXwUqGQZXK0kvM4rB7iN8jcI8WmS1zrFFjmOtv9uv9XQQGiVt
- FZwVe9CrD9NO+3ddRsQa4s8oGWbrDsgMSvscI6FngXH4QmErTNuc+3b7/+tXHCr7v0
- FJemlEWE/I2HP7q8OPmJAA2qOrjxxFeDeMtaHExXbspQCg08Uu/MFj5jbpi4Cn03cn
- rX7GjtEnIeNRiyWt8PPw6kIZotoffI968FvexJP+bxMFYd1QCFH6eW/Au47i1Qd0Yc
- z/YFzEXZs+nMw==
+ b=fgQKQ2S0yKc24E28Gbsr13XgBljdd5PDsFxP5xQ9gcN1oCQpW2IhXQugz/Ebg0VAX
+ RD9tH27Jwi1MYNJ5pChx6kBK4YIjtNA7/un8Ls37D8EohZ7SDITWHd9SGZ1y/gGsP8
+ wikzOpkTz7ArPye8z6RtCzglQMFs1hQAy0UWq9OI2rzsrotqsRWbcNG2IlcITzsf2B
+ J6z1+P/7FkRY9A5JBcPZ8p9H/YpYTPt+1suyEMSqYDbROwjnIdhI6xYUnFiQi1RRTc
+ l+03LHwR+6Uop1lDkxO2RtypBjratBdXv+XFhEl5NU7s65Cr1Q/Nn8XUJR8KEQBV6y
+ ITFF8HRZ6upwg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 17 Jun 2026 12:15:00 +0200
-Subject: [PATCH 35/37] drm/sti: hda: Switch to atomic bridge callbacks
+Date: Wed, 17 Jun 2026 12:15:01 +0200
+Subject: [PATCH 36/37] drm/sti: hdmi: Switch to atomic bridge callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-drm-all-atomic-bridges-v1-35-b63e6316166b@kernel.org>
+Message-Id: <20260617-drm-all-atomic-bridges-v1-36-b63e6316166b@kernel.org>
 References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 In-Reply-To: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,12 +50,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Maxime Ripard <mripard@kernel.org>, Alain Volmat <alain.volmat@foss.st.com>, 
  Raphael Gallais-Pou <rgallaispou@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5232; i=mripard@kernel.org;
- h=from:subject:message-id; bh=ab3bdAS7KLkfJRH9U216eeNrLTkgIy/5iZCOrGFBZFM=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxVPXHfU3vsW8gFvBnuW5pV5FcdrzsIVfO24zCj+R6
- PIMODe1YyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEzkkg9jfd3a8meWHh6K+QIM
- n10jbN9dPK1qGfdyo+FE97+7OYuNHinZJE4VVDERDWplK+Oc013GWB+7fk/fpser047LX1K7I3X
- Azu3bUe664EWqv5tDvbVbVP5WPlsUb572o+tLoXyBhX9JLAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5166; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=xhI3/bGyzSXmUVZKxBc9OPV8mWtaOgB7FHpZIQ3KLr4=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxdN0Xs6pTei/sGrPvSsLeJl2nn172+1fB9/sxR0OJ
+ 5NMlS3/d0xlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJWC9jbNj6xMk+zftcws8f
+ x4wP1G9cXHLveuOz7vPt93PDOROYemQ29v5ptptpcOvdWq/jm5covmFseCx84dPre6Lfc1RCzm5
+ 48vuB2o3cN6f/fItuYF3B7CFw/c9Vrgf/T5dsP3xFIVBf9/2vDwA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,7 +73,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The hda bridge still uses the deprecated non-atomic bridge
+The hdmi bridge still uses the deprecated non-atomic bridge
 callbacks.
 
 Switch to their atomic counterparts, adding the bridge state
@@ -210,70 +210,70 @@ To: Alain Volmat <alain.volmat@foss.st.com>
 To: Raphael Gallais-Pou <rgallaispou@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
 ---
- drivers/gpu/drm/sti/sti_hda.c | 20 +++++++++++++-------
+ drivers/gpu/drm/sti/sti_hdmi.c | 20 +++++++++++++-------
  1 file changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/sti/sti_hda.c b/drivers/gpu/drm/sti/sti_hda.c
-index 360a88ca8f0c..3806dd2c9be3 100644
---- a/drivers/gpu/drm/sti/sti_hda.c
-+++ b/drivers/gpu/drm/sti/sti_hda.c
-@@ -403,11 +403,12 @@ static void sti_hda_configure_awg(struct sti_hda *hda, u32 *awg_instr, int nb)
- 		hda_write(hda, awg_instr[i], HDA_SYNC_AWGI + i * 4);
- 	for (i = nb; i < AWG_MAX_INST; i++)
- 		hda_write(hda, 0, HDA_SYNC_AWGI + i * 4);
+diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
+index f8222e60b1e0..7ba9e0b7ba6c 100644
+--- a/drivers/gpu/drm/sti/sti_hdmi.c
++++ b/drivers/gpu/drm/sti/sti_hdmi.c
+@@ -750,11 +750,12 @@ static void hdmi_debugfs_init(struct sti_hdmi *hdmi, struct drm_minor *minor)
+ 	drm_debugfs_create_files(hdmi_debugfs_files,
+ 				 ARRAY_SIZE(hdmi_debugfs_files),
+ 				 minor->debugfs_root, minor);
  }
  
--static void sti_hda_disable(struct drm_bridge *bridge)
-+static void sti_hda_disable(struct drm_bridge *bridge,
-+			    struct drm_atomic_commit *commit)
+-static void sti_hdmi_disable(struct drm_bridge *bridge)
++static void sti_hdmi_disable(struct drm_bridge *bridge,
++			     struct drm_atomic_commit *commit)
  {
- 	struct sti_hda *hda = drm_bridge_to_sti_hda(bridge);
- 	u32 val;
+ 	struct sti_hdmi *hdmi = drm_bridge_to_sti_hdmi(bridge);
  
- 	if (!hda->enabled)
-@@ -428,11 +429,12 @@ static void sti_hda_disable(struct drm_bridge *bridge)
- 	clk_disable_unprepare(hda->clk_pix);
+ 	u32 val = hdmi_read(hdmi, HDMI_CFG);
  
- 	hda->enabled = false;
+@@ -882,11 +883,12 @@ static int hdmi_audio_configure(struct sti_hdmi *hdmi)
+ 	hdmi_write(hdmi, audio_cfg, HDMI_AUDIO_CFG);
+ 
+ 	return hdmi_audio_infoframe_config(hdmi);
  }
  
--static void sti_hda_pre_enable(struct drm_bridge *bridge)
-+static void sti_hda_pre_enable(struct drm_bridge *bridge,
-+			       struct drm_atomic_commit *commit)
- {
- 	struct sti_hda *hda = drm_bridge_to_sti_hda(bridge);
- 	u32 val, i, mode_idx;
- 	u32 src_filter_y, src_filter_c;
- 	u32 *coef_y, *coef_c;
-@@ -562,20 +564,24 @@ static void sti_hda_set_mode(struct drm_bridge *bridge,
- 	if (ret < 0)
- 		DRM_ERROR("Cannot set rate (%dHz) for hda_pix clk\n",
- 			  mode->clock * 1000);
- }
- 
--static void sti_hda_bridge_nope(struct drm_bridge *bridge)
-+static void sti_hda_bridge_nope(struct drm_bridge *bridge,
+-static void sti_hdmi_pre_enable(struct drm_bridge *bridge)
++static void sti_hdmi_pre_enable(struct drm_bridge *bridge,
 +				struct drm_atomic_commit *commit)
+ {
+ 	struct sti_hdmi *hdmi = drm_bridge_to_sti_hdmi(bridge);
+ 
+ 	DRM_DEBUG_DRIVER("\n");
+ 
+@@ -962,20 +964,24 @@ static void sti_hdmi_set_mode(struct drm_bridge *bridge,
+ 			  mode->clock * 1000);
+ 		return;
+ 	}
+ }
+ 
+-static void sti_hdmi_bridge_nope(struct drm_bridge *bridge)
++static void sti_hdmi_bridge_nope(struct drm_bridge *bridge,
++				 struct drm_atomic_commit *commit)
  {
  	/* do nothing */
  }
  
- static const struct drm_bridge_funcs sti_hda_bridge_funcs = {
--	.pre_enable = sti_hda_pre_enable,
--	.enable = sti_hda_bridge_nope,
--	.disable = sti_hda_disable,
--	.post_disable = sti_hda_bridge_nope,
+ static const struct drm_bridge_funcs sti_hdmi_bridge_funcs = {
+-	.pre_enable = sti_hdmi_pre_enable,
+-	.enable = sti_hdmi_bridge_nope,
+-	.disable = sti_hdmi_disable,
+-	.post_disable = sti_hdmi_bridge_nope,
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-+	.atomic_pre_enable = sti_hda_pre_enable,
-+	.atomic_enable = sti_hda_bridge_nope,
-+	.atomic_disable = sti_hda_disable,
-+	.atomic_post_disable = sti_hda_bridge_nope,
- 	.mode_set = sti_hda_set_mode,
++	.atomic_pre_enable = sti_hdmi_pre_enable,
++	.atomic_enable = sti_hdmi_bridge_nope,
++	.atomic_disable = sti_hdmi_disable,
++	.atomic_post_disable = sti_hdmi_bridge_nope,
+ 	.mode_set = sti_hdmi_set_mode,
  };
  
- static int sti_hda_connector_get_modes(struct drm_connector *connector)
+ static int sti_hdmi_connector_get_modes(struct drm_connector *connector)
  {
 
 -- 
