@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1DD1CD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51EBCCD98F1
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CA4E10EF6D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77FD510EF6F;
 	Wed, 17 Jun 2026 10:15:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SvCilexS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JWpw3fc8";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4263E10EF6B
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:38 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8839C10EF6C
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2A52943A32;
- Wed, 17 Jun 2026 10:15:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D6C51F00A3D;
- Wed, 17 Jun 2026 10:15:37 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0CCBE60121;
+ Wed, 17 Jun 2026 10:15:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FBA51F000E9;
+ Wed, 17 Jun 2026 10:15:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781691338;
- bh=vzduU8m1Jk8N2h91LtR1Bzgie7zodOJ+0S1tKQXITLI=;
+ s=k20260515; t=1781691340;
+ bh=/zNdmsF5OiLaEC6PJz1mxhqXH2Aq8oX/miwqou0Toas=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=SvCilexShq89QqQ2sNPYtF/WtX1BCB0s/0XBTRKEb5H+DfDOcI4cpUuG0gOnqwcD+
- OCPKthirrWioNrH79E9KHW1XOskwzNmRNO1dOv9GETippKQx6/hDHxHDgQQQP4JWtn
- 70j7t4/YDU7lOOQWQEh4GJ7sj6i2KLjIJi6nqjtu1068mU1JmssRWGQTVLhSnHwsR9
- fwPjsDqwbwCacYjgDAHGMyHsd5cyG9iB7xxlDDTy6QkFQzz3oqkdCKIyOQ02obUuHF
- xhV3vu0cALBWlUYHuPc82S7RPWEAqe/Sw4nDNifzpyUdzl3kLedymqmRyAwheyfIEH
- 4YslW3EK0Nj4Q==
+ b=JWpw3fc8uGitLFuQyTOZle1sfbH8AgFyvPPw+Q+jdXVBnYKI3nNB6Yal2NNTnzGiz
+ JLDLBkyNvRvBMpqYzrKz+IVSRSBBvgRAJVABCE/1UIA2VE3UxfTW+5IEnWAVkLTCZ8
+ f844vZ+isgZstfQMu0vOygSXjaQq0tUrJ5HWSi4TJk6oJfrb//Jlzs+YJvmFr/rBBV
+ WBC+kNpcqScnoDrbm8j6nQy3NuyMB/OACOJQEvZKXyyZf9WARxbZofGjsDm8AtA6h8
+ XGzQ0c0594n5Q0ZU/Ft8KoD7Zgkj6qREqBy5eiMe+CF6Ij+NvEWQe4+CUnxO2J0u1q
+ j1a7Psqsm4EVQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 17 Jun 2026 12:14:43 +0200
-Subject: [PATCH 18/37] drm/bridge: sil-sii8620: Switch to atomic bridge
+Date: Wed, 17 Jun 2026 12:14:44 +0200
+Subject: [PATCH 19/37] drm/bridge: simple-bridge: Switch to atomic bridge
  callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-drm-all-atomic-bridges-v1-18-b63e6316166b@kernel.org>
+Message-Id: <20260617-drm-all-atomic-bridges-v1-19-b63e6316166b@kernel.org>
 References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 In-Reply-To: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,12 +50,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3823; i=mripard@kernel.org;
- h=from:subject:message-id; bh=qMMxyZ6Cvl4sF/4yb068If4v6kEAx3rsAkKVBAQc5qQ=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxX1aS/1e5bL9+KDw627mW7+g/LnGQofU2jvFd4rEM
- v6bWevaMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACZS5sjY8MuKR8j/TrB50+6g
- T3+z74nI3psb721Vu8f5VGfpP6enLVXWun5h7NP1Qta5ytRseOfL2DD7X53MS82u+F0KomcepRZ
- pcwbfWqlgqtvTnaK+vdK/Yd7xzJ8pgr4hEz8sWmuo2a/3BgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4628; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=NII5h60H1ITyDoE1sE+ePv13JdjrwOmWC+YtkL8BYZ0=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxX35j/4lzwvNT//T81lmQd6X79y7HHaFJ9+8JjVFu
+ lYt7X1+x1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjIm5WMDbtKO7+K3Xi5V49H
+ 8e6DtXw7zdf8v61WqXSkb8rmWKbSW3yz66/fS7PkVlkgz8Ix9c7drYy1Ytv+5C09em7v9iV3dqy
+ LEU7+v+aEglF7764K6TCrbdcN1SzFaldMPZH+dcMexfyHYetKAQ==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,7 +73,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The sil-sii8620 bridge still uses the deprecated non-atomic bridge
+The simple-bridge bridge still uses the deprecated non-atomic bridge
 callbacks.
 
 Switch to their atomic counterparts, adding the bridge state
@@ -205,39 +205,59 @@ identifier b;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/sil-sii8620.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/bridge/simple-bridge.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/sil-sii8620.c b/drivers/gpu/drm/bridge/sil-sii8620.c
-index 982306eb4f0a..22c81b38b41e 100644
---- a/drivers/gpu/drm/bridge/sil-sii8620.c
-+++ b/drivers/gpu/drm/bridge/sil-sii8620.c
-@@ -7,10 +7,11 @@
-  */
+diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
+index cc13c98f9be6..3fba7002322e 100644
+--- a/drivers/gpu/drm/bridge/simple-bridge.c
++++ b/drivers/gpu/drm/bridge/simple-bridge.c
+@@ -130,11 +130,12 @@ static int simple_bridge_attach(struct drm_bridge *bridge,
+ 	drm_connector_attach_encoder(&sbridge->connector, encoder);
  
- #include <linux/unaligned.h>
- 
- #include <drm/bridge/mhl.h>
-+#include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_encoder.h>
- 
-@@ -2278,10 +2279,13 @@ static bool sii8620_mode_fixup(struct drm_bridge *bridge,
- 
- 	return true;
+ 	return 0;
  }
  
- static const struct drm_bridge_funcs sii8620_bridge_funcs = {
+-static void simple_bridge_enable(struct drm_bridge *bridge)
++static void simple_bridge_enable(struct drm_bridge *bridge,
++				 struct drm_atomic_commit *commit)
+ {
+ 	struct simple_bridge *sbridge = drm_bridge_to_simple_bridge(bridge);
+ 	int ret;
+ 
+ 	if (sbridge->vdd) {
+@@ -144,24 +145,28 @@ static void simple_bridge_enable(struct drm_bridge *bridge)
+ 	}
+ 
+ 	gpiod_set_value_cansleep(sbridge->enable, 1);
+ }
+ 
+-static void simple_bridge_disable(struct drm_bridge *bridge)
++static void simple_bridge_disable(struct drm_bridge *bridge,
++				  struct drm_atomic_commit *commit)
+ {
+ 	struct simple_bridge *sbridge = drm_bridge_to_simple_bridge(bridge);
+ 
+ 	gpiod_set_value_cansleep(sbridge->enable, 0);
+ 
+ 	if (sbridge->vdd)
+ 		regulator_disable(sbridge->vdd);
+ }
+ 
+ static const struct drm_bridge_funcs simple_bridge_bridge_funcs = {
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach = sii8620_attach,
- 	.detach = sii8620_detach,
- 	.mode_fixup = sii8620_mode_fixup,
- 	.mode_valid = sii8620_mode_valid,
+ 	.attach		= simple_bridge_attach,
+-	.enable		= simple_bridge_enable,
+-	.disable	= simple_bridge_disable,
++	.atomic_enable = simple_bridge_enable,
++	.atomic_disable = simple_bridge_disable,
  };
+ 
+ static int simple_bridge_probe(struct platform_device *pdev)
+ {
+ 	struct simple_bridge *sbridge;
 
 -- 
 2.54.0
