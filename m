@@ -4,60 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E98AFCD98E4
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 14:55:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DA0BCD98E4
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 15:02:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34E3610EA38;
-	Wed, 17 Jun 2026 14:55:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D37410EA4C;
+	Wed, 17 Jun 2026 15:02:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="gzpokZJT";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="SgOZlc+j";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4F7F10EA38
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 14:55:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1781708149;
- bh=B8jGaMu50yEU36HgLLLq39nKxPfO0ebufp/+vz+TlPM=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=gzpokZJTbMMowhbK2YnQVaU2HEnwVsCMj7WVbSmWz9FKrclvMP8Tgf2csaGfnLuff
- F2VWzVjnYPfYPl7sCl1Z5eFr5S/Dx7KvkQkFl298rRMeBhHHAmxHj64ezyV1L7KHy4
- XDShN9syeabVdznKsL9ZDlNWT6mNQdoE9loa5e5GWUG4t2rvTHL/OrA0LZJ/FK4v87
- tVZM3tMlOI3bOnD9Tm9/qwte61BO+urZicehZYujsK/Zvs0K6sywyFtVi8yNqT2m6q
- 7cX14GB23dI5SfAfH2A/6/LIQFFiItfdfBc8TVb4kW4qMRbUX6bw0u14kkkBW2DTIC
- ioKd41KZLU5hw==
-Received: from fedora-2.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id D889017E091C;
- Wed, 17 Jun 2026 16:55:48 +0200 (CEST)
-Date: Wed, 17 Jun 2026 16:55:46 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 6/7] drm/panfrost: Fix PM usage_count mishandling
-Message-ID: <20260617165546.4777de33@fedora-2.home>
-In-Reply-To: <ajGpN5x-SnC9y6pa@sobremesa>
-References: <20260604-claude-fixes-v2-0-57c6bd4c1655@collabora.com>
- <20260604-claude-fixes-v2-6-57c6bd4c1655@collabora.com>
- <20260604203631.20e76f5f@fedora-2.home>
- <ajGpN5x-SnC9y6pa@sobremesa>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C76E010F005
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 15:02:39 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-bec49f7e35eso788717966b.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:02:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1781708558; x=1782313358;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=lCa0uenWWZ89F0YVTYC+LQ6UyP30FoInUSkltfqEQkI=;
+ b=SgOZlc+jpIaUlhe8SzlPa7w0tTaEHoE91dIkiUOZebxyECzUAGBev2beIQ6pB2Z7T+
+ YPTAqbU4VFbvjVJaxuLB7So2RbQs5bT4pnHYcKJfLxCOxf5/7wMoZR2XwZ+u5wwKKwmY
+ 5TqwEMq6rM5cUNLQ0zfLKvnXAskoLJUxtKGozCQluSsZaiTwwmYP0e36poMrLNnGrDcP
+ ORn1JyB9/8vyN/nL3imlIhJ37jI09e3onsWiEurWIM2HqK39S53qegCHOCfFYsm4NG+D
+ VYw4+dgerNvPju48jCBDWZHEjsFlysz8mno818RptkS3jhEQyT0qfePUWWz5YIu7JE21
+ afgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781708558; x=1782313358;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=lCa0uenWWZ89F0YVTYC+LQ6UyP30FoInUSkltfqEQkI=;
+ b=osoDOGGBUtwSWAjwI8eWel3SVAUpdYrQYkmJTL8IY37KKbfORLpRgqUoQ5vyOPcv/v
+ DZbaIqACQHCsJuVcBuMcnA+filM8zCdsv5SDIAQjhTMjpGY/zkvioOfjL87rYGiGkIjL
+ qhNJmp92RWFDIL7qjsXTxrfkLr7biDQPnLromZnFY8xwGs8qrvLJDJDBsJ5oUpqlJLAn
+ 28aCV9Vgci+bpUXKbWko1ZQgLk/6gAk3oqJGLRDgw1+PY2FDiF2sdCXr1me1llNXaGtP
+ 23+qYs9iuRyD/O2ieXyI/sJETAoWT4Q66YKyQ20rbtTY6xQCNe2cOrnI/7SB1RzzW5Sx
+ E5vg==
+X-Gm-Message-State: AOJu0Yz6q7GIBoq9KEb031oadYE3AvKGmxoJcTBhzJuTkH2zsMCHEstU
+ ibDXQIsg2GWrLnXpU0J/ldpHsK9UfJweuTA0bIQOKT8gGEri8y0aCwsRIH/lJ7yQQzecXMm7MsL
+ W3nJtoKGV
+X-Gm-Gg: Acq92OFjGIm1v/SR2pWwJg+22I0UzboxvWxC0W/ZXL4NrZ//6gRq0+NlO5C8P9HI17H
+ IrXMHHfdi/fzpxyeY3F0i2kDNwZIXujCl4CK8eSoGz+31x5SY4RO3tSRyeRfDSlmeOBJailvcEI
+ 1Ta7ekLpNKVdMTTpYFuTWG7W3H9teAyCxHBC5tZgPEQfDADlzwoZGr8aaHjeEqVlniIE0p7/Yma
+ WO28t/cGCfy5JIkBXSXFdv30aRCDcSzOd/b2uM+cvIdapSiAq5q3CwTkbujOyiLSdS7IHEzKFNH
+ pEpbXIdreCvNM/sXLttt1T+BJ7Q9Rm0HB4slHeq3YM/ejNEnbq/uVTMG0Ewh15Px1vnawMIXWeU
+ HGV14NddMTg2/S7JeEcN16suIbUxuKlJT57Rx3fIZoQBi9kj955dHtXbY2H/TomknDMQVbdek8V
+ n/rgwVcV5YU2KFbUfe2Jzd/P8jFE4asO1MbFmIY4ETmp2WUTIQMoB1xjJk
+X-Received: by 2002:a17:906:9fca:b0:c03:b8c6:cc27 with SMTP id
+ a640c23a62f3a-c05a6bded8bmr287227266b.24.1781708557936; 
+ Wed, 17 Jun 2026 08:02:37 -0700 (PDT)
+Received: from axion.fireburn.co.uk ([137.220.119.72])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4606f26f1cdsm57264311f8f.11.2026.06.17.08.02.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 17 Jun 2026 08:02:36 -0700 (PDT)
+From: Mike Lothian <mike@fireburn.co.uk>
+To: dri-devel@lists.freedesktop.org
+Cc: Mike Lothian <mike@fireburn.co.uk>, rust-for-linux@vger.kernel.org,
+ Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Lyude Paul <lyude@redhat.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/5] rust: drm: minimal KMS bindings, EDID read, rotation,
+ HDCP defs
+Date: Wed, 17 Jun 2026 16:02:22 +0100
+Message-ID: <20260617150232.2210-1-mike@fireburn.co.uk>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,134 +98,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 16 Jun 2026 21:17:53 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+This RFC series exposes enough of the C KMS API to Rust for a driver to
+bring up an atomic mode-setting pipeline with the drm_simple_display_pipe
+helper (one CRTC + primary plane + encoder) and install a real EDID read
+off its own transport:
 
-> On 04.06.2026 20:36, Boris Brezillon wrote:
-> > On Thu, 04 Jun 2026 18:35:25 +0100
-> > Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
-> >  =20
-> > > During device probe(), failure to do a PM get() will leave the usage_=
-count
-> > > set to 0, which is the value assigned at device creation time. That m=
-eans
-> > > when the autosuspend delay expires, runtime suspend callback won't be
-> > > invoked, so the device will remain powered on forever.
-> > >=20
-> > > On top of that, failure to call PM put() during device unplug means
-> > > Panfrost device's PM usage_count increases monotonically for every new
-> > > module reload.
-> > >=20
-> > > The combined outcome of both of the above was that devfreq OPP transi=
-tion
-> > > notifications would be printed all the time, even when no jobs are be=
-ing
-> > > submitted. This quickly fills the kernel ring buffer with junk.
-> > >=20
-> > > Even direr than that was the fact MMU interrupts are only enabled when
-> > > the device is reset, so after device probe() the very first job targe=
-ting
-> > > the tiler heap BO would always time out, because the driver's PM runt=
-ime
-> > > resume callback would not be invoked.
-> > >=20
-> > > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> > > Fixes: 635430797d3f ("drm/panfrost: Rework runtime PM initialization")
-> > > Fixes: 876b15d2c88d ("drm/panfrost: Fix module unload")
-> > > ---
-> > >  drivers/gpu/drm/panfrost/panfrost_drv.c | 6 +++++-
-> > >  1 file changed, 5 insertions(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/dr=
-m/panfrost/panfrost_drv.c
-> > > index 2d4b6aa95c66..545fbf2c8d0c 100644
-> > > --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > > +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > > @@ -989,6 +989,7 @@ static int panfrost_probe(struct platform_device =
-*pdev)
-> > >  	pm_runtime_set_active(pfdev->base.dev);
-> > >  	pm_runtime_mark_last_busy(pfdev->base.dev);
-> > >  	pm_runtime_enable(pfdev->base.dev);
-> > > +	pm_runtime_get_noresume(pfdev->base.dev);
-> > >  	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames=
- */
-> > >  	pm_runtime_use_autosuspend(pfdev->base.dev);
-> > > =20
-> > > @@ -1000,10 +1001,12 @@ static int panfrost_probe(struct platform_dev=
-ice *pdev)
-> > >  	if (err < 0)
-> > >  		goto err_out1;
-> > > =20
-> > > +	pm_runtime_put_autosuspend(pfdev->base.dev);
-> > > =20
-> > >  	return 0;
-> > > =20
-> > >  err_out1:
-> > > +	pm_runtime_put_noidle(pfdev->base.dev); =20
-> >=20
-> > Do we really need this get_noresume/put_noidle dance, can't use call
-> > pm_runtime_dont_use_autosuspend() instead like is done in panthor, or
-> > is panthor broken too? =20
->=20
-> We need get_noresume() because after panfrost_device_init(), the device i=
-s powered
-> up but that is not reflected in the device's PM refcnt. Then pm_runtime_p=
-ut_autosuspend()
-> will decrement the refcnt back to 0 and let the autosuspend window expire=
- before
-> suspending the device, unless someone starts using it immediately.
+  1/4  KMS headers + Driver::FEAT_MODESET/FEAT_ATOMIC
+  2/4  <drm/drm_edid.h>: drm_edid_alloc/_connector_update/_add_modes
+  3/4  pub drm::Device::as_raw() escape hatch (separate, contentious bit)
+  4/4  <drm/drm_blend.h> (atomic plane rotation property) + a rust_helper
+       for drm_atomic_get_new_crtc_state() (inspect proposed CRTC state
+       from a mode_config atomic_check)
 
-That's more or less what I'm questioning. Can't we make it so
-panfrost_clk_init() doesn't call clk_prepare_enable() on its clks, and
-then have a pm_runtime_resume_and_get() in panfrost_device_init() just
-before we start interacting with the HW components (so basically before
-panfrost_gpu_init()). Then you don't need this
-get_noresume/put_noidle() dance, because the init path is just
-considered like any other path that needs to interact with the HW.
+It is deliberately an RFC and interim: it does NOT add safe Rust KMS
+abstractions (CRTC/plane/connector wrappers - an active upstream effort),
+only the raw binding surface plus the trait/visibility tweaks a driver
+needs to call the C helpers itself.
 
->=20
-> pm_runtime_dont_use_autosuspend() is not mandatory if we manually call pm=
-_runtime_disable()
-> at device unplug time or when probe() fails. pm_runtime_use_autosuspend()=
-'s docs say:
->=20
-> pm_runtime_use_autosuspend - Allow autosuspend to be used for a device.
-> @dev: Target device.
-> Allow the runtime PM autosuspend mechanism to be used for @dev whenever
-> requested (or "autosuspend" will be handled as direct runtime-suspend for
-> it).
-> NOTE: It's important to undo this with pm_runtime_dont_use_autosuspend()
-> at driver exit time unless your driver initially enabled pm_runtime
-> with devm_pm_runtime_enable() (which handles it for you).
->=20
-> Panthor uses devm_pm_runtime_enable(), which makes me suspect perhaps it =
-doesn't need
-> to explicitly call pm_runtime_dont_use_autosuspend().
+FEAT_MODESET / FEAT_ATOMIC follow the existing FEAT_RENDER idiom exactly
+(per-feature bool associated consts folded into compute_features()), so
+GEM-only drivers are unaffected.
 
-Yep, devm_pm_runtime_enable() takes care of that, indeed.
+drm::Device::as_raw() is made pub as a documented temporary escape hatch
+for calling the C KMS helpers until safe wrappers exist. That is the part
+most likely to draw objections, so it is split into its own patch (3/3):
+the feature flags and header bindings in 1/3 and 2/3 are useful on their
+own and can land even if the escape hatch is reworked or dropped (e.g.
+replaced by narrow per-helper safe wrappers).
 
->=20
-> Panthor also manages PM refcnt fine at driver probe(), inside panthor_dev=
-ice_init():
->=20
-> ``` c
-> ret =3D pm_runtime_resume_and_get(ptdev->base.dev);
-> if (ret)
-> 	return ret;
->=20
-> /* If PM is disabled, we need to call panthor_device_resume() manually. */
-> if (!IS_ENABLED(CONFIG_PM)) {
-> 	ret =3D panthor_device_resume(ptdev->base.dev);
-> 	if (ret)
-> 		return ret;
-> }
-> ```
->=20
-> If we want a similar thing in Panfrost, then we should move all clock and=
- devfreq enablement
-> into panfrost_device_runtime_resume() and do pm_runtime_resume_and_get() =
-right before
-> panfrost_gpu_init().
+drm_blend.h (4/4) exposes drm_plane_create_rotation_property() so a
+driver can offer the standard atomic rotation property, and adds a
+rust_helper for the static-inline drm_atomic_get_new_crtc_state() so a
+driver can read a CRTC's proposed state during atomic_check() (the vino
+driver uses it to reject a multi-head modeset that would exceed the USB
+bandwidth). Like the rest of the series it is interim raw-binding surface.
 
-This ^. You probably want to keep clk_prepare() in the clk_init() path,
-since resume/suspend() only enable/disable the clks.
+drm_hdcp.h (5/5) exposes <drm/display/drm_hdcp.h> so a Rust HDCP driver
+can use the canonical HDCP 2.2 message IDs, length constants and hdcp2_*
+message structs instead of redefining them (the vino driver runs HDCP 2.2
+over a vendor USB transport and reuses only the message definitions, not
+the drm_hdcp_helper state machine). It only pulls in <linux/types.h>.
+
+Note: a related but independent fix - using drm_dev_unplug() instead of
+drm_dev_unregister() in Registration::drop, which closes a real
+use-after-free for Rust DRM drivers on a hot-removable bus - is sent as a
+standalone, non-RFC patch ("rust: drm: unplug the device on Registration
+drop") rather than buried in this RFC, since it stands alone and should
+not be gated on the KMS-surface discussion.
+
+Factored out of an out-of-tree in-kernel Rust DisplayLink DL3 dock driver
+that drives a virtual connector and reads the dock's downstream EDID; but
+the bindings are generic (the same path simpledrm/gud/udl use).
+Compile-tested in-tree against drm-next.
+
+Mike Lothian (3):
+  rust: drm: add minimal KMS bindings for simple-display-pipe drivers
+  rust: drm: expose drm_edid.h for reading connector EDID
+  rust: drm: expose drm::Device::as_raw()
+  rust: drm: expose drm_blend.h and the atomic new-CRTC-state helper
+  rust: drm: expose <drm/display/drm_hdcp.h> HDCP 2.2 message definitions
+
+ rust/bindings/bindings_helper.h | 10 ++++++++++
+ rust/kernel/drm/device.rs       | 18 +++++++++++++++++-
+ rust/kernel/drm/driver.rs       | 17 +++++++++++++++++
+ 3 files changed, 44 insertions(+), 1 deletion(-)
+
+--
+2.54.0
