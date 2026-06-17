@@ -4,137 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE945CD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 13:03:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03E19CD98E4
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 13:15:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05D0910E263;
-	Wed, 17 Jun 2026 13:03:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 667C710E124;
+	Wed, 17 Jun 2026 13:15:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="u1Lf+ra9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YAuSE/H6";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010043.outbound.protection.outlook.com [52.101.46.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 829DB10E263
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 13:03:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lyM8uUpm+mQIuHI53mhSnccica6DwJ5+xM+6LVLWHWGv07cOnE3bHHXmqE0iwcWmDkaBNkv1CVuzsnITZPVgXhpKnEwkr6nVl+mdi7SqoxPatLcunJ0uo40xBIwbpCFRKigmBUpYYNeYuQYyYDlSNsxbxTlgtcXOQ2F34V8bDHgvPPfsy1Ja5IRVrEcxUd2qOx/gb4R38ZISgpcpZzejqZsIldCSOW9S4pBcKLj6ARLMZMzYch4DExlVVFIopqLZ504GbjI7pws1rJXXQ1/vpu/Ks5/R+hTXKKtiukod+c/MRbq2qqZ+wtaSDVkuk4odSuzyyJY4UN3vARAa40rBow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YcBVDrQoEoYPdveOR7svUqqBr/Zv+bI0lfP7HaR71jo=;
- b=xHiM6Smh8WdYBGLckGfJhZWLMQTh+ZfaebRv+qN9BhcmZlNfdVOj6RO0NUpGjm/ojOzRj0B3jeOJaVBtws8UJ4VB6T8D6rnb/OV8FmjuR3HVJMTUG3vzcmnrZ+INscVzxk6VaTjEye6N6EEF1v2ehZkthXMFfTMCOMmv3MEaKcUJkWrdS8HpWZcqhKMNYuOjOajt+J/lGHuAJ86XvD921KoPD4oT00+YXUB95wa3XAUOCHCK5Yi3k3NgAC5I+yNoOwU5/PMJqavGEuhXU0XECIiHw7ukjrSLnN4qVfyS2jWMr4Q2RyFKwfomZmtIGKyDggRrobkQevRvto46k8mcMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YcBVDrQoEoYPdveOR7svUqqBr/Zv+bI0lfP7HaR71jo=;
- b=u1Lf+ra9i3ZGOFSZrcy7at/JP7v5wJGo0jBw2iHBTRaY91NKgZ3WrdctN+XZhL6A+kHD3yJNPy1j1KXWGCMrQRaB+bM5NMQ3WGZw6XEoZdVWvva5nHhMVCeyCtze2GJ6HSxcAG8LwTJThvgyzYtBdR1Dp98CLIm6iM7JFkowaqE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW6PR12MB8760.namprd12.prod.outlook.com (2603:10b6:303:23a::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Wed, 17 Jun
- 2026 13:03:47 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
- 13:03:47 +0000
-Message-ID: <c124270d-bb33-40aa-b633-54832edb7b05@amd.com>
-Date: Wed, 17 Jun 2026 15:03:40 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: Properly synchronize dma_fence->signaled bit (Was: Re: [RFC
- PATCH] dma-fence: Fix races of fence callbacks versus destructors by locking)
-To: phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>, Daniel Almeida <dwlsalmeida@gmail.com>,
- Gary Guo <gary@garyguo.net>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260608142436.265820-2-phasta@kernel.org>
- <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
- <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
- <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
- <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
- <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
- <fa0dc9757bf8343516c4b156a2b70ec91b64ef8f.camel@mailbox.org>
- <6ea6c373-c6cb-4221-ad9d-e60b04d1368f@amd.com>
- <630a8a84ee8fdaa634c7b104742e7a28fcfe507c.camel@mailbox.org>
- <7ff7dc15-4df5-443c-8d7c-c8e9b2672f2c@amd.com>
- <80734f05e684ed6b8c82abd9f96c93968537d0de.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <80734f05e684ed6b8c82abd9f96c93968537d0de.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0408.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:d0::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW6PR12MB8760:EE_
-X-MS-Office365-Filtering-Correlation-Id: dafb51f5-750c-42f8-048c-08decc70de64
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|23010399003|1800799024|366016|56012099006|11063799006|22082099003|18002099003|4143699003;
-X-Microsoft-Antispam-Message-Info: twvXR9IaW+misEyId2RGsxQnst64UdXxxtZ0+teLdkT6g6zFKNdgxCssjTCuYF/DY1l8dubSROn7RrWkSqLK9+LBkKMNXZ38kfCDZIoyGDEZf1cwcA5SImrlneLGmIgMAMpMMQGAZcxiU/xuxuIto2+8b+LVNl3ZWUj4lYpgOA5yvdt2Pe04KevAUZcnSPe+abbtSkamXOClu6xCbJXyIHpZT5UB7sKtoUKJFg/qRlq8bzj8aXv0uSOGaf2/Lw4VyPeQgZ853PDYJpwxlsA1ky/NPw0DXVEid65WISCFA98zo5I4TDGlvhcto0aytwrBJgzgBB0b2UuO9B/HxhZtwmfY/fplPv4pql4k/7BaZg6N1oBg+Mwgx0Fq+OShxIVSbEB5NxfoAGPBaupVfdQdy5SSSSil9tY9+uw5rrLD4xKYYPJ01f0LoClcVPRXO6v1tQdE/ZZHfTpDEaEHmko/BuvAoUvzg71eXltp95ks7MH+kLR6GMuJHNiHjR2o5SNAzTUhBSIHLndggUv9H/33YwM7vOg2B9ROQCGNrRRuNLBdiRLciudVAVJUI9yTuSsb12VwZa0HV4ujEq5/zlW5ie0xs74KC8Cy1npzcDmmUkvX9bbsOCDAgYNnPsUAJ6LdM+kiUv+xpDkXZuojWmngqmbCx/Jc/AjJoT4nYBTkzjL+WcnZiYiPbnQDkdrPNi3B
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(56012099006)(11063799006)(22082099003)(18002099003)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ek04TjFJUnJnR3R3ZHJlV3N4dkFZSUFIKy9KUUdPeVdZU254VTViL1NZbEly?=
- =?utf-8?B?UE1rcVFnejg0M0FXZGduRi8xczExQ0dBQ3J5ZjkrbWJGRE85R2FBamQzTHRh?=
- =?utf-8?B?K2l6T0xBTVZWc1VUTExwZ1ZNa0lNUEt1Sk9kTVh6ekllcVlGbGZFKytWSld3?=
- =?utf-8?B?M0ZlOVRCR3I1OGxaajE1b09hd3VNaU1lWWVUejUzZ1E5T0dQd2pNUHFzWVBC?=
- =?utf-8?B?ZXVnSUhqeC9XQW12OUFlSW82SURNbWN3cFZHeHgzRWNNelpLSUhQQzhjTldE?=
- =?utf-8?B?YU9aL3dqNWovS1IwWHVSbkc4UHZLd3k0RDkwb1dHSTlvMnRxQ3hMbCtZc2V0?=
- =?utf-8?B?ZmNDRzlRSnM4ZVlHTk9RQTdXV012K25Kd1l5ZnI5NWdMWWN2KzN4K2hRRnEx?=
- =?utf-8?B?WkkwWkZVeWFFdWVXTGFpOXFzWk9kUW1UY2E2MG8yaU41VGNrb3V4T2lUYThD?=
- =?utf-8?B?ZFZ5d3lhdlhkYnJ4cTUrT2s4N2FSUkhLNkE0TGpjcHNOc0tOMUZmQithMHFV?=
- =?utf-8?B?Z1I4aXFKQVFjaTUycno5MEVMNFR0NDJSc0NFSEJ6SExoTTEyMUdvcURDbU93?=
- =?utf-8?B?Lzg2VExXMTBrVGZUOGxESHo3SkUrWXVERzlpN3d2dlVhTGdWOVNURlA5RHFm?=
- =?utf-8?B?R254MTFZN3JVU2tMaTlkNGdXNHFiT0RYbzlFcmlxKzhIUjV3alJtK3dxUFNv?=
- =?utf-8?B?OFZWck15NU5FbXNjU0NlRlQ1VVhOSFN1d0grQ2VQRVRleWY5b2ozWkcvc1hn?=
- =?utf-8?B?STdqNHVoUWJicjdIMkhLOHp1aFc2WGlQQ0YrNnlhM2ZjV1lCbWVwcFU1T3RQ?=
- =?utf-8?B?TnhoR2MrQmVUSUE0SnVIL1BGTTVpWkEwM2FWMGRqcXoxdDNEd05uVENWM2VB?=
- =?utf-8?B?c0Y1K0MwUzJ3OWZ2R3BldEdJbFNVYWdjV0l0dTFmanc1dkRtVWRoelp0UHFW?=
- =?utf-8?B?VXFNUXQ2YkNYNzJDMDA4U2JpYnNiR0ZGQjZiSEhWYUw0M2xkYlA2c01OeU5w?=
- =?utf-8?B?bllGVVFjQWVQTFZBeHozYzIxNklRa2NSYkRBTnFTWCtaS0R1RUxOYktxQ0xY?=
- =?utf-8?B?Ukx1eG9hT0F0dXBOMWk4VVA3MWQvcXZENmVoaWFOYnl0RUw3dktlZVEyNnE0?=
- =?utf-8?B?Umg1RDRMazhHQVJZSGFQM3o2MnVzaGw0Z2hKZldiSVp5d1Z4cHFMTUs5TlZs?=
- =?utf-8?B?dnlPU0o4eWtNTWE3R2w1d1NmdEZHMnBoOEs0UkRiQzArRkFTbUtZZWl5R3BT?=
- =?utf-8?B?RG9WZXltZUwySmF0OHlkUWpsSitjT0daMnFlWXRkaGducHpPWFlDNnJ1OVZa?=
- =?utf-8?B?N2V1Uk5uRGZkWUVTbXJ4MVdHYTBCV1lVaDF1aDhoOVJEekwzVlE1cWlPQVFE?=
- =?utf-8?B?TWpGNWdqSkpjcWxBRVpNYW1PWDduSmN0dVZ3akMxekF6NjFHQ29uRWVpK0ha?=
- =?utf-8?B?ZEFvSC9QM1p4THN1U0FXT0tuejNzOXlzcm1ETFFWdWZqM2ZzbmRUNXdjVGl0?=
- =?utf-8?B?VTFsSStNYkl6bG5YNk12ZHB0ZytTSTZwQmk0dzkwT0VYSU9rWFRwb1dXKzNz?=
- =?utf-8?B?V1FUbDRrT0dUVkw4VnNrTmZsbm1NVUhTRVR3RThUQ3FpWFFCZUM4NXhkcUNN?=
- =?utf-8?B?em5wSkt4RlVYNHhUWFRvYTZGRkQyZVZ5Qy9DZUJyRW9xRGRIQUdnQU1qS0tV?=
- =?utf-8?B?TWpzWjJ0am5VeVc3LzlVRmNTcG55RE1aUU1YbTI4OWdaUWlvbmM0bEZ6bUxz?=
- =?utf-8?B?UHZPQlhxSkdBVndJc2hqNmRtakVnNTVkN2tvalVYd1RTTmwxN3E2WGNGTXRw?=
- =?utf-8?B?dFkvU1ZTSWRPL240ZFRCZS9wb21iSjVFL3BNbWN1UHZla1lEU2JoQTRRSFBU?=
- =?utf-8?B?YnJQczlrTVZ6SGZqMkRDU1NpYnZsRTlkNFdoT01rZmtYeVlSL3RleHVLNTRC?=
- =?utf-8?B?RUJCc3pqelhwZndhak5DQUc1eW5ZK1hUV05Td1ZpbCsrNnNuVFpTMXgwd3J3?=
- =?utf-8?B?SkliYzY1aVprYm1OUSs5ZnBsQitjVE9GT200dDF2NnR0TVlYSVBVMFJXYmNa?=
- =?utf-8?B?aDJzUlhxTE8rYlRwUWEwY29XZHVQbm9rbzR2Tm9DQ092MCs0K2QxWTB3L01H?=
- =?utf-8?B?blV3bFczTjJPcTV2ZkI3dkIzMFNQUVY2Y25PbWJkS283eGZuWUJjd2lIRjFs?=
- =?utf-8?B?T3MxaUNjcWUyY1NudzFIeU5HamZ0eHVhdDB6UWZhMk1tcHlFU0UxalZ5SEFm?=
- =?utf-8?B?Z2FodUxyY1MySWxZcnNUOVN4S0phbXczcFNBSDZIQjFrNHdKTS9ZWVhTWmF2?=
- =?utf-8?Q?S6OwVdN+AhayRYj/TU?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dafb51f5-750c-42f8-048c-08decc70de64
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 13:03:47.4510 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mGlNIuoc86e4G8on1LErsTyWyCaHKDGXRf4EsHQqAesfmH8PG5mbxvkoA6sl7L5p
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8760
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D55910E124
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 13:15:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 06D10404D6;
+ Wed, 17 Jun 2026 13:15:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0EB21F000E9;
+ Wed, 17 Jun 2026 13:15:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781702105;
+ bh=Nqur/hWB6sbgpCBssMAVCBBIF2e9CJ8AHPnJIO9LDl8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=YAuSE/H6rkWUc3ZCe3aG9ehF3LsYAEBZ8/cgKthfjW7g5NNxa0ZFCdqZFEEgnnf6o
+ ffwRifBLTpNlX7s1Qxd2tyjEOGAa7LyDOR0vTVu3CnFyM9LGJ+Xg8yj/UoVFhooxgs
+ x/7Iewta7QVNi3iNlydSEWdZdPqHyi14hMW+6O5bAKTlv4uwsF1RdlSbHRzvQVw6+z
+ jigRqh/7k7Gq7teExn2qRgvcKqo90Q8RjzFixOELuQmjpVhXu/TJCaR8VUM7QFElSr
+ 8g5eOi/Oin9gvG11zSrFkacR3wuWXVZA8IwAWotVDMzKiDz/Gcdzj+EsQsb5enZSf2
+ qhM3sGdc7X15A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] drm/v3d: bound CPU-job query writes to their
+ destination BO
+To: "Michael Bommarito" <michael.bommarito@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260617125811.3692951-1-michael.bommarito@gmail.com>
+References: <20260617125811.3692951-1-michael.bommarito@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 17 Jun 2026 13:15:05 +0000
+Message-Id: <20260617131505.C0EB21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,91 +53,217 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/17/26 12:16, Philipp Stanner wrote:
-> On Wed, 2026-06-17 at 11:46 +0200, Christian König wrote:
-...
->>
->>> B.
->>>
->>> I think rejecting ideas with "we tried this, it >>didn't work<<" is not
->>> a valid reason for refusing an idea. Point A above helps with that. If
->>> your commit message contains measurements or links to tickets with
->>> *real life* performance regressions (microbenchmarks are invalid), that
->>> helps reducing discussion overhead drastically.
->>>
->>> Now, in this particular case, I fail to see how taking the spinlock to
->>> check that bit is evil. If it regresses someone's speed that much, it
->>> would mean that someone is heavily punching that lock, like polling
->>> 24/7 with dma_fence_is_signaled().
->>
->> I think (but I'm not 100% sure) the the problem is that taking the
->> spinlock introduces a write to the cache line it is in.
->>
->> At the moment when a fence is signaled a read is enough to check that
->> state, so what happens is that the cache line for the signaled bit
->> sooner or later end up in all CPU caches.
->>
->> When you start to use the spinlock the cache line backing that plays
->> ping/pong between all the CPU cores and that is something which
->> always stalls each CPU when it needs to acquire the cache line. Keep
->> in mind that on a modern box you can calculate like a 4x4 matrix in
->> the same time you solve a cache miss.
->>
->> This is especially important for the stub fence which is used by
->> basically all cores at the same time whenever you need a signaled
->> dummy.
-> 
-> Alright, that sort of sounds logical, I guess. So the argument
-> basically is that if we'd try to lock that, someone would immediately
-> report real and massive performance regressions leading to a revert.
-> 
-> I think last time you mentioned that memory footprint is less of a
-> concern for dma_fence than cache lines. Out of interest: has anyone
-> ever experimented with more padding to prevent spinners from shooting
-> down other CPUs cache lines?
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+s) to consider:
 
-How would that work in this case? I mean as long as you have the same variable (spinlock) you have the same cache line no matter how you pad.
+New issues:
+- [Medium] Loop variable 'i' declared as signed 'int' causes negative index=
+ing and out-of-bounds reads when 'tquery->count' exceeds INT_MAX.
 
-> Since you're the maintainer of dma-buf, what would you wish we do?
+Pre-existing issues:
+- [Critical] Uninitialized CPU job structure cleanup causes a NULL pointer =
+dereference in `drm_sched_job_cleanup()`.
+- [Critical] Cleaning up CPU jobs that have already been pushed to the DRM =
+scheduler queue causes severe state corruption and Use-After-Free.
+- [High] Memory and WW mutex leaks for INDIRECT_CSD clean_job BO references=
+ on intermediate error paths.
+- [High] Missing check for vmap() allocation failure leads to NULL pointer =
+dereferences in CPU job executors.
+- [High] The INDIRECT_CSD CPU job accesses the indirect GEM BO without extr=
+acting its implicit dependencies, causing it to race with prior GPU jobs.
+- [High] Double vmap() on the same Buffer Object permanently leaks virtual =
+memory mappings.
+- [High] User-controlled wg_counts integer overflow evaluates to 0, trigger=
+ing a WARN_ON and potential Denial of Service.
+--
 
-Try to improve the documentation by sending out patches. I will send out my ideas for resilient improvements and we then discuss on the patches.
+commit 176c9c3615bb9c83354ef76d006e602c0a5318e8
+Author: Michael Bommarito <michael.bommarito@gmail.com>
+Subject: drm/v3d: bound CPU-job query writes to their destination BO
 
-> Would you be at least OK with the memory barrier approach to make the
-> API a bit more robust? AFAIU the barriers will not cause a cache line
-> invalidation.
+The commit adds bounds checking for CPU jobs to ensure that user-supplied
+offsets and indices do not result in reads or writes outside their
+associated Buffer Objects (BOs), preventing potential out-of-bounds memory
+accesses by render-node users.
 
-What exactly do you mean with that? The test_bit() and set_bit() are already memory barriers as far as I know.
+> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_s=
+ubmit.c
+> index 1db43c6a078d5..0d3a388fbba57 100644
+> --- a/drivers/gpu/drm/v3d/v3d_submit.c
+> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
+[ ... ]
+> +static int
+> +v3d_cpu_job_bounds_check(struct v3d_cpu_job *job)
+> +{
+> +	struct drm_device *dev =3D &job->base.v3d->drm;
+> +	struct v3d_timestamp_query_info *tquery =3D &job->timestamp_query;
+> +	struct v3d_copy_query_results_info *copy =3D &job->copy;
+> +	u32 elem =3D copy->do_64bit ? sizeof(u64) : sizeof(u32);
+> +	struct v3d_bo *dst, *src;
+> +	u64 slots, write_size;
+> +	int i;
+> +
+> +	switch (job->job_type) {
+> +	case V3D_CPU_JOB_TYPE_TIMESTAMP_QUERY:
+> +	case V3D_CPU_JOB_TYPE_RESET_TIMESTAMP_QUERY:
+> +		/*
+> +		 * Each query writes one u64 timestamp slot into bo[0]. The
+> +		 * offset is cast to u64 so a 0xffffffff query offset cannot wrap
+> +		 * the addition past the BO size.
+> +		 */
+> +		dst =3D to_v3d_bo(job->base.bo[0]);
+> +
+> +		for (i =3D 0; i < tquery->count; i++) {
 
->>
->>> Again, having that use case documented somewhere could save us all time
->>> – especially for you, Christian, since you wouldn't be forced to have
->>> the same discussion over and over again over the years ;-)
->>
->> Well I could also send out all the DMA-buf resilient patches/ideas I came up with over the years once more.
-> 
-> Maybe we could have sort of a wiki in Documentation/ with links to
-> relevant mail threads and some explanations of why things are the way
-> they are?
+[Severity: Medium]
+Is it possible for tquery->count to exceed the maximum value of a signed in=
+t?
+If so, does the counter i wrap around to a negative number, causing an
+out-of-bounds read when accessing tquery->queries[i].offset?
 
-I think some AI analyzing the mailing list and noting when some ideas repeat would help.
+> +			if ((u64)tquery->queries[i].offset + sizeof(u64) >
+> +			    dst->base.base.size)
+> +				goto err_range;
+> +		}
+> +		return 0;
+[ ... ]
+> @@ -1346,6 +1478,10 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void =
+*data,
+>  		if (ret)
+>  			goto fail;
+> =20
+> +		ret =3D v3d_cpu_job_bounds_check(cpu_job);
+> +		if (ret)
+> +			goto fail;
+> +
 
-At least for me maintaining some kind of Wiki additional to my current workload wouldn't be possible at all.
+[Severity: High]
+This is a pre-existing issue, but does jumping to the fail label here bypass
+the fail_unreserve cleanup path?
 
-> btw, is there a dma-buf TODO list like for DRM in general?
+For INDIRECT_CSD jobs, v3d_setup_csd_jobs_and_bos() dynamically allocates j=
+obs
+and locks the reservations for clean_job->bo. Does bypassing the
+fail_unreserve label permanently leak the WW mutexes and cause deadlocks for
+subsequent operations on these BOs?
 
-No, not that I know of. We used to have minor cleanup tasks on the DRM TODOs, but those were already taken by somebody.
+>  		ret =3D v3d_lock_bo_reservations(&cpu_job->base, &acquire_ctx);
+>  		if (ret)
+>  			goto fail;
 
-Regards,
-Christian.
+While reviewing this patch, I also noticed a few pre-existing issues in the
+surrounding code:
 
-> 
-> There are many passionate hackers who love challenges. We could
-> certainly add a few "Difficulty: hard" entries for a few controversial
-> potential reworks.
-> 
-> 
-> P.
+drivers/gpu/drm/v3d/v3d_submit.c:v3d_submit_cpu_ioctl() {
+    ...
+    if (args->bo_handle_count !=3D cpu_job_bo_handle_count[cpu_job->job_typ=
+e]) {
+        drm_dbg(dev, "This CPU job was not submitted with the proper number=
+ of BOs.\n");
+        ret =3D -EINVAL;
+        goto fail;
+    }
+    ...
+fail:
+    v3d_job_cleanup((void *)cpu_job);
+}
 
+[Severity: Critical]
+This is a pre-existing issue, but since the error occurs before
+v3d_job_init() is called, cpu_job->base.s_fence is NULL. Does the
+subsequent call to drm_sched_job_cleanup() unconditionally dereference
+job->s_fence->finished.refcount, causing a kernel panic?
+
+
+drivers/gpu/drm/v3d/v3d_submit.c:v3d_submit_cpu_ioctl() {
+    ...
+    v3d_push_job(&cpu_job->base);
+    ...
+    case V3D_CPU_JOB_TYPE_INDIRECT_CSD:
+        ret =3D drm_sched_job_add_dependency(&csd_job->base.base,
+                                           dma_fence_get(cpu_job->base.done=
+_fence));
+        if (ret)
+            goto fail_unreserve;
+    ...
+fail_unreserve:
+    ...
+fail:
+    v3d_job_cleanup((void *)cpu_job);
+}
+
+[Severity: Critical]
+This is a pre-existing issue, but when goto fail_unreserve falls through
+to the fail label and calls v3d_job_cleanup(cpu_job), does this corrupt the
+state of jobs that have already been armed and pushed to the active DRM
+scheduler queue?
+
+
+drivers/gpu/drm/v3d/v3d_bo.c:v3d_get_bo_vaddr() {
+    ...
+    bo->vaddr =3D vmap(obj->pages, obj->base.size >> PAGE_SHIFT, VM_MAP, pg=
+prot_writecombine(PAGE_KERNEL));
+    ...
+}
+
+[Severity: High]
+This is a pre-existing issue, but the result of vmap() is assigned directly
+to bo->vaddr. If vmap() returns NULL due to memory fragmentation, do CPU
+job executors like v3d_rewrite_csd_job_wg_counts_from_indirect() blindly
+dereference this NULL pointer?
+
+
+drivers/gpu/drm/v3d/v3d_submit.c:v3d_get_cpu_indirect_csd_params() {
+    ...
+    info->indirect =3D drm_gem_object_lookup(file_priv, indirect_csd.indire=
+ct);
+    ...
+}
+
+[Severity: High]
+This is a pre-existing issue, but since the indirect BO is not added to
+cpu_job->base.bo, it appears to bypass v3d_lock_bo_reservations(). Does this
+allow v3d_rewrite_csd_job_wg_counts_from_indirect() to read and modify the =
+BO
+while a prior GPU dispatch might still be writing to it?
+
+
+drivers/gpu/drm/v3d/v3d_sched.c:v3d_rewrite_csd_job_wg_counts_from_indirect=
+() {
+    ...
+    v3d_get_bo_vaddr(bo);
+    v3d_get_bo_vaddr(indirect);
+    ...
+}
+
+[Severity: High]
+This is a pre-existing issue, but if a user provides the exact same GEM
+object handle for both the primary bo and the indirect BO, does the second
+vmap() silently overwrite the vaddr pointer from the first, permanently
+leaking the prior virtual memory mapping?
+
+
+drivers/gpu/drm/v3d/v3d_sched.c:v3d_rewrite_csd_job_wg_counts_from_indirect=
+() {
+    ...
+    num_batches =3D DIV_ROUND_UP(indirect_csd->wg_size, 16) * (wg_counts[0]=
+ * wg_counts[1] * wg_counts[2]);
+    ...
+    args->cfg[4] =3D num_batches - 1;
+    ...
+    WARN_ON(args->cfg[4] =3D=3D ~0);
+}
+
+[Severity: High]
+This is a pre-existing issue, but since wg_counts are user-supplied 32-bit
+unsigned integers, can specific inputs cleanly overflow the product to 0?
+Does this underflow args->cfg[4] to 0xFFFFFFFF and trigger the WARN_ON,
+potentially crashing systems with panic_on_warn enabled?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617125811.3692=
+951-1-michael.bommarito@gmail.com?part=3D1
