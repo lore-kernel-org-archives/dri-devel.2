@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3D65CD98F7
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 18:52:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8046DCD98F7
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 18:52:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8195010F0B3;
-	Wed, 17 Jun 2026 18:52:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8A0C10EAFD;
+	Wed, 17 Jun 2026 18:52:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="R45Kwcxm";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="VRVkRt58";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF74810EAFD
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 18:52:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A7B710F0B2
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 18:52:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1781722323;
- bh=RxyE+sRnT1pVzhbxZhN8xKv4Nq2klVQvU68B498Gn7M=;
+ s=mail; t=1781722325;
+ bh=SsYb54x0tancRWbNRMe9tudgkZipWAm8nxe1GklgbkE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=R45KwcxmeLD2Cyg8vlMNxlpNvKGvgth/D5NDogMMI8Ol1uPhzDr9jK1yrh/zKhnH2
- u+zckcAZAgExcG5a0DGYU4VaZK9mP1FdsOgBj9tMv3zkHmqY6XL7sHMO1x71P2EeU1
- 3Bl+itGWP0mibDhzHHhjUVX1dwLQZGXKt5VRxfMTePBo2jNQ3UO5o6t/txTF46HQjU
- U/L5L8eyeEMMNXt0WcuWWvQVZlIl/Oxz5r1Dmy0wYm2vrXZcZsaFKUNd4Yt84uLqJi
- Ksqg4fZO7vUCg0lzmut1vSnCZ5kX4jwsnrN0SxdQ7P1sr9gX/R9oICs5cq0gkj+CL9
- ROfbqWN5+JUrw==
+ b=VRVkRt58jd5iw9GVAiv25VuwgZ/sVL5HEYqLUGCjzCx4HsTnqSazwV/3U38v7DrPL
+ 1woS8AcjnthCf7sOx0Gw4WrH41yftJcDRjKz1L0TtBBSiXwXTLyX+ycY/HMP4l9OoU
+ FrqrxyWEp1hAM7p2JPKU0Yi8Sog9ayuL44dCwNAADg7cLzPvGNRtBIp/kXjV5bkPA2
+ PQC5f6Ccw9BGQy1JcamcTsaSN0fRyLWRAi5d3JaBAkVwxDMkWiLSvVwC3yepYhx80k
+ u3EALlTB0T5WpU0JVb3assgNQdXLTbgOKvMMoT7nUy5bjUblOLWSp8kIHPPKK1UU8N
+ 2My6o+wKlqy1A==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 57E3D17E0EB2;
- Wed, 17 Jun 2026 20:52:03 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id D5CF817E120F;
+ Wed, 17 Jun 2026 20:52:04 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 17 Jun 2026 21:51:59 +0300
-Subject: [PATCH 6/9] drm/bridge: dw-hdmi-qp: Log resolution and refresh
- rate in atomic_enable()
+Date: Wed, 17 Jun 2026 21:52:01 +0300
+Subject: [PATCH 8/9] drm/rockchip: dw_hdmi_qp: Enable YUV420 output format
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-dw-hdmi-qp-yuv-v1-6-a665cfd06d7d@collabora.com>
+Message-Id: <20260617-dw-hdmi-qp-yuv-v1-8-a665cfd06d7d@collabora.com>
 References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
 In-Reply-To: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -76,54 +75,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The debug entry in the HDMI branch of dw_hdmi_qp_bridge_atomic_enable()
-previously printed the literal string 'HDMI' as the mode field, giving
-no information about the actual display timing being configured.
+Both RK3576 and RK3588 SoCs are capable of driving the YUV420 output
+color format, and the required bus-format handling and VOP2 support are
+already in place.  Advertise it via the platform supported formats so
+the HDMI core can select it.
 
-Extend it to include the active resolution and refresh rate by
-retrieving the CRTC mode from the incoming atomic state:
-
-  dw_hdmi_qp_bridge_atomic_enable mode=1920x1080@50Hz fmt=RGB rate=185625000 bpc=10
-
-This makes the log line self-contained and directly useful when
-debugging mode-setting issues, format negotiation, or TMDS rate
-mismatches without having to cross-reference a separate mode dump.
+YUV420 halves the TMDS bandwidth compared to RGB/YUV444, which enables
+high-resolution modes such as 4K@60Hz on links that cannot otherwise
+carry the full-bandwidth signal.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index 13fddd5ebc82..d73307ac4232 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -752,6 +752,8 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 	struct drm_connector_state *conn_state;
-+	const struct drm_display_mode *mode;
-+	struct drm_crtc_state *crtc_state;
- 	struct drm_connector *connector;
- 	unsigned int op_mode;
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index 3a1c027aa90b..e29522afc6f0 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -612,7 +612,8 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
  
-@@ -764,9 +766,15 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		return;
+ 	plat_data.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
+ 				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
+-				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
++				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
++				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
  
- 	if (connector->display_info.is_hdmi) {
--		dev_dbg(hdmi->dev, "%s mode=HDMI %s rate=%llu bpc=%u\n", __func__,
-+		crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-+		mode = &crtc_state->mode;
-+		dev_dbg(hdmi->dev,
-+			"%s mode=HDMI %ux%u@%uHz fmt=%s rate=%llu bpc=%u\n",
-+			__func__, mode->hdisplay, mode->vdisplay,
-+			drm_mode_vrefresh(mode),
- 			drm_hdmi_connector_get_output_format_name(conn_state->hdmi.output_format),
- 			conn_state->hdmi.tmds_char_rate, conn_state->hdmi.output_bpc);
-+
- 		op_mode = 0;
- 		hdmi->tmds_char_rate = conn_state->hdmi.tmds_char_rate;
- 	} else {
+ 	encoder = &hdmi->encoder.encoder;
+ 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
 
 -- 
 2.54.0
