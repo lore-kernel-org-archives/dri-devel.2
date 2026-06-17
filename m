@@ -4,139 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85822CD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 09:11:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5825CD98F3
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 09:13:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CF7010E995;
-	Wed, 17 Jun 2026 09:11:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14E7110EEFE;
+	Wed, 17 Jun 2026 09:13:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="xlUD3X3C";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6K5B6Ytl";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="xlUD3X3C";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6K5B6Ytl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TRnD2csL";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87D2710E986
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 09:11:34 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3708F75D65;
- Wed, 17 Jun 2026 09:11:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781687493; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=kyVVw7kLx/njqL6Kv647VkU2YvGvQh/a6dysWC7xAZA=;
- b=xlUD3X3Cxx+xZzEPCbb5xPXFcEijFzwl0O3LNvj3IrLabxy8d0jZxS4DKpxp/Y82kMAeci
- XYB6Rr9ydnO5Yr6mZZqm2qGniDjwhGnJcNtGtUcKOHsL8pmv85IL3RHgvT7ogEdg4n4p6X
- m3/4Qsdn3yf9Bu3MRSGuMOpIpa62f1g=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781687493;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=kyVVw7kLx/njqL6Kv647VkU2YvGvQh/a6dysWC7xAZA=;
- b=6K5B6YtlTHaKbHF1R7lnnzVc24ksWW/8ycZVST47+Whd+Tloif2zpSNoTz5ZgTQabDa5WA
- YgmjI0cRW4R1rNCA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781687493; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=kyVVw7kLx/njqL6Kv647VkU2YvGvQh/a6dysWC7xAZA=;
- b=xlUD3X3Cxx+xZzEPCbb5xPXFcEijFzwl0O3LNvj3IrLabxy8d0jZxS4DKpxp/Y82kMAeci
- XYB6Rr9ydnO5Yr6mZZqm2qGniDjwhGnJcNtGtUcKOHsL8pmv85IL3RHgvT7ogEdg4n4p6X
- m3/4Qsdn3yf9Bu3MRSGuMOpIpa62f1g=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781687493;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=kyVVw7kLx/njqL6Kv647VkU2YvGvQh/a6dysWC7xAZA=;
- b=6K5B6YtlTHaKbHF1R7lnnzVc24ksWW/8ycZVST47+Whd+Tloif2zpSNoTz5ZgTQabDa5WA
- YgmjI0cRW4R1rNCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A8303779A8;
- Wed, 17 Jun 2026 09:11:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id SQLUJ8RkMmriVwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 17 Jun 2026 09:11:32 +0000
-Message-ID: <bc89deb2-2a2e-41c5-8cd9-28b794020972@suse.de>
-Date: Wed, 17 Jun 2026 11:11:32 +0200
-MIME-Version: 1.0
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010044.outbound.protection.outlook.com [52.101.56.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A63AD10EEF8;
+ Wed, 17 Jun 2026 09:13:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GgduAV74/Si03mmuFe7j32qZFjvXppVDzAIg/OwWLw9g+jdrqsFbnYpGEhP5OK0UDOSEa3EybYoROgCZHtnl3pp1XnhjnEwAk3TwuTX01Z70FYO96Vx2u23dTlQ+HZQeBEw/lcRGLR2cE1k+XLtx8zDxBKb5D4pO++sgzY15A6qUk26UbTxL7l4QfpaypwqVRh/aZYbe64un2rWmfriE2TjVunj3jZEP3qXxnPldLCgYOdxLWHgG3InB48dt/HtdVICBcU0D3nowhX7zVSRl82GtD0zc5SnGv6FZf9ndJc+/6+03khd4CiSUCMfqAkt3f2q7hmgPdhwvkPhxEwX97g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Iv4kVLCV4+j8AFUOUKySUn93Ew5atQ4TcRpRrOxobrA=;
+ b=tVufTN7Jy0YUwlf/WSK4eg4f3ohYNG8PkW3T7sjIwxUOEBE/8oi9J/V9+Qa5uNEhU56GMJTSJu9dTxsnJamA6Ywdh/t+geTPgJnp6QKudGEMVKqb3IpA1GtRcVutlYTBVolXO1+9GXyXH49NOXoH0spCPga1Q807cOjZni1VkIUbMt6vWJQA46F4692UU62NTSIUf3U+B8QtObe4olKR7JKOrqqdImV+71Wc/hNeKdrN9GvuP4/RD+G0eygc8UC6Gsz3fp23L2F84iTzDAMTDXGMKkNr09q3qImVducnhZuGQYeO4NWWrFP8iYnROWtt1rmGbD0u71jiX0K8KaQClg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Iv4kVLCV4+j8AFUOUKySUn93Ew5atQ4TcRpRrOxobrA=;
+ b=TRnD2csLCVXDmfCjwmdZh0XadJTI9++V/LUVjw8nl8gR94vNnGKoEpc6ToEXWcnxgaqR9tbMe6qY3iDq0EoE8TstRwPo4qx/1r4ux7Z1VCJ+8/ivcmFy8P4bO0ronLv4ceFJfH5UaA3S7VQCzGhoub8oP8sqHY2BXifIJnjsm5E=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB6716.namprd12.prod.outlook.com (2603:10b6:806:270::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Wed, 17 Jun
+ 2026 09:13:41 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
+ 09:13:41 +0000
+Message-ID: <cc1dc9ee-e21d-49ea-968a-14a97bdc5afa@amd.com>
+Date: Wed, 17 Jun 2026 11:13:36 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm: Consistently define pci_device_ids using named
- initializers
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Gerd Hoffmann <kraxel@redhat.com>
-Cc: Markus Schneider-Pargmann <msp@baylibre.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>,
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,
- Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Dave Airlie <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org
-References: <20260504150537.2136760-2-u.kleine-koenig@baylibre.com>
- <b13678d8-1159-457a-bcab-ade06bea0cf8@suse.de>
+Subject: Re: [RFC] drm/sched: Replace completion with a flush
+To: phasta@kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+References: <20260611123423.39819-1-tvrtko.ursulin@igalia.com>
+ <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
 Content-Language: en-US
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <b13678d8-1159-457a-bcab-ade06bea0cf8@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCPT_COUNT_TWELVE(0.00)[20]; TAGGED_RCPT(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; TO_DN_SOME(0.00)[];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[baylibre.com,gmail.com,loongson.cn,kernel.org,aosc.io,xry111.site,iscas.ac.cn,redhat.com,lists.freedesktop.org,vger.kernel.org,lists.linux.dev];
- FREEMAIL_TO(0.00)[baylibre.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,redhat.com];
- FROM_EQ_ENVFROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:email, suse.de:mid,
- imap1.dmz-prg2.suse.org:helo]
+X-ClientProxiedBy: FR4P281CA0396.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cf::10) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6716:EE_
+X-MS-Office365-Filtering-Correlation-Id: 03107834-bed3-457f-04cf-08decc50b958
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|23010399003|22082099003|18002099003|5023799004|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: EUE0CD7+qdAk60Z42Kaf4+C7KNe2ReAn4jJHGLacRpBNppgBm+2xSDh18/2LisdJwJvblkF8Fr31o830SQRI1v5skIZlpUNlrJnZao1kD/45zwSs7pzlUmTXPs8Ex0dReL+HxZ29snavON9pMsRfNwqTYusTPldCKBBst6Mwldgepel/T3iHqEDy51EYaNGJXB1xuy9QIPkbGXnDdVEZjUTohLrnn+wiOvGwFD36/pzCVMeph9yqdjapEwBsgsu9YXM4JT5jrKBKAvts/uNYYUO2C7FavDqYUMlYdnDwpS627/+a1eKtzHHSXbSjNQ9qZr29yu2Cy/zSrb0X4zTbEjOZII+4Ocz8vuIMehxpiOI9E+HYkUbtAq24r7b0vCuVAcYQKLEKB24yNT9aNvd7qcGoEBR4/sFnfyIgG+NV1BK2Xx5q2r0hM1ZmnFWB+cP3IniytU3IOZLTxVkj7BmvyXGoas+Jh4LuBjDXRNoZPr+dTiHDOYrOwZ7UjK+uYFRod2IhTU8JZYbzLC8oBdrZXfBvcO45fijHVh3pXUjxw8b2ViVl6DA/V7I33r5SkgGRKajCBzKukW/yzZR6iUB+FltL3ueFoCoOtZwQ4cQKGlTfGqFfND6ZslsobAAYgA7CHwBr5QxNT8JS0V0SaVl9D9m2yQ+DrKK92KjL6CU068MqIfTej6pucsfZhn0fOp9U
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(5023799004)(4143699003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NjZjVEIvSWs3L1JTcGl0VEllYnlqVW5jTnc2dkRib21jYURTWVFWdW84ZkQx?=
+ =?utf-8?B?TC9oV1RLVGhqdjlyRERDa2hIN1QrN1o0NVdMQTloUlZ0YjQvNUFrUlNiTlZZ?=
+ =?utf-8?B?c2c0ZEU2dk5oOUVvR1RHRFA5bld5emRGSzhCd3NhVDl0b2xlS1FpdTNuYkN6?=
+ =?utf-8?B?T0xvTU1PdFRBVXlqaFhrSlNFUTdzOUtRUld3WE52WmJ6Ynp5THM5TVpTKzlT?=
+ =?utf-8?B?K2FxQ3JTUysrZElxaVFIOVI5c2wyYzNOWlh3WTF6VFFXS1pJTDVWS0pUb0ND?=
+ =?utf-8?B?VVJtWklKbCsxcjk5Tm4zYnE1OEtNeVQ3d0M5S2dKSU9NbVNDWGFDN1BGZ1hS?=
+ =?utf-8?B?RTFCUnNBMHFiWVNJNEJIVzl1R0FTVkFtRnliZjZCMExBQWFXZWNBL211dDUw?=
+ =?utf-8?B?Q0NZOStnWjR5cDhzaFRWOVJkN1FieElQSjdVd1dmaWpFVVhlbC9PdFllUnJo?=
+ =?utf-8?B?M0ZoNTU2NWk3V1lTNm5jaUx6a043bFZ6blQvTy83bWNiRG5xaGdicW1xMEIy?=
+ =?utf-8?B?Sjlaa0ZhNGdCYTYyQjdhL3drS2RuMExydk5mZDVlTUxSdjMwV2Y3aEIzQXFy?=
+ =?utf-8?B?cVZ4cEw0UkRkTmZmK1kvYXRhNDQ2bExGT2FNN292RDVVZmY4NmJtbG9CTW4v?=
+ =?utf-8?B?NDBuZ2FUVGw4YTBmVVAydThKK2RKdWt1Z0VZZktvUlV5d1dKdHZzTm9pUjAz?=
+ =?utf-8?B?VzVnYmRJcjdxS2VhelArQUZXWU54TXc4L0QyTXdkN1VFMHJqR0VUQWxzUlJ4?=
+ =?utf-8?B?NXlBVms5MGhOZVB0L0V2cUlneWQ2a1ZPRmVPaWNIcVdxMzJQUUxKcDU1K3hu?=
+ =?utf-8?B?NmJrY0luY1JTbnBmeEpzMkVaUG9xajdlSFFMdHdDK24xTjVDRE9pa3BMaFhP?=
+ =?utf-8?B?eWtiRnFGeHFMTnh3eUt5SjFWOUE3Y2w2Ni8waGtheU5QVHBhY1FHbkRGQnRt?=
+ =?utf-8?B?RGJHYTZnSE5Yck5rZnNEWjA1cmpZdmxWTVRqNVJKQ2x1ejY0V3JaS1gwS3Y4?=
+ =?utf-8?B?QmJ4eENiaWE5NHhjZ3doNWNMUVFRVFhoZ1ZPeTBPTHRBYUNtL3NMVHRRZnc1?=
+ =?utf-8?B?SzRjaWhuVmZDam0zYTU0dXlwQU1saGE2QzNNNzVNcllkNVcrYlBUa1dhenJZ?=
+ =?utf-8?B?VmN0cXpqUDBoNU84SExtTHlac3QvaUZDRTNvM3NoOGZaWm05cGFtckFZdndZ?=
+ =?utf-8?B?NlYzeDRKUUVDdy9NQUJiK2VTTXROMGJYUjBCNjMzMm9pZUdPeHRVaEc0Zm1J?=
+ =?utf-8?B?djZwYUFCdkppZW92TWpNTmZwbHVBdGwwVVNFTVBPM244WjloeGw0ZndsRXB3?=
+ =?utf-8?B?cjhuT2xMUmFYUFJzYURxUzJpdmpxV1NtTmxBbFN3VGNpQ21zY3RyRHZBa2tP?=
+ =?utf-8?B?alRsNXZlaEFIcGlKZjRkMktqUmRyVDNVRGVKUEpkV1NQSzd4U0xyWlhJMHY1?=
+ =?utf-8?B?L0s2Y0QvY1JQaHIvWEtBdVRoZXJCaytOMGxXVFpETXVjVUdBWE1sQ1lxRk16?=
+ =?utf-8?B?NUpBUHpEOGx6M01Fdy9nQ1NHQ3JYckRPTzYxS0E1bGZqNDJBWUlDUkYweWlw?=
+ =?utf-8?B?T0JHZUIzZTdoRTVOcWdBRUllWEJQY1dmUWhDWFBWNFdWWnpZWVZNL0NXdjB0?=
+ =?utf-8?B?MStFakEvbXZpQ2dRVHY0dmVmeTA3c25OSTNacllwaUtSQnFYNmVyMzJaRm1U?=
+ =?utf-8?B?emhHSWNHMlVxUTN6NjczcDlUS1A0bDZMZ3Y3WGZLSjM2Q2pGc1BTVHlIbDBX?=
+ =?utf-8?B?bWpmQ1E4SmlxN2tIdWlET0VESDN6UnBibHBsQlQvOURoendQaGZaa0w2K3Yy?=
+ =?utf-8?B?OHM0RXNpbjRYSmpVTWNQdWdwdGluZm53ME40SVQ4amNwc2E0bDYzMmt0Y0hk?=
+ =?utf-8?B?RlZVai8vTnIycm1VYm41YWMyemNONmZJdjlFL0xLVEx5RENLVFFFWHlnb05Y?=
+ =?utf-8?B?TFFONWVudVQ4RmJkWHpUTUQxQkowZzNHeGFmRHkwd3B5eTZxVmI2WXhmWGt4?=
+ =?utf-8?B?d0kyR1FJcnBKWmdQeU1hZEFvYTBVWG5lTVFvT3NHUnZFVitLakltckFLd0sw?=
+ =?utf-8?B?K2IwUzhxS284RHRyVFZNSS9GbUo4VFlHT0YvK3J5bCtIUjhmOUEyeWNYSG8z?=
+ =?utf-8?B?L0xxeVdCMjlVRDRLU1A5UFMvK0FBdjlZTDJYTlJZK3J0YkZzRU85dU41blVB?=
+ =?utf-8?B?RHRoSFhraUlYNFdZMHdRK2ZNUzdSVlVxMmdXeWhRdnpLRHFkMUM4bjU5R1FI?=
+ =?utf-8?B?M3pnN1VjNnpiSzk0V0ViV28vWjRGczRweXM5RUtUU2FHRUdxc24yZUxRWjhM?=
+ =?utf-8?Q?9fL4X67cKM6ZflufcM?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03107834-bed3-457f-04cf-08decc50b958
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 09:13:41.3540 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: A3NF/+zfw+mKhRZbaG546Zvw1dztpQ3OXCZk0BT4fo+Egdh6FsHW0EX7YLa1wB63
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6716
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,283 +138,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-Am 12.06.26 um 14:10 schrieb Thomas Zimmermann:
-> Hi
->
-> Am 04.05.26 um 17:05 schrieb Uwe Kleine-König (The Capable Hub):
->> The .driver_data member of the various struct pci_device_id arrays were
->> initialized by list expressions. This isn't easily readable if you're
->> not into PCI. Using the PCI_DEVICE macro and named initializers is more
->> explicit and thus easier to parse. Also skip explicit assignments of 0
->> (which the compiler then takes care of).
+On 6/17/26 10:38, Philipp Stanner wrote:
+> On Thu, 2026-06-11 at 13:34 +0100, Tvrtko Ursulin wrote:
+>> Due the scheduler locking design, and the inability to always lock both
+>> the entity and the run-queue in the consistent order, a completion exists
+>> which effectively marks the entity as in use from a call path which is not
+>> able to lock it.
 >>
->> This change doesn't introduce changes to the compiled pci_device_id
->> arrays. Tested on x86 and arm64.
+>> When entity is selected from the run job worker, its completion is marked
+>> as non-idle all until the code is sure it will not be dereferencing it any
+>> more, at which point it signals it as idle, releasing the potential
+>> parallel cleanup path.
 >>
->> Signed-off-by: Uwe Kleine-König (The Capable Hub) 
->> <u.kleine-koenig@baylibre.com>
->
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
->
-> I'll merge the patch into drm-misc-next.
+>> We can remove the need for this completion by implementing the identical
+>> guarantee by simply flushing the run job work from the cleanup path, after
+>> having removed the entity from the run queue.
 
-Merged with a minor change to coding style in gma500.
+Oh, yes please.
 
->
-> Best regards
-> Thomas
->
+>> We then know that the entity is no longer reachable by the run queue
+>> selection logic, so as soon as any pending work is done the cleanup can
+>> safely proceed. And because we have marked the entity as stopped, we also
+>> know that the entity cannot re-enter the run queue.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Danilo Krummrich <dakr@kernel.org>
+>> Cc: Matthew Brost <matthew.brost@intel.com>
+>> Cc: Philipp Stanner <phasta@kernel.org>
+>> Cc: amd-gfx@lists.freedesktop.org
+>> Cc: intel-xe@lists.freedesktop.org
 >> ---
->> Hello,
->>
->> The secret plan is to make struct pci_device_id::driver_data an
->> anonymous union (similar to
->> https://lore.kernel.org/all/cover.1776579304.git.u.kleine-koenig@baylibre.com/) 
->>
->> and that requires named initializers. But IMHO it's also a nice cleanup
->> on its own.
->>
->> The anonymous union will allow changes like the following:
->>
->> -    { PCI_DEVICE(0x8086, 0x8108), .driver_data = (long) 
->> &psb_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x8108), .driver_data_ptr = &psb_chip_ops },
->>
->> (together with the respective change in the code when the value is
->> used). This gets rid of a bunch of casts and thus slightly improves
->> type safety.
->>
->> Best regards
->> Uwe
->>
->>   drivers/gpu/drm/gma500/psb_drv.c      | 56 +++++++++++++--------------
->>   drivers/gpu/drm/loongson/lsdc_drv.c   |  4 +-
->>   drivers/gpu/drm/mgag200/mgag200_drv.c | 24 ++++++------
->>   drivers/gpu/drm/qxl/qxl_drv.c         | 15 ++++---
->>   4 files changed, 52 insertions(+), 47 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/gma500/psb_drv.c 
->> b/drivers/gpu/drm/gma500/psb_drv.c
->> index 005ab7f5355f..039da26ef24d 100644
->> --- a/drivers/gpu/drm/gma500/psb_drv.c
->> +++ b/drivers/gpu/drm/gma500/psb_drv.c
->> @@ -56,36 +56,36 @@ static int psb_pci_probe(struct pci_dev *pdev, 
->> const struct pci_device_id *ent);
->>    */
->>   static const struct pci_device_id pciidlist[] = {
->>       /* Poulsbo */
->> -    { 0x8086, 0x8108, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &psb_chip_ops },
->> -    { 0x8086, 0x8109, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &psb_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x8108), .driver_data = (long) 
->> &psb_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x8109), .driver_data = (long) 
->> &psb_chip_ops },
->>       /* Oak Trail */
->> -    { 0x8086, 0x4100, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &oaktrail_chip_ops },
->> -    { 0x8086, 0x4101, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &oaktrail_chip_ops },
->> -    { 0x8086, 0x4102, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &oaktrail_chip_ops },
->> -    { 0x8086, 0x4103, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &oaktrail_chip_ops },
->> -    { 0x8086, 0x4104, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &oaktrail_chip_ops },
->> -    { 0x8086, 0x4105, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &oaktrail_chip_ops },
->> -    { 0x8086, 0x4106, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &oaktrail_chip_ops },
->> -    { 0x8086, 0x4107, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &oaktrail_chip_ops },
->> -    { 0x8086, 0x4108, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &oaktrail_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x4100), .driver_data = (long) 
->> &oaktrail_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x4101), .driver_data = (long) 
->> &oaktrail_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x4102), .driver_data = (long) 
->> &oaktrail_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x4103), .driver_data = (long) 
->> &oaktrail_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x4104), .driver_data = (long) 
->> &oaktrail_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x4105), .driver_data = (long) 
->> &oaktrail_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x4106), .driver_data = (long) 
->> &oaktrail_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x4107), .driver_data = (long) 
->> &oaktrail_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x4108), .driver_data = (long) 
->> &oaktrail_chip_ops },
->>       /* Cedar Trail */
->> -    { 0x8086, 0x0be0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &cdv_chip_ops },
->> -    { 0x8086, 0x0be1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &cdv_chip_ops },
->> -    { 0x8086, 0x0be2, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &cdv_chip_ops },
->> -    { 0x8086, 0x0be3, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &cdv_chip_ops },
->> -    { 0x8086, 0x0be4, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &cdv_chip_ops },
->> -    { 0x8086, 0x0be5, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &cdv_chip_ops },
->> -    { 0x8086, 0x0be6, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &cdv_chip_ops },
->> -    { 0x8086, 0x0be7, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &cdv_chip_ops },
->> -    { 0x8086, 0x0be8, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &cdv_chip_ops },
->> -    { 0x8086, 0x0be9, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &cdv_chip_ops },
->> -    { 0x8086, 0x0bea, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &cdv_chip_ops },
->> -    { 0x8086, 0x0beb, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &cdv_chip_ops },
->> -    { 0x8086, 0x0bec, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &cdv_chip_ops },
->> -    { 0x8086, 0x0bed, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &cdv_chip_ops },
->> -    { 0x8086, 0x0bee, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &cdv_chip_ops },
->> -    { 0x8086, 0x0bef, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) 
->> &cdv_chip_ops },
->> -    { 0, }
->> +    { PCI_DEVICE(0x8086, 0x0be0), .driver_data = (long) 
->> &cdv_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x0be1), .driver_data = (long) 
->> &cdv_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x0be2), .driver_data = (long) 
->> &cdv_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x0be3), .driver_data = (long) 
->> &cdv_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x0be4), .driver_data = (long) 
->> &cdv_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x0be5), .driver_data = (long) 
->> &cdv_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x0be6), .driver_data = (long) 
->> &cdv_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x0be7), .driver_data = (long) 
->> &cdv_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x0be8), .driver_data = (long) 
->> &cdv_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x0be9), .driver_data = (long) 
->> &cdv_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x0bea), .driver_data = (long) 
->> &cdv_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x0beb), .driver_data = (long) 
->> &cdv_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x0bec), .driver_data = (long) 
->> &cdv_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x0bed), .driver_data = (long) 
->> &cdv_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x0bee), .driver_data = (long) 
->> &cdv_chip_ops },
->> +    { PCI_DEVICE(0x8086, 0x0bef), .driver_data = (long) 
->> &cdv_chip_ops },
->> +    { }
->>   };
->>   MODULE_DEVICE_TABLE(pci, pciidlist);
->>   diff --git a/drivers/gpu/drm/loongson/lsdc_drv.c 
->> b/drivers/gpu/drm/loongson/lsdc_drv.c
->> index 1ece1ea42f78..f9f7271ddbff 100644
->> --- a/drivers/gpu/drm/loongson/lsdc_drv.c
->> +++ b/drivers/gpu/drm/loongson/lsdc_drv.c
->> @@ -444,8 +444,8 @@ static const struct dev_pm_ops lsdc_pm_ops = {
->>   };
->>     static const struct pci_device_id lsdc_pciid_list[] = {
->> -    {PCI_VDEVICE(LOONGSON, 0x7a06), CHIP_LS7A1000},
->> -    {PCI_VDEVICE(LOONGSON, 0x7a36), CHIP_LS7A2000},
->> +    { PCI_VDEVICE(LOONGSON, 0x7a06), .driver_data = CHIP_LS7A1000 },
->> +    { PCI_VDEVICE(LOONGSON, 0x7a36), .driver_data = CHIP_LS7A2000 },
->>       { }
->>   };
->>   diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c 
->> b/drivers/gpu/drm/mgag200/mgag200_drv.c
->> index a32be27c39e8..8ad4ddb60ee6 100644
->> --- a/drivers/gpu/drm/mgag200/mgag200_drv.c
->> +++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
->> @@ -205,18 +205,18 @@ int mgag200_device_init(struct mga_device *mdev,
->>    */
->>     static const struct pci_device_id mgag200_pciidlist[] = {
->> -    { PCI_VENDOR_ID_MATROX, 0x520, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 
->> G200_PCI },
->> -    { PCI_VENDOR_ID_MATROX, 0x521, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 
->> G200_AGP },
->> -    { PCI_VENDOR_ID_MATROX, 0x522, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 
->> G200_SE_A },
->> -    { PCI_VENDOR_ID_MATROX, 0x524, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 
->> G200_SE_B },
->> -    { PCI_VENDOR_ID_MATROX, 0x530, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 
->> G200_EV },
->> -    { PCI_VENDOR_ID_MATROX, 0x532, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 
->> G200_WB },
->> -    { PCI_VENDOR_ID_MATROX, 0x533, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 
->> G200_EH },
->> -    { PCI_VENDOR_ID_MATROX, 0x534, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 
->> G200_ER },
->> -    { PCI_VENDOR_ID_MATROX, 0x536, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 
->> G200_EW3 },
->> -    { PCI_VENDOR_ID_MATROX, 0x538, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 
->> G200_EH3 },
->> -    { PCI_VENDOR_ID_MATROX, 0x53a, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 
->> G200_EH5 },
->> -    {0,}
->> +    { PCI_VDEVICE(MATROX, 0x0520), .driver_data = G200_PCI },
->> +    { PCI_VDEVICE(MATROX, 0x0521), .driver_data = G200_AGP },
->> +    { PCI_VDEVICE(MATROX, 0x0522), .driver_data = G200_SE_A },
->> +    { PCI_VDEVICE(MATROX, 0x0524), .driver_data = G200_SE_B },
->> +    { PCI_VDEVICE(MATROX, 0x0530), .driver_data = G200_EV },
->> +    { PCI_VDEVICE(MATROX, 0x0532), .driver_data = G200_WB },
->> +    { PCI_VDEVICE(MATROX, 0x0533), .driver_data = G200_EH },
->> +    { PCI_VDEVICE(MATROX, 0x0534), .driver_data = G200_ER },
->> +    { PCI_VDEVICE(MATROX, 0x0536), .driver_data = G200_EW3 },
->> +    { PCI_VDEVICE(MATROX, 0x0538), .driver_data = G200_EH3 },
->> +    { PCI_VDEVICE(MATROX, 0x053a), .driver_data = G200_EH5 },
->> +    { }
->>   };
->>     MODULE_DEVICE_TABLE(pci, mgag200_pciidlist);
->> diff --git a/drivers/gpu/drm/qxl/qxl_drv.c 
->> b/drivers/gpu/drm/qxl/qxl_drv.c
->> index 2bbb1168a3ff..6c3c309b8e4d 100644
->> --- a/drivers/gpu/drm/qxl/qxl_drv.c
->> +++ b/drivers/gpu/drm/qxl/qxl_drv.c
->> @@ -50,11 +50,16 @@
->>   #include "qxl_object.h"
->>     static const struct pci_device_id pciidlist[] = {
->> -    { 0x1b36, 0x100, PCI_ANY_ID, PCI_ANY_ID, PCI_CLASS_DISPLAY_VGA 
->> << 8,
->> -      0xffff00, 0 },
->> -    { 0x1b36, 0x100, PCI_ANY_ID, PCI_ANY_ID, PCI_CLASS_DISPLAY_OTHER 
->> << 8,
->> -      0xffff00, 0 },
->> -    { 0, 0, 0 },
->> +    {
->> +        PCI_DEVICE(0x1b36, 0x0100),
->> +        .class = PCI_CLASS_DISPLAY_VGA << 8,
->> +        .class_mask = 0xffff00
->> +    }, {
->> +        PCI_DEVICE(0x1b36, 0x0100),
->> +        .class = PCI_CLASS_DISPLAY_OTHER << 8,
->> +        .class_mask = 0xffff00
->> +    },
->> +    { },
->>   };
->>   MODULE_DEVICE_TABLE(pci, pciidlist);
->>
->> base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
->
+>> "Perfection is achieved, not when there is nothing more to add, but when
+>>  there is nothing left to take away." - Antoine de Saint-Exupéry
+> 
+> 
+> Hmm, alright, so the basic trick just seems to be that the workqueue
+> implementation already can ensure the synchronization which we manually
+> implemented so far through the completion.
+> 
+> 
+> It's a bit more LOC, and doesn't solve a bug. However, I kind of like
+> the idea because it removes a redundant mechanism. Would be cool to
+> hear some other opinions, though.
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+At least of hand it looks cleaner to me.
 
+And just for the record: This was also the original design the scheduler had before people started to "optimize" it.
+
+Cheers,
+Christian.
+
+> 
+> A comment below
+> 
+>>
+>> Lets see what Intel's CI says about this, not to mention our new AI
+>> overlords...
+>> ---
+>>  drivers/gpu/drm/scheduler/sched_entity.c   | 25 +++++++++++++++-------
+>>  drivers/gpu/drm/scheduler/sched_internal.h | 14 ++++++++++--
+>>  drivers/gpu/drm/scheduler/sched_main.c     |  2 --
+>>  drivers/gpu/drm/scheduler/sched_rq.c       | 14 +++++++-----
+>>  include/drm/gpu_scheduler.h                |  9 --------
+>>  5 files changed, 38 insertions(+), 26 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+>> index c51101ec70c1..e6f7c2fbefce 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>> @@ -137,10 +137,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
+>>  	entity->rq = &sched_list[0]->rq;
+>>  	RCU_INIT_POINTER(entity->last_scheduled, NULL);
+>>  	RB_CLEAR_NODE(&entity->rb_tree_node);
+>> -	init_completion(&entity->entity_idle);
+>> -
+>> -	/* We start in an idle state. */
+>> -	complete_all(&entity->entity_idle);
+>>  
+>>  	spin_lock_init(&entity->lock);
+>>  	spsc_queue_init(&entity->job_queue);
+>> @@ -276,18 +272,24 @@ static void drm_sched_entity_kill_jobs_cb(struct dma_fence *f,
+>>   */
+>>  void drm_sched_entity_kill(struct drm_sched_entity *entity)
+>>  {
+>> +	struct drm_gpu_scheduler *sched;
+>>  	struct drm_sched_job *job;
+>>  	struct dma_fence *prev;
+>>  
+>>  	spin_lock(&entity->lock);
+>>  	entity->stopped = true;
+>> -	drm_sched_rq_remove_entity(entity->rq, entity);
+>> +	sched = drm_sched_rq_remove_entity(entity->rq, entity);
+>>  	spin_unlock(&entity->lock);
+>>  
+>> -	/* Make sure this entity is not used by the scheduler at the moment */
+>> -	wait_for_completion(&entity->entity_idle);
+>> +	/*
+>> +	 * Make sure this entity is not used by the scheduler at the moment.
+>> +	 *
+>> +	 * Scheduler is guaranteed to be stable after the entity was stopped and
+>> +	 * removed from the run-queue.
+>> +	 */
+>> +	if (sched)
+>> +		drm_sched_flush_run_work(sched);
+>>  
+>> -	/* The entity is guaranteed to not be used by the scheduler */
+>>  	prev = rcu_dereference_check(entity->last_scheduled, true);
+>>  	dma_fence_get(prev);
+>>  	while ((job = drm_sched_entity_queue_pop(entity))) {
+>> @@ -576,6 +578,13 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+>>  		return;
+>>  
+>>  	spin_lock(&entity->lock);
+>> +
+>> +	if (entity->stopped) {
+>> +		spin_unlock(&entity->lock);
+>> +		return;
+>> +
+>> +	}
+> 
+> Seems unrelated? Why wasn't this needed semantically before?
+> 
+>> +
+>>  	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
+>>  	rq = sched ? &sched->rq : NULL;
+>>  	if (rq != entity->rq) {
+>> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
+>> index 13ecb771d7a2..80dece3be415 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_internal.h
+>> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
+>> @@ -35,12 +35,22 @@ bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
+>>  			 struct drm_sched_entity *entity);
+>>  void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
+>>  
+>> +/**
+>> + * drm_sched_flush_run_work - flush the run-job work
+> 
+> In v1, you'd probably want to document what this function typically
+> will be used for :)
+> 
+> 
+> Greetings,
+> P.
 
