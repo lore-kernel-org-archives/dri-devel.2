@@ -4,59 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73E3DCD98F6
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 16:02:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63A42CD98F2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 16:08:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EB0810EA97;
-	Wed, 17 Jun 2026 16:02:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B25B610E09A;
+	Wed, 17 Jun 2026 16:08:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="NSaoCCAt";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="JWVm+/54";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD73D10E959
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 16:02:42 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id B12691A3979;
- Wed, 17 Jun 2026 16:02:41 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 84186601AA;
- Wed, 17 Jun 2026 16:02:41 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 0E5F6106C8586; 
- Wed, 17 Jun 2026 18:02:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1781712160; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=mQ4K5RnIUxy4bnsSIuGBbFbc3S/+zjmsP8w79EoSWKg=;
- b=NSaoCCAt6Qbk9aPgrFAjymGODeHSaGiDIL++JYIdyZVoNVgAn1JkI3BQ9bvORvr7T5gu5O
- q4bXQLF/Zv/4oZhkM7L3oVbw/M3bFvsKGwG3h4Aes/C9uxaQMEcVlXUkXxHf5Gm/zv68E0
- SqdH9vAiHQe4YfNIKySIIrx2uLhd7x0O8LrOmFDVfXr0Kn860GReauyD58feXQPwKBjChB
- Y2ndo3g6vM2V2RvfGLl+dXnPIG45lDB3Vw65xa2rhbe9S/KB8C9jxEJHbKg8vODNXf31Jn
- Hx3UrFxHtxyx2/rHPcKi7T4lwyEyaO7WtApXNhZ59zjJ0dEpoz+jd8vb9IjOlA==
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A1F010E09A
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 16:08:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1781712506;
+ bh=iNSRT2hb0fXFfhlPPxkBOn9HvsN6dd4fDBIz3jLODfQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=JWVm+/54yhfmSb/EXId5UbSd02676OxpqQAJWoCeilX3s2uzdFPO6YG658807iXTw
+ yi/RcJPJB8JDKlp0HNWcOcS/011pyXYabPAWYkuj8581sTZAM/5hbBV0jQeO7I8CML
+ 9OMqXyvIxA9llD1i89OSEKImhVtuztxCitUsrIfEaQlVJ5iCfLobZPEivoJvYXuPvB
+ CZeRDfW+5qf8YVGW+HSG/MBgeXclZVCmc9KcZunrynhtxZxViWzA/22WtIO9QmAle0
+ wLqPxRE592aNX8njZsXzRPJP7criYf7oUJL1Nr3plB3winS2gejmQdUsHYzbqjGsXp
+ xPJHaMIdAfDpg==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4ggTKs6hrMz4xGp;
+ Thu, 18 Jun 2026 02:08:17 +1000 (AEST)
+Message-ID: <31d1265b-e264-4dc6-a8c3-1b64dc9867a1@ozlabs.org>
+Date: Wed, 17 Jun 2026 17:08:14 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 8/9] vfio/pci: Permanently revoke a DMABUF on request
+Content-Language: en-GB
+To: "Tian, Kevin" <kevin.tian@intel.com>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Pranjal Shrivastava <praan@google.com>, Alistair Popple
+ <apopple@nvidia.com>, "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
+References: <20260610154327.37758-1-matt@ozlabs.org>
+ <20260610154327.37758-9-matt@ozlabs.org>
+ <DM6PR11MB3690886693898AD755FB246F8CE52@DM6PR11MB3690.namprd11.prod.outlook.com>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <DM6PR11MB3690886693898AD755FB246F8CE52@DM6PR11MB3690.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 08/78] drm/bridge: adv7511: Switch to
- atomic_create_state
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>, 
- dri-devel@lists.freedesktop.org, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-8-0a91018bf886@kernel.org>
-References: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
- <20260608-drm-no-more-bridge-reset-v2-8-0a91018bf886@kernel.org>
-Date: Wed, 17 Jun 2026 18:02:16 +0200
-Message-Id: <178171213666.312625.11943007988177949508.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,19 +75,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 08 Jun 2026 16:35:50 +0200, Maxime Ripard <mripard@kernel.org> wrote:
-> The drm_bridge_funcs.atomic_reset callback and its
-> drm_atomic_helper_bridge_reset() helper are deprecated.
+Hi Kevin,
 
-Same as for the previous patch: unless I'm missing something, atomic_reset
-is not deprecated according to the code. Should an additional commit
-deprecate it, so that this and lots of following patches have a correct
-commit message?
+On 16/06/2026 10:26, Tian, Kevin wrote:
+>> From: Matt Evans <matt@ozlabs.org>
+>> Sent: Wednesday, June 10, 2026 11:43 PM
+>>
+>> Expand the VFIO DMABUF revocation state to three states:
+>> Not revoked, temporarily revoked, and permanently revoked.
+>>
+>> The first two are for existing transient revocation, e.g. across a
+>> function reset, and the DMABUF is put into the last in response to a
+>> new VFIO feature VFIO_DEVICE_FEATURE_DMA_BUF.
+> 
+> VFIO_DEVICE_FEATURE_DMA_BUF_REVOKE
+> 
+>>
+>> VFIO_DEVICE_FEATURE_DMA_BUF passes a DMABUF by fd and requests that
+>> the DMABUF is permanently revoked.  On success, it's guaranteed that
+> 
+> ditto
 
-Code-wise LGTM.
+Argh, thanks for catching these.  Fixed.
 
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+>> the buffer can never be imported/attached/mmap()ed in future, that
+>> dynamic imports have been cleanly detached, and that all mappings have
+>> been made inaccessible/PTEs zapped.
+>>
+>> This is useful for lifecycle management, to reclaim VFIO PCI BAR
+>> ranges previously delegated to a subordinate client process: The
+>> driver process can ensure that the loaned resources are revoked when
+>> the client is deemed "done", and exported ranges can be safely re-used
+>> elsewhere.
+> 
+> probably clarify that re-use by creating a new dmabuf fd as the original
+> one is essentially zombie now.
+
+Reworded this, plus added a note re the change below.
+
+>>
+>> +/* Set the DMABUF's revocation status (OK or temporarily/permanently
+>> revoked) */
+>> +static void vfio_pci_dma_buf_set_status(struct vfio_pci_dma_buf *priv,
+>> +					enum vfio_pci_dma_buf_status
+>> new_status)
+>> +{
+>> +	bool was_revoked;
+>> +
+>> +	lockdep_assert_held_write(&priv->vdev->memory_lock);
+>> +
+>> +	if (priv->status == VFIO_PCI_DMABUF_PERM_REVOKED ||
+>> +	    priv->status == new_status) {
+>> +		return;
+>> +	}
+> 
+> the only interface to request PERM_REVOKED is via the new ioctl.
+> 
+> vfio_pci_core_feature_dma_buf_revoke() returns -EBADFD if
+> it's already in PERM_REVOKED.
+> 
+> so this check shouldn't be reached, suggesting a warning.
+
+Good point, both any change to PERM_REVOKED or a double-set of the same
+state indicate some caller has gone wrong.  Added a warning.
+
+>> +
+>> +	dma_buf_invalidate_mappings(priv->dmabuf);
+>> +	dma_resv_wait_timeout(priv->dmabuf->resv,
+>> +			      DMA_RESV_USAGE_BOOKKEEP, false,
+>> +			      MAX_SCHEDULE_TIMEOUT);
+>> +	dma_resv_unlock(priv->dmabuf->resv);
+> 
+> It's existing code but while at it let's make above conditional to
+> the actual revoke path. for unrevoked it's not required given the
+> previous revoke already cleans up everything.
+
+I noticed this too though I was consciously trying to keep the diff as
+small as possible.  But with this feedback from both you and Praan, I'll
+move this.  It's still pretty readable before/after.
+
+> otherwise,
+> 
+> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+
+
+Thank you.
+
+
+Matt
 
