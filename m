@@ -4,56 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D3CACDB469
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 09:33:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D1E9CD98E2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 09:38:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5248310EF3A;
-	Wed, 17 Jun 2026 09:33:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D58610EF4E;
+	Wed, 17 Jun 2026 09:38:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cK02lODN";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="YsDHAGgM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D828E10EF1E;
- Wed, 17 Jun 2026 09:33:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781688782; x=1813224782;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=hWNfdpRPycRCRjJBtqZ6lAA8HkE7hHWxfCtXT3oC9y8=;
- b=cK02lODNjrx5GWNTe6CCEpmMmXljEAnrDfgA5Y029QxQwsv9ykLndIN9
- QEbsht0gMiiLRNlRevAXnTC/FYjJJGMa8SpnnxRjp+qU534dkIiTs19gj
- 2d1W1xlpj9IaUXx6C9LbFg2z8VSJElb+3p49AetKq5BGNW/t2df73LC4g
- MKYkcKgZK9YcSplwVv2rnxSIBaWnvoa89s9AEKgHA1xW94WO6thzhoumC
- 5SLqrN19IaQ/YnSgNp1qHSXzSVD7dp8u/0CIqEWYwY7hw02QV/RHleWfc
- SfjnkR2bjRU1ozPK2zxU/9wNbwr4aIp93kgSg6GNqYgvEsQWP4kWydhOE g==;
-X-CSE-ConnectionGUID: V+RQWtEbRn+VRL8isWvBWA==
-X-CSE-MsgGUID: fLaQTUfSQwGoqJ+57BMinQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="81605291"
-X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; d="scan'208";a="81605291"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2026 02:32:59 -0700
-X-CSE-ConnectionGUID: jw/tmO4dRiCp9VOGmd3x9w==
-X-CSE-MsgGUID: 2vJ1pf5STgCR9Di8mDYO8A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; d="scan'208";a="245114479"
-Received: from dut-2a59.iind.intel.com ([10.190.239.113])
- by fmviesa007.fm.intel.com with ESMTP; 17 Jun 2026 02:32:57 -0700
-From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Cc: Pranay Samala <pranay.samala@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Subject: [v3 12/14] drm/i915/color: Extract HDR post-CSC LUT programming to
- helper function
-Date: Wed, 17 Jun 2026 14:38:17 +0530
-Message-Id: <20260617090819.1735153-13-chaitanya.kumar.borah@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260617090819.1735153-1-chaitanya.kumar.borah@intel.com>
-References: <20260617090819.1735153-1-chaitanya.kumar.borah@intel.com>
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9EB210EF4E
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 09:38:18 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-69532288224so1903052a12.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 02:38:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google; t=1781689097; x=1782293897;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=b5eeDeD7Yslqh4fHzKzX43vRVw6huCkxZOrpb0eXGfU=;
+ b=YsDHAGgMXP9NOkWxXFmwtM/bFSZbMvvM3uQrSzXI85+ZBfEDgMfaxUpcz93Ix3JiGm
+ lA93Bso/npAII2HLi8sRFGkCJV3lPuXZbEvktew9hzUrCQ/v4yLqQAD/TMPmdMpV+YcM
+ 9w3x/nlZwI+vdtCZKSh+S3C58539yu+h21Iy4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781689097; x=1782293897;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=b5eeDeD7Yslqh4fHzKzX43vRVw6huCkxZOrpb0eXGfU=;
+ b=iLeduG/2yrXNwvzV5khhuRbB8zrxqSvOxj4B/7cDC7ga4QNCNk34QEuO1J6w4Jo4mS
+ nZ+H7SeC+QwqVVLZGiCUrvFpLajeAJcvlu7uOn/lblv6h9hzLtA9AKdNfSlK54LPmiXj
+ JIyoIGOJsnRXfK3tilXOdcpEfMDivNdCAHMAxd0pMfJTa1pRXqmJx3fnMLf16wkVSg5i
+ qufT3a5IZGG7/3f/p6vLPzEGfdiU2GonWmGFY7E/tsp6lp/SM2jYuNkKxxAjhnVksozD
+ K9LhqQB4uhLqTOLhAZw0qGGR2mI735MUiYlGqZm/N5O1a+M2LBQ7iIQsuoDAzkCamKT0
+ 4XWA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+g9DwoPpggF/ldvkXi/+EePxuSqcKrp11QhmjOZ8jCXx44GTGMI7cwMLRtPZLtR/bv505i8QijbUA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzuNEtKAB2MVZCSJSUx/w146+gSgE6hY6vIBePUBXvbcC1vpa1D
+ wThaM5OECLq1GpllP8W+ImQlXdTc+FK92WeSYBqtZ+PLdsdgVM300YH/hc9vLilgmN6YgYrLIey
+ jdWgLbtzicA==
+X-Gm-Gg: Acq92OFQ7l7syNVFuF9FEUM4YnaCJ0R4NaI4P5hBRvFLC+RDYTvfUEZOur8L338IRQ0
+ 40hY5henahH7zVMbjMP4ch4AxorGdTxelUVj/Y1qYSxhyjK5dN5gCXxwoBYSN7ODxQZCwxnj04d
+ VV7TwnbqqcAf86IL8ldRWs8hGKadqljRb1q/lpobz756u6WtyfOw90Cw62oSrqCIyXjtUgrN1jK
+ /gVLtK5+VdfcedksG/b/t6STDiJKdTsJIxZr02p4YCcrzqwTY2FD67qtq7D/IYyqKFzDY+z7w2W
+ mA8MnSXxZ1VV1zVVOsFd4EbAXPWC6QdcV2GVYm3+IvlrJakOpY8pGtJVKlZQowM6PokFQq6g4bU
+ 3XF3ua1/dUim/p6Q7ymX9wnDhwNyZmRteV1jCCKG6HpcuYqDmN+c06iETIQOQ3vdlSWh/xB5Fs4
+ FWT73Q0I267F3TGiSdJiuh1cxEZ1aIKKpimCZXqdyKAB/YARy+zLR446lAwuv6Uw==
+X-Received: by 2002:a17:907:7b87:b0:bed:7707:a244 with SMTP id
+ a640c23a62f3a-c05d2159f73mr157250666b.13.1781689096949; 
+ Wed, 17 Jun 2026 02:38:16 -0700 (PDT)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com.
+ [209.85.208.42]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bfdb8d1de1fsm782650366b.55.2026.06.17.02.38.16
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 17 Jun 2026 02:38:16 -0700 (PDT)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-69532288224so1903017a12.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 02:38:16 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8TcE/E6/Lbm+mlYc4D7Ih1RWfgooBzl8fGfiFtdHHWBfDfgd13GUnpa5tTZl7X34/4T7QOZFeKLDg=@lists.freedesktop.org
+X-Received: by 2002:a17:907:984:b0:bf9:cc72:6e05 with SMTP id
+ a640c23a62f3a-c05d2809783mr167785866b.25.1781689096008; Wed, 17 Jun 2026
+ 02:38:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAPM=9tyvcK=48vPeSB-DH8yd9=eZi-77kWgJSAP54d+kJWx6Jw@mail.gmail.com>
+In-Reply-To: <CAPM=9tyvcK=48vPeSB-DH8yd9=eZi-77kWgJSAP54d+kJWx6Jw@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 17 Jun 2026 10:37:59 +0100
+X-Gmail-Original-Message-ID: <CAHk-=wizdcwDYToe1d2niV3Qzq+K_zkyN0tn3n+=EqEt3xtvOg@mail.gmail.com>
+X-Gm-Features: AVVi8CfeMi_izkLAuKSO-E4dC5OaP8yk6auuX0nNd2zxd_7fZUMyYO0CYv3qpj8
+Message-ID: <CAHk-=wizdcwDYToe1d2niV3Qzq+K_zkyN0tn3n+=EqEt3xtvOg@mail.gmail.com>
+Subject: Re: [git pull] drm for 7.2-rc1
+To: Dave Airlie <airlied@gmail.com>
+Cc: Sima Vetter <sima@ffwll.ch>, dri-devel <dri-devel@lists.freedesktop.org>, 
+ LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,78 +97,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Pranay Samala <pranay.samala@intel.com>
+On Wed, 17 Jun 2026 at 07:19, Dave Airlie <airlied@gmail.com> wrote:
+>
+> None of them were too confusing, but the panfrost one isn't that
+> straightforward and amdgpu ones are a bit tricky.
 
-Move HDR plane post-CSC LUT programming to improve code organization.
+I think yours is wrong. You don't do that
 
-While at it, remove the segment 0 index register writes as it is not
-currently programmed.
+        op_ctx->rsvd_page_tables.count = pt_count;
 
-Signed-off-by: Pranay Samala <pranay.samala@intel.com>
-Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
----
- drivers/gpu/drm/i915/display/intel_color.c | 35 ++++++++++++----------
- 1 file changed, 20 insertions(+), 15 deletions(-)
+that I think you should do..
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index abf3b3a2e177..360046979556 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -4050,25 +4050,17 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb *dsb,
- }
- 
- static void
--xelpd_program_plane_post_csc_lut(struct intel_dsb *dsb,
--				 const struct intel_plane_state *plane_state)
-+xelpd_load_hdr_post_csc_lut(struct intel_display *display,
-+			    struct intel_dsb *dsb,
-+			    enum pipe pipe,
-+			    enum plane_id plane,
-+			    const struct drm_color_lut32 *post_csc_lut)
- {
--	struct intel_display *display = to_intel_display(plane_state);
--	const struct drm_plane_state *state = &plane_state->uapi;
--	enum pipe pipe = to_intel_plane(state->plane)->pipe;
--	enum plane_id plane = to_intel_plane(state->plane)->id;
--	const struct drm_color_lut32 *post_csc_lut = plane_state->hw.gamma_lut->data;
- 	int i, lut_size = 32;
- 	u32 lut_val;
- 
--	if (!icl_is_hdr_plane(display, plane))
--		return;
--
- 	intel_de_write_dsb(display, dsb, PLANE_POST_CSC_GAMC_INDEX_ENH(pipe, plane, 0),
- 			   PLANE_PAL_PREC_AUTO_INCREMENT);
--	/* TODO: Add macro */
--	intel_de_write_dsb(display, dsb, PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH(pipe, plane, 0),
--			   PLANE_PAL_PREC_AUTO_INCREMENT);
- 
- 	for (i = 0; i < lut_size + 3; i++) {
- 		if (post_csc_lut) {
-@@ -4088,8 +4080,21 @@ xelpd_program_plane_post_csc_lut(struct intel_dsb *dsb,
- 	}
- 
- 	intel_de_write_dsb(display, dsb, PLANE_POST_CSC_GAMC_INDEX_ENH(pipe, plane, 0), 0);
--	intel_de_write_dsb(display, dsb,
--			   PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH(pipe, plane, 0), 0);
-+}
-+
-+static void
-+xelpd_program_plane_post_csc_lut(struct intel_dsb *dsb,
-+				 const struct intel_plane_state *plane_state)
-+{
-+	struct intel_display *display = to_intel_display(plane_state);
-+	const struct drm_plane_state *state = &plane_state->uapi;
-+	enum pipe pipe = to_intel_plane(state->plane)->pipe;
-+	enum plane_id plane = to_intel_plane(state->plane)->id;
-+	const struct drm_color_lut32 *post_csc_lut = plane_state->hw.gamma_lut ?
-+		plane_state->hw.gamma_lut->data : NULL;
-+
-+	if (icl_is_hdr_plane(display, plane))
-+		xelpd_load_hdr_post_csc_lut(display, dsb, pipe, plane, post_csc_lut);
- }
- 
- static void
--- 
-2.25.1
+Other than that my resolution seems identical (modulo some trivial
+whitespace around the same area)
 
+> The commit list looks fine but the diffstat looks wonky for some reason.
+
+Yeah, that's garbage. Did you do it after the merge or before? If
+before, it must have picked some completely wrong merge base.
+
+               Linus
