@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 744DBCD98F7
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:16:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A9CFCD98E2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:16:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E06F10EF7A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C6A910EF7B;
 	Wed, 17 Jun 2026 10:16:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jl+CyDfr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UX+x1iHV";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94A2B10EF6C;
- Wed, 17 Jun 2026 10:16:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4072410EF62
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:16:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 71C6143D02;
- Wed, 17 Jun 2026 10:16:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D891F1F000E9;
- Wed, 17 Jun 2026 10:16:06 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 294E043853;
+ Wed, 17 Jun 2026 10:16:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 885171F00A3A;
+ Wed, 17 Jun 2026 10:16:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781691367;
- bh=BAntduN5if5wJSXUlu72B7/F2m4mvnYdUK49ltUUd7w=;
+ s=k20260515; t=1781691362;
+ bh=ju8dZ0Bq+en8V8tWxXF4cKd21EIXGOMbA6geDgkwy0o=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Jl+CyDfr9eR1+NzHkqNHkVetcikAZJ+Vbh8tvXivsz0vkT1Rhb9cAMXZYCGnZjblW
- 6BmQ/urp9kS9BcslD2Lp7MaomGdE32Se8j3AsuUsN0iemVvKOHpCBvHuVremzXpZhQ
- bWsSz9BSdiRQeuGlurPuxFTcu2MJ+eJi+lAIkRzMw2YUVtNSJH/IcmjMp22E8wTUAJ
- JPkzyz5rvudN6yhOa/bnBnXKn6I9Y6BIwcn16YZbOME1pl6Zr5K0Wx4IFcl8CYMOSB
- zaFV8od8+AMGT81XVoa7QyHDxlTiAOzCnbo7S0Iyq5urg/D4FfR70AXWIny2pd1cYx
- JUUAQxRJxZnuw==
+ b=UX+x1iHVeJ8XHY0ObrnMlYy54T/skJOYBtHYUMg/RbxsP1t20sbTEboWnXVLgBya+
+ aE5z+dnGsuGjshs0f+Icz/0ktY9ENqo7sV4saIPKMOW78E5rbzCjLfjFDczUsM11cm
+ L2D5LedGiJE0qPa7Mq9DEpU7gnI4JWJ52pZMEgaGQg8+J90ZgPUxxBM+40EliotwCp
+ XmpYqgKd8CnpFPa95NZrKD7MaeVvYIoPpAyCPhaDxOoLCGRzjitBqK4GmTuW/6u1TN
+ +s9KfnbGymdVPHYpY+Hc3ayridSNXjplSfnMAxiWvsqp2jfv6QFGNtvVHpuSmMwqHs
+ cchi9PEXfQy1w==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 17 Jun 2026 12:14:54 +0200
-Subject: [PATCH 29/37] drm/msm: dsi: Switch to atomic bridge callbacks
+Date: Wed, 17 Jun 2026 12:14:52 +0200
+Subject: [PATCH 27/37] drm/mcde: dsi: Switch to atomic bridge callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-drm-all-atomic-bridges-v1-29-b63e6316166b@kernel.org>
+Message-Id: <20260617-drm-all-atomic-bridges-v1-27-b63e6316166b@kernel.org>
 References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 In-Reply-To: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -47,20 +47,14 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- freedreno@lists.freedesktop.org
+ Maxime Ripard <mripard@kernel.org>, Linus Walleij <linusw@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5244; i=mripard@kernel.org;
- h=from:subject:message-id; bh=eQtpRNY5DZBiPuuwg6ZP83EFQ0a23iAgJfOiVbjnYac=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxZNbIyy9znfmWNnOeifx6d+LM0ZJpxJz5rj+LTx58
- ehGG6uMjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCR40cY64NcJvw/zGDtN+uD
- glHvg3f3M/bITRYN23gmjj09edoah8YEhgqPTeyPeL5//WJc/OXOVsYq5vu7RX+mFZ/0SVyz6Mb
- 0ZpnNNnmJL3/MYuwSeZCTYucX9K+o4+1c2V0dCVWVpd65FnkA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3724; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=6UGS3xTYqXC8lPIkSV9F9UWgzGPPbAy4y2eh86dyo+w=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxZMOHNvBcoPhZ5PssjKtdzWMYerbjum8Up+11srWf
+ c2TrX4PO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEVroxNmxxLzzpvkjz21Kd
+ vwvCPB/VWf47ZDDDZH327+1ammE5ptUxapbX23VvO3/Jfn1iS4LKG8aGacveTegRkvdNK/h+d1a
+ jmIG4aUEQj2X/9I+7nE+IRi0qK5K+2iZ1tFfP7v1+55sPrXIA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -211,68 +205,29 @@ identifier b;
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
 ---
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-To: Dmitry Baryshkov <lumag@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>
-Cc: Sean Paul <sean@poorly.run>
-Cc: Marijn Suijten <marijn.suijten@somainline.org>
-Cc: freedreno@lists.freedesktop.org
+To: Linus Walleij <linusw@kernel.org>
 ---
- drivers/gpu/drm/msm/dsi/dsi_manager.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/mcde/mcde_dsi.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index 46faeaae9d94..959daa88b1d0 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -273,11 +273,12 @@ static void dsi_mgr_bridge_power_off(struct drm_bridge *bridge)
- 	}
- 	msm_dsi_host_power_off(host);
- 	dsi_mgr_phy_disable(id);
+diff --git a/drivers/gpu/drm/mcde/mcde_dsi.c b/drivers/gpu/drm/mcde/mcde_dsi.c
+index 47d45897ed06..5cf44ccb02cf 100644
+--- a/drivers/gpu/drm/mcde/mcde_dsi.c
++++ b/drivers/gpu/drm/mcde/mcde_dsi.c
+@@ -1061,10 +1061,13 @@ static int mcde_dsi_bridge_attach(struct drm_bridge *bridge,
+ 	/* Attach the DSI bridge to the output (panel etc) bridge */
+ 	return drm_bridge_attach(encoder, d->bridge.next_bridge, bridge, flags);
  }
  
--static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge)
-+static void dsi_mgr_bridge_pre_enable(struct drm_bridge *bridge,
-+				      struct drm_atomic_commit *commit)
- {
- 	int id = dsi_mgr_bridge_get_id(bridge);
- 	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
- 	struct msm_dsi *msm_dsi1 = dsi_mgr_get_dsi(DSI_1);
- 	struct mipi_dsi_host *host = msm_dsi->host;
-@@ -329,11 +330,12 @@ void msm_dsi_manager_tpg_enable(void)
- 		if (IS_BONDED_DSI() && s_dsi)
- 			msm_dsi_host_test_pattern_en(s_dsi->host);
- 	}
- }
- 
--static void dsi_mgr_bridge_post_disable(struct drm_bridge *bridge)
-+static void dsi_mgr_bridge_post_disable(struct drm_bridge *bridge,
-+					struct drm_atomic_commit *commit)
- {
- 	int id = dsi_mgr_bridge_get_id(bridge);
- 	struct msm_dsi *msm_dsi = dsi_mgr_get_dsi(id);
- 	struct msm_dsi *msm_dsi1 = dsi_mgr_get_dsi(DSI_1);
- 	struct mipi_dsi_host *host = msm_dsi->host;
-@@ -443,13 +445,16 @@ static int dsi_mgr_bridge_attach(struct drm_bridge *bridge,
- 	return drm_bridge_attach(encoder, msm_dsi->next_bridge,
- 				 bridge, flags);
- }
- 
- static const struct drm_bridge_funcs dsi_mgr_bridge_funcs = {
+ static const struct drm_bridge_funcs mcde_dsi_bridge_funcs = {
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach = dsi_mgr_bridge_attach,
--	.pre_enable = dsi_mgr_bridge_pre_enable,
--	.post_disable = dsi_mgr_bridge_post_disable,
-+	.atomic_pre_enable = dsi_mgr_bridge_pre_enable,
-+	.atomic_post_disable = dsi_mgr_bridge_post_disable,
- 	.mode_set = dsi_mgr_bridge_mode_set,
- 	.mode_valid = dsi_mgr_bridge_mode_valid,
+ 	.attach = mcde_dsi_bridge_attach,
+ 	.mode_set = mcde_dsi_bridge_mode_set,
  };
  
- /* initialize bridge */
+ static int mcde_dsi_bind(struct device *dev, struct device *master,
 
 -- 
 2.54.0
