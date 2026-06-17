@@ -4,82 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DA0BCD98E4
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 15:02:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D806CD98E2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 15:02:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D37410EA4C;
-	Wed, 17 Jun 2026 15:02:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CEF810EA57;
+	Wed, 17 Jun 2026 15:02:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="SgOZlc+j";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="j52YnJ3T";
 	dkim-atps=neutral
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C76E010F005
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 15:02:39 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-bec49f7e35eso788717966b.2
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:02:39 -0700 (PDT)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26EFB10EA57
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 15:02:44 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-4624a44e152so923037f8f.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:02:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1781708558; x=1782313358;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1781708563; x=1782313363;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=lCa0uenWWZ89F0YVTYC+LQ6UyP30FoInUSkltfqEQkI=;
- b=SgOZlc+jpIaUlhe8SzlPa7w0tTaEHoE91dIkiUOZebxyECzUAGBev2beIQ6pB2Z7T+
- YPTAqbU4VFbvjVJaxuLB7So2RbQs5bT4pnHYcKJfLxCOxf5/7wMoZR2XwZ+u5wwKKwmY
- 5TqwEMq6rM5cUNLQ0zfLKvnXAskoLJUxtKGozCQluSsZaiTwwmYP0e36poMrLNnGrDcP
- ORn1JyB9/8vyN/nL3imlIhJ37jI09e3onsWiEurWIM2HqK39S53qegCHOCfFYsm4NG+D
- VYw4+dgerNvPju48jCBDWZHEjsFlysz8mno818RptkS3jhEQyT0qfePUWWz5YIu7JE21
- afgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781708558; x=1782313358;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=lCa0uenWWZ89F0YVTYC+LQ6UyP30FoInUSkltfqEQkI=;
- b=osoDOGGBUtwSWAjwI8eWel3SVAUpdYrQYkmJTL8IY37KKbfORLpRgqUoQ5vyOPcv/v
- DZbaIqACQHCsJuVcBuMcnA+filM8zCdsv5SDIAQjhTMjpGY/zkvioOfjL87rYGiGkIjL
- qhNJmp92RWFDIL7qjsXTxrfkLr7biDQPnLromZnFY8xwGs8qrvLJDJDBsJ5oUpqlJLAn
- 28aCV9Vgci+bpUXKbWko1ZQgLk/6gAk3oqJGLRDgw1+PY2FDiF2sdCXr1me1llNXaGtP
- 23+qYs9iuRyD/O2ieXyI/sJETAoWT4Q66YKyQ20rbtTY6xQCNe2cOrnI/7SB1RzzW5Sx
- E5vg==
-X-Gm-Message-State: AOJu0Yz6q7GIBoq9KEb031oadYE3AvKGmxoJcTBhzJuTkH2zsMCHEstU
- ibDXQIsg2GWrLnXpU0J/ldpHsK9UfJweuTA0bIQOKT8gGEri8y0aCwsRIH/lJ7yQQzecXMm7MsL
- W3nJtoKGV
-X-Gm-Gg: Acq92OFjGIm1v/SR2pWwJg+22I0UzboxvWxC0W/ZXL4NrZ//6gRq0+NlO5C8P9HI17H
- IrXMHHfdi/fzpxyeY3F0i2kDNwZIXujCl4CK8eSoGz+31x5SY4RO3tSRyeRfDSlmeOBJailvcEI
- 1Ta7ekLpNKVdMTTpYFuTWG7W3H9teAyCxHBC5tZgPEQfDADlzwoZGr8aaHjeEqVlniIE0p7/Yma
- WO28t/cGCfy5JIkBXSXFdv30aRCDcSzOd/b2uM+cvIdapSiAq5q3CwTkbujOyiLSdS7IHEzKFNH
- pEpbXIdreCvNM/sXLttt1T+BJ7Q9Rm0HB4slHeq3YM/ejNEnbq/uVTMG0Ewh15Px1vnawMIXWeU
- HGV14NddMTg2/S7JeEcN16suIbUxuKlJT57Rx3fIZoQBi9kj955dHtXbY2H/TomknDMQVbdek8V
- n/rgwVcV5YU2KFbUfe2Jzd/P8jFE4asO1MbFmIY4ETmp2WUTIQMoB1xjJk
-X-Received: by 2002:a17:906:9fca:b0:c03:b8c6:cc27 with SMTP id
- a640c23a62f3a-c05a6bded8bmr287227266b.24.1781708557936; 
- Wed, 17 Jun 2026 08:02:37 -0700 (PDT)
+ bh=K+7QC6LAPQa8dQnEwdpFa6EKhfpyuQLPCL3jRYAOfa4=;
+ b=j52YnJ3Toz58n4UmdiclewrvK+7ZTk3xB/G/2iKEPh2ZN3mv+zbxrNJ0XZlkeSoSM+
+ CP8gYFOnDn85OLTwWJQrIBj6uO6SacxEifL8KrC4E51cQNc61mAqUFRRNQXLHFOI6wd1
+ pRH/OZB/zFvFlh5gE2prcXr5d0ksRQFX8Bh6wufysrf68N7PRz06YnbybckhFJZc/Tv5
+ vviPmML48keIMQtyVNewdsqQ6CKPR0ypyXvqLf5ih0WOqTCu/KU8kI2JLWkY1o3y57RJ
+ sEXkiR6xu3wy2wSrWUIRkXyZxLMyjlM/GfehBYHJl+hIZmUYNCPMmrdUJao88GoQuTv5
+ h/ZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781708563; x=1782313363;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=K+7QC6LAPQa8dQnEwdpFa6EKhfpyuQLPCL3jRYAOfa4=;
+ b=GVjBFCHYp0QLMc/oJUjza8ei+OsUk7EM6z4rcxKC9cu7dTPr87y386m6aqJpsU8myg
+ PJN2WV1EQ/JW2hvuvy8DXQURUnSldzzIy+7O7tqFuV2v2rDxdLy0XdTaXdltTkMhXoAY
+ YVVpVdoo+w3srM7yG/W3FjN3YzArQnt4V0SJy4mAtR5f9fn3cJYyvSpweMEe8E8yd9i0
+ UeAHgB5NVV45J+2hIxyqgUZnwLRl0YCH+IH5PgpvN0HW9E3hhrKIWFAmxIuiTv8iYEwg
+ JY+4N0AJtB3lBiAqs8oolSspqUa8dvWtbWZgP0mgtFSynkzqpr3Dnk3VLDZvi1WNaq+J
+ ISWQ==
+X-Gm-Message-State: AOJu0YwXZo5vifzNNHP/k8RUc988ttr/W0GXIVkWRTdC5B9+yBAWvNTE
+ ntbJwTKMDtvgmjA6fpx+h1DuNyOWwSbcp7tgmc5+7CU5giYWuvXcUNeWDatvgVRlZa5gZYNlFX8
+ pVd/xn4fT
+X-Gm-Gg: AfdE7ckrl0dSDtRBbM+bepeYfhoj2HTA4ubU789k7fUUSxOaDJdrZ5drPyoo6aRIzr4
+ 7EdjZn8iWuXqXLcYU4pTSwW+/Tk3Ow7LJwzdJX07bkcfoyOlLzRcdEc/N0R1M7dWod8JSj5jazh
+ svHSJesHOS9jqhZsraqeZXUvWKkC9JG1TfUntieP78lNubE9VgpnAFBtGEnjceGFhW/l8FOL1qq
+ qqeB+tJ031c5WOUmXzl/MtnH8Z5lM7ghFEZM0MGcdWnzXC7b6961+CbGjG4ZKFpYYLIYCPhzG/W
+ 1p9VXOw/9CTm2L38klR9N5YLH7fe4SKRrjyys6vnYWbcORao9+AILNo6X2SsMC6ZWaUW5r/mgrm
+ LUjg+vMcz8aBqlh1TjJi0kj1HWBzP9YW/qNkJg2SMZFiqW6FsQ9B2JhAgnv9Kcxp+tcSVfD4OCL
+ ahPQu+pK+CFmWZA3A4848uEdrwepRn561N7FP5KwWjW2Gide3NSlJUKw/j
+X-Received: by 2002:adf:ef8d:0:b0:460:1f32:628d with SMTP id
+ ffacd0b85a97d-4623683a4bdmr5928828f8f.11.1781708562488; 
+ Wed, 17 Jun 2026 08:02:42 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([137.220.119.72])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4606f26f1cdsm57264311f8f.11.2026.06.17.08.02.35
+ ffacd0b85a97d-4606f26f1cdsm57264311f8f.11.2026.06.17.08.02.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2026 08:02:36 -0700 (PDT)
+ Wed, 17 Jun 2026 08:02:41 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: dri-devel@lists.freedesktop.org
 Cc: Mike Lothian <mike@fireburn.co.uk>, rust-for-linux@vger.kernel.org,
- Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Lyude Paul <lyude@redhat.com>,
  Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  Gary Guo <gary@garyguo.net>,
  =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
  Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 0/5] rust: drm: minimal KMS bindings, EDID read, rotation,
- HDCP defs
-Date: Wed, 17 Jun 2026 16:02:22 +0100
-Message-ID: <20260617150232.2210-1-mike@fireburn.co.uk>
+ Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Asahi Lina <lina+kernel@asahilina.net>, Lorenzo Stoakes <ljs@kernel.org>,
+ Joel Fernandes <joelagnelf@nvidia.com>, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 3/4] rust: drm: expose drm::Device::as_raw()
+Date: Wed, 17 Jun 2026 16:02:25 +0100
+Message-ID: <20260617150232.2210-4-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260617150232.2210-1-mike@fireburn.co.uk>
+References: <20260617150232.2210-1-mike@fireburn.co.uk>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -98,70 +101,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This RFC series exposes enough of the C KMS API to Rust for a driver to
-bring up an atomic mode-setting pipeline with the drm_simple_display_pipe
-helper (one CRTC + primary plane + encoder) and install a real EDID read
-off its own transport:
+A KMS driver built on the minimal bindings added earlier in this series
+needs the raw `struct drm_device` pointer to hand to the C KMS helpers
+(drm_simple_display_pipe_init, drm_connector_init, the drm_atomic_helper_*
+family, …) until safe Rust KMS abstractions cover them.
 
-  1/4  KMS headers + Driver::FEAT_MODESET/FEAT_ATOMIC
-  2/4  <drm/drm_edid.h>: drm_edid_alloc/_connector_update/_add_modes
-  3/4  pub drm::Device::as_raw() escape hatch (separate, contentious bit)
-  4/4  <drm/drm_blend.h> (atomic plane rotation property) + a rust_helper
-       for drm_atomic_get_new_crtc_state() (inspect proposed CRTC state
-       from a mode_config atomic_check)
+Make drm::Device::as_raw() pub, documented as a temporary escape hatch
+with the caller's locking/lifetime obligations spelled out. This is the
+part of the KMS work most likely to draw objections, so it is split into
+its own patch: it can be dropped or reworked (e.g. replaced by narrow safe
+wrappers, or kept pub(crate) behind per-helper methods) without disturbing
+the feature flags and header bindings, which are useful on their own.
 
-It is deliberately an RFC and interim: it does NOT add safe Rust KMS
-abstractions (CRTC/plane/connector wrappers - an active upstream effort),
-only the raw binding surface plus the trait/visibility tweaks a driver
-needs to call the C helpers itself.
+Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+Assisted-by: Claude:claude-opus-4-8 [Claude-Code]
+---
+ rust/kernel/drm/device.rs | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-FEAT_MODESET / FEAT_ATOMIC follow the existing FEAT_RENDER idiom exactly
-(per-feature bool associated consts folded into compute_features()), so
-GEM-only drivers are unaffected.
-
-drm::Device::as_raw() is made pub as a documented temporary escape hatch
-for calling the C KMS helpers until safe wrappers exist. That is the part
-most likely to draw objections, so it is split into its own patch (3/3):
-the feature flags and header bindings in 1/3 and 2/3 are useful on their
-own and can land even if the escape hatch is reworked or dropped (e.g.
-replaced by narrow per-helper safe wrappers).
-
-drm_blend.h (4/4) exposes drm_plane_create_rotation_property() so a
-driver can offer the standard atomic rotation property, and adds a
-rust_helper for the static-inline drm_atomic_get_new_crtc_state() so a
-driver can read a CRTC's proposed state during atomic_check() (the vino
-driver uses it to reject a multi-head modeset that would exceed the USB
-bandwidth). Like the rest of the series it is interim raw-binding surface.
-
-drm_hdcp.h (5/5) exposes <drm/display/drm_hdcp.h> so a Rust HDCP driver
-can use the canonical HDCP 2.2 message IDs, length constants and hdcp2_*
-message structs instead of redefining them (the vino driver runs HDCP 2.2
-over a vendor USB transport and reuses only the message definitions, not
-the drm_hdcp_helper state machine). It only pulls in <linux/types.h>.
-
-Note: a related but independent fix - using drm_dev_unplug() instead of
-drm_dev_unregister() in Registration::drop, which closes a real
-use-after-free for Rust DRM drivers on a hot-removable bus - is sent as a
-standalone, non-RFC patch ("rust: drm: unplug the device on Registration
-drop") rather than buried in this RFC, since it stands alone and should
-not be gated on the KMS-surface discussion.
-
-Factored out of an out-of-tree in-kernel Rust DisplayLink DL3 dock driver
-that drives a virtual connector and reads the dock's downstream EDID; but
-the bindings are generic (the same path simpledrm/gud/udl use).
-Compile-tested in-tree against drm-next.
-
-Mike Lothian (3):
-  rust: drm: add minimal KMS bindings for simple-display-pipe drivers
-  rust: drm: expose drm_edid.h for reading connector EDID
-  rust: drm: expose drm::Device::as_raw()
-  rust: drm: expose drm_blend.h and the atomic new-CRTC-state helper
-  rust: drm: expose <drm/display/drm_hdcp.h> HDCP 2.2 message definitions
-
- rust/bindings/bindings_helper.h | 10 ++++++++++
- rust/kernel/drm/device.rs       | 18 +++++++++++++++++-
- rust/kernel/drm/driver.rs       | 17 +++++++++++++++++
- 3 files changed, 44 insertions(+), 1 deletion(-)
-
---
+diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+index 1d3319b713e2..c89c947b399a 100644
+--- a/rust/kernel/drm/device.rs
++++ b/rust/kernel/drm/device.rs
+@@ -296,7 +296,15 @@ pub struct Device<T: drm::Driver, C: DeviceContext = Registered> {
+ }
+ 
+ impl<T: drm::Driver, C: DeviceContext> Device<T, C> {
+-    pub(crate) fn as_raw(&self) -> *mut bindings::drm_device {
++    /// Returns a raw pointer to the underlying `struct drm_device`.
++    ///
++    /// This is a temporary escape hatch for drivers that need to call C KMS helpers
++    /// not yet covered by safe Rust abstractions; it is expected to be removed (or
++    /// narrowed to `pub(crate)`) once the in-progress safe KMS layer can express
++    /// those operations. The returned pointer is valid for as long as `self` is
++    /// borrowed; the caller must uphold the locking and lifetime rules of every C
++    /// function it is passed to.
++    pub fn as_raw(&self) -> *mut bindings::drm_device {
+         self.dev.get()
+     }
+ 
+-- 
 2.54.0
+
