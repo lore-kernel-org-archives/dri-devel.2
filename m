@@ -4,51 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65F7FCD98ED
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 08:09:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6712CCD98E2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 08:11:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9557310E960;
-	Wed, 17 Jun 2026 08:09:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C406D10EEA1;
+	Wed, 17 Jun 2026 08:11:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="Ujm/M1hV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="keYoykJI";
 	dkim-atps=neutral
-Received: from mail-m81248.xmail.ntesmail.com (mail-m81248.xmail.ntesmail.com
- [156.224.81.248])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E171810E960
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:09:35 +0000 (UTC)
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 42babb538;
- Wed, 17 Jun 2026 16:09:32 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Damon Ding <damon.ding@rock-chips.com>,
- kernel test robot <lkp@intel.com>
-Subject: [PATCH v1] drm/bridge: of-display-mode-bridge: Fix missing static
- const for the bridge funcs
-Date: Wed, 17 Jun 2026 16:07:55 +0800
-Message-Id: <20260617080755.186368-1-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9ed4a0da4c03a8kunm894ad5d3100114
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCT01NVklKQx1DGh1KTR5PS1YVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
- 9PT0tVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
- b=Ujm/M1hVlK+YRle0YoqxJdBkguaeKgV1Xy0k0jRCXnGaCqjXRVgaaVsu/nbS/Gv3mLDyEQT5uLdbaCeVyMiSx7Lotg9d8ZI2tZLVKlQGBygGSpT72Mrold98Sgx52ZsYQ93D344XMe98Q8WqLg5K2J/dXyL9GPidX1cKrBC3o4o=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=RJm8BpWTv3NBC6m8Ens3pSKQF1AhwDpnF1kcx9evs+A=;
- h=date:mime-version:subject:message-id:from;
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18A3B10EEA1
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:11:33 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 392C7600AB;
+ Wed, 17 Jun 2026 08:11:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0CD41F000E9;
+ Wed, 17 Jun 2026 08:11:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781683891;
+ bh=DGyTkWofSz/FPfY2ZGkAAhsr14BRhfEZM+zZ+Pxo9xM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=keYoykJId3a1bOCp5KcblSpX1qdL8vt1e5z02K120PuU6Vl/Chw1yM1WZBIyV8PPb
+ wIyTeY2q8qz6vnvX3T6RnEadxsDYWHNwpjWrjzCdEvOdgCMvz5Wgietpd/cgYySr0e
+ vxQtPO8Fskc1zCmJ9HTxOp8dT3juV2gHVMkHKrSORl7IWM2BBPVoiLQ2jo/Bn/bLvc
+ 66T4OeRj48fmUTavmbr7XYTHrZrJR/U/GHB+Citm7B3BU6ZRNt8UUsQx9ddOSdKFoA
+ CtwpkBfpEGZO/087W2qOvtm1mDTIsEtXzCP1k2AZyZ17Tjq+E3SBTYkwRSd/Nwr3al
+ +fcfmW5+rop9A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 07/14] mfd: lm3533: Use dev_groups in struct
+ device_driver
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260617080031.99156-8-clamor95@gmail.com>
+References: <20260617080031.99156-1-clamor95@gmail.com>
+ <20260617080031.99156-8-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 17 Jun 2026 08:11:31 +0000
+Message-Id: <20260617081131.A0CD41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,40 +55,74 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add static qualifier for of_display_mode_bridge_funcs to resolve the
-sparse warning:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Unintentional user-space ABI breakage by moving custom sysfs attri=
+butes from the backlight class device to the platform device.
+--
 
-drivers/gpu/drm/bridge/of-display-mode-bridge.c:54:25: sparse: sparse:
-symbol 'of_display_mode_bridge_funcs' was not declared. Should it be
-static?
+commit b4eaddced56809e9f87ffe143724f151f0e7013e
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-Also mark the structure const as required by devm_drm_bridge_alloc()
-parameter type constraints.
+mfd: lm3533: Use dev_groups in struct device_driver
 
-Fixes: ba2db93cf3d5 ("drm/bridge: Move legacy bridge driver out of imx directory for multi-platform use")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202606170744.FUStcWaB-lkp@intel.com/
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
----
- drivers/gpu/drm/bridge/of-display-mode-bridge.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Instead of creating and removing the device sysfs attributes directly
+during probe and remove of the driver, respectively, use dev_groups in
+struct device_driver to point to the attribute definitions and let the
+core take care of creating and removing them.
 
-diff --git a/drivers/gpu/drm/bridge/of-display-mode-bridge.c b/drivers/gpu/drm/bridge/of-display-mode-bridge.c
-index cb15713f3a79..e66dae168fd0 100644
---- a/drivers/gpu/drm/bridge/of-display-mode-bridge.c
-+++ b/drivers/gpu/drm/bridge/of-display-mode-bridge.c
-@@ -51,7 +51,7 @@ static int of_display_mode_bridge_get_modes(struct drm_bridge *bridge,
- 	return 0;
- }
- 
--struct drm_bridge_funcs of_display_mode_bridge_funcs = {
-+static const struct drm_bridge_funcs of_display_mode_bridge_funcs = {
- 	.attach = of_display_mode_bridge_attach,
- 	.get_modes = of_display_mode_bridge_get_modes,
- };
--- 
-2.34.1
+No intentional functional impact.
 
+> diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backligh=
+t/lm3533_bl.c
+> index 4d6f680334802..9ef171d3aaeab 100644
+> --- a/drivers/video/backlight/lm3533_bl.c
+> +++ b/drivers/video/backlight/lm3533_bl.c
+[ ... ]
+> @@ -304,28 +309,17 @@ static int lm3533_bl_probe(struct platform_device *=
+pdev)
+> =20
+>  	platform_set_drvdata(pdev, bl);
+> =20
+> -	ret =3D sysfs_create_group(&bd->dev.kobj, &lm3533_bl_attribute_group);
+> -	if (ret < 0) {
+> -		dev_err(&pdev->dev, "failed to create sysfs attributes\n");
+> -		return ret;
+> -	}
+> -
+>  	backlight_update_status(bd);
+[ ... ]
+> @@ -377,6 +370,7 @@ static struct platform_driver lm3533_bl_driver =3D {
+>  	.driver =3D {
+>  		.name	=3D "lm3533-backlight",
+>  		.pm	=3D &lm3533_bl_pm_ops,
+> +		.dev_groups =3D lm3533_bl_attribute_groups,
+
+[Severity: High]
+Does moving these attributes to the platform driver break the userspace ABI?
+
+The old code explicitly created custom sysfs attributes on the backlight
+device's kobject (&bd->dev.kobj), placing them in the backlight class
+directory, for example under /sys/class/backlight/<name>/.
+
+By attaching the attribute groups to the platform driver via .dev_groups, t=
+he
+driver core will now create these attributes on the parent platform device
+instead.
+
+Since the commit message states there is no intentional functional impact,
+could this path change accidentally break userspace tools or udev rules
+that expect to find these custom attributes inside the backlight class
+directory?
+
+>  	},
+>  	.probe		=3D lm3533_bl_probe,
+>  	.remove		=3D lm3533_bl_remove,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617080031.9915=
+6-1-clamor95@gmail.com?part=3D7
