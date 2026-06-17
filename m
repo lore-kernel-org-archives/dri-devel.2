@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9198CD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BAC2CD98E4
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46A5A10EF6E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F83610EF70;
 	Wed, 17 Jun 2026 10:15:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nnRMRfge";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RenSp4lT";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E549010EF6E
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F305410EF6A
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CE54843BDE;
- Wed, 17 Jun 2026 10:15:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A18F1F00A3A;
- Wed, 17 Jun 2026 10:15:48 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D460644482;
+ Wed, 17 Jun 2026 10:15:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41D4C1F00A3A;
+ Wed, 17 Jun 2026 10:15:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781691348;
- bh=W7XD1p6vpf1n5f2oegTSuHppZ7II6ZWtw8Io2KTWY0I=;
+ s=k20260515; t=1781691332;
+ bh=zWqXHH35TLpgNIyzO1Il/t1kitMV/+QP3CclrZr/K0I=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=nnRMRfgemwANxruBclxbx+RufcYdyhrGAXLS1BtcJD2l3qnPqmhvJ29L9OZAlQLuw
- vj9Zq1IkmKT+jVWFdAcnIggVRKJChUAxedqT4T2Hyr4of7KPWU0eB63MrABxWtknU4
- 1G12KNH+2ZhsCcaG/In4bvCdigEnzjMuEIY8u1XJjk8JWu3zfg28S1N9qAHu5LUNi1
- HktWUH2SGUeeGUWgWBNlzLJDF2FywQQSbvtSovqwePsfRIP+66lwLzby+7w7eluAhK
- 7d76H6vMbOxs091zhpALy5AW10ztuf6hANPTC4vjqJf2B7DiXQJO2lKuiQ5R9udg4o
- 2CIx71HzvTs6g==
+ b=RenSp4lTaGOxs+iuNYfLNj27Q1EnL335eeAbQ8xrvDR0eOuHK2d2jEtEzCVLVZVmu
+ 1NqHwnLmjUj3mGmPklSbxlSzGFhp17/R8kflcgDsPDHf9olJxDRLRnquvjgxR4/y1R
+ wVA+J1sakvC4yDJW/j2dP7icPcZPQFuN3SC8osDmLsIvBOhGumRlWUNX9si98fjJEX
+ mwIpTiudqv8gPDxl8XeGzV1P721eeQsFmNTWeC66LR4jcdXFVSp9TdYfOoTuHuVB5e
+ /GC1BySBvzlRqGMpNXEa7rx1HyEEiKAUACHmwgGAKX5YvWoUbi924t+uV1/IsCcbuW
+ iv/ZmtCbVmLAg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 17 Jun 2026 12:14:47 +0200
-Subject: [PATCH 22/37] drm/bridge: ti-tfp410: Switch to atomic bridge callbacks
+Date: Wed, 17 Jun 2026 12:14:41 +0200
+Subject: [PATCH 16/37] drm/bridge: parade-ps8622: Switch to atomic bridge
+ callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-drm-all-atomic-bridges-v1-22-b63e6316166b@kernel.org>
+Message-Id: <20260617-drm-all-atomic-bridges-v1-16-b63e6316166b@kernel.org>
 References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 In-Reply-To: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -49,12 +50,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4275; i=mripard@kernel.org;
- h=from:subject:message-id; bh=T27C5N/Qar2HbsRAXAbwxoM5vtBEiI+GnsjgteVPhxc=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxROSxFO7D09sOcqRYxOytWOZo+tPN6vrHmJtbXyRx
- o7miWIdU1kYhDkZZMUUWZ7IhJ1e3r64ysF+5Q+YOaxMIEMYuDgFYCJfIhkbNm9/Xyhj5crFJmZe
- blv/78vPen+DmRkn42SskqL2FnI9LH/flLfNoHKG3hc5Vu4zXOWM9YFFnPmJXy99FE4oj2l5pLX
- p/75eCa6/SYzn9y8tVSv7WsxTU/Xt3YXsOLb0Gp2i26t+AQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5012; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=p8JBolZBqC3+/aRSm6KCSaRxgHULHSJ+J5tUdCr9hrE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxb19N7ZtmC+plHxm7fOihUzqN9WuVXRwn4i6sDtv3
+ g6RjlSTjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRch7GhvtBWQ573h2YsOKo
+ pF+z0a/oP2fDxLLf8LCdcr+s7fnmu4QFw7EAnp9bzt3k22X9bM4rR8Yavjlb57vqCt6qzCu1Frj
+ A3yK7d/prE/15rzbsyLfVMJrwUnMi51S76o7De2X/5tncabsBAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,10 +73,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The ti-tfp410 bridge still uses the deprecated non-atomic bridge
+The parade-ps8622 bridge still uses the deprecated non-atomic bridge
 callbacks.
 
-Switch to their atomic counterparts.
+Switch to their atomic counterparts, adding the bridge state
+handlers if not already present.
 
 Generated by the following Coccinelle script:
 
@@ -109,7 +111,7 @@ identifier f;
  	...,
  };
 
-@ update_pre_enable_struct depends on is_bridge @
+@ update_pre_enable_struct depends on (is_bridge && !has_create_state) @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -132,7 +134,7 @@ identifier b;
 	...
  }
 
-@ update_enable_struct depends on is_bridge @
+@ update_enable_struct depends on (is_bridge && !has_create_state) @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -155,7 +157,7 @@ identifier b;
 	...
  }
 
-@ update_disable_struct depends on is_bridge @
+@ update_disable_struct depends on (is_bridge && !has_create_state) @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -178,7 +180,7 @@ identifier b;
 	...
  }
 
-@ update_post_disable_struct depends on is_bridge @
+@ update_post_disable_struct depends on (is_bridge && !has_create_state) @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -203,51 +205,69 @@ identifier b;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/ti-tfp410.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/bridge/parade-ps8622.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/ti-tfp410.c b/drivers/gpu/drm/bridge/ti-tfp410.c
-index 6f06f7b4e992..f0a14f52aaac 100644
---- a/drivers/gpu/drm/bridge/ti-tfp410.c
-+++ b/drivers/gpu/drm/bridge/ti-tfp410.c
-@@ -172,18 +172,20 @@ static void tfp410_detach(struct drm_bridge *bridge)
- 		drm_bridge_hpd_disable(dvi->bridge.next_bridge);
- 		cancel_delayed_work_sync(&dvi->hpd_work);
- 	}
- }
+diff --git a/drivers/gpu/drm/bridge/parade-ps8622.c b/drivers/gpu/drm/bridge/parade-ps8622.c
+index f879a1df077d..33844db753aa 100644
+--- a/drivers/gpu/drm/bridge/parade-ps8622.c
++++ b/drivers/gpu/drm/bridge/parade-ps8622.c
+@@ -334,11 +334,12 @@ static int ps8622_backlight_update(struct backlight_device *bl)
  
--static void tfp410_enable(struct drm_bridge *bridge)
-+static void tfp410_enable(struct drm_bridge *bridge,
-+			  struct drm_atomic_commit *commit)
+ static const struct backlight_ops ps8622_backlight_ops = {
+ 	.update_status	= ps8622_backlight_update,
+ };
+ 
+-static void ps8622_pre_enable(struct drm_bridge *bridge)
++static void ps8622_pre_enable(struct drm_bridge *bridge,
++			      struct drm_atomic_commit *commit)
  {
- 	struct tfp410 *dvi = drm_bridge_to_tfp410(bridge);
+ 	struct ps8622_bridge *ps8622 = bridge_to_ps8622(bridge);
+ 	int ret;
  
- 	gpiod_set_value_cansleep(dvi->powerdown, 0);
+ 	if (ps8622->enabled)
+@@ -379,17 +380,19 @@ static void ps8622_pre_enable(struct drm_bridge *bridge)
+ 	}
+ 
+ 	ps8622->enabled = true;
  }
  
--static void tfp410_disable(struct drm_bridge *bridge)
-+static void tfp410_disable(struct drm_bridge *bridge,
+-static void ps8622_disable(struct drm_bridge *bridge)
++static void ps8622_disable(struct drm_bridge *bridge,
 +			   struct drm_atomic_commit *commit)
  {
- 	struct tfp410 *dvi = drm_bridge_to_tfp410(bridge);
- 
- 	gpiod_set_value_cansleep(dvi->powerdown, 1);
- }
-@@ -240,12 +242,12 @@ static int tfp410_atomic_check(struct drm_bridge *bridge,
+ 	/* Delay after panel is disabled */
+ 	msleep(PS8622_PWMO_END_T12_MS);
  }
  
- static const struct drm_bridge_funcs tfp410_bridge_funcs = {
- 	.attach		= tfp410_attach,
- 	.detach		= tfp410_detach,
--	.enable		= tfp410_enable,
--	.disable	= tfp410_disable,
-+	.atomic_enable = tfp410_enable,
-+	.atomic_disable = tfp410_disable,
- 	.mode_valid	= tfp410_mode_valid,
- 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_get_input_bus_fmts = tfp410_get_input_bus_fmts,
+-static void ps8622_post_disable(struct drm_bridge *bridge)
++static void ps8622_post_disable(struct drm_bridge *bridge,
++				struct drm_atomic_commit *commit)
+ {
+ 	struct ps8622_bridge *ps8622 = bridge_to_ps8622(bridge);
+ 
+ 	if (!ps8622->enabled)
+ 		return;
+@@ -426,13 +429,16 @@ static int ps8622_attach(struct drm_bridge *bridge,
+ 	return drm_bridge_attach(ps8622->bridge.encoder, ps8622->panel_bridge,
+ 				 &ps8622->bridge, flags);
+ }
+ 
+ static const struct drm_bridge_funcs ps8622_bridge_funcs = {
+-	.pre_enable = ps8622_pre_enable,
+-	.disable = ps8622_disable,
+-	.post_disable = ps8622_post_disable,
++	.atomic_create_state = drm_atomic_helper_bridge_create_state,
++	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
++	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
++	.atomic_pre_enable = ps8622_pre_enable,
++	.atomic_disable = ps8622_disable,
++	.atomic_post_disable = ps8622_post_disable,
+ 	.attach = ps8622_attach,
+ };
+ 
+ static const struct of_device_id ps8622_devices[] = {
+ 	{.compatible = "parade,ps8622",},
 
 -- 
 2.54.0
