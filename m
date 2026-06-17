@@ -4,54 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DBC5CD98EE
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 09:20:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38A35CD98EE
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 09:25:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1C1410E979;
-	Wed, 17 Jun 2026 09:20:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99FE510EF01;
+	Wed, 17 Jun 2026 09:25:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jT/cHbPT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z63GtVAn";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B13410E979
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 09:20:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781688038; x=1813224038;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=DivbDFT5qPVgVf5rxztUGE/zgHfwaMbiE9v/ib+p1oo=;
- b=jT/cHbPTu6zkS6uGRM5b+HRyTM6HXgAvLyDi7zXwkckqzMbA11Bbi8J/
- zSD1y1t9UezObmJS7wFEQAVzl9/dDFESyJyaUNuSVHiTAtEUJZSEyxXSi
- q6kGfczvsgiKu1LmuL0Ca66CDoVWi/ojRR6oNXXDTAh7VdLHEzifN/6NU
- rBUSK9kCPQ8txOseSOtQa8gARJdPUH7gjIk7s3Upty4BpfqhBar/pdj1o
- 7DclyxGhuQBa4WaTnWplxPNyCWGq/+hZmKFyRSKYpQ9T1d6Flrlw5POmX
- rLcxnlZm6YhKyZ+CHM0/cpQQjRj+2YY2B6Nb8EZStvVKl/TRW3wGpj8cb g==;
-X-CSE-ConnectionGUID: 3sSECd2bT3OXZHwRQAsH5g==
-X-CSE-MsgGUID: Ku0YCfJzRCqEB2mJyp5a0A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="93043511"
-X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; d="scan'208";a="93043511"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2026 02:20:38 -0700
-X-CSE-ConnectionGUID: lvRJ5TzNTz+iwyORvaB1ug==
-X-CSE-MsgGUID: oCv6ZbTwQsi5riRwlXu7hA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; d="scan'208";a="278209304"
-Received: from pl-npu-pc-kwachow.igk.intel.com ([10.91.220.239])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2026 02:20:37 -0700
-From: Karol Wachowski <karol.wachowski@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Karol Wachowski <karol.wachowski@linux.intel.com>,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-Subject: [PATCH] accel/ivpu: Drop IRQF_ONESHOT to allow IPC IRQ threading on
- PREEMPT_RT
-Date: Wed, 17 Jun 2026 11:20:31 +0200
-Message-ID: <20260617092031.3016582-1-karol.wachowski@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B2BE10EF01
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 09:25:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 96136600AA;
+ Wed, 17 Jun 2026 09:25:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CC1C1F000E9;
+ Wed, 17 Jun 2026 09:25:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781688356;
+ bh=kNmA5R3v1h2GDeEpX7P6zR+iU210JS6UXSK5tbKyMCc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Z63GtVAnM9NeW3gc0rqRwmF1LOtifNmvF8NAE6seJFxwvSzQ49A2iUaGhLRp+kf7b
+ y1LHKg+lNZ96uhLoh4qkUKHKUb4U2endrZi8748Y3lFHA9oGJzbOoOSoZqEGxdeM24
+ WxdZSogWzShUc8EdhB+0I8NQwDqIQfE50cCwQi+c2rXhzA5KQtcqdG8VGet0SgOy8j
+ Vyk/2yAclKoqFgloi2uv6SeZkI+ZyXHRnBGISXh8vD7t+xxJuCapPGOIak6pxZtcv2
+ L51XpN8+2XYutplBlxzaLsgs1DKzcqcPQ44L3c+JoZOnXf5uNmz0kN6H9EqYa0pxqo
+ 1+tUJsR0u6g5w==
+Date: Wed, 17 Jun 2026 12:25:50 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Zhiping Zhang <zhipingz@meta.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Michael Guralnik <michaelgur@nvidia.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian Konig <christian.koenig@amd.com>,
+ Alex Williamson <alex@shazbot.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, kvm@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v8 4/4] RDMA/mlx5: get tph for p2p access when
+ registering dma-buf mr
+Message-ID: <20260617092550.GT327369@unreal>
+References: <20260615065912.2177918-1-zhipingz@meta.com>
+ <20260615065912.2177918-5-zhipingz@meta.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260615065912.2177918-5-zhipingz@meta.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,41 +64,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The IPC RX hardirq handler matches consumers under a spinlock and
-allocates rx_msg buffers. On PREEMPT_RT these spinlocks become sleeping
-locks and the allocation may sleep, neither of which is allowed in true
-hardirq context, resulting in "sleeping function called from invalid
-context" splats.
+On Sun, Jun 14, 2026 at 11:59:01PM -0700, Zhiping Zhang wrote:
+> Query dma-buf PCI TPH metadata when registering a dma-buf MR for
+> peer-to-peer access to a PCIe endpoint and use it to program
+> requester-side TPH on the outbound mkey. If the exporter has no
+> metadata, fall back to the existing no-TPH path.
+> 
+> Use mlx5_st_alloc_index_by_tag() to translate exporter-provided
+> steering tags into local ST entries when table mode is active, and add
+> mlx5_st_get_index() for DMAH-backed flows that already carry an ST
+> index.
+> 
+> For TPH-backed FRMRs, keep the extra ST-table reference tied to MR
+> lifetime rather than pooled mkey lifetime. Acquire the ref before MR
+> creation and release it again when the MR is returned to the pool or
+> the backing mkey is destroyed, while leaving the generic FRMR pool core
+> unchanged.
+> 
+> Import the DMA_BUF namespace for the new dma_buf_get_pci_tph() call so
+> modular mlx5_ib builds link cleanly.
 
-IRQF_ONESHOT makes genirq keep the primary handler in hardirq even when
-forced threading is enabled, so on PREEMPT_RT the handler cannot be
-threaded. Drop the flag so the primary handler is threaded on PREEMPT_RT
-and the IPC RX path runs in a context where sleeping is allowed. On the
-MSI interrupt chip (IRQCHIP_ONESHOT_SAFE) the flag was stripped anyway,
-so non-RT behaviour is unchanged.
+The commit message explains *what* the patch does, but it lacks context on
+*why* the change is needed. The 'what' is mostly clear from reading the code;
+the important part missing here is the rationale behind the change.
 
-Fixes: 85c9cc2d25f8 ("accel/ivpu: Use threaded IRQ for IPC callback processing")
-Cc: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-Cc: Karol Wachowski <karol.wachowski@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
----
- drivers/accel/ivpu/ivpu_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
-index 6b34c52b1fba..95120957f42a 100644
---- a/drivers/accel/ivpu/ivpu_drv.c
-+++ b/drivers/accel/ivpu/ivpu_drv.c
-@@ -623,7 +623,7 @@ static int ivpu_irq_init(struct ivpu_device *vdev)
- 	vdev->irq = pci_irq_vector(pdev, 0);
- 
- 	ret = devm_request_threaded_irq(vdev->drm.dev, vdev->irq, ivpu_hw_irq_handler,
--					ivpu_ipc_irq_thread_handler, IRQF_NO_AUTOEN | IRQF_ONESHOT,
-+					ivpu_ipc_irq_thread_handler, IRQF_NO_AUTOEN,
- 					DRIVER_NAME, vdev);
- 	if (ret)
- 		ivpu_err(vdev, "Failed to request an IRQ %d\n", ret);
--- 
-2.43.0
-
+Thanks
