@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F4B0CD98F1
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12514CD98F6
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:16:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C814910EF73;
-	Wed, 17 Jun 2026 10:15:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3653010EF77;
+	Wed, 17 Jun 2026 10:15:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MZYOBCOC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YzpRTSmm";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6C7210EF72
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D12910EF6E
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D016643A1D;
- Wed, 17 Jun 2026 10:15:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B6491F000E9;
- Wed, 17 Jun 2026 10:15:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 86510443C9;
+ Wed, 17 Jun 2026 10:15:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3C111F000E9;
+ Wed, 17 Jun 2026 10:15:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781691356;
- bh=5vpsS+dx5xQ5E3n0qYw0Q3jh1EAx4nVQajbijQilOzA=;
+ s=k20260515; t=1781691343;
+ bh=Z+3JN5tmTUYzM34sY4QnqzPZBuW2bzoRfr7xnhJ5en0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=MZYOBCOCVY+b7gYiiWmAfc+wWOEwmDjKkVRCwpZ8A25FSpifJ5K8ut+5rM10KsjoO
- 0BtNiE1aT2Q6slaIBHltuy33gDAOIoE+bVNbC3gQj9xsuBrTIVg2W0/XauGvnNr4l1
- /NjAfAyyQB8uSOIi3xpdTNbsrNGSOLgOTYaAwonZndc6rrY0iso2X26z8+4hDGF5UQ
- L5lhxFjSg784GOb6l5Zt9wf9ScxuGaclIgVT8GNQSVgivWEgWQumjpXb3NsLE1Q7Wz
- iPl1PqSfsMKerAgQEMqfADUntY7HA0yL1zZ07oYqr5zBfTcp4xOk+EmHmrG7s3ad89
- snpA0kqqF3S5g==
+ b=YzpRTSmmmrGthyQip6y+XIcac9fdgQj0S6NnsDc9qmcfNWznkIdZb0conzAK4TSUJ
+ 4pWnMmEWubbD2CUhBaNvsu4BxxptHEAF8MPul8UfbLXE3Il/R4pWXC3CreIY3rRfiC
+ OwT+DSfMdjZIeQ9vmG2JwuBtAH5H8Fv3bw3pls6WOj8W9Xpm+VSjdYMz4DE6W/oRHf
+ xjvEdN1vfZEUkpaxKK1wAyKWJIp63Mhw7Uct05ZpWZIKgYYxDm4QIlhYFq4oHxiqk6
+ qdRene47TP5URG2/ydGrEsQuggZFmTIjAiWj9Td3K6l15A4J+xDwZMCawtHW8NqZ49
+ Yp6KkFcB9w2Zg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 17 Jun 2026 12:14:50 +0200
-Subject: [PATCH 25/37] drm/bridge: waveshare-dsi: Switch to atomic bridge
- callbacks
+Date: Wed, 17 Jun 2026 12:14:45 +0200
+Subject: [PATCH 20/37] drm/bridge: tc358764: Switch to atomic bridge callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-drm-all-atomic-bridges-v1-25-b63e6316166b@kernel.org>
+Message-Id: <20260617-drm-all-atomic-bridges-v1-20-b63e6316166b@kernel.org>
 References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 In-Reply-To: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,12 +49,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4771; i=mripard@kernel.org;
- h=from:subject:message-id; bh=BUU6LbLqMM51Hc+6ALLxByk/xHfnbf+HPnDJkcjE9u8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxRPbHifp/JzrVxRhvtuipfPairveCc9CvbYe/qfly
- JnIsHtqx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZiIjjFjfeI0F8un5vJ3Gy0v
- R91l19RffJyN1+qRgVvQPY75N3lPVW7t25e8tfUJS+dM2SNbdP/kMNZwCR/1bzGzWhOkvjbXJpl
- jfWi1xO57LaJS9nt293fqLzj23Kl2Y+Krm3sPSEz1Ec0x+QYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4756; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=OPGlGWenkwwt+fdOQY51DTRnJDatw/EEXlB4JdA7Xxw=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxf3t8ybdMDjW/ECo05EnP25FC1vaYjM7JztFX9v//
+ 9pvbw3qmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABN5y8rYcPWihP1RmWuJH/4/
+ rilzmdLIeXvG2tVLKtem77d6u9ht55F483dTurw1t6o6Gk0KPCLJyVhncUOhYPX5d5dM5wrxPRP
+ dZjazVmCH79WZE6ZkWuTalPKXhe0Wf+oTriL8scHo/Z11Na4A
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,7 +72,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The waveshare-dsi bridge still uses the deprecated non-atomic bridge
+The tc358764 bridge still uses the deprecated non-atomic bridge
 callbacks.
 
 Switch to their atomic counterparts, adding the bridge state
@@ -205,63 +204,58 @@ identifier b;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/waveshare-dsi.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/bridge/tc358764.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/waveshare-dsi.c b/drivers/gpu/drm/bridge/waveshare-dsi.c
-index ded57f298d64..9c9825c9b7c5 100644
---- a/drivers/gpu/drm/bridge/waveshare-dsi.c
-+++ b/drivers/gpu/drm/bridge/waveshare-dsi.c
-@@ -10,10 +10,11 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_graph.h>
- #include <linux/regmap.h>
- 
-+#include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_mipi_dsi.h>
- #include <drm/drm_of.h>
- #include <drm/drm_panel.h>
- 
-@@ -90,29 +91,34 @@ static int ws_bridge_bridge_attach(struct drm_bridge *bridge,
- 
- 	return drm_bridge_attach(encoder, ws->next_bridge,
- 				 &ws->bridge, flags);
+diff --git a/drivers/gpu/drm/bridge/tc358764.c b/drivers/gpu/drm/bridge/tc358764.c
+index 084e9d898e22..343f336a9911 100644
+--- a/drivers/gpu/drm/bridge/tc358764.c
++++ b/drivers/gpu/drm/bridge/tc358764.c
+@@ -265,11 +265,12 @@ static void tc358764_reset(struct tc358764 *ctx)
+ 	usleep_range(1000, 2000);
+ 	gpiod_set_value(ctx->gpio_reset, 0);
+ 	usleep_range(1000, 2000);
  }
  
--static void ws_bridge_bridge_enable(struct drm_bridge *bridge)
-+static void ws_bridge_bridge_enable(struct drm_bridge *bridge,
-+				    struct drm_atomic_commit *commit)
+-static void tc358764_post_disable(struct drm_bridge *bridge)
++static void tc358764_post_disable(struct drm_bridge *bridge,
++				  struct drm_atomic_commit *commit)
  {
- 	struct ws_bridge *ws = bridge_to_ws_bridge(bridge);
+ 	struct tc358764 *ctx = bridge_to_tc358764(bridge);
+ 	int ret;
  
- 	regmap_write(ws->reg_map, 0xad, 0x01);
- 	backlight_enable(ws->backlight);
+ 	tc358764_reset(ctx);
+@@ -277,11 +278,12 @@ static void tc358764_post_disable(struct drm_bridge *bridge)
+ 	ret = regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
+ 	if (ret < 0)
+ 		dev_err(ctx->dev, "error disabling regulators (%d)\n", ret);
  }
  
--static void ws_bridge_bridge_disable(struct drm_bridge *bridge)
-+static void ws_bridge_bridge_disable(struct drm_bridge *bridge,
-+				     struct drm_atomic_commit *commit)
+-static void tc358764_pre_enable(struct drm_bridge *bridge)
++static void tc358764_pre_enable(struct drm_bridge *bridge,
++				struct drm_atomic_commit *commit)
  {
- 	struct ws_bridge *ws = bridge_to_ws_bridge(bridge);
+ 	struct tc358764 *ctx = bridge_to_tc358764(bridge);
+ 	int ret;
  
- 	backlight_disable(ws->backlight);
- 	regmap_write(ws->reg_map, 0xad, 0x00);
+ 	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
+@@ -302,12 +304,15 @@ static int tc358764_attach(struct drm_bridge *bridge,
+ 
+ 	return drm_bridge_attach(encoder, ctx->next_bridge, bridge, flags);
  }
  
- static const struct drm_bridge_funcs ws_bridge_bridge_funcs = {
--	.enable = ws_bridge_bridge_enable,
--	.disable = ws_bridge_bridge_disable,
+ static const struct drm_bridge_funcs tc358764_bridge_funcs = {
+-	.post_disable = tc358764_post_disable,
+-	.pre_enable = tc358764_pre_enable,
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-+	.atomic_enable = ws_bridge_bridge_enable,
-+	.atomic_disable = ws_bridge_bridge_disable,
- 	.attach = ws_bridge_bridge_attach,
++	.atomic_post_disable = tc358764_post_disable,
++	.atomic_pre_enable = tc358764_pre_enable,
+ 	.attach = tc358764_attach,
  };
  
- static int ws_bridge_bl_update_status(struct backlight_device *bl)
+ static int tc358764_parse_dt(struct tc358764 *ctx)
  {
 
 -- 
