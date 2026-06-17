@@ -4,87 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52E78CD98F2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 15:02:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DDDECD98E2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 15:03:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 171C410F005;
-	Wed, 17 Jun 2026 15:02:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB75E10EA4B;
+	Wed, 17 Jun 2026 15:03:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="Mac7bCRa";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="c6KGoKl9";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80B4110F000
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 15:02:45 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-491609cdd8fso31704245e9.2
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:02:45 -0700 (PDT)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8300610EA4B
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 15:03:15 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id
+ 4fb4d7f45d1cf-68bd9fce347so10457464a12.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:03:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1781708564; x=1782313364;
+ d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1781708594; x=1782313394;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Ok+RjE4+w5Tv/U34IMQhdlbVd3kP3wRLvfnVhKYPL2M=;
- b=Mac7bCRaLmfjw+H/NnlQ6x2qGUjOE5DvEneDx5b349Y09DrX/vPPTZM1lRHsX9bldb
- zYeScTWG12RP6MSa4ahjngYLMVHu7i1ecmeu2q5ASwDx/qNjmP5/8P/Kx1DRmip1nDwq
- 7eu14Xi4VyAFAnRRktpl5LZqnYSEF3YccgaOCaLAEBP5P77hgoDqR9wBsph2Tb5mKOF/
- emPdDfaP2kNpK7JJNj1c14XRlnTFPAnH5EGplLB6XMmYLQqq9BQ3l3G8+SIV8mb0sAfa
- gzvFN5s8c89dIAEikF0R2+KHrd8GCyo4rg+9Uzxk0gcu/uV4eV8oWD/YjfbGWH3ZBSRO
- ShOw==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=RPM0l7cGbbSYD6UImT0eFYRpGfGHF1+7B3QhvofMf/o=;
+ b=c6KGoKl9zQK7cH5C7IYoYRW8nptwxgfF1LL/OAxlSYe2qMqaRRUYOPIZlHJ26CilcU
+ 7YHda9Ea8TvheucWoP7+pjHdjs93yod5wB1Ni9yzHpWOx+myBotH9jzhuE5Gu4o8f6WM
+ X1KoUqR2YMNGIfcoHilD4JfGqGb3PqYxvTeCfQMMFRCvfx2/MSaurvxPFprsfGdGq/0d
+ I/xf735QmO2pU+HH6xQ4tH46J/BSX6bqaIb/UY1XtK7xh1CeLNGinG61BGa/Qyo3YIBh
+ zurS7n3VR6SjeOpPz0eDeHXu+Ui1YrvTAWv4pAmJToM6Xl9IQOZBLwF9uygkTqjoYakF
+ LpWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781708564; x=1782313364;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Ok+RjE4+w5Tv/U34IMQhdlbVd3kP3wRLvfnVhKYPL2M=;
- b=L31snUUN6BSrChqq4TJrFFTPcNs6CyKWXH9dek8na5Zvbcbo6gg3HUBWxsX7db7ZBt
- x8E+G7jHTLmqRLafh489zEJeF2AnXHJQwIDEZrH+jWNmBkgYZ81jTCZ8AHlJeWehd/I7
- mGUuhYP5Jv0wcHiXU23zwkH6jM91GmT+XjOYhltPptKfFQwSvW0Ek2BgjOjBcFY6tnNc
- 5ByaRPwDZKs19Z4R9588dAybBYfBDYQ6RVelhxr0Sj8N1tQJaqTrtImcpx0pDx8iA+b0
- puzlrg1WNkDFMFgKSWDPmgB6Uhk1SrwhrKUSp4xYYDHzD9Mhr/rVf6ZW/hrRdC/DbP9G
- +O7g==
-X-Gm-Message-State: AOJu0Yw18IdVxJJL7YqmKxM/4PB7YlfK2dw/wlHb/HptvNDo2u9qAyMc
- j4i5VWYI3E1SxWPebfks6FhlB1L1i24NZv9IvC290cQam7xP/x6V6GrNOb9UrAx1kQ3w0CrtoEn
- cHWhgCT59
-X-Gm-Gg: Acq92OFIB8nkXAKL6da0070aXFatpVkMlIQXXmrHtPW5CMBO6Daq2q3ozCFUXmqpuVE
- erGW/L6sPILxufKMxn/7PQjDaUh1HMl4TClLM3BHGnbkfXQWM5h2XHMLgA3p1V57W8GQ0isx4YW
- JnG/nAt+YZYzgzp+PlukcznpRKTK1CvtJxJMclbTbJ83QNK/dWyqxIfSDjyieGqkHs8mEPQNvok
- 1DTX0By2rFpn4zGN2I0kk19zzIMcuFtb46vr/uVP5HoUZbVztvb+GHsyA/bg4tnpZQS9IBzFKHY
- G6Bfrm6+7e5M9NTtsjYMxMehlEqGG/+wFE9L5lOdh+haoWKfiOSKsxn1QmQKhkABeF8diqs+0E+
- 7geAt/7IyRgNVWIakhdDiUFc7lHHPLdQN8sjS5BVmW9KIYr6n+SqZ0FHM1+pzB+eKqlp8DTANgI
- ipGj66/K497zlF8LCQ8Bbtdo5TGp9x4a+kskmh8ppFNAdK2u+iZpEIryj/
-X-Received: by 2002:a05:600c:8189:b0:490:b355:9c70 with SMTP id
- 5b1f17b1804b1-492333aaa9emr69289915e9.11.1781708563939; 
- Wed, 17 Jun 2026 08:02:43 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1781708594; x=1782313394;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RPM0l7cGbbSYD6UImT0eFYRpGfGHF1+7B3QhvofMf/o=;
+ b=C8jcCXxgTgDzX7vf9uAjK7tJlPrBpbgywp2Dn+y+94ymtDUcV5QCZ1mrJaDZE4Jq1D
+ D6vH63WPV7g7r4Ah5MynA0Zql2ktzYJHSCCouVTZ+ZrkR0MqhL2K2L26iAOxIWRIZexg
+ 6nWo+VjYaZeRadHUib6HJGm9Jt+/xBLjXBZc6kXUqN1Gi7Kx9uYQc3g6HMW2gf28k33Y
+ 3Rhdes8x4onibaivSb9XbvdJdIEcrjJASC8UArZCBPM3972AGUiku8+6ni5py3lAu7YS
+ mHV6JjwglH/j226Rga/uKqr9iQjnT3UJ6sHzwUAl5meI2VuIxImE+ikljjFx9VXOHlaY
+ wXJw==
+X-Gm-Message-State: AOJu0Yzg6iqxudxRdMOngP2dL6lBDPJfaEW0DO8o20M78T2ha7YQ2Rze
+ VpGUx+LRKcj7WtYmExOVhqS9GOTma5xxog/mrPMI+fr++GMRdm9CxL6IYrIpWihqqT/VeRYjYWy
+ z56Xeu+Ny
+X-Gm-Gg: Acq92OFWldp9tmwxIJO8I/WPHuSPdEfo56tKVNnNElA9y/yjhY3Go7RcbhLTrt0R/k1
+ a2HXkvOSHZAXMKbFQ8+dE2ONzn+71aoGCwIRE5G36wfS1L5QymQuSf01uYArlJ4BqoPidfc33nf
+ 9MxIxUiKzTbvGFlJ3tu0vpUmlJRqNR8EGbBkM/7U9rdWbzTEJSrxSYC9YNS+yE0LPxGI7A2B906
+ A+BkBm8CZEjBnFsGqIwXLDn32crNmQU9l1IbktgQHYz4Nr4Z1oHCElFoR4JEHhpjFFjKlsJXl81
+ Vo5bY+Vs1eelD9Rej9jG/+pq8BoAjcikDQu1Bwg4AP6Abkii3Ie3+6fPjEvlRXUkhk2DmDlsAX6
+ Q15WkUI0VRLf1ts/7roO/nets2OSSkoYdOF6hjSa+lmx/i2VRBkOlMfo8i/H6UZnd0D0gSpx7kw
+ GVI3J9dxfm7zmPgeHQ99l5sHUFLBm1DKOIhE/hF0/04CfwiaaPmvlGh6FO
+X-Received: by 2002:a17:906:8464:b0:c03:ff6c:5cf1 with SMTP id
+ a640c23a62f3a-c05a4c03ee8mr167079666b.10.1781708593864; 
+ Wed, 17 Jun 2026 08:03:13 -0700 (PDT)
 Received: from axion.fireburn.co.uk ([137.220.119.72])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4606f26f1cdsm57264311f8f.11.2026.06.17.08.02.42
+ ffacd0b85a97d-462236047c8sm10065491f8f.10.2026.06.17.08.03.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2026 08:02:43 -0700 (PDT)
+ Wed, 17 Jun 2026 08:03:13 -0700 (PDT)
 From: Mike Lothian <mike@fireburn.co.uk>
 To: dri-devel@lists.freedesktop.org
 Cc: Mike Lothian <mike@fireburn.co.uk>, rust-for-linux@vger.kernel.org,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  Gary Guo <gary@garyguo.net>,
  =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Asahi Lina <lina+kernel@asahilina.net>, Lorenzo Stoakes <ljs@kernel.org>,
- Joel Fernandes <joelagnelf@nvidia.com>, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 4/4] rust: drm: expose drm_blend.h and the atomic
- new-CRTC-state accessor
-Date: Wed, 17 Jun 2026 16:02:26 +0100
-Message-ID: <20260617150232.2210-5-mike@fireburn.co.uk>
+ Trevor Gross <tmgross@umich.edu>, linux-kernel@vger.kernel.org
+Subject: [PATCH] rust: drm: unplug the device on Registration drop
+Date: Wed, 17 Jun 2026 16:02:58 +0100
+Message-ID: <20260617150303.2259-1-mike@fireburn.co.uk>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260617150232.2210-1-mike@fireburn.co.uk>
-References: <20260617150232.2210-1-mike@fireburn.co.uk>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,68 +93,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Two further KMS binding prerequisites used by the in-tree DisplayLink
-DL3 (vino) driver, beyond the simple-display-pipe header set:
+`Registration::drop` called `drm_dev_unregister()`, which is only safe
+when no userspace clients still hold the device open. For a DRM device on
+a hot-removable bus (e.g. a USB dock) the device can disappear while a
+compositor holds its `card`/`render` node, and tearing it down with
+`drm_dev_unregister()` leaves that fd pointing at freed device state — a
+use-after-free on the next ioctl/mmap.
 
-- drm_blend.h, for drm_plane_create_rotation_property() and the
-  DRM_MODE_ROTATE_* / DRM_MODE_REFLECT_* constants, so a driver can
-  attach the standard atomic plane rotation property.
-
-- a rust_helper for drm_atomic_get_new_crtc_state(): it is static
-  inline in <drm/drm_atomic.h> and so is not callable from Rust
-  directly. It returns a CRTC's new state within an atomic commit
-  (NULL when the CRTC is not part of the commit), letting a driver
-  inspect the proposed configuration from its mode_config
-  atomic_check(). vino uses it to sum the pixel clocks of all heads
-  and reject a modeset that would exceed the dock's USB bandwidth.
+Use `drm_dev_unplug()` instead: the hot-unplug-safe superset. It sets
+`dev->unplugged` (so the DRM ioctl/mmap paths return -ENODEV to held
+fds), drains in-flight `drm_dev_enter`/`drm_dev_exit` critical sections
+via SRCU, unregisters the minors, and unmaps userspace mappings. For a
+permanent device it behaves like `drm_dev_unregister()` plus the harmless
+unplugged flag at the very end of its life, so it is safe unconditionally.
 
 Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
 Assisted-by: Claude:claude-opus-4-8 [Claude-Code]
 ---
- rust/bindings/bindings_helper.h |  1 +
- rust/helpers/drm.c              | 12 ++++++++++++
- 2 files changed, 13 insertions(+)
+ rust/kernel/drm/driver.rs | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index 5b311944cc14..5ff21c33385e 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -31,6 +31,7 @@
- #include <linux/acpi.h>
- #include <linux/gpu_buddy.h>
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_blend.h>
- #include <drm/drm_connector.h>
- #include <drm/drm_device.h>
- #include <drm/drm_drv.h>
-diff --git a/rust/helpers/drm.c b/rust/helpers/drm.c
-index 65f3f22b0e1d..5087daa23ed8 100644
---- a/rust/helpers/drm.c
-+++ b/rust/helpers/drm.c
-@@ -1,11 +1,23 @@
- // SPDX-License-Identifier: GPL-2.0
+diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
+index 25f7e233884d..aa86ba136b03 100644
+--- a/rust/kernel/drm/driver.rs
++++ b/rust/kernel/drm/driver.rs
+@@ -135,7 +135,15 @@ pub trait Driver {
  
-+#include <drm/drm_atomic.h>
- #include <drm/drm_gem.h>
- #include <drm/drm_gem_shmem_helper.h>
- #include <drm/drm_vma_manager.h>
+ /// The registration type of a `drm::Device`.
+ ///
+-/// Once the `Registration` structure is dropped, the device is unregistered.
++/// Once the `Registration` structure is dropped, the device is unplugged (which also
++/// unregisters it). [`drm_dev_unplug`] is the hot-unplug-safe teardown: it sets the device's
++/// `unplugged` flag (so the DRM ioctl/mmap paths return `-ENODEV` to any process still holding
++/// an open `card`/`render` node, rather than dereferencing freed device state), drains
++/// in-flight `drm_dev_enter`/`drm_dev_exit` critical sections, unregisters the minors, and tears
++/// down userspace mappings. For devices on a removable bus (e.g. a USB dock) this is required
++/// for safe removal; for permanent devices it is a harmless superset of `drm_dev_unregister`.
++///
++/// [`drm_dev_unplug`]: https://docs.kernel.org/gpu/drm-internals.html
+ pub struct Registration<T: Driver>(ARef<drm::Device<T>>);
  
- #ifdef CONFIG_DRM
- 
-+/* Read-only accessor for a CRTC's *new* state within an atomic commit (returns NULL if the CRTC
-+ * is not part of the commit). It is static-inline in <drm/drm_atomic.h>, so Rust cannot call it
-+ * directly; the vino driver uses it in its combined-bandwidth atomic_check.
-+ */
-+__rust_helper struct drm_crtc_state *
-+rust_helper_drm_atomic_get_new_crtc_state(const struct drm_atomic_commit *state,
-+					  struct drm_crtc *crtc)
-+{
-+	return drm_atomic_get_new_crtc_state(state, crtc);
-+}
-+
- __rust_helper void rust_helper_drm_gem_object_get(struct drm_gem_object *obj)
- {
- 	drm_gem_object_get(obj);
+ impl<T: Driver> Registration<T> {
+@@ -197,7 +205,9 @@ unsafe impl<T: Driver> Send for Registration<T> {}
+ impl<T: Driver> Drop for Registration<T> {
+     fn drop(&mut self) {
+         // SAFETY: Safe by the invariant of `ARef<drm::Device<T>>`. The existence of this
+-        // `Registration` also guarantees the this `drm::Device` is actually registered.
+-        unsafe { bindings::drm_dev_unregister(self.0.as_raw()) };
++        // `Registration` also guarantees that this `drm::Device` is actually registered.
++        // `drm_dev_unplug` is the hot-unplug-safe teardown (it calls `drm_dev_unregister`
++        // internally after marking the device unplugged) — see the type's documentation.
++        unsafe { bindings::drm_dev_unplug(self.0.as_raw()) };
+     }
+ }
 -- 
 2.54.0
 
