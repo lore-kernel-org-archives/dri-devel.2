@@ -4,163 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4889CD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 07:48:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F6ACCD98E2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 08:00:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06FB910E95E;
-	Wed, 17 Jun 2026 07:48:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 907B210EE76;
+	Wed, 17 Jun 2026 08:00:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jT69YLn0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AGXbzPec";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 645FE10E95E
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 07:48:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781682488; x=1813218488;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=y8jXTX9jnb0YtUckWw1c+J56W5yLKD/uwjoa5d2ouAM=;
- b=jT69YLn014h/Ru+hqDSXB6EFlcUVyljVq6qzqWZ5ZRF/WgsmftxZVzC2
- CDk7jZJX+tMq7CmmEYHwSraB66Cj3uLDJ2dnXLrXAhAqhv+4pwo+GeFuE
- MkArWEIWg+QrPeG2urBuOSo6P77UPcJ/JUyzFAxXVcHdFqvYtLp/CSzwV
- tzqZBWg2gMQaKQPo7Q6Lwvs9MCsNdgtcAv8QLyXftIJ2actFDPtgJ/sJ7
- GUH6T3TAjmYHDrH8IR3YBtQRC7mDTEJpmy9Lj6yKcUooODAzEUu+lo8pP
- V26nDQhFBD1b25mu29JHq0lts7XyOUkcmg9nkOt7bTlqb6t2ht8YN6Z+U g==;
-X-CSE-ConnectionGUID: wpWlB3OLQdK6N3lgVSKc5A==
-X-CSE-MsgGUID: r/X7iBnFRYmaZ+F5LKvX0A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="82560414"
-X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; d="scan'208";a="82560414"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2026 00:48:02 -0700
-X-CSE-ConnectionGUID: ABQMgZ15TVKVC5Le7k1ihw==
-X-CSE-MsgGUID: VlTcue6PReaU3iMe1ans1Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; d="scan'208";a="246859504"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2026 00:48:01 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 17 Jun 2026 00:48:00 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Wed, 17 Jun 2026 00:48:00 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.16) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 17 Jun 2026 00:48:00 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ovFkb9bNMLSb8KItVCGyyBFS9Dv5OSCGfSHqXOoMBCIYoTLpFNKoEBU9rb3/yJZCDvpfj+ea8X6FoV6BtZ85M6od6Ma/W92/ZbHWeDRUOBt5UEPfek48wApyP4QJtTbGAzk3tH1nCYZxCj6wovfFGpbE2i3RDH6Q3AG12PYX4cn+EWfycLfq0jDCQ+YGUnCXmu1fIBOyugF3pw7shHOfMeaQGIVKOG3ZYRPn1wyEO22gpfJAg3Ka5g910BZYuo0txe/MvDMWiqa1NuP/tdLuZW/ji0EscoB1knyOzm+mQFoOKyMojFARa3iApYr/kccuLKHKcNBcdPCkqwo9yjACIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CUd8t1eyQAoUvU/E3IxZGJPRRFchGaMAUuIRnP6vLks=;
- b=kSupIMxKKDqJdtaD+EofSoQEoM5NnmgGQJ3+y91Mk+EoORAanhZ/7wHLBRhYkIRm4HNHVhm4q8kGkpDfsh2+2MdSH5pl6HdovwmfvdJkRF26vxHSPXGpZgTm+wj9JjcZmCd3ZWgs+wJnzcCTx0lY2icJ7fxfIc/ptIU3Q6B3y4QXjDe9wtGgZhGy/rvB2pa3eyzHLokc047SajmUM+1qfHnVICRdxOFebWKIBOdFxifnnQUMkmS4tSt3JSm8c2rxZHvFO+zuC8gzrE4Om5cKbF8PB0w+noo0HHnfkNuhvkVH21oCe/HWzkyyANNadKAWaVKuSKYHLh6P+T1Qta48Ig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM6PR11MB3690.namprd11.prod.outlook.com (2603:10b6:5:13d::32)
- by CYXPR11MB8754.namprd11.prod.outlook.com (2603:10b6:930:dc::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Wed, 17 Jun
- 2026 07:47:57 +0000
-Received: from DM6PR11MB3690.namprd11.prod.outlook.com
- ([fe80::7db8:f6b3:30f8:ee4b]) by DM6PR11MB3690.namprd11.prod.outlook.com
- ([fe80::7db8:f6b3:30f8:ee4b%4]) with mapi id 15.21.0139.009; Wed, 17 Jun 2026
- 07:47:56 +0000
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Matt Evans <matt@ozlabs.org>, Alex Williamson <alex@shazbot.org>, "Leon
- Romanovsky" <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro
- <amastro@fb.com>, =?iso-8859-1?Q?Christian_K=F6nig?=
- <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>, "Logan
- Gunthorpe" <logang@deltatee.com>
-CC: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>, "Pranjal
- Shrivastava" <praan@google.com>, Alistair Popple <apopple@nvidia.com>,
- "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-pci@vger.kernel.org"
- <linux-pci@vger.kernel.org>
-Subject: RE: [PATCH v3 1/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
-Thread-Topic: [PATCH v3 1/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
-Thread-Index: AQHc+PAJt/yTpFL68kOaE02G6F2lPrZCaUBg
-Date: Wed, 17 Jun 2026 07:47:56 +0000
-Message-ID: <DM6PR11MB369079ED83A213AEFC0EFC458CE42@DM6PR11MB3690.namprd11.prod.outlook.com>
-References: <20260610154327.37758-1-matt@ozlabs.org>
- <20260610154327.37758-2-matt@ozlabs.org>
-In-Reply-To: <20260610154327.37758-2-matt@ozlabs.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR11MB3690:EE_|CYXPR11MB8754:EE_
-x-ms-office365-filtering-correlation-id: ba9e9e7e-7d74-4c28-3c24-08decc44bf13
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|23010399003|38070700021|18002099003|22082099003|11063799006|56012099006|4143699003;
-x-microsoft-antispam-message-info: aJDSBc6hJ+5FCa3fcPyQwXfPojyvzeJnxpo2y2dCbEBuB26/DYfOGH8LcBLtKVBLGg9HSnqavVoqjAnZxNJ9Mhsnb0aYwprW7sYxn8LCYZ20ixt/MXzD86PaQyRDS1X8Ji40kh+Pp/3N34WiF+1ZrLfiAByNxZPKUiPwck0Shx3EZJCSI4tT5h1nkj4iL4Dyru/mcAWCTpS4QaQhh4fwL8CHtg/90BgJJZUjEiSBPD7WFKUT9QdGu3GcLjXDsKYRVwDNNiZF5r+y7daWb7z1eOwvd39S8KTdcnegs9c2S0yJ665FApX+0SQQUT/q6Vvnc6pz5jMUjowLsIQhsZ0aQWg80RqPSYfickS1dRmBPXs1etvQ0FCEeIrrMIGKcneyfUPKSqxDtuZHDWXN9EGgjIX9N8JHGFF0kT6+EziOBspu7ICSEhVQZ6Md1ooJPFLvqAkysbR28i1SVzy/3eLoY+mXl91kiq6nx9WvCfd+JfO4BEO8K5QR9dSSWreod2kEa4nnVf0dgdsMpnJybeR1yfA00Mx9/ZQdL1urtoM+nyqCqJs8VKXQEL74BETplJ2jLA9A6BQdPBbqfEoamQlaa99DaQltUeopUciR6LkavNvfxjd1D1DSL+uJcg1R+9HAwO/bDF8AVWLct01Mz8EFEKWZlgn4oVS8QDWsKpdgbimQ0IiJQS4gw+ZukIf3WihAcNhD0d1VNT6ioNymEMX30cT8j+28IynjzBs1Q1yaevyL4rgSomNT6DBOhz5rwI9F
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR11MB3690.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(38070700021)(18002099003)(22082099003)(11063799006)(56012099006)(4143699003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?qSC1m9kT9Ijzc3se+s/eBz8BSmI6mzZBTUxDYflhbemc7l99HKyiAbVS+3?=
- =?iso-8859-1?Q?KsXXCsTCNefjw/wfiMFsf1c43uJEbkS1SCWGPeBT0AcemdQCtsMpbh9Tdw?=
- =?iso-8859-1?Q?Cy6oMPqn2qSmimnWbtnOIUZhsDiESDFMv0ETdyfupR75FmP1m00iy7axt0?=
- =?iso-8859-1?Q?Y5IOo25TuCLgoiC5JbMWJU5VzyEEL5acq0yxMVqnEeIKOJDsYpg6hvZNre?=
- =?iso-8859-1?Q?YsBpK5AhNJDxeMwgfCz5SWmHJ5ULmy5dLPKRafCgc21NM1uPNaG7HlYoCe?=
- =?iso-8859-1?Q?MDsC0Yo4jZ0gXUgI/pRR7TONA2zjoOpGRUnv4fzxK9aqsLO27qrQ1sKaS+?=
- =?iso-8859-1?Q?ZNwFsY9B5AtITjePFp193nHSI/cpc5D6KfpmfG4ITmuobAO0RmGaJzRZ1A?=
- =?iso-8859-1?Q?26G4F8Uc2in5AtZo+SwKFslxp5zxiLlxpa0vRwQ/ClRd2feODSrps8R4+z?=
- =?iso-8859-1?Q?JG7WapIDfOZ9JaJRAzHrt92VP6W7SC+l57TKAJkafw2lUM0nUifCTb8Ck0?=
- =?iso-8859-1?Q?RmY2Ar9ghfjyB9b7VWzjDlzQFseLDCVs/YOF/kffJPPeKKrG4u4VWc8bi6?=
- =?iso-8859-1?Q?i7ktJpWj41A4uuYCWeYupgiDcFu8c6Rye2NI9sek5D7uLijx4f9WtRsa9b?=
- =?iso-8859-1?Q?8unihpjD+OAKiV1QX8AQJbKTO6I7ohWLaI4XUrgXm9luUApvVnZTuQUYZk?=
- =?iso-8859-1?Q?oNIAgjjJlENHOav6gvR6Lwlnft/wXfYk00QBhKaUFliU9hBjg11+bMAbIX?=
- =?iso-8859-1?Q?IKHejshUcPMxrajA2s3ecd7hfIRMj5ndDdHC9U+9oeS+mhWKUVpJEYjGWB?=
- =?iso-8859-1?Q?AvcSADJgRJYPF8R0WnZBb+BGeff8OLA2t+6oEcnaShbfTQOVAOwJkGDkTU?=
- =?iso-8859-1?Q?8+hworUQt0HVR3mEKRIDv4vklSCv+VOSQ6y8BxQGKb1LNcvk29PVe471rX?=
- =?iso-8859-1?Q?FffS06//2zIIkbJ5CSDhAiGqVIx7yYM6UBpVHAnJkosSPotQWZ6MM/jSra?=
- =?iso-8859-1?Q?gI88d2HT8UJHMYFaId/QCYGTLTqh+0A49LK3ZkJlQOyYNagBgSTREWbTGt?=
- =?iso-8859-1?Q?KEF7qxNB0Xb9+GkiH68a0HZjhj8lwrp/u1wj7taEH0hT+UjDZM0nFhs2k0?=
- =?iso-8859-1?Q?0qDEYITue0U4bFUY5S40/8aGew24nIREiLfJ2uqnf+JfVfvlhWO9FhkrPL?=
- =?iso-8859-1?Q?e5GYJc3S3GurFLA3Lts5RVmzV9egAKmwwFAAPO9dVa9DViIVn34SuKrRdH?=
- =?iso-8859-1?Q?gE+cBgSmS3iz/dWG9TI2DefzoXlTxlrES3fOXYq8MHiohiC3kqxIK1z67j?=
- =?iso-8859-1?Q?WzyP4vm7lPOLGtnV6/iwFsRxQ3jOye8pth+bvyczG5j9WKpWjhg3sjaV3z?=
- =?iso-8859-1?Q?GEBBSrSz8kAlfpIiZJDvO+pAA3SdPHj1OqX6U4D9InocAa0jQE+IbEjNA4?=
- =?iso-8859-1?Q?RzSrpaBl73cJvCSHtTN5YLR/IeDPWB5zGrlZdhJbeH1wqZSDa/8rTqla5W?=
- =?iso-8859-1?Q?2JhzUnJ7ovFfM1JtphO7UNE9xhA8G7ms09cnjsD2FG7Ru/EaoxP/Ct1Dtp?=
- =?iso-8859-1?Q?9b8u056WkoEKA9JIrB3I3Tj1n+s5TZDWko1VpBeuGF5ZEfZcH87RA+4MYW?=
- =?iso-8859-1?Q?Fa4G3QprTxNlJF0uYpEncLrtkT0SaZYiOA3UUWEqV7EI0t8r4iCkjT5h2c?=
- =?iso-8859-1?Q?eQTdnKbalQRL5B+dRGZjSoMia2W57sImq/skWB6B/XU4RkCjTJ7ZBBW2PK?=
- =?iso-8859-1?Q?YkY3z27q/gCK+wRGH7tfC4e0FmTtE/fFO4wc02gx7QREs2hUjn2pRIJVa3?=
- =?iso-8859-1?Q?xs/oRDGOhQ=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E4AD10EE76
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:00:44 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-befee9e5ef7so658542666b.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 01:00:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781683243; x=1782288043; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=kcUO9XWzTg2IsD2mVUzEQjeXErkVrXuEkYwVMwsj2Z0=;
+ b=AGXbzPecBU0q2ekLH2IfMGmQ28XVaNTZnj2ClEERRu7gafUY8dJgpkJy7IqAET81p3
+ kQK/yPffmcJ4PfyHBYVI3A0vt/zyZlt1TDi6lXM1P8RibJNaNr4za3EGYsBP1yXSj4Zg
+ r+q7Erh6Z2GivCJ86+SMWX3J2HIjYueOoQL+u/ZrFm48tJsHa6zH6/gTDLuEOMPh3SzI
+ OLZZ94cvTTMhS9BZiJFQXg9HXpo+fI3z+j6/peu7T0P+82bVJvdl9XzvRDYrEKVregSS
+ b8U9j2m3qdD21ABadlHxfk97UGKNEZ2H64BXCA7/NPrpqx9DwNL4jHhgWpr4RkO44MCT
+ Lreg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781683243; x=1782288043;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=kcUO9XWzTg2IsD2mVUzEQjeXErkVrXuEkYwVMwsj2Z0=;
+ b=W6SEx05bD7KJDVYX02gTXaZZJMTdXl+rIIcjmFZXKpM7QCiFkf5nrdC3nSU9h/M6vv
+ zdCRv/+Mt2imJrqyZ+5rzaV6lBTtdsuLxLNmP+FsuRnvbWRHTWFhwaT7JjaUtDeBVPsN
+ uek0MmUpeEZOzMptwGnGYzCrXGFQYyWJ38F/vJ9MdDGuI5rN7uHUFh29fLy8Hv/ihOZ4
+ fiFfHD5SkwfZm4vZrnj5YoFxLJfGbImh7SeVsOop5xc4ijByaDM972+m/9lUijvR6za6
+ /6RNdxfafPxLMtgnTIsMqtNt5PGFXnzyqaNwA6xeh5Xp8+eLAmASinoKEbZFWKfNt3P2
+ RbSg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9VUTLfn8oF9E0Vp0Lgqv2HHGILX7sMBBPlpC4pxxcjLlIZJHZRg58JcfHisOT+6YCThW9d13fCl2o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxGDpfH3WTuPhJekb4pGbUMX58aWPGRLug0hzl0P22RLHAm5f0n
+ bd5pj/Bg8Myj190OBZBRYUHlW81KybRCoZz6HeouscFxWfgSHieLyTLG
+X-Gm-Gg: Acq92OHyutOU0NjSceiXOMtoBXb2lTyWPUyMcIbg56mSIAqUVKMaMta+rNjD0mOTTTE
+ 9Du9UEIDSTQg8JJ2QUePreSI8NEhmzdH7/3YlI48fcgxNW2mfcAAj4lZTdqsHBEXLCP5LUGO+oW
+ sMyAdKO7cb0xbjQCuFIB4DTplcoqIw1KOZDCjSjQ9SlRrdaaqD6BzlGcP0l6smPl01xy2yINCM+
+ Z4Ig1SKSih4igNBxN/iMAh0dH8UjeRLTTaWSvpURLfqU9KDLmYvzV6wUbgfpMVj+YJddlqoqo0X
+ 5KDGKCDAVQvAo5X/+O+B2QhqnsDSFawfzOsjW47B0ifXyipzMs1ytbdG2491Slke/LdfWgyYUw0
+ cGW4yJNTmZi+fbD8CjU/622FYHqZN3UcPFNcmk+MJ4N9mM5AExtH7NIr/gHe6R8XJWg/XEzhu2u
+ Tj0A==
+X-Received: by 2002:a17:907:6090:b0:bed:e2e8:d8c3 with SMTP id
+ a640c23a62f3a-c05a2e40c2dmr185800566b.22.1781683241134; 
+ Wed, 17 Jun 2026 01:00:41 -0700 (PDT)
+Received: from xeon ([188.163.112.61]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bfdb058fa59sm755339766b.0.2026.06.17.01.00.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 17 Jun 2026 01:00:40 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+ Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-fbdev@vger.kernel.org
+Subject: [PATCH v5 00/14] mfd: lm3533: convert to OF bindings, improve support
+Date: Wed, 17 Jun 2026 11:00:17 +0300
+Message-ID: <20260617080031.99156-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: RsHAoPlZ1RlG29pygxYLUrypSfiVm1FKIod+ASbHCxNyDQVPHQJd0D0QX2C/7z+IeIyk/Kf49rixzt/N7+OryFpdIuA4u8nifXlTYDDhAq5lmH8HUdR/TzMkzBACyxjmhlUUhURrmEQfob1y+Hl0ixJtPxLHydvDaf0RUfNx12mEJEMTcowTG4ZAzv2Zbpia/IqyEQD0K9fJNORg5l1Ksr+vBRz83g7oWBk5fUH03SfuQrdFy250Z0VnXkefZdv5ffnuerHD+S6NVp6b5RSbrFYhYDiuCd3IHej0O9EowcQ0V9raoXlioek2zd3FtO/FHvdJeY8IbZwj36NBrZWAeQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB3690.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba9e9e7e-7d74-4c28-3c24-08decc44bf13
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jun 2026 07:47:56.8358 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7RR8LBzm/O5PCjqH2IaXFCiN5E4OPNHQjBGp6ZTnGMFv7UU+ws4Dz1Lq9KwVHM4NdkSaozbrLJxLGm7xsPd1yw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR11MB8754
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,31 +94,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> From: Matt Evans <matt@ozlabs.org>
-> Sent: Wednesday, June 10, 2026 11:43 PM
->=20
-> The P2PDMA code currently provides two features under the same
-> CONFIG_PCI_P2PDMA option:
->=20
->  1.  Locate providers via pcim_p2pdma_provider()
->  2.  Manage actual P2P DMA
->=20
-> Some drivers (such as vfio-pci) depend on 1, without having a hard
-> dependency on 2.
->=20
-> A future commit expands the use of DMABUF in vfio-pci for non-P2P
-> scenarios, relying on pcim_p2pdma_provider() always being present.  If
-> that depended on CONFIG_PCI_P2PDMA, it would make vfio-pci only
-> available if CONFIG_ZONE_DEVICE is present (e.g. 64-bit systems), even
-> when P2P is not needed.
->=20
-> To resolve this, introduce CONFIG_PCI_P2PDMA_CORE and refactor the
-> basic provider functionality into a new p2pdma_core.c file.  This is
-> available even if the CONFIG_PCI_P2PDMA feature is disabled (or
-> unavailable due to !CONFIG_ZONE_DEVICE).  Then, drivers can enable any
-> additional P2P features with the original CONFIG_PCI_P2PDMA (available
-> when CONFIG_ZONE_DEVICE is set).
->=20
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
+Convert LM3533 to OF bindings, add missing VIN supply, add support for
+setting mapping mode and LED sources based on device tree. 
 
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+---
+Changes in v2:
+
+schema
+- maximum led sources for leds set to 4
+- anyOf > oneOf in ALS
+- improved ALS descriptions
+- adjusted example
+drivers
+- dropped devm convertion of irq and mfd helpers
+- all als configuration moved into lm3533_als_setup
+- added regulator/consumer.h
+- lm3533_bl_setup set before sysfs_create_group in backlight
+- added check if LVLED is valid
+- LM3533_REG_OUTPUT_CONF1 > LM3533_REG_OUTPUT_CONF2 for LVLED4 and LVLED5
+
+Changes in v3:
+
+- ohm -> ohms
+- added default PWM mask to schema
+- added commit removing driver regmap wrappers
+- added commits which flatten pdata helpers
+- adjusted check if als->irq > 0 since als->irq can be negative if error/missing
+- added count for children defined in device tree and mfd_cell is allocated
+  via devm_kcalloc to be able to contain all of them
+- fixed backlight boundary check
+- fixed count increased unconditionally
+- dev_err returns node name instead of reg value
+- LM3533_MAX_CURRENT_* defines moved to common header since they are used to clamp
+  current values read from the tree
+- mapping mode commit splitted into 2 (sysfs logic improvement > mode from DT)
+- backlight mode configuration set before sysfs group is created
+- fixed LVLED check on LEDs setup
+- added check if HVLED is valid
+- fixed wrong err_sysfs_remove goto in lm3533_bl
+- added commit implementing backlight_scale property
+
+Changes in v4:
+
+- fixed regmap_update_bits val and mask swap in lm3533_als_set_int_mode
+- fixed als->irq check in store_thresh_either_en
+- removed clamping of r_select in als driver
+- added use_of_reg and of_reg for backlight and leds registration
+- added intermediate step in asigning props.brightness
+- fixed HVLED/LVLED configuration overwriting
+- added bounds check for num_leds in leds and backlight driver
+- switched to regmap_clean/set/assign/test_bits helpers where appropriate
+- dropped extern from header function declartions
+- switched lm3533 pointer in cell structures to regmap
+- sysfs_create_group > device_add_group
+- changes in backlight sysfs were expanded to all properties
+
+Changes in v5:
+
+- aligned driver helpers to use u32
+- child nodes parsing linked with 'else if' to ensure there is one call per node
+- removed redundant pwm var init for leds
+- fixed regmap_test_bits return check
+- fixed leds and backlight counting handling
+- iterator variables made scoped
+- lm3533_als_setup() set to exit after mode set if m0de is pwm
+---
+
+Svyatoslav Ryhel (14):
+  dt-bindings: leds: Document TI LM3533 LED controller
+  mfd: lm3533: Remove driver specific regmap wrappers
+  mfd: lm3533: Remove extern from shared functions in the header
+  mfd: lm3533: Pass only regmap and light sensor presence to child
+    devices
+  iio: light: lm3533-als: Remove redundant pdata helpers
+  mfd: lm3533-core: Remove redundant pdata helpers
+  mfd: lm3533: Use dev_groups in struct device_driver
+  mfd: lm3533: Convert to use OF bindings
+  mfd: lm3533: Add support for VIN power supply
+  mfd: lm3533: Set DMA mask
+  video: backlight: lm3533_bl: Improve logic of sysfs functions
+  video: backlight: lm3533_bl: Set initial mapping mode from DT
+  video: backlight: lm3533_bl: Implement backlight_scale property
+  video: leds: backlight: lm3533: Support getting LED sources from DT
+
+ .../leds/backlight/ti,lm3533-backlight.yaml   |  69 ++++
+ .../bindings/leds/ti,lm3533-leds.yaml         |  67 ++++
+ .../devicetree/bindings/leds/ti,lm3533.yaml   | 169 ++++++++
+ drivers/iio/light/lm3533-als.c                | 180 ++++-----
+ drivers/leds/leds-lm3533.c                    | 184 ++++++---
+ drivers/mfd/lm3533-core.c                     | 375 +++++++-----------
+ drivers/mfd/lm3533-ctrlbank.c                 |  33 +-
+ drivers/video/backlight/lm3533_bl.c           | 232 ++++++-----
+ include/linux/mfd/lm3533.h                    |  75 +---
+ 9 files changed, 821 insertions(+), 563 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backlight.yaml
+ create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533-leds.yaml
+ create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533.yaml
+
+-- 
+2.53.0
+
