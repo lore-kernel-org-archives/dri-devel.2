@@ -4,67 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76704CD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 13:21:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDC44CD98E2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 13:24:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF83010E0D8;
-	Wed, 17 Jun 2026 13:21:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5233410EA1B;
+	Wed, 17 Jun 2026 13:24:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="c82VYYod";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="bcAiha2C";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EAD910E0D8
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 13:21:20 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4ggPd91JKbz9vGs;
- Wed, 17 Jun 2026 15:21:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1781702477; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=eK7RkFumJL5Oy7VSKXa/MXrCkIwCGD86E+ep8HSKHIQ=;
- b=c82VYYods5BLNKVzk5QeqwISf0joFD4kxVVX71UHKn5/nQSyE3ac5Klw9UimIYG/xDv0Gy
- wNYuJ9MnvSUwQjyNPv+n9NcDwumstzhkXPgw4pe2EMyGcEZJL9vaQ/d3o72+pN2b5kJVQ+
- BgDOaB50UWb2PfTJPdv/kPNHy1oj9jpgp+SWbcHgPZVBUtDl359z3lF9EeFoKVz9QjjEiL
- IVouolBb60wyr9huTr2z1JCiOQ2cBa0ulTlRoum/XCiRvMtZKxM9GgpM+7MhvN/B5/hn2L
- cXkIlpxx89aCFXMT2rsBZEuU0+rGHyxw00WLD8YxWFyrSnmY3AChsJT3Rr6cZg==
-Message-ID: <012402ed19e3a20952cefca1d709b8fea56e474a.camel@mailbox.org>
-Subject: Re: Properly synchronize dma_fence->signaled bit (Was: Re: [RFC
- PATCH] dma-fence: Fix races of fence callbacks versus destructors by
- locking)
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Boris Brezillon	
- <boris.brezillon@collabora.com>, Alice Ryhl <aliceryhl@google.com>, Daniel
- Almeida <dwlsalmeida@gmail.com>, Gary Guo <gary@garyguo.net>, Tvrtko
- Ursulin	 <tvrtko.ursulin@igalia.com>, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Wed, 17 Jun 2026 15:21:11 +0200
-In-Reply-To: <c124270d-bb33-40aa-b633-54832edb7b05@amd.com>
-References: <20260608142436.265820-2-phasta@kernel.org>
- <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
- <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
- <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
- <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
- <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
- <fa0dc9757bf8343516c4b156a2b70ec91b64ef8f.camel@mailbox.org>
- <6ea6c373-c6cb-4221-ad9d-e60b04d1368f@amd.com>
- <630a8a84ee8fdaa634c7b104742e7a28fcfe507c.camel@mailbox.org>
- <7ff7dc15-4df5-443c-8d7c-c8e9b2672f2c@amd.com>
- <80734f05e684ed6b8c82abd9f96c93968537d0de.camel@mailbox.org>
- <c124270d-bb33-40aa-b633-54832edb7b05@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011008.outbound.protection.outlook.com
+ [40.93.194.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C372D10EA1B
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 13:24:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OP2R78KPKyfHAXdA/s+xoE4NK0TSRNWA7GTgBzde3wIU3PUBSeoaj5fc/la+Mw9i1Gt0FeOfsVz9dj31YOFKoO2awUCLJb3v89JOYe/+5OWl7MFm0PiZph07NWWdYN4p4MQIpUaKhCY/gamU/4qYK6bT+zbUrRnTvkd+3uR4JOTNQRImWa14uf778Oi8TOK/FX6lwmRSxOMd39tH3D4MJVrowQ3Yhba4JWoaW+vwxtXm3Zsno5i8WdcdolEyIL9reTFUaC1kN9Xgu1GuypZ56vSQ04EVezjpMdPo99lQYU7oFt7JrOOSCeDZ/rrth/edcBpZoKI6MurhsZjXOEOt5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EjbEBzcPqsDgPOKD3BR0P+a8IUAgHaZh38Se/qdzOz8=;
+ b=TOYaLB0CiYaNqH90mGm7Eq/ugLNHPwJ0ep8xbrPsijWSRs9vY/bxn60OmpC5ydwQabiLGjMEV0A6pfcgLb6oA5XUSPd/rT3RuStsM/9K7m9n/U9JNpdqXu8v7Zy5unntHNspa6pe/ouC3Ut3MBg+gbpuzFjnjnvWsTqCnCVP2gYXVICRcW/oazAbgiMj44N7iwQ+Tkopr9p4lhq8FPDwn2FYCNwXihbV8bXCNxY/THCRtYNhtjH5gaoPoZnWsEXm+eRzTcfTY3TvNcwp/tBVBygN70At3o6an3wtJLQXvbYvzok6JL4Z9kc8If+YMU1DrCai+E30CMnwZW2kTBQX6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EjbEBzcPqsDgPOKD3BR0P+a8IUAgHaZh38Se/qdzOz8=;
+ b=bcAiha2C16OPG90RkpPXAxju8okgz+aIY5gIlBL12B4mJ70ZER8kVaMkuLYJ2AWAuP/DBgtRKX6wSXXH3kSsfyVgspeh+yoyWXCDyPFv0URoc0tq58HYAV/Y0j5CRAgTtUkKuZlvJip0+eu3UbGRLchJJpaA+qn1rHOQr3DE+4IDH/0yLhGRV4Nj7PqnnZ/uYT6rDjCvwOVcRYuId97h1LDALdPod617+CidvF2orJIxSq2Wb3IKWR6I3w56pcDR6OmxFHTVRElGsyjqpG4761ih1W/0+Y36WfJXKDMvCsXioJCeE+he0TZPVF6g6BGATW7l0fM5QwBhjWXr19t0/w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by SA1PR12MB6727.namprd12.prod.outlook.com (2603:10b6:806:256::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Wed, 17 Jun
+ 2026 13:24:49 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0139.009; Wed, 17 Jun 2026
+ 13:24:49 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+Subject: [PATCH v3 0/3] gpu: nova-core: obtain and display VRAM amount
+Date: Wed, 17 Jun 2026 22:24:42 +0900
+Message-Id: <20260617-boot-vram-v3-0-20b9ec5fe9f2@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ7CIBQFr9KwFvOhoYgr72FcUED7TVoMINE0v
+ btQNzVxOcmbeTOJLqCL5NjMJLiMEf1UoN01xAx6ujmKtjDhwDvoQNHe+0Rz0CMFsAKEZMCtIGX
+ /CO6Kr7V1vnw5Pvu7M6kG6mLAmHx4r2eZ1d2/bmYUqFXtgXcMBEh9mjJa1HvjR1LDmW9UJrcqL
+ yoTRkkFwIyEH3VZlg+Wnjfb8AAAAA==
+X-Change-ID: 20260609-boot-vram-00d5057102d5
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>
+Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ Eliot Courtney <ecourtney@nvidia.com>, 
+ Joel Fernandes <joelagnelf@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TY4P286CA0093.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:369::9) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-X-MBO-RS-ID: bbb5cad53ca6fc71fe7
-X-MBO-RS-META: safgiwic499j5zjcre4hwidwacnbb8cx
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SA1PR12MB6727:EE_
+X-MS-Office365-Filtering-Correlation-Id: 11a0d74f-781e-4487-8577-08decc73cec7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|10070799003|7416014|56012099006|11063799006|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: gGm6bJ7U8U7uOdwZCaMHXL/h8wKZXOCJKodpFEJNxCVsy+HpdyGmz3dsugmd0IA42Hh1iWFcQKm5W+yFQPhILSKhbLxZ7miCSJFE/OBJyI9UCJ69HoFTd60KM1w33SMcHn5DGEpkopWVuvoE3T9eOpGQExXcaLfn49HNULA0r9oHTS9wprADtV4YCzZaiX4pbIz8bMnFIVI6DOy1ERoB3/B+mEbCiGA0BxElE/LDZnrLXG/UdKz0UPteGZspdUyVA2qWPPlJIl0tw88darasZDM5a39azxR7rhkYDO1O5on6iX7XkUsAbObImemcwKxyiFkcE7KVVniObS8oldiUiuV4XqKmbSrmWkDYyiGup3/StRRTHqBJyeZ9z3VBXPgRV/4ePWcTeO11j1S3o8KpGv/CtLP4K7QAqzSSMuCCJpM3tWaVmKsnqjqsuopech/Ugia8gMhwr7oN3KHqYjc99fy5coEgmZtK0/RzaB7eG1XRoMUxdERz7PAAEz4l/L9GZBdvrvBNRFdQJTrwp0Ha2tO17eWR+7RstWZ8zLH++Rwu/brmdooA/STjEFqpXeH2GIOg6wjRcwxyFeGMpP/kms5GRvzWmHxgUm2nUqyCi0rzh3+kiVUBxgS83+BTT1khTLPibJNzTxunLG5gfLa/oh81Re99gmzWWvMeKQgxRlwtmocqn3VN+G0CYmWEdwnURO2yncNkS8l9rBih7Ffwug==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(10070799003)(7416014)(56012099006)(11063799006)(18002099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S2R6OVI0OWFoN29HUmI4b3g0NFAxVk53Yk9WdEUyNGRON20rMmFDd2EzUnBx?=
+ =?utf-8?B?ZmYrd3dXcXdid0YrRXNDcGFNUCtoS0cyOC92Q0hITVhtaTJvc2F3SUxHRm4z?=
+ =?utf-8?B?Y2VmQWNHeUxzNmlCTVFuOEo5YytLRi9GRTZhUGFjaUlHWW9kcWFLRERaaEtE?=
+ =?utf-8?B?UHIyMUdEQjNtdnR1TEZDODVZc3BmNXJ0K240YWpsRzExNmxxNmJzeVU1R1l1?=
+ =?utf-8?B?cFJ0Z2s0Y09PZWhTc0JxV2pXRUc3VlU5OXFoL0RqaTFRNTBCZUorUFBidW5V?=
+ =?utf-8?B?dnF1M0ViazZKYTNyWkIwY0NsSmY2WmxFRmttcjJsNWhQVjRyQzBrN2JaTHAw?=
+ =?utf-8?B?UXFTVkc0VTdkRUdTN245THFCRnI5UWF0RGlESzN5bE1oL21tdHpLZ1hEMHFG?=
+ =?utf-8?B?cHNtdWVrZVBhMEJETGZKY1hTVWR0d1o1ZXN5Nzd3Tk9JRGdCSW0zUHBiUVJ5?=
+ =?utf-8?B?VndjcmNXL084QzAxSVNpc1FBRHA5bTM0MlRiL2VzR0hEVlA1NWdPRXF4Yml3?=
+ =?utf-8?B?QTJXT0NmWmZGQ1Y2OTJRYUJncHU3OGd1SjYycHNJYjdWdHExKzVNcVFDdzJD?=
+ =?utf-8?B?bVpZU1B4T1duTm5Fbk9SMnBac2lCNWRobk9aaGZIMDlqTGZhNVc0WW10UUNx?=
+ =?utf-8?B?WDc3WWRoc1U2LzZaTHFTQUU2RWtGdDdyZWZGRVUwY1FYeTdrSEx2a2VxTUFq?=
+ =?utf-8?B?VVIyV0Rub3ZRNDFUcVFPcys0N245TXV0bmgyMmtXcmh1ZXMzeVpuRnk5ZENs?=
+ =?utf-8?B?ZzdCdE1OS0V3QzRGZCtoTVNpNDVQT3VuOTBGZmxuNDhiSlhhZFJUcjFuZGg4?=
+ =?utf-8?B?ems5ckNCa0ZIVzlEQjJHOVRxczh4dndiMzcwNkQ2NEZlak1nUmJYNUtwZHAx?=
+ =?utf-8?B?SXpRWmRNMFdpWE01WmY1SFltRjJ3dlprbjhKbVV2dDhqYkp5bnZuVitHRXBG?=
+ =?utf-8?B?NnJXVEs3WUtqYjdwbzZsakNxRUE4S1g3US9XdlNuN2hUaDlZbTdRMUptVUth?=
+ =?utf-8?B?aWdZeE5DckNkaU03SVpYRWE0dFU2Sko1QXNBZnNwRmw0MVRlSkRGeDFYRmRZ?=
+ =?utf-8?B?KzBmUmlXeXY0cEpzbDJhMzkrdmRGMjl5Ym1lK1hRWnZhZ0loa1Y2UDJhcUli?=
+ =?utf-8?B?LzNDSGhTQkdaWHFLcFF0clI0N0FqUUtkU2p5bFJ1cDRQdnhXRDNvM3JLQlJt?=
+ =?utf-8?B?SnNQZjVLVWd3eHcwa0dOSzIzQWl6UTNmNGlSUHlpbDZ4b3NweDV2ZEVCVGtu?=
+ =?utf-8?B?eXpyQ1NqRCtxd3EyTE9iVGE4Tzl5dVU2ejBaczY1WFRmSzZKc2ZUdzUrNkZS?=
+ =?utf-8?B?OTBCUVlNYmhiMlE1MmFjRFZ1MkxIdkdaU3hRRlFpTDhDNHIweXpQK1BZUVJ6?=
+ =?utf-8?B?QTZaeVltUFlEcUVnaFNFN0V4YlZkSjNodW1rdTh0MVh2KytqN0ExYm1oWDdy?=
+ =?utf-8?B?WDMyWXhxVUprV2JZQTlJZDZBNnhLdTYrVGdBaXE0NGhML1lITGlHMk9UTDlp?=
+ =?utf-8?B?WHBENjVrOCtpMmo0WlRVWkREaUZrWTEwWlZyR01mL3JrNWtYamRSZkRRY1lV?=
+ =?utf-8?B?N0p4RGoyQjNKMmhEWk14ZHdpUWozajgzVlhlQVM2Z0wzUThTcE12UThQbTFq?=
+ =?utf-8?B?OWFMNTVNVUVzVnVIejFiZzdLTmhpdDZMaVBZd3BKUFk2RFdRUjdLYWU4aG9x?=
+ =?utf-8?B?QkxhdFh1T0U3VitGZUlELzA4bmJOZ3RpcXpWZEp5YkttaTh1aHpkZm9sZUZs?=
+ =?utf-8?B?OHNlRm9RSk50czV4OVJzeTl1VVE4Y2xlYkF3ZlgzUytHdkEvQ01GdDB0dnoz?=
+ =?utf-8?B?YlNNQU05cTRKK2VGMlFjc2R6YjZ6Z3RERDdYZXBKdy9PcHNqTWdJZmVsczEx?=
+ =?utf-8?B?T01ycmpQSmRLYjltU1NMYnhEMlJhTys5dGFBQWdTbXpwSnZMVEw1YWRGUEpW?=
+ =?utf-8?B?SVJ6SUE3SzJnamIwOGpoai8xOU1YYjBILzU3KzJ4OHUxOUtZeFFNVHowb3pw?=
+ =?utf-8?B?RGRtR0IrYlFYR2w2NlRFb1BBb010VFlCQnFOV2dYOGxMczMrMjlDRlJXZSs3?=
+ =?utf-8?B?Y1pobktYc1AwRk82ZFoyNkRLdm05a0I5dGh5Rnk2cHkwWWJYL2FUdU04OWdX?=
+ =?utf-8?B?ejJadHhDUHM1cDBRcUY2ZEc3RFdlQkwvMWRmUUxydHp2azE1QUZVWVBPZ0Za?=
+ =?utf-8?B?VDBvdVJacHc3VHRlSHdNQ09WTVBma0VHUzA4eGRGQ3JWM0llcWVGOFdRMGZa?=
+ =?utf-8?B?U0U2SytDbTNMUlJseGd3bXpmeXJVOEd5Qkd5V3ZjOEpFakR1MjRKYzNmTXBD?=
+ =?utf-8?B?K2hWYzhOYjJwSUFOOU9NaVpXNVJoVjhRRU5UTnk3aW42by91UFdlQXYyOEJq?=
+ =?utf-8?Q?5bBA0C5E+wF6YPLkgqcT7dmjaNEYTXl9YTfuX4yCHafik?=
+X-MS-Exchange-AntiSpam-MessageData-1: zeiMjJCFXq1U0g==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11a0d74f-781e-4487-8577-08decc73cec7
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 13:24:49.6941 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AtFKFUc+xFnQVvqx3kf8cq+6tbcpe/yunT5scS01qtPzUwz6HrYV6b+X1kkeep4BVc7DCFzCLTB8t6+wJ0a6qQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6727
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,133 +143,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-06-17 at 15:03 +0200, Christian K=C3=B6nig wrote:
-> On 6/17/26 12:16, Philipp Stanner wrote:
-> > On Wed, 2026-06-17 at 11:46 +0200, Christian K=C3=B6nig wrote:
-> ...
-> > >=20
-> > > > B.
-> > > >=20
-> > > > I think rejecting ideas with "we tried this, it >>didn't work<<" is=
- not
-> > > > a valid reason for refusing an idea. Point A above helps with that.=
- If
-> > > > your commit message contains measurements or links to tickets with
-> > > > *real life* performance regressions (microbenchmarks are invalid), =
-that
-> > > > helps reducing discussion overhead drastically.
-> > > >=20
-> > > > Now, in this particular case, I fail to see how taking the spinlock=
- to
-> > > > check that bit is evil. If it regresses someone's speed that much, =
-it
-> > > > would mean that someone is heavily punching that lock, like polling
-> > > > 24/7 with dma_fence_is_signaled().
-> > >=20
-> > > I think (but I'm not 100% sure) the the problem is that taking the
-> > > spinlock introduces a write to the cache line it is in.
-> > >=20
-> > > At the moment when a fence is signaled a read is enough to check that
-> > > state, so what happens is that the cache line for the signaled bit
-> > > sooner or later end up in all CPU caches.
-> > >=20
-> > > When you start to use the spinlock the cache line backing that plays
-> > > ping/pong between all the CPU cores and that is something which
-> > > always stalls each CPU when it needs to acquire the cache line. Keep
-> > > in mind that on a modern box you can calculate like a 4x4 matrix in
-> > > the same time you solve a cache miss.
-> > >=20
-> > > This is especially important for the stub fence which is used by
-> > > basically all cores at the same time whenever you need a signaled
-> > > dummy.
-> >=20
-> > Alright, that sort of sounds logical, I guess. So the argument
-> > basically is that if we'd try to lock that, someone would immediately
-> > report real and massive performance regressions leading to a revert.
-> >=20
-> > I think last time you mentioned that memory footprint is less of a
-> > concern for dma_fence than cache lines. Out of interest: has anyone
-> > ever experimented with more padding to prevent spinners from shooting
-> > down other CPUs cache lines?
->=20
-> How would that work in this case? I mean as long as you have the same
-> variable (spinlock) you have the same cache line no matter how you
-> pad.
+This series performs some light refactoring required to be able to
+initialize members of the `Gpu` struct from GSP commands, and makes use
+of that refactoring to obtain and store the amount of VRAM on the
+device.
 
-Ah, gotcha. I was talking more in general. Sometimes you have
-situations like:
+This is useful as probe-time information to be displayed, but will also
+become a parameter that can be queried from user-space once the nova-drm
+to nova-core bridge is established.
 
-struct foo {
-  spinlock_t lock;
-  // place padding to fill up a cache line here?
-  u8 data[];
-} bar;
+This revision is just a rebase on top of the latest `drm-rust-next`, as
+the newly pushed patches introduced some non-trivial conflicts.
 
-// thread A
-lock(bar->lock);
-do_sth(bar->data); // works on `data`
-unlock(bar->lock);
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+---
+Changes in v3:
+- Rebase against latest `drm-rust-next`.
+- Link to v2: https://patch.msgid.link/20260617-boot-vram-v2-0-15c979001c70@nvidia.com
 
-// thread B
-lock(bar->lock); // might invalidate the cache line the beginning of `data`=
- lives in
+Changes in v2:
+- Move `sysmem_flush` after `gsp_resources` to avoid use-after-drop.
+  (Eliot and Sashiko)
+- Rename `usable_fb_regions_iter` to `usable_fb_regions`.
+- Return all usable regions as a `KVec`.
+- Let the caller compute the usable VRAM size instead of storing it as a
+  `GetGspStaticInfoReply` property.
+- Dropped `Reviewed-by` tags on patch 3 as code has changed
+  considerably.
+- Link to v1: https://patch.msgid.link/20260609-boot-vram-v1-0-d9382610507a@nvidia.com
 
-That wouldn't solve the spinlock-issue; but I've been interested in a
-while in whether the above has been an observed problem.
+To: Danilo Krummrich <dakr@kernel.org>
+To: Alice Ryhl <aliceryhl@google.com>
+To: Alexandre Courbot <acourbot@nvidia.com>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Benno Lossin <lossin@kernel.org>
+To: Gary Guo <gary@garyguo.net>
+Cc: nova-gpu@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: rust-for-linux@vger.kernel.org
 
->=20
-> > Since you're the maintainer of dma-buf, what would you wish we do?
->=20
-> Try to improve the documentation by sending out patches. I will send out =
-my ideas for resilient improvements and we then discuss on the patches.
->=20
-> > Would you be at least OK with the memory barrier approach to make the
-> > API a bit more robust? AFAIU the barriers will not cause a cache line
-> > invalidation.
->=20
-> What exactly do you mean with that? The test_bit() and set_bit() are
-> already memory barriers as far as I know.
+---
+Alexandre Courbot (2):
+      gpu: nova-core: move GSP unload state to a pinned Gpu subobject
+      gpu: nova-core: move GPU static information acquisition to a GSP method
 
-I'm talking about whether we could enforce that the bit is only set
-once the callbacks have completed, so someone who wants to drop his
-reference once dma_fence_is_signaled() returns true doesn't cause a
-UAF. You didn't answer here:
+Joel Fernandes (1):
+      gpu: nova-core: gsp: Extract and display usable FB regions from GSP
 
-https://lore.kernel.org/dri-devel/dca171cea556c3f3de3a86f735eeb53335cd3f49.=
-camel@mailbox.org/
+ drivers/gpu/nova-core/gpu.rs             | 136 +++++++++++++++++++++----------
+ drivers/gpu/nova-core/gsp.rs             |  14 +++-
+ drivers/gpu/nova-core/gsp/boot.rs        |   7 --
+ drivers/gpu/nova-core/gsp/commands.rs    |  13 ++-
+ drivers/gpu/nova-core/gsp/fw/commands.rs |  40 ++++++++-
+ 5 files changed, 151 insertions(+), 59 deletions(-)
+---
+base-commit: e655873885063245fd7f49f81cebfdfdef66a59d
+change-id: 20260609-boot-vram-00d5057102d5
 
+Best regards,
+--  
+Alexandre Courbot <acourbot@nvidia.com>
 
-
->=20
-> > >=20
-> > > > Again, having that use case documented somewhere could save us all =
-time
-> > > > =E2=80=93 especially for you, Christian, since you wouldn't be forc=
-ed to have
-> > > > the same discussion over and over again over the years ;-)
-> > >=20
-> > > Well I could also send out all the DMA-buf resilient patches/ideas I =
-came up with over the years once more.
-> >=20
-> > Maybe we could have sort of a wiki in Documentation/ with links to
-> > relevant mail threads and some explanations of why things are the way
-> > they are?
->=20
-> I think some AI analyzing the mailing list and noting when some ideas
-> repeat would help.
-
-Such tools should be used sparingly. Notably they can contribute to
-contributor-frustration.
-
->=20
-> At least for me maintaining some kind of Wiki additional to my
-> current workload wouldn't be possible at all.
-
-A simple file with some links could be enough. But was just an idea, no
-hard feelings about it.
-
-P.
