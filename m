@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51EBCCD98F1
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9198CD98E2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77FD510EF6F;
-	Wed, 17 Jun 2026 10:15:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46A5A10EF6E;
+	Wed, 17 Jun 2026 10:15:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JWpw3fc8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nnRMRfge";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8839C10EF6C
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:41 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E549010EF6E
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0CCBE60121;
- Wed, 17 Jun 2026 10:15:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FBA51F000E9;
- Wed, 17 Jun 2026 10:15:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CE54843BDE;
+ Wed, 17 Jun 2026 10:15:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A18F1F00A3A;
+ Wed, 17 Jun 2026 10:15:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781691340;
- bh=/zNdmsF5OiLaEC6PJz1mxhqXH2Aq8oX/miwqou0Toas=;
+ s=k20260515; t=1781691348;
+ bh=W7XD1p6vpf1n5f2oegTSuHppZ7II6ZWtw8Io2KTWY0I=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=JWpw3fc8uGitLFuQyTOZle1sfbH8AgFyvPPw+Q+jdXVBnYKI3nNB6Yal2NNTnzGiz
- JLDLBkyNvRvBMpqYzrKz+IVSRSBBvgRAJVABCE/1UIA2VE3UxfTW+5IEnWAVkLTCZ8
- f844vZ+isgZstfQMu0vOygSXjaQq0tUrJ5HWSi4TJk6oJfrb//Jlzs+YJvmFr/rBBV
- WBC+kNpcqScnoDrbm8j6nQy3NuyMB/OACOJQEvZKXyyZf9WARxbZofGjsDm8AtA6h8
- XGzQ0c0594n5Q0ZU/Ft8KoD7Zgkj6qREqBy5eiMe+CF6Ij+NvEWQe4+CUnxO2J0u1q
- j1a7Psqsm4EVQ==
+ b=nnRMRfgemwANxruBclxbx+RufcYdyhrGAXLS1BtcJD2l3qnPqmhvJ29L9OZAlQLuw
+ vj9Zq1IkmKT+jVWFdAcnIggVRKJChUAxedqT4T2Hyr4of7KPWU0eB63MrABxWtknU4
+ 1G12KNH+2ZhsCcaG/In4bvCdigEnzjMuEIY8u1XJjk8JWu3zfg28S1N9qAHu5LUNi1
+ HktWUH2SGUeeGUWgWBNlzLJDF2FywQQSbvtSovqwePsfRIP+66lwLzby+7w7eluAhK
+ 7d76H6vMbOxs091zhpALy5AW10ztuf6hANPTC4vjqJf2B7DiXQJO2lKuiQ5R9udg4o
+ 2CIx71HzvTs6g==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 17 Jun 2026 12:14:44 +0200
-Subject: [PATCH 19/37] drm/bridge: simple-bridge: Switch to atomic bridge
- callbacks
+Date: Wed, 17 Jun 2026 12:14:47 +0200
+Subject: [PATCH 22/37] drm/bridge: ti-tfp410: Switch to atomic bridge callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-drm-all-atomic-bridges-v1-19-b63e6316166b@kernel.org>
+Message-Id: <20260617-drm-all-atomic-bridges-v1-22-b63e6316166b@kernel.org>
 References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 In-Reply-To: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,12 +49,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4628; i=mripard@kernel.org;
- h=from:subject:message-id; bh=NII5h60H1ITyDoE1sE+ePv13JdjrwOmWC+YtkL8BYZ0=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxX35j/4lzwvNT//T81lmQd6X79y7HHaFJ9+8JjVFu
- lYt7X1+x1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjIm5WMDbtKO7+K3Xi5V49H
- 8e6DtXw7zdf8v61WqXSkb8rmWKbSW3yz66/fS7PkVlkgz8Ix9c7drYy1Ytv+5C09em7v9iV3dqy
- LEU7+v+aEglF7764K6TCrbdcN1SzFaldMPZH+dcMexfyHYetKAQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4275; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=T27C5N/Qar2HbsRAXAbwxoM5vtBEiI+GnsjgteVPhxc=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxROSxFO7D09sOcqRYxOytWOZo+tPN6vrHmJtbXyRx
+ o7miWIdU1kYhDkZZMUUWZ7IhJ1e3r64ysF+5Q+YOaxMIEMYuDgFYCJfIhkbNm9/Xyhj5crFJmZe
+ blv/78vPen+DmRkn42SskqL2FnI9LH/flLfNoHKG3hc5Vu4zXOWM9YFFnPmJXy99FE4oj2l5pLX
+ p/75eCa6/SYzn9y8tVSv7WsxTU/Xt3YXsOLb0Gp2i26t+AQA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,11 +72,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The simple-bridge bridge still uses the deprecated non-atomic bridge
+The ti-tfp410 bridge still uses the deprecated non-atomic bridge
 callbacks.
 
-Switch to their atomic counterparts, adding the bridge state
-handlers if not already present.
+Switch to their atomic counterparts.
 
 Generated by the following Coccinelle script:
 
@@ -111,7 +109,7 @@ identifier f;
  	...,
  };
 
-@ update_pre_enable_struct depends on (is_bridge && !has_create_state) @
+@ update_pre_enable_struct depends on is_bridge @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -134,7 +132,7 @@ identifier b;
 	...
  }
 
-@ update_enable_struct depends on (is_bridge && !has_create_state) @
+@ update_enable_struct depends on is_bridge @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -157,7 +155,7 @@ identifier b;
 	...
  }
 
-@ update_disable_struct depends on (is_bridge && !has_create_state) @
+@ update_disable_struct depends on is_bridge @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -180,7 +178,7 @@ identifier b;
 	...
  }
 
-@ update_post_disable_struct depends on (is_bridge && !has_create_state) @
+@ update_post_disable_struct depends on is_bridge @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -205,59 +203,51 @@ identifier b;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/simple-bridge.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/bridge/ti-tfp410.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
-index cc13c98f9be6..3fba7002322e 100644
---- a/drivers/gpu/drm/bridge/simple-bridge.c
-+++ b/drivers/gpu/drm/bridge/simple-bridge.c
-@@ -130,11 +130,12 @@ static int simple_bridge_attach(struct drm_bridge *bridge,
- 	drm_connector_attach_encoder(&sbridge->connector, encoder);
- 
- 	return 0;
- }
- 
--static void simple_bridge_enable(struct drm_bridge *bridge)
-+static void simple_bridge_enable(struct drm_bridge *bridge,
-+				 struct drm_atomic_commit *commit)
- {
- 	struct simple_bridge *sbridge = drm_bridge_to_simple_bridge(bridge);
- 	int ret;
- 
- 	if (sbridge->vdd) {
-@@ -144,24 +145,28 @@ static void simple_bridge_enable(struct drm_bridge *bridge)
+diff --git a/drivers/gpu/drm/bridge/ti-tfp410.c b/drivers/gpu/drm/bridge/ti-tfp410.c
+index 6f06f7b4e992..f0a14f52aaac 100644
+--- a/drivers/gpu/drm/bridge/ti-tfp410.c
++++ b/drivers/gpu/drm/bridge/ti-tfp410.c
+@@ -172,18 +172,20 @@ static void tfp410_detach(struct drm_bridge *bridge)
+ 		drm_bridge_hpd_disable(dvi->bridge.next_bridge);
+ 		cancel_delayed_work_sync(&dvi->hpd_work);
  	}
- 
- 	gpiod_set_value_cansleep(sbridge->enable, 1);
  }
  
--static void simple_bridge_disable(struct drm_bridge *bridge)
-+static void simple_bridge_disable(struct drm_bridge *bridge,
-+				  struct drm_atomic_commit *commit)
+-static void tfp410_enable(struct drm_bridge *bridge)
++static void tfp410_enable(struct drm_bridge *bridge,
++			  struct drm_atomic_commit *commit)
  {
- 	struct simple_bridge *sbridge = drm_bridge_to_simple_bridge(bridge);
+ 	struct tfp410 *dvi = drm_bridge_to_tfp410(bridge);
  
- 	gpiod_set_value_cansleep(sbridge->enable, 0);
- 
- 	if (sbridge->vdd)
- 		regulator_disable(sbridge->vdd);
+ 	gpiod_set_value_cansleep(dvi->powerdown, 0);
  }
  
- static const struct drm_bridge_funcs simple_bridge_bridge_funcs = {
-+	.atomic_create_state = drm_atomic_helper_bridge_create_state,
-+	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-+	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach		= simple_bridge_attach,
--	.enable		= simple_bridge_enable,
--	.disable	= simple_bridge_disable,
-+	.atomic_enable = simple_bridge_enable,
-+	.atomic_disable = simple_bridge_disable,
- };
- 
- static int simple_bridge_probe(struct platform_device *pdev)
+-static void tfp410_disable(struct drm_bridge *bridge)
++static void tfp410_disable(struct drm_bridge *bridge,
++			   struct drm_atomic_commit *commit)
  {
- 	struct simple_bridge *sbridge;
+ 	struct tfp410 *dvi = drm_bridge_to_tfp410(bridge);
+ 
+ 	gpiod_set_value_cansleep(dvi->powerdown, 1);
+ }
+@@ -240,12 +242,12 @@ static int tfp410_atomic_check(struct drm_bridge *bridge,
+ }
+ 
+ static const struct drm_bridge_funcs tfp410_bridge_funcs = {
+ 	.attach		= tfp410_attach,
+ 	.detach		= tfp410_detach,
+-	.enable		= tfp410_enable,
+-	.disable	= tfp410_disable,
++	.atomic_enable = tfp410_enable,
++	.atomic_disable = tfp410_disable,
+ 	.mode_valid	= tfp410_mode_valid,
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_get_input_bus_fmts = tfp410_get_input_bus_fmts,
 
 -- 
 2.54.0
