@@ -4,90 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07A45CD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 07:24:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97A26CD98ED
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 07:34:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6871510EE59;
-	Wed, 17 Jun 2026 07:24:49 +0000 (UTC)
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
- [209.85.167.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89DA310EE59
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 07:24:47 +0000 (UTC)
-Received: by mail-oi1-f169.google.com with SMTP id
- 5614622812f47-4863cd41330so441430b6e.1
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 00:24:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8D8710E96D;
+	Wed, 17 Jun 2026 07:34:28 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="mGbI5TPV";
+	dkim-atps=neutral
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C7A510E96D
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 07:34:27 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-490b613a17bso49350265e9.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 00:34:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1781681666; x=1782286466; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=3Uim5pbWVyeQp4JbMjOlnv43bbNh3AaD6WsvZpd9kZ8=;
+ b=mGbI5TPVVjAawbYzRq+tT1Y0lgWK3lSyksMverkDSRRPr7ou/Ic0LjTJ8RMx+/sCd3
+ VR2Zv06ReFQZVFN6+zqyK03iBycOfK2TTclqwxY8WhUmrCnOcDHhn4s96P5OlvjENfsi
+ Ma8VkzK5GuIucnRQOzYiOdYtDFjYT/CdVNHvIPeibc3aP5E1m4xZn+PXRSPPc70EQzNQ
+ ODz8USO5tT/QJLD+gBX66fXu5KmnMQXO2BlJ9VE/fFWTwdFfSGNgOdQeI9jlRadOtR1r
+ noFAR4uGyg6h2ItIMpoHGpgw/7UqbIbfnDrOUuBXdToxsuhHYOkZcRoAfV74eEjHYV4h
+ hwGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781681087; x=1782285887;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8u7Gki8p4EM6XMlf4misGHyXuNmTvOX4Ry5GM+DWUec=;
- b=Niq8zrbhMMOWY0KFamKCsJie42xMSBQGfIJ1qQmmnqxyBgMPn8soHJYOSJe07hFE2J
- C/FKErWrNVar08me9C+TRi4TSkoDwo9CS9nYZma9D+cf6IjzKjUqVR3jYXxY9yYcGlOQ
- HToYrmcP1kxDvjWfqJgApBQSX2ofFapBlWUXNcfdwTvdy8loDuEa/La5OR02Q7eRT3Mw
- MSPOm4sJ58ROReydpdb+hbQ1z4aulxbLxkiB+eB5YNVBn/ge07egvFdoPhnRPUqjibk5
- LpwspvpQ6wxhfXiTA7MhQzquiHfjYiT0XUfIyIEeGHGd0m2icU7dQCfgsB9ZRAMWJ83d
- pkOA==
+ d=1e100.net; s=20251104; t=1781681666; x=1782286466;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3Uim5pbWVyeQp4JbMjOlnv43bbNh3AaD6WsvZpd9kZ8=;
+ b=NAeS9+ypu5GVFXHbwvFVeutBMXbCsRUOfJfvt9Kqjwhx4aS5q9MCa+sSF3Gp+stJbd
+ EhtRZbFkkEbcsyZWxMYJi6FFdSIjF6icweVlGLU++9qW/N3tFFFMe2Jk3oX4EcqM3L2B
+ VpVFWMa1sNDgOTen7+25HkVOpFmrRb2YOgkLTj8JeE2RrJ4n0UZacbRINaD++g67r3It
+ moCizuIw8zOf75oUKYWsEQAqY6/p7R3n+2Vk2iEaHKySmGYYeG0Lz9uF0UHPKkCKYN7w
+ qc7lMj6IqhHL4MYKUB62AwQK/bttJd8JTKUZt3+dNa4r0ps/HS9sP+hHN4HtHmTIgAsh
+ XuWA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/wjlEZvmdW8cCVK9fhMGWER93E3ubJqWox193C2nb5inVgFk48Q51hyYNwaNdRAQ2Q8vgQc3ffWnA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz2WGUxTWICPCLz2mAXR7Fmq144G1ShgD4hxR97SeakgJ7LvyFh
- rtqQ8cGMWsxWEA7zY2d/HNVj+TcPWUKpUlbD6ZIUIHed11Mv0CvCoXaPMd9rFpXT
-X-Gm-Gg: Acq92OG5I1pRJZ9INmc+Q4drG7ab2ZcuZw7m0ebSmLZvoVWMJM/fGW5ydeGSQSqNgIr
- jx10AChLp/4PrXYaKPcf4UTR8On7XAeNntIbwV9ukloewVxXqlP0BK11k9LCMKgFox/QYQ7FGPr
- P8iQYdnYGPcA7qV5KGTTa7a0oCR5r7EFn1azAGos26r/Jddy/woQrMXEo2WM1S+wSOT4jPa349d
- /Nv4Y1i0qW/6X7QdHFLalp/sDqpgSXS7JJHO4O7iScupweYEvFPxmw8rFBMWN782dxXTN940GVF
- r6BgflqfAbM4mhIxNtQejrfgQq54280c99e+9hGMH1VQIOQQR1RpHaACtCyamkYI9TjcnzGakqx
- 2sfkL7FlJNsrynStdtqV4yvM+8APV/GGj2Wp+0BExQRI6UIXAUdS2Ra95fZ/BV3g9IXYr4qxz/R
- YoYGc+fC0DeaEzvDNZu82/eb05YYF0fEUv2BzmwKYcG/pXTp0kEA==
-X-Received: by 2002:a05:6808:1a09:b0:486:4715:ef39 with SMTP id
- 5614622812f47-489460cbf2emr1321610b6e.3.1781681086624; 
- Wed, 17 Jun 2026 00:24:46 -0700 (PDT)
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com.
- [209.85.160.42]) by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-7e79f5a11efsm8679331a34.1.2026.06.17.00.24.46
- for <dri-devel@lists.freedesktop.org>
+ AFNElJ/hYW2bNsnLz6O9S0TXr+yOsP9I/NHDH6ftvr8pPx8K54gACn+fB4JB35tqcqZMbZtrXx0Se//E0nE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzX+RxFAKPiXz6YCEcVwZrRciTXyqJ2V/N92CGsaD6AqcfyLKXI
+ 0S8JXOntg4761xurwQNM3lcmyX3Hd6NBr9AjeKv9yDTUItnggptSc3tUYniS4Jj/XP8=
+X-Gm-Gg: Acq92OFMmmEh6AJp5mDZ0vDkvACKdXs17/CXEk23Z6DR7vs6zh2Dm4FOskdRXMKhxvA
+ dx7+Em8axkW0jz0oFuLFQ1Pi/tTV3lAoBhluQKr6JNrYbzrKWXilhEKaKouI4gzQ7UK8Sx9Njqg
+ q4oqZ9qE42dWN1J/3j5SzUAuT6jMW3xoIKVE+ZlfcqF75mfoPsTRl+PUOS/3oWUOQqrzSl5blfZ
+ 1Rx2Sp05ETot6ueAS1oJrAK1uVh2PQBz4QanpNaUif4jXJ+3gtmU3dSU6OXu65AikmuktbbhvZ5
+ Cnm/t4uMSo6UBdihM/M6ATPpuow9Fgk4hy+46FRRi8ANnxkRpCyLZTn7YMDA/AsqgMBsF1hjsZ3
+ bn6P4PmXeAs0DOx0wEn0Dy5IxRYCbNheXcRWZhYlzEqsliINjWYwJSb9Ownvl9oFEmchUwl1nM2
+ sWei+BFANkUkSLRi6NT6PJ9w==
+X-Received: by 2002:a05:600c:a305:b0:492:2c87:3d4b with SMTP id
+ 5b1f17b1804b1-492333af19dmr33307215e9.12.1781681665133; 
+ Wed, 17 Jun 2026 00:34:25 -0700 (PDT)
+Received: from [10.12.4.106] ([212.133.41.97])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4922fa97a07sm242913335e9.14.2026.06.17.00.34.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Jun 2026 00:24:46 -0700 (PDT)
-Received: by mail-oa1-f42.google.com with SMTP id
- 586e51a60fabf-442ce0c2770so615721fac.0
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 00:24:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ+blNiqbsd9SHLjHFxSmulNYWFa/R96uGEj+bRCplas5zP+1VKO42gXc9Pg6UD07E09Ae1RE0k//nI=@lists.freedesktop.org
-X-Received: by 2002:a05:6122:6315:b0:59e:2a50:39ab with SMTP id
- 71dfb90a1353d-5bbc106a67fmr555519e0c.2.1781680625185; Wed, 17 Jun 2026
- 00:17:05 -0700 (PDT)
+ Wed, 17 Jun 2026 00:34:24 -0700 (PDT)
+Message-ID: <6726e289-02c8-4267-b8cb-3b4ba2ebae1a@linaro.org>
+Date: Wed, 17 Jun 2026 09:34:22 +0200
 MIME-Version: 1.0
-References: <20260615-rcar-du-dsc-v5-0-aed1a28610e4@ideasonboard.com>
- <20260615-rcar-du-dsc-v5-2-aed1a28610e4@ideasonboard.com>
-In-Reply-To: <20260615-rcar-du-dsc-v5-2-aed1a28610e4@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 17 Jun 2026 09:16:53 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUGpxip_h1dCCQ1mdpW8m+hP_PjmjzVmyRpDUtGQWR0AQ@mail.gmail.com>
-X-Gm-Features: AVVi8CcYLQHmYJC_gazcaRIfqz7y7D9l_HFtGh-yRcroThw0DCba9TthKbXFofA
-Message-ID: <CAMuHMdUGpxip_h1dCCQ1mdpW8m+hP_PjmjzVmyRpDUtGQWR0AQ@mail.gmail.com>
-Subject: Re: [PATCH v5 2/7] dt-bindings: display: bridge: Document Renesas
- R-Car V4H DSC bindings
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v3 4/4] Revert "dt-bindings: display: panel: panel-simple:
+ Add lg,sw49410 compatible"
+To: Maxime Ripard <mripard@kernel.org>, Paul Sajna <sajattack@postmarketos.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- Conor Dooley <conor.dooley@microchip.com>
-Content-Type: text/plain; charset="UTF-8"
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Jessica Zhang <jesszhan0024@gmail.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, David Heidelberg <david@ixit.cz>,
+ phone-devel@vger.kernel.org, Amir Dahan <system64fumo@tuta.io>
+References: <20260614-judyln-panel-v3-0-07f4134441bd@postmarketos.org>
+ <20260614-judyln-panel-v3-4-07f4134441bd@postmarketos.org>
+ <20260615-amigurumi-kagu-of-prestige-ecae6c@houat>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260615-amigurumi-kagu-of-prestige-ecae6c@houat>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,32 +124,28 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 15 Jun 2026 at 15:12, Tomi Valkeinen
-<tomi.valkeinen+renesas@ideasonboard.com> wrote:
-> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
->
-> The Renesas DSC Display Stream Compression is a bridge embedded in the
-> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
-> 8k or 400 Mpixel/s .
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> [tomi.valkeinen: fix the example]
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+On 6/15/26 11:17, Maxime Ripard wrote:
+> On Sun, Jun 14, 2026 at 05:08:01PM -0700, Paul Sajna wrote:
+>> This reverts commit a74c2e55ab66519ffa2069ac9ae83cd937bff4c4.
+>>
+>> It isn't actually panel-simple-compatible, and we knew as much by the
+>> time this merged, but I guess maintainers needed something to prevent
+>> the dt-bindings error going off while I was working on these patches.
+> 
+> I had a look at the patch and discussion that commit was from, and I
+> didn't see anyone bringing up that it wasn't actually panel-simple
+> compatible.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+I wonder why rob applied this one, I clearly requested a v3...
 
-Gr{oetje,eeting}s,
+Neil
 
-                        Geert
+> 
+> If you knew as much back then, why wasn't this brought up?
+> 
+> Maxime
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
