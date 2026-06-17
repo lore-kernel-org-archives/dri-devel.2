@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48C2BCD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29BFCCD98E2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A7C610EF66;
-	Wed, 17 Jun 2026 10:15:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C63C10EF6A;
+	Wed, 17 Jun 2026 10:15:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hgUPu06p";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NzdwA2Zf";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CB8410EF65
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 945C710EF67
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 82026444DF;
- Wed, 17 Jun 2026 10:15:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E20D51F000E9;
- Wed, 17 Jun 2026 10:15:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7C92F42A85;
+ Wed, 17 Jun 2026 10:15:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE1511F000E9;
+ Wed, 17 Jun 2026 10:15:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781691319;
- bh=TBeozg/N1dhCJRwpXCvZpVVts9LJ4pFvQP6uUVHZEJc=;
+ s=k20260515; t=1781691335;
+ bh=O5JZGvACMCWlKddmjwAalglp5zCXjAA5ocrDQpt8pBM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=hgUPu06pd8KTaRZ0IwRdY8iFDviw1D08Gt/cTTacJBlZu1dBkg/d1q2hPezC6v9fj
- O6KXL+kEChA3u8dzmupgCrDWW0clo1p3kjWTZ7ort77162KSCLsnZ+pgi9+f4wcDTg
- MFnOHYob8EnZKAqPukz/wgzHkHChLh7+okAgEQAkilkaXACwcqP4WtkGvICrdqUVp3
- ZxyDgG74qF1xOYZhXGrCpOc1wVAUKDqep+97jwS1/dFfxm4nvMibtpkvPYurkBWcV3
- 3QmyXVpKbUPLjVxPIPvF4mP6Yv9vHUY0UxygBP2I9rhMl+xnx54QhrZ2xpnQ9OkQnt
- KoIKVV2cb/uLQ==
+ b=NzdwA2ZfzBWaaMkXLE+JHkqyRazXpIXGUMKGvLwe7xV2aI/oFZQ9aCSN5Q7fEW8kN
+ 8UhWjT1mEibB8tHJqQ6ze7973qyu6kfP+c2LTz00MwJxy4EQ/7FIe5VgzTB8GRIShE
+ NPcyS3ya6Gbz1KLdfO1iMyjInjZkecGeiO2intKs9VDfe8jwCcwK/yrA58Yb4FJ9ok
+ /ErYJNM39PXwVgCXxkiUzVmLVHabDlKLGzJOKpXKBsINzFR6oUqTwKXYazggTCTGLr
+ LCJfQDXSqPTnude93TtZsXOpgMW3Z6m9GkLBl1cUKyfN72dRV6lFoc0Rtnccj3rqxR
+ gSSS8GMVy1vIg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 17 Jun 2026 12:14:36 +0200
-Subject: [PATCH 11/37] drm/bridge: lvds-codec: Switch to atomic bridge
- callbacks
+Date: Wed, 17 Jun 2026 12:14:42 +0200
+Subject: [PATCH 17/37] drm/bridge: sii9234: Switch to atomic bridge callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-drm-all-atomic-bridges-v1-11-b63e6316166b@kernel.org>
+Message-Id: <20260617-drm-all-atomic-bridges-v1-17-b63e6316166b@kernel.org>
 References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 In-Reply-To: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -50,12 +49,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4461; i=mripard@kernel.org;
- h=from:subject:message-id; bh=MaalDNHjqtZMeI3kYny8wCY3qzR9I12xNuhLGTrT1W0=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxd1P2t84RwsHb3mudXplkrZZZ94yvp8+EyMmK2z4c
- rN3JnNKx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjIgneM9fHNLbMVOf4m/ZU/
- biO6ZOMDz8lfl+V/kClseN/T0eay9wBP+kSDO2tn718Q5Sykxixwm7HO0HCWYuDCrgX/TuRtXad
- 4bbrq3s+njzzUCRXmeyN9tUHs1+GkP2Jcq7TedQo4sm+tC3gBAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3878; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=A7r/CihNPL73drYLdz5FIK2UEPVBxTNu7A9WFNgCcuU=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxb0nd7cdanHYz8XE6c85m523p/XMsvR3Rk2SLRlq9
+ /96T73XMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACayxY+xoe3Pom6NHtcHFqs7
+ 2+/H/RPSl3qWnPVas8xw4+t9y5u3eHFN+ib9cMHi1J7qqcmcmr4ajPXJgnH9qjf/fbpgV7Huj3z
+ DebG8n49FLu81mOt2X2vNcpMWXu5NwX5+/EZbiidcbNxwkgEA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,10 +72,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The lvds-codec bridge still uses the deprecated non-atomic bridge
+The sii9234 bridge still uses the deprecated non-atomic bridge
 callbacks.
 
-Switch to their atomic counterparts.
+Switch to their atomic counterparts, adding the bridge state
+handlers if not already present.
 
 Generated by the following Coccinelle script:
 
@@ -110,7 +110,7 @@ identifier f;
  	...,
  };
 
-@ update_pre_enable_struct depends on is_bridge @
+@ update_pre_enable_struct depends on (is_bridge && !has_create_state) @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -133,7 +133,7 @@ identifier b;
 	...
  }
 
-@ update_enable_struct depends on is_bridge @
+@ update_enable_struct depends on (is_bridge && !has_create_state) @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -156,7 +156,7 @@ identifier b;
 	...
  }
 
-@ update_disable_struct depends on is_bridge @
+@ update_disable_struct depends on (is_bridge && !has_create_state) @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -179,7 +179,7 @@ identifier b;
 	...
  }
 
-@ update_post_disable_struct depends on is_bridge @
+@ update_post_disable_struct depends on (is_bridge && !has_create_state) @
 identifier is_bridge.funcs;
 identifier f;
 @@
@@ -204,56 +204,39 @@ identifier b;
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/lvds-codec.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/bridge/sii9234.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/lvds-codec.c b/drivers/gpu/drm/bridge/lvds-codec.c
-index d1135dc3b99f..a82ea0c944eb 100644
---- a/drivers/gpu/drm/bridge/lvds-codec.c
-+++ b/drivers/gpu/drm/bridge/lvds-codec.c
-@@ -41,11 +41,12 @@ static int lvds_codec_attach(struct drm_bridge *bridge,
+diff --git a/drivers/gpu/drm/bridge/sii9234.c b/drivers/gpu/drm/bridge/sii9234.c
+index bb1bed03eb5b..a2cbbf031b4a 100644
+--- a/drivers/gpu/drm/bridge/sii9234.c
++++ b/drivers/gpu/drm/bridge/sii9234.c
+@@ -11,10 +11,11 @@
+  *    Erik Gilling <konkers@android.com>
+  *    Shankar Bandal <shankar.b@samsung.com>
+  *    Dharam Kumar <dharam.kr@samsung.com>
+  */
+ #include <drm/bridge/mhl.h>
++#include <drm/drm_atomic_state_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_edid.h>
  
- 	return drm_bridge_attach(encoder, lvds_codec->panel_bridge,
- 				 bridge, flags);
+ #include <linux/delay.h>
+@@ -876,10 +877,13 @@ static enum drm_mode_status sii9234_mode_valid(struct drm_bridge *bridge,
+ 
+ 	return MODE_OK;
  }
  
--static void lvds_codec_enable(struct drm_bridge *bridge)
-+static void lvds_codec_enable(struct drm_bridge *bridge,
-+			      struct drm_atomic_commit *commit)
- {
- 	struct lvds_codec *lvds_codec = to_lvds_codec(bridge);
- 	int ret;
- 
- 	ret = regulator_enable(lvds_codec->vcc);
-@@ -57,11 +58,12 @@ static void lvds_codec_enable(struct drm_bridge *bridge)
- 
- 	if (lvds_codec->powerdown_gpio)
- 		gpiod_set_value_cansleep(lvds_codec->powerdown_gpio, 0);
- }
- 
--static void lvds_codec_disable(struct drm_bridge *bridge)
-+static void lvds_codec_disable(struct drm_bridge *bridge,
-+			       struct drm_atomic_commit *commit)
- {
- 	struct lvds_codec *lvds_codec = to_lvds_codec(bridge);
- 	int ret;
- 
- 	if (lvds_codec->powerdown_gpio)
-@@ -98,12 +100,12 @@ lvds_codec_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
- 	return input_fmts;
- }
- 
- static const struct drm_bridge_funcs funcs = {
- 	.attach = lvds_codec_attach,
--	.enable = lvds_codec_enable,
--	.disable = lvds_codec_disable,
-+	.atomic_enable = lvds_codec_enable,
-+	.atomic_disable = lvds_codec_disable,
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.atomic_get_input_bus_fmts = lvds_codec_atomic_get_input_bus_fmts,
+ static const struct drm_bridge_funcs sii9234_bridge_funcs = {
++	.atomic_create_state = drm_atomic_helper_bridge_create_state,
++	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
++	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.mode_valid = sii9234_mode_valid,
  };
+ 
+ static int sii9234_probe(struct i2c_client *client)
+ {
 
 -- 
 2.54.0
