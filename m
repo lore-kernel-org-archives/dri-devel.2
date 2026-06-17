@@ -4,44 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 512C4CD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 14:11:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08F4CCD98E2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 14:26:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B52D110E3B4;
-	Wed, 17 Jun 2026 14:11:43 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dQ6Lmv9K";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF45410E3B4
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 14:11:41 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 276136001D;
- Wed, 17 Jun 2026 14:11:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0FCA1F000E9;
- Wed, 17 Jun 2026 14:11:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781705500;
- bh=cJeGPAzjEe8/m+YpzaT+6UOFPt3hM6DM+rJSFzClQE4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dQ6Lmv9K6ra98s487NAB1PrE8YpwNNBv73B+eE0hi3ih+dDw+9Ke5Pa9xZcOfEtDl
- +nj25j0U3gJk3z5U5PcsdAWVVIj28HzWAvzUhi2TXGP9TpJtx0YlXcQrGE3T2ZYmPi
- T0XtjgDqUC1Q3HGDk+f8CNRIGoZ2qyc2fOsXtJwDeGLV6LvOyvREZ/CWOfv1ERZcLf
- Px47wwhPQ+kuUy42koKMJUK29AyCMIgUxj5t16/Wdx2bTDIVKQJliiFeIdzlDSq5wJ
- z0TB6vo7Vc3oc2urGA0y4cIt8EciJ5rNX9BxE0sqaD06TbgDeDSy8PH7J4mjpFOaaG
- COEJpcIX8Ke7g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] gpu: nova-core: convert to kernel bitfield macro
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, "Danilo Krummrich" <dakr@kernel.org>,
- ojeda@kernel.org
-In-Reply-To: <20260617-nova-bitfield-v1-1-ec10c6772666@nvidia.com>
-References: <20260617-nova-bitfield-v1-0-ec10c6772666@nvidia.com>
- <20260617-nova-bitfield-v1-1-ec10c6772666@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 14:11:39 +0000
-Message-Id: <20260617141140.A0FCA1F000E9@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60DEE10E2F5;
+	Wed, 17 Jun 2026 14:26:44 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47E9510E2F5;
+ Wed, 17 Jun 2026 14:26:42 +0000 (UTC)
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+ by APP-01 (Coremail) with SMTP id qwCowAB3HNWbrjJqafsOAg--.697S2;
+ Wed, 17 Jun 2026 22:26:36 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
+ rodrigo.vivi@intel.com, airlied@gmail.com, simona@ffwll.ch
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/xe/guc: Fix invalid kfree() call via __cleanup on pointer
+Date: Wed, 17 Jun 2026 14:26:32 +0000
+Message-Id: <20260617142632.3298984-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qwCowAB3HNWbrjJqafsOAg--.697S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CFy3ZryDWw48Zr4xtF43ZFb_yoW8Ww4fpa
+ 9aqr1jyrW3XF1xtanrZa10vF15Can8JF92gwsrAwsruw15tw1fAr95AayUXr97ZrWxAF12
+ yFZIywsrG3sFyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW0oVWYowAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+ n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+ AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+ 17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+ IF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+ IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+ C2KfnxnUUI43ZEXa7VU1bTmDUUUUU==
+X-Originating-IP: [36.110.52.2]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAYBA2oybL66kQABso
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,60 +58,45 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Refactored FSP message validation incorrectly bubbles up enum co=
-nversion errors via `?`, bypassing diagnostic logging and changing the retu=
-rn code from `-EIO` to `-EINVAL`.
---
+The variable `buf` in `fast_req_dump()` is declared with
+`__cleanup(kfree)`, which passes `&buf` (the stack address of the
+pointer variable) to kfree() rather than the heap address stored
+in `buf`.  This would cause an invalid free of a stack address,
+leading to memory corruption or a crash.
 
-commit affc1bd88bbaf7649b7fc1c329019739603b4580
-Author: Alexandre Courbot <acourbot@nvidia.com>
+`__cleanup(func)` is designed for value-typed variables where the
+cleanup function should receive a pointer to the variable.  For
+heap-allocated pointers, `__free(kfree)` must be used instead,
+since DEFINE_FREE creates a wrapper that correctly dereferences
+the pointer before passing it to kfree().
 
-gpu: nova-core: convert to kernel bitfield macro
+This is the same class of bug recorded in CVE-2026-45959 and fixed by
+commit d5abcc33ee76 ("crypto: ccp - Fix a crash due to incorrect
+cleanup usage of kfree").
 
-This commit replaces uses of the Nova-local bitfield! macro with the
-kernel one.
+Fixes: ea944d57eac7 ("drm/xe/guc_ct: Cleanup ifdef'ry")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/xe/xe_guc_ct.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
-> index 8fc243c66e356..91885b355d462 100644
-> --- a/drivers/gpu/nova-core/fsp.rs
-> +++ b/drivers/gpu/nova-core/fsp.rs
-[ ... ]
-> @@ -274,7 +275,12 @@ fn send_sync_fsp<M>(&mut self, dev: &device::Device,=
- bar: Bar0<'_>, msg: &M) ->
->              return Err(EIO);
->          }
-> =20
-> -        if command_nvdm_type !=3D u8::from(M::NVDM_TYPE).into() {
-> +        if command_nvdm_type
-> +            .try_into_bounded()
-> +            .ok_or(EINVAL)
-> +            .and_then(NvdmType::try_from)?
-> +            !=3D M::NVDM_TYPE
-> +        {
->              dev_err!(
->                  dev,
->                  "Expected NVDM type {:?} in reply, got {:#x}\n",
+diff --git a/drivers/gpu/drm/xe/xe_guc_ct.c b/drivers/gpu/drm/xe/xe_guc_ct.c
+index a11cff7a20be..73867a5cbe3a 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ct.c
++++ b/drivers/gpu/drm/xe/xe_guc_ct.c
+@@ -116,7 +116,7 @@ static void fast_req_dump(struct xe_guc_ct *ct, u16 fence, unsigned int slot)
+ {
+ 	struct xe_gt *gt = ct_to_gt(ct);
+ #if IS_ENABLED(CONFIG_DRM_XE_DEBUG_GUC)
+-	char *buf __cleanup(kfree) = kmalloc(SZ_4K, GFP_NOWAIT);
++	char *buf __free(kfree) = kmalloc(SZ_4K, GFP_NOWAIT);
+ 
+ 	if (buf && stack_depot_snprint(ct->fast_req[slot].stack, buf, SZ_4K, 0))
+ 		xe_gt_err(gt, "Fence 0x%x was used by action %#04x sent at:\n%s\n",
+-- 
+2.34.1
 
-[Severity: Medium]
-Does the ? operator here prematurely return EINVAL if the firmware returns =
-an
-unknown or invalid NVDM type?
-
-It looks like if NvdmType::try_from fails, this will immediately propagate =
-the
-error out of send_sync_fsp(). Does this bypass the dev_err! diagnostic block
-below that was intended to log the unexpected hardware value?
-
-By returning early here, this also appears to alter the original error
-reporting semantics by returning EINVAL instead of the expected EIO for a
-device failure.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617-nova-bitfi=
-eld-v1-0-ec10c6772666@nvidia.com?part=3D1
