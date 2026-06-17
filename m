@@ -4,84 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D1E9CD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 09:38:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE16ACD98E4
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 09:41:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D58610EF4E;
-	Wed, 17 Jun 2026 09:38:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50C1610E999;
+	Wed, 17 Jun 2026 09:41:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="YsDHAGgM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UlEN7Amy";
 	dkim-atps=neutral
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9EB210EF4E
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 09:38:18 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-69532288224so1903052a12.0
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 02:38:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google; t=1781689097; x=1782293897;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=b5eeDeD7Yslqh4fHzKzX43vRVw6huCkxZOrpb0eXGfU=;
- b=YsDHAGgMXP9NOkWxXFmwtM/bFSZbMvvM3uQrSzXI85+ZBfEDgMfaxUpcz93Ix3JiGm
- lA93Bso/npAII2HLi8sRFGkCJV3lPuXZbEvktew9hzUrCQ/v4yLqQAD/TMPmdMpV+YcM
- 9w3x/nlZwI+vdtCZKSh+S3C58539yu+h21Iy4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781689097; x=1782293897;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=b5eeDeD7Yslqh4fHzKzX43vRVw6huCkxZOrpb0eXGfU=;
- b=iLeduG/2yrXNwvzV5khhuRbB8zrxqSvOxj4B/7cDC7ga4QNCNk34QEuO1J6w4Jo4mS
- nZ+H7SeC+QwqVVLZGiCUrvFpLajeAJcvlu7uOn/lblv6h9hzLtA9AKdNfSlK54LPmiXj
- JIyoIGOJsnRXfK3tilXOdcpEfMDivNdCAHMAxd0pMfJTa1pRXqmJx3fnMLf16wkVSg5i
- qufT3a5IZGG7/3f/p6vLPzEGfdiU2GonWmGFY7E/tsp6lp/SM2jYuNkKxxAjhnVksozD
- K9LhqQB4uhLqTOLhAZw0qGGR2mI735MUiYlGqZm/N5O1a+M2LBQ7iIQsuoDAzkCamKT0
- 4XWA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+g9DwoPpggF/ldvkXi/+EePxuSqcKrp11QhmjOZ8jCXx44GTGMI7cwMLRtPZLtR/bv505i8QijbUA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzuNEtKAB2MVZCSJSUx/w146+gSgE6hY6vIBePUBXvbcC1vpa1D
- wThaM5OECLq1GpllP8W+ImQlXdTc+FK92WeSYBqtZ+PLdsdgVM300YH/hc9vLilgmN6YgYrLIey
- jdWgLbtzicA==
-X-Gm-Gg: Acq92OFQ7l7syNVFuF9FEUM4YnaCJ0R4NaI4P5hBRvFLC+RDYTvfUEZOur8L338IRQ0
- 40hY5henahH7zVMbjMP4ch4AxorGdTxelUVj/Y1qYSxhyjK5dN5gCXxwoBYSN7ODxQZCwxnj04d
- VV7TwnbqqcAf86IL8ldRWs8hGKadqljRb1q/lpobz756u6WtyfOw90Cw62oSrqCIyXjtUgrN1jK
- /gVLtK5+VdfcedksG/b/t6STDiJKdTsJIxZr02p4YCcrzqwTY2FD67qtq7D/IYyqKFzDY+z7w2W
- mA8MnSXxZ1VV1zVVOsFd4EbAXPWC6QdcV2GVYm3+IvlrJakOpY8pGtJVKlZQowM6PokFQq6g4bU
- 3XF3ua1/dUim/p6Q7ymX9wnDhwNyZmRteV1jCCKG6HpcuYqDmN+c06iETIQOQ3vdlSWh/xB5Fs4
- FWT73Q0I267F3TGiSdJiuh1cxEZ1aIKKpimCZXqdyKAB/YARy+zLR446lAwuv6Uw==
-X-Received: by 2002:a17:907:7b87:b0:bed:7707:a244 with SMTP id
- a640c23a62f3a-c05d2159f73mr157250666b.13.1781689096949; 
- Wed, 17 Jun 2026 02:38:16 -0700 (PDT)
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com.
- [209.85.208.42]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bfdb8d1de1fsm782650366b.55.2026.06.17.02.38.16
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Jun 2026 02:38:16 -0700 (PDT)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-69532288224so1903017a12.0
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 02:38:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ8TcE/E6/Lbm+mlYc4D7Ih1RWfgooBzl8fGfiFtdHHWBfDfgd13GUnpa5tTZl7X34/4T7QOZFeKLDg=@lists.freedesktop.org
-X-Received: by 2002:a17:907:984:b0:bf9:cc72:6e05 with SMTP id
- a640c23a62f3a-c05d2809783mr167785866b.25.1781689096008; Wed, 17 Jun 2026
- 02:38:16 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54D6510E999
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 09:41:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 81CED600AA;
+ Wed, 17 Jun 2026 09:41:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 825261F000E9;
+ Wed, 17 Jun 2026 09:41:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781689277;
+ bh=cyKgowJd1zhtu0qWQyFQH6H6T62iAG8kuM8i9z4Jxjk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=UlEN7AmyCCwaO+J4i9oamPtHdmVZ6G0/gAGSRwLuRjaagQs3lDyxjk40lSgbur3hB
+ ylJRSbuW1A1cPyPN9tYZJPoSQzq9LcbTWtTFGkbKSKME6t3BZYZZJlR9/lch7zX+YF
+ 4qfkae6Io7Ss1TUNmFMfh8nEB/bc5CFmE1WdLKGm1e9SpT/ofui5QQl5xl48ReHTZn
+ oci5C/Nm9/58vLwrHWdwLln5QtUn5tSZ5sNYyoXLf2RGAIPj4eMefrg4HsQzVlw66F
+ TDGCdcXWGqTNVrifsQBICrLvQQeV694Aew79tmUlE4mtNRRKtA9oIh3VYrDCVIba6b
+ vAfUZLXMq+mmQ==
+Date: Wed, 17 Jun 2026 12:41:13 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Zhiping Zhang <zhipingz@meta.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Michael Guralnik <michaelgur@nvidia.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian Konig <christian.koenig@amd.com>,
+ Alex Williamson <alex@shazbot.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, kvm@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v8 2/4] dma-buf: add optional get_pci_tph() callback
+Message-ID: <20260617094113.GU327369@unreal>
+References: <20260615065912.2177918-1-zhipingz@meta.com>
+ <20260615065912.2177918-3-zhipingz@meta.com>
 MIME-Version: 1.0
-References: <CAPM=9tyvcK=48vPeSB-DH8yd9=eZi-77kWgJSAP54d+kJWx6Jw@mail.gmail.com>
-In-Reply-To: <CAPM=9tyvcK=48vPeSB-DH8yd9=eZi-77kWgJSAP54d+kJWx6Jw@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 17 Jun 2026 10:37:59 +0100
-X-Gmail-Original-Message-ID: <CAHk-=wizdcwDYToe1d2niV3Qzq+K_zkyN0tn3n+=EqEt3xtvOg@mail.gmail.com>
-X-Gm-Features: AVVi8CfeMi_izkLAuKSO-E4dC5OaP8yk6auuX0nNd2zxd_7fZUMyYO0CYv3qpj8
-Message-ID: <CAHk-=wizdcwDYToe1d2niV3Qzq+K_zkyN0tn3n+=EqEt3xtvOg@mail.gmail.com>
-Subject: Re: [git pull] drm for 7.2-rc1
-To: Dave Airlie <airlied@gmail.com>
-Cc: Sima Vetter <sima@ffwll.ch>, dri-devel <dri-devel@lists.freedesktop.org>, 
- LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260615065912.2177918-3-zhipingz@meta.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,23 +63,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 17 Jun 2026 at 07:19, Dave Airlie <airlied@gmail.com> wrote:
->
-> None of them were too confusing, but the panfrost one isn't that
-> straightforward and amdgpu ones are a bit tricky.
+On Sun, Jun 14, 2026 at 11:58:59PM -0700, Zhiping Zhang wrote:
+> Add an optional dma_buf_ops.get_pci_tph callback and a
+> DMA-buf importer wrapper, dma_buf_get_pci_tph().
+> 
+> TPH is PCIe TLP Processing Hint. 8-bit ST and 16-bit Extended ST are
+> distinct PCIe TPH namespaces, so the importer requests the namespace it
+> can emit and the exporter returns the matching ST/PH tuple or
+> -EOPNOTSUPP.
+> 
+> dma_buf_get_pci_tph() is the importer entry point. It requires
+> &dmabuf->resv to be held while the callback runs and returns
+> -EOPNOTSUPP when the exporter does not provide PCI TPH metadata.
+> 
+> The first user is VFIO_DEVICE_FEATURE_DMA_BUF_TPH in vfio-pci, with
+> mlx5 as the first importer.
+> 
+> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+> ---
+>  drivers/dma-buf/dma-buf.c | 25 +++++++++++++++++++++++++
+>  include/linux/dma-buf.h   | 16 ++++++++++++++++
+>  2 files changed, 41 insertions(+)
+> 
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index d504c636dc29..7a4c9b0d5dab 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -1144,6 +1144,31 @@ void dma_buf_unpin(struct dma_buf_attachment *attach)
+>  }
+>  EXPORT_SYMBOL_NS_GPL(dma_buf_unpin, "DMA_BUF");
+>  
+> +/**
+> + * dma_buf_get_pci_tph - Retrieve PCIe TLP Processing Hint (TPH) metadata
+> + * @dmabuf: DMA buffer to query
+> + * @extended: false for 8-bit ST, true for 16-bit Extended ST
+> + * @steering_tag: returns the raw steering tag for the requested namespace
+> + * @ph: returns the TPH processing hint
+> + *
+> + * Wrapper for the optional &dma_buf_ops.get_pci_tph callback.
+> + *
+> + * Must be called with &dma_buf.resv held. Returns -EOPNOTSUPP if the
+> + * exporter does not implement the callback or has no metadata for the
+> + * requested namespace.
+> + */
+> +int dma_buf_get_pci_tph(struct dma_buf *dmabuf, bool extended,
+> +			u16 *steering_tag, u8 *ph)
+> +{
+> +	dma_resv_assert_held(dmabuf->resv);
+> +
+> +	if (!dmabuf->ops->get_pci_tph)
+> +		return -EOPNOTSUPP;
+> +
+> +	return dmabuf->ops->get_pci_tph(dmabuf, extended, steering_tag, ph);
+> +}
+> +EXPORT_SYMBOL_NS_GPL(dma_buf_get_pci_tph, "DMA_BUF");
+> +
+>  /**
+>   * dma_buf_map_attachment - Returns the scatterlist table of the attachment;
+>   * mapped into _device_ address space. Is a wrapper for map_dma_buf() of the
+> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+> index d1203da56fc5..5e7b69a40f3d 100644
+> --- a/include/linux/dma-buf.h
+> +++ b/include/linux/dma-buf.h
+> @@ -113,6 +113,20 @@ struct dma_buf_ops {
+>  	 */
+>  	void (*unpin)(struct dma_buf_attachment *attach);
+>  
+> +	/**
+> +	 * @get_pci_tph:
 
-I think yours is wrong. You don't do that
+There should be a blank line after the line above, along with a clear and
+concise description of what this callback does.
 
-        op_ctx->rsvd_page_tables.count = pt_count;
+Thanks
 
-that I think you should do..
-
-Other than that my resolution seems identical (modulo some trivial
-whitespace around the same area)
-
-> The commit list looks fine but the diffstat looks wonky for some reason.
-
-Yeah, that's garbage. Did you do it after the merge or before? If
-before, it must have picked some completely wrong merge base.
-
-               Linus
+> +	 * @dmabuf: DMA buffer for which to retrieve TPH metadata
+> +	 * @extended: false for 8-bit ST, true for 16-bit Extended ST
+> +	 * @steering_tag: Returns the raw TPH steering tag for the requested
+> +	 *                namespace
+> +	 * @ph: Returns the TPH processing hint (2-bit value)
+> +	 *
+> +	 * Optional callback for dma_buf_get_pci_tph(). Called with
+> +	 * &dma_buf.resv held.
+> +	 */
+> +	int (*get_pci_tph)(struct dma_buf *dmabuf, bool extended,
+> +			   u16 *steering_tag, u8 *ph);
+> +
+>  	/**
+>  	 * @map_dma_buf:
+>  	 *
+> @@ -563,6 +577,8 @@ void dma_buf_detach(struct dma_buf *dmabuf,
+>  		    struct dma_buf_attachment *attach);
+>  int dma_buf_pin(struct dma_buf_attachment *attach);
+>  void dma_buf_unpin(struct dma_buf_attachment *attach);
+> +int dma_buf_get_pci_tph(struct dma_buf *dmabuf, bool extended,
+> +			u16 *steering_tag, u8 *ph);
+>  
+>  struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info);
+>  
+> -- 
+> 2.53.0-Meta
+> 
