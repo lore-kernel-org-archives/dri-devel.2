@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C734CD98E2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F4B0CD98F1
 	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B654210EF72;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C814910EF73;
 	Wed, 17 Jun 2026 10:15:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LA4pHwCH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MZYOBCOC";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D625210EF6E
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:46 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6C7210EF72
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 593636012A;
- Wed, 17 Jun 2026 10:15:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DF301F00A3A;
- Wed, 17 Jun 2026 10:15:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D016643A1D;
+ Wed, 17 Jun 2026 10:15:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B6491F000E9;
+ Wed, 17 Jun 2026 10:15:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781691346;
- bh=1h1i9pbJHvd3bB8zqJTnEP8ot4TsHDuLFT3sAYIfBew=;
+ s=k20260515; t=1781691356;
+ bh=5vpsS+dx5xQ5E3n0qYw0Q3jh1EAx4nVQajbijQilOzA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=LA4pHwCH7ApaVzI/Hz3XdMjuGCU1vCb2qN5a6rbcJSJc58PjfQfEmpuu2lS/v1Laf
- 6gBxF/mUfVzUYI8iTQbOtwgRk85WR050dgdCGPcZKpUN7izoLUNEkrD0lASD+iuQYg
- Im5nli65b6EN9I7Iq53cDPtwSx4uNGuHfFU/ZsjLpHuP5r5oTGOTel3ZvnVNt4+HeL
- zitrzxt9o0LBR9DVJXw3Xe9oKpKpanqPhpqq0JFdCOEzepvjN+j1aA5VcyBTEBZSG2
- n1Z1JCv/qoWqrvX+DdQfZL5BHqnsj373xf3TXF2DNABP2XYMBCGPm1jQkDt2uLeIWm
- Yggm4fv1lfhIA==
+ b=MZYOBCOCVY+b7gYiiWmAfc+wWOEwmDjKkVRCwpZ8A25FSpifJ5K8ut+5rM10KsjoO
+ 0BtNiE1aT2Q6slaIBHltuy33gDAOIoE+bVNbC3gQj9xsuBrTIVg2W0/XauGvnNr4l1
+ /NjAfAyyQB8uSOIi3xpdTNbsrNGSOLgOTYaAwonZndc6rrY0iso2X26z8+4hDGF5UQ
+ L5lhxFjSg784GOb6l5Zt9wf9ScxuGaclIgVT8GNQSVgivWEgWQumjpXb3NsLE1Q7Wz
+ iPl1PqSfsMKerAgQEMqfADUntY7HA0yL1zZ07oYqr5zBfTcp4xOk+EmHmrG7s3ad89
+ snpA0kqqF3S5g==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 17 Jun 2026 12:14:46 +0200
-Subject: [PATCH 21/37] drm/bridge: tda998x: Switch to atomic bridge callbacks
+Date: Wed, 17 Jun 2026 12:14:50 +0200
+Subject: [PATCH 25/37] drm/bridge: waveshare-dsi: Switch to atomic bridge
+ callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-drm-all-atomic-bridges-v1-21-b63e6316166b@kernel.org>
+Message-Id: <20260617-drm-all-atomic-bridges-v1-25-b63e6316166b@kernel.org>
 References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 In-Reply-To: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -47,14 +48,14 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, Russell King <linux@armlinux.org.uk>
+ Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4959; i=mripard@kernel.org;
- h=from:subject:message-id; bh=1w2KXdPXSLsbMcRKhrrEIwR/zrAkzfLCYqr2RvOQNMg=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxf3bRduyI5u2OOjr9QbNedbnqrsobKPRu8Ltv/Xap
- 8UZdjV3TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgInMqWJseKDEfuFY4N+5mrEr
- 9rz62Of74I+M07Wsaxm/mc3K9j0X23ZokiOz/i/BZZkLzIUmXa9ayljvsLtBiX/eHVMvD9eLB3p
- XWp5dnLD56N5wBm/TjTNmZthk8p/7+HvjvgJe7i13pq6etXMCAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4771; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=BUU6LbLqMM51Hc+6ALLxByk/xHfnbf+HPnDJkcjE9u8=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxRPbHifp/JzrVxRhvtuipfPairveCc9CvbYe/qfly
+ JnIsHtqx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZiIjjFjfeI0F8un5vJ3Gy0v
+ R91l19RffJyN1+qRgVvQPY75N3lPVW7t25e8tfUJS+dM2SNbdP/kMNZwCR/1bzGzWhOkvjbXJpl
+ jfWi1xO57LaJS9nt293fqLzj23Kl2Y+Krm3sPSEz1Ec0x+QYA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,7 +73,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The tda998x bridge still uses the deprecated non-atomic bridge
+The waveshare-dsi bridge still uses the deprecated non-atomic bridge
 callbacks.
 
 Switch to their atomic counterparts, adding the bridge state
@@ -203,67 +204,65 @@ identifier b;
  }
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
 ---
-To: Russell King <linux@armlinux.org.uk>
----
- drivers/gpu/drm/bridge/tda998x_drv.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/bridge/waveshare-dsi.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/tda998x_drv.c b/drivers/gpu/drm/bridge/tda998x_drv.c
-index 6c427bc75896..16c745591175 100644
---- a/drivers/gpu/drm/bridge/tda998x_drv.c
-+++ b/drivers/gpu/drm/bridge/tda998x_drv.c
-@@ -1408,11 +1408,12 @@ static enum drm_mode_status tda998x_bridge_mode_valid(struct drm_bridge *bridge,
- 	if (mode->vtotal >= BIT(11))
- 		return MODE_BAD_VVALUE;
- 	return MODE_OK;
+diff --git a/drivers/gpu/drm/bridge/waveshare-dsi.c b/drivers/gpu/drm/bridge/waveshare-dsi.c
+index ded57f298d64..9c9825c9b7c5 100644
+--- a/drivers/gpu/drm/bridge/waveshare-dsi.c
++++ b/drivers/gpu/drm/bridge/waveshare-dsi.c
+@@ -10,10 +10,11 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_graph.h>
+ #include <linux/regmap.h>
+ 
++#include <drm/drm_atomic_state_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_panel.h>
+ 
+@@ -90,29 +91,34 @@ static int ws_bridge_bridge_attach(struct drm_bridge *bridge,
+ 
+ 	return drm_bridge_attach(encoder, ws->next_bridge,
+ 				 &ws->bridge, flags);
  }
  
--static void tda998x_bridge_enable(struct drm_bridge *bridge)
-+static void tda998x_bridge_enable(struct drm_bridge *bridge,
-+				  struct drm_atomic_commit *commit)
+-static void ws_bridge_bridge_enable(struct drm_bridge *bridge)
++static void ws_bridge_bridge_enable(struct drm_bridge *bridge,
++				    struct drm_atomic_commit *commit)
  {
- 	struct tda998x_priv *priv = bridge_to_tda998x_priv(bridge);
+ 	struct ws_bridge *ws = bridge_to_ws_bridge(bridge);
  
- 	if (!priv->is_on) {
- 		/* enable video ports, audio will be enabled later */
-@@ -1426,11 +1427,12 @@ static void tda998x_bridge_enable(struct drm_bridge *bridge)
- 
- 		priv->is_on = true;
- 	}
+ 	regmap_write(ws->reg_map, 0xad, 0x01);
+ 	backlight_enable(ws->backlight);
  }
  
--static void tda998x_bridge_disable(struct drm_bridge *bridge)
-+static void tda998x_bridge_disable(struct drm_bridge *bridge,
-+				   struct drm_atomic_commit *commit)
+-static void ws_bridge_bridge_disable(struct drm_bridge *bridge)
++static void ws_bridge_bridge_disable(struct drm_bridge *bridge,
++				     struct drm_atomic_commit *commit)
  {
- 	struct tda998x_priv *priv = bridge_to_tda998x_priv(bridge);
+ 	struct ws_bridge *ws = bridge_to_ws_bridge(bridge);
  
- 	if (priv->is_on) {
- 		/* disable video ports */
-@@ -1743,16 +1745,19 @@ static void tda998x_bridge_hpd_disable(struct drm_bridge *bridge)
- 
- 	cec_write(priv, REG_CEC_RXSHPDINTENA, 0);
+ 	backlight_disable(ws->backlight);
+ 	regmap_write(ws->reg_map, 0xad, 0x00);
  }
  
- static const struct drm_bridge_funcs tda998x_bridge_funcs = {
+ static const struct drm_bridge_funcs ws_bridge_bridge_funcs = {
+-	.enable = ws_bridge_bridge_enable,
+-	.disable = ws_bridge_bridge_disable,
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach = tda998x_bridge_attach,
- 	.detach = tda998x_bridge_detach,
- 	.mode_valid = tda998x_bridge_mode_valid,
--	.disable = tda998x_bridge_disable,
-+	.atomic_disable = tda998x_bridge_disable,
- 	.mode_set = tda998x_bridge_mode_set,
--	.enable = tda998x_bridge_enable,
-+	.atomic_enable = tda998x_bridge_enable,
- 	.edid_read = tda998x_bridge_edid_read,
- 	.detect = tda998x_bridge_detect,
- 	.hpd_enable = tda998x_bridge_hpd_enable,
- 	.hpd_disable = tda998x_bridge_hpd_disable,
++	.atomic_enable = ws_bridge_bridge_enable,
++	.atomic_disable = ws_bridge_bridge_disable,
+ 	.attach = ws_bridge_bridge_attach,
  };
+ 
+ static int ws_bridge_bl_update_status(struct backlight_device *bl)
+ {
 
 -- 
 2.54.0
