@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E97CDCD98ED
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 20:44:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABB51CD98F0
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 20:50:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B6A010EB0D;
-	Wed, 17 Jun 2026 20:44:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C064210EB5F;
+	Wed, 17 Jun 2026 20:50:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kaBjCCFK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lIfWuihB";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BC9610EB0D
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 20:44:29 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BB4410EB36
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 20:50:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C7F5F41667;
- Wed, 17 Jun 2026 20:44:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82F881F000E9;
- Wed, 17 Jun 2026 20:44:28 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C441F6001D;
+ Wed, 17 Jun 2026 20:50:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BDD71F000E9;
+ Wed, 17 Jun 2026 20:50:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781729068;
- bh=abI4EJ6HjUtKXwBnxKk+3FdeYIBrA7YyZBZEC88oH9c=;
+ s=k20260515; t=1781729419;
+ bh=yMO3leQfxdBQVqim9Di9C5BD0VRUxY7jwGnMo2AXTJ8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kaBjCCFK/plkvha+CtKEt389b5Dq/wAn9eyLfP6XQHCKOflmD0BdwApO8JAwVcD+4
- qf+YMuQkTRSLBS2ygyKFb3xJVwWqHIn+p6qLcEVO/XMNTUChFYqDDfDktb6Zx4z7jE
- gtGLfiCTc7LzBcuyL1j4xPXbgm6Lex6kiYUkN+TfThVeSDtGqbVa/iyG/9ynL+us7A
- GTiCT6bRdrxEJOvMUGWysh6EntxDHpwAZnvJpWR+KsQ5CwnLpBvv6ZnA/JLiuNj6jV
- w+lbM/ilwqzLgSZU1gjH0TBokxRvdF0NxRNMYfi96wVpzoZmXfj8s4EjhTuTenRjVJ
- rmSGYVxwaJ+Kw==
+ b=lIfWuihBjUldDBZ2Cr9nRChizV+394rMNK+Ab12BkombYQOeeBzyAWS6eYK2gHyTR
+ XURx0p7x+mu2nPCuf7Ve7KXM+jNyJWXQUTxuxk6v9cri534zMC/PYvvyjZAs5ErgWG
+ zP/Pd2CidJgfEmaZb3VhvctxIj1H6oMadVF5RULql7piiz/u43gP0oAEjuxpkhRm/6
+ nZW12Jh9QSh9bBny27QviTqi08YZeJVuE6x8bJJ0+H7rlSHZpJi6omxzYWn62SrcYw
+ xsQGCxfCpRIW5C6Q6849GjMev71+A9IH2aJ57UgijgyD1KPcTMSFczhMqGhdV6xUIe
+ IJ1eWT4KKos0Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] accel/habanalabs: publish mmap buffers after allocation
+Subject: Re: [PATCH] drm/amdgpu: initialize ret in UMC error record fill
 To: "Ruoyu Wang" <ruoyuw560@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260617182109.953680-1-ruoyuw560@gmail.com>
-References: <20260617182109.953680-1-ruoyuw560@gmail.com>
+In-Reply-To: <20260617183737.1101458-1-ruoyuw560@gmail.com>
+References: <20260617183737.1101458-1-ruoyuw560@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 20:44:28 +0000
-Message-Id: <20260617204428.82F881F000E9@smtp.kernel.org>
+Date: Wed, 17 Jun 2026 20:50:18 +0000
+Message-Id: <20260617205019.5BDD71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,68 +58,67 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Use-After-Free and IDR corruption due to uninitialized `buf->handl=
-e` during concurrent access.
+- [High] Initializing `ret` to 0 masks bad page lookup failures, causing ha=
+rdware memory errors to be permanently discarded.
 --
 
-commit 9226a7a050a5049d6df96f0ca7493dec14b9b65d
+commit 70c0c3121204f18673da4770e06143179e0b0b6c
 Author: Ruoyu Wang <ruoyuw560@gmail.com>
 
-accel/habanalabs: publish mmap buffers after allocation
+drm/amdgpu: initialize ret in UMC error record fill
 
-This commit attempts to prevent racing lookups on newly allocated mmap
-buffers by initializing the descriptor and running the behavior allocation
-callback before publishing the object in the IDR.
+This commit initializes the ret variable to 0 in umc_v12_0_fill_error_recor=
+d()
+to avoid returning uninitialized stack data when the bad page lookup loop
+is skipped.
 
-> diff --git a/drivers/accel/habanalabs/common/memory_mgr.c b/drivers/accel=
-/habanalabs/common/memory_mgr.c
-> index 9fdd34acf389f..b5b92dbbe5ddd 100644
-> --- a/drivers/accel/habanalabs/common/memory_mgr.c
-> +++ b/drivers/accel/habanalabs/common/memory_mgr.c
-[ ... ]
-> @@ -156,6 +156,17 @@ hl_mmap_mem_buf_alloc(struct hl_mem_mgr *mmg,
-[ ... ]
->  	spin_lock(&mmg->lock);
->  	rc =3D idr_alloc(&mmg->handles, buf, 1, 0, GFP_ATOMIC);
->  	spin_unlock(&mmg->lock);
-> @@ -163,27 +174,16 @@ hl_mmap_mem_buf_alloc(struct hl_mem_mgr *mmg,
->  		dev_err(mmg->dev,
->  			"%s: Failed to allocate IDR for a new buffer, rc=3D%d\n",
->  			behavior->topic, rc);
-> -		goto free_buf;
-> +		goto destroy_buf;
->  	}
-> =20
-> -	buf->mmg =3D mmg;
-> -	buf->behavior =3D behavior;
->  	buf->handle =3D (((u64)rc | buf->behavior->mem_id) << PAGE_SHIFT);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/umc_v12_0.c
+> index a6df6a778f50b..3d84223acfa20 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+> @@ -681,7 +681,7 @@ static int umc_v12_0_fill_error_record(struct amdgpu_=
+device *adev,
+>  {
+>  	struct ras_err_data *err_data =3D (struct ras_err_data *)ras_error_stat=
+us;
+>  	uint64_t page_pfn[UMC_V12_0_BAD_PAGE_NUM_PER_CHANNEL];
+> -	int ret, i, count;
+> +	int ret =3D 0, i, count;
 
 [Severity: High]
-This is a pre-existing issue, but does assigning buf->handle after releasing
-mmg->lock leave a window for use-after-free and IDR corruption?
+Does initializing this to 0 introduce a regression that masks bad page
+lookup failures?
 
-If a concurrent thread discovers this buffer in the IDR via a lookup and
-then triggers a destruction path before buf->handle is set, the destruction
-path will use the uninitialized buf->handle (which is 0 from kzalloc) to
-calculate the IDR index:
+If amdgpu_umc_lookup_bad_pages_in_a_row() returns 0 (e.g. kcalloc failure)
+or a negative error code (e.g. address translation failure), count will be
+<=3D 0. The for loop will be skipped, and this function will return 0 (succ=
+ess).
 
-hl_mmap_mem_buf_remove_idr_locked() {
-    idr_remove(&buf->mmg->handles, lower_32_bits(buf->handle >> PAGE_SHIFT)=
-);
+If this returns success on a failure, won't the caller incorrectly clear
+the error tag?
+
+drivers/gpu/drm/amd/amdgpu/umc_v12_0.c:umc_v12_0_query_ras_ecc_err_addr() {
+    ...
+		ret =3D umc_v12_0_fill_error_record(adev, entries[i], ras_error_status);
+		if (ret) {
+			dev_err(adev->dev, "Fail to fill umc error record, ret:%d\n", ret);
+			break;
+		}
+		radix_tree_tag_clear(ecc_tree,
+				entries[i]->pa_pfn, UMC_ECC_NEW_DETECTED_TAG);
+    ...
 }
 
-Because buf->handle is 0, this removes index 0 instead of the actual IDR
-index. The actual IDR entry is left pointing to the buffer, which is then
-freed by hl_mmap_mem_buf_destroy().
+This appears to permanently drop the hardware ECC error event since it clea=
+rs
+the UMC_ECC_NEW_DETECTED_TAG without actually recording the bad pages for
+retirement.
 
-When the allocating thread resumes, it will write to buf->handle, causing a
-write-after-free, and leaving a dangling pointer in the IDR.
-
-Could buf->handle be assigned while still holding mmg->lock to ensure the
-handle is fully initialized before the buffer is visible to other threads?
+> =20
+>  	if (!err_data || !ecc_err)
+>  		return -EINVAL;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617182109.9536=
-80-1-ruoyuw560@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617183737.1101=
+458-1-ruoyuw560@gmail.com?part=3D1
