@@ -4,60 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A77F4CD98E4
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:27:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FADFCD98E4
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:32:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 131C410EF79;
-	Wed, 17 Jun 2026 10:27:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB36B10EF8E;
+	Wed, 17 Jun 2026 10:32:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=vignesh.raman@collabora.com header.b="ampRK/xP";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kAlEW2mZ";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA4C310EF79
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:26:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781692011; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Ue5oXAl9F7ELi+KTPstMmz2A+U3SMZPiGObgDbVkPUxcg3XZAqMS/3YlGNXbxObXG4JuiqHXLYi1gqtY+P+7wCbv5hFHcoSAMLF7Gz6gDjs6PGUfulUxe+l9i6jkJ7Hq+V9pFeP5aMgLvbLOTY6GO2d2ksQ9QQJl1YrMEOSAVtw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1781692011;
- h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
- bh=1emWFubp8fhk0p8wRgcHjKQfLWOipWqTOmpA1GxvLXI=; 
- b=lDIdzrikJzw019VkNxQoCtVB4Axfdf8zUIyIAf9zUTgtsUoxdq+IMe/oPwiOv98aGgv209fCqbrEWhPKpZHrWAQqLxhLJkiH4dcT+F4hTahCA9teycebqpfsO3S5u5ypKTTFFPj8BBa0ZtKn3aOaLe6LXHf1i9ymT7EinVDrKaE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=vignesh.raman@collabora.com;
- dmarc=pass header.from=<vignesh.raman@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781692011; 
- s=zohomail; d=collabora.com; i=vignesh.raman@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:From:From:To:To:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
- bh=1emWFubp8fhk0p8wRgcHjKQfLWOipWqTOmpA1GxvLXI=;
- b=ampRK/xP6cYVELmzPQ9ehi8thlId81Ohq1CmlAdFqHPl7vMwivuEe9MZsIPapF3Z
- AEJzRQXww9cDgkiPZEcsIwUVLIIdatzTbcpmsbIYgp0udfQ/KmvywVJLv09VW4wQa68
- KncITCltrnxisw1TwNxmRBA7yCrWQ4Zhz0//PCnY=
-Received: by mx.zohomail.com with SMTPS id 1781692010159756.5896442687364;
- Wed, 17 Jun 2026 03:26:50 -0700 (PDT)
-Message-ID: <d8d515e4-1184-4898-b459-c1485f82ce8a@collabora.com>
-Date: Wed, 17 Jun 2026 15:56:44 +0530
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B80F10EFA0
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:32:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781692377; x=1813228377;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=X3winq5qm2HIT6UC0/yxmrF0jTAu33Gl4aE30OAa1oI=;
+ b=kAlEW2mZ3uZngNOBMtaNvhBeyWkA7uhdlSO9KJL000T459Mmv8rJphOs
+ 76D+hamhhVKLHIoWzEDkbwOzahCRV4UH1lCrVtOKpWI8WnFATq3M6t04E
+ s3XVML4tSvItwDI7cHgG/dwTXeKu4KKXrcjUblZk/gGZ1VK5DANfj/N4o
+ +zxN+MD962PFEEF9bcVVPkl7EmS9j0u5q4WroC+BG4fA9n2SxhCgYUoqz
+ IK3eH3jdhv38N8Yrm2CPRFCpyJYD2w3E6G/aQDFiDiQhor1aEm3RyzMbm
+ CUwyOY8oyCRqgJZ+tqSUziZ/OX7WZHNicSY6inVqZXd1Wx4mtk5KsSAFl Q==;
+X-CSE-ConnectionGUID: QO79Bz4/Qbyn8LUlxdLKyw==
+X-CSE-MsgGUID: 8xVzI4t/Qby/tZA7X++Dgg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="93594473"
+X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; d="scan'208";a="93594473"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2026 03:32:57 -0700
+X-CSE-ConnectionGUID: leLgKuVYTtSbL+4Q82bKlQ==
+X-CSE-MsgGUID: Uko2CTWXRUGLJxZ5qEEMcA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; d="scan'208";a="247139272"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.69])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2026 03:32:53 -0700
+Date: Wed, 17 Jun 2026 13:32:50 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+ Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v5 02/14] mfd: lm3533: Remove driver specific regmap
+ wrappers
+Message-ID: <ajJ30lHG5lEXri7I@ashevche-desk.local>
+References: <20260617080031.99156-1-clamor95@gmail.com>
+ <20260617080031.99156-3-clamor95@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/doc: recommend forking drm/kernel rather than
- uploading a distinct copy
-From: Vignesh Raman <vignesh.raman@collabora.com>
-To: Eric Engestrom <eric@engestrom.ch>,
- Helen Koike <helen.fornazier@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260219135645.261192-1-eric@engestrom.ch>
- <b7f86ada-a74d-4fb2-83d2-5b4ef18e00c4@collabora.com>
-Content-Language: en-US
-In-Reply-To: <b7f86ada-a74d-4fb2-83d2-5b4ef18e00c4@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260617080031.99156-3-clamor95@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,43 +82,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Wed, Jun 17, 2026 at 11:00:19AM +0300, Svyatoslav Ryhel wrote:
+> Remove driver-specific regmap wrappers in favor of using regmap helpers
+> directly.
 
-On 20/02/26 11:08, Vignesh Raman wrote:
-> Hi Eric,
-> 
-> On 19/02/26 19:26, Eric Engestrom wrote:
->> Signed-off-by: Eric Engestrom <eric@engestrom.ch>
->> ---
->>   Documentation/gpu/automated_testing.rst | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git ./Documentation/gpu/automated_testing.rst ./Documentation/ 
->> gpu/automated_testing.rst
->> index 62aa3ede02a5df3f590b..8a7328aef10ef39ee329 100644
->> --- ./Documentation/gpu/automated_testing.rst
->> +++ ./Documentation/gpu/automated_testing.rst
->> @@ -99,7 +99,8 @@ How to enable automated testing on your tree
->>   ============================================
->>   1. Create a Linux tree in https://gitlab.freedesktop.org/ if you 
->> don't have one
->> -yet
->> +yet, by forking https://gitlab.freedesktop.org/drm/kernel (this 
->> allows GitLab
->> +to internally track that these are the same git objects).
-> 
-> Reviewed-by: Vignesh Raman <vignesh.raman@collabora.com>
+OK, let's go with this variant.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Applied to drm-misc-next
+Some side notes below for the record.
 
-Thanks.
+...
 
-> 
-> Regards,
-> Vignesh
-> 
->>   2. In your kernel repo's configuration (eg.
->>   https://gitlab.freedesktop.org/janedoe/linux/-/settings/ci_cd), 
->> change the
-> 
+>  	struct lm3533_led *led = to_lm3533_led(led_cdev);
+>  	unsigned enable;
+
+Oh, besides using the old way of declaring unsigned int, it most likely
+just needs to be kstrtobool().
+
+>  	u8 reg;
+> -	u8 mask;
+> -	u8 val;
+>  	int ret;
+>  
+>  	if (kstrtouint(buf, 0, &enable))
+>  		return -EINVAL;
+
+We should unshadow error codes (it may return more than -EINVAL).
+
+>  	reg = lm3533_led_get_lv_reg(led, LM3533_REG_CTRLBANK_BCONF_BASE);
+> -	mask = LM3533_REG_CTRLBANK_BCONF_ALS_EN_MASK;
+>  
+> -	if (enable)
+> -		val = mask;
+> -	else
+> -		val = 0;
+> -
+
+...
+
+> -	if (kstrtou8(buf, 0, &val))
+> +	if (kstrtou32(buf, 0, &val))
+>  		return -EINVAL;
+
+Like in the previous case we should unshadow error codes.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
