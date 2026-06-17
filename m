@@ -4,45 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5247ACD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 08:17:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE80DCD98ED
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 08:17:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A46C210EEAB;
-	Wed, 17 Jun 2026 08:17:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B53C10EEAD;
+	Wed, 17 Jun 2026 08:17:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xzdhr+fl";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="QXYBGAOJ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6361510EEAB
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:17:02 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4C5C941734;
- Wed, 17 Jun 2026 08:17:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6F7F1F000E9;
- Wed, 17 Jun 2026 08:17:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781684222;
- bh=XC9wtXc5Er7eDX8M6LwgMZHUngAB2v3QW5QAOnwsr1E=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Xzdhr+flD7l1F+1PeVPRwP4b5Upo2SLH6g7rJLu6m6oTmvlCBml6yREwZtcrjPcpB
- PbUMNM9Kp5QsKPtC+mlN4SeKJxNBguxg05UxUhAajYuWPSgEKYagUNH91TDt86ur0e
- H8lvJbPdHtMc3zzf/f4a0pU4Q+nVFONSLyqgzQzmXekHtlbCRJQ2sIDCiSYBY5Kk4o
- vgNqiomA7DSkEC8+7fWLJ4HhSNr14dyjRQhY1nkgP75oiZeopvb9lAfPYUZrhU1Q+B
- sziP7bjaNeAusXM3JVStmmV3j6nasjmqnzXmnHQQQzGKXpCyqO2i8BrsOWsgP5hY8+
- wVY4lub8a6SJw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 13/14] video: backlight: lm3533_bl: Implement
- backlight_scale property
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260617080031.99156-14-clamor95@gmail.com>
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-14-clamor95@gmail.com>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7273A10EEAD
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:17:47 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9C72543;
+ Wed, 17 Jun 2026 10:17:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1781684231;
+ bh=O1xOVyR8Ro+pXWqhTME17XcjkCqS0pf/9oQT6u5PaqQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QXYBGAOJccfTg7J9CW3WGbC9XYu70ihnDSvRLwZh0p4svbhqA1H7bPsZJsIYLy/sz
+ b5/rfWNMCV3lYnpSzcn0f/wPhOOi7c3qKSjyU5rby8DeE3rx1i2U4lw7rLSkjJvDvn
+ CFiYxqyyXIpMj8JiY0d+lm9Cs+9vm6lqgkaxr1vU=
+Date: Wed, 17 Jun 2026 11:17:44 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Damon Ding <damon.ding@rock-chips.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel test robot <lkp@intel.com>
+Subject: Re: [PATCH v1] drm/bridge: of-display-mode-bridge: Fix missing
+ static const for the bridge funcs
+Message-ID: <20260617081744.GD3054789@killaraus.ideasonboard.com>
+References: <20260617080755.186368-1-damon.ding@rock-chips.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 08:17:01 +0000
-Message-Id: <20260617081701.E6F7F1F000E9@smtp.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20260617080755.186368-1-damon.ding@rock-chips.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,64 +60,46 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Race condition in `store_linear` leading to hardware and softwar=
-e state mismatch.
---
+On Wed, Jun 17, 2026 at 04:07:55PM +0800, Damon Ding wrote:
+> Add static qualifier for of_display_mode_bridge_funcs to resolve the
+> sparse warning:
+> 
+> drivers/gpu/drm/bridge/of-display-mode-bridge.c:54:25: sparse: sparse:
+> symbol 'of_display_mode_bridge_funcs' was not declared. Should it be
+> static?
+> 
+> Also mark the structure const as required by devm_drm_bridge_alloc()
+> parameter type constraints.
+> 
+> Fixes: ba2db93cf3d5 ("drm/bridge: Move legacy bridge driver out of imx directory for multi-platform use")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202606170744.FUStcWaB-lkp@intel.com/
+> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-commit 52a62eb2455ff3beba4492c4d5e3f63ad2e5e71d
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
-video: backlight: lm3533_bl: Implement backlight_scale property
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-This commit implements the backlight_scale property for the lm3533_bl drive=
-r.
-It describes whether the backlight operates in linear or non-linear mode
-based on the device state.
-
-> diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backligh=
-t/lm3533_bl.c
-> --- a/drivers/video/backlight/lm3533_bl.c
-> +++ b/drivers/video/backlight/lm3533_bl.c
-> @@ -142,6 +142,7 @@ static ssize_t store_linear(struct device *dev, struc=
-t device_attribute *attr,
->  {
->  	struct lm3533_bl *bl =3D dev_get_drvdata(dev);
->  	int ctrlbank =3D lm3533_bl_get_ctrlbank_id(bl);
-> +	struct backlight_device *bd =3D bl->bd;
->  	unsigned long linear;
->  	int ret;
-> =20
-> @@ -153,6 +154,9 @@ static ssize_t store_linear(struct device *dev, struc=
-t device_attribute *attr,
->  	if (ret)
->  		return ret;
-> =20
-> +	bd->props.scale =3D linear ? BACKLIGHT_SCALE_LINEAR :
-> +				   BACKLIGHT_SCALE_NON_LINEAR;
-
-[Severity: Medium]
-Could this allow the hardware state and the software property to diverge
-during concurrent writes?
-
-Since kernfs does not serialize concurrent writes to sysfs files, if two
-threads write contradictory values at the same time, the regmap updates and
-the bd->props.scale updates could interleave. This might result in the
-hardware being configured in one mode while bd->props.scale incorrectly
-reports the opposite mode.
-
-Would it make sense to protect this update sequence with a lock to ensure b=
-oth
-the hardware and software properties are updated atomically?
-
-> +
->  	return len;
+> ---
+>  drivers/gpu/drm/bridge/of-display-mode-bridge.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/of-display-mode-bridge.c b/drivers/gpu/drm/bridge/of-display-mode-bridge.c
+> index cb15713f3a79..e66dae168fd0 100644
+> --- a/drivers/gpu/drm/bridge/of-display-mode-bridge.c
+> +++ b/drivers/gpu/drm/bridge/of-display-mode-bridge.c
+> @@ -51,7 +51,7 @@ static int of_display_mode_bridge_get_modes(struct drm_bridge *bridge,
+>  	return 0;
 >  }
+>  
+> -struct drm_bridge_funcs of_display_mode_bridge_funcs = {
+> +static const struct drm_bridge_funcs of_display_mode_bridge_funcs = {
+>  	.attach = of_display_mode_bridge_attach,
+>  	.get_modes = of_display_mode_bridge_get_modes,
+>  };
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617080031.9915=
-6-1-clamor95@gmail.com?part=3D13
+-- 
+Regards,
+
+Laurent Pinchart
