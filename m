@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA3EACD98F4
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 08:01:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B70FCD98ED
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 08:01:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B026810EE89;
-	Wed, 17 Jun 2026 08:01:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AE2F10EE96;
+	Wed, 17 Jun 2026 08:01:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="csEQc3Gx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sJGepwxZ";
 	dkim-atps=neutral
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
- [209.85.218.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F47B10EE89
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:01:01 +0000 (UTC)
-Received: by mail-ej1-f49.google.com with SMTP id
- a640c23a62f3a-bebc80100efso558879566b.1
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 01:01:01 -0700 (PDT)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A086D10EE89
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:01:02 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-bef1e6423e7so597863966b.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 01:01:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781683260; x=1782288060; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1781683261; x=1782288061; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=iTLq06Trmxaj5LKPvLHLVj78rBrJr8ohTB02upYl/fw=;
- b=csEQc3GxXS+dVwW28WqCpJCzsL1S/nkxeR5wf5lbI8f+kkod5SWHLgmbh4eiAJ+V79
- zWdpVNk/CntS4T5dW1hMFyavObZaMaFqlCP6EzO4Jk1q+9+JlKpkkfTguQqboqrIbdDB
- JTQ7p32pVbloQPGPKDcrDf2Nv4VlqhEgC+UTTRBdJToGJ920oAI2edpCV40Ez3Ci5M5q
- 8nQNQtyx2mpDjRONu4ifnPl56ZvnvM02Q/ZT3YHwXk31KbxPvKGo+BoLwn0CYlRE06g5
- MaZBwdEHkzj45WekSCZ+WbhqyCrlEmcx+Yxa7XycUzj7fki6fCDLztLJzWz9zj8bDhI6
- fvGw==
+ bh=Bd9XYaCysxrts0G4Y5wJXzVAEaPGW9YIawHblvLTeko=;
+ b=sJGepwxZ1/hdhBxatjJK9kKB8mIXQKU8Hh2bx7uytmJkWx3X31IPxdV5O7eoDLXvn1
+ yFlLWSsWZGfm3Ij2pE0bDzGW/axqSmchrWARQjUObHW90XcY42yvZTw+0/uyDmWFZTmz
+ iBmQHGWDOfHkqweub/+7dr0Rfcb3GPhYUYZ8/5QAkmQ76HujvsfbOw8qgWvD0R3RFvpg
+ yZYjHYQ0DLq/bPSXTtQO5r+9VWteZaN7EMlbyVEdaLXhhpPR+CZLWAYskS+brIJF7TBl
+ HHsoiY1DVQ4/FK1kJ04CbiDCwszJ5w80d8BrMZJePTxte9MjtmyNS6OTnI2B0cxL8YLA
+ zAjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781683260; x=1782288060;
+ d=1e100.net; s=20251104; t=1781683261; x=1782288061;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=iTLq06Trmxaj5LKPvLHLVj78rBrJr8ohTB02upYl/fw=;
- b=Z/Rr8qRHFb+mAmFyFuNFZ2N+EOJ91qQBZZg+2T8NIlEH0odzq7YZhuF+6qm7kp+6sd
- Fc5wGpA4D8HKbhirF8syzaHG1S2yDU8uYeiUUH12u1Uu4mBeksvmA2rPEEiIez3of/qb
- uZLjOLuExniK36fPqNtWg7EBXW0K6LLw3hh6UK/tDU7B6lt1VnEBypStB66Kaoweb4FS
- TZZiwetYyktVpXSdbeyJF4Zi6hXQ2pLXWh/Pn3sSlNciCBfo0E2YFz2OQqBXQC3PVZ09
- o6Se2Vnyl4N1LDaZADCmaW9fbjHurgeVrTR12vwuI5ndF7Ky1pSaITtYBCucxEkmCKIG
- SFXg==
+ bh=Bd9XYaCysxrts0G4Y5wJXzVAEaPGW9YIawHblvLTeko=;
+ b=N7P5fKnEbUQCKTVWa4/ndo42fDEOColAY+S9kpoU7YrJZ0Q6X1n7PncfRG37RwR7Fh
+ G/LVTw9syJxPALwwtfBGEnxlwIlWGHn+XQeKxtcB29ht54B4hRGWE6h4G2EuOyICjk3f
+ VmXeBVCPZ0RDN2Aknie4RLyvnyI1/DLvnNLrjjj5DICJY9jdu/rG8iskYxt6l/ZUETq+
+ bf1N+b9DwGlJk/l2HF+J3S8vxmuzI3+vHnBZ5krbeYvAJbq0GImxMajRQ8y4ydgv2LKx
+ y0b4CqEF7NsF11GACQcjLqBrznuGhETI81OrPgO5e5nu1jbD1bLAPsMPgxVDvG04AOR+
+ iAOA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8LBTNY3EOngImB6SzCDyVcdpOyB6dQf3NxApbo8zvcHd49P27+/C5CKkMxXwqckL1rQq9sTmY2x+E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwBrnBx8EqWLmNoya7chFir+MbiQ7cxb5l04rvYKOa9PXJVc+Ng
- ACz6jw9lWJArkT7LLpdBUEL6g+TghfqfcVGY9XBWTJvZGlPy0ksFB7qO
-X-Gm-Gg: Acq92OEQGoeMo+867Hr/MXMF8Z20grHDkKM4Jpdhp3uKufx6o8rgBsR9arDn4qH5ME9
- TgdYvYpDzNVE8PtjttfxOItojJqINE9Z+dozZ14/VsmnO2QDbbD2PTUVvQ2iKQbqKY+6dgQlLTw
- wUtqtPPmuf0CPaExJznryUkLzyHb7BDRFNvcWvGUDrdi2WjZuZa/PUgd/vTCq67szKBfWE0w5xz
- P3pivFk5IjlpvZlpORJBpkNRAMiFYWExHqDYkaDIlP+GHl6ItIFHOoy+GMRWCg5ASAhOQECIsGH
- WnsOpgNyNGBBiWwCa/iD8xvyR+hoRB6ycI7jIHd626qrIlGuTnMBdGvNjOh8lYF2Y6XOMIkE8Al
- jXC64Na5bCpGXXmU9FI0LmJDQG+DzGg2g/zF2YRCIA4Z6rnC6xsx3PjEXOY321F70W0rgWbrq7u
- u1Aw==
-X-Received: by 2002:a17:907:da4:b0:bf9:ad4f:4437 with SMTP id
- a640c23a62f3a-c05a6105803mr189014466b.3.1781683259392; 
- Wed, 17 Jun 2026 01:00:59 -0700 (PDT)
+ AFNElJ8xDRrMB8kqEHnMPVkp2V2K7KV0tdlu2q14eyT2fN4TUITqFbUweEEm3f/Mc+DWR0TV6jmHNAQLbH8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YybpwFo/zwpp1hIi1XvYZqMOq0MvzYLt03zBrWLEW3vgVbrarFj
+ H/AfeZm0GlXCb0fNUFxikT+0eFvb9prO1zocJQaK5c9fNjVwSIX9W+qR
+X-Gm-Gg: Acq92OFvZUluDrrnI+eRuViTv7hFINYEncje6Qr6sGyk/CvdrkkOLOYLve7HU6TQu54
+ BfnjRH2ThZvSMaD1nXnK28+fVbMUMOPSzU0cgnqJitnhZeGc06NnVQGPFcJ0itikKwtUCFRDau2
+ 70CLMKaASkwwoHaRNFNVxtW2lZ8KZl/Ae9ECCjvYBP0Mancs4boep7sr3U4lHaHvaHhqy2Cc36O
+ x3BHtDKdM/Y9HNp5zoScXJZ70hplyO/vlMeKNrZFzpVSGx17DR9Ngfx/WylsbdVBFUZv528rUG+
+ yJm7v2LLZJIYrMYeeIdA8UH7vTKF/kn+0Y91nHg2NUm8DUlBIKt47S32GhcbNiSe5TYU8H/551w
+ rD0VdBo3ax8HRYRuqiYOl8GbRrVJYEOgaIiGWdwP4ovAqJrpWLakw3BBxWl6jtHF9jkSjdJ2jLT
+ bJ5A==
+X-Received: by 2002:a17:907:b03:b0:bee:875d:af12 with SMTP id
+ a640c23a62f3a-c05a09bc11dmr128164966b.0.1781683260892; 
+ Wed, 17 Jun 2026 01:01:00 -0700 (PDT)
 Received: from xeon ([188.163.112.61]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bfdb058fa59sm755339766b.0.2026.06.17.01.00.57
+ a640c23a62f3a-bfdb058fa59sm755339766b.0.2026.06.17.01.00.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2026 01:00:58 -0700 (PDT)
+ Wed, 17 Jun 2026 01:01:00 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
  Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
@@ -74,10 +74,10 @@ Cc: Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
  linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
  linux-fbdev@vger.kernel.org
-Subject: [PATCH v5 12/14] video: backlight: lm3533_bl: Set initial mapping
- mode from DT
-Date: Wed, 17 Jun 2026 11:00:29 +0300
-Message-ID: <20260617080031.99156-13-clamor95@gmail.com>
+Subject: [PATCH v5 13/14] video: backlight: lm3533_bl: Implement
+ backlight_scale property
+Date: Wed, 17 Jun 2026 11:00:30 +0300
+Message-ID: <20260617080031.99156-14-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260617080031.99156-1-clamor95@gmail.com>
 References: <20260617080031.99156-1-clamor95@gmail.com>
@@ -98,52 +98,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support to obtain the initial mapping mode from DT instead of leaving
-it unconfigured.
+Since the device supports linear and non-linear modes, implement the
+backlight_scale property to describe this state.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
 ---
- drivers/video/backlight/lm3533_bl.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/video/backlight/lm3533_bl.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backlight/lm3533_bl.c
-index 9eb0db640948..d003d5802508 100644
+index d003d5802508..c99fc68cb669 100644
 --- a/drivers/video/backlight/lm3533_bl.c
 +++ b/drivers/video/backlight/lm3533_bl.c
-@@ -37,6 +37,7 @@ struct lm3533_bl {
- 	u32 pwm;
- 
- 	bool have_als;
-+	bool linear;
- };
- 
- 
-@@ -231,8 +232,14 @@ static const struct attribute_group *lm3533_bl_attribute_groups[] = {
- 
- static int lm3533_bl_setup(struct lm3533_bl *bl)
+@@ -142,6 +142,7 @@ static ssize_t store_linear(struct device *dev, struct device_attribute *attr,
  {
-+	int ctrlbank = lm3533_bl_get_ctrlbank_id(bl);
+ 	struct lm3533_bl *bl = dev_get_drvdata(dev);
+ 	int ctrlbank = lm3533_bl_get_ctrlbank_id(bl);
++	struct backlight_device *bd = bl->bd;
+ 	unsigned long linear;
  	int ret;
  
-+	ret = regmap_assign_bits(bl->regmap, LM3533_REG_CTRLBANK_AB_BCONF,
-+				 CTRLBANK_AB_BCONF_MODE(ctrlbank), bl->linear);
-+	if (ret)
-+		return ret;
-+
- 	ret = lm3533_ctrlbank_set_max_current(&bl->cb, bl->max_current);
+@@ -153,6 +154,9 @@ static ssize_t store_linear(struct device *dev, struct device_attribute *attr,
  	if (ret)
  		return ret;
-@@ -286,6 +293,9 @@ static int lm3533_bl_probe(struct platform_device *pdev)
- 	props.max_brightness = LM3533_BL_MAX_BRIGHTNESS;
- 	props.brightness = default_brightness;
  
-+	bl->linear = device_property_read_bool(&pdev->dev,
-+					       "ti,linear-mapping-mode");
++	bd->props.scale = linear ? BACKLIGHT_SCALE_LINEAR :
++				   BACKLIGHT_SCALE_NON_LINEAR;
 +
+ 	return len;
+ }
+ 
+@@ -295,6 +299,8 @@ static int lm3533_bl_probe(struct platform_device *pdev)
+ 
+ 	bl->linear = device_property_read_bool(&pdev->dev,
+ 					       "ti,linear-mapping-mode");
++	props.scale = bl->linear ? BACKLIGHT_SCALE_LINEAR :
++				   BACKLIGHT_SCALE_NON_LINEAR;
+ 
  	bd = devm_backlight_device_register(&pdev->dev, name, &pdev->dev,
  					    bl, &lm3533_bl_ops, &props);
- 	if (IS_ERR(bd)) {
 -- 
 2.53.0
 
