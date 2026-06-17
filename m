@@ -4,130 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AB15CD98F0
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 12:36:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07AD5CD98E4
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 12:44:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDB2F10E17E;
-	Wed, 17 Jun 2026 12:36:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FF2489FA7;
+	Wed, 17 Jun 2026 12:44:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="SB1YPUr3";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Jq2mttOj";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SB1YPUr3";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Jq2mttOj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CotOQbcu";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B3A010E17E
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 12:36:41 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 52C9E75AE4;
- Wed, 17 Jun 2026 12:36:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781699800; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=uMwmD5ZVKo48graesQDZg+wP6nz0U0LlLpQHB/3WxOs=;
- b=SB1YPUr3ni0ThVz0W1qRVpKO0aHK2y+Po0bTOFTdQYTHtoQ32wTt7J1QUmNY/Kb9QCsvsM
- Hi5nx/TkR+fm+OgKjjsHs9eXWXhwYHgNuL9VG5sgpq8kfRhd+H8XjjJzGfgPC+exBIuZt+
- b2id3KN0pse/eexwj9Y+MMrPGN0F2Hc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781699800;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=uMwmD5ZVKo48graesQDZg+wP6nz0U0LlLpQHB/3WxOs=;
- b=Jq2mttOjjS3NHtXBy5w6IKCUu57tgAfIFSWY28UgO5fmNXvN3WhV2Io/LZGGyikWW5Wwln
- T9aWM21NfzZFS2Bw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781699800; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=uMwmD5ZVKo48graesQDZg+wP6nz0U0LlLpQHB/3WxOs=;
- b=SB1YPUr3ni0ThVz0W1qRVpKO0aHK2y+Po0bTOFTdQYTHtoQ32wTt7J1QUmNY/Kb9QCsvsM
- Hi5nx/TkR+fm+OgKjjsHs9eXWXhwYHgNuL9VG5sgpq8kfRhd+H8XjjJzGfgPC+exBIuZt+
- b2id3KN0pse/eexwj9Y+MMrPGN0F2Hc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781699800;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=uMwmD5ZVKo48graesQDZg+wP6nz0U0LlLpQHB/3WxOs=;
- b=Jq2mttOjjS3NHtXBy5w6IKCUu57tgAfIFSWY28UgO5fmNXvN3WhV2Io/LZGGyikWW5Wwln
- T9aWM21NfzZFS2Bw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1C5BC779A8;
- Wed, 17 Jun 2026 12:36:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id uI6gBdiUMmrXKwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 17 Jun 2026 12:36:40 +0000
-Message-ID: <ebf3a909-99e4-47f3-9c1c-b329d6000996@suse.de>
-Date: Wed, 17 Jun 2026 14:36:39 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AA8289FA7
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 12:44:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781700260; x=1813236260;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=iOTX/eTaYU9t8vwPSQruscg0vqU1dObtme0Ohj4Pa+g=;
+ b=CotOQbcuwL6Qw3iSdgBsXIew6ezM4yaluILgr/M8ju3gtTc1DpKOxSfx
+ ZkBzwG7vM1q8E/iUJ0BOEUUQEvQcOlSIf/NhbLLDj4Wds+Z09Z19goZVK
+ 7o+VB4DYb/som4sgPqJ2jPIF7zAFl1iDI1TOiaJ6exXnTpfoR2rqxyXsE
+ NHWzt++LipCnu3qzG88Ass3xQ7k5JxIgtfFGFz8fhoGn1suXjhB8c6zPk
+ HIucf+4bf1qzaNht70e6jZpURwmtNCiBeq8Qmr+en6ZgTKF+JamRPWd+y
+ EPTf+a2SF7R7zfAmg8WHFa+ZB1qnQzIBjFOw+maHXD8w1m5cm2Ah31OEc w==;
+X-CSE-ConnectionGUID: nRvQen8pQ0qH/li1M9CGmA==
+X-CSE-MsgGUID: 49om9mi0TjWgrjXMcbkW2g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="86332094"
+X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; d="scan'208";a="86332094"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2026 05:44:20 -0700
+X-CSE-ConnectionGUID: 7NSiGOqTSYCgBM3cNuumzA==
+X-CSE-MsgGUID: CVKFtSpERXObIH8GbTCaNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; d="scan'208";a="249962456"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.158])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2026 05:44:17 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Xiang Mei <xmei5@asu.edu>, dri-devel@lists.freedesktop.org
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ bestswngs@gmail.com, Xiang Mei <xmei5@asu.edu>
+Subject: Re: [PATCH v2] drm/edid: fix OOB read in drm_parse_tiled_block()
+In-Reply-To: <20260615184737.899892-1-xmei5@asu.edu>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260615184737.899892-1-xmei5@asu.edu>
+Date: Wed, 17 Jun 2026 15:44:14 +0300
+Message-ID: <d7fdf98414e1f0386eb4acee2600b92f1ab66053@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/sysfb: Do not page-align visible size of the
- framebuffer
-To: Javier Martinez Canillas <javierm@redhat.com>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
- stable@vger.kernel.org
-References: <20260617112932.511657-1-tzimmermann@suse.de>
- <20260617112932.511657-2-tzimmermann@suse.de>
- <874ij1z90y.fsf@ocarina.mail-host-address-is-not-set>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <874ij1z90y.fsf@ocarina.mail-host-address-is-not-set>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.997]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCPT_COUNT_SEVEN(0.00)[8]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
- suse.de:email, suse.de:mid]
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,64 +71,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 17.06.26 um 13:44 schrieb Javier Martinez Canillas:
-> Thomas Zimmermann <tzimmermann@suse.de> writes:
+On Mon, 15 Jun 2026, Xiang Mei <xmei5@asu.edu> wrote:
+> drm_parse_tiled_block() casts the DisplayID block to a
+> struct displayid_tiled_block and reads the full fixed layout up to
+> tile->topology_id[7] without checking block->num_bytes. The DisplayID
+> iterator only validates the declared payload length, so a crafted EDID
+> can advertise a tiled-display block (tag DATA_BLOCK_TILED_DISPLAY, or
+> DATA_BLOCK_2_TILED_DISPLAY_TOPOLOGY for v2.0) with a small num_bytes at
+> the end of a DisplayID extension. The read then runs past the end of the
+> exact-sized kmemdup()'d EDID allocation, a heap out-of-bounds read.
 >
-> Hello Thomas,
+> Reject blocks shorter than the spec's 22-byte tiled payload before
+> reading the fixed struct, as drm_parse_vesa_mso_data() already does.
 >
->> Only return the actually visible size of the system framebuffer in
->> drm_sysfb_get_visible_size_si(). Drivers use this size value for
->> reserving access to framebuffer memory. Increasing the value can
->> make later attempts to do so fail.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Fixes: 32ae90c66fb6 ("drm/sysfb: Add efidrm for EFI displays")
->> Fixes: a84eb6abe2b6 ("drm/sysfb: Add vesadrm for VESA displays")
->> Cc: Thomas Zimmermann <tzimmermann@suse.de>
->> Cc: Javier Martinez Canillas <javierm@redhat.com>
->> Cc: dri-devel@lists.freedesktop.org
->> Cc: <stable@vger.kernel.org> # v6.16+
->> ---
->>   drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c b/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
->> index 749290196c6a..361b7233600c 100644
->> --- a/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
->> +++ b/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
->> @@ -67,7 +67,7 @@ EXPORT_SYMBOL(drm_sysfb_get_stride_si);
->>   u64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
->>   				  unsigned int height, unsigned int stride, u64 size)
->>   {
->> -	u64 vsize = PAGE_ALIGN(height * stride);
-> Do you know why the original efidrm_get_visible_size_si() (from where
-> you took this code to make it generic) did the page align ?
-
-There's nothing in the old reviews AFAICT. I think, it was an oversight 
-from prototyping the driver. I certainly wanted to return 0 for errors 
-at first, but later changed it to an errno code. There, I forgot to 
-update the code accordingly.
-
+>   BUG: KASAN: slab-out-of-bounds in drm_edid_connector_update
+>   Read of size 2 at addr ffff888010077700 by task exploit/147
+>    dump_stack_lvl (lib/dump_stack.c:94 ...)
+>    print_report (mm/kasan/report.c:378 ...)
+>    kasan_report (mm/kasan/report.c:595)
+>    drm_edid_connector_update (drivers/gpu/drm/drm_edid.c:7581)
+>    bochs_connector_helper_get_modes (drivers/gpu/drm/tiny/bochs.c:574)
+>    drm_helper_probe_single_connector_modes (drivers/gpu/drm/drm_probe_helper.c:426)
+>    status_store (drivers/gpu/drm/drm_sysfs.c:219)
+>    ...
+>    vfs_write (fs/read_write.c:595 fs/read_write.c:688)
+>    ksys_write (fs/read_write.c:740)
 >
-> The change makes sense to me though from your explanation:
+> Fixes: 40d9b043a89e ("drm/connector: store tile information from displayid (v3)")
+> Reported-by: Weiming Shi <bestswngs@gmail.com>
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Xiang Mei <xmei5@asu.edu>
+
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+
+> ---
+> v2: use 22 instead of sizeof, based on the topology_id[9] fix:
+> https://lore.kernel.org/r/20260610141549.555605-1-jani.nikula@intel.com
 >
-> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-
-Thanks.
-
-Best regards
-Thomas
-
+>  drivers/gpu/drm/drm_edid.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 >
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 404208bf23a6..df3c25bac761 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -7575,6 +7575,14 @@ static void drm_parse_tiled_block(struct drm_connector *connector,
+>  	u8 num_v_tile, num_h_tile;
+>  	struct drm_tile_group *tg;
+>  
+> +	/* tiled block payload per spec: cap 1 + topo 3 + size 4 + bezel 5 + id 9 = 22 */
+> +	if (block->num_bytes < 22) {
+> +		drm_dbg_kms(connector->dev,
+> +			    "[CONNECTOR:%d:%s] Unexpected tiled block size %u\n",
+> +			    connector->base.id, connector->name, block->num_bytes);
+> +		return;
+> +	}
+> +
+>  	w = tile->tile_size[0] | tile->tile_size[1] << 8;
+>  	h = tile->tile_size[2] | tile->tile_size[3] << 8;
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+Jani Nikula, Intel
