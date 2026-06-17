@@ -4,45 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0980FCD98ED
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 08:18:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AA2DCD98E2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 08:25:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75BED10EEBA;
-	Wed, 17 Jun 2026 08:18:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8EF210EEB7;
+	Wed, 17 Jun 2026 08:25:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T1BKapoV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bTY8aL9b";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4E6F10EEBA
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:18:26 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C60610EEB7
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 08:25:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 08FBB600B0;
- Wed, 17 Jun 2026 08:18:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A9D21F00A3D;
- Wed, 17 Jun 2026 08:18:25 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CF751434A7;
+ Wed, 17 Jun 2026 08:25:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C0291F00A3A;
+ Wed, 17 Jun 2026 08:25:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781684305;
- bh=97ZJT/CCUoabnLTNLvjmKsXlThHvT5k3+GVud78Rjgk=;
+ s=k20260515; t=1781684724;
+ bh=Oerw3gfrqx1elTzbTzXFQ74prbxIcESetH/z5NcYpxw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=T1BKapoV89Crdy2R10Muwnl3oU09W9arSCS3/c/4LJnKEDSEcFbLlvfPbJVOCkgkU
- P8OmiBFxoabF5uC/4ZpD8BvTWTbvWAf7udfC2cYwmtrhO+0WcwnnVhui6hxb7FBjmZ
- jJRtcso93FIm+TM4it2/GRi6oW8GUMHeZAkLqjlClgqDV0Oj/2IzXbvmVv1U1Edo2y
- vcFnEuT8peAC6aMbewKyM4MV1i6O/VHBXsEFlt+Ygebn/+lk1HtILhHFTBK3LUjDZq
- wVSFvqA/HphDyMtg3pkkA5XcZ77WErnrq7Wn0drrz2/Bp7iMBoJTpp49NbdB6edVxx
- GTydcx8doqnJg==
+ b=bTY8aL9bYmaUR7klfs7bNSRpdNCoZoRvgtqwMS0KQhrk/NdGLaD959zcQNBAUJunm
+ HukPMqUKmIlkisoNQWelbBcMc42CTpeAxaq0OHqzeEc9HXm6Xyzp0yQdr1zAxZDPjO
+ vcm13UNPV2BKcpEPSTnJJ7NIimGUPUvsv6qjpyc30PP8ES+7FKcpjE1gDnXbBIF0e6
+ CbQXOfYLLrfpSLqV/d3Nni4oSOilbiZf1kqZxTw4MiwlG2UHzVLxaa+Uykf2hr+P8t
+ oaZzTzD4dswr7JT/cOJzMGAiXXtqgw666VRd236FwshKb4awAVb8VCGgxY7KLDi8oR
+ 99LLsnyUaR6HA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 14/14] video: leds: backlight: lm3533: Support
- getting LED sources from DT
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260617080031.99156-15-clamor95@gmail.com>
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-15-clamor95@gmail.com>
+Subject: Re: [PATCH] firmware: sysfb: Mark CONFIG_SYSFB_SIMPLEFB as deprecated
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260617081810.218168-1-tzimmermann@suse.de>
+References: <20260617081810.218168-1-tzimmermann@suse.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 08:18:24 +0000
-Message-Id: <20260617081825.6A9D21F00A3D@smtp.kernel.org>
+Date: Wed, 17 Jun 2026 08:25:24 +0000
+Message-Id: <20260617082524.8C0291F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,83 +56,85 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] Out-of-bounds bitmask shift causes regcache pollution and unnecessa=
-ry I2C bus writes for LM3533_REG_OUTPUT_CONF1.
+- [Medium] The updated help text for `SYSFB_SIMPLEFB` incorrectly claims th=
+at `efidrm` and `vesadrm` can act as fallbacks when `SYSFB_SIMPLEFB` is ena=
+bled.
+- [Medium] Incomplete deprecation leads to conflicting Kconfig instructions=
+ for `SYSFB_SIMPLEFB` and `DRM_SIMPLEDRM`.
 --
 
-commit a74553be2d2b60a05a193e9dc35527d3d4a425da
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+commit 5ea287d9e1ed6b65c8ad4f43e0319a4e41d57b15
+Author: Thomas Zimmermann <tzimmermann@suse.de>
 
-video: leds: backlight: lm3533: Support getting LED sources from DT
+firmware: sysfb: Mark CONFIG_SYSFB_SIMPLEFB as deprecated
+   =20
+This commit marks CONFIG_SYSFB_SIMPLEFB as deprecated. Enabling it allows
+to run simpledrm and simplefb on EFI/VESA framebuffers, which is now
+discouraged in favor of using efidrm and vesadrm.
 
-This commit adds Control Bank to HVLED/LVLED muxing support based on
-the led-sources defined in the device tree.
-
-> diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-> index ed810c23f30f3..9e07953814fdd 100644
-> --- a/drivers/leds/leds-lm3533.c
-> +++ b/drivers/leds/leds-lm3533.c
+> diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
+> index 12dc70254842c..dea907178e4ad 100644
+> --- a/drivers/firmware/Kconfig
+> +++ b/drivers/firmware/Kconfig
+> @@ -187,32 +187,23 @@ config SYSFB
+>  	select SCREEN_INFO
+> =20
+>  config SYSFB_SIMPLEFB
+> -	bool "Mark VGA/VBE/EFI FB as generic system framebuffer"
+> +	bool "Mark VGA/VBE/EFI FB as generic system framebuffer (deprecated)"
+>  	depends on X86 || EFI
+>  	select SYSFB
+>  	help
 
 [ ... ]
 
-> @@ -623,8 +631,36 @@ static const struct attribute_group *lm3533_led_attr=
-ibute_groups[] =3D {
+> +	  This option, if enabled, marks VBE/EFI framebuffers as system
+> +	  framebuffers so the generic simpledrm driver can be used. If the
+> +	  framebuffer is not compatible with the generic modes, it is
+> +	  advertised as fallback platform framebuffer so regular drivers like
+> +	  efidrm, vesadrm can pick it up.
+
+[Severity: Medium]
+Is this fallback behavior accurate for efidrm and vesadrm?
+
+Looking at DRM_EFIDRM in drivers/gpu/drm/sysfb/Kconfig, it has a mutual
+exclusion dependency:
+
+config DRM_EFIDRM
+    depends on DRM && MMU && EFI && (!SYSFB_SIMPLEFB || COMPILE_TEST)
+
+Since both DRM_EFIDRM and DRM_VESADRM depend on !SYSFB_SIMPLEFB, it appears
+they cannot be enabled alongside SYSFB_SIMPLEFB in a standard build to act
+as fallbacks.
+
+> +
+> +	  This option is deprecated and will be removed in the near future. If
+> +	  unsure, say N and select efidrm, vesadrm instead. The dedicated DRM
+> +	  drivers provide the same functionality plus additional features.
+
+[Severity: Medium]
+Does the DRM_SIMPLEDRM documentation also need an update to resolve a
+conflict with this deprecation?
+
+While this instructs users to say N to SYSFB_SIMPLEFB, the help text for
+DRM_SIMPLEDRM in drivers/gpu/drm/sysfb/Kconfig still explicitly instructs
+users to select it:
+
+config DRM_SIMPLEDRM
+    help
+      ...
+      On x86 BIOS or UEFI systems, you should also select SYSFB_SIMPLEFB
+      to use UEFI and VESA framebuffers.
+
+Leaving the DRM_SIMPLEDRM help text unmodified might leave users with
+conflicting instructions on how to configure system framebuffers.
+
 > =20
->  static int lm3533_led_setup(struct lm3533_led *led)
->  {
-> +	u32 output_cfg_shift =3D 0;
-> +	u32 output_cfg_val =3D 0;
-> +	u32 output_cfg_mask =3D 0;
->  	int ret;
-> =20
-> +	if (led->num_leds) {
-> +		for (int i =3D 0; i < led->num_leds; i++) {
-> +			if (led->leds[i] >=3D LM3533_LVCTRLBANK_MAX)
-> +				continue;
-> +
-> +			output_cfg_shift =3D led->leds[i] * 2;
-> +			output_cfg_val |=3D led->id << output_cfg_shift;
-> +			output_cfg_mask |=3D OUTPUT_LVLED_MASK << output_cfg_shift;
-> +		}
-> +
-> +		/* LVLED1, LVLED2 and LVLED3 */
-> +		ret =3D regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF1,
-> +					 output_cfg_mask << OUTPUT_CONF1_SHIFT,
-> +					 output_cfg_val << OUTPUT_CONF1_SHIFT);
-
-[Severity: Low]
-Can this shift cause bits to fall outside the 8-bit register width?
-
-When led-sources specifies LVLED4 or LVLED5, output_cfg_mask accumulates
-bits that, when shifted left by OUTPUT_CONF1_SHIFT (which is 2), will exceed
-8 bits (for example, forming masks like 0x300 or 0xC00).
-
-Because regmap_update_bits operates on unsigned int internally, these
-out-of-bounds bits are applied to the cached register value. This causes
-the internal comparison (tmp !=3D orig) to incorrectly evaluate to true,
-triggering an unnecessary I2C write.
-
-Although the I2C subsystem harmlessly truncates the value to 8 bits so the
-hardware state is not corrupted, does it make sense to apply an explicit
-8-bit mask (e.g., & 0xFF) before passing the shifted mask and value to
-regmap_update_bits() to prevent regcache pollution and redundant bus traffi=
-c?
-
-> +		if (ret)
-> +			return ret;
-> +
-> +		/* LVLED4 and LVLED5 */
-> +		ret =3D regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF2,
-> +					 output_cfg_mask >> OUTPUT_CONF2_SHIFT,
-> +					 output_cfg_val >> OUTPUT_CONF2_SHIFT);
-> +		if (ret)
-> +			return ret;
-> +	}
-
-[ ... ]
+>  config TH1520_AON_PROTOCOL
+>  	tristate "Always-On firmware protocol"
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617080031.9915=
-6-1-clamor95@gmail.com?part=3D14
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617081810.2181=
+68-1-tzimmermann@suse.de?part=3D1
