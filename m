@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CEF4CD98E4
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15099CD98E4
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:15:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3EEF10EF65;
-	Wed, 17 Jun 2026 10:15:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 797DD10EF69;
+	Wed, 17 Jun 2026 10:15:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oKSyxnck";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iyzz1m2c";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47C2E10EF65
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E83D210EF63
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:15:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2FDE540840;
- Wed, 17 Jun 2026 10:15:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90B731F000E9;
- Wed, 17 Jun 2026 10:15:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D1F7F41A1D;
+ Wed, 17 Jun 2026 10:15:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE881F000E9;
+ Wed, 17 Jun 2026 10:15:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781691322;
- bh=uz/i9Te6rpyxDNH1kYw0hwlc8fPAxXZ0c2BJR0NHK/o=;
+ s=k20260515; t=1781691316;
+ bh=T5lc6m9nzp0A66gcskSxtcatQcZFiH5C/XYRTgpKVnE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=oKSyxnckXxt+keidccjDIfvusVUYw6dDhnf6hN0GLyFHYcCXETLS3Yd6sY/7OT7au
- VG0bEvfrfppLSyjU08Y+sAoshlNhb1BSdq83KrF72nVUlK9JDnQ60Dl7KftSrpR+BG
- e6l6fYdHolnzayfOYPOrSjRDLyQroZ0wr44y7sHMhw32mGTsjh5tN0L5UA23fYWnnm
- MSDtXO+soneoQYuJ8fdWIMTWK2oWa0SX1Ps0je70p1nG7JRkU186ktOhrQBq5wz4Hr
- iO8OCBrRI3kpSSR7mzCmY09KLimsbCW36FsD9950ypzXFyJ+rSYZ0bapfkHSPxyyGl
- AzKeLZD1XJfUQ==
+ b=iyzz1m2cg9x+8BfXpKZl8bGlXvCBsVu7Bm/sOC3voDvqwlGckXT2j8b/i36thkpi3
+ x3EdnGmQk+4s5aLBVbBAN+7ZV/vge8YTYACHDmCRcCqEV3D1WonWafQAbCIAjcD+Um
+ sRZqtr4EoYG2FEJn/F46DHtLNDwMNSCRPF6NCONyX+ijSVvRsqA0/oFBjrxCf3XPgs
+ VhdE275kjtHCe8LOzNUzZtpakjjMq5QN2yd32bs2zPY5FGMgAQkXYNMYwJWNA6xgrP
+ 2hKj/tV7nguhJD3t1u8yKazoJfSRXctvKhog0Qy1MM80eC/YaRcQ01uF/X8sp+7icm
+ qWSCWuQttVg2Q==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 17 Jun 2026 12:14:37 +0200
-Subject: [PATCH 12/37] drm/bridge: megachips-stdpxxxx-ge-b850v3-fw: Switch
- to atomic bridge callbacks
+Date: Wed, 17 Jun 2026 12:14:35 +0200
+Subject: [PATCH 10/37] drm/bridge: lontium-lt9611uxc: Switch to atomic
+ bridge callbacks
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-drm-all-atomic-bridges-v1-12-b63e6316166b@kernel.org>
+Message-Id: <20260617-drm-all-atomic-bridges-v1-10-b63e6316166b@kernel.org>
 References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 In-Reply-To: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -48,16 +48,14 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, 
- Peter Senna Tschudin <peter.senna@gmail.com>, Ian Ray <ian.ray@ge.com>, 
- Martyn Welch <martyn.welch@collabora.co.uk>
+ Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3850; i=mripard@kernel.org;
- h=from:subject:message-id; bh=j5IcKvIV/MdPfsMFSNBjpoEFeLb9/S2lxBSfSTAUs2Q=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxd2b9lxqLJ5cdqhgSdyUopt12ZJZ5sa9ckt2O978d
- 7sjMvR/x1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjIyXrGajZ5jk88vEpRE/OP
- L3L3qEqIY/JW42z8sTVC3U/3vEH7/413+vtsdRiPmbaonj537+UvxobLYWlrFyo94/h3QH/C5ou
- MqXuMGba/fyy+5VS/YOS1VaVmgb/8Pa5oXTm3T8l7e26k1FYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3712; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=aMto8fGYvKFHjKm8j2oZ+lbaxRPFztyyg40qZ7bjDME=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxV3X7D7rbpn3y57tVsZSo+TZ0gUJrRf+XU2e/k20r
+ TnYa0txx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZiIlCdjw5Ljq7/PKj0s+6Bm
+ s6pAs4zLhVIbmRuNJjmCn9hzXOMFldsXP9pTrV/9+qj8PhNHjcUdjA37S758uXQpSjTOfPp6E62
+ IgujEdRLulWsZqqYsizlbNj/d9JjIPLffv+UbM5tTbqyR8wIA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,7 +73,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The megachips-stdpxxxx-ge-b850v3-fw bridge still uses the deprecated non-atomic bridge
+The lontium-lt9611uxc bridge still uses the deprecated non-atomic bridge
 callbacks.
 
 Switch to their atomic counterparts, adding the bridge state
@@ -206,33 +204,28 @@ identifier b;
  }
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
 ---
-To: Peter Senna Tschudin <peter.senna@gmail.com>
-To: Ian Ray <ian.ray@ge.com>
-To: Martyn Welch <martyn.welch@collabora.co.uk>
----
- drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c | 3 +++
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c b/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
-index 2d02cc69f237..25ff0a0acc93 100644
---- a/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
-+++ b/drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
-@@ -212,10 +212,13 @@ static int ge_b850v3_lvds_attach(struct drm_bridge *bridge,
- 
- 	return ge_b850v3_lvds_create_connector(bridge);
+diff --git a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
+index 9427cc2358ae..6625ba23761c 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
++++ b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
+@@ -463,10 +463,13 @@ static void lt9611uxc_hdmi_audio_shutdown(struct drm_bridge *bridge,
+ 					  struct drm_connector *connector)
+ {
  }
  
- static const struct drm_bridge_funcs ge_b850v3_lvds_funcs = {
+ static const struct drm_bridge_funcs lt9611uxc_bridge_funcs = {
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
 +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach = ge_b850v3_lvds_attach,
- 	.detect = ge_b850v3_lvds_bridge_detect,
- 	.edid_read = ge_b850v3_lvds_edid_read,
- };
- 
+ 	.attach = lt9611uxc_bridge_attach,
+ 	.mode_valid = lt9611uxc_bridge_mode_valid,
+ 	.mode_set = lt9611uxc_bridge_mode_set,
+ 	.detect = lt9611uxc_bridge_detect,
+ 	.edid_read = lt9611uxc_bridge_edid_read,
 
 -- 
 2.54.0
