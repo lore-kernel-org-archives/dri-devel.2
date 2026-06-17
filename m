@@ -4,42 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A63ACD98F2
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 06:49:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED67DCD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 07:12:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6603510F181;
-	Thu, 18 Jun 2026 06:49:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 218AD10F199;
+	Thu, 18 Jun 2026 07:12:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JFvkXMQI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sxYV8s5b";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD43310F19A
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 06:49:32 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0D32A600BB
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 06:49:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98E931F000E9;
- Thu, 18 Jun 2026 06:49:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781765371;
- bh=SHfofpnFdKonlxJN8jHHNoALJ5jZ0VGxbwzMuqWp4Sw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JFvkXMQIBkQlM9fbWiWiBXplCsaZtJv8U2su/5Pf1W8vrub9QySnhscHwaNhEtVsA
- aO2BAGmdWlJLHk31dhHjgtC87irn/i6jQCuPyH5+tmO9+hV8KgMCa3NtWowdIevkNo
- uhLyssKF9N/eQH6G93oXXiPxyK6dy3V2RrWWwUVebajmmoLWik1Dt8VXizDCxsWryq
- BjU5HYZ232HHoYxYM99TBVifzra5H0Oo9//aQ7tpvn7Xci+go2o4h8BWn1MhF/oSvb
- Emo/fFZfB4ybypoQnf4HW48L/wEnA/3Kxm1zHomLQFp7YDb5hSuT90letYVhO0vqmt
- UBYoySq2F3/Mg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] fbcon: Avoid OOB font access if console rotation fails
-To: "HAN Ruidong via B4 Relay" <devnull+rdhan.smu.edu.sg@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260618-prep-base-v5-15-209-v1-1-cfcf596dca7a@smu.edu.sg>
-References: <20260618-prep-base-v5-15-209-v1-1-cfcf596dca7a@smu.edu.sg>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Jun 2026 06:49:31 +0000
-Message-Id: <20260618064931.98E931F000E9@smtp.kernel.org>
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
+ [74.125.82.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B9E710E0CD
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 18:21:15 +0000 (UTC)
+Received: by mail-dy1-f174.google.com with SMTP id
+ 5a478bee46e88-30bc806fcf8so100273eec.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 11:21:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781720475; x=1782325275; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=pYk40mpdYuWia4WWcgsPUz1So5Kdav6fDmRlP7pHt3U=;
+ b=sxYV8s5bw9uT5L5wi2zoQlRXRhLXOOo17UagaXlcAZefJZep8I+kcT5F4FUWc7knL/
+ M4dvWQeDViYEfreJ4GC3vvguqZJdZxGK+jblN54QxVUF06ZLlfjoSVEjHajow6Ir5kCT
+ kSEKiHi7dBMWTNh1j29hxcHRCyBD5phok8ADNWTLRlLruTg/HiIGqAfkCVepJIoon0N3
+ 27696heBkBbFlaBTrN1beXnb8e4Mp12cMXn/QnEcfQ7AiPNfWbSNpLOZqyQA9HHq6np1
+ YT3XealPb6HLYAaE7UA5jIOv8cyf71kxZp8anFFS5txBtZ74IS8x7c64BbfU49F9atBO
+ LvIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781720475; x=1782325275;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=pYk40mpdYuWia4WWcgsPUz1So5Kdav6fDmRlP7pHt3U=;
+ b=MCUsHTvwDMz/J50tYmCM9SLTH5bRkqcBvky0dP3ohlko58pR6PRGvTPTNTkQucPXyQ
+ nebKYxbQ1HknCQ/KWxY9FTIEXNQ/Uvp84zvDJKA7ji9mP2YzXN/6RO66xX2t5s7AwG4p
+ L0IHiOWIlU+Im1zfbKJ6h2x6YT4HFTCqAB9vemjVyWRtco/BtxlSjkr0pHv6KVSFfQM6
+ 0cbPkhyq4X0j7KcAiH8kkJhSzy1DAKhyN/oadHdnJQ4fB4rFlpop6n9r40DC+04Dsd1R
+ sxy3lLrVZRuTrS2JMHlFdUj9Y9fxWQn3NDKibh5kOCuDr1U9F3+0KJMTucsmyiMGmeCO
+ m2YQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ++YzBNryDNgiZB0bLt3KynScyckM+4UonKiiTIdPDCbxvALAWDGAZ7/bn/Wnfzkv6j9PgfcFa0xck=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxPiL/tj3MYWRX3gMrxptvipUOrYuKrsYdzj4CE09qriix42sSR
+ WIdtPgme3PE51a9ALlaWMu7yKXTq85FXazyEVC9xuumeZ0AicaoGDn1a
+X-Gm-Gg: AfdE7cn2BjteGCPEsHHjjRk0Do6h8DBHvs3Vl0saD4sF6b6ry2unsjl5K7eywzF+XOg
+ QSwaq3hy+y9qxJgQF9V6xMpZ4xHhGIMx7yTBi5IZLpYxSO6goQ5VSmXRcbYwaE2aefYt3BsB0S8
+ PMOi++kMYPEGD4+tCImrMPGXLkdKyYeQ63lgLr4vayMWLeoUTimRXsYA/f15ahvjmSBPdH9hT2L
+ 7SSCWoqpDPkUQgWawE0ZjmkAvK2vM7ee08j/dOlVDlnirBO3ZyzoX2iIGhBZti+ZTW6E1o0Bt9Z
+ pCEZd03/asjgdm/IYLV7QsyzMhCh7AHWu3jqrdv6KON7pjFMkJmErr5XfLHfZO0MZMCMlwgFtXZ
+ bBv5i9uBTp6F+WGDHlI82AG2MYdYSO/JEbunTcJgRl2vis79g6fv2amJGqM6k3h2aT+1POGn1yN
+ HsmCbV8GD7qJUcHuXd6g9QjGez2ctI3cVK
+X-Received: by 2002:a05:7300:6dac:b0:304:2eb0:2726 with SMTP id
+ 5a478bee46e88-30bcae22973mr2899309eec.25.1781720474401; 
+ Wed, 17 Jun 2026 11:21:14 -0700 (PDT)
+Received: from haichao.tail057a43.ts.net
+ ([2001:da8:e000:1206:1886:6b7a:3e78:272c])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-30bd23401ecsm3157945eec.25.2026.06.17.11.21.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 17 Jun 2026 11:21:14 -0700 (PDT)
+From: Ruoyu Wang <ruoyuw560@gmail.com>
+To: Yaron Avizrat <yaron.avizrat@intel.com>, Oded Gabbay <ogabbay@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] accel/habanalabs: publish mmap buffers after allocation
+Date: Thu, 18 Jun 2026 02:21:08 +0800
+Message-ID: <20260617182109.953680-1-ruoyuw560@gmail.com>
+X-Mailer: git-send-email 2.51.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 18 Jun 2026 07:12:07 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,136 +84,80 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+hl_mmap_mem_buf_alloc() inserts a new buffer into the memory manager
+IDR before initializing the descriptor and before running the behavior
+allocation callback.
 
-Pre-existing issues:
-- [Critical] Changing the console font while the console is rotated fails t=
-o update the rotated font buffer, leading to out-of-bounds memory reads.
-- [High] The error fallback to unrotated mode (FB_ROTATE_UR) when `fbcon_ro=
-tate_font()` fails is overridden, leaving the console in a permanently blan=
-ked state.
-- [High] Cached state variables in `fbcon_rotate_font()` are updated before=
- attempting allocation, preventing recovery if the allocation fails.
---
+Handles from this IDR are used by hl_mmap_mem_buf_get() and the mmap
+path. A racing lookup can therefore take the buffer kref or inspect
+behavior-private state before the buffer is ready.
 
-commit bb8bca6b1feaf32fb858b99e293b0b6eee16a8cd
-Author: HAN Ruidong <rdhan@smu.edu.sg>
+Initialize the descriptor, run the behavior allocation callback, and
+only then publish the object in the IDR. If IDR allocation fails,
+release the behavior-private resources before freeing the descriptor.
 
-fbcon: Avoid OOB font access if console rotation fails
+Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+---
+ drivers/accel/habanalabs/common/memory_mgr.c | 30 ++++++++++----------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
 
-This commit clears the font buffer and size if reallocation during
-console rotation fails in fbcon_rotate_font(). This prevents the
-rotated buffer implementations from overflowing when printing with
-a high-enough character code on an undersized old buffer.
+diff --git a/drivers/accel/habanalabs/common/memory_mgr.c b/drivers/accel/habanalabs/common/memory_mgr.c
+index 9fdd34acf389f..b5b92dbbe5ddd 100644
+--- a/drivers/accel/habanalabs/common/memory_mgr.c
++++ b/drivers/accel/habanalabs/common/memory_mgr.c
+@@ -156,6 +156,17 @@ hl_mmap_mem_buf_alloc(struct hl_mem_mgr *mmg,
+ 	if (!buf)
+ 		return NULL;
+ 
++	buf->mmg = mmg;
++	buf->behavior = behavior;
++	kref_init(&buf->refcount);
++
++	rc = buf->behavior->alloc(buf, gfp, args);
++	if (rc) {
++		dev_err(mmg->dev, "%s: Failure in buffer alloc callback %d\n",
++			behavior->topic, rc);
++		goto free_buf;
++	}
++
+ 	spin_lock(&mmg->lock);
+ 	rc = idr_alloc(&mmg->handles, buf, 1, 0, GFP_ATOMIC);
+ 	spin_unlock(&mmg->lock);
+@@ -163,27 +174,16 @@ hl_mmap_mem_buf_alloc(struct hl_mem_mgr *mmg,
+ 		dev_err(mmg->dev,
+ 			"%s: Failed to allocate IDR for a new buffer, rc=%d\n",
+ 			behavior->topic, rc);
+-		goto free_buf;
++		goto destroy_buf;
+ 	}
+ 
+-	buf->mmg = mmg;
+-	buf->behavior = behavior;
+ 	buf->handle = (((u64)rc | buf->behavior->mem_id) << PAGE_SHIFT);
+-	kref_init(&buf->refcount);
+-
+-	rc = buf->behavior->alloc(buf, gfp, args);
+-	if (rc) {
+-		dev_err(mmg->dev, "%s: Failure in buffer alloc callback %d\n",
+-			behavior->topic, rc);
+-		goto remove_idr;
+-	}
+ 
+ 	return buf;
+ 
+-remove_idr:
+-	spin_lock(&mmg->lock);
+-	idr_remove(&mmg->handles, lower_32_bits(buf->handle >> PAGE_SHIFT));
+-	spin_unlock(&mmg->lock);
++destroy_buf:
++	hl_mmap_mem_buf_destroy(buf);
++	return NULL;
+ free_buf:
+ 	kfree(buf);
+ 	return NULL;
+-- 
+2.51.0
 
-Link: https://elixir.bootlin.com/linux/v6.19/source/drivers/video/fbdev/cor=
-e/fbcon_ccw.c#L144 # [1]
-
-> diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbde=
-v/core/fbcon_rotate.c
-> index ec3c883400f7b..4a06e71ae4434 100644
-> --- a/drivers/video/fbdev/core/fbcon_rotate.c
-> +++ b/drivers/video/fbdev/core/fbcon_rotate.c
-> @@ -46,6 +46,10 @@ static int fbcon_rotate_font(struct fb_info *info, str=
-uct vc_data *vc)
->  		info->fbops->fb_sync(info);
-> =20
->  	if (ops->fd_size < d_cellsize * len) {
-> +		kfree(ops->fontbuffer);
-> +		ops->fontbuffer =3D NULL;
-> +		ops->fd_size =3D 0;
-> +
->  		dst =3D kmalloc_array(len, d_cellsize, GFP_KERNEL);
-> =20
->  		if (dst =3D=3D NULL) {
-
-[Severity: High]
-This is a pre-existing issue, but updating the cached state before the
-allocation in fbcon_rotate_font() seems to prevent recovery if the
-allocation fails.
-
-Earlier in this function, the state is updated unconditionally:
-
-    src =3D ops->fontdata =3D vc->vc_font.data;
-    ops->cur_rotate =3D ops->p->con_rotate;
-
-If kmalloc_array() fails here and returns -ENOMEM, the state variables
-are not reverted.=20
-
-If a subsequent retry occurs with the same font parameters, the cache
-check at the top of the function evaluates to true:
-
-    if (vc->vc_font.data =3D=3D ops->fontdata &&
-        ops->p->con_rotate =3D=3D ops->cur_rotate)
-            goto finished;
-
-Will this bypass the allocation logic and return success prematurely,
-leaving ops->fontbuffer as NULL indefinitely and the console blanked?
-
-[Severity: Critical]
-This is a pre-existing issue, but is there a missing call to
-fbcon_rotate_font() when changing the console font while the console is
-rotated?
-
-In drivers/video/fbdev/core/fbcon.c:fbcon_do_set_font(), the unrotated
-font state is updated:
-
-    vc->vc_font.width =3D w;
-    vc->vc_font.height =3D h;
-    vc->vc_font.charcount =3D charcount;
-
-This triggers a screen redraw via update_screen(), but
-fbcon_rotate_font() does not appear to be called to regenerate the
-rotated font buffer.
-
-When update_screen() invokes the rotated putcs functions, they compute
-index offsets using the new font dimensions. Could this lead to reading
-out of bounds from the stale, potentially undersized ops->fontbuffer
-if the new font has a larger character count or dimensions?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the fallback to
-unrotated mode actually work when fbcon_rotate_font() fails?
-
-If fbcon_rotate_font() returns an error, the callers (fbcon_init() and
-fbcon_switch() in drivers/video/fbdev/core/fbcon.c) attempt to disable
-rotation:
-
-    if (ops->rotate_font && ops->rotate_font(info, vc)) {
-            ops->rotate =3D FB_ROTATE_UR;
-            set_blitting_type(vc, info);
-    }
-
-However, set_blitting_type() internally calls fbcon_set_rotation():
-
-fbcon.c:fbcon_set_rotation() {
-    ...
-    if (!(info->flags & FBINFO_MISC_TILEBLITTING) &&
-        ops->p->con_rotate < 4)
-            ops->rotate =3D ops->p->con_rotate;
-    else
-            ops->rotate =3D 0;
-}
-
-Does this unconditionally overwrite ops->rotate back to the requested
-rotation angle (ops->p->con_rotate)? If the fallback is reverted, the
-rotated bitops are installed but ops->fontbuffer is NULL, which causes
-them to abort and leaves the console permanently blanked.
-
-> @@ -54,7 +58,6 @@ static int fbcon_rotate_font(struct fb_info *info, stru=
-ct vc_data *vc)
->  		}
-> =20
->  		ops->fd_size =3D d_cellsize * len;
-> -		kfree(ops->fontbuffer);
->  		ops->fontbuffer =3D dst;
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618-prep-base-=
-v5-15-209-v1-1-cfcf596dca7a@smu.edu.sg?part=3D1
