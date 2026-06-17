@@ -4,60 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DF00CD98E2
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:16:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE97DCD98E4
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 10:18:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E14C210EF80;
-	Wed, 17 Jun 2026 10:16:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E280210EF81;
+	Wed, 17 Jun 2026 10:18:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZkrAVpxQ";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="R/SeJxJF";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 398C010EF7F
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:16:10 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2196943048;
- Wed, 17 Jun 2026 10:16:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 817391F00A3F;
- Wed, 17 Jun 2026 10:16:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781691370;
- bh=HLuh34lSSoE2V4vw/j9Ekz+KKn4T0I+wAQ1nSW5QEew=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ZkrAVpxQAUikFSabWC882x0XYgkC1nQhvT9YzXVtSnl7/buEtPjuyMYt8xuXtiXvC
- 4MDBB6tIbBGpNEJPYcK4Q/6B4R0VM4dziNzEmY2Ja2sWS3z7wqEkLkQxxvdklG2Yrn
- OUXQYtbJmDXSQe9farMcTvtNykt3mEIjkA5NH62cbQNhui6BJplWkCi76X8viejOsU
- Umwo3DUPgjgy/eS+v9F2k05gQ/2Bjln6cLnVfcQpjxZZ0MmI7I3kmQTZxvsVSxdrN/
- kpl+OCfRfJeNd8LMmyg2DIHCS1HYvC+96yux8McQR0r4C71eRk4sXTyZbKoQGYdBEa
- gAUWCBfC2iNgw==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 17 Jun 2026 12:14:55 +0200
-Subject: [PATCH 30/37] drm/omap: dpi: Switch to atomic bridge callbacks
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A79A310EF81
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 10:18:41 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id E4643C2B9CB;
+ Wed, 17 Jun 2026 10:18:44 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id D019C601AA;
+ Wed, 17 Jun 2026 10:18:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 6EA88106CA361; 
+ Wed, 17 Jun 2026 12:18:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1781691519; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=h4L6LmjuDVsblzpKr3JHaloduw7oAA3THoOF+PILWGM=;
+ b=R/SeJxJFtbW2NdYkfgF7A8RWBRxass+gBJO54N/gVWS4vSSd7H7uOsnWhXaJ6hA8YpR+FU
+ bwrNXSP9oFGLtbpsNxyjkCJUXHDrqf1KVje1zzn2BadSQA7uYJtd36/omt4IZs5l3i1y7/
+ T4s/6OK/FPWvX5HnwPVUgLI+yCUKxkRiZHyf5bOJHjukxz+LX5I3z3BjY21DUNG0rmJQQZ
+ rV6vy6Md96znDCbfh8gcN6erFUTTQly6i0/VYXcIqA4ybZcgbeBY2qvZEwY34h4+5JnLIa
+ 07jiYMXNFgCudLDxG0VmXd0BjplQr+kdLEHCnLLL2mb7ppaisc+8rz6IMDDbfQ==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-drm-all-atomic-bridges-v1-30-b63e6316166b@kernel.org>
-References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
-In-Reply-To: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+Subject: Re: [PATCH v1] drm/bridge: of-display-mode-bridge: Fix missing
+ static const for the bridge funcs
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Damon Ding <damon.ding@rock-chips.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5117; i=mripard@kernel.org;
- h=from:subject:message-id; bh=gniYfAmb5txWdqF205MrFI2NinRQ6UwgwnY6J0kfeDw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlGxZMnmNZNcm4v7FtZ3dnrO1f3nYpPk8CZRrFSI8l8E
- 4mYJTs6prIwCHMyyIopsjyRCTu9vH1xlYP9yh8wc1iZQIYwcHEKwERSvzHW2cyNlJPuF9LmqLh2
- YO6/+Tp1Ckn+K5+cnTqv9xrX54ZUHr9bcywKn/YJ626+mGmZ/WUnY8Ozxfa7ZLlKPojV2PT4Hjf
- 3ilye/WsVu+wSkySd2oZd35ZKW/o4ZB37stZ4a+aJH3sOFAMA
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+ linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
+In-Reply-To: <20260617080755.186368-1-damon.ding@rock-chips.com>
+References: <20260617080755.186368-1-damon.ding@rock-chips.com>
+Date: Wed, 17 Jun 2026 12:18:28 +0200
+Message-Id: <178169150837.299387.222382817565215364.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,211 +70,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The dpi bridge still uses the deprecated non-atomic bridge
-callbacks.
+On Wed, 17 Jun 2026 16:07:55 +0800, Damon Ding <damon.ding@rock-chips.com> wrote:
+> drm/bridge: of-display-mode-bridge: Fix missing static const for the bridge funcs
 
-Switch to their atomic counterparts, adding the bridge state
-handlers if not already present.
-
-Generated by the following Coccinelle script:
-
-@ is_bridge @
-identifier funcs;
-@@
-
- struct drm_bridge_funcs funcs = {
-	...,
- };
-
-@ has_create_state depends on is_bridge @
-identifier funcs, f;
-@@
-
-struct drm_bridge_funcs funcs = {
-  ...,
-  .atomic_create_state = f,
-  ...,
-};
-
-@ update_struct depends on (is_bridge && !has_create_state) @
-identifier is_bridge.funcs;
-identifier f;
-@@
-
- struct drm_bridge_funcs funcs = {
-+	.atomic_create_state = drm_atomic_helper_bridge_create_state,
-+	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-+	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	...,
- };
-
-@ update_pre_enable_struct depends on (is_bridge && !has_create_state) @
-identifier is_bridge.funcs;
-identifier f;
-@@
-
- struct drm_bridge_funcs funcs = {
- 	...,
--	.pre_enable = f,
-+	.atomic_pre_enable = f,
- 	...,
- };
-
-@ update_pre_enable_impl depends on update_pre_enable_struct @
-identifier update_pre_enable_struct.f;
-identifier b;
-@@
-
--void f(struct drm_bridge *b)
-+void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
- {
-	...
- }
-
-@ update_enable_struct depends on (is_bridge && !has_create_state) @
-identifier is_bridge.funcs;
-identifier f;
-@@
-
- struct drm_bridge_funcs funcs = {
- 	...,
--	.enable = f,
-+	.atomic_enable = f,
- 	...,
- };
-
-@ update_enable_impl depends on update_enable_struct @
-identifier update_enable_struct.f;
-identifier b;
-@@
-
--void f(struct drm_bridge *b)
-+void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
- {
-	...
- }
-
-@ update_disable_struct depends on (is_bridge && !has_create_state) @
-identifier is_bridge.funcs;
-identifier f;
-@@
-
- struct drm_bridge_funcs funcs = {
- 	...,
--	.disable = f,
-+	.atomic_disable = f,
- 	...,
- };
-
-@ update_disable_impl depends on update_disable_struct @
-identifier update_disable_struct.f;
-identifier b;
-@@
-
--void f(struct drm_bridge *b)
-+void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
- {
-	...
- }
-
-@ update_post_disable_struct depends on (is_bridge && !has_create_state) @
-identifier is_bridge.funcs;
-identifier f;
-@@
-
- struct drm_bridge_funcs funcs = {
- 	...,
--	.post_disable = f,
-+	.atomic_post_disable = f,
- 	...,
- };
-
-@ update_post_disable_impl depends on update_post_disable_struct @
-identifier update_post_disable_struct.f;
-identifier b;
-@@
-
--void f(struct drm_bridge *b)
-+void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
- {
-	...
- }
-
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
----
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
----
- drivers/gpu/drm/omapdrm/dss/dpi.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/omapdrm/dss/dpi.c b/drivers/gpu/drm/omapdrm/dss/dpi.c
-index 9f86db774c39..419915e33816 100644
---- a/drivers/gpu/drm/omapdrm/dss/dpi.c
-+++ b/drivers/gpu/drm/omapdrm/dss/dpi.c
-@@ -20,10 +20,11 @@
- #include <linux/platform_device.h>
- #include <linux/regulator/consumer.h>
- #include <linux/string.h>
- #include <linux/sys_soc.h>
- 
-+#include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_bridge.h>
- 
- #include "dss.h"
- #include "omapdss.h"
- 
-@@ -480,11 +481,12 @@ static void dpi_bridge_mode_set(struct drm_bridge *bridge,
- 	struct dpi_data *dpi = drm_bridge_to_dpi(bridge);
- 
- 	dpi->pixelclock = adjusted_mode->clock * 1000;
- }
- 
--static void dpi_bridge_enable(struct drm_bridge *bridge)
-+static void dpi_bridge_enable(struct drm_bridge *bridge,
-+			      struct drm_atomic_commit *commit)
- {
- 	struct dpi_data *dpi = drm_bridge_to_dpi(bridge);
- 	int r;
- 
- 	if (dpi->vdds_dsi_reg) {
-@@ -531,11 +533,12 @@ static void dpi_bridge_enable(struct drm_bridge *bridge)
- err_get_dispc:
- 	if (dpi->vdds_dsi_reg)
- 		regulator_disable(dpi->vdds_dsi_reg);
- }
- 
--static void dpi_bridge_disable(struct drm_bridge *bridge)
-+static void dpi_bridge_disable(struct drm_bridge *bridge,
-+			       struct drm_atomic_commit *commit)
- {
- 	struct dpi_data *dpi = drm_bridge_to_dpi(bridge);
- 
- 	dss_mgr_disable(&dpi->output);
- 
-@@ -550,16 +553,19 @@ static void dpi_bridge_disable(struct drm_bridge *bridge)
- 	if (dpi->vdds_dsi_reg)
- 		regulator_disable(dpi->vdds_dsi_reg);
- }
- 
- static const struct drm_bridge_funcs dpi_bridge_funcs = {
-+	.atomic_create_state = drm_atomic_helper_bridge_create_state,
-+	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-+	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.attach = dpi_bridge_attach,
- 	.mode_valid = dpi_bridge_mode_valid,
- 	.mode_fixup = dpi_bridge_mode_fixup,
- 	.mode_set = dpi_bridge_mode_set,
--	.enable = dpi_bridge_enable,
--	.disable = dpi_bridge_disable,
-+	.atomic_enable = dpi_bridge_enable,
-+	.atomic_disable = dpi_bridge_disable,
- };
- 
- static void dpi_bridge_init(struct dpi_data *dpi)
- {
- 	dpi->bridge.of_node = dpi->pdev->dev.of_node;
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 -- 
-2.54.0
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
