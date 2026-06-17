@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8046DCD98F7
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 18:52:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 337EACD98F6
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 18:52:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8A0C10EAFD;
-	Wed, 17 Jun 2026 18:52:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6763D10F0BC;
+	Wed, 17 Jun 2026 18:52:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="VRVkRt58";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="fTTDpCI0";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A7B710F0B2
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 18:52:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 082F410F0B3
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 18:52:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1781722325;
- bh=SsYb54x0tancRWbNRMe9tudgkZipWAm8nxe1GklgbkE=;
+ bh=+zMBc9cvNd9kN7V+U1U6o2kMwD6S1HsWu+emdfG6GtE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=VRVkRt58jd5iw9GVAiv25VuwgZ/sVL5HEYqLUGCjzCx4HsTnqSazwV/3U38v7DrPL
- 1woS8AcjnthCf7sOx0Gw4WrH41yftJcDRjKz1L0TtBBSiXwXTLyX+ycY/HMP4l9OoU
- FrqrxyWEp1hAM7p2JPKU0Yi8Sog9ayuL44dCwNAADg7cLzPvGNRtBIp/kXjV5bkPA2
- PQC5f6Ccw9BGQy1JcamcTsaSN0fRyLWRAi5d3JaBAkVwxDMkWiLSvVwC3yepYhx80k
- u3EALlTB0T5WpU0JVb3assgNQdXLTbgOKvMMoT7nUy5bjUblOLWSp8kIHPPKK1UU8N
- 2My6o+wKlqy1A==
+ b=fTTDpCI0S6IuZnP5O7AF58qW5BWea8gyzki9trM4Qfrkonwc9O5CxyhaXb9Qb5LmD
+ mUf7OO8LU32m/fGh1A4SEZ6qJWsFhtZH+mNIW16GUmZb6el+5/rnMNULpn6ntyvThg
+ mVnp9VWDaoxq8xb7STmO4BsT9mnKXshMLeTVuTpgV2DMfaGKJSZyV3S80aMv082reb
+ kriYrGVLaI5pa0Pkd06dPy+9BJSXSpengWo/MfDySt0WkOTJdghQIIriZ8dOKiBfyI
+ 6Es6Qyuuh2DJApuDjk9oqsuyMUw3SlMnlkVo+BiZpUZTScTeMu+T6vxkZtGFJLjA10
+ oaviC2DLeQI/w==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id D5CF817E120F;
- Wed, 17 Jun 2026 20:52:04 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9167217E14FA;
+ Wed, 17 Jun 2026 20:52:05 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 17 Jun 2026 21:52:01 +0300
-Subject: [PATCH 8/9] drm/rockchip: dw_hdmi_qp: Enable YUV420 output format
+Date: Wed, 17 Jun 2026 21:52:02 +0300
+Subject: [PATCH 9/9] arm64: dts: rockchip: Add RK3588 VOP2 resets
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-dw-hdmi-qp-yuv-v1-8-a665cfd06d7d@collabora.com>
+Message-Id: <20260617-dw-hdmi-qp-yuv-v1-9-a665cfd06d7d@collabora.com>
 References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
 In-Reply-To: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -75,34 +75,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Both RK3576 and RK3588 SoCs are capable of driving the YUV420 output
-color format, and the required bus-format handling and VOP2 support are
-already in place.  Advertise it via the platform supported formats so
-the HDMI core can select it.
+Add the missing reset properties to VOP2 on RK3588.
 
-YUV420 halves the TMDS bandwidth compared to RGB/YUV444, which enables
-high-resolution modes such as 4K@60Hz on links that cannot otherwise
-carry the full-bandwidth signal.
-
+Co-developed-by: Andy Yan <andy.yan@rock-chips.com>
+Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 3a1c027aa90b..e29522afc6f0 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -612,7 +612,8 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 
- 	plat_data.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
- 				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
--				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
-+				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
-+				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
- 
- 	encoder = &hdmi->encoder.encoder;
- 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index 4fb8888c281c..1404cd7ecf02 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1453,6 +1453,18 @@ vop: vop@fdd90000 {
+ 			      "pll_hdmiphy0";
+ 		iommus = <&vop_mmu>;
+ 		power-domains = <&power RK3588_PD_VOP>;
++		resets = <&cru SRST_A_VOP>,
++			 <&cru SRST_H_VOP>,
++			 <&cru SRST_D_VOP0>,
++			 <&cru SRST_D_VOP1>,
++			 <&cru SRST_D_VOP2>,
++			 <&cru SRST_D_VOP3>;
++		reset-names = "axi",
++			      "ahb",
++			      "dclk_vp0",
++			      "dclk_vp1",
++			      "dclk_vp2",
++			      "dclk_vp3";
+ 		rockchip,grf = <&sys_grf>;
+ 		rockchip,vop-grf = <&vop_grf>;
+ 		rockchip,vo1-grf = <&vo1_grf>;
 
 -- 
 2.54.0
