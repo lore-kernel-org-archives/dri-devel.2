@@ -4,78 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9B62CD98F0
-	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 12:58:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE945CD98E2
+	for <dri-devel@archiver.kernel.org>; Wed, 17 Jun 2026 13:03:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9E7989F4F;
-	Wed, 17 Jun 2026 12:58:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05D0910E263;
+	Wed, 17 Jun 2026 13:03:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nq4cN4/k";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="u1Lf+ra9";
 	dkim-atps=neutral
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
- [209.85.160.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1AD789F4F
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 12:58:28 +0000 (UTC)
-Received: by mail-qt1-f181.google.com with SMTP id
- d75a77b69052e-5176fc0cc72so61434791cf.1
- for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 05:58:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781701107; x=1782305907; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=RZEWPoY1b4FvL8A262zCb2v2koOP2ZSA8cLqlzis5zQ=;
- b=Nq4cN4/kS1RRWE90Q58aQ2DU41ASaaQV7IgScqhpfbEpLP+rOMnl7y2QiE3Xrng+J4
- szFKCzugIahHsilyQL+l1sRiRNKpjceejJKWf2xjr99nKx3dZ6k9jv4I1gJjmbefPHxu
- /B6H/NWSAkbat9uuIkxDPxUG7m2eE8gQ00UQzxNfRFwj8foSdhGQ8ocKVGDgHhAuYZAd
- aaSc3e5yF3BbV/UblOUTnGAv31jnXnimRoF/rxR5sINei7YGQ+7DXoEiksul0BY90TOp
- /czoojUl49DcblMmEFYDJ2SnYyupp8q/Hg2HYggP1O+0LJb3/q9Ap6mu6+zgdQRWZjZE
- TTgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781701107; x=1782305907;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RZEWPoY1b4FvL8A262zCb2v2koOP2ZSA8cLqlzis5zQ=;
- b=LmGBMcC6V2VnhCfl7W1OpJXmlA+szgAau8Cc4QsD8PF4ulEwG1JcrQffj+YVZKFsuj
- CyaZRIrO3a7hIz2Y0m4pMmyhoicUgrFPvScQbv4XdOkZlWQ5oRcu7gpUDuWfYKY6tmyC
- DaJhUBQ2gcLEhe3n+D0qyyH8xKFw98UHIJimD8yHbO4cm+RDqZj+Q/ZMf2xO0vqsATK2
- PcTqT3pwVgOOblllRrHGuJlD47xG2y0+g9v48+p8QgNwonjYlmqFmK0o2YoOtgmFhpNv
- bxp6kqrJHWuEKzyvP690+XRxFJ6XIl3FFbHcc6hNgB6V6El1Ph8OUV7f2wsHV0hjA4Hx
- QDww==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+I2Jz6rkRjlBMPfnRyU21ptEUbTKdMnsqk70vW9+DaMt+NrBexV7n+ISNPBitl+CzTv+uwWIxIlZA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxd2oTNHw92lbtG6DZ+WBOHZ/MV40cASGPh1b2xLeGb8+Ypz3WT
- M8w0Pg64rV97BUAulhCW3gYOMbfJ55D2lRe2fqZZORkzs+8FIj+3iPmp
-X-Gm-Gg: Acq92OGzyg+X6ry6WA8tMaYYDg2n3xa61M7v+Jo5pyafv1eFFebU5W+uB5F6YNHI2fd
- +aJD5Fd7FBOp4NVAHQ40XSXpveG1pBeSNhG9JFUXNTS4oM1DpQWRtBw0bGef2mOSpAc7ZAXwdF4
- aMXZEZk2opjfjkhTFk8JUM+Q+kgtTVOFKtvaqwDwNLqbVXVZSp6R5i+tmlj+l1amhufLYD/Yc9N
- dcluQgd+wcLE710z5aQB+dRBZRkDyXstx7VmoamonATJvlan4JeVo5PmORDhRXHOAFkE/XTJmsq
- 8WSlDKQAB/9INvpDsELfEbd89dseXr3eTtiWwTNf6GTyEegibejJ2c2WCTLaEPFgxHTe032dyPo
- S9xX/sdCxU8kIRJoyHf+dkrowgzAbWeBMtVdBPOeQnBS5Pn8qT1x2QRrAO9ROJQ0tqZQhZBDJUu
- NkltiiUOC5fvsPR0qeBC1RMntBEl3ogcnvD6RYXxU4qZeHb+1chvxTeGOMU/Do7IjTGRJjYXlTQ
- gyWpjglAn7qs34RyOQGpiGU1VDiWyYH
-X-Received: by 2002:a05:622a:8350:b0:517:8d24:64d8 with SMTP id
- d75a77b69052e-519a8ddd546mr49035561cf.13.1781701107277; 
- Wed, 17 Jun 2026 05:58:27 -0700 (PDT)
-Received: from server0.tail6e7dd.ts.net (c-68-48-65-54.hsd1.mi.comcast.net.
- [68.48.65.54]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-517fb79c5absm163373461cf.18.2026.06.17.05.58.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2026 05:58:26 -0700 (PDT)
-From: Michael Bommarito <michael.bommarito@gmail.com>
-To: Melissa Wen <mwen@igalia.com>,
-	Maira Canal <mcanal@igalia.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Iago Toral Quiroga <itoral@igalia.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3] drm/v3d: bound CPU-job query writes to their destination BO
-Date: Wed, 17 Jun 2026 08:58:11 -0400
-Message-ID: <20260617125811.3692951-1-michael.bommarito@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010043.outbound.protection.outlook.com [52.101.46.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 829DB10E263
+ for <dri-devel@lists.freedesktop.org>; Wed, 17 Jun 2026 13:03:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lyM8uUpm+mQIuHI53mhSnccica6DwJ5+xM+6LVLWHWGv07cOnE3bHHXmqE0iwcWmDkaBNkv1CVuzsnITZPVgXhpKnEwkr6nVl+mdi7SqoxPatLcunJ0uo40xBIwbpCFRKigmBUpYYNeYuQYyYDlSNsxbxTlgtcXOQ2F34V8bDHgvPPfsy1Ja5IRVrEcxUd2qOx/gb4R38ZISgpcpZzejqZsIldCSOW9S4pBcKLj6ARLMZMzYch4DExlVVFIopqLZ504GbjI7pws1rJXXQ1/vpu/Ks5/R+hTXKKtiukod+c/MRbq2qqZ+wtaSDVkuk4odSuzyyJY4UN3vARAa40rBow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YcBVDrQoEoYPdveOR7svUqqBr/Zv+bI0lfP7HaR71jo=;
+ b=xHiM6Smh8WdYBGLckGfJhZWLMQTh+ZfaebRv+qN9BhcmZlNfdVOj6RO0NUpGjm/ojOzRj0B3jeOJaVBtws8UJ4VB6T8D6rnb/OV8FmjuR3HVJMTUG3vzcmnrZ+INscVzxk6VaTjEye6N6EEF1v2ehZkthXMFfTMCOMmv3MEaKcUJkWrdS8HpWZcqhKMNYuOjOajt+J/lGHuAJ86XvD921KoPD4oT00+YXUB95wa3XAUOCHCK5Yi3k3NgAC5I+yNoOwU5/PMJqavGEuhXU0XECIiHw7ukjrSLnN4qVfyS2jWMr4Q2RyFKwfomZmtIGKyDggRrobkQevRvto46k8mcMQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YcBVDrQoEoYPdveOR7svUqqBr/Zv+bI0lfP7HaR71jo=;
+ b=u1Lf+ra9i3ZGOFSZrcy7at/JP7v5wJGo0jBw2iHBTRaY91NKgZ3WrdctN+XZhL6A+kHD3yJNPy1j1KXWGCMrQRaB+bM5NMQ3WGZw6XEoZdVWvva5nHhMVCeyCtze2GJ6HSxcAG8LwTJThvgyzYtBdR1Dp98CLIm6iM7JFkowaqE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MW6PR12MB8760.namprd12.prod.outlook.com (2603:10b6:303:23a::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Wed, 17 Jun
+ 2026 13:03:47 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
+ 13:03:47 +0000
+Message-ID: <c124270d-bb33-40aa-b633-54832edb7b05@amd.com>
+Date: Wed, 17 Jun 2026 15:03:40 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: Properly synchronize dma_fence->signaled bit (Was: Re: [RFC
+ PATCH] dma-fence: Fix races of fence callbacks versus destructors by locking)
+To: phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>, Daniel Almeida <dwlsalmeida@gmail.com>,
+ Gary Guo <gary@garyguo.net>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260608142436.265820-2-phasta@kernel.org>
+ <95f4ae6b-9dec-4122-84e0-fbb0cdee9cb5@amd.com>
+ <fa9a335196525adbc03ec21b2e05bb526e4fc174.camel@mailbox.org>
+ <9d49c901-fcdf-487a-a733-0320d0bdf94c@amd.com>
+ <DJ3V3OCLIK2K.3CYKWYNHYU6JQ@kernel.org>
+ <ea4e0541-3702-4014-b8f6-0746a148df86@amd.com>
+ <fa0dc9757bf8343516c4b156a2b70ec91b64ef8f.camel@mailbox.org>
+ <6ea6c373-c6cb-4221-ad9d-e60b04d1368f@amd.com>
+ <630a8a84ee8fdaa634c7b104742e7a28fcfe507c.camel@mailbox.org>
+ <7ff7dc15-4df5-443c-8d7c-c8e9b2672f2c@amd.com>
+ <80734f05e684ed6b8c82abd9f96c93968537d0de.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <80734f05e684ed6b8c82abd9f96c93968537d0de.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0408.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:d0::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW6PR12MB8760:EE_
+X-MS-Office365-Filtering-Correlation-Id: dafb51f5-750c-42f8-048c-08decc70de64
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|23010399003|1800799024|366016|56012099006|11063799006|22082099003|18002099003|4143699003;
+X-Microsoft-Antispam-Message-Info: twvXR9IaW+misEyId2RGsxQnst64UdXxxtZ0+teLdkT6g6zFKNdgxCssjTCuYF/DY1l8dubSROn7RrWkSqLK9+LBkKMNXZ38kfCDZIoyGDEZf1cwcA5SImrlneLGmIgMAMpMMQGAZcxiU/xuxuIto2+8b+LVNl3ZWUj4lYpgOA5yvdt2Pe04KevAUZcnSPe+abbtSkamXOClu6xCbJXyIHpZT5UB7sKtoUKJFg/qRlq8bzj8aXv0uSOGaf2/Lw4VyPeQgZ853PDYJpwxlsA1ky/NPw0DXVEid65WISCFA98zo5I4TDGlvhcto0aytwrBJgzgBB0b2UuO9B/HxhZtwmfY/fplPv4pql4k/7BaZg6N1oBg+Mwgx0Fq+OShxIVSbEB5NxfoAGPBaupVfdQdy5SSSSil9tY9+uw5rrLD4xKYYPJ01f0LoClcVPRXO6v1tQdE/ZZHfTpDEaEHmko/BuvAoUvzg71eXltp95ks7MH+kLR6GMuJHNiHjR2o5SNAzTUhBSIHLndggUv9H/33YwM7vOg2B9ROQCGNrRRuNLBdiRLciudVAVJUI9yTuSsb12VwZa0HV4ujEq5/zlW5ie0xs74KC8Cy1npzcDmmUkvX9bbsOCDAgYNnPsUAJ6LdM+kiUv+xpDkXZuojWmngqmbCx/Jc/AjJoT4nYBTkzjL+WcnZiYiPbnQDkdrPNi3B
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(56012099006)(11063799006)(22082099003)(18002099003)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ek04TjFJUnJnR3R3ZHJlV3N4dkFZSUFIKy9KUUdPeVdZU254VTViL1NZbEly?=
+ =?utf-8?B?UE1rcVFnejg0M0FXZGduRi8xczExQ0dBQ3J5ZjkrbWJGRE85R2FBamQzTHRh?=
+ =?utf-8?B?K2l6T0xBTVZWc1VUTExwZ1ZNa0lNUEt1Sk9kTVh6ekllcVlGbGZFKytWSld3?=
+ =?utf-8?B?M0ZlOVRCR3I1OGxaajE1b09hd3VNaU1lWWVUejUzZ1E5T0dQd2pNUHFzWVBC?=
+ =?utf-8?B?ZXVnSUhqeC9XQW12OUFlSW82SURNbWN3cFZHeHgzRWNNelpLSUhQQzhjTldE?=
+ =?utf-8?B?YU9aL3dqNWovS1IwWHVSbkc4UHZLd3k0RDkwb1dHSTlvMnRxQ3hMbCtZc2V0?=
+ =?utf-8?B?ZmNDRzlRSnM4ZVlHTk9RQTdXV012K25Kd1l5ZnI5NWdMWWN2KzN4K2hRRnEx?=
+ =?utf-8?B?WkkwWkZVeWFFdWVXTGFpOXFzWk9kUW1UY2E2MG8yaU41VGNrb3V4T2lUYThD?=
+ =?utf-8?B?ZFZ5d3lhdlhkYnJ4cTUrT2s4N2FSUkhLNkE0TGpjcHNOc0tOMUZmQithMHFV?=
+ =?utf-8?B?Z1I4aXFKQVFjaTUycno5MEVMNFR0NDJSc0NFSEJ6SExoTTEyMUdvcURDbU93?=
+ =?utf-8?B?Lzg2VExXMTBrVGZUOGxESHo3SkUrWXVERzlpN3d2dlVhTGdWOVNURlA5RHFm?=
+ =?utf-8?B?R254MTFZN3JVU2tMaTlkNGdXNHFiT0RYbzlFcmlxKzhIUjV3alJtK3dxUFNv?=
+ =?utf-8?B?OFZWck15NU5FbXNjU0NlRlQ1VVhOSFN1d0grQ2VQRVRleWY5b2ozWkcvc1hn?=
+ =?utf-8?B?STdqNHVoUWJicjdIMkhLOHp1aFc2WGlQQ0YrNnlhM2ZjV1lCbWVwcFU1T3RQ?=
+ =?utf-8?B?TnhoR2MrQmVUSUE0SnVIL1BGTTVpWkEwM2FWMGRqcXoxdDNEd05uVENWM2VB?=
+ =?utf-8?B?c0Y1K0MwUzJ3OWZ2R3BldEdJbFNVYWdjV0l0dTFmanc1dkRtVWRoelp0UHFW?=
+ =?utf-8?B?VXFNUXQ2YkNYNzJDMDA4U2JpYnNiR0ZGQjZiSEhWYUw0M2xkYlA2c01OeU5w?=
+ =?utf-8?B?bllGVVFjQWVQTFZBeHozYzIxNklRa2NSYkRBTnFTWCtaS0R1RUxOYktxQ0xY?=
+ =?utf-8?B?Ukx1eG9hT0F0dXBOMWk4VVA3MWQvcXZENmVoaWFOYnl0RUw3dktlZVEyNnE0?=
+ =?utf-8?B?Umg1RDRMazhHQVJZSGFQM3o2MnVzaGw0Z2hKZldiSVp5d1Z4cHFMTUs5TlZs?=
+ =?utf-8?B?dnlPU0o4eWtNTWE3R2w1d1NmdEZHMnBoOEs0UkRiQzArRkFTbUtZZWl5R3BT?=
+ =?utf-8?B?RG9WZXltZUwySmF0OHlkUWpsSitjT0daMnFlWXRkaGducHpPWFlDNnJ1OVZa?=
+ =?utf-8?B?N2V1Uk5uRGZkWUVTbXJ4MVdHYTBCV1lVaDF1aDhoOVJEekwzVlE1cWlPQVFE?=
+ =?utf-8?B?TWpGNWdqSkpjcWxBRVpNYW1PWDduSmN0dVZ3akMxekF6NjFHQ29uRWVpK0ha?=
+ =?utf-8?B?ZEFvSC9QM1p4THN1U0FXT0tuejNzOXlzcm1ETFFWdWZqM2ZzbmRUNXdjVGl0?=
+ =?utf-8?B?VTFsSStNYkl6bG5YNk12ZHB0ZytTSTZwQmk0dzkwT0VYSU9rWFRwb1dXKzNz?=
+ =?utf-8?B?V1FUbDRrT0dUVkw4VnNrTmZsbm1NVUhTRVR3RThUQ3FpWFFCZUM4NXhkcUNN?=
+ =?utf-8?B?em5wSkt4RlVYNHhUWFRvYTZGRkQyZVZ5Qy9DZUJyRW9xRGRIQUdnQU1qS0tV?=
+ =?utf-8?B?TWpzWjJ0am5VeVc3LzlVRmNTcG55RE1aUU1YbTI4OWdaUWlvbmM0bEZ6bUxz?=
+ =?utf-8?B?UHZPQlhxSkdBVndJc2hqNmRtakVnNTVkN2tvalVYd1RTTmwxN3E2WGNGTXRw?=
+ =?utf-8?B?dFkvU1ZTSWRPL240ZFRCZS9wb21iSjVFL3BNbWN1UHZla1lEU2JoQTRRSFBU?=
+ =?utf-8?B?YnJQczlrTVZ6SGZqMkRDU1NpYnZsRTlkNFdoT01rZmtYeVlSL3RleHVLNTRC?=
+ =?utf-8?B?RUJCc3pqelhwZndhak5DQUc1eW5ZK1hUV05Td1ZpbCsrNnNuVFpTMXgwd3J3?=
+ =?utf-8?B?SkliYzY1aVprYm1OUSs5ZnBsQitjVE9GT200dDF2NnR0TVlYSVBVMFJXYmNa?=
+ =?utf-8?B?aDJzUlhxTE8rYlRwUWEwY29XZHVQbm9rbzR2Tm9DQ092MCs0K2QxWTB3L01H?=
+ =?utf-8?B?blV3bFczTjJPcTV2ZkI3dkIzMFNQUVY2Y25PbWJkS283eGZuWUJjd2lIRjFs?=
+ =?utf-8?B?T3MxaUNjcWUyY1NudzFIeU5HamZ0eHVhdDB6UWZhMk1tcHlFU0UxalZ5SEFm?=
+ =?utf-8?B?Z2FodUxyY1MySWxZcnNUOVN4S0phbXczcFNBSDZIQjFrNHdKTS9ZWVhTWmF2?=
+ =?utf-8?Q?S6OwVdN+AhayRYj/TU?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dafb51f5-750c-42f8-048c-08decc70de64
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 13:03:47.4510 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mGlNIuoc86e4G8on1LErsTyWyCaHKDGXRf4EsHQqAesfmH8PG5mbxvkoA6sl7L5p
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8760
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,241 +150,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The V3D_SUBMIT_CPU CPU jobs take user-supplied offsets and indices and
-consume them at exec time without checking that the accesses stay inside
-their BO:
+On 6/17/26 12:16, Philipp Stanner wrote:
+> On Wed, 2026-06-17 at 11:46 +0200, Christian König wrote:
+...
+>>
+>>> B.
+>>>
+>>> I think rejecting ideas with "we tried this, it >>didn't work<<" is not
+>>> a valid reason for refusing an idea. Point A above helps with that. If
+>>> your commit message contains measurements or links to tickets with
+>>> *real life* performance regressions (microbenchmarks are invalid), that
+>>> helps reducing discussion overhead drastically.
+>>>
+>>> Now, in this particular case, I fail to see how taking the spinlock to
+>>> check that bit is evil. If it regresses someone's speed that much, it
+>>> would mean that someone is heavily punching that lock, like polling
+>>> 24/7 with dma_fence_is_signaled().
+>>
+>> I think (but I'm not 100% sure) the the problem is that taking the
+>> spinlock introduces a write to the cache line it is in.
+>>
+>> At the moment when a fence is signaled a read is enough to check that
+>> state, so what happens is that the cache line for the signaled bit
+>> sooner or later end up in all CPU caches.
+>>
+>> When you start to use the spinlock the cache line backing that plays
+>> ping/pong between all the CPU cores and that is something which
+>> always stalls each CPU when it needs to acquire the cache line. Keep
+>> in mind that on a modern box you can calculate like a 4x4 matrix in
+>> the same time you solve a cache miss.
+>>
+>> This is especially important for the stub fence which is used by
+>> basically all cores at the same time whenever you need a signaled
+>> dummy.
+> 
+> Alright, that sort of sounds logical, I guess. So the argument
+> basically is that if we'd try to lock that, someone would immediately
+> report real and massive performance regressions leading to a revert.
+> 
+> I think last time you mentioned that memory footprint is less of a
+> concern for dma_fence than cache lines. Out of interest: has anyone
+> ever experimented with more padding to prevent spinners from shooting
+> down other CPUs cache lines?
 
-  - TIMESTAMP_QUERY and RESET_TIMESTAMP_QUERY write one u64 per query
-    into bo[0] at a fully user-controlled per-query offset.
-  - COPY_TIMESTAMP_QUERY copies one u64 per query into bo[0] at
-    offset + i * stride, and reads each result from a user-controlled
-    offset in the source bo[1].
-  - COPY_PERFORMANCE_QUERY writes nperfmons * DRM_V3D_MAX_PERF_COUNTERS
-    counter slots plus an availability slot into bo[0] at the same
-    geometry.
-  - INDIRECT_CSD reads three u32 work-group counts from bo[0] at a
-    user-controlled offset, then writes each count back into the
-    indirect BO at a user-controlled u32 index (wg_uniform_offsets[]).
-    It also dereferences the indirect BO without checking that the
-    user-supplied handle lookup succeeded.
+How would that work in this case? I mean as long as you have the same variable (spinlock) you have the same cache line no matter how you pad.
 
-A render-node user (DRM_RENDER_ALLOW, no master, no capability) can make
-the handlers read or write past a BO's vmap mapping, or dereference a
-NULL indirect BO.
+> Since you're the maintainer of dma-buf, what would you wish we do?
 
-Validate the full access extent against the BO size once the BOs are
-looked up, before the job is queued, rejecting out-of-range geometry
-with -EINVAL and a missing indirect BO with -ENOENT. The copy extent
-offset + (count - 1) * stride + write_size is computed in u64, mirroring
-the u8 * pointer arithmetic in the executors: (count - 1) * stride is a
-u32 * u32 product that is exact in u64, so one overflow check on the
-total guards the bound. The performance slot count and the bare
-timestamp, copy-source and indirect offsets are computed in u64 the same
-way, so a user value cannot wrap the comparison.
+Try to improve the documentation by sending out patches. I will send out my ideas for resilient improvements and we then discuss on the patches.
 
-Fixes: 18b8413b25b7 ("drm/v3d: Create a CPU job extension for a indirect CSD job")
-Fixes: 9ba0ff3e083f ("drm/v3d: Create a CPU job extension for the timestamp query job")
-Fixes: 34a101e64296 ("drm/v3d: Create a CPU job extension for the reset timestamp job")
-Fixes: 6745f3e44a20 ("drm/v3d: Create a CPU job extension to copy timestamp query to a buffer")
-Fixes: 209e8d2695ee ("drm/v3d: Create a CPU job extension for the copy performance query job")
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
----
-v3:
- - Bound the INDIRECT_CSD job as well (Maira Canal). The exec reads three
-   u32 work-group counts from bo[0] at the user offset and writes each back
-   into the indirect BO at a user-supplied u32 index (wg_uniform_offsets[]),
-   and dereferences the indirect BO; reject an out-of-range offset or index
-   and a NULL indirect BO from a failed handle lookup (-ENOENT).
- - Compute the copy extent and the performance slot count in u64 rather than
-   u32 + check_*_overflow() (Maira Canal). (count - 1) * stride is a u32 * u32
-   product that is exact in u64, so a single overflow check guards the total,
-   matching the u8 * pointer arithmetic in v3d_copy_query_results() and
-   v3d_copy_performance_query(). Drop the now-redundant check_mul_overflow()
-   in the performance branch and note the (u64) cast on the per-query offset
-   checks.
- - Add Fixes: 34a101e64296 for the RESET_TIMESTAMP_QUERY path: the bare
-   timestamp case bounds it too (v3d_reset_timestamp_queries() writes a u64
-   zero at a user offset), and that handler was introduced separately from
-   the timestamp-query job. All five Fixes commits are part of the v6.8 CPU
-   job extension series.
- - The INDIRECT_CSD NULL-handle reject overlaps "drm/v3d: Reject invalid
-   indirect BO handle in indirect CSD setup" from your Miscellaneous fixes
-   series. I kept it here so this patch stands alone on the current base; if
-   that lands first this check is redundant and I will drop it, or rebase on
-   top of your series -- whichever you prefer.
-v2 (https://lore.kernel.org/all/20260614211644.217116-1-michael.bommarito@gmail.com/):
- - Also bound the bare TIMESTAMP_QUERY and RESET_TIMESTAMP_QUERY job types
-   (Maira Canal); drop the unused span variable and the can-never-overflow
-   check on the fixed-size timestamp slots; drop the KUnit reproducer, which
-   was a no-go for upstreaming (Maira Canal); one Fixes tag per introducing
-   CPU-job extension.
-v1: https://lore.kernel.org/all/20260614131058.2525157-1-michael.bommarito@gmail.com/
+> Would you be at least OK with the memory barrier approach to make the
+> API a bit more robust? AFAIU the barriers will not cause a cache line
+> invalidation.
 
- drivers/gpu/drm/v3d/v3d_submit.c | 136 +++++++++++++++++++++++++++++++
- 1 file changed, 136 insertions(+)
+What exactly do you mean with that? The test_bit() and set_bit() are already memory barriers as far as I know.
 
-diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-index ee4512db294b3..9265f7bcd2766 100644
---- a/drivers/gpu/drm/v3d/v3d_submit.c
-+++ b/drivers/gpu/drm/v3d/v3d_submit.c
-@@ -4,6 +4,8 @@
-  * Copyright (C) 2023 Raspberry Pi
-  */
- 
-+#include <linux/overflow.h>
-+
- #include <drm/drm_print.h>
- #include <drm/drm_syncobj.h>
- 
-@@ -1246,6 +1248,136 @@ static const unsigned int cpu_job_bo_handle_count[] = {
- 	[V3D_CPU_JOB_TYPE_COPY_PERFORMANCE_QUERY] = 1,
- };
- 
-+/* Reject offset + (count - 1) * stride + write_size if it leaves the BO. */
-+static int
-+v3d_check_copy_extent(struct drm_device *dev, size_t bo_size,
-+		      u32 offset, u32 stride, u32 count, u64 write_size)
-+{
-+	u64 last;
-+
-+	if (!count)
-+		return 0;
-+
-+	/*
-+	 * The executors walk a u8 * cursor, so the furthest written byte is
-+	 * offset + (count - 1) * stride + write_size, matching the pointer
-+	 * arithmetic in v3d_copy_query_results()/v3d_copy_performance_query().
-+	 * (count - 1) * stride is a u32 * u32 product that is exact in u64,
-+	 * and offset + write_size stays far below the u64 range, so a single
-+	 * overflow check guards the total.
-+	 */
-+	last = write_size + offset;
-+	if (check_add_overflow((u64)(count - 1) * stride, last, &last) ||
-+	    last > bo_size) {
-+		drm_dbg(dev, "CPU job copy buffer exceeds the destination BO.\n");
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+/* Reject a query CPU job whose writes would land outside their BO. */
-+static int
-+v3d_cpu_job_bounds_check(struct v3d_cpu_job *job)
-+{
-+	struct drm_device *dev = &job->base.v3d->drm;
-+	struct v3d_timestamp_query_info *tquery = &job->timestamp_query;
-+	struct v3d_copy_query_results_info *copy = &job->copy;
-+	u32 elem = copy->do_64bit ? sizeof(u64) : sizeof(u32);
-+	struct v3d_bo *dst, *src;
-+	u64 slots, write_size;
-+	int i;
-+
-+	switch (job->job_type) {
-+	case V3D_CPU_JOB_TYPE_TIMESTAMP_QUERY:
-+	case V3D_CPU_JOB_TYPE_RESET_TIMESTAMP_QUERY:
-+		/*
-+		 * Each query writes one u64 timestamp slot into bo[0]. The
-+		 * offset is cast to u64 so a 0xffffffff query offset cannot wrap
-+		 * the addition past the BO size.
-+		 */
-+		dst = to_v3d_bo(job->base.bo[0]);
-+
-+		for (i = 0; i < tquery->count; i++) {
-+			if ((u64)tquery->queries[i].offset + sizeof(u64) >
-+			    dst->base.base.size)
-+				goto err_range;
-+		}
-+		return 0;
-+	case V3D_CPU_JOB_TYPE_COPY_TIMESTAMP_QUERY:
-+		/* Copies one u64 per query from bo[1] into bo[0]. */
-+		dst = to_v3d_bo(job->base.bo[0]);
-+		src = to_v3d_bo(job->base.bo[1]);
-+
-+		for (i = 0; i < tquery->count; i++) {
-+			if ((u64)tquery->queries[i].offset + sizeof(u64) >
-+			    src->base.base.size)
-+				goto err_range;
-+		}
-+
-+		write_size = (copy->availability_bit ? 2 : 1) * elem;
-+		return v3d_check_copy_extent(dev, dst->base.base.size,
-+					     copy->offset, copy->stride,
-+					     tquery->count, write_size);
-+	case V3D_CPU_JOB_TYPE_COPY_PERFORMANCE_QUERY:
-+		/*
-+		 * Each query writes nperfmons * DRM_V3D_MAX_PERF_COUNTERS
-+		 * counter slots into bo[0], plus an availability slot at index
-+		 * ncounters. nperfmons and ncounters are user values; the slot
-+		 * count and write size are computed in u64 (u32 * small
-+		 * constant) so they cannot wrap.
-+		 */
-+		dst = to_v3d_bo(job->base.bo[0]);
-+
-+		slots = (u64)job->performance_query.nperfmons *
-+			DRM_V3D_MAX_PERF_COUNTERS;
-+		if (copy->availability_bit)
-+			slots = max(slots,
-+				    (u64)job->performance_query.ncounters + 1);
-+
-+		write_size = slots * elem;
-+		return v3d_check_copy_extent(dev, dst->base.base.size,
-+					     copy->offset, copy->stride,
-+					     job->performance_query.count,
-+					     write_size);
-+	case V3D_CPU_JOB_TYPE_INDIRECT_CSD: {
-+		struct v3d_indirect_csd_info *icsd = &job->indirect_csd;
-+
-+		/*
-+		 * The exec-time work-group rewrite reads three u32 counts from
-+		 * bo[0] at the user-supplied offset, then writes each count back
-+		 * into the indirect BO at a user-supplied u32 index. Reject a
-+		 * missing indirect BO (drm_gem_object_lookup() returned NULL for
-+		 * a bad handle, which the exec path would otherwise dereference)
-+		 * and bound both accesses.
-+		 */
-+		if (!icsd->indirect)
-+			return -ENOENT;
-+
-+		dst = to_v3d_bo(job->base.bo[0]);
-+		if ((u64)icsd->offset + 3 * sizeof(u32) > dst->base.base.size)
-+			goto err_range;
-+
-+		src = to_v3d_bo(icsd->indirect);
-+		for (i = 0; i < 3; i++) {
-+			u32 uidx = icsd->wg_uniform_offsets[i];
-+
-+			if (uidx != 0xffffffff &&
-+			    (u64)uidx * sizeof(u32) + sizeof(u32) >
-+			    src->base.base.size)
-+				goto err_range;
-+		}
-+		return 0;
-+	}
-+	default:
-+		return 0;
-+	}
-+
-+err_range:
-+	drm_dbg(dev, "CPU job query offset exceeds the BO.\n");
-+	return -EINVAL;
-+}
-+
- /**
-  * v3d_submit_cpu_ioctl() - Submits a CPU job to the V3D.
-  * @dev: DRM device
-@@ -1317,6 +1449,10 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
- 		if (ret)
- 			goto fail;
- 
-+		ret = v3d_cpu_job_bounds_check(cpu_job);
-+		if (ret)
-+			goto fail;
-+
- 		ret = v3d_lock_bo_reservations(&cpu_job->base, &acquire_ctx);
- 		if (ret)
- 			goto fail;
--- 
-2.53.0
+>>
+>>> Again, having that use case documented somewhere could save us all time
+>>> – especially for you, Christian, since you wouldn't be forced to have
+>>> the same discussion over and over again over the years ;-)
+>>
+>> Well I could also send out all the DMA-buf resilient patches/ideas I came up with over the years once more.
+> 
+> Maybe we could have sort of a wiki in Documentation/ with links to
+> relevant mail threads and some explanations of why things are the way
+> they are?
+
+I think some AI analyzing the mailing list and noting when some ideas repeat would help.
+
+At least for me maintaining some kind of Wiki additional to my current workload wouldn't be possible at all.
+
+> btw, is there a dma-buf TODO list like for DRM in general?
+
+No, not that I know of. We used to have minor cleanup tasks on the DRM TODOs, but those were already taken by somebody.
+
+Regards,
+Christian.
+
+> 
+> There are many passionate hackers who love challenges. We could
+> certainly add a few "Difficulty: hard" entries for a few controversial
+> potential reworks.
+> 
+> 
+> P.
 
