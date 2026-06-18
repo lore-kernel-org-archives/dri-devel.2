@@ -4,82 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46299CD98ED
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 14:02:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A91FCCD98FA
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 14:02:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87B9C10EC5E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B501710EDCF;
 	Thu, 18 Jun 2026 14:02:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cEPPBwoO";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="KRVbn6Py";
 	dkim-atps=neutral
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
- [209.85.208.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6929610EC5E
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 14:02:00 +0000 (UTC)
-Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-39983214844so5402421fa.3
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 07:02:00 -0700 (PDT)
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+ [209.85.208.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89E9010EC5E
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 14:01:58 +0000 (UTC)
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-6957b74472dso1671847a12.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 07:01:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1781791319; x=1782396119; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1781791317; x=1782396117; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4oNfXFLkcb4dBrCrqAlUfROybHTH5OrCY5Zn4tZayg8=;
- b=cEPPBwoOKPEQ71Dn6walq6IuTAKfoz8xGt0a6eQPuxaNwH3RKN1EzqeIabOVYw6L0+
- FdBQrv8W5jI6MBHuixBQQ2X2XcA4SEhJT2h7VavJo73ERdAZn7S0YTB0WoY1lPHDrKL0
- DxlquwjNV8DHKa3eejIWN6H/CYSKHhucT+v+zpLqqhtccxgJ5ydbsQG6oCdXfznxDlPd
- a9PyS3pWxCVUfivwcM/qL/r/1o/uGa7zpbA8dAmkhHWS04APcsrjbgTfMEcI9iW7lrWB
- NNitPO65D8eXmW9tLydqNtstTlijP2BqRxViHh4jnZsfMX0NPIStg//5txj2Xzvuc4qp
- +cJA==
+ bh=gqWrw5Zm6IcTUSbd0pVoLa2mAQQgXMRFds7fJ5WZYVo=;
+ b=KRVbn6Py7lNXK74LbUEiAI3McjUiBTe/K9BCarhfkYoM9Lj2GVRR6TyfNuyjAGQCvm
+ 8xZBiwVPDZoPbS+959B2xmAFSvlPP3iZJSeJOH0L9rDrtmjKRluW5oBcc0ij+qM2Th7W
+ jSDHSkOYtyWdVM8reNMDnSVsPBW/9v5t+qUkh/MPD98BD4oo+yIVdYeLI+oGr6lY7bup
+ NLZ0f80F5bKay6+TvhwhjVF9srB+8P1wC9hpBur3QFC6cXyLMwKnoSeIFiozgslk3tKd
+ ub9jHRwQG3MY2JWus5zPZIgU79UaSU2lfaPRH9nRgf4Lf9MFrU66Bon7u0WIzacBKJ0X
+ mO1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781791319; x=1782396119;
+ d=1e100.net; s=20251104; t=1781791317; x=1782396117;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=4oNfXFLkcb4dBrCrqAlUfROybHTH5OrCY5Zn4tZayg8=;
- b=DSscTMs1OyFHh+zOH0StU3DdE4EAZrCGPYUPZuUvSVC6C5iN7jowPtWriTAcAKYVEz
- vcisEHwm0XbEI2y7saim/sOCkdyeLfaLH3JCnnXXzS6HfRoJNPj5dkrHz/tYLT2GxI7l
- TWAAnvl4xwxKc4f9/FbwjQf81Lh/U10FAp0XwR/YCt3eyy30EDomDH/4tTcw9U4XcG3m
- G7CMrJsYRLviasi75axyKzV56Q0D6OThdhkCDcWD6xpiiqnrFNOXrGR4hIWjWkCYFOzE
- Fzf9tpVLyBcOQwFSMLnO0vLKq4D9etQwq0ZZEmOglS1d1RuTyvl/Jy5vqim7n2aIbbd9
- prag==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9abto5bAuBE6AntAaBFZ59xfpyIHyohJV7sQ5dmdLL3N0MDgHXOPS8VbmoGdWcSBXaVOz3tNeWNpI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw+IN3O06DIaC6lFaefsondQZMsz6SDn4lhl6M0eRmF5+NP4hc2
- 36TfKQNgO/kv4IEuLtyctIjPWrCkRi/W0V54+8ClFkdBmv01Y101nwn/GHk+S5d4NOoSsUuca8S
- yIlTACk8=
-X-Gm-Gg: AfdE7ckL9XQxTK6+RTN/JD8sTtfnRmrNGSNLYYmlP1XlIThbxZcetyD3ohS2GOLFmYz
- ONyAmd0T3r+1KYLxp2h6Hr9xuv+ocKVX10uv/6w3GBrPpVYtyXBF/L9MPpdIinn/nQahbS+XJ7X
- t728+5PH631eZ+NJrk/1xxkgO0Ja8TS9iswi9xSb9h7m/6HlkWVg2o+61ZerXfzvKbWR7CgN1pz
- 4JPi3nPFFbGf/KQMvClM5f2fsHKSNHjw/uWUFesmi7jz0OW/BJAiNzcT0/pRoNOG0bTjaJ9aFjk
- h0lluI7BLwPRHnn4KRd5C6GpyAGi7GmfKuYozx4/Z77HE+4X8IVswRdQWrSr5AOyJeavmR1HM14
- LP4Mpd769AXBx3OZGy+yIyN42QAszQvuR32CreorowkqvY+6f4GDtyBHSW4uH5cdLRA7M354o/+
- UKjy5Z+AtG4V40OJ3+WvtKlsScvuwnQkORPzw8mylkeiMb
-X-Received: by 2002:a05:6512:110e:b0:5a8:6793:e701 with SMTP id
- 2adb3069b0e04-5ad4703a6ccmr2818410e87.33.1781791318307; 
- Thu, 18 Jun 2026 07:01:58 -0700 (PDT)
+ bh=gqWrw5Zm6IcTUSbd0pVoLa2mAQQgXMRFds7fJ5WZYVo=;
+ b=R3fjKY3oELYXYJfXi33SZht6J2VBCgwmeUtQvc8WcJDXqXpJ+G985WX/ttiRhxmXHx
+ TmOebpMHtEJIlSMXHRGegMnW3DTB6JSjxIOcrX+sSmpn6nr3bS22xS9rg0I6BimgO6s7
+ pHLWOGZdpk4FmpPbZdDDfly0MydvkrAam9aX7E4/a82AkszqEGse5CiHRz1Xb00T0V3W
+ vMUWLzztBhFsEsfQFBR8rtSJi1MvEdXKLagaMwwneIu79Ofw4ppMU5Nj4qPEwmjx4PhM
+ ijiMGQ80UHppVW4AKYcFcdsOmuJAHA9JQ4x8Rq3wx5Ks/KDgroOL7wz1LSsZkluDMXOr
+ lBoQ==
+X-Gm-Message-State: AOJu0YySjJw3kG+St/9F7Drxm0xLoaQEdD0oklbfMzugolcM9048yFmg
+ /psT7IKtmhbJcDOPIADhuZVS8GVzlcVw1dznKiOOx5X+ld5AE7OWij/c16BvkMspWz13Ov+tG41
+ e9wbLepw=
+X-Gm-Gg: AfdE7ck5L6VeE4FZ/fZbzKFOL0KvJY65yoZu4O8l7+x27fYj16apTw7YJmqTv5E+cC9
+ XYEm45NqTXHvtoKCEt4eqK+Q/xiie0Zr6k4HSzhxK5KRTzWUSdOp2h/ZKMnk6roj7w1bhzod9ab
+ 3IfjzmVN1RTxN3KClpd4Is3sTC1d+cuHbCCF0Q209bjk0V4c2u7rpWDTY6cMt3yGDebuPy9DrpT
+ qSyPuwNjiQhDc9UW2mlhUakkGzoCHq0v3v5SuYb4MBRa9Hv8zV2Km+v4Tx13wDXAymStABFuY2p
+ cD5RiIfQHvzwzixx9IB4Z1ABI5hmFzDh1Kv1r4Un5j+jw37FbNBjEi5oVYA7BsK75kTHX1J2Ayb
+ uORJS1EFehuiz8Q+GPuL05DTQ307OYmWyTWdQTQWsjt6T8jxztD1oxGNITpgUZ+DHtc5b32JD7o
+ cZyQPotqkXeSrfXrVItxilPo89cAae9I1pcw==
+X-Received: by 2002:a17:907:934e:b0:beb:7979:47d9 with SMTP id
+ a640c23a62f3a-c074898f593mr220079066b.8.1781791316348; 
+ Thu, 18 Jun 2026 07:01:56 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4620b3ed0d2sm27901309f8f.22.2026.06.18.07.01.56
+ ffacd0b85a97d-4620b3ed0d2sm27901309f8f.22.2026.06.18.07.01.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Jun 2026 07:01:56 -0700 (PDT)
+ Thu, 18 Jun 2026 07:01:55 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
 To: Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>, 
- Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Kael D'Alcamo <dev@kael-k.io>, 
+ Kever Yang <kever.yang@rock-chips.com>, 
+ Igor Reznichenko <igor@reznichenko.net>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org
-In-Reply-To: <20260608162622.403713-1-zhengxingda@iscas.ac.cn>
-References: <20260608162622.403713-1-zhengxingda@iscas.ac.cn>
-Subject: Re: [PATCH 1/3] dt-bindings: display: panel: himax,hx83121a: add
- optional bl supply
-Message-Id: <178179131647.245596.13953179203081214548.b4-ty@b4>
-Date: Thu, 18 Jun 2026 16:01:56 +0200
+In-Reply-To: <20260617143245.372182-1-igor@reznichenko.net>
+References: <20260617143245.372182-1-igor@reznichenko.net>
+Subject: Re: [PATCH v6 0/2] drm/panel: Add support for the FocusLCDs
+ E35GH-I-MW800CB
+Message-Id: <178179131510.245596.16459075760414662708.b4-ty@b4>
+Date: Thu, 18 Jun 2026 16:01:55 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -101,24 +101,23 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Tue, 09 Jun 2026 00:26:20 +0800, Icenowy Zheng wrote:
-> When the backlight is managed by the panel controller IC, an external
-> power rail might be powering the backlight.
+On Wed, 17 Jun 2026 07:32:43 -0700, Igor Reznichenko wrote:
+> Add support for E35GH-I-MW800CB 320x480 MIPI DSI panel by FocusLCDs.
+> The panel uses Ilitek ILI9488 driver IC in DSI mode specifically.
+> ILI9488 also appears in DBI/SPI panels, but those require different bus drivers.
 > 
-> Add an optional `bl-supply` property to describe such power rail, thus
-> allow disabling the backlight.
-> 
+> This panel driver has been tested on STM32MP157D-DK1 in addition to TI AM62P EVK.
+> The panel works in video mode on both platforms. Additional panels using
+> ILI9488 DSI can be added later with their own timings.
 > 
 > [...]
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/3] dt-bindings: display: panel: himax,hx83121a: add optional bl supply
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/b817a59c2afcfbf1594b9be6c4136d9d7d613eee
-[2/3] drm/panel: himax-hx83121a: pass the panel pointer when creating BL
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/ae8dbbe8955d7470dd41e101b852fd1a70f62930
-[3/3] drm/panel: himax-hx83121a: add backlight regulator support
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/98b46e693b912eef0e6d497327489113845cbd15
+[1/2] dt-bindings: display: panel: Add Ilitek ILI9488 panel controller
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/532701ad6e239f1b47bebaa597e159c282c6c6ac
+[2/2] drm/panel: Add Ilitek ILI9488 controller driver
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/99e9aca83bfb867ae780f58d076bb89dd5c2681d
 
 -- 
 Neil
