@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5636CD98F0
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 23:08:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79A36CD98F0
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 23:08:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE51D10E8C8;
-	Thu, 18 Jun 2026 23:08:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA70410EE8F;
+	Thu, 18 Jun 2026 23:08:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GgDkpvVe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JI1vGRAl";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9A0010E8C8
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 23:08:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02F7F10EE8F
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 23:08:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 07907601E1;
+ by tor.source.kernel.org (Postfix) with ESMTP id 6D084601E1;
+ Thu, 18 Jun 2026 23:08:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D2C61F00A3A;
  Thu, 18 Jun 2026 23:08:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA6201F000E9;
- Thu, 18 Jun 2026 23:08:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781824130;
- bh=IFzNgkG2m6LHm/n3B0bxBt/0Kp+5tRid/Y2vmPN6Huk=;
- h=From:To:Cc:Subject:Date;
- b=GgDkpvVe1RBzO2seIT4BcWsJJ3VDTGBlmFmkv0wvl6gwpAn2VaUfbrlZtmcP93hUr
- +D65Ip+5tDKdLWvhcgGjLur4Qik4YKohvkWYwE4WfKUbkCMRou+Vgo0WvJUPKPRF4m
- +/xjr1h/D95QngnGCr4mMHGik1F8r5zgQHM52KO7ci5EImMc3owtOEM4HeIJ1eoXKg
- IRDQApzfVIcV8mq3rN807YRvXcdY77oLVDkX2LlUBtPz4AgakAH1xQkhwhKY4CQv/6
- f8qH0vlqlt01zFCFAACJRuo/gG21gAimMGOZSC346L/c/s8FCm8QcaiuhqsWMleXq9
- ZeXUZYjMBYubw==
+ s=k20260515; t=1781824136;
+ bh=BJQff5nV2E8ZnTc+2nUmf7gtmnyxcFREFWC5y7HNUi0=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=JI1vGRAlMf1g6ZcWZakcX0PepEwLTs6RWozW0YmUmu/SIMkdfAP2vr/l4Wj+AZIY/
+ 4IpFIM1hTZpgUU3HWzQX8KIdwb3rn2aCiduFweqV//Cy7khxJjZJjN2ldumns2aQ7L
+ Lc/yLoi6bpvWd3Olw/sTb0KNuTjPCEzfRydm2fLFd2tvw5K/WxHpFhM7vu6xZluHt1
+ kStNWQ+d3saNOH7x7mUTkHwoyJM01aZYSidE41RDk2U/Fd5fYDmi2o/AGHJ9ErdHbh
+ ayUfOvgpUV+mpah7GSSTJrtx5FbfuJU3j8yP1qyBqlhl6VmimR1hdcrz86w4NdqGKT
+ UGVtYWYs0EOPQ==
 From: Danilo Krummrich <dakr@kernel.org>
 To: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
  ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
@@ -41,11 +41,12 @@ To: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
 Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  linux-pwm@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject: [PATCH v3 0/7] ForLt/CovariantForLt split,
- auxiliary closure API and DevresLt
-Date: Fri, 19 Jun 2026 01:08:26 +0200
-Message-ID: <20260618230834.812007-1-dakr@kernel.org>
+Subject: [PATCH v3 1/7] rust: types: rename ForLt to CovariantForLt
+Date: Fri, 19 Jun 2026 01:08:27 +0200
+Message-ID: <20260618230834.812007-2-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260618230834.812007-1-dakr@kernel.org>
+References: <20260618230834.812007-1-dakr@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -63,81 +64,354 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The ForLt trait currently guarantees covariance, which allows safe
-lifetime shortening via cast_ref(). However, some types (e.g. those
-containing Mutex<&'bound T>) are invariant over their lifetime parameter
-and cannot safely use cast_ref().
+Rename ForLt to CovariantForLt to prepare for the introduction of a new
+ForLt base trait that does not require covariance.
 
-This series splits ForLt into two traits:
+The existing ForLt trait requires covariance, which enables the safe
+cast_ref() method. This rename preserves the same semantics under a more
+precise name, making room for a weaker ForLt trait in a subsequent
+commit.
 
-  - ForLt: base trait for all lifetime-parameterized types, providing
-    only the Of<'a> GAT.
+No functional change.
 
-  - CovariantForLt: unsafe subtrait that guarantees covariance,
-    providing a safe cast_ref() method.
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+---
+ drivers/gpu/nova-core/driver.rs       |  4 +-
+ rust/kernel/auxiliary.rs              | 23 +++++------
+ rust/kernel/types.rs                  |  2 +-
+ rust/kernel/types/for_lt.rs           | 57 ++++++++++++++-------------
+ rust/macros/for_lt.rs                 |  2 +-
+ rust/macros/lib.rs                    | 11 +++---
+ samples/rust/rust_driver_auxiliary.rs |  8 ++--
+ 7 files changed, 54 insertions(+), 53 deletions(-)
 
-For invariant types, a closure-based API (registration_data_with()) is
-added to the auxiliary subsystem. The closure's HRTB prevents the caller
-from choosing a concrete lifetime, which would be unsound for invariant
-types.
-
-On top of that, this series adds DevresLt<F: ForLt>, a thin wrapper
-around Devres<F::Of<'static>> that shortens the stored 'static lifetime
-back to the caller's borrow scope. DevresLt provides both closure-based
-access (access_with/try_access_with for ForLt types) and direct
-reference access (access/try_access for CovariantForLt types).
-
-Also implement ForLt and CovariantForLt for Bar, IoMem and
-ExclusiveIoMem, and update their into_devres() methods to return
-DevresLt. Provide convenience type aliases DevresBar, DevresIoMem and
-DevresExclusiveIoMem.
-
-Changes in v3:
-- Keep UnsafeForLtImpl as the shared helper for both ForLt! and
-  CovariantForLt!, distinguished by const generic N
-- Remove cast_ref_unchecked() from ForLt; lifetime shortening is
-  handled by borrowing with the target lifetime directly or by
-  decoupling the HRTB from the outer reference lifetime
-
-Changes in v2:
-- Fold the ForLt -> CovariantForLt rename and the new ForLt base trait
-  into this series
-- Add closure-based registration_data_with() for auxiliary ForLt types
-- Add auxiliary sample demonstrating ForLt with an invariant Mutex type
-- DevresLt: add closure-based access_with()/try_access_with() for ForLt
-  types alongside direct access()/try_access() for CovariantForLt types
-- Make DevresLt::new() unsafe; callers must guarantee the data outlives
-  the device binding
-- Implement both ForLt and CovariantForLt (previously just ForLt) for
-  Bar, IoMem, ExclusiveIoMem
-- Various safety comment and documentation improvements
-
-Danilo Krummrich (7):
-  rust: types: rename ForLt to CovariantForLt
-  rust: types: introduce ForLt base trait for CovariantForLt
-  rust: auxiliary: add registration_data_with() for ForLt types
-  rust: auxiliary: sample: demonstrate ForLt with invariant Mutex type
-  rust: devres: add DevresLt for ForLt-aware device resource access
-  rust: pci: return DevresLt from Bar::into_devres()
-  rust: io: mem: return DevresLt from
-    IoMem/ExclusiveIoMem::into_devres()
-
- drivers/gpu/nova-core/driver.rs       |   4 +-
- drivers/pwm/pwm_th1520.rs             |   5 +-
- rust/kernel/auxiliary.rs              |  76 +++++++++++++++-----
- rust/kernel/devres.rs                 | 100 ++++++++++++++++++++++++++
- rust/kernel/io/mem.rs                 |  65 +++++++++++------
- rust/kernel/pci.rs                    |   1 +
- rust/kernel/pci/io.rs                 |  37 +++++++---
- rust/kernel/types.rs                  |   1 +
- rust/kernel/types/for_lt.rs           |  95 +++++++++++++++++-------
- rust/macros/for_lt.rs                 |  53 +++++++++++---
- rust/macros/lib.rs                    |  18 ++++-
- samples/rust/rust_driver_auxiliary.rs |  96 ++++++++++++++++++-------
- 12 files changed, 432 insertions(+), 119 deletions(-)
-
-
-base-commit: 83f1454877cc292b88baf13c829c16ce6937d120
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index 5738d4ac521b..48380ac15f68 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -15,7 +15,7 @@
+         Atomic,
+         Relaxed, //
+     },
+-    types::ForLt,
++    types::CovariantForLt,
+ };
+ 
+ use crate::gpu::Gpu;
+@@ -29,7 +29,7 @@ pub(crate) struct NovaCore<'bound> {
+     pub(crate) gpu: Gpu<'bound>,
+     bar: pci::Bar<'bound, BAR0_SIZE>,
+     #[allow(clippy::type_complexity)]
+-    _reg: auxiliary::Registration<'bound, ForLt!(())>,
++    _reg: auxiliary::Registration<'bound, CovariantForLt!(())>,
+ }
+ 
+ pub(crate) struct NovaCoreDriver;
+diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
+index c42928d5a239..40a0af74a8e5 100644
+--- a/rust/kernel/auxiliary.rs
++++ b/rust/kernel/auxiliary.rs
+@@ -20,7 +20,7 @@
+     },
+     prelude::*,
+     types::{
+-        ForLt,
++        CovariantForLt,
+         ForeignOwnable,
+         Opaque, //
+     },
+@@ -272,16 +272,16 @@ pub fn parent(&self) -> &device::Device<device::Bound> {
+ 
+     /// Returns a pinned reference to the registration data set by the registering (parent) driver.
+     ///
+-    /// `F` is the [`ForLt`](trait@ForLt) encoding of the data type. The returned
++    /// `F` is the [`CovariantForLt`](trait@CovariantForLt) encoding of the data type. The returned
+     /// reference has its lifetime shortened from `'static` to `&self`'s borrow lifetime via
+-    /// [`ForLt::cast_ref`].
++    /// [`CovariantForLt::cast_ref`].
+     ///
+     /// Returns [`EINVAL`] if `F` does not match the type used by the parent driver when calling
+     /// [`Registration::new()`].
+     ///
+     /// Returns [`ENOENT`] if no registration data has been set, e.g. when the device was
+     /// registered by a C driver.
+-    pub fn registration_data<F: ForLt + 'static>(&self) -> Result<Pin<&F::Of<'_>>> {
++    pub fn registration_data<F: CovariantForLt + 'static>(&self) -> Result<Pin<&F::Of<'_>>> {
+         // SAFETY: By the type invariant, `self.as_raw()` is a valid `struct auxiliary_device`.
+         let ptr = unsafe { (*self.as_raw()).registration_data_rust };
+         if ptr.is_null() {
+@@ -399,8 +399,9 @@ struct RegistrationData<T> {
+ /// This type represents the registration of a [`struct auxiliary_device`]. When its parent device
+ /// is unbound, the corresponding auxiliary device will be unregistered from the system.
+ ///
+-/// The type parameter `F` is a [`ForLt`](trait@ForLt) encoding of the registration
+-/// data type. For non-lifetime-parameterized types, use [`ForLt!(T)`](macro@ForLt).
++/// The type parameter `F` is a [`CovariantForLt`](trait@CovariantForLt) encoding of the
++/// registration data type. For non-lifetime-parameterized types, use
++/// [`CovariantForLt!(T)`](macro@CovariantForLt).
+ /// The data can be accessed by the auxiliary driver through [`Device::registration_data()`].
+ ///
+ /// # Invariants
+@@ -408,12 +409,12 @@ struct RegistrationData<T> {
+ /// `self.adev` always holds a valid pointer to an initialized and registered
+ /// [`struct auxiliary_device`] whose `registration_data_rust` field points to a
+ /// valid `Pin<KBox<RegistrationData<F::Of<'static>>>>`.
+-pub struct Registration<'a, F: ForLt + 'static> {
++pub struct Registration<'a, F: CovariantForLt + 'static> {
+     adev: NonNull<bindings::auxiliary_device>,
+     _phantom: PhantomData<F::Of<'a>>,
+ }
+ 
+-impl<'a, F: ForLt> Registration<'a, F>
++impl<'a, F: CovariantForLt> Registration<'a, F>
+ where
+     for<'b> F::Of<'b>: Send + Sync,
+ {
+@@ -525,7 +526,7 @@ pub fn new<E>(
+     }
+ }
+ 
+-impl<F: ForLt> Drop for Registration<'_, F> {
++impl<F: CovariantForLt> Drop for Registration<'_, F> {
+     fn drop(&mut self) {
+         // SAFETY: By the type invariant of `Self`, `self.adev.as_ptr()` is a valid registered
+         // `struct auxiliary_device`.
+@@ -547,7 +548,7 @@ fn drop(&mut self) {
+ }
+ 
+ // SAFETY: A `Registration` of a `struct auxiliary_device` can be released from any thread.
+-unsafe impl<F: ForLt> Send for Registration<'_, F> where for<'a> F::Of<'a>: Send {}
++unsafe impl<F: CovariantForLt> Send for Registration<'_, F> where for<'a> F::Of<'a>: Send {}
+ 
+ // SAFETY: `Registration` does not expose any methods or fields that need synchronization.
+-unsafe impl<F: ForLt> Sync for Registration<'_, F> where for<'a> F::Of<'a>: Send {}
++unsafe impl<F: CovariantForLt> Sync for Registration<'_, F> where for<'a> F::Of<'a>: Send {}
+diff --git a/rust/kernel/types.rs b/rust/kernel/types.rs
+index ac316fd7b538..cbe6907042d3 100644
+--- a/rust/kernel/types.rs
++++ b/rust/kernel/types.rs
+@@ -13,7 +13,7 @@
+ 
+ #[doc(hidden)]
+ pub mod for_lt;
+-pub use for_lt::ForLt;
++pub use for_lt::CovariantForLt;
+ 
+ /// Used to transfer ownership to and from foreign (non-Rust) languages.
+ ///
+diff --git a/rust/kernel/types/for_lt.rs b/rust/kernel/types/for_lt.rs
+index d44323c28e8d..a11f7509633c 100644
+--- a/rust/kernel/types/for_lt.rs
++++ b/rust/kernel/types/for_lt.rs
+@@ -1,8 +1,8 @@
+ // SPDX-License-Identifier: Apache-2.0 OR MIT
+ 
+-//! Provide implementation and test of the `ForLt` trait and macro.
++//! Provide implementation and test of the `CovariantForLt` trait and macro.
+ //!
+-//! This module is hidden and user should just use `ForLt!` directly.
++//! This module is hidden and user should just use `CovariantForLt!` directly.
+ 
+ use core::marker::PhantomData;
+ 
+@@ -15,38 +15,39 @@
+ ///
+ /// # Macro
+ ///
+-/// It is not recommended to implement this trait directly. `ForLt!` macro is provided to obtain a
+-/// type that implements this trait.
++/// It is not recommended to implement this trait directly. `CovariantForLt!` macro is provided to
++/// obtain a type that implements this trait.
+ ///
+ /// The full syntax is
+ ///
+ /// ```
+-/// # use kernel::types::ForLt;
+-/// # fn expect_lt<F: ForLt>() {}
++/// # use kernel::types::CovariantForLt;
++/// # fn expect_lt<F: CovariantForLt>() {}
+ /// # struct TypeThatUse<'a>(&'a ());
+ /// # expect_lt::<
+-/// ForLt!(for<'a> TypeThatUse<'a>)
++/// CovariantForLt!(for<'a> TypeThatUse<'a>)
+ /// # >();
+ /// ```
+ ///
+-/// which gives a type so that `<ForLt!(for<'a> TypeThatUse<'a>) as ForLt>::Of<'b>`
++/// which gives a type so that
++/// `<CovariantForLt!(for<'a> TypeThatUse<'a>) as CovariantForLt>::Of<'b>`
+ /// is `TypeThatUse<'b>`.
+ ///
+ /// You may also use a short-hand syntax which works similar to lifetime elision.
+ /// The macro also accepts types that do not involve a lifetime at all.
+ ///
+ /// ```
+-/// # use kernel::types::ForLt;
+-/// # fn expect_lt<F: ForLt>() {}
++/// # use kernel::types::CovariantForLt;
++/// # fn expect_lt<F: CovariantForLt>() {}
+ /// # struct TypeThatUse<'a>(&'a ());
+ /// # expect_lt::<
+-/// ForLt!(TypeThatUse<'_>) // Equivalent to `ForLt!(for<'a> TypeThatUse<'a>)`.
++/// CovariantForLt!(TypeThatUse<'_>) // Equivalent to `CovariantForLt!(for<'a> TypeThatUse<'a>)`.
+ /// # >();
+ /// # expect_lt::<
+-/// ForLt!(&u32) // Equivalent to `ForLt!(for<'a> &'a u32)`.
++/// CovariantForLt!(&u32) // Equivalent to `CovariantForLt!(for<'a> &'a u32)`.
+ /// # >();
+ /// # expect_lt::<
+-/// ForLt!(u32) // Equivalent to `ForLt!(for<'a> u32)`.
++/// CovariantForLt!(u32) // Equivalent to `CovariantForLt!(for<'a> u32)`.
+ /// # >();
+ /// ```
+ ///
+@@ -55,10 +56,10 @@
+ /// it.
+ ///
+ /// ```ignore,compile_fail
+-/// # use kernel::types::ForLt;
+-/// # fn expect_lt<F: ForLt>() {}
++/// # use kernel::types::CovariantForLt;
++/// # fn expect_lt<F: CovariantForLt>() {}
+ /// # expect_lt::<
+-/// ForLt!(fn(&u32)) // Contravariant, will fail compilation.
++/// CovariantForLt!(fn(&u32)) // Contravariant, will fail compilation.
+ /// # >();
+ /// ```
+ ///
+@@ -67,23 +68,23 @@
+ /// the generic parameter but is in a separate item.
+ ///
+ /// ```
+-/// # use kernel::types::ForLt;
+-/// fn expect_lt<F: ForLt>() {}
++/// # use kernel::types::CovariantForLt;
++/// fn expect_lt<F: CovariantForLt>() {}
+ /// # #[allow(clippy::unnecessary_safety_comment, reason = "false positive")]
+ /// fn generic_fn<T: 'static>() {
+ ///     // Syntactically proven by the macro
+-///     expect_lt::<ForLt!(&T)>();
++///     expect_lt::<CovariantForLt!(&T)>();
+ ///     // Syntactically proven by the macro
+-///     expect_lt::<ForLt!(&KBox<T>)>();
++///     expect_lt::<CovariantForLt!(&KBox<T>)>();
+ ///     // Cannot be syntactically proven, need to check covariance of `KBox`
+-///     // expect_lt::<ForLt!(&KBox<&T>)>();
++///     // expect_lt::<CovariantForLt!(&KBox<&T>)>();
+ /// }
+ /// ```
+ ///
+ /// # Safety
+ ///
+ /// `Self::Of<'a>` must be covariant over the lifetime `'a`.
+-pub unsafe trait ForLt {
++pub unsafe trait CovariantForLt {
+     /// The type parameterized by the lifetime.
+     type Of<'a>: 'a;
+ 
+@@ -94,11 +95,11 @@ fn cast_ref<'r, 'short: 'r, 'long: 'short>(long: &'r Self::Of<'long>) -> &'r Sel
+         unsafe { core::mem::transmute(long) }
+     }
+ }
+-pub use macros::ForLt;
++pub use macros::CovariantForLt;
+ 
+ /// This is intended to be an "unsafe-to-refer-to" type.
+ ///
+-/// Must only be used by the `ForLt!` macro.
++/// Must only be used by the `CovariantForLt!` macro.
+ ///
+ /// `T` is the magic `dyn for<'a> WithLt<'a, TypeThatUse<'a>>` generated by macro.
+ ///
+@@ -109,14 +110,14 @@ fn cast_ref<'r, 'short: 'r, 'long: 'short>(long: &'r Self::Of<'long>) -> &'r Sel
+ #[doc(hidden)]
+ pub struct UnsafeForLtImpl<T: ?Sized, WF, const N: usize>(PhantomData<(WF, T)>);
+ 
+-// This is a helper trait for implementation `ForLt` to be able to use HRTB.
++// This is a helper trait for implementation `CovariantForLt` to be able to use HRTB.
+ #[doc(hidden)]
+ pub trait WithLt<'a> {
+     type Of: 'a;
+ }
+ 
+-// SAFETY: In `ForLt!` macro, a covariance proof is generated when naming `UnsafeForLtImpl`
+-// and it will fail to evaluate if the type is not covariant.
+-unsafe impl<T: ?Sized + for<'a> WithLt<'a>, WF> ForLt for UnsafeForLtImpl<T, WF, 0> {
++// SAFETY: In `CovariantForLt!` macro, a covariance proof is generated when naming
++// `UnsafeForLtImpl` and it will fail to evaluate if the type is not covariant.
++unsafe impl<T: ?Sized + for<'a> WithLt<'a>, WF> CovariantForLt for UnsafeForLtImpl<T, WF, 0> {
+     type Of<'a> = <T as WithLt<'a>>::Of;
+ }
+diff --git a/rust/macros/for_lt.rs b/rust/macros/for_lt.rs
+index 364d4113cd10..e1233701d6cc 100644
+--- a/rust/macros/for_lt.rs
++++ b/rust/macros/for_lt.rs
+@@ -176,7 +176,7 @@ fn prove(&mut self, ty: &'a Type) {
+     }
+ }
+ 
+-pub(crate) fn for_lt(input: HigherRankedType) -> TokenStream {
++pub(crate) fn covariant_for_lt(input: HigherRankedType) -> TokenStream {
+     let (ty, lifetime) = match input {
+         HigherRankedType::Explicit { lifetime, ty, .. } => (ty, lifetime),
+         HigherRankedType::Implicit { ty } => {
+diff --git a/rust/macros/lib.rs b/rust/macros/lib.rs
+index 4a48fabbc268..2167cb270928 100644
+--- a/rust/macros/lib.rs
++++ b/rust/macros/lib.rs
+@@ -491,14 +491,13 @@ pub fn kunit_tests(attr: TokenStream, input: TokenStream) -> TokenStream {
+         .into()
+ }
+ 
+-/// Obtain a type that implements [`ForLt`] for the given higher-ranked type.
++/// Obtain a type that implements [`CovariantForLt`] for the given higher-ranked type.
+ ///
+-/// Please refer to the documentation of the [`ForLt`] trait.
++/// Please refer to the documentation of the [`CovariantForLt`] trait.
+ ///
+-/// [`ForLt`]: trait.ForLt.html
++/// [`CovariantForLt`]: trait.CovariantForLt.html
+ #[proc_macro]
+-// The macro shares the name with the trait.
+ #[allow(non_snake_case)]
+-pub fn ForLt(input: TokenStream) -> TokenStream {
+-    for_lt::for_lt(parse_macro_input!(input)).into()
++pub fn CovariantForLt(input: TokenStream) -> TokenStream {
++    for_lt::covariant_for_lt(parse_macro_input!(input)).into()
+ }
+diff --git a/samples/rust/rust_driver_auxiliary.rs b/samples/rust/rust_driver_auxiliary.rs
+index 2c1351040e45..92ee6a6d348e 100644
+--- a/samples/rust/rust_driver_auxiliary.rs
++++ b/samples/rust/rust_driver_auxiliary.rs
+@@ -13,7 +13,7 @@
+     driver,
+     pci,
+     prelude::*,
+-    types::ForLt,
++    types::CovariantForLt,
+     InPlaceModule, //
+ };
+ 
+@@ -60,8 +60,8 @@ struct Data<'bound> {
+ 
+ #[allow(clippy::type_complexity)]
+ struct ParentData<'bound> {
+-    _reg0: auxiliary::Registration<'bound, ForLt!(Data<'_>)>,
+-    _reg1: auxiliary::Registration<'bound, ForLt!(Data<'_>)>,
++    _reg0: auxiliary::Registration<'bound, CovariantForLt!(Data<'_>)>,
++    _reg1: auxiliary::Registration<'bound, CovariantForLt!(Data<'_>)>,
+ }
+ 
+ kernel::pci_device_table!(
+@@ -115,7 +115,7 @@ fn probe<'bound>(
+ 
+ impl ParentDriver {
+     fn connect(adev: &auxiliary::Device<Bound>) -> Result {
+-        let data = adev.registration_data::<ForLt!(Data<'_>)>()?;
++        let data = adev.registration_data::<CovariantForLt!(Data<'_>)>()?;
+         let pdev = data.parent;
+ 
+         dev_info!(
 -- 
 2.54.0
 
