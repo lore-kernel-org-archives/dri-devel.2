@@ -4,84 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87889CD98F2
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 07:21:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECA1BCD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 07:30:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E19A410F1AD;
-	Thu, 18 Jun 2026 07:21:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3057A10ECC9;
+	Thu, 18 Jun 2026 07:30:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="tlM+QPup";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mgTl60Bw";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tlM+QPup";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mgTl60Bw";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="qChns0vF";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="X9Gd8nmb";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qChns0vF";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="X9Gd8nmb";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A17D010F1AD
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 07:21:06 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A932510ECC9
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 07:30:37 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5760275EE2;
- Thu, 18 Jun 2026 07:21:05 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 700306D170;
+ Thu, 18 Jun 2026 07:30:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781767265; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1781767836; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=SCi9F1ns4cl45Fk4TqHGu6Ax28aQgPnFbqHpo5+blms=;
- b=tlM+QPup870Bkz9uXcx9hTH0abiMImWVq0iB4snZBqneEb6BFpei6edtnxgXVUw+t0IiKE
- 320ubZYx7DhC/kq1+JaWEHbYidurl6+wS4U23Q/t2bRRZuCHfl5aHEmYWynyTMhQL9l/Pe
- rxQpn0KeG3Y8qLFWfP2qNHbwZv6uCpw=
+ bh=wd7ImIPthEOIDYLKO9h998HqbE/8DZRsM1nnMp2xSXA=;
+ b=qChns0vFtoqRMvShCoRfrn0CV3n9LrD6h2dOLi0feu1caUZIy0MXYd5/PjQ9shHF+3R2AQ
+ cW09FvH+4o4paLRMLzKYFDYDyEJELBPTnhgJKbxx5W7y3BOjKI6RnKK9AY5VVToQuno+8C
+ A2hcJAjrMvGUJqJkwL+uhirf7+Zu1n4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781767265;
+ s=susede2_ed25519; t=1781767836;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=SCi9F1ns4cl45Fk4TqHGu6Ax28aQgPnFbqHpo5+blms=;
- b=mgTl60BwbVEoavRFIpUqCXNtKhQP3j5JvDmluvyjb5dbRKZ6YY805U01CBYkQgYU6n8Tt4
- DxVaSMisoKLDD9CQ==
-Authentication-Results: smtp-out2.suse.de;
+ bh=wd7ImIPthEOIDYLKO9h998HqbE/8DZRsM1nnMp2xSXA=;
+ b=X9Gd8nmbt1oDNBw/sW258yhDqwzbwzzR5E3mOdR4UjAqH0rf3RISqfvHykpcozx/iM7EIV
+ uRdW62WSpOm2WXBA==
+Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781767265; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1781767836; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=SCi9F1ns4cl45Fk4TqHGu6Ax28aQgPnFbqHpo5+blms=;
- b=tlM+QPup870Bkz9uXcx9hTH0abiMImWVq0iB4snZBqneEb6BFpei6edtnxgXVUw+t0IiKE
- 320ubZYx7DhC/kq1+JaWEHbYidurl6+wS4U23Q/t2bRRZuCHfl5aHEmYWynyTMhQL9l/Pe
- rxQpn0KeG3Y8qLFWfP2qNHbwZv6uCpw=
+ bh=wd7ImIPthEOIDYLKO9h998HqbE/8DZRsM1nnMp2xSXA=;
+ b=qChns0vFtoqRMvShCoRfrn0CV3n9LrD6h2dOLi0feu1caUZIy0MXYd5/PjQ9shHF+3R2AQ
+ cW09FvH+4o4paLRMLzKYFDYDyEJELBPTnhgJKbxx5W7y3BOjKI6RnKK9AY5VVToQuno+8C
+ A2hcJAjrMvGUJqJkwL+uhirf7+Zu1n4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781767265;
+ s=susede2_ed25519; t=1781767836;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=SCi9F1ns4cl45Fk4TqHGu6Ax28aQgPnFbqHpo5+blms=;
- b=mgTl60BwbVEoavRFIpUqCXNtKhQP3j5JvDmluvyjb5dbRKZ6YY805U01CBYkQgYU6n8Tt4
- DxVaSMisoKLDD9CQ==
+ bh=wd7ImIPthEOIDYLKO9h998HqbE/8DZRsM1nnMp2xSXA=;
+ b=X9Gd8nmbt1oDNBw/sW258yhDqwzbwzzR5E3mOdR4UjAqH0rf3RISqfvHykpcozx/iM7EIV
+ uRdW62WSpOm2WXBA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1C48C779A8;
- Thu, 18 Jun 2026 07:21:05 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0A129779A8;
+ Thu, 18 Jun 2026 07:30:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id RJp+BWGcM2o+awAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 18 Jun 2026 07:21:05 +0000
-Message-ID: <1ec067ee-a8ab-4249-95df-280eba42fef4@suse.de>
-Date: Thu, 18 Jun 2026 09:21:04 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id ijVTAJyeM2qEdAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 18 Jun 2026 07:30:36 +0000
+Message-ID: <68a0c8de-9a12-4dc4-84ca-ae988b76087b@suse.de>
+Date: Thu, 18 Jun 2026 09:30:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] firmware: sysfb: Mark CONFIG_SYSFB_SIMPLEFB as deprecated
-To: Julian Braha <julianbraha@gmail.com>, javierm@redhat.com, sima@ffwll.ch,
- airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260617081810.218168-1-tzimmermann@suse.de>
- <7da7d892-3b3c-4f83-b3b0-93eafe14e15e@gmail.com>
+Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
+ e-ink panel
+To: LiangCheng Wang <zaq14760@gmail.com>, Devarsh Thakkar <devarsht@ti.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Wig Cheng <onlywig@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
+ <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
+ <9fb7915b-dc46-45af-bba1-a3d3a59b5e49@suse.de>
+ <20260618023338.26630-1-zaq14760@gmail.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -108,21 +116,21 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <7da7d892-3b3c-4f83-b3b0-93eafe14e15e@gmail.com>
+In-Reply-To: <20260618023338.26630-1-zaq14760@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_TO(0.00)[gmail.com,redhat.com,ffwll.ch];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCPT_COUNT_SEVEN(0.00)[7]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ TAGGED_RCPT(0.00)[dt]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[14];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_TO(0.00)[gmail.com,ti.com,linux.intel.com,kernel.org,ffwll.ch];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:mid,
  imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -142,37 +150,41 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi
 
-Am 17.06.26 um 18:45 schrieb Julian Braha:
+Am 18.06.26 um 04:33 schrieb LiangCheng Wang:
 > Hi Thomas,
 >
-> On 6/17/26 09:17, Thomas Zimmermann wrote:
->> Mark CONFIG_SYSFB_SIMPLEFB as deprecated. Enabling it allows to
->>   config SYSFB_SIMPLEFB
->> -	bool "Mark VGA/VBE/EFI FB as generic system framebuffer"
->> +	bool "Mark VGA/VBE/EFI FB as generic system framebuffer (deprecated)"
-> In v2, I think it also makes sense to add the 'transitional' attribute
-> to the Kconfig entry to help phase it out.
+> Thanks for the review, and no worries about the timing.
 >
-> Also see this patch message for an explanation of 'transitional':
-> https://lore.kernel.org/all/20250923213422.1105654-2-kees@kernel.org/
+> Before I spin a v4 for these comments, I'd like to confirm the overall
+> direction, since it affects whether this should remain a standalone driver
+> at all.
+>
+> In parallel, Devarsh Thakkar is adding a generic Solomon SSD16xx e-paper
+> driver (panel-ssd16xx.c, currently v1 in review). The PIXPAPER 4.26 uses an
+> SSD1677, which is part of that family; Devarsh has said he will add SSD1677
+> support in the next revision (v2) of his series, after which this panel
+> could be supported there as a panel entry rather than as a separate driver.
+> That work isn't posted yet, but I had agreed that consolidating under
+> panel-ssd16xx.c is the better long-term direction.
+>
+> I'd appreciate your guidance on how to proceed -- whether it is better to
+> keep iterating on this standalone driver, or to hold it and add the
+> PIXPAPER 4.26 panel to panel-ssd16xx.c once that driver supports SSD1677.
+> I'm happy to go whichever way you prefer.
 
-Thanks for this pointer; I wasn't aware of this feature. This will be 
-really useful to not accidentally leave users without display output.
+I see. It is usually preferable to have only a single driver for a 
+controller. If there are specific features of the Pixpaper 4.26, they 
+should be added to the ssd16xx driver if possible.
 
-I've played with the option, but it does not work are purely as shown in 
-the example. I think it's because EFIDRM and VESADRM are existing 
-options. So they already have a value.
-
-What I did instead was to add new internal config options. They depend 
-on the now-transitional SYSFB_SIMPLEFB and select the correct drivers. 
-Once SYSFB_SIMPLEFB goes away, these options can go away as well.
+There are exceptions from this rule, of course. If the Pixpaper turns 
+out to be significantly different, we can always reconsider.
 
 Best regards
 Thomas
 
 >
-> - Julian Braha
->
+> Regards,
+> LiangCheng
 
 -- 
 --
