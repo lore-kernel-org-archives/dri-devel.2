@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DC19CD98ED
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 12:23:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8CFECD98F2
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 12:23:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0E8A10ED82;
-	Thu, 18 Jun 2026 12:23:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A1B210EDC6;
+	Thu, 18 Jun 2026 12:23:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="BM6gQ3Pf";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="tYMZcovP";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 030CC10ED82
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 12:23:27 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-490cf322ed0so5848405e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 05:23:27 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAE5410EDC6
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 12:23:43 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-490bc6a7958so15386015e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 05:23:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1781785406; x=1782390206; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1781785422; x=1782390222; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=LAtGu/fA9uXxnFye1zu9fsid/L2b+MdGaREMuZCR+iU=;
- b=BM6gQ3PfPyPju2f3J35iGnGZhqv4VRvzzUMnE0j5AZEEPvcaLYtWGrTLgCSKOackiB
- /EyiaNNPeojgxv7W9fqkIoUXeBD8IE3FH6UDUbBjJ2zxdBuhnwDYvGndnEcmOp0z8Wt8
- TlfFeo4g3uu/gEevolg1ojBC9QvAodlwJ1g0P4EIzCI2JCD/kUSizueiKDsLQe6LMOIE
- 5Qt1ccjm3jfKDZK9YqRegiUSpwaJIXwdQP9qpz2pQjNhPI6Mm8lxhTmexNec8LQDjyGL
- J2AcJWT1zzTFXkoNqeb5rxlQHUdxi2Xw0SH4jmfE50ddkbAbSiC/DmpuTgMfczA0BV/b
- 1Pvw==
+ :reply-to; bh=D5FEcOXjp/hefaowFGFjzfPrPE1kEo+L375WErKUiNc=;
+ b=tYMZcovPElZX/UyiZT7+J8YhLuIBX+QHlh9NHsHTr8+wjthm0BduaF50LTYMic6e8T
+ DXRr5yNllmg/jiBww+VRyHgRJCGGPoV1IQB/V1dO5MivXpmkIf+OqBkvZ3un4bECVS0M
+ 1eVPaJW5CKVZ2+AQAvB8Y1Ie8p11ggWcKvvdMxzfmT0spzAGIAMXteHwVLfsJurL39j0
+ tk0ZemMMVpRUhq29LyMjLvPRlDR3aARtjMQRGIBaJnBoneNCJE1iwnsGaMZvy5N7qwMp
+ 4ZFWgDhOafDhW9+O/TcwsI0UHAzWh90F1/vM0cbMc9D8UE51a3FD/UOs3UBsBZOe0qaA
+ xJrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781785406; x=1782390206;
+ d=1e100.net; s=20251104; t=1781785422; x=1782390222;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=LAtGu/fA9uXxnFye1zu9fsid/L2b+MdGaREMuZCR+iU=;
- b=cyfBeaV1S8MHSQm2w+sNXDVuBhdCPncVbhQ6RtIn+tB4UKuFcsL4rmkwHLC/MAp4ES
- M4TfRMX/JyYgFG4wUj7koSEr9ViIJZ3y6FbRb6lyWQFsnhqBM7X5ep07LnLp+g99V8wn
- IC/kwJsGHuz4W8/evL+zV36RU3V8pz5iat6mMH6gxo3PU2WQ7/lx9dSmnS6B1x3Nx2+b
- 54saymO7iG+g9nLPz8liR1n7zSX6V6WjnpuQIWJJjbhCjDj3KD2DbjIbgdC0ktNC2odO
- 0TJk0dKRYSn7F3klih830NFAmBWqdL/VTo5YjljPsnO1admvLePBqKqhOG30qFgdT/i7
- 5ZOA==
+ bh=D5FEcOXjp/hefaowFGFjzfPrPE1kEo+L375WErKUiNc=;
+ b=W3Ult/HjBymo7gGRhEmoeZ6iGaFGVoqgtr9W25yi1vqnUZB1PphDrChFMDcYxMXvuD
+ qE8WzsVD7bELKzDPW7q47hGn1H4F+24jZcy+eQnaQICojhyy7aOEnjSZQfiHunjD1TJl
+ +KHvT57ZPkk/GZnKd62iNMtGF9taBuCd5V89UlDaDI/NpABZ1smvSMy5Aev7HM9ukwUF
+ QLFqIIaV3Ss8CBhzNQGhal740UAmoBTL3BoA9UQ0xlIg4zvYcJUQTA6O0p/eMNIXIsaa
+ wzVBm20DSKMEoX/5jA7Y+VwECqnv3Prfk5ezur21yPwSuanL0KFO4EdTko6oEqgjuAk8
+ iPsQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ++nlBKwR2WP7NUxcXfZnPzfgpt/RSfXZL18wPRcIXx6YsyQQ8iwR093xWxhLHkGDoiJerKhH7ein8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyQ9M6CHEDkVlRGYLRhYum7fa/CZmiy7MggdWhGT5X5vTVK+YId
- pio+XCCOzES+DR34mfERMkXhzoo5qys0pc4zmCU28NR9c6cTs0UaaQ8BbaOQ38gCgkM=
-X-Gm-Gg: AfdE7cnS+f5plvXjAdPudQmJDN618WfdFJVn3WSP2zLEF4JjkOQNBabeIPqPYtVbF5d
- aW6I1hSevLOZUhn6HtenVcdNAJFIYJEqp5bXyXipLOwwqrUt01to1Qh8KYvqi1Q/me2P7iockjZ
- zgdwSJ8NJ7UarnfJ0ah0OvFy+vgPHTKvguJsuoyv9fxcOaWjaUrTJ/r96B0yJUwDo4vw/WevfEr
- WPTdDGrEA1oK95UVQQD1SwgcivzlenOQLXUGRLu1smwfgxib0PN50R1CalGURjTK+UHsyLPgh6J
- U0q2xXJcs4gM24OqpkGil2fpq7necp4353qRZQuYBOWue5JYQgevoJEgoi80l5tzC5H9TsJ6uEE
- wmklJ9UDTB7NIYxEDMdsGg7wm4cKXinptQ1r3E95U64pzsd3kJipHHO9N00iAJO4ffhQNwJUmjz
- j1uSvvcm5VxfcQ8VGG+PI/AsQmRMIYtuF+ck1uiW4K2rfxmlQaWiBZiEdDGMthb9XAdg==
-X-Received: by 2002:a05:600c:4ed4:b0:492:1e36:85dd with SMTP id
- 5b1f17b1804b1-49238231011mr57313945e9.37.1781785406267; 
- Thu, 18 Jun 2026 05:23:26 -0700 (PDT)
+ AFNElJ8YIN7/8vExVvK1viFI2/Rkffd+T+lckb6Lcu2JX63mEE+hlV0Ztq8K1GSnObS6kosrWqNelSbm6ko=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwzFTrI9g6Jj+F4/ntjCwV5aqL2bJQIpjeeVPfBuP+bw7pRrFTN
+ Z/fm4mDBrqaRhMztpN7iHPq6glUkXIkjKZkgAj34uBJYP4PZcNaXaUMnQI2wopFLFS0=
+X-Gm-Gg: AfdE7cliIwlKa8u/WKAxa701Wee2HChL7UKsxdsaxEujJcHnVEKOjH4JUXrilMg7z3B
+ Ch7yMczHCaaCXmr555SERR3T+NsIrtHXnYVmzicxbpWwA9Q49AK7ZkWJliivlXdiGpnGVQZqRCR
+ u1pVFpxYBQObtvKIzWxC+NFau4xa395IdXHmey4gvXgl7US+hZOvTpORo4wzahvt22NuJTxk32O
+ 6PKz4Fzq7rnzzWnwKoQmQeDug6ip1iCh/2dpcIprqaE6IIoc4o68tZJgSIRpxYiwttsq+XagOeT
+ pIKEjJo89p8ulQkcFHtONAmGEAayjeoL1FqpmrYnvWsMwpxKH/XNe5TpwBHr1G2ET/3S+yQWkjT
+ lvyfhFZr2/ymwje4ImEdLpc5pv7vwsfY9hbCqeBFtxkb1WuIUqlLEvmCpwS4HzbebYmaxYobjH4
+ mwFsoP5oVe1u/xoIPm/ElnQ16za78/mk+jJRU7c+pMf5b+wok8gDAcXEY/+XTLQMVtvw==
+X-Received: by 2002:a7b:c8d3:0:b0:492:1e36:9a90 with SMTP id
+ 5b1f17b1804b1-492381a2e79mr37585935e9.18.1781785422212; 
+ Thu, 18 Jun 2026 05:23:42 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:6e1b:5a5:b2b5:b2c0?
  ([2a01:e0a:106d:1080:6e1b:5a5:b2b5:b2c0])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-461eaa0d275sm19033981f8f.2.2026.06.18.05.23.25
+ 5b1f17b1804b1-4922fa96f0esm274863325e9.12.2026.06.18.05.23.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Jun 2026 05:23:25 -0700 (PDT)
-Message-ID: <d7e482c2-80aa-49ec-b339-8bffbdd7e664@linaro.org>
-Date: Thu, 18 Jun 2026 14:23:24 +0200
+ Thu, 18 Jun 2026 05:23:41 -0700 (PDT)
+Message-ID: <716f71ae-4642-4f22-8a9f-5b1c017d9ac2@linaro.org>
+Date: Thu, 18 Jun 2026 14:23:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/3] drm/panel: himax-hx83121a: pass the panel pointer
- when creating BL
+Subject: Re: [PATCH 3/3] drm/panel: himax-hx83121a: add backlight regulator
+ support
 To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
  Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -82,7 +82,7 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20260608162622.403713-1-zhengxingda@iscas.ac.cn>
- <20260608162622.403713-2-zhengxingda@iscas.ac.cn>
+ <20260608162622.403713-3-zhengxingda@iscas.ac.cn>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -109,7 +109,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260608162622.403713-2-zhengxingda@iscas.ac.cn>
+In-Reply-To: <20260608162622.403713-3-zhengxingda@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -129,65 +129,72 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 6/8/26 18:26, Icenowy Zheng wrote:
-> As backlight powering on/off support will be added, more fields of the
-> panel context will be accessed in the backlight update function.
+> The backlight, when managed by the panel controller, could be powered by
+> an external regulator, and shutting down the regulator could power off
+> the backlight.
 > 
-> Pass the whole panel struct instead of the DSI device when creating the
-> backlight device.
+> Add support for such a regulator. It's powered off when the backlight is
+> 0 (either by setting brightness to 0 or setting bl_power), and powered
+> on when the backlight should be operating.
 > 
 > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 > ---
->   drivers/gpu/drm/panel/panel-himax-hx83121a.c | 13 +++++++------
->   1 file changed, 7 insertions(+), 6 deletions(-)
+>   drivers/gpu/drm/panel/panel-himax-hx83121a.c | 26 ++++++++++++++++++++
+>   1 file changed, 26 insertions(+)
 > 
 > diff --git a/drivers/gpu/drm/panel/panel-himax-hx83121a.c b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-> index bed79aa06f46a..1a7e0125bced8 100644
+> index 1a7e0125bced8..e31e2fba0a787 100644
 > --- a/drivers/gpu/drm/panel/panel-himax-hx83121a.c
 > +++ b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-> @@ -193,10 +193,11 @@ static const struct drm_panel_funcs himax_panel_funcs = {
->   
->   static int himax_bl_update_status(struct backlight_device *bl)
->   {
-> -	struct mipi_dsi_device *dsi = bl_get_data(bl);
-> +	struct himax *ctx = bl_get_data(bl);
->   	u16 brightness = backlight_get_brightness(bl);
->   	/* TODO: brightness to raw map table */
-> -	return mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-> +	return mipi_dsi_dcs_set_display_brightness_large(to_primary_dsi(ctx),
-> +							 brightness);
->   }
->   
->   static const struct backlight_ops himax_bl_ops = {
-> @@ -205,9 +206,9 @@ static const struct backlight_ops himax_bl_ops = {
+> @@ -34,7 +34,9 @@ struct himax {
+>   	struct drm_dsc_config dsc;
+>   	struct gpio_desc *reset_gpio;
+>   	struct regulator_bulk_data *supplies;
+> +	struct regulator *bl_supply;
+>   	struct backlight_device *backlight;
+> +	bool backlight_enabled;
 >   };
 >   
->   static struct backlight_device *
-> -himax_create_backlight(struct mipi_dsi_device *dsi)
-> +himax_create_backlight(struct himax *ctx)
+>   struct panel_desc {
+> @@ -195,7 +197,27 @@ static int himax_bl_update_status(struct backlight_device *bl)
 >   {
-> -	struct device *dev = &dsi->dev;
-> +	struct device *dev = &to_primary_dsi(ctx)->dev;
->   	const struct backlight_properties props = {
->   		.type = BACKLIGHT_RAW,
->   		.brightness = 512,
-> @@ -215,7 +216,7 @@ himax_create_backlight(struct mipi_dsi_device *dsi)
->   		.scale = BACKLIGHT_SCALE_NON_LINEAR,
->   	};
->   
-> -	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
-> +	return devm_backlight_device_register(dev, dev_name(dev), dev, ctx,
->   					      &himax_bl_ops, &props);
+>   	struct himax *ctx = bl_get_data(bl);
+>   	u16 brightness = backlight_get_brightness(bl);
+> +	int ret = 0;
+> +
+> +	if (!brightness) {
+> +		if (ctx->backlight_enabled)
+> +			ret = regulator_disable(ctx->bl_supply);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ctx->backlight_enabled = false;
+> +
+> +		return 0;
+> +	}
+> +
+>   	/* TODO: brightness to raw map table */
+> +	if (!ctx->backlight_enabled)
+> +		ret = regulator_enable(ctx->bl_supply);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ctx->backlight_enabled = true;
+> +
+>   	return mipi_dsi_dcs_set_display_brightness_large(to_primary_dsi(ctx),
+>   							 brightness);
 >   }
->   
-> @@ -646,7 +647,7 @@ static int himax_probe(struct mipi_dsi_device *dsi)
+> @@ -647,6 +669,10 @@ static int himax_probe(struct mipi_dsi_device *dsi)
 >   	ctx->panel.prepare_prev_first = true;
 >   
 >   	if (desc->has_dcs_backlight) {
-> -		ctx->backlight = himax_create_backlight(to_primary_dsi(ctx));
-> +		ctx->backlight = himax_create_backlight(ctx);
+> +		ctx->bl_supply = devm_regulator_get_optional(dev, "bl");
+> +		if (IS_ERR(ctx->bl_supply))
+> +			return dev_err_probe(dev, PTR_ERR(ctx->bl_supply),
+> +					     "Failed to get backlight supply\n");
+>   		ctx->backlight = himax_create_backlight(ctx);
 >   		if (IS_ERR(ctx->backlight))
 >   			return dev_err_probe(dev, PTR_ERR(ctx->backlight),
->   					     "Failed to create backlight\n");
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
