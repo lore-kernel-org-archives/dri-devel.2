@@ -4,109 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 298E2CD98F2
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 08:09:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F61CCD98F0
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 08:11:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85F7110F1F0;
-	Thu, 18 Jun 2026 08:09:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68D6610ECBB;
+	Thu, 18 Jun 2026 08:11:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E2wyTbM9";
+	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="Wv+neOsH";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010032.outbound.protection.outlook.com [52.101.201.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E18D610F1EA;
- Thu, 18 Jun 2026 08:09:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gt6lEknQF+PQVOXrbR8y3LcK5tonECCZF9kvXshbsTDEi3P7cuFeUWTfezY7mcEjgd3i5Fh95sqt1ofvgQJzNY3E8il3FLQquMeuPjgkor/4mNUyyAnKh+GJcWYEXlFoQzPW+edvHfmJWiWHEaG6Ltv5Imkn7WQpCQkz/Af+O/4zNGkUvADRA3olWLf7ddsY0OMJ6fMWtT6vUUyiC1tHCU2/FOKTGPPjumEaW43/TsMgXBCDsR7pImpy61zf0S87riX3HX6PWBsBcXfUZgwYbFC4fIoVFuB+EzyFvmsXMVWnMftg4pu+dLzv9LJXUQfzAJMQKh37XkDbifv/dZEf3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tEn314D2VQSbdmI+R/R3PB/wZqf4tDlmMUjGjRqqyO8=;
- b=dIwRMFyL2IGY0Qti4xTLxy64lTPlIkdVCGBWz/3B/w889rhVicXTJdI6oa6mMQPwG8mcp3LiZtB8pBYRhY/e7ZOOe3LGk8eodAMn74QSAMP8hOMpR0hlRvUd4mJHm3WWp/trMT7dxe3UmNG2uQsimqKKnpHqcuheqGmsrZkiJ0058qYSVl7UTTuvz8FvQa2VjGiFT+NLcdzjKA2aWJbiCJfpPep6vQwAu8N5eh8RP/1PBrB6mZ1oUq1dekyPRN798jUd1LIIfxkNQsOzD/Bi2iSXypPeQYoZjrvDTOOvTkN1jPUtmewaxiGPfVGxAH4AltnVlbCBSj6olBAy7UHuAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tEn314D2VQSbdmI+R/R3PB/wZqf4tDlmMUjGjRqqyO8=;
- b=E2wyTbM9sThqViONhfT8C7S9zj8lzhTIYFV/oashB4iK1uVgXXCNUCiYO1/Kfy299i3FA+uL8g9lUP2bw2T38v4lga1clgBuR4X5GPobnR644vOVpUH9T1dR8UWBVFtpm3wF71MiIdfg1KS8ev5laGumzOEryphkPf1loxq+9xw=
-Received: from PH8P221CA0001.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:2d8::16)
- by BL4PR12MB9535.namprd12.prod.outlook.com (2603:10b6:208:591::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Thu, 18 Jun
- 2026 08:09:49 +0000
-Received: from CY4PEPF0000E9D5.namprd05.prod.outlook.com
- (2603:10b6:510:2d8:cafe::45) by PH8P221CA0001.outlook.office365.com
- (2603:10b6:510:2d8::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.12 via Frontend Transport; Thu,
- 18 Jun 2026 08:09:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000E9D5.mail.protection.outlook.com (10.167.241.68) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Thu, 18 Jun 2026 08:09:49 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 18 Jun
- 2026 03:09:49 -0500
-Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 18 Jun
- 2026 01:09:44 -0700
-From: Honglei Huang <honglei1.huang@amd.com>
-To: <sima@ffwll.ch>, <matthew.brost@intel.com>, <rodrigo.vivi@intel.com>,
- <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>
-CC: <aliceryhl@google.com>, <Alexander.Deucher@amd.com>,
- <Felix.Kuehling@amd.com>, <Christian.Koenig@amd.com>, <Oak.Zeng@amd.com>,
- <Jenny-Jing.Liu@amd.com>, <Philip.Yang@amd.com>, <Xiaogang.Chen@amd.com>,
- <Ray.Huang@amd.com>, <Lingshan.Zhu@amd.com>, <Junhua.Shen@amd.com>,
- <Yiru.Ma@amd.com>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <honghuan@amd.com>
-Subject: [PATCH v3 5/5] drm/gpusvm: let the drm_gpusvm core context purely MM
- level
-Date: Thu, 18 Jun 2026 16:09:02 +0800
-Message-ID: <20260618080902.1527255-6-honglei1.huang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260618080902.1527255-1-honglei1.huang@amd.com>
-References: <20260618080902.1527255-1-honglei1.huang@amd.com>
+Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33CFD10ECBB
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 08:11:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+ s=protonmail; t=1781770246; x=1782029446;
+ bh=il13JZXSJpfwDVrhPAiRTVZ2CIyzBfQKH8+hwIpyxAA=;
+ h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+ Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=Wv+neOsHPNFrzUzR1T6c+Nm8SMdjfWY/pQfGR4t8YaGoAPK8NA8VKqx2HaH/wZ1ke
+ pEpTES0lpXf26srd6UW5QjMNjBl6UrqTGa7T7eyoe8uuq03xqMqIfzYA97u7h//1Qz
+ f1Oo0G5s8ab/+EWJvJBkFZy8JcwVELKGhDfhoHeUCf4RIqVOMe6gf7wBcpLMZd0UPa
+ LzZSecvPDXmSCGXid1Qqd4EwF8p0ldlilDHkgwoW1nSi2FA6Vj4LYEdyEwNKANN4Kd
+ SlEeVYtVVa3ALpHPpUanOg9Z1jhiKm95uzRmnrfnSsPNCzqNmYSwTIbddi2YoC/q+F
+ HuVuTEba7BFTw==
+X-Pm-Submission-Id: 4ggthG5v2fz2ScNJ
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: Daniel Almeida <daniel.almeida@collabora.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Drew Fustini <fustini@kernel.org>,
+ Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ Brian Masney <bmasney@redhat.com>, Boqun Feng <boqun@kernel.org>,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
+ linux-pwm@vger.kernel.org, linux-clk@vger.kernel.org,
+ rust-for-linux@vger.kernel.org,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Subject: Re: [PATCH v4 1/3] rust: clk: use the type-state pattern
+Date: Thu, 18 Jun 2026 11:10:34 +0300
+Message-ID: <20260618081037.35784-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <20260618-clk-type-state-v4-1-8be082786080@collabora.com>
+References: <20260618-clk-type-state-v4-0-8be082786080@collabora.com>
+ <20260618-clk-type-state-v4-1-8be082786080@collabora.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
- (10.181.42.218)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D5:EE_|BL4PR12MB9535:EE_
-X-MS-Office365-Filtering-Correlation-Id: 268ca04b-84f4-4b21-a203-08decd10f7cd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|23010399003|36860700016|376014|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: vKyDDMO7mWkiP7LR8TeKFRVoU8OEX/4xfjJ22blhY2xkGYwlTVKc5yLWY3ZQgwO2yF/iJ5ZIw63g8ddPzdCcl/xEdLveL72WPNJvnkOxdbDqqHg/ndc3vLd+DKxlAVUmCrp5rcUwZgkwOH/rNBIz3cR8iAsgeMUxbR+pt3iNRm3OljT0I36TrjYa8yfO2TQ8EJJTeM+uhWee+DhhxMj9nSeKQueizqoAhskjFLTMLXzNFaEuw/Dv/o5LYl3hpW1tKaC0Qh8DjcpcYut8sSjJr2xCfcl2YJbshGV3DbPWcHJ1htYjtc0VDeoEXKPR9pWrY1tDeS03NygEPk2zO3aZbFnMLzavAv8WnUGdkhGCCbOQWErst1bkmlnlaO6gzWutralpkZ6B1i76L+1FYvN2ERCUTqbl90hZo2uHnN9mtqoz4JNaClrNmxSHQ0HbjqcHL1KX30tDHi9SouMtnALg9UQCkjwtvggmisteXli5j7JaX+rgEb0E1docylDY60/5jBsuKuFggBpIv5yOUCnC18qaDP6g6LLhKYisLg7DET34i6cJ4R/xmC7PXjhl88ijz2Ir6YgN4tdW5vRSWWzXPPzKLiyjR7FK2D6IQUPRZYJrtAxwuv0nSRXsfLSSbOA2WpCvfxrR8Gz5wXxruABBKXFK6/u/U+v2DP2omPQSzzbsd0ztIlWhTAvD7LHQUC5LN1N8clvQiAf/nDe0Xiyr83IecjkxztEXMNIm7Wo64ZU=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(23010399003)(36860700016)(376014)(22082099003)(18002099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: sZZOV315JZfRn3LDtelxcS0zGYTusTY6COjWm6ipCBUqOBFtR2OPdneMIWU9Cs/6Yz2YX889WxxXOJYdRF7fl2xQE6aH0xyNeW9eIs0/47wPs1ABl3deNl8trsCPDKYFjTozPjfWMZ/rB/3KL+2aMWO0pedRlXspcKdKVqZwEd/atAxT/Jq1kNzpJYDLxZCkhKiLpEljPZd7dAxPRjEW8WiNJgrL/0EZKosG0wsS/uZC18CMcI1bT6RUk3phYdFP15hJGR6FVEA3dMErst8sAZkpMweKem54SpAomLBd7ZbsZUtdCdnKkaHJo9tfFiHngmHXzrkScS2RCXiXHTwr2IJk76GtP+aG16Z0yZc868Ea86rzXRJUPEaRV5bjzxraQLDKxdL0Mue3cYDnST8xKLg08Y9we2G3cVGA0ZQxl1gpUQLXLtEe1RcQa6wRb2CA
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 08:09:49.2944 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 268ca04b-84f4-4b21-a203-08decd10f7cd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9535
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,137 +76,216 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Honglei Huang <honghuan@amd.com>
-
-The core mechanism of drm_gpusvm is HMM, which is fundamentally an
-MM side subsystem. A drm_device, enters the picture on the device side at
-DMA mapping / GPU bind.
-
-So move struct drm_device from struct drm_gpusvm in drm_gpusvm. Let
-drm_gpusvm keep its core neutral and leave device side decisions to
-the driver. Make drm_gpusvm a pure MM level object.
-
-  - Move the drm_device from struct drm_gpusvm. drm_device now stored in
-    drm_gpusvm_pages.
-  - Drop the drm parameter from drm_gpusvm_init()
-  - Update the xe call sites in xe_svm_init() and other callers.
-
-drm_device does not disappear from the framework, it is
-relocated onto each drm_gpusvm_pages where DMA actually happens.
-
-Suggested-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Honglei Huang <honghuan@amd.com>
----
- drivers/gpu/drm/drm_gpusvm.c | 8 ++++----
- drivers/gpu/drm/xe/xe_svm.c  | 4 ++--
- drivers/gpu/drm/xe/xe_svm.h  | 2 +-
- include/drm/drm_gpusvm.h     | 4 +---
- 4 files changed, 8 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-index 842bfb37a36..9d5badb038a 100644
---- a/drivers/gpu/drm/drm_gpusvm.c
-+++ b/drivers/gpu/drm/drm_gpusvm.c
-@@ -433,7 +433,6 @@ static const struct mmu_interval_notifier_ops drm_gpusvm_notifier_ops = {
-  * drm_gpusvm_init() - Initialize the GPU SVM.
-  * @gpusvm: Pointer to the GPU SVM structure.
-  * @name: Name of the GPU SVM.
-- * @drm: Pointer to the DRM device structure.
-  * @mm: Pointer to the mm_struct for the address space.
-  * @mm_start: Start address of GPU SVM.
-  * @mm_range: Range of the GPU SVM.
-@@ -447,7 +446,9 @@ static const struct mmu_interval_notifier_ops drm_gpusvm_notifier_ops = {
-  * This function initializes the GPU SVM.
-  *
-  * Note: If only using the simple drm_gpusvm_pages API (get/unmap/free),
-- * then only @gpusvm, @name, and @drm are expected. However, the same base
-+ * then only @gpusvm and @name are expected. The @drm drm_device for dma
-+ * mappings is bound per-pages via drm_gpusvm_init_pages() before the first
-+ * drm_gpusvm_get_pages() call. However, the same base
-  * @gpusvm can also be used with both modes together in which case the full
-  * setup is needed, where the core drm_gpusvm_pages API will simply never use
-  * the other fields.
-@@ -455,7 +456,7 @@ static const struct mmu_interval_notifier_ops drm_gpusvm_notifier_ops = {
-  * Return: 0 on success, a negative error code on failure.
-  */
- int drm_gpusvm_init(struct drm_gpusvm *gpusvm,
--		    const char *name, struct drm_device *drm,
-+		    const char *name,
- 		    struct mm_struct *mm,
- 		    unsigned long mm_start, unsigned long mm_range,
- 		    unsigned long notifier_size,
-@@ -473,7 +474,6 @@ int drm_gpusvm_init(struct drm_gpusvm *gpusvm,
- 	}
- 
- 	gpusvm->name = name;
--	gpusvm->drm = drm;
- 	gpusvm->mm = mm;
- 	gpusvm->mm_start = mm_start;
- 	gpusvm->mm_range = mm_range;
-diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
-index 77af0a8de63..7c4e40809e6 100644
---- a/drivers/gpu/drm/xe/xe_svm.c
-+++ b/drivers/gpu/drm/xe/xe_svm.c
-@@ -906,7 +906,7 @@ int xe_svm_init(struct xe_vm *vm)
- 			return err;
- 		}
- 
--		err = drm_gpusvm_init(&vm->svm.gpusvm, "Xe SVM", &vm->xe->drm,
-+		err = drm_gpusvm_init(&vm->svm.gpusvm, "Xe SVM",
- 				      current->mm, 0, vm->size,
- 				      xe_modparam.svm_notifier_size * SZ_1M,
- 				      &gpusvm_ops, fault_chunk_sizes,
-@@ -920,7 +920,7 @@ int xe_svm_init(struct xe_vm *vm)
- 		}
- 	} else {
- 		err = drm_gpusvm_init(&vm->svm.gpusvm, "Xe SVM (simple)",
--				      &vm->xe->drm, NULL, 0, 0, 0, NULL,
-+				      NULL, 0, 0, 0, NULL,
- 				      NULL, 0);
- 	}
- 
-diff --git a/drivers/gpu/drm/xe/xe_svm.h b/drivers/gpu/drm/xe/xe_svm.h
-index 1423ab2f1d6..63ea991e2cb 100644
---- a/drivers/gpu/drm/xe/xe_svm.h
-+++ b/drivers/gpu/drm/xe/xe_svm.h
-@@ -235,7 +235,7 @@ static inline
- int xe_svm_init(struct xe_vm *vm)
- {
- #if IS_ENABLED(CONFIG_DRM_GPUSVM)
--	return drm_gpusvm_init(&vm->svm.gpusvm, "Xe SVM (simple)", &vm->xe->drm,
-+	return drm_gpusvm_init(&vm->svm.gpusvm, "Xe SVM (simple)",
- 			       NULL, 0, 0, 0, NULL, NULL, 0);
- #else
- 	return 0;
-diff --git a/include/drm/drm_gpusvm.h b/include/drm/drm_gpusvm.h
-index 5edfa7d0c36..f40b52e3ae7 100644
---- a/include/drm/drm_gpusvm.h
-+++ b/include/drm/drm_gpusvm.h
-@@ -195,7 +195,6 @@ struct drm_gpusvm_range {
-  * struct drm_gpusvm - GPU SVM structure
-  *
-  * @name: Name of the GPU SVM
-- * @drm: Pointer to the DRM device structure
-  * @mm: Pointer to the mm_struct for the address space
-  * @mm_start: Start address of GPU SVM
-  * @mm_range: Range of the GPU SVM
-@@ -219,7 +218,6 @@ struct drm_gpusvm_range {
-  */
- struct drm_gpusvm {
- 	const char *name;
--	struct drm_device *drm;
- 	struct mm_struct *mm;
- 	unsigned long mm_start;
- 	unsigned long mm_range;
-@@ -271,7 +269,7 @@ struct drm_gpusvm_ctx {
- };
- 
- int drm_gpusvm_init(struct drm_gpusvm *gpusvm,
--		    const char *name, struct drm_device *drm,
-+		    const char *name,
- 		    struct mm_struct *mm,
- 		    unsigned long mm_start, unsigned long mm_range,
- 		    unsigned long notifier_size,
--- 
-2.34.1
-
+On Thu, 18 Jun 2026 00:46:35 -0300=0D
+Daniel Almeida <daniel.almeida@collabora.com> wrote:=0D
+=0D
+> The current Clk abstraction can still be improved on the following issues=
+:=0D
+> =0D
+> a) It only keeps track of a count to clk_get(), which means that users ha=
+ve=0D
+> to manually call disable() and unprepare(), or a variation of those, like=
+=0D
+> disable_unprepare().=0D
+> =0D
+> b) It allows repeated calls to prepare() or enable(), but it keeps no tra=
+ck=0D
+> of how often these were called, i.e., it's currently legal to write the=0D
+> following:=0D
+> =0D
+> clk.prepare();=0D
+> clk.prepare();=0D
+> clk.enable();=0D
+> clk.enable();=0D
+> =0D
+> And nothing gets undone on drop().=0D
+> =0D
+> c) It adds a OptionalClk type that is probably not needed. There is no=0D
+> "struct optional_clk" in C and we should probably not add one.=0D
+> =0D
+> d) It does not let a user express the state of the clk through the=0D
+> type system. For example, there is currently no way to encode that a Clk =
+is=0D
+> enabled via the type system alone.=0D
+> =0D
+> In light of the Regulator abstraction that was recently merged, switch th=
+is=0D
+> abstraction to use the type-state pattern instead. It solves both a) and =
+b)=0D
+> by establishing a number of states and the valid ways to transition betwe=
+en=0D
+> them. It also automatically undoes any call to clk_get(), clk_prepare() a=
+nd=0D
+> clk_enable() as applicable on drop(), so users do not have to do anything=
+=0D
+> special before Clk goes out of scope.=0D
+> =0D
+> It solves c) by removing the OptionalClk type, which is now simply encode=
+d=0D
+> as a Clk whose inner pointer is NULL.=0D
+> =0D
+> It solves d) by directly encoding the state of the Clk into the type, e.g=
+.:=0D
+> Clk<Enabled> is now known to be a Clk that is enabled.=0D
+> =0D
+> The INVARIANTS section for Clk is expanded to highlight the relationship=
+=0D
+> between the states and the respective reference counts that are owned by=
+=0D
+> each of them.=0D
+> =0D
+> The examples are expanded to highlight how a user can transition between=
+=0D
+> states, as well as highlight some of the shortcuts built into the API.=0D
+> =0D
+> The current implementation is also more flexible, in the sense that it=0D
+> allows for more states to be added in the future. This lets us implement=
+=0D
+> different strategies for handling clocks, including one that mimics the=0D
+> current API, allowing for multiple calls to prepare() and enable().=0D
+> =0D
+> The users (cpufreq.rs/ rcpufreq_dt.rs) were updated by this patch (and no=
+t=0D
+> a separate one) to reflect the new changes. This is needed, because=0D
+> otherwise this patch would break the build.=0D
+> =0D
+> Link: https://crates.io/crates/sealed [1]=0D
+> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>=0D
+> ---=0D
+>  drivers/cpufreq/rcpufreq_dt.rs |   2 +-=0D
+>  drivers/gpu/drm/tyr/driver.rs  |  31 +--=0D
+>  drivers/pwm/pwm_th1520.rs      |  17 +-=0D
+>  rust/kernel/clk.rs             | 512 ++++++++++++++++++++++++++++++-----=
+------=0D
+>  rust/kernel/cpufreq.rs         |   8 +-=0D
+>  5 files changed, 396 insertions(+), 174 deletions(-)=0D
+> =0D
+> diff --git a/drivers/cpufreq/rcpufreq_dt.rs b/drivers/cpufreq/rcpufreq_dt=
+.rs=0D
+> index f17bf64c22e2..9d2ec7df4bac 100644=0D
+> --- a/drivers/cpufreq/rcpufreq_dt.rs=0D
+> +++ b/drivers/cpufreq/rcpufreq_dt.rs=0D
+> @@ -40,7 +40,7 @@ struct CPUFreqDTDevice {=0D
+>      freq_table: opp::FreqTable,=0D
+>      _mask: CpumaskVar,=0D
+>      _token: Option<opp::ConfigToken>,=0D
+> -    _clk: Clk,=0D
+> +    _clk: Clk<kernel::clk::Unprepared>,=0D
+>  }=0D
+>  =0D
+>  #[derive(Default)]=0D
+> diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.r=
+s=0D
+> index 279710b36a10..a2230aebfea2 100644=0D
+> --- a/drivers/gpu/drm/tyr/driver.rs=0D
+> +++ b/drivers/gpu/drm/tyr/driver.rs=0D
+> @@ -3,7 +3,7 @@=0D
+>  use kernel::{=0D
+>      clk::{=0D
+>          Clk,=0D
+> -        OptionalClk, //=0D
+> +        Enabled, //=0D
+>      },=0D
+>      device::{=0D
+>          Bound,=0D
+> @@ -49,7 +49,7 @@ pub(crate) struct TyrPlatformDriverData {=0D
+=0D
+[...]=0D
+=0D
+> -        /// Disable and unprepare the clock.=0D
+> -        ///=0D
+> -        /// Equivalent to calling [`Clk::disable`] followed by [`Clk::un=
+prepare`].=0D
+> +        /// Behaves the same as [`Self::get`], except when there is no c=
+lock=0D
+> +        /// producer. In this case, instead of returning [`ENOENT`], it =
+returns=0D
+> +        /// a dummy [`Clk`].=0D
+>          #[inline]=0D
+> -        pub fn disable_unprepare(&self) {=0D
+> -            // SAFETY: By the type invariants, self.as_raw() is a valid =
+argument for=0D
+> -            // [`clk_disable_unprepare`].=0D
+> -            unsafe { bindings::clk_disable_unprepare(self.as_raw()) };=0D
+> +        pub fn get_optional(dev: &Device<Bound>, name: Option<&CStr>) ->=
+ Result<Clk<Enabled>> {=0D
+> +            Clk::<Prepared>::get_optional(dev, name)?=0D
+> +                .enable()=0D
+> +                .map_err(|error| error.error)=0D
+> +        }=0D
+> +=0D
+> +        /// Attempts to disable the [`Clk`] and convert it to the [`Prep=
+ared`]=0D
+=0D
+nit: I wouldn't use the word "Attempts" for an infallible function.=0D
+=0D
+> +        /// state.=0D
+> +        #[inline]=0D
+> +        pub fn disable(self) -> Result<Clk<Prepared>, Error<Enabled>> {=
+=0D
+=0D
+This is an infallible function, you can return Clk<Prepared> directly.=0D
+=0D
+Thanks,=0D
+Onur=0D
+=0D
+> +            // We will be transferring the ownership of our `clk_get()` =
+and=0D
+> +            // `clk_enable()` counts to `Clk<Prepared>`.=0D
+> +            let clk =3D ManuallyDrop::new(self);=0D
+> +=0D
+> +            // SAFETY: By the type invariants, `self.0` is a valid argum=
+ent for=0D
+> +            // [`clk_disable`].=0D
+> +            unsafe { bindings::clk_disable(clk.as_raw()) };=0D
+> +=0D
+> +            Ok(Clk {=0D
+> +                inner: clk.inner,=0D
+> +                _phantom: PhantomData,=0D
+> +            })=0D
+>          }=0D
+>  =0D
+>          /// Get clock's rate.=0D
+> @@ -251,82 +544,31 @@ pub fn set_rate(&self, rate: Hertz) -> Result {=0D
+> +                // [`clk_unprepare`].=0D
+=0D
+[...]=0D
+=0D
+> +                unsafe { bindings::clk_unprepare(self.as_raw()) };=0D
+> +            }=0D
+>  =0D
+> -        fn deref(&self) -> &Clk {=0D
+> -            &self.0=0D
+> +            // SAFETY: By the type invariants, self.as_raw() is a valid =
+argument for=0D
+> +            // [`clk_put`].=0D
+> +            unsafe { bindings::clk_put(self.as_raw()) };=0D
+>          }=0D
+>      }=0D
+>  }=0D
+> diff --git a/rust/kernel/cpufreq.rs b/rust/kernel/cpufreq.rs=0D
+> index d8d26870bea2..e837bb1010e0 100644=0D
+> --- a/rust/kernel/cpufreq.rs=0D
+> +++ b/rust/kernel/cpufreq.rs=0D
+> @@ -553,8 +553,12 @@ pub fn cpus(&mut self) -> &mut cpumask::Cpumask {=0D
+>      /// The caller must guarantee that the returned [`Clk`] is not dropp=
+ed while it is getting used=0D
+>      /// by the C code.=0D
+>      #[cfg(CONFIG_COMMON_CLK)]=0D
+> -    pub unsafe fn set_clk(&mut self, dev: &Device, name: Option<&CStr>) =
+-> Result<Clk> {=0D
+> -        let clk =3D Clk::get(dev, name)?;=0D
+> +    pub unsafe fn set_clk(=0D
+> +        &mut self,=0D
+> +        dev: &Device,=0D
+> +        name: Option<&CStr>,=0D
+> +    ) -> Result<Clk<crate::clk::Unprepared>> {=0D
+> +        let clk =3D Clk::<crate::clk::Unprepared>::get_unbound(dev, name=
+)?;=0D
+>          self.as_mut_ref().clk =3D clk.as_raw();=0D
+>          Ok(clk)=0D
+>      }=0D
+> =0D
+> -- =0D
+> 2.54.0=0D
+> =0D
