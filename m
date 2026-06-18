@@ -4,68 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12AF6CD98F2
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 14:53:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEC35CD98F2
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 15:03:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CB4410E40B;
-	Thu, 18 Jun 2026 14:53:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20E4E10E874;
+	Thu, 18 Jun 2026 15:03:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RbweEWvR";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JZBrilnC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77F3810E3E1
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 14:53:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781794412; x=1813330412;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=LQK1k5amiHum4k7v4qC2gC4HASrAHvCiHPCPe6WMhvw=;
- b=RbweEWvRVXW3Ud8F1wQKHSmBlYuQJH09IY+nOzxGwNxwe+FvX2bun3eH
- 5VlgaP6UilWgXLg/fBdROQ2c7W6A/Ep8u9mXUp37/DIGgB/+ponoupf1S
- pq6Kvtlryt0p1W7cCzUqlSb1+l/r7tqOI/PfPB5EXyTurVpgJOtpCrhNL
- fiJFd0cgn4Opq9Lo7KpuiMqJTYCx6+2cz7yayHLMLWp5TEbLyfpuMECtH
- q0xyjafeuc2boofgYtB0OOxYyEQ/9xY6TdpVpr9AVO/AY60ecztc0Ifll
- 4sS3brzDr7Tffz5ufMQLVlhNSuQvYb4jvrHTD1L07cxwNxGQqFNbLO0/E w==;
-X-CSE-ConnectionGUID: RD1irFtcREGdQKWM2Ub5Kg==
-X-CSE-MsgGUID: 9U+/4rBKTgeNihc3Clw+5w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11820"; a="100043986"
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; d="scan'208";a="100043986"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2026 07:53:31 -0700
-X-CSE-ConnectionGUID: PZCw4ob6SS6eGvQzQ+Kg9A==
-X-CSE-MsgGUID: YUYyLKqDRGSAcHM4J6hSkw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; d="scan'208";a="244027388"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.244.2])
- by fmviesa006-auth.fm.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 07:53:26 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: =?utf-8?Q?Andr=C3=A9?= Draszik <andre.draszik@linaro.org>, Maarten
- Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, Tvrtko Ursulin
- <tvrtko.ursulin@igalia.com>, Boris Brezillon
- <boris.brezillon@collabora.com>, Philipp Stanner <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, Peter Griffin
- <peter.griffin@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Juan
- Yescas <jyescas@google.com>, kernel-team@android.com, =?utf-8?Q?Andr?=
- =?utf-8?Q?=C3=A9?= Draszik <andre.draszik@linaro.org>
-Subject: Re: [PATCH] drm/drm_crtc: fix race with dma_fence_signal() in
- ::get_driver_name()
-In-Reply-To: <20260618-linux-drm_crtc_fix2-v1-1-c03e77b36f34@linaro.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260618-linux-drm_crtc_fix2-v1-1-c03e77b36f34@linaro.org>
-Date: Thu, 18 Jun 2026 17:53:23 +0300
-Message-ID: <03ea95355325fb0f8672005e10a8275304d93409@intel.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D93E010E874
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 15:03:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+ Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+ :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=9OryqeiBNTyp/eCwWofmOxdc9q8XrCnt6tEOVNRS4qU=; b=JZBrilnC+DPHcQB5gCYuiSWqoh
+ gMY5RPIzyWTnxCQm12X+DKJXA1xwPBhfYXBK6Jc/FlqaCtb51jHWS4Ql9GysMBH2xNkaLu4BZKdgA
+ oS3zvIS2WbcCMRC0KhxKwH67rZ8bmDYHOiPl8NgTpL63EtOMC0llnKgrOVm8wuUJ1wPxB3+u3Oym+
+ +vONL/tJz8MQHkyCfGE5dHtScbP51AehYmKbPb7VpEMpBWWPdcejmIrACwuqIEVN5aTXyJgoy6TGv
+ tam7MwhZB6l4Kdk+aKSheMefBblek9m9DTxL6VTJhs3r7AFJvLdvM5ci8yOyUEboGJFeLy+NkBnzJ
+ nnw55Pzw==;
+Received: from [189.7.87.67] (helo=[10.0.0.1])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1waEH5-001vhd-VM; Thu, 18 Jun 2026 17:03:24 +0200
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Date: Thu, 18 Jun 2026 12:03:13 -0300
+Subject: [PATCH v2 1/3] drm/v3d: Associate BOs with every job that accesses
+ them
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260618-v3d-cpu-job-fixes-v2-1-fec132484fc4@igalia.com>
+References: <20260618-v3d-cpu-job-fixes-v2-0-fec132484fc4@igalia.com>
+In-Reply-To: <20260618-v3d-cpu-job-fixes-v2-0-fec132484fc4@igalia.com>
+To: Melissa Wen <mwen@igalia.com>, Iago Toral Quiroga <itoral@igalia.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4066; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=DiOLg3XrwKwlxEEsz+Uo97KJu+Y098lfjHstJmEnAeI=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqNAi2Xf2Skvarnnr7+gAmMf9hse/hRZ80DpWq8
+ j5f+C1nb1eJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCajQItgAKCRA/8w6Kdoj6
+ qsgFB/0ZCbRjSF6MywF7V1o56yFQgfbBFGkY/ItImzoNEmjpmhucouxtLuOjbvLWj1sunNCVjDX
+ BsX6wrZl/Qs+ARZ3SSyB9RRwXwcyh1x/mzTj0J4bZzoZZ3hJRws5tTvx1b2bHY11AmL9iTOalVB
+ iBJUbmJS3ABdTDKbMtTUXzOqtgtYMnBCu3ixWcaTaLhDrn+jqNtL1MYfEwZP+3aoE+Z6d27hJsl
+ CcK/LquIpJQOg5qqCiEGRNbecGenqVBkuRdCsKFAgEvOF5EeAHl4IQzHeyedWFQWNvq7WOyJPXA
+ TY0UlWdXpMZywg2emUaXQ9gRdTN0OPRu/8Jc39i65hRF8Hpt
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,118 +72,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 18 Jun 2026, Andr=C3=A9 Draszik <andre.draszik@linaro.org> wrote:
-> Since commit 541c8f2468b9 ("dma-buf: detach fence ops on signal v3"),
-> I'm seeing the BUG_ON() triggering in drm_crtc's fence_to_crtc() via
-> drm_crtc_fence_get_driver_name() regularly:
->
->     Call trace:
->      panic+0x58/0x5c
->      die+0x160/0x178
->      bug_brk_handler+0x70/0xa4
->      call_el1_break_hook+0x3c/0x1a0
->      do_el1_brk64+0x24/0x74
->      el1_brk64+0x34/0x54
->      el1h_64_sync_handler+0x80/0xfc
->      el1h_64_sync+0x84/0x88
->      drm_crtc_fence_get_driver_name+0x60/0x68 (P)
->      sync_file_get_name+0x184/0x45c
->      sync_file_ioctl+0x404/0xf70
->      __arm64_sys_ioctl+0x124/0x1dc
->
-> This looks to be caused by a code flow similar to the following:
->
-> +++ snip +++
-> thread A                             thread B
->
->                                      ioctl(SYNC_IOC_FILE_INFO)
->                                      sync_file_ioctl()
->                                      sync_file_get_name()
-> dma_fence_signal_timestamp_locked()  dma_fence_driver_name()
->                                        ops =3D rcu_dereference(fence->ops)
->                                        if (!dma_fence_test_signaled_flag(=
-))
->                                          ops->get_driver_name(fence) i.e.
->                                          drm_crtc_fence_get_driver_name()
-> test_and_set_bit(SIGNALED)
-> RCU_INIT_POINTER(fence->ops, NULL)
->                                      drm_crtc_fence_get_driver_name()
->                                        BUG_ON(rcu_access_pointer(fence->o=
-ps)
->                                               !=3D &drm_crtc_fence_ops)
-> +++ snap +++
->
-> I see two ways to resolve this:
-> a) simply drop the BUG_ON(). It can not work anymore since above
->    commit, as it is racy now.
-> b) pass the original 'ops' pointer obtained in dma_fence_driver_name()
->    to all callees.
->
-> This patch implements option a), as because:
-> * I don't see much benefit in passing the extra pointer just for this
->   BUG_ON() to work.
-> * Requiring the dma_fence_ops in those callbacks is an implementation
->   detail of the drm_crtc driver, and therefore upper layers shouldn't
->   have to care about that.
-> * The existence of the BUG_ON() doesn't appear to be consistent with
->   implementations of ::get_driver_name() or ::get_timeline_name() in
->   the majority of other DRM drivers in the first place. Those that do
->   have a similar BUG_ON() (i915, xe) probably also need an update
->   similar to this patch here but I'm not in a position to test those.
->
-> Note that the adjacent drm_crtc_fence_get_timeline_name() has the same
-> problem and is fixed by this patch as well.
->
-> Fixes: 541c8f2468b9 ("dma-buf: detach fence ops on signal v3")
-> Signed-off-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
-> ---
->  drivers/gpu/drm/drm_crtc.c | 11 +++--------
->  1 file changed, 3 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-> index 63ead8ba6756..31c8636e7467 100644
-> --- a/drivers/gpu/drm/drm_crtc.c
-> +++ b/drivers/gpu/drm/drm_crtc.c
-> @@ -73,6 +73,9 @@
->   * &drm_mode_config_funcs.atomic_check.
->   */
->=20=20
-> +#define fence_to_crtc(f) container_of((f)->extern_lock, \
-> +				      struct drm_crtc, fence_lock)
-> +
->  /**
->   * drm_crtc_from_index - find the registered CRTC at an index
->   * @dev: DRM device
-> @@ -154,14 +157,6 @@ static void drm_crtc_crc_fini(struct drm_crtc *crtc)
->  #endif
->  }
->=20=20
-> -static const struct dma_fence_ops drm_crtc_fence_ops;
-> -
-> -static struct drm_crtc *fence_to_crtc(struct dma_fence *fence)
-> -{
-> -	BUG_ON(rcu_access_pointer(fence->ops) !=3D &drm_crtc_fence_ops);
+A submission can expand into a chain of jobs (e.g. bin + render + cache
+clean), but v3d_lookup_bos() only looked up the user's BO list onto the
+*last* job of the submission. Every earlier job was left with
+bo_count == 0 and an empty bo[] array.
 
-Whether removing the BUG_ON() turns out to be the right choice or not, I
-couldn't say, but please don't turn this function into a macro, at least
-not without rationale. (I can't think of any.)
+As a consequence, when implicit synchronization happens in
+v3d_submit_lock_reservations(), earlier jobs get no implicit
+dependencies at all, as the loop is gated on job->bo_count and earlier
+jobs don't have any BO attached to them. With that, the RENDER job could
+therefore be dispatched to the hardware and read a BO while another context
+was still writing it, leading to data corruption.
 
-BR,
-Jani.
+Fix this by calling v3d_lookup_bos() for each job that references the
+submission's BOs, so every job carries its own bo[]/bo_count and picks
+up the correct implicit dependencies during reservation locking.
 
-> -	return container_of(fence->extern_lock, struct drm_crtc, fence_lock);
-> -}
-> -
->  static const char *drm_crtc_fence_get_driver_name(struct dma_fence *fenc=
-e)
->  {
->  	struct drm_crtc *crtc =3D fence_to_crtc(fence);
->
-> ---
-> base-commit: e2cae00c05d196491c318196792297f2dfbaa02c
-> change-id: 20260618-linux-drm_crtc_fix2-23a7c354a412
->
-> Best regards,
+Fixes: dffa9b7a78c4 ("drm/v3d: Add missing implicit synchronization.")
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
+---
+ drivers/gpu/drm/v3d/v3d_submit.c | 36 +++++++++++++++++-------------------
+ 1 file changed, 17 insertions(+), 19 deletions(-)
 
---=20
-Jani Nikula, Intel
+diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+index ee2ac2540ed5..18467e448c91 100644
+--- a/drivers/gpu/drm/v3d/v3d_submit.c
++++ b/drivers/gpu/drm/v3d/v3d_submit.c
+@@ -68,7 +68,6 @@ v3d_submit_unlock_reservations(struct v3d_submit *submit)
+ /**
+  * v3d_lookup_bos() - Sets up job->bo[] with the GEM objects
+  * referenced by the job.
+- * @dev: DRM device
+  * @file_priv: DRM file for this fd
+  * @job: V3D job being set up
+  * @bo_handles: GEM handles
+@@ -82,23 +81,19 @@ v3d_submit_unlock_reservations(struct v3d_submit *submit)
+  * failure, because that will happen at `v3d_job_free()`.
+  */
+ static int
+-v3d_lookup_bos(struct v3d_submit *submit, u64 bo_handles, u32 bo_count)
++v3d_lookup_bos(struct drm_file *file_priv, struct v3d_job *job,
++	       u64 bo_handles, u32 bo_count)
+ {
+-	struct v3d_job *last_job = submit->jobs[submit->job_count - 1];
+-
+-	last_job->bo_count = bo_count;
+-
+-	if (!last_job->bo_count) {
+-		/* See comment on bo_index for why we have to check
+-		 * this.
+-		 */
+-		drm_warn(&submit->v3d->drm, "Rendering requires BOs\n");
++	if (!bo_count) {
++		drm_warn(&job->v3d->drm, "Rendering requires BOs\n");
+ 		return -EINVAL;
+ 	}
+ 
+-	return drm_gem_objects_lookup(submit->file_priv,
++	job->bo_count = bo_count;
++
++	return drm_gem_objects_lookup(file_priv,
+ 				      (void __user *)(uintptr_t)bo_handles,
+-				      last_job->bo_count, &last_job->bo);
++				      job->bo_count, &job->bo);
+ }
+ 
+ static void
+@@ -446,7 +441,8 @@ v3d_setup_csd_jobs_and_bos(struct v3d_submit *submit,
+ 	if (IS_ERR(clean_job))
+ 		return PTR_ERR(clean_job);
+ 
+-	return v3d_lookup_bos(submit, args->bo_handles, args->bo_handle_count);
++	return v3d_lookup_bos(submit->file_priv, &job->base,
++			      args->bo_handles, args->bo_handle_count);
+ }
+ 
+ static void
+@@ -1085,6 +1081,11 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 	if (ret)
+ 		goto fail;
+ 
++	ret = v3d_lookup_bos(submit.file_priv, &render->base,
++			     args->bo_handles, args->bo_handle_count);
++	if (ret)
++		goto fail;
++
+ 	if (args->flags & DRM_V3D_SUBMIT_CL_FLUSH_CACHE) {
+ 		clean_job = v3d_submit_add_job(&submit, V3D_CACHE_CLEAN);
+ 		if (IS_ERR(clean_job)) {
+@@ -1097,10 +1098,6 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 	if (ret)
+ 		goto fail;
+ 
+-	ret = v3d_lookup_bos(&submit, args->bo_handles, args->bo_handle_count);
+-	if (ret)
+-		goto fail;
+-
+ 	ret = v3d_submit_lock_reservations(&submit);
+ 	if (ret)
+ 		goto fail;
+@@ -1359,7 +1356,8 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+ 	 * the CSD and clean jobs in the case of indirect CSD job.
+ 	 */
+ 	if (args->bo_handle_count) {
+-		ret = v3d_lookup_bos(&submit, args->bo_handles, args->bo_handle_count);
++		ret = v3d_lookup_bos(submit.file_priv, &cpu_job->base,
++				     args->bo_handles, args->bo_handle_count);
+ 		if (ret)
+ 			goto fail;
+ 	}
+
+-- 
+2.54.0
+
