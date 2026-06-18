@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 398C8CD98ED
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 14:20:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9167ACD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 14:26:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80A4A10EB2B;
-	Thu, 18 Jun 2026 14:20:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7AD810F153;
+	Thu, 18 Jun 2026 14:26:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i9fhDrp3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R/ClUALd";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37F7910EB2B
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 14:20:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFDD910F153
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 14:26:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A072560008;
- Thu, 18 Jun 2026 14:20:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36E321F000E9;
- Thu, 18 Jun 2026 14:20:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B6A4544223;
+ Thu, 18 Jun 2026 14:26:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CBAC1F000E9;
+ Thu, 18 Jun 2026 14:26:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781792442;
- bh=h3ylYkJWh1rCkxBTBGW+4X00xSPRoSCa7jo4lYACGGc=;
+ s=k20260515; t=1781792816;
+ bh=gunwCFOGhxMFsLOqvbTfC7s3idz9A4B+pYQ3O1ubRPs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=i9fhDrp3Iqxj+aHn2Iv53j16U12hYR4EwjJKLrA8xmBxjgVWpTtUnqOgge6YX+M+W
- sYikMkKbBa939qxPKoPQlHaLNvNibUQ8pSS63dpoTjAWhSB2U9QuGTGg1JARViTDFH
- RcCCZJgdvhGyuuca85A2r9zds88j8nBb2JYKGX7gbxXppUn36AgFsH/BEO/QW1apt5
- TddnAvDaJjz1xtTxh4N+GzdYA3K2JuWgz9ZHA5Kdzz5tH8i9pWiYNzIwR0ZgNajV5J
- Ez/B/x/Wk2/Mkc8LJRsk+EF2kIL2e0ODY3g1HO8Mhd7+EhP2O/w+qMdaCMa90OGjpW
- y4HnEPzi9e9/A==
+ b=R/ClUALdvAYitnEo58A5LJBRnwcUhNKC1c3cP+djsAYERCHAgW7dkEPBabBwCDSvX
+ AirzntdhbYaPnYbRl8N3XQuQ08vySEmcIbeM/LzULZ+uxX/IPz6R1mr0zUUVOXyd8E
+ cHq1Ek6bgP11BOtAiZm07ZAtF0l4E5gZqrmLO+vdWemvEv5I9V5aE6ptV+3Rgsg4aW
+ HiQ2Zg23zIfohf6sh6InNhQPY+MJDyFUSHwaPgDCJqosw/rEc5eIDjgI+1Z6g/CssL
+ gVXFQoYYqrTX69K8viJP2rTUU6F2EI4BxOq4/sgmyccJQKe3XNekguqmsDqBcik+3a
+ 2CBvrk3wG6HYw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 6/6] drm/msm: Make msm_framebuffer_init() an internal
- interface again
+Subject: Re: [PATCH v2 5/6] drm/msm: fbdev: Use a DRM client buffer
 To: "Thomas Zimmermann" <tzimmermann@suse.de>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260618141249.151338-7-tzimmermann@suse.de>
+In-Reply-To: <20260618141249.151338-6-tzimmermann@suse.de>
 References: <20260618141249.151338-1-tzimmermann@suse.de>
- <20260618141249.151338-7-tzimmermann@suse.de>
+ <20260618141249.151338-6-tzimmermann@suse.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Jun 2026 14:20:41 +0000
-Message-Id: <20260618142042.36E321F000E9@smtp.kernel.org>
+Date: Thu, 18 Jun 2026 14:26:56 +0000
+Message-Id: <20260618142656.7CBAC1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,75 +59,50 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Missing cleanup in the error path of msm_framebuffer_prepare() lea=
-ding to resource leaks and potential hardware faults.
+- [Medium] Unbalanced `vmap_count` decrement and kernel warning on probe er=
+ror path.
 --
 
-commit 9c0f26778b6b3f337240eba05217d26a3010e217
+commit a68322c2e5e8736f3b039ddfe130065a05ddf719
 Author: Thomas Zimmermann <tzimmermann@suse.de>
+drm/msm: fbdev: Use a DRM client buffer
 
-drm/msm: Make msm_framebuffer_init() an internal interface again
+This commit replaces the internal DRM framebuffer with a DRM client buffer
+in msm_fbdev. It unifies framebuffer allocation for DRM clients in user
+space and the internal fbdev emulation, and simplifies the clean-up side.
 
-The patch makes msm_framebuffer_init() a static function since it is only
-called from msm_framebuffer_create() within the same source file.
+> diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fb=
+dev.c
+> index 5532c5779f17c..f14db46aa51e2 100644
+> --- a/drivers/gpu/drm/msm/msm_fbdev.c
+> +++ b/drivers/gpu/drm/msm/msm_fbdev.c
 
 [ ... ]
 
-> diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
-> index dec550e6cf750..60c108d35d2a1 100644
-> --- a/drivers/gpu/drm/msm/msm_fb.c
-> +++ b/drivers/gpu/drm/msm/msm_fb.c
-> @@ -134,10 +134,10 @@ const struct msm_format *msm_framebuffer_format(str=
-uct drm_framebuffer *fb)
->  	return msm_fb->format;
->  }
-> =20
-> -struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
-> -					     const struct drm_format_info *info,
-> -					     const struct drm_mode_fb_cmd2 *mode_cmd,
-> -					     struct drm_gem_object **bos)
-> +static struct drm_framebuffer *
-> +msm_framebuffer_init(struct drm_device *dev, const struct drm_format_inf=
-o *info,
-> +		     const struct drm_mode_fb_cmd2 *mode_cmd,
-> +		     struct drm_gem_object **bos)
+> @@ -162,19 +161,29 @@ int msm_fbdev_driver_fbdev_probe(struct drm_fb_help=
+er *helper,
+>  	fbi->screen_buffer =3D msm_gem_get_vaddr(bo);
+>  	if (IS_ERR(fbi->screen_buffer)) {
+>  		ret =3D PTR_ERR(fbi->screen_buffer);
+> -		goto err_drm_framebuffer_remove;
+> +		goto err_msm_gem_put_vaddr;
 
-[Severity: High]
-This isn't a bug introduced by this patch, but while reviewing this file,
-I noticed a missing cleanup in the error path of msm_framebuffer_prepare()
-that can lead to resource leaks and potential regressions.
+[Severity: Medium]
+If msm_gem_get_vaddr() fails and returns an error pointer, the vmap_count
+is not incremented. Does jumping to err_msm_gem_put_vaddr here cause an
+unbalanced msm_gem_put_vaddr() call that will underflow vmap_count and
+trigger a GEM_WARN_ON() kernel warning?
 
-When msm_framebuffer_prepare() successfully pins some planes but fails on a
-subsequent plane, it returns early:
+It seems this should instead skip the put_vaddr step and jump straight to
+err_drm_client_buffer_delete.
 
-drivers/gpu/drm/msm/msm_fb.c:msm_framebuffer_prepare() {
-	...
-	for (i =3D 0; i < n; i++) {
-		msm_gem_vma_get(fb->obj[i]);
-		ret =3D msm_gem_get_and_pin_iova(fb->obj[i], vm, &msm_fb->iova[i]);
-		drm_dbg_state(fb->dev, "FB[%u]: iova[%d]: %08llx (%d)\n",
-			      fb->base.id, i, msm_fb->iova[i], ret);
-		if (ret)
-			return ret;
-	}
-	...
-}
+>  	}
+>  	fbi->screen_size =3D bo->size;
+>  	fbi->fix.smem_start =3D paddr;
+>  	fbi->fix.smem_len =3D bo->size;
 
-Does returning immediately here fail to roll back the earlier pinned planes
-and vma_get references?=20
-
-Furthermore, DRM core's drm_atomic_helper_prepare_planes() skips calling
-cleanup_fb() for the plane that failed its prepare_fb(). Since
-msm_fb->prepare_count is incremented at the start of the function but not
-decremented on this error path, will a subsequent attempt to use this
-framebuffer evaluate atomic_inc_return(&msm_fb->prepare_count) > 1 as true?
-
-If it falsely returns success without pinning the remaining planes, could
-this result in an IOMMU fault or memory corruption during scanout when the
-hardware attempts to access unmapped addresses?
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618141249.1513=
-38-1-tzimmermann@suse.de?part=3D6
+38-1-tzimmermann@suse.de?part=3D5
