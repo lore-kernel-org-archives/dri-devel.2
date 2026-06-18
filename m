@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E489CD98ED
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 17:05:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50840CD98FC
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 17:05:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 837DE10EDF9;
-	Thu, 18 Jun 2026 17:05:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 211DA10F389;
+	Thu, 18 Jun 2026 17:05:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="cUfLjIHH";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="b0xRUOtK";
 	dkim-atps=neutral
 Received: from LO3P265CU004.outbound.protection.outlook.com
  (mail-uksouthazon11020137.outbound.protection.outlook.com [52.101.196.137])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F32210EE27
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0C3510EE27
  for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 17:04:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vQiqm935QXTxX296o39TiwFkblNKCVp6ixQZhdddPLwiXJOOFXH3XdtdP32gzxaxb1kNO+CYfO+rtTUP0MkQUY3ZjGlZte1EN3QLlRBupAUsL3I4YF82WM1ejdkmjcK0ulPHjj5Tt8tUn7d6ldiitqRpV9BONWekjy39NURsPK5mlQ2Nqlgc6LoGWdrQseiSy197MaqLWVo2Ta1r/j7Pu3Xz4pTmZSCtS3IENXGyp/e9yF2F6I6R/tTqG+fwnfe2uwjUxdvW3dWdtrGobHitul3kdQmwOhJOyOHMZq5TG++hAB2c7gLk6rNTvytWTQJ8dtkhvHBoZVyWKW0TbOm7RQ==
+ b=mZAaaFMYU3nIlOZpNHmvOsSK8NNKLTQfLg2NjV1xVJybAxfl8xbF558q4sy0JqWI8vLVGQqVfiWCNlJNVav181E16BIJEoalIo7nRvdWtX8vHVP9otwohNlItssoFVoS7dDIdUtDYqf4I3RtDbKAblZmVBmNSbRVFjJqceKo5w8bhcztahcaSZ3vzmstrIa6exeXcSp6KjxsjSjK1VQRM44zeTGBDVQIuWwLO3V8RjI9ziwnDuGZHGANnhtxN1SwG+b0xTMimgvTLjvJQtdcmmX1jcxsjrGRVcwi9YmyJxZHeSKExU+n1auxF7HKwV8D/Hxs0BT6Bv6JlkqSZEr8Cg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iUNMivL21AeW8IKEvavxjLaGvrE0kGH/DYf+mDHcDb8=;
- b=Dw3gXJlmJWznQr0V9yk42RZnY84mEyf3SeW+q6/Fejwl2dWyjspvu9gHv7enSZ0bsOpNQf9bcdd1EIMCKjMBmVnjEAPNKxdbCL9PeUznX0M3euMbHjT5glT/ZzN8KmXehZ+9P1mVK4SSi5SooNUQMR4Yt5X5kJNhBqXKqxDcLccCFyf/Ygi+G07r80XX6xxA5cK0w9mS2ESP6jdU5t2kx2C4sgld08WTUlVyUzvHh8c6vJiNyyANA72mFiK/LoP4YGVwUEnJxd+GGwJmNYi/LqnC7DR2QU7YqPhYm7T3vR+2ASIwR0B7HAuX4P+JLrxsgHQJDAFcG6S047QeDiqHXQ==
+ bh=U1sc6qMCXeEMau8ZRnfo41X1a57ZKivnNqCpzABICd8=;
+ b=Nl+x5eL7wg0FspeOIYlUa+jOQBE76AoZgpWFwt7EbODWaUBtKImOZ4Y6dAQ9/54kkopUtq2CNCtAKFHFLTNgxOk+kehfE9KLxhCh6BUJ0XBEp0E/tari1Fn3GAKD5Ks7H4zzQeb0/cAINhfDwhEkTIF445hDd7KIYwjt0aCA0m7RXzRD8l27QJEe6dLHVfJOSwcQFYPmfKD/gMT6Kpsawso4MYyJZ2yZqwGY/Ptyxysdo0HgZxzTkWkJCBY5Npt3842+mbp0hZuTdhX/zcYt/KmWGkBy4ELqJWQZHaMTVGwi/LxkZ59CkD+r93A94x0mOBrXL8Dd7XH6bIJxrfh/4Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iUNMivL21AeW8IKEvavxjLaGvrE0kGH/DYf+mDHcDb8=;
- b=cUfLjIHHpyubYDhJvjcs7ocofadpXWe4nCG48IYVElUQN4roEWK9J0x08LS/9Gr1OwxNAhfi5GRgzEi1xkNyNiiDnNhTlCf1tjATqmIC/uIWgRcrFObWq4Vf7ssJnnFIKQAYQk4nfhxIHt+u5Dc1JijtsS0Izmjdlg3DItaOKN8=
+ bh=U1sc6qMCXeEMau8ZRnfo41X1a57ZKivnNqCpzABICd8=;
+ b=b0xRUOtKp6JBHFSir6fXCcRkcB20Zr8bI5bvVeFUQGjkkFkgK31Woz6aHb+9JsMi4qHCrBw51PGRgiiqpIFppUAtZ0b4YlsNWOvERRT+iM9wNNh6Wa3Yg/njXofT5WAO4PKtzqKDXKU5ns7vnef+Sihu5EymwkHRGKxz7SDqISM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
  by LO4P265MB6966.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:34d::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Thu, 18 Jun
- 2026 17:04:48 +0000
+ 2026 17:04:49 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0139.009; Thu, 18 Jun 2026
- 17:04:48 +0000
+ 17:04:49 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Thu, 18 Jun 2026 18:03:45 +0100
-Subject: [PATCH 08/10] rust: driver: remove open-coded matching logic
+Date: Thu, 18 Jun 2026 18:03:47 +0100
+Subject: [PATCH 10/10] RFC: rust: driver: support map-like syntax for ID table
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260618-id_info-v1-8-96af1e559ef9@garyguo.net>
+Message-Id: <20260618-id_info-v1-10-96af1e559ef9@garyguo.net>
 References: <20260618-id_info-v1-0-96af1e559ef9@garyguo.net>
 In-Reply-To: <20260618-id_info-v1-0-96af1e559ef9@garyguo.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -82,11 +82,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  linux-riscv@lists.infradead.org, linux-pwm@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781802282; l=7838;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781802282; l=1753;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=7zpVkHCR9h1gLWrM+Ap5JrIOi++3AqwCQrZPkd+l48A=;
- b=Ee2Xur8kUcl0h6lcFW1aCU4aqzMtdZ2we2EuMJPIa4WLN9RExdhTagHpgygZzjbxWw86drCDl
- HQTbU+PQBg5Cr1jDxjYhefbpszfU9IbIt7G10IXWnAjIJDBQ7iJF+VD
+ bh=A0ywXdGf02/pqWfOcql1b083Co7opyezNY57GOUfVeM=;
+ b=xj5GhBjIYVuoC0phxbQlVjreyyGtDNgJPrJPqTGL7Nr7TwKpc+9p1wDMt1NR9cDa/pM/lNlFG
+ U8loSS9DoPdCo1m33rcwrc5RnyZnPCDLdP/IrcK3/TS2N/Ql+97hqaK
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P123CA0548.GBRP123.PROD.OUTLOOK.COM
@@ -95,65 +95,65 @@ X-ClientProxiedBy: LO4P123CA0548.GBRP123.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO4P265MB6966:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7f704c9a-812f-40fc-1e88-08decd5bb44b
+X-MS-Office365-Filtering-Correlation-Id: fbbbe4c8-d618-4554-48e1-08decd5bb4fe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|23010399003|1800799024|376014|366016|7416014|921020|56012099006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: JHc9XuTm6I9ncDTdLXLjeeapDkXj1dfkTewOs9cnJv77xq7x5TJRD+SP/J+PwycMH+IFxH0dXLz6SRrjKWnW/eANNePn5XsQ4FEd/Gyq4ryMRvLru0QonarpQ25SvN858dHVpRETqwFzjQcMUwMz9Tec7lddHVSBZ3R3n2ttYo1Wrw2rtQk36dY16Yr8ynt/3jNuhLj7r9RxFKpnkkqnhEA+/asSqlAHsGTrnsNM6tBms9tqBaW0TDra4LnOAqlwXzcov5vz8fKTHUp/hWgi6rU9wNjLT8pFIsMq2eOU17X4PpPTgmYTXTWxT6EKj9BxGvTWmjcvzoA4gcBT6RLNthaKLhXpzH/xjziG7u1bT/SO0lhKgUpjacHGpzVq0zw8f1qcCTuikQEi4zTySDjvRsnYBxqNOMamHoJYZqTOxmZB0tBnfFX9f19MEfsxIYfL8U4L8eprAyG8GL1I3c+e8DZupJ3u8TQ0wxymIC5o7HAyeOu1uxVzeEeyjM8YXyjmUFy6c+ELeNlbklKfv2pLgVJAxR9dLKUuaJ0PAxSFUMhZnn5or9Y9kMvzXDOkD3B5cltlcP8Yi/IJICUJsATnYDx4wsSUOo2VrjcwWNOcdnrUctgAcvPpDZdh5NFnSZSQO7XS5mvPr+hBnKT+pSEOwdZ3hyo3tMfmk340voozB/EUkiwzFOAUsYMyu1SYW02Ik8uKZDV6rjsH412iklYNxDagEPywzrms1yl2gZYcFRE=
+ ARA:13230040|10070799003|23010399003|1800799024|376014|366016|7416014|921020|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: Ehw/ZqUdUcvXQOIPbOVZQ6VmDsrYbcb2TEhcdYlFr5g38vpuDBKF6TViT0WiWqDKAw4Y82pA05ZgZsQa4xcmSDLjYBRyKd7J9a5XkY5Q22kGJ6Rx8VcmGZm9BjEbrnAzCUkBTie8ozhlrENCrS8rLLmx1mRylYQPl3nP8aVUTwf9MTIrRu8yuehdOgbghzXVQvIyq5bM2XZS3olQdbWSH14U9NUwHXNgtZFsZk7KY4wLon+fX4hvjEkT7gXGdTJiYgUCA9x7nhVuczItzxZZO1gW+IBAvIRDjifDtlBWA9wMDGj5OCdx1a6YPnAJMBqqjW6LGHJn/UM6IODeCODfiBOCLfEXQWPGXLRbqFf5eoIVkjwAWZzDBzZd8aKOCUW/G6KksXNP8mmF3DVleVmmxHdbUPouk8wlbXtxdiF9nBEjbBQaU3sSwnABYp0/onEP9y5CAWJ53tCtg87XVYlX1ba3+m/B5XeDOlc4C15bZMD0GZ20iaAGVwPbHbm9Bje4KS9/V6Q2MiKVJhwtPlZcTkrndmbFVk+adie9eEiDPaWx3WCBA3PD/SBAafsChNDxsj4RnkZCM+Mqa+deTxoUFmivM47BCtBFmPFiTDZgqJihUvdbaGSea46HgvKa/2NXdZ172+WNrCmJwVNr/t2DpR0qsp1ROU43GE94xdMUI7M7jlFf+J4lNmFPE/WOaM4Et55eCP3GWTEwxyi6Hm9WMzSBEmKKbzxilKa3PvQQW5g=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(23010399003)(1800799024)(376014)(366016)(7416014)(921020)(56012099006)(6133799003)(22082099003)(18002099003);
+ SFS:(13230040)(10070799003)(23010399003)(1800799024)(376014)(366016)(7416014)(921020)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TFljTEFQanlwWVlJOVk1YUhETTR2cVJSbHJXK0hDNnlUU3UxUHN5TDdHcFVZ?=
- =?utf-8?B?T2d1QkxjRkRsTWswMzNEZ2ZtYjNrMjNNYitCQldqeU5qZUs5aFF4WWI2Y1Yx?=
- =?utf-8?B?VUhlUHJreU1HSkNiaVFoaHlMR28wb0ZPdktucHZwNU15MHhzc0xSSGlBd3R2?=
- =?utf-8?B?ZHVyMDdiRDZENTZIRnNCQ1JLay9mWDA5b01pYXE0WjhYZFl2RGxGbEJVbUVw?=
- =?utf-8?B?TnBiV3c2dXFGSkdvWWV4Q2FYL1IzVnBtVUs3VStLV2FHMjczL0ZDTk5LTWYw?=
- =?utf-8?B?YSs3eEVkMkFiQWZIYlM4OTNwTkh6czlHd0NabUNmMktCM2ZnQmh4VjNIL2Jl?=
- =?utf-8?B?SjlGZHl5a25hM09lSzc5MTJWNkFMTER3UzJ0bERFeWJVeHRuZGRDRTRibG5o?=
- =?utf-8?B?dmNqbkVVNUhrN0YvdEt3UmlMclF2Z2lnQU5WbHJPR3d1VVoyR3Exa2tTT3Vt?=
- =?utf-8?B?TittVS9sdklZNXcyekRhaUpWb1JOcXEwZzFZN1h5L0IrUkgyWFBtZURwSHhq?=
- =?utf-8?B?NTNERlBRSTZraVpLTWlHU0hSbnRKWUJPVEJSYnJWT1RvL0tFM3phb3I0RCti?=
- =?utf-8?B?Z3hxVEt6QmlFTzY3bUhNTTQ1OVpIU0UxVG9OZjlWV05pVyt1VUJ3R3RDRmhz?=
- =?utf-8?B?K3prV1JEbUwrRHVlMVFTa0xIbUZRYk9Ec3FmclBNMVhYNDkxdUlTV0Q5N1cv?=
- =?utf-8?B?N05CSDhENU9TdFJsWE9xbmFoYkR4aW96UW13RDFHRW5tSzZaaWM0dW1JNzRQ?=
- =?utf-8?B?aVNvbHNaVnpiQ2IwY0hUSzA3MElnUkhzWTcrbUFyWkpsWm1tLzMrb0pZYk52?=
- =?utf-8?B?cmFlelhtOWZER3Rscm4vUWk4bGdBZVBZQkVJOHgxR1B6WnJIVTRlMUdkbnJ0?=
- =?utf-8?B?cjBETnZnYnFjeFdSdC9Kb1Y0SFE2YkJHUExzTlFFWEJrbHNoOHlzOThsanIz?=
- =?utf-8?B?SmdqdVFuLzF1K0pyVzJhZEpOZWV0OHFQaWFSNkhkb1QwY1dKM1FvQ2tQREQw?=
- =?utf-8?B?cEpsOUpSQUovMVBYRGxHcHlKZG55MTJ2ckRHR2ZhSnRxbkQzaXgrOXIxelNs?=
- =?utf-8?B?TFdnTnplMWlrNU5DUlltQXV4ajUwNjM1NURMNnQ0dXFMeURSWmVMSS9wa1NP?=
- =?utf-8?B?d0sxck41TGFseWttZENWSk9aVDJubVBoLzZhQXowaE5mUTJPeEtzenJDVXdp?=
- =?utf-8?B?QUVLZ2JaNjZWZmxodUQ2SnVNWXlmSEtDTnJRdzlTclVuKzFJSmxad2xUU25j?=
- =?utf-8?B?VTdKbnVLYnB4MlZRRnN0R2xHZ24xMnd3cnpYR2VPcGFRZUdVYWIrKzlpME9F?=
- =?utf-8?B?K1lYQyt2VnRoTzhxQkFML2tUenVacWxvRjE1RFVlSXBoU3JZVG41ZlViMXBt?=
- =?utf-8?B?cUwvZTh4ZjlzRUpsakpMcmZBbkJGY0JqODM1ckpJQWgvWTlLRVk5UTNmeEZC?=
- =?utf-8?B?N2lEbVppTk9GL25objZLWXBzRFQvMGdrTFF1b2hXQ3BSUTBHaXlIL3V5aTVG?=
- =?utf-8?B?Y1RiMGw3NFIvcGJXdHlPaGlkQmhBTWJiaVJybUhvTU1jM1JkUU0xNjlpcTEw?=
- =?utf-8?B?eUZWdEs2QW9ER3g4S21hVGZtZ3pGR25QVTFkakxFbExDc3VKSXp4U0EwYjU3?=
- =?utf-8?B?eDdKaWxnU1JnT2RuNjJxVWg1Y05CemNtb2xkTDQyaVNnbnFpblVmbElOQmo3?=
- =?utf-8?B?ZytjSGFQQ2VudjN5SzdyUm5iU2xFKzE2VVg1d0lwS3BONnFneG5FN3hOTGlM?=
- =?utf-8?B?cVV0SVpnVksxNjBlOWt5WnZMMnNVdDNlbFp2elg0WGUwVGVNR3J3ZUNIYXQ5?=
- =?utf-8?B?S2xYQStZTHh2b3NWY0NEdU81RXJKc2c0T1N2WjZaN3o2cjNHM2hTSGpheXh4?=
- =?utf-8?B?N3dEejBwOTFZS0ZtTlBWRitsVTBta2M1a1JOdE4rM1Uvazg4RGhFaWtyQUFm?=
- =?utf-8?B?SWxYQVFYT1JmbjMzS2dFMHBhaVdsMEpXQnMxYW9QNW94K0dJZU5yVTJTZFRI?=
- =?utf-8?B?TW5CYjVtYlJlVjdDc1plK3E2R0dlVER2KzZjcEdud3B2ZTZyNzNLTGhJelFE?=
- =?utf-8?B?SFNEZUJQYTQvb2hBTU1ic3gxdTBGM3RmRE4rRG9qRzVDMzZuTzlVY3doek9t?=
- =?utf-8?B?aW9NMHlYdUlhaWpXenVIY01xVjRxRk03eWR4NXlvNmlWdmROZ2xiTUQvMXhk?=
- =?utf-8?B?V0JYcVdDaWJ5eGFqM21adDBpWjJPV1JCTGkxQnBYQ0g3ZUZGMXRUWHJ1RmFS?=
- =?utf-8?B?MkZiK2tWcWlEdVVwK3loekoyakN2Z3d3ZHN5Z3VxYms1R0w4WGM2SWkvNnNr?=
- =?utf-8?B?N0VoWjQ5Rkl5aXhud3ZNU0xLWnFyOHBDVlhWZGJYMDc5SkdZMjdJUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eUtaSWcwSG0vZThhL2hVS3RNaTh0eEJEY2ZXODd4WlJ4MlZlUkRTaXRjNVZ4?=
+ =?utf-8?B?NE5DaUpqd2hmWENKOVM3bXpIRmh3aDE3Skx4U25Lc3dGWnVLb2xJcEhaZURX?=
+ =?utf-8?B?bllwOHJIQ0NrTXdiRENEUmlmR3hIYVAyQzdIQkE3OStEK01RN1ZDV3lIdG5h?=
+ =?utf-8?B?QkdRYkdKcWZVOHRrVndJdFJMRFY4ekYrMzJ1dWQ0ek00cVVSbkR0VWF0QWNO?=
+ =?utf-8?B?eEQ1bVpFMmRJdy9jMWNPTEZVVzc2WGNwa2J6Y2Z2WXFFRFpjV08vMmI0a3FN?=
+ =?utf-8?B?MXdoRXZrZlp4Ri8zWTkxZy9PYTlxZUVaYUtoUmNCVW1PMjF3YmdYd0RaMzQz?=
+ =?utf-8?B?cXJOUHpKS3NmTSs2SEdZNldNQzRQNXYrMEQyb25ibE13SjRvSkFkWUtleW1P?=
+ =?utf-8?B?VEltVDNwcldyNnF6MDBwOGp3SjRZclV5SWJvci9zVFRRWUVvMzZFdGVuc2h4?=
+ =?utf-8?B?TVJDTi9XMlhjOUgrZ2p1TkY5R3BNMTlId2dTZXNWZW1qZktlZXhLcGZKTVpL?=
+ =?utf-8?B?R2Uza0FqZnVhYXdVUjlHaVhEZHdQR0xvaGNYUnlNZEtRL2s0M01GNExJQ3Z3?=
+ =?utf-8?B?c1ZjR29lbEVhNnRFWEVGMVZEMklJb1lOM2hhb253YWdsVDdXeGZ0U3JtWFMv?=
+ =?utf-8?B?Y3grb0M4ZFhZQkYrNDVIM090UHQ1YXcrUlNLRk9CNmtNdDloVGV4dHFGMko0?=
+ =?utf-8?B?YWRIeTdwN25lZndlUFdUeTc4OVVVaGMyM0xZZ1hraG80ZklUcUQ1d3ZTc1dp?=
+ =?utf-8?B?YzNIUmRNa3E4UFUwTVQ5YW4rK2ViZExXQ21kLzNMaHRkQ24rdldzbktBbU5n?=
+ =?utf-8?B?Ry8zL3lMK1pRQ1lUZWZZdEpOTk5ISnNMcHN0dW1CRUZ6cHpXb1BBeUF4NG1U?=
+ =?utf-8?B?R01TNHRWVmpERU4xNUZTZ1RPRFVJKzh6MTBHWFlHd3A4TktQcUN5TWlPdmUx?=
+ =?utf-8?B?eVE0MjlVVjBKcEp3WC90dE1lWE41WnZaRXpjSk1waWhnL05kdldGOTlZeXNj?=
+ =?utf-8?B?bXNqTUtpaXV4ekx5d3JUT3hPN1dVdGdsQko1RjZteWh3V1dpTXIrUU5nVERW?=
+ =?utf-8?B?SzZ2YnFFUmFvdDhuUzNKeU04QmdMMjdtMm1aVEFrU0drNmxpTWpYQVN0ZElj?=
+ =?utf-8?B?VVlrMGZreVlKV3VPTjZYdHJmUDdPV2s1bGtRaWRPaDNMeVNoMlNyVXRHTDZ5?=
+ =?utf-8?B?aHoxYUhkeVZBa1pDSlFReExpQjlJd0ZQQUlqZlFYeHErUDEzY3lsa1psZGs4?=
+ =?utf-8?B?UVRFTDFsN1hseXg2OWRWRC9naFVJMUx6cURMMGpKd2hjNVF6Lzk5RlQ1cDZa?=
+ =?utf-8?B?Q2pHUFlNejkzb0FGRlpBbTRKSHNjajNVUlhSSmxYL2ViYURONDdNQks4UU5W?=
+ =?utf-8?B?UjhDT1IvYmF6TXRUZThsSFYwT1VEL2R4TXplMHE3OVIrREdVOTlTdHdNRkRG?=
+ =?utf-8?B?Y2tZZHBlZGlYUy9SaU92c1BocCs4UnpLbmh1TTM4ZlNadmVwbTlsK3RWK0VO?=
+ =?utf-8?B?c3hvZnQ2MXJ6dXcxd2lFVm41aTFMTFppdXY5NElWc0lORlpOMzdTMi9hZUs2?=
+ =?utf-8?B?Y3R5emh4QS9JZ3ZDUU00SUhNaWIxbVY2eU1mcDZ1cllGdWdGak1Ga2pYTnFI?=
+ =?utf-8?B?b29GRUVUSXc0MHRnT0psdUI2cEZwOXAyWS9tSUtVek1xODQ1RHRKRzdxaDQ5?=
+ =?utf-8?B?RVdBNENRZTRLaWszV2txdkFYS3BpRUN0WXNQSjNpUWtCQ1lhV0Q5Z3ZZRTM2?=
+ =?utf-8?B?dXFmOWNnMGVweUowWDFybUViYzhhN1lISWlCN0d3SkFHcU9pTVJiQW8xNzBh?=
+ =?utf-8?B?YUFCT1hhOTZsL1hLQkNkZ3E0S0dxdi9Fbmw2S0ZGME1HSHZZYmdQSVVvZ0Jy?=
+ =?utf-8?B?QUx3Q0d1MDhNdzhabDFWazU0VEdVNDlseXNIdTRDenY1emhvbWxydVdnVll2?=
+ =?utf-8?B?YkJpeGdyYTFEaUpMTlowQVBodEp4Z3pnUEJNcHNvcVlDSzBCVmRUdDJObUtY?=
+ =?utf-8?B?UkhUeEN2NmlvYUdXN3QzUm9YLzVCdUw2MHBTM0QxRENPM3hBbyswWEsvcEdr?=
+ =?utf-8?B?Z0ZicFBmc01raUVOUUJGRjhYa1psVi9XSFJCK09Ldy9NOEdQY2diZStsalRI?=
+ =?utf-8?B?eDJodFI0YTFkNzFieERtMThKbzJqZ1dkRlhIL3FydDI2SkRYdGFaNUxnUERL?=
+ =?utf-8?B?RWdZdmFlS2M5VnJSQVU5VHQ1Skw0R0NSYXdPTSttMWppaXpyMFZSamRUdUQ1?=
+ =?utf-8?B?Szc4OForYlJSSFJUeHpRbU5GWWdCV05uZXhVTFRXcEovTU5GR0lQZFdkdklV?=
+ =?utf-8?B?eU5EVDhKdHFvdlNrRTA1YU5aWnJuNWtrNnRpVDRHZmIrdEdaT1V0Zz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f704c9a-812f-40fc-1e88-08decd5bb44b
+X-MS-Exchange-CrossTenant-Network-Message-Id: fbbbe4c8-d618-4554-48e1-08decd5bb4fe
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 17:04:48.4420 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 17:04:49.6298 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PfgQ70mTnAdNUFxTpAhJ/5SPgfSgeeWQHKFeXPgpe7WemLdkFbXI2PL4B30ra0tEmP7Mw+nwpfiMtvEJe7C3Cg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: NjgpGG3fjnJ60VsWSKnltPjHnIGmV0RvNRmDQGgC10DJPu5bf9dRSZkoM/Zag6to58RbNFglJvWq13riTiVcaw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6966
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -170,187 +170,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-With device ID info now including pointers instead of indices, the
-open-coded ACPI/OF matching is no longer needed and can be replaced with
-`device_get_match_data`.
+The device ID table and its associated info is really just a map. Add a
+syntax to `module_device_table` macro that reflects that.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/driver.rs   | 114 ++++--------------------------------------------
- rust/kernel/i2c.rs      |   6 ++-
- rust/kernel/platform.rs |   3 +-
- 3 files changed, 15 insertions(+), 108 deletions(-)
+ rust/kernel/device_id.rs        | 11 +++++++++++
+ samples/rust/rust_driver_pci.rs |  7 +++----
+ 2 files changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/rust/kernel/driver.rs b/rust/kernel/driver.rs
-index 824899d76fed..a881f5ef99ec 100644
---- a/rust/kernel/driver.rs
-+++ b/rust/kernel/driver.rs
-@@ -107,7 +107,6 @@
- use crate::{
-     acpi,
-     device,
--    device_id::RawDeviceIdIndex,
-     of,
-     prelude::*,
-     types::Opaque,
-@@ -325,117 +324,22 @@ pub trait Adapter {
-     /// The [`acpi::IdTable`] of the corresponding driver
-     fn acpi_id_table() -> Option<acpi::IdTable<Self::IdInfo>>;
+diff --git a/rust/kernel/device_id.rs b/rust/kernel/device_id.rs
+index 26618bcda276..7c61cdcc9427 100644
+--- a/rust/kernel/device_id.rs
++++ b/rust/kernel/device_id.rs
+@@ -183,6 +183,17 @@ macro_rules! module_device_table {
+         $table_type: literal, $device_id_ty: ty,
+         $table_name: ident, $id_info_type: ty,
+         [$(($id: expr, $info:expr $(,)?)),* $(,)?]
++    ) => {
++        $crate::module_device_table!(
++            $table_type, $device_id_ty, $table_name, $id_info_type,
++            {$($id=>$info,)*}
++        );
++    };
++
++    (
++        $table_type: literal, $device_id_ty: ty,
++        $table_name: ident, $id_info_type: ty,
++        {$($id: expr => $info:expr),* $(,)?}
+     ) => {
+         #[export_name =
+             concat!("__mod_device_table__", line!(),
+diff --git a/samples/rust/rust_driver_pci.rs b/samples/rust/rust_driver_pci.rs
+index 2282191e6292..652819dff082 100644
+--- a/samples/rust/rust_driver_pci.rs
++++ b/samples/rust/rust_driver_pci.rs
+@@ -75,10 +75,9 @@ struct SampleDriverData<'bound> {
+ kernel::pci_device_table!(
+     PCI_TABLE,
+     <SampleDriver as pci::Driver>::IdInfo,
+-    [(
+-        pci::DeviceId::from_id(pci::Vendor::REDHAT, 0x5),
+-        TestIndex::NO_EVENTFD
+-    )]
++    {
++        pci::DeviceId::from_id(pci::Vendor::REDHAT, 0x5) => TestIndex::NO_EVENTFD,
++    }
+ );
  
--    /// Returns the driver's private data from the matching entry in the [`acpi::IdTable`], if any.
--    ///
--    /// If this returns `None`, it means there is no match with an entry in the [`acpi::IdTable`].
--    fn acpi_id_info(dev: &device::Device) -> Option<&'static Self::IdInfo> {
--        #[cfg(not(CONFIG_ACPI))]
--        {
--            let _ = dev;
--            None
--        }
--
--        #[cfg(CONFIG_ACPI)]
--        {
--            let table = Self::acpi_id_table()?;
--
--            // SAFETY:
--            // - `table` has static lifetime, hence it's valid for read,
--            // - `dev` is guaranteed to be valid while it's alive, and so is `dev.as_raw()`.
--            let raw_id = unsafe { bindings::acpi_match_device(table.as_ptr(), dev.as_raw()) };
--
--            if raw_id.is_null() {
--                None
--            } else {
--                // SAFETY: `DeviceId` is a `#[repr(transparent)]` wrapper of `struct acpi_device_id`
--                // and does not add additional invariants, so it's safe to transmute.
--                let id = unsafe { &*raw_id.cast::<acpi::DeviceId>() };
--
--                // SAFETY: `id` comes from `table` which is of type `IdArray<_, Self::IdInfo>`.
--                Some(unsafe { id.info_unchecked::<Self::IdInfo>() })
--            }
--        }
--    }
--
-     /// The [`of::IdTable`] of the corresponding driver.
-     fn of_id_table() -> Option<of::IdTable<Self::IdInfo>>;
- 
--    /// Returns the driver's private data from the matching entry in the [`of::IdTable`], if any.
--    ///
--    /// If this returns `None`, it means there is no match with an entry in the [`of::IdTable`].
--    fn of_id_info(dev: &device::Device) -> Option<&'static Self::IdInfo> {
--        let table = Self::of_id_table()?;
--
--        #[cfg(not(any(CONFIG_OF, CONFIG_ACPI)))]
--        {
--            let _ = (dev, table);
--        }
--
--        #[cfg(CONFIG_OF)]
--        {
--            // SAFETY:
--            // - `table` has static lifetime, hence it's valid for read,
--            // - `dev` is guaranteed to be valid while it's alive, and so is `dev.as_raw()`.
--            let raw_id = unsafe { bindings::of_match_device(table.as_ptr(), dev.as_raw()) };
--
--            if !raw_id.is_null() {
--                // SAFETY: `DeviceId` is a `#[repr(transparent)]` wrapper of `struct of_device_id`
--                // and does not add additional invariants, so it's safe to transmute.
--                let id = unsafe { &*raw_id.cast::<of::DeviceId>() };
--
--                // SAFETY: `id` comes from `table` which is of type `IdArray<_, Self::IdInfo>`.
--                return Some(unsafe { id.info_unchecked::<Self::IdInfo>() });
--            }
--        }
--
--        #[cfg(CONFIG_ACPI)]
--        {
--            use core::ptr;
--            use device::property::FwNode;
--
--            let mut raw_id = ptr::null();
--
--            let fwnode = dev.fwnode().map_or(ptr::null_mut(), FwNode::as_raw);
--
--            // SAFETY: `fwnode` is a pointer to a valid `fwnode_handle`. A null pointer will be
--            // passed through the function.
--            let adev = unsafe { bindings::to_acpi_device_node(fwnode) };
--
--            // SAFETY:
--            // - `adev` is a valid pointer to `acpi_device` or is null. It is guaranteed to be
--            //   valid as long as `dev` is alive.
--            // - `table` has static lifetime, hence it's valid for read.
--            if unsafe { acpi_of_match_device(adev, table.as_ptr(), &raw mut raw_id) } {
--                // SAFETY:
--                // - the function returns true, therefore `raw_id` has been set to a pointer to a
--                //   valid `of_device_id`.
--                // - `DeviceId` is a `#[repr(transparent)]` wrapper of `struct of_device_id`
--                //   and does not add additional invariants, so it's safe to transmute.
--                let id = unsafe { &*raw_id.cast::<of::DeviceId>() };
--
--                // SAFETY: `id` comes from `table` which is of type `IdArray<_, Self::IdInfo>`.
--                return Some(unsafe { id.info_unchecked::<Self::IdInfo>() });
--            }
--        }
--
--        None
--    }
--
-     /// Returns the driver's private data from the matching entry of any of the ID tables, if any.
-     ///
-     /// If this returns `None`, it means that there is no match in any of the ID tables directly
-     /// associated with a [`device::Device`].
--    fn id_info(dev: &device::Device) -> Option<&'static Self::IdInfo> {
--        let id = Self::acpi_id_info(dev);
--        if id.is_some() {
--            return id;
--        }
--
--        let id = Self::of_id_info(dev);
--        if id.is_some() {
--            return id;
--        }
-+    ///
-+    /// # Safety
-+    ///
-+    /// The caller must ensure that the `dev` matched data is of type `Self::IdInfo`.
-+    unsafe fn id_info(dev: &device::Device) -> Option<&'static Self::IdInfo> {
-+        // SAFETY: `dev` is guaranteed to be valid while it's alive, and so is `dev.as_raw()`.
-+        let data = unsafe { bindings::device_get_match_data(dev.as_raw()) };
- 
--        None
-+        // SAFETY: Per safety requirement, `data` is of type `Self::IdInfo`.
-+        unsafe { data.cast::<Self::IdInfo>().as_ref() }
-     }
- }
-diff --git a/rust/kernel/i2c.rs b/rust/kernel/i2c.rs
-index 9e551c7e8e41..07680fd2f3fc 100644
---- a/rust/kernel/i2c.rs
-+++ b/rust/kernel/i2c.rs
-@@ -149,8 +149,10 @@ extern "C" fn probe_callback(idev: *mut bindings::i2c_client) -> kernel::ffi::c_
-         // INVARIANT: `idev` is valid for the duration of `probe_callback()`.
-         let idev = unsafe { &*idev.cast::<I2cClient<device::CoreInternal<'_>>>() };
- 
--        let info =
--            Self::i2c_id_info(idev).or_else(|| <Self as driver::Adapter>::id_info(idev.as_ref()));
-+        let info = Self::i2c_id_info(idev).or_else(|| {
-+            // SAFETY: `idev` matched data is of type `Self::IdInfo`.
-+            unsafe { <Self as driver::Adapter>::id_info(idev.as_ref()) }
-+        });
- 
-         from_result(|| {
-             let data = T::probe(idev, info);
-diff --git a/rust/kernel/platform.rs b/rust/kernel/platform.rs
-index 210a815925ce..e12e88113ca5 100644
---- a/rust/kernel/platform.rs
-+++ b/rust/kernel/platform.rs
-@@ -100,7 +100,8 @@ extern "C" fn probe_callback(pdev: *mut bindings::platform_device) -> kernel::ff
-         //
-         // INVARIANT: `pdev` is valid for the duration of `probe_callback()`.
-         let pdev = unsafe { &*pdev.cast::<Device<device::CoreInternal<'_>>>() };
--        let info = <Self as driver::Adapter>::id_info(pdev.as_ref());
-+        // SAFETY: `pdev` matched data is of type `Self::IdInfo`.
-+        let info = unsafe { <Self as driver::Adapter>::id_info(pdev.as_ref()) };
- 
-         from_result(|| {
-             let data = T::probe(pdev, info);
+ impl SampleDriverData<'_> {
 
 -- 
 2.54.0
