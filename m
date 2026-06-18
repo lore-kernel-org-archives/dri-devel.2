@@ -4,86 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBE0BCD98ED
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 12:00:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A20B5CD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 12:05:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33C3210EDF0;
-	Thu, 18 Jun 2026 12:00:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09E0B10F2CC;
+	Thu, 18 Jun 2026 12:05:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Va+5djxM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D9eYSOCb";
 	dkim-atps=neutral
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73DE410EDF0
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 12:00:53 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-c03a466c96aso133549466b.3
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 05:00:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1781784052; x=1782388852; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=W9ZVu+TQxqykUMzB+TkWY3eQThy4ReD8LVPOwN/E+6k=;
- b=Va+5djxMYXb2F4IftYELa/zj7jnxkn2i66bwcJjLxkFq2pMKFZft8Ko3aDbTuUpiAN
- md3qN23nZXxVSB+d6cH3WZYYjvTQNli69D+5/904moRYTBqCStNaOJg4eervyALp5MHa
- UY7PTMEaM7onmGIDXIKKpkV84aRL5mS0U5Bi60BxNWVwBwLYJ+6LjPCuaDmDv7qyI5Q5
- RxtdPkkITHIUIGn6qSE+fUa8Cck1mwfL9kx6wG1yTCrJMnbvY5o+hdkjWAGtd75yTCRs
- 226hAe69vWWHsgPhITMhmDsBEwrT9EgOeHEpCbdD/UcJc7OpbnJFqIAaoIXwZdgPKp6s
- wevQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781784052; x=1782388852;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=W9ZVu+TQxqykUMzB+TkWY3eQThy4ReD8LVPOwN/E+6k=;
- b=MroZOCTvTL4afXQE3SbeBzA+2maCy58sEW0CvCuANx+gPtoASPVHgOs1rvKbIoU58i
- gp85vmDNlCS7tGDcHi70W8cbIGHkPzZxGdaG69EG6CsmGW7ZZIt5kMtXLSwdokWBGRFO
- 4g8qvbiqe0bqeb9fuiQQ/hzyLc3kBfqRtF0NKMCYkdKfevWWWKNxkVZ/FL3ITS6/sQZ+
- mYfZHO0eG/CDJCQYVmLqsuQCGbtDtDNGTjTeumntHlB50ayEjP56FmgjKMl/oBedC/1v
- 5tFoazre0J6IUBFY00wXY0/SLaHwie9YZnWeRZfkn/+nyPekKbYqFrbL+mD0IPQNcc+V
- ESBg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8ODuxSjBc9/KRjwrrDoEeDfmeSA/PiXqpgojmB2nmQw6cTRot8GbHVokMg6o2paE26nMMDiQOEd5M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzCyoljNe/e0SyYanjXqBnlfxqXf+PsuvJE2metdtOMUZH9zCH/
- m9DlUktluJB/Ouz5oH9/fboZpM74Wm7pJE34NAt+54rETu7TsnNHDrldUwcpm/uex2Y=
-X-Gm-Gg: AfdE7cmbDBgh+P87Oo7x1jHq66DY6DPPGcF8922Zo8x0WDn0sTj+lAvq7zRE8tnFDT2
- XzvNIoVZ4gMay0HBPcHc+Y2mV5vgYwQIVBZJE/CCUdPbzqRvdh57nbfeToahYTzg/qAOGOlubiR
- kzJtzEWg7Tt8qd3oXiPuqtl5Rrxt5561yBGCZj3POtO11FxZpSmH+gSmx8I5qsi8fy6Vp8bnFxw
- jed+E2gJZ91nq5JLxUDYO8HYZFZ1c6dJION0iZmK5YikiGcEdLJl7XAwXhFqSwCllwb8tqV0iw4
- C1Nx5fS13p78DQYePu6YXGDhwiywc+/F35wKJZYM4FJ2GZnS6pVGzOuKsd4rlb60feZkkIPTuJy
- +0B5HGhIEV5UsiXpk9Xo9gb18gMUGIS+UtiZ0L+u5d6K0sjrSQ0M3kVFUweNxw41Vq63p0gtb8U
- jhme6ZueF9zve/wjHFVKIK+V2qtFzLdh7zczWmwfGwnzidLrHKqraatvtf8AnFJtoXIJdV6ZO7D
- Puis9o=
-X-Received: by 2002:a17:907:94cb:b0:bef:8141:668c with SMTP id
- a640c23a62f3a-c07c4a063e6mr96074166b.6.1781784051445; 
- Thu, 18 Jun 2026 05:00:51 -0700 (PDT)
-Received: from puffmais2.c.googlers.com
- (181.179.204.35.bc.googleusercontent.com. [35.204.179.181])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bfdb4420966sm954924566b.9.2026.06.18.05.00.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Jun 2026 05:00:49 -0700 (PDT)
-From: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Date: Thu, 18 Jun 2026 13:00:39 +0100
-Subject: [PATCH] dma-fence: use correct callback in dma_fence_timeline_name()
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F9E810F2AE
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 12:05:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7C2BF60008;
+ Thu, 18 Jun 2026 12:05:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 358E71F000E9;
+ Thu, 18 Jun 2026 12:05:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781784312;
+ bh=/7m6pRIAwNnhYn30G/uLruR9I/DO7DY2hq1NVxPJLqQ=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date;
+ b=D9eYSOCbhz717Oe7mMlWbPYXyCs1C3gwcsvyV7DF4heD7D5/1gaNIVypVYvCsMamF
+ 5IKsyJqxdMpwxKGq7aFcbkQymxw9mTFgcLKruBUls24gZuCg3+vcf1BFQc88HtOu5C
+ nTq5q2CwEnxksL0kqYfR8i9BTEEBkgD70Q+AjA0VG3DRWmbikCM4QMC9nRdZUXy1zC
+ UCI1F/wa3vbMYA0ORLphpra9J21PimsprbIhUmBK3gDRqIi4ZiqRF76YDpWgJyc4dA
+ HYnhwUu/EkJ/X8qzzzATFiEMyEwbMp3AAthW0nERlFaGZ6LzGnlWciiihEDh+oP8Qv
+ lFdSJ+GZa5zdw==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Alvin Sun <alvin.sun@linux.dev>, Miguel Ojeda <ojeda@kernel.org>, Boqun
+ Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6r?=
+ =?utf-8?Q?n?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich
+ <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu
+ <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen
+ <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Daniel Almeida <daniel.almeida@collabora.com>, Arnd
+ Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, Breno
+ Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>
+Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org,
+ kunit-dev@googlegroups.com, linux-block@vger.kernel.org, Alvin Sun
+ <alvin.sun@linux.dev>
+Subject: Re: [PATCH v2 1/7] rust: module: add `THIS_MODULE` const to
+ `ModuleMetadata` trait
+In-Reply-To: <20260521-fix-fops-owner-v2-1-fd99079c5a04@linux.dev>
+References: <20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev>
+ <nwii7SN7dp9LYlpqQ_H4e9xoec8GK9pzGOYZXi2CEEqSgKU9pTnK_3jgpBToFSsmcAX8XxgQUJt_O1UY1vaNEQ==@protonmail.internalid>
+ <20260521-fix-fops-owner-v2-1-fd99079c5a04@linux.dev>
+Date: Thu, 18 Jun 2026 14:04:59 +0200
+Message-ID: <87ldccf40k.fsf@t14s.mail-host-address-is-not-set>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260618-linux-drm_crtc_fix-v1-1-801f29c9853d@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAOfdM2oC/x2MWwqAMAzAriL9tuAGm4+riMiYVQs6pVMRxLs7/
- EwgeSCSMEVosgeELo68hQQqz8DPLkyEPCQGXWhbWFXhwuG8cZC193L4fuQbtS2tMU75qh4hhbt
- Q0v+07d73Azf7nLhkAAAA
-X-Change-ID: 20260618-linux-drm_crtc_fix-267655a1c89f
-To: Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>, 
- kernel-team@android.com, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,37 +75,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dma_fence_timeline_name() is a wrapper around
-dma_fence_ops::get_timeline_name(). Since the blamed commit below, it
-calls an incorrect callback.
+"Alvin Sun" <alvin.sun@linux.dev> writes:
 
-Update it to restore functionality by calling the intended callback.
+> Add a `THIS_MODULE` const to the `ModuleMetadata` trait so that
+> modules can provide their `ThisModule` pointer usable in const
+> contexts such as static file_operations.
+>
+> Move the `THIS_MODULE` static from the `module!` macro into the
+> `ModuleMetadata` impl, and update `__init` to use
+> `LocalModule::THIS_MODULE` instead.
+>
+> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+> ---
+>  rust/kernel/lib.rs    |  3 +++
+>  rust/macros/module.rs | 34 +++++++++++++++++-----------------
+>  2 files changed, 20 insertions(+), 17 deletions(-)
+>
+> diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+> index b72b2fbe046d6..f0cf0705d9697 100644
+> --- a/rust/kernel/lib.rs
+> +++ b/rust/kernel/lib.rs
+> @@ -184,6 +184,9 @@ fn init(module: &'static ThisModule) -> impl pin_init::PinInit<Self, error::Erro
+>  pub trait ModuleMetadata {
+>      /// The name of the module as specified in the `module!` macro.
+>      const NAME: &'static crate::str::CStr;
+> +
+> +    /// The module's `THIS_MODULE` pointer.
+> +    const THIS_MODULE: ThisModule;
+>  }
+>
+>  /// Equivalent to `THIS_MODULE` in the C API.
+> diff --git a/rust/macros/module.rs b/rust/macros/module.rs
+> index 06c18e2075083..b6d7b3299fbf9 100644
+> --- a/rust/macros/module.rs
+> +++ b/rust/macros/module.rs
+> @@ -497,28 +497,28 @@ pub(crate) fn module(info: ModuleInfo) -> Result<TokenStream> {
+>          /// Used by the printing macros, e.g. [`info!`].
+>          const __LOG_PREFIX: &[u8] = #name_cstr.to_bytes_with_nul();
+>
+> -        // SAFETY: `__this_module` is constructed by the kernel at load time and will not be
+> -        // freed until the module is unloaded.
+> -        #[cfg(MODULE)]
+> -        static THIS_MODULE: ::kernel::ThisModule = unsafe {
+> -            extern "C" {
+> -                static __this_module: ::kernel::types::Opaque<::kernel::bindings::module>;
+> -            };
+> -
+> -            ::kernel::ThisModule::from_ptr(__this_module.get())
+> -        };
+> -
+> -        #[cfg(not(MODULE))]
+> -        static THIS_MODULE: ::kernel::ThisModule = unsafe {
+> -            ::kernel::ThisModule::from_ptr(::core::ptr::null_mut())
+> -        };
+> -
+>          /// The `LocalModule` type is the type of the module created by `module!`,
+>          /// `module_pci_driver!`, `module_platform_driver!`, etc.
+>          type LocalModule = #type_;
+>
+>          impl ::kernel::ModuleMetadata for #type_ {
+>              const NAME: &'static ::kernel::str::CStr = #name_cstr;
+> +
+> +            #[cfg(MODULE)]
+> +            const THIS_MODULE: ::kernel::ThisModule = {
+> +                extern "C" {
+> +                    static __this_module: ::kernel::types::Opaque<::kernel::bindings::module>;
+> +                }
+> +
+> +                // SAFETY: `__this_module` is constructed by the kernel at load time
+> +                // and lives until the module is unloaded.
+> +                unsafe { ::kernel::ThisModule::from_ptr(__this_module.get()) }
+> +            };
+> +
+> +            #[cfg(not(MODULE))]
+> +            const THIS_MODULE: ::kernel::ThisModule = unsafe {
+> +                ::kernel::ThisModule::from_ptr(::core::ptr::null_mut())
+> +            };
+>          }
+>
+>          // Double nested modules, since then nobody can access the public items inside.
+> @@ -616,7 +616,7 @@ pub extern "C" fn #ident_exit() {
+>                  /// This function must only be called once.
+>                  unsafe fn __init() -> ::kernel::ffi::c_int {
+>                      let initer = <super::super::LocalModule as ::kernel::InPlaceModule>::init(
+> -                        &super::super::THIS_MODULE
+> +                        &<super::super::LocalModule as ::kernel::ModuleMetadata>::THIS_MODULE
 
-Fixes: 62918542b7bf ("dma-fence: Fix sparse warnings due __rcu annotations")
-Signed-off-by: André Draszik <andre.draszik@linaro.org>
----
- drivers/dma-buf/dma-fence.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Is it possible we could make this more ergonomic? Perhaps by adding a
+helper:
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index b3bfa6943a8e..5292d714419b 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -1202,7 +1202,7 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
- 	/* RCU protection is required for safe access to returned string */
- 	ops = rcu_dereference(fence->ops);
- 	if (!dma_fence_test_signaled_flag(fence))
--		return (const char __rcu *)ops->get_driver_name(fence);
-+		return (const char __rcu *)ops->get_timeline_name(fence);
- 	else
- 		return (const char __rcu *)"signaled-timeline";
- }
+  fn this_module<M: ::kernel::ModuleMetadata>() -> &'static ::kernel::ThisModule {
+      &M::THIS_MODULE
+  }
 
----
-base-commit: e2cae00c05d196491c318196792297f2dfbaa02c
-change-id: 20260618-linux-drm_crtc_fix-267655a1c89f
+Then the invocation is a little better:
+
+  let initer = <super::super::LocalModule as ::kernel::InPlaceModule>::init(
+      this_module::<super::super::LocalModule>()
+  );
+
 
 Best regards,
--- 
-André Draszik <andre.draszik@linaro.org>
+Andreas Hindborg
+
 
