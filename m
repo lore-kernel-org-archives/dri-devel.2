@@ -4,76 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C313BCD98F2
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 21:06:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5636CD98F0
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 23:08:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31BE410E239;
-	Thu, 18 Jun 2026 21:06:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE51D10E8C8;
+	Thu, 18 Jun 2026 23:08:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=adamthiede.com header.i=@adamthiede.com header.b="1o2eMq7C";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GgDkpvVe";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D614010E239
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 21:06:37 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4ghCvZ32Jhz9tjF;
- Thu, 18 Jun 2026 23:06:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=adamthiede.com;
- s=MBO0001; t=1781816794;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wBQkNjECV6xY2iyUaF8p4ty+DWlCLVOGQLFUXgO2Ou4=;
- b=1o2eMq7CpiT82lLfa/EJ2bHxFGd9w1DrgDAhipxOxOToKoH5b6R6Exfos4jx3OiiFM7szl
- O3pXAeC2FF7dMTnguh/ngM8RXbAnRCu3X+fjoAP977qNzCafGtvBJvs8YcTt118kkTHnMB
- uUilaRaKfr5LQ/fIxRUh5mqtsig91nSnsvQa0rNx43GWR3HVa7vVmScKZYZ/3qljYRhSU9
- 4tY78sF1ojmAjfASV+j0xcVW8E9vB/XcYWckCHHPON9vK4V+t40RvtxZskPNO2l4DdoI+7
- hNpS0611k6APoQGAALNp0qSH/OILLRjqJlanB1Wlr7d/i3lb64ZCDWC4VIbhhA==
-Message-ID: <42607fa4-485d-4142-b31c-7bfac71118d2@adamthiede.com>
-Date: Thu, 18 Jun 2026 16:06:28 -0500
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9A0010E8C8
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 23:08:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 07907601E1;
+ Thu, 18 Jun 2026 23:08:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA6201F000E9;
+ Thu, 18 Jun 2026 23:08:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781824130;
+ bh=IFzNgkG2m6LHm/n3B0bxBt/0Kp+5tRid/Y2vmPN6Huk=;
+ h=From:To:Cc:Subject:Date;
+ b=GgDkpvVe1RBzO2seIT4BcWsJJ3VDTGBlmFmkv0wvl6gwpAn2VaUfbrlZtmcP93hUr
+ +D65Ip+5tDKdLWvhcgGjLur4Qik4YKohvkWYwE4WfKUbkCMRou+Vgo0WvJUPKPRF4m
+ +/xjr1h/D95QngnGCr4mMHGik1F8r5zgQHM52KO7ci5EImMc3owtOEM4HeIJ1eoXKg
+ IRDQApzfVIcV8mq3rN807YRvXcdY77oLVDkX2LlUBtPz4AgakAH1xQkhwhKY4CQv/6
+ f8qH0vlqlt01zFCFAACJRuo/gG21gAimMGOZSC346L/c/s8FCm8QcaiuhqsWMleXq9
+ ZeXUZYjMBYubw==
+From: Danilo Krummrich <dakr@kernel.org>
+To: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
+ ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
+ aliceryhl@google.com, tmgross@umich.edu, acourbot@nvidia.com,
+ ecourtney@nvidia.com, m.wilczynski@samsung.com, david.m.ertman@intel.com,
+ ira.weiny@intel.com, leon@kernel.org, daniel.almeida@collabora.com,
+ bhelgaas@google.com, kwilczynski@kernel.org
+Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-pwm@vger.kernel.org, rust-for-linux@vger.kernel.org
+Subject: [PATCH v3 0/7] ForLt/CovariantForLt split,
+ auxiliary closure API and DevresLt
+Date: Fri, 19 Jun 2026 01:08:26 +0200
+Message-ID: <20260618230834.812007-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Subject: Re: [PATCH] drm/mediatek: mtk_dsi: enable hs clock during pre-enable
-To: Gary Bisson <bisson.gary@gmail.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com>
-Content-Language: en-US
-From: Adam Thiede <me@adamthiede.com>
-Autocrypt: addr=me@adamthiede.com; keydata=
- xsBNBF+n+90BCAC2ZRLVcvdXDgfY7EppN05eNor3U7/eeiNCCEIWZkYLhikUEP1ReLGBkXpK
- Pc70hfnKAKkCoth3IwhDty9WXMNU+iLNei4ieb2luW+UqluR6xIUIA+txahMU9YcjVaQTKf/
- yZWO4yl6pfBPCxC2UdPZKBAdGoi5NnE0ABFNbhBETQhhBic533lZn33ByupfI3acECnQdjgQ
- llCUpDbw4I+S/N1iFiEHcbMXH7ZB00e3IYNorZ1E9v7p++5rDY1fQ9gXpieg1vFKwSq1NJWo
- 9xx336YjaTUbX0EwrdKd9l8AktA3yRjckaK5TAcwSQaDtHvhpbl4ebvPhtwHh699MroXABEB
- AAHNH0FkYW0gVGhpZWRlIDxtZUBhZGFtdGhpZWRlLmNvbT7CwI4EEwEIADgCGwMFCwkIBwIG
- FQoJCAsCBBYCAwECHgECF4AWIQQtG9pGQ7sz3tf8M/kC7fV9o/vRzgUCZL1HxQAKCRAC7fV9
- o/vRzgyRB/wLqRCvvWhQCMgvzeKvru9wcXquhb77K8H/ByLbfiT8YBuP3lZFVh0IQhgO9Ylk
- fIoOJE4V+jjxyOnO2d9xjGbvAmmR6yT0gfLzSVWqrC4k+V9MWLv43nrNzxt41dvo5j824FAl
- X+zaiRZCdO8Jtxg5Elpiop2SKLi1utX1Z8i6YZh+ccJZlchUBAGUTk+D4UjK7vUcjLWT96ya
- CtdtTfXyw36CvGOPEWfc6++Kkl/5sgej1i7biPYzu/r0vssaQYTXKSrv6Cfa3Maa89ASiTtv
- q4qmhLnJeCrPxWlRAf6LEizeBEkOasYni2u8sp4wBezEq45Ozu45sfPkqLpPolG7zsBNBF+n
- +90BCADBRt+vrToRBEG580n77S99qSEkbKD+oJtCVyovnjMNkg0K9UG68LIeCX/ezngiV1M8
- JISvw5iFOuUFqGX/1hLl9wgt/YpuIrgWOp8XxkotavTCloLDvQmufJPO1L8bnnA+WgP2YgVZ
- 5MJTj/t4DI+yQgysEjsH8aurHO2uuqgJE+xK+2dy6Cl/wskuGxObksSPmmFH5PH0Joziwrtl
- 61ouLE2XwKbkMgIGEKkbFgbfwz3/QuLZGBni+OOtLzXeZ9wNTW/AHUPy6S9U4F+5z6/09fVT
- tTH0cvrgAGjbASlYx2VqGONXAsxCfjulq6ryJBFlPLp949c/JTTgOojukCSbABEBAAHCwHYE
- GAEIACACGwwWIQQtG9pGQ7sz3tf8M/kC7fV9o/vRzgUCZL1H0gAKCRAC7fV9o/vRzlamCACs
- vHw+0heTm+BfC3S8DUST6889gidIIwdqBep1ByzetCph7Bq8Y8BlT5YTX0u/bSKkxCzFgeTm
- vC341Q09ST2XjLAl1ZTdzGhH9gcgYyOw34pr5fPQRJLB392mPzD8YReRzciNbhWzj+DLgeVe
- ouyfGajd6jDjkf4FEq+trQLGZhpfsKn3JnDbzBUs945D50l/vz9q/QN3qZO+H4F6g8ZeMnqo
- FOEFN26xVtdEDr+0DNFsbgKmEzs675kdAY78ZZdbEetX/FSknxJ+FK1ZW3J7Yswwulj34AXP
- LB49Mk8Ot7fo6mdt0DkV11JS9LmKxKvpY+KTlrKG+i7pVCSZvVUx
-In-Reply-To: <20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,118 +63,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 1/20/26 05:36, Gary Bisson wrote:
-> Some bridges, such as the TI SN65DSI83, require the HS clock to be
-> running in order to lock its PLL during its own pre-enable function.
-> 
-> Without this change, the bridge gives the following error:
-> sn65dsi83 14-002c: failed to lock PLL, ret=-110
-> sn65dsi83 14-002c: Unexpected link status 0x01
-> sn65dsi83 14-002c: reset the pipe
-> 
-> Move the necessary functions from enable to pre-enable.
-> 
-> Signed-off-by: Gary Bisson <bisson.gary@gmail.com>
-> ---
-> Tested on Tungsten510 module with sn65dsi83 + tm070jdhg30 panel.
-> 
-> Left mtk_dsi_set_mode() as part of the enable function to mimic what is
-> done in the Samsung DSIM driver which is known to be working the TI
-> bridge.
-> ---
->   drivers/gpu/drm/mediatek/mtk_dsi.c | 35 +++++++++++++++++------------------
->   1 file changed, 17 insertions(+), 18 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> index 0e2bcd5f67b7..b560245d1be9 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> @@ -672,6 +672,21 @@ static s32 mtk_dsi_switch_to_cmd_mode(struct mtk_dsi *dsi, u8 irq_flag, u32 t)
->   	}
->   }
->   
-> +static void mtk_dsi_lane_ready(struct mtk_dsi *dsi)
-> +{
-> +	if (!dsi->lanes_ready) {
-> +		dsi->lanes_ready = true;
-> +		mtk_dsi_rxtx_control(dsi);
-> +		usleep_range(30, 100);
-> +		mtk_dsi_reset_dphy(dsi);
-> +		mtk_dsi_clk_ulp_mode_leave(dsi);
-> +		mtk_dsi_lane0_ulp_mode_leave(dsi);
-> +		mtk_dsi_clk_hs_mode(dsi, 0);
-> +		usleep_range(1000, 3000);
-> +		/* The reaction time after pulling up the mipi signal for dsi_rx */
-> +	}
-> +}
-> +
->   static int mtk_dsi_poweron(struct mtk_dsi *dsi)
->   {
->   	struct device *dev = dsi->host.dev;
-> @@ -724,6 +739,8 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
->   	mtk_dsi_set_vm_cmd(dsi);
->   	mtk_dsi_config_vdo_timing(dsi);
->   	mtk_dsi_set_interrupt_enable(dsi);
-> +	mtk_dsi_lane_ready(dsi);
-> +	mtk_dsi_clk_hs_mode(dsi, 1);
->   
->   	return 0;
->   err_disable_engine_clk:
-> @@ -769,30 +786,12 @@ static void mtk_dsi_poweroff(struct mtk_dsi *dsi)
->   	dsi->lanes_ready = false;
->   }
->   
-> -static void mtk_dsi_lane_ready(struct mtk_dsi *dsi)
-> -{
-> -	if (!dsi->lanes_ready) {
-> -		dsi->lanes_ready = true;
-> -		mtk_dsi_rxtx_control(dsi);
-> -		usleep_range(30, 100);
-> -		mtk_dsi_reset_dphy(dsi);
-> -		mtk_dsi_clk_ulp_mode_leave(dsi);
-> -		mtk_dsi_lane0_ulp_mode_leave(dsi);
-> -		mtk_dsi_clk_hs_mode(dsi, 0);
-> -		usleep_range(1000, 3000);
-> -		/* The reaction time after pulling up the mipi signal for dsi_rx */
-> -	}
-> -}
-> -
->   static void mtk_output_dsi_enable(struct mtk_dsi *dsi)
->   {
->   	if (dsi->enabled)
->   		return;
->   
-> -	mtk_dsi_lane_ready(dsi);
->   	mtk_dsi_set_mode(dsi);
-> -	mtk_dsi_clk_hs_mode(dsi, 1);
-> -
->   	mtk_dsi_start(dsi);
->   
->   	dsi->enabled = true;
-> 
-> ---
-> base-commit: 8f0b4cce4481fb22653697cced8d0d04027cb1e8
-> change-id: 20260120-mtkdsi-29e4c84e7b38
-> 
-> Best regards,
+The ForLt trait currently guarantees covariance, which allows safe
+lifetime shortening via cast_ref(). However, some types (e.g. those
+containing Mutex<&'bound T>) are invariant over their lifetime parameter
+and cannot safely use cast_ref().
 
-Hello,
-This commit was part of 7.1 and caused a problem for me.
-I'm running postmarketOS (basically Alpine Linux) on a Lenovo C330 
-chromebook with a Mediatek MT8173 processor.
-The problem: when the display on my laptop powers off (via suspend or 
-idle, like xset dpms off) the picture does not come back when the 
-display powers back on (from resume). The display backlight comes on and 
-brightness is adjustable but there is no picture. The only fix is to reboot.
+This series splits ForLt into two traits:
 
-Reverting this commit and applying it as a patch on top of 7.1 addresses 
-the issue for me.
+  - ForLt: base trait for all lifetime-parameterized types, providing
+    only the Of<'a> GAT.
 
-You can view the config I'm using here: 
-https://gitlab.postmarketos.org/postmarketOS/pmaports/-/merge_requests/8819
+  - CovariantForLt: unsafe subtrait that guarantees covariance,
+    providing a safe cast_ref() method.
 
-Is there any sort of testing or other debugging info I can provide to 
-help address this issue?
+For invariant types, a closure-based API (registration_data_with()) is
+added to the auxiliary subsystem. The closure's HRTB prevents the caller
+from choosing a concrete lifetime, which would be unsound for invariant
+types.
 
-Thanks,
-- Adam Thiede
+On top of that, this series adds DevresLt<F: ForLt>, a thin wrapper
+around Devres<F::Of<'static>> that shortens the stored 'static lifetime
+back to the caller's borrow scope. DevresLt provides both closure-based
+access (access_with/try_access_with for ForLt types) and direct
+reference access (access/try_access for CovariantForLt types).
+
+Also implement ForLt and CovariantForLt for Bar, IoMem and
+ExclusiveIoMem, and update their into_devres() methods to return
+DevresLt. Provide convenience type aliases DevresBar, DevresIoMem and
+DevresExclusiveIoMem.
+
+Changes in v3:
+- Keep UnsafeForLtImpl as the shared helper for both ForLt! and
+  CovariantForLt!, distinguished by const generic N
+- Remove cast_ref_unchecked() from ForLt; lifetime shortening is
+  handled by borrowing with the target lifetime directly or by
+  decoupling the HRTB from the outer reference lifetime
+
+Changes in v2:
+- Fold the ForLt -> CovariantForLt rename and the new ForLt base trait
+  into this series
+- Add closure-based registration_data_with() for auxiliary ForLt types
+- Add auxiliary sample demonstrating ForLt with an invariant Mutex type
+- DevresLt: add closure-based access_with()/try_access_with() for ForLt
+  types alongside direct access()/try_access() for CovariantForLt types
+- Make DevresLt::new() unsafe; callers must guarantee the data outlives
+  the device binding
+- Implement both ForLt and CovariantForLt (previously just ForLt) for
+  Bar, IoMem, ExclusiveIoMem
+- Various safety comment and documentation improvements
+
+Danilo Krummrich (7):
+  rust: types: rename ForLt to CovariantForLt
+  rust: types: introduce ForLt base trait for CovariantForLt
+  rust: auxiliary: add registration_data_with() for ForLt types
+  rust: auxiliary: sample: demonstrate ForLt with invariant Mutex type
+  rust: devres: add DevresLt for ForLt-aware device resource access
+  rust: pci: return DevresLt from Bar::into_devres()
+  rust: io: mem: return DevresLt from
+    IoMem/ExclusiveIoMem::into_devres()
+
+ drivers/gpu/nova-core/driver.rs       |   4 +-
+ drivers/pwm/pwm_th1520.rs             |   5 +-
+ rust/kernel/auxiliary.rs              |  76 +++++++++++++++-----
+ rust/kernel/devres.rs                 | 100 ++++++++++++++++++++++++++
+ rust/kernel/io/mem.rs                 |  65 +++++++++++------
+ rust/kernel/pci.rs                    |   1 +
+ rust/kernel/pci/io.rs                 |  37 +++++++---
+ rust/kernel/types.rs                  |   1 +
+ rust/kernel/types/for_lt.rs           |  95 +++++++++++++++++-------
+ rust/macros/for_lt.rs                 |  53 +++++++++++---
+ rust/macros/lib.rs                    |  18 ++++-
+ samples/rust/rust_driver_auxiliary.rs |  96 ++++++++++++++++++-------
+ 12 files changed, 432 insertions(+), 119 deletions(-)
+
+
+base-commit: 83f1454877cc292b88baf13c829c16ce6937d120
+-- 
+2.54.0
+
