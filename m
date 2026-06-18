@@ -4,63 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F61CCD98F0
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 08:11:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1270CD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 08:22:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68D6610ECBB;
-	Thu, 18 Jun 2026 08:11:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1115D10ED5B;
+	Thu, 18 Jun 2026 08:22:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="Wv+neOsH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aVWLJ5Yz";
 	dkim-atps=neutral
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33CFD10ECBB
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 08:11:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
- s=protonmail; t=1781770246; x=1782029446;
- bh=il13JZXSJpfwDVrhPAiRTVZ2CIyzBfQKH8+hwIpyxAA=;
- h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=Wv+neOsHPNFrzUzR1T6c+Nm8SMdjfWY/pQfGR4t8YaGoAPK8NA8VKqx2HaH/wZ1ke
- pEpTES0lpXf26srd6UW5QjMNjBl6UrqTGa7T7eyoe8uuq03xqMqIfzYA97u7h//1Qz
- f1Oo0G5s8ab/+EWJvJBkFZy8JcwVELKGhDfhoHeUCf4RIqVOMe6gf7wBcpLMZd0UPa
- LzZSecvPDXmSCGXid1Qqd4EwF8p0ldlilDHkgwoW1nSi2FA6Vj4LYEdyEwNKANN4Kd
- SlEeVYtVVa3ALpHPpUanOg9Z1jhiKm95uzRmnrfnSsPNCzqNmYSwTIbddi2YoC/q+F
- HuVuTEba7BFTw==
-X-Pm-Submission-Id: 4ggthG5v2fz2ScNJ
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: Daniel Almeida <daniel.almeida@collabora.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Drew Fustini <fustini@kernel.org>,
- Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- Brian Masney <bmasney@redhat.com>, Boqun Feng <boqun@kernel.org>,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
- linux-pwm@vger.kernel.org, linux-clk@vger.kernel.org,
- rust-for-linux@vger.kernel.org,
- Boris Brezillon <boris.brezillon@collabora.com>
-Subject: Re: [PATCH v4 1/3] rust: clk: use the type-state pattern
-Date: Thu, 18 Jun 2026 11:10:34 +0300
-Message-ID: <20260618081037.35784-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20260618-clk-type-state-v4-1-8be082786080@collabora.com>
-References: <20260618-clk-type-state-v4-0-8be082786080@collabora.com>
- <20260618-clk-type-state-v4-1-8be082786080@collabora.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 426CF10ED4A
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 08:22:36 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 50BB76012A;
+ Thu, 18 Jun 2026 08:22:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE6151F000E9;
+ Thu, 18 Jun 2026 08:22:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781770955;
+ bh=ho2WDnuW9FtnbRR+A6J4TSnTnbkKNTceeivztLex3pk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=aVWLJ5YzC+e/BsYHQi+wMRupG0l6pwtYho9oGfTmuNH+5mcCHscQ/bw0bR1wE28Dw
+ 3ZgxyNJ+C9ZCokaYg3kkW4jBiSwPnCVKh9Z8d5DU6tMy5CINse2QRUYEnwzurOiWYA
+ 5OqpN1gxws3Um5fvdrK6SVgpX8QnN6//fJhe9vYxnjaaMVM/pxW+NnZ8J94esjVaS+
+ xyp08S00WbhYOTrAS8ks4GEP1BcdUCmToKVxxDCx8xm05OjkdpA2LASjk1HH0EbCCp
+ NT1zh2JJ1HquF0ENQOvhjeCtxRKmr327Yw3z0NRZmMAbFfdTSemq/B9vLGbhfcNbhz
+ 9lrxBWNgc2MjQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/5] drm/gpusvm: embed struct drm_device into
+ drm_gpusvm_pages
+To: "Honglei Huang" <honglei1.huang@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260618080902.1527255-3-honglei1.huang@amd.com>
+References: <20260618080902.1527255-1-honglei1.huang@amd.com>
+ <20260618080902.1527255-3-honglei1.huang@amd.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 18 Jun 2026 08:22:34 +0000
+Message-Id: <20260618082234.DE6151F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,219 +54,110 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 18 Jun 2026 00:46:35 -0300=0D
-Daniel Almeida <daniel.almeida@collabora.com> wrote:=0D
-=0D
-> The current Clk abstraction can still be improved on the following issues=
-:=0D
-> =0D
-> a) It only keeps track of a count to clk_get(), which means that users ha=
-ve=0D
-> to manually call disable() and unprepare(), or a variation of those, like=
-=0D
-> disable_unprepare().=0D
-> =0D
-> b) It allows repeated calls to prepare() or enable(), but it keeps no tra=
-ck=0D
-> of how often these were called, i.e., it's currently legal to write the=0D
-> following:=0D
-> =0D
-> clk.prepare();=0D
-> clk.prepare();=0D
-> clk.enable();=0D
-> clk.enable();=0D
-> =0D
-> And nothing gets undone on drop().=0D
-> =0D
-> c) It adds a OptionalClk type that is probably not needed. There is no=0D
-> "struct optional_clk" in C and we should probably not add one.=0D
-> =0D
-> d) It does not let a user express the state of the clk through the=0D
-> type system. For example, there is currently no way to encode that a Clk =
-is=0D
-> enabled via the type system alone.=0D
-> =0D
-> In light of the Regulator abstraction that was recently merged, switch th=
-is=0D
-> abstraction to use the type-state pattern instead. It solves both a) and =
-b)=0D
-> by establishing a number of states and the valid ways to transition betwe=
-en=0D
-> them. It also automatically undoes any call to clk_get(), clk_prepare() a=
-nd=0D
-> clk_enable() as applicable on drop(), so users do not have to do anything=
-=0D
-> special before Clk goes out of scope.=0D
-> =0D
-> It solves c) by removing the OptionalClk type, which is now simply encode=
-d=0D
-> as a Clk whose inner pointer is NULL.=0D
-> =0D
-> It solves d) by directly encoding the state of the Clk into the type, e.g=
-.:=0D
-> Clk<Enabled> is now known to be a Clk that is enabled.=0D
-> =0D
-> The INVARIANTS section for Clk is expanded to highlight the relationship=
-=0D
-> between the states and the respective reference counts that are owned by=
-=0D
-> each of them.=0D
-> =0D
-> The examples are expanded to highlight how a user can transition between=
-=0D
-> states, as well as highlight some of the shortcuts built into the API.=0D
-> =0D
-> The current implementation is also more flexible, in the sense that it=0D
-> allows for more states to be added in the future. This lets us implement=
-=0D
-> different strategies for handling clocks, including one that mimics the=0D
-> current API, allowing for multiple calls to prepare() and enable().=0D
-> =0D
-> The users (cpufreq.rs/ rcpufreq_dt.rs) were updated by this patch (and no=
-t=0D
-> a separate one) to reflect the new changes. This is needed, because=0D
-> otherwise this patch would break the build.=0D
-> =0D
-> Link: https://crates.io/crates/sealed [1]=0D
-> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>=0D
-> ---=0D
->  drivers/cpufreq/rcpufreq_dt.rs |   2 +-=0D
->  drivers/gpu/drm/tyr/driver.rs  |  31 +--=0D
->  drivers/pwm/pwm_th1520.rs      |  17 +-=0D
->  rust/kernel/clk.rs             | 512 ++++++++++++++++++++++++++++++-----=
-------=0D
->  rust/kernel/cpufreq.rs         |   8 +-=0D
->  5 files changed, 396 insertions(+), 174 deletions(-)=0D
-> =0D
-> diff --git a/drivers/cpufreq/rcpufreq_dt.rs b/drivers/cpufreq/rcpufreq_dt=
-.rs=0D
-> index f17bf64c22e2..9d2ec7df4bac 100644=0D
-> --- a/drivers/cpufreq/rcpufreq_dt.rs=0D
-> +++ b/drivers/cpufreq/rcpufreq_dt.rs=0D
-> @@ -40,7 +40,7 @@ struct CPUFreqDTDevice {=0D
->      freq_table: opp::FreqTable,=0D
->      _mask: CpumaskVar,=0D
->      _token: Option<opp::ConfigToken>,=0D
-> -    _clk: Clk,=0D
-> +    _clk: Clk<kernel::clk::Unprepared>,=0D
->  }=0D
->  =0D
->  #[derive(Default)]=0D
-> diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.r=
-s=0D
-> index 279710b36a10..a2230aebfea2 100644=0D
-> --- a/drivers/gpu/drm/tyr/driver.rs=0D
-> +++ b/drivers/gpu/drm/tyr/driver.rs=0D
-> @@ -3,7 +3,7 @@=0D
->  use kernel::{=0D
->      clk::{=0D
->          Clk,=0D
-> -        OptionalClk, //=0D
-> +        Enabled, //=0D
->      },=0D
->      device::{=0D
->          Bound,=0D
-> @@ -49,7 +49,7 @@ pub(crate) struct TyrPlatformDriverData {=0D
-=0D
-[...]=0D
-=0D
-> -        /// Disable and unprepare the clock.=0D
-> -        ///=0D
-> -        /// Equivalent to calling [`Clk::disable`] followed by [`Clk::un=
-prepare`].=0D
-> +        /// Behaves the same as [`Self::get`], except when there is no c=
-lock=0D
-> +        /// producer. In this case, instead of returning [`ENOENT`], it =
-returns=0D
-> +        /// a dummy [`Clk`].=0D
->          #[inline]=0D
-> -        pub fn disable_unprepare(&self) {=0D
-> -            // SAFETY: By the type invariants, self.as_raw() is a valid =
-argument for=0D
-> -            // [`clk_disable_unprepare`].=0D
-> -            unsafe { bindings::clk_disable_unprepare(self.as_raw()) };=0D
-> +        pub fn get_optional(dev: &Device<Bound>, name: Option<&CStr>) ->=
- Result<Clk<Enabled>> {=0D
-> +            Clk::<Prepared>::get_optional(dev, name)?=0D
-> +                .enable()=0D
-> +                .map_err(|error| error.error)=0D
-> +        }=0D
-> +=0D
-> +        /// Attempts to disable the [`Clk`] and convert it to the [`Prep=
-ared`]=0D
-=0D
-nit: I wouldn't use the word "Attempts" for an infallible function.=0D
-=0D
-> +        /// state.=0D
-> +        #[inline]=0D
-> +        pub fn disable(self) -> Result<Clk<Prepared>, Error<Enabled>> {=
-=0D
-=0D
-This is an infallible function, you can return Clk<Prepared> directly.=0D
-=0D
-Thanks,=0D
-Onur=0D
-=0D
-> +            // We will be transferring the ownership of our `clk_get()` =
-and=0D
-> +            // `clk_enable()` counts to `Clk<Prepared>`.=0D
-> +            let clk =3D ManuallyDrop::new(self);=0D
-> +=0D
-> +            // SAFETY: By the type invariants, `self.0` is a valid argum=
-ent for=0D
-> +            // [`clk_disable`].=0D
-> +            unsafe { bindings::clk_disable(clk.as_raw()) };=0D
-> +=0D
-> +            Ok(Clk {=0D
-> +                inner: clk.inner,=0D
-> +                _phantom: PhantomData,=0D
-> +            })=0D
->          }=0D
->  =0D
->          /// Get clock's rate.=0D
-> @@ -251,82 +544,31 @@ pub fn set_rate(&self, rate: Hertz) -> Result {=0D
-> +                // [`clk_unprepare`].=0D
-=0D
-[...]=0D
-=0D
-> +                unsafe { bindings::clk_unprepare(self.as_raw()) };=0D
-> +            }=0D
->  =0D
-> -        fn deref(&self) -> &Clk {=0D
-> -            &self.0=0D
-> +            // SAFETY: By the type invariants, self.as_raw() is a valid =
-argument for=0D
-> +            // [`clk_put`].=0D
-> +            unsafe { bindings::clk_put(self.as_raw()) };=0D
->          }=0D
->      }=0D
->  }=0D
-> diff --git a/rust/kernel/cpufreq.rs b/rust/kernel/cpufreq.rs=0D
-> index d8d26870bea2..e837bb1010e0 100644=0D
-> --- a/rust/kernel/cpufreq.rs=0D
-> +++ b/rust/kernel/cpufreq.rs=0D
-> @@ -553,8 +553,12 @@ pub fn cpus(&mut self) -> &mut cpumask::Cpumask {=0D
->      /// The caller must guarantee that the returned [`Clk`] is not dropp=
-ed while it is getting used=0D
->      /// by the C code.=0D
->      #[cfg(CONFIG_COMMON_CLK)]=0D
-> -    pub unsafe fn set_clk(&mut self, dev: &Device, name: Option<&CStr>) =
--> Result<Clk> {=0D
-> -        let clk =3D Clk::get(dev, name)?;=0D
-> +    pub unsafe fn set_clk(=0D
-> +        &mut self,=0D
-> +        dev: &Device,=0D
-> +        name: Option<&CStr>,=0D
-> +    ) -> Result<Clk<crate::clk::Unprepared>> {=0D
-> +        let clk =3D Clk::<crate::clk::Unprepared>::get_unbound(dev, name=
-)?;=0D
->          self.as_mut_ref().clk =3D clk.as_raw();=0D
->          Ok(clk)=0D
->      }=0D
-> =0D
-> -- =0D
-> 2.54.0=0D
-> =0D
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+
+Pre-existing issues:
+- [High] Reading uninitialized memory `svm_pages->dma_addr[0].dir` in the e=
+rror path of `__drm_gpusvm_unmap_pages()` when IOVA allocation fails.
+- [High] System memory pages are incorrectly routed to `device_unmap()` dur=
+ing unmap of mixed ranges when `use_iova` is true.
+--
+
+commit 755aa251270882d2dbbc0da1e00b00a5aafa5b38
+Author: Honglei Huang <honghuan@amd.com>
+
+drm/gpusvm: embed struct drm_device into drm_gpusvm_pages
+
+Since now the drm_gpusvm_pages instance is inherently bound to one
+specific drm_device, make that ownership explicit by giving
+drm_gpusvm_pages its own drm_device handle, and drive all DMA through
+it instead of through the gpusvm.
+
+> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+> index df900553f21a4..155e3c2e703d9 100644
+> --- a/drivers/gpu/drm/drm_gpusvm.c
+> +++ b/drivers/gpu/drm/drm_gpusvm.c
+> @@ -1135,11 +1136,16 @@ static void __drm_gpusvm_unmap_pages(struct drm_g=
+pusvm *gpusvm,
+>  				     unsigned long npages)
+>  {
+>  	struct drm_pagemap *dpagemap =3D svm_pages->dpagemap;
+> -	struct device *dev =3D gpusvm->drm->dev;
+> +	struct device *dev;
+>  	unsigned long i, j;
+> =20
+>  	lockdep_assert_held(&gpusvm->notifier_lock);
+> =20
+> +	if (!svm_pages->drm)
+> +		return;
+> +
+> +	dev =3D svm_pages->drm->dev;
+> +
+
+[Severity: High]
+This is a pre-existing issue, but does __drm_gpusvm_unmap_pages() incorrect=
+ly
+route system memory pages to device_unmap() when use_iova is true?
+
+In a mixed range where ctx->allow_mixed is true, containing both system and
+device pages, dpagemap is non-NULL. During unmap, the loop checks:
+
+    if (!use_iova && addr->proto =3D=3D DRM_INTERCONNECT_SYSTEM) {
+        dma_unmap_page(...);
+    } else if (dpagemap && dpagemap->ops->device_unmap) {
+        dpagemap->ops->device_unmap(dpagemap, dev, addr, addr->dir);
+    }
+
+If use_iova is true, the first condition evaluates to false for system page=
+s,
+causing execution to fall through to the else if branch. This passes system
+DMA addresses to the device-specific unmap callback, which could lead to
+invalid memory accesses or state corruption.
+
+[ ... ]
+
+> @@ -1555,11 +1564,11 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusv=
+m,
+>  			}
+> =20
+>  			if (!i)
+> -				dma_iova_try_alloc(gpusvm->drm->dev, state,
+> +				dma_iova_try_alloc(svm_pages->drm->dev, state,
+>  						   0, npages * PAGE_SIZE);
+> =20
+>  			if (dma_use_iova(state)) {
+> -				err =3D dma_iova_link(gpusvm->drm->dev, state,
+> +				err =3D dma_iova_link(svm_pages->drm->dev, state,
+>  						    hmm_pfn_to_phys(pfns[i]),
+>  						    svm_pages->state_offset,
+>  						    PAGE_SIZE << order,
+
+[Severity: High]
+This is a pre-existing issue, but does this error path read uninitialized
+memory if dma_iova_link() fails on the first iteration where i =3D=3D 0?
+
+Earlier in drm_gpusvm_get_pages(), svm_pages->dma_addr is allocated using
+kvmalloc_objs() which does not zero-initialize the memory. If the link fails
+on the first iteration, the code jumps to err_unmap before
+svm_pages->dma_addr[0] is initialized.
+
+The err_unmap path calls __drm_gpusvm_unmap_pages() with num_dma_mapped set
+to 0. Because dma_use_iova() returns true, __drm_gpusvm_unmap_pages()
+unconditionally calls dma_iova_destroy() and evaluates
+svm_pages->dma_addr[0].dir to pass as the direction argument:
+
+    if (use_iova)
+        dma_iova_destroy(dev, &svm_pages->state, svm_pages->dma_addr[0].dir=
+, 0);
+
+This evaluates uninitialized memory, which will trigger KMSAN warnings and
+pass a garbage DMA direction to the DMA subsystem.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618080902.1527=
+255-1-honglei1.huang@amd.com?part=3D2
