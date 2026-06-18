@@ -4,85 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8CFECD98F2
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 12:23:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5320FCD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 12:30:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A1B210EDC6;
-	Thu, 18 Jun 2026 12:23:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A855B10EDD1;
+	Thu, 18 Jun 2026 12:30:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="tYMZcovP";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="smDdV6Xr";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAE5410EDC6
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 12:23:43 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-490bc6a7958so15386015e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 05:23:43 -0700 (PDT)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD26410EDD1
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 12:30:22 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-4633193af19so689591f8f.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 05:30:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1781785422; x=1782390222; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1781785821; x=1782390621; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=D5FEcOXjp/hefaowFGFjzfPrPE1kEo+L375WErKUiNc=;
- b=tYMZcovPElZX/UyiZT7+J8YhLuIBX+QHlh9NHsHTr8+wjthm0BduaF50LTYMic6e8T
- DXRr5yNllmg/jiBww+VRyHgRJCGGPoV1IQB/V1dO5MivXpmkIf+OqBkvZ3un4bECVS0M
- 1eVPaJW5CKVZ2+AQAvB8Y1Ie8p11ggWcKvvdMxzfmT0spzAGIAMXteHwVLfsJurL39j0
- tk0ZemMMVpRUhq29LyMjLvPRlDR3aARtjMQRGIBaJnBoneNCJE1iwnsGaMZvy5N7qwMp
- 4ZFWgDhOafDhW9+O/TcwsI0UHAzWh90F1/vM0cbMc9D8UE51a3FD/UOs3UBsBZOe0qaA
- xJrA==
+ :reply-to; bh=T87pQD65CNc83N4OFeqqd6eZRLgKX3mUIa9gwzpc18Q=;
+ b=smDdV6XrQK2ayp1Wa7yR2fXG+XvxIG0VKoNUbRz9x7ePWqnnH8uG/w6QpW6JgdPCda
+ JNOuFv6cKflnRQ1qO2qjLrtEBU30BW9uykRTDZzdraGidJoBkqigbbHaL9FioYfa6ivW
+ GHpLuXTyj2BXz7unmIZs4TP4ohnXGqlnbrX9ypOgCAhcCFCdMiAsaSx90VDGgSPcaPgF
+ mhBuzclmqBj8G/+e0oqtqgRlZHm71JqqreVhNeZJnA9XyOEfhwBr1rR954zD5eVsreny
+ ZyB3lpY7h3e5kFVT5SKtonlk7ViJ1exb/FgTWEkevvBvvv2pFlhqUQExKDTmgr9l9jyz
+ sgxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781785422; x=1782390222;
+ d=1e100.net; s=20251104; t=1781785821; x=1782390621;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=D5FEcOXjp/hefaowFGFjzfPrPE1kEo+L375WErKUiNc=;
- b=W3Ult/HjBymo7gGRhEmoeZ6iGaFGVoqgtr9W25yi1vqnUZB1PphDrChFMDcYxMXvuD
- qE8WzsVD7bELKzDPW7q47hGn1H4F+24jZcy+eQnaQICojhyy7aOEnjSZQfiHunjD1TJl
- +KHvT57ZPkk/GZnKd62iNMtGF9taBuCd5V89UlDaDI/NpABZ1smvSMy5Aev7HM9ukwUF
- QLFqIIaV3Ss8CBhzNQGhal740UAmoBTL3BoA9UQ0xlIg4zvYcJUQTA6O0p/eMNIXIsaa
- wzVBm20DSKMEoX/5jA7Y+VwECqnv3Prfk5ezur21yPwSuanL0KFO4EdTko6oEqgjuAk8
- iPsQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8YIN7/8vExVvK1viFI2/Rkffd+T+lckb6Lcu2JX63mEE+hlV0Ztq8K1GSnObS6kosrWqNelSbm6ko=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwzFTrI9g6Jj+F4/ntjCwV5aqL2bJQIpjeeVPfBuP+bw7pRrFTN
- Z/fm4mDBrqaRhMztpN7iHPq6glUkXIkjKZkgAj34uBJYP4PZcNaXaUMnQI2wopFLFS0=
-X-Gm-Gg: AfdE7cliIwlKa8u/WKAxa701Wee2HChL7UKsxdsaxEujJcHnVEKOjH4JUXrilMg7z3B
- Ch7yMczHCaaCXmr555SERR3T+NsIrtHXnYVmzicxbpWwA9Q49AK7ZkWJliivlXdiGpnGVQZqRCR
- u1pVFpxYBQObtvKIzWxC+NFau4xa395IdXHmey4gvXgl7US+hZOvTpORo4wzahvt22NuJTxk32O
- 6PKz4Fzq7rnzzWnwKoQmQeDug6ip1iCh/2dpcIprqaE6IIoc4o68tZJgSIRpxYiwttsq+XagOeT
- pIKEjJo89p8ulQkcFHtONAmGEAayjeoL1FqpmrYnvWsMwpxKH/XNe5TpwBHr1G2ET/3S+yQWkjT
- lvyfhFZr2/ymwje4ImEdLpc5pv7vwsfY9hbCqeBFtxkb1WuIUqlLEvmCpwS4HzbebYmaxYobjH4
- mwFsoP5oVe1u/xoIPm/ElnQ16za78/mk+jJRU7c+pMf5b+wok8gDAcXEY/+XTLQMVtvw==
-X-Received: by 2002:a7b:c8d3:0:b0:492:1e36:9a90 with SMTP id
- 5b1f17b1804b1-492381a2e79mr37585935e9.18.1781785422212; 
- Thu, 18 Jun 2026 05:23:42 -0700 (PDT)
+ bh=T87pQD65CNc83N4OFeqqd6eZRLgKX3mUIa9gwzpc18Q=;
+ b=fqdUcvgIPc6GAYIE6WBlu+RQ4Hp9zOGpiZHJdVZh2qDANTW0VkrxZDHkjczyQ/Sr9b
+ hNHDkwYouhiNE6GgL89D/LUOTzzx4Dsx52xyM3qPBQHSST0yZWKYiu/9o3TnA/k1Rfs3
+ vplWtetm/GSo4M7JH3YiEQz3YohHsHqrv5+QIz7sMk7n4XkY5eYzyV8mqdBzBMCd+bQ9
+ BToabIk2U99TYtDXCiW80VBDVijzqchGnkdPfEmGXAJgVrUcEeYF5tPrFJo3dyyXoZRu
+ O1Qn+Yj4yquGr0vD8SxGfaMC5e3bPsudqxF6JFU613hOd/9HutIHCUHmRzoB5SF2US79
+ RMjw==
+X-Gm-Message-State: AOJu0Yz4kU6HWF2AyacecC/X2hHe9z7EM1XaNvVDOsSW21khJp4pVTQR
+ QgEWeX3Z7f+cHYUYxSE0GyMp2nbkjdDWagomUz/ZGTfQ0zEDDNg4fgXUyBXKU7FYom8=
+X-Gm-Gg: AfdE7clCAbxbdBjppqoU3cOn4HAxY1i7/gkvVI+560iwkUBpizHwAENF3/4yxSORCwk
+ /q75MGL+JNKvvFg4EwSqloc6jbqhIQqlrTzA1N+tcXArrQOnQKV9OqpFqbUAIN+mkkUqg3StPUk
+ UOdYMCJcyDGSZ22PCvKksd0z2Fdsti9zjwu8GAykIgU24Hj49u2jLDrzTUMHvf7M7eHkxXWnBY3
+ OlW3bfzltarSLQWAmKAaS5dP1kEr5+2JIgu1wdWv6fDonkPC7cKXh2udYqqQSbKzs2o9YHtHOI3
+ n2zrAU/3KRfx4xP9jafd4VJG1I+l+q8IppFq1+2fTVqe6UZGoLgmjBOrog0E3eCDvDQLDrE+SVp
+ 3TWHnFRAnAHsVtDbY5OA4+Py8aoAmvfxQ4aOUFGD3si9bPFRj0MpIqcV//1vJgTjWccwQcD6cAT
+ S8e+Tgee2eeJv6Py9WuyC/VeK7xiyyIZoKavr70dlY6Eyc/IXxF4nnsSCgPiaPMATssi3AFisJb
+ ej4
+X-Received: by 2002:a05:6000:2405:b0:43f:dd91:b022 with SMTP id
+ ffacd0b85a97d-4641d5554c1mr3156524f8f.35.1781785820908; 
+ Thu, 18 Jun 2026 05:30:20 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:6e1b:5a5:b2b5:b2c0?
  ([2a01:e0a:106d:1080:6e1b:5a5:b2b5:b2c0])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4922fa96f0esm274863325e9.12.2026.06.18.05.23.40
+ ffacd0b85a97d-46289c3b3a3sm14692642f8f.30.2026.06.18.05.30.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Jun 2026 05:23:41 -0700 (PDT)
-Message-ID: <716f71ae-4642-4f22-8a9f-5b1c017d9ac2@linaro.org>
-Date: Thu, 18 Jun 2026 14:23:40 +0200
+ Thu, 18 Jun 2026 05:30:20 -0700 (PDT)
+Message-ID: <a8e62db4-716b-4d9f-abfa-4027bbe0f37b@linaro.org>
+Date: Thu, 18 Jun 2026 14:30:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 3/3] drm/panel: himax-hx83121a: add backlight regulator
- support
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+Subject: Re: [PATCH v7 2/2] drm: panel: add support for the Renesas R63419
+ based dual-DSI video mode Display Panels
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Jessica Zhang <jesszhan0024@gmail.com>,
+ Douglas Anderson <dianders@chromium.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ KancyJoe <kancy2333@outlook.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260608162622.403713-1-zhengxingda@iscas.ac.cn>
- <20260608162622.403713-3-zhengxingda@iscas.ac.cn>
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>
+References: <20260605-topic-sm8650-ayaneo-pocket-s2-r63419-v7-0-b84b6da84293@linaro.org>
+ <20260605-topic-sm8650-ayaneo-pocket-s2-r63419-v7-2-b84b6da84293@linaro.org>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -109,7 +111,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260608162622.403713-3-zhengxingda@iscas.ac.cn>
+In-Reply-To: <20260605-topic-sm8650-ayaneo-pocket-s2-r63419-v7-2-b84b6da84293@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -128,75 +130,27 @@ Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/8/26 18:26, Icenowy Zheng wrote:
-> The backlight, when managed by the panel controller, could be powered by
-> an external regulator, and shutting down the regulator could power off
-> the backlight.
-> 
-> Add support for such a regulator. It's powered off when the backlight is
-> 0 (either by setting brightness to 0 or setting bl_power), and powered
-> on when the backlight should be operating.
-> 
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ---
->   drivers/gpu/drm/panel/panel-himax-hx83121a.c | 26 ++++++++++++++++++++
->   1 file changed, 26 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-himax-hx83121a.c b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-> index 1a7e0125bced8..e31e2fba0a787 100644
-> --- a/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-> +++ b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-> @@ -34,7 +34,9 @@ struct himax {
->   	struct drm_dsc_config dsc;
->   	struct gpio_desc *reset_gpio;
->   	struct regulator_bulk_data *supplies;
-> +	struct regulator *bl_supply;
->   	struct backlight_device *backlight;
-> +	bool backlight_enabled;
->   };
->   
->   struct panel_desc {
-> @@ -195,7 +197,27 @@ static int himax_bl_update_status(struct backlight_device *bl)
->   {
->   	struct himax *ctx = bl_get_data(bl);
->   	u16 brightness = backlight_get_brightness(bl);
-> +	int ret = 0;
-> +
-> +	if (!brightness) {
-> +		if (ctx->backlight_enabled)
-> +			ret = regulator_disable(ctx->bl_supply);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ctx->backlight_enabled = false;
-> +
-> +		return 0;
-> +	}
-> +
->   	/* TODO: brightness to raw map table */
-> +	if (!ctx->backlight_enabled)
-> +		ret = regulator_enable(ctx->bl_supply);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ctx->backlight_enabled = true;
-> +
->   	return mipi_dsi_dcs_set_display_brightness_large(to_primary_dsi(ctx),
->   							 brightness);
->   }
-> @@ -647,6 +669,10 @@ static int himax_probe(struct mipi_dsi_device *dsi)
->   	ctx->panel.prepare_prev_first = true;
->   
->   	if (desc->has_dcs_backlight) {
-> +		ctx->bl_supply = devm_regulator_get_optional(dev, "bl");
-> +		if (IS_ERR(ctx->bl_supply))
-> +			return dev_err_probe(dev, PTR_ERR(ctx->bl_supply),
-> +					     "Failed to get backlight supply\n");
->   		ctx->backlight = himax_create_backlight(ctx);
->   		if (IS_ERR(ctx->backlight))
->   			return dev_err_probe(dev, PTR_ERR(ctx->backlight),
+Hi Dmitry, Douglas, Jessica,
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+On 6/5/26 16:50, Neil Armstrong wrote:
+> From: KancyJoe <kancy2333@outlook.com>
+> 
+> Implement support for the Renesas 63419 based dual-DSI video mode
+> Display Panels found in the Ayaneo gaming handled devices.
+> 
+> Signed-off-by: KancyJoe <kancy2333@outlook.com>
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
+>   drivers/gpu/drm/panel/Kconfig                |  12 +
+>   drivers/gpu/drm/panel/Makefile               |   1 +
+>   drivers/gpu/drm/panel/panel-renesas-r63419.c | 366 +++++++++++++++++++++++++++
+>   3 files changed, 379 insertions(+)
+> 
+<snip>
+
+Could one of you get a look on this patch so I can reduce my backlog ?
+
+Jessica, do you still be marked as DRM Panel reviewer ?
 
 Thanks,
 Neil
