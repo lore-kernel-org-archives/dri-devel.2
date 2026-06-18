@@ -4,57 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEAD3CD98F2
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 16:06:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E81EDCD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 16:51:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47E4D10F354;
-	Thu, 18 Jun 2026 16:06:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44F6510EDF7;
+	Thu, 18 Jun 2026 16:51:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="A2sOokYu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cRz3Arfn";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDDE010F367
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 16:06:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1781798799;
- bh=nT0xci6xmaOOUm65thHxa9cEY6e60prHEPD/nsZss18=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=A2sOokYu0KAx3YqxmulMKI2EgCyBAa0qfekbD+vwpUYn4p0rrGiAHRX3n4nHIrmut
- 0Mtgi6mUrSIjr8tTnsQArEujPGNV6K3b4p4gCDjWRfEvglLfKvlJz1fXovM/EnftMZ
- KDzO/3K86W7nMo6jPXyiY3eA3MV8YdKjU3b1oxvpQkxhdzw/SDO6lmXLngVd28iYlc
- tuDQqc6hMqzA1IhK2vC0xTRb1seqmPwmEn4iYbVhV7AM1LagBoyCwHe+A0uimz5qBQ
- A8aLKzuIF3iIA2qyeovzgWoB02LtNKximKmKa1pUgTmNcIQurI5KACIs0nHkopJRQw
- txy7UV+RmsYQA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519) (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4gh5FN4FcVz4w0H;
- Fri, 19 Jun 2026 02:06:32 +1000 (AEST)
-Message-ID: <62970f4b-e624-403f-9cdc-02438c820d23@ozlabs.org>
-Date: Thu, 18 Jun 2026 17:06:27 +0100
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 901AE10EDF7
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 16:51:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 56ABC41ACC;
+ Thu, 18 Jun 2026 16:51:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CECA1F000E9;
+ Thu, 18 Jun 2026 16:51:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781801517;
+ bh=+C7UJ5EIB57xL4KV5//HXNlxtQfTiI3AQWlDNB9xG9M=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject;
+ b=cRz3Arfn81Xxb0sb5xjVuc9aHEbbew8OcSDJxv/ZQWPs6orcRzAeN2C+dIx2RArvC
+ NxqS0oBMA4GI7gesRaqxmeuVANuET6TQ1GMQSsm6gGujTjolJMi5hiFQM6cZ7GS1zj
+ cUb9z5VIgT5bC3c7Kc8XYT9PRIYm9uhF2cawTytA+LLC9GYJMt5jc5nYKDsJLzcOn2
+ +LoJNrvv+dVlmX/MzxNlEQamZooeOeMlq7/aa4uWYOedDUylJvasepXktDtifWt+Hw
+ obOgwDjHstjkEzlU9nqPrTDH/uR1biK3+vvZJuMxyQcCyqGt+XWe6fJ43wKvDdcqvL
+ zXdtW9BTCB+XQ==
+Date: Thu, 18 Jun 2026 11:51:56 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/9] vfio/pci: Clean up BAR zap and revocation
-Content-Language: en-GB
-To: Pranjal Shrivastava <praan@google.com>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260610154327.37758-1-matt@ozlabs.org>
- <20260610154327.37758-7-matt@ozlabs.org> <aixgZQiBQKgS7yIM@google.com>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <aixgZQiBQKgS7yIM@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, dri-devel@lists.freedesktop.org, 
+ linux-pm@vger.kernel.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ David Airlie <airlied@gmail.com>, linux-arm-kernel@lists.infradead.org, 
+ Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ devicetree@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
+ dmaengine@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Mark Brown <broonie@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Vinod Koul <vkoul@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+In-Reply-To: <20260618-ux500-power-domains-v7-1-v1-1-eb5e50b1a588@kernel.org>
+References: <20260618-ux500-power-domains-v7-1-v1-0-eb5e50b1a588@kernel.org>
+ <20260618-ux500-power-domains-v7-1-v1-1-eb5e50b1a588@kernel.org>
+Message-Id: <178180151626.1898523.11669770093439143903.robh@kernel.org>
+Subject: Re: [PATCH 01/11] dt-bindings: power: Convert Ux500 PM domains to
+ schema
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,69 +67,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Praan,
 
-On 12/06/2026 20:39, Pranjal Shrivastava wrote:
-> On Wed, Jun 10, 2026 at 04:43:20PM +0100, Matt Evans wrote:
->> Previously, vfio_pci_zap_bars() (and the wrapper
->> vfio_pci_zap_and_down_write_memory_lock()) calls were paired with
->> calls to vfio_pci_dma_buf_move().
->>
->> This commit replaces them with a unified new function,
->> vfio_pci_zap_revoke_bars() containing both the vfio_pci_dma_buf_move()
->> and the unmap_mapping_range(), making it harder for callers to omit
->> one.  It adds a wrapper, vfio_pci_lock_zap_revoke_bars(), which takes
->> the write memory_lock before zapping, and adds a new
->> vfio_pci_unrevoke_bars() for the re-enable path.
->>
->> As of "vfio/pci: Convert BAR mmap() to use a DMABUF", the
->> unmap_mapping_range() to zap is no longer performed for vfio-pci since
->> the DMABUFs used for BAR mappings already zap PTEs when the
->> vfio_pci_dma_buf_move() occurs.
->>
->> However, it must be assumed that VFIO drivers which override the .mmap
->> op could create mappings _not_ backed by DMABUFs.  So, the zap is
->> still performed on revoke if .mmap is overridden, using a new
->> zap_bars_on_revoke flag.  A driver can explicitly opt out; the flag is
->> cleared by the hisi_acc_vfio_pci driver, since its .mmap just wraps
->> vfio_pci_core_mmap() and so still uses DMABUFs.
->>
->> Signed-off-by: Matt Evans <matt@ozlabs.org>
->> ---
->>  .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    |  8 +++
->>  drivers/vfio/pci/vfio_pci_config.c            | 30 ++++----
->>  drivers/vfio/pci/vfio_pci_core.c              | 70 +++++++++++++------
->>  drivers/vfio/pci/vfio_pci_priv.h              |  3 +-
->>  include/linux/vfio_pci_core.h                 |  1 +
->>  5 files changed, 73 insertions(+), 39 deletions(-)
->>
->> diff --git a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
->> index 86362ec424a5..51990f6d66d5 100644
->> --- a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
->> +++ b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
->> @@ -1692,6 +1692,14 @@ static int hisi_acc_vfio_pci_probe(struct pci_dev *pdev, const struct pci_device
->>  	if (ret)
->>  		goto out_put_vdev;
->>  
->> +	/*
->> +	 * hisi_acc_vfio_pci_mmap() calls down to
->> +	 * vfio_pci_core_mmap(), so BAR mappings are still
->> +	 * DMABUF-backed.  They don't require a zap on revoke, so opt
->> +	 * out:
->> +	 */
->> +	hisi_acc_vdev->core_device.zap_bars_on_revoke = false;
->> +
+On Thu, 18 Jun 2026 07:00:47 +0200, Linus Walleij wrote:
+> Convert the legacy Ux500 power domain text binding to YAML.
 > 
-> This seems to be happening after we vfio_pci_core_register_device, which
-> could be slightly problematic if another device in the same group races 
-> to trigger a hot reset before we can set this to false. Could we 
-> initialize this flag before registration instead?
+> Move it under bindings/power.
+> 
+> Reference the generic power-domain schema.
+> 
+> Update MAINTAINERS for the new path.
+> 
+> Assisted-by: Codex:gpt-5-5
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+>  .../devicetree/bindings/arm/ux500/power_domain.txt | 35 ----------------
+>  .../power/stericsson,ux500-pm-domains.yaml         | 46 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  1 +
+>  3 files changed, 47 insertions(+), 35 deletions(-)
+> 
 
-Remember it is a safe default, so in the event of a driver not managing
-to opt-out before it's required then all that happens is a redundant
-unmap_mapping_range().  The default-safe was a nice suggestion from Alex
-on v2.
+My bot found errors running 'make dt_binding_check' on your patch:
 
+yamllint warnings/errors:
 
-Matt
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/power/stericsson,ux500-pm-domains.example.dts:25.28-28.11: Warning (unit_address_vs_reg): /example-0/sdi0_per1@80126000: node has a unit name, but no reg or ranges property
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/stericsson,ux500-pm-domains.example.dtb: sdi0_per1@80126000 (arm,pl18x): $nodename:0: 'sdi0_per1@80126000' does not match '^mmc(@.*)?$'
+	from schema $id: http://devicetree.org/schemas/mmc/arm,pl18x.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/stericsson,ux500-pm-domains.example.dtb: sdi0_per1@80126000 (arm,pl18x): 'oneOf' conditional failed, one must be fixed:
+	'interrupts' is a required property
+	'interrupts-extended' is a required property
+	from schema $id: http://devicetree.org/schemas/mmc/arm,pl18x.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/stericsson,ux500-pm-domains.example.dtb: sdi0_per1@80126000 (arm,pl18x): 'reg' is a required property
+	from schema $id: http://devicetree.org/schemas/mmc/arm,pl18x.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260618-ux500-power-domains-v7-1-v1-1-eb5e50b1a588@kernel.org
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
