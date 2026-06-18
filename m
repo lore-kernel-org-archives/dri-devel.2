@@ -4,112 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EC9FCD98ED
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 10:24:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D78B7CD98F2
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 10:24:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EE7210EDE7;
-	Thu, 18 Jun 2026 10:24:22 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MOuxz6u0";
-	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A0358984C
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 10:24:16 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65I8Dw7m572706; Thu, 18 Jun 2026 10:24:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- XHrdX8Am2zjL5WDLlXDWBvRL6yUQkEj5botrhvRkq6c=; b=MOuxz6u0+13BN/eZ
- kke1DCkqo3MxEyKNx6EvuYcV8cIsqW6aYXsR8OxlmqEa9cCb91lNwWZxET2ZhqNH
- Ry7hrM7NIBdfNtiFg8R4HE5CSF4zJBGLeKLbS8ChdsxfSqxownkTvLvt//UYvttO
- FkkeW9URKFDEhrMoqg2PmIHCtaumHhMTAHmmL36CO57f3c/oCYoM2idc4oZHdmns
- KDPfgooLt2aQqcsDqH3doUEA+cR3eB3iAe8IPnRBm2odxZO/OyWriallt/YgdkBL
- B14u7AzCyj9BMM2lDoS/KS5hGIcBCaXTYUgGUsDqk/jYZ+zQB+X+saFRcx8R/iBW
- d13Vag==
-Received: from apblrppmta02.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4euxt53t8e-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 Jun 2026 10:24:11 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 65IAO78l008715; 
- Thu, 18 Jun 2026 10:24:07 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4es09kqmr7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 Jun 2026 10:24:07 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 65IAO79E008700;
- Thu, 18 Jun 2026 10:24:07 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-arpisain-hyd.qualcomm.com
- [10.147.248.17])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 65IAO7a4008694
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 Jun 2026 10:24:07 +0000 (GMT)
-Received: from hu-arpisain-hyd.qualcomm.com (localhost [127.0.0.1])
- by hu-devc-hyd-u22-c.qualcomm.com (Postfix) with ESMTP id 4977A633;
- Thu, 18 Jun 2026 15:54:06 +0530 (+0530)
-From: Arpit Saini <arpit.saini@oss.qualcomm.com>
-Date: Thu, 18 Jun 2026 15:54:03 +0530
-Subject: [PATCH v2 2/2] drm/panel: add Ilitek ILI7807S panel driver
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3642B10F261;
+	Thu, 18 Jun 2026 10:24:59 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EB2910F21E
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 10:24:56 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.206])
+ by APP-01 (Coremail) with SMTP id qwCowAAHqtJxxzNqSVYyAg--.9188S2;
+ Thu, 18 Jun 2026 18:24:51 +0800 (CST)
+Message-ID: <b08277e8a9350f6c68c9774b1b6185b1eb71cd1e.camel@iscas.ac.cn>
+Subject: Re: [PATCH v4 1/6] dt-bindings: display: verisilicon, dc:
+ generalize for single-output variants
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Thu, 18 Jun 2026 18:24:48 +0800
+In-Reply-To: <6d3e3121-22f2-4c59-9678-df2f57ff4d31@gmail.com>
+References: <20260615065003.76661-1-a0987203069@gmail.com>
+ <20260615065003.76661-2-a0987203069@gmail.com>
+ <3683c5c617324f5835529617325745ef48fa1943.camel@iscas.ac.cn>
+ <6d3e3121-22f2-4c59-9678-df2f57ff4d31@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260618-ili7807s-v2-2-b3f0c109b102@oss.qualcomm.com>
-References: <20260618-ili7807s-v2-0-b3f0c109b102@oss.qualcomm.com>
-In-Reply-To: <20260618-ili7807s-v2-0-b3f0c109b102@oss.qualcomm.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: arpit.saini@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, ayushi.makhija@oss.qualcomm.com,
- rajeevny@qti.qualcomm.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781778246; l=10436;
- i=arpit.saini@oss.qualcomm.com; h=from:subject:message-id;
- bh=+KNJB/LzkCWj1kKuVErf/NH5xyfHlf948DnN+wzQ7m0=;
- b=p+FSHTQJfxnx/GHpJFJ8MyeoJ3k+XUTKR7ckQhxNQwXinaTvxUPblZy+yXyzgfUnEf3hDbSOK
- lU6WvxLPc/xA5vI2v/9OfLK9eJr3S0Z6pUVUYgMqdVqVCGw5ZW6MT7V
-X-Developer-Key: i=arpit.saini@oss.qualcomm.com; a=ed25519;
- pk=OGOh7FGwrnkILHNlcTTABbBMQxxo319duzbTg0YPDAc=
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: NkQT0yP0KaLGchBI7XJG8KTNx3CWxyWz
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDA5NiBTYWx0ZWRfX9f/WK69+eSQn
- yUAYq4PV4LCM2Y6GcwnyVVEV8d1El4I86zJhsGh8zdPri3yZwGcf5eacSEeunfeJqHR9UATga0z
- sFWTaWiwrVF+7iMEXJPoCwBKW2JZQ4A=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDA5NiBTYWx0ZWRfX8qDjaVfjzTLX
- Fiw7qkGqFCUOzheAE5IndCOPtki9Gpfk0zSsScsczhrw/24vSh/qe5pQyfk8VpWD55Ilo7MKJOS
- OWQFgE4AWM5nlQw4ZgHkKxMHvJ0DfGjbK8wCw/zljmXcoLMjBnDXfmuwU3uQKdLh93qaDalNiB2
- kJqoJ5VrQqUUfT70DlIMKDO4oDy5D9wT0q9FmcvGvnMAr+zDzxckC/lPGYhSco5fl4aUWzYHB8N
- 2JDOy/Z5fbxgk/8I5NDLUNo68oi9OHFT8ZiS7xucVe9l31RYqCJxDFhtbDMuUIhPDjWvtmz7As+
- KZWrJpK4m29xuE5FJx5bfWUC8Gcs3sP+lqxSKFCTvPsw3C5mnH8hFAJEVKHwj0ZVXC5OmUNC5j/
- WmWdtdS4xTrn7FvR/1ebJ9EEPuqh012vio/WWVUq04HyQGHVgIn0j59ymbncaWGqmTFKxQFieu4
- N7NGwzHc2fbj8x+CHrg==
-X-Authority-Analysis: v=2.4 cv=PMw/P/qC c=1 sm=1 tr=0 ts=6a33c74b cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=gr7uCZvohP--tV-2FgwA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: NkQT0yP0KaLGchBI7XJG8KTNx3CWxyWz
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-18_01,2026-06-17_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 bulkscore=0
- malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606180096
+X-CM-TRANSID: qwCowAAHqtJxxzNqSVYyAg--.9188S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCr1fuF1rAr15Kw4xKrW5GFg_yoWrXryrpF
+ Z7AFyUJF9Yqr1fXwn7t3W0yry5Aa1kJ3WUXr1xXF1xAFWDGF10gr4a9r90gFy3Xr4xA3W0
+ qFs09343Zr12yF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+ 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+ c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+ 1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+ 14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+ IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+ 87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+ IFyTuYvjxU2wIDUUUUU
+X-Originating-IP: [112.94.100.206]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,358 +69,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a DRM panel driver for the DLC DLC0697 1080x1920@60Hz MIPI DSI
-panel based on the Ilitek ILI7807S display controller.
+=E5=9C=A8 2026-06-17=E4=B8=89=E7=9A=84 18:25 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
+>=20
+> On 6/15/2026 4:19 PM, Icenowy Zheng wrote:
+> > =E5=9C=A8 2026-06-15=E4=B8=80=E7=9A=84 14:49 +0800=EF=BC=8CJoey Lu=E5=
+=86=99=E9=81=93=EF=BC=9A
+> > > The existing schema hard-codes the five-clock/three-reset/dual-
+> > > port
+> > > topology of the DC8200 IP block, preventing reuse for single-
+> > > output
+> > > variants such as the Verisilicon DCUltraLite used in the Nuvoton
+> > > MA35D1
+> > > SoC.
+> > >=20
+> > > Rework the schema so that variant-specific constraints are
+> > > expressed
+> > > via
+> > > allOf/if blocks:
+> > >=20
+> > > - Add nuvoton,ma35d1-dcu to the SoC-specific compatible enum.=C2=A0
+> > > The
+> > > =C2=A0=C2=A0 generic verisilicon,dc fallback remains the driver-bindi=
+ng
+> > > string.
+> > > - Move clock and reset items descriptions into the per-variant
+> > > allOf/if
+> > > =C2=A0=C2=A0 blocks; keep only minItems/maxItems at the top level so =
+the
+> > > base
+> > > schema
+> > > =C2=A0=C2=A0 accepts all variants.
+> > > - Restore full items lists for clock-names and reset-names at the
+> > > top
+> > > =C2=A0=C2=A0 level with minItems so the names are validated against t=
+he
+> > > descriptions.
+> > > - Keep ports in the global required list and keep
+> > > additionalProperties: false.
+> > > - Add an allOf/if block for thead,th1520-dc8200: five-clock
+> > > (core,
+> > > axi,
+> > > =C2=A0=C2=A0 ahb, pix0, pix1), three-reset (core, axi, ahb), required
+> > > resets.
+> > > - Add an allOf/if block for nuvoton,ma35d1-dcu: two-clock (core,
+> > > pix0),
+> > > =C2=A0=C2=A0 one-reset (core), required resets.
+> > >=20
+> > > Signed-off-by: Joey Lu <a0987203069@gmail.com>
+> > > ---
+> > > =C2=A0=C2=A0.../bindings/display/verisilicon,dc.yaml=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 80
+> > > +++++++++++++++++--
+> > > =C2=A0=C2=A01 file changed, 73 insertions(+), 7 deletions(-)
+> > >=20
+> > > diff --git
+> > > a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> > > b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> > > index 9dc35ab973f2..0c41286b8223 100644
+> > > ---
+> > > a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> > > +++
+> > > b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> > > @@ -17,6 +17,7 @@ properties:
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - enum:
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - =
+thead,th1520-dc8200
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - nuvoton,ma3=
+5d1-dcu
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: verisilicon,dc # =
+DC IPs have discoverable
+> > > ID/revision
+> > > registers
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0=C2=A0 reg:
+> > > @@ -26,14 +27,12 @@ properties:
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0=C2=A0 clocks:
+> > > -=C2=A0=C2=A0=C2=A0 items:
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DC Core clock
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DMA AXI bus clock
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Configuration AHB bus =
+clock
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Pixel clock of output =
+0
+> > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Pixel clock of output =
+1
+> > Clock descriptions should still be in the global part instead of
+> > the
+> > per-compatible part.
+> >=20
+> > In the per-compatible part, clock-names should be constraint for
+> > SoCs.
+> I will move the `items:` clock descriptions back into the global=20
+> `clocks:` property, covering all five possible clocks. In the=20
+> per-compatible sections I will remove the description items and only=20
+> constrain `clocks: minItems/maxItems` and `clock-names:=20
+> minItems/maxItems`; for nuvoton,ma35d1-dcu I will additionally
+> override=20
+> `clock-names: items:` to the two names actually used (core, pix0).
 
-The panel operates in video burst mode with four data lanes using
-RGB888 pixel format.
+Yes, this should be the correct practice, although I wonder whether the
+minItems and maxItems properties are needed globally (because these two
+seem to have default implicit value).
 
-Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
----
- drivers/gpu/drm/panel/Kconfig                 |  12 ++
- drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-ilitek-ili7807s.c | 297 ++++++++++++++++++++++++++
- 3 files changed, 310 insertions(+)
+BTW the MA35D1 manual in fact shows 4 clocks for "DCUltra" in the clock
+tree, maybe the DT binding needs to be reconsidered?
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 7450b27622a2..1cbaac1bf545 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -264,6 +264,18 @@ config DRM_PANEL_HYDIS_HV101HD1
- 
- 	  If M is selected the module will be called panel-hydis-hv101hd1
- 
-+config DRM_PANEL_ILITEK_ILI7807S
-+	tristate "Ilitek ILI7807S-based panels"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	help
-+	  Say Y if you want to enable support for panels based on the
-+	  Ilitek ILI7807S display controller, such as the DLC DLC0697
-+	  1080x1920 MIPI DSI panel.
-+
-+	  If M is selected the module will be called panel-ilitek-ili7807s.
-+
- config DRM_PANEL_ILITEK_IL9322
- 	tristate "Ilitek ILI9322 320x240 QVGA panels"
- 	depends on OF && SPI
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index c2c5cf817116..c3002b351cb8 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -26,6 +26,7 @@ obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112B) += panel-himax-hx83112b.o
- obj-$(CONFIG_DRM_PANEL_HIMAX_HX83121A) += panel-himax-hx83121a.o
- obj-$(CONFIG_DRM_PANEL_HIMAX_HX8394) += panel-himax-hx8394.o
- obj-$(CONFIG_DRM_PANEL_HYDIS_HV101HD1) += panel-hydis-hv101hd1.o
-+obj-$(CONFIG_DRM_PANEL_ILITEK_ILI7807S) += panel-ilitek-ili7807s.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_IL9322) += panel-ilitek-ili9322.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9341) += panel-ilitek-ili9341.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9805) += panel-ilitek-ili9805.o
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c b/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c
-new file mode 100644
-index 000000000000..bfbb8e29a4aa
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c
-@@ -0,0 +1,297 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+struct panel_desc {
-+	const struct drm_display_mode *mode;
-+	unsigned int lanes;
-+	enum mipi_dsi_pixel_format format;
-+	unsigned long mode_flags;
-+	void (*init)(struct mipi_dsi_multi_context *dsi_ctx);
-+};
-+
-+struct ili7807s {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+	const struct panel_desc *desc;
-+
-+	struct regulator_bulk_data *supplies;
-+	struct gpio_desc *reset_gpio;
-+};
-+
-+static const struct regulator_bulk_data ili7807s_supplies[] = {
-+	{ .supply = "vddi" },
-+	{ .supply = "avdd" },
-+	{ .supply = "avee" },
-+};
-+
-+static inline struct ili7807s *to_ili7807s(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct ili7807s, panel);
-+}
-+
-+static void ili7807s_reset(struct ili7807s *ctx)
-+{
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 11000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(10000, 11000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 11000);
-+}
-+
-+static void dlc0697_init_sequence(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	mipi_dsi_dcs_soft_reset_multi(dsi_ctx);
-+	mipi_dsi_msleep(dsi_ctx, 120);
-+
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x78, 0x07, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x35, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x5e, 0x09, 0x99);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x24);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0x3f, 0xff);
-+
-+	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
-+	mipi_dsi_msleep(dsi_ctx, 120);
-+
-+	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
-+	mipi_dsi_msleep(dsi_ctx, 20);
-+}
-+
-+static int ili7807s_on(struct ili7807s *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	ctx->desc->init(&dsi_ctx);
-+
-+	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int ili7807s_off(struct ili7807s *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 20);
-+
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
-+
-+	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int ili7807s_prepare(struct drm_panel *panel)
-+{
-+	struct ili7807s *ctx = to_ili7807s(panel);
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
-+	if (ret < 0) {
-+		dev_err(ctx->panel.dev, "failed to enable regulators: %d\n", ret);
-+		return ret;
-+	}
-+
-+	msleep(20);
-+
-+	ili7807s_reset(ctx);
-+
-+	ret = ili7807s_on(ctx);
-+	if (ret < 0) {
-+		dev_err(ctx->panel.dev, "failed to initialise panel: %d\n", ret);
-+		goto err;
-+	}
-+
-+	return 0;
-+
-+err:
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+
-+	regulator_bulk_disable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
-+	return ret;
-+}
-+
-+static int ili7807s_unprepare(struct drm_panel *panel)
-+{
-+	struct ili7807s *ctx = to_ili7807s(panel);
-+	int ret;
-+
-+	ret = ili7807s_off(ctx);
-+	if (ret < 0)
-+		dev_err(ctx->panel.dev, "failed to disable panel: %d\n", ret);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+
-+	regulator_bulk_disable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
-+
-+	return 0;
-+}
-+
-+static int ili7807s_get_modes(struct drm_panel *panel,
-+			      struct drm_connector *connector)
-+{
-+	struct ili7807s *ctx = to_ili7807s(panel);
-+
-+	return drm_connector_helper_get_modes_fixed(connector, ctx->desc->mode);
-+}
-+
-+static const struct drm_panel_funcs ili7807s_panel_funcs = {
-+	.prepare = ili7807s_prepare,
-+	.unprepare = ili7807s_unprepare,
-+	.get_modes = ili7807s_get_modes,
-+};
-+
-+static int ili7807s_bl_update_status(struct backlight_device *bl)
-+{
-+	struct mipi_dsi_device *dsi = bl_get_data(bl);
-+	u16 brightness = backlight_get_brightness(bl);
-+	int ret;
-+
-+	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-+
-+	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	return ret;
-+}
-+
-+static const struct backlight_ops ili7807s_bl_ops = {
-+	.update_status = ili7807s_bl_update_status,
-+};
-+
-+static struct backlight_device *ili7807s_create_backlight(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	const struct backlight_properties props = {
-+		.type           = BACKLIGHT_RAW,
-+		.brightness     = 0x3fff,
-+		.max_brightness = 0x3fff,
-+	};
-+
-+	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
-+					      &ili7807s_bl_ops, &props);
-+}
-+
-+static const struct drm_display_mode dlc0697_mode = {
-+	.clock = 131911,
-+
-+	.hdisplay    = 1080,
-+	.hsync_start = 1080 + 18,
-+	.hsync_end   = 1080 + 18 + 2,
-+	.htotal      = 1080 + 18 + 2 + 16,
-+
-+	.vdisplay    = 1920,
-+	.vsync_start = 1920 + 26,
-+	.vsync_end   = 1920 + 26 + 4,
-+	.vtotal      = 1920 + 26 + 4 + 20,
-+
-+	.width_mm  = 0,
-+	.height_mm = 0,
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+static const struct panel_desc dlc0697_desc = {
-+	.mode       = &dlc0697_mode,
-+	.lanes      = 4,
-+	.format     = MIPI_DSI_FMT_RGB888,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST,
-+	.init       = dlc0697_init_sequence,
-+};
-+
-+static int ili7807s_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	const struct panel_desc *desc;
-+	struct ili7807s *ctx;
-+	int ret;
-+
-+	ctx = devm_drm_panel_alloc(dev, struct ili7807s, panel,
-+				   &ili7807s_panel_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	desc = of_device_get_match_data(dev);
-+	ctx->desc = desc;
-+
-+	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(ili7807s_supplies),
-+					    ili7807s_supplies, &ctx->supplies);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "failed to get regulators\n");
-+
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "failed to get reset gpio\n");
-+
-+	ctx->dsi = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	dsi->lanes      = desc->lanes;
-+	dsi->format     = desc->format;
-+	dsi->mode_flags = desc->mode_flags;
-+
-+	ctx->panel.prepare_prev_first = true;
-+
-+	ret = drm_panel_of_backlight(&ctx->panel);
-+	if (ret)
-+		return ret;
-+
-+	if (!ctx->panel.backlight) {
-+		ctx->panel.backlight = ili7807s_create_backlight(dsi);
-+		if (IS_ERR(ctx->panel.backlight))
-+			return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
-+					     "failed to create backlight\n");
-+	}
-+
-+	ret = devm_drm_panel_add(dev, &ctx->panel);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "failed to add panel\n");
-+
-+	ret = devm_mipi_dsi_attach(dev, dsi);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "failed to attach dsi\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id ili7807s_of_match[] = {
-+	{ .compatible = "dlc,dlc0697", .data = &dlc0697_desc },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ili7807s_of_match);
-+
-+static struct mipi_dsi_driver ili7807s_dsi_driver = {
-+	.probe  = ili7807s_probe,
-+	.driver = {
-+		.name           = "panel-ilitek-ili7807s",
-+		.of_match_table = ili7807s_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(ili7807s_dsi_driver);
-+
-+MODULE_AUTHOR("Arpit Saini <arpit.saini@oss.qualcomm.com>");
-+MODULE_DESCRIPTION("Panel driver for Ilitek ILI7807S LCD DSI panel");
-+MODULE_LICENSE("GPL");
+Thanks,
+Icenowy
 
--- 
-2.34.1
+
+> > > +=C2=A0=C2=A0=C2=A0 minItems: 2
+> > > +=C2=A0=C2=A0=C2=A0 maxItems: 5
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0=C2=A0 clock-names:
+> > > +=C2=A0=C2=A0=C2=A0 minItems: 2
+> > > +=C2=A0=C2=A0=C2=A0 maxItems: 5
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: core
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: axi
 
