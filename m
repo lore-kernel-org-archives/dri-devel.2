@@ -4,135 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECA1BCD98ED
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 07:30:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CFDACD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 07:37:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3057A10ECC9;
-	Thu, 18 Jun 2026 07:30:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D8A410ECD7;
+	Thu, 18 Jun 2026 07:37:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="qChns0vF";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="X9Gd8nmb";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qChns0vF";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="X9Gd8nmb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="D4unl40M";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A932510ECC9
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 07:30:37 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 700306D170;
- Thu, 18 Jun 2026 07:30:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781767836; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wd7ImIPthEOIDYLKO9h998HqbE/8DZRsM1nnMp2xSXA=;
- b=qChns0vFtoqRMvShCoRfrn0CV3n9LrD6h2dOLi0feu1caUZIy0MXYd5/PjQ9shHF+3R2AQ
- cW09FvH+4o4paLRMLzKYFDYDyEJELBPTnhgJKbxx5W7y3BOjKI6RnKK9AY5VVToQuno+8C
- A2hcJAjrMvGUJqJkwL+uhirf7+Zu1n4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781767836;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wd7ImIPthEOIDYLKO9h998HqbE/8DZRsM1nnMp2xSXA=;
- b=X9Gd8nmbt1oDNBw/sW258yhDqwzbwzzR5E3mOdR4UjAqH0rf3RISqfvHykpcozx/iM7EIV
- uRdW62WSpOm2WXBA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781767836; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wd7ImIPthEOIDYLKO9h998HqbE/8DZRsM1nnMp2xSXA=;
- b=qChns0vFtoqRMvShCoRfrn0CV3n9LrD6h2dOLi0feu1caUZIy0MXYd5/PjQ9shHF+3R2AQ
- cW09FvH+4o4paLRMLzKYFDYDyEJELBPTnhgJKbxx5W7y3BOjKI6RnKK9AY5VVToQuno+8C
- A2hcJAjrMvGUJqJkwL+uhirf7+Zu1n4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781767836;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wd7ImIPthEOIDYLKO9h998HqbE/8DZRsM1nnMp2xSXA=;
- b=X9Gd8nmbt1oDNBw/sW258yhDqwzbwzzR5E3mOdR4UjAqH0rf3RISqfvHykpcozx/iM7EIV
- uRdW62WSpOm2WXBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0A129779A8;
- Thu, 18 Jun 2026 07:30:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id ijVTAJyeM2qEdAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 18 Jun 2026 07:30:36 +0000
-Message-ID: <68a0c8de-9a12-4dc4-84ca-ae988b76087b@suse.de>
-Date: Thu, 18 Jun 2026 09:30:35 +0200
-MIME-Version: 1.0
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012037.outbound.protection.outlook.com [52.101.53.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D67C10ECD7;
+ Thu, 18 Jun 2026 07:37:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MyPjlTPK0A5V4jsN6ZnuTtuXRZQ5oXTxSPpeSv4ZaPesvvF/pfwd4Lwk4G2dPhGvVd53CHPE425CZPYrkKa/Umq7+DjjAFH+I9gCnE826H96zEZUpU55eC9l5dONGsN9FQOR8uO1zMpCWD3bk5qdo0HBEnf2UpZEKbKQdYQbau9WgsTPfvi89wJ28XvS7jgjh0Z50oUFEyTDkit7YoeidX3gdEs6REdQoiLUkG1j7v5BbcWnevjd3WH0fPC7q66mGEtWBJ0/YTvEYjUlpJoZtR1u8KHUBxYXb2g3I3LiaTxbui/m75zf3ykeDtBuOOoUhed+9iX+tBazWcVxu5S5yw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Q7GkAcniiWnnje9BlJamod2PQgvJqQ5UULDCZeO14OM=;
+ b=O7zcsYY/Ng18s5X9PtLGZFCJEgKfngkqGFyFPSyJd6YnM2CsBP0j23LyF1Fw4Lq2yc3mwe5k64qE/BX8GcRsL6uVM+wSNV3M3WsPhAP+e1HFj/s2qf1PCbaciAwKx77bs8AvOM5XA8WS3aGZRiNXgnzRxX20RcZIsf6TljEF0meeeU/p8ANifhOL4eBNWUxfxJq863bpe6DD2HAuoqyB2GHaWpql+07jMQT09/Znl7ArQ52ZbBqJxAWVkNoHhJmuP6HJXNDMEvoFhST7XNcoHNbkA70Q/NyPyGOsS9jMmP5eLvf83yXvNUT1AFJCk7BwUO0LO25KUZYm6XlqOPAKFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q7GkAcniiWnnje9BlJamod2PQgvJqQ5UULDCZeO14OM=;
+ b=D4unl40MwvgTuQG4j47FeBdWJa6OBG5JqyR0n+PHdD4fiBgF4kYVU3JF9i1vKy+0Nz51nRT4046Mf16Ov5mRaypOCnjQKj/IgGG/18GLasAmELoHEi7KLxnta+YbHVIt7A4/UVy1kv1f3LXL5gXEuJrDwcxhBd5RxCFWRRxl5ag=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY1PR12MB9651.namprd12.prod.outlook.com (2603:10b6:930:104::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.16; Thu, 18 Jun
+ 2026 07:37:20 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0113.015; Thu, 18 Jun 2026
+ 07:37:20 +0000
+Message-ID: <cee10e27-1bf9-47de-9d72-4f2c7ac606ef@amd.com>
+Date: Thu, 18 Jun 2026 09:37:16 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
- e-ink panel
-To: LiangCheng Wang <zaq14760@gmail.com>, Devarsh Thakkar <devarsht@ti.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Wig Cheng <onlywig@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
- <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
- <9fb7915b-dc46-45af-bba1-a3d3a59b5e49@suse.de>
- <20260618023338.26630-1-zaq14760@gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: initialize ret before UMC error record loop
+To: Ruoyu Wang <ruoyuw560@gmail.com>, Alex Deucher
+ <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Lazar, Lijo" <lijo.lazar@amd.com>
+References: <20260617193335.1662613-1-ruoyuw560@gmail.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260618023338.26630-1-zaq14760@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260617193335.1662613-1-ruoyuw560@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TAGGED_RCPT(0.00)[dt]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[14];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_TO(0.00)[gmail.com,ti.com,linux.intel.com,kernel.org,ffwll.ch];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:mid,
- imap1.dmz-prg2.suse.org:helo]
+X-ClientProxiedBy: FR4P281CA0399.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cf::8) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY1PR12MB9651:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3940c4ca-0d4d-4c02-ebeb-08decd0c6e01
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|23010399003|11063799006|56012099006|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info: SaAGRypbMA2Z0g6PQ1+kNzNOKRqQ717b5A26mDO7uLBBMeZAbYeA84vBFArVkdQJq2CCRX2SoD8WenUqH+a5PfOAZbJX9rwAygfvGnBIau1KQTp7X+GQZBTqxyEhEbpX0yPiB15jMCLFammwgz7ujjgCuy0O41uSegxO9SuN1cVgodCHnVtv/9a47JNLtBKtSR2dWjF8M1F7aOpXbHucH0M/4Ysu2+o8ZqYYfLK27in97AXAKYz/4GliBcN0Hkle8Q90ag/RmXggXLQtBEPBObQLOxvRRWYsmzanerbQUt8Rua0UiOW6I1BRvSv58/V739pDuaZ82VxhQ+eWRzgB6sGwK/mfChzarDqAl+y3NZRbfZR7OrgxLNioDrlZrdS4mTCfIHc9IfsE9eHtfEtHXnie78zEurIDDhEwP2C3LJTlR8As5v+Nk7ZjJq/VuOODny1isf0e6v/rOOhz9qbH7Ei21nnko1nYMTpaJE8j8m3RqAdcHgkMkp2lrSln7vabS+gEh7Ut01NlxxcsGO5K18uDoPLThV8frcYg6IoQck6G9tznm1tD1SbM+0iDQbDXbR4DQJmF8Q+mt2ODRHk7U1GWw9TmuCNHejcLiFOdzUm2Nj3Yku8Pvppd5lBSSp86bV/9gjWqbcQ8wq58xRop1ozjZDWy5V+8htgYlxu1AKwo7YJETOps3vBb6MoZjYZGo6XYMrBOm0iQuHvYaD2Id1+fWWZZu8CJDCdJ1hBzfdt0QMXwPleUWuKlHJ/TO0ER
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(11063799006)(56012099006)(22082099003)(18002099003)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ckRGM0pxeW9NUGR1eWpSQTZQYklTUEV6YklkcVBYZ1NjNG5jOThhQWR3b055?=
+ =?utf-8?B?eUxJUlRCck5yQjNNSW9aOHMvMExFaUY1RW5IeVhyMU5DUE9ZS3lyZ0ViTElV?=
+ =?utf-8?B?Mmp4L0Vlak9vZno2K1Z1dlc0Wi9vK1oyMnJCQ0VOeFNTSDdKdDZkQVpBeUJi?=
+ =?utf-8?B?N0pQcGtJNHNIR0Jka3kzdnI0MTIzWlJiSHQrbURkcEIxOGd1K2NqdXpYbDF2?=
+ =?utf-8?B?Qk8ySkFoS2ZtYlFxZWZZc2RjNXFnZmxkVFg1UUw5NFVQaWJhZ1BTcWtPeFBx?=
+ =?utf-8?B?RElsem1FRXNVNzBROE5RNjJqczhpNlJaUzRMZTlEbHhZNnNzWGhsK2pBSlBT?=
+ =?utf-8?B?THlWT1pGZUtmQXQ3dllTUUN6aE9xY2d5RXdtWEEwb0dBRGtzcE0xRVdEaXlv?=
+ =?utf-8?B?YktnYmRFQjVuS0dWbHFGSU5jUHA4cHo1aC9jSlhvWkRRY21FQkNNWG5DTW42?=
+ =?utf-8?B?YVE0M3RSR1YxYnZGUzdDVG9HRnZVbHNuejVHOUMyU281Nk9kVS9GU29iWlhO?=
+ =?utf-8?B?cUs0RDJlZHEyUURoUmVKQzE0OHNQVmpFc1dINU44OEwveFphaVNKUHJvRjJi?=
+ =?utf-8?B?ZUpBZ1RVK1YySzdHVVNycFhBeWlXTnVEOU9WNGZPNlVtc1hNNkdHNHNvTGs3?=
+ =?utf-8?B?UVVERE9Xa3R1Z1BlazdRcEwrRFpPa0VyeXlZV2Iva0hnTlVkWjk5cHRLY1RT?=
+ =?utf-8?B?TDhpY3l6QnBPT1pKZDNpKzNSN1RxanFUQTF2bWNNY2lLZTIrZW9MV2RmVk5Y?=
+ =?utf-8?B?TUtLR1FndDBTNGZ0clY3QXpCem14bEl4QXVBdmplbVA5ZHZyL3V0aTlMcVd3?=
+ =?utf-8?B?SWYwT1B2Q2w1alpBM2wyRWFsOHdxZElBRnlXcEliU0JBM0F6VVZpWVRLSStE?=
+ =?utf-8?B?Y0lhVHRHYlhTQ0E4a3dCbGQ2aUVXQmhPekRFQ2FsaXNkc0JHVEI5Q2k4Y2dk?=
+ =?utf-8?B?TWptWUFQL0xUUktiQ09UQUJQT0hLTGtnL1A5OVpQY2h0T1EzVVQydEdSeU9u?=
+ =?utf-8?B?ZDc1ak13VHE1VjZjcjNZRnFRcDZabmpzWFdERWhMKytJZmtqaUtIb0FyaTZ3?=
+ =?utf-8?B?d1JnK3dxWExmT3FVclAyT2IyU0ZvR3A2MCs0a1lCaHEvSjVNeVZJRjNFdnpt?=
+ =?utf-8?B?bmY4Zk9RKzJpUHlUVSswTU52TzAxN08yOFRWVmJ4eDhnQmNtWWo2VmF1RkhY?=
+ =?utf-8?B?aXZFUGhaQVBJdzlCODk2cGVlcFUrdlQwRFVmSHNlYXhFNjFQM2ZGbWM2SkM5?=
+ =?utf-8?B?YnRXL015T1ozeFFYRWp5RS9pb0U2dFp3VEpSckNZVW1vY01hOWljWGMvbVdl?=
+ =?utf-8?B?dmRaSUZETythWWhlMU5KbmRqamt6RVBiRnQ4c1dFNFY2NlB2SWlTQk9RTkN6?=
+ =?utf-8?B?RmhLUldkY2tKSWlCSGFSQS83cU8xTlNucmRsSkNDVmE0YVBvNlh0KzlsL1Ay?=
+ =?utf-8?B?NGZDS1paMUFjRzVqb3FlaWk3b3QzNkpKdjJmclBpOS82OG5SblllY055TXly?=
+ =?utf-8?B?TjdxS3VXVkQ4OFdsZUlrcmhXQ013OTlCOWpLemFObmNPbU9NUG5Vb1RjdWly?=
+ =?utf-8?B?TWJXdUVyNXhqdzQxMTBzMmhrT2dpalB4WWlmQ2d1S3BkeXlkamo0NWQ5dXZj?=
+ =?utf-8?B?NHRTYzduNXdXT09IWnozTkd2ZWxMUzRKMUdjM3dLVUpLa2VCWVE0dy9NSk42?=
+ =?utf-8?B?OS9xLzFOaXVOTnVtWDlQbDJGeHVBQkE2d1o2bzlaVSthRjJDdDFzY1NDRG1V?=
+ =?utf-8?B?Y3A3VVZqNWtsZENRMFVZNGVTb3laT3JlbWViMldDcFdVUHNkTVR3b1VoNjVI?=
+ =?utf-8?B?ajVaTjVFZkZDeTlNVmxQV2J1bytVZFlyWksvbFhkRjJPMW5TL2NxdTBkWDkv?=
+ =?utf-8?B?b2hiakF2bm9BRmlMczZwdjIvV1NXbTFiZ2hsbTFRMWdialRmUkxMSmdwVnUz?=
+ =?utf-8?B?cFVUUEJEeFB4WGJvclJwY2djL0JySEwrZktmSTF2WnJRVExmd3Uzczl1cFd5?=
+ =?utf-8?B?MXYxOHhhdklJNmg5aXM2M1RQS1FzeC83QmhtUlBoVHUyNyt2MUVJcjExdkI5?=
+ =?utf-8?B?dlAvNmdhM0hrV3NnN3ZBNjRGeFE4RENPWDF6dmpzUE03Z01HNldlNGNsSXlY?=
+ =?utf-8?B?c0o2T3lEczdZb2RNZE9oREU5UGRvaHpjSzZWcFoyeDIvR2NqZDBsekpsYjJL?=
+ =?utf-8?B?SWxBZWhFeTcxMGh6cHZLNUdCcDB1YUdieENKQUNlRVdkbHoxM3lkc3RKUjVX?=
+ =?utf-8?B?eW92Smhhc3Y4a3JpajNZUmF1b3BIc3FzR3lPZU05V3VXUTY2aVl6bCt6M2Rt?=
+ =?utf-8?Q?UKMs/hqhf248Fch1kh?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3940c4ca-0d4d-4c02-ebeb-08decd0c6e01
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 07:37:20.6492 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qK/w593H3unprwSfR7kX4DM4g5sttIU3Fy9/v8ubts7nVAKSeJ94fFQzHnPsK03t
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9651
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,50 +137,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On 6/17/26 21:33, Ruoyu Wang wrote:
+> umc_v12_0_fill_error_record() returns ret after walking the pages
+> reported by amdgpu_umc_lookup_bad_pages_in_a_row(). That helper can
+> return zero entries, leaving the loop skipped and ret uninitialized.
+> 
+> Set ret to 0 immediately before the loop so the zero-page path reports a
+> deterministic status instead of returning stack data.
+> 
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
 
-Am 18.06.26 um 04:33 schrieb LiangCheng Wang:
-> Hi Thomas,
->
-> Thanks for the review, and no worries about the timing.
->
-> Before I spin a v4 for these comments, I'd like to confirm the overall
-> direction, since it affects whether this should remain a standalone driver
-> at all.
->
-> In parallel, Devarsh Thakkar is adding a generic Solomon SSD16xx e-paper
-> driver (panel-ssd16xx.c, currently v1 in review). The PIXPAPER 4.26 uses an
-> SSD1677, which is part of that family; Devarsh has said he will add SSD1677
-> support in the next revision (v2) of his series, after which this panel
-> could be supported there as a panel entry rather than as a separate driver.
-> That work isn't posted yet, but I had agreed that consolidating under
-> panel-ssd16xx.c is the better long-term direction.
->
-> I'd appreciate your guidance on how to proceed -- whether it is better to
-> keep iterating on this standalone driver, or to hold it and add the
-> PIXPAPER 4.26 panel to panel-ssd16xx.c once that driver supports SSD1677.
-> I'm happy to go whichever way you prefer.
+Acked-by: Christian König <christian.koenig@amd.com>
 
-I see. It is usually preferable to have only a single driver for a 
-controller. If there are specific features of the Pixpaper 4.26, they 
-should be added to the ssd16xx driver if possible.
+Someone more familiar with ras should take a look as well, could be that returning -ENOENT is more appropriate here.
 
-There are exceptions from this rule, of course. If the Pixpaper turns 
-out to be significantly different, we can always reconsider.
-
-Best regards
-Thomas
-
->
-> Regards,
-> LiangCheng
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+> ---
+> v2:
+> - Set ret immediately before the loop instead of initializing it in the
+>   declaration, as suggested by Christian.
+> - Avoid describing the zero-entry case as an allocation-failure fix.
+> 
+>  drivers/gpu/drm/amd/amdgpu/umc_v12_0.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+> index 14092150336a5..4842340d9d65f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
+> @@ -690,6 +690,7 @@ static int umc_v12_0_fill_error_record(struct amdgpu_device *adev,
+>         count = amdgpu_umc_lookup_bad_pages_in_a_row(adev,
+>                                 ecc_err->pa_pfn << AMDGPU_GPU_PAGE_SHIFT,
+>                                 page_pfn, ARRAY_SIZE(page_pfn));
+> +       ret = 0;
+> 
+>         for (i = 0; i < count; i++) {
+>                 ret = amdgpu_umc_fill_error_record(err_data,
+> --
+> 2.51.0
 
