@@ -4,43 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B2CFCD98F2
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 12:11:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58C61CD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 12:15:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9017910F2D7;
-	Thu, 18 Jun 2026 12:11:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B992410E0AC;
+	Thu, 18 Jun 2026 12:15:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ad83kTo0";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ag6cSsZ4";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06ED310F292
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 12:11:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 34AAC6012A;
- Thu, 18 Jun 2026 12:11:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B91FB1F000E9;
- Thu, 18 Jun 2026 12:11:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781784686;
- bh=6vqc8lPBpSXYHV+g9U7LQTi8DTtsuznqEFWTgrh7bUk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Ad83kTo0Qa+HLcpjlSpG0BQ0AUzvjwBTlMfxqLWYjIin/oMK47itxdIp6Y6mzlCYv
- cnnS0kaEYDVyLUo3xPeyeEYDrBN91S9uzkdONKcbuqIMugJNBbadcJverC4BMuilBl
- qivebyOTYCXF2LUcEilgfUzsGenT6QLKQkc0vg3z6JskI2BXgZOgmGgr98C2lf9nxS
- pBWZaahPm5qiZUD5Ut72VY0Ag2zGmumSuT/xNNqwd7FDXzrkGg1Gabkz52Ah1NbWE8
- FHfQRjKk4DGsnobV3i0By+/HZ5n9h6xtagaL5FWyOTN8kVs9jY8pvY3xIH/k5/dZ/L
- kUJaFazG+vJyw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dma-fence: use correct callback in
- dma_fence_timeline_name()
-To: =?utf-8?b?QW5kcsOpIERyYXN6aWs=?= <andre.draszik@linaro.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260618-linux-drm_crtc_fix-v1-1-801f29c9853d@linaro.org>
-References: <20260618-linux-drm_crtc_fix-v1-1-801f29c9853d@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Jun 2026 12:11:26 +0000
-Message-Id: <20260618121126.B91FB1F000E9@smtp.kernel.org>
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 254A110E0AC
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 12:15:26 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-45eea68dd6fso492357f8f.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 05:15:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1781784924; x=1782389724; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=inCOSQIAKG2kUmLnvzspFcMK9tKYXafQB5tSO3TUyjc=;
+ b=ag6cSsZ4Ix5Evv8hhz14sGJ3SkGjEUwXsBybzn4WlXuJX4lK6cGwlmw0sYSKMYI0f5
+ hRYlnhIgpsUW26pBgpCjEJ3UIC3K3LjleLqM5Ff560MHAbGjFFcHqESK2qRfp/lbmwu9
+ WxrxNVvk4w3oumwEieuOHvUMAy2XtZayZi9IInxeUCkUQXrm+mVF6VS0aHlkNEnQQQZw
+ 6nsVoAM0rAdLIzSJmaTT3sL7p6ztn8WI6K9/N1k29+skX3jIjWzzIVYqkq9ILw82KTVF
+ EYfn+f1AAfxGEzLkivRYHrkMtYLd26ABYOXNl9pRbGiqRif6nfwsg7peqzshWugg+ahY
+ 4qeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781784924; x=1782389724;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=inCOSQIAKG2kUmLnvzspFcMK9tKYXafQB5tSO3TUyjc=;
+ b=DBy9MqP7vy+MzEiKZKosmj0sN5dSvR7hLFHUtaAUws681Zkgrfmqe7LGOTKxQQ5hRv
+ N9q0rURL3UqRnwsjaOdDdLbqwahd0OGiZWQ09aUYjq7kR95RpMEC28B32+0CP2ETZgOC
+ ay7TgbJjCUf6RUnal2ty6Uqa5Uqh5BciUX3gZFJTJ6bVbesEDFKNtco9IxkTemfcVU6p
+ xKt2qoOdivu+S9+ogm+40Fa/SV5a6natIPgIOJHIMYN9f5G3ZWIY2uRLYeLJZYIOJ0zV
+ o8ltkwTDnmeOFiCR4p7GnCeam/Ld68VnwCCXXHOdLKUCeXl2Y7Iqd8qCVzOShYUIbvkV
+ qp5A==
+X-Gm-Message-State: AOJu0YwS3osLmO6eraRghzKkrh5ykmO/36gD6g5zEJo5nDNBG4NwMmiU
+ TlLZY4S6K+fobj1aoySC4itb1MRvzCtCYn6bcVwFZRbtBo5KH30Ttkvx/n7TmupUkl0=
+X-Gm-Gg: AfdE7cnjlYSjJRHWG/DDwBSqi5oTiU185qAKi0OJNrolGFggnW0XU6c+1cl1HtODrNd
+ Gz4TP1lRE8D8udXBbaDqupIunkqcJvJc4CKTE93ZctDpLScoOgT8zXfMJoDmYg+ESU4DCgZILIf
+ J6oOwhbnYDDXcK+kZ/MQcnF0gp1HIZNvn10W/LIWzyexkKcLfD7c1dimR4NPCBaUV8csvCdMV0R
+ /VJU0g6WlLE6ObqL5MuGrnBw5lE9o3GX5qFATuHRGcfsVFKoG97Bjvm/sNZhUaxGjaa0rYZdbgf
+ jDyOerxTaLUY1WW+KZFPShD0RFm5+NEYMiYffMHeWy+CPuljsZW3lCvYp1oMtqNfAelPEunltRE
+ A/WZ+VqgeO465wr56M4b/Q4w4wie39zeuZ1HiJWpAlYgkL+YKA8CpHQxb6/NZ9OuRZYn/Eo5+VT
+ AzWMFxxFEgbkZgr0q3E6ybbTaAIvfUCVpln5wmOjoeCvJomVLgGZfAbRn5IvfWVTIHXA==
+X-Received: by 2002:a5d:6f1e:0:b0:460:18e9:c0da with SMTP id
+ ffacd0b85a97d-4623f8b1a7emr15360704f8f.10.1781784924347; 
+ Thu, 18 Jun 2026 05:15:24 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:6e1b:5a5:b2b5:b2c0?
+ ([2a01:e0a:106d:1080:6e1b:5a5:b2b5:b2c0])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4606f2dbfb1sm66742170f8f.35.2026.06.18.05.15.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Jun 2026 05:15:23 -0700 (PDT)
+Message-ID: <8cdf7a20-91ed-48a1-9cf0-0dc86d1d23ae@linaro.org>
+Date: Thu, 18 Jun 2026 14:15:22 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v6 2/2] drm/panel: Add Ilitek ILI9488 controller driver
+To: Igor Reznichenko <igor@reznichenko.net>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Kael D'Alcamo <dev@kael-k.io>,
+ Kever Yang <kever.yang@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260617143245.372182-1-igor@reznichenko.net>
+ <20260617143245.372182-3-igor@reznichenko.net>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260617143245.372182-3-igor@reznichenko.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,79 +123,371 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 6/17/26 16:32, Igor Reznichenko wrote:
+> Add support for Ilitek ILI9488 DSI controller which is used in
+> FocusLCDs E35GH-I-MW800-CB 320x480 MIPI DSI panel. The mode timing
+> was adjusted after STM32MP157 testing. The previous 14.256 MHz mode
+> worked on AM62P, but was awkward for STM32 DSI/LTDC clock synthesis.
+> 
+> Signed-off-by: Igor Reznichenko <igor@reznichenko.net>
+> ---
+>   MAINTAINERS                                  |   6 +
+>   drivers/gpu/drm/panel/Kconfig                |   9 +
+>   drivers/gpu/drm/panel/Makefile               |   1 +
+>   drivers/gpu/drm/panel/panel-ilitek-ili9488.c | 289 +++++++++++++++++++
+>   4 files changed, 305 insertions(+)
+>   create mode 100644 drivers/gpu/drm/panel/panel-ilitek-ili9488.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index ac87c217ab1f..987635948cde 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -8040,6 +8040,12 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+>   F:	Documentation/devicetree/bindings/display/ilitek,ili9486.yaml
+>   F:	drivers/gpu/drm/tiny/ili9486.c
+>   
+> +DRM DRIVER FOR ILITEK ILI9488 PANELS
+> +M:	Igor Reznichenko <igor@reznichenko.net>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml
+> +F:	drivers/gpu/drm/panel/panel-ilitek-ili9488.c
+> +
+>   DRM DRIVER FOR ILITEK ILI9805 PANELS
+>   M:	Michael Trimarchi <michael@amarulasolutions.com>
+>   S:	Maintained
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index 7450b27622a2..37987e47f3f7 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -284,6 +284,15 @@ config DRM_PANEL_ILITEK_ILI9341
+>   	  QVGA (240x320) RGB panels. support serial & parallel rgb
+>   	  interface.
+>   
+> +config DRM_PANEL_ILITEK_ILI9488
+> +	tristate "Ilitek ILI9488-based panels"
+> +	depends on OF
+> +	depends on DRM_MIPI_DSI
+> +	depends on BACKLIGHT_CLASS_DEVICE
+> +	help
+> +	  Say Y if you want to enable support for panels based on the
+> +	  Ilitek ILI9488 controller.
+> +
+>   config DRM_PANEL_ILITEK_ILI9805
+>   	tristate "Ilitek ILI9805-based panels"
+>   	depends on OF
+> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+> index c2c5cf817116..a1344a0a3fd0 100644
+> --- a/drivers/gpu/drm/panel/Makefile
+> +++ b/drivers/gpu/drm/panel/Makefile
+> @@ -28,6 +28,7 @@ obj-$(CONFIG_DRM_PANEL_HIMAX_HX8394) += panel-himax-hx8394.o
+>   obj-$(CONFIG_DRM_PANEL_HYDIS_HV101HD1) += panel-hydis-hv101hd1.o
+>   obj-$(CONFIG_DRM_PANEL_ILITEK_IL9322) += panel-ilitek-ili9322.o
+>   obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9341) += panel-ilitek-ili9341.o
+> +obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9488) += panel-ilitek-ili9488.o
+>   obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9805) += panel-ilitek-ili9805.o
+>   obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9806E_CORE) += panel-ilitek-ili9806e-core.o
+>   obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9806E_DSI) += panel-ilitek-ili9806e-dsi.o
+> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9488.c b/drivers/gpu/drm/panel/panel-ilitek-ili9488.c
+> new file mode 100644
+> index 000000000000..7302766034fc
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9488.c
+> @@ -0,0 +1,289 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/errno.h>
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/regulator/consumer.h>
+> +
+> +#include <drm/drm_mipi_dsi.h>
+> +#include <drm/drm_modes.h>
+> +#include <drm/drm_panel.h>
+> +#include <drm/drm_probe_helper.h>
+> +
+> +#include <video/mipi_display.h>
+> +
+> +struct ili9488_desc {
+> +	const struct drm_display_mode *display_mode;
+> +	unsigned long mode_flags;
+> +	enum mipi_dsi_pixel_format format;
+> +	unsigned int lanes;
+> +	unsigned int bpc;
+> +	void (*init_sequence)(struct mipi_dsi_multi_context *ctx);
+> +};
+> +
+> +struct ili9488 {
+> +	struct drm_panel panel;
+> +	struct mipi_dsi_device *dsi;
+> +	struct gpio_desc *reset;
+> +	struct regulator_bulk_data supplies[2];
+> +	const struct ili9488_desc *desc;
+> +	enum drm_panel_orientation orientation;
+> +};
+> +
+> +static const char * const regulator_names[] = {
+> +	"vci",
+> +	"iovcc",
+> +};
+> +
+> +static void e35gh_i_mw800cb_init(struct mipi_dsi_multi_context *ctx)
+> +{
+> +	/* Gamma control 1,2 */
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xE0, 0x00, 0x10, 0x14, 0x01, 0x0E, 0x04, 0x33,
+> +				     0x56, 0x48, 0x03, 0x0C, 0x0B, 0x2B, 0x34, 0x0F);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xE1, 0x00, 0x12, 0x18, 0x05, 0x12, 0x06, 0x40,
+> +				     0x34, 0x57, 0x06, 0x10, 0x0C, 0x3B, 0x3F, 0x0F);
+> +	/* Power control 1,2 */
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xC0, 0x0F, 0x0C);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xC1, 0x41);
+> +	/* VCOM Control */
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xC5, 0x00, 0x25, 0x80);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0x36, 0x48);
+> +	/* Interface pixel format 18bpp */
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0x3A, 0x66);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xB0, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xB1, 0xA0);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xB4, 0x02);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xB6, 0x02, 0x02, 0x3B);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xE9, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xF7, 0xA9, 0x51, 0x2C, 0x82);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0x21);
+> +}
+> +
+> +static const struct drm_display_mode e35gh_i_mw800cb_display_mode = {
+> +	.clock = 14400,
+> +
+> +	.hdisplay = 320,
+> +	.hsync_start = 320 + 60,
+> +	.hsync_end = 320 + 60 + 20,
+> +	.htotal = 320 + 60 + 20 + 42,
+> +
+> +	.vdisplay = 480,
+> +	.vsync_start = 480 + 20,
+> +	.vsync_end = 480 + 20 + 10,
+> +	.vtotal = 480 + 20 + 10 + 33,
+> +
+> +	.width_mm = 48,
+> +	.height_mm = 73,
+> +
+> +	.flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC,
+> +	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
+> +};
+> +
+> +static inline struct ili9488 *panel_to_ili9488(struct drm_panel *panel)
+> +{
+> +	return container_of(panel, struct ili9488, panel);
+> +}
+> +
+> +static int ili9488_power_on(struct ili9488 *ili)
+> +{
+> +	struct mipi_dsi_device *dsi = ili->dsi;
+> +	int ret;
+> +
+> +	ret = regulator_bulk_enable(ARRAY_SIZE(ili->supplies), ili->supplies);
+> +	if (ret < 0) {
+> +		dev_err(&dsi->dev, "regulator bulk enable failed: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	gpiod_set_value_cansleep(ili->reset, 0);
+> +	usleep_range(1000, 5000);
+> +	gpiod_set_value_cansleep(ili->reset, 1);
+> +	usleep_range(1000, 5000);
+> +	gpiod_set_value_cansleep(ili->reset, 0);
+> +	usleep_range(5000, 10000);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ili9488_power_off(struct ili9488 *ili)
+> +{
+> +	struct mipi_dsi_device *dsi = ili->dsi;
+> +	int ret;
+> +
+> +	gpiod_set_value_cansleep(ili->reset, 1);
+> +
+> +	ret = regulator_bulk_disable(ARRAY_SIZE(ili->supplies), ili->supplies);
+> +	if (ret)
+> +		dev_err(&dsi->dev, "regulator bulk disable failed: %d\n", ret);
+> +
+> +	return ret;
+> +}
+> +
+> +static int ili9488_activate(struct ili9488 *ili)
+> +{
+> +	struct mipi_dsi_multi_context ctx = { .dsi = ili->dsi };
+> +
+> +	if (ili->desc->init_sequence)
+> +		ili->desc->init_sequence(&ctx);
+> +
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(&ctx);
+> +	mipi_dsi_msleep(&ctx, 120);
+> +	mipi_dsi_dcs_set_display_on_multi(&ctx);
+> +
+> +	return ctx.accum_err;
+> +}
+> +
+> +static int ili9488_prepare(struct drm_panel *panel)
+> +{
+> +	struct ili9488 *ili = panel_to_ili9488(panel);
+> +	int ret;
+> +
+> +	ret = ili9488_power_on(ili);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = ili9488_activate(ili);
+> +	if (ret) {
+> +		ili9488_power_off(ili);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int ili9488_deactivate(struct ili9488 *ili)
+> +{
+> +	struct mipi_dsi_multi_context ctx = { .dsi = ili->dsi };
+> +
+> +	mipi_dsi_dcs_set_display_off_multi(&ctx);
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&ctx);
+> +	mipi_dsi_msleep(&ctx, 120);
+> +
+> +	return ctx.accum_err;
+> +}
+> +
+> +static int ili9488_unprepare(struct drm_panel *panel)
+> +{
+> +	struct ili9488 *ili = panel_to_ili9488(panel);
+> +	struct mipi_dsi_device *dsi = ili->dsi;
+> +	int ret;
+> +
+> +	ili9488_deactivate(ili);
+> +	ret = ili9488_power_off(ili);
+> +	if (ret < 0)
+> +		dev_err(&dsi->dev, "power off failed: %d\n", ret);
+> +
+> +	return ret;
+> +}
+> +
+> +static int ili9488_get_modes(struct drm_panel *panel, struct drm_connector *connector)
+> +{
+> +	struct ili9488 *ili = panel_to_ili9488(panel);
+> +	const struct drm_display_mode *mode = ili->desc->display_mode;
+> +
+> +	connector->display_info.bpc = ili->desc->bpc;
+> +
+> +	return drm_connector_helper_get_modes_fixed(connector, mode);
+> +}
+> +
+> +static enum drm_panel_orientation ili9488_get_orientation(struct drm_panel *panel)
+> +{
+> +	struct ili9488 *ili = panel_to_ili9488(panel);
+> +
+> +	return ili->orientation;
+> +}
+> +
+> +static const struct drm_panel_funcs ili9488_funcs = {
+> +	.prepare	= ili9488_prepare,
+> +	.unprepare	= ili9488_unprepare,
+> +	.get_modes	= ili9488_get_modes,
+> +	.get_orientation = ili9488_get_orientation,
+> +};
+> +
+> +static int ili9488_dsi_probe(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev = &dsi->dev;
+> +	struct ili9488 *ili;
+> +	int i, ret;
+> +
+> +	ili = devm_drm_panel_alloc(dev, struct ili9488, panel, &ili9488_funcs,
+> +				   DRM_MODE_CONNECTOR_DSI);
+> +	if (IS_ERR(ili))
+> +		return PTR_ERR(ili);
+> +
+> +	ili->desc = device_get_match_data(dev);
+> +	ili->dsi = dsi;
+> +
+> +	dsi->mode_flags = ili->desc->mode_flags;
+> +	dsi->format = ili->desc->format;
+> +	dsi->lanes = ili->desc->lanes;
+> +
+> +	ili->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+> +	if (IS_ERR(ili->reset))
+> +		return dev_err_probe(dev, PTR_ERR(ili->reset),
+> +				     "failed to get reset-gpios\n");
+> +
+> +	for (i = 0; i < ARRAY_SIZE(ili->supplies); i++)
+> +		ili->supplies[i].supply = regulator_names[i];
+> +
+> +	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ili->supplies),
+> +				      ili->supplies);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "failed to get regulators\n");
+> +
+> +	ret = of_drm_get_panel_orientation(dev->of_node, &ili->orientation);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to get orientation\n");
+> +
+> +	ret = drm_panel_of_backlight(&ili->panel);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to get backlight\n");
+> +
+> +	ili->panel.prepare_prev_first = true;
+> +
+> +	ret = devm_drm_panel_add(dev, &ili->panel);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = devm_mipi_dsi_attach(dev, dsi);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "failed to attach to DSI host\n");
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct ili9488_desc e35gh_i_mw800cb_desc = {
+> +	.init_sequence = e35gh_i_mw800cb_init,
+> +	.display_mode = &e35gh_i_mw800cb_display_mode,
+> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
+> +		      MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS,
+> +	.format = MIPI_DSI_FMT_RGB666_PACKED,
+> +	.lanes = 1,
+> +	.bpc = 6,
+> +};
+> +
+> +static const struct of_device_id ili9488_of_match[] = {
+> +	{ .compatible = "focuslcds,e35gh-i-mw800cb", .data = &e35gh_i_mw800cb_desc },
+> +	{ }
+> +};
+> +
+> +MODULE_DEVICE_TABLE(of, ili9488_of_match);
+> +
+> +static struct mipi_dsi_driver ili9488_dsi_driver = {
+> +	.probe	= ili9488_dsi_probe,
+> +	.driver = {
+> +		.name		= "ili9488-dsi",
+> +		.of_match_table	= ili9488_of_match,
+> +	},
+> +};
+> +module_mipi_dsi_driver(ili9488_dsi_driver);
+> +
+> +MODULE_AUTHOR("Igor Reznichenko <igor@reznichenko.net>");
+> +MODULE_DESCRIPTION("Ilitek ILI9488 Controller Driver");
+> +MODULE_LICENSE("GPL");
 
-Pre-existing issues:
-- [High] Missing NULL check for `ops` after `rcu_dereference()` allows a po=
-tential NULL pointer dereference on weakly-ordered CPUs if the fence is con=
-currently signaled.
---
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-commit 0888eeb31d9224a94ad809f7df8b6fc25b78b27a
-Author: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
-
-dma-fence: use correct callback in dma_fence_timeline_name()
-
-dma_fence_timeline_name() is a wrapper around
-dma_fence_ops::get_timeline_name(). Since the blamed commit below, it
-calls an incorrect callback.
-
-Update it to restore functionality by calling the intended callback.
-
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index b3bfa6943a8e1..5292d714419b1 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -1202,7 +1202,7 @@ const char __rcu *dma_fence_timeline_name(struct dm=
-a_fence *fence)
->  	/* RCU protection is required for safe access to returned string */
->  	ops =3D rcu_dereference(fence->ops);
->  	if (!dma_fence_test_signaled_flag(fence))
-> -		return (const char __rcu *)ops->get_driver_name(fence);
-> +		return (const char __rcu *)ops->get_timeline_name(fence);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a missing NULL
-check for ops here?
-
-Because rcu_dereference() does not provide a read memory barrier against
-independent loads, can weakly-ordered CPUs (like ARM64) execute the load of
-fence->flags in dma_fence_test_signaled_flag() before the load of fence->op=
-s?
-
-If a concurrent writer in dma_fence_signal_timestamp_locked() sets the
-signaled bit and then sets fence->ops to NULL, it seems a reader could
-observe fence->flags as unsignaled (0) and then subsequently load fence->ops
-as NULL.
-
-This could cause the reader to take the true path of the if statement and
-dereference a NULL ops pointer:
-
-Reader thread in dma_fence_timeline_name():
-    ops =3D rcu_dereference(fence->ops);        // delayed load, gets NULL
-    if (!dma_fence_test_signaled_flag(fence)) // loaded early, gets 0
-        ops->get_timeline_name(fence);        // oops: ops is NULL
-
-Concurrent writer thread:
-dma_fence_signal_timestamp_locked()
-    test_and_set_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
-    RCU_INIT_POINTER(fence->ops, NULL);
-
-Since this code path is reachable from userspace via the SYNC_IOC_FILE_INFO
-ioctl in sync_file.c, could this allow a local denial of service?
-
-Note that the adjacent dma_fence_driver_name() function seems to suffer from
-the exact same pre-existing issue.
-
->  	else
->  		return (const char __rcu *)"signaled-timeline";
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618-linux-drm_=
-crtc_fix-v1-1-801f29c9853d@linaro.org?part=3D1
+Thanks,
+Neil
