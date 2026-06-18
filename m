@@ -4,87 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CE63CD98ED
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 10:45:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAC17CD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 10:46:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 915B710E2E7;
-	Thu, 18 Jun 2026 10:45:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E4EA10EDA6;
+	Thu, 18 Jun 2026 10:46:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="N7imRrVm";
+	dkim=pass (2048-bit key; unprotected) header.d=kroah.com header.i=@kroah.com header.b="giUpVldr";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="DV9Hxf1t";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8637D10E2E7
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 10:45:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1781779537;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ex4FXoS07wD1HdVUSdQ/7roGTbJyzugyEwIGze9M3sg=;
- b=N7imRrVmILczqikPwhCiNpn4Dg+whX8BGM6RWweHZMdqL9CX+Oyib9O+lDHEw3KlTTu3JG
- xIb9NorUrX8ILkcxHmPbOXNLrCD5pH5MKrmmLksOidRmML+7o8v4G2ZZoXEDeteqkw7Clt
- 8uEZ2qOzjnC2jDhZ7hfFpKO5Wk6DXIo=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-412--OGEZvspPtGYRt-8op3VvQ-1; Thu, 18 Jun 2026 06:45:34 -0400
-X-MC-Unique: -OGEZvspPtGYRt-8op3VvQ-1
-X-Mimecast-MFC-AGG-ID: -OGEZvspPtGYRt-8op3VvQ_1781779533
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-46315372c3eso764100f8f.0
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 03:45:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781779533; x=1782384333;
- h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ex4FXoS07wD1HdVUSdQ/7roGTbJyzugyEwIGze9M3sg=;
- b=ROfyAeHCte44kUkdrfjJFKnSSdvI5cQ9eotHzmOaP0wVFDgNWhG/rUDDaTISNdhGk5
- Qjphcj2ebUn+Oq9GLPjH+SKn3b9h+3rFYy9QLWKers2U4zRSW+jPeVhOB6TZE4n8U+eK
- gAxTmUrFU9iiqcpHpmH76pER8jEAUhfEDQSCn+3N5oQB9jls/dR/+S0I7qlF8xfqbFE3
- UF20ImkD7bU1bcWvjdRRAW6XzvB9I5Pd/rl+bUFWUuYxW7dOzFaoH0pd+5Rr50NZxUFn
- DI47EE3zveoWSVs/OkiXMrpGEfURUC76kVB+GkG6KLZXHk0gnveqFicRfwGQanHPd2Lz
- eeQQ==
-X-Gm-Message-State: AOJu0YzKzmdiMhTZf2Ff40epsFJrbmWNY9h3TzLKdO+x1wZ0rkO1PyF3
- r6GzV5izCL4wfL8JBZVx6MsOrjKkd5fNu/K/MJDr6JR0iG0F1kDZdN85M1SJpIgdwyn2skXaKm/
- OC2GYNgWqIRjToAd54pClPtfSj+KF+vunrBQCh/4o3xT82pLUwfnPrWj6t3rhlhFxQmZnMQ==
-X-Gm-Gg: AfdE7cmkjOv39q2dyQ2k172B9JpnlUZ6uzd1/pMEmOId71zcrkbfUjEayuyeZoaOdZD
- yERCrlLSaz1fyHlSAMu9TZMOrTX5cNlIXQwk9uhDedKOUO72QvAxIh6RXcX5bh9tqHexERM0cpY
- g9whXr/MwMN6ErbhDjjfp+RhvvddO0QYYPiL+HXoEO5hOqfHN3pHxuvOKReAyzAXWnP2IxhgDVB
- KnQn/V5J4jpaiyjlOXXInrqh/vsroiXhZPk4OSDK+qiHBmsKzO5eOT0DsZWP0OwP51Z5MiWdq2V
- XHRvs4gtMH8Bkx09fTSbovY5O0lqcQ5Bawja3aI5QK971AcMs37kXd2/pWxp5ft5UOle9yfUX6s
- lLcYE1vjhvtcHUZCbmc3A6qoxib//8WTgMry8eRhkaXzBv6O6ok/9l+7sbUSpq29eKRe8WA==
-X-Received: by 2002:a5d:46ce:0:b0:461:c779:1e45 with SMTP id
- ffacd0b85a97d-46235e9bae2mr9463941f8f.2.1781779532858; 
- Thu, 18 Jun 2026 03:45:32 -0700 (PDT)
-X-Received: by 2002:a5d:46ce:0:b0:461:c779:1e45 with SMTP id
- ffacd0b85a97d-46235e9bae2mr9463902f8f.2.1781779532333; 
- Thu, 18 Jun 2026 03:45:32 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4606f26f1cdsm64765302f8f.11.2026.06.18.03.45.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Jun 2026 03:45:31 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev, Thomas
- Zimmermann <tzimmermann@suse.de>, Sashiko <sashiko-bot@kernel.org>,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] drm/sysfb: Avoid possible truncation with
- calculating visible size
-In-Reply-To: <20260618084327.46567-3-tzimmermann@suse.de>
-References: <20260618084327.46567-1-tzimmermann@suse.de>
- <20260618084327.46567-3-tzimmermann@suse.de>
-Date: Thu, 18 Jun 2026 12:45:29 +0200
-Message-ID: <87cxxojfee.fsf@ocarina.mail-host-address-is-not-set>
+X-Greylist: delayed 642 seconds by postgrey-1.36 at gabe;
+ Thu, 18 Jun 2026 10:46:07 UTC
+Received: from flow-b1-smtp.messagingengine.com
+ (flow-b1-smtp.messagingengine.com [202.12.124.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF5B510EDA6
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 10:46:07 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailflow.stl.internal (Postfix) with ESMTP id 295211300A85;
+ Thu, 18 Jun 2026 06:35:24 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Thu, 18 Jun 2026 06:35:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+ :cc:content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:subject
+ :subject:to:to; s=fm1; t=1781778923; x=1781786123; bh=c+JFVYRbkx
+ 6rCQdKVL0JqSwq3chaKNZzvhRn0PAwsOw=; b=giUpVldr5njeIFaRPz2fkJfBjT
+ GhKbRWCiVZKb4jS8dX4t2KoJ9VQX7slJhG+hwWwM4a5/PWEcYmHfsfuMCXw0oxBW
+ tmrYE9MmuJSaf/ZiDWKMo8WuD7ESHJLSLbAx4AlSPIqutIsDH5+K6UIjKCCgPyjD
+ 5q1DaE+UYnWko3qz8eD96eXhMdEcwpP5HDtMFQQ2OY8kEr7KkPo82oRbm5USmTue
+ 2C+oFj6auO1JiNPjeoAItiBc1mhXO43IIelpS3Czt16ytHBaeBcxOynCWjepa8Q8
+ lcFlP5aeYHB92gqfkeECduY/JRYe+/lYpI/dqNM5sLcflpdYN+8AdX58tQSA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+ 1781778923; x=1781786123; bh=c+JFVYRbkx6rCQdKVL0JqSwq3chaKNZzvhR
+ n0PAwsOw=; b=DV9Hxf1t9L2Aywf1VjFPD4vnhnRw9AWIBtfWpXtbTCy8kSto64S
+ TIT2HabyGQ0H27FI6IGLNX2gDz1a8/ynkMWgkqCOHc1x7xwXxQKP1ir96ssL/3Mr
+ Wk5AG6GSA82SPlfksMeUrkuWbpTnL/akRh4gQqMAcyGszYahvFiiQG1ZaL4xJkEE
+ o5FPKjsf7lm+yrpqvniV/VnRBnau0x3yU3US+8PBlv6F0gl946OF2THWGgNlxn0c
+ ongIlAghgq1nLanj//cWto3TKttcxim6EXE4MDrH+sras/Qw8f5Krul5Bq/Z5exN
+ SJOv0pVhZvRnTGlM/nMBVgP+uH4S6J+QJpA==
+X-ME-Sender: <xms:68kzat-I270Q1pj-MjYOL21Vj4OeBqz1-9AR2ZRrUskb8KfkKhkeGQ>
+ <xme:68kzatnvCH8slU1aCoEuzXfBv1BnZIFV0MdbUeG7rCwovH-ZHq67nYEZw5tCU6I_R
+ 3dAqsxbmuOvMxonJXAr1gipV4ai_sZOnrXYs2TeB0rUF8ttyg>
+X-ME-Received: <xmr:68kzamj8anE5ePz182Yz8jn61bkh5I3sRPOuLk3U9D6CswgngBXj4y5scoMfBT7nXuXrES0z5qp4VPfPkSpPFaZ7Xw>
+X-ME-Proxy-Cause: dmFkZTEOAOj02d/ZKUn9vAh5IMWX/a/uWTsZrk95sDIEQElrszD8yGRvVRq+MI8mGf8LjP
+ RQVAV4njIE8vYUg0goHwoGnl1iWxq8UGXbDqqjrag/z22f0/NhXpEN6hcQjlDAy9rpmdwq
+ Zr4XhfoQV5UBarJI95cR+MDwdvIlZYvLx/eI5R2J+F8RJio5GUOKD3Pf32WygkS2LK9naU
+ VT5X+URE547nGLXQVfokPS0MKuxGGSt+bF3NPPw3TdMwn9OwZNPBkNzoSam2VcrZhZDp79
+ pP6QHUG+Wt9kjx7pEc4SaEPdDTYuonhGN44aBOEqoW9U4OEjNop98QT0CgsFAGlh+EdaBU
+ aznMH0YR6o4dS6lzTzQcx/EY1/dFQ+nbru5vUO9GIHrFmwT9LKxuZtBlugvIyGblR0VnB9
+ 83A7yQ6njTnM1nUg9zNNAodmzzySA7Umh9Kmzu/vOmHQM6mQ3bMZUrrvCYV8cGoH8r8n81
+ NSzfkBZnopQiCr3LbRnglYY/uPaVVBJdolSFmorJbDosmG/g/NJcRTZ85xYvq5Ilh8ADFc
+ DgiW94m7dD9oIgL28h73pIj4FYWydQvTRuHDsEChOnvYfS4zvXHzJ+xUKAhFhY5NMDGA6n
+ srVAAjZuQIr5n5249kEjmd/sYUDeCkCt7lf0V+V6vuJC4c6U91y9C/o2wuvQ
+X-ME-Proxy: <xmx:68kzalbSpZznxiMMdkYpxB_L_TLpY49c3pYnbAPw6d1IG9gDwhgpPQ>
+ <xmx:68kzaqGLR6TjdFE4ZmSPcUebQhfcVoUbxkXLsD7IMLwCosZsFux1VQ>
+ <xmx:68kzaiawsFDcMdl35khrpckGfKR4BUdG1gxvWn2M4YWHbq_RFDJ2FA>
+ <xmx:68kzar1FT3olSv0W8VVzCgp7R3w2K515k-rH261mx7vlhIWfiuyFqQ>
+ <xmx:68kzanBDuY2CPyhevtmRL9HcntqUlK9ytbnx3BpDRbwP-kG8INNXDES9>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 18 Jun 2026 06:35:22 -0400 (EDT)
+Date: Thu, 18 Jun 2026 12:35:36 +0200
+From: Greg KH <greg@kroah.com>
+To: rdhan@smu.edu.sg
+Cc: Andrew Morton <akpm@osdl.org>, Antonino Daplas <adaplas@pol.net>,
+ stable@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Helge Deller <deller@gmx.de>
+Subject: Re: [PATCH] fbcon: Avoid OOB font access if console rotation fails
+Message-ID: <2026061826-yield-reemerge-7fe9@gregkh>
+References: <20260618-prep-base-v5-15-209-v1-1-cfcf596dca7a@smu.edu.sg>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: J0zLSAYmNEzctILfOF7SSNxGgGJGBUPeSp9p5S-mofM_1781779533
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260618-prep-base-v5-15-209-v1-1-cfcf596dca7a@smu.edu.sg>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,37 +97,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thomas Zimmermann <tzimmermann@suse.de> writes:
-
-Hello Thomas,
-
-> Calculating the visible size of the system framebuffer can result in
-> truncation of the result. The calculation uses 32-bit arithmetics,
-> which can overflow if the values for height and stride are large. Fix
-> the issue by multiplying with mul_u32_u32().
->
+On Thu, Jun 18, 2026 at 02:30:17PM +0800, HAN Ruidong via B4 Relay wrote:
+> From: HAN Ruidong <rdhan@smu.edu.sg>
+> 
+> [ Upstream commit e4ef723d8975a2694cc90733a6b888a5e2841842 ]
+> 
+> Clear the font buffer if the reallocation during console rotation fails
+> in fbcon_rotate_font(). The putcs implementations for the rotated buffer
+> will return early in this case. See [1] for an example.
+> 
+> Currently, fbcon_rotate_font() keeps the old buffer, which is too small
+> for the rotated font. Printing to the rotated console with a high-enough
+> character code will overflow the font buffer.
+> 
+> v2:
+> - fix typos in commit message
+> 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Fixes: 32ae90c66fb6 ("drm/sysfb: Add efidrm for EFI displays")
-> Fixes: a84eb6abe2b6 ("drm/sysfb: Add vesadrm for VESA displays")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/dri-devel/20260617114027.1F2A71F000E9@smtp.kernel.org/
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Javier Martinez Canillas <javierm@redhat.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: <stable@vger.kernel.org> # v6.16+
+> Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
+> Cc: stable@vger.kernel.org # v2.6.15+
+> Link: https://elixir.bootlin.com/linux/v6.19/source/drivers/video/fbdev/core/fbcon_ccw.c#L144 # [1]
+> Signed-off-by: Helge Deller <deller@gmx.de>
+> [ renamed `par` to `ops` to match the v5.15 local pointer name ]
+> Signed-off-by: HAN Ruidong <rdhan@smu.edu.sg>
 > ---
-> I've added Reported-by and Closes tags because this is a pre-existing issue.
-> ---
->  drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
+>  drivers/video/fbdev/core/fbcon_rotate.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+What stable tree(s) is this for?
 
--- 
-Best regards,
+thanks,
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+greg k-h
