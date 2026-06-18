@@ -4,157 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54AA7CD98F7
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 11:32:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58594CD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 11:46:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A97A710F28A;
-	Thu, 18 Jun 2026 11:32:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A913510F2A7;
+	Thu, 18 Jun 2026 11:46:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OQN+w22+";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="fAdfA6s/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDF1F10F287;
- Thu, 18 Jun 2026 11:32:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781782376; x=1813318376;
- h=message-id:date:subject:to:references:from:in-reply-to:
- content-transfer-encoding:mime-version;
- bh=qnZsx0xvPPmJnv84LtLiTf6pP8LUkjd24N3vs+tneU4=;
- b=OQN+w22++epVpfVpX3aH/92qxx3FK8wHTgo4RS8ty2KdRjZSeNP36lwT
- TFyUUCH+hv34p/URq1Q6Sf78OBzHkX26etmHA202Qb2LSx/DD/v1oOtMa
- s/Q4klHntdJxUoG+UbQxeubIqKO09o5sJxu1ik5+E0EqNjUNWS8zTd+FR
- GIL9z+rtpDd0FVYfHiv5SipvacJGFJ8s7t13PaxFxrQajx+efLE1lxCzM
- TpqDqlbUOBNCic8OWxZ/OWc/AoScrF8gCIdMMJhbyz+nNpDACyns//sCU
- sLz0AvbPs3/jzkJ+m9CQZ9D7JuEnShPO/78cF0FKYMVNbFhPHNJPHuQ4D w==;
-X-CSE-ConnectionGUID: pSkIptHtSLCQL9RGhTCrhA==
-X-CSE-MsgGUID: /kky2BO0SuS9myd+yVAluA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11820"; a="93213771"
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; d="scan'208";a="93213771"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2026 04:32:55 -0700
-X-CSE-ConnectionGUID: 6Hxb4Kf5TtymJxiqP1NeVg==
-X-CSE-MsgGUID: 5HqbC4MdQFSkOSg5bPpqMg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; d="scan'208";a="243984047"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2026 04:32:55 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 18 Jun 2026 04:32:54 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Thu, 18 Jun 2026 04:32:54 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.61) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 18 Jun 2026 04:32:53 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qHX8cBGQXpxhjJ3059jCQIFJ+UgZ+IZ4hP4LNX7QDC0l5TSDfWYv4AovVHg7Ms2QyUX88NuMdULqhonM/dZsNbvvBqW2CtY2sTeJ1bHNlfFGYCnGSfXVNKRJVMjiyMoQVYc30N5jQpuzhveR1qqZY2CVcBrCxDUCfZ+ezIeWKBvxET08T34D3r1FDs29heu8AAtsqZ7hTDo465fMGBx4JG4yjbCI6aOflOA/7pJlL6+sZFgU0E0elqJfT9hIdAxJ2CVx02G1lq9pMx4UJxCIuhsKh5tiMpgxHy6/IXJ+9sDmo/5y5e4h2xLBsVzZo4JVjCJdN7wavNMp+pUINbpdBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gnXq6xKD2Efvs3cY6bkXmbdkE0sECxrrF6swYbXrjjY=;
- b=VSGGV+eUFJ0r584Fj5sVbHGL44eBJWvnA+vqOc24fv2/WV1Bz1GL2LINFKoUijTdv03VPob5kRFs/eL2vSjBIN/O9m+/RPedMgsMHWSORVvLXSu1xJrElwXPJeZpI7Vbi0xVo4u5boYxc6fm8PgZygM0s/4Y52tNR9J6agB+lIrxbZMwvC+59BqNPelrnAMDyUga3Mze6eLo0Q7zhS8eo/bWxfNN7jBn6l2mWsexqlEhCl/AT0S6sTcgp57Ep/LYEnLLnryucZRfXFj2qX7IkB6s2i5LZrxsRKwTm/w9+snDWErkNPAej/s8+60QrGYwUAp91TzMEkdzyaATT8ZjVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SA3PR11MB7554.namprd11.prod.outlook.com (2603:10b6:806:315::9)
- by MW6PR11MB8338.namprd11.prod.outlook.com (2603:10b6:303:247::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Thu, 18 Jun
- 2026 11:32:50 +0000
-Received: from SA3PR11MB7554.namprd11.prod.outlook.com
- ([fe80::3ec0:2280:db82:d67b]) by SA3PR11MB7554.namprd11.prod.outlook.com
- ([fe80::3ec0:2280:db82:d67b%5]) with mapi id 15.21.0113.015; Thu, 18 Jun 2026
- 11:32:49 +0000
-Message-ID: <52d87d3c-6b29-4fb3-8679-697a91fd3e08@intel.com>
-Date: Thu, 18 Jun 2026 17:02:41 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] drm/dp: Add max bpp delta computation constants
-To: Nemesa Garg <nemesa.garg@intel.com>, <intel-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>
-References: <20260527110849.3943338-1-nemesa.garg@intel.com>
- <20260527110849.3943338-4-nemesa.garg@intel.com>
-Content-Language: en-US
-From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-In-Reply-To: <20260527110849.3943338-4-nemesa.garg@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0127.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1d5::14) To SA3PR11MB7554.namprd11.prod.outlook.com
- (2603:10b6:806:315::9)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B33810ED7B
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 11:46:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1781783203;
+ bh=9yeH/5xhRUOAdE0bJjDccTvLL5+CdjMFstSXsgg0CEQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=fAdfA6s/ZcUtfI0N7T8BtYWrLx/JOtP3a33kFxOh5bjoWupssUOOgxtoUr3j2dE8z
+ 0twbUF21YFAMQhuf2x99LsrQxObeD3eFSmL0IGZwSwp4gVL9U/iqtTo3dc66btDw38
+ kLuxFQoIhNHI/uK/e+brFxjffnZdSGyMgr7pM8WAPKqHnljq3IQcBtqCwIxm/7QY6F
+ ZXgHPYm5eN5Nl4zBi9A2OLY3EGRmtsE5gCdITVDNPPb+D60MBHFW2XhnALWNACs5jC
+ 2OWN/pIzRgX7sHNSUJr1sQEPbd38XLxyMI4qNnYPeGoFEcy9ggydxrHuGh6gotZTLn
+ RG8fn+TYDJQpA==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id D5D7817E0151;
+ Thu, 18 Jun 2026 13:46:42 +0200 (CEST)
+Message-ID: <302d42b0-108e-4936-bc34-49b9194985f1@collabora.com>
+Date: Thu, 18 Jun 2026 14:46:42 +0300
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR11MB7554:EE_|MW6PR11MB8338:EE_
-X-MS-Office365-Filtering-Correlation-Id: 593c2472-6e44-4967-9212-08decd2d5338
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|18002099003|22082099003|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: JV8STtOI6Eo9fQk8/TyFlWN45ujoXl/fMCX4EO0Gh+8Y2A13Y1Gas3fgYwqALvDKmQsM78rdcJEHK/g4N1i716RynAVyu0lNDLlzYpq5hT4Z3Ot8BRHcAkuWXYCe5L3FA6HG7hs+lhzl6fimaJhILF3F6Vndkx9Bj605jr7C/p0akwH+3T0u3tXC+4YKksWDjNe6Q0Go/p5f1SMFT2ZMsx/Ysrn++A3GT5x+pg68zeJq+KuZATzKTsi6Ftq6jUQdgh+CTG8y8i6LdGFcf0j7FhURsEXAA1QcDzXC7WKE5SJyzQAuYRO7SW+s3mI3Zg7Hdf5e3G8XOW0iQmjCvAffnztsvOIIn/lqLvULmmr22PxD8YmQfZB1mVy+Wk5qLPSoL8DXo65V5W/I+eWJKYAaCIrsOSRhpx16ogVJTRm9HSAemr2GUnk6jJMfuHYZJhKQujB8SrbVGOXf4VFbbz4+Bq0CW5M+K5N9RBZgIIqilA3WTB58gg9Pk45WpqDCvCf6aFqP7Lz2+MgxtBEl3WDeaMfepOZMLQPeNFjNhHri2HSM0XktpsaycAiD/GayRSyhVtEkEY8PoLg+eiLcRPXHLxJTTDyP3CSESBBtJ4BapURWI+bzAMPiCQtUPVkLxrYDqdXQ9+EjGSCwgFWPHbMPSutCGumu56+BKeSvNV3087qwk7MtcmVhwVRg+6VGSc6E
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR11MB7554.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ODkrWkl6aHhIQVhUOG5rRTVabHVIT1R5TkExMUhTL2J2blNNU2IwM3VjcU5W?=
- =?utf-8?B?RXRBdVA0ZTBsMzF5eVY4SS9EdS9zbjgxd0hQSFlaamhmaXJNdzB5R2ZXS01x?=
- =?utf-8?B?L3pCRnlGeVF5bEhHdXAzb0hEZGdlVjRCbUk3KzZVT2UvRDlwSDlzdHFibWdv?=
- =?utf-8?B?Tkk1Y2M3MHN1SWZRTnN6dlM4U0xRaVVPQjV3MUxEaUx2M09ZR29lZDNLM0k0?=
- =?utf-8?B?a3RJb21nUTlsL2F4ZzFvRGtKNXhRaVVKSFNJUWozT1dtYmZ0VDJ4cFB5Vktl?=
- =?utf-8?B?dXo3VytYN2RDZUZ4ZXRGNjNEeWVtK2RyeWFYcUl6RlZYb2dENzF5R3R5Yjdp?=
- =?utf-8?B?RVdGNkIwRnJ6TXo5SEd4T1ROTWh5Tk1yZ1lqUG1tLzJnWVhzTE5ISkIvUWpD?=
- =?utf-8?B?UHYvMFB3TmVpMWdEVFlOK1ZMRzZua2Voa1ZQbUNPSTFVM3B5TWt2c1RhMWdJ?=
- =?utf-8?B?V0NDS1BGVjloSnVaTXhsdHlDUEl2SHpVbUhNcjdZWjkxS01Hb1JxSEdpZCt6?=
- =?utf-8?B?MzYyMjhSczZ6N2FraFRWdVJGU3hObUpQK1hjbzNqTTRjSm1pdHNFK01acjA5?=
- =?utf-8?B?UW9nQ2NUbnhEQXA3OGp6YzJPTjR2bzRoU1llaHp0akhVeWYzRXo0L2JCcHhr?=
- =?utf-8?B?eUxvaGZZT0wrYmpLQituaWJoZkczbnVIK0dwV0hjN0l2Q2E1U1l0N2o3Ymhz?=
- =?utf-8?B?Yk54Skk5Z3JJMVluNXEzcm1pR1VOTFFZWXVOdTJVT1FtWVc1bEhNWDROd3N2?=
- =?utf-8?B?bm5RaG9NenRJNFNhd0xOWFBlYWlYOXdiR1RZNnQ5RnFHWFpVdDNMSS9Da3Mx?=
- =?utf-8?B?SmpIRGhOYXZnVHh4SEJQeXUzNFpmTXcxSHF1RFFjb29Hbk5LSDkrdGVVUFhQ?=
- =?utf-8?B?elBzSTBiU3JObWJZWFgvRkVOZzkyZ3Q5S1NHKzMzcitua1R0dzJLREpaNXdl?=
- =?utf-8?B?V3pVTk5icjJvQ3AyN0hnMlRyZFpxMHlYUk9lc2dCRnEyeGNjd215cnhuUkFu?=
- =?utf-8?B?TllPTHdhRUxBYTljbWFpZ0FONnJjMEYya3pOZ2FQamxLaVc2SFlTWDVBRndn?=
- =?utf-8?B?M0YxV3lRNndMOVpTYlFSNEtvVnNOVFgvdTVjcTJreEtiQ3VIU0NVbE9nSlh2?=
- =?utf-8?B?OUFDTXdCSmszYVRKT2JVa3VieEVKZHllUm9wOE5xdXJ3amRxaE1CR3RhOUZU?=
- =?utf-8?B?bzZ3YWdHMnYvV0pLbmVYUXpkQWFIUm9WbVhTRFZsUmhDTC9RZllwbGxlMzN4?=
- =?utf-8?B?NnVGM2FJYzg0NDNYN3N1MGJhZ0lXWWIxYjUzREJmcXdpekJSOWxMYy83Vm5L?=
- =?utf-8?B?bTNFMHhzb0x5SzA0enJjWXZLTUVmdWNNbnVXWHV5UzEyNlphRVlWa1U2Ky9r?=
- =?utf-8?B?VGtKb1pYb2FXSHMwQ3pkVy9TZm9mak1seTl3R2xaUUxBVlBwQll5OWV4VzUz?=
- =?utf-8?B?d0dQU1E4QW54U2VOQXpRNjU2MHQ3aXdoK29EemRHS1Y3SElLSVJEb3FrSFRX?=
- =?utf-8?B?OHM1K0xSSW5SUGtZVS9yMGR1b243Kzh3RXhBdnFWTE0xd1VQdmFTWG9ESWpB?=
- =?utf-8?B?L3poYnB3MWNmODJDTlNlNHlRdFVNOWpCRFpMYkFnL0lOVHZvQ3FsakhsRWIy?=
- =?utf-8?B?V0tHeC9hSlFTWUI5ZHpZTzcwTFdCcEJNV0czV0h1WTRTR1NVcVFaT3dRSjg5?=
- =?utf-8?B?enhpN2s2dksra21Ic1R5VGtKTit0bHZvWUR6SE9lWHZCNVB3V2grdVZZRllV?=
- =?utf-8?B?MHBNK1dURDl1QmJiYi9WLzRsTyt5cTdteWI2VHczNEM4dHNLNXVJa3hLekky?=
- =?utf-8?B?RVRXOWcvKzhqZUpuTy9FcFVPRmltMDFxc2JGdEl3SVh3Z3dUemFKaU1Sd2g5?=
- =?utf-8?B?UnlBR0NBY25GSHNyb2N4Y1pYb3VSYmc3a0taNXJsZXNBODIxVWJ5QTFxajFO?=
- =?utf-8?B?K0RPcHg1WVROS3IxaG1Vb0F3bGcrczFSS2p3OXZtWDRZaS9nVWExTnVTdW01?=
- =?utf-8?B?clNhblJRS1BHVTlGOFRiOWc2dERMV3lRdTIvcFdKWHk2Y1B0UlEyWjlwTFVE?=
- =?utf-8?B?VUVVWFBzVFFPdFlsNGVHUlkzS3RrVmtFYWRvcjBLNXAyYkFrOVZ6NTZObnBh?=
- =?utf-8?B?UGEwZGJUTHErMDF6R29DbmN6aTBGQm5MZzBLQm1PYmRHazhueXRIZUlSMVFw?=
- =?utf-8?B?UlNkWHZwYjBBUHN5amNlL2hTbE9XZ1p0bkROMHd1eXRMVm9rb1BNRWYrd0hp?=
- =?utf-8?B?V2pYZ29MWWJkT0pBUGhnME5sRWpJN05KR2hxYlBaVllnMmkvZTh5WHZaY2ww?=
- =?utf-8?B?UHR1bmhnSkpZdGZ1dTNuQ0pISlZ6b3M0TDBraStrbDNOVFdtcXV0eW1CekhS?=
- =?utf-8?Q?q9KKZS4HDRzKlGM4=3D?=
-X-Exchange-RoutingPolicyChecked: chnt5HdLZS1OeU1sb4Kpv9bBuy3DrgnF0Hs7kKUwY8CcJGCNtrmBoQB3QqeKHvujCP00ycNn26fcuhoF6UNZIEi5oxubr28QRYw+Vk9MQZEt7jKvu1e6ymZNog9ayVkhJ9hGv7rr1g8XaqBqLqT7IWHX/0gJF9YgoLmPrl0/Vem8ALDGgVzEIlqJz0FxjZVHqXTqZU4XuCoQ3+ADcQ8I03UGZsvSqW/PKttYjN37/oA3GbrwvcIa7/WGfdnegeoLn6TYPQVDlrT4/l1g85vXFSTbhPFdbMyV630cESRpwr4MbJrVax43kVz8n3mBOZCpT91AgkwC9tBJzOPu6sLCXg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 593c2472-6e44-4967-9212-08decd2d5338
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR11MB7554.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 11:32:49.0615 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JU0Jw8dwlEvIjfrtOHFE6a8rwN+GCvzRxMy8JMJqFdUpnwhjT/MOeWNh9WuNehPO7dDzIlaMEFEXQ1woWfsCFNns2K8wIvGFyZEPJwfbryc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR11MB8338
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/9] drm/rockchip: vop2: Reset AXI and DCLK to improve
+ robustness
+To: Philipp Zabel <p.zabel@pengutronix.de>, Sandy Huang <hjc@rock-chips.com>, 
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
+ <20260617-dw-hdmi-qp-yuv-v1-2-a665cfd06d7d@collabora.com>
+ <7c79f233c863654b0266de4b5ec5a8c72bb17715.camel@pengutronix.de>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <7c79f233c863654b0266de4b5ec5a8c72bb17715.camel@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,63 +77,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 6/18/26 12:39 PM, Philipp Zabel wrote:
+> On Mi, 2026-06-17 at 21:51 +0300, Cristian Ciocaltea wrote:
+>> Assert the AXI reset in the CRTC disable path, and the VP DCLK reset in
+>> the enable path.
+>>
+>> These resets are intended to leave the hardware in a clean state for the
+>> next use, helping recover from exceptions such as IOMMU page faults, as
+>> well as to prevent random display output glitches, such as a blank
+>> image, observed when switching modes that also change the color format,
+>> e.g. from RGB to YUV420 and vice versa.
+>>
+>> For now this seems to affect only the RK3588, hence the resets are
+>> optional and will be provided in the device tree for this SoC only.
+>>
+>> Co-developed-by: Andy Yan <andy.yan@rock-chips.com>
+>> Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
+>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+>> ---
+>>  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 35 ++++++++++++++++++++++++++++
+>>  drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  4 ++++
+>>  2 files changed, 39 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+>> index 4cce3e336f5b..2833fb49ad81 100644
+>> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+>> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+>> @@ -17,6 +17,7 @@
+>>  #include <linux/platform_device.h>
+>>  #include <linux/pm_runtime.h>
+>>  #include <linux/regmap.h>
+>> +#include <linux/reset.h>
+>>  #include <linux/swab.h>
+>>  
+>>  #include <drm/drm.h>
+>> @@ -860,6 +861,26 @@ static int vop2_core_clks_prepare_enable(struct vop2 *vop2)
+>>  	return ret;
+>>  }
+>>  
+>> +static void vop2_clk_reset(struct vop2 *vop2, struct reset_control *rstc)
+> 
+> The _clk part of the function name is misleading ...
 
-On 5/27/2026 4:38 PM, Nemesa Garg wrote:
-> Define macros used for decoding DSC max bpp delta values
-> from the sink DPCD. This includes per-format masks for
-> RGB/YCbCr444 and YCbCr420, as well as definitions for delta
-> scaling and the YCbCr420 bit shift. Also add version_1 as
-> suffix to MAX_DELTA_BPP.
->
-> v2: Move constants under 0x6E register. [Ankit]
->      Add mask for Native 422 also. [Ankit]
-> v3: Rename _DSC_NATIVE4222 to _DSC_NATIVE_YCbCr422. [Ankit]
->
-> Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
-> ---
->   include/drm/display/drm_dp.h | 8 +++++++-
->   1 file changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
-> index dce290acf735..a905aa49d1d0 100644
-> --- a/include/drm/display/drm_dp.h
-> +++ b/include/drm/display/drm_dp.h
-> @@ -354,10 +354,14 @@
->   # define DP_DSC_20_PER_DP_DSC_SINK          (1 << 1)
->   # define DP_DSC_24_PER_DP_DSC_SINK          (1 << 2)
->   
-> -#define DP_DSC_MAX_BPP_DELTA		    0x06E
-> +#define DP_DSC_MAX_BPP_DELTA_VERSION_1		0x06E
+Ack.  
 
-This change should be in Patch#1.
+We need to make this clearly distinct from another similarly named function,
+vop2_crtc_reset(), hence I'd propose:
 
-This change will only add the new fields then.
+- vop2_reset_assert_deassert()
+- vop2_reset_cycle()
+- vop2_do_reset()
 
-With above fixed:
+Any preference / alternative suggestions?
 
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> 
+> [...]
+>> @@ -938,6 +959,8 @@ static void vop2_disable(struct vop2 *vop2)
+>>  {
+>>  	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
+>>  
+>> +	vop2_clk_reset(vop2, vop2->axi_rst);
+> 
+> ... because this function is also called with the AXI reset control.
+> 
+>> +
+>>  	pm_runtime_put_sync(vop2->dev);
+>>  
+>>  	regcache_drop_region(vop2->map, 0, vop2_regmap_config.max_register);
+>> @@ -1948,6 +1971,8 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
+>>  
+>>  	vop2_crtc_atomic_try_set_gamma(vop2, vp, crtc, crtc_state);
+>>  
+>> +	vop2_clk_reset(vop2, vp->dclk_rst);
+>> +
+>>  	drm_crtc_vblank_on(crtc);
+>>  
+>>  	vop2_unlock(vop2);
+>> @@ -2531,6 +2556,11 @@ static int vop2_create_crtcs(struct vop2 *vop2)
+>>  			return dev_err_probe(drm->dev, PTR_ERR(vp->dclk),
+>>  					     "failed to get %s\n", dclk_name);
+>>  
+>> +		vp->dclk_rst = devm_reset_control_get_optional(vop2->dev, dclk_name);
+> 
+> Please use devm_reset_control_get_optional_exclusive() directly.
 
+Thanks for pointing this out, I missed the comment mentioning the explicit API
+transition.
 
-Regards,
+>> +		if (IS_ERR(vp->dclk_rst))
+>> +			return dev_err_probe(drm->dev, PTR_ERR(vp->dclk_rst),
+>> +					     "failed to get %s reset\n", dclk_name);
+>> +
+>>  		np = of_graph_get_remote_node(dev->of_node, i, -1);
+>>  		if (!np) {
+>>  			drm_dbg(vop2->drm, "%s: No remote for vp%d\n", __func__, i);
+>> @@ -2890,6 +2920,11 @@ static int vop2_bind(struct device *dev, struct device *master, void *data)
+>>  		return dev_err_probe(drm->dev, PTR_ERR(vop2->pll_hdmiphy1),
+>>  				     "failed to get pll_hdmiphy1\n");
+>>  
+>> +	vop2->axi_rst = devm_reset_control_get_optional(vop2->dev, "axi");
+> 
+> Same as above, devm_reset_control_get_optional_exclusive().
 
-Ankit
+Ack.
 
->   # define DP_DSC_RGB_YCbCr444_MAX_BPP_DELTA_MASK 0x1f
->   # define DP_DSC_NATIVE_YCbCr420_MAX_BPP_DELTA_MASK 0xe0
->   
-> +# define DP_DSC_BPP_DELTA_444			16
-> +# define DP_DSC_BPP_DELTA_420			12
-> +# define DP_DSC_BPP_DELTA_SHIFT_420		5
-> +
->   #define DP_DSC_BITS_PER_PIXEL_INC           0x06F
->   # define DP_DSC_BITS_PER_PIXEL_1_16         0x0
->   # define DP_DSC_BITS_PER_PIXEL_1_8          0x1
-> @@ -365,6 +369,8 @@
->   # define DP_DSC_BITS_PER_PIXEL_1_2          0x3
->   # define DP_DSC_BITS_PER_PIXEL_1_1          0x4
->   # define DP_DSC_BITS_PER_PIXEL_MASK         0x7
-> +# define DP_DSC_NATIVE_YCbCr422_MAX_BPP_DELTA_MASK  0x78
-> +# define DP_DSC_BPP_DELTA_NATIVE_422		16
->   
->   #define DP_PSR_SUPPORT                      0x070   /* XXX 1.2? */
->   # define DP_PSR_IS_SUPPORTED                1
+Thanks for reviewing,
+Cristian
