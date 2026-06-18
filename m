@@ -4,60 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B91ACD98F2
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 15:26:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5316CD98F6
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 15:33:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00F7610F011;
-	Thu, 18 Jun 2026 15:26:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD36B10F323;
+	Thu, 18 Jun 2026 15:33:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KGJuMuyW";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CWVHpvd8";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D56810F011
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 15:25:58 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7626F10EDDE;
+ Thu, 18 Jun 2026 15:33:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781796358; x=1813332358;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=77+wQQMQWBjHw1DWKsXIkhJ2wm915s3Ac5l6PbtozWM=;
- b=KGJuMuyWCd2t853QnuJ0Bnq+G8cN2vNdZBeej/Ht72xbSgv2/nfaqFz/
- /+SAUJbV/fzkkYS/BbLsOn6139W6kFeVx8ke54Xteo0UcW29kEXSwF2hn
- NTNFCfsrT5pfshMPyQtz1Of2EF3NMA2GiCdueoQwPCKAN4PGuTCOPyUi+
- J5OeW/VIokmDvxX4OUYi0NjwN5DwTtvkPFokBJN0KdqvcTnvJLAKt1z/2
- jUvZCB/5FxuOWRjFKCSSlWB0QzUkRLAiPtyojXQkr3v9SPda4jtvxiCot
- rvRfMjJiDOhecY5lDALuAhphY3+W0hFpZeRVyelqVs1UKAIB6L668i5ZA g==;
-X-CSE-ConnectionGUID: EfqU/b3kRy6PnQw0F5WiYw==
-X-CSE-MsgGUID: phfwMQN6T0uoQf5+UeWR1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11821"; a="86314279"
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; d="scan'208";a="86314279"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2026 08:25:58 -0700
-X-CSE-ConnectionGUID: wrDY2cxxQA2HJr6aCGn+PQ==
-X-CSE-MsgGUID: 5MrmH+tVQ+K+cf7OKtxctQ==
+ t=1781796800; x=1813332800;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=QVoBv4uWnk0KMqpi4FMolMtUPKeY/LymTNKkLstSFKM=;
+ b=CWVHpvd8+/WGPRaCgcY2OptzYMmf6CweEnywN/Y2Fnp/Kwkac3SJ9Kp1
+ LHbYnkOszvetWHvr/4dPollZNjKigUGOsxBUhFU/90bSXMyq3RSxnnwnG
+ pDo4Kthkez1yt0T9c6/8nIS21D4+NvASA7uCgh2UJ9kbG5qVRabPoZ7sz
+ lYTvaeLdZv1cqDs6zLFRbXpp99z5k4FF+X+S09GM4LJfyPwW8eXfEkNoJ
+ KQC/o2p9ew+u0qHzEf55WSaHtx5/OluZerInnJAPUXhSU5Ms4u76Oy88a
+ fvBAdEzYs2HVy4AHAs7JcFYKoUZ+4KpUBr0mXl2H6uVu8tLlRmQO/Jt7t A==;
+X-CSE-ConnectionGUID: RtyVAo2aTCO8wYkD7j3prw==
+X-CSE-MsgGUID: D93xATutRdiTwlyw+tPkPg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11821"; a="82403578"
+X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; d="scan'208";a="82403578"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jun 2026 08:33:19 -0700
+X-CSE-ConnectionGUID: iD0GXV0AQ+GVsPk4128nUw==
+X-CSE-MsgGUID: Wzb9jpuXRlGBXGSUu8ZzKQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; d="scan'208";a="250291650"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO intel.com)
- ([10.245.244.96])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2026 08:25:54 -0700
-From: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; d="scan'208";a="244045797"
+Received: from osgc-sh-dragon.sh.intel.com ([10.239.81.44])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jun 2026 08:33:15 -0700
+From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: dri-devel@lists.freedesktop.org
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Andi Shyti <andi.shyti@linux.intel.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: [PATCH 2/2] gpu/tests: Add a dedicated .kunitconfig
-Date: Thu, 18 Jun 2026 17:23:31 +0200
-Message-ID: <20260618152331.36763-3-krzysztof.niemiec@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260618152331.36763-1-krzysztof.niemiec@intel.com>
-References: <20260618152331.36763-1-krzysztof.niemiec@intel.com>
+Cc: saurabhg.gupta@intel.com, alex.zuo@intel.com, jonathan.cavitt@intel.com,
+ mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
+ Rodrigo.vivi@intel.com, matthew.brost@intel.com,
+ maarten.lankhorst@linux.intel.com, thomas.hellstrom@linux.intel.com,
+ tzimmermann@suse.de
+Subject: [PATCH v4 0/2] drm/xe/pagefault: Add SRCID to pagefault reporting
+Date: Thu, 18 Jun 2026 23:33:10 +0800
+Message-ID: <20260618153312.877948-1-jonathan.cavitt@intel.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,22 +71,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a dedicated .kunitconfig for running the GPU buddy allocator tests.
+Add SRCID to the xe_pagefault struct, which reports the ID of the
+faulting hardware unit.  This will be passed on to the
+xe_vm_get_property_ioctl for reading per-vm faults and will assist in
+diagnosing pagefaults.
 
-Signed-off-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
----
- drivers/gpu/tests/.kunitconfig | 2 ++
- 1 file changed, 2 insertions(+)
- create mode 100644 drivers/gpu/tests/.kunitconfig
+v2:
+- Readd pad check, as the pad in the ioctl struct was not changed
+  (jcavitt)
 
-diff --git a/drivers/gpu/tests/.kunitconfig b/drivers/gpu/tests/.kunitconfig
-new file mode 100644
-index 000000000000..fd611b3dfe09
---- /dev/null
-+++ b/drivers/gpu/tests/.kunitconfig
-@@ -0,0 +1,2 @@
-+CONFIG_KUNIT=y
-+CONFIG_GPU_BUDDY_KUNIT_TEST=y
+v3:
+- Rebase
+
+v4:
+- Squash SRCID with ASID to keep the struct compact (Matthew)
+
+Jonathan Cavitt (2):
+  drm/xe/pagefault: Add SRCID to pagefault struct
+  drm/xe/vm: Add srcid to xe_vm_get_property_ioctl fault report
+
+ drivers/gpu/drm/xe/xe_guc_pagefault.c   |  5 ++++-
+ drivers/gpu/drm/xe/xe_pagefault.c       | 23 +++++++++++++++--------
+ drivers/gpu/drm/xe/xe_pagefault_types.h |  9 +++++++--
+ drivers/gpu/drm/xe/xe_vm.c              |  8 ++++++++
+ drivers/gpu/drm/xe/xe_vm_types.h        |  2 ++
+ include/uapi/drm/xe_drm.h               |  4 ++--
+ 6 files changed, 38 insertions(+), 13 deletions(-)
+
 -- 
-2.45.2
+2.53.0
 
