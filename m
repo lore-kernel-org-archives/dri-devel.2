@@ -4,52 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF541CD98F0
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 23:09:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2590ECD98F0
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 23:15:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEA3F10F402;
-	Thu, 18 Jun 2026 23:09:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ADB510EF05;
+	Thu, 18 Jun 2026 23:15:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Juo9SkvR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oyh3PmdB";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB84210F402
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 23:09:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E88310EF05
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 23:15:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D20904191D;
- Thu, 18 Jun 2026 23:09:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF3E31F00A3E;
- Thu, 18 Jun 2026 23:09:23 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 35F8240057;
+ Thu, 18 Jun 2026 23:15:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D62C41F00A3A;
+ Thu, 18 Jun 2026 23:15:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781824168;
- bh=B2MFtQTw47PQHqeH1+d+WYsv/KWPhJupCuzKaQmKk1Y=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Juo9SkvRQPdizSVgBGH7gB7VyCUjfM6odbedYPfjSehH7ngbt/dx6mUP2s6hclfma
- oPBJLmogvUViAtL5ld4DxoStERH4TYtZJdZ7aR8SwmE6mi1UN2sSQtb5qLWlDqZ5tn
- e4q39Jcb50zedTnVJ76mlYxaarFy13pW9ck6BAr2kcfNhfrC54sHHJYABGO+c89N3i
- Wy3SWPZjRCGxVnNc+PElQxbEmMg7LLbHMQTAtzjqokWgszkvnaAHNfgaRqe0DfYMO/
- dLYpy/WY27zzL9fDn6JqI/ftbdMhP8GHZmEJ35M/gCwLwNwfirMySSDW6mNbk6LRPa
- lq7XCf95gkhQw==
-From: Danilo Krummrich <dakr@kernel.org>
-To: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
- ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
- aliceryhl@google.com, tmgross@umich.edu, acourbot@nvidia.com,
- ecourtney@nvidia.com, m.wilczynski@samsung.com, david.m.ertman@intel.com,
- ira.weiny@intel.com, leon@kernel.org, daniel.almeida@collabora.com,
- bhelgaas@google.com, kwilczynski@kernel.org
-Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-pwm@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject: [PATCH v3 7/7] rust: io: mem: return DevresLt from
- IoMem/ExclusiveIoMem::into_devres()
-Date: Fri, 19 Jun 2026 01:08:33 +0200
-Message-ID: <20260618230834.812007-8-dakr@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260618230834.812007-1-dakr@kernel.org>
+ s=k20260515; t=1781824536;
+ bh=K1HMKo5uPdMFsav/GRPB+8cQk7/dmgn5hySW+5uX/J8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=oyh3PmdBkRrmZyZXKux8XRLbFn7y5c4zF/GRisiQynrAOPdJ/bKgAW2VPUKkmqMrj
+ A+FGXIQ6ZhTZ8XK+8jdlT2bJ75FV8hUZeiyXO5HpVQ9QOOTxag/0C+hImsbKsf9Y3O
+ divr73lKBz/sZ7SPqxwoi10Hp4ofY02Qc2QajsBVGsHB8otWG3O6a4O1GhFjy7AASX
+ Uou1ks9l791OnnHK9UxeLG4lYNE4J9Q5ipnr3Mu+Q9M+c2YvBPeicvl1xCOxAo0x5m
+ BfM0dDiGWUJPtIz2Jwxh4rSYvSikJHfrnybjP208puGeE2E90d1vmBnclcp2va4jIq
+ zShV2RyM6fzuA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/7] rust: types: rename ForLt to CovariantForLt
+To: "Danilo Krummrich" <dakr@kernel.org>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org,
+ ojeda@kernel.org
+In-Reply-To: <20260618230834.812007-2-dakr@kernel.org>
 References: <20260618230834.812007-1-dakr@kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260618230834.812007-2-dakr@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 18 Jun 2026 23:15:35 +0000
+Message-Id: <20260618231535.D62C41F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,162 +54,52 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement ForLt and CovariantForLt for IoMem<'static, SIZE> and
-ExclusiveIoMem<'static, SIZE> so that DevresLt can shorten the stored
-'static lifetime back to the caller's borrow lifetime.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] A comment in the macro implementation still refers to the old macro=
+ name `ForLt!`.
+--
 
-CovariantForLt is sound because both types only hold &'a Device<Bound>,
-which is covariant over 'a.
+commit c45f7e371456a82ca15ef60543a42d6b7346219f
+Author: Danilo Krummrich <dakr@kernel.org>
 
-Since DevresLt::new() handles the lifetime transmutation internally,
-into_devres() no longer needs an explicit transmute to 'static.
+rust: types: rename ForLt to CovariantForLt
 
-Add DevresIoMem<SIZE> and DevresExclusiveIoMem<SIZE> type aliases.
+Rename ForLt to CovariantForLt to prepare for the introduction of a new
+ForLt base trait that does not require covariance.
 
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
----
- drivers/pwm/pwm_th1520.rs |  5 ++-
- rust/kernel/io/mem.rs     | 65 +++++++++++++++++++++++++++------------
- 2 files changed, 47 insertions(+), 23 deletions(-)
+[ ... ]
 
-diff --git a/drivers/pwm/pwm_th1520.rs b/drivers/pwm/pwm_th1520.rs
-index 3e3fa51ccef9..7102c60fd14b 100644
---- a/drivers/pwm/pwm_th1520.rs
-+++ b/drivers/pwm/pwm_th1520.rs
-@@ -24,9 +24,8 @@
- use kernel::{
-     clk::Clk,
-     device::{Bound, Core, Device},
--    devres,
-     io::{
--        mem::IoMem,
-+        mem::DevresIoMem,
-         Io, //
-     },
-     of, platform,
-@@ -86,7 +85,7 @@ struct Th1520WfHw {
- #[pin_data(PinnedDrop)]
- struct Th1520PwmDriverData {
-     #[pin]
--    iomem: devres::Devres<IoMem<'static, TH1520_PWM_REG_SIZE>>,
-+    iomem: DevresIoMem<TH1520_PWM_REG_SIZE>,
-     clk: Clk,
- }
- 
-diff --git a/rust/kernel/io/mem.rs b/rust/kernel/io/mem.rs
-index fc2a3e24f8d5..4691a01a3cf7 100644
---- a/rust/kernel/io/mem.rs
-+++ b/rust/kernel/io/mem.rs
-@@ -9,7 +9,7 @@
-         Bound,
-         Device, //
-     },
--    devres::Devres,
-+    devres::DevresLt,
-     io::{
-         self,
-         resource::{
-@@ -20,6 +20,10 @@
-         MmioRaw, //
-     },
-     prelude::*,
-+    types::{
-+        CovariantForLt,
-+        ForLt, //
-+    },
- };
- 
- /// An IO request for a specific device and resource.
-@@ -172,6 +176,19 @@ pub struct ExclusiveIoMem<'a, const SIZE: usize> {
-     _region: Region,
- }
- 
-+impl<const SIZE: usize> ForLt for ExclusiveIoMem<'static, SIZE> {
-+    type Of<'a> = ExclusiveIoMem<'a, SIZE>;
-+}
-+
-+// SAFETY: `ExclusiveIoMem<'a, SIZE>` is covariant over `'a`; it holds an `IoMem<'a, SIZE>`,
-+// which holds `&'a Device<Bound>`, which is covariant.
-+unsafe impl<const SIZE: usize> CovariantForLt for ExclusiveIoMem<'static, SIZE> {}
-+
-+/// A device-managed exclusive I/O memory region.
-+///
-+/// See [`ExclusiveIoMem::into_devres`].
-+pub type DevresExclusiveIoMem<const SIZE: usize> = DevresLt<ExclusiveIoMem<'static, SIZE>>;
-+
- impl<'a, const SIZE: usize> ExclusiveIoMem<'a, SIZE> {
-     /// Creates a new `ExclusiveIoMem` instance.
-     fn ioremap(dev: &'a Device<Bound>, resource: &Resource) -> Result<Self> {
-@@ -198,15 +215,13 @@ fn ioremap(dev: &'a Device<Bound>, resource: &Resource) -> Result<Self> {
- 
-     /// Consume the `ExclusiveIoMem` and register it as a device-managed resource.
-     ///
--    /// The returned `Devres<ExclusiveIoMem<'static, SIZE>>` can outlive the original lifetime
--    /// `'a`. Access to the I/O memory is revoked when the device is unbound.
--    pub fn into_devres(self) -> Result<Devres<ExclusiveIoMem<'static, SIZE>>> {
--        // SAFETY: Casting to `'static` is sound because `Devres` guarantees the
--        // `ExclusiveIoMem` does not actually outlive the device -- access is revoked and the
--        // resource is released when the device is unbound.
--        let iomem: ExclusiveIoMem<'static, SIZE> = unsafe { core::mem::transmute(self) };
--        let dev = iomem.iomem.dev;
--        Devres::new(dev, iomem)
-+    /// The returned [`DevresExclusiveIoMem`] can outlive the original borrow and be stored in
-+    /// driver data. Access to the I/O memory is revoked automatically when the device is unbound.
-+    pub fn into_devres(self) -> Result<DevresExclusiveIoMem<SIZE>> {
-+        let dev = self.iomem.dev;
-+        // SAFETY: `ExclusiveIoMem` only holds a device reference and an I/O mapping, both of
-+        // which remain valid for the device's full bound scope, not just for `'a`.
-+        unsafe { DevresLt::new(dev, self) }
-     }
- }
- 
-@@ -232,6 +247,19 @@ pub struct IoMem<'a, const SIZE: usize = 0> {
-     io: MmioRaw<SIZE>,
- }
- 
-+impl<const SIZE: usize> ForLt for IoMem<'static, SIZE> {
-+    type Of<'a> = IoMem<'a, SIZE>;
-+}
-+
-+// SAFETY: `IoMem<'a, SIZE>` is covariant over `'a`; it holds `&'a Device<Bound>`,
-+// which is covariant.
-+unsafe impl<const SIZE: usize> CovariantForLt for IoMem<'static, SIZE> {}
-+
-+/// A device-managed I/O memory region.
-+///
-+/// See [`IoMem::into_devres`].
-+pub type DevresIoMem<const SIZE: usize> = DevresLt<IoMem<'static, SIZE>>;
-+
- impl<'a, const SIZE: usize> IoMem<'a, SIZE> {
-     fn ioremap(dev: &'a Device<Bound>, resource: &Resource) -> Result<Self> {
-         // Note: Some ioremap() implementations use types that depend on the CPU
-@@ -271,16 +299,13 @@ fn ioremap(dev: &'a Device<Bound>, resource: &Resource) -> Result<Self> {
- 
-     /// Consume the `IoMem` and register it as a device-managed resource.
-     ///
--    /// The returned `Devres<IoMem<'static, SIZE>>` can outlive the original
--    /// lifetime `'a`. Access to the I/O memory is revoked when the device
--    /// is unbound.
--    pub fn into_devres(self) -> Result<Devres<IoMem<'static, SIZE>>> {
--        // SAFETY: Casting to `'static` is sound because `Devres` guarantees the `IoMem` does not
--        // actually outlive the device -- access is revoked and the resource is released when the
--        // device is unbound.
--        let iomem: IoMem<'static, SIZE> = unsafe { core::mem::transmute(self) };
--        let dev = iomem.dev;
--        Devres::new(dev, iomem)
-+    /// The returned [`DevresIoMem`] can outlive the original borrow and be stored in driver data.
-+    /// Access to the I/O memory is revoked automatically when the device is unbound.
-+    pub fn into_devres(self) -> Result<DevresIoMem<SIZE>> {
-+        let dev = self.dev;
-+        // SAFETY: `IoMem` only holds a device reference and an I/O mapping, both of which
-+        // remain valid for the device's full bound scope, not just for `'a`.
-+        unsafe { DevresLt::new(dev, self) }
-     }
- }
- 
--- 
-2.54.0
+> diff --git a/rust/macros/for_lt.rs b/rust/macros/for_lt.rs
+> index 364d4113cd107..e1233701d6ccf 100644
+> --- a/rust/macros/for_lt.rs
+> +++ b/rust/macros/for_lt.rs
+> @@ -176,7 +176,7 @@ fn prove(&mut self, ty: &'a Type) {
+>      }
+>  }
+> =20
+> -pub(crate) fn for_lt(input: HigherRankedType) -> TokenStream {
+> +pub(crate) fn covariant_for_lt(input: HigherRankedType) -> TokenStream {
 
+[Severity: Low]
+Does the inline comment in Prover::prove() earlier in this file also need
+to be updated?
+
+It currently explains why certain reference lifetimes are deferred to the
+compiler by citing the old macro name:
+
+    // This is to block cases like ForLt!(for<'a> &'static &'a u32), as the
+    // presence of the type implies 'a: 'static but this is unsound.
+
+Could this comment be updated to refer to CovariantForLt! instead, to match
+the macro rename introduced here?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618230834.8120=
+07-1-dakr@kernel.org?part=3D1
