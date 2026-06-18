@@ -4,43 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4384CCD98DE
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 03:57:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4432CCD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 05:00:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A33C910EBC7;
-	Thu, 18 Jun 2026 03:57:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C49A10EBCF;
+	Thu, 18 Jun 2026 05:00:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T7mj0Bee";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VklzBwsc";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9120810EBC7
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 03:57:47 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99A5910EBCF
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 05:00:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BA21860008;
- Thu, 18 Jun 2026 03:57:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49E731F000E9;
- Thu, 18 Jun 2026 03:57:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 27B4943FC3;
+ Thu, 18 Jun 2026 05:00:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 133171F000E9;
+ Thu, 18 Jun 2026 05:00:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781755066;
- bh=Ae/ghmOszOFotEz1VU+LDL715sTR4BwbGCrZFG0sbvk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=T7mj0BeeiQK9ZihpB+ukKNBD1XmHaOeF5v6i+6Ki9zOJvEyuTGFF1hOpQE4l/wQrI
- h2aIKzR2uW173En8qUkFUgkNvpT1NEeSXVUttD10fujRtoJ/AEMDnhZ84HbByoM22I
- t3itYn5qeoqbd0rUaNxEwB3b84LBZlVZWl1UDK21M1maT6PZulf7foFp1quMQnOplV
- lmEcCgiQvU5mpvA7aeDQ/xVAWY6dFZVDB7fbKtIugMOFzS5Dtnej4LAdWJf/gKAVIW
- 0LgEHuvjzTRq/Hxc2W/H08tJXWAtZDpErFAzfAMuOpwNEhLOVKencLP1tkDKPHg4Gu
- 41EVrirIFAdYg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/3] rust: clk: add devres-managed clks
-To: "Daniel Almeida" <daniel.almeida@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org
-In-Reply-To: <20260618-clk-type-state-v4-2-8be082786080@collabora.com>
-References: <20260618-clk-type-state-v4-0-8be082786080@collabora.com>
- <20260618-clk-type-state-v4-2-8be082786080@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Jun 2026 03:57:45 +0000
-Message-Id: <20260618035746.49E731F000E9@smtp.kernel.org>
+ s=k20260515; t=1781758853;
+ bh=vyUxyP5gZaT2qGm7a08VKFmvCfpvDeHxeR+PC1uIn3c=;
+ h=From:Subject:Date:To:Cc;
+ b=VklzBwsc01IeU3y5Q0U1iZ/UkbtV1eyaMSg+wVFiJfs1m7m4j+q32rwlNmGKAyGJn
+ 7XG9QIn+F79kTNk8tURp4j7m2DZnv/BOX6McqRfFCP7ZaRn5ezVHhasMuRYXFvkrW0
+ i9zTKd2Qd1B+h+zKfgnYuNQVmo0+zSBeC2n/It+6lXH4wHpu4kfyXa0gWBo3XcEAO1
+ GBcqq97y7zqUDgfWditNHqzfZkX4iLA92BZHQEjVUmtaBuEAnd5v4pcJNAuFWEc999
+ 5pAXNhHfwLRPUQTCNz5BZ/2Yq1qY0RFFe7df+GZvj88bkjTXUOH3leAa/SE7oWJo1N
+ 6McfzbHRndf7A==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH 00/11] pmdomain: st: ux500: Implement ux500 power domains
+Date: Thu, 18 Jun 2026 07:00:46 +0200
+Message-Id: <20260618-ux500-power-domains-v7-1-v1-0-eb5e50b1a588@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MPQqAMAxA4atIZgNpRa1eRRykjZrBVlr8AfHuF
+ sdveO+BxFE4QV88EPmUJMFnqLIAu05+YRSXDZp0Q40yeNw1Ee7h4ogubJP4hGeLCivbOepqo43
+ VkPM98iz3vx7G9/0APODuGmoAAAA=
+X-Change-ID: 20260618-ux500-power-domains-v7-1-3c9d095828c2
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Mark Brown <broonie@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Lee Jones <lee@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ dmaengine@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,136 +66,98 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Today the Ux500 SoC specifically DB8500 is using what is called
+"EPOD regulators" (EPOD = Electric POwer Domain) to control its power domains.
+This was done like this because at the time, power domains did not exist as a
+concept in the Linux kernel.
 
-New issues:
-- [Low] Missing `#[inline]` annotations on small abstraction functions.
+This patch series completes the ambitious work started in
+commit cd931dcfda5e ("ARM: ux500: Initial support for PM domains") which added
+a dummy domain driver for Ux500 in the following steps:
 
-Pre-existing issues:
-- [High] Error path in `devm_clk_get_optional_enabled_with_rate` triggers u=
-nbalanced `clk_disable_unprepare`.
---
+- Convert the old Ux500 power domain text DT bindings to YAML schema.
 
-commit 6968c407fbf832032a4c2355e55f45330a6b1049
-Author: Daniel Almeida <daniel.almeida@collabora.com>
+- Extend the bindings with all the 16 power domains actually existing
+  in the hardware.
 
-rust: clk: add devres-managed clks
+- Add these domains to the existing ux500 power domain driver (still as dummy
+  domains).
 
-The clk API allows fine-grained control, but some drivers might be
-more interested in a "set and forget" API. Expand the current API to
-support this by automatically disabling, unpreparing and freeing the
-clock when the device is unbound from the bus.
+- Add the power domains to the DB8500 SoC DTSI file.
 
-> diff --git a/rust/kernel/clk.rs b/rust/kernel/clk.rs
-> index a62e4c7e252e3..692ee88ca772a 100644
-> --- a/rust/kernel/clk.rs
-> +++ b/rust/kernel/clk.rs
-> @@ -95,6 +95,49 @@ impl Sealed for super::Prepared {}
->          impl Sealed for super::Enabled {}
->      }
-> =20
-> +    /// Obtains and enables a [`devres`]-managed [`Clk`] for a bound dev=
-ice.
-> +    ///
-> +    /// [`devres`]: crate::devres::Devres
-> +    pub fn devm_enable(dev: &Device<Bound>, name: Option<&CStr>) -> Resu=
-lt {
+- Move code over from the EPOD regulators to the actual power domain driver.
+  Since the two drivers now control the same hardware, make the drivers
+  mutually exclusive.
 
-[Severity: Low]
-Should this small forwarding function be annotated with #[inline]?
-According to the Rust subsystem guidelines, functions in abstractions
-that are small or simply forward to a binding call require this annotation.
+- Modify the MCDE display driver to use the power domain instead of
+  the EPOS regulators.
 
-> +        let name =3D name.map_or(ptr::null(), |n| n.as_char_ptr());
-> +
-> +        // SAFETY: It is safe to call [`devm_clk_get_enabled`] with a va=
-lid
-> +        // device pointer.
-> +        from_err_ptr(unsafe { bindings::devm_clk_get_enabled(dev.as_raw(=
-), name) })?;
-> +        Ok(())
-> +    }
-> +
-> +    /// Obtains and enables a [`devres`]-managed [`Clk`] for a bound dev=
-ice.
-> +    ///
-> +    /// This does not print any error messages if the clock is not found.
-> +    ///
-> +    /// [`devres`]: crate::devres::Devres
-> +    pub fn devm_enable_optional(dev: &Device<Bound>, name: Option<&CStr>=
-) -> Result {
+- Modify the DMA40 DMA controller to use the power domain instead of
+  the EPOD regulators.
 
-[Severity: Low]
-Does this function also need an #[inline] annotation since it just
-forwards to a C binding?
+- Delete the old EPOD regulators.
 
-> +        let name =3D name.map_or(ptr::null(), |n| n.as_char_ptr());
-> +
-> +        // SAFETY: It is safe to call [`devm_clk_get_optional_enabled`] =
-with a
-> +        // valid device pointer.
-> +        from_err_ptr(unsafe { bindings::devm_clk_get_optional_enabled(de=
-v.as_raw(), name) })?;
-> +        Ok(())
-> +    }
-> +
-> +    /// Same as [`devm_enable_optional`], but also sets the rate.
-> +    pub fn devm_enable_optional_with_rate(
-> +        dev: &Device<Bound>,
-> +        name: Option<&CStr>,
-> +        rate: Hertz,
-> +    ) -> Result {
+- Implement regulators activating the VANA and VSMPS2 power domains for the
+  power domain voltage rails that are routed off-chip as external supplies,
+  re-using the existing EPOD regulator bindings.
 
-[Severity: Low]
-Should this small wrapper function be annotated with #[inline] to comply
-with the Rust subsystem guidelines for abstractions?
+- Delete the references to the unused EPOD regulators from the device tree,
+  keeping the references to VANA and VSMPS2.
 
-> +        let name =3D name.map_or(ptr::null(), |n| n.as_char_ptr());
-> +
-> +        // SAFETY: It is safe to call
-> +        // [`devm_clk_get_optional_enabled_with_rate`] with a valid devi=
-ce
-> +        // pointer.
-> +        from_err_ptr(unsafe {
-> +            bindings::devm_clk_get_optional_enabled_with_rate(dev.as_raw=
-(), name, rate.as_hz())
+This is a bit of brain transplant on the Ux500, and the series is not very
+boot-bisectable.
 
-[Severity: High]
-This is a pre-existing issue, but does the underlying C function
-devm_clk_get_optional_enabled_with_rate() have an unbalanced
-clk_disable_unprepare() on its error path?
+For simplicity, the series can be merged in separate paths and subsystems as
+there are no build-time dependencies, as long as the result ends up in kernel
+v7.3. Once the concept and patches are ACKed by the power domain folks, I will
+send the patches that can be split out individually to each maintainer and
+it can all be merged in parallel.
 
-Looking at drivers/clk/clk-devres.c:devm_clk_get_optional_enabled_with_rate=
-(),
-it registers a devres entry with clk_disable_unprepare() as the cleanup
-action.
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Linus Walleij (11):
+      dt-bindings: power: Convert Ux500 PM domains to schema
+      dt-bindings: Add the actual power domains on U8500
+      pmdomain: st: ux500: Implement more power domains
+      ARM: dts: ux500: Rename power domains node
+      ARM: dts: ux500: Add power domains
+      pmdomain: st: ux500: Control DB8500 EPODs
+      drm/mcde: Use power domain for display power
+      dmaengine: ste_dma40: Use power domain for LCLA SRAM
+      regulator: db8500-prcmu: Remove EPOD regulators
+      regulator: db8500: Add power domain regulators
+      ARM: dts: ux500: Remove DB8500 EPOD regulators
 
-If clk_set_rate() or clk_prepare_enable() fails, the error path executes
-devm_clk_put(), which releases the devres entry and immediately invokes the
-cleanup action:
+ .../devicetree/bindings/arm/ux500/power_domain.txt |  35 --
+ .../power/stericsson,ux500-pm-domains.yaml         |  46 ++
+ MAINTAINERS                                        |   1 +
+ arch/arm/boot/dts/st/ste-dbx5x0.dtsi               | 134 ++----
+ arch/arm/mach-ux500/Kconfig                        |   2 +-
+ drivers/dma/ste_dma40.c                            |  97 ++--
+ drivers/gpu/drm/mcde/mcde_clk_div.c                |   4 +-
+ drivers/gpu/drm/mcde/mcde_display.c                |  11 +-
+ drivers/gpu/drm/mcde/mcde_drm.h                    |   2 -
+ drivers/gpu/drm/mcde/mcde_drv.c                    |  63 +--
+ drivers/gpu/drm/mcde/mcde_dsi.c                    |   1 -
+ drivers/mfd/db8500-prcmu.c                         | 239 +---------
+ drivers/pmdomain/st/ste-ux500-pm-domain.c          | 353 ++++++++++++++-
+ drivers/regulator/Kconfig                          |  22 +-
+ drivers/regulator/Makefile                         |   3 +-
+ drivers/regulator/db8500-prcmu.c                   | 501 ---------------------
+ drivers/regulator/db8500-regulator.c               | 221 +++++++++
+ drivers/regulator/dbx500-prcmu.c                   | 155 -------
+ drivers/regulator/dbx500-prcmu.h                   |  55 ---
+ include/dt-bindings/arm/ux500_pm_domains.h         |  17 +-
+ include/linux/regulator/db8500-prcmu.h             |  38 --
+ 21 files changed, 748 insertions(+), 1252 deletions(-)
+---
+base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
+change-id: 20260618-ux500-power-domains-v7-1-3c9d095828c2
 
-drivers/clk/clk-devres.c:devm_clk_get_optional_enabled_with_rate() {
-    ...
-out_put_clk:
-    devm_clk_put(dev, clk);
-    return ERR_PTR(ret);
-}
+Best regards,
+-- 
+Linus Walleij <linusw@kernel.org>
 
-Because the clock was never successfully prepared or enabled, won't this
-underflow the clock's enable/prepare counts? For a shared clock, could this
-prematurely disable the clock for other devices?
-
-> +        })?;
-> +        Ok(())
-> +    }
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618-clk-type-s=
-tate-v4-0-8be082786080@collabora.com?part=3D2
