@@ -4,72 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A16ACD98ED
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 14:13:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B2A4CD98F8
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 14:13:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA24710F25B;
-	Thu, 18 Jun 2026 14:12:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B850D10F25D;
+	Thu, 18 Jun 2026 14:13:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="El387rzx";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="penUGzap";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="El387rzx";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="penUGzap";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="TXuvAm+A";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="N7z0xaf2";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="TXuvAm+A";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="N7z0xaf2";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70BBB10F25D
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4366510E7CC
  for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 14:12:58 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 207FC6D2A8;
- Thu, 18 Jun 2026 14:12:57 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B780275C38;
+ Thu, 18 Jun 2026 14:12:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781791977; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=qZIfui3gGR3fHLdXAWNaVoCwDDDZ3yTFHyLYSq1yEXo=;
- b=El387rzxm0zrkISTvrzimIhHsV4+VPH5wRJzd4b3iOwxKEV//jAjz/8M0fuOxmH9OkYXjK
- R2HaNBHw/Y82q/qOGZAqpPCz6WNX6ilsDYka8BAw4f9VsVzFbLls+w5a4t4vCyDu9bJQQ+
- K2nWowfpVN1Be/J9boDwZmkgQxAEo5w=
+ t=1781791976; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=XHS9rpHO2emFyRayn0+qlw2fZtQR1qQZlQIg7aPOj34=;
+ b=TXuvAm+AUDHTT00aBB0N7g9k1mc9TNkMOZ8oJDqp8ppLEb94+4l8vlipIPh12p4ZOGp87N
+ 8LKeI400hzYwZgjFCkVKUlY3lNHSJHfkpVK9AW+SrXfCqC9uf8KgYBWB6xIsx7NH1EwPUo
+ AIblNHMBzR6ZcSFvwRSyGlAwQnvIOUc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781791977;
+ s=susede2_ed25519; t=1781791976;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=qZIfui3gGR3fHLdXAWNaVoCwDDDZ3yTFHyLYSq1yEXo=;
- b=penUGzap8TW05NJWvxOR/JPKazdSDnDVdPy0CU84cGotxrzmrmW/Zz8xTWl6f2WO6l6muR
- /OAgdapc9uNa+VAw==
-Authentication-Results: smtp-out1.suse.de;
-	none
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=XHS9rpHO2emFyRayn0+qlw2fZtQR1qQZlQIg7aPOj34=;
+ b=N7z0xaf2gpZp27mwKlmMj48n9bF9nsG7vOnpgBbz3OFscKs5XHPjNb4S87YvUVN9lzJZk9
+ 0tZVLXsTx9PAwOAg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=TXuvAm+A;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=N7z0xaf2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781791977; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=qZIfui3gGR3fHLdXAWNaVoCwDDDZ3yTFHyLYSq1yEXo=;
- b=El387rzxm0zrkISTvrzimIhHsV4+VPH5wRJzd4b3iOwxKEV//jAjz/8M0fuOxmH9OkYXjK
- R2HaNBHw/Y82q/qOGZAqpPCz6WNX6ilsDYka8BAw4f9VsVzFbLls+w5a4t4vCyDu9bJQQ+
- K2nWowfpVN1Be/J9boDwZmkgQxAEo5w=
+ t=1781791976; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=XHS9rpHO2emFyRayn0+qlw2fZtQR1qQZlQIg7aPOj34=;
+ b=TXuvAm+AUDHTT00aBB0N7g9k1mc9TNkMOZ8oJDqp8ppLEb94+4l8vlipIPh12p4ZOGp87N
+ 8LKeI400hzYwZgjFCkVKUlY3lNHSJHfkpVK9AW+SrXfCqC9uf8KgYBWB6xIsx7NH1EwPUo
+ AIblNHMBzR6ZcSFvwRSyGlAwQnvIOUc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781791977;
+ s=susede2_ed25519; t=1781791976;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=qZIfui3gGR3fHLdXAWNaVoCwDDDZ3yTFHyLYSq1yEXo=;
- b=penUGzap8TW05NJWvxOR/JPKazdSDnDVdPy0CU84cGotxrzmrmW/Zz8xTWl6f2WO6l6muR
- /OAgdapc9uNa+VAw==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=XHS9rpHO2emFyRayn0+qlw2fZtQR1qQZlQIg7aPOj34=;
+ b=N7z0xaf2gpZp27mwKlmMj48n9bF9nsG7vOnpgBbz3OFscKs5XHPjNb4S87YvUVN9lzJZk9
+ 0tZVLXsTx9PAwOAg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BDBD3779AB;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5C3BF779A8;
  Thu, 18 Jun 2026 14:12:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id OKcbLej8M2o8DQAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id ogYRFej8M2o8DQAAD6G6ig
  (envelope-from <tzimmermann@suse.de>); Thu, 18 Jun 2026 14:12:56 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
@@ -77,31 +71,34 @@ To: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
  airlied@gmail.com, simona@ffwll.ch
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v2 1/6] drm/msm: Do not declare msm_framebuffer_init() as
- static
-Date: Thu, 18 Jun 2026 16:11:32 +0200
-Message-ID: <20260618141249.151338-2-tzimmermann@suse.de>
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v2 0/6] drm/msm: fbdev: Use client buffers
+Date: Thu, 18 Jun 2026 16:11:31 +0200
+Message-ID: <20260618141249.151338-1-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260618141249.151338-1-tzimmermann@suse.de>
-References: <20260618141249.151338-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: B780275C38
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
  R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWELVE(0.00)[14];
- MIME_TRACE(0.00)[0:+];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,qualcomm.com:email,suse.de:email,suse.de:mid];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
  FREEMAIL_TO(0.00)[oss.qualcomm.com,kernel.org,linux.dev,gmail.com,poorly.run,somainline.org,ffwll.ch];
- RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[13];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:dkim];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,133 +114,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Declare msm_framebuffer_init() in msm_drv.h and remove the static
-qualifier. The function will be required in msm_fbdev.c after inlining
-msm_alloc_stolen_fb().
+A client buffer holds the DRM framebuffer for an in-kernel DRM
+client. Until now, msm created an internal ad-hoc framebuffer for
+its fbdev emulation, while by-passing the regular interfaces used by
+user-space compositors.
 
-Also move msm_framebuffer_init() before msm_framebuffer_create(), so
-that it can later be made static again. Prepares msm's fbdev emulation
-for using client buffers.
+Convert msm's fbdev emulation to use client buffers. Replacing the
+existing code with a client buffer allows for stream-lining msm code
+and later also the fbdev helpers. The new framebuffer will be registered
+against the client's file and will support handles for GEM objects. It
+is then just another framebuffer within the DRM ecosystem.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/msm_drv.h |  4 ++
- drivers/gpu/drm/msm/msm_fb.c  | 72 +++++++++++++++++------------------
- 2 files changed, 39 insertions(+), 37 deletions(-)
+Patches 1 and 6 change visibility of msm_framebuffer_init() during the
+refactoring. It is the easiest way to refactor the fbdev probe helper.
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index 3787db8770ad..7dccf0713b02 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -258,6 +258,10 @@ void msm_framebuffer_cleanup(struct drm_framebuffer *fb, bool needed_dirtyfb);
- uint32_t msm_framebuffer_iova(struct drm_framebuffer *fb, int plane);
- struct drm_gem_object *msm_framebuffer_bo(struct drm_framebuffer *fb, int plane);
- const struct msm_format *msm_framebuffer_format(struct drm_framebuffer *fb);
-+struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
-+					     const struct drm_format_info *info,
-+					     const struct drm_mode_fb_cmd2 *mode_cmd,
-+					     struct drm_gem_object **bos);
- struct drm_framebuffer *msm_framebuffer_create(struct drm_device *dev,
- 		struct drm_file *file, const struct drm_format_info *info,
- 		const struct drm_mode_fb_cmd2 *mode_cmd);
-diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
-index 9b681e144c07..d7523a0a866a 100644
---- a/drivers/gpu/drm/msm/msm_fb.c
-+++ b/drivers/gpu/drm/msm/msm_fb.c
-@@ -29,10 +29,6 @@ struct msm_framebuffer {
- };
- #define to_msm_framebuffer(x) container_of(x, struct msm_framebuffer, base)
- 
--static struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
--		const struct drm_format_info *info,
--		const struct drm_mode_fb_cmd2 *mode_cmd, struct drm_gem_object **bos);
--
- static int msm_framebuffer_dirtyfb(struct drm_framebuffer *fb,
- 				   struct drm_file *file_priv, unsigned int flags,
- 				   unsigned int color, struct drm_clip_rect *clips,
-@@ -139,39 +135,10 @@ const struct msm_format *msm_framebuffer_format(struct drm_framebuffer *fb)
- 	return msm_fb->format;
- }
- 
--struct drm_framebuffer *msm_framebuffer_create(struct drm_device *dev,
--		struct drm_file *file, const struct drm_format_info *info,
--		const struct drm_mode_fb_cmd2 *mode_cmd)
--{
--	struct drm_gem_object *bos[4] = {0};
--	struct drm_framebuffer *fb;
--	int ret, i, n = info->num_planes;
--
--	for (i = 0; i < n; i++) {
--		bos[i] = drm_gem_object_lookup(file, mode_cmd->handles[i]);
--		if (!bos[i]) {
--			ret = -ENXIO;
--			goto out_unref;
--		}
--	}
--
--	fb = msm_framebuffer_init(dev, info, mode_cmd, bos);
--	if (IS_ERR(fb)) {
--		ret = PTR_ERR(fb);
--		goto out_unref;
--	}
--
--	return fb;
--
--out_unref:
--	for (i = 0; i < n; i++)
--		drm_gem_object_put(bos[i]);
--	return ERR_PTR(ret);
--}
--
--static struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
--		const struct drm_format_info *info,
--		const struct drm_mode_fb_cmd2 *mode_cmd, struct drm_gem_object **bos)
-+struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
-+					     const struct drm_format_info *info,
-+					     const struct drm_mode_fb_cmd2 *mode_cmd,
-+					     struct drm_gem_object **bos)
- {
- 	struct msm_drm_private *priv = dev->dev_private;
- 	struct msm_kms *kms = priv->kms;
-@@ -251,6 +218,37 @@ static struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
- 	return ERR_PTR(ret);
- }
- 
-+struct drm_framebuffer *msm_framebuffer_create(struct drm_device *dev,
-+					       struct drm_file *file,
-+					       const struct drm_format_info *info,
-+					       const struct drm_mode_fb_cmd2 *mode_cmd)
-+{
-+	struct drm_gem_object *bos[4] = {0};
-+	struct drm_framebuffer *fb;
-+	int ret, i, n = info->num_planes;
-+
-+	for (i = 0; i < n; i++) {
-+		bos[i] = drm_gem_object_lookup(file, mode_cmd->handles[i]);
-+		if (!bos[i]) {
-+			ret = -ENXIO;
-+			goto out_unref;
-+		}
-+	}
-+
-+	fb = msm_framebuffer_init(dev, info, mode_cmd, bos);
-+	if (IS_ERR(fb)) {
-+		ret = PTR_ERR(fb);
-+		goto out_unref;
-+	}
-+
-+	return fb;
-+
-+out_unref:
-+	for (i = 0; i < n; i++)
-+		drm_gem_object_put(bos[i]);
-+	return ERR_PTR(ret);
-+}
-+
- struct drm_framebuffer *
- msm_alloc_stolen_fb(struct drm_device *dev, int w, int h, int p, uint32_t format)
- {
+Patch 2 and 3 inline the fb allocation code into the fbdev-probe helper
+and fix it up a bit.
+
+From there patches 4 and 5 convert fbdev buffer allocation to common
+DRM helpes and client buffers.
+
+If all fbdev emulation helpers can be converted to client buffers, the
+emulation's whole framebuffer handling could possibly be moved into
+shared helpers.
+
+v2:
+- clarify on the page alignment of the framebuffer size (Dmitry)
+
+Thomas Zimmermann (6):
+  drm/msm: Do not declare msm_framebuffer_init() as static
+  drm/msm: fbdev: Inline msm_alloc_stolen_fb()
+  drm/msm: fbdev: Fix error reporting
+  drm/msm: fbdev: Calculate buffer geometry with format helpers
+  drm/msm: fbdev: Use a DRM client buffer
+  drm/msm: Make msm_framebuffer_init() an internal interface again
+
+ drivers/gpu/drm/msm/msm_drv.h   |  9 ---
+ drivers/gpu/drm/msm/msm_fb.c    | 98 +++++++++------------------------
+ drivers/gpu/drm/msm/msm_fbdev.c | 85 +++++++++++++++++++---------
+ 3 files changed, 85 insertions(+), 107 deletions(-)
+
+
+base-commit: fc59f76558703febba8056be87d1c97d14f7485e
 -- 
 2.54.0
 
