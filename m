@@ -4,103 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52105CD98F2
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 12:32:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C9FCCD98F2
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 12:43:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6E7410F2CB;
-	Thu, 18 Jun 2026 12:32:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E55010E3EA;
+	Thu, 18 Jun 2026 12:43:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="WlurGGSL";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7gl4UjCJ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="WlurGGSL";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7gl4UjCJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DZ2tiQu/";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2336210F2CB
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 12:32:05 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9F4786D35E;
- Thu, 18 Jun 2026 12:31:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781785909; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=k5cadGKUCeSn5wajPXSM0kaCV84SkwuQRFtYL0uKARU=;
- b=WlurGGSL1p72GcaMHqhlpIqzx38UYchtsYiEftfyfLQ5Ag7zMIkfwZkPGgAv1/qWO9k65G
- p9LI68ruUjL4GICDgci1KfqcdxaxOyCbMkWfnSiT9JXrUliIrmxooynRa/tGXL/n+cGcl+
- gyc7+uCq6Rt+Bpuv/OiPflRjC6cgRPk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781785909;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=k5cadGKUCeSn5wajPXSM0kaCV84SkwuQRFtYL0uKARU=;
- b=7gl4UjCJ5RAAM3ch3ZVzhKIfUP4lOOTetc1Ew1Cg3SHsMaqYb0s8YUPjSRuNqHdAT0H33J
- Ktisw+C+Z4WDBMAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781785909; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=k5cadGKUCeSn5wajPXSM0kaCV84SkwuQRFtYL0uKARU=;
- b=WlurGGSL1p72GcaMHqhlpIqzx38UYchtsYiEftfyfLQ5Ag7zMIkfwZkPGgAv1/qWO9k65G
- p9LI68ruUjL4GICDgci1KfqcdxaxOyCbMkWfnSiT9JXrUliIrmxooynRa/tGXL/n+cGcl+
- gyc7+uCq6Rt+Bpuv/OiPflRjC6cgRPk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781785909;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=k5cadGKUCeSn5wajPXSM0kaCV84SkwuQRFtYL0uKARU=;
- b=7gl4UjCJ5RAAM3ch3ZVzhKIfUP4lOOTetc1Ew1Cg3SHsMaqYb0s8YUPjSRuNqHdAT0H33J
- Ktisw+C+Z4WDBMAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5D8ED779AB;
- Thu, 18 Jun 2026 12:31:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id CJKbFTXlM2rTJQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 18 Jun 2026 12:31:49 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: shiyongbang@huawei.com, tiantao6@hisilicon.com,
- kong.kongxinwei@hisilicon.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v4 5/6] drm/hibmc: Verify the framebuffer pitch to be a
- multiple of 128
-Date: Thu, 18 Jun 2026 14:28:43 +0200
-Message-ID: <20260618123142.92298-6-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260618123142.92298-1-tzimmermann@suse.de>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF87110E3EA
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 12:43:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 36BDD60008;
+ Thu, 18 Jun 2026 12:43:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B98211F000E9;
+ Thu, 18 Jun 2026 12:43:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781786585;
+ bh=v0bextYkzYiRnHFWeuimI4dftVpBsD2CEIKb+vaKRp4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DZ2tiQu/J8hopCdOc8RPujxhfhVegYC4MLyYh9uDqp7+J2K2Y34tRF4vqLHpsVuji
+ /5QzMZHDL4MIVzixSEljxMUNmRJVJPyyiye5GZyDpVfEQyzZ2DeejFLOOwTBzrUyrl
+ 11XjGMk9z1XpAkfRg0OpWy8GpAiVJt24TOqehjLAa7312uZ8IwW3500vhaK/ZrwLJO
+ /zl5qKzq3HRUbmKc57SoPHmCRxsqTydrg1YPJJM5y+fw6COHnbc+zR/rGBXSelwqKm
+ CCLJFsb5yewhA14ZWe11CbTRHmH5/pJfEiBsDR48aJa5EyFXM4YcUHxveyUMoBD9/f
+ 7euZHDXWbV9zQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/6] drm/hibmc: Fix list of formats on the primary plane
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260618123142.92298-3-tzimmermann@suse.de>
 References: <20260618123142.92298-1-tzimmermann@suse.de>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-0.993]; MIME_GOOD(-0.10)[text/plain];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
- FREEMAIL_TO(0.00)[huawei.com,hisilicon.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- RCPT_COUNT_SEVEN(0.00)[10];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
- RCVD_TLS_ALL(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid];
- RCVD_COUNT_TWO(0.00)[2]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
+ <20260618123142.92298-3-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 18 Jun 2026 12:43:05 +0000
+Message-Id: <20260618124305.B98211F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,59 +53,85 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The hibmc hardware requires the framebuffer pitch to be aligned to
-a multiple of 128. Dumb-buffer creation already guarantees this for
-the created GEM buffer object. Also verify this contraint during
-framebuffer creation.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c    | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+Pre-existing issues:
+- [High] The display plane atomic update ignores the plane state's source c=
+oordinates and dimensions, causing corrupted output for cropped or panned f=
+ramebuffers.
+- [High] The CRTC atomic flush immediately sends the vblank event instead o=
+f arming it, breaking page-flip synchronization.
+--
 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-index 99b36de1fe13..55d175028c46 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-@@ -14,6 +14,7 @@
- #include <linux/aperture.h>
- #include <linux/module.h>
- #include <linux/pci.h>
-+#include <linux/sizes.h>
- 
- #include <drm/clients/drm_client_setup.h>
- #include <drm/drm_atomic_helper.h>
-@@ -106,11 +107,26 @@ static const struct dev_pm_ops hibmc_pm_ops = {
- 				hibmc_pm_resume)
- };
- 
-+static struct drm_framebuffer *hibmc_mode_config_fb_create(struct drm_device *dev,
-+							   struct drm_file *file_priv,
-+							   const struct drm_format_info *info,
-+							   const struct drm_mode_fb_cmd2 *mode_cmd)
-+{
-+	int i;
-+
-+	for (i = 0; i < info->num_planes; ++i) {
-+		if (mode_cmd->pitches[i] % SZ_128)
-+			return ERR_PTR(-EINVAL);
-+	}
-+
-+	return drm_gem_fb_create(dev, file_priv, info, mode_cmd);
-+}
-+
- static const struct drm_mode_config_funcs hibmc_mode_funcs = {
- 	.mode_valid = drm_vram_helper_mode_valid,
- 	.atomic_check = drm_atomic_helper_check,
- 	.atomic_commit = drm_atomic_helper_commit,
--	.fb_create = drm_gem_fb_create,
-+	.fb_create = hibmc_mode_config_fb_create,
- };
- 
- static int hibmc_kms_init(struct hibmc_drm_private *priv)
--- 
-2.54.0
+commit c951a1d1c3d9caa9dc42e8ab8693ac3a8121b925
+Author: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: drm/hibmc: Fix list of formats on the primary plane
 
+This commit removes unsupported formats from the primary plane, leaving
+only XRGB8888 and RGB565. It addresses issues where planes with alpha
+channels or BGR order were not properly supported, and fixes distorted
+output for RGB888.
+
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu=
+/drm/hisilicon/hibmc/hibmc_drm_de.c
+> index 7c0b88c774b5e..2e6e189bec1a0 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+> @@ -135,10 +135,8 @@ static void hibmc_plane_atomic_update(struct drm_pla=
+ne *plane,
+>  }
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does
+hibmc_plane_atomic_update() ignore the plane state's source coordinates?
+
+It programs the hardware's visible scanout width using the full fb->width
+instead of the active source width (new_state->src_w >> 16):
+
+	writel(gpu_addr, priv->mmio + HIBMC_CRT_FB_ADDRESS);
+	reg =3D drm_format_info_min_pitch(fb->format, 0, fb->width);
+	line_l =3D fb->pitches[0];
+	writel(HIBMC_FIELD(HIBMC_CRT_FB_WIDTH_WIDTH, reg) |
+	       HIBMC_FIELD(HIBMC_CRT_FB_WIDTH_OFFS, line_l),
+	       priv->mmio + HIBMC_CRT_FB_WIDTH);
+
+Since the shadow plane damage copy maintains the original framebuffer's
+layout in VRAM, scanning out from offset 0 with fb->width means the
+hardware will always display the top-left of the framebuffer. If userspace
+provides a framebuffer larger than the CRTC (e.g., for panning) or requests
+cropping, will the hardware fetch the wrong number of pixels per scanline
+and display the wrong region?
+
+> =20
+>  static const u32 channel_formats1[] =3D {
+> -	DRM_FORMAT_RGB565, DRM_FORMAT_BGR565, DRM_FORMAT_RGB888,
+> -	DRM_FORMAT_BGR888, DRM_FORMAT_XRGB8888, DRM_FORMAT_XBGR8888,
+> -	DRM_FORMAT_RGBA8888, DRM_FORMAT_BGRA8888, DRM_FORMAT_ARGB8888,
+> -	DRM_FORMAT_ABGR8888
+> +	DRM_FORMAT_XRGB8888,
+> +	DRM_FORMAT_RGB565,
+>  };
+
+[Severity: High]
+This is a pre-existing issue, but does hibmc_crtc_atomic_flush()
+immediately send the vblank event instead of arming it?
+
+	if (crtc->state->event)
+		drm_crtc_send_vblank_event(crtc, crtc->state->event);
+	crtc->state->event =3D NULL;
+
+Because the driver has working vblank interrupts (as shown by
+hibmc_crtc_enable_vblank()), shouldn't it defer the event until the actual
+vertical blanking interval with drm_crtc_arm_vblank_event()? Immediately
+completing the event violates the atomic KMS API contract, causing
+userspace compositors to render the next frame prematurely, which results
+in screen tearing and breaks presentation timing guarantees.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618123142.9229=
+8-1-tzimmermann@suse.de?part=3D2
