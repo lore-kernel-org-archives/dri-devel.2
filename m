@@ -4,157 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58691CD98ED
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 17:05:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F3C2CD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 17:39:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A5BA10F399;
-	Thu, 18 Jun 2026 17:05:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B792610EE73;
+	Thu, 18 Jun 2026 17:39:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="Kl3DAGtS";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="dVg6jt3S";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="cmdQIVWg";
 	dkim-atps=neutral
-Received: from LO3P265CU004.outbound.protection.outlook.com
- (mail-uksouthazon11020137.outbound.protection.outlook.com [52.101.196.137])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0298D10EE27
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 17:04:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nrEyi4IUzZu1CWi1xBn9YC3qxTXEG07ZnWCUCLTSboRrh4NlgC4HWMVwa7em6UGjdwmqFv7MdilIRzmHjIoOwGztrFR51zKEbufo2kryiugc5L6dvxg7syFT7e5/3BQ3gkudBviMq4j3Fi4aXJRnooWTFfYfNMmk+yoiiqoZe3ESpp3o4AX6MLDdNomuLL1IhzndT6hNxR2TRKPp2l6WOr7/PQ0fh07D+NMJUodW2qLBfuAgk30eS3hZppIORY4iYr7AZiEBL1lp3Tp5t63UfUdRDLKOD3Y/Xkj7zeTX7ySsFu4p0ap9fz+QPgYcY+lnt39YbLHnJ0/auy/6MjBiCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6L0D4MRDsHLl3Ar1NZKYzJ4fW37yj3gVztpQIVKWOJk=;
- b=FcIqOZQtJUyDJiwFEVT9+MCQjS5g+x4jFVWEakA3LcumVxvtTpaRVW+ltYnb45vsete+cyvjW9Y1c9OQYjkH5w1gkcKhWL4RCxz5xDbQlARvbSAKVEIhKEDYnTxqFIphCjQONhK7r8u0XqtYQzyUUoosAUD9eLnJq5eymU2HW3SfcRkGCCFmA1h32p+zHkhu2CFViRdefF2TU5vgn+hOB9HdL7Z3bHK9sSlRBOp3W4sVtZcE+TZ0YTFnz+F0E91tRljweuSkzPVgWWb5oA9FYhy+9XpSiHymxkDK5YOEyLg+/lXP9Z/j6KW860IpRwJHIv6PASP/zdpcZc4McEdo3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6L0D4MRDsHLl3Ar1NZKYzJ4fW37yj3gVztpQIVKWOJk=;
- b=Kl3DAGtSMPPwaUxcSCdwItQCMGNsgf+hDYyTuQqFnNWFWwOcieoea9TyxdP1dXOXeAOaJq+1z6Lgz+Qt/mpr3IscZIo07gALpb4P5X37j+IzWkDiWGKTVm/j5TrQC9zqK4Pp9O9h8m8VVMiB61XQjOWQEl8jFZUTooS3exLwheo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO4P265MB6966.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:34d::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Thu, 18 Jun
- 2026 17:04:46 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0139.009; Thu, 18 Jun 2026
- 17:04:46 +0000
-From: Gary Guo <gary@garyguo.net>
-Date: Thu, 18 Jun 2026 18:03:41 +0100
-Subject: [PATCH 04/10] rust: net/phy: remove expansion from doc
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260618-id_info-v1-4-96af1e559ef9@garyguo.net>
-References: <20260618-id_info-v1-0-96af1e559ef9@garyguo.net>
-In-Reply-To: <20260618-id_info-v1-0-96af1e559ef9@garyguo.net>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- FUJITA Tomonori <fujita.tomonori@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Abdiel Janulgue <abdiel.janulgue@gmail.com>, 
- Robin Murphy <robin.murphy@arm.com>, Dave Ertman <david.m.ertman@intel.com>, 
- Ira Weiny <iweiny@kernel.org>, Leon Romanovsky <leon@kernel.org>, 
- Len Brown <lenb@kernel.org>, Igor Korotin <igor.korotin@linux.dev>, 
- Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, 
- Michal Wilczynski <m.wilczynski@samsung.com>, 
- Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, 
- Fu Wei <wefu@redhat.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-pci@vger.kernel.org, linux-acpi@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-pwm@vger.kernel.org, 
- Gary Guo <gary@garyguo.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781802282; l=2400;
- i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=94x1O4HxKsoPKOLm7uWBT+HZHDbp/uUOwGwZO67jScE=;
- b=kFO0WCbCCxhQ5nfGokDJ5UGEyp9tpDRzOTJd5ADVaRSBeC3prZPcB99f+JfPP44dY6Bo4kraR
- +bdUz738cOHBIEiUZ85ecYIQ10j0OG3IaFqLrjRuZTs5LYvDE5Qi9G6
-X-Developer-Key: i=gary@garyguo.net; a=ed25519;
- pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
-X-ClientProxiedBy: LO4P123CA0548.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:319::11) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+X-Greylist: delayed 530 seconds by postgrey-1.36 at gabe;
+ Thu, 18 Jun 2026 17:39:39 UTC
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD7D510EE73
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 17:39:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1781803655; cv=none;
+ d=strato.com; s=strato-dkim-0002;
+ b=QQ91LeO8Xb0lrPY9jZ7YamoJchPftq5FRmuU3aLkJ7PMMR0kM8CbO1F718wjJ+z/D+
+ yd6nYwYXXq45clh+++jCJnk19F9QeuEymHp/qvjog0M0a4IqwLereGGWwEUM/BRaReKp
+ skCk4MT68lyPOzlcB/JukB82MXDUzJ4xnu6ZK3Bhp8//ScIyfgrX3PJi5XweA3WdBiPl
+ U42InQl4Qx1j7u+ytBPqxejdB6vxvKdxwjyhtADtJKfvaSNXT7cfdeJXgWXmF7wU4Y1U
+ 9pE+7KMIkokxjT3n2DL/U0YEccTq1eWljnTPM8BEHNUanYDIzJjtJwSyUrf7kydugQGk
+ 9cmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1781803655;
+ s=strato-dkim-0002; d=strato.com;
+ h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=ikiBomanN8IAQPmJ+lR3Eitmcc6sS32szl9hPRzpmYU=;
+ b=NQqZ8UD56p8HP1zmPlpB0h+VBpqEOhLCeKyPpk4DmX7ZG+NjfKErzxVS6+j5PIbuXl
+ k5D8dESLIC32IKXYPBv22TOKsgPduFa++u0M1lmwEnOKw2iRLpkk0x50VG6RUy239GOJ
+ ow8ek2wr+sjvuvUdmRxGRwpqTNbIG2UijFwt9PePP+YnXSBFHv+nXmoUwe0sCqi6AiTm
+ xD3dpGkUa5tqQCXnOWdELYrVGZg79u3grh225/cxZKJqcAVKHKaWAsnLyoERuecLCGrx
+ yyBzVzgNQWyckMwnyP3hE+/Bo5LzjHGzwrnFJipjrVUHmJKUrm+IWw9Nai6yn9Kf3CB9
+ +UAg==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1781803655;
+ s=strato-dkim-0002; d=goldelico.com;
+ h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=ikiBomanN8IAQPmJ+lR3Eitmcc6sS32szl9hPRzpmYU=;
+ b=dVg6jt3Sf68jKf2mx9DPcA+BUMMHunFCJWym+HASUvjjMVdCh/CZLITSvcE5mgrI3Z
+ kX6yQoErBL80i6Q19hX+++9tfVPSyuY/AoiRIeQffhUCwN24RZbA6qcsL2jVEgQNiX+7
+ jPRYA+WqnUcNn18fJCqHTLrZASHd23JDC7RnjCMT9+fKVnzNMJ3qVdffYdG0hgljMv5s
+ UHs+ilmYJTBAgHtbH6O0gcz8lAKFZ9ohaxUxdqv81RyVAjoxTStmjxkmGmaUH+6JksZd
+ RFA1OpeR7trIczNy6CFF+RAGs7ZxxilAo6cgIJk9DJWsiJHChRAcTXPz1popo1PScozo
+ +jHw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1781803655;
+ s=strato-dkim-0003; d=goldelico.com;
+ h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+ bh=ikiBomanN8IAQPmJ+lR3Eitmcc6sS32szl9hPRzpmYU=;
+ b=cmdQIVWgfs0DOAj6xNgcozLIf310ePfJ+wbgmr+2L8tR9VU6vbCB3+CgUsDV/b39et
+ OWw9HgTgj32yIJp6OqAw==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrT0ZoOnciNQh0E54wP3opQ+1mzcazh2bvtQoZf"
+Received: from iMac.fritz.box by smtp.strato.de (RZmta 55.0.1 AUTH)
+ with ESMTPSA id Qcf97c25IHRYfpA
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Thu, 18 Jun 2026 19:27:34 +0200 (CEST)
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ letux-kernel@openphoenux.org, kernel@pyra-handheld.com,
+ akemnade@kernel.org, "H. Nikolaus Schaller" <hns@goldelico.com>
+Subject: [PATCH] drm/fb_helper: Determine proper crtc_index within
+ drm_fb_helper_fb_dirty
+Date: Thu, 18 Jun 2026 19:27:18 +0200
+Message-ID: <5118b37e579cec220f2d2b6ab0bb1ecfb67f0d5c.1781803617.git.hns@goldelico.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO4P265MB6966:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc2a19d2-bdba-4989-644a-08decd5bb2e2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|23010399003|1800799024|376014|366016|7416014|921020|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: kwt4SqLusHlJ11InK48Wurt5o6uAx++a9xzeVM1aaHjeIHnymszNSQ8s5QJCzS70cJUs2gSdYseLX2NqhydvU1M6ayCgJS3PaUmaqJxJQpBULdd4zzLS/Ouc42yUxxUHc2HCnx31ONj63kpOuVH4PEsEJWr83+sUdL80ExiOm2o8g+NFEutBfPZy9dPjwIl51My99z92p9x7S0yYaCeSFSMqJYl5Wv6GgSAeEuHztiXkb2oXTRDwrasDNvzN6TTUTrDSy2y/jW79A9wW+TovM28y1j3jX+BH+2VzY0gW+828AeOqqVfxSwNAPV4LqhOTvg/A/umVvRC6AgbTZvM7uGRO1SVIbWt23TrR4yb6sMUmTvNpxTLUpqZw10WtkmIOM/n+0KuLGPCVi5z4ORiccunBlPSu/nPfMYyfshnUDydDyepqdI2I83K3IixkeDM1mO7wPTMgMcXRPnu87co+E0R+o+ChakstfIuaCM0Ld74iR5kT5WIbXletqnH4P2wRYQpaQOMPuJMOtd7BAp5aCsIOmdatNoosEUYLSz2eOKLm1Kmnr6lMam2wwQDCaewREKXG6dzdpmHfvaQ+FSGWpsmFssy5/BPBBkhKhX9dBciIULZAzluYqVFcQw5WM1Vq6NambVRpkE8xP3YgUz6fGOeDtTylZLVv+oRcVatbRecga4+uFFbID2Rjrt80JxBo5w5Mpn8f08RXXseXtXK9SGdQZWpo44mu1N+8FoFn3co=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(23010399003)(1800799024)(376014)(366016)(7416014)(921020)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QVlyT2tWNVNmdmJPZmhaUTd6dkxrWHpka0hvYnpMRm16K1pZYW5UOU1FUzQ4?=
- =?utf-8?B?VlEzOEwyajVPUlJGcXkyQWx4OHk2K2hZbEc1YUd4TVFqK1NjMUo0Zm5EQTRF?=
- =?utf-8?B?eG8vNnNOTWhVTEdrUkRiZmtXTEtGSWxYOWNPdFdvem9FTUVpamk2aVBuMWsr?=
- =?utf-8?B?WDdxalFvYmpTTHY1U0NnclJiN0s0ZXhIVzIvejFIb2lDNldLYnczVzRvZjNr?=
- =?utf-8?B?Nmw2Q1A5c0NHWW1EcWoyZ3ByRmowNHY0cGJHKzB0YWl2Rml0RVBlNnMrVGZa?=
- =?utf-8?B?WVE5Vi85QmJZZTJYbzE4T3htTXVIeGxFS09MUHhBVGxiaGFLRG53L1NMYWlv?=
- =?utf-8?B?bmUyMjVobCtYdmE0NTJMam5BVUdjeTRHYnBsM0pmdWNjUTNtYURtU0lBenR2?=
- =?utf-8?B?eE9MdXk3R0R2OEcwYU9taytWOGQrZXR0Tm1kUHdKek5GM1U4WHprdi8rT1lx?=
- =?utf-8?B?UVB6WkdwSlBUTEsvVlUzb3RLdGZEOXRrcGVmRjVZR3FZQWhvNDZMRlhqVGdy?=
- =?utf-8?B?VEg0YU8xYzBiaytlZWtOcmc3NFNCOUdDUlVKK0l4bjNMMjE2TUhLeXdVMFJW?=
- =?utf-8?B?MmdVRHJ2K2N4SVJibWlUN0gxYmxGWlpMR2I1dE9TcUhJNmtYVTIxZzZ5aUZk?=
- =?utf-8?B?cDFLUHFmZ2dyR2hvcWlBNFZRQURXZlVtZk80ZXNDUGREbG56SjNpQ1M5MWJ0?=
- =?utf-8?B?QkpUZGdtMStRRGE4d2xwYVM4ek5tSFlJc0NVeUN6V3NYQ0xMSUJxVVBnVW1B?=
- =?utf-8?B?amRLNHd3bHRER2pub3Q1RFVUTjdWRlREeGFDODQvRGlpYWUyZm1RQWJKUlU5?=
- =?utf-8?B?NUs1WHJHaStVL2c4YkJhNlRFRVhndFYxUEJnWTJJVDZhSjNEWjI4ZHhFZ3VY?=
- =?utf-8?B?U3h0R2VYSHh1bWFiYmtMOEtOUFF1YlI5cWVuNnN3d3hST0k3S3ZoM3d0UlNu?=
- =?utf-8?B?bmRaUC9WTmFQeDNMOTVmcXMxbk9xVjE1NFNxZkd2dFUybU84Z0ZHcmdFclUr?=
- =?utf-8?B?TG1rcU5hSzRHMm5LN3o4a0ZrZDFqTU05Lzh4eFNUUVJOeU5NaFRhWi9uM1Ra?=
- =?utf-8?B?aCthS3UwMlF3VFJkT0ZINUtRMWhIdC9lbTJMakpHcnhyYlhna3FOQ0llS2c3?=
- =?utf-8?B?Z0h2VGhneUl3TEQwdHp4OGlpUmFVZUJJeFJJOXg2R3F5dFVmcElyYkhYRzgr?=
- =?utf-8?B?K3M4VGkwanErZjNRWmt3N2VEOGM3MEdlZTk0dUhZVjdaNDZrSkJxbUgwOHps?=
- =?utf-8?B?SEUxMEgyazJOcTBOaUY3Z0E5a2tBSU5abDQ3T2VkY0xob0V1YVN3Um8wU3B3?=
- =?utf-8?B?cmY0ZWhNVVlBeXVZanZBaFROUFNLSDB0V1NsQkFsL3dPT2VzT1MwcEI3UTNq?=
- =?utf-8?B?a0RGWHdKQ3M5T2s2WG5xT2tkZVFpOG81cC84U2Q2c0V3dmdDTkt5czY0eU8v?=
- =?utf-8?B?SVA3Q21aVDRpbkRmK2IyNll0bVN1NUNFWjBRanVuNnlva3RPNmZld2lZbnlB?=
- =?utf-8?B?a0NXQ2M0Y250enBoUnNsWE50SGpzM0dScFV5ajdtcmthd0JkK0IramVXQW1V?=
- =?utf-8?B?amM3TXJjWDV1eVoycTBNbmZ3WTRnUVBNYXI3UjBXRVpMWFJvMFFQVkpTNi9D?=
- =?utf-8?B?MDE0Ujh6dWNhWG4ycTQxN1pIeUdsYkRINVJkb1JFTVJlRXU4RmJXNlpBbTJt?=
- =?utf-8?B?Sk9QV2QrOGtUcjRoVHZxYXNPNmVmMnQ1aWsvSzZRU3k4RDBEOEVCb1dOSnJL?=
- =?utf-8?B?eElsZFg2NFlVa2pQdHE0YkxFWDFlcnZtVVBrbHlaVnZGKytJbG9MTWRkYlBM?=
- =?utf-8?B?d0xFZ0NlYllsTlVLVEY1d2crUlU2QVJhYS9xamQ3V3ZtRzFwRjBTKzNvMjZR?=
- =?utf-8?B?dUxPQTBnbDVyT3RoZldGRlZSaENwcmk4Q1Y2Wk9SNFVVSm5tOTNBZGlidDlX?=
- =?utf-8?B?ZmNXUnR1ZDJ0c1gwNklVa1l2dFB6VGZQQmE2cmJUaU1rdFBWNnNJajJubDNO?=
- =?utf-8?B?Yzk0WFQ5UGgySk03dWZZS1B5MlcxUDl4b2NyRU9pcnlRYUFJeWl0R000amhZ?=
- =?utf-8?B?QjBSc0l6TVREbmdOUWgraEpEejQzaHNsRGtEMmdEQVZETU1TRzJlenZlenRZ?=
- =?utf-8?B?WmlHZDZOOVNaUkV2akZnT3lzZkphK25DdjhqL2x4bkhBN3VNNG1oaGtNeHV5?=
- =?utf-8?B?UmhiSXpsNC9YRTRydktJL21yL2lvQ1NKMTBSWDNYekI3bFZFaVpuNWJTekgx?=
- =?utf-8?B?cHJvVmxSaFEwZjZwS01KY3ZrYWp5cHU3WmN2Q2xXQnRhLzZKY0R0SjF0cDlC?=
- =?utf-8?B?NkVnMVBTT1haRUpQMmhOUncxcGRITy9zcUNpekZNZlUzbml2Qk53Zz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc2a19d2-bdba-4989-644a-08decd5bb2e2
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 17:04:46.0769 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GtckHHTZCiOIi1eDPagr3kd02cSkefuKnFQHxYQKTFqCjpBfX3dhbaPZA9AzWgnhDL5/UCqWaCGXZtYwwKTXfw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6966
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,81 +94,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The expansion serves little purpose and it can easily diverge.
+The call to drm_client_modeset_wait_for_vblank() currently hardcodes the
+crtc_index to 0. This is incorrect when CRTC 0 is inactive and not
+generating vblank interrupts.
 
-Signed-off-by: Gary Guo <gary@garyguo.net>
+When this occurs, the console is flooded with vblank timeout warnings:
+
+[   77.201354] WARNING: drivers/gpu/drm/drm_vblank.c:1320 at drm_crtc_wait_one_vblank+0x194/0x1cc [drm], CPU#1: kworker/1:7/1867
+[   77.201354] omapdrm omapdrm.0: [drm] vblank wait timed out on crtc 0
+
+This behavior was observed on a PandaBoard-ES when only the HDMI port
+(CRTC 1) is connected, while the LCD (CRTC 0) and DVI port (CRTC 2)
+remain disconnected. The root cause is the hardcoded crtc_index = 0.
+
+Fix this by locating the matching CRTCs. If multiple CRTCs match, the
+last active one is selected. If no matching CRTC is found, the vblank
+wait is skipped entirely.
+
+Fixes: d8c4bddcd8bcb ("drm/fb-helper: Synchronize dirty worker with vblank")
+Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 ---
- rust/kernel/net/phy.rs | 56 --------------------------------------------------
- 1 file changed, 56 deletions(-)
+ drivers/gpu/drm/drm_fb_helper.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/rust/kernel/net/phy.rs b/rust/kernel/net/phy.rs
-index 2868e3a9e02c..965ecca7d55f 100644
---- a/rust/kernel/net/phy.rs
-+++ b/rust/kernel/net/phy.rs
-@@ -800,62 +800,6 @@ const fn as_int(&self) -> u32 {
- /// }
- /// # }
- /// ```
--///
--/// This expands to the following code:
--///
--/// ```ignore
--/// use kernel::net::phy::{self, DeviceId};
--/// use kernel::prelude::*;
--///
--/// struct Module {
--///     _reg: ::kernel::net::phy::Registration,
--/// }
--///
--/// module! {
--///     type: Module,
--///     name: "rust_sample_phy",
--///     authors: ["Rust for Linux Contributors"],
--///     description: "Rust sample PHYs driver",
--///     license: "GPL",
--/// }
--///
--/// struct PhySample;
--///
--/// #[vtable]
--/// impl phy::Driver for PhySample {
--///     const NAME: &'static CStr = c"PhySample";
--///     const PHY_DEVICE_ID: phy::DeviceId = phy::DeviceId::new_with_exact_mask(0x00000001);
--/// }
--///
--/// const _: () = {
--///     static mut DRIVERS: [::kernel::net::phy::DriverVTable; 1] =
--///         [::kernel::net::phy::create_phy_driver::<PhySample>()];
--///
--///     impl ::kernel::Module for Module {
--///         fn init(module: &'static ::kernel::ThisModule) -> Result<Self> {
--///             let drivers = unsafe { &mut DRIVERS };
--///             let mut reg = ::kernel::net::phy::Registration::register(
--///                 module,
--///                 ::core::pin::Pin::static_mut(drivers),
--///             )?;
--///             Ok(Module { _reg: reg })
--///         }
--///     }
--/// };
--///
--/// const N: usize = 1;
--///
--/// const TABLE: ::kernel::device_id::IdArray<::kernel::net::phy::DeviceId, (), N> =
--///     ::kernel::device_id::IdArray::new_without_index([
--///         ::kernel::net::phy::DeviceId(
--///             ::kernel::bindings::mdio_device_id {
--///                 phy_id: 0x00000001,
--///                 phy_id_mask: 0xffffffff,
--///             }),
--///     ]);
--///
--/// ::kernel::module_device_table!("mdio", phydev, TABLE);
--/// ```
- #[macro_export]
- macro_rules! module_phy_driver {
-     (@replace_expr $_t:tt $sub:expr) => {$sub};
-
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index 1541fc8a9ac2d..70999cdc98b32 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -232,9 +232,23 @@ static void drm_fb_helper_fb_dirty(struct drm_fb_helper *helper)
+ 	struct drm_clip_rect clip_copy;
+ 	unsigned long flags;
+ 	int ret;
++	unsigned int crtc_index = 0;
++	struct drm_crtc *crtc;
+ 
+ 	mutex_lock(&helper->lock);
+-	drm_client_modeset_wait_for_vblank(&helper->client, 0);
++
++	drm_for_each_crtc(crtc, dev) {
++		if (crtc->primary && crtc->primary->state &&
++		    crtc->primary->state->fb == helper->fb &&
++		    crtc->state && crtc->state->active) {
++			crtc_index = drm_crtc_index(crtc) + 1;
++			break;
++		}
++	}
++
++	if (crtc_index > 0)
++		drm_client_modeset_wait_for_vblank(&helper->client, crtc_index - 1);
++
+ 	mutex_unlock(&helper->lock);
+ 
+ 	if (drm_WARN_ON_ONCE(dev, !helper->funcs->fb_dirty))
 -- 
-2.54.0
+2.50.1 (Apple Git-155)
 
