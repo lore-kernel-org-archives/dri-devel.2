@@ -4,54 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E81EDCD98ED
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 16:51:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 100FDCD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 16:52:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44F6510EDF7;
-	Thu, 18 Jun 2026 16:51:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50B2710F36F;
+	Thu, 18 Jun 2026 16:52:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cRz3Arfn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mSC8JJwZ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 901AE10EDF7
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 16:51:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF7F510EE43;
+ Thu, 18 Jun 2026 16:52:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 56ABC41ACC;
- Thu, 18 Jun 2026 16:51:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CECA1F000E9;
- Thu, 18 Jun 2026 16:51:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B7C1342D85;
+ Thu, 18 Jun 2026 16:52:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7641A1F000E9;
+ Thu, 18 Jun 2026 16:52:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781801517;
- bh=+C7UJ5EIB57xL4KV5//HXNlxtQfTiI3AQWlDNB9xG9M=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject;
- b=cRz3Arfn81Xxb0sb5xjVuc9aHEbbew8OcSDJxv/ZQWPs6orcRzAeN2C+dIx2RArvC
- NxqS0oBMA4GI7gesRaqxmeuVANuET6TQ1GMQSsm6gGujTjolJMi5hiFQM6cZ7GS1zj
- cUb9z5VIgT5bC3c7Kc8XYT9PRIYm9uhF2cawTytA+LLC9GYJMt5jc5nYKDsJLzcOn2
- +LoJNrvv+dVlmX/MzxNlEQamZooeOeMlq7/aa4uWYOedDUylJvasepXktDtifWt+Hw
- obOgwDjHstjkEzlU9nqPrTDH/uR1biK3+vvZJuMxyQcCyqGt+XWe6fJ43wKvDdcqvL
- zXdtW9BTCB+XQ==
-Date: Thu, 18 Jun 2026 11:51:56 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1781801545;
+ bh=8ZSjD4Gy0zG74j+xE9k9L78nCqmOGzl2OWVGk/wh3AI=;
+ h=From:Date:Subject:To:Cc;
+ b=mSC8JJwZBSyMXQAUkUMo84OVSRaE7Ax4pT0WBvMm1rkWhvuep2UeyOIGydZJ2omRR
+ byvC8hDXSjZ50ipNIPKFgNMbhRmWhyzzvzkcgCy4pV8SGFzOPXqEUcdKLJJsN9o8ku
+ /IVNtNNUJBQP/eXnbvPQ9AqHckiZe47JP+5xSptY0PRj4egImNgcxY+srH/cleGfwF
+ VO9BrpiHdDlRDI4+5CK++Rr8wIyjG/2SrPTKuS8HJJ33qwYLvP5f51kBBUGC7jAwhG
+ zykcDtQ9aldT3Ybhpn1q2UKEixjjGTkVqNxgwZuFYCvoBadXKLGrgNoKSTzr2jwsR0
+ IieOlIUkNnF/w==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Thu, 18 Jun 2026 09:52:14 -0700
+Subject: [PATCH v2] drm/amd/display: Shorten hdmi_frl_status_polling_workqueue
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, dri-devel@lists.freedesktop.org, 
- linux-pm@vger.kernel.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- David Airlie <airlied@gmail.com>, linux-arm-kernel@lists.infradead.org, 
- Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- devicetree@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
- dmaengine@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>, 
- Mark Brown <broonie@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Vinod Koul <vkoul@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-In-Reply-To: <20260618-ux500-power-domains-v7-1-v1-1-eb5e50b1a588@kernel.org>
-References: <20260618-ux500-power-domains-v7-1-v1-0-eb5e50b1a588@kernel.org>
- <20260618-ux500-power-domains-v7-1-v1-1-eb5e50b1a588@kernel.org>
-Message-Id: <178180151626.1898523.11669770093439143903.robh@kernel.org>
-Subject: Re: [PATCH 01/11] dt-bindings: power: Convert Ux500 PM domains to
- schema
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260618-amdgpu-fix-wq_name_len-warning-v2-1-ef0e2e6f5be7@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OWw6CMBBFt2L67Zi2Ahq/3IchpC1jqcKALQ8NY
+ e8W3ICfJzm5584soHcY2GU3M4+jC66lCHK/Y6ZSZBFcGZlJLjOe8QRUU9pugLt7w/QqSDVY1Eg
+ wKU+OLGRHc+ZCIjdSszjSeYzqFrjlPw6DfqDp19XVqFzoW//ZHoxi9f6OjQIEoE4Tkeok1fJ0f
+ aInrA+ttyxfluULrz79u98AAAA=
+X-Change-ID: 20260604-amdgpu-fix-wq_name_len-warning-63c8012e0c2b
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Fangzhi Zuo <Jerry.Zuo@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Alex Hung <alex.hung@amd.com>, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2001; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=6TfhnfijkEQ8/smiI3W4Z7KxLUCLXT/X4YBCr5s6MII=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFkmSu6rn4varshoeL+45/SHiRIi1mtm2Z0SiLKSLPU6W
+ mpzqImro5SFQYyLQVZMkaX6sepxQ8M5ZxlvnJoEM4eVCWQIAxenAExkpwQjw24N3zMpwgfPLT6x
+ Zv3C8Glrbzr2NngFvV/HfOHj1oVm2XcZ/sc+fjZBYPtFiw8HZdMnbfkg7FGkZ2VxflYtZ/5bw8+
+ KuzkA
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,54 +74,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+There is a warning when creating the hdmi_frl_status_polling_wq
+workqueue because "hdmi_frl_status_polling_workqueue" excceds
+WQ_NAME_LEN:
 
-On Thu, 18 Jun 2026 07:00:47 +0200, Linus Walleij wrote:
-> Convert the legacy Ux500 power domain text binding to YAML.
-> 
-> Move it under bindings/power.
-> 
-> Reference the generic power-domain schema.
-> 
-> Update MAINTAINERS for the new path.
-> 
-> Assisted-by: Codex:gpt-5-5
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
->  .../devicetree/bindings/arm/ux500/power_domain.txt | 35 ----------------
->  .../power/stericsson,ux500-pm-domains.yaml         | 46 ++++++++++++++++++++++
->  MAINTAINERS                                        |  1 +
->  3 files changed, 47 insertions(+), 35 deletions(-)
-> 
+  workqueue: name exceeds WQ_NAME_LEN. Truncating to: hdmi_frl_status_polling_workque
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Shorten the workqueue name to "hdmi_frl_status_polling_wq" like the
+structure member to avoid the warning.
 
-yamllint warnings/errors:
+Fixes: 5c9b8b27a883 ("drm/amd/display: Tie FRL support into amdgpu_dm")
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+Changes in v2:
+- Rebase to solve conflicts with 0e967e086e75 ("drm/amd/display: Extract
+  connector and encoder code to amdgpu_dm_connector").
+- Pick up Alex's Reviewed-by.
+- Link to v1: https://patch.msgid.link/20260604-amdgpu-fix-wq_name_len-warning-v1-1-eb5415b45b27@kernel.org
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/power/stericsson,ux500-pm-domains.example.dts:25.28-28.11: Warning (unit_address_vs_reg): /example-0/sdi0_per1@80126000: node has a unit name, but no reg or ranges property
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/stericsson,ux500-pm-domains.example.dtb: sdi0_per1@80126000 (arm,pl18x): $nodename:0: 'sdi0_per1@80126000' does not match '^mmc(@.*)?$'
-	from schema $id: http://devicetree.org/schemas/mmc/arm,pl18x.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/stericsson,ux500-pm-domains.example.dtb: sdi0_per1@80126000 (arm,pl18x): 'oneOf' conditional failed, one must be fixed:
-	'interrupts' is a required property
-	'interrupts-extended' is a required property
-	from schema $id: http://devicetree.org/schemas/mmc/arm,pl18x.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/power/stericsson,ux500-pm-domains.example.dtb: sdi0_per1@80126000 (arm,pl18x): 'reg' is a required property
-	from schema $id: http://devicetree.org/schemas/mmc/arm,pl18x.yaml
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 2e74ff94dcac..881626f0f258 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -834,9 +834,9 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 	}
+ 	if (adev->dm.dc->caps.max_links > 0) {
+ 		adev->dm.hdmi_frl_status_polling_wq =
+-			create_singlethread_workqueue("hdmi_frl_status_polling_workqueue");
++			create_singlethread_workqueue("hdmi_frl_status_polling_wq");
+ 		if (!adev->dm.hdmi_frl_status_polling_wq)
+-			drm_err(adev_to_drm(adev), "failed to initialize hdmi_frl_status_polling_workqueue\n");
++			drm_err(adev_to_drm(adev), "failed to initialize hdmi_frl_status_polling_wq\n");
+ 	}
+ 	if (dc_is_dmub_outbox_supported(adev->dm.dc)) {
+ 		init_completion(&adev->dm.dmub_aux_transfer_done);
 
-doc reference errors (make refcheckdocs):
+---
+base-commit: 991fd2cb908bf5d35a496760519442d6e9f8763d
+change-id: 20260604-amdgpu-fix-wq_name_len-warning-63c8012e0c2b
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260618-ux500-power-domains-v7-1-v1-1-eb5e50b1a588@kernel.org
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+Best regards,
+--  
+Cheers,
+Nathan
 
