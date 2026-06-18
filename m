@@ -4,61 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 511EDCD98ED
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 13:25:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47825CD98F2
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 13:26:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9695310E118;
-	Thu, 18 Jun 2026 13:25:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93CBB10EDE0;
+	Thu, 18 Jun 2026 13:26:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Dy5F9Qc2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dNj5jIAN";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E57BD10F2E5;
- Thu, 18 Jun 2026 13:24:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781789100; x=1813325100;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=kHCk/5ki+SIvwikN84H7hGnfod1CiftPP8kvPK+XFbk=;
- b=Dy5F9Qc2E9oo66gR2I3GbNGr6sfuzOyloUQP/owm0agLe6hbVavgqVCf
- JKEwqMAdXTjYKw2ZU+qzEjWwpsEpeNW6HgdcKhDuAmTdLFDS+MfzLnl2z
- nB5TxLbsir/2EreM+L1IJy/p+sYcceCuloND5CknfnPa1q5JIHFhzpuyq
- OCrDG8qhPmbxFY5fC64vhWJYJwU8gS1XFuH3aWQy/gGINKoBoX8q+6Zcm
- DPYFBvge5wfRMt6a4aB7E1OLZqmiXHcktvWS5k6kbaUGJ0EUICYuKhren
- UWGQt5lSnB2sbJyosRcNRgvS6h0EOTlGFbIoSgJOd7lWtZdf295nP7Q7b Q==;
-X-CSE-ConnectionGUID: K5cdbSE2TvSccnReBUnzPA==
-X-CSE-MsgGUID: Djf+sA42SfOIe7NSTbauBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11820"; a="82390271"
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; d="scan'208";a="82390271"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2026 06:24:59 -0700
-X-CSE-ConnectionGUID: b+Uuwr1XQfqH4B335YQRWw==
-X-CSE-MsgGUID: 65s54ZkmTd+rwi/SySd9TQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; d="scan'208";a="245440928"
-Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2026 06:24:56 -0700
-Date: Thu, 18 Jun 2026 15:24:53 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rodrigo.vivi@intel.com, andrealmeid@igalia.com,
- christian.koenig@amd.com, airlied@gmail.com, simona.vetter@ffwll.ch,
- mripard@kernel.org, maarten.lankhorst@linux.intel.com,
- tzimmermann@suse.de, anshuman.gupta@intel.com,
- badal.nilawar@intel.com, riana.tauro@intel.com,
- karthik.poosa@intel.com, sk.anirban@intel.com
-Subject: Re: [PATCH v8 5/6] drm/xe: Suppress Surprise Link Down on device
-Message-ID: <ajPxpevzpsUemOaL@black.igk.intel.com>
-References: <20260612080722.26726-8-mallesh.koujalagi@intel.com>
- <20260612080722.26726-13-mallesh.koujalagi@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 918CD10EDE0
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 13:26:52 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B0DC360137;
+ Thu, 18 Jun 2026 13:26:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAAE71F00A3F;
+ Thu, 18 Jun 2026 13:26:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781789211;
+ bh=S+IeYBLjthQLC8tOuLtmAcLP+oVJRPiahAFEOiMpnYg=;
+ h=From:To:Cc:Subject:Date;
+ b=dNj5jIANF9Sv/hGj5kge8706lvEAzwTHLBs15jjN3QXBEVkhsMiPxRBMqHNWKbjLj
+ Ym5FVNoPb0EKnVNzmfHdRatMS4xNi9FvkuhVbu6jxWvrwlr8j4UalbTG3u/55bnjZY
+ B9lsCKUBhvWkRzmCDiPXL8HV6zQ17rDiCVujV9OmAUrd/yoSgPu+PUmLcx7JXraV/g
+ JYtBBfTeL7jaCkEvrOvN3/NS/puI4OuQwdSnSuaxbpd9LFqr9X+KW2S801mXfUaSsz
+ kUIYomaOGoByJW1/3h7j3stqGavTUltKWWDbptKzaiRY1a+PSu4hHwtPjJh3KO2Ftn
+ aJT6FgqRMhGMQ==
+From: Philipp Stanner <phasta@kernel.org>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Asahi Lina <lina+kernel@asahilina.net>,
+ Matthew Maurer <mmaurer@google.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ Joel Fernandes <joelagnelf@nvidia.com>, Burak Emir <bqe@google.com>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Krishna Ketan Rai <prafulrai522@gmail.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+ Eliot Courtney <ecourtney@nvidia.com>,
+ Mirko Adzic <adzicmirko97@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Shankari Anand <shankari.ak0208@gmail.com>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org
+Subject: [PATCH v3 0/4] rust / dma_buf: Add abstractions for dma_fence
+Date: Thu, 18 Jun 2026 15:26:23 +0200
+Message-ID: <20260618132628.3811068-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260612080722.26726-13-mallesh.koujalagi@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,133 +78,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jun 12, 2026 at 01:37:28PM +0530, Mallesh Koujalagi wrote:
-> PUNIT errors can only be recovered using a power-cycle. Xe KMD
-> sends a uevent to notify userspace to trigger a power cycle.
-> On platforms where link drop caused by powering the device off and
-> back on is reported by hardware as a Surprise Link Down (SLD), which
-> AER then escalates as an Uncorrectable Fatal Error. That error fires
-> before the device finishes coming back up and defeats the
-> very recovery we are attempting.
-> 
-> To keep the expected, recovery-induced link drop from being raised as
-> a fatal AER event, mask the Surprise Link Down bit
-> (PCI_ERR_UNC_SURPDN) in the upstream port's AER Uncorrectable Error
-> Mask register before punit_error_handler() requests the cold reset.
-> 
-> Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-> ---
-> v6:
-> - Expand commit message to explain why SUR_DN is masked. (Raag/Riana)
-> - Check Slot Implemented bit before reading Slot Capabilities, per
->   PCIe spec. (Riana)
-> - Add debug log.
-> 
-> v7:
-> - Handle surprise link down event properly. (Aravind/Riana)
-> - Update commit message. (Riana)
-> - Correct log message.
-> 
-> v8:
-> - Use find_usp_dev() in punit_error_handler() function.
-> ---
->  drivers/gpu/drm/xe/xe_ras.c | 65 ++++++++++++++++++++++++++++---------
->  1 file changed, 49 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-> index 93a56a0269f1..15c2fa0d323a 100644
-> --- a/drivers/gpu/drm/xe/xe_ras.c
-> +++ b/drivers/gpu/drm/xe/xe_ras.c
-> @@ -209,8 +209,57 @@ static enum xe_ras_recovery_action handle_core_compute_errors(struct xe_ras_erro
->  	return XE_RAS_RECOVERY_ACTION_RECOVERED;
->  }
->  
-> +static struct pci_dev *find_usp_dev(struct pci_dev *pdev)
-> +{
-> +	struct pci_dev *vsp;
-> +
-> +	/*
-> +	 * Device Hierarchy:
-> +	 *
-> +	 * Upstream Switch Port (USP) --> Virtual Switch Port (VSP) --> SGunit (GPU endpoint)
-> +	 */
-> +	vsp = pci_upstream_bridge(pdev);
-> +	if (!vsp)
-> +		return NULL;
-> +
-> +	return pci_upstream_bridge(vsp);
-> +}
+Changes since v2:
+  - Don't drop DriverFenceData as a whole, but only the members we
+    really want to drop. Gives more robustness. (Gary).
+  - Break apart large pin_init_from_closure(). (Danilo, Onur)
+  - Remove rcu_barrier() and synchronize_rcu() from FenceCtx::drop().
+    FenceCtx might drop in atomic context, where you must not perform
+    those operations. With the current way C dma_fence is designed, the
+    driver must wait for a grace period manually until it unloads.
+  - Repair the DriverFenceBorrow implementation, properly injecting a
+    life time into it. (Danilo)
+  - Fix memory layout bug for rcu_head. (Onur)
+  - Drop RCU patches, since this series doesn't need them anymore.
 
-Unneeded churn, please make sure the function is already at the top in
-the original series.
+Changes since v1:
+  - Remove unnecessary mutable references (Alice)
+  - Split up unsafe comments where possible (Danilo)
+  - Remove PhantomData + implement FenceCtx ops trait (Boris)
+  - Consistently call FenceCtx generic data `T`. FenceDataType is
+    derived from that. (Boris)
+  - Add abstractions for call_rcu() and synchronize_rcu() (Danilo)
+  - Add ECANCELED error code in Rust (Alice)
+  - Remove the rcu_barrier() from FenceCtx::drop() – because we now use
+    call_rcu(), there can be no UAF access to the FenceCtx anymore. In
+    any case, it is illegal to use either call_rcu() or
+    synchronize_rcu() in FenceCtx::drop(), because our new
+    drop_driver_fence_data() can run in atomic context and might put the
+    last fence_ctx reference.
+    So we now only have to guard against module unload, which it seems
+    either the driver or Rust driver-core / module unload infrastructure
+    must solve.
+  - Minor formatting etc. changes
+  - Add C helpers to MAINTAINERS. (Danilo)
+  - Ensure that `Fence::is_signaled()` is fully synchronized, i.e., all
+    callbacks really have run. See [1] and [2]. (Myself, Christian
+    König)
 
-> +#ifdef CONFIG_PCIEAER
-> +static void pcie_suppress_surprise_link_down(struct pci_dev *usp)
-> +{
-> +	u32 aer_uncorr_mask;
-> +	u16 aer_cap;
-> +
-> +	aer_cap = usp->aer_cap;
-> +	if (!aer_cap) {
-> +		dev_dbg(&usp->dev,
-> +			"AER capability not present\n");
-> +		return;
-> +	}
-> +
-> +	pci_read_config_dword(usp, aer_cap + PCI_ERR_UNCOR_MASK, &aer_uncorr_mask);
-> +	aer_uncorr_mask |= PCI_ERR_UNC_SURPDN;
-> +	pci_write_config_dword(usp, aer_cap + PCI_ERR_UNCOR_MASK, aer_uncorr_mask);
-> +	dev_dbg(&usp->dev, "Surprise Link Down masked for cold reset\n");
+Changes since the RFCs:
+  - Include support for ForeignOwnable for ARef, so that a Fence can be
+    stuffed into an XArray et al. (Code by Danilo)
+  - Implement ForeignOwnable (with new borrow type) for DriverFence, so
+    that it can be stuffed into an XArray.
+  - Include the rcu::RcuBox data type to defer dropping data with RCU
+    (Cody by Alice)
+  - Port DmaFence to RcuBox to make UAF bugs through later, new dma_fence
+    callbacks (backend_ops) impossible.
+  - Force users to pass their fence data in an RcuBox (or have it not
+    need drop()) through a Sealed trait.
+  - Document the rules for the user's DriverFence::data's drop
+    implementation very clearly (deadlock danger).
+  - rustfmt, Clippy.
+  - Various style suggestions, safety comments, etc. (Önur)
+  - Add __rust_helper prefix to helper functions. (Önur)
 
-What about when we come back on after successful recovery? Do we need to
-unmask it?
+Changes in RFC v3:
+  - Omit JobQueue patches for now
+  - Completely redesign the memory layout: Instead of a Fence
+    refcounting a DriverFence, both now live in the same allocation to
+    allow for future support the dma_fence backend_ops callbacks which
+    need to do container_of. (mostly Boris's feedback)
+  - Allow for pre-allocating fences to avoid deadlocks when submitting
+    jobs to a GPU. (Boris)
+  - Simultaneously, allow for pre-preparing fence callback objects, so
+    the driver can allocate them when it sees fit. (code largely stolen
+    and inspired by Daniel).
+  - Signal fences on drop, ensure synchronization.
+  - Force users to set an error code when signalling.
+  - Write more documentation
+  - A ton of minor other changes.
 
-Raag
 
-> +}
-> +#endif /* CONFIG_PCIEAER */
-> +
->  static void punit_error_handler(struct xe_device *xe)
->  {
-> +#ifdef CONFIG_PCIEAER
-> +	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
-> +	struct pci_dev *usp;
-> +
-> +	/*
-> +	 * Cold reset power-cycles the slot, dropping the PCIe link. The
-> +	 * slot triggers a spurious Surprise Link Down AER event on the USP.
-> +	 */
-> +	usp = find_usp_dev(pdev);
-> +
-> +	if (usp)
-> +		pcie_suppress_surprise_link_down(usp);
-> +#endif
->  	xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_COLD_RESET);
->  	xe_device_declare_wedged(xe);
->  }
-> @@ -503,22 +552,6 @@ enum xe_ras_recovery_action xe_ras_process_errors(struct xe_device *xe)
->  	return XE_RAS_RECOVERY_ACTION_RESET;
->  }
->  
-> -static struct pci_dev *find_usp_dev(struct pci_dev *pdev)
-> -{
-> -	struct pci_dev *vsp;
-> -
-> -	/*
-> -	 * Device Hierarchy:
-> -	 *
-> -	 * Upstream Switch Port (USP) --> Virtual Switch Port (VSP) --> SGunit (GPU endpoint)
-> -	 */
-> -	vsp = pci_upstream_bridge(pdev);
-> -	if (!vsp)
-> -		return NULL;
-> -
-> -	return pci_upstream_bridge(vsp);
-> -}
-> -
->  static void aer_unmask_and_downgrade_internal_error(struct xe_device *xe)
->  {
->  	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
-> -- 
-> 2.34.1
-> 
+[1] https://lore.kernel.org/dri-devel/20260608142436.265820-2-phasta@kernel.org/
+[2] https://lore.kernel.org/dri-devel/20260612104251.2264707-2-phasta@kernel.org/
+
+
+Alright, so since the last RFCs did not reveal significant design
+issues, I decided to transition this series to a v1 and hope that we can
+get it upstream.
+
+This now includes code for more common infrastructure that dma_fence
+needs, contributed by Danilo and Alice.
+
+---
+
+Old cover letter for RFC:
+
+So, this is the spiritual successor of the first / second RFC [1]. v2
+also contained code for drm::JobQueue, but mostly to show how the fence
+code would be used. JobQueue is under heavy rework right now, so I don't
+want to bother your eyes with it. The docstring examples should show how
+Rust fences are supposed to be used, though.
+
+This v3 contains a huge amount of highly valuable feedback from a
+variety of people, notably Boris, but also from Alice, Gary and Danilo.
+
+There are some TODOs open (a better trait for fence backend_ops and RCU
+support), but my hope is that this effort is now finally approaching its
+end.
+
+I would greatly appreciate feedback and especially more information
+about what might be missing to make this usable, which is obviously
+where Daniel's and Boris's feedback will be valuable once more.
+
+Please regard this patch just as what it's titled: an RFC, to discuss a
+bit more and to inform a broader community about what the current state
+is and where this is heading at.
+
+Many regards,
+Philipp
+
+[1] https://lore.kernel.org/rust-for-linux/20260203081403.68733-2-phasta@kernel.org/
+
+Danilo Krummrich (1):
+  rust: types: implement ForeignOwnable for ARef<T>
+
+Philipp Stanner (3):
+  rust: error: Add ECANCELED error code
+  rust: Add dma_fence abstractions
+  MAINTAINERS: Add entry for Rust dma-buf
+
+ MAINTAINERS                      |   3 +
+ rust/bindings/bindings_helper.h  |   1 +
+ rust/helpers/dma_fence.c         |  48 ++
+ rust/helpers/helpers.c           |   1 +
+ rust/kernel/dma_buf/dma_fence.rs | 852 +++++++++++++++++++++++++++++++
+ rust/kernel/dma_buf/mod.rs       |  14 +
+ rust/kernel/error.rs             |   1 +
+ rust/kernel/lib.rs               |   1 +
+ rust/kernel/sync/aref.rs         |  39 ++
+ 9 files changed, 960 insertions(+)
+ create mode 100644 rust/helpers/dma_fence.c
+ create mode 100644 rust/kernel/dma_buf/dma_fence.rs
+ create mode 100644 rust/kernel/dma_buf/mod.rs
+
+
+base-commit: 848bf57e98e1678ce7a49eb4e0bf0502da95dc07
+-- 
+2.54.0
+
