@@ -4,51 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FBCDCD98F2
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 18:54:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 835B2CD98F2
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 18:55:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89D1510EEB2;
-	Thu, 18 Jun 2026 18:54:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D66FF10F3DF;
+	Thu, 18 Jun 2026 18:54:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Pzd9ApkQ";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="cXk0gvvg";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F38A10EEB2
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3BB010EEB2
  for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 18:54:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781808881; cv=none; 
+ARC-Seal: i=1; a=rsa-sha256; t=1781808883; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=eLsJONgQB7mlV51qQo3iPV1In82KGGGdBNMVuWhYMRlnD+xd6eUdRbqYCtjrKNPp9EcO+MIaTijgo8LZrSNCxQlPQXfVVssE/gn84iYAFeq+HZyoKdzYQPH1G/g5p8JSsFx2TrgSjC/I0Mr7GHGH7LMOIsWqVEvHPKRN0/YIMK4=
+ b=hgumXCdp+rH+fMYgh+RexDU0R1dIdf0T/afRh+Mk+VggjOJ4S5IqWe/H2cm6RLt3Xq+rMNeq2x6nKYvJq7ekzGRQ2ar9mqSx/r5RT55FswZL1g2+aLgfB6Utjy910DdnvebbC1ka04Dm8FfkVpH/vHnMpFnCdRvPdGS2uqgxWSE=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1781808881;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=6U2vsnDoMQqT2ncVs5Tg7NhOdUBLlXq+U06ka+M4MXc=; 
- b=QPwQf7bdE07fu+QkX2s/x20ySzaNp2zJOGUNURlFjhAI7N3DXrkeMM73amirpOw2ilEWVnxjuy60q9sn6zv2WvU58/ATNtK5ajDZ0gqpJTIXon9n440Hp0QyfvClew6/1CGsdUMRFPB8KXTV9Y4pbeFJG0/JTxc1m1mWewmIz1I=
+ s=zohoarc; t=1781808883;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=5lPa3263Z6NZQL7A3UYYSb30v7v5maPBCkXVUvwi8H8=; 
+ b=QWZjYrUvJgHXXx4sYH8+wrHNneJ0pZTZb+Y3jazCj15QBg7zFkdjAaG0tCn3xafk/kSZM7vDAH/RlLkQu3fMICcrqH13mXU0sOb8ZMSHIV8KWgu7mp/vHML2ctaNW2OYjELJPOHqsWvi4K0iJ0aqUVx0UFI1CKWSdPn/a4CWpL8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781808881; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781808883; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
- bh=6U2vsnDoMQqT2ncVs5Tg7NhOdUBLlXq+U06ka+M4MXc=;
- b=Pzd9ApkQI0a0cmhO9Kbxj5TGwq+Vljm4juXf+VzHnK9DNwLq2h/uu3utXf7LoPrT
- enAka5KAJfgo8XkHsWOQSht/h5r7Xt0vk/V/fW5Rs4lAXOfHeLd2toExJ6ahS30Xu4U
- UIGDyCgC0cP4RLPay5fes6nE/1vEw8wDS31bogSw=
-Received: by mx.zohomail.com with SMTPS id 1781808879173202.04730720142072;
- Thu, 18 Jun 2026 11:54:39 -0700 (PDT)
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=5lPa3263Z6NZQL7A3UYYSb30v7v5maPBCkXVUvwi8H8=;
+ b=cXk0gvvgQJdBg//Dok9QdRc3GU42iUr9dyPySHxM3bvbo+j96HK3UD8OzxUVgOO1
+ lJsA5y7UMGDHFJyHYi4OIBysKz3UZDaXENQQLQQZeyj19rDgrW+74rzCseWkX0HaD0F
+ cWM6z5L5wXv+OXMQL2/yfdsmOFpWbaFccH5K3vao=
+Received: by mx.zohomail.com with SMTPS id 1781808881895879.5653375861743;
+ Thu, 18 Jun 2026 11:54:41 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Subject: [PATCH v2 0/2] Make HDMI state helpers handle odd max bpc requests
-Date: Thu, 18 Jun 2026 20:54:22 +0200
-Message-Id: <20260618-hdmi-max-bpc-fix-v2-0-7b67f489b0cc@collabora.com>
+Date: Thu, 18 Jun 2026 20:54:23 +0200
+Subject: [PATCH v2 1/2] drm/display: hdmi: Only allow BPC values of 8, 10,
+ 12 and 16
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WOwQ6CMBBEf4Xs2dUCBpCT/2E8tGWVNZZiWwmG8
- O9W4OppM5uZNzOBJ8fkoU4mcDSwZ9tFke0S0K3s7oTcRA2ZyApRiArbxjAaOaLqNd54xFLkIj2
- VRV7lR4ix3lF8L8jLddX+rR6kw4+zORy93rErrDZQ0hNqawyHOmmcwcD9Ybvwg7Tsg3WfZeaQL
- pn/i4YUBRZUNZqULrPyeNb2+ZTKOrmPJXCd5/kL6RH6XfkAAAA=
-X-Change-ID: 20260608-hdmi-max-bpc-fix-703019763834
+Message-Id: <20260618-hdmi-max-bpc-fix-v2-1-7b67f489b0cc@collabora.com>
+References: <20260618-hdmi-max-bpc-fix-v2-0-7b67f489b0cc@collabora.com>
+In-Reply-To: <20260618-hdmi-max-bpc-fix-v2-0-7b67f489b0cc@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -71,41 +69,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-With the "max bpc" KMS connector property, userspace can arbitrarily
-restrict the upper end of the bits-per-component range. This is fine and
-good, except the HDMI state helpers never considered that max_bpc could
-be influenced by a userspace setting, so assumed it'll always be an even
-value from the HDMI standards.
+As per the comment in sink_supports_format_bpc(), CTA-861-F defines that
+only bits-per-channel values of 8, 10, 12 and 16 are allowed for HDMI.
+Allowing more than this has surprising consequences for the atomic check
+phase. The HDMI state helpers may accidentally conclude that a sink
+supports 11bpc if a caller asks for it.
 
-This, unfortunately, is not the world we live in anymore. Patch 1
-corrects sink_supports_format_bpc to return false on BPCs outside of
-what HDMI allows. Patch 2 then corrects handling of odd-numbered max
-bpcs by rounding the loop start value down to an even number instead. It
-also adds a KUnit test to make sure nobody breaks this again in the
-future.
+Fix this by exiting early if the bpc value doesn't match one of those
+given in the standard.
 
+Fixes: 26ff1c38fc29 ("drm/connector: hdmi: Compute bpc and format automatically")
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
-Changes in v2:
-- Use rounddown() from linux/math.h instead of the bespoke rounding. No
-  functional changes.
-- Note: switch statement in patch 1 kept as-is, as 14bpc is not allowed
-  by HDMI it seems.
-- Link to v1: https://patch.msgid.link/20260608-hdmi-max-bpc-fix-v1-0-6e8dcebc7274@collabora.com
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
----
-Nicolas Frattaroli (2):
-      drm/display: hdmi: Only allow BPC values of 8, 10, 12 and 16
-      drm/display: hdmi: Round odd max_bpc down to even numbers
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index ce17eeefc2da..0bf6102244f7 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -420,6 +420,16 @@ sink_supports_format_bpc(const struct drm_connector *connector,
+ 		return false;
+ 	}
+ 
++	switch (bpc) {
++	case 8:
++	case 10:
++	case 12:
++	case 16:
++		break;
++	default:
++		return false;
++	}
++
+ 	if (!info->is_hdmi &&
+ 	    (format != DRM_OUTPUT_COLOR_FORMAT_RGB444 || bpc != 8)) {
+ 		drm_dbg_kms(dev, "DVI Monitors require an RGB output at 8 bpc\n");
 
- drivers/gpu/drm/display/drm_hdmi_state_helper.c    | 12 +++-
- drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 71 ++++++++++++++++++++++
- 2 files changed, 82 insertions(+), 1 deletion(-)
----
-base-commit: 24209d838338d162bb25aadfd637b11747a357ca
-change-id: 20260608-hdmi-max-bpc-fix-703019763834
-
-Best regards,
---  
-Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+-- 
+2.54.0
 
