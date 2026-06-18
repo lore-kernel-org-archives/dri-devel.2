@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04A7CCD98F2
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 12:18:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76430CD98F2
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 12:18:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 432B810EE09;
-	Thu, 18 Jun 2026 12:18:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2B7310F2B2;
+	Thu, 18 Jun 2026 12:18:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SdW0olbJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U2Sk2fni";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61F5C10EE09
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 12:18:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B42B10F2B2
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 12:18:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8FB0860008;
+ by sea.source.kernel.org (Postfix) with ESMTP id 6ADC943A62;
+ Thu, 18 Jun 2026 12:18:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE0D81F000E9;
  Thu, 18 Jun 2026 12:18:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D12091F00A3A;
- Thu, 18 Jun 2026 12:18:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781785099;
- bh=E5eHkD8jSDxo44aAWmdU2ah76kkPQfs4cllD4dt0GAw=;
+ s=k20260515; t=1781785106;
+ bh=/IMHFCTpEmbT0Ogk1LeIliz7VqNHiat4WqgNfPhAoMk=;
  h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=SdW0olbJ7B4eSr2uWbvKHs7RpsKSbu3Co1Pe45Ejhqm/z8SdwFNmec3Fq03vyl13G
- nyLreBbeFE4MX37eN0K3CCnNjsbFQVuiDuQMArbzVuMsb6oszIMiJZHImXnzobVfpD
- BMslA14Yb1qZIK15QB9kkVEI5reyFb8qNahz/iCHf0mIzCiNZPEBbi/nkAbCk86Dqi
- /vSNE3+ESnmLOZtBxfGKabjS7Ar2QEkchgfSgAVmYu+0TnZza54dJww3jHyIf6dLzH
- AUN6BNih0561i26OWaHKcjIze3M2X2dfYYCsKR2vpOhnS4h0ke3/WGgKJTuOfgYAKK
- bI5gRCML7SJJw==
+ b=U2Sk2fnigIIfCCreUea8OkXmiOdd5RIh66lLcOJcr/59X6/gAuq+RJwoA4CokLAS6
+ b5wtJWgQB4IibAdeZh9tM95pttJYCc71yKnIh1xj5mA49uxJhGrVcBBVnTG/SdmdMd
+ gLmnUDVKG7cfWL1wNLXP3iZSyo5q1urY0GN1JXC0V1LY74iQiyXtq4DhZ1VhZqjsb/
+ II9LC0+wBVMdxCWEEFehp3uCRdMEf7eBb1n33QiHnGXcbxyMYMSZ1ZGXuj9a7p7Lqv
+ s8DwSiV1yYg+n/I7ElpP7FJOqbayB0FQ9M38f3pF06U3wiQmvZDUgFMl975kDRVPWk
+ xOXY+DDSlpyHA==
 From: Andreas Hindborg <a.hindborg@kernel.org>
 To: Alvin Sun <alvin.sun@linux.dev>, Miguel Ojeda <ojeda@kernel.org>, Boqun
  Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6r?=
@@ -50,12 +50,12 @@ Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
  nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org,
  kunit-dev@googlegroups.com, linux-block@vger.kernel.org, Alvin Sun
  <alvin.sun@linux.dev>
-Subject: Re: [PATCH v2 2/7] rust: macros: auto-insert ThisModule in #[vtable]
-In-Reply-To: <20260521-fix-fops-owner-v2-2-fd99079c5a04@linux.dev>
+Subject: Re: [PATCH v2 7/7] block: rnull: use `LocalModule` for `THIS_MODULE`
+In-Reply-To: <20260521-fix-fops-owner-v2-7-fd99079c5a04@linux.dev>
 References: <20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev>
- <20260521-fix-fops-owner-v2-2-fd99079c5a04@linux.dev>
-Date: Thu, 18 Jun 2026 14:11:31 +0200
-Message-ID: <87ik7gf3po.fsf@t14s.mail-host-address-is-not-set>
+ <20260521-fix-fops-owner-v2-7-fd99079c5a04@linux.dev>
+Date: Thu, 18 Jun 2026 14:17:53 +0200
+Message-ID: <87cxxof3f2.fsf@t14s.mail-host-address-is-not-set>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,15 +75,13 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Alvin Sun <alvin.sun@linux.dev> writes:
 
-> Auto-add `type ThisModule: ::kernel::ModuleMetadata;` as a required
-> associated type on the trait side if not already defined, and
-> auto-insert `type ThisModule = crate::LocalModule;` on the impl side
-> if not explicitly provided, eliminating the need to manually declare
-> and implement `ThisModule` in every vtable trait and impl.
+> Replace the `THIS_MODULE` import with `LocalModule` from the crate,
+> consistent with the move of `THIS_MODULE` into the `ModuleMetadata`
+> trait.
 >
 > Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 
-Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+You need to squash this with the previous patch.
 
 
 Best regards,
