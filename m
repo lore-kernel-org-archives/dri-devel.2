@@ -4,65 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16C41CD98F0
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 07:59:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7B99CD98F0
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 07:59:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63C7310E108;
-	Thu, 18 Jun 2026 07:59:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DA4210EC50;
+	Thu, 18 Jun 2026 07:59:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="bu5voEUH";
+	dkim=pass (2048-bit key; unprotected) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="iHsAZ1Jp";
 	dkim-atps=neutral
-Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch
- [109.224.244.106])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0433510EC8C
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 07:58:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
- s=protonmail; t=1781769537; x=1782028737;
- bh=FQ9h1CNqtUIN9Ufq0CQyLuGN5g3JqgqYIsoSVJmPyDg=;
- h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=bu5voEUHxZ16s5NR8RCnQZSzKOtOARepFItcD+renzYYsuo0H9OMI/sh+bvQb8WYR
- kcl8QhRR6Lk/89oPQ+kCcVsecOdlEjmbIXH3ScoNfbtC0p5/MYwjUkewI2/VOq7Cq3
- 1de2jMTVMIVu00IhN1HxtAbwLH4D1u/ZTvSssC+QmH59KiF1IFKsQT+gGcIJPQbogT
- iZpROoSfiW/M0lurXIzcW9AXtETcxUXGelZkEu5t4oG/UE/wdFkAdZbvKOux/+52Ts
- 6z89OgPGkxuAmYKvyT1Akt9meuGh61PJebzFQsGydcKaQioBdDyRD1nmdrUL7HlM20
- 1RNW0/QdxAy4A==
-X-Pm-Submission-Id: 4ggtQf3jNcz2ScmS
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: Daniel Almeida <daniel.almeida@collabora.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Drew Fustini <fustini@kernel.org>,
- Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- Brian Masney <bmasney@redhat.com>, Boqun Feng <boqun@kernel.org>,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
- linux-pwm@vger.kernel.org, linux-clk@vger.kernel.org,
- rust-for-linux@vger.kernel.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Subject: Re: [PATCH v4 3/3] rust: clk: use 'kernel vertical style' for imports
-Date: Thu, 18 Jun 2026 10:58:47 +0300
-Message-ID: <20260618075848.28017-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20260618-clk-type-state-v4-3-8be082786080@collabora.com>
-References: <20260618-clk-type-state-v4-0-8be082786080@collabora.com>
- <20260618-clk-type-state-v4-3-8be082786080@collabora.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com
+ [91.218.175.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8358510EC50
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 07:59:02 +0000 (UTC)
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+ s=key1; t=1781769539;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Vmts3eVcq1AB/MaOX1+dMbZWrM8G02gzaeVnUoYstpY=;
+ b=iHsAZ1Jp6nMQWYrVGGLThRws4MJ9eNCU22+ngX8PXCh56gz2+Vbb24ZIj6VGb6/jM/lMya
+ 7u+JmEvYY1JMZM82d6xmfBZcRD77TXUYJe7RDF4Rvhk6o9Y4oUKwc+bcBM43seA8EKzAXD
+ jqJ8XMf6IIrR60MXQaKBLDsvNNEHTWt4MUAG6DUP4bCRjZlgF3DPSSZcWF4biChXaQ2rvJ
+ rMa6+HeOo+GYXNQnVeNDf02rSmTd03tFHgF1wMH8fR/NRxStYWyprrfJFu6hm+FJmrw0Pc
+ 98X6LUc1KD/DrZ71YOD/uup/O4qaQgMykCC/fGXLxh8paDGre4D2TXrTsR25LA==
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 18 Jun 2026 09:58:52 +0200
+Message-Id: <DJC0L3CRJ0WL.IZEYVLPROMM1@cknow-tech.com>
+Cc: <kernel@collabora.com>, "Andy Yan" <andyshrk@163.com>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/9] dt-bindings: display: vop2: Add missing reset
+ properties
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>, "Sandy Huang"
+ <hjc@rock-chips.com>, =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ "Andy Yan" <andy.yan@rock-chips.com>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Philipp Zabel" <p.zabel@pengutronix.de>, "Andrzej
+ Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca
+ Ceresoli" <luca.ceresoli@bootlin.com>
+References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
+ <20260617-dw-hdmi-qp-yuv-v1-1-a665cfd06d7d@collabora.com>
+In-Reply-To: <20260617-dw-hdmi-qp-yuv-v1-1-a665cfd06d7d@collabora.com>
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,127 +74,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 18 Jun 2026 00:46:37 -0300=0D
-Daniel Almeida <daniel.almeida@collabora.com> wrote:=0D
-=0D
-> Convert all imports to use the new import style. This will make it easier=
-=0D
-> to land new changes in the future.=0D
-> =0D
-> No change of functionality implied.=0D
-> =0D
-> Link: https://docs.kernel.org/rust/coding-guidelines.html#imports=0D
-> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>=0D
-=0D
-Reviewed-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
-=0D
-> ---=0D
->  rust/kernel/clk.rs | 56 ++++++++++++++++++++++++++++++++++++++++++++----=
-------=0D
->  1 file changed, 46 insertions(+), 10 deletions(-)=0D
-> =0D
-> diff --git a/rust/kernel/clk.rs b/rust/kernel/clk.rs=0D
-> index 692ee88ca772..1412a2f0aedf 100644=0D
-> --- a/rust/kernel/clk.rs=0D
-> +++ b/rust/kernel/clk.rs=0D
-> @@ -80,12 +80,23 @@ fn from(freq: Hertz) -> Self {=0D
->  mod common_clk {=0D
->      use super::Hertz;=0D
->      use crate::{=0D
-> -        device::{Bound, Device},=0D
-> -        error::{from_err_ptr, to_result, Result},=0D
-> -        prelude::*,=0D
-> +        device::{=0D
-> +            Bound,=0D
-> +            Device, //=0D
-> +        },=0D
-> +        error::{=0D
-> +            from_err_ptr,=0D
-> +            to_result,=0D
-> +            Result, //=0D
-> +        },=0D
-> +        prelude::*, //=0D
->      };=0D
->  =0D
-> -    use core::{marker::PhantomData, mem::ManuallyDrop, ptr};=0D
-> +    use core::{=0D
-> +        marker::PhantomData,=0D
-> +        mem::ManuallyDrop,=0D
-> +        ptr, //=0D
-> +    };=0D
->  =0D
->      mod private {=0D
->          pub trait Sealed {}=0D
-> @@ -189,8 +200,15 @@ impl<State: ClkState> From<Error<State>> for kernel:=
-:error::Error {=0D
->          /// original [`Clk`], e.g.:=0D
->          ///=0D
->          /// ```=0D
-> -        /// use kernel::clk::{Clk, Enabled, Unprepared};=0D
-> -        /// use kernel::device::{Bound, Device};=0D
-> +        /// use kernel::clk::{=0D
-> +        ///     Clk,=0D
-> +        ///     Enabled,=0D
-> +        ///     Unprepared, //=0D
-> +        /// };=0D
-> +        /// use kernel::device::{=0D
-> +        ///     Bound,=0D
-> +        ///     Device, //=0D
-> +        /// };=0D
->          /// use kernel::error::Result;=0D
->          ///=0D
->          /// fn get_enabled(dev: &Device<Bound>) -> Result<Clk<Enabled>> =
-{=0D
-> @@ -240,8 +258,17 @@ fn from(err: Error<State>) -> Self {=0D
->      /// The following example demonstrates how to obtain and configure a=
- clock for a device.=0D
->      ///=0D
->      /// ```=0D
-> -    /// use kernel::clk::{Clk, Enabled, Hertz, Unprepared, Prepared};=0D
-> -    /// use kernel::device::{Bound, Device};=0D
-> +    /// use kernel::clk::{=0D
-> +    ///     Clk,=0D
-> +    ///     Enabled,=0D
-> +    ///     Hertz,=0D
-> +    ///     Prepared,=0D
-> +    ///     Unprepared, //=0D
-> +    /// };=0D
-> +    /// use kernel::device::{=0D
-> +    ///     Bound,=0D
-> +    ///     Device, //=0D
-> +    /// };=0D
->      /// use kernel::error::Result;=0D
->      ///=0D
->      /// fn configure_clk(dev: &Device<Bound>) -> Result {=0D
-> @@ -287,7 +314,11 @@ fn from(err: Error<State>) -> Self {=0D
->      /// and move between the variants:=0D
->      ///=0D
->      /// ```=0D
-> -    /// use kernel::clk::{Clk, Enabled, Prepared};=0D
-> +    /// use kernel::clk::{=0D
-> +    ///     Clk,=0D
-> +    ///     Enabled,=0D
-> +    ///     Prepared, //=0D
-> +    /// };=0D
->      /// use kernel::error::Result;=0D
->      ///=0D
->      /// enum DeviceClk {=0D
-> @@ -481,7 +512,12 @@ pub fn enable(self) -> Result<Clk<Enabled>, Error<Pr=
-epared>> {=0D
->          /// clock or threading it through an intermediate state, e.g.:=0D
->          ///=0D
->          /// ```=0D
-> -        /// use kernel::clk::{Clk, Enabled, Hertz, Prepared};=0D
-> +        /// use kernel::clk::{=0D
-> +        ///     Clk,=0D
-> +        ///     Enabled,=0D
-> +        ///     Hertz,=0D
-> +        ///     Prepared, //=0D
-> +        /// };=0D
->          /// use kernel::error::Result;=0D
->          ///=0D
->          /// fn read_rate(clk: &Clk<Prepared>) -> Result<Hertz> {=0D
-> =0D
-> -- =0D
-> 2.54.0=0D
-> =0D
+Hi Cristian,
+
+Thanks for this series :-) Just 1 nit (at the end) ...
+
+On Wed Jun 17, 2026 at 8:52 PM CEST, Cristian Ciocaltea wrote:
+> Document the VOP2 resets corresponding to the AXI, AHB and DCLK_VP0..2
+> clocks, which are common to all supported SoCs, plus DCLK_VP3 which is
+> provided only on RK3588.
+>
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> ---
+>  .../bindings/display/rockchip/rockchip-vop2.yaml   | 42 ++++++++++++++++=
+++++++
+>  1 file changed, 42 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip-=
+vop2.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip-vop=
+2.yaml
+> index 93da1fb9adc4..d3bc5380f910 100644
+> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.ya=
+ml
+> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.ya=
+ml
+> @@ -82,6 +82,20 @@ properties:
+>        - {}
+>        - {}
+> =20
+> +  resets:
+> +    minItems: 5
+> +    maxItems: 6
+> +
+> +  reset-names:
+> +    minItems: 5
+> +    items:
+> +      - const: axi
+> +      - const: ahb
+> +      - const: dclk_vp0
+> +      - const: dclk_vp1
+> +      - const: dclk_vp2
+> +      - const: dclk_vp3
+> +
+>    rockchip,grf:
+>      $ref: /schemas/types.yaml#/definitions/phandle
+>      description:
+> @@ -148,6 +162,12 @@ allOf:
+>          clock-names:
+>            maxItems: 5
+> =20
+> +        resets:
+> +          maxItems: 5
+> +
+> +        reset-names:
+> +          maxItems: 5
+> +
+>          interrupts:
+>            maxItems: 1
+> =20
+> @@ -194,6 +214,12 @@ allOf:
+>              - {}
+>              - const: pll_hdmiphy0
+> =20
+> +        resets:
+> +          maxItems: 5
+> +
+> +        reset-names:
+> +          maxItems: 5
+> +
+>          interrupts:
+>            minItems: 4
+> =20
+> @@ -246,6 +272,12 @@ allOf:
+>              - const: pll_hdmiphy0
+>              - const: pll_hdmiphy1
+> =20
+> +        resets:
+> +          minItems: 6
+> +
+> +        reset-names:
+> +          minItems: 6
+> +
+>          interrupts:
+>            maxItems: 1
+> =20
+> @@ -289,6 +321,16 @@ examples:
+>                                "dclk_vp0",
+>                                "dclk_vp1",
+>                                "dclk_vp2";
+> +                resets =3D <&cru SRST_A_VOP>,
+> +                         <&cru SRST_H_VOP>,
+> +                         <&cru SRST_VOP0>,
+> +                         <&cru SRST_VOP1>,
+> +                         <&cru SRST_VOP2>;
+> +                reset-names =3D "axi",
+> +                              "ahb",
+> +                              "dclk_vp0",
+> +                              "dclk_vp1",
+> +                              "dclk_vp2";
+>                  power-domains =3D <&power RK3568_PD_VO>;
+
+Place reset* props below power-domains (like in patch 9) ?
+So everyone who copies your example has the correct sorting order.
+
+Cheers,
+  Diederik
+
+>                  rockchip,grf =3D <&grf>;
+>                  iommus =3D <&vop_mmu>;
+
