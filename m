@@ -4,63 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA554CD98F6
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 19:10:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5CA0CD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 19:14:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A137310F3CE;
-	Thu, 18 Jun 2026 19:10:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26F4610F3C3;
+	Thu, 18 Jun 2026 19:14:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OokbEsKQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="n10j/nLD";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A37510E2D1;
- Thu, 18 Jun 2026 19:10:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781809816; x=1813345816;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=ql37xc05J34nHzwTmEu7jraTRuC3HNu4LQC1IIXTDn0=;
- b=OokbEsKQUISgvkHqPno0zsnT8jA6L0kPRV9hs1JT8b9VORuzHkQ0Zbnm
- ovpYscoIfsuaKP/HYeFgE6aAnN6+PmnsrN5AJ3cAtBkYEGjcXK7HE0KI/
- K8k6iXEBLi1dBV3OiBHBbGh91FpHZCcrPYZ9nHDuiGvtmUqfk0R4AXYFc
- bZ9AAbzi587PskZDUhMbJW7q016pn2mMzT0KDLPcFYHVm7BFnSWMMdoBB
- Wl1VcY/xejh9YgKlUZLDG8q2sZHcaQJIZebTaSAbpBNJCQTcea816GiDX
- KDpGNStIIYMAJhgMWhFfSuhMCk4/wJIVhbwp2oM6LF5GDjWgkkowdRw4g g==;
-X-CSE-ConnectionGUID: HpT8+/NSS9Cykad63eU4CA==
-X-CSE-MsgGUID: x/4Oci3TSKqQbwhHFKlMPQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11821"; a="93307189"
-X-IronPort-AV: E=Sophos;i="6.24,212,1774335600"; d="scan'208";a="93307189"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2026 12:10:16 -0700
-X-CSE-ConnectionGUID: POlMpuU/SH+sXaLjwPn1XQ==
-X-CSE-MsgGUID: y0au7U3JQPWOnoCGT3xZfg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,212,1774335600"; d="scan'208";a="272142009"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.79])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2026 12:10:14 -0700
-Date: Thu, 18 Jun 2026 22:10:10 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 4/4] drm/i915/panel: Attempt VRR based refresh rate
- change for !allow_modeset
-Message-ID: <ajRCkjh-kHwg56V4@intel.com>
-References: <20260612144203.31715-1-ville.syrjala@linux.intel.com>
- <20260612144203.31715-5-ville.syrjala@linux.intel.com>
- <e7414943-3902-4209-b372-3cddce601d78@intel.com>
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3640310F3C3
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 19:14:19 +0000 (UTC)
+Received: by mail-dl1-f50.google.com with SMTP id
+ a92af1059eb24-1364ff8099cso50156c88.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 12:14:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781810058; cv=none;
+ d=google.com; s=arc-20240605;
+ b=crN8nagksJ4EnJlBrpnDD9XV6AjFo6t5uyzp+ofoo92Ss4IRUpiMWjRT8bLgtcrC4h
+ BDbzCT74yd5sZQUhLkAo0cF5/z4aC5OJeHfJ/L+gkiNXVhhsUgEv2/hrugDRiMrB3XfK
+ 9sWw9qP51jx6TrxL68JGU71WalpEjsSqdPrzoEJxrczbJkVVBedSTlCyxZJewnDASGTZ
+ qH1Bs9njke5JeJ9lVfAlcQW8u4cnjWnYWR7Zh6G/PNn5OGX3E26wAxTF8vP9nZHUV1pd
+ qYMalPF+OAZw97idPLVIprWeQAwR60NKqUYBbG6Rb4IPBDG3Yvj3jUUCE8UMEGUodmYe
+ cb+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=3gIhj8csyUjzimg3goW3Pzqun4T3ZR1YGiH42Uwliks=;
+ fh=RaxYfLgC19tXH5apQZwZMGMsH21i+M4cBZNX0cUhens=;
+ b=dO9Wmu2/uCavrtyWpHbFLDyMlynQuXidNbObXkcmBEyM9vz0/8MuQq/CZQaurOIEDX
+ iRMGSjNgVXfavoBTWiBo9euvYhFWDVopFB5riUM6cxPpefyFdsqXFpnAUibigki0ltqD
+ 930T0ikqhgsKEQ6gpj4S9MdWk4hfbtWbtoBMmiu0y7yBLjyPL+0BqoE/o1DrXR/USQ3Q
+ KXH55Ly9Zf7uziaxzczOYHrQ1ML2Gi/LUGkZQQCrOTDQLD2xabeRhyD27DEbYOowJMWQ
+ qJtg+SUL+69bfVfxyNS3bzQAe+TY5zksI1l6sos5Mc/kmRKgz7I3mfqepLNTOlgFctJ4
+ ZCCQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781810058; x=1782414858; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3gIhj8csyUjzimg3goW3Pzqun4T3ZR1YGiH42Uwliks=;
+ b=n10j/nLDn0UQ2W5pgqHrwX6eAaZwugUWyavpGb9YIcKxkqvqZ0Ri/pWX0VPiBkkgSp
+ HcPPgUQnGiuUQKnC+5O9cgQr86MlemapBzGmeUo7F9GjnQ7zh9Fw2tnu402+Yf/iOmHW
+ NQx1bOF0teVJptCMHY6WLwNDhrWMqFWTOCbKe6zaQRmVUjeoi/qFvF9bxzlwTatp8Pcm
+ OjWqxxfmvAMDH13AWXLMareJKceTmQfQwIu9onQniV7wnd5bFr4DeiTb542IfWNKMGFZ
+ mmjX6HJzBhdeeXp0akTxnHATqCcrC9uBMkMvXaC/pnyAOcYdaZth5t9kbVtFiNzEnvtU
+ i38w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781810058; x=1782414858;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=3gIhj8csyUjzimg3goW3Pzqun4T3ZR1YGiH42Uwliks=;
+ b=QGEUdg3n0QA5zp4KEa98Kwtxg6t0VXcGk0CxPZaa8+Ia58lWUvab9JaYW1TA0IN29/
+ mt7mIj/inh/KZYLx6Gj6+LovDKLocvjOIkQjMNDzRgNWT3G8Sc7ZhqZhAgjqXLuHq91K
+ 5TidUVtnWBhsqU/DdWIFfWDzfd3jOvjHYO9m9p2rL0yRc/YlKhqPeontEYMqsztUErqV
+ 6qZhnnkCAd+7v5dI5p+h5IhHU6EPT3I6uOpJ/p67RqdoQeKOHafgejrhIfV7AAxhoIQw
+ I2RwBMsoq/Pdb88iZ/TrmeofMbYUn/8tGds7U9kc2GL5nZGTg1MrPAsdL31pcySjEy/k
+ OGYA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9FXlF102ur8tl2zAVG1snMlFXjwfhqJdBmnlVx4cgQkHWWV/E1kMW+BW7Mgl8kZ//ImNLBfIM+0dw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxnzh5vrJCnxw4hKeioeh3n1FjjizgFJh7wvBB7xIXHwgD14uKZ
+ JttXf/E0C0dXDIMAsb2lUGimNzm6NuNgYIXgG1TsF2JXcJeucS1tRTmwsCGM8lCvSOH8Xb4iQJw
+ k4m1fL7hzhWPMUtACXStdMWRgixsyYFM=
+X-Gm-Gg: AfdE7cmM8MsB4viYLjgvaedTwXcdW6aikr4+5h96NsBCWsnJjD0gRBmm+nxiZlbgFXG
+ JJs8sPFXBHYlgRQFfhPg/fdiywX3vuOEGGvVIH5U84LwLlNptaDa4ORYGtDA6Cq1FwZrmmMQr3L
+ /XWK3Li3WXA1c7LZ+Io9SYVI9t1kBBk9Me0np9FbjbD/f4FyLg8/Y+ipJe2SC1lVhg7CAIFB/pI
+ iNPWrbNLS5F3xC/nxQXzSjuY9BaJIpH3cQ00jB6zFDPee0T0fSVIHIDlSwblO3psld+fi4X/NKp
+ PTjSyK+7nYOT/HROZ+UGcTipU7tTLbtbiOG+t1aIZiaGRb8Pe+YQIN0lPs7PR3juREGzx+RduWo
+ XHN89rqGsb8EG
+X-Received: by 2002:a05:7300:230b:b0:30b:e4a6:1aab with SMTP id
+ 5a478bee46e88-30c074f8c21mr216868eec.8.1781810058121; Thu, 18 Jun 2026
+ 12:14:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e7414943-3902-4209-b372-3cddce601d78@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260618132628.3811068-2-phasta@kernel.org>
+ <20260618132628.3811068-4-phasta@kernel.org>
+In-Reply-To: <20260618132628.3811068-4-phasta@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Thu, 18 Jun 2026 21:14:05 +0200
+X-Gm-Features: AVVi8CeC-ql5SLxnogYN7t_D3e3IE25SNmVufxe0bxI6l-UhWmyMsdwZiyoyB5w
+Message-ID: <CANiq72ke2pfkhHB-_x0dTKUbktkTvLsu7z5eCFYVyL1CH=O0Cw@mail.gmail.com>
+Subject: Re: [PATCH v3 2/4] rust: error: Add ECANCELED error code
+To: Philipp Stanner <phasta@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ Asahi Lina <lina+kernel@asahilina.net>, Matthew Maurer <mmaurer@google.com>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>,
+ Burak Emir <bqe@google.com>, FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Krishna Ketan Rai <prafulrai522@gmail.com>, 
+ Tamir Duberstein <tamird@kernel.org>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Eliot Courtney <ecourtney@nvidia.com>, Mirko Adzic <adzicmirko97@gmail.com>, 
+ Alistair Francis <alistair.francis@wdc.com>,
+ Shankari Anand <shankari.ak0208@gmail.com>, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,248 +126,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 15, 2026 at 10:47:10AM +0530, Nautiyal, Ankit K wrote:
-> 
-> On 6/12/2026 8:12 PM, Ville Syrjala wrote:
-> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> >
-> > Adjust the panel fixed mode selection algorithm to only consider
-> > fixed modes that are "VRR compatible" with the old fixed mode
-> > when userspace doesn't want to allow full modesets. This will
-> > allow a VRR based refresh rate changes (ie. just a change in
-> > the vblank length) via the fastset path.
-> >
-> > When full modesets are allowed, we still use the original algorithm
-> > as that may pick a fixed mode with a more optimal dotclock, potentially
-> > leading to reduced power consumption.
-> >
-> > This approach works as long as userspace does the initial
-> > allow_modeset=true commit using the highest refresh rate it will
-> > want to use. Subsequent commits with allow_modeset=false can then
-> > switch between lower refresh rates without blinks.
-> >
-> > One remaining hurdle we may need to solve is the guardband length.
-> > Assuming the highest refresh rate vblank is too short for
-> > intel_vrr_compute_optimized_guardband() the intitial guardband will
-> > match the highest refresh rate vblank. A subsequent switch to a lower
-> > refresh rate will then recompute the guardband and select a value
-> > that is higher (since the vblank will be longer). The mismatch in
-> > guardband lengths will prevent the fastset. We may either have to
-> > preserve the original (sub-optimal) guardband,
-> 
-> I think preserving the original (sub-optimal) guardband makes sense for 
-> the seamless case, but we will lose out on enabling some power saving 
-> features like PSR/LOBF for which the sub-otimal guardband would not be 
-> sufficient.
-> So this really comes down to how we want to interpret the 
-> DRM_MODE_ALLOW_MODESET(state->allow_modeset).
-> 
-> If a lower RR mode is set with allow_modeset = true, then doing a full 
-> modeset sounds fine.
-> In that case we can recompute the guardband and enable the additional 
-> power saving features (PSR/LOBF) if they are supported.
-> 
-> If the same transition is done without allow_modeset, then we should try 
-> to keep it seamless.
-> In that case using the sub-optimal guardband to avoid a full modeset 
-> seems like the better choice, even if that means power saving features 
-> may or may not be enabled, despite being supported at the new RR.
-> 
-> So effectively:
-> with allow_modeset -> recompute and get optimal behavior
-> without it -> keep things stable, even if sub-optimal
-> 
-> IMO this will make the behavior predictable and lets userspace decide 
-> when it wants to pay the cost to get those benefits.
-> 
-> 
-> >   or we'll have to
-> > revisit the idea of changing the guardband without a full modeset.
-> >
-> > Note that I'm not 100% happy with this solution because
-> > intel_panel_fixed_mode() is no longer fully idempotent, but I wasn't
-> > able to come up with anything truly better either :/ The simple
-> > solution would be just to always pick the fixed mode with the highest
-> > dotclock, but that could lead to increased power consumption even
-> > when high refresh rates are never used.
-> >
-> > Perhaps the proper solution would be to just deprecate this
-> > idea of taking in random modes for internal panels and then
-> > cooking up a compatible fixed modes. Life would be easier if
-> > userspace was required to provide the desired fixed mode directly.
-> > But in order to do that we'd need to introduce new uapi properties
-> > to control the pfit aspect of this, and we'd probably need a new
-> > client cap to select between the old and new userspace behaviour.
-> > Something to consider in the future...
-> >
-> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > ---
-> >   drivers/gpu/drm/i915/display/intel_panel.c | 55 ++++++++++++++++++++--
-> >   1 file changed, 50 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-> > index af59fc946fcb..a5fcac1318da 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_panel.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_panel.c
-> > @@ -82,16 +82,37 @@ static bool is_best_fixed_mode(struct intel_connector *connector,
-> >   		abs(drm_mode_vrefresh(best_mode) - vrefresh);
-> >   }
-> >   
-> > -const struct drm_display_mode *
-> > -intel_panel_fixed_mode(struct intel_connector *connector,
-> > -		       const struct drm_display_mode *mode)
-> > +static bool is_vrr_compatible(const struct drm_display_mode *mode1,
-> > +			      const struct drm_display_mode *mode2)
-> > +{
-> > +	return drm_mode_match(mode1, mode2,
-> > +			      DRM_MODE_MATCH_CLOCK |
-> > +			      DRM_MODE_MATCH_TIMINGS_VRR |
-> > +			      DRM_MODE_MATCH_FLAGS |
-> > +			      DRM_MODE_MATCH_3D_FLAGS);
-> > +}
-> > +
-> > +static const struct drm_display_mode *
-> > +_intel_panel_fixed_mode(struct intel_connector *connector,
-> > +			const struct drm_display_mode *mode,
-> > +			const struct drm_display_mode *vrr_ref_mode)
-> >   {
-> >   	const struct drm_display_mode *fixed_mode, *best_mode = NULL;
-> >   	int vrefresh = drm_mode_vrefresh(mode);
-> >   
-> > +	if (vrr_ref_mode &&
-> > +	    (!intel_vrr_is_in_range(connector, vrefresh) ||
-> > +	     !intel_vrr_is_in_range(connector, drm_mode_vrefresh(vrr_ref_mode))))
-> > +		return NULL;
-> > +
-> >   	list_for_each_entry(fixed_mode, &connector->panel.fixed_modes, head) {
-> >   		int fixed_mode_vrefresh = drm_mode_vrefresh(fixed_mode);
-> >   
-> > +		if (vrr_ref_mode &&
-> > +		    (!intel_vrr_is_in_range(connector, fixed_mode_vrefresh) ||
-> > +		     !is_vrr_compatible(fixed_mode, vrr_ref_mode)))
-> > +			continue;
-> > +
-> >   		if (is_best_fixed_mode(connector, vrefresh,
-> >   				       fixed_mode_vrefresh, best_mode))
-> 
-> This works for all practical purposes, but if we take a hypothetical 
-> case below, it would not work as expected.
-> 
-> 2 fixed modes:
-> with lower RR rate with same clock being first in the modelist:
-> 
-> "3840x2400": 60 1199280 3840 3848 3880 4004 2400 4968 4976 4992
-> "3840x2400": 120 1199280 3840 3848 3880 4004 2400 2472 2480 2496
-> 
-> vrr range : 120-40Hz
-> 
-> Scenario: 120Hz is set we want to switch to 80 Hz.
-> 
-> iteration 1
->      fixed mode = 60Hz
->      best mode = 60 Hz
-> 
-> iteration 2
->      fixed mode = 120Hz -> 80 is nearer to 60 than to 120 so best mode 
-> remains 60
->      best mode = 60Hz
-> 
-> We will end up selecting 60Hz mode and try to stretch vtotal based on 
-> this mode.
+On Thu, Jun 18, 2026 at 3:27=E2=80=AFPM Philipp Stanner <phasta@kernel.org>=
+ wrote:
+>
+> +    declare_err!(ECANCELED, "Request has been canceled.");
 
-I'm thinking that should actually work since it shouldn't really matter
-if we end up stretching or shrinking the vblank. But it would feel saner
-if we make sure the selected fixed mode does have a higher refresh rate
-than the target (ie. final vblank should always end up being >= the
-original vblank).
+Please place it after `ETIMEDOUT` (these are meant to be sorted the
+same way as in the C side -- we had a patch at some point to make it
+more obvious, perhaps someone can resurrect it).
 
-is_best_fixed_mode() does kinda attempt to do that, but badly. I suppose
-the correct answer here might be to split the current fixed mode search
-to a VRR vs. non-VRR variants, and try the VRR one first. But I think
-I'll have to give this one a bit more thought before I can decide if
-that approach has any downsides...
-
-> 
-> So perhaps we should make is_best_fixed_mode() such that the order of 
-> modes should not affect our fixed mode selection algorithm.
-
-Yeah, I suppose that would be nice. Hmm, perhaps we could just sort the
-fixed mode list based on the vrefresh. The actual userspace visible
-mode list will anyway be sorted by drm_mode_sort() so it shouldn't
-matter for anyone else which order we keep on the fixed modes list.
-
-> 
-> Note:
-> 
-> 1) As I have mentioned, this is hypothetical case which I have cooked up 
-> by changing the modes from a real panel, which has highest mode as 
-> preferred mode and 120 Hz mode being preferred mode.
-> 
-> fixed modes:
-> 
->                  "3840x2400": 120 1199280 3840 3848 3880 4004 2400 2472 
-> 2480 2496 0x48 0xa
-> 
->                  "3840x2400": 60 1199280 3840 3848 3880 4004 2400 4968 
-> 4976 4992 0x40 0xa
-> 
-> 2) This issue will also not be seen with VRR panels when the clocks are 
-> different but Vtotals are same, the patch should work perfectly in that 
-> case too.
-> 
-> 
-> Regards,
-> 
-> Ankit
-> 
-> 
-> >   			best_mode = fixed_mode;
-> > @@ -100,6 +121,13 @@ intel_panel_fixed_mode(struct intel_connector *connector,
-> >   	return best_mode;
-> >   }
-> >   
-> > +const struct drm_display_mode *
-> > +intel_panel_fixed_mode(struct intel_connector *connector,
-> > +		       const struct drm_display_mode *mode)
-> > +{
-> > +	return _intel_panel_fixed_mode(connector, mode, NULL);
-> > +}
-> > +
-> >   static bool is_alt_drrs_mode(const struct drm_display_mode *mode,
-> >   			     const struct drm_display_mode *preferred_mode)
-> >   {
-> > @@ -202,11 +230,28 @@ int intel_panel_compute_config(struct intel_atomic_state *state,
-> >   			       struct intel_connector *connector)
-> >   {
-> >   	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
-> > -	const struct drm_display_mode *fixed_mode =
-> > -		intel_panel_fixed_mode(connector, adjusted_mode);
-> > +	const struct drm_display_mode *fixed_mode = NULL;
-> >   	int vrefresh, fixed_mode_vrefresh;
-> >   	bool is_vrr;
-> >   
-> > +	/*
-> > +	 * Attempt a VRR based refresh rate change if possible
-> > +	 * when userspace has forbidden a full modeset.
-> > +	 */
-> > +	if (!state->base.allow_modeset) {
-> > +		struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> > +		const struct intel_crtc_state *old_crtc_state =
-> > +			intel_atomic_get_old_crtc_state(state, crtc);
-> > +
-> > +		if (old_crtc_state->hw.enable &&
-> > +		    old_crtc_state->uapi.encoder_mask == crtc_state->uapi.encoder_mask)
-> > +			fixed_mode = _intel_panel_fixed_mode(connector, adjusted_mode,
-> > +							     &old_crtc_state->hw.adjusted_mode);
-> > +	}
-> > +
-> > +	if (!fixed_mode)
-> > +		fixed_mode = intel_panel_fixed_mode(connector, adjusted_mode);
-> > +
-> >   	if (!fixed_mode)
-> >   		return 0;
-> >   
-
--- 
-Ville Syrjälä
-Intel
+Cheers,
+Miguel
