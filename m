@@ -4,136 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D45F3CD98F8
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 13:38:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10BDECD98F8
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 13:39:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAD2B10E2A8;
-	Thu, 18 Jun 2026 13:38:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59A2810E32A;
+	Thu, 18 Jun 2026 13:39:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="PpoOhuEN";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="b2484VRz";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hy0UhNob";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="VUtOfiqL";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="PUOZ5Di9";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F25510E2A8
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 13:38:14 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9F12F75EAE;
- Thu, 18 Jun 2026 13:38:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781789892; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=JIihKGpFt77tZE2GPXqak/8XxXhb3poYTEKtF1MEdcY=;
- b=PpoOhuENQMd6GS8l1Z7pvzdpZPNOufMTUNOwp3Gw/G/jkpYe7pbAGkUPISyK4w9t2JGXAF
- mWMQ2oWzkW7pP9Y6xOC/hJY3zG3oDUrU636rjAoMNbjHI3bqvUECHVhmfe7DxAvVaw+a4X
- IwVO/MUbRQCni2dmJX0tMLZsU7fgGxw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781789892;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=JIihKGpFt77tZE2GPXqak/8XxXhb3poYTEKtF1MEdcY=;
- b=b2484VRzTjk2BY8gxzjYDrlRZQ9rJSG4L+1BlVRlQsv7DZfBmrokszAt6WAvnRDJLmZb+w
- SlyKSUX6vpm/19Bw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=hy0UhNob;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=VUtOfiqL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1781789891; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=JIihKGpFt77tZE2GPXqak/8XxXhb3poYTEKtF1MEdcY=;
- b=hy0UhNob1vFUD+Xc1NayhOtf4MPKw5BtInSugV+cLO9Yw0iI+vaA668xqgEvz4IZIn+qk0
- ZGl75x+sve5GKDSkw0lPM1BGPR93erwabzdVg5Wi4Vr4ImIKGGeMtQ+dJu1FH0fbhKxfbj
- yW4U6JegpZahf99cAOCoCbpD0DRO4Zw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1781789891;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=JIihKGpFt77tZE2GPXqak/8XxXhb3poYTEKtF1MEdcY=;
- b=VUtOfiqLvm88dpdUQ8cluFMr0EgjH8hg/cVGYDNJOHeUd6THczdM9f7kb4pl9TQ8fe3Lq1
- WlSdCIfd6i3rmUBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 71707779A8;
- Thu, 18 Jun 2026 13:38:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 1fAtGsP0M2oKaAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 18 Jun 2026 13:38:11 +0000
-Message-ID: <8be213e4-ce75-4728-901c-55a0f4fee34a@suse.de>
-Date: Thu, 18 Jun 2026 15:38:10 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] drm/omapdrm: fbdev: Use client buffers
-To: tomi.valkeinen@ideasonboard.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev
-References: <20260423140031.126072-1-tzimmermann@suse.de>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260423140031.126072-1-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 9F12F75EAE
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[ideasonboard.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- DKIM_TRACE(0.00)[suse.de:+]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- MIME_TRACE(0.00)[0:+]; TO_DN_NONE(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_SEVEN(0.00)[7];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:mid, suse.de:dkim,
- imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A560810E32A
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 13:38:58 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 075174E42FA3;
+ Thu, 18 Jun 2026 13:38:57 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id C21505FF03;
+ Thu, 18 Jun 2026 13:38:56 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id E90E5106C8181; 
+ Thu, 18 Jun 2026 15:38:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1781789933; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=q17Yakrk0jyin/K7MigNcOnMz+6gtRbwepNdHP9jFKM=;
+ b=PUOZ5Di9LG9HfrQqQCFFBVq94tgu/N/628JI3wjlG+04IUEZ/TDfwfWPiCYIYoY01Ml/zT
+ u6fzfs/sOXhZCzpGZcGWKrttnj2hg362abIuU+SlEEsUQGe8DjkMXc8FOQFe+vm08MjMCD
+ q4ik5cK5VDldEGCZCpBmhx07jaHCoG868HTUDceg1cGMzWrhvEOeO+nri9uBQ9XxJlsEEd
+ kFcTWnviop36LYp6WwxAMULWvuPB1A6oFC1kNXA6jr27XI08XezUNwOxPYoBipe1i/JzdI
+ 5yYVYBawm+zEtwTD77BtUYcO3v4DG3A1Zq8nGdrWLS8BS2P5ZVV6JJvam6Mhog==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 18 Jun 2026 15:38:33 +0200
+Message-Id: <DJC7T6B6DCZI.3F29YF2M1ZCAF@bootlin.com>
+Subject: Re: [PATCH v2 00/78] drm/bridge: Convert all reset users to
+ create_state
+Cc: "Dmitry Baryshkov" <lumag@kernel.org>,
+ <dri-devel@lists.freedesktop.org>, "Laurent Pinchart"
+ <laurent.pinchart+renesas@ideasonboard.com>, "Jagan Teki"
+ <jagan@amarulasolutions.com>, "Liu Ying" <victor.liu@nxp.com>, "Frank Li"
+ <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
+ <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>, "Andy Yan"
+ <andy.yan@rock-chips.com>, "Phong LE" <ple@baylibre.com>, "Douglas
+ Anderson" <dianders@chromium.org>, "Inki Dae" <inki.dae@samsung.com>,
+ "Marek Szyprowski" <m.szyprowski@samsung.com>, "Philipp Zabel"
+ <p.zabel@pengutronix.de>, "Paul Cercueil" <paul@crapouillou.net>,
+ <linux-mips@vger.kernel.org>, "Chun-Kuang Hu" <chunkuang.hu@kernel.org>,
+ "Matthias Brugger" <matthias.bgg@gmail.com>, "AngeloGioacchino Del Regno"
+ <angelogioacchino.delregno@collabora.com>,
+ <linux-mediatek@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ "Kevin Hilman" <khilman@baylibre.com>, "Jerome Brunet"
+ <jbrunet@baylibre.com>, "Martin Blumenstingl"
+ <martin.blumenstingl@googlemail.com>, <linux-amlogic@lists.infradead.org>,
+ "Tomi Valkeinen" <tomi.valkeinen+renesas@ideasonboard.com>, "Geert
+ Uytterhoeven" <geert+renesas@glider.be>, "Magnus Damm"
+ <magnus.damm@gmail.com>, "Kieran Bingham"
+ <kieran.bingham+renesas@ideasonboard.com>,
+ <linux-renesas-soc@vger.kernel.org>, "Biju Das"
+ <biju.das.jz@bp.renesas.com>, "Heiko Stuebner" <heiko@sntech.de>, "Sandy
+ Huang" <hjc@rock-chips.com>, <linux-rockchip@lists.infradead.org>, "Yannick
+ Fertre" <yannick.fertre@foss.st.com>, "Raphael Gallais-Pou"
+ <raphael.gallais-pou@foss.st.com>, "Philippe Cornu"
+ <philippe.cornu@foss.st.com>, "Maxime Coquelin"
+ <mcoquelin.stm32@gmail.com>, "Alexandre Torgue"
+ <alexandre.torgue@foss.st.com>, <linux-stm32@st-md-mailman.stormreply.com>,
+ "Jyri Sarha" <jyri.sarha@iki.fi>, "Tomi Valkeinen"
+ <tomi.valkeinen@ideasonboard.com>, "Dave Stevenson"
+ <dave.stevenson@raspberrypi.com>, =?utf-8?q?Ma=C3=ADra_Canal?=
+ <mcanal@igalia.com>, "Raspberry Pi Kernel Maintenance"
+ <kernel-list@raspberrypi.com>, "Icenowy Zheng" <zhengxingda@iscas.ac.cn>,
+ "Michal Simek" <michal.simek@amd.com>
+To: "Maxime Ripard" <mripard@kernel.org>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Thomas Zimmermann"
+ <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.21.0
+References: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
+ <20260618-terrestrial-abiding-tamarin-01befc@houat>
+In-Reply-To: <20260618-terrestrial-abiding-tamarin-01befc@houat>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,47 +106,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ping for a review
+Hi Maxime,
 
-Am 23.04.26 um 15:58 schrieb Thomas Zimmermann:
-> A client buffer holds the DRM framebuffer for an in-kernel DRM
-> client. Until now, omapdrm created an internal ad-hoc framebuffer for
-> its fbdev emulation, while by-passing the regular interfaces used by
-> user-space compositors.
+On Thu Jun 18, 2026 at 1:20 PM CEST, Maxime Ripard wrote:
+> Hi,
 >
-> Convert omapdrm's fbdev emulation to use client buffers. Replacing the
-> existing code with a client buffer allows for stream-lining omapdrm code
-> and later also the fbdev helpers. The new framebuffer will be registered
-> against the client's file and will support handles for GEM objects. It
-> is then just another framebuffer within the DRM ecosystem.
+> On Mon, Jun 08, 2026 at 04:35:42PM +0200, Maxime Ripard wrote:
+>> Hi,
+>>
+>> All the bridges use reset to create a blank state only and don't use it
+>> to reset the hardware at all. This is what the new atomic_create_state
+>> is exactly supposed to be doing, so we can convert all existing bridge
+>> users to it, and remove the reset hook and helpers.
+>>
+>> Let me know what you think,
+>> Maxime
+>>
+>> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 >
-> If all driver's fbdev-emulation helpers can be converted to use client
-> buffers, the emulation's framebuffer handling as a whole can possibly be
-> moved into shared helpers.
+> FTR, Thomas on IRC yesterday[1] added
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 >
-> Patches 1 and 2 convert omapdrm's fbdev emulation to client buffers. It
-> still allocates a GEM object buffer tailored towards fbdev emulation,
-> but size calculations now use common DRM helpers.
->
-> Patch 3 cleans up symbol visibility in omapdrm's fb code.
->
-> Thomas Zimmermann (3):
->    drm/omapdrm: fbdev: Calculate buffer geometry with format helpers
->    drm/omapdrm: fbdev: Use a DRM client buffer
->    drm/omapdrm: Make omap_framebuffer_init() an internal interface
->
->   drivers/gpu/drm/omapdrm/omap_fb.c    | 68 +++++++++----------
->   drivers/gpu/drm/omapdrm/omap_fb.h    |  3 -
->   drivers/gpu/drm/omapdrm/omap_fbdev.c | 98 +++++++++++++++-------------
->   3 files changed, 88 insertions(+), 81 deletions(-)
->
+> Unless another review shows up, I intend to merge this tomorrow
 
--- 
+Did you have a look at my questions for patches 7 and 8?
+
+I was planning to review the following patches but that would be based on
+what I asked there.
+
+Luca
+
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
