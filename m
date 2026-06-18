@@ -4,83 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C54A3CD98ED
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 17:56:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CB3BCD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 18:23:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A104010F3B5;
-	Thu, 18 Jun 2026 17:56:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2870110EE3D;
+	Thu, 18 Jun 2026 18:23:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="kJ1iCQTS";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="qPcunTjt";
+	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="YJicPo6D";
 	dkim-atps=neutral
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [85.215.255.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC5D710F39A
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 17:56:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781805371; cv=none;
- d=strato.com; s=strato-dkim-0002;
- b=biIWkRYcrCn1wzCiW5vgV3hnFpUomIyR6Vch0iCp8TJA0LTrJqXES6LawadArqtntX
- 5I3Ak+DzwZzooNg//zVgzkP2UbHzPbI/QCC0XJW70Z5d92eeCGI/frJXimZKVFiYk71O
- w5qGlE9Trv0gEGNn014ovQldFLRGeGV937t9fjGnQJIMhPS/XUeht0RT9C2dUfiKvrx+
- PW4KiopE4G8opIZippFiCI49c3hESLDwD9JUQih9T1KQOsBZjY6ivNePNh2EVOuJDZNf
- fTBico1ZrMRntPcuxqsl1OUOsruhp018Yoff8aMwfTlRVoSs8tfwQGrTspgsOvowvtks
- 8HaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1781805371;
- s=strato-dkim-0002; d=strato.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=zsVPEWZ+mX351yEn9Wdd5+9zEGjn0ObEo6N4OFCKFe4=;
- b=cApQwGWcLQy2VNingyuSiac0uR/JzKo/aFX7emoy186bidMa9jxzdU3zrSJ8wPeUhF
- FveIWir1bIRb+PGAaYJt8GZliRlAZbapkMSgY/BmoXpm96UymdT6vVbSA9bZyl5YYWbp
- Pv/Q4gIOziQN2kJdn+Rlm8wSj8AblvJahXSIajkp8q8+ArJL4BqeC6CanhgHP6P4n66r
- S6NOJmr8YMYoEjPaXqpQRTD0/pB2TDNgUyyaLOIKYwF/deEeo77eLYXkCZUXzLJ2a/Ie
- ETIH6Z9fnmUQh5hKgL7MvCNB4m3uSgUdhrjputG+0kkv+FqstGUN2CNKitiSuKprlpdM
- 3ARg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1781805371;
- s=strato-dkim-0002; d=goldelico.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=zsVPEWZ+mX351yEn9Wdd5+9zEGjn0ObEo6N4OFCKFe4=;
- b=kJ1iCQTS/qe6kuYIvSD8esu+D4kTx7Ioy4Qo4yn7MiLJpf1CloZXtDVJVALW0r8i/z
- Sr2M2jBFrmX7sWsJ6ARkL2WFmEsk7f3fsOc+RROLpxl4K7b9ipU4pCH6H6kCLRxcY5qa
- 13Dj8cd6YnW+2g8As95iEDRma2Xr5odFYNLgStfvy3hHKY63ghB58ythfipd4NaidP2z
- 0tRcmaMzMA9CU1JUSWT+Q+DdpqBS2bf8MvryNbSABTQH5uXc1sSE7tIP1K9cSOfRGVP5
- VWYLC1l9ZhQbMMDoG0++kTV7WmOjCzLHOIHUyyqVDk3mxD/MnHdTMkvxZwrURKRLjfnA
- /IeQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1781805371;
- s=strato-dkim-0003; d=goldelico.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=zsVPEWZ+mX351yEn9Wdd5+9zEGjn0ObEo6N4OFCKFe4=;
- b=qPcunTjtGsq5YMj4R2rLk6U5TdNUR6khGjwBnfooOOAE0vwIsPHeQP8t5HNVxXzSC5
- qAnxnJn89YccuatXctCw==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrT0ZoOnciNQh0E54wP3opQ+1mzcazh2bvtQoZf"
-Received: from smtpclient.apple by smtp.strato.de (RZmta 55.0.1 AUTH)
- with ESMTPSA id Qcf97c25IHuBfsN
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1
- with 256 ECDH bits, eq. 3072 bits RSA))
- (Client did not present a certificate);
- Thu, 18 Jun 2026 19:56:11 +0200 (CEST)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.6\))
-Subject: Re: [PATCH] drm/fb_helper: Determine proper crtc_index within
- drm_fb_helper_fb_dirty
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20260618174310.70DB11F000E9@smtp.kernel.org>
-Date: Thu, 18 Jun 2026 19:56:00 +0200
-Cc: dri-devel@lists.freedesktop.org,
- Andreas Kemnade <akemnade@kernel.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <50FDBC3B-BFC2-4BC6-B216-78C2C24D9E30@goldelico.com>
-References: <5118b37e579cec220f2d2b6ab0bb1ecfb67f0d5c.1781803617.git.hns@goldelico.com>
- <20260618174310.70DB11F000E9@smtp.kernel.org>
-To: sashiko-reviews@lists.linux.dev
-X-Mailer: Apple Mail (2.3826.700.81.1.6)
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazon11013020.outbound.protection.outlook.com
+ [52.101.83.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E21DE10EE3D
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 18:23:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QskHNonEFXlratLeFJfCmUY4+b5CEBem8G2GX1etB+ihKLLndmuI4O9O/lkuT8K+DDFty+6jMZLDIDPw09oMIjzcOmVuz+NLqgJsHmKKTwP4MKizzuFog51PdXVdh86y8SiJOVq45oBGb2msbGBV2pRzUeG9YuFZ85Dqwvc6jDgd2As/2wRsoln0CJ7EpxwoYqqyUQF2zRSKwSTrBRzE/P9wvb/1HoWUb3FvoUGtIeKdUgTYUW76PU9pFurWQtsa7azgRm2/HjopJ2UtB5HynYFpLQKm9iP7LgxsttH6CAJD+bmmPtOqiRhWW3IVz33lDzdHPSaXdQuC8NL3OHJqkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/88No2FjNFpgxCqtq4omypGqcboDvMtcKQeWpl5iRzA=;
+ b=H0llqMWWMXRRdzxppu/2xcDEoYWYAOV6OH/rN9X3oRn8FVKt1u2VeL4wHFXNFOQTcXHyu8NT3IhJnqjffl9bbZFx1pkAj39sbFUUbzlspN89x8QXFXPScjqQZCKCcoomv1r2sTfn5KOXIgQpX83b+7JIXly6Vrn0w0Ivc7CbRi6TlAaFnD2qwhBx/HK5PdICHNJQ0GwNUaAey32ZCYBwO5pAlLo/qyCYItPyOQnDJan4oNVQxNtBXEV7FMjaQG+7LaSlH3vcDEz86jOd/NEFOaQN6OJCorTZtK9/e9fyJMrqTPR/EfkrQMRPribF9+skQGvhI0u9aRPQQEUZbNBzLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/88No2FjNFpgxCqtq4omypGqcboDvMtcKQeWpl5iRzA=;
+ b=YJicPo6DgjqCBbiSrscI5D/KOVjj619OF3xUPsg8BpvakYJ3qHimKRxdhekg3XoDQ8Z0rSk1/5Kg90jwbLOnJ1tytb6dYlUIIFa0UgeXeaQDaSQKWOuQd47Wu7dInNBFzMyPsswji3zDQ7Jv4vE34ZQYp0wEPNJkQJYfUEoaEg3nJDmvcKh+IvabT2b/fu4rww+D4ZG8zS9wprnkvdHkS9ZhaXiepfhUNoq+4M1fShgIQtZ9WzsNh2B6pB+FBTDA5f3F5+8nC9G7NfjJCfeiYTU2nUw7RLymiYrZGeWkq/RPcZJnE5rquHXc1IJSK+2ryLvuFCO1ufsJl3SWx+9/Ng==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM9PR04MB8455.eurprd04.prod.outlook.com (2603:10a6:20b:414::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.13; Thu, 18 Jun
+ 2026 18:23:34 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0113.015; Thu, 18 Jun 2026
+ 18:23:34 +0000
+Date: Thu, 18 Jun 2026 13:23:22 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+ Mark Brown <broonie@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+ Lee Jones <lee@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, dmaengine@vger.kernel.org
+Subject: Re: [PATCH 08/11] dmaengine: ste_dma40: Use power domain for LCLA SRAM
+Message-ID: <ajQ3mphsfF9esl-M@SMW015318>
+References: <20260618-ux500-power-domains-v7-1-v1-0-eb5e50b1a588@kernel.org>
+ <20260618-ux500-power-domains-v7-1-v1-8-eb5e50b1a588@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260618-ux500-power-domains-v7-1-v1-8-eb5e50b1a588@kernel.org>
+X-ClientProxiedBy: PH8PR20CA0007.namprd20.prod.outlook.com
+ (2603:10b6:510:23c::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB8455:EE_
+X-MS-Office365-Filtering-Correlation-Id: b20f6436-988d-42a8-8672-08decd66b4d2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|19092799006|7416014|376014|23010399003|1800799024|366016|56012099006|11063799006|4143699003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: Jai7y5r0IF+m2bp8H9UUcRb6r+O4genN90E7L+ny5TcjX6o9nCz/D0Qzh9c+eLrz5risk+TBQfKqKJkNLrEVLQ61VSwcj1vhdC6AMsdTl2aTIqKHb0o3FxdyKCa7471KRhmE2PlIRpQxNCVXNqV528ni/IFqx3hn+AIL8vhRP9SI6/+cdy92uts4UpvkfQOtkzLrhYzC7OCqt5aCeOzQrN1TvzbINo0gcrzjS1Dvh5xQm+TcX27pVfJevMRZrJ7745zw0Ijog17HbH++M19Nj3uEQfmBSeWLO9zrhH+AlyK/JZi1WEapQChrBQctsOyWcZHeBpX3jqfOvtpqDTN5JzavmzCPh8douyh+iryoUWYd/YsYwnNQ1xmQjaRc/C/Ou2u+VjjP7tCBc9EMnqh7VH0zyf+AYyIK7nqaOiDIHe3Sk2BVaQV5gLG6gtU6Y1ztyc7TlA4/KXdp1EDbsKNYc4Ck+P8HiBlPEiuqiSAUWfrI7Af4yuwoY4oTJOaamc31feJ2gvkMO5bJXRr+gj+FFE4gARoz0usmItnPsOV2I1Lli2Yt4TtxXMdddiutb7e5Y464racPAHMvFG4akn49F8DDPv39Pt+yZavDkP/zm+ZZKNe6G9FAAByUOygUM2gq265mn9xS/r4sZl4d+74/8bm09gQ6Fs292j5h9tbqjab8LvY0ycjyVSGAH7dP02oCNEBPnDUC4H2T2yyGLSuuOQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(19092799006)(7416014)(376014)(23010399003)(1800799024)(366016)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?wJTENkmUErz6BsVl/ssDYrRdFG36y00uuctsvX9yGdeQadWC3HWDIFB4kOcz?=
+ =?us-ascii?Q?bLUwm9r1yp3TzNAzkpDuvrhKqVGm8+/EDsBAkdPC5pBfCtTDZhr6hRMK66v8?=
+ =?us-ascii?Q?nmV+MiBOZ0VaeWfB9SCDybvwLz6uDEzYB0XPfjBHe/RR4oivRebfb//kUfKl?=
+ =?us-ascii?Q?vXBaGObD8lIVXMIZiNVUf8jOO1TLCbqv03+j8pGp6UJSQ2nqUqflulxgrIjd?=
+ =?us-ascii?Q?zhEi53PyqSPu6fWdAVLIbbVGM1Ph5To4A5fFP0iHlKb/jUWpNObHEblZJlvX?=
+ =?us-ascii?Q?bOMWOvs1esaVlgKwX07wI0z4LqrJRAicsyuLHJszeNSyG5r3p5pHsd67fRvS?=
+ =?us-ascii?Q?Ncn8r4Dnj2mZo/+6ffM869cHH20jt9uEs8e49SM5ZMIgSXn6n/YV5PUGzQmg?=
+ =?us-ascii?Q?rjbtmxIbB5WkKZH/uQf3g0K3ZSskGaQrW4eBOaBkZmaDxRAJfLcDkdnKhdHa?=
+ =?us-ascii?Q?uBR1EuCXArOxEyUAcutb3KcHVIKefmqkF7Umy1ZodcwqZSXaaELPfCylZ+Ba?=
+ =?us-ascii?Q?DfRl/IhYr3yiIlPsXH2u1TEXMtAsN/CcHNsEuRUawyVIzIoNAbiVv0wiU666?=
+ =?us-ascii?Q?5D9KlUqnglSRDPUhieOhgIaIIo+JaPiRprQ8FPhNNIhGK5a4s6RXPIin3w8V?=
+ =?us-ascii?Q?aQ9kOsJI977nEI5gGkxtINKaphnq/GTAZ1bOF3/hEIaQmKeZpD1QobNMxzex?=
+ =?us-ascii?Q?TNGG+E+6v0buP49UhRAEt16MgEqpeV3ZlM3OUWJ5hY+ObOiIukXBJqD7R5B3?=
+ =?us-ascii?Q?aPHBqFi+pK4F2tb+hzBGOlY2lENf3wpeUOqdyfPwWTCLa3ZzWDF2nQTRa1Bd?=
+ =?us-ascii?Q?2KXx32LFswkSnxcN7k1W+PUpi14zo3nFj7X3FxERZgUVowr4nlEpMSVcKql/?=
+ =?us-ascii?Q?yBjgOQ0JbHx3Ba/jn0nlrTcwVqpEkG0dbEakTF60Nn3KKbPBJ8E6/vFL/xn/?=
+ =?us-ascii?Q?ccgc+7Iei5/mHQtIfaDq86pH4s/ZbmUIGfgyN38RuP7bI42nkFUB6a6Ju2Hl?=
+ =?us-ascii?Q?VM6g2FPvo1JU2UD+7Gh59BwWysZvDWVPKqAKGZQ6CopcW7yjG6hCIq+BlAw6?=
+ =?us-ascii?Q?6T7lPRLJZgVwkUAFrGXRABj8DnGmoT7P/i5pkGKK3dPaOX/pNP4z5V5NAz0S?=
+ =?us-ascii?Q?01wZMaxsgNDVPNLPtAn2DEXwqTyT7f9FOFa6mkFmOY7rlQqrjBwN0WpfCb7k?=
+ =?us-ascii?Q?B1j0QQdwLg8EDp5zvFzYvKS6DAVQn2NCQKBZI0upMOTW2iAe4ZT3euHvpVyu?=
+ =?us-ascii?Q?wZd3HZII/AuTa1x2XlWBZAk1vbNpNbmkSjiB3nnynq15EusyA49uC6W+5koA?=
+ =?us-ascii?Q?KyYCnGhqLBLlf7LFjaE9G6o+kkaDZR4UWJFE/wkpO5v8pQAgUkbbde1gFEKl?=
+ =?us-ascii?Q?NvJjL9nI0owGaZ+IxJWXgPI57rKJs1ukFYzYYFmGdeX/3IMG+FYqsY5kSGx+?=
+ =?us-ascii?Q?oYbQyYEtIMChAZ7z4oYwtuZy5papbmi/8ri+skVeCqOyvncwWjaI8dma7pGD?=
+ =?us-ascii?Q?akNaBuhp1Xjpl0zt/20gc1A55Cs+cOV6DlNj2nltl9G6xsnnsoY0G8i5u17x?=
+ =?us-ascii?Q?5Q1QVcwRkFq1abRDLAV00C1muXSsgEYc6geUH20pZIu9g0tse1G9UrEll1Zk?=
+ =?us-ascii?Q?yLGY4qaGj/EQo2HcpJiaSwTySqjR8oKU0L9KyPb0PDhlfQlsXace38JPYIuC?=
+ =?us-ascii?Q?MTMFwd4vFugB02X/uYBtZ9+Tej3b7KupPjz5fKhpdFekbDxvcbCAMg5dEKpi?=
+ =?us-ascii?Q?4oyepC+OJLFH5VDcDmU4mURgHH9ajdFFg733CTtUXKTheBHPdtL/?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b20f6436-988d-42a8-8672-08decd66b4d2
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 18:23:34.0275 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Bo9KiCMpP4TCoPVpCm36aOFuSumeOKBDKAGEzG8unei4bRymbcO824S3SO2/L8T1cTIXDJrXo68x5QzjOId79hAdzCl6kjEKsXA0nu2RKPEEbGIGuwkjkOXpMoaHSEns
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8455
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,124 +136,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, Jun 18, 2026 at 07:00:54AM +0200, Linus Walleij wrote:
+> Replace the LCLA ESRAM regulator with runtime PM.
+>
+> Use the SRAM device that owns the ESRAM34 power domain.
+>
+> Hold that domain while DMA transfers are active.
+>
+> Assisted-by: Codex:gpt-5-5
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+>  drivers/dma/ste_dma40.c | 97 ++++++++++++++++++++++++++++---------------------
+>  1 file changed, 55 insertions(+), 42 deletions(-)
+>
+> diff --git a/drivers/dma/ste_dma40.c b/drivers/dma/ste_dma40.c
+> index 9b803c0aec25..6ca67ec446dc 100644
+> --- a/drivers/dma/ste_dma40.c
+> +++ b/drivers/dma/ste_dma40.c
+> @@ -21,8 +21,8 @@
+>  #include <linux/of.h>
+>  #include <linux/of_address.h>
+>  #include <linux/of_dma.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/amba/bus.h>
+> -#include <linux/regulator/consumer.h>
+>
+>  #include "dmaengine.h"
+>  #include "ste_dma40.h"
+> @@ -571,7 +571,8 @@ struct d40_gen_dmac {
+>   * to phy_chans entries.
+>   * @plat_data: Pointer to provided platform_data which is the driver
+>   * configuration.
+> - * @lcpa_regulator: Pointer to hold the regulator for the esram bank for lcla.
+> + * @lcla_dev: SRAM device for the ESRAM bank used by LCLA.
+> + * @lcla_pm_enabled: Whether runtime PM was enabled for LCLA by this driver.
+>   * @phy_res: Vector containing all physical channels.
+>   * @lcla_pool: lcla pool settings and data.
+>   * @lcpa_base: The virtual mapped address of LCPA.
+> @@ -607,7 +608,8 @@ struct d40_base {
+>  	struct d40_chan			**lookup_log_chans;
+>  	struct d40_chan			**lookup_phy_chans;
+>  	struct stedma40_platform_data	 *plat_data;
+> -	struct regulator		 *lcpa_regulator;
+> +	struct device			 *lcla_dev;
+> +	bool				  lcla_pm_enabled;
+>  	/* Physical half channels */
+>  	struct d40_phy_res		 *phy_res;
+>  	struct d40_lcla_pool		  lcla_pool;
+> @@ -628,6 +630,22 @@ static struct device *chan2dev(struct d40_chan *d40c)
+>  	return &d40c->chan.dev->device;
+>  }
+>
+> +static void d40_transfer_runtime_get(struct d40_base *base)
+> +{
+> +	if (base->lcla_dev)
+> +		pm_runtime_get_sync(base->lcla_dev);
+> +
+> +	pm_runtime_get_sync(base->dev);
 
+Suggest create device link between base->dev and base->lcla_dev, so run
+time pm framework will auto do it for you
 
-> Am 18.06.2026 um 19:43 schrieb sashiko-bot@kernel.org:
->=20
-> Thank you for your contribution! Sashiko AI review found 3 potential =
-issue(s) to consider:
-> - [High] Lockless access to `crtc->state` and `crtc->primary->state` =
-can lead to a Use-After-Free due to concurrent atomic commits.
-> - [High] The patch breaks vblank synchronization for legacy =
-(non-atomic) DRM drivers.
-> - [Medium] The logic selects the first matching CRTC instead of the =
-last active one, contradicting the commit message.
-> --
->=20
-> commit 0337b26b606b4d905d72ea2be31bcb984fe62c6e
-> Author: H. Nikolaus Schaller <hns@goldelico.com>
->=20
-> drm/fb_helper: Determine proper crtc_index within =
-drm_fb_helper_fb_dirty
->=20
-> This commit updates the dirty framebuffer worker to search for a =
-matching
-> active CRTC instead of hardcoding the wait for vblank to CRTC index 0. =
-It
-> aims to avoid vblank timeouts when CRTC 0 is inactive.
->=20
->> diff --git a/drivers/gpu/drm/drm_fb_helper.c =
-b/drivers/gpu/drm/drm_fb_helper.c
->> --- a/drivers/gpu/drm/drm_fb_helper.c
->> +++ b/drivers/gpu/drm/drm_fb_helper.c
-> [ ... ]
->> @@ -232,9 +232,23 @@ static void drm_fb_helper_fb_dirty(struct =
-drm_fb_helper *helper)
->> struct drm_clip_rect clip_copy;
->> unsigned long flags;
->> int ret;
->> + unsigned int crtc_index =3D 0;
->> + struct drm_crtc *crtc;
->>=20
->> mutex_lock(&helper->lock);
->> - drm_client_modeset_wait_for_vblank(&helper->client, 0);
->> +
->> + drm_for_each_crtc(crtc, dev) {
->> + if (crtc->primary && crtc->primary->state &&
->> +    crtc->primary->state->fb =3D=3D helper->fb &&
->> +    crtc->state && crtc->state->active) {
->=20
-> [Severity: High]
-> Can this lockless access to crtc->state and crtc->primary->state =
-result in a
-> use-after-free?
+Ref: https://lore.kernel.org/imx/20260513-b4-b4-edma-runtime-opt-v5-4-1e595bfb8423@nxp.com/
 
-No idea...
-
->=20
-> The drm_fb_helper_fb_dirty() function holds helper->lock, but does not =
-hold
-> the DRM modeset locks required to protect these state pointers. During =
-a
-
-Which locks are exactly recommended to add? What is their name/pointer?
-
-> concurrent atomic modeset commit, the DRM core allocates new state =
-objects,
-> swaps them into place, and frees the old objects via kfree().
->=20
-> If this code reads an old state pointer and gets preempted, could it =
-then
-> dereference the pointer after it has been freed by the concurrent =
-commit?
->=20
-> [Severity: High]
-> Does this break vblank synchronization for legacy non-atomic DRM =
-drivers?
-
->=20
-> Legacy drivers do not use the atomic modesetting infrastructure, so =
-their
-> crtc->state and crtc->primary->state pointers remain NULL. Since the =
-condition
-> above requires these pointers to be non-NULL, the loop will skip the =
-vblank
-> wait entirely for legacy drivers. This skips the intended =
-rate-limiting
-> behavior and could lead to unbounded damage worker execution.
-
-What is the solution? And is this important.
-
-Before d8c4bddcd8bcb ("drm/fb-helper: Synchronize dirty worker with =
-vblank")
-
-there was also no rate-limiting behavior.
-
->=20
->> + crtc_index =3D drm_crtc_index(crtc) + 1;
->> + break;
->=20
-> [Severity: Medium]
-> The commit message states "If multiple CRTCs match, the last active =
-one is
-> selected." Does the break statement here cause the first active CRTC =
-to be
-> selected instead, bypassing the remaining matches in the list?
-
-Yes, that is correct. The description is indeed wrong.
-
->=20
->> + }
->> + }
->> +
->> + if (crtc_index > 0)
->> + drm_client_modeset_wait_for_vblank(&helper->client, crtc_index - =
-1);
->> +
->> mutex_unlock(&helper->lock);
->=20
-> --=20
-> Sashiko AI review =C2=B7 =
-https://sashiko.dev/#/patchset/5118b37e579cec220f2d2b6ab0bb1ecfb67f0d5c.17=
-81803617.git.hns@goldelico.com?part=3D1
-
+Frank
