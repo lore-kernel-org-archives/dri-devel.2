@@ -4,61 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B804CD98FC
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 15:56:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1C78CD98F2
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 15:57:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 712EE10EE01;
-	Thu, 18 Jun 2026 15:56:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD7DD10EE2A;
+	Thu, 18 Jun 2026 15:57:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="NOo/dWtt";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="XGxQ4Kt2";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5D7810F36C
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 15:56:55 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gh52C6y17z9tbP;
- Thu, 18 Jun 2026 17:56:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1781798212; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=6aizdFkIqLFEJ4z7XPhhns4usTTHn5FWq31bHu1viOM=;
- b=NOo/dWtt7vvHOgFy2KDZDg+KZ/YRuYr4OBJFSmKs5x/NtwBc8fnJr1D60Y702bXkZEcczn
- A4TPmv8CB7elRd4ODprKDHZ+TwTapAsRL0Z7uMp3QFbiWcop3sqG0c2E+PflhEpVM6fcjM
- UdRMFJpy7omv6ah/MX1UUmQvWGukoxMem7Z2hx20EnliUbVgWNUG6GkDtQMwF4lBbzk5NC
- 6SBbJf9GkNzW3byGBrHByzXkMwVvMtLPgvFMxKnQr3ZbM7ecQVDQrUunGoGCoohHlMm/IO
- XpRA+HNRvfXvpzdjMnVUfNTTR9rwc/Ug7Pk7P2kzQ33KgirwZSXCRPcscPc0IA==
-Message-ID: <1cfd56b7f1a166e25d6588d66a621524f3d983de.camel@mailbox.org>
-Subject: Re: [PATCH] drm/drm_crtc: fix race with dma_fence_signal() in
- ::get_driver_name()
-From: Philipp Stanner <phasta@mailbox.org>
-To: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Sumit Semwal
- <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, Philipp Stanner
- <phasta@kernel.org>, Danilo Krummrich	 <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, Peter Griffin
- <peter.griffin@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Juan
- Yescas <jyescas@google.com>, kernel-team@android.com
-Date: Thu, 18 Jun 2026 17:56:44 +0200
-In-Reply-To: <20260618-linux-drm_crtc_fix2-v1-1-c03e77b36f34@linaro.org>
-References: <20260618-linux-drm_crtc_fix2-v1-1-c03e77b36f34@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66A4810EE2A
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 15:57:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1781798241; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=D8TC5fxlrQH1UmbzTs1z8ZoXhGxgDkEbmjF002X4/pgpC/FHUzOeC3ejxvwpY0KhsDTRrIPrue/6yQUA5/a8cifr7uIUppCVfKqqcMHqvgYgRAHAl94p3w3eWTQ3i7tgqJPkKqdjQJ84RYbbRKvUnl1vjJjo2b+sczGE9ZfFBfk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1781798241;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=r3+n8ej6Sz58YoVVYlXnI0Hulp3Bo/WB+dn5ZJeHFjo=; 
+ b=Io3biqGD60qIc+ipLBSynf6ctansGCSwUUz52sSdddIIbYxW9T+Frn1R9Ijhck2xn2zErCxtz/00W06/r4Kyo68GBliEZ522XnWTL1R9z7Q3PaFQKC9e0+MkUEL2R/mqv7Mdz5dehiV+BLuUKCx3Ezj5KCSz9mCFtNt4YRi+G8k=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781798241; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=r3+n8ej6Sz58YoVVYlXnI0Hulp3Bo/WB+dn5ZJeHFjo=;
+ b=XGxQ4Kt2JjFTbMtfg/Up6lBReoWANQkzwN+mIDHSjEW8fQO29291ncr0QD24Mh/k
+ cP8+zPoBz/3HwbcE20k9NOJy5Y+vPyD9jq04tJ0vQqTI+iaXo3hCUMvayTmxSZqedy8
+ b6CaOGkhbT60stN3+yCOn/4QQMxudqTcRoySLjUI=
+Received: by mx.zohomail.com with SMTPS id 1781798240234605.3926258420676;
+ Thu, 18 Jun 2026 08:57:20 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com
+Subject: Re: [PATCH 1/2] drm/display: hdmi: Only allow BPC values of 8, 10,
+ 12 and 16
+Date: Thu, 18 Jun 2026 17:57:15 +0200
+Message-ID: <4EJZUiv5QMWxvIU3-IRSPw@collabora.com>
+In-Reply-To: <20260618-lemon-carp-of-acceptance-0ee7de@houat>
+References: <20260608-hdmi-max-bpc-fix-v1-0-6e8dcebc7274@collabora.com>
+ <20260608-hdmi-max-bpc-fix-v1-1-6e8dcebc7274@collabora.com>
+ <20260618-lemon-carp-of-acceptance-0ee7de@houat>
 MIME-Version: 1.0
-X-MBO-RS-ID: 58eddd6e67adae314d3
-X-MBO-RS-META: seh515wnyz1d1petqa69u45wbazq4k6h
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,100 +67,60 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-K0NjIERhbmlsbwoKT24gVGh1LCAyMDI2LTA2LTE4IGF0IDE1OjAzICswMTAwLCBBbmRyw6kgRHJh
-c3ppayB3cm90ZToKPiBTaW5jZSBjb21taXQgNTQxYzhmMjQ2OGI5ICgiZG1hLWJ1ZjogZGV0YWNo
-IGZlbmNlIG9wcyBvbiBzaWduYWwgdjMiKSwKPiBJJ20gc2VlaW5nIHRoZSBCVUdfT04oKSB0cmln
-Z2VyaW5nIGluIGRybV9jcnRjJ3MgZmVuY2VfdG9fY3J0YygpIHZpYQo+IGRybV9jcnRjX2ZlbmNl
-X2dldF9kcml2ZXJfbmFtZSgpIHJlZ3VsYXJseToKPiAKPiDCoMKgwqAgQ2FsbCB0cmFjZToKPiDC
-oMKgwqDCoCBwYW5pYysweDU4LzB4NWMKPiDCoMKgwqDCoCBkaWUrMHgxNjAvMHgxNzgKPiDCoMKg
-wqDCoCBidWdfYnJrX2hhbmRsZXIrMHg3MC8weGE0Cj4gwqDCoMKgwqAgY2FsbF9lbDFfYnJlYWtf
-aG9vaysweDNjLzB4MWEwCj4gwqDCoMKgwqAgZG9fZWwxX2JyazY0KzB4MjQvMHg3NAo+IMKgwqDC
-oMKgIGVsMV9icms2NCsweDM0LzB4NTQKPiDCoMKgwqDCoCBlbDFoXzY0X3N5bmNfaGFuZGxlcisw
-eDgwLzB4ZmMKPiDCoMKgwqDCoCBlbDFoXzY0X3N5bmMrMHg4NC8weDg4Cj4gwqDCoMKgwqAgZHJt
-X2NydGNfZmVuY2VfZ2V0X2RyaXZlcl9uYW1lKzB4NjAvMHg2OCAoUCkKPiDCoMKgwqDCoCBzeW5j
-X2ZpbGVfZ2V0X25hbWUrMHgxODQvMHg0NWMKPiDCoMKgwqDCoCBzeW5jX2ZpbGVfaW9jdGwrMHg0
-MDQvMHhmNzAKPiDCoMKgwqDCoCBfX2FybTY0X3N5c19pb2N0bCsweDEyNC8weDFkYwo+IAo+IFRo
-aXMgbG9va3MgdG8gYmUgY2F1c2VkIGJ5IGEgY29kZSBmbG93IHNpbWlsYXIgdG8gdGhlIGZvbGxv
-d2luZzoKPiAKPiArKysgc25pcCArKysKPiB0aHJlYWQgQcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHRocmVhZCBCCj4gCj4gwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIGlvY3RsKFNZTkNfSU9DX0ZJTEVfSU5GTykKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3luY19m
-aWxlX2lvY3RsKCkKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3luY19maWxlX2dldF9uYW1lKCkKPiBkbWFf
-ZmVuY2Vfc2lnbmFsX3RpbWVzdGFtcF9sb2NrZWQoKcKgIGRtYV9mZW5jZV9kcml2ZXJfbmFtZSgp
-Cj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBvcHMgPSByY3VfZGVyZWZlcmVuY2UoZmVuY2UtPm9wcykK
-PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmICghZG1hX2ZlbmNlX3Rlc3Rfc2lnbmFsZWRfZmxhZygp
-KQo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG9wcy0+Z2V0X2RyaXZlcl9uYW1lKGZlbmNlKSBp
-LmUuCj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZHJtX2NydGNfZmVuY2VfZ2V0X2RyaXZlcl9u
-YW1lKCkKPiB0ZXN0X2FuZF9zZXRfYml0KFNJR05BTEVEKQo+IFJDVV9JTklUX1BPSU5URVIoZmVu
-Y2UtPm9wcywgTlVMTCkKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZHJtX2NydGNfZmVuY2VfZ2V0X2RyaXZl
-cl9uYW1lKCkKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEJVR19PTihyY3VfYWNjZXNzX3BvaW50ZXIo
-ZmVuY2UtPm9wcykKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgIT0gJmRybV9j
-cnRjX2ZlbmNlX29wcykKCk5vdyB0aGlzIGxvb2tzIGxpa2UgYSB2ZXJ5IHNpbWlsYXIgcHJvYmxl
-bSB0aGF0IEkgaGF2ZSByZWNlbnRseSBiZWVuCmNvbmNlcm5lZCB3aXRoOgoKaHR0cHM6Ly9sb3Jl
-Lmtlcm5lbC5vcmcvZHJpLWRldmVsLzIwMjYwNjEyMTA0MjUxLjIyNjQ3MDctMi1waGFzdGFAa2Vy
-bmVsLm9yZy8KCmh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2RyaS1kZXZlbC9mYTBkYzk3NTdiZjgz
-NDM1MTZjNGIxNTZhMmI3MGVjOTFiNjRlZjhmLmNhbWVsQG1haWxib3gub3JnLwoKCkkgY29udGlu
-dWUgdG8gYmVsaWV2ZSBiZWNhdXNlIG9mIGJ1Z3MgbGlrZSB0aGlzIGFuZCB0aGUgb25lcyBJIGhh
-dmUKcXVvdGVkIGluIHRoZSB0aHJlYWRzIGFib3ZlIHRoZSByb2J1c3RuZXNzIG9mIHRoZSBrZXJu
-ZWwgY291bGQgYmUKZ3JlYXRseSBpbXByb3ZlZCBpZiB3ZSBjb3VsZCBnZXQgZG1hX2ZlbmNlIGZ1
-bGx5IHN5bmNocm9uaXplZCB3aXRoIGl0cwpsb2NrLgoKClRoYXQgc2FpZDoKCj4gKysrIHNuYXAg
-KysrCj4gCj4gSSBzZWUgdHdvIHdheXMgdG8gcmVzb2x2ZSB0aGlzOgo+IGEpIHNpbXBseSBkcm9w
-IHRoZSBCVUdfT04oKS4gSXQgY2FuIG5vdCB3b3JrIGFueW1vcmUgc2luY2UgYWJvdmUKPiDCoMKg
-IGNvbW1pdCwgYXMgaXQgaXMgcmFjeSBub3cuCj4gYikgcGFzcyB0aGUgb3JpZ2luYWwgJ29wcycg
-cG9pbnRlciBvYnRhaW5lZCBpbiBkbWFfZmVuY2VfZHJpdmVyX25hbWUoKQo+IMKgwqAgdG8gYWxs
-IGNhbGxlZXMuCj4gCj4gVGhpcyBwYXRjaCBpbXBsZW1lbnRzIG9wdGlvbiBhKSwgYXMgYmVjYXVz
-ZToKPiAqIEkgZG9uJ3Qgc2VlIG11Y2ggYmVuZWZpdCBpbiBwYXNzaW5nIHRoZSBleHRyYSBwb2lu
-dGVyIGp1c3QgZm9yIHRoaXMKPiDCoCBCVUdfT04oKSB0byB3b3JrLgo+ICogUmVxdWlyaW5nIHRo
-ZSBkbWFfZmVuY2Vfb3BzIGluIHRob3NlIGNhbGxiYWNrcyBpcyBhbiBpbXBsZW1lbnRhdGlvbgo+
-IMKgIGRldGFpbCBvZiB0aGUgZHJtX2NydGMgZHJpdmVyLCBhbmQgdGhlcmVmb3JlIHVwcGVyIGxh
-eWVycyBzaG91bGRuJ3QKPiDCoCBoYXZlIHRvIGNhcmUgYWJvdXQgdGhhdC4KPiAqIFRoZSBleGlz
-dGVuY2Ugb2YgdGhlIEJVR19PTigpIGRvZXNuJ3QgYXBwZWFyIHRvIGJlIGNvbnNpc3RlbnQgd2l0
-aAo+IMKgIGltcGxlbWVudGF0aW9ucyBvZiA6OmdldF9kcml2ZXJfbmFtZSgpIG9yIDo6Z2V0X3Rp
-bWVsaW5lX25hbWUoKSBpbgo+IMKgIHRoZSBtYWpvcml0eSBvZiBvdGhlciBEUk0gZHJpdmVycyBp
-biB0aGUgZmlyc3QgcGxhY2UuIFRob3NlIHRoYXQgZG8KPiDCoCBoYXZlIGEgc2ltaWxhciBCVUdf
-T04oKSAoaTkxNSwgeGUpIHByb2JhYmx5IGFsc28gbmVlZCBhbiB1cGRhdGUKPiDCoCBzaW1pbGFy
-IHRvIHRoaXMgcGF0Y2ggaGVyZSBidXQgSSdtIG5vdCBpbiBhIHBvc2l0aW9uIHRvIHRlc3QgdGhv
-c2UuCj4gCj4gTm90ZSB0aGF0IHRoZSBhZGphY2VudCBkcm1fY3J0Y19mZW5jZV9nZXRfdGltZWxp
-bmVfbmFtZSgpIGhhcyB0aGUgc2FtZQo+IHByb2JsZW0gYW5kIGlzIGZpeGVkIGJ5IHRoaXMgcGF0
-Y2ggYXMgd2VsbC4KPiAKPiBGaXhlczogNTQxYzhmMjQ2OGI5ICgiZG1hLWJ1ZjogZGV0YWNoIGZl
-bmNlIG9wcyBvbiBzaWduYWwgdjMiKQo+IFNpZ25lZC1vZmYtYnk6IEFuZHLDqSBEcmFzemlrIDxh
-bmRyZS5kcmFzemlrQGxpbmFyby5vcmc+Cj4gLS0tCj4gwqBkcml2ZXJzL2dwdS9kcm0vZHJtX2Ny
-dGMuYyB8IDExICsrKy0tLS0tLS0tCj4gwqAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCsp
-LCA4IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2Ny
-dGMuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fY3J0Yy5jCj4gaW5kZXggNjNlYWQ4YmE2NzU2Li4z
-MWM4NjM2ZTc0NjcgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9jcnRjLmMKPiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2NydGMuYwo+IEBAIC03Myw2ICs3Myw5IEBACj4gwqAg
-KiAmZHJtX21vZGVfY29uZmlnX2Z1bmNzLmF0b21pY19jaGVjay4KPiDCoCAqLwo+IMKgCj4gKyNk
-ZWZpbmUgZmVuY2VfdG9fY3J0YyhmKSBjb250YWluZXJfb2YoKGYpLT5leHRlcm5fbG9jaywgXAo+
-ICsJCQkJwqDCoMKgwqDCoCBzdHJ1Y3QgZHJtX2NydGMsIGZlbmNlX2xvY2spCgpJIGFncmVlIHRo
-YXQgbWFjcm9zIHNob3VsZCBiZSBhdm9pZGVkIGlmIHBvc3NpYmxlLgoKPiArCj4gwqAvKioKPiDC
-oCAqIGRybV9jcnRjX2Zyb21faW5kZXggLSBmaW5kIHRoZSByZWdpc3RlcmVkIENSVEMgYXQgYW4g
-aW5kZXgKPiDCoCAqIEBkZXY6IERSTSBkZXZpY2UKPiBAQCAtMTU0LDE0ICsxNTcsNiBAQCBzdGF0
-aWMgdm9pZCBkcm1fY3J0Y19jcmNfZmluaShzdHJ1Y3QgZHJtX2NydGMgKmNydGMpCj4gwqAjZW5k
-aWYKPiDCoH0KPiDCoAo+IC1zdGF0aWMgY29uc3Qgc3RydWN0IGRtYV9mZW5jZV9vcHMgZHJtX2Ny
-dGNfZmVuY2Vfb3BzOwo+IC0KPiAtc3RhdGljIHN0cnVjdCBkcm1fY3J0YyAqZmVuY2VfdG9fY3J0
-YyhzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSkKPiAtewo+IC0JQlVHX09OKHJjdV9hY2Nlc3NfcG9p
-bnRlcihmZW5jZS0+b3BzKSAhPSAmZHJtX2NydGNfZmVuY2Vfb3BzKTsKCisxCgpCVUdfT04gaXMg
-bW9yZSBvciBsZXNzIGRlcHJlY2F0ZWQgYW5kIHNob3VsZCBub3QgYmUgdXNlZCBhbnltb3JlLiBU
-aGVyZQpuZWVkcyB0byBiZSBib21iYXN0aWMganVzdGlmaWNhdGlvbiBmb3Igc2hvb3RpbmcgZG93
-biB0aGUgZW50aXJlCmtlcm5lbC4KCgpQLgoKPiAtCXJldHVybiBjb250YWluZXJfb2YoZmVuY2Ut
-PmV4dGVybl9sb2NrLCBzdHJ1Y3QgZHJtX2NydGMsIGZlbmNlX2xvY2spOwo+IC19Cj4gLQo+IMKg
-c3RhdGljIGNvbnN0IGNoYXIgKmRybV9jcnRjX2ZlbmNlX2dldF9kcml2ZXJfbmFtZShzdHJ1Y3Qg
-ZG1hX2ZlbmNlICpmZW5jZSkKPiDCoHsKPiDCoAlzdHJ1Y3QgZHJtX2NydGMgKmNydGMgPSBmZW5j
-ZV90b19jcnRjKGZlbmNlKTsKPiAKPiAtLS0KPiBiYXNlLWNvbW1pdDogZTJjYWUwMGMwNWQxOTY0
-OTFjMzE4MTk2NzkyMjk3ZjJkZmJhYTAyYwo+IGNoYW5nZS1pZDogMjAyNjA2MTgtbGludXgtZHJt
-X2NydGNfZml4Mi0yM2E3YzM1NGE0MTIKPiAKPiBCZXN0IHJlZ2FyZHMsCg==
+On Thursday, 18 June 2026 17:47:09 Central European Summer Time Maxime Ripard wrote:
+> On Mon, Jun 08, 2026 at 01:19:07PM +0200, Nicolas Frattaroli wrote:
+> > As per the comment in sink_supports_format_bpc(), CTA-861-F defines that
+> > only bits-per-channel values of 8, 10, 12 and 16 are allowed for HDMI.
+> > Allowing more than this has surprising consequences for the atomic check
+> > phase. The HDMI state helpers may accidentally conclude that a sink
+> > supports 11bpc if a caller asks for it.
+> > 
+> > Fix this by exiting early if the bpc value doesn't match one of those
+> > given in the standard.
+> > 
+> > Fixes: 26ff1c38fc29 ("drm/connector: hdmi: Compute bpc and format automatically")
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > ---
+> >  drivers/gpu/drm/display/drm_hdmi_state_helper.c | 10 ++++++++++
+> >  1 file changed, 10 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > index a331ebdd65af..8303475ec021 100644
+> > --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> > @@ -420,6 +420,16 @@ sink_supports_format_bpc(const struct drm_connector *connector,
+> >  		return false;
+> >  	}
+> >  
+> > +	switch (bpc) {
+> > +	case 8:
+> > +	case 10:
+> > +	case 12:
+> > +	case 16:
+> > +		break;
+> > +	default:
+> > +		return false;
+> > +	}
+> > +
+> 
+> That might be slightly personal, but I think if (bpc < 8 || bpc > 16 ||
+> bpc % 2) is more readable
+
+That would allow 14bpc, which wouldn't be correct.
+
+Kind regards,
+Nicolas Frattaroli
+
+> 
+> With that fixed
+> Reviewed-by: Maxime Ripard <mripard@kernel.org>
+> 
+> Maxime
+> 
+
+
+
 
