@@ -4,102 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC568CD98F7
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 12:48:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 511EDCD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 13:25:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A52C10F2D9;
-	Thu, 18 Jun 2026 12:48:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9695310E118;
+	Thu, 18 Jun 2026 13:25:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KMoJLLIH";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Dy5F9Qc2";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013002.outbound.protection.outlook.com
- [40.93.201.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6004910F2D0;
- Thu, 18 Jun 2026 12:48:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rPUiWcYx26172xUxC3HJHA8ZkAQRQFPoDd5E9wzKUDrPAYihzQYplra6xbs3/kTxvY77GsgW75L4lrEgOyB9vAmn/Ml3Cpwmstlf1VD5JvKfSf547jKQyAANig8qw9GpZZH4aa8G6sKhI2vy3LII4LyHjKHGE3ari6RzynqIFIZu/KTw8xCM8mKQAOhw8K2D2idBHghFLn/YMa6v+gFdyk4OyZ32uu04lw+AGCk9V6+o5wFE96NR5WyskieB8vyCwpj+Ft4Z1Uy5w8AsS4/B11AlBaw3MZUeHNbsA+tqzzpDm8jwjYLTHW//RgwxuFooXF2z0BMAcnW6k5Xs3bSxUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=htx3joIIIkWmWt1xbrlHuV5szXDaHPexdKwo2ESHm/4=;
- b=cTUm7LjFH3LycydHUoBH0Erkq6WUJFjpwI/SXRb5wwp/NrK8WL/pm2jcKzijGOEQtNjZtX6AT74k2zh8VUjFxU+er/KBgSlxg4zDtoHISTQzol7B+Jhrs/DbIKQXXbHZ09D7RKc3jlAkR6sm66azXhQi26SDGywf5g7TfJAa7PRBNIgNFoT0ni4vEgSVjNGrR0fvr9oPHdjxpdsIC0je3BBluKs1o3uk4TvgnQFq6YhpN/zYJbFZz/g6oCKsCJJxrVgpzrzJhCZRi3C8j9wlJRC5H2sVDxwYnXjKVVE1XshDd4m6QZSLU9mR2Mr64N/88ds6TbgZmLXmlIlo+QwdSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=htx3joIIIkWmWt1xbrlHuV5szXDaHPexdKwo2ESHm/4=;
- b=KMoJLLIHEQGs1wZ/VGS/cB0EI/6IDNM9nPTVYEHp2vUd49IOTEQbnUGUgakF4y37K2BXpHAsrBsda/gOLw6x4o3t7E1l+ATRzbmwjbAAv5lglaJ41h/LQDb4HqgMSm1+D0UUINJap1JjOrPSyvDJEePKGCJd+trfiztc7MVcXd4=
-Received: from DS1PR05CA0006.namprd05.prod.outlook.com (2603:10b6:8:457::15)
- by MN0PR12MB6343.namprd12.prod.outlook.com (2603:10b6:208:3c0::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.19; Thu, 18 Jun
- 2026 12:48:42 +0000
-Received: from DS1PEPF00017091.namprd03.prod.outlook.com
- (2603:10b6:8:457:cafe::2) by DS1PR05CA0006.outlook.office365.com
- (2603:10b6:8:457::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.13 via Frontend Transport; Thu,
- 18 Jun 2026 12:48:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS1PEPF00017091.mail.protection.outlook.com (10.167.17.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Thu, 18 Jun 2026 12:48:42 +0000
-Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 18 Jun
- 2026 07:48:39 -0500
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <matthew.auld@intel.com>, <christian.koenig@amd.com>,
- <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
- <Arunpravin.PaneerSelvam@amd.com>, =?UTF-8?q?Timur=20Krist=C3=B3f?=
- <timur.kristof@gmail.com>, John Olender <john.olender@gmail.com>,
- <stable@vger.kernel.org>
-Subject: [PATCH] gpu/buddy: bail out of try_harder when alignment cannot be
- honoured
-Date: Thu, 18 Jun 2026 18:17:55 +0530
-Message-ID: <20260618124755.2751205-1-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E57BD10F2E5;
+ Thu, 18 Jun 2026 13:24:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781789100; x=1813325100;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=kHCk/5ki+SIvwikN84H7hGnfod1CiftPP8kvPK+XFbk=;
+ b=Dy5F9Qc2E9oo66gR2I3GbNGr6sfuzOyloUQP/owm0agLe6hbVavgqVCf
+ JKEwqMAdXTjYKw2ZU+qzEjWwpsEpeNW6HgdcKhDuAmTdLFDS+MfzLnl2z
+ nB5TxLbsir/2EreM+L1IJy/p+sYcceCuloND5CknfnPa1q5JIHFhzpuyq
+ OCrDG8qhPmbxFY5fC64vhWJYJwU8gS1XFuH3aWQy/gGINKoBoX8q+6Zcm
+ DPYFBvge5wfRMt6a4aB7E1OLZqmiXHcktvWS5k6kbaUGJ0EUICYuKhren
+ UWGQt5lSnB2sbJyosRcNRgvS6h0EOTlGFbIoSgJOd7lWtZdf295nP7Q7b Q==;
+X-CSE-ConnectionGUID: K5cdbSE2TvSccnReBUnzPA==
+X-CSE-MsgGUID: Djf+sA42SfOIe7NSTbauBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11820"; a="82390271"
+X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; d="scan'208";a="82390271"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jun 2026 06:24:59 -0700
+X-CSE-ConnectionGUID: b+Uuwr1XQfqH4B335YQRWw==
+X-CSE-MsgGUID: 65s54ZkmTd+rwi/SySd9TQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; d="scan'208";a="245440928"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jun 2026 06:24:56 -0700
+Date: Thu, 18 Jun 2026 15:24:53 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rodrigo.vivi@intel.com, andrealmeid@igalia.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona.vetter@ffwll.ch,
+ mripard@kernel.org, maarten.lankhorst@linux.intel.com,
+ tzimmermann@suse.de, anshuman.gupta@intel.com,
+ badal.nilawar@intel.com, riana.tauro@intel.com,
+ karthik.poosa@intel.com, sk.anirban@intel.com
+Subject: Re: [PATCH v8 5/6] drm/xe: Suppress Surprise Link Down on device
+Message-ID: <ajPxpevzpsUemOaL@black.igk.intel.com>
+References: <20260612080722.26726-8-mallesh.koujalagi@intel.com>
+ <20260612080722.26726-13-mallesh.koujalagi@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017091:EE_|MN0PR12MB6343:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29e92cc2-48c8-4327-72b5-08decd37ed79
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: CGaMCzYzD0FNze89BnvEqQv3A4+yOn71luNjz2NPJyYlxyfN0c5NV437IGCeN277q0FPmy/3S0Qt6caDxgXZmtgI8M0qbg9F8J7oDo81vuXLNL0+UzXnYAwgPjF0FhpAXt0wRQBTurE/NQf3LqMsQ/ktcUqFb2KGuZ9wpbGy8Y1JH4NwabzVxrUDYahxWXx3ibFsIjaVBYqsIYkDWcC5WINn3Hn2gtdfJCl7b5U+5AeP8A+qw9Wn8x24fY5Ocm4edwe1Hy9GjZEixvuymJcZ8lcAshtDuAq88v0Rx1yAgCwmosgLxI9n1yGZiuaW2f01WbfYK7jx5/AGoPrWZXNSdHxqndV1sc505TGXdwLIWIT6CD1oD0HJDKrbAJ3Dy+AW34AJlBQa7K36stNv+jN17ZTCjZ2/nB2GQn/meKz7aiUneNweo/DuGeRagNeJaSBabuwrU+6/J/W4HcHoROyJfn01LvPhOXsJ0tBab1voPM4z1iZaSIPL9l8aFMSsoeIZdiIVllQYRJbWQgblWOU5yDl9Z3LoAIlTNt4+c7XlVzrZzzxL4Vyic0uAQ1S9n1pozJEQdHGOIqAhpz+/NJF506s0vZ0euik6ETyPnccFhRFJmXcWcJ9hAwwqLZxUxnVNGe3kGtrJZ12tvEbOsUesyYEInfziOrfQav/KZ3qrppwufAe/wYrJsfa2+ZK8aRcTUL0OQyJBnl+EfLGSFjdpLZ56it7IHwE77Z3mZTyRqqs=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(18002099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: tWIiSUhuYq8aMT5o5CFtTklS1ycRWyX6AMPSU5SK/ZPECGgtj4eRtmEF70oAXxUwS3SwFu2yl/JugkMKQqSipJ3E/lG6V8x6SMHNSFQNsa6kiIbwk1IpCBhcxk5mDXcHNXutdn61uv9a3rnUXxq8MUejA8pcYqLS8milOleGidykpIy9yShAqbXlb1gwo4hwSgYD+rYRa2ijLCz77D5g961ImWhXIn+KZgS5wZfMysCtWIv6ySV8rAWbSLhGc3ErfDja7c9r2bbGiH0zOEC9zGYdd0P0roebe8wYwDA+S4eRXxxi8RM7CEeqt6j1guNVDFChoxioBQiubbVkqdLOwnmnoRo9g7lJTUeio8acU+A3msP4b68eIdxTAUCdsi8xee273OCN+L/BhsLRboRSz0cdl2orepJwM+j22OrTodch6gMMH+qLIanHB15gVi7y
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 12:48:42.3795 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29e92cc2-48c8-4327-72b5-08decd37ed79
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017091.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6343
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260612080722.26726-13-mallesh.koujalagi@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,96 +74,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The try_harder contiguous fallback could return a range whose start
-offset did not match the caller's min_block_size. Check each candidate
-against the requested alignment and reject the allocation when no
-candidate satisfies it, instead of handing back a misaligned range.
+On Fri, Jun 12, 2026 at 01:37:28PM +0530, Mallesh Koujalagi wrote:
+> PUNIT errors can only be recovered using a power-cycle. Xe KMD
+> sends a uevent to notify userspace to trigger a power cycle.
+> On platforms where link drop caused by powering the device off and
+> back on is reported by hardware as a Surprise Link Down (SLD), which
+> AER then escalates as an Uncorrectable Fatal Error. That error fires
+> before the device finishes coming back up and defeats the
+> very recovery we are attempting.
+> 
+> To keep the expected, recovery-induced link drop from being raised as
+> a fatal AER event, mask the Surprise Link Down bit
+> (PCI_ERR_UNC_SURPDN) in the upstream port's AER Uncorrectable Error
+> Mask register before punit_error_handler() requests the cold reset.
+> 
+> Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+> ---
+> v6:
+> - Expand commit message to explain why SUR_DN is masked. (Raag/Riana)
+> - Check Slot Implemented bit before reading Slot Capabilities, per
+>   PCIe spec. (Riana)
+> - Add debug log.
+> 
+> v7:
+> - Handle surprise link down event properly. (Aravind/Riana)
+> - Update commit message. (Riana)
+> - Correct log message.
+> 
+> v8:
+> - Use find_usp_dev() in punit_error_handler() function.
+> ---
+>  drivers/gpu/drm/xe/xe_ras.c | 65 ++++++++++++++++++++++++++++---------
+>  1 file changed, 49 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
+> index 93a56a0269f1..15c2fa0d323a 100644
+> --- a/drivers/gpu/drm/xe/xe_ras.c
+> +++ b/drivers/gpu/drm/xe/xe_ras.c
+> @@ -209,8 +209,57 @@ static enum xe_ras_recovery_action handle_core_compute_errors(struct xe_ras_erro
+>  	return XE_RAS_RECOVERY_ACTION_RECOVERED;
+>  }
+>  
+> +static struct pci_dev *find_usp_dev(struct pci_dev *pdev)
+> +{
+> +	struct pci_dev *vsp;
+> +
+> +	/*
+> +	 * Device Hierarchy:
+> +	 *
+> +	 * Upstream Switch Port (USP) --> Virtual Switch Port (VSP) --> SGunit (GPU endpoint)
+> +	 */
+> +	vsp = pci_upstream_bridge(pdev);
+> +	if (!vsp)
+> +		return NULL;
+> +
+> +	return pci_upstream_bridge(vsp);
+> +}
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Timur Kristóf <timur.kristof@gmail.com>
-Cc: John Olender <john.olender@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
----
- drivers/gpu/buddy.c | 33 +++++++++++++++++++++------------
- 1 file changed, 21 insertions(+), 12 deletions(-)
+Unneeded churn, please make sure the function is already at the top in
+the original series.
 
-diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-index dc81fe0301ce..28ed3250ac57 100644
---- a/drivers/gpu/buddy.c
-+++ b/drivers/gpu/buddy.c
-@@ -1127,13 +1127,11 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
- 	struct gpu_buddy_block *block;
- 	unsigned int tree, order;
- 	LIST_HEAD(blocks_lhs);
--	unsigned long pages;
- 	u64 modify_size;
- 	int err;
- 
- 	modify_size = rounddown_pow_of_two(size);
--	pages = modify_size >> ilog2(mm->chunk_size);
--	order = fls(pages) - 1;
-+	order = ilog2(modify_size) - ilog2(mm->chunk_size);
- 	if (order == 0)
- 		return -ENOSPC;
- 
-@@ -1149,31 +1147,42 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
- 		while (iter) {
- 			block = rbtree_get_free_block(iter);
- 
--			/* Allocate blocks traversing RHS */
- 			rhs_offset = gpu_buddy_block_offset(block);
-+
-+			/* Allocate blocks traversing RHS */
- 			err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
- 						       &filled, blocks);
--			if (!err || err != -ENOSPC)
-+			if (err && err != -ENOSPC)
- 				return err;
-+			if (!err && IS_ALIGNED(rhs_offset, min_block_size))
-+				return 0;
-+			if (!err)
-+				goto next;
- 
--			lhs_size = max((size - filled), min_block_size);
--			if (!IS_ALIGNED(lhs_size, min_block_size))
--				lhs_size = round_up(lhs_size, min_block_size);
-+			lhs_size = round_up(max((size - filled), min_block_size),
-+					    min_block_size);
-+
-+			if (lhs_size > rhs_offset)
-+				goto next;
- 
- 			/* Allocate blocks traversing LHS */
--			lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
-+			lhs_offset = rhs_offset - lhs_size;
-+
-+			if (!IS_ALIGNED(lhs_offset, min_block_size))
-+				goto next;
-+
- 			err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
- 						       NULL, &blocks_lhs);
- 			if (!err) {
- 				list_splice(&blocks_lhs, blocks);
- 				return 0;
--			} else if (err != -ENOSPC) {
-+			}
-+			if (err != -ENOSPC) {
- 				gpu_buddy_free_list_internal(mm, blocks);
- 				return err;
- 			}
--			/* Free blocks for the next iteration */
-+next:
- 			gpu_buddy_free_list_internal(mm, blocks);
--
- 			iter = rb_prev(iter);
- 		}
- 	}
+> +#ifdef CONFIG_PCIEAER
+> +static void pcie_suppress_surprise_link_down(struct pci_dev *usp)
+> +{
+> +	u32 aer_uncorr_mask;
+> +	u16 aer_cap;
+> +
+> +	aer_cap = usp->aer_cap;
+> +	if (!aer_cap) {
+> +		dev_dbg(&usp->dev,
+> +			"AER capability not present\n");
+> +		return;
+> +	}
+> +
+> +	pci_read_config_dword(usp, aer_cap + PCI_ERR_UNCOR_MASK, &aer_uncorr_mask);
+> +	aer_uncorr_mask |= PCI_ERR_UNC_SURPDN;
+> +	pci_write_config_dword(usp, aer_cap + PCI_ERR_UNCOR_MASK, aer_uncorr_mask);
+> +	dev_dbg(&usp->dev, "Surprise Link Down masked for cold reset\n");
 
-base-commit: b9e2d5cdaab05c997be3a69d9b372d7676683e1b
--- 
-2.34.1
+What about when we come back on after successful recovery? Do we need to
+unmask it?
 
+Raag
+
+> +}
+> +#endif /* CONFIG_PCIEAER */
+> +
+>  static void punit_error_handler(struct xe_device *xe)
+>  {
+> +#ifdef CONFIG_PCIEAER
+> +	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
+> +	struct pci_dev *usp;
+> +
+> +	/*
+> +	 * Cold reset power-cycles the slot, dropping the PCIe link. The
+> +	 * slot triggers a spurious Surprise Link Down AER event on the USP.
+> +	 */
+> +	usp = find_usp_dev(pdev);
+> +
+> +	if (usp)
+> +		pcie_suppress_surprise_link_down(usp);
+> +#endif
+>  	xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_COLD_RESET);
+>  	xe_device_declare_wedged(xe);
+>  }
+> @@ -503,22 +552,6 @@ enum xe_ras_recovery_action xe_ras_process_errors(struct xe_device *xe)
+>  	return XE_RAS_RECOVERY_ACTION_RESET;
+>  }
+>  
+> -static struct pci_dev *find_usp_dev(struct pci_dev *pdev)
+> -{
+> -	struct pci_dev *vsp;
+> -
+> -	/*
+> -	 * Device Hierarchy:
+> -	 *
+> -	 * Upstream Switch Port (USP) --> Virtual Switch Port (VSP) --> SGunit (GPU endpoint)
+> -	 */
+> -	vsp = pci_upstream_bridge(pdev);
+> -	if (!vsp)
+> -		return NULL;
+> -
+> -	return pci_upstream_bridge(vsp);
+> -}
+> -
+>  static void aer_unmask_and_downgrade_internal_error(struct xe_device *xe)
+>  {
+>  	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
+> -- 
+> 2.34.1
+> 
