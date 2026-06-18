@@ -4,126 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DC59CD98ED
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 08:03:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ED73CD98F0
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 08:09:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E741310F1D9;
-	Thu, 18 Jun 2026 08:03:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CBCE10EC8C;
+	Thu, 18 Jun 2026 08:09:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RoYAjtws";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XgzIQGYz";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010031.outbound.protection.outlook.com [52.101.85.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DBAA10F1D9;
- Thu, 18 Jun 2026 08:03:28 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013041.outbound.protection.outlook.com
+ [40.93.196.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B84510E0FA;
+ Thu, 18 Jun 2026 08:09:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gLlabZricZBWfIoLRAhIRt1Oz9MrvvMy2pLH2vby27MifGHXROAoGJS9SdkJoIrGtzZgFyJHijkbf+6uQkq5hdPPIngy4HAHzts7TMtpR+QXz9JKGf2CwFT5k8GE+D5gnL5DWDVjfFP3GnnhwlzFjcKoWLEqQCubl8nlkw9cD5WiNBerUIkgWyknJyyq+V8XwS7PNeOnto68BJHzkd87+06aKRR5moxDouLwklqkp7RJarBtFzBq8tedYt82ypprn5KU9ZlNZkQnhIt9T7Nh1OuP6eVWexuO0Kkbs5+m0U/9YeoQA4xBN/CGTrC4jt0cKVg0tTvgsrG2HAog7pdtuQ==
+ b=ezDyhXE0n5ViwSQVJ9wwO+wEbyEl5ul3iyl7d/eNxT5DGHBKphN+ChaZJ4GsX+UWwxFpj+CsV6aXSLZemyUX5MjlyK8U/eeLEmxWvXRFBtQZTlaAEz9bf8BmOD+GyptRozG4Tq2LE9I8m9KG66XoC6G9ax7jpNUjvrAIkPwaE/vk0z8VyyY2Qv2MjBelnW3cJPEyquXmq/62iiz51RTPABZCRADNmAho23TnGbZjsVmtji7g+RaTtq2NClxZWGZZAwGb+QF/ZrYvkoTUkuxkJmCXyQr1OqTSqUnF/T0bBx5j/ivLZPueqyQeDwZNWOb1+8UYUJudMRVXYyoo42qEwA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rUHPt1aJrzOPMy31GHR8a9Q2gjcoPBe4bs1YYgeDyv8=;
- b=HXZN1F6ensrx7kSyARg17RtU4i/XPlZDf7eIM+giciYwsCbZvAHPsc41LjoGuFphutfFiAaVSi9gBnj8IKWvWKwum+sI9XXr1lbZZpgOKIHN0zypHlaCLaWyLgl3xpCoc69D8xcaXSdbDcz0q88qXIoBon9w/tSld3lm/Z4iitR8ZxPFaJlY8TpATjxo7iEPjHhRYqZ0wgbZDRLsOkX1M+tRulxr97lWXsBc0DmXwCjQspLgkdfxJ2LLkAoHHEvG7kV7kLTiY1SLcoWHJz81gZzbLxYazmEDoT1OFYehWLBjMEKp23Bkeladq0VBtDwmp5WkdAvWk4ike+/Rlcsulw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=/zmqj5sw3DwG60cK1xYz9zyknq0wWBbYBc1Pw2WsMBs=;
+ b=qy6jy0484cFjHRHp0Dm6QSeke7yeptxGJkOf0pxwxQ74NQiVhneIHqRhH3djXFWSziVrYGnk1ZSUCiHg3qn/TZSITw49UsYZpKT1rQhPRR7rTN4qNPnDrmqSE235u23bKg3t7joQV1vV5HU+gmKNzrvzXHAJRyqLFb1gnFaUqLbY4VxkdWD2T++/5HY1NWNapOuXOPRZdcEGXZ8qGFJxJ1SrhW36j+Yp9iZGfYhA0/lX6a8xA5JrvnduKzXotx7hPbV8M2StvmCu0+8C4ga++kET9tdFSC6G80GVodHdKOJmrOfyazOddl94EZ3CH1KQuNy7r0AU73AHrt6CKgLQZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rUHPt1aJrzOPMy31GHR8a9Q2gjcoPBe4bs1YYgeDyv8=;
- b=RoYAjtwseelARq6jerQTV0l0vQiUTw+AQthEedxj8+vjZlOw500IpV+65eGvl7YrQ7uyTgYatbfnHZLB+V7LUGTuCwbWoPGnK3NwfF6wKeywLzrszh1Kaek9gtR9NA7+xAXcRuJoqHqB3v8F0HYTNFXdVqB/JBWvKvaR3adDaZU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA4PR12MB9762.namprd12.prod.outlook.com (2603:10b6:208:5d3::21)
+ bh=/zmqj5sw3DwG60cK1xYz9zyknq0wWBbYBc1Pw2WsMBs=;
+ b=XgzIQGYzXoO4fdc3J/hZLcHq1XxdcLrHgRprhDEmd4tC0HP4xaKXUCtt/4LMxiayjY28JoJfiAWR1/pFG6FiIoQa3Gboe9pJ4dBUQcntZ7couPf5cXALqachgjZJ5vK9l+STOY+hCMTtNdFgb7kZJXKy+Hy5IZBV2mdXae/zMoI=
+Received: from BN0PR08CA0023.namprd08.prod.outlook.com (2603:10b6:408:142::17)
+ by SJ1PR12MB6122.namprd12.prod.outlook.com (2603:10b6:a03:45b::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Thu, 18 Jun
- 2026 08:03:24 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0113.015; Thu, 18 Jun 2026
- 08:03:24 +0000
-Message-ID: <cbc54f68-b0bd-40ad-b5e7-ed8157128417@amd.com>
-Date: Thu, 18 Jun 2026 10:03:20 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: do not enter fs_reclaim under notifier_lock
- in lockdep training
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260618055216.56191-1-mikhail.v.gavrilov@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260618055216.56191-1-mikhail.v.gavrilov@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1PR13CA0408.namprd13.prod.outlook.com
- (2603:10b6:208:2c2::23) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ 2026 08:09:25 +0000
+Received: from BN1PEPF00004680.namprd03.prod.outlook.com
+ (2603:10b6:408:142:cafe::95) by BN0PR08CA0023.outlook.office365.com
+ (2603:10b6:408:142::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.12 via Frontend Transport; Thu,
+ 18 Jun 2026 08:09:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN1PEPF00004680.mail.protection.outlook.com (10.167.243.85) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Thu, 18 Jun 2026 08:09:25 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 18 Jun
+ 2026 03:09:24 -0500
+Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 18 Jun
+ 2026 01:09:20 -0700
+From: Honglei Huang <honglei1.huang@amd.com>
+To: <sima@ffwll.ch>, <matthew.brost@intel.com>, <rodrigo.vivi@intel.com>,
+ <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>
+CC: <aliceryhl@google.com>, <Alexander.Deucher@amd.com>,
+ <Felix.Kuehling@amd.com>, <Christian.Koenig@amd.com>, <Oak.Zeng@amd.com>,
+ <Jenny-Jing.Liu@amd.com>, <Philip.Yang@amd.com>, <Xiaogang.Chen@amd.com>,
+ <Ray.Huang@amd.com>, <Lingshan.Zhu@amd.com>, <Junhua.Shen@amd.com>,
+ <Yiru.Ma@amd.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <honghuan@amd.com>
+Subject: [PATCH v3 0/5] drm/gpusvm: split MM and device state across
+ gpusvm/range/pages
+Date: Thu, 18 Jun 2026 16:08:57 +0800
+Message-ID: <20260618080902.1527255-1-honglei1.huang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
+ (10.181.42.218)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA4PR12MB9762:EE_
-X-MS-Office365-Filtering-Correlation-Id: 211c7608-8e8a-49cd-92d1-08decd101226
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004680:EE_|SJ1PR12MB6122:EE_
+X-MS-Office365-Filtering-Correlation-Id: 88c81cd5-2b56-4d0f-15d8-08decd10e95a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|11063799006|56012099006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: PmlpGTPj9mpp+KrDGcH/e3GsjGtLCBDTNf7aCaigissmf42/Ex9KBb7oxEy0F1YmASppOG78/Cw7XwEdszYNrzW1oGaZkvNbXcRrO2wg/T3b2Mkxo00elN8prNqeC2zusyD2J0TiPiEW/nCLxP3GPzPWHqWTT1zx/oMCQVqNOi+QQdOjyC66aYYcj4w7T5JVn1VMJcAUSRP+hHOkouXI2CTBFvacpV5Ad4eHmwHWZsQw1YxggB4yVqej4Dkgc+3HSzVjIgpVWGFngbdsX2Ke/uwEPWbUmf+M1j9y6AjNsz0uzpcNQW86LxwsWhDoYoSwAV3RDG0NLcM942ztptdm9M6yDIdk+Yzrm7hJ6PpPgl2UPq/ErSqXFWfoBiL4/dVR8ZSBYYZik+Eb8S/9sksUm/kDIUFd3UdhfYrmxJHGUv2Cmi+gSR9ONjX43gt2kmlIzhQawLNLIWm8Y9A8MhE3Q1o/qfuFPDWjLfUVLv6YOAiaJLjS7sdISEQSms/OID3CwlTmGGtk4pO58vlHray3qN4S7uOi+3MOoTVAZfdBpSytC1SJdl6WbKUawnOkJ56nQJRaZNyiOSvdcnB19g6nRlgWJJQYQfHbveeMafjdRleXm37qErpZPxhdV6OqW8BKvIbz4lg3VQQM9Ot4yVA8M4gaI6MynpROdxukGDQtSC4YEzqhk7EpOKkbFrhhauzo
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(11063799006)(56012099006)(6133799003)(22082099003)(18002099003);
+ ARA:13230040|82310400026|22122799003|1800799024|23010399003|376014|36860700016|13003099007|3023799007|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: 2kQLV8O8s4dz322b4E4hEIQ6XTfG1t8s4Ux6e18LgEs+I6rSq+VogayTvSHssabL9GG147UWkE6r2J2LTqgHZd3DsYxT+/hY57gMUukTiYPlIzNJa2lAtZeI/55P1tQ2b7nW/bGwA3ChIbCjFcKLZLMfvrWLXp1296kU8eBnp+gPOh8M9sfurzy6CJw9rPcCpdrZp2+oz9MQVmMRnwOvQrK8ORk3IhVipardntn8gntCJXgGtBtElUj4BXRMa0tnTAT+RG19K8TW53Cg+8mOfLpMcCBCT6gJNavPB+kLHMrkU58u8lPLRP2gFGKU0OE0q0PtqNUzMC3vzhZsJ8tbQ4HpGWT/WF/iLkr0C4pEsz/3L9KkHzrmY3E2f6phR4Hj0Cio27p537AbaIsIcaBS/a4OXxBvVYC1pPB1l2LzRmdcy5eGsGQLRlmGau2Yk1+7y3jYK5NGrvgk3gocLc20zjNb1c8UTK9KsUUkOtaUE/cpzg9CygR/Gb0Ns6tgeCRlWnfnu6ygLt4C6JDXxdRaFsuu81QE24ydwbEAO8+XTNFrRmjgKDarSL+Z1CaYw+XlnlNGyAkjQJpAYcVJoyTy7f8Sc0PUVEHehaNXrYQ1WYqBaCSHabwhZpd1qj2UH08Wcu0yB9YGjzwFDrt07EBYgSm8gQiSDofhkfmhOTxQojS4TrGZOMJl8MhYyNmvmyFE
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(22122799003)(1800799024)(23010399003)(376014)(36860700016)(13003099007)(3023799007)(11063799006)(56012099006)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S0ZpOXpnNjdGSERGR2NtVzBTUy94NlRFVEMyeDJuelpmdndWRWkzMi9CVnFs?=
- =?utf-8?B?L3FNZmN4TkhmOEYrZ2FxV3ZtZjZnWUE0S2FISWRUSEkvK3JIbTUwV2p0Z3R3?=
- =?utf-8?B?Z0ZGMWR3WUN2SllmZ1NFR0xZU1N0djdCbVZZQ2FWaklGYW5JNjRDUkNIdDZ2?=
- =?utf-8?B?U0w3MFlreFhRcnZIbXhCdVJNRCtGaDRxMGt3T0VCOS9CdTkzanp3Wnk4Nnhx?=
- =?utf-8?B?aWZ6Z09PT1BRNS9XM2J1MGJGQ0drSm02ZTFuY3hFc3B6Y2xJdjhyNXFyUHg3?=
- =?utf-8?B?TmRUcjMxdG9zVW9wbGErbUd2cW9tUVU3WDRwMDhMWXFSeVgySmtHei9ESDhH?=
- =?utf-8?B?bzBiVEZxRHYvTEw4SytwQVVYMFUwUFduajB0UFFEVndrc1ByU2J5UWZ5KzZS?=
- =?utf-8?B?akFXb3B5WjRhZnNwV2hZNlBuVVoxTkV1ZUxBVFRXcUdnYnZCKzNrbE9PdS9V?=
- =?utf-8?B?VGtzYzhnTlRsaWdNZEhjRkxHZVVxWnVReFY4bm9jaWFpelpRQWdQcDNWNUtx?=
- =?utf-8?B?eWlsZ3Bub2RCbDdKOTk3VUloK1JYeHRmcW5MaHBncThtWTVlUXV5K0d1bnhZ?=
- =?utf-8?B?cnJWRDJZOWxWR1U2REJKNk5vMkhhdTFmc2p6dmVCdW5sb3JVeVhmR0NqaDRP?=
- =?utf-8?B?cDhvYUNNaXdKYUkxZlRieVczY1lEeTJlNU1jQWsvZDZmTnJCc0NSaWt3MmNs?=
- =?utf-8?B?aWhvbDNGUW9QOFN6TEdmSm9WSEErdXJxSXZEV2xQRW1sTVhEd2ZDajlxVVhK?=
- =?utf-8?B?d1FCU2ZSajB1R2I2TjVXQnlFSXErL3d5OHYyQXJwVHlmZ0hKbGFKZzNaNUM3?=
- =?utf-8?B?VVk3eFdTeEUwbUR3dlVwdkRGR1lDQktCYkxwU3Y3c2NjZ3dqVUdhSjRtbG1p?=
- =?utf-8?B?M3Z0ZGhvOUROT2NrTGN1ck5lc0oxMU5MUy9ZaisxV1graWVjNUZpR3dGN2xN?=
- =?utf-8?B?OTh4c3NoS2RLY0RyVjRxYlBwWHJIRjlhdVl4TDdzdldGYVVMR1k0dWdhdStL?=
- =?utf-8?B?YU9JWjdEemFna3B1dEFWTitlWDFEVXY3QlBuazYvMlRHMVZsb2JRc3hzVGUy?=
- =?utf-8?B?dzhvVlQwNVNDVkJMeG5obGFiak8vTXJUcEV0UFJCWGRkS2V3Y05jZW5JTml6?=
- =?utf-8?B?K09MS3ozZUVkVVYzT0I2aHlFRzYyQ3FNYWZ5WDNaRkJ5dUFuUVoxalNNaXM3?=
- =?utf-8?B?YkpzQ2gyeG5rZnFscW82Y3R3Z2g1THRCSGdCS2hOUE5YWmhVTUM2TnlQUCtr?=
- =?utf-8?B?Y3pMZTEyQlVNWStKVCtVSzJZNGNoUVhJbWszdm84bS8yNkFVbTJLaXlyT0do?=
- =?utf-8?B?TVhnOWYxNUNvK3JhaEd5RjJVR3gvZmFCUVp2MHo4U2M2UThDRnNpRlFrUmpK?=
- =?utf-8?B?dy9TQWxrNk1yaXB2ZjBJTnd2ZS9ieTg3SG5KV01GWnE4UGVHVU4rQUYwcEcy?=
- =?utf-8?B?MG1GdHNCUnNlRXRIUzUraE5NMW9mQ0JhYXVLM2srUVlmYklmZm43aDZ5MFgx?=
- =?utf-8?B?MGlpSTVmYlU1dlVaSmZkVk9oTHYrbUZqZ1QzU1RvODVkRDNFTlU0REdjWkc2?=
- =?utf-8?B?TTUrWTNMdmx4dTJKWU5sRGlyVll5cHJtQ040M0hQWHd5WUZXRmhBM2JMaGRa?=
- =?utf-8?B?Mm9nbHZJR01EUmxDUGl4ekQzL1Q2aTVxbHhKZGtyUjhpTDFqUzFXbm9wT1hS?=
- =?utf-8?B?RmJuRFp4dWVrcnZWcjhTMGM5a3B1aUZ2dlJhUy9rdHpLNDFPZ2gzcTQrQVFH?=
- =?utf-8?B?bzhJZHhtQk5wdUdsL2VvY2lyY2RqZjVLL1V3ZmNZY0xodDRzS1hPa3VnOWd0?=
- =?utf-8?B?eG1OaHQvdjhaa2FCZXY4U1JxQ0EyeC90c1BaV0NuemRpSm1BaDlkb2M5SmZz?=
- =?utf-8?B?QkdOMDg4ME1PYVNDWXVSdjRZbk9xRkhJVkFocEdPTzFhaklqcDNmS0QzUk10?=
- =?utf-8?B?WCtRcHExeUJJNjhaRVNLYjBSM05DaU56SHdxVWNIaEROdk45b29QSzhySUNj?=
- =?utf-8?B?RThRS2ZEODEyWGF0Q1I2VnUvSitiV2VTN2Z1ZDJhRzRUOS9FQmFReTN3VEtq?=
- =?utf-8?B?MTlLTVhjb3FlZ21adXpoNDQ2VU5FSXc5Y0FnN01pZERQakFiOE5UL0RERDUx?=
- =?utf-8?B?VFR3bDlMVDd1Z0FaWEtxTHJ1QS9weHpaT0M3WDVSUnlDdzViTVhGT2pmRW5x?=
- =?utf-8?B?WWRyaEdueUI5Q1E3aG1TWHpxTkhBU1Y1YTNzc1NMNkF2YlZuVi9iaE53Q2NV?=
- =?utf-8?B?bWpCeTZ1YmFoYXhvQ1o3M0Y2UlBoNTVVSlkyVHFZV2krejVZbFd3Rk81M1ds?=
- =?utf-8?Q?IPIJunkDOiy7NsIzKS?=
+X-MS-Exchange-AntiSpam-MessageData-0: AV3rn1h5Yg36h4lRkXJNompT9tK6ovh6b5jeN997XGEE9O2y/fOgytuHUM/vZhewtP8yvANtifk01GmtoJx/jIjK/2SvKIC+FbIQdO+nHz8nYLIIbqsb/tJ5IAdktdoxdLVY2Nce5orLQNDrp/NVTx9H+f2JVTTlAxD6xZ5+CvXHbhwO6P2uiZSI91sx0ZtHlG5Hmc9BWpAsYTUAEwQ8dIsHS1SkA2nBWkJ8H5j1VxZkaierQuCRAyYdoCEbEUwu55etDfunQtFK9Oyrbp8sSuNQvYS3/FlH0eGKHi2OQIwjJhPIxVBSTUv9KC+Fp46DBdEQEK627DWIg3FkyUZZmBS7yVDyHSC+YZAlyQ7RPaqOXtHEmS6fmGE05rbrgd7TIkxb5Xunqw5EAev7kftMf14MZhLe+m2/kupXR01QM8AFSL6u4rxqcZ9JBMXA8XEJ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 211c7608-8e8a-49cd-92d1-08decd101226
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 08:03:24.2038 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 08:09:25.0859 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88c81cd5-2b56-4d0f-15d8-08decd10e95a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BKyGajLsiLsRKVMlWRtiHA6rGaZnEZelAgL+1LSH0w9D3om9fekevjrBVdMrQ8YE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9762
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004680.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6122
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,84 +121,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/18/26 07:52, Mikhail Gavrilov wrote:
-> amdgpu_lockdep_init() trains lockdep on the driver lock ordering by
-> taking a chain of dummy locks in order and calling fs_reclaim_acquire()
-> in the middle of it. The fs_reclaim_acquire()/fs_reclaim_release() pair
-> is placed while notifier_lock (amdgpu_notifier_lock_key) is held, which
-> teaches lockdep that it is legal to enter memory reclaim with the MMU
-> notifier lock held:
-> 
->   notifier_lock -> vram_lock -> reset_domain->sem -> reset_lock ->
->   fs_reclaim
-> 
-> notifier_lock is, however, acquired from the MMU notifier invalidate
-> callback amdgpu_hmm_invalidate_gfx(), which mm/ runs from inside memory
-> reclaim via __mmu_notifier_invalidate_range_start(). That establishes
-> the mandatory reverse ordering:
-> 
->   fs_reclaim -> mmu_notifier_invalidate_range_start -> notifier_lock
-> 
-> The two together form a cycle. It stays dormant until reclaim first
-> unmaps a page covered by an amdgpu userptr interval notifier, at which
-> point kswapd closes the loop and lockdep reports a false circular
-> locking dependency:
-> 
->   WARNING: possible circular locking dependency detected
->   kswapd0/268 is trying to acquire lock:
->    (&amdgpu_notifier_lock_key){+.+.}, at: amdgpu_hmm_invalidate_gfx
->   but task is already holding lock:
->    (mmu_notifier_invalidate_range_start){+.+.}, at: try_to_unmap_one
-> 
-> A lock that is taken inside an MMU notifier callback must never be held
-> across a reclaiming allocation, so the fs_reclaim annotation does not
-> belong inside the notifier_lock region. Drop it. The remaining chain
-> still teaches the intended lock nesting.
-> 
-> Fixes: 1d0f5838b126 ("drm/amdgpu: Add lockdep annotations for lock ordering validation")
-> Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c | 8 --------
->  1 file changed, 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-> index d5d71fd7c70d..eeb3b5007f80 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-> @@ -150,12 +150,6 @@ int amdgpu_lockdep_init(void)
->  	/* Level 6: Reset control lock */
->  	mutex_lock(&reset_ctl.reset_lock);
->  
-> -	/*
-> -	 * Mark potential memory reclaim boundary.
-> -	 * GPU operations might trigger memory allocation/reclaim.
-> -	 */
-> -	fs_reclaim_acquire(GFP_KERNEL);
-> -
+From: Honglei Huang <honghuan@amd.com>
 
-This shouldn't be removed, but instead moved outside the notifier lock.
+The intent of this series is to make drm_gpusvm more flexible and give
+drivers more freedom over how they assemble the MM related and device
+side operations. It implements the direction Matt suggested in [1]:
+Mirror MR in gitlab: [4]
 
-The notifier lock and vram_lock are also in incorrect order.
+  - Move struct drm_gpusvm_pages out of struct drm_gpusvm_range.
+  - Embed a struct drm_device in struct drm_gpusvm_pages and drive all
+    DMA through it.
+  - Drop struct drm_device from struct drm_gpusvm.
+  - Have the driver's range structure embed one or more struct
+    drm_gpusvm_pages in addition to struct drm_gpusvm_range.
+  - Drop the range-based helpers (drm_gpusvm_range_pages_valid,
+    drm_gpusvm_range_get_pages, drm_gpusvm_range_unmap_pages) and update
+    drivers to use the drm_gpusvm_pages helpers instead.
 
-@Vitaly can you take care of fixing that? Thanks in advance.
+In essence the series does only two abstractions, plus the xe
+adaptation that follows from them:
 
-Amdgpus VM eviction lock needs to be handled here as well, but has another ordering bug with fs_reclaim_acquire().
+  - range vs pages: split drm_gpusvm_range (MM / VA range state) from
+    drm_gpusvm_pages (device physical related), so the two sides can
+    have independent lifetimes and ownership.
+  - drm_gpusvm vs drm_device: make drm_gpusvm pure MM level and push
+    the device side down onto drm_gpusvm_pages, which is where DMA
+    actually happens.
+  - xe is updated to fit the modifications, no functional change
+    intended.
 
-Patches to fix that are pending on the amdgpu mailing list, but I need to find time to work on them.
+V3:
+  - Fix a kernel-doc/Sphinx warning from the kernel test robot: use
+    ".. code-block:: c" for the drm_gpusvm_pages example in DOC: overview.
+  - drm_gpusvm_range_set_unmapped(): use WRITE_ONCE() on the whole
+    pages[i].flags.__flags word to pair with the lockless READ_ONCE()
+    readers and avoid a data race.
+  - xe_userptr_setup(): call drm_gpusvm_init_pages() before
+    mmu_interval_notifier_insert() to avoid exposing uninitialized
+    pages.drm to invalidation callbacks.
+  - Fix per commit build of the set_unmapped() pages.
 
-Thanks for the report,
-Christian.
+V2:
+  - Followed in Matt's v0 review fixups [2]:
+     - keep unmapped flag in pages structures.
+     - add pages_count to drm_gpusvm_range_set_unmapped() to set the pages
+       unmapped flag, so the framework can check unmapped status in
+       drm_gpusvm_get_pages().
+  - Add drm_gpusvm_init_pages to init the drm_device and sequence number.
+  - Remove drm_device from drm_gpusvm_get_pages() parameters.
+  - Reworked the DOC: overview and usage examples to describe the new
+    model: struct drm_gpusvm_pages, the 1:1 / N:1 driver layouts, and
+    examples that operate on a driver embedded pages object by the
+    drm_gpusvm_pages helpers and etc.
+  - remove WARN_ON_ONCE in __drm_gpusvm_unmap_pages.
+  - Dropped RFC.
 
->  	/* Level 7: SRBM register access */
->  	mutex_lock(&srbm_mutex);
->  
-> @@ -175,8 +169,6 @@ int amdgpu_lockdep_init(void)
->  	mutex_unlock(&grbm_idx_mutex);
->  	mutex_unlock(&srbm_mutex);
->  
-> -	fs_reclaim_release(GFP_KERNEL);
-> -
->  	mutex_unlock(&reset_ctl.reset_lock);
->  	up_read(&reset_domain->sem);
->  	mutex_unlock(&vram_lock);
+Follow-up (not in this series):
+
+  - modify drm_gpusvm_get_pages() to support one time hmm range fault
+    and multi drm device dma mapping.
+  - Add no dma device support for drm_gpusvm_get_pages().
+
+tests:
+AMDGPU:
+  based on amdgpu adaptation patch in [3], but still SVM:DRM = 1:1,
+  1:n is on going needs many modifications and testings.
+
+  Tested on gfx943 (MI300X) and gfx906 (MI60) with XNACK on/off:
+  - KFD test: 95%+ passed.
+  - ROCR test: all passed.
+  - HIP catch test: gfx943 (MI300X): 99% passed.
+                    gfx906 (MI60): 99% passed.
+INTEL XE:
+  Waiting for the xe driver git lab CI result: [4]
+
+links:
+[1] https://lore.kernel.org/amd-gfx/acRgr7QwdULsn6G2@gsse-cloud1/#:~:text=I%20think%20roughly,drm_gpusvm_pages%0A%20%20helpers%20instead.
+[2] https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commit/623f6a50c037d9e44f6c9fbe6859a0ba7ad50177
+[3] https://lore.kernel.org/amd-gfx/20260603065030.2554403-1-honglei1.huang@amd.com/
+[4] https://gitlab.freedesktop.org/drm/xe/kernel/-/merge_requests/360
+
+Honglei Huang (5):
+  drm/gpusvm: split MM state flags out of drm_gpusvm_pages_flags
+  drm/gpusvm: embed struct drm_device into drm_gpusvm_pages
+  drm/xe: have xe_svm_range embed one drm_gpusvm_pages
+  drm/gpusvm: move struct drm_gpusvm_pages out of struct
+    drm_gpusvm_range
+  drm/gpusvm: let the drm_gpusvm core context purely MM level
+
+ drivers/gpu/drm/drm_gpusvm.c    | 230 ++++++++++++++++++--------------
+ drivers/gpu/drm/xe/xe_pt.c      |   2 +-
+ drivers/gpu/drm/xe/xe_svm.c     |  37 +++--
+ drivers/gpu/drm/xe/xe_svm.h     |   8 +-
+ drivers/gpu/drm/xe/xe_userptr.c |   5 +-
+ include/drm/drm_gpusvm.h        |  66 ++++++---
+ 6 files changed, 209 insertions(+), 139 deletions(-)
+
+
+base-commit: b9297d19d9df5d4b6c994648570c5dcd1cac68ff
+-- 
+2.34.1
 
