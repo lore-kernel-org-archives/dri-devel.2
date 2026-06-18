@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC866CD98F0
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 23:09:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 083A7CD98F0
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 23:09:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D270310EE99;
-	Thu, 18 Jun 2026 23:09:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BADF10EEA5;
+	Thu, 18 Jun 2026 23:09:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZHpF+ELo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HxlukPWF";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E56210EEA5
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 23:09:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF4E510EEA5
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 23:09:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3DFDD418AA;
+ by sea.source.kernel.org (Postfix) with ESMTP id A0BBF41B12;
+ Thu, 18 Jun 2026 23:09:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D9521F000E9;
  Thu, 18 Jun 2026 23:09:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2903E1F00A3E;
- Thu, 18 Jun 2026 23:09:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781824147;
- bh=5AX6OWYtB0bXTU9pqSjo7pSwIp/B2SkdStyS9hcUyAo=;
+ s=k20260515; t=1781824152;
+ bh=t78Uhk4IqBOMxFqpBa9dZMpGO+12MHy37WkLBCfMbCs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ZHpF+ELoUPzjU4iOIuCGLgyV9iXJD+B38b3kXnUyoMT0Jgil1ly6m5Or1/sMj2zvM
- e+8eHt5MXT7xFMFfyePXEd7lcdXbPyO4+fGAbHPSAtQjx4bkxw0vJHuOfdR/PgyMeF
- I3iPPn6gd9D4KXfKPAjYIIJ/qVn6ogvPPK9IwzeN5liBBDv8DZ8UFxFFtLk6EutnFA
- frZcGqt304M7sKo2ccIuamhD11iKV1PIwCQ72hNeWDo3jW+Oc1mLgSZv75OZ+COc9c
- i3Y7GBEC2DQeQrrKxxMergv1Se+gEdqW5+gXFc9fGfuqd8IphDp0bTT00iS6R04FX5
- X377RuGslwU3Q==
+ b=HxlukPWFYilPUw9YFAvS0XcSUXwMOGbFmPqD/i4LVWcKidpHSk1U/0gze/DR1pMNz
+ bqwSTbMBoY9+spaTAzLhfekarTR9I1Nda705GvD1yUlfvJV5pNwtvxAoT/M6dsao96
+ 8ZKQKiW5uIknUcNG/+T7SXJqC5Mgv+fDNuLf3d9McCxOx+iKaY42jol015/hfsuE+b
+ T/8y8Bybu77IFI3FhcleQCbEA8xeOXAHgumrBto0z3JqN57ZX923BgJvUdnDryLmVK
+ SRyzHv87Jzj8bWzNhK/qooCTSAnVJM0u1wp8oFHJraSA5HNPTW+lUVHATy5HGVZbSl
+ eRxOnwHlfjS/A==
 From: Danilo Krummrich <dakr@kernel.org>
 To: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
  ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
@@ -41,10 +41,10 @@ To: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
 Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  linux-pwm@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject: [PATCH v3 3/7] rust: auxiliary: add registration_data_with() for
- ForLt types
-Date: Fri, 19 Jun 2026 01:08:29 +0200
-Message-ID: <20260618230834.812007-4-dakr@kernel.org>
+Subject: [PATCH v3 4/7] rust: auxiliary: sample: demonstrate ForLt with
+ invariant Mutex type
+Date: Fri, 19 Jun 2026 01:08:30 +0200
+Message-ID: <20260618230834.812007-5-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260618230834.812007-1-dakr@kernel.org>
 References: <20260618230834.812007-1-dakr@kernel.org>
@@ -65,176 +65,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add registration_data_with() taking a for<'a> closure that receives
-Pin<&'a F::Of<'a>>, which works with any ForLt type. Taking a for<'a>
-closure rather than returning a direct reference prevents callers from
-choosing a concrete lifetime for the data, which is required for
-soundness with non-covariant ForLt types.
+Extend the auxiliary driver sample to demonstrate both access patterns:
 
-Extract the common null-check, TypeId-check and KBox-borrow logic into a
-private registration_data_pinned() helper shared by both
-registration_data_with() and the existing registration_data().
+  - registration_data() with CovariantForLt!(Data<'_>) for the covariant
+    data type that holds a plain &'bound reference.
 
-Relax Registration's bound from CovariantForLt to ForLt so that
-non-covariant types can be registered.
+  - registration_data_with() with ForLt!(MutexData<'_>) for an invariant
+    data type that wraps a Mutex<&'bound Device>. Since Mutex<T> is
+    invariant over T, MutexData cannot implement CovariantForLt and must
+    use the closure-based accessor.
 
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- rust/kernel/auxiliary.rs | 91 ++++++++++++++++++++++++++++------------
- 1 file changed, 65 insertions(+), 26 deletions(-)
+ samples/rust/rust_driver_auxiliary.rs | 94 +++++++++++++++++++--------
+ 1 file changed, 68 insertions(+), 26 deletions(-)
 
-diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
-index 40a0af74a8e5..8013c0fcd82d 100644
---- a/rust/kernel/auxiliary.rs
-+++ b/rust/kernel/auxiliary.rs
-@@ -21,6 +21,7 @@
-     prelude::*,
-     types::{
-         CovariantForLt,
-+        ForLt,
-         ForeignOwnable,
-         Opaque, //
+diff --git a/samples/rust/rust_driver_auxiliary.rs b/samples/rust/rust_driver_auxiliary.rs
+index 92ee6a6d348e..e441ae81fa2c 100644
+--- a/samples/rust/rust_driver_auxiliary.rs
++++ b/samples/rust/rust_driver_auxiliary.rs
+@@ -11,14 +11,21 @@
+         Core, //
      },
-@@ -270,18 +271,15 @@ pub fn parent(&self) -> &device::Device<device::Bound> {
-         unsafe { parent.as_bound() }
-     }
+     driver,
++    new_mutex,
+     pci,
+     prelude::*,
+-    types::CovariantForLt,
++    sync::Mutex,
++    types::{
++        CovariantForLt,
++        ForLt, //
++    },
+     InPlaceModule, //
+ };
  
--    /// Returns a pinned reference to the registration data set by the registering (parent) driver.
-+    /// Returns the stored registration data as a pinned reference.
-     ///
--    /// `F` is the [`CovariantForLt`](trait@CovariantForLt) encoding of the data type. The returned
--    /// reference has its lifetime shortened from `'static` to `&self`'s borrow lifetime via
--    /// [`CovariantForLt::cast_ref`].
-+    /// Performs null and [`TypeId`] checks, then borrows the stored [`KBox`].
-     ///
--    /// Returns [`EINVAL`] if `F` does not match the type used by the parent driver when calling
--    /// [`Registration::new()`].
-+    /// # Safety
-     ///
--    /// Returns [`ENOENT`] if no registration data has been set, e.g. when the device was
--    /// registered by a C driver.
--    pub fn registration_data<F: CovariantForLt + 'static>(&self) -> Result<Pin<&F::Of<'_>>> {
-+    /// Callers must ensure that the lifetime shortening from the original `'static` storage to
-+    /// `'_` is sound, e.g. via an HRTB closure or [`CovariantForLt`] guarantee.
-+    unsafe fn registration_data_pinned<F: ForLt + 'static>(&self) -> Result<Pin<&F::Of<'_>>> {
-         // SAFETY: By the type invariant, `self.as_raw()` is a valid `struct auxiliary_device`.
-         let ptr = unsafe { (*self.as_raw()).registration_data_rust };
-         if ptr.is_null() {
-@@ -300,17 +298,57 @@ pub fn registration_data<F: CovariantForLt + 'static>(&self) -> Result<Pin<&F::O
-             return Err(EINVAL);
-         }
+ const MODULE_NAME: &CStr = <LocalModule as kernel::ModuleMetadata>::NAME;
+ const AUXILIARY_NAME: &CStr = c"auxiliary";
++const COVARIANT_DEV_ID: u32 = 0;
++const INVARIANT_DEV_ID: u32 = 1;
  
--        // SAFETY: The `TypeId` check above confirms that the stored type matches
--        // `F::Of<'static>`; `ptr` remains valid until `Registration::drop()` calls
--        // `from_foreign()`.
--        let wrapper = unsafe { Pin::<KBox<RegistrationData<F::Of<'static>>>>::borrow(ptr) };
-+        // SAFETY: The `TypeId` check above confirms that the stored type matches `F`'s
-+        // encoding; lifetimes are erased at runtime, so borrowing as `F::Of<'_>` is
-+        // layout-compatible with the stored `F::Of<'static>`. `ptr` remains valid until
-+        // `Registration::drop()` calls `from_foreign()`.
-+        let wrapper = unsafe { Pin::<KBox<RegistrationData<F::Of<'_>>>>::borrow(ptr) };
+ struct AuxiliaryDriver;
  
-         // SAFETY: `data` is a structurally pinned field of `RegistrationData`.
--        let pinned: Pin<&F::Of<'_>> = unsafe { wrapper.map_unchecked(|w| &w.data) };
-+        Ok(unsafe { wrapper.map_unchecked(|w| &w.data) })
-+    }
- 
--        // SAFETY: The data was pinned when stored; `cast_ref` only shortens
--        // the lifetime, so the pinning guarantee is preserved.
--        Ok(unsafe { Pin::new_unchecked(F::cast_ref(pinned.get_ref())) })
-+    /// Access the registration data set by the registering (parent) driver through a closure.
-+    ///
-+    /// `F` is the [`ForLt`](trait@ForLt) encoding of the data type. The closure receives a pinned
-+    /// reference to the registration data.
-+    ///
-+    /// For covariant types that implement [`trait@CovariantForLt`], prefer
-+    /// [`registration_data`](Self::registration_data) which returns a direct reference.
-+    ///
-+    /// Returns [`EINVAL`] if `F` does not match the type used by the parent driver when calling
-+    /// [`Registration::new()`].
-+    ///
-+    /// Returns [`ENOENT`] if no registration data has been set, e.g. when the device was
-+    /// registered by a C driver.
-+    pub fn registration_data_with<F: ForLt + 'static, R>(
-+        &self,
-+        f: impl for<'a> FnOnce(Pin<&'a F::Of<'a>>) -> R,
-+    ) -> Result<R> {
-+        // SAFETY: The HRTB closure prevents the caller from smuggling in references with a
-+        // concrete short lifetime, making the round-trip from `'static` sound regardless of
-+        // variance.
-+        let pinned = unsafe { self.registration_data_pinned::<F>()? };
-+
-+        Ok(f(pinned))
-+    }
-+
-+    /// Returns a pinned reference to the registration data set by the registering (parent) driver.
-+    ///
-+    /// This method is only available when `F` implements [`trait@CovariantForLt`], which guarantees
-+    /// that the lifetime shortening is sound.
-+    ///
-+    /// For non-covariant types, use the closure-based [`Self::registration_data_with`].
-+    ///
-+    /// Returns [`EINVAL`] if `F` does not match the type used by the parent driver when calling
-+    /// [`Registration::new()`].
-+    ///
-+    /// Returns [`ENOENT`] if no registration data has been set, e.g. when the device was
-+    /// registered by a C driver.
-+    pub fn registration_data<F: CovariantForLt + 'static>(&self) -> Result<Pin<&F::Of<'_>>> {
-+        // SAFETY: `CovariantForLt` guarantees covariance, which makes the lifetime shortening
-+        // from `'static` to `'_` performed by `registration_data_pinned` sound.
-+        unsafe { self.registration_data_pinned::<F>() }
-     }
+@@ -56,12 +63,26 @@ struct Data<'bound> {
+     parent: &'bound pci::Device<Bound>,
  }
  
-@@ -399,22 +437,23 @@ struct RegistrationData<T> {
- /// This type represents the registration of a [`struct auxiliary_device`]. When its parent device
- /// is unbound, the corresponding auxiliary device will be unregistered from the system.
- ///
--/// The type parameter `F` is a [`CovariantForLt`](trait@CovariantForLt) encoding of the
--/// registration data type. For non-lifetime-parameterized types, use
--/// [`CovariantForLt!(T)`](macro@CovariantForLt).
--/// The data can be accessed by the auxiliary driver through [`Device::registration_data()`].
-+/// The type parameter `F` is a [`ForLt`](trait@ForLt) encoding of the registration
-+/// data type. For non-lifetime-parameterized types, use [`ForLt!(T)`](macro@ForLt).
++/// Registration data with interior mutability.
 +///
-+/// The data can be accessed by the auxiliary driver through [`Device::registration_data()`] and
-+/// [`Device::registration_data_with()`].
- ///
- /// # Invariants
- ///
- /// `self.adev` always holds a valid pointer to an initialized and registered
- /// [`struct auxiliary_device`] whose `registration_data_rust` field points to a
- /// valid `Pin<KBox<RegistrationData<F::Of<'static>>>>`.
--pub struct Registration<'a, F: CovariantForLt + 'static> {
-+pub struct Registration<'a, F: ForLt + 'static> {
-     adev: NonNull<bindings::auxiliary_device>,
-     _phantom: PhantomData<F::Of<'a>>,
++/// `Mutex<&'bound T>` is invariant over `'bound`, so this type cannot implement
++/// [`CovariantForLt`](trait@CovariantForLt). Access must go through the closure-based
++/// [`auxiliary::Device::registration_data_with()`].
++#[pin_data]
++struct MutexData<'bound> {
++    #[pin]
++    parent: Mutex<&'bound pci::Device<Bound>>,
++    index: u32,
++}
++
+ struct ParentDriver;
+ 
+ #[allow(clippy::type_complexity)]
++#[pin_data]
+ struct ParentData<'bound> {
+     _reg0: auxiliary::Registration<'bound, CovariantForLt!(Data<'_>)>,
+-    _reg1: auxiliary::Registration<'bound, CovariantForLt!(Data<'_>)>,
++    #[pin]
++    _reg1: auxiliary::Registration<'bound, ForLt!(MutexData<'_>)>,
  }
  
--impl<'a, F: CovariantForLt> Registration<'a, F>
-+impl<'a, F: ForLt> Registration<'a, F>
- where
-     for<'b> F::Of<'b>: Send + Sync,
- {
-@@ -526,7 +565,7 @@ pub fn new<E>(
+ kernel::pci_device_table!(
+@@ -81,17 +102,17 @@ fn probe<'bound>(
+         pdev: &'bound pci::Device<Core<'_>>,
+         _info: &'bound Self::IdInfo,
+     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+-        Ok(ParentData {
++        try_pin_init!(ParentData {
+             // SAFETY: `ParentData` is the driver's private data, which is dropped when the
+             // device is unbound; i.e. `mem::forget()` is never called on it.
+             _reg0: unsafe {
+                 auxiliary::Registration::new_with_lt(
+                     pdev.as_ref(),
+                     AUXILIARY_NAME,
+-                    0,
++                    COVARIANT_DEV_ID,
+                     MODULE_NAME,
+                     Data {
+-                        index: 0,
++                        index: COVARIANT_DEV_ID,
+                         parent: pdev,
+                     },
+                 )?
+@@ -101,12 +122,16 @@ fn probe<'bound>(
+                 auxiliary::Registration::new_with_lt(
+                     pdev.as_ref(),
+                     AUXILIARY_NAME,
+-                    1,
++                    INVARIANT_DEV_ID,
+                     MODULE_NAME,
+-                    Data {
+-                        index: 1,
+-                        parent: pdev,
+-                    },
++                    pin_init!(MutexData {
++                        parent <- {
++                            let pdev: &pci::Device<Bound> = pdev;
++
++                            new_mutex!(pdev)
++                        },
++                        index: INVARIANT_DEV_ID,
++                    }),
+                 )?
+             },
+         })
+@@ -115,22 +140,39 @@ fn probe<'bound>(
+ 
+ impl ParentDriver {
+     fn connect(adev: &auxiliary::Device<Bound>) -> Result {
+-        let data = adev.registration_data::<CovariantForLt!(Data<'_>)>()?;
+-        let pdev = data.parent;
+-
+-        dev_info!(
+-            pdev,
+-            "Connect auxiliary {} with parent: VendorID={}, DeviceID={:#x}\n",
+-            adev.id(),
+-            pdev.vendor_id(),
+-            pdev.device_id()
+-        );
+-
+-        dev_info!(
+-            pdev,
+-            "Connected to auxiliary device with index {}.\n",
+-            data.index
+-        );
++        match adev.id() {
++            // CovariantForLt types can use the direct-reference accessor.
++            COVARIANT_DEV_ID => {
++                let data = adev.registration_data::<CovariantForLt!(Data<'_>)>()?;
++                let pdev = data.parent;
++
++                dev_info!(
++                    pdev,
++                    "Connect auxiliary {} with parent: VendorID={}, DeviceID={:#x}\n",
++                    adev.id(),
++                    pdev.vendor_id(),
++                    pdev.device_id()
++                );
++
++                dev_info!(
++                    pdev,
++                    "Connected to auxiliary device with index {}.\n",
++                    data.index
++                );
++            }
++            // Invariant ForLt types (e.g. containing a Mutex) require the closure-based accessor.
++            INVARIANT_DEV_ID => {
++                adev.registration_data_with::<ForLt!(MutexData<'_>), _>(|data| {
++                    let pdev = *data.parent.lock();
++                    dev_info!(
++                        pdev,
++                        "Connected to auxiliary device with index {} (via Mutex).\n",
++                        data.index
++                    );
++                })?;
++            }
++            _ => return Err(EINVAL),
++        }
+ 
+         Ok(())
      }
- }
- 
--impl<F: CovariantForLt> Drop for Registration<'_, F> {
-+impl<F: ForLt> Drop for Registration<'_, F> {
-     fn drop(&mut self) {
-         // SAFETY: By the type invariant of `Self`, `self.adev.as_ptr()` is a valid registered
-         // `struct auxiliary_device`.
-@@ -548,7 +587,7 @@ fn drop(&mut self) {
- }
- 
- // SAFETY: A `Registration` of a `struct auxiliary_device` can be released from any thread.
--unsafe impl<F: CovariantForLt> Send for Registration<'_, F> where for<'a> F::Of<'a>: Send {}
-+unsafe impl<F: ForLt> Send for Registration<'_, F> where for<'a> F::Of<'a>: Send {}
- 
- // SAFETY: `Registration` does not expose any methods or fields that need synchronization.
--unsafe impl<F: CovariantForLt> Sync for Registration<'_, F> where for<'a> F::Of<'a>: Send {}
-+unsafe impl<F: ForLt> Sync for Registration<'_, F> where for<'a> F::Of<'a>: Send {}
 -- 
 2.54.0
 
