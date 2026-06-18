@@ -4,56 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 921C6CD98F2
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 18:30:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63036CD98F6
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 18:39:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07E6210F3AA;
-	Thu, 18 Jun 2026 18:30:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC1DD10F3AE;
+	Thu, 18 Jun 2026 18:39:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="d8gUgG2V";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OrdosJIR";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F35610F3AA
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 18:30:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=uLhabi92uESEf5CbIvCLvsknhXB/GOnAq3LQWEaLDYo=; b=d8gUgG2V7AXxtEPsjukDFsErlu
- ut4scQRKTbLBrqCV4UHQyt8dFGInJ8sQ0DiGmEd7VR7p3OqQuT2ZVLD/1LSUQdfw7hPyr5LWZYX3n
- 8c9i6hsOZC1BGfQU7NcVUAW/2/m5fwggli4+ABsmd+hsB/o9ClaXG9GC0qwWqo6oDpZEjHzuAWfC+
- tTOe1cMRIz1qL0EDf2RSQQzW9NXef3V26Qfd6MK698xsHBPcKB4jP2sTobJUt+GvLAd+XfY3BxQta
- 8NsM6/OrXw3TC8sgBTDpvQJZGGZQp1Pq+dPCjnivljRWXdNRxdXfynF0PONB9uVpcFq/Dt/kTZqgJ
- WN8vciRA==;
-Received: from [37.209.163.134] (helo=[172.16.30.123])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1waHVb-00230t-8X; Thu, 18 Jun 2026 20:30:35 +0200
-Message-ID: <27f54324-94ac-4bbc-ba58-642a314197d7@igalia.com>
-Date: Thu, 18 Jun 2026 20:30:34 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42F8110EE80;
+ Thu, 18 Jun 2026 18:39:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781807970; x=1813343970;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=5E4fOFYYdjiA1aUmrlQPzU6/9fVBnDOSMta32mX78Dk=;
+ b=OrdosJIR1GTPy5PbLrHIGhtgw7pmfIO/ds4roiRbe5wPMb/vUH9Xv6Wy
+ 6Qp07D+8TUFsCClJsB68gQ/t1yB7mXBUOSxw2g2J7zz0azZYND9ypjpxs
+ 9gnOfXB817PDmu5UEpu7Bc92FK3CzcuVAGczsw08cXKONB592qnbtksJc
+ tBRxFoshxfRhF49E0g0RD90+7U6sBv6imtSOijfx6S/YVgX2KUF2vbdzv
+ ZefrdVR4sEMp2lKx4vIa52m/4St5CQSW4865FxBCJYEaqtTibcfNmW2JD
+ S1zjXWFjdhCAbuOhkjdhDJ7Wi21gHoK6wPHB8CaI9PqA3+o/e+m+IaPLv Q==;
+X-CSE-ConnectionGUID: uChiT3/dSwGdAT05kWbm9Q==
+X-CSE-MsgGUID: RYggJqfYSVmlevjejg0NuQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11821"; a="82527388"
+X-IronPort-AV: E=Sophos;i="6.24,212,1774335600"; d="scan'208";a="82527388"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jun 2026 11:39:29 -0700
+X-CSE-ConnectionGUID: +F8wzZwUTQuyPP2GgpY+rQ==
+X-CSE-MsgGUID: l+JEMbVxRBWUY1K0ilsxIQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,212,1774335600"; d="scan'208";a="247563562"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.79])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jun 2026 11:39:27 -0700
+Date: Thu, 18 Jun 2026 21:39:23 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org
+Subject: Re: [PATCH 0/4] drm/i915: Work harder to enable VRR based refresh
+ rate changes on eDP
+Message-ID: <ajQ7W44qv28-i6Pq@intel.com>
+References: <20260612144203.31715-1-ville.syrjala@linux.intel.com>
+ <3d441831-71bc-49fd-823f-3af443e55b20@mailbox.org>
+ <31da350f-adfc-4b2c-a7c5-5ed884ffd9ca@mailbox.org>
+ <ai_40qUa-MVdbOEf@intel.com>
+ <18f0c14b-f973-4e1a-948b-5274cc36895c@mailbox.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-fence: use correct callback in
- dma_fence_timeline_name()
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- Peter Griffin <peter.griffin@linaro.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>,
- kernel-team@android.com
-References: <20260618-linux-drm_crtc_fix-v1-1-801f29c9853d@linaro.org>
- <099959fa-3a41-4166-8c10-4e5c2b9fdf19@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@igalia.com>
-In-Reply-To: <099959fa-3a41-4166-8c10-4e5c2b9fdf19@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <18f0c14b-f973-4e1a-948b-5274cc36895c@mailbox.org>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,80 +78,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue, Jun 16, 2026 at 09:21:01AM +0200, Michel D�nzer wrote:
+> On 6/15/26 15:06, Ville Syrj�l� wrote:
+> > 
+> > What we're doing here is selecting the actual timings to drive an internal laptop 
+> > panel, given some random cooked up modeline from userspace.
+> 
+> How can user space know what cooked-up modes it can (not) expect to work with this?
 
-On 18/06/2026 14:46, Christian König wrote:
-> On 6/18/26 14:00, André Draszik wrote:
->> dma_fence_timeline_name() is a wrapper around
->> dma_fence_ops::get_timeline_name(). Since the blamed commit below, it
->> calls an incorrect callback.
->>
->> Update it to restore functionality by calling the intended callback.
->>
->> Fixes: 62918542b7bf ("dma-fence: Fix sparse warnings due __rcu annotations")
->> Signed-off-by: André Draszik <andre.draszik@linaro.org>
-> I'm like 99% sure we had that already fixed weeks ago, but somehow it looks like that was never merged to drm-misc-fixes.
->
-> Anyway Reviewed-by: Christian König <christian.koenig@amd.com>
+Without VRR support it can only expect modes that have the same refresh
+rate as one of the modes on the connector's mode list to work. With VRR
+support anything within the VRR range should generally work. That's
+assuming other parameters (eg. scaling) are acceptable of course.
 
-I was also perplexed and took me some digging to realise what had happened.
+> 
+> 
+> > We pick the actual mode from the set of "fixed modes" (ie. the modes
+> > that the panel/system itself has reported as supported via
+> > EDID/VBT/ACPI/etc.). For non-VRR panels we just pick the fixed mode
+> > whose refresh rate is closest to the user specified mode, and reject
+> > the commit if it's not close enough (<= 1 Hz).
+> 
+> Can't programming different mode timings result in the panel blanking intermittently?
 
-The copy-and-paste bug was indeed originally fixed in:
+Userspace can specify that a modeset is not allowed, thus if the
+driver can't achieve the refresh rate change without blinks the
+commit will be rejected.
 
-commit 033559473dd3b55558b535aa37b8848c207b5cbb
-Author:     Akash Goel <akash.goel@arm.com>
-AuthorDate: Tue Oct 21 17:09:51 2025 +0100
-Commit:     Tvrtko Ursulin <tursulin@ursulin.net>
-CommitDate: Fri Oct 24 16:56:37 2025 +0100
-
-     dma-fence: Fix safe access wrapper to call timeline name method
-
-
-But waaay before that I sent a fix for something else which touched 
-those lines not noticing the copy-and-paste, fixing a different issue. 
-That one however was not merged until earlier this year:
-
-commit 62918542b7bf08860a60ebbde7654486e0ac0776
-Author:     Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-AuthorDate: Mon Jun 16 16:59:52 2025 +0100
-Commit:     Christian König <christian.koenig@amd.com>
-CommitDate: Mon Feb 9 14:05:20 2026 +0100
-
-     dma-fence: Fix sparse warnings due __rcu annotations
-
-Notice the authored vs commited dates.
-
-I guess it was a silent conflict which overwrote the earlier fix and 
-restore the copy-and-paste bug.
-
-Regards,
-
-Tvrtko
-
->
->> ---
->>   drivers/dma-buf/dma-fence.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
->> index b3bfa6943a8e..5292d714419b 100644
->> --- a/drivers/dma-buf/dma-fence.c
->> +++ b/drivers/dma-buf/dma-fence.c
->> @@ -1202,7 +1202,7 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
->>          /* RCU protection is required for safe access to returned string */
->>          ops = rcu_dereference(fence->ops);
->>          if (!dma_fence_test_signaled_flag(fence))
->> -               return (const char __rcu *)ops->get_driver_name(fence);
->> +               return (const char __rcu *)ops->get_timeline_name(fence);
->>          else
->>                  return (const char __rcu *)"signaled-timeline";
->>   }
->>
->> ---
->> base-commit: e2cae00c05d196491c318196792297f2dfbaa02c
->> change-id: 20260618-linux-drm_crtc_fix-267655a1c89f
->>
->> Best regards,
->> --
->> André Draszik <andre.draszik@linaro.org>
->>
-
+-- 
+Ville Syrj�l�
+Intel
