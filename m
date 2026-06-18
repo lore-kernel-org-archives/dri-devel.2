@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4376ECD98ED
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F01E9CD98F6
 	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 17:04:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56B4B10EE40;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69B6210F386;
 	Thu, 18 Jun 2026 17:04:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="ggSDtMIU";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="bhv2H6Yy";
 	dkim-atps=neutral
 Received: from LO3P265CU004.outbound.protection.outlook.com
  (mail-uksouthazon11020137.outbound.protection.outlook.com [52.101.196.137])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A585310EDF9
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 17:04:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A058210EE27
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 17:04:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=A64yP6qqouJFFsbsu/rqj+kjz4c8Cx+60+Wce7zYm0l1LwoTLFryhl4PWDrpJ20Hh0Trc52O22eFhHejR0q1xr5uTwnnCRBX2SbjWG7vZXjMFegG3BmjwlY2aAtjjaRoh5N6P0J3wQ0C6NaSXvlCebMaQRhTGO69OcWD2lk1IBbwe4RSv/Ktn9+JqliKb9LoepG94w3Z+6qscPJOoF80os8RiLmq8zgTsVPADOaSg4JLvUftujGY+4NDxyNEv2HENLa57seiKflBvNAIfd2qmO1Dlbnm2JIU62wYl8u1bO5xYWDl732hfvNACMRxBl8Xd/EaCJKyuK4qeeSIakHsAw==
+ b=M2bVAfj+o13wRsDpOVYIVvYcbgYQRk0DsyoOifA70EeecB0kkYkU1WqgegI7TaUzsoXrtvMHeHqappc4Qy1YPmRx1XDlyVX4ljCe0QNrietI2E/RULdfisUI7o7bxMH3w4SQdNeGgdHXGEFVMEgnUxmBnG9FAckcJn2oZya0qw0rr7P3cP8PLC7zNrU/fhcHN+9QWWHB6IENEOvu4TBjMYTTnzIb3jSRH6BRlKS6qxMasbaNcdboAsgVeJk0D9rDbwdUcmRwXlj/nftkak3x/7NWiuO/GEas/WRX2qZzpMigsjzFPzgKd06dd5mkbsTAABViE93+aRmUtQ3ds/KwlQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XrhhCsAMRIAcU27Y2Tt9C0sSU03E1gIx/ccCWojECQ8=;
- b=fmmR/j1O//Bd79D124UWX4YquV0pspZmgWTXUbTMAEBmX0D9C/khHbtDx7G+ag0Fq2D+2LwU4HdQ+r5k27+WTpaNGZ1g3UIYFNxZjvgMSGAL1THyPaKC7zyIW/EDwWfNHZu1ycWiWylPNaMXLa9OEQxyOj0DVmEjkcp2x7EF19E71i69FqBNMW4k1xo1WTBn4zwiZOljpa/aPGxOlC/hx3Od9+D1HTZKKQMaWb6J3mpklLAMQHP7z+eL4bfNU5ln9wgvfDGnhwI24xumLCkuFSUIOhg7l43qer3/WOTyfrE2aiow9Oc+KuAkLgChBWpiu8r30vpRfS8GJPnlWnZ1Ag==
+ bh=cbq9JYxSFEEujyBl/Q/9Y8MM++bo6kvGCCsEYLS0su4=;
+ b=bmIARbwwas6i32+gbemxR37BJX9jqtR6gZC9PK3nVMb4RNx7RZEqxzxKmbz1b5N4GrLLpTZwmyAoQuvzzXZAHBDgfUQ4Z2G0lIrmYougadkNsnd2Tb5CybwhlNOZJs9DmEXHKf9G/5YpgBuX+HbxyaftXZJ3TQeIw13r4j4ppdl8op+ODNlzHZVSrzHAfKVDwGws1k358LC9vKuI+2rir4gbkLYZNosHMwADJevpbCxEGwYz3hONkes6af3+FrpMqNuoI0O8JQRfBP9Y2/9mRCx9WLe+KFS/2Uman/CahGztuNGqIeAeUFySlF/kJTVIBVt2YsPAhJJgww3EqofmEw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XrhhCsAMRIAcU27Y2Tt9C0sSU03E1gIx/ccCWojECQ8=;
- b=ggSDtMIUNa2XUR1ENvZAqS+OzZi6VE910txAMypC/LIMQ/n0CrG9MtE8JxdAPh/sH3nAOYy08neZOZM67zJMUsyP+uLbrCkqMnJWOAWE8mbWcuICYPJeUfGYKGM7SPLnCl97WDOAxb1PeZyrB+KrZ8erMs1WgCxPItw2RYfNOW8=
+ bh=cbq9JYxSFEEujyBl/Q/9Y8MM++bo6kvGCCsEYLS0su4=;
+ b=bhv2H6Yyds/Yaq5co3bvcytVTfd+2utYGrtCj41kC9usa1EWDIbbWMMETOVcHSCoOvMRD2y6QKnMecN68zb+c3xTz5QOeo459TtGwGsHMkZR4elLQ/Et7J4XPvaIyQ1ha+wadz9XMnfq3HcvnGxWKRANUi/NDTQ7uS3T0claH+o=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
  by LO4P265MB6966.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:34d::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Thu, 18 Jun
- 2026 17:04:44 +0000
+ 2026 17:04:49 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0139.009; Thu, 18 Jun 2026
- 17:04:44 +0000
+ 17:04:49 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Thu, 18 Jun 2026 18:03:38 +0100
-Subject: [PATCH 01/10] rust: driver: remove `IdTable::id`
+Date: Thu, 18 Jun 2026 18:03:46 +0100
+Subject: [PATCH 09/10] rust: driver: remove duplicate ID table
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260618-id_info-v1-1-96af1e559ef9@garyguo.net>
+Message-Id: <20260618-id_info-v1-9-96af1e559ef9@garyguo.net>
 References: <20260618-id_info-v1-0-96af1e559ef9@garyguo.net>
 In-Reply-To: <20260618-id_info-v1-0-96af1e559ef9@garyguo.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -82,11 +82,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  linux-riscv@lists.infradead.org, linux-pwm@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781802282; l=1028;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781802282; l=5814;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=HhdpyPupZL4/FjKYfaoCdFtZHkH8NnJ1vLSVhYlNxgw=;
- b=fLS+x7haTJLHkJ3TEljsIXJRahZ+oaX39H9X109OOzIyi/+vx0HoaHqPaRNGtDz4FgvrnTnWn
- q18QVCGIzYbBKRfOzWjAstg0QQvguDgqavxYgBPTXxBegc8eIQH8GUr
+ bh=vM+4EwxTqnLZsJlEGl4U+mLg2IkF+9mY6+LzDXoKPxc=;
+ b=vcNY1W3BYSz5bcTTFXTEVlhzLcAPALAdaJJF/5U0vRgTFLIEbDmRFIX+334zLTCDctGgv9Sxx
+ i+aBWwKStpbD4cL3k4f8HeAJieuGFAaajYDq0w3QWlpk4V3LHUzVPP1
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P123CA0548.GBRP123.PROD.OUTLOOK.COM
@@ -95,65 +95,65 @@ X-ClientProxiedBy: LO4P123CA0548.GBRP123.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO4P265MB6966:EE_
-X-MS-Office365-Filtering-Correlation-Id: bab8f7d2-27a4-4672-6e88-08decd5bb1c2
+X-MS-Office365-Filtering-Correlation-Id: 5352048f-bff5-4939-e8be-08decd5bb4a7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|23010399003|1800799024|376014|366016|7416014|921020|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: WMvAiWDb9lJbixxF4uFgX2FmTa8vY4QtaPcnMQOxXiVYyEXo1m/+sMyVIGO9GxIMNK3eHYrMA+vAfyIzP5HUT2uwpfTidxDDQwpAYTm81CKPPMZCJBm9AcZs6NEB3aIW7SGfTzE5+U4ky4QREP++/rIZSuYMmUgd6qNRe7jp1nlxmaIx6vAYQueg//Yuduz4iuq+1bN4+r1qNFbFFLJs7amBrTKnou/PpnN9esiaXdYl8QCPeFaR2laH//s1ttL1j/QWvmZXcQ9ujYw/UpAhwdlSd+b/fR8YLJM8m0e9PZYEVxx0Yv9K2NreIMC6NSe94/TEt/l/NsEmt1ANSngHeXVSBY8jxQw/kIT17TujgYLrRkla/HrTlzOz+o1IiwooVL9p1GbI73pDs54gZC1kgfG2wrBHNyUCaekDXJArn8I41WCruF3htTGDPteFcjriahMGz3iOKB9Ok5K7254iba8dxBBNJ0plLt418KQCk6XILFYewXCkbLscEApbRFG9+iwEMrIbCyN0ZH3doClkvAKaxBNtfJiBeK4P41+hvlhVJPkAFd4hygSPD8Y7HUkrh7htqlEe6BLFBEITGYDzzNSg6pOiV6X4OQYe6vPhaU6oPm14qdb+dp9GVQbSLWeLqPBmO/mKPosZsgYdGML8DTZaCr/PIJAqpKZ3mQUE3LgJQPAYzkSTOiAHCjzBZPt/cqLQQ+2jZycO+VwRIgbJrFqjVsYr+aSTzwQ6A46G6hM=
+ ARA:13230040|10070799003|23010399003|1800799024|376014|366016|7416014|5023799004|921020|56012099006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: dza0LHMz6LB2PFpxhA5Xd0BfTSU6sMo4QbDi5PIToL/m3c0JAma3fHmSOAXPIiF7jG2Ik32N69S/f2v6SLmRqrd9s6xGiit27dLdWADJ2KZJUWJL+IQ9FiF/1JbHDv67NHk+oUsRdxp4V4FMxy+MH9Kvre5liBf5UNuFWpUvm9woLClvtYRVRD8upM3pIKm9f+vbq9IyhX2+k2ZJrYE/tCscX+OYag0Zv+unRvy6AhounzWka3leclZ5q7wL9Ioqaq4YKDIYy44ONU0NFm4EC2WnyzyOeo6ueU7oUAghiLA3D7XIT+THcO0AYcXIhP044YGHCd2vtoO6/dA2EPdJpndUM8uAHofHkRRuMaJQfvrVzmf9CbBGUw4FIFGJ7McGAamfVsIlVbJs3VtkCiPXr0w+FYiwKkPjxCODUb5Jc1gnn99Vws1vzCgmxYi/ikldlcQuilKyUmaqKjoTP5fHtDpQgEDVKlChckjxGJvP6Go34h/DN70SAUg8BCSZUDn6pnF1r/9rUb4VJsKYcO8smzuqQenQI/sQx38OWC7PxSzXpeDo1dLK+/gNINI1/4+zbe3PirtkykRwsfFRSNmMEE0wvRT8j9TzAHa0NvmBKnup/+ht1dxDM+glnV2kVYRH1eiKHf1gK985381WKJm6CfslsxAAwGAZQtVbhlxpXSZ2EYbk41Fo27hy7J9FH17OiJ6yHNvlX/c7I65+cLsRlwmkOmSwlu4GvjmOn8NfTj0=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(23010399003)(1800799024)(376014)(366016)(7416014)(921020)(56012099006)(22082099003)(18002099003);
+ SFS:(13230040)(10070799003)(23010399003)(1800799024)(376014)(366016)(7416014)(5023799004)(921020)(56012099006)(6133799003)(22082099003)(18002099003);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MGE3S2ZXQVg5WnVlVkNTMWs2N090R3M0d21VcmozUjhrVG13N3UySWdUb1JF?=
- =?utf-8?B?K3VNWStiN1d0RjlLVEgwUHV2T3I1amFkZER3UjZKbEl3azhQU213UmRNYzM5?=
- =?utf-8?B?enV0R1lKZ1lQNW5vWjdCZHlCOGRUTm9zbEF4SVdraS9YY1NPMFROVlZaNWpI?=
- =?utf-8?B?RnpzSk9FbzEvb0tVNlcxTUJvT3NTd04xdlpwbVJkdjRqQ1ZJUEdvK3FocU5W?=
- =?utf-8?B?UWpjcWMvczB2R0lINUpQbGRCamFGSU1tT2RjYWRlKzkzSUFHYkhIUFdkQ1Ny?=
- =?utf-8?B?Qlp1d2syaTZnMDNMaUNwSEg3M2FJWVJBSnEvNXNvOGlTV3ZqeVZGSEpHYlB3?=
- =?utf-8?B?QzVOMHpQN2NDclhEaDBiTGlBQTdObVl5NjVROUl0YS8xbm5LMGdLRWJaNzFw?=
- =?utf-8?B?Z0d5Q3VWSHZiOE5tekRBTTBwajQzSHVISHN3UDY4b3VmcUZPYkg2WnBXSkZD?=
- =?utf-8?B?UzlFK2dyaGRqcm9ZcERid1ZaUnZRenU3ZktLNitLOGsxZ09vZU5KVEJGNnhD?=
- =?utf-8?B?YjZLUmxnRTFyMUhUemppMTNIb3kyZWI1QjdxOFl6dGJGajVzWXlUYXphS1BT?=
- =?utf-8?B?dU5SQzhiR05Rdk5OMDhQa1pKMERzYVp6RHRCUHdhL2s4ZE9uZ2NQenoxczFn?=
- =?utf-8?B?aFBZbnlEc2RjeElGdVZkSUt4MVgrdzhNUWhXbjVGdXNxd0FFZFplWURpaWh6?=
- =?utf-8?B?Si9pQm41N1ZDOW5jeWVRMFo4RGswbmpTMHBIbGZTZVgrczlROU5wM0pKTGZW?=
- =?utf-8?B?UFJGcEszeDJodEFnTEIrSVlHU2xaSHJOK01yNHM4NWVzOXV3d0VoeXRUUnlT?=
- =?utf-8?B?Ry92T1JKd2R1V0JzR0c3Y1J2ZjVVRG5pZWsrS0xRa3o3MDJhTWIvTTA0bkNa?=
- =?utf-8?B?RFVUSEJnbndQWHgrMWRhei9NSzZPSS9QUDA4aTl1YmpCSlcrRHFQeFhCRThJ?=
- =?utf-8?B?WitzaVhBUktPNkpxYXBDKzhFdXZua0FFaUV0WG9JbmU5ai9CM0VFOTRydldB?=
- =?utf-8?B?SURLTEN4ZGtid2JnNG1jbDYwenFveEpQZWhiN204c3c1cjZBa1RrSGtsdDZY?=
- =?utf-8?B?NWpkN3Nsd0RycjJrbllCUUR5dlNjRW9tMEpSUmpQd2NNRXdGRFF6NzZiSHAw?=
- =?utf-8?B?bytvSlhwY0s3Q3ZKMktRQTFxTFd1dTQxSlM5T3prZ2NkR0ZaU3FJV0lNM0x1?=
- =?utf-8?B?d0ozRkt5YnlVNzFTSkRLRlJJU2Z0VWxKeUg0eVpOMHJjbTF5bS9uZFJ2MFdh?=
- =?utf-8?B?cmRhY3dwNnd4VFZjZXFMdEdMbkFYLzlmR0hxQ3lsd1NTRUpDNm5rTmtkbTBs?=
- =?utf-8?B?MktwUzV3TUMvZkQxcHhsUStuWlJEZ3lwQW05bGVCRHUxc0h3UmlIU3Ewd0M3?=
- =?utf-8?B?M3J0RzJydEtoNEZaSlRIMnpHOE1EbzdMNjRxVkt0SzNDVlhGcHhwYmpZVEVW?=
- =?utf-8?B?NDZEU21haXRvd2YyS09tcGFLczhqQUdtUjZYaEt4STB2K1I2bVlKamk0c3Vx?=
- =?utf-8?B?UHpza2VFeVhOZExyMmNab1RQeFc4aVdQaEN5cDNFRXBpUmgwWWswQ3hXaHBW?=
- =?utf-8?B?cU5UZkZjdXhKQjFNUmIycjViNXhaVGdiWE91eUd5a3VtSjREYWVyQmsrNXd2?=
- =?utf-8?B?VytnajhsTGJEbnc1S3FmanBnbXJnZmo1dVE2K0JwTkVmZ0UyVUViVGpHVXlu?=
- =?utf-8?B?MlgwYm5Md0VqTXZpbWt3dnpCVFRiUXpUbndTQkNyUTF1RnRaREZIYnNKSXY3?=
- =?utf-8?B?STJpUExFdzhRNElkZW5yQTZNRmNPei9veVIrYXh2cGVkVXZMMjRIMWoyeDNN?=
- =?utf-8?B?OUJUTG1rbkM3SU5kUTVqMzdmb3BSRXYybkNKa3NvTCt3cDl0OElJVWNnN3JP?=
- =?utf-8?B?K2Q4TkQ3SjAzcGdWS3E2dFE1Y09WbVNwdFdrbnRJdlJUdnRPWVl6OGJ0S2gr?=
- =?utf-8?B?c21USXErQTVsNlVZUHNWVWpQRGl6bHFGdU5DaU44K1czOUp6TW5WVlRqNzhx?=
- =?utf-8?B?Q2JiUDQvQytiY0tUbHRnWDk3T1l0K0hhU0FrU25DdTFVTGZSQVNZd1c2WC8r?=
- =?utf-8?B?UlJXZEthNjBYZ0QzL2UwRlNTY3ZEbVFXYk44cmFZMEFlRTZhWVN3UnFjWmZH?=
- =?utf-8?B?Wk5yanllcDJiOVQ3QTNSSnJWaEVjL05XZHA4SlRYT3hSSXFCcXJVMjV2M1Vp?=
- =?utf-8?B?dU5JVVQyZGhSZmNPR1hVY1pxNGxIczV3NitLWll4V0lUOVZScHZhR2NoOHVi?=
- =?utf-8?B?N0ErUVEySGt4bjNiNlJzeFYydmlBTG4xRTlaNEdoS1puNU0reUw0MmR5dE5O?=
- =?utf-8?B?Vnc4K0taRWIyYmFkbmZVRlVtUmxPNENDMWY5YjE1UXZyYmxlK05hZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aFhNZkdGS3dPTDdSaUtVYmZ4U3JSaG9ncThNUnRtVkMxdWtDeUZyMWhjWVlY?=
+ =?utf-8?B?QUxJWkd5YkEzYVZuY0Q1eHVnd3Zhb0luS3FPMW42QkFSbzFhb1dWM0dLZ0ww?=
+ =?utf-8?B?bzY2aGJnSWNKMUZmalc5ZUlyUWlRS0ZXTnhEbHJHOEQ0aERpQnEydzVCM29n?=
+ =?utf-8?B?QjF1ZHZDYndpa25BTFN2NUt3TVc0SWFkRHFSb1ZKWEtoaXJJRnNVRmJOKzVK?=
+ =?utf-8?B?bGI0UjY3dmZmMDZxdjlUOFFSOFM0eExYaFArck5UelJqRWV1b3E0SnpNM1B2?=
+ =?utf-8?B?eEZrcWlGalExNUduMDBWVTB1Tk96MXBHMEViMGZMelcvUlE3WkdPV2RHa1pO?=
+ =?utf-8?B?RkJaY2NOUE5Wb2NUQnZGM0w0b2pkMEUvZEczOGZkT2M0dVdNSXRjMk1Vcm1J?=
+ =?utf-8?B?bXhjK0tkSkJMNHlYSENFNVNPYlQxQnpUbTRPeWUxVHpnb3kwUUZjZW5MSHVH?=
+ =?utf-8?B?ZXlJaWkyNTFCRE5QU0pzU1pERmMvNzJ4eUExNzBDUm5TTUNKQTREQWVxTDFS?=
+ =?utf-8?B?c3Z5U2N4eXRFWXR6d3gxNG9RdXRUcHpRcHhNWU0vdG5GZjZUUlNndzdWTXls?=
+ =?utf-8?B?UkhicTZmQUZ1RS8zQU9kRm03UkxxWGRYRWswdHdWYzZybXhqRGFFTWRFWGph?=
+ =?utf-8?B?UXRRcWdmZEFjaldJYjdNWmYxTlZUdisxaFdOYWdVR2dZMFFRbG1CYmdCV1Ry?=
+ =?utf-8?B?SXo1L0EvL1VEeTB2dEpMdTVuRHhmd0p4V0V2ZDI5WmlucW0zTllCUHlFM0Fo?=
+ =?utf-8?B?ZWtSSnZEbzlzdTJKNVI2Y0wvWXc0YTBuVERaNGtzK0VGeWtIazZIcWt1RFhH?=
+ =?utf-8?B?WFJzWkJ6V1hpYTJKa055QTNIV3N6RUp1SVd3dWpKUDJ3U1J1ZE9EaTlJVndh?=
+ =?utf-8?B?YU9qcGMyUjhYSSsyY3hRc2lUMTR4aCt2eE1qYmdlQ012OXFDSmE4cjNkckxl?=
+ =?utf-8?B?ZlRRVWpMM3RUNzlvV3h0NmhtUXU2NVBnQ2x2Q3ZPN2pFMHpCTVRSM3dkQ1RP?=
+ =?utf-8?B?WTBPc0lXZFRSbm9UcFUzVVdsVTlvakk5K1g4VC9LNWkwb3VsREdUa2UyUGpQ?=
+ =?utf-8?B?eGNlWEVEZXJOMGNRTTQ1Y3Roakl5SUdDbFN3elQrNEdwWUZJR3piUUJIaUEw?=
+ =?utf-8?B?L2xJYjRmQkdNVktYbitGcGZNT0NkYmNrOHo3eHhtYm1EbncxeDJqNXBHc2pO?=
+ =?utf-8?B?NmY1bkhEOFFDNXo1bExQNmVyYmxGUWhPZjNsQkMxckk4QVY5RVRUZTB2Y2tp?=
+ =?utf-8?B?QlFiNENiUjZ5MTRWYzAxSHdvRDJMU3JFUms3YnEyaDBZRFFRUGt1K2tmVWg1?=
+ =?utf-8?B?SHczYUdxMGNRaTFsOVpYWWliMmdiK25QSmxEcWZ4UndjSkh3RlFka1FPNUh0?=
+ =?utf-8?B?R1NjTFh3bFV2Y1hDV0ZyUDE5S2J4QW0xQzdHc1VtYWJISDhaTlpSQW9ud1lU?=
+ =?utf-8?B?a1JxNE8xTjh1bU1VTjN3QXZwY1pmZnl1RzFKQnBYVWJQYUNnQzl2eUZTalI3?=
+ =?utf-8?B?eFAyYW9md3hvTjUxY3hZdEQwQVF6c0Rvb1VWK2hqQ3cyZDBWdENmeExZTHlJ?=
+ =?utf-8?B?ODJmLzh0d0k3VE9lanNDMUMvRlpNMjRYT0kvZStyVDEyaUdiRFFabG05OFZx?=
+ =?utf-8?B?UTIwVU8yR0NKVDZxdUM0R0trN2FiN2tSQ0xaZDU0ZllYeWh1UDN1bktQcVI1?=
+ =?utf-8?B?WU1NS3hPL21JU1NKUGZ0a3BpaEE4RlBHZmdHbE9aK3lTZU1SZ3dQcndPVEZh?=
+ =?utf-8?B?a2x5dVJVaS9zcDFvQStwd1FJWnRyNmpnaEthN0pvQjFOVjlYMmZ3cGw5NHg3?=
+ =?utf-8?B?eTdNRGZvc25jQ3BNMHBsSjRSMXk5bmpnSExMT3h6eXJPZUM1a0hUSlFwZ3Ex?=
+ =?utf-8?B?UGNzNkNxVTdjWnlUSmpTTVJvNTlheW5IWjZWb1dyYTZnK2w0R2lVU2JVNyty?=
+ =?utf-8?B?RFE3WXVwbUgycmx4NUx2TUx3UHZ6RWp1eWFDU0NoaDdPOElXNysremNYUVY5?=
+ =?utf-8?B?anEzZmtEZnZ4amFBZllpbHYyQTZJVkxnNzE3dDRSZUJyZ3dncjJMT0lwYXho?=
+ =?utf-8?B?eWpMczMzK3h0Unljb2hRa2VrMDFKbWxmZ3ZiM0V1c3RNQ25yK2pLNmdSR3dK?=
+ =?utf-8?B?dXRteXQycWpZQzZxaGZ0RDdXWDI1bklKdzEwcE1Tc0YxSkpFVTdMenI1aTZQ?=
+ =?utf-8?B?dnlXbFdYZXZSd1pWYmNCbW9seUIzTlVwamRNa1g4STB0amkxWFFoR2lkaU1n?=
+ =?utf-8?B?SkJOSis5SDJScVo3Y3RQZytCbFpwRHIrTEY0U0xVaExNVnkzdlBnakJwOFpa?=
+ =?utf-8?B?VFRyVjVIZG9STjBxckF5VHRNVS9IMUlOV3pUTE9ObFZ0NzljVy8rZz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: bab8f7d2-27a4-4672-6e88-08decd5bb1c2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5352048f-bff5-4939-e8be-08decd5bb4a7
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 17:04:44.2175 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 17:04:49.0483 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dYNpUYWvorH4R5O7v1e/MGSZVXiLNqXUH+QLht6xJT4CMDj4R7NjR2Kxnm41IC+PA4mpNs3S+xVwnFYh1ZmIUg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7fnliJ8RL4f4GIZ1mQKaJQW38K+xxnFquVDVoSF7N3BHwJ1QaMMwJfteM7eM7Laf+4E0g4++r/NQ4yfl6Kos9w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6966
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -170,38 +170,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is unused.
+Previously, `IdArray` contains both device ID table and info table so we
+keep a separate copy for MODULE_DEVICE_TABLE for hotplug (which needs to be
+just the device ID table). With the info being changed to be carried via
+pointers, `IdArray` is now layout compatible with raw ID table and hence
+there is no longer a need to keep the distinction.
+
+Deduplicate the code, and remove the redundant copy for hotplug purpose by
+just giving the `IdArray` instance a proper symbol name.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/device_id.rs | 7 -------
- 1 file changed, 7 deletions(-)
+ rust/kernel/device_id.rs | 76 +++++++++++++++++-------------------------------
+ 1 file changed, 27 insertions(+), 49 deletions(-)
 
 diff --git a/rust/kernel/device_id.rs b/rust/kernel/device_id.rs
-index 8e9721446014..fbf6d8e6afb9 100644
+index 59453588df0e..26618bcda276 100644
 --- a/rust/kernel/device_id.rs
 +++ b/rust/kernel/device_id.rs
-@@ -166,9 +166,6 @@ pub trait IdTable<T: RawDeviceId, U> {
-     /// Obtain the pointer to the ID table.
-     fn as_ptr(&self) -> *const T::RawType;
- 
--    /// Obtain the pointer to the bus specific device ID from an index.
--    fn id(&self, index: usize) -> &T::RawType;
--
-     /// Obtain the pointer to the driver-specific information from an index.
-     fn info(&self, index: usize) -> &U;
+@@ -86,28 +86,23 @@ unsafe fn info_unchecked_opt<U>(&self) -> Option<&'static U> {
+     }
  }
-@@ -180,10 +177,6 @@ fn as_ptr(&self) -> *const T::RawType {
-         core::ptr::from_ref(self).cast()
-     }
  
--    fn id(&self, index: usize) -> &T::RawType {
--        &self.raw_ids.ids[index]
+-/// A zero-terminated device id array.
++/// A zero-terminated device id array, followed by context data.
+ #[repr(C)]
+-pub struct RawIdArray<T: RawDeviceId, const N: usize> {
++pub struct IdArray<T: RawDeviceId, U: 'static, const N: usize> {
+     // This is `MaybeUninit<T::RawType>` so any bytes inside it can carry provenance in CTFE.
+     // If this were `T::RawType`, integer fields would not be able to contain pointers.
+     ids: [MaybeUninit<T::RawType>; N],
+     sentinel: MaybeUninit<T::RawType>,
++    phantom: PhantomData<&'static U>,
+ }
+ 
+-impl<T: RawDeviceId, const N: usize> RawIdArray<T, N> {
+-    #[doc(hidden)]
+-    pub const fn size(&self) -> usize {
+-        core::mem::size_of::<Self>()
 -    }
--
-     fn info(&self, index: usize) -> &U {
-         &self.id_infos[index]
+-}
++// SAFETY: device ID is plain data plus a `&'static U` and can thus be sent between threads safely
++// if `&U` can.
++unsafe impl<T: RawDeviceId, U: Sync + 'static, const N: usize> Send for IdArray<T, U, N> {}
+ 
+-/// A zero-terminated device id array, followed by context data.
+-#[repr(C)]
+-pub struct IdArray<T: RawDeviceId, U: 'static, const N: usize> {
+-    raw_ids: RawIdArray<T, N>,
+-    phantom: PhantomData<&'static U>,
+-}
++// SAFETY: device ID is plain data plus a `&'static U` and can thus be shared between threads safely
++// if `&U` can.
++unsafe impl<T: RawDeviceId, U: Sync + 'static, const N: usize> Sync for IdArray<T, U, N> {}
+ 
+ impl<T: RawDeviceId + RawDeviceIdIndex, U: 'static, const N: usize> IdArray<T, U, N> {
+     /// Creates a new instance of the array.
+@@ -137,22 +132,13 @@ impl<T: RawDeviceId + RawDeviceIdIndex, U: 'static, const N: usize> IdArray<T, U
+         core::mem::forget(ids);
+ 
+         Self {
+-            raw_ids: RawIdArray {
+-                ids: raw_ids,
+-                sentinel: MaybeUninit::zeroed(),
+-            },
++            ids: raw_ids,
++            sentinel: MaybeUninit::zeroed(),
+             phantom: PhantomData,
+         }
      }
+ }
+ 
+-impl<T: RawDeviceId, U: 'static, const N: usize> IdArray<T, U, N> {
+-    /// Reference to the contained [`RawIdArray`].
+-    pub const fn raw_ids(&self) -> &RawIdArray<T, N> {
+-        &self.raw_ids
+-    }
+-}
+-
+ impl<T: RawDeviceId, const N: usize> IdArray<T, (), N> {
+     /// Creates a new instance of the array without writing index values.
+     ///
+@@ -164,10 +150,8 @@ impl<T: RawDeviceId, const N: usize> IdArray<T, (), N> {
+         core::mem::forget(ids);
+ 
+         Self {
+-            raw_ids: RawIdArray {
+-                ids: raw_ids,
+-                sentinel: MaybeUninit::zeroed(),
+-            },
++            ids: raw_ids,
++            sentinel: MaybeUninit::zeroed(),
+             phantom: PhantomData,
+         }
+     }
+@@ -200,13 +184,17 @@ macro_rules! module_device_table {
+         $table_name: ident, $id_info_type: ty,
+         [$(($id: expr, $info:expr $(,)?)),* $(,)?]
+     ) => {
+-        const $table_name: $crate::device_id::IdArray<
++        #[export_name =
++            concat!("__mod_device_table__", line!(),
++                    "__kmod_", module_path!(),
++                    "__", $table_type,
++                    "__", stringify!($table_name))
++        ]
++        static $table_name: $crate::device_id::IdArray<
+             $device_id_ty,
+             $id_info_type,
+             { <[$device_id_ty]>::len(&[$($id,)*]) },
+         > = $crate::device_id::IdArray::new([$(($id, &$info),)*]);
+-
+-        $crate::module_device_table!($table_type, $table_name);
+     };
+ 
+     // Case for no ID info.
+@@ -215,26 +203,16 @@ macro_rules! module_device_table {
+         $table_name: ident, @none,
+         [$($id: expr),* $(,)?]
+     ) => {
+-        const $table_name: $crate::device_id::IdArray<
++        #[export_name =
++            concat!("__mod_device_table__", line!(),
++                    "__kmod_", module_path!(),
++                    "__", $table_type,
++                    "__", stringify!($table_name))
++        ]
++        static $table_name: $crate::device_id::IdArray<
+             $device_id_ty,
+             (),
+             { <[$device_id_ty]>::len(&[$($id,)*]) },
+         > = $crate::device_id::IdArray::new_without_index([$($id),*]);
+-
+-        $crate::module_device_table!($table_type, $table_name);
+-    };
+-
+-    ($table_type: literal, $table_name:ident) => {
+-        const _: () = {
+-            #[rustfmt::skip]
+-            #[export_name =
+-                concat!("__mod_device_table__", line!(),
+-                        "__kmod_", module_path!(),
+-                        "__", $table_type,
+-                        "__", stringify!($table_name))
+-            ]
+-            static TABLE: [::core::mem::MaybeUninit<u8>; $table_name.raw_ids().size()] =
+-                unsafe { ::core::mem::transmute_copy($table_name.raw_ids()) };
+-        };
+     };
+ }
 
 -- 
 2.54.0
