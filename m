@@ -4,43 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59ED1CD98F2
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 06:17:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60262CD98ED
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 06:30:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7620110E495;
-	Thu, 18 Jun 2026 06:17:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B31E310ECA5;
+	Thu, 18 Jun 2026 06:30:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="huZmLZbF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WUCXSPv5";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0707D10E495
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 06:17:29 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B0DCF40220;
- Thu, 18 Jun 2026 06:17:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75BDF1F000E9;
- Thu, 18 Jun 2026 06:17:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781763448;
- bh=hD7swbo4B/8YcoEal48pPqzhr+J6bm+ySo/zqmFXHl4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=huZmLZbFKVUf+f4OcehC4RNc/WeMOZNUceqv9B0T/S/i/4VdHKJ4rKcjymQ0sV0ZL
- CK7aRi2EEEwZatXtX3J9H/RNKNRz1yCWxRluuHoZUX6pi/AG1v7FM6Dh9kAno6deO2
- JphzXGZ4oXkbJwV+U44hIkOP8gln95IIDF46cagbf6nOEHF/gOCtPnvF81HrnyGhIn
- P9Lmn73YJmMLfs5syd+FH+Hafin3xurcHjfAsn2ricv5r9jJwgOJwYHP/avtCxiKR7
- nxM+m/WA1nXOP3ff4RZeOM1Ay7PpH5EbkhvmSs+X6bBj2BkRYhuQWqmaqiOI+e/GeU
- Fz/o8XYuG2LAQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amdgpu: do not enter fs_reclaim under notifier_lock
- in lockdep training
-To: "Mikhail Gavrilov" <mikhail.v.gavrilov@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260618055216.56191-1-mikhail.v.gavrilov@gmail.com>
-References: <20260618055216.56191-1-mikhail.v.gavrilov@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Jun 2026 06:17:28 +0000
-Message-Id: <20260618061728.75BDF1F000E9@smtp.kernel.org>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F74B10EC4A
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 06:30:25 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id B2B5C60052;
+ Thu, 18 Jun 2026 06:30:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 67F2FC2BCB0;
+ Thu, 18 Jun 2026 06:30:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1781764224;
+ bh=2AXvxyAImZLWIbVapZ+mESkLjtssGF0r7mGVvapmQw0=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=WUCXSPv5UeomtCGpLlYI8T3qjhW7qjNCJdnOjN22uCjxQcbGGVZh/B8CmwsczZ6o3
+ 1mtIy4fks5ksQblIOiWiSNfitF4FBjQWlvtfhQCrnlDdBKRxewhtXDQIT76sbnofkQ
+ XjiX3qCFM0O8KoKFTyvuLcNU93hAVKZYcMJF91zLuUTusu+GTKqER6oxuRUVxcTSlP
+ 9IlMGhXYPm2Nlp3Dmng5+8mFDqMTyrsbpJf1QwIoFmsQd3czZFCMRShTAwON7yLgN+
+ Lbyj2pDw6+XXf7ZcOnlb8NBrBCTS4jfvRPVYzIV6QjNIwPmRuxtSJvtEdD3fSHwC4T
+ +B0BbYdhnMoDA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 488B2CD98ED;
+ Thu, 18 Jun 2026 06:30:24 +0000 (UTC)
+From: HAN Ruidong via B4 Relay <devnull+rdhan.smu.edu.sg@kernel.org>
+Date: Thu, 18 Jun 2026 14:30:17 +0800
+Subject: [PATCH] fbcon: Avoid OOB font access if console rotation fails
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260618-prep-base-v5-15-209-v1-1-cfcf596dca7a@smu.edu.sg>
+X-B4-Tracking: v=1; b=H4sIAHiQM2oC/yXMQQqDMBCF4avIrB1IUhONVyldaBx1urCSaUNBv
+ LtRlx+8928gFJkE2mKDSImFP0uGLgsIc7dMhDxkg1HGKacbXCOt2HdCmCxqi0Z5tN4NVR184x4
+ 15GfejPy/qs/Xbfn1bwrfMwX7fgDVFM0GdwAAAA==
+X-Change-ID: 20260618-prep-base-v5-15-209-596d47c98637
+To: Andrew Morton <akpm@osdl.org>, Antonino Daplas <adaplas@pol.net>, 
+ stable@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Helge Deller <deller@gmx.de>, HAN Ruidong <rdhan@smu.edu.sg>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1989; i=rdhan@smu.edu.sg;
+ h=from:subject:message-id;
+ bh=pCtdGjG+ab6vAzMlyNVdJgcjHkRUp/+84n9btP5SAHM=;
+ b=owGbwMvMwCG27fhf/yDP2WsYT6slMWQZT6g7of1/Y8mMJOa/t+R4pJPbfD78X7/VX4Gj9HhHv
+ eMCDcvtHaUsDGIcDLJiiiw5Nbps8Wedr5ze/qsHZg4rE8gQBi5OAZhIZyLD/2Q31iC5+8qZF8+7
+ WsVdqoh9pN8wW2Buv6dIsdUKmfaHHxgZTjWy+4b8/nKk7d0Fk6Z1YeImp9z3HLTb5RTucunk5wg
+ mFgA=
+X-Developer-Key: i=rdhan@smu.edu.sg; a=openpgp;
+ fpr=6C7C2D065FCD43D4CBB7FA8CB6C7FD4F52499BAC
+X-Endpoint-Received: by B4 Relay for rdhan@smu.edu.sg/default with auth_id=829
+X-Original-From: HAN Ruidong <rdhan@smu.edu.sg>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,78 +74,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: rdhan@smu.edu.sg
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+From: HAN Ruidong <rdhan@smu.edu.sg>
 
-Pre-existing issues:
-- [High] Removing the `fs_reclaim` lockdep annotation silences a true-posit=
-ive warning about a real ABBA deadlock between memory reclaim and GPU reset=
-, rather than fixing the underlying bug.
---
+[ Upstream commit e4ef723d8975a2694cc90733a6b888a5e2841842 ]
 
-commit 4896f663f62249014930226b2bc964c2419486d0
-Author: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Clear the font buffer if the reallocation during console rotation fails
+in fbcon_rotate_font(). The putcs implementations for the rotated buffer
+will return early in this case. See [1] for an example.
 
-drm/amdgpu: do not enter fs_reclaim under notifier_lock in lockdep training
+Currently, fbcon_rotate_font() keeps the old buffer, which is too small
+for the rotated font. Printing to the rotated console with a high-enough
+character code will overflow the font buffer.
 
-The commit removes the fs_reclaim_acquire() and fs_reclaim_release() calls
-from amdgpu_lockdep_init() to silence a circular locking dependency warning,
-claiming it is a false positive.
+v2:
+- fix typos in commit message
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_lockdep.c
-> index d5d71fd7c70d0..eeb3b5007f80f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-> @@ -150,12 +150,6 @@ int amdgpu_lockdep_init(void)
->  	/* Level 6: Reset control lock */
->  	mutex_lock(&reset_ctl.reset_lock);
-> =20
-> -	/*
-> -	 * Mark potential memory reclaim boundary.
-> -	 * GPU operations might trigger memory allocation/reclaim.
-> -	 */
-> -	fs_reclaim_acquire(GFP_KERNEL);
-> -
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
+Cc: stable@vger.kernel.org # v2.6.15+
+Link: https://elixir.bootlin.com/linux/v6.19/source/drivers/video/fbdev/core/fbcon_ccw.c#L144 # [1]
+Signed-off-by: Helge Deller <deller@gmx.de>
+[ renamed `par` to `ops` to match the v5.15 local pointer name ]
+Signed-off-by: HAN Ruidong <rdhan@smu.edu.sg>
+---
+ drivers/video/fbdev/core/fbcon_rotate.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-[Severity: High]
-This is a pre-existing issue, but does removing this lockdep annotation
-silence a true-positive warning about a real ABBA deadlock?
+diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
+index ec3c883400f7..4a06e71ae443 100644
+--- a/drivers/video/fbdev/core/fbcon_rotate.c
++++ b/drivers/video/fbdev/core/fbcon_rotate.c
+@@ -46,6 +46,10 @@ static int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
+ 		info->fbops->fb_sync(info);
+ 
+ 	if (ops->fd_size < d_cellsize * len) {
++		kfree(ops->fontbuffer);
++		ops->fontbuffer = NULL;
++		ops->fd_size = 0;
++
+ 		dst = kmalloc_array(len, d_cellsize, GFP_KERNEL);
+ 
+ 		if (dst == NULL) {
+@@ -54,7 +58,6 @@ static int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
+ 		}
+ 
+ 		ops->fd_size = d_cellsize * len;
+-		kfree(ops->fontbuffer);
+ 		ops->fontbuffer = dst;
+ 	}
+ 
 
-While the circular dependency might not happen in the same thread, couldn't=
- a
-cross-thread deadlock occur between memory reclaim and GPU reset?
+---
+base-commit: dc027a595035729e290c0adffae363a653acde7c
+change-id: 20260618-prep-base-v5-15-209-596d47c98637
 
-For example, if Thread A executes the MMU notifier amdgpu_hmm_invalidate_gf=
-x()
-(e.g., during direct reclaim), it acquires adev->notifier_lock and blocks in
-dma_resv_wait_timeout() waiting for a hardware fence:
+Best regards,
+--  
+HAN Ruidong <rdhan@smu.edu.sg>
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c:amdgpu_hmm_invalidate_gfx() {
-	...
-	mutex_lock(&adev->notifier_lock);
-	...
-	r =3D dma_resv_wait_timeout(vm_root->tbo.base.resv,
-				  DMA_RESV_USAGE_BOOKKEEP, false,
-				  MAX_SCHEDULE_TIMEOUT);
-}
 
-If Thread B (the GPU reset thread) takes down_write(&adev->reset_domain->se=
-m)
-to reset the GPU and signal the fences, and performs GFP_KERNEL allocations,
-it could be forced into direct memory reclaim (fs_reclaim). This would invo=
-ke
-the MMU notifier, attempting to acquire adev->notifier_lock, forming a cycl=
-e.
-
-Would it be better to fix the underlying deadlock by wrapping the GPU reset
-path with memalloc_noreclaim_save() or memalloc_noio_save() to prevent it
-from entering memory reclaim, instead of removing the lockdep annotation?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618055216.5619=
-1-1-mikhail.v.gavrilov@gmail.com?part=3D1
