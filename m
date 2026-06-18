@@ -4,43 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA39ACD98F2
-	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 15:45:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78639CD98F2
+	for <dri-devel@archiver.kernel.org>; Thu, 18 Jun 2026 15:45:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 206B510F34C;
-	Thu, 18 Jun 2026 15:45:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C82CA10F35D;
+	Thu, 18 Jun 2026 15:45:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e0LuW1FE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J5wTG+rp";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5AE410F34C
- for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 15:45:06 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3086610F376
+ for <dri-devel@lists.freedesktop.org>; Thu, 18 Jun 2026 15:45:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 03D1F60103;
- Thu, 18 Jun 2026 15:45:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9103D1F000E9;
- Thu, 18 Jun 2026 15:45:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 06C3A43F0A;
+ Thu, 18 Jun 2026 15:45:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66F211F00A3A;
+ Thu, 18 Jun 2026 15:45:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781797505;
- bh=pgChZgqJm/l1PaDKbq5XsuUjQ5dxJAODW7B3nAmQXlI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=e0LuW1FEs5Mv0ej/iKVS9e+m1fSNavYhbaxo1wfmFieah3X5y3YaAZz7yqboLewxu
- TgbnP2Mu3JV96AuFTVkDovruVS2GZZXnFcAjwfYwwyREjbkQr/4MygNMsBsNE6m0eQ
- d3YQ1M5tx2BjVrxOg0Kf6Pxznz91TTKSDQOTsCTbEt6Wwg0YlGmHWrwfXKOMPy3XNd
- 7z3rAQ9LaKrBiZfq6e8OafVJfpDPNibYGAl/tSoFiQPE8dvMyJOsTnOyUNHLSAuksj
- zp1tuWFzrxl94WiEknoX+5KSSZD1QoHBNzXIbzuK2TcFPGvQG3fXGdIMI/J9bcCFTQ
- 9dZoQjtj12ASA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/2] drm/xe/pagefault: Add SRCID to pagefault struct
-To: "Jonathan Cavitt" <jonathan.cavitt@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260618153312.877948-2-jonathan.cavitt@intel.com>
-References: <20260618153312.877948-1-jonathan.cavitt@intel.com>
- <20260618153312.877948-2-jonathan.cavitt@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Jun 2026 15:45:05 +0000
-Message-Id: <20260618154505.9103D1F000E9@smtp.kernel.org>
+ s=k20260515; t=1781797547;
+ bh=hpG0tX0qNZMLiDxqSN/SJYcJuFVULIX9hGpZpr3KQoU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=J5wTG+rpdbPMlMEX7BJWdlv+rdenjOqlaXbikuW/s1128ikyn7TEsp24n58dhHLrY
+ 1xdPKFqK/b/NJ/ZrisoKOLwXejwnAqsuzaC93w7rccfZ79ZKPlvme5SuJ8UBseHFC2
+ l600JfZPwyMwKHsZBK1HkcpbmW1y1ruVB+zl7STGjDe8fAslZMPwfxfKYe4Vi8T0fM
+ YLIUefFAtfwG3BTddgfY48DHiJhw1gtd607E8WdZxt+vRpbIggcHNomcXrN0y9g1CF
+ aFwF/097BrguGU5xSuONu/StZRArauip1Jsnd9A7MHYmyBRAIRuvhTi3w/sKpFgzEa
+ EY8kJd24ZH85A==
+Date: Thu, 18 Jun 2026 17:45:45 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com
+Subject: Re: [PATCH 2/2] drm/display: hdmi: Round odd max_bpc down to even
+ numbers
+Message-ID: <20260618-ultramarine-crane-of-prestige-af6b75@houat>
+References: <20260608-hdmi-max-bpc-fix-v1-0-6e8dcebc7274@collabora.com>
+ <20260608-hdmi-max-bpc-fix-v1-2-6e8dcebc7274@collabora.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="k7u5mip3hj27ogmo"
+Content-Disposition: inline
+In-Reply-To: <20260608-hdmi-max-bpc-fix-v1-2-6e8dcebc7274@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,56 +60,69 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The format specifier `%ld` is incorrectly used for an `unsigned lon=
-g` value.
---
 
-commit 18f63f8d431959e86df8128bf9d2756c13aca8e3
-Author: Jonathan Cavitt <jonathan.cavitt@intel.com>
+--k7u5mip3hj27ogmo
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/2] drm/display: hdmi: Round odd max_bpc down to even
+ numbers
+MIME-Version: 1.0
 
-drm/xe/pagefault: Add SRCID to pagefault struct
-
-This commit adds SRCID information to the pagefault struct to report the
-hardware unit that resulted in the pagefault. It squashes the SRCID with the
-ASID to keep the struct compact.
-
-> diff --git a/drivers/gpu/drm/xe/xe_pagefault.c b/drivers/gpu/drm/xe/xe_pa=
-gefault.c
-> index dd3c068e1a399..2a21203b1a2a0 100644
-> --- a/drivers/gpu/drm/xe/xe_pagefault.c
-> +++ b/drivers/gpu/drm/xe/xe_pagefault.c
-[ ... ]
-> @@ -242,14 +243,16 @@ static bool xe_pagefault_queue_pop(struct xe_pagefa=
-ult_queue *pf_queue,
+On Mon, Jun 08, 2026 at 01:19:08PM +0200, Nicolas Frattaroli wrote:
+> The HDMI state helpers will count down from the max bpc to 8 in steps of
+> 2, trying each value as a possible output bpc. This goes awry if max bpc
+> is restricted by userspace to an odd number with the "max bpc" connector
+> property.
+>=20
+> Prevent this, without introducing any additional bpc format trial steps,
+> by simply subtracting max_bpc modulo 2 from max_bpc as the starting
+> point for the for loop.
+>=20
+> Additionally, add a KUnit test to validate the handling of this.
+>=20
+> Fixes: 26ff1c38fc29 ("drm/connector: hdmi: Compute bpc and format automat=
+ically")
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> ---
+>  drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  2 +-
+>  drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 71 ++++++++++++++++=
+++++++
+>  2 files changed, 72 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gp=
+u/drm/display/drm_hdmi_state_helper.c
+> index 8303475ec021..9fbf88054ad8 100644
+> --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+> @@ -648,7 +648,7 @@ hdmi_compute_format_bpc(const struct drm_connector *c=
+onnector,
+>  	unsigned int bpc;
+>  	int ret;
 > =20
->  static void xe_pagefault_print(struct xe_pagefault *pf)
->  {
-> -	xe_gt_info(pf->gt, "\n\tASID: %d\n"
-> +	xe_gt_info(pf->gt, "\n\tASID: %ld\n"
+> -	for (bpc =3D max_bpc; bpc >=3D 8; bpc -=3D 2) {
+> +	for (bpc =3D max_bpc - max_bpc % 2; bpc >=3D 8; bpc -=3D 2) {
 
-[Severity: Low]
-Should this format specifier be %lu instead of %ld?
+bpc =3D round_down(max_bpc, 2) (or rounddown) would be more readable here.
 
-In xe_pagefault_print(), the ASID value is now extracted using
-FIELD_GET(XE_PAGEFAULT_ASID_MASK, pf->consumer.id). Because=20
-XE_PAGEFAULT_ASID_MASK is constructed using GENMASK(), the FIELD_GET() macro
-evaluates to an unsigned long.=20
+Looks good otherwise, once fixed
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 
-Passing an unsigned long to %ld causes a format string type mismatch. While
-the 24-bit positive ASID value will format without memory corruption at=20
-runtime, %lu is the correct format specifier for unsigned long values.
+Maxime
 
->  		   "\tFaulted Address: 0x%08x%08x\n"
->  		   "\tFaultType: %lu\n"
->  		   "\tAccessType: %lu\n"
-[ ... ]
+--k7u5mip3hj27ogmo
+Content-Type: application/pgp-signature; name="signature.asc"
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618153312.8779=
-48-1-jonathan.cavitt@intel.com?part=3D1
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCajQSqQAKCRAnX84Zoj2+
+dp4ZAYCKGeCdY8yI9mS0X6IPjxZEjZzMGCuuBmUWULt4Np5RFCUrLDSPSvF9TzwW
+zHfRbM0BgOKS2ewsvDXz6Q5i8Lr4RJqSScFJRt17T2NGOo0Ls7dW65wlIAG3/ieX
+urpqWeFytg==
+=ouQu
+-----END PGP SIGNATURE-----
+
+--k7u5mip3hj27ogmo--
