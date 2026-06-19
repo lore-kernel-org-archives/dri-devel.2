@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 041EBCD98F2
-	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 10:10:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 848BECD98F6
+	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 10:10:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47B7D10F501;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AED310F502;
 	Fri, 19 Jun 2026 10:10:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KylHeCJK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SOdOMSg6";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5452B10F501
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 10:10:30 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-491609cdd8fso11222385e9.2
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 03:10:30 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47ABF10F501
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 10:10:31 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-490bb83a3f6so12788375e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 03:10:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781863829; x=1782468629; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=C7PzdOlm6ppimpgT1Ue/GK7k7tsgiFLY2bjtHZ0QZ2U=;
- b=KylHeCJKXhDRSPzF8jkx8EJUe39HKtAHHbBzMS7azhwrtHLgXQyOyBrqwuEGL/+tSG
- yiMczq64XbqH5Jz789LLOlGgT60IygZJk03/DOver0Hpo6+0Z/tth8dEzEBWQ1o8FLmX
- toCT7zmemhE9VEA9GN4uKL0XMlf8XL97GJCs9aCc72v0jiHjQK1DZh2Lic1zACX5p23J
- fRaEpgqfaIqvLYMkUznBJWsFz94AMG0jWuMWveC8Zm1CUgfqVQgxnSRA1TZTLq0cyLYo
- 4CWYs1YTAwy0a4Va7RJ5nQxd8BNeGd97XnWkHVcPkpswuwU6ZrCNSIzkGOHEB14ov1nT
- XgWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781863829; x=1782468629;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1781863830; x=1782468630; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=C7PzdOlm6ppimpgT1Ue/GK7k7tsgiFLY2bjtHZ0QZ2U=;
- b=YQUbIHjl5fJotL5Z5A2+0Rg6GR5lVXOk//CsdbmHWyANxPYwBZqfEfSXk3lAe4IcwW
- was0SARYaECqw7Iy1eSjAWYKCjGL3x8CDVgf/IeazN5X4g/TSPoXu3ildyd5lvUmf27j
- lVwygq8FEGxSVnet7xYyVmy87zbBl3kUzAYYkspG9c2i2p2P/aDYHS8WkT8CfzhpPiq3
- Ub4gjKQP0y91E5ZQ/AWfW/LsFMxNOUyEV8o7sNdUJGG2SJJManhjrriQ6qPMTlIx0JpX
- tunfoj0sHegqj+jaKT/7pcNT/1vvH5xwvxwxv2SxiFcK3P9OcKOM5zTgY1wCDBedKJ53
- qmJA==
+ bh=xxommcvayRSmRZH5CG3ACXxOwllN7Vo1/cLsPn9rijE=;
+ b=SOdOMSg6r2VWJfL8zdbU2xWmIEl2QflLMJ/2+CRLfA127JajQJvnCapC45gqdA36M3
+ dCMSY8/Blb+y9qpGireplxP07lcEFAxlox0NdDRmgg0OgHW0UnODliLclkJoLLZvDWWk
+ F/3eZmPAghXGuTDdrcVwPksJAqpHG2jLQcwFrcFYf35RHjE/SyC90Bwfz+VMKnTgZdfu
+ M6Ic276OZ/EBbbAlFhiBu97C6wR3S7GfJVxe7YNJ6dn9JZNfof0qJeSRdXaV64Bf1/fb
+ Jm/koQOZ2WJhFI0SDPS5bETYPasLV/ONNKQidKNVUt/56WVFYpYA894B9T+HH4GzGcEp
+ vJ8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781863830; x=1782468630;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=xxommcvayRSmRZH5CG3ACXxOwllN7Vo1/cLsPn9rijE=;
+ b=AMH1p7JwmI88wcHBtug65Cx0A+lE0wl7VJ1tQqjcxKnvbWhHvOlOSAeyTDHG2XjDni
+ EeW7llbDEWjKy+EOxiEBhlkd/LWAghp4mF7i9Z1ogW7Oky0zjByCMMCw4950JHK6Q5Tt
+ Wrr/cqcp7V11K8EUFle7llPAbBh9V3+vestiAN9unrDGpNRzSeAwfusx14+AmPy7l6oX
+ F/vZ+x4xX3gXMK1ZZDpRZEMswob0tRxvPmh2TPa9qEQJnYtYvpkfRRAehgweRxqMdyku
+ VocFTM0tSH7iimVGBD2BHXY0tZd5+g9dRImyvsx94GpvoUd4df/f8hqytI70S/Y4kUOK
+ xtqA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8ycFCzJsHf+jkG7i9keH44f7PdziHjW3vXnSNgygRv53ejFkouR2h54G+NzfjxJu0veBYSsNzgzTc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxT0y502qt1ZMSZ1h4ynlSv0uS1+0Ln743IFuQwN0fBNknQKZ3p
- UJkkDHJTg8WY8IqZrTRg2Ajk1ZcrYH7kxXrMvA0f8J/K4Ozg1ic/v1/p
-X-Gm-Gg: AfdE7cnFbZl/1Fa6MG7X+w+Omcnmdrk5s4D/r3HAiMPWKVaZr4aG1wsOGpicLQWPEjZ
- K9puH4g9TUP/brqlxV/kT4O3plsp8slh9I4CRsplZji2/L0qD6zLE9mD/IKl+4sLiDrjV2H9nCT
- hjRKA3ZbGv4MFWZSvktlkM7LwHwaNcOKqQAAD+OJy5eAqBxPg9G3USJNN+f7D/PiZ66Cuyt5Up7
- W8sFkqX8766BX9ieCGF3nf4dqR7Qi6bx7SxeA+geSbHLUyY81ILlyB8OIgM3cGKGBGLVamrtPnQ
- A2aRFXwO0VBInPir95fxQxyqgfgLL/e6hEmxDDMnK8oun+6UdfJWb5muR798xoWiEvqXQSxD+Jl
- zXGeFuztRXBKrriL/m5tArjdPeoVSJsxA4yjUPAHo5QnyxikN943uG/jP91QjEn1efuWnXlxaxP
- bkS6AZNXints4HxBUzYQ==
-X-Received: by 2002:a05:600d:6451:20b0:490:a646:9d77 with SMTP id
- 5b1f17b1804b1-49240dfe0a5mr34801065e9.6.1781863828461; 
- Fri, 19 Jun 2026 03:10:28 -0700 (PDT)
+ AFNElJ/iMQf0rVBUDyHssplWnzpKSddn7Scky5qM/obXee1g0H7xvgtLjBm6T9oqMDkzvktdb1TTgL7mXC4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywu3k0fQThVcFmS7BKl90IRMYS1L379xsBD5cD5fYzXiMf54xmF
+ dpVNj473AlTpEvxD+O53b095MlJ2Zkfgbehcq2aXLjTWJaxncYb6ZS7h
+X-Gm-Gg: AfdE7ckZnPkBCKRA6POl/YKMlXnkIbpc6Cv6cTN0IuX2kKQGL/ldaPaRntKIfcHIqSw
+ D7Yecg2M5RF7eip9ysW54dfyj1RxcZxP/YU/7V+BTQc99N9Jl70z1WtKgpFszXtxBlB0/8sAcOs
+ 2IP9eMBZAIyLUdlDt2Hi8WYdlwCEFngEF340Po9VYhAb+J76wuWOOnvQJrHRca3sbeghsaMrzxo
+ Z7A+BzEx7GxH/BtE0Kv5ECG9n0RjMPnx3qZkwm86V68PrxavXPuH1f2fmMKAZbLoJ6nAj3MTArR
+ gsqeRi9KKUtW0IFgCfUGktdSSICl2l0NcAx+5rk5+cnPvE+ZH+TndUhNClO3tI9Hzp1UhRM2Xhk
+ vVRSw5NDNiGG8olvZV94QuXzuSpdDSaSTvrbTJOXcCvciZpKpDShriBQpjfW61y+BV/+4rdR9Ro
+ /ZLcBPx0B93FNTQfvpVw==
+X-Received: by 2002:a05:600c:4ec8:b0:490:44eb:c1e0 with SMTP id
+ 5b1f17b1804b1-4923f57187fmr55703405e9.21.1781863829640; 
+ Fri, 19 Jun 2026 03:10:29 -0700 (PDT)
 Received: from biju.lan ([2a00:23c4:a702:d301:435:f63f:6fb:bfa4])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4923fcdd08esm34577555e9.0.2026.06.19.03.10.27
+ 5b1f17b1804b1-4923fcdd08esm34577555e9.0.2026.06.19.03.10.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Jun 2026 03:10:28 -0700 (PDT)
+ Fri, 19 Jun 2026 03:10:29 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Philipp Zabel <p.zabel@pengutronix.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
@@ -83,10 +83,13 @@ Cc: Biju Das <biju.das.jz@bp.renesas.com>,
  linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
  Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
  Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v4 0/2] Add support for Renesas RZ/G3L LVDS encoder
-Date: Fri, 19 Jun 2026 11:10:15 +0100
-Message-ID: <20260619101026.323633-1-biju.das.jz@bp.renesas.com>
+Subject: [PATCH v4 1/2] dt-bindings: display: bridge: Document Renesas RZ/G3L
+ LVDS encoder
+Date: Fri, 19 Jun 2026 11:10:16 +0100
+Message-ID: <20260619101026.323633-2-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260619101026.323633-1-biju.das.jz@bp.renesas.com>
+References: <20260619101026.323633-1-biju.das.jz@bp.renesas.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -106,70 +109,155 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Add support for the RZ/G3L LVDS encoder driver. It operates in single-link
-mode with 4 lanes (Data) + 1 lane (Clock) and supports pixel clock rates
-from 25 to 87 MHz. The LVDS module cannot be used at the same time as
-MIPI-DSI. However, LVDS and the DSI interface share a peripheral clock and
-the MIPI_DSI_PRESET_N reset signal. Also, the MIPI_DSI_CMN_RSTB and
-MIPI_DSI_ARESET_N reset signals must be asserted before using the LVDS
-module.
+Document the LVDS encoder IP found on the RZ/G3L SoC. It supports
+single-link mode. LVDS and the DSI interface share a peripheral clock and
+the MIPI_DSI_PRESET_N reset signal. However, the LVDS module cannot be
+used at the same time as MIPI-DSI.
 
-This patch series depend upon [1]
-
-[1]
- https://lore.kernel.org/all/20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org/
-
+Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
 v3->v4:
- * Reworked bindings, dropping parent node containing simple-mfd and
-   syson.
- * Dropped the tags
- * Dropped the header files clk.h and syscon.h
- * Dropped next_bridge check in attach().
- * Dropped syscon for getting regmap.
- * Replaced the below macros to match the hardware manual:
-	LVDS_0_CTL_FMT_SEL_MSK->LVDS_0_CTL_FMT_SEL0_MSK
-	LVDS_0_PHY_CH_IO_EN_MSK->LVDS_0_PHY_CH_IO_EN0_MSK
-	Replaced LVDS_0_PHY_CH_IO_EN->LVDS_0_PHY_CH_IO_EN0
- * Replaced atomic_reset()->atomic_create_state().
+ * Dropped the tags as it is a rework dropping parent node that contains
+   simple-mfd and syscon.
 v2->v3:
- * Collected tags.
+ * Collected tag.
 v2->v2[1]:
- * Dropped patch#1 as it is accepted.
- * Replace drm_atomic_state with drm_atomic_commit in
-   rzg3l_lvds_atomic_{en,dis}able().
- * Drop local variable ret and dev_err() messages in
-   rzg3l_lvds_atomic_enable(); use WARN_ON() instead to
-   capture unexpected failures since atomic_enable should not fail.
- * Drop local variable next_bridge from rzg3l_lvds_probe().
-[1] https://lore.kernel.org/all/20260524194457.479681-1-biju.das.jz@bp.renesas.com/
+ * No change.
+[1] https://lore.kernel.org/all/20260524195829.960401F000E9@smtp.kernel.org/
 v1->v2:
- * Collected the tags for binding patches.
- * Dropped unused function rzg3l_lvds_is_connected() and removed the 
-   corresponding header file rzg3l_lvds.h
- * Dropped next_bridge from struct rzg3l_lvds instead using bridge's
-   next_bridge.
- * Replaced pm_runtime_resume_and_get()->pm_runtime_get_sync() as
-   atomic_enable doesn't fail and for each enable there always will be an
-   atomic_disable() call.
- * Started using DEFINE_RUNTIME_DEV_PM_OPS for PM callback.
- * Replaced rzg3l_lvds_parse_dt() with devm_drm_of_get_bridge() in probe()
- * Started using reset_control_bulk_*() in rzg3l_lvds_pm_runtime_{suspend,
-   resume}().
-
-Biju Das (2):
-  dt-bindings: display: bridge: Document Renesas RZ/G3L LVDS encoder
-  drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder
-
- .../bridge/renesas,r9a08g046-lvds.yaml        | 120 ++++++++
- drivers/gpu/drm/renesas/rz-du/Kconfig         |  13 +
- drivers/gpu/drm/renesas/rz-du/Makefile        |   1 +
- drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c    | 285 ++++++++++++++++++
- .../gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h   |  26 ++
- 5 files changed, 445 insertions(+)
+ * Collected tag.
+---
+ .../bridge/renesas,r9a08g046-lvds.yaml        | 120 ++++++++++++++++++
+ 1 file changed, 120 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml
- create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
- create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
 
+diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml b/Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml
+new file mode 100644
+index 000000000000..4cd7b688fbf7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml
+@@ -0,0 +1,120 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/bridge/renesas,r9a08g046-lvds.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Renesas RZ/G3L LVDS Encoder
++
++maintainers:
++  - Biju Das <biju.das.jz@bp.renesas.com>
++  - Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
++
++description: |
++  This binding describes the LVDS encoder embedded in the Renesas RZ/G3L
++  SoC. The encoder can operate in LVDS Single-link mode with 4 lanes
++  (Data) + 1 lane (Clock).
++
++properties:
++  compatible:
++    const: renesas,r9a08g046-lvds
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: Peripheral clock
++      - description: PHY clock
++      - description: Dot clock
++
++  clock-names:
++    items:
++      - const: pclk
++      - const: phyclk
++      - const: dotclk
++
++  resets:
++    items:
++      - description: LVDS_RESET_N
++      - description: MIPI_DSI_PRESET_N
++      - description: MIPI_DSI_CMN_RSTB
++      - description: MIPI_DSI_ARESET_N
++
++  reset-names:
++    items:
++      - const: lvdrst
++      - const: prst
++      - const: rst
++      - const: arst
++
++  power-domains:
++    maxItems: 1
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Input channel, directly connected to the Display Unit.
++
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: |
++          Output channel, directly connected to the LVDS panel or bridge.
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - resets
++  - reset-names
++  - power-domains
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/renesas,r9a08g046-cpg.h>
++
++    lvds@108a0000 {
++        compatible = "renesas,r9a08g046-lvds";
++        reg = <0x108a0000 0x10000>;
++        clocks = <&cpg CPG_MOD R9A08G046_MIPI_DSI_PCLK>,
++                 <&cpg CPG_MOD R9A08G046_LVDS_PLLCLK>,
++                 <&cpg CPG_MOD R9A08G046_LVDS_CLK_DOT0>;
++        clock-names = "pclk", "phyclk", "dotclk";
++        resets = <&cpg R9A08G046_LVDS_RESET_N>,
++                 <&cpg R9A08G046_MIPI_DSI_PRESET_N>,
++                 <&cpg R9A08G046_MIPI_DSI_CMN_RSTB>,
++                 <&cpg R9A08G046_MIPI_DSI_ARESET_N>;
++        reset-names = "lvdrst", "prst", "rst", "arst";
++        power-domains = <&cpg>;
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++                lvds0_in: endpoint {
++                    remote-endpoint = <&du_out_lvds0>;
++                };
++            };
++
++            port@1 {
++                reg = <1>;
++                lvds0_out: endpoint {
++                    remote-endpoint = <&panel_in>;
++                };
++            };
++        };
++    };
++...
 -- 
 2.43.0
 
