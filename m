@@ -4,64 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A06F9CD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 12:44:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE2CBCD98F6
+	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 12:45:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEEAA10F5BB;
-	Fri, 19 Jun 2026 12:44:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E4B110F5C0;
+	Fri, 19 Jun 2026 12:45:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eWJ1awcE";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="B5Iwa2++";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD62210F5BB
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 12:44:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9FC9D40696;
- Fri, 19 Jun 2026 12:44:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 114E41F00A3A;
- Fri, 19 Jun 2026 12:44:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781873053;
- bh=kWmg+Z3iyFDK7g60i8LQZgyj/s+Ri6gCBeStElOsXdo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=eWJ1awcEsj0kwKPYAZGBemEb4pVgNzNGndskM/AendSEIszbYPmclEhGr43mm/JQr
- PXaBWJKNVyYOCr2ARKQF30BWlL00GafGIxWsVeEQ936ttytRaDacRdAlyNLRZp/dBa
- w6Q5PKwEZw1RGa20MvbQVkvlW1BJ8zHrcvYxcGOFDgpAhi2raWQqwmkTp3ktFXmuAj
- Bwsi6sPZidxy/F3hMM/ibts5K7LqEt53LIdIKA5t0KwlWJzn/EH+ALemKsEZuj0sMs
- WvRhrT+Un9WtC340t9NEiMKlwenvGNZbmZywpAg3TQaaVN++C/6KbMiYUpmQb/+j4u
- 0ABLU57/ixc/g==
-Date: Fri, 19 Jun 2026 14:44:11 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH v7 02/30] drm/connector: Add HDMI 2.0 scrambler
- infrastructure
-Message-ID: <20260619-tentacled-chupacabra-of-discussion-aaed1e@houat>
-References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
- <20260602-dw-hdmi-qp-scramb-v7-2-445eb54ee1ed@collabora.com>
- <20260612-subtle-shapeless-rattlesnake-4b6af8@houat>
- <7b19b243-ad6a-4d1f-b34e-684e8bfe500c@collabora.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFB8A10F5BD;
+ Fri, 19 Jun 2026 12:45:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781873125; x=1813409125;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=TGA2JCPZEyY6tdazTpYaB8HNXLg5+WpDgvXWYYF8kao=;
+ b=B5Iwa2++zPx5F1mZpmxKgOEO18Jtp6AzOuBoQ7U089PbHimLSAKPdfg8
+ JDoYZzr+xwd3kDqJmWuLftZihBFrmowb3trRCvDTNstMRlsXAsQyQ2ygs
+ DE+kRP9vdRGKLPzJy2aTmEqNNj2wHX2k3fxMbAIPmkhXVdXiTUFNi6dbY
+ 5qDDPA7Mfbt5F9NB93n0CWO3Li0EIkuMDgefmv/F1TWLLAKyIqp4oh6kz
+ BRwm8ZV8fFIBjgUd/IAQv5+GgpojxFeDxPcCvQB7SNRH3pqc5XCjXrfDb
+ hG81Yc0iSk24WB0SHx99uDUoPbHSYC8pSM9wu8F32EHPhogba2zgMBUFl w==;
+X-CSE-ConnectionGUID: DzdPcNm8Qw6AoaZcN6j4TA==
+X-CSE-MsgGUID: xSyJ2fhMS72goIUCNyp4xw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11821"; a="82813298"
+X-IronPort-AV: E=Sophos;i="6.24,213,1774335600"; d="scan'208";a="82813298"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jun 2026 05:45:24 -0700
+X-CSE-ConnectionGUID: 2pDFDLJBTtKUDhrtwZS5JA==
+X-CSE-MsgGUID: /z4r2GaHTmC1/71lwG4Prw==
+X-ExtLoop1: 1
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.211])
+ ([10.245.244.211])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jun 2026 05:45:22 -0700
+Message-ID: <4c7300dc-ab5e-464f-9704-d8da378ee1af@intel.com>
+Date: Fri, 19 Jun 2026 13:45:20 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="4ewvgxcfsnr2oshm"
-Content-Disposition: inline
-In-Reply-To: <7b19b243-ad6a-4d1f-b34e-684e8bfe500c@collabora.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] gpu/buddy: bail out of try_harder when alignment cannot
+ be honoured
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, =?UTF-8?Q?Timur_Krist=C3=B3f?=
+ <timur.kristof@gmail.com>, John Olender <john.olender@gmail.com>,
+ stable@vger.kernel.org
+References: <20260618124755.2751205-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260618124755.2751205-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,224 +75,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 18/06/2026 13:47, Arunpravin Paneer Selvam wrote:
+> The try_harder contiguous fallback could return a range whose start
+> offset did not match the caller's min_block_size. Check each candidate
+> against the requested alignment and reject the allocation when no
+> candidate satisfies it, instead of handing back a misaligned range.
+> 
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Timur Kristóf <timur.kristof@gmail.com>
+> Cc: John Olender <john.olender@gmail.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> ---
+>   drivers/gpu/buddy.c | 33 +++++++++++++++++++++------------
+>   1 file changed, 21 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index dc81fe0301ce..28ed3250ac57 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+> @@ -1127,13 +1127,11 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+>   	struct gpu_buddy_block *block;
+>   	unsigned int tree, order;
+>   	LIST_HEAD(blocks_lhs);
+> -	unsigned long pages;
+>   	u64 modify_size;
+>   	int err;
+>   
+>   	modify_size = rounddown_pow_of_two(size);
+> -	pages = modify_size >> ilog2(mm->chunk_size);
+> -	order = fls(pages) - 1;
+> +	order = ilog2(modify_size) - ilog2(mm->chunk_size);
+>   	if (order == 0)
+>   		return -ENOSPC;
+>   
+> @@ -1149,31 +1147,42 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+>   		while (iter) {
+>   			block = rbtree_get_free_block(iter);
+>   
+> -			/* Allocate blocks traversing RHS */
+>   			rhs_offset = gpu_buddy_block_offset(block);
+> +
+> +			/* Allocate blocks traversing RHS */
+>   			err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
+>   						       &filled, blocks);
+> -			if (!err || err != -ENOSPC)
+> +			if (err && err != -ENOSPC)
+>   				return err;
+> +			if (!err && IS_ALIGNED(rhs_offset, min_block_size))
+> +				return 0;
+> +			if (!err)
 
---4ewvgxcfsnr2oshm
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v7 02/30] drm/connector: Add HDMI 2.0 scrambler
- infrastructure
-MIME-Version: 1.0
+Should we do some kind of rhs = round_down(rhs, min_block_size) at the 
+start? Just wondering if we can get something misaligned here, that 
+should have succeeded if we just applied the round_down first, in some 
+edge case?
 
-On Fri, Jun 12, 2026 at 09:11:54PM +0300, Cristian Ciocaltea wrote:
-> Hi Maxime,
->=20
-> Thanks for taking the time to review this!
->=20
-> On 6/12/26 3:06 PM, Maxime Ripard wrote:
-> > On Tue, Jun 02, 2026 at 01:44:02AM +0300, Cristian Ciocaltea wrote:
-> >> Add the connector-level infrastructure to support HDMI 2.0 scrambling:
-> >>
-> >> - A scrambler_supported flag to indicate whether the source supports t=
-he
-> >>   scrambling capability, in which case the newly introduced
-> >>   .scrambler_{enable|disable}() callbacks in drm_connector_hdmi_funcs
-> >>   are mandatory
-> >> - A scrambler_needed flag to be managed by the hdmi state helpers based
-> >>   on the negotiated TMDS character rate and the source/sink scrambling
-> >>   capabilities
-> >> - A scrambler_enabled flag to track whether scrambling is currently
-> >>   active
-> >> - A delayed work item (scdc_work) with an associated callback (scdc_cb)
-> >>   to monitor sink-side scrambling status and retry the setup if the si=
-nk
-> >>   resets it
-> >>
-> >> These are intended to be used by SCDC scrambling helpers to coordinate
-> >> scrambling setup and teardown between the source driver and the DRM
-> >> core.
-> >>
-> >> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> >> ---
-> >>  drivers/gpu/drm/drm_connector.c | 18 +++++++++
-> >>  include/drm/drm_connector.h     | 81 ++++++++++++++++++++++++++++++++=
-+++++++++
-> >>  2 files changed, 99 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_con=
-nector.c
-> >> index a5d13b92b665..526dc2931b8a 100644
-> >> --- a/drivers/gpu/drm/drm_connector.c
-> >> +++ b/drivers/gpu/drm/drm_connector.c
-> >> @@ -220,6 +220,19 @@ void drm_connector_free_work_fn(struct work_struc=
-t *work)
-> >>  	}
-> >>  }
-> >> =20
-> >> +static void drm_connector_hdmi_scdc_work(struct work_struct *work)
-> >> +{
-> >> +	struct drm_connector *connector;
-> >> +	struct drm_connector_hdmi *hdmi;
-> >> +
-> >> +	hdmi =3D container_of(to_delayed_work(work), struct drm_connector_hd=
-mi,
-> >> +			    scdc_work);
-> >> +	connector =3D container_of(hdmi, struct drm_connector, hdmi);
-> >> +
-> >> +	if (hdmi->scdc_cb)
-> >> +		hdmi->scdc_cb(connector);
-> >> +}
-> >> +
-> >>  static int drm_connector_init_only(struct drm_device *dev,
-> >>  				   struct drm_connector *connector,
-> >>  				   const struct drm_connector_funcs *funcs,
-> >> @@ -285,6 +298,7 @@ static int drm_connector_init_only(struct drm_devi=
-ce *dev,
-> >>  	mutex_init(&connector->edid_override_mutex);
-> >>  	mutex_init(&connector->hdmi.infoframes.lock);
-> >>  	mutex_init(&connector->hdmi_audio.lock);
-> >> +	INIT_DELAYED_WORK(&connector->hdmi.scdc_work, drm_connector_hdmi_scd=
-c_work);
-> >>  	connector->edid_blob_ptr =3D NULL;
-> >>  	connector->epoch_counter =3D 0;
-> >>  	connector->tile_blob_ptr =3D NULL;
-> >> @@ -606,6 +620,10 @@ int drmm_connector_hdmi_init(struct drm_device *d=
-ev,
-> >>  	    !hdmi_funcs->hdmi.write_infoframe)
-> >>  		return -EINVAL;
-> >> =20
-> >> +	if (connector->hdmi.scrambler_supported &&
-> >> +	    (!hdmi_funcs->scrambler_enable || !hdmi_funcs->scrambler_disable=
-))
-> >> +		return -EINVAL;
-> >> +
-> >>  	ret =3D drmm_connector_init(dev, connector, funcs, connector_type, d=
-dc);
-> >>  	if (ret)
-> >>  		return ret;
-> >> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> >> index 529755c2e862..f1c5c15a6cce 100644
-> >> --- a/include/drm/drm_connector.h
-> >> +++ b/include/drm/drm_connector.h
-> >> @@ -28,6 +28,7 @@
-> >>  #include <linux/ctype.h>
-> >>  #include <linux/hdmi.h>
-> >>  #include <linux/notifier.h>
-> >> +#include <linux/workqueue.h>
-> >>  #include <drm/drm_mode_object.h>
-> >>  #include <drm/drm_util.h>
-> >>  #include <drm/drm_property.h>
-> >> @@ -1057,6 +1058,19 @@ struct drm_connector_hdmi_state {
-> >>  	 * @tmds_char_rate: TMDS Character Rate, in Hz.
-> >>  	 */
-> >>  	unsigned long long tmds_char_rate;
-> >> +
-> >> +	/**
-> >> +	 * @scrambler_needed: Whether HDMI 2.0 SCDC scrambling is required
-> >> +	 * for the negotiated mode/bpc/format.
-> >> +	 *
-> >> +	 * Computed by drm_atomic_helper_connector_hdmi_check() from
-> >> +	 * @tmds_char_rate and the source/sink scrambling capabilities.
-> >> +	 *
-> >> +	 * Per HDMI 2.0, scrambling is mandatory above 340 MHz TMDS
-> >> +	 * character rate. Optional scrambling at lower rates is
-> >> +	 * deliberately not requested by the helper.
-> >> +	 */
-> >> +	bool scrambler_needed;
-> >>  };
-> >> =20
-> >>  /**
-> >> @@ -1358,6 +1372,36 @@ struct drm_connector_hdmi_funcs {
-> >>  	 */
-> >>  	const struct drm_edid *(*read_edid)(struct drm_connector *connector);
-> >> =20
-> >> +	/**
-> >> +	 * @scrambler_enable:
-> >> +	 *
-> >> +	 * This callback is invoked through @drm_scdc_start_scrambling during
-> >> +	 * a commit to setup SCDC scrambling and high TMDS clock ratio on
-> >> +	 * source side.
-> >> +	 *
-> >> +	 * The @scrambler_enable callback is mandatory if HDMI 2.0 is to be
-> >> +	 * supported.
-> >> +	 *
-> >> +	 * Returns:
-> >> +	 * 0 on success, a negative error code otherwise
-> >> +	 */
-> >> +	int (*scrambler_enable)(struct drm_connector *connector);
-> >> +
-> >> +	/**
-> >> +	 * @scrambler_disable:
-> >> +	 *
-> >> +	 * This callback is invoked through @drm_scdc_stop_scrambling during
-> >> +	 * a commit to disable SCDC scrambling and high TMDS clock ratio on
-> >> +	 * source side.
-> >> +	 *
-> >> +	 * The @scrambler_disable callback is mandatory if HDMI 2.0 is to be
-> >> +	 * supported.
-> >> +	 *
-> >> +	 * Returns:
-> >> +	 * 0 on success, a negative error code otherwise
-> >> +	 */
-> >> +	int (*scrambler_disable)(struct drm_connector *connector);
-> >> +
-> >>  	/**
-> >>  	 * @avi:
-> >>  	 *
-> >> @@ -1960,6 +2004,43 @@ struct drm_connector_hdmi {
-> >>  	 */
-> >>  	unsigned long supported_formats;
-> >> =20
-> >> +	/**
-> >> +	 * @scrambler_supported: Indicates whether the HDMI controller
-> >> +	 * (source) supports HDMI 2.0 SCDC scrambling.
-> >> +	 *
-> >> +	 * When true, @drm_connector_hdmi_funcs.scrambler_enable and
-> >> +	 * @drm_connector_hdmi_funcs.scrambler_disable are mandatory.
-> >> +	 * This is enforced by drmm_connector_hdmi_init().
-> >> +	 *
-> >> +	 * For HDMI bridge based drivers using drm_bridge_connector_init(),
-> >> +	 * this is propagated automatically from bridges that set the
-> >> +	 * DRM_BRIDGE_OP_HDMI_SCRAMBLER flag in their &drm_bridge->ops.
-> >> +	 * Other drivers must set this field on @connector->hdmi before call=
-ing
-> >> +	 * drmm_connector_hdmi_init().
-> >> +	 */
-> >> +	bool scrambler_supported;
-> >> +
-> >> +	/**
-> >> +	 * @scrambler_enabled: Tracks whether HDMI 2.0 scrambler is currentl=
-y enabled.
-> >> +	 */
-> >> +	bool scrambler_enabled;
-> >=20
-> > This is already in the state. Why do you need to copy it over here, and
->=20
-> This was supposed to be used exclusively by drm_scdc_{start,stop}_scrambl=
-ing()
-> and drm_scdc_sync_status() helpers to control the work item and condition=
-ally
-> trigger CRTC resets.  However, it's now also set by vc4_hdmi_connector_in=
-it() to
-> force disable the scrambler in the vc4_crtc_disable_at_boot() execution p=
-ath.
+> +				goto next;
+>   
+> -			lhs_size = max((size - filled), min_block_size);
+> -			if (!IS_ALIGNED(lhs_size, min_block_size))
+> -				lhs_size = round_up(lhs_size, min_block_size);
+> +			lhs_size = round_up(max((size - filled), min_block_size),
+> +					    min_block_size);
 
-Oh, my bad, I misread. I thought it was meant to be a copy of
-scrambler_needed, but yeah, you're right it makes sense to keep it as is
-and you can ignore this comment.
+Can this be simplified as: round_up(size - filled, min_block_size) ?
 
-Maxime
+> +
+> +			if (lhs_size > rhs_offset)
 
---4ewvgxcfsnr2oshm
-Content-Type: application/pgp-signature; name="signature.asc"
+What is the idea with this check?
 
------BEGIN PGP SIGNATURE-----
+> +				goto next;
+>   
+>   			/* Allocate blocks traversing LHS */
+> -			lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
+> +			lhs_offset = rhs_offset - lhs_size;
+> +
+> +			if (!IS_ALIGNED(lhs_offset, min_block_size))
+> +				goto next;
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCajU5mgAKCRAnX84Zoj2+
-di3yAX9/gHx3Xb+KKlXx8LiIXAWY9ki/m/hUvFFOXASDGlXk59XC1KG43J/yEJr0
-S+acjC0Bf0XXkICkBdxlSp/wUDxhPlCSrNdaH+Intm6VjbB1lt0lzNbE/TcVgwcg
-Gbq15g7kVQ==
-=cBwC
------END PGP SIGNATURE-----
+Would it make sense to just align the lhs down, if misaligned, instead 
+of baling? If the final size we get back is slightly too large, we can 
+just apply a trim at the end?
 
---4ewvgxcfsnr2oshm--
+> +
+>   			err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
+>   						       NULL, &blocks_lhs);
+>   			if (!err) {
+>   				list_splice(&blocks_lhs, blocks);
+>   				return 0;
+> -			} else if (err != -ENOSPC) {
+> +			}
+> +			if (err != -ENOSPC) {
+>   				gpu_buddy_free_list_internal(mm, blocks);
+>   				return err;
+>   			}
+> -			/* Free blocks for the next iteration */
+> +next:
+>   			gpu_buddy_free_list_internal(mm, blocks);
+> -
+>   			iter = rb_prev(iter);
+>   		}
+>   	}
+> 
+> base-commit: b9e2d5cdaab05c997be3a69d9b372d7676683e1b
+
