@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E647CD98F6
-	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 12:27:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58F10CD98F2
+	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 12:27:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6ABE10F5A2;
-	Fri, 19 Jun 2026 12:27:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A892310F5A7;
+	Fri, 19 Jun 2026 12:27:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z5me1jFl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dQ2sgFPj";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A64F210F59D
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 12:27:10 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D323410F5A4
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 12:27:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 292D4601F8;
- Fri, 19 Jun 2026 12:27:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6032C1F000E9;
- Fri, 19 Jun 2026 12:27:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BB3F4429D8;
+ Fri, 19 Jun 2026 12:27:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E5581F000E9;
+ Fri, 19 Jun 2026 12:27:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781872029;
- bh=K5aR3cZCeJ/Rrvj8xsQt/INEFQdaZlNOMDKh5e9IApA=;
+ s=k20260515; t=1781872064;
+ bh=m+e14BDat+MUjEfuuLwU2YmrZXyOKxN5Zuv/P5Bg+9k=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Z5me1jFllkjxRZW3vWP4FA2uSXgI7aVsM5+FU4gAKVLBiJEyGU6YRw37GBRhcGUaz
- +gt+siGkZA8K9+5Vf9Uas8lMj0Qunx33QIXWIx6pqqfoE7wHk10yP2eC277Gg5vNRO
- zXewXAOuugdqgWsO7vsc6lvnRXA1Wgugv7GdWSik969zPbJ27JCtL0bD+HKOJuGPGh
- lkRiPj2mCliVrWctYYL4e89DzJ7X2j7sGVxI1Xk8iPVDs357f9MAM1af/mCThx9erF
- 9s/i1Rt2rY2a0oNkUEE48eFRq/JuA3fV0gf+tNaE0yiuOrW5TMoSfolsHkeElXX+gY
- soYZ/Wm4vwMng==
+ b=dQ2sgFPjly5ZAdEzfLlTbCYYKUoOg15F9gauMkAwKtDlbdDt4ukq7xsrF2odUpCP6
+ T+9ZZwUYxZJ57hPCm4kDDvIUiKCWQ/p5Jl1j19FAaTtQJo8nK7F9Sn0KfP6Iyfh4Hp
+ 9YWurYSfszrfcXO41XRY8e35POM0en6q5Sz5JMPzjo/bIudXZdl2XXggaQ0eO9r6Ur
+ O3xUt1J/J4lJeObn1FpwB3C1mDg7+4c1HUp1P1if+0e3FNuUbDs3sdPML5DqMumSHJ
+ Acpdq7KawuvljxWXO6pfnPPZyJiU7cuw/NUYNnrrqbPaJh+99T0z6n33u5YjfUeED5
+ UKjcaRRcWywIQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 19 Jun 2026 14:24:58 +0200
-Subject: [PATCH v3 53/78] drm/mediatek: hdmi_v2: Switch to atomic_create_state
+Date: Fri, 19 Jun 2026 14:25:11 +0200
+Subject: [PATCH v3 66/78] drm/rockchip: lvds: Switch to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260619-drm-no-more-bridge-reset-v3-53-ff399263111b@kernel.org>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260619-drm-no-more-bridge-reset-v3-66-ff399263111b@kernel.org>
 References: <20260619-drm-no-more-bridge-reset-v3-0-ff399263111b@kernel.org>
 In-Reply-To: <20260619-drm-no-more-bridge-reset-v3-0-ff399263111b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -48,20 +48,18 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org
+ Maxime Ripard <mripard@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1861; i=mripard@kernel.org;
- h=from:subject:message-id; bh=4PVIOS1sJrVloIH98lQF6fdL/vLMtRIZ1HoV9fiP97Q=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmmpoxith9t7VRMWuzW70h4HDt9f1/hb74DJrvKwqu38
- V6dH/SiYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEyEZzJjFdOKh1KqUo2fa5QK
- 9p6cXWYxhTU55tmih0d61zdd3/113uSCovD9c/aEq8XN7+2d5za5h7G+fun7KTOazrqeKvRfwZs
- +LZFDak3VtvyvFxmronwk85j3W2zn22nZ8u7CuvUKmb8UVjsDAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1536; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=TdGEn/Nph6zclvRJJyS70UnRjDHuOTWgKeHyi9X/fKE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmmpuzvo+IT5yysXrHLck58acUqndlSSYl747Rfrmj34
+ zkXVybaMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACaSuo6xzlh50u6sWOmvmVP4
+ BH5OqlfTjpJf2/n08aZkDrZZLiXlx527ry9iq/1dfyG82Lrxz4zVjA0//Pdv+5Qsp8u+9s4qtoc
+ FX4Kan0/bv0M+Reve0gLl1Y8fHeA6l7vuWXzoZJddJ02dFrwFAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -85,39 +83,37 @@ drm_atomic_helper_bridge_reset() helper are deprecated.
 Switch to the atomic_create_state callback and its
 drm_atomic_helper_bridge_create_state() counterpart.
 
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-To: Matthias Brugger <matthias.bgg@gmail.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: Sandy Huang <hjc@rock-chips.com>
+To: "Heiko Stübner" <heiko@sntech.de>
+To: Andy Yan <andy.yan@rock-chips.com>
 Cc: dri-devel@lists.freedesktop.org
-Cc: linux-mediatek@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
 Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-rockchip@lists.infradead.org
 ---
- drivers/gpu/drm/mediatek/mtk_hdmi_v2.c | 2 +-
+ drivers/gpu/drm/rockchip/rockchip_lvds.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c b/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
-index 7bbf463056c9..d9316d30fd5f 100644
---- a/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
-+++ b/drivers/gpu/drm/mediatek/mtk_hdmi_v2.c
-@@ -1324,11 +1324,11 @@ static const struct drm_bridge_funcs mtk_v2_hdmi_bridge_funcs = {
- 	.atomic_enable = mtk_hdmi_v2_bridge_enable,
- 	.atomic_disable = mtk_hdmi_v2_bridge_disable,
- 	.atomic_post_disable = mtk_hdmi_v2_bridge_post_disable,
+diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/rockchip/rockchip_lvds.c
+index 7a0c4fa29f2f..31dc206bedeb 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
++++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
+@@ -117,11 +117,11 @@ rockchip_lvds_bridge_get_modes(struct drm_bridge *bridge, struct drm_connector *
+ 
+ static const
+ struct drm_bridge_funcs rockchip_lvds_bridge_funcs = {
  	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 -	.atomic_reset = drm_atomic_helper_bridge_reset,
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.detect = mtk_hdmi_v2_bridge_detect,
- 	.edid_read = mtk_hdmi_v2_bridge_edid_read,
- 	.hpd_enable = mtk_hdmi_v2_hpd_enable,
- 	.hpd_disable = mtk_hdmi_v2_hpd_disable,
- 	.hdmi_tmds_char_rate_valid = mtk_hdmi_v2_hdmi_tmds_char_rate_valid,
+ 	.get_modes = rockchip_lvds_bridge_get_modes,
+ };
+ 
+ static int
+ rockchip_lvds_encoder_atomic_check(struct drm_encoder *encoder,
 
 -- 
 2.54.0
