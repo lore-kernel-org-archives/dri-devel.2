@@ -4,74 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C16DCD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 14:09:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E29B6CD4F26
+	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 14:14:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A464010F615;
-	Fri, 19 Jun 2026 14:09:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4101B10F624;
+	Fri, 19 Jun 2026 14:14:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="kiZ2AHRx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CmSN3Tai";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B778F10F631;
- Fri, 19 Jun 2026 14:09:08 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 4C47FC06CDC;
- Fri, 19 Jun 2026 14:09:13 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 6EBE8601AD;
- Fri, 19 Jun 2026 14:09:07 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 9A510106C88A8; 
- Fri, 19 Jun 2026 16:09:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1781878145; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=8zhw41Wj4vCH2abThiXQujr4lQRlosy+XBXOYfxLors=;
- b=kiZ2AHRxwemniL/axdXQpGWkQMO6tJUJDELCW+DFK9ZKkXXaQdxEqkFNGLXDrm2ox3/Cxu
- 9mHtWNKn+nOv/H/8SvKQdP2m/0J7WgRYfuLktXZCWylmWZ94LHnDRjf6a2sDHelmMKcyzM
- pnxZprH1bJKxX7zlAx1THNyAD9dVwpwZzEa8iLXjTSn1Qu0zcEBaHTpiMbWeEUCoAAJIks
- CMuE8ArmR6M3bq+VLJpPsRQ9QMuUl7U0pXwz9KXle582cGhXXsXzSwotkaU697KUVLjnU3
- f/35RBhBdw4uhl45nMlhCCeEE8Eraq/+1zFAJHEGSPLNjobb8OAhDvlvnoenSg==
-From: Kory Maincent <kory.maincent@bootlin.com>
-Date: Fri, 19 Jun 2026 16:08:46 +0200
-Subject: [PATCH RFC v2 4/4] drm/mediatek: Use dp_connector helpers to
- report link training state
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260619-feat_link_cap-v2-4-a3dec4c02ad9@bootlin.com>
-References: <20260619-feat_link_cap-v2-0-a3dec4c02ad9@bootlin.com>
-In-Reply-To: <20260619-feat_link_cap-v2-0-a3dec4c02ad9@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Daniel Stone <daniels@collabora.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Mark Yacoub <markyacoub@google.com>, Sean Paul <seanpaul@google.com>, 
- Manasi Navare <navaremanasi@google.com>, 
- Drew Davenport <ddavenport@google.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, 
- Kory Maincent <kory.maincent@bootlin.com>
-X-Mailer: b4 0.15.0
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24FBE10F624
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 14:13:58 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D817D4077C;
+ Fri, 19 Jun 2026 14:13:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 945271F000E9;
+ Fri, 19 Jun 2026 14:13:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781878437;
+ bh=zPDvVcTvjVVEsuTHXXp+vqqU25WRX1PLbLXdBhPbA8A=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=CmSN3TaiGoDJlNvDLn/mVx57HqK85Id9IEHDABuFhHi7pc2pifHHZxHLM/HHc8COe
+ Mb4nZPiVsEHiCfpaX7szf1q3knB3ofXaNKdmy3UYJ6pggzsC1Z2iljSx1dDCDbaNZ+
+ EX0qyQiLeUa0Kkor3KssZg4FZZPXBEqefYgYJiXsJpNd5E0B/H4y8R4OsZ4MZAixVN
+ pL8dvv7rftVepnGLn40sGugH8c5dk2kkA+hgtgFZ8FGpjXvAPMRt/cStxupksvbNeH
+ TNeUcnEKxp8kWunrQpCC/kkuyNuVVB1tJZrG9+eRuj24h6MdDYRqchXED4ubjtDNTL
+ ah7Bj+pFptJlg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] drm/sysfb: simpledrm: Improve framebuffer-size
+ validation
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260619135847.309664-2-tzimmermann@suse.de>
+References: <20260619135847.309664-1-tzimmermann@suse.de>
+ <20260619135847.309664-2-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 19 Jun 2026 14:13:57 +0000
+Message-Id: <20260619141357.945271F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,102 +54,88 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Set DRM_BRIDGE_OP_DP and populate dp_link_train_caps with the supported
-link rates, lane counts, voltage swing and pre-emphasis levels so the
-bridge connector uses drmm_connector_dp_init() and exposes the link
-training state properties to userspace.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Store per-lane voltage swing and pre-emphasis values in
-mtk_dp_train_info and report the negotiated link parameters via
-drm_connector_dp_set_link_train_properties() on training completion.
-Clear them via drm_connector_dp_reset_link_train_properties() when a
-disconnect is detected in the HPD event thread.
+New issues:
+- [Low] The patch updates all callers of the local static wrapper `simplefb=
+_get_validated_int0()` to call `drm_sysfb_get_validated_int0()` directly, b=
+ut leaves the static function definition behind, causing a compiler warning.
 
-Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
----
+Pre-existing issues:
+- [High] Missing validation between the firmware-provided framebuffer dimen=
+sions (stride, width, height) and the size of the memory region allows out-=
+of-bounds virtual memory writes.
+--
 
-This patch has still not been tested. I am in the process of finding the
-hardware for that.
+commit 934b7fe8edd3f05582affbe138506d555774f080
+Author: Thomas Zimmermann <tzimmermann@suse.de>
 
-Changes in v2:
-- Remove voltage swing and pre emphasis properties.
----
- drivers/gpu/drm/mediatek/mtk_dp.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+drm/sysfb: simpledrm: Improve framebuffer-size validation
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
-index eefbc7e0f9c8d..c1e7086104116 100644
---- a/drivers/gpu/drm/mediatek/mtk_dp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-@@ -1789,6 +1789,8 @@ static int mtk_dp_parse_capabilities(struct mtk_dp *mtk_dp)
- 		}
- 	}
- 
-+	drm_dp_sink_set_link_caps(mtk_dp->conn, &mtk_dp->aux);
-+
- 	return 0;
- }
- 
-@@ -1812,6 +1814,17 @@ static void mtk_dp_train_change_mode(struct mtk_dp *mtk_dp)
- 	mtk_dp_reset_swing_pre_emphasis(mtk_dp);
- }
- 
-+static void mtk_dp_report_link_train(struct mtk_dp *mtk_dp)
-+{
-+	u32 rate, nlanes;
-+
-+	rate = drm_dp_bw_code_to_link_rate(mtk_dp->train_info.link_rate);
-+	nlanes = mtk_dp->train_info.lane_count;
-+
-+	drm_dp_set_cur_link_params(mtk_dp->conn, rate, nlanes, false);
-+	drm_dp_set_max_link_params(mtk_dp->conn, rate, nlanes);
-+}
-+
- static int mtk_dp_training(struct mtk_dp *mtk_dp)
- {
- 	int ret;
-@@ -1892,6 +1905,7 @@ static int mtk_dp_training(struct mtk_dp *mtk_dp)
- 	mtk_dp_training_set_scramble(mtk_dp, true);
- 	mtk_dp_set_enhanced_frame_mode(mtk_dp);
- 
-+	mtk_dp_report_link_train(mtk_dp);
- 	return 0;
- }
- 
-@@ -2004,6 +2018,7 @@ static irqreturn_t mtk_dp_hpd_event_thread(int hpd, void *dev)
- 			mtk_dp->need_debounce = false;
- 			mod_timer(&mtk_dp->debounce_timer,
- 				  jiffies + msecs_to_jiffies(100) - 1);
-+			drm_dp_sink_reset_link_caps(mtk_dp->conn);
- 		} else {
- 			mtk_dp_aux_panel_poweron(mtk_dp, true);
- 
-@@ -2742,6 +2757,12 @@ static int mtk_dp_edp_link_panel(struct drm_dp_aux *mtk_aux)
- 
- static int mtk_dp_probe(struct platform_device *pdev)
- {
-+	static const u32 dp_rates[] = {162000, 270000, 540000, 810000};
-+	static const struct drm_connector_dp_link_caps dp_link_caps = {
-+		.nlanes = 4,
-+		.nlink_rates = ARRAY_SIZE(dp_rates),
-+		.link_rates = dp_rates,
-+	};
- 	struct mtk_dp *mtk_dp;
- 	struct device *dev = &pdev->dev;
- 	int ret;
-@@ -2809,6 +2830,8 @@ static int mtk_dp_probe(struct platform_device *pdev)
- 
- 	mtk_dp->bridge.of_node = dev->of_node;
- 	mtk_dp->bridge.type = mtk_dp->data->bridge_type;
-+	mtk_dp->bridge.dp_link_caps = &dp_link_caps;
-+	mtk_dp->bridge.ops = DRM_BRIDGE_OP_DP;
- 
- 	if (mtk_dp->bridge.type == DRM_MODE_CONNECTOR_eDP) {
- 		/*
+Validate the framebuffer size from the firmware against the limitations of
+struct drm_display_mode. Fail probing on errors if the size exceeds the
+16-bit fields.
 
--- 
-2.43.0
+> diff --git a/drivers/gpu/drm/sysfb/simpledrm.c b/drivers/gpu/drm/sysfb/si=
+mpledrm.c
+> index fc168920f2c64..03bd19fadccd5 100644
+> --- a/drivers/gpu/drm/sysfb/simpledrm.c
+> +++ b/drivers/gpu/drm/sysfb/simpledrm.c
+> @@ -88,14 +88,14 @@ static int
+>  simplefb_get_width_pd(struct drm_device *dev,
+>  		      const struct simplefb_platform_data *pd)
+>  {
+> -	return simplefb_get_validated_int0(dev, "width", pd->width);
+> +	return drm_sysfb_get_validated_int0(dev, "width", pd->width, U16_MAX);
+>  }
 
+[Severity: Low]
+Does this leave simplefb_get_validated_int0() as an unused static function?
+
+Since all four callers (simplefb_get_width_pd, simplefb_get_height_pd,
+simplefb_get_width_of, simplefb_get_height_of) are updated to call
+drm_sysfb_get_validated_int0() directly, simplefb_get_validated_int0()
+appears to have zero callers remaining in simpledrm.c. This can trigger a
+-Wunused-function compiler warning.
+
+[Severity: High]
+This isn't a bug introduced by this patch, but while we are improving the
+validation of framebuffer dimensions from firmware, should we also validate
+that the resulting framebuffer size actually fits within the mapped memory
+region?
+
+The firmware-provided stride and height are used to calculate the framebuff=
+er
+size, but when acquiring the memory region:
+
+drivers/gpu/drm/sysfb/simpledrm.c:simpledrm_device_create() {
+    ...
+	screen_base =3D devm_memremap(dev->dev, mem->start, resource_size(mem), ME=
+MREMAP_WC);
+    ...
+}
+
+or the fallback:
+
+drivers/gpu/drm/sysfb/simpledrm.c:simpledrm_device_create() {
+    ...
+	screen_base =3D devm_ioremap_wc(&pdev->dev, mem->start, resource_size(mem)=
+);
+    ...
+}
+
+It seems we map exactly resource_size(mem) bytes without verifying if
+(stride * height) exceeds that size. If the firmware provides a mismatched
+configuration, out-of-bounds writes could occur during plane updates when
+copying pixel data into sysfb->fb_addr.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619135847.3096=
+64-1-tzimmermann@suse.de?part=3D1
