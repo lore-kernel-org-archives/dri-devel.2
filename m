@@ -4,87 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C7A3CD98F8
-	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 07:30:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 798CACD98F8
+	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 07:42:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 916F510E06C;
-	Fri, 19 Jun 2026 07:30:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF6CE10E068;
+	Fri, 19 Jun 2026 07:42:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="m+R4kJfZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dZcajcH5";
 	dkim-atps=neutral
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
- [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 651DC10E06C
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 07:30:50 +0000 (UTC)
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
- by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65J7TZ1I1348223; Fri, 19 Jun 2026 08:30:39 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=qMx/dXEKxAuQfSWrW6yC5Gw
- 4ngiFfIJltQV+UrPJ+24=; b=m+R4kJfZvPKO5CRAhJQfTgozL3Kk/XxURHutJ7n
- a2N6ofBR2TGPIaj/xiCLwFBR9AhLljcAHAZZOSXkkc0jr5v/y9WFumgPkSf1mASM
- 25WxxSmgFPXKFrAWvGrgBQFFk8yuxSSJhUeSokfkWRlYAhSnXNEtm4zP3zxa/GtY
- cROkZiXg4OPJVLX3QitgresKnLteNAUlZNAsjv5QgO5OuaJRZJwodwLFsKxFBPTp
- v4mu5ZC++XEoAdT6ukLbt4gI8Do3+K3uTZ7DoyyyryrOJid4ZA3WMgwlHPO4W16m
- b5g5/jo53ivUfqWjp9j3iLL858rh4EbDtzskQUPB2hlVkTw==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4euc4sjbcj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 19 Jun 2026 08:30:39 +0100 (BST)
-Received: from [127.0.1.1] (172.25.128.214) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 19 Jun
- 2026 08:30:35 +0100
-From: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Date: Fri, 19 Jun 2026 12:59:35 +0530
-Subject: [PATCH v4] drm/imagination: Fix double call to drm_sched_entity_fini()
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-ID: <20260619-b4-sched_fix-v4-1-65de5b2fd71d@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIAN7vNGoC/33MSw6CMBSF4a2Qjq3pi1YcuQ9jTHu5QAeAaUmjI
- ezdwshHdHhO8v0ziRg8RnIsZhIw+ejHIQ+1Kwh0dmiR+jpvIpjQTHNGnaIROqyvjb9TC9JVgjX
- KlI5kcguY7y13vuTd+TiN4bHVE1/fH6HEKadQVsZYjcwpOPm+nRD2MPZkLSXxqvmHFllzYyvp8
- KAbqL+0/Kdl1nq1rmRoGX/Ty7I8AeZrKgElAQAA
-To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
- Alessio Belle <Alessio.Belle@imgtec.com>,
- "Alexandru Dadu" <alexandru.dadu@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Boris Brezillon <boris.brezillon@collabora.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- "Brajesh Gupta" <brajesh.gupta@imgtec.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781854235; l=8854;
- i=brajesh.gupta@imgtec.com; s=20260417; h=from:subject:message-id;
- bh=GWee2v4ejI0C1XdxS8Wnv8kLh7q6+9+ZkbaAu9nWlz0=;
- b=lERgUWMlFp2iwc7x0STNDLa+O3rfM0xtCPW8lJpHDqiicWO0c3VNVxHSd2TfDyqjlsjn4uKqT
- COUIV7/+1w2Cp3xuST34TGsbcl5jpATWrI8Pg2SjsIHkIEfOrwVMnsp
-X-Developer-Key: i=brajesh.gupta@imgtec.com; a=ed25519;
- pk=vDcrSP6vOpWKs914T986xUbB/vY0/cU7mRRb16MRkcg=
-X-Originating-IP: [172.25.128.214]
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE5MDA2NyBTYWx0ZWRfX3SG8XvluQ2+P
- xTnBoiNakPhvK7IyNffa4eCXi98yEyNWSHEMEybd/x6SjgSAsIzzTTwG7vXJkYHsHL8T2LuYBWD
- KO86jxH9EyC7byrJcOJ4BOkV3ItfPUDe5i5pmwFf+X7sPpo9Xg5SqY2flhTLL9UuTKT8Zar05IL
- IN2Y9slnDMbHp5y1VW8u6wT755sjldP+MtCe4ZBYYU2WxI00FQX5RTG0/g0eYGhYFaYCap64JOr
- 5ijH9eQanjHUfvuwYE5kbB8P9M/aWGJEP8XW1XSvvlIhPe500Hndapr1YqEUeykXrdkHdRnqlBN
- hEwVXXDuPuYvUZLNmkSoh/VEv7fieDXAgLmzGL6+v2T12QQzedpNdHLFjPqeajrsxLzTu6gbtnl
- MGEdStn8Vz6vkFGU695YzFLJ5MQH6ARIVx2u8SXMes1cUG0RqZ95i1vEwiQYHzz0c7CLvW8gxbL
- Pm3C9OwEqLLFkSKjLZw==
-X-Authority-Analysis: v=2.4 cv=d/bFDxjE c=1 sm=1 tr=0 ts=6a34f01f cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=aRQ8HefCnzIA:10 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=VwQbUJbxAAAA:8 a=r_1tXGB3AAAA:8 a=28r1m_Knvop3wzSJsIkA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: Z9f36VGAWRSY0_QzKiD9IvRM1D3zc4Qs
-X-Proofpoint-GUID: Z9f36VGAWRSY0_QzKiD9IvRM1D3zc4Qs
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE5MDA2NyBTYWx0ZWRfXzNlhPW3HTEps
- gIkPySpSvzxxSqQNNm+GJprBlgWcOW4pptF/k0LbJbGLsZAnGJU5lezqSrxiice/Qptef0UiXBG
- DK1/1hXNEXOCrWovKX5HNePgeSuoubQ=
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB3F10E068
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 07:42:56 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E3CDF40356;
+ Fri, 19 Jun 2026 07:42:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E1BA1F000E9;
+ Fri, 19 Jun 2026 07:42:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781854975;
+ bh=gBKeMilG8Gx3Sw6MUrItzFzKEPo5fTjBGaquPjqqHyc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=dZcajcH5455DOlQb75uyBLFYPp5PvZIorer1Jt/bK6UyKevXlYBWHBDZlgCQdDr0Q
+ PRgisbTVGL6fB/4Te0deBjGkSkmD9Os51pOQC3heCOnvojgaIhnnFHFEQXVzYAYgCd
+ +QQJ9wAuodginboGasCb9tIOJIqwjNaurHzXSyc8TTYGEq+C/Q1/sagT+uf9+YGBB3
+ UPxLNyF1mGYhiSanhXMlvrhr1pI10ueZ3p/ss8fj8CA1zJs0AG6U5EjggsLVA5QhEx
+ jY7o4G/M6fuYtaLsZnWDuQuae6kLD9oRK2d5BDQ0ChNpuieMh2U+dzEa0R+pdT3wOl
+ 5jKc0X7f9rY6g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] drm/imagination: Fix double call to
+ drm_sched_entity_fini()
+To: "Brajesh Gupta" <brajesh.gupta@imgtec.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260619-b4-sched_fix-v4-1-65de5b2fd71d@imgtec.com>
+References: <20260619-b4-sched_fix-v4-1-65de5b2fd71d@imgtec.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 19 Jun 2026 07:42:55 +0000
+Message-Id: <20260619074255.6E1BA1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,202 +53,102 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Call sequence of double call:
-pvr_context_destroy
-  pvr_context_kill_queues
-    pvr_queue_kill
-      drm_sched_entity_destroy
-        drm_sched_entity_fini // here
-  pvr_context_put
-    kref_put(..., pvr_context_release)
-      pvr_context_destroy_queues
-        pvr_queue_destroy
-          drm_sched_entity_fini // here
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Call to drm_sched_entity_destroy() from pvr_context_kill_queues() calls
-drm_sched_entity_flush() + drm_sched_entity_fini().
-drm_sched_entity_flush() ensures all pending jobs are completed and
-drm_sched_entity_fini() ensures no further submission is allowed as
-per expectation from pvr_context_kill_queues(). Keep the
-drm_sched_entity_fini() only for pvr_context_create() failure path.
+Pre-existing issues:
+- [Critical] Concurrent `pvr_submit_jobs` and `pvr_context_destroy` causes =
+a Use-After-Free of scheduler entity stats.
+- [High] Use-After-Free of `ctx->fw_obj` in the error path of `pvr_context_=
+create()`.
+--
 
-Stack trace for issue with addition of refcounting for DRM entity
-stats in commit fd177135f0e6 ("drm/sched: Account entity GPU time"):
-[  789.490527] ------------[ cut here ]------------
-[  789.490559] refcount_t: underflow; use-after-free.
-[  789.490657] WARNING: lib/refcount.c:28 at refcount_warn_saturate+0xf4/0x144, CPU#0: kworker/u16:1/440
-[  789.490695] Modules linked in: powervr drm_gpuvm drm_exec gpu_sched drm_shmem_helper xhci_plat_hcd xhci_hcd dwc3 usbcore usb_common snd_soc_simple_card snd_soc_simple_card_utils sa2ul sha512 sha256 dwc3_am62 sha1 authenc rti_wdt libsha512 at24 sch_fq_codel fuse dm_mod ipv6
-[  789.490798] CPU: 0 UID: 0 PID: 440 Comm: kworker/u16:1 Not tainted 7.0.0-rc7-02049-g5e2c0700091b #22 PREEMPT
-[  789.490809] Hardware name: Texas Instruments AM625 SK (DT)
-[  789.490815] Workqueue: powervr-sched pvr_queue_fence_release_work [powervr]
-[  789.490868] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[  789.490876] pc : refcount_warn_saturate+0xf4/0x144
-[  789.490884] lr : refcount_warn_saturate+0xf4/0x144
-[  789.490892] sp : ffff8000822cbcc0
-[  789.490895] x29: ffff8000822cbcc0 x28: 0000000000000000 x27: 0000000000000000
-[  789.490909] x26: 0000000000000000 x25: ffff800081b1e338 x24: ffff000004541405
-[  789.490922] x23: ffff000004bea950 x22: ffff00000042e400 x21: ffff000007123e30
-[  789.490935] x20: ffff000007123000 x19: ffff000007a80d50 x18: fffffffffffe7768
-[  789.490948] x17: 74736574202c6e6f x16: 697461746e656d65 x15: ffff800081b269f0
-[  789.490962] x14: 0000000000000030 x13: ffff800081b26a70 x12: 0000000000000211
-[  789.490975] x11: 00000000000000c0 x10: 0000000000000b50 x9 : ffff8000822cbb30
-[  789.490988] x8 : ffff0000014e7bb0 x7 : ffff00007725e780 x6 : 0000000372a05f49
-[  789.491001] x5 : 0000000000000000 x4 : 0000000000000001 x3 : 0000000000000010
-[  789.491013] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff0000014e7000
-[  789.491027] Call trace:
-[  789.491032]  refcount_warn_saturate+0xf4/0x144 (P)
-[  789.491043]  drm_sched_entity_fini+0x164/0x18c [gpu_sched]
-[  789.491081]  pvr_queue_destroy+0x64/0x134 [powervr]
-[  789.491110]  pvr_context_destroy_queues+0x34/0x64 [powervr]
-[  789.491138]  pvr_context_release+0x70/0xac [powervr]
-[  789.491166]  pvr_context_put.part.0+0x5c/0x7c [powervr]
-[  789.491193]  pvr_context_put+0x14/0x24 [powervr]
-[  789.491221]  pvr_queue_fence_release_work+0x20/0x38 [powervr]
-[  789.491249]  process_one_work+0x160/0x4c4
-[  789.491264]  worker_thread+0x188/0x310
-[  789.491276]  kthread+0x130/0x13c
-[  789.491287]  ret_from_fork+0x10/0x20
-[  789.491300] ---[ end trace 0000000000000000 ]---
+commit aae839872c492d8ca3e68e0c05f57b751671962e
+Author: Brajesh Gupta <brajesh.gupta@imgtec.com>
+Subject: drm/imagination: Fix double call to drm_sched_entity_fini()
 
-Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Fixes: eaf01ee5ba28 ("drm/imagination: Implement job submission and scheduling")
+This commit addresses a double call to drm_sched_entity_fini() during the
+destruction of a PVR context. It prevents drm_sched_entity_fini() from being
+called in pvr_context_put() if it has already been called during
+pvr_context_kill_queues().
+
 References: fd177135f0e6 ("drm/sched: Account entity GPU time")
----
-Changes in v4:
-- Simplify logic in v3 by pushing new flag to pvr_queue_destroy().
-- Link to v3: https://lore.kernel.org/r/20260611-b4-sched_fix-v3-1-693beb50ea01@imgtec.com
 
-Changes in v3:
-- Fixed a typo.
-- Handled missing memory leak for RENDER_CONTEXT.
-- Link to v2: https://lore.kernel.org/r/20260611-b4-sched_fix-v2-1-17a93be86fcd@imgtec.com
+[ ... ]
+> diff --git a/drivers/gpu/drm/imagination/pvr_context.c b/drivers/gpu/drm/=
+imagination/pvr_context.c
+> index eba4694400b5a..74c8aad7fe64e 100644
+> --- a/drivers/gpu/drm/imagination/pvr_context.c
+> +++ b/drivers/gpu/drm/imagination/pvr_context.c
+[ ... ]
+> @@ -349,7 +351,7 @@ int pvr_context_create(struct pvr_file *pvr_file, str=
+uct drm_pvr_ioctl_create_co
+>  	pvr_fw_object_destroy(ctx->fw_obj);
+> =20
+>  err_destroy_queues:
+> -	pvr_context_destroy_queues(ctx);
+> +	pvr_context_destroy_queues(ctx, true);
 
-Changes in v2:
-- Fixed memory leak identified in following error path handling of pvr_context_create():
-- pvr_context_create()
--   ...
--   err_destroy_queues:
--     pvr_context_destroy_queues()
--       pvr_queue_destroy()
-- Link to v1: https://lore.kernel.org/r/20260610-b4-sched_fix-v1-1-c5977a6e0b4c@imgtec.com
----
- drivers/gpu/drm/imagination/pvr_context.c | 18 ++++++++++--------
- drivers/gpu/drm/imagination/pvr_queue.c   |  7 +++++--
- drivers/gpu/drm/imagination/pvr_queue.h   |  2 +-
- 3 files changed, 16 insertions(+), 11 deletions(-)
+[Severity: High]
+This isn't a bug introduced by this patch, but does the error path here
+trigger a use-after-free?
 
-diff --git a/drivers/gpu/drm/imagination/pvr_context.c b/drivers/gpu/drm/imagination/pvr_context.c
-index eba4694400b5..74c8aad7fe64 100644
---- a/drivers/gpu/drm/imagination/pvr_context.c
-+++ b/drivers/gpu/drm/imagination/pvr_context.c
-@@ -161,22 +161,24 @@ ctx_fw_data_init(void *cpu_ptr, void *priv)
- /**
-  * pvr_context_destroy_queues() - Destroy all queues attached to a context.
-  * @ctx: Context to destroy queues on.
-+ * @queue_entity_fini: Corresponding queues of context to be released for
-+ *                     failure path in context creation.
-  *
-  * Should be called when the last reference to a context object is dropped.
-  * It releases all resources attached to the queues bound to this context.
-  */
--static void pvr_context_destroy_queues(struct pvr_context *ctx)
-+static void pvr_context_destroy_queues(struct pvr_context *ctx, bool queue_entity_fini)
- {
- 	switch (ctx->type) {
- 	case DRM_PVR_CTX_TYPE_RENDER:
--		pvr_queue_destroy(ctx->queues.fragment);
--		pvr_queue_destroy(ctx->queues.geometry);
-+		pvr_queue_destroy(ctx->queues.fragment, queue_entity_fini);
-+		pvr_queue_destroy(ctx->queues.geometry, queue_entity_fini);
- 		break;
- 	case DRM_PVR_CTX_TYPE_COMPUTE:
--		pvr_queue_destroy(ctx->queues.compute);
-+		pvr_queue_destroy(ctx->queues.compute, queue_entity_fini);
- 		break;
- 	case DRM_PVR_CTX_TYPE_TRANSFER_FRAG:
--		pvr_queue_destroy(ctx->queues.transfer);
-+		pvr_queue_destroy(ctx->queues.transfer, queue_entity_fini);
- 		break;
- 	}
- }
-@@ -240,7 +242,7 @@ static int pvr_context_create_queues(struct pvr_context *ctx,
- 	return -EINVAL;
- 
- err_destroy_queues:
--	pvr_context_destroy_queues(ctx);
-+	pvr_context_destroy_queues(ctx, true);
- 	return err;
- }
- 
-@@ -349,7 +351,7 @@ int pvr_context_create(struct pvr_file *pvr_file, struct drm_pvr_ioctl_create_co
- 	pvr_fw_object_destroy(ctx->fw_obj);
- 
- err_destroy_queues:
--	pvr_context_destroy_queues(ctx);
-+	pvr_context_destroy_queues(ctx, true);
- 
- err_free_ctx_id:
- 	/*
-@@ -384,7 +386,7 @@ pvr_context_release(struct kref *ref_count)
- 	spin_unlock(&pvr_dev->ctx_list_lock);
- 
- 	xa_erase(&pvr_dev->ctx_ids, ctx->ctx_id);
--	pvr_context_destroy_queues(ctx);
-+	pvr_context_destroy_queues(ctx, false);
- 	pvr_fw_object_destroy(ctx->fw_obj);
- 	kfree(ctx->data);
- 	pvr_vm_context_put(ctx->vm_ctx);
-diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
-index 7ed60e1c1a86..324bdadc3d71 100644
---- a/drivers/gpu/drm/imagination/pvr_queue.c
-+++ b/drivers/gpu/drm/imagination/pvr_queue.c
-@@ -1439,11 +1439,13 @@ void pvr_queue_kill(struct pvr_queue *queue)
- /**
-  * pvr_queue_destroy() - Destroy a queue.
-  * @queue: The queue to destroy.
-+ * @queue_entity_fini: Corresponding queues of context to be released for
-+ *                     failure path in context creation.
-  *
-  * Cleanup the queue and free the resources attached to it. Should be
-  * called from the context release function.
-  */
--void pvr_queue_destroy(struct pvr_queue *queue)
-+void pvr_queue_destroy(struct pvr_queue *queue, bool queue_entity_fini)
- {
- 	if (!queue)
- 		return;
-@@ -1453,7 +1455,8 @@ void pvr_queue_destroy(struct pvr_queue *queue)
- 	mutex_unlock(&queue->ctx->pvr_dev->queues.lock);
- 
- 	drm_sched_fini(&queue->scheduler);
--	drm_sched_entity_fini(&queue->entity);
-+	if (queue_entity_fini)
-+		drm_sched_entity_fini(&queue->entity);
- 
- 	if (WARN_ON(queue->last_queued_job_scheduled_fence))
- 		dma_fence_put(queue->last_queued_job_scheduled_fence);
-diff --git a/drivers/gpu/drm/imagination/pvr_queue.h b/drivers/gpu/drm/imagination/pvr_queue.h
-index 4aa72665ce25..5b07d7edf1c1 100644
---- a/drivers/gpu/drm/imagination/pvr_queue.h
-+++ b/drivers/gpu/drm/imagination/pvr_queue.h
-@@ -158,7 +158,7 @@ struct pvr_queue *pvr_queue_create(struct pvr_context *ctx,
- 
- void pvr_queue_kill(struct pvr_queue *queue);
- 
--void pvr_queue_destroy(struct pvr_queue *queue);
-+void pvr_queue_destroy(struct pvr_queue *queue, bool queue_entity_fini);
- 
- void pvr_queue_process(struct pvr_queue *queue);
- 
+When xa_alloc() fails in pvr_context_create(), it jumps to err_destroy_fw_o=
+bj
+which calls pvr_fw_object_destroy(ctx->fw_obj). The ctx->fw_obj pointer is =
+not
+cleared, and execution falls through to err_destroy_queues.
 
----
-base-commit: 61de054a772a1feda6364931ab1baf9038abf1c8
-change-id: 20260610-b4-sched_fix-ac3b920f475b
+pvr_context_destroy_queues() then triggers pvr_queue_destroy(), which calls
+pvr_queue_cleanup_fw_context(). Because the dangling fw_obj pointer is not
+NULL, it bypasses the NULL check and is passed to pvr_fw_structure_cleanup(=
+),
+where it is dereferenced.
 
-Best regards,
--- 
-Brajesh Gupta <brajesh.gupta@imgtec.com>
+[ ... ]
+> diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/im=
+agination/pvr_queue.c
+> index 7ed60e1c1a866..324bdadc3d718 100644
+> --- a/drivers/gpu/drm/imagination/pvr_queue.c
+> +++ b/drivers/gpu/drm/imagination/pvr_queue.c
+[ ... ]
+> @@ -1453,7 +1455,8 @@ void pvr_queue_destroy(struct pvr_queue *queue)
+>  	mutex_unlock(&queue->ctx->pvr_dev->queues.lock);
+> =20
+>  	drm_sched_fini(&queue->scheduler);
+> -	drm_sched_entity_fini(&queue->entity);
+> +	if (queue_entity_fini)
+> +		drm_sched_entity_fini(&queue->entity);
 
+[Severity: Critical]
+This is a pre-existing issue, but is there a race condition between
+pvr_submit_jobs() and pvr_context_destroy() that can cause a use-after-free
+of the scheduler entity stats?
+
+pvr_submit_jobs() looks up the context using pvr_context_lookup(), which
+acquires a kref on the context without holding any locks blocking
+destruction.
+
+Concurrently, a thread calling pvr_context_destroy() removes the context
+handle via xa_erase() and immediately calls pvr_context_kill_queues()
+without waiting for the context's kref to reach 0.
+
+pvr_context_kill_queues() invokes pvr_queue_kill(), which calls
+drm_sched_entity_destroy(). This flushes the entity and calls
+drm_sched_entity_fini(), freeing entity->stats.
+
+pvr_submit_jobs() then proceeds to arm and push jobs via
+pvr_queue_job_push() -> drm_sched_job_arm(), which dereferences the
+freed entity->stats.
+
+Could this be reliably triggered by a userspace program running
+PVR_SUBMIT_JOBS and PVR_DESTROY_CONTEXT ioctls simultaneously on
+different threads?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619-b4-sched_f=
+ix-v4-1-65de5b2fd71d@imgtec.com?part=3D1
