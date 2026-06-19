@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5BB3CDB466
-	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 12:28:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1EC5CD4F26
+	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 12:28:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9400610F5B2;
-	Fri, 19 Jun 2026 12:28:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05C8710F5AF;
+	Fri, 19 Jun 2026 12:28:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZmdhAFU+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IQzVlels";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C73A610F5AC
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 12:27:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DAC610F5A7
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 12:27:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 49BE6601EF;
- Fri, 19 Jun 2026 12:27:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C1CB1F000E9;
- Fri, 19 Jun 2026 12:27:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1D2A9601EE;
+ Fri, 19 Jun 2026 12:27:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 562601F000E9;
+ Fri, 19 Jun 2026 12:27:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781872078;
- bh=kqKaaC3v0jftNxK3Wv7qNrpaKJIE6YDkOzG1iVSZsVk=;
+ s=k20260515; t=1781872053;
+ bh=Lf535QyZCex7JQ2a7o9ANcaV5PHkieAcb90gA4YNnns=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=ZmdhAFU+icY0kMfSCGbPmQGQYrAQAfG94T8fIziyILAWXc+JIVvNltIQ2pAkqfdsz
- k6J3PP0NlPgr56Xt1gsqvOj+6efZ4FY8QY88gOKZqwFc/TDIgUF4yRaHszoXFi4P6h
- ikayePBj3oGWlc00aGu3PLK16xQLe2uXeSps0Q3gA4LfBfHJEja5jmYvwDqp/FMOV3
- Vh2rtFGkDVL3ottojCPyBvZzLANWGc7/jpReK6Nvq6mw+mbmgmLZ1Igx5FDt8A1PpL
- V1PXu4vVY2HiiZu2ZSCDVHEszytuYhWrrw/apkskBcw3xkCzsoAFXEujH00ZGC6ZKZ
- Iq1ASUrHstOBA==
+ b=IQzVlelsdmDgHRopqcPvD4iPPOJZor+5H/o9B7+wzAydz+B1gs9gvVAWimFotJ9Vk
+ pfTJ1lSlfUc0R3uOXs8+60PpnjHBCnKFkAk/nnUDkSYM2bPqGx5UUbVHWypyIwW0ZJ
+ e3Y/tBq+mUK7PafFuiIr+MS+C9IvbpNrknQ8lAf6T+HpaIzLTF2P1G5k7cTAhap2X2
+ Tuwu8tM7JEb4Af85okWptu7U5+4HoeThrxoOaLO3ohK6D2eqSh30Tjk1W2i0wpQluz
+ HaVEpRF5luOtoV/PV3W/OWLg0L+ok2zXXmlGx1FsXEnBzmFSivdVTOANdPrnOMvaa+
+ pWoeV964tSxpA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 19 Jun 2026 14:25:16 +0200
-Subject: [PATCH v3 71/78] drm/vc4: dsi: Switch to atomic_create_state
+Date: Fri, 19 Jun 2026 14:25:07 +0200
+Subject: [PATCH v3 62/78] drm/renesas: rcar-du: mipi_dsi: Switch to
+ atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260619-drm-no-more-bridge-reset-v3-71-ff399263111b@kernel.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260619-drm-no-more-bridge-reset-v3-62-ff399263111b@kernel.org>
 References: <20260619-drm-no-more-bridge-reset-v3-0-ff399263111b@kernel.org>
 In-Reply-To: <20260619-drm-no-more-bridge-reset-v3-0-ff399263111b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -49,16 +50,19 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Simona Vetter <simona@ffwll.ch>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ linux-renesas-soc@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1575; i=mripard@kernel.org;
- h=from:subject:message-id; bh=N07fpT7RFhzY+cBJI2CirVvZhrhZnk3weeRBRiuiE4I=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmmppyBM8/+82cSnd5Q6ztxZnzisqJf/W+cUz1eu746w
- lD7MN6sYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEzERoWx4exsBt8/xQzuNyVP
- Pes7cqLw20lGs+0vpOS+xT+PYlghOOGvi0PGjBvK7r3detv7jYIWMjZMOc1/JvKR0q6r2zze935
- eV1gd8/Ps3yIPLcmy6X+v/svp/5SsuPTq2oI5yydcMHsykzsJAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1751; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=bacVvb6kDoR91wSeLjd3x7j+m9ph7MurfY3FVR33UKk=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmmpqwXX+lp5kxSPnQ7U+vqlAcPVec9LZqw8Mfj5I3so
+ gk6mj2POqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEmOsYG3rusK9Vd13HIfTw
+ zNlv+5UcQ8+vNXS5aejd4/LoecznjS8tY4sFDLfM0S6cPMt6/pnFDYx1Om1Ba9S+vlgct8hd+Fx
+ QxyuZRRJL3tU0dun1NDGobJl16uQEqxNqYjvl7y5K4jSNCCoEAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -82,36 +86,38 @@ drm_atomic_helper_bridge_reset() helper are deprecated.
 Switch to the atomic_create_state callback and its
 drm_atomic_helper_bridge_create_state() counterpart.
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Acked-by: Maíra Canal <mcanal@igalia.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-To: Maxime Ripard <mripard@kernel.org>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: "Maíra Canal" <mcanal@igalia.com>
-Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Magnus Damm <magnus.damm@gmail.com>
+Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-renesas-soc@vger.kernel.org
 ---
- drivers/gpu/drm/vc4/vc4_dsi.c | 2 +-
+ drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_dsi.c b/drivers/gpu/drm/vc4/vc4_dsi.c
-index fc76018b044c..0148f2befed1 100644
---- a/drivers/gpu/drm/vc4/vc4_dsi.c
-+++ b/drivers/gpu/drm/vc4/vc4_dsi.c
-@@ -1409,11 +1409,11 @@ static const struct mipi_dsi_host_ops vc4_dsi_host_ops = {
- };
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+index aaafee1c060b..6e46d6d99f3c 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
++++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+@@ -922,11 +922,11 @@ rcar_mipi_dsi_bridge_mode_valid(struct drm_bridge *bridge,
  
- static const struct drm_bridge_funcs vc4_dsi_bridge_funcs = {
+ static const struct drm_bridge_funcs rcar_mipi_dsi_bridge_ops = {
+ 	.attach = rcar_mipi_dsi_attach,
  	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 -	.atomic_reset = drm_atomic_helper_bridge_reset,
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.atomic_pre_enable = vc4_dsi_bridge_pre_enable,
- 	.atomic_enable = vc4_dsi_bridge_enable,
- 	.atomic_disable = vc4_dsi_bridge_disable,
- 	.atomic_post_disable = vc4_dsi_bridge_post_disable,
- 	.attach = vc4_dsi_bridge_attach,
+ 	.atomic_enable = rcar_mipi_dsi_atomic_enable,
+ 	.atomic_disable = rcar_mipi_dsi_atomic_disable,
+ 	.mode_valid = rcar_mipi_dsi_bridge_mode_valid,
+ };
+ 
 
 -- 
 2.54.0
