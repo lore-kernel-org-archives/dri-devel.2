@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88F8ECD98F2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFB54CD98FA
 	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 10:24:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCF2410F522;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E76D610F527;
 	Fri, 19 Jun 2026 10:24:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="h9Orv1EA";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="RBWrxw/E";
 	dkim-atps=neutral
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A76510F51A
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 10:24:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C34610F512
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 10:24:28 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 3C6F11A398A;
- Fri, 19 Jun 2026 10:24:29 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 5B45D1A398A;
+ Fri, 19 Jun 2026 10:24:26 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 092F0601AD;
- Fri, 19 Jun 2026 10:24:29 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 29419601AD;
+ Fri, 19 Jun 2026 10:24:26 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id D931E106C8934; 
- Fri, 19 Jun 2026 12:24:25 +0200 (CEST)
+ with ESMTPSA id 46D0D106C8831; 
+ Fri, 19 Jun 2026 12:24:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1781864668; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1781864665; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=4JJkVs3tLM1p39lhCidpIH8UjqmTgp87GAx6PaWQPGs=;
- b=h9Orv1EAyLIMc/M42o9y74fsTCCZBxtn3Cf8dd+zsM5biS2z5gmDAcTfp3i9OFDCWvoNix
- e8GHWnDV1ts2+6Fm9ZO15CWQE7qRdb7gOX92IeYyCXj+zODQ73k/+SyYTM4m6ifFa+XclJ
- J30z0jVo0aXS+MG66VShyuiOwT5Piy6Xs1ncOeIniTms6t8gI9SyYTSQz3d0sVx0IBr1FF
- +731O01Xj0QSpeqZovYSqsAB78NOWSjwPofpXIzGtlAIYLN2C+qF25RbNUs/tclKAh6OXt
- Rq7X6Mijf3n1QCLEwWuRf4pkJMpIdsTmQPCqF/HY616wFMVrt9XxQSOjrEyryQ==
+ bh=qnqLe5FNWMg//oJ+/Cen1/IzdtFQDfl7OKWwte+yTvc=;
+ b=RBWrxw/EsBtjnb0xT6gnxqQ41j9wbgmF9YCgZ4FxudueV8WPoZlZb0mDbOnXoK8Asxb345
+ 7Jt72DLXg6Go+KOtRGOc+f8+nNoIS3sw+N0vRnN+hQIScX6XtEcbL1PwBqlrwDPj/ZsI6O
+ rSz93OsxSHXCstFcQlxnXqHF7lvCE+VWVzvxCi8CVPJT93GG8owSSGn/YvkkhBLLPrskmL
+ EHNjwtLHOEO2AjHIvlsa5p0EkTpkfVdsPtdcYgz91BFMF7v+svNsx/QPndHcLzfBQm5JVo
+ qdEDlIMfX4rG+nSGyyn/Ph7FjPnigJtAsEr3KJpD4KtBJtHUI1UwkvNSOKfl+A==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 78/78] drm/bridge: Remove atomic_reset support
+Subject: Re: [PATCH v2 77/78] drm/bridge: cdns-mhdp8546: Switch to
+ atomic_create_state
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
 To: Maxime Ripard <mripard@kernel.org>
 Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -47,13 +48,12 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov <lumag@kernel.org>, 
- dri-devel@lists.freedesktop.org, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-78-0a91018bf886@kernel.org>
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-77-0a91018bf886@kernel.org>
 References: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
- <20260608-drm-no-more-bridge-reset-v2-78-0a91018bf886@kernel.org>
+ <20260608-drm-no-more-bridge-reset-v2-77-0a91018bf886@kernel.org>
 Date: Fri, 19 Jun 2026 12:24:04 +0200
-Message-Id: <178186464486.2030423.14405658349151518391.b4-review@b4>
+Message-Id: <178186464484.2030423.8553900026060327483.b4-review@b4>
 X-Mailer: b4 0.15.2
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -71,28 +71,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 08 Jun 2026 16:37:00 +0200, Maxime Ripard <mripard@kernel.org> wrote:
-> There are no remaining users of the atomic_reset hook. Remove it
-> from the core.
+On Mon, 08 Jun 2026 16:36:59 +0200, Maxime Ripard <mripard@kernel.org> wrote:
+> The cdns-mhdp8546 bridge atomic_reset implementation is semantically
+> an atomic_create_state: it allocates and initializes a pristine state
+> without side effects.
+> 
+> Switch to the atomic_create_state callback, and rename the function
+> accordingly.
+> 
+> [...]
 
-Similarly to patch 74, there are a few leftovers:
-
-  $ git grep -w  atomic_reset -- drivers/gpu/drm/
-  drivers/gpu/drm/tests/drm_bridge_test.c:        .atomic_reset                   = drm_atomic_helper_bridge_reset,
-  drivers/gpu/drm/tests/drm_bridge_test.c:        .atomic_reset                   = drm_atomic_helper_bridge_reset,                       \
-  $
-
-One in the docs, the other 2 are the same reported for patch 74.
-
-Otherwise LGTM.
-
-Luca
-
-drivers/gpu/drm/tests/drm_bridge_test.c: .atomic_reset                   = drm_atomic_helper_bridge_reset,
-drivers/gpu/drm/tests/drm_bridge_test.c: .atomic_reset                   = drm_atomic_helper_bridge_reset,                       \
-
-drivers/gpu/drm/tests/drm_bridge_test.c: .atomic_reset                   = drm_atomic_helper_bridge_reset,
-drivers/gpu/drm/tests/drm_bridge_test.c: .atomic_reset                   = drm_atomic_helper_bridge_reset,                       \
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 -- 
 Luca Ceresoli, Bootlin
