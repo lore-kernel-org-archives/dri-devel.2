@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33E59CDB466
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82EC4CDB46D
 	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 12:27:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E57010F5A9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C2A410F5AB;
 	Fri, 19 Jun 2026 12:27:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fkPGNQ4F";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H5TEAaVG";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2C9C10F597
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 12:27:02 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80F4010F5AA
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 12:27:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 36950601F2;
- Fri, 19 Jun 2026 12:27:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DF2B1F00A3D;
- Fri, 19 Jun 2026 12:27:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 67C4941E64;
+ Fri, 19 Jun 2026 12:27:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD2611F000E9;
+ Fri, 19 Jun 2026 12:27:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781872021;
- bh=4DYgDTdQxoQs5/Acj4UuK6ZGLl7MSEF++04nWxrV/IQ=;
+ s=k20260515; t=1781872067;
+ bh=dHWZem1sX5qRm+cZyCdgQwCQRbpaBa69F1l2ue7kqdc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=fkPGNQ4FnBrUeZNc7X4vS6SU8QfiaPMTCkAxH6o0aJXP5Z/Iz5uPUZGQzdzxfL3GA
- 9M+A9yVur1Hd+0vtQvtRDflXL1PFa7U6/sfUFJLLCBIx5lv7d7YyNVkjd/9t2UZw6k
- /AQR+IVuGyJ5tbWlpjVsiEygrjqgiwCgcwnrvIlqU4nlEHrYzBmxq5fTsWpi5y2ZER
- qYfSII3J4v5PZjGqB0w0NewDz+fnw8ws6+0sKn/pq4wDqIMjhWDWQTCTgjJ9+ki5Ih
- 9rzy5vcnGyO25eT6AwwvXmnM1vSJzMrFcI2yOgMNHlqmOpXWVqq0oM1GSvMr3ERFbt
- tB9Dfg2xfxs5w==
+ b=H5TEAaVGv2WZMJSKws93Enn+r3jYWI6ekMNgWQQ3A/PRB3WKBdbyxn542oco8fE2D
+ JlKdvFT3u65TvfJYbh9p00M4wRH/nzcMGY91PB0W2SMNqgOthLkA7QJRYViWY0DB+q
+ NR67eRpKiL/LjBMu20R5V2HT984jySzexV9KJBU/tsiTR4pw1YtIphZVUDUXXTUpcN
+ widSs05ipn1RvSR0dOKGS8pGYZKZQwBis02TXwv7d/qSoz9UIgzIPuq0L4kk0g0mXy
+ u+jl7Bm6oVbkeSUDxf7lb5rKy4UUzeZSt3sv/o3bEJ0wUhpZ58RsJ4yCJtUFm3O/y2
+ ihOQvYlYx00oA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 19 Jun 2026 14:24:55 +0200
-Subject: [PATCH v3 50/78] drm/mediatek: dpi: Switch to atomic_create_state
+Date: Fri, 19 Jun 2026 14:25:12 +0200
+Subject: [PATCH v3 67/78] drm/stm: lvds: Switch to atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260619-drm-no-more-bridge-reset-v3-50-ff399263111b@kernel.org>
+Message-Id: <20260619-drm-no-more-bridge-reset-v3-67-ff399263111b@kernel.org>
 References: <20260619-drm-no-more-bridge-reset-v3-0-ff399263111b@kernel.org>
 In-Reply-To: <20260619-drm-no-more-bridge-reset-v3-0-ff399263111b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -49,19 +49,20 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Simona Vetter <simona@ffwll.ch>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Yannick Fertre <yannick.fertre@foss.st.com>, 
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ linux-stm32@st-md-mailman.stormreply.com, 
  linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1787; i=mripard@kernel.org;
- h=from:subject:message-id; bh=4vEdFTeqmRJs/IptJNcK+ndXJCSStQmeCH+8L3c3neE=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmmpgwPhc831N6fJZ62VlExh6Oc4dlKhxeRUgdSJ850L
- drFsndRx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZgIhyhjJWNf2KO1l3N2ty52
- Md3WxuE858ch0TbWTsVVqpeX20jdfLNb50Nx4akft8/+2b6w6MXBZYw1nP7K0x4d8OlN/hg5NU/
- sz3/zLyvYHONT422W/3qz8Va68sHzn3JSdfu1jgdPnGDy7M4ZAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1557; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=FHLjqSxtAsmlVX/L9fjMlbC7Mb50wFkU0ZGIw6Dxevg=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmmpuyGKqJ7H75U9in86XW3z/TV2wCbdzzNy/I0rkZ26
+ Oxtf9nWMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACbSvp2xkjEj4NV7490Xf4uK
+ bnf9MXursMoPlzblpUGn50nW8Z/gbLYWMHldxjyHY7+X4dat/1YfYGx4tfZJr2Dpuv5sUbnbx92
+ 8umbMYuV/P0ty7tRJ/zs/2rPu7V7xefXSaSfezNqqkH18Xa0tAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -86,38 +87,37 @@ Switch to the atomic_create_state callback and its
 drm_atomic_helper_bridge_create_state() counterpart.
 
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-To: Matthias Brugger <matthias.bgg@gmail.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: Yannick Fertre <yannick.fertre@foss.st.com>
+To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+To: Philippe Cornu <philippe.cornu@foss.st.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
 Cc: dri-devel@lists.freedesktop.org
-Cc: linux-mediatek@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-arm-kernel@lists.infradead.org
 ---
- drivers/gpu/drm/mediatek/mtk_dpi.c | 2 +-
+ drivers/gpu/drm/stm/lvds.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dpi.c b/drivers/gpu/drm/mediatek/mtk_dpi.c
-index bb4b7e6f1e29..959c994eef24 100644
---- a/drivers/gpu/drm/mediatek/mtk_dpi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dpi.c
-@@ -987,11 +987,11 @@ static const struct drm_bridge_funcs mtk_dpi_bridge_funcs = {
- 	.atomic_check = mtk_dpi_bridge_atomic_check,
- 	.atomic_get_output_bus_fmts = mtk_dpi_bridge_atomic_get_output_bus_fmts,
- 	.atomic_get_input_bus_fmts = mtk_dpi_bridge_atomic_get_input_bus_fmts,
+diff --git a/drivers/gpu/drm/stm/lvds.c b/drivers/gpu/drm/stm/lvds.c
+index 50a878688e47..90a44e722057 100644
+--- a/drivers/gpu/drm/stm/lvds.c
++++ b/drivers/gpu/drm/stm/lvds.c
+@@ -1036,11 +1036,11 @@ static const struct drm_bridge_funcs lvds_bridge_funcs = {
+ 	.attach = lvds_attach,
+ 	.atomic_enable = lvds_atomic_enable,
+ 	.atomic_disable = lvds_atomic_disable,
  	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 -	.atomic_reset = drm_atomic_helper_bridge_reset,
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.debugfs_init = mtk_dpi_debugfs_init,
  };
  
- static const struct drm_encoder_funcs mtk_dpi_encoder_funcs = {
- 	.destroy = drm_encoder_cleanup,
+ static int lvds_probe(struct platform_device *pdev)
+ {
+ 	struct device_node *port1, *port2, *remote;
 
 -- 
 2.54.0
