@@ -4,61 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7976FCD98F2
-	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 09:53:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD785CD98F6
+	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 10:03:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 149A610E095;
-	Fri, 19 Jun 2026 09:53:53 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="1+wijf1k";
-	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B160C10E062
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 09:53:33 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 8BACEC06CD8;
- Fri, 19 Jun 2026 09:53:37 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id C0DEA601AD;
- Fri, 19 Jun 2026 09:53:31 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id AE210106C893D; 
- Fri, 19 Jun 2026 11:53:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1781862811; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=73m8X7tBYSSumVWkvx9MDN1jdOTQZt/hH/3vwN+HHRw=;
- b=1+wijf1kiX2kgBi40K4x+/I769WQqqYBtdDTJX6kTFve8e8nZurxu3lBXqxBvRZtOX6hJB
- svT/D8cf6+H7lLm7YwwUUdy0fPupG3XEa2txFpgUBaaMrWlufSA90JnO+wORouEDtL1CBJ
- zq2x/pBq99XqDhugR/Jg2pfd+fV6lw3eDZ2PBqXtvyMzWcKzPzRiT1PqYj8bn6FzoZlVpJ
- VJGMbTC5zM8uluOPAqCKIcGrpFKanJC3FdKvUBUhXs+IZ10yYY+Vr9s3dysayL3vn+QOH9
- RDElkcjVagilYFVm2UD2BmPoIC7Yhjwec874oBczDdXhj7F2CvxLwgUeA3G9lA==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 19 Jun 2026 11:53:24 +0200
-Message-Id: <DJCXNBT4Z9TL.NSC9B3CHXGFE@bootlin.com>
-Subject: Re: [PATCH v2 07/78] drm/atomic-state-helper: Add
- drm_atomic_helper_bridge_create_state()
-Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Dmitry Baryshkov" <lumag@kernel.org>,
- <dri-devel@lists.freedesktop.org>, "Laurent Pinchart"
- <laurent.pinchart+renesas@ideasonboard.com>
-To: "Maxime Ripard" <mripard@kernel.org>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.21.0
-References: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
- <20260608-drm-no-more-bridge-reset-v2-7-0a91018bf886@kernel.org>
- <178171213665.312625.18415471327369488806.b4-review@b4>
- <20260619-provocative-mindful-boobook-d7d2c8@houat>
-In-Reply-To: <20260619-provocative-mindful-boobook-d7d2c8@houat>
-X-Last-TLS-Session-Version: TLSv1.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id E882810E062;
+	Fri, 19 Jun 2026 10:03:39 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 048E910E062
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 10:03:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id A640243CB8;
+ Fri, 19 Jun 2026 10:03:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E4F71F000E9;
+ Fri, 19 Jun 2026 10:03:35 +0000 (UTC)
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: driver-core@lists.linux.dev, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: [PATCH] base: Remove unused DMA_FENCE_TRACE Kconfig symbol
+Date: Fri, 19 Jun 2026 12:03:31 +0200
+Message-ID: <16fb40ded203d1e2b72f4eeecad3fd0c0d23ad6f.1781863296.git.geert@linux-m68k.org>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,34 +46,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+Commit d72277b6c37db66b ("dma-buf: nuke DMA_FENCE_TRACE macros v2") in
+v5.16 removed all users of DMA_FENCE_TRACE on the premise that the
+Kconfig symbol did not exist.  Apparently one failed to notice the
+symbol did exist since almost five years before: it was renamed from
+FENCE_TRACE to DMA_FENCE_TRACE in commit f54d1867005c3323 ("dma-buf:
+Rename struct fence to dma_fence") in v4.10.
 
-On Fri Jun 19, 2026 at 10:02 AM CEST, Maxime Ripard wrote:
-> On Wed, Jun 17, 2026 at 06:02:16PM +0200, Luca Ceresoli wrote:
->> On Mon, 08 Jun 2026 16:35:49 +0200, Maxime Ripard <mripard@kernel.org> w=
-rote:
->> > The drm_atomic_helper_bridge_reset() helper is deprecated in favour
->> > of the new atomic_create_state callback.
->>
->> I understand this series is eventually removing it, but it does not seem=
- to
->> deprecated (in the kdoc at least). So maybe the commit message should eb
->> reworded as "The drm_atomic_helper_bridge_reset() helper is about to be
->> removed..."?
->
-> Sorry, I meant to reply but forgot. I guess it really depends on what
-> you call "deprecated", but it's very much something we want to move away
-> from when creating a new state only. It might not have been as clearly
-> documented as one would have hoped, but I don't think it's worth
-> documenting something we'll remove in this series, or change the commit
-> message.
+Time passed by, so remove the Kconfig symbol, as no one seems to have
+missed the functionality.
 
-Thanks for the feedback. I guess this is not the easiest series to rebase,
-so I'd say it's fine as you are removing at the end of the series.
+Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
+---
+ drivers/base/Kconfig | 9 ---------
+ 1 file changed, 9 deletions(-)
 
-Luca
+diff --git a/drivers/base/Kconfig b/drivers/base/Kconfig
+index f7d385cbd3ba4b2b..43f20ca95a2a6ba9 100644
+--- a/drivers/base/Kconfig
++++ b/drivers/base/Kconfig
+@@ -222,15 +222,6 @@ config DMA_SHARED_BUFFER
+ 	  APIs extension; the file's descriptor can then be passed on to other
+ 	  driver.
+ 
+-config DMA_FENCE_TRACE
+-	bool "Enable verbose DMA_FENCE_TRACE messages"
+-	depends on DMA_SHARED_BUFFER
+-	help
+-	  Enable the DMA_FENCE_TRACE printks. This will add extra
+-	  spam to the console log, but will make it easier to diagnose
+-	  lockup related problems for dma-buffers shared across multiple
+-	  devices.
+-
+ config GENERIC_ARCH_TOPOLOGY
+ 	bool
+ 	help
+-- 
+2.43.0
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
