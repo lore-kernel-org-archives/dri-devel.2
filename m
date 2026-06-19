@@ -4,77 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0A85CD98F2
-	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 11:48:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 051BDCD98F2
+	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 12:18:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F49010E077;
-	Fri, 19 Jun 2026 11:48:41 +0000 (UTC)
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com
- [209.85.221.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C472E10E077
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 11:48:39 +0000 (UTC)
-Received: by mail-vk1-f178.google.com with SMTP id
- 71dfb90a1353d-5bbc6c99b5cso601100e0c.1
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 04:48:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3099710E079;
+	Fri, 19 Jun 2026 12:18:30 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TtUji9cJ";
+	dkim-atps=neutral
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
+ [209.85.208.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A84E310E079
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 12:18:28 +0000 (UTC)
+Received: by mail-lj1-f179.google.com with SMTP id
+ 38308e7fff4ca-3997a448ecbso17002431fa.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 05:18:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781871507; x=1782476307; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dLZ+pCnD0P0yEjXHP7s+d0OIOgshDvs2k5lhyVXVghQ=;
+ b=TtUji9cJqns1GVmodR3q+XjhI/mpybhPXKxTQBaT5s3lX9Vz+aMhA4LRylJph1w6cz
+ yoJpF3UjL8SZlUWiazRvDvENqNDXBXjJwR/uarKYqw5Mo5Nt1KgRl/THBv86BFIA0glE
+ Tmsc4WR8c562yQuyy5LFhClZ7rwV3mBX6UiGlofZGTqyko91iuif9ldzV1xz/DStB0yC
+ MSToQV6ZXUDEuMd37lqiZbemaPf69mHcMPZPJ7q0DG/WhipqkB3CSKqFBhs6M/ck9orv
+ gc8ZY/1tSatOfLOQguyfAvV4O6qa7zULp62bb4yh7vT6dnKy3k3A9U9ajQtkBffMu5dT
+ 2rJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781869719; x=1782474519;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1781871507; x=1782476307;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=ItJpWj1GNu2tcZXuQZG+sYbJ7oV+gLF69bBweX98kac=;
- b=PvsqCdWAqBKCgCry4FzFT2CFuc27emE3sK4GczYCuSAUx+kvbmtRg2R9Ypf5/0A9KB
- gEiYdkUuwhhLFBh+LyGGQurb5kg8r60l2zyRxNaA5aaNjdQbzoJ+dReMt5YTXIID1DHX
- zIc9gYPOMPWpIWBM6XL8+HGskAE7yXZg5YHATcVHbUJ4d+gElQLUoeRUxBv6YF+HASvM
- EcHxQTy0WhkekJbwyHP5p1wh1IFvx/8WNdJfoYxThVkEY7uuFx8kBjRghIPCOIMQRkfj
- PhSaCBMFx2sPx5mU8Xi9PGDW6EX06JQVgu/dBN3mtn4BxT3sojfMwZvvMvAdq+KcAXax
- pyJw==
+ bh=dLZ+pCnD0P0yEjXHP7s+d0OIOgshDvs2k5lhyVXVghQ=;
+ b=hpJRSvLCZ2qQ93eNL1eKL94r46GVfJFJv+AJWJYoxiwPL4A34EDa5C6qpRxN15heHx
+ r8MkXrq43RtxG/+7Iou17W34CXTVpt9/ptHpVrnpK+01L+YTzLU+iafYp4RuFRvW7yHD
+ ZSaNDqvxksasOTellqFZrpmwYIAUJj9wPLsibEWUpvJKIPzbXkN/Vo47w0NskALFrdf/
+ zlTONDIlkbw/WDKa1q3X1MB1m87D7+r0+YFBiCA1DmWrtEhw0kEkqyDZLmWnIlrrv36s
+ v9+m17TMaA3UGYHEz0JYCwxNbAq9dv70Q0V6IiuZTYyknIj0rbJsD79uEJNQnxM2D354
+ HlFQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9OExjato9bFGytR5A5DgXjpGlxBJYIie7cwsGcxwrNdT/FEQF6b6bMvdgXowhU/3M+0hUVCmI4BYw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyTA5jyC937EJSiI8CPEHzpR12X1qrf+3RFiZjxNw63Pp1p+yoM
- SQRAb97xaSykTHCGSx+M7A8ln57xM9noc2+d1JEQZJUVIGYZIXXZpKliyRZe6lml7Ng=
-X-Gm-Gg: AfdE7ckUiB8sRaSsyx1fkjiROkGPDQhWKvFq3A0d4JhgR5FQIUYEh1dY5/64nXFy1fG
- k0pHJFkW1lwDNHytywvhrdvzZ6Qns6QPtAkl0DNWM//faCjkRCFTE477vh0y9oG/1PRTwUnMDNI
- u2UR5hbvDvTy4sHBS7IvDbbwKYySxTDm/xefZ5rrznMTe4HCgwCjA/rrvvCXLyZJEhuHUqUSt94
- DE+tTP2in0yVTrTj4ybhhe/zTXLvps7h6YCcpXYz75JhwTr9qOWeHp1yz6bsnQZ2gyNELpv7u6p
- A6Fyez2wPnmyRFfc5VTFMkaQnG0USJqyWvUSfYWTwEVt4OUIHuJLLN/esyDMHqv0iVQYB0O+z0B
- bFoMsaLTv1PGhlJbaC0XXZ7RQYIZJIM5UHCqCX9rC/zq3wSNhHyDrc7kaPW5SAgAQUu+fZiYM8d
- 2vO3QOTnxXV99A9bdlsnUkJlyqldEClW1fKOAeKO8mVZy0JuZBpA==
-X-Received: by 2002:a05:6122:458b:b0:575:29ef:7e13 with SMTP id
- 71dfb90a1353d-5bbebb1052bmr1157598e0c.3.1781869718479; 
- Fri, 19 Jun 2026 04:48:38 -0700 (PDT)
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com.
- [209.85.217.53]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5bbea366eeasm1652607e0c.11.2026.06.19.04.48.37
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 Jun 2026 04:48:37 -0700 (PDT)
-Received: by mail-vs1-f53.google.com with SMTP id
- ada2fe7eead31-729d8f9238dso356235137.0
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 04:48:37 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ9hX5x6+XJMjNCAk/jzPt2tQHi9O36XMGIR8wyXLhERL0BMb+vPxmcyLg6tkLNFc/ygfpiNLrdjBSY=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:448b:b0:650:aa33:5dd7 with SMTP id
- ada2fe7eead31-72a01884599mr2039005137.2.1781869717237; Fri, 19 Jun 2026
- 04:48:37 -0700 (PDT)
+ AFNElJ+9Pq4iyrdk/6WkEMhBL8uBdYczgKVX5aRdAPWiu+RIJJXmB+13uSAvgygpVJvYRmLCHHdc56rZG4Q=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw1XU8Zt7y1llk57rfA/Hgu+zoAKLooSD8AM57TUeaiv7xezAUq
+ B59dvYlqKjhBpU9rWmQBXxcQpa/whqSZwqD8DbGmKRcFPBK7skimnta+
+X-Gm-Gg: AfdE7cm6NMZ6709heGSS5aYac/ugP87dU/loH5d4XfPOYPMFrdy3gdDXiYB5cNXuYIz
+ F0FbPUWvhJIle6J+gH/sjnIH6S+OBte36tQD5nIqTa+S1zczGxvBSZ5v1VRQJ0aJKE/4WbfOh1H
+ EcydlzOYGxwG4BD7K8xClXZ/2Wq7lger2IT5GS0KGO+4zWL7PkYLt9ijGaPSrxDs1j6GUVxNW1p
+ ++Vkb1hfbBRjTS83AR9rlJAJBmVPIGQDc8BShv2x8HGkYCB8gcUwsWhNR82lEUM/WaRZt2UJEp+
+ PO4YVZY/BVzdONBXKQQqPTvhB9FXQm+Mr6XKO1gn1SDX7ZC1BZhkji6wFGWhZZX2TVsiuckcBFX
+ I3AcD1xDOKTU1tHtgu+np9G7jzoj2YF52S3Fz9so/bCEGlyUwJEq9fWZXEtI40R/YiiCLE1d722
+ f6/AE/xALtSKrvaF567LsZdQ==
+X-Received: by 2002:a05:651c:211f:b0:399:1fbd:8f2f with SMTP id
+ 38308e7fff4ca-3998bd06f64mr8439831fa.9.1781871506548; 
+ Fri, 19 Jun 2026 05:18:26 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3998beca743sm4598331fa.5.2026.06.19.05.18.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Jun 2026 05:18:24 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>
+Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amdgpu: do not enter fs_reclaim under notifier_lock
+ in lockdep training
+Date: Fri, 19 Jun 2026 17:18:18 +0500
+Message-ID: <20260619121819.189293-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <cbc54f68-b0bd-40ad-b5e7-ed8157128417@amd.com>
+References: <cbc54f68-b0bd-40ad-b5e7-ed8157128417@amd.com>
 MIME-Version: 1.0
-References: <16fb40ded203d1e2b72f4eeecad3fd0c0d23ad6f.1781863296.git.geert@linux-m68k.org>
- <9503e60a-5e8a-40f3-b5cf-1d8d0f71c9a5@amd.com>
-In-Reply-To: <9503e60a-5e8a-40f3-b5cf-1d8d0f71c9a5@amd.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 19 Jun 2026 13:48:25 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWoR6UNBC-hsi1V=vwx+9AWzRw9bT_OR0AO2L87nCnn1A@mail.gmail.com>
-X-Gm-Features: AVVi8CdQDwS6tzm65LzLlS49GN4M-NumImqTWT8BmI9blTIGfCV8oYLJQhKk5Ak
-Message-ID: <CAMuHMdWoR6UNBC-hsi1V=vwx+9AWzRw9bT_OR0AO2L87nCnn1A@mail.gmail.com>
-Subject: Re: [PATCH] base: Remove unused DMA_FENCE_TRACE Kconfig symbol
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, 
- Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- driver-core@lists.linux.dev, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,43 +93,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Christian,
+Makes sense, thanks. I won't respin this one then.
 
-On Fri, 19 Jun 2026 at 12:39, Christian K=C3=B6nig <christian.koenig@amd.co=
-m> wrote:
-> On 6/19/26 12:03, Geert Uytterhoeven wrote:
-> > Commit d72277b6c37db66b ("dma-buf: nuke DMA_FENCE_TRACE macros v2") in
-> > v5.16 removed all users of DMA_FENCE_TRACE on the premise that the
-> > Kconfig symbol did not exist.  Apparently one failed to notice the
-> > symbol did exist since almost five years before: it was renamed from
-> > FENCE_TRACE to DMA_FENCE_TRACE in commit f54d1867005c3323 ("dma-buf:
-> > Rename struct fence to dma_fence") in v4.10.
-> >
-> > Time passed by, so remove the Kconfig symbol, as no one seems to have
-> > missed the functionality.
->
-> Yeah that functionality should be fully covered by trace points.
->
-> > Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
->
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+Vitaly, for the reorder, here is a deterministic reproducer so you can confirm
+the splat on your side without a round-trip. It arms an mmu_interval_notifier
+via GEM_USERPTR over anonymous memory, then forces reclaim of that exact range
+with madvise(MADV_PAGEOUT), so amdgpu_hmm_invalidate_gfx() takes notifier_lock
+under fs_reclaim in the calling thread. Needs CONFIG_PROVE_LOCKING and a fresh
+boot; build/run notes are in the header. Happy to give Tested-by once you post.
 
-Thanks!
+// SPDX-License-Identifier: MIT
+/*
+ * amdgpu-notifier-reclaim-repro.c
+ *
+ * Deterministic reproducer for the false circular-locking-dependency splat
+ * produced by drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c.
+ *
+ * amdgpu_lockdep_init() (run at module load) calls fs_reclaim_acquire()
+ * while holding the dummy notifier_lock, teaching lockdep that it is legal
+ * to enter reclaim with the MMU-notifier lock held. The real notifier lock
+ * is taken in amdgpu_hmm_invalidate_gfx(), which mm/ calls from inside
+ * reclaim, so the reverse edge fs_reclaim -> mmu_notifier -> notifier_lock
+ * is mandatory. The cycle is closed the first time reclaim unmaps a page
+ * covered by an amdgpu userptr interval notifier.
+ *
+ * This program installs such a notifier (GEM_USERPTR) over anonymous memory
+ * and then forces synchronous reclaim of that exact range with
+ * MADV_PAGEOUT, which runs try_to_unmap()->invalidate_range_start() with
+ * fs_reclaim held in the calling thread, closing the loop on demand.
+ *
+ * Requirements:
+ *   - kernel built with CONFIG_PROVE_LOCKING (lockdep)
+ *   - amdgpu loaded; run from a FRESH boot (the first lockdep splat of any
+ *     kind calls debug_locks_off() and silences all later reports)
+ *
+ * Build:  cc -O2 -o repro amdgpu-notifier-reclaim-repro.c
+ * Run:    ./repro                 # picks the first amdgpu render node
+ *         ./repro /dev/dri/renderD129
+ * Watch:  sudo dmesg -w
+ */
 
-> Do you have commit right to drm-misc-next to push this?
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <dirent.h>
+#include <sys/ioctl.h>
+#include <sys/mman.h>
 
-No, I have not.
+/* --- minimal amdgpu uapi (self-contained, no libdrm needed) ----------- */
+#ifndef DRM_IOCTL_BASE
+#define DRM_IOCTL_BASE 'd'
+#endif
+#define DRM_COMMAND_BASE 0x40
+#define DRM_AMDGPU_GEM_USERPTR 0x11
 
-Gr{oetje,eeting}s,
+struct drm_amdgpu_gem_userptr {
+	uint64_t addr;
+	uint64_t size;
+	uint32_t flags;
+	uint32_t handle;
+};
 
-                        Geert
+#define DRM_IOCTL_AMDGPU_GEM_USERPTR \
+	_IOWR(DRM_IOCTL_BASE, DRM_COMMAND_BASE + DRM_AMDGPU_GEM_USERPTR, \
+	      struct drm_amdgpu_gem_userptr)
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+#define AMDGPU_GEM_USERPTR_READONLY (1 << 0)
+#define AMDGPU_GEM_USERPTR_ANONONLY (1 << 1)
+#define AMDGPU_GEM_USERPTR_VALIDATE (1 << 2)
+#define AMDGPU_GEM_USERPTR_REGISTER (1 << 3)
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+#ifndef MADV_PAGEOUT
+#define MADV_PAGEOUT 21
+#endif
+
+/* ------------------------------------------------------------ */
+
+#define BUF_SIZE (64ull * 1024 * 1024) /* 64 MiB, page aligned by mmap */
+
+static int open_amdgpu_render(const char *forced)
+{
+	if (forced) {
+		int fd = open(forced, O_RDWR | O_CLOEXEC);
+		if (fd < 0)
+			perror(forced);
+		return fd;
+	}
+
+	/* try renderD128..renderD143 and keep the first that accepts GEM_USERPTR */
+	for (int i = 128; i < 144; i++) {
+		char path[64];
+		snprintf(path, sizeof(path), "/dev/dri/renderD%d", i);
+		int fd = open(path, O_RDWR | O_CLOEXEC);
+		if (fd < 0)
+			continue;
+
+		/* probe: a zero-size userptr returns -EINVAL on amdgpu but
+		 * -ENOTTY/-ENODEV on a non-amdgpu driver, which lets us tell
+		 * the nodes apart without pulling in libdrm version ioctls. */
+		struct drm_amdgpu_gem_userptr probe = { 0 };
+		errno = 0;
+		ioctl(fd, DRM_IOCTL_AMDGPU_GEM_USERPTR, &probe);
+		if (errno == ENOTTY || errno == ENODEV || errno == EOPNOTSUPP) {
+			close(fd);
+			continue;
+		}
+		fprintf(stderr, "using %s\n", path);
+		return fd;
+	}
+	fprintf(stderr, "no amdgpu render node found under /dev/dri\n");
+	return -1;
+}
+
+int main(int argc, char **argv)
+{
+	int fd = open_amdgpu_render(argc > 1 ? argv[1] : NULL);
+	if (fd < 0)
+		return 1;
+
+	/* anonymous, private, page-aligned region for the userptr */
+	void *buf = mmap(NULL, BUF_SIZE, PROT_READ | PROT_WRITE,
+			 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	if (buf == MAP_FAILED) {
+		perror("mmap");
+		return 1;
+	}
+	memset(buf, 0xa5, BUF_SIZE); /* fault every page in */
+
+	/* REGISTER installs the mmu_interval_notifier (amdgpu_hmm_register());
+	 * VALIDATE additionally faults the pages via hmm_range_fault() and
+	 * binds them into GTT. ANONONLY matches our MAP_ANONYMOUS region. */
+	struct drm_amdgpu_gem_userptr up = {
+		.addr  = (uint64_t)(uintptr_t)buf,
+		.size  = BUF_SIZE,
+		.flags = AMDGPU_GEM_USERPTR_ANONONLY |
+			 AMDGPU_GEM_USERPTR_REGISTER |
+			 AMDGPU_GEM_USERPTR_VALIDATE,
+	};
+	if (ioctl(fd, DRM_IOCTL_AMDGPU_GEM_USERPTR, &up)) {
+		perror("GEM_USERPTR (VALIDATE)");
+		/* retry without VALIDATE: the notifier is still registered, the
+		 * pages are present from the memset, MADV_PAGEOUT still works */
+		up.flags = AMDGPU_GEM_USERPTR_ANONONLY |
+			   AMDGPU_GEM_USERPTR_REGISTER;
+		if (ioctl(fd, DRM_IOCTL_AMDGPU_GEM_USERPTR, &up)) {
+			perror("GEM_USERPTR (REGISTER)");
+			return 1;
+		}
+	}
+	fprintf(stderr, "userptr handle=%u, interval notifier armed over %p..%p\n",
+		up.handle, buf, (char *)buf + BUF_SIZE);
+
+	/* Force synchronous reclaim of the notifier-covered range. MADV_PAGEOUT
+	 * runs shrink_folio_list()->try_to_unmap()->invalidate_range_start()
+	 * with fs_reclaim held in THIS thread, so amdgpu_hmm_invalidate_gfx()
+	 * takes notifier_lock under fs_reclaim and lockdep closes the cycle.
+	 *
+	 * A few iterations (re-touching in between) cover the race where pages
+	 * are already paged out on the first pass. */
+	for (int it = 0; it < 8; it++) {
+		if (madvise(buf, BUF_SIZE, MADV_PAGEOUT))
+			perror("madvise(MADV_PAGEOUT)");
+		usleep(50 * 1000);
+		memset(buf, 0xa5, BUF_SIZE); /* fault back in for the next pass */
+	}
+
+	fprintf(stderr,
+		"done: check dmesg for "
+		"\"possible circular locking dependency\" / amdgpu_hmm_invalidate_gfx\n");
+
+	munmap(buf, BUF_SIZE);
+	close(fd);
+	return 0;
+}
