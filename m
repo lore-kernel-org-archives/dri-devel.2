@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E29B6CD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 14:14:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABB48CD4F26
+	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 14:18:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4101B10F624;
-	Fri, 19 Jun 2026 14:14:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E46E10E09E;
+	Fri, 19 Jun 2026 14:18:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CmSN3Tai";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k7A9g2wh";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24FBE10F624
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 14:13:58 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 279CD10E09E
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 14:18:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D817D4077C;
- Fri, 19 Jun 2026 14:13:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 945271F000E9;
- Fri, 19 Jun 2026 14:13:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3F352601E1;
+ Fri, 19 Jun 2026 14:18:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B94431F000E9;
+ Fri, 19 Jun 2026 14:18:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781878437;
- bh=zPDvVcTvjVVEsuTHXXp+vqqU25WRX1PLbLXdBhPbA8A=;
+ s=k20260515; t=1781878715;
+ bh=3dL3NsU1aeC59grDDZMHUA+Vc3YEhM9REQGQ4Yj6BDo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CmSN3TaiGoDJlNvDLn/mVx57HqK85Id9IEHDABuFhHi7pc2pifHHZxHLM/HHc8COe
- Mb4nZPiVsEHiCfpaX7szf1q3knB3ofXaNKdmy3UYJ6pggzsC1Z2iljSx1dDCDbaNZ+
- EX0qyQiLeUa0Kkor3KssZg4FZZPXBEqefYgYJiXsJpNd5E0B/H4y8R4OsZ4MZAixVN
- pL8dvv7rftVepnGLn40sGugH8c5dk2kkA+hgtgFZ8FGpjXvAPMRt/cStxupksvbNeH
- TNeUcnEKxp8kWunrQpCC/kkuyNuVVB1tJZrG9+eRuj24h6MdDYRqchXED4ubjtDNTL
- ah7Bj+pFptJlg==
+ b=k7A9g2whwZ7LEP26VpAivFT3tTFXjXHlHdtA/Jz2R/fF3MdM+3+xeYJEk1mDn4XaJ
+ jOzAgeCRvW1ZI0ubvmWIV8SFW4MnpoOb6PHTtCjlyXNvTC6ZlYwx6XZADC70m5Gc0Z
+ Qvc7HTOLB2xbNdKOhdwwRZLloipRF2vaIqnk51SkV3Q0/Sw8ENH640zn4H7mpo0lDD
+ Y1aLsjTXDAPNe7H85p65abSVWj6spB56DsVasWtAvW6NVQYT1wS0HrRfCNB8iSe2IB
+ a/PssDqIgE6C+YzmT5BiiFJEgRgrtC+/2OVJQDlmyx3faESBLJxyBTvAKhpBl4zpwl
+ ddWxrNWVGiD5A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] drm/sysfb: simpledrm: Improve framebuffer-size
- validation
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Subject: Re: [PATCH RFC v2 3/4] drm/bridge: Wire drmm_connector_dp_init()
+ via new DRM_BRIDGE_OP_DP flag
+To: "Kory Maincent" <kory.maincent@bootlin.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260619135847.309664-2-tzimmermann@suse.de>
-References: <20260619135847.309664-1-tzimmermann@suse.de>
- <20260619135847.309664-2-tzimmermann@suse.de>
+In-Reply-To: <20260619-feat_link_cap-v2-3-a3dec4c02ad9@bootlin.com>
+References: <20260619-feat_link_cap-v2-0-a3dec4c02ad9@bootlin.com>
+ <20260619-feat_link_cap-v2-3-a3dec4c02ad9@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 14:13:57 +0000
-Message-Id: <20260619141357.945271F000E9@smtp.kernel.org>
+Date: Fri, 19 Jun 2026 14:18:35 +0000
+Message-Id: <20260619141835.B94431F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,82 +60,87 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [Low] The patch updates all callers of the local static wrapper `simplefb=
-_get_validated_int0()` to call `drm_sysfb_get_validated_int0()` directly, b=
-ut leaves the static function definition behind, causing a compiler warning.
-
-Pre-existing issues:
-- [High] Missing validation between the firmware-provided framebuffer dimen=
-sions (stride, width, height) and the size of the memory region allows out-=
-of-bounds virtual memory writes.
+- [High] Unconditional call to drmm_connector_dp_init() breaks bridge chain=
+s with downstream format converters.
+- [Low] Kernel-doc for DRM_BRIDGE_OP_DP incorrectly references a non-existe=
+nt structure member.
 --
 
-commit 934b7fe8edd3f05582affbe138506d555774f080
-Author: Thomas Zimmermann <tzimmermann@suse.de>
+commit 95b54bb01e2f24e6a00ddf825b25aaa6985fa864
+Author: Kory Maincent <kory.maincent@bootlin.com>
 
-drm/sysfb: simpledrm: Improve framebuffer-size validation
+drm/bridge: Wire drmm_connector_dp_init() via new DRM_BRIDGE_OP_DP flag
+   =20
+Introduce DRM_BRIDGE_OP_DP to indicate bridges that provide DP connector
+operations. Update drm_bridge_connector_init() to use
+drmm_connector_dp_init() when this flag is present to expose link training
+state properties.
 
-Validate the framebuffer size from the firmware against the limitations of
-struct drm_display_mode. Fail probing on errors if the size exceeds the
-16-bit fields.
-
-> diff --git a/drivers/gpu/drm/sysfb/simpledrm.c b/drivers/gpu/drm/sysfb/si=
-mpledrm.c
-> index fc168920f2c64..03bd19fadccd5 100644
-> --- a/drivers/gpu/drm/sysfb/simpledrm.c
-> +++ b/drivers/gpu/drm/sysfb/simpledrm.c
-> @@ -88,14 +88,14 @@ static int
->  simplefb_get_width_pd(struct drm_device *dev,
->  		      const struct simplefb_platform_data *pd)
->  {
-> -	return simplefb_get_validated_int0(dev, "width", pd->width);
-> +	return drm_sysfb_get_validated_int0(dev, "width", pd->width, U16_MAX);
->  }
-
-[Severity: Low]
-Does this leave simplefb_get_validated_int0() as an unused static function?
-
-Since all four callers (simplefb_get_width_pd, simplefb_get_height_pd,
-simplefb_get_width_of, simplefb_get_height_of) are updated to call
-drm_sysfb_get_validated_int0() directly, simplefb_get_validated_int0()
-appears to have zero callers remaining in simpledrm.c. This can trigger a
--Wunused-function compiler warning.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but while we are improving the
-validation of framebuffer dimensions from firmware, should we also validate
-that the resulting framebuffer size actually fits within the mapped memory
-region?
-
-The firmware-provided stride and height are used to calculate the framebuff=
-er
-size, but when acquiring the memory region:
-
-drivers/gpu/drm/sysfb/simpledrm.c:simpledrm_device_create() {
-    ...
-	screen_base =3D devm_memremap(dev->dev, mem->start, resource_size(mem), ME=
-MREMAP_WC);
-    ...
-}
-
-or the fallback:
-
-drivers/gpu/drm/sysfb/simpledrm.c:simpledrm_device_create() {
-    ...
-	screen_base =3D devm_ioremap_wc(&pdev->dev, mem->start, resource_size(mem)=
-);
-    ...
-}
-
-It seems we map exactly resource_size(mem) bytes without verifying if
-(stride * height) exceeds that size. If the firmware provides a mismatched
-configuration, out-of-bounds writes could occur during plane updates when
-copying pixel data into sysfb->fb_addr.
+> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu=
+/drm/display/drm_bridge_connector.c
+> index 39cc18f78eda1..5238b1ec738ce 100644
+> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
+> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
 
 [ ... ]
 
+> @@ -986,6 +1003,13 @@ struct drm_connector *drm_bridge_connector_init(str=
+uct drm_device *drm,
+>  					       max_bpc);
+>  		if (ret)
+>  			return ERR_PTR(ret);
+> +	} else if (bridge_connector->bridge_dp) {
+> +		ret =3D drmm_connector_dp_init(drm, connector,
+> +					     &drm_bridge_connector_funcs,
+> +					     bridge_connector->bridge_dp->dp_link_caps,
+> +					     connector_type, ddc);
+> +		if (ret)
+> +			return ERR_PTR(ret);
+
+[Severity: High]
+If a DRM bridge chain consists of a DisplayPort transmitter followed by a
+format-converting bridge (e.g., DP-to-VGA or DP-to-LVDS), the final
+connector_type of the chain will be the output format (like
+DRM_MODE_CONNECTOR_VGA).
+
+Since drmm_connector_dp_init() explicitly enforces that connector_type must
+be DRM_MODE_CONNECTOR_DisplayPort or DRM_MODE_CONNECTOR_eDP, will this call
+immediately return -EINVAL and break display initialization for legitimate
+format-converted hardware combinations?
+
+Does the branch condition need to verify the final connector_type is actual=
+ly
+DP/eDP before forcing the DP initialization path?
+
+>  	} else {
+>  		ret =3D drmm_connector_init(drm, connector,
+
+[ ... ]
+
+> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+> index a8d67bd9ee505..63db754d21146 100644
+> --- a/include/drm/drm_bridge.h
+> +++ b/include/drm/drm_bridge.h
+> @@ -1092,6 +1092,14 @@ enum drm_bridge_ops {
+>  	 * &drm_bridge_funcs->hdmi_clear_spd_infoframe callbacks.
+>  	 */
+>  	DRM_BRIDGE_OP_HDMI_SPD_INFOFRAME =3D BIT(10),
+> +	/**
+> +	 * @DRM_BRIDGE_OP_DP: The bridge provides DisplayPort connector
+> +	 * operations, including link training support. Bridges that set
+> +	 * this flag must provide DisplayPort-related information and
+> +	 * fill the &drm_bridge->dp_link_train_caps link training
+
+[Severity: Low]
+This isn't a bug, but there's a typo in the documentation. It references
+&drm_bridge->dp_link_train_caps, but the actual structure member added
+in this patch is named dp_link_caps.
+
+> +	 * capabilities.
+> +	 */
+> +	DRM_BRIDGE_OP_DP =3D BIT(11),
+>  };
+
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619135847.3096=
-64-1-tzimmermann@suse.de?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619-feat_link_=
+cap-v2-0-a3dec4c02ad9@bootlin.com?part=3D3
