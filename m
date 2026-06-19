@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5F41CD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 12:25:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22D6ECD4F26
+	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 12:25:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00F6910F572;
-	Fri, 19 Jun 2026 12:25:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B30310F571;
+	Fri, 19 Jun 2026 12:25:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H9JAcNxW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bIc/SSd4";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34D5B10F571
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 12:25:25 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC6E010F571
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 12:25:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1B4AB4424E;
- Fri, 19 Jun 2026 12:25:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 830ED1F000E9;
- Fri, 19 Jun 2026 12:25:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4EAC4601EF;
+ Fri, 19 Jun 2026 12:25:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D011F000E9;
+ Fri, 19 Jun 2026 12:25:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781871925;
- bh=y+t6t9GV3XLbshIxqCQCxa/naPEa5kl5TLbZq97cjwU=;
+ s=k20260515; t=1781871936;
+ bh=ykcLps+Shu0CrNHX9F1utrPYhUTEb1kFSaYzGD/riok=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=H9JAcNxW3da8Pp1RwPRetGWyCeLhFrt86QpUI2GZV1IW4/pUQ7HKTzdiR0ihjVbwo
- 0QZg384tXwAkx2Tm1Te4K1pXGzw2D19c2xzqI3kFlGxZixBROTIHkfqMSoZtpzU9KI
- LLTaFAxTiM1o7kxp9C4d3kEUbPQE33imBkThRDaOGA+xB4Az1okwhIPjFrjRdg+D+e
- fSaniR+LSSw0QZc0aFxcA1G+qKEj6KNY431saxo++B5vizxkDN1Vb1qbYKxr3P5O/B
- FH3ZbtW93WAz1FxqGpl0g/laCAf7K66neDJ3tuBO1DX22sA2c/h7dh6xHLd/9pPt6Q
- KhinA797t8IHA==
+ b=bIc/SSd493x31+XrYNvQqaOiokRDpni/al0WTynbN/bZq8+ixD+loex4EX7doYcGl
+ s5jlFbrBREY6Ghc16ZKiofoLbwGSJ7JyPEGfI9qeuX2apoABvYgtM5d4Ql/T6A7+Ds
+ TQoD0EWLqEMZv//JOacYFcXoQVMqI4FzPu6h+ze4cUf7adbaU7d018luPKq9ISoRWN
+ W7VSgvqPSR3Q5vEzfUi1w7SuJs9iUw30SfSmBYSvLVB0aRWBdwCvTIbiN16GWxnv/V
+ bsekKrY8gxOWW0ijQyNUBWLAP8KrANrgpXD3hsvDKr/2cj+BqFTXNwj3aOgBIlj0c1
+ oxiA/rjf6EjDQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 19 Jun 2026 14:24:19 +0200
-Subject: [PATCH v3 14/78] drm/bridge: imx8mp-hdmi-pvi: Switch to
+Date: Fri, 19 Jun 2026 14:24:23 +0200
+Subject: [PATCH v3 18/78] drm/bridge: imx8qxp-pixel-link: Switch to
  atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260619-drm-no-more-bridge-reset-v3-14-ff399263111b@kernel.org>
+Message-Id: <20260619-drm-no-more-bridge-reset-v3-18-ff399263111b@kernel.org>
 References: <20260619-drm-no-more-bridge-reset-v3-0-ff399263111b@kernel.org>
 In-Reply-To: <20260619-drm-no-more-bridge-reset-v3-0-ff399263111b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -55,12 +55,12 @@ Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org,
  Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev, 
  linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1743; i=mripard@kernel.org;
- h=from:subject:message-id; bh=KuFeLlizsRvtSY3JcOJkNEE7zKArWS4qTTvUTXf2P+4=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmmJh+25szcWymwIN8hcGK3dgj7g4+nTh8RCq85JNpzk
- f/vb4nnHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAipfmMDR/+XTlWrhCQPDn5
- R8PqVvHAXUliITpcl5ntF0RqL/t/4fqK74yzX76yEXmzIJ37Z3ZKAWPDr7yHByIbD/Xcr6zs0Y5
- 0uPdmvl97xblNMlu/e7m9+lL9c/kDb/Og14nXNcuWtcm/slIEAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1770; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=lNh5oV/n8/EUzkNfMs5+aHUSFUX8P2sI5jHfvY6aCT4=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmmJh9vM3EdOaH9OSXsRIaoIKPMf4VDkxc5+bHp2ty23
+ vJ0XfCajqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjAR7/mM9VU7eM8t/iGrq7n7
+ ZcQJ/uPdIpenzN3rk7HVwUGBS3bKwpwb72f+77MIXttZUj1pX/UBGcb6zEWZ5RrTbdS+M05/GMX
+ S53V0jViB0VzBqCWJxnIpzwtXdB6Rc1sgw7EgmHFN9QGHq1sA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -85,7 +85,6 @@ Switch to the atomic_create_state callback and its
 drm_atomic_helper_bridge_create_state() counterpart.
 
 Reviewed-by: Liu Ying <victor.liu@nxp.com>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
@@ -98,26 +97,26 @@ Cc: dri-devel@lists.freedesktop.org
 Cc: imx@lists.linux.dev
 Cc: linux-arm-kernel@lists.infradead.org
 ---
- drivers/gpu/drm/bridge/imx/imx8mp-hdmi-pvi.c | 2 +-
+ drivers/gpu/drm/bridge/imx/imx8qxp-pixel-link.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-pvi.c b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-pvi.c
-index 7d5fda7173e5..a31d4fc76f35 100644
---- a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-pvi.c
-+++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-pvi.c
-@@ -129,11 +129,11 @@ static const struct drm_bridge_funcs imx_hdmi_pvi_bridge_funcs = {
- 	.atomic_enable	= imx8mp_hdmi_pvi_bridge_enable,
- 	.atomic_disable	= imx8mp_hdmi_pvi_bridge_disable,
- 	.atomic_get_input_bus_fmts = imx8mp_hdmi_pvi_bridge_get_input_bus_fmts,
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
--	.atomic_reset = drm_atomic_helper_bridge_reset,
-+	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- };
+diff --git a/drivers/gpu/drm/bridge/imx/imx8qxp-pixel-link.c b/drivers/gpu/drm/bridge/imx/imx8qxp-pixel-link.c
+index ee6b6dbbe952..56ce6aa76181 100644
+--- a/drivers/gpu/drm/bridge/imx/imx8qxp-pixel-link.c
++++ b/drivers/gpu/drm/bridge/imx/imx8qxp-pixel-link.c
+@@ -227,11 +227,11 @@ imx8qxp_pixel_link_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
+ }
  
- static int imx8mp_hdmi_pvi_probe(struct platform_device *pdev)
- {
- 	struct device_node *remote;
+ static const struct drm_bridge_funcs imx8qxp_pixel_link_bridge_funcs = {
+ 	.atomic_duplicate_state	= drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state	= drm_atomic_helper_bridge_destroy_state,
+-	.atomic_reset		= drm_atomic_helper_bridge_reset,
++	.atomic_create_state	= drm_atomic_helper_bridge_create_state,
+ 	.attach			= imx8qxp_pixel_link_bridge_attach,
+ 	.mode_set		= imx8qxp_pixel_link_bridge_mode_set,
+ 	.atomic_enable		= imx8qxp_pixel_link_bridge_atomic_enable,
+ 	.atomic_disable		= imx8qxp_pixel_link_bridge_atomic_disable,
+ 	.atomic_get_input_bus_fmts =
 
 -- 
 2.54.0
