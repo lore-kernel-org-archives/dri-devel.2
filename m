@@ -4,73 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31C8BCD98F2
-	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 16:47:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE33DCD4F26
+	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 16:50:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EF7B10E0BF;
-	Fri, 19 Jun 2026 16:47:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B27910E0C3;
+	Fri, 19 Jun 2026 16:50:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="GuCkHs+v";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="RWpWVqLP";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FBC410E0BF
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 16:47:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1781887667; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=k3aBI+CremmlUBfuqdxbNOJsq5m1owkuKwYK3vXilka7k4czcNo2KC3RCfLQTfFiLHFv1rgdawZ1fmxU02cWoXwJVk7g27VWMDH0FXKmirD7tFtbM+/h/SVlU2avMvzm8Z4yqji4BO33f4HxY5UeFqd417wHUdc3XPKbAFmqDKA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1781887667;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=CBwu3+zGcp0kLcK+AkvJAKJVprFz3T4SXzCLOXEuPiM=; 
- b=NspFGz+FclpNYDYrvVtphcS9YFwej5ZXGdslp9CO7PCcjSPfEqNqFNa4e1wdzKotklZkz7lva3+hay9y+aG2A6t/sNBq2uCHpNstF3GsoTuSX12zHgVO1AVVT1EPLhjYkUYTS5nSI091UzzZQ0nkemxTMXCKlglUktkHesvGnWc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781887667; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:References:Date:Date:Message-Id:Message-Id:Reply-To;
- bh=CBwu3+zGcp0kLcK+AkvJAKJVprFz3T4SXzCLOXEuPiM=;
- b=GuCkHs+v8NiTFeAmg3jIKsLYKn94mvktFm6Czv0dSWvfr2kXQ9wbIXV5WkJuJLot
- 7B7YuQvS2+s0ix9vw0qNKVTCsBAEvgKn4M9vOBCJuOLp2wHsCbE3FBTta0fd22ubMmq
- 1ico+pwG47pfnOaA+T+y4uvpXCTeLIUZGSD9B5MM=
-Received: by mx.zohomail.com with SMTPS id 1781887666159611.7240700911418;
- Fri, 19 Jun 2026 09:47:46 -0700 (PDT)
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2 1/2] drm/panthor: Add vm_bind region with kbo range
- overlap check
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260619145906.3b78b357@fedora-2.home>
-References: <20260619-vm_bind_checks-v2-0-b51abab35f71@collabora.com>
- <20260619-vm_bind_checks-v2-1-b51abab35f71@collabora.com>
- <20260619145906.3b78b357@fedora-2.home>
-Date: Fri, 19 Jun 2026 17:47:37 +0100
-Message-Id: <178188765712.2027515.1485808731432603029.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1003;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=rZ0U1SNvXE0Jg5QWFayhbEYuDkszYODK+EMRTWfzdek=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqNXKvZPD7C4i73VHzRLA1cc/wn3GFfQJCzfcl1
- iCaHpiO412JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCajVyrwAKCRAOJn5M7lND
- PfMaC/9wd+1U5YLXnA4eqh/MkzzW1Pqo+zgSYg/e1Y2W6ZIudAAtu+VJiEXSeVvy/P0bPZQD4BO
- 9ekLgRI/7ds37JAd99Y7PDYamySgbS06FerufcP4sk7DfFVRffyMb7rzIUztcZ/dXJ7wevdqkpe
- 3XWuFlE/n/Q536q052uKewkBJAFtMLixgqxY/pN92KWhV5+d0iLCL6nx6QJRsFHui3rj6kkT9N6
- 35U8zCWTjOjtMUx9IdHuRL2iaqi+zGAtjpMoCoe4YIjuzZmgnvwkx/+C/WlUDlKnBdzUFpUTXJY
- rfUBj6TidYDXx+GWBy/oXzdbzZQm4UiqIsiwSYD+Ow9ky23c6IYbZsVLkLB/Zxt3Cl8Oy03AT51
- rVSzlPkysfTEvV8Zs9bmKzt0hd7JVuakPfb4mi/11L4/mr3PQ/TEqoU/wTVoC7xY1a8hYlCmlwb
- 1011/SwwmI0RQIseo/zZWRcnlpFyTMAa/qKa1RtgCx0TTsm6BbDraxJSh7T+hmEceMy4A=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B110010E0C3
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 16:50:06 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 198441A3A2D;
+ Fri, 19 Jun 2026 16:50:05 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id CBFFF601AD;
+ Fri, 19 Jun 2026 16:50:04 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 06C93106C81BC; 
+ Fri, 19 Jun 2026 18:49:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1781887803; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=euNd1sOD6N/DSEzKHx8mlfur3iC+PrQ2XOovLbDh1rY=;
+ b=RWpWVqLPScqSVOAlJsvo8KGfxYXGrUxZTzslMe54AQ88hESLWfyi5Z6Mr9jw+lojIu+MRH
+ v74eHwelGnoBlvSWgkm21KCA+Z5FQX5NahoFLRHAA3D91ViUud67VxPPnOprrsYjrBIyJS
+ llFKxyD98aky4269+QvAjBpBtmSVN1v3tNQA9ZzKoEJZJPJWs6HSbPIXdLWeclfWCN9xfX
+ J07lxb82LMwNzLAWlrRux+MNvla6KupL5c+S0ZQAWbcu2b3+E4eLCXaitFsGD3VGCJysS1
+ aQl7A3RfU+T7ep6jtmG2ylgCp4Ai9bHSybXSi1jlh9UHPGp/A57ieZcF3LpYow==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 19 Jun 2026 18:49:55 +0200
+Message-Id: <DJD6I8NMLN3W.3LVT4L17HT5TU@bootlin.com>
+Subject: Re: [PATCH v3] drm/bridge: imx93-mipi-dsi: Fix mode validation
+Cc: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>,
+ <dri-devel@lists.freedesktop.org>, <imx@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+To: "Liu Ying" <victor.liu@nxp.com>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
+ <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
+ "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.21.0
+References: <20260515-imx93-mipi-dsi-fix-mode-validation-v3-1-91f7d22b2fe4@nxp.com>
+In-Reply-To: <20260515-imx93-mipi-dsi-fix-mode-validation-v3-1-91f7d22b2fe4@nxp.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,23 +73,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-06-19 14:59:06+02:00, Boris Brezillon wrote:
-> On Fri, 19 Jun 2026 13:41:22 +0100
-> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
-> 
-> > When a VM is created, caller has to specify the range of the address space
-> > carve-out set aside for mapping kernel BO's. That means vm_bind mappings of
-> > UM-exposed BO's should not intersect with that region, but at the moment
-> > we're not checking this.
-> > 
-> > At first, I thought of giving these values to drm_gpuvm_init() through its
-> > reserve_{offset, range} arguments, but it turns out that is meant for VM
-> > address spans that are not managed through the usual drm_gpuvm split/merge
-> > circuit, so storing the end of the user VA range at VM creation time and
-> > doing a quick check in the vm_bind ioctl path was the simplest workaround.
-> > 
-> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-> 
-> Ah, we need a Fixes tag here.
+Hello Liu,
 
-Fixes: 647810ec2476 ("drm/panthor: Add the MMU/VM logical block")
+On Fri May 15, 2026 at 8:54 AM CEST, Liu Ying wrote:
+> i.MX93 MIPI DPHY PLL has limitation for matching with some pixel clock
+> rates, e.g., the best DPHY PLL frequency is 445.333333MHz for a typical
+> 1920x1080p@60Hz CEA/DMT display mode with a pixel clock rate running
+> at 148.5MHz with 4 data lanes + RGB888 pixel in MIPI DSI sync pulse mode,
+> while the expected PLL frequency is (148.5 * 24) / 4 / 2 MHz =3D 445.5MHz=
+.
+> Fortunately, VESA Display Monitor Timing Standard allows +/-0.5% pixel
+> clock rate deviation for timings.  So, for those display modes read
+> from EDID through a bridge with DRM_BRIDGE_OP_DETECT and DRM_BRIDGE_OP_ED=
+ID
+> operation bit masks set, pixel clock rate could be adjusted to match
+> with the PLL frequency(for the above example, the pixel clock rate is
+> adjusted to be 148.444444MHz with about -0.03% deviation from the 148.5MH=
+z
+> nominal rate so that the adjusted rate matches with the 445.333333MHz PLL
+> frequency).
+>
+> Instead of checking the last bridge's operation bit masks against
+> DRM_BRIDGE_OP_DETECT and DRM_BRIDGE_OP_EDID to determine if allowing
+> +/-0.5% pixel clock rate deviation, check any bridge after this bridge,
+> because the last bridge is usually a display connector bridge without
+> any operation bit mask when the clock rate deviation is allowed.
+>
+> Fixes: ce62f8ea7e3f ("drm/bridge: imx: Add i.MX93 MIPI DSI support")
+> Fixes: 5849eff7f067 ("drm/bridge: imx93-mipi-dsi: use drm_bridge_chain_ge=
+t_last_bridge()")
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> Signed-off-by: Liu Ying <victor.liu@nxp.com>
+
+I'm perhaps not the most qualified to review this change, but let me try.
+
+> --- a/drivers/gpu/drm/bridge/imx/imx93-mipi-dsi.c
+> +++ b/drivers/gpu/drm/bridge/imx/imx93-mipi-dsi.c
+> @@ -489,25 +489,43 @@ static int imx93_dsi_get_phy_configure_opts(struct =
+imx93_dsi *dsi,
+>  	return 0;
+>  }
+>
+> +static inline struct drm_bridge *
+> +imx93_dsi_get_next_bridge_in_chain(struct drm_bridge *bridge)
+> +{
+> +	struct drm_bridge *next =3D drm_bridge_get_next_bridge(bridge);
+> +
+> +	drm_bridge_put(bridge);
+> +
+> +	return next;
+> +}
+> +
+>  static enum drm_mode_status
+>  imx93_dsi_validate_mode(struct imx93_dsi *dsi, const struct drm_display_=
+mode *mode)
+>  {
+>  	struct drm_bridge *dmd_bridge =3D dw_mipi_dsi_get_bridge(dsi->dmd);
+> -	struct drm_bridge *last_bridge __free(drm_bridge_put) =3D
+> -		drm_bridge_chain_get_last_bridge(dmd_bridge->encoder);
+> +	struct drm_bridge *bridge;
+>
+> -	if ((last_bridge->ops & DRM_BRIDGE_OP_DETECT) &&
+> -	    (last_bridge->ops & DRM_BRIDGE_OP_EDID)) {
+> -		unsigned long pixel_clock_rate =3D mode->clock * 1000;
+> -		unsigned long rounded_rate;
+> +	for (bridge =3D drm_bridge_get_next_bridge(dmd_bridge);
+> +	     bridge;
+> +	     bridge =3D imx93_dsi_get_next_bridge_in_chain(bridge)) {
+> +		if ((bridge->ops & DRM_BRIDGE_OP_DETECT) &&
+> +		    (bridge->ops & DRM_BRIDGE_OP_EDID)) {
+> +			unsigned long pixel_clock_rate =3D mode->clock * 1000;
+> +			unsigned long rounded_rate;
+>
+> -		/* Allow +/-0.5% pixel clock rate deviation */
+> -		rounded_rate =3D clk_round_rate(dsi->clk_pixel, pixel_clock_rate);
+> -		if (rounded_rate < pixel_clock_rate * 995 / 1000 ||
+> -		    rounded_rate > pixel_clock_rate * 1005 / 1000) {
+> -			dev_dbg(dsi->dev, "failed to round clock for mode " DRM_MODE_FMT "\n"=
+,
+> -				DRM_MODE_ARG(mode));
+> -			return MODE_NOCLOCK;
+> +			/* Allow +/-0.5% pixel clock rate deviation */
+> +			rounded_rate =3D clk_round_rate(dsi->clk_pixel, pixel_clock_rate);
+> +			if (rounded_rate < pixel_clock_rate * 995 / 1000 ||
+> +			    rounded_rate > pixel_clock_rate * 1005 / 1000) {
+> +				dev_dbg(dsi->dev,
+> +					"failed to round clock for mode " DRM_MODE_FMT "\n",
+> +					DRM_MODE_ARG(mode));
+> +				drm_bridge_put(bridge);
+> +				return MODE_NOCLOCK;
+> +			}
+> +
+> +			drm_bridge_put(bridge);
+> +			break;
+>  		}
+>  	}
+
+Is this logic specific to the imx93 MIPI DSI host only? Or should it be
+made generic for all dw-hdmi users, or even every DSI host?
+
+Also, iterating over the bridge chain is not very clean. I'm working on
+bridge hotplug (not upstream yet) and bad things would happen if a bridge
+were hot-unplugged during this loop. If the core did this sort of algorithm
+it would be able to be more robust.
+
+Finally, out of my utter ignorance on the subject, is the VESA +/-0.5%
+margin generic enough that this driver can always rely on it?
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
