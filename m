@@ -4,86 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E171ACD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 15:21:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F8A3CD98F2
+	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 15:26:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E32010E057;
-	Fri, 19 Jun 2026 15:21:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56FC310E0A4;
+	Fri, 19 Jun 2026 15:26:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ikjotzBF";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hgJiQGQm";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFE5D10E057
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 15:21:42 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-490b8ac62baso32061095e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 08:21:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781882501; x=1782487301; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JlNoQTWruLYwjTd0yu1Yhr8omA9DMZWJZZsy9ry+wBQ=;
- b=ikjotzBF6e3AzN2fk30myb0OF2SPvwdj/TRhdxEweVHy7buVhq3tZI6HLwnbrcri43
- CReuxaRx2SBnlEdrT891gy2NZ6LS+Xh016YLA59lyjAL8d6mR4s1h92lRZZ/97oynfGL
- CnBgDk6V8+nl6ZGw+Ntfx6ELEzf89DIHlvDcPhQG3RDF3JR130hntk554a9JVg+FXbFA
- Bv05o5cd/CWElCyrwtqrthwWj8PYvkqUdAEj50aKO33JAvx9veD4/e1Zz4C+Fue2vBcn
- 0awE/vz/ohxg9Q6MSj71Grm52MKe+h3DI8hX5+Wx2BFfmPNQZvb2FgCbu2aG8PDWfRYc
- FQuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781882501; x=1782487301;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=JlNoQTWruLYwjTd0yu1Yhr8omA9DMZWJZZsy9ry+wBQ=;
- b=O9eqQ0V7DsL3RtMGNJJJg87Uq8G32rZ+rkdXQNise/oCg5Yyqo+wUrVKGgVd1zkv5I
- Gj64icCjK/GfR/e5O7ohXUkq9fgeGKfFCAxIJ2NDaXnUu3CPeEvLAndVh3CPvc6Hf+8S
- SSwkYwDD2+DUbolQEnEj6JTJLXzLY1FGkiOlfAGLw4PW2MJHWAWroM+yuvWgkTOI/Xel
- wLYIB8pmlixqcLw5siFSYtfrekI6BMHen3RSdJyyN1kkHWivNWNXw28rbXCuMh8q8ZFB
- iKRIG0l2tTNWbepAU6PwSxmozJD+PFCVagPPShvSdThmUEAPXJsTfrXLO14eKWJrz/By
- FqHw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8hETixEKvJQAuyUIHSS8TsoQz/U0KW7G/0Q8X7sBlwDuR9KHPI2EmTRCv60SnT767PW6/QBEQn2WE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxhGa/+VoXxJzfk+0aBj+AGne96zoJWmNhl0dUQUAyvk0VmSypS
- Pa3rB455pjEiyz4/2QEgdUq3BaDs1eFlXMbLmBDi7g5NkkzOCIvB5ot8
-X-Gm-Gg: AfdE7ckrsMUiBZw5EYP55SBGktnlSCSrugHm81c++QJrby2V/MoIAV5DZaVwKprxyb3
- P/qV4LqmYqF94gf6ft26vjumxx3QmKyIXVQfahsASLFZxHYPggn2QBOCvO1zyptgn9vhktr5gIq
- Bp7tfPOUEbkod5MaIG4eiFCmQbdVrq65C0WyADf3ktnc7jBoYq+ynCoWuLuumyu/FQ50MrHQ4vz
- 3SG0RdZvRgj0iydSztqrxCcpcQ26GIoLJqg3dG7dK5QFOXdp1V6hlTM9/DCiU4DAMeu5hdk+ps0
- JGg1pFUeLNXlVXjb4KSB1RJT0cC3HGNiHATtkrj8dZWl2qIIn6bkqYBNFa8UqWUWPZ4TQ9Q9B7i
- i03182qrzOgds5QBtdHszhDEZR2JHoUjplwT9SYNAtLNBOhObOLteM7+1FgOBRlZcXjBgyxc7a6
- F3lRyof8TOWkb38Y4d1uTqr2WHvf8bjBegEAHu6XD+17xQquoELzQOepOAaU6J
-X-Received: by 2002:a05:600c:4e4f:b0:48f:e230:29f5 with SMTP id
- 5b1f17b1804b1-49240a486cemr53130395e9.16.1781882501166; 
- Fri, 19 Jun 2026 08:21:41 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49240084928sm79974115e9.15.2026.06.19.08.21.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Jun 2026 08:21:40 -0700 (PDT)
-Date: Fri, 19 Jun 2026 16:21:39 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Ovidiu Bunea <ovidiu.bunea@amd.com>, Ray Wu
- <ray.wu@amd.com>, Leo Chen <leo.chen@amd.com>, Arnd Bergmann
- <arnd@arndb.de>, Rodrigo Siqueira <siqueira@igalia.com>, Gaghik Khachatrian
- <gaghik.khachatrian@amd.com>, Dillon Varone <dillon.varone@amd.com>,
- Chuanyu Tseng <chuanyu.tseng@amd.com>, Linus Probert
- <linus.probert@gmail.com>, Kees Cook <kees@kernel.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/amd/display: avoid 64-bit division
-Message-ID: <20260619162139.362299f9@pumpkin>
-In-Reply-To: <20260619082313.3583603-1-arnd@kernel.org>
-References: <20260619082313.3583603-1-arnd@kernel.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011027.outbound.protection.outlook.com [40.107.208.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A53F10E0A4;
+ Fri, 19 Jun 2026 15:26:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=s23cPwwc5PKaXKlu/OY2cpUiY26aMKBvpb2fTEq00MNkurKMLVc50TKzQCBgZziPRrN9EvQ8pJIsp95xFbGXC62iL81oIMz0BGbt6+PA95rty/bYf8uzv0NrHq+Skv8wF48vJ5GrSHjLBlSMxn4chDA2cY8SqHtP1p1BH3O9CMUzZlZzSRGfNi8D/FbkEGAxATcNQXL0abGIYvptQCs5uw5AqteskUidXHUnLHNn+kTdco2kmSV9FI3WObyoDp12W7i9Zajj1dcRSkaxyecQc+K/FV7sKJ5fgigmPPQW/ZwmAQEGmckJuPMUL5KemqW44k4M8qYvilebkI9p/lEn7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+tGYgw6qxACq5N6Ws3sm2hz8Vo4g7sYvyJ2gv5Hgl4Q=;
+ b=LjHEyV/S4hIQxLfCmOH1271+KOOJhMcOX0WDeKWxJ5n4f9ucVGWWh3zXmf8dHHkNNstW3NKWUzeKG9nrz9fzL0DRv/W+WJW3Eh0p4RgnmLruudqfHJlGDfbWd34RIWDTU5wX1Op+pDIKoEpsCyieQk8EqFoNRBaMNB2gKuDaATZnYU6FQjvGRtfZRSKOt/b3L+QF8JHjIEijj38Q6jK/Ad5lhtJm/KAdKc+0GYr2JESpmUL/nYr4EYSUmfomk2AzABOTIu4XdO3EG6Vh0jlTlQJysLdJ6FbUmMMEHNxcflwwxIe2HGl8SZ8lzxXA5M/slw6op4ewyNSoTGjI7IwDHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+tGYgw6qxACq5N6Ws3sm2hz8Vo4g7sYvyJ2gv5Hgl4Q=;
+ b=hgJiQGQmTtu7UERL5vP002MSGV443GO0I6AebHOnPZYr6IPuu8/xf9xN885ljcCFe1f3fbs6s0WeGEb7YdEdPRPYU6m+g/NvNC2neWau0mYXUIv+pYdbKfDtOEvr0KTxJPN43CUA6cR9HO7LKp8K6xxtcGSy9Ujbo+d2SrsmzcA=
+Received: from CH0PR03CA0049.namprd03.prod.outlook.com (2603:10b6:610:b3::24)
+ by MW6PR12MB8960.namprd12.prod.outlook.com (2603:10b6:303:23e::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Fri, 19 Jun
+ 2026 15:26:25 +0000
+Received: from CH2PEPF00000147.namprd02.prod.outlook.com
+ (2603:10b6:610:b3:cafe::af) by CH0PR03CA0049.outlook.office365.com
+ (2603:10b6:610:b3::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.13 via Frontend Transport; Fri,
+ 19 Jun 2026 15:26:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF00000147.mail.protection.outlook.com (10.167.244.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Fri, 19 Jun 2026 15:26:23 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 19 Jun
+ 2026 10:26:22 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 19 Jun 2026 10:26:21 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd, radeon drm-fixes-7.2
+Date: Fri, 19 Jun 2026 11:26:10 -0400
+Message-ID: <20260619152610.776982-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000147:EE_|MW6PR12MB8960:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea0eec3e-4ed3-4164-7e03-08dece171f3c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|36860700016|23010399003|13003099007|18002099003|3023799007|5023799004|11063799006|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info: 7/vxLWyX63gqf1J5yGNKCSYQrHrxMJ/byUHh+P4lqVlHXAHu/fRBOew0xUu+e0ZzJBMEFSqYWSlQSze+YSn3MHCaKUfROj3+Ze0C5Sl5p74lJgh/AQGmSTODBsReEGbm3GIzLMpHmXh2JcgMhFmGDJSPNQHpU6apOPsejfztag0D2JXwAc6eyAi1iUib1aMho7l+UzkY6DIdz7V8/cJL8Z4FYawIrjwp4ioNfHlJoegy3g1ExqM9v/Fsu0F0c4eMTzuMLdMnmdKRIui8dYqvHh/oaZFZqHwkyClsF6x3U4KK8r999gdd9vTRc+pIZCDoAYguSzXvTX9SMtpyUZHEdELFwUH2yusWCekqZpM7ZULV3JpGuniecRPuChu+TL/gxXm91aZiiKrZcVwcCeo3HgowEqwvpSgp+jK/HF8OKtJeb29cMq//O0cFcTxzhv5MMUOERiMW5qWwfrYy2A9DgkKPSye6EaD7ixNbMvammhAnFJbhEQcIXDlEVnkZJokuJYUbxyiZDBD4bCWql1tyP81XiwETNLzTVWOlnob+s9OmuUQCmqgXa8dAoGluBukLfRhoi8xXxyd2n4i79ukQnIVn7dNxQr4CpmZ2sjC22zNmLNkhdkDX3i2GMdhJbgaFK1H9YrOyNcdsFkce7RywdA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(23010399003)(13003099007)(18002099003)(3023799007)(5023799004)(11063799006)(56012099006)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: A6DYSEDjeHhXgbqJBbkqxV4UvcvJvZMwu+hH3kQZsZllvWDoncqIIjR9tUrrWWg2OvoRTaDpgw3bF06BZInip3ywkM6iVBn1wpRjZ+ZPiuEhdKnoEDmkPwVrEk1/O04vJBm73CEdKNQLZzQzyg5MpyEhuBDlTjSCn7rJuSOA2+g0el7d6SB7iVtCAzfQ5TtNzK1+iCd9eNOyUMtEzxqvhyhAt9tVixVSM7a3bh7bZOWbCYcOmMv1Kkxr3C8/bT6kk64ikGzPCd43DMNbGY0md4PvodtIEW1Sw7TYyJa8aywBhGGTmbBRFKmvpOJ+2XuzCUlDUYhEGESMDETLqHY2EMeGHlCQprYsYgG8eIPnr1XAluvTxaTJ94seXERnJRcmwy1zvOaWuHHuKzIKaHPjKpMMKs3meYERiO7Sx/MYdPqcSaQ4V74kuDPJeguCfiQV
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 15:26:23.6264 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea0eec3e-4ed3-4164-7e03-08dece171f3c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000147.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8960
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,65 +109,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 19 Jun 2026 10:23:00 +0200
-Arnd Bergmann <arnd@kernel.org> wrote:
+Hi Dave, Simona,
 
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> 64-bit division is costly on 32-bit targets and should be avoided:
-> 
-> x86_64-linux-ld: drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.o: in function `get_dp_dto_frequency_100hz':
-> dce_clock_source.c:(.text+0x407): undefined reference to `__udivdi3'
-> x86_64-linux-ld: drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.o: in function `dcn401_get_dp_dto_frequency_100hz':
-> dce_clock_source.c:(.text+0x8b8): undefined reference to `__udivdi3'
-> 
-> Replace the open-coded division with a div_u64() call where necessary.
-> This could be done in a more clever way using mul_u64_u32_shr()
-> or similar, but since this is called rarely, use the most readable
-> variant that works.
-> 
-> Fixes: 6f6483dbfacd ("drm/amd/display: Update get_pixel_clk_frequency() for DCN4x DCCG DP DTO")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-> index 7c293917e6fd..501ab1a3bac2 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-> @@ -1229,9 +1229,9 @@ static bool get_dp_dto_frequency_100hz(
->  			 */
->  			modulo_hz = REG_READ(MODULO[inst]);
->  			if (modulo_hz) {
-> -				temp = div_u64((uint64_t)clock_hz * dp_dto_ref_khz * 10, modulo_hz);
-> -				ASSERT(temp / 100 <= 0xFFFFFFFFUL);
-> -				*pixel_clk_100hz = (unsigned int)(temp / 100);
-> +				temp = clock_hz * dp_dto_ref_khz * 10;
-> +				ASSERT(temp <= INT_MAX * modulo_hz * 100);
+Fixes for 7.2.
 
-Doesn't that need something to force the RHS to 64bit?
-(or has modulo_hz been changed in a patch I'm not seeing?)
+The following changes since commit 52d4ab1ca790a668cc8f2c27017138b1c467168c:
 
-	David
+  Merge tag 'drm-misc-next-fixes-2026-06-11' of https://gitlab.freedesktop.org/drm/misc/kernel into drm-next (2026-06-13 08:10:38 +1000)
 
-> +				*pixel_clk_100hz = div_u64(temp, modulo_hz * 100);
->  			} else
->  				*pixel_clk_100hz = 0;
->  		} else {
-> @@ -1286,12 +1286,12 @@ static bool dcn401_get_dp_dto_frequency_100hz(const struct clock_source *clock_s
->  		 */
->  		temp = (unsigned long long)dp_dto_integer * modulo_hz + phase_hz;
->  
-> -		if (temp / 100 > 0xFFFFFFFFUL) {
-> +		if (temp > (UINT_MAX * 100ULL)) {
->  			/* pixel rate 100hz should never be this high, if it is, throw an assert and return 0  */
->  			BREAK_TO_DEBUGGER();
->  			*pixel_clk_100hz = 0;
->  		} else {
-> -			*pixel_clk_100hz = (unsigned int)(temp / 100);
-> +			*pixel_clk_100hz = div_u64(temp, 100);
->  		}
->  
->  		return true;
+are available in the Git repository at:
 
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-7.2-2026-06-19
+
+for you to fetch changes up to ba2977dcce72127986fbad76c4c67f134e2f69ae:
+
+  drm/amdgpu: Use system unbound workqueue for soft IH ring (2026-06-17 18:36:38 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-7.2-2026-06-19:
+
+amdgpu:
+- devcoredump fixes
+- SMU15 fix
+- Various irq put/get imbalance cleanup fixes
+- 8K panel fix
+- DCN3.5 fix
+- lockdep fix
+- Cleaner shader sysfs IB overflow fix
+- Async flip fixes
+- GET_MAPPING_INFO fix
+- CP_GFX_SHADOW fix
+- Ctx pstate handling fix
+- GTT bo move handling fixes
+- Old UVD BO placement fixes
+- GC9 mode2 reset fix
+- IH6.1 version fix
+- Soft IH ring fix
+
+amdkfd:
+- Fix doorbell/mmio double unpin on free
+- CRIU fixes
+- SMI event fixes
+- Sysfs teardown fix
+- Various boundary checking fixes
+- Various error checking fixes
+- SVM fix
+
+radeon:
+- r100_copy_blit fix for large BOs
+
+----------------------------------------------------------------
+Andrew Martin (1):
+      drm/amdkfd: Fix SMI event PID reporting for containers
+
+Asad Kamal (1):
+      drm/amdgpu/gfx: fix cleaner shader IB buffer overflow
+
+David Francis (1):
+      drm/amdkfd: Properly acquire queue buffers in CRIU restore
+
+Geoffrey McRae (1):
+      drm/amdkfd: Fix NULL deref during sysfs teardown
+
+Gerhard Schwanzer (1):
+      drm/amdkfd: Use exclusive bounds for SVM split alignment checks
+
+Ivan Lipski (1):
+      drm/amd/display: Restore periodic detection for DCN35
+
+James Lin (1):
+      drm/amd/display: Add IN_FORMATS_ASYNC support for planes
+
+Jiqian Chen (1):
+      drm/amdgpu/gfx9: Fix Ring and IB test fail after mode2
+
+Mario Limonciello (3):
+      drm/amdkfd: fix list_del corruption in kfd_criu_resume_svm
+      drm/amdgpu: check amdgpu_vm_bo_find() result in GET_MAPPING_INFO
+      drm/amdgpu: validate CP_GFX_SHADOW chunk size in CS pass1
+
+Matthew Schwartz (1):
+      drm/amd/display: Fix mem_type change detection for async flips
+
+Mikhail Gavrilov (2):
+      drm/amdgpu: convert amdgpu_vm_lock_by_pasid() to drm_exec
+      drm/amdgpu: fix recursive ww_mutex acquire in amdgpu_devcoredump_format
+
+Pavel Ondračka (1):
+      drm/radeon: fix r100_copy_blit for large BOs
+
+Prike Liang (1):
+      drm/amdgpu: allocate lockdep mutex on the heap to fix stack overflow
+
+Qiang Yu (1):
+      drm/amdgpu: initialize iter.start in amdgpu_devcoredump_format
+
+Roman Li (1):
+      drm/amd/display: Skip PHY SSC reduction on some 8K panels
+
+Shubhankar Milind Sardeshpande (1):
+      drm/amd/pm: re-enable MC access after PrepareMp1ForUnload on SMU V15 APUs
+
+Thadeu Lima de Souza Cascardo (1):
+      drm/amdgpu: initialize irq.lock spinlock earlier
+
+Timur Kristóf (6):
+      drm/amdgpu: Respect placement requirements in amdgpu_gtt_mgr functions
+      drm/amdgpu: Fix amdgpu_bo_move() when old_mem and new_mem are both GTT
+      drm/amdgpu/uvd: Place VCPU BO only in VRAM for UVD 4.x and older
+      drm/amdgpu/uvd: Fix forcing MSG, FB BOs into VCPU segment when it isn't at 0 (v2)
+      amdgpu/ih6.1: Fix minor version
+      drm/amdgpu: Use system unbound workqueue for soft IH ring
+
+Tvrtko Ursulin (1):
+      drm/amdgpu: Fix context pstate override handling
+
+Uwe Kleine-König (The Capable Hub) (1):
+      drm/amdgpu: Don't use UTS_RELEASE directly
+
+Xiaogang Chen (3):
+      drm/amdkfd: Let driver decide buffer size at AMDKFD_IOC_GET_DMABUF_INFO ioctl
+      drm/amdkfd: check find_first_zero_bit before __set_bit on kfd->doorbell_bitmap
+      drm/amdkfd: Use memdup_array_user to copy data from/to user space at kfd ioctls
+
+Yunxiang Li (2):
+      drm/amdkfd: Avoid double-unpin of DOORBELL/MMIO BOs on free
+      drm/amdgpu: skip already suspended IP blocks in ip_suspend_phase2
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         |  23 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h         |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |  16 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c            |  71 ++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c   | 220 ++++++++++++---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            |   5 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |  10 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c        |  30 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c            |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c        | 103 +++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |  18 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c            |  50 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  91 +++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |  39 ++++
+ drivers/gpu/drm/amd/amdgpu/ih_v6_1.c               |   2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |  56 ++----
+ drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c          |   8 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c           |   8 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c           |  46 +++--
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |  12 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c        |  99 ++++++----
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h        |  14 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |  15 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  10 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  13 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    |   1 +
+ .../amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c   |   2 -
+ .../amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c |   2 -
+ .../amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c   |   2 +
+ .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c   |   7 +-
+ drivers/gpu/drm/radeon/r100.c                      |  13 +-
+ 34 files changed, 618 insertions(+), 386 deletions(-)
