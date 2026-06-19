@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D19F9CD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 14:23:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 221C7CD4F26
+	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 14:37:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEEDE10F632;
-	Fri, 19 Jun 2026 14:23:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5975610E091;
+	Fri, 19 Jun 2026 14:37:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nTAtYs6D";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jb0Asoqh";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74D1710F632
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 14:23:05 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDD6610F635
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 14:37:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4BFA743BC9;
- Fri, 19 Jun 2026 14:23:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A58F1F000E9;
- Fri, 19 Jun 2026 14:23:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 32FAB601E1;
+ Fri, 19 Jun 2026 14:37:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B88D91F000E9;
+ Fri, 19 Jun 2026 14:37:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781878985;
- bh=ZYNrsltmEgRU/lcRFhxxZsR4jeneqoVF93AoyxyGSIw=;
+ s=k20260515; t=1781879823;
+ bh=h2FzwHhMPtR6/FhcSa+UrMEyx65Xd3xhVypjHOd0/D0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nTAtYs6D1fsQCh3286XqJZr9UGLm7ZKExcTvXXnHvur/f8NVbtSh7uA5ZFxM1sIvS
- AP1VofkewXZNqNoWC5r915KKXqE7GWVAODZjmgRtNdXd7Hc1pMJu591dHjHtMCfD7r
- /eSrKTfFO9kphGrt8nVdr7hdcsjJlW9APmNkzA53CFRPeacbb4ZagaxVCbtpNE1s/k
- pnE8ecMNWguwzJUo6/kuENGQs4g0mPmQc2VGYfgJViJkLro18kgndislJRfvY3rOkO
- Hqia1AjyfildZlBcpH9iqsmA8TTOcP1nGh/1AyGsuOwUik+T2w+WyvcmlruIFTmlBa
- AG15jNEevH7tw==
+ b=jb0AsoqhkCKhewrhx98DNBdwmkWTwaW4NMAAul2jTNTqR+z5WRWGv2e9yeq1mpKmk
+ UMRX0s5X1/a2A/aiyH27rlk7I79CCtpJsjcj8Z3HO4VCJRTnII9l0O0mefaI39ODV+
+ fD4C3TBFqIinKIxXxjnyKwSwdWe9c209grd2dIiDHtM7VoiTYoCPItRJG/IhRIAqYi
+ UlCMkByoNaPgXt8aTmCJCOKhO/kiD2oas2L/Utu6jejd+i1pyH691eyp3llAqunLKj
+ PR+0LGnYc8I6uNhLolRw+7GjT4cg93aWScxjLvrdOdzwTH4gqY08BvfGxz9QdPPNBT
+ hg7eKEfsNZ/dA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 1/4] drm: Introduce DisplayPort connector helpers
- with link training state
+Subject: Re: [PATCH RFC v2 2/4] drm/i915/display/dp: Adopt dp_connector
+ helpers to expose link training state
 To: "Kory Maincent" <kory.maincent@bootlin.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260619-feat_link_cap-v2-1-a3dec4c02ad9@bootlin.com>
+In-Reply-To: <20260619-feat_link_cap-v2-2-a3dec4c02ad9@bootlin.com>
 References: <20260619-feat_link_cap-v2-0-a3dec4c02ad9@bootlin.com>
- <20260619-feat_link_cap-v2-1-a3dec4c02ad9@bootlin.com>
+ <20260619-feat_link_cap-v2-2-a3dec4c02ad9@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 14:23:04 +0000
-Message-Id: <20260619142305.1A58F1F000E9@smtp.kernel.org>
+Date: Fri, 19 Jun 2026 14:37:03 +0000
+Message-Id: <20260619143703.B88D91F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,324 +58,175 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [High] Unconditional read of DP 1.3 Extended Receiver Capability space br=
-eaks capability detection on legacy DP sinks.
-- [High] Incorrect use of `devm_kmemdup_array` binds memory to the physical=
- device, causing memory leaks for dynamic connectors.
-- [High] Incorrect assignment of `sink_dsc_caps` uses the return value of t=
-he DPCD read instead of the actual data read.
-- [High] Missing `drm_connector_cleanup` on error paths leaves partially in=
-itialized connectors on global DRM lists.
-- [High] Dangling pointer `connector->kdev` in `drm_sysfs_connector_add` le=
-ads to UAF if sysfs group creation fails.
-- [High] Raw AUX reads of base DPCD registers bypass DP 1.3+ Extended Recei=
-ver Capability overrides.
-- [Medium] Sysfs scalar attributes return an empty file (EOF) instead of '0=
-' for valid zero values.
-- [Medium] Unconditional sysfs group creation litters existing DP drivers w=
-ith empty files.
-- [Medium] Dangerous unit mismatch for max_link_rate causes 10x value scali=
-ng errors in sysfs.
+- [Critical] Kernel panic in drm_connector_cleanup() due to an uninitialize=
+d connector when kmemdup_array fails.
+- [High] Calling DRM DP helpers from atomic commit tail violates locking co=
+ntracts and introduces a data race.
+- [Medium] The current negotiated link parameters are incorrectly reported =
+as the maximum link parameters.
+- [Medium] The source maximum lane count capability is incorrectly hardcode=
+d to 4, misrepresenting actual port capabilities.
+- [Medium] The return value of drm_connector_dp_init_with_ddc() is ignored,=
+ potentially leaving the connector with missing source capabilities on allo=
+cation failure.
+- [Medium] The failure path for the rates allocation misses the cleanup for=
+ intel_dp_aux_init(), leaking resources.
 --
 
-commit 9797fc077ec92710d6cc77dd41b9fa876502ade2
+commit 77ebe85e37823b9a8f351840bfca5631c84a3dac
 Author: Kory Maincent <kory.maincent@bootlin.com>
-Subject: drm: Introduce DisplayPort connector helpers with link training st=
-ate
 
-This commit adds managed and unmanaged DisplayPort connector initialization
-helpers to expose link training capabilities and state to userspace via
-sysfs attributes under dp_link.
+drm/i915/display/dp: Adopt dp_connector helpers to expose link training sta=
+te
 
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/di=
-splay/drm_dp_helper.c
-> index a697cc227e289..4603efa46d912 100644
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> @@ -4867,3 +4867,147 @@ int drm_dp_max_dprx_data_rate(int max_link_rate, =
-int max_lanes)
-[ ... ]
-> +static int drm_dp_dpcd_read_link_rate_caps(struct drm_dp_aux *aux)
-> +{
-> +	u8 data;
-> +	int ret;
-> +
-> +	ret =3D drm_dp_dpcd_read_byte(aux, DP_DP13_DPCD_REV + DP_MAIN_LINK_CHAN=
-NEL_CODING, &data);
-> +	if (ret < 0)
-> +		return ret;
+This commit switches the i915 DP connector initialization to use
+drm_connector_dp_init_with_ddc() to provide source link capabilities.
+It also adds intel_dp_report_link_train() to collect and expose
+negotiated link parameters via the DRM DP helpers.
 
-[Severity: High]
-Does this unconditional read break capability detection on older sinks?
-
-Legacy sinks (DP 1.2 and earlier) do not implement the 0x2200 register space
-and typically NACK AUX reads to unimplemented addresses. If this returns an
-error, will it abort drm_dp_sink_set_link_caps() and leave capabilities
-uninitialized for legacy hardware?
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index 5c3e816b01352..5f934257771a7 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
 
 [ ... ]
-> +void drm_dp_sink_set_link_caps(struct drm_connector *connector,
-> +			       struct drm_dp_aux *aux)
-> +{
-> +	u32 lane_count, link_rate;
-> +	u8 data;
-> +	int ret;
-> +
-> +	if (!connector)
-> +		return;
-> +
-> +	WARN_ON(!drm_modeset_is_locked(&connector->dev->mode_config.connection_=
-mutex));
-> +
-> +	ret =3D drm_dp_dpcd_read_byte(aux, DP_MAX_LANE_COUNT, &data);
 
-[Severity: High]
-Does this raw AUX read miss DP 1.3+ Extended Receiver Capability overrides?
-
-For DP 1.3+ sinks with the DP_EXTENDED_RECEIVER_CAP_FIELD_PRESENT bit set,
-these base DPCD registers are overridden by values at 0x2200-0x220F. By
-bypassing drm_dp_read_dpcd_caps() which handles patching these overrides,
-will this report legacy capabilities for modern DP 1.4+ sinks?
-
-> +	if (ret < 0)
-> +		return;
-> +
-> +	lane_count =3D data & DP_MAX_LANE_COUNT_MASK;
-> +
-> +	ret =3D drm_dp_dpcd_read_link_rate_caps(aux);
-> +	if (ret < 0)
-> +		return;
-> +
-> +	link_rate =3D ret;
-> +
-> +	ret =3D drm_dp_dpcd_read_byte(aux, DP_DSC_SUPPORT, &data);
-> +	if (ret < 0)
-> +		return;
-> +
-> +	connector->dp.sink_max_lane_count_caps =3D lane_count;
-> +	connector->dp.sink_max_link_rate_caps =3D link_rate;
-> +	connector->dp.sink_dsc_caps =3D ret & DP_DSC_DECOMPRESSION_IS_SUPPORTED;
-
-[Severity: High]
-Is the wrong variable used for this assignment?
-
-The assignment uses the return code ret instead of the payload variable
-data. Since the return code is 1 on success, and
-DP_DSC_DECOMPRESSION_IS_SUPPORTED is also 1, will this always evaluate
-to true for any sink that acknowledges the DPCD read, regardless of actual
-DSC support?
-
-> +}
-> +EXPORT_SYMBOL_GPL(drm_dp_sink_set_link_caps);
-[ ... ]
-> +void drm_dp_set_max_link_params(struct drm_connector *connector, u32 lin=
-k_rate,
-> +				u32 lane_count)
-> +{
-> +	if (!connector)
-> +		return;
-> +
-> +	WARN_ON(!drm_modeset_is_locked(&connector->dev->mode_config.connection_=
-mutex));
-> +
-> +	connector->dp.max_link_rate =3D link_rate;
-> +	connector->dp.max_lane_count =3D lane_count;
-
-[Severity: Medium]
-Is there a unit conversion mismatch here?
-
-Unlike drm_dp_set_cur_link_params() which converts deca-kbps to kbps by
-multiplying by 10, this assigns link_rate directly to max_link_rate without
-conversion. Since both are exposed via sysfs, will max_link_rate be present=
-ed
-10x smaller than the actual rate?
-
-> +}
-> +EXPORT_SYMBOL_GPL(drm_dp_set_max_link_params);
-> +
-> +/**
-> + * drm_dp_sink_reset_link_caps - Reset DisplayPort sink capabilities
-> + * @connector: DisplayPort connector
-> + *
-> + * This function resets all DisplayPort sink link capabilities and param=
-eters
-> + * to their default state. This should be called when a sink is disconne=
-cted
-> + * to clear stale capability information.
-> + */
-> +void drm_dp_sink_reset_link_caps(struct drm_connector *connector)
-> +{
-> +	if (!connector)
-> +		return;
-> +
-> +	WARN_ON(!drm_modeset_is_locked(&connector->dev->mode_config.connection_=
-mutex));
-> +
-> +	drm_dp_set_cur_link_params(connector, 0, 0, false);
-> +	drm_dp_set_max_link_params(connector, 0, 0);
-> +	connector->dp.sink_max_link_rate_caps =3D 0;
-> +	connector->dp.sink_max_lane_count_caps =3D 0;
-> +	connector->dp.sink_dsc_caps =3D false;
-> +}
-> +EXPORT_SYMBOL_GPL(drm_dp_sink_reset_link_caps);
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
-tor.c
-> index 47dc53c4a738f..aac99fbb44804 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -489,6 +489,128 @@ int drm_connector_init_with_ddc(struct drm_device *=
-dev,
->  }
->  EXPORT_SYMBOL(drm_connector_init_with_ddc);
-> =20
-> +static int drm_dp_source_set_link_caps(struct drm_connector *connector,
-> +				       const struct drm_connector_dp_link_caps *link_caps)
-> +{
-> +	u32 *_link_rates;
-> +
-> +	_link_rates =3D devm_kmemdup_array(connector->dev->dev,
-> +					 link_caps->link_rates,
-> +					 link_caps->nlink_rates,
-> +					 sizeof(*link_caps->link_rates),
-> +					 GFP_KERNEL);
-
-[Severity: High]
-Can this allocation leak memory for dynamically plugged connectors?
-
-By using devm_kmemdup_array() tied to the physical device
-(connector->dev->dev), the memory is bound to the GPU driver's lifecycle.
-Since connectors like MST can be hot-plugged and destroyed independently,
-will this leak the array on every plug/unplug cycle until the entire GPU
-driver unbinds?
-
-> +	if (!_link_rates)
-> +		return -ENOMEM;
-[ ... ]
-> +int drm_connector_dp_init_with_ddc(struct drm_device *dev,
-> +				   struct drm_connector *connector,
-> +				   const struct drm_connector_funcs *funcs,
-> +				   const struct drm_connector_dp_link_caps *dp_link_caps,
-> +				   int connector_type,
-> +				   struct i2c_adapter *ddc)
-> +{
-> +	int ret;
-> +
-> +	if (!(connector_type =3D=3D DRM_MODE_CONNECTOR_DisplayPort ||
-> +	      connector_type =3D=3D DRM_MODE_CONNECTOR_eDP))
-> +		return -EINVAL;
-> +
-> +	if (!dp_link_caps)
-> +		return -EINVAL;
-> +
-> +	ret =3D drm_connector_init_with_ddc(dev, connector, funcs, connector_ty=
-pe, ddc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return drm_dp_source_set_link_caps(connector, dp_link_caps);
-
-[Severity: High]
-Does this error path leave a partially initialized connector on the global =
-DRM
-lists?
-
-If drm_connector_init_with_ddc() succeeds, it adds the connector to the
-DRM device's lists. If drm_dp_source_set_link_caps() then fails, the error
-is returned directly without calling drm_connector_cleanup().
-
-Will the caller perceive this as a failure and free the structure, leaving
-a dangling pointer in dev->mode_config.connector_list?
-
-> +}
-> +EXPORT_SYMBOL(drm_connector_dp_init_with_ddc);
-> +
->  static void drm_connector_cleanup_action(struct drm_device *dev,
->  					 void *ptr)
+> @@ -7174,10 +7178,12 @@ intel_dp_init_connector(struct intel_digital_port=
+ *dig_port,
+>  			struct intel_connector *connector)
 >  {
-> diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
-> index ef4e923a87284..653fecf23d717 100644
-> --- a/drivers/gpu/drm/drm_sysfs.c
-> +++ b/drivers/gpu/drm/drm_sysfs.c
-> @@ -340,6 +340,95 @@ static const struct attribute_group *connector_dev_g=
-roups[] =3D {
+
 [ ... ]
-> +#define DRM_CONNECTOR_DP_ATTR_SHOW_SIMPLE(_name) \
-> +static ssize_t _name##_show(struct device *device, \
-> +			    struct device_attribute *attr, \
-> +			    char *buf) \
-> +{ \
-> +	struct drm_connector *connector =3D to_drm_connector(device); \
-> +	int ret; \
-> +	drm_modeset_lock(&connector->dev->mode_config.connection_mutex, NULL); \
-> +	if (!connector->dp._name) { \
-> +		drm_modeset_unlock(&connector->dev->mode_config.connection_mutex); \
-> +		return 0; \
-> +	} \
+
+> +	intel_dp_set_source_rates(intel_dp);
+> +	link_caps.nlanes =3D 4;
 
 [Severity: Medium]
-Will this return an empty file (EOF) when the property evaluates to false
-or 0?
+Is it intentional to hardcode the maximum lane count to 4 here?
 
-By returning 0 from the sysfs show callback here, userspace will read 0 byt=
-es
-rather than seeing "0\n". Since 0 and false are valid states for properties
-like dsc_en and cur_link_rate, will this prevent userspace from correctly
-parsing them?
+Some digital encoder ports may be restricted to 1 or 2 lanes depending on
+the hardware platform or Type-C port configuration. The actual capability
+is stored in dig_port->max_lanes. Hardcoding this to 4 might misrepresent
+the actual port capabilities.
 
-> +	ret =3D sysfs_emit(buf, "%d\n", connector->dp._name); \
-> +	drm_modeset_unlock(&connector->dev->mode_config.connection_mutex); \
-> +	return ret; \
-> +}
-[ ... ]
-> @@ -376,6 +465,15 @@ int drm_sysfs_connector_add(struct drm_connector *co=
-nnector)
-> =20
->  	connector->kdev =3D kdev;
-> =20
-> +	if (connector->connector_type =3D=3D DRM_MODE_CONNECTOR_DisplayPort ||
-> +	    connector->connector_type =3D=3D DRM_MODE_CONNECTOR_eDP) {
-> +		r =3D sysfs_create_group(&connector->kdev->kobj, &connector_dp_link_gr=
-oup);
+> +	link_caps.nlink_rates =3D intel_dp->num_source_rates;
+> +	rates =3D kmemdup_array(intel_dp->source_rates, intel_dp->num_source_ra=
+tes,
+> +			      sizeof(*rates), GFP_KERNEL);
+> +	if (!rates)
+> +		goto fail;
+
+[Severity: Critical]
+Does this error path trigger a NULL pointer dereference?
+
+At this point in the initialization, drm_connector_dp_init_with_ddc()
+hasn't been called yet, so connector->base.dev is still NULL.
+
+The jump to the fail label calls drm_connector_cleanup(&connector->base).
+This function unconditionally dereferences the device pointer, which will
+cause a kernel panic.
 
 [Severity: Medium]
-Does this unconditionally expose empty sysfs files for existing DP drivers?
+Does this error path also leak the resources allocated by intel_dp_aux_init=
+()
+earlier in this function?
 
-For drivers that have not migrated to use the new drm_connector_dp_init*
-helpers, the dp capability struct remains zero-initialized. Will this create
-a dp_link directory populated with useless, empty files on all legacy syste=
-ms?
+The direct jump to the fail label bypasses the intel_dp_aux_fini(intel_dp)
+call, which means the aux channel name allocation and the PM QoS request
+will permanently leak.
 
-> +		if (r) {
-> +			drm_err(dev, "failed to create DP connector sysfs: %d\n", r);
-> +			goto err_dp_sysfs;
-> +		}
-> +	}
 > +
->  	if (dev_fwnode(kdev)) {
->  		r =3D component_add(kdev, &typec_connector_ops);
->  		if (r)
-> @@ -384,6 +482,8 @@ int drm_sysfs_connector_add(struct drm_connector *con=
-nector)
+> +	link_caps.link_rates =3D rates;
+> +	link_caps.dsc =3D HAS_DSC(display);
+> +
+> +	drm_connector_dp_init_with_ddc(dev, &connector->base, &intel_dp_connect=
+or_funcs,
+> +				       &link_caps, type, &intel_dp->aux.ddc);
+
+[Severity: Medium]
+Should we check the return value here?
+
+drm_connector_dp_init_with_ddc() can fail with -ENOMEM when allocating the
+link capabilities array internally. If it fails, the connector will proceed
+partially initialized without its source capabilities.
+
+> +	kfree(rates);
+> +
+>  	drm_connector_helper_add(&connector->base, &intel_dp_connector_helper_f=
+uncs);
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/driv=
+ers/gpu/drm/i915/display/intel_dp_link_training.c
+> index 54c585c59b900..aaa6eba058af5 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> @@ -1116,6 +1116,18 @@ intel_dp_128b132b_intra_hop(struct intel_dp *intel=
+_dp,
+>  	return sink_status & DP_INTRA_HOP_AUX_REPLY_INDICATION ? 1 : 0;
+>  }
 > =20
->  	return 0;
-> =20
-> +err_dp_sysfs:
-> +	device_del(kdev);
+> +static void intel_dp_report_link_train(struct intel_dp *intel_dp)
+> +{
+> +	struct intel_connector *connector =3D intel_dp->attached_connector;
+> +
+> +	drm_dp_set_max_link_params(&connector->base, intel_dp->link_rate,
+> +				   intel_dp->lane_count);
+
+[Severity: Medium]
+Should this report the architectural maximums instead of the currently
+negotiated parameters?
+
+intel_dp->link_rate and intel_dp->lane_count reflect the current link
+configuration, which might have been downgraded due to training failures
+or signal degradation. The hardware maximum capabilities are stored in
+intel_dp->link.max_rate and intel_dp->link.max_lane_count.
 
 [Severity: High]
-Does this leave a dangling pointer in connector->kdev?
+Can this helper be safely called from this context?
 
-If sysfs_create_group() fails, the code jumps to err_dp_sysfs which
-deletes kdev, but connector->kdev is never reset to NULL. When
-drm_sysfs_connector_remove() is called later, could it dereference the
-freed pointer?
+drm_dp_set_max_link_params() and drm_dp_set_cur_link_params() both require
+the connection_mutex to be held. However, intel_dp_stop_link_train()
+(which calls this) executes during the hardware enable phase (commit_tail).
 
->  err_free:
->  	put_device(kdev);
->  	return r;
+For non-blocking commits, this runs asynchronously in a workqueue after
+the modeset locks have already been released. This will trigger a lockdep
+warning and could race against concurrent userspace sysfs readers.
+
+> +
+> +	drm_dp_set_cur_link_params(&connector->base, intel_dp->link_rate,
+> +				   intel_dp->lane_count,
+> +				   connector->dp.dsc_decompression_enabled);
+> +}
+
+[ ... ]
+
+> @@ -1652,6 +1667,8 @@ void intel_dp_start_link_train(struct intel_atomic_=
+state *state,
+>  	 */
+>  	int lttpr_count;
+> =20
+> +	drm_dp_sink_set_link_caps(&intel_dp->attached_connector->base, &intel_d=
+p->aux);
+
+[Severity: High]
+Similar to the helpers above, drm_dp_sink_set_link_caps() explicitly warns
+if the connection_mutex is not locked.
+
+Since intel_dp_start_link_train() is executed from the asynchronous
+commit_tail for non-blocking commits, the modeset locks are already
+released. Can this cause a lockdep warning and data race during asynchronous
+commits?
+
+> +
+>  	intel_hpd_block(encoder);
+> =20
+>  	lttpr_count =3D intel_dp_init_lttpr_and_dprx_caps(intel_dp);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619-feat_link_=
-cap-v2-0-a3dec4c02ad9@bootlin.com?part=3D1
+cap-v2-0-a3dec4c02ad9@bootlin.com?part=3D2
