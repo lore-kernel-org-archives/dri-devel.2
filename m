@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CAF1CD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 17:05:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0496BCDB46B
+	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 17:05:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EFE110F69F;
-	Fri, 19 Jun 2026 17:05:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1702F10E0F5;
+	Fri, 19 Jun 2026 17:05:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NX3L3/sY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BHq5Ju2u";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34FFE10E0DB
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 17:05:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53AF710E0DB
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 17:05:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1D6DE43ADC;
- Fri, 19 Jun 2026 17:05:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E9351F00A3E;
+ by sea.source.kernel.org (Postfix) with ESMTP id 3988840569;
  Fri, 19 Jun 2026 17:05:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7BF1F000E9;
+ Fri, 19 Jun 2026 17:05:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781888709;
- bh=Tub/KdowtvIU5OvLOVVwUz8th6S3b9gChhlruCvYmm4=;
+ s=k20260515; t=1781888708;
+ bh=0LWz96AeAA9EAxmEvhCnS5urxZhCUU14/jNxWfhGneo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NX3L3/sYN5F3sEqaulTvrIrRG4sFh1UjJrAU5XqOvWxIhm1iecAwSa1wQa3jS/ld1
- eh0YBNzqN2SiHBuDQz+krmYq2obl8He2xJH+BWL8HoPNUV2G9yLds3E43MyBqNfdQj
- Yu6e5A2dLTEbuSjmVBFvvcd97wca6qJ8LV9C//OW/rKjjfek0rQwp0Q0vk0qZ94jNF
- 2CZOpij6ytk9yL2ldsFF1GTTNK3gzWR4ZynpIN23y2DnsIWN2AKIxLkSpNiLkM7D1n
- RVp/G8GRJvcSrmcBVAH43oyWjpfSWxrEuzXwam702IFGYh4d/IQZIsxyEzEhhRMRF1
- pvHl0HR4AXGlg==
+ b=BHq5Ju2uJJ03TJtlx1HdwkVu6AVsMXsOIB7vjguk/J62GgVRdOxazs9rJ7ylUNFrJ
+ UYyWiYZmdSqiRWpd3xq6whxy7aPbqJ/lEE1if7ajTzqskYYrw2xWGhSJBPfX3Hv6N6
+ mXSocUr/283Bmpct7Qo6vDwV3xPzAV4b/zpmDksPjdYVtFUdxC/4fbxlVMvsvMSIp2
+ Hx3MsNIU6D+V/LCO3Xy5+1JyYw1feumB2bR85yaZ6DQE2Rvabct64sL10+1y7e+z8B
+ jufv4ZB08Aj6weN/B0b3C/neztF07aP7IxuCn1vHptbSe38sJs2Zor7y9jOv0OeeuE
+ YiiMxKyWEwHpg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 07/10] rust: driver: store pointers in `DeviceId`
+Subject: Re: [PATCH 05/10] rust: driver: centralize device ID handling
 To: "Gary Guo" <gary@garyguo.net>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- conor+dt@kernel.org, robh@kernel.org, linux-pci@vger.kernel.org, "Danilo
- Krummrich" <dakr@kernel.org>, ojeda@kernel.org,
- "Alexandre Courbot" <acourbot@nvidia.com>
-In-Reply-To: <20260618-id_info-v1-7-96af1e559ef9@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, ojeda@kernel.org, robh@kernel.org,
+ conor+dt@kernel.org, linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+ "Alexandre Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260618-id_info-v1-5-96af1e559ef9@garyguo.net>
 References: <20260618-id_info-v1-0-96af1e559ef9@garyguo.net>
- <20260618-id_info-v1-7-96af1e559ef9@garyguo.net>
+ <20260618-id_info-v1-5-96af1e559ef9@garyguo.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 17:05:08 +0000
-Message-Id: <20260619170508.8E9351F00A3E@smtp.kernel.org>
+Date: Fri, 19 Jun 2026 17:05:07 +0000
+Message-Id: <20260619170507.9B7BF1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,127 +59,14 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] Arbitrary Memory Dereference / Privilege Escalation via PCI dy=
-namic IDs (`new_id`)
-- [High] Undefined Behavior via unconditional null reference creation when =
-`driver_data` is 0
---
+> Move the `IdArray` creation from individual buses to be handled by shared
+> code in `device_id.rs`.
+>=20
+> Signed-off-by: Gary Guo <gary@garyguo.net>
 
-commit 01871465d12a97f7be006ca329ebda24f458cf1e
-Author: Gary Guo <gary@garyguo.net>
-
-rust: driver: store pointers in `DeviceId`
-
-This commit changes Rust device IDs to store pointers directly in the
-driver_data field, matching the behavior of C drivers. It works around
-the limitation of missing provenance during const evaluation by wrapping
-raw IDs in MaybeUninit.
-
-> diff --git a/rust/kernel/device_id.rs b/rust/kernel/device_id.rs
-> index 84852a2d9ad78..59453588df0e7 100644
-> --- a/rust/kernel/device_id.rs
-> +++ b/rust/kernel/device_id.rs
-[ ... ]
-> @@ -47,15 +50,48 @@ pub unsafe trait RawDeviceIdIndex: RawDeviceId {
->      /// The offset (in bytes) to the context/data field in the raw devic=
-e ID.
->      const DRIVER_DATA_OFFSET: usize;
-> =20
-> -    /// The index stored at `DRIVER_DATA_OFFSET` of the implementor of t=
-he [`RawDeviceIdIndex`]
-> -    /// trait.
-> -    fn index(&self) -> usize;
-> +    /// Obtain the data pointer stored inside the device ID.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// `&Self` must be stored inside a `IdArray<Self, U>`.
-> +    unsafe fn info_unchecked<U>(&self) -> &'static U {
-> +        // SAFETY: By safety requirement of the trait, this is `self.dri=
-ver_data as *const U` and by
-> +        // the safety requirement of the function, this is stored in `Id=
-Array<Self, U>` so is
-> +        // convertible to `&'static U`.
-> +        unsafe {
-> +            core::ptr::from_ref(self)
-> +                .byte_add(Self::DRIVER_DATA_OFFSET)
-> +                .cast::<&U>()
-> +                .read()
-> +        }
-> +    }
-
-[Severity: High]
-Does this code create an unconditional null reference in Rust if the
-driver_data or driver_info field is 0?
-
-Creating a null reference is immediate undefined behavior in Rust, even for
-zero-sized types. This 0 value can occur in paths like:
-
-1. IdArray::new_without_index() leaving driver_data fields as 0.
-
-2. When userspace adds a dynamic USB ID via the sysfs new_id interface using
-fewer than 5 fields (omitting refVendor), USB core initializes driver_info
-to 0.
-
-[ ... ]
-> diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-> index a3dd48f763532..a630c7fc6a853 100644
-> --- a/rust/kernel/pci.rs
-> +++ b/rust/kernel/pci.rs
-[ ... ]
-> @@ -110,10 +110,13 @@ extern "C" fn probe_callback(
->          // SAFETY: `DeviceId` is a `#[repr(transparent)]` wrapper of `st=
-ruct pci_device_id` and
->          // does not add additional invariants, so it's safe to transmute.
->          let id =3D unsafe { &*id.cast::<DeviceId>() };
-> -        let info =3D T::ID_TABLE.info(id.index());
-> +
-> +        // SAFETY: `id` comes from `T::ID_TABLE` which is of type `IdArr=
-ay<_, T::IdInfo>` or
-> +        // `pci_device_id_any` which has 0 as driver_data.
-> +        let info =3D unsafe { id.info_unchecked_opt::<T::IdInfo>() };
-
-[Severity: Critical]
-Can this allow an arbitrary memory dereference or bypass kernel lockdown?
-
-The PCI subsystem supports dynamic IDs via the sysfs new_id interface
-(drivers/pci/pci-driver.c), which parses up to 7 arguments, the last being
-driver_data (%lx).
-
-This allows a privileged user (root) to supply an arbitrary pointer value.
-The code here will blindly cast this integer to an Option<&'static U> via
-info_unchecked_opt() and dereference it if non-zero, allowing arbitrary
-kernel memory access.
-
-[ ... ]
-> diff --git a/rust/kernel/usb.rs b/rust/kernel/usb.rs
-> index 500b5e0ba4ea9..8aeff50117552 100644
-> --- a/rust/kernel/usb.rs
-> +++ b/rust/kernel/usb.rs
-[ ... ]
-> @@ -89,7 +89,8 @@ extern "C" fn probe_callback(
->              // does not add additional invariants, so it's safe to trans=
-mute.
->              let id =3D unsafe { &*id.cast::<DeviceId>() };
-> =20
-> -            let info =3D T::ID_TABLE.info(id.index());
-> +            // SAFETY: `id` comes from `T::ID_TABLE` which is of type `I=
-dArray<_, T::IdInfo>`.
-> +            let info =3D unsafe { id.info_unchecked::<T::IdInfo>() };
->              let data =3D T::probe(intf, id, info);
-
-[Severity: High]
-Does this code trigger undefined behavior when the underlying USB device ID
-driver_info field is 0?
-
-When the id is constructed using IdArray::new_without_index() or when
-dynamically added via sysfs new_id with fewer fields, the driver_info is 0.
-
-This probe unconditionally expects a valid non-null reference and creates
-one even for 0-initialized IDs via info_unchecked().
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618-id_info-v1=
--0-96af1e559ef9@garyguo.net?part=3D7
+-0-96af1e559ef9@garyguo.net?part=3D5
+
