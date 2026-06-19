@@ -4,44 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEA00CD98F2
-	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 10:20:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20D65CD98F6
+	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 10:21:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E682B10E063;
-	Fri, 19 Jun 2026 10:20:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AC3A10E09B;
+	Fri, 19 Jun 2026 10:21:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WnFK/fWt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kiEyecHs";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29F8110E063
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 10:20:15 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0915F10E09B
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 10:21:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DCDDE40855;
- Fri, 19 Jun 2026 10:20:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 990C71F000E9;
- Fri, 19 Jun 2026 10:20:14 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 42379601E1
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 10:21:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C670B1F000E9;
+ Fri, 19 Jun 2026 10:21:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781864414;
- bh=I/WjW0IR/fbFdGadkqphvTETG/2RWQrgYNZ3F+QvoeA=;
+ s=k20260515; t=1781864517;
+ bh=wajVLqh1VnzE9ylsKSE3noKIunqLO+jBnIBXRU0NTvQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WnFK/fWtk+D+fW1fHX38+qcEjPiXAhS6SxVXIO/ra25npVvDtqo5v+dnn2YfrBX9m
- /qmVyrppy1vfLPd4QIgMgIU0/g5AYw/WkA6a0P4eDLcgintypEUulgfmGNYyhevb/T
- 3dVx6xVfI/oRlt5iQedtDD63aZOFQl2+ayZ9hq1/Dcots9OtlcUx05HuoIPnH4bEUa
- 6NeG9OuPZXx+PwY2mgzsanfU/cyEr94hjz6Zv+JZyDdLwS/c+hO58Aqu9ENwe72uOt
- 754iGwrGgRen1371Ac7IRJzQe9XjLWXdrrqHFeTjIWcsPeDkEIvWckhzFe3h4MBQj3
- PR9mPUCfjKG3Q==
+ b=kiEyecHsjYJxB358yHmoo/PnPePhXl93/2+fJT3WL7SEacopAME2CQfMSYQCIPVw/
+ pUS0PC2Ao3Kr1r1myw/QqmqUETbSj1dBPnRxOJVDCYRlrtAWcA6IlC1sCEOe8YBrwl
+ bSIv+mdktVyWYlR9N7YaInG35KZ07tkSbVAl7YZYzT9GC8fG7xDn0HCta+v8vMjyeM
+ HkadA4DRB9/iTWuLP2uO9DlWh+W6udFpFJ4KCo4JiOnRJ79QMuipE0V6ZVQfkPTyiO
+ 82u49qeqWJq9+KBD97HOAy+ijzp54hbZYAmKcnihZspcVgQZRJHZkf+jAeAPqLTZPH
+ iMTGiUWPXmWkA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] drm: renesas: rz-du: Add support for RZ/G3L LVDS
- encoder
-To: Biju <biju.das.au@gmail.com>
-Cc: wsa+renesas@sang-engineering.com, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260619101026.323633-3-biju.das.jz@bp.renesas.com>
-References: <20260619101026.323633-1-biju.das.jz@bp.renesas.com>
- <20260619101026.323633-3-biju.das.jz@bp.renesas.com>
+Subject: Re: [PATCH] drm/lease: use kvmalloc for temporary ioctl arrays
+To: syzbot <syzbot@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <c718300f-9eec-4292-95c9-1b35e1c697e7@mail.kernel.org>
+References: <c718300f-9eec-4292-95c9-1b35e1c697e7@mail.kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 10:20:14 +0000
-Message-Id: <20260619102014.990C71F000E9@smtp.kernel.org>
+Date: Fri, 19 Jun 2026 10:21:56 +0000
+Message-Id: <20260619102156.C670B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,115 +56,72 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Sleeping functions called in atomic context during bridge enable
-- [High] Early returns in `atomic_enable` cause unbalanced PM counter and u=
-npowered hardware access in `atomic_disable`
+- [High] Unbounded user-controlled array allocation and unbounded loop iter=
+ation leading to soft lockup (Denial of Service).
 --
 
-commit 0eae00dcaa6988008a1dca84233d19bc97469ed0
-Author: Biju Das <biju.das.jz@bp.renesas.com>
+commit 7fbca73c75b2d8380009850496a05eb9659b0cab
+Author: Aleksandr Nogikh <nogikh@google.com>
 
-drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder
+drm/lease: use kvmalloc for temporary ioctl arrays
 
-Adds support for the RZ/G3L LVDS encoder driver operating in single-link
-mode with 4 lanes. It supports pixel clocks from 25 to 87 MHz and shares
-peripherals with MIPI-DSI.
+This commit replaces kzalloc_objs() and memdup_array_user() with
+kvcalloc() and vmemdup_array_user() in drm_mode_create_lease_ioctl()
+to prevent warnings when userspace provides a large object_count.
 
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c b/drivers/gpu/drm=
-/renesas/rz-du/rzg3l_lvds.c
-> new file mode 100644
-> index 0000000000000..6100888ea7284
-> --- /dev/null
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
+Link: https://syzkaller.appspot.com/ai_job?id=3D22f7a1b3-b0e0-4e5d-abf2-e71=
+19094823a
+
+> diff --git a/drivers/gpu/drm/drm_lease.c b/drivers/gpu/drm/drm_lease.c
+> index 5d2cf724cbd7b..240e0ea6c5c3d 100644
+> --- a/drivers/gpu/drm/drm_lease.c
+> +++ b/drivers/gpu/drm/drm_lease.c
+> @@ -386,7 +386,8 @@ static int fill_object_idr(struct drm_device *dev,
+>  	int ret;
+>  	bool universal_planes =3D READ_ONCE(lessor_priv->universal_planes);
+> =20
+> -	objects =3D kzalloc_objs(struct drm_mode_object *, object_count);
+> +	objects =3D kvcalloc(object_count, sizeof(struct drm_mode_object *),
+> +			   GFP_KERNEL);
+
+[Severity: High]
+Does removing the implicit size limit of kmalloc allow object_count to beco=
+me
+arbitrarily large?
+
+If object_count is massive, will the subsequent unbounded loop in
+fill_object_idr() cause soft lockups?
+
+	for (o =3D 0; o < object_count; o++) {
+		objects[o] =3D drm_mode_object_find(dev, lessor_priv,
+						  object_ids[o],
+						  DRM_MODE_OBJECT_ANY);
+		...
+
+Since drm_mode_object_find() acquires and releases a subsystem mutex on each
+iteration, and there is no cond_resched() in this loop, could a large
+object_count cause the kernel to spin for an excessive amount of time?
+
 [ ... ]
-> @@ -0,0 +1,285 @@
-> +static void rzg3l_lvds_atomic_enable(struct drm_bridge *bridge,
-> +				     struct drm_atomic_commit *state)
-> +{
-> +	struct rzg3l_lvds *lvds =3D bridge_to_rzg3l_lvds(bridge);
-> +	const struct drm_bridge_state *bridge_state;
-> +	u32 fmt;
-> +
-> +	/* Get the LVDS format from the bridge state. */
-> +	bridge_state =3D drm_atomic_get_new_bridge_state(state, bridge);
-> +	if (WARN_ON(!bridge_state))
-> +		return;
+
+> @@ -509,8 +510,8 @@ int drm_mode_create_lease_ioctl(struct drm_device *de=
+v,
+>  	/* Handle leased objects, if any */
+>  	idr_init(&leases);
+>  	if (object_count !=3D 0) {
+> -		object_ids =3D memdup_array_user(u64_to_user_ptr(cl->object_ids),
+> -					       object_count, sizeof(__u32));
+> +		object_ids =3D vmemdup_array_user(u64_to_user_ptr(cl->object_ids),
+> +						object_count, sizeof(__u32));
 
 [Severity: High]
-If drm_atomic_get_new_bridge_state() returns NULL and takes this early retu=
-rn,
-will rzg3l_lvds_atomic_disable() later execute unconditionally and access
-unpowered hardware registers or cause a runtime PM usage counter underflow?
-Since atomic_enable returns void, the DRM core might still consider the bri=
-dge
-enabled.
-
-> +
-> +	switch (bridge_state->output_bus_cfg.format) {
-> +	case MEDIA_BUS_FMT_RGB888_1X7X4_JEIDA:
-> +		fmt =3D RZG3L_LVDS_MODE_JEIDA;
-> +		break;
-> +	case MEDIA_BUS_FMT_RGB888_1X7X4_SPWG:
-> +		fmt =3D RZG3L_LVDS_MODE_VESA;
-> +		break;
-> +	default:
-> +		fmt =3D RZG3L_LVDS_MODE_VESA;
-> +		dev_warn(lvds->dev, "Unsupported bus fmt 0x%04x\n",
-> +			 bridge_state->output_bus_cfg.format);
-> +		break;
-> +	}
-> +
-> +	if (WARN_ON(pm_runtime_get_sync(lvds->dev) < 0))
-> +		return;
-
-[Severity: High]
-Similarly, if pm_runtime_get_sync() fails, returning early here leaves the
-device unpowered. When rzg3l_lvds_atomic_disable() is called during teardow=
-n,
-could this lead to a bus fault from accessing unpowered MMIO registers and
-an unbalanced pm_runtime_put() counter?
-
-[Severity: High]
-Also, since atomic_enable callbacks run in an atomic commit context where
-sleeping is forbidden, is it safe to use pm_runtime_get_sync() here? This
-function blocks and sleeps while waiting for the device to resume, which mi=
-ght
-cause a scheduling while atomic regression.
-
-> +
-> +	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
-> +			   LVDS_0_PHY_CH_EN_BGR, LVDS_0_PHY_CH_EN_BGR);
-> +	fsleep(20);
-> +
-> +	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
-> +			   LVDS_0_PHY_CH_EN_LDO, LVDS_0_PHY_CH_EN_LDO);
-> +	fsleep(10);
-
-[Severity: High]
-Because this is an atomic commit path, delay functions that can sleep like
-fsleep() are unsafe. Could these fsleep() calls (which map to usleep_range()
-or msleep()) lead to scheduling while atomic bugs? Would udelay() or ndelay=
-()
-be more appropriate for these hardware delays?
-
-> +
-> +	regmap_write(lvds->regmap, LVDS_CMN, LVDS_CMN_RST_PHY0_SEL);
-> +	regmap_update_bits(lvds->regmap, LVDS_0_CTL_OFFSET,
-> +			   LVDS_0_CTL_FMT_SEL0_MSK,
-> +			   FIELD_PREP(LVDS_0_CTL_FMT_SEL0_MSK, fmt));
-> +	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
-> +			   LVDS_0_PHY_CH_IO_EN0_MSK, LVDS_0_PHY_CH_IO_EN0);
-> +	regmap_write(lvds->regmap, LVDS_CMN,
-> +		     LVDS_CMN_RST_PHY0_SEL | LVDS_CMN_PHY_RESET);
-> +	fsleep(100);
-
-[Severity: High]
-Could this fsleep(100) call also sleep in this atomic context?
-
-> +}
+Similar to the objects array above, does changing to vmemdup_array_user()
+remove the implicit bounds check on object_count that was previously enforc=
+ed
+by the slab allocator limits?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619101026.3236=
-33-1-biju.das.jz@bp.renesas.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/c718300f-9eec-4292-=
+95c9-1b35e1c697e7@mail.kernel.org?part=3D1
