@@ -4,62 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE2CBCD98F6
-	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 12:45:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DE4DCD98F2
+	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 12:58:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E4B110F5C0;
-	Fri, 19 Jun 2026 12:45:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7376810E07A;
+	Fri, 19 Jun 2026 12:58:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="B5Iwa2++";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="FqzfaP+x";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFB8A10F5BD;
- Fri, 19 Jun 2026 12:45:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781873125; x=1813409125;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=TGA2JCPZEyY6tdazTpYaB8HNXLg5+WpDgvXWYYF8kao=;
- b=B5Iwa2++zPx5F1mZpmxKgOEO18Jtp6AzOuBoQ7U089PbHimLSAKPdfg8
- JDoYZzr+xwd3kDqJmWuLftZihBFrmowb3trRCvDTNstMRlsXAsQyQ2ygs
- DE+kRP9vdRGKLPzJy2aTmEqNNj2wHX2k3fxMbAIPmkhXVdXiTUFNi6dbY
- 5qDDPA7Mfbt5F9NB93n0CWO3Li0EIkuMDgefmv/F1TWLLAKyIqp4oh6kz
- BRwm8ZV8fFIBjgUd/IAQv5+GgpojxFeDxPcCvQB7SNRH3pqc5XCjXrfDb
- hG81Yc0iSk24WB0SHx99uDUoPbHSYC8pSM9wu8F32EHPhogba2zgMBUFl w==;
-X-CSE-ConnectionGUID: DzdPcNm8Qw6AoaZcN6j4TA==
-X-CSE-MsgGUID: xSyJ2fhMS72goIUCNyp4xw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11821"; a="82813298"
-X-IronPort-AV: E=Sophos;i="6.24,213,1774335600"; d="scan'208";a="82813298"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jun 2026 05:45:24 -0700
-X-CSE-ConnectionGUID: 2pDFDLJBTtKUDhrtwZS5JA==
-X-CSE-MsgGUID: /z4r2GaHTmC1/71lwG4Prw==
-X-ExtLoop1: 1
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.211])
- ([10.245.244.211])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jun 2026 05:45:22 -0700
-Message-ID: <4c7300dc-ab5e-464f-9704-d8da378ee1af@intel.com>
-Date: Fri, 19 Jun 2026 13:45:20 +0100
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DDED10E07A
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 12:58:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1781873913;
+ bh=ltf09iGIO21j/duxbGGJ3zKKe4yMwk+ZlP5qDyWE2O4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=FqzfaP+xTJHdrGH32RaJIPDvT+2g1IhQ1Z7lKFhcZf46Hw2XWpSrmIl0RRLE3DGMC
+ WzFPb5OoPKgfigpaOD56p99eljbghC5vP3P9NgqrzGKUwamIh+0diBfdwC2gQIDTDH
+ MxgDSuE+1P1tbqPPtT515hqllLzwd6ppUcn5qkHoVCzHkJCuUW1bQao9Ruy5+JdMRp
+ mJeH3rOnNGmRMagBcbvCIqOG0n7yiQ/09HhBt/WBhNEljBN/QKxNpaOY4YWlDLpKlj
+ 7i+Iv/fn1iqT3SzpAFhzyleAwOE7BQoxJ1h0j9Y3yRDPwJeXNGfImqjnJmFNqJCab1
+ jcQiMuMnW1txA==
+Received: from fedora-2.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 78FA517E01B6;
+ Fri, 19 Jun 2026 14:58:33 +0200 (CEST)
+Date: Fri, 19 Jun 2026 14:58:28 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] drm/panthor: Add vm_bind region with kbo range
+ overlap check
+Message-ID: <20260619145828.0b5e0266@fedora-2.home>
+In-Reply-To: <20260619-vm_bind_checks-v2-1-b51abab35f71@collabora.com>
+References: <20260619-vm_bind_checks-v2-0-b51abab35f71@collabora.com>
+ <20260619-vm_bind_checks-v2-1-b51abab35f71@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] gpu/buddy: bail out of try_harder when alignment cannot
- be honoured
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, John Olender <john.olender@gmail.com>,
- stable@vger.kernel.org
-References: <20260618124755.2751205-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20260618124755.2751205-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,112 +67,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 18/06/2026 13:47, Arunpravin Paneer Selvam wrote:
-> The try_harder contiguous fallback could return a range whose start
-> offset did not match the caller's min_block_size. Check each candidate
-> against the requested alignment and reject the allocation when no
-> candidate satisfies it, instead of handing back a misaligned range.
-> 
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Timur Kristóf <timur.kristof@gmail.com>
-> Cc: John Olender <john.olender@gmail.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+On Fri, 19 Jun 2026 13:41:22 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+
+> When a VM is created, caller has to specify the range of the address space
+> carve-out set aside for mapping kernel BO's. That means vm_bind mappings =
+of
+> UM-exposed BO's should not intersect with that region, but at the moment
+> we're not checking this.
+>=20
+> At first, I thought of giving these values to drm_gpuvm_init() through its
+> reserve_{offset, range} arguments, but it turns out that is meant for VM
+> address spans that are not managed through the usual drm_gpuvm split/merge
+> circuit, so storing the end of the user VA range at VM creation time and
+> doing a quick check in the vm_bind ioctl path was the simplest workaround.
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+
 > ---
->   drivers/gpu/buddy.c | 33 +++++++++++++++++++++------------
->   1 file changed, 21 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-> index dc81fe0301ce..28ed3250ac57 100644
-> --- a/drivers/gpu/buddy.c
-> +++ b/drivers/gpu/buddy.c
-> @@ -1127,13 +1127,11 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
->   	struct gpu_buddy_block *block;
->   	unsigned int tree, order;
->   	LIST_HEAD(blocks_lhs);
-> -	unsigned long pages;
->   	u64 modify_size;
->   	int err;
->   
->   	modify_size = rounddown_pow_of_two(size);
-> -	pages = modify_size >> ilog2(mm->chunk_size);
-> -	order = fls(pages) - 1;
-> +	order = ilog2(modify_size) - ilog2(mm->chunk_size);
->   	if (order == 0)
->   		return -ENOSPC;
->   
-> @@ -1149,31 +1147,42 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
->   		while (iter) {
->   			block = rbtree_get_free_block(iter);
->   
-> -			/* Allocate blocks traversing RHS */
->   			rhs_offset = gpu_buddy_block_offset(block);
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/pant=
+hor/panthor_mmu.c
+> index 31cc57029c12..a8de4fe6b231 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -310,6 +310,9 @@ struct panthor_vm {
+>  		u64 end;
+>  	} kernel_auto_va;
+> =20
+> +	/** @user_va_end: Last VA in the address range VM users can map objects=
+ against. */
+> +	u64 user_va_end;
 > +
-> +			/* Allocate blocks traversing RHS */
->   			err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
->   						       &filled, blocks);
-> -			if (!err || err != -ENOSPC)
-> +			if (err && err != -ENOSPC)
->   				return err;
-> +			if (!err && IS_ALIGNED(rhs_offset, min_block_size))
-> +				return 0;
-> +			if (!err)
-
-Should we do some kind of rhs = round_down(rhs, min_block_size) at the 
-start? Just wondering if we can get something misaligned here, that 
-should have succeeded if we just applied the round_down first, in some 
-edge case?
-
-> +				goto next;
->   
-> -			lhs_size = max((size - filled), min_block_size);
-> -			if (!IS_ALIGNED(lhs_size, min_block_size))
-> -				lhs_size = round_up(lhs_size, min_block_size);
-> +			lhs_size = round_up(max((size - filled), min_block_size),
-> +					    min_block_size);
-
-Can this be simplified as: round_up(size - filled, min_block_size) ?
-
+>  	/** @as: Address space related fields. */
+>  	struct {
+>  		/**
+> @@ -2893,6 +2896,8 @@ panthor_vm_create(struct panthor_device *ptdev, boo=
+l for_mcu,
+>  		va_range =3D full_va_range;
+>  	}
+> =20
+> +	vm->user_va_end =3D kernel_va_start - 1;
 > +
-> +			if (lhs_size > rhs_offset)
-
-What is the idea with this check?
-
-> +				goto next;
->   
->   			/* Allocate blocks traversing LHS */
-> -			lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
-> +			lhs_offset = rhs_offset - lhs_size;
+>  	mutex_init(&vm->mm_lock);
+>  	drm_mm_init(&vm->mm, kernel_va_start, kernel_va_size);
+>  	vm->kernel_auto_va.start =3D auto_kernel_va_start;
+> @@ -2981,6 +2986,10 @@ panthor_vm_bind_prepare_op_ctx(struct drm_file *fi=
+le,
+>  	if (!IS_ALIGNED(op->va | op->size | op->bo_offset, vm_pgsz))
+>  		return -EINVAL;
+> =20
+> +	/* We don't allow mappings that overlap with kbo's reserved range */
+> +	if (op->va + op->size > vm->user_va_end)
+> +		return -EINVAL;
 > +
-> +			if (!IS_ALIGNED(lhs_offset, min_block_size))
-> +				goto next;
-
-Would it make sense to just align the lhs down, if misaligned, instead 
-of baling? If the final size we get back is slightly too large, we can 
-just apply a trim at the end?
-
-> +
->   			err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
->   						       NULL, &blocks_lhs);
->   			if (!err) {
->   				list_splice(&blocks_lhs, blocks);
->   				return 0;
-> -			} else if (err != -ENOSPC) {
-> +			}
-> +			if (err != -ENOSPC) {
->   				gpu_buddy_free_list_internal(mm, blocks);
->   				return err;
->   			}
-> -			/* Free blocks for the next iteration */
-> +next:
->   			gpu_buddy_free_list_internal(mm, blocks);
-> -
->   			iter = rb_prev(iter);
->   		}
->   	}
-> 
-> base-commit: b9e2d5cdaab05c997be3a69d9b372d7676683e1b
+>  	switch (op->flags & DRM_PANTHOR_VM_BIND_OP_TYPE_MASK) {
+>  	case DRM_PANTHOR_VM_BIND_OP_TYPE_MAP:
+>  		if (!(op->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE)) {
+>=20
 
