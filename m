@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A38BCCD98F2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB48BCD98F6
 	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 12:25:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0EBB10F56C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D09B010F570;
 	Fri, 19 Jun 2026 12:25:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HWHf5Spt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iybP91wY";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C09D10F571
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 12:25:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39D5710F577
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 12:25:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F3B72601E1;
- Fri, 19 Jun 2026 12:25:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 329BC1F000E9;
- Fri, 19 Jun 2026 12:25:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2091E40287;
+ Fri, 19 Jun 2026 12:25:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831301F00A3A;
+ Fri, 19 Jun 2026 12:25:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781871919;
- bh=VEk8rW0VJW22qayA+LJXB3Kzq1Mp1NqCDGzMy9+0kSI=;
+ s=k20260515; t=1781871917;
+ bh=VQKymBOZpsnbHmFX8MYgIe20POG7J33RFGorY/FIZv0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=HWHf5SptPKpcD0lOsyEmadpSj1cdswbJk8tfNfo2FpHoXKMVaFDHrYgc0uCT6pzb7
- o+6nBh21yEPuNyZ0Z0XMLe5p0SUygWF11GermFH5te8rL9/o3BdDi3LhtoL3BoRiDM
- QEw40zlbj7s8aO9Z1Zq0B3J9Vm8oah4JdnoJ0Uc7xM6kKRR2SwseIB0GjZiWQ27OWj
- IlgQwaS+MOsnElL+4prmVQ+J357XFH3jfA3uSc7NR5Aya+20ozaWGZbQD1UhcQMcgB
- BcYaz+ihHUTPb29fIvRWpngWtLmTYfgJ7A7U317SMY+cInTfg+oD5OOp5nJbNzM6vH
- VL7PvKs0c81ZA==
+ b=iybP91wYGOQXkF5eu1+/n4wgUN0ZPJexYKypH3Lp4AogiZdhkN6o878zfdbvayNzs
+ TZCpuB4oqWaMtiUrh7lycy1GRebf2eQJMpcjQbE/ayghWiUeUD1QB1Bm9Ti2cI23FP
+ cUW6Fqf6H+/3TFYBwhr6OCgNJ72WHPm0r4jYERWFYj7FlXlFIokt9nBFAkNsi8Nyzf
+ n0xV9SiJBzGxomcyptHs8+CHcmLioVQeh65IfgdsniX7WHWK2+XeuTcl9C9mLuaN9p
+ tGP7YpaicNbaciy+jwCU9HRQBcH6WwXweick/Nbewrn41H46Z60e5vXQnzVGsGK709
+ Nd8ZherKkMK5Q==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 19 Jun 2026 14:24:17 +0200
-Subject: [PATCH v3 12/78] drm/bridge: display-connector: Switch to
+Date: Fri, 19 Jun 2026 14:24:16 +0200
+Subject: [PATCH v3 11/78] drm/bridge: chipone-icn6211: Switch to
  atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260619-drm-no-more-bridge-reset-v3-12-ff399263111b@kernel.org>
+Message-Id: <20260619-drm-no-more-bridge-reset-v3-11-ff399263111b@kernel.org>
 References: <20260619-drm-no-more-bridge-reset-v3-0-ff399263111b@kernel.org>
 In-Reply-To: <20260619-drm-no-more-bridge-reset-v3-0-ff399263111b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -49,15 +49,14 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+ Maxime Ripard <mripard@kernel.org>, Jagan Teki <jagan@amarulasolutions.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1476; i=mripard@kernel.org;
- h=from:subject:message-id; bh=db4twVvVK6DFRkd6SRVRrYRvNY+RmVMBsBEcjDElvF8=;
- b=kA0DAAkTJ1/OGaI9vnYByyZiAGo1NO+gAdFEcfBcfVNEXP4VhJ6dQp4Zzv3K2hAqpFOYA5oXe
- YiVBAATCQAdFiEE5BxWy6eHo3pAP6n4J1/OGaI9vnYFAmo1NO8ACgkQJ1/OGaI9vnaJRgF+Kcqh
- lEZO452j7xDmEaqix6CMhrsMdj+WConyAKF+Lq0DLHbV0+0GqUjr8UJ654CHAYD3tyjv9MxvPHB
- Xr+MJOTk9IiFJqI4xk9Z8sycbU4BiA7cmyuZcAl2DDX6V60XMPN0=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1355; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=pXwvSJQolCmhqu+d/AspDqHRt0jTXTtfMl7BZ3+008Q=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmmJu+6eXb6rWEybLl14OaPX5dj2FqyKrJY0hzWft1jk
+ NX4NMG9YyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEzE5DljfZzLDocGx63ax7U2
+ 3DrS/tCwfaX9/4+CsTzHlc34ZFawBPZdnFBRsHk2Q4ti3twfG16EMdZXuH5ILRNrfJPjofH18El
+ f+5aqSS89j/MkvTKLjsq0fSfFcufAV9lFNxKFpP9eDSho2A0A
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,31 +80,31 @@ drm_atomic_helper_bridge_reset() helper are deprecated.
 Switch to the atomic_create_state callback and its
 drm_atomic_helper_bridge_create_state() counterpart.
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/display-connector.c | 2 +-
+To: Jagan Teki <jagan@amarulasolutions.com>
+---
+ drivers/gpu/drm/bridge/chipone-icn6211.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
-index f7a5bfd9c075..d1e74dd2e051 100644
---- a/drivers/gpu/drm/bridge/display-connector.c
-+++ b/drivers/gpu/drm/bridge/display-connector.c
-@@ -214,11 +214,11 @@ static const struct drm_bridge_funcs display_connector_bridge_funcs = {
- 	.edid_read = display_connector_edid_read,
- 	.atomic_get_output_bus_fmts = display_connector_get_output_bus_fmts,
- 	.atomic_get_input_bus_fmts = display_connector_get_input_bus_fmts,
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
--	.atomic_reset = drm_atomic_helper_bridge_reset,
-+	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- };
+diff --git a/drivers/gpu/drm/bridge/chipone-icn6211.c b/drivers/gpu/drm/bridge/chipone-icn6211.c
+index d8344e011818..eb628a0ce6ec 100644
+--- a/drivers/gpu/drm/bridge/chipone-icn6211.c
++++ b/drivers/gpu/drm/bridge/chipone-icn6211.c
+@@ -616,11 +616,11 @@ chipone_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
+ }
  
- static irqreturn_t display_connector_hpd_irq(int irq, void *arg)
- {
- 	struct display_connector *conn = arg;
+ static const struct drm_bridge_funcs chipone_bridge_funcs = {
+ 	.atomic_duplicate_state	= drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state	= drm_atomic_helper_bridge_destroy_state,
+-	.atomic_reset		= drm_atomic_helper_bridge_reset,
++	.atomic_create_state		= drm_atomic_helper_bridge_create_state,
+ 	.atomic_pre_enable	= chipone_atomic_pre_enable,
+ 	.atomic_enable		= chipone_atomic_enable,
+ 	.atomic_post_disable	= chipone_atomic_post_disable,
+ 	.mode_set		= chipone_mode_set,
+ 	.attach			= chipone_attach,
 
 -- 
 2.54.0
