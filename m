@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 858E0CD4F26
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00B1BCD98F2
 	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 12:25:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7B9810F568;
-	Fri, 19 Jun 2026 12:25:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2722F10F569;
+	Fri, 19 Jun 2026 12:25:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L1nXhysD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TLvJ0VPy";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAE9E10F568
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 12:25:11 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB73C10F566
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 12:25:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C3EB141697;
- Fri, 19 Jun 2026 12:25:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F0FB1F000E9;
- Fri, 19 Jun 2026 12:25:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4C525601E3;
+ Fri, 19 Jun 2026 12:25:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EE2B1F000E9;
+ Fri, 19 Jun 2026 12:25:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781871911;
- bh=mOwaueS9Ps5i42N8kBvUDt6vXJXniv+cfRFhpz4q70I=;
+ s=k20260515; t=1781871909;
+ bh=PoIEuMMpahjDD7I1sr/KG+eFE/sQcE3ph0n4a6zxr+g=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=L1nXhysDMkqjN/5iT5g6f57eYj6TwuFw5SuzBWpvDS1PROpyX3oI5wCN6JUMFvSRB
- 65iymT92pybqvYYvhLXCMRuTcU907z+YHDaqFZbyWYhTtSgviIjuStqMfa8QS6kaqk
- VsAD0KA81nvV3bT1FwsU9kGoW6mHmreT4SPeSFw1PgFC17PhRuPrI40lSQytfdUhOv
- AlKRFrQ8g2h/u2fnAqgaRTInVz/vzHIqd5aP5gU4ad3uoA4dtkpuxKtLhETgwqZyG/
- VohJpsuOQwalY9JRl6lXNoB+lRLOgt6qykmGpCuapYXXKhTUGCnNLz3r/+UNMGPl7x
- 2PTu7nN+MKaXA==
+ b=TLvJ0VPyfBJWVfCTmV+YcQye7DrkM5rfrfrq72JXWqXmfAMVMq8rFcbqlPuwPrF+7
+ tL+VFmYiqZ5kGV/YskD5wW8uB3feFxOygYVvYUv6Sics4E4VosHrvDrqaqDagN2r0+
+ y2G4X1kqdXUWiXEsU0iD2WTdKCGMgE4aqWqMurMsEPtNxL1PUqEysYTmWTLBfRZcEQ
+ LpxaycCNMFKPWsytBlyULnOXSU0+cq81+ayu41molz1Uu1mbEPpLpxL6y/LMH9hRhj
+ wMMzKufOKlJn8qdKgxVRPQo47MSPrP5s7luSZRaIIqyEGdBOIPrLvcxScJyyi7w0VA
+ UH0Kgp3oJWa3A==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 19 Jun 2026 14:24:14 +0200
-Subject: [PATCH v3 09/78] drm/bridge: analogix_dp: Switch to
+Date: Fri, 19 Jun 2026 14:24:13 +0200
+Subject: [PATCH v3 08/78] drm/bridge: adv7511: Switch to
  atomic_create_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260619-drm-no-more-bridge-reset-v3-9-ff399263111b@kernel.org>
+Message-Id: <20260619-drm-no-more-bridge-reset-v3-8-ff399263111b@kernel.org>
 References: <20260619-drm-no-more-bridge-reset-v3-0-ff399263111b@kernel.org>
 In-Reply-To: <20260619-drm-no-more-bridge-reset-v3-0-ff399263111b@kernel.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -49,14 +49,15 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>
 Cc: Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>
+ Maxime Ripard <mripard@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1451; i=mripard@kernel.org;
- h=from:subject:message-id; bh=6ySruIsRMgCXrxIO7Uv0w1b7gUC9HoXuIli1SFy5VLU=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmmJm+b9j+2VQw+bXpYa0vjuTCvp2Wn2KclKe7u/DHn/
- cqXj452dkxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJuDQzNiwr7GDm6vfKb1C7
- XZV5xf+tjRyTo9+ia8VdvOU2hRvV3Ce9t/mlMG3lxTPrZc4ap71rYaxT/t/2d9P/mJ9LlQvcvN+
- 8XGHY1W1zLO7BypNfJBMF5pWmGTLcmfFpi8vvBM0U8crfbyMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1521; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=a2yzrl5/fZSisrEFtoDg7BuSSseoAD8P/TrazQGmBa0=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmmJm+/7y2oTxDN/CKg7CZpcG1j9nP53dMPKOYIHn6RZ
+ Lbl+lPFjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRDl7Ghm9hvF7cXpckjKc7
+ lwnM/rCk69EXfcElhe/3/WY0/nlek3GhHHtodvVhFlbhjR2Tqn0cGBv+T+0RLdAvyFeI/pW6xWf
+ 2UeFHYnYl958op/1bPuse+8Wrk2c5tzQVTQsJKe0XP3Oz/hUA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,29 +81,30 @@ drm_atomic_helper_bridge_reset() helper are deprecated.
 Switch to the atomic_create_state callback and its
 drm_atomic_helper_bridge_create_state() counterpart.
 
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 2 +-
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 5dc07ff84cd3..7a85774aaac1 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -1221,11 +1221,11 @@ static void analogix_dp_bridge_atomic_post_disable(struct drm_bridge *bridge,
- }
+diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+index 02f8f7e78a16..db99e252aeeb 100644
+--- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
++++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+@@ -1002,11 +1002,11 @@ static const struct drm_bridge_funcs adv7511_bridge_funcs = {
  
- static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
+ 	.atomic_enable = adv7511_bridge_atomic_enable,
+ 	.atomic_disable = adv7511_bridge_atomic_disable,
  	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
  	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
 -	.atomic_reset = drm_atomic_helper_bridge_reset,
 +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 	.atomic_pre_enable = analogix_dp_bridge_atomic_pre_enable,
- 	.atomic_enable = analogix_dp_bridge_atomic_enable,
- 	.atomic_disable = analogix_dp_bridge_atomic_disable,
- 	.atomic_post_disable = analogix_dp_bridge_atomic_post_disable,
- 	.atomic_check = analogix_dp_bridge_atomic_check,
+ 
+ 	.hdmi_tmds_char_rate_valid = adv7511_bridge_hdmi_tmds_char_rate_valid,
+ 	.hdmi_clear_audio_infoframe = adv7511_bridge_hdmi_clear_audio_infoframe,
+ 	.hdmi_write_audio_infoframe = adv7511_bridge_hdmi_write_audio_infoframe,
+ 	.hdmi_clear_avi_infoframe = adv7511_bridge_hdmi_clear_avi_infoframe,
 
 -- 
 2.54.0
