@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6540CD98F2
-	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 16:25:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31C8BCD98F2
+	for <dri-devel@archiver.kernel.org>; Fri, 19 Jun 2026 16:47:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20A4D10E0CE;
-	Fri, 19 Jun 2026 16:25:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EF7B10E0BF;
+	Fri, 19 Jun 2026 16:47:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="jY8Egj58";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="GuCkHs+v";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 145FA10E0CE;
- Fri, 19 Jun 2026 16:25:03 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id A99E91A3A21;
- Fri, 19 Jun 2026 16:25:01 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 6D0F4601AD;
- Fri, 19 Jun 2026 16:25:01 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 08E5B106C81BC; 
- Fri, 19 Jun 2026 18:24:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1781886299; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=Xrx5VoO25eYm5EH6Wc6vNdgK+6vpuoEcmvN4eX6Cvok=;
- b=jY8Egj58zUWOmsPwj9vynk2NQy9hCh/a+LGJvBDk3DqRfyL+FJQIuyDJQRRohvDhOBXcnW
- //AvVJmy/V7tylN+21mDLl593BLUfcG3dz090WmD7UcN98JIRVRLQ/m5l7+EC2wkNUXoNu
- OY3r/fPM8V0Ey5z04hzY+MHXR+FXcsckzsiV8jrezwluFXHT8MZBukmQNizYV+LllFdQFg
- Nq8mjjsoK8DWc4IXuaLUWlBpL/WCM0pLIK5BmeG/ZousyZJb+/ny8SsYGoB3m1Nbz1HyNz
- 3bGNW8rAc8osqfVrmerKyh25ch/VkV9XZdD23tG58EnuIwQFtxnCNKSDDWhrYg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 19 Jun 2026 18:24:46 +0200
-Message-Id: <DJD5YZ2K1047.3UJ5QMMLQO6UY@bootlin.com>
-Subject: Re: [PATCH v6 15/19] drm/connector: Add new atomic_create_state
- callback
-Cc: <dri-devel@lists.freedesktop.org>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Daniel Stone" <daniels@collabora.com>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
- "Laurent Pinchart" <laurent.pinchart+renesas@ideasonboard.com>
-To: "Maxime Ripard" <mripard@kernel.org>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan"
- <skhan@linuxfoundation.org>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>, "Jyri Sarha" <jyri.sarha@iki.fi>,
- "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Simon Ser"
- <contact@emersion.fr>, "Harry Wentland" <harry.wentland@amd.com>, "Melissa
- Wen" <mwen@igalia.com>, "Sebastian Wick" <sebastian.wick@redhat.com>, "Alex
- Hung" <alex.hung@amd.com>, "Jani Nikula" <jani.nikula@linux.intel.com>,
- "Rodrigo Vivi" <rodrigo.vivi@intel.com>, "Joonas Lahtinen"
- <joonas.lahtinen@linux.intel.com>, "Tvrtko Ursulin" <tursulin@ursulin.net>,
- "Chen-Yu Tsai" <wens@kernel.org>, "Samuel Holland" <samuel@sholland.org>,
- "Dave Stevenson" <dave.stevenson@raspberrypi.com>,
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, "Raspberry Pi Kernel
- Maintenance" <kernel-list@raspberrypi.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.21.0
-References: <20260526-drm-mode-config-init-v6-0-852346394200@kernel.org>
- <20260526-drm-mode-config-init-v6-15-852346394200@kernel.org>
-In-Reply-To: <20260526-drm-mode-config-init-v6-15-852346394200@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FBC410E0BF
+ for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 16:47:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1781887667; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=k3aBI+CremmlUBfuqdxbNOJsq5m1owkuKwYK3vXilka7k4czcNo2KC3RCfLQTfFiLHFv1rgdawZ1fmxU02cWoXwJVk7g27VWMDH0FXKmirD7tFtbM+/h/SVlU2avMvzm8Z4yqji4BO33f4HxY5UeFqd417wHUdc3XPKbAFmqDKA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1781887667;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=CBwu3+zGcp0kLcK+AkvJAKJVprFz3T4SXzCLOXEuPiM=; 
+ b=NspFGz+FclpNYDYrvVtphcS9YFwej5ZXGdslp9CO7PCcjSPfEqNqFNa4e1wdzKotklZkz7lva3+hay9y+aG2A6t/sNBq2uCHpNstF3GsoTuSX12zHgVO1AVVT1EPLhjYkUYTS5nSI091UzzZQ0nkemxTMXCKlglUktkHesvGnWc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781887667; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:References:Date:Date:Message-Id:Message-Id:Reply-To;
+ bh=CBwu3+zGcp0kLcK+AkvJAKJVprFz3T4SXzCLOXEuPiM=;
+ b=GuCkHs+v8NiTFeAmg3jIKsLYKn94mvktFm6Czv0dSWvfr2kXQ9wbIXV5WkJuJLot
+ 7B7YuQvS2+s0ix9vw0qNKVTCsBAEvgKn4M9vOBCJuOLp2wHsCbE3FBTta0fd22ubMmq
+ 1ico+pwG47pfnOaA+T+y4uvpXCTeLIUZGSD9B5MM=
+Received: by mx.zohomail.com with SMTPS id 1781887666159611.7240700911418;
+ Fri, 19 Jun 2026 09:47:46 -0700 (PDT)
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 1/2] drm/panthor: Add vm_bind region with kbo range
+ overlap check
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260619145906.3b78b357@fedora-2.home>
+References: <20260619-vm_bind_checks-v2-0-b51abab35f71@collabora.com>
+ <20260619-vm_bind_checks-v2-1-b51abab35f71@collabora.com>
+ <20260619145906.3b78b357@fedora-2.home>
+Date: Fri, 19 Jun 2026 17:47:37 +0100
+Message-Id: <178188765712.2027515.1485808731432603029.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1003;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=rZ0U1SNvXE0Jg5QWFayhbEYuDkszYODK+EMRTWfzdek=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqNXKvZPD7C4i73VHzRLA1cc/wn3GFfQJCzfcl1
+ iCaHpiO412JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCajVyrwAKCRAOJn5M7lND
+ PfMaC/9wd+1U5YLXnA4eqh/MkzzW1Pqo+zgSYg/e1Y2W6ZIudAAtu+VJiEXSeVvy/P0bPZQD4BO
+ 9ekLgRI/7ds37JAd99Y7PDYamySgbS06FerufcP4sk7DfFVRffyMb7rzIUztcZ/dXJ7wevdqkpe
+ 3XWuFlE/n/Q536q052uKewkBJAFtMLixgqxY/pN92KWhV5+d0iLCL6nx6QJRsFHui3rj6kkT9N6
+ 35U8zCWTjOjtMUx9IdHuRL2iaqi+zGAtjpMoCoe4YIjuzZmgnvwkx/+C/WlUDlKnBdzUFpUTXJY
+ rfUBj6TidYDXx+GWBy/oXzdbzZQm4UiqIsiwSYD+Ow9ky23c6IYbZsVLkLB/Zxt3Cl8Oy03AT51
+ rVSzlPkysfTEvV8Zs9bmKzt0hd7JVuakPfb4mi/11L4/mr3PQ/TEqoU/wTVoC7xY1a8hYlCmlwb
+ 1011/SwwmI0RQIseo/zZWRcnlpFyTMAa/qKa1RtgCx0TTsm6BbDraxJSh7T+hmEceMy4A=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,125 +86,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Maxime, Dmitry, all,
+On 2026-06-19 14:59:06+02:00, Boris Brezillon wrote:
+> On Fri, 19 Jun 2026 13:41:22 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> 
+> > When a VM is created, caller has to specify the range of the address space
+> > carve-out set aside for mapping kernel BO's. That means vm_bind mappings of
+> > UM-exposed BO's should not intersect with that region, but at the moment
+> > we're not checking this.
+> > 
+> > At first, I thought of giving these values to drm_gpuvm_init() through its
+> > reserve_{offset, range} arguments, but it turns out that is meant for VM
+> > address spans that are not managed through the usual drm_gpuvm split/merge
+> > circuit, so storing the end of the user VA range at VM creation time and
+> > doing a quick check in the vm_bind ioctl path was the simplest workaround.
+> > 
+> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> 
+> Ah, we need a Fixes tag here.
 
-On Tue May 26, 2026 at 6:46 PM CEST, Maxime Ripard wrote:
-> Commit 47b5ac7daa46 ("drm/atomic: Add new atomic_create_state callback
-> to drm_private_obj") introduced a new pattern for allocating drm object
-> states.
->
-> Instead of relying on the reset() callback, it created a new
-> atomic_create_state hook. This is helpful because reset is a bit
-> overloaded: it's used to create the initial software state, reset it,
-> but also reset the hardware.
->
-> It can also be used either at probe time, to create the initial state
-> and possibly reset the hardware to an expected default, but also during
-> suspend/resume.
->
-> Both these cases come with different expectations too: during the
-> initialization, we want to initialize all states, but during
-> suspend/resume, drm_private_states for example are expected to be kept
-> around.
->
-> reset() also isn't fallible, which makes it harder to handle
-> initialization errors properly. This is only really relevant for some
-> drivers though, since all the helpers for reset only create a new
-> state, and don't touch the hardware at all.
->
-> It was thus decided to create a new hook that would allocate and
-> initialize a pristine state without any side effect:
-> atomic_create_state to untangle a bit some of it, and to separate the
-> initialization with the actual reset one might need during a
-> suspend/resume.
->
-> Continue the transition to the new pattern with connectors.
->
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
-As I'm rebasing another series on current drm-misc-next, which now includes
-this patch, I ran into troubles and I'm not sure what is the right thing to
-do. I hope you can help me clarify this. See below for my question.
-
-FTR the series I'm rebasing is "drm bridge hotplug", but the question is
-not specific to that series.
-
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -616,11 +616,19 @@ int drmm_connector_hdmi_init(struct drm_device *dev=
-,
->
->  	/*
->  	 * drm_connector_attach_max_bpc_property() requires the
->  	 * connector to have a state.
->  	 */
-> -	if (connector->funcs->reset)
-> +	if (connector->funcs->atomic_create_state) {
-> +		struct drm_connector_state *state;
-> +
-> +		state =3D connector->funcs->atomic_create_state(connector);
-> +		if (IS_ERR(state))
-> +			return PTR_ERR(state);
-> +
-> +		connector->state =3D state;
-> +	} else if (connector->funcs->reset)
->  		connector->funcs->reset(connector);
-
-Here a state is added to connector->state, and that's fine.
-
-However non-HDMI connectors don't get a state created by default.
-
-I was hit by this with the drm_bridge_connector which it can add either an
-HDMI or a non-HDMI connector [0]. In the former case it calls
-drmm_connector_hdmi_init(), which creates the state (in the hunk quoted
-above). In the latter case, as I experienced at runtime and confirmed by
-code inspection, it does not create a state: no one calls
-connector->funcs->atomic_create_state.
-
-I suspect this is related to patch 19/19 which converted the
-drm_bridge_connector from drm_atomic_helper_connector_reset() to
-drm_atomic_helper_connector_create_state(), and only the former sets
-'connector->state =3D conn_state'.
-
-Generally speaking, looks like a state is created only for HDMI
-connectors.
-
-The hardware I have uses the drm_bridge_connector in the non-HDMI case, so
-the state is not created and this results in a NULL pointer deref later on,
-in my case it's in in drm_atomic_connector_get_property().
-
-Am I missing anything obvious?
-
-For now I've come up with a quick workaround, adding (roughly after
-connector init at [1]):
-
-        if (!connector->state)
-                connector->state =3D drm_bridge_connector_create_state(conn=
-ector);
-
-I'm not sure which would be the best solution. Maybe taking the whole
-atomic_create_state/reset state creation calls [2] from
-drmm_connector_hdmi_init() and hoist them up into
-drmm_connector_init(), so all connectors benefit?
-
-Let me know what you think.
-
-[0] https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/7a921d11181065267=
-2e02c392b35fdcefa4d5030/drivers/gpu/drm/display/drm_bridge_connector.c#L995=
--1029
-[1] https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/7a921d11181065267=
-2e02c392b35fdcefa4d5030/drivers/gpu/drm/display/drm_bridge_connector.c#L103=
-0
-[2] https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/7a921d11181065267=
-2e02c392b35fdcefa4d5030/drivers/gpu/drm/drm_connector.c#L617-631
-
-Kind regards,
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Fixes: 647810ec2476 ("drm/panthor: Add the MMU/VM logical block")
