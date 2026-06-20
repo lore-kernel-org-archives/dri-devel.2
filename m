@@ -4,97 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AE6CCDB466
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 08:50:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86FC6CD4F26
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 10:48:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9BBC10E1B0;
-	Sat, 20 Jun 2026 08:50:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 709B110E164;
+	Sat, 20 Jun 2026 10:48:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LEsnoo5i";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="cBrD2vID";
 	dkim-atps=neutral
-Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com
- [209.85.222.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 713A310E17D
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 05:39:38 +0000 (UTC)
-Received: by mail-ua1-f45.google.com with SMTP id
- a1e0cc1a2514c-966db0b76daso2321554241.0
- for <dri-devel@lists.freedesktop.org>; Fri, 19 Jun 2026 22:39:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781933977; cv=none;
- d=google.com; s=arc-20240605;
- b=Z2P7LcrgB1rCN8nk0y8GqU2bP7t7WE7OUGHG6VbN+fj15WPUpxSlNkB1iq23zWLcoF
- htU/74n9DtIoWz5VBRasygFjKDtXFQpI27RYZbPYGJ4zbooobmrhKB5f//b/Wk1x3WXU
- LHcz69k+vIBkMe0vrHHTVGc1dqTrx2zfHi/X4PRpfarvlV9yfoe1Y8TXseFkMLLFSDF6
- Gshuk6yN0le7CN9IWx55aQCmRefcUdAr1UPN8v38YqWKSll6j1BLUNThqm9tuIqgBs55
- z821nbidxaRJyCyKmYBq9+HDgwwSkYEPNsxaxtPNEDmqCePgoxdYL1ZUkVa+Wdo/xLJM
- s1Og==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=4APW9WchUIjck1WXvCdDznMYknRjl/S7x9r5ba9yacU=;
- fh=rP2QHgMlCRqJOP4ak2yYQDM/BpXf5PblJcnBt2DQ4hY=;
- b=jIp0Wy1+DlN28CuugYSJIQQA+kl1hGdJ3wrqzryfgHCj4zUWAXPso+eNXG1F8mP9eX
- Ui4AUk8nolPzH/cRU7SMOTd8+Q9By6ehfR03A+pgbGekBpU/TS5yvRxZg/m6Rwj2+yfr
- rSNTWlYbx/SgoQXTMNX7sSq1razgz8Br9lPXP7zrlPGQARvVJkvdKrjvDRmUBRG98Hjo
- hhz9UZE/MAjzBPfDri6e4YteuEySy/ZZ+rDjWBwh9qhDMhCJkb3bsN4kZ95ucX1mhlJK
- bFLYVIZ31SrgzOy8gfH10kaMjy+SOTmnaBZwqQ26+shAHw1gxFJTRYXAOuGwu1lkUOqx
- 9LMQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781933977; x=1782538777; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=4APW9WchUIjck1WXvCdDznMYknRjl/S7x9r5ba9yacU=;
- b=LEsnoo5iFdh0kWyHKf7HU8CksVATCuYRj8YVVT9Pwq/LjKesWtopKRlZvG9Hy8+fq0
- sAVYWeCDFcrI1QB3Pnd4gbnDgCG7+sSOa6hTxy1LbTpFQZ+ss9vYFnAqwk3bfyn0vkjf
- ot7/H9I+btuLGF4hBjkSWsdW2OGsJ3CVjKOcGf5/bOWOjkR2uvu62WdmVacj2nQczwxZ
- g72jYE3+UhmSnlfLuMjBdEuFr2q7tr4Nn6lpzHO30/aiPRkzJ0HsCna6Krt1BMWh37xc
- m6ucH9uPm0WTrAlps/6mXLsCvpSuxKZbQ74FZC8rWk9cmOcWrA4R5wz2JciAsouQ/ZLM
- Uqgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781933977; x=1782538777;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4APW9WchUIjck1WXvCdDznMYknRjl/S7x9r5ba9yacU=;
- b=EktoR8l6KFh0HnP2o1gkT0wvMsNw81MKbYGFMHkbMDp8vRZq0+jAbq/rMh5IGGEs58
- IQ1xW/KYzaq+VTW4pgBBmfnDVtcioCA+if3M0i0zGUcGNigTr0JzmL/U7vZWPrsbAYlr
- rfo6K94rdgTglK/THJbaSK5xC1I8ADj1wClRqR/XQD4HhuxMesoxj0aLX/4r3i8KZuPO
- oH48oT+XioqOID8wW0i+nYeGpK8yQWW4nrfDJX2kkooHOp2e9Jm/3FAqTcINKUMQ1nLm
- NclSNmB422mSCM0s2x6SCzN5sh9Ksg96+Nihu89ab5vdYbSb3Yl7g5dzOFxnWTJ0Fim8
- TQ/g==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8X5YizMtnWxbrFfIbY24tuH85i2Hny9aUxjfg5rr941AjQ9oJZSxZ9ixUiqg6i5oJyLoQwd2YHAvw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxWAKqOUn0RO/fLSMPt2bpdi3253VTOWJTv6l1Gu8wdErYSRBOJ
- kzDuJd/oghv40dvOrYL48go/IH0ypLFYpWiM1IrVs9sd7l+lHzscO1iytXNeBxyP4/aUEevLbRi
- GEowrh3nKA+gVsUOhe7DevZA1uwWReaE=
-X-Gm-Gg: AfdE7cn8/eAlVHoLIeR6Wo1/2DmqdalqhjojRlZ/tioPoIFzl8U6O7WUAJ6M7oCCM7Y
- t025W9psH9gjrfIIgXXKiOkZJSiVJOV2WsEfWT05Xe98q1ODQc/1JYvk+74pAGQ0W25tgmhhf9L
- Y2RPV2WpyJ/MW7YevRunvOwuq/ujz4ye5ZyVeUrxokqf1UID0dK6L5NK102EzbwvOjyyL6c5iJU
- pS2IBu/D3bDVNHJJDFIw+bWg+krWy2+mS5zZzCRMhFk2hxZxAum9X9ySULKWP1OTjnKH3tEBL83
-X-Received: by 2002:a05:6102:17c5:b0:6cd:23a8:3a31 with SMTP id
- ada2fe7eead31-72a26e045f4mr1781055137.1.1781933977271; Fri, 19 Jun 2026
- 22:39:37 -0700 (PDT)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012006.outbound.protection.outlook.com [40.107.209.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB82210E164
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 10:48:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fu1AD07j4EIC0jV/vNIW+inGmNoSF+c15cIkuVnmpp2ywNUo05adCH5DokE+hSILTBPPs0Za4JunH7SMF/zw9nAd2gK5voYXUMf/fb4Dssc86jSilE+8NX9NGy/4lUZxecbg79pzqvJ+pLVrVqT2wsxpBI0SSTVE6+lclMifYPOQR7BJntB4Gh9WY8jsu6nkfzWISWenJbb1rhJ/+Yk364h5aYxcTu25pNRLwl9eMtz1Pq0wLOtuR3+iOCHZ4xBBV1Ui0lbCNOmdKSM1QWgYEulFlRZngokd236qZEsx84LKuU/M5zzx4e2fYbJz790NhaCE3qomgEYUk+n0QCuMEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=65qqXEXgqsD6IavO6LxCnlSco0gD2LgyKy9qJJwV8Yg=;
+ b=nbH45CXBWUJmt4xxtQxso7gOmejFL802urjHRt1rnT/Cnu9dLZWS3pnfRgHKld8pF9ce2wy1Qsue12tsllBwpM7uXyav3IDZUmRbxFmIKsqWFdHlN4tNe1fIRGNUicRmBZiUA8DwRbjTWy7IvJAYRVvvXTpuixbUEH1BlXWacoc6x29y2Lt+FfnExKSaY4BuKYcMUQsvnP3QXI5XVTh8TIL/mlyFpHiebzEvuQOfbaaGbJTmSQomX3NoGUJH1MRrjYyw2SGoKYJa+zMmM31nvVuSgX2om62FFOcrABWG29fTxSryAmb6bRwGHsZP3oqpUUY+u30FoVnHjR+hFtLdjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=65qqXEXgqsD6IavO6LxCnlSco0gD2LgyKy9qJJwV8Yg=;
+ b=cBrD2vIDPRKA121vTavhdYfJmqUq+2vTbvUAtAXY5Wj+2tnQYOImSBNh7HFOtrKKzb42zV4EYfWq7/bKMFFxslJTnWhO01GkM2AUq9FhWhscFNCCjT177EJ44EiElzBdAKs/0GkEJOg3rzGPrtR9Z3Y92iQcGjBeAUXkGAEGcfaYPdnuZ8yNuXo2vsxVfCS7IRxHoVfG3zK4EJpFu6FT3mC4vUx0U6pYN8X69i6810Td+0GBrase0l0+Ci2cqyKib5SvZxdWUGqQF+iCdy2ZyUqfnLL7V9Y8L+OSFvTIB2ePI0XgyD5SeH1lubdY4G4fGb925CHy3m+fCCrVD8ZOpg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by SN7PR12MB7809.namprd12.prod.outlook.com (2603:10b6:806:34e::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.18; Sat, 20 Jun
+ 2026 10:48:05 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0139.009; Sat, 20 Jun 2026
+ 10:48:05 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 20 Jun 2026 19:48:01 +0900
+Message-Id: <DJDTFOOD6BDC.2MOEQNMG8K4CY@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH 04/13] gpu: nova-core: falcon: gsp: move PRIV target
+ mask constants
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+References: <20260615-blackwell-fixes-v1-0-f2853e49ff7d@nvidia.com>
+ <20260615-blackwell-fixes-v1-4-f2853e49ff7d@nvidia.com>
+In-Reply-To: <20260615-blackwell-fixes-v1-4-f2853e49ff7d@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0273.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c9::12) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-References: <20260617193335.1662613-1-ruoyuw560@gmail.com>
- <cee10e27-1bf9-47de-9d72-4f2c7ac606ef@amd.com>
- <PH7PR12MB8796700AA79490AF65E12D64B0E32@PH7PR12MB8796.namprd12.prod.outlook.com>
-In-Reply-To: <PH7PR12MB8796700AA79490AF65E12D64B0E32@PH7PR12MB8796.namprd12.prod.outlook.com>
-From: Ruoyu Wang <ruoyuw560@gmail.com>
-Date: Sat, 20 Jun 2026 13:39:23 +0800
-X-Gm-Features: AVVi8CfYD_GAaQEP05j_5Lp7OoC_f0RZTesbVzNHdBDTKSPBat01vDG37k3SiEs
-Message-ID: <CAK_7xqxJMr+CgjKDbsWUGsbPt3U_xA_rE_CH__F7bmPW5AxJ0A@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: initialize ret before UMC error record loop
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-Cc: "Koenig, Christian" <Christian.Koenig@amd.com>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>
-Content-Type: multipart/alternative; boundary="000000000000ba82dc0654a8d5dd"
-X-Mailman-Approved-At: Sat, 20 Jun 2026 08:50:30 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SN7PR12MB7809:EE_
+X-MS-Office365-Filtering-Correlation-Id: 209846cc-da43-432c-f656-08deceb9682a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|23010399003|1800799024|376014|7416014|366016|4143699003|18002099003|11063799006|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info: KHKS7kgzRAUxpr59R90LpxxfYDMPjacOB6Vj/84fnZgKv8Gri0UpccvfH4pLWfIhXChYvU2IlM9yK5Kt5lv62c+Ec2wpwDpARV1Z9PtYcXMfPhrnAK9S+wwBUkFTpCy8CJ05yF7WpfYHjpT8cRNLrQnyYp/Hp2QrIcUNbQj5NjWUMyT/3k34cHMeeDwYmspTUvqylzLPwtfbVZHVEFG4lQax802r5gH4QH9UZkGQa+B1hIY9y1+8c/Fe/61qIF8JFiBOzE2o1Z2BX1RDpSq5y/t7hNwI/z9kTgBfPo7Fy436PnS7DPK7CnGfmOfbspXKDu6L3cJ1iWJMVouqSsjoSjxua/tWEoJmjwHQLh4t1BOm7jl8tDBSBmVJN6y4o1v/OubHdI762tXOnw9qs8j7x8S8PwX+LDWPoYLhsSjLd8lTYFO/mWghgfj865kO5byP3GWQoS8nO6PVYRY+1COXVARm5NQyHoHXcwpX7hDfM+ZAM1n1oay2SnNqm7kQS5c57FyXDz57ymhsndRX37jORz0hzuNyGOzIt5/0sSSuP167brJrvswe34M0rjX8e+ZRYJgejBAm4VZnSc1hpCXnz7cIlQNFXslf1WOZ+8BEBo92ou1tYIL2aSerLlEcE0qZObD3VCPRCr4O48k2Z5xEslkcgaU33lACxAdWQOA/Brk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(23010399003)(1800799024)(376014)(7416014)(366016)(4143699003)(18002099003)(11063799006)(22082099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RWJ3NUtGRWU4UGpzQmZ4anNZZlV3YVhSSURyZkdtY1NaR2I5cjJGT2hBVGp6?=
+ =?utf-8?B?RE84eGNvVjk5bnlqc0NMQldFZzNiY1M2NFpQQklOa3dxcDROR1V6R1oySkNP?=
+ =?utf-8?B?RmRoMW1mRm5ONHo4Y05SenBUbysraWhleTNDWTd5VjRaWG42R1ZRTHN1SHha?=
+ =?utf-8?B?a2lkZk9wMXpzMDZrM1BQYXFTUEJKQk82Sm00TVRHdlE3cmlJdWN2Zk9Gb2xl?=
+ =?utf-8?B?NXBHcytaZjZEVjcxeDF5NFVJeTMxaUZSd08rdWFBbzF5Q2EzaW11bTZXZXNR?=
+ =?utf-8?B?Z2ZqQUZqcVlMRVpnSVFwRHl3ZlZ3NHZGQ1dTTFNYU3YvVzNEMTd1YW9jSnRh?=
+ =?utf-8?B?cTc1cFp5aWFwdzEzMW0rL0ZZQTA5VVorUFJ6YlUvZktaNHJRMzhkdGlGTXpu?=
+ =?utf-8?B?RmFCd21PR04wOXNUVnFlMGl1aW4zVVFFS1BDMWJGdFBXajVlbitwQWp5aU9o?=
+ =?utf-8?B?MTJ4QkFPZHQ2NS9UeVRWZlN0TllLTVl6Z3hDU2tweWpzUkJ6WTN4VFFsNFJI?=
+ =?utf-8?B?SzRGU3FqOTFZZWFGeTNyd28xL0xKd3NxaVZZc05xOXE1VnNJM0RCajJHWE9N?=
+ =?utf-8?B?WGxHNGdmOUpOeHFiWk5va3hVWXZJL3pHQS9qOTZhZVYxZWVQTlRZaFdsQ3FW?=
+ =?utf-8?B?Yys0alZNaHlkTUFkYklLMUZ3aUF6VmI2ZlF1WHpLTXZXMmVyU1dLZXF5YWV1?=
+ =?utf-8?B?ZnRBeitLZDRJWjMvZWhXK0RTajlhTTlwL3ZqRGZ0dFBidDBrUC9RT2tYeTNU?=
+ =?utf-8?B?VUZlangwajd3d1QrcmtYdlNiUmhQcjRORnFUSmEvQm1DeW9hZjlUOFRyQmMr?=
+ =?utf-8?B?OWZlYkxmdWZMR2ROYjZhOUJRSkR5K2tBQnRqRlRTY1FUVkVJTE5BYjBTU2Zh?=
+ =?utf-8?B?anFEbFdkS1p5bStYd3VxTXJ3bmFFa2JlVFZUK3IyZjlOR2xYZExUUXZQeG8x?=
+ =?utf-8?B?S0JwR1NSZFV1OS80UTQwR3F0UVpTOHN1T0w2bzM3VXdFRHQ4NFZsc0JNYStt?=
+ =?utf-8?B?ZlAxZVUyd0tOWGF6eEw5WEMzZXFiRWpYRTcrY3Mxc0I1eDhtMmlJbnhJY2g1?=
+ =?utf-8?B?ZDFrelg1QVFtUWYyaDYyZUVGelBsZjZ4TTVQM1V1YVJQVDhrLy91NWp3UXlS?=
+ =?utf-8?B?SFJ0R1Z5RTk5RjVocVl0dElBS0ZyRjh3VVJWQ1RoVmhBaW9qNms2cDBMT2wz?=
+ =?utf-8?B?MVJrbWdyT2RKbDBCeHZnSDNFQThTTWgrWnZ1b0xjVXN3a0Y2QTRaaEpkMVd0?=
+ =?utf-8?B?T3B2YVVmOEoyVmowWXJDMzZCK1VGdmpZYktUK1J3Q2NqcDRFZHZHc09sdnBl?=
+ =?utf-8?B?T21pVUt1bk5TT1pvVFNXUXNwcHNIR05uSE9rOUtVY0lqRFA3aFRxVWtRSW5K?=
+ =?utf-8?B?ejkyL08wMXhZSjBsMjFLS0VZZ002QSt6Zm56NjUvNzQxUTE5cG9YS04xeWZF?=
+ =?utf-8?B?S2lCbHBLd1lLRFdrWVZBMW5qcTRBWWo5ZzIzWUFXYm9oMFdPTlZta2ljdnVO?=
+ =?utf-8?B?Q2xwM0tEbHFwTWxxUDByT01vc0ZkQXdsY2h4LzdJVE96V1Z1dTdwbGJnS083?=
+ =?utf-8?B?NGJJQ1ZDcXMyWXYvUW9oTlJhWjRQa0J1OW1rVWRQbXkzWHR6Ull6YlRwLzBx?=
+ =?utf-8?B?SmZ6Qzc5MGRoWERCZi96NXdldjNBa1BxS2pUVlVxc04zYnhqcEgxSU50L1Vz?=
+ =?utf-8?B?V3pSYXRBOUh4QS9KcjAxOVQzdHpjdWc0OU5rMjlOTGdHeS9FUzBwbENsTDJw?=
+ =?utf-8?B?U29tMlFUSUdNVlRaMFlDcG5sL2N6WE5wc1cvUytqbFMvSlgzZ0Nja2Q4MEVI?=
+ =?utf-8?B?OTc4Zm9ZOXUyVzNDNXBaVC9DTzhYZExnOGIySktsUnJjVWVvdlZDMzFlQVIr?=
+ =?utf-8?B?NWx0MTFVd3JPeitERkFGREo5T3hBTUN2dXdZNkxuMVlObG9lNmdmb3VCZkZV?=
+ =?utf-8?B?TE5oWmZPeXZLczg1ZVllSWFRcVBTL2hmSE11ekowbHo2QmVRenhDaURjeWo3?=
+ =?utf-8?B?NDN5aldCZWZoLzErTzM1YlEyNWVQR1RoK1lYS3dNbTRpYlFTK05BYU1XQkFa?=
+ =?utf-8?B?SDc4L1IzakhBZnh1bUR5aE4rUGluWXNZS01VOHZvcUhPUDVBdmFGSEMwWS84?=
+ =?utf-8?B?a1NEN2hRbGJuYTR6Y3Q3aWp0OTRMOEYvVGhtL25hTTNKdVVzcGYxMFBBaUlh?=
+ =?utf-8?B?d0prbThaeUk0azh4d0VlWjZObDh0cjlJODY5YTVrUnlxR0lzd2RYaXVUdWN4?=
+ =?utf-8?B?elg5am5zR2trQVNpNk9EOU9mYy81Slo5SEdQb21nWklraUR5SDlZM013LytL?=
+ =?utf-8?B?WlcrRkNrcXp0Qng2bzhlV2dSYy93YU42MG1pU0lvT3FOazV0d2RyWGtxOVgw?=
+ =?utf-8?Q?Wi9V4zZwCPIP0R/tw82UXgQyrr65qliRBodILhgqt0ku0?=
+X-MS-Exchange-AntiSpam-MessageData-1: 9H+JuO/fZK/Uew==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 209846cc-da43-432c-f656-08deceb9682a
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jun 2026 10:48:04.8462 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0CjviiUjVXNfpaAMNsOTHElWn1+UnM28JELkigkeV/JU6QHllY/eU4j3hMcMbmgDh/zdpigO4g9Kp13rU9p0uQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7809
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,196 +143,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000ba82dc0654a8d5dd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Tao,
-
-Thanks for taking a look.
-
-I will initialize ret to -EINVAL in v3 to keep the behavior
-aligned with the original logic.
-
-Thanks Christian for the Ack as well.
-
-Thanks,
-Ruoyu Wang
-
-On Thu, Jun 18, 2026 at 7:02=E2=80=AFPM Zhou1, Tao <Tao.Zhou1@amd.com> wrot=
-e:
-
-> AMD General
+On Mon Jun 15, 2026 at 11:40 PM JST, Eliot Courtney wrote:
+> Small cleanup to move these constants which are only used once closer to
+> their use location.
 >
-> [Tao] In order to align with the original logic, I prefer to "ret =3D
-> -EINVAL"
->
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> Christian
-> > K=C3=B6nig
-> > Sent: Thursday, June 18, 2026 3:37 PM
-> > To: Ruoyu Wang <ruoyuw560@gmail.com>; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>; David Airlie <airlied@gmail.com>; Simona
-> Vetter
-> > <simona@ffwll.ch>; amd-gfx@lists.freedesktop.org;
-> dri-devel@lists.freedesktop.org;
-> > linux-kernel@vger.kernel.org; Zhang, Hawking <Hawking.Zhang@amd.com>;
-> Lazar,
-> > Lijo <Lijo.Lazar@amd.com>
-> > Subject: Re: [PATCH v2] drm/amdgpu: initialize ret before UMC error
-> record loop
-> >
-> > On 6/17/26 21:33, Ruoyu Wang wrote:
-> > > umc_v12_0_fill_error_record() returns ret after walking the pages
-> > > reported by amdgpu_umc_lookup_bad_pages_in_a_row(). That helper can
-> > > return zero entries, leaving the loop skipped and ret uninitialized.
-> > >
-> > > Set ret to 0 immediately before the loop so the zero-page path report=
-s
-> > > a deterministic status instead of returning stack data.
-> > >
-> > > Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
-> >
-> > Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> >
-> > Someone more familiar with ras should take a look as well, could be tha=
-t
-> returning -
-> > ENOENT is more appropriate here.
-> >
-> > > ---
-> > > v2:
-> > > - Set ret immediately before the loop instead of initializing it in t=
-he
-> > >   declaration, as suggested by Christian.
-> > > - Avoid describing the zero-entry case as an allocation-failure fix.
-> > >
-> > >  drivers/gpu/drm/amd/amdgpu/umc_v12_0.c | 1 +
-> > >  1 file changed, 1 insertion(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-> > > b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-> > > index 14092150336a5..4842340d9d65f 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-> > > @@ -690,6 +690,7 @@ static int umc_v12_0_fill_error_record(struct
-> > amdgpu_device *adev,
-> > >         count =3D amdgpu_umc_lookup_bad_pages_in_a_row(adev,
-> > >                                 ecc_err->pa_pfn <<
-> AMDGPU_GPU_PAGE_SHIFT,
-> > >                                 page_pfn, ARRAY_SIZE(page_pfn));
-> > > +       ret =3D 0;
-> > >
-> > >         for (i =3D 0; i < count; i++) {
-> > >                 ret =3D amdgpu_umc_fill_error_record(err_data,
-> > > --
-> > > 2.51.0
->
->
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
---000000000000ba82dc0654a8d5dd
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><p class=3D"gmail-isSelectedEnd">Hi Tao,</p><p class=3D"gm=
-ail-isSelectedEnd">Thanks for taking a look.</p><p class=3D"gmail-isSelecte=
-dEnd">I will initialize ret to -EINVAL in v3 to keep the behavior<br>aligne=
-d with the original logic.</p><p class=3D"gmail-isSelectedEnd">Thanks Chris=
-tian for the Ack as well.</p><p>Thanks,<br>Ruoyu Wang</p></div><br><div cla=
-ss=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_at=
-tr">On Thu, Jun 18, 2026 at 7:02=E2=80=AFPM Zhou1, Tao &lt;<a href=3D"mailt=
-o:Tao.Zhou1@amd.com">Tao.Zhou1@amd.com</a>&gt; wrote:<br></div><blockquote =
-class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px sol=
-id rgb(204,204,204);padding-left:1ex">AMD General<br>
-<br>
-[Tao] In order to align with the original logic, I prefer to &quot;ret =3D =
--EINVAL&quot;<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists.freedesktop.=
-org" target=3D"_blank">amd-gfx-bounces@lists.freedesktop.org</a>&gt; On Beh=
-alf Of Christian<br>
-&gt; K=C3=B6nig<br>
-&gt; Sent: Thursday, June 18, 2026 3:37 PM<br>
-&gt; To: Ruoyu Wang &lt;<a href=3D"mailto:ruoyuw560@gmail.com" target=3D"_b=
-lank">ruoyuw560@gmail.com</a>&gt;; Deucher, Alexander<br>
-&gt; &lt;<a href=3D"mailto:Alexander.Deucher@amd.com" target=3D"_blank">Ale=
-xander.Deucher@amd.com</a>&gt;; David Airlie &lt;<a href=3D"mailto:airlied@=
-gmail.com" target=3D"_blank">airlied@gmail.com</a>&gt;; Simona Vetter<br>
-&gt; &lt;<a href=3D"mailto:simona@ffwll.ch" target=3D"_blank">simona@ffwll.=
-ch</a>&gt;; <a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_bla=
-nk">amd-gfx@lists.freedesktop.org</a>; <a href=3D"mailto:dri-devel@lists.fr=
-eedesktop.org" target=3D"_blank">dri-devel@lists.freedesktop.org</a>;<br>
-&gt; <a href=3D"mailto:linux-kernel@vger.kernel.org" target=3D"_blank">linu=
-x-kernel@vger.kernel.org</a>; Zhang, Hawking &lt;<a href=3D"mailto:Hawking.=
-Zhang@amd.com" target=3D"_blank">Hawking.Zhang@amd.com</a>&gt;; Lazar,<br>
-&gt; Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.com" target=3D"_blank">Lijo.=
-Lazar@amd.com</a>&gt;<br>
-&gt; Subject: Re: [PATCH v2] drm/amdgpu: initialize ret before UMC error re=
-cord loop<br>
-&gt;<br>
-&gt; On 6/17/26 21:33, Ruoyu Wang wrote:<br>
-&gt; &gt; umc_v12_0_fill_error_record() returns ret after walking the pages=
-<br>
-&gt; &gt; reported by amdgpu_umc_lookup_bad_pages_in_a_row(). That helper c=
-an<br>
-&gt; &gt; return zero entries, leaving the loop skipped and ret uninitializ=
-ed.<br>
-&gt; &gt;<br>
-&gt; &gt; Set ret to 0 immediately before the loop so the zero-page path re=
-ports<br>
-&gt; &gt; a deterministic status instead of returning stack data.<br>
-&gt; &gt;<br>
-&gt; &gt; Suggested-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christia=
-n.koenig@amd.com" target=3D"_blank">christian.koenig@amd.com</a>&gt;<br>
-&gt; &gt; Signed-off-by: Ruoyu Wang &lt;<a href=3D"mailto:ruoyuw560@gmail.c=
-om" target=3D"_blank">ruoyuw560@gmail.com</a>&gt;<br>
-&gt;<br>
-&gt; Acked-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@=
-amd.com" target=3D"_blank">christian.koenig@amd.com</a>&gt;<br>
-&gt;<br>
-&gt; Someone more familiar with ras should take a look as well, could be th=
-at returning -<br>
-&gt; ENOENT is more appropriate here.<br>
-&gt;<br>
-&gt; &gt; ---<br>
-&gt; &gt; v2:<br>
-&gt; &gt; - Set ret immediately before the loop instead of initializing it =
-in the<br>
-&gt; &gt;=C2=A0 =C2=A0declaration, as suggested by Christian.<br>
-&gt; &gt; - Avoid describing the zero-entry case as an allocation-failure f=
-ix.<br>
-&gt; &gt;<br>
-&gt; &gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/umc_v12_0.c | 1 +<br>
-&gt; &gt;=C2=A0 1 file changed, 1 insertion(+)<br>
-&gt; &gt;<br>
-&gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c<br>
-&gt; &gt; b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c<br>
-&gt; &gt; index 14092150336a5..4842340d9d65f 100644<br>
-&gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c<br>
-&gt; &gt; +++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c<br>
-&gt; &gt; @@ -690,6 +690,7 @@ static int umc_v12_0_fill_error_record(struct=
-<br>
-&gt; amdgpu_device *adev,<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0count =3D amdgpu_umc_lookup_bad_=
-pages_in_a_row(adev,<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ecc_err-&gt;pa_pfn &lt;=
-&lt; AMDGPU_GPU_PAGE_SHIFT,<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0page_pfn, ARRAY_SIZE(pa=
-ge_pfn));<br>
-&gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D 0;<br>
-&gt; &gt;<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; count; i++)=
- {<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =
-=3D amdgpu_umc_fill_error_record(err_data,<br>
-&gt; &gt; --<br>
-&gt; &gt; 2.51.0<br>
-<br>
-</blockquote></div>
-
---000000000000ba82dc0654a8d5dd--
+Pushed to drm-rust-next, thanks!
