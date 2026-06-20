@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38D3ECD98E4
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 19:01:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADCEECD98E4
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 19:02:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CE1E10E270;
-	Sat, 20 Jun 2026 19:01:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED9A910E273;
+	Sat, 20 Jun 2026 19:02:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="o2k7DTkT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M6QFkvVM";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A56C410E270
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 19:01:28 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83EC010E273
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 19:02:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0D2F8601E1;
- Sat, 20 Jun 2026 19:01:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88E021F000E9;
- Sat, 20 Jun 2026 19:01:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 62E6643BE2;
+ Sat, 20 Jun 2026 19:02:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 152121F000E9;
+ Sat, 20 Jun 2026 19:02:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781982087;
- bh=M4cZrRZipZ64Zj+8igbsv5yMbtrwG08sm/mtN+mJWoo=;
+ s=k20260515; t=1781982149;
+ bh=3VTWvsnC6es/KUeZUxhsrIMbtV/RU4RUOjnmV2Fq56I=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=o2k7DTkTKxZ0HsAhvbpYkiqGCEoHtmKJ69pjwyCUY0C1PfxKwyQKcIJyNIrj2VBQP
- 7BZkJDEy0JqP3NMBOX9Azh0HWE689Ir7b9W4dkUoThnqIjcAuwQ1ab6p5+2S9ISgub
- wN3ILbNK3pVXoy1U9LvDebXQLSAKnoGKZw/tv0cbdn93MEAGRd4lRFckjEP6uyKeQh
- 2djswGl4CY/Yfv32bBmUfYytQuhPCKchPbxGg8TefQuNr4tlWMiftGvBQ1wfgGau2d
- 2BE1dDLenJhAyuAZTtzWdZElwOcpwHjQER1zWpWThyGSuTeo2KVvAbFhe56kdzYuYA
- cONegabsS8xOw==
+ b=M6QFkvVMcSzYUP166tZp566iZXLnGhEu6/WYhyPw+gBc6t6/ZaMmvughVvDTjvX6y
+ h7HiRlDJTGu3y6xgHeftIW5vePT7e01P8MuHHt1l4kxzYu+68YAnVBXNjOKln7b8hf
+ Cqf6eP5D9WxmqNXeL7FRBoI+EV9oesEh4dk0cK9G6/dPGZB7lX5mrfOVIoO96PwJjN
+ XrP8T1X+X4OBXtcvotXpIW0+OONf+BlYnSDx8BQ57lK2rxpt4HK9IyLhLicUOYZFrj
+ 4JI6UED75zEZMsW0/aLEy1F0pFnqVf+iCwm1Yfpwt3WDmDP8V8tUCrQkad1Ig5XY3q
+ LXYLJ1bElX4PA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 12/16] rust: drm: return ParentDevice from Device AsRef
+Subject: Re: [PATCH v4 13/16] rust: drm: add AsRef<ParentDevice<Bound>> for
+ Device<Registered>
 To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, "Alexandre Courbot" <acourbot@nvidia.com>,
- ojeda@kernel.org
-In-Reply-To: <20260620184924.2247517-13-dakr@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org,
+ "Alexandre Courbot" <acourbot@nvidia.com>
+In-Reply-To: <20260620184924.2247517-14-dakr@kernel.org>
 References: <20260620184924.2247517-1-dakr@kernel.org>
- <20260620184924.2247517-13-dakr@kernel.org>
+ <20260620184924.2247517-14-dakr@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 20 Jun 2026 19:01:27 +0000
-Message-Id: <20260620190127.88E021F000E9@smtp.kernel.org>
+Date: Sat, 20 Jun 2026 19:02:28 +0000
+Message-Id: <20260620190229.152121F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,61 +61,58 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Safety comment relies on an undocumented type invariant regarding t=
-he parent device.
+- [Low] Missing `#[inline]` annotation on the small forwarding function `as=
+_ref` in an abstraction crate.
 --
 
-commit b94604b443e7e44bdf48a3790177f869613bf287
+commit 61d54b007aa9572681d918fcd5c48802182d8282
 Author: Danilo Krummrich <dakr@kernel.org>
-rust: drm: return ParentDevice from Device AsRef
 
-This commit changes the AsRef implementation for drm::Device to return
-a reference to the typed parent bus device rather than the raw base device.
+rust: drm: add AsRef<ParentDevice<Bound>> for Device<Registered>
+
+This commit implements AsRef<T::ParentDevice<Bound>> for Device<T, Register=
+ed>.
+It provides safe access to the bound parent bus device for registered DRM
+devices.
 
 > diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
-> index c32cc0f0eba03..45bacd7b227f0 100644
+> index 45bacd7b227f0..8f63276c9b62f 100644
 > --- a/rust/kernel/drm/device.rs
 > +++ b/rust/kernel/drm/device.rs
-
-[ ... ]
-
-> @@ -450,11 +450,15 @@ unsafe fn dec_ref(obj: NonNull<Self>) {
+> @@ -462,6 +462,19 @@ fn as_ref(&self) -> &T::ParentDevice<device::Normal>=
+ {
 >      }
 >  }
 > =20
-> -impl<T: drm::Driver, C: DeviceContext> AsRef<device::Device> for Device<=
-T, C> {
-> -    fn as_ref(&self) -> &device::Device {
-> +impl<T: drm::Driver> AsRef<T::ParentDevice<device::Normal>> for Device<T=
-> {
-> +    fn as_ref(&self) -> &T::ParentDevice<device::Normal> {
->          // SAFETY: `bindings::drm_device::dev` is valid as long as the D=
-RM device itself is valid,
->          // which is guaranteed by the type invariant.
-> -        unsafe { device::Device::from_raw((*self.as_raw()).dev) }
-> +        let dev =3D unsafe { device::Device::from_raw((*self.as_raw()).d=
-ev) };
+> +impl<T: drm::Driver> AsRef<T::ParentDevice<device::Bound>> for Device<T,=
+ Registered> {
+> +    fn as_ref(&self) -> &T::ParentDevice<device::Bound> {
+
+[Severity: Low]
+This isn't a bug, but should this small forwarding function in an abstracti=
+on
+crate have an #[inline] annotation?
+
+The Rust subsystem coding guidelines mention that functions in abstractions
+that are small or simply forwarding calls should be annotated with #[inline=
+].
+Since as_ref() performs purely type-level conversions and pointer coercions,
+adding the annotation might help the compiler reliably optimize these across
+crate boundaries.
+
+> +        let dev =3D (**self).as_ref().as_ref();
+> +
+> +        // SAFETY: A `Device<T, Registered>` guarantees that the parent =
+device is bound.
+> +        let dev =3D unsafe { dev.as_bound() };
 > +
 > +        // SAFETY: By the type invariant of `Device`, the parent device =
 is embedded in
 > +        // `T::ParentDevice`.
 > +        unsafe { device::AsBusDevice::from_device(dev) }
-
-[Severity: Low]
-This isn't a bug, but the SAFETY comment references a type invariant of
-Device that doesn't appear to be documented.
-
-Looking at the # Invariants section for the Device struct, it only states
-that self.dev is a valid instance of a struct device, its data layout
-remains the same across contexts, and context invariants apply.
-
-Should the # Invariants section of Device be updated to explicitly state
-that the parent device is embedded in T::ParentDevice to properly support
-this safety proof?
-
->      }
->  }
+> +    }
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260620184924.2247=
-517-1-dakr@kernel.org?part=3D12
+517-1-dakr@kernel.org?part=3D13
