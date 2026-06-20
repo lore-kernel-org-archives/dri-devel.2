@@ -4,52 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA240CD98E4
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 08:23:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E394DCD98E4
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 08:31:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C21E610E19D;
-	Sat, 20 Jun 2026 08:23:33 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F233810E19D
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 08:23:31 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.206])
- by APP-01 (Coremail) with SMTP id qwCowABnB9D_TTZqS1JyAg--.2234S2;
- Sat, 20 Jun 2026 16:23:28 +0800 (CST)
-Message-ID: <c52c99917db0f49c39313e23643f0aa9281b8b99.camel@iscas.ac.cn>
-Subject: Re: [PATCH] drm/fb_helper: Determine proper crtc_index within
- drm_fb_helper_fb_dirty
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Thomas Zimmermann <tzimmermann@suse.de>, "H. Nikolaus Schaller"
- <hns@goldelico.com>, sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, Andreas Kemnade <akemnade@kernel.org>
-Date: Sat, 20 Jun 2026 16:23:27 +0800
-In-Reply-To: <1c9e0e24-9c4a-4259-8700-cf9e5fd60ca3@suse.de>
-References: <5118b37e579cec220f2d2b6ab0bb1ecfb67f0d5c.1781803617.git.hns@goldelico.com>
- <20260618174310.70DB11F000E9@smtp.kernel.org>
- <50FDBC3B-BFC2-4BC6-B216-78C2C24D9E30@goldelico.com>
- <1c9e0e24-9c4a-4259-8700-cf9e5fd60ca3@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A37B10E1A8;
+	Sat, 20 Jun 2026 08:31:39 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Nml/Tj2q";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D225010E1A8
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 08:31:37 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9CCC24430F
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 08:31:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7E366C2BCB0
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 08:31:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1781944297;
+ bh=p2g2IlPItUmrNWO9rCAQWFs3VVA75c10K1nrmbVv24c=;
+ h=From:To:Subject:Date:In-Reply-To:References:From;
+ b=Nml/Tj2qzuWyQ6Ez+febf47YME7PRsEqUaHFHTzFPDM1usU0aC4X1ksWRVcJO4nqx
+ qu5YECcTU3LQB1XFhCO5tSADxTqZpXjaujvlK8/gq615MveRFQqJn3Ycv42L1stP0z
+ hCiNBNsBZYKL2XEd2v8H1uRbj9fS6vNJv2ebTWhZslEJTcPcdDp0H9mKVa4T6ku4a6
+ J1sJb2WCLq4rZPAJGlnWiCDS3BsGg9uhRj6b9SDN421wnUlf6FjSXApC/Jz2OpfS8D
+ S/NfhCt/2/IEV0csaSjJNSfT/Bx4ngPW06tHzj1Iu1pqEP3v5gtFDYzaNKpy1fZa7t
+ YebK45fEOOaEg==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
+ from userid 48) id 74BCAC4160E; Sat, 20 Jun 2026 08:31:37 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: dri-devel@lists.freedesktop.org
+Subject: [Bug 60533] CVE-2013-7445: Remote web page triggerable DoS in Linux
+ DRM graphics
+Date: Sat, 20 Jun 2026 08:31:36 +0000
+X-Bugzilla-Reason: CC AssignedTo
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: None
+X-Bugzilla-Product: Drivers
+X-Bugzilla-Component: Video(DRI - Intel)
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: high
+X-Bugzilla-Who: aros@gmx.com
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: WILL_NOT_FIX
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: dri-devel@lists.freedesktop.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_status resolution
+Message-ID: <bug-60533-2300-MA2Qcp8N1l@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-60533-2300@https.bugzilla.kernel.org/>
+References: <bug-60533-2300@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowABnB9D_TTZqS1JyAg--.2234S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGr4UuF48Zr15AF17WryDKFg_yoWrtw45pF
- W3JayYkFWkJryrJasFga10va4jk393JFZ7Wr1rGw1rZF90vr1S9F4ayrZ8uFWDur13Xw42
- vr4UKFy3uFn8AF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUk2b7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
- 8E87Iv6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxAI
- w28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr
- 4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxG
- rwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8Jw
- CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2
- z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUgtr4UUUUU
-X-Originating-IP: [112.94.100.206]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,148 +75,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-06-19=E4=BA=94=E7=9A=84 10:50 +0200=EF=BC=8CThomas Zimmerman=
-n=E5=86=99=E9=81=93=EF=BC=9A
-> (cc Icenowy)
->=20
-> Hi,
->=20
-> there are a number of similar reports. Does the attached patch fix
-> the=20
-> problem. It picks up what you do, but in a more correct way.
+https://bugzilla.kernel.org/show_bug.cgi?id=3D60533
 
-Well in fact I think the correct practice might be combining both --
-use crtc index in modeset + skip non-enabled CRTCs.
+Artem S. Tashkinov (aros@gmx.com) changed:
 
-But anyway the attached patch is tested by me on loongson driver, if
-you're going to send it, feel free to add:
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+             Status|REOPENED                    |RESOLVED
+         Resolution|---                         |WILL_NOT_FIX
+
+--- Comment #44 from Artem S. Tashkinov (aros@gmx.com) ---
+Further testing narrows this down substantially.
+
+With Chrome started as:
 
 ```
-Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+google-chrome-stable --disable-gpu --disable-gpu-compositing
 ```
 
-In addition, a bug report with loongson driver exists on the Debian
-bugtracker, the Debian kernel team wants the fix to have:
+the reproducer crashes only the offending tab. It does not trigger a
+system-wide OOM and does not kill unrelated browser processes.
+
+With normal GPU acceleration enabled, the same workload rapidly causes a gl=
+obal
+OOM, kills unrelated Chrome/Firefox processes, and leaves memory exhaustion
+that is not explained by ordinary Chrome process RSS.
+
+This strongly suggests that the catastrophic failure depends on the acceler=
+ated
+graphics path:
 
 ```
-Closes: https://bugs.debian.org/1138033
+Chrome =E2=86=92 ANGLE/Mesa =E2=86=92 DRM/GEM =E2=86=92 xe
 ```
 
-Thanks,
-Icenowy
+I do not yet claim that xe alone is necessarily at fault; this could involve
+Chrome, ANGLE/Mesa, shared DRM/GEM code, or xe object
+lifetime/accounting/reclaim. However, this report appears to belong on the =
+DRM
+xe GitLab tracker rather than kernel.org Bugzilla.
 
+I have opened the corresponding report here:
+https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8393
+
+The issue must affect i915 similarly but I'm not sure about amdgpu.
+
+(In reply to Eero Tamminen from comment #43)
+> There's now DMEM cgroup for limiting device (e.g. GPU) memory:
+> https://docs.kernel.org/admin-guide/cgroup-v2.html#dmem
 >=20
-> Best regards
-> Thomas
->=20
-> Am 18.06.26 um 19:56 schrieb H. Nikolaus Schaller:
-> >=20
-> > > Am 18.06.2026 um 19:43 schrieb sashiko-bot@kernel.org:
-> > >=20
-> > > Thank you for your contribution! Sashiko AI review found 3
-> > > potential issue(s) to consider:
-> > > - [High] Lockless access to `crtc->state` and `crtc->primary-
-> > > >state` can lead to a Use-After-Free due to concurrent atomic
-> > > commits.
-> > > - [High] The patch breaks vblank synchronization for legacy (non-
-> > > atomic) DRM drivers.
-> > > - [Medium] The logic selects the first matching CRTC instead of
-> > > the last active one, contradicting the commit message.
-> > > --
-> > >=20
-> > > commit 0337b26b606b4d905d72ea2be31bcb984fe62c6e
-> > > Author: H. Nikolaus Schaller <hns@goldelico.com>
-> > >=20
-> > > drm/fb_helper: Determine proper crtc_index within
-> > > drm_fb_helper_fb_dirty
-> > >=20
-> > > This commit updates the dirty framebuffer worker to search for a
-> > > matching
-> > > active CRTC instead of hardcoding the wait for vblank to CRTC
-> > > index 0. It
-> > > aims to avoid vblank timeouts when CRTC 0 is inactive.
-> > >=20
-> > > > diff --git a/drivers/gpu/drm/drm_fb_helper.c
-> > > > b/drivers/gpu/drm/drm_fb_helper.c
-> > > > --- a/drivers/gpu/drm/drm_fb_helper.c
-> > > > +++ b/drivers/gpu/drm/drm_fb_helper.c
-> > > [ ... ]
-> > > > @@ -232,9 +232,23 @@ static void drm_fb_helper_fb_dirty(struct
-> > > > drm_fb_helper *helper)
-> > > > struct drm_clip_rect clip_copy;
-> > > > unsigned long flags;
-> > > > int ret;
-> > > > + unsigned int crtc_index =3D 0;
-> > > > + struct drm_crtc *crtc;
-> > > >=20
-> > > > mutex_lock(&helper->lock);
-> > > > - drm_client_modeset_wait_for_vblank(&helper->client, 0);
-> > > > +
-> > > > + drm_for_each_crtc(crtc, dev) {
-> > > > + if (crtc->primary && crtc->primary->state &&
-> > > > +=C2=A0=C2=A0=C2=A0 crtc->primary->state->fb =3D=3D helper->fb &&
-> > > > +=C2=A0=C2=A0=C2=A0 crtc->state && crtc->state->active) {
-> > > [Severity: High]
-> > > Can this lockless access to crtc->state and crtc->primary->state
-> > > result in a
-> > > use-after-free?
-> > No idea...
-> >=20
-> > > The drm_fb_helper_fb_dirty() function holds helper->lock, but
-> > > does not hold
-> > > the DRM modeset locks required to protect these state pointers.
-> > > During a
-> > Which locks are exactly recommended to add? What is their
-> > name/pointer?
-> >=20
-> > > concurrent atomic modeset commit, the DRM core allocates new
-> > > state objects,
-> > > swaps them into place, and frees the old objects via kfree().
-> > >=20
-> > > If this code reads an old state pointer and gets preempted, could
-> > > it then
-> > > dereference the pointer after it has been freed by the concurrent
-> > > commit?
-> > >=20
-> > > [Severity: High]
-> > > Does this break vblank synchronization for legacy non-atomic DRM
-> > > drivers?
-> > > Legacy drivers do not use the atomic modesetting infrastructure,
-> > > so their
-> > > crtc->state and crtc->primary->state pointers remain NULL. Since
-> > > the condition
-> > > above requires these pointers to be non-NULL, the loop will skip
-> > > the vblank
-> > > wait entirely for legacy drivers. This skips the intended rate-
-> > > limiting
-> > > behavior and could lead to unbounded damage worker execution.
-> > What is the solution? And is this important.
-> >=20
-> > Before d8c4bddcd8bcb ("drm/fb-helper: Synchronize dirty worker with
-> > vblank")
-> >=20
-> > there was also no rate-limiting behavior.
-> >=20
-> > > > + crtc_index =3D drm_crtc_index(crtc) + 1;
-> > > > + break;
-> > > [Severity: Medium]
-> > > The commit message states "If multiple CRTCs match, the last
-> > > active one is
-> > > selected." Does the break statement here cause the first active
-> > > CRTC to be
-> > > selected instead, bypassing the remaining matches in the list?
-> > Yes, that is correct. The description is indeed wrong.
-> >=20
-> > > > + }
-> > > > + }
-> > > > +
-> > > > + if (crtc_index > 0)
-> > > > + drm_client_modeset_wait_for_vblank(&helper->client,
-> > > > crtc_index - 1);
-> > > > +
-> > > > mutex_unlock(&helper->lock);
-> > > --=20
-> > > Sashiko AI review =C2=B7
-> > > https://sashiko.dev/#/patchset/5118b37e579cec220f2d2b6ab0bb1ecfb67f0d=
-5c.1781803617.git.hns@goldelico.com?part=3D1
+> But I guess this bug is only about iGPUs i.e. when GPU memory is shared w=
+ith
+> the CPU?
 
+`dmem` is clearly relevant, but I do not think it makes this purely an iGPU
+question.
+
+My reading is that `dmem` limits allocations in registered device-memory
+regions. That is an obvious fit for dGPU VRAM, and perhaps for explicitly
+exposed iGPU regions such as stolen memory. It is less clear whether it cov=
+ers
+the host-RAM-backed GEM/TTM allocations that are often involved in UMA path=
+s,
+or dGPU objects that have been evicted/migrated to system RAM.
+
+So there seem to be two related but distinct failure modes:
+
+1. Device-local-memory exhaustion: a dGPU process consumes VRAM. `dmem.max`
+looks like the intended containment mechanism.
+
+2. Host-RAM exhaustion induced by GPU objects: buffers, imported dma-bufs,
+staging allocations, page tables, shmem-backed GEM objects, or migrated BOs
+consume ordinary RAM. This is especially easy to turn into a global OOM on =
+an
+iGPU/UMA system because =E2=80=9CGPU memory=E2=80=9D is ultimately the same=
+ DRAM pool as
+everything else.
+
+The second manifestation may indeed be mostly visible on iGPUs, but I would=
+ not
+call the underlying problem iGPU-exclusive without checking where the relev=
+ant
+allocations are charged. A dGPU can still consume host RAM through
+system-memory placements and migration paths.
+
+The useful question for this report might be: does the allocation path at i=
+ssue
+appear in `dmem.current` for the offending cgroup, or is it only charged
+through the normal memory cgroup / not attributed usefully at all? If
+`dmem.current` stays flat while host RAM is exhausted, then `dmem` does not
+address that particular path.
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are on the CC list for the bug.
+You are the assignee for the bug.=
