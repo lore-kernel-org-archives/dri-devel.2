@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB629CD98E4
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 16:06:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75E0DCDB46F
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 16:06:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 710DB10E22B;
-	Sat, 20 Jun 2026 16:06:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49D4B10E22C;
+	Sat, 20 Jun 2026 16:06:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AtSP/kQh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Hhv4RI6D";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFE5610E221;
- Sat, 20 Jun 2026 16:06:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61B7310E224;
+ Sat, 20 Jun 2026 16:06:21 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 8548C601EE;
+ by tor.source.kernel.org (Postfix) with ESMTP id 60665601E3;
  Sat, 20 Jun 2026 16:06:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2AC28C2BCF4;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 124D1C2BCB7;
  Sat, 20 Jun 2026 16:06:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1781971579;
- bh=UfZu0IHwZg+nbLV0qKnTVPjPkVRtqSurmt1kE7uxeIs=;
- h=From:Date:Subject:To:Cc:References:In-Reply-To:Reply-To:From;
- b=AtSP/kQhRoxOpBbgC6X9U7RRnzzHL3XAuWMfHT54yMSZPm0E/JSDwVwRkbg4R602g
- G+yK7P1S1bNHFM0D8jaRp3NBT5XH3G4HwVInmHPaowLp6Ua/uwxIYDm+vdKIW1YLh5
- h9FTO0C60y/Bcump8GlFJdrJxnmkarGBBrLPvN8L3k+3PBOGI7DcQEsWkzlW8kaaua
- IkMScHJngwiuZM5rTtIXQBkGxha+KuWRnbCe7FLpGt74kcHQMdiAAr5Pkdzju2za3/
- y4RmvjUX+FeOJKLxV8mk3buATkyoR7WR7x+hoL9kH0JgLmZ1MmfG/Y/mjzF2XZvJys
- E1fFicBn63Csw==
+ bh=oQDp/iVxP2L33GYJjkOAVTDBvPk5XRvIgJQynX8l43I=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=Hhv4RI6DwA4Qke0XKpYtCpU6Zmfhmet8osY0GqhqJRMcyvoPwHUBKDapvk0rP9kUm
+ RZXBmqPCUc34q+hLVY6HS5nG9kpaQ5qFAA56e18QyJNW9ADSYwMCeUsXTlb7za+KnJ
+ Ny3aynLdZV5yt757srZudBFgXRw/hloIog4fNy7YP2kCGPSZOKyWecV9dW4yja8rkd
+ 5HLOPzIjv4htaBdWTWGV85NAfdAxAigwZXVUWFT/2IJTrX4NcBmAw2Zovw9VAj4n3e
+ SH5O8gUHJ8jqXTwmUXLJIngPcWpYK0jq7fWCem2BvDXZh4bgzlv6sJt/3XKwHIof02
+ 8/9IyLYN3Yirg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 1F256CDB46C;
- Sat, 20 Jun 2026 16:06:19 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id EB840CD98E4;
+ Sat, 20 Jun 2026 16:06:18 +0000 (UTC)
 From: Stephen via B4 Relay <devnull+stevester.codes.gmail.com@kernel.org>
-Date: Sat, 20 Jun 2026 10:06:21 -0600
-Subject: [PATCH RFC 3/3] drm/amd/display: use HDMI RGB deep color for PCONs
+Date: Sat, 20 Jun 2026 10:06:19 -0600
+Subject: [PATCH RFC 1/3] drm/amd/display: quirk malformed CH7218 PCON topology
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260620-ch7218-rfc-v1-b4-v1-3-3412debf44b6@gmail.com>
+Message-Id: <20260620-ch7218-rfc-v1-b4-v1-1-3412debf44b6@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: Stephen <stevester.codes@gmail.com>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Harry Wentland <harry.wentland@amd.com>, 
@@ -49,14 +49,12 @@ Cc: Stephen <stevester.codes@gmail.com>, dri-devel@lists.freedesktop.org,
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  =?utf-8?q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-References: <20260620-ch7218-rfc-v1-b4-v1-1-3412debf44b6@gmail.com>
-In-Reply-To: <20260620-ch7218-rfc-v1-b4-v1-1-3412debf44b6@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781971578; l=4269;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781971578; l=4344;
  i=stevester.codes@gmail.com; s=ch7218-rfc; h=from:subject:message-id;
- bh=U409nPgAq2LHqdJTGL6nxmnc+OvZgy/z3WvXz6cKcNA=;
- b=kdMvKSD0HIGgxsrc/zR8mbLTXIX9+Sx+Hv9xQZgZt5FVy89xm9Pg556o79gN5i9ti6usHaY8n
- Jrt+bEH0PUdCSMBCgSlSrvYaFdwllrV4pBNoX4HXrt+bafd0kMpXyVF
+ bh=jeGNZJ9+o/AHn9lk6MUcdhMGJQEt2lPQ9MdS1Ws/0rk=;
+ b=ashBtRxYlhnhRo1J1cKCvKoDCNUKcm/GSSLJzVdHb0bTs2DEyf8TDex8vsyJXd5N4KMWxP1OL
+ IMbTk2tOT6JCeix/HJpj0hJLXBKtOSpBd8QJr+OkHiR3Cf1Qn1yfzvD
 X-Developer-Key: i=stevester.codes@gmail.com; a=ed25519;
  pk=3Y74rGwtdwPNG9fzfw+7DSf/KWLeW8BsYVkyhPcx5pY=
 X-Endpoint-Received: by B4 Relay for stevester.codes@gmail.com/ch7218-rfc
@@ -80,106 +78,112 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Stephen <stevester.codes@gmail.com>
 
-DP-to-HDMI PCON connectors are exposed to DRM as DP connectors, but the
-downstream sink capability for RGB deep color is carried in the HDMI CTA
-deep-color flags. If AMDGPU only uses the base EDID bpc field for RGB
-output, HDMI sinks behind PCONs can be capped at 8 bpc even when the CTA
-block advertises RGB 10/12 bpc support.
+Some Chrontel CH7218 DP-to-HDMI 2.1 adapters expose a branch
+device ID of 0x2b02f0 and branch name CH7218, but report no
+downstream port at DPCD 0x005 and report the detailed downstream
+port at 0x080 as DP.
 
-For RGB output through a recognized DP-HDMI converter, derive the
-candidate bpc from edid_hdmi_rgb444_dc_modes before applying the
-requested max bpc cap. Keep YCbCr420 on the existing y420 deep-color
-path and leave native DP behavior unchanged.
+This leaves AMDGPU treating the link as non-HDMI and bypasses the
+PCON capability path.
+
+When this malformed runtime state is detected, classify the link as a
+DP-HDMI converter and restore the documented converter ceilings needed
+by the existing PCON path: 12 bpc, 48 Gbps FRL, and YCbCr passthrough
+capability. This does not program the PCON or synthesize source-control
+FRL state.
 
 Signed-off-by: Stephen <stevester.codes@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 41 ++++++++++++++++++-----
- 1 file changed, 33 insertions(+), 8 deletions(-)
+ .../display/dc/link/protocols/link_dp_capability.c | 47 ++++++++++++++++++++--
+ .../drm/amd/display/include/ddc_service_types.h    |  1 +
+ 2 files changed, 45 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 8f80420e9f0b..3b814b839ddf 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6769,22 +6769,44 @@ static void update_stream_scaling_settings(struct drm_device *dev,
- 
- static enum dc_color_depth
- convert_color_depth_from_display_info(const struct drm_connector *connector,
--				      bool is_y420, int requested_bpc)
-+				      enum dc_pixel_encoding pixel_encoding,
-+				      int requested_bpc)
- {
-+	const struct drm_display_info *info = &connector->display_info;
-+	bool is_hdmi_pcon = false;
- 	u8 bpc;
- 
--	if (is_y420) {
-+	if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK) {
-+		const struct amdgpu_dm_connector *aconnector =
-+			to_amdgpu_dm_connector(connector);
-+
-+		is_hdmi_pcon = aconnector->dc_link &&
-+			aconnector->dc_link->dpcd_caps.dongle_type ==
-+			DISPLAY_DONGLE_DP_HDMI_CONVERTER;
-+	}
-+
-+	if (pixel_encoding == PIXEL_ENCODING_YCBCR420) {
- 		bpc = 8;
- 
- 		/* Cap display bpc based on HDMI 2.0 HF-VSDB */
--		if (connector->display_info.hdmi.y420_dc_modes & DRM_EDID_YCBCR420_DC_48)
-+		if (info->hdmi.y420_dc_modes & DRM_EDID_YCBCR420_DC_48)
-+			bpc = 16;
-+		else if (info->hdmi.y420_dc_modes & DRM_EDID_YCBCR420_DC_36)
-+			bpc = 12;
-+		else if (info->hdmi.y420_dc_modes & DRM_EDID_YCBCR420_DC_30)
-+			bpc = 10;
-+	} else if (pixel_encoding == PIXEL_ENCODING_RGB && is_hdmi_pcon) {
-+		bpc = 8;
-+
-+		/* The downstream sink is HDMI even though DRM exposes DP. */
-+		if (info->edid_hdmi_rgb444_dc_modes & DRM_EDID_HDMI_DC_48)
- 			bpc = 16;
--		else if (connector->display_info.hdmi.y420_dc_modes & DRM_EDID_YCBCR420_DC_36)
-+		else if (info->edid_hdmi_rgb444_dc_modes & DRM_EDID_HDMI_DC_36)
- 			bpc = 12;
--		else if (connector->display_info.hdmi.y420_dc_modes & DRM_EDID_YCBCR420_DC_30)
-+		else if (info->edid_hdmi_rgb444_dc_modes & DRM_EDID_HDMI_DC_30)
- 			bpc = 10;
- 	} else {
--		bpc = (uint8_t)connector->display_info.bpc;
-+		bpc = (uint8_t)info->bpc;
- 		/* Assume 8 bpc by default if no bpc is specified. */
- 		bpc = bpc ? bpc : 8;
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+index 47abb4066709..c2b48abfe7e6 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+@@ -1158,6 +1158,31 @@ static void read_and_intersect_post_frl_lt_status(
  	}
-@@ -7004,7 +7026,7 @@ static void fill_stream_properties_from_drm_display_mode(
- 	timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
- 	timing_out->display_color_depth = convert_color_depth_from_display_info(
- 		connector,
--		(timing_out->pixel_encoding == PIXEL_ENCODING_YCBCR420),
-+		timing_out->pixel_encoding,
- 		requested_bpc);
- 	timing_out->scan_type = SCANNING_TYPE_NODATA;
- 	timing_out->hdmi_vic = 0;
-@@ -8761,6 +8783,7 @@ static int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
- 	struct drm_dp_mst_port *mst_port;
- 	struct drm_dp_mst_topology_state *mst_state;
- 	enum dc_color_depth color_depth;
-+	enum dc_pixel_encoding pixel_encoding = PIXEL_ENCODING_RGB;
- 	int clock, bpp = 0;
- 	bool is_y420 = false;
+ }
  
-@@ -8801,8 +8824,10 @@ static int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
++static bool is_ch7218_pcon(const struct dc_link *link)
++{
++	return link->dpcd_caps.branch_dev_id == DP_BRANCH_DEVICE_ID_2B02F0 &&
++		!memcmp(link->dpcd_caps.branch_dev_name, "CH7218",
++			sizeof(link->dpcd_caps.branch_dev_name));
++}
++
++static void apply_ch7218_pcon_caps_quirk(struct dc_link *link)
++{
++	if (!link->dc->caps.dp_hdmi21_pcon_support)
++		return;
++
++	/*
++	 * Some CH7218 firmware reports no downstream port, or reports the
++	 * detailed downstream port as DP, while the device identity and EDID
++	 * describe a DP-to-HDMI 2.1 PCON. Restore only the documented converter
++	 * capability ceilings here; do not touch the PCON link state.
++	 */
++	link->dpcd_caps.dongle_caps.dp_hdmi_max_bpc = 12;
++	link->dpcd_caps.dongle_caps.dp_hdmi_frl_max_link_bw_in_kbps = 48000000;
++	link->dpcd_caps.dongle_caps.is_dp_hdmi_ycbcr422_pass_through = true;
++	link->dpcd_caps.dongle_caps.is_dp_hdmi_ycbcr420_pass_through = true;
++	link->dpcd_caps.dongle_caps.extendedCapValid = true;
++}
++
+ static void get_active_converter_info(
+ 	uint8_t data, struct dc_link *link)
+ {
+@@ -1166,10 +1191,19 @@ static void get_active_converter_info(
  
- 		is_y420 = drm_mode_is_420_also(&connector->display_info, adjusted_mode) &&
- 			  aconnector->force_yuv420_output;
-+		if (is_y420)
-+			pixel_encoding = PIXEL_ENCODING_YCBCR420;
- 		color_depth = convert_color_depth_from_display_info(connector,
--								    is_y420,
-+								    pixel_encoding,
- 								    max_bpc);
- 		bpp = convert_dc_color_depth_into_bpc(color_depth) * 3;
- 		clock = adjusted_mode->clock;
+ 	/* decode converter info*/
+ 	if (!ds_port.fields.PORT_PRESENT) {
+-		link->dpcd_caps.dongle_type = DISPLAY_DONGLE_NONE;
++		if (is_ch7218_pcon(link)) {
++			link->dpcd_caps.is_branch_dev = true;
++			link->dpcd_caps.dongle_type =
++				DISPLAY_DONGLE_DP_HDMI_CONVERTER;
++			link->dpcd_caps.dongle_caps.dongle_type =
++				link->dpcd_caps.dongle_type;
++			apply_ch7218_pcon_caps_quirk(link);
++		} else {
++			link->dpcd_caps.dongle_type = DISPLAY_DONGLE_NONE;
++			link->dpcd_caps.is_branch_dev = false;
++		}
+ 		set_dongle_type(link->ddc,
+ 				link->dpcd_caps.dongle_type);
+-		link->dpcd_caps.is_branch_dev = false;
+ 		return;
+ 	}
+ 
+@@ -1200,7 +1234,14 @@ static void get_active_converter_info(
+ 			switch (port_caps->bits.DWN_STRM_PORTX_TYPE) {
+ 			/*Handle DP case as DONGLE_NONE*/
+ 			case DOWN_STREAM_DETAILED_DP:
+-				link->dpcd_caps.dongle_type = DISPLAY_DONGLE_NONE;
++				link->dpcd_caps.dongle_type = is_ch7218_pcon(link) ?
++					DISPLAY_DONGLE_DP_HDMI_CONVERTER :
++					DISPLAY_DONGLE_NONE;
++				link->dpcd_caps.dongle_caps.dongle_type =
++					link->dpcd_caps.dongle_type;
++				if (link->dpcd_caps.dongle_type ==
++						DISPLAY_DONGLE_DP_HDMI_CONVERTER)
++					apply_ch7218_pcon_caps_quirk(link);
+ 				break;
+ 			case DOWN_STREAM_DETAILED_VGA:
+ 				link->dpcd_caps.dongle_type =
+diff --git a/drivers/gpu/drm/amd/display/include/ddc_service_types.h b/drivers/gpu/drm/amd/display/include/ddc_service_types.h
+index 53210e3aa0e0..4164f8a5ae56 100644
+--- a/drivers/gpu/drm/amd/display/include/ddc_service_types.h
++++ b/drivers/gpu/drm/amd/display/include/ddc_service_types.h
+@@ -37,6 +37,7 @@
+ #define DP_BRANCH_DEVICE_ID_001CF8 0x001CF8
+ #define DP_BRANCH_DEVICE_ID_0060AD 0x0060AD
+ #define DP_BRANCH_DEVICE_ID_001FF2 0x001FF2
++#define DP_BRANCH_DEVICE_ID_2B02F0 0x2B02F0
+ #define DP_BRANCH_HW_REV_10 0x10
+ #define DP_BRANCH_HW_REV_20 0x20
+ 
 
 -- 
 2.54.0
