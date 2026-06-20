@@ -4,42 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F724CD98E4
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 19:33:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C5F1CD98F2
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 20:11:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6258F10E286;
-	Sat, 20 Jun 2026 19:33:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C02610E289;
+	Sat, 20 Jun 2026 20:11:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Y0vVuWuI";
+	dkim=pass (2048-bit key; secure) header.d=debian.org header.i=@debian.org header.b="k1I+BHs9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D7F710E286
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 19:33:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B5D3C601E1;
- Sat, 20 Jun 2026 19:33:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FE311F000E9;
- Sat, 20 Jun 2026 19:33:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781984023;
- bh=v20K2UI5rICGZ0hjGPo9WK2FW7yk/nyU0E3ym13BJts=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Y0vVuWuI7Su0PX993aITk8fzAgggU7c9vkD1kAQOAaxygwIxwJEieTA7x5jDaonTt
- 6ZI95D4RkQPdV6ajDU/1X2NmBLdDjwVrHIttZ6ovVIXECw1Ri/h3UoBY/G8YS0EPXt
- TDCWTj+mC9ixv3vgxJlKCx67ir5z3IDP5L+VXj3zHxAkRD92kflftxrF5MoP/IZ+8A
- TD7xgpRU/1AfvHMwG/92csS0+vBUiQU88FVcYl7O6tHrXVtvLzbTt64m6LGWkW3PrO
- otlFyX9+TwoboZzBQJANEHAFi+m1s3RL/nus+fCBPpsv9AEZ9XR0Xj6p1iXe9/Y97l
- DI7tdoWm7QRBQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/tegra: Fix a strange error handling path
-To: "Christophe JAILLET" <christophe.jaillet@wanadoo.fr>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <308ea09281bd0b3fb0ec7e90e23012c0783f373c.1781983379.git.christophe.jaillet@wanadoo.fr>
-References: <308ea09281bd0b3fb0ec7e90e23012c0783f373c.1781983379.git.christophe.jaillet@wanadoo.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 20 Jun 2026 19:33:42 +0000
-Message-Id: <20260620193343.4FE311F000E9@smtp.kernel.org>
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 918C810E289;
+ Sat, 20 Jun 2026 20:11:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org; 
+ s=smtpauto.stravinsky;
+ h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=7bD9mS5Zz5cqo1Y1ilNCwVtC8Kdtavh0qtaQ1yBkjo8=; b=k1I+BHs9IktNNHbqp/ZmOIeilf
+ 3tZcWG9aQPoIk4nkgS9Suxc5RqewRdUhS6oV5wHSuWytUCtCfCp79yR9N/3tq7Pvj2KWv/8jbJI6O
+ uQgNFEYbqa9U+zW6CK5pVNdU4/9dtGfySKQaXTZdEIM/5T05wTYDX2ZbZmsehtq+p9OcQToSdgFDM
+ uXnVKEzGszW1smE2Q1XkWx3wR8eoKrazOt20MwzWSKkEdtmaiF8PcOQhavsZC60LWGhMi84HfYi4/
+ 3I6j2iZmFaw66Xnnc8OB/3c5H1oGQwCVH76LcZmjVncCvvWoFBT/wXuAwGIaeEPZBHAMdeOjWRyZh
+ rXdZ3Dyg==;
+Received: from authenticated-user by stravinsky.debian.org with esmtpsa
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.96) (envelope-from <carnil@debian.org>) id 1wb22I-00HB6i-0f;
+ Sat, 20 Jun 2026 20:11:26 +0000
+Received: by eldamar.lan (Postfix, from userid 1000)
+ id 4BA10BE2EE7; Sat, 20 Jun 2026 22:11:25 +0200 (CEST)
+Date: Sat, 20 Jun 2026 22:11:25 +0200
+From: Salvatore Bonaccorso <carnil@debian.org>
+To: Jaak Ristioja <jaak@ristioja.ee>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Dianne Skoll <dianne@skoll.ca>, Chris Park <chris.park@amd.com>,
+ Matthew Stewart <matthew.stewart2@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: 1139950@bugs.debian.org, egressions@lists.linux.dev,
+ stable@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [regression] amdgpu carrizo: no display signal after modeset
+Message-ID: <178198613176.3658222.16247101620976737948@eldamar.lan>
+References: <9fba2020-24d1-4235-9869-319d4aab3a4c@ristioja.ee>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9fba2020-24d1-4235-9869-319d4aab3a4c@ristioja.ee>
+X-Debian-User: carnil
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,113 +68,85 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Control: forwarded -1 https://lore.kernel.org/regressions/178198613176.3658222.16247101620976737948@eldamar.lan
 
-Pre-existing issues:
-- [High] Race condition and Use-After-Free due to unreferenced pointer retu=
-rned from drm_dp_aux_find_by_of_node().
-- [High] Ignored get_device() failure leaves a dangling pointer leading to =
-Use-After-Free on error paths.
-- [High] Unbalanced i2c_put_adapter() on error path causes I2C adapter refe=
-rence count underflow.
---
+Hi
 
-commit 214c0c58066e5c28266a88ecb7dc4e05a84c1ad9
-Author: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Jaak Ristioja reported the following issue in Debian at
+https://bugs.debian.org/1139950 . Part of the original report contains
+Debian specific version information, but Jaak did as well a bisecion
+for the regression see below:
 
-drm/tegra: Fix a strange error handling path
+On Sun, Jun 14, 2026 at 02:27:01AM +0300, Jaak Ristioja wrote:
+> Package: linux-modules-7.0.10+deb13-amd64
+> Version: 7.0.10-1~bpo13+1
+> 
+> Hi,
+> 
+> Upgrading (after a long while) Debian Trixie installations on two different
+> HP EliteDesk 705 G4 DM 35W computers with AMD PRO A10-9700E R7 (carrizo)
+> resulted in both machines blanking the screen right after kernel modesetting
+> activates via amdgpu, with the monitor reporting "no signal". There are no
+> other symptoms besides losing the display as the system continues to run and
+> is accessible using keyboard and network.
+> 
+> Bug first discovered with stable kernel linux-image-6.12.90+deb13.1-amd64
+> (6.12.90-2) and the one from trixie-backports. The device is connected to a
+> monitor using a DisplayPort to HDMI adapter. The bug occurs regardless of
+> which if the two available physical DisplayPort ports to use.
+> 
+> I don't remember this being an issue some months ago, so I tried to
+> reproduce this booting the Debian 13.1.0 and 13.4.0 install DVD images and
+> using the kernel modules/firmware therein:
+> 
+>   13.1.0 installer:
+>     firmware-amd-graphics_20250410-2
+>     linux-image-6.12.43+deb13-amd64_6.12.43-1
+>   13.4.0 installer:
+>     firmware-amd-graphics 20250410-2
+>     linux-image-6.12.73+deb13-amd64_6.12.73-1
+> 
+> I essentially unpacked the two *.deb files manually, depmod -a; modprobe drm
+> debug=0x1ff; modprobe amdgpu.
+> 
+> I observed the bug reproduce using the 13.4.0 installer, but not on the
+> 13.1.0 installer, meaning this is a regression somewhere between kernel
+> versions 6.12.43-1 and 6.12.73-1.
 
-The commit fixes an error handling path in tegra_sor_probe() by returning
-directly when devm_tegra_pmc_get() fails, instead of jumping to the put_aux
-label which would release an uninitialized resource.
+The reporter did a bisection and found as offending commit:
 
-> diff --git a/drivers/gpu/drm/tegra/sor.c b/drivers/gpu/drm/tegra/sor.c
-> index 4032c6ad45bc1..e384cbd0cbf72 100644
-> --- a/drivers/gpu/drm/tegra/sor.c
-> +++ b/drivers/gpu/drm/tegra/sor.c
-> @@ -3764,10 +3764,8 @@ static int tegra_sor_probe(struct platform_device =
-*pdev)
->  	sor->num_settings =3D sor->soc->num_settings;
-> =20
->  	sor->pmc =3D devm_tegra_pmc_get(&pdev->dev);
-> -	if (IS_ERR(sor->pmc)) {
-> -		err =3D PTR_ERR(sor->pmc);
-> -		goto put_aux;
-> -	}
-> +	if (IS_ERR(sor->pmc))
-> +		return PTR_ERR(sor->pmc);
-> =20
->  	np =3D of_parse_phandle(pdev->dev.of_node, "nvidia,dpaux", 0);
->  	if (np) {
+    drm/amd/display: Bump the HDMI clock to 340MHz
 
-[Severity: High]
-This is a pre-existing issue, but can this lead to a race condition and a=20
-use-after-free?
+    commit fee50077656d8a58011f13bca48f743d1b6d6015 upstream.
 
-Looking at drm_dp_aux_find_by_of_node() in drivers/gpu/drm/tegra/dpaux.c, it
-searches dpaux_list while holding dpaux_lock. Upon finding a match, it drops
-the lock and returns a pointer to dpaux->aux without taking a reference=20
-count on the device.
+    [Why]
+    DP-HDMI dongles can execeed bandwidth requirements on high resolution
+    monitors. This can lead to pruning the high resolution modes.
 
-Because tegra_dpaux is a separate platform device, it can be concurrently
-unbound, triggering tegra_dpaux_remove() and freeing the memory via devres.
+    HDMI 1.3 bumped the clock to 340MHz, but display code never matched it.
 
-When tegra_sor_probe() receives this pointer and calls
-get_device(sor->aux->dev), if tegra_dpaux_remove() executes after the lock
-is released but before get_device() is called, will this dereference
-freed memory?
+    [How]
+    Set default to (DVI) 165MHz.  Once HDMI display is identified update
+    to 340MHz.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does the failure path of
-get_device() leave a dangling pointer?
+    Reported-by: Dianne Skoll <dianne@skoll.ca>
+    Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4780
+    Reviewed-by: Chris Park <chris.park@amd.com>
+    Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+    Signed-off-by: Matthew Stewart <matthew.stewart2@amd.com>
+    Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+    Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+    (cherry picked from commit ac1e65d8ade46c09fb184579b81acadf36dcb91e)
+    Cc: stable@vger.kernel.org
+    Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-In tegra_sor_probe():
+Does this ring any bell?
 
-    if (get_device(sor->aux->dev))
-        sor->output.ddc =3D &sor->aux->ddc;
+#regzbot introduced: ae5b1d291c814a2884c3d54a56e83bc99052b1eb
+#regzbot link: https://bugs.debian.org/1139950
 
-If get_device() fails (returns NULL if the aux device is concurrently
-removed), the failure is silently ignored. The output.ddc assignment is
-skipped, but sor->aux remains set to the invalid pointer.
-
-If a subsequent initialization step fails, the probe function jumps to
-the put_aux label:
-
-put_aux:
-    if (sor->aux)
-        put_device(sor->aux->dev);
-
-Will this read the device structure from the dangling pointer and call
-put_device() on freed memory, leading to a use-after-free?
-
-[Severity: High]
-This is a pre-existing issue, but does the error path in tegra_output_probe=
-()
-cause an I2C adapter reference count underflow?
-
-In tegra_sor_probe(), sor->output.ddc is aliased to &sor->aux->ddc without
-explicitly taking an I2C adapter reference via i2c_get_adapter().
-
-The code then calls tegra_output_probe(&sor->output). If this function
-encounters an error, it jumps to the put_i2c label:
-
-drivers/gpu/drm/tegra/output.c:tegra_output_probe() {
-    ...
-put_i2c:
-    if (output->ddc)
-        i2c_put_adapter(output->ddc);
-    ...
-}
-
-Since output->ddc points to the alias, i2c_put_adapter() will drop the
-device and module reference without a matching get. Can this cause the
-adapter to be prematurely freed?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/308ea09281bd0b3fb0e=
-c7e90e23012c0783f373c.1781983379.git.christophe.jaillet@wanadoo.fr?part=3D1
+Regards,
+Salvatore
