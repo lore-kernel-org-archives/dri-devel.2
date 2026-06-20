@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CB21CD98F2
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 18:49:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9613ECD98F2
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 18:49:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E186610E247;
-	Sat, 20 Jun 2026 18:49:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E923510E241;
+	Sat, 20 Jun 2026 18:49:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gCypBl2r";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HDBpYJSk";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B483510E258
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 18:49:41 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D2F910E252
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 18:49:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D5843601F3;
+ by sea.source.kernel.org (Postfix) with ESMTP id 363A8442F3;
+ Sat, 20 Jun 2026 18:49:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A8371F000E9;
  Sat, 20 Jun 2026 18:49:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2383D1F00A3A;
- Sat, 20 Jun 2026 18:49:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781981380;
- bh=CaM1+SVTD+InAXDdfA+jIamxSOfh/RY/jyvis0pChEQ=;
+ s=k20260515; t=1781981385;
+ bh=9D8EsF+qP9MOIUPMfTY1SjjXEC60MQeKxk/Yq8efR/M=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=gCypBl2rDgXQNtLQAes0M4Huor84MXlc4eSOa6gSNd9U3aGzWqo8putoNaSTYYSyx
- E1cOxWnEEZOjU3f9BzN40i9RqfT+brdaPYDw4EnUHF+O2nZAC3QjEcKQNXuxCbB4Vu
- QliPybpkIpNiGK0Lt2amamhCrnk8ZBeAShYcvh8zyu33HLNLb3SSUR7hqlzXfuM2rA
- nG6XlOfhEFT59CguvXvc4FLlAd0Pv5YAD2+ztGkOm5lKTmpf+9SgdGUfZqNc9c1nSS
- DB0DGsQGyJv49xR5QxeVi8JEfPvctw8xJtmhWyOuzy+jcuK4pxitJpoUSryn2iD9Jx
- f8nH0z7oWAieA==
+ b=HDBpYJSkNQsdxSyu39wACyH36mARQtdJrYv9IHif5Cj/HSCmidB6P1UJa67SeeULO
+ bt2h2k0/TfTZpYHplD49zNbCkzeNuccjMB/bvKJ72cfA1azLGHxwmuoFLoAvUprzab
+ lu2M9kqFK7jPKBJ6oEXiX5LcrOP114m/MKvZoovI8zDjOc3e5tDQgtt5N/YR1FzrYS
+ bD1gVHAX2/SC4s4klwEx4hMO+so0sjcM6vhrrFVlOmt7Rkz8LtoHmHFTTmrYaf6pkZ
+ MmU5Q4ctG9KCjMagCZdJGvbS29OIFca7bsqBU6UrLcoPoL09OAeqCMW9cZB+D92zjW
+ GTXdqCMwVfKCg==
 From: Danilo Krummrich <dakr@kernel.org>
 To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  acourbot@nvidia.com, ecourtney@nvidia.com, ojeda@kernel.org,
@@ -39,16 +39,15 @@ To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  lyude@redhat.com
 Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, stable@vger.kernel.org,
- sashiko-bot@kernel.org
-Subject: [PATCH v4 01/16] rust: drm: ioctl: fix unbounded lifetimes in ioctl
- handler arguments
-Date: Sat, 20 Jun 2026 20:47:54 +0200
-Message-ID: <20260620184924.2247517-2-dakr@kernel.org>
+ rust-for-linux@vger.kernel.org
+Subject: [PATCH v4 02/16] rust: drm: rename Uninit DeviceContext to Normal
+Date: Sat, 20 Jun 2026 20:47:55 +0200
+Message-ID: <20260620184924.2247517-3-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260620184924.2247517-1-dakr@kernel.org>
 References: <20260620184924.2247517-1-dakr@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,103 +64,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-References to dev, data, and file in the declare_drm_ioctls! macro are
-created via unsafe pointer dereferences, producing unbounded lifetimes.
-If an ioctl handler explicitly annotates its parameters with 'static,
-the compiler accepts this, allowing the handler to stash references that
-outlive the ioctl call.
+Rename the Uninit DeviceContext to Normal to better reflect its purpose
+as the general-purpose, reference-counted device context. The Uninit
+name was a leftover from when DRM device private data initialization was
+planned to split across UnregisteredDevice::new() and
+Registration::new(); with the subsequent introduction of
+RegistrationData, this distinction is no longer needed.
 
-Fix this by routing all references through a helper function whose
-lifetime parameter 'a is tied to a local anchor variable. Since 'a is
-bounded by the anchor's stack lifetime, handlers can no longer demand
-'static on any parameter.
+This also simplifies the DeviceContext documentation, trimming the
+multi-stage initialization description that no longer applies.
+Subsequent patches will refine the semantics of the Registered context
+accordingly.
 
-Cc: stable@vger.kernel.org
-Fixes: 9a69570682b1 ("rust: drm: ioctl: Add DRM ioctl abstraction")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/all/20260620011346.A47D01F000E9@smtp.kernel.org/
+No functional change.
+
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- rust/kernel/drm/ioctl.rs | 59 +++++++++++++++++++++++++++++++---------
- 1 file changed, 46 insertions(+), 13 deletions(-)
+ rust/kernel/drm/device.rs | 92 ++++++++++++---------------------------
+ rust/kernel/drm/mod.rs    |  2 +-
+ 2 files changed, 28 insertions(+), 66 deletions(-)
 
-diff --git a/rust/kernel/drm/ioctl.rs b/rust/kernel/drm/ioctl.rs
-index cf328101dde4..023e6da5c1e4 100644
---- a/rust/kernel/drm/ioctl.rs
-+++ b/rust/kernel/drm/ioctl.rs
-@@ -70,6 +70,39 @@ pub mod internal {
-     pub use bindings::drm_device;
-     pub use bindings::drm_file;
-     pub use bindings::drm_ioctl_desc;
-+
-+    /// Call an ioctl handler with lifetime-bounded references.
-+    ///
-+    /// The lifetime `'a` is tied to the `_anchor` parameter. This prevents handlers from
-+    /// declaring `'static` on `dev`, `data`, or `file`.
-+    ///
-+    /// # Safety
-+    ///
-+    /// - `raw_data` must point to a valid, exclusively-owned instance of `Data` for the duration
-+    ///   of the call.
-+    /// - `raw_file` must be a valid pointer to a `struct drm_file`.
-+    #[doc(hidden)]
-+    #[inline(always)]
-+    pub unsafe fn __call_ioctl<
-+        'a,
-+        Dev: 'a,
-+        Data: 'a,
-+        F: super::super::file::DriverFile + 'a,
-+        Ret,
-+    >(
-+        _anchor: &'a (),
-+        dev: &'a Dev,
-+        raw_data: *mut ::core::ffi::c_void,
-+        raw_file: *mut drm_file,
-+        f: impl FnOnce(&'a Dev, &'a mut Data, &'a super::super::File<F>) -> Ret,
-+    ) -> Ret {
-+        // SAFETY: Caller guarantees raw_data points to a valid instance of Data with the correct
-+        // size and alignment, exclusively owned for the duration of the ioctl call.
-+        let data = unsafe { &mut *(raw_data.cast::<Data>()) };
-+        // SAFETY: Caller guarantees raw_file is a valid pointer to a `struct drm_file`.
-+        let file = unsafe { super::super::File::<F>::from_raw(raw_file) };
-+        f(dev, data, file)
-+    }
- }
+diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+index 477cf771fb10..5e91474e6dbb 100644
+--- a/rust/kernel/drm/device.rs
++++ b/rust/kernel/drm/device.rs
+@@ -74,36 +74,22 @@ macro_rules! drm_legacy_fields {
  
- /// Declare the DRM ioctls for a driver.
-@@ -135,19 +168,19 @@ macro_rules! declare_drm_ioctls {
-                             // dev/file match the current driver these ioctls are being declared
-                             // for, and it's not clear how to enforce this within the type system.
-                             let dev = $crate::drm::device::Device::from_raw(raw_dev);
--                            // SAFETY: The ioctl argument has size `_IOC_SIZE(cmd)`, which we
--                            // asserted above matches the size of this type, and all bit patterns of
--                            // UAPI structs must be valid.
--                            // The `ioctl` argument is exclusively owned by the handler
--                            // and guaranteed by the C implementation (`drm_ioctl()`) to remain
--                            // valid for the entire lifetime of the reference taken here.
--                            // There is no concurrent access or aliasing; no other references
--                            // to this object exist during this call.
--                            let data = unsafe { &mut *(raw_data.cast::<$crate::uapi::$struct>()) };
--                            // SAFETY: This is just the DRM file structure
--                            let file = unsafe { $crate::drm::File::from_raw(raw_file) };
--
--                            match $func(dev, data, file) {
-+                            let __anchor = ();
+ /// A trait implemented by all possible contexts a [`Device`] can be used in.
+ ///
+-/// Setting up a new [`Device`] is a multi-stage process. Each step of the process that a user
+-/// interacts with in Rust has a respective [`DeviceContext`] typestate. For example,
+-/// `Device<T, Registered>` would be a [`Device`] that reached the [`Registered`] [`DeviceContext`].
++/// A [`Device`] can be in one of two contexts:
+ ///
+-/// Each stage of this process is described below:
+-///
+-/// ```text
+-///        1                     2                         3
+-/// +--------------+   +------------------+   +-----------------------+
+-/// |Device created| → |Device initialized| → |Registered w/ userspace|
+-/// +--------------+   +------------------+   +-----------------------+
+-///    (Uninit)                                      (Registered)
+-/// ```
+-///
+-/// 1. The [`Device`] is in the [`Uninit`] context and is not guaranteed to be initialized or
+-///    registered with userspace. Only a limited subset of DRM core functionality is available.
+-/// 2. The [`Device`] is guaranteed to be fully initialized, but is not guaranteed to be registered
+-///    with userspace. All DRM core functionality which doesn't interact with userspace is
+-///    available. We currently don't have a context for representing this.
+-/// 3. The [`Device`] is guaranteed to be fully initialized, and is guaranteed to have been
+-///    registered with userspace at some point - thus putting it in the [`Registered`] context.
+-///
+-/// An important caveat of [`DeviceContext`] which must be kept in mind: when used as a typestate
+-/// for a reference type, it can only guarantee that a [`Device`] reached a particular stage in the
+-/// initialization process _at the time the reference was taken_. No guarantee is made in regards to
+-/// what stage of the process the [`Device`] is currently in. This means for instance that a
+-/// `&Device<T, Uninit>` may actually be registered with userspace, it just wasn't known to be
+-/// registered at the time the reference was taken.
++/// - [`Normal`]: The general-purpose, reference-counted context. A [`Device`] in this context may
++///   or may not be registered with userspace.
++/// - [`Registered`]: The device has been registered with userspace at some point.
+ pub trait DeviceContext: Sealed + Send + Sync {}
+ 
++/// The general-purpose, reference-counted [`DeviceContext`].
++///
++/// A [`Device`] in this context may or may not be registered with userspace. This context is used
++/// for reference-counted device handles and during device setup via [`UnregisteredDevice`].
++pub struct Normal;
 +
-+                            // SAFETY:
-+                            // - The ioctl argument has size `_IOC_SIZE(cmd)`, which we asserted
-+                            //   above matches the size of this type, and all bit patterns of UAPI
-+                            //   structs must be valid. The argument is exclusively owned by this
-+                            //   handler, guaranteed by `drm_ioctl()` to remain valid for the
-+                            //   duration of the call.
-+                            // - `raw_file` is a valid `struct drm_file` pointer provided by the
-+                            //   DRM core.
-+                            match unsafe { $crate::drm::ioctl::internal::__call_ioctl(
-+                                &__anchor, dev, raw_data, raw_file, $func,
-+                            ) } {
-                                 Err(e) => e.to_errno(),
-                                 Ok(i) => i.try_into()
-                                             .unwrap_or($crate::error::code::ERANGE.to_errno()),
++impl Sealed for Normal {}
++impl DeviceContext for Normal {}
++
+ /// The [`DeviceContext`] of a [`Device`] that was registered with userspace at some point.
+ ///
+ /// This represents a [`Device`] which is guaranteed to have been registered with userspace at
+@@ -121,20 +107,6 @@ pub trait DeviceContext: Sealed + Send + Sync {}
+ impl Sealed for Registered {}
+ impl DeviceContext for Registered {}
+ 
+-/// The [`DeviceContext`] of a [`Device`] that may be unregistered and partly uninitialized.
+-///
+-/// A [`Device`] in this context is only guaranteed to be partly initialized, and may or may not
+-/// be registered with userspace. Thus operations which depend on the [`Device`] being fully
+-/// initialized, or which depend on the [`Device`] being registered with userspace are not
+-/// available through this [`DeviceContext`].
+-///
+-/// A [`Device`] in this context can be used to create a
+-/// [`Registration`](drm::driver::Registration).
+-pub struct Uninit;
+-
+-impl Sealed for Uninit {}
+-impl DeviceContext for Uninit {}
+-
+ /// A [`Device`] which is known at compile-time to be unregistered with userspace.
+ ///
+ /// This type allows performing operations which are only safe to do before userspace registration,
+@@ -147,10 +119,10 @@ impl DeviceContext for Uninit {}
+ ///
+ /// The device in `self.0` is guaranteed to be a newly created [`Device`] that has not yet been
+ /// registered with userspace until this type is dropped.
+-pub struct UnregisteredDevice<T: drm::Driver>(ARef<Device<T, Uninit>>, NotThreadSafe);
++pub struct UnregisteredDevice<T: drm::Driver>(ARef<Device<T, Normal>>, NotThreadSafe);
+ 
+ impl<T: drm::Driver> Deref for UnregisteredDevice<T> {
+-    type Target = Device<T, Uninit>;
++    type Target = Device<T, Normal>;
+ 
+     fn deref(&self) -> &Self::Target {
+         &self.0
+@@ -178,15 +150,13 @@ const fn compute_features() -> u32 {
+         master_drop: None,
+         debugfs_init: None,
+ 
+-        // Ignore the Uninit DeviceContext below. It is only provided because it is required by the
+-        // compiler, and it is not actually used by these functions.
+-        gem_create_object: T::Object::<Uninit>::ALLOC_OPS.gem_create_object,
+-        prime_handle_to_fd: T::Object::<Uninit>::ALLOC_OPS.prime_handle_to_fd,
+-        prime_fd_to_handle: T::Object::<Uninit>::ALLOC_OPS.prime_fd_to_handle,
+-        gem_prime_import: T::Object::<Uninit>::ALLOC_OPS.gem_prime_import,
+-        gem_prime_import_sg_table: T::Object::<Uninit>::ALLOC_OPS.gem_prime_import_sg_table,
+-        dumb_create: T::Object::<Uninit>::ALLOC_OPS.dumb_create,
+-        dumb_map_offset: T::Object::<Uninit>::ALLOC_OPS.dumb_map_offset,
++        gem_create_object: T::Object::<Normal>::ALLOC_OPS.gem_create_object,
++        prime_handle_to_fd: T::Object::<Normal>::ALLOC_OPS.prime_handle_to_fd,
++        prime_fd_to_handle: T::Object::<Normal>::ALLOC_OPS.prime_fd_to_handle,
++        gem_prime_import: T::Object::<Normal>::ALLOC_OPS.gem_prime_import,
++        gem_prime_import_sg_table: T::Object::<Normal>::ALLOC_OPS.gem_prime_import_sg_table,
++        dumb_create: T::Object::<Normal>::ALLOC_OPS.dumb_create,
++        dumb_map_offset: T::Object::<Normal>::ALLOC_OPS.dumb_map_offset,
+ 
+         show_fdinfo: None,
+         fbdev_probe: None,
+@@ -211,7 +181,7 @@ const fn compute_features() -> u32 {
+     pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<Self> {
+         // `__drm_dev_alloc` uses `kmalloc()` to allocate memory, hence ensure a `kmalloc()`
+         // compatible `Layout`.
+-        let layout = Kmalloc::aligned_layout(Layout::new::<Device<T, Uninit>>());
++        let layout = Kmalloc::aligned_layout(Layout::new::<Device<T, Normal>>());
+ 
+         // Use a temporary vtable without a `release` callback until `data` is initialized, so
+         // init failure can release the DRM device without dropping uninitialized fields.
+@@ -223,12 +193,12 @@ pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<S
+         // SAFETY:
+         // - `alloc_vtable` reference remains valid until no longer used,
+         // - `dev` is valid by its type invarants,
+-        let raw_drm: *mut Device<T, Uninit> = unsafe {
++        let raw_drm: *mut Device<T, Normal> = unsafe {
+             bindings::__drm_dev_alloc(
+                 dev.as_raw(),
+                 &alloc_vtable,
+                 layout.size(),
+-                mem::offset_of!(Device<T, Uninit>, dev),
++                mem::offset_of!(Device<T, Normal>, dev),
+             )
+         }
+         .cast();
+@@ -264,16 +234,8 @@ pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<S
+ 
+ /// A typed DRM device with a specific [`drm::Driver`] implementation and [`DeviceContext`].
+ ///
+-/// Since DRM devices can be used before being fully initialized and registered with userspace, `C`
+-/// represents the furthest [`DeviceContext`] we can guarantee that this [`Device`] has reached.
+-///
+-/// Keep in mind: this means that an unregistered device can still have the registration state
+-/// [`Registered`] as long as it was registered with userspace once in the past, and that the
+-/// behavior of such a device is still well-defined. Additionally, a device with the registration
+-/// state [`Uninit`] simply does not have a guaranteed registration state at compile time, and could
+-/// be either registered or unregistered. Since there is no way to guarantee a long-lived reference
+-/// to an unregistered device would remain unregistered, we do not provide a [`DeviceContext`] for
+-/// this.
++/// A device in the [`Registered`] context is guaranteed to have been registered with userspace
++/// at some point. The [`Normal`] context is the general-purpose, reference-counted context.
+ ///
+ /// # Invariants
+ ///
+diff --git a/rust/kernel/drm/mod.rs b/rust/kernel/drm/mod.rs
+index a66e7166f66b..e5bfaf130342 100644
+--- a/rust/kernel/drm/mod.rs
++++ b/rust/kernel/drm/mod.rs
+@@ -11,8 +11,8 @@
+ 
+ pub use self::device::Device;
+ pub use self::device::DeviceContext;
++pub use self::device::Normal;
+ pub use self::device::Registered;
+-pub use self::device::Uninit;
+ pub use self::device::UnregisteredDevice;
+ pub use self::driver::Driver;
+ pub use self::driver::DriverInfo;
 -- 
 2.54.0
 
