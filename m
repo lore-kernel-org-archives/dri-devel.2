@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32F14CD98F2
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 18:49:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CB21CD98F2
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 18:49:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5086A10E24C;
-	Sat, 20 Jun 2026 18:49:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E186610E247;
+	Sat, 20 Jun 2026 18:49:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LUgOgMCJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gCypBl2r";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4091288DE5
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 18:49:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B483510E258
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 18:49:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DCD7640BF0;
+ by tor.source.kernel.org (Postfix) with ESMTP id D5843601F3;
+ Sat, 20 Jun 2026 18:49:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2383D1F00A3A;
  Sat, 20 Jun 2026 18:49:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95EA11F000E9;
- Sat, 20 Jun 2026 18:49:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781981375;
- bh=hn9G1znYb+a9sJ9JfqvKyzoUCkNcuNUh7aU3e3ImFtk=;
- h=From:To:Cc:Subject:Date;
- b=LUgOgMCJMYlR9SFcndiL9sErWv3HUs7gN/BzJZZ+CHVLSjNdIMeHz2dT0UiTserOQ
- 1Zv0M3fQR0/n5MQTGwQKdiMVsS9bH+ETst2n1bLIan8YzuHaP31QUC4KKPnhcJcJmr
- VEImjMzC8Og+lR9kHtSHv6b8xLFMw2c0lNu73kcRkPIsUMNkSohNrdzSDVm2wiJYDy
- b+EXJbnFzdyrAvaJhwAb0yYXj6X7qg/jjkwvO2kFx8W26EcmIiz6mCvgFvR3Rag7aB
- UevzSqWOLeIn+J6WLBCXxn2Q38sTDKV0NmfLzGTu5nL8sAEuzbTvY2CeagDhEbCtkW
- U0Es+0GX06lqA==
+ s=k20260515; t=1781981380;
+ bh=CaM1+SVTD+InAXDdfA+jIamxSOfh/RY/jyvis0pChEQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=gCypBl2rDgXQNtLQAes0M4Huor84MXlc4eSOa6gSNd9U3aGzWqo8putoNaSTYYSyx
+ E1cOxWnEEZOjU3f9BzN40i9RqfT+brdaPYDw4EnUHF+O2nZAC3QjEcKQNXuxCbB4Vu
+ QliPybpkIpNiGK0Lt2amamhCrnk8ZBeAShYcvh8zyu33HLNLb3SSUR7hqlzXfuM2rA
+ nG6XlOfhEFT59CguvXvc4FLlAd0Pv5YAD2+ztGkOm5lKTmpf+9SgdGUfZqNc9c1nSS
+ DB0DGsQGyJv49xR5QxeVi8JEfPvctw8xJtmhWyOuzy+jcuK4pxitJpoUSryn2iD9Jx
+ f8nH0z7oWAieA==
 From: Danilo Krummrich <dakr@kernel.org>
 To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  acourbot@nvidia.com, ecourtney@nvidia.com, ojeda@kernel.org,
@@ -39,11 +39,15 @@ To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  lyude@redhat.com
 Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org
-Subject: [PATCH v4 00/16] rust: drm: Higher-Ranked Lifetime private data
-Date: Sat, 20 Jun 2026 20:47:53 +0200
-Message-ID: <20260620184924.2247517-1-dakr@kernel.org>
+ rust-for-linux@vger.kernel.org, stable@vger.kernel.org,
+ sashiko-bot@kernel.org
+Subject: [PATCH v4 01/16] rust: drm: ioctl: fix unbounded lifetimes in ioctl
+ handler arguments
+Date: Sat, 20 Jun 2026 20:47:54 +0200
+Message-ID: <20260620184924.2247517-2-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260620184924.2247517-1-dakr@kernel.org>
+References: <20260620184924.2247517-1-dakr@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -61,119 +65,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-DRM ioctls run in process context without any guarantee that the parent
-bus device is still bound. This series solves the problem by introducing
-RegistrationGuard -- a guard representing a drm_dev_enter/exit SRCU
-critical section that proves the parent bus device is bound for the
-lifetime of the guard.
+References to dev, data, and file in the declare_drm_ioctls! macro are
+created via unsafe pointer dereferences, producing unbounded lifetimes.
+If an ioctl handler explicitly annotates its parameters with 'static,
+the compiler accepts this, allowing the handler to stash references that
+outlive the ioctl call.
 
-As initial plumbing for this, the DRM DeviceContext typestates are
-reworked: Uninit is renamed to Normal, defaults are adjusted,
-AlwaysRefCounted is restricted to Normal, and a Deref chain from
-Device<T, Registered> to Device<T, Normal> is established. This gives
-Device<T, Registered> the semantic that the device is currently
-registered and the parent bus device is bound, which makes the
-RegistrationGuard and ioctl dispatch much cleaner. An Ioctl context
-restricts registration_guard() to ioctl dispatch, where the DRM core
-guarantees prior registration.
+Fix this by routing all references through a helper function whose
+lifetime parameter 'a is tied to a local anchor variable. Since 'a is
+bounded by the anchor's stack lifetime, handlers can no longer demand
+'static on any parameter.
 
-On top of that, add RegistrationData as a ForLt associated type on
-drm::Driver, allowing drivers to store data whose lifetime is tied to
-the parent bus device binding scope. The data is allocated in
-Registration::new(), lifetime-erased to 'static for storage, and made
-accessible through Device<T, Registered>::registration_data_with(). The
-closure's HRTB ties the lifetime to the closure scope; internally the
-'static pointer is cast back to the closure-scoped lifetime. The
-reference is valid for the duration of the drm_dev_enter/exit critical
-section held by RegistrationGuard.
+Cc: stable@vger.kernel.org
+Fixes: 9a69570682b1 ("rust: drm: ioctl: Add DRM ioctl abstraction")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/all/20260620011346.A47D01F000E9@smtp.kernel.org/
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+---
+ rust/kernel/drm/ioctl.rs | 59 +++++++++++++++++++++++++++++++---------
+ 1 file changed, 46 insertions(+), 13 deletions(-)
 
-Also update the ioctl dispatch macro to wrap every handler in a
-RegistrationGuard, returning ENODEV if the device has been unplugged,
-and pass the registration data to handlers.
-
-This series is based on [1]; a branch with all patches can be found
-in [2].
-
-[1] https://lore.kernel.org/driver-core/20260618230834.812007-1-dakr@kernel.org/
-[2] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/log/?h=drm-lifetime
-
-Changes in v4:
-- Fix pre-existing unbounded lifetimes in ioctl handler arguments.
-- Fix registration_guard() being callable on unregistered devices by
-  introducing an Ioctl device context typestate; registration_guard() is
-  now only available on Device<T, Ioctl>, which is exclusively
-  constructed in ioctl dispatch context where the DRM core guarantees
-  prior registration.
-- Fix type inference allowing handlers to obtain Device<Registered>
-  before RegistrationGuard is acquired.
-- Make RegistrationGuard !Send via NotThreadSafe to prevent potential
-  lockdep splats from cross-thread SRCU unlock.
-- Store &Device<T, Registered> directly in RegistrationGuard instead of
-  calling assume_ctx() in Deref.
-
-Changes in v3:
-- Rename UnbindGuard to RegistrationGuard
-- RegistrationGuard no longer dereferences to &Device<Bound>; it
-  dereferences to &drm::Device<T, Registered> instead
-- Drop Registration::new() and rename Registration::new_with_lt() to
-  Registration::new()
-- Rework DeviceContext typestates: rename Uninit to Normal, restrict
-  AlwaysRefCounted to Normal, establish Deref chain from Registered
-  to Normal
-- Add AsRef<ParentDevice<Bound>> on Device<T, Registered> for parent
-  device access
-- Move registration_data_with() from RegistrationGuard to
-  drm::Device<T, Registered>
-- Ioctl handlers no longer receive &Device<Bound>, only registration
-  data and drm::Device<T, Registered>
-- Use Device<Registered>::as_ref() to access parent device in nova-drm
-
-Changes in v2:
-- Replace unsafe direct registration data access in ioctl dispatch with
-  safe UnbindGuard::registration_data_with() closure
-- Eliminate unbind_guard() free function; use type-inference anchor to
-  enable direct dev.unbind_guard() method call in the ioctl macro
-- UnbindGuard::registration_data_with() provides both parent device and
-  registration data to the closure
-- Add nova-drm conversion patch demonstrating lifetime-aware registration
-  data with &'bound auxiliary::Device<Bound>
-- Various safety comment and documentation improvements
-
-Danilo Krummrich (16):
-  rust: drm: ioctl: fix unbounded lifetimes in ioctl handler arguments
-  rust: drm: rename Uninit DeviceContext to Normal
-  rust: drm: Add Driver::ParentDevice associated type
-  rust: drm: change default DeviceContext to Normal
-  rust: drm: restrict AlwaysRefCounted to Normal Device context
-  rust: drm: restrict AlwaysRefCounted to Normal GEM Object context
-  rust: drm: split Deref for Device context typestates
-  rust: drm: pin ioctl Device reference to Normal context
-  rust: drm: add Ioctl device context typestate
-  rust: drm: Add RegistrationGuard for drm_dev_enter/exit critical
-    sections
-  rust: drm: Wrap ioctl dispatch in RegistrationGuard
-  rust: drm: return ParentDevice from Device AsRef
-  rust: drm: add AsRef<ParentDevice<Bound>> for Device<Registered>
-  rust: drm: Add RegistrationData to drm::Driver
-  rust: drm: Pass registration data to ioctl handlers
-  drm: nova: Use drm::Device<Registered> to access the parent bus device
-
- drivers/gpu/drm/nova/driver.rs |  41 +++--
- drivers/gpu/drm/nova/file.rs   |  22 ++-
- drivers/gpu/drm/nova/gem.rs    |  18 +-
- drivers/gpu/drm/tyr/driver.rs  |  28 ++--
- drivers/gpu/drm/tyr/file.rs    |   8 +-
- drivers/gpu/drm/tyr/gem.rs     |  11 +-
- rust/kernel/drm/device.rs      | 293 ++++++++++++++++++++++++---------
- rust/kernel/drm/driver.rs      | 123 +++++++++-----
- rust/kernel/drm/gem/mod.rs     |  98 ++++++-----
- rust/kernel/drm/gem/shmem.rs   |  79 ++++-----
- rust/kernel/drm/ioctl.rs       | 108 ++++++++++--
- rust/kernel/drm/mod.rs         |   4 +-
- 12 files changed, 550 insertions(+), 283 deletions(-)
-
-
-base-commit: 9ece8b7075e983bc01223a4aa1eb1c99285f83ad
+diff --git a/rust/kernel/drm/ioctl.rs b/rust/kernel/drm/ioctl.rs
+index cf328101dde4..023e6da5c1e4 100644
+--- a/rust/kernel/drm/ioctl.rs
++++ b/rust/kernel/drm/ioctl.rs
+@@ -70,6 +70,39 @@ pub mod internal {
+     pub use bindings::drm_device;
+     pub use bindings::drm_file;
+     pub use bindings::drm_ioctl_desc;
++
++    /// Call an ioctl handler with lifetime-bounded references.
++    ///
++    /// The lifetime `'a` is tied to the `_anchor` parameter. This prevents handlers from
++    /// declaring `'static` on `dev`, `data`, or `file`.
++    ///
++    /// # Safety
++    ///
++    /// - `raw_data` must point to a valid, exclusively-owned instance of `Data` for the duration
++    ///   of the call.
++    /// - `raw_file` must be a valid pointer to a `struct drm_file`.
++    #[doc(hidden)]
++    #[inline(always)]
++    pub unsafe fn __call_ioctl<
++        'a,
++        Dev: 'a,
++        Data: 'a,
++        F: super::super::file::DriverFile + 'a,
++        Ret,
++    >(
++        _anchor: &'a (),
++        dev: &'a Dev,
++        raw_data: *mut ::core::ffi::c_void,
++        raw_file: *mut drm_file,
++        f: impl FnOnce(&'a Dev, &'a mut Data, &'a super::super::File<F>) -> Ret,
++    ) -> Ret {
++        // SAFETY: Caller guarantees raw_data points to a valid instance of Data with the correct
++        // size and alignment, exclusively owned for the duration of the ioctl call.
++        let data = unsafe { &mut *(raw_data.cast::<Data>()) };
++        // SAFETY: Caller guarantees raw_file is a valid pointer to a `struct drm_file`.
++        let file = unsafe { super::super::File::<F>::from_raw(raw_file) };
++        f(dev, data, file)
++    }
+ }
+ 
+ /// Declare the DRM ioctls for a driver.
+@@ -135,19 +168,19 @@ macro_rules! declare_drm_ioctls {
+                             // dev/file match the current driver these ioctls are being declared
+                             // for, and it's not clear how to enforce this within the type system.
+                             let dev = $crate::drm::device::Device::from_raw(raw_dev);
+-                            // SAFETY: The ioctl argument has size `_IOC_SIZE(cmd)`, which we
+-                            // asserted above matches the size of this type, and all bit patterns of
+-                            // UAPI structs must be valid.
+-                            // The `ioctl` argument is exclusively owned by the handler
+-                            // and guaranteed by the C implementation (`drm_ioctl()`) to remain
+-                            // valid for the entire lifetime of the reference taken here.
+-                            // There is no concurrent access or aliasing; no other references
+-                            // to this object exist during this call.
+-                            let data = unsafe { &mut *(raw_data.cast::<$crate::uapi::$struct>()) };
+-                            // SAFETY: This is just the DRM file structure
+-                            let file = unsafe { $crate::drm::File::from_raw(raw_file) };
+-
+-                            match $func(dev, data, file) {
++                            let __anchor = ();
++
++                            // SAFETY:
++                            // - The ioctl argument has size `_IOC_SIZE(cmd)`, which we asserted
++                            //   above matches the size of this type, and all bit patterns of UAPI
++                            //   structs must be valid. The argument is exclusively owned by this
++                            //   handler, guaranteed by `drm_ioctl()` to remain valid for the
++                            //   duration of the call.
++                            // - `raw_file` is a valid `struct drm_file` pointer provided by the
++                            //   DRM core.
++                            match unsafe { $crate::drm::ioctl::internal::__call_ioctl(
++                                &__anchor, dev, raw_data, raw_file, $func,
++                            ) } {
+                                 Err(e) => e.to_errno(),
+                                 Ok(i) => i.try_into()
+                                             .unwrap_or($crate::error::code::ERANGE.to_errno()),
 -- 
 2.54.0
 
