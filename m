@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4692CCD98F2
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 18:59:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38D3ECD98E4
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 19:01:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A193110E271;
-	Sat, 20 Jun 2026 18:59:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CE1E10E270;
+	Sat, 20 Jun 2026 19:01:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oES8DkYH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="o2k7DTkT";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2346810E270
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 18:59:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A56C410E270
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 19:01:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F17C942AEE;
- Sat, 20 Jun 2026 18:59:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF4EA1F000E9;
- Sat, 20 Jun 2026 18:59:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0D2F8601E1;
+ Sat, 20 Jun 2026 19:01:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88E021F000E9;
+ Sat, 20 Jun 2026 19:01:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781981985;
- bh=OzFC1dOKiO+czBRFhVGFyLfrcehWJ7DXtK3IViJF3G4=;
+ s=k20260515; t=1781982087;
+ bh=M4cZrRZipZ64Zj+8igbsv5yMbtrwG08sm/mtN+mJWoo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=oES8DkYHc4VPM4bnY87NOR4W+JdqqBt7P9H6CqaIjnhyJBQG0320SepkutbjVCXel
- Yuc8Hv613KtsI4xqGt5a0+wIVRiwaYrkfKGAqC7RhOWVo+2pZgzRXwm7e/lQ2fryG4
- sRlT88fsU8SrPqUyInMsCyQfvZJJHz2S4548GUSVsg9kg6/q62rAm0tuFuF/hJw3QO
- SqqDQXxsmmB3vDKrTfco3V16KA6Yox/9AxIiIKJoBRwJBbpCtd1p8g4klDpld7hICg
- nzPp90ax2VijQZxy2GsrwNJ1a5ECHHjuSCJI+J5tjn6/O5THPfqebvw7m5pxgMsMbK
- 30LXCAIfZDHxg==
+ b=o2k7DTkTKxZ0HsAhvbpYkiqGCEoHtmKJ69pjwyCUY0C1PfxKwyQKcIJyNIrj2VBQP
+ 7BZkJDEy0JqP3NMBOX9Azh0HWE689Ir7b9W4dkUoThnqIjcAuwQ1ab6p5+2S9ISgub
+ wN3ILbNK3pVXoy1U9LvDebXQLSAKnoGKZw/tv0cbdn93MEAGRd4lRFckjEP6uyKeQh
+ 2djswGl4CY/Yfv32bBmUfYytQuhPCKchPbxGg8TefQuNr4tlWMiftGvBQ1wfgGau2d
+ 2BE1dDLenJhAyuAZTtzWdZElwOcpwHjQER1zWpWThyGSuTeo2KVvAbFhe56kdzYuYA
+ cONegabsS8xOw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 08/16] rust: drm: pin ioctl Device reference to
- Normal context
+Subject: Re: [PATCH v4 12/16] rust: drm: return ParentDevice from Device AsRef
 To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org,
- "Alexandre Courbot" <acourbot@nvidia.com>
-In-Reply-To: <20260620184924.2247517-9-dakr@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, "Alexandre Courbot" <acourbot@nvidia.com>,
+ ojeda@kernel.org
+In-Reply-To: <20260620184924.2247517-13-dakr@kernel.org>
 References: <20260620184924.2247517-1-dakr@kernel.org>
- <20260620184924.2247517-9-dakr@kernel.org>
+ <20260620184924.2247517-13-dakr@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 20 Jun 2026 18:59:45 +0000
-Message-Id: <20260620185945.AF4EA1F000E9@smtp.kernel.org>
+Date: Sat, 20 Jun 2026 19:01:27 +0000
+Message-Id: <20260620190127.88E021F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,94 +58,63 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Out-of-Bounds Memory Access via Type Inference in `declare_drm_ioc=
-tls!`
-- [High] Type Confusion via Unconstrained Device and File Generic Parameters
+- [Low] Safety comment relies on an undocumented type invariant regarding t=
+he parent device.
 --
 
-commit 0938877e05968d385af3ba72b727ba8164977c11
+commit b94604b443e7e44bdf48a3790177f869613bf287
 Author: Danilo Krummrich <dakr@kernel.org>
+rust: drm: return ParentDevice from Device AsRef
 
-rust: drm: pin ioctl Device reference to Normal context
-   =20
-Explicitly annotate the Device reference produced by from_raw() in the
-ioctl dispatch macro as Device<_, Normal>. Without this annotation, the
-context is inferred from the handler's first parameter type, which would
-allow a handler declaring &Device<T, Registered> to obtain a Registered
-reference without runtime proof via RegistrationGuard.
+This commit changes the AsRef implementation for drm::Device to return
+a reference to the typed parent bus device rather than the raw base device.
 
-> diff --git a/rust/kernel/drm/ioctl.rs b/rust/kernel/drm/ioctl.rs
-> index 023e6da5c1e4b..70cf1aa4d788f 100644
-> --- a/rust/kernel/drm/ioctl.rs
-> +++ b/rust/kernel/drm/ioctl.rs
-> @@ -167,7 +167,8 @@ macro_rules! declare_drm_ioctls {
->                              // FIXME: Currently there is nothing enforci=
-ng that the types of the
->                              // dev/file match the current driver these i=
-octls are being declared
->                              // for, and it's not clear how to enforce th=
-is within the type system.
-> -                            let dev =3D $crate::drm::device::Device::fro=
-m_raw(raw_dev);
-> +                            let dev: &$crate::drm::device::Device<_, $cr=
-ate::drm::Normal> =3D
-> +                                $crate::drm::device::Device::from_raw(ra=
-w_dev);
+> diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+> index c32cc0f0eba03..45bacd7b227f0 100644
+> --- a/rust/kernel/drm/device.rs
+> +++ b/rust/kernel/drm/device.rs
 
-[Severity: High]
-This isn't a bug introduced by this patch, but looking at the FIXME comment
-and the use of the generic wildcard for the driver type in
-Device<_, Normal>, could this lead to type confusion?
+[ ... ]
 
-If a developer provides a handler expecting a Device for DriverB but
-registers it in DriverA's ioctl array, it seems Device::from_raw() will cast
-the C pointers for DriverA into references for DriverB. Any subsequent acce=
-ss
-to the device or file private data would then cause memory corruption.
-
-Also, for the File type:
-
-rust/kernel/drm/ioctl.rs:internal::__call_ioctl() {
-    ...
-    let file =3D unsafe { super::super::File::<F>::from_raw(raw_file) };
-    ...
-}
-
-Is there a way to enforce that the Device and File generic parameters of the
-user-provided ioctl handler match the actual driver registering the ioctls?
-
->                              let __anchor =3D ();
+> @@ -450,11 +450,15 @@ unsafe fn dec_ref(obj: NonNull<Self>) {
+>      }
+>  }
 > =20
->                              // SAFETY:
+> -impl<T: drm::Driver, C: DeviceContext> AsRef<device::Device> for Device<=
+T, C> {
+> -    fn as_ref(&self) -> &device::Device {
+> +impl<T: drm::Driver> AsRef<T::ParentDevice<device::Normal>> for Device<T=
+> {
+> +    fn as_ref(&self) -> &T::ParentDevice<device::Normal> {
+>          // SAFETY: `bindings::drm_device::dev` is valid as long as the D=
+RM device itself is valid,
+>          // which is guaranteed by the type invariant.
+> -        unsafe { device::Device::from_raw((*self.as_raw()).dev) }
+> +        let dev =3D unsafe { device::Device::from_raw((*self.as_raw()).d=
+ev) };
+> +
+> +        // SAFETY: By the type invariant of `Device`, the parent device =
+is embedded in
+> +        // `T::ParentDevice`.
+> +        unsafe { device::AsBusDevice::from_device(dev) }
 
-[Severity: High]
-This is a pre-existing issue, but does declare_drm_ioctls! constrain the
-inferred Data type for the ioctl payload?
+[Severity: Low]
+This isn't a bug, but the SAFETY comment references a type invariant of
+Device that doesn't appear to be documented.
 
-Looking at __call_ioctl(), the Data generic type is inferred from the second
-parameter of the user-provided handler:
+Looking at the # Invariants section for the Device struct, it only states
+that self.dev is a valid instance of a struct device, its data layout
+remains the same across contexts, and context invariants apply.
 
-rust/kernel/drm/ioctl.rs:internal::__call_ioctl() {
-    ...
-    let data =3D unsafe { &mut *(raw_data.cast::<Data>()) };
-    ...
-}
+Should the # Invariants section of Device be updated to explicitly state
+that the parent device is embedded in T::ParentDevice to properly support
+this safety proof?
 
-If a handler expects a mutable reference to a data type larger than the
-declared struct (for example, a very large array), __call_ioctl() casts
-raw_data to that larger type. Since the DRM core allocates exactly
-_IOC_SIZE(cmd) bytes based on the macro's struct, could this result in an
-out-of-bounds heap read/write?
-
-Could the type-inference anchor be updated to explicitly constrain the data
-parameter, perhaps using let mut data: $crate::uapi::$struct =3D unreachabl=
-e!();
-instead of unreachable!()?
+>      }
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260620184924.2247=
-517-1-dakr@kernel.org?part=3D8
+517-1-dakr@kernel.org?part=3D12
