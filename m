@@ -4,43 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C26CCD98F2
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 18:50:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32C76CD98E4
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 18:50:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ED3310E26A;
-	Sat, 20 Jun 2026 18:50:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96DC110E262;
+	Sat, 20 Jun 2026 18:50:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kYHQSfVl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MnCPJi6j";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AC3710E26A
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 18:50:48 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CDB510E26A
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 18:50:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8063643EA4;
- Sat, 20 Jun 2026 18:50:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EF421F00A3A;
- Sat, 20 Jun 2026 18:50:48 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 01EEF601E3;
+ Sat, 20 Jun 2026 18:50:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EC9E1F000E9;
+ Sat, 20 Jun 2026 18:50:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1781981448;
- bh=CvX68E3/Wcm5+aQlQQVtZ0iFBzIQa26BVF579CEFtTY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kYHQSfVlatYOJYyllXVLnsxFHZe4iLvdrSz9Z7uD8qyCe+UfUOLJKtUQxe7lIp8K3
- nRsmXI03ThSS9XycmNBB60GAcnyf6KJoI2ZqaYgy0GmznKm+Ne+OlOvbbB61asxzFO
- jKupyA8JF33K06Vn+aVyYyBqZOaqple7WeoK/Q8xfm98SJl0liu0bUX4ABF4AlN4yn
- 8rwhduaB/+SOk8Pm+H1hoqoY5wylwjW5ZkTYE1GdI21iKiKGjtj9B+c6OqJqCEFjVC
- kN/TWz6nN12CcVLqJgJdFIhwvDM/sFurCyLU/8xbs54EgAekU17yeDI2ztDpUzymxw
- llrm3BKIWgxfA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/radeon: Add NULL pointer check for enc_priv in
- atombios_set_encoder_crtc_source()
-To: "Alexey Velichayshiy" <a.velichayshiy@ispras.ru>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260620183150.1248791-1-a.velichayshiy@ispras.ru>
-References: <20260620183150.1248791-1-a.velichayshiy@ispras.ru>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 20 Jun 2026 18:50:47 +0000
-Message-Id: <20260620185048.4EF421F00A3A@smtp.kernel.org>
+ bh=0uIMdj24RIqH/QbXlggEkKnv+8TDDu+JVkTsWI9K8zk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=MnCPJi6jdKJM2p+Ap9kjp1QnEccAcEjNnimiaIh0DQdNI81T6YLhCdhB5H//GhR2V
+ 0/gMlXoZbphDXc+Ib9Tmoc5l06ETEpGCaDItRxp1XvaPCdjmr3DqXqf6GIqL4EQpxf
+ 5qGJbRbrKIBs1MnC1nr4j+folc2xOxq4iXtjf+OfwARgUktyGdjWEZMf33gLK4+9IG
+ ToxbjHG24UqioDmmSO1fCDlszZ9rB3NuKFi9xZs3PKpJomF4kkE0Vf6NZReLxEp/Mb
+ x3I/eL5fLlRAR1W03O7YqDuCZQplgbCtKCd3Y2gjO85LOE8zaVaYYpFRxkRosFz1Nh
+ kNKDmDVf+lK+g==
+From: Danilo Krummrich <dakr@kernel.org>
+To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
+ acourbot@nvidia.com, ecourtney@nvidia.com, ojeda@kernel.org,
+ boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu,
+ deborah.brouwer@collabora.com, boris.brezillon@collabora.com,
+ lyude@redhat.com
+Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org
+Subject: [PATCH v4 16/16] drm: nova: Use drm::Device<Registered> to access the
+ parent bus device
+Date: Sat, 20 Jun 2026 20:48:09 +0200
+Message-ID: <20260620184924.2247517-17-dakr@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260620184924.2247517-1-dakr@kernel.org>
+References: <20260620184924.2247517-1-dakr@kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,119 +61,82 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+The get_param ioctl needs access to the parent auxiliary device. Since
+ioctl handlers run inside a RegistrationGuard, accept
+&NovaDevice<Registered> to obtain &auxiliary::Device<Bound> via as_ref()
+directly. This removes the need for drm::Device data, hence set it to
+().
 
-Pre-existing issues:
-- [High] Incomplete fix for NULL pointer dereference. The patch adds a loca=
-l check for `enc_priv` (`dig`) in `atombios_set_encoder_crtc_source()`, but=
- leaves the root cause unaddressed. In `radeon_add_atom_encoder()`, if the =
-memory allocation for `enc_priv` fails (e.g., via `radeon_atombios_get_lvds=
-_info()`, `radeon_atombios_set_dig_info()`, or `radeon_atombios_set_dac_inf=
-o()`), the error is ignored and the encoder is registered with a NULL `enc_=
-priv`. This broken encoder is then passed to numerous other functions (like=
- `atombios_dig_encoder_setup2`, `atombios_dig_transmitter_setup2`, and `ato=
-mbios_dac_setup`) which unconditionally dereference `enc_priv` (via `dig` o=
-r `dac_info`), leading to guaranteed kernel panics. The proper fix is to ha=
-ndle the allocation failure at the source and abort encoder registration.
-- [High] The driver automatically defaults the display scaling mode to RMX_=
-FULL for LCD devices, which violates the DRM subsystem guideline on scaling=
- modes. This stretches the image and distorts its aspect ratio (e.g., circl=
-es become ovals) instead of preserving it.
---
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+---
+ drivers/gpu/drm/nova/driver.rs | 11 ++---------
+ drivers/gpu/drm/nova/file.rs   |  7 ++++---
+ 2 files changed, 6 insertions(+), 12 deletions(-)
 
-commit 21561a0f42099aab9f6cd586dc86a1e791580aef
-Author: Alexey Velichayshiy <a.velichayshiy@ispras.ru>
+diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.rs
+index 131212df94d3..81df8158d83b 100644
+--- a/drivers/gpu/drm/nova/driver.rs
++++ b/drivers/gpu/drm/nova/driver.rs
+@@ -30,11 +30,6 @@ pub(crate) struct Nova<'bound> {
+ /// Convienence type alias for the DRM device type for this driver
+ pub(crate) type NovaDevice<Ctx = drm::Normal> = drm::Device<NovaDriver, Ctx>;
+ 
+-#[pin_data]
+-pub(crate) struct NovaData {
+-    pub(crate) adev: ARef<auxiliary::Device>,
+-}
+-
+ const INFO: drm::DriverInfo = drm::DriverInfo {
+     major: 0,
+     minor: 0,
+@@ -65,9 +60,7 @@ fn probe<'bound>(
+         adev: &'bound auxiliary::Device<Core<'_>>,
+         _info: &'bound Self::IdInfo,
+     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+-        let data = try_pin_init!(NovaData { adev: adev.into() });
+-
+-        let drm = drm::UnregisteredDevice::<Self>::new(adev, data)?;
++        let drm = drm::UnregisteredDevice::<Self>::new(adev, Ok(()))?;
+         // SAFETY: `reg` is stored in `Nova` and dropped when the driver is unbound; it is
+         // never forgotten.
+         let reg = unsafe { drm::Registration::new(adev.as_ref(), drm, (), 0)? };
+@@ -81,7 +74,7 @@ fn probe<'bound>(
+ 
+ #[vtable]
+ impl drm::Driver for NovaDriver {
+-    type Data = NovaData;
++    type Data = ();
+     type RegistrationData = ForLt!(());
+     type File = File;
+     type Object = gem::Object<NovaObject>;
+diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
+index 208be4e38188..298c02bacb4b 100644
+--- a/drivers/gpu/drm/nova/file.rs
++++ b/drivers/gpu/drm/nova/file.rs
+@@ -4,6 +4,8 @@
+ use crate::gem::NovaObject;
+ use kernel::{
+     alloc::flags::*,
++    auxiliary,
++    device::Bound,
+     drm::{
+         self,
+         gem::BaseObject,
+@@ -32,9 +34,8 @@ pub(crate) fn get_param(
+         getparam: &mut uapi::drm_nova_getparam,
+         _file: &drm::File<File>,
+     ) -> Result<u32> {
+-        let adev = &dev.adev;
+-        let parent = adev.parent();
+-        let pdev: &pci::Device = parent.try_into()?;
++        let adev: &auxiliary::Device<Bound> = dev.as_ref();
++        let pdev: &pci::Device<Bound> = adev.parent().try_into()?;
+ 
+         let value = match getparam.param as u32 {
+             uapi::NOVA_GETPARAM_VRAM_BAR_SIZE => pdev.resource_len(1)?,
+-- 
+2.54.0
 
-drm/radeon: Add NULL pointer check for enc_priv in atombios_set_encoder_crt=
-c_source()
-
-This commit adds a NULL pointer check for enc_priv in
-atombios_set_encoder_crtc_source() to prevent a NULL pointer dereference.
-The issue was reported to be found with SVACE.
-
-> diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm=
-/radeon/atombios_encoders.c
-> index 3d9f47bc807af..6efb6bd2d344c 100644
-> --- a/drivers/gpu/drm/radeon/atombios_encoders.c
-> +++ b/drivers/gpu/drm/radeon/atombios_encoders.c
-
-[ ... ]
-
-> @@ -1931,6 +1931,8 @@ atombios_set_encoder_crtc_source(struct drm_encoder=
- *encoder)
->  			case ENCODER_OBJECT_ID_INTERNAL_UNIPHY3:
->  			case ENCODER_OBJECT_ID_INTERNAL_KLDSCP_LVTMA:
->  				dig =3D radeon_encoder->enc_priv;
-> +				if (!dig)
-> +					return;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this local check leave
-the root cause unaddressed?
-
-In drivers/gpu/drm/radeon/atombios_encoders.c:radeon_add_atom_encoder(), if
-the memory allocation for enc_priv fails (e.g. via
-radeon_atombios_set_dig_info()), the error is ignored and the encoder is
-registered with a NULL enc_priv:
-
-radeon_add_atom_encoder() {
-    ...
-    radeon_encoder->enc_priv =3D radeon_atombios_set_dig_info(radeon_encode=
-r);
-    ...
-}
-
-This broken encoder is then passed to numerous other functions which
-unconditionally dereference enc_priv, such as:
-
-atombios_dig_encoder_setup2() {
-    ...
-    if (dig->dig_encoder =3D=3D -1)
-    ...
-}
-
-atombios_dig_transmitter_setup2() {
-    ...
-    int dig_encoder =3D dig->dig_encoder;
-    ...
-}
-
-atombios_dac_setup() {
-    ...
-    switch (dac_info->tv_std) {
-    ...
-}
-
-Since other DRM callbacks will unconditionally dereference it, could we han=
-dle
-the allocation failure at the source and abort encoder registration instead?
-
-[Severity: High]
-This is a pre-existing issue, but does this driver incorrectly default to
-distorting the aspect ratio for LCD devices?
-
-Also in drivers/gpu/drm/radeon/atombios_encoders.c:radeon_add_atom_encoder(=
-):
-
-radeon_add_atom_encoder() {
-    ...
-    radeon_encoder->rmx_type =3D RMX_FULL;
-    ...
-}
-
-Setting the default scaling mode to RMX_FULL stretches the image and
-distorts its aspect ratio (e.g., circles become ovals). Should this
-default to RMX_ASPECT instead to preserve the aspect ratio?
-
->  				switch (dig->dig_encoder) {
->  				case 0:
->  					args.v2.ucEncoderID =3D ASIC_INT_DIG1_ENCODER_ID;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260620183150.1248=
-791-1-a.velichayshiy@ispras.ru?part=3D1
