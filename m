@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22840CD98F2
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 19:12:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC3ABCD98F2
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 19:13:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A26A10E279;
-	Sat, 20 Jun 2026 19:12:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5843310E27E;
+	Sat, 20 Jun 2026 19:13:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q+7j0J44";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VX8NUKl5";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BA5F10E279
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 19:12:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E473110E27E
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 19:13:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CC5AE601E1;
- Sat, 20 Jun 2026 19:12:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AFCD1F000E9;
- Sat, 20 Jun 2026 19:12:51 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 696C4601E1;
+ Sat, 20 Jun 2026 19:13:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF38B1F000E9;
+ Sat, 20 Jun 2026 19:13:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781982771;
- bh=hhKA4CDpxYPgmMlqLwVVtHql0UZ3NFgnB8M8TNv/OCY=;
+ s=k20260515; t=1781982782;
+ bh=JTxFVtq+h/G2AedWmydlbP3BkW9gHVcpCWMaSdGkHV4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Q+7j0J44HDKQFcy9SrLmHQUnvxJmz+U9iUu4TVjsNd+E42QdQS+HopDVrL072Oaro
- X4J+ZLtUK4pXRFFWyDSrSy3gVBVQ12/kRWGRQ7XW5jIzN8dz2MvnMVN5oKOzlXTXHH
- tZYtfX10BUFhfg0pUcDbTQS2vMdGX2hZpxSFZ79ZVehpTKyA9mrBhBiOh9+/k+In1h
- g4qdxIL/dFcP91M0mbvRPZ43yLQJyGwjUoobhSMRBwwMzJwjW45qxOPfBVekyRbiEm
- 7UcsEHEI4UTZl0CkLmFrLbJTg5QZO7uJ+jkQbkvK6ZNkW1A5Bt6iC1F3WQMVD/11Mb
- 6RWfBOjZ5ktcA==
+ b=VX8NUKl5wDYreIi5QSoiVyelkOsU6DFDzkKH3k889uFaHGgNzIwe332TW/mdb2344
+ LTtILUbXxp10TVhwZnlPrXHj9PCgQm3j9aVmRoMM4luA6h341QE4zKs4z8epwpMSDO
+ WHfVxD43D5A22uNRAu7RMZT2dts3QyT+eierqsJ9RDJHvXTt26GHj1dgm6W6Nw6v9C
+ zLMAm6jooSjFSkPGwe+eCSdUtdKcVtqWa4EPJM2X5fJNWpsyUT+9DuGp0zoXmvYT3B
+ B7m8Hl5WUi5p80awLhernlbxP9WQcytbb+dkpslwC9DZWFD1lnM8Qon2z83FhZRmg9
+ ivQjvOC7mNGrg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amdkfd: Fix an error handling path in
- amdgpu_amdkfd_get_dmabuf_info()
-To: "Christophe JAILLET" <christophe.jaillet@wanadoo.fr>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <44cbc1d12fc00121d40ce793074bc5e1d497c932.1781982199.git.christophe.jaillet@wanadoo.fr>
-References: <44cbc1d12fc00121d40ce793074bc5e1d497c932.1781982199.git.christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH v4 15/16] rust: drm: Pass registration data to ioctl
+ handlers
+To: "Danilo Krummrich" <dakr@kernel.org>
+Cc: ojeda@kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260620184924.2247517-16-dakr@kernel.org>
+References: <20260620184924.2247517-1-dakr@kernel.org>
+ <20260620184924.2247517-16-dakr@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 20 Jun 2026 19:12:50 +0000
-Message-Id: <20260620191251.5AFCD1F000E9@smtp.kernel.org>
+Date: Sat, 20 Jun 2026 19:13:01 +0000
+Message-Id: <20260620191301.EF38B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,96 +59,111 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Missing buffer object reservation lock in `amdgpu_amdkfd_get_dmabu=
-f_info()` leads to a Use-After-Free or Data Race when accessing BO metadata.
-- [High] Dereferencing dmabuf_adev->kfd.dev can cause a kernel panic if the=
- imported DMA buffer was exported from an AMDGPU device without KFD initial=
-ized.
+- [High] The `declare_drm_ioctls!` macro fails to constrain the `Data` type=
+ parameter in `__call_ioctl`, allowing type inference to deduce an arbitrar=
+ily large struct size that leads to out-of-bounds memory accesses.
 --
 
-commit b918bf448d8c4caa5149dad7e3a094a3b15f65eb
-Author: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+commit d383776ed6368e3f51c2779206ce9abab5ecfc2d
+Author: Danilo Krummrich <dakr@kernel.org>
 
-drm/amdkfd: Fix an error handling path in amdgpu_amdkfd_get_dmabuf_info()
+rust: drm: Pass registration data to ioctl handlers
 
-This commit fixes an error handling path in amdgpu_amdkfd_get_dmabuf_info()
-by properly releasing the reference on 'dma_buf' when memory allocation fai=
-ls.
-This aligns with the error handling in other paths of the function.
+This commit passes registration data to ioctl handlers via
+drm::Device<Registered>::registration_data_with(). It modifies the ioctl
+dispatching macro declare_drm_ioctls! and the internal __call_ioctl helper
+to thread the registration data through to the ioctl callbacks.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_amdkfd.c
-> index d516d504ae4c8..8e7212a03475c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -603,8 +603,10 @@ int amdgpu_amdkfd_get_dmabuf_info(struct amdgpu_devi=
-ce *adev, int dma_buf_fd,
->  		if (*metadata_size <=3D buffer_size) {
->  			*metadata_buffer =3D kzalloc(*metadata_size, GFP_KERNEL);
+> diff --git a/rust/kernel/drm/ioctl.rs b/rust/kernel/drm/ioctl.rs
+> index 6cefd26b31f91..75944e72d7af4 100644
+> --- a/rust/kernel/drm/ioctl.rs
+> +++ b/rust/kernel/drm/ioctl.rs
+
+[ ... ]
+
+> @@ -202,25 +204,28 @@ macro_rules! declare_drm_ioctls {
+>                                      unsafe { &*__ptr },
+>                                      unreachable!(),
+>                                      unreachable!(),
+> +                                    unreachable!(),
+>                                  )
+>                              };
 > =20
-> -			if (!*metadata_buffer)
-> -				return -ENOMEM;
-> +			if (!*metadata_buffer) {
-> +				r =3D -ENOMEM;
-> +				goto out_put;
-> +			}
+>                              let Some(guard) =3D dev.registration_guard()=
+ else {
+>                                  return $crate::error::code::ENODEV.to_er=
+rno();
+>                              };
+> -                            let __anchor =3D ();
 > =20
->  			r =3D amdgpu_bo_get_metadata(bo, *metadata_buffer, *metadata_size,
->  						   NULL, &metadata_flags);
+> -                            // SAFETY:
+> -                            // - The ioctl argument has size `_IOC_SIZE(=
+cmd)`, which we asserted
+> -                            //   above matches the size of this type, an=
+d all bit patterns of UAPI
+> -                            //   structs must be valid. The argument is =
+exclusively owned by this
+> -                            //   handler, guaranteed by `drm_ioctl()` to=
+ remain valid for the
+> -                            //   duration of the call.
+> -                            // - `raw_file` is a valid `struct drm_file`=
+ pointer provided by the
+> -                            //   DRM core.
+> -                            match unsafe { $crate::drm::ioctl::internal:=
+:__call_ioctl(
+> -                                &__anchor, &*guard, raw_data, raw_file, =
+$func,
+> -                            ) } {
+> +                            match guard.registration_data_with(|reg_data=
+| {
+> +                                // SAFETY:
+> +                                // - The ioctl argument has size `_IOC_S=
+IZE(cmd)`, which we asserted
+> +                                //   above matches the size of this type=
+, and all bit patterns of
+> +                                //   UAPI structs must be valid. The arg=
+ument is exclusively owned
+> +                                //   by this handler, guaranteed by `drm=
+_ioctl()` to remain valid
+> +                                //   for the duration of the call.
+> +                                // - `raw_file` is a valid `struct drm_f=
+ile` pointer provided by
+> +                                //   the DRM core.
+> +                                unsafe { $crate::drm::ioctl::internal::_=
+_call_ioctl(
+> +                                    reg_data, &*guard, raw_data, raw_fil=
+e,
+> +                                    |dev, data, file| $func(dev, reg_dat=
+a, data, file),
+> +                                ) }
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does amdgpu_amdkfd_get_dmabu=
-f_info()
-need to acquire the buffer object's reservation lock before calling
-amdgpu_bo_get_metadata()?
+In the declare_drm_ioctls! macro in rust/kernel/drm/ioctl.rs, does this
+closure allow type inference to deduce an arbitrarily large struct size that
+leads to out-of-bounds memory accesses?
 
-Concurrently, a userspace process can trigger the AMDGPU_GEM_METADATA_OP_SE=
-T_METADATA
-ioctl, which acquires the lock and calls amdgpu_bo_set_metadata(). This set=
-ter
-unconditionally calls kfree(ubo->metadata) and reallocates it. The lockless
-reader path in amdgpu_bo_get_metadata() will then execute a memcpy using the
-freed pointer:
+Because Data is not explicitly constrained here, its type is inferred
+backward from the user-provided $func. If an ioctl handler is written to
+accept a larger mutable reference, it seems Data would be inferred as that
+larger type.
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_object.c:amdgpu_bo_get_metadata() {
-    ...
-		if (ubo->metadata_size)
-			memcpy(buffer, ubo->metadata, ubo->metadata_size);
-    ...
-}
+The __call_ioctl helper will then cast the raw_data pointer to that larger
+type and safely dereference it. Since the DRM core only allocates
+_IOC_SIZE(cmd) bytes for the ioctl payload, couldn't this allow Safe Rust to
+read and write past the allocated kernel buffer?
 
-Could this lead to a use-after-free or out-of-bounds read if ubo->metadata =
-is
-freed concurrently?
+Should the closure explicitly annotate the type of data (e.g.,
+|dev, data: &mut $crate::uapi::$struct, file|) to prevent type inference
+from breaking the size constraint?
 
-[Severity: High]
-This is a pre-existing issue, but could the dmabuf_adev resolved in
-amdgpu_amdkfd_get_dmabuf_info() cause a NULL pointer dereference in its cal=
-ler?
-
-In kfd_ioctl_get_dmabuf_info() located in drivers/gpu/drm/amd/amdkfd/kfd_ch=
-ardev.c,
-amdgpu_amdkfd_get_dmabuf_info() successfully resolves dmabuf_adev to the
-exporting AMDGPU device. However, if KFD is not initialized on the exporting
-device, dmabuf_adev->kfd.dev will be NULL.
-
-Since xcp_id is typically initialized to 0, the check passes and leads to a
-dereference:
-
-drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:kfd_ioctl_get_dmabuf_info() {
-    ...
-	if (xcp_id >=3D 0)
-		args->gpu_id =3D dmabuf_adev->kfd.dev->nodes[xcp_id]->id;
-    ...
-}
-
-Would it be possible for a local user to trigger this by passing a valid
-DMA buffer FD from a non-compute AMDGPU device to the KFD ioctl?
+> +                            }) {
+>                                  Err(e) =3D> e.to_errno(),
+>                                  Ok(i) =3D> i.try_into()
+>                                              .unwrap_or($crate::error::co=
+de::ERANGE.to_errno()),
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/44cbc1d12fc00121d40=
-ce793074bc5e1d497c932.1781982199.git.christophe.jaillet@wanadoo.fr?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260620184924.2247=
+517-1-dakr@kernel.org?part=3D15
