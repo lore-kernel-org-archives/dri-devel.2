@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18733CD98F2
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 01:10:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F126ACD98F2
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 01:13:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57EEB10E142;
-	Sat, 20 Jun 2026 01:10:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD5E510E15B;
+	Sat, 20 Jun 2026 01:13:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fyFIUzK5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EDTmJp69";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A097510E142
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 01:10:48 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72A8D10E15B
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 01:13:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 534E74196E;
- Sat, 20 Jun 2026 01:10:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 043AC1F000E9;
- Sat, 20 Jun 2026 01:10:47 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A5FEC600AE;
+ Sat, 20 Jun 2026 01:13:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0B801F000E9;
+ Sat, 20 Jun 2026 01:12:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781917848;
- bh=3hQPJxyIzOBRroyu5VCHSV7y+KLwgIxa771Vt79Ox64=;
+ s=k20260515; t=1781917980;
+ bh=SzS1khSL12rcuYySZDONR8LwYTIaah9wxy+VFfjgaLM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fyFIUzK5YzgPjJDjfDWh6wmhTFO8KV25c0V91IHTcIxrSaSnYnKMCgJR/bIOIIVhe
- Jg7CfAFiYSi96jM9oKjNk8Te96suUJ7h7evwx0ciehnvV9Bnm+WU10O8r5dUIGqTF+
- dAZkJbSW1NLbr9Ydp3vbHOh8yXbA8cRc+L5xh5BjLXJbufZMZgpGwTYF1Dj8geV/qc
- Y/RYoAW6zfkt7S76ZPjqhk+PxTApKnCM4vnMGec0PouDSAPk8m8TaSxwwgJHKmSjlr
- OP+I8rmkPO7dfLffmLrZR/O7psXeW/UqGGsprJe7rcv+M3s0MkdfN6nFLvqLo/BSah
- wKiqD9fTg9H8Q==
+ b=EDTmJp69L44A67UMjm7Ri6UVEqY51RyaxPMvCM1WC1xn5Skk4osCCo3FB2IvZFzX4
+ TwbwgPePuYwOeBAv3LSeztuXpo0nPLvBP1GGFp2Bc260AxRgGeVmAHPIekUHFQ6xDc
+ W30oEZwXg8chf4NWgIsedkOnlMJ+/bfFtqqdBGOy4m6ruT+kqAzvwNGAmr2CpTkwCy
+ csXc995hLuuLfSs3/6FESfCzK4S78DntpFnGFkfDX1EAAPOTARyts7VjiD+c9MwcqX
+ petVH8L5HanRqV6WBD+MItxIoCrVzGSyZZh+mv4MojVxt/X25z55GWlQvrDQHq3fba
+ BJmI4SgIYMNHQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 10/13] rust: drm: Add RegistrationData to drm::Driver
+Subject: Re: [PATCH v3 09/13] rust: drm: Add RegistrationGuard for
+ drm_dev_enter/exit critical sections
 To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, ojeda@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260620005431.1562115-11-dakr@kernel.org>
+Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org,
+ "Alexandre Courbot" <acourbot@nvidia.com>
+In-Reply-To: <20260620005431.1562115-10-dakr@kernel.org>
 References: <20260620005431.1562115-1-dakr@kernel.org>
- <20260620005431.1562115-11-dakr@kernel.org>
+ <20260620005431.1562115-10-dakr@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 20 Jun 2026 01:10:47 +0000
-Message-Id: <20260620011048.043AC1F000E9@smtp.kernel.org>
+Date: Sat, 20 Jun 2026 01:12:59 +0000
+Message-Id: <20260620011259.F0B801F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,107 +59,184 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Missing `Sync` and `Send` bounds on `RegistrationData` allows safe=
- code to introduce data races when concurrently accessed via `Device` or `R=
-egistration`.
-- [High] `registration_guard()` can be called on an `UnregisteredDevice`, a=
-llowing access to an uninitialized (dangling) `registration_data` pointer.
+- [High] Device::registration_guard() grants a `Registered` context to unre=
+gistered devices, allowing access to unbound hardware.
+- [High] RegistrationGuard is implicitly `Send`, causing lockdep splats if =
+dropped on a different thread.
+- [Medium] Safe Rust can cause an SRCU deadlock by dropping `Registration` =
+while holding `RegistrationGuard`.
 --
 
-commit 44df82d554a5a6b1d866d87bea0b20d5dd954c66
+commit 3b6c73976ebe0a7066664f9ddc910e85fe1582da
 Author: Danilo Krummrich <dakr@kernel.org>
 
-rust: drm: Add RegistrationData to drm::Driver
+rust: drm: Add RegistrationGuard for drm_dev_enter/exit critical sections
 
-This commit adds a RegistrationData associated type to drm::Driver. It is
-tied to the parent bus device binding scope and stored in drm::Device before
-registration. Access is provided via Device::registration_data_with().
+This patch adds RegistrationGuard, a guard object representing a=20
+drm_dev_enter/exit SRCU critical section. It also changes=20
+Registration::drop to use drm_dev_unplug() instead of=20
+drm_dev_unregister() to provide the SRCU barrier required for safety.
 
 > diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
-> index bc8cfd753596e..0a2ee308b1b2a 100644
+> index 885077e270ebc..bc8cfd753596e 100644
 > --- a/rust/kernel/drm/device.rs
 > +++ b/rust/kernel/drm/device.rs
 
 [ ... ]
 
-> @@ -230,6 +232,9 @@ pub fn new(
->          // SAFETY: `drm_dev` is still private to this function.
->          unsafe { (*drm_dev).driver =3D const { &Self::VTABLE } };
+> @@ -323,6 +321,62 @@ pub(crate) unsafe fn assume_ctx<NewCtx: DeviceContex=
+t>(&self) -> &Device<T, NewC
+>      }
+>  }
 > =20
-> +        // SAFETY: `raw_drm` is valid; no concurrent access before regis=
-tration.
-> +        unsafe { (*raw_drm.as_ptr()).registration_data =3D UnsafeCell::n=
-ew(NonNull::dangling()) };
+> +impl<T: drm::Driver> Device<T> {
+> +    /// Guard against the parent bus device being unbound.
+> +    ///
+> +    /// Returns a [`RegistrationGuard`] if the device has not been unplu=
+gged, [`None`] otherwise.
+> +    ///
+> +    /// While [`RegistrationGuard`] is held the parent device is guarant=
+eed to be bound.
+> +    #[must_use]
+> +    pub fn registration_guard(&self) -> Option<RegistrationGuard<'_, T>>=
+ {
+> +        let mut idx: i32 =3D 0;
+> +        // SAFETY: `self.as_raw()` is a valid pointer to a `struct drm_d=
+evice`.
+> +        if unsafe { bindings::drm_dev_enter(self.as_raw(), &mut idx) } {
 
 [Severity: High]
-Could a caller safely dereference this dangling pointer by calling
-registration_guard() before the device is actually registered?
+Does this logic correctly prove the device is registered?
 
-Since UnregisteredDevice dereferences to Device, a caller can invoke
-registration_guard() before registration. The C function drm_dev_enter()
-only checks if the device is unplugged, not if it has been registered, so it
-will return true and grant a RegistrationGuard prematurely.
+Because dev->unplugged defaults to false upon allocation, drm_dev_enter()
+will return true for an UnregisteredDevice that has not yet called
+drm_dev_register().=20
 
-If safe code then calls registration_data_with() on that guard, it seems it
-would result in a dangling pointer dereference here:
+If device probe fails, the kernel unwinds devres-managed resources but never
+creates a Registration or calls drm_dev_unplug(). If an ARef<Device> is
+kept alive by a background thread, registration_guard() will still succeed
+and return a RegistrationGuard.
 
-    unsafe { (*self.registration_data.get()).cast::<_>().as_ref() }
+This guard dereferences to Device<T, Registered>, which falsely exposes the
+parent bus device as bound. Could this lead to a Use-After-Free or invalid
+memory access if the parent device's devres-managed hardware resources are
+accessed after probe failure?=20
+
+Should the guard explicitly verify the registration state (e.g.,
+dev->registered) after acquiring the SRCU lock?
+
+> +            Some(RegistrationGuard { dev: self, idx })
+> +        } else {
+> +            None
+> +        }
+> +    }
+> +}
+> +
+> +/// A guard proving the DRM device is registered and the parent bus devi=
+ce is bound.
+> +///
+> +/// The guard dereferences to [`Device<T, Registered>`], providing acces=
+s to the DRM device with
+> +/// the guarantee that the parent bus device is bound for the entire dur=
+ation of the critical
+> +/// section.
+> +///
+> +/// Internally this is backed by a `drm_dev_enter()` / `drm_dev_exit()` =
+SRCU critical section.
+> +///
+> +/// # Invariants
+> +///
+> +/// - `idx` is the SRCU read lock index returned by a successful `drm_de=
+v_enter()` call.
+> +/// - The parent bus device of `dev` is bound for the lifetime of this g=
+uard.
+> +#[must_use]
+> +pub struct RegistrationGuard<'a, T: drm::Driver> {
+> +    dev: &'a Device<T>,
+> +    idx: i32,
+> +}
+
+[Severity: High]
+Is it intentional that RegistrationGuard is implicitly Send?
+
+Because its inner fields are Send, this allows safe Rust to acquire the
+guard on one thread and drop it on another.
+
+While SRCU technically allows cross-thread unlocks, the kernel's lockdep
+implementation tracks SRCU read locks per-task. If a guard is dropped on a
+different thread, will lockdep emit a bad unlock balance detected splat?
+
+Should RegistrationGuard be explicitly marked !Send (e.g., by adding a
+PhantomData<*mut ()> field)?
 
 > +
->          // SAFETY: The reference count is one, and now we take ownership=
- of that reference as a
->          // `drm::Device`.
->          // INVARIANT: We just created the device above, but have yet to =
-call `drm_dev_register`.
+> +impl<T: drm::Driver> Deref for RegistrationGuard<'_, T> {
+> +    type Target =3D Device<T, Registered>;
+> +
+> +    #[inline]
+> +    fn deref(&self) -> &Self::Target {
+> +        // SAFETY: A successful `drm_dev_enter()` guarantees that the de=
+vice is registered and
+> +        // the parent bus device is bound.
+> +        unsafe { self.dev.assume_ctx() }
+
+[Severity: High]
+Does a successful drm_dev_enter() alone guarantee the Registered state?
+
+As mentioned above, if drm_dev_enter() succeeds on an UnregisteredDevice
+after probe failure, this unsafe block will grant the Registered state
+incorrectly.
+
+> +    }
+> +}
 
 [ ... ]
 
 > diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
-> index ceb2829985c78..987d116e3501e 100644
+> index 9ba7dc3a7a97a..ceb2829985c78 100644
 > --- a/rust/kernel/drm/driver.rs
 > +++ b/rust/kernel/drm/driver.rs
 
 [ ... ]
 
-> @@ -110,6 +110,16 @@ pub trait Driver {
->      /// Context data associated with the DRM driver
->      type Data: Sync + Send;
+> @@ -199,8 +199,14 @@ unsafe impl<T: Driver> Send for Registration<T> {}
 > =20
-> +    /// Data owned by the [`Registration`] and accessible within a
-> +    /// [`RegistrationGuard`](drm::RegistrationGuard) critical section v=
-ia
-> +    /// [`Device::registration_data_with()`](drm::Device::registration_d=
-ata_with).
-> +    ///
-> +    /// This is a [`ForLt`](trait@ForLt) type whose lifetime is tied to =
-the parent bus
-> +    /// device binding scope. References handed out by
-> +    /// [`Device::registration_data_with()`](drm::Device::registration_d=
-ata_with) are tied to
-> +    /// the closure scope.
-> +    type RegistrationData: ForLt;
+>  impl<T: Driver> Drop for Registration<T> {
+>      fn drop(&mut self) {
+> +        // Use `drm_dev_unplug` rather than `drm_dev_unregister` to ensu=
+re that existing
+> +        // `drm_dev_enter()` critical sections complete before unregistr=
+ation proceeds. This
+> +        // is required for the safety of `RegistrationGuard`, which reli=
+es on the SRCU barrier in
+> +        // `drm_dev_unplug()` to guarantee that the parent device is sti=
+ll bound within the
+> +        // critical section.
+> +        //
+>          // SAFETY: Safe by the invariant of `ARef<drm::Device<T>>`. The =
+existence of this
+> -        // `Registration` also guarantees the this `drm::Device` is actu=
+ally registered.
+> -        unsafe { bindings::drm_dev_unregister(self.0.as_raw()) };
+> +        // `Registration` also guarantees that this `drm::Device` is act=
+ually registered.
+> +        unsafe { bindings::drm_dev_unplug(self.0.as_raw()) };
 
-[Severity: High]
-Does this type definition need Sync and Send bounds to prevent data races?
+[Severity: Medium]
+Can dropping Registration while holding RegistrationGuard on the same
+thread cause an SRCU deadlock?
 
-Since drm::Device unconditionally implements Sync, references to the
-device can be shared across multiple threads. The new registration_data_wit=
-h()
-method allows these threads to concurrently obtain shared references to
-RegistrationData.
+drm_dev_unplug() synchronously waits for all SRCU readers by calling
+synchronize_srcu(&drm_unplug_srcu). Since safe Rust can acquire an
+independent reference to the device, obtain a RegistrationGuard (which
+holds the SRCU read lock), and then drop Registration on the same thread,
+synchronize_srcu() could be called from within its own read-side critical
+section.
 
-If a driver author provides a type that is not thread-safe (such as Cell)
-for RegistrationData in safe Rust, multiple threads could concurrently acce=
-ss
-and mutate the inner data, potentially leading to data races.
-
-> +
->      /// The type used to manage memory for this driver.
->      type Object: AllocImpl;
->
+Would this deadlock the thread and trigger an SRCU lockdep warning?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260620005431.1562=
-115-1-dakr@kernel.org?part=3D10
+115-1-dakr@kernel.org?part=3D9
