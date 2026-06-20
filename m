@@ -4,50 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30915CD98F2
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 18:50:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C26CCD98F2
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 18:50:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 954E110E269;
-	Sat, 20 Jun 2026 18:50:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ED3310E26A;
+	Sat, 20 Jun 2026 18:50:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ohfpkoZ6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kYHQSfVl";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 679FA10E262
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 18:50:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AC3710E26A
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 18:50:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 46452444C9;
- Sat, 20 Jun 2026 18:50:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E9AA1F00A3A;
- Sat, 20 Jun 2026 18:50:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8063643EA4;
+ Sat, 20 Jun 2026 18:50:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EF421F00A3A;
+ Sat, 20 Jun 2026 18:50:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781981444;
- bh=aaXmoUFQqAQVEUONqOAcm1M88Ap7dKsaPasKLZH+dXc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ohfpkoZ6MDl0IdtvslLxcTqO6qQ2ilXDmenez6pxW5KpXO9k+BqIsKdTnyjWtmI2h
- /qnBi9FHCuieoKcdZ1Dq1zKVsXsyIAjRSvNoi9FLHJRb0hVgaFnsm3JlxJbNJQMl25
- 1ncDeqpRf6toGbwneyj5pJLAkj1zLkAu58aWFcF8p4MaCF1d8sbIDQOE7xwaBIhMuj
- 6lUob3Rz+mubm95iOhpoOyKEa32Whensh6aOjkCD1sDFRKOQO3Njyge+1lOvlyECzY
- JzstEdETwd7YAQN2WJkkWs7QT+huTafHooVOI/EMCnnV4GafeOjjRTKcSw1xzcR9PV
- eKGsKzGxMVLjA==
-From: Danilo Krummrich <dakr@kernel.org>
-To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
- acourbot@nvidia.com, ecourtney@nvidia.com, ojeda@kernel.org,
- boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu,
- deborah.brouwer@collabora.com, boris.brezillon@collabora.com,
- lyude@redhat.com
-Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org
-Subject: [PATCH v4 15/16] rust: drm: Pass registration data to ioctl handlers
-Date: Sat, 20 Jun 2026 20:48:08 +0200
-Message-ID: <20260620184924.2247517-16-dakr@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260620184924.2247517-1-dakr@kernel.org>
-References: <20260620184924.2247517-1-dakr@kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1781981448;
+ bh=CvX68E3/Wcm5+aQlQQVtZ0iFBzIQa26BVF579CEFtTY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=kYHQSfVlatYOJYyllXVLnsxFHZe4iLvdrSz9Z7uD8qyCe+UfUOLJKtUQxe7lIp8K3
+ nRsmXI03ThSS9XycmNBB60GAcnyf6KJoI2ZqaYgy0GmznKm+Ne+OlOvbbB61asxzFO
+ jKupyA8JF33K06Vn+aVyYyBqZOaqple7WeoK/Q8xfm98SJl0liu0bUX4ABF4AlN4yn
+ 8rwhduaB/+SOk8Pm+H1hoqoY5wylwjW5ZkTYE1GdI21iKiKGjtj9B+c6OqJqCEFjVC
+ kN/TWz6nN12CcVLqJgJdFIhwvDM/sFurCyLU/8xbs54EgAekU17yeDI2ztDpUzymxw
+ llrm3BKIWgxfA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/radeon: Add NULL pointer check for enc_priv in
+ atombios_set_encoder_crtc_source()
+To: "Alexey Velichayshiy" <a.velichayshiy@ispras.ru>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260620183150.1248791-1-a.velichayshiy@ispras.ru>
+References: <20260620183150.1248791-1-a.velichayshiy@ispras.ru>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 20 Jun 2026 18:50:47 +0000
+Message-Id: <20260620185048.4EF421F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,130 +53,119 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Pass registration data to ioctl handlers via
-drm::Device<Registered>::registration_data_with(). The closure's HRTB
-ties the lifetime to the closure scope, and the pointer cast shortens it
-from 'static internally. The reference is valid for the duration of the
-drm_dev_enter/exit critical section held by RegistrationGuard.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
----
- drivers/gpu/drm/nova/file.rs |  3 +++
- drivers/gpu/drm/tyr/file.rs  |  1 +
- rust/kernel/drm/ioctl.rs     | 31 ++++++++++++++++++-------------
- 3 files changed, 22 insertions(+), 13 deletions(-)
+Pre-existing issues:
+- [High] Incomplete fix for NULL pointer dereference. The patch adds a loca=
+l check for `enc_priv` (`dig`) in `atombios_set_encoder_crtc_source()`, but=
+ leaves the root cause unaddressed. In `radeon_add_atom_encoder()`, if the =
+memory allocation for `enc_priv` fails (e.g., via `radeon_atombios_get_lvds=
+_info()`, `radeon_atombios_set_dig_info()`, or `radeon_atombios_set_dac_inf=
+o()`), the error is ignored and the encoder is registered with a NULL `enc_=
+priv`. This broken encoder is then passed to numerous other functions (like=
+ `atombios_dig_encoder_setup2`, `atombios_dig_transmitter_setup2`, and `ato=
+mbios_dac_setup`) which unconditionally dereference `enc_priv` (via `dig` o=
+r `dac_info`), leading to guaranteed kernel panics. The proper fix is to ha=
+ndle the allocation failure at the source and abort encoder registration.
+- [High] The driver automatically defaults the display scaling mode to RMX_=
+FULL for LCD devices, which violates the DRM subsystem guideline on scaling=
+ modes. This stretches the image and distorts its aspect ratio (e.g., circl=
+es become ovals) instead of preserving it.
+--
 
-diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
-index 19fb89b28984..208be4e38188 100644
---- a/drivers/gpu/drm/nova/file.rs
-+++ b/drivers/gpu/drm/nova/file.rs
-@@ -28,6 +28,7 @@ impl File {
-     /// IOCTL: get_param: Query GPU / driver metadata.
-     pub(crate) fn get_param(
-         dev: &NovaDevice<Registered>,
-+        _reg_data: &(),
-         getparam: &mut uapi::drm_nova_getparam,
-         _file: &drm::File<File>,
-     ) -> Result<u32> {
-@@ -48,6 +49,7 @@ pub(crate) fn get_param(
-     /// IOCTL: gem_create: Create a new DRM GEM object.
-     pub(crate) fn gem_create(
-         dev: &NovaDevice<Registered>,
-+        _reg_data: &(),
-         req: &mut uapi::drm_nova_gem_create,
-         file: &drm::File<File>,
-     ) -> Result<u32> {
-@@ -61,6 +63,7 @@ pub(crate) fn gem_create(
-     /// IOCTL: gem_info: Query GEM metadata.
-     pub(crate) fn gem_info(
-         _dev: &NovaDevice<Registered>,
-+        _reg_data: &(),
-         req: &mut uapi::drm_nova_gem_info,
-         file: &drm::File<File>,
-     ) -> Result<u32> {
-diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
-index fb9233eae01c..b686041d5d6b 100644
---- a/drivers/gpu/drm/tyr/file.rs
-+++ b/drivers/gpu/drm/tyr/file.rs
-@@ -32,6 +32,7 @@ fn open(_dev: &drm::Device<Self::Driver>) -> Result<Pin<KBox<Self>>> {
- impl TyrDrmFileData {
-     pub(crate) fn dev_query(
-         ddev: &TyrDrmDevice<Registered>,
-+        _reg_data: &(),
-         devquery: &mut uapi::drm_panthor_dev_query,
-         _file: &TyrDrmFile,
-     ) -> Result<u32> {
-diff --git a/rust/kernel/drm/ioctl.rs b/rust/kernel/drm/ioctl.rs
-index 6cefd26b31f9..75944e72d7af 100644
---- a/rust/kernel/drm/ioctl.rs
-+++ b/rust/kernel/drm/ioctl.rs
-@@ -97,12 +97,13 @@ pub const fn __dev_ctx_cast<T: super::super::Driver>(
-     #[inline(always)]
-     pub unsafe fn __call_ioctl<
-         'a,
-+        Anchor,
-         Dev: 'a,
-         Data: 'a,
-         F: super::super::file::DriverFile + 'a,
-         Ret,
-     >(
--        _anchor: &'a (),
-+        _anchor: &'a Anchor,
-         dev: &'a Dev,
-         raw_data: *mut ::core::ffi::c_void,
-         raw_file: *mut drm_file,
-@@ -128,6 +129,7 @@ pub unsafe fn __call_ioctl<
- ///
- /// ```ignore
- /// fn foo(device: &kernel::drm::Device<Self, kernel::drm::Registered>,
-+///        reg_data: &<Self::RegistrationData as kernel::types::ForLt>::Of<'_>,
- ///        data: &mut uapi::argument_type,
- ///        file: &kernel::drm::File<Self::File>,
- /// ) -> Result<u32>
-@@ -202,25 +204,28 @@ macro_rules! declare_drm_ioctls {
-                                     unsafe { &*__ptr },
-                                     unreachable!(),
-                                     unreachable!(),
-+                                    unreachable!(),
-                                 )
-                             };
- 
-                             let Some(guard) = dev.registration_guard() else {
-                                 return $crate::error::code::ENODEV.to_errno();
-                             };
--                            let __anchor = ();
- 
--                            // SAFETY:
--                            // - The ioctl argument has size `_IOC_SIZE(cmd)`, which we asserted
--                            //   above matches the size of this type, and all bit patterns of UAPI
--                            //   structs must be valid. The argument is exclusively owned by this
--                            //   handler, guaranteed by `drm_ioctl()` to remain valid for the
--                            //   duration of the call.
--                            // - `raw_file` is a valid `struct drm_file` pointer provided by the
--                            //   DRM core.
--                            match unsafe { $crate::drm::ioctl::internal::__call_ioctl(
--                                &__anchor, &*guard, raw_data, raw_file, $func,
--                            ) } {
-+                            match guard.registration_data_with(|reg_data| {
-+                                // SAFETY:
-+                                // - The ioctl argument has size `_IOC_SIZE(cmd)`, which we asserted
-+                                //   above matches the size of this type, and all bit patterns of
-+                                //   UAPI structs must be valid. The argument is exclusively owned
-+                                //   by this handler, guaranteed by `drm_ioctl()` to remain valid
-+                                //   for the duration of the call.
-+                                // - `raw_file` is a valid `struct drm_file` pointer provided by
-+                                //   the DRM core.
-+                                unsafe { $crate::drm::ioctl::internal::__call_ioctl(
-+                                    reg_data, &*guard, raw_data, raw_file,
-+                                    |dev, data, file| $func(dev, reg_data, data, file),
-+                                ) }
-+                            }) {
-                                 Err(e) => e.to_errno(),
-                                 Ok(i) => i.try_into()
-                                             .unwrap_or($crate::error::code::ERANGE.to_errno()),
--- 
-2.54.0
+commit 21561a0f42099aab9f6cd586dc86a1e791580aef
+Author: Alexey Velichayshiy <a.velichayshiy@ispras.ru>
 
+drm/radeon: Add NULL pointer check for enc_priv in atombios_set_encoder_crt=
+c_source()
+
+This commit adds a NULL pointer check for enc_priv in
+atombios_set_encoder_crtc_source() to prevent a NULL pointer dereference.
+The issue was reported to be found with SVACE.
+
+> diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm=
+/radeon/atombios_encoders.c
+> index 3d9f47bc807af..6efb6bd2d344c 100644
+> --- a/drivers/gpu/drm/radeon/atombios_encoders.c
+> +++ b/drivers/gpu/drm/radeon/atombios_encoders.c
+
+[ ... ]
+
+> @@ -1931,6 +1931,8 @@ atombios_set_encoder_crtc_source(struct drm_encoder=
+ *encoder)
+>  			case ENCODER_OBJECT_ID_INTERNAL_UNIPHY3:
+>  			case ENCODER_OBJECT_ID_INTERNAL_KLDSCP_LVTMA:
+>  				dig =3D radeon_encoder->enc_priv;
+> +				if (!dig)
+> +					return;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this local check leave
+the root cause unaddressed?
+
+In drivers/gpu/drm/radeon/atombios_encoders.c:radeon_add_atom_encoder(), if
+the memory allocation for enc_priv fails (e.g. via
+radeon_atombios_set_dig_info()), the error is ignored and the encoder is
+registered with a NULL enc_priv:
+
+radeon_add_atom_encoder() {
+    ...
+    radeon_encoder->enc_priv =3D radeon_atombios_set_dig_info(radeon_encode=
+r);
+    ...
+}
+
+This broken encoder is then passed to numerous other functions which
+unconditionally dereference enc_priv, such as:
+
+atombios_dig_encoder_setup2() {
+    ...
+    if (dig->dig_encoder =3D=3D -1)
+    ...
+}
+
+atombios_dig_transmitter_setup2() {
+    ...
+    int dig_encoder =3D dig->dig_encoder;
+    ...
+}
+
+atombios_dac_setup() {
+    ...
+    switch (dac_info->tv_std) {
+    ...
+}
+
+Since other DRM callbacks will unconditionally dereference it, could we han=
+dle
+the allocation failure at the source and abort encoder registration instead?
+
+[Severity: High]
+This is a pre-existing issue, but does this driver incorrectly default to
+distorting the aspect ratio for LCD devices?
+
+Also in drivers/gpu/drm/radeon/atombios_encoders.c:radeon_add_atom_encoder(=
+):
+
+radeon_add_atom_encoder() {
+    ...
+    radeon_encoder->rmx_type =3D RMX_FULL;
+    ...
+}
+
+Setting the default scaling mode to RMX_FULL stretches the image and
+distorts its aspect ratio (e.g., circles become ovals). Should this
+default to RMX_ASPECT instead to preserve the aspect ratio?
+
+>  				switch (dig->dig_encoder) {
+>  				case 0:
+>  					args.v2.ucEncoderID =3D ASIC_INT_DIG1_ENCODER_ID;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260620183150.1248=
+791-1-a.velichayshiy@ispras.ru?part=3D1
