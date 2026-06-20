@@ -4,45 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A41ECD98F2
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 01:17:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70108CD98E4
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 07:47:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 631CB10E156;
-	Sat, 20 Jun 2026 01:17:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACA4910E194;
+	Sat, 20 Jun 2026 07:47:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BSOZGECo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lEuLetpw";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEBD210E156
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 01:17:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7650340444;
- Sat, 20 Jun 2026 01:17:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B0821F000E9;
- Sat, 20 Jun 2026 01:17:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781918240;
- bh=GRsRfq54fSBIBWVspJUB1hKcI+wM0RxrAmA4h8SOOYM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BSOZGECoeo5+gSGcifaaoOI4dLWsv7IFbjsbYL1b29PLMI3XCgSDJ3pTUfF0GAsd5
- HU2B/NBmLxUysEtW69c6b2oKJAzlnZRV/q3xesdbOysm2ZK3+BCtI/QBjIQ0YHdGqH
- O/NU84F5+fqX1L+lAhRqR+dwt5M1KOzgsk6VfHOW5109D2WOV/1XNsH/uVvR8ztE5e
- qi57X3MuzWkmLJuaeLUSifdfx/ak7JtC4C3ycV1WgkOHVeEqgQg4TeKa2q1jfgthZn
- JhhM21uG89HNW74calGBFjyGAIbQnuSHHPuAHB8htdXyFqBopcNXppnqAIvqdWky1U
- bZk0gByPUZqxQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 13/13] drm: nova: Use drm::Device<Registered> to
- access the parent bus device
-To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: ojeda@kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260620005431.1562115-14-dakr@kernel.org>
-References: <20260620005431.1562115-1-dakr@kernel.org>
- <20260620005431.1562115-14-dakr@kernel.org>
-Content-Type: text/plain; charset=utf-8
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69A3B10E194
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 07:47:47 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 342EC43BC5
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 07:47:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 18DC4C2BCF6
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 07:47:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1781941667;
+ bh=x/UN75lDCxl9lHJjGsIPEKHYkhyvNus7rIX5x40+dqc=;
+ h=From:To:Subject:Date:In-Reply-To:References:From;
+ b=lEuLetpw2j8EWtfUBHdhAcGqC0XTsUWBiyj0Z3FqQZlj84LQaOS91IlEVT/sfxIFX
+ U7eSQgp74Ww1odWNr/4hpmJmU+mZYcr8fotdTS5CjvJZtH6vbeqYIVC2IPhjRp9cWE
+ hFGf+v3XFW8yV2qN/aNFOOiyaks1k4zwJTk6AKZH17cOSjMkH4KrrZMrXTJiyvtXB2
+ hwdTyNhvhV/+nDAD5eQi0zzg8eeCc2AiCm3heQsfq21+OTXQCqLMiiWyB49IBpnj9x
+ ie3jt3DEBfov1lTL+Uf2Gk1Do1YoKt7MnRM/CUKNf/E/+K6eSyD9lU4hYEORymodmL
+ LIRM5mjWhxD/w==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
+ from userid 48) id 11F78C41613; Sat, 20 Jun 2026 07:47:47 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: dri-devel@lists.freedesktop.org
+Subject: [Bug 60533] CVE-2013-7445: Remote web page triggerable DoS in Linux
+ DRM graphics
+Date: Sat, 20 Jun 2026 07:47:46 +0000
+X-Bugzilla-Reason: CC AssignedTo
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: None
+X-Bugzilla-Product: Drivers
+X-Bugzilla-Component: Video(DRI - Intel)
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: high
+X-Bugzilla-Who: aros@gmx.com
+X-Bugzilla-Status: REOPENED
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: dri-devel@lists.freedesktop.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: cf_kernel_version short_desc
+Message-ID: <bug-60533-2300-k3sisl7aDk@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-60533-2300@https.bugzilla.kernel.org/>
+References: <bug-60533-2300@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 20 Jun 2026 01:17:19 +0000
-Message-Id: <20260620011720.1B0821F000E9@smtp.kernel.org>
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,74 +72,23 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Changing the IOCTL handler signature to accept `&Device<Registered=
->` forces the `declare_drm_ioctls!` macro to unsafely assert registration i=
-nvariants before verifying them.
---
+https://bugzilla.kernel.org/show_bug.cgi?id=3D60533
 
-commit ae89d443b44234dbccc8b42ac767d5eb9bdfb248
-Author: Danilo Krummrich <dakr@kernel.org>
+Artem S. Tashkinov (aros@gmx.com) changed:
 
-drm: nova: Use drm::Device<Registered> to access the parent bus device
-
-This commit modifies the get_param ioctl handler to accept a
-&NovaDevice<Registered> instead of &NovaDevice, avoiding the need for
-storing device data.
-
-> diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
-> index 4c9fa409a8be8..e0e79b5719836 100644
-> --- a/drivers/gpu/drm/nova/file.rs
-> +++ b/drivers/gpu/drm/nova/file.rs
-
-[ ... ]
-
-> @@ -23,14 +29,13 @@ fn open(_dev: &NovaDevice) -> Result<Pin<KBox<Self>>>=
- {
->  impl File {
->      /// IOCTL: get_param: Query GPU / driver metadata.
->      pub(crate) fn get_param(
-> -        dev: &NovaDevice,
-> +        dev: &NovaDevice<Registered>,
-
-[Severity: High]
-Does changing the ioctl handler signature to accept &Device<Registered>
-cause the declare_drm_ioctls! macro to unsafely assert registration
-invariants before verifying them?
-
-The declare_drm_ioctls! macro instantiates a reference to the DRM device
-using Device::from_raw(raw_dev). Because of the type-inference anchor
-let _ =3D || { $func(dev, ...) }, changing the first parameter to
-&NovaDevice<Registered> causes from_raw to be invoked with the Registered
-context type.
-
-The safety contract of from_raw requires callers to promise that any type
-invariants of the generic context C are upheld. The Registered context
-guarantees that the DRM device is currently registered and its parent bus
-device is bound.
-
-However, the macro calls from_raw before acquiring the RegistrationGuard,
-which verifies via drm_dev_enter that the device hasn't been unplugged:
-
-rust/kernel/drm/ioctl.rs:declare_drm_ioctls!() {
-    ...
-    let dev =3D $crate::drm::device::Device::from_raw(raw_dev);
-    ...
-}
-
-If the device is concurrently unplugged between drm_ioctl's initial check
-and from_raw, the invariant is violated, which breaks the from_raw safety
-contract and could cause undefined behavior.
-
-Would it be safer for the handler to continue accepting &NovaDevice (the
-Normal context) and call dev.registration_guard() internally to obtain a
-Registered reference?
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+     Kernel Version|3.10/3.14                   |
+            Summary|CVE-2013-7445: Remote web   |CVE-2013-7445: Remote web
+                   |page triggerable DOS in     |page triggerable DoS in
+                   |Linux DRM graphics.         |Linux DRM graphics
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260620005431.1562=
-115-1-dakr@kernel.org?part=3D13
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are on the CC list for the bug.
+You are the assignee for the bug.=
