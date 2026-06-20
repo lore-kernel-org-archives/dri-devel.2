@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 256B7CD98E4
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 18:49:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 286D7CD98E4
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 18:50:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E6A910E24F;
-	Sat, 20 Jun 2026 18:49:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A87210E252;
+	Sat, 20 Jun 2026 18:50:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jXvelmzZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oDkdCwkr";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 584A210E24F
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 18:49:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6B6B10E252
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 18:49:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4054F444A7;
+ by sea.source.kernel.org (Postfix) with ESMTP id BF8F6443D7;
+ Sat, 20 Jun 2026 18:49:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 957A11F00A3A;
  Sat, 20 Jun 2026 18:49:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 165471F000E9;
- Sat, 20 Jun 2026 18:49:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781981394;
- bh=mNiEcu5XWNVyEyIaUUq1tJDCgK3b18j4JyJuq9z1Krk=;
+ s=k20260515; t=1781981398;
+ bh=ovlLpIFcIqJIS4zpHh69eliJrNZqKzaspRBt9Riw0zc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=jXvelmzZ80DSSGuImGZxTvrxYxBHxvvC72peoEgwMoX1aofz98IsJ/ss3yjzt0gNq
- 4xk6DoiDesVJZAALsS+02rmDHHeXMDgjxGfcNLUxd5K4WDz8mwCWNZgPbzSHQnAoQG
- peXYvK9eIOe3IUV3UsBaOwsh2HPw6zezYkzFRjzphVevsT36vkHb4R/PVr94TcXy0N
- w2Z4OeGCAuS9WytjPb0di4RUJMqJ+S8M2K2Xy/YHCqMSBKq6r1I+L5m+BjMyhLZHCD
- 7mDQ8vLUG+UMqTXdgloTmotI/S1DeQqgBsz/qPWUU5B2Zxjq+svtOUC/xseaDiinTm
- q8gv2Q1Yrza3A==
+ b=oDkdCwkrAR8Wu4GOMtt9lmgnWnTSowztfMEem/YW5aG2PkBrxxHHMryQOF1zMcRPb
+ qA1dDuxK+MaGHwjBLtAH2w1atFhU0F/qxkvvRxMi5aFcQmxDU+EbEJpgweBirPSK+w
+ Pl54JppcjpriFcl9BJn0hWsxWE7cNIZGWg3T2J0vodSIPZjmn50/vODltqhUlGeMn/
+ meDkyYuli5ux3srz2IYK8iDPsxerEY/m8eUHuTrpe71i/5Lj6TRLT4DFT8Vp0r8ycO
+ PFDdn1zOBexi7ijRyLwUsoFMMmbJCHogpCd2Ot+BsYe7saRrw2e6h9AxPXELvISOdP
+ COPY2E4RIfpDA==
 From: Danilo Krummrich <dakr@kernel.org>
 To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  acourbot@nvidia.com, ecourtney@nvidia.com, ojeda@kernel.org,
@@ -40,9 +40,10 @@ To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
 Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  rust-for-linux@vger.kernel.org
-Subject: [PATCH v4 04/16] rust: drm: change default DeviceContext to Normal
-Date: Sat, 20 Jun 2026 20:47:57 +0200
-Message-ID: <20260620184924.2247517-5-dakr@kernel.org>
+Subject: [PATCH v4 05/16] rust: drm: restrict AlwaysRefCounted to Normal
+ Device context
+Date: Sat, 20 Jun 2026 20:47:58 +0200
+Message-ID: <20260620184924.2247517-6-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260620184924.2247517-1-dakr@kernel.org>
 References: <20260620184924.2247517-1-dakr@kernel.org>
@@ -63,138 +64,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Change the default DeviceContext from Registered to Normal for
-drm::Device, gem::Object, gem::shmem::Object and
-gem::shmem::ObjectConfig.
-
-Normal is the general-purpose, reference-counted context suitable for
-most uses; Registered represents a device that was registered with
-userspace and will become a non-owning context obtained through a
-RegistrationGuard.
-
-Update the create_handle/lookup_handle bounds from Object<Registered> to
-Object<Normal> to match the new default context of GEM objects, and
-update the driver device type aliases (NovaDevice, TyrDrmDevice) to
-default to Normal.
+Restrict the AlwaysRefCounted implementation for drm::Device to the
+Normal context. Registered devices represent a non-owning view of a
+device within a RegistrationGuard scope and must not be independently
+reference-counted.
 
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- drivers/gpu/drm/nova/driver.rs | 2 +-
- drivers/gpu/drm/tyr/driver.rs  | 2 +-
- rust/kernel/drm/device.rs      | 2 +-
- rust/kernel/drm/gem/mod.rs     | 7 ++++---
- rust/kernel/drm/gem/shmem.rs   | 6 +++---
- 5 files changed, 10 insertions(+), 9 deletions(-)
+ rust/kernel/drm/device.rs | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.rs
-index c5b0313006bd..8ddb81fd0c87 100644
---- a/drivers/gpu/drm/nova/driver.rs
-+++ b/drivers/gpu/drm/nova/driver.rs
-@@ -26,7 +26,7 @@ pub(crate) struct Nova {
- }
- 
- /// Convienence type alias for the DRM device type for this driver
--pub(crate) type NovaDevice<Ctx = drm::Registered> = drm::Device<NovaDriver, Ctx>;
-+pub(crate) type NovaDevice<Ctx = drm::Normal> = drm::Device<NovaDriver, Ctx>;
- 
- #[pin_data]
- pub(crate) struct NovaData {
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 338c25ccc151..180631daff02 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -47,7 +47,7 @@
- pub(crate) struct TyrDrmDriver;
- 
- /// Convenience type alias for the DRM device type for this driver.
--pub(crate) type TyrDrmDevice<Ctx = drm::Registered> = drm::Device<TyrDrmDriver, Ctx>;
-+pub(crate) type TyrDrmDevice<Ctx = drm::Normal> = drm::Device<TyrDrmDriver, Ctx>;
- 
- pub(crate) struct TyrPlatformDriver;
- 
 diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
-index 23eb4c0a65ef..d712387707d2 100644
+index d712387707d2..9825d52832af 100644
 --- a/rust/kernel/drm/device.rs
 +++ b/rust/kernel/drm/device.rs
-@@ -246,7 +246,7 @@ pub fn new(
- /// * The data layout of `Self` remains the same across all implementations of `C`.
- /// * Any invariants for `C` also apply.
- #[repr(C)]
--pub struct Device<T: drm::Driver, C: DeviceContext = Registered> {
-+pub struct Device<T: drm::Driver, C: DeviceContext = Normal> {
-     dev: Opaque<bindings::drm_device>,
-     data: T::Data,
-     _ctx: PhantomData<C>,
-diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-index c8b66d816871..1023ddccd785 100644
---- a/rust/kernel/drm/gem/mod.rs
-+++ b/rust/kernel/drm/gem/mod.rs
-@@ -10,6 +10,7 @@
-         self,
-         device::{
-             DeviceContext,
-+            Normal,
-             Registered, //
-         },
-         driver::{
-@@ -183,7 +184,7 @@ fn size(&self) -> usize {
-     fn create_handle<D, F>(&self, file: &drm::File<F>) -> Result<u32>
-     where
-         Self: AllocImpl<Driver = D>,
--        D: drm::Driver<Object<Registered> = Self, File = F>,
-+        D: drm::Driver<Object<Normal> = Self, File = F>,
-         F: drm::file::DriverFile<Driver = D>,
-     {
-         let mut handle: u32 = 0;
-@@ -198,7 +199,7 @@ fn create_handle<D, F>(&self, file: &drm::File<F>) -> Result<u32>
-     fn lookup_handle<D, F>(file: &drm::File<F>, handle: u32) -> Result<ARef<Self>>
-     where
-         Self: AllocImpl<Driver = D>,
--        D: drm::Driver<Object<Registered> = Self, File = F>,
-+        D: drm::Driver<Object<Normal> = Self, File = F>,
-         F: drm::file::DriverFile<Driver = D>,
-     {
-         // SAFETY: The arguments are all valid per the type invariants.
-@@ -254,7 +255,7 @@ impl<T: IntoGEMObject> BaseObjectPrivate for T {}
- /// * Any type invariants of `Ctx` apply to the parent DRM device for this GEM object.
- #[repr(C)]
- #[pin_data]
--pub struct Object<T: DriverObject + Send + Sync, Ctx: DeviceContext = Registered> {
-+pub struct Object<T: DriverObject + Send + Sync, Ctx: DeviceContext = Normal> {
-     obj: Opaque<bindings::drm_gem_object>,
-     #[pin]
-     data: T,
-diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-index 34af402899a0..f47a90cdb95b 100644
---- a/rust/kernel/drm/gem/shmem.rs
-+++ b/rust/kernel/drm/gem/shmem.rs
-@@ -17,7 +17,7 @@
-         private::Sealed,
-         Device,
-         DeviceContext,
--        Registered, //
-+        Normal, //
-     },
-     error::to_result,
-     prelude::*,
-@@ -43,7 +43,7 @@
- /// This is used with [`Object::new()`] to control various properties that can only be set when
- /// initially creating a shmem-backed GEM object.
- #[derive(Default)]
--pub struct ObjectConfig<'a, T: DriverObject, C: DeviceContext = Registered> {
-+pub struct ObjectConfig<'a, T: DriverObject, C: DeviceContext = Normal> {
-     /// Whether to set the write-combine map flag.
-     pub map_wc: bool,
+@@ -85,6 +85,9 @@ pub trait DeviceContext: Sealed + Send + Sync {}
+ ///
+ /// A [`Device`] in this context may or may not be registered with userspace. This context is used
+ /// for reference-counted device handles and during device setup via [`UnregisteredDevice`].
++///
++/// [`AlwaysRefCounted`] is only implemented for `Device<T, Normal>`, making this the required
++/// context for [`ARef`]-based device handles.
+ pub struct Normal;
  
-@@ -62,7 +62,7 @@ pub struct ObjectConfig<'a, T: DriverObject, C: DeviceContext = Registered> {
- /// - Any type invariants of `C` apply to the parent DRM device for this GEM object.
- #[repr(C)]
- #[pin_data]
--pub struct Object<T: DriverObject, C: DeviceContext = Registered> {
-+pub struct Object<T: DriverObject, C: DeviceContext = Normal> {
-     #[pin]
-     obj: Opaque<bindings::drm_gem_shmem_object>,
-     /// Parent object that owns this object's DMA reservation object.
+ impl Sealed for Normal {}
+@@ -327,7 +330,7 @@ fn deref(&self) -> &Self::Target {
+ 
+ // SAFETY: DRM device objects are always reference counted and the get/put functions
+ // satisfy the requirements.
+-unsafe impl<T: drm::Driver, C: DeviceContext> AlwaysRefCounted for Device<T, C> {
++unsafe impl<T: drm::Driver> AlwaysRefCounted for Device<T> {
+     fn inc_ref(&self) {
+         // SAFETY: The existence of a shared reference guarantees that the refcount is non-zero.
+         unsafe { bindings::drm_dev_get(self.as_raw()) };
+@@ -357,12 +360,10 @@ unsafe impl<T: drm::Driver, C: DeviceContext> Send for Device<T, C> {}
+ // by the synchronization in `struct drm_device`.
+ unsafe impl<T: drm::Driver, C: DeviceContext> Sync for Device<T, C> {}
+ 
+-impl<T, C, const ID: u64> WorkItem<ID> for Device<T, C>
++impl<T: drm::Driver, const ID: u64> WorkItem<ID> for Device<T>
+ where
+-    T: drm::Driver,
+     T::Data: WorkItem<ID, Pointer = ARef<Self>>,
+     T::Data: HasWork<Self, ID>,
+-    C: DeviceContext,
+ {
+     type Pointer = ARef<Self>;
+ 
 -- 
 2.54.0
 
