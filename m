@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBFA0CDB46B
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 11:30:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61A84CDB46B
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 12:32:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 115BB10E0B4;
-	Sat, 20 Jun 2026 11:30:53 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QiroeYfC";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E57FB10E0B4
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 11:30:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DCE54600AE;
- Sat, 20 Jun 2026 11:30:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E7E91F000E9;
- Sat, 20 Jun 2026 11:30:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781955049;
- bh=EH+Um+Qh9d/qm5Ekr4h7boqJBdnm9jaLYT6h4CVUUZo=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To;
- b=QiroeYfCPXnXr4ZGETMecj03X+Cl4/fNxMR6bk46XGoaLNaisI3Gi7TLWbhnIYxfU
- qBke0ifdpjPLNDj/+O+dS5mEOXlAhpLXOLYNIT2ud9fXnYtytHMj7zKZYplp2KpeUg
- q3HA8mpFI2ufLU0Avn4aa8nGK+bi5OzB2pnP6U8SpFLLN703nG8UatbwDzJOK8Sy7w
- X8t5ESlM+DDzIhRJV62cnHUB4uFxpTYPpmyMAnFG8ZF7Yz67Lbkr2wzi7aMQcmkio5
- QJ3p7474knia6t93mK6yFFOuA79jUUDYnUr49Ce4+pOsW6/yvS10r4b2JALWUa5y1w
- aq4xCkW/lsMvw==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 20 Jun 2026 13:30:46 +0200
-Message-Id: <DJDUCF0FN8M3.OKSUDWCKJ4PR@kernel.org>
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>,
- "Gary Guo" <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, "Joel Fernandes" <joelagnelf@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v3 3/3] gpu: nova-core: gsp: Extract and display usable
- FB regions from GSP
-References: <20260617-boot-vram-v3-0-20b9ec5fe9f2@nvidia.com>
- <20260617-boot-vram-v3-3-20b9ec5fe9f2@nvidia.com>
-In-Reply-To: <20260617-boot-vram-v3-3-20b9ec5fe9f2@nvidia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6086210E116;
+	Sat, 20 Jun 2026 12:32:40 +0000 (UTC)
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
+ [209.85.167.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02C2F10E116
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 12:32:38 +0000 (UTC)
+Received: by mail-oi1-f197.google.com with SMTP id
+ 5614622812f47-48b60638021so545529b6e.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 05:32:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781958758; x=1782563558;
+ h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=bSDyNQhONyaGcj2p3z2sF0BPIBl1KdxlWijRwtEeTDk=;
+ b=ptqADFvaQjsugH4n/GMKmI/YNyhMY5gGrXzCVyuDDar/M+Mf4SiOSDh4gB7bGvSaKi
+ wOADg1RoNM5H6YcVFSmIPq2RMB2TU78wF+oGZzX/QoaTUxwg1rBHboI/GxPS+MNTfOCj
+ YzZsprZDkV6VO7SKXbTUXXluxiNtoNL3d5yRXWR+9oyUepFuv7niyTew9q5j5aM4GNoe
+ 2b5m6XG1/V3ONHlqYn9OxQ7vDLoAf1uzOfbJLPD5xes3CNOMHFgnETQz6Y+mE59D4eiS
+ EU1l6LQueqEYQ7wlzcab3rDDVHBz+Q1pZ2ZpgJHb8WTa/1Lo4SA1mCjWkLoS0tHIkUxw
+ 0VwA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/gB4q+Uup1ynpJz5AMLE1bpVK58G5+CuY48CxxcvwkUAbfbsKVIsqkvlzZiGxgKmZHn/YuLI8TCtk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzFlhR8ZfEOV67HPTywflNFJ//+QqXv99zXhTxWqanwEkgfTTVc
+ +LaZoaVkUJKKsoDcDGnPIVEPNY7uLRdeXV0tSQubl7YDPqHoRhTRK4RIa6bWGLm9ONSZhMvRZRW
+ /BYkrepIaWXHGXxydrS4e7AjogOCRV8ngUz6IfRDj3Xw7bUsggK1nZaimZHs=
+MIME-Version: 1.0
+X-Received: by 2002:a05:6808:181b:b0:467:15ad:9de5 with SMTP id
+ 5614622812f47-4896aa63456mr6366277b6e.13.1781958758313; Sat, 20 Jun 2026
+ 05:32:38 -0700 (PDT)
+Date: Sat, 20 Jun 2026 05:32:38 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a368866.5c48295d.477b4.0019.GAE@google.com>
+Subject: [syzbot] Monthly fbdev report (Jun 2026)
+From: syzbot <syzbot+list4b2fb95ff146ecfb29b2@syzkaller.appspotmail.com>
+To: deller@gmx.de, dri-devel@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,34 +61,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Jun 17, 2026 at 3:24 PM CEST, Alexandre Courbot wrote:
-> @@ -377,6 +378,21 @@ pub(crate) fn new(
->                      Err(e) =3D> dev_warn!(pdev, "GPU name unavailable: {=
-:?}\n", e),
->                  }
-> =20
-> +                if !info.usable_fb_regions.is_empty() {
-> +                    dev_info!(pdev, "Usable FB regions:\n");
-> +                    for region in &info.usable_fb_regions {
-> +                        dev_info!(pdev, "  - {:#x?}\n", region);
-> +                    }
-> +
-> +                    dev_info!(
-> +                        pdev,
-> +                        "Total usable VRAM: {} MiB\n",
-> +                        info.usable_fb_regions.iter().fold(0u64, |res, r=
-egion| res
-> +                            .saturating_add(region.end - region.start))
-> +                            / u64::SZ_1M
-> +                    );
-> +                }
+Hello fbdev maintainers/developers,
 
-Drivers should generally remain silent when they work properly, some except=
-ions
-are fine, but this seems too verbose. Let's use dev_dbg!() instead.
+This is a 31-day syzbot report for the fbdev subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/fbdev
 
-Also, would it make sense to (rather) warn in the else case? (I think OpenR=
-M
-treats this as error, although the check in OpenRM checks whether there are=
- no
-regions at all.)
+During the period, 1 new issues were detected and 0 were fixed.
+In total, 5 issues are still open and 29 have already been fixed.
+
+Some of the still happening issues:
+
+Ref Crashes Repro Title
+<1> 5429    Yes   KASAN: vmalloc-out-of-bounds Write in imageblit (6)
+                  https://syzkaller.appspot.com/bug?extid=5a40432dfe8f86ee657a
+<2> 1600    Yes   KASAN: slab-out-of-bounds Read in fbcon_prepare_logo
+                  https://syzkaller.appspot.com/bug?extid=0c815b25cdb3678e7083
+<3> 271     No    KASAN: vmalloc-out-of-bounds Write in fillrect
+                  https://syzkaller.appspot.com/bug?extid=7a63ce155648954e749b
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
