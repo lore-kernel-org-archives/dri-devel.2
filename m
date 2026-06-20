@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A747CD98F2
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 18:58:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4692CCD98F2
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 18:59:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6752210E26D;
-	Sat, 20 Jun 2026 18:58:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A193110E271;
+	Sat, 20 Jun 2026 18:59:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kbnLV5gs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oES8DkYH";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9E8A10E26D
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 18:58:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2346810E270
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 18:59:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 64B4C40142;
- Sat, 20 Jun 2026 18:58:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 232BD1F000E9;
- Sat, 20 Jun 2026 18:58:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F17C942AEE;
+ Sat, 20 Jun 2026 18:59:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF4EA1F000E9;
+ Sat, 20 Jun 2026 18:59:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781981909;
- bh=kPY0Q+fmhGIrLblF5cph1AmyZ2wxA2QwT5fOZgKddMU=;
+ s=k20260515; t=1781981985;
+ bh=OzFC1dOKiO+czBRFhVGFyLfrcehWJ7DXtK3IViJF3G4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kbnLV5gsUTIOpZ+Lb9SYKOR/1eyn2uWZknNbB6LMEDZ5Rt9d+TWMvw6TSJbTepQwI
- JOFxHtNPNPV/UDN7RQ8conuwA13Olgi7tmRW2VNBMle7VlBjvZ6ij8jsIOFYwaJCW8
- 5MvSj+OsOQXX4devjY6B66csqFCia+cFWz8x8XQxkLiJv+jVuY+CGNS7k1GYkZ7RzY
- sUvFDynuwumT4NrnrwNj7zfRLhAwQcWGEmXMv/1JOIP9B1cDDGvvVvcoX6jlaRNdMY
- Ujw79Dow+ZwBfg8VLr277m8VETz1D0T6zHd8de3Z0K4VfSTRuU1f+jnNKRMd7PhgBN
- QcICg9XD51rfQ==
+ b=oES8DkYHc4VPM4bnY87NOR4W+JdqqBt7P9H6CqaIjnhyJBQG0320SepkutbjVCXel
+ Yuc8Hv613KtsI4xqGt5a0+wIVRiwaYrkfKGAqC7RhOWVo+2pZgzRXwm7e/lQ2fryG4
+ sRlT88fsU8SrPqUyInMsCyQfvZJJHz2S4548GUSVsg9kg6/q62rAm0tuFuF/hJw3QO
+ SqqDQXxsmmB3vDKrTfco3V16KA6Yox/9AxIiIKJoBRwJBbpCtd1p8g4klDpld7hICg
+ nzPp90ax2VijQZxy2GsrwNJ1a5ECHHjuSCJI+J5tjn6/O5THPfqebvw7m5pxgMsMbK
+ 30LXCAIfZDHxg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 11/16] rust: drm: Wrap ioctl dispatch in
- RegistrationGuard
+Subject: Re: [PATCH v4 08/16] rust: drm: pin ioctl Device reference to
+ Normal context
 To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: ojeda@kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260620184924.2247517-12-dakr@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org,
+ "Alexandre Courbot" <acourbot@nvidia.com>
+In-Reply-To: <20260620184924.2247517-9-dakr@kernel.org>
 References: <20260620184924.2247517-1-dakr@kernel.org>
- <20260620184924.2247517-12-dakr@kernel.org>
+ <20260620184924.2247517-9-dakr@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 20 Jun 2026 18:58:28 +0000
-Message-Id: <20260620185829.232BD1F000E9@smtp.kernel.org>
+Date: Sat, 20 Jun 2026 18:59:45 +0000
+Message-Id: <20260620185945.AF4EA1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,105 +59,94 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Critical] The `declare_drm_ioctls!` macro fails to constrain the ioctl h=
-andler's data argument type to the declared UAPI `$struct`, which allows ha=
-ndlers to silently accept larger types and causes out-of-bounds memory acce=
-sses.
+
+Pre-existing issues:
+- [High] Out-of-Bounds Memory Access via Type Inference in `declare_drm_ioc=
+tls!`
+- [High] Type Confusion via Unconstrained Device and File Generic Parameters
 --
 
-commit aaaa8c4ed4a35894ea9d49cf012ca359ca7c8ab5
+commit 0938877e05968d385af3ba72b727ba8164977c11
 Author: Danilo Krummrich <dakr@kernel.org>
 
-rust: drm: Wrap ioctl dispatch in RegistrationGuard
-
-This patch ensures that ioctl handlers receive a reference to a registered
-device, proving at the type level that the device has not been unplugged.
-It achieves this by calling `registration_guard()` on the device and using a
-dead-code closure as a type-inference anchor to resolve the driver type
-parameter.
+rust: drm: pin ioctl Device reference to Normal context
+   =20
+Explicitly annotate the Device reference produced by from_raw() in the
+ioctl dispatch macro as Device<_, Normal>. Without this annotation, the
+context is inferred from the handler's first parameter type, which would
+allow a handler declaring &Device<T, Registered> to obtain a Registered
+reference without runtime proof via RegistrationGuard.
 
 > diff --git a/rust/kernel/drm/ioctl.rs b/rust/kernel/drm/ioctl.rs
-> index 70cf1aa4d788f..6cefd26b31f91 100644
+> index 023e6da5c1e4b..70cf1aa4d788f 100644
 > --- a/rust/kernel/drm/ioctl.rs
 > +++ b/rust/kernel/drm/ioctl.rs
+> @@ -167,7 +167,8 @@ macro_rules! declare_drm_ioctls {
+>                              // FIXME: Currently there is nothing enforci=
+ng that the types of the
+>                              // dev/file match the current driver these i=
+octls are being declared
+>                              // for, and it's not clear how to enforce th=
+is within the type system.
+> -                            let dev =3D $crate::drm::device::Device::fro=
+m_raw(raw_dev);
+> +                            let dev: &$crate::drm::device::Device<_, $cr=
+ate::drm::Normal> =3D
+> +                                $crate::drm::device::Device::from_raw(ra=
+w_dev);
 
-[ ... ]
+[Severity: High]
+This isn't a bug introduced by this patch, but looking at the FIXME comment
+and the use of the generic wildcard for the driver type in
+Device<_, Normal>, could this lead to type confusion?
 
-> @@ -164,11 +176,38 @@ macro_rules! declare_drm_ioctls {
+If a developer provides a handler expecting a Device for DriverB but
+registers it in DriverA's ioctl array, it seems Device::from_raw() will cast
+the C pointers for DriverA into references for DriverB. Any subsequent acce=
+ss
+to the device or file private data would then cause memory corruption.
 
-[ ... ]
+Also, for the File type:
 
-> +                            // Type-inference anchor: the closure is nev=
-er called but ties `dev`'s
-> +                            // type to `$func`'s first parameter, which =
-the compiler cannot infer
-> +                            // through method resolution and associated-=
-type projections alone.
-> +                            #[allow(unreachable_code)]
-> +                            let _ =3D || {
-> +                                $func(
-> +                                    // SAFETY: This closure is never exe=
-cuted; the dereference
-> +                                    // exists purely to unify the type p=
-arameter with `$func`.
-> +                                    // The pointer is valid regardless.
-> +                                    unsafe { &*__ptr },
-> +                                    unreachable!(),
-> +                                    unreachable!(),
+rust/kernel/drm/ioctl.rs:internal::__call_ioctl() {
+    ...
+    let file =3D unsafe { super::super::File::<F>::from_raw(raw_file) };
+    ...
+}
 
-[Severity: Critical]
-Does using unreachable!() here drop the type constraint on the UAPI struct?
+Is there a way to enforce that the Device and File generic parameters of the
+user-provided ioctl handler match the actual driver registering the ioctls?
 
-Because unreachable!() coerces to any type, it appears this closure fails to
-anchor the data argument to the expected UAPI struct.
-
-This allows the compiler to infer the data type entirely from the user-prov=
-ided
-handler signature without enforcing that it matches the declared UAPI struc=
-t.
-
-> +                                )
-> +                            };
-> +
-> +                            let Some(guard) =3D dev.registration_guard()=
- else {
-> +                                return $crate::error::code::ENODEV.to_er=
-rno();
-> +                            };
 >                              let __anchor =3D ();
 > =20
 >                              // SAFETY:
-> @@ -180,7 +219,7 @@ macro_rules! declare_drm_ioctls {
->                              // - `raw_file` is a valid `struct drm_file`=
- pointer provided by the
->                              //   DRM core.
->                              match unsafe { $crate::drm::ioctl::internal:=
-:__call_ioctl(
-> -                                &__anchor, dev, raw_data, raw_file, $fun=
-c,
-> +                                &__anchor, &*guard, raw_data, raw_file, =
-$func,
 
-[Severity: Critical]
-If the handler author accidentally specifies a larger type for the data
-argument, could this lead to out-of-bounds memory access?
+[Severity: High]
+This is a pre-existing issue, but does declare_drm_ioctls! constrain the
+inferred Data type for the ioctl payload?
 
-Since __call_ioctl() infers its generic data type directly from the $func
-signature, it will cast the raw_data pointer to that inferred type.=20
+Looking at __call_ioctl(), the Data generic type is inferred from the second
+parameter of the user-provided handler:
 
-The DRM core allocates the raw_data buffer exactly based on the expected UA=
-PI
-struct size. If the handler silently accepts a larger struct type, casting =
-and
-dereferencing it in __call_ioctl() would cause out-of-bounds memory accesse=
-s.
+rust/kernel/drm/ioctl.rs:internal::__call_ioctl() {
+    ...
+    let data =3D unsafe { &mut *(raw_data.cast::<Data>()) };
+    ...
+}
 
->                              ) } {
->                                  Err(e) =3D> e.to_errno(),
->                                  Ok(i) =3D> i.try_into()
+If a handler expects a mutable reference to a data type larger than the
+declared struct (for example, a very large array), __call_ioctl() casts
+raw_data to that larger type. Since the DRM core allocates exactly
+_IOC_SIZE(cmd) bytes based on the macro's struct, could this result in an
+out-of-bounds heap read/write?
+
+Could the type-inference anchor be updated to explicitly constrain the data
+parameter, perhaps using let mut data: $crate::uapi::$struct =3D unreachabl=
+e!();
+instead of unreachable!()?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260620184924.2247=
-517-1-dakr@kernel.org?part=3D11
+517-1-dakr@kernel.org?part=3D8
