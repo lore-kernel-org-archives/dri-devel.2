@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AFB4CD98F2
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 18:50:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E21ACD98F2
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 18:50:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF04C10E258;
-	Sat, 20 Jun 2026 18:50:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2EDA10E25D;
+	Sat, 20 Jun 2026 18:50:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nkpF29VM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mIBRZkP0";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64FAE10E258
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 18:50:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9CB910E25B
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 18:50:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D385C601E1;
+ by tor.source.kernel.org (Postfix) with ESMTP id 5DF1F601F5;
+ Sat, 20 Jun 2026 18:50:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06E331F00A3A;
  Sat, 20 Jun 2026 18:50:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B7061F000E9;
- Sat, 20 Jun 2026 18:50:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781981421;
- bh=PMbt/3VkjK/Dx+euW8eQ5gjXGuypSIt0hS9yHPe1r+8=;
+ s=k20260515; t=1781981426;
+ bh=/8w+Alg5cS9HB973t3dhzu08xS7/sbxeb5TgmQ6uG7c=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=nkpF29VMV5FW1JlPZtO3TZVTB4UqMhL5SR5oJxEDA8CI67YND9u6Soz+2FgcsC+0v
- fD+QEo60Toq6otaGoW3pc47Z9yyz5EBHN0O9V3de+yr1uzAN96AjeMzQIMZviUKDRQ
- qNHtbxLFrC+Er9MeB6kuS3cHtUPb8AHPlGDH5TtmRFvs8jXp8b6qQtLhUBBPtmeHql
- QOWR7iynOsxBUs9wOtLSsbK0qAtvcBdLF4a5evyzqpdBUK038q8YpC8FwrxIrx2U1S
- QYbQgWKEdxGe5KRbJZfTvZLACJ2QKXeKEtOeM0TpfG3MPiFEX9W676p1hiyOrb3nFZ
- FW4MuB0Ex6a8g==
+ b=mIBRZkP0PH1TrdGlmVudqTZ0XsV8nJg/xSWkvubNo8iz8zOZPnZQBy5cbZ6pMrVm/
+ 9XGu4h0NhG0gL5EheUG9iZbnv+zkeqlV+W7CUibYJqIY1xLJTiD6w742kcjB/Aiezi
+ e8SwN5QQeZUGZg3yI6DIoM/Ipf6MSKfbf2ch5JJVss5No3aIeW0TI0ri1XgOtAKUTV
+ 3GqWrt9f6hRe0L1JItu5WkrsNFAyXJcLJ55F9zCOew3aK/S9M1gmN9KhtDxbZHcXIt
+ fM3lyBD+mA/ti2j4L76lHlPTxoPy1tdo9YUjM/wDm9Zxg8HIOyXhw9SaDqEdYGspxT
+ qSWHnxiwx3wDw==
 From: Danilo Krummrich <dakr@kernel.org>
 To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  acourbot@nvidia.com, ecourtney@nvidia.com, ojeda@kernel.org,
@@ -40,10 +40,9 @@ To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
 Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  rust-for-linux@vger.kernel.org
-Subject: [PATCH v4 10/16] rust: drm: Add RegistrationGuard for
- drm_dev_enter/exit critical sections
-Date: Sat, 20 Jun 2026 20:48:03 +0200
-Message-ID: <20260620184924.2247517-11-dakr@kernel.org>
+Subject: [PATCH v4 11/16] rust: drm: Wrap ioctl dispatch in RegistrationGuard
+Date: Sat, 20 Jun 2026 20:48:04 +0200
+Message-ID: <20260620184924.2247517-12-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260620184924.2247517-1-dakr@kernel.org>
 References: <20260620184924.2247517-1-dakr@kernel.org>
@@ -64,181 +63,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-DRM ioctls do not guarantee that the parent bus device is still bound.
-However, since DRM device registration is managed through Devres, using
-drm_dev_unplug() on unregistration ensures that between drm_dev_enter()
-and drm_dev_exit() the parent device must be bound.
+Ioctl handlers now receive a &Device<T, Registered> reference, proving
+at the type level that the device is registered and its parent bus
+device is bound.
 
-Add RegistrationGuard, a guard object representing a drm_dev_enter/exit
-SRCU critical section that dereferences to &Device<T, Registered>. The
-guard is obtained from Device<T, Ioctl> and proves at runtime that the
-device is still registered.
+This is achieved by calling registration_guard() on the Device<T, Ioctl>
+obtained in ioctl dispatch context. If the device has been unplugged,
+the ioctl returns -ENODEV without calling the handler.
 
-Switch Registration::drop from drm_dev_unregister() to drm_dev_unplug()
-to provide the SRCU barrier that RegistrationGuard's safety argument
-relies on.
+To resolve the driver type parameter T for type inference, which the
+compiler cannot propagate through method resolution and associated-type
+projections alone, a dead-code closure and a helper function are used as
+a type-inference anchor.
 
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- rust/kernel/drm/device.rs | 85 ++++++++++++++++++++++++++++++++++-----
- rust/kernel/drm/driver.rs | 10 ++++-
- rust/kernel/drm/mod.rs    |  1 +
- 3 files changed, 83 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/nova/file.rs | 12 ++++++----
+ drivers/gpu/drm/tyr/file.rs  |  7 ++++--
+ rust/kernel/drm/ioctl.rs     | 45 +++++++++++++++++++++++++++++++++---
+ 3 files changed, 55 insertions(+), 9 deletions(-)
 
-diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
-index d429b4655449..c32cc0f0eba0 100644
---- a/rust/kernel/drm/device.rs
-+++ b/rust/kernel/drm/device.rs
-@@ -80,7 +80,8 @@ macro_rules! drm_legacy_fields {
- ///   or may not be registered with userspace.
- /// - [`Ioctl`]: The device has been registered with userspace at some point; used in ioctl
- ///   dispatch context.
--/// - [`Registered`]: The device has been registered with userspace at some point.
-+/// - [`Registered`]: The device is currently registered with userspace and the parent bus device
-+///   is bound.
- ///
- /// Both `Device<T, Ioctl>` and `Device<T, Registered>` dereference to `Device<T>` ([`Normal`]),
- /// so any method available on a [`Normal`] device is also available in the other contexts.
-@@ -98,18 +99,15 @@ pub trait DeviceContext: Sealed + Send + Sync {}
- impl Sealed for Normal {}
- impl DeviceContext for Normal {}
+diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
+index a3b7bd36792c..19fb89b28984 100644
+--- a/drivers/gpu/drm/nova/file.rs
++++ b/drivers/gpu/drm/nova/file.rs
+@@ -4,7 +4,11 @@
+ use crate::gem::NovaObject;
+ use kernel::{
+     alloc::flags::*,
+-    drm::{self, gem::BaseObject},
++    drm::{
++        self,
++        gem::BaseObject,
++        Registered, //
++    },
+     pci,
+     prelude::*,
+     uapi,
+@@ -23,7 +27,7 @@ fn open(_dev: &NovaDevice) -> Result<Pin<KBox<Self>>> {
+ impl File {
+     /// IOCTL: get_param: Query GPU / driver metadata.
+     pub(crate) fn get_param(
+-        dev: &NovaDevice,
++        dev: &NovaDevice<Registered>,
+         getparam: &mut uapi::drm_nova_getparam,
+         _file: &drm::File<File>,
+     ) -> Result<u32> {
+@@ -43,7 +47,7 @@ pub(crate) fn get_param(
  
--/// The [`DeviceContext`] of a [`Device`] that was registered with userspace at some point.
-+/// The [`DeviceContext`] of a [`Device`] that is currently registered with userspace.
- ///
--/// This represents a [`Device`] which is guaranteed to have been registered with userspace at
--/// some point in time. Such a DRM device is guaranteed to have been fully-initialized.
--///
--/// Note: A device in this context is not guaranteed to remain registered with userspace for its
--/// entire lifetime, as this is impossible to guarantee at compile-time.
-+/// A [`Device`] in this context is guaranteed to be registered and its parent bus device is
-+/// guaranteed to be bound. This is enforced at runtime by [`RegistrationGuard`], which holds a
-+/// `drm_dev_enter()` / `drm_dev_exit()` SRCU critical section.
- ///
- /// # Invariants
- ///
--/// A [`Device`] in this [`DeviceContext`] is guaranteed to have been registered with userspace
--/// at some point in time.
-+/// The parent bus device is bound for the duration of any reference to a `Device<T, Registered>`.
- pub struct Registered;
+     /// IOCTL: gem_create: Create a new DRM GEM object.
+     pub(crate) fn gem_create(
+-        dev: &NovaDevice,
++        dev: &NovaDevice<Registered>,
+         req: &mut uapi::drm_nova_gem_create,
+         file: &drm::File<File>,
+     ) -> Result<u32> {
+@@ -56,7 +60,7 @@ pub(crate) fn gem_create(
  
- impl Sealed for Registered {}
-@@ -260,8 +258,8 @@ pub fn new(
+     /// IOCTL: gem_info: Query GEM metadata.
+     pub(crate) fn gem_info(
+-        _dev: &NovaDevice,
++        _dev: &NovaDevice<Registered>,
+         req: &mut uapi::drm_nova_gem_info,
+         file: &drm::File<File>,
+     ) -> Result<u32> {
+diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
+index 31411da203c5..fb9233eae01c 100644
+--- a/drivers/gpu/drm/tyr/file.rs
++++ b/drivers/gpu/drm/tyr/file.rs
+@@ -1,7 +1,10 @@
+ // SPDX-License-Identifier: GPL-2.0 or MIT
  
- /// A typed DRM device with a specific [`drm::Driver`] implementation and [`DeviceContext`].
- ///
--/// A device in the [`Registered`] context is guaranteed to have been registered with userspace
--/// at some point. The [`Normal`] context is the general-purpose, reference-counted context.
-+/// A device in the [`Registered`] context is currently registered with userspace and its parent
-+/// bus device is bound. The [`Normal`] context is the general-purpose, reference-counted context.
- ///
- /// # Invariants
- ///
-@@ -340,6 +338,71 @@ pub(crate) unsafe fn assume_ctx<NewCtx: DeviceContext>(&self) -> &Device<T, NewC
-     }
- }
+ use kernel::{
+-    drm,
++    drm::{
++        self,
++        Registered, //
++    },
+     prelude::*,
+     uaccess::UserSlice,
+     uapi, //
+@@ -28,7 +31,7 @@ fn open(_dev: &drm::Device<Self::Driver>) -> Result<Pin<KBox<Self>>> {
  
-+impl<T: drm::Driver> Device<T, Ioctl> {
-+    /// Guard against the parent bus device being unbound.
+ impl TyrDrmFileData {
+     pub(crate) fn dev_query(
+-        ddev: &TyrDrmDevice,
++        ddev: &TyrDrmDevice<Registered>,
+         devquery: &mut uapi::drm_panthor_dev_query,
+         _file: &TyrDrmFile,
+     ) -> Result<u32> {
+diff --git a/rust/kernel/drm/ioctl.rs b/rust/kernel/drm/ioctl.rs
+index 70cf1aa4d788..6cefd26b31f9 100644
+--- a/rust/kernel/drm/ioctl.rs
++++ b/rust/kernel/drm/ioctl.rs
+@@ -71,6 +71,18 @@ pub mod internal {
+     pub use bindings::drm_file;
+     pub use bindings::drm_ioctl_desc;
+ 
++    /// Reinterpret a pointer to a DRM device with a different [`DeviceContext`], preserving the
++    /// driver type parameter `T`.
 +    ///
-+    /// Returns a [`RegistrationGuard`] if the device has not been unplugged, [`None`] otherwise.
-+    ///
-+    /// While [`RegistrationGuard`] is held the parent device is guaranteed to be bound.
-+    #[must_use]
-+    pub fn registration_guard(&self) -> Option<RegistrationGuard<'_, T>> {
-+        let mut idx: i32 = 0;
-+        // SAFETY: `self.as_raw()` is a valid pointer to a `struct drm_device`.
-+        if unsafe { bindings::drm_dev_enter(self.as_raw(), &mut idx) } {
-+            // INVARIANT:
-+            // - `idx` is the SRCU index from the successful `drm_dev_enter()` above.
-+            // - The parent bus device is bound: `drm_dev_enter()` succeeded, meaning
-+            //   `drm_dev_unplug()` has not completed; since it is only called from
-+            //   `Registration::drop()` during parent unbind, the parent is still bound.
-+            Some(RegistrationGuard {
-+                // SAFETY: See INVARIANT above; the `Registered` context invariant holds.
-+                dev: unsafe { self.assume_ctx() },
-+                idx,
-+                _not_send: NotThreadSafe,
-+            })
-+        } else {
-+            None
-+        }
++    /// Used by [`declare_drm_ioctls!`] to anchor type inference.
++    #[doc(hidden)]
++    #[inline(always)]
++    pub const fn __dev_ctx_cast<T: super::super::Driver>(
++        ptr: *const super::super::device::Device<T, super::super::Ioctl>,
++    ) -> *const super::super::device::Device<T, super::super::Registered> {
++        ptr.cast()
 +    }
-+}
 +
-+/// A guard proving the DRM device is registered and the parent bus device is bound.
-+///
-+/// The guard dereferences to [`Device<T, Registered>`], providing access to the DRM device with
-+/// the guarantee that the parent bus device is bound for the entire duration of the critical
-+/// section.
-+///
-+/// Internally this is backed by a `drm_dev_enter()` / `drm_dev_exit()` SRCU critical section.
-+///
-+/// # Invariants
-+///
-+/// - `idx` is the SRCU read lock index returned by a successful `drm_dev_enter()` call.
-+/// - The parent bus device of `dev` is bound for the lifetime of this guard.
-+#[must_use]
-+pub struct RegistrationGuard<'a, T: drm::Driver> {
-+    dev: &'a Device<T, Registered>,
-+    idx: i32,
-+    _not_send: NotThreadSafe,
-+}
+     /// Call an ioctl handler with lifetime-bounded references.
+     ///
+     /// The lifetime `'a` is tied to the `_anchor` parameter. This prevents handlers from
+@@ -115,7 +127,7 @@ pub unsafe fn __call_ioctl<
+ /// `user_callback` should have the following prototype:
+ ///
+ /// ```ignore
+-/// fn foo(device: &kernel::drm::Device<Self>,
++/// fn foo(device: &kernel::drm::Device<Self, kernel::drm::Registered>,
+ ///        data: &mut uapi::argument_type,
+ ///        file: &kernel::drm::File<Self::File>,
+ /// ) -> Result<u32>
+@@ -164,11 +176,38 @@ macro_rules! declare_drm_ioctls {
+                             // - The DRM device must have been registered when we're called through
+                             //   an IOCTL.
+                             //
++                            // INVARIANT: The `Ioctl` context requires that the device has been
++                            // registered via `drm_dev_register()` at some point; the DRM core
++                            // guarantees this for ioctl dispatch callbacks.
++                            //
+                             // FIXME: Currently there is nothing enforcing that the types of the
+                             // dev/file match the current driver these ioctls are being declared
+                             // for, and it's not clear how to enforce this within the type system.
+-                            let dev: &$crate::drm::device::Device<_, $crate::drm::Normal> =
++                            let dev: &$crate::drm::device::Device<_, $crate::drm::Ioctl> =
+                                 $crate::drm::device::Device::from_raw(raw_dev);
++                            // Cast to Registered preserving the driver type parameter.
++                            let __ptr = $crate::drm::ioctl::internal::__dev_ctx_cast(
++                                ::core::ptr::from_ref(dev),
++                            );
 +
-+impl<T: drm::Driver> Deref for RegistrationGuard<'_, T> {
-+    type Target = Device<T, Registered>;
++                            // Type-inference anchor: the closure is never called but ties `dev`'s
++                            // type to `$func`'s first parameter, which the compiler cannot infer
++                            // through method resolution and associated-type projections alone.
++                            #[allow(unreachable_code)]
++                            let _ = || {
++                                $func(
++                                    // SAFETY: This closure is never executed; the dereference
++                                    // exists purely to unify the type parameter with `$func`.
++                                    // The pointer is valid regardless.
++                                    unsafe { &*__ptr },
++                                    unreachable!(),
++                                    unreachable!(),
++                                )
++                            };
 +
-+    #[inline]
-+    fn deref(&self) -> &Self::Target {
-+        self.dev
-+    }
-+}
-+
-+impl<T: drm::Driver> Drop for RegistrationGuard<'_, T> {
-+    #[inline]
-+    fn drop(&mut self) {
-+        // SAFETY: `self.idx` was returned by a successful `drm_dev_enter()` call, as guaranteed
-+        // by the type invariants of `RegistrationGuard`.
-+        unsafe { bindings::drm_dev_exit(self.idx) };
-+    }
-+}
-+
- impl<T: drm::Driver> Deref for Device<T> {
-     type Target = T::Data;
++                            let Some(guard) = dev.registration_guard() else {
++                                return $crate::error::code::ENODEV.to_errno();
++                            };
+                             let __anchor = ();
  
-diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
-index 5152a18a8312..3cda8dceb498 100644
---- a/rust/kernel/drm/driver.rs
-+++ b/rust/kernel/drm/driver.rs
-@@ -199,8 +199,14 @@ unsafe impl<T: Driver> Send for Registration<T> {}
- 
- impl<T: Driver> Drop for Registration<T> {
-     fn drop(&mut self) {
-+        // Use `drm_dev_unplug` rather than `drm_dev_unregister` to ensure that existing
-+        // `drm_dev_enter()` critical sections complete before unregistration proceeds. This
-+        // is required for the safety of `RegistrationGuard`, which relies on the SRCU barrier in
-+        // `drm_dev_unplug()` to guarantee that the parent device is still bound within the
-+        // critical section.
-+        //
-         // SAFETY: Safe by the invariant of `ARef<drm::Device<T>>`. The existence of this
--        // `Registration` also guarantees the this `drm::Device` is actually registered.
--        unsafe { bindings::drm_dev_unregister(self.0.as_raw()) };
-+        // `Registration` also guarantees that this `drm::Device` is actually registered.
-+        unsafe { bindings::drm_dev_unplug(self.0.as_raw()) };
-     }
- }
-diff --git a/rust/kernel/drm/mod.rs b/rust/kernel/drm/mod.rs
-index a6693d2b84b8..fd6ed35bc35a 100644
---- a/rust/kernel/drm/mod.rs
-+++ b/rust/kernel/drm/mod.rs
-@@ -14,6 +14,7 @@
- pub use self::device::Ioctl;
- pub use self::device::Normal;
- pub use self::device::Registered;
-+pub use self::device::RegistrationGuard;
- pub use self::device::UnregisteredDevice;
- pub use self::driver::Driver;
- pub use self::driver::DriverInfo;
+                             // SAFETY:
+@@ -180,7 +219,7 @@ macro_rules! declare_drm_ioctls {
+                             // - `raw_file` is a valid `struct drm_file` pointer provided by the
+                             //   DRM core.
+                             match unsafe { $crate::drm::ioctl::internal::__call_ioctl(
+-                                &__anchor, dev, raw_data, raw_file, $func,
++                                &__anchor, &*guard, raw_data, raw_file, $func,
+                             ) } {
+                                 Err(e) => e.to_errno(),
+                                 Ok(i) => i.try_into()
 -- 
 2.54.0
 
