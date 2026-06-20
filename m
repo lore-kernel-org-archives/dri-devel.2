@@ -4,43 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F1ADCD98E4
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 16:19:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90F4FCD98E4
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 16:52:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCB2A10E227;
-	Sat, 20 Jun 2026 16:19:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B796710E1AA;
+	Sat, 20 Jun 2026 16:52:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CgOyefAk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QabmGs2Q";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A8AF10E227
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 16:19:14 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F57810E1AA
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 16:52:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 48A7C40726
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 16:19:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01D751F00A3E;
- Sat, 20 Jun 2026 16:19:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 86DDF601E2;
+ Sat, 20 Jun 2026 16:52:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A8C61F000E9;
+ Sat, 20 Jun 2026 16:52:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781972354;
- bh=MefocXZ0laAnKNhGsBZX7iEaIPnuHfkZRPbJ8S6wO1Q=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CgOyefAkmRnWQYYEwQrdGzsebRuONaxg2uyr7V71r5OuUckB0h5NDx6D0MqjhmFIe
- Jo35hrOcEsKZ2DJS07Ox9Z8cBtzd73vPvzmJU4ziLDnw7c/EmWP3EkiMHHJi6ynW/p
- oSwRrcrRlekto3fdncX061TQoiCOA3e53Z+WPpqNDyD8/ykFy85TR+QtrN6B51ydtd
- KsSLmzWyvoonRieweg3sWdBJhXJSy2QVXwDKzYjmaJ7WVcBeo1lxqj1oqHVhXFNs+1
- i/adAhavzNXY0jXckktpsK7G42pjxq9pxQ5Yi/b0/NM4L4/ov1JPGth6mHF18vynzP
- lCsrAd8sGNuJA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 3/3] drm/amd/display: use HDMI RGB deep color for PCONs
-To: "Stephen via B4 Relay" <devnull+stevester.codes.gmail.com@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260620-ch7218-rfc-v1-b4-v1-3-3412debf44b6@gmail.com>
-References: <20260620-ch7218-rfc-v1-b4-v1-1-3412debf44b6@gmail.com>
- <20260620-ch7218-rfc-v1-b4-v1-3-3412debf44b6@gmail.com>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1781974368;
+ bh=wcYU0AFTW+xncKm5k5J8JjTFYk7WbPBX6yf/KqMiojM=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=QabmGs2QiHgLYdzUfnzECqKAJR10bla50VIIqBzEyEqGBsLOs98eNgJk0nH9FlqzX
+ 6n4zx583pcsgvhxKzD2jhUTFOXlz6HCLbn6ythGMm7perAYR5V2YvEbJ/x6N/ALNZ0
+ 7jcUhb5kHMIcIOu9ePGdw+XN3Ik0ipKRO3qQ/uUUfk2OBH/Ss2l9FQg1uVnlSRNI83
+ jTKJpHXPL01ooslM8pYruPqv2UbCjOTS5pxPRnKMTlL1DOQ5HKLn4FgjImcclbM1Yi
+ QMzbA3WtxviA87V8cLMBItU3+Qpw6TOSo5sVDl0OTf6itIC3ztAr436omuCXaUytIv
+ sLHwIFkmUk2OQ==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 20 Jun 2026 16:19:13 +0000
-Message-Id: <20260620161914.01D751F00A3E@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 20 Jun 2026 18:52:42 +0200
+Message-Id: <DJE16WZZK36J.2JINX1VTNW24G@kernel.org>
+Subject: Re: [PATCH v3 00/13] rust: drm: Higher-Ranked Lifetime private data
+Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>
+To: <aliceryhl@google.com>, <daniel.almeida@collabora.com>,
+ <acourbot@nvidia.com>, <ecourtney@nvidia.com>, <ojeda@kernel.org>,
+ <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
+ <deborah.brouwer@collabora.com>, <boris.brezillon@collabora.com>,
+ <lyude@redhat.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260620005431.1562115-1-dakr@kernel.org>
+In-Reply-To: <20260620005431.1562115-1-dakr@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,114 +60,28 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Missing DP-to-HDMI PCON capability check for deep color configurat=
-ion causes atomic check failures.
-- [Medium] PCON detection logic fails to correctly identify HDMI ports on M=
-ST hubs, excluding them from deep color support.
---
+On Sat Jun 20, 2026 at 2:51 AM CEST, Danilo Krummrich wrote:
+>   rust: drm: Add RegistrationGuard for drm_dev_enter/exit critical
+>     sections
 
-commit 2c95bd6347ca4e92cbbbdffd678f070e97b84a9d
-Author: Stephen <stevester.codes@gmail.com>
+As also pointed out by Sashiko, I forgot to consider that constructing a
+RegistrationGuard still requires that the drm::Device has been registered a=
+t
+some point.
 
-drm/amd/display: use HDMI RGB deep color for PCONs
+Theoretically, this could be addressed in a way that it is still valid to
+construct a RegistrationGuard from a drm::Device<Normal> (e.g. by leveragin=
+g
+dev->unplugged with corresponding synchronization), but other than from IOC=
+TLs
+there is no use-case for this guard. Since IOCTLs already carry the require=
+d
+invariant implicitly, I went with a separate Ioctl typestate.
 
-This commit updates the DRM AMD display driver to support HDMI RGB deep col=
-or=20
-for PCON connectors. It derives the candidate bpc from edid_hdmi_rgb444_dc_=
-modes=20
-when an RGB output is routed through a recognized DP-to-HDMI converter.
-
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index f8c13bad4ac23..02ffc1563e699 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-
-[ ... ]
-
-> @@ -6582,22 +6582,44 @@ static void update_stream_scaling_settings(struct=
- drm_device *dev,
-> =20
->  static enum dc_color_depth
->  convert_color_depth_from_display_info(const struct drm_connector *connec=
-tor,
-> -				      bool is_y420, int requested_bpc)
-> +				      enum dc_pixel_encoding pixel_encoding,
-> +				      int requested_bpc)
->  {
-> +	const struct drm_display_info *info =3D &connector->display_info;
-> +	bool is_hdmi_pcon =3D false;
->  	u8 bpc;
-> =20
-> -	if (is_y420) {
-> +	if (connector->connector_type !=3D DRM_MODE_CONNECTOR_WRITEBACK) {
-> +		const struct amdgpu_dm_connector *aconnector =3D
-> +			to_amdgpu_dm_connector(connector);
-> +
-> +		is_hdmi_pcon =3D aconnector->dc_link &&
-> +			aconnector->dc_link->dpcd_caps.dongle_type =3D=3D
-> +			DISPLAY_DONGLE_DP_HDMI_CONVERTER;
-
-[Severity: Medium]
-For MST leaf connectors, aconnector->dc_link represents the primary link
-to the MST hub rather than the downstream leaf port.
-
-Since the root link typically identifies as a branch device, will this
-evaluate to false for MST setups and exclude HDMI sinks connected via
-MST hubs from deep color support?
-
-> +	}
-> +
-> +	if (pixel_encoding =3D=3D PIXEL_ENCODING_YCBCR420) {
->  		bpc =3D 8;
-> =20
->  		/* Cap display bpc based on HDMI 2.0 HF-VSDB */
-> -		if (connector->display_info.hdmi.y420_dc_modes & DRM_EDID_YCBCR420_DC_=
-48)
-> +		if (info->hdmi.y420_dc_modes & DRM_EDID_YCBCR420_DC_48)
-> +			bpc =3D 16;
-> +		else if (info->hdmi.y420_dc_modes & DRM_EDID_YCBCR420_DC_36)
-> +			bpc =3D 12;
-> +		else if (info->hdmi.y420_dc_modes & DRM_EDID_YCBCR420_DC_30)
-> +			bpc =3D 10;
-> +	} else if (pixel_encoding =3D=3D PIXEL_ENCODING_RGB && is_hdmi_pcon) {
-> +		bpc =3D 8;
-> +
-> +		/* The downstream sink is HDMI even though DRM exposes DP. */
-> +		if (info->edid_hdmi_rgb444_dc_modes & DRM_EDID_HDMI_DC_48)
->  			bpc =3D 16;
-> -		else if (connector->display_info.hdmi.y420_dc_modes & DRM_EDID_YCBCR42=
-0_DC_36)
-> +		else if (info->edid_hdmi_rgb444_dc_modes & DRM_EDID_HDMI_DC_36)
->  			bpc =3D 12;
-> -		else if (connector->display_info.hdmi.y420_dc_modes & DRM_EDID_YCBCR42=
-0_DC_30)
-> +		else if (info->edid_hdmi_rgb444_dc_modes & DRM_EDID_HDMI_DC_30)
->  			bpc =3D 10;
-
-[Severity: High]
-This logic sets the bpc based on the downstream HDMI sink's capabilities, b=
-ut
-does it also need to be constrained by the PCON's maximum bpc limit?
-
-If a sink supports 12 bpc but the PCON only supports 8 bpc, will skipping a
-check against aconnector->dc_link->dpcd_caps.dongle_caps.dp_hdmi_max_bpc
-cause dp_active_dongle_validate_timing() to fail and reject the atomic comm=
-it?
-
->  	} else {
-> -		bpc =3D (uint8_t)connector->display_info.bpc;
-> +		bpc =3D (uint8_t)info->bpc;
->  		/* Assume 8 bpc by default if no bpc is specified. */
->  		bpc =3D bpc ? bpc : 8;
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260620-ch7218-rfc=
--v1-b4-v1-1-3412debf44b6@gmail.com?part=3D3
+This and the fact that we can't let drivers infer any other typestate than
+Normal before the RegistrationGuard is in place, results in a few changes t=
+hat
+are worth considering for review, so I decided to resend early.
