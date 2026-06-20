@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90F4FCD98E4
-	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 16:52:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32F14CD98F2
+	for <dri-devel@archiver.kernel.org>; Sat, 20 Jun 2026 18:49:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B796710E1AA;
-	Sat, 20 Jun 2026 16:52:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5086A10E24C;
+	Sat, 20 Jun 2026 18:49:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QabmGs2Q";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LUgOgMCJ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F57810E1AA
- for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 16:52:50 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4091288DE5
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 18:49:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 86DDF601E2;
- Sat, 20 Jun 2026 16:52:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A8C61F000E9;
- Sat, 20 Jun 2026 16:52:44 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DCD7640BF0;
+ Sat, 20 Jun 2026 18:49:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95EA11F000E9;
+ Sat, 20 Jun 2026 18:49:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781974368;
- bh=wcYU0AFTW+xncKm5k5J8JjTFYk7WbPBX6yf/KqMiojM=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=QabmGs2QiHgLYdzUfnzECqKAJR10bla50VIIqBzEyEqGBsLOs98eNgJk0nH9FlqzX
- 6n4zx583pcsgvhxKzD2jhUTFOXlz6HCLbn6ythGMm7perAYR5V2YvEbJ/x6N/ALNZ0
- 7jcUhb5kHMIcIOu9ePGdw+XN3Ik0ipKRO3qQ/uUUfk2OBH/Ss2l9FQg1uVnlSRNI83
- jTKJpHXPL01ooslM8pYruPqv2UbCjOTS5pxPRnKMTlL1DOQ5HKLn4FgjImcclbM1Yi
- QMzbA3WtxviA87V8cLMBItU3+Qpw6TOSo5sVDl0OTf6itIC3ztAr436omuCXaUytIv
- sLHwIFkmUk2OQ==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 20 Jun 2026 18:52:42 +0200
-Message-Id: <DJE16WZZK36J.2JINX1VTNW24G@kernel.org>
-Subject: Re: [PATCH v3 00/13] rust: drm: Higher-Ranked Lifetime private data
-Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>
-To: <aliceryhl@google.com>, <daniel.almeida@collabora.com>,
- <acourbot@nvidia.com>, <ecourtney@nvidia.com>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
- <deborah.brouwer@collabora.com>, <boris.brezillon@collabora.com>,
- <lyude@redhat.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260620005431.1562115-1-dakr@kernel.org>
-In-Reply-To: <20260620005431.1562115-1-dakr@kernel.org>
+ s=k20260515; t=1781981375;
+ bh=hn9G1znYb+a9sJ9JfqvKyzoUCkNcuNUh7aU3e3ImFtk=;
+ h=From:To:Cc:Subject:Date;
+ b=LUgOgMCJMYlR9SFcndiL9sErWv3HUs7gN/BzJZZ+CHVLSjNdIMeHz2dT0UiTserOQ
+ 1Zv0M3fQR0/n5MQTGwQKdiMVsS9bH+ETst2n1bLIan8YzuHaP31QUC4KKPnhcJcJmr
+ VEImjMzC8Og+lR9kHtSHv6b8xLFMw2c0lNu73kcRkPIsUMNkSohNrdzSDVm2wiJYDy
+ b+EXJbnFzdyrAvaJhwAb0yYXj6X7qg/jjkwvO2kFx8W26EcmIiz6mCvgFvR3Rag7aB
+ UevzSqWOLeIn+J6WLBCXxn2Q38sTDKV0NmfLzGTu5nL8sAEuzbTvY2CeagDhEbCtkW
+ U0Es+0GX06lqA==
+From: Danilo Krummrich <dakr@kernel.org>
+To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
+ acourbot@nvidia.com, ecourtney@nvidia.com, ojeda@kernel.org,
+ boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu,
+ deborah.brouwer@collabora.com, boris.brezillon@collabora.com,
+ lyude@redhat.com
+Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org
+Subject: [PATCH v4 00/16] rust: drm: Higher-Ranked Lifetime private data
+Date: Sat, 20 Jun 2026 20:47:53 +0200
+Message-ID: <20260620184924.2247517-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,25 +61,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat Jun 20, 2026 at 2:51 AM CEST, Danilo Krummrich wrote:
->   rust: drm: Add RegistrationGuard for drm_dev_enter/exit critical
->     sections
+DRM ioctls run in process context without any guarantee that the parent
+bus device is still bound. This series solves the problem by introducing
+RegistrationGuard -- a guard representing a drm_dev_enter/exit SRCU
+critical section that proves the parent bus device is bound for the
+lifetime of the guard.
 
-As also pointed out by Sashiko, I forgot to consider that constructing a
-RegistrationGuard still requires that the drm::Device has been registered a=
-t
-some point.
+As initial plumbing for this, the DRM DeviceContext typestates are
+reworked: Uninit is renamed to Normal, defaults are adjusted,
+AlwaysRefCounted is restricted to Normal, and a Deref chain from
+Device<T, Registered> to Device<T, Normal> is established. This gives
+Device<T, Registered> the semantic that the device is currently
+registered and the parent bus device is bound, which makes the
+RegistrationGuard and ioctl dispatch much cleaner. An Ioctl context
+restricts registration_guard() to ioctl dispatch, where the DRM core
+guarantees prior registration.
 
-Theoretically, this could be addressed in a way that it is still valid to
-construct a RegistrationGuard from a drm::Device<Normal> (e.g. by leveragin=
-g
-dev->unplugged with corresponding synchronization), but other than from IOC=
-TLs
-there is no use-case for this guard. Since IOCTLs already carry the require=
-d
-invariant implicitly, I went with a separate Ioctl typestate.
+On top of that, add RegistrationData as a ForLt associated type on
+drm::Driver, allowing drivers to store data whose lifetime is tied to
+the parent bus device binding scope. The data is allocated in
+Registration::new(), lifetime-erased to 'static for storage, and made
+accessible through Device<T, Registered>::registration_data_with(). The
+closure's HRTB ties the lifetime to the closure scope; internally the
+'static pointer is cast back to the closure-scoped lifetime. The
+reference is valid for the duration of the drm_dev_enter/exit critical
+section held by RegistrationGuard.
 
-This and the fact that we can't let drivers infer any other typestate than
-Normal before the RegistrationGuard is in place, results in a few changes t=
-hat
-are worth considering for review, so I decided to resend early.
+Also update the ioctl dispatch macro to wrap every handler in a
+RegistrationGuard, returning ENODEV if the device has been unplugged,
+and pass the registration data to handlers.
+
+This series is based on [1]; a branch with all patches can be found
+in [2].
+
+[1] https://lore.kernel.org/driver-core/20260618230834.812007-1-dakr@kernel.org/
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/log/?h=drm-lifetime
+
+Changes in v4:
+- Fix pre-existing unbounded lifetimes in ioctl handler arguments.
+- Fix registration_guard() being callable on unregistered devices by
+  introducing an Ioctl device context typestate; registration_guard() is
+  now only available on Device<T, Ioctl>, which is exclusively
+  constructed in ioctl dispatch context where the DRM core guarantees
+  prior registration.
+- Fix type inference allowing handlers to obtain Device<Registered>
+  before RegistrationGuard is acquired.
+- Make RegistrationGuard !Send via NotThreadSafe to prevent potential
+  lockdep splats from cross-thread SRCU unlock.
+- Store &Device<T, Registered> directly in RegistrationGuard instead of
+  calling assume_ctx() in Deref.
+
+Changes in v3:
+- Rename UnbindGuard to RegistrationGuard
+- RegistrationGuard no longer dereferences to &Device<Bound>; it
+  dereferences to &drm::Device<T, Registered> instead
+- Drop Registration::new() and rename Registration::new_with_lt() to
+  Registration::new()
+- Rework DeviceContext typestates: rename Uninit to Normal, restrict
+  AlwaysRefCounted to Normal, establish Deref chain from Registered
+  to Normal
+- Add AsRef<ParentDevice<Bound>> on Device<T, Registered> for parent
+  device access
+- Move registration_data_with() from RegistrationGuard to
+  drm::Device<T, Registered>
+- Ioctl handlers no longer receive &Device<Bound>, only registration
+  data and drm::Device<T, Registered>
+- Use Device<Registered>::as_ref() to access parent device in nova-drm
+
+Changes in v2:
+- Replace unsafe direct registration data access in ioctl dispatch with
+  safe UnbindGuard::registration_data_with() closure
+- Eliminate unbind_guard() free function; use type-inference anchor to
+  enable direct dev.unbind_guard() method call in the ioctl macro
+- UnbindGuard::registration_data_with() provides both parent device and
+  registration data to the closure
+- Add nova-drm conversion patch demonstrating lifetime-aware registration
+  data with &'bound auxiliary::Device<Bound>
+- Various safety comment and documentation improvements
+
+Danilo Krummrich (16):
+  rust: drm: ioctl: fix unbounded lifetimes in ioctl handler arguments
+  rust: drm: rename Uninit DeviceContext to Normal
+  rust: drm: Add Driver::ParentDevice associated type
+  rust: drm: change default DeviceContext to Normal
+  rust: drm: restrict AlwaysRefCounted to Normal Device context
+  rust: drm: restrict AlwaysRefCounted to Normal GEM Object context
+  rust: drm: split Deref for Device context typestates
+  rust: drm: pin ioctl Device reference to Normal context
+  rust: drm: add Ioctl device context typestate
+  rust: drm: Add RegistrationGuard for drm_dev_enter/exit critical
+    sections
+  rust: drm: Wrap ioctl dispatch in RegistrationGuard
+  rust: drm: return ParentDevice from Device AsRef
+  rust: drm: add AsRef<ParentDevice<Bound>> for Device<Registered>
+  rust: drm: Add RegistrationData to drm::Driver
+  rust: drm: Pass registration data to ioctl handlers
+  drm: nova: Use drm::Device<Registered> to access the parent bus device
+
+ drivers/gpu/drm/nova/driver.rs |  41 +++--
+ drivers/gpu/drm/nova/file.rs   |  22 ++-
+ drivers/gpu/drm/nova/gem.rs    |  18 +-
+ drivers/gpu/drm/tyr/driver.rs  |  28 ++--
+ drivers/gpu/drm/tyr/file.rs    |   8 +-
+ drivers/gpu/drm/tyr/gem.rs     |  11 +-
+ rust/kernel/drm/device.rs      | 293 ++++++++++++++++++++++++---------
+ rust/kernel/drm/driver.rs      | 123 +++++++++-----
+ rust/kernel/drm/gem/mod.rs     |  98 ++++++-----
+ rust/kernel/drm/gem/shmem.rs   |  79 ++++-----
+ rust/kernel/drm/ioctl.rs       | 108 ++++++++++--
+ rust/kernel/drm/mod.rs         |   4 +-
+ 12 files changed, 550 insertions(+), 283 deletions(-)
+
+
+base-commit: 9ece8b7075e983bc01223a4aa1eb1c99285f83ad
+-- 
+2.54.0
+
