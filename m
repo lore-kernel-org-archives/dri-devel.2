@@ -4,88 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A13D6CD4F26
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 08:06:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31AD2CDB471
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 08:06:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31D5E10E9C0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D79C10E9C7;
 	Tue, 23 Jun 2026 08:06:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=fastmail.org header.i=@fastmail.org header.b="c2JhUSCw";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Mz/h77Hz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YcOHDHPx";
 	dkim-atps=neutral
-X-Greylist: delayed 642 seconds by postgrey-1.36 at gabe;
- Mon, 22 Jun 2026 15:51:06 UTC
-Received: from flow-b1-smtp.messagingengine.com
- (flow-b1-smtp.messagingengine.com [202.12.124.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8700410E07C
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 15:51:06 +0000 (UTC)
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
- by mailflow.stl.internal (Postfix) with ESMTP id 78C7E1300525;
- Mon, 22 Jun 2026 11:40:23 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-01.internal (MEProxy); Mon, 22 Jun 2026 11:40:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1782142823;
- x=1782146423; bh=HdXmiLjFCtewYnaNmICznmxrLACPW5YYb76z+fsRb18=; b=
- c2JhUSCw2ny1UvfLXkcr4RWrVQ8QHarN0TwJd+2QEQBOKxSKtf1mlNNPiQWnY2Zl
- 5edogZs5DeDEIQXs8TL1O4lcxEf6VmaDjxe+gSp3Muyu5sTSMIQx57u19S1OZTjG
- 29UJeW9xc5loUXC3ldRKwusRSXzfIBa+G7cbwtUE4TSzbrJ+CEdDEqDvkCbC2TmP
- P8fILzW864Em+nypoNolIpc/vb3RvIA3uBCDdQ4SNdld24bwu2e5+tDix6qhBf49
- w+9Bm+nfJ752sdjZhr1ZtMcqrpXv6w/3oLIHQDW0mD6F7tskfXMcX86dXo/MSKb3
- hW8fcTPt60Qx6V4wro2TfQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1782142823; x=
- 1782146423; bh=HdXmiLjFCtewYnaNmICznmxrLACPW5YYb76z+fsRb18=; b=M
- z/h77HzLhkLrTAJMvhyrn0vxwItuI2Ellq4HFa1jv9gEW2uPeNnEGAo7zUb5VrkW
- sRxvgwpGFiLKBhbnbTnsaoBDgLBc1dYFxSkdBMG0iIP2bPAtimpM8BGyXHnOr0Pb
- Qndwvvbbepgo5Zprncbe+or2lqNGIkm49LnxKl/AKfRUaaUYlyjZxbgJmMYRgtka
- mnbEt35M4n8KPfyI0l+tEwohLiDn5Zx5O1211bparbi4iDE5M6H6BEq6kI/OtQHE
- 8pSCrqK4b4HKXvjRoojnV6b00i/klxvoQHvArZyI2QQnG7rOk+CTc/cS2mAVmSVO
- +cMfDjzIpu4Z+1L0yKzOw==
-X-ME-Sender: <xms:Zlc5alLBLBVKBly1TqhSTE70zdfsF8JN6RcBEGysqGure2VqL-BHMg>
- <xme:Zlc5ajYAJIyOQRvo0fcMf-Sgz2ySASW8EgFYBYM9XzO84kr7tigLyFZ5B5jdUDAxT
- NIUTJeazMJNOAVC5ycHbOaDWpXIv9AgSJ7Xx6XZLnDh1dQgdvT28ZA>
-X-ME-Received: <xmr:Zlc5av92kPTiW5VQI22tfipKxc3tl6YmuVAXIJvNoVhJrcJZcDmfT-wuUJM>
-X-ME-Proxy-Cause: dmFkZTFbSqkzJcDuTJ6NXheCBDU8nHXFmKAvMGPiYbtwFQOeJRVaI++l2BH7FF00TAVvJj
- ssN5ST8jPIkYKr4nrtzIDG3wTa3y+3110hJWizubP/a7XSVsQxl9pMB9U/k1dqr1ywlpP9
- 4gPlaPPO0HnKcPb9RXvN8xTdcRxW8xb7rP7pEUHeeUSb5XQqFSuudYero8/6WOTLO4LYUe
- 93+l0KugHcnRW7JMHo4KasW0ZqaH14srkulEB3Nsa33kGwnD+hFOlhvQ14D3Z3J0srDbdX
- tQ/HCS/yTD9q45tguGkGug8dO64d1QJB1Qvdlkmd3F3HSO4P1oPtc5H0c1Y0ARrAp41ClJ
- 88nqTVZc4pjOx4Kxt7hOEwkXr2dVlvq8qp+HGWDlOD6cuZ0gaxeVfrL6fA5ckSlN/P/r7F
- Fys8Jj/vAV4JHIPWfhcwntpcTiWBKyKyPdCBarQQyuDhzQYs+S2TzYn/4yS0CrnUWXFlSM
- +KzUbxN5t3jA9RtF4MZDO44zBh1f1xxuJ5Bvdn9PFzaQtUdjaSwksb4YHvEorB+brMwObB
- VJgIaU2SA/HwqnzL2Y6k8quIok6JN9H7FvR1WZexhENK/drS5GeTZU244zMxJJFnDPwbKS
- ZLZ3iCTYPasakSLPAHDOMutafZDKWcYrxka6pguCAofdhZqRtQuntSGMIoJg
-X-ME-Proxy: <xmx:Zlc5asYyL1B8W2ppg19mSqNSdl-UAfvthGvMxR2oRp3_J8n7g18yfQ>
- <xmx:Zlc5arNW81VrUdlyhfGdt5Mwa9bVXlhmdGHTPqxedMVTkOZFnjqu-g>
- <xmx:Zlc5agAc0rEFKsJj-pGrVDPFoIMcfyMeeh_MHEUGRalD_jf5BbRVlg>
- <xmx:Zlc5aqJHeL9hb5sVabQ8M51Cb9S_J5GMvr86l0d5dw8Z653umjHTVQ>
- <xmx:Zlc5asGwe6nukOJLHXqg-czX5yPWEWw5bwRPSj17oU5RQwirZnD0snAW>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 22 Jun 2026 11:40:22 -0400 (EDT)
-Date: Mon, 22 Jun 2026 10:40:20 -0500
-From: Ian Bridges <icb@fastmail.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fbdev: fix use-after-free of fb_display[i].mode in
- store_modes()
-Message-ID: <ajlXZL7nVHxH6mxh@dev>
-References: <ajjoDhAi2y4ArSlz@dev>
- <20260622080749.D7FC61F000E9@smtp.kernel.org>
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com
+ [209.85.219.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A93B310E1DD
+ for <dri-devel@lists.freedesktop.org>; Sun, 21 Jun 2026 14:37:23 +0000 (UTC)
+Received: by mail-qv1-f42.google.com with SMTP id
+ 6a1803df08f44-8dc87f7d68bso41109486d6.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 21 Jun 2026 07:37:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782052642; x=1782657442; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=kVQ3xkWLXL4IaDjUu6wCV48CVGQrhtl6ZKE5IwOl7lU=;
+ b=YcOHDHPxljOaDOLeOf8q8vNzuLJQWPq7wwOxUL2+IrUcGQbHqBa+mW0/G2+UsQu3qx
+ Rl9UKV7sMoJ9jtry7AcIFG1rsLnePVTdQqlPSAmow2/cgl1D/ppBSQK6KZ13zNMXiIaF
+ gMvCAvEFdwbLc8UTdvq2+xu5X3x2FC0M9ubFHVjcABpPlww4C+/NjbaETY0Crg65Naht
+ Elmql9zPzA5RF5Wdzb0QcVmw+V2wwZ0bwIZxuvDh09tyUW1Drkc3SFRIuIA0GqbQ+Mx+
+ fnlIBo11IzV1N+hOqrV2AAw8EP68rXW6cZldfBBaUUdXfiqjErLuEpXOSF1iSBjBvulS
+ OH1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782052642; x=1782657442;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=kVQ3xkWLXL4IaDjUu6wCV48CVGQrhtl6ZKE5IwOl7lU=;
+ b=QrLvGtCObsZqPdO0TnBM4IQdaxSUE0vfPGTA1MCZjsbmzycTLhtOXWsZqxkFOrceEw
+ 6Scpq7pIcIY3n3nofCYxz00fr7kwUhyn6OLH0fq1xp0OdlX/xyjOUrIMIOfTHj1s8NTL
+ z1O56ZgoEZ9JaS1/Lqao+gyHhVFO++n76e8ma+vPsV5UKdg9iHb+B3xRm50oS4AKpP9+
+ OJK4/fX+pfI3+hm0YitDagwjuMxpATjp3comeC4Y7zdvuZGptkJs99x7fHueJSoC32hr
+ bfDzKERbIJqZvNH3FS6I1StA5NprRl974KK2MTq+vjvRbnM0InwO+bGL5SZ5EURQvpvL
+ v5wQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpLbdEyVYkVmBNonBChgxF7KJ126n+CVHWYBNoLu1CWCct1QDVCBAUOnMrrfZ2P40WWyhM2VehPg1Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywmtq9vB27BNfTVNEFxhQaT46qCysLZo7RpTWYrN5M0gWuDj9GF
+ p6fhBAJgXh3S7xup0fNWiBwahQVfFBvrSMgicgxq7h0ww4s1rxKZgkI=
+X-Gm-Gg: AfdE7ckHeWZit5DhnW9jw+AWDnao66L84vfFYiJG/72aYI38a7oOTxUDrE/FOuupAEi
+ Ws8AUoWEUN2Y8Bvh+Jyb4DFwvjkzFhevT3p2StRTdm8TjLhnzvHCN0B31MN29DUfKHstGFvNfYX
+ 1wh1IKGHqaftIEVdYUn3GHW/kihKXz05IVTOHPBT22bWCVXCbInBByjGiWI0y8NrBi4GRdjxIbh
+ 5AHyCXBgKsEHnli136P+f72fMM8gRNqghMIA+f14g0In+U2lfOdSul3w0GXnlJ7E+N2ZLoXTqIk
+ dLeQ+7ERtzEeRC3BW15nY6PQNjIG+SqZpv/INxF/qu1F4RVkTQomLTa5lcSzfU2nEfATyD28wTp
+ Oi38nNfyfmOanGufP58LQgqne4rA7Uv/QqqyPPXT9E+HNW6R/jE8pX1x7MPWihBNnVQ+VbqZsy/
+ Q3OYU+dlk5gpiCU39VAZE3Pr8xU/spz0PRhJht/tgZkSiqph7iez+6COoazDoutI/L
+X-Received: by 2002:ad4:5dc7:0:b0:8ce:b2e9:a4b9 with SMTP id
+ 6a1803df08f44-8de3bef23demr215020686d6.12.1782052642405; 
+ Sun, 21 Jun 2026 07:37:22 -0700 (PDT)
+Received: from localhost.localdomain ([186.158.238.108])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8df7f018011sm65579506d6.5.2026.06.21.07.37.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 21 Jun 2026 07:37:22 -0700 (PDT)
+From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Miguel Ojeda <ojeda@kernel.org>
+Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Simona Vetter <simona@ffwll.ch>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+ Tamir Duberstein <tamird@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+ linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ nova-gpu@lists.linux.dev
+Subject: [PATCH] gpu: nova-core: parse structs via zerocopy
+Date: Sun, 21 Jun 2026 11:36:44 -0300
+Message-ID: <20260621143647.264770-1-nico.antinori.7@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260622080749.D7FC61F000E9@smtp.kernel.org>
 X-Mailman-Approved-At: Tue, 23 Jun 2026 08:06:53 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,159 +96,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 22, 2026 at 08:07:49AM +0000, sashiko-bot@kernel.org wrote:
+Replace the unsafe `kernel::transmute::FromBytes` trait implementation
+for the `FalconUCodeDescV3`, `PcirStruct`, `BitHeader`, `NpdeStruct`,
+and `PmuLookupTableHeader` structs with the derivable
+`zerocopy::FromBytes` trait.
 
-I'm new to submitting kernel patches, so please correct me if I have
-handled this wrong. All four findings are pre-existing and none are
-introduced by this patch, which I scoped to the reported
-fb_display[i].mode use-after-free. Responses inline.
+This change eliminates the manual unsafe implementations in favor of a
+derivable trait. When this trait is derived, validity checks are
+performed at compile time to make sure that the type can safely
+implement `FromBytes`.
 
-> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
-> 
-> Pre-existing issues:
-> - [High] Use-After-Free in show_mode() due to dangling fb_info->mode pointer.
-> - [High] Data Race and potential Use-After-Free / list corruption when iterating fb_info->modelist.
-> - [High] NULL pointer dereference in fbcon_new_modelist() for unallocated consoles.
-> - [Medium] Data Race and locking violation modifying fb_display in do_unregister_framebuffer().
-> --
-> 
-> commit 5e256dfc1372231ec16feb6ee8a3218859b0dd4f
-> Author: Ian Bridges <icb@fastmail.org>
-> 
-> fbdev: fix use-after-free of fb_display[i].mode in store_modes()
-> 
-> store_modes() replaces a framebuffer's modelist and frees the old entries
-> with fb_destroy_modelist(), but fb_display[i].mode was left dangling.
-> This commit fixes the use-after-free by clearing the stale pointers with
-> fbcon_delete_modelist() before freeing the old list.
-> 
-> Closes: https://syzkaller.appspot.com/bug?extid=81c7c6b52649fd07299d
-> 
-> > diff --git a/drivers/video/fbdev/core/fbsysfs.c b/drivers/video/fbdev/core/fbsysfs.c
-> > index baa2bae0fb5b3..c761dcf21dafb 100644
-> > --- a/drivers/video/fbdev/core/fbsysfs.c
-> > +++ b/drivers/video/fbdev/core/fbsysfs.c
-> > @@ -111,8 +111,10 @@ static ssize_t store_modes(struct device *device,
-> >  	if (fb_new_modelist(fb_info)) {
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but can this fb_new_modelist()
-> call lead to a NULL pointer dereference for unallocated consoles?
-> 
-> If an unallocated console (where vc_cons[i].d is NULL) is mapped to a
-> framebuffer, fbcon_set_disp() populates fb_display[i].mode and returns early.
-> 
-> When store_modes() calls fb_new_modelist() -> fbcon_new_modelist(),
-> it checks if con2fb_map and fb_display[i].mode are set. Could it then fetch
-> vc = vc_cons[i].d and unconditionally dereference vc->vc_num?
-> 
-> drivers/video/fbdev/core/fbcon.c:fbcon_new_modelist() {
->     ...
->     vc = vc_cons[i].d;
->     ...
->     fbcon_set_disp(info, &var, vc->vc_num);
->     ...
-> }
+Link: https://github.com/Rust-for-Linux/linux/issues/1241
+Suggested-by: Miguel Ojeda <ojeda@kernel.org>
+Signed-off-by: Nicol√°s Antinori <nico.antinori.7@gmail.com>
+---
+NOTE: Compile-tested only. I don't own a piece of hardware where I can
+test the nova driver.
 
-Confirmed. fbcon_new_modelist() dereferences vc_cons[i].d without a NULL
-check, and a console can have con2fb_map and fb_display[i].mode set while
-vc_cons[i].d is NULL. I hit this while writing the reproducer for this bug.
-It is a separate issue, so I'd argue it needs its own patch adding the NULL
-check.
+ drivers/gpu/nova-core/firmware.rs |  6 +----
+ drivers/gpu/nova-core/vbios.rs    | 38 ++++++++-----------------------
+ 2 files changed, 11 insertions(+), 33 deletions(-)
 
-> 
-> >  		fb_destroy_modelist(&fb_info->modelist);
-> >  		list_splice(&old_list, &fb_info->modelist);
-> > -	} else
-> > +	} else {
-> > +		fbcon_delete_modelist(&old_list);
-> 
-> [Severity: Medium]
-> This is a pre-existing issue, but since we are properly calling
-> fbcon_delete_modelist() under console_lock() here, should other callers do
-> the same?
-> 
-> Looking at do_unregister_framebuffer(), it executes without holding
-> console_lock():
-> 
-> drivers/video/fbdev/core/fbmem.c:do_unregister_framebuffer() {
->     ...
->     fbcon_delete_modelist(&fb_info->modelist);
->     ...
-> }
+diff --git a/drivers/gpu/nova-core/firmware.rs b/drivers/gpu/nova-core/firmware.rs
+index ad37994ac15a..0afd1d3fe5ad 100644
+--- a/drivers/gpu/nova-core/firmware.rs
++++ b/drivers/gpu/nova-core/firmware.rs
+@@ -86,7 +86,7 @@ pub(crate) struct FalconUCodeDescV2 {
 
-Agreed. do_unregister_framebuffer() runs under registration_lock, not
-console_lock, so the fbcon_delete_modelist() call added by a1f305893074
-writes fb_display[] without console_lock. The call this patch adds to
-store_modes() runs under console_lock and is safe. The unregister call site
-looks worth a separate fix.
+ /// Structure used to describe some firmwares, notably FWSEC-FRTS.
+ #[repr(C)]
+-#[derive(Debug, Clone)]
++#[derive(Debug, Clone, FromBytes)]
+ pub(crate) struct FalconUCodeDescV3 {
+     /// Header defined by `NV_BIT_FALCON_UCODE_DESC_HEADER_VDESC*` in OpenRM.
+     hdr: u32,
+@@ -117,10 +117,6 @@ pub(crate) struct FalconUCodeDescV3 {
+     _reserved: u16,
+ }
 
-> 
-> Since fbcon_delete_mode() iterates the global fb_display array and locklessly
-> assigns NULL to fb_display[i].mode, could this cause a data race with
-> concurrent readers like FBIOPUT_VSCREENINFO?
-> 
-> >  		fb_destroy_modelist(&old_list);
-> 
-> [Severity: High]
-> This is a pre-existing issue, but does destroying old_list leave
-> fb_info->mode dangling?
-> 
-> If fb_info->mode was previously set to point into a struct fb_modelist
-> element from this list, it doesn't appear to be cleared before the list
-> is freed.
-> 
-> Could a subsequent read of the sysfs mode attribute trigger a use-after-free
-> here:
-> 
-> drivers/video/fbdev/core/fbsysfs.c:show_mode() {
->     ...
->     return mode_string(buf, 0, fb_info->mode);
-> }
+-// SAFETY: all bit patterns are valid for this type, and it doesn't use
+-// interior mutability.
+-unsafe impl FromBytes for FalconUCodeDescV3 {}
+-
+ /// Enum wrapping the different versions of Falcon microcode descriptors.
+ ///
+ /// This allows handling both V2 and V3 descriptor formats through a
+diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios.rs
+index 8b7d17a24660..754812bcbdde 100644
+--- a/drivers/gpu/nova-core/vbios.rs
++++ b/drivers/gpu/nova-core/vbios.rs
+@@ -13,11 +13,8 @@
+         Alignment, //
+     },
+     sync::aref::ARef,
+-    transmute::FromBytes,
+ };
 
-Confirmed, and it still reproduces with this patch applied. store_modes()
-frees the old modelist that fb_info->mode points into, and this patch only
-clears fb_display[i].mode. Writing a mode to /sys/class/graphics/fb0/mode,
-then a new list to /sys/class/graphics/fb0/modes, then reading
-/sys/class/graphics/fb0/mode faults in mode_string() called from
-show_mode(). Since it is the same free in store_modes(), I will fold the
-fix into a v2 of this patch and clear fb_info->mode alongside
-fb_display[i].mode.
+-use zerocopy::FromBytes as _;
+-
+ use crate::{
+     driver::Bar0,
+     firmware::{
+@@ -301,7 +298,7 @@ pub(crate) fn fwsec_image(&self) -> &FwSecBiosImage {
+ }
 
-> 
-> [Severity: High]
-> This is also a pre-existing issue, but does modifying fb_info->modelist
-> under lock_fb_info() race with sysfs readers?
-> 
-> Looking at show_modes() and store_mode(), they appear to iterate
-> fb_info->modelist locklessly:
-> 
-> drivers/video/fbdev/core/fbsysfs.c:show_modes() {
->     ...
->     list_for_each_entry(modelist, &fb_info->modelist, list) {
->     ...
-> }
+ /// PCI Data Structure as defined in PCI Firmware Specification
+-#[derive(Debug, Clone)]
++#[derive(Debug, Clone, FromBytes)]
+ #[repr(C)]
+ struct PcirStruct {
+     /// PCI Data Structure signature ("PCIR" or "NPDS")
+@@ -330,12 +327,9 @@ struct PcirStruct {
+     max_runtime_image_len: u16,
+ }
 
-Agreed. show_modes() and store_mode() walk fb_info->modelist without
-lock_fb_info(), so they can race the splice and free in store_modes(). This
-looks like a separate locking fix.
+-// SAFETY: all bit patterns are valid for `PcirStruct`.
+-unsafe impl FromBytes for PcirStruct {}
+-
+ impl PcirStruct {
+     fn new(dev: &device::Device, data: &[u8]) -> Result<Self> {
+-        let (pcir, _) = PcirStruct::from_bytes_copy_prefix(data).ok_or(EINVAL)?;
++        let (pcir, _) = PcirStruct::read_from_prefix(data).map_err(|_| EINVAL)?;
 
-> 
-> Since store_modes() splices, modifies, and destroys this list, could a
-> concurrent sysfs read/write follow corrupted pointers into freed memory?
-> 
-> > +	}
-> >  
-> >  	unlock_fb_info(fb_info);
-> >  	console_unlock();
-> 
-> -- 
-> Sashiko AI review ∑ https://sashiko.dev/#/patchset/ajjoDhAi2y4ArSlz@dev?part=1
+         // Signature should be "PCIR" (0x52494350) or "NPDS" (0x5344504e).
+         if &pcir.signature != b"PCIR" && &pcir.signature != b"NPDS" {
+@@ -371,7 +365,7 @@ fn image_size_bytes(&self) -> usize {
+ /// This is the head of the BIT table, that is used to locate the Falcon data. The BIT table (with
+ /// its header) is in the [`PciAtBiosImage`] and the falcon data it is pointing to is in the
+ /// [`FwSecBiosImage`].
+-#[derive(Debug, Clone, Copy)]
++#[derive(Debug, Clone, Copy, FromBytes)]
+ #[repr(C)]
+ struct BitHeader {
+     /// 0h: BIT Header Identifier (BMP=0x7FFF/BIT=0xB8FF)
+@@ -390,12 +384,9 @@ struct BitHeader {
+     checksum: u8,
+ }
 
-To summarise, I will send a v2 of this patch that clears both stale pointers
-in store_modes() (fb_display[i].mode and fb_info->mode), and keep the
-fbcon_new_modelist() NULL check and the two locking issues as separate
-patches.
+-// SAFETY: all bit patterns are valid for `BitHeader`.
+-unsafe impl FromBytes for BitHeader {}
+-
+ impl BitHeader {
+     fn new(data: &[u8]) -> Result<Self> {
+-        let (header, _) = BitHeader::from_bytes_copy_prefix(data).ok_or(EINVAL)?;
++        let (header, _) = BitHeader::read_from_prefix(data).map_err(|_| EINVAL)?;
 
-Thanks,
-Ian
+         // Check header ID and signature
+         if header.id != 0xB8FF || &header.signature != b"BIT\0" {
+@@ -533,7 +524,7 @@ fn new(dev: &device::Device, data: &[u8]) -> Result<Self> {
+ /// PCI Data Structure. It contains some fields that are redundant with the PCI Data Structure, but
+ /// are needed for traversing the BIOS images. It is expected to be present in all BIOS images
+ /// except for NBSI images.
+-#[derive(Debug, Clone)]
++#[derive(Debug, Clone, FromBytes)]
+ #[repr(C)]
+ struct NpdeStruct {
+     /// 00h: Signature ("NPDE")
+@@ -548,12 +539,9 @@ struct NpdeStruct {
+     last_image: u8,
+ }
+
+-// SAFETY: all bit patterns are valid for `NpdeStruct`.
+-unsafe impl FromBytes for NpdeStruct {}
+-
+ impl NpdeStruct {
+     fn new(dev: &device::Device, data: &[u8]) -> Option<Self> {
+-        let (npde, _) = NpdeStruct::from_bytes_copy_prefix(data)?;
++        let (npde, _) = NpdeStruct::read_from_prefix(data).ok()?;
+
+         // Signature should be "NPDE" (0x4544504E).
+         if &npde.signature != b"NPDE" {
+@@ -845,6 +833,7 @@ fn new(data: &[u8]) -> Result<Self> {
+ }
+
+ #[repr(C)]
++#[derive(FromBytes)]
+ struct PmuLookupTableHeader {
+     version: u8,
+     header_len: u8,
+@@ -852,9 +841,6 @@ struct PmuLookupTableHeader {
+     entry_count: u8,
+ }
+
+-// SAFETY: all bit patterns are valid for `PmuLookupTableHeader`.
+-unsafe impl FromBytes for PmuLookupTableHeader {}
+-
+ /// The [`PmuLookupTableEntry`] structure is used to find the [`PmuLookupTableEntry`] for a given
+ /// application ID.
+ ///
+@@ -867,7 +853,7 @@ struct PmuLookupTable {
+
+ impl PmuLookupTable {
+     fn new(dev: &device::Device, data: &[u8]) -> Result<Self> {
+-        let (header, _) = PmuLookupTableHeader::from_bytes_copy_prefix(data).ok_or(EINVAL)?;
++        let (header, _) = PmuLookupTableHeader::read_from_prefix(data).map_err(|_| EINVAL)?;
+
+         let header_len = usize::from(header.header_len);
+         let entry_len = usize::from(header.entry_len);
+@@ -1013,15 +999,11 @@ pub(crate) fn header(&self) -> Result<FalconUCodeDesc> {
+         let data = self.base.data.get(falcon_ucode_offset..).ok_or(EINVAL)?;
+         match ver {
+             2 => {
+-                let v2 = FalconUCodeDescV2::read_from_prefix(data)
+-                    .map_err(|_| EINVAL)?
+-                    .0;
++                let (v2, _) = FalconUCodeDescV2::read_from_prefix(data).map_err(|_| EINVAL)?;
+                 Ok(FalconUCodeDesc::V2(v2))
+             }
+             3 => {
+-                let v3 = FalconUCodeDescV3::from_bytes_copy_prefix(data)
+-                    .ok_or(EINVAL)?
+-                    .0;
++                let (v3, _) = FalconUCodeDescV3::read_from_prefix(data).map_err(|_| EINVAL)?;
+                 Ok(FalconUCodeDesc::V3(v3))
+             }
+             _ => {
+--
+2.47.3
+
