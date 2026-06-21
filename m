@@ -4,63 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4EBFCD98E4
-	for <dri-devel@archiver.kernel.org>; Sun, 21 Jun 2026 02:43:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FDDBCD4F26
+	for <dri-devel@archiver.kernel.org>; Sun, 21 Jun 2026 02:54:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A747410E2D5;
-	Sun, 21 Jun 2026 02:43:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66F0A10E2DE;
+	Sun, 21 Jun 2026 02:54:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OQ2N2P4y";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="EQK9h/SQ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3776A10E2D5
- for <dri-devel@lists.freedesktop.org>; Sun, 21 Jun 2026 02:43:36 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 603B860051;
- Sun, 21 Jun 2026 02:43:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 158FCC2BCB0;
- Sun, 21 Jun 2026 02:43:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1782009815;
- bh=1ndsoy/3ImmWptJQTHAk+1hcRFK145grgtun0wStoH0=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=OQ2N2P4yOztncvvwUBWPnmescRwpx5yOEiBRxV1q1cWR/tODOAQztpB7SqbAV4X9F
- lAC6T7J7DkJ0WnbdFCsVYYOUl/fBxTtcF5ZjjVSGamgMT+eGmjRA+6HtDC/ijgjGUc
- SyGk7SHfscgxxPCJQQA433fFrKRU1huef7KKfbP7DQRTv/q43dfAD8NXpT6C95XfHL
- gO8ChxDchjFtGxRRJ12qdiDQIaHlTiq5ysOexIrEWySp6Mqbyjj1zQb9U6nugit/pq
- Cp8aIRF0zSRMSJFAQdbjG5XmfRbEmxKhZge6fQaKkPIbGlhgqnVCAt8tvj7UMsMxaG
- d4PUS+N3r6/Nw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 09B1CCD4F26;
- Sun, 21 Jun 2026 02:43:35 +0000 (UTC)
-From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
-Date: Sat, 20 Jun 2026 21:43:34 -0500
-Subject: [PATCH] drm/virtio: bound EDID block reads to the response buffer
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CED8B10E2DE
+ for <dri-devel@lists.freedesktop.org>; Sun, 21 Jun 2026 02:54:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=FeZ4c+JE0/8bQv3Zo1HRkUD46feEweJT7tGEM62N5Bs=; b=E
+ QK9h/SQ2Gg6KaI6iQSD58wF4nTPnlWtc4jKeK0SW3p+02kMW6ZPRb7Fc+47LsrTk
+ icJtdXLo+izvgvg0s5QF0fLhgpdbaN1XaqTNHZuzZDSHxzOPNY8Qj96bfWzENfLh
+ bezAs9mBsypB5iq8xvLGM2HQXJiaQw9jkHb92HoxII=
+Received: from w15303746062$163.com ( [113.200.174.80] ) by
+ ajax-webmail-wmsvr-40-129 (Coremail) ; Sun, 21 Jun 2026 10:53:51 +0800
+ (CST)
+X-Originating-IP: [113.200.174.80]
+Date: Sun, 21 Jun 2026 10:53:51 +0800 (CST)
+From: w15303746062  <w15303746062@163.com>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ "Mingyu Wang" <25181214217@stu.xidian.edu.cn>
+Subject: Re:Re:[PATCH v2] drm/gem: fix signed integer overflow in idr_alloc
+ end parameter
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <201b9524.566.19ee7f7eeb3.Coremail.w15303746062@163.com>
+References: <20260605142644.1205922-1-w15303746062@163.com>
+ <201b9524.566.19ee7f7eeb3.Coremail.w15303746062@163.com>
+X-NTES-SC: AL_Qu2TAPyav0wo5yKYYukfmU0Qguw9Xcq5uPkj34FWN5t8jADpwzI7RW1pP0r96smPBi2roia6Vihk6/hcX6hdeo4W+6V3ZecsTmOHt3Lx1jV9MQ==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260620-b4-disp-22bba7bf-v1-1-b95924cee742@proton.me>
-X-B4-Tracking: v=1; b=H4sIANVPN2oC/x3MMQqAMAxA0atIZgMxSiteRRyMTTWLSgsiiHe3O
- L7h/weyJtMMQ/VA0suyHXtBU1ewbPO+KlooBiZ25JhQOgyWT2QWmb1E7HzoKdJCfStQsjNptPt
- fjtP7fhCInU5iAAAA
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>
-Cc: linux-kernel@vger.kernel.org, 
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Chia-I Wu <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org, 
- virtualization@lists.linux.dev
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782009813; l=1599;
- i=hexlabsecurity@proton.me; s=proton; h=from:subject:message-id;
- bh=XxBP3LnfnnuW9zu82lhaoZrAWbBKUMrGJ5tj8DbRz74=;
- b=0R3EVoEafhlGW7lqeKCkN4SzQtVGL/H6D18PLmGpAR926B+ckGp8vn9XX0ehwqyK8ee9tC7Ox
- wuLEqpZmfwTAGGt6EJ8nS2DucwWBoHEeE/jssXW1gjNYz0bYrT1Czmr
-X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
- pk=dmppBMZNLLoPzxHi9l8tZDzEZUunPbgsYqIZYXeUrL0=
-X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/proton with
- auth_id=814
-X-Original-From: Bryam Vargas <hexlabsecurity@proton.me>
+Message-ID: <5732bce4.6fc.19ee81946f1.Coremail.w15303746062@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: gSgvCgCn_zE_UjdqOAYNAA--.398W
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbC5B8M72o3Uj87wAAA3T
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,51 +60,44 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: hexlabsecurity@proton.me
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
-
-virtio_get_edid_block() validates the read offset only against the
-device-supplied resp->size field, never against the fixed-size resp->edid
-array. The EDID block index is driven by the device-supplied extension
-count, so a malicious virtio-gpu backend can advertise a large size
-together with a high block count and read far past the array into adjacent
-kernel memory, which is then surfaced in the parsed EDID (an out-of-bounds
-read / info leak).
-
-Also reject any read whose end exceeds the size of the edid array.
-Conforming EDID responses stay within the array and are unaffected.
-
-Fixes: b4b01b4995fb ("drm/virtio: add edid support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
----
- drivers/gpu/drm/virtio/virtgpu_vq.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-index 67865810a2e7..c8b9475a7472 100644
---- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-@@ -897,7 +897,8 @@ static int virtio_get_edid_block(void *data, u8 *buf,
- 	struct virtio_gpu_resp_edid *resp = data;
- 	size_t start = block * EDID_LENGTH;
- 
--	if (start + len > le32_to_cpu(resp->size))
-+	if (start + len > le32_to_cpu(resp->size) ||
-+	    start + len > sizeof(resp->edid))
- 		return -EINVAL;
- 	memcpy(buf, resp->edid + start, len);
- 	return 0;
-
----
-base-commit: 1a3746ccbb0a97bed3c06ccde6b880013b1dddc1
-change-id: 20260620-b4-disp-22bba7bf-47d80f0c083b
-
-Best regards,
--- 
-Bryam Vargas <hexlabsecurity@proton.me>
-
-
+Cj5HZW50bGUgcGluZyBvbiB0aGlzIHYyIHBhdGNoLiAKPgo+QXMgYSBxdWljayBub3RlIHJlZ2Fy
+ZGluZyB0aGUgYXV0b21hdGVkIHJldmlldyBmcm9tIFNhc2hpa28gQUk6IGl0IGNvcnJlY3RseSBm
+bGFnZ2VkIHR3byBwcmUtZXhpc3RpbmcgaXNzdWVzIGluIHRoaXMgZnVuY3Rpb24gKGEgbWlzc2lu
+ZyBpZHJfcHJlbG9hZCBhbmQgYSBjcml0aWNhbCBVQUYgcmFjZSBjb25kaXRpb24gZHVyaW5nIERS
+TV9JT0NUTF9HRU1fQ0xPU0UpLiAKPgo+SSB3YW50IHRvIGNsYXJpZnkgdGhhdCB0aG9zZSBhcmUg
+b3J0aG9nb25hbCB0byB0aGUgaW50ZWdlciBvdmVyZmxvdyBmaXhlZCBpbiB0aGlzIHYyIHBhdGNo
+LiBJIGFtIGtlZXBpbmcgdGhpcyBwYXRjaCBwdXJlbHkgZm9jdXNlZCBvbiB0aGUgc2lnbmVkIGlu
+dGVnZXIgb3ZlcmZsb3cgaXNzdWUgc28gaXQgY2FuIGJlIGV2YWx1YXRlZCBvbiBpdHMgb3duIG1l
+cml0cy4gCj4KPkkgYW0gY3VycmVudGx5IGludmVzdGlnYXRpbmcgdGhlIFVBRiByYWNlIGNvbmRp
+dGlvbiBzZXBhcmF0ZWx5IGFuZCB3aWxsIHN1Ym1pdCBhIG5ldyBwYXRjaCBzZXJpZXMgdG8gYWRk
+cmVzcyB0aGUgcHJlLWV4aXN0aW5nIGJ1Z3MgZmxhZ2dlZCBieSB0aGUgYm90Lgo+Cj5QbGVhc2Ug
+bGV0IG1lIGtub3cgaWYgYW55IGZ1cnRoZXIgcmV2aXNpb25zIGFyZSBuZWVkZWQgZm9yIHRoaXMg
+djIgb3ZlcmZsb3cgZml4LgoKSGkgYWxsLAoKRm9sbG93aW5nIHVwIG9uIG15IHByZXZpb3VzIGVt
+YWlsLCBJIGp1c3Qgbm90aWNlZCB0aGF0CmRybV9nZW1fY2hhbmdlX2hhbmRsZV9pb2N0bCBoYXMg
+cmVjZW50bHkgYmVlbiBkaXNhYmxlZCBpbiBtYWlubGluZSBkdWUgdG8Kc2VjdXJpdHkgYW5kIHRl
+c3RpbmcgY29uY2VybnMsIGFuZCBhIFRPRE8gbGlzdCBoYXMgYmVlbiBhZGRlZCBmb3IgaXRzCnBv
+dGVudGlhbCByZS1lbmFibGVtZW50LgoKR2l2ZW4gdGhpcyB1cHN0cmVhbSBzdGF0dXMsIEkgd2ls
+bCBkcm9wIG15IHYyIHBhdGNoIHN1Ym1pc3Npb24uIEEgc3RhbmRhbG9uZQpmaXggZm9yIHRoZSBp
+bnRlZ2VyIG92ZXJmbG93IG5vIGxvbmdlciBhcHBsaWVzIGNsZWFubHkgd2l0aG91dCBhZGRyZXNz
+aW5nCnRoZSBmdWxsIFRPRE8gbGlzdCAoaW5jbHVkaW5nIHdyaXRpbmcgdGhlIG1pc3NpbmcgSUdU
+IHRlc3RzIGFuZCBoYW5kbGluZwppZHJfcHJlbG9hZCkuCgpGb3IgdGhlIG1haWxpbmcgbGlzdCBy
+ZWNvcmQsIGFuZCBmb3Igd2hvZXZlciB0YWtlcyBvbiB0aGUgcmUtZW5hYmxlbWVudAp0YXNrIGlu
+IHRoZSBmdXR1cmUsIEkgd2FudCB0byBsZWF2ZSBteSBsb2NhbCBmaW5kaW5ncyBoZXJlIHJlZ2Fy
+ZGluZyB0aGUKZWRnZSBjYXNlczoKCjEuIFNpZ25lZCBJbnRlZ2VyIE92ZXJmbG93IGluIGlkcl9h
+bGxvYzoKVGhlIG9yaWdpbmFsIGBhcmdzLT5uZXdfaGFuZGxlID4gSU5UX01BWGAgY2hlY2sgaXMg
+aW5zdWZmaWNpZW50LiBJZgpgbmV3X2hhbmRsZWAgaXMgZXhhY3RseSBgSU5UX01BWGAsIHRoZSBz
+dWJzZXF1ZW50IGNhbGwgdG8gYGlkcl9hbGxvYygpYAp1c2luZyBgaGFuZGxlICsgMWAgYXMgdGhl
+IGVuZCBsaW1pdCB3aWxsIHJlc3VsdCBpbiBhIHNpZ25lZCBpbnRlZ2VyIG92ZXJmbG93CigtMjE0
+NzQ4MzY0OCkuIFRoZSBib3VuZGFyeSBjaGVjayBtdXN0IGJlIHRpZ2h0ZW5lZCB0byBgPj0gSU5U
+X01BWGAuCgoyLiBUaGUgIjAiIEhhbmRsZSBTZW1hbnRpY3MgKFRPRE8gIzMpOgpUaGUgb3JpZ2lu
+YWwgY29kZSBkaWQgbm90IHJlamVjdCBoYW5kbGUgMC4gSW4gdGhlIERSTSBzdWJzeXN0ZW0sIDAg
+aXMKdW5pdmVyc2FsbHkgdHJlYXRlZCBhcyBhbiBpbnZhbGlkIGhhbmRsZSAoZS5nLiwgYGRybV9n
+ZW1fb2JqZWN0X2xvb2t1cGAKcmV0dXJucyBOVUxMKS4gQWxsb3dpbmcgYW4gb2JqZWN0IHRvIGJl
+IGFsaWFzZWQgdG8gaGFuZGxlIDAgYnJlYWtzIGNvcmUKRFJNIHN0YXRlIGFzc3VtcHRpb25zLiBB
+biBleHBsaWNpdCBgYXJncy0+bmV3X2hhbmRsZSA9PSAwYCBjaGVjayBpcwptYW5kYXRvcnkuCgpU
+aGFuayB5b3UgVGhvbWFzIGFuZCB0aGUgcmV2aWV3ZXJzIGZvciB5b3VyIHRpbWUgYW5kIHRoZSBp
+bnNpZ2h0ZnVsCmRpc2N1c3Npb25zLiBJIHdpbGwgbW92ZSBvbiB0byBvdGhlciBzZWN1cml0eSBy
+ZXNlYXJjaCB0YXJnZXRzLgoKVGhhbmtzLApNaW5neXUKCgo=
