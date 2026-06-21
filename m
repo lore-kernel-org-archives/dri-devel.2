@@ -4,135 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 925DBCD98F0
-	for <dri-devel@archiver.kernel.org>; Sun, 21 Jun 2026 07:39:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E203CDB466
+	for <dri-devel@archiver.kernel.org>; Sun, 21 Jun 2026 08:54:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3345D10E322;
-	Sun, 21 Jun 2026 07:39:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B15FF10E23A;
+	Sun, 21 Jun 2026 08:54:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fg62XwXN";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WTA+D3JL";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012027.outbound.protection.outlook.com [40.107.209.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31D8510E31B;
- Sun, 21 Jun 2026 07:39:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fHCnLhaJRZT0l7dIH+UDwxPwD46KHfjhNbmR/+MDTSHhz05Z8U/ua3B16QlZDIpRyXvF9ZxP5LD0w7WZoFSEGA6yaVHygT/lR/TbYpMxu6242uaJ/8U3CHT0VTlmqtDItpdlJJXJ6FS3CT79PYFZGukDtG9YGeC3UO5bp+Y4WCpXV+U4jb5ifwAhT5YUtRfamx1DNSEn3kOAHNgH921IpdcglHaX1pCM0h5vSKguAVRp0u7y4Nqtl0q8Df2egxBMkjDfmekJNA6oRAEtZ5dJtlLVopwWDpkfDRyRlLFPefzhpX92QXUS+o64AxvOcUskra79BFZU2865pyRNaFx9JA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cp0LchYyspW81wbnfdTTTlK3u1bSbQEzszC0MJ96Oaw=;
- b=UjinRX6STi9l3W1/TsWa8jv35VGWztJzrcHVK1Qpz5Qgkj315KvlCsm89NBFHfGSvVztmUfYy4LRDSbs8Esc5SLrhQ25cY07FbcGM1nJLByDxVJGyfPI5uMnbaCrLoJlk1rynB5zTdi9Qq8NKlNW5utD9hHpD3cLC50mHlMxgCy7gglvs/0Hgt4TCd/I2EJzLRwcygXmbDBAn8yc6LZ2MDl3kH1My8m4objV2Da9A+X0Bb1NJHhopj2jwa02mIEZjGyTnhs4fSuPfLohI0O1NkzEDuLjRS6BXkRtKy1knGHuiEdUtmRt7Or7MABhm8yCpEKkcxmspxUaVqwZDQTGlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cp0LchYyspW81wbnfdTTTlK3u1bSbQEzszC0MJ96Oaw=;
- b=fg62XwXNxhWTGElfxJSEfLgrvLB/fQ8njTTtzS+Y70BqEDXBgmPx+dMx7fKIYUl5xSmYYJa3Z+elovAPSS+CQv4WqLjbAD9ChTEWXKlGRjX0cGSUaQlUuY/2ASZHY1s6+82fLs9zuuLwswl+VfxQDnNL7cU6evB6/bN8Xsp4JAk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by DM4PR12MB6400.namprd12.prod.outlook.com (2603:10b6:8:b9::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.18; Sun, 21 Jun 2026 07:39:38 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%6]) with mapi id 15.21.0139.009; Sun, 21 Jun 2026
- 07:39:37 +0000
-Message-ID: <e4f60b98-9bd8-491a-9703-a5a7a58a4ca0@amd.com>
-Date: Sun, 21 Jun 2026 00:39:35 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [resend] [regression] amdgpu carrizo: no display signal after
- modeset
-Content-Language: en-US
-To: Salvatore Bonaccorso <carnil@debian.org>, Jaak Ristioja
- <jaak@ristioja.ee>, Dianne Skoll <dianne@skoll.ca>,
- Chris Park <chris.park@amd.com>, Matthew Stewart <matthew.stewart2@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: 1139950@bugs.debian.org, regressions@lists.linux.dev,
- stable@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <9fba2020-24d1-4235-9869-319d4aab3a4c@ristioja.ee>
- <178198613176.3658222.16247101620976737948@eldamar.lan>
- <ajcLuO0YZCoPN7Xw@eldamar.lan>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <ajcLuO0YZCoPN7Xw@eldamar.lan>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PH8PR20CA0013.namprd20.prod.outlook.com
- (2603:10b6:510:23c::27) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C376610E23A
+ for <dri-devel@lists.freedesktop.org>; Sun, 21 Jun 2026 08:54:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:Message-ID:References:
+ In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=VbCbnHnZXA91Ce4PwdxC0wMTzxTLqUjbr72iwzXBJIg=; b=WTA+D3JLMQse0u30/v59IifqHa
+ rvS0eXrKhEUCVhPYzTWN9GarN4MoHyZgYvZrarV0g8TQD9OVFNZoKrnf11vAFY+heiR01e8bbBiFt
+ muQqdKfndDmV/Xx5f9lZS+adViF3o2cthcDfn5gOY3FHFBEbgs6bz2cRRldXMaA/UvH8HRXBtsjIL
+ 1j1hu5d0lTk0TT1x9FjdU07oR41leElZF1WFD+/Mpbr9BFW3pJQjrK8Jj3vkCA+rjIzHVfpF1viOf
+ KZBIPEOyY9ZVA0G2TOdy54eW6q99gTuI4JoHmyJ282tgyrn/dKBBEFT0G6GOyOfialyK6b6CRRfbH
+ DgRwuW5A==;
+Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
+ by fanzine2.igalia.com with esmtps 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wbDwx-003JgO-SU; Sun, 21 Jun 2026 10:54:43 +0200
+Received: from webmail.service.igalia.com ([192.168.21.45])
+ by mail.igalia.com with esmtp (Exim)
+ id 1wbDwu-00DDcn-OH; Sun, 21 Jun 2026 10:54:43 +0200
+Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
+ by webmail.service.igalia.com with esmtp (Exim 4.98.2)
+ (envelope-from <anholt@igalia.com>) id 1wbDwu-0000000BBdH-2FuU;
+ Sun, 21 Jun 2026 10:54:40 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|DM4PR12MB6400:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88d276e9-8320-48e3-fd4b-08decf683f22
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|23010399003|921020|4143699003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: BoL1hyrDIiVdXpvH8O3+d9wFidZhMncCBu6xzNCYdzbUQZylunXv9w4dwT0LuFOMF+3IU9D/enwB5JAPvzseLmXLXJ6WgJCSC3NGfmQgJR5oZEQv/ZIx7blLVSfU3RVLoJDqZh3YwX4MGAnueI0j6xfFdB6VYg4uJOv6mPHzxqKRN0tIWLpRVphSVRCDmD2eBJ0Yd5UipPduaZFdWeHvk5Z/gTYLL4/lYY8eb2JcFzerCsYrrTxh3KwcD+u0INfUjkxcdmncqFUTQR/uXl7eR0FcScpY9wOaMMmhq/R3WVtLdi3NyBjSE0FQ44jcIyVpFeQ5iQxiff/rYimqtvOlpymTvdgL2fOH6GHiRy4IqEumWxamMzEocIxMBMMn4e4GB+pJuEQfcTxOVCBHWSMVoRcZUOz3XQG24mRRYo8LXz5cVizD5X4AUVmPFeGXk/PiL7eJd/KPXb3S1yTSVCGjpLk2R6r4W7NlfdBK1p3VTehe8dPXX5z8QnWAXitZk+Ucnn33fC8SyIsqVmpkfxIPEKZZusAfMEnlXtUO5Qy5zEGaMSgDha1hXwZasqaL0heKzglDX4kLhIYtU9C5qJQQExXvsLIjRzQCI9+eYevQfv5ljsPkLg/BzyVVqPybADJY9o4lxQ+h2I7ad5KbvzJAgh6Qa4EtSm6H4gI5MqIx6Q1gbUPltxXDJyJFpWwiSnrgzaEvfMW0oPlChJz1QIbxyw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(921020)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OVBqOCtNVUkxM3dFZDBaWnIvaTJYSzVKeStUQmhWaElNZVZDOXlGU3Viakxz?=
- =?utf-8?B?Lyt2K09xRU4xaXBSclVuRnFOb2lYTjBPNE9QS3ZwNVNlRDMzZG94eFNNUWdO?=
- =?utf-8?B?TlVkVTlRSjNGR2lOQTNoL1dJKzFybVJjeHphYndWRllhaWozbkJDSjNpQWVh?=
- =?utf-8?B?ejVkT29SS0UvN0NWdkxHWDRudytJUC9TeGlvZm9aTmhabzdRZ2tzVExxVDB1?=
- =?utf-8?B?U1MrNFJicW5xOExhY08yeVFQZDFxSlFRYWY5cENnQkM1d2R0RkpiSWd2MTdr?=
- =?utf-8?B?ZEUrN2dhVURPUi9KTFBvV25rTXNSRHVGemNwdkdlRS83NXFBamtCbE5BZncv?=
- =?utf-8?B?eHA0QndxWGJiVHRlU3c3TkdTMG9BZFA1NXBlTzdndmxHbEFHUnBleWZVMGpN?=
- =?utf-8?B?emJUNlRWZXlKZTdGc0IwTXhvOExoTDZ0ZXhHQlJyZDZJZkJ3WU9JMXRjS3Fx?=
- =?utf-8?B?WHhSOXU1bzMrVkZLZm9qa2ttdjYvVlZQa01DdnNpVWl1elliVElEaGpMbWRK?=
- =?utf-8?B?dWVjRTJjT2RlNWZkU2dsZlZwWWp3MkhKVys1UFFGZ2FWOVd4eUhyeWdkditm?=
- =?utf-8?B?M1duM1FJUm51ZStRNEs5bngyb21aSlg1QXNIWFdTclFLT2FtNlFFUDBOU0Fs?=
- =?utf-8?B?MEFMYW9yVU1xT0lDWFdzYnpZeWlRbnRkdldHOExoVHh6Rm00MVJkK0hRQjJl?=
- =?utf-8?B?WlVySG8rdDFLR0FmaFp3eTRTYnpvN2dHbXhWZGN1amYrSUkxWldTYldTN1k5?=
- =?utf-8?B?SFdPVmI2V0VDc0dpdVlVQUg5YmVNVEpmMDFPOTRpdW80NkUyd0MyZThOeTlq?=
- =?utf-8?B?dDAvZTNUNUJZa1g4WEJqdXM1TW9JVzQ0MXM3Y09WL2NRV2RFZXFyQW1wVm5H?=
- =?utf-8?B?R3FibEpscE5KSjdnNk1nWDhXN1ZNYnBwbGNURFMzOHpacmljQzJJRXlwRXY2?=
- =?utf-8?B?NE9KR1k1aWN5TmFpaTF1R3dNdnhtd2V0MnR0RkpLcmlIdk1JbW5wK2RCdHh5?=
- =?utf-8?B?ZHV1VkxVNmdIcFhGTUpDL2RrbU9KWm1YTDhqbHJlTzZLVnA3SXZEblRRY0JJ?=
- =?utf-8?B?eStUY0trbzNsT1A0R3pjdzdPOUpnUFRzZ3pGRVhCVkNyNHMwZVpuR012d3Y4?=
- =?utf-8?B?Smg4VFp1d0JxZDlFSkVzS1hRUnFvMmN0SGlkSjA4eUs5SEhLbFZCRDJteXVp?=
- =?utf-8?B?TUVHL2FpZ1NtMFEybXBuWEVtN2wrR1YyczBZMFN3cEx4M0I5TVJLTmhFOUNj?=
- =?utf-8?B?TlRQTi9kMldFRlZ6MzllUDh5MXUwWXdGZFcxRmNsdnRRaW52R0VnQzczSE1j?=
- =?utf-8?B?ZythY3d2RVhiOXNMYUp4SGdkTUYycEo3cVd5dXQ2Y2wzdVNvV2RzclRSTW9W?=
- =?utf-8?B?U01NcndJMWVteVBjVFFJdkorNStnNFo2bWI4VU9kNVBkU25yUWFpczFJYWNm?=
- =?utf-8?B?ODN4andjUlRiYWRvR3ZOMFdGZUNSSXJJYTlvNXhuWHBHMExHc0M4TlpBakN4?=
- =?utf-8?B?OGozUkZHb1ovYnpmYWhPR2E3NWxsOGRwWXZINFVOUUg1Y3o2aWVrRHpTWlMv?=
- =?utf-8?B?bVZhWEVJdmtkdGU5MEp5TjNzWERnRzhsZTN6TXAxTVpYVWt6RmQxVnZWanBY?=
- =?utf-8?B?bCtIajBkKzN1dG1Yc0VqaVJzcm9HbkRjZVMyRWZmVkVPbmR5NHVGck9Eb2lj?=
- =?utf-8?B?UHl2SXZ6NUxWVDF0M1RIOHh3Qkw0TXhsUFE2dXlxaXNXY1czNUMvYkYzNWIz?=
- =?utf-8?B?ZDI2TG52cUhEZEZSSDFZZlBRcUJXbFBMWWFNZXVlN0ZNcGtKS09yaVpOVlBO?=
- =?utf-8?B?Zms3MVdHRXBEQkl2SHdWTTk5S0RiZmQ3QXJTOU1KdFlNU2JzVGxObmJnaFZH?=
- =?utf-8?B?OHEwYmN0TU10bVMzNU45UllBTmtycloyS09ETlNIMkNQMWN1b2V5eDFObGQr?=
- =?utf-8?B?am45TWMwU1Zrb3pzUDhJK3U1UGF0ZVMyano3YnpLWG1NWGx6S292UkhoL2Vk?=
- =?utf-8?B?alEybUVoWTRDTm14RnhBWkFMeFlUOVRjVTc0bVNwaW5pWDFXU201MGFsbzRJ?=
- =?utf-8?B?K2VvUnFJUjFieU5RL0tPSDZXVm80alE3UXlpYUxBMlNsUDduRDh5UEI4RHd1?=
- =?utf-8?B?b3dLSTBLUy81cnBVTFRwZFdRYlplUVZLdXg4TDRVTno4SlRVcUxFWkV0cDZL?=
- =?utf-8?B?Z2J3RWNTYkRVYXU2eGN3SEdFcmxOU0hjWEpwdnpMYTgyeVJnSnFIS1pYNnBD?=
- =?utf-8?B?aGFid25ScHVDMStYYjhIUmVxckVDWXNOamVnaURNUDlqWjE2Vnk3Vks5VWx3?=
- =?utf-8?B?cy9RSlI2OEwrUmgrOHljWlRuSnJtN0M5YVEvNVN0aFY0RHFCakttdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88d276e9-8320-48e3-fd4b-08decf683f22
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2026 07:39:37.8022 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xlp9SxJnpLkkX3r2Hm/Osavd4FYLcac3bNB+Fmke49IstOkCb6nHB7QMsJt8WptnIXxf1emqmXYlBssxIZpwzQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6400
+Date: Sun, 21 Jun 2026 10:54:40 +0200
+From: Emma Anholt <anholt@igalia.com>
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Cc: Iago Toral <itoral@igalia.com>, Melissa Wen <mwen@igalia.com>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 1/3] drm/v3d: Associate BOs with every job that accesses
+ them
+In-Reply-To: <b1d177a4-02eb-4925-969f-952860045e56@igalia.com>
+References: <20260610-v3d-cpu-job-fixes-v1-0-0d9c88989edc@igalia.com>
+ <20260610-v3d-cpu-job-fixes-v1-1-0d9c88989edc@igalia.com>
+ <4a83fb4434459846c2e2936e4bbd297b75d70af1.camel@igalia.com>
+ <b61d3055e59f0c83ac5b72ddc0befd04@igalia.com>
+ <b1d177a4-02eb-4925-969f-952860045e56@igalia.com>
+Message-ID: <200348797d16e20481db216f8125c2fb@igalia.com>
+X-Sender: anholt@igalia.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,12 +73,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-There have been other bandwith related changes.
-Would you mind please trying to reproduce on more recent mainline 
-release, IE 7.1.y?
+On 2026-06-13 16:22, Maíra Canal wrote:
+> Hi Emma,
+> 
+> On 12/06/26 14:44, Emma Anholt wrote:
+>> On 2026-06-10 23:17, Iago Toral wrote:
+>>> Hi Maíra,
+>>>
+>>> I have a couple of thoughts here:
+>>>
+>>> 1. The original code seems to very specifica about targeting this only
+>>> for the last job, which makes it look like a very intentional decision,
+>>> so I wonder if there is something we are missing here. I am adding Emma
+>>> to the CC in case she has any thoughts about it.
+>>>
+>>> 2. I am not aware of any issues despite not having implicit sync for
+>>> all the jobs in the chanin. Like you mention, this is because user-
+>>> space is already trying to handle job depedencies, so I wonder if we
+>>> should instead work on the opposite direction and try to drop implicit
+>>> sync in the kernel entirely. Would that make sense? What are other
+>>> drivers doing in this regard?
+>> 
+>> Yeah, you should be working toward dropping implicit sync entirely.
+>> tu's VM_BIND is really nice and where you want to be eventually, but
+>> even if not, then you at least want something like
+>> MSM_SUBMIT_NO_IMPLICIT.
+>> 
+> 
+> I believe the main issue we would have to implement something like
+> VM_BIND is the fact that V3D only has one global page table (that we
+> could switch on runtime, but it would come with the cost that all the HW
+> queues would only be able to operate on BOs from one client).
+> 
+> NO_IMPLICIT would be a more reasonable option.
 
-Also; can you please check both your cable and dongle?  I wonder if one 
-of them is not compatible with HDMI 1.3?  Are they marketed as 
-"Standard" or "High Speed"?
+I had forgotten how bad v3d's mmu is, with the contiguous mem
+requirement.  I don't think VM_BIND is going to be reasonable -- we
+can't guarantee new page tables for other clients, so switching isn't
+reasonable.
 
+HW queues only being able to operate on BOs the client has imported is
+the right behavior, though!  It's not a requirement from DRM, but it's a
+very strong expectation from the software using it.  V3D should really
+be using the GMP to mask the clients from each other.
+> 
+>> I probably just didn't think about this implicit sync case in the
+>> initial implementation, because a bin job dependency on results from
+>> another context is just not a thing that's going to happen in practice.
+>> The implicit sync was mostly about render targets / texturing to be
+>> ordered correctly with X11, and about lifetime management of the BO
+>> (which only needed the last use).
+>> 
+> 
+> But does it make sense to attach the implicit dependencies to the
+> CACHE_CLEAN job (last job) and not to the RENDER job or the CSD job?
+> 
 
+You need to make sure that the BO list also gets added to at least the
+first job (assuming they're in a dependency chain), because it should
+correctly wait to implicit sync against queued writes to those BOs from
+other clients.  And, if you ever do shrinker, then each job would need
+to know its BOs.
