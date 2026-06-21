@@ -4,57 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08EBCCD98F0
-	for <dri-devel@archiver.kernel.org>; Sun, 21 Jun 2026 10:39:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B9DECD98F0
+	for <dri-devel@archiver.kernel.org>; Sun, 21 Jun 2026 11:39:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D9BB10E1EF;
-	Sun, 21 Jun 2026 10:39:08 +0000 (UTC)
-Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com
- [216.40.44.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76DC288C11;
- Sun, 21 Jun 2026 10:39:07 +0000 (UTC)
-Received: from omf15.hostedemail.com (lb01a-stub [10.200.18.249])
- by unirelay05.hostedemail.com (Postfix) with ESMTP id A4F80403B5;
- Sun, 21 Jun 2026 10:39:03 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
- omf15.hostedemail.com (Postfix) with ESMTPA id A063517; 
- Sun, 21 Jun 2026 10:38:58 +0000 (UTC)
-Date: Sun, 21 Jun 2026 11:38:55 +0100
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Thomas Gleixner <tglx@kernel.org>, Steven Rostedt <rostedt@kernel.org>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-CC: Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- John Ogness <john.ogness@linutronix.de>,
- Peter Zijlstra <peterz@infradead.org>, Julia Lawall <julia.lawall@inria.fr>,
- Yury Norov <yury.norov@gmail.com>, linux-doc@vger.kernel.org,
- linux-kbuild@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_2/2=5D_tracing=3A_Add_CONFIG=5FTRA?=
- =?US-ASCII?Q?CE=5FPRINTK=5FDEBUGGING_to_clean_up_kernel=2Eh?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <87ik7cmcb7.ffs@fw13>
-References: <20260621093430.264983361@kernel.org>
- <20260621093811.168514984@kernel.org> <87ik7cmcb7.ffs@fw13>
-Message-ID: <65FD4729-3DEB-44BF-B085-1F72A0B7BF3A@goodmis.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8597C10E352;
+	Sun, 21 Jun 2026 11:39:33 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aitks8Ps";
+	dkim-atps=neutral
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
+ [209.85.210.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 972CF10E214
+ for <dri-devel@lists.freedesktop.org>; Sun, 21 Jun 2026 06:30:11 +0000 (UTC)
+Received: by mail-pf1-f170.google.com with SMTP id
+ d2e1a72fcca58-84231305a80so2045262b3a.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 20 Jun 2026 23:30:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782023411; x=1782628211; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=W6tpylLWP859Y5GaGz8xWvHuAS1IpP/+yGasAke1UnQ=;
+ b=aitks8PsZVd8q7Xm+vb39+YkKjbcxjRia6bg5w5uqmGvddniRGcN9to4k3gFB4Kg/M
+ SPnlJOkeuYWg0tYpw4K7u3XHJJgICrYY75h5clfWtpTfJEH6jlLCQvwFA+invSwjYymZ
+ gVgPgSRMLcUka3IEZX6S8r7x4JzlBAqkkLOUJbPspRiQBobGzddcLqGdOtCj85vYRplw
+ jMOcuFpkeZW07Ed9ljjvCJM9TeXRMdwKFSAAr20bmewiVpmp5/19jKVYTJhn5exrqd2X
+ BX5U/ao0lhwDsj1OHujDVpSZGIAgttAy8ED0IlSb7EKI6aNmWyKH3yAxTmOu+ExUWQi2
+ edXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782023411; x=1782628211;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=W6tpylLWP859Y5GaGz8xWvHuAS1IpP/+yGasAke1UnQ=;
+ b=ZgortvM1KirrJ38E9QKR6ibc7hI7W2iw0gRup/0lU0X7qF1q94bVe9wPw2hDo8IWLS
+ r08pA8pxZSs6Cc/AgsiSDGLGKT8acDOeNwnAsQ2eDCawkri5OAmz+sQsQKC26wFU0QIa
+ uwfRQ0asCQoFUFAEplyFi2nRKuV3gLNd6YxSsqf0dpuBe7+RCUXfG/iBsDylDNxi+zRb
+ xM4NOZu8avTQ6YPz2tmBYIKkLvCffS/kEfJn+l9D7RF/QVACTp3dVA858C5Nena0Um+s
+ UC7+Do4zY9W8yJu09LgNHuq9WPJGD9yr+7yQHdDmq4z/1xRBD6yg536vKS2RKw2IDu9K
+ iq8A==
+X-Gm-Message-State: AOJu0Yx19K+1aY9DAOGpMBeGSYiQnUrqPhdf1wCsSSsAdpCEnlKZpkig
+ hviQ64YknqkgXpTsfJq0hpGKlzjrQlYX/1sv4ycTNGjLylPTDzTD9pg3
+X-Gm-Gg: AfdE7cmjN+anMdXlenlkE8NnsVsRXypEVTfEV/ZYB1v4lgK/r76BOjgDQXfZ6rsWBn1
+ Drj2+xbZAZr0NKAq8Mp0xdLxfTTmyVrfo2BDQknv14G8hKXlWQz333kni670c+ezjnFUd767VCC
+ eL0TXn8X2ea5JgFBI1GFEj0EyAAVF0PEovvDPlH7xUe9EQoPnYXgcYLCICgLbIqtqAvQU9tGDUg
+ ZyNB5va4Ol4ehj5Xnh8rxfJKrn6BNLTeMuPh7v4s2x3cjh5tRmEyjPd0lg3VtE6BVwP6PVNTzsW
+ zFYgnilLsQTpzHaz48756zpyu/dqSSgy6prm74ts6dJ5EB3ZNB7JlrkmX2G44YzpM2jUrkDHETK
+ iy5dcvf1cSxR/Vehj7B95dUjc4WpcPvxdseXgfubLnhemwANYDLOsnfrOuKNnP0iZpUEkbuYPxQ
+ QXMkzg7azVIwY4MLWrL9nCYPYSl5NgTc6X7Vw1l9tVZA==
+X-Received: by 2002:a05:6a00:2a0c:b0:842:5d9b:d590 with SMTP id
+ d2e1a72fcca58-84550887d3cmr11687574b3a.30.1782023411053; 
+ Sat, 20 Jun 2026 23:30:11 -0700 (PDT)
+Received: from kernel-dev ([49.36.101.14]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84564e76d3csm3812486b3a.30.2026.06.20.23.30.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 20 Jun 2026 23:30:10 -0700 (PDT)
+From: Aditya Chari <adi25charis@gmail.com>
+To: andy@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Aditya Chari <adi25charis@gmail.com>
+Subject: [PATCH] staging: fbtft: fix parenthesis alignment in fb_tinylcd.c
+Date: Sun, 21 Jun 2026 11:59:45 +0530
+Message-ID: <20260621062945.42519-1-adi25charis@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Stat-Signature: 1rpq566iuu696tbe6de19udoqya4ijdw
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: A063517
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+altd1Yz9Y3NVTA4Q+RMlDrpJ2CoeKO4s=
-X-HE-Tag: 1782038338-801961
-X-HE-Meta: U2FsdGVkX1+UIJ7kmLtbV5k3wlv8csQwDalYtg7WqKufnOv7be+VuRDa3ft8H3X3zzwfr+uJaQZNz0sDC4oyI98+t0mZe8z4QM7YVjOJ7k9IvaQO5X/gwLzm/T/snIDf9B1tqJjVQMbg/Fnqr36PDksXLybxk5Wk4szMxT0dI7RGk8YrmbCkpbiPzakXtErPJu/4LvGLwyxtHWX9zek973SlOgxvLlgqkXDRAT2+DqJr5WMtzWdQf68LXDneXrIH36GLwhtQHs9JqXlxGiQxIii+hAq+RQvxokuLaf3ukb8Kl6fOR60wgmpjUFzbMjevVHTotC5pRIjw762yNXa4cwdML3kSKjmj+IzsGxPuo8Puez99eB9siQ==
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sun, 21 Jun 2026 11:39:32 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,47 +86,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Fix a checkpatch.pl
+CHECK:PARENTHESIS_ALIGNMENT warning by aligning the wrapped
+argument list of write_reg() with the line above it.
 
+Signed-off-by: Aditya Chari <adi25charis@gmail.com>
+---
+ drivers/staging/fbtft/fb_tinylcd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On June 21, 2026 11:13:00 AM GMT+01:00, Thomas Gleixner <tglx@kernel=2Eorg=
-> wrote:
->On Sun, Jun 21 2026 at 05:34, Steven Rostedt wrote:
->> Instead of having trace_printk=2Eh included in kernel=2Eh, create a con=
-fig
->> TRACE_PRINTK_DEBUGGING that when set will update the CFLAGS in the
->> Makefile to allow developers to add trace_printk() without the need to =
-add
->> the include for it=2E Having it included in the Makefile keeps it from =
-being
->> in the dependency chain and it will not waste extra CPU cycles for thos=
-e
->> building the kernel without using trace_printk=2E
->
->IOW, you make it worse just because=2E
->
->With the header being separate I add the three trace_printk()s and the
->include to the source file I'm investigating=2E The recompile will build
->exactly this source file=2E
->
->Having to enable the config knob will result in a full kernel rebuild
->for no value=2E
->
->Seriously?
+diff --git a/drivers/staging/fbtft/fb_tinylcd.c b/drivers/staging/fbtft/fb_tinylcd.c
+index afa8f1c74..d58b12472 100644
+--- a/drivers/staging/fbtft/fb_tinylcd.c
++++ b/drivers/staging/fbtft/fb_tinylcd.c
+@@ -38,7 +38,7 @@ static int init_display(struct fbtft_par *par)
+ 	write_reg(par, 0xE5, 0x00);
+ 	write_reg(par, 0xF0, 0x36, 0xA5, 0x53);
+ 	write_reg(par, 0xE0, 0x00, 0x35, 0x33, 0x00, 0x00, 0x00,
+-		       0x00, 0x35, 0x33, 0x00, 0x00, 0x00);
++		  0x00, 0x35, 0x33, 0x00, 0x00, 0x00);
+ 	write_reg(par, MIPI_DCS_SET_PIXEL_FORMAT, 0x55);
+ 	write_reg(par, MIPI_DCS_EXIT_SLEEP_MODE);
+ 	fsleep(250);
+-- 
+2.53.0
 
-Like having lockdep enabled, this would always be set in the development e=
-nvironment=2E It's not something to only enable when you need to add a trac=
-e_printk=2E If you don't want to rebuild everything, by all means add the i=
-nclude file by file=2E There's nothing preventing you to do that with this =
-solution=2E
-
--- Steve=20
-
-P=2ES=2E I'm replying on my phone as I'm in the London Tube=2E Thus why I'=
-m not trimming my email=2E
-
-
->
->Thanks,
->
->        tglx
->
