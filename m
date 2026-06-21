@@ -4,50 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53470CDB466
-	for <dri-devel@archiver.kernel.org>; Sun, 21 Jun 2026 09:38:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E759ECDB46C
+	for <dri-devel@archiver.kernel.org>; Sun, 21 Jun 2026 09:57:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B227B10E33B;
-	Sun, 21 Jun 2026 09:38:00 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kHYbAcsD";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A609210E337;
- Sun, 21 Jun 2026 09:37:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BA1C8600AF;
- Sun, 21 Jun 2026 09:37:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C4931F00A3A;
- Sun, 21 Jun 2026 09:37:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782034672;
- bh=eq4Jiz0A0s0y1CCaKrigK8iMCmKO2KO/DMw+O1PS1ZY=;
- h=Date:From:To:Cc:Subject:References;
- b=kHYbAcsD3riuZyE8yw/zGyX4OGv8E29ntBrV/psMay3TNT67fA5gNBpeHGFBeZ/12
- 2Ay7PRmR+s6HdarptXq0OjoszuRK4hDjuFDr5zqy5M5pwo3OOG5Rfwzz1hG/+dQ1n8
- CM2zwSeAYz4lQYZRNadhemupSTJhYAVEj8Z/JGBsC+uxY4TS20hXDjW9EjrTZX/Dl+
- vMXqPLpJ/wkow6elNFJjsfNE/3ih99IbbRotQdZuC4nu/UA/y3tJKjSTogiiW5YYf5
- 87SMm3+n4xuUToS7j7SvNUKsWt0yz2IfUnDNb9wlqNTm+yoVD5272meD4iMEV5O7Pw
- ZebFVZP2gqGBg==
-Received: from rostedt by gandalf with local (Exim 4.99.3)
- (envelope-from <rostedt@kernel.org>) id 1wbEd1-00000001qU9-0cPr;
- Sun, 21 Jun 2026 05:38:11 -0400
-Message-ID: <20260621093811.007634476@kernel.org>
-User-Agent: quilt/0.69
-Date: Sun, 21 Jun 2026 05:34:31 -0400
-From: Steven Rostedt <rostedt@kernel.org>
-To: linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- John Ogness <john.ogness@linutronix.de>, Thomas Gleixner <tglx@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Julia Lawall <julia.lawall@inria.fr>, Yury Norov <yury.norov@gmail.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id D866710E13C;
+	Sun, 21 Jun 2026 09:57:35 +0000 (UTC)
+X-Greylist: delayed 599 seconds by postgrey-1.36 at gabe;
+ Sun, 21 Jun 2026 09:57:34 UTC
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com
+ [216.40.44.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAE3710E0EB;
+ Sun, 21 Jun 2026 09:57:34 +0000 (UTC)
+Received: from omf17.hostedemail.com (lb01a-stub [10.200.18.249])
+ by unirelay07.hostedemail.com (Postfix) with ESMTP id 5F2911669C9;
+ Sun, 21 Jun 2026 09:47:31 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
+ omf17.hostedemail.com (Postfix) with ESMTPA id 423E619; 
+ Sun, 21 Jun 2026 09:47:24 +0000 (UTC)
+Date: Sun, 21 Jun 2026 05:47:21 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Linus Torvalds
+ <torvalds@linux-foundation.org>, Sebastian Andrzej Siewior
+ <bigeasy@linutronix.de>, John Ogness <john.ogness@linutronix.de>, Thomas
+ Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Julia
+ Lawall <julia.lawall@inria.fr>, Yury Norov <yury.norov@gmail.com>,
  linux-doc@vger.kernel.org, linux-kbuild@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
  linux-stm32@st-md-mailman.stormreply.com,
@@ -55,10 +38,23 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
  linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
  intel-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] tracing: Move non-trace_printk prototypes back to kernel.h
+Subject: Re: [PATCH 2/2] tracing: Add CONFIG_TRACE_PRINTK_DEBUGGING to clean
+ up kernel.h
+Message-ID: <20260621054721.7cde38f0@fedora>
+In-Reply-To: <20260621093811.168514984@kernel.org>
 References: <20260621093430.264983361@kernel.org>
+ <20260621093811.168514984@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: 423E619
+X-Stat-Signature: fmj3ggtdgzonpf7zkcaz1xu59knp7xib
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/c1xrYJCl0ydW3HbIGCPludPRhKvEu6LQ=
+X-HE-Tag: 1782035244-818315
+X-HE-Meta: U2FsdGVkX18+OnZrvpIyWt/RWyUKQSX5PXFpTHJVo4PwVmZ7eZdT47ziWR0MyYlIDY1fqyBrJQ7Sk8k5g0+2jmXTLK3lUwRTI0f5QPWBoSBJkbuT1sPD257mlKV1a7d0s3ZNeXJGyaSPBFFVvXt1+Qf+cUBFPUoqGZ0yMtfaXjw3YaFrUe3XLns/TKPMVLkkLwAcJDTciB1Xe3NH/20RSxO90n0HLC/gAJL0U4ehyKGkMZazF4mztUQ3rNuBe2ykFgmEtFv/v9YSeGsstUMosrvQssX7vVaGO3wWKdHlxvzC3LFqWs5SWRpkx5HfojuQQ6b/YNA/zDIqUKZELcAtaTTF9olXpSEl
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,87 +70,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Steven Rostedt <rostedt@goodmis.org>
+On Sun, 21 Jun 2026 05:34:32 -0400
+Steven Rostedt <rostedt@kernel.org> wrote:
 
-In order to remove the include to trace_printk.h from kernel.h the tracing
-control prototypes need to be moved back into kernel.h. That's because
-they are used in other common header files like rcu.h. There's no point in
-removing trace_printk.h from kernel.h if it just gets added back to other
-common headers.
+> Instead of having trace_printk.h included in kernel.h, create a config
+> TRACE_PRINTK_DEBUGGING that when set will update the CFLAGS in the
+> Makefile to allow developers to add trace_printk() without the need to add
+> the include for it. Having it included in the Makefile keeps it from being
+> in the dependency chain and it will not waste extra CPU cycles for those
+> building the kernel without using trace_printk.
 
-Prototypes are very cheap for the compiler and should not be an issue.
+Bah, I only tested with the config option enabled, and missed some
+dependencies with it disabled.
 
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
----
- include/linux/kernel.h       | 18 ++++++++++++++++++
- include/linux/trace_printk.h | 17 -----------------
- 2 files changed, 18 insertions(+), 17 deletions(-)
+For instance, rcu.h also uses ftrace_dump() so that too needs to go
+into kernel.h. I also need to add a few more includes to trace_printk.h.
 
-diff --git a/include/linux/kernel.h b/include/linux/kernel.h
-index e5570a16cbb1..c3c68128827c 100644
---- a/include/linux/kernel.h
-+++ b/include/linux/kernel.h
-@@ -194,4 +194,22 @@ extern enum system_states system_state;
- # define REBUILD_DUE_TO_DYNAMIC_FTRACE
- #endif
- 
-+#ifdef CONFIG_TRACING
-+void tracing_on(void);
-+void tracing_off(void);
-+int tracing_is_on(void);
-+void tracing_snapshot(void);
-+void tracing_snapshot_alloc(void);
-+void tracing_start(void);
-+void tracing_stop(void);
-+#else
-+static inline void tracing_start(void) { }
-+static inline void tracing_stop(void) { }
-+static inline void tracing_on(void) { }
-+static inline void tracing_off(void) { }
-+static inline int tracing_is_on(void) { return 0; }
-+static inline void tracing_snapshot(void) { }
-+static inline void tracing_snapshot_alloc(void) { }
-+#endif
-+
- #endif
-diff --git a/include/linux/trace_printk.h b/include/linux/trace_printk.h
-index 3d54f440dccf..879fed0805fd 100644
---- a/include/linux/trace_printk.h
-+++ b/include/linux/trace_printk.h
-@@ -35,15 +35,6 @@ enum ftrace_dump_mode {
- };
- 
- #ifdef CONFIG_TRACING
--void tracing_on(void);
--void tracing_off(void);
--int tracing_is_on(void);
--void tracing_snapshot(void);
--void tracing_snapshot_alloc(void);
--
--extern void tracing_start(void);
--extern void tracing_stop(void);
--
- static inline __printf(1, 2)
- void ____trace_printk_check_format(const char *fmt, ...)
- {
-@@ -176,16 +167,8 @@ __ftrace_vprintk(unsigned long ip, const char *fmt, va_list ap);
- 
- extern void ftrace_dump(enum ftrace_dump_mode oops_dump_mode);
- #else
--static inline void tracing_start(void) { }
--static inline void tracing_stop(void) { }
- static inline void trace_dump_stack(int skip) { }
- 
--static inline void tracing_on(void) { }
--static inline void tracing_off(void) { }
--static inline int tracing_is_on(void) { return 0; }
--static inline void tracing_snapshot(void) { }
--static inline void tracing_snapshot_alloc(void) { }
--
- static inline __printf(1, 2)
- int trace_printk(const char *fmt, ...)
- {
--- 
-2.53.0
+OK, I need to run this through all my tests to find where else I missed
+adding the includes. But the idea should hopefully satisfy everyone.
 
-
+-- Steve
