@@ -4,44 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8BF8CDB46F
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 11:55:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB1D6CDB46F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 11:58:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA01D10E62E;
-	Mon, 22 Jun 2026 11:55:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FD7A10E657;
+	Mon, 22 Jun 2026 11:58:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="gXqVCwUZ";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="dpci8ama";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 736AB10E62E
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 11:55:47 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3A7F29CE;
- Mon, 22 Jun 2026 13:55:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1782129308;
- bh=TDWFD3aVcqsYOWPdtLK1KFJLiTGZTVKDYeLf7bJYrTI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gXqVCwUZLPEnE7+3WkZgPXN8wj92R1iMQN4M2WulFhoKn0NvAfnk3KZEWuZgsup5D
- 8RoaWA0hX6YTShku4A/WXvC7oWXoVYz8aYCGcrzpDgRyQdiF9DSQq8L4frK/138L3R
- 7KtnEvqzi26otYw6b7lxtx7g1yobSEfXkbX8oo5A=
-Date: Mon, 22 Jun 2026 14:55:44 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Biren Pandya <birenpandya@gmail.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- sumit.semwal@linaro.org, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH] drm/gem: modernize locks to use scoped_guard()
-Message-ID: <20260622115544.GA3899302@killaraus.ideasonboard.com>
-References: <20260616181956.61476-2-birenpandya@gmail.com>
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com
+ [113.46.200.219])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2311810E657
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 11:58:52 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=dN6IP1hSjT3zBfIMoR4CX8mAqxCapWhaNWitozUomXo=;
+ b=dpci8amaNnerLFcvVJkrttavk1dYIK0F5kY/6X860PG5X54NB6QcfifVqOPhYPRqcJMYKj0tE
+ UuYnDWZHAEFsiEJ2PiSVfLpxxVyZMAZFW0P0tbYmoKgaAEE/svG+nobRnJALXNd/zOKbcAeH/zk
+ n2N0KaJARVzWRQ+WpqyYKzI=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+ by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4gkRNH4z1Bz1prp5;
+ Mon, 22 Jun 2026 19:50:39 +0800 (CST)
+Received: from dggemv712-chm.china.huawei.com (unknown [10.1.198.32])
+ by mail.maildlp.com (Postfix) with ESMTPS id 26A2240569;
+ Mon, 22 Jun 2026 19:58:44 +0800 (CST)
+Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
+ dggemv712-chm.china.huawei.com (10.1.198.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Mon, 22 Jun 2026 19:58:43 +0800
+Received: from [10.159.167.44] (10.159.167.44) by
+ kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Mon, 22 Jun 2026 19:58:42 +0800
+Message-ID: <42dbba04-fa9d-49da-9c01-b8708218ab12@huawei.com>
+Date: Mon, 22 Jun 2026 19:58:42 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260616181956.61476-2-birenpandya@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/6] drm/hibmc: Do not use cpp from struct
+ drm_format_info
+To: Thomas Zimmermann <tzimmermann@suse.de>, <tiantao6@hisilicon.com>,
+ <kong.kongxinwei@hisilicon.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <airlied@gmail.com>, <simona@ffwll.ch>
+CC: <dri-devel@lists.freedesktop.org>, <sashiko-reviews@lists.linux.dev>,
+ <shiyongbang@huawei.com>, "Liangjian(Jim,Kunpeng Solution Development Dept)"
+ <liangjian010@huawei.com>, Chenjianmin <chenjianmin@huawei.com>, "fengsheng
+ (A)" <fengsheng5@huawei.com>
+References: <20260618123142.92298-1-tzimmermann@suse.de>
+ <20260618123142.92298-5-tzimmermann@suse.de>
+From: Yongbang Shi <shiyongbang@huawei.com>
+In-Reply-To: <20260618123142.92298-5-tzimmermann@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.159.167.44]
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemq100007.china.huawei.com (7.202.195.175)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,131 +73,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 16, 2026 at 11:49:57PM +0530, Biren Pandya wrote:
-> Several GEM core functions manually managed mutex_lock() and
-> mutex_unlock() over single scopes or error paths. This adds boilerplate
-> and carries the risk of lock leaks if error paths are refactored.
+> Replace uses of struct drm_format_info's cpp with appropriate interfaces.
+> The cpp field contains the characters per pixel. It is deprecated and
+> should be avoided.
 > 
-> Modernize these locks by deploying the <linux/cleanup.h> scoped_guard()
-> macro. This ensures that the locks are reliably dropped when the block
-> exits, cleanly removing goto out_unlock paths and tightening the
-> lifecycle.
-
-What's the reason for doing so in in drm_gem and not other areas in DRM
-?
-
-> Signed-off-by: Biren Pandya <birenpandya@gmail.com>
+> Calculate the line width in bytes with drm_format_info_min_pitch(). This
+> is the preferred way of getting pixel and line sizes.
 > 
-> Compiled locally, but requires IGT validation by the DRM CI.
+> Program HIB_CRT_DISP_CTL_FORMAT from the format's 4CC code instead of
+> calculating the field's value from the cpp.
+> 
+> v4:
+> - introduce fb variable in separate patch (Yongbang)
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->  drivers/gpu/drm/drm_gem.c | 66 ++++++++++++++++++---------------------
->  1 file changed, 30 insertions(+), 36 deletions(-)
+>  drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index 891c3bff5ae0..d3a061d42ba7 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -346,13 +346,13 @@ void drm_gem_object_handle_put_unlocked(struct drm_gem_object *obj)
->  	 * we checked for a name.
->  	 */
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+> index 19cb16a7daf9..fe73b365e547 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+> @@ -119,7 +119,7 @@ static void hibmc_plane_atomic_update(struct drm_plane *plane,
 >  
-> -	mutex_lock(&dev->object_name_lock);
-> -	if (--obj->handle_count == 0) {
-> -		drm_gem_object_handle_free(obj);
-> -		drm_gem_object_exported_dma_buf_free(obj);
-> -		final = true;
-> +	scoped_guard(mutex, &dev->object_name_lock) {
-> +		if (--obj->handle_count == 0) {
-> +			drm_gem_object_handle_free(obj);
-> +			drm_gem_object_exported_dma_buf_free(obj);
-> +			final = true;
-> +		}
->  	}
-> -	mutex_unlock(&dev->object_name_lock);
+>  	writel(gpu_addr, priv->mmio + HIBMC_CRT_FB_ADDRESS);
 >  
->  	if (final)
->  		drm_gem_object_put(obj);
-> @@ -374,11 +374,8 @@ drm_gem_object_release_handle(int id, void *ptr, void *data)
->  	if (obj->funcs->close)
->  		obj->funcs->close(obj, file_priv);
+> -	reg = fb->width * fb->format->cpp[0];
+> +	reg = drm_format_info_min_pitch(fb->format, 0, fb->width);
 >  
-> -	mutex_lock(&file_priv->prime.lock);
-> -
-> -	drm_prime_remove_buf_handle(&file_priv->prime, id);
-> -
-> -	mutex_unlock(&file_priv->prime.lock);
-> +	scoped_guard(mutex, &file_priv->prime.lock)
-> +		drm_prime_remove_buf_handle(&file_priv->prime, id);
->  
->  	drm_vma_node_revoke(&obj->vma_node, file_priv);
->  
-> @@ -1021,37 +1018,34 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
->  		goto out;
->  	}
->  
-> -	mutex_lock(&file_priv->prime.lock);
-> +	scoped_guard(mutex, &file_priv->prime.lock) {
-> +		spin_lock(&file_priv->table_lock);
-> +		ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1,
-> +				GFP_NOWAIT);
-> +		spin_unlock(&file_priv->table_lock);
-
-And why don't you use guards for the spinlock as well ?
-
->  
-> -	spin_lock(&file_priv->table_lock);
-> -	ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1,
-> -			GFP_NOWAIT);
-> -	spin_unlock(&file_priv->table_lock);
-> +		if (ret < 0)
-> +			break;
->  
-> -	if (ret < 0)
-> -		goto out_unlock;
-> +		if (obj->dma_buf) {
-> +			ret = drm_prime_add_buf_handle(&file_priv->prime, obj->dma_buf,
-> +						       handle);
-> +			if (ret < 0) {
-> +				spin_lock(&file_priv->table_lock);
-> +				idr_remove(&file_priv->object_idr, handle);
-> +				spin_unlock(&file_priv->table_lock);
-> +				break;
-> +			}
->  
-> -	if (obj->dma_buf) {
-> -		ret = drm_prime_add_buf_handle(&file_priv->prime, obj->dma_buf,
-> -					       handle);
-> -		if (ret < 0) {
-> -			spin_lock(&file_priv->table_lock);
-> -			idr_remove(&file_priv->object_idr, handle);
-> -			spin_unlock(&file_priv->table_lock);
-> -			goto out_unlock;
-> +			drm_prime_remove_buf_handle(&file_priv->prime, args->handle);
->  		}
->  
-> -		drm_prime_remove_buf_handle(&file_priv->prime, args->handle);
-> -	}
-> -
-> -	ret = 0;
-> -
-> -	spin_lock(&file_priv->table_lock);
-> -	idr_remove(&file_priv->object_idr, args->handle);
-> -	spin_unlock(&file_priv->table_lock);
-> +		ret = 0;
->  
-> -out_unlock:
-> -	mutex_unlock(&file_priv->prime.lock);
-> +		spin_lock(&file_priv->table_lock);
-> +		idr_remove(&file_priv->object_idr, args->handle);
-> +		spin_unlock(&file_priv->table_lock);
+>  	line_l = fb->pitches[0];
+>  	writel(HIBMC_FIELD(HIBMC_CRT_FB_WIDTH_WIDTH, reg) |
+> @@ -129,7 +129,14 @@ static void hibmc_plane_atomic_update(struct drm_plane *plane,
+>  	/* SET PIXEL FORMAT */
+>  	reg = readl(priv->mmio + HIBMC_CRT_DISP_CTL);
+>  	reg &= ~HIBMC_CRT_DISP_CTL_FORMAT_MASK;
+> -	reg |= HIBMC_FIELD(HIBMC_CRT_DISP_CTL_FORMAT, fb->format->cpp[0] * 8 / 16);
+> +	switch (fb->format->format) {
+> +	case DRM_FORMAT_XRGB8888:
+> +		reg |= HIBMC_FIELD(HIBMC_CRT_DISP_CTL_FORMAT, 2);
+> +		break;
+> +	case DRM_FORMAT_RGB565:
+> +		reg |= HIBMC_FIELD(HIBMC_CRT_DISP_CTL_FORMAT, 1);
+> +		break;
 > +	}
->  out:
->  	drm_gem_object_put(obj);
+>  	writel(reg, priv->mmio + HIBMC_CRT_DISP_CTL);
+>  }
 >  
-> 
-> base-commit: 72c25183cac9bc584c9de21797a5883af44bcc7a
 
--- 
-Regards,
+Reviewed-by: Yongbang Shi <shiyongbang@huawei.com>
 
-Laurent Pinchart
+Thanks,
+Yongbang.
+
