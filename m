@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37BCFCD98F2
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 13:57:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84490CDB470
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 13:57:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C7A010E6FB;
-	Mon, 22 Jun 2026 13:57:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A268910E6FE;
+	Mon, 22 Jun 2026 13:57:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MAMZvGjS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Mj2RWPUQ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E792A10E6FB
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 13:57:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0B9E10E70C
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 13:57:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 98DDF40B71;
+ by tor.source.kernel.org (Postfix) with ESMTP id 3380A601FD;
+ Mon, 22 Jun 2026 13:57:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7E3D1F00A3A;
  Mon, 22 Jun 2026 13:57:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8210B1F000E9;
- Mon, 22 Jun 2026 13:57:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782136639;
- bh=guvzPc7qWPNRSKn52LkUFgg+2YildN83eXRoL0QyntA=;
+ s=k20260515; t=1782136645;
+ bh=bF28Yy97ZS3HuaAa6rSSBBjFbEvbdFbPcqNff/KsiVI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=MAMZvGjSgtNlSoGTbWSMcNoOULlpnanbkFO9+miJlmPqM/JJaWol4SLe8IeJFy36c
- XR+dselgu1cqak+dbMC2RuYbT+tsKd+23XaJ7LVW8ile4jrkJauh+pAJ0b1YPFhHou
- noAaQB5UsPHEDdwXdAtrUqLsmUv+vaa4ujhogOmPagEy+MIQ90BBVnI+3wi2GcI/5i
- XlVpq0MjvN4D+afH+J/0m0rQMKDg9iL0ftCpWO87EFRfPLPPOeOhe8NKjn5iRjI4rf
- 2jeUsetAjr5laCKdK5MJfCXxuRE0NH8sMRAXIADXDus3F8oG7Q/yZelDEc6CLgSuBh
- oUeoNg8nrmn4A==
+ b=Mj2RWPUQd7LTkoqyPVmbe0L7b/LUOl+eBcS40e5PI+y/66J6khrIq0Wm1d/wiu17V
+ UuCNosvweT6pITyyydebQUcYUGTnc5GqBNIXNx5WB6i0Ce2HuwELeueUYnSAERMRCG
+ ITUS2aMEA3WDQu3O5gB1kMfdJq8XwroNUTFVbw9DfYksbGN38bN3vdnOk3jYd6K/H/
+ moGpqKkanZw84VssFm74pzznNRH8vYqs39JR+LzRVqJdZ/qxLuhLtjTswaFf0SfjN3
+ DyF4YfsNKFTy9e2C2fGKciJ8/52Xq3cJMXKE/Mz0gjID05iOs0jy9rxtFnTZanx6tX
+ vusJb5kCtmI8A==
 From: Philipp Stanner <phasta@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  Gary Guo <gary@garyguo.net>,
@@ -56,9 +56,9 @@ To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
 Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
  linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org
-Subject: [PATCH v4 2/5] rust: error: Add ECANCELED error code
-Date: Mon, 22 Jun 2026 15:56:50 +0200
-Message-ID: <20260622135654.334961-4-phasta@kernel.org>
+Subject: [PATCH v4 3/5] rust: sync: Add abstraction for rcu_barrier()
+Date: Mon, 22 Jun 2026 15:56:51 +0200
+Message-ID: <20260622135654.334961-5-phasta@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260622135654.334961-2-phasta@kernel.org>
 References: <20260622135654.334961-2-phasta@kernel.org>
@@ -79,27 +79,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Rust dma_fence abstractions need the ECANCELED error code.
+rcu_barrier() is a frequently used C function which is always safe to be
+called.
 
-Add ECANCELED error code.
+Add a safe abstraction for rcu_barrier().
 
 Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- rust/kernel/error.rs | 1 +
- 1 file changed, 1 insertion(+)
+ rust/kernel/sync/rcu.rs | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/rust/kernel/error.rs b/rust/kernel/error.rs
-index 05cf869ac090..e376c60e21ed 100644
---- a/rust/kernel/error.rs
-+++ b/rust/kernel/error.rs
-@@ -69,6 +69,7 @@ macro_rules! declare_err {
-     declare_err!(EOVERFLOW, "Value too large for defined data type.");
-     declare_err!(EMSGSIZE, "Message too long.");
-     declare_err!(ETIMEDOUT, "Connection timed out.");
-+    declare_err!(ECANCELED, "Request has been canceled.");
-     declare_err!(ERESTARTSYS, "Restart the system call.");
-     declare_err!(ERESTARTNOINTR, "System call was interrupted by a signal and will be restarted.");
-     declare_err!(ERESTARTNOHAND, "Restart if no handler.");
+diff --git a/rust/kernel/sync/rcu.rs b/rust/kernel/sync/rcu.rs
+index a32bef6e490b..9196feb62d6d 100644
+--- a/rust/kernel/sync/rcu.rs
++++ b/rust/kernel/sync/rcu.rs
+@@ -50,3 +50,9 @@ fn drop(&mut self) {
+ pub fn read_lock() -> Guard {
+     Guard::new()
+ }
++
++/// Wait for all pending [`bindings::call_rcu()`] callbacks, if there are any.
++pub fn rcu_barrier() {
++    // SAFETY: `rcu_barrier()` is always safe to be called. It just might wait for a grace period.
++    unsafe { bindings::rcu_barrier() };
++}
 -- 
 2.54.0
 
