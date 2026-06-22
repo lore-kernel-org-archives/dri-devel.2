@@ -4,44 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41EA0CD98F0
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 02:28:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DDE4CDB46C
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 02:45:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7ED5910E428;
-	Mon, 22 Jun 2026 02:28:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAC2710E431;
+	Mon, 22 Jun 2026 02:45:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GOO6XGfI";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="m2RHi7M0";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C05810E428
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 02:28:38 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4414743C11;
- Mon, 22 Jun 2026 02:28:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 028621F000E9;
- Mon, 22 Jun 2026 02:28:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782095318;
- bh=k3qxz3QHedtW/QZaJT9hoQH5y3BKD2ExibEaHlHBs7c=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GOO6XGfIGvwfZ7OCg/sLPZXJpZRToPz9gj/c3R9gq9PzBPb2UVpkwovbYf2+4rqa0
- qpoNdgTgzMn8SQDOA4hUWEX+ETxM3O8G7CaruImseau/S3eTW5noUZ4ZElEFTqWusE
- U8mEDhLd0RpgD3MghOmxvab5RWpaeFE7m1jQRcLhkZRo+brVB3QmeyeIF57Hvt9WRq
- I86hTpDFs/HMG31fJceVYa96lVSirzxJxwEnKP/jm7ZptcCfWUxNx+YrHWXLbXO9gR
- 6vCXbr/m/yJTg5ZapyREgwW2NPLMQR+SXiRZ/EYXc4lPxqMo6TXDMwBcodfS3cb/ZU
- Y6h+/1DRN/ywA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/5] nouveau/gsp: Cleanup IS_ERR_OR_NULL in
- nvkm_gsp_rpc_rd()
-To: "Hongling Zeng" <zenghongling@kylinos.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260622021207.14764-6-zenghongling@kylinos.cn>
-References: <20260622021207.14764-1-zenghongling@kylinos.cn>
- <20260622021207.14764-6-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 22 Jun 2026 02:28:37 +0000
-Message-Id: <20260622022838.028621F000E9@smtp.kernel.org>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AF3410E27F
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 02:45:04 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id E35354454B;
+ Mon, 22 Jun 2026 02:45:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4B95CC2BCFF;
+ Mon, 22 Jun 2026 02:45:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
+ t=1782096302; bh=A9lpJTE9i+SErDM9bVa4MkYn0noMli/rMWQ6+DXIokU=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=m2RHi7M034JHhsUzO6KBTEpmvjGXHs/GgDlRnL7GbovpjnxITbHBsbLmbW3+Qcjp7
+ 7uLsFUnDPPF3PxGLZbAN9XdP4/8Orle0BQOIXUjwqlqBhA8/tgQE22aISlGxBCQnvt
+ 5uPoF2wDAAYPjb4tWqAGYEHxKlgqYZPluGOrwxHk=
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 3245FCDB46F;
+ Mon, 22 Jun 2026 02:45:02 +0000 (UTC)
+From: Alvin Sun <alvin.sun@linux.dev>
+Date: Mon, 22 Jun 2026 10:44:58 +0800
+Subject: [PATCH v3 4/6] rust: drm: set fops.owner from driver module
+ pointer
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260622-fix-fops-owner-v3-4-49d45cb37032@linux.dev>
+References: <20260622-fix-fops-owner-v3-0-49d45cb37032@linux.dev>
+In-Reply-To: <20260622-fix-fops-owner-v3-0-49d45cb37032@linux.dev>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>, 
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+ Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>
+Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org, 
+ kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782096299; l=1744;
+ i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
+ bh=A9lpJTE9i+SErDM9bVa4MkYn0noMli/rMWQ6+DXIokU=;
+ b=IrbsyXU//+NNYPJbThL6GUA/f8+w5gYrQRvZEeQ6Yp6HuLoRr4dFRdkAzv3B8hfuh8roEXwP2
+ CweFv5WUUCJA4/XAat0YPQ7idbYTiDSe74si0FkVYwcNbAK0UGCKBKs
+X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
+ auth_id=684
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,101 +82,52 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Change `create_fops()` to accept an owner module pointer instead of
+hardcoding `null_mut()`, ensuring the kernel correctly tracks the
+module owning the DRM device's file operations.
 
-Pre-existing issues:
-- [High] A malformed GSP message size causes r535_gsp_msgq_recv() to return=
- NULL, which propagates through nvkm_gsp_rpc_rd() and leads to a NULL point=
-er dereference in its callers.
---
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+---
+ rust/kernel/drm/device.rs  | 3 ++-
+ rust/kernel/drm/gem/mod.rs | 4 ++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
-commit 604de241374540fdccd3d8af5fec3fe8ff826d71
-Author: Hongling Zeng <zenghongling@kylinos.cn>
+diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+index 403fc35353c74..221667d843c41 100644
+--- a/rust/kernel/drm/device.rs
++++ b/rust/kernel/drm/device.rs
+@@ -111,7 +111,8 @@ impl<T: drm::Driver> Device<T> {
+         fops: &Self::GEM_FOPS,
+     };
+ 
+-    const GEM_FOPS: bindings::file_operations = drm::gem::create_fops();
++    const GEM_FOPS: bindings::file_operations =
++        drm::gem::create_fops(crate::this_module::<T::OwnerModule>().as_ptr());
+ 
+     /// Create a new `drm::Device` for a `drm::Driver`.
+     pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<ARef<Self>> {
+diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
+index 01b5bd47a3332..9a203efc59116 100644
+--- a/rust/kernel/drm/gem/mod.rs
++++ b/rust/kernel/drm/gem/mod.rs
+@@ -357,10 +357,10 @@ impl<T: DriverObject> AllocImpl for Object<T> {
+     };
+ }
+ 
+-pub(super) const fn create_fops() -> bindings::file_operations {
++pub(super) const fn create_fops(owner: *mut bindings::module) -> bindings::file_operations {
+     let mut fops: bindings::file_operations = pin_init::zeroed();
+ 
+-    fops.owner = core::ptr::null_mut();
++    fops.owner = owner;
+     fops.open = Some(bindings::drm_open);
+     fops.release = Some(bindings::drm_release);
+     fops.unlocked_ioctl = Some(bindings::drm_ioctl);
 
-    nouveau/gsp: Cleanup IS_ERR_OR_NULL in nvkm_gsp_rpc_rd()
+-- 
+2.43.0
 
-    This commit cleans up nvkm_gsp_rpc_rd() by replacing IS_ERR_OR_NULL()
-    with IS_ERR(). The commit message notes that nvkm_gsp_rpc_push() expects
-    a reply under the RECV policy and should return an error pointer rather
-    than NULL if the RPC fails.
 
-> diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h b/drivers/=
-gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-> index 64fed208e4cf8..a061779e0107b 100644
-> --- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-> +++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-> @@ -293,7 +293,7 @@ nvkm_gsp_rpc_rd(struct nvkm_gsp *gsp, u32 fn, u32 arg=
-c)
->  {
->  	void *argv =3D nvkm_gsp_rpc_get(gsp, fn, argc);
-> =20
-> -	if (IS_ERR_OR_NULL(argv))
-> +	if (IS_ERR(argv))
->  		return argv;
-> =20
->  	return nvkm_gsp_rpc_push(gsp, argv, NVKM_GSP_RPC_REPLY_RECV, argc);
-
-[Severity: High]
-This is a pre-existing issue, but does nvkm_gsp_rpc_push() strictly return
-an error pointer instead of NULL on failure under the RECV policy?
-
-If the GSP firmware returns an RPC message with an invalid length,
-r535_gsp_msgq_recv() triggers a WARN_ON and returns NULL:
-
-r535_gsp_msgq_recv() in drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc=
-.c:
-
-	...
-	if (WARN_ON(rpc->length > max_rpc_size))
-		return NULL;
-	...
-
-This NULL propagates up through r535_gsp_msg_recv() and
-r535_gsp_rpc_handle_reply() to nvkm_gsp_rpc_push(), which is then returned
-directly by nvkm_gsp_rpc_rd() here.
-
-Since callers like r535_gsp_get_static_info() only check IS_ERR(), could th=
-is
-lead to a NULL pointer dereference?
-
-r535_gsp_get_static_info() in drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r5=
-35/gsp.c:
-
-	...
-	rpc =3D nvkm_gsp_rpc_rd(gsp, NV_VGPU_MSG_FUNCTION_GET_GSP_STATIC_INFO, siz=
-eof(*rpc));
-	if (IS_ERR(rpc))
-		return PTR_ERR(rpc);
-
-	gsp->internal.client.object.client =3D &gsp->internal.client;
-	gsp->internal.client.object.parent =3D NULL;
-	gsp->internal.client.object.handle =3D rpc->hInternalClient;
-	...
-
-Similarly, does r535_gsp_rpc_rm_ctrl_push() mishandle this NULL?
-
-r535_gsp_rpc_rm_ctrl_push() in drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r=
-535/ctrl.c:
-
-	...
-	repv =3D nvkm_gsp_rpc_push(gsp, rpc, repc ? NVKM_GSP_RPC_REPLY_RECV :
-					   NVKM_GSP_RPC_REPLY_NOWAIT, repc);
-	if (IS_ERR_OR_NULL(repv)) {
-		*params =3D NULL;
-		return PTR_ERR(repv);
-	}
-	...
-
-If nvkm_gsp_rpc_push() returns NULL, PTR_ERR(repv) evaluates to 0 (success),
-which causes it to return success while passing a NULL pointer back to call=
-ers
-like r535_gsp_intr_get_table().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622021207.1476=
-4-1-zenghongling@kylinos.cn?part=3D5
