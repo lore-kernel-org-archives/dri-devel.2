@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8331CDB46F
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 02:45:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8835CDB46C
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 02:45:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C042810E433;
-	Mon, 22 Jun 2026 02:45:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 918CA10E435;
+	Mon, 22 Jun 2026 02:45:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="kh3vPJcO";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="IFybzT64";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B4FB10E431
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB5D010E432
  for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 02:45:03 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B65C9444F0;
+ by sea.source.kernel.org (Postfix) with ESMTP id C537044521;
  Mon, 22 Jun 2026 02:45:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 24C40C2BCF5;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5BB78C32782;
  Mon, 22 Jun 2026 02:45:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1782096302; bh=NCKNYPa1eYcitZUfD0OiFCu4ehXyOiLLsU3Tp7Qt5Po=;
+ t=1782096302; bh=XqlAKYyTcpktRZqbGKxCncze0Yay8QvqMz2MWsZrx6c=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=kh3vPJcOJpVVAyc4fRoF96Hms/bQtsreXs0Nb5ymEXT3k49U4TZSpJAjO8lNlOJcT
- lGDQ7SuxbukZD9nApYUPc0NCooItKyX9DkAupAWknHfjAkbvFJNgCuawDQyVtuFCLF
- 9NF+V+LeM+4BJQCmyHk4i1jcu0LX9ZbCS0DqX/2c=
+ b=IFybzT64b5DbfeucnCzEfRSGnYVQ0HKICl9IDWMb3dzjLuJqt7JRgdHvSldLOmb6V
+ Q2Kk/4oatPUTiWZyGsuczuwIfGWkxFPel0IRw/a1fTJaH+JGgizzPuBU6faycdCpIk
+ pKww4xDVLJYkn4gTtXIpXa4nfs7IMV4j2c+OIu1Q=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 0A3E6CD98F0;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 44D3FCD98E4;
  Mon, 22 Jun 2026 02:45:02 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Mon, 22 Jun 2026 10:44:56 +0800
-Subject: [PATCH v3 2/6] rust: doctest: add LocalModule fallback for
- #[vtable] ThisModule
+Date: Mon, 22 Jun 2026 10:44:59 +0800
+Subject: [PATCH v3 5/6] rust: miscdevice: set fops.owner from driver module
+ pointer
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260622-fix-fops-owner-v3-2-49d45cb37032@linux.dev>
+Message-Id: <20260622-fix-fops-owner-v3-5-49d45cb37032@linux.dev>
 References: <20260622-fix-fops-owner-v3-0-49d45cb37032@linux.dev>
 In-Reply-To: <20260622-fix-fops-owner-v3-0-49d45cb37032@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -61,11 +61,11 @@ Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
  kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782096299; l=1210;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782096299; l=933;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=NCKNYPa1eYcitZUfD0OiFCu4ehXyOiLLsU3Tp7Qt5Po=;
- b=H9jaPxzJ2Tk9+CTb0D8lMG4t8EfKH4+2wPWcNIugqj0uXYTf2KN5ObtWCeY/kZP81vThj/m4/
- kxUcfOH9ev9DZOD5YtzrCiXYm8m0j94Ib8FDb6HtuYQCa9WSxD72ajY
+ bh=XqlAKYyTcpktRZqbGKxCncze0Yay8QvqMz2MWsZrx6c=;
+ b=gI7W0QWHpwLj3bG+T638uuriPi2CqLC3Fo+Ex/z/JTtCkwRe8LJi6L2BFmlk/TJ+LLtt+FGH1
+ V0h8jJtyIitCYLBooeYAzdGmvxMwNnRLN4BsGREZBUH61b0Kg6q0PxC
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -85,43 +85,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a `LocalModule` struct with a null-pointer `ModuleMetadata` impl
-in the doctest harness, so that `crate::LocalModule` (auto-inserted
-by `#[vtable]`) resolves correctly when there is no `module!` macro.
+Set the miscdevice fops owner field from the driver module pointer
+via the `this_module::<T::OwnerModule>()` helper, instead of
+defaulting to null.
 
-Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- scripts/rustdoc_test_gen.rs | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ rust/kernel/miscdevice.rs | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/scripts/rustdoc_test_gen.rs b/scripts/rustdoc_test_gen.rs
-index ee76e96b41eea..198af4e446c8c 100644
---- a/scripts/rustdoc_test_gen.rs
-+++ b/scripts/rustdoc_test_gen.rs
-@@ -239,6 +239,22 @@ macro_rules! assert_eq {{
+diff --git a/rust/kernel/miscdevice.rs b/rust/kernel/miscdevice.rs
+index 83ce50def5ac9..04fe4697ff564 100644
+--- a/rust/kernel/miscdevice.rs
++++ b/rust/kernel/miscdevice.rs
+@@ -26,10 +26,11 @@
+     mm::virt::VmaNew,
+     prelude::*,
+     seq_file::SeqFile,
++    this_module,
+     types::{
+         ForeignOwnable,
+         Opaque, //
+-    },
++    }, //
+ };
+ use core::marker::PhantomData;
  
- const __LOG_PREFIX: &[u8] = b"rust_doctests_kernel\0";
+@@ -430,6 +431,7 @@ impl<T: MiscDevice> MiscdeviceVTable<T> {
+         } else {
+             None
+         },
++        owner: this_module::<T::OwnerModule>().as_ptr(),
+         ..pin_init::zeroed()
+     };
  
-+/// Dummy module type for doctest context.
-+struct LocalModule;
-+
-+use kernel::{{
-+    str::CStr,
-+    ModuleMetadata,
-+    ThisModule, //
-+}};
-+use core::ptr::null_mut;
-+
-+impl ModuleMetadata for LocalModule {{
-+    const NAME: &'static CStr = c"rust_doctests_kernel";
-+    // SAFETY: `try_module_get`/`module_put` handle null module pointers gracefully.
-+    const THIS_MODULE: ThisModule = unsafe {{ ThisModule::from_ptr(null_mut()) }};
-+}}
-+
- {rust_tests}
- "#
-     )
 
 -- 
 2.43.0
