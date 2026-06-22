@@ -4,38 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78874CDB480
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 18:11:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 601D7CDB47A
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 18:11:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 532AE10E80E;
-	Mon, 22 Jun 2026 18:10:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9ACA10E806;
+	Mon, 22 Jun 2026 18:10:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="EUKsABNp";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="fdvAMZQR";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AF9E10E7F8;
- Mon, 22 Jun 2026 18:10:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACA6D10E80F;
+ Mon, 22 Jun 2026 18:10:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782151843;
- bh=Oh1os3TsHNdW2Pq4AI0gYhWG24uRvSoJ0dx3b6zoRio=;
+ s=default; t=1782151848;
+ bh=y7YrR9Jx1PcXUHjRQtEYdpxMBRgSE6y36uz2+nOziO0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EUKsABNpzSHggX4npBf2Kgaw2Kt0MJMrABbX4eoNPo3juaMjvL/0D0FSwAag+ncwP
- 8WHkuugTRlw089aXDCdZqmZ564Kjh2AYIwnZjdDCFZg3isX19WlFLTUlcFiaoHo+uB
- V4XqS70HxtGspfJD1NVLwpIYo+0VwxKTjybxlnR/CWjzm+21TdI4kcQeW6RCdyPz4F
- W3oRHucMXSFzs1qe/1yod0muWhyrG+/3eKq6mNzLFnvIPZ49Ah8Ufegt7tx9tOxXGG
- 7VvjpxJD2SorKxTNGA0TLU/fTLTlNlhydFs1ZMZLsC9DaodkNLfL63WpJhL2ZDjE7Z
- N1z5RoH7JJVZQ==
+ b=fdvAMZQRy3BkoStbaMbxXr7cncV2mB4onpbhYObVv4JLfdGLsbAKsFU5d/YlZ/bas
+ fnB3BUdkw4bY09Doz+IgLHBS67Nt+GBrK/vUyAoaw5oOhflqlnhgeRGuqBpDOClUi/
+ EFSYKGpngBTCjtAMTwx9C/ESlmE0wcdetGxZEcJEBlrZY4TtruphEc6g3xnq1PHDsl
+ 2nKdQP430hmHmvI0WrO25/zlpPaYewMu6NrcbKiS9vCj+a118Pl9BewkZXGO0VbopU
+ SurVM6qIaq1gLvKfoqkJO95GC4Lk8Pu/9svLNWpe/VRVKAJzaSybQlj+0LYKBncLWc
+ LS61WHVVdjK/Q==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v9 16/30] drm/i915: Drop the irqs_disabled() check
-Date: Mon, 22 Jun 2026 20:10:29 +0200
-Message-ID: <20260622181044.39335-17-dev@lankhorst.se>
+	Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v9 23/30] PREEMPT_RT injection
+Date: Mon, 22 Jun 2026 20:10:36 +0200
+Message-ID: <20260622181044.39335-24-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260622181044.39335-1-dev@lankhorst.se>
 References: <20260622181044.39335-1-dev@lankhorst.se>
@@ -56,46 +53,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-
-The !irqs_disabled() check triggers on PREEMPT_RT even with
-i915_sched_engine::lock acquired. The reason is the lock is transformed
-into a sleeping lock on PREEMPT_RT and does not disable interrupts.
-
-There is no need to check for disabled interrupts. The lockdep
-annotation below already check if the lock has been acquired by the
-caller and will yell if the interrupts are not disabled.
-
-Remove the !irqs_disabled() check.
-
-Reported-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Acked-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/i915_request.c | 2 --
- 1 file changed, 2 deletions(-)
+ kernel/Kconfig.preempt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index d2c7b1090df08..f66f8efc70629 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -610,7 +610,6 @@ bool __i915_request_submit(struct i915_request *request)
+diff --git a/kernel/Kconfig.preempt b/kernel/Kconfig.preempt
+index 88c594c6d7fcd..11bec9be95405 100644
+--- a/kernel/Kconfig.preempt
++++ b/kernel/Kconfig.preempt
+@@ -90,9 +90,9 @@ config PREEMPT_LAZY
+ endchoice
  
- 	RQ_TRACE(request, "\n");
- 
--	GEM_BUG_ON(!irqs_disabled());
- 	lockdep_assert_held(&engine->sched_engine->lock);
- 
- 	/*
-@@ -719,7 +718,6 @@ void __i915_request_unsubmit(struct i915_request *request)
- 	 */
- 	RQ_TRACE(request, "\n");
- 
--	GEM_BUG_ON(!irqs_disabled());
- 	lockdep_assert_held(&engine->sched_engine->lock);
- 
- 	/*
+ config PREEMPT_RT
+-	bool "Fully Preemptible Kernel (Real-Time)"
+-	depends on EXPERT && ARCH_SUPPORTS_RT && !COMPILE_TEST
++	def_bool y
+ 	select PREEMPTION
++	depends on ARCH_SUPPORTS_RT
+ 	help
+ 	  This option turns the kernel into a real-time kernel by replacing
+ 	  various locking primitives (spinlocks, rwlocks, etc.) with
 -- 
 2.53.0
 
