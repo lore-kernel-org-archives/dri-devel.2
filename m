@@ -4,59 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57DE4CDB46B
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 08:34:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB187CDB471
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 08:36:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A125110E53B;
-	Mon, 22 Jun 2026 08:34:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42A1810E540;
+	Mon, 22 Jun 2026 08:36:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="TuPlTRCU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DX1xqPp/";
 	dkim-atps=neutral
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F73389065;
- Mon, 22 Jun 2026 08:34:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=y2+mOP/j6lYd9qVyAamBJsy1djQW4CKGJJUDwRnuyXs=; b=TuPlTRCUatJuuJgUUAwvzHwMKv
- dWwVfsTqUjTJh9SX5fPBCQGdiQcrZu7Ws4gSZKgN7rA0kNKxui7b5LEtKWEEQDe4V7j5A8N0jYuRY
- uas/iKoJjFjR3gKpo0uOWWxjsbSNbU4N4b8MGJpMvU190ZELYDlzfAoftHa96t+aSCVqbpoMUbpfL
- uOWtb+WeGCTtTYOdcuf3kQ/LcfWhZsQK+C/ri3C/zOHCtiyE1n8uDvDi3TDA+Xy225DqvitJuIeN0
- RneapmfngTU0PhOUCG9gkRpGwiGc3BAbq6jkG1ZvAJCnP1chuakPaLn4PyoFg+CyhHRv/kOJ0Ywl3
- cXoCNRYg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252]
- helo=noisy.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wba77-00000003u7U-1iUV; Mon, 22 Jun 2026 08:34:42 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
- id 52395300B5F; Mon, 22 Jun 2026 10:34:40 +0200 (CEST)
-Date: Mon, 22 Jun 2026 10:34:40 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Steven Rostedt <rostedt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- John Ogness <john.ogness@linutronix.de>, Thomas Gleixner <tglx@kernel.org>,
- Julia Lawall <julia.lawall@inria.fr>,
- Yury Norov <yury.norov@gmail.com>, linux-doc@vger.kernel.org,
- linux-kbuild@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 0/2] tracing: Move trace_printk.h out of kernel.h
-Message-ID: <20260622083440.GX49951@noisy.programming.kicks-ass.net>
-References: <20260621093430.264983361@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260621093430.264983361@kernel.org>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F7C010E540
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 08:36:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 81AB46001A;
+ Mon, 22 Jun 2026 08:36:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CE1F1F00A3A;
+ Mon, 22 Jun 2026 08:36:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782117404;
+ bh=BdDrnGi78sfw/s22MNfFZjD9Pme2k/sUYscnurMjEdk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DX1xqPp/F4n5cGFq56Sdq7r7/S/FdUQjQdkj0JPBhQ9Pyku+zrg0n+09K5IYzWWMu
+ 1ET9H9TxF8SY4Ekn7YbmP6EAvLvB2/oDGOAmpO4cS9uVyEuS5VIcEOHqd3XcH5kwvN
+ /5PjfnrN846fKCoJqlnaOSkVCTuXDzfKEQuq7APUQbqfmV0Lnk+s05Ak6ZSUQ5xhu9
+ icqqD3AM6RxBu6WVm6UlgXL7vo2WXX7Ise8v1ths3sO12UMlCGzvZ9OLshhTpdfBW4
+ GaXHzKIZaYddQs80+PeJHvPHRVAL62e7RkMJh2/O9yPHiacCAAxY6ZhVZHBBgexw7z
+ jEKN9DgJjV34w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 5/5] nouveau/gsp: Cleanup IS_ERR_OR_NULL in
+ nvkm_gsp_rpc_rd()
+To: "Hongling Zeng" <zenghongling@kylinos.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260622081136.61695-6-zenghongling@kylinos.cn>
+References: <20260622081136.61695-1-zenghongling@kylinos.cn>
+ <20260622081136.61695-6-zenghongling@kylinos.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 22 Jun 2026 08:36:43 +0000
+Message-Id: <20260622083644.1CE1F1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,31 +54,120 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jun 21, 2026 at 05:34:30AM -0400, Steven Rostedt wrote:
-> There's been complaints about trace_printk() being defined in kernel.h as it
-> can increase the compilation time. As it is only used by some developers for
-> debugging purposes, it should not be in kernel.h causing lots of wasted CPU
-> cycles for those that do not ever care about it.
-> 
-> Instead, add a CONFIG_TRACE_PRINTK_DEBUGGING option that developers that do
-> use it can set and not have to always remember to add #include <linux/trace_printk.h>
-> to the files they add trace_printk() while debugging. It also means that
-> those that do not have that config set will not have to worry about wasted
-> CPU cycles as it is only include in the CFLAGS when the option is set, and
-> its completely ignored otherwise.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Did you forget your C 101 class? If you use a function, you gotta
-include the relevant header.
+Pre-existing issues:
+- [Critical] Integer underflow in `r535_gsp_msgq_recv_one_elem` due to miss=
+ing lower bounds check on `rpc->length` causes massive out-of-bounds memory=
+ copy.
+- [Critical] A Time-of-Check to Time-of-Use (TOCTOU) double-fetch vulnerabi=
+lity in `r535_gsp_msgq_recv` allows a malicious GSP firmware to cause a ker=
+nel heap buffer overflow.
+- [High] NULL pointer dereference when `r535_gsp_msgq_recv()` encounters an=
+ invalid RPC message size.
+- [High] Out-of-bounds memory reads due to unvalidated array counts from fi=
+rmware in `r535_gsp_intr_get_table` and `r535_gsp_get_static_info_fb`.
+--
 
-You don't see userspace saying: 'Hey, you know what, perhaps we should
-add stdio.h to every other header, just in case someone wants to
-printf()' either.
+commit 88b24214ef8688e688f55f1aef5cd0f776cdce80
+Author: Hongling Zeng <zenghongling@kylinos.cn>
+Subject: nouveau/gsp: Cleanup IS_ERR_OR_NULL in nvkm_gsp_rpc_rd()
 
-I really don't understand your argument. Yes, maybe someone will forget
-and then either their editor (if they have a halfway modern setup with
-LSP enabled) or their build will complain, but so what? This is all
-trivial stuff, surely we have more pressing matters to concern outselves
-with?
+This commit cleans up the error checking in nvkm_gsp_rpc_rd(). Since
+nvkm_gsp_rpc_get() returns only valid pointers or error pointers, the
+code is updated to use IS_ERR() instead of IS_ERR_OR_NULL() to match the
+actual API contract.
+
+> diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h b/drivers/=
+gpu/drm/nouveau/include/nvkm/subdev/gsp.h
+> index 64fed208e4cf8..a061779e0107b 100644
+> --- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
+> +++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
+> @@ -293,7 +293,7 @@ nvkm_gsp_rpc_rd(struct nvkm_gsp *gsp, u32 fn, u32 arg=
+c)
+>  {
+>  	void *argv =3D nvkm_gsp_rpc_get(gsp, fn, argc);
+> =20
+> -	if (IS_ERR_OR_NULL(argv))
+> +	if (IS_ERR(argv))
+>  		return argv;
+> =20
+>  	return nvkm_gsp_rpc_push(gsp, argv, NVKM_GSP_RPC_REPLY_RECV, argc);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but if r535_gsp_msgq_recv()=20
+returns NULL when rpc->length exceeds max_rpc_size, doesn't this bubble up=
+=20
+through nvkm_gsp_rpc_push() and nvkm_gsp_rpc_rd()?=20
+
+If callers like r535_gsp_get_static_info() only check IS_ERR(), won't they=
+=20
+dereference NULL?=20
+
+drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c:r535_gsp_get_static_i=
+nfo() {
+    ...
+	rpc =3D nvkm_gsp_rpc_rd(gsp, NV_VGPU_MSG_FUNCTION_GET_GSP_STATIC_INFO, siz=
+eof(*rpc));
+	if (IS_ERR(rpc))
+		return PTR_ERR(rpc);
+
+	gsp->internal.client.object.client =3D &gsp->internal.client;
+	...
+	gsp->internal.client.object.handle =3D rpc->hInternalClient;
+    ...
+}
+
+Should r535_gsp_msgq_recv() return an error pointer like ERR_PTR(-EIO)=20
+instead of NULL to match this API contract?
+
+[Severity: High]
+This is a pre-existing issue, but does r535_gsp_intr_get_table() properly=20
+bound its iteration over ctrl->tableLen?=20
+
+If a faulty firmware provides a count larger than=20
+NV2080_CTRL_INTERNAL_INTR_MAX_TABLE_SIZE, won't this loop read out-of-bound=
+s=20
+into adjacent memory?=20
+
+Similarly, does r535_gsp_get_static_info_fb() need to verify=20
+info->numFBRegions against the fbRegion array bounds before iterating?
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but is there a missing lower=20
+bounds check for rpc->length in r535_gsp_msgq_recv()?=20
+
+If rpc->length is 0, len evaluates to 0 for continuation records in=20
+r535_gsp_msgq_recv_one_elem(). Doesn't len - sizeof(struct nvfw_gsp_rpc)=20
+then underflow, causing a massive out-of-bounds memory copy?
+
+drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c:r535_gsp_msgq_recv_on=
+e_elem() {
+    ...
+	if (info->continuation)
+		memcpy(buf, mqe->data + sizeof(struct nvfw_gsp_rpc),
+		       len - sizeof(struct nvfw_gsp_rpc));
+    ...
+}
+
+[Severity: Critical]
+This is a pre-existing issue, but does r535_gsp_msgq_recv() safely handle=20
+rpc->length from shared memory?=20
+
+It appears the firmware-provided rpc->length is read directly from mqe->dat=
+a=20
+three times. If a malicious firmware increases this value after the bounds=
+=20
+check and allocation, but before info.gsp_rpc_len =3D rpc->length, couldn't=
+=20
+r535_gsp_msgq_recv_one_elem() cause a heap overflow when copying up to=20
+info.gsp_rpc_len bytes?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622081136.6169=
+5-1-zenghongling@kylinos.cn?part=3D5
