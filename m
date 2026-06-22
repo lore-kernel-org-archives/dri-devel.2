@@ -4,96 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B671CD98F2
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 17:46:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B085CD98F2
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 17:51:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BEEA10E2A3;
-	Mon, 22 Jun 2026 17:46:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0520F10E7C1;
+	Mon, 22 Jun 2026 17:51:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=ristioja.ee header.i=@ristioja.ee header.b="Aeg2Q2mh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N0SQLaX7";
 	dkim-atps=neutral
-Received: from mx1.heh.ee (heh.ee [213.35.143.160])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B187410E2A3;
- Mon, 22 Jun 2026 17:46:30 +0000 (UTC)
-Received: by mx1.heh.ee (Hehee) id 34581111EE0;
- Mon, 22 Jun 2026 20:46:27 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ristioja.ee; s=mail;
- t=1782150387; bh=GJ+dJ48hAsXJ+yZvg31moPKWUIg2iQCxpClyhh8ghyo=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To;
- b=Aeg2Q2mh6TmGzecTcl0b/EEZh4Zz7X+9ibc2awBKtZEn8+cvv48udJpnOHnLZh/pZ
- 6i2IA0IEUhuQtOiUzGqc94m91SUeGDQOv6s2dHCOuJv4q6ooVOt3d1JhGnQJcFEiqm
- Y/BaLDzQ+XCzRIUi8ibwEd5S7fPwyPMb/35MdRV0=
-Message-ID: <6cf6be99-76c3-43b3-854f-96cae180318c@ristioja.ee>
-Date: Mon, 22 Jun 2026 20:46:44 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [resend] [regression] amdgpu carrizo: no display signal after
- modeset
-From: Jaak Ristioja <jaak@ristioja.ee>
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Salvatore Bonaccorso <carnil@debian.org>, Dianne Skoll <dianne@skoll.ca>,
- Chris Park <chris.park@amd.com>, Matthew Stewart <matthew.stewart2@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: 1139950@bugs.debian.org, regressions@lists.linux.dev,
- stable@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <9fba2020-24d1-4235-9869-319d4aab3a4c@ristioja.ee>
- <178198613176.3658222.16247101620976737948@eldamar.lan>
- <ajcLuO0YZCoPN7Xw@eldamar.lan> <e4f60b98-9bd8-491a-9703-a5a7a58a4ca0@amd.com>
- <82b5026d-2dcc-4dcd-9094-2ccf70057964@ristioja.ee>
-Content-Language: et-EE
-Autocrypt: addr=jaak@ristioja.ee; keydata=
- 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
-In-Reply-To: <82b5026d-2dcc-4dcd-9094-2ccf70057964@ristioja.ee>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 864F710E7C1;
+ Mon, 22 Jun 2026 17:51:09 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9A2F7601F3;
+ Mon, 22 Jun 2026 17:51:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF1421F000E9;
+ Mon, 22 Jun 2026 17:51:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782150668;
+ bh=qaTMOMArbJO9+bFRaoOprCcsGyBpTalp5WHHmMeRU3U=;
+ h=Date:From:Subject:Cc:To:References:In-Reply-To;
+ b=N0SQLaX76cjgaI9P7c6P9J3nP3brat1Paxtb+UVWEat1qvWnzi15leZm7Tg+04lSm
+ goxLZB0NlNTy35HWzcayeCfMWC/zGJtB2FbgxL19bOm1O8zjTLHknQJFkBlx/nW0Ir
+ rch1tOg6I17/FjZrXpypqrTW4fqwJsyscJ202J4nFAgkrYOKiiLT4cXOM5Ce4Hu5co
+ Tse+7Fwln4MiJoQfgA5O+ZRZQlfo9+DdHafud8qaVyxkOeAGyIrZOpVXywamN9KRKI
+ +5TlXfhdKgDnD2h4nvdVS4w/er2w77EpzBDUNn3LVu76XMmGc7DjyobfT9ZASyrdqs
+ 3tVBy9J0cstUg==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 22 Jun 2026 19:51:03 +0200
+Message-Id: <DJFROOH493EG.1ODJ1NF6VVMPV@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v3] drm/nouveau: Simplify nouveau_cli_work
+Cc: <phasta@kernel.org>, "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>,
+ <dri-devel@lists.freedesktop.org>, <kernel-dev@igalia.com>, "Lyude Paul"
+ <lyude@redhat.com>, <nouveau@lists.freedesktop.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Boris Brezillon" <boris.brezillon@collabora.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Dave Airlie"
+ <airlied@gmail.com>, "Gary Guo" <gary@garyguo.net>
+To: "Philipp Stanner" <phasta@mailbox.org>
+References: <20260612165409.54447-1-tvrtko.ursulin@igalia.com>
+ <20260615092607.80917-1-tvrtko.ursulin@igalia.com>
+ <DJEU27KUZRNN.3R1F8AL6UL30S@kernel.org>
+ <d3e27b911dd1c0261c2c4d7d65d12d6c1aef58ff.camel@mailbox.org>
+In-Reply-To: <d3e27b911dd1c0261c2c4d7d65d12d6c1aef58ff.camel@mailbox.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,24 +64,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026.06.22 16:52, Jaak Ristioja wrote:
-> Issue also seems to occurs with 7.1.1 (`dmesg -f kern` output attached).
-> 
-> The DisplayPort to HDMI dongle does not have markings on the body to 
-> identify the exact model, but by the looks of it I think it might be a 
-> Vention HBKB0, which seems to be marketed as "1080p@60", "DP male to 
-> HDMI female", "classic" (as opposed to "4K"). According to some 
-> materials, the chip inside is a MXP3361.
-> 
-> The text on the HDMI cable reads "ULTRA HIGH SPEED HDMI™ CABLE - 
-> WWW.HAMA.COM - HAMA GMBH & CO KG 86652 MONHEIM/GERMANY - 82623".
+On Mon Jun 22, 2026 at 10:57 AM CEST, Philipp Stanner wrote:
+> Tvrtko's patch does not address the RCU issues you mention, nor does it
+> address any other fence related issue except for adding the comment that
+> should have been added back then with the fix in nouveau_cli_work_ready()=
+.
 
-Reverting commit fee50077656 ("drm/amd/display: Bump the HDMI clock to 
-340MHz") on top of v7.1.1 appears to resolve the issue, as I am now able 
-to get a picture.
-
-
-PS: My previous e-mail with the attached dmesg-7.1.1.txt.xz file was 
-bounced from @amd.com addresses: Diagnostic-Code: smtp;550 5.0.350 One 
-or more of the attachments in your email is of a file type that is NOT 
-allowed by the recipient's organization.
+I described exactly that, with the goal to discuss a proper solution rather=
+ than
+arguing about which hack is the better one.
