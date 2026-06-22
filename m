@@ -4,63 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7A3ACD98F2
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 12:43:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1DB8CD98F2
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 12:45:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A4FE10E69C;
-	Mon, 22 Jun 2026 12:43:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27DED10E635;
+	Mon, 22 Jun 2026 12:45:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="joTryDYq";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="KPl9Yn5Q";
 	dkim-atps=neutral
-Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com
- [95.215.58.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3449F10E69C
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 12:43:02 +0000 (UTC)
-Message-ID: <0494d714-db5c-4358-86e1-37527f52e7f2@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1782132179;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D20D10E635;
+ Mon, 22 Jun 2026 12:45:30 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gkSbV48k3z9sWm;
+ Mon, 22 Jun 2026 14:45:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1782132326; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=faCZmH5g5Ta9m2J6zC+tR3/ZZXd4+AmOWxaxfSCmJCM=;
- b=joTryDYqD7RqwYRfmbnTLuKFTJVfgXhanPbTiE3S+r8y1qOVGB+xcLyAm9Fohu/5OaIr+P
- YPWhIg9XER/ei55WL2hAW8PUODttUqHpjKLmi0VbG7XKlebnd5hGUVupZIsOq7yiU71RhY
- WcpVo0P21fdV4aLrd6dNqxvzkLGcHQ4=
-Date: Mon, 22 Jun 2026 20:42:27 +0800
+ bh=RkMwbTC6310DHTrZdoptKKXWD1KIfX8Jfo4LzUqTcgs=;
+ b=KPl9Yn5QwOD6AnheCc8UlrorIpnP+dvN9KCfUVMCk9RAOmgsewVSWfVpYrMZ2Y6u+8+JI1
+ Ox+zeoe5LNoMfmZhfGv+M+cbWksOT4kLVe9rDso6qG8eObXLqycmhckfBTjpUPIVqVGAdw
+ LJfhVXNUSEE4Cv42K2lL7/LW16yQq4wfGl/uNYPYEu/A7WnZV3hK+ktNw3G9eWP/7CB3f4
+ GPn/KiPeCKwGc+O/N39dlhpOfxVpU5ANZDLx7LJ6S5Imrq/6Jn2f7lRxsj0HbI0hnn76h8
+ 9zuKYdLgty5Sp3qhtCTLrYz32RjCjRh5IoWY5sehncvfdTb+GUqJ7KF0LAIo8g==
+Message-ID: <8c5ff6db6ab8c29c3e7addd969c4642e9d82c524.camel@mailbox.org>
+Subject: Re: [PATCH v3] drm/nouveau: Simplify nouveau_cli_work
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>, Tvrtko Ursulin
+ <tvrtko.ursulin@igalia.com>
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com, Lyude Paul	
+ <lyude@redhat.com>, nouveau@lists.freedesktop.org, Alice Ryhl	
+ <aliceryhl@google.com>, Boris Brezillon <boris.brezillon@collabora.com>, 
+ Dave Airlie <airlied@gmail.com>, Gary Guo <gary@garyguo.net>, Daniel
+ Almeida <daniel.almeida@collabora.com>
+Date: Mon, 22 Jun 2026 14:45:19 +0200
+In-Reply-To: <cf9f4a62-ed02-46d6-9560-481ceda2d1a3@amd.com>
+References: <20260612165409.54447-1-tvrtko.ursulin@igalia.com>
+ <20260615092607.80917-1-tvrtko.ursulin@igalia.com>
+ <DJEU27KUZRNN.3R1F8AL6UL30S@kernel.org>
+ <d3e27b911dd1c0261c2c4d7d65d12d6c1aef58ff.camel@mailbox.org>
+ <cf9f4a62-ed02-46d6-9560-481ceda2d1a3@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Subject: Re: [PATCH v3 1/6] rust: module: add `THIS_MODULE` const to
- `ModuleMetadata` trait
-To: Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann
- <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>
-Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
- nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260622-fix-fops-owner-v3-0-49d45cb37032@linux.dev>
- <20260622-fix-fops-owner-v3-1-49d45cb37032@linux.dev>
- <DJFIKIXLML05.3KYOXUGZYJRDZ@garyguo.net>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Alvin Sun <alvin.sun@linux.dev>
-In-Reply-To: <DJFIKIXLML05.3KYOXUGZYJRDZ@garyguo.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+X-MBO-RS-META: zwxpr4yr7cu81hodh86wfpmdpue1g5x6
+X-MBO-RS-ID: e546aff977dc697f06d
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,120 +70,58 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+(+Cc Daniel)
 
-On 6/22/26 18:42, Gary Guo wrote:
-> On Mon Jun 22, 2026 at 3:44 AM BST, Alvin Sun wrote:
->> Since `const_refs_to_static` has been stable as of the MSRV bump, a
->> `ThisModule` pointer can now be used in const contexts.
->>
->> Add a `THIS_MODULE` const to the `ModuleMetadata` trait so that modules
->> can provide their `ThisModule` pointer in const contexts such as static
->> `file_operations`.
->>
->> Move the `THIS_MODULE` static from the `module!` macro into the
->> `ModuleMetadata` impl, add a `this_module()` helper, and update `__init`
->> to use it.
-> Doesn't this break existing users of THIS_MODULE?
+On Mon, 2026-06-22 at 14:17 +0200, Christian K=C3=B6nig wrote:
+> On 6/22/26 10:57, Philipp Stanner wrote:
+> >=20
+> > The issue Dave addressed was a UAF within Nouveau itself, where the
+> > driver put() its own fence while its own callbacks were still
+> > executing.
+>=20
+> Yeah that's exactly the reason why I have been rejecting the idea
+> that drivers install callbacks on their own fences.
 
-You are right, I missed binder. I will add a patch to update binder to use
-`this_module::<LocalModule>()` in the next version.
+I remember we had that discussion when I discovered that signaled
+fences can temporarily remain on nouveau's "unsignaled fences" list and
+wanted to do the removal automatically via callback.
 
-While looking into this, I also noticed `gen_disk.rs` has a `// TODO: Set to
-THIS_MODULE` with `owner` still set to `null_mut()`.
+>=20
+> Maybe an idea how to generally tackle this for all drivers: Never let
+> the dma-fence framework call dma_fence_signal(), that should only the
+> driver do by itself.
 
-Best regards,
-Alvin Sun
+About the framework I'm not sure, but what we do enforce strictly in
+Rust is that only the creator of a fence can signal it. We achieve that
+by two fence types, of which only one implements a signal() method
 
->
-> Binder, rnull and configfs macros are using it.
->
-> Best,
-> Gary
->
->> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
->> ---
->>   rust/kernel/lib.rs    |  8 ++++++++
->>   rust/macros/module.rs | 34 +++++++++++++++++-----------------
->>   2 files changed, 25 insertions(+), 17 deletions(-)
->>
->> diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
->> index b72b2fbe046d6..50f5a7b5f028e 100644
->> --- a/rust/kernel/lib.rs
->> +++ b/rust/kernel/lib.rs
->> @@ -184,6 +184,14 @@ fn init(module: &'static ThisModule) -> impl pin_init::PinInit<Self, error::Erro
->>   pub trait ModuleMetadata {
->>       /// The name of the module as specified in the `module!` macro.
->>       const NAME: &'static crate::str::CStr;
->> +
->> +    /// The module's `THIS_MODULE` pointer.
->> +    const THIS_MODULE: ThisModule;
->> +}
->> +
->> +/// Returns a reference to the `THIS_MODULE` of the given module type.
->> +pub const fn this_module<M: ModuleMetadata>() -> &'static ThisModule {
->> +    &M::THIS_MODULE
->>   }
->>   
->>   /// Equivalent to `THIS_MODULE` in the C API.
->> diff --git a/rust/macros/module.rs b/rust/macros/module.rs
->> index 06c18e2075083..b9fdee2f2af47 100644
->> --- a/rust/macros/module.rs
->> +++ b/rust/macros/module.rs
->> @@ -497,28 +497,28 @@ pub(crate) fn module(info: ModuleInfo) -> Result<TokenStream> {
->>           /// Used by the printing macros, e.g. [`info!`].
->>           const __LOG_PREFIX: &[u8] = #name_cstr.to_bytes_with_nul();
->>   
->> -        // SAFETY: `__this_module` is constructed by the kernel at load time and will not be
->> -        // freed until the module is unloaded.
->> -        #[cfg(MODULE)]
->> -        static THIS_MODULE: ::kernel::ThisModule = unsafe {
->> -            extern "C" {
->> -                static __this_module: ::kernel::types::Opaque<::kernel::bindings::module>;
->> -            };
->> -
->> -            ::kernel::ThisModule::from_ptr(__this_module.get())
->> -        };
->> -
->> -        #[cfg(not(MODULE))]
->> -        static THIS_MODULE: ::kernel::ThisModule = unsafe {
->> -            ::kernel::ThisModule::from_ptr(::core::ptr::null_mut())
->> -        };
->> -
->>           /// The `LocalModule` type is the type of the module created by `module!`,
->>           /// `module_pci_driver!`, `module_platform_driver!`, etc.
->>           type LocalModule = #type_;
->>   
->>           impl ::kernel::ModuleMetadata for #type_ {
->>               const NAME: &'static ::kernel::str::CStr = #name_cstr;
->> +
->> +            #[cfg(MODULE)]
->> +            const THIS_MODULE: ::kernel::ThisModule = {
->> +                extern "C" {
->> +                    static __this_module: ::kernel::types::Opaque<::kernel::bindings::module>;
->> +                }
->> +
->> +                // SAFETY: `__this_module` is constructed by the kernel at load time
->> +                // and lives until the module is unloaded.
->> +                unsafe { ::kernel::ThisModule::from_ptr(__this_module.get()) }
->> +            };
->> +
->> +            #[cfg(not(MODULE))]
->> +            const THIS_MODULE: ::kernel::ThisModule = unsafe {
->> +                ::kernel::ThisModule::from_ptr(::core::ptr::null_mut())
->> +            };
->>           }
->>   
->>           // Double nested modules, since then nobody can access the public items inside.
->> @@ -616,7 +616,7 @@ pub extern "C" fn #ident_exit() {
->>                   /// This function must only be called once.
->>                   unsafe fn __init() -> ::kernel::ffi::c_int {
->>                       let initer = <super::super::LocalModule as ::kernel::InPlaceModule>::init(
->> -                        &super::super::THIS_MODULE
->> +                        ::kernel::this_module::<super::super::LocalModule>()
->>                       );
->>                       // SAFETY: No data race, since `__MOD` can only be accessed by this module
->>                       // and there only `__init` and `__exit` access it. These functions are only
->
+I remember seeing some parties signaling the GPU scheduler's fences, so
+such things definitely happen. And since you likely can't enforce it in
+C, you would still have to take the possibility of a third party
+signalling your fence into account.
+
+>=20
+> This way we don't run into the issue in the first place that the
+> driver needs to install some callbacks *and* the driver also knows
+> when the installed callbacks are finished because that is when
+> dma_fence_signal() returns.
+>=20
+> Does that sound valid to you guys? If yes I will be sending out
+> patches to do this.
+
+Hm. I suppose that would be an improvement?
+
+Maybe let me ask differently, too: why is it that the framework is
+signaling fences in the first place? If I understood you correctly last
+time that is partially related to the locking problem in the callbacks.
+
+
+P.
+
+>=20
+> Regards,
+> Christian.
