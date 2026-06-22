@@ -4,42 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 631F1CDB46F
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 22:16:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 457BACD98F2
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 22:28:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C419710E0D5;
-	Mon, 22 Jun 2026 22:16:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4840310E8BA;
+	Mon, 22 Jun 2026 22:28:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JSb36wXC";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="ZDodTyOf";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A212D10E0D5
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 22:16:15 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4EBC44357B;
- Mon, 22 Jun 2026 22:16:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DCE11F00ACF;
- Mon, 22 Jun 2026 22:16:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782166575;
- bh=KUVvfBhi6n4A2hv61iTDhcxgjTWhKtt7IPKXHmeRFLU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JSb36wXCm0rJvxKQPl+c18cMD4g0kBEUhjBVN6O/ROl3s4W71UaPMGply7FDzBXyh
- xWX39tu+ee+VKVZP6fuBB+nUYtiBn6SBhJaJEWeR8SBDDIA4XZ0a+2HQR/gDAJ+Oh5
- Ji8cU9RdfD7hcQNjnIZqhLZ0Zu4vFVUnEe9Sa4Cs0eYLBDOPWPlvfdjGnbAH4z4xqH
- RjEinuVeLCRutGTcgLvdsHbACzvetE8+V3MrWWPqnJhFSj6FuTeDoFFdoFhyQGvVfa
- OQAU6KGjG6efJHMUJbxfd1BmBH0PpdhOvgMCce9fTcz+ZeU6sEL0QjGmnvD1uSkq26
- Ga2EHCWloN54Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/shmem_helper: Check VMA boundaries for PMD mappings
-To: "Christian A. Ehrhardt" <lk@c--e.de>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260622215718.1532689-1-lk@c--e.de>
-References: <20260622215718.1532689-1-lk@c--e.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 22 Jun 2026 22:16:14 +0000
-Message-Id: <20260622221615.0DCE11F00ACF@smtp.kernel.org>
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012044.outbound.protection.outlook.com [52.101.53.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4330610E8BA
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 22:28:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XciZM21jWtkszQJklGUBMB95r5bfE6dUyLERZOsj5fp5rL8+pVHOfzncd8B1rOz3GYkSZubT/DKQij/FV/kH8OQSSD3ZL2uqTYg2a+dVVo2QBySMpLE77lNjFfF836RBARbWv+68JIK+x6cAUWbl2fa/zi+YIVsNCmHsB0r4ajaYlWIF0mQ2eKHPckj8RmM1/DNqZYzw+59znJ7lSIlADMQ8DxF8cbuPruibI0QQGHL+kzsk2TXzhllIIuSt8WF/fzgjCXrTWPlrddRYtRcyauLxnylH5CzzMp8i60YS0Nb99NhEIPF0jQQz0ZP4p5Dpi/wGBZ38g+pbnLHKO8DkTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KXpJlZORylPzQb7P7pSyD6mZCEIHFQgq3rqUmsh23Cg=;
+ b=TLxfNOo8RVJduhBo6R/O0LmncoowJXzUDRMBkFT/iNlc6z1KfVTzEbsG0k17wCg0Jsw6Ud7PpVpKH9vsbK97BX4fyLeehf1v803FiAue6TVzPvNzU1YuIqniCEM1XExVrQPw6WorwZHLATK7ggZDF9RjU5oPTglIH4RnjLuCa/R5A1wXVhjhSfn1+wyKejLbpuDM6wkr8pas00+B6tEu91pl6EMkbdsUc6kkTGUwmjmxLvOfk4Qiqstf6msSUGhs9rLRi8lUO9WBiQ4rCgqFRZ2zbSSVgWM4bompCuocqIHJgxXtTFUUBFuQN79rnerdiGU0JCe+svd6EYD9psALSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KXpJlZORylPzQb7P7pSyD6mZCEIHFQgq3rqUmsh23Cg=;
+ b=ZDodTyOfHOyMMpRBc+rcsTi4QSfow6xrrTlEG1z9yfH6qJKqeMK7b/1kgufmS9fRYmfsveoYPfyWeMacCaSuLZ+fFry667jxlFoTY+pp4AMKrlc9QSRvCRO7zR9nabC2/v+ATIeCFzmkYxhoWyLnN3Wb+aXDk+5m8cPQAXxrHaMbeOiC4RSVuzn+v5ivwwuh+S9O4di1vO5VPgttfJEOku/e+nTFCa3iTVHj0suanOttAymkOXVr221qYBZlxpFvaK4LaHWleLo0ihPtqmAC1UuK2ZkE/ISl+v9JAu9esbOIS3Bneb16t/7Yu2uef58C9dCYYtw0RWHWRmxaD8Te5w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ MW4PR12MB6976.namprd12.prod.outlook.com (2603:10b6:303:20a::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Mon, 22 Jun
+ 2026 22:28:47 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%5]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
+ 22:28:44 +0000
+Message-ID: <5022f3d8-288c-4732-8f66-c38af5d90801@nvidia.com>
+Date: Mon, 22 Jun 2026 15:28:42 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 13/13] gpu: nova-core: store Fsp instance in Gpu
+To: Alexandre Courbot <acourbot@nvidia.com>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Gary Guo <gary@garyguo.net>
+Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+References: <20260622-nova-bootcontext-v2-0-0ddeafc06f5d@nvidia.com>
+ <20260622-nova-bootcontext-v2-13-0ddeafc06f5d@nvidia.com>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <20260622-nova-bootcontext-v2-13-0ddeafc06f5d@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR03CA0106.namprd03.prod.outlook.com
+ (2603:10b6:a03:333::21) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MW4PR12MB6976:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87136078-08f5-44b6-3161-08ded0ad9e7b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|366016|56012099006|11063799006|18002099003|22082099003|4143699003|3023799007;
+X-Microsoft-Antispam-Message-Info: zsjvv5+ylbF0ntSBl5OEK7kECNK0wElG/yekAKH3u5Wpx2yN+E1da7yLGg+zeiuLfV67ggSj2fou65Paj5CL4aQ8jPrin1kvH2x5CyEEjEAyWw1ZJLYQPjOLHEX71Ec3Xkjuo0n6NQVBtQT7/8PamLGHOEWTVcuNpFU4HXECcwv9zH7rW2lfarDtk8s5BmjwSZBold9kUEoUiBC2WYMm8P2er+zp9XcwryqeECO40MkRIG8Sk+f7NN5Wx+MHLDuIOJqmkY8dWHQjzNjmzxC1hXCXxT9loEVCHM/+vH2l+SgIvYPn4ArkijeLJQk2w5jgIZJkhXVEDyP6ZLKt8BsZMqkInrkWwdNzh03Gp/WV3CjyMXUmosuVtAhrPInNOK2C4Rcq+G2+gO4IrF6y25Tyon9GkLIpyIWYSBNoBpERol+o6xccpdrRyzL4gr8PQgZueO22qtcmJal7CAVXe7odFnMece4GFb6doMVqE8+KipozxkzXww7T38BYNS4A5kygxjcwR+1S54Xs8JpDONUDy/flDKbUnQSs9MVt9TsJSiIcLVQIY+aoa/scjBysRwRccMRwhj4U928Dmjh3xGOVuTJBQ5aSGmgLr2+Y4C7c+dotYcERYn3uZ91sjqK7akQjYSb50pfawgiVBLKg2xJh3P63OD/MR4eWMDRilov0CYo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(56012099006)(11063799006)(18002099003)(22082099003)(4143699003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dzJBczNEVy9zbkFJOTRQOEY3U1dud0ViRXZkMHpUbjFmT0tsamF6Y0g5S1Ux?=
+ =?utf-8?B?L243cm1sQnQ5allxQytDM2JsUVZ6M09ZNGFYdFk5QVBObzZNZjBQMUN6a2VJ?=
+ =?utf-8?B?WC9jeFk5ejE1T2w3OVgzWjRlQTduNS9XSmIrQUpoZHdWTEJzbjczQ05hbkda?=
+ =?utf-8?B?c2U5eFVsQm4zS092QnVBWWFSSHl0RzJad0RjeTlJZnZpUmpUNThRMkJZcmdK?=
+ =?utf-8?B?cnBmZjc1STN3bzlENk9XZ0pNanorKzVWaGRydFVZdE1EbTRYQkcwT1QzYjFN?=
+ =?utf-8?B?SlJlUVVzaXRqUkxxa1kvbXlTRi9YWHZIY24yOFdJNUdTT0NRWWZCcTdYcENw?=
+ =?utf-8?B?UkRmUVo5YzJYRTFVRUlvUjVIc0dQRXhTSUthcFdnbnhtd1l4Mzg1NWRQdDBn?=
+ =?utf-8?B?dzZ3Qy9Yai9wcjREN01vdzFoNmNHQVYxWjVJM1pkS1NERXBpWnBseXI4YmxX?=
+ =?utf-8?B?OWplbkNyZm5XOENGZWd2NU5LQ21LSjBwcllCOFhrcG9WK0w4TXJ4NUI0emNQ?=
+ =?utf-8?B?MGcza2xHclpPclRQNXFvc1JJZFlJdUR5R2pPZTJVMG1hcUpNc3pvNUQ2Wmtv?=
+ =?utf-8?B?b0JpZTd2Y1lvcE1vSVhhZXc0UjVjK1BXL2dUL29PK2pwaENGRXErNmsvQVZN?=
+ =?utf-8?B?M3AxelJyNDI3TXNrMUU3eXB6QmJVN0o4YmZqcnVaUGpSV3RGcGxuRnJPb0s0?=
+ =?utf-8?B?UjZ5R3k5OENUTDNtbnUvaVpsZ2s1Tld5c01jTDk0WWpSNGlSMzhXUUFTYitB?=
+ =?utf-8?B?VkxXS3ZlWVZOeUtWaDJyWDJpemVmdUdEZEYzRWRNTExYM0lLSCtWUE5pckhM?=
+ =?utf-8?B?QkVGMy9qTDMwbU5wNTRrbFRCVjFacDRtZDFVYmpYTXlSYVFEaWc5Ti9rc25v?=
+ =?utf-8?B?b0lHQ3AyRXlCeE5EZmZjMHQzUEEvQU9CaTUxM0RCS3JZUTN6bzBQRDlOSWlS?=
+ =?utf-8?B?eUFBNHVlNmZPL3ZPaGpKeHhHM0R4c1Nxbzc0Y0paRUVlMzUwVnU5Z1VrVnJS?=
+ =?utf-8?B?SlNmZnRhMXBSekZ6eUxtUjlHTWQ5ZDhkVGsveXRja1NpQkxoK1IrdDBFR2p3?=
+ =?utf-8?B?dHk3WHp3YWVNYlhmekFSenV1ckNSNVdUOXBKSUFBVDF0QWd5ay82a1dHalkr?=
+ =?utf-8?B?YXpSVXg5dVpYSGp1U0dCOXBNamNTOHMyZ0VqcWhZT1kzRkRRM1VCUlhqaHMy?=
+ =?utf-8?B?TmtZSTFHaWpaN25IRWxDaW03cFdudHJoTmQ0c2U2T2VhTFRtYkcwejM4OXNp?=
+ =?utf-8?B?by9UckF5b212d3d5dmZSZzM2dEFYQXI5Y1FIelpENEZLWjIraXROY1p1R2NM?=
+ =?utf-8?B?UDNCM1o3dHhnZFlXTlk3eHl5QVFXaHliOUNyNXpuTGlnNUVFY21LSkxsNnYy?=
+ =?utf-8?B?bCtDS01XOVZQQU5zWXFCdVY1b29QTEpNUkNOVG5TUlBINlJmYXgvaXM1Vjdp?=
+ =?utf-8?B?Si9pNGJBRVZmcS9lSVo2TXlreFZiSkxsTmhZWlVLODdNNTNpZThpRHJXWXRh?=
+ =?utf-8?B?NXRBNTNLRGFjZnZHbkRrL3ZDVU1aWUNRVEJIZXhEQ2RDUTIvUENVTmsrcVdN?=
+ =?utf-8?B?ZGdlUWRrUlpLTkg5d3N0VU0vNzNEZ3RRWEE0OHNaNDIveWtvTi9TUzl3b3FD?=
+ =?utf-8?B?OTZtbFNhN1BoOW4zUlduVjNZYTNRRXNJa2ZiWDFSZlZLenNPSTFNcnU1TWMr?=
+ =?utf-8?B?V3dYUlE0bHo5elRmMzF1WWNDdGlhZHdQeGJrYWtXNEU0RkN1citEYjcvdmNv?=
+ =?utf-8?B?SHMyN0dRMnd2RmlIQlZVaEhnY0JUMDVYc2FhTThZZTN6WTI0enJTSGJFazg0?=
+ =?utf-8?B?eE5kaFROM09XU0c2VjFkd3M3VmtFb2ZmTVMyam5iNkxaQnQ3Z0NrY2lYWDAy?=
+ =?utf-8?B?VGNxRHhvQ2pmajFIU2ZIYy9JaWZXSEZYVUZNWU1BL3JsTnY1eUk1LzQ2ZjNz?=
+ =?utf-8?B?ckJ6Sit5cXNxc1RaR3lQQ01FQXpzckhITFRyM25qb09oTzBobHkremxScTRO?=
+ =?utf-8?B?djFaWDV3NUErUHh5R0M2bVFZVHV1dWFTOHVnVFdFK21WTmNpMGdLZGZYR3Vu?=
+ =?utf-8?B?ODRrK1NKNWtjV2hIbW9aaVMvNkE5K09yWEhSbzhYdDZLa2pESXM3aUVSVkhn?=
+ =?utf-8?B?WkZ4SmJsTDhzSjkvalpvL0VPZkFMT1FzdFdieHNoREtQcytwZXZzZ1pwbHhU?=
+ =?utf-8?B?YThWc0tRUW1xN0NQcnE0NXN4dmFhTnh2WjhxZFhyZGptWjQ4dk4xd0dxNTRz?=
+ =?utf-8?B?SUVnVkx2MTZMc3JBcmMwYXk0dFJ4VnVrb25aTkJGdnZyZ2dJcFBrdU5oUjV2?=
+ =?utf-8?B?Ti8rMEFuVnVCcXJrbWl0ZUxJSitpSC9aemJtTmpHbFhMRUtYL0lGUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87136078-08f5-44b6-3161-08ded0ad9e7b
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 22:28:44.2426 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EJFeprRITZSiVAeY78Bibj7vSoc3qRX/U7yZmtGwxBX/A/qEtRWU6ggrAkhGkluZVBy2+K2xwa/itv9Cg3fOcw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6976
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,140 +139,147 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On 6/22/26 12:10 AM, Alexandre Courbot wrote:
+> The `Fsp` instance was only used in the Hopper+ boot path, and
+> consequently built locally (and immediately dropped) in it.
+> 
+> This worked well as a temporary measure, but the FSP is also needed in
+> other parts of the driver, for instance vGPU.
 
-Pre-existing issues:
-- [Critical] Missing VMA boundary check in panthor PMD mapping insertion ca=
-uses kernel panic or memory overlap.
-- [High] Incorrect GEM object page offset calculation causes mapping corrup=
-tion on VMA split or partial unmap.
-- [High] Normal refcounted shmem folios are mapped using raw PFN helpers, i=
-mproperly marking them as special.
---
+Or: "will be needed, in future patchsets", but not in this one. May I
+suggest that we put this patch in one of those future patchsets,
+instead of trying to do it here, in advance of anything using
+it?
 
-commit 07cb1bde7a0031ea636a380e71bef2ca1d93de8c
-Author: Christian A. Ehrhardt <lk@c--e.de>
+thanks,
+-- 
+John Hubbard
 
-drm/shmem_helper: Check VMA boundaries for PMD mappings
+> 
+> Thus, create the `Fsp` instance in the `Gpu` constructor and store it
+> there, passing it to the GSP boot as a mutable reference using
+> `GspBootContext`. This makes the `Fsp` available even after the GSP is
+> booted.
+> 
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/gpu.rs           | 15 ++++++++++++++-
+>  drivers/gpu/nova-core/gsp.rs           |  2 ++
+>  drivers/gpu/nova-core/gsp/hal/gh100.rs |  9 +++------
+>  3 files changed, 19 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+> index 2e76e4bf79b2..e5ebd79c9020 100644
+> --- a/drivers/gpu/nova-core/gpu.rs
+> +++ b/drivers/gpu/nova-core/gpu.rs
+> @@ -21,11 +21,13 @@
+>          Falcon, //
+>      },
+>      fb::SysmemFlush,
+> +    fsp::Fsp,
+>      gsp::{
+>          self,
+>          commands::GetGspStaticInfoReply,
+>          Gsp,
+> -        GspBootContext, //
+> +        GspBootContext,
+> +        GspBootMethod, //
+>      },
+>      regs,
+>  };
+> @@ -261,6 +263,10 @@ struct GspResources<'gpu> {
+>      gsp_falcon: Falcon<GspFalcon>,
+>      /// SEC2 falcon instance, used for GSP boot up and cleanup.
+>      sec2_falcon: Falcon<Sec2Falcon>,
+> +    /// FSP instance, if on an arch that supports it.
+> +    // TODO: use different resource types for each boot method, and make the relevant Gsp methods
+> +    // generic against them.
+> +    fsp: Option<Fsp>,
+>      /// GSP runtime data.
+>      #[pin]
+>      gsp: Gsp,
+> @@ -304,6 +310,7 @@ fn drop(self: Pin<&mut Self>) {
+>                      chipset: this.spec.chipset,
+>                      gsp_falcon: &*this.gsp_falcon,
+>                      sec2_falcon: &*this.sec2_falcon,
+> +                    fsp: this.fsp.as_mut(),
+>                  },
+>                  bundle,
+>              )
+> @@ -354,6 +361,11 @@ pub(crate) fn new(
+>  
+>                  sec2_falcon: Falcon::new(dev, spec.chipset)?,
+>  
+> +                fsp: match spec.chipset.gsp_boot_method() {
+> +                    GspBootMethod::Sec2 { .. } => None,
+> +                    GspBootMethod::Fsp => Some(Fsp::wait_secure_boot(dev, bar, spec.chipset)?),
+> +                },
+> +
+>                  gsp <- Gsp::new(pdev),
+>  
+>                  // This member must be initialized last, so the `UnloadBundle` can never be dropped
+> @@ -365,6 +377,7 @@ pub(crate) fn new(
+>                      chipset: spec.chipset,
+>                      gsp_falcon,
+>                      sec2_falcon,
+> +                    fsp: fsp.as_mut(),
+>                  })?,
+>              }),
+>  
+> diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+> index 771b38e6335d..ff438506070a 100644
+> --- a/drivers/gpu/nova-core/gsp.rs
+> +++ b/drivers/gpu/nova-core/gsp.rs
+> @@ -38,6 +38,7 @@
+>          sec2::Sec2 as Sec2Falcon,
+>          Falcon, //
+>      },
+> +    fsp::Fsp,
+>      gpu::{
+>          Architecture,
+>          Chipset, //
+> @@ -62,6 +63,7 @@ pub(crate) struct GspBootContext<'a> {
+>      pub(crate) chipset: Chipset,
+>      pub(crate) gsp_falcon: &'a Falcon<GspFalcon>,
+>      pub(crate) sec2_falcon: &'a Falcon<Sec2Falcon>,
+> +    pub(crate) fsp: Option<&'a mut Fsp>,
+>  }
+>  
+>  impl<'a> GspBootContext<'a> {
+> diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova-core/gsp/hal/gh100.rs
+> index 7bba18ba2f75..8673a749dbac 100644
+> --- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
+> +++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
+> @@ -17,10 +17,7 @@
+>          Falcon, //
+>      },
+>      fb::FbLayout,
+> -    fsp::{
+> -        FmcBootArgs,
+> -        Fsp, //
+> -    },
+> +    fsp::FmcBootArgs,
+>      gsp::{
+>          hal::{
+>              GspHal,
+> @@ -152,12 +149,12 @@ fn boot(
+>          let mut unload_bundle = Err(EAGAIN);
+>  
+>          let res = (|| {
+> +            let fsp = ctx.fsp.as_mut().ok_or(ENODEV)?;
+> +
+>              unload_bundle = Ok(crate::gsp::UnloadBundle(
+>                  KBox::new(FspUnloadBundle, GFP_KERNEL)? as KBox<dyn UnloadBundle>,
+>              ));
+>  
+> -            let mut fsp = Fsp::wait_secure_boot(dev, bar, chipset)?;
+> -
+>              let args = FmcBootArgs::new(
+>                  dev,
+>                  chipset,
+> 
 
-This commit adds a boundary check in the try_insert_pfn() function to ensure
-that a PMD huge page mapping is not installed if it exceeds the boundaries
-of the VMA.
 
-> In the ->huge_fault handler do not install a PMD huge page
-> mapping if the huge page exceeds the boundaries of the VMA.
->=20
-> All other ->huge_fault handlers have similar checks and the
-> resulting mapping will trigger a VM_BUG_ON_VMA() if it ever
-> reaches copy_pmd_range().
-
-[Severity: Critical]
-This is a pre-existing issue, but does panthor_gem.c also need this fix?
-
-Looking at insert_page() in drivers/gpu/drm/panthor/panthor_gem.c at line 8=
-02,
-it inserts a PMD mapping if the address is aligned, but it lacks the
-vma->vm_start <=3D start && end <=3D vma->vm_end bounds check:
-
-	} else if (order =3D=3D PMD_ORDER) {
-		unsigned long pfn =3D page_to_pfn(page);
-		unsigned long paddr =3D pfn << PAGE_SHIFT;
-		bool aligned =3D (vmf->address & ~PMD_MASK) =3D=3D (paddr & ~PMD_MASK);
-
-		if (aligned &&
-		    folio_test_pmd_mappable(page_folio(page))) {
-			pfn &=3D PMD_MASK >> PAGE_SHIFT;
-			return vmf_insert_pfn_pmd(vmf, pfn, vmf->flags & FAULT_FLAG_WRITE);
-		}
-
-If userspace mmaps the panthor GEM object, shrinks the VMA to a
-non-PMD-aligned size using munmap(), and triggers a page fault at a
-PMD-aligned address near the end before calling fork(), couldn't this cause=
- a
-VM_BUG_ON_VMA() in copy_pmd_range() or allow memory overlap?
-
-> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm=
-_gem_shmem_helper.c
-> index c989459eb2159..00807039f8d7d 100644
-> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> @@ -597,9 +597,13 @@ static vm_fault_t try_insert_pfn(struct vm_fault *vm=
-f, unsigned int order,
->  #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
->  	} else if (order =3D=3D PMD_ORDER) {
->  		unsigned long paddr =3D pfn << PAGE_SHIFT;
-> +		struct vm_area_struct *vma =3D vmf->vma;
-> +		unsigned long start =3D ALIGN_DOWN(vmf->address, PMD_SIZE);
-> +		unsigned long end =3D start + PMD_SIZE;
-> +		bool in_range =3D vma->vm_start <=3D start && end <=3D vma->vm_end;
->  		bool aligned =3D (vmf->address & ~PMD_MASK) =3D=3D (paddr & ~PMD_MASK);
-> =20
-> -		if (aligned &&
-> +		if (aligned && in_range &&
->  		    folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
->  			vm_fault_t ret;
-> =20
-> @@ -608,8 +612,10 @@ static vm_fault_t try_insert_pfn(struct vm_fault *vm=
-f, unsigned int order,
->  			 * .huge_fault(). Make sure we pass the "write" info
->  			 * along in that case.
->  			 * This also means we have to record the write fault
->  			 * here, instead of in .pfn_mkwrite().
->  			 */
-
-[Severity: High]
-This isn't a bug introduced by this patch, but are we improperly marking
-normal refcounted shmem folios as special?
-
-The try_insert_pfn() function uses raw PFN insertion helpers like
-vmf_insert_pfn_pmd() and vmf_insert_pfn() to map these folios. According to
-MM guidelines, this marks the folios with VM_PFNMAP and pte_special(), which
-hides them from vm_normal_page() and breaks GUP (get_user_pages) and refcou=
-nt
-tracking.
-
-Should this code use vmf_insert_folio() or vmf_insert_page() instead?
-
-> -			ret =3D vmf_insert_pfn_pmd(vmf, pfn,
-> -						 vmf->flags & FAULT_FLAG_WRITE);
-> +			ret =3D vmf_insert_pfn_pmd(vmf, pfn,
-> +						 vmf->flags & FAULT_FLAG_WRITE);
-> +			if (ret =3D=3D VM_FAULT_NOPAGE && (vmf->flags & FAULT_FLAG_WRITE))
-> +				drm_gem_shmem_record_mkwrite(vmf);
-
-[Severity: High]
-This is a pre-existing issue, but does drm_gem_shmem_record_mkwrite() calcu=
-late
-the page offset incorrectly when a VMA is split?
-
-In drm_gem_shmem_record_mkwrite() at line 576 (and also in
-drm_gem_shmem_any_fault() at line 640), the page offset is calculated relat=
-ive
-to the current VMA rather than the GEM object:
-
-	pgoff_t page_offset =3D vmf->pgoff - vma->vm_pgoff;
-	...
-	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
-
-If userspace partially unmaps the beginning of the VMA via
-munmap(vma->vm_start, PAGE_SIZE), the VMA split increments vma->vm_pgoff.
-Because vmf->pgoff - vma->vm_pgoff evaluates exactly to
-(vmf->address - vma->vm_start) >> PAGE_SHIFT, this completely ignores the
-split offset and accesses pages[0] for the new VMA instead of the correct
-shifted page.
-
-Could this cause mapping corruption by marking the wrong page dirty or
-exposing the wrong memory pages?
-
-> =20
->  			return ret;
->  		}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622215718.1532=
-689-1-lk@c--e.de?part=3D1
