@@ -4,138 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5470CDB46F
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 09:11:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09917CDB46B
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 09:11:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 461D210E58E;
-	Mon, 22 Jun 2026 09:11:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D60510E590;
+	Mon, 22 Jun 2026 09:11:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="J+QaSH2z";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="h2L+B98h";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="J+QaSH2z";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="h2L+B98h";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="sDRSJ0yD";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96C4C10E58E
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 09:11:04 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 11EF675B91;
- Mon, 22 Jun 2026 09:11:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782119463; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=M3oBiE9Md4+R04eweGOQRriPVKjOYkq8A1G9mu1OXUo=;
- b=J+QaSH2zR4eqpR6UEZD4WaL81gDrn+GizVKBki+g4irrMjjTxkpeIVXLoeG7W3Ww9A3eVA
- 54ArG/l5/kuZy6nsIBAcw09M//o8O10nHt93C7c6jwICMn3yKcY2EmvQOeGlgS/BfcOjX0
- Z3lPJiRHkTwNC8/NTIs2CjiOEf3RitA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782119463;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=M3oBiE9Md4+R04eweGOQRriPVKjOYkq8A1G9mu1OXUo=;
- b=h2L+B98hbh4/j3ad51Llfl83chE8lXyETAsPYJzJm6vdDNgJ6ks6VnLM19vOOky8o2+w0q
- 0VCrz+vluYT5TZDg==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=J+QaSH2z;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=h2L+B98h
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782119463; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=M3oBiE9Md4+R04eweGOQRriPVKjOYkq8A1G9mu1OXUo=;
- b=J+QaSH2zR4eqpR6UEZD4WaL81gDrn+GizVKBki+g4irrMjjTxkpeIVXLoeG7W3Ww9A3eVA
- 54ArG/l5/kuZy6nsIBAcw09M//o8O10nHt93C7c6jwICMn3yKcY2EmvQOeGlgS/BfcOjX0
- Z3lPJiRHkTwNC8/NTIs2CjiOEf3RitA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782119463;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=M3oBiE9Md4+R04eweGOQRriPVKjOYkq8A1G9mu1OXUo=;
- b=h2L+B98hbh4/j3ad51Llfl83chE8lXyETAsPYJzJm6vdDNgJ6ks6VnLM19vOOky8o2+w0q
- 0VCrz+vluYT5TZDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E2606779A8;
- Mon, 22 Jun 2026 09:11:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 72y0NSb8OGq0JQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 22 Jun 2026 09:11:02 +0000
-Message-ID: <10f7b889-9e4c-40cd-9aca-b545b9675a37@suse.de>
-Date: Mon, 22 Jun 2026 11:11:02 +0200
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012068.outbound.protection.outlook.com
+ [40.93.195.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EAA810E590;
+ Mon, 22 Jun 2026 09:11:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kLBvYEBJDAEDmjoeH5UWDEDUA6/qvUnNqGxaicNz6A5f/8+05G5tEWUNkyAf9bg5AdpLN9W8zJ7YjzRq/zsyAaU9g4Dwb3EhgC70KQofsNrknfJ3pwoxDjSW5mnSQIWo0xUkizuoNSj5YjXJ0ZEuTVUts9vn2o7d2pPkhBdYULo0H/xuTub3togTEgpxI+ig+n7TSWuE5npqaqmGcdzh8FPNqVmlkt8Mu4u6u8H6Pt5H0TZzyyODfzio5ZwN8byhYdk04teiZrhOOSgxr4LdOQWMTnDE03W3oM980cPXFir8WiRpHAEoKclEKGla+fRijZT1A377XVFaq524+eaBLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2naYSPjGSWDeIzFcV+o3A8T6GTCV0vUqwPHoDVu+BPs=;
+ b=LWWCLKoeKSTB5GG6ctfof2q7YCmmpMRyouDN6lOZ9907K6O/DVnMBc58+HiSvQ6kVSkaWHid6fvFPcJMH8C7QC3f8PGE7Y3cP92Sbgny8S7kyUK7wCwwgiOZ8eqeHrkjJdsEGO6+hPeUgDw7hV7DcSM+BKdzv1BCD+993yszLlZMn5XGmIyKayUU7bD/9lJB0xbHFVRTYD9e+Dlx5QrMvcB3exSo8QHWnuxL41ySgtEYvqR/QFBcXeqe9I02HS5d8zTtc8kruBd+vHuW2gjV+9Hpy25wpbLrtDndEKmdaXMHr5tZz+n+gagfpb4mRG5B4CKn13pBe4yNa1xrNFf8lg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2naYSPjGSWDeIzFcV+o3A8T6GTCV0vUqwPHoDVu+BPs=;
+ b=sDRSJ0yD02sN6ldqQgdVHVGCqK6HiiDbjnYnzRSwsCi3orysUNt94paRQKpbAl4/2SLxiKqBmASPi6vzzVcEQt6B+iyCYfYddCbIh3nmMJqitlrNbJywQmC1OZuyEOJBKVvkk3MCIbR2QD5JAPDQp8y0UqDhwEllMhk8b5Byv1EmqAABGHNghuoP4CIRy3VHkSC65nKTc/RF5w9gDKohPct5lRhIbiMpD43Yw4ppyhG1IUJcVycVZemoTl9ZGrPEam6EKdSKJF4TPY0bhp/6JTsUZrU47NvNQi2ZNZgje1lbe+ASuz257B2+cJx+En4Myi3zbCVcb6Ygl2/z2rZBDQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SN1PR12MB2368.namprd12.prod.outlook.com (2603:10b6:802:32::23)
+ by SA1PR12MB7341.namprd12.prod.outlook.com (2603:10b6:806:2ba::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Mon, 22 Jun
+ 2026 09:11:15 +0000
+Received: from SN1PR12MB2368.namprd12.prod.outlook.com
+ ([fe80::281e:52ee:b18e:ad42]) by SN1PR12MB2368.namprd12.prod.outlook.com
+ ([fe80::281e:52ee:b18e:ad42%7]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
+ 09:11:15 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 22 Jun 2026 18:11:07 +0900
+Message-Id: <DJFGMKY0BTPP.2ZSEYVTU5E04S@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH 01/13] gpu: nova-core: fsp: limit FSP receive message
+ allocation size
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260615-blackwell-fixes-v1-0-f2853e49ff7d@nvidia.com>
+ <20260615-blackwell-fixes-v1-1-f2853e49ff7d@nvidia.com>
+ <DJDXP9BBZB95.1TWARVNHKL0WE@nvidia.com>
+In-Reply-To: <DJDXP9BBZB95.1TWARVNHKL0WE@nvidia.com>
+X-ClientProxiedBy: TY4PR01CA0019.jpnprd01.prod.outlook.com
+ (2603:1096:405:2bf::9) To SN1PR12MB2368.namprd12.prod.outlook.com
+ (2603:10b6:802:32::23)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/fb_helper: Determine proper crtc_index within
- drm_fb_helper_fb_dirty
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- "H. Nikolaus Schaller" <hns@goldelico.com>, sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, Andreas Kemnade <akemnade@kernel.org>
-References: <5118b37e579cec220f2d2b6ab0bb1ecfb67f0d5c.1781803617.git.hns@goldelico.com>
- <20260618174310.70DB11F000E9@smtp.kernel.org>
- <50FDBC3B-BFC2-4BC6-B216-78C2C24D9E30@goldelico.com>
- <1c9e0e24-9c4a-4259-8700-cf9e5fd60ca3@suse.de>
- <8773121ff24730f0b4c2d0037132e4507380a77f.camel@iscas.ac.cn>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <8773121ff24730f0b4c2d0037132e4507380a77f.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- TO_DN_SOME(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_FIVE(0.00)[5];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[sashiko.dev:url,suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 11EF675B91
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2368:EE_|SA1PR12MB7341:EE_
+X-MS-Office365-Filtering-Correlation-Id: b6edb94f-cc35-4fab-a691-08ded03e365d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|366016|7416014|376014|10070799003|18002099003|22082099003|56012099006|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info: PlcihZAozqhT3fNBjVaAyzqqL6MK82+uTZX9jmT2S715uqb2wdMRsjdt9MiXjgg3XkrYIdnU94SO4HA7lQ1RjxROTbGcwguj+F3iVu9OORoHvFPEClA9c+fCpIspUmEu8kK5LymzJY6eDonQLIvb6nJgoBMbhJTo0pf0xZiFbUkiKvwMNzUabC0IkVxSP6Uj5DMgw+ujGgp9+7aVApyywys8WWVdfsrcbYDh1ZLhMnPcN3+nssB+meK2S9bMR3z/yIoSBIKbV/fqrJyYTkhSTiBR59xsBGgMU5mmGU2Bv2W4WZwP8yivuVT7tb9xkAko0T3L2UDrH/4wwRJbEchUE5m6Tgs7dIGWp4JRUSOVg4iWxkB703dllTYtGBKmmoiKbZYj9ZRM11ai9pfBPIVx2baxXQtOLpQjxG3GMqUD+ATrXZUh9pYGsZYJZ0DA+h+mTepCY4l0Sfv1BdrerZumQbM8hY+SJRzYWEefjzawp2DW2Oj9Y70Gi1u8j//I4KDosk0DSE82Yp65c2v4M5qOd2BJOQUckwy3hyPwvMxMOsP3UR6k64qk+vrMWqU1Fc2xg1U+1REc7jqTAQzzZ51wy/Gr7/01QYHpj59Y5T2jKjjaSCdpnZVsfXeN497iD3p6hysEgYMv5CKZbKr5Rz0dZ29Jupq8Gn5l2taCzx4Bfuw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN1PR12MB2368.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(10070799003)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WmppRXN2R2NjNS9EWHFrWG0vKzJJR0NTTVE4YXZxK3d3akRNZTdMaVc0NFdG?=
+ =?utf-8?B?YjFDL1UwSHlvbDFWbncrR2VueVhSMVFzeDBGMG1OS3ZWYVlwVEk2MCtRMWdI?=
+ =?utf-8?B?MW5aMmltaXFocnZ3MVZhdkVJeEhUcHVlekF4Y3gvTW9ZLzBMZ2p6WTRPWlhH?=
+ =?utf-8?B?ZCtXMDlsU1lzT1ZIYzFDRlZtMjV6bFF5dnhhSkxtWU9pd2dSY1plNGZBOGNZ?=
+ =?utf-8?B?TXhoSDQwSGt3eHcyVTBlM1FhdVY4ZnRZb0YwWUdLUUdFMVdIemZPWmh6RTVt?=
+ =?utf-8?B?ZExnMWdzM2ZLdVllWlZKbkNiV0dxNnRTSGxhODBJa0U2MjljbUhQVjVwS2tS?=
+ =?utf-8?B?STVoSElIVFlxejllUUtaYVYwK05kenU0ZjRnMkcrUDAyTlZvdk9MVnNTcThl?=
+ =?utf-8?B?VVYwMkgwSm1xOWhyRTRTOS9DUEVBamxkcFJWU3l5UGFxQ2JOalZEWEpoQ3lh?=
+ =?utf-8?B?MDBVUVprdEwyT1VIcGVGcTNXcXVCK2Q5RThrZXlEelB4RHVEOWxyRFVEWU5D?=
+ =?utf-8?B?bituc0RFOStmenZ5UU5xMzhwU2puN09ZZlJEWkk0ZVN4L0lycFpyK0N4V0hQ?=
+ =?utf-8?B?WUtESU5xaEs1OTBMSnZFRkIwbSt6RHpTaDBFSnkwd056Y080Yks0YlhKc0x5?=
+ =?utf-8?B?cE5rYmpNbVY5WnV1eWowMmVxaDV5MkFLcHJqSHY5anJqUFdXQjlZdW5NR09J?=
+ =?utf-8?B?ZVlzQlJTbGp4VHN3ZzI2V2l1S29oZXlRdXM4eEFaLzZLUUV5WkRqT1Y3Z1hR?=
+ =?utf-8?B?RTYvU2pmcjEwb1hzM2VFQkNpVTluc0JNVFNVUmVabXF1M2lUS09hSzA0ckpu?=
+ =?utf-8?B?Tkl6K2VUWTlPQzZHWXQvaCt1amZCTExPWDQxcEVWdEx0SGhpNmQvbUE2S1pU?=
+ =?utf-8?B?MWU4OG5jZ1JrOUVRWnIzN2ZZZ1hmU3dZVi9ZWTl2K2l1VHFHVU51d2Mxa2Fs?=
+ =?utf-8?B?MTdOUHg1UC9TMUxZalk3eTc5MFBKNXYrdHlxRno5ZDgxWTBXNFVuMER5a09t?=
+ =?utf-8?B?TWJpSmYwVC81ZWJGYm1QbUhJakJKU3hOSmhSS1lXcVVaczBCNVJQdmRJaFF6?=
+ =?utf-8?B?dlRPV0x5UHpSeGpzaFhIVzhTTWhDYzNPdXovU1VoZUljdDJnbFpGUEFJUFJX?=
+ =?utf-8?B?RFJLemZMT3E3MW95bk1Qa1pPSHczNjJWaXhKZ25iakRjeGtoclNIUkRjTGlV?=
+ =?utf-8?B?eFgwYVM1RDJ3SkJzMGJUT2dVSk5rQzhvWjEvWEgvNk5DU3RhWHlZd0pGOFpG?=
+ =?utf-8?B?YzYzbk8vRXZ5N0F3ZkFpUDdlRW16YklNV3NCNE9vckc4V0RWZVh6M0ZKY3RZ?=
+ =?utf-8?B?N3l0ZHc3bVhIZS95SlhRYzAvb0RqSndGWnJDVXZOU3o4S1hnV2d3MzBLZ1Zq?=
+ =?utf-8?B?d09LeVRsKzhZN010ODV6d0UxcmxsZEtzYUZkM2NDc1NvYjRJWHRBQnJrNjFy?=
+ =?utf-8?B?V3VlZFJvTWFQUHhWUkFaQTNlZWdZZWR1eU5LQldtN1BXZFd4bko2dFp0dFow?=
+ =?utf-8?B?WnVudHVEeURmV3RFbFdIZFFpRzlCUHJCSEZFaWExT0dMVTlaVnNVdHpCTWlS?=
+ =?utf-8?B?SkRjRGJDM25DODljanU4dERCVGVmUGFiSzBUU2YyUDFSd01TaGZYdno5R0tD?=
+ =?utf-8?B?S1JWSlJKaW5HYVVad254L1N6ckpBVUU2SkVhdGNRY3ZhTHRtVjEyeG9kMmhZ?=
+ =?utf-8?B?eHZNNHhTejUvVVZ2dHFJMzBzdkc0bzE1akV6ZmNxd3pQWHdvOVQvSFQ1WUZQ?=
+ =?utf-8?B?dUtJbWRCVk83M0F0T3Z1OVNXcit6RmpTUlZ4REZRT3RsSWRvelRqMkdqQ1Jl?=
+ =?utf-8?B?OGxuM0NIK2FNTTNnSHZ2WkRoc0p6NzNPWkFDQ01nUTNwaWRUWGJHaUVlTjZE?=
+ =?utf-8?B?NXVNcWV2bG1mMjhuL09IdHcyeXU5cHNjdzlBa0FlQzF3dWxZb3hWUlBIRm9Z?=
+ =?utf-8?B?Y0R3bW1MZ2V1Vy9la0Fzbzl3MXFVbnA0L29saHlkQ2tGT21PekF0ck9aa000?=
+ =?utf-8?B?UWVKb1JjejhUZG9ZTDdzWG8vbEtyU3E4YmgvbmYybmxSOThUaVBYRVY5cmhT?=
+ =?utf-8?B?Sno1b1lQU2F2ajhudE5GaHVhR3dCaHJoWEIrbThXNU9LMHRaWTN4c2pLYXM2?=
+ =?utf-8?B?V2k1UDFvQU5OemV6TGxFYVBBbUpucnhuZGczL2YyNnFEOHRlcDg4VUk4eExR?=
+ =?utf-8?B?SWpiM3l5QW4wT1k1eC9waDVKZXdWKzZBNnBTbXB1M2hnYlVSZnMzLzFkZ0U1?=
+ =?utf-8?B?d3hUZGN5bFFOMzdwNTNVMGUyU3k1cDhpWFBkVkxlWmowMFpFeUdCdVVZYi90?=
+ =?utf-8?B?dysxeHdSS0lWbzRxT0RkL1BqS1NNT2NDMGRJSWpjbnRVZ2ZXOXNDMFNyTEhj?=
+ =?utf-8?Q?/HV3nR13KbZ/mO0dENqJg4VUcMSkxSSqLh+3+fhujRrvf?=
+X-MS-Exchange-AntiSpam-MessageData-1: uj+EQ9OW1xTvtA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6edb94f-cc35-4fab-a691-08ded03e365d
+X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2368.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 09:11:15.4555 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OBrmWA5O+aqnzhujy6ahAeAQ247ZGzKNPjekQ1XYH2c1bAd2td6IQVfgA1pzfqnjtTDadHupyVF/GbVjvSodCg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7341
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,153 +148,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 19.06.26 um 18:59 schrieb Icenowy Zheng:
-> 在 2026-06-19五的 10:50 +0200，Thomas Zimmermann写道：
->> (cc Icenowy)
+On Sat Jun 20, 2026 at 11:08 PM JST, Alexandre Courbot wrote:
+> On Mon Jun 15, 2026 at 11:40 PM JST, Eliot Courtney wrote:
+>> Currently, the FSP receive message code will try to allocate whatever
+>> was sent without checking it at all. But the actual size allowed is
+>> limited to 1024 anyway, so discard any messages over that size as bogus.
 >>
->> Hi,
->>
->> there are a number of similar reports. Does the attached patch fix
->> the
->> problem. It picks up what you do, but in a more correct way.
-> Yes, this patch looks okay, but I wonder whether the crtc index query
-> should be done in drm_client_modeset_wait_for_vblank() instead.
-
-There's another call to this helper from the ioctl helper. It has a 
-lengthy comment about using CRTC 0 only and how these indices don't make 
-much sense with fbdev. I'll look into generalizing the code a bit, but 
-I'd rather not fully integrate the logic into 
-drm_client_modeset_wait_for_vblank().
-
-Best regards
-Thomas
-
+>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>> ---
+>>  drivers/gpu/nova-core/falcon/fsp.rs | 36 ++++++++++++++++++++++++------=
+------
+>>  1 file changed, 24 insertions(+), 12 deletions(-)
 >
-> I will test this patch this weekend.
+> This patch looks like it does two things:
 >
-> Thanks,
-> Icenow
+> - The size check, which is described in the commit log,
+> - Reset the message queue pointers even in case of failure, which is not.
 >
->> Best regards
->> Thomas
->>
->> Am 18.06.26 um 19:56 schrieb H. Nikolaus Schaller:
->>>> Am 18.06.2026 um 19:43 schrieb sashiko-bot@kernel.org:
->>>>
->>>> Thank you for your contribution! Sashiko AI review found 3
->>>> potential issue(s) to consider:
->>>> - [High] Lockless access to `crtc->state` and `crtc->primary-
->>>>> state` can lead to a Use-After-Free due to concurrent atomic
->>>> commits.
->>>> - [High] The patch breaks vblank synchronization for legacy (non-
->>>> atomic) DRM drivers.
->>>> - [Medium] The logic selects the first matching CRTC instead of
->>>> the last active one, contradicting the commit message.
->>>> --
->>>>
->>>> commit 0337b26b606b4d905d72ea2be31bcb984fe62c6e
->>>> Author: H. Nikolaus Schaller <hns@goldelico.com>
->>>>
->>>> drm/fb_helper: Determine proper crtc_index within
->>>> drm_fb_helper_fb_dirty
->>>>
->>>> This commit updates the dirty framebuffer worker to search for a
->>>> matching
->>>> active CRTC instead of hardcoding the wait for vblank to CRTC
->>>> index 0. It
->>>> aims to avoid vblank timeouts when CRTC 0 is inactive.
->>>>
->>>>> diff --git a/drivers/gpu/drm/drm_fb_helper.c
->>>>> b/drivers/gpu/drm/drm_fb_helper.c
->>>>> --- a/drivers/gpu/drm/drm_fb_helper.c
->>>>> +++ b/drivers/gpu/drm/drm_fb_helper.c
->>>> [ ... ]
->>>>> @@ -232,9 +232,23 @@ static void drm_fb_helper_fb_dirty(struct
->>>>> drm_fb_helper *helper)
->>>>> struct drm_clip_rect clip_copy;
->>>>> unsigned long flags;
->>>>> int ret;
->>>>> + unsigned int crtc_index = 0;
->>>>> + struct drm_crtc *crtc;
->>>>>
->>>>> mutex_lock(&helper->lock);
->>>>> - drm_client_modeset_wait_for_vblank(&helper->client, 0);
->>>>> +
->>>>> + drm_for_each_crtc(crtc, dev) {
->>>>> + if (crtc->primary && crtc->primary->state &&
->>>>> +    crtc->primary->state->fb == helper->fb &&
->>>>> +    crtc->state && crtc->state->active) {
->>>> [Severity: High]
->>>> Can this lockless access to crtc->state and crtc->primary->state
->>>> result in a
->>>> use-after-free?
->>> No idea...
->>>
->>>> The drm_fb_helper_fb_dirty() function holds helper->lock, but
->>>> does not hold
->>>> the DRM modeset locks required to protect these state pointers.
->>>> During a
->>> Which locks are exactly recommended to add? What is their
->>> name/pointer?
->>>
->>>> concurrent atomic modeset commit, the DRM core allocates new
->>>> state objects,
->>>> swaps them into place, and frees the old objects via kfree().
->>>>
->>>> If this code reads an old state pointer and gets preempted, could
->>>> it then
->>>> dereference the pointer after it has been freed by the concurrent
->>>> commit?
->>>>
->>>> [Severity: High]
->>>> Does this break vblank synchronization for legacy non-atomic DRM
->>>> drivers?
->>>> Legacy drivers do not use the atomic modesetting infrastructure,
->>>> so their
->>>> crtc->state and crtc->primary->state pointers remain NULL. Since
->>>> the condition
->>>> above requires these pointers to be non-NULL, the loop will skip
->>>> the vblank
->>>> wait entirely for legacy drivers. This skips the intended rate-
->>>> limiting
->>>> behavior and could lead to unbounded damage worker execution.
->>> What is the solution? And is this important.
->>>
->>> Before d8c4bddcd8bcb ("drm/fb-helper: Synchronize dirty worker with
->>> vblank")
->>>
->>> there was also no rate-limiting behavior.
->>>
->>>>> + crtc_index = drm_crtc_index(crtc) + 1;
->>>>> + break;
->>>> [Severity: Medium]
->>>> The commit message states "If multiple CRTCs match, the last
->>>> active one is
->>>> selected." Does the break statement here cause the first active
->>>> CRTC to be
->>>> selected instead, bypassing the remaining matches in the list?
->>> Yes, that is correct. The description is indeed wrong.
->>>
->>>>> + }
->>>>> + }
->>>>> +
->>>>> + if (crtc_index > 0)
->>>>> + drm_client_modeset_wait_for_vblank(&helper->client,
->>>>> crtc_index - 1);
->>>>> +
->>>>> mutex_unlock(&helper->lock);
->>>> -- 
->>>> Sashiko AI review ·
->>>> https://sashiko.dev/#/patchset/5118b37e579cec220f2d2b6ab0bb1ecfb67f0d5c.1781803617.git.hns@goldelico.com?part=1
+> That second item also makes the diff a bit difficult to read. Could you
+> split the reset-on-error behavior into its own patch?
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+Yeah agreed. And actually I am not even sure if this is a good idea
+anymore. I originally did this because if we get a really big message
+then it's unrecoverable unless you reset the pointers, but I think we
+probably want to give up in that case anyway. Let me update this patch
+to just do the oversized message checks.
