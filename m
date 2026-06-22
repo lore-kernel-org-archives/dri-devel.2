@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E311CDB46F
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 09:45:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BFC9CDB46F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 09:45:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D45310E5CB;
-	Mon, 22 Jun 2026 09:45:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C14710E5C7;
+	Mon, 22 Jun 2026 09:45:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H7Z5h8QV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ke7r9MLf";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74F4110E5CD
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 09:45:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91C8B10E5BD
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 09:45:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DE5F340050;
- Mon, 22 Jun 2026 09:45:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB72F1F000E9;
- Mon, 22 Jun 2026 09:45:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7B07A439EB;
+ Mon, 22 Jun 2026 09:45:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C6661F00A3A;
+ Mon, 22 Jun 2026 09:45:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782121541;
- bh=camQzgX11b9RtBketnhIwhWiN/pUYT4PY/SigoZT4oE=;
+ s=k20260515; t=1782121549;
+ bh=KbqDbO/6Da+smogL0j1WQvfUcASLT2JRLggY+SRaKWY=;
  h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=H7Z5h8QV+Sgm23uxmGgab/3yuerJJ1o84Q5vIkNHMPGKE124NDuRJcJQbp9uqpnvf
- 4heRmTjxC+6YaMZxQnMPNnz6z6n25qWsk6+B73HtLKm5PERaHOzZHnVabMRED5DAS5
- 10gh5H1eiG2pqQh6dAyzxKa5LwBXYYVqUOvpRo5jiI/A7e0UCyLCRuLUOqzv0VXcxG
- PWqsUdkNzMZ1YFudTQqXkqsyEPR9GKa8Rks7oRyGSNGQJFW1fyJI+aYYG9Y+zv0gXI
- YTA9qyBvazvUO5Eghahxj39TkvpGrXeX45cP6kGuiUr39wt6bRzLfncfFk7GdVes8E
- ATuJiK+e2T7+Q==
+ b=ke7r9MLfedUaZyoTCtG7sAu/d9pO1Gom3CHm8tWeA3mVTQ3A0svce8Ru4ScauJjdV
+ 6TOardpjckqB/TUSW7BB8kkig4hfNIBOAXFZ0IaUEAkFwj59Jn2QgrdrzUVI9Oalyi
+ F/jJ6WN9e8wnLlZN0r/hyCaXEg1hlSaBamvZFH7N06eFWZzSvFUp5UajoD1tFwij5L
+ IgRUYaQHeIhTXpwoDVIy6dOrT0bELUVp52mNoCPFKrxrXBzcJ8EdNnSBuH2qVOA1rY
+ U2QXbh+J3lZ7YKhslLZQZ/b7lJHUXWXFPEsyjU8izoMS5FcygtohzQxTWT6IrG6pSO
+ 1xh+mOqiV4Rqg==
 From: Andreas Hindborg <a.hindborg@kernel.org>
 To: Alvin Sun <alvin.sun@linux.dev>, Miguel Ojeda <ojeda@kernel.org>, Boqun
  Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6r?=
@@ -50,13 +50,13 @@ Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
  nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org,
  kunit-dev@googlegroups.com, linux-block@vger.kernel.org,
  linux-kernel@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
-Subject: Re: [PATCH v3 5/6] rust: miscdevice: set fops.owner from driver
- module pointer
-In-Reply-To: <20260622-fix-fops-owner-v3-5-49d45cb37032@linux.dev>
+Subject: Re: [PATCH v3 1/6] rust: module: add `THIS_MODULE` const to
+ `ModuleMetadata` trait
+In-Reply-To: <20260622-fix-fops-owner-v3-1-49d45cb37032@linux.dev>
 References: <20260622-fix-fops-owner-v3-0-49d45cb37032@linux.dev>
- <20260622-fix-fops-owner-v3-5-49d45cb37032@linux.dev>
-Date: Mon, 22 Jun 2026 11:38:33 +0200
-Message-ID: <87mrwmewyu.fsf@t14s.mail-host-address-is-not-set>
+ <20260622-fix-fops-owner-v3-1-49d45cb37032@linux.dev>
+Date: Mon, 22 Jun 2026 11:44:36 +0200
+Message-ID: <87h5muewor.fsf@t14s.mail-host-address-is-not-set>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,9 +76,16 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Alvin Sun <alvin.sun@linux.dev> writes:
 
-> Set the miscdevice fops owner field from the driver module pointer
-> via the `this_module::<T::OwnerModule>()` helper, instead of
-> defaulting to null.
+> Since `const_refs_to_static` has been stable as of the MSRV bump, a
+> `ThisModule` pointer can now be used in const contexts.
+>
+> Add a `THIS_MODULE` const to the `ModuleMetadata` trait so that modules
+> can provide their `ThisModule` pointer in const contexts such as static
+> `file_operations`.
+>
+> Move the `THIS_MODULE` static from the `module!` macro into the
+> `ModuleMetadata` impl, add a `this_module()` helper, and update `__init`
+> to use it.
 >
 > Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 
