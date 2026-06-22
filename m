@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F643CD98F2
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 19:41:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFA46CDB466
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 19:58:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39F6910E7E4;
-	Mon, 22 Jun 2026 19:41:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2099B10E844;
+	Mon, 22 Jun 2026 19:58:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mYATQ9io";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q9+6/JXB";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54BA510E7E4
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 19:41:44 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1F8C10E844
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 19:58:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8C7AF601F3;
- Mon, 22 Jun 2026 19:41:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 228451F000E9;
- Mon, 22 Jun 2026 19:41:43 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5D5B643874;
+ Mon, 22 Jun 2026 19:58:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C9BF1F000E9;
+ Mon, 22 Jun 2026 19:58:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782157303;
- bh=ev1es4hTmKfw06JQVhllEegKEEaCvR+Zx8NKVJoUQ9g=;
+ s=k20260515; t=1782158335;
+ bh=t2jWJVLGbMeZuw5g05GSEshHfmBNSTOCLrmTrMdg0WI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mYATQ9iotijk7lzEDfWVmUtlSrhcifb0Pkoc1JsnrAi8IqmpPa6kgCboFUIZGyoRl
- o1FPxkTzMBvfsDuMUxhCCvedP0nIodjDF3YYuY23KR5D1dW4efp9BKZM8WEJEAxw7F
- ukn7COC6huXsFF612KMDc6uwFGjGVOTyEyC/FU7MC7rogFAT7V7WLPJPkrlzl1iuoo
- ktTZTS+2dp1t/eXomnRDwcVuF7KYxawxrnpbd80WHS1X8pktWmc/K6q5tXukezTuJR
- 404uaFUnrwZ+NPDsdqSxO3y0FPRoTLi9txevxSxmMg/mAdFUn18vDwaqwqH3/y3wNu
- QQaj4xt06Peqg==
+ b=Q9+6/JXBB5WnXK1MtwqeWaMna6WSEYo0bgVhwojrOAy0OtyfmIGRexp7PP/h9NHPk
+ qzAouXjcDZa8vTKDdjsBHkqP19PCV4gTvHFtVbyi9yahJrhYJ0jOuWIfy3kgdd75mi
+ K3vxSYvDFtT6d/0X2wRLyFYQGYQYUG0VhhxrJV8xdoNvwVLWoW11voV5mWeR3MvicJ
+ wv/JqeKipZ8IP8t04yhwItil6RZTwb/CRB48dK8he63sStTQkbEiZnbA3e8nhwipH+
+ 6QWYWC+piUxUMkypIczihcRljA6++9FacGBGQ0RDpSbd9uUwM6BXpRKpyIfLGT7BTd
+ EkgKE5J307Nrg==
 From: sashiko-bot@kernel.org
 Subject: Re: [PATCH] GPU: drm: meson: inline call to drm_simple_encoder_init()
 To: "Liam Zuiderhoek" <zuiderhoekl@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260622193250.211429-1-zuiderhoekl@gmail.com>
-References: <20260622193250.211429-1-zuiderhoekl@gmail.com>
+In-Reply-To: <20260622194649.218419-1-zuiderhoekl@gmail.com>
+References: <20260622194649.218419-1-zuiderhoekl@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 22 Jun 2026 19:41:42 +0000
-Message-Id: <20260622194143.228451F000E9@smtp.kernel.org>
+Date: Mon, 22 Jun 2026 19:58:54 +0000
+Message-Id: <20260622195855.1C9BF1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,13 +56,17 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] The patch introduces a duplicate definition of the `drm_simple_enco=
-der_funcs_cleanup` structure, causing a build failure.
+
+Pre-existing issues:
+- [High] The DRM bridge is added to the global bridge list but is not remov=
+ed on subsequent error paths, leading to a Use-After-Free.
+- [High] The devm-managed encoder is registered to the DRM device, causing =
+a Use-After-Free on unbind if the DRM device outlives the platform device.
 --
 
-commit 2bbec9d596493f3ca9a28c3ddb628d5753d83aa2
+commit 38b3bb11e881972fb31cc13c9266c01adfa5805b
 Author: Liam Zuiderhoek <zuiderhoekl@gmail.com>
 
 GPU: drm: meson: inline call to drm_simple_encoder_init()
@@ -73,30 +77,59 @@ and a custom cleanup struct.
 
 > diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm=
 /meson/meson_encoder_hdmi.c
-> index 55c0601df3c62..f4100e23dd270 100644
+> index 55c0601df3c62..0dd3a76ad959e 100644
 > --- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
 > +++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-> @@ -44,9 +44,17 @@ struct meson_encoder_hdmi {
->  	struct cec_notifier *cec_notifier;
->  };
-> =20
-> +static const struct drm_encoder_funcs drm_simple_encoder_funcs_cleanup =
-=3D {
-> +	.destroy =3D drm_encoder_cleanup,
-> +};
-> +
->  #define bridge_to_meson_encoder_hdmi(x) \
->  	container_of(x, struct meson_encoder_hdmi, bridge)
-> =20
-> +static const struct drm_encoder_funcs drm_simple_encoder_funcs_cleanup =
-=3D {
-> +	.destroy =3D drm_encoder_cleanup,
-> +};
 
-[Severity: Low]
-Does this code cause a compiler error? It appears that the static structure
-drm_simple_encoder_funcs_cleanup is defined twice in the same file.
+[ ... ]
+
+> @@ -407,8 +411,9 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
+>  	meson_encoder_hdmi->priv =3D priv;
+> =20
+>  	/* Encoder */
+> -	ret =3D drm_simple_encoder_init(priv->drm, &meson_encoder_hdmi->encoder,
+> -				      DRM_MODE_ENCODER_TMDS);
+> +	ret =3D drm_encoder_init(priv->drm, &meson_encoder_hdmi->encoder,
+> +			       &drm_simple_encoder_funcs_cleanup,
+> +			       DRM_MODE_ENCODER_TMDS, NULL);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does registering a devres
+managed encoder with the DRM device cause a use-after-free during unbind?
+
+The encoder structure is allocated earlier using devres:
+
+	meson_encoder_hdmi =3D devm_drm_bridge_alloc(priv->dev, ...);
+
+It is then initialized and registered into the DRM device's mode config list
+here. If the driver is unbound and the platform device is destroyed, devres
+will free the encoder memory. However, if userspace holds an open DRM file
+descriptor, the DRM device outlives the platform device.
+
+When the file descriptor is later closed and the DRM device is finally
+destroyed, drm_mode_config_cleanup() will attempt to call the .destroy
+callback on the freed encoder memory.
+
+>  	if (ret) {
+>  		dev_err_probe(priv->dev, ret, "Failed to init HDMI encoder\n");
+>  		goto err_put_node;
+
+[Severity: High]
+This is a pre-existing issue, but does this error path lead to a
+use-after-free?
+
+Earlier in meson_encoder_hdmi_probe(), the bridge is added to the global
+bridge list:
+
+	drm_bridge_add(&meson_encoder_hdmi->bridge);
+
+If drm_encoder_init() fails, we jump to err_put_node, which returns without
+calling drm_bridge_remove(). The devres cleanup will then free
+meson_encoder_hdmi, leaving a dangling pointer in the DRM core's global
+bridge list.
+
+>  	}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622193250.2114=
-29-1-zuiderhoekl@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622194649.2184=
+19-1-zuiderhoekl@gmail.com?part=3D1
