@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FF98CD98F2
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 20:38:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B4C4CDB475
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 21:03:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA7AD10E85E;
-	Mon, 22 Jun 2026 20:38:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5139E10E314;
+	Mon, 22 Jun 2026 21:03:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="G8Z2fknl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k4wio2Jh";
 	dkim-atps=neutral
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0396210E85E
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 20:38:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
- Reply-To:Content-ID:Content-Description;
- bh=yBPsbI4EYXmStV1slUm9ol2RoVm6krMqzl8qxSyD/+A=; t=1782160694; x=1783370294; 
- b=G8Z2fknlC/XAC6BdSdhUxCUBdUfj/ooeT3PCp4xnw1pr4n8K8Mfi2HOK9bi3N5czv9tCt3USIBt
- ph+BKSh77Gkld/VZ9SA/Z4uDT3OOO1h7vlCEQt8Gx5y8U1FQnBJPZh6rwVSAD3ccFkgLrwr14sTpQ
- oaVRfypZSFkO+9ijkjPeKghE8BNq3t9qlNcbP9qM/x71R2489ijKkjXmjexgRbJqMO5zGrl+FX3Lp
- 9+3Miu6ncnM84At5Tc5aqfzcpRys/mkhhvXr5Flpd1reDxVzEaft3kwyU088+Q9f+JaniVMkB0JZM
- QNrSxmcfkaFLvbcWf/dpaIleSDOjq0ThDd7A==;
-Date: Mon, 22 Jun 2026 22:37:54 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dave
- Stevenson <dave.stevenson@raspberrypi.com>
-Subject: Re: [PATCH v3 07/13] drm/bridge: tc358762: Update comment about the
- number of lanes
-Message-ID: <20260622223754.65f3ce97@kemnade.info>
-In-Reply-To: <8efe44d7-3864-45cb-bd79-f25f573b6432@ideasonboard.com>
-References: <20260513-tc358762-fixes-v3-0-6698b55008b9@ideasonboard.com>
- <20260513-tc358762-fixes-v3-7-6698b55008b9@ideasonboard.com>
- <20260529203424.72199881@kemnade.info>
- <8efe44d7-3864-45cb-bd79-f25f573b6432@ideasonboard.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC61B10E314
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 21:03:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 54CCB440DD;
+ Mon, 22 Jun 2026 21:03:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 067231F000E9;
+ Mon, 22 Jun 2026 21:03:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782162184;
+ bh=d6lKqpalFTpc0qx48Y3a+XrmMGn1yQwsZp9Dj+auQHc=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=k4wio2Jhdpjb74Ar8WeFUpruVWMmqR3pAhH6RCtnBruIoMFRjDZHcysDRykC+1QFM
+ vLCmbIAFn2859e7DU/kJgp7J49eXDL5bqSnunkoNCWszcWa2LLi7OsYfFEWbmaMOXw
+ TUCXMR+Rd4bKeE1x9c2a735uPy/zG7O45H250F8SijeFge1qdpsq0Axng8YwplHuJR
+ d9FMpibn4JTWJNXKJGJuIujhRUjT2ge+NCN/Un5/WL8lJJH0KjrCXYdqkS1afRZRdB
+ nL0LQRe08UDlfsWTOA8Rqy1pG83fYHn9SXZX/J88lOqej/uBmhi7k9YL7fuuRk2P/h
+ q8yAeaM088OWw==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 22 Jun 2026 23:02:59 +0200
+Message-Id: <DJFVRMR67B0W.2AJBHU1PWDPFT@kernel.org>
+Subject: Re: [PATCH] gpu: nova-core: parse structs via zerocopy
+Cc: "Alistair Popple" <apopple@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alexandre
+ Courbot" <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Shuah
+ Khan" <skhan@linuxfoundation.org>, "Simona Vetter" <simona@ffwll.ch>, "Gary
+ Guo" <gary@garyguo.net>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "Tamir Duberstein" <tamird@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ <linux-kernel@vger.kernel.org>, <linux-kernel-mentees@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>
+To: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260621143647.264770-1-nico.antinori.7@gmail.com>
+ <ajjj1yyMcrCA8H19@nvdebian.thelocal> <DJFUZJYZHOT1.M74T83PJE8GM@gmail.com>
+In-Reply-To: <DJFUZJYZHOT1.M74T83PJE8GM@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,68 +65,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 22 Jun 2026 10:31:35 +0300
-Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
+On Mon Jun 22, 2026 at 10:26 PM CEST, Nicol=C3=A1s Antinori wrote:
+> I did my work on rust-next [1] because drm-rust-next does not have the
+> zerocopy crate present yet [2]. linux-next contains both zerocopy [3]=20
+> and the new users of transmute::FromBytes if I am not mistaken (BitToken,
+> PciRomHeader, and PmuLookupTableEntry), so I can make the changes there.
 
-> Hi,
-> 
-> On 29/05/2026 21:34, Andreas Kemnade wrote:
-> > On Wed, 13 May 2026 16:10:16 +0300
-> > Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
-> >   
-> >> Update comment about the number of lanes.
-> >>
-> >> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> >> ---
-> >>   drivers/gpu/drm/bridge/tc358762.c | 9 ++++++++-
-> >>   1 file changed, 8 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-> >> index 7840ab3454f6..c5734c4df440 100644
-> >> --- a/drivers/gpu/drm/bridge/tc358762.c
-> >> +++ b/drivers/gpu/drm/bridge/tc358762.c
-> >> @@ -306,7 +306,14 @@ static int tc358762_probe(struct mipi_dsi_device *dsi)
-> >>   	ctx->dev = dev;
-> >>   	ctx->pre_enabled = false;
-> >>   
-> >> -	/* TODO: Find out how to get dual-lane mode working */
-> >> +	/*
-> >> +	 * When using DSI clk for pixel clock (only mode supported in the driver),
-> >> +	 * the pclk is derived directly from the DSI byteclk via simple divider,
-> >> +	 * which is either 2 or 3.
-> >> +	 * The required divider can be calculated with bitspp / 8 / nlanes. Thus,
-> >> +	 * for RGB888, only nlanes = 1 works as nlanes = 2 would require divider
-> >> +	 * of 1.5.
-> >> +	 */
-> >>   	dsi->lanes = 1;
-> >>   	dsi->format = MIPI_DSI_FMT_RGB888;
-> >>   	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-> >>  
-> > wondering: I am using lanes = 2 and RGB888. But I need to write something to
-> > SYSPLL3 register. Which somehow is sensitive to write to.... Do you have any
-> information about that register?  
-> If you have an external refclk, then you can use the tc358762 pll to 
-> generate the clock, which I guess you are using. SYSPLL3 configures some 
-> parts of the PLL, and the doc says the write to SYSPLL3 must be the last 
-> in the sequence.
->
-Thanks for that explaination. Your comment in the code is really helpful.
+The drm-rust tree is a bit special, as it remains open for contributions ev=
+en
+after it has been tagged for inclusion into Linus's (including throughout t=
+he
+merge window). However, all changes staged in drm-rust-next are not going i=
+nto
+linux-next until -rc1 is released.
 
-I have anly a 22 page datasheet and I know only that the reference clock 
-can be 6-40Mhz from that datasheet and the pixclock is 41600 according to
-drm_display_mode struct.
-I know the value which works is 0xB8640000.
+IOW, until -rc1 is released this may or may not resolve all conflicts with
+drm-rust-next. Once -rc1 is released, it is backmerged into drm-rust-next a=
+nd
+drm-rust-next is picked up by linux-next again.
 
-I am asking all this since I want to upstream the display support for the
-Epson Movero BT-200. The vendor kernel is 3.0. It is an old-style omapfb
-display driver there. I converted it to a modern drm panel driver
-with integrated bridge handling and now I am investingating how to use the
-bridge driver together with a separate panel driver.
+Usually all of this remains rather transparent to contributors, but you hit=
+ the
+case of using a new feature introduced through another tree before drm-rust=
+-next
+caught up with Linus's tree (which will happen next Sunday).
 
-The clean way would be to define the input clock, and add code to 
-calculate pll parameters. But without information, probably the
-best way is to adjust magic numbers based on
-if (of_machine_is_compatible())
+Before drm-rust-next caught up, this patch can't be applied anyways, so all
+good.
 
-Regards,
-Andreas
+> I am fairly new to kernel development, I apologize for the mix-up.
+
+No worries, you did nothing wrong; thanks for the contribution!
+
+- Danilo
