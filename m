@@ -4,67 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04B18CDB470
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 13:57:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF040CD98F2
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 14:23:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4785110E0C9;
-	Mon, 22 Jun 2026 13:57:40 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h6jCfbKX";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22F3510E700
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 13:57:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0A71F43E2C;
- Mon, 22 Jun 2026 13:57:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E91151F000E9;
- Mon, 22 Jun 2026 13:57:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782136658;
- bh=CYt/5Q9wC22TpyC2hwnohHNnEJLHfU3qajK8+GnOgDY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=h6jCfbKX/KIMhr10OotZiT8v4wHK/xpzHoCIq/nEMvYswq6jh9XqD9OL1iedLDoLv
- jSr7W+yoM6QPH71MBWpdgq4CggpY4zxu1UMC+wmqY4mkRqN9FzVwB6Tkk/C3Is9noB
- V0XyVELa7o7rMYlcA+WZEysxWipJpo1KhOPwQA3+mPCPMyCEvGy59rA2N1g4qzwsxO
- wilN6xL28IIugn7456EYor9MkCVOMYYxTtI1Lp2r6UaGlv7VV77uSs1XCKAd/f46+0
- 2O9bf7khpGkxuQp2UXjOgTXRflGGCWX8F86kKT/byuu7V4CMblp7AOuqZILReDZl+V
- X4sJGpjmZmgFQ==
-From: Philipp Stanner <phasta@kernel.org>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Asahi Lina <lina+kernel@asahilina.net>,
- Matthew Maurer <mmaurer@google.com>, Lorenzo Stoakes <ljs@kernel.org>,
- Joel Fernandes <joelagnelf@nvidia.com>, Burak Emir <bqe@google.com>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Krishna Ketan Rai <prafulrai522@gmail.com>,
- Tamir Duberstein <tamird@kernel.org>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- Eliot Courtney <ecourtney@nvidia.com>,
- Mirko Adzic <adzicmirko97@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Shankari Anand <shankari.ak0208@gmail.com>
-Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org
-Subject: [PATCH v4 5/5] MAINTAINERS: Add entry for Rust dma-buf
-Date: Mon, 22 Jun 2026 15:56:53 +0200
-Message-ID: <20260622135654.334961-7-phasta@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260622135654.334961-2-phasta@kernel.org>
-References: <20260622135654.334961-2-phasta@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04B3510E263;
+	Mon, 22 Jun 2026 14:23:14 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6743F10E263;
+ Mon, 22 Jun 2026 14:23:12 +0000 (UTC)
+Received: from localhost.localdomain (unknown [117.182.74.238])
+ by APP-01 (Coremail) with SMTP id qwCowADHa9RMRTlqc07AAg--.26720S2;
+ Mon, 22 Jun 2026 22:23:10 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH v2] drm/amdgpu: fix cleaner shader IB size and entity cleanup
+Date: Mon, 22 Jun 2026 22:23:05 +0800
+Message-Id: <20260622142305.45791-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qwCowADHa9RMRTlqc07AAg--.26720S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxur1fJFW3WF43ZrWfJr15XFb_yoW5Wr18pF
+ 4Fqr45Jr4UZ3W3Kw1UZ3WDWrn0q3s7Xa4fWr429w109an8XFn5Wa47GFy0grykurW8CFW2
+ g34qq3y7W3ZFyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+ 6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+ 0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y
+ 0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+ WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
+ IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbSfO7UUUU
+ U==
+X-Originating-IP: [117.182.74.238]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAYGA2o5ItJfpgABsU
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,52 +61,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rust does now have abstractions for dma_fence. These abstractions are
-quite complicated and require expertise with both the C and the Rust
-side. Therefore, using the existing entry also for maintenance of the
-Rust code appears reasonable.
+Fix two issues in amdgpu_gfx_run_cleaner_shader_job():
 
-Philipp volunteers to help maintain the dma_fence abstractions. Add a
-corresponding MAINTAINERS entry.
+1. IB buffer overflow: The indirect buffer is hardcoded to 64 bytes,
+   but the initialization loop writes up to (align_mask + 1) dwords.
+   On modern GFX rings with align_mask = 0xff, this writes 1024 bytes,
+   overflowing the 64-byte allocation and corrupting memory.
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
-Acked-by: Christian König <christian.koenig@amd.com>
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+2. Scheduler entity leak: The drm_sched_entity is not cleaned up on
+   the error path after amdgpu_job_alloc_with_ib() fails.
+
+Fix by:
+- Dynamically calculating IB size based on ring->funcs->align_mask
+- Adding drm_sched_entity_destroy() to the error path
+
+Cc: stable@vger.kernel.org
+Fixes: d361ad5d2fc0 ("drm/amdgpu: Add sysfs interface for running cleaner shader")
+Fixes: 256576ed6895 ("drm/amdgpu: give each kernel job a unique id")
+Fixes: 559a285816af ("drm/amdgpu: Replace 'amdgpu_job_submit_direct' with 'drm_sched_entity' in cleaner shader")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- MAINTAINERS | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 4ae6919454c3..ef2cb1173c66 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -7535,6 +7535,7 @@ F:	fs/dlm/
- DMA BUFFER SHARING FRAMEWORK
- M:	Sumit Semwal <sumit.semwal@linaro.org>
- M:	Christian König <christian.koenig@amd.com>
-+M:	Philipp Stanner <phasta@kernel.org>
- L:	linux-media@vger.kernel.org
- L:	dri-devel@lists.freedesktop.org
- L:	linaro-mm-sig@lists.linaro.org (moderated for non-subscribers)
-@@ -7548,6 +7549,8 @@ F:	include/linux/dma-buf.h
- F:	include/linux/dma-buf/
- F:	include/linux/dma-resv.h
- F:	rust/helpers/dma-resv.c
-+F:	rust/helpers/dma_fence.c
-+F:	rust/kernel/dma_buf/
- K:	\bdma_(?:buf|fence|resv)\b
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index b8ca876694ff..b50ec1a5c645 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1651,6 +1651,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+ 	struct amdgpu_job *job;
+ 	struct amdgpu_ib *ib;
+ 	void *owner;
++	unsigned int ib_size;
+ 	int i, r;
  
- DMA GENERIC OFFLOAD ENGINE SUBSYSTEM
-@@ -8536,7 +8539,9 @@ T:	git https://gitlab.freedesktop.org/drm/rust/kernel.git
- F:	drivers/gpu/drm/nova/
- F:	drivers/gpu/drm/tyr/
- F:	drivers/gpu/nova-core/
-+F:	rust/helpers/dma_fence.c
- F:	rust/helpers/gpu.c
-+F:	rust/kernel/dma_buf/
- F:	rust/kernel/drm/
- F:	rust/kernel/gpu.rs
- F:	rust/kernel/gpu/
+ 	/* Initialize the scheduler entity */
+@@ -1658,7 +1659,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+ 				  &sched, 1, NULL);
+ 	if (r) {
+ 		dev_err(adev->dev, "Failed setting up GFX kernel entity.\n");
+-		goto err;
++		return r;
+ 	}
+ 
+ 	/*
+@@ -1668,8 +1669,15 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+ 	 */
+ 	owner = (void *)(unsigned long)atomic_inc_return(&counter);
+ 
++	/*
++	 * Allocate IB with enough space for align_mask + 1 dwords.
++	 * The initialization loop below writes exactly this many dwords.
++	 * Each dword is 4 bytes.
++	 */
++	ib_size = (ring->funcs->align_mask + 1) * sizeof(uint32_t);
++
+ 	r = amdgpu_job_alloc_with_ib(ring->adev, &entity, owner,
+-				     64, 0, &job,
++				     ib_size, 0, &job,
+ 				     AMDGPU_KERNEL_JOB_ID_CLEANER_SHADER);
+ 	if (r)
+ 		goto err;
+@@ -1686,8 +1694,6 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+ 	f = amdgpu_job_submit(job);
+ 
+ 	r = dma_fence_wait(f, false);
+-	if (r)
+-		goto err;
+ 
+ 	dma_fence_put(f);
+ 
+@@ -1696,6 +1702,8 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+ 	return 0;
+ 
+ err:
++	/* Clean up the scheduler entity */
++	drm_sched_entity_destroy(&entity);
+ 	return r;
+ }
+ 
 -- 
-2.54.0
+2.39.5 (Apple Git-154)
 
