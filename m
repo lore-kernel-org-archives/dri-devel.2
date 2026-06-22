@@ -4,118 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 367D4CD98F2
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 20:37:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FF98CD98F2
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 20:38:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66CC310E308;
-	Mon, 22 Jun 2026 20:37:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA7AD10E85E;
+	Mon, 22 Jun 2026 20:38:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="ftenAF2p";
+	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="G8Z2fknl";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6A1C10E308;
- Mon, 22 Jun 2026 20:37:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782160644; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=NbZ03RwDUpsPUGMBrvUdLdu9YwvBtwbJnzp1KGgnOw8bmxFm308mN3AT9TQxGf0hTvg6NQG4C2vMqEG28Kk9TYtSAwUBIsPuLMENiboDJ821z6UtEvkeDwz5+Jcm+re9M7ZFaWtEkR9uOKdar4YVHKXBp3rQHmkoCuJ+yoWpc4o=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1782160644;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=mN91JuTXlP9yH/fF2WAYmfPvIPkIj7NLhNIGrphtGFQ=; 
- b=cdn/QOUYXHEVxnnOG0Xz+v5hgIFdWmFnUWGGBrXE0BkN+/Y/SSTnkF8DIdXeHmsun1N1bTnfVSATEUntE3qlia7Tu2OXutygr1K/pScuMkRUqb8jzru748kl9eSG9NgAF6EAKY/Eq7kqq5AHGgy4zYxnRNwUhOnHfiaIKQmZ7Ec=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
- dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782160644; 
- s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=mN91JuTXlP9yH/fF2WAYmfPvIPkIj7NLhNIGrphtGFQ=;
- b=ftenAF2pLAzRlyNVRan8mKVLwnie2DhUAR+YqxoXAcc93rbXBpyH//u6VQz6uvu5
- NVnB16FfAhcMzP72FH86ULWAFvMa3rYocIFntWDDFHxLa7uuG26U7HA2MLbmUYNgfOb
- uJogOLlRuf0JNK3ahPODVSRWU84ISRiZWge9esxY=
-Received: by mx.zohomail.com with SMTPS id 1782160642993247.28556327964736;
- Mon, 22 Jun 2026 13:37:22 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
- id 6EF1E1824A2; Mon, 22 Jun 2026 22:37:11 +0200 (CEST)
-Date: Mon, 22 Jun 2026 22:37:11 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney@redhat.com>, Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Sam Protsenko <semen.protsenko@linaro.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Inki Dae <inki.dae@samsung.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Andi Shyti <andi.shyti@kernel.org>, Georgi Djakov <djakov@kernel.org>,
- Lee Jones <lee@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
- Peter Rosin <peda@lysator.liu.se>, 
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Linus Walleij <linusw@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Javier Martinez Canillas <javier@dowhile0.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
- Jonathan Marek <jonathan@marek.ca>, Taniya Das <quic_tdas@quicinc.com>, 
- Robert Marko <robimarko@gmail.com>, Christian Marangi <ansuelsmth@gmail.com>, 
- Stephan Gerhold <stephan@gerhold.net>, Adam Skladowski <a_skl39@protonmail.com>,
- Sireesh Kodali <sireeshkodali@protonmail.com>,
- Barnabas Czeman <barnabas.czeman@mainlining.org>, 
- Imran Shaik <quic_imrashai@quicinc.com>,
- Sricharan Ramabadhran <quic_srichara@quicinc.com>, 
- Anusha Rao <quic_anusha@quicinc.com>, Luo Jie <quic_luoj@quicinc.com>, 
- Tomasz Figa <tomasz.figa@gmail.com>, Chanho Park <chanho61.park@samsung.com>, 
- Sunyeal Hong <sunyeal.hong@samsung.com>, Shin Son <shin.son@samsung.com>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Jacek Anaszewski <jacek.anaszewski@gmail.com>, 
- Jaehoon Chung <jh80.chung@samsung.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Alina Yu <alina_yu@richtek.com>, Andy Gross <agross@kernel.org>, 
- Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- Wesley Cheng <quic_wcheng@quicinc.com>, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-clk@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-i2c@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-leds@vger.kernel.org,
- linux-media@vger.kernel.org, 
- linux-mmc@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-gpio@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH 2/2] dt-bindings: Drop incorrect usage of double '::'
-Message-ID: <ajmcsfEXiTfFh-XH@venus>
-References: <20260622101606.485961-3-krzysztof.kozlowski@oss.qualcomm.com>
- <20260622101606.485961-4-krzysztof.kozlowski@oss.qualcomm.com>
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0396210E85E
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 20:38:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+ Reply-To:Content-ID:Content-Description;
+ bh=yBPsbI4EYXmStV1slUm9ol2RoVm6krMqzl8qxSyD/+A=; t=1782160694; x=1783370294; 
+ b=G8Z2fknlC/XAC6BdSdhUxCUBdUfj/ooeT3PCp4xnw1pr4n8K8Mfi2HOK9bi3N5czv9tCt3USIBt
+ ph+BKSh77Gkld/VZ9SA/Z4uDT3OOO1h7vlCEQt8Gx5y8U1FQnBJPZh6rwVSAD3ccFkgLrwr14sTpQ
+ oaVRfypZSFkO+9ijkjPeKghE8BNq3t9qlNcbP9qM/x71R2489ijKkjXmjexgRbJqMO5zGrl+FX3Lp
+ 9+3Miu6ncnM84At5Tc5aqfzcpRys/mkhhvXr5Flpd1reDxVzEaft3kwyU088+Q9f+JaniVMkB0JZM
+ QNrSxmcfkaFLvbcWf/dpaIleSDOjq0ThDd7A==;
+Date: Mon, 22 Jun 2026 22:37:54 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dave
+ Stevenson <dave.stevenson@raspberrypi.com>
+Subject: Re: [PATCH v3 07/13] drm/bridge: tc358762: Update comment about the
+ number of lanes
+Message-ID: <20260622223754.65f3ce97@kemnade.info>
+In-Reply-To: <8efe44d7-3864-45cb-bd79-f25f573b6432@ideasonboard.com>
+References: <20260513-tc358762-fixes-v3-0-6698b55008b9@ideasonboard.com>
+ <20260513-tc358762-fixes-v3-7-6698b55008b9@ideasonboard.com>
+ <20260529203424.72199881@kemnade.info>
+ <8efe44d7-3864-45cb-bd79-f25f573b6432@ideasonboard.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="he6mgtsui5z5w5dr"
-Content-Disposition: inline
-In-Reply-To: <20260622101606.485961-4-krzysztof.kozlowski@oss.qualcomm.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/282.152.77
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,63 +63,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon, 22 Jun 2026 10:31:35 +0300
+Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
 
---he6mgtsui5z5w5dr
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 2/2] dt-bindings: Drop incorrect usage of double '::'
-MIME-Version: 1.0
+> Hi,
+> 
+> On 29/05/2026 21:34, Andreas Kemnade wrote:
+> > On Wed, 13 May 2026 16:10:16 +0300
+> > Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
+> >   
+> >> Update comment about the number of lanes.
+> >>
+> >> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> >> ---
+> >>   drivers/gpu/drm/bridge/tc358762.c | 9 ++++++++-
+> >>   1 file changed, 8 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
+> >> index 7840ab3454f6..c5734c4df440 100644
+> >> --- a/drivers/gpu/drm/bridge/tc358762.c
+> >> +++ b/drivers/gpu/drm/bridge/tc358762.c
+> >> @@ -306,7 +306,14 @@ static int tc358762_probe(struct mipi_dsi_device *dsi)
+> >>   	ctx->dev = dev;
+> >>   	ctx->pre_enabled = false;
+> >>   
+> >> -	/* TODO: Find out how to get dual-lane mode working */
+> >> +	/*
+> >> +	 * When using DSI clk for pixel clock (only mode supported in the driver),
+> >> +	 * the pclk is derived directly from the DSI byteclk via simple divider,
+> >> +	 * which is either 2 or 3.
+> >> +	 * The required divider can be calculated with bitspp / 8 / nlanes. Thus,
+> >> +	 * for RGB888, only nlanes = 1 works as nlanes = 2 would require divider
+> >> +	 * of 1.5.
+> >> +	 */
+> >>   	dsi->lanes = 1;
+> >>   	dsi->format = MIPI_DSI_FMT_RGB888;
+> >>   	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
+> >>  
+> > wondering: I am using lanes = 2 and RGB888. But I need to write something to
+> > SYSPLL3 register. Which somehow is sensitive to write to.... Do you have any
+> information about that register?  
+> If you have an external refclk, then you can use the tc358762 pll to 
+> generate the clock, which I guess you are using. SYSPLL3 configures some 
+> parts of the PLL, and the doc says the write to SYSPLL3 must be the last 
+> in the sequence.
+>
+Thanks for that explaination. Your comment in the code is really helpful.
 
-Hi,
+I have anly a 22 page datasheet and I know only that the reference clock 
+can be 6-40Mhz from that datasheet and the pixclock is 41600 according to
+drm_display_mode struct.
+I know the value which works is 0xB8640000.
 
-On Mon, Jun 22, 2026 at 12:16:08PM +0200, Krzysztof Kozlowski wrote:
-> There is no use of double colon '::' in YAML. OTOH, the literal style
-> block, e.g. using '|' treats all characters as content [1] therefore
-> single use of ':' in descriptions is perfectly fine, whenever '|' is
-> used.
->=20
-> Cleanup existing code, so the confusing style won't be re-used in new
-> contributions.
->=20
-> Link: https://yaml.org/spec/1.2.2/#literal-style [1]
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->=20
-> ---
->=20
-> Intention for this patch is to go via Rob's tree.
-> ---
+I am asking all this since I want to upstream the display support for the
+Epson Movero BT-200. The vendor kernel is 3.0. It is an old-style omapfb
+display driver there. I converted it to a modern drm panel driver
+with integrated bridge handling and now I am investingating how to use the
+bridge driver together with a separate panel driver.
 
-[...]
+The clean way would be to define the input clock, and add code to 
+calculate pll parameters. But without information, probably the
+best way is to adjust magic numbers based on
+if (of_machine_is_compatible())
 
->  .../bindings/power/reset/restart-handler.yaml |  8 ++++----
-
-Acked-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-[...]
-
-Greetings,
-
--- Sebastian
-
---he6mgtsui5z5w5dr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmo5nPIACgkQ2O7X88g7
-+pqv2Q/+LMhPKKkmgsVnMejKBphG4p2N/zVrnMgxmg8lVO8rwgA7Kxo2wlLqu2H5
-iapTV4a2dMXB0SUw8UGbt9Lt6JjHaORZnybu95mZEZMS+G7HRl5M8DE+LWMJXLX0
-S+G43Cv1O/d5dV/rM2nJqOItOK+KIbHQI4+oY/O8P7ENnU2h3X2HxOtWxtg6+9gz
-UNPZgoZdEE38SJVzhHrCO1+NfGikbo7vUZC0BmyxiNuVTK9eFjie/eIS3ST4W5T9
-3v2n+F2fD7+xsfSzUyjRc3p+zLyweImjiS6J5GAmTf4qxL9hQ3nXEW2gtRQQvB2l
-W62s4eZt9jFlQjhXVjUeIkEPkORE4RrDInyktgSc6BKm/D5SylQgwytebDtJC2s4
-QceoYrV7CHNsQ0vr9oITDlBN4Ik2TTsqhK2Sw0/2P0W7VU7y8uoHsm2xHPkf17l+
-svy9/UvPf4f5kyBIPwySRFS4IUXcdP8MhscNstvyw1GJqxtCNNRfDX6z0isLIU6Q
-yfIbxBsgCdHQMyM3HekxaofPcGx9LRJtbbNt2YA4SbqEKnzci/ToUY+z8a2svvDM
-Ko5OrYJ/yAjPYjcoQ7ajynJC+BxvFRMTtfCEQmDLiaxN9+ueXJJMXe26hLYClF9g
-ADHM+PuYvQrF2GfU9DgvPXkJHh3yEtyPk1rE6O1f4Q9xvKZMblg=
-=cVKh
------END PGP SIGNATURE-----
-
---he6mgtsui5z5w5dr--
+Regards,
+Andreas
