@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17B79CDB46F
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 12:26:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BF65CDB46F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 12:26:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46EF410E67D;
-	Mon, 22 Jun 2026 12:26:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C711A10E68C;
+	Mon, 22 Jun 2026 12:26:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VkCCYN2y";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CGiNokEN";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2675610E67D
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 12:26:42 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-490bc6a7958so40173255e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 05:26:42 -0700 (PDT)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00AD310E67D
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 12:26:43 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-490cf3000f0so45840965e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 05:26:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782131200; x=1782736000; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Ky0ztwMTGVkkCVwFdAwLamT10MF/bEObQGJBUe16vrs=;
- b=VkCCYN2yayUoRZayv2BJBui2gOfYVd6q033scfHbF9CO18y7WJ/54/F+7HH6USWPIZ
- sxiLkKgtElXB97fcV9++MOJsz5ri9gAjzy4K9YIywH0P9gqSaN1hoG5vDZaxXqF7Du0r
- P5JLxHBA7gnR+O2sTYdFyvFP6FYYAhbvhbZABGWrDcimP7b7niZc1AFz3NngclVMNiMz
- r3ge+LukQq9Ro0IjNIpUjWeSGimGbghjLhdjRsM3EJY9VRC0cNQ37El0EGUQIsOl/IbG
- ImFZw4Zbq8oMFj7CcTcYVPnVdCAtautBTAsU7qY7CdbbsNaoP6I9qFOmi+9gO6bwiauk
- qhZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782131200; x=1782736000;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1782131202; x=1782736002; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Ky0ztwMTGVkkCVwFdAwLamT10MF/bEObQGJBUe16vrs=;
- b=n4RBNBspOne2LPU7Og/EUUJprjxXC6oTkXLPR0m8LwebWYSitlixxtSfk+3XbJq6HI
- iP7jak4oJvy271wLklRaenBK74N4wA5V58Pyv8HXBUFI3rBzjkwsbWI0gY2PKu9gjdqt
- l6XhM/8p4p4zqcFipUCZ+tJAOkrKl1xXGP8Xol1twh/qkYam16LjCpjEED/3djUV4XjR
- SVBMpx92l3ZeUA/s5sqflT1BaSCchLNdf73EAanxdNotWxuB7GHAvqFZ3BFsFsiMpkpN
- yimxHEiiAjV03ae4PuEtOIl2kZA8ZkY7VnD6Nf7OvJ6iRlLwfvU360nhTD6m1F7BGjBP
- 4RYg==
+ bh=rWBXR6ADAVQ2Qq7HEur2Os4QsmTGdoI3snIfzoQqpdU=;
+ b=CGiNokENrfoSv/jqDWnBZAl+ycQWBBB60eTeLdpTRjiElLXoxqvCzKIAf+w/L4NfWt
+ iPBc3oqS4pChZ3J8RfCc53VSpyS+YYi45WJSTwMu/cTDqW+WX6dbDE+zJCS0Hfktw9MW
+ sgXKdp1SEtsgXvR5crRg51AFUBWPT9XQoXq77f0xcYLd/FLjuzlY2qtJ0eX/A4HsaFbN
+ uTKRmcWkbpNRDRzxZ3KGRRxr1OVEy/wt4s7iykvTdgBF3xozMgkEE2CW7C2zgsvgV4DC
+ MeNygw8oEoc2RNkXKRQdYn3AOgZW9XaTDuN008dH6GEZZKa8hLoczxRBm+uTCwoEm76S
+ obLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782131202; x=1782736002;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=rWBXR6ADAVQ2Qq7HEur2Os4QsmTGdoI3snIfzoQqpdU=;
+ b=Pb2Idync/FvfBuib4LU2vDBSN4Fi2uAPN8NG6WFe6Jz+j1bBEqadA+0mR0R42mc4Lg
+ 2efm2bl0gja7um76jri9RWhCm/bO25nQH/CG4gNlGfnOLrCeOGqoBPn/2KcljC98xRIG
+ mxmbazUTfWIdoz5tGHFz3QchvxuXJUF6qPZp9xnVz8WWxQ7oCy3KYhc6rPn+GRfxvVkb
+ xidaZ2aFOIrPtCEyKK21Gx93s49ZTMQGGUZXAuZgzy/2xnI/hDV77y9ezLPy1Z+SyvQr
+ jKkV4WCX/NxYVDp/W3znnpLeGsS8fS+yn20IR7MUARpeyzrE1rgBcKWMnz0BLGZrbb9G
+ 0FMw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9UEHdr93V5jK2n41YbHDCuE48iOj6uneFluGnzMvljdhcIPZTb5qHFXf5Qr/WcW6cVTYy0NmIN00E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzsZet2oBH0klNd+eVzHmMWqhS90zv5O9m1BGX3hN5AQfcypb7s
- 6QsUFLc1O8IMuLxkioOrcFUC2UgjZZCQfYWCSdXZg3XrMlhHyTt/le5P
-X-Gm-Gg: AfdE7cm1b3GaOMiYavDJ7a0SB+f0nk8sU2//rqgyXYVqdcs8BH7WFhBtsJXtYnV3m6I
- RGkpEwh30MCfoipOhvJ4yHVuqeZie7QA0wDqk3Y5aUCz/wmLc80Em9ExrygrNqlcFu7dbdQzyf7
- BbxCi/pugi9gFMmmDlt5feaxV7+141lAfAgqeBOo1rY4qo2loTwllDraIGqR1Ww23wQUbWlk04I
- xeQxHocfThtUdVDzai5H70BHh2qt0itSakwvtpGIRxJH9qOc8YgkiXhskPEyGfj0Km646W1or1H
- MrXRr8XJVrqkQur49vSKOfuPXtmQz6bqQfPX/Omqoizjg5pZc6uE2lSnmCj4H+W+KIyckMDQCwg
- TC6q3sphdgp0S2wB1mfVzEPHwTdRYtNFooeB9cMly0eO7ePSjCX7RTbIMoqwg8Cof3uST17nbJe
- plHXTM5Jh4Tin4C8pxJWrZRpg39u57HrnP+xbCfQ==
-X-Received: by 2002:a05:600d:84ca:10b0:490:e180:2e0 with SMTP id
- 5b1f17b1804b1-492409fbfb9mr129984275e9.3.1782131200325; 
- Mon, 22 Jun 2026 05:26:40 -0700 (PDT)
+ AFNElJ9iphWddridVJaynQCTTr2ut3WEplStYLaUHSbm7dY8EexwTnGXluHtpxY9Fka+eVGBDE+8LK1H9qw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxxBfnTnKBPKScW/buP/lce8me3Yrn2HA0Yp9NgDRFO7/e2xYBS
+ aNuzs3MnkPly9cfQrVb4WcLDyMPZZLV6z7TevReYx94x1TU1Sz9PyBCN
+X-Gm-Gg: AfdE7clX0dpv9gYw5UBeq3nSNygMbIdy06oloYAt5g48SZ1Pmlu0qm6Lyjm+NeFCK99
+ 7Uuiszu/7deja5CHUYzXk90x2PfQxdQZypOvSepL0ZsgdcHAJz4qpo+OZ3s1d6/PM+2vDopVZJ0
+ MQuX8Ez8fB5NuFrJe1pbflZVTXzI0+QQMvsvZWrerXW2vuzffuv4iPC0CE5jsMElWRMYBCZGllm
+ Q7LSlUC1gHsmgqfCsbaJBpGiFGrr8zcNRZt569P7voTFbz+rrNhsq/pvo4gbalnJphjzrtFH8Ey
+ oGGZxVA/frzG2t3dhCyOwSYZ1oeRuy4mB4+Lbt6E668gp85oWSd5cP0kZcHmiYDStvfLREhDcyc
+ oShkVXko2H5ke9P+0yyOm1tvo2idWUKZgXr6VVhSvoQjPI56VJvcYrUCL3fUjC9VDZnllE2+Hpn
+ DWVvBmqOo5VarUJJGjJ01Fm3r7nHjDxxcp98XrMg==
+X-Received: by 2002:a05:600c:5493:b0:490:e190:38f3 with SMTP id
+ 5b1f17b1804b1-4924256fe84mr192162475e9.21.1782131202105; 
+ Mon, 22 Jun 2026 05:26:42 -0700 (PDT)
 Received: from anthony.local ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49240ee9bc2sm208803975e9.1.2026.06.22.05.26.38
+ 5b1f17b1804b1-49240ee9bc2sm208803975e9.1.2026.06.22.05.26.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Jun 2026 05:26:39 -0700 (PDT)
+ Mon, 22 Jun 2026 05:26:41 -0700 (PDT)
 From: Amit Barzilai <amit.barzilai22@gmail.com>
 To: Javier Martinez Canillas <javierm@redhat.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -68,12 +69,15 @@ To: Javier Martinez Canillas <javierm@redhat.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
 Cc: Jocelyn Falempe <jfalempe@redhat.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Amit Barzilai <amit.barzilai22@gmail.com>
-Subject: [PATCH 0/3] drm/ssd130x: fix column and row end address in partial
- updates of ssd132x and ssd133x devices
-Date: Mon, 22 Jun 2026 15:26:01 +0300
-Message-ID: <20260622122604.32500-1-amit.barzilai22@gmail.com>
+ linux-kernel@vger.kernel.org, Amit Barzilai <amit.barzilai22@gmail.com>,
+ stable@vger.kernel.org
+Subject: [PATCH 1/3] drm/ssd130x: fix column and row end address in partial
+ updates for ssd132x
+Date: Mon, 22 Jun 2026 15:26:02 +0300
+Message-ID: <20260622122604.32500-2-amit.barzilai22@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260622122604.32500-1-amit.barzilai22@gmail.com>
+References: <20260622122604.32500-1-amit.barzilai22@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,39 +95,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-While working on adding SSD1351 support to the ssd130x driver - I
-noticed that the area of the cursor was refreshing in a weird state.
-I would fill the screen red while the flashing cursor was on the screen,
-but the screen wouldn't refresh the entire 8x8 rectangle each flash. 
+On partial screen updates, SSD132X controllers expect to get the
+rectangle addresses as arguments of the "Set Column Address" and "Set
+Row Address" commands. Each command expects the start address and end
+address of the row/column in absolute format, however the end
+addresses were being sent in a relative format (relative to the start
+address).
 
-After reading the SSD1351, SSD1331 and SSD132x manuals and manual
-testing on the SSD1351, I was able to be sure that the problem was the
-end addresses of "Set Column/Row Address" being sent as relative addresses
-instead of absolute addresses.
+The relative end addresses work only when the start address is 0. In
+those situations, there is no value difference between relative and
+absolute addresses.
 
-I assume these bugs went under the radar because testing would usually
-be done where the dirty rectangles would start from the 0,0 coordinates.
-In these situations, the bug would be invisable, since adresses relative
-to 0 are the same as their absolute value.
+Fixes: fdd591e00a9c9 ("drm/ssd130x: Add support for the SSD132x OLED controller family")
+Cc: stable@vger.kernel.org
+Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
+---
+ drivers/gpu/drm/solomon/ssd130x.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-It is important to note that I didn't test these changes on a SSD132x 
-screen or a SSD133x screens, only on an SSD1351. Manual testing is
-advised.
-
-This series contains the fix for ssd132x_update_rect, a simple clean-up
-patch for ssd132x_update_rect to keep the function clean, and the same
-fix on ssd133x_update_rect.
-
-Amit Barzilai (3):
-  drm/ssd130x: fix column and row end address in partial updates for
-    ssd132x
-  drm/ssd130x: hoist column and row addresses out of repeated division
-  drm/ssd130x: fix column and row end address in partial updates in
-    ssd133x
-
- drivers/gpu/drm/solomon/ssd130x.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
-
+diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
+index c77455b1834d..77aa5585a46c 100644
+--- a/drivers/gpu/drm/solomon/ssd130x.c
++++ b/drivers/gpu/drm/solomon/ssd130x.c
+@@ -864,12 +864,13 @@ static int ssd132x_update_rect(struct ssd130x_device *ssd130x,
+ 	 */
+ 
+ 	/* Set column start and end */
+-	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_COL_RANGE, x / segment_width, columns - 1);
++	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_COL_RANGE, x / segment_width,
++				x / segment_width + columns - 1);
+ 	if (ret < 0)
+ 		return ret;
+ 
+ 	/* Set row start and end */
+-	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_ROW_RANGE, y, rows - 1);
++	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_ROW_RANGE, y, y + rows - 1);
+ 	if (ret < 0)
+ 		return ret;
+ 
 -- 
 2.54.0
 
