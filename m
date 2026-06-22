@@ -4,62 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A11FCD98F0
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 02:55:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67C28CD98F6
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 03:47:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE3BD10E436;
-	Mon, 22 Jun 2026 02:55:47 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="Tto3Rx1j";
-	dkim-atps=neutral
-Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com
- [91.218.175.186])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A826210E436
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 02:55:45 +0000 (UTC)
-Message-ID: <02e9be5f-8dfa-4a4f-8a70-627ed1124b91@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1782096942;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=xPT6DAdg86ekeubsFUyJE8zxGgUJMoz3jyqa9JhEVkU=;
- b=Tto3Rx1jAaHFtdkhawr4dGV2oKUQ+FH3oxDMEtfUe30AqTgIxxAqLJzSwSTl3FHaQCi9kl
- 8DSHCQJxWmTNAgouSdXaK156DzQRkSoeITF8p9plSxjrB2oLwl/FA9EjLfTd3z4zp8l83i
- Ss3MyZcgf5r8XpkmwL+rT4BP/ncSct4=
-Date: Mon, 22 Jun 2026 10:52:44 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D66510E08A;
+	Mon, 22 Jun 2026 03:47:43 +0000 (UTC)
+Received: from mailout1.hostsharing.net (mailout1.hostsharing.net
+ [83.223.95.204])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DA2F10E08A
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 03:47:42 +0000 (UTC)
+Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
+ client-signature ECDSA (secp384r1) client-digest SHA384)
+ (Client CN "*.hostsharing.net",
+ Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
+ by mailout1.hostsharing.net (Postfix) with ESMTPS id 1FDD435B;
+ Mon, 22 Jun 2026 05:47:40 +0200 (CEST)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+ id 0CF686011CD9; Mon, 22 Jun 2026 05:47:40 +0200 (CEST)
+Date: Mon, 22 Jun 2026 05:47:40 +0200
+From: Lukas Wunner <lukas@wunner.de>
+To: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rodrigo.vivi@intel.com, andrealmeid@igalia.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona.vetter@ffwll.ch,
+ mripard@kernel.org, maarten.lankhorst@linux.intel.com,
+ tzimmermann@suse.de, anshuman.gupta@intel.com,
+ badal.nilawar@intel.com, riana.tauro@intel.com,
+ karthik.poosa@intel.com, sk.anirban@intel.com, raag.jadav@intel.com
+Subject: Re: [PATCH v8 5/6] drm/xe: Suppress Surprise Link Down on device
+Message-ID: <ajiwXJuY0PrGq7Gj@wunner.de>
+References: <20260612080722.26726-8-mallesh.koujalagi@intel.com>
+ <20260612080722.26726-13-mallesh.koujalagi@intel.com>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2 3/7] rust: doctest: add LocalModule fallback for
- #[vtable] ThisModule
-To: Andreas Hindborg <a.hindborg@kernel.org>, Gary Guo <gary@garyguo.net>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann
- <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>
-Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
- nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, linux-block@vger.kernel.org
-References: <20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev>
- <20260521-fix-fops-owner-v2-3-fd99079c5a04@linux.dev>
- <87fr2kf3m2.fsf@t14s.mail-host-address-is-not-set>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Alvin Sun <alvin.sun@linux.dev>
-In-Reply-To: <87fr2kf3m2.fsf@t14s.mail-host-address-is-not-set>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260612080722.26726-13-mallesh.koujalagi@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,33 +56,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Fri, Jun 12, 2026 at 01:37:28PM +0530, Mallesh Koujalagi wrote:
+> PUNIT errors can only be recovered using a power-cycle. Xe KMD
+> sends a uevent to notify userspace to trigger a power cycle.
+> On platforms where link drop caused by powering the device off and
+> back on is reported by hardware as a Surprise Link Down (SLD), which
+> AER then escalates as an Uncorrectable Fatal Error. That error fires
+> before the device finishes coming back up and defeats the
+> very recovery we are attempting.
+> 
+> To keep the expected, recovery-induced link drop from being raised as
+> a fatal AER event, mask the Surprise Link Down bit
+> (PCI_ERR_UNC_SURPDN) in the upstream port's AER Uncorrectable Error
+> Mask register before punit_error_handler() requests the cold reset.
 
-On 6/18/26 20:13, Andreas Hindborg wrote:
-> Alvin Sun <alvin.sun@linux.dev> writes:
->
->> Add a `LocalModule` struct with a null-pointer `ModuleMetadata` impl
->> in the doctest harness, so that `crate::LocalModule` (auto-inserted
->> by `#[vtable]`) resolves correctly when there is no `module!` macro.
->>
->> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-> Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
->
-> Does this need to be ordered before the vtable auto insert in the patch series?
+You need to clear the Surprise Down Error Status bit in the
+Uncorrectable Error Status Register after the reset.
 
-Yes, you're right — this patch would be better placed before the vtable
-auto-insert patch to avoid a temporary state where the doctest harness
-doesn't provide the LocalModule fallback that #[vtable] expects.
+You should also unmask the error.
 
-Thanks for the suggestions from you and Gary. v3 has been sent to the
-list:
+> +	pci_read_config_dword(usp, aer_cap + PCI_ERR_UNCOR_MASK, &aer_uncorr_mask);
+> +	aer_uncorr_mask |= PCI_ERR_UNC_SURPDN;
+> +	pci_write_config_dword(usp, aer_cap + PCI_ERR_UNCOR_MASK, aer_uncorr_mask);
 
-https://lore.kernel.org/rust-for-linux/20260622-fix-fops-owner-v3-0-49d45cb37032@linux.dev
+pci_clear_and_set_config_dword()?
 
-Best regards,
-Alvin Sun
+OSPM is not supposed to fiddle with AER registers unless it has been
+granted control of those registers through the ACPI _OSC method.
 
->
-> Best regards,
-> Andreas Hindborg
->
->
+There's a pcie_aer_is_native() helper to skip access to those registers
+but its only visible to the PCI core currently.
+
+Thanks,
+
+Lukas
