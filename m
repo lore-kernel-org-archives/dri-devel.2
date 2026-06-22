@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72B3DCDB46B
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 09:20:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ECCFCDB46B
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 09:20:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4DBD10E59F;
-	Mon, 22 Jun 2026 09:20:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AD2A10E59D;
+	Mon, 22 Jun 2026 09:20:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X9TAW8jU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KTM91jez";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9042F10E59F
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 09:20:08 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9678810E5A0
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 09:20:18 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0EA4660051;
- Mon, 22 Jun 2026 09:20:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9726E1F000E9;
- Mon, 22 Jun 2026 09:20:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 80B844441D;
+ Mon, 22 Jun 2026 09:20:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44A6A1F000E9;
+ Mon, 22 Jun 2026 09:20:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782120007;
- bh=kKAilk5qqpVBiLafXwXmFXLvRZnfG5Wodfnp1sUTTcs=;
+ s=k20260515; t=1782120018;
+ bh=vo6H2OSHjszlNWh7/fRYc3SR1uC+cL/OAxORUBr3H6s=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=X9TAW8jUH94AzJ0mbUMqzmdOKtQUqj7q+11M/ZhPa7joU85xT79fVCLYMxHI3ov26
- dQkjjcT9VaBfaogvFhsGB7tUBxhLSw6qooQKdJYc/wnNOVlG5nqX6+vyuKUmRl62+/
- 6AJm6AjgDcjALfwQzKxDjz5sVTu9pmRnJ/04FpY0PtcIO0OiX7XyzqHofz8gEuE4O9
- dFoHV2SI5mxTwgkCM0sowkJxO7IbCn3fbR3Nvjpw17VMdssvOE0MNHi8Trc4rFqCUb
- Mz+eQQFrXr3qlf7lxKRYB3hq2k1zFK5f5106etyAiW3i994RWM2bhfHo5hdA/XVbTh
- 3Qr+RmSgogLJA==
+ b=KTM91jezjT032+3mEtcBRoYBIb58g5o3W57dIgeadP/Easr6OIF3SIcIOaRXFQEgH
+ jIfoX45/jBeKRlapYut3yb8ZYsXjruTtdfL5WZ2Bss9EQZPkUCUzmKK98MCEJ6Llmm
+ XVrl5nSQauPpwu1GfoVaOkeSX2apODfyD1hmZG3tqcAosYU54wPX1MwY2PvGp/98fB
+ 6H2amADc68bSbAuY4MfEbSfI37qvzzGN3+acGI3rIFhVblejyn+BuKKUc16zTq9VYx
+ 9/wWTQVl0wJTyNfNq1uuZ2hE8b3z6o/bafs+hw5VxDV4ZYWi1a4lZ01NSCXZ2LWvIw
+ rcaEZxNK3NIpA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/5] nouveau/gsp/rm/bar: Cleanup IS_ERR_OR_NULL usage
+Subject: Re: [PATCH v3 1/5] nouveau/gsp/rpc: Document RPC function return
+ value  contracts
 To: "Hongling Zeng" <zenghongling@kylinos.cn>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <1782119053308910.17261.seg@mailgw.kylinos.cn>
-References: <20260622035454.28003-1-zenghongling@kylinos.cn>
- <1782119053308910.17261.seg@mailgw.kylinos.cn>
+In-Reply-To: <1782119054239712.17995.seg@mailgw.kylinos.cn>
+References: <20260622021207.14764-1-zenghongling@kylinos.cn>
+ <1782119054239712.17995.seg@mailgw.kylinos.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 22 Jun 2026 09:20:07 +0000
-Message-Id: <20260622092007.9726E1F000E9@smtp.kernel.org>
+Date: Mon, 22 Jun 2026 09:20:17 +0000
+Message-Id: <20260622092018.44A6A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,109 +61,136 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [Medium] The newly added kernel-doc claims that several high-level RPC fu=
+nctions only return ERR_PTR on error, but they can actually propagate NULL.
+
 Pre-existing issues:
-- [High] Memory leak of the RPC message buffer in r535_gsp_rpc_push() when =
-an error occurs while sending large payloads.
-- [High] Malformed GSP firmware messages cause a NULL pointer dereference v=
-ia nvkm_gsp_rm_ctrl_rd().
+- [High] Returning NULL on an invalid RPC message length causes a queue dea=
+dlock and subsequent NULL pointer dereferences in downstream callers that o=
+nly check IS_ERR().
 --
 
-commit f3a9eeee67cd9b42fd2bbb4cf7eff6681fafba12
+commit db05356d173cc7558f718a62efd7f0f223cf7152
 Author: Hongling Zeng <zenghongling@kylinos.cn>
 
-nouveau/gsp/rm/bar: Cleanup IS_ERR_OR_NULL usage
+nouveau/gsp/rpc: Document RPC function return value contracts
 
-This commit cleans up the usage of IS_ERR_OR_NULL in
-r535_bar_bar2_update_pde() by using IS_ERR() instead, matching the
-actual return value contract of nvkm_gsp_rpc_get() which never returns
-NULL.
+This commit adds kernel-doc comments to document the return value semantics
+of RPC functions in the nouveau GSP code to clarify which functions can
+return error pointers or NULL.
 
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c b/driv=
-ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c
-> index fae08ac3b18c7..9cd68f8622d36 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c
-> @@ -55,7 +55,7 @@ r535_bar_bar2_update_pde(struct nvkm_gsp *gsp, u8 page_=
-shift, u64 pdbe)
->  	rpc_update_bar_pde_v15_00 *rpc;
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c b/driv=
+ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c
+> index 3ca3de8f43408..35272c1538699 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c
+
+[ ... ]
+
+> @@ -283,6 +300,15 @@ r535_gsp_msgq_recv_one_elem(struct nvkm_gsp *gsp,
+>  	return buf;
+>  }
 > =20
->  	rpc =3D nvkm_gsp_rpc_get(gsp, NV_VGPU_MSG_FUNCTION_UPDATE_BAR_PDE, size=
-of(*rpc));
-> -	if (WARN_ON(IS_ERR_OR_NULL(rpc)))
-> +	if (WARN_ON(IS_ERR(rpc)))
->  		return -EIO;
-> =20
->  	rpc->info.barType =3D NV_RPC_UPDATE_PDE_BAR_2;
+> +/**
+> + * r535_gsp_msgq_recv - Receive RPC message(s) from GSP queue
+> + * @gsp: GSP device
+> + * @gsp_rpc_len: Expected RPC length
+> + * @retries: Retry counter
+> + *
+> + * Return: Pointer to received buffer on success, ERR_PTR() on error,
+> + *         or NULL if RPC length is invalid.
+> + */
+>  static void *
+>  r535_gsp_msgq_recv(struct nvkm_gsp *gsp, u32 gsp_rpc_len, int *retries)
 
 [Severity: High]
-This isn't a bug introduced by this patch, but while reviewing this cleanup,
-I noticed another IS_ERR_OR_NULL usage in r535_gsp_rpc_rm_ctrl_push() that
-causes a NULL pointer dereference.
+This is a pre-existing issue, but does returning NULL here on an invalid RPC
+message length cause issues for callers?
 
-When a malformed GSP firmware message is received:
+When r535_gsp_msgq_recv() encounters an invalid length, it returns NULL
+without advancing the queue read pointer:
 
 drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c:r535_gsp_msgq_recv() {
-    ...
-	if (WARN_ON(rpc->length > max_rpc_size))
-		return NULL;
-    ...
+        if (WARN_ON(rpc->length > max_rpc_size))
+                return NULL;
+        ...
 }
 
-This NULL propagates to r535_gsp_rpc_rm_ctrl_push():
+This NULL return propagates up to API wrappers like nvkm_gsp_rpc_rd() and
+nvkm_gsp_rpc_wr(). Downstream callers such as r535_gsp_get_static_info()
+check for errors using IS_ERR(). Since IS_ERR(NULL) is false, the error che=
+ck
+is bypassed. This leads to silent successes (like PTR_ERR(NULL) =3D=3D 0) or
+immediate NULL pointer dereferences when the payload is accessed.
 
-drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/ctrl.c:r535_gsp_rpc_rm_ctrl=
-_push() {
-    ...
-	rpc =3D nvkm_gsp_rpc_push(gsp, rpc, NVKM_GSP_RPC_REPLY_RECV, repc);
-	if (IS_ERR_OR_NULL(rpc)) {
-		*params =3D NULL;
-		return PTR_ERR(rpc);
-	}
-    ...
+Also, since the queue read pointer is not advanced, wouldn't subsequent rea=
+ds
+process the same invalid message and deadlock the queue?
+
+[ ... ]
+
+> @@ -450,6 +476,20 @@ r535_gsp_msg_dump(struct nvkm_gsp *gsp, struct nvfw_=
+gsp_rpc *msg, int lvl)
+>  	}
+>  }
+> =20
+> +/**
+> + * r535_gsp_msg_recv - Receive RPC message from GSP message queue
+> + * @gsp: GSP device
+> + * @fn: Expected RPC function number (0 to accept any)
+> + * @gsp_rpc_len: Expected RPC length (0 for POLL mode)
+> + *
+> + * Return: Pointer to RPC message on success, ERR_PTR() on error.
+> + *         When fn!=3D0: retries until timeout, returns ERR_PTR(-ETIMEDO=
+UT)
+> + *                    if no match found (never returns NULL for timeout).
+
+[Severity: Medium]
+Is this documentation accurate regarding error returns?
+
+The kernel-doc states this function returns ERR_PTR() on error, but it
+can actually propagate the NULL returned by r535_gsp_msgq_recv() when an
+invalid RPC length is encountered:
+
+drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c:r535_gsp_msg_recv() {
+        ...
+        rpc =3D r535_gsp_msgq_recv(gsp, gsp_rpc_len, &retries);
+        if (IS_ERR_OR_NULL(rpc))
+                return rpc;
+        ...
 }
 
-Does PTR_ERR(rpc) evaluate to 0 here when rpc is NULL? If so, this erroneou=
-sly
-signals success to callers like nvkm_gsp_rm_ctrl_rd(), which will then
-blindly dereference the NULL pointer. Could this be handled differently so
-an error code is returned instead?
+Could this mislead developers into incorrectly replacing IS_ERR_OR_NULL()
+checks with IS_ERR() in the callers?
 
-[Severity: High]
-This isn't a bug introduced by this patch, but looking at r535_gsp_rpc_push=
-(),
-could there be a memory leak of the RPC message buffer when an error occurs
-while sending large payloads?
+[ ... ]
 
-drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c:r535_gsp_rpc_push() {
-    ...
-	if (payload_size > max_payload_size) {
-    ...
-		while (remain_payload_size) {
-			u32 size =3D min(remain_payload_size,
-				       max_payload_size);
+> @@ -628,6 +703,16 @@ r535_gsp_rpc_get(struct nvkm_gsp *gsp, u32 fn, u32 p=
+ayload_size)
+>  	return rpc->data;
+>  }
+> =20
+> +/**
+> + * r535_gsp_rpc_push - Push RPC message to GSP and wait for reply
+> + * @gsp: GSP device
+> + * @payload: RPC payload to send
+> + * @policy: Reply policy (NOWAIT, NOSEQ, RECV, or POLL)
+> + * @gsp_rpc_len: Expected RPC length in the reply
+> + *
+> + * Return: NULL when policy is NOWAIT/NOSEQ (no reply expected),
+> + *         pointer to reply data on success, or ERR_PTR() on error.
+> + */
+>  static void *
+>  r535_gsp_rpc_push(struct nvkm_gsp *gsp, void *payload,
 
-			next =3D r535_gsp_rpc_get(gsp, NV_VGPU_MSG_FUNCTION_CONTINUATION_RECORD,=
- size);
-			if (IS_ERR(next)) {
-				repv =3D next;
-				goto done;
-			}
-    ...
-		if (!IS_ERR(repv))
-			kvfree(msg);
-	} else {
-    ...
-done:
-	mutex_unlock(&gsp->cmdq.mutex);
-	return repv;
-}
+[Severity: Medium]
+Does this documentation also hide a potential NULL return on error?
 
-When IS_ERR(next) is true during chunking, the execution jumps to the done
-label, bypassing the kvfree(msg) cleanup logic. The caller function then se=
-ts
-its pointer to NULL on error, losing the reference to the original msg
-buffer. Does this result in a resource leak on this error path?
+Similar to r535_gsp_msg_recv() above, this function can return NULL on error
+if an invalid RPC length propagates up from the reply handler. Should the
+documentation reflect that NULL can be returned as an error state?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622035454.2800=
-3-1-zenghongling@kylinos.cn?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622021207.1476=
+4-1-zenghongling@kylinos.cn?part=3D1
