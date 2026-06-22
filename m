@@ -4,73 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31706CDE000
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 08:07:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F16FCCDB471
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 08:07:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FE3A10E9DA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F5B010E9DD;
 	Tue, 23 Jun 2026 08:07:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SZCAdJk1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z0DALH7l";
 	dkim-atps=neutral
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
- [209.85.208.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BECC10E7C9
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 18:08:39 +0000 (UTC)
-Received: by mail-ed1-f44.google.com with SMTP id
- 4fb4d7f45d1cf-6976b0b2c79so2825018a12.2
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 11:08:39 -0700 (PDT)
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
+ [209.85.128.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2035110E455
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 12:52:40 +0000 (UTC)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-7fe723ca5e5so45545527b3.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 05:52:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782132759; cv=none;
+ d=google.com; s=arc-20240605;
+ b=BFFxCDjHeem80NarvtkDa2V1RBipa4iGVq5UaApvA+V3hMiMI7cRSGd98x5hFm7PsC
+ FLQMVEDfGhHGKO0xCykWmf6GPr8z3oSNSI1n2YdRkxbXSMcWN1+Ox/YkvPogi+XWcuV+
+ AzlM+T97u8sVnDXd5NXBibsgx7CK3YNOIzdn5QlUwcE9vidnnBz+PhQnslNWbLIOvyxJ
+ yake3H4EsPKtD3kX2bUKxbYCNMg9Rz/XN6UmjhZUy3j2jTDLvKtMyoWv6XyJQPvfdfgn
+ FRZa8q5QVQ9zjKRF1RiBWT0uhC6e9NrQD2fFGg7BPcmsrGPKZ93O9bxBj26Cgpbcx7js
+ 04Gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=gQG1dK1Pn3kDMIdZo6j2PggknuXDB9/v9hKNqUmuRqo=;
+ fh=GGf9vm7jvrQb6hEF4PsjydzjWWdWJtBwDUo65CaN1zM=;
+ b=Zmlhn+vs+iZ4QaUBAicLirqIG2yJyqMdb+tA3G2KVVUVVpiFhBD/J8Jztql1JcDN2d
+ zsvl6579j4nm/BoelmFZOwNc+47h0C2bdFQlKDmNdJfYLf2k9mj27oWSLAfk7GBOlrDF
+ 30QbjhI/rWiYGOT94PV/9WEsOjnQFj6LPj6vhuHBa0HGYIffH7PNcPYa7dFwG/CYFx0L
+ qcxlQlnZOQsUxSfRyuFwsOFgtEIRl12DSQievDDoUucv2xxOV6fKFKuA9qmNJWBCeGOZ
+ SP7GJjKu4bQL/kNrQC0E2IZwYe6Tu60DQeyBl6C1xPqUjmMKIYeBIMjiZopndkdMBQg8
+ +7tw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782151718; x=1782756518; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=KVnkwTahPPWJKUQNIlBRjB2hWDjO2XYmGROgpIVjB7E=;
- b=SZCAdJk1PQg4DJWlGl10Cilq3SlrfKOdmbZwJC9ah1i4Hm67bWOQuYOBw4ErQ2AZY+
- zxL1eewN/5zNoKDKFUGCtrFjhpu0baVB1Jid5lWiF7dfGL3lgq0f0RUyKQZgV5QVlHOD
- 3/iR1poOHHr10D3vjS7rmQoD4d7p2ZgclXuHyUzk62jQC86WaBAKi2+E4rWuSdAOr7ow
- UID8gu7kBgbjdu+BaOD9mCRFPQp9kEWlOEg6GN/PhjteiownsO7T7P9Tt8s+IgrUdP2z
- GCzMZYlmkyzGHjyn5ddAzkidNxdTnFUon6B4fYgzXWrtFLrFfgceba9tfzqbLXsLZBTs
- QR+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782151718; x=1782756518;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1782132759; x=1782737559; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=KVnkwTahPPWJKUQNIlBRjB2hWDjO2XYmGROgpIVjB7E=;
- b=KOJI/1MoRE+o8mQ8pw9AqfheZxFQ97NsF6aMmRlazje6ugOy2cEyMZR4TqO2C+bvnF
- p5VY1hH2IcRzO8v62LeaMNfHpOED7fJThymBfqDM49HeBObKseNNRiVfSF0trxjtuPUR
- r/l18CmD9olNPkJdO2YxiM3BuAD+x3po+opILoL033RNX+qLeZFh0rWVu3Z144gLhB/o
- tvQNXZ1ipxVr7maYPpqMp0RBysIfBoHdVGTFEgavo2+XCxnAX8wap1HtU5TV9br5tgXk
- a5LdE7/+9TBPIZSKJfRSxqNgef0lfNUO+s3OOVk4BcYIeYy69ivqsnO6S8oe4PbnJOnI
- wT/Q==
+ bh=gQG1dK1Pn3kDMIdZo6j2PggknuXDB9/v9hKNqUmuRqo=;
+ b=Z0DALH7lYadneNjd5Potn4KPN5XG5m50Hlh1Dy1B6C+MjCRmRVS9J4ZqhwPwDvmIAr
+ QdxUyt1reKPVyYW1pPEA8rpazmR8rz4SQUNlisDJgh4eJovehSEXmkSi01g06DFvSA0O
+ 49MWfX8AO/RcT6wmmgQni5jQ9KD/mKVu3I2Tjqm2wSDXipYTo5U1jUXBfHGhO6J0RJYf
+ oBoXWOb0PEEPxyZsc0bP3A+5Do4k0tZStxOm3/OQs1KSKMNUVQdHElaOAd9XKW3y4RPa
+ /lsef3EmMmfa1wfck9ApyDMRo6Yb1znJth7c3MOC97mYacyo342tl4IXMywWYKbe5gMR
+ KZsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782132759; x=1782737559;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=gQG1dK1Pn3kDMIdZo6j2PggknuXDB9/v9hKNqUmuRqo=;
+ b=SMHsXDZ8PwsvVLRXAlF+ci0xFikcc7AkN0NjRifGL8PFrKd0N0bNDRdD+OXVXZmdaO
+ sWJ2ex8Nl7/jKANNLQq2eOKuv+7ZiM64uIiLIco3WvcL6Zr11oxSiXxoSq6UvcT+NggY
+ Xjhrs93Yq8c2dMyI4+TBn55F6DJJWuuMY4lFpI5KfV1DAaz3lmHOVP+POQkpk+bH+gt6
+ JpGVIsVX0LWkoOUFZJCVq05pQ0zkmiLc/qg+0NqMy67NpH2nIRUorsWGdcIEah5r1Koi
+ XblT8q8n09pcT3YzN8XSsQ7uo8Ru4iHuzu6yqjr/8elRVw6EdQFGTV+hojrfvXXMTvZg
+ GiEQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+zuxkakuneBda36RMxpc7Xab+xNy7e4j4trbsTkjQshezFFgXx1RxHc8FTBN6/tMvTJZ1/TM6oHxw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyvBYTyuH5bN+Y8GE031BpG8zRUYymOWGIIRO5R4NbmOwE1Qa1n
- qq0UTbMMoo5V34A8pnoZ+jVHLSN6+Oq2qL+kIN1OWti03h/CMORDQM4o
-X-Gm-Gg: AfdE7clkNqo1JhrSEYn+nYDdhSDcfDqqauKyBup5nmX822HMNNEnBw95QuEwSy5K8aF
- htS/iweYH+aDExInmJZ6owSmBBJoRImSX9zyENJ+UdQ+zABGZp6DU2AQFMQVQ9n74M94remGvEY
- 40kDM4umy6sRIid0HQwN89A8wUU6kfOo8hf2n2Q1UWXyTLkAPzy4XAfmb88sgk0+Vay2dIFNcMU
- W274wjM7OqOCGP0i8BjrA1BtUwytcuJVvR5TW/wIxJbf2oNiItNTjVYRu3WcpSZNOMBJfCuH/Sg
- UczUyjPBPQZL85tfsUNT7ihqk3N9pYADDR18RiCq+g5KpMV0HLLgNfF9FvTcyiCUqRqaFdJV61X
- 1OvGBZswrtdptENXt2Uwqfw2mNVTPPXLuX8ujnM2KFY3iNhfC4Sq4S4ObwzMLsx3xEUjq4wIALe
- clOiitraalwW5ZfKUdcTcTAORnMexvt47WqSSB6MeLnl0N8w==
-X-Received: by 2002:a17:907:398e:b0:c07:92e2:c9f7 with SMTP id
- a640c23a62f3a-c0b6144792fmr682067666b.19.1782151717260; 
- Mon, 22 Jun 2026 11:08:37 -0700 (PDT)
-Received: from liam.home (233-51-98-95.ftth.glasoperator.nl. [95.98.51.233])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c0c610e5280sm403334466b.53.2026.06.22.11.08.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Jun 2026 11:08:36 -0700 (PDT)
-From: Liam Zuiderhoek <zuiderhoekl@gmail.com>
-To: tzimmermann@suse.de
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Liam Zuiderhoek <zuiderhoekl@gmail.com>
-Subject: [PATCH] GPU: drm: meson inline drm_simple_encoder_init()
-Date: Mon, 22 Jun 2026 20:08:32 +0200
-Message-ID: <20260622180832.28143-1-zuiderhoekl@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ AHgh+Rr0ITAPiE/AxQ6ZnvLhAY0petWMtZSg1dBj7gB57sRd+BzcrSnaMEUXTPpOt0gWI6qz7lRWCneUlfU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwT2UmTsZ/Q+o1thZPJZxh2WkvW5dHHM1lTG2bpRCC1aEX5RNj4
+ siKKaF6mf1Plv6P/NJRlQxkVO3bA8XFqqtpx0+Dnc589rvrJWmxoeb0VrL9EUYx2sHcVdJtxrje
+ HEzRvSTI/kFB6G12ZpMgEZKE4/1hYBAY=
+X-Gm-Gg: AfdE7cmKVQBFa+s+D4Ph7Ej8W/NbBNM3WnTDYsszZy3ufljibzHPO6LMTFQDE5fPTp9
+ 3e3lRQaY0AuvMnfOKUi/OUXbgYCI6fvGaoLrp97YQ5LtjbDkRgM1JVuiE1Efq6pYovtz2ZX3aUU
+ +9SRnitIE51j8q2i/BV5iR33kmqjI963jWOHrQtHWBHmwXsgSnovBLiYcLCIH0a30IyodPkxgs0
+ NcYHN0/aRDWJSdWPMffuJBa/gK/qhjVDwSxbgoX6/4Gn7WHjo0yh2eIfW5GzqY6PzF3jCsb
+X-Received: by 2002:a05:690c:e346:b0:7bd:882a:43d9 with SMTP id
+ 00721157ae682-8013236fffbmr132455027b3.27.1782132758806; Mon, 22 Jun 2026
+ 05:52:38 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260616181956.61476-2-birenpandya@gmail.com>
+ <20260622115544.GA3899302@killaraus.ideasonboard.com>
+In-Reply-To: <20260622115544.GA3899302@killaraus.ideasonboard.com>
+From: biren pandya <birenpandya@gmail.com>
+Date: Mon, 22 Jun 2026 18:22:27 +0530
+X-Gm-Features: AVVi8Cck-hMvuxp0n3mewo-gqCHtjTxGDRmA3jAjW6tNVdbjxYSJyw9YAMsTs2w
+Message-ID: <CAAeMi9LMootkxmRE0tjo0mwijAuA0u+49HhxWxRGU-pSz+Cggw@mail.gmail.com>
+Subject: Re: [PATCH] drm/gem: modernize locks to use scoped_guard()
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, sumit.semwal@linaro.org, 
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 23 Jun 2026 08:06:53 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,29 +109,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Inline the call to drm_simple_encoder_init() for meson,
-as per the TODO list on docs.kernel.org/gpu/todo.html
+On Mon, Jun 22, 2026 at 5:25=E2=80=AFPM Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> On Tue, Jun 16, 2026 at 11:49:57PM +0530, Biren Pandya wrote:
+> > Several GEM core functions manually managed mutex_lock() and
+> > mutex_unlock() over single scopes or error paths. This adds boilerplate
+> > and carries the risk of lock leaks if error paths are refactored.
+> >
+> > Modernize these locks by deploying the <linux/cleanup.h> scoped_guard()
+> > macro. This ensures that the locks are reliably dropped when the block
+> > exits, cleanly removing goto out_unlock paths and tightening the
+> > lifecycle.
+>
+> What's the reason for doing so in in drm_gem and not other areas in DRM
+> ?
 
-Signed-off-by: Liam Zuiderhoek <zuiderhoekl@gmail.com>
----
- drivers/gpu/drm/meson/meson_encoder_hdmi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Hi Laurent,
 
-diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-index 55c0601df3c6..48ca6874d4a0 100644
---- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-+++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-@@ -407,8 +407,8 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
- 	meson_encoder_hdmi->priv = priv;
- 
- 	/* Encoder */
--	ret = drm_simple_encoder_init(priv->drm, &meson_encoder_hdmi->encoder,
--				      DRM_MODE_ENCODER_TMDS);
-+	ret = drm_encoder_init(priv->drm, &meson_encoder_hdmi->encoder,
-+			       DRM_MODE_ENCODER_TMDS, NULL);
- 	if (ret) {
- 		dev_err_probe(priv->dev, ret, "Failed to init HDMI encoder\n");
- 		goto err_put_node;
--- 
-2.43.0
+Thanks for taking a look.
+No deeper reason than it being where I happened to start =E2=80=94 I didn't
+mean to single it out, and I'd rather the treatment be consistent than
+piecemeal.
 
+> > @@ -1021,37 +1018,34 @@ int drm_gem_change_handle_ioctl(struct drm_devi=
+ce *dev, void *data,
+> >               goto out;
+> >       }
+> >
+> > -     mutex_lock(&file_priv->prime.lock);
+> > +     scoped_guard(mutex, &file_priv->prime.lock) {
+> > +             spin_lock(&file_priv->table_lock);
+> > +             ret =3D idr_alloc(&file_priv->object_idr, obj, handle, ha=
+ndle + 1,
+> > +                             GFP_NOWAIT);
+> > +             spin_unlock(&file_priv->table_lock);
+>
+> And why don't you use guards for the spinlock as well ?
+
+Fair point =E2=80=94 the spinlocks here are equally good candidates; I only
+kept v1 to mutexes to keep it small.
+
+That said, this is a pure cleanup with no functional change, so it's
+entirely your call whether it's worth carrying.
+If you'd like it, I'll send a v2 that converts both the mutexes and
+the spinlocks in drm_gem.c consistently. If you'd prefer not to take
+cleanup-only churn, I'm happy to drop it =E2=80=94 no problem either way.
+
+Thanks,
+Biren
