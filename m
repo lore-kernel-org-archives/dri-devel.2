@@ -4,60 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87F6ACDB46F
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 21:36:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2605CD98F2
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 21:37:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F118C10E8A7;
-	Mon, 22 Jun 2026 21:36:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E73410E8B2;
+	Mon, 22 Jun 2026 21:37:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fJCJWfTt";
+	dkim=pass (2048-bit key; unprotected) header.d=asu.edu header.i=@asu.edu header.b="A/tkbtBc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 734F010E8A4;
- Mon, 22 Jun 2026 21:36:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782164195; x=1813700195;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=CZGWdKE7n79xijnprnE3oRUPsBpauizUSM9b/EjUw28=;
- b=fJCJWfTtTQq2NFSkJ3Tq3wWBNlk7wXOK3SnEafXxAyIULafMEMP90yLg
- lpoR4EjnhSKILH5l9ugEC64x/kkFHfiLXAFGp7UHaQ+P8BZDFSvet8Kfb
- Toi1jt4VjEMv5E1BcQ2FSTW0+GBRVqq6mzlhifM7j/gGYzpQi+Cz/N+J0
- Ku9ecOTrEuoX9o7MpxTXjwCYszoYd5FzpMMnuo4AAyBPsNSpuyjpDvjnS
- OwxSIyyHMrywD8l9D1S3DYFiWISz1r/P0no0OPENGbyAWz8Ap5FLrbNR5
- UgfttJ4xPY/TD6UIRva5fk75yzMleioTdlYZOo+Kd0FxKurHhDiCmAZ6E A==;
-X-CSE-ConnectionGUID: weC4HCGJSHG9XZ+oqDXVgQ==
-X-CSE-MsgGUID: Jtet/ynJS82KPB/4h2XDNg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11825"; a="82673629"
-X-IronPort-AV: E=Sophos;i="6.24,219,1774335600"; d="scan'208";a="82673629"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2026 14:36:34 -0700
-X-CSE-ConnectionGUID: PwaQt6r7RWaGrF2wSY9rZA==
-X-CSE-MsgGUID: +HULcFKPT9yRATGJqf2qKA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,219,1774335600"; d="scan'208";a="246422789"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.160])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2026 14:36:32 -0700
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH v2 5/5] drm/i915/panel: Attempt VRR based refresh rate change
- for !allow_modeset
-Date: Tue, 23 Jun 2026 00:36:02 +0300
-Message-ID: <20260622213602.7244-6-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260622213602.7244-1-ville.syrjala@linux.intel.com>
-References: <20260622213602.7244-1-ville.syrjala@linux.intel.com>
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
+ [209.85.215.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 571DD10E8B2
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 21:36:59 +0000 (UTC)
+Received: by mail-pg1-f175.google.com with SMTP id
+ 41be03b00d2f7-c88b8fe9059so1846398a12.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 14:36:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782164219; cv=none;
+ d=google.com; s=arc-20240605;
+ b=NexjRQVhaqhwHRhKAM+U3GSQYIf5wZHPPlzWRxNIrSxUjxoiiPsDvqk1d4Bz3cS0e1
+ i+IvUIwRg6dQ9sm3oSs5zcGxWRt3+BSUIKe5MOJ0md2Op6D9Cc590rMu0vDTRsve1B8K
+ nsoA9wLgCv/INvv6bSsl8NRQbGK1oOruTiKbN2cdIcVipfBF5LjZasvp9vIGRQbeMgjf
+ 1JlArHRmVaX66OwtiqcZSP9g/YGNYNHArh3UkJInr/1E4ugH5Tg1whkzBwQXeBuByIev
+ X98bQX4lzuR58nFn4JVEWAdlXMLVb/CTIDp2lC343UMtCUHj3Q1EYDBzYRVoNWWKn1Np
+ W25g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=zzUg1BcP9Qnb9ASXav3KcPioO7TxRaczkdT3qjW/Sqo=;
+ fh=TtajIdewxLj9gyUJHHT1ccYIMDz3/yfxP4gcQYcRsXA=;
+ b=d9dH7PB0ENuT8xs0vwjlEQv27l9PwnFD0FrMj6s3rBFCsjLnRPoPE14DgmoAU55GVH
+ oYd5KTIr+wPirvPLK00cS04mVP2T1norxNHpURaMnVef/68ncxiAG0zxLKmvSATp+7qU
+ 8HESn8+qQrTdyNV0yi9UhQZpZhu2B7YWNbBM+15O1zv+gZHRsZU2pyR1dhYBvkL1a0NI
+ niWnde3dIOKqwzPa7DcoFfwcd/0Z9Yrc+kRcy7kV7sMbJVYqe71FIXijwu/R+piG3fsx
+ 1iPEBNBvTBqMQIx+th0dnGdhdzuzYoEFcIaTPCDaTgNG+UEASFRmKEunrdHvctkBrNoz
+ BQwQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=asu.edu; s=google; t=1782164219; x=1782769019; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=zzUg1BcP9Qnb9ASXav3KcPioO7TxRaczkdT3qjW/Sqo=;
+ b=A/tkbtBcLvfHqAAYm4B0jlRB/uC6Qoua9bNoKt+o8sde7FBfCIQVJAfirgFHvjgv1D
+ KqMTqZcHlUlzim8tza3SybfiDwCF4DKcjw+2nySwVz4Nzy6jC78S7eWq3rEVGuPLE/Xa
+ V9ZKIBWhd0NX9XpLWEGei6PgNy4ze8ta8agF8vOTcJdyGJcuwHM4CaiT7XGqqrWOH0Tm
+ EV4dLMcThpkWsjQ3jFGrydEYAt6owr0VwGUSXzcTlID5uHNAKGAKfmm8OFd2vM5I2dKk
+ 3Fhir5+IyJq8qAcVn1cbKTA+yOPV+SeYJ02FkZqVqa7FzpSHMNxBNqnV6t8f+HUghGvi
+ Nd9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782164219; x=1782769019;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=zzUg1BcP9Qnb9ASXav3KcPioO7TxRaczkdT3qjW/Sqo=;
+ b=Bfm4Xo6TTGrb+IRwXI2mKwe81bjgpp3uYATEprH7aYbny1q6rtz6eZSjqxja7Eu5w3
+ h+5i8+OJzc94DafYcmDPLvp1WFtSzf83RIwC8X2glJN2+XhlNDBZ+kcVern/nttdudT4
+ XUgaAzRaeTamkSzmvxhF62SPfAm8uRvL3EVEcelcdkY3QTNDnPzBrYcBdFNy/uvYOHXe
+ aIzwvYzF2r47pkOYELZrE1qsM1WxQbe434qPJN1diQj+ekhwtSgvFtLPrOHcJcqZCq/w
+ aUdDLSAzWz/v+lYpZMpoolB0HpLWWd5EciymG9k4RA7xzNLHOvykfT5rctHD6F5cFU34
+ 71RQ==
+X-Gm-Message-State: AOJu0YwDPKDossyH28s6eMj6NeHabf5oaBCpYomlsyE9z2l0f3fwFmIH
+ YDUtxUmF+vlN72ZQ4sMCmB3Qo89QlQ1bpp6zWfRN9BvCThuqeFw1WeUSYPb7le1F2BxEDyqJPCq
+ zditQ+dXnntBbTGOf7Bc5myKln/o7jbBhDHjFqg9i
+X-Gm-Gg: AfdE7cnKm2vRTlrVBjry4rx/voCzpcTFv9S7PE+76SG10l0DT8HKKMQNuVaVnbkgkOn
+ PIQjOoFffSsaiHRopGfvVrXuUopScP28BN0Px5q+xdHf/2zxC5FhodHQOHoXTvyjiTsBTOOxwzX
+ 2fK5HzEvHEMCddxBxCkAFTa6/X8squXm6roPBra2yy/zPyW0s75Egb6NN69l3ksMq0NviksUjek
+ JC0GKGxqKxa5wKqp980DUai1tw7EiTxtds9PbV/rnTZe2pkvCFHeVM+ea2n2hlU9AThdKsy1RXi
+ dLmQ2b/nr1FiuntDNBYZWjTcpAnp
+X-Received: by 2002:a05:6a21:689:b0:3ba:ecfb:ae2c with SMTP id
+ adf61e73a8af0-3bd14fbf7bdmr224301637.20.1782164218554; Mon, 22 Jun 2026
+ 14:36:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+References: <20260615184737.899892-1-xmei5@asu.edu>
+ <d7fdf98414e1f0386eb4acee2600b92f1ab66053@intel.com>
+ <37304e9ea4bc50f7c6f1b168d43d3525ac2cdc08@intel.com>
+In-Reply-To: <37304e9ea4bc50f7c6f1b168d43d3525ac2cdc08@intel.com>
+From: Xiang Mei <xmei5@asu.edu>
+Date: Mon, 22 Jun 2026 14:36:47 -0700
+X-Gm-Features: AVVi8CcegrOMHIkoWNs187DXbhy1qvWkibVmgKiML11Bvaq_X6JaQ9gJ5mZ6Ua0
+Message-ID: <CAPpSM+R2U-LuymMAbY8x25vR4L_RQpgLOUBnproFdmnVH=AkjQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/edid: fix OOB read in drm_parse_tiled_block()
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+ bestswngs@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,135 +106,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Mon, Jun 22, 2026 at 6:39=E2=80=AFAM Jani Nikula <jani.nikula@linux.inte=
+l.com> wrote:
+>
+> On Wed, 17 Jun 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
+> > On Mon, 15 Jun 2026, Xiang Mei <xmei5@asu.edu> wrote:
+> >> drm_parse_tiled_block() casts the DisplayID block to a
+> >> struct displayid_tiled_block and reads the full fixed layout up to
+> >> tile->topology_id[7] without checking block->num_bytes. The DisplayID
+> >> iterator only validates the declared payload length, so a crafted EDID
+> >> can advertise a tiled-display block (tag DATA_BLOCK_TILED_DISPLAY, or
+> >> DATA_BLOCK_2_TILED_DISPLAY_TOPOLOGY for v2.0) with a small num_bytes a=
+t
+> >> the end of a DisplayID extension. The read then runs past the end of t=
+he
+> >> exact-sized kmemdup()'d EDID allocation, a heap out-of-bounds read.
+> >>
+> >> Reject blocks shorter than the spec's 22-byte tiled payload before
+> >> reading the fixed struct, as drm_parse_vesa_mso_data() already does.
+> >>
+> >>   BUG: KASAN: slab-out-of-bounds in drm_edid_connector_update
+> >>   Read of size 2 at addr ffff888010077700 by task exploit/147
+> >>    dump_stack_lvl (lib/dump_stack.c:94 ...)
+> >>    print_report (mm/kasan/report.c:378 ...)
+> >>    kasan_report (mm/kasan/report.c:595)
+> >>    drm_edid_connector_update (drivers/gpu/drm/drm_edid.c:7581)
+> >>    bochs_connector_helper_get_modes (drivers/gpu/drm/tiny/bochs.c:574)
+> >>    drm_helper_probe_single_connector_modes (drivers/gpu/drm/drm_probe_=
+helper.c:426)
+> >>    status_store (drivers/gpu/drm/drm_sysfs.c:219)
+> >>    ...
+> >>    vfs_write (fs/read_write.c:595 fs/read_write.c:688)
+> >>    ksys_write (fs/read_write.c:740)
+> >>
+> >> Fixes: 40d9b043a89e ("drm/connector: store tile information from displ=
+ayid (v3)")
+> >> Reported-by: Weiming Shi <bestswngs@gmail.com>
+> >> Assisted-by: Claude:claude-opus-4-8
+> >> Signed-off-by: Xiang Mei <xmei5@asu.edu>
+> >
+> > Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+>
+> And pushed to drm-misc-fixes, thanks for the patch.
+>
+Thanks for your review!
 
-Adjust the panel fixed mode selection algorithm to only consider
-fixed modes that are "VRR compatible" with the old fixed mode
-when userspace doesn't want to allow full modesets. This will
-allow a VRR based refresh rate changes (ie. just a change in
-the vblank length) via the fastset path.
-
-When full modesets are allowed, we still use the original algorithm
-as that may pick a fixed mode with a more optimal dotclock, potentially
-leading to reduced power consumption.
-
-This approach works as long as userspace does the initial
-allow_modeset=true commit using the highest refresh rate it will
-want to use. Subsequent commits with allow_modeset=false can then
-switch between lower refresh rates without blinks.
-
-One remaining hurdle we may need to solve is the guardband length.
-Assuming the highest refresh rate vblank is too short for
-intel_vrr_compute_optimized_guardband() the intitial guardband will
-match the highest refresh rate vblank. A subsequent switch to a lower
-refresh rate will then recompute the guardband and select a value
-that is higher (since the vblank will be longer). The mismatch in
-guardband lengths will prevent the fastset. We may either have to
-preserve the original (sub-optimal) guardband, or we'll have to
-revisit the idea of changing the guardband without a full modeset.
-
-Note that I'm not 100% happy with this solution because
-intel_panel_fixed_mode() is no longer fully idempotent, but I wasn't
-able to come up with anything truly better either :/ The simple
-solution would be just to always pick the fixed mode with the highest
-dotclock, but that could lead to increased power consumption even
-when high refresh rates are never used.
-
-Perhaps the proper solution would be to just deprecate this
-idea of taking in random modes for internal panels and then
-cooking up a compatible fixed modes. Life would be easier if
-userspace was required to provide the desired fixed mode directly.
-But in order to do that we'd need to introduce new uapi properties
-to control the pfit aspect of this, and we'd probably need a new
-client cap to select between the old and new userspace behaviour.
-Something to consider in the future...
-
-v2: Rebase due to earlier changes to VRR fixed mode selection
-
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com> #v1
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_panel.c | 42 ++++++++++++++++++++--
- 1 file changed, 39 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index faa24537ef63..81e638d0c7b3 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -72,9 +72,20 @@ static bool is_best_fixed_mode(struct intel_connector *connector,
- 		abs(drm_mode_vrefresh(best_mode) - vrefresh);
- }
- 
-+static bool is_vrr_compatible(const struct drm_display_mode *mode1,
-+			      const struct drm_display_mode *mode2)
-+{
-+	return drm_mode_match(mode1, mode2,
-+			      DRM_MODE_MATCH_CLOCK |
-+			      DRM_MODE_MATCH_TIMINGS_VRR |
-+			      DRM_MODE_MATCH_FLAGS |
-+			      DRM_MODE_MATCH_3D_FLAGS);
-+}
-+
- static const struct drm_display_mode *
- intel_panel_fixed_mode_vrr(struct intel_connector *connector,
--			   const struct drm_display_mode *mode)
-+			   const struct drm_display_mode *mode,
-+			   const struct drm_display_mode *vrr_ref_mode)
- {
- 	const struct drm_display_mode *fixed_mode, *best_mode = NULL;
- 	int vrefresh = drm_mode_vrefresh(mode);
-@@ -82,6 +93,10 @@ intel_panel_fixed_mode_vrr(struct intel_connector *connector,
- 	if (!intel_vrr_is_in_range(connector, vrefresh))
- 		return NULL;
- 
-+	if (vrr_ref_mode &&
-+	    !intel_vrr_is_in_range(connector, drm_mode_vrefresh(vrr_ref_mode)))
-+		return NULL;
-+
- 	list_for_each_entry(fixed_mode, &connector->panel.fixed_modes, head) {
- 		int fixed_mode_vrefresh = drm_mode_vrefresh(fixed_mode);
- 
-@@ -96,6 +111,10 @@ intel_panel_fixed_mode_vrr(struct intel_connector *connector,
- 		if (fixed_mode_vrefresh < vrefresh)
- 			continue;
- 
-+		if (vrr_ref_mode &&
-+		    !is_vrr_compatible(fixed_mode, vrr_ref_mode))
-+			continue;
-+
- 		if (is_best_fixed_mode(connector, vrefresh,
- 				       fixed_mode_vrefresh, best_mode))
- 			best_mode = fixed_mode;
-@@ -224,10 +243,27 @@ static int intel_panel_compute_config_vrr(struct intel_atomic_state *state,
- 					  struct intel_connector *connector)
- {
- 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
--	const struct drm_display_mode *fixed_mode;
-+	const struct drm_display_mode *fixed_mode = NULL;
- 	int vrefresh, fixed_mode_vrefresh;
- 
--	fixed_mode = intel_panel_fixed_mode_vrr(connector, adjusted_mode);
-+	/*
-+	 * Attempt a VRR based refresh rate change if possible
-+	 * when userspace has forbidden a full modeset.
-+	 */
-+	if (!state->base.allow_modeset) {
-+		struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+		const struct intel_crtc_state *old_crtc_state =
-+			intel_atomic_get_old_crtc_state(state, crtc);
-+
-+		if (old_crtc_state->hw.enable &&
-+		    old_crtc_state->uapi.encoder_mask == crtc_state->uapi.encoder_mask)
-+			fixed_mode = intel_panel_fixed_mode_vrr(connector, adjusted_mode,
-+								&old_crtc_state->hw.adjusted_mode);
-+	}
-+
-+	if (!fixed_mode)
-+		fixed_mode = intel_panel_fixed_mode_vrr(connector, adjusted_mode, NULL);
-+
- 	if (!fixed_mode)
- 		return -EINVAL;
- 
--- 
-2.53.0
-
+Best,
+Xiang
+> BR,
+> Jani.
+>
+>
+> >
+> >> ---
+> >> v2: use 22 instead of sizeof, based on the topology_id[9] fix:
+> >> https://lore.kernel.org/r/20260610141549.555605-1-jani.nikula@intel.co=
+m
+> >>
+> >>  drivers/gpu/drm/drm_edid.c | 8 ++++++++
+> >>  1 file changed, 8 insertions(+)
+> >>
+> >> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> >> index 404208bf23a6..df3c25bac761 100644
+> >> --- a/drivers/gpu/drm/drm_edid.c
+> >> +++ b/drivers/gpu/drm/drm_edid.c
+> >> @@ -7575,6 +7575,14 @@ static void drm_parse_tiled_block(struct drm_co=
+nnector *connector,
+> >>      u8 num_v_tile, num_h_tile;
+> >>      struct drm_tile_group *tg;
+> >>
+> >> +    /* tiled block payload per spec: cap 1 + topo 3 + size 4 + bezel =
+5 + id 9 =3D 22 */
+> >> +    if (block->num_bytes < 22) {
+> >> +            drm_dbg_kms(connector->dev,
+> >> +                        "[CONNECTOR:%d:%s] Unexpected tiled block siz=
+e %u\n",
+> >> +                        connector->base.id, connector->name, block->n=
+um_bytes);
+> >> +            return;
+> >> +    }
+> >> +
+> >>      w =3D tile->tile_size[0] | tile->tile_size[1] << 8;
+> >>      h =3D tile->tile_size[2] | tile->tile_size[3] << 8;
+>
+> --
+> Jani Nikula, Intel
