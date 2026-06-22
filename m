@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14E57CDB46B
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 09:18:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5F54CDB46F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 09:18:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71D5E10E59B;
-	Mon, 22 Jun 2026 09:18:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D4FB10E591;
+	Mon, 22 Jun 2026 09:18:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FCAXY3kU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QjY2gxkX";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61AD510E59B
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 09:18:33 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B49410E591
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 09:18:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2B3FA418F0;
- Mon, 22 Jun 2026 09:18:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA1171F000E9;
- Mon, 22 Jun 2026 09:18:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 207E060051;
+ Mon, 22 Jun 2026 09:18:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEE9A1F00A3A;
+ Mon, 22 Jun 2026 09:18:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782119913;
- bh=FjPs0M2QPPibXQkfaHc2roooYDCYXm7i1plgyrkzkcE=;
+ s=k20260515; t=1782119933;
+ bh=aib2t0mrMNk3e8Cm64nUBMJHuxvZM+l0c9/kF2bypnw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FCAXY3kUhFxnqUaSnxjc/frJd8d9v40p51uD8UJfjHfca5knEu1RHsoeviDur1KSB
- /zA9Ikx0N1yLK8zbbbIfc12044cykkq8ggv/Owjq0ZqF+rRdPlu94iRPopqlV0zrqu
- F8LNWCa/3HghNe3Png7/bRN8O9lYp6vq1EvddM6pLqFTJoR2CDEoSZfv4AfFnA9CvF
- ZxLB/E1+4flX+Qt8WK/I6ET/4wtb1RXfO839YbNkSt1He2slBx9vu7c0ANuoRroONz
- cnBVhpQDWI6Lx6RNiwTAccRLZ9NpyPGfwHAhMganTtvwl91nzu+aSmkOHth9uDqLXa
- UFsFPosNn/azQ==
+ b=QjY2gxkXsw5LVg9q3HqHxaIRmTZyo2Kk8BqcwbXUpwzGuyN3BQLiVzMx8i+JyjMmA
+ 7mFdMEBQe8d7crIVGJDUaX4Y/WJN+HXdbzSIJiXBkSqFHqp7MU1CyS22eh7G74ne1J
+ ZVq+NhffiOvTIG8UzFPf82Gk44raqK4eEay3ZX3geANiKmqncUw811o4nmGRyd7ELq
+ 5VNmGzMRKrqR1eHtL48tWFx1LX2zVGA1yTweiPkqpL8nNcNyoa89QMLw2bWb0FTVyS
+ sb6Zb7Zj0SeIsiSwgoyyEFu+lAQDThx2hsERymw1VVh8Tu3fJT3U7K3Yv7YbITXFEY
+ Wittv6H8RrFWw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/5] nouveau/gsp/rm/alloc: Cleanup IS_ERR_OR_NULL usage
+Subject: Re: [PATCH v4 5/5] nouveau/gsp: Cleanup IS_ERR_OR_NULL in
+ nvkm_gsp_rpc_rd()
 To: "Hongling Zeng" <zenghongling@kylinos.cn>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <1782119053310022.17263.seg@mailgw.kylinos.cn>
+In-Reply-To: <1782119053307777.17259.seg@mailgw.kylinos.cn>
 References: <20260622035454.28003-1-zenghongling@kylinos.cn>
- <1782119053310022.17263.seg@mailgw.kylinos.cn>
+ <1782119053307777.17259.seg@mailgw.kylinos.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 22 Jun 2026 09:18:32 +0000
-Message-Id: <20260622091832.DA1171F000E9@smtp.kernel.org>
+Date: Mon, 22 Jun 2026 09:18:53 +0000
+Message-Id: <20260622091853.AEE9A1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,68 +62,84 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Heap buffer overflow due to integer underflow when parsing GSP RPC=
- messages.
+- [High] NULL pointer dereference and error masking when GSP firmware sends=
+ a malformed RPC message.
 --
 
-commit 87c0818f37bba3a580cd4e8905cc4819a930a1c7
+commit 3c4145ccdcc776937c8bd4a94334b6cf663fc7eb
 Author: Hongling Zeng <zenghongling@kylinos.cn>
 
-nouveau/gsp/rm/alloc: Cleanup IS_ERR_OR_NULL usage
-
-This commit cleans up r535_gsp_rpc_rm_free() by replacing IS_ERR_OR_NULL()
-with IS_ERR(). This matches the behavior of nvkm_gsp_rpc_get() which only
-returns valid pointers or error pointers, never NULL.
-
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/alloc.c b/dr=
-ivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/alloc.c
-> index 46e3a29f2ad7f..c9f86c0e9b255 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/alloc.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/alloc.c
-
-[ ... ]
+nouveau/gsp: Cleanup IS_ERR_OR_NULL in nvkm_gsp_rpc_rd()
+   =20
+nvkm_gsp_rpc_rd() calls nvkm_gsp_rpc_get() which never returns NULL,
+only valid pointers or error pointers. Clean up by using IS_ERR()
+instead, matching the actual return value contract.
+   =20
+> Note: nvkm_gsp_rpc_push() can return NULL when policy is NOWAIT or
+> NOSEQ, but nvkm_gsp_rpc_rd() uses RECV policy which expects a reply.
+> If the RPC fails to get a reply, it should return an error pointer,
+> not NULL.
 
 [Severity: High]
-This isn't a bug introduced by this patch, but while reviewing the RPC
-parsing code, could the GSP message queue handling be vulnerable to an
-integer underflow?
+This isn't a bug introduced by this patch, but the commit message asserts
+that nvkm_gsp_rpc_push() will return an error pointer instead of NULL under
+the RECV policy. Is this assertion accurate?
 
-In r535_gsp_msgq_recv() in rpc.c, the firmware-provided rpc->length is read
-from the untrusted GSP shared memory message queue:
+If the GSP firmware sends a malformed message with an invalid size, the
+receive path can return NULL even for RECV policies:
 
 r535_gsp_msgq_recv() {
-        ...
-        rpc =3D r535_gsp_msgq_peek(gsp, sizeof(*rpc), info.retries);
-        if (IS_ERR(rpc)) {
-                kvfree(buf);
-                return rpc;
-        }
-
-        info.gsp_rpc_len =3D rpc->length;
-        info.continuation =3D true;
-        ...
+    ...
+    if (WARN_ON(rpc->length > max_rpc_size))
+        return NULL;
+    ...
 }
 
-If this length is not validated to be at least sizeof(struct nvfw_gsp_rpc),
-it appears we could underflow the length calculation in
-r535_gsp_msgq_recv_one_elem() when processing continuation messages:
+This NULL propagates up through r535_gsp_msg_recv() and
+r535_gsp_rpc_handle_reply() to nvkm_gsp_rpc_push().
 
-r535_gsp_msgq_recv_one_elem() {
-        ...
-        len =3D min_t(u32, expected, len);
+> diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h b/drivers/=
+gpu/drm/nouveau/include/nvkm/subdev/gsp.h
+> index 64fed208e4cf8..a061779e0107b 100644
+> --- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
+> +++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
+> @@ -293,7 +293,7 @@ nvkm_gsp_rpc_rd(struct nvkm_gsp *gsp, u32 fn, u32 arg=
+c)
+>  {
+>  	void *argv =3D nvkm_gsp_rpc_get(gsp, fn, argc);
+> =20
+> -	if (IS_ERR_OR_NULL(argv))
+> +	if (IS_ERR(argv))
+>  		return argv;
+> =20
+>  	return nvkm_gsp_rpc_push(gsp, argv, NVKM_GSP_RPC_REPLY_RECV, argc);
 
-        if (info->continuation)
-                memcpy(buf, mqe->data + sizeof(struct nvfw_gsp_rpc),
-                       len - sizeof(struct nvfw_gsp_rpc));
-        ...
+Since this function returns the result of nvkm_gsp_rpc_push() directly, it
+can return NULL.
+
+Since callers of nvkm_gsp_rpc_rd() typically only check IS_ERR(rpc), wouldn=
+'t
+this result in a NULL pointer dereference?
+
+For example:
+
+r535_gsp_get_static_info() {
+    rpc =3D nvkm_gsp_rpc_rd(gsp, NV_VGPU_MSG_FUNCTION_GET_GSP_STATIC_INFO,
+                          sizeof(*rpc));
+    if (IS_ERR(rpc))
+        return PTR_ERR(rpc);
+
+    ...
+    gsp->internal.client.object.handle =3D rpc->hInternalClient;
 }
 
-If rpc->length (and therefore len) is less than sizeof(struct nvfw_gsp_rpc),
-does len - sizeof(struct nvfw_gsp_rpc) underflow to a massive positive valu=
-e,
-leading to an out-of-bounds read and a massive heap buffer overflow into
-buf during the memcpy?
+Furthermore, in r535_gsp_rpc_rm_ctrl_push(), a NULL return triggers an
+IS_ERR_OR_NULL check but incorrectly translates to a 0 (success) return via
+PTR_ERR(rpc), masking the error completely.
+
+Should r535_gsp_msgq_recv() be updated to return an ERR_PTR(-EIO) instead of
+NULL when a malformed RPC size is encountered?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622035454.2800=
-3-1-zenghongling@kylinos.cn?part=3D3
+3-1-zenghongling@kylinos.cn?part=3D5
