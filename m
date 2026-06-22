@@ -4,131 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09354CD98F2
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 14:54:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E1BACDB46F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 15:04:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 631D210E723;
-	Mon, 22 Jun 2026 14:54:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8DDD10E62B;
+	Mon, 22 Jun 2026 15:04:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="oEr7QA3m";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="844/Hlof";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="oEr7QA3m";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="844/Hlof";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="j3xWgp1n";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07E0510E723
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 14:54:38 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 62E1C75991;
- Mon, 22 Jun 2026 14:54:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782140076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=jxh1gHLoGNtM52tLMMkGn2yRHkmuZf/Zujd0BM3u68s=;
- b=oEr7QA3mKbhoVPXJ4rVR6K/mwPDkNHBzxLnqHDWCsO4VKPlZjwYj3eRdi2Gf/G3X+QNhXB
- FUt27PsTIkvIEkgszs0m47WlitGv2qz464gNGHwnl+Mv1ymscQc8SF1bSLShI1Q0tALWBo
- JRiVozWVzx0FHDh3nj0XWWVT+fksojY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782140076;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=jxh1gHLoGNtM52tLMMkGn2yRHkmuZf/Zujd0BM3u68s=;
- b=844/HlofZeD0Pz5Js3SnEw2w3Srz5DH8PDQv+1zn4ZJw7uKsbX3Cqt5dnct4KSDwXol9pf
- f/D+uc5gFMBL2nBA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782140076; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=jxh1gHLoGNtM52tLMMkGn2yRHkmuZf/Zujd0BM3u68s=;
- b=oEr7QA3mKbhoVPXJ4rVR6K/mwPDkNHBzxLnqHDWCsO4VKPlZjwYj3eRdi2Gf/G3X+QNhXB
- FUt27PsTIkvIEkgszs0m47WlitGv2qz464gNGHwnl+Mv1ymscQc8SF1bSLShI1Q0tALWBo
- JRiVozWVzx0FHDh3nj0XWWVT+fksojY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782140076;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=jxh1gHLoGNtM52tLMMkGn2yRHkmuZf/Zujd0BM3u68s=;
- b=844/HlofZeD0Pz5Js3SnEw2w3Srz5DH8PDQv+1zn4ZJw7uKsbX3Cqt5dnct4KSDwXol9pf
- f/D+uc5gFMBL2nBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 10382779A8;
- Mon, 22 Jun 2026 14:54:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id DRWPAqxMOWrdeQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 22 Jun 2026 14:54:36 +0000
-Message-ID: <926d9d5f-be68-4377-9a90-0d9ace2c2c53@suse.de>
-Date: Mon, 22 Jun 2026 16:54:35 +0200
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012071.outbound.protection.outlook.com [52.101.43.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AA1910E62B;
+ Mon, 22 Jun 2026 15:04:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j4zzIyYdbBJqtIZTlTYvPceniRp/hjGuT+L/UE1oHF9qScmpBlbJC1ve115B1hPn5x65JLBk2NSo+8pIiQQMxzque1AB3WGQcNFU3i/k0loD1MLcDhllW1kigoQ3Mr3WaVTIvmBFsfCc3TidnJ0neuaWiTYQ/uxGSnOJXO1bTQaU6LFQvpCByde15Ei5ZgEKlmnuIZeAWPW8iDw+bEmBHKujZ6JYcUkMY8WKVubBVTBXXa/GLyS7JNEtpDZBTlg13glEtfgkQ8xRI1x+3Leltx0Wah72cAR9QIy+VUxh1WYJx0jkTAV3r8lx7J29WrQyCRx0hEazh7aKAsiZfXnfSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=c4dAB//9V3Nx8nEkHHY8I/OXoQ0E+/8k7aGIZLFpYic=;
+ b=nMcQRI2/FK6iKceMNgw4Pemw20igRv8d/SvjxZBCb+bGCiiWgkmm/8Q10Dd5ifUOdIiOntVMR+91BfTFhy1UbDKTN9C1a6G2iQNpcTeqhSuF+SUwNrdnK9ljhTBBYHfr8r0YbgVeR4ywAI///knVHTcP9BggiCUi+xvRyyYm0jaDm0FToUVrTL948iTesMv/A5d4823BkjXQjzCOk/f2/8ls+5XsZ4FKszmy0bcaeD0DjIns7Dd9dKrn6QUIrXIWwH5N1boLeuXyyONHeEXVQfX3pNoSgBBmIAoNnhhHSKijsrJxPDL2LMbFuBoiT/iIMgP7G2OsDWysZucmkL897g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=c4dAB//9V3Nx8nEkHHY8I/OXoQ0E+/8k7aGIZLFpYic=;
+ b=j3xWgp1nFzNTPMsS7hMpIT+ajeR+EvMk9NJ/BcygPplkiHEQ5s2Hxm2PRPFoPQuZZkntGnqszAmkhAVdTIIkXxqL/8nm0HPC1D1ypae3EzM8haGksnUm4aqaNVZGD5UKUscw9Njb2BqJ8tVZUjcxJ47bxtjvWcUTzls+W/OEZUKehPLXNVM3DJ8g+SZLfaHewfVPEtiOsPkHnQEA9d+EmzftjbY1vtr4x5TpuQJeKnVhNY7D22Dq+wGbSuLjuZmeYlgfM8v1wnR/CtLJQgwhIkUh1Msu4XGe9iN3XYo4fcLcIdop8bXxGcLaKWtaY1BH2v1zKNrRmnKdJeFOJOeaXQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by DM6PR12MB4313.namprd12.prod.outlook.com (2603:10b6:5:21e::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Mon, 22 Jun
+ 2026 15:04:44 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
+ 15:04:44 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 23 Jun 2026 00:04:40 +0900
+Message-Id: <DJFO5A5XN2EO.22B58J2O6D4JG@nvidia.com>
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH 3/6] gpu: nova-core: gsp: move boot code into local closure
+Content-Transfer-Encoding: quoted-printable
+References: <20260619-nova-bootcontext-v1-0-45193cd0a2e5@nvidia.com>
+ <20260619-nova-bootcontext-v1-3-45193cd0a2e5@nvidia.com>
+ <DJFF1W6VGY4Q.2PV5MEPMFXIDB@nvidia.com>
+In-Reply-To: <DJFF1W6VGY4Q.2PV5MEPMFXIDB@nvidia.com>
+X-ClientProxiedBy: TY4P286CA0044.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:36e::15) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/fb-helper: Only consider active CRTCs for vblank
- sync
-To: Jani Nikula <jani.nikula@linux.intel.com>, hns@goldelico.com,
- zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch, akemnade@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- letux-kernel@openphoenux.org, kernel@pyra-handheld.com,
- sashiko-reviews@lists.linux.dev, stable@vger.kernel.org
-References: <20260622113434.682292-1-tzimmermann@suse.de>
- <395f15bb770b4be0ffeeb09e7cdeef49340f910c@intel.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <395f15bb770b4be0ffeeb09e7cdeef49340f910c@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.993]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[14];
- MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- FREEMAIL_TO(0.00)[linux.intel.com,goldelico.com,iscas.ac.cn,kernel.org,gmail.com,ffwll.ch];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- URIBL_BLOCKED(0.00)[iscas.ac.cn:email,suse.com:url,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo,goldelico.com:email];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, iscas.ac.cn:email, suse.de:email,
- suse.de:mid, imap1.dmz-prg2.suse.org:helo]
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DM6PR12MB4313:EE_
+X-MS-Office365-Filtering-Correlation-Id: d97c30b5-26b4-4e6b-cf7e-08ded06f97ab
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|10070799003|1800799024|366016|376014|7416014|56012099006|3023799007|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: +umEuMKCRAT1akODWznMpao2a4wH+orpRZGbB38A6Y+d08F1If6ZlgsMxhYz39VyuDDjCjxl9EPirAe3tFAUnSwW2EL2drrAiDrnK8ce0aiU4Rym9BxGINXIK0vOuoZbE8p3N3fTc1w2qzc0IGJLOlpJ4SlEPxg6UIDumHoZOCE6nhYsI2N4v+Fwq5Piiks7IImOSHBPOyHuKC/HeqXA9OT1I2AS9h/7i1wyK4ehTCC6G99NgVKL6+Z0MFmkqgJ6ISuJLs171O9ex9vvQjomRjNZZJZUJqJhJsz3ulSmt7YJ/Xq7qzvIyWOfJFutUT1vjglGRcSbUIib6cNyfshXAHrOmpmppLCvHcZkH2+4kvRo4OsMvqsDyzN+32dbOt/f5mIh8LayrTc/3PtlaiF9ehkAck/hDlPXsljCrdHuaqOcgPYREmR1Heyvt4AyZIbYggQv/W4gyHWD8St1A9c2R3ejJ3x7jjf8l+M7LBv2/rOhexNcYCRF2lTn3l0O64saM0duxZOJaaKynprb732ISLRcO/21NGrxPapkK+YJhbSVcAWw3QLBb6fvO/WVmDctglzvzpp3bOxadoRy8my2NXG2xla7plX0/T9fzHWHKwz7BZG+bzMBeMSHsJSzXkN3g1mPdrW6nsCqkL1Lg9yFUM9ZMiWONoIVvUNuSkGKuB4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(10070799003)(1800799024)(366016)(376014)(7416014)(56012099006)(3023799007)(11063799006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M1R1MzZIR092V3BINUZWMjM4R21BaUd6Q091V2pWc0RWWGU1SlZtTk9ETG13?=
+ =?utf-8?B?TGdRU2ZkN1lERGdtZjZ0eWl2bUtiNTdxZ29tZ3NOb1VuYlNjdFJFUnltYXVM?=
+ =?utf-8?B?SmQ3NmZId3VLc1JZU2k0SWlacXRneVdvTHRSd2pJSG5nYmdoOXFsRzlKTTQr?=
+ =?utf-8?B?d081NCtQa2w0bkY1WWEvUFYwWThTOXNkTWZnNktvSnQxREVMbHVkNWtUdW4r?=
+ =?utf-8?B?TTZraDBFTEVaMzN3V2xibURSUzFJWjZEbjVod1dyRmpxcVY4MFZZbWd1ZkdH?=
+ =?utf-8?B?RE9aOGVUamEvRlQweGFRenZyTHhtNm92Y2daNGNHY1BBcldEQzdnV1d3U1Jj?=
+ =?utf-8?B?Z3dsVnIwemZ5cExMVmo2WXlKck41WHNSdGVkcEJCaDhSc215QzJJT1ZoRkpr?=
+ =?utf-8?B?V0ZhUC9OS25aRmpOamswdnlVaUwxWUdCR2p2N2NoY0xmRjBZQ3JHVWdBQkdL?=
+ =?utf-8?B?ckx1TVFYOE9JRXJkWllYMmRPZm5KQlZPQ0xLN1lDTGJWek00b0hkMHh5SG91?=
+ =?utf-8?B?TG82aWxFcCszWDJRNVRERWwzdFBFMDJsZmRaWWszaVJlR2plSlE4UEtYK0Fr?=
+ =?utf-8?B?QTAzUXhlQlZ4OE5qMGxydmFsdkljOHptWDd5dVVyNGdkSFYxaVZNTFVIN1Fk?=
+ =?utf-8?B?MVUrVk9FSGJNRG1qdWlYMGtIOVl3dGlwVlA1VHZvS2h2V3Y4MytrdUUrMjc0?=
+ =?utf-8?B?enFvOGR2T0NXRmVwS2NKNkw0Rm5HNzNqMUJoNTBBbndKeDE2aEdSd3MzRFNG?=
+ =?utf-8?B?N2FVYzVFVjNiV0I2NWVROVJzR3I5aU1vZWhrNGZTVUJrZG1TUHM3WUcxSFRj?=
+ =?utf-8?B?aU5MMXZ6SkVwaXRoMXRCbVhFc3FjbDhNakc4c2p3S0JvZDJOdWRvdGpUTnRF?=
+ =?utf-8?B?OTNvb3FuVWt2YkNQbGhDb3NranUxdnQyTDFhUzdPaE5pcVUvbUJqZmpPVUtR?=
+ =?utf-8?B?Z1lwT3ppNW8zM1RoQW5rUFV4RXpNd0NJVTV3YStXZlhaK3Jwb2g4MUNYMzBH?=
+ =?utf-8?B?OHBzNzM0dkRIU283Q3BaRlB5Nzlkd0hrOHVRY3JBbVREV0p2SlVOR3N0Mmlv?=
+ =?utf-8?B?UHl5QitHeHFzbG9BRnFjK0JOcGsvZnpmY1l1MDY4Rnh3RHREdXBpZWNjemdl?=
+ =?utf-8?B?RDFEMWpwZWZTWFJ5WUxXLzY1Mmdxajg4S2lXSGVPWW4vTXpkZ0trQkZkWkRt?=
+ =?utf-8?B?b0JXNG45L3oxeUdNb3gvb1ZncHJxVWlRc1RONmg1OWxiM1F0dnkrbEVrQ0ts?=
+ =?utf-8?B?cUV1dUR0NDhaeUQyOUFmUXpHcmVLeGw3K2VCb01US0VoZmV4Q1JHZ3d5OVN6?=
+ =?utf-8?B?NjN1b2ViMEdtNCtleXB4WkhJVmhobnVGeU9MUFNIY2VrbXU0cXlUNm5hN3JD?=
+ =?utf-8?B?VlJEZGRRZncwenY2S1JFRGc5czNBUmFjWWNFV2V5bm01SzJVU0NBcGVVcjBE?=
+ =?utf-8?B?b1ZGZ3NPakNwSStjZy9aSnBaZTRqbERJR1c2QUc5ZG5TcTkwaWQxUlZONkto?=
+ =?utf-8?B?VDEwR0VJdkVEZWJRTlNXN2ZjdERRZ01IQlBLZXA4Rlp0L1NkUUU0N3NadTF0?=
+ =?utf-8?B?dU9vSkY2VVcvRFZxRFBoV1dWTE4xS0hUNDBVT2dsOVNtUXc2elVnSEpWYzV4?=
+ =?utf-8?B?OGkrVWsyVDUyZVZ0STVBRGtQSHRNYytLa01DbzVoYmozWVllbGp6WjkybVMr?=
+ =?utf-8?B?dFlLc1d4ZU5lRjgvZEtWR2Y0TzNEUnBXcWN3RzRTSXpBTXBLcFlMVXR4ajIv?=
+ =?utf-8?B?elgvcm9nallCeTd0b0t1czNpRnFHVXRJNWdhYnJ4V0xhNkxBaFZqMzkvN2VF?=
+ =?utf-8?B?UkJGODhRMC9SM1hLa3lTRDlNVFRiSUZtaTFTcC9uRXNYVE9hSTREcEtDSFhx?=
+ =?utf-8?B?ckRQNTVkMzhneGg3VUxRMEJGOUZsUXJRWGlGRjF1TEVjRW5SRDY0WkVDTDVJ?=
+ =?utf-8?B?Vnp6dlhKMWRoeldyblVsdDM0M0xrWitMMGZkdVY2aFpOZ0tLZHNVbWF0cWhx?=
+ =?utf-8?B?NnlSeW5ZeHB1ZlJiNTVsUFJ5UTlKeEpqZkdnK0Vid0Z4RWF2TkhLeW5zVGc0?=
+ =?utf-8?B?c0VOYTl2SWxmYUNMT1lJS0s0NEpHRk9rbkgwbGdoQnBFSzZhOTI4WGtOTzBl?=
+ =?utf-8?B?aHNEUEJSRnNnL2lzcDZGSG1pcUZScGpKdWV6VWx4R0NsQ1h5bll4c2twaXBP?=
+ =?utf-8?B?Vm83RXdzdUpwcm95RXBEV2t3TTRNbUlrOHIvU3lJdWxDSy9sME16RXNZVHlQ?=
+ =?utf-8?B?cVhxdU5GZk96YWJyeXBYMXZZd0J0Q1NrMHFKMkpEZmtLMHlHZUt4a3Ruamti?=
+ =?utf-8?B?dVRSRUVTZHZ0WG82Qkt4ZjF2SXczY3crQ1JJV0tmYVBINnBTU2I1QXpCKzBa?=
+ =?utf-8?Q?vbyVKB+tGQxxkiEFA5S2Ot5nVP/xcLRKMSttWM8S1WCOq?=
+X-MS-Exchange-AntiSpam-MessageData-1: yh1dY9EwfJIZcg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d97c30b5-26b4-4e6b-cf7e-08ded06f97ab
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 15:04:44.1625 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kRDgp5DLGq52PDXD5uPOSXHPPiTNpeTMxtCg+jmVci75JqjkWd9FLy8FSES78+Kyxmb0ZQvMhacfuI8V+mPrSA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4313
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,157 +144,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 22.06.26 um 15:34 schrieb Jani Nikula:
-> On Mon, 22 Jun 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> Only synchronize fbdev output to the vblank of an active CRTC. Go over
->> the list of CRTCs and pick the first that matches. Fixes warnings as
->> the one shown below
+On Mon Jun 22, 2026 at 4:57 PM JST, Eliot Courtney wrote:
+> On Fri Jun 19, 2026 at 10:42 PM JST, Alexandre Courbot wrote:
+>> The next patch aims at replacing the cumbersome `BootUnloadGuard` with a
+>> more local and less intrusive mechanism to run the GSP unload sequence
+>> upon GSP boot failure. Doing so requires running the boot code in a
+>> local closure, which changes its indentation and would make other
+>> changes difficult to track in the diff. Thus, this preparatory patch
+>> moves said boot code into a local closure that is run upon construction,
+>> so the next patch does not need to re-indent code that changes.
 >>
->> [   77.201354] WARNING: drivers/gpu/drm/drm_vblank.c:1320 at drm_crtc_wait_one_vblank+0x194/0x1cc [drm], CPU#1: kworker/1:7/1867
->> [   77.201354] omapdrm omapdrm.0: [drm] vblank wait timed out on crtc 0
+>> This is a mechanical preparatory patch to make the next patch easier to
+>> read. No functional change intended.
 >>
->> This currently happens if the fbdev output is not on CRTC 0.
->>
->> Atomic and non-atomic drivers require distinct code paths. As for other
->> fbdev operations, implement both and select the correct one at runtime.
->>
->> Not finding an active CRTC is not a bug. Do not wait in this case, but
->> flush the display update as before.
->>
->> v2:
->> - move look-up code into separate helper
->> - support drivers with legacy modesetting
->> v1:
->> - see https://lore.kernel.org/dri-devel/1c9e0e24-9c4a-4259-8700-cf9e5fd60ca3@suse.de/
->>
->> Co-authored-by: H. Nikolaus Schaller <hns@goldelico.com>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Fixes: d8c4bddcd8bcb ("drm/fb-helper: Synchronize dirty worker with vblank")
->> Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
->> Closes: https://bugs.debian.org/1138033
->> Cc: <stable@vger.kernel.org> # v6.19+
+>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 >> ---
->>   drivers/gpu/drm/drm_fb_helper.c | 71 ++++++++++++++++++++++++++++++++-
->>   1 file changed, 70 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
->> index 7b11a582f8ec..cbf0a9a7b8e5 100644
->> --- a/drivers/gpu/drm/drm_fb_helper.c
->> +++ b/drivers/gpu/drm/drm_fb_helper.c
->> @@ -225,16 +225,85 @@ static void drm_fb_helper_resume_worker(struct work_struct *work)
->>   	console_unlock();
->>   }
->>   
->> +static int find_crtc_index_atomic(struct drm_fb_helper *helper)
->> +{
->> +	struct drm_device *dev = helper->dev;
->> +	struct drm_plane *plane;
->> +
->> +	drm_for_each_plane(plane, dev) {
->> +		const struct drm_plane_state *plane_state;
->> +		const struct drm_crtc *crtc;
->> +
->> +		if (plane->type != DRM_PLANE_TYPE_PRIMARY)
->> +			continue;
->> +
->> +		plane_state = plane->state;
->> +		if (plane_state->fb != helper->fb || !plane_state->crtc)
->> +			continue; /* plane doesn't display fbdev emulation */
->> +
->> +		crtc = plane_state->crtc;
->> +		if (!crtc->state->active)
->> +			continue;
->> +		if (drm_WARN_ON_ONCE(dev, crtc->index > INT_MAX))
->> +			continue; /* driver bug */
-> I take it this is here because crtc->index is unsigned, and this
-> function returns int so you can have negative error codes. Ditto the
-> other function below.
 >
-> I feel like this is something that should be checked once somewhere, if
-> that. I think adding arbitrary checks like this invites more arbitrary
-> checks everywhere. crtc->index is supposed to be invariant over the
-> lifetime of the CRTC.
+> I agree with removing BootUnloadGuard, but I think it's not great to do
+> a bunch of lifting into closures then manually handling the result. It's
+> error prone imo (we already had several bugs relating to this kind of
+> thing). Instead, what about just using ScopeGuard directly? This lets us
+> avoid lifting into closures (which is a bit noisy) and avoids manual
+> result handling for failures (which is a bit error prone). With the
+> `GspBootContext` it's fairly easy to do now:
+>
+> ```
+> let unload_guard =3D ScopeGuard::new_with_data(unload_bundle, |unload_bun=
+dle| {
+>     let _ =3D gsp.unload(ctx, unload_bundle);
+> });
+> ```
 
-Ok, makes sense.
-
-Best regards
-Thomas
+Yes, initially I wanted to use `ScopeGuard` but ran into issues when
+trying to make the references mutable. However it looks like you have
+been able to overcome these issues, thanks for taking the time to craft
+a patch!
 
 >
-> BR,
-> Jani.
+> I confirmed that it's also compatible with the v2 of this series that
+> has the mutable Fsp - you can stash the context inside the ScopeGuard
+> data (then making a &mut reference to the stashed context for brevity)
+> or have a separate unload context type that doesn't use FSP or something
+> (could later be type parametrized along with Gsp, for example).
 >
->> +
->> +		return crtc->index;
->> +	}
->> +
->> +	return -EINVAL;
->> +}
->> +
->> +static int find_crtc_index_legacy(struct drm_fb_helper *helper)
->> +{
->> +	struct drm_device *dev = helper->dev;
->> +	struct drm_crtc *crtc;
->> +
->> +	drm_for_each_crtc(crtc, dev) {
->> +		struct drm_plane *plane = crtc->primary;
->> +
->> +		if (!crtc->enabled)
->> +			continue;
->> +		if (!plane || plane->fb != helper->fb)
->> +			continue; /* CRTC doesn't display fbdev emulation */
->> +		if (drm_WARN_ON_ONCE(dev, crtc->index > INT_MAX))
->> +			continue; /* driver bug */
->> +
->> +		return crtc->index;
->> +	}
->> +
->> +	return -EINVAL;
->> +}
->> +
->> +static int drm_fb_helper_find_crtc_index(struct drm_fb_helper *helper)
->> +{
->> +	struct drm_device *dev = helper->dev;
->> +	int crtc_index;
->> +
->> +	mutex_lock(&dev->mode_config.mutex);
->> +
->> +	if (drm_drv_uses_atomic_modeset(dev))
->> +		crtc_index = find_crtc_index_atomic(helper);
->> +	else
->> +		crtc_index = find_crtc_index_legacy(helper);
->> +
->> +	mutex_unlock(&dev->mode_config.mutex);
->> +
->> +	return crtc_index;
->> +}
->> +
->>   static void drm_fb_helper_fb_dirty(struct drm_fb_helper *helper)
->>   {
->>   	struct drm_device *dev = helper->dev;
->>   	struct drm_clip_rect *clip = &helper->damage_clip;
->>   	struct drm_clip_rect clip_copy;
->> +	int crtc_index;
->>   	unsigned long flags;
->>   	int ret;
->>   
->>   	mutex_lock(&helper->lock);
->> -	drm_client_modeset_wait_for_vblank(&helper->client, 0);
->> +	crtc_index = drm_fb_helper_find_crtc_index(helper);
->> +	if (crtc_index >= 0)
->> +		drm_client_modeset_wait_for_vblank(&helper->client, crtc_index);
->>   	mutex_unlock(&helper->lock);
->>   
->>   	if (drm_WARN_ON_ONCE(dev, !helper->funcs->fb_dirty))
+> For example here is a rough diff on top of this patch series (you can
+> change the Result<Option<UnloadBundle>> returns to like
+> Result<Result<UnloadBundle>> if you want to centralise teh error
+> handling of a failed unloadbundle although currently it can only fail in
+> one location):
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+Yes, looking at it it looks like a cleaner approach than using closures.
 
+The only thing that I saw as a regression is that now each HAL needs to
+call `Gsp::unload` itself in its own `ScopeGuard`. I don't think that's
+the HAL's work - `Gsp::boot` should be the centralized point where this
+happens.
 
+But we can make both work if `unload_bundle` is passed as an output
+argument to `GspHal::boot` instead of being returned:
+
+    let mut guard =3D ScopeGuard::new_with_data((ctx, None), ...);
+    let (ctx, unload_bundle) =3D &mut *guard;
+
+    // `unload_bundle` is a mutable reference to the
+    // `Option<UnloadBundle>` in `guard`.
+    hal.boot(&self, ctx, unload_bundle, &fb_layout, &wpr_meta)?;
+
+The boot method can fill `unload_bundle` early, and if it returns an
+error then the `ScopeGuard` will be able to use it. Also, and that's
+nice, the HALs don't need to use `ScopeGuard`. But output arguments
+aren't really something we expect to see in Rust.
+
+Another alternative would be to separate the unload bundle construction
+from `GspHal::boot`:
+
+    let unload_bundle =3D hal.build_unload_bundle(ctx, ...);
+    let guard =3D ScopeGuard::new_with_data((ctx, unload_bundle), ...);
+
+    hal.boot(...)?;
+
+It removes the "1 boot -> 1 unload bundle" symmetry, but on the other
+hand it also splits concerns more clearly. And it removes the awkward
+return type of `GspHal::boot`, which come to think of it was another
+smell that things were not in the right place.
+
+The main drawback I see is that we now need to build `Vbios` twice for
+TU102, since it is needed both for the unload bundle and for booting.
+But the solution is the same as what the v2 of this series does to
+`Fsp`: the BIOS is a GPU-wide subdevice that is likely to be used
+elsewhere, not something to be confined in a GSP HAL. So I say, let's
+extract it and make it also part of `GspBootContext`.
+
+How does that sound?
