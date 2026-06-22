@@ -4,71 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DE33CD98F0
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 02:45:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A11FCD98F0
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 02:55:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 692FF10E439;
-	Mon, 22 Jun 2026 02:45:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE3BD10E436;
+	Mon, 22 Jun 2026 02:55:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="ZM4NpmKd";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="Tto3Rx1j";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E16B410E435
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 02:45:03 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id CA84644525;
- Mon, 22 Jun 2026 02:45:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 63EB8C4AF12;
- Mon, 22 Jun 2026 02:45:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1782096302; bh=aexpDAuFU6mvFkRE4PMFgeTzsZDIZpwH5Q0CvXo0fTs=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ZM4NpmKdiTkVv6JZ9rZ9O7mj4YkGbRZlwjU+EVtTamcp3itZr7rPv+74UfEA38TX6
- dBsF3VRdgVR585hilTjHWPKG51r2Hd+2yzhCoDaWye+osvKH9Jir0Tgmbnn3/uA/4y
- UOeE11zANl7E2PaHnKCLbJ4sALHYrSzvJOPx7yVg=
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 58372CDB471;
- Mon, 22 Jun 2026 02:45:02 +0000 (UTC)
-From: Alvin Sun <alvin.sun@linux.dev>
-Date: Mon, 22 Jun 2026 10:45:00 +0800
-Subject: [PATCH v3 6/6] rust: configfs: use `LocalModule` for `THIS_MODULE`
+Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com
+ [91.218.175.186])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A826210E436
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 02:55:45 +0000 (UTC)
+Message-ID: <02e9be5f-8dfa-4a4f-8a70-627ed1124b91@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1782096942;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=xPT6DAdg86ekeubsFUyJE8zxGgUJMoz3jyqa9JhEVkU=;
+ b=Tto3Rx1jAaHFtdkhawr4dGV2oKUQ+FH3oxDMEtfUe30AqTgIxxAqLJzSwSTl3FHaQCi9kl
+ 8DSHCQJxWmTNAgouSdXaK156DzQRkSoeITF8p9plSxjrB2oLwl/FA9EjLfTd3z4zp8l83i
+ Ss3MyZcgf5r8XpkmwL+rT4BP/ncSct4=
+Date: Mon, 22 Jun 2026 10:52:44 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260622-fix-fops-owner-v3-6-49d45cb37032@linux.dev>
-References: <20260622-fix-fops-owner-v3-0-49d45cb37032@linux.dev>
-In-Reply-To: <20260622-fix-fops-owner-v3-0-49d45cb37032@linux.dev>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>, 
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+Subject: Re: [PATCH v2 3/7] rust: doctest: add LocalModule fallback for
+ #[vtable] ThisModule
+To: Andreas Hindborg <a.hindborg@kernel.org>, Gary Guo <gary@garyguo.net>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann
+ <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
  Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>
-Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org, 
- kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782096299; l=2487;
- i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=aexpDAuFU6mvFkRE4PMFgeTzsZDIZpwH5Q0CvXo0fTs=;
- b=1mv5R7oe2FcSalIxzlKq12ldjlbNMDdqc+3bcdjQ6b25dCBZqGK89H/M1CjNynmGV6elrhMzd
- Nc/ahs/0mGxAIJgEcYsgn9TO2Tt/xWkfUDirPkbU1Io6YA8H61wCKZv
-X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
- pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
-X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
- auth_id=684
+Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org,
+ kunit-dev@googlegroups.com, linux-block@vger.kernel.org
+References: <20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev>
+ <20260521-fix-fops-owner-v2-3-fd99079c5a04@linux.dev>
+ <87fr2kf3m2.fsf@t14s.mail-host-address-is-not-set>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Alvin Sun <alvin.sun@linux.dev>
+In-Reply-To: <87fr2kf3m2.fsf@t14s.mail-host-address-is-not-set>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,68 +75,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace the `THIS_MODULE` static reference in the `configfs_attrs!`
-macro with `this_module::<LocalModule>()`, and update
-rnull to import `LocalModule` instead of `THIS_MODULE`, consistent
-with the move of `THIS_MODULE` into the `ModuleMetadata` trait.
 
-Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
----
- drivers/block/rnull/configfs.rs | 6 ++----
- rust/kernel/configfs.rs         | 8 +++++---
- 2 files changed, 7 insertions(+), 7 deletions(-)
+On 6/18/26 20:13, Andreas Hindborg wrote:
+> Alvin Sun <alvin.sun@linux.dev> writes:
+>
+>> Add a `LocalModule` struct with a null-pointer `ModuleMetadata` impl
+>> in the doctest harness, so that `crate::LocalModule` (auto-inserted
+>> by `#[vtable]`) resolves correctly when there is no `module!` macro.
+>>
+>> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+> Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+>
+> Does this need to be ordered before the vtable auto insert in the patch series?
 
-diff --git a/drivers/block/rnull/configfs.rs b/drivers/block/rnull/configfs.rs
-index c10a55fc58948..b2547ad1e5ddd 100644
---- a/drivers/block/rnull/configfs.rs
-+++ b/drivers/block/rnull/configfs.rs
-@@ -1,9 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- 
--use super::{
--    NullBlkDevice,
--    THIS_MODULE, //
--};
-+use super::NullBlkDevice;
-+use crate::LocalModule;
- use kernel::{
-     block::mq::gen_disk::{
-         GenDisk,
-diff --git a/rust/kernel/configfs.rs b/rust/kernel/configfs.rs
-index 2339c6467325d..8bd32627386e0 100644
---- a/rust/kernel/configfs.rs
-+++ b/rust/kernel/configfs.rs
-@@ -875,7 +875,7 @@ fn as_ptr(&self) -> *const bindings::config_item_type {
- ///                 configfs::Subsystem<Configuration>,
- ///                 Configuration
- ///                 >::new_with_child_ctor::<N,Child>(
--///             &THIS_MODULE,
-+///             ::kernel::this_module::<LocalModule>(),
- ///             &CONFIGURATION_ATTRS
- ///         );
- ///
-@@ -1021,7 +1021,8 @@ macro_rules! configfs_attrs {
- 
-                     static [< $data:upper _TPE >] : $crate::configfs::ItemType<$container, $data>  =
-                         $crate::configfs::ItemType::<$container, $data>::new::<N>(
--                            &THIS_MODULE, &[<$ data:upper _ATTRS >]
-+                            $crate::this_module::<LocalModule>(),
-+                            &[<$ data:upper _ATTRS >]
-                         );
-                 )?
- 
-@@ -1030,7 +1031,8 @@ macro_rules! configfs_attrs {
-                         $crate::configfs::ItemType<$container, $data>  =
-                             $crate::configfs::ItemType::<$container, $data>::
-                             new_with_child_ctor::<N, $child>(
--                                &THIS_MODULE, &[<$ data:upper _ATTRS >]
-+                                $crate::this_module::<LocalModule>(),
-+                                &[<$ data:upper _ATTRS >]
-                             );
-                 )?
- 
+Yes, you're right — this patch would be better placed before the vtable
+auto-insert patch to avoid a temporary state where the doctest harness
+doesn't provide the LocalModule fallback that #[vtable] expects.
 
--- 
-2.43.0
+Thanks for the suggestions from you and Gary. v3 has been sent to the
+list:
 
+https://lore.kernel.org/rust-for-linux/20260622-fix-fops-owner-v3-0-49d45cb37032@linux.dev
 
+Best regards,
+Alvin Sun
+
+>
+> Best regards,
+> Andreas Hindborg
+>
+>
