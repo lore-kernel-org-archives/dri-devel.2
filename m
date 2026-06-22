@@ -4,59 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C009FCDB46F
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 09:38:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D11D3CDB46B
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 09:39:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F27DE10E5B9;
-	Mon, 22 Jun 2026 09:38:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AED510E5BB;
+	Mon, 22 Jun 2026 09:39:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UivVNvOI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fsYyFLzN";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06EBD10E5B9
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 09:38:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F198E10E5BB
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 09:39:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2248460051;
- Mon, 22 Jun 2026 09:38:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DE1E1F000E9;
- Mon, 22 Jun 2026 09:38:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5FF746008A;
+ Mon, 22 Jun 2026 09:39:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEC1C1F000E9;
+ Mon, 22 Jun 2026 09:39:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782121101;
- bh=Id1aDwPwK65QrmbSsCVlm+KO6gNxO+F+f3OzjJRBAxo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=UivVNvOI86fO3Vaefe/GUWz88xuXnRdNYaaWQLdEsoNSFypwCKYXuNJVcagOuDOx9
- TSV6S3lGifHWeD0qo9ZmWqPwQSmjcQxg7qqd6NLdWFjY5b/0WY0XbkCuwC0UyKKp/q
- KoAIaHbIR66kyUVpbt6nEcZaGjpUrfjALA2lB8pbW/QfSh8RnXlqXJsasmbB238gso
- Zs5bMkElZKP8UrdYZzKIhFDXxBrks5EiLX81hgtSFpbHRrXe6Pr5LVmh5rxc1X3StG
- pWiXgpm+/xRigUqHnic1l3JxDJMkUQUs4oTL3SkBZBOA4hrL6tP3ad1EF1kZAvKu4Z
- TwF8kY1u/Ac6g==
-Date: Mon, 22 Jun 2026 11:38:19 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] drm/bridge: imx93-mipi-dsi: Fix mode validation
-Message-ID: <20260622-strong-messy-hare-2372cd@houat>
-References: <20260515-imx93-mipi-dsi-fix-mode-validation-v3-1-91f7d22b2fe4@nxp.com>
- <DJD6I8NMLN3W.3LVT4L17HT5TU@bootlin.com> <ajjpuroFPI_U2Fw6@raspi>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="4lki2wyprf2do7cs"
-Content-Disposition: inline
-In-Reply-To: <ajjpuroFPI_U2Fw6@raspi>
+ s=k20260515; t=1782121170;
+ bh=ecr7P2/muGWxlPHtk5oikchz6DTJUBDbk+xLSp4dW1g=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=fsYyFLzNnhTlhoXpSEbN/Wf1iddNGi1bObUV9naP6VSCRVN+OHeqkY1PT/VAY/4Rf
+ OoY3X9YQd00fMnjz8sYwKNPvlR5KtHRXtV7bPzVXXKN96wVllKXpcTKvF9X8oD6A5m
+ VTTcuF3XRRSlfxeF5tWhXXnfFlHsXJPc+l8Ce/HfrKeGgfusjjwd/q3XGHurJ+D1HI
+ mOW6ZVqOSiFRJPRNT22HofWNlsm6DPGYVPwWs4ikUUBUXCGJupZb/BbLyw85DHLYVi
+ BNuB91UOpj1BroqNGhjRPygG6cOSU1EPJvWgkhSKZTPQWumfyTegmGhj9Hcjdzo2Ik
+ /Ed0BeOZNjp6Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 1/2] drm/amdgpu: move debug_vm handling to
+ amdgpu_cs_parser_fini
+To: "Pierre-Eric Pelloux-Prayer" <pierre-eric.pelloux-prayer@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260622092859.3600-1-pierre-eric.pelloux-prayer@amd.com>
+References: <20260622092859.3600-1-pierre-eric.pelloux-prayer@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 22 Jun 2026 09:39:29 +0000
+Message-Id: <20260622093929.EEC1C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,43 +53,96 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Moving `amdgpu_vm_bo_invalidate()` to `amdgpu_cs_parser_fini()` ac=
+cesses BO structures without holding their `dma_resv` reservation locks, le=
+ading to data races, potential use-after-free vulnerabilities, and lockdep =
+assertions.
+--
 
---4lki2wyprf2do7cs
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3] drm/bridge: imx93-mipi-dsi: Fix mode validation
-MIME-Version: 1.0
+commit 130b94ccdb3ef241f2576b6d31544c37bb57192b
+Author: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 
-On Mon, Jun 22, 2026 at 03:52:26PM +0800, Liu Ying wrote:
-> > Finally, out of my utter ignorance on the subject, is the VESA +/-0.5%
-> > margin generic enough that this driver can always rely on it?
->=20
-> I see several upstream drivers rely on it, see "git grep '0.5%' drivers/g=
-pu/"
-> output.  And every display mode allows -/+ 0.5% pixel clock rate deviation
-> according to VESA Display Monitor Timing Standard [1], though [1] is a fo=
-und
-> by a random Google search.
+drm/amdgpu: move debug_vm handling to amdgpu_cs_parser_fini
 
-Yes, it's what we've been using for some time now. Is there any
-particular concern about it?
+The commit restarts the CS if the validation is still in progress, but when
+debug_vm is enabled, all BOs are invalidated, causing an infinite loop. This
+patch moves the BO invalidation to amdgpu_cs_parser_fini to avoid that.
 
-Maxime
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_cs.c
+> index d63fbc7c568de..7e75c536dab3d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
 
---4lki2wyprf2do7cs
-Content-Type: application/pgp-signature; name="signature.asc"
+[ ... ]
 
------BEGIN PGP SIGNATURE-----
+> @@ -1382,6 +1369,8 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser=
+ *p,
+>  /* Cleanup the parser structure */
+>  static void amdgpu_cs_parser_fini(struct amdgpu_cs_parser *parser)
+>  {
+> +	struct amdgpu_device *adev =3D parser->adev;
+> +	struct amdgpu_bo_list_entry *e;
+>  	unsigned int i;
+> =20
+>  	amdgpu_sync_free(&parser->sync);
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCajkCiwAKCRAnX84Zoj2+
-dn2NAYCjusnaBSXQclXmwY3AEMzqqxTj1CmUJL+6wWsRE+k9k0v5r5ASO8HI/G/s
-MkWnjsQBf0BXjCandzhPC/6y7PGfq8bZ3ikevTtkM3UEjBFpirFQ9TqRTn+EDC0T
-FJqJLbn8zg==
-=h4Vk
------END PGP SIGNATURE-----
+[ ... ]
 
---4lki2wyprf2do7cs--
+> @@ -1397,8 +1386,21 @@ static void amdgpu_cs_parser_fini(struct amdgpu_cs=
+_parser *parser)
+> =20
+>  	if (parser->ctx)
+>  		amdgpu_ctx_put(parser->ctx);
+> -	if (parser->bo_list)
+> +	if (parser->bo_list) {
+> +		if (adev->debug_vm) {
+> +			/* Invalidate all BOs to test for userspace bugs */
+> +			amdgpu_bo_list_for_each_entry(e, parser->bo_list) {
+> +				struct amdgpu_bo *bo =3D e->bo;
+> +
+> +				/* ignore duplicates */
+> +				if (!bo)
+> +					continue;
+> +
+> +				amdgpu_vm_bo_invalidate(bo, false);
+
+[Severity: High]
+Does moving this invalidation here result in accessing the BO structures
+without their reservation locks?
+
+Earlier in amdgpu_cs_parser_fini(), drm_exec_fini() is called to drop
+all dma_resv locks acquired during parsing:
+
+amdgpu_cs_parser_fini() {
+...
+    amdgpu_sync_free(&parser->sync);
+    drm_exec_fini(&parser->exec);
+...
+
+Since amdgpu_vm_bo_invalidate() iterates over the bo->vm_bo list, which
+is protected by the BO's reservation lock, could this unlocked access
+lead to a data race or a use-after-free if it races with concurrent
+mapping operations like amdgpu_vm_bo_del()?
+
+Additionally, if any of the BOs are always-valid, this will eventually call
+amdgpu_vm_bo_moved(), which triggers an amdgpu_vm_assert_locked(vm) lockdep
+assertion since the root PD lock was already dropped.
+
+> +			}
+> +		}
+>  		amdgpu_bo_list_put(parser->bo_list);
+> +	}
+> =20
+>  	for (i =3D 0; i < parser->nchunks; i++)
+>  		kvfree(parser->chunks[i].kdata);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622092859.3600=
+-1-pierre-eric.pelloux-prayer@amd.com?part=3D1
