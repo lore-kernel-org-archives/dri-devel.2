@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D244CDB47C
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 18:10:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8FE5CDB477
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 18:11:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06E8510E809;
-	Mon, 22 Jun 2026 18:10:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A3EE10E814;
+	Mon, 22 Jun 2026 18:10:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="IYodATAY";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="acAiKXA+";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E976210E7EB;
- Mon, 22 Jun 2026 18:10:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3A7C10E803;
+ Mon, 22 Jun 2026 18:10:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782151837;
- bh=urxsbtugd8+UdPADq6BZx60lq8D4HcydlFOp3SgwB5E=;
+ s=default; t=1782151844;
+ bh=aJ674jKfdfYzA1796ckniFKjkGKFKlysonuWe+TKQpQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IYodATAY+48E5dMpljK6cEzd2UHi0qutGHb07DXlKmhaviGDuduPMt5traLYL3AmM
- Haq8jn2vmLXzj23vnnseszQvuhhwYVTb3HhDsYWFWtH2DM8NgifVay14BkYKdlzWoF
- L2gx5Hngn92d947h24t++q+ekC2T+yHuLABLRC5nKPijh36bv+zu3CViMhRu0NxLZT
- 8pavu7Ica1MFhh7tNC6SLXiLDMplDecGbCPSGGXbBedjbmtm8E7VdWcIZ+Qu0e2yQ+
- fhdPBKFLuAvdc7Jpy+ldltFlmJyU660UYU6bL1v4NtyCUQZzGHhbFKoI47r5tSbOpJ
- YlvsqaLZ4gXVw==
+ b=acAiKXA+bI/m9BvYsYkrT5cA4qzXvjlxCo5wkxMnoH2NCSjMdF6IQINOydgVbhLnY
+ xSGNWdYns0tAJAMg1yFkQfolmgoQWF2/SPCVOGfig04eCtKRUlEGtmUKAZ7nqD8p+J
+ TH+i1Em838f9XGTv7UasiRm61JubUFujtrP1l6qUl1TeN1UkIqvqmEwp6RiOOkk5RQ
+ fCCW2RhY2lWfPy25bZHbdr2LJZFhSXHXAfrFh0QQ0ErLU79ZjoAwXz5Dskljicwrvs
+ P7aT02xjT9vgdChX9EH/YQN525Kdo2gZlpLn9bepwqiu9Z7Oypqi+fCyFzKeTeX0Aj
+ X2h+jXsB3rjLw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
- Uma Shankar <uma.shankar@intel.com>
-Subject: [PATCH v9 07/30] drm/i915/display: Handle vlv dsi workaround in
- scanline_in_safe_range too
-Date: Mon, 22 Jun 2026 20:10:20 +0200
-Message-ID: <20260622181044.39335-8-dev@lankhorst.se>
+Cc: dri-devel@lists.freedesktop.org,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ "John B. Wyatt IV" <jwyatt@redhat.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v9 17/30] drm/i915/guc: Consider also RCU depth in busy loop.
+Date: Mon, 22 Jun 2026 20:10:30 +0200
+Message-ID: <20260622181044.39335-18-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260622181044.39335-1-dev@lankhorst.se>
 References: <20260622181044.39335-1-dev@lankhorst.se>
@@ -54,72 +55,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that we have a macro, might as well handle the VLV dsi workaround
-too.
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-This makes the vblank evasion code slightly more deterministic, by not
-looping with interrupts disabled.
+intel_guc_send_busy_loop() looks at in_atomic() and irqs_disabled() to
+decide if it should busy-spin while waiting or if it may sleep.
+Both checks will report false on PREEMPT_RT if sleeping spinlocks are
+acquired leading to RCU splats while the function sleeps.
 
+Check also if RCU has been disabled.
+
+Reported-by: "John B. Wyatt IV" <jwyatt@redhat.com>
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vblank.c | 36 ++++++++++-----------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
-index ca08059e088ea..6f1fa952b5391 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.c
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -739,6 +739,24 @@ static bool scanline_in_safe_range(struct intel_vblank_evade_ctx *evade, int *sc
- 	else
- 		*scanline = __intel_get_crtc_scanline(evade->crtc);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index 053780f562c1a..b25fa8f4dc4bd 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -362,7 +362,7 @@ static inline int intel_guc_send_busy_loop(struct intel_guc *guc,
+ {
+ 	int err;
+ 	unsigned int sleep_period_ms = 1;
+-	bool not_atomic = !in_atomic() && !irqs_disabled();
++	bool not_atomic = !in_atomic() && !irqs_disabled() && !rcu_preempt_depth();
  
-+	/*
-+	 * On VLV/CHV DSI the scanline counter would appear to
-+	 * increment approx. 1/3 of a scanline before start of vblank.
-+	 * The registers still get latched at start of vblank however.
-+	 * This means we must not write any registers on the first
-+	 * line of vblank (since not the whole line is actually in
-+	 * vblank). And unfortunately we can't use the interrupt to
-+	 * wait here since it will fire too soon. We could use the
-+	 * frame start interrupt instead since it will fire after the
-+	 * critical scanline, but that would require more changes
-+	 * in the interrupt code. So for now we'll just do the nasty
-+	 * thing and poll for the bad scanline to pass us by.
-+	 *
-+	 * FIXME figure out if BXT+ DSI suffers from this as well
-+	 */
-+	if (evade->need_vlv_dsi_wa && *scanline == evade->vblank_start)
-+		return false;
-+
- 	return *scanline < evade->min || *scanline > evade->max;
- }
- 
-@@ -769,24 +787,6 @@ int intel_vblank_evade(struct intel_vblank_evade_ctx *evade)
- 		local_irq_disable();
- 	}
- 
--	/*
--	 * On VLV/CHV DSI the scanline counter would appear to
--	 * increment approx. 1/3 of a scanline before start of vblank.
--	 * The registers still get latched at start of vblank however.
--	 * This means we must not write any registers on the first
--	 * line of vblank (since not the whole line is actually in
--	 * vblank). And unfortunately we can't use the interrupt to
--	 * wait here since it will fire too soon. We could use the
--	 * frame start interrupt instead since it will fire after the
--	 * critical scanline, but that would require more changes
--	 * in the interrupt code. So for now we'll just do the nasty
--	 * thing and poll for the bad scanline to pass us by.
--	 *
--	 * FIXME figure out if BXT+ DSI suffers from this as well
--	 */
--	while (evade->need_vlv_dsi_wa && scanline == evade->vblank_start)
--		scanline = intel_get_crtc_scanline(crtc);
--
- 	return scanline;
- }
- 
+ 	/*
+ 	 * FIXME: Have caller pass in if we are in an atomic context to avoid
 -- 
 2.53.0
 
