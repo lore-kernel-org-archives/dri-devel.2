@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 922ACCD98F2
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 18:48:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45A95CDB466
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 18:54:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 025B310E80F;
-	Mon, 22 Jun 2026 18:48:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A582110E7D1;
+	Mon, 22 Jun 2026 18:54:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="jyQD8H4m";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="H8dyjJ+O";
 	dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EF1F10E819
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 18:48:21 +0000 (UTC)
-Received: from pps.filterd (m0528004.ppops.net [127.0.0.1])
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 783C010E7D1
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 18:54:10 +0000 (UTC)
+Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
  by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65MIjNPh2529554
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 11:48:20 -0700
+ 65MIphbm2559661
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 11:54:10 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=zjBsHBUtYdR789lklIL+1eh40pAOxq1ZSktpZnfPk+M=; b=jyQD8H4mVF0q
- RnQ8WLtzQRQJFW6j7Gdw9wlZm7XidO5dDWoVUiegXV9dgYdYtAirZzAcaM14knoI
- YFrwrMpdcPh8qRuse2nLIWyEr4Eu8MTLZ19oq50TOeQ5D/71n4tKvRGDW/RxYHYC
- sQFVnxjifQ4e+W0vXIOx/uthbykLp4KHsy+6NfnJON/Zl1zPimIp953goGQYAIpP
- Wio1HX6skl6fEiQLToRtCCjMS7Sr1wCN1EAf9g9jzLd0cFpv4JKV4oHuUSPvVR4r
- Y2P/jFyhuUYx9ZxDXMkf2Wu22vTwI7kSpfBZIEtLaHn3jZcHwewwYMuCbxU7LXXB
- ohiQkcqNbA==
+ bh=YYkBgAAFNWZDrKwhhTsTLZ1UTmm9m4xo9SJVRgbwcTU=; b=H8dyjJ+OZ2ra
+ vtcX+qfo1l9GRS2dDVdUnIfTNVls9Ru/fmTUD1AMMFkTQOWIY1OU774GQf2OdZSk
+ giyd8X0sLdbZHulfkRqr3RYLdeW1PEq69uSZfwvNJzFDrFMGGHjH+q46vXw9At/h
+ VrYM0B6d344yf65GjXr0wAi2ld14ZEFTPkmC6rCevABkyIASXBXafmI/isQOIboZ
+ w9UeEnBqcNXUIQW2Ht2PcCAqjSHVMPfHO1LJ2hVDH5SlTMErR9tNlU3xQdSlwyWX
+ U+n8y21d9BV3k/hVoMxxczedxjUjOEV+VUnCW9lpkWdpo+CuISIjtA7Qcgv5pPMi
+ oqBf2pIYcQ==
 Received: from mail.thefacebook.com ([163.114.134.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4excgds3kk-15
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4ewt5jw7sr-3
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 11:48:20 -0700 (PDT)
-Received: from twshared25959.34.frc3.facebook.com (2620:10d:c085:208::f) by
- mail.thefacebook.com (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 11:54:09 -0700 (PDT)
+Received: from twshared3243.34.frc3.facebook.com (2620:10d:c085:108::150d) by
+ mail.thefacebook.com (2620:10d:c08b:78::c78f) with Microsoft SMTP
+ Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Mon, 22 Jun 2026 18:48:13 +0000
+ 15.2.2562.41; Mon, 22 Jun 2026 18:54:07 +0000
 Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
- id 338613FB8E30D; Mon, 22 Jun 2026 11:42:13 -0700 (PDT)
+ id DA0493FB8E341; Mon, 22 Jun 2026 11:42:15 -0700 (PDT)
 From: Zhiping Zhang <zhipingz@meta.com>
 To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Michael
  Guralnik <michaelgur@nvidia.com>, Sumit Semwal <sumit.semwal@linaro.org>,
@@ -48,9 +49,9 @@ To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Michael
 CC: <kvm@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
  <linux-pci@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
  Zhiping Zhang <zhipingz@meta.com>
-Subject: [PATCH v9 1/4] PCI/TPH: Add requester/completer type helpers
-Date: Mon, 22 Jun 2026 11:41:34 -0700
-Message-ID: <20260622184211.2229399-2-zhipingz@meta.com>
+Subject: [PATCH v9 2/4] dma-buf: add optional get_pci_tph() callback
+Date: Mon, 22 Jun 2026 11:41:35 -0700
+Message-ID: <20260622184211.2229399-3-zhipingz@meta.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260622184211.2229399-1-zhipingz@meta.com>
 References: <20260622184211.2229399-1-zhipingz@meta.com>
@@ -58,24 +59,24 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 X-FB-Internal: Safe
 Content-Type: text/plain
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIyMDE4MiBTYWx0ZWRfX85+6G2RtIZ8b
- hSL/AtDtJw/TPOLhuZcT8jdn8RBO3t6VcHR9UgjQ8Ja8g2JYc3DRq1ipWM8EzZFpgKGZA8RxSwB
- 8Qa383gxpanBd3pjohfZG9ggXFpGiRA=
-X-Proofpoint-ORIG-GUID: wVbSRnpE7vJfK7CvFZHnDVAG6j66rKj3
-X-Proofpoint-GUID: wVbSRnpE7vJfK7CvFZHnDVAG6j66rKj3
-X-Authority-Analysis: v=2.4 cv=GK841ONK c=1 sm=1 tr=0 ts=6a398374 cx=c_pps
+X-Authority-Analysis: v=2.4 cv=I65Vgtgg c=1 sm=1 tr=0 ts=6a3984d1 cx=c_pps
  a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
  a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=GbPsI2Ihf5RTnMjR_gZv:22 a=VabnemYjAAAA:8 a=K7z10gKaAp536EQdUv4A:9
+ a=crHB47gyY4rKiduisYu9:22 a=VabnemYjAAAA:8 a=NnIffO1M-inhYcDKZaoA:9
  a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIyMDE4MiBTYWx0ZWRfXyq/nHJt8gS1e
- 6Q+uR2rGYdozLbTHbCDlkgyzPbBk6GAStC63iPhn/RkFOYxjCcMRy6751BhdgKFluDkPLvU88dD
- 8+ir3mrAnc71xneIeLq/CVbhqKbrWl2GZUdVb6YG7uE5TU5mM0UgVRqiN4sDVMlurwY8nSnTkoP
- rnw0+T13acx8K0EjkAR+yBpDc/vnlS46VW7k7z+wwmLd++ieRX3oqsoa3Nw4WI86/uacOuVQ0yO
- HCDJeVmVlUnbg5NHEJUsyiqphlL4BDVjo0Kc8XKGO02gFwBjqjiRZCOORRgLV4+JoIiK7/Cin1J
- 0IEiqSheUGDMJBkfKFexqjYovSGruKp4JHD2DpaC8xw6ZMqcYOUQXHJMoLgsiq8f2DRNaRwf3gM
- gSpBgAJtQAxLDxwbD5+jWPIJYTwsa2B0TTb9BgKrSj4Zfp/Mnzgm1S1k+mXqcGuzeVrtElkWSAn
- MwPm4kbRnIAOTXHTb4A==
+X-Proofpoint-GUID: YVVpwtR3N6higxtFwXHYuhivIjXWxfi7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIyMDE4NCBTYWx0ZWRfX1Rfi9V0hQwF1
+ 9ygppHRjkkFuVnIJtGlPA3epWbgr1QadSrN/uJgHHdoPj77uAN3KNFMR4ox5ewyAiSUYoSo6RGD
+ g+vOmbfXHzvjEyqNRkv8kmtqI4uuQzKY1WgAVWyx7XHnn21lENwbr+HDJhMO/fmat/vRwEg/Lpx
+ TxkPnxLLLjJ7wX1/Y4iZavjtvGYDKcNVT37d5RMkW6PAMiuHNm8X85LMwc86UIOdjLTWHEEC00C
+ 7ZQ8dVOLcZLqQiWaQk2IVc8G72BOPLaZSOY0iLcu8R+9If5PxBw+S7QxdR+6yRKMiKpfUxY8RNN
+ l50iCZAIEZpgWhAlYyZD00raM9ejys/RN6cJR+V+pEJInM2P5HjVHpxHfykAmKZcXprzHc/q+aa
+ spsZ/aFC3RATnTNEpuTYnYhjcLbsRQA03sNFyXOP0SOf0Mu+AaLPktGWMrBSOyffN7rJTbbrfTJ
+ veRq2BcTMGhezWZW5zA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIyMDE4NCBTYWx0ZWRfXwfgN0Gr/RNhz
+ I4jCTziP9tYlW8aDojWWLaLpNEvs0notPvVfFy3Aw8BZwDxwEkjsKL328DkkYC9qpR7A46XYiUG
+ 8AVTa7gpkKxGgbMmTfNlkNrDf2wjvTI=
+X-Proofpoint-ORIG-GUID: YVVpwtR3N6higxtFwXHYuhivIjXWxfi7
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-22_03,2026-06-22_01,2025-10-01_01
@@ -94,120 +95,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add pcie_tph_enabled_req_type() so drivers can query the enabled TPH
-requester mode without reaching into pci_dev internals.
+Add an optional dma_buf_ops.get_pci_tph callback and a
+DMA-buf importer wrapper, dma_buf_get_pci_tph().
 
-Add pcie_tph_completer_type() so drivers that publish TPH metadata for
-a device acting as a completer can gate on the "TPH Completer
-Supported" field of Device Capabilities 2 (bits 13:12,
-PCI_EXP_DEVCAP2_TPH_COMP_MASK) rather than reusing requester-side
-state. Fold the reserved 0b10 encoding into NONE so callers only see
-the defined values.
+TPH is PCIe TLP Processing Hint. 8-bit ST and 16-bit Extended ST are
+distinct PCIe TPH namespaces, so the importer requests the namespace it
+can emit and the exporter returns the matching ST/PH tuple or
+-EOPNOTSUPP.
 
-This keeps pci_dev::tph_req_type and the completer-capability decode
-inside the PCI/TPH code and provides !CONFIG_PCIE_TPH stubs for
-callers.
+dma_buf_get_pci_tph() is the importer entry point. It requires
+&dmabuf->resv to be held while the callback runs and returns
+-EOPNOTSUPP when the exporter does not provide PCI TPH metadata.
+
+The first user is VFIO_DEVICE_FEATURE_DMA_BUF_TPH in vfio-pci, with
+mlx5 as the first importer.
 
 Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
 ---
- drivers/pci/tph.c       | 45 +++++++++++++++++++++++++++++++++++++++++
- include/linux/pci-tph.h |  8 ++++++++
- 2 files changed, 53 insertions(+)
+ drivers/dma-buf/dma-buf.c | 25 +++++++++++++++++++++++++
+ include/linux/dma-buf.h   | 22 ++++++++++++++++++++++
+ 2 files changed, 47 insertions(+)
 
-diff --git a/drivers/pci/tph.c b/drivers/pci/tph.c
-index 91145e8d9d95..717b47d1d9ca 100644
---- a/drivers/pci/tph.c
-+++ b/drivers/pci/tph.c
-@@ -174,6 +174,51 @@ u32 pcie_tph_get_st_table_loc(struct pci_dev *pdev)
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index d504c636dc29..7a4c9b0d5dab 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -1144,6 +1144,31 @@ void dma_buf_unpin(struct dma_buf_attachment *atta=
+ch)
  }
- EXPORT_SYMBOL(pcie_tph_get_st_table_loc);
+ EXPORT_SYMBOL_NS_GPL(dma_buf_unpin, "DMA_BUF");
 =20
 +/**
-+ * pcie_tph_enabled_req_type - Return the device's enabled TPH requester=
- type
-+ * @pdev: PCI device to query
++ * dma_buf_get_pci_tph - Retrieve PCIe TLP Processing Hint (TPH) metadat=
+a
++ * @dmabuf: DMA buffer to query
++ * @extended: false for 8-bit ST, true for 16-bit Extended ST
++ * @steering_tag: returns the raw steering tag for the requested namespa=
+ce
++ * @ph: returns the TPH processing hint
 + *
-+ * Return: PCI_TPH_REQ_DISABLE, PCI_TPH_REQ_TPH_ONLY or PCI_TPH_REQ_EXT_=
-TPH.
++ * Wrapper for the optional &dma_buf_ops.get_pci_tph callback.
++ *
++ * Must be called with &dma_buf.resv held. Returns -EOPNOTSUPP if the
++ * exporter does not implement the callback or has no metadata for the
++ * requested namespace.
 + */
-+u8 pcie_tph_enabled_req_type(struct pci_dev *pdev)
++int dma_buf_get_pci_tph(struct dma_buf *dmabuf, bool extended,
++			u16 *steering_tag, u8 *ph)
 +{
-+	return pdev->tph_req_type;
++	dma_resv_assert_held(dmabuf->resv);
++
++	if (!dmabuf->ops->get_pci_tph)
++		return -EOPNOTSUPP;
++
++	return dmabuf->ops->get_pci_tph(dmabuf, extended, steering_tag, ph);
 +}
-+EXPORT_SYMBOL(pcie_tph_enabled_req_type);
++EXPORT_SYMBOL_NS_GPL(dma_buf_get_pci_tph, "DMA_BUF");
 +
-+/**
-+ * pcie_tph_completer_type - Return the device's TPH Completer support
-+ * @pdev: PCI device to query
-+ *
-+ * Reads the "TPH Completer Supported" field (bits 13:12) of Device
-+ * Capabilities 2. The reserved 0b10 encoding is folded into
-+ * "not supported" so callers only need to compare against the three
-+ * defined values.
-+ *
-+ * Return: one of %PCI_EXP_DEVCAP2_TPH_COMP_NONE,
-+ *         %PCI_EXP_DEVCAP2_TPH_COMP_TPH_ONLY or
-+ *         %PCI_EXP_DEVCAP2_TPH_COMP_EXT_TPH.
-+ */
-+u8 pcie_tph_completer_type(struct pci_dev *pdev)
-+{
-+	u32 reg;
-+
-+	if (pcie_capability_read_dword(pdev, PCI_EXP_DEVCAP2, &reg))
-+		return PCI_EXP_DEVCAP2_TPH_COMP_NONE;
-+	if (PCI_POSSIBLE_ERROR(reg))
-+		return PCI_EXP_DEVCAP2_TPH_COMP_NONE;
-+
-+	switch (FIELD_GET(PCI_EXP_DEVCAP2_TPH_COMP_MASK, reg)) {
-+	case PCI_EXP_DEVCAP2_TPH_COMP_TPH_ONLY:
-+		return PCI_EXP_DEVCAP2_TPH_COMP_TPH_ONLY;
-+	case PCI_EXP_DEVCAP2_TPH_COMP_EXT_TPH:
-+		return PCI_EXP_DEVCAP2_TPH_COMP_EXT_TPH;
-+	default:
-+		return PCI_EXP_DEVCAP2_TPH_COMP_NONE;
-+	}
-+}
-+EXPORT_SYMBOL(pcie_tph_completer_type);
-+
- /*
-  * Return the size of ST table. If ST table is not in TPH Requester Exte=
-nded
-  * Capability space, return 0. Otherwise return the ST Table Size + 1.
-diff --git a/include/linux/pci-tph.h b/include/linux/pci-tph.h
-index be68cd17f2f8..7743af6fe432 100644
---- a/include/linux/pci-tph.h
-+++ b/include/linux/pci-tph.h
-@@ -9,6 +9,8 @@
- #ifndef LINUX_PCI_TPH_H
- #define LINUX_PCI_TPH_H
+ /**
+  * dma_buf_map_attachment - Returns the scatterlist table of the attachm=
+ent;
+  * mapped into _device_ address space. Is a wrapper for map_dma_buf() of=
+ the
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index d1203da56fc5..53b2686ad8fc 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -113,6 +113,26 @@ struct dma_buf_ops {
+ 	 */
+ 	void (*unpin)(struct dma_buf_attachment *attach);
 =20
-+#include <linux/pci_regs.h>
++	/**
++	 * @get_pci_tph:
++	 *
++	 * Retrieve PCIe TLP Processing Hint (TPH) steering metadata for
++	 * this buffer so an importer can program a matching ST/PH hint on
++	 * outbound TLPs targeting the exporter for peer-to-peer DMA.
++	 *
++	 * @dmabuf: DMA buffer for which to retrieve TPH metadata
++	 * @extended: false for 8-bit ST, true for 16-bit Extended ST
++	 * @steering_tag: Returns the raw TPH steering tag for the requested
++	 *                namespace
++	 * @ph: Returns the TPH processing hint (2-bit value)
++	 *
++	 * Optional callback for dma_buf_get_pci_tph(). Called with
++	 * &dma_buf.resv held. Returns 0 on success or -EOPNOTSUPP when
++	 * the exporter has no metadata for the requested namespace.
++	 */
++	int (*get_pci_tph)(struct dma_buf *dmabuf, bool extended,
++			   u16 *steering_tag, u8 *ph);
 +
- /*
-  * According to the ECN for PCI Firmware Spec, Steering Tag can be diffe=
-rent
-  * depending on the memory type: Volatile Memory or Persistent Memory. W=
-hen a
-@@ -30,6 +32,8 @@ void pcie_disable_tph(struct pci_dev *pdev);
- int pcie_enable_tph(struct pci_dev *pdev, int mode);
- u16 pcie_tph_get_st_table_size(struct pci_dev *pdev);
- u32 pcie_tph_get_st_table_loc(struct pci_dev *pdev);
-+u8 pcie_tph_enabled_req_type(struct pci_dev *pdev);
-+u8 pcie_tph_completer_type(struct pci_dev *pdev);
- #else
- static inline int pcie_tph_set_st_entry(struct pci_dev *pdev,
- 					unsigned int index, u16 tag)
-@@ -41,6 +45,10 @@ static inline int pcie_tph_get_cpu_st(struct pci_dev *=
-dev,
- static inline void pcie_disable_tph(struct pci_dev *pdev) { }
- static inline int pcie_enable_tph(struct pci_dev *pdev, int mode)
- { return -EINVAL; }
-+static inline u8 pcie_tph_enabled_req_type(struct pci_dev *pdev)
-+{ return PCI_TPH_REQ_DISABLE; }
-+static inline u8 pcie_tph_completer_type(struct pci_dev *pdev)
-+{ return PCI_EXP_DEVCAP2_TPH_COMP_NONE; }
- #endif
+ 	/**
+ 	 * @map_dma_buf:
+ 	 *
+@@ -563,6 +583,8 @@ void dma_buf_detach(struct dma_buf *dmabuf,
+ 		    struct dma_buf_attachment *attach);
+ int dma_buf_pin(struct dma_buf_attachment *attach);
+ void dma_buf_unpin(struct dma_buf_attachment *attach);
++int dma_buf_get_pci_tph(struct dma_buf *dmabuf, bool extended,
++			u16 *steering_tag, u8 *ph);
 =20
- #endif /* LINUX_PCI_TPH_H */
+ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_inf=
+o);
+=20
 --=20
 2.53.0-Meta
