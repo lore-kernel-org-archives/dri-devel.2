@@ -4,60 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D06A0CDB46F
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 16:52:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D769CDB46F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 16:53:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 370C210E03B;
-	Mon, 22 Jun 2026 16:52:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50F9910E18A;
+	Mon, 22 Jun 2026 16:53:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C4kpffoq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W7u1+3XD";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5370C10E03B;
- Mon, 22 Jun 2026 16:52:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E25210E18A
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 16:53:20 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 399EC43B13;
- Mon, 22 Jun 2026 16:52:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0041F000E9;
- Mon, 22 Jun 2026 16:51:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3D5A84095C;
+ Mon, 22 Jun 2026 16:53:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03BCD1F000E9;
+ Mon, 22 Jun 2026 16:53:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782147124;
- bh=KXhjFgbhEvwE+7GGBfh7My0VIVq6OjTLQwMtEz0hufY=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=C4kpffoqKELHy6h2iIonBbM+lwHOlkqgrFXueJXDfdgl75fDx8nTrSA+oGiGyoeAm
- 8CCy0uyoOREJUge4zC6mq+dv0w+QL43toIPSNlcNAZyZKDjugsy6al/c7V2Nxly4Pl
- B3u0wZw90AH5q2Vforbc/8novl4n4De9d7hKEY2j9fwmOHjRuuHlA8HYlkPOQSxTMr
- w8OjFxrmzo3xN9JG3zdPXZhL02HItS9kysxEXgHLRRSGAVfOqOYr/WF7zxLGK20H2R
- AQhZ61uSQFpPSM+xdZ5/Wi01z1P5qKOyIveeDb+LOtEbWIs/Vdg1dtFfhX3DZ+GRC2
- IABQXBNVHhFSA==
-Date: Mon, 22 Jun 2026 12:51:54 -0400
-From: Steven Rostedt <rostedt@kernel.org>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Andrew Morton
- <akpm@linux-foundation.org>, Linus Torvalds
- <torvalds@linux-foundation.org>, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>, John Ogness <john.ogness@linutronix.de>, Thomas
- Gleixner <tglx@kernel.org>, Julia Lawall <julia.lawall@inria.fr>, Yury
- Norov <yury.norov@gmail.com>, linux-doc@vger.kernel.org,
- linux-kbuild@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 0/2] tracing: Move trace_printk.h out of kernel.h
-Message-ID: <20260622125154.6f5b9b33@fedora>
-In-Reply-To: <08b3c961-18bb-43d9-8d7f-8a87bcad0afa@infradead.org>
-References: <20260621093430.264983361@kernel.org>
- <20260622083440.GX49951@noisy.programming.kicks-ass.net>
- <08b3c961-18bb-43d9-8d7f-8a87bcad0afa@infradead.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+ s=k20260515; t=1782147200;
+ bh=9eH6Ui0cecxJPS3dEn05LRmx18eKSljEw+pMdE0wLdw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=W7u1+3XDrrbufHbrH6ZQe6V3qFGjUCGYVkJOqAL4vlLVLIMPJx5d+eL10ZeODs278
+ pSssncH7yv5gMuVsUIuShNLX6bWMWFV426SKDvVvL+IweFeqbJK+5hI012bIBjT3rs
+ SsEKofTvCEYTyY72aPkkwwDurWsSBjrzr8mr3olukQd2rW+7pBLu1HZQNWxKNQ0ZKY
+ aDrQJiySg4JIyM4ytXMcuvXkZhIZ4w2w5uVvgOUb7zYf6U0GQRwQEQ1ptI0ErIe/Xc
+ Ew9HPNFffTspmZ5U1P3K+1+pntc9YZ/YHLvD8DpC7UCIyN7jCKrDU/aZLwKkuzK6NI
+ zTm7dcinwYsmw==
+Date: Mon, 22 Jun 2026 17:53:16 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: sashiko-reviews@lists.linux.dev, neil.armstrong@linaro.org,
+ vkoul@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
+ conor+dt@kernel.org, linux-phy@lists.infradead.org,
+ olteanv@gmail.com, devicetree@vger.kernel.org,
+ wsa+renesas@sang-engineering.com
+Subject: Re: [PATCH 2/2] dt-bindings: Drop incorrect usage of double '::'
+Message-ID: <20260622-sullen-botch-6a131a218bbe@spud>
+References: <20260622101606.485961-3-krzysztof.kozlowski@oss.qualcomm.com>
+ <20260622101606.485961-4-krzysztof.kozlowski@oss.qualcomm.com>
+ <20260622101959.37DB41F00A3D@smtp.kernel.org>
+ <0a6f92ba-de8c-48ae-9025-a7570e53e453@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="SwqP7sa7vCVgtsLA"
+Content-Disposition: inline
+In-Reply-To: <0a6f92ba-de8c-48ae-9025-a7570e53e453@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,19 +64,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 22 Jun 2026 09:40:45 -0700
-Randy Dunlap <rdunlap@infradead.org> wrote:
 
-> > Did you forget your C 101 class? If you use a function, you gotta
-> > include the relevant header.  
-> 
-> Also item #1 in Documentation/process/submit-checklist.rst.
+--SwqP7sa7vCVgtsLA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-What is that? Remove all trace_printk()s before you submit?
+On Mon, Jun 22, 2026 at 03:23:05PM +0200, Krzysztof Kozlowski wrote:
+> On 22/06/2026 12:19, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential is=
+sue(s) to consider:
+> > - [Low] Unintended replacement of BNF notation `::=3D` with `:=3D`.
+> > --
+> >=20
+> > commit a9fdd0b065eb5b6394a9c33ffba0fd5194e80115
+> > Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> >=20
+> > dt-bindings: Drop incorrect usage of double '::'
+> >=20
+> > This commit cleans up device tree binding schemas by removing the redun=
+dant
+> > double colons at the end of descriptions inside YAML literal style bloc=
+ks.
+> >=20
+> > Link: https://yaml.org/spec/1.2.2/#literal-style [1]
+> >=20
+> >> diff --git a/Documentation/devicetree/bindings/mux/mux-consumer.yaml b=
+/Documentation/devicetree/bindings/mux/mux-consumer.yaml
+> >> index 9e2d78a78e409..769243a2bf046 100644
+> >> --- a/Documentation/devicetree/bindings/mux/mux-consumer.yaml
+> >> +++ b/Documentation/devicetree/bindings/mux/mux-consumer.yaml
+> >> @@ -13,8 +13,8 @@ description: |
+> >>    Mux controller consumers should specify a list of mux controllers t=
+hat they
+> >>    want to use with a property containing a 'mux-ctrl-list':
+> >> =20
+> >> -    mux-ctrl-list ::=3D <single-mux-ctrl> [mux-ctrl-list]
+> >> -    single-mux-ctrl ::=3D <mux-ctrl-phandle> [mux-ctrl-specifier]
+> >> +    mux-ctrl-list :=3D <single-mux-ctrl> [mux-ctrl-list]
+> >> +    single-mux-ctrl :=3D <mux-ctrl-phandle> [mux-ctrl-specifier]
+> >=20
+> > [Severity: Low]
+> > Does this unintentionally change the standard Backus-Naur Form (BNF) ::=
+=3D
+> > operator to :=3D? It looks like a global search-and-replace for :: might
+>=20
+>=20
+> I wasn't sure about that... and indeed this should not be changed. I
+> will send a v2.
 
-Because that is what you should do. But now you also need to remember
-to remove the include <linux/trace_printk.h> too. Or, I guess if
-someone uses it a lot, they may just keep it in their files without the
-trace_printk()s.
+Other than this one that I agree shouldn't be changed to a single :,
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
--- Steve
+(Although I find the syntax used here to be really confusing and a good
+example in the text would be a lot clearer. OTOH, how to write consumers
+is, I think, well understood, since they all work the same.)
+
+--SwqP7sa7vCVgtsLA
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajloewAKCRB4tDGHoIJi
+0kPnAQD8eVHaFulgAbHw35l/IQzDimQ2fqS5h0DH2KihcqqTKQD/fyaz/rNP6xCD
+y8UHn2H90kJhQjjmt/NRIZ/YFpGyEg0=
+=SCA7
+-----END PGP SIGNATURE-----
+
+--SwqP7sa7vCVgtsLA--
