@@ -4,47 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FB91CDB470
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 13:01:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5429BCD98F2
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 13:06:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CEA010E17E;
-	Mon, 22 Jun 2026 13:01:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A505410E6A8;
+	Mon, 22 Jun 2026 13:06:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="pkH1eov6";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="SQIuzWJF";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 410EE10E17E
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 13:01:53 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id A7868227;
- Mon, 22 Jun 2026 15:01:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1782133273;
- bh=N1ETn9Jj5pisDG1bq4JWbw7aNdqW9tjRev1AlON/zSM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=pkH1eov6TunNPB/42dP+l4CcIVfCj0VfhTOtlWUFC495AwNZ/wTA8JXegYFwKSzeK
- ztro35Mvx9mLkJtnKzEdv6cdcxFzzx9mljL16idQzi+AtSINWRDmQ7YFuH1BY+wMNR
- l9muZ7J2YuFPTUw8073tBmt+rCj9ABAd0e1tgALE=
-Date: Mon, 22 Jun 2026 16:01:50 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: biren pandya <birenpandya@gmail.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- sumit.semwal@linaro.org, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH] drm/gem: modernize locks to use scoped_guard()
-Message-ID: <20260622130150.GA3948118@killaraus.ideasonboard.com>
-References: <20260616181956.61476-2-birenpandya@gmail.com>
- <20260622115544.GA3899302@killaraus.ideasonboard.com>
- <CAAeMi9LMootkxmRE0tjo0mwijAuA0u+49HhxWxRGU-pSz+Cggw@mail.gmail.com>
+Received: from CWXP265CU010.outbound.protection.outlook.com
+ (mail-ukwestazon11022141.outbound.protection.outlook.com [52.101.101.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D3BA10E6A8
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 13:06:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B2Iso6TXH5Kbb7a0rlV+EaX/kceoPEbw5CAOutcy0jl4ooeMNlu7XVyRelj+T5dhFukTkV3u91mZByKmVMQfmWngm7Hvu7u2sCxh+iCan55DyqRds4obwNmqnawIR5IboYhkAVhFuPoDd6IAuAMBZ3GaArhA+CwhWiJkgx3OdScX511ZJ4Pr2WBIzpTKtjE+iU/RfqwKzDYQn7MzrJsCxEEi3IE8dqsiogFk5oJCkm5dn+GTy+QJP6ekRuCEPjm1C5SC2aeoHV602fQZZ5bJiD9ocBt6Jh/ATl8QGaLGdk7s+nknBIvm6acH7T6PoSKML6mbcSeccImXVOz08KoCqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Uu++/i7hIJGQO7w1AvQv809Pup7gLErt3DZq9eoBD4M=;
+ b=glbb8Q7o3qOkEKF5dY1H3QEVXOeU+Yh/ieYLJW7qaYaMzJD+ITJleSBt0kLjiCvoDRrWFOYor9G2cVs3ys1xNssSiiMvi0sXXLYLmQ8pxJzTClFpnKy3ICMvD4KBqJtbsDOZ1GQPTk30kbo51KXEp9N9kxziFJadwFDGT/G5gYDd92RwpkI7GkDnj/LlZXgBQnLKpXGOFpJDjoAhcAOQR85mnMqjhVetQNs2KyebWb3t+kZ4QxILH9uSY7+3Lvf1BTVDdKMzbDtt3kJVaNlu2Y7FJ5rekrZhpUMO6Rxv+o3Q0SwugQX6FoPllJ7kjL+KeN7xBASHe1fHDGtlL+S4MQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Uu++/i7hIJGQO7w1AvQv809Pup7gLErt3DZq9eoBD4M=;
+ b=SQIuzWJFgna59Ih9MHf67Jb2uNHeWelxovbhusG5Tn7AyoM/qKx95U6JlLEZNs4762KgTCqGerXizRGPAWUMlrM7ZsUqCQl6wumQ0I5gVYAk3X6a4IgZNP1OgVz7g+B/UTjvs0v1iie7eZh8HYtKYtbNN5DpGBCXqPyRaIuO8Ek=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CWLP265MB2817.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:d0::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Mon, 22 Jun
+ 2026 13:06:42 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
+ 13:06:42 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 22 Jun 2026 14:06:41 +0100
+Message-Id: <DJFLMYA0KQ0C.3Q17C8ROX7A03@garyguo.net>
+To: "Alvin Sun" <alvin.sun@linux.dev>, "Gary Guo" <gary@garyguo.net>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Luis Chamberlain" <mcgrof@kernel.org>, "Petr
+ Pavlu" <petr.pavlu@suse.com>, "Daniel Gomez" <da.gomez@kernel.org>, "Sami
+ Tolvanen" <samitolvanen@google.com>, "Aaron Tomlin" <atomlin@atomlin.com>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Arnd
+ Bergmann" <arnd@arndb.de>, "Brendan Higgins" <brendan.higgins@linux.dev>,
+ "David Gow" <david@davidgow.net>, "Rae Moar" <raemoar63@gmail.com>, "Breno
+ Leitao" <leitao@debian.org>, "Jens Axboe" <axboe@kernel.dk>
+Cc: <rust-for-linux@vger.kernel.org>, <linux-modules@vger.kernel.org>,
+ <driver-core@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <nova-gpu@lists.linux.dev>, <linux-kselftest@vger.kernel.org>,
+ <kunit-dev@googlegroups.com>, <linux-block@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 1/6] rust: module: add `THIS_MODULE` const to
+ `ModuleMetadata` trait
+From: "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.21.0
+References: <20260622-fix-fops-owner-v3-0-49d45cb37032@linux.dev>
+ <20260622-fix-fops-owner-v3-1-49d45cb37032@linux.dev>
+ <DJFIQPLOVO4T.1K8T0VZM30LDA@garyguo.net>
+ <2d54f3e0-3f35-4f97-b6af-b3ceb1aca246@linux.dev>
+In-Reply-To: <2d54f3e0-3f35-4f97-b6af-b3ceb1aca246@linux.dev>
+X-ClientProxiedBy: LO4P123CA0176.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18a::19) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAeMi9LMootkxmRE0tjo0mwijAuA0u+49HhxWxRGU-pSz+Cggw@mail.gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB2817:EE_
+X-MS-Office365-Filtering-Correlation-Id: e03166a6-4e4d-4d21-c96a-08ded05f1ab0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|7416014|376014|23010399003|366016|1800799024|921020|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: +dCmAmMd7QmpZOVyLPam8UB5q1b1CWMSLufB9L1ApVpiaf8ey6e4RpWJqcRndonVweJxPSevsF8YNeC6Gt/7QigN0h9AnGyR2xsvk7LOha86xG2HyqmpX1aGoDOmtkGRjAv+lQuAcghSKYaZvkvRWijkbEbYH0ii8r6CNr7Cjx4sC4JgHp1KVY8RveD9ElZ2jC37t6P9ceiMfNkqrB609o/IImvXtnRBEb/iqcVgaXI67EkZjT+rShlIIxt5Y1XUG2b8C4iB6wLtvaA+SS2DglSJzg0J+57zgUQgdVeKHUgKCEbIdbeV8jxvvAo+VXEVCth6LQJrYywEHlPMnxA7Ly1yzj7t0KqdbIwKN9qc6pBp4vHUVcPyGNOSLYrY2z2pa363ZIoAt1+q2SwFWeaJceqKMuuNbuFY1AOSsjJdn0zHDWxJ58hPb+/OWIEEJizdLsKq+mis8FDzWkRlGETW2f10aaLFdbIUMNMeY62MMGbuKxsqnxPxa8vWxEGc0ZH9c16fQ8H8XxX9vhjO7O2HQi7ClJtwCsT2sMPQWJzcLJh/4c08qNSX5vDIeYUTolrL0LL3aVmclyMw9N+7pcIWLvHZtjXCfBweJErZibfzIIzWySbAVRF/uFBReTF+ucPQnM7dPQetsDA1FZOrA4sTMiDGnRtwy3mUdVR9vaiNuaDeREJcINJgdb1te6+HptNz0sHRwFW2lW2akgzs3UGpqQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(7416014)(376014)(23010399003)(366016)(1800799024)(921020)(4143699003)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SVhaRjluYzZ4cTcxNkZNMUNCczZmM2F2cjNFeTZ0RmwyOFJwYmtjWmo2Nkwz?=
+ =?utf-8?B?Z0N5amgramJCQWpCYnNOMkVxS2FRUTBYcng3RVVhakYvSHovMW1YQlowSXZi?=
+ =?utf-8?B?Y1RXaU9RSWE0aUtqK2hUenpBR3BpQVc4bjJFRmJOMjNpMy9MUzVtUzgwNk9o?=
+ =?utf-8?B?RXMvQm9UR3VGOXplWUdQNCt3cDA2TGFmVkFOZGVzdnJFRy96R08xY3JoaDln?=
+ =?utf-8?B?U0lhcGNHTUJHUGtyZ1NRaE5Bek1uSVBBMEFuMjF0OGkwbmg4UHBPUjJsOTUz?=
+ =?utf-8?B?VkdsR3QybDAvSDBGSjZXK2IwZlFzZFgrSHU4K2hBclNLL3Q3c2pJOHhrZXRD?=
+ =?utf-8?B?R3JYRGVVeVU0eFFZajhFQWhRYm9tOHBLb1B3NGpEbmo5dVhMNDJrcGdHQ1lZ?=
+ =?utf-8?B?NEFmZjJPMmJqb0E4YklYbVp1T3BwVmg1aHcybFFGVzZwcTFCVGpWR2JBNVIz?=
+ =?utf-8?B?TURBWFlzd0diMjgzeTRkbm9DWEpUaWEzOWVISXJ1a3lWSmlwTlB4ZER5NVd0?=
+ =?utf-8?B?MnRSdmZrVGFxVjJGNW4vQ3RJRUpVZkVnM05udXg1Z1RFRlVFNFc2bkZSL0tj?=
+ =?utf-8?B?ODdVWlZnbEpHMS9IY0Rua0h3aHB6dFNXRTJvQWR6SmU1ZlUvbytpbjJ2VVc5?=
+ =?utf-8?B?bzIyeFZ0alBWemdDT2prZGVGTy9ZMEdLZTZ4YS85K1RvZUJuaXNUcjBqQnlO?=
+ =?utf-8?B?QkdZbXgzUW92UjVPcy9ITHNTT3BwU1diZTFVVy9lcWl2a1hJeWVtRkJZODkz?=
+ =?utf-8?B?TXkzK3hHT3Rwdmh2SnJmVDlyTHp6VWJ6UUY2L1haMDdnNmtVaWhkb2VuNE82?=
+ =?utf-8?B?aVczVUE3RHNlZWFtSU1SSkx4UnVXOWl0MUFXYk5wM1U2eE9pVUtYMU4xUXBu?=
+ =?utf-8?B?Mkl6TklXb1NINHRXSGlNbEkxVzhUaXExaGxsbEdYZVRWazJxM3N5ckNCaGxU?=
+ =?utf-8?B?bTl0N1ZuVW9LVTlkMktlR2Y1cGk1dmRMc3RRakJaamNjdU90cmlsYnVBRGNN?=
+ =?utf-8?B?ajJtWEluUlFUNCtnQ1F5YTNiREd3ZWk0UFgrczIvb2N4WEIzUWxEQnQrZVB1?=
+ =?utf-8?B?dk9jbEllVmprL2JwRmdZWUJCeHVGaERuWUgrTFhsNkJIS1hmWGpIZk5rUlJv?=
+ =?utf-8?B?NHUvWHZtSDkwWm51VWhZVGdWNXIxR3lLQTBWcmJSN3JSbGxVWEQ5WlV6MG8r?=
+ =?utf-8?B?YUEreXBJM1lDMStlcGFlSzEreG1VYkpMMWFHT2t5UWRIZlhDcUJ6N3V1S1FD?=
+ =?utf-8?B?ZkVQM1YwRmtneTk4R3FLeWRWYmZsYm1WZi83djJTWmgxekZhU1ZoVWRqdWI5?=
+ =?utf-8?B?WDluTW5xMWUyM1JUdWR1S1h6L0pKOEFhYWNKUkU5eG9lemhLNDZnUy9MbWNF?=
+ =?utf-8?B?RWNMeWJLWERBR2JpbUZtTGdLTmx0MzE0REhJNkFKVEpHWGF4cWUzZ3pmRW8z?=
+ =?utf-8?B?clBxVzFuMm45LzdKZzl2VUJrL0xvN3hrQ3hTbmNMTEdVWkFGQWJNOVVScG9q?=
+ =?utf-8?B?N3ArZnRvako1T1QwTVNHdWN1YWNZUVBpUVFqUXMwMml2Tkd6azJibTBUTWtO?=
+ =?utf-8?B?QUp4QjhINjJuK3YxTDN1NFpBYTVsajZ5ZGdRQVJLcmk1V3dqbU95NE1mYXVH?=
+ =?utf-8?B?NW1xdjdoNVl3dnRVeHhBMTloQWV5NmVMUEdKODRJRW5rWkRsanowSUpSOGJE?=
+ =?utf-8?B?TDIvWngrbk5IVlhRQVBUcTNpNXRmTURrMFcwSnpuYkQzR2VvQUFrUGwzVjNC?=
+ =?utf-8?B?L1l6bDdXb2J2TjBwU3ZLRVE1QUlYY1ROQ1dKQmNveTh1QkN3Mi8rLytlVHFy?=
+ =?utf-8?B?NmEwSElmV1BKK1JrK1NtemtSbndlZ3c3VW5Jb1dXZFZwd3k3bGRZY0hWRTRD?=
+ =?utf-8?B?c1RKbGhBVjZPRmNteVZBUGJEYU50WnpZWmlVcE9lakhwcGhMYW9VN21YcDhW?=
+ =?utf-8?B?Z3JIYmk5UWJ1QTZFa2Qya1ZQRmVPQ1N3YmFzZGQwMUxaY2ltQ0t2S01uamho?=
+ =?utf-8?B?Wmlrcng5RzhZa1orci9zNlE0UmZNaTh5L3ZaNEF6ZHhZTm80TzluQ2lndVlZ?=
+ =?utf-8?B?VGpGcVBzbFdweVBIQmRwS0FxcVYyZjltZndwYmE1TjBMeXl0WHJ6Y2c3Q21Y?=
+ =?utf-8?B?dEZWajU4bG5IYmNLQVRHSkdCWmhXemY5emhPb2lseDFVVmJtRnhzRC9kTnZi?=
+ =?utf-8?B?TG1jWTZCK2VpYnZHa1RYaHNicDAwVHptbW1adlN0OW8xUEZtaWdxNWVlbmdU?=
+ =?utf-8?B?U1A1SEl6eUllRko1akdoMkR3ZmFXNW1KU09KT0dpd3ZQRFJjUUJrbHRFQStK?=
+ =?utf-8?B?TUx3TThkODFsb0ZZeWVZNUN1T3NrYU01QVY5UnZLYnRPUksrOVZQQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: e03166a6-4e4d-4d21-c96a-08ded05f1ab0
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 13:06:42.2412 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TbMZ++lxCIcYurXOVwjJblF4gwoSGEFSnuNUoP1JehnpwTGL4ijF/DiS6q3byEWROrZhvfheZ6EjQcKApM1s/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB2817
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,53 +155,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 22, 2026 at 06:22:27PM +0530, biren pandya wrote:
-> On Mon, Jun 22, 2026 at 5:25 PM Laurent Pinchart wrote:
-> > On Tue, Jun 16, 2026 at 11:49:57PM +0530, Biren Pandya wrote:
-> > > Several GEM core functions manually managed mutex_lock() and
-> > > mutex_unlock() over single scopes or error paths. This adds boilerplate
-> > > and carries the risk of lock leaks if error paths are refactored.
-> > >
-> > > Modernize these locks by deploying the <linux/cleanup.h> scoped_guard()
-> > > macro. This ensures that the locks are reliably dropped when the block
-> > > exits, cleanly removing goto out_unlock paths and tightening the
-> > > lifecycle.
-> >
-> > What's the reason for doing so in in drm_gem and not other areas in DRM
-> > ?
-> 
-> Hi Laurent,
-> 
-> Thanks for taking a look.
-> No deeper reason than it being where I happened to start — I didn't
-> mean to single it out, and I'd rather the treatment be consistent than
-> piecemeal.
-> 
-> > > @@ -1021,37 +1018,34 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
-> > >               goto out;
-> > >       }
-> > >
-> > > -     mutex_lock(&file_priv->prime.lock);
-> > > +     scoped_guard(mutex, &file_priv->prime.lock) {
-> > > +             spin_lock(&file_priv->table_lock);
-> > > +             ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1,
-> > > +                             GFP_NOWAIT);
-> > > +             spin_unlock(&file_priv->table_lock);
-> >
-> > And why don't you use guards for the spinlock as well ?
-> 
-> Fair point — the spinlocks here are equally good candidates; I only
-> kept v1 to mutexes to keep it small.
-> 
-> That said, this is a pure cleanup with no functional change, so it's
-> entirely your call whether it's worth carrying.
-> If you'd like it, I'll send a v2 that converts both the mutexes and
-> the spinlocks in drm_gem.c consistently. If you'd prefer not to take
-> cleanup-only churn, I'm happy to drop it — no problem either way.
+On Mon Jun 22, 2026 at 1:52 PM BST, Alvin Sun wrote:
+>
+> On 6/22/26 18:50, Gary Guo wrote:
+>> On Mon Jun 22, 2026 at 3:44 AM BST, Alvin Sun wrote:
+>>> Since `const_refs_to_static` has been stable as of the MSRV bump, a
+>>> `ThisModule` pointer can now be used in const contexts.
+>>>
+>>> Add a `THIS_MODULE` const to the `ModuleMetadata` trait so that modules
+>>> can provide their `ThisModule` pointer in const contexts such as static
+>>> `file_operations`.
+>>>
+>>> Move the `THIS_MODULE` static from the `module!` macro into the
+>>> `ModuleMetadata` impl, add a `this_module()` helper, and update `__init=
+`
+>>> to use it.
+>>>
+>>> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+>>> ---
+>>>   rust/kernel/lib.rs    |  8 ++++++++
+>>>   rust/macros/module.rs | 34 +++++++++++++++++-----------------
+>>>   2 files changed, 25 insertions(+), 17 deletions(-)
+>>>
+>>> diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+>>> index b72b2fbe046d6..50f5a7b5f028e 100644
+>>> --- a/rust/kernel/lib.rs
+>>> +++ b/rust/kernel/lib.rs
+>>> @@ -184,6 +184,14 @@ fn init(module: &'static ThisModule) -> impl pin_i=
+nit::PinInit<Self, error::Erro
+>>>   pub trait ModuleMetadata {
+>>>       /// The name of the module as specified in the `module!` macro.
+>>>       const NAME: &'static crate::str::CStr;
+>>> +
+>>> +    /// The module's `THIS_MODULE` pointer.
+>>> +    const THIS_MODULE: ThisModule;
+>>> +}
+>>> +
+>>> +/// Returns a reference to the `THIS_MODULE` of the given module type.
+>>> +pub const fn this_module<M: ModuleMetadata>() -> &'static ThisModule {
+>>> +    &M::THIS_MODULE
+>>>   }
+>> Also, FWIW I think this should not put this in the crate root. Perhaps c=
+reate a
+>> modules.rs?
+>
+> Makes sense. I'll create a new `module.rs` and move the module-related it=
+ems
+> (`ModuleMetadata`, `ThisModule`, `this_module()`) there, then re-export f=
+rom
+> `lib.rs`.
 
-I'll let the maintainers of that code decide (I'm not one of them).
+Please do not re-export `this_module`. For the other two, I think it's fine=
+ to
+re-export to avoid tree-wide changes, but please do update users on code th=
+at
+would route via the Rust tree.
 
--- 
-Regards,
-
-Laurent Pinchart
+Best,
+Gary
