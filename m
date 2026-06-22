@@ -4,61 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69B63CDB46F
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 13:19:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3928BCDB46F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 13:23:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC53210E6C8;
-	Mon, 22 Jun 2026 13:19:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 969F410E6DA;
+	Mon, 22 Jun 2026 13:23:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="M4Qb60rE";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CXmV8iUN";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KnRPW7LZ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58DBE10E6D6;
- Mon, 22 Jun 2026 13:18:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782134337; x=1813670337;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=NvHd+4NPCcPjKND07FEgVqG1lY2RrTGJgZcgBc8T8Sc=;
- b=M4Qb60rEcuHBBuSi1+zBOqyrv/WHVkjLbKvTO558Ue0KA9HuwUZVY1hK
- 1/sa9nSrOTfu8a95Peh518LtAW2XJGbfSo8pdKEy1zj58iXDGxki+sLlv
- birck3MJV0MZGbHrBi7n6cIPbL8oCAlxQwJbnYcjb9r0itk79z7A6M5Dn
- k13cUXkUQgbcNDunbrjysCG4u8c4TEH8ET8E0QJXPKtw8zso6MM8lpiec
- B9G1YpGHrGPfSADzW8B6oli+mc/tLI52pHe8mpUZ8BcTAqBpcbuEXtHIm
- DPdu7phxJazUOrSGaESVSwYwMGFTGnKd8pl2Qw9RNavzZXOeZtOkdQvsH Q==;
-X-CSE-ConnectionGUID: p5NcZwIaSkKC5y2Psr8Y5g==
-X-CSE-MsgGUID: AoQivkXHSM2fFtIaEy5ThQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11824"; a="93458828"
-X-IronPort-AV: E=Sophos;i="6.24,218,1774335600"; d="scan'208";a="93458828"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2026 06:18:57 -0700
-X-CSE-ConnectionGUID: xeWooNDqQRmy2/Opf9eKxw==
-X-CSE-MsgGUID: RgzTxIRSRGq7SXl849lP5w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,218,1774335600"; d="scan'208";a="245074781"
-Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by fmviesa010.fm.intel.com with ESMTP; 22 Jun 2026 06:18:53 -0700
-From: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rodrigo.vivi@intel.com
-Cc: andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
- simona.vetter@ffwll.ch, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
- anshuman.gupta@intel.com, badal.nilawar@intel.com, riana.tauro@intel.com,
- karthik.poosa@intel.com, sk.anirban@intel.com, raag.jadav@intel.com,
- Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-Subject: [PATCH v9 6/6] drm/xe/ras: Use fault-inject to trigger punit error
- handler
-Date: Mon, 22 Jun 2026 18:45:05 +0530
-Message-ID: <20260622131458.144873-14-mallesh.koujalagi@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260622131458.144873-8-mallesh.koujalagi@intel.com>
-References: <20260622131458.144873-8-mallesh.koujalagi@intel.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A27C10E6D4
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 13:23:12 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65MDGDXR1261030
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 13:23:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ CphGddleZtR7hEzVNCHN3RYvRxeTDa6IKrCwZ8q/dJU=; b=CXmV8iUNNMjpfiwY
+ gGasiUzLCR8+U5VzGes7i5Kv5P0noNtoD4UvQrKA9zcUUtSCOrmVsGYshLRK9LLS
+ 1zhebOrFndOr9zAJR6MWktOQLNj7kY1BH049lBVVvLEgwsMn+LT9pwuvf2NaqBkD
+ kVyJIDepXDL7Qun87fY7GQ5V4WuwSquTvmny2eVM6LQAH12rZ7DQcyp0FqRZTxLt
+ vYlQRb/x/BVTFPVDbZIBicaFDBPNhVYvT1ZGmSOOdX1Ua1185H9f51ODEyIkHJ3L
+ 2OfMAVdLV/WgEHyLSoWDg+V8eLnxdADxmO91wpPZ3ghcmQKBWPdegEUb3dZRNFLi
+ GM8kEA==
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com
+ [209.85.161.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ey3eb8hm9-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 13:23:10 +0000 (GMT)
+Received: by mail-oo1-f71.google.com with SMTP id
+ 006d021491bc7-6a0ea6e29d6so3097002eaf.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 06:23:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1782134590; x=1782739390;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=CphGddleZtR7hEzVNCHN3RYvRxeTDa6IKrCwZ8q/dJU=;
+ b=KnRPW7LZiVwTSON60QF/cTmxF/Dzz3jZRrgcdV4Vcv7FTIwmZHbJD39rlUkbE8r3Tg
+ OwW1l+WZ1eU+OwaUvaHuYXdjW5WTa20v5fq+ECIUAjZkLgw7C85e8jgIuaBm0ktt2Y5F
+ NXXmfMbCzLgR2zmh80AAw5RPPh9XPIPc0f1U6cb4W5BCChf8chQvqWxi0pmJVNLdLQpU
+ IrU2tFzS+Ukj8SXKLHO3mU8+gUP3r+ioODSb8Gy+UlNk1NmnkEBUVWAxaZZhNuxFyF8h
+ A8eU50uMm8KeVlBQCh0En5tbdi9VSFijI/92r7J5XAIm51DVLYGY/fNxxKjWw5LliF1n
+ UwOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782134590; x=1782739390;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=CphGddleZtR7hEzVNCHN3RYvRxeTDa6IKrCwZ8q/dJU=;
+ b=n0gVi+FOznkvc2/hjfCGo3z6+MSFSYmZ+FihwkiNLsS5apzP4d/K6bY6uYur6vSBg5
+ 90Lt3PvlWBNcHVblQtmTn826uvBeGY4oEGunAo3wWrf9ESQrwCH1kKJFLO9gM8ZcpAyW
+ RuRSGpOGvrbTvtD6Sryiz1zzb+T10SkZXABkGFRIS6GRjmP4hY6/krSBxfzJS2cdT2lT
+ rdlrIRAsDRcPqraJXgAjM+yfqjIaBkb4ykEuyTW47aA04eDWfEoagNqKtLw9MghUe4NT
+ Nbckfl6ddFCOkz9IBOsC9TOocqpabvJ0z/Hn0bOXwA9eJY86YbDl5pkKVzWuGNdQ3EIW
+ gdJg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9g+BADu7ei6KARufLlQGrUg3p+91f5XRmCYwhuFEbezkFPNmoHJsKPHvADadqjXr1jMCnAHIMO1xw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz6ujNMeX3ZhMEEltF4tOfNJDiCBl/wwPBaF1Td59YgucBfEp+t
+ 5H56i8vKZMUsZTG8BSs6Pp47LAWIAf0hlIlkZa5jgWqhYgRPQn9SlCc3AlqiBXmgXyohEQcph3e
+ ZPNN8fk97kDlB98sg4Ykc/MY3ljnfyubxJWA0f95ZJNCvxdMhMDcETsZ3y7TV967IsKKcZ6M=
+X-Gm-Gg: AfdE7cn3dxobu8ATJBhtgy1FX/IU1NusRauJRWWfjbExZ01h16/XNT/2DY0hWXvjj6v
+ XQMWrzUaeesI1PDkaYzhLXYBapwjKJWJCo8mAOQ8ZWMQCrUBFvBgpHGeOyf4RH3caT9gHi+uQ7G
+ arwvi5cEDZmvn+wfUnGFKIxELhRd/OhRxuRU+Z7kqY4OAtqVXOQEQivI2+RPC8KU78+NyAFUprQ
+ /kFIU2KdTHUJS9Iw2yNt/Ek37E8EdQPTjcKEU0iIPOmeT1OgJFDehf76c+0XgemhYOmZH5Ox0jS
+ IpjL5TnS46UKmdameuK4NOofJQG9kkbGXCNiEMswFNYsRxEvZ664gz9QHOw13NBDtwVULMWftXZ
+ f0eF2frVAtjA7PfL4O/KhFqVt2FQS7prluOJz5aSP
+X-Received: by 2002:a05:6820:1999:b0:69b:5486:e85 with SMTP id
+ 006d021491bc7-6a0d8935983mr10656623eaf.36.1782134590298; 
+ Mon, 22 Jun 2026 06:23:10 -0700 (PDT)
+X-Received: by 2002:a05:6820:1999:b0:69b:5486:e85 with SMTP id
+ 006d021491bc7-6a0d8935983mr10656589eaf.36.1782134589908; 
+ Mon, 22 Jun 2026 06:23:09 -0700 (PDT)
+Received: from [192.168.1.110] ([178.197.218.240])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c0c5e4a14d4sm362337866b.7.2026.06.22.06.23.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 Jun 2026 06:23:08 -0700 (PDT)
+Message-ID: <0a6f92ba-de8c-48ae-9025-a7570e53e453@oss.qualcomm.com>
+Date: Mon, 22 Jun 2026 15:23:05 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dt-bindings: Drop incorrect usage of double '::'
+To: sashiko-reviews@lists.linux.dev
+Cc: neil.armstrong@linaro.org, vkoul@kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
+ linux-phy@lists.infradead.org, olteanv@gmail.com,
+ devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
+References: <20260622101606.485961-3-krzysztof.kozlowski@oss.qualcomm.com>
+ <20260622101606.485961-4-krzysztof.kozlowski@oss.qualcomm.com>
+ <20260622101959.37DB41F00A3D@smtp.kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260622101959.37DB41F00A3D@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIyMDEzMyBTYWx0ZWRfX0JZefTgTLasQ
+ Ci5pRiCt1b2FQu2mmaVUJvzktJB/I9jHHnZPYBlFB620lmv9/SDGzFzVBCUNdZKX65fsfLQ2EQE
+ /CWp99Ox+HagW74PUVttDzDbc71IwgA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIyMDEzMyBTYWx0ZWRfX4iq3cM1WS+v3
+ HC0l1JxMPITP4ir0Qm8Tj7ZpEagpP3ELNJK/j6LJzBeqgnduSfTnY7a9MZOe0ZWqwl4/mh98tFj
+ yYT0hkdPkblm8IRrBfneL/0SEUdT1vMhWTwz1fhL20UqROPRbKYdpy4Ahea/9TN4K7wEqN3S8v/
+ htj99RkL2iyw9WaDtc7T53K7licQBqhp35q93I4NPjkLMOvE+C/6Xgu7yRrMqLhWn3Pe1002PNI
+ bc+zZiWE27/R3n3G9NG9Xa+SYnqFabbkCf/2q7YkSL2pfHYmvazLmDIQmxmZuY7CVJiJbkeRvsK
+ EEO5QGJHhtJ0ckVk197/U2VUiKBJifDb0RQZ3QTHK9C7kjORouXUWLbdO7FTnz2IyL6lTSFwGA9
+ 6xBeZvBv1g0ooXG8+dhGOe3g/YCfwrBGSlwBureNfheT4OQ1t5UjWzJ31EBlygaQYuL1jyrqa+7
+ RV0KDFMPvhdEHVI8oYA==
+X-Authority-Analysis: v=2.4 cv=ILIyzAvG c=1 sm=1 tr=0 ts=6a39373e cx=c_pps
+ a=V4L7fE8DliODT/OoDI2WOg==:117 a=qMZSjPy+XpteAuilWfML4g==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=fqWYVyBuAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=5ID31NFv_XroeS7ycB0A:9
+ a=QEXdDO2ut3YA:10 a=WZGXeFmKUf7gPmL3hEjn:22 a=3EkFFxAVN7Xjp7FSp-fE:22
+X-Proofpoint-GUID: 1WYSHR9PBsQwHS-4fKEH9vv987FoisKx
+X-Proofpoint-ORIG-GUID: 1WYSHR9PBsQwHS-4fKEH9vv987FoisKx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-22_02,2026-06-22_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0
+ suspectscore=0 malwarescore=0 spamscore=0 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606220133
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,79 +147,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use fault-inject framework to trigger punit_error_handler()
-for testing.
+On 22/06/2026 12:19, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] Unintended replacement of BNF notation `::=` with `:=`.
+> --
+> 
+> commit a9fdd0b065eb5b6394a9c33ffba0fd5194e80115
+> Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> dt-bindings: Drop incorrect usage of double '::'
+> 
+> This commit cleans up device tree binding schemas by removing the redundant
+> double colons at the end of descriptions inside YAML literal style blocks.
+> 
+> Link: https://yaml.org/spec/1.2.2/#literal-style [1]
+> 
+>> diff --git a/Documentation/devicetree/bindings/mux/mux-consumer.yaml b/Documentation/devicetree/bindings/mux/mux-consumer.yaml
+>> index 9e2d78a78e409..769243a2bf046 100644
+>> --- a/Documentation/devicetree/bindings/mux/mux-consumer.yaml
+>> +++ b/Documentation/devicetree/bindings/mux/mux-consumer.yaml
+>> @@ -13,8 +13,8 @@ description: |
+>>    Mux controller consumers should specify a list of mux controllers that they
+>>    want to use with a property containing a 'mux-ctrl-list':
+>>  
+>> -    mux-ctrl-list ::= <single-mux-ctrl> [mux-ctrl-list]
+>> -    single-mux-ctrl ::= <mux-ctrl-phandle> [mux-ctrl-specifier]
+>> +    mux-ctrl-list := <single-mux-ctrl> [mux-ctrl-list]
+>> +    single-mux-ctrl := <mux-ctrl-phandle> [mux-ctrl-specifier]
+> 
+> [Severity: Low]
+> Does this unintentionally change the standard Backus-Naur Form (BNF) ::=
+> operator to :=? It looks like a global search-and-replace for :: might
 
-Usage:
-  echo 100 > .../inject_punit_error/probability
-  echo 1   > .../inject_punit_error/times
 
-Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
----
- drivers/gpu/drm/xe/xe_debugfs.c |  3 +++
- drivers/gpu/drm/xe/xe_ras.c     | 14 ++++++++++++++
- 2 files changed, 17 insertions(+)
+I wasn't sure about that... and indeed this should not be changed. I
+will send a v2.
 
-diff --git a/drivers/gpu/drm/xe/xe_debugfs.c b/drivers/gpu/drm/xe/xe_debugfs.c
-index 22b471303984..3a90deb5596c 100644
---- a/drivers/gpu/drm/xe/xe_debugfs.c
-+++ b/drivers/gpu/drm/xe/xe_debugfs.c
-@@ -40,6 +40,7 @@
- 
- DECLARE_FAULT_ATTR(gt_reset_failure);
- DECLARE_FAULT_ATTR(inject_csc_hw_error);
-+DECLARE_FAULT_ATTR(inject_punit_error);
- 
- static void read_residency_counter(struct xe_device *xe, struct xe_mmio *mmio,
- 				   u32 offset, const char *name, struct drm_printer *p)
-@@ -612,6 +613,8 @@ void xe_debugfs_register(struct xe_device *xe)
- 
- 	fault_create_debugfs_attr("fail_gt_reset", root, &gt_reset_failure);
- 
-+	fault_create_debugfs_attr("inject_punit_error", root, &inject_punit_error);
-+
- 	if (IS_SRIOV_PF(xe))
- 		xe_sriov_pf_debugfs_register(xe, root);
- 	else if (IS_SRIOV_VF(xe))
-diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-index 5a2fee5a1308..bb8502472f73 100644
---- a/drivers/gpu/drm/xe/xe_ras.c
-+++ b/drivers/gpu/drm/xe/xe_ras.c
-@@ -3,6 +3,8 @@
-  * Copyright © 2026 Intel Corporation
-  */
- 
-+#include <linux/fault-inject.h>
-+
- #include "xe_assert.h"
- #include "xe_bo.h"
- #include "xe_device.h"
-@@ -690,6 +692,13 @@ void xe_ras_init(struct xe_device *xe)
- 		xe_drm_ras_init(xe);
- }
- 
-+extern struct fault_attr inject_punit_error;
-+
-+static bool fault_inject_punit_error(void)
-+{
-+	return IS_ENABLED(CONFIG_DEBUG_FS) && should_fail(&inject_punit_error, 1);
-+}
-+
- /**
-  * xe_ras_process_errors() - Process and contain hardware errors
-  * @xe: xe device instance
-@@ -708,6 +717,11 @@ enum xe_ras_recovery_action xe_ras_process_errors(struct xe_device *xe)
- 	size_t rlen;
- 	int ret;
- 
-+	if (fault_inject_punit_error()) {
-+		punit_error_handler(xe);
-+		return XE_RAS_RECOVERY_ACTION_DISCONNECT;
-+	}
-+
- 	if (!xe->info.has_sysctrl)
- 		return XE_RAS_RECOVERY_ACTION_RESET;
- 
--- 
-2.34.1
-
+Best regards,
+Krzysztof
