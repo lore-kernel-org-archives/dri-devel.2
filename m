@@ -4,59 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B25BFCDB471
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 23:11:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BBF8CDB46F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 23:13:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0E4910E8CB;
-	Mon, 22 Jun 2026 23:11:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73C7810E2A4;
+	Mon, 22 Jun 2026 23:13:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VRz5Bnu/";
+	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="WUziQHNE";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="OV4/ZkVe";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0624E10E2A4;
- Mon, 22 Jun 2026 23:11:05 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C1510402FC;
- Mon, 22 Jun 2026 23:11:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A757A1F000E9;
- Mon, 22 Jun 2026 23:11:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782169865;
- bh=f0wc83EHX9hwGpiBEnxrlHQclPhLLkIjvr7ldgETsdI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=VRz5Bnu/i5DdnCarRhQRtGxey4tME8/VThBkSf9rhsVKWNja3FrbkfeKJkJJSjz9L
- vda0mKbt9jAnrgSpgIioUQ5hOYpnKWrfj3ybWJWxMaoUq0Y4CY+FTAf6lyWi2e4Xk6
- aQ8TFNCZfktQG3cTtqiz1p3TsPtS8z0cWZWq9L+PFTEW0Pxy/wIprVFqPFDdyljUks
- t9i6iBUerUZcIpwt2IlV6qtBM4+TeMz9DJyoo6akH3NhX4ps3OPTSl4He04Z9c54u/
- MWDcftnL8XHD31qyt0IuVirGHq/39n0SnZrc0ZYIeAH4OVbjD75rpqCqv/Q33IUC6d
- oRIcrgLxh/4dQ==
-Date: Tue, 23 Jun 2026 09:10:43 +1000
-From: Dave Chinner <dgc@kernel.org>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Dave Chinner <david@fromorbit.com>, Qi Zheng <zhengqi.arch@bytedance.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>
-Subject: Re: [PATCH v6 1/2] mm: Introduce opportunistic_compaction concept to
- vmscan and shrinkers
-Message-ID: <ajnA83DxAFqeJ-sv@dread>
-References: <20260617032218.1165929-1-matthew.brost@intel.com>
- <20260617032218.1165929-2-matthew.brost@intel.com>
+Received: from fout-b8-smtp.messagingengine.com
+ (fout-b8-smtp.messagingengine.com [202.12.124.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEAEF10E2A4
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 23:13:40 +0000 (UTC)
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+ by mailfout.stl.internal (Postfix) with ESMTP id 8D0601D0007E;
+ Mon, 22 Jun 2026 19:13:39 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-01.internal (MEProxy); Mon, 22 Jun 2026 19:13:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm3; t=1782170019;
+ x=1782256419; bh=uucNtPV0I4MmovhtQhP25ytZEAiupQRi/0ihEK8Rhgo=; b=
+ WUziQHNE7zVmdQgAmci+JZYcwo5KkO7QkV18LNAwi7KpDkmZNhnzcYFcpJ3s0i/M
+ vNREOL3IJz7PpYtITSnURTXJ57NoKKtI3p8VdnvvqSByGNgqwb1K7ZYv4LWzS4RA
+ eGv77QMZNsNPOKWuMvM1u/Y/vGWVhPMaP4pDOjOppZPTk4Lo8pCwb1U285lX0mlr
+ LU5wlhsrTvA9a/4vuG0IS2vA4/tzWFQ4hyAGJv1Ote0P448ilKVTwjoqLvmTgETJ
+ OwMJ5DwEQcB9yyC8YwngLajZNQPzFpYXW2VCjtXQQhw2J+Nfuchc5nhLAyh1pFhZ
+ DlkzfMuA+M+8++cskbekUg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1782170019; x=
+ 1782256419; bh=uucNtPV0I4MmovhtQhP25ytZEAiupQRi/0ihEK8Rhgo=; b=O
+ V4/ZkVegwfYWhFi0CV7x3abQDcI+EMvP45aV65xUXGtBskn14RQSorce+nkWRjYT
+ 0vUGzsysby5GrQmfBqRPvk3q5Sw0hugavUFZKFpoMMgcv9AU1yvyy3W+nImUH7kS
+ SjZ9hUrIx21b1w8iKUk4ZoSZZ/hyni3dzn4Y4rW/Tn+KmJFahhUaGlLCJ1HEtbsZ
+ liIrrHtxpgMUXWhG1yE0zc/1ID7ryZkyO6/L5edSt0ZPnpaOSBMp3f1FUifbx8QE
+ yLCSp9BFxoc1A92qOC7tdkgtmNtqVDR+ZbZx8lN2afLKCauJBD5nDne8uBZD5W1f
+ 9+CUmnJk4mdEJL7Aasgxw==
+X-ME-Sender: <xms:osE5amVAIHeztFw-x6Jk2cu55pC7pZjRmwM1b6KSRuWDVIR_KTwJvg>
+ <xme:osE5auT4VLIfXIAUlUSHsDevdDOku6mOhxO5YVA14ZP6wQU4fUtEtfDHpEMcONgLa
+ IyEYJJ6uwCk3lY4ms7SZGpQuP2VZ8TxsKa5tcvL7lJN_k22wfgP4A>
+X-ME-Received: <xmr:osE5alEqQwwWFiCYO4WZS1y5iWQi4KDBwYCSMyaTEHpytxplrQpDKe4ePGE>
+X-ME-Proxy-Cause: dmFkZTGuB1iEvMd+xObr0XHRyjLZ564bpkukI0Iv4VBGAc8kgQK8balQPxjO1J5KLzYhKR
+ 605IkjMxDcJA3PQXGOzAsP/a2qqkAveVav1mQz9sz74ejDOcAB1nKTxQ7Az8dn9NDB7h8n
+ +L2GIz2S0KD7QFR9SCO4MwHg5bwilIvRQO7bD+P5oYMomqi4MEOeSdsCHP7Rf6V1uHGLX2
+ l7K4NU176pHC8FwN4H4t7mIC+q15Zr24Jg9CULQ0OPMN5s1BgXLPViD1WwvdGiaSncZTkr
+ vUvs/iZX+9xQgrK4KW+Mao1JDSNl0pLKn1jUH20f08qmwfuaHj/qztG6zl30Uq93PjoxQZ
+ wS77CvLYhcgPkDVyh4OTwLfcbYCQBsP49N/qo4B5pGr3VrP4wC3EX/HMbpI0o7tnDHb8Vr
+ dUC4KsTR3XohX349NH0qkcYTAnuTvQmU/XTH8vCSFrDenwTlit8BbuyrmZseJPmljYQw3o
+ PWcMojRyNylo1GmUE6eVDYC9by8NKCN+P0P1PQ5Ihrtv1L5gGdXsmSAS4/IA5pgOjuwoIi
+ NSBRh+8VABI8itiZZG5BczewX+sa5k66o9ZINFwJJwvHN0vYAKq36XZ/yTRhj3byJ0e9qU
+ HKnIZbA0Hu543idA6+zPiDc8rMNS/K44j7bYaQUhGnsbNgzDb/OZthtS+zpQ
+X-ME-Proxy: <xmx:osE5auQRdJ-u5l69g5wM4Vu2WcHAuhdDct942-89KQW2FN0yytXFAA>
+ <xmx:osE5avq1a6u06jjKTm1185wY59wOCaNiXYckcLCmpR46D3RNQpZi4w>
+ <xmx:osE5akoor8Je3GunK-NO3i0DgcNRVxJ6W3IxDvfEK4Pb1RMhly4orw>
+ <xmx:osE5ai32xmGiXLj6RW-XweJ-e7SwioBikp0RZ0FO4IbKQbCKHT5hNQ>
+ <xmx:o8E5al5-Lz15wn6QttNoyZquTps-g1qYfxAJNhiR6Nk3RW_7DR1N8Mu8>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 22 Jun 2026 19:13:37 -0400 (EDT)
+Date: Mon, 22 Jun 2026 17:13:36 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Matt Evans <matt@ozlabs.org>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, "Tian, Kevin" <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>,
+ Leon Romanovsky <leon@kernel.org>, Alex Mastro <amastro@fb.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, alex@shazbot.org
+Subject: Re: [PATCH v3 6/9] vfio/pci: Clean up BAR zap and revocation
+Message-ID: <20260622171336.7d13f548@shazbot.org>
+In-Reply-To: <55ea7422-08d8-4c92-aa59-8ff6f9e9d781@ozlabs.org>
+References: <20260610154327.37758-1-matt@ozlabs.org>
+ <20260610154327.37758-7-matt@ozlabs.org>
+ <aixgZQiBQKgS7yIM@google.com>
+ <DM6PR11MB3690489DB5FA611413BF60558CE52@DM6PR11MB3690.namprd11.prod.outlook.com>
+ <ajGbRE3WWJxNxcrg@google.com>
+ <BYAPR11MB3687AE280241C9E00B46FCF98CE42@BYAPR11MB3687.namprd11.prod.outlook.com>
+ <24f34e59-7c3b-4b56-83bf-cb07e3f369a6@ozlabs.org>
+ <20260619133116.GB278945@nvidia.com>
+ <55ea7422-08d8-4c92-aa59-8ff6f9e9d781@ozlabs.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260617032218.1165929-2-matthew.brost@intel.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,135 +119,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 16, 2026 at 08:22:17PM -0700, Matthew Brost wrote:
-> High-order allocations using __GFP_NORETRY or __GFP_RETRY_MAYFAIL
-> are often opportunistic attempts to satisfy fragmentation-sensitive
-> allocations rather than indications of severe memory pressure. In these
-> cases, reclaim may invoke shrinkers that aggressively destroy working
-> sets even though reclaim is unlikely to materially improve the
-> allocation outcome.
+On Fri, 19 Jun 2026 16:13:17 +0100
+Matt Evans <matt@ozlabs.org> wrote:
+
+> Hi Jason,
 > 
-> Some shrinkers manage expensive backing or migration operations where
-> reclaim can result in substantial working set disruption despite the
-> system having sufficient free memory overall. This is particularly
-> visible in fragmentation-heavy workloads where reclaim repeatedly tears
-> down active state while kswapd attempts to satisfy higher-order
-> allocations.
-> 
-> Introduce an opportunistic_compaction hint in shrink_control that allows
-> kswapd to communicate when reclaim originates from a high-order
-> allocation context that may be fragmentation driven rather than true
-> memory pressure. Shrinkers may use this hint to avoid destructive
-> working set reclaim while still participating normally during order-0
-> or stronger reclaim conditions.
+> On 19/06/2026 14:31, Jason Gunthorpe wrote:
+> > On Thu, Jun 18, 2026 at 05:02:58PM +0100, Matt Evans wrote:
+> >   
+> >> My understanding is that the sequences above wake a device that happens
+> >> to have previously been put into D3, and AFAICT it could only have got
+> >> there because of a previous vfio_pci_set_power_state().  Seems its only
+> >> caller is from the emulation of PCI_PM_CTRL using
+> >> vfio_lock_and_set_power_state(), and this zaps/revokes BAR access before
+> >> a transition to D3.  Similarly, an attempt to access a BAR via an
+> >> ioctl/through vfio_pci_core_do_io_rw() fails the D3 check in
+> >> __vfio_pci_memory_enabled(), and besides will try to take the memory_lock.  
+> > 
+> > I thought the general design was the bars were made inaccessible
+> > before going to a low power state, and remain inaccessible while it is
+> > in low power?
+> > 
+> > So the order of D0 doesn't matter. If it is not in D0 then there is no
+> > mappings and zap/revoke is a NOP.
+> > 
+> > If is it in D0 then it doesn't matter because D0 is a nop.  
+> Yes, that's what I'm getting at. :)  If it's in D3 then BARs are
+> inaccessible, so as long as we go into D0 before the DMABUF move, the
+> order of the zap relative to the "go to D0" doesn't matter.
 
-To be honest, this seems like another "push a hint through to the XE
-shrinker" mechanism under a different name. You seem so focused on
-fixing the XE reproducer that the -systemic problem- that -any-
-high-order folio demand causes is not being acknowleged.
+I believe this is correct as well, but importantly we cannot assume
+that a stray read or write just returns -1 or gets dropped.  This is
+exactly why we have such hard protections against the user accessing
+the device while it's disabled.  Not all platforms, even within
+architectures that might otherwise be considered lenient of such
+accesses, consider this benign and might escalate to system level
+faults.
 
-e.g. we use high-order folios extensively in the page cache these
-days, and there are -many- cases where memory compaction driven by
-high-order demand cause significant performance regressions for page
-cache performance. To date, every single person who has wanted to
-fix the problem they are seeing has effectively attempted to -turn
-off compaction- via GFP flags.
+Let's be careful not to frame this as "the access doesn't matter
+anyway", the answer is instead that non-D0 devices already lack any
+mappings to access the device.  Thanks,
 
-I've even done that myself inside XFS to work around kvmalloc()
-issues with a lack of GFP_NOFAIL support and doing costly high order
-allocations that fail and trigger compaction before falling back to
-vmalloc().  However, these issues have since been fixed in the
-kvmalloc() code, such that it now does the right thing for most
-calling contexts (i.e. tries high-order kmalloc() without triggering
-compaction, then fall back to GFP_NOFAIL vmalloc()). This has made
-kvmalloc() more performant and better behaved for -all users-, not
-just XFS.
-
-This is not sustainable - we need compaction to be robust and
-performant in the face of high-order folio demands, regardless of
-what subsystem is generating the demand.
-
-So with that in mind, let me paraphrase the comment in the second
-patch in the Xe shrinker implementation:
-
-"Shrinker reclaim is based on implementation specific object sizes
-so it is unlikely to ever acheive contiguous page reclaim in a
-manner that will measurably improve compaction rates."
-
-You also say:
-
-> No functional changes are introduced for existing shrinkers.
-
-Consider how many shrinkable caches the general statement above
-applies to, and then think about the fundamental impedence mismatch
-between the affected shrinkable caches and what this patch actually
-fixes.
-
-For example, what happens to slab-based caches if the XE cache is being
-excessively reclaimed under high-order page demand? e.g. the slab-based
-cache may have tens of objects per page and holds a system-level
-performance critical working set of objects. How do these caches
-handle the excessive reclaim demand being generated by compaction
-thrashing?
-
-Yup, they don't.
-
-In the case of filesystem caches, the "reclaim and repopulate"
-pattern you describe causing the XE perf problems causes internal
-slab cache fragmentation. Not only does this not improve compaction
-rates, it also results in more memory fragmentation because slab
-pages get pinned by a small number of long lived objects and they
-won't get freed until the cache is largely emptied.  IOWs, things
-get -even worse- from a memory fragmentation POV when compaction
-thrashing causes the working set of a high-object-count-per-page
-slab cache to thrash....
-
-This isn't isolated to individual subsystem thrashing.  If we run a
-file-based workload that generates high-order folio demand and hence
-compaction (e.g copy tens of GB of files between two XFS, ext4 or
-btrfs filesystems), that will -also- trash the Xe working set via
-the shrinker being hammered by memory compaction try to free up
-contiguous pages for the page cache.
-
-Similarly, if we run a Xe workload that generates sustained high
-order folio demand, that will trash the working set in the dentry
-and inode caches and any other shrinkable slab-based cache.
-
-Hence the abstracted case of the problem we need to solve is this:
-shrinker reclaim is based on x-byte objects is extremely unlikely to
-acheive contiguous page reclaim in a manner that will measurably
-improve compaction rates.
-
-This is a problem that has to be addresses by the high level
-infrastructure level, not worked around by individual shrinkers.
-
-IMO, compaction shouldn't trigger shrinkers unless the shrinkers are
-specifically flagged as being able to release contiguous pages of
-memory in short order. I don't think there's very many shrinkable
-caches that even hold a significant quantity of objects larger than
-a single page, so it's clearly questionable as to whether compaction
-based reclaim should run shrinker reclaim to begin with.
-
-i.e. a subsystem that can track high order folios in a shrinkable
-cache should probably have a "->compaction_scan()" method that is
-run directly from compaction context to try to free high order
-folios. This provides a direct opt-in mechanism for a subsystem, and
-it allows subsystems that can track low- and high- order objects
-independently to efficiently free objects in a way that will help
-improve compaction rates without impacting the entire working set of
-objects in the cache.
-
-IOWs, this patch to inform kswapd about it's trigger (doesn't it
-already have a "reason" parameter, though?) is likely a necessary
-part of the solution - we don't want kswapd running shrinkers if it
-has been triggered to reclaim pages for compaction. This patch would
-allows kswapd to elide normal shrinker passes when it has been woken
-purely for compaction purposes. Given that the compaction code would
-be running the high-order reclaim capable shrinkers itself, this
-would avoid trashing the working set of most shrinkable caches -by
-default- under high order allocation demand....
-
--Dave.
--- 
-Dave Chinner
-dgc@kernel.org
+Alex
