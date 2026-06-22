@@ -4,102 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9F95CDB471
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 08:42:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04ACACDB466
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 08:48:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1772810E547;
-	Mon, 22 Jun 2026 08:42:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B73010E587;
+	Mon, 22 Jun 2026 08:48:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZJjQ5sM5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bexvx1+e";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFE7410E547
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 08:42:46 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-46255b269c2so3112293f8f.3
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 01:42:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782117765; x=1782722565; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bFnA4MB3rhX4hW9kwKpEDdWQh6n3FEg0cpZAkJWsmhQ=;
- b=ZJjQ5sM5/USsYm9FqwCU8JnjmaHZ/PilGRe5EhcGiEi+js4MytmqTrJGEelJtWWYif
- 5fEI9Px4Tk//S5njEkp3JDY/zHDDLjz0HuSdyoYwJ0rWJAsE0/9/Jrx+3KhG2sYkukIW
- 5xc955Rp6HKFlQ8Wn0z8PIaEL8AEY0QYBbGAeTVSwFatSQqQr1cDr38zXQyAYA27g7ei
- hHrvuQhvKU+RSol85ZZU1kfMQhdQlWUf6zsr6wG8vj47Sm388i7VfSzalXBhO051DzSZ
- aysx+q9y38Tabo9vUpCOudCMbrO04e9efHqr+ev9p5eqA0rqata7uw9aSlgnjGwS2w0w
- elOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782117765; x=1782722565;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=bFnA4MB3rhX4hW9kwKpEDdWQh6n3FEg0cpZAkJWsmhQ=;
- b=LZiFiBF/+LRNzIYQi39X4KQq9Yhk24ZZrASMv2ZckZy2/LPengxgtfg6teHMW4rzIU
- w6uy8AWYK0m6f2z2RIEnzgh/Ke51h3CTRZCkUR4+ZDDISiqJZlBSwraVhP5ds4iOo8iF
- J2jrIKMDPsoe65yL2Bg0T0F1dhBgZYQ9lK06MxF2vWmkmMCqB8gPmYvP0hLaigJfcQOi
- +7ofrQy9z+hmAjBYhLVRV+PNRrs9as/tBiJCQL7TjNGPVb5TEn2BsW0MxULV/y4ElFVB
- 8fL79x/o62v+gcL+Fk43ra1FvqiS8lnpoFpNrg+BkMqZEXcWi5oOeH6UIBqlUsbbpMnQ
- 7EUQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rr9mFgVc0IlzF+OktctJKcR1KIenpGuiUZj7bndTi58IXzO3R5wJV+7+0zG0EDvhf1wmAzt3ATvS08=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywqbyn7B1f4u43qHaHMbKWAA4Mm/YSqjXa4sF1fWAwkxxBkQfhg
- F39bZAp8ET3hP8w2Jx4IfZUBaiXZIiGQROQOI8wmypLnrpZWrzEblfsg
-X-Gm-Gg: AfdE7cm/mt8MLvNOY+DkuMXNUMHXbH+ZNg7WeWyxn8XVogUDYBhygLMjyV9UqBrHRtX
- bdhnK0w0PzEVVGdLtHfmr16hp2T6bDQt1k9SfvelRVz5VeB9LdEQQtX38NhHnrvCqwBbmN7HA/m
- FpBXbvd4RvcNAR82ZRhtH+ZtVTmQLekJdF72GDME0xzVaF87C3eoY5L+RzIiiUu9Q2Nad+2l0fq
- sQxQihnfCxEDbliUwi8+8JpY8qt5Kiofhafiodm9SFH5r8O7GbNAoP5LJMZWxmJmdp96c/i93Qy
- HV359kobjBhhN+oAN5cRyBlKKz/7PgRYHmAvdlXKtORoI3ItsTSmYGTNA5JKRUsxFsMqxGu8Rec
- cF5OobK+KmBjNIqa2E6on5Ca+xUSCanXtEWKgwXFNraLn11Kb4XkhQGuA+CF8qgqNJkdoZId4NW
- F+PxBfFNCbrRh+IfBYLjCC/x/FHastFd8jypBCXUTfTfLKHiM9qAxr9vOeXSVu
-X-Received: by 2002:a05:6000:2006:b0:460:1e5a:2267 with SMTP id
- ffacd0b85a97d-4650090b736mr21019711f8f.17.1782117764761; 
- Mon, 22 Jun 2026 01:42:44 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-46666c57afasm24839972f8f.29.2026.06.22.01.42.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Jun 2026 01:42:44 -0700 (PDT)
-Date: Mon, 22 Jun 2026 09:42:42 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Kaitao Cheng <kaitao.cheng@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
- <david@kernel.org>, Jens Axboe <axboe@kernel.dk>, Tejun Heo
- <tj@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, Christian
- Brauner <brauner@kernel.org>, Alexei Starovoitov <ast@kernel.org>, Daniel
- Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Peter Zijlstra
- <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de
- Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Thomas Gleixner
- <tglx@kernel.org>, Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
- <vincent.guittot@linaro.org>, Paul Moore <paul@paul-moore.com>, Andy
- Shevchenko <andriy.shevchenko@linux.intel.com>, "Paul E. McKenney"
- <paulmck@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, Christian
- =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, David Howells
- <dhowells@redhat.com>, Simona Vetter <simona.vetter@ffwll.ch>, Randy Dunlap
- <rdunlap@infradead.org>, Luca Ceresoli <luca.ceresoli@bootlin.com>, Philipp
- Stanner <phasta@kernel.org>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
- linux-ntfs-dev@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, audit@vger.kernel.org, bpf@vger.kernel.org,
- netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- kexec@lists.infradead.org, live-patching@vger.kernel.org,
- linux-modules@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-pm@vger.kernel.org, rcu@vger.kernel.org, sched-ext@lists.linux.dev,
- linux-mm@kvack.org, virtualization@lists.linux.dev, damon@lists.linux.dev,
- llvm@lists.linux.dev, Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: Re: [PATCH v3 1/7] list: Add mutable iterator variants
-Message-ID: <20260622094242.64531b9a@pumpkin>
-In-Reply-To: <20260622040533.29824-2-kaitao.cheng@linux.dev>
-References: <20260622040533.29824-1-kaitao.cheng@linux.dev>
- <20260622040533.29824-2-kaitao.cheng@linux.dev>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A8EF10E587
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 08:48:27 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E42A841717;
+ Mon, 22 Jun 2026 08:48:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9742A1F000E9;
+ Mon, 22 Jun 2026 08:48:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782118106;
+ bh=Ip851X7bkgURMoyrElEEM17vIHpXT3xsP2yIrtuWlUM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=bexvx1+ekowZ+J9+FtgudKx+fAndkkYoeBjR1uM8TTO6zXt1t0uAwbwXcKn31dCmL
+ 9iy3LwJ2Zti2f3oX9L9laPtCGwR9I2XXtbEE0m/6m83DK86zt4kMSyX0VCmMX//PdG
+ rhMoBBQMaSeaWlEfTgGhyjWddQ+uKOVNVYodHKct/zfjIBmID62sZeOiXl3kG/x9ro
+ m1LMHDdhbzLhF9y3UKm1sCn8G1wpQUrYCyLaEzVcRFrjdj8/aDI9SIry40bOD38z5v
+ 7goqZoxXZOlXTKuj5gdaXXko4nqDLBDHN50/er3ITHyPeat7bHud6xyVMgIZ+2zAGU
+ ssA0Z6MStxO/Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/4] gpu: host1x: Allow limiting usable channel and
+ syncpoint ranges
+To: "Mikko Perttunen" <mperttunen@nvidia.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260622-host1x-nohv-v1-4-65bc682a617f@nvidia.com>
+References: <20260622-host1x-nohv-v1-0-65bc682a617f@nvidia.com>
+ <20260622-host1x-nohv-v1-4-65bc682a617f@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 22 Jun 2026 08:48:26 +0000
+Message-Id: <20260622084826.9742A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,109 +55,137 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 22 Jun 2026 12:05:31 +0800
-Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Unvalidated device tree properties allow out-of-bounds array acces=
+s and memory corruption.
+- [High] Unconditional hardware state reset clobbers interrupt states and w=
+ait bases for unowned syncpoints.
+--
 
-> From: Kaitao Cheng <chengkaitao@kylinos.cn>
-> 
-> The list_for_each*_safe() helpers are used when the loop body may
-> remove the current entry.  Their API exposes the temporary cursor at
-> every call site, even though most users only need it for the iterator
-> implementation and never reference it in the loop body.
-> 
-> Add *_mutable() variants for list and hlist iteration.  The new helpers
-> support both forms: callers may keep passing an explicit temporary cursor
-> when they need to inspect or reset it, or omit it and let the helper use
-> a unique internal cursor.
+commit bdd04d3945b8f8760d8be70ce0ab1595927b08f4
+Author: Mikko Perttunen <mperttunen@nvidia.com>
 
-I'm not really sure 'mutable' means anything either.
-It is possible to make it valid for the loop body (or even other threads)
-to delete arbitrary list items - but that needs significant extra overheads.
+gpu: host1x: Allow limiting usable channel and syncpoint ranges
 
-It might be worth doing something that doesn't need the extra variable,
-but there is little point doing all the churn just to rename things.
+Allow specifying usable channel, and allocatable syncpoint ranges
+through the device tree. This is necessary when Host1x resources
+are shared between multiple operating systems or independent hardware
+units and Linux has limited access to them.
 
-> 
-> This makes call sites that only mutate the list through the current entry
-> less noisy, while keeping the existing *_safe() helpers available for
-> compatibility.
-> 
-> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
-> ---
->  include/linux/list.h | 269 +++++++++++++++++++++++++++++++++++++------
->  1 file changed, 231 insertions(+), 38 deletions(-)
-> 
-> diff --git a/include/linux/list.h b/include/linux/list.h
-> index 09d979976b3b..1081def7cea9 100644
-> --- a/include/linux/list.h
-> +++ b/include/linux/list.h
-> @@ -7,6 +7,7 @@
->  #include <linux/stddef.h>
->  #include <linux/poison.h>
->  #include <linux/const.h>
-> +#include <linux/args.h>
->  
->  #include <asm/barrier.h>
->  
-> @@ -763,28 +764,72 @@ static inline void list_splice_tail_init(struct list_head *list,
->  #define list_for_each_prev(pos, head) \
->  	for (pos = (head)->prev; !list_is_head(pos, (head)); pos = pos->prev)
->  
-> -/**
-> - * list_for_each_safe - iterate over a list safe against removal of list entry
-> - * @pos:	the &struct list_head to use as a loop cursor.
-> - * @n:		another &struct list_head to use as temporary storage
-> - * @head:	the head for your list.
-> +/*
-> + * list_for_each_safe is an old interface, use list_for_each_mutable instead.
->   */
->  #define list_for_each_safe(pos, n, head) \
->  	for (pos = (head)->next, n = pos->next; \
->  	     !list_is_head(pos, (head)); \
->  	     pos = n, n = pos->next)
->  
-> +#define __list_for_each_mutable_internal(pos, tmp, head)		\
-> +	for (typeof(pos) tmp = (pos = (head)->next)->next;		\
+> diff --git a/drivers/gpu/host1x/channel.c b/drivers/gpu/host1x/channel.c
+> index ca5d0f51cf7da..38fcdda8388ad 100644
+> --- a/drivers/gpu/host1x/channel.c
+> +++ b/drivers/gpu/host1x/channel.c
+> @@ -121,13 +121,13 @@ EXPORT_SYMBOL(host1x_channel_put);
+>  static struct host1x_channel *acquire_unused_channel(struct host1x *host)
+>  {
+>  	struct host1x_channel_list *chlist =3D &host->channel_list;
+> -	unsigned int max_channels =3D host->info->nb_channels;
+>  	unsigned int index;
+> =20
+>  	mutex_lock(&chlist->lock);
+> =20
+> -	index =3D find_first_zero_bit(chlist->allocated_channels, max_channels);
+> -	if (index >=3D max_channels) {
+> +	index =3D find_next_zero_bit(chlist->allocated_channels,
+> +				   host->channel_end, host->channel_base);
 
-Use auto
+[Severity: High]
+Does this code allow out-of-bounds memory accesses if the device tree values
+exceed the hardware limits?
 
-> +	     !list_is_head(pos, (head));				\
-> +	     pos = tmp, tmp = pos->next)
+Since chlist->channels and chlist->allocated_channels are allocated based on
+host->info->nb_channels, could a large value in the nvidia,channels device
+tree property cause an out-of-bounds access here when host->channel_end is
+passed to find_next_zero_bit()? Should host->channel_end be validated
+in host1x_get_assigned_resources()?
+
+[ ... ]
+
+> diff --git a/drivers/gpu/host1x/dev.c b/drivers/gpu/host1x/dev.c
+> index 545fa2e3f180c..7103f018cb1bf 100644
+> --- a/drivers/gpu/host1x/dev.c
+> +++ b/drivers/gpu/host1x/dev.c
+> @@ -331,6 +331,39 @@ static void host1x_setup_virtualization_tables(struc=
+t host1x *host)
+>  	}
+>  }
+> =20
+> +static int host1x_get_assigned_resources(struct host1x *host)
+> +{
+> +	struct device_node *np =3D host->dev->of_node;
+> +	u32 vals[2];
+> +	int err;
 > +
-> +#define __list_for_each_mutable1(pos, head)				\
-> +	__list_for_each_mutable_internal(pos, __UNIQUE_ID(next), head)
+> +	err =3D of_property_read_u32_array(np, "nvidia,channels", vals, 2);
+> +	if (err =3D=3D 0) {
+> +		host->channel_base =3D vals[0];
+> +		host->channel_end =3D vals[0] + vals[1];
+> +	} else if (err =3D=3D -EINVAL) {
+> +		host->channel_base =3D 0;
+> +		host->channel_end =3D host->info->nb_channels;
+> +	} else {
+> +		dev_err(host->dev, "invalid nvidia,channels property: %d\n", err);
+> +		return err;
+> +	}
 > +
-> +#define __list_for_each_mutable2(pos, next, head)			\
-> +	list_for_each_safe(pos, next, head)
-> +
->  /**
-> - * list_for_each_prev_safe - iterate over a list backwards safe against removal of list entry
-> + * list_for_each_mutable - iterate over a list safe against entry removal
->   * @pos:	the &struct list_head to use as a loop cursor.
-> - * @n:		another &struct list_head to use as temporary storage
-> - * @head:	the head for your list.
-> + * @...:	either (head) or (next, head)
-> + *
-> + * next:	another &struct list_head to use as optional temporary storage.
-> + *		The temporary cursor is internal unless explicitly supplied by
-> + *		the caller.
-> + * head:	the head for your list.
-> + */
-> +#define list_for_each_mutable(pos, ...)					\
-> +	CONCATENATE(__list_for_each_mutable, COUNT_ARGS(__VA_ARGS__))	\
-> +		(pos, __VA_ARGS__)
+> +	err =3D of_property_read_u32_array(np, "nvidia,syncpoints", vals, 2);
+> +	if (err =3D=3D 0) {
+> +		host->syncpt_base =3D vals[0];
+> +		host->syncpt_end =3D vals[0] + vals[1];
 
-The variable argument count logic really just slows down compilation.
-Maybe there aren't enough copies of this code to make that significant.
-But just because you can do it doesn't mean it is a gooD idea.
-I'm also not sure it really adds anything to the readability.
+[Severity: High]
+Similarly, could large values for nvidia,syncpoints cause out-of-bounds rea=
+ds
+and writes?
 
-And, it you are going to make the middle argument optional there is
-no need to change the macro name.
+Arrays like host->syncpt are allocated based on host->info->nb_pts.
+If host->syncpt_end exceeds this limit without validation, functions like
+host1x_syncpt_alloc() that iterate up to host->syncpt_end might access
+memory out of bounds.
 
-	David
+[ ... ]
 
+> diff --git a/drivers/gpu/host1x/syncpt.c b/drivers/gpu/host1x/syncpt.c
+> index acc7d82e0585e..fe27a386cc0c8 100644
+> --- a/drivers/gpu/host1x/syncpt.c
+> +++ b/drivers/gpu/host1x/syncpt.c
+[ ... ]
+> @@ -138,7 +138,7 @@ void host1x_syncpt_restore(struct host1x *host)
+>  	struct host1x_syncpt *sp_base =3D host->syncpt;
+>  	unsigned int i;
+> =20
+> -	for (i =3D 0; i < host1x_syncpt_nb_pts(host); i++) {
+> +	for (i =3D host->syncpt_base; i < host->syncpt_end; i++) {
+>  		/*
+>  		 * Unassign syncpt from channels for purposes of Tegra186
+>  		 * syncpoint protection. This prevents any channel from
 
+[Severity: High]
+Does this clobber the hardware state for unowned syncpoints?
+
+Right after this loop, the code in host1x_syncpt_restore() unconditionally
+restores wait bases for syncpoints 0 to nb_bases-1:
+
+	for (i =3D 0; i < host1x_syncpt_nb_bases(host); i++)
+		host1x_hw_syncpt_restore_wait_base(host, sp_base + i);
+
+Similarly, host1x_intr_disable_all_syncpt_intrs() unconditionally disables =
+and
+clears threshold interrupts for all syncpoints across the entire hardware.
+
+Since this patch restricts Linux to a specific range of syncpoints to allow
+sharing the Host1x device, will overwriting the wait bases and interrupt st=
+ates
+unconditionally break synchronization for other operating systems or hardwa=
+re
+units sharing the device?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622-host1x-noh=
+v-v1-0-65bc682a617f@nvidia.com?part=3D4
