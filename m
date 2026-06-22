@@ -4,122 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF753CDB471
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 08:12:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3716DCDB46B
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 08:13:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EA1F10E522;
-	Mon, 22 Jun 2026 08:12:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92F5D10E518;
+	Mon, 22 Jun 2026 08:13:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="N+IRGJ3g";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TUAjB7S9";
 	dkim-atps=neutral
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazon11011069.outbound.protection.outlook.com [52.101.65.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96B9010E525
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 08:12:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NOPTOWKva7kWrHCXx4hZbaDIFMmIWOxLLDhXIi9tTTioGu8QTQ+hHlW9V1bqXhaReemdmq39eZmJvsZOq26asAHudOQleQPKHScSGkZrMTrL43zP8Z6Tk5SyCpOarpVqGqIjZm8UWvdrrAAhvLzGNse7hW7WmX+as4PmwRBImddBJCo0YyaIx9kQXpLPkkYE4irXYVXNTkpf2TAR5CheBv+gbFuI7NACzY9r1+drmAc1oEIiTdVGByuE4T9tbtUp/wBVFshgCbHB8QwYW6zf0JI81nZjOOuDH3pQHFDIg1IwDISOOLAIvXvvzv1hwVyE6xfouXnWrXsuxQHbc5qaIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OxilF9rFrtVB++gIkAJRRGi7VZIs0dRBc1wyQuYlo6w=;
- b=keNA/2kxnkRrk+s4zxvqp5q11IBQU+0lZqZMykVyOFPDH38TGDTIa1RCrUXvZ1vdadaOsB34V8+u93KBpT1/G6HQ73EYuRWfGplgbNFlzYVxMYKqh+tsqK+HpIPjX4FOoQJOy0JXz7j88EXUdkib9cAJpd1B5cgVuwK3YmfgTk2XpjAgf8v/V0YFDxrQbiMUyuxJjlmOtTTSIXYW590lxgzxjqhMqMjD6t6FkrFGeoQyZ4c63TTgEjbKyJWbNVySXtSprc5YsS7J9RXlxbKYnDauOPgDY44X4fK3YSxxeRYwPGv2VUGNaHz/LdVEv/uYohQqY76Eh+y+foF+B+o/GQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OxilF9rFrtVB++gIkAJRRGi7VZIs0dRBc1wyQuYlo6w=;
- b=N+IRGJ3gN450toRjlr+OFHx5OIdiGEnpGAKP6RSYzR2VU09iBHYBb6oFawKy3oIf1Yhpimcg69VD+lhQyGNX1uy0oAWYDIhqIrEkpjoSbT8Es8MUpJhaHxf2V0KYlDUWIfE073QQJkNBooMbHyH+EhkpBz4eHKswYYG9Xb7EzCHxOON6v75oN5s13VZEPzvZVCPMEGPao6uXnmwYIbZE2XO/K4FSTaSA05F8Zaz9mmilgKqeWijA3cG3Otqt73hylyKh2i3LBsRAIscvKRhgv8QCzfQjX4b+j8xDkGmyYL7LtMvUo02kx5KdSM/c+Q+nkZd25p/vwM1sETV+Zrcjew==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
- by AS5PR04MB11322.eurprd04.prod.outlook.com (2603:10a6:20b:6c7::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.19; Mon, 22 Jun
- 2026 08:12:12 +0000
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.21.0139.009; Mon, 22 Jun 2026
- 08:12:11 +0000
-Date: Mon, 22 Jun 2026 16:13:42 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Hui Pu <Hui.Pu@gehealthcare.com>,
- Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/mxsfb/lcdif: don't hide lcdif_attach_bridge()
- deferral messages
-Message-ID: <ajjutrHp0SNbq2lV@raspi>
-References: <20260619-drm-lcdif-deferral-msg-v1-1-ce2392dca985@bootlin.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260619-drm-lcdif-deferral-msg-v1-1-ce2392dca985@bootlin.com>
-X-ClientProxiedBy: MA5P287CA0037.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:175::17) To AS1PR04MB9287.eurprd04.prod.outlook.com
- (2603:10a6:20b:4dd::8)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6434310E518
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 08:13:48 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-490cf322ed0so31062295e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 01:13:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782116027; x=1782720827; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=y69DNLtkcPX106ySVX6ZlNH6S9rjQScn7EBr8UTU9k0=;
+ b=TUAjB7S9rubIJef7F/H1DxG1uQepKx/jfI/fCwfHYyBGz7qVgxr4ozqa9HYjZNq+MX
+ pBJBrWncvxSXXkqnadWoI9VoTi4TYpD1mWvGfku9gZc2atMo90by+MIf5Il2qEOjlZFx
+ 7TGjLflbB7xYR90FayaWdyr/jV2pYtdaKzqTXzujBlGvrXmkw4PA4Ze5Lz53MEInTmXI
+ N1AAf0pHaG6h3rf3PZNM/IOoRRDw69aaTHw2fZjtFlHRcLiDR+5c0FuqaQURzMOON8fQ
+ WCeF7tySuPygGqpozMo8/LatIo27ou1lQWwSlDxG0qi3deYH0j3oM8F+u1F4/4is35tq
+ bYsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782116027; x=1782720827;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=y69DNLtkcPX106ySVX6ZlNH6S9rjQScn7EBr8UTU9k0=;
+ b=TW/14ShHlMmD7ynn+UkYR58/4tIMr87xRQDhH2iwzl7U1yzf+INrB0tlwnpEOzNGnF
+ WqB3HtrarVquAj0nTwV/XejvJ+SW+LTVJX5rFWJ1fw4m4FF7w4TKC8rHDcMPSGnKZ0Le
+ oB3+A7Dypfl3FBFyYzVFSws05ulGCbDpo8xuA9TR2YfAAXCnYKULgpWKMd/VuWbW1ff6
+ LRDEATVwvdxAs8iaeBZw+HiFHaumT2uDDw+TCKEW2SWUlDLN70STwuio9BaHeZf8EYRW
+ Yw2HF+CX44FsT2+8U907mJ0cWCbAm7JlvET08/x1sR6mdKOJTEiPRr5r8kph/23IJnTB
+ VY/Q==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/+thi2nP35AZzolZz8TLodVTcAl8Tj41pBU9FXonL9LwKQwK1JsGVuA18DJ4DeTJxmkJZwinSTJMo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwsKdD/ShYwSO0tfwWOGGNDLvB0zchCncznBHRXurdoXegZ7YTt
+ GvcnxlVbo/Uqi+qaGbul6tzAbiHqO4FCYRR6jriI+x8ko45jv0MFX+ar
+X-Gm-Gg: AfdE7cksI7XwxKRX9f4lMP+ncNMy4OU/6HjzXWwX5vbjtKW1zRR7ZYO7YB+RLUCwKWt
+ jWOc2HG/ZKCFZPQWjEJo9vbqlzluEjoeqi2FUMLzxqpQaCb9CoY+ikznavobNsPfa8WXPFW1hcr
+ uDYKecyFFSzcnYSD9PWcuXUB5BqwyXv45dNu6sH61dkN12Zg3IYNOZGXWsNySdp04PZqKk1hCx3
+ Q2QWXFcNl0T5qHq4LnPOo16n0lQwOIHF7JaIfZypF84Ls0RI4eZocvmm51dB5rkqHLErCr3zgzH
+ pgPRpvj2TLQidIMwFAX641UEBzcJtWi0ro4NfkQ97XV+daXrRtIGtoqc/sx0aZw+AyKX3GdIGFA
+ xb8F/c7gWtbSZspr2CG3ZQdw3WXI64w0Hk5yH6BkRXVnS8p0hdOtQWnOb8J12+Wk5IfRb+ExffB
+ OB7cu3wwxwtjGbXYqaW2TZIYW5a506wcTTBorlSVbxiGxPb9LchA==
+X-Received: by 2002:a05:600c:8719:b0:492:4c60:bfb8 with SMTP id
+ 5b1f17b1804b1-4924c60bfdemr121648545e9.28.1782116026585; 
+ Mon, 22 Jun 2026 01:13:46 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4923fd30078sm274806595e9.7.2026.06.22.01.13.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Jun 2026 01:13:45 -0700 (PDT)
+Date: Mon, 22 Jun 2026 09:13:44 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: David Hu <xuehaohu@google.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, "Christian =?UTF-8?B?S8O2bmln?="
+ <christian.koenig@amd.com>, Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen
+ <nicolinc@nvidia.com>, Leon Romanovsky <leon@kernel.org>, Kevin Tian
+ <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, Alex Williamson
+ <alex@shazbot.org>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, jmoroni@google.com,
+ praan@google.com, kpberry@google.com, sashiko-bot <sashiko-bot@kernel.org>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] dma-buf: Split sgl by largest page-aligned chunk
+Message-ID: <20260622091344.794e0d74@pumpkin>
+In-Reply-To: <20260621222130.1667453-1-xuehaohu@google.com>
+References: <20260621222130.1667453-1-xuehaohu@google.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|AS5PR04MB11322:EE_
-X-MS-Office365-Filtering-Correlation-Id: dbbd606e-9a2b-4589-7ab7-08ded035f639
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|19092799006|1800799024|376014|366016|7416014|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: GFJuABGVmMz09a/CVPBHa93uSI9QJMQeVYXuJf2lC8daDNCgg300znHQ4MopZi1l2OPMep8CJC86IQa8JQwd/Ikp3hn+FE/aqMq+SG/FkYbNGHCaZt6mN7ZrA3XHXblVUC7tp6zAUuDoC6Y5zazubFcl8dCpXqfI3V+dwmuzmfOKXPlxE3zckv/S+CQPnUpdO/XHQD3WE1ET/P37z9yzYR7Ur/RgEHAbEYfW9qc72D7s4EJptOB16WJcsUmpWb2bbON6nzruFUQ37fj8XsAMYMgx3xJW7ioRaOdMvREHfLCCN/y0eyBUpS+jyH78Fhl+HPDXLDzbsAKI4CQydlCUT4VPyOWULPwN5e0QwmGM6RtJlwhOJdZvtXuMVZGObOKr0K2DFW7Fu4UzBfjNOl1XNhkovUwbiAAqCI0F63pePj82QEBhlKPZyleZVa1MjH5JDqbiV+pDR9GBDAym95+DrIOMRE5Ji/kDYE4n958F87kArY9VRHY070mQ3//FJ/Y1F3AZKcL6dQWufyIW4cNJbU0EkPFmnOm9GhklMlKDerfTT0zG9QRyAa2ELjY5+Cdtp2AbE8YCwxGB5pjS7TPhNFIirChov7vp0ehO2PYc45Xz21i2ENf/oQsdcQ3hzhFsaBk/2d0yGMf/W3zCJFtoOg99Jtb3RB8PJh81HvM3zPg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AS1PR04MB9287.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(19092799006)(1800799024)(376014)(366016)(7416014)(18002099003)(22082099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?fN7eP9YST25KqiAMdgilagntQEXqj7JvMyHDjFUygxHeFUkSZSM9nZdgb5DY?=
- =?us-ascii?Q?hb1JMlmG/nukQPTpZuNyfYeSywnV1hdr1ndHNpLjc/jOFamX6e5fWs6Aspug?=
- =?us-ascii?Q?AhQpN5VGCah0g/M8zQatQe8+TKQK/rA7LniXOwJHwf6pgVeU7sJ5SDEtSPk0?=
- =?us-ascii?Q?9900/z9AJkCIYX3SvUu/42fIFxiyojc3WrE5pOSQsxB5QNMayrIL5CvV9P8m?=
- =?us-ascii?Q?P4kCTMqe0Nyoo5/D5i6cynLsyGeyo2oP6XWywcMwfY5yiKnwEzfdqQd0Ar3B?=
- =?us-ascii?Q?NMUVA7D+YV1BYJfHj909YYYRB2H23D66xZD6AXo9G5dFXgW2HAESQpaeU+86?=
- =?us-ascii?Q?lNKFr1rELfqOzelUpcBaB/7eS+nPNkBXQmxR6gySfAR1WhfU5YjOmHDdqfm7?=
- =?us-ascii?Q?YAU3jSW7MR1A3542b+DmQ9kuRBdBjqJrWxbUG+2xTnVDY6KH+4q9QBahOtzC?=
- =?us-ascii?Q?GL7tBkQUImhV4rKj15pQyvJYV18oj13Zfkm1KVVwsIz4UouErPlz6pdsxeEK?=
- =?us-ascii?Q?IjcCN7/+wQqogDvEjy9uu+cpCfmCoEzQ6JyTOg5wZmoC34MWhfU6zSJcVeJL?=
- =?us-ascii?Q?4ooqAfCS4XkmQh74fxHOW5LpW1qhPtwSiXDko2TmRwd+lfdcvsa/sE045rso?=
- =?us-ascii?Q?f4qZJyyH91ANEiHwcco0JzhRvu+WyGLUgzupXf7Z+cBVu1+ClIezoENaF0oi?=
- =?us-ascii?Q?Tj0sVwvTc+KxGmaiwn/J9jha3UonsgOPGV6BDdvbyOs/qf39S8QH0zvmwE0+?=
- =?us-ascii?Q?L/5sp0phU5DHlGH0tg4GyWGLriNXqaX+O1TDhNtKwGknK3kOxXsnAHjSmTSf?=
- =?us-ascii?Q?fLA9zIMi47FxPfSuLh8PORx759X1rScnC06spV5MFFq9qriVS56vBGA0/fl6?=
- =?us-ascii?Q?SfNH53yFQzrcRgT7dXA4USH56p+CM+J9PQX5nCUdmZRfzMpXLI8xEWcG4lL5?=
- =?us-ascii?Q?TGKnFtaux0KU8v01uJyh9Whnf9GRWYA2uTRyvUIbxH6hNFkQop0dzu5CUtYK?=
- =?us-ascii?Q?74dJmHL4R/OWiAPvJfcdmoTWONlAncKv21LdCRhm3rUFYCROmY/cin9YxXpg?=
- =?us-ascii?Q?9eZxgKuk2McrYDC0s2GeBSzDOAMGy4Xpl5MqeIfdO7954C20P0sCO+KnORss?=
- =?us-ascii?Q?yKLnjFj3l0CMY1q5GbklekdABigcbd4L7VPq1fedvkfpWvCxULxMPuUqCEPe?=
- =?us-ascii?Q?dhGOPKQyr3DYZu0/xjpZC7wNHkAKGeNg+qpcQOMIrygBYWG7z/YNh+kKbOjG?=
- =?us-ascii?Q?V/kIoVaukbv429k61GB28tCtiqGathp+JAb3EtZ2CIh1ztzds7KmYLgOl1AY?=
- =?us-ascii?Q?9r/oGUrakRS9DErISwNSqKngcJu+4H3vKcz7iM2KZiGQuurPb0KR5G1oIwA/?=
- =?us-ascii?Q?ktiOKk6R2Tmpbs01LGFvnKDRVnKHeNrtucIejjJbd8//AOcAhuBYvMS+JdNa?=
- =?us-ascii?Q?6frw06QO1q6aFXnBuJPmTMwJ+FzbECZ0vGY3hHg5W0a0VULSbq5SRe+2cd/f?=
- =?us-ascii?Q?1DajDZMWczUPb291IxIfQZXhfxBbadNRYzanGnxxCf7Rf3x01sSLwN6vGW9X?=
- =?us-ascii?Q?CJOlbDRdRo+D8XMABUAreE80NWRGcdNDQ0kWwxkjeY08ftRq6weDMItpJB2L?=
- =?us-ascii?Q?bdhSzzdZh6udQVCwY93ZVWy7SFvOBeU2nNeRbj+AFEbDygzKtymQLjhrfCUG?=
- =?us-ascii?Q?YABd/yzdGsm0MlBTKmluUCl0WvROJxQFARuoBHj9lVsRIFmASStv0ZALE9cE?=
- =?us-ascii?Q?WK79m9UVNA=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbbd606e-9a2b-4589-7ab7-08ded035f639
-X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 08:12:11.8801 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /dqBPC0ItIhblIP1ZQrS7TTqa5kKfxO4vfgw/wofGElcTd50fPvHxX332URMbk1pmJH9D83fX+DF0GHRN0WWhg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB11322
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,20 +97,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jun 19, 2026 at 09:02:13AM +0200, Luca Ceresoli wrote:
-> lcdif_attach_bridge() uses dev_err_probe() on all its error returns to
-> store a specific deferral message.
-> 
-> However its caller lcdif_load() calls dev_err_probe() again on error,
-> overwriting the specific deferral messages with a unique, unavoidably
-> generic, message.
-> 
-> Make the specific deferral message visible by using a plain 'return ret' on
-> the caller.
-> 
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> ---
->  drivers/gpu/drm/mxsfb/lcdif_drv.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+On Sun, 21 Jun 2026 22:21:30 +0000
+David Hu <xuehaohu@google.com> wrote:
 
-Acked-by: Liu Ying <victor.liu@nxp.com>
+> Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
+> This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
+> first entry, resulting in non-page-aligned DMA addresses for all
+> subsequent entries.
+
+How did you find this?
+It requires a single buffer over 4GB - seems highly unlikely.
+
+
+> 
+> While the underlying IOMMU mapping may be contiguous, hardware
+> DMA engines often require explicit address alignment (e.g., page,
+> cacheline, or storage sector boundaries). Passing unaligned
+> addresses and lengths can cause explicit failures in DMA descriptor
+> creation or silent data corruption if lower unaligned bits are
+> truncated.
+> 
+> Fix this by splitting the scatterlist by the largest possible page
+> aligned chunk within `UINT_MAX` (`ALIGN_DOWN(UINT_MAX, PAGE_SIZE)`).
+> This ensures all scatterlist DMA addresses and lengths remain page
+> aligned and satisfy hardware constraints.
+
+It would almost certainly better to spilt into 2G chunks.
+That removes any need for any divisions.
+
+> Page-aligned entries allow the system to cleanly chunk payloads into
+> PCIe MaxPayloadSize (MPS) (e.g., 128 bytes, 256 bytes, 512 bytes).
+> As a result, this may help reduce TLP fragmentation in P2P transfers
+> and alleviate potential congestion within a logical PCIe switch
+> partition, especially when Relaxed Ordering is not possible due to
+> hardware constraints.
+> 
+> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/20260609165431.778061F00893@smtp.kernel.org/
+> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hu <xuehaohu@google.com>
+> ---
+>  drivers/dma-buf/dma-buf-mapping.c | 13 ++++++++-----
+>  1 file changed, 8 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
+> index 794acff2546a..f2bde38fdb1f 100644
+> --- a/drivers/dma-buf/dma-buf-mapping.c
+> +++ b/drivers/dma-buf/dma-buf-mapping.c
+> @@ -5,6 +5,9 @@
+>   */
+>  #include <linux/dma-buf-mapping.h>
+>  #include <linux/dma-resv.h>
+> +#include <linux/align.h>
+> +
+> +#define MAX_ENT_SZ ALIGN_DOWN(UINT_MAX, PAGE_SIZE)
+
+>  
+>  static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
+>  					 dma_addr_t addr)
+> @@ -12,9 +15,9 @@ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
+>  	unsigned int len, nents;
+>  	int i;
+>  
+> -	nents = DIV_ROUND_UP(length, UINT_MAX);
+> +	nents = DIV_ROUND_UP(length, MAX_ENT_SZ);
+>  	for (i = 0; i < nents; i++) {
+
+Why not change that to 'while (length) {' to avoid the division above.
+
+> -		len = min_t(size_t, length, UINT_MAX);
+> +		len = min_t(size_t, length, MAX_ENT_SZ);
+
+I bet that doesn't need to be min_t()
+
+>  		length -= len;
+>  		/*
+>  		 * DMABUF abuses scatterlist to create a scatterlist
+> @@ -24,7 +27,7 @@ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
+>  		 * does not require the CPU list for mapping or unmapping.
+>  		 */
+>  		sg_set_page(sgl, NULL, 0, 0);
+> -		sg_dma_address(sgl) = addr + (dma_addr_t)i * UINT_MAX;
+> +		sg_dma_address(sgl) = addr + (dma_addr_t)i * MAX_ENT_SZ;
+>  		sg_dma_len(sgl) = len;
+
+Replace the multiply with 'addr += len'.
+
+-- David
+
+>  		sgl = sg_next(sgl);
+>  	}
+> @@ -41,14 +44,14 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
+>  
+>  	if (!state || !dma_use_iova(state)) {
+>  		for (i = 0; i < nr_ranges; i++)
+> -			nents += DIV_ROUND_UP(phys_vec[i].len, UINT_MAX);
+> +			nents += DIV_ROUND_UP(phys_vec[i].len, MAX_ENT_SZ);
+>  	} else {
+>  		/*
+>  		 * In IOVA case, there is only one SG entry which spans
+>  		 * for whole IOVA address space, but we need to make sure
+>  		 * that it fits sg->length, maybe we need more.
+>  		 */
+> -		nents = DIV_ROUND_UP(size, UINT_MAX);
+> +		nents = DIV_ROUND_UP(size, MAX_ENT_SZ);
+>  	}
+>  
+>  	return nents;
+
