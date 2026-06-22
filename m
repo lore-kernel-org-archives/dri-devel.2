@@ -4,131 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39915CD98F2
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 10:39:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABA88CDB46F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 10:42:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EF7010E4B8;
-	Mon, 22 Jun 2026 10:39:31 +0000 (UTC)
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2F3710E4B8
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 10:39:29 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-37d826e9811so469848a91.1
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 03:39:29 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782124769; x=1782729569;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6sEwup8vrGtzg0eQ+zIA6Kd2oTy+XBY9jxS2BNcFzC0=;
- b=YoYRbnQrSGZIFXGs25AQ5MULFPGwAcAx4Jv8CPhZskQjVUmCFOUze+810RQS+pcFmK
- KYVrZQK0uP8RHx+9mpa28CZ459NWq73y89e/bFcGfYodiCPLpmKZ3r8yR08XdYhuRTHA
- yDqrNgCwon9RU+hPrvTr+yL64xDJzlRpB2vCdm2uNK6CC783USFLBFwi8pl0kw4yVx/o
- OUvXIUOC+8X1ZZxuDGkO/J5vf8tMwG6f120+W5tSiXQxb0ls74yxHtNyM17q+4SPEssg
- LkKIQZHjE5JvFaN+2DZsm9aKtiXGo2Ii5TB5bD9rs1PEjTOsxvC6XxOd59Vgu1sw4TLf
- E3MA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpJPsV+LfMcYbfUvWCeIvnDZo8HUH7Y7YR1KegIjcOlWtSnFs6xMjoHjKGYV50m63wQAvDF5rJGbko=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwdcvVutUzGmkb0H3KAK2/VEVQFM03hweYR17sU6zbpuJMPHYzI
- /2O6I4/qM7AqKHgDI4JMEjhdq+o82prwpn+9Zm8+2F82BEbl9wbPDxotU5aCl4sr
-X-Gm-Gg: AfdE7ckVtzMW4lNNZA4Hr4+EDEyUnNdOhKsFn8JGcsTQSgZWRvDQy12opRuTrN1SxHJ
- D/DFDzNB643ZAqH74NyRKy/2Hc5aWnyIWqSATQRsHC/DjykNC+yysnN2Qb+6NhhY+pb2C8CIMhm
- 54kpiVDt2Azg+fcIeHphDNCcfLDtDmKq9J0ut88bR0AnRz9PZhgMZCr4m+TEfzL5P8fQbYxN4EY
- pj1sWppuflr8/z4+hnW092bcSbexzHzL1I9zpqJ9A2op40RbsQsX4U7swALpzgRFzO40vqbk2/a
- 5wF9XAmXQn0iLEytxxwMFh8xETfB9GyfjmGQrXOeCbhdrh3XEfMG0CFkDjKbu0vn6Cbf59UMWEY
- EkDoCGUIzWVeaPz3VEw/kbfFWntzvAE73dgXMRdATUtkIgrlCuPDgnmX6Xkl3zbbdFJ0u0u5LTN
- xW0/zjegiFi28kirMr3RBhhjexv0jbisiauhpnj3VK/3PB7nT3NKxV
-X-Received: by 2002:a17:90b:274d:b0:36a:8240:2477 with SMTP id
- 98e67ed59e1d1-37d15e8b6bcmr15398675a91.19.1782124768930; 
- Mon, 22 Jun 2026 03:39:28 -0700 (PDT)
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com.
- [74.125.82.175]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-37d135e2031sm9742606a91.0.2026.06.22.03.39.28
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jun 2026 03:39:28 -0700 (PDT)
-Received: by mail-dy1-f175.google.com with SMTP id
- 5a478bee46e88-30bf854d5feso8262778eec.0
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 03:39:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RocSRhCTfQkBuv7FhXYsJC2mlYg41zOnmMp/jEXZrNjAs2ouucPG3S+WHtOJ05OTvGBWgZyRYmc4yA=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:3314:b0:6ef:f6cf:1b32 with SMTP id
- ada2fe7eead31-72a043c9af3mr8022945137.27.1782124344043; Mon, 22 Jun 2026
- 03:32:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1243810E5ED;
+	Mon, 22 Jun 2026 10:42:37 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="uxCTmiTd";
+	dkim-atps=neutral
+Received: from LO3P265CU004.outbound.protection.outlook.com
+ (mail-uksouthazon11020103.outbound.protection.outlook.com [52.101.196.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6313710E5ED
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 10:42:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sYB/3qxZtzYuGFHJTOTWRkAjUYhFqmCQxXkY7wAVlP23LMhqPJE3PBxpZ+U0pI8mctvEpW481AHArhVLZrd0k1/+H8U6HLxapDuhqA4qhhq5tbTFHCQFKhFuKluT6awr7z/utPqoK2ZTIdPeor6kjgaCv6fy30dv5csuHhhJiBWtOm40b2o0G2i5xNg7Ut8mLVhjDowSfVqBUJXz5l78Z/wkpEEocfT49biZIgKbxp/pk40MVwPXYHTi5w94XYrs4RinlauL4A6bv8y+FxD07wiC+e0q2F8z38TfGhVVB/iq6VTJnMweyrd+OgVNQJAGqEsoUqeMqifgzeghzfyQ3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A52cVLJHCXHjgQx7GmcHNR1THX6KTYFB0Vz49NczeF4=;
+ b=FQFNwoBYdg5/6XW8Q6sG6fFfNrd/BO3pX2D83ta+vXkFXQIqGGxdOjDMemQuJ995FIQVnYDA+nTXS5oYrufjtH6dUb4SoKUy+v2Ed8CG0oWGJb7XBxp8Ej1sEzVuxZCR/+RbdzGx+LNSs21EgP0tYVk0sVCeglcnuKfRSJXSbhj1PcXqOau5kw3IkG52DhrmpKYL34TmfnDL1KES6O7yTrm2Q478rFYb0QWSYDRhtE+/PpLk988ajIvA2NdNBKkVty4tCvWa7TBICGLPgY6h5K7skDIckkH2287HDWWiVCY2XD2hpfVAtkRmoEkvQJv5bDARX4tnJPPzon7Bp9/goQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A52cVLJHCXHjgQx7GmcHNR1THX6KTYFB0Vz49NczeF4=;
+ b=uxCTmiTdpELGXEf6Fh9y+F5lCiHy969tlO7jlXOYTDc4YVNWIVlvCx5l8H5EzKmKdZ8zYLDSmUojW2uDyKkSQy0d/weFwVhESFx1Co4vHSVNPk2lqwNi6uivR2n2XbnPL7YhipqUpGqVUX96oy9I9JMnus0CjmkAD5POxZKc++g=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO2P265MB3310.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:19c::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Mon, 22 Jun
+ 2026 10:42:29 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
+ 10:42:29 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 22 Jun 2026 11:42:28 +0100
+Message-Id: <DJFIKIXLML05.3KYOXUGZYJRDZ@garyguo.net>
+Cc: <rust-for-linux@vger.kernel.org>, <linux-modules@vger.kernel.org>,
+ <driver-core@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <nova-gpu@lists.linux.dev>, <linux-kselftest@vger.kernel.org>,
+ <kunit-dev@googlegroups.com>, <linux-block@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 1/6] rust: module: add `THIS_MODULE` const to
+ `ModuleMetadata` trait
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alvin Sun" <alvin.sun@linux.dev>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Luis Chamberlain" <mcgrof@kernel.org>, "Petr
+ Pavlu" <petr.pavlu@suse.com>, "Daniel Gomez" <da.gomez@kernel.org>, "Sami
+ Tolvanen" <samitolvanen@google.com>, "Aaron Tomlin" <atomlin@atomlin.com>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Arnd
+ Bergmann" <arnd@arndb.de>, "Brendan Higgins" <brendan.higgins@linux.dev>,
+ "David Gow" <david@davidgow.net>, "Rae Moar" <raemoar63@gmail.com>, "Breno
+ Leitao" <leitao@debian.org>, "Jens Axboe" <axboe@kernel.dk>
+X-Mailer: aerc 0.21.0
+References: <20260622-fix-fops-owner-v3-0-49d45cb37032@linux.dev>
+ <20260622-fix-fops-owner-v3-1-49d45cb37032@linux.dev>
+In-Reply-To: <20260622-fix-fops-owner-v3-1-49d45cb37032@linux.dev>
+X-ClientProxiedBy: LO2P123CA0091.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:139::6) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-References: <20260622101606.485961-3-krzysztof.kozlowski@oss.qualcomm.com>
- <20260622101606.485961-4-krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260622101606.485961-4-krzysztof.kozlowski@oss.qualcomm.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 22 Jun 2026 12:32:09 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWw4+-YZRx2icp_t3OQt3cb9osjac7gziiyRZcHa3zMbQ@mail.gmail.com>
-X-Gm-Features: AVVi8CeRh5uGKoGdWXUVe0e4sYYTgs7H91cw7cP665l5Rz_E8v79r8eSiiAY4SE
-Message-ID: <CAMuHMdWw4+-YZRx2icp_t3OQt3cb9osjac7gziiyRZcHa3zMbQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] dt-bindings: Drop incorrect usage of double '::'
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney@redhat.com>, Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Sam Protsenko <semen.protsenko@linaro.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Inki Dae <inki.dae@samsung.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Andi Shyti <andi.shyti@kernel.org>, Georgi Djakov <djakov@kernel.org>,
- Lee Jones <lee@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
- Peter Rosin <peda@lysator.liu.se>, 
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Linus Walleij <linusw@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Sebastian Reichel <sre@kernel.org>, 
- Javier Martinez Canillas <javier@dowhile0.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
- Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Jonathan Marek <jonathan@marek.ca>, 
- Taniya Das <quic_tdas@quicinc.com>, Robert Marko <robimarko@gmail.com>, 
- Christian Marangi <ansuelsmth@gmail.com>, Stephan Gerhold <stephan@gerhold.net>,
- Adam Skladowski <a_skl39@protonmail.com>,
- Sireesh Kodali <sireeshkodali@protonmail.com>, 
- Barnabas Czeman <barnabas.czeman@mainlining.org>,
- Imran Shaik <quic_imrashai@quicinc.com>, 
- Sricharan Ramabadhran <quic_srichara@quicinc.com>,
- Anusha Rao <quic_anusha@quicinc.com>, 
- Luo Jie <quic_luoj@quicinc.com>, Tomasz Figa <tomasz.figa@gmail.com>, 
- Chanho Park <chanho61.park@samsung.com>,
- Sunyeal Hong <sunyeal.hong@samsung.com>, 
- Shin Son <shin.son@samsung.com>, Krishna Manikandan <quic_mkrishn@quicinc.com>,
- Jacek Anaszewski <jacek.anaszewski@gmail.com>,
- Jaehoon Chung <jh80.chung@samsung.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, Alina Yu <alina_yu@richtek.com>, 
- Andy Gross <agross@kernel.org>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
- Wesley Cheng <quic_wcheng@quicinc.com>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-i2c@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-leds@vger.kernel.org, 
- linux-media@vger.kernel.org, linux-mmc@vger.kernel.org, 
- linux-phy@lists.infradead.org, linux-gpio@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-sound@vger.kernel.org, linux-usb@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO2P265MB3310:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8b960d21-3976-439a-84c4-08ded04af50d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|7416014|366016|10070799003|921020|18002099003|22082099003|6133799003|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info: LsTFZYN7AKYy/qFnvD14qYKUHK0mZzkKmhcp6f/xVCxA7e+Jjn7kDXqDIcbzgnRbLZcuRz5ljKCB0VQHf4L6IwZZ/OrGKxq/nuoPJM823QaIpYLxT0Z87PwjmcT9otP7tJLUqbQVaBaz5FohcMRY+NjCIXQHdydSKYFXSX0d/SpugfUOEJQWmkALQeOCRsY9gaKKFvQe02HO6TrCE+U3O3T3XhHeHjHKYTTm/hzbHPgVaw4wfPrZ9RZ4Hxcx/0BD9GbpXb1+fVlrYdWBBFK9zsn/3fU+zXZINZawdNQSBgrPFfgHqxk2CpCdrS1V90ViwAM0jknVWypIxKMOJni1gbmvE0iTG/EO2FjuMYdG8rhX9clpvsz6fWWSpE7RODg7Qgfh4xkoZncFJNqTXC7h4H5BR8UO5vqvfsLdemuzk+EdoLge1aiYtTwjMAl8/1kHlwJvN3pf1oe73K4Hj0upU5Z7SPvBzunII/ZK0xI0IBxo7KBMXVE5iFie52j5/YMJ8g6JpnXBHdHcOweROE6GA6H4ZdXUyg0U8ilypzyuYNhYyx8J2FLPkanJwp2m2GaBZ3gbTx5YcuJVo+KkJXUHp/5hXDXPAkMbPzPX2ofQQ36+f64Ifm6bGKOZsWOFLWP3MxY8qK65ugo2ZrXRLk9/bi7gZyVEBvL+q9OK7entNfL0N+iOCknCRINAqbqEAmHYxP/Ybr0P2vglU1fnuikQpw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(7416014)(366016)(10070799003)(921020)(18002099003)(22082099003)(6133799003)(56012099006)(4143699003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cDRHVGtidzVWdDJmT0M0NmRxWkpNWkFJbEdGajFQOXFtcGlqei84WGI0dk9U?=
+ =?utf-8?B?MG04bjVCVmFPL25wR09veXJmUE40a1FuRjFOdlJxQi9IMU1rd0ZqQTc3L2lP?=
+ =?utf-8?B?NTZXS1NFSHRTTXdUdjFWUXI4aXhIOG9IbDhSMUhWNnNVNVFmQzZTUlpGK1Vp?=
+ =?utf-8?B?bG1zMUhQU1QyQUFpMG05MHZwckNiQ1FwbzJSdTRPbEV5ZnNPeGVNZEVTNjY2?=
+ =?utf-8?B?bmdBazFOVVVPQy9GS21OdzgwY1RuZjRGa0p2M1hSY09uNXJUYWhNK2VTcERo?=
+ =?utf-8?B?bFFqR3ZWeHQ3THpDWG9kUHhrVng4UDRRdVFlaFRnWWIzQ1cyS0JPMXFvMUYw?=
+ =?utf-8?B?a3lucnh0SnNXa1JRcms2RTVsakVXaUp4WFNNSDlibjVybU5PM3JzMG0zYlpY?=
+ =?utf-8?B?L1p5SEJ5NHV5Q01GdDRQU0Zmd21Hd0FmZ0paRnRPeWx4eEMyanZzd1lob2NP?=
+ =?utf-8?B?cEFqcCtqU3lyUXB2NVh1V1ppaUk2U1BybEdpZDhFQnJ2SmtHY1RyTzBDbkZo?=
+ =?utf-8?B?SkJhZzJJREY2QTJlNTVjV0c1UzAwYWNGb2xranlyNXVSMnlVL1dQaStQL3k1?=
+ =?utf-8?B?blNiMzNNR2NaRTBVUktvWHdBSHBWOUp1SzVhblRUak5FR3hJNXRHd295ZXg3?=
+ =?utf-8?B?cWpvZjVJalpNWktNZ0E2eTZHeG1BOEtsb3BNMWFSb1ptMS90dGNSTzlzcHBC?=
+ =?utf-8?B?OHlxTG9Tc2c0Z0l0SGI2eVpHbENZeXBGWTIyNU1EWjJETHRLNFFodGhqL0p1?=
+ =?utf-8?B?TTlkRDRwOC9HV2FwNXVzb0xYZTQyN0xVbW9HUTBHQ2tqWGxpQXRqdkdxcGVv?=
+ =?utf-8?B?V0RRMGJTRGFtSUoyRUQzdUlTUWNjRHRCOHlKeGxMM0NaeGJDRG1BTnhSQXVr?=
+ =?utf-8?B?Smg4VzdkSCtSVk9YbDhxNXY5THBHdmZOMno3MkhiYmYyZTdQQWh6U2hvd1h1?=
+ =?utf-8?B?S0NRYVRJTzczTm5qcGlYMjdnMERjdGJtTnFWcUFPVy95SDhCRFZaV3hoNlRQ?=
+ =?utf-8?B?VjdySEt2NzRwYmNTU05ubFhzejg3a3lNbWhkcFN5b3JEV3RoYytmYzQrWTRI?=
+ =?utf-8?B?dWtndS92cWkzaHVtbHdNSUlBVnhNc3FLQXpWUzBoV2tZZzNZNFFKR2Vod2ZL?=
+ =?utf-8?B?NmpYUjdEUEwrRkJtOWNVcVpTaVJyenNNSzlLbE5vR3psd3NOYWdtZ3ZKMExW?=
+ =?utf-8?B?c2hCOGxBSFY0ZnNPcUkxeUh6cDRCNUxMY01SSkJqK2NMRnJzQVF2QzZPV2Rq?=
+ =?utf-8?B?YTR5bnRQSXIyeUJVVHdJbEl0TGtWSjR3a3RlNFNST3pVd0JsQ1BGaWd6c1Bx?=
+ =?utf-8?B?TGZvWnNhN256cGJPZFhOQ08vVnVlWXpzcStNNFc2VnRJUmVsSDRScmxrMVQy?=
+ =?utf-8?B?ZXFGNGNIdENISGt1ZGFPRk5kaGxJangrRWJkZGpEYTd5bHREVHF3S3d4V1R5?=
+ =?utf-8?B?emJLK01hNzdCeFBERmxlSDBHTlgzcHFhZFRkYlZYS3JLTVlOMjd2OXc5R0Vk?=
+ =?utf-8?B?TlFWam1hSWV6Qy9Ccjc3Ti8wWmtNZERBZUd2L2ZkcGdmU1VqUWdEZHBpK3k5?=
+ =?utf-8?B?MEVUUGlSSDdZM3BtZG5SRGlXa0djQnlBWmFLY3dIWUlSTEp4djFLeXFPd2Qz?=
+ =?utf-8?B?QnFjWVBCMUxEUVk5UThpOVR3dXdKTlhRRHlPbzlmallON2hvQTFzMnk0alhi?=
+ =?utf-8?B?YTJLNUpqSFVmR3RTUTlGWFJISHdxSnRvMW1ESFlIT2M3eldONXA1WFRRdWVr?=
+ =?utf-8?B?eGNrK3R0V01qMk5qM1JjN1ZNMmNod2FBUlNWMUU0dnBRT1VXeWVzZmpRTHZj?=
+ =?utf-8?B?SGdCVGplaWxDVm5ReFR5L3ZXN05MMkk2MGp3YmhkMmtBMTJFMU9Ga2NzMmNs?=
+ =?utf-8?B?MklSUC9xOHdna29pczI0cEI3SFd6dXhMMWg2TDhwRzM2cnR2cXF0aEttSldQ?=
+ =?utf-8?B?cGZZZHNzY1ZldWc1c1NFRXhpZUdqSWdaZ0pPemJkNENieWJHeUNvaFJtdzh2?=
+ =?utf-8?B?cnNtMmJVQ3A5UU55MmVERGRXRDRTUGM2NmFKMDloYTdwRHlwUlFIaWxSbUVO?=
+ =?utf-8?B?MkcxMmlPMk5jM2gzOEEyNGJicmlldkd5TWgyT1VPMFlKSituSUYvd2N1Mjdl?=
+ =?utf-8?B?RTRFdFBtWG12d09PbGY1eVpwVTJ3ei83Vkd2eUJrZnpsTVkrWm9vT3lTRWJ6?=
+ =?utf-8?B?cmdCSkl2UWxtZU5ieDRyNUNkTmdEbEd2WExZMnF3ZkM4L0ZuUGNRcG40YWFY?=
+ =?utf-8?B?cnNWU3RLOUJCZ0Q4RTFEWUVOalUwK0d1MnphZ3pxQ2xDY0xXUTNhcmhKQ3dL?=
+ =?utf-8?B?TDJVakl2clRHbVFVUjd3M2JwTkdTS01KSWhKSkV4anVDMVlFOERHZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b960d21-3976-439a-84c4-08ded04af50d
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 10:42:29.1917 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: guLvEiop2wd8aglgrgK+dke0b399IrJjonh1LNcHgeYd4HlSxWrV1u2a3KFDo8m7Ut6tCYAASgh5fxzkWdelVA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB3310
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,35 +153,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 22 Jun 2026 at 12:16, Krzysztof Kozlowski
-<krzysztof.kozlowski@oss.qualcomm.com> wrote:
-> There is no use of double colon '::' in YAML. OTOH, the literal style
-> block, e.g. using '|' treats all characters as content [1] therefore
-> single use of ':' in descriptions is perfectly fine, whenever '|' is
-> used.
+On Mon Jun 22, 2026 at 3:44 AM BST, Alvin Sun wrote:
+> Since `const_refs_to_static` has been stable as of the MSRV bump, a
+> `ThisModule` pointer can now be used in const contexts.
 >
-> Cleanup existing code, so the confusing style won't be re-used in new
-> contributions.
+> Add a `THIS_MODULE` const to the `ModuleMetadata` trait so that modules
+> can provide their `ThisModule` pointer in const contexts such as static
+> `file_operations`.
 >
-> Link: https://yaml.org/spec/1.2.2/#literal-style [1]
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Move the `THIS_MODULE` static from the `module!` macro into the
+> `ModuleMetadata` impl, add a `this_module()` helper, and update `__init`
+> to use it.
+
+Doesn't this break existing users of THIS_MODULE?
+
+Binder, rnull and configfs macros are using it.
+
+Best,
+Gary
+
 >
+> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 > ---
+>  rust/kernel/lib.rs    |  8 ++++++++
+>  rust/macros/module.rs | 34 +++++++++++++++++-----------------
+>  2 files changed, 25 insertions(+), 17 deletions(-)
 >
-> Intention for this patch is to go via Rob's tree.
+> diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+> index b72b2fbe046d6..50f5a7b5f028e 100644
+> --- a/rust/kernel/lib.rs
+> +++ b/rust/kernel/lib.rs
+> @@ -184,6 +184,14 @@ fn init(module: &'static ThisModule) -> impl pin_ini=
+t::PinInit<Self, error::Erro
+>  pub trait ModuleMetadata {
+>      /// The name of the module as specified in the `module!` macro.
+>      const NAME: &'static crate::str::CStr;
+> +
+> +    /// The module's `THIS_MODULE` pointer.
+> +    const THIS_MODULE: ThisModule;
+> +}
+> +
+> +/// Returns a reference to the `THIS_MODULE` of the given module type.
+> +pub const fn this_module<M: ModuleMetadata>() -> &'static ThisModule {
+> +    &M::THIS_MODULE
+>  }
+> =20
+>  /// Equivalent to `THIS_MODULE` in the C API.
+> diff --git a/rust/macros/module.rs b/rust/macros/module.rs
+> index 06c18e2075083..b9fdee2f2af47 100644
+> --- a/rust/macros/module.rs
+> +++ b/rust/macros/module.rs
+> @@ -497,28 +497,28 @@ pub(crate) fn module(info: ModuleInfo) -> Result<To=
+kenStream> {
+>          /// Used by the printing macros, e.g. [`info!`].
+>          const __LOG_PREFIX: &[u8] =3D #name_cstr.to_bytes_with_nul();
+> =20
+> -        // SAFETY: `__this_module` is constructed by the kernel at load =
+time and will not be
+> -        // freed until the module is unloaded.
+> -        #[cfg(MODULE)]
+> -        static THIS_MODULE: ::kernel::ThisModule =3D unsafe {
+> -            extern "C" {
+> -                static __this_module: ::kernel::types::Opaque<::kernel::=
+bindings::module>;
+> -            };
+> -
+> -            ::kernel::ThisModule::from_ptr(__this_module.get())
+> -        };
+> -
+> -        #[cfg(not(MODULE))]
+> -        static THIS_MODULE: ::kernel::ThisModule =3D unsafe {
+> -            ::kernel::ThisModule::from_ptr(::core::ptr::null_mut())
+> -        };
+> -
+>          /// The `LocalModule` type is the type of the module created by =
+`module!`,
+>          /// `module_pci_driver!`, `module_platform_driver!`, etc.
+>          type LocalModule =3D #type_;
+> =20
+>          impl ::kernel::ModuleMetadata for #type_ {
+>              const NAME: &'static ::kernel::str::CStr =3D #name_cstr;
+> +
+> +            #[cfg(MODULE)]
+> +            const THIS_MODULE: ::kernel::ThisModule =3D {
+> +                extern "C" {
+> +                    static __this_module: ::kernel::types::Opaque<::kern=
+el::bindings::module>;
+> +                }
+> +
+> +                // SAFETY: `__this_module` is constructed by the kernel =
+at load time
+> +                // and lives until the module is unloaded.
+> +                unsafe { ::kernel::ThisModule::from_ptr(__this_module.ge=
+t()) }
+> +            };
+> +
+> +            #[cfg(not(MODULE))]
+> +            const THIS_MODULE: ::kernel::ThisModule =3D unsafe {
+> +                ::kernel::ThisModule::from_ptr(::core::ptr::null_mut())
+> +            };
+>          }
+> =20
+>          // Double nested modules, since then nobody can access the publi=
+c items inside.
+> @@ -616,7 +616,7 @@ pub extern "C" fn #ident_exit() {
+>                  /// This function must only be called once.
+>                  unsafe fn __init() -> ::kernel::ffi::c_int {
+>                      let initer =3D <super::super::LocalModule as ::kerne=
+l::InPlaceModule>::init(
+> -                        &super::super::THIS_MODULE
+> +                        ::kernel::this_module::<super::super::LocalModul=
+e>()
+>                      );
+>                      // SAFETY: No data race, since `__MOD` can only be a=
+ccessed by this module
+>                      // and there only `__init` and `__exit` access it. T=
+hese functions are only
 
->  .../bindings/power/renesas,rcar-sysc.yaml     |  2 +-
->  .../bindings/soc/renesas/renesas-soc.yaml     |  4 ++--
 
-Acked-by: Geert Uytterhoeven <geert+renesas@glider.be> # renesas
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
