@@ -4,35 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B043CDE008
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 18:11:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 753B5CDE009
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 18:11:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41C2410E838;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AF5F10E84B;
 	Mon, 22 Jun 2026 18:10:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="GOrA1MAU";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="Bti9F39F";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58AF010E80F;
- Mon, 22 Jun 2026 18:10:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52E3210E807;
+ Mon, 22 Jun 2026 18:10:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782151849;
- bh=QZQHP6SZcmIxH0/+L/HEwqRhaltY7tmMssFrjZ10E1s=;
+ s=default; t=1782151847;
+ bh=0xLvIPUF7dUXs0cb7vXUK9dMYuEsI+fTHrltlGFTpL4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GOrA1MAUnlR4EGxjq5pMJBIPQzb5P98GIJyZe11HuGZym6dbgEjcTH00+/XV2hCCK
- bCAdgRFf/CmNBOWFXVahs+q3IJT4I6ml2Bvt8KU6q4IS5lNzFjYEWAanmMr1HoPFKs
- eSEUKJ2jYTZri8ZvUPgdp/VbVowt0q5G3lFOconqvAzLgtJ0cB9iCJlD1zVqt+hVk4
- zV73vd5ZUFe7+FuND+UQkFfJwNp1ZUAdqalEa1qb9U8L9guNN18lLPFovf7PRYt/+y
- g0rIrsLxdfNKYKwivMC+t3xWB64XMVxe6DWp7Xo4dSZYOfTc5T3nI2oBMQ/U+oeY+7
- 4VcqUUDkIl/PA==
+ b=Bti9F39FKc2fp4SciYOQ5pEicpu7mBTarI6pwwiJWjg6IGN934huYESLnZPP0el4q
+ KSP/YippnBwdMQlJd3RRu2oedSnLE/NpxzgukyzluQY3D4CPP5KnD+InkSA2zSYKtt
+ RQoh8UATfcleoLkO/7XSMC/nAWAbpzTY1ib9sOza1NqUCONRwPTdi5Wj217yUBds/i
+ ZoWa3uBl25x2CAxrd/lvh/z5yjfmr8DdL0YZIgvQzk1rg4qQU8qe7B/3jeLWVNo5ef
+ hD5gePl7kPU1laWwNourJqOCMvEnwYxuDnQi4D0Ly+LAvSFVBSd7ArsGdmYT/cgk0s
+ le8fXbTxTUrYw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v9 24/30] FOR-CI: bump MAX_STACK_TRACE_ENTRIES
-Date: Mon, 22 Jun 2026 20:10:37 +0200
-Message-ID: <20260622181044.39335-25-dev@lankhorst.se>
+Subject: [PATCH v9 21/30] drm/i915: Use sleeping selftests for igt_atomic on
+ PREEMPT_RT
+Date: Mon, 22 Jun 2026 20:10:34 +0200
+Message-ID: <20260622181044.39335-22-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260622181044.39335-1-dev@lankhorst.se>
 References: <20260622181044.39335-1-dev@lankhorst.se>
@@ -53,32 +54,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We're hitting a bug in CI where MAX_STACK_TRACE_ENTRIES is set too low.
-My guess is the repeated loading/unloading is creating multiples of the
-same entries. As a hack just reset lockdep. This might only be necessary
-for CI + PREEMPT_RT.
+This makes the i915 selftests slightly happier, especially
+related to GPU reset.
+
+I believe this may be a better approach than trying to convert
+uncore->lock to raw_spinlock
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- lib/Kconfig.debug | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/selftests/igt_atomic.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 9b9f7c5935596..ec35b50068a73 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -1625,9 +1625,8 @@ config LOCKDEP_CHAINS_BITS
- config LOCKDEP_STACK_TRACE_BITS
- 	int "Size for MAX_STACK_TRACE_ENTRIES (as Nth power of 2)"
- 	depends on LOCKDEP && !LOCKDEP_SMALL
--	range 10 26
--	default 21 if KASAN
--	default 19
-+	range 22 26
-+	default 22
- 	help
- 	  Try increasing this value if you hit "BUG: MAX_STACK_TRACE_ENTRIES too low!" message.
+diff --git a/drivers/gpu/drm/i915/selftests/igt_atomic.c b/drivers/gpu/drm/i915/selftests/igt_atomic.c
+index fb506b6990956..8ae39cf570b76 100644
+--- a/drivers/gpu/drm/i915/selftests/igt_atomic.c
++++ b/drivers/gpu/drm/i915/selftests/igt_atomic.c
+@@ -39,7 +39,14 @@ static void __hardirq_end(void)
+ 	local_irq_enable();
+ }
  
++static void __maybe_unused __nop(void)
++{}
++
+ const struct igt_atomic_section igt_atomic_phases[] = {
++#if IS_ENABLED(CONFIG_PREEMPT_RT)
++	{ "sleeping", __nop, __nop },
++	{ },
++#endif
+ 	{ "preempt", __preempt_begin, __preempt_end },
+ 	{ "softirq", __softirq_begin, __softirq_end },
+ 	{ "hardirq", __hardirq_begin, __hardirq_end },
 -- 
 2.53.0
 
