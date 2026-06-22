@@ -4,51 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D769CDB46F
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 16:53:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4357BCDB46F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 17:00:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50F9910E18A;
-	Mon, 22 Jun 2026 16:53:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B63710E331;
+	Mon, 22 Jun 2026 17:00:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W7u1+3XD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n7sNwPJL";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E25210E18A
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 16:53:20 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97D9C10E331
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 17:00:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3D5A84095C;
- Mon, 22 Jun 2026 16:53:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03BCD1F000E9;
- Mon, 22 Jun 2026 16:53:17 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BDB766020A;
+ Mon, 22 Jun 2026 17:00:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 179101F00A3A;
+ Mon, 22 Jun 2026 17:00:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782147200;
- bh=9eH6Ui0cecxJPS3dEn05LRmx18eKSljEw+pMdE0wLdw=;
+ s=k20260515; t=1782147638;
+ bh=FBPNSe4CPrmYI7tdrVEFFESNM2AQv28THAVOyYtFOEU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=W7u1+3XDrrbufHbrH6ZQe6V3qFGjUCGYVkJOqAL4vlLVLIMPJx5d+eL10ZeODs278
- pSssncH7yv5gMuVsUIuShNLX6bWMWFV426SKDvVvL+IweFeqbJK+5hI012bIBjT3rs
- SsEKofTvCEYTyY72aPkkwwDurWsSBjrzr8mr3olukQd2rW+7pBLu1HZQNWxKNQ0ZKY
- aDrQJiySg4JIyM4ytXMcuvXkZhIZ4w2w5uVvgOUb7zYf6U0GQRwQEQ1ptI0ErIe/Xc
- Ew9HPNFffTspmZ5U1P3K+1+pntc9YZ/YHLvD8DpC7UCIyN7jCKrDU/aZLwKkuzK6NI
- zTm7dcinwYsmw==
-Date: Mon, 22 Jun 2026 17:53:16 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: sashiko-reviews@lists.linux.dev, neil.armstrong@linaro.org,
- vkoul@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
- conor+dt@kernel.org, linux-phy@lists.infradead.org,
- olteanv@gmail.com, devicetree@vger.kernel.org,
- wsa+renesas@sang-engineering.com
-Subject: Re: [PATCH 2/2] dt-bindings: Drop incorrect usage of double '::'
-Message-ID: <20260622-sullen-botch-6a131a218bbe@spud>
-References: <20260622101606.485961-3-krzysztof.kozlowski@oss.qualcomm.com>
- <20260622101606.485961-4-krzysztof.kozlowski@oss.qualcomm.com>
- <20260622101959.37DB41F00A3D@smtp.kernel.org>
- <0a6f92ba-de8c-48ae-9025-a7570e53e453@oss.qualcomm.com>
+ b=n7sNwPJLODKiRXF3ckMys9a0madlZ0QlBOjYZTx2GavzrrW3/QRmV3JeyB24/EZv3
+ BRHFAExyTS2FzXigFI8UDWdLfavBXWAuhHMrapEic0JLHIohNnMHnohCRjYK3PUPLC
+ 4Rl5EYkYprfryDf3jF89EjjuImusXvrM9H0WgPgEacIMbCPAxH7oPXuWbvPZrFUBVu
+ GwWHT/ScgXSiGewELPxVxuIfWHGkNtWAVyT11/AJf0F/5CJIqeonNdRebDGYbCo6I9
+ /AClqSuz6/0yFBwwPcQVSgR49SkKXOGd0x2fQ1S9mPE6/v767IrCuv0/SsYC25QLxd
+ VRKBj0ZycUhpQ==
+Date: Mon, 22 Jun 2026 18:00:32 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+ Lee Jones <lee@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, dmaengine@vger.kernel.org
+Subject: Re: [PATCH 09/11] regulator: db8500-prcmu: Remove EPOD regulators
+Message-ID: <70dd1974-3360-4169-8b3a-36e7e1cc4460@sirena.org.uk>
+References: <20260618-ux500-power-domains-v7-1-v1-0-eb5e50b1a588@kernel.org>
+ <20260618-ux500-power-domains-v7-1-v1-9-eb5e50b1a588@kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="SwqP7sa7vCVgtsLA"
+ protocol="application/pgp-signature"; boundary="rGlF+30zJ9UqBxku"
 Content-Disposition: inline
-In-Reply-To: <0a6f92ba-de8c-48ae-9025-a7570e53e453@oss.qualcomm.com>
+In-Reply-To: <20260618-ux500-power-domains-v7-1-v1-9-eb5e50b1a588@kernel.org>
+X-Cookie: Now I am depressed ...
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,70 +69,28 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---SwqP7sa7vCVgtsLA
+--rGlF+30zJ9UqBxku
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jun 22, 2026 at 03:23:05PM +0200, Krzysztof Kozlowski wrote:
-> On 22/06/2026 12:19, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential is=
-sue(s) to consider:
-> > - [Low] Unintended replacement of BNF notation `::=3D` with `:=3D`.
-> > --
-> >=20
-> > commit a9fdd0b065eb5b6394a9c33ffba0fd5194e80115
-> > Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> >=20
-> > dt-bindings: Drop incorrect usage of double '::'
-> >=20
-> > This commit cleans up device tree binding schemas by removing the redun=
-dant
-> > double colons at the end of descriptions inside YAML literal style bloc=
-ks.
-> >=20
-> > Link: https://yaml.org/spec/1.2.2/#literal-style [1]
-> >=20
-> >> diff --git a/Documentation/devicetree/bindings/mux/mux-consumer.yaml b=
-/Documentation/devicetree/bindings/mux/mux-consumer.yaml
-> >> index 9e2d78a78e409..769243a2bf046 100644
-> >> --- a/Documentation/devicetree/bindings/mux/mux-consumer.yaml
-> >> +++ b/Documentation/devicetree/bindings/mux/mux-consumer.yaml
-> >> @@ -13,8 +13,8 @@ description: |
-> >>    Mux controller consumers should specify a list of mux controllers t=
-hat they
-> >>    want to use with a property containing a 'mux-ctrl-list':
-> >> =20
-> >> -    mux-ctrl-list ::=3D <single-mux-ctrl> [mux-ctrl-list]
-> >> -    single-mux-ctrl ::=3D <mux-ctrl-phandle> [mux-ctrl-specifier]
-> >> +    mux-ctrl-list :=3D <single-mux-ctrl> [mux-ctrl-list]
-> >> +    single-mux-ctrl :=3D <mux-ctrl-phandle> [mux-ctrl-specifier]
-> >=20
-> > [Severity: Low]
-> > Does this unintentionally change the standard Backus-Naur Form (BNF) ::=
-=3D
-> > operator to :=3D? It looks like a global search-and-replace for :: might
->=20
->=20
-> I wasn't sure about that... and indeed this should not be changed. I
-> will send a v2.
+On Thu, Jun 18, 2026 at 07:00:55AM +0200, Linus Walleij wrote:
+> Remove the obsolete DB8500 PRCMU regulator drivers.
 
-Other than this one that I agree shouldn't be changed to a single :,
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Acked-by: Mark Brown <broonie@kernel.org>
 
-(Although I find the syntax used here to be really confusing and a good
-example in the text would be a lot clearer. OTOH, how to write consumers
-is, I think, well understood, since they all work the same.)
-
---SwqP7sa7vCVgtsLA
-Content-Type: application/pgp-signature; name=signature.asc
+--rGlF+30zJ9UqBxku
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajloewAKCRB4tDGHoIJi
-0kPnAQD8eVHaFulgAbHw35l/IQzDimQ2fqS5h0DH2KihcqqTKQD/fyaz/rNP6xCD
-y8UHn2H90kJhQjjmt/NRIZ/YFpGyEg0=
-=SCA7
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmo5ai8ACgkQJNaLcl1U
+h9BaJwf/cE6zFilqlprukQbzoS9v80E9/7Y2JJSaiLnvW6JjSjMvkSnz7MwKRKjV
+5YmmCXijisVfGbkgQLL3ad/7NkhLD//cJnPh11Mp4W8IA1IGV41qH9W5gUgwo7QE
+MHb+IChEB+Ba8VSWtCqsktqI6O3TNmd/SKnnheO8g88/ldpZ+keIlYk6Ox8zVVf4
+JmMuWMMFBJR2ybHy/L2ok0OshjgcUKGaQS0QpAhPBJTQ2/+NJYGliH322Y/irXhe
+exF9MfFUEJDjCI6RxKMOqAp+IChlNd2l9/5zJ4xG+1jPtgdCd8g8P/WMGjdebbhB
+mELR4oOXs2c5uPurZH8ILur5P+kN8w==
+=UUpz
 -----END PGP SIGNATURE-----
 
---SwqP7sa7vCVgtsLA--
+--rGlF+30zJ9UqBxku--
