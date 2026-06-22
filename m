@@ -4,62 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96871CD98F2
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 13:34:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EC5ACDB46F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 13:34:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9F1D10E124;
-	Mon, 22 Jun 2026 13:34:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8A1E10E6D3;
+	Mon, 22 Jun 2026 13:34:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gE+tlzKn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DUe6dKfN";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF57710E124
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 13:34:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782135262; x=1813671262;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=JJ3rlqN0C0VeC+P3O2EW2SHdp+5nesw2FXlEGZcZraw=;
- b=gE+tlzKnJvZkkMii0TvDfTsxLtlky9+gN5fSTI9XDlAcJ5eYWg+ocs1g
- 2smGVbOds2cFGqpQ6OcAvc48h6XltCbW9rm8Lzi8+2rBV7/a5UANCO8E1
- ggNn+nHUw2p0nMRhIw2/FEtiQzmz/UuZjeBqI0Hf0ue3qgzSoh0DZ9Wo1
- fon036mpwWy38vNwkhSRk4zH3nH85Xo/SR2ngu8doINasrgBVFSuS3SqI
- bDdEpA+Z3FMYJPObgxXLdf52iKfROh3y8LiQXvVNeXwMeWFdMrFno6aYl
- OLQ4y0CDzWPxSmZlI/nTnldmxKmjQLowIXd9fY+F4QSYFpyWFJ0NMVGKK A==;
-X-CSE-ConnectionGUID: Jmp8zRPxRPCd6Yj9wgTKYg==
-X-CSE-MsgGUID: +EYc01Q2SvKRSxJgsLVd7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11824"; a="82867932"
-X-IronPort-AV: E=Sophos;i="6.24,218,1774335600"; d="scan'208";a="82867932"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2026 06:34:21 -0700
-X-CSE-ConnectionGUID: zNPS5jY9T8u6Nm5O7dn+Kw==
-X-CSE-MsgGUID: aEMdhIINQTq/L8a4sqj4KA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,218,1774335600"; d="scan'208";a="246299546"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.245.82])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2026 06:34:16 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, hns@goldelico.com,
- zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch, akemnade@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- letux-kernel@openphoenux.org, kernel@pyra-handheld.com,
- sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] drm/fb-helper: Only consider active CRTCs for vblank
- sync
-In-Reply-To: <20260622113434.682292-1-tzimmermann@suse.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260622113434.682292-1-tzimmermann@suse.de>
-Date: Mon, 22 Jun 2026 16:34:12 +0300
-Message-ID: <395f15bb770b4be0ffeeb09e7cdeef49340f910c@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B63C10E6EF
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 13:34:58 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 34801601F3;
+ Mon, 22 Jun 2026 13:34:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA21D1F000E9;
+ Mon, 22 Jun 2026 13:34:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782135296;
+ bh=jFfbuT4hoKJvJRQ2979HoM2gb7hdpsM93u48Vo8fLTw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DUe6dKfNOaiYlM5TIITau4gHbzUkW1c2OeVJC6PbyAIdd+WOR/mFhcgSKK9rO4KUN
+ +4hQqqe1vMJNL3y3vLXZL0u6WdhP3c2C7HRELJHmEPIL5EYvTAalefxS3I1wDmKCX/
+ wlgbAeuwX7uknMdkMBa0ZT/sueUMOKlPCRkBcHIVakozeilp20pqecpsWYdR+YIPaQ
+ 5ZqVFPJaKCosNL6gjNSrL3Vo4QBeD5c7uMdgoVJpYqctDKXdwjTg0QN+Rek7zEhmnL
+ x+4RsxBJKOzz/6xTZVJNAYWj3LY6m4qfqtyj3V2E1Indh2j1NGg4Ei9iPW6FM4kvP3
+ Pv/E05xSbEnfw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 6/6] drm/sysfb: simpledrm: Read panel orientation
+ from DT node
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260622132433.722823-7-tzimmermann@suse.de>
+References: <20260622132433.722823-1-tzimmermann@suse.de>
+ <20260622132433.722823-7-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 22 Jun 2026 13:34:56 +0000
+Message-Id: <20260622133456.BA21D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,145 +54,99 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 22 Jun 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> Only synchronize fbdev output to the vblank of an active CRTC. Go over
-> the list of CRTCs and pick the first that matches. Fixes warnings as
-> the one shown below
->
-> [   77.201354] WARNING: drivers/gpu/drm/drm_vblank.c:1320 at drm_crtc_wait_one_vblank+0x194/0x1cc [drm], CPU#1: kworker/1:7/1867
-> [   77.201354] omapdrm omapdrm.0: [drm] vblank wait timed out on crtc 0
->
-> This currently happens if the fbdev output is not on CRTC 0.
->
-> Atomic and non-atomic drivers require distinct code paths. As for other
-> fbdev operations, implement both and select the correct one at runtime.
->
-> Not finding an active CRTC is not a bug. Do not wait in this case, but
-> flush the display update as before.
->
-> v2:
-> - move look-up code into separate helper
-> - support drivers with legacy modesetting
-> v1:
-> - see https://lore.kernel.org/dri-devel/1c9e0e24-9c4a-4259-8700-cf9e5fd60ca3@suse.de/
->
-> Co-authored-by: H. Nikolaus Schaller <hns@goldelico.com>
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Fixes: d8c4bddcd8bcb ("drm/fb-helper: Synchronize dirty worker with vblank")
-> Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> Closes: https://bugs.debian.org/1138033
-> Cc: <stable@vger.kernel.org> # v6.19+
-> ---
->  drivers/gpu/drm/drm_fb_helper.c | 71 ++++++++++++++++++++++++++++++++-
->  1 file changed, 70 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-> index 7b11a582f8ec..cbf0a9a7b8e5 100644
-> --- a/drivers/gpu/drm/drm_fb_helper.c
-> +++ b/drivers/gpu/drm/drm_fb_helper.c
-> @@ -225,16 +225,85 @@ static void drm_fb_helper_resume_worker(struct work_struct *work)
->  	console_unlock();
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Blindly applying physical panel rotation to a logical framebuffer =
+can cause double rotation if the firmware already applied hardware rotation.
+- [Low] The patch duplicates the existing `of_drm_get_panel_orientation()` =
+helper and introduces noisy debug logging for normal conditions.
+--
+
+commit a3e8de9befee02f75cbf1e8ca7ff150f4438c5f5
+Author: Thomas Zimmermann <tzimmermann@suse.de>
+
+drm/sysfb: simpledrm: Read panel orientation from DT node
+
+A DeviceTree panel node can specify the panel's rotation in steps
+of 90 degrees. Set the DRM connector orientation from the field.
+Do nothing if the field is missing or invalid.
+
+> diff --git a/drivers/gpu/drm/sysfb/simpledrm.c b/drivers/gpu/drm/sysfb/si=
+mpledrm.c
+> index a04f0c852ea48..b585d17ca8177 100644
+> --- a/drivers/gpu/drm/sysfb/simpledrm.c
+> +++ b/drivers/gpu/drm/sysfb/simpledrm.c
+> @@ -221,6 +221,33 @@ simplefb_get_panel_height_mm_of(struct drm_device *d=
+ev, struct device_node *of_p
+>  	return __simplefb_get_panel_size_mm_of(dev, of_panel_node, "height-mm");
 >  }
->  
-> +static int find_crtc_index_atomic(struct drm_fb_helper *helper)
+> =20
+> +static enum drm_panel_orientation
+> +simplefb_get_panel_orientation_of(struct drm_device *dev, struct device_=
+node *of_panel_node)
 > +{
-> +	struct drm_device *dev = helper->dev;
-> +	struct drm_plane *plane;
+> +	int ret;
+> +	u32 rotation;
 > +
-> +	drm_for_each_plane(plane, dev) {
-> +		const struct drm_plane_state *plane_state;
-> +		const struct drm_crtc *crtc;
-> +
-> +		if (plane->type != DRM_PLANE_TYPE_PRIMARY)
-> +			continue;
-> +
-> +		plane_state = plane->state;
-> +		if (plane_state->fb != helper->fb || !plane_state->crtc)
-> +			continue; /* plane doesn't display fbdev emulation */
-> +
-> +		crtc = plane_state->crtc;
-> +		if (!crtc->state->active)
-> +			continue;
-> +		if (drm_WARN_ON_ONCE(dev, crtc->index > INT_MAX))
-> +			continue; /* driver bug */
+> +	ret =3D of_property_read_u32(of_panel_node, "rotation", &rotation);
+> +	if (ret) {
+> +		drm_dbg(dev, "simplefb: cannot parse panel rotation: error %d\n", ret);
 
-I take it this is here because crtc->index is unsigned, and this
-function returns int so you can have negative error codes. Ditto the
-other function below.
+[Severity: Low]
+Is it intentional to log a debug message here when the property is missing?
 
-I feel like this is something that should be checked once somewhere, if
-that. I think adding arbitrary checks like this invites more arbitrary
-checks everywhere. crtc->index is supposed to be invariant over the
-lifetime of the CRTC.
+Since most device tree panel nodes do not include a rotation property,
+of_property_read_u32() will return -EINVAL and spam the DRM debug logs with
+"cannot parse panel rotation: error -22" on almost every boot when debug
+logging is enabled.
 
-BR,
-Jani.
+Also, does this function reimplement the parsing logic from
+of_drm_get_panel_orientation() which explicitly treats missing properties
+silently?
 
-> +
-> +		return crtc->index;
+> +		return DRM_MODE_PANEL_ORIENTATION_UNKNOWN;
 > +	}
 > +
-> +	return -EINVAL;
-> +}
-> +
-> +static int find_crtc_index_legacy(struct drm_fb_helper *helper)
-> +{
-> +	struct drm_device *dev = helper->dev;
-> +	struct drm_crtc *crtc;
-> +
-> +	drm_for_each_crtc(crtc, dev) {
-> +		struct drm_plane *plane = crtc->primary;
-> +
-> +		if (!crtc->enabled)
-> +			continue;
-> +		if (!plane || plane->fb != helper->fb)
-> +			continue; /* CRTC doesn't display fbdev emulation */
-> +		if (drm_WARN_ON_ONCE(dev, crtc->index > INT_MAX))
-> +			continue; /* driver bug */
-> +
-> +		return crtc->index;
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-> +
-> +static int drm_fb_helper_find_crtc_index(struct drm_fb_helper *helper)
-> +{
-> +	struct drm_device *dev = helper->dev;
-> +	int crtc_index;
-> +
-> +	mutex_lock(&dev->mode_config.mutex);
-> +
-> +	if (drm_drv_uses_atomic_modeset(dev))
-> +		crtc_index = find_crtc_index_atomic(helper);
-> +	else
-> +		crtc_index = find_crtc_index_legacy(helper);
-> +
-> +	mutex_unlock(&dev->mode_config.mutex);
-> +
-> +	return crtc_index;
-> +}
-> +
->  static void drm_fb_helper_fb_dirty(struct drm_fb_helper *helper)
->  {
->  	struct drm_device *dev = helper->dev;
->  	struct drm_clip_rect *clip = &helper->damage_clip;
->  	struct drm_clip_rect clip_copy;
-> +	int crtc_index;
->  	unsigned long flags;
->  	int ret;
->  
->  	mutex_lock(&helper->lock);
-> -	drm_client_modeset_wait_for_vblank(&helper->client, 0);
-> +	crtc_index = drm_fb_helper_find_crtc_index(helper);
-> +	if (crtc_index >= 0)
-> +		drm_client_modeset_wait_for_vblank(&helper->client, crtc_index);
->  	mutex_unlock(&helper->lock);
->  
->  	if (drm_WARN_ON_ONCE(dev, !helper->funcs->fb_dirty))
+> +	switch (rotation) {
+> +	case 0:
+> +		return DRM_MODE_PANEL_ORIENTATION_NORMAL;
 
--- 
-Jani Nikula, Intel
+[ ... ]
+
+> @@ -689,6 +717,7 @@ static struct simpledrm_device *simpledrm_device_crea=
+te(struct drm_driver *drv,
+>  		if (panel_node) {
+>  			width_mm =3D simplefb_get_panel_width_mm_of(dev, panel_node);
+>  			height_mm =3D simplefb_get_panel_height_mm_of(dev, panel_node);
+> +			orientation =3D simplefb_get_panel_orientation_of(dev, panel_node);
+
+[Severity: High]
+Does unconditionally applying the physical panel rotation to the logical
+framebuffer risk double rotation?
+
+The simpledrm driver operates on a logical framebuffer pre-configured by the
+firmware. If the firmware has already configured the display controller to
+perform hardware rotation (e.g., exposing a 1920x1080 memory buffer for a
+physically 1080x1920 panel mounted sideways), the simplefb node describes
+an already-upright logical framebuffer.
+
+If simpledrm blindly applies the physical rotation from the panel node to t=
+he
+DRM connector, userspace compositors might apply a software rotation on top
+of the firmware's hardware rotation, causing the final image to be rendered
+sideways or distorted.
+
+Is there a way to verify if the firmware already applied hardware rotation
+before mapping physical panel properties here?
+
+>  			of_node_put(panel_node);
+>  		}
+>  	} else {
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622132433.7228=
+23-1-tzimmermann@suse.de?part=3D6
