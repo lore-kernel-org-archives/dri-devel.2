@@ -4,60 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1DB8CD98F2
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 12:45:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57067CD98F2
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 12:49:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27DED10E635;
-	Mon, 22 Jun 2026 12:45:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5EF68989C;
+	Mon, 22 Jun 2026 12:49:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="KPl9Yn5Q";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="nKvbd8UB";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D20D10E635;
- Mon, 22 Jun 2026 12:45:30 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B49D88989C
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 12:49:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1782132594;
+ bh=1s4olLiDqvzMfKZIlKpUI7B5SPQHhJSqFKrdbd5ibXU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=nKvbd8UB4vkncQm4mK5TbTBcGYCbxiqP+XNhqVgDc5cGyVKgDiQIoTWi0k6VwF+pT
+ EjwKNvIJ0j4ZSTCcVXPKaDn/vw7+8CnaW/80Kacn8yZ5TCNvUKNd/p2EjnheES8C4/
+ uXQT+GfW4n+gZJNcOEXP0CEBbJJh92S0V2uisJEZdll/FaYQsGUXwY70SXOzBcRNFK
+ m5EoRMdPXjACWnXF7yAa2yjYooLMMtlwYimKtG7qMCXZMpa+c/iESBNBtcHt3J6jy/
+ y1e782jyQWOA0r0wV1yA9Hib+bCv2nIP/TTbiivZckmx0AAijf+E3VAjynrxI0phKP
+ F9TC1wFFxB+NQ==
+Received: from fedora-2.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gkSbV48k3z9sWm;
- Mon, 22 Jun 2026 14:45:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1782132326; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=RkMwbTC6310DHTrZdoptKKXWD1KIfX8Jfo4LzUqTcgs=;
- b=KPl9Yn5QwOD6AnheCc8UlrorIpnP+dvN9KCfUVMCk9RAOmgsewVSWfVpYrMZ2Y6u+8+JI1
- Ox+zeoe5LNoMfmZhfGv+M+cbWksOT4kLVe9rDso6qG8eObXLqycmhckfBTjpUPIVqVGAdw
- LJfhVXNUSEE4Cv42K2lL7/LW16yQq4wfGl/uNYPYEu/A7WnZV3hK+ktNw3G9eWP/7CB3f4
- GPn/KiPeCKwGc+O/N39dlhpOfxVpU5ANZDLx7LJ6S5Imrq/6Jn2f7lRxsj0HbI0hnn76h8
- 9zuKYdLgty5Sp3qhtCTLrYz32RjCjRh5IoWY5sehncvfdTb+GUqJ7KF0LAIo8g==
-Message-ID: <8c5ff6db6ab8c29c3e7addd969c4642e9d82c524.camel@mailbox.org>
-Subject: Re: [PATCH v3] drm/nouveau: Simplify nouveau_cli_work
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>, Tvrtko Ursulin
- <tvrtko.ursulin@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com, Lyude Paul	
- <lyude@redhat.com>, nouveau@lists.freedesktop.org, Alice Ryhl	
- <aliceryhl@google.com>, Boris Brezillon <boris.brezillon@collabora.com>, 
- Dave Airlie <airlied@gmail.com>, Gary Guo <gary@garyguo.net>, Daniel
- Almeida <daniel.almeida@collabora.com>
-Date: Mon, 22 Jun 2026 14:45:19 +0200
-In-Reply-To: <cf9f4a62-ed02-46d6-9560-481ceda2d1a3@amd.com>
-References: <20260612165409.54447-1-tvrtko.ursulin@igalia.com>
- <20260615092607.80917-1-tvrtko.ursulin@igalia.com>
- <DJEU27KUZRNN.3R1F8AL6UL30S@kernel.org>
- <d3e27b911dd1c0261c2c4d7d65d12d6c1aef58ff.camel@mailbox.org>
- <cf9f4a62-ed02-46d6-9560-481ceda2d1a3@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A375317E0857;
+ Mon, 22 Jun 2026 14:49:53 +0200 (CEST)
+Date: Mon, 22 Jun 2026 14:49:49 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Chia-I Wu <olvaffe@gmail.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Steven Price
+ <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 06/11] drm/panthor: Prepare the scheduler logic for
+ FW events in IRQ context
+Message-ID: <20260622144949.67c8932c@fedora-2.home>
+In-Reply-To: <CAPaKu7T_J3Om=rJB-ShF9Kyusdk+P6kXAk=W7S1dxim-OmAukA@mail.gmail.com>
+References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
+ <20260512-panthor-signal-from-irq-v2-6-95c614a739cb@collabora.com>
+ <CAPaKu7RjHvRAYZDehSF9R_8T-uTrC9-NfsAPSOX0n=-2phunpg@mail.gmail.com>
+ <20260513102941.7321cbc3@fedora>
+ <CAPaKu7SJbeRwN7_S5_ciC6sSf_MM_4s7-iJS8aqh=ispBZBf2w@mail.gmail.com>
+ <20260518154516.65ba8592@fedora>
+ <CAPaKu7RL5Hs2jXcj_v0F99xsM1Vo-U5iTzBvQ3Sev=dRiwBcuw@mail.gmail.com>
+ <20260519095354.123f8b61@fedora>
+ <CAPaKu7Se1jLiZ+6VNY=Ykf+nkMzu-q2r3UOdQ9Qf2DzpGNiCCQ@mail.gmail.com>
+ <20260519202629.76bcc3a3@fedora>
+ <CAPaKu7TUmZcAJLmub0Xu-wsFOGeQp0zwrhXKLavBo9E=83kSdA@mail.gmail.com>
+ <CAPaKu7ToQmHHhTyb-az_b7EG2iRpc23=AJOYQ5P=HgrG29bS1A@mail.gmail.com>
+ <20260520100946.398c5282@fedora>
+ <CAPaKu7T_J3Om=rJB-ShF9Kyusdk+P6kXAk=W7S1dxim-OmAukA@mail.gmail.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MBO-RS-META: zwxpr4yr7cu81hodh86wfpmdpue1g5x6
-X-MBO-RS-ID: e546aff977dc697f06d
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,58 +77,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-(+Cc Daniel)
+On Wed, 20 May 2026 15:15:54 -0700
+Chia-I Wu <olvaffe@gmail.com> wrote:
 
-On Mon, 2026-06-22 at 14:17 +0200, Christian K=C3=B6nig wrote:
-> On 6/22/26 10:57, Philipp Stanner wrote:
-> >=20
-> > The issue Dave addressed was a UAF within Nouveau itself, where the
-> > driver put() its own fence while its own callbacks were still
-> > executing.
->=20
-> Yeah that's exactly the reason why I have been rejecting the idea
-> that drivers install callbacks on their own fences.
+> > > > I collected
+> > > > some numbers with baseline, with this series, and with patch 9
+> > > > reverted at https://gitlab.freedesktop.org/panfrost/linux/-/work_items/85#note_3481308.
+> > > > Reposting the numbers here for reference
+> > > >
+> > > > |                    | baseline | entire series | patch 9 reverted |
+> > > > | -                  | -        | -             | -                |
+> > > > | frag job median    | 2.8ms    | 2.2ms         | 2.2ms            |
+> > > > | frag job 95%       | 4.5ms    | 2.8ms         | 2.8ms            |
+> > > > | frag job 99%       | 4.9ms    | 2.8ms         | 2.8ms            |
+> > > > | panthor-job median | 0.8us    | 6.2us         | 0.9us            |
+> > > > | panthor-job 95%    | 1.5us    | 16.6us        | 1.5us            |
+> > > > | panthor-job 99%    | 1.6us    | 28.0us        | 1.8us            |  
+> > >
+> > > panthor-job rows are the durations of the raw irq handlers, collected
+> > > from irq/irq_handler_{entry,exit}.
+> > >
+> > > frag job rows are the durations from frag jobs, collected from
+> > > gpu_scheduler/drm_sched_job_{run,done}.
+> > >
+> > > The fence signaling paths of them are
+> > >
+> > >  - baseline: raw handler -> rt threaded handler -> wq job -> wq job ->
+> > > fence signal
+> > >  - entire series: raw handler -> fence signal
+> > >  - patch 9 reverted: raw handler -> rt threaded handler -> fence signal  
+> >
+> > Just did another set of throughput tests, and I confirm the gains are
+> > noticeable only with patch 9 applied (that's on rk3588, which embeds a
+> > G610, so not the exact same setup). As an example, on
+> > gfxbench/gl_manhattan, I get the following score bump 2391 -> 2457.
+> >
+> > Now I need to set things up to measure latency like you did and make
+> > sure I'm observing the same thing: threaded handlers providing roughly
+> > the same latency as hardirq handlers. If not it probably has to do with
+> > some config options that differ and change the preemptability of the
+> > system.
+> >
+> > I'll hold off on the submission of v3 until this is done, because if
+> > threaded handlers are roughly as efficient as hardirq ones, we probably
+> > want to stick to threaded handlers. 
 
-I remember we had that discussion when I discovered that signaled
-fences can temporarily remain on nouveau's "unsignaled fences" list and
-wanted to do the removal automatically via callback.
+Sorry for the delay, I only got back to this on Friday.
 
->=20
-> Maybe an idea how to generally tackle this for all drivers: Never let
-> the dma-fence framework call dma_fence_signal(), that should only the
-> driver do by itself.
-
-About the framework I'm not sure, but what we do enforce strictly in
-Rust is that only the creator of a fence can signal it. We achieve that
-by two fence types, of which only one implements a signal() method
-
-I remember seeing some parties signaling the GPU scheduler's fences, so
-such things definitely happen. And since you likely can't enforce it in
-C, you would still have to take the possibility of a third party
-signalling your fence into account.
-
->=20
-> This way we don't run into the issue in the first place that the
-> driver needs to install some callbacks *and* the driver also knows
-> when the installed callbacks are finished because that is when
-> dma_fence_signal() returns.
->=20
-> Does that sound valid to you guys? If yes I will be sending out
-> patches to do this.
-
-Hm. I suppose that would be an improvement?
-
-Maybe let me ask differently, too: why is it that the framework is
-signaling fences in the first place? If I understood you correctly last
-time that is partially related to the locking problem in the callbacks.
-
-
-P.
-
->=20
-> Regards,
-> Christian.
+So, I've been using ftrace/function-graph with some noinline added to
+get a sense of where most of the time was spent in the hardirq handler
+after the transition to hardirqs, and unlike what I thought, it's not
+coming from the accesses to uncached mappings of the FW
+interface/syncobjs, but instead the various queue[_delayed]_work()
+and/or wake_up_all() on panthor_fw::req_waitqueue. I don't expect us to
+be able to optimize that anytime soon, so I guess we should just keep
+everything in the threaded handler for now and accept the extra delay
+(assuming 20+ usec for the hardirq handler is too long). This also
+means that a lot of the things I do in this series are moot
+(irqsave/restore, using spinlocks instead of mutexes, ...), but before
+I go and rework that, I'd like to get some feedback from Steve and
+Liviu to make sure this is okay with Arm.
