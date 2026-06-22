@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E024CDB471
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 08:07:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D937CD4F26
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 08:07:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA53810E9C9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F160510E9CA;
 	Tue, 23 Jun 2026 08:06:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RrCVKiOB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HOtf9UEP";
 	dkim-atps=neutral
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2B4C10E833
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 19:33:03 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-bed19623d6eso693151266b.1
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 12:33:03 -0700 (PDT)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BD0C10E2E5
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 19:46:59 +0000 (UTC)
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-c0c5d170ad4so308216066b.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 12:46:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782156782; x=1782761582; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1782157618; x=1782762418; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Rnwp2WcGX8BgzfYchzOUAXKl4K0Z3YQrQZ1OJ8BM3g0=;
- b=RrCVKiOB1sno+FYACGC8UsuVnHxFft2Uz+Ux5OA/pmK2itqxDIe6I+/fNAH7O6V+wo
- P0FiZb++JpZLdCzCD8xCGo06FY0Pswp4SA8bHQy36/0pX1vfovLPx9yXhrKOaKetLdte
- trwl2u76uAyDFPDs4NE+qod6y05Oq+Zzs2ihQck+z4JQvV/j/0SUi6EgfDlxTyVnKWNX
- 2LIQaSo/Q17mqTGoM2V07Exd0UTghm2IhWDX16DaFvQjjdmHB2phyEmACaaVrL4o91c2
- i6blTUzhfUAm0p8dpJDTL6khoi2jdO27ATy8E4I48F4giD39vHH4Aa0LaFVkD+0hkKPU
- D7uw==
+ bh=lieoZSrETeNqfqjggjcg7YjI6XZdYix99GC+0aKI1SE=;
+ b=HOtf9UEPQUGCXLx4jlske3sf37hz9uI61GnYG6N8iVcYM56xtYem87c9+02KkyQLHw
+ AXR94DQkoGnrrD0wRCzaPgEmHhS5wFYl/1rT77CghPm4dWpWY3IcSdWP7X3enzGOlyCB
+ myIU7TXWpZ56BJPp9lWC96I5Zvko4fiOoHxkSW8GektlmuaKylvCMj8BuWzlFUYB/Lnj
+ Kz/tNrWGmsAPmdlPTPcOq+JgW50DodJyatDyAM50yZ8Ls+EMamda9eBO8KFTd8tMHmQt
+ LtK1PByPQckAOPJYtEI632EU5RUQsOlhe3HoMemvhVD9JAeIF3Gci4oIh5q6ssoT1H7g
+ Fn7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782156782; x=1782761582;
+ d=1e100.net; s=20251104; t=1782157618; x=1782762418;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Rnwp2WcGX8BgzfYchzOUAXKl4K0Z3YQrQZ1OJ8BM3g0=;
- b=QQHCUZcBYEMXuO2NG2ZjDrItgPX5fLUsHVq20Ab00ue6qXJz8lPmVzA5EsZdKHAC9E
- wQQ+8/xnL8mE+qqwrdfwx6Xiyr7iXl07YpswrbuTP8bBLiFK9w1TpV8LR+iOVwQkQnpC
- O8Rep0pIgQ0CmsY2SIXvsSUid4I0gDaPcu/R+u0JfMRlsNpbpgEUwJTSJh73JG5brNb1
- JxpZmM1lVujQNDRR4jMm5tu+cgWRAp8LyDOF6gzC7OBffLxLtOzjaNOTe+fk5v8RcheW
- GYK1bLI3xXxQdTRYajh5uk+RIBpoFyFQTpD5mU11VaEGqYitQUKsKUG2qtT4T4OzpNZO
- YCyg==
+ bh=lieoZSrETeNqfqjggjcg7YjI6XZdYix99GC+0aKI1SE=;
+ b=PhxXSQYj3aqEwC38omYRQ/m+VQ4zg2nsjuX/FR4q3wCiMAN3Q/zeb214jRL1sagAKo
+ D+BufB2laUSquvNr8mRz2sfxeyY++zkglBEaSGldXMP4LB1yfIm6fSPZalH/gqWaoGuP
+ EY8aZfwOoDqScqUad7lV713zsnRvN7EvA59zY4zsP88iXB1XZSw+criBp4Y1w6pxwe9N
+ XhzGtOFrhBrYp3/GWnMhlgzGZTzTtmfYAien57D89pkgz+3Yt48KYNvB7e/vyW1edMs4
+ fu64A8FczhdVW6a8EnqaaphKhej6rIxsAeQ69V6aJPOqemgu/lTZsWyybjD9o23xK7Qv
+ 9fnA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/uqwsKksJtFnJWhFIZuGqlP6HyX9sfkBkpLlI2ZN5SP509laipXtNyJBZan1sqN5h3CJTkKHThfF0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyTbkd7aBwcUNXZFwpqAw5tPw7+Uc1WH1u/qpbh2GhT2lj3NPF0
- rrup9jRHDv+S6YkEu9LJqaBOAN4nF6P5Zn6qKesNuq93OM/1QDXKI69A
-X-Gm-Gg: AfdE7cnnmJqiaiSmarBKfA/Jjnw7gUp7PmT5IsczGIGzCwEuqst2O96iS8koOsm7hvX
- K+7Rpm4V2vHdkE2ZtHjHpQ7BWzD4EQy3rfV+wX+bh3JIAzkOCwNwQRkjwLddnDWas9ENbDL03w3
- bAFkShjfcPz0VaxFSFjGvpAxvuyMcYHfKd4/DYI6osu4ymQv/rs8HJhtgPoUPzvd/p2ypfQIWV8
- u+Mvp8tmxa526zUv1RCI480/nRp4jctuKun089oRsEz35QX6S51XZ2eyyU5Hu+R2hEJiTXa2WPf
- d7hFpQnalUwAyVTipkFs08zDQdeyUyGShZpB/TFXOVV+y1EUXQ6N922bB0ffDqwbx6rLpcF0Z7Q
- wK/J/+MIub4dMBQqg4ZuNce2BdJuQ+FeADDpk2oQdu+LrwyTgscuqrsRqSaIt+gQZ6ME0VnmVQW
- LGM3m4aapjwjRMlgTYJxUfmLtWsk9xSf/HFsHhHtbSiVyO7w==
-X-Received: by 2002:a17:907:7ba1:b0:bee:959e:9ac8 with SMTP id
- a640c23a62f3a-c0b601eaa11mr746745366b.4.1782156782156; 
- Mon, 22 Jun 2026 12:33:02 -0700 (PDT)
+ AFNElJ8FPowwjfo1Udh3LP+HaCcjZJoI1+nDRmrca1rVXVovMLqhd2VqjZ3Z4zH4faXE+aZ3NcEaOq15D4w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw4ezaci2KuMpKsUPceZXIOh05oa57vYikUYkdcNKf7rKlQsoZv
+ Gdw865AGgA86mn+ugA2Rl9O525gnVQp1w4wQfVec7P/Ykx5Pknf/122H
+X-Gm-Gg: AfdE7cm1ZfQe6C644fy34LBjl1LhwzXlhSuum6A5Jnh2PpOVoKDF+UgOCLQW2dN8WRi
+ 2Q/DNJiwdlXYtUxl2kMAiZVv29cnHxIcHP1xE3SQfZVS2sU04nSP8a7UIfxgwUdLSaug7DaMEvL
+ spD1WnFdGV9rW5QffPYJ/y0IdnvsSTnWGTxnZBre1eANCFruT1XacGP1ft3/lb59KGq1ygx4Wpj
+ xsix3AJdKzXmo9jNtUozDHnOgoqQK+pPHKFxd5TtDssg2TTkX6VU8zAjtaAA+gBMzg7vXR9f1qr
+ ppHIJLw4Sk4/lc3rlp9dpwuDN49qywcbdCEuKRKOGrpqMlqBHaWeBuMq8W4PY7jAY3xKRGy1IP1
+ FpBiEijXNLMRkGXXCj0J8Aet1/RCAm6osbij9dIlNmjDBBL3KLn1YIX9yZycMJNlscNclEukksb
+ cc5F3S6vgPs0epin13QCng/awupUrp2cISSomFI/GQE8ug1Q==
+X-Received: by 2002:a17:906:4fd1:b0:bea:4a9b:27e3 with SMTP id
+ a640c23a62f3a-c097adb77eemr849187866b.2.1782157617559; 
+ Mon, 22 Jun 2026 12:46:57 -0700 (PDT)
 Received: from liam.home (233-51-98-95.ftth.glasoperator.nl. [95.98.51.233])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c0c610e4c76sm405931966b.46.2026.06.22.12.33.01
+ 4fb4d7f45d1cf-69796c10dbasm2565856a12.8.2026.06.22.12.46.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Jun 2026 12:33:01 -0700 (PDT)
+ Mon, 22 Jun 2026 12:46:57 -0700 (PDT)
 From: Liam Zuiderhoek <zuiderhoekl@gmail.com>
 To: tzimmermann@suse.de
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Liam Zuiderhoek <zuiderhoekl@gmail.com>
 Subject: [PATCH] GPU: drm: meson: inline call to drm_simple_encoder_init()
-Date: Mon, 22 Jun 2026 21:32:50 +0200
-Message-ID: <20260622193250.211429-1-zuiderhoekl@gmail.com>
+Date: Mon, 22 Jun 2026 21:46:49 +0200
+Message-ID: <20260622194649.218419-1-zuiderhoekl@gmail.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -87,19 +87,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Inline the function drm_simple_encoder_init for meson,
-as per the todo list on docs.kernel.org/gpu/todo.html
+This commit inlines the function drm_simple_encoder_init for the meson
+driver. It replaces the simple encoder init call with drm_encoder_init
+and a custom cleanup struct.
 
 Signed-off-by: Liam Zuiderhoek <zuiderhoekl@gmail.com>
 ---
- drivers/gpu/drm/meson/meson_encoder_hdmi.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-index 55c0601df3c6..f4100e23dd27 100644
+index 55c0601df3c6..0dd3a76ad959 100644
 --- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
 +++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-@@ -44,9 +44,17 @@ struct meson_encoder_hdmi {
+@@ -44,6 +44,10 @@ struct meson_encoder_hdmi {
  	struct cec_notifier *cec_notifier;
  };
  
@@ -110,14 +111,7 @@ index 55c0601df3c6..f4100e23dd27 100644
  #define bridge_to_meson_encoder_hdmi(x) \
  	container_of(x, struct meson_encoder_hdmi, bridge)
  
-+static const struct drm_encoder_funcs drm_simple_encoder_funcs_cleanup = {
-+	.destroy = drm_encoder_cleanup,
-+};
-+
- static int meson_encoder_hdmi_attach(struct drm_bridge *bridge,
- 				     struct drm_encoder *encoder,
- 				     enum drm_bridge_attach_flags flags)
-@@ -407,8 +415,9 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
+@@ -407,8 +411,9 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
  	meson_encoder_hdmi->priv = priv;
  
  	/* Encoder */
