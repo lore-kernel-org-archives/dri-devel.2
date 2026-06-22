@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89B38CDB46B
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 08:23:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28E87CDB46B
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 08:23:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED00410E2C9;
-	Mon, 22 Jun 2026 08:23:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DC8D10E528;
+	Mon, 22 Jun 2026 08:23:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="A1KJH9gH";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="ZFoY0bLM";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012024.outbound.protection.outlook.com [52.101.53.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AA8110E528
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 08:23:04 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011070.outbound.protection.outlook.com
+ [40.93.194.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 420F310E528
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 08:23:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iv9qWxwxuIW/OlkOwlpehVmIgUiitNZ8P+OTfLTIoFe34H22WNPnk3LLvWtO5mwYkPf6bOp28Qc2pwWH6k9kFCw6t/N4QpaKnY1erVfgCdFH4PRzixFLXrwYCX4XKQnur75kKj4M4ymIWFd2Bkx5yuFnh6GgNd1UnGSn2YwgiVT2SVzJWZuBYMnwWZJZig72PMReJA3kwWfVKNIYnF6JCH3nOVWPWsKsGIc5JtR8xkLJlevvlIDqUWT7bgNW0LkqFqJF3Fnr1KxjMBfNdWwOMwsB8sqjRkeT4oQ8nMv8ftThJIttU6qPvumznS5QB5DNxiqKhzrBS9rO8rWYRN+vvg==
+ b=iXlDAAIV1M6rR8F/h9aSTdPZ5CKLVo0cQR2ICvb5zpT7FtOI4TcnUFRl0DXb1aavHBQgNr5wuodKp6+wc1oOv0+ptH1+F1LTBm6GG0n8Lox1i7jOSC7BIkT2yee4cfX6m7Iib/yNk6gxRxirZGq0hKKDzpenCBpiwbGOGMU0eHTqumvJh8E9/2at2G1x6kZ8QXEduN6RARuft2DRJq2yB0pvl9bjjn+36JpNqV6/DMPLP2I2IBA4JJtSqJE0155teqF0sEntDpyLy2RtVlbd/uHrpFgDLoYl0JsohcG9w01beKhP9DjFK/ekDFOrBTgUbamkHJ08i7hpgblmvMIuVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iNdPpNUeNHZtnjgcp207flR6Yg2t8FHvULsQbRVoMHM=;
- b=LFpe12oXmQFw8FPZEZc1tGxnS6Lo6qHuTe2It83bJfzzjuIxg6HjJ0IIhAXE88w9CwSS93/QNW3C6BWZe0AvCIM9KfzeXgwkPu/gCMGDDcA7kTc1keyL6WWP7dFCqIQvOHGpLlNuRn0a2JiHX7FcVBq1mcMAXvECWtup4bYerf0tdv+1WN6/5xXb/MxegX23QpWv+2P8Sa/220N8GyZ/2zJ1U33KGhkyw9SFkeibMFWc7jlpQG5hHiakJ4k8vRWD0P1V8yeRaZedgllUzNi5lDnsNInUbrMnCJyRsHZ1dt31G/U4hIo/0ChYur5vrssmVntVVumBAO47SVwJoe7K+A==
+ bh=yu8OvPBqaB1eANKiSrBaqsWZ1181+pgBMuurjLEFro4=;
+ b=O4YUTr1AJ1Q/M4mUbRQl8+b55UQM8eVUn/gOpMNjOR+2LjQVLGJEOjca+7+mhQbzLEk38LxwEQJmXGycv3nRSMknCTFe29yTdildKsiM6MoQTW+vsSMnvONGw6X0oUa0fzgBy5wHyj7adpMVJWa2hCGBttkbzkOs4DX+J7HSPVlchrTaYmYx2JGwaOuszT3U02fJBNgFTmAfxALv2B/wHIvIHyCoYWcmZlH35DGlCBNdEi549YzKJASPp7EE/eboloZ12XDeMT6/AuYyh/5UX6HSNTGzU0IK+80/2ykFpjDutpltQpqXsfTrd9tegcqNtlg8+I7Oa0aVzAkt0a5UUg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iNdPpNUeNHZtnjgcp207flR6Yg2t8FHvULsQbRVoMHM=;
- b=A1KJH9gHjqCgo9naLWv9+9u1DHDwAjRFSYAfBgDf0Foq+zyupQMaAdvfdp7iAczIV6sh46694Fz1LgMhIwEnDfmp6rqanb5vYR5sODbVD62W7NVewwLQCeXaE+TTNqVLbgkQDgYQqiKNnDVQWdA+JXH5dvLLtwjvd5zPG/shROlucBFr7D2P0Ks7njVtKBBo3LvFJMpHlXUdDmtgkaOV0akkzE9B61n1lKEOiW4mJVfUC0LK5u/MaDndPnE0M9jycfnrm40whAz/xlYZIDv+KRx/k3N3Q8w9H12vrNcTlJ9myh3zGwvfKqyupWEN0it7NLaADsVIoJ8oIq9yopCg9A==
+ bh=yu8OvPBqaB1eANKiSrBaqsWZ1181+pgBMuurjLEFro4=;
+ b=ZFoY0bLM8+zgqBvfPeceAv1I2hdmpVppC/uQLIwlCH8V+Uq/Ayj48AJxZYGGAO6B+Q6UBZ2Tjwh8BWHF2q5PRUo4q2V5ldpSXP8t15yqRQA68uarOq7NTJCZJGtYpweancj6xpoWUtsl1alUCSjiUCLciX4Fn2H2KCwrgcgAo6hCAjcw0Jj5QP5uhxJPPAnHpMTawo3hqASjTT5mU6Glw5ljpi3sErITFLYzLBs5qCviKUZXLwVEJcmhrkXuVgcO/4rq5j1rMNH9r09hJCVGN/AaL/odBw4k2HtzhISF/oKKzRkWu4QmsT+xvG6N9yymkjRUeZM228ld0CBkogi1/w==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
  by CH1PPFC908D89D1.namprd12.prod.outlook.com
  (2603:10b6:61f:fc00::623) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Mon, 22 Jun
- 2026 08:22:59 +0000
+ 2026 08:23:02 +0000
 Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
  ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
  ([fe80::d9d1:8c49:a703:b017%6]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
- 08:22:58 +0000
+ 08:23:02 +0000
 From: Mikko Perttunen <mperttunen@nvidia.com>
-Subject: [PATCH 0/4] Support partitioned Host1x
-Date: Mon, 22 Jun 2026 17:22:49 +0900
-Message-Id: <20260622-host1x-nohv-v1-0-65bc682a617f@nvidia.com>
+Date: Mon, 22 Jun 2026 17:22:50 +0900
+Subject: [PATCH 1/4] dt-bindings: display: tegra: Make non-vm registers
+ optional
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDI1MDS0NL3Yz84hLDCt28/IwyXQNzw9QU82SzxGSTNCWgjoKi1LTMCrBp0bG
- 1tQBIgylTXQAAAA==
-X-Change-ID: 20250919-host1x-nohv-071ed7c6ac4f
+Message-Id: <20260622-host1x-nohv-v1-1-65bc682a617f@nvidia.com>
+References: <20260622-host1x-nohv-v1-0-65bc682a617f@nvidia.com>
+In-Reply-To: <20260622-host1x-nohv-v1-0-65bc682a617f@nvidia.com>
 To: Thierry Reding <thierry.reding@kernel.org>, 
  Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, 
@@ -63,73 +63,73 @@ Cc: linux-tegra@vger.kernel.org, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Mikko Perttunen <mperttunen@nvidia.com>
 X-Mailer: b4 0.16-dev
-X-ClientProxiedBy: OS7PR01CA0147.jpnprd01.prod.outlook.com
- (2603:1096:604:25c::12) To SJ2PR12MB9161.namprd12.prod.outlook.com
+X-ClientProxiedBy: OSTP286CA0013.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:223::18) To SJ2PR12MB9161.namprd12.prod.outlook.com
  (2603:10b6:a03:566::20)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|CH1PPFC908D89D1:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e55c16d-f331-4736-9dd7-08ded03777dc
+X-MS-Office365-Filtering-Correlation-Id: 9c04bf70-86e1-46b6-2194-08ded0377a20
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|7416014|376014|366016|10070799003|921020|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: TxAJfVQQJXtW9iIzRhukX9pjryKqItPRfE9mTwQD119GGS4aFoEyiwS9pX1NVUMvoyeba3YhyIvPdr0XwhIuvCevQAkWcsEUiNKh67aN5fsr/IHIpgZ3lHGhBqvTfX92TUVZHeuwOr5jHVG11zo1zgxIlT7Jh97HrAsJr0movM3RdXRb67Gz3uaJDeX7xMG+tPyICOL1Y+wJ7UUUpV4Msd9CW6CsXy0lXeDJtjbCNR6slmMs8iE/Gad6yQD5Zs3Se9rs/5u+VImu2eTcCDbVIA4f1bxbUIkKmc7sJ7sqZGBDaXFaoBtCH3Di0rw95kD1A68PwSfhLWmfU2SRoncmdjWQqD2+FE620BBNpEeBjUiWPgtwnlTeDTxn/8z0ZidS7V5kyQPZjPVAcQcU7/0adtQI5UbF7FQX9lCUvAZChy7PAWUhYdSUsm26FMKAsuYKfc+vfAFgUENOQWronKo3z8AM2U119uY+Lo4inQsuqkXPXDzwrxF11h+jVcx5tiE1GZ8/feMGN3xKn+AI48eNdBnQ5ENsz35gGVp3ff3tSoFEEBayfsOrpZIRfhPiYcn0qH8bYS3hcx1Mw0ifihBhEeXeYXJE09DSqBbfQYte3fjpN6aS5eAam4dgJ4Xq/M/CP+QvRy4fzWwsxid2eSPjJXRLFh2vsyAjKpIMuV1MMECDa4c7byMewLQg7gfQwqmKMYyr10SEaQnliF5ZBgrRng==
+ ARA:13230040|23010399003|1800799024|7416014|376014|366016|10070799003|921020|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: fDWlPW7Znjbr9ehy6g4OsLyOBJ+Chdw5iHlb3qyTtqtJmh8DKFO/4LClhWOM6ZKQKEQxwwfjcvHjxc+sFDa1bnulMbsvWYpMbxejyjVL1HBdrfcNvVfDtZ9C77UAAjneJJk81PCeg5QmA0CLl6Fx+ExYVZu/wmq2WLDOrp+jzFcNndyNhkjalMvBBeaDIoz35TkbrYn7F3gsyhlQVFkfzQJ+4NjePydjlIghVNEO1nM6vtwGJkPYCa7yWdj5cgWL5NzYRjVApQEbg9g3lymuiMBTUr6ihEQnIrS78xZNvfGo/g/P0j/44fQBPTdssTSkn38NNCHmeGDewng5scIPo41qZ/kPiBqpsgetJnnq5JKLj2pavNbMJi+Ie2A0G2y/6DVU4+wui+VFYnJVu6OukPoy4hgRNo48swLcq8N8I+L0j9xCl7A63GcOFOSW3mXdJBWgneUe8PeWwwmCcRCaP/enwtiYyaMAHqrrzX3WL56zPR6+fdGOSEOKnU0Fu0X4ZAk4o75k6rp8F/MWm2FKbljg9Aog2srVpga6i2FAzqoafIcDbDxB/LxzzVzZSEasuHa5eUzz73x33Ewl+7U7FNyRxGX6PpVSrkFZGMhXUy5CErtmTyD+deqpPi7N79kHYJ+1G6MP744TM/lkb/M+PB4h/Q+iB6KH8Qxj28laiqHT5KNz1p3hNeUkUR7yPYSW8e7l2nC4blOQDPWinYgn6g==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(10070799003)(921020)(18002099003)(56012099006)(11063799006);
+ SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(10070799003)(921020)(22082099003)(18002099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OHVPZUpnY3RoNmo2c0g1Wk9ERWNNRytYdHFxS2FFOGdJaXhmeFgxa0s0azRm?=
- =?utf-8?B?eERHZFhXYXNMaFlVVWZDa2JObFlybDFrdWhYVXpucDFFTCtNNUhWZWJLMHcx?=
- =?utf-8?B?NDVZZEFBOU0xTmtxVkEyYktyaVo5aDBObThHUFozeFpYZDRRMFVhL2Yxd3RW?=
- =?utf-8?B?bE9TcWpyamRVYTdrbGt1OURHL0hFS21IbExxbmtJZzVMM25tTUlRM1Erd1VN?=
- =?utf-8?B?Skc1eFd5TDlSRlpxOHNiK1VGZXgvOXRlVG1wbWF3di83N0dzU2RQeGh3Lzh1?=
- =?utf-8?B?SDl4akx3ZnlnaHh4OVVlZGszMVJhcm1VNnRQMldBNWRlU3NlS2lTeiswb054?=
- =?utf-8?B?OGlzRVNmZkg4cGd6Sm9pSERzbGxKNEFTVmtraS9NQXZXYlFvOFpxQWpIcmJ3?=
- =?utf-8?B?a0RIUHFxZEh2bDBSemxsd1F1aXZoNXdUMUF3aDhoYnVqRmNCb0cvNWd5ek5x?=
- =?utf-8?B?MjZ1T1RyYm10S3dSS29oVjhoWjhuRXZQY3ZVU0g1RnZ1VDU0VU91Vi81Tmlz?=
- =?utf-8?B?aGhZSTRHbDN6c1JONnR2NytsbkdNRENvOEdDQ2RBQ1RReC90T04zMXRMOXp1?=
- =?utf-8?B?OHR0ZnpFZE5DaFJkd29VV2QvZnVRR0xhZklXT0EyYTYwNWlsaU81S2ZLaVBC?=
- =?utf-8?B?ekEvTDRPOGdDT1YyQVV5REgwMFY5bE51SzRBTDB3YkkxOWNyS3I1Sm43cXBy?=
- =?utf-8?B?QXRTbE1CZzNFUkw1WFV1YU9zZnBRVzBxdDlvVklJd0JVYnd2MmxuR1o1RFhv?=
- =?utf-8?B?SnJ2SEQ4YjVTVXgvQjU2b3FoN1hCUGhaengxdDhaWEQwekNGSUJrclFLMUoy?=
- =?utf-8?B?TXNnQk1MZi9ZM0ZYOU8xS1MzSC9qck9FazdGQjdCTExiRktudEdDQmVHK3Jt?=
- =?utf-8?B?dnppbGxuV3B3SXNPZ2pXS3JmamRET3hxMVVIV0hGa2krZ3FNNXBpUDZKcDBk?=
- =?utf-8?B?dEtGbkVyUzk4L0xiRVgzbjlURE5FOWhsV3NtWUV0SVV3cEd1R2lSSjdBRHgv?=
- =?utf-8?B?eVpnM3E3V1A1enJBUjU5STlDSkxvWmd4Y1FCRkMzQ1VJS0FrQ1IvUmJXdTV6?=
- =?utf-8?B?SE16cEpEMmFJVTJvQmZrWFZwZlo2WGxnZlFkZmsxRDFhVU5rVURnS3ZJRjl2?=
- =?utf-8?B?Q0E0Z251RTlIQ3hEUHdoTlF5UlNtQ1k2NkprWUFYamdzcjJnejhidG1sSDJk?=
- =?utf-8?B?Y1BnOVBveHBOakZQZDBIMVB3Y09xUDkvc0hFUXFPcDE3a0haZUllWHRvZXcw?=
- =?utf-8?B?OXNKYlJjSlFDK1p3K21GZjhOMzJDT3NXSlZOeXZScVVMaGEwUTBwKzV1VEQx?=
- =?utf-8?B?MGNhWFRsR0t6M2hkVTJNMEU3R3dzNUJZRmJ5WkZheS91VWxyV2dYS01laElS?=
- =?utf-8?B?Mjc2cXNOVERhUmlVMUlFN1BLQXVPaElQR3k0UjFZQWlDZy8vTGlTcFBJTTVa?=
- =?utf-8?B?bzFuOFBOMjZWYnhhc2J4ME9sMkJKdVFpNVJPWkxlV2VaU2k5SnhCUVcvYUo3?=
- =?utf-8?B?TytrVnc4dEZCai94Q05BSEg3VS9kcVc2RWF1UC9aMUp6WVl6bGtxMVQzRkQr?=
- =?utf-8?B?NUdtVFBFYU1DaVlLUVZSWHBzbzZOenJQcjdSbG0za3JlZEdiZ05uT1dvMXZv?=
- =?utf-8?B?Z29adzlyc3k5WDFiV2lPWDJKbGEvOEZjRUtXMjZVeHEyb2hzcVlqYnc2Y0Za?=
- =?utf-8?B?RUsrQVZrUUJycCtmSmdjL1pycXRFVWFYSlduVE5vU3JDVjBaQ25JdTlwUmg0?=
- =?utf-8?B?WktNN0FnRVNNVDB0b2FBcG9veWZTKzlzTTB1bzV6Z3JxN2lPN0htSDU0OUY0?=
- =?utf-8?B?RlRhTkh1QzJwbTVEeC9CREJsd2tVdk9hMGFBT3lscm5pQmtUdmFhd2dnVFJQ?=
- =?utf-8?B?VTE4UG1UR1pNV3dJMXMvU05oQXNyNFAreHNNNEVxaDcxYjZFN2pDdE9KalJW?=
- =?utf-8?B?bmVZQlZRM1QzN3NjQVhxQUE5VUZ4M1EvcWhvRzUrclMxanN0NjNmSkt1cWNJ?=
- =?utf-8?B?R0pmcjlQZldsTFlrTXpKbjBGNVZXRlp5S0wzUjNxZnhENU04Ujc5ME9LM1ph?=
- =?utf-8?B?V0VvbTVQOUpxalFiMCt2eE5YWGYvdC9Ib3BrMmNIQXY2Z25IYmhIME9pMW1k?=
- =?utf-8?B?Ykc0ZzNjM1BZWHlFVmVRZXg1L0pUVWtWTmlBVnVEWndHSTd1M0J3TnJTdVFN?=
- =?utf-8?B?RW90K01Wc2l6RGc2b0xTKzlSOEV0b29QRGZSZnoweDJDZ0Y4MVdLa080ODhj?=
- =?utf-8?B?ZzBQUjNUKzgrRzVDZVFnSXRoK2FXWU0yQjFaWXU3UlhrNlU5cUNVd1F1Nmpy?=
- =?utf-8?B?b2N4dVdNM2JJU2FINEVoK29qNWpWa09FTHFvY2c2UUdYZlMvN1FxUU9yWld6?=
- =?utf-8?Q?MnsGZNUAkkUbfDThI1MM2C/kMfEr8N4CXU88w3b75Ryw0?=
-X-MS-Exchange-AntiSpam-MessageData-1: 4l+t1Dch5SSAXA==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RExrajFuMisvRW9oZmhpdlNVSU5wSms0Sllhakk5VG1OZWdNeVhDSjRMZmhN?=
+ =?utf-8?B?RGJrNjc1d0cwVGU2S3lSMmNYMFFVeU0vRmZKU0lzR3ZKVUNiUjl2a3VQVzNz?=
+ =?utf-8?B?WHZqRmcyeGlhSzBib2dSK2xmMjJ1NHZHclk0SVlKYzZ2MGpKejFlbTZzMDV2?=
+ =?utf-8?B?V3k5Zi82c0g5Y2FuYytzZWtpTmhNUFlOeXJMMnpHZnJQdFQrSXRXUEJzTG8x?=
+ =?utf-8?B?bXdpQ2xYWDBPNnR4dWlrSm5DUEV2QitSSkR1Q1grQ0JhckQ5a0hBR1Vxa0F1?=
+ =?utf-8?B?UWZWUko4TmRGa1RSNnI1bjlwUktxQStadUovK3Q4cnNRVWxJVTVtbHB0RkNM?=
+ =?utf-8?B?WFY4T2JCbnJadVhhQWlCc1JqanFNMU44TlVRY096eVgvQ3dHMVpVdVdmRi8y?=
+ =?utf-8?B?WThnV2dtTkthUnNjK3JWMDRoYUdnYmViek44UEZ4WUNPNTFiVGljcGVoUXkr?=
+ =?utf-8?B?STNPYkUrTTVqOTNONjhwUkdhOEVIK3N3czRRb09oUmlrdXZ6cEIyV0tHWS94?=
+ =?utf-8?B?YjV3TTZtcU1TL08yMlNkKzR3alJlY0JsN2ZIWGlmZFlyNm9ZWFF1WWhWMC9K?=
+ =?utf-8?B?dkVUNFBIZVJKaEtva2FELzdVV0Rob213WWNJb0F0UTFEcm11aVNBemd1Mi9u?=
+ =?utf-8?B?VndVR2sxR2I1OTROL0dMSEVyQVkxOWNKeFBUSHpYamVJZnJhYnNiOEkybDhZ?=
+ =?utf-8?B?U09mUlhyYXVOS0RnZHpJSkxaRWdFVGlrQXpPVlk1QzA0Yng1eHFQYzFaYkpK?=
+ =?utf-8?B?bnhiSWlRdXFFd0ZQbStsQVJjb2M3OGRtY3pJUE94aTliRFRYUVNhWDJUMnBs?=
+ =?utf-8?B?QWltenF2RmpRd3lSd01lSlpzSVV0SW5kbVcybC94Uk00T0VlVC9QSEx0R0k4?=
+ =?utf-8?B?MHJTOEJ0YXBEQ3YyMWFKUVhUNldESHFMaENkREVxbmRuMkV3S2hVY0Nwally?=
+ =?utf-8?B?aE51VWJyU0tqYUd6WElrUVBLbEVVZHdHZVR3YnIyaVh2WndDWk9ITFJ1N3Jq?=
+ =?utf-8?B?Ny9IOEVEZ3Y1ZkRpU1VCK1ptcklod3MvakJmVkQzRVd2L2lIZXVhYjZpcTU0?=
+ =?utf-8?B?dHpOamhPZ2tIZ3ZST3l6K2ZvbnRWcEY2bGkxKzFHbll3OWtpdndTbFROZ2Na?=
+ =?utf-8?B?YVp0UUViMFRPZCtlSXhDNmV0MUdoWVZNTFVZKytMK1hIYWFSZ0pHazRqUFgy?=
+ =?utf-8?B?V3FhQ2ZWWFJyY1VCTDVrdTBHbEpYdkZjZUtmTThZaVNQNU8rdkY0S0srM2ZQ?=
+ =?utf-8?B?U3pSVHZvWld5TFBYNUN3TUNsdjMzc1Fvb1haOUZoclFzdkxFWmhXOS9KemE0?=
+ =?utf-8?B?T1VRR2NxUm0wWDZKUUlPdUVtQTIydHBhTWlrd093UzVRdmtQenpDMnNncHN4?=
+ =?utf-8?B?WVhpaGhVM3NqN3lDTUIwem95YXVwU1hoZmk4b2d2MUZyVW1lR3cyMVpPZDhT?=
+ =?utf-8?B?bUxoTWt4UVJJcU9WbTdZOFFSN25VK0RseG1pTENYL0ovQWU5RFowakdvWmVD?=
+ =?utf-8?B?cDc2SjdFUC90WTV6YzE2TFBHS1BTQnpzdSs5Vm12cTZEdUovSGZ1MzBHR3h4?=
+ =?utf-8?B?Rm5kSGFtVXI2enFRejJ1WFNzYXF0NS83ZmVNaGhvMmZJN0h0YlV3SWs2dTB4?=
+ =?utf-8?B?ek1VT3cwT3ZNdGoxUXh6SUVYbDV5cTRpNXk4NGVFd3hZR1cvYWwzTnA1M2Q1?=
+ =?utf-8?B?cGVjK1pMZmpNM1VEWVh1elptWlJ1M0JkNEkxZHlEZUtSaTZoNjVQN09OOVda?=
+ =?utf-8?B?ODNBRFQyalJESDFtTHQ2akk5VXg4aHk5VS9hVStaNTB2STJRbHNlQ0NSbEpW?=
+ =?utf-8?B?emZQU2JOeGpqellXK2NqOU9WbW40VXRZS2N6MDd6OTl4ckpjeFZydXNZeFlZ?=
+ =?utf-8?B?WXllRmVRd2dheVBRc0hZR1oyR3BYNEpaK3UrWTdmMEo4bkxCNkxOSUJoSkMx?=
+ =?utf-8?B?OEtyNU5SejdVU09ocG1oTU41T2I2S2JicDZEV2hVM2F5dkhvOVp2YldjNWJL?=
+ =?utf-8?B?RHVTdXo4djNOL2pmOHQvSnFWQmtQcUR6VXYraG9KU2U3TE5lU29UTmJhQmpM?=
+ =?utf-8?B?VFNCc1R4QWtxUEVyMkJLZGFOVnZVL0QzcWIrZFR0QjFEaWltREJvMWR4UGUx?=
+ =?utf-8?B?bXBoZjB0cWtNMThFNStaR2h5QWZneTlnd3EwQ25kb3JVeXExRVR1bGhSSkg5?=
+ =?utf-8?B?NGppKzMrMkpxbFpVcFJiN3Azc1g5d3NUYVl4UG9QNlB5aDRER0Z0UzFiMUtY?=
+ =?utf-8?B?ajVtVXB4RVR3L2xranNrWWJEbnZJc0JDUy9sYXhyWEg1K0JmeWRqTnROVmNs?=
+ =?utf-8?B?OGpLcHFmTGxkTmw0Z3BiR20yVDFkTm1FeGt5TGI0ZklSVW1QZGRKVnY1dDhm?=
+ =?utf-8?Q?FVBb4rbrgX/FBo2frGWvri4Q0pIVAc4LRgGU5yEdp08eA?=
+X-MS-Exchange-AntiSpam-MessageData-1: Lh4pxOdINmLxEA==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e55c16d-f331-4736-9dd7-08ded03777dc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c04bf70-86e1-46b6-2194-08ded0377a20
 X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 08:22:58.7047 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 08:23:02.4676 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +FkEFa8/JQsHUwlWjbJYw+ElVLz3DRmPEoY0B7bbiEjvDZ/AuWRZgiV8m1HZbgv9eop2osw61dS9Un9LzbFIpQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4JIIrgxhdchPwNrvg6sYMm7GjfSjxvh06P/6oaIedcs7SxwvhjmS+u607aTmTSN69eYhkqxzF/8PCmMX8EuWiw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFC908D89D1
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -146,38 +146,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The resources (channels, syncpoints) provided by Host1x can be split 
-into multiple independent partitions similar to e.g. PCIe VFs, which can 
-be assigned to virtual machines, non-CPU embedded controllers, or other 
-bus masters.
-
-Each partition has its own MMIO register region and interrupts through 
-which the set of channels and syncpoints assigned to it can be accessed. 
-This set is configured via the hypervisor MMIO region earlier during 
-boot.
-
-This series adds device tree bindings and support in the driver to 
-function when Host1x has been partitioned in this way, by making the 
-driver work without access to the hypervisor region and with a limited 
-set of channels and syncpoints.
+Host1x can be used without accessing the hypervisor or common
+registers. Adjust the bindings to make them optional.
 
 Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
 ---
-Mikko Perttunen (4):
-      dt-bindings: display: tegra: Make non-vm registers optional
-      dt-bindings: display: tegra: Add channel/syncpoint range properties
-      gpu: host1x: Support running without hv/common registers
-      gpu: host1x: Allow limiting usable channel and syncpoint ranges
+ .../display/tegra/nvidia,tegra20-host1x.yaml       | 40 ++++++++++++++--------
+ 1 file changed, 26 insertions(+), 14 deletions(-)
 
- .../display/tegra/nvidia,tegra20-host1x.yaml       | 52 ++++++++++++++++------
- drivers/gpu/host1x/channel.c                       |  6 +--
- drivers/gpu/host1x/dev.c                           | 52 +++++++++++++++++++---
- drivers/gpu/host1x/dev.h                           |  3 ++
- drivers/gpu/host1x/hw/cdma_hw.c                    |  3 ++
- drivers/gpu/host1x/hw/debug_hw_1x06.c              |  3 ++
- drivers/gpu/host1x/syncpt.c                        | 21 +++++----
- 7 files changed, 110 insertions(+), 30 deletions(-)
----
-base-commit: 4549871118cf616eecdd2d939f78e3b9e1dddc48
-change-id: 20250919-host1x-nohv-071ed7c6ac4f
+diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml
+index 3563378a01af..ffd0ed857d28 100644
+--- a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml
++++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-host1x.yaml
+@@ -145,14 +145,20 @@ allOf:
+     then:
+       properties:
+         reg-names:
+-          items:
+-            - const: hypervisor
+-            - const: vm
++          oneOf:
++            - items:
++                - const: hypervisor
++                - const: vm
++            - items:
++                - const: vm
+ 
+         reg:
+-          items:
+-            - description: region used by the hypervisor
+-            - description: region assigned to the virtual machine
++          oneOf:
++            - items:
++                - description: region used by the hypervisor
++                - description: region assigned to the virtual machine
++            - items:
++                - description: region assigned to the virtual machine
+ 
+         resets:
+           maxItems: 1
+@@ -195,16 +201,22 @@ allOf:
+     then:
+       properties:
+         reg-names:
+-          items:
+-            - const: common
+-            - const: hypervisor
+-            - const: vm
++          oneOf:
++            - items:
++                - const: common
++                - const: hypervisor
++                - const: vm
++            - items:
++                - const: vm
+ 
+         reg:
+-          items:
+-            - description: region used by host1x server
+-            - description: region used by the hypervisor
+-            - description: region assigned to the virtual machine
++          oneOf:
++            - items:
++                - description: region used by host1x server
++                - description: region used by the hypervisor
++                - description: region assigned to the virtual machine
++            - items:
++                - description: region assigned to the virtual machine
+ 
+         interrupts:
+           items:
+
+-- 
+2.53.0
 
