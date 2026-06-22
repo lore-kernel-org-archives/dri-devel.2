@@ -4,127 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FE63CD98F6
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 05:28:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01C8ACDB46B
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 05:58:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1E3310E4A4;
-	Mon, 22 Jun 2026 05:28:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1553510E097;
+	Mon, 22 Jun 2026 05:58:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="n/lIYKNT";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Zc9WpnmJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jiJXB5Lm";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Zc9WpnmJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jiJXB5Lm";
 	dkim-atps=neutral
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
- [209.85.215.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DE8D10E4A4
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 05:28:52 +0000 (UTC)
-Received: by mail-pg1-f177.google.com with SMTP id
- 41be03b00d2f7-c85a297d2d2so2695036a12.0
- for <dri-devel@lists.freedesktop.org>; Sun, 21 Jun 2026 22:28:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782106132; cv=none;
- d=google.com; s=arc-20240605;
- b=flJSYhXrf2aWr/aRMgPm9H8VFS7Xdl5rWB8HQcDPRWKQnLupK65t0HJsAWgEdlJd2+
- 5KsjAQuy91Wg8UuZZYmOMaC5gFXmvItZTm42d3QLqExHopq3JtjKVa0Y78W7pPIyrKuK
- 6CCIkfKV0PmKFycvefnQZw2il4+u26WbTddB6HQ4NpBEnFS0lVfaS6wesrb6KAjkfhUx
- wBkNdvfw+slkH2Q6sXbDPcGqJOvgAVcsT42fhKyocV0vm0DrHkGOE/QDvzMljUJZQ90r
- HkIZqqmMJ5dTqev9D+GKLU3FRuRXC+Un3Zj+OXsZF8otuTaJc6wo18ZOVzVH6d1jnZtP
- s36w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=5KNOLAwZyaBThMY1NJgMdUSjBoVwiFJr4CThsL0B6VY=;
- fh=tUQnCfyHTJfrk2gX+ETsaOPW1uxNAkPE5ylZaSfs0m4=;
- b=j4/J/KiBNLcgXlJq+SG7d5uh5gEuc7N3FH7Pj+Pg9D8l7EqlbocQiJG+vgkaWWT1rX
- DBSc0tRdAPM13Uzgs1iSV6Gr6KYpzcdYetCDJjNXi9xTw5LOv81Isjbn0vmx3V/UnjA2
- ROItGlgZrOEMR1SbkOjhg+/0M2qL0ZKomzK9lOQDhK7db33LoUovdiP52Pd/m6dGw398
- 5XeYnzk/vHB56vtCa4oUEe+9AKsAu8AQQNk2x7Y9pFexyoOPgqBG2mW1oMF+Z8mMHxVg
- asQBANEd7rPVYuCgQatYunviP8mmEfT7mesF+/u2xDev3z/wTL5v9D1kTp7ZYap1ukTS
- EILA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782106132; x=1782710932; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5KNOLAwZyaBThMY1NJgMdUSjBoVwiFJr4CThsL0B6VY=;
- b=n/lIYKNTVSNQXeMTWwZnhd9ZX8222RVeRzWsJKEyoOhP/tRnYTd7IiHD3LoQ0a1LJ2
- OQNRFJ+ifbabAAYpW2bdRtWoDXgSJgfgrsf0BXaLlXh8dPpwf/p2ZbZ8INSc0TbtFvLX
- qpRJymxZBVP/IRliM3T6ad4/B3Ui97PBx9XG6DOEIygZAvUAVfrexC9IYw1d/R+m60i2
- yOMMx8egfaTlLKRYokvpXQWqWiIdY7UCsl5u2F2nWjYpz5iFkrDAxmJhohA8dG+v8Zu4
- ique8LesQ6yv/ku/vbg7M0yl63jMJCo0hSQcssMARi9zsM/w3hBazxkC5lD6VCMJFEnz
- +RQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782106132; x=1782710932;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=5KNOLAwZyaBThMY1NJgMdUSjBoVwiFJr4CThsL0B6VY=;
- b=ALvCaYosr2v5fKpmJquD32CGFBnw/kJLGiSN4m+VTPf0ge7G/CdZ1h2DX0Y8CM7Xee
- J55W32JOZquckf4WcTZUBFTZ9JxkdGehftW1CaWH8BkViqc56AXVybgShpO42UFpHXOJ
- UFp9GIerQ9ZoC2luSHMSbHRY8j9gtVraEFR3KP7+D3UuaSkh278DedzLturwHTXyGQkx
- 1btNjGC7RSSYoE337VIIqy/LjUQY4wN79M2//OQS1NjiB7Fk59vlERm44dccwGPsGhC0
- ipRQ+dk9wP8FFf/dXZs7NruT8hpaHbzSWkElbSaKnFpOYV1Lp428GCzD5JdowjPNJBWH
- i4pA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ81UEglQBK2Rlsw+D6Zdy+TwE9mHK437pLYpnahQ3qQVPwPl/pY3wuo+hLxuR5E3Vd2pgMsi9lfzZU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YySWrAUnk6FfOovVPpPAKgInEABBlyNAHPX3FZXw2vR+h0XVuxF
- c1x623lnIB5BRpuBiwEcn0KYF3NoGEG5KzL/Q8i0um11cD3JQwCXa68rmUsDo/WUrfEVPfJx659
- Oe1CjZGuDQDDkjz6X2W8TRM6Xw3qVz4A=
-X-Gm-Gg: AfdE7cnFwu9QK5znSCy/o9paxevFfSxSxFlqlvT7D42zIHvO5c+1QztQp18jFWPryMu
- Mhbp3HnruXJh8/xYgisOIZGHG/F1cx4vg8a7ZG612UwQGyw5zLEL7tiTdjZyNqHTKwJOyir0qvL
- G1nZGjkunzv/nbdCt3k3sJt+YbTsXNOQz7/f5CFLU+LYc0nfdg4foTYbg/bMnGA/aQAEzRipxuV
- 1ZBilvUlP7g1iN7VLo2aYvTWMv35Myana9y1y1j6SwyMH12cX8Q5Du+1QfxD92r4VdIdvnIX4ht
- /sOgKoyzjj4xNTwHwg6ipmaLYZYpAaT7NQNr1OQrDPJX24cx80Tt77Tse7M073DnKPsWfVo5Wlb
- 7To0efeGwjDhJrTFq7yuwC3rP
-X-Received: by 2002:a05:6a21:9102:b0:3b7:b328:4c8b with SMTP id
- adf61e73a8af0-3bb3241d5bemr15602261637.19.1782106131632; Sun, 21 Jun 2026
- 22:28:51 -0700 (PDT)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 252B210E097
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 05:58:18 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3A59970324;
+ Mon, 22 Jun 2026 05:58:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782107896; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=tiLOxw/5DMj27pU7JV59kuI8HK0rOkCb9xRgOwntrrs=;
+ b=Zc9WpnmJ6rc5UzuE4xPxBiSwn2MU33ZOHHy79iapMD+LDjsoGj1IdpqYLTrGWbRia0aoxt
+ kvLmmZyyAcetjFnEcVwjoHFUm5yEwD3yHsH1uOW+j2hYahhva2mVhPAPom2MXaAylPc32r
+ 2jJxe3hcwyYWAJ6QvKRaYbLrdKWrwqE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782107896;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=tiLOxw/5DMj27pU7JV59kuI8HK0rOkCb9xRgOwntrrs=;
+ b=jiJXB5LmGlt7XTGLE+e2Wyd5/Fld0NP/SoxJt4J1mZR1M25Zn3hAecxxNszb22LOZyQu2N
+ iC20xl0SpNJB1EBg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Zc9WpnmJ;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=jiJXB5Lm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782107896; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=tiLOxw/5DMj27pU7JV59kuI8HK0rOkCb9xRgOwntrrs=;
+ b=Zc9WpnmJ6rc5UzuE4xPxBiSwn2MU33ZOHHy79iapMD+LDjsoGj1IdpqYLTrGWbRia0aoxt
+ kvLmmZyyAcetjFnEcVwjoHFUm5yEwD3yHsH1uOW+j2hYahhva2mVhPAPom2MXaAylPc32r
+ 2jJxe3hcwyYWAJ6QvKRaYbLrdKWrwqE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782107896;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=tiLOxw/5DMj27pU7JV59kuI8HK0rOkCb9xRgOwntrrs=;
+ b=jiJXB5LmGlt7XTGLE+e2Wyd5/Fld0NP/SoxJt4J1mZR1M25Zn3hAecxxNszb22LOZyQu2N
+ iC20xl0SpNJB1EBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0F100779A8;
+ Mon, 22 Jun 2026 05:58:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id UH51AvjOOGqWZgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 22 Jun 2026 05:58:16 +0000
+Message-ID: <fb12d338-b895-40e4-9a3e-791b8ecb3af4@suse.de>
+Date: Mon, 22 Jun 2026 07:58:15 +0200
 MIME-Version: 1.0
-References: <20260622040533.29824-1-kaitao.cheng@linux.dev>
-In-Reply-To: <20260622040533.29824-1-kaitao.cheng@linux.dev>
-From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Date: Sun, 21 Jun 2026 22:28:40 -0700
-X-Gm-Features: AVVi8CdydPWkgrsWeukABG1V_xsA12RL457Ae_ewOX27KaNNGTwhs0J8OHNbSBg
-Message-ID: <CAADnVQJmPWFT01b7DuLdtafv=8FyB84GYHNZ8zSTck+9Aw0JpA@mail.gmail.com>
-Subject: Re: [PATCH v3 0/7] Prepare mutable list iterators to cache cursor
- state
-To: Kaitao Cheng <kaitao.cheng@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, 
- Jens Axboe <axboe@kernel.dk>, Tejun Heo <tj@kernel.org>, 
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Paul Moore <paul@paul-moore.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- "Paul E. McKenney" <paulmck@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Howells <dhowells@redhat.com>, Simona Vetter <simona.vetter@ffwll.ch>, 
- Randy Dunlap <rdunlap@infradead.org>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Philipp Stanner <phasta@kernel.org>, linux-block@vger.kernel.org, 
- LKML <linux-kernel@vger.kernel.org>, 
- "open list:CONTROL GROUP (CGROUP)" <cgroups@vger.kernel.org>,
- linux-ntfs-dev@lists.sourceforge.net, 
- Linux-Fsdevel <linux-fsdevel@vger.kernel.org>,
- io-uring <io-uring@vger.kernel.org>, 
- audit@vger.kernel.org, bpf <bpf@vger.kernel.org>, 
- Network Development <netdev@vger.kernel.org>, dri-devel@lists.freedesktop.org, 
- "linux-perf-use." <linux-perf-users@vger.kernel.org>, 
- linux-trace-kernel <linux-trace-kernel@vger.kernel.org>,
- kexec@lists.infradead.org, 
- live-patching@vger.kernel.org, linux-modules@vger.kernel.org, 
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>, 
- Linux Power Management <linux-pm@vger.kernel.org>, rcu@vger.kernel.org,
- sched-ext@lists.linux.dev, 
- linux-mm <linux-mm@kvack.org>, virtualization@lists.linux.dev,
- damon@lists.linux.dev, 
- clang-built-linux <llvm@lists.linux.dev>, chengkaitao <chengkaitao@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/fb_helper: Determine proper crtc_index within
+ drm_fb_helper_fb_dirty
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+Cc: sashiko-reviews@lists.linux.dev, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
+ dri-devel@lists.freedesktop.org, Andreas Kemnade <akemnade@kernel.org>,
+ Discussions about the Letux Kernel <letux-kernel@openphoenux.org>
+References: <5118b37e579cec220f2d2b6ab0bb1ecfb67f0d5c.1781803617.git.hns@goldelico.com>
+ <20260618174310.70DB11F000E9@smtp.kernel.org>
+ <50FDBC3B-BFC2-4BC6-B216-78C2C24D9E30@goldelico.com>
+ <1c9e0e24-9c4a-4259-8700-cf9e5fd60ca3@suse.de>
+ <D08962D1-4D1D-49C5-A60F-89CB7F7E0378@goldelico.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <D08962D1-4D1D-49C5-A60F-89CB7F7E0378@goldelico.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 3A59970324
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ TO_DN_SOME(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_FIVE(0.00)[6];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,200 +153,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jun 21, 2026 at 9:06=E2=80=AFPM Kaitao Cheng <kaitao.cheng@linux.de=
-v> wrote:
->
-> From: chengkaitao <chengkaitao@kylinos.cn>
->
-> The list_for_each*_safe() helpers are used when the loop body may remove
-> the current entry.  Their current interface, however, forces every caller
-> to define a temporary cursor outside the macro and pass it in, even when
-> the caller never uses that cursor directly.  For most call sites this
-> extra cursor is just boilerplate required by the macro implementation.
->
-> This is awkward because the saved next pointer is an internal detail of
-> the iteration.  Callers that only remove or move the current entry do not
-> need to spell it out.
->
-> The _safe() suffix has also caused confusion.  Christian Koenig pointed
-> out that the name is easy to read as a thread-safe variant, especially
-> for beginners, even though it only means that the iterator keeps enough
-> state to tolerate removal of the current entry.  He suggested _mutable()
-> as a clearer description of what the loop permits.
->
-> Add *_mutable() iterator variants for list, hlist and llist.  The new
-> helpers are variadic and support both forms.  In the common case, the
-> caller omits the temporary cursor and the macro creates a unique internal
-> cursor with typeof(pos) and __UNIQUE_ID().  If a loop really needs an
-> explicit temporary cursor, the caller can still pass it and the helper
-> keeps the existing *_safe() behaviour.
->
-> For example, a call site may use the shorter form:
->
->   list_for_each_entry_mutable(pos, head, member)
->
-> or keep the explicit temporary cursor form:
->
->   list_for_each_entry_mutable(pos, tmp, head, member)
->
-> The existing *_safe() helpers remain available for compatibility.  This
-> series only converts users in mm, block, kernel, init and io_uring.  If
-> this approach looks acceptable, the remaining users can be converted in
-> follow-up series.
->
-> Changes in v3 (Christian K=C3=B6nig, Andy Shevchenko):
-> - Convert safe list walks to mutable iterators
->
-> Changes in v2 (Muchun Song, Andy Shevchenko):
-> - Drop the list_for_each_entry_mutable*() helpers from v1 and make the
->   cursor change directly in the existing list_for_each_entry*() helpers.
-> - Open-code special list walks that rely on updating the loop cursor in
->   the body, preserving their existing traversal semantics.
->
-> Link to v2:
-> https://lore.kernel.org/all/20260609061347.93688-1-kaitao.cheng@linux.dev=
-/
->
-> Link to v1:
-> https://lore.kernel.org/all/20260529082149.76764-1-kaitao.cheng@linux.dev=
-/
->
-> Kaitao Cheng (7):
->   list: Add mutable iterator variants
->   llist: Add mutable iterator variants
->   mm: Use mutable list iterators
->   block: Use mutable list iterators
->   kernel: Use mutable list iterators
->   initramfs: Use mutable list iterator
->   io_uring: Use mutable list iterators
->
->  block/bfq-iosched.c                 |  17 +-
->  block/blk-cgroup.c                  |  12 +-
->  block/blk-flush.c                   |   4 +-
->  block/blk-iocost.c                  |  18 +-
->  block/blk-mq.c                      |   8 +-
->  block/blk-throttle.c                |   4 +-
->  block/kyber-iosched.c               |   4 +-
->  block/partitions/ldm.c              |   8 +-
->  block/sed-opal.c                    |   4 +-
->  include/linux/list.h                | 269 ++++++++++++++++++++++++----
->  include/linux/llist.h               |  81 +++++++--
->  init/initramfs.c                    |   5 +-
->  io_uring/cancel.c                   |   6 +-
->  io_uring/poll.c                     |   3 +-
->  io_uring/rw.c                       |   4 +-
->  io_uring/timeout.c                  |   8 +-
->  io_uring/uring_cmd.c                |   3 +-
->  kernel/audit_tree.c                 |   4 +-
->  kernel/audit_watch.c                |  16 +-
->  kernel/auditfilter.c                |   4 +-
->  kernel/auditsc.c                    |   4 +-
->  kernel/bpf/arena.c                  |  10 +-
->  kernel/bpf/arraymap.c               |   8 +-
->  kernel/bpf/bpf_local_storage.c      |   3 +-
->  kernel/bpf/bpf_lru_list.c           |  25 ++-
->  kernel/bpf/btf.c                    |  18 +-
->  kernel/bpf/cgroup.c                 |   7 +-
->  kernel/bpf/cpumap.c                 |   4 +-
->  kernel/bpf/devmap.c                 |  10 +-
->  kernel/bpf/helpers.c                |   8 +-
->  kernel/bpf/local_storage.c          |   4 +-
->  kernel/bpf/memalloc.c               |  16 +-
->  kernel/bpf/offload.c                |   8 +-
->  kernel/bpf/states.c                 |   4 +-
->  kernel/bpf/stream.c                 |   4 +-
->  kernel/bpf/verifier.c               |   6 +-
->  kernel/cgroup/cgroup-v1.c           |   4 +-
->  kernel/cgroup/cgroup.c              |  54 +++---
->  kernel/cgroup/dmem.c                |  12 +-
->  kernel/cgroup/rdma.c                |   8 +-
->  kernel/events/core.c                |  44 +++--
->  kernel/events/uprobes.c             |  12 +-
->  kernel/exit.c                       |   8 +-
->  kernel/fail_function.c              |   4 +-
->  kernel/gcov/clang.c                 |   4 +-
->  kernel/irq_work.c                   |   4 +-
->  kernel/kexec_core.c                 |   4 +-
->  kernel/kprobes.c                    |  16 +-
->  kernel/livepatch/core.c             |   4 +-
->  kernel/livepatch/core.h             |   4 +-
->  kernel/liveupdate/kho_block.c       |   4 +-
->  kernel/liveupdate/luo_flb.c         |   4 +-
->  kernel/locking/rwsem.c              |   2 +-
->  kernel/locking/test-ww_mutex.c      |   2 +-
->  kernel/module/main.c                |  11 +-
->  kernel/padata.c                     |   4 +-
->  kernel/power/snapshot.c             |   8 +-
->  kernel/power/wakelock.c             |   4 +-
->  kernel/printk/printk.c              |  11 +-
->  kernel/ptrace.c                     |   4 +-
->  kernel/rcu/rcutorture.c             |   3 +-
->  kernel/rcu/tasks.h                  |   9 +-
->  kernel/rcu/tree.c                   |   6 +-
->  kernel/resource.c                   |   4 +-
->  kernel/sched/core.c                 |   4 +-
->  kernel/sched/ext.c                  |  22 +--
->  kernel/sched/fair.c                 |  28 +--
->  kernel/sched/topology.c             |   4 +-
->  kernel/sched/wait.c                 |   4 +-
->  kernel/seccomp.c                    |   4 +-
->  kernel/signal.c                     |  11 +-
->  kernel/smp.c                        |   4 +-
->  kernel/taskstats.c                  |   8 +-
->  kernel/time/clockevents.c           |   6 +-
->  kernel/time/clocksource.c           |   4 +-
->  kernel/time/posix-cpu-timers.c      |   4 +-
->  kernel/time/posix-timers.c          |   3 +-
->  kernel/torture.c                    |   3 +-
->  kernel/trace/bpf_trace.c            |   4 +-
->  kernel/trace/ftrace.c               |  49 +++--
->  kernel/trace/ring_buffer.c          |  25 ++-
->  kernel/trace/trace.c                |  12 +-
->  kernel/trace/trace_dynevent.c       |   6 +-
->  kernel/trace/trace_dynevent.h       |   5 +-
->  kernel/trace/trace_events.c         |  35 ++--
->  kernel/trace/trace_events_filter.c  |   4 +-
->  kernel/trace/trace_events_hist.c    |   8 +-
->  kernel/trace/trace_events_trigger.c |  17 +-
->  kernel/trace/trace_events_user.c    |  16 +-
->  kernel/trace/trace_stat.c           |   4 +-
->  kernel/user-return-notifier.c       |   3 +-
->  kernel/workqueue.c                  |  16 +-
->  mm/backing-dev.c                    |   8 +-
->  mm/balloon.c                        |   8 +-
->  mm/cma.c                            |   4 +-
->  mm/compaction.c                     |   4 +-
->  mm/damon/core.c                     |   4 +-
->  mm/damon/sysfs-schemes.c            |   4 +-
->  mm/dmapool.c                        |   4 +-
->  mm/huge_memory.c                    |   8 +-
->  mm/hugetlb.c                        |  56 +++---
->  mm/hugetlb_vmemmap.c                |  16 +-
->  mm/khugepaged.c                     |  14 +-
->  mm/kmemleak.c                       |   7 +-
->  mm/ksm.c                            |  25 +--
->  mm/list_lru.c                       |   4 +-
->  mm/memcontrol-v1.c                  |   8 +-
->  mm/memory-failure.c                 |  12 +-
->  mm/memory-tiers.c                   |   4 +-
->  mm/migrate.c                        |  23 ++-
->  mm/mmu_notifier.c                   |   9 +-
->  mm/page_alloc.c                     |   8 +-
->  mm/page_reporting.c                 |   2 +-
->  mm/percpu.c                         |  11 +-
->  mm/pgtable-generic.c                |   4 +-
->  mm/rmap.c                           |  10 +-
->  mm/shmem.c                          |   9 +-
->  mm/slab_common.c                    |  14 +-
->  mm/slub.c                           |  33 ++--
->  mm/swapfile.c                       |   4 +-
->  mm/userfaultfd.c                    |  12 +-
->  mm/vmalloc.c                        |  24 +--
->  mm/vmscan.c                         |   7 +-
->  mm/zsmalloc.c                       |   4 +-
->  124 files changed, 875 insertions(+), 681 deletions(-)
+Hi
 
-Not sure what you were thinking, but this diff stat
-is not landable.
+Am 19.06.26 um 19:17 schrieb H. Nikolaus Schaller:
+> Hi Thomas,
+>
+>
+>> Am 19.06.2026 um 10:50 schrieb Thomas Zimmermann <tzimmermann@suse.de>:
+>>
+>> (cc Icenowy)
+>>
+>> Hi,
+>>
+>> there are a number of similar reports. Does the attached patch fix the problem. It picks up what you do, but in a more correct way.
+> Yes, reverting my version makes the issue come back and after applying yours it is again gone. At least in the scenarios I have tested for the PandaBoard-ES (boot/reboot, unplug/replug, second display or not).
+>
+> Should I take your corrections and resubmit or how to proceed?
 
-pw-bot: cr
+Several people have reported the problem and asked for a fix. I'll send 
+the patch out for review. I'll add you as Co-developed-by, if you like.
+
+Best regards
+Thomas
+
+>
+> Best regards,
+> Nikolaus
+>
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
