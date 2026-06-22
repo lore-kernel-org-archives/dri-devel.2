@@ -4,71 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BB40CDB470
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 04:07:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38504CDB46F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 04:08:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E28E210E442;
-	Mon, 22 Jun 2026 04:07:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79BA110E453;
+	Mon, 22 Jun 2026 04:08:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="RKNYTOPI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a8SstM+u";
 	dkim-atps=neutral
-Received: from out-188.mta0.migadu.com (out-188.mta0.migadu.com
- [91.218.175.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C991810E442
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 04:07:06 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1782101224;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vFaoYZTJfRDH9hDuVHVBgZkR1flChQcp5jR5STw0K2M=;
- b=RKNYTOPII31SLlFemAcWqWE/TeS/HQJl7crveXc7GdzZz5I+TjbXRbbkZaQSvN3TmVtVYT
- nSSDvsZk7jNyt6B/E4YmD4cYyLjd5RE2oOf/Hiy1FZ2NcIRHyitOaBZNUaYo6dvHseOLCi
- TzRgynUCXY7wguiC8GKfv0LXaYiHBGc=
-From: Kaitao Cheng <kaitao.cheng@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Tejun Heo <tj@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Paul Moore <paul@paul-moore.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- "Paul E. McKenney" <paulmck@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Howells <dhowells@redhat.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Randy Dunlap <rdunlap@infradead.org>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Philipp Stanner <phasta@kernel.org>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
- linux-ntfs-dev@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, audit@vger.kernel.org, bpf@vger.kernel.org,
- netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- kexec@lists.infradead.org, live-patching@vger.kernel.org,
- linux-modules@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-pm@vger.kernel.org, rcu@vger.kernel.org, sched-ext@lists.linux.dev,
- linux-mm@kvack.org, virtualization@lists.linux.dev, damon@lists.linux.dev,
- llvm@lists.linux.dev, Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH v3 2/7] llist: Add mutable iterator variants
-Date: Mon, 22 Jun 2026 12:05:32 +0800
-Message-ID: <20260622040533.29824-3-kaitao.cheng@linux.dev>
-In-Reply-To: <20260622040533.29824-1-kaitao.cheng@linux.dev>
-References: <20260622040533.29824-1-kaitao.cheng@linux.dev>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22A4110E453
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 04:07:59 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E68324322E;
+ Mon, 22 Jun 2026 04:07:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB5971F000E9;
+ Mon, 22 Jun 2026 04:07:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782101278;
+ bh=3zjXoVpOVbXZJ0xbX6Cq7WZ14E/imG4WLyqFoNMDMxE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=a8SstM+uYss+EeX7q/S2jAVGNiWqg/32IED/IGa3uba9ViipiONET90jux4tj1O/x
+ iAnskq7+HriARbCqvWl7zByDKkQXl/KAGfv8l7Sk1ZN3jzWx7dtIEo2h8h5HMDWw94
+ DBFJAZK3oSgNWPz99rqkQBuZY8GEmqsb5nhPPmuK0y1MNO9YWGaAC7hEGZLTdcah0t
+ 0GXTbWGkFUk7v/dUc0amoNKSrxZjMQtvyYe4tmb0SPRbo9CoakNIP/AzY//0fze/0n
+ Ukuuu6kOSM/CcmH3TMwuVy40Wcool4ZLCNxQZZhs2XUqhBu/gQ842AA4Vd1/ypVqAa
+ sjLq/92E7BHSw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 4/5] nouveau/gsp/rm/bar: Cleanup IS_ERR_OR_NULL usage
+To: "Hongling Zeng" <zenghongling@kylinos.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260622035454.28003-5-zenghongling@kylinos.cn>
+References: <20260622035454.28003-1-zenghongling@kylinos.cn>
+ <20260622035454.28003-5-zenghongling@kylinos.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 22 Jun 2026 04:07:58 +0000
+Message-Id: <20260622040758.AB5971F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,155 +53,93 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Kaitao Cheng <chengkaitao@kylinos.cn>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-llist_for_each_safe() and llist_for_each_entry_safe() require callers to
-provide a temporary cursor even when the cursor is only needed by the
-iterator itself.  This makes call sites noisier than necessary for the
-common case where the loop body may remove the current entry but does
-not otherwise inspect the saved next pointer.
+Pre-existing issues:
+- [High] Large GSP RPC messages are leaked when an error occurs during chun=
+ked transmission.
+--
 
-Add llist_for_each_mutable() and llist_for_each_entry_mutable() variants
-that support both forms.  Callers may omit the temporary cursor and let
-the helper create an internal unique cursor, or keep passing an explicit
-cursor when the loop needs to inspect or reset it.
+commit fa8eea5c56bcb72beec86aeaab70f0ec3eed80b9
+Author: Hongling Zeng <zenghongling@kylinos.cn>
 
-Keep the existing safe helpers as compatibility wrappers so current users
-continue to build unchanged while new code can use the shorter mutable
-form.
+nouveau/gsp/rm/bar: Cleanup IS_ERR_OR_NULL usage
 
-Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
----
- include/linux/llist.h | 81 ++++++++++++++++++++++++++++++++++---------
- 1 file changed, 65 insertions(+), 16 deletions(-)
+r535_bar_bar2_update_pde() calls nvkm_gsp_rpc_get() which never
+returns NULL, only valid pointers or error pointers. Clean up by
+using IS_ERR() instead, matching the actual return value contract.
 
-diff --git a/include/linux/llist.h b/include/linux/llist.h
-index 8846b7709669..1c6f12411d5e 100644
---- a/include/linux/llist.h
-+++ b/include/linux/llist.h
-@@ -49,6 +49,7 @@
-  */
- 
- #include <linux/atomic.h>
-+#include <linux/args.h>
- #include <linux/container_of.h>
- #include <linux/stddef.h>
- #include <linux/types.h>
-@@ -143,12 +144,33 @@ static inline bool llist_on_list(const struct llist_node *node)
- #define llist_for_each(pos, node)			\
- 	for ((pos) = (node); pos; (pos) = (pos)->next)
- 
-+/*
-+ * llist_for_each_safe is an old interface, use llist_for_each_mutable instead.
-+ */
-+#define llist_for_each_safe(pos, n, node)			\
-+	for ((pos) = (node); (pos) && ((n) = (pos)->next, true); (pos) = (n))
-+
-+#define __llist_for_each_mutable_internal(pos, tmp, node)		\
-+	for (typeof(pos) tmp = ((pos) = (node)) ? (pos)->next : NULL;	\
-+	     (pos);							\
-+	     (pos) = tmp, tmp = (pos) ? (pos)->next : NULL)
-+
-+#define __llist_for_each_mutable1(pos, node)				\
-+	__llist_for_each_mutable_internal(pos, __UNIQUE_ID(next), node)
-+
-+#define __llist_for_each_mutable2(pos, next, node)			\
-+	llist_for_each_safe(pos, next, node)
-+
- /**
-- * llist_for_each_safe - iterate over some deleted entries of a lock-less list
-- *			 safe against removal of list entry
-+ * llist_for_each_mutable - iterate over some deleted entries of a lock-less list
-+ *			    safe against removal of list entry
-  * @pos:	the &struct llist_node to use as a loop cursor
-- * @n:		another &struct llist_node to use as temporary storage
-- * @node:	the first entry of deleted list entries
-+ * @...:	either (node) or (next, node)
-+ *
-+ * next:	another &struct llist_node to use as optional temporary storage.
-+ *		The temporary cursor is internal unless explicitly supplied by
-+ *		the caller.
-+ * node:	the first entry of deleted list entries
-  *
-  * In general, some entries of the lock-less list can be traversed
-  * safely only after being deleted from list, so start with an entry
-@@ -159,8 +181,9 @@ static inline bool llist_on_list(const struct llist_node *node)
-  * you want to traverse from the oldest to the newest, you must
-  * reverse the order by yourself before traversing.
-  */
--#define llist_for_each_safe(pos, n, node)			\
--	for ((pos) = (node); (pos) && ((n) = (pos)->next, true); (pos) = (n))
-+#define llist_for_each_mutable(pos, ...)				\
-+	CONCATENATE(__llist_for_each_mutable, COUNT_ARGS(__VA_ARGS__))	\
-+		(pos, __VA_ARGS__)
- 
- /**
-  * llist_for_each_entry - iterate over some deleted entries of lock-less list of given type
-@@ -182,13 +205,41 @@ static inline bool llist_on_list(const struct llist_node *node)
- 	     member_address_is_nonnull(pos, member);			\
- 	     (pos) = llist_entry((pos)->member.next, typeof(*(pos)), member))
- 
-+/*
-+ * llist_for_each_entry_safe is an old interface, use llist_for_each_entry_mutable instead.
-+ */
-+#define llist_for_each_entry_safe(pos, n, node, member)			       \
-+	for (pos = llist_entry((node), typeof(*pos), member);		       \
-+	     member_address_is_nonnull(pos, member) &&			       \
-+	        (n = llist_entry(pos->member.next, typeof(*n), member), true); \
-+	     pos = n)
-+
-+#define __llist_for_each_entry_mutable_internal(pos, tmp, node, member)	\
-+	for (typeof(pos) tmp = ((pos) = llist_entry((node), typeof(*pos), member), \
-+		member_address_is_nonnull(pos, member) ?			\
-+		llist_entry((pos)->member.next, typeof(*pos), member) : NULL);	\
-+	     member_address_is_nonnull(pos, member);				\
-+	     (pos) = tmp, tmp = member_address_is_nonnull(pos, member) ?	\
-+		llist_entry((pos)->member.next, typeof(*pos), member) : NULL)
-+
-+#define __llist_for_each_entry_mutable2(pos, node, member)			\
-+	__llist_for_each_entry_mutable_internal(pos, __UNIQUE_ID(next), node, member)
-+
-+#define __llist_for_each_entry_mutable3(pos, next, node, member)		\
-+	llist_for_each_entry_safe(pos, next, node, member)
-+
- /**
-- * llist_for_each_entry_safe - iterate over some deleted entries of lock-less list of given type
-- *			       safe against removal of list entry
-+ * llist_for_each_entry_mutable - iterate over some deleted entries of
-+ *				  lock-less list of given type safe against
-+ *				  removal of list entry
-  * @pos:	the type * to use as a loop cursor.
-- * @n:		another type * to use as temporary storage
-- * @node:	the first entry of deleted list entries.
-- * @member:	the name of the llist_node with the struct.
-+ * @...:	either (node, member) or (next, node, member)
-+ *
-+ * next:	another type * to use as optional temporary storage. The
-+ *		temporary cursor is internal unless explicitly supplied by the
-+ *		caller.
-+ * node:	the first entry of deleted list entries.
-+ * member:	the name of the llist_node with the struct.
-  *
-  * In general, some entries of the lock-less list can be traversed
-  * safely only after being removed from list, so start with an entry
-@@ -199,11 +250,9 @@ static inline bool llist_on_list(const struct llist_node *node)
-  * you want to traverse from the oldest to the newest, you must
-  * reverse the order by yourself before traversing.
-  */
--#define llist_for_each_entry_safe(pos, n, node, member)			       \
--	for (pos = llist_entry((node), typeof(*pos), member);		       \
--	     member_address_is_nonnull(pos, member) &&			       \
--	        (n = llist_entry(pos->member.next, typeof(*n), member), true); \
--	     pos = n)
-+#define llist_for_each_entry_mutable(pos, ...)				\
-+	CONCATENATE(__llist_for_each_entry_mutable,			\
-+		COUNT_ARGS(__VA_ARGS__))(pos, __VA_ARGS__)
- 
- /**
-  * llist_empty - tests whether a lock-less list is empty
--- 
-2.43.0
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c b/driv=
+ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c
+> index fae08ac3b18c7..9cd68f8622d36 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/bar.c
+> @@ -55,7 +55,7 @@ r535_bar_bar2_update_pde(struct nvkm_gsp *gsp, u8 page_=
+shift, u64 pdbe)
+>  	rpc_update_bar_pde_v15_00 *rpc;
+> =20
+>  	rpc =3D nvkm_gsp_rpc_get(gsp, NV_VGPU_MSG_FUNCTION_UPDATE_BAR_PDE, size=
+of(*rpc));
+> -	if (WARN_ON(IS_ERR_OR_NULL(rpc)))
+> +	if (WARN_ON(IS_ERR(rpc)))
+>  		return -EIO;
+> =20
+>  	rpc->info.barType =3D NV_RPC_UPDATE_PDE_BAR_2;
 
+[Severity: High]
+This is a pre-existing issue, but while looking at the GSP RPC handling, I
+noticed a potential memory leak in r535_gsp_rpc_push().
+
+When transmitting large GSP RPC payloads (where payload_size is larger than
+max_payload_size), the original large message buffer (msg) can be leaked if
+an error occurs.
+
+If an error occurs during the chunking process, such as failing to allocate
+a smaller chunk, the code jumps to the done label:
+
+drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c:r535_gsp_rpc_push() {
+    ...
+		next =3D r535_gsp_rpc_get(gsp, NV_VGPU_MSG_FUNCTION_CONTINUATION_RECORD, =
+size);
+		if (IS_ERR(next)) {
+			repv =3D next;
+			goto done;
+		}
+    ...
+
+The same happens if there's a timeout or error from r535_gsp_rpc_send():
+
+			repv =3D r535_gsp_rpc_send(gsp, next, NVKM_GSP_RPC_REPLY_NOWAIT, 0);
+			if (IS_ERR(repv))
+				goto done;
+    ...
+
+Also, if r535_gsp_rpc_handle_reply() returns an error, the code skips the f=
+ree:
+
+		/* Wait for reply. */
+		repv =3D r535_gsp_rpc_handle_reply(gsp, fn, policy, payload_size +
+						 sizeof(*rpc));
+		if (!IS_ERR(repv))
+			kvfree(msg);
+	} else {
+    ...
+done:
+	mutex_unlock(&gsp->cmdq.mutex);
+	return repv;
+}
+
+Since the done label only drops the mutex and returns, doesn't this
+permanently leak the msg buffer on any of these error paths?
+
+Could this exacerbate memory pressure or lead to out of memory conditions if
+large RPC transmissions repeatedly fail?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622035454.2800=
+3-1-zenghongling@kylinos.cn?part=3D4
