@@ -4,134 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3928BCDB46F
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 13:23:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55034CDB471
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 13:23:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 969F410E6DA;
-	Mon, 22 Jun 2026 13:23:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EAEA10E6CF;
+	Mon, 22 Jun 2026 13:23:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CXmV8iUN";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KnRPW7LZ";
+	dkim=pass (2048-bit key; secure) header.d=adamthiede.com header.i=@adamthiede.com header.b="h3KwdA3h";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A27C10E6D4
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 13:23:12 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65MDGDXR1261030
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 13:23:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- CphGddleZtR7hEzVNCHN3RYvRxeTDa6IKrCwZ8q/dJU=; b=CXmV8iUNNMjpfiwY
- gGasiUzLCR8+U5VzGes7i5Kv5P0noNtoD4UvQrKA9zcUUtSCOrmVsGYshLRK9LLS
- 1zhebOrFndOr9zAJR6MWktOQLNj7kY1BH049lBVVvLEgwsMn+LT9pwuvf2NaqBkD
- kVyJIDepXDL7Qun87fY7GQ5V4WuwSquTvmny2eVM6LQAH12rZ7DQcyp0FqRZTxLt
- vYlQRb/x/BVTFPVDbZIBicaFDBPNhVYvT1ZGmSOOdX1Ua1185H9f51ODEyIkHJ3L
- 2OfMAVdLV/WgEHyLSoWDg+V8eLnxdADxmO91wpPZ3ghcmQKBWPdegEUb3dZRNFLi
- GM8kEA==
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com
- [209.85.161.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ey3eb8hm9-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 13:23:10 +0000 (GMT)
-Received: by mail-oo1-f71.google.com with SMTP id
- 006d021491bc7-6a0ea6e29d6so3097002eaf.2
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 06:23:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1782134590; x=1782739390;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=CphGddleZtR7hEzVNCHN3RYvRxeTDa6IKrCwZ8q/dJU=;
- b=KnRPW7LZiVwTSON60QF/cTmxF/Dzz3jZRrgcdV4Vcv7FTIwmZHbJD39rlUkbE8r3Tg
- OwW1l+WZ1eU+OwaUvaHuYXdjW5WTa20v5fq+ECIUAjZkLgw7C85e8jgIuaBm0ktt2Y5F
- NXXmfMbCzLgR2zmh80AAw5RPPh9XPIPc0f1U6cb4W5BCChf8chQvqWxi0pmJVNLdLQpU
- IrU2tFzS+Ukj8SXKLHO3mU8+gUP3r+ioODSb8Gy+UlNk1NmnkEBUVWAxaZZhNuxFyF8h
- A8eU50uMm8KeVlBQCh0En5tbdi9VSFijI/92r7J5XAIm51DVLYGY/fNxxKjWw5LliF1n
- UwOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782134590; x=1782739390;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=CphGddleZtR7hEzVNCHN3RYvRxeTDa6IKrCwZ8q/dJU=;
- b=n0gVi+FOznkvc2/hjfCGo3z6+MSFSYmZ+FihwkiNLsS5apzP4d/K6bY6uYur6vSBg5
- 90Lt3PvlWBNcHVblQtmTn826uvBeGY4oEGunAo3wWrf9ESQrwCH1kKJFLO9gM8ZcpAyW
- RuRSGpOGvrbTvtD6Sryiz1zzb+T10SkZXABkGFRIS6GRjmP4hY6/krSBxfzJS2cdT2lT
- rdlrIRAsDRcPqraJXgAjM+yfqjIaBkb4ykEuyTW47aA04eDWfEoagNqKtLw9MghUe4NT
- Nbckfl6ddFCOkz9IBOsC9TOocqpabvJ0z/Hn0bOXwA9eJY86YbDl5pkKVzWuGNdQ3EIW
- gdJg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9g+BADu7ei6KARufLlQGrUg3p+91f5XRmCYwhuFEbezkFPNmoHJsKPHvADadqjXr1jMCnAHIMO1xw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz6ujNMeX3ZhMEEltF4tOfNJDiCBl/wwPBaF1Td59YgucBfEp+t
- 5H56i8vKZMUsZTG8BSs6Pp47LAWIAf0hlIlkZa5jgWqhYgRPQn9SlCc3AlqiBXmgXyohEQcph3e
- ZPNN8fk97kDlB98sg4Ykc/MY3ljnfyubxJWA0f95ZJNCvxdMhMDcETsZ3y7TV967IsKKcZ6M=
-X-Gm-Gg: AfdE7cn3dxobu8ATJBhtgy1FX/IU1NusRauJRWWfjbExZ01h16/XNT/2DY0hWXvjj6v
- XQMWrzUaeesI1PDkaYzhLXYBapwjKJWJCo8mAOQ8ZWMQCrUBFvBgpHGeOyf4RH3caT9gHi+uQ7G
- arwvi5cEDZmvn+wfUnGFKIxELhRd/OhRxuRU+Z7kqY4OAtqVXOQEQivI2+RPC8KU78+NyAFUprQ
- /kFIU2KdTHUJS9Iw2yNt/Ek37E8EdQPTjcKEU0iIPOmeT1OgJFDehf76c+0XgemhYOmZH5Ox0jS
- IpjL5TnS46UKmdameuK4NOofJQG9kkbGXCNiEMswFNYsRxEvZ664gz9QHOw13NBDtwVULMWftXZ
- f0eF2frVAtjA7PfL4O/KhFqVt2FQS7prluOJz5aSP
-X-Received: by 2002:a05:6820:1999:b0:69b:5486:e85 with SMTP id
- 006d021491bc7-6a0d8935983mr10656623eaf.36.1782134590298; 
- Mon, 22 Jun 2026 06:23:10 -0700 (PDT)
-X-Received: by 2002:a05:6820:1999:b0:69b:5486:e85 with SMTP id
- 006d021491bc7-6a0d8935983mr10656589eaf.36.1782134589908; 
- Mon, 22 Jun 2026 06:23:09 -0700 (PDT)
-Received: from [192.168.1.110] ([178.197.218.240])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c0c5e4a14d4sm362337866b.7.2026.06.22.06.23.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jun 2026 06:23:08 -0700 (PDT)
-Message-ID: <0a6f92ba-de8c-48ae-9025-a7570e53e453@oss.qualcomm.com>
-Date: Mon, 22 Jun 2026 15:23:05 +0200
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B0E210E6CF
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 13:23:55 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gkTRq2qlpz9tQk;
+ Mon, 22 Jun 2026 15:23:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=adamthiede.com;
+ s=MBO0001; t=1782134631;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=r5BOb3xnTK4eCWEtOyNU5XqC+C6LY0tRD894bJlWhQg=;
+ b=h3KwdA3hvsyvxanjpl/ZT5xq08MITHBEPxw4Flwx/Iin/wEhqKFTfatuaOehizfPU6QIPF
+ ggXqTPltOkioToTXMVnash+tvnMvyNpnR93whhrnPzaNxF/eHFH+LTfaEd6xD9FHeOo+3M
+ r38W8eYl9bsq7peZYof/fY+nKaNZGO8nWIa22jqtAZ/3sXmaoZjAnzvHgBF3IWMWrsx2no
+ xpLe5RLavSehpmbrSJHDzTu6MA7MFdzwPdATO+LsXYU+Ry6/nT1rmLoJc4FmVgNnVKC9jh
+ ELFMD15AoICH3xuLpO4Jh1yDrBfnHknu9fvyPyapSu1FQuCxLhmcZTB13B//SQ==
+Message-ID: <bac79214-050d-448b-be63-0586d45c807d@adamthiede.com>
+Date: Mon, 22 Jun 2026 08:23:43 -0500
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dt-bindings: Drop incorrect usage of double '::'
-To: sashiko-reviews@lists.linux.dev
-Cc: neil.armstrong@linaro.org, vkoul@kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
- linux-phy@lists.infradead.org, olteanv@gmail.com,
- devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
-References: <20260622101606.485961-3-krzysztof.kozlowski@oss.qualcomm.com>
- <20260622101606.485961-4-krzysztof.kozlowski@oss.qualcomm.com>
- <20260622101959.37DB41F00A3D@smtp.kernel.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH] drm/mediatek: mtk_dsi: enable hs clock during pre-enable
+To: Gary Bisson <bisson.gary@gmail.com>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+References: <20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com>
+ <42607fa4-485d-4142-b31c-7bfac71118d2@adamthiede.com> <ajka2220depklK1_@owl5>
 Content-Language: en-US
-In-Reply-To: <20260622101959.37DB41F00A3D@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
+From: Adam Thiede <me@adamthiede.com>
+Autocrypt: addr=me@adamthiede.com; keydata=
+ xsBNBF+n+90BCAC2ZRLVcvdXDgfY7EppN05eNor3U7/eeiNCCEIWZkYLhikUEP1ReLGBkXpK
+ Pc70hfnKAKkCoth3IwhDty9WXMNU+iLNei4ieb2luW+UqluR6xIUIA+txahMU9YcjVaQTKf/
+ yZWO4yl6pfBPCxC2UdPZKBAdGoi5NnE0ABFNbhBETQhhBic533lZn33ByupfI3acECnQdjgQ
+ llCUpDbw4I+S/N1iFiEHcbMXH7ZB00e3IYNorZ1E9v7p++5rDY1fQ9gXpieg1vFKwSq1NJWo
+ 9xx336YjaTUbX0EwrdKd9l8AktA3yRjckaK5TAcwSQaDtHvhpbl4ebvPhtwHh699MroXABEB
+ AAHNH0FkYW0gVGhpZWRlIDxtZUBhZGFtdGhpZWRlLmNvbT7CwI4EEwEIADgCGwMFCwkIBwIG
+ FQoJCAsCBBYCAwECHgECF4AWIQQtG9pGQ7sz3tf8M/kC7fV9o/vRzgUCZL1HxQAKCRAC7fV9
+ o/vRzgyRB/wLqRCvvWhQCMgvzeKvru9wcXquhb77K8H/ByLbfiT8YBuP3lZFVh0IQhgO9Ylk
+ fIoOJE4V+jjxyOnO2d9xjGbvAmmR6yT0gfLzSVWqrC4k+V9MWLv43nrNzxt41dvo5j824FAl
+ X+zaiRZCdO8Jtxg5Elpiop2SKLi1utX1Z8i6YZh+ccJZlchUBAGUTk+D4UjK7vUcjLWT96ya
+ CtdtTfXyw36CvGOPEWfc6++Kkl/5sgej1i7biPYzu/r0vssaQYTXKSrv6Cfa3Maa89ASiTtv
+ q4qmhLnJeCrPxWlRAf6LEizeBEkOasYni2u8sp4wBezEq45Ozu45sfPkqLpPolG7zsBNBF+n
+ +90BCADBRt+vrToRBEG580n77S99qSEkbKD+oJtCVyovnjMNkg0K9UG68LIeCX/ezngiV1M8
+ JISvw5iFOuUFqGX/1hLl9wgt/YpuIrgWOp8XxkotavTCloLDvQmufJPO1L8bnnA+WgP2YgVZ
+ 5MJTj/t4DI+yQgysEjsH8aurHO2uuqgJE+xK+2dy6Cl/wskuGxObksSPmmFH5PH0Joziwrtl
+ 61ouLE2XwKbkMgIGEKkbFgbfwz3/QuLZGBni+OOtLzXeZ9wNTW/AHUPy6S9U4F+5z6/09fVT
+ tTH0cvrgAGjbASlYx2VqGONXAsxCfjulq6ryJBFlPLp949c/JTTgOojukCSbABEBAAHCwHYE
+ GAEIACACGwwWIQQtG9pGQ7sz3tf8M/kC7fV9o/vRzgUCZL1H0gAKCRAC7fV9o/vRzlamCACs
+ vHw+0heTm+BfC3S8DUST6889gidIIwdqBep1ByzetCph7Bq8Y8BlT5YTX0u/bSKkxCzFgeTm
+ vC341Q09ST2XjLAl1ZTdzGhH9gcgYyOw34pr5fPQRJLB392mPzD8YReRzciNbhWzj+DLgeVe
+ ouyfGajd6jDjkf4FEq+trQLGZhpfsKn3JnDbzBUs945D50l/vz9q/QN3qZO+H4F6g8ZeMnqo
+ FOEFN26xVtdEDr+0DNFsbgKmEzs675kdAY78ZZdbEetX/FSknxJ+FK1ZW3J7Yswwulj34AXP
+ LB49Mk8Ot7fo6mdt0DkV11JS9LmKxKvpY+KTlrKG+i7pVCSZvVUx
+In-Reply-To: <ajka2220depklK1_@owl5>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIyMDEzMyBTYWx0ZWRfX0JZefTgTLasQ
- Ci5pRiCt1b2FQu2mmaVUJvzktJB/I9jHHnZPYBlFB620lmv9/SDGzFzVBCUNdZKX65fsfLQ2EQE
- /CWp99Ox+HagW74PUVttDzDbc71IwgA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIyMDEzMyBTYWx0ZWRfX4iq3cM1WS+v3
- HC0l1JxMPITP4ir0Qm8Tj7ZpEagpP3ELNJK/j6LJzBeqgnduSfTnY7a9MZOe0ZWqwl4/mh98tFj
- yYT0hkdPkblm8IRrBfneL/0SEUdT1vMhWTwz1fhL20UqROPRbKYdpy4Ahea/9TN4K7wEqN3S8v/
- htj99RkL2iyw9WaDtc7T53K7licQBqhp35q93I4NPjkLMOvE+C/6Xgu7yRrMqLhWn3Pe1002PNI
- bc+zZiWE27/R3n3G9NG9Xa+SYnqFabbkCf/2q7YkSL2pfHYmvazLmDIQmxmZuY7CVJiJbkeRvsK
- EEO5QGJHhtJ0ckVk197/U2VUiKBJifDb0RQZ3QTHK9C7kjORouXUWLbdO7FTnz2IyL6lTSFwGA9
- 6xBeZvBv1g0ooXG8+dhGOe3g/YCfwrBGSlwBureNfheT4OQ1t5UjWzJ31EBlygaQYuL1jyrqa+7
- RV0KDFMPvhdEHVI8oYA==
-X-Authority-Analysis: v=2.4 cv=ILIyzAvG c=1 sm=1 tr=0 ts=6a39373e cx=c_pps
- a=V4L7fE8DliODT/OoDI2WOg==:117 a=qMZSjPy+XpteAuilWfML4g==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=fqWYVyBuAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=5ID31NFv_XroeS7ycB0A:9
- a=QEXdDO2ut3YA:10 a=WZGXeFmKUf7gPmL3hEjn:22 a=3EkFFxAVN7Xjp7FSp-fE:22
-X-Proofpoint-GUID: 1WYSHR9PBsQwHS-4fKEH9vv987FoisKx
-X-Proofpoint-ORIG-GUID: 1WYSHR9PBsQwHS-4fKEH9vv987FoisKx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-22_02,2026-06-22_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0
- suspectscore=0 malwarescore=0 spamscore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606220133
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,41 +90,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 22/06/2026 12:19, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] Unintended replacement of BNF notation `::=` with `:=`.
-> --
+On 6/22/26 06:22, Gary Bisson wrote:
+> Hi,
 > 
-> commit a9fdd0b065eb5b6394a9c33ffba0fd5194e80115
-> Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> On Thu, Jun 18, 2026 at 04:06:28PM -0500, Adam Thiede wrote:
+>> On 1/20/26 05:36, Gary Bisson wrote:
+>>> Some bridges, such as the TI SN65DSI83, require the HS clock to be
+>>> running in order to lock its PLL during its own pre-enable function.
+>>>
+>>> Without this change, the bridge gives the following error:
+>>> sn65dsi83 14-002c: failed to lock PLL, ret=-110
+>>> sn65dsi83 14-002c: Unexpected link status 0x01
+>>> sn65dsi83 14-002c: reset the pipe
+>>>
+>>> Move the necessary functions from enable to pre-enable.
+>>>
+>>> Signed-off-by: Gary Bisson <bisson.gary@gmail.com>
+>>> ---
+>>> Tested on Tungsten510 module with sn65dsi83 + tm070jdhg30 panel.
+>>>
+>>> Left mtk_dsi_set_mode() as part of the enable function to mimic what is
+>>> done in the Samsung DSIM driver which is known to be working the TI
+>>> bridge.
+>>> ---
+>>>    drivers/gpu/drm/mediatek/mtk_dsi.c | 35 +++++++++++++++++------------------
+>>>    1 file changed, 17 insertions(+), 18 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+>>> index 0e2bcd5f67b7..b560245d1be9 100644
+>>> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+>>> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+>>> @@ -672,6 +672,21 @@ static s32 mtk_dsi_switch_to_cmd_mode(struct mtk_dsi *dsi, u8 irq_flag, u32 t)
+>>>    	}
+>>>    }
+>>> +static void mtk_dsi_lane_ready(struct mtk_dsi *dsi)
+>>> +{
+>>> +	if (!dsi->lanes_ready) {
+>>> +		dsi->lanes_ready = true;
+>>> +		mtk_dsi_rxtx_control(dsi);
+>>> +		usleep_range(30, 100);
+>>> +		mtk_dsi_reset_dphy(dsi);
+>>> +		mtk_dsi_clk_ulp_mode_leave(dsi);
+>>> +		mtk_dsi_lane0_ulp_mode_leave(dsi);
+>>> +		mtk_dsi_clk_hs_mode(dsi, 0);
+>>> +		usleep_range(1000, 3000);
+>>> +		/* The reaction time after pulling up the mipi signal for dsi_rx */
+>>> +	}
+>>> +}
+>>> +
+>>>    static int mtk_dsi_poweron(struct mtk_dsi *dsi)
+>>>    {
+>>>    	struct device *dev = dsi->host.dev;
+>>> @@ -724,6 +739,8 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
+>>>    	mtk_dsi_set_vm_cmd(dsi);
+>>>    	mtk_dsi_config_vdo_timing(dsi);
+>>>    	mtk_dsi_set_interrupt_enable(dsi);
+>>> +	mtk_dsi_lane_ready(dsi);
+>>> +	mtk_dsi_clk_hs_mode(dsi, 1);
+>>>    	return 0;
+>>>    err_disable_engine_clk:
+>>> @@ -769,30 +786,12 @@ static void mtk_dsi_poweroff(struct mtk_dsi *dsi)
+>>>    	dsi->lanes_ready = false;
+>>>    }
+>>> -static void mtk_dsi_lane_ready(struct mtk_dsi *dsi)
+>>> -{
+>>> -	if (!dsi->lanes_ready) {
+>>> -		dsi->lanes_ready = true;
+>>> -		mtk_dsi_rxtx_control(dsi);
+>>> -		usleep_range(30, 100);
+>>> -		mtk_dsi_reset_dphy(dsi);
+>>> -		mtk_dsi_clk_ulp_mode_leave(dsi);
+>>> -		mtk_dsi_lane0_ulp_mode_leave(dsi);
+>>> -		mtk_dsi_clk_hs_mode(dsi, 0);
+>>> -		usleep_range(1000, 3000);
+>>> -		/* The reaction time after pulling up the mipi signal for dsi_rx */
+>>> -	}
+>>> -}
+>>> -
+>>>    static void mtk_output_dsi_enable(struct mtk_dsi *dsi)
+>>>    {
+>>>    	if (dsi->enabled)
+>>>    		return;
+>>> -	mtk_dsi_lane_ready(dsi);
+>>>    	mtk_dsi_set_mode(dsi);
+>>> -	mtk_dsi_clk_hs_mode(dsi, 1);
+>>> -
+>>>    	mtk_dsi_start(dsi);
+>>>    	dsi->enabled = true;
+>>>
+>>> ---
+>>> base-commit: 8f0b4cce4481fb22653697cced8d0d04027cb1e8
+>>> change-id: 20260120-mtkdsi-29e4c84e7b38
+>>>
+>>> Best regards,
+>>
+>> Hello,
+>> This commit was part of 7.1 and caused a problem for me.
+>> I'm running postmarketOS (basically Alpine Linux) on a Lenovo C330
+>> chromebook with a Mediatek MT8173 processor.
+>> The problem: when the display on my laptop powers off (via suspend or idle,
+>> like xset dpms off) the picture does not come back when the display powers
+>> back on (from resume). The display backlight comes on and brightness is
+>> adjustable but there is no picture. The only fix is to reboot.
+>>
+>> Reverting this commit and applying it as a patch on top of 7.1 addresses the
+>> issue for me.
+>>
+>> You can view the config I'm using here:
+>> https://gitlab.postmarketos.org/postmarketOS/pmaports/-/merge_requests/8819
+>>
+>> Is there any sort of testing or other debugging info I can provide to help
+>> address this issue?
 > 
-> dt-bindings: Drop incorrect usage of double '::'
+> Thanks for reporting the issue, could you share some logs? Is the driver
+> saying anything during resume? Also, what type of panel is used on that
+> chromebook?
 > 
-> This commit cleans up device tree binding schemas by removing the redundant
-> double colons at the end of descriptions inside YAML literal style blocks.
-> 
-> Link: https://yaml.org/spec/1.2.2/#literal-style [1]
-> 
->> diff --git a/Documentation/devicetree/bindings/mux/mux-consumer.yaml b/Documentation/devicetree/bindings/mux/mux-consumer.yaml
->> index 9e2d78a78e409..769243a2bf046 100644
->> --- a/Documentation/devicetree/bindings/mux/mux-consumer.yaml
->> +++ b/Documentation/devicetree/bindings/mux/mux-consumer.yaml
->> @@ -13,8 +13,8 @@ description: |
->>    Mux controller consumers should specify a list of mux controllers that they
->>    want to use with a property containing a 'mux-ctrl-list':
->>  
->> -    mux-ctrl-list ::= <single-mux-ctrl> [mux-ctrl-list]
->> -    single-mux-ctrl ::= <mux-ctrl-phandle> [mux-ctrl-specifier]
->> +    mux-ctrl-list := <single-mux-ctrl> [mux-ctrl-list]
->> +    single-mux-ctrl := <mux-ctrl-phandle> [mux-ctrl-specifier]
-> 
-> [Severity: Low]
-> Does this unintentionally change the standard Backus-Naur Form (BNF) ::=
-> operator to :=? It looks like a global search-and-replace for :: might
+> Thanks,
+> Gary
+The curious thing is that there are no real logs in dmesg or 
+/var/log/messages about this. This picture just fails to come back. If 
+there are some kernel params I can set to get deeper logging, that would 
+help, but I'm not aware of any.
 
+I think the panel is a "BOE NV116WHM-T00" - I used this command to get 
+info: cat /sys/class/drm/card0-eDP-1/edid | edid-decode
 
-I wasn't sure about that... and indeed this should not be changed. I
-will send a v2.
-
-Best regards,
-Krzysztof
+Output: https://termbin.com/8nbd
