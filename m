@@ -4,44 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 225F9CDB46B
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 09:22:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC26ACDB46F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 09:27:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B7BD10E5A2;
-	Mon, 22 Jun 2026 09:22:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1614810E5A4;
+	Mon, 22 Jun 2026 09:27:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eS3tOTzW";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="I16u7/qr";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 719AF10E5A2
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 09:22:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CE7EF6008A;
- Mon, 22 Jun 2026 09:22:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 600A21F000E9;
- Mon, 22 Jun 2026 09:22:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782120138;
- bh=RORknzvJJNYxZgeauSNLrgNzZ2uZCZVSeZpQf522iG4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eS3tOTzW3Hj2j4igXcn5n2SIxBWsoRMMb4hUpb8BUJLpP1LmSlT8vmzgDGaGvkxV9
- a8isW2qlrY9YIO7d32bRPPjPGJYZSl6pentNLWVN8t5eLYkSwfxlXv9Kiziw0XEV2s
- 926ke+7kChERD9yPn9xAe812IVKSIDypUfKCbdhxhQTwKJBYo2vnFFvF9e2vFkUpJ2
- DJckB5T9t9p1dpk6zXXj2MPkSMg18aBqA3BIZ9im1p4jrdTknLrAEczjbizLPnrTYQ
- +O3X8VrW8xn0DhRPYruxCHqtIaSlQGmvk+llY35Tdv7I4+8Wp+gNE6Xn5Fj+DwEi9Y
- x3ThKaP7ZZHnw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/5] nouveau/gsp/rpc: Cleanup incorrect
- IS_ERR_OR_NULL in  rpc.c
-To: "Hongling Zeng" <zenghongling@kylinos.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <1782119051176431.14291.seg@mailgw.kylinos.cn>
-References: <20260622081136.61695-1-zenghongling@kylinos.cn>
- <1782119051176431.14291.seg@mailgw.kylinos.cn>
-Content-Type: text/plain; charset=utf-8
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011048.outbound.protection.outlook.com [40.107.208.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A805010E5A4;
+ Mon, 22 Jun 2026 09:27:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SRc5cUKcP4eh8wtVMd91pqmm2WQTIxWQ3bwnxro9G1eKI6QMcdqbmC4FIdGpZfw5c63rMlPTaXkmtK6jBgasL0YWUKrKByWzQzdrqRzndU20i05Edb9cckvsx+WlvgG7WkTH2dkM4PSmHmHbA1RqBG3y0KvREhO1LVvBjgRDfS6OHV07coaAt1PoHG90+1+ghQvLXFILXJdq13cbFzwLQAOSyQTgfPGNw3kTwoZJ/SInXX/fQtBSIgWWKxwt99QfPi5P8z/IGrSQw29xpqbyas2g1QGTltmjeT4o1pZyL+aCQ1iDWV+KqCg/CFR48o1R4YTnIu/eq8LsRXy8fBIhlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YShV8EjGuQks+w1IDeOjgIZgXnk9RY61dD3BmDWx/78=;
+ b=af+PhNmxJHcbXa5APwAMDGBsuirFWHYczxZSeHtE77PJuc+AdwQb3aR2Nkrkyi0ZDbZWGPykCavizERioYhPzPWopoGGSDUFrfkCXjvAN/yXiCcNu5zRYFNxrEN9jb+Enr5TVKksH402hKwLXy1CnntqNPpkydGI+HiMfaFiV1hjzvL510qvFOUMVEU1wBRpvS+WJBllycZqqPNIk3/dJW6DDGjIhEVU5470hdj2OMl5AtHWogzqyDTC9HxxKtUT9yo8XViDWlLT7zVizm2v9Nv8pIsyq6dkrdSL/Esd/o8/m/upbcF6oTNmfrd+jJVzWpPDxYAqP2e+oblu/bcGgQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YShV8EjGuQks+w1IDeOjgIZgXnk9RY61dD3BmDWx/78=;
+ b=I16u7/qrhoEQFcocJpWy6yxYHTWp9SqSpKeNUD4tLeNxjQVnmAo7BHgcsNlCMb5+dRk/YS8mTCATr22UcANDF2U0hQkXqjnKe6G5kF9WVJNPVA7fDU6mjCfdWiuvB5vhs7qUQKNBaOfx+37DhIVy16jz9UkGIZOyXZqXthLRYOQn05eQ6IDIlBiCzhfdIj3PDk7VvswqbNPZayqSp1eRi+Adr7X2ok/9SVhkASvwNsquov/+fEEzVzCh41gf5DnlpXTNhYBNrIQYSC+ZpKYlWLQplCSA3RLCutVy1Ae0WPBlmpRNiyG8/nS0XzmzbfWHIK0K8KfJRsRx1eR5EjrrWg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SN1PR12MB2368.namprd12.prod.outlook.com (2603:10b6:802:32::23)
+ by BY5PR12MB4275.namprd12.prod.outlook.com (2603:10b6:a03:20a::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.21; Mon, 22 Jun
+ 2026 09:27:25 +0000
+Received: from SN1PR12MB2368.namprd12.prod.outlook.com
+ ([fe80::281e:52ee:b18e:ad42]) by SN1PR12MB2368.namprd12.prod.outlook.com
+ ([fe80::281e:52ee:b18e:ad42%7]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
+ 09:27:25 +0000
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 22 Jun 2026 09:22:17 +0000
-Message-Id: <20260622092218.600A21F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 22 Jun 2026 18:26:50 +0900
+Message-Id: <DJFGYM6U7QN6.9WVDG87QNK@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
+ <lossin@kernel.org>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH 05/13] gpu: nova-core: gsp: keep FMC boot params DMA
+ region alive during error
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260615-blackwell-fixes-v1-0-f2853e49ff7d@nvidia.com>
+ <20260615-blackwell-fixes-v1-5-f2853e49ff7d@nvidia.com>
+ <DJ9SQ12O99GR.3TDJ2L39P03GQ@garyguo.net>
+ <DJB2QJAXEDVF.2KUIUQ90Q818W@nvidia.com>
+ <DJBDHLVDG7LU.VBPNFIKARCBL@garyguo.net>
+In-Reply-To: <DJBDHLVDG7LU.VBPNFIKARCBL@garyguo.net>
+X-ClientProxiedBy: DB9PR02CA0022.eurprd02.prod.outlook.com
+ (2603:10a6:10:1d9::27) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2368:EE_|BY5PR12MB4275:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5d586fe-5d69-48d8-f675-08ded0406ab7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|7416014|10070799003|23010399003|22082099003|18002099003|11063799006|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info: wMmmYkoZOqO1jPtOrAvGCmx/MZ2U1mhI4uON4kYm0daFZ5KrN1ziPbuS2TZ0OU0472Rzjzbh8iT4rOhI4kXTERXOl37soDlJdedNDmzoA4/5fQL3EZ2q+yZlvEQNI5RkuQ5khoZLkjgk14DmGTTbQPGZgPvg+TigSEdzIiGcC8sK1NglPcVGAeiUX1hcebSdzBvbKADe/FDPPYbVhHtltsyWJFnjNbivq4zI5urkr/z406jEz89PM45P9qdIUbZhJfI+OSCcE6gtFd7qywlJURox3VXAbQ182klDQy+81TxF3yE1iGXGHVAeXgSXwClcK/DEuZAGH8L4HqMQGvlo0C8d6ZCvHsy89JByn5hPiJIg4lEHtUrsS1gjQIKEujQD3thEMOJ36csd8yh9XttLr8Oc+shJRYwsUyL1wuUsGL14FGUvrrsCcjSvlx/j4Ar9zZQrrNi3knB7u+JtA645w/avSVyk8LacG0MxXzt/QufUnH7eywC5G7ytjvsXcvGJWqIL8OdlZ8vAxey7fqzERQRGDPcWdiEBBYR4avQp3RwTt2UQK//PcTlbLnwd1JJAkcDP+E5yIdaEcg8nqf8M9Ea0rIAcJaQfp6gBBCOiSPFCs1uaR+nxcWBqu4axTB34/tNLKHQY24CJCLxnKBDC9Fx/uYPii/4ivdW97OIU0FQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN1PR12MB2368.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014)(10070799003)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NTRIZDM1Z3B0RDJUcUxWcTIyWmpJWGhYb0t4RW9hSkZpdzFYTEVjOVlaa0FU?=
+ =?utf-8?B?UGw1M25mNW1TYzNEdGVNS0RQbTBXMVEwOTBkeFdlKzFhNE83ZmxRdlU2bk9Q?=
+ =?utf-8?B?Rm9NNC8wbG11ZmdqOU9hTHRpenBlajVVWEVlbG9DMkIydzU2SkV0MS82NUFi?=
+ =?utf-8?B?eTBGL3JSd3BodWdybHFUME9QcURSYjlCbW5iSnJYcGF1NWk2Tlc3RGhteHZt?=
+ =?utf-8?B?NHVaVHVFckZJL3BCTzRkWTMwMm9uVDFwQWdLenpOV2E5RjhTaU5GV28wVkM2?=
+ =?utf-8?B?aEFERGVlUGJ5S3RTeFU3bldoME9EdWRtbjlKdUo0c2dHZ1JCOGlxdUEyeVJI?=
+ =?utf-8?B?UjZubUg2ditRWHBVTGszenBqYVhHOXBuVjFxcXpxTDJKRDVtV0VkTENOWXd2?=
+ =?utf-8?B?VUl6a2d6VERVUlVNNTc2RkZpWjgwZFRMbnd3MThVWUc2aWZvUUdTWlhUa2J0?=
+ =?utf-8?B?SkVjNnNiQUgvcGZ4aHVIaGVEaDdJNnRkc3UvalFKMW9adkVyNmQvRTluOXFZ?=
+ =?utf-8?B?QTR0R2RhRHpiNk0vMzBUQkZ1NFpjaHRiN3g5UkJoZERlSVlENE13TStMWkgr?=
+ =?utf-8?B?WTVaMjFVTW9YdmMrNUtRSGhRaUZxREllcEdMcmN4QTVsdU0ybVJQeXlFNU9P?=
+ =?utf-8?B?ZmRhcWJkQW93RVc4TEN1UThGVysyc21pT0dDVUpBQmRoNCtEclR3RkJSYS83?=
+ =?utf-8?B?Nyt0eXp6cmVxLzJzWUN6NTU5d2xzcDB5MnpiU1hPM0o0Nnc1cy9IcjVKZE4r?=
+ =?utf-8?B?bXYxZXF4ZDRiYUNOREdkUGdKd1ZxdVNpVUJCNm91VWFWcVNqVktZQlU3T3Fu?=
+ =?utf-8?B?S0J0ZmdCcm9zaERiTkRLeTVsS0xnTkgyRmt0cHFjUnAyVUp0dDdJdFB2bHlF?=
+ =?utf-8?B?OWZOK3Vvcm9FU2JpeHd2S210eEpaNis4Q3ZsNnNDT2NmT29uNVcyOXZBN1J5?=
+ =?utf-8?B?WUlmQ2ozOVRkcXY1L3FOekJVQkJPeDBYS0Q0MmprbGh6TnhkWGxMZW9MY2gr?=
+ =?utf-8?B?LzJweXJHVVRINXV6WkI5OVlHN1lSUGN3OFFKbUNESks5dFZZMWFPTUZBTVE3?=
+ =?utf-8?B?SUw4elNkRjVpVjF3VklWd05yY2ZpQmlCcHNOMitQUUYzaWRReTU2emROMk5r?=
+ =?utf-8?B?NFN6bTQ3UEI3WlJXYnRoMWFWN1FSS00ycStPa2FHVTNUSzRFNDJxanpoSG1o?=
+ =?utf-8?B?MU9SaUdpTmFiWmZ4RzM2TGl1UTJsbzZ4VXI4QkUwc201MVlyNm1EaEJwQUs3?=
+ =?utf-8?B?c1VGdXdnaHVDcDl6Z0tyc0VpSDVHNFI2NmJTZkMxTExFY1hhMU54bkRTVVQz?=
+ =?utf-8?B?Uk1IcUdtajhQb0Ruek9XUmU0aVhiMmp6QUxIdTlnaHBYYk4vbGwrMnZZaG5o?=
+ =?utf-8?B?cWc0QnRRN2drcjljTDV5WmlNblBqZUJMT3g4Zy92b1FHTS8xTy9obk1nYnlw?=
+ =?utf-8?B?SytLUUlpUGtUanR2azlhTHUvby84S0VLUXUzbFdxaTgxeUxWWThxVWx6cUNN?=
+ =?utf-8?B?OWtxUzh5b2ZKdkE3SVUrbkwwNlZVMkVkcUU2NC9zc2Z2TFZqNGx1a2Y0eXVC?=
+ =?utf-8?B?aGwyaUNzT2w2am1lYmx4WE9GbS9sZUFxdEcwNk1JVXVHOS9QZC91ckN3TlNO?=
+ =?utf-8?B?R3ZwVzF1bGRJdUUvNjJiYlNFUkc4MXpUMlpSWEZiZmV1TTFCQ1ZZMWwwVzJR?=
+ =?utf-8?B?bWR2blBmRG5xbHlGRUNKbzdHa1pxZmtuLzE4TkJ3WDNkcnJOb0ttN1VRSCtH?=
+ =?utf-8?B?dS9iWE9BTmxuSXVzTGlnbXlhaWtOTWZYNDFOamJEZUFNUjFlTEdWQWFwcHZW?=
+ =?utf-8?B?RzdwdVh6S2RoUm8zV1ZZd3NJajNFSjRhdWRVN2xidGhkN1VXWS9OU1B1dEx6?=
+ =?utf-8?B?KzV5eXFSUXp2enBFT3MwcHdkUjRuRGYxWG5ZOVdSZU9tckdQY2VyYzdiOXlV?=
+ =?utf-8?B?S2d3TjdRQzVKdHFSWi92MnpPTlM1Q2lMbzZGSWhhcy9EaUxwOXVNZVVROCtS?=
+ =?utf-8?B?dlNsMm02RkI5WWFCdTM1OFhBUDE5T2pFNkUrUEFYQ0FLQkU4Y2ZuNlRZY2k1?=
+ =?utf-8?B?MTBIWDZxRjJ5Q0YrejN0cTdTdkx5UFZ4c1Z0RFNxaWlDTUpZMk44eEYzczYy?=
+ =?utf-8?B?M1N5bEhldWQvdGVhS0l5SGp0QlFMVGhPWlNnQmhGcVo2R0lPNWlYSXJCTHkw?=
+ =?utf-8?B?UDZGM3FrWERpSXVMNmhMM1VSZGlGMzB6cWxBaDM5SGs2dWZId3NvRVREVDll?=
+ =?utf-8?B?andkMGdzaVhYbytja3V0eW02aGJpTk93ekQzS2R5aTJiNjdVZHBadCtCV1Qz?=
+ =?utf-8?B?WXdTRzlGVjFKeHo4QitydzVXTE5ZTG1RdFYyd1dVQ3EwcEZlWHZwWGZlNTI4?=
+ =?utf-8?Q?q2p5xFwyedtqfihu2j0oNJszbnlPxaoIVABPS6rjG4E+o?=
+X-MS-Exchange-AntiSpam-MessageData-1: CJYlsblgbaArEg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5d586fe-5d69-48d8-f675-08ded0406ab7
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 09:27:25.2329 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tu1wJFZyh+tGCqCLFeXMAbWsRtPt2cbbtd7ZkSzgCZE2xB3+RG4rhnwoHJUXNssUcq+kJ9b1G6Yu0nsuopzk5Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4275
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,163 +146,44 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+On Wed Jun 17, 2026 at 10:52 PM JST, Gary Guo wrote:
+> On Wed Jun 17, 2026 at 6:27 AM BST, Eliot Courtney wrote:
+>> On Tue Jun 16, 2026 at 2:23 AM JST, Gary Guo wrote:
+>>> On Mon Jun 15, 2026 at 3:40 PM BST, Eliot Courtney wrote:
+>>>> Currently, if, for example `boot_fmc` fails, `FmcBootArgs` will be
+>>>> dropped before the boot unload guard. But until everything is unloaded=
+,
+>>>> GSP may access this memory, so make sure it doesn't get deallocated.
+>>>
+>>> Hmm, this looks very weirld. `boot_fmc` only needs `&args` but it actua=
+lly need
+>>> it for much longer?
+>>>
+>>> This is hinting to me that the signature is wrong of the `boot_fmc` fun=
+ction is
+>>> wrong..
+>>>
+>>> What is the exact lifetime requirement for GSP?
+>>
+>> Once `wait_for_gsp_lockdown_release` returns, it no longer needs the
+>> allocation. In the case that we get an error in this function, GSP may
+>> be (asychronously to the CPU) accessing the DMA memory we gave it. So
+>> FmcBootArgs should stay alive until FspUnloadBundle finishes (GSP is
+>> reset) if there is an error, or, until `wait_for_gsp_lockdown_release`
+>> returns successfully.
+>>
+>> So for `boot_fmc` to cover the actual lifetime it would need to be
+>> responsible for waiting until GSP is reset, which it doesn't feel like
+>> it should be responsible for (even as some unload bundle that it
+>> returns).
+>
+> I suppose logically the GSP does need to take ownership of the full `Cohe=
+rent`
+> until unload if this errors?
 
-Pre-existing issues:
-- [Critical] The driver blindly trusts the `length` field of GSP messages a=
-nd continuation records, leading to multiple integer underflows and massive=
- out-of-bounds memory copies.
-- [Critical] Missing bounds check on GSP continuation message length allows=
- a heap buffer overflow.
-- [High] Returning `NULL` on oversized GSP messages leads to infinite loops=
- in the message queue worker and a false success bubbling up to callers, ca=
-using subsequent NULL pointer dereferences.
-- [High] A continuation message wrapping around the message queue ring buff=
-er causes memory corruption and an overrun due to incorrect pointer math.
-- [High] Missing read memory barrier (rmb or dma_rmb) after reading the rin=
-g buffer write pointer.
---
-
-commit b655637a9811533563a43c05f87d130fe957a519
-Author: Hongling Zeng <zenghongling@kylinos.cn>
-Subject: nouveau/gsp/rpc: Cleanup incorrect IS_ERR_OR_NULL in rpc.c
-
-This commit cleans up IS_ERR_OR_NULL() usage for functions that supposedly
-never return NULL. It changes the checks after r535_gsp_msgq_peek(),
-r535_gsp_msgq_recv_one_elem(), and r535_gsp_msgq_recv() to use IS_ERR()
-instead.
-
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c b/driv=
-ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c
-> index b4b2b5c00ab4e..5b89c8835a2e4 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c
-> @@ -350,7 +350,7 @@ r535_gsp_msgq_recv(struct nvkm_gsp *gsp, u32 gsp_rpc_=
-len, int *retries)
->  		u32 size;
-> =20
->  		rpc =3D r535_gsp_msgq_peek(gsp, sizeof(*rpc), info.retries);
-> -		if (IS_ERR_OR_NULL(rpc)) {
-> +		if (IS_ERR(rpc)) {
-
-[Severity: High]
-This is a pre-existing issue, but does the polling loop in
-r535_gsp_msgq_wait() need a read memory barrier?
-
-r535_gsp_msgq_peek() calls r535_gsp_msgq_wait(), which polls the GSP write
-pointer *gsp->msgq.wptr from DMA coherent memory:
-
-    while (rptr =3D=3D wptr || ...) {
-        ...
-        wptr =3D *gsp->msgq.wptr;
-    }
-   =20
-Without an rmb() or dma_rmb() before returning, could weakly ordered CPUs
-speculatively fetch the payload data before the write pointer read is
-ordered, resulting in stale data being read from the ring buffer?
-
->  			kvfree(buf);
->  			return rpc;
->  		}
-> @@ -359,7 +359,7 @@ r535_gsp_msgq_recv(struct nvkm_gsp *gsp, u32 gsp_rpc_=
-len, int *retries)
->  		info.continuation =3D true;
-> =20
->  		rpc =3D r535_gsp_msgq_recv_one_elem(gsp, &info);
-> -		if (IS_ERR_OR_NULL(rpc)) {
-> +		if (IS_ERR(rpc)) {
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but does the firmware's
-message length need to be validated to prevent integer underflows?
-
-If rpc->length is smaller than sizeof(struct nvfw_gsp_rpc), does
-this underflow the length calculations and cause an out-of-bounds memcpy()?
-
-In r535_gsp_msgq_recv_one_elem(), the payload length calculation uses:
-
-    if (info->continuation)
-        memcpy(buf, mqe->data + sizeof(struct nvfw_gsp_rpc),
-               len - sizeof(struct nvfw_gsp_rpc));
-              =20
-Additionally, in this loop in r535_gsp_msgq_recv(), the offset underflows:
-
-    size =3D info.gsp_rpc_len - sizeof(*rpc);
-    expected -=3D size;
-    info.gsp_rpc_buf +=3D size;
-   =20
-There is a similar underflow in r535_gsp_msg_dump():
-
-    msg->length - sizeof(*msg)
-   =20
-Could a malicious or buggy firmware send a small length and cause these
-calculations to wrap around, leading to massive memory corruption?
-
-[Severity: Critical]
-This is a pre-existing issue, but does this code check if the continuation
-message actually fits within the remaining allocated buffer?
-
-The buffer was allocated based on the initial expected message length.
-If a continuation chunk payload (info.gsp_rpc_len - sizeof(*rpc)) is
-larger than the remaining capacity (expected), does this overwrite the
-bounds of the kvmalloc'd buffer?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a miscalculation
-when a continuation message wraps around the ring buffer?
-
-In r535_gsp_msgq_recv_one_elem(), the code copies a wrapped continuation
-payload in two parts. The first part writes len - sizeof(struct nvfw_gsp_rp=
-c)
-bytes. However, for the second part it copies:
-
-    if (expected) {
-        mqe =3D (void *)((u8 *)gsp->shm.msgq.ptr + 0x1000 + 0 * 0x1000);
-        memcpy(buf + len, mqe, expected);
-    }
-
-Should the destination pointer be buf + len - sizeof(struct nvfw_gsp_rpc)
-instead of buf + len? Does using buf + len leave a gap of uninitialized
-memory and subsequently overrun the allocated buffer by
-sizeof(struct nvfw_gsp_rpc) bytes?
-
->  			kvfree(buf);
->  			return rpc;
->  		}
-> @@ -499,7 +499,7 @@ r535_gsp_msg_recv(struct nvkm_gsp *gsp, int fn, u32 g=
-sp_rpc_len)
-> =20
->  retry:
->  	rpc =3D r535_gsp_msgq_peek(gsp, sizeof(*rpc), &retries);
-> -	if (IS_ERR_OR_NULL(rpc))
-> +	if (IS_ERR(rpc))
->  		return rpc;
-> =20
->  	rpc =3D r535_gsp_msgq_recv(gsp, gsp_rpc_len, &retries);
-
-[Severity: High]
-This is a pre-existing issue, but is it safe for r535_gsp_msgq_recv() to
-return NULL when a message is oversized?
-
-r535_gsp_msgq_recv() has the following check:
-
-    if (WARN_ON(rpc->length > max_rpc_size))
-        return NULL;
-       =20
-If an oversized message is received, this returns NULL instead of advancing
-the message queue read pointer and returning an error pointer like
-ERR_PTR(-EIO).
-
-Does this cause the message queue worker to get stuck in an infinite loop
-repeatedly processing the same invalid message? Also, could this NULL bubble
-up as a false success to callers that check for errors via IS_ERR(), causing
-subsequent NULL pointer dereferences?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622081136.6169=
-5-1-zenghongling@kylinos.cn?part=3D2
+Yerp, although it would feel noisy to me to have GSP optionally hold this
+value (if HAL requires it, if we had an error specifically during this
+FSP window of time).
