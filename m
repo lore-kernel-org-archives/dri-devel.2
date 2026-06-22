@@ -4,48 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9612ECD98F2
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 11:33:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11413CD98F2
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 11:34:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAB4910E656;
-	Mon, 22 Jun 2026 11:33:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BCAB10E648;
+	Mon, 22 Jun 2026 11:34:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="p9wHCH6x";
+	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="bBbeDaqQ";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B656A10E63F
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 11:33:19 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id A550B19D9;
- Mon, 22 Jun 2026 13:32:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1782127960;
- bh=RYyN8C5bZADJ5p20sx5i/Mawi9Hd/Jqpj2/ZXxTCuwU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=p9wHCH6xZdUq1oCv2jp/9wfsdLXyp36hZzH//oGogZzn1QKfC6xnqGPdOsFkBkq2I
- KTVijXk+b9QBYNjz3NYkrwyA3lBIXjQWcxGPPLIUl8quhVgNAiycIYi5EXwgJJy4KV
- pHULtlHbjjktpRIHo8TxgCFYss4uzHDZzUB3a3Hw=
-Date: Mon, 22 Jun 2026 14:33:17 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9067010E648
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 11:34:16 +0000 (UTC)
+Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net
+ [178.82.120.96])
+ by mail11.truemail.it (Postfix) with ESMTPA id 5CFEF1F8CC;
+ Mon, 22 Jun 2026 13:34:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+ s=default; t=1782128053;
+ bh=eU1CoCMG5+/cLZ/UUrYyeG0yuMtWepq4vudYMIZfk6o=; h=From:To:Subject;
+ b=bBbeDaqQdNUlsDO+VAdHsleL79m8jaW4jArmZgwaY7pS+kbltWapwb+0q7nfR3x6l
+ JIcH674lp+kbulHf/Z34rd7VpYAdj0t0MqZAYa8BduM5Smnllni0qE42zmE0lbRuQf
+ KaVdYD5X+0kjbIAS4AIGP9i+heamxyFHXMc2bCk++o/8IchXIWIxgU1S8eQLysonSz
+ Dgg51X8Hatf+m2+TesJoaDtFfY5/YJfmjouRlUMU435wyjIb/9N3oFVKzi2IAfpOBA
+ Ia8TtGAe0kgz1yytd2/uIVG8/wGOXZxV3kM9Y3K9TnTqoBm5cgMMX8p0oMU3AGCpBw
+ Tx/g96HYMjT9w==
+Date: Mon, 22 Jun 2026 13:34:09 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
 To: Maxime Ripard <mripard@kernel.org>
 Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 15/37] drm/bridge: of-display-mode-bridge: Switch to
- atomic bridge callbacks
-Message-ID: <20260622113317.GD3872967@killaraus.ideasonboard.com>
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org,
+ Francesco Dolcini <francesco@dolcini.it>
+Subject: Re: [PATCH 09/37] drm/bridge: lontium-lt8912b: Switch to atomic
+ bridge callbacks
+Message-ID: <20260622113409.GA54984@francesco-nb>
 References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
- <20260617-drm-all-atomic-bridges-v1-15-b63e6316166b@kernel.org>
+ <20260617-drm-all-atomic-bridges-v1-9-b63e6316166b@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260617-drm-all-atomic-bridges-v1-15-b63e6316166b@kernel.org>
+In-Reply-To: <20260617-drm-all-atomic-bridges-v1-9-b63e6316166b@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,180 +64,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 17, 2026 at 12:14:40PM +0200, Maxime Ripard wrote:
-> The of-display-mode-bridge bridge still uses the deprecated non-atomic bridge
+On Wed, Jun 17, 2026 at 12:14:34PM +0200, Maxime Ripard wrote:
+> The lontium-lt8912b bridge still uses the deprecated non-atomic bridge
 > callbacks.
 > 
 > Switch to their atomic counterparts, adding the bridge state
 > handlers if not already present.
 
-The code looks fine, but the commit message could do with some
-improvements. I don't see the driver "switching" to atomic callbacks,
-and you can tailor the commit message to this specific patch to avoid
-the "if not already present".
+...
 
-> Generated by the following Coccinelle script:
-> 
-> @ is_bridge @
-> identifier funcs;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
-> 	...,
->  };
-> 
-> @ has_create_state depends on is_bridge @
-> identifier funcs, f;
-> @@
-> 
-> struct drm_bridge_funcs funcs = {
->   ...,
->   .atomic_create_state = f,
->   ...,
-> };
-> 
-> @ update_struct depends on (is_bridge && !has_create_state) @
-> identifier is_bridge.funcs;
-> identifier f;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
-> +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
-> +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-> +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
->  	...,
->  };
-> 
-> @ update_pre_enable_struct depends on (is_bridge && !has_create_state) @
-> identifier is_bridge.funcs;
-> identifier f;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
->  	...,
-> -	.pre_enable = f,
-> +	.atomic_pre_enable = f,
->  	...,
->  };
-> 
-> @ update_pre_enable_impl depends on update_pre_enable_struct @
-> identifier update_pre_enable_struct.f;
-> identifier b;
-> @@
-> 
-> -void f(struct drm_bridge *b)
-> +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
->  {
-> 	...
->  }
-> 
-> @ update_enable_struct depends on (is_bridge && !has_create_state) @
-> identifier is_bridge.funcs;
-> identifier f;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
->  	...,
-> -	.enable = f,
-> +	.atomic_enable = f,
->  	...,
->  };
-> 
-> @ update_enable_impl depends on update_enable_struct @
-> identifier update_enable_struct.f;
-> identifier b;
-> @@
-> 
-> -void f(struct drm_bridge *b)
-> +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
->  {
-> 	...
->  }
-> 
-> @ update_disable_struct depends on (is_bridge && !has_create_state) @
-> identifier is_bridge.funcs;
-> identifier f;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
->  	...,
-> -	.disable = f,
-> +	.atomic_disable = f,
->  	...,
->  };
-> 
-> @ update_disable_impl depends on update_disable_struct @
-> identifier update_disable_struct.f;
-> identifier b;
-> @@
-> 
-> -void f(struct drm_bridge *b)
-> +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
->  {
-> 	...
->  }
-> 
-> @ update_post_disable_struct depends on (is_bridge && !has_create_state) @
-> identifier is_bridge.funcs;
-> identifier f;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
->  	...,
-> -	.post_disable = f,
-> +	.atomic_post_disable = f,
->  	...,
->  };
-> 
-> @ update_post_disable_impl depends on update_post_disable_struct @
-> identifier update_post_disable_struct.f;
-> identifier b;
-> @@
-> 
-> -void f(struct drm_bridge *b)
-> +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
->  {
-> 	...
->  }
-> 
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
->  drivers/gpu/drm/bridge/of-display-mode-bridge.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/bridge/of-display-mode-bridge.c b/drivers/gpu/drm/bridge/of-display-mode-bridge.c
-> index cb15713f3a79..fd651d05428a 100644
-> --- a/drivers/gpu/drm/bridge/of-display-mode-bridge.c
-> +++ b/drivers/gpu/drm/bridge/of-display-mode-bridge.c
-> @@ -7,10 +7,11 @@
->   * Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->   */
->  
->  #include <linux/export.h>
->  
-> +#include <drm/drm_atomic_state_helper.h>
->  #include <drm/drm_bridge.h>
->  #include <drm/drm_modes.h>
->  #include <drm/drm_probe_helper.h>
->  #include <drm/bridge/of-display-mode-bridge.h>
->  
-> @@ -50,10 +51,13 @@ static int of_display_mode_bridge_get_modes(struct drm_bridge *bridge,
->  
->  	return 0;
->  }
->  
->  struct drm_bridge_funcs of_display_mode_bridge_funcs = {
-> +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
-> +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-> +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
->  	.attach = of_display_mode_bridge_attach,
->  	.get_modes = of_display_mode_bridge_get_modes,
->  };
->  
->  struct drm_bridge *devm_drm_of_display_mode_bridge(struct device *dev,
-> 
 
--- 
-Regards,
+Acked-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+Tested-by: Francesco Dolcini <francesco.dolcini@toradex.com> # Verdin AM62
 
-Laurent Pinchart
