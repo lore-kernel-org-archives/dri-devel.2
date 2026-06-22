@@ -4,125 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90B9BCDB46B
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 07:51:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAAC3CDB471
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 07:57:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBFF510E4F8;
-	Mon, 22 Jun 2026 07:51:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF78210E50A;
+	Mon, 22 Jun 2026 07:57:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="JIlvAYEy";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="JfDagm79";
 	dkim-atps=neutral
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazon11013029.outbound.protection.outlook.com [52.101.72.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 135B010E4F8
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 07:51:01 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011052.outbound.protection.outlook.com [40.107.208.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92F6F10E50A;
+ Mon, 22 Jun 2026 07:57:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S9QXNKthAiGPTkhoNNodvssIJdUblHOXXMzgwluX1o6v/GSgBKwKdTTg0QORjL08HljWGnlLT5bU1QHb33GmyGMh2Fy5JNs8GWJuAa68Wh512U0rLQ4C6/MUMmyZNVlcJSaDVr29tHnhcQy5N9NKWLitw1GEzPX3kRmhUhoo+zmRtQ+nXovK4UsN5AfNt9RA1aSV2w3Xc2MSKIDl52S/ZRpTiDqRKZh9jf5wJl76RvHYZmfWiwVBixPV7KEAah2iZ1iZ8cstsK18B6/CIv4ivzVCAlTSDsb/wTDei6IcFfRgpx+N8W+EHaIUiZgIouzWKgUbNp8LnNCbCRXO2dom2A==
+ b=q9R8huKokngOOLt7r9LGGn+EIe1S0xje/xmDkVhIXMT5e2QE5acyJXMgqiLtzTzdNexwUGlJz/oa0r10iJhxnevQofFufn3IabtaSPLMRMUTQPmIJcAGICYg8DpVm2f9E+Oinq7HvTkf45kUIAbX7kVBFon7sHMxR9fLS6j5cxE6+nw0sNlBSneFn7iO6bnB47nq3Uw/1GUH7Hm1yK/6bksur0Kr145sV+z/XfB6mlz7BtEfxrKodjqE80NvPmUHbrtbgMJGdw6LnwiPaUPXJEUXDLH921qVjiuxxXNhjKER1qoBNc0BaKh/YN/P3kOofSGEcJgQN5d5Dnh/ehRSNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oMaYIYFNkj4KGSaKf7D8Lg7sbkJf1Fb4UhKjt8H7dP4=;
- b=XW6WiLDEbPse9TuTMkwp+tMIKHISRZjGFQFCUwGjBzmJL+/l0aIGRblojDr9l3Z3gFsHdeGg2iRF1rWiF7G2XVGml6W5aqIoeZK3XY2o6ObaSKmeZz8rsRuBsbfs8tHT3nU9g/dRpuPNU9TlkT7Yjp03N82hFBpLZ8qt1BgPd/B68HCLOg6YHmU/BeKL8s0Xu8qKMvXkg8s3AFdFKctuCDepPuO2beJCDBrw035K/AFJQ1SCXHFjRN0Fy0GOvSGXkdflLdrE6R0bsvIzC5c1Bz1bpfgrfPpe41XWouwM5kSrogKJ1IUbDThhIA58FCkiTHeGVDRp1TippLwltPS4Mw==
+ bh=pPyfOa0IcFNBBO0mmy/kAj/xnUYbduMaVMV4a0ERCes=;
+ b=XvhEndmYPQDX3QprI3tXT0nAd6QvZK0rdAmZhOA9QY7hyT1YpCodQMywPllba3ewmKcE6oAzpryM143BLuq3sp+KNyPXCUVuY5jB/WLrULklwbn5LtLePXv5ALGmUnRNDfnICGXsU/77jupwFnxRaSaZp4vpEsg8Ai7ewUT98iZJHO4mxtp9ZrfG+HZvwLXZ6mTYX9DoRV8Nf5E4trG2DyT+vsuS4pIoDlkGWfP6y7TTerWaic3bfZbVoU2uOd88fgIiRt1g0H5DcWCg0Sc4NQi6naZgVH4VZiJnOPou4o5ccYpI0eSnQSilvSEQL+qERLlnDuIJVfT9mIpuHJvXpg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oMaYIYFNkj4KGSaKf7D8Lg7sbkJf1Fb4UhKjt8H7dP4=;
- b=JIlvAYEyBY7EXSWU639+6EdcKZboPpOsSUzZn/m9tkfXI2kaYQ9JFueOEdl1UggsfY493wgoTnPIx9cK/bzyAktn6TG63O3RYrb+Pb1HbObUxObFkMhUuMu4TiZGy6EvQLk4iZlsmVLOwnYBiSBm/qk9z+BQzqh7XI6oEfGJSQqTvoIeeODMBPVMRVfvl02PSSLPP0DiCyKOaeFZOyKXNZvCoNgXaqgT1+o/tWR2EHqHzh55xx3/L406tewMjUSTWBCIZ6QwAGd7D55TLk3MJY5+Er2njwAFitY49MHMgL1wI0Tv2uv0OfpqCZA30yJKOsrHgRks+xb7N9TQlcmsyg==
+ bh=pPyfOa0IcFNBBO0mmy/kAj/xnUYbduMaVMV4a0ERCes=;
+ b=JfDagm79TsgMsjzeHMqL+IQbGHevC0XIwdr5FJC5PzzpxwQHxzOwG3eGcfh9m9MoxWFOO/o0la0lltJ3cVethP2RXyMjTksAYArWSAyQq8ZxkXKQB5rjUeAcAi0vmJ+/K+5af0VLwuG7yqHfVTYtVIp7lxh8HdIUttEcOQwp1STqkxPXxHXHyyiVrc5x7Z8NlmSTmL8MGsi9gRYMwoHv3SikbzdktU4uVg5SvLEX5UNCT5TIW+rDK0PczlNw/VyDeM8eNJbzBlPFG5DqWinu/J1jm6IEQPR5ZwPxzhU4is3jxVBDJbocuPEYcS5oUwd7O25H+WCBQIXmZqpzcVNF1A==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
- by AM9PR04MB7681.eurprd04.prod.outlook.com (2603:10a6:20b:286::20)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by BY5PR12MB4291.namprd12.prod.outlook.com (2603:10b6:a03:20c::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Mon, 22 Jun
- 2026 07:50:57 +0000
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.21.0139.009; Mon, 22 Jun 2026
- 07:50:56 +0000
-Date: Mon, 22 Jun 2026 15:52:26 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] drm/bridge: imx93-mipi-dsi: Fix mode validation
-Message-ID: <ajjpuroFPI_U2Fw6@raspi>
-References: <20260515-imx93-mipi-dsi-fix-mode-validation-v3-1-91f7d22b2fe4@nxp.com>
- <DJD6I8NMLN3W.3LVT4L17HT5TU@bootlin.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DJD6I8NMLN3W.3LVT4L17HT5TU@bootlin.com>
-X-ClientProxiedBy: SI1PR02CA0031.apcprd02.prod.outlook.com
- (2603:1096:4:1f6::11) To AS1PR04MB9287.eurprd04.prod.outlook.com
- (2603:10a6:20b:4dd::8)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Mon, 22 Jun
+ 2026 07:57:10 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
+ 07:57:08 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 22 Jun 2026 16:57:04 +0900
+Message-Id: <DJFF1W6VGY4Q.2PV5MEPMFXIDB@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH 3/6] gpu: nova-core: gsp: move boot code into local closure
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Gary Guo"
+ <gary@garyguo.net>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260619-nova-bootcontext-v1-0-45193cd0a2e5@nvidia.com>
+ <20260619-nova-bootcontext-v1-3-45193cd0a2e5@nvidia.com>
+In-Reply-To: <20260619-nova-bootcontext-v1-3-45193cd0a2e5@nvidia.com>
+X-ClientProxiedBy: TY6P286CA0036.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:3b7::10) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|AM9PR04MB7681:EE_
-X-MS-Office365-Filtering-Correlation-Id: d9c8e6f9-a223-499f-d3a2-08ded032fe23
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|BY5PR12MB4291:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e6a48b4-2da8-4290-4b23-08ded033dc06
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|366016|376014|19092799006|1800799024|23010399003|18002099003|22082099003|3023799007|4143699003|56012099006|6133799003|11063799006;
-X-Microsoft-Antispam-Message-Info: 570S1L6PQMLL4NsV8qpS7lw49IzQcdKm142+OFkYgeYyY0l7MHFzRLEGtuyI2o+uQyYkmMmkpAPdjTsFYtfVrN7xDEMEdWQFLVTkPKxpU0pEnRHC4G4OPWd8et//0i3AGRhg1ItXKltERnsxZWOLhnTyOjUMGCn5Un4eLOX52MMcIuI3sclL3Zep9I4cIbHldJUBb7TbiNLMRvOwX9DTfLG2HYSXXZGeOXuV5y7kVbd30q5m9bP9mZE3TXSsWTbayrKgi615KonQi7btBpbWwRgaN/8D9UkeV1VUL8X8iYvziXUHzqwHPtpxbfveWb8YsceNoE0v2DYGr7/A49RRdBDfihVQ6ZGo5EE9Z17hatJBLEUjiOf2lNAWovx6Qo/9kP98kebMV56H2FOhSESJUGVcjCfj90iIkXgozYp0BlES4Bvabysr8ApnpBgs1qBY2o6my9ywRgFsDDQnORlTNXJ9cU/QB/+ihqdpZN+81Ngr/Psz+wS1dxXE78US6/MivToVaRdskzOrsYiyidYR9/kweGAF2nhqTvQSH2hTC+O9ZH/nKxKVt9J4wzMGlMyqMIEYvChZH5zpbI/haciSAgnEO69cjXQM/U+7sb4Mi7E=
+ ARA:13230040|1800799024|23010399003|376014|7416014|10070799003|366016|3023799007|6133799003|11063799006|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: EX7dyHCwAxL1ZkTSqvOVbkpv3762nRVfbVE3ty5nZh0X4+UEM3PvIxd57qnnM48rhsq4voJfA9/7c1X/nnTSq/1aOagbdMxWrWrym1gHuxyRw2pnPyrAaaD8db/caKqm3w3qHU387aAZJYzNzLpCOXOOl43xhI5VW2mm+Aq6VV4YMIdzwf44pqf9kVEDSy+oCSMu3XDrt2jx84Oh4qehXeAFC1+wlWk3Ctjpk9YeuY8DPrYhcbRC7+cswQP3U/raNpEDr9qtQckhT2lSTOloKnMRVfPtMy7OoVCsex1QSbEih4LS6A/Z5j5Fz4shGftp/2mjhLZMXaQcpchsskzvjM7Sx6Xhr7ie5kefmdeeeD0o+J8OpYmyoKPUXb6tyIh4Gaj+cJyBals/jXS0lo8SXjsVdrRhdZRdd7LEJiqXbJe2Ua7J7DNchTav/sg6OM9J1PlSd+iKkCk4BhQrRi3yLFNkfUyDntkGGotO4aSYUI81wtkg8TWM6rpi7oUoV1mXACK5s7+FOLUVcYy+9pDxXMbhwn/J3tBsB+6yeogSgY1gMI4E16w5ceTTkNTH1JD/OgebqbkCwzCD9QcuJrh12opd52w2QaqaFZkn5sz/1xZX1whNVWq4yFhx3zV+8m57sBE1j1jyyOt4u2NIxg7jz4cCtt7MjQcm5TWie9ROF0Y=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AS1PR04MB9287.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(366016)(376014)(19092799006)(1800799024)(23010399003)(18002099003)(22082099003)(3023799007)(4143699003)(56012099006)(6133799003)(11063799006);
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(10070799003)(366016)(3023799007)(6133799003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Wp5MyLw4ECUJvOODTAtPA3h6KD/cq6kPTFBs10mwy31XhJWGtD5h2gPuJZkw?=
- =?us-ascii?Q?5CWjmR+leWtLbeKLnzhiTCu70zVY8IZBzsnkQeAgnTzMfbn4euavlw+mi7ol?=
- =?us-ascii?Q?oif/TyzrwGqeQCqRSMEkpo0Kzc/m5bO/Kqjm3MgXFiacfcOKJkie8+sXUhXZ?=
- =?us-ascii?Q?g93obqby6Q7piIr9yZNRV5fqWLIAFeCMz9UWF0jdX6X10VsUFg8ziuqypHTL?=
- =?us-ascii?Q?LrK/Y6ZMsVH6Cm2gceqS823KoKiDDz9mC/YWoqIGcVg4G6yYV5hqXjDkis1T?=
- =?us-ascii?Q?IGQG1Pk/JwrB24kEitMHd+JwVM9LiXv/yDZQdTNzTm9kipVyrnw1nXZjthII?=
- =?us-ascii?Q?B/bSvbVhZrKkzWfWcHauGENAidorV5NXDS9jWh8MQI5W4/nvNhPBawxnlL3B?=
- =?us-ascii?Q?20l7Y9DJkELGk3e4NFS8lh/8zI5YoMppVk9JH9Y1ll7EBUoj/wHGnZZwvJEC?=
- =?us-ascii?Q?VCrtobrRauxz5XjGzPWKDFbICW84Dhn1z2hSGkiW+fJtdUpNkc0cFfUXTo2S?=
- =?us-ascii?Q?+1MxfuNJ149kNBNuteTxemfPf2+d7sMbuDWaWoLZhS57T3carhsCCgrZFGXD?=
- =?us-ascii?Q?kBQ3TNmWAsaLymYitfEgo4i4wb/oKtbkqmT24XbdspRF8w/SeCquA0SbqUca?=
- =?us-ascii?Q?S9bD2HrSwZekwruxfGIdrm9BPACv75FNwUS2IhUEg3RXlvK2rbbBkZIY33l6?=
- =?us-ascii?Q?gTT9MI04o0P+xF/AtJIe+kMxoEBIGipMbn/YBsWRF1GPXSugxXUAAnhz6fCk?=
- =?us-ascii?Q?FqAgxE1QbSqMjSpQ0hSWrucMUFJw3a0GDC5CXv041AOCitc0S03h9DwlZMnd?=
- =?us-ascii?Q?CA2uFD8D9tOvnP5FOaCg0XccKESpIVsMKzp3M4+OMIK0R3G6lXI1QnnMjJlD?=
- =?us-ascii?Q?IQj6DwBSA0rRMnyGtNww4w3b55RDeprGJQ0ixXUGTIPYpJ8dkP8tIWYTfER9?=
- =?us-ascii?Q?msy5MFuJZGUrOGAtdcQY8uQzRYDUnzcSUne2dpO/j1+V2wCMlaG0UGD8N9e4?=
- =?us-ascii?Q?nMuqogQY5f34vIgOLuioftGNiQ9hckLcHMlE0+cUfZgbyOGhzcUf9pzL3zGR?=
- =?us-ascii?Q?8OZ3MQiwco6Wrdz2/loDVsyBVVeq4nmKjpvjur9lFgC9wIYJSFtyHUqDi4kZ?=
- =?us-ascii?Q?DRtw4Li8k5Sg6HQMG53W6IbtCjYiM9HP1j/YpkfeYbL/pol/sKPWjCOay6vx?=
- =?us-ascii?Q?c5/MyTp/Loi031VSIhIu2Si+e0+4h8VA3c6hZVkP9WZu0org9CJxFDfqJoZ5?=
- =?us-ascii?Q?DZ3r9Sw4qepjMLUqQHZQ1CFrxsnLRCoYC/8lHm5D+lyh+7nRkRx7a4O2ijQS?=
- =?us-ascii?Q?aJUCIcVGz6zmBZ1xF6Od6iKEcUUAqnRhzKLw/wkF/WI2HbQQY1YrLvWI0WVs?=
- =?us-ascii?Q?u2blDB+b5eUETF9EXqGDLakrlzySFPae/GYU8z5EWENynK5vz+PXD74rXLeJ?=
- =?us-ascii?Q?FjSybIxhBhSRMj9qxIpzL0Gqi3RGVENwXjq0ZpeHmw+PDsZjT2Lb7FK/mqOd?=
- =?us-ascii?Q?s2jVfA0DnO1J0bGZzELnKLe2sxi7sqnio9mLsoD0b3wp2HP6un4uGz4HSBAV?=
- =?us-ascii?Q?A2f5OtAvbUkImLPR8v5IVDXq/1Nnw27bXzDrHOLhgjlIYNiz/19sc78fD9Ji?=
- =?us-ascii?Q?O2HGssr90eZ6368xejYlvMDPomN56KjPO5Sp+1Zja9w4CCWNwXx56+S7sifW?=
- =?us-ascii?Q?lZYz/pRSFydrPmWQS1aKAtd01nbwLwZBTH+PgSZ3fJP2uYtR+i208GxuC+LJ?=
- =?us-ascii?Q?ZCU+zt+CdA=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9c8e6f9-a223-499f-d3a2-08ded032fe23
-X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZUhXQTdFYnRDQXBzVWdzTTE5NFR1TnVLM212U3RiTm1QK3M0ME00WkZoRzBX?=
+ =?utf-8?B?QVhYUXc5b2NxK3ZFQllheGNORmkwZGc0MjNqNTJQQ2RwNFpBYzkzaFFUZ29a?=
+ =?utf-8?B?ZkpXWkFhZ1pCeE5rbnRQcFhrMmFDTWttbTZoK0lPOGNTN1Naa0RjbXRSK0xn?=
+ =?utf-8?B?aVliUkNQK1o1TFJ1RmtWUzJKdkU5RllKb2xhMWhta05pOVBDMGVVTDlIRDBQ?=
+ =?utf-8?B?ekVuUXg5VDI0NUN4bVZwb1h4TnoyUENRQ0cycmxSZGN5SlRkUlhJVU1zNEE5?=
+ =?utf-8?B?MVRRbXFkNWgvc2lhNWYwclA3K0FZUzJyM0ZTMnNhSUZRMUY5Q1JLQjQxMFpw?=
+ =?utf-8?B?c0toUjdURmZGbFh5UkRyVTlRTlROZEpWZUlhNlhoWFgzZEoyN1UrOXM1UmxG?=
+ =?utf-8?B?b1hYajBqbFhOeFJqN3A5cUhIZktjVTl5UGsyNE1KckdGZEVHMStJanZLeVg5?=
+ =?utf-8?B?SUhXMVZoaU5jMGQ5QzR4dmtBMUx1WFZrWmorOENzUENqclcwM2pXTFp0VkJ5?=
+ =?utf-8?B?YlFkRVBIUUVReUlJWUY3RnZCcFVER3djektRekNJcUV0cXh0dkF6ci9vV3lZ?=
+ =?utf-8?B?YjJjb2tVaHBMQzdUcTE5MUI5dmdmaHorVTJKTG5EK0dUblhidXk5SGxaekxE?=
+ =?utf-8?B?RzAwcUltSlNpQUV6bHcyUktnY05YVGY3MERBUFkxVFZEYTIvM2IxQXJYWkdE?=
+ =?utf-8?B?NXl1VTlhd21KWVg3bXVQRmR0ZHJORHJ2VnJJRms2MW1KUzdubWxUVS9CZmh0?=
+ =?utf-8?B?YWJ2OUtSdENOeURpVnFSVlNXeFlBdDNrbEFIajRmdTVvejN3RUJqeGpnTlR6?=
+ =?utf-8?B?cll4NlpwKzNkcTJnOUhvWVgwZVM0T2ZjcTZ6elpVQnlWbk9rdjE3blU3Q3Qv?=
+ =?utf-8?B?RUV2UTB6Z2JhOFAxVmlodGRiQXlEQWFhb0VadEl2dG5IRG5CRFgzVXR6RTNI?=
+ =?utf-8?B?ZDFWQWRpelVmZjhjZFM0VEdKdmZlVG1lUmVETFU4d0NaaWIrb0dNcUpNVDNB?=
+ =?utf-8?B?aUxrdVQ4QzJyMC9sNXB2WncwOVVzWS8vajJGemRsZ1o5VEJsMjlLU21tNHJU?=
+ =?utf-8?B?NGJ3S0pCWUlJRXZDeGNzdVhSR2R6MkdWMlhTVjcvU25HYjFaVjZDc0VPSlZw?=
+ =?utf-8?B?d0pBalpNR09vRVBuZWdpdVAybnNYcndKYXY4YXlIdnBUdk9VVmF1NUhWUHJZ?=
+ =?utf-8?B?bFp6ZXRrbjBBTzdxQzM5VlZaYUQ0bnZFWGZnZmk1Y0F4UGtKMTJ5NS9MbFBK?=
+ =?utf-8?B?QXRXNG8xYnpMa2ZuWm11YVN6dWplc1hnM2prTmZieDhYTHpyeWQ4SWRhK1E1?=
+ =?utf-8?B?ajU2cFpVeG0rVFdlYWNJUUhxZ0pvTmNHTmNYMnY0RjIzZ1VsVUw5UjZVS2M1?=
+ =?utf-8?B?bGxUbUJQaVpaWU9sN1ZFbVhzMEpLZFdtdy90R3FwRTI4TlpVaHB5bjhvMzFm?=
+ =?utf-8?B?am9wVHk4S3pmYkJEU3ZSR3JUQzI4ZzExRGhpdm5pOWwyREhudGFHa201WHA0?=
+ =?utf-8?B?R0llQlV1dXlHWWo2eDl6VDExM1lvUDR6d2VNMi9sTUt4UC9wTFRyMENMSjBC?=
+ =?utf-8?B?UUljZDRWM0ZmenlKYktETnZId3h2UlpkOHA0cGpEdkg3WWowQ1FwbkR5MHdz?=
+ =?utf-8?B?MzA2Q0Z6Y1JrUkl5SUxNTkdyL0hWU2xqQmx5TGlMdGM0Z1BRaFljdVRVbTd4?=
+ =?utf-8?B?UVpER1VvQ1FBdlhtUVYwa1pqb3FCV2RPdjN5NmtmQUFsMnlkeGRPTnpYc1VJ?=
+ =?utf-8?B?NnBmQWtnRWliandScncreTR6UE5Faml1cUhyYVVqdWd2UTNiN3JCbnJONjMy?=
+ =?utf-8?B?elZQNGlmZjFEelFxZDRVN1AzMkZoRzJZUkhXeTlwS0VqbHVrZk9WcHhQd0ND?=
+ =?utf-8?B?clhMVUhXSC83Z0FBZ0pKK0RvTC93NUQyK2wyQWh6N0FFNThkc2NZR0Z6M2Iz?=
+ =?utf-8?B?RWRiZTh5VWRxcGcvZW1kS2FEY2lvODBnUDJvK2E2clZCT3NabHlaSWN6YkYy?=
+ =?utf-8?B?T3lTTVhpVkFWeHlrM2ZxR2Fqc25kUDd3Zlo4REJCZ2hRQS9CcXZoaklDM3FJ?=
+ =?utf-8?B?a1gwVnF1Nk9Cd2JlOXhycE9oVXR0RE1DK3NVbTVHQno0Mk9QVDhJQy9OQmFk?=
+ =?utf-8?B?U2UzNk9GemNWNVZhbnE5b3lXL3RZL3NrR1p2TkFhd2tOU2NGQ0FQTUo5Z0Za?=
+ =?utf-8?B?elV2enRodW1LQytKNzgzSTRzeW1yemI2THlCQVcwL2U5YkJ0bXd0L2gwVmo3?=
+ =?utf-8?B?UEFGUXRZZTRwU3lEUXB4M2RxOVlvdmRWUjl6aDJnell3RHFkc2pnVVlVK0JT?=
+ =?utf-8?B?RDNXcVYxMjFqYXZ5dU5XM1cweG9IMCtORFhNOTBjdG1vY29hZGhZYzI0cHRL?=
+ =?utf-8?Q?zvU6J+4K3r5lv42vErCqKBjX5cyA2FRwSl0OpopJ9+lnR?=
+X-MS-Exchange-AntiSpam-MessageData-1: MMHZr9WWy5nx+Q==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e6a48b4-2da8-4290-4b23-08ded033dc06
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 07:50:56.8855 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 07:57:08.9384 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eUIOEH6wejSMYZgIL7+QKV8KcgK4hs0k52WU6p9pZh0x4ubTSUeIUpODHlBBfzsLuIdT9yDZzVM3ex1GvmRvVA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7681
+X-MS-Exchange-CrossTenant-UserPrincipalName: RwzBEQzPFz6cNrGhyzXaTGl71RCG3V49Kfhvp0mAFmrHWS6JFYV2+y5IrroV2XXhOWTZ2jItljgbcXsh0GyE/w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4291
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,153 +145,436 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jun 19, 2026 at 06:49:55PM +0200, Luca Ceresoli wrote:
-> Hello Liu,
+On Fri Jun 19, 2026 at 10:42 PM JST, Alexandre Courbot wrote:
+> The next patch aims at replacing the cumbersome `BootUnloadGuard` with a
+> more local and less intrusive mechanism to run the GSP unload sequence
+> upon GSP boot failure. Doing so requires running the boot code in a
+> local closure, which changes its indentation and would make other
+> changes difficult to track in the diff. Thus, this preparatory patch
+> moves said boot code into a local closure that is run upon construction,
+> so the next patch does not need to re-indent code that changes.
+>
+> This is a mechanical preparatory patch to make the next patch easier to
+> read. No functional change intended.
+>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
 
-Hi Luca,
+I agree with removing BootUnloadGuard, but I think it's not great to do
+a bunch of lifting into closures then manually handling the result. It's
+error prone imo (we already had several bugs relating to this kind of
+thing). Instead, what about just using ScopeGuard directly? This lets us
+avoid lifting into closures (which is a bit noisy) and avoids manual
+result handling for failures (which is a bit error prone). With the
+`GspBootContext` it's fairly easy to do now:
 
-> 
-> On Fri May 15, 2026 at 8:54 AM CEST, Liu Ying wrote:
-> > i.MX93 MIPI DPHY PLL has limitation for matching with some pixel clock
-> > rates, e.g., the best DPHY PLL frequency is 445.333333MHz for a typical
-> > 1920x1080p@60Hz CEA/DMT display mode with a pixel clock rate running
-> > at 148.5MHz with 4 data lanes + RGB888 pixel in MIPI DSI sync pulse mode,
-> > while the expected PLL frequency is (148.5 * 24) / 4 / 2 MHz = 445.5MHz.
-> > Fortunately, VESA Display Monitor Timing Standard allows +/-0.5% pixel
-> > clock rate deviation for timings.  So, for those display modes read
-> > from EDID through a bridge with DRM_BRIDGE_OP_DETECT and DRM_BRIDGE_OP_EDID
-> > operation bit masks set, pixel clock rate could be adjusted to match
-> > with the PLL frequency(for the above example, the pixel clock rate is
-> > adjusted to be 148.444444MHz with about -0.03% deviation from the 148.5MHz
-> > nominal rate so that the adjusted rate matches with the 445.333333MHz PLL
-> > frequency).
-> >
-> > Instead of checking the last bridge's operation bit masks against
-> > DRM_BRIDGE_OP_DETECT and DRM_BRIDGE_OP_EDID to determine if allowing
-> > +/-0.5% pixel clock rate deviation, check any bridge after this bridge,
-> > because the last bridge is usually a display connector bridge without
-> > any operation bit mask when the clock rate deviation is allowed.
-> >
-> > Fixes: ce62f8ea7e3f ("drm/bridge: imx: Add i.MX93 MIPI DSI support")
-> > Fixes: 5849eff7f067 ("drm/bridge: imx93-mipi-dsi: use drm_bridge_chain_get_last_bridge()")
-> > Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> > Signed-off-by: Liu Ying <victor.liu@nxp.com>
-> 
-> I'm perhaps not the most qualified to review this change, but let me try.
+```
+let unload_guard =3D ScopeGuard::new_with_data(unload_bundle, |unload_bundl=
+e| {
+    let _ =3D gsp.unload(ctx, unload_bundle);
+});
+```
 
-Thanks for your review.
+I confirmed that it's also compatible with the v2 of this series that
+has the mutable Fsp - you can stash the context inside the ScopeGuard
+data (then making a &mut reference to the stashed context for brevity)
+or have a separate unload context type that doesn't use FSP or something
+(could later be type parametrized along with Gsp, for example).
 
-> 
-> > --- a/drivers/gpu/drm/bridge/imx/imx93-mipi-dsi.c
-> > +++ b/drivers/gpu/drm/bridge/imx/imx93-mipi-dsi.c
-> > @@ -489,25 +489,43 @@ static int imx93_dsi_get_phy_configure_opts(struct imx93_dsi *dsi,
-> >  	return 0;
-> >  }
-> >
-> > +static inline struct drm_bridge *
-> > +imx93_dsi_get_next_bridge_in_chain(struct drm_bridge *bridge)
-> > +{
-> > +	struct drm_bridge *next = drm_bridge_get_next_bridge(bridge);
-> > +
-> > +	drm_bridge_put(bridge);
-> > +
-> > +	return next;
-> > +}
-> > +
-> >  static enum drm_mode_status
-> >  imx93_dsi_validate_mode(struct imx93_dsi *dsi, const struct drm_display_mode *mode)
-> >  {
-> >  	struct drm_bridge *dmd_bridge = dw_mipi_dsi_get_bridge(dsi->dmd);
-> > -	struct drm_bridge *last_bridge __free(drm_bridge_put) =
-> > -		drm_bridge_chain_get_last_bridge(dmd_bridge->encoder);
-> > +	struct drm_bridge *bridge;
-> >
-> > -	if ((last_bridge->ops & DRM_BRIDGE_OP_DETECT) &&
-> > -	    (last_bridge->ops & DRM_BRIDGE_OP_EDID)) {
-> > -		unsigned long pixel_clock_rate = mode->clock * 1000;
-> > -		unsigned long rounded_rate;
-> > +	for (bridge = drm_bridge_get_next_bridge(dmd_bridge);
-> > +	     bridge;
-> > +	     bridge = imx93_dsi_get_next_bridge_in_chain(bridge)) {
-> > +		if ((bridge->ops & DRM_BRIDGE_OP_DETECT) &&
-> > +		    (bridge->ops & DRM_BRIDGE_OP_EDID)) {
-> > +			unsigned long pixel_clock_rate = mode->clock * 1000;
-> > +			unsigned long rounded_rate;
-> >
-> > -		/* Allow +/-0.5% pixel clock rate deviation */
-> > -		rounded_rate = clk_round_rate(dsi->clk_pixel, pixel_clock_rate);
-> > -		if (rounded_rate < pixel_clock_rate * 995 / 1000 ||
-> > -		    rounded_rate > pixel_clock_rate * 1005 / 1000) {
-> > -			dev_dbg(dsi->dev, "failed to round clock for mode " DRM_MODE_FMT "\n",
-> > -				DRM_MODE_ARG(mode));
-> > -			return MODE_NOCLOCK;
-> > +			/* Allow +/-0.5% pixel clock rate deviation */
-> > +			rounded_rate = clk_round_rate(dsi->clk_pixel, pixel_clock_rate);
-> > +			if (rounded_rate < pixel_clock_rate * 995 / 1000 ||
-> > +			    rounded_rate > pixel_clock_rate * 1005 / 1000) {
-> > +				dev_dbg(dsi->dev,
-> > +					"failed to round clock for mode " DRM_MODE_FMT "\n",
-> > +					DRM_MODE_ARG(mode));
-> > +				drm_bridge_put(bridge);
-> > +				return MODE_NOCLOCK;
-> > +			}
-> > +
-> > +			drm_bridge_put(bridge);
-> > +			break;
-> >  		}
-> >  	}
-> 
-> Is this logic specific to the imx93 MIPI DSI host only? Or should it be
-> made generic for all dw-hdmi users, or even every DSI host?
+For example here is a rough diff on top of this patch series (you can
+change the Result<Option<UnloadBundle>> returns to like
+Result<Result<UnloadBundle>> if you want to centralise teh error
+handling of a failed unloadbundle although currently it can only fail in
+one location):
 
-I think it's kind of specific to the i.MX93 MIPI DSI host only, because
-1) the i.MX93 MIPI DPHY PLL(integrated into i.MX93 MIPI DPHY IP) supports
-the best DPHY PLL frequency @445.333333MHz for the typical 1920x1080p@60Hz
-display mode, which is lower than the expected/nominal frequency @445.5MHz
-and 2) the generic DW MIPI DSI driver(dw-mipi-dsi.c) is PHY-agnostic, which
-means vendors may attach different MIPI DPHY IPs to the common MIPI DSI host
-IP and likely there would be no frequency mismatch between the pixel clock
-and the PLL like i.MX93 has.
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 7918ebb508f9..f6454b106293 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -314,7 +314,7 @@ fn drop(self: Pin<&mut Self>) {
+             .as_ref()
+             .get_ref()
+             .unload(
+-                GspBootContext {
++                &GspBootContext {
+                     pdev: device,
+                     bar,
+                     chipset: this.spec.chipset,
+diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/=
+boot.rs
+index 336ad23c96f9..cfe10a8313c8 100644
+--- a/drivers/gpu/nova-core/gsp/boot.rs
++++ b/drivers/gpu/nova-core/gsp/boot.rs
+@@ -6,7 +6,8 @@
+     dma::Coherent,
+     io::poll::read_poll_timeout,
+     prelude::*,
+-    time::Delta, //
++    time::Delta,
++    types::ScopeGuard, //
+ };
+=20
+ use crate::{
+@@ -55,57 +56,35 @@ pub(crate) fn boot(
+         let wpr_meta =3D Coherent::init(dev, GFP_KERNEL, GspFwWprMeta::new=
+(&gsp_fw, &fb_layout))?;
+=20
+         // Perform the chipset-specific boot sequence, and retrieve the un=
+load bundle.
+-        let (res, unload_bundle) =3D hal.boot(&self, &ctx, &fb_layout, &wp=
+r_meta);
++        let unload_bundle =3D hal.boot(&self, &ctx, &fb_layout, &wpr_meta)=
+?;
+=20
+-        // Display error for unload bundle if any, and convert to `Option`=
+.
+-        let unload_bundle =3D unload_bundle
+-            .inspect_err(|e| {
+-                dev_warn!(dev, "Failed to prepare unload firmware: {:?}\n"=
+, e);
+-                dev_warn!(dev, "The GSP won't be able to unload properly o=
+n unbind.\n");
+-                dev_warn!(
+-                    dev,
+-                    "The GPU will need to be reset before the driver can b=
+ind again.\n"
+-                );
+-            })
+-            .ok();
+-
+-        // Run from a closure so we can retrieve the result, and run the u=
+nload sequence of the GSP
+-        // in case of error.
+-        let res =3D res.and_then(|()| {
+-            gsp_falcon.write_os_version(bar, gsp_fw.bootloader.app_version=
+);
+-
+-            // Poll for RISC-V to become active before continuing.
+-            read_poll_timeout(
+-                || Ok(gsp_falcon.is_riscv_active(bar)),
+-                |val: &bool| *val,
+-                Delta::from_millis(10),
+-                Delta::from_secs(5),
+-            )?;
+-
+-            dev_dbg!(pdev, "RISC-V active? {}\n", gsp_falcon.is_riscv_acti=
+ve(bar),);
+-
+-            self.cmdq
+-                .send_command_no_wait(bar, commands::SetSystemInfo::new(pd=
+ev, chipset))?;
+-            self.cmdq
+-                .send_command_no_wait(bar, commands::SetRegistry::new())?;
+-
+-            hal.post_boot(&self, &ctx, &gsp_fw)?;
+-
+-            // Wait until GSP is fully initialized.
+-            commands::wait_gsp_init_done(&self.cmdq)
++        let unload_guard =3D ScopeGuard::new_with_data(unload_bundle, |unl=
+oad_bundle| {
++            let _ =3D self.unload(&ctx, unload_bundle);
+         });
+=20
+-        match res {
+-            Err(e) =3D> {
+-                dev_err!(dev, "GSP boot failed with error {:?}\n", e);
++        gsp_falcon.write_os_version(bar, gsp_fw.bootloader.app_version);
+=20
+-                // Ignore errors during unload; we will return the error t=
+hat happened during boot.
+-                let _ =3D self.unload(ctx, unload_bundle);
++        // Poll for RISC-V to become active before continuing.
++        read_poll_timeout(
++            || Ok(gsp_falcon.is_riscv_active(bar)),
++            |val: &bool| *val,
++            Delta::from_millis(10),
++            Delta::from_secs(5),
++        )?;
+=20
+-                Err(e)
+-            }
+-            Ok(()) =3D> Ok(unload_bundle),
+-        }
++        dev_dbg!(pdev, "RISC-V active? {}\n", gsp_falcon.is_riscv_active(b=
+ar),);
++
++        self.cmdq
++            .send_command_no_wait(bar, commands::SetSystemInfo::new(pdev, =
+chipset))?;
++        self.cmdq
++            .send_command_no_wait(bar, commands::SetRegistry::new())?;
++
++        hal.post_boot(&self, &ctx, &gsp_fw)?;
++
++        // Wait until GSP is fully initialized.
++        commands::wait_gsp_init_done(&self.cmdq)?;
++
++        Ok(unload_guard.dismiss())
+     }
+=20
+     /// Shut down the GSP and wait until it is offline.
+@@ -134,7 +113,7 @@ fn shutdown_gsp(
+     /// This stops all activity on the GSP.
+     pub(crate) fn unload(
+         &self,
+-        ctx: super::GspBootContext<'_>,
++        ctx: &super::GspBootContext<'_>,
+         unload_bundle: Option<super::UnloadBundle>,
+     ) -> Result {
+         let dev =3D ctx.dev();
+@@ -153,7 +132,7 @@ pub(crate) fn unload(
+             res =3D res.and(
+                 unload_bundle
+                     .0
+-                    .run(&ctx)
++                    .run(ctx)
+                     .inspect_err(|e| dev_err!(dev, "Unload bundle failed: =
+{:?}\n", e)),
+             );
+         } else {
+diff --git a/drivers/gpu/nova-core/gsp/hal.rs b/drivers/gpu/nova-core/gsp/h=
+al.rs
+index 113d445239b9..849ca224085b 100644
+--- a/drivers/gpu/nova-core/gsp/hal.rs
++++ b/drivers/gpu/nova-core/gsp/hal.rs
+@@ -37,22 +37,15 @@ pub(super) trait UnloadBundle: Send {
+ pub(super) trait GspHal: Send {
+     /// Performs the GSP boot process, loading and running the required fi=
+rmwares as needed.
+     ///
+-    /// Returns two things:
+-    ///
+-    /// - The `Result` of the boot process itself,
+-    /// - The `UnloadBundle` to use with [`Gsp::unload`], or `Err` if the =
+bundle could not be
+-    ///   created.
+-    ///
+-    /// Note that the two returned values are independent: it is possible =
+for the boot process to
+-    /// succeed while the unload bundle couldn't be created. In this case,=
+ the GSP won't be able to
+-    /// unload properly and a full GPU reset is required before the GSP ca=
+n be booted again.
++    /// Upon success, returns the [`crate::gsp::UnloadBundle`] to use with=
+ [`Gsp::unload`], if one
++    /// could be created.
+     fn boot(
+         &self,
+         gsp: &Gsp,
+         ctx: &GspBootContext<'_>,
+         fb_layout: &FbLayout,
+         wpr_meta: &Coherent<GspFwWprMeta>,
+-    ) -> (Result, Result<crate::gsp::UnloadBundle>);
++    ) -> Result<Option<crate::gsp::UnloadBundle>>;
+=20
+     /// Performs HAL-specific post-GSP boot tasks.
+     ///
+diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova-core=
+/gsp/hal/gh100.rs
+index c6ff2fb216ea..04c27afc650a 100644
+--- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
++++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
+@@ -7,7 +7,8 @@
+     device,
+     dma::Coherent,
+     io::poll::read_poll_timeout,
+-    time::Delta, //
++    time::Delta,
++    types::ScopeGuard, //
+ };
+=20
+ use crate::{
+@@ -143,35 +144,35 @@ fn boot(
+         ctx: &GspBootContext<'_>,
+         fb_layout: &FbLayout,
+         wpr_meta: &Coherent<GspFwWprMeta>,
+-    ) -> (Result, Result<crate::gsp::UnloadBundle>) {
++    ) -> Result<Option<crate::gsp::UnloadBundle>> {
+         let dev =3D ctx.dev();
+         let bar =3D ctx.bar;
+         let chipset =3D ctx.chipset;
+         let gsp_falcon =3D ctx.gsp_falcon;
+=20
+-        let mut unload_bundle =3D Err(ENODATA);
++        let unload_bundle =3D crate::gsp::UnloadBundle(
++            KBox::new(FspUnloadBundle, GFP_KERNEL)? as KBox<dyn UnloadBund=
+le>
++        );
+=20
+-        let res =3D (|| {
+-            unload_bundle =3D Ok(crate::gsp::UnloadBundle(
+-                KBox::new(FspUnloadBundle, GFP_KERNEL)? as KBox<dyn Unload=
+Bundle>,
+-            ));
++        let unload_guard =3D ScopeGuard::new_with_data(Some(unload_bundle)=
+, |unload_bundle| {
++            let _ =3D gsp.unload(ctx, unload_bundle);
++        });
+=20
+-            let mut fsp =3D Fsp::wait_secure_boot(dev, bar, chipset)?;
++        let mut fsp =3D Fsp::wait_secure_boot(dev, bar, chipset)?;
+=20
+-            let args =3D FmcBootArgs::new(
+-                dev,
+-                chipset,
+-                wpr_meta.dma_handle(),
+-                gsp.libos.dma_handle(),
+-                false,
+-            )?;
++        let args =3D FmcBootArgs::new(
++            dev,
++            chipset,
++            wpr_meta.dma_handle(),
++            gsp.libos.dma_handle(),
++            false,
++        )?;
+=20
+-            fsp.boot_fmc(dev, bar, fb_layout, &args)?;
++        fsp.boot_fmc(dev, bar, fb_layout, &args)?;
+=20
+-            wait_for_gsp_lockdown_release(dev, bar, gsp_falcon, args.boot_=
+params_dma_handle())
+-        })();
++        wait_for_gsp_lockdown_release(dev, bar, gsp_falcon, args.boot_para=
+ms_dma_handle())?;
+=20
+-        (res, unload_bundle)
++        Ok(unload_guard.dismiss())
+     }
+ }
+=20
+diff --git a/drivers/gpu/nova-core/gsp/hal/tu102.rs b/drivers/gpu/nova-core=
+/gsp/hal/tu102.rs
+index 93ff8a154100..fb1d233ac7db 100644
+--- a/drivers/gpu/nova-core/gsp/hal/tu102.rs
++++ b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+@@ -6,7 +6,8 @@
+ use kernel::{
+     device,
+     dma::Coherent,
+-    io::Io, //
++    io::Io,
++    types::ScopeGuard, //
+ };
+=20
+ use crate::{
+@@ -267,57 +268,66 @@ fn boot(
+         ctx: &GspBootContext<'_>,
+         fb_layout: &FbLayout,
+         wpr_meta: &Coherent<GspFwWprMeta>,
+-    ) -> (Result, Result<crate::gsp::UnloadBundle>) {
++    ) -> Result<Option<crate::gsp::UnloadBundle>> {
+         let dev =3D ctx.dev();
+         let bar =3D ctx.bar;
+         let chipset =3D ctx.chipset;
+         let gsp_falcon =3D ctx.gsp_falcon;
+         let sec2_falcon =3D ctx.sec2_falcon;
+=20
+-        let mut unload_bundle =3D Err(ENODATA);
++        let bios =3D Vbios::new(dev, bar)?;
+=20
+-        let res =3D (|| {
+-            let bios =3D Vbios::new(dev, bar)?;
++        // Try and prepare the unload bundle.
++        //
++        // If the unload bundle creation fails, the GPU will need to be re=
+set before the driver can
++        // be probed again.
++        let unload_bundle =3D
++            Sec2UnloadBundle::build(dev, bar, chipset, &bios, gsp_falcon, =
+sec2_falcon)
++                .inspect_err(|e| {
++                    dev_warn!(dev, "Failed to prepare unload firmware: {:?=
+}\n", e);
++                    dev_warn!(dev, "The GSP won't be able to unload proper=
+ly on unbind.\n");
++                    dev_warn!(
++                        dev,
++                        "The GPU will need to be reset before the driver c=
+an bind again.\n"
++                    );
++                })
++                .ok()
++                .map(crate::gsp::UnloadBundle);
+=20
+-            // Try and prepare the unload bundle.
+-            //
+-            // If the unload bundle creation fails, the GPU will need to b=
+e reset before the driver
+-            // can be probed again.
+-            unload_bundle =3D
+-                Sec2UnloadBundle::build(dev, bar, chipset, &bios, gsp_falc=
+on, sec2_falcon)
+-                    .map(crate::gsp::UnloadBundle);
++        let unload_guard =3D ScopeGuard::new_with_data(unload_bundle, |unl=
+oad_bundle| {
++            let _ =3D gsp.unload(ctx, unload_bundle);
++        });
+=20
+-            // FWSEC-FRTS is not executed on chips where the FRTS region s=
+ize is 0 (e.g. GA100).
+-            if !fb_layout.frts.is_empty() {
+-                run_fwsec_frts(dev, chipset, gsp_falcon, bar, &bios, fb_la=
+yout)?;
+-            }
++        // FWSEC-FRTS is not executed on chips where the FRTS region size =
+is 0 (e.g. GA100).
++        if !fb_layout.frts.is_empty() {
++            run_fwsec_frts(dev, chipset, gsp_falcon, bar, &bios, fb_layout=
+)?;
++        }
+=20
+-            gsp_falcon.reset(bar)?;
+-            let libos_handle =3D gsp.libos.dma_handle();
+-            let (mbox0, mbox1) =3D gsp_falcon.boot(
+-                bar,
+-                Some(libos_handle as u32),
+-                Some((libos_handle >> 32) as u32),
+-            )?;
+-            dev_dbg!(dev, "GSP MBOX0: {:#x}, MBOX1: {:#x}\n", mbox0, mbox1=
+);
++        gsp_falcon.reset(bar)?;
++        let libos_handle =3D gsp.libos.dma_handle();
++        let (mbox0, mbox1) =3D gsp_falcon.boot(
++            bar,
++            Some(libos_handle as u32),
++            Some((libos_handle >> 32) as u32),
++        )?;
++        dev_dbg!(dev, "GSP MBOX0: {:#x}, MBOX1: {:#x}\n", mbox0, mbox1);
+=20
+-            dev_dbg!(
+-                dev,
+-                "Using SEC2 to load and run the booter_load firmware...\n"
+-            );
++        dev_dbg!(
++            dev,
++            "Using SEC2 to load and run the booter_load firmware...\n"
++        );
+=20
+-            BooterFirmware::new(
+-                dev,
+-                BooterKind::Loader,
+-                chipset,
+-                FIRMWARE_VERSION,
+-                sec2_falcon,
+-                bar,
+-            )?
+-            .run(dev, bar, sec2_falcon, wpr_meta)
+-        })();
++        BooterFirmware::new(
++            dev,
++            BooterKind::Loader,
++            chipset,
++            FIRMWARE_VERSION,
++            sec2_falcon,
++            bar,
++        )?
++        .run(dev, bar, sec2_falcon, wpr_meta)?;
+=20
+-        (res, unload_bundle)
++        Ok(unload_guard.dismiss())
+     }
+=20
+     fn post_boot(&self, gsp: &Gsp, ctx: &GspBootContext<'_>, gsp_fw: &GspF=
+irmware) -> Result {
 
-> 
-> Also, iterating over the bridge chain is not very clean. I'm working on
-> bridge hotplug (not upstream yet) and bad things would happen if a bridge
-> were hot-unplugged during this loop.
-
-The iterating is essentially the same to drm_for_each_bridge_in_chain_from()
-except that bridge_chain_mutex is not taken(since it's already taken) and
-the starting bridge is fixed to be the next bridge.  A few bridge core APIs
-like drm_bridge_chain_mode_valid() call drm_for_each_bridge_in_chain_from().
-So, the iterating looks clean to me and I'm not aware of any bad things which
-would happen when bridge hotplug is considered.
-
-> If the core did this sort of algorithm
-> it would be able to be more robust.
-
-Is the core dw-mipi-dsi.c?
-If yes, do you think it's worth doing that even if the frequency mismatch
-between the pixel clock and the PLL is kind of specific to the i.MX93 MIPI
-DSI host?
-
-> 
-> Finally, out of my utter ignorance on the subject, is the VESA +/-0.5%
-> margin generic enough that this driver can always rely on it?
-
-I see several upstream drivers rely on it, see "git grep '0.5%' drivers/gpu/"
-output.  And every display mode allows -/+ 0.5% pixel clock rate deviation
-according to VESA Display Monitor Timing Standard [1], though [1] is a found
-by a random Google search.
-
-[1] https://glenwing.github.io/docs/VESA-DMT-1.13.pdf
-
-> 
-> Luca
-> 
-> --
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
-
--- 
-Regards,
-Liu Ying
