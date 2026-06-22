@@ -4,55 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BBC4CDB466
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 18:54:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A5F8CD98F2
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 19:00:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C222F10E7E5;
-	Mon, 22 Jun 2026 18:54:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5768D10E307;
+	Mon, 22 Jun 2026 19:00:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VK4fNUZ6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hyrNnRh5";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24B3810E7E5
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 18:54:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64FCD10E307
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 18:59:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D8B4C41A4E;
- Mon, 22 Jun 2026 18:54:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FD701F00A3A;
- Mon, 22 Jun 2026 18:54:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 134AC4166F;
+ Mon, 22 Jun 2026 18:59:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EB711F000E9;
+ Mon, 22 Jun 2026 18:59:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782154460;
- bh=e78V7kgXMbJ2j9ruANspI4m79EuWYq9kaBl2A/1+vnc=;
- h=Date:From:Subject:Cc:To:References:In-Reply-To;
- b=VK4fNUZ66VH0IoNx9ToS161nQvezwA8NI56XiQv8YozxaJJXKPpQ6BoxyRyd6D3qH
- w10/rdsz06G0grAxgce2XQn6ei10M8tLdIr0WY/LCEldxduwFMDvKPX5Lupqos2+/6
- etuQmPEgEQ2aiO0vajGR4wLlJNx+7TfY/JfQWvjEDnPChpJEq+fjybdBtk/fZDQXau
- XzHC5zWFy7h0vk3BsRgw+oJ7uCd1Rjm+YX9MnX4nVpDs6Dpq2juey1k/J1b4kTmuo+
- h3sy3y/juj8WqDW5stjd3Jzd6KklCcf/ABRFs1iGZRQu5W451z2ufs9vu2GXnmi8Bd
- U/wc3XGBo3e9g==
-Mime-Version: 1.0
+ s=k20260515; t=1782154799;
+ bh=v5QBm6qa+OqHLLGjLCx8x8n2JJYamc2t3YH+owipFrk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=hyrNnRh5RKp+NgtQl9D4RhF/tXtwC62hEfYjjmcP4XpXIek8WkYqWvo0Wn3OeDEon
+ K0ZwVg9i75ZQRaMLiOOUHWrn3IuoSN4YtZZ0esUIgD5Vn2OBq9HP51mVvlXI/6iMCE
+ QfRhd95mFRFVJHZISRmPj0nwmLOMwRC+1ijAvqMpxfsjOQDKQXqLSW2b9SHAON6aMv
+ CWCcxHN8uFGcp+ElWpZ7sjC9/aElTVFsgss8MVFNuOftsuywR6J0hMBa5lULhqxpKw
+ 1RZm97SZr7FpAc2zDH7rySxo4DJMDJ2rq/g7MEdSV83Vn41+Zbmx8ReS0YwcdKWPWH
+ rSjnHeC/VwIEA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 2/4] dma-buf: add optional get_pci_tph() callback
+To: "Zhiping Zhang" <zhipingz@meta.com>
+Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-pci@vger.kernel.org
+In-Reply-To: <20260622184211.2229399-3-zhipingz@meta.com>
+References: <20260622184211.2229399-1-zhipingz@meta.com>
+ <20260622184211.2229399-3-zhipingz@meta.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 22 Jun 2026 20:54:15 +0200
-Message-Id: <DJFT12M0PTGO.35EXUBXF6447F@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v4 06/16] rust: drm: restrict AlwaysRefCounted to Normal
- GEM Object context
-Cc: <aliceryhl@google.com>, <daniel.almeida@collabora.com>,
- <acourbot@nvidia.com>, <ecourtney@nvidia.com>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
- <deborah.brouwer@collabora.com>, <boris.brezillon@collabora.com>,
- <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>
-To: "Lyude Paul" <lyude@redhat.com>
-References: <20260620184924.2247517-1-dakr@kernel.org>
- <20260620184924.2247517-7-dakr@kernel.org>
- <f476b05e5d57c312230fac93c2a52f1cbe061376.camel@redhat.com>
- <DJFRY0UZD7C0.37LIP9LNMBDLL@kernel.org>
- <0e66953ae97fa60f19d6f744716b3a4a23d86039.camel@redhat.com>
-In-Reply-To: <0e66953ae97fa60f19d6f744716b3a4a23d86039.camel@redhat.com>
+Date: Mon, 22 Jun 2026 18:59:58 +0000
+Message-Id: <20260622185958.7EB711F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,57 +54,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jun 22, 2026 at 8:25 PM CEST, Lyude Paul wrote:
-> On Mon, 2026-06-22 at 20:03 +0200, Danilo Krummrich wrote:
->> One thing I had in mind is that we could have TTM callbacks that guarant=
-ee us a
->> Registered DeviceContext that could be represented by the corresonding G=
-EM
->> object. Of course, it could also be represented by a separate
->> &Device<Registered> being passed to the callback.
->
-> IMO I think this is better - especially since when I originally introduce=
-d
-> DeviceContext the intent was that it should be something that we try to o=
-mit
-> wherever possible, so users mainly only need to interact with it in vario=
-us
-> callbacks that have assumptions about the state of the Device. This makes
-> sense logically as well, since the only reason you would need to manually
-> specify the DeviceContext a Device is in is when you're running Rust code=
- that
-> has been executed from a non-Rust context.
->
-> I think for Registration this is definitely ideal, since now that we're t=
-rying
-> to give it the ability to represent "This device is -currently- registere=
-d"
-> vs. "This device was registered at some point" trying to avoid generalizi=
-ng
-> types over DeviceContext helps to ensure we don't mistakenly pass through=
- a
-> Registered DeviceContext somewhere we didn't mean to. E.g., allowing a us=
-er to
-> store a gem Object with the Registered device context would technically b=
-e a
-> leak as it would then be impossible for us to guarantee that all Register=
-ed
-> devices are presently registered.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The centralized DMA-BUF locking conventions documentation was not u=
+pdated for the new `get_pci_tph` API.
+--
 
-In general I agree; and I think I also brought it up a few times that it wo=
-uld
-be nice to avoid making GEM objects generic over the DeviceContext.
+commit 558f8ccf1c7e2c892ffa9049e917832eaa82ea77
+Author: Zhiping Zhang <zhipingz@meta.com>
 
-But now that we already have it (and it is out of the way with this patch
-already), I think it could make sense to wait a bit and see how the TTM stu=
-ff
-turns out before we go back and forth (I think it may be useful there)?
+dma-buf: add optional get_pci_tph() callback
 
-At least I'd prefer to do this in a follow-up patch and, if required, discu=
-ss it
-there. Do you mind sending a follow-up patch, given that you already looked=
- into
-removing it entirely?
+This commit introduces an optional get_pci_tph callback in dma_buf_ops and a
+wrapper function dma_buf_get_pci_tph() to retrieve PCIe TLP Processing Hint=
+s.
+This allows importers to request TPH namespaces that exporters can emit.
+The wrapper function requires the DMA-buf reservation lock to be held.
+
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index d504c636dc294..7a4c9b0d5dab4 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -1144,6 +1144,31 @@ void dma_buf_unpin(struct dma_buf_attachment *atta=
+ch)
+>  }
+>  EXPORT_SYMBOL_NS_GPL(dma_buf_unpin, "DMA_BUF");
+> =20
+> +/**
+> + * dma_buf_get_pci_tph - Retrieve PCIe TLP Processing Hint (TPH) metadata
+> + * @dmabuf: DMA buffer to query
+> + * @extended: false for 8-bit ST, true for 16-bit Extended ST
+> + * @steering_tag: returns the raw steering tag for the requested namespa=
+ce
+> + * @ph: returns the TPH processing hint
+> + *
+> + * Wrapper for the optional &dma_buf_ops.get_pci_tph callback.
+> + *
+> + * Must be called with &dma_buf.resv held. Returns -EOPNOTSUPP if the
+> + * exporter does not implement the callback or has no metadata for the
+> + * requested namespace.
+> + */
+> +int dma_buf_get_pci_tph(struct dma_buf *dmabuf, bool extended,
+> +			u16 *steering_tag, u8 *ph)
+> +{
+> +	dma_resv_assert_held(dmabuf->resv);
+
+[Severity: Low]
+Since this wrapper and the new get_pci_tph() callback require the dma-buf
+reservation lock to be held, should they be added to the centralized
+"DOC: locking convention" list in drivers/dma-buf/dma-buf.c? The documentat=
+ion
+under "Convention for importers" and "Convention for exporters" lists other
+functions that require this lock, but the new get_pci_tph API was omitted.
+
+> +
+> +	if (!dmabuf->ops->get_pci_tph)
+> +		return -EOPNOTSUPP;
+> +
+> +	return dmabuf->ops->get_pci_tph(dmabuf, extended, steering_tag, ph);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622184211.2229=
+399-1-zhipingz@meta.com?part=3D2
