@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B549DCDB471
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 08:23:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C077FCDB471
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 08:23:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28D1310E52D;
-	Mon, 22 Jun 2026 08:23:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F80110E52F;
+	Mon, 22 Jun 2026 08:23:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="l650I2tb";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Bqtst3uM";
 	dkim-atps=neutral
 Received: from CY7PR03CU001.outbound.protection.outlook.com
  (mail-westcentralusazon11010010.outbound.protection.outlook.com
  [40.93.198.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1735710E53D
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 08:23:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3C1510E531
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 08:23:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UHICkxB7FgptjjtXQzRqH8Fgfw44p/N/vGN1oqUWNae8huNkepPHl9UbJamb6pz1XVr1+7kZU5s8osxn6DL4QScwRSoMIRAHCJVJ4+ZG2XsdaeQobjTp8wSTrX2DxaHqcA8n1ZDAYoTVqSrYAggukJo1yO/EsUBdXB+XxEKe+8rAPjc59edIa9JFIypdDoAZHLygcEbBMJUVEqZeMtcywbVPhKNjdkCzJiXLJYC8359I3Yp6Z16aHxGO1SmV4hbwF2iLHbCkQTT0X2s9XUM6fOQgV71SCT9rYLMiIpxIulIyGv2YtNx3e4cjs1yiiabjoKEv6LI2ZdoHllIXIX/OKg==
+ b=Hkg/M0NNIbHFZtkH41ck8clBYvG7pw5pNlRxxNyEDC84/9KEjUwnR4iUxK8ZgTNqqFfffVT3eT/GKcDWd2cV4OKBS1nJkkE409Kabw/RLu1U1veAhKPX/zgnVfynAiredvcaFvh0t1b5fjbxKu8GraFKxF1QVcK0ZYboj/ayZWFoFlBpGMT99KV6r2ZB6SISeEB9BPPveNTAZ7FTPI1zBAvGqLSUJDtuj4416dqf7bNIQXc+IeJIu7K83O9kXKuvyq9VWrTsQ+UAYhQHCdPQHXnzb9EaxLtAGjzdciqj1I/TyzZX4GyWTXHbunterCmRZn6WoqwNb12G5+TrK6PV2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+u3Nvf/0Xx6qXsKgYyeMjWVAkktSVyNL0+tyZyimBw0=;
- b=pvUQ3d1xcwsa4VdQ9ihhBzY+ApO/YT26Uv/kOt+ovi4bfKpAVTQ9fQbx79k777OisdFb4VhlquswJmP4dBLyFmD3M8f62I/i0e+jqhRX/IbzJjUV9V1siE0inlAYX+1ZW/Mgaiz1EdRbvDvKN4zdgAbcmKjTPEn8n9/fih03YioNbqyc0gvkP0SGuHUc+TLmrwwFubE0yPRbPzjjb5Za2VuweDyJp+GTllU+sKOv9FO8H8jVudgQ8W0DPw44cYMMt5dUBRsDmu+WXVUmEhmRAcf+borc7NiQfb22o0s2r/g/fO0OF0FmJKEyHvvRHSk4Vw3j7w0o5BeOb3SQIUaxOg==
+ bh=dI5phd1ffIxhmpoWBWeRm4x0U2DA3h19VoWpWmUxyfs=;
+ b=l/SbIzJTzs3Q35ELhKHkNmIfVR1RdvqIYFFkIQoy3jsga2AieW7dV1org9M8N+v59+MGx/aIoxOWYZNogNgrrbZlG7VaX6DwoZf0NqqCFh/vkP/MHtsXQoBUkElUQepicglPtm9aiXePL7qeDdQgSnxq/Kk0t9b2TpDOJjuevVnSGxmFVKLIPUrn9FnH0B5em8Zv+3lxUn6iOBgieU00XhEbWiZpGEEq60oCh8qxL1YuizL12DPkz84dfJq0DvwQ/0liDUBi7v27yLl3lIicKWd8MK4OhEPukvkWhoU9WA1QDZSHz/61X+V0tBb3k+pO7HJqy3UnkAnGKlR5I8waiA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+u3Nvf/0Xx6qXsKgYyeMjWVAkktSVyNL0+tyZyimBw0=;
- b=l650I2tbuK+LDJwyeHuJ+JxjhbySBOGdA56XBDipQbI/47L3595rZyvlcVO1AVxjbJTJxqIMMnjAmZmbjA16UfCP1XQjy3awJvho5aYlYrSHAyHq+sDDUPeD4uq6jdxMvZSu0H1FkNLDhpjdRJMEuLKza82NUiFvzQ8K+HRjiilzcRX3wfqak/8nOZEy+gZF6cy2RpCIz6z8LeHjDXpdod5t0d/kuljAK6l4kLdndLhKrzbzawuCiv4i1RxnyUcaNzUuHEp8ZVQSVqM2wqIClEb22KY2nw44VPk3Av0fVUWcKE1ok89nvVurYGAnvGFVPeTTDpKo9IbzX+Svj4SAyw==
+ bh=dI5phd1ffIxhmpoWBWeRm4x0U2DA3h19VoWpWmUxyfs=;
+ b=Bqtst3uMTFAedz0i8HGomY7BdNNp5QGDLTPNQENm3PkRKxhcKw2eHxQgKccLlCNTldAfH49joM5UYMICP89qjemzY7u5FNE+fN2btwIRzESe0vmBSQzG3mnxCrx5cBbb2PxuWoVwnqIprkAWwO+BEY34SqHtNfUT1x5cLEcLG1b8msE7yY6MyS5X0DCgh73uH84C4DB9q8G0yEeE6R+ACL4HhUqJdMGtXWf66xFkm/V4zNwRHjYRvnbVj4uwwXj6X0GbgWHkOA+CaYZRoHyMOuUl73Eey0tCTAL2bflUfeESedVx9W05wrVoEwdPWKQjqKBgj71LGfRGkMx+UtrFbw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
  by CH1PPFC908D89D1.namprd12.prod.outlook.com
  (2603:10b6:61f:fc00::623) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Mon, 22 Jun
- 2026 08:23:14 +0000
+ 2026 08:23:10 +0000
 Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
  ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
  ([fe80::d9d1:8c49:a703:b017%6]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
- 08:23:14 +0000
+ 08:23:10 +0000
 From: Mikko Perttunen <mperttunen@nvidia.com>
-Date: Mon, 22 Jun 2026 17:22:53 +0900
-Subject: [PATCH 4/4] gpu: host1x: Allow limiting usable channel and
- syncpoint ranges
+Date: Mon, 22 Jun 2026 17:22:52 +0900
+Subject: [PATCH 3/4] gpu: host1x: Support running without hv/common registers
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260622-host1x-nohv-v1-4-65bc682a617f@nvidia.com>
+Message-Id: <20260622-host1x-nohv-v1-3-65bc682a617f@nvidia.com>
 References: <20260622-host1x-nohv-v1-0-65bc682a617f@nvidia.com>
 In-Reply-To: <20260622-host1x-nohv-v1-0-65bc682a617f@nvidia.com>
 To: Thierry Reding <thierry.reding@kernel.org>, 
@@ -63,73 +62,73 @@ Cc: linux-tegra@vger.kernel.org, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Mikko Perttunen <mperttunen@nvidia.com>
 X-Mailer: b4 0.16-dev
-X-ClientProxiedBy: OS0PR01CA0118.jpnprd01.prod.outlook.com
- (2603:1096:604:9b::17) To SJ2PR12MB9161.namprd12.prod.outlook.com
+X-ClientProxiedBy: OS7P286CA0002.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:26c::7) To SJ2PR12MB9161.namprd12.prod.outlook.com
  (2603:10b6:a03:566::20)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|CH1PPFC908D89D1:EE_
-X-MS-Office365-Filtering-Correlation-Id: c3de006b-1991-41ee-64cc-08ded0378116
+X-MS-Office365-Filtering-Correlation-Id: adb20cee-44ff-4260-9acd-08ded0377e88
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|7416014|376014|366016|10070799003|921020|22082099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: Xmb3ZjpsjT5zU37X6csXVklzDbUruGRNrhEDjOPcfdRJ9vqOqJSCnk1MaoD12OhIgyNn1M5CUKZt+KST9Dsrukl2W3G6rDq4XDKAlivPEIf09yMpw/kLoYOtrtmOnxzLApchmGft/P8aHQ7pKNTBP8n6HD9CGLIuaKk/QoH06mOswiuCPqiHug8MQOv8i9IFTBW6lAyDZb9iAIsn9SbocMp4/xBXBF1DdItElb25/Yb2VX0l6AR+PJcD0+/fUCgWhDf3zxYmX2wWRnXh3Z81rectjXMKErd6Z01FXP3P1lJzmA+bs+R/d/fUQamATk5C7lHw09DbQj+d2hsTBkaEfhVhaQ0TjyNIpcGQDxHocg+BpWML9sOse3fbLMsP9WHQElEqObZ1Eubn8boG1bVgtNaWpU5jlojj6Tl6Ssg4EssaqdgkXdzCbNfnCloDAfLU06+qg8YZsmtvLDx7IY5nA3S/gHFZ7MFS/BGAlVlofjIXcZL8VAlTbto9jqMPeBf4j6GpF6VffalVvdTqcYJdWeoQkx8Rz5w5q/vTiyw4tvjEdt+EoT+2ZObIfo4Gd7F0hA3OXfvVCF4YaEb34qtWM6zH6L+WAbNuNuJ9w6rowoF2AJDWZM2v61VLcN7vlh2CwZWBRQREXd1j97xPB4thD9/IIFbqRBS0PFgm3phQCgoUmqbPraPjMUiiBrScRuJghtUt/bEs0f7VzyzFBQUDBg==
+ ARA:13230040|23010399003|1800799024|7416014|376014|366016|10070799003|921020|3023799007|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: CO67y24mjiTe5yGOVLjRoBNFqrD/0mjtQgxnjiw3cAopHFQv45pFV62Ok/vic6Y9yIBECwYN3Q0yF7ukX/Ck76RKl7EOSOmQnLam5/2kEM0tRP2vkPJXtGEciA5mLM1PL21LJtcZYRYTj9R2ZzUtoiwEZKyFYjA26vAB8uEGJetVMEO7dRI3KTowl8kFVTsGp/2uTuEDEa+wfwVEGjIyepyeo7CHUodE5roJFEym916BveDmQepOqKzbjPTnzexfP+pi6R6Z+FW6udeu8uf5qxeZ9gNGjqjHPnKKCefYhC2RMnqB5zAK+s4jDxq12MULLY+TDlt+QNNxDMnM9A572VEjeD5L9MNyx/BXdrNHlO9Ni4Nh/VYGMCWfBlENTFwUChl1FjxyIaahQvXG6z88OfCCnWCFdYDRHomM1yRF7TEiW5rSryjeU6PDe6Br1L1IB4bUukjTducNOaJGoJiUInRfwDMTDv5YvrdJxS2+luNaEwTjlrP3oTFc2QtaQqC9ne2mcmWC57eNLVUJ+9QeWzAVvDGmipH/veBiGXqpGFvrqIH+MCcp/sBPp8rhi3FGlg1V1KjNz57XoCmAyNrvNHHOilpCao6t+yB460p9vrlY6sFANGayRJuO2U0eySTdoBXJBNHfmbMyU8UblS5A5JgiiPpdOnvutBX4B2tf6FT8h/5n3aFJQT943uqYUklxiS6hUV67J9PtOG0GP8Tu2Q==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(10070799003)(921020)(22082099003)(18002099003)(56012099006)(11063799006);
+ SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(10070799003)(921020)(3023799007)(22082099003)(18002099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RzQzN05zcDBIRTVxdXhwVTNqeVZFcmEzekRiL01iMTRrU3lrQlJ6NnRISTNR?=
- =?utf-8?B?d1RydGhINytkVVBhMEhzdzArRFBzVHoxK2xWN1NFNzRjazhIbEhnRlZ0aFJY?=
- =?utf-8?B?RDZQdlBkdlRJRFlzREdWYlJKOTEzOGlmN3BzZUVYWm8xYTJuOFRlWjdwREtw?=
- =?utf-8?B?VytmeTV5djVWeGdZM0RPMmtnQVQ4TGhRa3NqRWJDWVRCeHo0YWtxLzBQK0Zl?=
- =?utf-8?B?K1hTaXRwdzNqL005U2NXMDYrNndtY1JwNDJBWFNNZEFBTmhYS1VSOG5vQlZ1?=
- =?utf-8?B?YXR2RnAxMnJFYlJCSWlhRWVlQ21XTjBTZG9LdGFOT2lnMXdPcE9UajBKSFd3?=
- =?utf-8?B?VHJBNHNoaFBxTkwrQUVmNXd3cXBvbVBOZmRCcmFUZUk3K1pPSWFNaEUvd2xZ?=
- =?utf-8?B?T05pdkxmL2daOVRnQUhub3dibkFUY09wc2pwVEpOQzZvK3VkUkNLemNZejNQ?=
- =?utf-8?B?WXlMcXkrcjJ2eUtQUithRFk2N2lNZiswOUZqcHdYeXl1S0haMTBGK08xdHZV?=
- =?utf-8?B?WFB3aU53REVpMHpiMXEvakk4dGxQZW4xRExzRGkzaGFNaVVCLy9WOHN0Znpy?=
- =?utf-8?B?MHZYRlpYWjU4dWZab3BQaXVJZTArcUtNWDNOSVh2Q0dYSS8yRHU2K2NXSSt2?=
- =?utf-8?B?SHNzR2phbTFpc3hEMUxTRU9GT1BIWG4vWC9uWEdGdGFKdVlPbkRvQmRKL1RI?=
- =?utf-8?B?azNVTG95cUd2TWc4QmpBSVJmd21GSVZKY2xhcXZUdGVtd3dOZ0R4eEdNbU9t?=
- =?utf-8?B?RVlMS25DOFhBNEVocUVHS3pnSUh5T3RKa0xUdHY5Sk9Xd1hHT2FLWWdmYWNU?=
- =?utf-8?B?aEw3N1VvWk5qMGh4dEJIazV2WnhlQlZ6WFZpWlBONFBYVTJ0YnF5Yk15OXJ1?=
- =?utf-8?B?M1o4U3pZSjhqc1M1YU8yVFQ1NzhYNXpFSkZyamYyTWdpc0FYek5CclNOT1B5?=
- =?utf-8?B?aHl3cTVQMklrK3cyOThueXR0SG51WkdZM2N0RDVqRzhjK1V6Rmhkd2N0UWZa?=
- =?utf-8?B?SlIxQ1VGV3QvV2psZHZiNGhQUy9RcGhobjFBWkQvREc4bFhvek9YRndqenVw?=
- =?utf-8?B?USsxY1A2Rkk4MEU5WUF0SFRYdGdpa2tnUlM0eVJVZ1BnMm9LS2R1ZFYwSmxJ?=
- =?utf-8?B?ZS85QnpoV2FxcXhpb2UwcVFkS1VBQWM5UE1seXNVSXhDcVpsUjdQYlVhRlBJ?=
- =?utf-8?B?NkR3TU5UbWQ5OUI1T1U5Rmg1ZTc2dHpEZGljRDBrcXZjbWU1NzZTWVZ0eEQx?=
- =?utf-8?B?cnNJbEdRNHNFRzFTR1RXMjE1OGdNNVQ5Z29QbjdwSUVGeTkyM1VsdUtYMFM1?=
- =?utf-8?B?OUdqRUtmWU9QRlF6NmcrRlVRcGc2SGlqZmo5dG1mK05nQlJtc0N2czF5OGVl?=
- =?utf-8?B?dkxLbXNjTWlENGRQZURJTU5KWkdEMG1zSlJlSGdBSU1tLzkyWjhLZDAzV3h5?=
- =?utf-8?B?YVEvK0pBWWpqMWhJRDZsczY5RHVVcU83Z3NKcUdCbzZaSmV5eHE1S2oyR3VU?=
- =?utf-8?B?S0xHTitUemozc0h0UnBTaXg4SE9HclVNZjZpaTQ2MXM0Tk1UYmZjeWZkbVN5?=
- =?utf-8?B?QnhHNEFpNTV1Y1BpZ2JPemZacmZJVnVUaWpJOXJTajYwZG93OE5Bc1BtVkpD?=
- =?utf-8?B?bjNZRlRLK0c5RmRTdWQ3SmxRbGJCdTZPTUg2MHlvKzFuaHQvZzBURDRZazQy?=
- =?utf-8?B?L0J2U3BRLzE0UVVqb2pPOXY0R1RIekQxbFJUU29Xc3ZUZk1ZSy9tRGkvTUxI?=
- =?utf-8?B?ZnVkMnc3M0MzTGFaRWdtb1RmV3hIU2hEU0hDN1NNbTlFV0FVbHdNL1ZoS3Ji?=
- =?utf-8?B?YS9nWklUYitpQmw1cThQSEpldys1akZUbEZWTTRQME00T2hhYnRUQkZqMUhN?=
- =?utf-8?B?Rk52WVNnbkNIeWNMbDJhMXEwVEZKUlhNTkxLNnk4RTZqU0hSblhFODlpTGVF?=
- =?utf-8?B?azlTdzczTndkZzRhY2F6Z25sNGg4bEZ0UlRzZW9KcFd3V1JsVnlTbVowME9V?=
- =?utf-8?B?M2FxVmRycVo1ZzA4M1BpNXJKV1ZNM1duUHBnL1lYaUltQXp5WGFCOTBrVFRr?=
- =?utf-8?B?bWRJYlJqSE40WGJIUlJBR29zYU9IUVh5NlpQU0RjQVdLcDdiZEpFK0hLSlpL?=
- =?utf-8?B?WEk3RFh2UVQzcTlaMTBUVnVUdFUrNUpRTXhxbTIxSWIwU1Q5NTV3QVEvR0F5?=
- =?utf-8?B?TDA0eTdVTFJWT0gzK2JHVXpua2FZcko0S0QrYnY3TmRUd2IxQ3hFdmhSTkpJ?=
- =?utf-8?B?aFlCVXFQMTlFVnZvSyttWUNSVWRVbkdLWm13NDd4dDFrSkJDZWhJdGhIY3RS?=
- =?utf-8?B?dnJrWFluYURNb0lxemNJZlZlWHBQNkFHbVlvdzFablJHUmRyR1QycVlvSWo2?=
- =?utf-8?Q?/Viipar4IJhCnd3+m6RwMP4pTrN49Xz8IO3Kfaqs8ZgdZ?=
-X-MS-Exchange-AntiSpam-MessageData-1: umwDeAzyA7f1Dg==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bGZLOEU2K2E5bzBhTHBmMlR6ejhQRTVBVDMybnROZlJRT1dtZUZnTjZySXBw?=
+ =?utf-8?B?eUJPc1c1U2Q0dWtRam1YMEhLS1V2UUJEMEQ4WEJoNFcweEtzajdUQlVXdHN5?=
+ =?utf-8?B?SHdNYWpuQWk1b1lwSloydDlFTlRuWTFPQmhiMnJhVjNyb1I1d2M1dWpPWDBl?=
+ =?utf-8?B?UndtNWUzRmZEMm5rMlZ3c1BtaW8xT0lEUDUyM1VMcWE5NnBXVmsxTHorQllx?=
+ =?utf-8?B?WW00dTVuS09wRHNnSkE4YXNxMG5BckNWTHdSUFZFQm02dmZsa0ZTWDl2UG5M?=
+ =?utf-8?B?UkZJMi9EU0ZvWlRkVzVyZXVHOVVjaWJVWEg0L3BnT3BaY3VMak5pRjY1eG10?=
+ =?utf-8?B?c2piSDJ2em5LdmxLSjhuaHFvcStxSTZTcklQSVo3Q2lyQ2NlOHUxTU1nWEpl?=
+ =?utf-8?B?OFBzMEFIRzRROWUyNzFjbDc1eXQ4R2F6czUrY29lRU52UUJBcnJNckNDZHdG?=
+ =?utf-8?B?TGlGMXFZTm8vK09GYVd3RHlLR29GWURIaFIyVXVYZVpXb0JsOTdDUGJmckZv?=
+ =?utf-8?B?MUdIUmRIRlpBQnRUMTRtWG5LRnlPejlCaXZMVzZFN2pyWTF0N09kTWc4NkhM?=
+ =?utf-8?B?WGRhcDVuK1ZJdk9aSWZmNldxZ2plbSt0QXdiS0tlS05EU1l3aXhvZmNnTk1t?=
+ =?utf-8?B?TXFvVlo3RmFzcUtPcTFyOE9QVmhNZUEvYUs0SHJyT2VzTWxvU3lkaVptVEFU?=
+ =?utf-8?B?YjRIbUh3ZEgxT2VDSjRWdGI0Y29UWDNzYXZSYlcvd2NYTUJ3Z1lkdHdia3Vo?=
+ =?utf-8?B?QjFydk5CU0Z6LzFBODY4RStzbnN6WWFZU3VRWTBvUzVvam1zODZmTE84Wk8v?=
+ =?utf-8?B?Y0krMkFxU2U3cWt1SFlRK1BPaWE4dHlCZ1lFS2JMNnlJN3FvRUdSSE9Ua0V4?=
+ =?utf-8?B?U1VMQ1E2cUNZVmRYdEVkeTZka3JhWVpIQlF1cHo5dVNYSXVVWjJXdEloZW1N?=
+ =?utf-8?B?ZWZtUnBnQ0pNc0JBblR3aWtSa0pTRFBPNk1IQTlFZXR3OGJJZElic20zTE9D?=
+ =?utf-8?B?UlZIUlRESUgydGliYytpY2tPUENOOG1pQTVtMUQ0aFBzRHhOcHAvNTRWQU12?=
+ =?utf-8?B?cGxyOVMrb2NOR3hkUUx0VXd2ajBhVVNTZzliSC9UczlLQXUyRG9GeDl1KzNC?=
+ =?utf-8?B?ZlA2TG5GMWVWQlRPWkRRMWNFTVk3R1VsNXhYNHN4Z254NlFJOFFFRENpZnk3?=
+ =?utf-8?B?dE5qcS9uM1pkaWRkY2tkTE1DUGtvSUJCQXpDYWFtQUZWSUFReE5wQ2JQaFc3?=
+ =?utf-8?B?eFBla1hrZXhlK1F1OEg5S0hDajkvVTA2UFRmRks0UVZEelBsMVFQdUdrZDA1?=
+ =?utf-8?B?QVZtUTBaYzRHZE04SGhJK2Y2OFU1Z3lkKzJYajc4b3o1U3hqbkd2Y1lsdW5v?=
+ =?utf-8?B?ZVI2Um5wWFZXOGh6aURrcnVHOVB0MFVEUGdLTWtmUTNlOS9HTGgzK0Uvek1U?=
+ =?utf-8?B?aG5WWGpZTW03MkIxZkU5MG1iVUFRNksrOE9SdlVvT2VsVEJDcnh1VUJwb3Zx?=
+ =?utf-8?B?b01QbVZTSjBKeHZJTTJ2Q05nazcreVhVNng3eWdFZ3JGaE9LSnplcUZFVzFm?=
+ =?utf-8?B?OStrRWcxNG9pQ3U1UzZQcS82MWUrNU9TYVZlN2hUU2JITDBHUm9xY2FGUnd2?=
+ =?utf-8?B?dGIvdnZQMHdzeWVadWlCOG5KdEw5VGdxVDZlWktJQ0cyL1JteWZxenNRT1BC?=
+ =?utf-8?B?dHZJT3g0bGt4cklIQVJvZ1VLeksvNktXRFhqU09CVFhkYWRWQmQ0eDlqOE5u?=
+ =?utf-8?B?MDlYeVNKd0dNZUpXMkpXd2twRnJsL05PbXJvREpLeHZpUmdlYWhzcWNuZ3Zy?=
+ =?utf-8?B?RXB0SXdnd2xEREtyMFZWY0tMR3pPa0hJZVFJbnRRODV0K0p6U2dTS1dRbTVj?=
+ =?utf-8?B?cTdsQUM4UnduODhabWNGWWpzeGdocVM5eUdiN0lSRWFNNEhJcWJGbUx5eWJz?=
+ =?utf-8?B?T0lkUW9nQjhOMTlreitOMkNOR2dDT2RCUkx4cHJTL2JUWDBKYVc3cSsxMzRR?=
+ =?utf-8?B?ZVdqM2J1ZEdwbDNGVzFRVk5CTWM0akFxbERHc05SeHJ5OWR6Y05vcFRIY3p0?=
+ =?utf-8?B?RVhnOWg2VlRUVUkvc29GdldmbHVsWnIwK1p3VXdVMWRyR0tDdzlnN1FlUGp6?=
+ =?utf-8?B?VWlzWlk1WTE1QUtYZitZQmpEYklNZUI4RXJXOUNVcWRsOEpEN21DeEV4alZM?=
+ =?utf-8?B?dE16S2hkbGh2UmlJUyttcWt0S211VEN3NVlWQ2xUWXdPdEFhd2tqUVRNSUs3?=
+ =?utf-8?B?SEdHQWw4NDdSU3EzNklQVldWMnN3QndvMGRwdWFCdi9aZW93SFlUNHNXZ3Fm?=
+ =?utf-8?B?dm9uRHFmYXIrUkJjcE55LzVseitQZnViQTQzSVcvWjJUdHNQcFdGdkdEREVx?=
+ =?utf-8?Q?8/Zd3GKhDVcSMwhzSPPMvmiL9EVeLW2ZTH5UHwbaciLiT?=
+X-MS-Exchange-AntiSpam-MessageData-1: 0t9s7+dwzA6h4A==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c3de006b-1991-41ee-64cc-08ded0378116
+X-MS-Exchange-CrossTenant-Network-Message-Id: adb20cee-44ff-4260-9acd-08ded0377e88
 X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 08:23:14.2642 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 08:23:09.9716 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wa2XtFWZviC9js3LY8hJjS0A0LV9MwkQPeOe7By9tp8Q4t39ElJI4gC8vvl4sJZSDwDnuQpJ7EhkDo+JnQkaCQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Rl7T1sGGndEnHCgy9/gxrBM2koOmoTgvHqmql7pM2pwrH9dNtBd+v/jJUfMoX/NM+3aocqKAe2Son5yG9LEGKw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFC908D89D1
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -146,171 +145,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Allow specifying usable channel, and allocatable syncpoint ranges
-through the device tree. This is necessary when Host1x resources
-are shared between multiple operating systems or independent hardware
-units and Linux has limited access to them.
+Host1x can be used without access to the hypervisor or common regions
+when they are configured by other components in the system. Add support
+for running without access to them.
 
 Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
 ---
- drivers/gpu/host1x/channel.c |  6 +++---
- drivers/gpu/host1x/dev.c     | 37 +++++++++++++++++++++++++++++++++++++
- drivers/gpu/host1x/dev.h     |  3 +++
- drivers/gpu/host1x/syncpt.c  | 21 +++++++++++++--------
- 4 files changed, 56 insertions(+), 11 deletions(-)
+ drivers/gpu/host1x/dev.c              | 15 ++++++++++-----
+ drivers/gpu/host1x/hw/cdma_hw.c       |  3 +++
+ drivers/gpu/host1x/hw/debug_hw_1x06.c |  3 +++
+ 3 files changed, 16 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/host1x/channel.c b/drivers/gpu/host1x/channel.c
-index ca5d0f51cf7d..38fcdda8388a 100644
---- a/drivers/gpu/host1x/channel.c
-+++ b/drivers/gpu/host1x/channel.c
-@@ -121,13 +121,13 @@ EXPORT_SYMBOL(host1x_channel_put);
- static struct host1x_channel *acquire_unused_channel(struct host1x *host)
- {
- 	struct host1x_channel_list *chlist = &host->channel_list;
--	unsigned int max_channels = host->info->nb_channels;
- 	unsigned int index;
- 
- 	mutex_lock(&chlist->lock);
- 
--	index = find_first_zero_bit(chlist->allocated_channels, max_channels);
--	if (index >= max_channels) {
-+	index = find_next_zero_bit(chlist->allocated_channels,
-+				   host->channel_end, host->channel_base);
-+	if (index >= host->channel_end) {
- 		mutex_unlock(&chlist->lock);
- 		dev_err(host->dev, "failed to find free channel\n");
- 		return NULL;
 diff --git a/drivers/gpu/host1x/dev.c b/drivers/gpu/host1x/dev.c
-index 545fa2e3f180..7103f018cb1b 100644
+index 3f475f0e6545..545fa2e3f180 100644
 --- a/drivers/gpu/host1x/dev.c
 +++ b/drivers/gpu/host1x/dev.c
-@@ -331,6 +331,39 @@ static void host1x_setup_virtualization_tables(struct host1x *host)
- 	}
- }
- 
-+static int host1x_get_assigned_resources(struct host1x *host)
-+{
-+	struct device_node *np = host->dev->of_node;
-+	u32 vals[2];
-+	int err;
-+
-+	err = of_property_read_u32_array(np, "nvidia,channels", vals, 2);
-+	if (err == 0) {
-+		host->channel_base = vals[0];
-+		host->channel_end = vals[0] + vals[1];
-+	} else if (err == -EINVAL) {
-+		host->channel_base = 0;
-+		host->channel_end = host->info->nb_channels;
-+	} else {
-+		dev_err(host->dev, "invalid nvidia,channels property: %d\n", err);
-+		return err;
-+	}
-+
-+	err = of_property_read_u32_array(np, "nvidia,syncpoints", vals, 2);
-+	if (err == 0) {
-+		host->syncpt_base = vals[0];
-+		host->syncpt_end = vals[0] + vals[1];
-+	} else if (err == -EINVAL) {
-+		host->syncpt_base = 0;
-+		host->syncpt_end = host->info->nb_pts;
-+	} else {
-+		dev_err(host->dev, "invalid nvidia,syncpoints property: %d\n", err);
-+		return err;
-+	}
-+
-+	return 0;
-+}
-+
- static bool host1x_wants_iommu(struct host1x *host1x)
- {
- 	/* Our IOMMU usage policy doesn't currently play well with GART */
-@@ -602,6 +635,10 @@ static int host1x_probe(struct platform_device *pdev)
- 	if (IS_ERR(host->clk))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(host->clk), "failed to get clock\n");
- 
-+	err = host1x_get_assigned_resources(host);
-+	if (err)
-+		return err;
-+
- 	err = host1x_get_resets(host);
- 	if (err)
- 		return err;
-diff --git a/drivers/gpu/host1x/dev.h b/drivers/gpu/host1x/dev.h
-index ef44618ed88a..89f1fc838a1c 100644
---- a/drivers/gpu/host1x/dev.h
-+++ b/drivers/gpu/host1x/dev.h
-@@ -141,6 +141,9 @@ struct host1x {
- 	struct reset_control_bulk_data resets[2];
- 	unsigned int nresets;
- 
-+	unsigned int syncpt_base, syncpt_end;
-+	unsigned int channel_base, channel_end;
-+
- 	struct iommu_group *group;
- 	struct iommu_domain *domain;
- 	struct iova_domain iova;
-diff --git a/drivers/gpu/host1x/syncpt.c b/drivers/gpu/host1x/syncpt.c
-index acc7d82e0585..fe27a386cc0c 100644
---- a/drivers/gpu/host1x/syncpt.c
-+++ b/drivers/gpu/host1x/syncpt.c
-@@ -59,7 +59,7 @@ struct host1x_syncpt *host1x_syncpt_alloc(struct host1x *host,
- 					  unsigned long flags,
- 					  const char *name)
- {
--	struct host1x_syncpt *sp = host->syncpt;
-+	struct host1x_syncpt *sp = host->syncpt + host->syncpt_base;
- 	char *full_name;
+@@ -305,7 +305,7 @@ static void host1x_setup_virtualization_tables(struct host1x *host)
+ 	const struct host1x_info *info = host->info;
  	unsigned int i;
  
-@@ -68,10 +68,10 @@ struct host1x_syncpt *host1x_syncpt_alloc(struct host1x *host,
+-	if (!info->has_hypervisor)
++	if (!host->hv_regs)
+ 		return;
  
- 	mutex_lock(&host->syncpt_mutex);
+ 	for (i = 0; i < info->num_sid_entries; i++) {
+@@ -532,15 +532,20 @@ static int host1x_probe(struct platform_device *pdev)
+ 	host->info = of_device_get_match_data(&pdev->dev);
  
--	for (i = 0; i < host->info->nb_pts && kref_read(&sp->ref); i++, sp++)
-+	for (i = host->syncpt_base; i < host->syncpt_end && kref_read(&sp->ref); i++, sp++)
- 		;
- 
--	if (i >= host->info->nb_pts)
-+	if (i >= host->syncpt_end)
- 		goto unlock;
- 
- 	if (flags & HOST1X_SYNCPT_HAS_BASE) {
-@@ -138,7 +138,7 @@ void host1x_syncpt_restore(struct host1x *host)
- 	struct host1x_syncpt *sp_base = host->syncpt;
- 	unsigned int i;
- 
--	for (i = 0; i < host1x_syncpt_nb_pts(host); i++) {
-+	for (i = host->syncpt_base; i < host->syncpt_end; i++) {
- 		/*
- 		 * Unassign syncpt from channels for purposes of Tegra186
- 		 * syncpoint protection. This prevents any channel from
-@@ -296,6 +296,9 @@ int host1x_syncpt_init(struct host1x *host)
- 	for (i = 0; i < host->info->nb_pts; i++) {
- 		syncpt[i].id = i;
- 		syncpt[i].host = host;
+ 	if (host->info->has_hypervisor) {
++		struct resource *res;
 +
-+		/* Default to client managed for syncpoints not owned by us */
-+		syncpt[i].client_managed = true;
- 	}
+ 		host->regs = devm_platform_ioremap_resource_byname(pdev, "vm");
+ 		if (IS_ERR(host->regs))
+ 			return PTR_ERR(host->regs);
  
- 	for (i = 0; i < host->info->nb_bases; i++)
-@@ -305,10 +308,12 @@ int host1x_syncpt_init(struct host1x *host)
- 	host->syncpt = syncpt;
- 	host->bases = bases;
+-		host->hv_regs = devm_platform_ioremap_resource_byname(pdev, "hypervisor");
+-		if (IS_ERR(host->hv_regs))
+-			return PTR_ERR(host->hv_regs);
++		res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "hypervisor");
++		if (res) {
++			host->hv_regs = devm_ioremap_resource(&pdev->dev, res);
++			if (IS_ERR(host->hv_regs))
++				return PTR_ERR(host->hv_regs);
++		}
  
--	/* Allocate sync point to use for clearing waits for expired fences */
--	host->nop_sp = host1x_syncpt_alloc(host, 0, "reserved-nop");
--	if (!host->nop_sp)
--		return -ENOMEM;
-+	/* Prevent syncpoint 0 from being allocated by users */
-+	if (host->syncpt_base == 0) {
-+		host->nop_sp = host1x_syncpt_alloc(host, 0, "reserved-nop");
-+		if (!host->nop_sp)
-+			return -ENOMEM;
-+	}
+-		if (host->info->has_common) {
++		if (res && host->info->has_common) {
+ 			host->common_regs = devm_platform_ioremap_resource_byname(pdev, "common");
+ 			if (IS_ERR(host->common_regs))
+ 				return PTR_ERR(host->common_regs);
+diff --git a/drivers/gpu/host1x/hw/cdma_hw.c b/drivers/gpu/host1x/hw/cdma_hw.c
+index 3f3f0018eee0..85f7e5633555 100644
+--- a/drivers/gpu/host1x/hw/cdma_hw.c
++++ b/drivers/gpu/host1x/hw/cdma_hw.c
+@@ -253,6 +253,9 @@ static void timeout_release_mlock(struct host1x_cdma *cdma)
+ 	struct host1x *host1x = cdma_to_host1x(cdma);
+ 	u32 offset;
  
- 	if (host->info->reserve_vblank_syncpts) {
- 		kref_init(&host->syncpt[26].ref);
++	if (!host1x->common_regs)
++		return;
++
+ 	switch (ch->client->class) {
+ 	case HOST1X_CLASS_NVJPG1:
+ 		offset = HOST1X_COMMON_NVJPG1_MLOCK;
+diff --git a/drivers/gpu/host1x/hw/debug_hw_1x06.c b/drivers/gpu/host1x/hw/debug_hw_1x06.c
+index 9d0667879a19..324e76436f7b 100644
+--- a/drivers/gpu/host1x/hw/debug_hw_1x06.c
++++ b/drivers/gpu/host1x/hw/debug_hw_1x06.c
+@@ -87,6 +87,9 @@ static void host1x_debug_show_channel_fifo(struct host1x *host,
+ 	host1x_debug_output(o, "CMDFIFO_RDATA %08x\n", val);
+ 
+ #if HOST1X_HW <= 6
++	if (!host->hv_regs)
++		return;
++
+ 	/* Peek pointer values are invalid during SLCG, so disable it */
+ 	host1x_hypervisor_writel(host, 0x1, HOST1X_HV_ICG_EN_OVERRIDE);
+ 
 
 -- 
 2.53.0
