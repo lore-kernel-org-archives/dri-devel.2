@@ -4,95 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F16FCCDB471
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04973CDE002
 	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 08:07:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F5B010E9DD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20FFF10E9DB;
 	Tue, 23 Jun 2026 08:07:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z0DALH7l";
+	dkim=permerror (0-bit key) header.d=fastmail.org header.i=@fastmail.org header.b="bLSwW2Kt";
+	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="QIce19w4";
 	dkim-atps=neutral
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
- [209.85.128.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2035110E455
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 12:52:40 +0000 (UTC)
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-7fe723ca5e5so45545527b3.2
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 05:52:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782132759; cv=none;
- d=google.com; s=arc-20240605;
- b=BFFxCDjHeem80NarvtkDa2V1RBipa4iGVq5UaApvA+V3hMiMI7cRSGd98x5hFm7PsC
- FLQMVEDfGhHGKO0xCykWmf6GPr8z3oSNSI1n2YdRkxbXSMcWN1+Ox/YkvPogi+XWcuV+
- AzlM+T97u8sVnDXd5NXBibsgx7CK3YNOIzdn5QlUwcE9vidnnBz+PhQnslNWbLIOvyxJ
- yake3H4EsPKtD3kX2bUKxbYCNMg9Rz/XN6UmjhZUy3j2jTDLvKtMyoWv6XyJQPvfdfgn
- FRZa8q5QVQ9zjKRF1RiBWT0uhC6e9NrQD2fFGg7BPcmsrGPKZ93O9bxBj26Cgpbcx7js
- 04Gw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=gQG1dK1Pn3kDMIdZo6j2PggknuXDB9/v9hKNqUmuRqo=;
- fh=GGf9vm7jvrQb6hEF4PsjydzjWWdWJtBwDUo65CaN1zM=;
- b=Zmlhn+vs+iZ4QaUBAicLirqIG2yJyqMdb+tA3G2KVVUVVpiFhBD/J8Jztql1JcDN2d
- zsvl6579j4nm/BoelmFZOwNc+47h0C2bdFQlKDmNdJfYLf2k9mj27oWSLAfk7GBOlrDF
- 30QbjhI/rWiYGOT94PV/9WEsOjnQFj6LPj6vhuHBa0HGYIffH7PNcPYa7dFwG/CYFx0L
- qcxlQlnZOQsUxSfRyuFwsOFgtEIRl12DSQievDDoUucv2xxOV6fKFKuA9qmNJWBCeGOZ
- SP7GJjKu4bQL/kNrQC0E2IZwYe6Tu60DQeyBl6C1xPqUjmMKIYeBIMjiZopndkdMBQg8
- +7tw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782132759; x=1782737559; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gQG1dK1Pn3kDMIdZo6j2PggknuXDB9/v9hKNqUmuRqo=;
- b=Z0DALH7lYadneNjd5Potn4KPN5XG5m50Hlh1Dy1B6C+MjCRmRVS9J4ZqhwPwDvmIAr
- QdxUyt1reKPVyYW1pPEA8rpazmR8rz4SQUNlisDJgh4eJovehSEXmkSi01g06DFvSA0O
- 49MWfX8AO/RcT6wmmgQni5jQ9KD/mKVu3I2Tjqm2wSDXipYTo5U1jUXBfHGhO6J0RJYf
- oBoXWOb0PEEPxyZsc0bP3A+5Do4k0tZStxOm3/OQs1KSKMNUVQdHElaOAd9XKW3y4RPa
- /lsef3EmMmfa1wfck9ApyDMRo6Yb1znJth7c3MOC97mYacyo342tl4IXMywWYKbe5gMR
- KZsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782132759; x=1782737559;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=gQG1dK1Pn3kDMIdZo6j2PggknuXDB9/v9hKNqUmuRqo=;
- b=SMHsXDZ8PwsvVLRXAlF+ci0xFikcc7AkN0NjRifGL8PFrKd0N0bNDRdD+OXVXZmdaO
- sWJ2ex8Nl7/jKANNLQq2eOKuv+7ZiM64uIiLIco3WvcL6Zr11oxSiXxoSq6UvcT+NggY
- Xjhrs93Yq8c2dMyI4+TBn55F6DJJWuuMY4lFpI5KfV1DAaz3lmHOVP+POQkpk+bH+gt6
- JpGVIsVX0LWkoOUFZJCVq05pQ0zkmiLc/qg+0NqMy67NpH2nIRUorsWGdcIEah5r1Koi
- XblT8q8n09pcT3YzN8XSsQ7uo8Ru4iHuzu6yqjr/8elRVw6EdQFGTV+hojrfvXXMTvZg
- GiEQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rr0ITAPiE/AxQ6ZnvLhAY0petWMtZSg1dBj7gB57sRd+BzcrSnaMEUXTPpOt0gWI6qz7lRWCneUlfU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwT2UmTsZ/Q+o1thZPJZxh2WkvW5dHHM1lTG2bpRCC1aEX5RNj4
- siKKaF6mf1Plv6P/NJRlQxkVO3bA8XFqqtpx0+Dnc589rvrJWmxoeb0VrL9EUYx2sHcVdJtxrje
- HEzRvSTI/kFB6G12ZpMgEZKE4/1hYBAY=
-X-Gm-Gg: AfdE7cmKVQBFa+s+D4Ph7Ej8W/NbBNM3WnTDYsszZy3ufljibzHPO6LMTFQDE5fPTp9
- 3e3lRQaY0AuvMnfOKUi/OUXbgYCI6fvGaoLrp97YQ5LtjbDkRgM1JVuiE1Efq6pYovtz2ZX3aUU
- +9SRnitIE51j8q2i/BV5iR33kmqjI963jWOHrQtHWBHmwXsgSnovBLiYcLCIH0a30IyodPkxgs0
- NcYHN0/aRDWJSdWPMffuJBa/gK/qhjVDwSxbgoX6/4Gn7WHjo0yh2eIfW5GzqY6PzF3jCsb
-X-Received: by 2002:a05:690c:e346:b0:7bd:882a:43d9 with SMTP id
- 00721157ae682-8013236fffbmr132455027b3.27.1782132758806; Mon, 22 Jun 2026
- 05:52:38 -0700 (PDT)
+X-Greylist: delayed 347 seconds by postgrey-1.36 at gabe;
+ Mon, 22 Jun 2026 07:51:08 UTC
+Received: from flow-a2-smtp.messagingengine.com
+ (flow-a2-smtp.messagingengine.com [103.168.172.137])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 906C810E498
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 07:51:08 +0000 (UTC)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailflow.phl.internal (Postfix) with ESMTP id 10BA71380C0A;
+ Mon, 22 Jun 2026 03:45:21 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-02.internal (MEProxy); Mon, 22 Jun 2026 03:45:21 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+ cc:content-type:content-type:date:date:from:from:in-reply-to
+ :message-id:mime-version:reply-to:subject:subject:to:to; s=fm1;
+ t=1782114321; x=1782117921; bh=fXbF0Kh4GrsPiW1DTDWekoSj6fsW84xB
+ 4tIxD7/4/60=; b=bLSwW2KtuAzyuETlYQJmomZslJmo0M3bKtaL9M+aPkncIJe4
+ 19J50qHAn307U2cFivB+XIWVl3BsBvvxX6NqwUcdUQS+7jhcjW1l8Hg5/yHOuWHq
+ tZ4xDTKvrgkPIjyZZSjffhneOYyDKHviYzLC7oqDnDEvDBE7GIhQPcmEXbkKuPGu
+ 0zJSGIbCYGO7s/9fqc79EnakAu5qr6gMfZT1LhrXDOGluzd2nMwWUkL1RtX/TJTr
+ DUzGKMlcjb0au06fSNkA8jGM7E9XzZFeUFHodcWWTuVVO7j1Ggxa+QE61TquCqSI
+ W9YpZbIeju2+4sytj0PaaOaTYn/AGWVF5/F4GQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:message-id
+ :mime-version:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1782114321; x=
+ 1782117921; bh=fXbF0Kh4GrsPiW1DTDWekoSj6fsW84xB4tIxD7/4/60=; b=Q
+ Ice19w4LLDvju0DM4bWpWhOHTc4zExeW/lf5DiW3vAjw38E06V4R/qOiuUtfu/+u
+ x8rke2nh0XHvmU0UalTdHTs66PzrnjmnnicsOzEi5n1shO8LB+vCoLmkk6+zSjKc
+ QZzNXT5FmU62vRjoyBODw4HFxnirMwB3jRu2+sYAfG1DH2qIWtbOdutJo45Gb3Jl
+ xXJhn3Bpe2+tIxoaCte6isF6gBi7xkHN6+8Y3ON8Efsnmv74/qeksqcI/H/h85TY
+ Y0D13sbrOwdOhH2PjRheqkIPK5YAhPV00JSWgEPo/SXi58mznqd3UYDAwiTPb4rI
+ DWO/2egfZNICV1NtD+alg==
+X-ME-Sender: <xms:EOg4aueAyyX4mHM6xXbPc9l6lHeNrn9MUkCGe8zdfr5HLmDdSv6Viw>
+ <xme:EOg4ahLGZRjlpVMMQku72jT-yn5LHERNttlm8LCWNK8KOA_d-aO-w-l-gqXeF1ePS
+ EYyrC96v_x-6k-zX_gItVSqf5ds-ujoFXwi_nPCAMYBkDrISBx8xx6U>
+X-ME-Received: <xmr:EOg4arHJGl6kiN5od6CLjAdPVMytaCVoUGF3wscm9WvZ3RzJB9tRzSfsS7g>
+X-ME-Proxy-Cause: dmFkZTFk1jJ522U3G5zJeCXZeJfZvdUVtNySz0zBj+ppH4R/k3aBNwduw6UgPJzjoQJ+Jg
+ b5p4Oa1QCGE38BA/lTfoW3impkEq7FuA8yGQ8j70PA5jIC8l8dlpO6FcVG1UvawiB83SMT
+ 9tN0I5czCkoo8d0Z72/hJQsISQssKbG7tCOS9w5wJkIPZPFpiUZbQcKASw0vQJTa2U8xGo
+ k6qfzoLKK38xWHNAfiXPVKnffxFPvR80cXGXOl/pbYB96Css4YhkVHdK5MnFUEWBuRrUm+
+ NlF2BRnZETfYP8Pb6cM9M6/vFVCVzENCCblWB8iokQUjMRSmWUPgzG9gf3LZIn5687H3tq
+ B+3+mjsznvep4/C7QwCVFM+WsfZPVV2XPEYcAmysTEo4eyUqfcVEa3vSQBcKGFwrcyVRSH
+ d5p9Sz/FUc2yquV1qjPN03uXD4oSk5Zl3RAK/jIDYk5qDqa2XLozmiDADWKR/fRxjh5dP/
+ bRgF2gn0USDSP0WvdujDXBGch1xnCk9yvW3DqB3PRhgL8CfBVX+MVmrQ8WvmAcQFnR8wCE
+ +H0WrlrHS+SQx3ex/bPZw6tNZzUknZL0KqGfnAokHgO94f4Pltf2yHLTSiqoDP1DOy0rym
+ mpRLUO1MV14VLNePfoCuSbWDahZRZ1ty/4lZewFrwDjupfjgkeeSgCUmhZFQ
+X-ME-Proxy: <xmx:EOg4asAnOoeMLp9aQb89PEvUTDAU8rjXkl8qCAO2REDAT3IOWUbi9A>
+ <xmx:EOg4am_HPEGadwJnKqoLTDkHJnXZFJBJ4PZzXn_v3g4HR5Cx_9BmQA>
+ <xmx:EOg4agAUUGLlBUef_BjJ3fa6O0rYgJMc4huzMlatKY6GmTzRZ6ramA>
+ <xmx:EOg4ajRThqTt6yS3zEjFTHJ7cIfgWmj05V-HUyn34quKdbFiiBh5zA>
+ <xmx:EOg4aglC7ORuEbZP46QOZVOkclSndq1ht-J-CikbSEKtX87pTAbnww7c>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 22 Jun 2026 03:45:20 -0400 (EDT)
+Date: Mon, 22 Jun 2026 02:45:18 -0500
+From: Ian Bridges <icb@fastmail.org>
+To: Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] fbdev: fix use-after-free of fb_display[i].mode in
+ store_modes()
+Message-ID: <ajjoDhAi2y4ArSlz@dev>
 MIME-Version: 1.0
-References: <20260616181956.61476-2-birenpandya@gmail.com>
- <20260622115544.GA3899302@killaraus.ideasonboard.com>
-In-Reply-To: <20260622115544.GA3899302@killaraus.ideasonboard.com>
-From: biren pandya <birenpandya@gmail.com>
-Date: Mon, 22 Jun 2026 18:22:27 +0530
-X-Gm-Features: AVVi8Cck-hMvuxp0n3mewo-gqCHtjTxGDRmA3jAjW6tNVdbjxYSJyw9YAMsTs2w
-Message-ID: <CAAeMi9LMootkxmRE0tjo0mwijAuA0u+49HhxWxRGU-pSz+Cggw@mail.gmail.com>
-Subject: Re: [PATCH] drm/gem: modernize locks to use scoped_guard()
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, sumit.semwal@linaro.org, 
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Tue, 23 Jun 2026 08:06:53 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,52 +95,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 22, 2026 at 5:25=E2=80=AFPM Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->
-> On Tue, Jun 16, 2026 at 11:49:57PM +0530, Biren Pandya wrote:
-> > Several GEM core functions manually managed mutex_lock() and
-> > mutex_unlock() over single scopes or error paths. This adds boilerplate
-> > and carries the risk of lock leaks if error paths are refactored.
-> >
-> > Modernize these locks by deploying the <linux/cleanup.h> scoped_guard()
-> > macro. This ensures that the locks are reliably dropped when the block
-> > exits, cleanly removing goto out_unlock paths and tightening the
-> > lifecycle.
->
-> What's the reason for doing so in in drm_gem and not other areas in DRM
-> ?
+store_modes() replaces a framebuffer's modelist and frees the old entries
+with fb_destroy_modelist(). fb_display[i].mode is a back-pointer into a
+modelist entry, and it is not cleared when a console is detached from the
+framebuffer (unbinding fbcon clears con2fb_map[] but leaves
+fb_display[i].mode set).
 
-Hi Laurent,
+store_modes() relies on fb_new_modelist() -> fbcon_new_modelist() to move
+the back-pointers to the new list, but that only re-points consoles still
+mapped to the framebuffer. A console that is no longer mapped to it is
+skipped, so once fb_destroy_modelist() frees the old list that console's
+fb_display[i].mode dangles. A later FBIOPUT_VSCREENINFO with
+FB_ACTIVATE_INV_MODE makes fbcon_mode_deleted() read it through
+fb_mode_is_equal(), a use-after-free.
 
-Thanks for taking a look.
-No deeper reason than it being where I happened to start =E2=80=94 I didn't
-mean to single it out, and I'd rather the treatment be consistent than
-piecemeal.
+Commit a1f305893074 ("fbcon: Set fb_display[i]->mode to NULL when the
+mode is released") fixed the same use-after-free for the framebuffer
+unregister path. Do the same in store_modes() by clearing the stale
+pointers with fbcon_delete_modelist() before freeing the old list.
 
-> > @@ -1021,37 +1018,34 @@ int drm_gem_change_handle_ioctl(struct drm_devi=
-ce *dev, void *data,
-> >               goto out;
-> >       }
-> >
-> > -     mutex_lock(&file_priv->prime.lock);
-> > +     scoped_guard(mutex, &file_priv->prime.lock) {
-> > +             spin_lock(&file_priv->table_lock);
-> > +             ret =3D idr_alloc(&file_priv->object_idr, obj, handle, ha=
-ndle + 1,
-> > +                             GFP_NOWAIT);
-> > +             spin_unlock(&file_priv->table_lock);
->
-> And why don't you use guards for the spinlock as well ?
+Reported-by: syzbot+81c7c6b52649fd07299d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=81c7c6b52649fd07299d
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+---
+This patch contains a proposed fix for a crash reported by syzbot in
+fb_mode_is_equal().
 
-Fair point =E2=80=94 the spinlocks here are equally good candidates; I only
-kept v1 to mutexes to keep it small.
+The file names and offsets in this description are from commit
+8cd9520d35a6c38db6567e97dd93b1f11f185dc6 on the for-next branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/deller/linux-fbdev.git
 
-That said, this is a pure cleanup with no functional change, so it's
-entirely your call whether it's worth carrying.
-If you'd like it, I'll send a v2 that converts both the mutexes and
-the spinlocks in drm_gem.c consistently. If you'd prefer not to take
-cleanup-only churn, I'm happy to drop it =E2=80=94 no problem either way.
+I also have a deterministic reproducer that triggers the crash under virtme-ng
+with a KASAN kernel and two framebuffers (vfb as fb0, bochs-drm as fb1). It
+performs six ioctl/sysfs operations, listed at the end of "The Bug". The free
+is driven by a write to /sys/class/graphics/fb0/modes, which needs write access
+to that file. The reproducer was written with the help of a coding agent
+(Claude Code).
 
-Thanks,
-Biren
+This crash has the same KASAN signature as the one fixed by commit
+a1f305893074 ("fbcon: Set fb_display[i]->mode to NULL when the mode is
+released"), but reaches it through a different free path. It is still reported
+on kernels that contain that commit.
+
+The Bug
+
+fb_display[i].mode is a back-pointer into a struct fb_modelist entry on
+info->modelist. var_to_display() (fbcon.c:989) sets it when a console is
+attached to a framebuffer. fbcon_mode_deleted() reads it through
+fb_mode_is_equal() (fbcon.c:2750, modedb.c:931).
+
+store_modes() is the .store handler for /sys/class/graphics/fbN/modes
+(fbsysfs.c:94). It splices the current modelist into a local old_list, builds
+the new list, and on success frees old_list with fb_destroy_modelist()
+(fbsysfs.c:115). To keep the back-pointers valid it relies on
+fb_new_modelist() -> fbcon_new_modelist() (fbmem.c:737), but that only re-points
+consoles still mapped to this framebuffer (fbcon_info_from_console(i) != info,
+fbcon.c:3038).
+
+fb_display[i].mode is not cleared when a console is detached. Unbinding fbcon
+runs fbcon_release_all() (fbcon.c:1248), which sets con2fb_map[i] = -1 but
+leaves fb_display[i].mode pointing into the former framebuffer's modelist. Such
+a console is skipped by fbcon_new_modelist(), so once fb_destroy_modelist()
+frees old_list its fb_display[i].mode dangles.
+
+The minimal reproduction is six operations on two framebuffers (fb0, fb1). All
+six are required (verified against source and by removing each in turn). fbcon
+starts bound with the consoles mapped to fb0. The operations all act on one
+unused console i (no allocated vc_data). An allocated console would be
+re-initialised, and its fb_display[i].mode reset, by the takeover in step 5.
+Pre-allocating all consoles does not reproduce.
+
+  1. FBIOPUT_CON2FBMAP, the console -> fb1
+     set_con2fb_map() reaches var_to_display(), which points fb_display[i].mode
+     at an fb1 modelist entry (var_to_display() uses the console index, so it
+     runs even though the console has no vc_data)
+  2. FBIOPUT_CON2FBMAP, the console -> fb0
+     fb_display[i].mode now points at an fb0 modelist entry M
+  3. echo 0 > /sys/class/vtconsole/vtcon1/bind
+     fbcon_release_all() sets con2fb_map[i] = -1 and leaves fb_display[i].mode
+     pointing at M
+  4. write a videomode array to /sys/class/graphics/fb0/modes
+     The buffer holds raw struct fb_videomode entries. At least one must be
+     valid so fb_new_modelist() keeps it and store_modes() takes the success
+     path that frees old_list (an empty or invalid set takes the failure path
+     that restores it, and nothing is freed). fbcon_new_modelist() skips the
+     console (con2fb_map[i] == -1), then fb_destroy_modelist() frees M, so
+     fb_display[i].mode now dangles
+  5. FBIOPUT_CON2FBMAP, the console -> fb1
+     fbcon is unbound, so set_con2fb_map() takes the do_fbcon_takeover() branch
+     (fbcon.c:931). do_fbcon_takeover() sets con2fb_map[] = info_idx for the
+     whole range (fbcon.c:619), so the console is now mapped to fb1. The mode is
+     reset only via fbcon_init() during the takeover, which runs for allocated
+     consoles only, so this unused console keeps its dangling fb_display[i].mode
+  6. FBIOPUT_VSCREENINFO on fb1 with FB_ACTIVATE_INV_MODE and a mode different
+     from fb1's current var (otherwise fb_set_var() returns early without
+     calling fbcon_mode_deleted(), to avoid deleting the current var's
+     videomode)
+     fb_set_var() (fbmem.c:240,248) -> fbcon_mode_deleted() walks fb1's consoles
+     and reads the dangling fb_display[i].mode via fb_mode_is_equal(), a
+     use-after-free
+
+The free is in store_modes() on fb0, and the read in fbcon_mode_deleted() on
+fb1.
+
+The Proposed Fix
+
+A framebuffer's modelist is freed in two places, do_unregister_framebuffer()
+(fbmem.c:548) and store_modes() (fbsysfs.c:115). Commit a1f305893074 added the
+helper fbcon_delete_modelist() to clear the stale fb_display[i].mode pointers,
+but called it from the first site only (fbmem.c:547). The store_modes() site
+was raised as a potential issue during review of that commit [1] but
+assumed safe.
+
+Fix store_modes() the same way by clearing the stale pointers with
+fbcon_delete_modelist() before freeing old_list.
+
+The fix was verified with the reproducer. The unpatched kernel reports the
+slab-use-after-free read, freed by fb_destroy_modelist() from store_modes().
+The patched kernel produces no use-after-free.
+
+The bug predates git history. Both the fb_display[i].mode back-pointer and the
+store_modes() swap-and-free are present in the initial 2.6.12-rc2 import
+(1da177e4c3f4), so there is no Fixes tag, matching a1f305893074. The fix calls
+fbcon_delete_modelist(), which a1f305893074 added, so a stable backport needs
+that commit first.
+
+[1] https://lkml.org/lkml/2025/9/23/786
+
+ drivers/video/fbdev/core/fbsysfs.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/video/fbdev/core/fbsysfs.c b/drivers/video/fbdev/core/fbsysfs.c
+index baa2bae0fb5b..c761dcf21daf 100644
+--- a/drivers/video/fbdev/core/fbsysfs.c
++++ b/drivers/video/fbdev/core/fbsysfs.c
+@@ -111,8 +111,10 @@ static ssize_t store_modes(struct device *device,
+ 	if (fb_new_modelist(fb_info)) {
+ 		fb_destroy_modelist(&fb_info->modelist);
+ 		list_splice(&old_list, &fb_info->modelist);
+-	} else
++	} else {
++		fbcon_delete_modelist(&old_list);
+ 		fb_destroy_modelist(&old_list);
++	}
+ 
+ 	unlock_fb_info(fb_info);
+ 	console_unlock();
+-- 
+2.47.3
+
