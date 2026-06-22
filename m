@@ -4,54 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8068DCDB46F
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 09:47:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58B64CDB46F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 09:47:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E00E410E5BD;
-	Mon, 22 Jun 2026 09:47:11 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15A0D10E5BD
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 09:47:09 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.206])
- by APP-01 (Coremail) with SMTP id qwCowAD3kMmaBDlqgCy6Ag--.40951S2;
- Mon, 22 Jun 2026 17:47:07 +0800 (CST)
-Message-ID: <4d76953415ccaf99dc5f5590c1a8a71ac2b29cae.camel@iscas.ac.cn>
-Subject: Re: [PATCH] drm/fb_helper: Determine proper crtc_index within
- drm_fb_helper_fb_dirty
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Thomas Zimmermann <tzimmermann@suse.de>, "H. Nikolaus Schaller"
- <hns@goldelico.com>, sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, Andreas Kemnade <akemnade@kernel.org>
-Date: Mon, 22 Jun 2026 17:47:06 +0800
-In-Reply-To: <10f7b889-9e4c-40cd-9aca-b545b9675a37@suse.de>
-References: <5118b37e579cec220f2d2b6ab0bb1ecfb67f0d5c.1781803617.git.hns@goldelico.com>
- <20260618174310.70DB11F000E9@smtp.kernel.org>
- <50FDBC3B-BFC2-4BC6-B216-78C2C24D9E30@goldelico.com>
- <1c9e0e24-9c4a-4259-8700-cf9e5fd60ca3@suse.de>
- <8773121ff24730f0b4c2d0037132e4507380a77f.camel@iscas.ac.cn>
- <10f7b889-9e4c-40cd-9aca-b545b9675a37@suse.de>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAE8510E5C9;
+	Mon, 22 Jun 2026 09:47:56 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mMQIbGK6";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A485610E5C9
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 09:47:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7F91E40467;
+ Mon, 22 Jun 2026 09:47:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 473EC1F000E9;
+ Mon, 22 Jun 2026 09:47:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782121675;
+ bh=sEkpS5Z49CmNXb98ztjN2qs5CWnfNvWW/wtg2hWkwB8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=mMQIbGK6q02dCr+zx3UpyLJSk6jUF+GBveGeUAhmHZNFuOIwsDG8P0UEYKJKpNXHM
+ q8Zu8NJc8Ue0q/tCrGkCLbjLQu+xJ23Imvhh7oAG3MvO5DNLBGurKiSwKqPDXB2cQY
+ FGpcSwV82lJji6SQOamGHqxFJgEwejVr/VllVhfdBf4SvKc3XWTLI6cPxTglXb2lTE
+ zwj6ifQMOe5kQAbP7mXmjFUzMZ7fvCtcR2adWsPZSqQ+FpcxKHCj9G4GTTT5aaeu+8
+ M1AcPnFQd+Nv1sTvYgEsXsEUVSwdqvU0gWXne79zVp0EhEqEh46kTQ4TRzDGXvdax2
+ iokWZArOEMBww==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/5] nouveau/gsp/rm/alloc: Cleanup IS_ERR_OR_NULL usage
+To: "Hongling Zeng" <zenghongling@kylinos.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <1782119054236227.17989.seg@mailgw.kylinos.cn>
+References: <20260622021207.14764-1-zenghongling@kylinos.cn>
+ <1782119054236227.17989.seg@mailgw.kylinos.cn>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
-MIME-Version: 1.0
-X-CM-TRANSID: qwCowAD3kMmaBDlqgCy6Ag--.40951S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3WFy8WrWUXrWkuFW7uw18AFb_yoW7Zw4rpF
- WUGFWjyFWkJry5tw12gw40va4jkw17JF97Wr1rJw15ZFyqyr1fCF4jyry5uFyDWr17Jw4j
- vr1UtFy3ur1UAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUk2b7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
- C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxAI
- w28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr
- 4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxG
- rwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8Jw
- CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2
- z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUgtr4UUUUU
-X-Originating-IP: [112.94.100.206]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Date: Mon, 22 Jun 2026 09:47:54 +0000
+Message-Id: <20260622094755.473EC1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,184 +53,169 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-06-22=E4=B8=80=E7=9A=84 11:11 +0200=EF=BC=8CThomas Zimmerman=
-n=E5=86=99=E9=81=93=EF=BC=9A
-> Hi
->=20
-> Am 19.06.26 um 18:59 schrieb Icenowy Zheng:
-> > =E5=9C=A8 2026-06-19=E4=BA=94=E7=9A=84 10:50 +0200=EF=BC=8CThomas Zimme=
-rmann=E5=86=99=E9=81=93=EF=BC=9A
-> > > (cc Icenowy)
-> > >=20
-> > > Hi,
-> > >=20
-> > > there are a number of similar reports. Does the attached patch
-> > > fix
-> > > the
-> > > problem. It picks up what you do, but in a more correct way.
-> > Yes, this patch looks okay, but I wonder whether the crtc index
-> > query
-> > should be done in drm_client_modeset_wait_for_vblank() instead.
->=20
-> There's another call to this helper from the ioctl helper. It has a=20
-> lengthy comment about using CRTC 0 only and how these indices don't
-> make=20
-> much sense with fbdev. I'll look into generalizing the code a bit,
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
 
-I think both codepaths are based on the same (wrong) assumption that
-CRTC 0 is always the first used CRTC, so that codepath should also be
-fixed; integrating the logic into drm_client_modeset_wait_for_vblank()
-will not affect drivers that use CRTC 0 first, but will make drivers
-that have fixed CRTC preference work with FBIO_WAITFORVSYNC too (which
-currently do not work).
+Pre-existing issues:
+- [Critical] Double fetch of `rpc->length` from untrusted GSP shared memory=
+ allows bypassing size validation and causing a heap buffer overflow.
+- [Critical] Integer underflow in `r535_gsp_msgq_recv_one_elem()` when copy=
+ing continuation records with a small length.
+- [Critical] Missing validation of continuation chunk sizes in `r535_gsp_ms=
+gq_recv()` leads to heap buffer overflow and integer underflow.
+- [High] Silent failure when GSP firmware sends a corrupted RPC reply for a=
+n allocation request.
+- [High] Memory leak of the RPC reply payload when `nvkm_gsp_rpc_wr()` is u=
+sed with `NVKM_GSP_RPC_REPLY_RECV`.
+- [High] Large RPC message buffer leak on error paths in `r535_gsp_rpc_push=
+()`.
+--
 
-Thanks,
-Icenowy
+commit 80c014f86c2f1ac065ff1b0e24d2eb0c508a2e4a
+Author: Hongling Zeng <zenghongling@kylinos.cn>
 
-> but=20
-> I'd rather not fully integrate the logic into=20
-> drm_client_modeset_wait_for_vblank().
->=20
-> Best regards
-> Thomas
->=20
-> >=20
-> > I will test this patch this weekend.
-> >=20
-> > Thanks,
-> > Icenow
-> >=20
-> > > Best regards
-> > > Thomas
-> > >=20
-> > > Am 18.06.26 um 19:56 schrieb H. Nikolaus Schaller:
-> > > > > Am 18.06.2026 um 19:43 schrieb sashiko-bot@kernel.org:
-> > > > >=20
-> > > > > Thank you for your contribution! Sashiko AI review found 3
-> > > > > potential issue(s) to consider:
-> > > > > - [High] Lockless access to `crtc->state` and `crtc->primary-
-> > > > > > state` can lead to a Use-After-Free due to concurrent
-> > > > > > atomic
-> > > > > commits.
-> > > > > - [High] The patch breaks vblank synchronization for legacy
-> > > > > (non-
-> > > > > atomic) DRM drivers.
-> > > > > - [Medium] The logic selects the first matching CRTC instead
-> > > > > of
-> > > > > the last active one, contradicting the commit message.
-> > > > > --
-> > > > >=20
-> > > > > commit 0337b26b606b4d905d72ea2be31bcb984fe62c6e
-> > > > > Author: H. Nikolaus Schaller <hns@goldelico.com>
-> > > > >=20
-> > > > > drm/fb_helper: Determine proper crtc_index within
-> > > > > drm_fb_helper_fb_dirty
-> > > > >=20
-> > > > > This commit updates the dirty framebuffer worker to search
-> > > > > for a
-> > > > > matching
-> > > > > active CRTC instead of hardcoding the wait for vblank to CRTC
-> > > > > index 0. It
-> > > > > aims to avoid vblank timeouts when CRTC 0 is inactive.
-> > > > >=20
-> > > > > > diff --git a/drivers/gpu/drm/drm_fb_helper.c
-> > > > > > b/drivers/gpu/drm/drm_fb_helper.c
-> > > > > > --- a/drivers/gpu/drm/drm_fb_helper.c
-> > > > > > +++ b/drivers/gpu/drm/drm_fb_helper.c
-> > > > > [ ... ]
-> > > > > > @@ -232,9 +232,23 @@ static void
-> > > > > > drm_fb_helper_fb_dirty(struct
-> > > > > > drm_fb_helper *helper)
-> > > > > > struct drm_clip_rect clip_copy;
-> > > > > > unsigned long flags;
-> > > > > > int ret;
-> > > > > > + unsigned int crtc_index =3D 0;
-> > > > > > + struct drm_crtc *crtc;
-> > > > > >=20
-> > > > > > mutex_lock(&helper->lock);
-> > > > > > - drm_client_modeset_wait_for_vblank(&helper->client, 0);
-> > > > > > +
-> > > > > > + drm_for_each_crtc(crtc, dev) {
-> > > > > > + if (crtc->primary && crtc->primary->state &&
-> > > > > > +=C2=A0=C2=A0=C2=A0 crtc->primary->state->fb =3D=3D helper->fb =
-&&
-> > > > > > +=C2=A0=C2=A0=C2=A0 crtc->state && crtc->state->active) {
-> > > > > [Severity: High]
-> > > > > Can this lockless access to crtc->state and crtc->primary-
-> > > > > >state
-> > > > > result in a
-> > > > > use-after-free?
-> > > > No idea...
-> > > >=20
-> > > > > The drm_fb_helper_fb_dirty() function holds helper->lock, but
-> > > > > does not hold
-> > > > > the DRM modeset locks required to protect these state
-> > > > > pointers.
-> > > > > During a
-> > > > Which locks are exactly recommended to add? What is their
-> > > > name/pointer?
-> > > >=20
-> > > > > concurrent atomic modeset commit, the DRM core allocates new
-> > > > > state objects,
-> > > > > swaps them into place, and frees the old objects via kfree().
-> > > > >=20
-> > > > > If this code reads an old state pointer and gets preempted,
-> > > > > could
-> > > > > it then
-> > > > > dereference the pointer after it has been freed by the
-> > > > > concurrent
-> > > > > commit?
-> > > > >=20
-> > > > > [Severity: High]
-> > > > > Does this break vblank synchronization for legacy non-atomic
-> > > > > DRM
-> > > > > drivers?
-> > > > > Legacy drivers do not use the atomic modesetting
-> > > > > infrastructure,
-> > > > > so their
-> > > > > crtc->state and crtc->primary->state pointers remain NULL.
-> > > > > Since
-> > > > > the condition
-> > > > > above requires these pointers to be non-NULL, the loop will
-> > > > > skip
-> > > > > the vblank
-> > > > > wait entirely for legacy drivers. This skips the intended
-> > > > > rate-
-> > > > > limiting
-> > > > > behavior and could lead to unbounded damage worker execution.
-> > > > What is the solution? And is this important.
-> > > >=20
-> > > > Before d8c4bddcd8bcb ("drm/fb-helper: Synchronize dirty worker
-> > > > with
-> > > > vblank")
-> > > >=20
-> > > > there was also no rate-limiting behavior.
-> > > >=20
-> > > > > > + crtc_index =3D drm_crtc_index(crtc) + 1;
-> > > > > > + break;
-> > > > > [Severity: Medium]
-> > > > > The commit message states "If multiple CRTCs match, the last
-> > > > > active one is
-> > > > > selected." Does the break statement here cause the first
-> > > > > active
-> > > > > CRTC to be
-> > > > > selected instead, bypassing the remaining matches in the
-> > > > > list?
-> > > > Yes, that is correct. The description is indeed wrong.
-> > > >=20
-> > > > > > + }
-> > > > > > + }
-> > > > > > +
-> > > > > > + if (crtc_index > 0)
-> > > > > > + drm_client_modeset_wait_for_vblank(&helper->client,
-> > > > > > crtc_index - 1);
-> > > > > > +
-> > > > > > mutex_unlock(&helper->lock);
-> > > > > --=20
-> > > > > Sashiko AI review =C2=B7
-> > > > > https://sashiko.dev/#/patchset/5118b37e579cec220f2d2b6ab0bb1ecfb6=
-7f0d5c.1781803617.git.hns@goldelico.com?part=3D1
+nouveau/gsp/rm/alloc: Cleanup IS_ERR_OR_NULL usage
 
+This commit cleans up the usage of IS_ERR_OR_NULL in r535_gsp_rpc_rm_free().
+It updates the check for nvkm_gsp_rpc_get() to only use IS_ERR(), matching
+its actual return value contract.
+
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/alloc.c b/dr=
+ivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/alloc.c
+> index 46e3a29f2ad7f..c9f86c0e9b255 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/alloc.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/alloc.c
+> @@ -35,7 +35,7 @@ r535_gsp_rpc_rm_free(struct nvkm_gsp_object *object)
+>  		   client->object.handle, object->handle);
+> =20
+>  	rpc =3D nvkm_gsp_rpc_get(gsp, NV_VGPU_MSG_FUNCTION_FREE, sizeof(*rpc));
+> -	if (WARN_ON(IS_ERR_OR_NULL(rpc)))
+> +	if (WARN_ON(IS_ERR(rpc)))
+>  		return -EIO;
+> =20
+>  	rpc->params.hRoot =3D client->object.handle;
+>  	rpc->params.hObjectParent =3D 0;
+>  	rpc->params.hObjectOld =3D object->handle;
+>  	return nvkm_gsp_rpc_wr(gsp, rpc, NVKM_GSP_RPC_REPLY_RECV);
+
+[Severity: High]
+This is a pre-existing issue, but I noticed nvkm_gsp_rpc_wr() returns 0 on
+success and drops the reply buffer allocated by nvkm_gsp_rpc_push().
+
+When nvkm_gsp_rpc_wr() is called with NVKM_GSP_RPC_REPLY_RECV, the reply
+is returned via:
+
+drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h:nvkm_gsp_rpc_wr() {
+    ...
+    void *repv =3D nvkm_gsp_rpc_push(gsp, argv, policy, 0);
+
+    if (IS_ERR(repv))
+        return PTR_ERR(repv);
+
+    return 0;
+}
+
+Since the caller here doesn't receive the reply buffer, and nvkm_gsp_rpc_wr=
+()
+doesn't free it, does this leak memory every time r535_gsp_rpc_rm_free()
+is called?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but looking at the error
+handling for RPCs, I see that r535_gsp_rpc_rm_alloc_push() can return NULL:
+
+drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/alloc.c:r535_gsp_rpc_rm_all=
+oc_push() {
+    ...
+    if (IS_ERR_OR_NULL(rpc))
+        return rpc;
+    ...
+}
+
+However, nvkm_gsp_rm_alloc_wr() only checks for IS_ERR(repv) and then
+returns 0 (success) if it is not an error:
+
+drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h:nvkm_gsp_rm_alloc_wr() {
+    ...
+    if (IS_ERR(repv))
+        return PTR_ERR(repv);
+
+    return 0;
+}
+
+Since IS_ERR() evaluates to false for NULL, does this incorrectly mask
+failures and treat them as successful allocations?
+
+[Severity: High]
+This is a pre-existing issue, but in r535_gsp_rpc_push(), if the final
+reply yields an error, the code skips kvfree(msg):
+
+drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c:r535_gsp_rpc_push() {
+    ...
+    repv =3D r535_gsp_rpc_handle_reply(gsp, fn, policy, payload_size +
+                                     sizeof(*rpc));
+    if (!IS_ERR(repv))
+        kvfree(msg);
+    ...
+}
+
+If an error occurs or the code branches to the done label, does this leak
+the large RPC message buffer?
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but looking at
+r535_gsp_msgq_recv(), the length is read from shared memory directly:
+
+drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c:r535_gsp_msgq_recv() {
+    ...
+    if (WARN_ON(rpc->length > max_rpc_size))
+        return NULL;
+
+    buf =3D kvmalloc(max_t(u32, rpc->length, expected), GFP_KERNEL);
+    ...
+    info.gsp_rpc_len =3D rpc->length;
+}
+
+Since the length is read again after kvmalloc(), which acts as a compiler
+barrier, can the GSP firmware change rpc->length between the validation
+and the second fetch, bypassing the size check?
+
+[Severity: Critical]
+This is a pre-existing issue, but in r535_gsp_msgq_recv_one_elem(), there
+is a size calculation without validation:
+
+drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c:r535_gsp_msgq_recv_on=
+e_elem() {
+    ...
+    if (info->continuation)
+        memcpy(buf, mqe->data + sizeof(struct nvfw_gsp_rpc),
+               len - sizeof(struct nvfw_gsp_rpc));
+}
+
+If the provided length is smaller than sizeof(struct nvfw_gsp_rpc), will
+this underflow and copy an excessive amount of data out-of-bounds?
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but when processing multi-part
+messages in r535_gsp_msgq_recv(), the code subtracts chunk size from expect=
+ed
+without validation:
+
+drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c:r535_gsp_msgq_recv() {
+    ...
+    size =3D info.gsp_rpc_len - sizeof(*rpc);
+    expected -=3D size;
+    info.gsp_rpc_buf +=3D size;
+}
+
+If size is larger than the remaining expected amount, does expected underfl=
+ow
+and cause the buffer pointer to advance out of bounds on subsequent chunks?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622021207.1476=
+4-1-zenghongling@kylinos.cn?part=3D3
