@@ -4,52 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE184CDB46F
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 21:33:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E463DCDB470
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 21:36:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0619310E882;
-	Mon, 22 Jun 2026 21:33:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2370C10E8B8;
+	Mon, 22 Jun 2026 21:36:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EusqF1f+";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lDPMKuPp";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0092710E885
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 21:33:03 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9D35A4079B;
- Mon, 22 Jun 2026 21:33:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 080A31F000E9;
- Mon, 22 Jun 2026 21:32:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782163983;
- bh=eiKGMJnvtl1s4x1K0AHPDI05fpemCuMxOV9tWVGmF0w=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=EusqF1f+lqFj/TUa/4AXRUZ2o7FoMLb56LcxlUUPHPx+v9ysxFbFfQUh4/ZAmPovk
- nhmp2xsp9MZxG2zODu88FcCq6wYx3Nd7iLvmZL8aykVQdGqzrilnkO0veC+bS3GB/R
- SzL5atetfZRObnWkYsT0y1pMr2HLtM175sW0N2/V6CqPCxwQX2jtxqSdbi3KlwG0JZ
- WMDT8Ac7X4MFF0mOmyogNE96YrK0+E2LODB760En5cgUKDM5JD8dQ3mkTQpQhPNrpr
- pm0qbV12NjaXKS52K5aLvQhWog4tN38H8mkqex3/MFz1WR+kD8W0PYgsh1OFamW1wE
- tUULWKVq+hrIQ==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B2DA10E871;
+ Mon, 22 Jun 2026 21:36:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782164169; x=1813700169;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=BIfpUsn/0OSrfLZGMqDoPrNmWunHZK6NnheRC5tKfDU=;
+ b=lDPMKuPptY6WNW4caDsNlwro5MiQsyBzN100SbgwVSbwwFAVxgWnAT3I
+ uNHAEuBRdDT1VDw8PMmcxsIt3GkbNZ6adx+X+kjz4jrXV5X5jHkNSNsD0
+ VSaToMPwF75zFiROGmM6WjIGz2skrejtxnRAmw+d8p2CrrysKwFrN2pUL
+ +XbPx4QJeC6UPUebD+n4oYZx4CP46+7OVxIaMiGDJJHGj9ohcjhw5mAsw
+ OUK13pJzmCaynAN1BSMV9tuAJt1yJCiJbIC2Iwt5ogvzoAgAILBWt1oeE
+ jwVrPlqE5/+6xieUEEHpUssEeioIsrEZYOHiscYpBgtcMhWULG8IYFHS7 w==;
+X-CSE-ConnectionGUID: Mb75aceAS1GgoezdqrQwCg==
+X-CSE-MsgGUID: bjQGQOFfRu6MmZdvP9CfMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11825"; a="86812055"
+X-IronPort-AV: E=Sophos;i="6.24,219,1774335600"; d="scan'208";a="86812055"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jun 2026 14:36:08 -0700
+X-CSE-ConnectionGUID: SfiLt37+TbmlPekVkdVimA==
+X-CSE-MsgGUID: vG+sxAf3TA+oE5F4x+eKKw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,219,1774335600"; d="scan'208";a="253229744"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.160])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jun 2026 14:36:06 -0700
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Suraj Kandpal <suraj.kandpal@intel.com>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH v2 0/5] drm/i915: Work harder to enable VRR based refresh rate
+ changes on eDP
+Date: Tue, 23 Jun 2026 00:35:57 +0300
+Message-ID: <20260622213602.7244-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.53.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 22 Jun 2026 23:32:58 +0200
-Message-Id: <DJFWELAXB8LS.O3DUMKCB75YF@kernel.org>
-Subject: Re: [PATCH v4 14/16] rust: drm: Add RegistrationData to drm::Driver
-Cc: <aliceryhl@google.com>, <daniel.almeida@collabora.com>,
- <acourbot@nvidia.com>, <ecourtney@nvidia.com>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
- <deborah.brouwer@collabora.com>, <boris.brezillon@collabora.com>,
- <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>
-To: "Lyude Paul" <lyude@redhat.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260620184924.2247517-1-dakr@kernel.org>
- <20260620184924.2247517-15-dakr@kernel.org>
- <29107a0939a8eb67cb4d73a5e06c7ca7e25e3a12.camel@redhat.com>
-In-Reply-To: <29107a0939a8eb67cb4d73a5e06c7ca7e25e3a12.camel@redhat.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,36 +72,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jun 22, 2026 at 10:17 PM CEST, Lyude Paul wrote:
-> This patch seems mostly fine to me, but it'd be wonderful if we could fig=
-ure
-> out a way to prevent making ::new() unsafe. But even after staring at thi=
-s for
-> quite a while, I can't really think of anything either :S. Maybe someone =
-else
-> on the list can think of something
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-There's currently no way to prevent bypassing the destructor in stable Rust=
-.
-However, there's an offical Rust project goal [1] to address this with a ne=
-w
-language feature.
+Tweak the eDP fixed mode selection algorithm to allow
+userspace to do refresh rate changes on VRR capable
+eDP panels without full modesets.
 
-Since this affects almost all Registration types, we could also consider ma=
-king
-it safe and accept it as a temporary soundness hole.
+v2: Cleaner split for VRR vs. fixed refresh rate fixed mode
+    selection to avoid some corner cases
 
-Getting this wrong seems rather unlikely anyway since in most cases
-Registrations live in the bus device private data, which can't be forgotten=
-.
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-But even in the rare cases where they do not, forgetting a Registration wou=
-ld be
-a very odd thing to do.
+Ville Syrjälä (5):
+  drm/i915/panel: Split VRR vs. fixed refresh rate fixed mode selection
+    into separate stages
+  drm/modes: Add DRM_MODE_MATCH_TIMINGS_VRR
+  drm/i915: Pass the full atomic state to .compute_config()
+  drm/i915/panel: Adjust intel_panel_compute_config() calling convention
+  drm/i915/panel: Attempt VRR based refresh rate change for
+    !allow_modeset
 
-In the DRM case the unsafe is not very annoying, but I'm also reworking the=
- IRQ
-registration and there it scatters a bit more, so it might be worth conside=
-ring.
+ drivers/gpu/drm/drm_modes.c                   |  23 +++
+ drivers/gpu/drm/i915/display/g4x_dp.c         |   5 +-
+ drivers/gpu/drm/i915/display/g4x_hdmi.c       |   4 +-
+ drivers/gpu/drm/i915/display/icl_dsi.c        |   5 +-
+ drivers/gpu/drm/i915/display/intel_crt.c      |   9 +-
+ drivers/gpu/drm/i915/display/intel_ddi.c      |   8 +-
+ drivers/gpu/drm/i915/display/intel_display.c  |   4 +-
+ .../drm/i915/display/intel_display_types.h    |   6 +-
+ drivers/gpu/drm/i915/display/intel_dp.c       |   6 +-
+ drivers/gpu/drm/i915/display/intel_dp.h       |   3 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |   8 +-
+ drivers/gpu/drm/i915/display/intel_dvo.c      |   5 +-
+ drivers/gpu/drm/i915/display/intel_lvds.c     |   5 +-
+ drivers/gpu/drm/i915/display/intel_panel.c    | 167 +++++++++++++-----
+ drivers/gpu/drm/i915/display/intel_panel.h    |   6 +-
+ drivers/gpu/drm/i915/display/intel_sdvo.c     |   7 +-
+ drivers/gpu/drm/i915/display/intel_tv.c       |   5 +-
+ drivers/gpu/drm/i915/display/vlv_dsi.c        |   5 +-
+ include/drm/drm_modes.h                       |   1 +
+ 19 files changed, 203 insertions(+), 79 deletions(-)
 
-[1] https://rust-lang.github.io/rust-project-goals/2026/move-trait.html
+-- 
+2.53.0
+
