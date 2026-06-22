@@ -4,48 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5ACACD98F2
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 11:38:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B09E2CD98F2
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 11:42:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 088E610E64E;
-	Mon, 22 Jun 2026 11:38:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C48810E63F;
+	Mon, 22 Jun 2026 11:42:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ViWn+enl";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="lJZUx1H7";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB2B10E64E
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 11:38:41 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id E38FD18E5;
- Mon, 22 Jun 2026 13:38:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1782128282;
- bh=q/oqGCzqqLSDA0mxIT6/SQyCg3ELN0z1DGFRfZbT8r8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ViWn+enlBKmkbyuxQlyehmsyRrN/F/cZuXLlI9KPZZ3KM+TQCRzHtEE6twKWyTkmt
- F4K/xChPYviSXuMLqcJu4UWTlElBpKU8UjOXmssBLBmSOz/XKbaAO1rgxjUuppUfC0
- WBd9DEgeauaYCZsjGDp96VEHxMXBcOpl7BUnFhfI=
-Date: Mon, 22 Jun 2026 14:38:38 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 22/37] drm/bridge: ti-tfp410: Switch to atomic bridge
- callbacks
-Message-ID: <20260622113838.GF3872967@killaraus.ideasonboard.com>
-References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
- <20260617-drm-all-atomic-bridges-v1-22-b63e6316166b@kernel.org>
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com
+ [113.46.200.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B9FD10E63F
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 11:42:06 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=guLH7PWsPN4QRiR2otfLo4i4a2OD+mVsl8hoiTPpR7w=;
+ b=lJZUx1H7Or0exrO6C0C4NRLAOtY8A8DY3H2pDw3s4wV41+fyCIqEFCaH7PwfkVnaLG/wNGYPP
+ giKERb+yRAULTFQRtyhMc3tdFteiuv2rmQZ806qdo7V28c8c0Es5I2pn9Hb8rNPrVY7KNLKr6DX
+ OpQmKZtprmml/LTiYDZuryg=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+ by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4gkR12148KzKm51;
+ Mon, 22 Jun 2026 19:33:58 +0800 (CST)
+Received: from dggemv712-chm.china.huawei.com (unknown [10.1.198.32])
+ by mail.maildlp.com (Postfix) with ESMTPS id 48B3D40539;
+ Mon, 22 Jun 2026 19:42:02 +0800 (CST)
+Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
+ dggemv712-chm.china.huawei.com (10.1.198.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Mon, 22 Jun 2026 19:42:02 +0800
+Received: from [10.159.167.44] (10.159.167.44) by
+ kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Mon, 22 Jun 2026 19:42:01 +0800
+Message-ID: <0cada37c-bd85-49f7-bec3-8850dd57e688@huawei.com>
+Date: Mon, 22 Jun 2026 19:42:01 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260617-drm-all-atomic-bridges-v1-22-b63e6316166b@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 5/6] drm/hibmc: Verify the framebuffer pitch to be a
+ multiple of 128
+To: Thomas Zimmermann <tzimmermann@suse.de>, <tiantao6@hisilicon.com>,
+ <kong.kongxinwei@hisilicon.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <airlied@gmail.com>, <simona@ffwll.ch>
+CC: <dri-devel@lists.freedesktop.org>, <sashiko-reviews@lists.linux.dev>,
+ <shiyongbang@huawei.com>, "liangjian(Jim,Kunpeng Solution Development Dept)"
+ <liangjian010@huawei.com>, Chenjianmin <chenjianmin@huawei.com>, "fengsheng
+ (A)" <fengsheng5@huawei.com>
+References: <20260618123142.92298-1-tzimmermann@suse.de>
+ <20260618123142.92298-6-tzimmermann@suse.de>
+From: Yongbang Shi <shiyongbang@huawei.com>
+In-Reply-To: <20260618123142.92298-6-tzimmermann@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.159.167.44]
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemq100007.china.huawei.com (7.202.195.175)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,192 +73,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maxime,
-
-Thank you for the patch.
-
-On Wed, Jun 17, 2026 at 12:14:47PM +0200, Maxime Ripard wrote:
-> The ti-tfp410 bridge still uses the deprecated non-atomic bridge
-> callbacks.
+> The hibmc hardware requires the framebuffer pitch to be aligned to
+> a multiple of 128. Dumb-buffer creation already guarantees this for
+> the created GEM buffer object. Also verify this contraint during
+> framebuffer creation.
 > 
-> Switch to their atomic counterparts.
-> 
-> Generated by the following Coccinelle script:
-> 
-> @ is_bridge @
-> identifier funcs;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
-> 	...,
->  };
-> 
-> @ has_create_state depends on is_bridge @
-> identifier funcs, f;
-> @@
-> 
-> struct drm_bridge_funcs funcs = {
->   ...,
->   .atomic_create_state = f,
->   ...,
-> };
-> 
-> @ update_struct depends on (is_bridge && !has_create_state) @
-> identifier is_bridge.funcs;
-> identifier f;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
-> +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
-> +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-> +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
->  	...,
->  };
-> 
-> @ update_pre_enable_struct depends on is_bridge @
-> identifier is_bridge.funcs;
-> identifier f;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
->  	...,
-> -	.pre_enable = f,
-> +	.atomic_pre_enable = f,
->  	...,
->  };
-> 
-> @ update_pre_enable_impl depends on update_pre_enable_struct @
-> identifier update_pre_enable_struct.f;
-> identifier b;
-> @@
-> 
-> -void f(struct drm_bridge *b)
-> +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
->  {
-> 	...
->  }
-> 
-> @ update_enable_struct depends on is_bridge @
-> identifier is_bridge.funcs;
-> identifier f;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
->  	...,
-> -	.enable = f,
-> +	.atomic_enable = f,
->  	...,
->  };
-> 
-> @ update_enable_impl depends on update_enable_struct @
-> identifier update_enable_struct.f;
-> identifier b;
-> @@
-> 
-> -void f(struct drm_bridge *b)
-> +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
->  {
-> 	...
->  }
-> 
-> @ update_disable_struct depends on is_bridge @
-> identifier is_bridge.funcs;
-> identifier f;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
->  	...,
-> -	.disable = f,
-> +	.atomic_disable = f,
->  	...,
->  };
-> 
-> @ update_disable_impl depends on update_disable_struct @
-> identifier update_disable_struct.f;
-> identifier b;
-> @@
-> 
-> -void f(struct drm_bridge *b)
-> +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
->  {
-> 	...
->  }
-> 
-> @ update_post_disable_struct depends on is_bridge @
-> identifier is_bridge.funcs;
-> identifier f;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
->  	...,
-> -	.post_disable = f,
-> +	.atomic_post_disable = f,
->  	...,
->  };
-> 
-> @ update_post_disable_impl depends on update_post_disable_struct @
-> identifier update_post_disable_struct.f;
-> identifier b;
-> @@
-> 
-> -void f(struct drm_bridge *b)
-> +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
->  {
-> 	...
->  }
-> 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->  drivers/gpu/drm/bridge/ti-tfp410.c | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
+>  .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c    | 18 +++++++++++++++++-
+>  1 file changed, 17 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/bridge/ti-tfp410.c b/drivers/gpu/drm/bridge/ti-tfp410.c
-> index 6f06f7b4e992..f0a14f52aaac 100644
-> --- a/drivers/gpu/drm/bridge/ti-tfp410.c
-> +++ b/drivers/gpu/drm/bridge/ti-tfp410.c
-> @@ -172,18 +172,20 @@ static void tfp410_detach(struct drm_bridge *bridge)
->  		drm_bridge_hpd_disable(dvi->bridge.next_bridge);
->  		cancel_delayed_work_sync(&dvi->hpd_work);
->  	}
->  }
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+> index 99b36de1fe13..55d175028c46 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+> @@ -14,6 +14,7 @@
+>  #include <linux/aperture.h>
+>  #include <linux/module.h>
+>  #include <linux/pci.h>
+> +#include <linux/sizes.h>
 >  
-> -static void tfp410_enable(struct drm_bridge *bridge)
-> +static void tfp410_enable(struct drm_bridge *bridge,
-> +			  struct drm_atomic_commit *commit)
->  {
->  	struct tfp410 *dvi = drm_bridge_to_tfp410(bridge);
+>  #include <drm/clients/drm_client_setup.h>
+>  #include <drm/drm_atomic_helper.h>
+> @@ -106,11 +107,26 @@ static const struct dev_pm_ops hibmc_pm_ops = {
+>  				hibmc_pm_resume)
+>  };
 >  
->  	gpiod_set_value_cansleep(dvi->powerdown, 0);
->  }
+> +static struct drm_framebuffer *hibmc_mode_config_fb_create(struct drm_device *dev,
+> +							   struct drm_file *file_priv,
+> +							   const struct drm_format_info *info,
+> +							   const struct drm_mode_fb_cmd2 *mode_cmd)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < info->num_planes; ++i) {
+> +		if (mode_cmd->pitches[i] % SZ_128)
+> +			return ERR_PTR(-EINVAL);
+> +	}
+> +
+> +	return drm_gem_fb_create(dev, file_priv, info, mode_cmd);
+> +}
+> +
+>  static const struct drm_mode_config_funcs hibmc_mode_funcs = {
+>  	.mode_valid = drm_vram_helper_mode_valid,
+>  	.atomic_check = drm_atomic_helper_check,
+>  	.atomic_commit = drm_atomic_helper_commit,
+> -	.fb_create = drm_gem_fb_create,
+> +	.fb_create = hibmc_mode_config_fb_create,
+>  };
 >  
-> -static void tfp410_disable(struct drm_bridge *bridge)
-> +static void tfp410_disable(struct drm_bridge *bridge,
-> +			   struct drm_atomic_commit *commit)
->  {
->  	struct tfp410 *dvi = drm_bridge_to_tfp410(bridge);
->  
->  	gpiod_set_value_cansleep(dvi->powerdown, 1);
->  }
-> @@ -240,12 +242,12 @@ static int tfp410_atomic_check(struct drm_bridge *bridge,
->  }
->  
->  static const struct drm_bridge_funcs tfp410_bridge_funcs = {
->  	.attach		= tfp410_attach,
->  	.detach		= tfp410_detach,
-> -	.enable		= tfp410_enable,
-> -	.disable	= tfp410_disable,
-> +	.atomic_enable = tfp410_enable,
-> +	.atomic_disable = tfp410_disable,
->  	.mode_valid	= tfp410_mode_valid,
->  	.atomic_create_state = drm_atomic_helper_bridge_create_state,
->  	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
->  	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
->  	.atomic_get_input_bus_fmts = tfp410_get_input_bus_fmts,
+>  static int hibmc_kms_init(struct hibmc_drm_private *priv)
 
--- 
-Regards,
 
-Laurent Pinchart
+Reviewed-by: Yongbang Shi <shiyongbang@huawei.com>
+
+Thanks,
+Yongbang.
+
