@@ -4,73 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D937CD4F26
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 08:07:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D84FCDB47C
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 08:07:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F160510E9CA;
-	Tue, 23 Jun 2026 08:06:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 242CA10E9CE;
+	Tue, 23 Jun 2026 08:06:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HOtf9UEP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V+hg/BvK";
 	dkim-atps=neutral
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BD0C10E2E5
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 19:46:59 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-c0c5d170ad4so308216066b.3
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 12:46:59 -0700 (PDT)
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
+ [74.125.82.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFAF110E85B
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 20:26:26 +0000 (UTC)
+Received: by mail-dy1-f178.google.com with SMTP id
+ 5a478bee46e88-30c55adcf66so258951eec.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 13:26:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782157618; x=1782762418; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=lieoZSrETeNqfqjggjcg7YjI6XZdYix99GC+0aKI1SE=;
- b=HOtf9UEPQUGCXLx4jlske3sf37hz9uI61GnYG6N8iVcYM56xtYem87c9+02KkyQLHw
- AXR94DQkoGnrrD0wRCzaPgEmHhS5wFYl/1rT77CghPm4dWpWY3IcSdWP7X3enzGOlyCB
- myIU7TXWpZ56BJPp9lWC96I5Zvko4fiOoHxkSW8GektlmuaKylvCMj8BuWzlFUYB/Lnj
- Kz/tNrWGmsAPmdlPTPcOq+JgW50DodJyatDyAM50yZ8Ls+EMamda9eBO8KFTd8tMHmQt
- LtK1PByPQckAOPJYtEI632EU5RUQsOlhe3HoMemvhVD9JAeIF3Gci4oIh5q6ssoT1H7g
- Fn7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782157618; x=1782762418;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1782159986; x=1782764786; darn=lists.freedesktop.org;
+ h=in-reply-to:references:from:subject:cc:to:message-id:date
+ :content-transfer-encoding:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=lieoZSrETeNqfqjggjcg7YjI6XZdYix99GC+0aKI1SE=;
- b=PhxXSQYj3aqEwC38omYRQ/m+VQ4zg2nsjuX/FR4q3wCiMAN3Q/zeb214jRL1sagAKo
- D+BufB2laUSquvNr8mRz2sfxeyY++zkglBEaSGldXMP4LB1yfIm6fSPZalH/gqWaoGuP
- EY8aZfwOoDqScqUad7lV713zsnRvN7EvA59zY4zsP88iXB1XZSw+criBp4Y1w6pxwe9N
- XhzGtOFrhBrYp3/GWnMhlgzGZTzTtmfYAien57D89pkgz+3Yt48KYNvB7e/vyW1edMs4
- fu64A8FczhdVW6a8EnqaaphKhej6rIxsAeQ69V6aJPOqemgu/lTZsWyybjD9o23xK7Qv
- 9fnA==
+ bh=xKjdclokDyRi4PBBx/vJlxGysKebeIHY7C6D9/WXUIk=;
+ b=V+hg/BvKRmK+MRUT2qytCx72cCBJTfCrk5YCpoJc7qod7FwSLmFN/vmEABUVTzG3Nm
+ 7Hzor6DVCmJM25BO5neNHxsOo4W11ZUsEj3pYxypPhI+EPzUi9A79RLrxdjQ3Vk/tkvN
+ 14aMFk1n9isxIBVGAH0tcqGov5ovbPGtK0BmAo513fWsdN4IO+rfiAkpV6ofk90OQ+wh
+ Az0641KK7dZOJXUVyK0ZL9ofI4JSy7NSWd4afPo5o+pILhNExXClTxgoQtUXobFPLVNA
+ RYKaHRSvKWaR8ghEM+tFKbJOTYRrJxn1viZt1vSea9pcIk5K7zoTI8AtITE76hwBccST
+ hKsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782159986; x=1782764786;
+ h=in-reply-to:references:from:subject:cc:to:message-id:date
+ :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=xKjdclokDyRi4PBBx/vJlxGysKebeIHY7C6D9/WXUIk=;
+ b=mcyAqAGe1leDdGAUDHnmZOS3HQUMYoQxsvMQCURZdZSVdBDZAq5fpanpwwpe/o3N/G
+ YscwdJn7q4igdgOWH2LSiUhgtBewmXcv/V4hHi+9KmLjXIBnPdwyl/X/YmcOm0v7DJUj
+ RTHElvSM+ie2pRfFJE+3BvQStiYQpBR2+OWU7iYLeRKrFOF3ArD0aGvwGu0g5MImZmrW
+ 1DNqQ0+fKqH8HB7/8sHuNu3ao+sLCgpNOU1djnivCxldzEBNBLfZi7UAqaa49w8iNrIJ
+ jU6oebi/JhtT2fMQiqpNfB7QwD7M6Yny1ynFOrdiYRcGw2Lbay9ZeOHbo4NHiGadWl4y
+ Maig==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8FPowwjfo1Udh3LP+HaCcjZJoI1+nDRmrca1rVXVovMLqhd2VqjZ3Z4zH4faXE+aZ3NcEaOq15D4w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw4ezaci2KuMpKsUPceZXIOh05oa57vYikUYkdcNKf7rKlQsoZv
- Gdw865AGgA86mn+ugA2Rl9O525gnVQp1w4wQfVec7P/Ykx5Pknf/122H
-X-Gm-Gg: AfdE7cm1ZfQe6C644fy34LBjl1LhwzXlhSuum6A5Jnh2PpOVoKDF+UgOCLQW2dN8WRi
- 2Q/DNJiwdlXYtUxl2kMAiZVv29cnHxIcHP1xE3SQfZVS2sU04nSP8a7UIfxgwUdLSaug7DaMEvL
- spD1WnFdGV9rW5QffPYJ/y0IdnvsSTnWGTxnZBre1eANCFruT1XacGP1ft3/lb59KGq1ygx4Wpj
- xsix3AJdKzXmo9jNtUozDHnOgoqQK+pPHKFxd5TtDssg2TTkX6VU8zAjtaAA+gBMzg7vXR9f1qr
- ppHIJLw4Sk4/lc3rlp9dpwuDN49qywcbdCEuKRKOGrpqMlqBHaWeBuMq8W4PY7jAY3xKRGy1IP1
- FpBiEijXNLMRkGXXCj0J8Aet1/RCAm6osbij9dIlNmjDBBL3KLn1YIX9yZycMJNlscNclEukksb
- cc5F3S6vgPs0epin13QCng/awupUrp2cISSomFI/GQE8ug1Q==
-X-Received: by 2002:a17:906:4fd1:b0:bea:4a9b:27e3 with SMTP id
- a640c23a62f3a-c097adb77eemr849187866b.2.1782157617559; 
- Mon, 22 Jun 2026 12:46:57 -0700 (PDT)
-Received: from liam.home (233-51-98-95.ftth.glasoperator.nl. [95.98.51.233])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-69796c10dbasm2565856a12.8.2026.06.22.12.46.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Jun 2026 12:46:57 -0700 (PDT)
-From: Liam Zuiderhoek <zuiderhoekl@gmail.com>
-To: tzimmermann@suse.de
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Liam Zuiderhoek <zuiderhoekl@gmail.com>
-Subject: [PATCH] GPU: drm: meson: inline call to drm_simple_encoder_init()
-Date: Mon, 22 Jun 2026 21:46:49 +0200
-Message-ID: <20260622194649.218419-1-zuiderhoekl@gmail.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ AHgh+Ro0vK8GUBRO69f1unnao9qrShYnPQWr0IMMSd7DKJpE4t4aQVtmub1cIxS3Iiap57u70uBhe6PTk84=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwXTjgyc/K8u4YkX1BE4nvJeatL8+VBfauT+RPRm4cQ3TzbJf29
+ KymnqykFvk7ntsFsryuiKJZrQ8m3/R72VIo1T6zWXpAod5JCCP03sLA=
+X-Gm-Gg: AfdE7ckFmdIQ9YotpAA5gFlwWYru9Zmq6sEXQKs56AZdo6ooWzStmckJNUxcAUnbEl5
+ IwU7P2OXUPufAqaVQFX47QwrbKySXuMusv3O+RwE/fhN5n7OImf+RAPkPiu+8iS5CR/OS4tF1Cs
+ 7mRE8u0Lcc9k5ue47niWw63YwtQ7DFyAGWqEX2WKLQcJt3MkPkZ6VY8uQSHK1Jc2Pr42Ls3JIGH
+ wJBa6gdV1sLDGaRI5xT8TDlzyHVTMfZD32sCCN2B3PxKaGBLFxsqBtNWt2j3E+wqPCYE1d7qUIK
+ UnFob7s2RrtoPR8KghTgk/cv0Sb98YDMLN7VZ1I5ADIpIWzTzIf4hZePX3Fs2pW1eWbCzofJXC2
+ i14YtExUpCjTgTcc7B1qYIf2Wl+VL6ivZQ60P5u+4Ozh2OUn+DDhPkema6MWK/D2QOwZVIK2cvP
+ 3GrW1tFc9NTVlecGawOHd3hqNMkkR2yIPZMeVgvTwn1vZneuWf
+X-Received: by 2002:a05:7301:678c:b0:304:54d6:20f3 with SMTP id
+ 5a478bee46e88-30c06d4b6c2mr10129817eec.4.1782159985738; 
+ Mon, 22 Jun 2026 13:26:25 -0700 (PDT)
+Received: from localhost ([186.158.238.108]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-30c1ba1f137sm10798710eec.1.2026.06.22.13.26.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 Jun 2026 13:26:25 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 22 Jun 2026 17:26:19 -0300
+Message-Id: <DJFUZJYZHOT1.M74T83PJE8GM@gmail.com>
+To: "Alistair Popple" <apopple@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alexandre
+ Courbot" <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Shuah
+ Khan" <skhan@linuxfoundation.org>, "Simona Vetter" <simona@ffwll.ch>, "Gary
+ Guo" <gary@garyguo.net>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "Tamir Duberstein" <tamird@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ <linux-kernel@vger.kernel.org>, <linux-kernel-mentees@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>
+Subject: Re: [PATCH] gpu: nova-core: parse structs via zerocopy
+From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
+X-Mailer: aerc 0.20.0
+References: <20260621143647.264770-1-nico.antinori.7@gmail.com>
+ <ajjj1yyMcrCA8H19@nvdebian.thelocal>
+In-Reply-To: <ajjj1yyMcrCA8H19@nvdebian.thelocal>
 X-Mailman-Approved-At: Tue, 23 Jun 2026 08:06:53 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,42 +98,255 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This commit inlines the function drm_simple_encoder_init for the meson
-driver. It replaces the simple encoder init call with drm_encoder_init
-and a custom cleanup struct.
+Hello Alistair,
 
-Signed-off-by: Liam Zuiderhoek <zuiderhoekl@gmail.com>
----
- drivers/gpu/drm/meson/meson_encoder_hdmi.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+On Mon Jun 22, 2026 at 4:45 AM -03, Alistair Popple wrote:
+> On 2026-06-22 at 00:36 +1000, Nicol=C3=A1s Antinori <nico.antinori.7@gmai=
+l.com> wrote...
+>> Replace the unsafe `kernel::transmute::FromBytes` trait implementation
+>> for the `FalconUCodeDescV3`, `PcirStruct`, `BitHeader`, `NpdeStruct`,
+>> and `PmuLookupTableHeader` structs with the derivable
+>> `zerocopy::FromBytes` trait.
+>>=20
+>> This change eliminates the manual unsafe implementations in favor of a
+>> derivable trait. When this trait is derived, validity checks are
+>> performed at compile time to make sure that the type can safely
+>> implement `FromBytes`.
+>
+> Nice, this looks good although due to some code movement this doesn't com=
+pile
+> when applied to drm-rust-next[1]. Would you mind rebasing on top of that?=
+ The
+> changes required should be relatively straight forward, they are mostly t=
+he
+> result of some new users of transmute::FromBytes being added to vbios.rs.
 
-diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-index 55c0601df3c6..0dd3a76ad959 100644
---- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-+++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-@@ -44,6 +44,10 @@ struct meson_encoder_hdmi {
- 	struct cec_notifier *cec_notifier;
- };
- 
-+static const struct drm_encoder_funcs drm_simple_encoder_funcs_cleanup = {
-+	.destroy = drm_encoder_cleanup,
-+};
-+
- #define bridge_to_meson_encoder_hdmi(x) \
- 	container_of(x, struct meson_encoder_hdmi, bridge)
- 
-@@ -407,8 +411,9 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
- 	meson_encoder_hdmi->priv = priv;
- 
- 	/* Encoder */
--	ret = drm_simple_encoder_init(priv->drm, &meson_encoder_hdmi->encoder,
--				      DRM_MODE_ENCODER_TMDS);
-+	ret = drm_encoder_init(priv->drm, &meson_encoder_hdmi->encoder,
-+			       &drm_simple_encoder_funcs_cleanup,
-+			       DRM_MODE_ENCODER_TMDS, NULL);
- 	if (ret) {
- 		dev_err_probe(priv->dev, ret, "Failed to init HDMI encoder\n");
- 		goto err_put_node;
--- 
-2.43.0
+I did my work on rust-next [1] because drm-rust-next does not have the
+zerocopy crate present yet [2]. linux-next contains both zerocopy [3]=20
+and the new users of transmute::FromBytes if I am not mistaken (BitToken,
+PciRomHeader, and PmuLookupTableEntry), so I can make the changes there.
+
+I got confused because the issue was originally in the rust-for-linux=20
+tree. Since zerocopy wasn't in drm-rust-next yet, I wrongly assumed the=20
+work should happen there and that drm-rust-next would eventually pull=20
+them in.
+
+I am fairly new to kernel development, I apologize for the mix-up.
+
+>
+> Also what is you plan here? I have also been looking at some of these
+> conversions, specifically those involving the generated bindings. Really
+> appreciate your contributions, so no problem if you want to continue with=
+ some
+> of the conversions, just want to make sure we aren't duplicating effort h=
+ere.
+
+I would be happy to handle the remaining conversions! I can send a v2 patch
+that includes those as well.
+
+Thank you
+
+[1] https://github.com/Rust-for-Linux/linux/tree/rust-next/rust
+[2] https://gitlab.freedesktop.org/drm/rust/kernel/-/tree/drm-rust-next/rus=
+t
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tre=
+e/rust
+
+>
+>  - Alistair
+>
+> [1] - https://gitlab.freedesktop.org/drm/rust/kernel/-/tree/drm-rust-next
+>
+>> Link: https://github.com/Rust-for-Linux/linux/issues/1241
+>> Suggested-by: Miguel Ojeda <ojeda@kernel.org>
+>> Signed-off-by: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
+>> ---
+>> NOTE: Compile-tested only. I don't own a piece of hardware where I can
+>> test the nova driver.
+>>=20
+>>  drivers/gpu/nova-core/firmware.rs |  6 +----
+>>  drivers/gpu/nova-core/vbios.rs    | 38 ++++++++-----------------------
+>>  2 files changed, 11 insertions(+), 33 deletions(-)
+>>=20
+>> diff --git a/drivers/gpu/nova-core/firmware.rs b/drivers/gpu/nova-core/f=
+irmware.rs
+>> index ad37994ac15a..0afd1d3fe5ad 100644
+>> --- a/drivers/gpu/nova-core/firmware.rs
+>> +++ b/drivers/gpu/nova-core/firmware.rs
+>> @@ -86,7 +86,7 @@ pub(crate) struct FalconUCodeDescV2 {
+>>=20
+>>  /// Structure used to describe some firmwares, notably FWSEC-FRTS.
+>>  #[repr(C)]
+>> -#[derive(Debug, Clone)]
+>> +#[derive(Debug, Clone, FromBytes)]
+>>  pub(crate) struct FalconUCodeDescV3 {
+>>      /// Header defined by `NV_BIT_FALCON_UCODE_DESC_HEADER_VDESC*` in O=
+penRM.
+>>      hdr: u32,
+>> @@ -117,10 +117,6 @@ pub(crate) struct FalconUCodeDescV3 {
+>>      _reserved: u16,
+>>  }
+>>=20
+>> -// SAFETY: all bit patterns are valid for this type, and it doesn't use
+>> -// interior mutability.
+>> -unsafe impl FromBytes for FalconUCodeDescV3 {}
+>> -
+>>  /// Enum wrapping the different versions of Falcon microcode descriptor=
+s.
+>>  ///
+>>  /// This allows handling both V2 and V3 descriptor formats through a
+>> diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbio=
+s.rs
+>> index 8b7d17a24660..754812bcbdde 100644
+>> --- a/drivers/gpu/nova-core/vbios.rs
+>> +++ b/drivers/gpu/nova-core/vbios.rs
+>> @@ -13,11 +13,8 @@
+>>          Alignment, //
+>>      },
+>>      sync::aref::ARef,
+>> -    transmute::FromBytes,
+>>  };
+>>=20
+>> -use zerocopy::FromBytes as _;
+>> -
+>>  use crate::{
+>>      driver::Bar0,
+>>      firmware::{
+>> @@ -301,7 +298,7 @@ pub(crate) fn fwsec_image(&self) -> &FwSecBiosImage =
+{
+>>  }
+>>=20
+>>  /// PCI Data Structure as defined in PCI Firmware Specification
+>> -#[derive(Debug, Clone)]
+>> +#[derive(Debug, Clone, FromBytes)]
+>>  #[repr(C)]
+>>  struct PcirStruct {
+>>      /// PCI Data Structure signature ("PCIR" or "NPDS")
+>> @@ -330,12 +327,9 @@ struct PcirStruct {
+>>      max_runtime_image_len: u16,
+>>  }
+>>=20
+>> -// SAFETY: all bit patterns are valid for `PcirStruct`.
+>> -unsafe impl FromBytes for PcirStruct {}
+>> -
+>>  impl PcirStruct {
+>>      fn new(dev: &device::Device, data: &[u8]) -> Result<Self> {
+>> -        let (pcir, _) =3D PcirStruct::from_bytes_copy_prefix(data).ok_o=
+r(EINVAL)?;
+>> +        let (pcir, _) =3D PcirStruct::read_from_prefix(data).map_err(|_=
+| EINVAL)?;
+>>=20
+>>          // Signature should be "PCIR" (0x52494350) or "NPDS" (0x5344504=
+e).
+>>          if &pcir.signature !=3D b"PCIR" && &pcir.signature !=3D b"NPDS"=
+ {
+>> @@ -371,7 +365,7 @@ fn image_size_bytes(&self) -> usize {
+>>  /// This is the head of the BIT table, that is used to locate the Falco=
+n data. The BIT table (with
+>>  /// its header) is in the [`PciAtBiosImage`] and the falcon data it is =
+pointing to is in the
+>>  /// [`FwSecBiosImage`].
+>> -#[derive(Debug, Clone, Copy)]
+>> +#[derive(Debug, Clone, Copy, FromBytes)]
+>>  #[repr(C)]
+>>  struct BitHeader {
+>>      /// 0h: BIT Header Identifier (BMP=3D0x7FFF/BIT=3D0xB8FF)
+>> @@ -390,12 +384,9 @@ struct BitHeader {
+>>      checksum: u8,
+>>  }
+>>=20
+>> -// SAFETY: all bit patterns are valid for `BitHeader`.
+>> -unsafe impl FromBytes for BitHeader {}
+>> -
+>>  impl BitHeader {
+>>      fn new(data: &[u8]) -> Result<Self> {
+>> -        let (header, _) =3D BitHeader::from_bytes_copy_prefix(data).ok_=
+or(EINVAL)?;
+>> +        let (header, _) =3D BitHeader::read_from_prefix(data).map_err(|=
+_| EINVAL)?;
+>>=20
+>>          // Check header ID and signature
+>>          if header.id !=3D 0xB8FF || &header.signature !=3D b"BIT\0" {
+>> @@ -533,7 +524,7 @@ fn new(dev: &device::Device, data: &[u8]) -> Result<=
+Self> {
+>>  /// PCI Data Structure. It contains some fields that are redundant with=
+ the PCI Data Structure, but
+>>  /// are needed for traversing the BIOS images. It is expected to be pre=
+sent in all BIOS images
+>>  /// except for NBSI images.
+>> -#[derive(Debug, Clone)]
+>> +#[derive(Debug, Clone, FromBytes)]
+>>  #[repr(C)]
+>>  struct NpdeStruct {
+>>      /// 00h: Signature ("NPDE")
+>> @@ -548,12 +539,9 @@ struct NpdeStruct {
+>>      last_image: u8,
+>>  }
+>>=20
+>> -// SAFETY: all bit patterns are valid for `NpdeStruct`.
+>> -unsafe impl FromBytes for NpdeStruct {}
+>> -
+>>  impl NpdeStruct {
+>>      fn new(dev: &device::Device, data: &[u8]) -> Option<Self> {
+>> -        let (npde, _) =3D NpdeStruct::from_bytes_copy_prefix(data)?;
+>> +        let (npde, _) =3D NpdeStruct::read_from_prefix(data).ok()?;
+>>=20
+>>          // Signature should be "NPDE" (0x4544504E).
+>>          if &npde.signature !=3D b"NPDE" {
+>> @@ -845,6 +833,7 @@ fn new(data: &[u8]) -> Result<Self> {
+>>  }
+>>=20
+>>  #[repr(C)]
+>> +#[derive(FromBytes)]
+>>  struct PmuLookupTableHeader {
+>>      version: u8,
+>>      header_len: u8,
+>> @@ -852,9 +841,6 @@ struct PmuLookupTableHeader {
+>>      entry_count: u8,
+>>  }
+>>=20
+>> -// SAFETY: all bit patterns are valid for `PmuLookupTableHeader`.
+>> -unsafe impl FromBytes for PmuLookupTableHeader {}
+>> -
+>>  /// The [`PmuLookupTableEntry`] structure is used to find the [`PmuLook=
+upTableEntry`] for a given
+>>  /// application ID.
+>>  ///
+>> @@ -867,7 +853,7 @@ struct PmuLookupTable {
+>>=20
+>>  impl PmuLookupTable {
+>>      fn new(dev: &device::Device, data: &[u8]) -> Result<Self> {
+>> -        let (header, _) =3D PmuLookupTableHeader::from_bytes_copy_prefi=
+x(data).ok_or(EINVAL)?;
+>> +        let (header, _) =3D PmuLookupTableHeader::read_from_prefix(data=
+).map_err(|_| EINVAL)?;
+>>=20
+>>          let header_len =3D usize::from(header.header_len);
+>>          let entry_len =3D usize::from(header.entry_len);
+>> @@ -1013,15 +999,11 @@ pub(crate) fn header(&self) -> Result<FalconUCode=
+Desc> {
+>>          let data =3D self.base.data.get(falcon_ucode_offset..).ok_or(EI=
+NVAL)?;
+>>          match ver {
+>>              2 =3D> {
+>> -                let v2 =3D FalconUCodeDescV2::read_from_prefix(data)
+>> -                    .map_err(|_| EINVAL)?
+>> -                    .0;
+>> +                let (v2, _) =3D FalconUCodeDescV2::read_from_prefix(dat=
+a).map_err(|_| EINVAL)?;
+>>                  Ok(FalconUCodeDesc::V2(v2))
+>>              }
+>>              3 =3D> {
+>> -                let v3 =3D FalconUCodeDescV3::from_bytes_copy_prefix(da=
+ta)
+>> -                    .ok_or(EINVAL)?
+>> -                    .0;
+>> +                let (v3, _) =3D FalconUCodeDescV3::read_from_prefix(dat=
+a).map_err(|_| EINVAL)?;
+>>                  Ok(FalconUCodeDesc::V3(v3))
+>>              }
+>>              _ =3D> {
+>> --
+>> 2.47.3
+>>=20
 
