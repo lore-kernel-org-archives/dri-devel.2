@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 685BDCDB46F
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 04:08:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFABCCDB46F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 04:08:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC3ED10E454;
-	Mon, 22 Jun 2026 04:08:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2804710E456;
+	Mon, 22 Jun 2026 04:08:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J2ruZT3V";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CIxp2Lh2";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AD7610E454
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 04:08:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B120910E456
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 04:08:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A471B6008A;
- Mon, 22 Jun 2026 04:08:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6811F000E9;
- Mon, 22 Jun 2026 04:08:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 35F4B601E1;
+ Mon, 22 Jun 2026 04:08:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C56151F000E9;
+ Mon, 22 Jun 2026 04:08:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782101301;
- bh=4qNiHp5NM/7o74nWJk97EaaO2ib4HbxUQwJLmjW1mXs=;
+ s=k20260515; t=1782101306;
+ bh=kVJzd3iFNrkKy6yZVuWwduEjcYP9dHkrKXB+M6aLLXc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=J2ruZT3VeQBDaWNorE0Bcf7PhPwl6GjAxw098cRgSQqBxCyhOf/VpFWr+9hfdBH+S
- U0UbRWXk7YjEbiw2qv2NzlGDRkqr3/VxT/fNMs8xMn9z9+ND3rmWFdjCKplNfh38Ad
- sVuwedc22TnfRutmSHM1JJiXoJeyQ874uujIm8hCFeFfeeEhOUDEi0iKieQn6TCm5u
- cqHW6w8K9jUweA5u+TsKEW3He0uNwRwL36TYNmIa0TOJOsbeDW96CwrMUZ/PVMURqE
- SrC7hFgHkwj1PmZIjsMuUWDysAsv9UVGebPzYyzs3fkOg6CzAdt5kQFVU8K1a9jKzN
- fxKtdkuu5kHwA==
+ b=CIxp2Lh2AqmgSSh7uZEfNN1/uqEn4YTAjv0qucnZot1gt54sYNemZ8HMXeMw5619S
+ pvGR4LeYv4jErRCsrpktiQ/xMaeqctI4ynfNeAvdp8u/N+AOR0RTumLPalqjwulAPf
+ FUXlL9xwbA27PXeinLVySsWegI9AA6CaHbZYvnquT4Kfl6I+fr+GfEYa/TFLyYfymg
+ 2aJ/D/HVeHEsu3LDueG2ohXpBFtpVAemiqkzR60fq3pe5j2tzVC8JSCS/0QXlhoAAV
+ 33kyfMwZ3L6HwfNI4bHWG1x24ib58iIwslyUyXBoH+OJkppAEaDk8VJkFHll7Rpjoo
+ XEwlh0DZMcrBw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/5] nouveau/gsp/rpc: Cleanup incorrect
- IS_ERR_OR_NULL in rpc.c
+Subject: Re: [PATCH v4 1/5] nouveau/gsp/rpc: Document RPC function return
+ value contracts
 To: "Hongling Zeng" <zenghongling@kylinos.cn>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260622035454.28003-3-zenghongling@kylinos.cn>
+In-Reply-To: <20260622035454.28003-2-zenghongling@kylinos.cn>
 References: <20260622035454.28003-1-zenghongling@kylinos.cn>
- <20260622035454.28003-3-zenghongling@kylinos.cn>
+ <20260622035454.28003-2-zenghongling@kylinos.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 22 Jun 2026 04:08:20 +0000
-Message-Id: <20260622040821.3F6811F000E9@smtp.kernel.org>
+Date: Mon, 22 Jun 2026 04:08:26 +0000
+Message-Id: <20260622040826.C56151F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,198 +58,156 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [Medium] The documentation for r535_gsp_rpc_done() incorrectly states tha=
+t it frees a payload returned by r535_gsp_rpc_get().
+
 Pre-existing issues:
-- [High] Missing validation of GSP RPC message lengths from firmware can le=
-ad to integer underflow and massive kernel memory corruption.
-- [High] Silent failure when rpc is NULL results in caller NULL pointer der=
-eference.
-- [High] Buffer overflow and uninitialized memory gap when a continuation G=
-SP RPC chunk wraps around the message queue ring buffer.
-- [High] Silent infinite stall of the GSP message queue when an oversized m=
-essage is encountered.
-- [High] Missing read memory barrier (`rmb()`) between reading the shared m=
-emory write pointer and reading the message payload.
-- [High] Time-of-Check to Time-of-Use race condition on `rpc->length` bypas=
-ses bounds checks.
-- [High] Trusting the CPU read pointer (`rptr`) from shared memory leads to=
- arbitrary memory access.
+- [High] The newly added documentation for RPC functions introduces contrad=
+ictory return value contracts that mask a pre-existing NULL pointer derefer=
+ence bug on error paths. Specifically, `r535_gsp_msgq_recv()` returns `NULL=
+` when the RPC length is invalid, which propagates up and causes a NULL poi=
+nter dereference in higher-level callers, contradicting the newly added doc=
+s that claim `ERR_PTR()` is returned on error.
+- [High] Large RPC payloads (`payload_size > max_payload_size`) leak the or=
+iginal `msg` memory if an error occurs during chunk sending or reply handli=
+ng.
 --
 
-commit 45236a2b4542b6f23a9a07cab6b6a3cd3588738d
+commit ebdd2cc2dbf735e60a62853951f275c61160e93f
 Author: Hongling Zeng <zenghongling@kylinos.cn>
+Subject: nouveau/gsp/rpc: Document RPC function return value contracts
 
-nouveau/gsp/rpc: Cleanup incorrect IS_ERR_OR_NULL in rpc.c
-
-Clean up incorrect IS_ERR_OR_NULL() usage for functions that never
-return NULL:
-- r535_gsp_msgq_peek() never returns NULL
-- r535_gsp_msgq_recv_one_elem() never returns NULL
-
-These functions should be checked with IS_ERR() instead.
+This commit adds kernel-doc comments to document the return value semantics=
+ of
+RPC functions in r535/rpc.c. It clarifies which functions can return NULL or
+error pointers.
 
 > diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c b/driv=
 ers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c
-> index 2ca6de4094e63..0a00c7d831c91 100644
+> index 3ca3de8f43408..2ca6de4094e63 100644
 > --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c
 > +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rpc.c
-> @@ -350,7 +350,7 @@ r535_gsp_msgq_recv(struct nvkm_gsp *gsp, u32 gsp_rpc_=
-len, int *retries)
-
-[Severity: High]
-This is a pre-existing issue, but earlier in r535_gsp_msgq_recv(),
-returning NULL when an oversized message is encountered seems to stall the
-queue:
-
-r535_gsp_msgq_recv() {
-    ...
-    if (WARN_ON(rpc->length > max_rpc_size))
-        return NULL;
-    ...
-}
-
-Does returning NULL here without advancing the queue read pointer cause an
-unrecoverable infinite stall, since subsequent reads would encounter the
-exact same oversized message?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but there also appears to be a
-Time-of-Check to Time-of-Use race condition on rpc->length:
-
-r535_gsp_msgq_recv() {
-    ...
-    if (WARN_ON(rpc->length > max_rpc_size))
-        return NULL;
-
-    buf =3D kvmalloc(max_t(u32, rpc->length, expected), GFP_KERNEL);
-    ...
-}
-
-Since rpc points directly to DMA coherent memory shared with the GSP, could
-the length be overwritten in shared memory between the check and its use in
-kvmalloc() or info.gsp_rpc_len, bypassing the validation?
-
->  		u32 size;
-> =20
->  		rpc =3D r535_gsp_msgq_peek(gsp, sizeof(*rpc), info.retries);
-> -		if (IS_ERR_OR_NULL(rpc)) {
-> +		if (IS_ERR(rpc)) {
->  			kvfree(buf);
->  			return rpc;
->  		}
-> @@ -359,7 +359,7 @@ r535_gsp_msgq_recv(struct nvkm_gsp *gsp, u32 gsp_rpc_=
-len, int *retries)
->  		info.continuation =3D true;
-> =20
->  		rpc =3D r535_gsp_msgq_recv_one_elem(gsp, &info);
-
-[Severity: High]
-This is a pre-existing issue, but in r535_gsp_msgq_recv_one_elem() called
-here, is there a potential integer underflow?
-
-r535_gsp_msgq_recv_one_elem() {
-    ...
-    if (info->continuation)
-        memcpy(buf, mqe->data + sizeof(struct nvfw_gsp_rpc),
-               len - sizeof(struct nvfw_gsp_rpc));
-    ...
-}
-
-If the continuation message length read directly from shared memory is less
-than sizeof(struct nvfw_gsp_rpc) (32 bytes), does this calculation underflow
-and lead to a massive out-of-bounds read and write?
-
-[Severity: High]
-This is another pre-existing issue in r535_gsp_msgq_recv_one_elem(). Could
-a continuation chunk wrapping around the ring buffer cause an out-of-bounds
-write?
-
-r535_gsp_msgq_recv_one_elem() {
-    ...
-    if (expected) {
-        mqe =3D (void *)((u8 *)gsp->shm.msgq.ptr + 0x1000 + 0 * 0x1000);
-        memcpy(buf + len, mqe, expected);
-    }
-    ...
-}
-
-If the first copy only advanced the buffer logically by len - 32 due to
-skipping the header, would writing the second part at buf + len leave a
-32-byte gap of uninitialized memory and overflow the end of the allocated
-buffer by 32 bytes?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the underlying
-r535_gsp_msgq_wait() function lack a required memory barrier?
-
-r535_gsp_msgq_wait() {
-    ...
-    u32 wptr =3D *gsp->msgq.wptr;
-    ...
-}
-
-When polling the shared memory write pointer, does the host CPU need an rmb=
-()
-after observing the updated write pointer?
-
-Without it, could the CPU speculatively fetch stale payload data before the
-pointer update is fully observed?
-
-[Severity: High]
-This is a pre-existing issue, but does r535_gsp_msgq_get_entry() safely
-handle the CPU read pointer?
-
-r535_gsp_msgq_get_entry() {
-    u32 rptr =3D *gsp->msgq.rptr;
-    return (void *)((u8 *)gsp->shm.msgq.ptr + GSP_PAGE_SIZE +
-                    rptr * GSP_PAGE_SIZE);
-}
-
-Since gsp->msgq.rptr points to DMA coherent memory, could a compromised GSP
-modify this pointer to an arbitrarily large value and force the host to read
-out-of-bounds host memory?
-
-> -		if (IS_ERR_OR_NULL(rpc)) {
-> +		if (IS_ERR(rpc)) {
->  			kvfree(buf);
->  			return rpc;
->  		}
 
 [ ... ]
 
-> @@ -499,7 +499,7 @@ r535_gsp_msg_recv(struct nvkm_gsp *gsp, int fn, u32 g=
-sp_rpc_len)
+> @@ -663,6 +663,11 @@ r535_gsp_rpc_send(struct nvkm_gsp *gsp, void *payloa=
+d,
+>  	return r535_gsp_rpc_handle_reply(gsp, fn, policy, gsp_rpc_len);
+>  }
 > =20
->  retry:
->  	rpc =3D r535_gsp_msgq_peek(gsp, sizeof(*rpc), &retries);
-> -	if (IS_ERR_OR_NULL(rpc))
-> +	if (IS_ERR(rpc))
->  		return rpc;
+> +/**
+> + * r535_gsp_rpc_done - Free an RPC message
+> + * @gsp: GSP device
+> + * @repv: Pointer to RPC payload data returned by r535_gsp_rpc_get()
+> + */
+>  static void
+>  r535_gsp_rpc_done(struct nvkm_gsp *gsp, void *repv)
+
+[Severity: Medium]
+Is this parameter description accurate?
+
+The payload returned by r535_gsp_rpc_get() is the request, which is
+automatically freed upon transmission in functions like r535_gsp_cmdq_push(=
+).
+
+It appears r535_gsp_rpc_done() is intended to be used by callers to free
+the reply payload returned by r535_gsp_rpc_push() or nvkm_gsp_rm_ctrl_rd().
+
+Could documenting this as freeing the request payload encourage
+callers to explicitly free it after sending, leading to a double-free?
+
+[ ... ]
+
+> @@ -704,6 +704,17 @@ r535_gsp_rpc_get(struct nvkm_gsp *gsp, u32 fn, u32 p=
+ayload_size)
+>  	return rpc->data;
+>  }
 > =20
->  	rpc =3D r535_gsp_msgq_recv(gsp, gsp_rpc_len, &retries);
+> +/**
+> + * r535_gsp_rpc_push - Push RPC message to GSP and wait for reply
+> + * @gsp: GSP device
+> + * @payload: RPC payload to send
+> + * @policy: Reply policy (NOWAIT, NOSEQ, RECV, or POLL)
+> + * @gsp_rpc_len: Expected RPC length in the reply
+> + *
+> + * Return: NULL when policy is NOWAIT/NOSEQ (no reply expected) or
+> + *         POLL (successful message processing), pointer to reply data
+> + *         on success, or ERR_PTR() on error.
+> + */
+>  static void *
+>  r535_gsp_rpc_push(struct nvkm_gsp *gsp, void *payload,
+>  		  enum nvkm_gsp_rpc_reply_policy policy, u32 gsp_rpc_len)
 
 [Severity: High]
-This isn't a bug introduced by this patch, but when r535_gsp_msgq_recv()
-returns NULL (for example, when encountering an oversized message), does
-this result in a silent failure upstream?
+This is a pre-existing issue, but does this documentation mask an underlying
+NULL pointer dereference?
 
-The NULL propagates out to r535_gsp_rpc_rm_ctrl_push(), which handles it
-like this:
+r535_gsp_msgq_recv() can return NULL when the RPC length is invalid:
+
+r535_gsp_msgq_recv() {
+    if (WARN_ON(rpc->length > max_rpc_size))
+        return NULL;
+}
+
+This NULL propagates up to r535_gsp_rpc_push() which the documentation
+states will return ERR_PTR() on error. However, if r535_gsp_rpc_push()
+returns NULL on an error path, callers like r535_gsp_rpc_rm_ctrl_push()
+evaluate PTR_ERR(NULL) as 0 (success):
 
 r535_gsp_rpc_rm_ctrl_push() {
-    ...
     if (IS_ERR_OR_NULL(rpc)) {
         *params =3D NULL;
         return PTR_ERR(rpc);
     }
+}
+
+This causes callers like r535_disp_get_static_info() to assume success
+and dereference the NULL pointer:
+
+r535_disp_get_static_info() {
+    ctrl =3D nvkm_gsp_rm_ctrl_rd(...);
+    if (IS_ERR(ctrl))
+        return PTR_ERR(ctrl);
+    disp->wndw.mask =3D ctrl->windowPresentMask;
+}
+
+Should the documentation note this, or should the underlying NULL
+propagation be fixed to return an error pointer?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but while reviewing the
+documentation for this function, it appears there is a memory leak
+for large RPC payloads in r535_gsp_rpc_push().
+
+When payload_size is greater than max_payload_size, the code allocates
+smaller chunks and sends them sequentially. If any chunk fails to send,
+the code takes the goto done path:
+
+r535_gsp_rpc_push() {
+    ...
+    next =3D r535_gsp_rpc_get(gsp, fn, max_payload_size);
+    if (IS_ERR(next)) {
+        repv =3D next;
+        goto done;
+    }
     ...
 }
 
-Since PTR_ERR(NULL) is 0 (success), does this mask the failure and cause
-upstream callers to dereference a NULL pointer thinking the call succeeded?
+At the end of the chunking block, the original msg is only freed if
+repv is not an error pointer:
+
+    repv =3D r535_gsp_rpc_handle_reply(...);
+    if (!IS_ERR(repv))
+        kvfree(msg);
+
+Since callers expect the function to consume the payload and do not free
+it on error, doesn't this permanently leak the original msg memory on
+these error paths?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622035454.2800=
-3-1-zenghongling@kylinos.cn?part=3D2
+3-1-zenghongling@kylinos.cn?part=3D1
