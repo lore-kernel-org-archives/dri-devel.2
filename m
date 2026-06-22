@@ -4,49 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7812BCDB46F
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 16:36:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF980CDB46F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 16:40:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC4F710E785;
-	Mon, 22 Jun 2026 16:36:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDEDC10E794;
+	Mon, 22 Jun 2026 16:40:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="wCYN+CoS";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="wSEig2tX";
 	dkim-atps=neutral
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA3F510E785
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 16:36:11 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D2FD10E558;
+ Mon, 22 Jun 2026 16:40:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
- Reply-To:Content-ID:Content-Description;
- bh=wKnWeeOCic1ziv0Y+FlLgy2VKu/O8y1iY0IZvQmpxU4=; t=1782146171; x=1783355771; 
- b=wCYN+CoSByO5f/6Wxbzf02nYQUtMPYGiogw8jFGYH0BjqmAaLL0KilSI8B/vYQE+bjGni05qPYg
- K50L2If6SYFVYCxlfPxjeEdG1ohkCwzixyLFE/5pzQ7Jhkg6PCttORfPrfF9gpNBgbPZBizU5ANXk
- q1kzNmVl1/i8G6uSUHb1XH+PjGR5jbrdh3Enjgw1NfdS3g+MUqgSn1y5Mgp0uUJJqX6FRwh97wmxe
- ifZXzfO+lQWKJgDUenqqR4qO3kNkDwyHaBSTzXzxf0fDK1o2dFDZRTChjHtjC2RKSiic8JViwTTcG
- 0FYz0odxMvUh+6PBWbDChh8RRZMfZEMKNt+g==;
-Date: Mon, 22 Jun 2026 18:35:49 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dave
- Stevenson <dave.stevenson@raspberrypi.com>
-Subject: Re: [PATCH v3 05/13] drm/bridge: tc358762: Drop SPICMR write
-Message-ID: <20260622183549.30e17a12@kemnade.info>
-In-Reply-To: <25115d05-5868-45d5-9110-695347948a1f@ideasonboard.com>
-References: <20260513-tc358762-fixes-v3-0-6698b55008b9@ideasonboard.com>
- <20260513-tc358762-fixes-v3-5-6698b55008b9@ideasonboard.com>
- <20260619082350.2ebc0cf7@kemnade.info>
- <20260621084150.6ea494ff@kemnade.info>
- <25115d05-5868-45d5-9110-695347948a1f@ideasonboard.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=c5UMhYqzW3FXITWipN5SHhAQOB1P9YUKBIDy0r3xPQw=; b=wSEig2tXNqqYlMi+DO0fVntY5n
+ xOHolZZKA+fIDoV0P9vbcZYk+nTw3ZO3neQaPzi4xv2gcxwSzlDonXdcprWpDH2QVuSHb1XstdPJW
+ SDJunku4cTdk3jGABXOOirk4qvdvStLyf+TSspP6lyyvSkgzI8foJ7iUHjAWC1KMbyOnlr8Bk2/AC
+ kSmplFs4mh7vU8qt6mUcBWozaXfZYbjxcaOPfxhFG3Z95uao/bptRNf0v9TlnvAPmJRfMGZZ11YUj
+ Kd2cOw4Cnm3blaF1fkpC/rbtuwYhawbpOJtgBO9UdgKUgdoYUd8ev6TfDb5XWKvISvKwTYP33Ug+E
+ awdU0f0A==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+ by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+ id 1wbhhW-00000005CFj-0vuV; Mon, 22 Jun 2026 16:40:46 +0000
+Message-ID: <08b3c961-18bb-43d9-8d7f-8a87bcad0afa@infradead.org>
+Date: Mon, 22 Jun 2026 09:40:45 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] tracing: Move trace_printk.h out of kernel.h
+To: Peter Zijlstra <peterz@infradead.org>, Steven Rostedt <rostedt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ John Ogness <john.ogness@linutronix.de>, Thomas Gleixner <tglx@kernel.org>,
+ Julia Lawall <julia.lawall@inria.fr>, Yury Norov <yury.norov@gmail.com>,
+ linux-doc@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org
+References: <20260621093430.264983361@kernel.org>
+ <20260622083440.GX49951@noisy.programming.kicks-ass.net>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260622083440.GX49951@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,36 +72,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 22 Jun 2026 10:45:17 +0300
-Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
 
-> Hi,
+
+On 6/22/26 1:34 AM, Peter Zijlstra wrote:
+> On Sun, Jun 21, 2026 at 05:34:30AM -0400, Steven Rostedt wrote:
+>> There's been complaints about trace_printk() being defined in kernel.h as it
+>> can increase the compilation time. As it is only used by some developers for
+>> debugging purposes, it should not be in kernel.h causing lots of wasted CPU
+>> cycles for those that do not ever care about it.
+>>
+>> Instead, add a CONFIG_TRACE_PRINTK_DEBUGGING option that developers that do
+>> use it can set and not have to always remember to add #include <linux/trace_printk.h>
+>> to the files they add trace_printk() while debugging. It also means that
+>> those that do not have that config set will not have to worry about wasted
+>> CPU cycles as it is only include in the CFLAGS when the option is set, and
+>> its completely ignored otherwise.
 > 
-> On 21/06/2026 09:41, Andreas Kemnade wrote:
-> > On Fri, 19 Jun 2026 08:23:50 +0200
-> > Andreas Kemnade <andreas@kemnade.info> wrote:
-> >   
-> >> On Wed, 13 May 2026 16:10:14 +0300
-> >> Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
-> >>  
-> >>> Drop write to SPICMR. It's unclear why the write is there, as SPI is not
-> >>> supported in the driver, and it's mostly just writing zeroes to already
-> >>> zero fields (reset defaults). None of the zero bits written disable
-> >>> anything wrt. SPI.
-> >>>
-> >>> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>  
-> >>   
-> >> Comparing it with something out of tree where SPI is apparently working.
-> >> It does not touch SPIMR,
-> >>  
-> > ok, looking what that code really does, it sets bit 1 called SPI_SEL_CS0,
-> > apparently in that register. But that belongs into an spi_init function.  
+> Did you forget your C 101 class? If you use a function, you gotta
+> include the relevant header.
+
+Also item #1 in Documentation/process/submit-checklist.rst.
+
+> You don't see userspace saying: 'Hey, you know what, perhaps we should
+> add stdio.h to every other header, just in case someone wants to
+> printf()' either.
 > 
-> Sorry, what sets bit 1? The write removed here just writes zeroes to a 
+> I really don't understand your argument. Yes, maybe someone will forget
+> and then either their editor (if they have a halfway modern setup with
+> LSP enabled) or their build will complain, but so what? This is all
+> trivial stuff, surely we have more pressing matters to concern outselves
+> with?
 
-"Comparing it with something out of tree where SPI is apperntly working.
-I just wanted to correct my claim about SPIMR not being used there.
-That was not meant as an objection to this patch.
 
-Regards,
-Andreas
+
+-- 
+~Randy
+
