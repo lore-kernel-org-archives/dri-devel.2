@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F4B3CDB471
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 15:25:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5FBBCD98F2
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 15:25:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8020410E75C;
-	Mon, 22 Jun 2026 15:25:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 146DA10E75E;
+	Mon, 22 Jun 2026 15:25:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mKl7TYdt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gIhKIRx4";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AB1310E759
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 15:25:24 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-4924f8db066so9494685e9.2
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 08:25:24 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B69D10E76A
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 15:25:29 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-490b8ac62baso54185e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 08:25:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782141923; x=1782746723; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1782141928; x=1782746728; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=O+FbGuHfeWoNi/lXKYN24egtcTrn6rTefu8w9kcMeGk=;
- b=mKl7TYdtNT0Z+/twIkQIfKvIB6WOngvZdL2SzbXK7+ah9tZli7xnzYVE1FG5UdacvV
- kYHwcEryX+hhZQAhxzIGQsisrHEILmRuMiGabtwjVX5eJJwimXdYv8VVPmxYnAmo0B87
- 8/pf524ZOA+IT8CUDVt+zJCkkOPe1HWuUSgzxZ/p5UAbuGsBgR4GdXD+jjL8XdvKmUjD
- 3fshNJJmANBEWzespqsuT+hnuKB9ek+yODPZVKHxx1hfJbyNtV1U0IdAXNIujUbqER8a
- 8j7xxQbjgP3iwDkAo8Hmsft26ZvccaqyHhD7g+Ju6BLztKbZA8bDmsk/Rd01ecZmkeVi
- 745g==
+ bh=FubD6UUHNGPZZFitz5KoKNPu5pJn+5BFMUFMa6xOq3M=;
+ b=gIhKIRx4mgNQdxMulLjHsRGSW9owfmnLvLHG3vvt5S6NzoZBOfGVTml/D1ILPwkS4h
+ Y7AtbhYuvzHtHgWgXF1mPZkD423CMjbKBUloFBx7SlCadXTgYRC56iLLYdbPPlwkETq0
+ 2CX1NnKbVQquVoDdKUTGYhRj/HYIuouF0A/Mk7wIP85XPD/dZE6t0e7YiWVB/pwZ6z0Z
+ sVdwNtgfcLn0Q4UlUskRMjO1r3r4SoRjLpW/9GoaTYljGRReKrzh67XahdEB/pw6Y4zW
+ +4inmm3nE7szQpYv0bh/aw02J9nqUPBpqcpfoywGSxP7IGjadpN1fmWflyE0/dI+Pydr
+ A1fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782141923; x=1782746723;
+ d=1e100.net; s=20251104; t=1782141928; x=1782746728;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=O+FbGuHfeWoNi/lXKYN24egtcTrn6rTefu8w9kcMeGk=;
- b=Rb8936y+Bf7MHDSl16rjyfA+DJH1WyB6tHYKomx8gA4xg0hTG69UyAp8AffqftntxN
- 0k6oQMImH39t+qlkza6Edx5mHktJbqm0Du4P+vf5FcU6+W/6aqitV+xM/nKhaQomOLqe
- f0Kc2kI1Bjz9sKaZ2y++Phuo1aJs5bUobJB5K6znlpJJj3xS1TqqlfKR4sZ54cd1e/dz
- vilr4tqWH1of0CMJui5AqUUf4mRcgPsr2fUMr+buBf6niv4dHwkWD/afk1fPqSiMkOif
- MUUlHYPZmkyu7bNeovIK+FUJxehF+TMmNe1WNBW9d45jhSp07tMHLcVbMUWDjREQEHfN
- 0PNg==
+ bh=FubD6UUHNGPZZFitz5KoKNPu5pJn+5BFMUFMa6xOq3M=;
+ b=Eb1NIz3EiJQtvl09zlA5IrIrMrG6nT4k/ggfPxBCUxqbmVIcDX5GNCaLjvHFG3FTDx
+ 6ETFX90yUTNZZQ2BAIDRfbXd6ftLO/psmAhptz4wlAuVWh20LEcIOGNFhlspZ4kKljnF
+ RIsSW5w5sI2VOjRnMNCDCvQU61GLjRmfd9nvPp36WH8rEOpGJIB45CnZFYh3yA4Fn3F+
+ xglQsDJ6LyXFKw31fW9QVGD6PBbArR8EqQ+ja8Am3U84zheJYAhPMQpcwEK4nTPpjhGG
+ vSwTQqXzUf6I/uvci3SqzA5lgrFKkpEad7cQqcMixSRYa5Qo2bXw4HjsJtYbuQwwX8zZ
+ h90Q==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+7jen8+EMhXP+AU44vW9pgXG8pl2aUb4eszYf3YYAbnF4Dqq0s2ZHlcUJQ70031f+FxHeZ4M2hSUs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzJ9GGWMtavJKUI+AJlftrHdcZCj3QoRrrHbwg+t96pmiv5paUB
- 4dRdjO5C41+8YodeBLUWP9zFOKdAOpcw1dUq7GRd3r6BjwZok6uWxYKX
-X-Gm-Gg: AfdE7cnq+G/lDw7bQv9Iy5TvfP6D4i4B1mOqAazFPVT3elnq2HGS1Wn06zdV1zVuQ3g
- 17I9qSyVcL8TMZ2yDA2SOfj3s1MKq8s06foj/kuQRx2m97NcJhLXKWHS0MsYdAITB7KWbPG6Hz8
- nCPknflh7ba0Z59hKTr8rmfwsH3IpdaKZ+U4JuAE9eMaZFDdba+i8i2ybWVpmyJL5Z80iYp922x
- npfcqQG5R9n0irpXljT1jD/vhU7yGoulT2/jsYYmuUjZnKMC1jp236zIZQFBVxI7CqEFAobn+en
- RbTiZ0pB+4I6THMzBFa6pstajsJyD7KnInasoMNHrYLvgtGDt1R+KRkc4Qqm3SqSh8CxYRGZ+58
- eq4d6NXKga8Oqn+/24NZGe8emgB7BdhcCMdta5r40VLU80s4DIoIg2QyKnHMpUH3jZ0fJ6aCMMC
- DsSc8+c8YEE9KUNlqqBrHph8p2INBe4H2QPS8MfQ==
-X-Received: by 2002:a05:600c:5285:b0:492:463c:48b7 with SMTP id
- 5b1f17b1804b1-492463c5257mr193028095e9.22.1782141922516; 
- Mon, 22 Jun 2026 08:25:22 -0700 (PDT)
+ AFNElJ8CBOHZ9uIWN5N8r+8pBFpau5hMWzUnVdcsLG2l3yN9IIPYUrkZYAsB0o+ddBHAWllz0cPy0n4/EDI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxbv+w1MbrZ90ruE8Qud3m1wzkrRP4lWLJAHr+4ruGvI7KLfSMD
+ Ri/JRXtVmCZ14I+FOL6rpHgEsY2T/fGT7QLq7OZ+CuynSD/UbIikJsN6
+X-Gm-Gg: AfdE7clJjsp3qOxIl5JJysyDKfpjRbWMzAnIblx0HxrnG4CIQMZb0VOVkgjj/G3JTZt
+ uMrYd0PYacoPy633Ejn1cxOha/CCBGZp+FZgSUCkeTqR8ABaaenXlOjjaYgCdfXOm1CHTl/KBNj
+ cohpDD5XTJUaEROvdNDM1yXHaQkEx1MoIfhnkQz2vgS0o3AYsMEkt5ZaWugdEsmf9rWIYUw3PMi
+ 19BH2gEsJgPfUajQeKhZ0hVm+PEfHApQSNWNHyy7Jpo8Km0w7THDs4DT+4o9W4heh3CQ0mZNe4f
+ P/Wz4nkEiWXfMNmyOM/An9IcsW2NTLBmG+H7vXfrOYu6EHt8Z72KQZ9Eu/18ls22Yj5YXdt1FKd
+ lUQpLobLlvATti0azVCjuoCjaofX3Pee2u8BpQt5taIWejnn7FtCy7imE2djUj/ZX9K5nA5rojT
+ gRRsej77PJhK3u3iMspcdh0/brsXE=
+X-Received: by 2002:a05:600d:4448:20b0:489:32b:ac0b with SMTP id
+ 5b1f17b1804b1-49240a09f71mr161160105e9.6.1782141927772; 
+ Mon, 22 Jun 2026 08:25:27 -0700 (PDT)
 Received: from anthony.local ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-492492338dasm217883655e9.1.2026.06.22.08.25.20
+ 5b1f17b1804b1-492492338dasm217883655e9.1.2026.06.22.08.25.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Jun 2026 08:25:22 -0700 (PDT)
+ Mon, 22 Jun 2026 08:25:27 -0700 (PDT)
 From: Amit Barzilai <amit.barzilai22@gmail.com>
 To: javierm@redhat.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
  tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, robh@kernel.org,
@@ -71,9 +71,9 @@ Cc: azuddinadam@gmail.com, chintanlike@gmail.com,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org,
  linux-staging@lists.linux.dev, Amit Barzilai <amit.barzilai22@gmail.com>
-Subject: [PATCH v2 2/4] drm/ssd130x: Add RGB565 support to SSD133X family
-Date: Mon, 22 Jun 2026 18:25:04 +0300
-Message-ID: <20260622152506.78627-3-amit.barzilai22@gmail.com>
+Subject: [PATCH v2 4/4] staging: fbtft: remove fb_ssd1351 driver
+Date: Mon, 22 Jun 2026 18:25:06 +0300
+Message-ID: <20260622152506.78627-5-amit.barzilai22@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260622152506.78627-1-amit.barzilai22@gmail.com>
 References: <20260622152506.78627-1-amit.barzilai22@gmail.com>
@@ -94,167 +94,292 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SSD133X screens were getting 8bpp (RGB332) instead of the 16bpp
-(RGB565) that they support. This change adds a boolean to the
-deviceinfo struct selecting whether the variant is driven at
-DRM_FORMAT_RGB565.
+The SSD1351 support was added to the ssd130x DRM driver. To avoid
+confusion and irrelevant updates, the staging fb_ssd1351 driver is
+removed.
 
-Changed SSD133X to now utilize 65k color (RGB565).
-
-Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
 ---
- drivers/gpu/drm/solomon/ssd130x.c | 55 +++++++++++++++++++++++++------
- drivers/gpu/drm/solomon/ssd130x.h |  7 ++++
- 2 files changed, 52 insertions(+), 10 deletions(-)
+ drivers/staging/fbtft/Kconfig      |   5 -
+ drivers/staging/fbtft/Makefile     |   1 -
+ drivers/staging/fbtft/fb_ssd1351.c | 240 -----------------------------
+ 3 files changed, 246 deletions(-)
+ delete mode 100644 drivers/staging/fbtft/fb_ssd1351.c
 
-diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/ssd130x.c
-index 04da4f2f7d08..2b0a8218f529 100644
---- a/drivers/gpu/drm/solomon/ssd130x.c
-+++ b/drivers/gpu/drm/solomon/ssd130x.c
-@@ -140,6 +140,12 @@
- #define SSD133X_SET_PRECHARGE_VOLTAGE		0xbb
- #define SSD133X_SET_VCOMH_VOLTAGE		0xbe
+diff --git a/drivers/staging/fbtft/Kconfig b/drivers/staging/fbtft/Kconfig
+index 92943564cb91..c8ea1a0f3fb0 100644
+--- a/drivers/staging/fbtft/Kconfig
++++ b/drivers/staging/fbtft/Kconfig
+@@ -133,11 +133,6 @@ config FB_TFT_SSD1331
+ 	help
+ 	  Framebuffer support for SSD1331
  
-+/* ssd133x remap byte (data of SSD13XX_SET_SEG_REMAP) */
-+#define SSD133X_SET_REMAP_COM_SPLIT		BIT(5)
-+#define SSD133X_SET_REMAP_COLOR_DEPTH_MASK	GENMASK(7, 6)
-+#define SSD133X_COLOR_DEPTH_256			0x0
-+#define SSD133X_COLOR_DEPTH_65K			0x1
-+
- #define MAX_CONTRAST 255
- 
- const struct ssd130x_deviceinfo ssd130x_variants[] = {
-@@ -206,6 +212,7 @@ const struct ssd130x_deviceinfo ssd130x_variants[] = {
- 	[SSD1331_ID] = {
- 		.default_width = 96,
- 		.default_height = 64,
-+		.format_rgb565 = 1,
- 		.family_id = SSD133X_FAMILY,
- 	}
- };
-@@ -584,6 +591,10 @@ static int ssd132x_init(struct ssd130x_device *ssd130x)
- 
- static int ssd133x_init(struct ssd130x_device *ssd130x)
- {
-+	u8 remap = SSD133X_SET_REMAP_COM_SPLIT |
-+		   FIELD_PREP(SSD133X_SET_REMAP_COLOR_DEPTH_MASK,
-+			      ssd130x->device_info->format_rgb565 ?
-+			      SSD133X_COLOR_DEPTH_65K : SSD133X_COLOR_DEPTH_256);
- 	const u8 cmds[] = {
- 		2, SSD133X_CONTRAST_A, 0x91,
- 		2, SSD133X_CONTRAST_B, 0x50,
-@@ -595,9 +606,9 @@ static int ssd133x_init(struct ssd130x_device *ssd130x)
- 		 * Horizontal Address Increment
- 		 * Normal order SA,SB,SC (e.g. RGB)
- 		 * COM Split Odd Even
--		 * 256 color format
-+		 * 256 or 65k color format, depending on the variant
- 		 */
--		2, SSD13XX_SET_SEG_REMAP, 0x20,
-+		2, SSD13XX_SET_SEG_REMAP, remap,
- 		2, SSD133X_SET_DISPLAY_START, 0x00,
- 		2, SSD133X_SET_DISPLAY_OFFSET, 0x00,
- 		1, SSD133X_SET_DISPLAY_NORMAL,
-@@ -794,14 +805,20 @@ static int ssd133x_update_rect(struct ssd130x_device *ssd130x,
- 	 * COM0 to COM[N - 1] are the rows and SEG0 to SEG[M - 1] are
- 	 * the columns.
- 	 *
--	 * Each Segment has a 8-bit pixel and each Common output has a
--	 * row of pixels. When using the (default) horizontal address
--	 * increment mode, each byte of data sent to the controller has
--	 * a Segment (e.g: SEG0).
-+	 * Each Segment holds one pixel and each Common output has a row
-+	 * of pixels. A pixel is 8 bits (one byte) in the 256 color
-+	 * (RGB332) format or 16 bits (two bytes) in the 65k color
-+	 * (RGB565) format. When using the (default) horizontal address
-+	 * increment mode, the pixel data is sent Segment by Segment
-+	 * (e.g: SEG0 first).
- 	 *
- 	 * When using the 256 color depth format, each pixel contains 3
- 	 * sub-pixels for color A, B and C. These have 3 bit, 3 bit and
- 	 * 2 bits respectively.
-+	 *
-+	 * When using the 65k color depth format, each pixel contains 3
-+	 * sub-pixels for color A, B and C. These have 5 bit, 6 bit and
-+	 * 5 bits respectively.
- 	 */
- 
- 	/* Set column start and end */
-@@ -872,9 +889,24 @@ static void ssd132x_clear_screen(struct ssd130x_device *ssd130x, u8 *data_array)
- 	ssd130x_write_data(ssd130x, data_array, columns * height);
- }
- 
-+/*
-+ * The SSD133X family can drive the panel in either RGB332 (1 byte per pixel)
-+ * or RGB565 (2 bytes per pixel). The format is a per-variant policy choice
-+ * selected through ssd130x_deviceinfo::format_rgb565, not a capability probe.
-+ * Centralize the choice here so that the buffer sizing (allocation, clear and
-+ * blit pitch) can never disagree.
-+ */
-+static const struct drm_format_info *ssd133x_format_info(struct ssd130x_device *ssd130x)
-+{
-+	if (ssd130x->device_info->format_rgb565)
-+		return drm_format_info(DRM_FORMAT_RGB565);
-+
-+	return drm_format_info(DRM_FORMAT_RGB332);
-+}
-+
- static void ssd133x_clear_screen(struct ssd130x_device *ssd130x, u8 *data_array)
- {
--	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB332);
-+	const struct drm_format_info *fi = ssd133x_format_info(ssd130x);
- 	unsigned int pitch;
- 
- 	if (!fi)
-@@ -945,7 +977,7 @@ static int ssd133x_fb_blit_rect(struct drm_framebuffer *fb,
- 				struct drm_format_conv_state *fmtcnv_state)
- {
- 	struct ssd130x_device *ssd130x = drm_to_ssd130x(fb->dev);
--	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB332);
-+	const struct drm_format_info *fi = ssd133x_format_info(ssd130x);
- 	unsigned int dst_pitch;
- 	struct iosys_map dst;
- 	int ret = 0;
-@@ -956,7 +988,10 @@ static int ssd133x_fb_blit_rect(struct drm_framebuffer *fb,
- 	dst_pitch = drm_format_info_min_pitch(fi, 0, drm_rect_width(rect));
- 
- 	iosys_map_set_vaddr(&dst, data_array);
--	drm_fb_xrgb8888_to_rgb332(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_state);
-+	if (ssd130x->device_info->format_rgb565)
-+		drm_fb_xrgb8888_to_rgb565be(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_state);
-+	else
-+		drm_fb_xrgb8888_to_rgb332(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_state);
- 
- 	ssd133x_update_rect(ssd130x, rect, data_array, dst_pitch);
- 
-@@ -1414,7 +1449,7 @@ static int ssd133x_crtc_atomic_check(struct drm_crtc *crtc,
- 	struct ssd130x_device *ssd130x = drm_to_ssd130x(drm);
- 	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
- 	struct ssd130x_crtc_state *ssd130x_state = to_ssd130x_crtc_state(crtc_state);
--	const struct drm_format_info *fi = drm_format_info(DRM_FORMAT_RGB332);
-+	const struct drm_format_info *fi = ssd133x_format_info(ssd130x);
- 	unsigned int pitch;
- 	int ret;
- 
-diff --git a/drivers/gpu/drm/solomon/ssd130x.h b/drivers/gpu/drm/solomon/ssd130x.h
-index a4554018bb2a..b0b487c06e04 100644
---- a/drivers/gpu/drm/solomon/ssd130x.h
-+++ b/drivers/gpu/drm/solomon/ssd130x.h
-@@ -54,6 +54,13 @@ struct ssd130x_deviceinfo {
- 	bool need_pwm;
- 	bool need_chargepump;
- 	bool page_mode_only;
-+	/*
-+	 * Per-variant output format selector for the SSD133X data path. The
-+	 * hardware can drive the panel in RGB332 (1 byte/pixel) or RGB565
-+	 * (2 bytes/pixel); this is a policy choice per variant, not a
-+	 * capability probe. When set, the variant is driven at RGB565.
-+	 */
-+	bool format_rgb565;
- 
- 	enum ssd130x_family_ids family_id;
- };
+-config FB_TFT_SSD1351
+-	tristate "FB driver for the SSD1351 LCD Controller"
+-	help
+-	  Framebuffer support for SSD1351
+-
+ config FB_TFT_ST7735R
+ 	tristate "FB driver for the ST7735R LCD Controller"
+ 	help
+diff --git a/drivers/staging/fbtft/Makefile b/drivers/staging/fbtft/Makefile
+index e9cdf0f0a7da..c230bf008fc7 100644
+--- a/drivers/staging/fbtft/Makefile
++++ b/drivers/staging/fbtft/Makefile
+@@ -28,7 +28,6 @@ obj-$(CONFIG_FB_TFT_SSD1305)     += fb_ssd1305.o
+ obj-$(CONFIG_FB_TFT_SSD1306)     += fb_ssd1306.o
+ obj-$(CONFIG_FB_TFT_SSD1305)     += fb_ssd1325.o
+ obj-$(CONFIG_FB_TFT_SSD1331)     += fb_ssd1331.o
+-obj-$(CONFIG_FB_TFT_SSD1351)     += fb_ssd1351.o
+ obj-$(CONFIG_FB_TFT_ST7735R)     += fb_st7735r.o
+ obj-$(CONFIG_FB_TFT_ST7789V)     += fb_st7789v.o
+ obj-$(CONFIG_FB_TFT_TINYLCD)     += fb_tinylcd.o
+diff --git a/drivers/staging/fbtft/fb_ssd1351.c b/drivers/staging/fbtft/fb_ssd1351.c
+deleted file mode 100644
+index 6736b09b2f45..000000000000
+--- a/drivers/staging/fbtft/fb_ssd1351.c
++++ /dev/null
+@@ -1,240 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0
+-
+-#include <linux/backlight.h>
+-#include <linux/module.h>
+-#include <linux/kernel.h>
+-#include <linux/init.h>
+-#include <linux/spi/spi.h>
+-#include <linux/delay.h>
+-#include <linux/string_choices.h>
+-
+-#include "fbtft.h"
+-
+-#define DRVNAME		"fb_ssd1351"
+-#define WIDTH		128
+-#define HEIGHT		128
+-#define GAMMA_NUM	1
+-#define GAMMA_LEN	63
+-#define DEFAULT_GAMMA	"0 2 2 2 2 2 2 2 " \
+-			"2 2 2 2 2 2 2 2 " \
+-			"2 2 2 2 2 2 2 2 " \
+-			"2 2 2 2 2 2 2 2 " \
+-			"2 2 2 2 2 2 2 2 " \
+-			"2 2 2 2 2 2 2 2 " \
+-			"2 2 2 2 2 2 2 2 " \
+-			"2 2 2 2 2 2 2" \
+-
+-static void register_onboard_backlight(struct fbtft_par *par);
+-
+-static int init_display(struct fbtft_par *par)
+-{
+-	if (par->pdata &&
+-	    par->pdata->display.backlight == FBTFT_ONBOARD_BACKLIGHT) {
+-		/* module uses onboard GPIO for panel power */
+-		par->fbtftops.register_backlight = register_onboard_backlight;
+-	}
+-
+-	par->fbtftops.reset(par);
+-
+-	write_reg(par, 0xfd, 0x12); /* Command Lock */
+-	write_reg(par, 0xfd, 0xb1); /* Command Lock */
+-	write_reg(par, 0xae); /* Display Off */
+-	write_reg(par, 0xb3, 0xf1); /* Front Clock Div */
+-	write_reg(par, 0xca, 0x7f); /* Set Mux Ratio */
+-	write_reg(par, 0x15, 0x00, 0x7f); /* Set Column Address */
+-	write_reg(par, 0x75, 0x00, 0x7f); /* Set Row Address */
+-	write_reg(par, 0xa1, 0x00); /* Set Display Start Line */
+-	write_reg(par, 0xa2, 0x00); /* Set Display Offset */
+-	write_reg(par, 0xb5, 0x00); /* Set GPIO */
+-	write_reg(par, 0xab, 0x01); /* Set Function Selection */
+-	write_reg(par, 0xb1, 0x32); /* Set Phase Length */
+-	write_reg(par, 0xb4, 0xa0, 0xb5, 0x55); /* Set Segment Low Voltage */
+-	write_reg(par, 0xbb, 0x17); /* Set Precharge Voltage */
+-	write_reg(par, 0xbe, 0x05); /* Set VComH Voltage */
+-	write_reg(par, 0xc1, 0xc8, 0x80, 0xc8); /* Set Contrast */
+-	write_reg(par, 0xc7, 0x0f); /* Set Master Contrast */
+-	write_reg(par, 0xb6, 0x01); /* Set Second Precharge Period */
+-	write_reg(par, 0xa6); /* Set Display Mode Reset */
+-	write_reg(par, 0xaf); /* Set Sleep Mode Display On */
+-
+-	return 0;
+-}
+-
+-static void set_addr_win(struct fbtft_par *par, int xs, int ys, int xe, int ye)
+-{
+-	write_reg(par, 0x15, xs, xe);
+-	write_reg(par, 0x75, ys, ye);
+-	write_reg(par, 0x5c);
+-}
+-
+-static int set_var(struct fbtft_par *par)
+-{
+-	unsigned int remap;
+-
+-	if (par->fbtftops.init_display != init_display) {
+-		/* don't risk messing up register A0h */
+-		return 0;
+-	}
+-
+-	remap = 0x60 | (par->bgr << 2); /* Set Colour Depth */
+-
+-	switch (par->info->var.rotate) {
+-	case 0:
+-		write_reg(par, 0xA0, remap | 0x00 | BIT(4));
+-		break;
+-	case 270:
+-		write_reg(par, 0xA0, remap | 0x03 | BIT(4));
+-		break;
+-	case 180:
+-		write_reg(par, 0xA0, remap | 0x02);
+-		break;
+-	case 90:
+-		write_reg(par, 0xA0, remap | 0x01);
+-		break;
+-	}
+-
+-	return 0;
+-}
+-
+-/*
+- * Grayscale Lookup Table
+- * GS1 - GS63
+- * The driver Gamma curve contains the relative values between the entries
+- * in the Lookup table.
+- *
+- * From datasheet:
+- * 8.8 Gray Scale Decoder
+- *
+- *	there are total 180 Gamma Settings (Setting 0 to Setting 180)
+- *	available for the Gray Scale table.
+- *
+- *	The gray scale is defined in incremental way, with reference
+- *	to the length of previous table entry:
+- *		Setting of GS1 has to be >= 0
+- *		Setting of GS2 has to be > Setting of GS1 +1
+- *		Setting of GS3 has to be > Setting of GS2 +1
+- *		:
+- *		Setting of GS63 has to be > Setting of GS62 +1
+- *
+- */
+-static int set_gamma(struct fbtft_par *par, u32 *curves)
+-{
+-	unsigned long tmp[GAMMA_NUM * GAMMA_LEN];
+-	int i, acc = 0;
+-
+-	for (i = 0; i < 63; i++) {
+-		if (i > 0 && curves[i] < 2) {
+-			dev_err(par->info->device,
+-				"Illegal value in Grayscale Lookup Table at index %d : %d. Must be greater than 1\n",
+-				i, curves[i]);
+-			return -EINVAL;
+-		}
+-		acc += curves[i];
+-		tmp[i] = acc;
+-		if (acc > 180) {
+-			dev_err(par->info->device,
+-				"Illegal value(s) in Grayscale Lookup Table. At index=%d : %d, the accumulated value has exceeded 180\n",
+-				i, acc);
+-			return -EINVAL;
+-		}
+-	}
+-
+-	write_reg(par, 0xB8,
+-		  tmp[0],  tmp[1],  tmp[2],  tmp[3],
+-		  tmp[4],  tmp[5],  tmp[6],  tmp[7],
+-		  tmp[8],  tmp[9],  tmp[10], tmp[11],
+-		  tmp[12], tmp[13], tmp[14], tmp[15],
+-		  tmp[16], tmp[17], tmp[18], tmp[19],
+-		  tmp[20], tmp[21], tmp[22], tmp[23],
+-		  tmp[24], tmp[25], tmp[26], tmp[27],
+-		  tmp[28], tmp[29], tmp[30], tmp[31],
+-		  tmp[32], tmp[33], tmp[34], tmp[35],
+-		  tmp[36], tmp[37], tmp[38], tmp[39],
+-		  tmp[40], tmp[41], tmp[42], tmp[43],
+-		  tmp[44], tmp[45], tmp[46], tmp[47],
+-		  tmp[48], tmp[49], tmp[50], tmp[51],
+-		  tmp[52], tmp[53], tmp[54], tmp[55],
+-		  tmp[56], tmp[57], tmp[58], tmp[59],
+-		  tmp[60], tmp[61], tmp[62]);
+-
+-	return 0;
+-}
+-
+-static int blank(struct fbtft_par *par, bool on)
+-{
+-	fbtft_par_dbg(DEBUG_BLANK, par, "(%s=%s)\n",
+-		      __func__, str_true_false(on));
+-	if (on)
+-		write_reg(par, 0xAE);
+-	else
+-		write_reg(par, 0xAF);
+-	return 0;
+-}
+-
+-static struct fbtft_display display = {
+-	.regwidth = 8,
+-	.width = WIDTH,
+-	.height = HEIGHT,
+-	.gamma_num = GAMMA_NUM,
+-	.gamma_len = GAMMA_LEN,
+-	.gamma = DEFAULT_GAMMA,
+-	.fbtftops = {
+-		.init_display = init_display,
+-		.set_addr_win = set_addr_win,
+-		.set_var = set_var,
+-		.set_gamma = set_gamma,
+-		.blank = blank,
+-	},
+-};
+-
+-static int update_onboard_backlight(struct backlight_device *bd)
+-{
+-	struct fbtft_par *par = bl_get_data(bd);
+-	bool on;
+-
+-	fbtft_par_dbg(DEBUG_BACKLIGHT, par, "%s: power=%d\n", __func__, bd->props.power);
+-
+-	on = !backlight_is_blank(bd);
+-	/* Onboard backlight connected to GPIO0 on SSD1351, GPIO1 unused */
+-	write_reg(par, 0xB5, on ? 0x03 : 0x02);
+-
+-	return 0;
+-}
+-
+-static const struct backlight_ops bl_ops = {
+-	.update_status = update_onboard_backlight,
+-};
+-
+-static void register_onboard_backlight(struct fbtft_par *par)
+-{
+-	struct backlight_device *bd;
+-	struct backlight_properties bl_props = { 0, };
+-
+-	bl_props.type = BACKLIGHT_RAW;
+-	bl_props.power = BACKLIGHT_POWER_OFF;
+-
+-	bd = backlight_device_register(dev_driver_string(par->info->device),
+-				       par->info->device, par, &bl_ops,
+-				       &bl_props);
+-	if (IS_ERR(bd)) {
+-		dev_err(par->info->device,
+-			"cannot register backlight device (%ld)\n",
+-			PTR_ERR(bd));
+-		return;
+-	}
+-	par->info->bl_dev = bd;
+-
+-	if (!par->fbtftops.unregister_backlight)
+-		par->fbtftops.unregister_backlight = fbtft_unregister_backlight;
+-}
+-
+-FBTFT_REGISTER_DRIVER(DRVNAME, "solomon,ssd1351", &display);
+-
+-MODULE_ALIAS("spi:" DRVNAME);
+-MODULE_ALIAS("platform:" DRVNAME);
+-MODULE_ALIAS("spi:ssd1351");
+-MODULE_ALIAS("platform:ssd1351");
+-
+-MODULE_DESCRIPTION("SSD1351 OLED Driver");
+-MODULE_AUTHOR("James Davies");
+-MODULE_LICENSE("GPL");
 -- 
 2.54.0
 
