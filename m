@@ -4,36 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06BC2CDB47B
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 18:10:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72D8FCDB47F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 18:10:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E43410E7F6;
-	Mon, 22 Jun 2026 18:10:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D58E510E803;
+	Mon, 22 Jun 2026 18:10:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="MiESm6LZ";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="bkH+0MHx";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA24510E7F4;
- Mon, 22 Jun 2026 18:10:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61FD310E803;
+ Mon, 22 Jun 2026 18:10:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782151839;
- bh=ALbia/61W347pafx6roK8tZ0v9st1/H0ivVM62ph0GU=;
+ s=default; t=1782151843;
+ bh=Q8sFpW0LaWK/Smzuxt/7dTEculaPVCfQO31xaLLhI2w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MiESm6LZ2CfyhiKTVCktAZ1w4uC4x/stYA5Y5NJz/NxIIype3OgpEBxS2JAcfYtBY
- o20dEV/fh1XV75ce5llYkAQ+7T1PhzE82hy7qCg4VO38kYJ+tJiho3R7NAKZmIphYD
- qSz4HUcXslOv2bZTO3bF/i+lEXB0t+xQjOhhR+wlI4h6tj6cCHkw5uOE3myjPPgmK5
- djAwRToxmalIuNjX5Bnm998aWlcUz9SdSFyg+CJsq9ttMlaKZJsSow+34z7ytvs9fU
- zhLI7xbLtMcBgFep1UQn8w/pTaI3m0VhybAADUvaogRlEzE47rYmYmLtJrxGEPR40o
- 2MxS88Tyk83Hw==
+ b=bkH+0MHx03XiLhXQNGKpyKIlqkwIUaPiOGRSrLVd9Su6FVqDG1RttTT1IuCQJ3LUS
+ 6n5FmdrQzoM0lopO9ezNcQMGKJkCSUOgqW6oytE2QumIGzXFnLY7tHOwfIlfAK5z0I
+ 8IDnXLkWVKSWgEVwQEMuVMgljG13v7zjVwNVNmouSliI6rX6mAQRoGIg3qplz8fVgk
+ Jd46pI0y1fDBjbF6LluLqkCXfeDn8whj7n7/zWb8qc/yXojoxAv69JaEDLVGRAianP
+ rqB0Jb4n5bQGhGQUcX62Jy3un5osmAKrJX+tHq/Qv9s+/XT/fyDFLODrYcHMFgNpNh
+ p8C/1jus1w3rw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v9 10/30] drm/i915/display: Do not take uncore lock in
- i915_get_vblank_counter
-Date: Mon, 22 Jun 2026 20:10:23 +0200
-Message-ID: <20260622181044.39335-11-dev@lankhorst.se>
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <williams@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v9 15/30] drm/i915/gt: Use spin_lock_irq() instead of
+ local_irq_disable() + spin_lock()
+Date: Mon, 22 Jun 2026 20:10:28 +0200
+Message-ID: <20260622181044.39335-16-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260622181044.39335-1-dev@lankhorst.se>
 References: <20260622181044.39335-1-dev@lankhorst.se>
@@ -54,124 +57,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This fixes a lockdep splat that occurs in the code that should be run
-with interrupts disabled. The uncore and DMC locks should not be taken
-and released repeatedly in a timing sensitive path.
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
+execlists_dequeue() is invoked from a function which uses
+local_irq_disable() to disable interrupts so the spin_lock() behaves
+like spin_lock_irq().
+This breaks PREEMPT_RT because local_irq_disable() + spin_lock() is not
+the same as spin_lock_irq().
+
+execlists_dequeue_irq() and execlists_dequeue() has each one caller
+only. If intel_engine_cs::active::lock is acquired and released with the
+_irq suffix then it behaves almost as if execlists_dequeue() would be
+invoked with disabled interrupts. The difference is the last part of the
+function which is then invoked with enabled interrupts.
+I can't tell if this makes a difference. From looking at it, it might
+work to move the last unlock at the end of the function as I didn't find
+anything that would acquire the lock again.
+
+Reported-by: Clark Williams <williams@redhat.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/display/intel_de.h       |  8 ++++++
- drivers/gpu/drm/i915/display/intel_vblank.c   |  4 +--
- drivers/gpu/drm/i915/intel_uncore.h           | 26 +++++++++++++------
- .../drm/xe/compat-i915-headers/intel_uncore.h |  7 +++++
- 4 files changed, 35 insertions(+), 10 deletions(-)
+ .../drm/i915/gt/intel_execlists_submission.c    | 17 +++++------------
+ 1 file changed, 5 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_de.h b/drivers/gpu/drm/i915/display/intel_de.h
-index 1029790194296..497a308322847 100644
---- a/drivers/gpu/drm/i915/display/intel_de.h
-+++ b/drivers/gpu/drm/i915/display/intel_de.h
-@@ -65,6 +65,14 @@ intel_de_read64_2x32(struct intel_display *display, intel_reg_t reg)
- 	return (u64)upper << 32 | lower;
- }
- 
-+static inline u64
-+intel_de_read64_2x32_fw(struct intel_display *display,
-+			i915_reg_t lower_reg, i915_reg_t upper_reg)
-+{
-+	return intel_uncore_read64_2x32_fw(__to_uncore(display),
-+					   lower_reg, upper_reg);
-+}
-+
- static inline void
- intel_de_posting_read(struct intel_display *display, intel_reg_t reg)
- {
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
-index c0cc0a4c25dbe..5ca22899055d7 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.c
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -109,8 +109,8 @@ u32 i915_get_vblank_counter(struct drm_crtc *crtc)
- 	 * we get a low value that's stable across two reads of the high
- 	 * register.
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 1359fc9cb88ef..e11db81dca9c5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -1300,7 +1300,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	 * and context switches) submission.
  	 */
--	frame = intel_de_read64_2x32_volatile(display, PIPEFRAMEPIXEL(display, pipe),
--					      PIPEFRAME(display, pipe));
-+	frame = intel_de_read64_2x32_fw(display, PIPEFRAMEPIXEL(display, pipe),
-+				        PIPEFRAME(display, pipe));
  
- 	pixel = frame & PIPE_PIXEL_MASK;
- 	frame = (frame >> PIPE_FRAME_LOW_SHIFT) & 0xffffff;
-diff --git a/drivers/gpu/drm/i915/intel_uncore.h b/drivers/gpu/drm/i915/intel_uncore.h
-index fafc2ca9a2376..507398a562649 100644
---- a/drivers/gpu/drm/i915/intel_uncore.h
-+++ b/drivers/gpu/drm/i915/intel_uncore.h
-@@ -449,13 +449,28 @@ static inline void intel_uncore_rmw_fw(struct intel_uncore *uncore,
- 		intel_uncore_write_fw(uncore, reg, val);
+-	spin_lock(&sched_engine->lock);
++	spin_lock_irq(&sched_engine->lock);
+ 
+ 	/*
+ 	 * If the queue is higher priority than the last
+@@ -1400,7 +1400,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 				 * Even if ELSP[1] is occupied and not worthy
+ 				 * of timeslices, our queue might be.
+ 				 */
+-				spin_unlock(&sched_engine->lock);
++				spin_unlock_irq(&sched_engine->lock);
+ 				return;
+ 			}
+ 		}
+@@ -1426,7 +1426,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 
+ 		if (last && !can_merge_rq(last, rq)) {
+ 			spin_unlock(&ve->base.sched_engine->lock);
+-			spin_unlock(&engine->sched_engine->lock);
++			spin_unlock_irq(&engine->sched_engine->lock);
+ 			return; /* leave this for another sibling */
+ 		}
+ 
+@@ -1588,7 +1588,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	 */
+ 	sched_engine->queue_priority_hint = queue_prio(sched_engine);
+ 	i915_sched_engine_reset_on_empty(sched_engine);
+-	spin_unlock(&sched_engine->lock);
++	spin_unlock_irq(&sched_engine->lock);
+ 
+ 	/*
+ 	 * We can skip poking the HW if we ended up with exactly the same set
+@@ -1614,13 +1614,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	}
  }
  
-+static inline u64
-+intel_uncore_read64_2x32_fw(struct intel_uncore *uncore,
-+			    i915_reg_t lower_reg, i915_reg_t upper_reg)
-+{
-+	u32 upper, lower, old_upper, loop = 0;
-+	upper = intel_uncore_read_fw(uncore, upper_reg);
-+	do {
-+		old_upper = upper;
-+		lower = intel_uncore_read_fw(uncore, lower_reg);
-+		upper = intel_uncore_read_fw(uncore, upper_reg);
-+	} while (upper != old_upper && loop++ < 2);
-+
-+	return (u64)upper << 32 | lower;
-+}
-+
- static inline u64
- intel_uncore_read64_2x32(struct intel_uncore *uncore,
- 			 i915_reg_t lower_reg, i915_reg_t upper_reg)
+-static void execlists_dequeue_irq(struct intel_engine_cs *engine)
+-{
+-	local_irq_disable(); /* Suspend interrupts across request submission */
+-	execlists_dequeue(engine);
+-	local_irq_enable(); /* flush irq_work (e.g. breadcrumb enabling) */
+-}
+-
+ static void clear_ports(struct i915_request **ports, int count)
  {
--	u32 upper, lower, old_upper, loop = 0;
- 	enum forcewake_domains fw_domains;
- 	unsigned long flags;
-+	u64 ret;
+ 	memset_p((void **)ports, NULL, count);
+@@ -2475,7 +2468,7 @@ static void execlists_submission_tasklet(struct tasklet_struct *t)
+ 	}
  
- 	fw_domains = intel_uncore_forcewake_for_reg(uncore, lower_reg,
- 						    FW_REG_READ);
-@@ -466,17 +481,12 @@ intel_uncore_read64_2x32(struct intel_uncore *uncore,
- 	spin_lock_irqsave(&uncore->lock, flags);
- 	intel_uncore_forcewake_get__locked(uncore, fw_domains);
+ 	if (!engine->execlists.pending[0]) {
+-		execlists_dequeue_irq(engine);
++		execlists_dequeue(engine);
+ 		start_timeslice(engine);
+ 	}
  
--	upper = intel_uncore_read_fw(uncore, upper_reg);
--	do {
--		old_upper = upper;
--		lower = intel_uncore_read_fw(uncore, lower_reg);
--		upper = intel_uncore_read_fw(uncore, upper_reg);
--	} while (upper != old_upper && loop++ < 2);
-+	ret = intel_uncore_read64_2x32_fw(uncore, lower_reg, upper_reg);
- 
- 	intel_uncore_forcewake_put__locked(uncore, fw_domains);
- 	spin_unlock_irqrestore(&uncore->lock, flags);
- 
--	return (u64)upper << 32 | lower;
-+	return ret;
- }
- 
- static inline int intel_uncore_write_and_verify(struct intel_uncore *uncore,
-diff --git a/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h b/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
-index 08d7ab9336725..764bc94044537 100644
---- a/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
-+++ b/drivers/gpu/drm/xe/compat-i915-headers/intel_uncore.h
-@@ -74,6 +74,13 @@ intel_uncore_read64_2x32(struct intel_uncore *uncore,
- 	return (u64)upper << 32 | lower;
- }
- 
-+static inline u64
-+intel_uncore_read64_2x32_fw(struct intel_uncore *uncore,
-+			    i915_reg_t i915_lower_reg, i915_reg_t i915_upper_reg)
-+{
-+	return intel_uncore_read64_2x32(uncore, i915_lower_reg, i915_upper_reg);
-+}
-+
- static inline void intel_uncore_posting_read(struct intel_uncore *uncore,
- 					     i915_reg_t i915_reg)
- {
 -- 
 2.53.0
 
