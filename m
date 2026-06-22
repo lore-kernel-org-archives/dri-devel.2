@@ -4,48 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBDC6CD98F2
-	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 11:34:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42D4ACDB46F
+	for <dri-devel@archiver.kernel.org>; Mon, 22 Jun 2026 11:34:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B75D10E64A;
-	Mon, 22 Jun 2026 11:34:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EA5610E646;
+	Mon, 22 Jun 2026 11:34:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="jQqTJm59";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="bFPd0yJg";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Z6Z3ewk7";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bFPd0yJg";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Z6Z3ewk7";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 070B710E648
- for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 11:34:19 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 126021A51;
- Mon, 22 Jun 2026 13:33:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1782128020;
- bh=c2tN3Ovye5LAGK03GIwU1uxGZyxaGXNZooWWvULNuPM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jQqTJm59wT72BoVP3d6vr1Y/pb7pAjaMoxeZxznehWeEJlbtNuVu5Ki/zUCjCcqCx
- iV2H+WhKSdzEP5kbtXhiqA/42JKen6F8EfYZ2k514mWZ9x78Fc7DRC2WBYFbSxxV10
- y09j9GikKN3H7u2gYts89kSrIhvSEIVYDAXmTOP4=
-Date: Mon, 22 Jun 2026 14:34:16 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 19/37] drm/bridge: simple-bridge: Switch to atomic bridge
- callbacks
-Message-ID: <20260622113416.GE3872967@killaraus.ideasonboard.com>
-References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
- <20260617-drm-all-atomic-bridges-v1-19-b63e6316166b@kernel.org>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37C7F10E646
+ for <dri-devel@lists.freedesktop.org>; Mon, 22 Jun 2026 11:34:44 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B8A1A75CDB;
+ Mon, 22 Jun 2026 11:34:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782128082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=ApwvU5GMovLK0hG8yQ5DHcqrbeO+YvCNdwhWkQszi7Y=;
+ b=bFPd0yJga0LbPmwP00kIBHP4hioB3PqQl9CK21rvQbIph9XT/FKHAC4UTRP2fSTj9/jsM6
+ B/5h2d1R3F80dfnviAxRgzZ4/gFTFvLevgylRFwmsukB6SkdMk5wJN4JGCgAtPz2FBlWE6
+ Xp7fUBrqkW7x2enJ4SpG8W81aijKZJI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782128082;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=ApwvU5GMovLK0hG8yQ5DHcqrbeO+YvCNdwhWkQszi7Y=;
+ b=Z6Z3ewk7JgHd7oTVuyFhtZp3ZbF9Eyrp8NiOnwzkx5Ipp5E7GTMyfTgvrhQBQmm+T9Qw2q
+ C6r34Ahd0ff84+Dw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782128082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=ApwvU5GMovLK0hG8yQ5DHcqrbeO+YvCNdwhWkQszi7Y=;
+ b=bFPd0yJga0LbPmwP00kIBHP4hioB3PqQl9CK21rvQbIph9XT/FKHAC4UTRP2fSTj9/jsM6
+ B/5h2d1R3F80dfnviAxRgzZ4/gFTFvLevgylRFwmsukB6SkdMk5wJN4JGCgAtPz2FBlWE6
+ Xp7fUBrqkW7x2enJ4SpG8W81aijKZJI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782128082;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=ApwvU5GMovLK0hG8yQ5DHcqrbeO+YvCNdwhWkQszi7Y=;
+ b=Z6Z3ewk7JgHd7oTVuyFhtZp3ZbF9Eyrp8NiOnwzkx5Ipp5E7GTMyfTgvrhQBQmm+T9Qw2q
+ C6r34Ahd0ff84+Dw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 62B54779A8;
+ Mon, 22 Jun 2026 11:34:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id d3z5FtIdOWrEMgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 22 Jun 2026 11:34:42 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: hns@goldelico.com, zhengxingda@iscas.ac.cn,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, akemnade@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ letux-kernel@openphoenux.org, kernel@pyra-handheld.com,
+ sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>,
+ stable@vger.kernel.org
+Subject: [PATCH v2] drm/fb-helper: Only consider active CRTCs for vblank sync
+Date: Mon, 22 Jun 2026 13:33:34 +0200
+Message-ID: <20260622113434.682292-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260617-drm-all-atomic-bridges-v1-19-b63e6316166b@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; ARC_NA(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FREEMAIL_TO(0.00)[goldelico.com,iscas.ac.cn,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_TWELVE(0.00)[14];
+ MIME_TRACE(0.00)[0:+];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[iscas.ac.cn:email,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,198 +106,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 17, 2026 at 12:14:44PM +0200, Maxime Ripard wrote:
-> The simple-bridge bridge still uses the deprecated non-atomic bridge
-> callbacks.
-> 
-> Switch to their atomic counterparts, adding the bridge state
-> handlers if not already present.
+Only synchronize fbdev output to the vblank of an active CRTC. Go over
+the list of CRTCs and pick the first that matches. Fixes warnings as
+the one shown below
 
-You can tailor the commit message to this specific patch to avoid the
-"if not already present", and the commit message should explain *why*
-you do this.
+[   77.201354] WARNING: drivers/gpu/drm/drm_vblank.c:1320 at drm_crtc_wait_one_vblank+0x194/0x1cc [drm], CPU#1: kworker/1:7/1867
+[   77.201354] omapdrm omapdrm.0: [drm] vblank wait timed out on crtc 0
 
-> Generated by the following Coccinelle script:
-> 
-> @ is_bridge @
-> identifier funcs;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
-> 	...,
->  };
-> 
-> @ has_create_state depends on is_bridge @
-> identifier funcs, f;
-> @@
-> 
-> struct drm_bridge_funcs funcs = {
->   ...,
->   .atomic_create_state = f,
->   ...,
-> };
-> 
-> @ update_struct depends on (is_bridge && !has_create_state) @
-> identifier is_bridge.funcs;
-> identifier f;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
-> +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
-> +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-> +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
->  	...,
->  };
-> 
-> @ update_pre_enable_struct depends on (is_bridge && !has_create_state) @
-> identifier is_bridge.funcs;
-> identifier f;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
->  	...,
-> -	.pre_enable = f,
-> +	.atomic_pre_enable = f,
->  	...,
->  };
-> 
-> @ update_pre_enable_impl depends on update_pre_enable_struct @
-> identifier update_pre_enable_struct.f;
-> identifier b;
-> @@
-> 
-> -void f(struct drm_bridge *b)
-> +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
->  {
-> 	...
->  }
-> 
-> @ update_enable_struct depends on (is_bridge && !has_create_state) @
-> identifier is_bridge.funcs;
-> identifier f;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
->  	...,
-> -	.enable = f,
-> +	.atomic_enable = f,
->  	...,
->  };
-> 
-> @ update_enable_impl depends on update_enable_struct @
-> identifier update_enable_struct.f;
-> identifier b;
-> @@
-> 
-> -void f(struct drm_bridge *b)
-> +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
->  {
-> 	...
->  }
-> 
-> @ update_disable_struct depends on (is_bridge && !has_create_state) @
-> identifier is_bridge.funcs;
-> identifier f;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
->  	...,
-> -	.disable = f,
-> +	.atomic_disable = f,
->  	...,
->  };
-> 
-> @ update_disable_impl depends on update_disable_struct @
-> identifier update_disable_struct.f;
-> identifier b;
-> @@
-> 
-> -void f(struct drm_bridge *b)
-> +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
->  {
-> 	...
->  }
-> 
-> @ update_post_disable_struct depends on (is_bridge && !has_create_state) @
-> identifier is_bridge.funcs;
-> identifier f;
-> @@
-> 
->  struct drm_bridge_funcs funcs = {
->  	...,
-> -	.post_disable = f,
-> +	.atomic_post_disable = f,
->  	...,
->  };
-> 
-> @ update_post_disable_impl depends on update_post_disable_struct @
-> identifier update_post_disable_struct.f;
-> identifier b;
-> @@
-> 
-> -void f(struct drm_bridge *b)
-> +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
->  {
-> 	...
->  }
-> 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
->  drivers/gpu/drm/bridge/simple-bridge.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
-> index cc13c98f9be6..3fba7002322e 100644
-> --- a/drivers/gpu/drm/bridge/simple-bridge.c
-> +++ b/drivers/gpu/drm/bridge/simple-bridge.c
-> @@ -130,11 +130,12 @@ static int simple_bridge_attach(struct drm_bridge *bridge,
->  	drm_connector_attach_encoder(&sbridge->connector, encoder);
->  
->  	return 0;
->  }
->  
-> -static void simple_bridge_enable(struct drm_bridge *bridge)
-> +static void simple_bridge_enable(struct drm_bridge *bridge,
-> +				 struct drm_atomic_commit *commit)
->  {
->  	struct simple_bridge *sbridge = drm_bridge_to_simple_bridge(bridge);
->  	int ret;
->  
->  	if (sbridge->vdd) {
-> @@ -144,24 +145,28 @@ static void simple_bridge_enable(struct drm_bridge *bridge)
->  	}
->  
->  	gpiod_set_value_cansleep(sbridge->enable, 1);
->  }
->  
-> -static void simple_bridge_disable(struct drm_bridge *bridge)
-> +static void simple_bridge_disable(struct drm_bridge *bridge,
-> +				  struct drm_atomic_commit *commit)
->  {
->  	struct simple_bridge *sbridge = drm_bridge_to_simple_bridge(bridge);
->  
->  	gpiod_set_value_cansleep(sbridge->enable, 0);
->  
->  	if (sbridge->vdd)
->  		regulator_disable(sbridge->vdd);
->  }
->  
->  static const struct drm_bridge_funcs simple_bridge_bridge_funcs = {
-> +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
-> +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-> +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
->  	.attach		= simple_bridge_attach,
-> -	.enable		= simple_bridge_enable,
-> -	.disable	= simple_bridge_disable,
-> +	.atomic_enable = simple_bridge_enable,
-> +	.atomic_disable = simple_bridge_disable,
->  };
->  
->  static int simple_bridge_probe(struct platform_device *pdev)
->  {
->  	struct simple_bridge *sbridge;
+This currently happens if the fbdev output is not on CRTC 0.
 
+Atomic and non-atomic drivers require distinct code paths. As for other
+fbdev operations, implement both and select the correct one at runtime.
+
+Not finding an active CRTC is not a bug. Do not wait in this case, but
+flush the display update as before.
+
+v2:
+- move look-up code into separate helper
+- support drivers with legacy modesetting
+v1:
+- see https://lore.kernel.org/dri-devel/1c9e0e24-9c4a-4259-8700-cf9e5fd60ca3@suse.de/
+
+Co-authored-by: H. Nikolaus Schaller <hns@goldelico.com>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: d8c4bddcd8bcb ("drm/fb-helper: Synchronize dirty worker with vblank")
+Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Closes: https://bugs.debian.org/1138033
+Cc: <stable@vger.kernel.org> # v6.19+
+---
+ drivers/gpu/drm/drm_fb_helper.c | 71 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 70 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index 7b11a582f8ec..cbf0a9a7b8e5 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -225,16 +225,85 @@ static void drm_fb_helper_resume_worker(struct work_struct *work)
+ 	console_unlock();
+ }
+ 
++static int find_crtc_index_atomic(struct drm_fb_helper *helper)
++{
++	struct drm_device *dev = helper->dev;
++	struct drm_plane *plane;
++
++	drm_for_each_plane(plane, dev) {
++		const struct drm_plane_state *plane_state;
++		const struct drm_crtc *crtc;
++
++		if (plane->type != DRM_PLANE_TYPE_PRIMARY)
++			continue;
++
++		plane_state = plane->state;
++		if (plane_state->fb != helper->fb || !plane_state->crtc)
++			continue; /* plane doesn't display fbdev emulation */
++
++		crtc = plane_state->crtc;
++		if (!crtc->state->active)
++			continue;
++		if (drm_WARN_ON_ONCE(dev, crtc->index > INT_MAX))
++			continue; /* driver bug */
++
++		return crtc->index;
++	}
++
++	return -EINVAL;
++}
++
++static int find_crtc_index_legacy(struct drm_fb_helper *helper)
++{
++	struct drm_device *dev = helper->dev;
++	struct drm_crtc *crtc;
++
++	drm_for_each_crtc(crtc, dev) {
++		struct drm_plane *plane = crtc->primary;
++
++		if (!crtc->enabled)
++			continue;
++		if (!plane || plane->fb != helper->fb)
++			continue; /* CRTC doesn't display fbdev emulation */
++		if (drm_WARN_ON_ONCE(dev, crtc->index > INT_MAX))
++			continue; /* driver bug */
++
++		return crtc->index;
++	}
++
++	return -EINVAL;
++}
++
++static int drm_fb_helper_find_crtc_index(struct drm_fb_helper *helper)
++{
++	struct drm_device *dev = helper->dev;
++	int crtc_index;
++
++	mutex_lock(&dev->mode_config.mutex);
++
++	if (drm_drv_uses_atomic_modeset(dev))
++		crtc_index = find_crtc_index_atomic(helper);
++	else
++		crtc_index = find_crtc_index_legacy(helper);
++
++	mutex_unlock(&dev->mode_config.mutex);
++
++	return crtc_index;
++}
++
+ static void drm_fb_helper_fb_dirty(struct drm_fb_helper *helper)
+ {
+ 	struct drm_device *dev = helper->dev;
+ 	struct drm_clip_rect *clip = &helper->damage_clip;
+ 	struct drm_clip_rect clip_copy;
++	int crtc_index;
+ 	unsigned long flags;
+ 	int ret;
+ 
+ 	mutex_lock(&helper->lock);
+-	drm_client_modeset_wait_for_vblank(&helper->client, 0);
++	crtc_index = drm_fb_helper_find_crtc_index(helper);
++	if (crtc_index >= 0)
++		drm_client_modeset_wait_for_vblank(&helper->client, crtc_index);
+ 	mutex_unlock(&helper->lock);
+ 
+ 	if (drm_WARN_ON_ONCE(dev, !helper->funcs->fb_dirty))
 -- 
-Regards,
+2.54.0
 
-Laurent Pinchart
