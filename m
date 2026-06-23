@@ -4,45 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A02FCDB471
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 20:46:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79CD4CDB470
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 20:47:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F72110ECAE;
-	Tue, 23 Jun 2026 20:46:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB07A10ECAF;
+	Tue, 23 Jun 2026 20:46:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="miEJMMv8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hUoEMut+";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78F1710ECAC
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:46:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2316610ECAF
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:46:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EFEED600AB;
- Tue, 23 Jun 2026 20:46:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 671C31F000E9;
- Tue, 23 Jun 2026 20:46:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0C6C3408E7;
+ Tue, 23 Jun 2026 20:46:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6BC11F000E9;
+ Tue, 23 Jun 2026 20:46:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782247602;
- bh=jZRP45wH9RaJ44iagACI6c3TdoA1mcRD/Qfa2OgMY+E=;
+ s=k20260515; t=1782247618;
+ bh=E+pdPHUzO2f+Yfg/sq60kV+78LBrUXwyWw6ffZK2aK8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=miEJMMv8uiH8LU9XlaV8HU4/aB7moOiJkoq4oSShFYymVjvpAyDpqSDh8neQvRmcZ
- 88ce/lUbkRbAVRMkeDbHq4tgdIGDq6KowLRpwPY6rRWL1uJyABF52HtAIegm0SXDGa
- MKmk6SQf7izVZ9Hr8MieBxE5qJmcyw1WOd8Sa7/5+s+nbZdZEvhNmh0s6H6lThdKyJ
- Rylw8QUs4T/rOp9v5xyBouA+71LFquk579WihlW6sNKnJqr0mTjsULgEId6bDrXDE2
- xgXoXfC3o/9wzzXhQMud9rEW/kJmxGnAMaf7BMZb5ayTk7M8cIBUaMOTQeY3R3pWPd
- ivmoGyXU+YeqA==
+ b=hUoEMut+AmxoyL2NCLaP3atxOKaDbi41ScbUcIkbA/5zLLV9qii5ZlSSMILDUOgVB
+ kGvhpAsqDS1wTp4mrTUjE6PXN4bA14QojBFTpisHyJ8JJBJ2kwZTln1rBBTQ8CcIMx
+ Aa0a/RUi2KKGVeTNEZYgvAlLX8aMW2pINyxozH1FCdIhGYKuET1YpGWly01xfgrztG
+ BZGpPqCT5NO1OPrKrVls5z1M5UyI8EdOMIBrhGrPSwTXajI+RS92v07lc65vNKd1OD
+ nwsuljKO0tR2LxKNAaZQDbWsYUv+KiI3o0jZJ55nDTyrPSs+WiQ0G3Kgm50qc8/ibd
+ iwYN1EVOQDGUw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 02/13] gpu: nova-core: gsp: sequencer: do not store
- sequence into GspSequencer
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org,
- "Danilo Krummrich" <dakr@kernel.org>
-In-Reply-To: <20260622-nova-bootcontext-v2-2-0ddeafc06f5d@nvidia.com>
-References: <20260622-nova-bootcontext-v2-0-0ddeafc06f5d@nvidia.com>
- <20260622-nova-bootcontext-v2-2-0ddeafc06f5d@nvidia.com>
+Subject: Re: [PATCH v3 1/3] drm/drm_ras: Add drm_ras netlink error event
+To: "Riana Tauro" <riana.tauro@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260622101716.3313496-6-riana.tauro@intel.com>
+References: <20260622101716.3313496-5-riana.tauro@intel.com>
+ <20260622101716.3313496-6-riana.tauro@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 20:46:42 +0000
-Message-Id: <20260623204642.671C31F000E9@smtp.kernel.org>
+Date: Tue, 23 Jun 2026 20:46:58 +0000
+Message-Id: <20260623204658.C6BC11F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,87 +57,154 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [Medium] Multicast events are restricted to `init_net`, silently dropping=
+ events for listeners in other network namespaces despite `.netnsok =3D tru=
+e`.
+
 Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the iterator sil=
-ently terminates on command parsing errors, causing the GSP boot sequence t=
-o incorrectly report success instead of aborting.
+- [High] Lockless access to `struct drm_ras_node` pointers retrieved from x=
+array leads to Use-After-Free.
 --
 
-commit 67a42d6a50b9bd7a1977aebced3e9453d53bb90e
-Author: Alexandre Courbot <acourbot@nvidia.com>
+commit aab90b1a7792dc491d0dcac6947d349046f95876
+Author: Riana Tauro <riana.tauro@intel.com>
 
-gpu: nova-core: gsp: sequencer: do not store sequence into GspSequencer
+drm/drm_ras: Add drm_ras netlink error event
 
-This commit refactors the GSP sequencer by moving the command sequence
-data out of the GspSequencer struct and instead passing it directly when
-creating the iterator. This resolves borrow-checker limitations and allows
-for future mutable borrows within the boot context.
+This commit defines a new netlink event 'error-event' and a multicast
+group 'error-report' for the DRM RAS subsystem. It provides a function
+for drivers to report device and node error information to subscribed
+userspace listeners.
 
-> diff --git a/drivers/gpu/nova-core/gsp/sequencer.rs b/drivers/gpu/nova-co=
-re/gsp/sequencer.rs
-> index 0da3c35318866..b5e049f76c282 100644
-> --- a/drivers/gpu/nova-core/gsp/sequencer.rs
-> +++ b/drivers/gpu/nova-core/gsp/sequencer.rs
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
+Cc: Lijo Lazar <lijo.lazar@amd.com>
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: David S. Miller <davem@davemloft.net>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Riana Tauro <riana.tauro@intel.com>
+Reviewed-by: Raag Jadav <raag.jadav@intel.com>
+
+> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
+> index d6eab29a1394c..77f912a4d101f 100644
+> --- a/drivers/gpu/drm/drm_ras.c
+> +++ b/drivers/gpu/drm/drm_ras.c
 
 [ ... ]
 
-> @@ -355,7 +351,6 @@ pub(crate) fn run(
->          };
+> @@ -222,6 +255,60 @@ static int doit_reply_value(struct genl_info *info, =
+u32 node_id,
+>  	return genlmsg_reply(msg, info);
+>  }
 > =20
->          let sequencer =3D GspSequencer {
-> -            seq_info,
->              bar: ctx.bar,
->              sec2_falcon: ctx.sec2_falcon,
->              gsp_falcon: ctx.gsp_falcon,
-> @@ -366,14 +361,14 @@ pub(crate) fn run(
-> =20
->          dev_dbg!(sequencer.dev, "Running CPU Sequencer commands\n");
-> =20
-> -        for cmd_result in sequencer.iter() {
-> +        for cmd_result in GspSeqIter::new(&seq_info, sequencer.dev) {
+> +/**
+> + * drm_ras_nl_error_event() - Report an error event
+> + * @node: Node structure
+> + * @error_id: ID of the error
+> + * @error_name: Name of the error
+> + * @value: Value associated with the error
+> + * @flags: GFP flags for memory allocation
+> + *
+> + * Report an error-event to userspace using the error-report multicast g=
+roup.
+> + *
+> + * Return: 0 on success, or negative errno on failure.
+> + */
+> +int drm_ras_nl_error_event(struct drm_ras_node *node, u32 error_id, cons=
+t char *error_name,
+> +			   u32 value, gfp_t flags)
+> +{
+> +	struct genl_info info;
+> +	struct sk_buff *msg;
+> +	struct nlattr *hdr;
+> +	int ret;
+> +
+> +	if (!error_name)
+> +		return -EINVAL;
+> +
+> +	if (!genl_has_listeners(&drm_ras_nl_family, &init_net, DRM_RAS_NLGRP_ER=
+ROR_REPORT))
+
+[Severity: Medium]
+Will this silently drop events for users subscribing from non-init network
+namespaces? The drm_ras_nl_family sets .netnsok =3D true, but this check
+is hardcoded to init_net.
+
+> +		return 0;
+> +
+> +	genl_info_init_ntf(&info, &drm_ras_nl_family, DRM_RAS_CMD_ERROR_EVENT);
+> +
+> +	msg =3D genlmsg_new(NLMSG_GOODSIZE, flags);
+> +	if (!msg)
+> +		return -ENOMEM;
+> +
+> +	hdr =3D genlmsg_iput(msg, &info);
+> +	if (!hdr) {
+> +		ret =3D -EMSGSIZE;
+> +		goto free_msg;
+> +	}
+> +
+> +	ret =3D msg_put_error_event_attrs(msg, node, error_id, error_name, valu=
+e);
+> +	if (ret)
+> +		goto cancel_msg;
+> +
+> +	genlmsg_end(msg, hdr);
+> +	genlmsg_multicast(&drm_ras_nl_family, msg, 0, DRM_RAS_NLGRP_ERROR_REPOR=
+T, flags);
+
+[Severity: Medium]
+Similarly, genlmsg_multicast() implicitly uses init_net under the hood. Does
+this prevent containerized listeners in other network namespaces from recei=
+ving
+the multicast events?
+
+> +	return 0;
+> +
+> +cancel_msg:
+> +	genlmsg_cancel(msg, hdr);
+> +free_msg:
+> +	nlmsg_free(msg);
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(drm_ras_nl_error_event);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but doesn't the iterator
-silently terminate on command parsing errors, causing the GSP boot sequence
-to incorrectly report success instead of aborting?
+This isn't a bug introduced by this patch, but does locklessly accessing
+drm_ras_node pointers retrieved from drm_ras_xa lead to a use-after-free?
 
-Looking at GspSeqIter::next(), when a command fails to parse, the error
-is swallowed and translated to None:
+In drivers/gpu/drm/drm_ras.c, get_node_error_counter() retrieves the node:
 
-drivers/gpu/nova-core/gsp/sequencer.rs:GspSeqIter::next() {
+drivers/gpu/drm/drm_ras.c:get_node_error_counter() {
     ...
-    cmd_result.map_or_else(
-        |_err| {
-            dev_err!(self.dev, "Error parsing command at offset {}\n", offs=
-et);
-            None
-        },
+    node =3D xa_load(&drm_ras_xa, node_id);
+    if (!node)
+        return -ENOENT;
+    ...
+    return node->query_error_counter(node, error_id, name, value);
+}
+
+A similar lockless pattern is present in drm_ras_nl_list_nodes_dumpit():
+
+drivers/gpu/drm/drm_ras.c:drm_ras_nl_list_nodes_dumpit() {
+    ...
+    xa_for_each_start(&drm_ras_xa, id, node, ctx->restart) {
+        ...
+        ret =3D nla_put_string(skb, DRM_RAS_A_NODE_ATTRS_DEVICE_NAME, node-=
+>device_name);
     ...
 }
 
-Returning None signals normal exhaustion of the iterator. This causes the
-loop here in GspSequencer::run() to cleanly exit without ever hitting the
-Err(e) match arm below.
-
-Consequently, GspSequencer::run() will incorrectly log success and return
-Ok(()), completely masking the hardware initialization failure and leaving
-the hardware in a malformed state.
-
->              match cmd_result {
->                  Ok(cmd) =3D> cmd.run(&sequencer)?,
->                  Err(e) =3D> {
->                      dev_err!(
->                          sequencer.dev,
->                          "Error running command at index {}\n",
-> -                        sequencer.seq_info.cmd_index
-> +                        seq_info.cmd_index
->                      );
->                      return Err(e);
->                  }
+If a concurrent device teardown or hot-unplug removes and frees the node
+while these functions are executing, will accessing node->query_error_count=
+er
+or node->device_name dereference a freed pointer?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622-nova-bootc=
-ontext-v2-0-0ddeafc06f5d@nvidia.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622101716.3313=
+496-5-riana.tauro@intel.com?part=3D1
