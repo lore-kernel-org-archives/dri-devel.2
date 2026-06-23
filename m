@@ -4,44 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE153CDB471
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 20:27:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18A61CDB471
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 20:28:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51D0D10EC98;
-	Tue, 23 Jun 2026 20:27:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88D0E10EC9D;
+	Tue, 23 Jun 2026 20:28:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iClIIXoE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VqXZ6o1K";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2136710EC98
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:27:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CED5C432C4;
- Tue, 23 Jun 2026 20:27:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6331C1F000E9;
- Tue, 23 Jun 2026 20:27:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782246458;
- bh=pmuoR3I2zHcAeC/ryuf6YmRjcW4IobloCZbpijQvNv4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=iClIIXoEbnbZIKa7+ku73VXQQ/59kfoqvgDD4i3ryO7qbhdvgrKm1Vxn+X2QzjuMK
- qUP2SvA2CRjFbVLZHuj3XMKmk5eGozHtna5R1eEsC06DtMIOosj5v7TmrFogTPtVqh
- JBBd1Iesiqdc97gFlkj85bvK4FbMlkXHn6K3NZYph3AtMhscJ3YuchY/U5v9iEHiu+
- 24PGD87WkSKD/BJXDdZuMXsxvx6EBKMcX69CioG2dbWVMEOJJlDmQGwFG7NrHaGUIS
- j0KfH48LelbDy9FsFmwCNcG6C4bfoF9BmRDy+kK7UzXEAMBOjplEbxmeDWzysxbEEG
- L94SCk6EOznQw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 5/7] arm64: dts: renesas: r8a779g0: Add DSC
-To: "Tomi Valkeinen" <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: robh@kernel.org, wsa+renesas@sang-engineering.com,
- devicetree@vger.kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260615-rcar-du-dsc-v5-5-aed1a28610e4@ideasonboard.com>
-References: <20260615-rcar-du-dsc-v5-5-aed1a28610e4@ideasonboard.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 20:27:37 +0000
-Message-Id: <20260623202738.6331C1F000E9@smtp.kernel.org>
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B2AD10EC9D
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:28:48 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4908b92904fso3431145e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 13:28:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782246527; x=1782851327; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HUvOpAp1AnoH/UC2gSkhKh0euuT0oHxArLADJwiZt64=;
+ b=VqXZ6o1KfGn49AXZCPGsC8g6B8dtSnWYQBE71SE0WX+Z0K0twMDEWJ6fS5AWxktAOo
+ 2tlP2lhpBNQxQNH6vUX+HLHYfh5Kp/uJERWURZ3YzovC5Ofu6OjH2Go4cWJc/bn8DTaT
+ L+qeM0J/RCvxLGSJu+Xe58goiFfJMepxuDKAmWVM4gkXgnpP66DeJDfLMPtnaw4jIC68
+ /DO4onLFyTYcy3yrUTFaiWwcoKTfogRi+E8k0BIZFtvBSKMNgbbB1/TUTZpdKsu2qj6b
+ syhdQaWZjISFFCsMjYf1srYDlSA3dMcg1i3yg7o6j8E0261B2IwkDQmFFUsLJEM7psA6
+ QKJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782246527; x=1782851327;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=HUvOpAp1AnoH/UC2gSkhKh0euuT0oHxArLADJwiZt64=;
+ b=QWAw/K3/pPRDmb6dz89dwN17lXaPGYMDKSO49b3oi3Efvzi7+1gf9eEIdEcb9xRtIY
+ CZu+4/MbY40/9MpIJ+NsFhOb1YI/u6EEatlAEZgfWgLkH7Hk0xbjBcOfrT7T5Bgr6lkB
+ 8Ui2NyaEqMAqhYM9TcIdykkJlXQ2nMMqBLU8JnjweomPIk4yA5kU1SO7rqq/ZJq1g/Uf
+ lLiuUQi2vwvjUHD21WSl9V9Y+5oPF99+oyD007ThpMfx+bAbD9bMhOOEYFMal5qMhiUP
+ EP453o2BgvHNwuQyxe6LWLINj/44aaZ68n5hi0WLes9qgPgc4ysf+iT2Zr64/cxFZJQw
+ v/FA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+gkXxx/DbTQZYWrDcmgnGleHBLy67D0zi6rXnNftunyNuc3uFH0oBFyCJ9nIm3GgyiYvUj65iQ+EA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxCUt11dNlzZYouvbMt1SE/eWAbo3KWNuLXkf0z35mcl/CmUzIP
+ 3yzCHplvTCF/gnLq5wfBcG74zuHkbAGnIIaVcl7alx3tzagO6FwPyQJe
+X-Gm-Gg: AfdE7cly3JVphD4beioXkNDsjjbsKvMxNuGpa/DdwHMKUaSQpBCpGALKa87iurnkGHm
+ TERe6cLUkQ3MsZzwTw9TCci6DIO3hL20dOMCfKg9Pez8ofQIoYY09nd51YkU3t4yGzKLWkXm6lC
+ 7nYifqdU/+J0xgemAiuRx93GzmUHRNaq3BZrmhF+IoPZ/ZZkvLC+CCzuau9DYMKEJTdi84W8zZ/
+ qAAkMZPiJSLKHgansHzWUTdzrKuiqM6zd5gBaMLxyR0GbwmfeFJ7ByniqZdbMwEkp8F5fHO7d1u
+ kzBID+MfWcrFGZsb2F8EmN6PxQzw8B9EiaOVbFajQxSquSU6jiuoxbEY1NBLLaQSuQrNRckLYbC
+ 77KoNKqP6NKNRVU8gZuF24UBk6eMgqdf0uGEEr7xJPSz8hMIk0OHj6PcPK790ZM24nsBYjWTHzt
+ TcuaSKIDuQ3t298+pVrB/3CmTyWr7jg/Ck8D5AxA==
+X-Received: by 2002:a05:600c:6308:b0:490:b8c0:d470 with SMTP id
+ 5b1f17b1804b1-4925b37eb4emr62966205e9.19.1782246526525; 
+ Tue, 23 Jun 2026 13:28:46 -0700 (PDT)
+Received: from anthony.local ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49249207dabsm570397635e9.0.2026.06.23.13.28.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Jun 2026 13:28:45 -0700 (PDT)
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+To: javierm@redhat.com,
+	andriy.shevchenko@intel.com,
+	mripard@kernel.org
+Cc: airlied@gmail.com, andy@kernel.org, azuddinadam@gmail.com,
+ chintanlike@gmail.com, conor+dt@kernel.org, deller@gmx.de,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, krzk+dt@kernel.org,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-staging@lists.linux.dev, maarten.lankhorst@linux.intel.com,
+ robh@kernel.org, simona@ffwll.ch, tzimmermann@suse.de
+Subject: Re: [PATCH v2 4/4] staging: fbtft: remove fb_ssd1351 driver
+Date: Tue, 23 Jun 2026 23:28:11 +0300
+Message-ID: <20260623202811.16262-1-amit.barzilai22@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <87ik79iqsz.fsf@ocarina.mail-host-address-is-not-set>
+References: <87ik79iqsz.fsf@ocarina.mail-host-address-is-not-set>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,80 +93,30 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The rcar_dsc driver does not deassert its hardware reset, leaving =
-the DSC block permanently in reset.
-- [Medium] Mixing devm_drm_bridge_add with manual pm_runtime_disable create=
-s a devres cleanup ordering bug and a use-after-disable window.
---
+Javier Martinez Canillas <javierm@redhat.com> writes:
 
-commit ffeafc5aca0f12828e91ec48615ef59b3d5989f2
-Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> Andy Shevchenko <andriy.shevchenko@intel.com> writes:
+>
+>> On Mon, Jun 22, 2026 at 06:25:06PM +0300, Amit Barzilai wrote:
+>>> The SSD1351 support was added to the ssd130x DRM driver. To avoid
+>>> confusion and irrelevant updates, the staging fb_ssd1351 driver is
+>>> removed.
+>>
+>> NAK, the fbtft has two drivers in one (SPI + parallel), plus as Maxime said,
+>> it has its own binding.
+>>
+>
+> Yes, I agree that we don't want to delete the fbtft driver.
 
-arm64: dts: renesas: r8a779g0: Add DSC
+I will remove this patch from the next version.
 
-This commit adds the Renesas DSC Display Stream Compression bridge to the
-r8a779g0 device tree. The node is placed between the DU and DSI1 units to
-make the DSI1 pipeline functional.
+Thank you Javier, Andy and Maxime for the feedback and explanations.
 
-> --- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-> @@ -2298,6 +2298,35 @@ du_out_dsi0: endpoint {
-[ ... ]
-> +		dsc: bridge@feb8d000 {
-> +			compatible =3D "renesas,r8a779g0-dsc";
+-- 
+Thanks,
 
-[Severity: Medium]
-Does the driver backing this device introduce a devres cleanup regression?
+Amit
 
-Looking at rcar_dsc.c, rcar_dsc_probe() uses a managed function for the
-bridge but manually enables PM runtime:
-
-drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c:rcar_dsc_probe() {
-    ...
-    pm_runtime_enable(&pdev->dev);
-    ret =3D devm_drm_bridge_add(dev, &dsc->bridge);
-    ...
-}
-
-Then rcar_dsc_remove() manually disables PM runtime:
-
-drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c:rcar_dsc_remove() {
-    pm_runtime_disable(&pdev->dev);
-}
-
-If the driver is unbound, rcar_dsc_remove() manually calls
-pm_runtime_disable(). Only after this returns do the devres handlers
-run to call drm_bridge_remove().
-
-If a DRM atomic commit executes during this window, rcar_dsc_atomic_enable()
-will call pm_runtime_get_sync(). Because PM runtime is disabled, won't this
-fail, trigger a warning, and leave the hardware unpowered?
-
-Using devm_pm_runtime_enable() instead would guarantee the correct reverse
-cleanup order.
-
-> +			reg =3D <0 0xfeb8d000 0 0x400>;
-> +			interrupts =3D <GIC_SPI 559 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&cpg CPG_MOD 2819>;
-> +			power-domains =3D <&sysc R8A779G0_PD_ALWAYS_ON>;
-> +			resets =3D <&cpg 2819>;
-
-[Severity: High]
-Is there a regression here that leaves the DSC block permanently in reset?
-
-Looking at rcar_dsc_probe() in drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c,
-it doesn't appear to request or explicitly deassert the hardware reset line
-defined here.
-
-If the DSC block is left in its initial reset state, won't it fail to pass
-pixel data and break the display pipeline?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615-rcar-du-ds=
-c-v5-0-aed1a28610e4@ideasonboard.com?part=3D5
