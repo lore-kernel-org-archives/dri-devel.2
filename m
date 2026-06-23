@@ -4,105 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FBAECDB471
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 21:03:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D997CDB470
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 21:04:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA6D310ECC2;
-	Tue, 23 Jun 2026 21:03:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76E7010E282;
+	Tue, 23 Jun 2026 21:04:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="vEetVpjD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gpALaymn";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39BA810ECC0
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 21:03:41 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-4924933d072so3405e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 14:03:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782248619; cv=none;
- d=google.com; s=arc-20260327;
- b=Boaaq9lw9KdsJ7y0fxOv3LYJg6qBJLp90/pHinDbsZPZgwmbekEFWYnyruLlWBuFWR
- xgBQHgUuLhynLVJIt9BSV+SjFKCI2+WuQc8Aqi1vO4WAij+pgtBtz7bRs+kdHXBTHqQC
- tzGrUKYwFB+b8LHoLQVZoxI+pA7otqaOwLBt3FMYdcy5ovfszCG+z2+fM+ify1RWSdwl
- g/WFVuuoeeEa36OdceUX1TMD+JrMwPfcJFv603WhKXXd3xbmM3fDOp6sE0JsyCuivzwT
- mPzjvhOswY8NH3K9gvapolrIz2bP+MmCiUaA07Hka3qh2hlqdhRZDtK6sCea6ajh1gU4
- wiig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Slm3EEkSH4PB9RQu260syQQELF+PaB3Sj0996Hd4Y1A=;
- fh=FwUjqNcVoxYkHWNwoYIM8VEhndGPU/DNG0idk4qfltk=;
- b=Xvn5QOyor2oF8kl3Vp6JwNuqsNMAXBBsSJmFVaF9SFWPNFemQwWr0SjT7evxDV8EGz
- Eat6xE9CW5XwKpXoiEP+YowQ5Tm/vOBjQzoJWji5ldHXbpzz8hmkYbYVen7L4ozL6UR6
- aAgJvcnse2x4/EaUJEl3aulr+bN0HzaqK1epyuYQ1smmtU9hoXGx0qmnfzKvpe5FVhQ4
- P/hBB0D9mfWwyIc6LWwdbJ5GBalTvD4z7SvuqjWOQ5Rl2AaHG07Su55pdkjbze+KBp7n
- 9qPTbVynS6eBniJAehTPGEbCRnjX1ZZ65FL6AVJW6y+BKpV+eEyu+IwjYP3Zm7MnkX7y
- jzgQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1782248619; x=1782853419;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Slm3EEkSH4PB9RQu260syQQELF+PaB3Sj0996Hd4Y1A=;
- b=vEetVpjDkPWMuQzfFYgSlYKBr2Wfaywp7Q4z0DLSpsIFCzLcVpHBiYb3oFN0cy4V7m
- 4KhnUoZL/MbbfyjTgf3AhpgUor5U3TJwYgbjJeu7QHIVLxd82H/Zwf+kD8O5nU2pQroq
- VfPiVqWHuKj1AF2oepgA1snG7klhdYWigr4aKSjUq8eVy8PqsTU6vXd6b182TmLfKasR
- oUrQYrX1bsGn5psdow5Ro/SxMrmzO1ZlolVNlyZQk0y1AccHS+fXZHWMZNSZe9wjIqCV
- IVnVFiMi7g3GYfiBZVrEOiJ2iqQ82bXNPLTp3B6/P2OVvNbNUjqXUNhIypCOt7m6+4fp
- 5g8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782248619; x=1782853419;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Slm3EEkSH4PB9RQu260syQQELF+PaB3Sj0996Hd4Y1A=;
- b=iw8tofCVlUCRBiwz5FF7bMx9a9U/MvrGRz0t8B2T7hzDAEd/xE+seyDp3bd0jw+d/5
- ld8m2QEnfsNHuS9+O1DJj/RFkVn8eA1dQLZnV4+Jf6nZ955zZLUhFGgkELudGoMsqUFA
- jp5WwNS+uy72cHO/gJxadX4Xlyx1QrcaNDxsO86GUXMDjccbHxw7ZwdsxUOR5st9/IiF
- FAms0y9FJsxI7n+j0Vtf7XKvkfUz6Lm333HXSU5PGl2wEU5N/qquKwwXBngmd8u+0mw2
- Ne0PXkMTdCn0xYLhsOFg+iJATOBphmxmASlQl8wp2ihh2ggpS7UJ3TTrh+yAfolc8+Wl
- CdWQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9NVegq49ntIOsdRLJf5wQMGR9aZkYvmobC+PVe/v5zU936AhGGAzSqDtHVJ+/vyWQXzPBj/Alc8Gs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyXaXXWLJ+O0wDa0Fnh7F+8j4AO/6CFNevsCGFOq33v+lDrIdaY
- B6sLnpwgUABtPj7V7IoQ/fS9u7rPWAC29U5ZZQQb7ypiuCoVHhGOhdrd7FMm8Z2veNbC6W9GuCU
- IHDT/4AT80cUxilh1uI5lmIFU10FWTSyLdrqUrvU=
-X-Gm-Gg: AfdE7cm/lWFbh7SfRcRQYL4pmY5nr4e47JTo9lSSLnazPb8/4viTWrPlRD6jBZXGB2/
- OPFCnej2D/y0HognnnRstmRnKGTX58cdrlrhCA/tLjwnCHjWwo5C97wlGvXy0gT59nA/jY1dplS
- cK0CqE7HrDiZqPC3mmPu66tBjphYxKIdsqpTz7iEBaeqjgMA2hjlQ9Z3F+PLd+aghcSEfxSNYPV
- fAgQYGfJaeBc2xAUO3/qjy/RS8ptZqlz0A7QqZhILBC34NVT0QHntWRaQ0ODh4GkAXgOknHG5FC
- bM0=
-X-Received: by 2002:a05:600c:16d3:b0:485:1a54:9407 with SMTP id
- 5b1f17b1804b1-492603072camr290785e9.0.1782248619190; Tue, 23 Jun 2026
- 14:03:39 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260621222130.1667453-1-xuehaohu@google.com>
- <20260622091344.794e0d74@pumpkin>
- <CAPd9Lg9+d=Rw4230FdcMFd0VYfyhXhD=eju53iURR8c61iXsWw@mail.gmail.com>
- <20260623092501.17bef195@pumpkin>
-In-Reply-To: <20260623092501.17bef195@pumpkin>
-From: David Hu <xuehaohu@google.com>
-Date: Tue, 23 Jun 2026 17:03:26 -0400
-X-Gm-Features: AVVi8CftE4Qz-bzNimcxnNDxPCuT9w5jszdF7jgeQ4PkwmMrpP9oMduQaXpAyA0
-Message-ID: <CAPd9Lg-i8Agh7_E5cd2CmtWww1cM2PW3A243qtQaHxhvHdjCQw@mail.gmail.com>
-Subject: Re: [PATCH] dma-buf: Split sgl by largest page-aligned chunk
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
- Leon Romanovsky <leon@kernel.org>, 
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, 
- Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, jmoroni@google.com, 
- praan@google.com, kpberry@google.com, sashiko-bot <sashiko-bot@kernel.org>, 
- stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE50210E282
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 21:04:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 98E0743B98;
+ Tue, 23 Jun 2026 21:04:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60C771F000E9;
+ Tue, 23 Jun 2026 21:04:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782248688;
+ bh=nqJ949OhTY0Jp5tKzdS4U6Mkk8mByEbKIopYyxSm0jY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=gpALaymnkp5bcYEc3t2QNaqxwIkeGWRnsS1/HT6dTfZ0Ndaw++c2/lK6NvMHYbkwi
+ c6wArOl60yxiQwpvrowv4+4HdCLqliQLRtfNQqvb8D0AYT8HfGoYe6rawHoRciFVPo
+ CRCw/kMBYiVaqLt5ouC+QLCGsMlzgW/rBk/woT38t4mjeSyTGHz4yeHrJ6bsNPQKMr
+ LinAHLyor1+Gk4AVsco++HjGqe3Xm9V+BPAI80XRzwJm4PAdteBhbhS8DBh1TNAdcu
+ 6gTJyNzFhCQe1FBJw6QoE23VhgxPAhWitc6dpNuMkzHCge7NKGwdaplVT28/ULsdus
+ oE7RlIdQ6uuag==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 2/6] drm: Add DRM_WEDGE_RECOVERY_COLD_RESET recovery
+ method
+To: "Mallesh Koujalagi" <mallesh.koujalagi@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260622131458.144873-10-mallesh.koujalagi@intel.com>
+References: <20260622131458.144873-8-mallesh.koujalagi@intel.com>
+ <20260622131458.144873-10-mallesh.koujalagi@intel.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 23 Jun 2026 21:04:47 +0000
+Message-Id: <20260623210448.60C771F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,37 +54,133 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 23, 2026 at 4:25=E2=80=AFAM David Laight
-<david.laight.linux@gmail.com> wrote:
->
-> On Mon, 22 Jun 2026 17:26:10 -0400
-> David Hu <xuehaohu@google.com> wrote:
->
-> > On Mon, Jun 22, 2026 at 4:13=E2=80=AFAM David Laight
-> > <david.laight.linux@gmail.com> wrote:
-> > >
-> >
-> > Hi David,
-> >
-> > Thank you for your review. You raised many good points regarding
-> > optimizations here. I'll switch to using 2G as the max entry size
-> > (`SZ_2G` from `linux/sizes.h`), and remove divisions and
-> > multiplications. I'll also replace the `for()` loop with `while
-> > (length)`, and drop `min_t()` in favor of `min()` by casting `SZ_2G`
-> > to `size_t`.
->
-> You shouldn't need a cast at all.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Hi David,
+Pre-existing issues:
+- [High] Directly invoking driver `remove()` and `probe()` callbacks from t=
+he PCI error handler bypasses the Linux device model, leading to driver cor=
+e state corruption and subsequent crashes.
+- [High] WEDGE_STR_LEN buffer size is too small to hold all recovery method=
+s, leading to silently truncated uevent strings that userspace cannot parse.
+--
 
-You are right. It looks like `min(length, CONSTANT)` works well here
-without triggering any type mismatch warnings, regardless of whether
-`CONSTANT` is `SZ_1G` (`int`), `SZ_2G` (`unsigned int`), `SZ_4G`
-(`unsigned long long`), or larger. I'll drop the cast and send out a
-v3 shortly.
+commit e0ad0ce6dec9b17be989295e8a1391f07c6154a5
+Author: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
 
-Thanks,
-David
+drm: Add DRM_WEDGE_RECOVERY_COLD_RESET recovery method
+
+Introduce DRM_WEDGE_RECOVERY_COLD_RESET (BIT(4)) recovery method to handle
+scenarios requiring device power cycle. This method addresses cases where o=
+ther
+recovery mechanisms are insufficient to restore device functionality.
+
+> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> index 675675480da49..19c25366635e9 100644
+> --- a/drivers/gpu/drm/drm_drv.c
+> +++ b/drivers/gpu/drm/drm_drv.c
+> @@ -535,6 +535,8 @@ static const char *drm_get_wedge_recovery(unsigned in=
+t opt)
+>  		return "bus-reset";
+>  	case DRM_WEDGE_RECOVERY_VENDOR:
+>  		return "vendor-specific";
+> +	case DRM_WEDGE_RECOVERY_COLD_RESET:
+> +		return "cold-reset";
+
+[Severity: High]
+This is a pre-existing issue, but does adding the cold-reset method make the
+WEDGE_STR_LEN buffer too small to hold all recovery methods?
+
+Could this lead to silently truncated uevent strings that userspace cannot
+parse?
+
+In drm_dev_wedged_event(), the event_string buffer is hardcoded to 32 bytes:
+
+drivers/gpu/drm/drm_drv.c:drm_dev_wedged_event() {
+	char event_string[WEDGE_STR_LEN];
+	...
+	len =3D scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=3D");
+
+	for_each_set_bit(opt, &method, BITS_PER_TYPE(method)) {
+		...
+		len +=3D scnprintf(event_string + len, sizeof(event_string) - len, "%s,",=
+ recovery);
+	}
+
+	if (recovery)
+		/* Get rid of trailing comma */
+		event_string[len - 1] =3D '\0';
+	...
+}
+
+When formatting multiple methods (e.g. "WEDGED=3Drebind,bus-reset,cold-rese=
+t"),
+the string length easily exceeds 32 bytes. If scnprintf() hits the buffer l=
+imit,
+it returns 0 on the last iteration. Decrementing len then chops off the last
+valid character of the truncated string, resulting in a corrupted uevent th=
+at
+breaks userspace parsing.
+
+>  	default:
+>  		return NULL;
+>  	}
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/xe/xe_pci_error.c b/drivers/gpu/drm/xe/xe_pc=
+i_error.c
+> new file mode 100644
+> index 0000000000000..b08601f470d63
+> --- /dev/null
+> +++ b/drivers/gpu/drm/xe/xe_pci_error.c
+> @@ -0,0 +1,135 @@
+
+[ ... ]
+
+> +static pci_ers_result_t xe_pci_error_slot_reset(struct pci_dev *pdev)
+> +{
+> +	const struct pci_device_id *ent =3D pci_match_id(pdev->driver->id_table=
+, pdev);
+> +	struct xe_device *xe =3D pdev_to_xe_device(pdev);
+
+[ ... ]
+
+> +	xe_device_clear_in_reset(xe);
+> +	pdev->driver->remove(pdev);
+> +	devres_release_group(&pdev->dev, xe->devres_group_id);
+> +
+> +	if (pdev->driver->probe(pdev, ent))
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does directly invoking the d=
+river
+remove() and probe() callbacks bypass the Linux device model?
+
+The driver core still considers the device 'bound'. If the manual probe()
+fails, it returns PCI_ERS_RESULT_DISCONNECT, causing the PCI core to formal=
+ly
+unbind the device later.
+
+This invokes xe_pci_remove() on a partially initialized or already
+manually-removed state, which could lead to resource double-frees and NULL
+pointer dereferences.
+
+> +		return PCI_ERS_RESULT_DISCONNECT;
+> +
+> +	xe =3D pdev_to_xe_device(pdev);
+> +
+> +	/* Wedge the device to prevent I/O operations till the resume callback =
+*/
+> +	xe_device_wedged_get(xe);
+> +
+> +	return PCI_ERS_RESULT_RECOVERED;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622131458.1448=
+73-8-mallesh.koujalagi@intel.com?part=3D2
