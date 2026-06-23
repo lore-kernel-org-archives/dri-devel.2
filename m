@@ -4,121 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D218CDB46F
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 13:40:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A3BDCDB46F
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 13:44:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAD8B10EB57;
-	Tue, 23 Jun 2026 13:40:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D04EF89EB1;
+	Tue, 23 Jun 2026 13:44:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="aXm3DvzI";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="SsQG83SX";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011048.outbound.protection.outlook.com [52.101.57.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E276A10EB57
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 13:40:52 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013042.outbound.protection.outlook.com
+ [40.93.196.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6593410EB6D
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 13:43:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YgfU/rDsy0uRqUPxuqc2ykqYJu3t4LkX5/cfJE9X0oGnZCAuAgsfIrxVlpeO6QLulMynm3Auh64B38yBv/ePl++Zl3jkw0FSEHE9Y310mFsQ7GDjfMtya6jM9e96eXboJJqTSCXNng5aUGsqOkLjqbQZI2qXej/POty/pDWuc5usW5JNF6aBHhAAbao82Jb6+Gvba+6wjEYUNk/eRxreS9flya0R459FWm4csju4BIZvNQHGc5/H4HSEeJVyaxk8q9HyVjXiGHHLyviIGh9saZYton//YX+YBkqpCg7oS1E3vJ5N/H8UUxeIumNh91jWiI+/pBU+HrElTxvMtcRd7w==
+ b=rFUYjJRjP7mPdZeClbxR16jD7Dw6Caz6A94uBHOneUKzq/TdUNCPPhgpO8GxFwwhl+19oK5TmeoAkGMSroazbxACez8nB7Jsn73SK3b1JqLeyLKxmLnP0+k3fYJ60QHSwPJfVLg4Qb6NzYBYBT4g40iPB4MdQ7VnEEGBeuoCPTwIuwd2d/G0obTxn8OitZ4L78s+faZ7b0XBV3xHsldMPghb3ZZm6h14VH9lxOfam0IIXRFsBWXcsTVkG+Plghvnr4VFECnhHF9QhwGeDBG7diVnPI01c+ROvRw4jVOuaVuQ4rkbNzHwzrmCpw1vsYxYEHJwK0n0YMD0PTHNmtKNaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AemZ3CJ2nt/gY6NgQauj3Q8sgOT6omAA12niy+3H6w8=;
- b=jrVvZjdGH0FCkjF7ZF2hmR+UTdSJdcLsF4kt5dpNoTqV18p040Z/psIGHPiXL/KTaBiA90JTAnYK+lwZRkJoHUlRCaRbDNmRJUhv9Vo+cqrYxr8j/p8js+FhPfi8bB29CECP5qZLXxXXBTqFw5VB1t15PWKgiqnv/RbFpqUJ4G8RNOKp0l3Kpq+OJMWpctNJq53OBFYRds7BstT76B9VLzCGLHXuQ0nilzMg4vpt6eZBFT1e6y2EpIgQ+n5hB5w+z6Yng1Kw/njE5XFlHdIotQfmB1R6HRT2PlFNZFdrXo932ruGxQnGtvWnDQaqmksg0uSXB2LiD2eFmJjAhDmd1Q==
+ bh=4RThWJ1psdYonXsgCEtW1ZGQkYFh+TFtkVw+WME2R7s=;
+ b=BkpKOgFoyhlIPrvlF19249MTqN8SG3G8mSVWLygxmEiFE0BdxdSv6E58ydBfg+ZECbqnMtiUYQBG5L/x6P7P+Qub/GvPTVG9fncNiag0KRacIT1ngQ1jhvMMm68Q0SFHeRCS+8+FpARZuvM72shIOJOs4PB9z4ScjJS59N5IWcIUcrYgXBjuYACq1hYxgOieJHyczj55l0w3/N5zWUvwbsH5n8XZK0mapkpqvYj6NJYjCliQEPwZQO08D2RMUbQ2+LVj5WGo2FlFt2ZMHdBd4ulMN8xulB5lopxF1M+q41DV/kXNT9AaGIeEBwKV9Xc8d7e/ypK0LrfYwZmCyoj37g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AemZ3CJ2nt/gY6NgQauj3Q8sgOT6omAA12niy+3H6w8=;
- b=aXm3DvzIzKcuFQsbFPO7Sv1VcLiuZXL6izHNH8o3ZtmAxPoYIEukPfwDH2qf7YmqwbBi/Um0bboCLEzdrNwMvr9j1Cul3NHPc6i5Izx9RMti0MM2LedeXVjFAL3Q7GSJ8Bd/HExaGlklKrHNl2tZ/fMQs/311RqIJmE4HxSC5OVl8Qe1C+E+/xte0iH6vpokroJRn2KPI1yWPVfcyu3BgPgU/z3hwhb44dL1YDYsR8qpMgBoRcGHaOe+uyG2HLpFDg/ShJHsI57+KmEs+IB71MTdQmF2JaMVFj9+RokHUDtnGhOWaEARG6PjP7Ccx+/BqBLzg0bHSCj2v3CWJq8B+Q==
+ bh=4RThWJ1psdYonXsgCEtW1ZGQkYFh+TFtkVw+WME2R7s=;
+ b=SsQG83SXKkDoIdrp444tcNzJ17x1WF5SWUYeK/COGq2HJfuKuyB9OdgeAKLj3i2SgsTbE0OC/Ly40lSgjkbrm5NFEeelpeP4aFFYddWAzh8ubRqsUp40mytVozF3tCZgw2Q5QLsIUCj2ZU9AnDTGeZsR30JJTLPatzX1ikx6KwKrFgtSIt20lscNjAhlrzRziieG3TKiCGSKHQ0DFkIjA7vO0ZgObjArVg0zmwJ5SThcCx24FUn7aJpsOptZdwE7pLUZFT4MCAGGyfT3C9H/gSdqtE+6dZfjoykb8XTWiAPSLIfk3EgVlAsLfw5ajm3LNrEqfwyZpHcTo1PGhrGCOw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from CH0PR12MB8488.namprd12.prod.outlook.com (2603:10b6:610:18d::18)
- by MW4PR12MB7465.namprd12.prod.outlook.com (2603:10b6:303:212::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Tue, 23 Jun
- 2026 13:40:47 +0000
+ by DS0PR12MB7780.namprd12.prod.outlook.com (2603:10b6:8:152::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.19; Tue, 23 Jun
+ 2026 13:43:51 +0000
 Received: from CH0PR12MB8488.namprd12.prod.outlook.com
  ([fe80::c565:c0e5:2c8b:c315]) by CH0PR12MB8488.namprd12.prod.outlook.com
  ([fe80::c565:c0e5:2c8b:c315%5]) with mapi id 15.21.0159.012; Tue, 23 Jun 2026
- 13:40:45 +0000
-Date: Tue, 23 Jun 2026 15:40:40 +0200
+ 13:43:51 +0000
+Date: Tue, 23 Jun 2026 15:43:45 +0200
 From: Thierry Reding <treding@nvidia.com>
 To: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: javierm@redhat.com, maarten.lankhorst@linux.intel.com, 
  mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch, rayyan@ansari.sh, 
- dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev, 
- Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v2 5/6] drm/sysfb: simpledrm: Validate mmap size against
- framebuffer size
-Message-ID: <ajqMoKhDehM7ejGy@orome>
+ dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev
+Subject: Re: [PATCH v2 6/6] drm/sysfb: simpledrm: Read panel orientation from
+ DT node
+Message-ID: <ajqNeuYBiSAHHLZn@orome>
 X-NVConfidentiality: public
 References: <20260622132433.722823-1-tzimmermann@suse.de>
- <20260622132433.722823-6-tzimmermann@suse.de>
- <ajleu0THc75Ex7uN@orome>
- <d162a14b-7432-4d64-9f21-78a1150f9e0c@suse.de>
+ <20260622132433.722823-7-tzimmermann@suse.de>
+ <ajlfgXEO4NR-TZ4s@orome>
+ <808d917d-28c4-4a84-a647-d5dc9123bd32@suse.de>
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="lgywciro6k7wia4r"
+ protocol="application/pgp-signature"; boundary="q2syeh6gxmhpr7jo"
 Content-Disposition: inline
-In-Reply-To: <d162a14b-7432-4d64-9f21-78a1150f9e0c@suse.de>
-X-ClientProxiedBy: BE1P281CA0398.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:80::14) To CH0PR12MB8488.namprd12.prod.outlook.com
+In-Reply-To: <808d917d-28c4-4a84-a647-d5dc9123bd32@suse.de>
+X-ClientProxiedBy: BE1P281CA0149.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:7c::10) To CH0PR12MB8488.namprd12.prod.outlook.com
  (2603:10b6:610:18d::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR12MB8488:EE_|MW4PR12MB7465:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b84c8ac-cdf4-44aa-da10-08ded12d0729
+X-MS-TrafficTypeDiagnostic: CH0PR12MB8488:EE_|DS0PR12MB7780:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5472f72c-a441-4c07-3b03-08ded12d75b1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|10070799003|7416014|1800799024|376014|18002099003|22082099003|4143699003|56012099006|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info: d7EMq42JMkrFqutuCLjKwSK74YbU7h3SbcOrFgXLb6aNlceUZ2gFC15fZpfPkCP9cQ1l3Bc7DR5x//hRXL8dK1MfErNf/iWQM6G0gvvgPDd7phsVJTZsQd3VCsb7hK030QPqLO3mqzbRzoL3R9m40NBxCyDhcoXIvGyGqm4ei5wdl9h8AlJrC1gh/kbGjlPb1GoC8tfFNnPjcXp19EdKW2iEVw3o7bV5X7FQKkYS0e22iaEOE00o7WxQusanl+pg3D5k6usDiNJpC64YPoYSgP6tC78b9Jo4NdrJl+bL10EYwgvO0boVBjGm7w8HYvySnDQGcU70BgDBstnYPaTS/2i6KeRx8/NmWgaMyfA26erVXYHP9afZJHim9uwW//hG8VoDiiu+A2dzPtg1ZMdQxEadA3TsVfauDLZa/z5QEFOaMtG/uhmCw+NCFJxCjFhgni6hDqiB55TnBnx25mfOwtGSRrD7JWMv9V1eJZevydCCCg774GNLt2GJfut4cyN5uL/IrJILpNfFVc3sYzqv4Ry9vzYCFOp4qbGjrUMdYj5kbyQSsoFoedQVbM7KAzu6ESrh4lSt+iGu/i4xl4qTOUAfnAKibNASG2XuZL/4fv7EJcikUrhtz8w9wd0zYYwv/5Z0un2TkBoaz4P20lqrGkWqwyyLj/NMpGrHJk4O4SM=
+ ARA:13230040|1800799024|10070799003|23010399003|366016|376014|22082099003|18002099003|11063799006|5023799004|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info: CDUa2FCbTd16PPdU8DGkB6c9IeeN1CFR54aBFzNufQ/p9PkkK1Z5HfybOfrFq/zqC26xnv92zUo6f98rqdHLEEAIM8zlq8tQjrpVL4Vz+NN2ueez/5Bo9js9JDG1tNPalVCc6WjNFi69KeOKgKQ7d71eCrYDh6d/Np0dWuLKk/0x4MaVvh4wTpdh86dK/atQUnA5bu/A7t5jsYjoyO213+w7TDwYSPcMhCEYdXbNuYkc6txJhSAhsXgif3aoPnVIGlJe/ruXA+pNtR2zN0vq50vf5C344ry/l9ohfC9x8zcrA1QTsqcLszAVutqLkfopOgvJAtldPvRef/xfohGOgrkMujoI49NmSMsCeZxuVuYyeospEaHRMF66Df0KcoZISTnLYUHLxuj4EUQB+Yvz0NhuDDmBpD3Uf6rF4sC/xZaqdcDFMTXro6rThB7OC3jNhVW4ojiaoQlYtRnGkMLJjU2cfbiVD9GpjopNDnlPqpm58QecXMQgbFKzFmRkO7KqUhhSpNdAc7YWOTtMc5IrbWEEamIN6aHIgz3DDQjsqFO4nql8yPleqCNUAzOEZyIuI7ol5tgXXVxzj0McLL47FiWY9/1zLDrqMVZM8Em6Zgs921nvJMLhKumHiy6IYwK5gqEyFTbDvNYXuyqE0sYALUIIGlRFePjVzWcbt+IWgdA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH0PR12MB8488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(10070799003)(7416014)(1800799024)(376014)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006)(6133799003);
+ SFS:(13230040)(1800799024)(10070799003)(23010399003)(366016)(376014)(22082099003)(18002099003)(11063799006)(5023799004)(56012099006)(4143699003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?dvRwZ54LX2Rxtn5a9XMQ5kg5BvlwarS+Abw0FVeCaxmaqYk2Hf9/bq6vPD+G?=
- =?us-ascii?Q?viPljrxTlC6JMYxJL39HtBwldKY4HZkWwSuLoLLQOtK5sGPhkAzxSA74fi+E?=
- =?us-ascii?Q?gfprfHdOqI9RyfbrJJS7SFxdFlPGPGQvDwUwuYnIjNRCc7mIzSdLjcItAhfP?=
- =?us-ascii?Q?nzfgUyr46oH22rwSDGFvcTt37a7Pecc+eC5Z8z/UZsPIRN8kZA8ryU7JcPHN?=
- =?us-ascii?Q?ZhoAqwzdBx3S2RETMKQfs4pXYK/0l1hzBg3XcktAZA8IwbNSt4V0zjyD1nQo?=
- =?us-ascii?Q?EHXL6SdQedaoKlCEqXu7AHGqbOVb/m7HdelT1BlryqPqi7rYr7G7mOMT8leI?=
- =?us-ascii?Q?xwD2DgD5tFIpBhLDTp6MCabM4m0ghJKwNxJnJCIJj9QvvtT5uBrtmvmhzkhw?=
- =?us-ascii?Q?USUdDTPrWL3LxlUzKIGfcizYIuEyoTcYvfaw1HTX6n4UiP7+r0DmSyRRAsOQ?=
- =?us-ascii?Q?ZnK2WZWaOfbKI3C2tV9GYGs4EvknzowWGTX2kfsCXXsWy8cAHTx9Smb1MWKk?=
- =?us-ascii?Q?qkYyp/GTF/gmElQD3Zt+IvZSq7AS94Lj6IH7dshCL1ldfQ4BUC+MbCCW0/53?=
- =?us-ascii?Q?xwZXa8aRSJK01rj8l70ORjjGj/m85QfZj5vVX6oF9smrDFRCRciNEAjSCgRe?=
- =?us-ascii?Q?Lz2uRxiHoT3EYbvtvG70OVGF11/CNcWyugl9Iv23n31cQsp0UDOKcbYMTsRm?=
- =?us-ascii?Q?xV6R8O7AXIe5bZMSwrrkFzs9IDWDBN32oVR1Gwk/eZV7Ba4Lj07KXbyL3Mzg?=
- =?us-ascii?Q?Vy2RdJE6HeGNMpka6nW3IVSF7ktirHggxdn03KjQAWZwIKO1w5EdJ9USCb8t?=
- =?us-ascii?Q?TjHoFZlfFuxJ/oH0Zvy1gMHHbcZFz76bIP/Pte9zxNrMKn331zQsESR2KXjc?=
- =?us-ascii?Q?aM4hPDFWCmuOfN4NfnmsBW4vDvBqqtk6wkqfI9bddeUQfJpQ9YrmrD5cSL9S?=
- =?us-ascii?Q?cn7UPuq5c3EQMqYrnG58eAuufyg9b5al36Hpxqr3yec5ZUVRQK4774bcpgAt?=
- =?us-ascii?Q?j0e9D9mmCb0PjFLKHZbOtrFy/tiAYbSofcE02md2zbrcXI0TfmAao895WFZN?=
- =?us-ascii?Q?tCQlUeGfQqjZ7/7huVl00/ceIgEGboemRMY/CZHFt2h/fP0W75DS6xUDfCIy?=
- =?us-ascii?Q?XXeULDBCcl/Yt6K2E3WUF/81LmEC+6dhursMUDYGC0M7sORqCAnoy9qDCQi8?=
- =?us-ascii?Q?X6raONJ/AjEgD355x/wAUwIsBjW/OBdXggEDtOfszZN6iXBIbL+9yrdVB3rU?=
- =?us-ascii?Q?i5p9AD14M20TcaeZ1ttLsezphH2UjjK4750z5ccWfMhRx45/wY9f0JTvdMGG?=
- =?us-ascii?Q?Nfbc1yj/f/czuMfe/krmrAvKpqlm/D6/1ou7sXbNJ8QTHMQIFsM7PTKMCaPe?=
- =?us-ascii?Q?1BzcFn1dvSLBq23j7OWNpUltZKygzS8L5ernlnJQG55wxZMFlWRaQFKuitMb?=
- =?us-ascii?Q?VthI7sgd7ItWyE3ZnxcfNxVfxB9QnB/iK/QUtlgQ+IJVEs4DHYmlYcvjkSSA?=
- =?us-ascii?Q?T0vjbE+kRXxJdvz1AwF9t8WlaGtwnVSA/APMUbYssI75YDmdAXP8Q/RYxUMJ?=
- =?us-ascii?Q?LFyRbarGPQyN0a7hnLt6AetrFkaHYURt5TcoulCgDQy8Och71lYnxO0F1KgL?=
- =?us-ascii?Q?8JHmFU6eUHTWTnh1HhWJR5/3fq3kLSmL2625ZF31y2tfPwGj728hg1kV/TvL?=
- =?us-ascii?Q?xp1vKe1NW+Jtm+MK18kDMgfwNjivlzgAbrIFvm60oCBjisHfMsbUi0WpvyYC?=
- =?us-ascii?Q?68APVhM9VBvWt/E33h7lPf4LVtPM4gpHNoJ+XNuanZTvjZMyeSElLhYvIhP2?=
-X-MS-Exchange-AntiSpam-MessageData-1: AZKRx05hbO5SRg==
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?c3lRHt0H5Z3fL3FSSDaX1nPeozl7hG2i6kv8TjLFEhejf8pj0Jq86wHzwKSJ?=
+ =?us-ascii?Q?jwrG6qsuE7kJF2+TZ4J6rDLd3I223Jww4UVqOvl+WOrAXqGOvj6QD/trZCob?=
+ =?us-ascii?Q?li4HxWqEimEW9trtAWZ1pjpbIKDfvEo8ef3xGoUSaIZ1zVjU1HhCYukM8rZ0?=
+ =?us-ascii?Q?UZabn/lZz0pTvvsa4Htay4trQPF+C4seU6UhJ+prgLT0D/WycQgJKLcjtmLB?=
+ =?us-ascii?Q?5SwruR521dngbWJEYBeW6hwYRyngTBkJwIXWJLIRvYwwwsmQD7hBKSXBIcKP?=
+ =?us-ascii?Q?ALLtIqDiuyk9P9dxyw+HImOm0Kecu0VMaIPgIqrW8iD6q1iqSxaZz2ALsqbG?=
+ =?us-ascii?Q?cgvQsz9GsD2SSu44NlFWxUJLY6H2JNf/vh4cZBh7N8NTBGPjZwDYfoK7zYQC?=
+ =?us-ascii?Q?s2a9YW9wIiFiMKbUW5VfcWikvYPlGE87/nXDnUw0pNfKUKZ6v0oeVMKa85CB?=
+ =?us-ascii?Q?1rBZzlCCN/jjFlyd+j6uoyzjHoa49PxqWTzeQcrKOEPZnDwlEIZhXgRR7Pmp?=
+ =?us-ascii?Q?FoaNtHiXCJko2YlLVE9hy+D12Q+ooZGj6ZdTDZ4jnuQKd6ATrHi/zt5z6b3x?=
+ =?us-ascii?Q?M3QZ7wFzyDrybSbX90e8AmRYvtMThtlp8D8U1eM1ydZVkX3LhDkzelLumV/r?=
+ =?us-ascii?Q?RimENaz+6gVWi7xPlcXZJ+v06TCqjzW5MV5p2cDUU6/SAVaGDeAKtZUGeCfx?=
+ =?us-ascii?Q?7W4BBIhmjgDwjGtmy3bQBanOVF1YHqfJE45ovemfLPkjV6Zc8wHSUapZl/vC?=
+ =?us-ascii?Q?sKoY71MAvD7Iikm9OEM//TUIQOkW8PpQZ6w9uchGA0R48EFVR9XbNhCthgvh?=
+ =?us-ascii?Q?u1IvyoHu52cfygLHcoR4sEUoJYub6foEOfjTQrQ9Q2BkEzhuew6HD1keAKS8?=
+ =?us-ascii?Q?hU3w+yx5owRB73vwCqQYfTp9bK3H6sCP7hrgMkJXr2icqBT9xV6EOBV17N8p?=
+ =?us-ascii?Q?WQCJ76Dw+jBwDtee1enJL05tnl6tDam43UcjkmujBdtaQbDAE7NvusO7rEcm?=
+ =?us-ascii?Q?1nIurvB0Gmch6kNUllNB4JKJMH64u/k1Ulz1c/gyzo/q1gQdAhYlBxjzeL/V?=
+ =?us-ascii?Q?62IEwoLzymrAOhUPSltV7X3G2I2g4U+3XPsb/XOVmZ8hVk0+FPDvUzV+B09N?=
+ =?us-ascii?Q?Z3Vn7ehTnuVXhVZNhe9bd7Fiu7Ues+crHAfmLcej6URFnVqinzMPEGEQwmo5?=
+ =?us-ascii?Q?llJhmu8LxdLZhsKyIUz97DYQkToG7noRfNqa1qrwql6pvOKhd2X8UTPDyZjE?=
+ =?us-ascii?Q?wOHfFXB09cEEX2UdtdovDKANTcp/dgliSTf9b5BVxssstVB7XqqW/fR8W9V+?=
+ =?us-ascii?Q?yOgnXPl11GMRFjnIg1vlYFdjcYRu/DfSDOenL8GEyLYvAzFZMQRZDu3bnRra?=
+ =?us-ascii?Q?DU/y/nVQSM3kNb0RaSVbJo2HTKM9BI32pUG09b6elM7R0/P3X0atWsPbCxdl?=
+ =?us-ascii?Q?0QjPaKnSbUkQBOJMDPBnwQeGOyh5ZhPJaLUV0e/kkTXNmAVg8xgEIU/fttTa?=
+ =?us-ascii?Q?7BS7BYhtfeq+dIu/ec8oQIWh+jrvpiK8Ud2TxhbRIMf000DPI46JJuGjpH24?=
+ =?us-ascii?Q?KvBsQ7xLSqLky1WQwdrY1E19SPvqZMsmCoyHS/kdwwMRJ0LD4RoyfNdBXYr/?=
+ =?us-ascii?Q?Ikzfe3Ljc649J3QfqthTsgKpLXah4sGpOyfo0/qxSuzpTkeW8xEfrrsqUWLt?=
+ =?us-ascii?Q?fBz5u41wXnln8j79hSQq0tw+I/4KVRHsgIXybvD1mMz4UTSc3QakzI1jAAHS?=
+ =?us-ascii?Q?vvj42ADOq3fQh21h9Uyv1APHb2+uYvvySnyNXI1EJnyrQ8SOD1Mra38KLrG/?=
+X-MS-Exchange-AntiSpam-MessageData-1: fuAloIVuWfCbHA==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b84c8ac-cdf4-44aa-da10-08ded12d0729
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5472f72c-a441-4c07-3b03-08ded12d75b1
 X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB8488.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 13:40:45.8978 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 13:43:51.3105 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4Vti8ox35ryWfkVcvFfX/XO47QpyPXVJj6I8e0qQ0oYWT5ijqyE++OKReVoYic8fZd8DKy6QqpbGJ2YaumE6XQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7465
+X-MS-Exchange-CrossTenant-UserPrincipalName: AD/3kqLJNk0z9abm4hQSyz9AKtTEu3liaBmW9sqebR/nOsq4gojudy8YKtDamYtRIQNT7Zthx0e7VtN5IWOBlA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7780
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,103 +134,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---lgywciro6k7wia4r
+--q2syeh6gxmhpr7jo
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 5/6] drm/sysfb: simpledrm: Validate mmap size against
- framebuffer size
+Subject: Re: [PATCH v2 6/6] drm/sysfb: simpledrm: Read panel orientation from
+ DT node
 MIME-Version: 1.0
 
-On Tue, Jun 23, 2026 at 11:02:39AM +0200, Thomas Zimmermann wrote:
+On Tue, Jun 23, 2026 at 11:04:22AM +0200, Thomas Zimmermann wrote:
 > Hi
 >=20
-> Am 22.06.26 um 18:13 schrieb Thierry Reding:
-> > On Mon, Jun 22, 2026 at 03:19:39PM +0200, Thomas Zimmermann wrote:
-> > > The size of the mmap'ed framebuffer could be smaller than the minimum
-> > > required framebuffer size. Validate the resource size against the
-> > > framebuffer size.
-> > >=20
-> > > Buggy firmware that triggers this check should be fixed up with a qui=
-rk
-> > > on a case-by-case base.
+> Am 22.06.26 um 18:17 schrieb Thierry Reding:
+> > On Mon, Jun 22, 2026 at 03:19:40PM +0200, Thomas Zimmermann wrote:
+> > > A DeviceTree panel node can specify the panel's rotation in steps
+> > > of 90 degrees. Set the DRM connector orientation from the field.
+> > > Do nothing if the field is missing or invalid.
 > > >=20
 > > > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> > > Suggested-by: Sashiko <sashiko-bot@kernel.org>
 > > > ---
-> > >   drivers/gpu/drm/sysfb/simpledrm.c | 25 +++++++++++++++++++++++++
-> > >   1 file changed, 25 insertions(+)
+> > >   drivers/gpu/drm/sysfb/simpledrm.c | 32 ++++++++++++++++++++++++++++=
++--
+> > >   1 file changed, 30 insertions(+), 2 deletions(-)
 > > >=20
 > > > diff --git a/drivers/gpu/drm/sysfb/simpledrm.c b/drivers/gpu/drm/sysf=
 b/simpledrm.c
-> > > index 76b9a3f5c4ef..a04f0c852ea4 100644
+> > > index a04f0c852ea4..b585d17ca817 100644
 > > > --- a/drivers/gpu/drm/sysfb/simpledrm.c
 > > > +++ b/drivers/gpu/drm/sysfb/simpledrm.c
-> > > @@ -6,6 +6,7 @@
-> > >   #include <linux/of_address.h>
-> > >   #include <linux/of_clk.h>
-> > >   #include <linux/of_reserved_mem.h>
-> > > +#include <linux/overflow.h>
-> > >   #include <linux/platform_data/simplefb.h>
-> > >   #include <linux/platform_device.h>
-> > >   #include <linux/pm.h>
-> > > @@ -624,6 +625,7 @@ static struct simpledrm_device *simpledrm_device_=
-create(struct drm_driver *drv,
-> > >   	u16 width_mm =3D 0, height_mm =3D 0;
-> > >   	struct device_node *panel_node;
-> > >   	const struct drm_format_info *format;
-> > > +	u64 size;
-> > >   	struct resource *res, *mem =3D NULL;
-> > >   	struct drm_plane *primary_plane;
-> > >   	struct drm_crtc *crtc;
-> > > @@ -704,6 +706,15 @@ static struct simpledrm_device *simpledrm_device=
-_create(struct drm_driver *drv,
-> > >   		}
-> > >   		stride =3D pitch;
-> > >   	}
-> > > +	if (check_mul_overflow(height, stride, &size)) {
-> > > +		drm_err(dev, "framebuffer size exceeds maximum\n");
-> > > +		return ERR_PTR(-EINVAL);
+> > > @@ -221,6 +221,33 @@ simplefb_get_panel_height_mm_of(struct drm_devic=
+e *dev, struct device_node *of_p
+> > >   	return __simplefb_get_panel_size_mm_of(dev, of_panel_node, "height=
+-mm");
+> > >   }
+> > > +static enum drm_panel_orientation
+> > > +simplefb_get_panel_orientation_of(struct drm_device *dev, struct dev=
+ice_node *of_panel_node)
+> > > +{
+> > > +	int ret;
+> > > +	u32 rotation;
+> > > +
+> > > +	ret =3D of_property_read_u32(of_panel_node, "rotation", &rotation);
+> > > +	if (ret) {
+> > > +		drm_dbg(dev, "simplefb: cannot parse panel rotation: error %d\n", =
+ret);
+> > Why is this debug level? Maybe we don't want an error if the property is
+> > absent, but if it really can't be parsed, why not print out a proper
+> > error?
+> >=20
+> > > +		return DRM_MODE_PANEL_ORIENTATION_UNKNOWN;
 > > > +	}
-> > > +	size =3D ALIGN(size, PAGE_SIZE);
-> > > +	if (size < PAGE_SIZE) {
-> > > +		drm_err(dev, "framebuffer alignment exceeds maximum\n");
-> > That error message doesn't make sense to me. Maybe "framebuffer
-> > alignment below minimum", or something along those lines?
+> > > +
+> > > +	switch (rotation) {
+> > > +	case 0:
+> > > +		return DRM_MODE_PANEL_ORIENTATION_NORMAL;
+> > > +	case 90:
+> > > +		return DRM_MODE_PANEL_ORIENTATION_RIGHT_UP;
+> > > +	case 180:
+> > > +		return DRM_MODE_PANEL_ORIENTATION_BOTTOM_UP;
+> > > +	case 270:
+> > > +		return DRM_MODE_PANEL_ORIENTATION_LEFT_UP;
+> > > +	default:
+> > > +		drm_dbg(dev, "simplefb: cannot parse panel rotation: value %u\n", =
+rotation);
+> > Same here. Seems like we should be verbose when this contains an invalid
+> > value. DT checkers should catch these already, so if the invalid value
+> > makes it here, maybe we should sound the alarm.
 >=20
-> This tests that the align operation did not overflow size. The result wou=
-ld
-> then be 0. With the earlier patches limiting the height and stride and si=
-ze
-> being of u64, it's not possible any longer, I think. But testing it doesn=
-'t
-> really cost us much.
->=20
-> What do you think of "aligned framebuffer size exceeds maximum"?
+> Ok. The review bot told me about of_drm_get_panel_orientation(). I intent=
+ to
+> reimplement this patch on top of that helper.
 
-Ah, I misunderstood what the code was doing. Yes, I think that message
-makes it a bit clearer what the error is.
+Makes sense, yeah.
 
 Thierry
 
---lgywciro6k7wia4r
+--q2syeh6gxmhpr7jo
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmo6jNgACgkQ3SOs138+
-s6H/3Q/+J+TRLyHm8l96R4hqKn2KI8CJs642d4VrLqpzUPFg1EZJYQ3+smlC+Fh0
-bJjg6tV5TD3aq3dqwqKEe9EZ9e4U6jNpYFtdMMhlcMYHdSAOjwWSjC/xoL67XTnw
-AOWHYNStmT88nLfhRxyUBuBZ1qleSx2/76LQajmkavkG8KhymjzjJHE7vAHyzRsJ
-7LqNrDm+y/0PfaQn7ZxVYZtB3vfb3WiN0u+KumxeFhhBmKxEK5eySxKL8ehcmR8g
-wPNvuAzRRY6+VxCDh1p6Mnu8fNXsvKbzyA/1dtwGxQTJzjo0yO1S7mCm4/hY5W0i
-bWR7OEGa7lOUHoB6mLEx62XytQaQRz0dgFja5JtUwm9TCDZBoIjfxyFRjsAEDak8
-1azm4jdzvRxFTXmTlLiOhD1UsHNKZ3emfQeCW27VjBW9hQzowC4cw+N9HINI5pr3
-hw9hiZ+KpEra/CNUtjd+mJfaOl2mzjzb0M2W3G5HRApFgcymeqNvT8n6aPOJj7qi
-/5GCG+Av+bKsmCx4E6Jgq91OdTLLZziv9wLO0E/xa9AupBg1UidapxQ7LkNAUkAm
-0ncQUZ5VnQp8U3qDLsNC87aesQdKh4Ef0pJIzd57tf4lW7j+xyRomwoZaDOfGU8F
-1L1sLEfvAHZ9oB7kZzAN9UTH45p8bQuRk8yKNhMztHh0hq7RwlA=
-=v9Tb
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmo6jZEACgkQ3SOs138+
+s6F3WhAAhVbfQ0HZuJLF5oaD89yT6G1VgePpOYJaTGC9RF4DTAiLUnnt+dJHygP7
+udeoGfyJIvcYnPEdVghJIavZOGhqe0RtlonzbANDb3CHgw0BitXWmxXetyZL4O0T
+wrv1mRv49sQRhu3bcTN7e9g2tLisiKj84tlppiRPXddM/jLDl1WD3QadNv7To7x7
+Z+/gQ8krul534+cUsduc81kQ2pY1SIR3ay+T6ycBQBM7zZqFLHBAKKt76beqYQgf
+HP+RNtUfTNl0M0eqx2buOr1jsfkbsLjLQ+WoHqXytF6HJG186vuqWqTQkWT7P7aI
+N4cpgwZq9WnmKc5R4bpNkuXST07ZXYa8mTAkQImzjqvp4E7lYJHvLs5Im+z7E8eP
+Q+AfjWso8iqh6eZ47qghAUxmz5fN1Xm4Mjcq5LF5XmRZrT62NTppmZjXKKl35rGH
+pRVWP9sQVINsVqQGicPkhj9GfmijOAD0d0u8uDP0psrZCzl+pnL2InXKiAa9zdG4
+ALAGNb/MTVD+KF8h+QWsspNuZAr2wPSMBFCDpUQgZRcZ01Uj6D84l9g0lN7VJXVh
+Ou5C5s/HEKjU8qthDlecb8VmDCIy+yolNfOKJ/1epEPbqebRDcIvqU8Diucg9YXH
+zOMDqeA+YsiR43OGJEaXboika+KwifQwxRQXstn29X56tRuvAp4=
+=/IIC
 -----END PGP SIGNATURE-----
 
---lgywciro6k7wia4r--
+--q2syeh6gxmhpr7jo--
