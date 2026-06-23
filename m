@@ -4,83 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55420CDB46F
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 14:00:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92F2CCDB47C
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 14:05:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB2E310E4D9;
-	Tue, 23 Jun 2026 14:00:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EAEF10EB6E;
+	Tue, 23 Jun 2026 14:05:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="mJwAvi7w";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Pg6lS/V3";
 	dkim-atps=neutral
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 647D310E4D9
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 14:00:31 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-6976b0c5adbso7637878a12.2
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 07:00:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1782223230; x=1782828030; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=pW2T0l7vNC7YUbJOOE1maSFRjhJC2eie7o0FsVV1LoQ=;
- b=mJwAvi7wgmSDX6izEEIUw6JJjoyASz9fLJsO/cEp22dNVSx3do9NpLq536R/8fXT2X
- JBTvsVCudcj5ycgLbumsGc+D2sFqbUizA8cRNnPbmz5obOZn8P8kbo1IYOwUl1j5WFHb
- WEHO0Bj2639H6L3F45dUW9XQlkxj/2948yef8GheybuPfN2p9+U6m2ixV9G+YpLdJzqz
- sQn0sk4BlwZ/9d2XHRSwu6u1dKr/a37ARZScmhqfwz0d/kEp/Y76qLMoHyyZhjY6hbR2
- 7f3ScZmRwNPgNqGgbwp6S4u8mI8ZE4AKZ0vF2fiZGdNxHYvBzFeVQ+yyvOyH7MZMoFLu
- Rlog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782223230; x=1782828030;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=pW2T0l7vNC7YUbJOOE1maSFRjhJC2eie7o0FsVV1LoQ=;
- b=B6HjcwplLc/Ab3Pj1EaSHqSsFqRarDxA0keQvQuYULhw5jUVjp+RGzPrW51Mpd/7Pe
- xcQKrCMz+K6HENQdecjUXS71G6QHJcdMwqE2lcYrJxFI4m80hjzum74Dwq2HzydlZWy6
- cWA2jHCkN+xaEUaNC2e8rs3nE223LzDf6paXQGHrkEcSXJAbPBf2zVKfJ9uwf9rUm1Ja
- poxmopQWtTucnbG/dYvIKQ2eX/HG0mEjGsEAqRe3OhyVB9mujDK4/vv6U/huwmWFmZGP
- UAhOlfhUe9FfISJLMKm3RcV7JDz1OgEAuaoFwAUAtagSo8A/dhOa6WJs8+Ah4b47f6G7
- qB4Q==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8WoHxCq/jGpUM34rq7mNEgPw+Gm+gn1L1o97iVr8ztNWHXmaD/HfTGNi/Dt6qKJbntTLae4mWpvAk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwdYOFWaToXI5ZCyVWYd8VZ0e79zBHGLOkgkWRwbaXySgI0Vk6d
- jGufbUG5wYojZQPBpvdBEwUpobn/zMx3f35JXUfu1zZoNvQre/n2may/JLcR9FTysbQ=
-X-Gm-Gg: AfdE7cmIMe6RXy9lMxI0Iy4YL3+34fypVr94R5XjGcE/B/HpZ3bTyXt6D+1s0z3ZNM2
- 7bZJdnmkwnNFyNTa9d20uD3q7KZLfyafEZDX4/d41IwBOgNPGQ+ABLnyKRob0Og0+Schb2LVKEc
- jDC+E/8731biyFWBuKmOolje9CcLrEcETzwhedqmXgNM0a0AJgPz06y5PUfZ8iQOV8LfGQFPSaX
- rMNe/WE5Xnz3r9zAbk641uKBD1wOqVIcoz8y4mKmu7ldB2Oo5RVfFRuwFYeHLoDReouj8MgSokN
- ItLCJJkeVmchKkKp3FE6ANDNWk59weHUZirxB5r3L7su2cYMQL2dEHuk09SSFE6QA8FAMczIICi
- bhgMKMEHZsVfNzEQfq7e9j/BtDb7b6zIp1TqTiqySPi4BlB1WjZ4aglQRs9LYc0yBs92ATwleeg
- h0G+VkNkEle2Z4RWM3BdBwEJtAvBLl8cwxvA==
-X-Received: by 2002:a05:6402:3218:b0:697:b10a:35ce with SMTP id
- 4fb4d7f45d1cf-697dba620e2mr1527552a12.1.1782223229172; 
- Tue, 23 Jun 2026 07:00:29 -0700 (PDT)
-Received: from [192.168.0.116] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-697d3c7dc3fsm1544454a12.13.2026.06.23.07.00.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jun 2026 07:00:28 -0700 (PDT)
-Message-ID: <5a0d7111-c765-43c7-9bf1-6eb055b6784c@ursulin.net>
-Date: Tue, 23 Jun 2026 15:00:24 +0100
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 331E010EB61;
+ Tue, 23 Jun 2026 14:05:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=cPto1gQbLg7M3k+7xX6O59xbrykZd5OtITcVmMJ3Cec=; b=Pg6lS/V3IsuxSepj169GX7T98j
+ 1Psbyo/R3nwYpgrjQF0/MgFOfbjTt83YkWBdoHefwiMwMNF5dLA3FEftZNzXxPYbdmuVRCdUFPQl8
+ I5KrwhXey37SFhmXxlyCGzYctQq3hfFW8r9bb2Frn6LSW3nY1LX8DzXsYayHKMg1TKDeQQHGOrGa+
+ fkKoOE6PGDmaj4Oe4vqEfHhRIlhqFRzvhvw/JoHoT2Cdy2+CcXR0riUVIfuw9msgBzeW4xVouc41V
+ 7AB7Qu8nD0hbiii+f5kxf0eyiyeZS/gYtLmnN/Sz7IKYlUdFD+x/rSkoqQLChHXd/p0S/TLhVVcog
+ zrpbyO8A==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wc1kn-004Cxh-1E; Tue, 23 Jun 2026 16:05:29 +0200
+Message-ID: <d505d14d-f62b-4f71-9990-c82411381f48@igalia.com>
+Date: Tue, 23 Jun 2026 15:05:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf/dma-fence: Set better string for
- dma_fence_driver_name()
-To: Philipp Stanner <phasta@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Tvrtko Ursulin <tursulin@igallia.net>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-References: <20260623133457.1029880-2-phasta@kernel.org>
+Subject: Re: [RFC] drm/sched: Replace completion with a flush
+To: phasta@kernel.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+References: <20260611123423.39819-1-tvrtko.ursulin@igalia.com>
+ <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
+ <fd5e55f6-c6be-48b4-8b87-c3d6d6d0a6ff@igalia.com>
+ <e9b876bea7a2ef33d5e4ca103721135400c875be.camel@mailbox.org>
 Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20260623133457.1029880-2-phasta@kernel.org>
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <e9b876bea7a2ef33d5e4ca103721135400c875be.camel@mailbox.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,41 +67,115 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On 23/06/2026 14:34, Philipp Stanner wrote:
-> dma_fence_driver_name() reports that a driver whose fence is already
-> signaled is a "detached-driver". This is incorrect, the driver might
-> still be loaded and running.
+On 23/06/2026 09:48, Philipp Stanner wrote:
+> On Tue, 2026-06-23 at 08:19 +0100, Tvrtko Ursulin wrote:
+>> On 17/06/2026 09:38, Philipp Stanner wrote:
+>>>> +	/*
+>>>> +	 * Make sure this entity is not used by the scheduler at the moment.
+>>>> +	 *
+>>>> +	 * Scheduler is guaranteed to be stable after the entity was stopped and
+>>>> +	 * removed from the run-queue.
+>>>> +	 */
+>>>> +	if (sched)
+>>>> +		drm_sched_flush_run_work(sched);
+>>>>    
+>>>> -	/* The entity is guaranteed to not be used by the scheduler */
+>>>>    	prev = rcu_dereference_check(entity->last_scheduled, true);
+>>>>    	dma_fence_get(prev);
+>>>>    	while ((job = drm_sched_entity_queue_pop(entity))) {
+>>>> @@ -576,6 +578,13 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+>>>>    		return;
+>>>>    
+>>>>    	spin_lock(&entity->lock);
+>>>> +
+>>>> +	if (entity->stopped) {
+>>>> +		spin_unlock(&entity->lock);
+>>>> +		return;
+>>>> +
+>>>> +	}
+>>>
+>>> Seems unrelated? Why wasn't this needed semantically before?
+>>
+>> It solidifies the guarantee drm_sched_entity_kill() expects that the
+>> scheduler assigned to an entity cannot change after entity has been stopped.
 > 
-> Rename that string to something more descriptive.
+> That in general I like a lot, of course. As you probably know my
+> "dream" for drm_sched is to get rid of as much lockless magic as
+> possible, shown by the entries I've added to Documentation/gpu/todo.rst
+> (on drm-misc-next).
 > 
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> ---
-> Just compile-tested.
-> ---
->   drivers/dma-buf/dma-fence.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> There we have this sequence:
+>>
+>>     spin_lock(&entity->lock);
+>>     entity->stopped = true;
+>>     sched = drm_sched_rq_remove_entity(entity->rq, entity);
+>>     spin_unlock(&entity->lock);
+>>
+>>     if (sched)
+>>     	drm_sched_flush_run_work(sched);
+>>
+>> That is, without that check, in theory, an evil driver could race
+>> drm_sched_entity_select_rq() (via drm_sched_job_arm()) and
+>> drm_sched_entity_kill(). I am not sure if any driver can actually do
+>> that at the moment but it felt sensible to express it in code.
 > 
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index c7ea1e75d38a..9c3dfa7b0066 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -1173,7 +1173,7 @@ const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
->   	if (!dma_fence_test_signaled_flag(fence))
->   		return (const char __rcu *)ops->get_driver_name(fence);
->   	else
-> -		return (const char __rcu *)"detached-driver";
-> +		return (const char __rcu *)"driver-whose-fence-is-signaled";
+> The devil is in the "at the moment".
+> 
+> AFAICS and as your explanation sounds, this is an existing problem that
+> is unrelated to the Flush RFC. So I suppose that this should be a
+> separate patch (independent from this one) which precisely focusses on
+> this robustness work.
 
-My logic was "driver detached from the fence". :)
+Catch is, and why I thought it is justified to do this it in this patch, 
+is because before completion was in the entity so whats happening with 
+entity->rq->sched after entity is stopped was irrelevant. With this 
+patch is it relevant on paper so I considered it prudent to express that 
+in the code as well as the comment.
 
-Anyway, no strong opinion apart to be mindful on whether some output 
-becomes overly verbose.
+Acceptable or unacceptable?
+
+> A dedicated patch probably should then be concerned about the 'stopped'
+> bool's synchronization in general and should investigate the lockless
+> check in drm_sched_entity_is_idle(), too. The memory barrier there
+> seems only concerned about the list…
+> 
+> 
+>>
+>>>> +
+>>>>    	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
+>>>>    	rq = sched ? &sched->rq : NULL;
+>>>>    	if (rq != entity->rq) {
+>>>> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
+>>>> index 13ecb771d7a2..80dece3be415 100644
+>>>> --- a/drivers/gpu/drm/scheduler/sched_internal.h
+>>>> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
+>>>> @@ -35,12 +35,22 @@ bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
+>>>>    			 struct drm_sched_entity *entity);
+>>>>    void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
+>>>>    
+>>>> +/**
+>>>> + * drm_sched_flush_run_work - flush the run-job work
+>>>
+>>> In v1, you'd probably want to document what this function typically
+>>> will be used for :)
+>>
+>> Well its in the scheduler _internal_ header and I am not sure what to
+>> write which will add real value.
+>>
+>> "Only used to make sure a stopped entity is not in use by the scheduler
+>> workers."
+> 
+> I think the magic word that provides value to newbies trying to get
+> familiar with our complex code base is "synchronization".
+> 
+> "A synchronization helper used to make sure that no scheduler worker
+> does access this entity anymore."
+
+Wilco.
 
 Regards,
 
 Tvrtko
 
->   }
->   EXPORT_SYMBOL(dma_fence_driver_name);
->   
 
