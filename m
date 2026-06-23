@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA52BCDB470
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 06:30:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59E8ACDB471
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 06:30:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48DEE10E976;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9996110E977;
 	Tue, 23 Jun 2026 06:30:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="kvyt4ILX";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="w+rtkiDz";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A168610E966
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 06:30:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED08D10E5BF
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 06:30:10 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 30EC444619;
- Tue, 23 Jun 2026 06:30:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E0E4DC2BCF6;
+ by sea.source.kernel.org (Postfix) with ESMTP id D4F56445E3;
+ Tue, 23 Jun 2026 06:30:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7FB36C2BCF5;
  Tue, 23 Jun 2026 06:30:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1782196210; bh=UpI9p9cSp2Ii3d4RVVYEVHNvSOxoRDUiBS4Pr+8Z+2c=;
+ t=1782196209; bh=4OYDXOyyu09vAJ0Ux9fR4L+xgeb09K0RJRxAiy1sHn4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=kvyt4ILXq1pLkObq2EcAb6CXYsHyceEnPQP3DsKB4AX44/ug8Q746+XHQDf/3GCUR
- p39XGy/TmVst2v+Hve8swncMamJ9Gf5IASX8VfAiyRVjj3pp1u5ITk0eNRHHtvvqLy
- nlRT1KSwCknKLX0fgK3ipkndYIDgXRcKoM1wTMeA=
+ b=w+rtkiDzAw5tWieURtwK87xzu7UPt+XYOwHkbwPhdt4o0Z38NDMxybjywuaJGGTWG
+ nKWTnGD927p9yZikWnppmaOx5JZyS0dAH7Ecg0TDyZ/ldd4+tOMBzsnBqMu6YWz7gz
+ Mt0fpwp3DdrQrD5tbfmsE+SlHlsn6sDokXO6xjgM=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id D4091CD4F26;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 65839CD4F26;
  Tue, 23 Jun 2026 06:30:09 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Tue, 23 Jun 2026 14:29:51 +0800
-Subject: [PATCH v4 8/9] rust: binder: use `LocalModule` for `THIS_MODULE`
+Date: Tue, 23 Jun 2026 14:29:45 +0800
+Subject: [PATCH v4 2/9] rust: module: add `THIS_MODULE` const to
+ `ModuleMetadata` trait
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260623-fix-fops-owner-v4-8-0daf5f077d5c@linux.dev>
+Message-Id: <20260623-fix-fops-owner-v4-2-0daf5f077d5c@linux.dev>
 References: <20260623-fix-fops-owner-v4-0-0daf5f077d5c@linux.dev>
 In-Reply-To: <20260623-fix-fops-owner-v4-0-0daf5f077d5c@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -69,11 +70,11 @@ Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
  linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782196206; l=1258;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782196206; l=3407;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=UpI9p9cSp2Ii3d4RVVYEVHNvSOxoRDUiBS4Pr+8Z+2c=;
- b=HkL1+er7vHj//9B4WFmJtd5WPXvI4isc0vrQcbic+R9vXop0PiA3q8nnGehnRDAmT8ej+ahIb
- Qil2mKF4R2WBd5PnuQpWAmC4QJe5oGxkyMnIKmprCo+Ptk4seBNoGJm
+ bh=4OYDXOyyu09vAJ0Ux9fR4L+xgeb09K0RJRxAiy1sHn4=;
+ b=zdgUdpDPp3eOByd+72nMOSczbS5S5f+bBmAvMFJRai9zi+TqqOOHP4xYDT4eRHrvi6d4RhxfZ
+ 4g3qwrH3TJDAgD55ieoaL1ukUGgXlljf/C5D+knxmpdrO5Nm+qiyP29
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -93,36 +94,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace the `THIS_MODULE` static reference in the binder fops with
-`this_module::<LocalModule>()`, consistent with the move of
-`THIS_MODULE` into the `ModuleMetadata` trait.
+Since `const_refs_to_static` has been stable as of the MSRV bump, a
+`ThisModule` pointer can now be used in const contexts.
+
+Add a `THIS_MODULE` const to the `ModuleMetadata` trait so that modules
+can provide their `ThisModule` pointer in const contexts such as static
+`file_operations`.
+
+Add a `this_module()` helper to retrieve the `THIS_MODULE` pointer of a
+given module type, and update `__init` to use it instead of the
+`THIS_MODULE` static generated by the `module!` macro.
+
+The `static THIS_MODULE` generated by the `module!` macro is retained
+for backwards compatibility with existing users and removed in a later
+patch once all references have been migrated.
 
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- drivers/android/binder/rust_binder_main.rs | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ rust/kernel/module.rs |  8 ++++++++
+ rust/macros/module.rs | 18 +++++++++++++++++-
+ 2 files changed, 25 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/android/binder/rust_binder_main.rs b/drivers/android/binder/rust_binder_main.rs
-index dc1941cd2407b..d6ceebbd5f94e 100644
---- a/drivers/android/binder/rust_binder_main.rs
-+++ b/drivers/android/binder/rust_binder_main.rs
-@@ -17,6 +17,7 @@
-     bindings::{self, seq_file},
-     fs::File,
-     list::{ListArc, ListArcSafe, ListLinksSelfPtr, TryNewListArc},
-+    module::this_module,
-     prelude::*,
-     seq_file::SeqFile,
-     seq_print,
-@@ -318,7 +319,7 @@ unsafe impl<T> Sync for AssertSync<T> {}
-     let zeroed_ops = unsafe { core::mem::MaybeUninit::zeroed().assume_init() };
+diff --git a/rust/kernel/module.rs b/rust/kernel/module.rs
+index be242a82e86d2..5aca42f7a33fc 100644
+--- a/rust/kernel/module.rs
++++ b/rust/kernel/module.rs
+@@ -42,6 +42,14 @@ fn init(module: &'static ThisModule) -> impl pin_init::PinInit<Self, crate::erro
+ pub trait ModuleMetadata {
+     /// The name of the module as specified in the `module!` macro.
+     const NAME: &'static crate::str::CStr;
++
++    /// The module's `THIS_MODULE` pointer.
++    const THIS_MODULE: ThisModule;
++}
++
++/// Returns a reference to the `THIS_MODULE` of the given module type.
++pub const fn this_module<M: ModuleMetadata>() -> &'static ThisModule {
++    &M::THIS_MODULE
+ }
  
-     let ops = kernel::bindings::file_operations {
--        owner: THIS_MODULE.as_ptr(),
-+        owner: this_module::<LocalModule>().as_ptr(),
-         poll: Some(rust_binder_poll),
-         unlocked_ioctl: Some(rust_binder_ioctl),
-         compat_ioctl: bindings::compat_ptr_ioctl,
+ /// Equivalent to `THIS_MODULE` in the C API.
+diff --git a/rust/macros/module.rs b/rust/macros/module.rs
+index 06c18e2075083..aa9a618d5d19e 100644
+--- a/rust/macros/module.rs
++++ b/rust/macros/module.rs
+@@ -519,6 +519,22 @@ pub(crate) fn module(info: ModuleInfo) -> Result<TokenStream> {
+ 
+         impl ::kernel::ModuleMetadata for #type_ {
+             const NAME: &'static ::kernel::str::CStr = #name_cstr;
++
++            #[cfg(MODULE)]
++            const THIS_MODULE: ::kernel::ThisModule = {
++                extern "C" {
++                    static __this_module: ::kernel::types::Opaque<::kernel::bindings::module>;
++                }
++
++                // SAFETY: `__this_module` is constructed by the kernel at load time
++                // and lives until the module is unloaded.
++                unsafe { ::kernel::ThisModule::from_ptr(__this_module.get()) }
++            };
++
++            #[cfg(not(MODULE))]
++            const THIS_MODULE: ::kernel::ThisModule = unsafe {
++                ::kernel::ThisModule::from_ptr(::core::ptr::null_mut())
++            };
+         }
+ 
+         // Double nested modules, since then nobody can access the public items inside.
+@@ -616,7 +632,7 @@ pub extern "C" fn #ident_exit() {
+                 /// This function must only be called once.
+                 unsafe fn __init() -> ::kernel::ffi::c_int {
+                     let initer = <super::super::LocalModule as ::kernel::InPlaceModule>::init(
+-                        &super::super::THIS_MODULE
++                        ::kernel::module::this_module::<super::super::LocalModule>()
+                     );
+                     // SAFETY: No data race, since `__MOD` can only be accessed by this module
+                     // and there only `__init` and `__exit` access it. These functions are only
 
 -- 
 2.43.0
