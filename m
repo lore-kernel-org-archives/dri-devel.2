@@ -4,89 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96015CDB470
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 18:17:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B17CCDB46F
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 18:32:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B196A10EC3A;
-	Tue, 23 Jun 2026 18:17:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBFF310EC49;
+	Tue, 23 Jun 2026 18:32:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="Br4rKaNW";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="hWTEdnxK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B/m2xIFf";
 	dkim-atps=neutral
-Received: from fout-a5-smtp.messagingengine.com
- (fout-a5-smtp.messagingengine.com [103.168.172.148])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21F0810EC3A
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 18:17:41 +0000 (UTC)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailfout.phl.internal (Postfix) with ESMTP id 49254EC02D1;
- Tue, 23 Jun 2026 14:17:40 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-02.internal (MEProxy); Tue, 23 Jun 2026 14:17:40 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm3; t=1782238660;
- x=1782325060; bh=Sj1SnG8wgmD6FqcVumX9KYEM4P8DEWyQcCqQNAcBYVs=; b=
- Br4rKaNWrUxObjLWbsZrmJ6uJgkIZNnPXZNiOmg7zHsDw7mZA1ISU8IuKjOwFXS2
- Bsy8cuKD/Wrq+nqBJae3XX6mKWl6eULt3Z0bswaVxDqPpvrlG651CCqWk9RQKeQm
- z/M0ySScjJUa+Jmn9U8H915N7HQHNV3a2P/zBD0QbcxnYFBw579K2d3XqbWRjVEN
- WIWJuu8KzuLTFpUSfAEL3iyPGmpWLLXN8PfFzHjWv6p2oCsutiLenMJ+BnRLUL5F
- JLzXrpnHx62ei8S629wTHWMuEVPR0dBUN7HrJiUzdU5Wfe0GhO1nLWC/qHEUozuL
- yCmDjfnkgbQPOI6sXJ72mQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1782238660; x=
- 1782325060; bh=Sj1SnG8wgmD6FqcVumX9KYEM4P8DEWyQcCqQNAcBYVs=; b=h
- WTEdnxKHc6dgyqth4FYHuKGrq6bqziO5Ww0y9bTEEuL60nwhUDtxOymOFvFPa0x7
- CBoeQQMbeZTg6htZNh+ZnOImUPi2QXc7AshZ/vSNkWZMmE5RdiOCgGZktRwtqU7N
- vUrZknkvbtt7BshuNFe+XHdZfjTb/dvm7bEEqE0AImrYz3ObSl1anIHPfVcFEPyf
- SNV7bSY41mmYLMprKwhgejuA/knHs9pNIR0OdCx3Hdr1fLcgxLh4XRLlaxPSUUKX
- VCX6OvpKHXpgUafF98JSbB1tFvT4u4qrxOIpyPunF8/BL0+TZ2nMf0YHXOdmbPAY
- k+ZGerrIzn7f6XfvcNvdw==
-X-ME-Sender: <xms:w806anfp0mutTTFpDFeUpuyVHWep-YPV2glDT6SACvFHraIWhXBSTA>
- <xme:w806ajnQrCRuUtx8tDhSWS7PKRa5OZBv_-Li9GmCPcZ0DMrLFZhvBnOkF7mCG_wO1
- 2XaPj9uEJ9lyKaKF3S2fu6IomQtsM6WqRJBpKJW0z1nT-tzZ0O2VA>
-X-ME-Received: <xmr:w806asz_I8CedBmyN4ke3AyZqa_VcAwNwuJ-RFbQIWC6an68jXkYXAbZQN8>
-X-ME-Proxy-Cause: dmFkZTFwRukWK6LHpRv1dlQXVP+RHoSsx9S4XR1otDkyXrwiDIOs4np7kPjKMqXWjFmuEU
- tEySCHmFmyO1Jo95cbYld1vI+mrzB+rN1uba3i7HSSzXjrcoWChXIvlQhkTjJ0Owm6bszC
- 4VjfKNsF/CZeyu5o8efMctxWXJMYpbhAHnghcaNvtQ1x1wMNxw9+t6LXF/HDA9gXjTrEp2
- H4aI5wf6/s0LZblVCfcd4cQ5fWmAyoqySaVLFys4TastGdGU3tFQ6YRTKI3cCGLjUyXh/f
- /khZBHxKMg9sKo4vpXchNvftdGpFuuxAAR6xfHKfiZZ6hbefE9Kti2WHplt+wXvS3Sh7C9
- cyOCZo6fxAFZN1ZnbcOlVuYwxpnTmrWHQcAhwsnC5LIJn6rMVspBAg6C2RBscdctr7U2LI
- tq6K9LzZmLAt8t0aAYI/Dd0/clq3lnRDSnXlyg5k/2HJwpahQC8nn8VCXbbkRkH0tkTaWN
- 8Gm0xNQalwhmyl1+WLUMRAJ/ue1DCBmcDX80uqe2N0FckOjt7b8rmwmx3qNAgY05kDCW7K
- tUUXdTnb9i2H92bYuq4zpLnkKAKOlviaB8v+JAV0vAWl2Fk8CpVOu6lFe/iBTlNlUe7Csa
- s5e1aHGRElcJMcyT0y0m47MlgK4jho+Uu1SvuksNQB412fts+5XqmIBdEwiQ
-X-ME-Proxy: <xmx:w806amzRokRAerraTfgOcqc1E90kq8ybgEjvfH_KJ4oTfF-JVrQpIA>
- <xmx:w806asU99NHLQYuUrGMPsK-0cKe8CNOBBWrh6fwxLUx3B6atV0AaZw>
- <xmx:w806atSWw6n-KtO9E9KdlmdxwSF8VtRe46dzJvtWx6LAlyLKloBYAw>
- <xmx:w806akSTJ1_58dWwpxb1CoMdOz5_RLiXQ4OhjIU4pyMrwprYv8M3pw>
- <xmx:xM06aqbnnXKnTMOinT4ywTBWXnuJ4pTqxNRz-U7kKqeK07Szc6HXmcuE>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 23 Jun 2026 14:17:38 -0400 (EDT)
-Date: Tue, 23 Jun 2026 12:17:36 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Zhiping Zhang <zhipingz@meta.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Michael Guralnik <michaelgur@nvidia.com>, Sumit Semwal
- <sumit.semwal@linaro.org>, Christian Konig <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, <kvm@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, alex@shazbot.org
-Subject: Re: [PATCH v9 3/4] vfio/pci: implement get_pci_tph and DMA_BUF_TPH
- feature
-Message-ID: <20260623121736.4d9e38b9@shazbot.org>
-In-Reply-To: <20260622184211.2229399-4-zhipingz@meta.com>
-References: <20260622184211.2229399-1-zhipingz@meta.com>
- <20260622184211.2229399-4-zhipingz@meta.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013060.outbound.protection.outlook.com
+ [40.93.201.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5852010EC41;
+ Tue, 23 Jun 2026 18:32:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wQ6dah0ZWgBH9Pxar2WPuyamylMPgxaUFE5KHWBRSGh1QIBpdJzJkDOFVJpucZJEUmcwwkF3bojkhHBYCRHxlBbDxYVf/qB+gj1CnZthOTo6ZkDu1z7cb0c9aRg5Z6W8AVTkRlYY7dXEbPy6HaGnHixDgMpgclturIa6dz0/AUNbHkObIRqPDbXGs6fw3RO+jwlw3OLJmX0e+IC955/v/IV02Tkbd8Bj6iskuBVrjTjG16BddMlLFSl3GROwz8viYjcc1TgEJizGcwMk/zfzGayY63Vg8g2izOFJsvtLmPxS4Ak36eckhaIapS+gZsMN3QSorccu+OeB2H46mVLXJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zZhQOP86MttbDqHhD+RX7gl4kEcvIiJdcc0Fuf3Pazc=;
+ b=WU5v286DLil411kgWqKKYlP78GLz7kdyKHqrf0S+poyNGRLcctdAqfjoRoRu8bmxGlVHIy7ny2v1Sd1QiZ5zMApKF9qZD2LdsJq9Gx/Me1jkSxnCXQu/VxsfG/QTkG8Lr4Mn/A1GdPI3hpg48dWEbR3bOJICQUPyLB1tMyMrUf2AuR+KXLkqE3R9op2fMb8j8dhCzG7cc9P9S/FY3xUWAwYlyMWXOwSM0YGWz245EX1MlShBTfYeS8RQcDPH/7KdD6OUlnN/oABU+fk+BTrfobMKp8UPEkOqqKrGre3/ZjcZkZmjJu72fyF8YOE4mrMB1nILWSNFzO7lHZDkqUhCdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zZhQOP86MttbDqHhD+RX7gl4kEcvIiJdcc0Fuf3Pazc=;
+ b=B/m2xIFfgAQAIlBLCQhCIwwyRiOz1bHomjkrSfSkRAMCs1vsycj46mh4aZC0RxKdBHm+Gnxl48LUNk/TA/746D+3rNw4KSkr/dyt3Sj6j/HRe0XXBlcG3Z+pNPSEfjRIsgnv/cfFJFjpTP2ZoM3Yc80xd/usAhOaxbYuZkGm/Vk=
+Received: from BY1P220CA0040.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59e::16)
+ by DM6PR12MB4266.namprd12.prod.outlook.com (2603:10b6:5:21a::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Tue, 23 Jun
+ 2026 18:32:01 +0000
+Received: from SJ5PEPF000001F1.namprd05.prod.outlook.com
+ (2603:10b6:a03:59e:cafe::65) by BY1P220CA0040.outlook.office365.com
+ (2603:10b6:a03:59e::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.20 via Frontend Transport; Tue,
+ 23 Jun 2026 18:32:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF000001F1.mail.protection.outlook.com (10.167.242.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.159.10 via Frontend Transport; Tue, 23 Jun 2026 18:32:01 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 23 Jun
+ 2026 13:32:01 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 23 Jun
+ 2026 13:31:57 -0500
+Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Tue, 23 Jun 2026 13:31:56 -0500
+From: Harry Wentland <harry.wentland@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH 1/2] drm/colorop: Define Gamma 2.4 and 2.6 and its Inverse
+Date: Tue, 23 Jun 2026 14:31:54 -0400
+Message-ID: <20260623183155.212394-2-harry.wentland@amd.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260623183155.212394-1-harry.wentland@amd.com>
+References: <20260623183155.212394-1-harry.wentland@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F1:EE_|DM6PR12MB4266:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9b794de-a8ab-4347-1440-08ded155b76a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|22082099003|18002099003|11063799006|6133799003|56012099006;
+X-Microsoft-Antispam-Message-Info: 4VemgqfeUPqvXjN+HSf2ysa2D4m9QVIcjgprSJrZsJRx9rZJGPjrxGfx44Xm0uhjY6AHx+6cPklVj4LlWjV2Unxv0zlolIJ85d4lJ+zBm8LjerjGW/68VQ18V9k2acjBgVcBr2iWFy0U4uJdeT4o7F2RyeYALUi21LmSakgmqsbq0oVXHi5HA1nDvQVQKESKBGJrYmfqSnFL3wAJJ2reqLcSm1I84EGWMaFdC4Z4tLb9HXrphVzBXxbUl+Cga5ls8HSSV6LMygwRts4es09+HmcMsbTCIx233GdaHUIzbnLF8KmYUkmStsWTfXBCI4eDUNSD12CAViUd9ANFrsLiChkiUW5vRXl1uzMu3wHWIU/OT+ouB0WOWl4kOrlvcdn6R9XKbUKOgwPEvYnrZ355FPDWG/H71D1BHqejsl9mx31KUNcZJobyn7rOEoDUniOo40ZO/zUEOHmr+QECzseJD/JBQd2zEui0qzUQXXpfUVkz92dYHxAbXD2j/eAgqDjs/lyqdgLrcJJivOnZHw5ooxZG9bWsiEtbBAq44cFFuum23Zly1F30Z+3lIW5QV+58POBQswdi/gE5v5SckRz4vqg1FhGyikdJSBlZe/vch+R6v891es90cBTVE4JIraDx7s8yyMKNTmDANEJPJ4ac+s+wq3hxkMZ0wwlTpXcLahNdsBi8rLDj4HJHU9llzIyPmdCqVJLFtw8Q3mIg8J8g/w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(22082099003)(18002099003)(11063799006)(6133799003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: xyDv7IHN0/SrufFgul/IeEpyKBm0gVwgJugB5CXoFbsq8hanZO3yjbDTeh8xSpJrYaO4mWU0ZRrwOngUOHCScwf6tMzrSrLEbU18mG1NPVzLiDf6DDalZ4G8W9dTDWFffbGtUXzTYg6fhBHUUosgYjxheG0vMUuD18gefz3kowM+nenX5F6qOOi6okMA3hWxrqvO7VVWfaBVOTy5nqkHisM1PgXN062WC5YqFdkGcFL0ULOpq92bm3cw3b1H+6CHSnWCyauHkxMULq3OxQqZtq9JyXRaNODfxMoaR5Ktq+NWhQ1m4hqp2vRgsNLkJl+CyGwSCkf7YjXWEBz6EJ4a8cFlb9Ej7Gg8WpB4izcwqP04HX6SJoq4dbIzyOnrzGMpnCCUFSAiJo+cF1f6KXTKYqzy0v1iRMFIefqAlKIK7ogfyexDzhzeGSPA6Whg4K33
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 18:32:01.1693 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9b794de-a8ab-4347-1440-08ded155b76a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001F1.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4266
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,314 +115,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 22 Jun 2026 11:41:36 -0700
-Zhiping Zhang <zhipingz@meta.com> wrote:
+Add new 1D curve colorop types for the Gamma 2.4 and Gamma 2.6 power
+functions and their inverses.
 
-> Implement dma-buf get_pci_tph for vfio-pci exported dma-bufs and add
-> VFIO_DEVICE_FEATURE_DMA_BUF_TPH so userspace can publish TPH metadata
-> for a VFIO-owned device.
-> 
-> 8-bit ST and 16-bit Extended ST are distinct PCIe TPH namespaces; the
-> uAPI carries both with explicit validity flags, and get_pci_tph()
-> returns the value matching the importer's requested namespace or
-> -EOPNOTSUPP.
-> 
-> Publish and read the TPH descriptor under dmabuf->resv, matching the
-> locking used for other importer-visible dma-buf state. The SET ioctl
-> takes dma_resv_lock_interruptible(), while the callback runs under
-> DMA-buf's asserted resv lock.
-> 
-> Reject requests the device cannot consume as a completer:
-> pcie_tph_completer_type() must report at least
-> PCI_EXP_DEVCAP2_TPH_COMP_TPH_ONLY, and Extended ST requires
-> PCI_EXP_DEVCAP2_TPH_COMP_EXT_TPH. Make PROBE follow the same hardware
-> gate so the feature only probes as supported when the device can really
-> consume it.
-> 
-> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
-> ---
->  drivers/vfio/pci/vfio_pci_core.c   |  3 +
->  drivers/vfio/pci/vfio_pci_dmabuf.c | 97 +++++++++++++++++++++++++++++-
->  drivers/vfio/pci/vfio_pci_priv.h   | 12 ++++
->  include/uapi/linux/vfio.h          | 37 ++++++++++++
->  4 files changed, 148 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> index a28f1e99362c..c7d6902bc61b 100644
-> --- a/drivers/vfio/pci/vfio_pci_core.c
-> +++ b/drivers/vfio/pci/vfio_pci_core.c
-> @@ -1572,6 +1572,9 @@ int vfio_pci_core_ioctl_feature(struct vfio_device *device, u32 flags,
->  		return vfio_pci_core_feature_token(vdev, flags, arg, argsz);
->  	case VFIO_DEVICE_FEATURE_DMA_BUF:
->  		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
-> +	case VFIO_DEVICE_FEATURE_DMA_BUF_TPH:
-> +		return vfio_pci_core_feature_dma_buf_tph(vdev, flags, arg,
-> +							 argsz);
->  	default:
->  		return -ENOTTY;
->  	}
-> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> index c16f460c01d6..d6f5dd321000 100644
-> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> @@ -3,6 +3,7 @@
->   */
->  #include <linux/dma-buf-mapping.h>
->  #include <linux/pci-p2pdma.h>
-> +#include <linux/pci-tph.h>
->  #include <linux/dma-resv.h>
->  
->  #include "vfio_pci_priv.h"
-> @@ -19,7 +20,14 @@ struct vfio_pci_dma_buf {
->  	u32 nr_ranges;
->  	struct kref kref;
->  	struct completion comp;
-> -	u8 revoked : 1;
-> +
-> +	/* Protected by dmabuf->resv. */
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Assisted-by: Copilot:claude-opus-4.8
+---
+ drivers/gpu/drm/drm_colorop.c |  4 ++++
+ include/drm/drm_colorop.h     | 39 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 43 insertions(+)
 
-Nit, it would be more accurate to say:
-
-	/*
-	 * Updates protected by dmabuf->resv, @revoked additionally
-	 * protected by memory_lock.
-	 */
-
-revoked also has an unprotected read, but it's previously existing and
-benign, and likely just needs a READ_ONCE() annotation.
-
-> +	u16 tph_st_ext;
-> +	u8 tph_st;
-> +	u8 revoked:1;
-> +	u8 tph_st_valid:1;
-> +	u8 tph_st_ext_valid:1;
-> +	u8 tph_ph:2;
->  };
->  
->  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
-> @@ -69,6 +77,26 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attachment,
->  	return ret;
->  }
->  
-> +static int vfio_pci_dma_buf_get_pci_tph(struct dma_buf *dmabuf, bool extended,
-> +					u16 *steering_tag, u8 *ph)
-> +{
-> +	struct vfio_pci_dma_buf *priv = dmabuf->priv;
-> +
-> +	dma_resv_assert_held(dmabuf->resv);
-> +
-> +	if (extended) {
-> +		if (!priv->tph_st_ext_valid)
-> +			return -EOPNOTSUPP;
-> +		*steering_tag = priv->tph_st_ext;
-> +	} else {
-> +		if (!priv->tph_st_valid)
-> +			return -EOPNOTSUPP;
-> +		*steering_tag = priv->tph_st;
-> +	}
-> +	*ph = priv->tph_ph;
-> +	return 0;
-> +}
-> +
->  static void vfio_pci_dma_buf_unmap(struct dma_buf_attachment *attachment,
->  				   struct sg_table *sgt,
->  				   enum dma_data_direction dir)
-> @@ -101,6 +129,7 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
->  
->  static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
->  	.attach = vfio_pci_dma_buf_attach,
-> +	.get_pci_tph = vfio_pci_dma_buf_get_pci_tph,
->  	.map_dma_buf = vfio_pci_dma_buf_map,
->  	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
->  	.release = vfio_pci_dma_buf_release,
-> @@ -333,6 +362,72 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
->  	return ret;
->  }
->  
-> +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
-> +				      u32 flags,
-> +				      struct vfio_device_feature_dma_buf_tph __user *arg,
-> +				      size_t argsz)
-> +{
-> +	struct vfio_device_feature_dma_buf_tph set_tph;
-> +	struct vfio_pci_dma_buf *priv;
-> +	struct dma_buf *dmabuf;
-> +	u8 comp;
-> +	int ret;
-> +
-> +	comp = pcie_tph_completer_type(vdev->pdev);
-> +	if (comp == PCI_EXP_DEVCAP2_TPH_COMP_NONE)
-> +		return -EOPNOTSUPP;
-> +
-> +	ret = vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET,
-> +				 sizeof(set_tph));
-> +	if (ret != 1)
-> +		return ret;
-> +
-> +	if (copy_from_user(&set_tph, arg, sizeof(set_tph)))
-> +		return -EFAULT;
-> +
-> +	if (set_tph.flags & ~(VFIO_DMA_BUF_TPH_ST | VFIO_DMA_BUF_TPH_ST_EXT))
-> +		return -EINVAL;
-> +
-> +	if (set_tph.ph & ~0x3)
-> +		return -EINVAL;
-> +
-> +	if ((set_tph.flags & VFIO_DMA_BUF_TPH_ST_EXT) &&
-> +	    comp != PCI_EXP_DEVCAP2_TPH_COMP_EXT_TPH)
-> +		return -EOPNOTSUPP;
-> +
-> +	dmabuf = dma_buf_get(set_tph.dmabuf_fd);
-> +	if (IS_ERR(dmabuf))
-> +		return PTR_ERR(dmabuf);
-> +
-> +	if (dmabuf->ops != &vfio_pci_dmabuf_ops) {
-> +		ret = -EINVAL;
-> +		goto out_put;
-> +	}
-> +
-> +	priv = dmabuf->priv;
-> +	if (priv->vdev != vdev) {
-> +		ret = -EINVAL;
-> +		goto out_put;
-> +	}
-> +
-> +	ret = dma_resv_lock_interruptible(dmabuf->resv, NULL);
-> +	if (ret)
-> +		goto out_put;
-> +
-> +	priv->tph_st         = set_tph.steering_tag;
-> +	priv->tph_st_ext     = set_tph.steering_tag_ext;
-> +	priv->tph_ph         = set_tph.ph;
-> +	priv->tph_st_valid   = !!(set_tph.flags & VFIO_DMA_BUF_TPH_ST);
-> +	priv->tph_st_ext_valid =
-> +		!!(set_tph.flags & VFIO_DMA_BUF_TPH_ST_EXT);
-> +	dma_resv_unlock(dmabuf->resv);
-> +	ret = 0;
-> +
-> +out_put:
-> +	dma_buf_put(dmabuf);
-> +	return ret;
-> +}
-> +
->  void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
->  {
->  	struct vfio_pci_dma_buf *priv;
-> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-> index fca9d0dfac90..c58f369be4b3 100644
-> --- a/drivers/vfio/pci/vfio_pci_priv.h
-> +++ b/drivers/vfio/pci/vfio_pci_priv.h
-> @@ -118,6 +118,10 @@ static inline bool vfio_pci_is_vga(struct pci_dev *pdev)
->  int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
->  				  struct vfio_device_feature_dma_buf __user *arg,
->  				  size_t argsz);
-> +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
-> +				      u32 flags,
-> +				      struct vfio_device_feature_dma_buf_tph __user *arg,
-> +				      size_t argsz);
->  void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev);
->  void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked);
->  #else
-> @@ -128,6 +132,14 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
->  {
->  	return -ENOTTY;
->  }
-> +
-> +static inline int
-> +vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev, u32 flags,
-> +				  struct vfio_device_feature_dma_buf_tph __user *arg,
-> +				  size_t argsz)
-> +{
-> +	return -ENOTTY;
-> +}
->  static inline void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
->  {
->  }
-> diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
-> index 5de618a3a5ee..2d30ba43e2cf 100644
-> --- a/include/uapi/linux/vfio.h
-> +++ b/include/uapi/linux/vfio.h
-> @@ -1534,6 +1534,43 @@ struct vfio_device_feature_dma_buf {
->   */
->  #define VFIO_DEVICE_FEATURE_MIG_PRECOPY_INFOv2  12
->  
-> +/**
-> + * Upon VFIO_DEVICE_FEATURE_SET associate TPH (TLP Processing Hints) metadata
-> + * with a vfio-exported dma-buf. The dma-buf must have been created by
-> + * VFIO_DEVICE_FEATURE_DMA_BUF on this device, and the device must report
-> + * TPH Completer support in Device Capabilities 2 (bits 13:12); requests
-> + * carrying VFIO_DMA_BUF_TPH_ST_EXT additionally require the device to
-> + * report the Extended TPH Completer encoding. Otherwise the ioctl
-> + * returns -EOPNOTSUPP.
-> + *
-> + * dmabuf_fd is the file descriptor returned by VFIO_DEVICE_FEATURE_DMA_BUF.
-> + *
-> + * 8-bit ST (steering_tag) and 16-bit Extended ST (steering_tag_ext) are
-> + * distinct namespaces. Userspace supplies whichever values are valid and sets
-> + * the matching VFIO_DMA_BUF_TPH_ST / VFIO_DMA_BUF_TPH_ST_EXT bits in @flags;
-> + * an importer requests one namespace and receives the matching value.
-> + *
-> + * @flags == 0 marks any previously published ST / Extended-ST as invalid
-> + * for future PCI TPH queries on this dma-buf.
-
-I think we should avoid "published" as it still suggests we're somehow
-able to invalidate what was previously reported and consumed.  It's
-offset by the trailing clause here, but that's absent below.
-
-Also, we're noting @flags == 0 as if it's a special case, but we really
-need the clarity that if either flag bit is not set, the corresponding
-field is marked invalid for future queries.  Perhaps something like:
-
-   * @flags is the authoritative validity for each namespace: when
-   * VFIO_DMA_BUF_TPH_ST is set, @steering_tag becomes the valid 8-bit ST; when
-   * VFIO_DMA_BUF_TPH_ST_EXT is set, @steering_tag_ext becomes the valid 16-bit
-   * Extended ST.  A namespace whose bit is clear is marked invalid and
-   * reported as unsupported to importers requesting it.
-   *
-   * Each SET fully replaces the dma-buf's TPH state: any namespace not selected
-   * in @flags is left invalid, so @flags == 0 marks both ST and Extended ST
-   * invalid.  This only affects TPH queries made after the SET completes; an
-   * importer that has already retrieved a value is unaffected.  Userspace must
-   * therefore configure TPH before handing the dma-buf fd to an importer.
-
-> + *
-> + * ph is the 2-bit TLP Processing Hint and must be in the range [0, 3].
-
-Slight inconsistency here, @ph.  We might also help to silence the
-Sashiko warning to note:
-
-   * Undefined @flags and @ph bits must always be zero.
-
-> + *
-> + * Userspace must publish TPH before handing the dma-buf fd to an importer.
-> + * Calling SET again replaces the published values.
-
-The above suggestion is meant to replace this as well.
-
-> + */
-> +#define VFIO_DEVICE_FEATURE_DMA_BUF_TPH 13
-
-There are several series in-flight contending for device feature
-indexes, so this should really go in through the vfio tree to reduce
-the risk of duplicates.  We also still need acks from the relevant
-maintainers for PCI, dma-buf, and mlx5 before this can be queued for
-v7.3.  Thanks,
-
-Alex
-
-> +
-> +#define VFIO_DMA_BUF_TPH_ST		(1 << 0)
-> +#define VFIO_DMA_BUF_TPH_ST_EXT		(1 << 1)
-> +
-> +struct vfio_device_feature_dma_buf_tph {
-> +	__s32	dmabuf_fd;
-> +	__u32	flags;
-> +	__u16	steering_tag_ext;
-> +	__u8	steering_tag;
-> +	__u8	ph;
-> +};
-> +
->  /* -------- API for Type1 VFIO IOMMU -------- */
->  
->  /**
+diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+index c0eecde8c176..54a338312ce7 100644
+--- a/drivers/gpu/drm/drm_colorop.c
++++ b/drivers/gpu/drm/drm_colorop.c
+@@ -79,6 +79,10 @@ static const char * const colorop_curve_1d_type_names[] = {
+ 	[DRM_COLOROP_1D_CURVE_BT2020_OETF] = "BT.2020 OETF",
+ 	[DRM_COLOROP_1D_CURVE_GAMMA22] = "Gamma 2.2",
+ 	[DRM_COLOROP_1D_CURVE_GAMMA22_INV] = "Gamma 2.2 Inverse",
++	[DRM_COLOROP_1D_CURVE_GAMMA24] = "Gamma 2.4",
++	[DRM_COLOROP_1D_CURVE_GAMMA24_INV] = "Gamma 2.4 Inverse",
++	[DRM_COLOROP_1D_CURVE_GAMMA26] = "Gamma 2.6",
++	[DRM_COLOROP_1D_CURVE_GAMMA26_INV] = "Gamma 2.6 Inverse",
+ };
+ 
+ static const struct drm_prop_enum_list drm_colorop_lut1d_interpolation_list[] = {
+diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+index b4b9e4f558ab..a999d9bf6507 100644
+--- a/include/drm/drm_colorop.h
++++ b/include/drm/drm_colorop.h
+@@ -126,6 +126,45 @@ enum drm_colorop_curve_1d_type {
+ 	 * The inverse of &DRM_COLOROP_1D_CURVE_GAMMA22
+ 	 */
+ 	DRM_COLOROP_1D_CURVE_GAMMA22_INV,
++
++	/**
++	 * @DRM_COLOROP_1D_CURVE_GAMMA24:
++	 *
++	 * enum string "Gamma 2.4"
++	 *
++	 * A gamma 2.4 power function. This applies a power curve with
++	 * gamma value of 2.4 to the input values.
++	 */
++	DRM_COLOROP_1D_CURVE_GAMMA24,
++
++	/**
++	 * @DRM_COLOROP_1D_CURVE_GAMMA24_INV:
++	 *
++	 * enum string "Gamma 2.4 Inverse"
++	 *
++	 * The inverse of &DRM_COLOROP_1D_CURVE_GAMMA24
++	 */
++	DRM_COLOROP_1D_CURVE_GAMMA24_INV,
++
++	/**
++	 * @DRM_COLOROP_1D_CURVE_GAMMA26:
++	 *
++	 * enum string "Gamma 2.6"
++	 *
++	 * A gamma 2.6 power function. This applies a power curve with
++	 * gamma value of 2.6 to the input values.
++	 */
++	DRM_COLOROP_1D_CURVE_GAMMA26,
++
++	/**
++	 * @DRM_COLOROP_1D_CURVE_GAMMA26_INV:
++	 *
++	 * enum string "Gamma 2.6 Inverse"
++	 *
++	 * The inverse of &DRM_COLOROP_1D_CURVE_GAMMA26
++	 */
++	DRM_COLOROP_1D_CURVE_GAMMA26_INV,
++
+ 	/**
+ 	 * @DRM_COLOROP_1D_CURVE_COUNT:
+ 	 *
+-- 
+2.54.0
 
