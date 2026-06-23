@@ -4,102 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A0C4CDB471
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 16:48:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 519E7CDB470
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 17:04:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C719A10EC1C;
-	Tue, 23 Jun 2026 16:48:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CB0710EBF3;
+	Tue, 23 Jun 2026 17:04:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0W/MLK3p";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SBI6GWTo";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012047.outbound.protection.outlook.com [52.101.48.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 687B510EC1B;
- Tue, 23 Jun 2026 16:48:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZLQS1TjBieCLl+W8WLKBfs5E7IZU5iVTZRqRV0ie7dYa/gIkmei9819y1ZZjVbkmwH+SmU2Yuevmhki0TWrKljyfFy6GgRPmTAkoKeSUTxX+h/ULNypr6xSFOdEdxa/yBrcH/KS9CaDxZnRM6RJs+G5BgXiyQpkVazY+ZJBOvtX7TsCNix/f+PATahDENgvZMMm5L5Sb9xK2flFB9E5ICm6WHg5V4eGSBdVj9EaEhKG8UGXkbLhWGXfl6Xq3O9rgLHINNmHByxm9/DeXsRsQvp8On0pvIVYwA7wrvRy2G7Fb/XytjrKPtbYbwCjf1/KZrUJz4r4WzjCwheTWd/TJBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fg/bCBaXKD6Nq74ubYWoPaOCU31VEaAQGDMZ4La6HoE=;
- b=vVpZoO3SIJqNlT8xGMne9UZlxbJlcmZ8JP8zL8snoLgWIFWNybhRT8WQfkuhhO54/wAJ4TLIWNB/O0al3mw0SP0UDZiPc//Gfyz2fY5ZgkHM3uKH7SkkE2vhwR5DPEhMm37rsikpR6cB1vok9Hs6JOJzi7FmInmAZIXptVr80IW3iM0pu1Yja55JuBBnjnKAutMVyaauyQLA2/X1IFkoRhhuEcFyRlx7EEHOb+IRJ3Uxz3X/Gj4w9X0NcUQxec+/yZHC9JrHVdWzJWJ+D9s6m091a668R8AqJIQlFtkhvJv/o+wTWul3xzU0wt4KEJzya1Ge2dqmVKADdPjXtgaj2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fg/bCBaXKD6Nq74ubYWoPaOCU31VEaAQGDMZ4La6HoE=;
- b=0W/MLK3pCvnBvZFl5NUT5+WuD9xVpAlAaw8GIDT2USiuw0aQhinCkryp8SyaiPNqhdvJrOawPsUBxBkAzRTBtsjQW9RJq2fREXrLAadTwfvjJxduahmf9AiRPfI9uDSGDE8ibo6l+CkzMKnH9hJ7oPY6rMjn1g5FXrPwAZ25e7o=
-Received: from BY3PR05CA0044.namprd05.prod.outlook.com (2603:10b6:a03:39b::19)
- by PH7PR12MB7354.namprd12.prod.outlook.com (2603:10b6:510:20d::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Tue, 23 Jun
- 2026 16:48:28 +0000
-Received: from SJ5PEPF000001D7.namprd05.prod.outlook.com
- (2603:10b6:a03:39b:cafe::8f) by BY3PR05CA0044.outlook.office365.com
- (2603:10b6:a03:39b::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.12 via Frontend Transport; Tue,
- 23 Jun 2026 16:48:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001D7.mail.protection.outlook.com (10.167.242.59) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.10 via Frontend Transport; Tue, 23 Jun 2026 16:48:28 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 23 Jun
- 2026 11:48:24 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 23 Jun
- 2026 11:48:23 -0500
-Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 23 Jun 2026 11:48:23 -0500
-From: Harry Wentland <harry.wentland@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH v3 11/11] drm/amd/display: Force GAMCOR for subsampled
- surfaces with PQ/Gamma22/HLG
-Date: Tue, 23 Jun 2026 12:48:12 -0400
-Message-ID: <20260623164812.81110-12-harry.wentland@amd.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260623164812.81110-1-harry.wentland@amd.com>
-References: <20260623164812.81110-1-harry.wentland@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D7:EE_|PH7PR12MB7354:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9953d323-8857-4eb3-76bd-08ded1474070
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|23010399003|82310400026|376014|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: 3smlFf/8xPlboOJMR5SNHqW6R3G0948VqyEAuTXUMePQ1BL/IYPdoR81fC60T79eOcSqVnIMqHgyNxI3FNUz7BSMn7bTqfKR+51iONpSX9LMgeyGlOS9VbANBO4HixtvzziHNQEuKbVQYHvwKwP3i2GvKXUGE1dvUZsfJ2GBoQPi/oEi2/6hRR697WSYCgSVCMbLdqGpuTxzsnMUkBylatrOhpsfRglxqbkUb2h/DHvxe9+Nz8lLA+eX8cGqrdU4hv5evwCgdlzBziZt1DtEbhj5NwIt1q89MSXMS0GRaInUF8APa53YYdln+37DYKj2jAYHVPVXka6U8xjPkFlj1EKxQ6IuR96TTW75ju2gf1cZe4Yfa/vMTtyI35oxLAG7yA37s/Pl0XqZZ+fz6z9ukkfgZ/+lNjBuLG19UxvcyzElGq9mi465CnrkGlgE/n7MCvmiENTwmo6xsWHD2utp8YszQNGtZ7rL4PxSd9GkD4Fhnbz0WzoOp0QdZyVin6lShPMQiBLnstlWfX8xZULdJ5Hqe/5Blayjkq4P9Q+/99osuJZVRbpQc1rNp8o44HUZsP6yuHXgNCoNNT/Nb1awYFG42XkvdvegMI9AlQqQlXFosG6gqkweDvpjT5DwRoDMhxR4IYfU75TQyEj8s0M/g+w9Q6Z2I71IItCk1rZU0CsE0gibndX5h+M5UfpDpONMiY0J+x0ASX+XN3rmUcpKrQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(23010399003)(82310400026)(376014)(18002099003)(22082099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: If+qC22uU2BIx1OXLci0lJKM/ORNJ00xR25Y+EMvy9z9HjukfMSQgw2Oztj26cP0SSS4oAhb9fm8Urkk6Kqk9veeZ/ee1eSMHOgC3ZqxwdHUlN36fPStOAl6ovbed97TykEftRRz1+h7IAaSw+eookKuLffr3QjKizyxtA/u7cBph5UffxASiK+ixjjpn3wUcq48vYk4L4d2ljgaa7PLTLVrTtIdWdHTtOMwB6xvbvSLpvzVb6mE0P3clbsDbEaFno7TK7HfSqH4J9JbboQsSXJpC61n9VkWzbDSAHHkRPnW18iAJqPsBh+y+1YgWPKMtkFI/jBDr+PF4ABrL9yE5MaejlXMKe2BgknIm5Cv3ET+SfVdkuBJJB6/6UkwNugnKwmo8LOsq6Zw2a4QUiSWu4Ms4q+S6l+fY+3f3O004xZuBMYObOxj2n7P4bxtoOoj
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 16:48:28.6450 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9953d323-8857-4eb3-76bd-08ded1474070
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D7.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7354
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84A6510EBF3
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 17:04:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 06822401CB;
+ Tue, 23 Jun 2026 17:04:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C31841F000E9;
+ Tue, 23 Jun 2026 17:04:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782234278;
+ bh=ZQnB+mLPZ4RyJwtDMy46Wn+3HlQs8Hpn2R9m4Tmsbss=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=SBI6GWToCQKXF1e2fVk0W/QQIBGYLWLJ9hHQUPKNid0V0kqanAuMipGafOz9V18Ht
+ g7JOYT8UyLLF252tgc4EN+irpEDelwycuAyeQREvG0eQ9Cdpj2HRY6KkGR4t2ZcXsU
+ 0hr2lfLTss+s7R7SKM/7DWRqDYoROHWL/E8yVQtBITBaIQJWLL8uPcxfXEpxGcBncF
+ e3L+JxrVOc1Qhg5QDA93ZhGxa/4srrQp/9uTnuEH6lp1Jvqw+UmYShn6BteuczlJ4Z
+ Zc8afWoIPqDlNUcycIxlz08diFb2ODvUnjUUzqeiC3vu9cIGIlmvHc0L8ovWYQkYsq
+ cF4NTOGH/3XnA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/2] drm/xe/pagefault: Add SRCID to pagefault struct
+To: "Jonathan Cavitt" <jonathan.cavitt@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260623164610.1019512-2-jonathan.cavitt@intel.com>
+References: <20260623164610.1019512-1-jonathan.cavitt@intel.com>
+ <20260623164610.1019512-2-jonathan.cavitt@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 23 Jun 2026 17:04:38 +0000
+Message-Id: <20260623170438.C31841F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,47 +53,58 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The ROM early-return checks for PQ, Gamma 2.2, and HLG in
-mod_color_calculate_degamma_params() do not consider the map_user_ramp
-parameter. When map_user_ramp is true (indicating a subsampled surface
-that requires post-scaler degamma via GAMCOR), the function still takes
-the ROM path, programming PRE_DEGAM instead.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The format specifier `%ld` is used for an `unsigned long` argument =
+in `xe_pagefault_print()`, causing a signedness mismatch.
+--
 
-For subsampled formats the chroma channels must be upsampled by the
-scaler before degamma is applied. PRE_DEGAM sits before the scaler in
-the pipeline (CNVC domain), while GAMCOR sits after it (CM domain).
-Using the ROM for subsampled surfaces means degamma is applied to
-subsampled chroma before upsampling, producing incorrect results.
+commit a84658007b56ca870c768c6042faa49f53ab109e
+Author: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Subject: drm/xe/pagefault: Add SRCID to pagefault struct
 
-Fix by gating the dcn_arch ROM capability checks on !map_user_ramp,
-forcing PQ/Gamma22/HLG through the GAMCOR LUT path when the surface
-is subsampled.
+This commit adds SRCID information to the pagefault struct to report the
+hardware unit that triggered the pagefault. It folds the SRCID into the
+existing ASID field to maintain a compact structure.
 
-Fixes: a8bf71649088 ("drm/amd/display: Internal refactoring to abstract color caps")
-Cc: stable@vger.kernel.org
-Assisted-by: Copilot:claude-opus-4.6
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
----
- drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> diff --git a/drivers/gpu/drm/xe/xe_pagefault.c b/drivers/gpu/drm/xe/xe_pa=
+gefault.c
+> index dd3c068e1a399..3b0510f2a72e6 100644
+> --- a/drivers/gpu/drm/xe/xe_pagefault.c
+> +++ b/drivers/gpu/drm/xe/xe_pagefault.c
 
-diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-index 03d88e78165d..5786ef5787ac 100644
---- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-+++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-@@ -1696,7 +1696,8 @@ bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
- 			return true;
- 
- 		if (dc_caps != NULL &&
--			dc_caps->dpp.dcn_arch == 1) {
-+			dc_caps->dpp.dcn_arch == 1 &&
-+			!map_user_ramp) {
- 
- 			if (input_tf->tf == TRANSFER_FUNCTION_PQ &&
- 					dc_caps->dpp.dgam_rom_caps.pq == 1)
--- 
-2.54.0
+[ ... ]
 
+> @@ -242,14 +243,16 @@ static bool xe_pagefault_queue_pop(struct xe_pagefa=
+ult_queue *pf_queue,
+> =20
+>  static void xe_pagefault_print(struct xe_pagefault *pf)
+>  {
+> -	xe_gt_info(pf->gt, "\n\tASID: %d\n"
+> +	xe_gt_info(pf->gt, "\n\tASID: %ld\n"
+
+[Severity: Low]
+Does this code introduce a format specifier mismatch? FIELD_GET() returns an
+unsigned long, but the format string uses %ld which expects a signed long.
+Should this use %lu instead to maintain format string type safety?
+
+>  		   "\tFaulted Address: 0x%08x%08x\n"
+>  		   "\tFaultType: %lu\n"
+>  		   "\tAccessType: %lu\n"
+>  		   "\tFaultLevel: %lu\n"
+>  		   "\tEngineClass: %d %s\n"
+> -		   "\tEngineInstance: %d\n",
+> -		   pf->consumer.asid,
+> +		   "\tEngineInstance: %d\n"
+> +		   "\tSRCID: 0x%02lx\n",
+> +		   FIELD_GET(XE_PAGEFAULT_ASID_MASK,
+> +			     pf->consumer.id),
+>  		   upper_32_bits(pf->consumer.page_addr),
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260623164610.1019=
+512-1-jonathan.cavitt@intel.com?part=3D1
