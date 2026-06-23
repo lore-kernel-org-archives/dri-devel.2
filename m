@@ -4,127 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08672CDB470
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 07:32:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E725CDB470
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 07:37:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 529F710E99D;
-	Tue, 23 Jun 2026 07:32:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA69A10E9A6;
+	Tue, 23 Jun 2026 07:37:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="o6HJxsUA";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bcRsAgfn";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="o6HJxsUA";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bcRsAgfn";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="kl9dm1VY";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FD3E10E99D
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 07:32:31 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 15A246C2BE;
- Tue, 23 Jun 2026 07:32:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782199950; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=o0N4U3ypQ+TNzBl6qmdwYkJxDIWmvvHuUQN3J4Qxyic=;
- b=o6HJxsUApx20YUAn3hqO0YShphGNQYt1Rw5qg8xobnCNwJ/e4Y9YLb4yLrcJ3onbz+E8FC
- eORtI1VhGpWPKJFLFqzGbYpHFw8bk2R1PA4UIZr1LbL4mmlFtTXurGboFASC33yaIMAxSK
- J+jaHlNG2mXQpgFWrVvruHLkS6WrKOY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782199950;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=o0N4U3ypQ+TNzBl6qmdwYkJxDIWmvvHuUQN3J4Qxyic=;
- b=bcRsAgfnCrdM7jS5+psSd8EIvOILXXG+ks1t4RXZbI5jSPZwphtygGJZG4HK4mOY0mUI5u
- UAhDYlhy3l7SpVCQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782199950; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=o0N4U3ypQ+TNzBl6qmdwYkJxDIWmvvHuUQN3J4Qxyic=;
- b=o6HJxsUApx20YUAn3hqO0YShphGNQYt1Rw5qg8xobnCNwJ/e4Y9YLb4yLrcJ3onbz+E8FC
- eORtI1VhGpWPKJFLFqzGbYpHFw8bk2R1PA4UIZr1LbL4mmlFtTXurGboFASC33yaIMAxSK
- J+jaHlNG2mXQpgFWrVvruHLkS6WrKOY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782199950;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=o0N4U3ypQ+TNzBl6qmdwYkJxDIWmvvHuUQN3J4Qxyic=;
- b=bcRsAgfnCrdM7jS5+psSd8EIvOILXXG+ks1t4RXZbI5jSPZwphtygGJZG4HK4mOY0mUI5u
- UAhDYlhy3l7SpVCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DF08B779A8;
- Tue, 23 Jun 2026 07:32:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 35MyNY02Omo2FwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 23 Jun 2026 07:32:29 +0000
-Message-ID: <3045831e-bbc2-43bd-bc47-3cf720fd8a6c@suse.de>
-Date: Tue, 23 Jun 2026 09:32:29 +0200
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B20210E9A6
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 07:37:14 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-8454160043aso4165313b3a.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 00:37:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1782200233; x=1782805033;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=QWlSMHsACJK0E3abjyK7dgy5EMAkt0OYlO+2FYWhCzk=;
+ b=kl9dm1VYidZ3TGfORKRaMpaIZ1TCQtKrsA+cLh/wMkxyEs8yWjq6Yaq6M7pKK5KnHr
+ QLeFZ0YMXuRKpDT8InzUS1beEkF9ANlxmm+n1GwiQAIX2CctgLOA6q7koADmer9E3dyn
+ U4KBQ9NCHIJ4GlCZ+s678VOB8u2qJ34c7DvJo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782200233; x=1782805033;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QWlSMHsACJK0E3abjyK7dgy5EMAkt0OYlO+2FYWhCzk=;
+ b=MSMX7dfK1gLBcsHoq0JnYvJCls5SSYiy9KKJDUFdkRQgw/YgaKnBn/Cl3dR8yrfFTr
+ BD9EjD250LZboN10suS4W8l+48p4uyWe1cAkJmfdhuTnxAfkqV+xbMmV205P9jn7QfDM
+ cyYGBNfTCab6D1rkH3vSIgvyHcL1Lz6WeZYWmK4Kfyt3RAXS6WR/dZzaTbKpJA/q/+3i
+ Ly4T4cia+yhjSdeqoJMALpDYPRDlYDBf9ii5K++SgfdUffVEUIPIBf/8eQ+4OtpzfL21
+ pcZGMSu5ZtpGSbMccl4QBmBlqPaZKT6PbW4fg+yRWFel9L48HS5nr0J8Zw86IvdfAiRO
+ KDKQ==
+X-Gm-Message-State: AOJu0YyBR1ENYdKjrKEWCTYTxBIKj1ZAwI/TCnISJ2WmR4rtI/NJvIFG
+ +VNHGbciRUXALRPIG5EwoyywDUurn//M4gs+yuSzn5ecX5z2gbZ4elRm4zY25dk7sQ==
+X-Gm-Gg: AfdE7clDnPSIQAkhZDGpSqfEUWiI9GGlu2vzTtrl696ydrPrfTnL9dI95g+7GE2QCjC
+ 5g3OazN+6XL6qzTrFtqVZar+xCM5q5c48u9HxVXraY5u4B7cQD95ANLsI2we7fl25d+6bs4ZQFu
+ XZhk1JSxToQJ75OMpVsltirVHe51GQjiMc9hJ40Xk2VOUst8JjWTR+txEr24SivfinToay3KEBh
+ ZOr87DNjB0p+7Cr/Vk2Nr+kFtAO+RIkrJYckNnyjPeu3HccNpocdD6Q5h9uy6YRJ8CepY+Q0pve
+ MQRKRj3MyVg+6eBu87kShS+3sxDYgN0ua45T/iyaxTk774Swh6tvA+AeKhux7aLXiMJYiqHM+qb
+ LFLO4cueOK6nfVDBmS9xEPbmepbM9ZM725EZt6Gb06CCOdTSX+0SLXHb39JtAEN0ZPy91zuWz0O
+ iswFNOHQUwOW+EePJTFdbl/mytnpZjKjAGzfQDoI6c6VTFxkB95gC13HNQHljtyepSspPF4xns9
+ 2s=
+X-Received: by 2002:a05:6a00:3cc4:b0:842:46a6:e2db with SMTP id
+ d2e1a72fcca58-84597044cf1mr1705096b3a.19.1782200233543; 
+ Tue, 23 Jun 2026 00:37:13 -0700 (PDT)
+Received: from tigerii.tok.corp.google.com
+ ([2a00:79e0:2031:6:1287:5d13:b2d6:c6ab])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84564ed3212sm9961227b3a.55.2026.06.23.00.37.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Jun 2026 00:37:13 -0700 (PDT)
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Sergey Senozhatsky <senozhatsky@chromium.org>, stable@vger.kernel.org
+Subject: [PATCH] drm/drm_mode: drop property ref-counter outside of deadlock
+ retry loop
+Date: Tue, 23 Jun 2026 16:36:24 +0900
+Message-ID: <20260623073648.836363-1-senozhatsky@chromium.org>
+X-Mailer: git-send-email 2.55.0.rc0.786.g65d90a0328-goog
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] PCI: vgaarb: Include 0x0380 devices in boot VGA
- selection
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Aaron Ma <aaron.ma@canonical.com>, Bjorn Helgaas <bhelgaas@google.com>,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260622061339.3306046-1-aaron.ma@canonical.com>
- <686c79f1-f4d5-4c76-a57d-fd124c0c1af6@amd.com>
-Content-Language: en-US
-Cc: dri-devel <dri-devel@lists.freedesktop.org>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <686c79f1-f4d5-4c76-a57d-fd124c0c1af6@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.996]; MIME_GOOD(-0.10)[text/plain];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_FIVE(0.00)[6];
- FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
- canonical.com:email, suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,252 +88,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-(cc dri-devel)
+set_property_legacy() increments property ref-counter before
+DRM_MODESET_LOCK_ALL_BEGIN()'s modeset_lock_retry label.
+However the ref-counter decrement is misplaced - it's performed
+before DRM_MODESET_LOCK_ALL_END() checks for -EDEADLK and jumps
+to modeset_lock_retry label, creating ref-counter underflow.
 
-Hi Mario et al
+Fixes: 9bcaa3fe58ab ("drm: Replace drm_modeset_lock/unlock_all with DRM_MODESET_LOCK_ALL_* helpers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+---
+ drivers/gpu/drm/drm_mode_object.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Am 22.06.26 um 18:09 schrieb Mario Limonciello:
-> +Thomas Zimmermann
-
-Thanks.
-
->
-> Here is the lore link for you for full context.
->
-> Aaron's v1: 
-> https://lore.kernel.org/linux-pci/20260618081803.2790848-1-aaron.ma@canonical.com/
-> My proposal: 
-> https://lore.kernel.org/linux-pci/20260621175230.1453114-1-mario.limonciello@amd.com/ 
->
-
-I saw this patch. I was slightly confused, because it says 'fbcon'.
-
-> Aaron's v2: 
-> https://lore.kernel.org/linux-pci/20260622061339.3306046-1-aaron.ma@canonical.com/
->
-> On 6/21/26 23:13, Aaron Ma wrote:
->> Some firmware boot displays use PCI class 0x0380
->> (PCI_CLASS_DISPLAY_OTHER). vgaarb only registers pci_is_vga()
->> devices, so those devices are skipped by vga_is_firmware_default()
->> and cannot become vga_default_device().
-
-I think the current behavior is correct. The vgaarb is for mediating 
-VGA's hard-coded I/O addresses among multiple devices. IMHO the module 
-should not manage other graphics devices.
-
-IOW, I think a fix should mostly be outside of vgaarb.c.
-
->>
->> On hybrid systems this can leave a discrete VGA GPU as
->> vga_default_device() even when the firmware framebuffer is on the
->> 0x0380 device. That makes boot_vga point at the wrong GPU and can
->> make boot_display report multiple devices through different paths.
-
-I assume that boot_display is true for both cards because one device has 
-the screen_info settings,  and the other is the 'vga_default_device', Right?
-
->>
->> Register legacy VGA and 0x0380 display devices for default selection
->> and boot_vga visibility. Keep legacy VGA decode ownership limited to
->> pci_is_vga() devices so 0x0380 devices are not treated as legacy VGA
->> decoders.
->>
->> Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
->> ---
->> Changes in v2:
->> - Keep legacy VGA decodes and owns limited to pci_is_vga() devices.
->> - Keep 0x0380 devices eligible for firmware/default selection and
->>    boot_vga visibility without treating them as legacy VGA decoders.
->> - Update the commit message to describe the boot_vga compatibility goal.
->
-> I really think dropping the fallback path (we found nothing, so this 
-> VGA thing must be it) is the right direction.
->
-> I'd like Thomas' comments about that though.
->
-> If we must keep that path, how about instead modify how 
-> vga_is_firmware_default() works.  We could instead have 
-> vga_has_firmware_default() and vga_is_firmware_default() both.
->
-> If the system vga_has_firmware_default() then no longer activate the 
-> fallback path.
->
->>
->>   drivers/pci/pci-sysfs.c |  3 ++-
->>   drivers/pci/vgaarb.c    | 27 +++++++++++++++------------
->>   include/linux/pci.h     | 14 ++++++++++++++
->>   3 files changed, 31 insertions(+), 13 deletions(-)
->>
->> diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
->> index d37860841260c..843d83ec9550a 100644
->> --- a/drivers/pci/pci-sysfs.c
->> +++ b/drivers/pci/pci-sysfs.c
->> @@ -1717,7 +1717,8 @@ static umode_t pci_dev_attrs_are_visible(struct 
->> kobject *kobj,
->>       struct device *dev = kobj_to_dev(kobj);
->>       struct pci_dev *pdev = to_pci_dev(dev);
->>   -    if (a == &dev_attr_boot_vga.attr && pci_is_vga(pdev))
->> +    if (a == &dev_attr_boot_vga.attr &&
->> +        pci_is_vga_or_other_display(pdev))
->>           return a->mode;
->
-> I really don't think we want boot_vga exported on a non-VGA device.
-> Even if the rest of the PR hangs around, this hunk I think should go.
-
-I agree. Boot_vga does not mean that there's a mode installed, but 
-rather that the VGA device got posted by the BIOS/UEFI. That's clearly 
-not the case for the other-display device.
-
-
->
->>       if (a == &dev_attr_serial_number.attr && pci_get_dsn(pdev))
->> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
->> index c360eee11dd9e..56a86779e6d28 100644
->> --- a/drivers/pci/vgaarb.c
->> +++ b/drivers/pci/vgaarb.c
->> @@ -741,6 +741,7 @@ static bool vga_arbiter_add_pci_device(struct 
->> pci_dev *pdev)
->>       unsigned long flags;
->>       struct pci_bus *bus;
->>       struct pci_dev *bridge;
->> +    bool legacy_vga = pci_is_vga(pdev);
-
-Just a word on terminology. AFAIU in this context 'legacy' does not mean 
-that VGA is legacy. Legacy refers to VGA's original hard-coded I/O 
-ranges (e.g, 0xa0000, 0x3c2, etc.) .
-
-
-
-I think Mario's suggestion at [1] might be a better way forward than 
-modifying vgaarb. For boot_vga, we want a VGA device. For the primary 
-device, we want the device with the pre-configured framebuffer on it. So 
-I'd do something like this in video_is_primary_device():
-
-if (screen_info is_valid) {
-     // do the screen_info test from [2]
-} else {
-     // fall back to the default vga device. [3]
-}
-
-This should get us at most one primary graphics device; preferably the 
-one with the framebuffer. With no framebuffer set up, using the default 
-VGA seems a sensible choice. We can still have distinct boot_display and 
-boot_vga flags, because this is what the system looks like.
-
-And with that, another patch has to go into the Xorg server. Support for 
-boot_display got added in commit 41c58693c ("Add check for 
-`pci_device_linux_sysfs_boot_display()`") [4] AFAICT.  This needs to be 
-reworks a bit, so that it first tests for boot_display; and then falls 
-back to boot_vga if the former did not exist.
-
-[1] 
-https://lore.kernel.org/linux-pci/20260621175230.1453114-1-mario.limonciello@amd.com/ 
-
-[2] 
-https://elixir.bootlin.com/linux/v7.1.1/source/arch/x86/video/video-common.c#L49
-[3] 
-https://elixir.bootlin.com/linux/v7.1.1/source/arch/x86/video/video-common.c#L46
-[4] https://gitlab.freedesktop.org/xorg/xserver/-/commit/41c58693c
-
-Best regards
-Thomas
-
->>       u16 cmd;
->>         /* Allocate structure */
->> @@ -762,21 +763,23 @@ static bool vga_arbiter_add_pci_device(struct 
->> pci_dev *pdev)
->>       }
->>       vgadev->pdev = pdev;
->>   -    /* By default, assume we decode everything */
->> -    vgadev->decodes = VGA_RSRC_LEGACY_IO | VGA_RSRC_LEGACY_MEM |
->> -              VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
->> +    /* By default, assume VGA devices decode everything */
->> +    vgadev->decodes = VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
->> +    if (legacy_vga)
->> +        vgadev->decodes |= VGA_RSRC_LEGACY_IO | VGA_RSRC_LEGACY_MEM;
->>   -    /* By default, mark it as decoding */
->> -    vga_decode_count++;
->> +    /* By default, mark legacy VGA devices as decoding */
->> +    if (vgadev->decodes & VGA_RSRC_LEGACY_MASK)
->> +        vga_decode_count++;
->>         /*
->>        * Mark that we "own" resources based on our enables, we will
->>        * clear that below if the bridge isn't forwarding.
->>        */
->>       pci_read_config_word(pdev, PCI_COMMAND, &cmd);
->> -    if (cmd & PCI_COMMAND_IO)
->> +    if (legacy_vga && (cmd & PCI_COMMAND_IO))
->>           vgadev->owns |= VGA_RSRC_LEGACY_IO;
->> -    if (cmd & PCI_COMMAND_MEMORY)
->> +    if (legacy_vga && (cmd & PCI_COMMAND_MEMORY))
->>           vgadev->owns |= VGA_RSRC_LEGACY_MEM;
->>         /* Check if VGA cycles can get down to us */
->> @@ -796,7 +799,7 @@ static bool vga_arbiter_add_pci_device(struct 
->> pci_dev *pdev)
->>       }
->>         if (vga_is_boot_device(vgadev)) {
->> -        vgaarb_info(&pdev->dev, "setting as boot VGA device%s\n",
->> +        vgaarb_info(&pdev->dev, "setting as boot display device%s\n",
->>                   vga_default_device() ?
->>                   " (overriding previous)" : "");
->>           vga_set_default_device(pdev);
->> @@ -1483,8 +1486,8 @@ static int pci_notify(struct notifier_block 
->> *nb, unsigned long action,
->>         vgaarb_dbg(dev, "%s\n", __func__);
->>   -    /* Only deal with VGA class devices */
->> -    if (!pci_is_vga(pdev))
->> +    /* Only deal with legacy VGA and other display controller 
->> devices */
->> +    if (!pci_is_vga_or_other_display(pdev))
->>           return 0;
->>         /*
->> @@ -1530,12 +1533,12 @@ static int __init vga_arb_device_init(void)
->>         bus_register_notifier(&pci_bus_type, &pci_notifier);
->>   -    /* Add all VGA class PCI devices by default */
->> +    /* Add legacy VGA and other display controller PCI devices by 
->> default */
->>       pdev = NULL;
->>       while ((pdev =
->>           pci_get_subsys(PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
->>                      PCI_ANY_ID, pdev)) != NULL) {
->> -        if (pci_is_vga(pdev))
->> +        if (pci_is_vga_or_other_display(pdev))
->>               vga_arbiter_add_pci_device(pdev);
->>       }
->>   diff --git a/include/linux/pci.h b/include/linux/pci.h
->> index 2c4454583c115..195ec1bdac863 100644
->> --- a/include/linux/pci.h
->> +++ b/include/linux/pci.h
->> @@ -792,6 +792,20 @@ static inline bool pci_is_vga(struct pci_dev *pdev)
->>       return false;
->>   }
->>   +/**
->> + * pci_is_vga_or_other_display - check if the PCI device is VGA or 
->> 0x0380
->> + * @pdev: PCI device
->> + *
->> + * Return true for legacy VGA-compatible devices and for "other display
->> + * controller" devices.  Some firmware-selected boot display devices 
->> expose
->> + * class 0x0380 instead of PCI_CLASS_DISPLAY_VGA.
->> + */
->> +static inline bool pci_is_vga_or_other_display(struct pci_dev *pdev)
->> +{
->> +    return pci_is_vga(pdev) ||
->> +        (pdev->class >> 8) == PCI_CLASS_DISPLAY_OTHER;
->> +}
->> +
->>   /**
->>    * pci_is_display - check if the PCI device is a display controller
->>    * @pdev: PCI device
->
-
+diff --git a/drivers/gpu/drm/drm_mode_object.c b/drivers/gpu/drm/drm_mode_object.c
+index 21fc9deda437..11f0044f4782 100644
+--- a/drivers/gpu/drm/drm_mode_object.c
++++ b/drivers/gpu/drm/drm_mode_object.c
+@@ -549,8 +549,8 @@ static int set_property_legacy(struct drm_mode_object *obj,
+ 						  prop, prop_value);
+ 		break;
+ 	}
+-	drm_property_change_valid_put(prop, ref);
+ 	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
++	drm_property_change_valid_put(prop, ref);
+ 
+ 	return ret;
+ }
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+2.55.0.rc0.786.g65d90a0328-goog
 
