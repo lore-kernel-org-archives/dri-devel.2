@@ -4,58 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49A59CDE003
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 07:48:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C8E3CDE002
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 07:48:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B49B10EDCE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA4C310EDCF;
 	Wed, 24 Jun 2026 07:47:58 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1542010E021
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 05:59:21 +0000 (UTC)
-Received: from localhost.localdomain (unknown [111.196.245.140])
- by APP-03 (Coremail) with SMTP id rQCowACHf7Yqcjtq3TKtFQ--.63770S2;
- Wed, 24 Jun 2026 13:59:07 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Philipp Zabel <p.zabel@pengutronix.de>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Devarsh Thakkar <devarsht@ti.com>,
- Aradhya Bhatia <aradhya.bhatia@linux.dev>, Kees Cook <kees@kernel.org>,
- Jayesh Choudhary <j-choudhary@ti.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>,
- dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] drm/bridge: cdns-dsi: Propagate resume reset and clock
- failures
-Date: Wed, 24 Jun 2026 13:59:06 +0800
-Message-ID: <20260624055906.53195-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UrdYxe0V";
+	dkim-atps=neutral
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C50C10EB11
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 12:50:23 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-697de335c18so904250a12.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 05:50:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782219022; x=1782823822; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=GfbBiX99Kq2saoubNvJ6eQaYIgg7ngdg7CfSlqO7TPw=;
+ b=UrdYxe0V+I3riW7NuGERQjH0q0PAMzbvB33MoD+XNAC5CqXncOXeelZYYgrUcfAlJ/
+ gGgOPQYAqDxhRtugxy94e+G73ytQ0B3BodJ7zZCco1M29mxAXFhuasgO2V4IB4CuwzlG
+ 318znO3BjytWya4EMjkxMvvWUBis/yFfcaQRKBlv4pmuuwUptXfyS3s1viGXuc1YV5zj
+ fYKlUB6vpprIySE7PQg7e7u9Kc4oWCD/h0mJrZHkh9RZieV6V62/dKkvE64PvpytjLrL
+ 0NXU1f9ygCePJJ3fpVHJI8TVCE6AKpo2Y90g0tqFa6sHwhBi6NHcVXXbRyIMsU1qTrtW
+ wAYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782219022; x=1782823822;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=GfbBiX99Kq2saoubNvJ6eQaYIgg7ngdg7CfSlqO7TPw=;
+ b=PEmHRl/GLHEe5YsSHtxwm5YRvpmgDfqALxtx7los1v07aa1M4fxYNZgjSB9YXCtaV7
+ negoMKusqF0DkGTr5uGhDk4I7EAgeLyvZd9vBvA01/CDLEWyBrCgiH73E6sDuhpIqTyG
+ f1hJQF6Su3zilBtVThHUPzrZg6fDLKP0dHawVv8/mdzlF5tvImEnupjOLYhQiWFJ1AmH
+ MwABjhu7ledfCxjxoOeiZCM1xCFjPwioWCl60MTY+tiJXk2d8+tCir75+J1lWLdtEvNS
+ Xm+M5219HwWqqpuu4XAbSppNcwXtKTsOavIsz1h8jUkXLHRipyi4KBHiR32eBCtL8Pqx
+ vjvA==
+X-Gm-Message-State: AOJu0YwHUqIOUCeX1ucOJidgR03M10T42CeWyjdMRs7Eg+9etvKRQ4AY
+ 3Djfiry7tQH/xhpKg5IK7SpwRiXBYtMSrn59sjnwL+LKxRmBn9yACjvm
+X-Gm-Gg: AfdE7cnZkVaEZm7qgjzJPPVf57/lhDmowbwn9GE2ljyyzoP2LJ895Ih7ni9fHCkhvjY
+ cRkL7OxWuCqR5swsioO8wML7pvP72MrFBGnlNfCWw022DMaUSSU2sXlDLyL1M8NzNA3Wvor1NnG
+ ZixiMeFhZTFFQIe5Mfez91slZoZPbcoL0BThc8Bbf9n62Ak3ZJ8RJjOKpYuKIKr7RH1asX3ycp/
+ jEm5ktyfnOp0pKGSTsPO60dd8U3mDvOBENmnDvDG76kF1pMzUyp+UcA8GD1Belxf7yTE6tIaNbw
+ 1vQ/VPx5tVtzZLZ/cKmqzi3SY4FCODQI58XXIeOtp0pbDK2ne3jCi6gf/oUILU5IHnIuT5lB2U+
+ Z7WCILAdJUsUJXoTgNwvYlbGu0CitLokaB9Sc13iImXHKvVdqgZKDhS8iutrm1sTokfj0dDfgxR
+ WMswFg6bFqTtKTrvNNdJs+
+X-Received: by 2002:a05:6402:2710:b0:697:d645:a9db with SMTP id
+ 4fb4d7f45d1cf-697d645acfamr1997717a12.23.1782219021317; 
+ Tue, 23 Jun 2026 05:50:21 -0700 (PDT)
+Received: from [127.0.0.2] ([194.35.121.133]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6977b82fd6fsm5153967a12.2.2026.06.23.05.50.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Jun 2026 05:50:20 -0700 (PDT)
+From: Diogo Silva <diogompaissilva@gmail.com>
+Date: Tue, 23 Jun 2026 14:49:43 +0200
+Subject: [PATCH 1/2] drm/exynos: Remove dependency on DRM simple helpers
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowACHf7Yqcjtq3TKtFQ--.63770S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uFyrArWrWF1rWryrKFyDJrb_yoW8WFyrpF
- n7W3yFkrW8ZrZY9a93JF4DJrZ0van3KFWfGrWakwn7ZwsxAa4jvryYy3W5XFnxtr1IyFy7
- Jw4ktrykuF40yr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9214x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
- Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
- 0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
- zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Gr0_Xr
- 1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
- JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYx
- BIdaVFxhVjvjDU0xZFpf9x0pRc6p9UUUUU=
-X-Originating-IP: [111.196.245.140]
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260623-exynos-drm-simple-v1-1-bb52f098b1ee@gmail.com>
+References: <20260623-exynos-drm-simple-v1-0-bb52f098b1ee@gmail.com>
+In-Reply-To: <20260623-exynos-drm-simple-v1-0-bb52f098b1ee@gmail.com>
+To: Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Diogo Silva <diogompaissilva@gmail.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Wed, 24 Jun 2026 07:47:57 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,53 +92,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-cdns_dsi_resume() ignores reset_control_deassert() and
-clk_prepare_enable() failures for resources that probe treats as
-required.  The host can then appear resumed even though the DSI reset or
-clock transitions failed.
+Simple KMS helper are deprecated since they only add an intermediate
+layer between drivers and the atomic modesetting.
+This patch removes the dependency on drm simple helpers from exynos
+DRM drivers.
 
-Propagate resume failures and unwind transitions that already succeeded.
-
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
 ---
- .../gpu/drm/bridge/cadence/cdns-dsi-core.c    | 21 ++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/exynos/exynos_dp.c       |  9 +++++++--
+ drivers/gpu/drm/exynos/exynos_drm_dpi.c  |  9 +++++++--
+ drivers/gpu/drm/exynos/exynos_drm_dsi.c  |  9 +++++++--
+ drivers/gpu/drm/exynos/exynos_drm_vidi.c |  9 +++++++--
+ drivers/gpu/drm/exynos/exynos_hdmi.c     | 10 ++++++++--
+ 5 files changed, 36 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-index 0dd85e26248c..0cbb8528350c 100644
---- a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-+++ b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-@@ -1233,12 +1233,27 @@ static const struct mipi_dsi_host_ops cdns_dsi_ops = {
- static int __maybe_unused cdns_dsi_resume(struct device *dev)
- {
- 	struct cdns_dsi *dsi = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = reset_control_deassert(dsi->dsi_p_rst);
-+	if (ret)
-+		return ret;
-+
-+	ret = clk_prepare_enable(dsi->dsi_p_clk);
-+	if (ret)
-+		goto err_assert_reset;
+diff --git a/drivers/gpu/drm/exynos/exynos_dp.c b/drivers/gpu/drm/exynos/exynos_dp.c
+index b80540328150..a2095fb43483 100644
+--- a/drivers/gpu/drm/exynos/exynos_dp.c
++++ b/drivers/gpu/drm/exynos/exynos_dp.c
+@@ -24,11 +24,11 @@
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/drm_crtc.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ #include <drm/exynos_drm.h>
  
--	reset_control_deassert(dsi->dsi_p_rst);
--	clk_prepare_enable(dsi->dsi_p_clk);
--	clk_prepare_enable(dsi->dsi_sys_clk);
-+	ret = clk_prepare_enable(dsi->dsi_sys_clk);
-+	if (ret)
-+		goto err_disable_p_clk;
- 
- 	return 0;
-+
-+err_disable_p_clk:
-+	clk_disable_unprepare(dsi->dsi_p_clk);
-+err_assert_reset:
-+	reset_control_assert(dsi->dsi_p_rst);
-+	return ret;
+ #include "exynos_drm_crtc.h"
+@@ -79,6 +79,10 @@ static void exynos_dp_nop(struct drm_encoder *encoder)
+ 	/* do nothing */
  }
  
- static int __maybe_unused cdns_dsi_suspend(struct device *dev)
++static const struct drm_encoder_funcs exynos_dp_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const struct drm_encoder_helper_funcs exynos_dp_encoder_helper_funcs = {
+ 	.mode_set = exynos_dp_mode_set,
+ 	.enable = exynos_dp_nop,
+@@ -95,7 +99,8 @@ static int exynos_dp_bind(struct device *dev, struct device *master, void *data)
+ 
+ 	dp->drm_dev = drm_dev;
+ 
+-	drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_TMDS);
++	drm_encoder_init(drm_dev, encoder, &exynos_dp_encoder_funcs,
++			 DRM_MODE_ENCODER_TMDS, NULL);
+ 
+ 	drm_encoder_helper_add(encoder, &exynos_dp_encoder_helper_funcs);
+ 
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_dpi.c b/drivers/gpu/drm/exynos/exynos_drm_dpi.c
+index 0dc36df6ada3..4a3d443a15e6 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_dpi.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_dpi.c
+@@ -12,10 +12,10 @@
+ #include <linux/regulator/consumer.h>
+ 
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include <video/of_videomode.h>
+ #include <video/videomode.h>
+@@ -140,6 +140,10 @@ static void exynos_dpi_disable(struct drm_encoder *encoder)
+ 	}
+ }
+ 
++static const struct drm_encoder_funcs exynos_dpi_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const struct drm_encoder_helper_funcs exynos_dpi_encoder_helper_funcs = {
+ 	.mode_set = exynos_dpi_mode_set,
+ 	.enable = exynos_dpi_enable,
+@@ -194,7 +198,8 @@ int exynos_dpi_bind(struct drm_device *dev, struct drm_encoder *encoder)
+ {
+ 	int ret;
+ 
+-	drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_TMDS);
++	drm_encoder_init(dev, encoder, &exynos_dpi_encoder_funcs,
++			 DRM_MODE_ENCODER_TMDS, NULL);
+ 
+ 	drm_encoder_helper_add(encoder, &exynos_dpi_encoder_helper_funcs);
+ 
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_dsi.c b/drivers/gpu/drm/exynos/exynos_drm_dsi.c
+index c4d098ab7863..25c438cdc744 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_dsi.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_dsi.c
+@@ -13,7 +13,7 @@
+ 
+ #include <drm/bridge/samsung-dsim.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
++#include <drm/drm_encoder.h>
+ 
+ #include "exynos_drm_crtc.h"
+ #include "exynos_drm_drv.h"
+@@ -22,6 +22,10 @@ struct exynos_dsi {
+ 	struct drm_encoder encoder;
+ };
+ 
++static const struct drm_encoder_funcs exynos_drm_dsi_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static irqreturn_t exynos_dsi_te_irq_handler(struct samsung_dsim *dsim)
+ {
+ 	struct exynos_dsi *dsi = dsim->priv;
+@@ -79,7 +83,8 @@ static int exynos_dsi_bind(struct device *dev, struct device *master, void *data
+ 	struct drm_device *drm_dev = data;
+ 	int ret;
+ 
+-	drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_TMDS);
++	drm_encoder_init(drm_dev, encoder, &exynos_drm_dsi_encoder_funcs,
++			 DRM_MODE_ENCODER_TMDS, NULL);
+ 
+ 	ret = exynos_drm_set_possible_crtcs(encoder, EXYNOS_DISPLAY_TYPE_LCD);
+ 	if (ret < 0)
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_vidi.c b/drivers/gpu/drm/exynos/exynos_drm_vidi.c
+index 67bbf9b8bc0e..b0f3cfc2a283 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_vidi.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_vidi.c
+@@ -13,10 +13,10 @@
+ 
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_edid.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ #include <drm/drm_vblank.h>
+ #include <drm/exynos_drm.h>
+ 
+@@ -403,6 +403,10 @@ static void exynos_vidi_disable(struct drm_encoder *encoder)
+ {
+ }
+ 
++static const struct drm_encoder_funcs exynos_vidi_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const struct drm_encoder_helper_funcs exynos_vidi_encoder_helper_funcs = {
+ 	.mode_set = exynos_vidi_mode_set,
+ 	.enable = exynos_vidi_enable,
+@@ -445,7 +449,8 @@ static int vidi_bind(struct device *dev, struct device *master, void *data)
+ 		return PTR_ERR(ctx->crtc);
+ 	}
+ 
+-	drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_TMDS);
++	drm_encoder_init(drm_dev, encoder, &&exynos_vidi_encoder_funcs,
++			 DRM_MODE_ENCODER_TMDS, NULL);
+ 
+ 	drm_encoder_helper_add(encoder, &exynos_vidi_encoder_helper_funcs);
+ 
+diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exynos/exynos_hdmi.c
+index 09b2cabb236f..26baf5357997 100644
+--- a/drivers/gpu/drm/exynos/exynos_hdmi.c
++++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
+@@ -36,9 +36,9 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_edid.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "exynos_drm_crtc.h"
+ #include "regs-hdmi.h"
+@@ -1575,6 +1575,11 @@ static void hdmi_disable(struct drm_encoder *encoder)
+ 	mutex_unlock(&hdata->mutex);
+ }
+ 
++static const struct drm_encoder_funcs exynos_hdmi_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
++
+ static const struct drm_encoder_helper_funcs exynos_hdmi_encoder_helper_funcs = {
+ 	.mode_fixup	= hdmi_mode_fixup,
+ 	.enable		= hdmi_enable,
+@@ -1862,7 +1867,8 @@ static int hdmi_bind(struct device *dev, struct device *master, void *data)
+ 
+ 	hdata->phy_clk.enable = hdmiphy_clk_enable;
+ 
+-	drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_TMDS);
++	drm_encoder_init(drm_dev, encoder, &exynos_hdmi_encoder_funcs,
++			 DRM_MODE_ENCODER_TMDS, NULL);
+ 
+ 	drm_encoder_helper_add(encoder, &exynos_hdmi_encoder_helper_funcs);
+ 
+
 -- 
-2.50.1 (Apple Git-155)
+2.51.2
 
