@@ -4,77 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39C8ACDE004
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 07:48:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CB82CDE001
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 07:48:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 021A810EDBA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74D3A10EDE0;
 	Wed, 24 Jun 2026 07:48:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kRME59Qb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oy3x+wEl";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 716A810E36C
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 19:57:00 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-490b613a17bso2582345e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 12:57:00 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 673A310EC97
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:34:55 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-4903d730b1fso3222595e9.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 13:34:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782244619; x=1782849419; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1782246894; x=1782851694; darn=lists.freedesktop.org;
  h=cc:to:message-id:content-transfer-encoding:mime-version:subject
  :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4SE983frRONKkL2Y26EQuPfdn0q+Vah4vb8+iLKxBmw=;
- b=kRME59QbfLluDAeh84ls12yDnoViqeJCDH5tcOkQzSD6VBIkYd8CwIkezWUi9BxbM2
- eNX/Oue39VuhD2kiSopJusla4qjX9As2DSvWfyoN1j/HNqikiyTXyq0gZEMkqDTgDdim
- PhJZH5clvm7NHWlph9Y8I/R4KCfaBfOiahGoQZkOz+9ollgi+ycYQbbXR/slN3+j6Mtd
- T9g286ln62q3kVrZ0p7lIy3yPXFA8WR2CDDPxvqP7LPF+uH+x2xJZDm64kzMEZBb5uHD
- 1fR+nfeHTDJLtO9KCr30yRVLWJP/zzr8sOTid+LHW6GdP85QcsP3Eyk+OQM1ncC2fSBA
- 4y1A==
+ bh=5t3Yym7TNcn23mBBw6H+IPIGFaMcwRdXEZmNa7/R0B4=;
+ b=oy3x+wElVO/IAN7ZXee5iwzWmc7pWBIk+sR5X5RyoD1TTeF2kJt0W7q/2OSXcNXb4k
+ VHHMigEYNSWBhebcBVuiTNA7kKfP5agY7ZH3gvYOrDfPAAIJs5MD3JvtmH2MFaQndvTN
+ vWT2xrH9iEoHVNGMDPwNj+I/C2PJhP//J8DuxeSGAmXHC+uM6UvxCBAg7629Hlj30HLD
+ BXQnX/p7/Qvt6WnYn/+BnUGwDCmIEytbpo4FheLgYnYL752RFXChK0l3xjyxip7x4+nz
+ oVo0LUqpoyi7pfd6gURK1HUs+vdgscuu8MfcsBqYGCHcgKY+yMlx83+pRwWLW8rKC8/x
+ hOWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782244619; x=1782849419;
+ d=1e100.net; s=20251104; t=1782246894; x=1782851694;
  h=cc:to:message-id:content-transfer-encoding:mime-version:subject
  :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4SE983frRONKkL2Y26EQuPfdn0q+Vah4vb8+iLKxBmw=;
- b=RgfUzAoGbZYWMuzrWmt1av0r0TTNZwKuqgTVIcMLf++ShMsLpYYHpwTrAyKL2xuMYY
- ZBeeEx8mEiE1hWd7k2gDJg2PjNbTN7hsSclgvlkVqbtlMjgcZQOxnoP/zqyukQk6uDrX
- EfH6zZz9XQCkaFdRaejMJWJb9itIrhfwP2FqasCdjhkPkxpseGIJr108qOe6dEqw7InI
- wcA3Q1JIWkvURrm7rY8wwgnPuom+Hqx6LYEcwgOTrsBhdU4k9eMmPTFAt/275StxHZ/z
- KY1nd6kLB7Ri4cFaIekcp9SibwFLrUZHfh9PognDTnrSAid3dCw1s+MJlBfs7eqsMWTw
- k66A==
-X-Gm-Message-State: AOJu0Yyae4EthFie6tba97VcVw7MORSvwuFsshBSkXSl/DYzSnxly5pK
- F89saZGEXPaovVXDDx/ViQyB1W+F27ujyDTSHT3eRpQNkeRTehExX/tz
-X-Gm-Gg: AfdE7cnuJvlzpmLnW2EP0AGiEdRre1sszCSyvsalec2Q0CNjoZY7CZpWOfdIowVjlw7
- rmDwf0w2TUlNYqOUr6oxT8yBJDAd+ALCJEb3/1QCHWd9RlT/fEb+BUkulXKHyCvya/Pgf7LbVyF
- THAsZGmq5MmHVSLZae9xAvYWYQX4g/8QugBIw2NvMoPOlryjuLR31Ljq/7fMYhTKQzQhT/A+NbE
- IxriZv+9SRG3hqgmaUrEUQsuu5OsltbV4kpiY3E4ROEOYadkDIFnt8OIZmELGsgqfOd0KtCbqh5
- GSACVNK07Akz9zjmvekMi/hVKu5UGtJbKiWjFvmAuf065tb469PlfoanmmNabUrKK+dDaHhUjB3
- TIP0ZkYi7OB37GsftT0IRKseyW+jCiy1AYWfg5eXtqndRV23dAfmAzr6M3nzZtfTJ1GFEPGgB/t
- Oub03Ee0YAdmFDZ2NuN0Xi
-X-Received: by 2002:a05:600c:3113:b0:48a:5565:ec3d with SMTP id
- 5b1f17b1804b1-492490a790cmr228856425e9.22.1782244618723; 
- Tue, 23 Jun 2026 12:56:58 -0700 (PDT)
+ bh=5t3Yym7TNcn23mBBw6H+IPIGFaMcwRdXEZmNa7/R0B4=;
+ b=Kc/5wZzqKD1n+32Ck6iblib+O03RErE9yw3TFM/IKUuOva/CYqN074EOOQF9vNEQgO
+ J21t7kWSjyRMVb1h0ckRO7fgh+BvMl0hz5XznZ7DnvIf13qlSgnac0E4x01CjkXE0cKG
+ e12q1Jd6Fzw3A+PaMGO7LzJwpJoYFxzoTuRpUZihSvJVYpuMRhNgl6+kpmFvIeqQCUoj
+ u2zpsd5XHTTU78+RZ5EjHmNPBsiKwEDJu4eS3na+t2Sx2r1DWmXiOnwxRnOWbSjP2Ph1
+ +qwcHeUnoVsN/zTi+snlJAuE8dcL2f8TEHLSghVI7KDGcX/2/mn18GjlR1QgfAXn+psg
+ bH5Q==
+X-Gm-Message-State: AOJu0Yw0T/Q4hvEZVR8tPd+VjJ3kkuebnwMSEscwtN3SW8yIE2sQYe04
+ 7i2is8vkj/6/KX3xfBboJEF021QkBK/rGzXcisMd05YfNnej3pXWDVW0
+X-Gm-Gg: AfdE7cmjx3TD/0oCuTioufxvPKr9WjpXseekwlSSD/qLuSsS8tiWSfGQHZZDwXABok6
+ 12o3h0PGkH/NRs1Pi+r3je6OIl9ZxkF/uB9SOFkQa6wAppDJBjOTvqoGtzKyCSKHux5nkXAWkGJ
+ NbwFXI0fjHJ9KquA7Op8juNcCQkz1oHqPhEuzJA8zSqcpc5dKv1iJgJXVZUlJ0CM0e94ebsQn5i
+ 64S4Ez/3ruLHvTmU3EhtGgxQuxnQBgY8xzjoPxDjaFpf7hmfRHAWPqQyRIqe3wGgOl8Dmr3krRQ
+ Tzkusx7LvjlOQjFvWZ6CCaJU9bO9DQDW4qyZYd8iycNRPio1VNYshyrOZleAYvAug+/y1aSJgvo
+ yD7uIh8uge0KHbJ8bX55+Esa2kfI7MFsgo1cppf/KG6WJlucVL3OTEBt2T8Fs4acX+v9gj2Co5g
+ DFHb2mS1ukqRBy3b2rZa/n
+X-Received: by 2002:a05:600c:34c2:b0:492:465a:7e5b with SMTP id
+ 5b1f17b1804b1-4926087371bmr2714075e9.22.1782246893690; 
+ Tue, 23 Jun 2026 13:34:53 -0700 (PDT)
 Received: from [127.0.0.2] ([194.35.121.133]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4923fd154fdsm372903405e9.1.2026.06.23.12.56.57
+ 5b1f17b1804b1-4923fd154fdsm374613865e9.1.2026.06.23.13.34.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jun 2026 12:56:58 -0700 (PDT)
+ Tue, 23 Jun 2026 13:34:53 -0700 (PDT)
 From: Diogo Silva <diogompaissilva@gmail.com>
-Date: Tue, 23 Jun 2026 21:56:48 +0200
-Subject: [PATCH] drm/gma500: cdv_intel_dp: fix indentation to use tabs
- instead of spaces
+Date: Tue, 23 Jun 2026 22:34:40 +0200
+Subject: [PATCH] drm/sun4i: Remove dependency on DRM simple helpers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260623-cdv_intel_dp_indentation-v1-1-bcb61da38f17@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAP/kOmoC/x2MQQqAIBAAvxJ7TigrD30lItTdaiEsVCKQ/t7Sb
- eYwUyBRZEowVgUi3Zz4DCJtXYHfbdhIMYqDbrRpjO6Ux3vhkOlY8BJACtlmiZSzvh+w76zzDiS
- /Iq38/Otpft8Pv8OFTGoAAAA=
-X-Change-ID: 20260623-cdv_intel_dp_indentation-bac45d43abcb
-To: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+Message-Id: <20260623-sun4i_simple-v1-1-fa6696df1fad@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAN/tOmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDMyNj3eLSPJPM+OLM3IKcVF0j02QzCwsL01RjU0sloJaCotS0zAqwcdG
+ xtbUAyL0mhF4AAAA=
+X-Change-ID: 20260623-sun4i_simple-25c68885e359
+To: Chen-Yu Tsai <wens@kernel.org>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
  Diogo Silva <diogompaissilva@gmail.com>
 X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Wed, 24 Jun 2026 07:47:57 +0000
@@ -93,255 +95,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The kernel coding style specifies that tabs should be used instead of
-spaces, which the cdv_intel_dp driver was not using in some places.
-This patch replaces the space indentations with tabs.
+Simple KMS helper are deprecated since they only add an intermediate
+layer between drivers and the atomic modesetting.
+This patch removes the dependency on drm simple helpers from sun4i
+DRM drivers.
 
 Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
 ---
- drivers/gpu/drm/gma500/cdv_intel_dp.c | 111 +++++++++++++++++-----------------
- 1 file changed, 56 insertions(+), 55 deletions(-)
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c |  9 ++++++---
+ drivers/gpu/drm/sun4i/sun4i_lvds.c     | 10 +++++++---
+ drivers/gpu/drm/sun4i/sun4i_rgb.c      | 10 +++++++---
+ drivers/gpu/drm/sun4i/sun4i_tv.c       | 10 +++++++---
+ drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c | 10 +++++++---
+ drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c  |  8 ++++++--
+ 6 files changed, 40 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/gma500/cdv_intel_dp.c b/drivers/gpu/drm/gma500/cdv_intel_dp.c
-index fbed35cf7603..7d08011d9663 100644
---- a/drivers/gpu/drm/gma500/cdv_intel_dp.c
-+++ b/drivers/gpu/drm/gma500/cdv_intel_dp.c
-@@ -232,16 +232,17 @@ i2c_dp_aux_add_bus(struct i2c_adapter *adapter)
+diff --git a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
+index 8f64464621c9..e99f52ebb26f 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
++++ b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
+@@ -24,7 +24,6 @@
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include <drm/display/drm_hdmi_helper.h>
+ #include <drm/display/drm_hdmi_state_helper.h>
+@@ -172,6 +171,10 @@ static void sun4i_hdmi_enable(struct drm_encoder *encoder,
+ 	writel(val, hdmi->base + SUN4I_HDMI_VID_CTRL_REG);
  }
  
- #define _wait_for(COND, MS, W) ({ \
--        unsigned long timeout__ = jiffies + msecs_to_jiffies(MS);       \
--        int ret__ = 0;                                                  \
--        while (! (COND)) {                                              \
--                if (time_after(jiffies, timeout__)) {                   \
--                        ret__ = -ETIMEDOUT;                             \
--                        break;                                          \
--                }                                                       \
--                if (W && !in_dbg_master()) msleep(W);                   \
--        }                                                               \
--        ret__;                                                          \
-+	unsigned long timeout__ = jiffies + msecs_to_jiffies(MS);       \
-+	int ret__ = 0;                                                  \
-+	while (!(COND)) {                                               \
-+		if (time_after(jiffies, timeout__)) {                   \
-+			ret__ = -ETIMEDOUT;                             \
-+			break;                                          \
-+		}                                                       \
-+		if (W && !in_dbg_master())                              \
-+			msleep(W);                                      \
-+	}                                                               \
-+	ret__;                                                          \
- })
++static const struct drm_encoder_funcs sun4i_hdmi_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const struct drm_encoder_helper_funcs sun4i_hdmi_helper_funcs = {
+ 	.atomic_disable	= sun4i_hdmi_disable,
+ 	.atomic_enable	= sun4i_hdmi_enable,
+@@ -624,8 +627,8 @@ static int sun4i_hdmi_bind(struct device *dev, struct device *master,
  
- #define wait_for(COND, MS) _wait_for(COND, MS, 1)
-@@ -296,10 +297,10 @@ static struct ddi_regoff ddi_DP_train_table[] = {
- };
+ 	drm_encoder_helper_add(&hdmi->encoder,
+ 			       &sun4i_hdmi_helper_funcs);
+-	ret = drm_simple_encoder_init(drm, &hdmi->encoder,
+-				      DRM_MODE_ENCODER_TMDS);
++	ret = drm_encoder_init(drm, &hdmi->encoder, &sun4i_hdmi_funcs,
++			       DRM_MODE_ENCODER_TMDS, NULL);
+ 	if (ret) {
+ 		dev_err(dev, "Couldn't initialise the HDMI encoder\n");
+ 		goto err_put_ddc_i2c;
+diff --git a/drivers/gpu/drm/sun4i/sun4i_lvds.c b/drivers/gpu/drm/sun4i/sun4i_lvds.c
+index 6716e895ae8a..35a3f987c37a 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_lvds.c
++++ b/drivers/gpu/drm/sun4i/sun4i_lvds.c
+@@ -8,11 +8,11 @@
  
- static uint32_t dp_vswing_premph_table[] = {
--        0x55338954,	0x4000,
--        0x554d8954,	0x2000,
--        0x55668954,	0,
--        0x559ac0d4,	0x6000,
-+	0x55338954,	0x4000,
-+	0x554d8954,	0x2000,
-+	0x55668954,	0,
-+	0x559ac0d4,	0x6000,
- };
- /**
-  * is_edp - is the given port attached to an eDP panel (either CPU or PCH)
-@@ -1141,7 +1142,7 @@ static void cdv_intel_dp_prepare(struct drm_encoder *encoder)
- 		cdv_intel_edp_backlight_off(intel_encoder);
- 		cdv_intel_edp_panel_off(intel_encoder);
- 		cdv_intel_edp_panel_vdd_on(intel_encoder);
--        }
-+	}
- 	/* Wake up the sink first */
- 	cdv_intel_dp_sink_dpms(intel_encoder, DRM_MODE_DPMS_ON);
- 	cdv_intel_dp_link_down(intel_encoder);
-@@ -1183,7 +1184,7 @@ cdv_intel_dp_dpms(struct drm_encoder *encoder, int mode)
- 			cdv_intel_edp_panel_off(intel_encoder);
- 		}
- 	} else {
--        	if (edp)
-+		if (edp)
- 			cdv_intel_edp_panel_on(intel_encoder);
- 		cdv_intel_dp_sink_dpms(intel_encoder, mode);
- 		if (!(dp_reg & DP_PORT_EN)) {
-@@ -1191,7 +1192,7 @@ cdv_intel_dp_dpms(struct drm_encoder *encoder, int mode)
- 			cdv_intel_dp_complete_link_train(intel_encoder);
- 		}
- 		if (edp)
--        		cdv_intel_edp_backlight_on(intel_encoder);
-+			cdv_intel_edp_backlight_on(intel_encoder);
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "sun4i_crtc.h"
+ #include "sun4i_tcon.h"
+@@ -89,6 +89,10 @@ static void sun4i_lvds_encoder_disable(struct drm_encoder *encoder)
  	}
  }
  
-@@ -1419,8 +1420,8 @@ cdv_intel_dp_set_vswing_premph(struct gma_encoder *encoder, uint8_t signal_level
- 	DRM_DEBUG_KMS("Test2\n");
- 	//return ;
- 	cdv_sb_reset(dev);
--	/* ;Swing voltage programming
--        ;gfx_dpio_set_reg(0xc058, 0x0505313A) */
-+	/* ;Swing voltage programming */
-+	/* ;gfx_dpio_set_reg(0xc058, 0x0505313A) */
- 	cdv_sb_write(dev, ddi_reg->VSwing5, 0x0505313A);
++static const struct drm_encoder_funcs sun4i_lvds_enc_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const struct drm_encoder_helper_funcs sun4i_lvds_enc_helper_funcs = {
+ 	.disable	= sun4i_lvds_encoder_disable,
+ 	.enable		= sun4i_lvds_encoder_enable,
+@@ -115,8 +119,8 @@ int sun4i_lvds_init(struct drm_device *drm, struct sun4i_tcon *tcon)
  
- 	/* ;gfx_dpio_set_reg(0x8154, 0x43406055) */
-@@ -1575,7 +1576,7 @@ cdv_intel_dp_complete_link_train(struct gma_encoder *encoder)
- 				intel_dp->train_set[0],
- 				intel_dp->link_configuration[0],
- 				intel_dp->link_configuration[1]);
--        	/* channel eq pattern */
-+		/* channel eq pattern */
+ 	drm_encoder_helper_add(&lvds->encoder,
+ 			       &sun4i_lvds_enc_helper_funcs);
+-	ret = drm_simple_encoder_init(drm, &lvds->encoder,
+-				      DRM_MODE_ENCODER_LVDS);
++	ret = drm_encoder_init(drm, &lvds->encoder, &sun4i_lvds_enc_funcs,
++			       DRM_MODE_ENCODER_LVDS, NULL);
+ 	if (ret) {
+ 		dev_err(drm->dev, "Couldn't initialise the lvds encoder\n");
+ 		goto err_out;
+diff --git a/drivers/gpu/drm/sun4i/sun4i_rgb.c b/drivers/gpu/drm/sun4i/sun4i_rgb.c
+index dfb6acc42f02..9c3fbf1b949e 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_rgb.c
++++ b/drivers/gpu/drm/sun4i/sun4i_rgb.c
+@@ -10,11 +10,11 @@
  
- 		if (!cdv_intel_dp_set_link_train(encoder, reg,
- 					     DP_TRAINING_PATTERN_2)) {
-@@ -1704,7 +1705,7 @@ cdv_intel_dp_detect(struct drm_connector *connector, bool force)
- 		if (edp)
- 			cdv_intel_edp_panel_vdd_off(encoder);
- 		return status;
--        }
-+	}
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
  
- 	if (intel_dp->force_audio) {
- 		intel_dp->has_audio = intel_dp->force_audio > 0;
-@@ -1956,12 +1957,12 @@ cdv_intel_dp_init(struct drm_device *dev, struct psb_intel_mode_device *mode_dev
- 	gma_encoder = kzalloc_obj(struct gma_encoder);
- 	if (!gma_encoder)
- 		return;
--        gma_connector = kzalloc_obj(struct gma_connector);
--        if (!gma_connector)
--                goto err_connector;
-+	gma_connector = kzalloc_obj(struct gma_connector);
-+	if (!gma_connector)
-+		goto err_connector;
- 	intel_dp = kzalloc_obj(struct cdv_intel_dp);
- 	if (!intel_dp)
--	        goto err_priv;
-+		goto err_priv;
- 
- 	if ((output_reg == DP_C) && cdv_intel_dpc_is_edp(dev))
- 		type = DRM_MODE_CONNECTOR_eDP;
-@@ -1976,7 +1977,7 @@ cdv_intel_dp_init(struct drm_device *dev, struct psb_intel_mode_device *mode_dev
- 
- 	if (type == DRM_MODE_CONNECTOR_DisplayPort)
- 		gma_encoder->type = INTEL_OUTPUT_DISPLAYPORT;
--        else
-+	else
- 		gma_encoder->type = INTEL_OUTPUT_EDP;
- 
- 
-@@ -2006,18 +2007,18 @@ cdv_intel_dp_init(struct drm_device *dev, struct psb_intel_mode_device *mode_dev
- 	cdv_disable_intel_clock_gating(dev);
- 
- 	cdv_intel_dp_i2c_init(gma_connector, gma_encoder, name);
--        /* FIXME:fail check */
-+	/* FIXME:fail check */
- 	cdv_intel_dp_add_properties(connector);
- 
- 	if (is_edp(gma_encoder)) {
- 		int ret;
- 		struct edp_power_seq cur;
--                u32 pp_on, pp_off, pp_div;
-+		u32 pp_on, pp_off, pp_div;
- 		u32 pwm_ctrl;
- 
- 		pp_on = REG_READ(PP_CONTROL);
- 		pp_on &= ~PANEL_UNLOCK_MASK;
--	        pp_on |= PANEL_UNLOCK_REGS;
-+		pp_on |= PANEL_UNLOCK_REGS;
- 
- 		REG_WRITE(PP_CONTROL, pp_on);
- 
-@@ -2025,42 +2026,42 @@ cdv_intel_dp_init(struct drm_device *dev, struct psb_intel_mode_device *mode_dev
- 		pwm_ctrl |= PWM_PIPE_B;
- 		REG_WRITE(BLC_PWM_CTL2, pwm_ctrl);
- 
--                pp_on = REG_READ(PP_ON_DELAYS);
--                pp_off = REG_READ(PP_OFF_DELAYS);
--                pp_div = REG_READ(PP_DIVISOR);
-+		pp_on = REG_READ(PP_ON_DELAYS);
-+		pp_off = REG_READ(PP_OFF_DELAYS);
-+		pp_div = REG_READ(PP_DIVISOR);
- 
- 		/* Pull timing values out of registers */
--                cur.t1_t3 = (pp_on & PANEL_POWER_UP_DELAY_MASK) >>
--                        PANEL_POWER_UP_DELAY_SHIFT;
-+		cur.t1_t3 = (pp_on & PANEL_POWER_UP_DELAY_MASK) >>
-+			    PANEL_POWER_UP_DELAY_SHIFT;
- 
--                cur.t8 = (pp_on & PANEL_LIGHT_ON_DELAY_MASK) >>
--                        PANEL_LIGHT_ON_DELAY_SHIFT;
-+		cur.t8 = (pp_on & PANEL_LIGHT_ON_DELAY_MASK) >>
-+			 PANEL_LIGHT_ON_DELAY_SHIFT;
- 
--                cur.t9 = (pp_off & PANEL_LIGHT_OFF_DELAY_MASK) >>
--                        PANEL_LIGHT_OFF_DELAY_SHIFT;
-+		cur.t9 = (pp_off & PANEL_LIGHT_OFF_DELAY_MASK) >>
-+			 PANEL_LIGHT_OFF_DELAY_SHIFT;
- 
--                cur.t10 = (pp_off & PANEL_POWER_DOWN_DELAY_MASK) >>
--                        PANEL_POWER_DOWN_DELAY_SHIFT;
-+		cur.t10 = (pp_off & PANEL_POWER_DOWN_DELAY_MASK) >>
-+			  PANEL_POWER_DOWN_DELAY_SHIFT;
- 
--                cur.t11_t12 = ((pp_div & PANEL_POWER_CYCLE_DELAY_MASK) >>
--                               PANEL_POWER_CYCLE_DELAY_SHIFT);
-+		cur.t11_t12 = ((pp_div & PANEL_POWER_CYCLE_DELAY_MASK) >>
-+			      PANEL_POWER_CYCLE_DELAY_SHIFT);
- 
--                DRM_DEBUG_KMS("cur t1_t3 %d t8 %d t9 %d t10 %d t11_t12 %d\n",
--                              cur.t1_t3, cur.t8, cur.t9, cur.t10, cur.t11_t12);
-+		DRM_DEBUG_KMS("cur t1_t3 %d t8 %d t9 %d t10 %d t11_t12 %d\n",
-+			      cur.t1_t3, cur.t8, cur.t9, cur.t10, cur.t11_t12);
- 
- 
- 		intel_dp->panel_power_up_delay = cur.t1_t3 / 10;
--                intel_dp->backlight_on_delay = cur.t8 / 10;
--                intel_dp->backlight_off_delay = cur.t9 / 10;
--                intel_dp->panel_power_down_delay = cur.t10 / 10;
--                intel_dp->panel_power_cycle_delay = (cur.t11_t12 - 1) * 100;
-+		intel_dp->backlight_on_delay = cur.t8 / 10;
-+		intel_dp->backlight_off_delay = cur.t9 / 10;
-+		intel_dp->panel_power_down_delay = cur.t10 / 10;
-+		intel_dp->panel_power_cycle_delay = (cur.t11_t12 - 1) * 100;
- 
--                DRM_DEBUG_KMS("panel power up delay %d, power down delay %d, power cycle delay %d\n",
--                              intel_dp->panel_power_up_delay, intel_dp->panel_power_down_delay,
--                              intel_dp->panel_power_cycle_delay);
-+		DRM_DEBUG_KMS("panel power up delay %d, power down delay %d, power cycle delay %d\n",
-+			      intel_dp->panel_power_up_delay, intel_dp->panel_power_down_delay,
-+			      intel_dp->panel_power_cycle_delay);
- 
--                DRM_DEBUG_KMS("backlight on delay %d, off delay %d\n",
--                              intel_dp->backlight_on_delay, intel_dp->backlight_off_delay);
-+		DRM_DEBUG_KMS("backlight on delay %d, off delay %d\n",
-+			      intel_dp->backlight_on_delay, intel_dp->backlight_off_delay);
- 
- 
- 		cdv_intel_edp_panel_vdd_on(gma_encoder);
-@@ -2075,7 +2076,7 @@ cdv_intel_dp_init(struct drm_device *dev, struct psb_intel_mode_device *mode_dev
- 			cdv_intel_dp_destroy(connector);
- 			goto err_connector;
- 		} else {
--        		DRM_DEBUG_KMS("DPCD: Rev=%x LN_Rate=%x LN_CNT=%x LN_DOWNSP=%x\n",
-+			DRM_DEBUG_KMS("DPCD: Rev=%x LN_Rate=%x LN_CNT=%x LN_DOWNSP=%x\n",
- 				intel_dp->dpcd[0], intel_dp->dpcd[1],
- 				intel_dp->dpcd[2], intel_dp->dpcd[3]);
- 
-@@ -2083,7 +2084,7 @@ cdv_intel_dp_init(struct drm_device *dev, struct psb_intel_mode_device *mode_dev
- 		/* The CDV reference driver moves pnale backlight setup into the displays that
- 		   have a backlight: this is a good idea and one we should probably adopt, however
- 		   we need to migrate all the drivers before we can do that */
--                /*cdv_intel_panel_setup_backlight(dev); */
-+		/*cdv_intel_panel_setup_backlight(dev); */
+ #include "sun4i_crtc.h"
+ #include "sun4i_tcon.h"
+@@ -180,6 +180,10 @@ static void sun4i_rgb_encoder_disable(struct drm_encoder *encoder)
  	}
- 	return;
+ }
  
++static const struct drm_encoder_funcs sun4i_rgb_enc_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const struct drm_encoder_helper_funcs sun4i_rgb_enc_helper_funcs = {
+ 	.disable	= sun4i_rgb_encoder_disable,
+ 	.enable		= sun4i_rgb_encoder_enable,
+@@ -207,8 +211,8 @@ int sun4i_rgb_init(struct drm_device *drm, struct sun4i_tcon *tcon)
+ 
+ 	drm_encoder_helper_add(&rgb->encoder,
+ 			       &sun4i_rgb_enc_helper_funcs);
+-	ret = drm_simple_encoder_init(drm, &rgb->encoder,
+-				      DRM_MODE_ENCODER_NONE);
++	ret = drm_encoder_init(drm, &rgb->encoder, &sun4i_rgb_enc_funcs,
++			       DRM_MODE_ENCODER_NONE, NULL);
+ 	if (ret) {
+ 		dev_err(drm->dev, "Couldn't initialise the rgb encoder\n");
+ 		goto err_out;
+diff --git a/drivers/gpu/drm/sun4i/sun4i_tv.c b/drivers/gpu/drm/sun4i/sun4i_tv.c
+index 814b77f278f6..ce22f1662c0c 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_tv.c
++++ b/drivers/gpu/drm/sun4i/sun4i_tv.c
+@@ -16,11 +16,11 @@
+ 
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "sun4i_crtc.h"
+ #include "sun4i_drv.h"
+@@ -391,6 +391,10 @@ static void sun4i_tv_enable(struct drm_encoder *encoder,
+ 			   SUN4I_TVE_EN_ENABLE);
+ }
+ 
++static const struct drm_encoder_funcs sun4i_tv_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const struct drm_encoder_helper_funcs sun4i_tv_helper_funcs = {
+ 	.atomic_disable	= sun4i_tv_disable,
+ 	.atomic_enable	= sun4i_tv_enable,
+@@ -474,8 +478,8 @@ static int sun4i_tv_bind(struct device *dev, struct device *master,
+ 
+ 	drm_encoder_helper_add(&tv->encoder,
+ 			       &sun4i_tv_helper_funcs);
+-	ret = drm_simple_encoder_init(drm, &tv->encoder,
+-				      DRM_MODE_ENCODER_TVDAC);
++	ret = drm_encoder_init(drm, &tv->encoder, &sun4i_tv_funcs,
++			       DRM_MODE_ENCODER_TVDAC, NULL);
+ 	if (ret) {
+ 		dev_err(dev, "Couldn't initialise the TV encoder\n");
+ 		goto err_disable_clk;
+diff --git a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c b/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
+index c35b70d83e53..f0c9f0e573d2 100644
+--- a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
++++ b/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
+@@ -20,11 +20,11 @@
+ #include <linux/slab.h>
+ 
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "sun4i_crtc.h"
+ #include "sun4i_tcon.h"
+@@ -842,6 +842,10 @@ static const struct drm_connector_funcs sun6i_dsi_connector_funcs = {
+ 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
+ };
+ 
++static const struct drm_encoder_funcs sun6i_dsi_enc_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static const struct drm_encoder_helper_funcs sun6i_dsi_enc_helper_funcs = {
+ 	.disable	= sun6i_dsi_encoder_disable,
+ 	.enable		= sun6i_dsi_encoder_enable,
+@@ -1056,8 +1060,8 @@ static int sun6i_dsi_bind(struct device *dev, struct device *master,
+ 
+ 	drm_encoder_helper_add(&dsi->encoder,
+ 			       &sun6i_dsi_enc_helper_funcs);
+-	ret = drm_simple_encoder_init(drm, &dsi->encoder,
+-				      DRM_MODE_ENCODER_DSI);
++	ret = drm_encoder_init(drm, &dsi->encoder, &sun6i_dsi_enc_funcs,
++			       DRM_MODE_ENCODER_DSI, NULL);
+ 	if (ret) {
+ 		dev_err(dsi->dev, "Couldn't initialise the DSI encoder\n");
+ 		return ret;
+diff --git a/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c b/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c
+index 96532709c2a7..9694ad142a7d 100644
+--- a/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c
++++ b/drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c
+@@ -9,8 +9,8 @@
+ #include <linux/platform_device.h>
+ 
+ #include <drm/drm_modeset_helper_vtables.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_of.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "sun8i_dw_hdmi.h"
+ #include "sun8i_tcon_top.h"
+@@ -23,6 +23,9 @@ static void sun8i_dw_hdmi_encoder_mode_set(struct drm_encoder *encoder,
+ 
+ 	clk_set_rate(hdmi->clk_tmds, mode->crtc_clock * 1000);
+ }
++static const struct drm_encoder_funcs sun8i_dw_hdmi_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
+ 
+ static const struct drm_encoder_helper_funcs
+ sun8i_dw_hdmi_encoder_helper_funcs = {
+@@ -180,7 +183,8 @@ static int sun8i_dw_hdmi_bind(struct device *dev, struct device *master,
+ 		goto err_disable_clk_tmds;
+ 
+ 	drm_encoder_helper_add(encoder, &sun8i_dw_hdmi_encoder_helper_funcs);
+-	drm_simple_encoder_init(drm, encoder, DRM_MODE_ENCODER_TMDS);
++	drm_encoder_init(drm, encoder, &sun8i_dw_hdmi_encoder_funcs,
++			 DRM_MODE_ENCODER_TMDS, NULL);
+ 
+ 	plat_data->mode_valid = hdmi->quirks->mode_valid;
+ 	plat_data->use_drm_infoframe = hdmi->quirks->use_drm_infoframe;
 
 ---
 base-commit: e2a6e04d045a56c6dc61e1eb9e2a6d7cf86512cd
-change-id: 20260623-cdv_intel_dp_indentation-bac45d43abcb
+change-id: 20260623-sun4i_simple-25c68885e359
 
 Best regards,
 -- 
