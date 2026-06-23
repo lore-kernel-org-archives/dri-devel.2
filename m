@@ -4,46 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6130ECD98F2
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 13:35:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF9D1CDB46F
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 13:39:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3C6910EA4F;
-	Tue, 23 Jun 2026 13:35:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F87610E521;
+	Tue, 23 Jun 2026 13:39:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="igm0Ou51";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="daJhQVYI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5001E10EA4F
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 13:35:17 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2902110E521
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 13:39:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5C85A601F5;
- Tue, 23 Jun 2026 13:35:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 782B21F000E9;
- Tue, 23 Jun 2026 13:35:14 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DAFDC4405F;
+ Tue, 23 Jun 2026 13:39:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA3A41F00ADB;
+ Tue, 23 Jun 2026 13:39:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782221716;
- bh=e2L7pUS6THPTgQRuS5kLnP/Z6QEsPEFFQSf/IKODmiY=;
- h=From:To:Cc:Subject:Date;
- b=igm0Ou51B3RVhCU9xzhsZ5mrxW98fjLsXtdFu+r9tuLhjwEZ5VwdM89Wl5zQZ5vac
- HUvyFmAMlXJDcE0O18a2AqyN8gNcWhrdHGyhQ60FJaySzU07fc5H61gblDiv6KknFs
- dSefAkLlHxcVnk3PDugrBif9JD4UenmnkzPiK/5EHeZPTOUZE9tSGj4m1x70OrBbMH
- fvim/X7C81iYRSy4n2XVoBKO0f7miRX3pT6HO/fsq9ENh1Tv7org/glyjO/osvMC/E
- rwXsj/BPzwLP+sLRV7RrQE40urz+n7KfB2o6KgYxkt5Jw03IW9WTY5FdGA7RGNYXyF
- dnJB/E0yZTPSw==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Tvrtko Ursulin <tursulin@igallia.net>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH] dma-buf/dma-fence: Set better string for
- dma_fence_driver_name()
-Date: Tue, 23 Jun 2026 15:34:58 +0200
-Message-ID: <20260623133457.1029880-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.54.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1782221967;
+ bh=aLffZc1jrUP8ipjVzuN0KXm8e8UQtX6yaL6i1BWgqEc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=daJhQVYIn2wfYx562RDK6QeYrTD24rhEAAITmU85a/GkTOw5HMlYEeP+CzJYkTDJr
+ YFgelkJUpCYD0nA/hNSZRMXBk3k0NYl9wtNNkQj+LMGVQVxaLwaGHKg3Ldu9p4gauM
+ Co1r4Boa93B/oOPHLNFmcLt1pxQhJNw/IoCrA0it0ZMJLUq62XNZ9IlIb8/Hv4uQlN
+ n8qK23g0VhNCiWdqRzMRGLPxzwvma0MqFJXesV+BGWLSa8D7FEUGl2+x1/BriP+EVo
+ y6kmFmTfQFlXjsYqa4yZY9yNzevvfwlvGKnQ4gbWvavxleJhVuqyffblvLKXoZSdkU
+ S+Hv/FNCtlS8A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9.6] drm/i915: Disable "busy" pmu event on
+ CONFIG_PREEMPT_RT
+To: "Maarten Lankhorst" <dev@lankhorst.se>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260623132734.227322-1-dev@lankhorst.se>
+References: <20260622181044.39335-31-dev@lankhorst.se>
+ <20260623132734.227322-1-dev@lankhorst.se>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 23 Jun 2026 13:39:27 +0000
+Message-Id: <20260623133927.AA3A41F00ADB@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,35 +54,48 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dma_fence_driver_name() reports that a driver whose fence is already
-signaled is a "detached-driver". This is incorrect, the driver might
-still be loaded and running.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Missing `fallthrough;` or `break;` annotation in switch case causes=
+ implicit fallthrough warning, which breaks the build.
+--
 
-Rename that string to something more descriptive.
+commit e0b7d47d4c0056e301a2d2f6858efe90c7e7bb10
+Author: Maarten Lankhorst <dev@lankhorst.se>
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
-Just compile-tested.
----
- drivers/dma-buf/dma-fence.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+drm/i915: Disable "busy" pmu event on CONFIG_PREEMPT_RT
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index c7ea1e75d38a..9c3dfa7b0066 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -1173,7 +1173,7 @@ const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
- 	if (!dma_fence_test_signaled_flag(fence))
- 		return (const char __rcu *)ops->get_driver_name(fence);
- 	else
--		return (const char __rcu *)"detached-driver";
-+		return (const char __rcu *)"driver-whose-fence-is-signaled";
- }
- EXPORT_SYMBOL(dma_fence_driver_name);
- 
--- 
-2.54.0
+The busyness implementation for guc is incompatible with PMU,
+so disable it to prevent upsetting lockdep.
 
+> diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_=
+pmu.c
+> index 1c3bafda9c708..bd7116732285f 100644
+> --- a/drivers/gpu/drm/i915/i915_pmu.c
+> +++ b/drivers/gpu/drm/i915/i915_pmu.c
+> @@ -554,6 +554,9 @@ engine_event_status(struct intel_engine_cs *engine,
+>  {
+>  	switch (sample) {
+>  	case I915_SAMPLE_BUSY:
+> +		/* The guc submission engine->busyness() callback has issues with CONF=
+IG_PREEMPT_RT */
+> +		if (IS_ENABLED(CONFIG_PREEMPT_RT) && intel_uc_uses_guc_submission(&eng=
+ine->gt->uc))
+> +			return -ENODEV;
+
+[Severity: Low]
+Will this trigger a -Wimplicit-fallthrough compiler warning? The case now
+contains statements but does not explicitly terminate with a fallthrough;
+annotation before the next case.
+
+>  	case I915_SAMPLE_WAIT:
+>  		break;
+>  	case I915_SAMPLE_SEMA:
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260623132734.2273=
+22-1-dev@lankhorst.se?part=3D1
