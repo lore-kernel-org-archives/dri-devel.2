@@ -4,65 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BF54CDB479
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 14:40:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F2EECDB46F
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 14:48:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAB1910EB88;
-	Tue, 23 Jun 2026 14:40:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4445910EBA0;
+	Tue, 23 Jun 2026 14:48:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MrwId4NB";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="G6z1fzDs";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E01610EB2B;
- Tue, 23 Jun 2026 14:40:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782225640; x=1813761640;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=KhQTiBKWNVBTcu+d9INvXQUM6k5ChbdH5d70gcrKIXM=;
- b=MrwId4NBhqrMRa4iY4PZO1fKRRyJeQfCZU2D5Z7J8k85cAYBLsZ23VON
- ON0zFNGNuoMnwJWJ7Np/YUPYn+vZGQJ6HKnro6PGnhyx0fjhEHaKfNdip
- 1S/l6Dmw1jb5BO0EuX4feFWQQR1yocUe2Gp6sLvTbt/i57HuASya5NR/5
- N2cOpAKO50Fky3PgVbDAlxjWiEI+OKBgz/bwfE/I+/NIlv7f7gQefjT9U
- zFohRqgBW+DNRsRQMPhSzUgd4GTrkTQaIKExA0wrakU7Y4JmGtQX9Czn6
- i2loC4OAfumn0p1oK8pR/OkGm1czNdXuOnHrP+w1rbpk0Lt1ddXSTNf/l A==;
-X-CSE-ConnectionGUID: Z4ykT/qvS4qx5qOCwQ7gQQ==
-X-CSE-MsgGUID: KkNO1oPASSaeDhBqD3XETQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="82856838"
-X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="82856838"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2026 07:40:39 -0700
-X-CSE-ConnectionGUID: dt2jDttGQfCOIczSsp9h0w==
-X-CSE-MsgGUID: /8QGS8soRpyo2Q+m8G5a6Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="245165347"
-Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2026 07:40:36 -0700
-Date: Tue, 23 Jun 2026 16:40:33 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- "Michael J . Ruhl" <michael.j.ruhl@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Riana Tauro <riana.tauro@intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 0/2] drm/xe/i2c: alerts and controller enabling
- modifications
-Message-ID: <ajqa4aWpj4fXkeHb@black.igk.intel.com>
-References: <20260622114759.3464047-1-heikki.krogerus@linux.intel.com>
- <ajpcyS3s6hArVQy8@kuha>
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1BB810EB9D;
+ Tue, 23 Jun 2026 14:48:16 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gl7Gj5QJyz9tRh;
+ Tue, 23 Jun 2026 16:48:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1782226093; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=A8j5nWKs6mMPZZTh957WrapzoB3bpv7u3GINWsJiiDM=;
+ b=G6z1fzDsXK2fDgrCCxPdlvhRstrtzjj0wJGidvlrNAtz+S5DYoo/bHrFq20QjjV1WNBNGS
+ hTVyOQiq83uRn+ldcuqdzhAOyoQb7AlMt58xLH3efKwAvP0b5L7Ogr8ptpPItEWZWCniq/
+ Iv0KcCTtYpJu+wpvrRICEzF+8J4jyZY9us2avZNa+8J57gDy6pvbBLQz9J/z+PaAnmx1v1
+ c7aZ7w24Mrpvpx5Mgjhu+Pcq9czVO6wHsGNT49EJEYT+D16oHn2dMStKrNvCG2a7ou/40m
+ fDERGJcTvhX/ZtDOYKKuqaVvj7bXlOXV+w8+i5HEzcx4oUa+f/4VGyNVvAIz+w==
+Message-ID: <ddd953feb2a326ce77851405252a8010c3b23235.camel@mailbox.org>
+Subject: Re: [RFC] drm/sched: Replace completion with a flush
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
+ Brost	 <matthew.brost@intel.com>, amd-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org
+Date: Tue, 23 Jun 2026 16:48:10 +0200
+In-Reply-To: <d505d14d-f62b-4f71-9990-c82411381f48@igalia.com>
+References: <20260611123423.39819-1-tvrtko.ursulin@igalia.com>
+ <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
+ <fd5e55f6-c6be-48b4-8b87-c3d6d6d0a6ff@igalia.com>
+ <e9b876bea7a2ef33d5e4ca103721135400c875be.camel@mailbox.org>
+ <d505d14d-f62b-4f71-9990-c82411381f48@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ajpcyS3s6hArVQy8@kuha>
+X-MBO-RS-META: cqahuxwfdidhgi3zrmjxt5hybn1pt5rd
+X-MBO-RS-ID: 9b88dd388e103c9be98
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,15 +68,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 23, 2026 at 01:15:37PM +0300, Heikki Krogerus wrote:
-> Hi Raag,
-> 
-> I completely forgot the enum for the clients that you proposed
-> off-list. Sorry about that. I'll add it in v2.
+On Tue, 2026-06-23 at 15:05 +0100, Tvrtko Ursulin wrote:
+> > > There we have this sequence:
+> > >=20
+> > > =C2=A0=C2=A0=C2=A0 spin_lock(&entity->lock);
+> > > =C2=A0=C2=A0=C2=A0 entity->stopped =3D true;
+> > > =C2=A0=C2=A0=C2=A0 sched =3D drm_sched_rq_remove_entity(entity->rq, e=
+ntity);
+> > > =C2=A0=C2=A0=C2=A0 spin_unlock(&entity->lock);
+> > >=20
+> > > =C2=A0=C2=A0=C2=A0 if (sched)
+> > > =C2=A0=C2=A0=C2=A0=C2=A0	drm_sched_flush_run_work(sched);
+> > >=20
+> > > That is, without that check, in theory, an evil driver could race
+> > > drm_sched_entity_select_rq() (via drm_sched_job_arm()) and
+> > > drm_sched_entity_kill(). I am not sure if any driver can actually do
+> > > that at the moment but it felt sensible to express it in code.
+> >=20
+> > The devil is in the "at the moment".
+> >=20
+> > AFAICS and as your explanation sounds, this is an existing problem that
+> > is unrelated to the Flush RFC. So I suppose that this should be a
+> > separate patch (independent from this one) which precisely focusses on
+> > this robustness work.
+>=20
+> Catch is, and why I thought it is justified to do this it in this patch,=
+=20
+> is because before completion was in the entity so whats happening with=
+=20
+> entity->rq->sched after entity is stopped was irrelevant. With this=20
+> patch is it relevant on paper so I considered it prudent to express that=
+=20
+> in the code as well as the comment.
 
-Yeah, definitely need a vacation :D
+I'm not sure if I can fully follow, but it seems that the stopped
+boolean + spinlock now protects the scheduler pointer?
 
-Raag
+
+IDK, I don't feel comfortable right now.. New docu says
+
+drm_sched_rq_add_entity(struct drm_sched_entity *entity)
+  * @entity: scheduler entity
+  *
+  * Removes a scheduler entity from the run queue.
++ *
++ * Return: DRM scheduler selected to handle this entity or NULL if entity =
+has
++ * already been removed.
+  */
+
+
+Isn't a removed entity by definition stopped since drm_sched can't
+access it anymore? Or do we have race there, too?
+
+If so, then stopped and entity->rq->sched =3D=3D NULL represent the same
+state. IOW, the locked bool must be redundant with something.
+
+Right?
+
+>=20
+> Acceptable or unacceptable?
+
+In any case such changes should, wherever possible, be a separate
+patch. For the fact alone that the distinct commit message and
+especially the position / order of the patch within the series helps
+the reviewer greatly in understanding what that particular change
+enables and thus why it's necessary.
+
+
+P.
