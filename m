@@ -4,47 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34716CDB470
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 10:53:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B221CDB46F
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 10:54:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 747BA10EA8E;
-	Tue, 23 Jun 2026 10:53:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4E1D10EA93;
+	Tue, 23 Jun 2026 10:54:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=codethink.co.uk header.i=@codethink.co.uk header.b="exbsCb0g";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m/rEn9M7";
 	dkim-atps=neutral
-Received: from imap4.hz.codethink.co.uk (imap4.hz.codethink.co.uk
- [188.40.203.114])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A491C10EA8E
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 10:53:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=codethink.co.uk; s=imap4-20230908; h=Sender:Content-Transfer-Encoding:
- MIME-Version:Message-Id:Date:Subject:Cc:To:From:Reply-To:In-Reply-To:
- References; bh=L7Fux7dAgqF1r5MOE9nYE5vjHzGvGvxvdlfs08VAiS8=; b=exbsCb0gbBUuwa
- ruc9StqtEIZ3q8W22uCowfTCfZMzE1SOrRerDuLFDRkGt52fRhOWv1DrqCF9aXfiCm71FPvmymWdE
- YSJ9hxwvLzOogkCpZyfa01AvIaJkQ08/H/KVAfDr2Iykw3Pep9LdnMPMLlvWjm48CyCR1GABN8V6Z
- 4X9dbjmSVVUvo8Q7lRPhvk7o4Yq+MEgSmkAnwQ/bqi0ag/Trykwcc2OmUZVSnJjfZTgIkiT8/C5Bb
- tLioZhik+8yVk/KP9IugBuVWoqT0yD4uwBv3Mj2QmRKb27Z5txTdSS4/u2IBMR77brXbmFogr8C12
- SVc2EXwHRtF0+6HG+Mtg==;
-Received: from [167.98.27.226] (helo=rainbowdash)
- by imap4.hz.codethink.co.uk with esmtpsa  (Exim 4.94.2 #2 (Debian))
- id 1wbylC-00FvYb-Cx; Tue, 23 Jun 2026 11:53:42 +0100
-Received: from ben by rainbowdash with local (Exim 4.99.4)
- (envelope-from <ben@rainbowdash>) id 1wbylC-00000003FnO-02LK;
- Tue, 23 Jun 2026 11:53:42 +0100
-From: Ben Dooks <ben.dooks@codethink.co.uk>
-To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05DCF10EA93;
+ Tue, 23 Jun 2026 10:54:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782212067; x=1813748067;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=3+cV/NKPssPEg2R6Cmh9eMoc75Lw0+c1VYJ0GE5YGWo=;
+ b=m/rEn9M78kUV0dnv9lk85HCRMDwBjQ7Jo/zcjoDRIhnkbXXGDI7B30JH
+ MD9NuHc+N4jVBhZFy9hfUfWoqoU3mmLlPlGyfLjiM8GBwv+6SECyLhYJb
+ cKLM53Zt6rzkOA0tLWsHGQ6B/zkqykA3os85kq3tZNYstawF5/3irmp5Y
+ JArRDldUGBAPNE/02B5eqRau/qNkMFMJTTJvVOFKuHNZnf5ds5MYoQhQ+
+ xNV6IdPRdibsZgEfkh3o2u+4mKns19t3+6q9bDhDupzJMJ2v3cIAximav
+ 5eHh8j8pA1m/JBjfyPhVM2WHjS/dyjA6p3qq55EbUSxxAEf+YPeF9Mtfr Q==;
+X-CSE-ConnectionGUID: DFCgOsedR/aYYq4+k+aT0Q==
+X-CSE-MsgGUID: eWk1qG3KSVSjhZquu81jxg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11825"; a="83140419"
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="83140419"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2026 03:54:27 -0700
+X-CSE-ConnectionGUID: zJm17iTsSFyKrz3qAwQDfA==
+X-CSE-MsgGUID: BxWKVuh4Ql6siAOUuaYliQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="273183758"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.7])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2026 03:54:23 -0700
+Date: Tue, 23 Jun 2026 13:54:21 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Raag Jadav <raag.jadav@intel.com>,
+ "Michael J . Ruhl" <michael.j.ruhl@intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Riana Tauro <riana.tauro@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Cc: Ben Dooks <ben.dooks@codethink.co.uk>
-Subject: [PATCH] drm/imagination: make pvr_fw_trace_init_mask_ops static
-Date: Tue, 23 Jun 2026 11:53:41 +0100
-Message-Id: <20260623105341.775693-1-ben.dooks@codethink.co.uk>
-X-Mailer: git-send-email 2.37.2.352.g3c44437643
+Subject: Re: [PATCH v1 1/2] drm/xe/i2c: Handler for SMBus Alerts
+Message-ID: <ajpl3Tv-bCc8kfWG@ashevche-desk.local>
+References: <20260622114759.3464047-1-heikki.krogerus@linux.intel.com>
+ <20260622114759.3464047-2-heikki.krogerus@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260622114759.3464047-2-heikki.krogerus@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,29 +80,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The pvr_fw_trace_init_mask_ops is not used outside pvr_fw_trace.c
-so make it static to avoid the following sparse warning:
+On Mon, Jun 22, 2026 at 01:47:58PM +0200, Heikki Krogerus wrote:
+> Some devices that are attached to the I2C controller use the
+> SMBus Alert signal for example to inform the host about
+> thermal events, so registering the default SMBus Alert
+> device device for them. The alert device makes sure that
+> the alert is processed and passed to the correct I2C client
+> driver.
 
-drivers/gpu/drm/imagination/pvr_fw_trace.c:74:31: warning: symbol 'pvr_fw_trace_init_mask_ops' was not declared. Should it be static?
+...
 
-Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
----
- drivers/gpu/drm/imagination/pvr_fw_trace.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> +	if (i2c->smbus_alert)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_trace.c b/drivers/gpu/drm/imagination/pvr_fw_trace.c
-index 6bb5baa6c41b..805d9f9bc1dd 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_trace.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_trace.c
-@@ -71,7 +71,7 @@ pvr_fw_trace_init_mask_set(const char *val, const struct kernel_param *kp)
- 	return 0;
- }
- 
--const struct kernel_param_ops pvr_fw_trace_init_mask_ops = {
-+static const struct kernel_param_ops pvr_fw_trace_init_mask_ops = {
- 	.set = pvr_fw_trace_init_mask_set,
- 	.get = param_get_hexint,
- };
+Unneeded. Also the below incorporates error pointer cases.
+
+> +		i2c_unregister_device(i2c->smbus_alert);
+> +
+>  	if (!i2c->irqdomain)
+>  		return;
+
+...
+
+> +++ b/drivers/gpu/drm/xe/xe_i2c_smbus.c
+> @@ -0,0 +1,59 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Intel Xe SMBus handling
+> + *
+> + * Copyright (C) 2026 Intel Corporation.
+> + */
+
++ bits.h // BIT()
++ err.h // IS_ERR()
+
+> +#include <linux/i2c-smbus.h>
+> +#include <linux/regmap.h>
+> +#include <linux/types.h>
+
+...
+
+> +static struct i2c_smbus_alert_setup xe_i2c_smbus_setup;
+> +
+> +int xe_i2c_register_smbus_alert(struct xe_i2c *i2c)
+> +{
+> +	struct i2c_client *alert;
+> +
+> +	alert = i2c_new_smbus_alert_device(i2c->adapter, &xe_i2c_smbus_setup);
+> +	if (IS_ERR(alert))
+> +		return PTR_ERR(alert);
+> +
+> +	i2c->smbus_alert = alert;
+> +
+> +	return 0;
+> +}
+
+As per above comment, this IS_ERR() is not need, as the removal API is optional-aware.
+OTOH, the other NULL-check in the driver in that case needs to be IS_ERR_OR_NULL().
+
+But I'm not sure if you want to have alert setup to always succeed.
+
 -- 
-2.37.2.352.g3c44437643
+With Best Regards,
+Andy Shevchenko
+
 
