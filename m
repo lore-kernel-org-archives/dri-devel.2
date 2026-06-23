@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DE37CDB471
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 18:52:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C2B6CDB470
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 19:23:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E712310EC50;
-	Tue, 23 Jun 2026 18:52:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6215B10E187;
+	Tue, 23 Jun 2026 19:23:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L6/TVH63";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QweIDR+i";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DA8C10EC50
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 18:52:56 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCF6E10E187
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 19:23:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A6C7D60018;
- Tue, 23 Jun 2026 18:52:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38FE41F000E9;
- Tue, 23 Jun 2026 18:52:55 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7A673438FF;
+ Tue, 23 Jun 2026 19:23:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490A91F000E9;
+ Tue, 23 Jun 2026 19:23:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782240775;
- bh=ZeWY3eadOG5wuTzaUsiSW6+lXgxolxwdFtEVovGFo3M=;
+ s=k20260515; t=1782242617;
+ bh=h8hYMHf4ipnKkulkM84Nz9VQBUE+gMTc5j5GwiS0YnU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=L6/TVH63M457VoJ9AcTtmUOCrC3QNFcJzN1I+qMI1l8KxL0+uj2+1w2DcPq7dImPJ
- Z7M5YfIuUHZ/RrM0uUCpi6na78NEMejwycs5Tv7ntzj1ap1jDMOqjmrupMQDxQTeJl
- 7QqfHJx/mcQzKsFTlKiYTEuYK721R6RvPH1LCVhR7QWBfte/PzghH/DnRmdqYdpE1F
- veaivtbGzWZg0yejiOAGnzY11zAqT2za1V3AAst3A1M8alg/8XFuqwsUmV1pMOySyI
- K/VvEp6j7kkkOn8CTeWKV7fDbabr6OVBCsvj7YjXIUauDBF4HiwVivNxitvwISmgll
- J2Ee4S505gURA==
+ b=QweIDR+i3KSE/rUBV3o/Mc6C79WqPJLf+KaQ/BxFISooYB+sHdwEio7vLYE2766ox
+ 0gDtDmZjnez0h1he+GAVZs4xXF6tq/LZ8PhKJLGOAhCVqdqUUWGBO/4tKI1Iq2JCph
+ WHFW80B7oIHMVB5j2/28KU9iEWJLn81bvsbhLs/zEDx/yx2CPpcC0KetC9PjYIVvf6
+ QYwo+T0nD+k1tzm98WJAiGI1FF11CxTG2KXVu7plJYYY8mzIKz4jffaTd/C6AX1gcz
+ flUsj/xJv7m2+L76t0lZ0pL+K/lQ6MV37QK+BS5B8od3tj3us3jZO4mwoZ2kpNJZQu
+ 8F/Q4DpMHy6Jw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/panthor: Check VMA boundaries for PMD mappings
-To: "Christian A. Ehrhardt" <lk@c--e.de>
+Subject: Re: [PATCH 2/3] drm/v3d: Reject invalid indirect BO handle in
+ indirect CSD setup
+To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260623181942.1536598-1-lk@c--e.de>
-References: <20260623181942.1536598-1-lk@c--e.de>
+In-Reply-To: <20260610-v3d-cpu-job-fixes-v1-2-0d9c88989edc@igalia.com>
+References: <20260610-v3d-cpu-job-fixes-v1-2-0d9c88989edc@igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 18:52:54 +0000
-Message-Id: <20260623185255.38FE41F000E9@smtp.kernel.org>
+Date: Tue, 23 Jun 2026 19:23:36 +0000
+Message-Id: <20260623192337.490A91F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,75 +57,114 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] VMA page offset calculation ignores VMA splits, causing the wrong =
-GEM pages to be mapped
+- [Critical] Pre-existing double-free vulnerability in CPU job extension er=
+ror handling.
+- [Critical] Missing bounds checks on userspace-provided offsets in v3d CPU=
+ jobs allows arbitrary kernel memory access.
+- [High] Missing check for vmap failure when mapping GEM objects for CPU jo=
+bs.
 --
 
-commit 0ed0c5c04749e14eb0003e5dbc760b6b5b001ce2
-Author: Christian A. Ehrhardt <lk@c--e.de>
+commit 8d6290edb4b042b28b895df1c1037e680a314bfc
+Author: Ma=C3=ADra Canal <mcanal@igalia.com>
 
-drm/panthor: Check VMA boundaries for PMD mappings
+drm/v3d: Reject invalid indirect BO handle in indirect CSD setup
 
-In the ->huge_fault handler do not install a PMD huge page mapping if the
-huge page exceeds the boundaries of the VMA.
+This commit fixes a NULL pointer dereference in the v3d driver by rejecting
+invalid indirect buffer object handles during indirect CSD job setup. It
+returns -ENOENT if drm_gem_object_lookup() fails to find the object.
 
-Link: https://lore.kernel.org/lkml/20260622215718.1532689-1-lk@c--e.de/
-Link: https://sashiko.dev/#/patchset/20260622215718.1532689-1-lk%40c--e.de
-
-> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/pant=
-hor/panthor_gem.c
-> index a1e2eb1ca7bbe..54535bae2b0cf 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gem.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
-> @@ -802,9 +802,13 @@ static vm_fault_t insert_page(struct vm_fault *vmf, =
-unsigned int order, struct p
->  	} else if (order =3D=3D PMD_ORDER) {
->  		unsigned long pfn =3D page_to_pfn(page);
->  		unsigned long paddr =3D pfn << PAGE_SHIFT;
-> +		struct vm_area_struct *vma =3D vmf->vma;
-> +		unsigned long start =3D ALIGN_DOWN(vmf->address, PMD_SIZE);
-> +		unsigned long end =3D start + PMD_SIZE;
-> +		bool in_range =3D vma->vm_start <=3D start && end <=3D vma->vm_end;
->  		bool aligned =3D (vmf->address & ~PMD_MASK) =3D=3D (paddr & ~PMD_MASK);
+> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_s=
+ubmit.c
+> index 3d6582dfb1bfc..122b93eaa8bf2 100644
+> --- a/drivers/gpu/drm/v3d/v3d_submit.c
+> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
+> @@ -601,6 +601,8 @@ v3d_get_cpu_indirect_csd_params(struct drm_file *file=
+_priv,
+>  	       sizeof(indirect_csd.wg_uniform_offsets));
 > =20
-> -		if (aligned &&
-> +		if (aligned && in_range &&
->  		    folio_test_pmd_mappable(page_folio(page))) {
->  			pfn &=3D PMD_MASK >> PAGE_SHIFT;
->  			return vmf_insert_pfn_pmd(vmf, pfn, vmf->flags & FAULT_FLAG_WRITE);
+>  	info->indirect =3D drm_gem_object_lookup(file_priv, indirect_csd.indire=
+ct);
+
+[Severity: Critical]
+This is a pre-existing issue, but does this code lack bounds checking on
+the userspace-provided offsets before using them to access kernel memory?
+
+In v3d_get_cpu_indirect_csd_params(), offsets like indirect_csd.offset and
+indirect_csd.wg_uniform_offsets are copied from the userspace extension
+struct without any validation against the bounds of the GEM object.
+
+When the job executes in v3d_rewrite_csd_job_wg_counts_from_indirect():
+
+	wg_counts =3D (uint32_t *)(bo->vaddr + indirect_csd->offset);
+	...
+	u32 uniform_idx =3D indirect_csd->wg_uniform_offsets[i];
+	((uint32_t *)indirect->vaddr)[uniform_idx] =3D wg_counts[i];
+
+Can a malicious userspace application supply arbitrarily large offsets to
+read from or write to arbitrary kernel memory addresses relative to the
+mapped BO? Similar issues seem to exist in v3d_timestamp_query() as well:
+
+	value_addr =3D ((u8 *)bo->vaddr) + timestamp_query->queries[i].offset;
+	*((u64 *)value_addr) =3D i =3D=3D 0 ? ktime_get_ns() : 0ull;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but looking further down in
-panthor_gem_any_fault():
+This isn't a bug introduced by this patch, but does the driver fail to
+handle vmap() returning NULL when mapping these GEM objects?
 
-drivers/gpu/drm/panthor/panthor_gem.c:panthor_gem_any_fault() {
-    ...
-	/* Offset to faulty address in the VMA. */
-	page_offset =3D vmf->pgoff - vma->vm_pgoff;
-    ...
-}
+In v3d_get_bo_vaddr():
 
-Does this VMA page offset calculation ignore VMA splits?
+	bo->vaddr =3D vmap(obj->pages, obj->base.size >> PAGE_SHIFT, VM_MAP,
+			 pgprot_writecombine(PAGE_KERNEL));
 
-If a userspace process maps a Panthor GEM object and then unmaps the first
-page using munmap(), the core memory management subsystem splits the VMA and
-increments vma->vm_pgoff by 1.
+If vmap() fails, bo->vaddr is NULL. CPU job execution functions like
+v3d_rewrite_csd_job_wg_counts_from_indirect() unconditionally assume
+bo->vaddr is valid:
 
-When a page fault subsequently occurs at the new VMA start address, both
-vmf->pgoff and vma->vm_pgoff have advanced by 1, which means page_offset
-incorrectly evaluates to 0 instead of 1.
+	v3d_get_bo_vaddr(bo);
+	v3d_get_bo_vaddr(indirect);
+	wg_counts =3D (uint32_t *)(bo->vaddr + indirect_csd->offset);
 
-Could this logic error cause the fault handler to map incorrect physical
-pages (bo->backing.pages[0] instead of bo->backing.pages[1]) from the GEM
-object into userspace memory?
+Can this lead to a NULL pointer dereference if the system is under memory
+pressure or if a very large BO is submitted?
 
-The calculation should probably subtract the GEM object's base fake offset
-using drm_vma_node_start(&bo->base.vma_node).
+[Severity: Critical]
+This is also a pre-existing issue, but is there a double-free
+vulnerability in the CPU job extension error handling?
+
+When parsing CPU job parameters in v3d_get_cpu_timestamp_query_params(),
+if a failure occurs, the error path calls:
+
+	error:
+		v3d_timestamp_query_info_free(&job->timestamp_query, i);
+		return err;
+
+The helper v3d_timestamp_query_info_free() frees the queries array:
+
+	kvfree(query_info->queries);
+
+but it does not set the pointer to NULL.
+
+If the error propagates to v3d_submit_cpu_ioctl(), it jumps to its error
+path and calls v3d_submit_cleanup_jobs() -> v3d_cpu_job_free(). This
+function unconditionally calls the free helper again:
+
+	v3d_timestamp_query_info_free(&job->timestamp_query,
+				      job->timestamp_query.count);
+
+Can this allow a malicious userspace application to trigger a double free
+of kernel memory?
+
+> +	if (!info->indirect)
+> +		return -ENOENT;
+> =20
+>  	return 0;
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260623181942.1536=
-598-1-lk@c--e.de?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610-v3d-cpu-jo=
+b-fixes-v1-0-0d9c88989edc@igalia.com?part=3D2
