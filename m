@@ -4,84 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 277C1CDE001
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 07:48:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61115CDE003
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 07:48:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5199410EDDB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0990310EDDA;
 	Wed, 24 Jun 2026 07:48:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fTieKVFR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jxjyygah";
 	dkim-atps=neutral
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E98A210E36C
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 19:58:51 +0000 (UTC)
-Received: by mail-dl1-f51.google.com with SMTP id
- a92af1059eb24-13810b63a1aso585013c88.1
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 12:58:51 -0700 (PDT)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E244B10EC5B
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 19:38:58 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-4629051c9d1so158306f8f.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 12:38:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782244731; x=1782849531; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Z/fp9uYhKIZVODXjBwNwAyAJlbCISy/3icMoMCSqHfo=;
- b=fTieKVFRbsaoBXVi/1mA/tegCO/baGtkMRAQ9rjH6a5Vyk3cI1B5g9FaES9vhR0UAX
- w7o6MuK32X8vse/VtN2EBbGog4h7R8rrP7XKiaLLm0c83/eK584wlLCTb2eHrYZmfvtG
- o2uOMRnRpjauR1ezL5bsoARUbfNKsKEzrS+edQewBHerBItLlY/QkUz4ge0radDZBU16
- Qce7RnvRNHHCLTHeodufDM5Lj/xigiJl8Gr8EX84ViIKFIkDnXhk9JTJprZXceee1XNG
- /qyrf7rJn1T0xsvCKL22sv9lXNzXHh1t2RykPlRW/s08QIOvRw6qW6lEPRepWqSF6MuH
- objQ==
+ d=gmail.com; s=20251104; t=1782243537; x=1782848337; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Xi3F77gv3Dog6TTeJPtSgdEIuLjDDaKZJ2VGU5mi4ts=;
+ b=jxjyygah2YqXHYxsed0I1gUAMDr2mTk8Efm27mH8tZBdFJHXxU6uGIh2WdRCzNzrJz
+ TXgJCu/s21kYTuJrJFMkuK+21/x0OerXSFqaIPm6I0iAvduLAzYyNpZGNoLN5XLeNJBC
+ 95EQTssRttmMSMQy2f3lRp9PlPhmfnTPge5iVhMN1X2oD1USvLzuydNk3X692gVxr4Ry
+ oYapLoxd4odkmxsWuoFgqEpk8Xmktngc1Dp2PjqsqVj0dGnbyauFidxK446iReJK4uSl
+ 0SwsYgiOZ8pC/RQzWOPAVtij9KScsm49w9dVzb8aQf1RnVgDMgBvKx4zge8+B8nTUtdy
+ hZxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782244731; x=1782849531;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Z/fp9uYhKIZVODXjBwNwAyAJlbCISy/3icMoMCSqHfo=;
- b=h2yY6ofrL+tHpOOouEw0Zo0IDYbZlWw+JpzL/hBNoHFIUBBwVCu5X2joNvnpJP3QKc
- nTqhn0KlJNu6xID9D+CZf3Lc+iEcFHJD9nIofSO0LK+iRaGW1Jqx/rOkqLmWEx7ONC7H
- opRL9LNPSkRbdw7t/FZrc+LsEvcQY6RmtDS+QGcwJZlN1hk9bt2qF6s2zmJUDv1UJGzX
- g4N1Tak0oMDMEDX0v3rGQIpsRM0NShdb7ansCmS5dbQzGjRntn+PgNOerwatg346MM5K
- /ORasapDGvJxNszbHK9UqGemL2pz4W8AFvxzyiZWdXVMcsgiVQtR0/36k57HLiLej0wn
- EFnA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ96FRlt29+3pOuDZcUJcU9G5Akfun10lN5zfwc/BoTS8MnKlkx7oMgmYYrQ3AfU5cAFUH+wAOr0afQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyDV7N94xyjwp43vd8bz+6ZQbZJKBhfojbS7mpgNLt7ft04p6L0
- gtc/E9qC8OYObQpdP8+EJeWEaqg+R5iOJGR1vY1VqOAhaTvI6kkL68+N
-X-Gm-Gg: AfdE7clsrWq7Zr0fBp4SRimqEGcWHxG6R7Wrqe5HRG/qHJKyRso8cVWWTBoIBPPaScs
- M7QB8IS/HolSymJAIphD2iFUAja5LxDkxPExhoV+WoKQgmY+28jZ4W2zb5ufS3+vqs4vO1SzTKT
- mwhdCJQbM1P3hh3z8rLR1bf4niWj01+yVOQwfJpsBqe5XqZklwusbHDF29zWZCS+5QmdrdFnaji
- JAgw9+F2QEzAqFGRCQ5QvkIq5c7WdturtwlitSldS/U5JCBkX7NnmA90K3P/CoRQbRiqLNUGsGm
- t9EjEp1XsJAxrHZYZic7cxJHj8/zliuqJ4t24Q2/F+mvcP8mp/1PphYvvY61ZgOij0DHD0sz6us
- ybru5+D77TBf2mKoIvpzMhRX0aG9Chb+g3FE4+Jw45knYAqyoNaUtOtPZpEl895Na2qHg2AMPwV
- ORE94bHC96UGV2ck//DSNoBeRJo+VowibmxjiMgpUZIdqyeOFmzgMTw32+hg2SldY9e/lQ3Fbx4
- fm75RGfPlmXflSqL0wzWcZ2RwVV4c2z7jTPqqrTZbg=
-X-Received: by 2002:a05:7022:4397:b0:138:5ae:3eaa with SMTP id
- a92af1059eb24-139ad6961c2mr13263116c88.9.1782244731170; 
- Tue, 23 Jun 2026 12:58:51 -0700 (PDT)
-Received: from leonardoc-nb (201-68-197-145.dsl.telesp.net.br.
- [201.68.197.145]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-139add85c40sm15730896c88.15.2026.06.23.12.58.45
+ d=1e100.net; s=20251104; t=1782243537; x=1782848337;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Xi3F77gv3Dog6TTeJPtSgdEIuLjDDaKZJ2VGU5mi4ts=;
+ b=guALqO2BgT1A/qoQD/B9URuvtQeKFuc8RdAQfYZUNf9qRuOcANMHUCpGDcdR0JV1lx
+ Jb/8ifInB7bYNW/+vgDaL83SH2GDgqFxHzRYbbLYKC6Yi0+Hjf+eLnTP7lDPAHxF4ARC
+ BOqzT3tGTOubsZweC+HiEB/B+8RSlKsOigg1dYCpUsh5M0fNjR9YUmpC11EOwcjojdgA
+ XRmrila0j/qOFoXjvziC9/bZuM01w+3t8Xgta5mXx7+PAszAAe05fntRaYCMO1lvFQFv
+ hPcCpJqkf2QyhAF1GedhAzxczOJXy/yNVM1z0JfF5NlP/cNNbUKZ/ZiSEuDCuv6IcbNx
+ RpAA==
+X-Gm-Message-State: AOJu0Yyd+xk7AYnz715ZZO3v7pU+ZvZobl4czlaWLRdBua3pFik6oD07
+ 0yPWhxNO3t6ZywKSQ0kQ97WHJwz2qON0MZw620rpr/vNlIygRg0ZMPYX
+X-Gm-Gg: AfdE7clLoQ4EZ5niWvMcqvc+8d9W9Z032tUEzfvJeSyHyMME84WFSO+kLHj7pS5cVmV
+ bDlrkqj/IswM7hdyGWuytvKY61jQBxDrjUvEv2sV+wHHi0jjN7w0rPcz9ejoGTawkRAt/CymcWB
+ IB7OtfsveuNimfE1yI7fAj58gDrnmtuXw4xGHB28xJ32kVEMmP7kKaCqNTB4y4GDVF4MxiXkvNI
+ IEjZQhKAUZK7PelNJACi8LD0iFiRIMzr/PmTw/y4QeX1/bYpV2Wy8G0qjaCUBmh7pO4A0LSRIut
+ /1iCvAc42YVU9Q73TryA+7Re7UOyNXWJKx2umS4ZsdHUXxmVNmS41ODqpnJXLC+Ra0gpNRZl39b
+ Y7yovUSfugbCxgDitEAJ6UKeVAe4HTXLTyA5Xjov5uU8vvk2aZqkLwS4xwH4Oe4O/aVW4cC9zOr
+ 8nwezbAJcET0rSlw1Jfe7/APH1yrecCDw=
+X-Received: by 2002:a05:6000:41c6:b0:45e:945b:276 with SMTP id
+ ffacd0b85a97d-46c0bd7cb49mr317363f8f.20.1782243536803; 
+ Tue, 23 Jun 2026 12:38:56 -0700 (PDT)
+Received: from [127.0.0.2] ([194.35.121.133]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-46666c579d4sm39418017f8f.28.2026.06.23.12.38.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jun 2026 12:58:50 -0700 (PDT)
-From: Leonardo Costa <leoreis.costa@gmail.com>
-To: laurent.pinchart@ideasonboard.com, neil.armstrong@linaro.org,
- jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- nm@ti.com, vigneshr@ti.com, kristo@kernel.org,
- prabhakar.mahadev-lad.rj@bp.renesas.com, thierry.reding@gmail.com,
- sam@ravnborg.org
-Cc: leonardo.costa@toradex.com, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 5/5] arm64: dts: ti: k3-am62-verdin: Add Mezzanine with
- Toradex Display 10.1" LVDS
-Date: Tue, 23 Jun 2026 16:57:41 -0300
-Message-ID: <20260623195741.495734-6-leoreis.costa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260623195741.495734-1-leoreis.costa@gmail.com>
-References: <20260623195741.495734-1-leoreis.costa@gmail.com>
+ Tue, 23 Jun 2026 12:38:56 -0700 (PDT)
+From: Diogo Silva <diogompaissilva@gmail.com>
+Date: Tue, 23 Jun 2026 21:38:33 +0200
+Subject: [PATCH] drm/gma500: Remove dependency on DRM simple helpers
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260623-gma-drm-simple-v1-1-c404a5e62aab@gmail.com>
+X-B4-Tracking: v=1; b=H4sIALjgOmoC/x3MQQqAIBBA0avErBswLYOuEi0sRxvICoUIxLsnL
+ d/i/wyJIlOCqckQ6eHE11nRtQ1suzk9IdtqkEJqoaVCHwzaGDBxuA/CbSCt3NivnRZQozuS4/c
+ fzkspHwm8NDxgAAAA
+X-Change-ID: 20260623-gma-drm-simple-c5e63f74b160
+To: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Diogo Silva <diogompaissilva@gmail.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Wed, 24 Jun 2026 07:47:57 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,165 +92,280 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Leonardo Costa <leonardo.costa@toradex.com>
+Simple KMS helper are deprecated since they only add an intermediate
+layer between drivers and the atomic modesetting.
+This patch removes the dependency on drm simple helpers from gma500
+DRM drivers.
 
-Add a device tree overlay enabling the Toradex Capacitive Touch Display
-10.1" LVDS V2 on the Verdin Development Board with Verdin AM62 Mezzanine
-expansion board. The panel connects via the AM62 OLDI0 on the Mezzanine
-LVDS interface (J10). The panel is an Opto Logic SCX1001511GGC49 10.1" WXGA
-TFT LCD LVDS and the touch input is provided by an ILITEK ILI251x
-capacitive touch controller.
-
-Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
 ---
- arch/arm64/boot/dts/ti/Makefile               |   5 +
- ...zanine-panel-cap-touch-10inch-lvds-v2.dtso | 109 ++++++++++++++++++
- 2 files changed, 114 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtso
+ drivers/gpu/drm/gma500/cdv_intel_crt.c  |  9 +++++++--
+ drivers/gpu/drm/gma500/cdv_intel_dp.c   |  9 +++++++--
+ drivers/gpu/drm/gma500/cdv_intel_hdmi.c | 10 +++++++---
+ drivers/gpu/drm/gma500/cdv_intel_lvds.c |  9 +++++++--
+ drivers/gpu/drm/gma500/oaktrail_hdmi.c  |  9 +++++++--
+ drivers/gpu/drm/gma500/oaktrail_lvds.c  |  9 +++++++--
+ drivers/gpu/drm/gma500/psb_intel_lvds.c |  9 +++++++--
+ 7 files changed, 49 insertions(+), 15 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 8b90fef11cb32..d9e0b1b80b28d 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -31,6 +31,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am625-sk.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-tqma62xx-mba62xx.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-mezzanine-can.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dev-nau8822-btl.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dsi-to-hdmi.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-verdin-dsi-to-lvds-panel-cap-touch-10inch.dtbo
-@@ -240,6 +241,9 @@ k3-am625-verdin-wifi-dev-mezzanine-can-dtbs := k3-am625-verdin-wifi-dev.dtb \
- k3-am625-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds-dtbs := \
- 	k3-am625-verdin-wifi-dev.dtb \
- 	k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds.dtbo
-+k3-am625-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds-v2-dtbs := \
-+	k3-am625-verdin-wifi-dev.dtb \
-+	k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtbo
- k3-am625-verdin-wifi-dev-nau8822-btl-dtbs := k3-am625-verdin-wifi-dev.dtb \
- 	k3-am625-verdin-dev-nau8822-btl.dtbo
- k3-am625-verdin-wifi-dev-ov5640-24mhz-dtbs := k3-am625-verdin-wifi-dev.dtb \
-@@ -362,6 +366,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-am625-verdin-wifi-dev-dsi-to-lvds-v2-panel-cap-touch-10inch.dtb \
- 	k3-am625-verdin-wifi-dev-mezzanine-can.dtb \
- 	k3-am625-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds.dtb \
-+	k3-am625-verdin-wifi-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtb \
- 	k3-am625-verdin-wifi-dev-nau8822-btl.dtb \
- 	k3-am625-verdin-wifi-dev-ov5640-24mhz.dtb \
- 	k3-am625-verdin-wifi-dev-ov5640.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtso b/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtso
-new file mode 100644
-index 0000000000000..26f6715463986
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtso
-@@ -0,0 +1,109 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex Capacitive Touch Display 10.1" LVDS V2 on the Verdin AM62 Mezzanine
-+ * LVDS interface (J10), used with the Verdin Development Board.
-+ *
-+ * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-+ * https://www.toradex.com/accessories/capacitive-touch-display-10.1-inch-lvds
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/pwm/pwm.h>
-+
-+&{/} {
-+	backlight_pwm2: backlight-pwm2 {
-+		compatible = "pwm-backlight";
-+		brightness-levels = <0 45 63 88 119 158 203 255>;
-+		default-brightness-level = <4>;
-+		/* Verdin GPIO_4 (SODIMM 212) - LVDS_BKL_EN */
-+		enable-gpios = <&mcu_gpio0 4 GPIO_ACTIVE_HIGH>;
-+		/* Verdin PWM_2 (SODIMM 16) - LVDS_PWM */
-+		pwms = <&epwm0 1 6666667 0>;
-+	};
-+
-+	panel-lvds-native {
-+		compatible = "optologic,scx1001511ggc49", "panel-lvds";
-+		backlight = <&backlight_pwm2>;
-+		data-mapping = "vesa-24";
-+		height-mm = <136>;
-+		width-mm = <217>;
-+
-+		panel-timing {
-+			clock-frequency = <64500000>;
-+			hactive = <1280>;
-+			hback-porch = <20>;
-+			hfront-porch = <20>;
-+			hsync-len = <2>;
-+			vactive = <800>;
-+			vback-porch = <5>;
-+			vfront-porch = <5>;
-+			vsync-len = <3>;
-+			de-active = <1>;
-+			hsync-active = <0>;
-+			vsync-active = <0>;
-+			pixelclk-active = <0>;
-+		};
-+
-+		port {
-+			panel_lvds_native_in: endpoint {
-+				remote-endpoint = <&oldi0_out>;
-+			};
-+		};
-+	};
+diff --git a/drivers/gpu/drm/gma500/cdv_intel_crt.c b/drivers/gpu/drm/gma500/cdv_intel_crt.c
+index 342a57c82846..e51a965ddeb8 100644
+--- a/drivers/gpu/drm/gma500/cdv_intel_crt.c
++++ b/drivers/gpu/drm/gma500/cdv_intel_crt.c
+@@ -29,8 +29,8 @@
+ #include <linux/pm_runtime.h>
+ 
+ #include <drm/drm_crtc_helper.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_modeset_helper_vtables.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "cdv_device.h"
+ #include "intel_bios.h"
+@@ -217,6 +217,10 @@ static int cdv_intel_crt_set_property(struct drm_connector *connector,
+  * Routines for controlling stuff on the analog port
+  */
+ 
++static const struct drm_encoder_funcs cdv_intel_crt_funcs = {
++	.destroy = drm_encoder_cleanup,
 +};
 +
-+&dss {
-+	status = "okay";
+ static const struct drm_encoder_helper_funcs cdv_intel_crt_helper_funcs = {
+ 	.dpms = cdv_intel_crt_dpms,
+ 	.prepare = gma_encoder_prepare,
+@@ -275,7 +279,8 @@ void cdv_intel_crt_init(struct drm_device *dev,
+ 		goto err_ddc_destroy;
+ 
+ 	encoder = &gma_encoder->base;
+-	ret = drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_DAC);
++	ret = drm_encoder_init(dev, encoder, &cdv_intel_crt_funcs,
++			       DRM_MODE_ENCODER_DAC, NULL);
+ 	if (ret)
+ 		goto err_connector_cleanup;
+ 
+diff --git a/drivers/gpu/drm/gma500/cdv_intel_dp.c b/drivers/gpu/drm/gma500/cdv_intel_dp.c
+index fbed35cf7603..5bcbb2d2b837 100644
+--- a/drivers/gpu/drm/gma500/cdv_intel_dp.c
++++ b/drivers/gpu/drm/gma500/cdv_intel_dp.c
+@@ -33,9 +33,9 @@
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_crtc_helper.h>
+ #include <drm/drm_edid.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_modeset_helper_vtables.h>
+ #include <drm/drm_print.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "gma_display.h"
+ #include "psb_drv.h"
+@@ -1872,6 +1872,10 @@ cdv_intel_dp_destroy(struct drm_connector *connector)
+ 	kfree(gma_connector);
+ }
+ 
++static const struct drm_encoder_funcs cdv_intel_dp_funcs = {
++	.destroy = drm_encoder_cleanup,
 +};
 +
-+&dss_ports {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	/* DSS VP1: internal DPI output to OLDIx */
-+	port@0 {
-+		reg = <0>;
-+
-+		dss0_out: endpoint {
-+			remote-endpoint = <&oldi0_in>;
-+		};
-+	};
+ static const struct drm_encoder_helper_funcs cdv_intel_dp_helper_funcs = {
+ 	.dpms = cdv_intel_dp_dpms,
+ 	.mode_fixup = cdv_intel_dp_mode_fixup,
+@@ -1970,7 +1974,8 @@ cdv_intel_dp_init(struct drm_device *dev, struct psb_intel_mode_device *mode_dev
+ 	encoder = &gma_encoder->base;
+ 
+ 	drm_connector_init(dev, connector, &cdv_intel_dp_connector_funcs, type);
+-	drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_TMDS);
++	drm_encoder_init(dev, encoder, &cdv_intel_dp_funcs,
++			 DRM_MODE_ENCODER_TMDS, NULL);
+ 
+ 	gma_connector_attach_encoder(gma_connector, gma_encoder);
+ 
+diff --git a/drivers/gpu/drm/gma500/cdv_intel_hdmi.c b/drivers/gpu/drm/gma500/cdv_intel_hdmi.c
+index ce7850647778..757ff9408250 100644
+--- a/drivers/gpu/drm/gma500/cdv_intel_hdmi.c
++++ b/drivers/gpu/drm/gma500/cdv_intel_hdmi.c
+@@ -30,9 +30,9 @@
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_crtc_helper.h>
+ #include <drm/drm_edid.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_modeset_helper_vtables.h>
+ #include <drm/drm_print.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "cdv_device.h"
+ #include "psb_drv.h"
+@@ -251,6 +251,10 @@ static void cdv_hdmi_destroy(struct drm_connector *connector)
+ 	kfree(gma_connector);
+ }
+ 
++static const struct drm_encoder_funcs cdv_hdmi_funcs = {
++	.destroy = drm_encoder_cleanup,
 +};
 +
-+/* Verdin I2C_2_DSI */
-+&main_i2c2 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	touchscreen@41 {
-+		compatible = "ilitek,ili251x";
-+		reg = <0x41>;
-+		/* Verdin GPIO_3 (SODIMM 210) - LVDS_TOUCH_INT# */
-+		interrupt-parent = <&mcu_gpio0>;
-+		interrupts = <3 IRQ_TYPE_EDGE_RISING>;
-+		/* Verdin GPIO_2 (SODIMM 208) - LVDS_TOUCH_RST# */
-+		reset-gpios = <&mcu_gpio0 2 GPIO_ACTIVE_LOW>;
-+	};
+ static const struct drm_encoder_helper_funcs cdv_hdmi_helper_funcs = {
+ 	.dpms = cdv_hdmi_dpms,
+ 	.prepare = gma_encoder_prepare,
+@@ -329,8 +333,8 @@ void cdv_hdmi_init(struct drm_device *dev,
+ 	if (ret)
+ 		goto err_ddc_destroy;
+ 
+-	ret = drm_simple_encoder_init(dev, &gma_encoder->base,
+-				      DRM_MODE_ENCODER_TMDS);
++	ret = drm_encoder_init(dev, &gma_encoder->base, &cdv_hdmi_funcs,
++			       DRM_MODE_ENCODER_TMDS, NULL);
+ 	if (ret)
+ 		goto err_connector_cleanup;
+ 
+diff --git a/drivers/gpu/drm/gma500/cdv_intel_lvds.c b/drivers/gpu/drm/gma500/cdv_intel_lvds.c
+index d7fd9a783cde..336ab411d699 100644
+--- a/drivers/gpu/drm/gma500/cdv_intel_lvds.c
++++ b/drivers/gpu/drm/gma500/cdv_intel_lvds.c
+@@ -13,9 +13,9 @@
+ #include <linux/pm_runtime.h>
+ 
+ #include <drm/drm_crtc_helper.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_modeset_helper_vtables.h>
+ #include <drm/drm_print.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "cdv_device.h"
+ #include "intel_bios.h"
+@@ -394,6 +394,10 @@ static int cdv_intel_lvds_set_property(struct drm_connector *connector,
+ 	return 0;
+ }
+ 
++static const struct drm_encoder_funcs cdv_intel_lvds_funcs = {
++	.destroy = drm_encoder_cleanup,
 +};
 +
-+&oldi0 {
-+	status = "okay";
+ static const struct drm_encoder_helper_funcs
+ 					cdv_intel_lvds_helper_funcs = {
+ 	.dpms = cdv_intel_lvds_encoder_dpms,
+@@ -535,7 +539,8 @@ void cdv_intel_lvds_init(struct drm_device *dev,
+ 	if (ret)
+ 		goto err_destroy_ddc;
+ 
+-	ret = drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_LVDS);
++	ret = drm_encoder_init(dev, encoder, &cdv_intel_lvds_funcs,
++			       DRM_MODE_ENCODER_LVDS, NULL);
+ 	if (ret)
+ 		goto err_connector_cleanup;
+ 
+diff --git a/drivers/gpu/drm/gma500/oaktrail_hdmi.c b/drivers/gpu/drm/gma500/oaktrail_hdmi.c
+index 403d21cbb3a2..5a6132176086 100644
+--- a/drivers/gpu/drm/gma500/oaktrail_hdmi.c
++++ b/drivers/gpu/drm/gma500/oaktrail_hdmi.c
+@@ -29,9 +29,9 @@
+ #include <drm/drm.h>
+ #include <drm/drm_crtc_helper.h>
+ #include <drm/drm_edid.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_modeset_helper_vtables.h>
+ #include <drm/drm_print.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "psb_drv.h"
+ #include "psb_intel_drv.h"
+@@ -605,6 +605,10 @@ static void oaktrail_hdmi_destroy(struct drm_connector *connector)
+ 	return;
+ }
+ 
++static const struct drm_encoder_funcs oaktrail_hdmi_funcs = {
++	.destroy = drm_encoder_cleanup,
 +};
 +
-+&oldi0_port0 {
-+	oldi0_in: endpoint {
-+		remote-endpoint = <&dss0_out>;
-+	};
+ static const struct drm_encoder_helper_funcs oaktrail_hdmi_helper_funcs = {
+ 	.dpms = oaktrail_hdmi_dpms,
+ 	.prepare = gma_encoder_prepare,
+@@ -648,7 +652,8 @@ void oaktrail_hdmi_init(struct drm_device *dev,
+ 			   &oaktrail_hdmi_connector_funcs,
+ 			   DRM_MODE_CONNECTOR_DVID);
+ 
+-	drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_TMDS);
++	drm_encoder_init(dev, encoder, &oaktrail_hdmi_funcs,
++			 DRM_MODE_ENCODER_TMDS, NULL);
+ 
+ 	gma_connector_attach_encoder(gma_connector, gma_encoder);
+ 
+diff --git a/drivers/gpu/drm/gma500/oaktrail_lvds.c b/drivers/gpu/drm/gma500/oaktrail_lvds.c
+index e194d0cce067..425796d8d6c3 100644
+--- a/drivers/gpu/drm/gma500/oaktrail_lvds.c
++++ b/drivers/gpu/drm/gma500/oaktrail_lvds.c
+@@ -12,9 +12,9 @@
+ #include <linux/pm_runtime.h>
+ 
+ #include <drm/drm_edid.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_modeset_helper_vtables.h>
+ #include <drm/drm_print.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "intel_bios.h"
+ #include "power.h"
+@@ -202,6 +202,10 @@ static void oaktrail_lvds_commit(struct drm_encoder *encoder)
+ 	oaktrail_lvds_set_power(dev, gma_encoder, true);
+ }
+ 
++static const struct drm_encoder_funcs oaktrail_lvds_funcs = {
++	.destroy = drm_encoder_cleanup,
 +};
 +
-+&oldi0_port1 {
-+	oldi0_out: endpoint {
-+		remote-endpoint = <&panel_lvds_native_in>;
-+	};
+ static const struct drm_encoder_helper_funcs oaktrail_lvds_helper_funcs = {
+ 	.dpms = oaktrail_lvds_dpms,
+ 	.mode_fixup = psb_intel_lvds_mode_fixup,
+@@ -319,7 +323,8 @@ void oaktrail_lvds_init(struct drm_device *dev,
+ 	if (ret)
+ 		goto err_free_connector;
+ 
+-	ret = drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_LVDS);
++	ret = drm_encoder_init(dev, encoder, &oaktrail_lvds_funcs,
++			       DRM_MODE_ENCODER_LVDS, NULL);
+ 	if (ret)
+ 		goto err_connector_cleanup;
+ 
+diff --git a/drivers/gpu/drm/gma500/psb_intel_lvds.c b/drivers/gpu/drm/gma500/psb_intel_lvds.c
+index 2ca164b21293..cd882786d946 100644
+--- a/drivers/gpu/drm/gma500/psb_intel_lvds.c
++++ b/drivers/gpu/drm/gma500/psb_intel_lvds.c
+@@ -12,9 +12,9 @@
+ #include <linux/pm_runtime.h>
+ 
+ #include <drm/drm_crtc_helper.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_modeset_helper_vtables.h>
+ #include <drm/drm_print.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "intel_bios.h"
+ #include "power.h"
+@@ -593,6 +593,10 @@ int psb_intel_lvds_set_property(struct drm_connector *connector,
+ 	return -1;
+ }
+ 
++static const struct drm_encoder_funcs psb_intel_lvds_funcs = {
++	.destroy = drm_encoder_cleanup,
 +};
++
+ static const struct drm_encoder_helper_funcs psb_intel_lvds_helper_funcs = {
+ 	.dpms = psb_intel_lvds_encoder_dpms,
+ 	.mode_fixup = psb_intel_lvds_mode_fixup,
+@@ -679,7 +683,8 @@ void psb_intel_lvds_init(struct drm_device *dev,
+ 	if (ret)
+ 		goto err_ddc_destroy;
+ 
+-	ret = drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_LVDS);
++	ret = drm_encoder_init(dev, encoder, &psb_intel_lvds_funcs,
++			       DRM_MODE_ENCODER_LVDS, NULL);
+ 	if (ret)
+ 		goto err_connector_cleanup;
+ 
+
+---
+base-commit: 60326b17f877e12846167bf8ef83680b9875218a
+change-id: 20260623-gma-drm-simple-c5e63f74b160
+
+Best regards,
+-- 
+Diogo Silva <diogompaissilva@gmail.com>
+
