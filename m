@@ -4,63 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36592CDB46F
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 11:48:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CE52CD98F2
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 11:59:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7032C10EAD7;
-	Tue, 23 Jun 2026 11:48:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E6B910EADB;
+	Tue, 23 Jun 2026 11:59:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BVQ0CUHN";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="o6IFlnUJ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F10E910EAD2;
- Tue, 23 Jun 2026 11:48:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782215318; x=1813751318;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=bS/LT3XShS6ZOV1bEc+JPoYBXP3n/SF9YLMEwtv/n8Y=;
- b=BVQ0CUHNcsRLkcvkoCHDx1iMsGAgnqeCwlXJUce7M4p2/07FDql8e2rN
- mHCbQVb61BGYvQ8ZUEQlRIis3cKDEY9JA6usLtv8OXPgbNf/tquz++FH3
- zN2DWSrcGYC0hiu2Nrux3diqz53cXJnFlHlGQgEVxO8OZh+Q8j2C+bMpK
- G5Ws6oO1s8RnOy1WBxGH8u5xjqvM5mXH6plamyaJJ6QIFrZQ/Ai6PUgwf
- sN1Kw8wWZZOt8d9x3aIdqK5sZzvsZeDpjOS6mWfyCKv1o12fLamEui5B5
- U/TBbFPFHWQk+azXu/nbe/6tPGB9zFo8i09q3iR2mzWbGRnEPvAR8W96t Q==;
-X-CSE-ConnectionGUID: 1KS50Kp3RKW6tz7GhKkAnw==
-X-CSE-MsgGUID: AWKLiioBRaOVyx2ZUYBqbg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11825"; a="93609969"
-X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="93609969"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2026 04:48:37 -0700
-X-CSE-ConnectionGUID: Z4XVZ7wiSwGrb6bhJ1kY0A==
-X-CSE-MsgGUID: KO2DHXbnQkaB3cn+JRE0aQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="247156445"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.67])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2026 04:48:36 -0700
-Date: Tue, 23 Jun 2026 14:48:32 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v2 5/5] drm/i915/panel: Attempt VRR based refresh rate
- change for !allow_modeset
-Message-ID: <ajpykEXiNCIqDvFC@intel.com>
-References: <20260622213602.7244-1-ville.syrjala@linux.intel.com>
- <20260622213602.7244-6-ville.syrjala@linux.intel.com>
- <32d5c226-7781-4057-b8b3-27e6637411c0@intel.com>
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BF2D10EAD2
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 11:59:05 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gl3WT44wbz9t9n;
+ Tue, 23 Jun 2026 13:59:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1782215941; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=pFwdqmW21qxLJH3W3ALeQpHtM3Gll3yJ9POED2YZ2WY=;
+ b=o6IFlnUJwHXTp23zSidnt+l/Ma+86RWMLB9P30q8dTUNipVhkSEV2h5LXzceLesT/zcq4g
+ dAyfmU+CIz1xqDPjdBGM7jpUJMyPY+7k8i3alJu5UMa9f16AWpA81UZPvY35WPcB1ihj60
+ tmYvsCrqNOxHfsyjMD0tPH+SRz01NhJtvKKqXd3Y9dCkFQm72Lbb7dLJAziYfyOd/Z9cWx
+ XCR6+30c1gveeRcH/Vf9EwEoH1Sc10rar8gB9rJesU2PdlHN4ak2cxAxX9lrELOhC8+zYq
+ eDwev6YJTU6SZLyoUYc2tfhJu9JM75bbssXGkASrOnaL4UGWjlgBarJdtu5LLQ==
+Message-ID: <f59d6080cf31f424ebcf0e6086b4a93623813a6e.camel@mailbox.org>
+Subject: Re: [PATCH] drm/drm_crtc: fix race with dma_fence_signal() in
+ ::get_driver_name()
+From: Philipp Stanner <phasta@mailbox.org>
+To: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>, 
+ phasta@kernel.org, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
+ <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,  Simona Vetter
+ <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Tvrtko Ursulin
+ <tvrtko.ursulin@igalia.com>,  Boris Brezillon
+ <boris.brezillon@collabora.com>, Danilo Krummrich <dakr@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, Peter Griffin
+ <peter.griffin@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Juan
+ Yescas <jyescas@google.com>, kernel-team@android.com
+Date: Tue, 23 Jun 2026 13:58:46 +0200
+In-Reply-To: <6483098adae29787862473e39b1f9cf3c3f16625.camel@linaro.org>
+References: <20260618-linux-drm_crtc_fix2-v1-1-c03e77b36f34@linaro.org>
+ <1cfd56b7f1a166e25d6588d66a621524f3d983de.camel@mailbox.org>
+ <6483098adae29787862473e39b1f9cf3c3f16625.camel@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <32d5c226-7781-4057-b8b3-27e6637411c0@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-MBO-RS-META: gqq6rmhozrpo34a59ejobmzahu94wzns
+X-MBO-RS-ID: f5dd2d7dc6ec6fb48aa
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,164 +72,177 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 23, 2026 at 09:58:03AM +0530, Nautiyal, Ankit K wrote:
-> 
-> On 6/23/2026 3:06 AM, Ville Syrjala wrote:
-> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> >
-> > Adjust the panel fixed mode selection algorithm to only consider
-> > fixed modes that are "VRR compatible" with the old fixed mode
-> > when userspace doesn't want to allow full modesets. This will
-> > allow a VRR based refresh rate changes (ie. just a change in
-> > the vblank length) via the fastset path.
-> >
-> > When full modesets are allowed, we still use the original algorithm
-> > as that may pick a fixed mode with a more optimal dotclock, potentially
-> > leading to reduced power consumption.
-> >
-> > This approach works as long as userspace does the initial
-> > allow_modeset=true commit using the highest refresh rate it will
-> > want to use. Subsequent commits with allow_modeset=false can then
-> > switch between lower refresh rates without blinks.
-> >
-> > One remaining hurdle we may need to solve is the guardband length.
-> > Assuming the highest refresh rate vblank is too short for
-> > intel_vrr_compute_optimized_guardband() the intitial guardband will
-> > match the highest refresh rate vblank. A subsequent switch to a lower
-> > refresh rate will then recompute the guardband and select a value
-> > that is higher (since the vblank will be longer). The mismatch in
-> > guardband lengths will prevent the fastset. We may either have to
-> > preserve the original (sub-optimal) guardband, or we'll have to
-> > revisit the idea of changing the guardband without a full modeset.
-> >
-> > Note that I'm not 100% happy with this solution because
-> > intel_panel_fixed_mode() is no longer fully idempotent, but I wasn't
-> > able to come up with anything truly better either :/ The simple
-> > solution would be just to always pick the fixed mode with the highest
-> > dotclock, but that could lead to increased power consumption even
-> > when high refresh rates are never used.
-> >
-> > Perhaps the proper solution would be to just deprecate this
-> > idea of taking in random modes for internal panels and then
-> > cooking up a compatible fixed modes. Life would be easier if
-> > userspace was required to provide the desired fixed mode directly.
-> > But in order to do that we'd need to introduce new uapi properties
-> > to control the pfit aspect of this, and we'd probably need a new
-> > client cap to select between the old and new userspace behaviour.
-> > Something to consider in the future...
-> >
-> > v2: Rebase due to earlier changes to VRR fixed mode selection
-> >
-> > Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com> #v1
-> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > ---
-> >   drivers/gpu/drm/i915/display/intel_panel.c | 42 ++++++++++++++++++++--
-> >   1 file changed, 39 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-> > index faa24537ef63..81e638d0c7b3 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_panel.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_panel.c
-> > @@ -72,9 +72,20 @@ static bool is_best_fixed_mode(struct intel_connector *connector,
-> >   		abs(drm_mode_vrefresh(best_mode) - vrefresh);
-> >   }
-> >   
-> > +static bool is_vrr_compatible(const struct drm_display_mode *mode1,
-> > +			      const struct drm_display_mode *mode2)
-> > +{
-> > +	return drm_mode_match(mode1, mode2,
-> > +			      DRM_MODE_MATCH_CLOCK |
-> > +			      DRM_MODE_MATCH_TIMINGS_VRR |
-> > +			      DRM_MODE_MATCH_FLAGS |
-> > +			      DRM_MODE_MATCH_3D_FLAGS);
-> > +}
-> > +
-> >   static const struct drm_display_mode *
-> >   intel_panel_fixed_mode_vrr(struct intel_connector *connector,
-> > -			   const struct drm_display_mode *mode)
-> > +			   const struct drm_display_mode *mode,
-> > +			   const struct drm_display_mode *vrr_ref_mode)
-> >   {
-> >   	const struct drm_display_mode *fixed_mode, *best_mode = NULL;
-> >   	int vrefresh = drm_mode_vrefresh(mode);
-> > @@ -82,6 +93,10 @@ intel_panel_fixed_mode_vrr(struct intel_connector *connector,
-> >   	if (!intel_vrr_is_in_range(connector, vrefresh))
-> >   		return NULL;
-> >   
-> > +	if (vrr_ref_mode &&
-> > +	    !intel_vrr_is_in_range(connector, drm_mode_vrefresh(vrr_ref_mode)))
-> > +		return NULL;
-> > +
-> >   	list_for_each_entry(fixed_mode, &connector->panel.fixed_modes, head) {
-> >   		int fixed_mode_vrefresh = drm_mode_vrefresh(fixed_mode);
-> >   
-> > @@ -96,6 +111,10 @@ intel_panel_fixed_mode_vrr(struct intel_connector *connector,
-> >   		if (fixed_mode_vrefresh < vrefresh)
-> >   			continue;
-> >   
-> > +		if (vrr_ref_mode &&
-> > +		    !is_vrr_compatible(fixed_mode, vrr_ref_mode))
-> > +			continue;
-> > +
-> >   		if (is_best_fixed_mode(connector, vrefresh,
-> >   				       fixed_mode_vrefresh, best_mode))
-> >   			best_mode = fixed_mode;
-> > @@ -224,10 +243,27 @@ static int intel_panel_compute_config_vrr(struct intel_atomic_state *state,
-> >   					  struct intel_connector *connector)
-> >   {
-> >   	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
-> > -	const struct drm_display_mode *fixed_mode;
-> > +	const struct drm_display_mode *fixed_mode = NULL;
-> >   	int vrefresh, fixed_mode_vrefresh;
-> >   
-> 
-> Perhaps an early return for if (!vrr_is_capable()) here will avoid two 
-> calls for intel_panel_fixed_mode_vrr().
+On Tue, 2026-06-23 at 12:37 +0100, Andr=C3=A9 Draszik wrote:
+> Hi,
+>=20
+> On Thu, 2026-06-18 at 17:56 +0200, Philipp Stanner wrote:
+> > +Cc Danilo
+> >=20
+> > On Thu, 2026-06-18 at 15:03 +0100, Andr=C3=A9 Draszik wrote:
+> > > Since commit 541c8f2468b9 ("dma-buf: detach fence ops on signal v3"),
+> > > I'm seeing the BUG_ON() triggering in drm_crtc's fence_to_crtc() via
+> > > drm_crtc_fence_get_driver_name() regularly:
+> > >=20
+> > > =C2=A0=C2=A0=C2=A0 Call trace:
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 panic+0x58/0x5c
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 die+0x160/0x178
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 bug_brk_handler+0x70/0xa4
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 call_el1_break_hook+0x3c/0x1a0
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 do_el1_brk64+0x24/0x74
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 el1_brk64+0x34/0x54
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 el1h_64_sync_handler+0x80/0xfc
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 el1h_64_sync+0x84/0x88
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 drm_crtc_fence_get_driver_name+0x60/0x68 (P)
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 sync_file_get_name+0x184/0x45c
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 sync_file_ioctl+0x404/0xf70
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 __arm64_sys_ioctl+0x124/0x1dc
+> > >=20
+> > > This looks to be caused by a code flow similar to the following:
+> > >=20
+> > > +++ snip +++
+> > > thread A=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 thread B
+> > >=20
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 io=
+ctl(SYNC_IOC_FILE_INFO)
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sy=
+nc_file_ioctl()
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sy=
+nc_file_get_name()
+> > > dma_fence_signal_timestamp_locked()=C2=A0 dma_fence_driver_name()
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 ops =3D rcu_dereference(fence->ops)
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 if (!dma_fence_test_signaled_flag())
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 ops->get_driver_name(fence) i.e.
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 drm_crtc_fence_get_driver_name()
+> > > test_and_set_bit(SIGNALED)
+> > > RCU_INIT_POINTER(fence->ops, NULL)
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dr=
+m_crtc_fence_get_driver_name()
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 BUG_ON(rcu_access_pointer(fence->ops)
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !=3D &drm_crtc_fence_op=
+s)
+> >=20
+> > Now this looks like a very similar problem that I have recently been
+> > concerned with:
+> >=20
+> > https://lore.kernel.org/dri-devel/20260612104251.2264707-2-phasta@kerne=
+l.org/
+> >=20
+> > https://lore.kernel.org/dri-devel/fa0dc9757bf8343516c4b156a2b70ec91b64e=
+f8f.camel@mailbox.org/
+> >=20
+> >=20
+> > I continue to believe because of bugs like this and the ones I have
+> > quoted in the threads above the robustness of the kernel could be
+> > greatly improved if we could get dma_fence fully synchronized with its
+> > lock.
+>=20
+> On top of that, sashiko highlighted=C2=A0 (via my other patch) that the e=
+xisting
+> code is missing some memory barriers:
+>=20
+> https://sashiko.dev/#/patchset/20260618-linux-drm_crtc_fix-v1-1-801f29c98=
+53d@linaro.org?part=3D1
+>=20
+> I believe Lock synchronization would resolve that (as would adding explic=
+it
+> memory barriers).
 
-That's essentially the first thing intel_panel_fixed_mode_vrr() will
-end up doing. Granted, we do go through a few extra functions calls
-to get there, but I expect that to be negligible given we're about
-to run through the whole state compute machinery anyway.
+That is being discussed in the thread I linked, where Gary lists which
+barriers you would need for (presumably correct) lockless magic.
 
-There are probably much more fruitful places to optimize if we were
-to actually measure the whole thing.
+However, if my issue were to be solved with barriers, the
+test_and_set_bit() in dma_fence_signal_timestamp_locked() would have to
+be replaced with the more weakly ordered test_bit() and set_bit(),
+maybe creating other pitfalls.
 
-> 
-> I leave it to you.
-> 
-> In any case the patch LGTM.
-> 
-> Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+The ordering issue in the get_*_name() functions plays into that.
+Setting the bit would then be done after setting the ops-pointer to
+NULL. So one would have to try to move the NULL set, too.
 
-Thanks.
+Long story short, this is painful and subtle.
 
-> 
-> > -	fixed_mode = intel_panel_fixed_mode_vrr(connector, adjusted_mode);
-> > +	/*
-> > +	 * Attempt a VRR based refresh rate change if possible
-> > +	 * when userspace has forbidden a full modeset.
-> > +	 */
-> > +	if (!state->base.allow_modeset) {
-> > +		struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> > +		const struct intel_crtc_state *old_crtc_state =
-> > +			intel_atomic_get_old_crtc_state(state, crtc);
-> > +
-> > +		if (old_crtc_state->hw.enable &&
-> > +		    old_crtc_state->uapi.encoder_mask == crtc_state->uapi.encoder_mask)
-> > +			fixed_mode = intel_panel_fixed_mode_vrr(connector, adjusted_mode,
-> > +								&old_crtc_state->hw.adjusted_mode);
-> > +	}
-> > +
-> > +	if (!fixed_mode)
-> > +		fixed_mode = intel_panel_fixed_mode_vrr(connector, adjusted_mode, NULL);
-> > +
-> >   	if (!fixed_mode)
-> >   		return -EINVAL;
-> >   
+But I think what we are realizing over and over again is that dma_fence
+has many subtleties to its API contract, and the implementation's
+sparring use of spinlocks leads to workarounds where people take locks
+manually or have to do an RCU dance.
 
--- 
-Ville Syrjälä
-Intel
+Note that Christian is strongly opposed to guarding everything with
+locks, in part for supposedly occuring deadlocks in the fence callbacks
+when the driver needs to take its own locks.
+
+The community discussion regarding that problem is currently in some
+sort of dead end, where none of us seems to know what the correct path
+forward is.
+
+drm_sched users (and future users in Rust) use intermediate fences
+which decouple e.g. userspace from the actual hardware fences. So one
+path forward might be to question the callbacks in general and think
+about some sort of replacement for them.
+
+>=20
+> [...]
+> > >=20
+>=20
+> > Does the CRTC or DRM device need to be kept alive for the RCU grace per=
+iod,
+> > or should the fence hold a proper reference to prevent the use-after-fr=
+ee
+> > when get_driver_name() and get_timeline_name() access the freed CRTC
+> > structure?
+>=20
+> Do you guys have any preference on that? It appears the use-after-free
+> should be resolved before merging the removal of the BUG_ON(), and I'd li=
+ke
+> to progress on this.
+
+My understanding of the current situation is that as an issuer of
+dma_fence's you, in general, should wait for a grace period until you
+perform operations like driver unload, or, more generally, have fence-
+related resources and such being accessed through callbacks go away.
+
+Danilo has recently mentioned some life-time inconsistencies between
+wider kernel device model and DRM device model that might be related to
+that discussion, and which made him object against some RCU
+requirements.
+
+Maybe he's got the time to share some details with you that are
+relevant to your work.
+
+
+P.
+
+>=20
+> Cheers,
+> Andre'
