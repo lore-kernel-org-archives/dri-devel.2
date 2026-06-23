@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B221CDB46F
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 10:54:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6228CDB46F
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 10:57:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4E1D10EA93;
-	Tue, 23 Jun 2026 10:54:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4354810EA96;
+	Tue, 23 Jun 2026 10:57:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m/rEn9M7";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZyR4Qyk4";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05DCF10EA93;
- Tue, 23 Jun 2026 10:54:26 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 758B010EA96;
+ Tue, 23 Jun 2026 10:56:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782212067; x=1813748067;
+ t=1782212219; x=1813748219;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=3+cV/NKPssPEg2R6Cmh9eMoc75Lw0+c1VYJ0GE5YGWo=;
- b=m/rEn9M78kUV0dnv9lk85HCRMDwBjQ7Jo/zcjoDRIhnkbXXGDI7B30JH
- MD9NuHc+N4jVBhZFy9hfUfWoqoU3mmLlPlGyfLjiM8GBwv+6SECyLhYJb
- cKLM53Zt6rzkOA0tLWsHGQ6B/zkqykA3os85kq3tZNYstawF5/3irmp5Y
- JArRDldUGBAPNE/02B5eqRau/qNkMFMJTTJvVOFKuHNZnf5ds5MYoQhQ+
- xNV6IdPRdibsZgEfkh3o2u+4mKns19t3+6q9bDhDupzJMJ2v3cIAximav
- 5eHh8j8pA1m/JBjfyPhVM2WHjS/dyjA6p3qq55EbUSxxAEf+YPeF9Mtfr Q==;
-X-CSE-ConnectionGUID: DFCgOsedR/aYYq4+k+aT0Q==
-X-CSE-MsgGUID: eWk1qG3KSVSjhZquu81jxg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11825"; a="83140419"
-X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="83140419"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2026 03:54:27 -0700
-X-CSE-ConnectionGUID: zJm17iTsSFyKrz3qAwQDfA==
-X-CSE-MsgGUID: BxWKVuh4Ql6siAOUuaYliQ==
+ bh=aPIE95mLRe42YcYMyleHpuz76yXdRQVmwRI/yhRFbK8=;
+ b=ZyR4Qyk4GdI2nWro0oqh0D+4+2QSVM6KUZfswaSKu9JMZhXmL4yNvFPP
+ Dt1b6kVr/e9uwg0LFvcnzspMqKrHTPY9VdochqWSs2YDBbMTu1oz3L/k1
+ mYZqkt4/+a59VkG63OHc7VnU/Fn+mctKAf72ob312SEfSg15m5nqDl7FN
+ vVpMJtZpopMh7Fappw2e7p0+Mvm+pXa5C6uoDPP+rfohVajwSMrVQ3bAc
+ 9iSeOuQU9aBNQ9/YKipuwIgo/jloNCdHEEcImwjff7Uih8nuMd/h2L9VF
+ qc066k/1JnopqqmOZIvkYmVLiWfHHvnXDNhna2+7KPh0/ydxhEnfstrSc w==;
+X-CSE-ConnectionGUID: cdT5ptQOSJ2Jw+RJ5ZWJTg==
+X-CSE-MsgGUID: At/gHr/sRFKRNHrTfIq3qA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11825"; a="81931388"
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="81931388"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2026 03:56:59 -0700
+X-CSE-ConnectionGUID: OTLYXidkQ7aSmp6fk9EOCw==
+X-CSE-MsgGUID: QnFnGt+ZRLmcYl22vHtP8w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="273183758"
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="248341192"
 Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.7])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2026 03:54:23 -0700
-Date: Tue, 23 Jun 2026 13:54:21 +0300
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2026 03:56:56 -0700
+Date: Tue, 23 Jun 2026 13:56:53 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
@@ -55,14 +55,15 @@ Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] drm/xe/i2c: Handler for SMBus Alerts
-Message-ID: <ajpl3Tv-bCc8kfWG@ashevche-desk.local>
+Subject: Re: [PATCH v1 2/2] drm/xe/mcu_i2c: Take over control of the
+ controller enabling
+Message-ID: <ajpmdQjArQkhQ8fl@ashevche-desk.local>
 References: <20260622114759.3464047-1-heikki.krogerus@linux.intel.com>
- <20260622114759.3464047-2-heikki.krogerus@linux.intel.com>
+ <20260622114759.3464047-3-heikki.krogerus@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260622114759.3464047-2-heikki.krogerus@linux.intel.com>
+In-Reply-To: <20260622114759.3464047-3-heikki.krogerus@linux.intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,64 +81,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 22, 2026 at 01:47:58PM +0200, Heikki Krogerus wrote:
-> Some devices that are attached to the I2C controller use the
-> SMBus Alert signal for example to inform the host about
-> thermal events, so registering the default SMBus Alert
-> device device for them. The alert device makes sure that
-> the alert is processed and passed to the correct I2C client
-> driver.
+On Mon, Jun 22, 2026 at 01:47:59PM +0200, Heikki Krogerus wrote:
+> Some platforms make an assumption that the i2c controller's
+> enabled state indicates also the power state of the
+> controller. This can create a problem when the controller is
+> in disabled state, because the hardware may assume
+> incorrectly that it is then also in low-power state.
+> 
+> To fix this, the controller is kept enabled by taking over
+> the IC_ENABLE register. The controller has to be disabled
+> when the configuration is updated and when the target
+> address or the slave address are assigned, so disabling it
+> when IC_CON, IC_TAR or IC_SAR registers are programmed, and
+> then re-enabling it again.
 
 ...
 
-> +	if (i2c->smbus_alert)
+> +#define IC_CON				0x00
+> +#define IC_TAR				0x04
+> +#define IC_SAR				0x08
+> +#define IC_ENABLE			0x6c
+> +#define IC_ENABLE_STATUS		0x9c
 
-Unneeded. Also the below incorporates error pointer cases.
-
-> +		i2c_unregister_device(i2c->smbus_alert);
-> +
->  	if (!i2c->irqdomain)
->  		return;
-
-...
-
-> +++ b/drivers/gpu/drm/xe/xe_i2c_smbus.c
-> @@ -0,0 +1,59 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Intel Xe SMBus handling
-> + *
-> + * Copyright (C) 2026 Intel Corporation.
-> + */
-
-+ bits.h // BIT()
-+ err.h // IS_ERR()
-
-> +#include <linux/i2c-smbus.h>
-> +#include <linux/regmap.h>
-> +#include <linux/types.h>
+Heh, I would like to have a shared header with the registers, but dunno
+if the prons will weight out the cons.
 
 ...
 
-> +static struct i2c_smbus_alert_setup xe_i2c_smbus_setup;
-> +
-> +int xe_i2c_register_smbus_alert(struct xe_i2c *i2c)
+> +/* See "Disabling DW_apb_i2c" in the DesignWare DW_abp_i2c databook. */
+> +static int xe_i2c_disable(struct xe_i2c *i2c)
 > +{
-> +	struct i2c_client *alert;
+> +	int timeout = 100;
+> +	u32 status;
 > +
-> +	alert = i2c_new_smbus_alert_device(i2c->adapter, &xe_i2c_smbus_setup);
-> +	if (IS_ERR(alert))
-> +		return PTR_ERR(alert);
+> +	do {
+> +		/* Disable.*/
+> +		xe_mmio_rmw32(i2c->mmio, XE_REG(IC_ENABLE + I2C_MEM_SPACE_OFFSET), 1, 0);
 > +
-> +	i2c->smbus_alert = alert;
+> +		/* Verify. */
+> +		status = xe_mmio_read32(i2c->mmio, XE_REG(IC_ENABLE_STATUS + I2C_MEM_SPACE_OFFSET));
+> +		if (!(status & 1))
+> +			return 0;
 > +
-> +	return 0;
+> +		/* Repeat. */
+> +		usleep_range(25, 250);
+
+fsleep().
+
+> +	} while (timeout--);
+> +
+> +	return -ETIMEDOUT;
 > +}
-
-As per above comment, this IS_ERR() is not need, as the removal API is optional-aware.
-OTOH, the other NULL-check in the driver in that case needs to be IS_ERR_OR_NULL().
-
-But I'm not sure if you want to have alert setup to always succeed.
 
 -- 
 With Best Regards,
