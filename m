@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79CD4CDB470
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 20:47:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E27ECDB470
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 20:49:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB07A10ECAF;
-	Tue, 23 Jun 2026 20:46:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6F4810ECB0;
+	Tue, 23 Jun 2026 20:49:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hUoEMut+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OzueR+O0";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2316610ECAF
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:46:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E9D610ECB0
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:49:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0C6C3408E7;
- Tue, 23 Jun 2026 20:46:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6BC11F000E9;
- Tue, 23 Jun 2026 20:46:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 651BF419C4
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:49:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19D271F000E9;
+ Tue, 23 Jun 2026 20:49:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782247618;
- bh=E+pdPHUzO2f+Yfg/sq60kV+78LBrUXwyWw6ffZK2aK8=;
+ s=k20260515; t=1782247779;
+ bh=/NY1iqQOfEVDCtmV/1idlY1rpO3vIV+qUHDD2ECE1iE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hUoEMut+AmxoyL2NCLaP3atxOKaDbi41ScbUcIkbA/5zLLV9qii5ZlSSMILDUOgVB
- kGvhpAsqDS1wTp4mrTUjE6PXN4bA14QojBFTpisHyJ8JJBJ2kwZTln1rBBTQ8CcIMx
- Aa0a/RUi2KKGVeTNEZYgvAlLX8aMW2pINyxozH1FCdIhGYKuET1YpGWly01xfgrztG
- BZGpPqCT5NO1OPrKrVls5z1M5UyI8EdOMIBrhGrPSwTXajI+RS92v07lc65vNKd1OD
- nwsuljKO0tR2LxKNAaZQDbWsYUv+KiI3o0jZJ55nDTyrPSs+WiQ0G3Kgm50qc8/ibd
- iwYN1EVOQDGUw==
+ b=OzueR+O08BjF0k+j+wsA0PUstthR3UsKLG1YFrnnuHhCE/ijpMMv8DlNaJgC3av4Y
+ Ew/UtRaszcrulzNPaPYY6oCCMJVDUWdAuYKQV6sDdu5a57lWQJnwZLzmOAWwb0dqg7
+ DQhIJv7bLP4F/KuOTLsfR03OsTxRWpTP1HFz0qSqLaGKv8wEPbKvCW0bXP4MUfS5EG
+ lVp79+fiDOTh5qsIQR9jYR566tt/nd5mfV5vi/wWgpcJ8QxerUXeKvZr3dehJYcwM+
+ NxOtrp6VsZCad5R7fL3McjDYcj1Pmt0DtR+cqSfUZDlbTZ7GiI0Tb1Ek7M2RJmAD4t
+ 2OleSQmhzIt3Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/3] drm/drm_ras: Add drm_ras netlink error event
-To: "Riana Tauro" <riana.tauro@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260622101716.3313496-6-riana.tauro@intel.com>
-References: <20260622101716.3313496-5-riana.tauro@intel.com>
- <20260622101716.3313496-6-riana.tauro@intel.com>
+Subject: Re: [PATCH v4 1/5] rust: types: implement ForeignOwnable for ARef<T>
+To: "Philipp Stanner" <phasta@kernel.org>
+Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260622135654.334961-3-phasta@kernel.org>
+References: <20260622135654.334961-2-phasta@kernel.org>
+ <20260622135654.334961-3-phasta@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 20:46:58 +0000
-Message-Id: <20260623204658.C6BC11F000E9@smtp.kernel.org>
+Date: Tue, 23 Jun 2026 20:49:38 +0000
+Message-Id: <20260623204939.19D271F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,154 +57,92 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [Medium] Multicast events are restricted to `init_net`, silently dropping=
- events for listeners in other network namespaces despite `.netnsok =3D tru=
-e`.
-
-Pre-existing issues:
-- [High] Lockless access to `struct drm_ras_node` pointers retrieved from x=
-array leads to Use-After-Free.
+- [Low] Small functions in the `ForeignOwnable` trait implementation for `A=
+Ref<T>` are missing `#[inline]` annotations.
 --
 
-commit aab90b1a7792dc491d0dcac6947d349046f95876
-Author: Riana Tauro <riana.tauro@intel.com>
+commit 5f304b2260799e0fe0be8848ec9e82f882fdc711
+Author: Danilo Krummrich <dakr@kernel.org>
 
-drm/drm_ras: Add drm_ras netlink error event
+rust: types: implement ForeignOwnable for ARef<T>
 
-This commit defines a new netlink event 'error-event' and a multicast
-group 'error-report' for the DRM RAS subsystem. It provides a function
-for drivers to report device and node error information to subscribed
-userspace listeners.
+This commit implements ForeignOwnable for ARef<T>, making it possible for
+C code to own an ARef<T>. Since ARef represents shared ownership,
+BorrowedMut is &T rather than &mut T, matching the semantics of the
+underlying reference-counted type.
 
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
-Cc: Lijo Lazar <lijo.lazar@amd.com>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-Cc: David S. Miller <davem@davemloft.net>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Eric Dumazet <edumazet@google.com>
-Signed-off-by: Riana Tauro <riana.tauro@intel.com>
-Reviewed-by: Raag Jadav <raag.jadav@intel.com>
-
-> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
-> index d6eab29a1394c..77f912a4d101f 100644
-> --- a/drivers/gpu/drm/drm_ras.c
-> +++ b/drivers/gpu/drm/drm_ras.c
-
+> diff --git a/rust/kernel/sync/aref.rs b/rust/kernel/sync/aref.rs
+> index 9989f56d06052..82907383c44b5 100644
+> --- a/rust/kernel/sync/aref.rs
+> +++ b/rust/kernel/sync/aref.rs
 [ ... ]
-
-> @@ -222,6 +255,60 @@ static int doit_reply_value(struct genl_info *info, =
-u32 node_id,
->  	return genlmsg_reply(msg, info);
+> @@ -183,6 +187,41 @@ fn eq(&self, other: &ARef<U>) -> bool {
 >  }
+>  impl<T: AlwaysRefCounted + Eq> Eq for ARef<T> {}
 > =20
-> +/**
-> + * drm_ras_nl_error_event() - Report an error event
-> + * @node: Node structure
-> + * @error_id: ID of the error
-> + * @error_name: Name of the error
-> + * @value: Value associated with the error
-> + * @flags: GFP flags for memory allocation
-> + *
-> + * Report an error-event to userspace using the error-report multicast g=
-roup.
-> + *
-> + * Return: 0 on success, or negative errno on failure.
-> + */
-> +int drm_ras_nl_error_event(struct drm_ras_node *node, u32 error_id, cons=
-t char *error_name,
-> +			   u32 value, gfp_t flags)
-> +{
-> +	struct genl_info info;
-> +	struct sk_buff *msg;
-> +	struct nlattr *hdr;
-> +	int ret;
+> +// SAFETY: `into_foreign` returns a pointer from `NonNull::as_ptr`, so i=
+t's non-null. The
+> +// `ARef` invariant guarantees that `ptr` points to a valid `T`, so it's=
+ aligned to `T`.
+> +unsafe impl<T: AlwaysRefCounted + 'static> ForeignOwnable for ARef<T> {
+> +    const FOREIGN_ALIGN: usize =3D core::mem::align_of::<T>();
 > +
-> +	if (!error_name)
-> +		return -EINVAL;
+> +    type Borrowed<'a> =3D &'a T;
+> +    type BorrowedMut<'a> =3D &'a T;
 > +
-> +	if (!genl_has_listeners(&drm_ras_nl_family, &init_net, DRM_RAS_NLGRP_ER=
-ROR_REPORT))
+> +    fn into_foreign(self) -> *mut c_void {
+> +        ARef::into_raw(self).as_ptr().cast()
+> +    }
 
-[Severity: Medium]
-Will this silently drop events for users subscribing from non-init network
-namespaces? The drm_ras_nl_family sets .netnsok =3D true, but this check
-is hardcoded to init_net.
+[Severity: Low]
+This isn't a bug, but according to the Rust subsystem guidelines, should th=
+is
+small forwarding function in the abstraction be annotated with #[inline]?
 
-> +		return 0;
 > +
-> +	genl_info_init_ntf(&info, &drm_ras_nl_family, DRM_RAS_CMD_ERROR_EVENT);
+> +    unsafe fn from_foreign(ptr: *mut c_void) -> Self {
+> +        // SAFETY: The safety requirements of this function ensure that =
+`ptr` comes from a previous
+> +        // call to `Self::into_foreign`.
+> +        let ptr =3D unsafe { NonNull::new_unchecked(ptr.cast()) };
 > +
-> +	msg =3D genlmsg_new(NLMSG_GOODSIZE, flags);
-> +	if (!msg)
-> +		return -ENOMEM;
-> +
-> +	hdr =3D genlmsg_iput(msg, &info);
-> +	if (!hdr) {
-> +		ret =3D -EMSGSIZE;
-> +		goto free_msg;
-> +	}
-> +
-> +	ret =3D msg_put_error_event_attrs(msg, node, error_id, error_name, valu=
-e);
-> +	if (ret)
-> +		goto cancel_msg;
-> +
-> +	genlmsg_end(msg, hdr);
-> +	genlmsg_multicast(&drm_ras_nl_family, msg, 0, DRM_RAS_NLGRP_ERROR_REPOR=
-T, flags);
+> +        // SAFETY: `ptr` came from `into_foreign`, which consumed an `AR=
+ef` without decrementing
+> +        // the refcount, so we can transfer the ownership to the new `AR=
+ef`.
+> +        unsafe { ARef::from_raw(ptr) }
+> +    }
 
-[Severity: Medium]
-Similarly, genlmsg_multicast() implicitly uses init_net under the hood. Does
-this prevent containerized listeners in other network namespaces from recei=
-ving
-the multicast events?
+[Severity: Low]
+This isn't a bug, but should from_foreign() also be annotated with #[inline]
+since it is a small forwarding function?
 
-> +	return 0;
 > +
-> +cancel_msg:
-> +	genlmsg_cancel(msg, hdr);
-> +free_msg:
-> +	nlmsg_free(msg);
-> +	return ret;
+> +    unsafe fn borrow<'a>(ptr: *mut c_void) -> &'a T {
+> +        // SAFETY: The safety requirements of this method ensure that th=
+e object remains alive and
+> +        // immutable for the duration of 'a.
+> +        unsafe { &*ptr.cast() }
+> +    }
+
+[Severity: Low]
+This isn't a bug, but should borrow() also be annotated with #[inline]?
+
+> +
+> +    unsafe fn borrow_mut<'a>(ptr: *mut c_void) -> &'a T {
+> +        // SAFETY: The safety requirements for `borrow_mut` are a supers=
+et of the safety
+> +        // requirements for `borrow`.
+> +        unsafe { <Self as ForeignOwnable>::borrow(ptr) }
+> +    }
+
+[Severity: Low]
+This isn't a bug, but should borrow_mut() also be annotated with #[inline]?
+
 > +}
-> +EXPORT_SYMBOL(drm_ras_nl_error_event);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does locklessly accessing
-drm_ras_node pointers retrieved from drm_ras_xa lead to a use-after-free?
-
-In drivers/gpu/drm/drm_ras.c, get_node_error_counter() retrieves the node:
-
-drivers/gpu/drm/drm_ras.c:get_node_error_counter() {
-    ...
-    node =3D xa_load(&drm_ras_xa, node_id);
-    if (!node)
-        return -ENOENT;
-    ...
-    return node->query_error_counter(node, error_id, name, value);
-}
-
-A similar lockless pattern is present in drm_ras_nl_list_nodes_dumpit():
-
-drivers/gpu/drm/drm_ras.c:drm_ras_nl_list_nodes_dumpit() {
-    ...
-    xa_for_each_start(&drm_ras_xa, id, node, ctx->restart) {
-        ...
-        ret =3D nla_put_string(skb, DRM_RAS_A_NODE_ATTRS_DEVICE_NAME, node-=
->device_name);
-    ...
-}
-
-If a concurrent device teardown or hot-unplug removes and frees the node
-while these functions are executing, will accessing node->query_error_count=
-er
-or node->device_name dereference a freed pointer?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622101716.3313=
-496-5-riana.tauro@intel.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622135654.3349=
+61-2-phasta@kernel.org?part=3D1
