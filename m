@@ -4,44 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A7B4CDB470
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 20:11:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B44BCDB471
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 20:11:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7320210EC7D;
-	Tue, 23 Jun 2026 20:11:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8110110EC7F;
+	Tue, 23 Jun 2026 20:11:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IRGy6bG3";
+	dkim=pass (2048-bit key; unprotected) header.d=googlemail.com header.i=@googlemail.com header.b="PPZNKMPW";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6443010EC7F
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:11:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8E051601D6;
- Tue, 23 Jun 2026 20:11:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15BF61F00ACA;
- Tue, 23 Jun 2026 20:11:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782245496;
- bh=E4OQBvD/43yxCYHKK6cL5tCtMdhI9W+U0R4DGTGo988=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IRGy6bG3m9Px4v20b7iKO8eq+tdgUTXzQSGHGL/ZCR2FRg+/iDdfOnVVXHN14FXZy
- CqtrQ6prE0S1Y+vbaoKcMw90RlZOj5JdRgSR3NtuF+hwiLSc8QlxTF42L6G2oUkUe0
- F7b9B3R1b9s7l2LwVI+dhhKyYI52JBDNwWt/20jxeYmCBWReggrw6WyCXhbZeNv75m
- VfmASingrlCV+g6Ym5p54gbY6jZlxsq2QqNrvF71AbLHJFAcjt0IHaqDoT7t510LwG
- To4sWDL3uBiraYF2ZrmLFKYGfzl7ZGDX1PXVsaKuCoGMq0lNAp/u31euXAZgbS6Kt3
- TpZyGJfGmFC9g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 05/10] drm/bridge: synopsys: dw-dp: Support software
- triggered OOB HPD
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260612-synopsys-dw-dp-improvements-v3-5-dc61e6352508@collabora.com>
-References: <20260612-synopsys-dw-dp-improvements-v3-5-dc61e6352508@collabora.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9EBD10EC7F
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:11:45 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-37da8b5540bso264834a91.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 13:11:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782245505; cv=none;
+ d=google.com; s=arc-20240605;
+ b=bpTu/weDLMYXVF7/G/NiwEaGQvyjxUIUX4ZcqlWGRVttQOv6s4vcGKDO5Ra6wGgbmz
+ UWOL3tCdy7r95hJQNYwKvQJf7B8maQe78tfCB0SbUgbv3Vn/5N1UUhbwCrsrmD6ManaU
+ RTeAKD/0JXBqUbtjREd+BfKApFY5i2qP1RxLoPnxufJTyRcI0hcLJgSqIzgIN9QlKN1H
+ kDBjwD2qEnHv5gJMCU33ZQPL17Jejxncjo25HSHTghDrDNjIaqmldKvlkGKaGjZxW0tq
+ wuiriNg4wA0T/42+QJjukBFaYZeofOpq5++TvdaeG3UhN0/8F7oFjlxpMDojVWN1lLLw
+ tTsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=t9AA00HARo6TTOGKX0Hmf8exd0jNlIDDEh7Vt3olSGA=;
+ fh=quuhg9r2a2oZsxVguzdw62uNdkqY7RqT8S5WM+37Vrw=;
+ b=EAQlimtEIy7/1iNnwE/Fngu1whF+JXsO5pDj+uz95s9A4Agg4CPF33AtcJDxZb32a+
+ bhBnCoV9VLjZXk07XHkKyy08fd/soZNlZpn4+YoR5dA35XLoaNAJw8SJCnrQnlY0migP
+ UGdXsK/q6/zp7VJWTkita4THbUsAnYHb+xE/vPJA/pUCEmTz2LhWdSktcQTSY7rYrLgR
+ 9qhF0EKU5aiKZ0dwI2ZtyhJYaFMiYgsY5iAOOysQhjTnpFb7OqccdOSuYjhM1K/F/wtb
+ Fc7I9SKuw6jEFIwvLu0G2h+xZZPRqo5Ko5GdCmFv4hYP8KiJNn+1ydjVVXdZErxHFhOg
+ ZAsQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=googlemail.com; s=20251104; t=1782245505; x=1782850305;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=t9AA00HARo6TTOGKX0Hmf8exd0jNlIDDEh7Vt3olSGA=;
+ b=PPZNKMPW+alHXANQm4PWYwFGRXpoDvUNkY87yCwbXXeIQuoAPjAH8yfaHVeQoNZvL6
+ 99VihsBDAKbBWYaLtkZk4lWDSwZQg9JMI3Db8LceLn65IB7yHQMYtGPvLOLyM82OQxWx
+ C20dUIJPNHwOs+mwnPS/utFUcsa+fdZMLnxRmNB4ionE4sSZoIQdYljF8aiWHtO3Q3uC
+ sNz8JIi/cFcg3/Jd5UrRyVWF3lWXfu/L0vzcjIlgpzZMmWrJ3FkpwHypPGda3NWhnaWa
+ +k2oBfHfkOudUc1b1itEktFgEC/HDzGzofmGVSH0hV1BKA+rvQoj4TKlg5TwIPSXrBmJ
+ kvbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782245505; x=1782850305;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=t9AA00HARo6TTOGKX0Hmf8exd0jNlIDDEh7Vt3olSGA=;
+ b=DE3/YdlPTXGejSmjQLH50AIU3WY/IbGu5WVlDrpHGnki6xlebOCyMBrRkt8hE4ARfA
+ fpBkVkNigs1iEiC1y8Msjzykma7pPnQ1e7Jq86DjE0KacIjBdaCIlfna8lky8bRaJqxD
+ 5wdCUWQkvngiN7bLFYkwDej6KVjYPFhDv9A5Q7tcjAqkiqVgrnLfpl2aprLPWM0U2pgR
+ cVnOjGGkZiOhpjK0zggc8L+2opqOnz28oE0ZdgwIbJTuy91e8Iwr13etPpKG8L1MU5sF
+ nddxpkRFarkIFX28wxjFs+kOYgKyV+rVGSDCfGjRQTd+1iEi2q7EWNqzwkIqIfHJdyaz
+ TNkg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrN8Uv1fNA8TUoW38kjGUQObKSoXPczU0b81eKhnGbp0rREIEVHtj1m+4UepD3STJddf3O+GKvLZac=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwPfqmdEOeT7FJbhpOM4IUZOF+mf24n/TzeSxxo+cRn3lYjDh0G
+ BPFSanKEpxDd+5cf8ctmj5E6Xq+kXdcFitFvivBpY0M36reCkzCIwj3cDjexn7ml3t9gWCwzHcT
+ BCGUca4gJeZWYkwOu6V1UQ5zcz/gv040=
+X-Gm-Gg: AfdE7ckzXsyUfkwwMu/ywaN0kNPf0Q784IGXgOIZKlZccQfCtJ5d0dxXqxeBt2Arc+7
+ Icd6cFNAM91Fv2LSFQsyNmm0m6Byt2pRAsf6GkUbrwAks9aNB5Ve9D5yuT0Fe5pV/d/nuBKzKH8
+ RLdMKgGbtRs0t4pf1vZF5b/RDx2bAlQsLYM3IquNVQyarmcPFjb/IurWNa4Tn3AaG/6KAvDkzWH
+ /qGKRbuGKIxCHzXPI8AryEyD3dbSmlUXIH4qnghFtaOEe2Ur0FdxLNQdMubUAZXQa47SM8OSpXj
+ uEmTpesRKHbCJqbM+Sp+wpG9wtRYsQ==
+X-Received: by 2002:a17:902:ebd1:b0:2c0:e2ea:6b0c with SMTP id
+ d9443c01a7336-2c7e14bda22mr4283265ad.21.1782245505106; Tue, 23 Jun 2026
+ 13:11:45 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260619-drm-no-more-bridge-reset-v3-0-ff399263111b@kernel.org>
+ <20260619-drm-no-more-bridge-reset-v3-54-ff399263111b@kernel.org>
+In-Reply-To: <20260619-drm-no-more-bridge-reset-v3-54-ff399263111b@kernel.org>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Tue, 23 Jun 2026 22:11:33 +0200
+X-Gm-Features: AVVi8Cfq-bHIbRBMSxAeraOZBrOtibTj2Lvi8RI8pWYRXkS8hq20ZIX0g5AznWw
+Message-ID: <CAFBinCDJNGCsyRWS7KeXyHh4Fo0K6NX6sUuwdYRoCRoLn=Cx5Q@mail.gmail.com>
+Subject: Re: [PATCH v3 54/78] drm/meson: encoder_cvbs: Switch to
+ atomic_create_state
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ dri-devel@lists.freedesktop.org, Kevin Hilman <khilman@baylibre.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>, linux-amlogic@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 20:11:35 +0000
-Message-Id: <20260623201136.15BF61F00ACA@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,120 +116,18 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-
-New issues:
-- [High] Reference leak of the downstream bridge in `dw_dp_bind()` on both =
-success and error paths.
-- [High] The driver incorrectly treats the absence of a downstream bridge a=
-s a fatal error, breaking backward compatibility.
-
-Pre-existing issues:
-- [High] Missing `cancel_work_sync()` for `dp->hpd_work` during unbind lead=
-s to a Use-After-Free.
---
-
-commit 121b9fc711d52bcdbd8b50a6dc50a5308864d167
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-drm/bridge: synopsys: dw-dp: Support software triggered OOB HPD
-
-Add support for USB-C DP AltMode out-of-band hotplug handling. The
-handling itself is implemented in the platform specific driver as the
-registers to force HPD state are not part of the Designware DisplayPort
-IP itself. Instead the platform integration might provide the necessary
-functionality to mux the HPD signal.
-
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> index 98cff435dfb87..7fa38145e35ce 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-
-[ ... ]
-
-> @@ -2078,6 +2107,13 @@ struct dw_dp *dw_dp_bind(struct device *dev, struc=
-t drm_encoder *encoder,
->  		goto unregister_aux;
->  	}
-
-[Severity: High]
-Does dw_dp_bind() leak the reference to the downstream bridge?
-
-of_drm_get_bridge_by_endpoint() returns a bridge pointer with an incremente=
-d=20
-reference count, which is stored in next_bridge:
-
-	next_bridge =3D of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
-	if (IS_ERR(next_bridge)) {
-		ret =3D PTR_ERR(next_bridge);
-        ...
-
-The reference is not dropped after drm_bridge_attach() succeeds, nor is it=
-=20
-dropped on the error path before jumping to unregister_aux. Could this leak=
-=20
-the reference on both success and error paths, preventing the downstream=20
-bridge from cleanly unloading?
-
-
-[Severity: High]
-Should the absence of a downstream bridge be treated as a fatal error?
-
-If the device tree defines the DP controller as the end of the display chain
-(i.e., no endpoint 1 is defined), of_drm_get_bridge_by_endpoint() returns
--ENODEV. The code unconditionally aborts initialization here instead of=20
-gracefully ignoring it:
-
-	next_bridge =3D of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
-	if (IS_ERR(next_bridge)) {
-		ret =3D PTR_ERR(next_bridge);
-		dev_err_probe(dev, ret, "failed to get follow-up bridge.\n");
-		goto unregister_aux;
-	}
-
-Could this break backward compatibility and cause the driver to fail to pro=
-be=20
-on boards that do not define a downstream bridge?
-
-> =20
-> +	if (dw_dp_is_routed_to_usb_c(encoder)) {
-> +		dev_dbg(dev, "USB-C mode\n");
-> +
-> +		if (dp->plat_data.hpd_sw_sel)
-> +			dp->plat_data.hpd_sw_sel(dp->plat_data.data, 1);
-> +	}
-> +
->  	dw_dp_init_hw(dp);
-
-[ ... ]
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does dw_dp_unbind() leave=20
-pending work scheduled?
-
-During bind, the driver initializes dp->hpd_work and schedules it in the=20
-interrupt handler dw_dp_handle_hpd_event(). However, dw_dp_unbind() does no=
-t=20
-cancel it:
-
-void dw_dp_unbind(struct dw_dp *dp)
-{
-	drm_dp_aux_unregister(&dp->aux);
-}
-
-Because the dp context is allocated with devm_drm_bridge_alloc(), it is=20
-automatically freed shortly after unbind returns. If the scheduled work=20
-executes after dp is freed, could it cause a use-after-free in=20
-dw_dp_hpd_work()?
-
-Should cancel_work_sync(&dp->hpd_work) be added to dw_dp_unbind()?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-synopsys-d=
-w-dp-improvements-v3-0-dc61e6352508@collabora.com?part=3D5
+On Fri, Jun 19, 2026 at 2:27=E2=80=AFPM Maxime Ripard <mripard@kernel.org> =
+wrote:
+>
+> The drm_bridge_funcs.atomic_reset callback and its
+> drm_atomic_helper_bridge_reset() helper are deprecated.
+>
+> Switch to the atomic_create_state callback and its
+> drm_atomic_helper_bridge_create_state() counterpart.
+>
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
