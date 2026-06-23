@@ -4,86 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67DF1CD98F2
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 13:18:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5A46CD98F2
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 13:19:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DCF410EB49;
-	Tue, 23 Jun 2026 13:18:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA30510EB4C;
+	Tue, 23 Jun 2026 13:19:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="LRCvdwhs";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kNZqHuXc";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A490810EB49
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 13:18:02 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4908b92904fso80156995e9.0
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 06:18:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1782220681; x=1782825481;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=xQjsOKmDv4bAeAAg8kHxPjywYyxr88XeXI1w7+vf02M=;
- b=LRCvdwhsdBuYwUEzVcbuJ8OqcaO2Jq1UGB1T23ore/Cwh1vzzliZmkYD5grbMCtO8q
- abEphaUbwRYQ5tGyXS1nv1JonaR6IORvcwV34VisDgI3p1HhfCc0O/0hR22vwplZoAmi
- gqBoqV6zN5G1V31GSEt9xjhgT+Vs/G5j83Uqc1Wpy98koFLFdqlnj0ieyRjJPImjEzma
- r1ai9cKJmFlnc2LcV9sJSNJAS+wcl1ppBpKH9ggSD1wBvniytMLi399G/8hq4b4MGrQu
- svjbp4B7nY1VK0QwzlewAM1373wT3fP6hgoBz5bIV4lpatyrRN8XPQ67vdWjVvRY1VTy
- jXAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782220681; x=1782825481;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xQjsOKmDv4bAeAAg8kHxPjywYyxr88XeXI1w7+vf02M=;
- b=DPmxJ6GR9I8HpVBL43cRGLIbHkW9YH3Fs+0T/ELMsu0e6Dxs1JyTTpfCtz6lGLmXuP
- NY1JkAxE+1l47yNgwSUvTl0WloHEFO/h8lAp/PDqy6XBMwROuyru1BKnaE4E1a1VwSuw
- OUgnjBdTNLfUghY5JH7RGE5hEe/rHKhW7Tt5p8D5CJdgqrapekZdaLT8l+4F3rVin+c7
- cau58DBC8AD34WJ3fU2Fe2AhnVjYAPMDNJdJ6tcee/KoqGMo8OrmdbsVyXuiXq/3C988
- cLkv70Pxl22RcRCRL2mkGtjWbt3NSe1kAEdYFC4sI3RIOuCCzTQsK77xlrRW79r9rgtJ
- dqoQ==
-X-Gm-Message-State: AOJu0YwZM0DxCatXggumjiCYFcxkgGTANXyvd+2ycspc5HmIg1UyPnfI
- S7G/A8MkzO7lvZg1xZTmaRWIxsTLAHI3kIbP7lkbyDDCyU1bHBKEWjwD0EH3kcd+H0k=
-X-Gm-Gg: AfdE7cmV4gTTxKOozfDSRKzaSq6kxmyNRATO4t1IvDft74UWxLl+rY6lfPM1KsjEB6p
- 6rKoukd9V045QzUueIUPQoZkrdkr87g6kTMiaw/ObSwRvsVOWKwU+aY/961ylnPq4QPPfqbAKbQ
- GheAr+tqHq7yI75CviDGujibAgSGSurnb3vmABy0cOSRHG8sREDPmnIsKLJMZN3M7GuqxlXGY1b
- wppGEh17G6sKRn/8pWFwf31PTdxLIADZaIhpbdpVT3VHWltDIOTqg5lbTm79vpb1ioacsEub1IT
- SBb452T/M0QacYTe5zWYRY2hmZDe5LHqEjX11l7WP6GbFubCK6ddHkGcC+EhKwk37QU/F5NekID
- 5iTH4h5CIbH8eO/6iW6M6PS9JuMWbHay3R+VsuavUGJsS22OQ1NpVVZcu14oSWvTkTViuCbwNWD
- yspLEQXSvcHOgLBjfpk9tUoeUvE1n/KtMA25KdPm4J4lxYZklxzGia/wYqZ+2TUbuCAZqhCZdCe
- FqWNMApt5uRtNkQmYZ9o+sWYKt2hN11X87CNp/JM7mZuTZOpd9uWafSl4btcJBT7anhhfGflg==
-X-Received: by 2002:a05:600c:1548:b0:492:39b6:5a30 with SMTP id
- 5b1f17b1804b1-4925b38f01bmr37906055e9.35.1782220676494; 
- Tue, 23 Jun 2026 06:17:56 -0700 (PDT)
-Received: from aspen.lan
- (aztw-34-b2-v4wan-166919-cust780.vm26.cable.virginm.net. [82.37.195.13])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-466648c5de7sm35009927f8f.15.2026.06.23.06.17.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jun 2026 06:17:55 -0700 (PDT)
-Date: Tue, 23 Jun 2026 14:17:54 +0100
-From: Daniel Thompson <daniel@riscstar.com>
-To: "Sverdlin, Alexander" <alexander.sverdlin@siemens.com>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "danielt@kernel.org" <danielt@kernel.org>,
- "linux-leds@vger.kernel.org" <linux-leds@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 3/3] backlight: lp8864: Convert from LED to backlight
- class driver
-Message-ID: <ajqHgqKsh4CpMm1I@aspen.lan>
-References: <20260615120353.3409035-1-alexander.sverdlin@siemens.com>
- <20260615120353.3409035-4-alexander.sverdlin@siemens.com>
- <0b39450b-559b-43d4-a1e9-bb6684691cb5@ti.com>
- <acb13aca040ab72b9e53abee3a5c8733ebc5b8dd.camel@siemens.com>
- <ajpw1w150SXm8Gbi@aspen.lan>
- <aa34231591d2e5f848bdd74524abb4fe85123444.camel@siemens.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4892910EB4B;
+ Tue, 23 Jun 2026 13:19:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782220763; x=1813756763;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=zRt4PstC5KTXFsdIS3uKUmKdUiGxXQ3iKom9s1I/IzU=;
+ b=kNZqHuXcRnC9hnHHq2Z+yIGdm1xRkv5dVPO4HC+//vrNQyKjuQmDkIoI
+ jCXd5JBvzFhFhz1QF3FHohAG3pqYdRCmnTC/hlWraal5hoJZqdzahtYbS
+ Uy9y6SxRznlL9CEi8KTFTdm4rzuRyPXexAb4a+1zI7cD3bzENbhawdHQd
+ 2ypJ+xKO+pxZuIkfrxNqjY5fZc8fHt/Ux+t7ykU+W5AZTuqZziDJFnJIh
+ LgZq8tyVOwu5DRuaRiaCBFHwUONXyDYvirAcSNkwe4xH8XwyGGgIuZmai
+ 6VNZYjw+GcQxADmggd+N8Fs8qdzH8PlotauLUhog55NSa+pHwvzSJqrPT A==;
+X-CSE-ConnectionGUID: rhrLLrI5Rz6RxLLHzavRlw==
+X-CSE-MsgGUID: uS2RfGsAQlqQf8mOXdjgAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="83152013"
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="83152013"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2026 06:19:22 -0700
+X-CSE-ConnectionGUID: xqcQ8rDJR/eOrFdlYay0YQ==
+X-CSE-MsgGUID: fFcqSlpyRAWK7EdJ//qBBA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="279698522"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.242])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2026 06:19:21 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aa34231591d2e5f848bdd74524abb4fe85123444.camel@siemens.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <df9cd80e8fac232ff8d338c262f1f6613358a743.camel@intel.com>
+References: <20260617152500.108597-1-jose.souza@intel.com>
+ <178212422953.110786.15960772731280455512@jlahtine-mobl>
+ <df9cd80e8fac232ff8d338c262f1f6613358a743.camel@intel.com>
+Subject: Re: IOCTL feature detection #2 (Was: Re: [PATCH v2] drm/xe/uapi: Add
+ flag to tell if VM_GET_PROPERTY_FAULTS is supported)
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: "Brost, Matthew" <matthew.brost@intel.com>, "Vivi,
+ Rodrigo" <rodrigo.vivi@intel.com>,
+ "thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>
+To: "Souza, Jose" <jose.souza@intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "simona@ffwll.ch" <simona@ffwll.ch>
+Date: Tue, 23 Jun 2026 16:19:17 +0300
+Message-ID: <178222075755.41312.4764816601536168701@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,47 +77,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 23, 2026 at 11:59:16AM +0000, Sverdlin, Alexander wrote:
-> Hi Daniel,
-> 
-> On Tue, 2026-06-23 at 12:41 +0100, Daniel Thompson wrote:
-> > > The mechanism we have regarding hot plugging currently is just I2C bridge,
-> > > which de-registers and registers the bridged bus. So no additional drivers
-> > > are required, as long as I2C devices are self-contained and not glued with
-> > > platform devices.
-> > > 
-> > > So bottom line is, I'd prefer to just add the backlight interface to the
-> > > existing driver, no matter where it would live in the future.
-> > 
-> > Is there any reasion that LP8864/LP8866 is unique in appearing on a 
-> > hotplugged I2C bus? In other words if support for dynamism is added
-> > specifically to leds-lp8864.c rather than in led_bl.c then what will stop
-> > the same dynamic tricks from being adde to other LED drivers?
-> 
-> LP8864 is not special in this regard, not different from adp8860_bl.c,
-> adp8870_bl.c or lm3639_bl.c, which would work in my application.
+Quoting Souza, Jose (2026-06-22 16:43:11)
+> On Mon, 2026-06-22 at 13:30 +0300, Joonas Lahtinen wrote:
+> > (+ Sima and dri-devel)
+> >=20
+> > This goes very much against the previously discussed and agreed
+> > direction[1].
+> >=20
+> > The QUERY style IOCTL (like xe_vm_get_property_ioctl here) were
+> > specifically
+> > designed to have built-in feature-checking to avoid need for anything
+> > like this check.
+> >=20
+> > Executing the query with size zero would be a pretty much no-overhead
+> > call (there's one spinlock there) as we can see from the body of
+> > xe_vm_get_property_helper:
+> >=20
+> >       if (!args->size) {
+> >               args->size =3D size;
+> >               return 0;
+> >       }
+> >=20
+> > That trait got added to the QUERY style IOCTLs exactly to address the
+> > requirement for low-overhead feature checking by Mesa folks back
+> > then.
+> >=20
+> > So you execute all the validity checks, but avoid actual data
+> > copying.
+>=20
+> There is a kernel context switch cost to consider.
+> Also, because this only checks one feature, we would eventually need
+> multiple uAPI calls to check all the features support.
 
-The most recent of these drivers adopted LED support in 2012 whilst
-led_bl.c was introduced in 2020.
+This discussion has also been covered to the maximum in the past.
 
+It'll hardly keep the driver simple if we are adding a more complex
+multiplexer IOCTL for basically everything in order to save in CPU
+context switch time.
 
-> So I just wanted to add currently missing backlight_device_register() to
-> LP8864, but there were no such dual-API drivers under drivers/leds/ that's
-> wht I started with moving LP8864 driver into drivers/video/backlight/.
-> 
-> led_bl.c however could only be hot-pluggable either if one actively
-> creates/destroys platform device somewhere in the code programmatically
-> or uses DT overlays.
-> 
-> Just adding backlight API to LP8864 would be much more idiomatic, I'd
-> say.
+If this becomes a measurable issue, it's better to look into something
+io_uring style to allow N IOCTL to be executed in batch. There have been
+prototypes and discussions around this dating years back. I don't think
+anyone has yet presented the concrete measurement data that we're
+actually CPU context switch bound in probing the system capabilities.
 
-Maybe.
+If we have such data, I'd rather we spend the time to fix it for
+multiple IOCTLs at once in uring style rather than making every IOCTL
+into unnecessarily complex multiplexer call.
 
-I think I might consider the drivers above to be historical anomalies
-rather than idiomatic examples.
+> We could avoid this by adding a single flag to an existing query,
+> allowing us to check support for all features in a single uAPI call.
 
+This is specifically called out in the discussion in [1] as a no-no.
 
-Daniel.
+What the userspace thinks they are checking here based on name is if
+the running kernel is new enough to have VM_GET_PROPERTY_FAULTS
+property to query, and instead they get information if the running
+SKU supports USM.
 
+There's two problems with that, it will only indirectly indicate if
+non-zero faults will be reported in the *current* state of the codebase.
+There's no reason why USM/SVM capability of SKU would ultimately decide
+if page-faults can happen. It's just how things happen to be today.
 
+Second, there's the tendency for such uAPIs to become implicitly used
+to infer different information about the SKU. So in the future, if
+has_usm and faults get detangled in the codebase, we'd have to add
+DRM_XE_QUERY_CONFIG_FLAG_HAS_VM_GET_PROPERTY_FAULTS_REALLY_THIS_TIME
+to indicate the availability of faults. The old one would have to remain
+in the current state to actually mean "DRM_XE_QUERY_CONFIG_FLAG_HAS_USM"
+because changing it might break existing userspace.
+
+I'd rather we would avoid running into same uAPI design problems that
+we've struggled in the past.
+
+> > Quoting Jos=C3=A9 Roberto de Souza (2026-06-17 18:25:00)
+
+<SNIP>
+
+> > > +++ b/drivers/gpu/drm/xe/xe_query.c
+> > > @@ -354,6 +354,10 @@ static int query_config(struct xe_device *xe,
+> > > struct drm_xe_device_query *query)
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0
+> > > DRM_XE_QUERY_CONFIG_FLAG_HAS_DISABLE_STATE_CACHE_PERF_FIX;
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 config->info[DRM_XE_QUERY_=
+CONFIG_FLAGS] |=3D
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 DRM_XE_QUERY_CONFIG_FLAG_HAS_PURGING_SUPPORT;
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (xe->info.has_usm) {
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 config->info[DRM_XE_QUERY_CONFIG_FLAGS] |=3D
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> > > DRM_XE_QUERY_CONFIG_FLAG_HAS_VM_GET_PROPERTY_FAULTS;
+> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> >=20
+> > I think it kind of proves the validness of concerns in [1] that the
+> > has_usm check you add here doesn't have much relevance to the actual
+> > VM_GET_PROPERTY_FAULTS IOCTL being available or functional.
+> >=20
+> > If you think the VM_GET_PROPERTY_FAULTS should be gated by the
+> > has_usm
+> > condition, then you should have updated the actual IOCTL, no?
+>=20
+> VM_GET_PROPERTY_FAULTS call would work in any platform but would only
+> only return fault information in platforms with has_usm support.
+
+That's just how the codebase is today, there's no inherent dependence
+here when approached from GPU/EU debugging angle of things.
+
+> > The whole point of the original discussions resulting in [1] was that
+> > it is such an easy error to make the capability flag check and the
+> > actual IOCTL availability differ that it should be avoided.
+>=20
+> Someone just reading xe_drm.h would understand that they need to check
+> for DRM_XE_QUERY_CONFIG_FLAG_HAS before using a feature.
+
+The proposed name is literally about HAS_VM_GET_PROPERTY_FAULTS, not
+HAS_USM or HAS_FAULTS. So reasonable developer is bound to assume it's
+really about the question of the availability of that property.
+
+And for availability the QUERY IOCTL idiom already has a solution in it.
+
+> Without that,
+> a person lacking historical context might blindly call
+> VM_GET_PROPERTY_FAULTS, unaware that some KMD versions don't even
+> support it.
+
+If that is the problem, I think we'd be better off by documenting how
+IOCTL based feature detection works, as that has been the de-facto
+method for DRM subsystem for years as explained in [1], too.
+
+Regards, Joonas
+
+> > The fact that such an error is in this very patch still after reading
+> > through the original reasoning from Sima kind of underlines why the
+> > point still stands strongly.
+> >=20
+> > Regards, Joonas
+> >=20
+> > [1] https://www.spinics.net/lists/intel-gfx/msg325342.html
