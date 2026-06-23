@@ -4,180 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05256CDB470
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 07:28:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08672CDB470
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 07:32:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6440010E99C;
-	Tue, 23 Jun 2026 07:28:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 529F710E99D;
+	Tue, 23 Jun 2026 07:32:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="BBCEQzgC";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="o6HJxsUA";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bcRsAgfn";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="o6HJxsUA";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="bcRsAgfn";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FC7010E982
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 07:28:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1782199695; x=1782804495; i=deller@gmx.de;
- bh=FkzNbXihV1642W4QXdTfCML4H1hn6/kKAe41Z7dA0as=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=BBCEQzgCMO0OWT10PAZbYVATBdWbyhttxNV9Og4l8JiCTTJnT/pqcxV1NsEEmH3Q
- QO+rTRBmz8Khtp22VV8UQDQmXWHT989pVNnXHF8J5HQBeOkPo1qxL/FN6dYGVL8RS
- e+NSRtsLVKAKJWZEWZ1zwX+GvrzZLkRjWPU73M3uxxak7tje3bg5ZsaYEGunCpC4w
- 2IYuc4PTTRLXXLXLhaPrVEoc60SkekBGiW7Y6uCYbxg+6Ri2/4WYrxFueouL0Fn4d
- kMd7lrt/KVjBSdbCFC9k+H4EFxpTBWvGjT5VR1klfT3wJau68OlkviEY7lGCgShJ9
- Q+HHKwW8hDrMrvRg6Q==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MGQj7-1wNr4U0hVF-006Z1n; Tue, 23
- Jun 2026 09:28:15 +0200
-Message-ID: <b7ed4685-4917-45c2-a0fd-735d3936ae9c@gmx.de>
-Date: Tue, 23 Jun 2026 09:28:13 +0200
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FD3E10E99D
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 07:32:31 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 15A246C2BE;
+ Tue, 23 Jun 2026 07:32:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782199950; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=o0N4U3ypQ+TNzBl6qmdwYkJxDIWmvvHuUQN3J4Qxyic=;
+ b=o6HJxsUApx20YUAn3hqO0YShphGNQYt1Rw5qg8xobnCNwJ/e4Y9YLb4yLrcJ3onbz+E8FC
+ eORtI1VhGpWPKJFLFqzGbYpHFw8bk2R1PA4UIZr1LbL4mmlFtTXurGboFASC33yaIMAxSK
+ J+jaHlNG2mXQpgFWrVvruHLkS6WrKOY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782199950;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=o0N4U3ypQ+TNzBl6qmdwYkJxDIWmvvHuUQN3J4Qxyic=;
+ b=bcRsAgfnCrdM7jS5+psSd8EIvOILXXG+ks1t4RXZbI5jSPZwphtygGJZG4HK4mOY0mUI5u
+ UAhDYlhy3l7SpVCQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782199950; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=o0N4U3ypQ+TNzBl6qmdwYkJxDIWmvvHuUQN3J4Qxyic=;
+ b=o6HJxsUApx20YUAn3hqO0YShphGNQYt1Rw5qg8xobnCNwJ/e4Y9YLb4yLrcJ3onbz+E8FC
+ eORtI1VhGpWPKJFLFqzGbYpHFw8bk2R1PA4UIZr1LbL4mmlFtTXurGboFASC33yaIMAxSK
+ J+jaHlNG2mXQpgFWrVvruHLkS6WrKOY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782199950;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=o0N4U3ypQ+TNzBl6qmdwYkJxDIWmvvHuUQN3J4Qxyic=;
+ b=bcRsAgfnCrdM7jS5+psSd8EIvOILXXG+ks1t4RXZbI5jSPZwphtygGJZG4HK4mOY0mUI5u
+ UAhDYlhy3l7SpVCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DF08B779A8;
+ Tue, 23 Jun 2026 07:32:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 35MyNY02Omo2FwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 23 Jun 2026 07:32:29 +0000
+Message-ID: <3045831e-bbc2-43bd-bc47-3cf720fd8a6c@suse.de>
+Date: Tue, 23 Jun 2026 09:32:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] fbdev: vga16fb: Drop unused assignment of
- platform_device_id driver data
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-Cc: Ard Biesheuvel <ardb@kernel.org>, Javier Garcia <rampxxxx@gmail.com>,
- Vivek BalachandharTN <vivek.balachandhar@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <02710e01b80c06230f399afa6a7d247b95b3f2de.1781689394.git.u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v2] PCI: vgaarb: Include 0x0380 devices in boot VGA
+ selection
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ Aaron Ma <aaron.ma@canonical.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260622061339.3306046-1-aaron.ma@canonical.com>
+ <686c79f1-f4d5-4c76-a57d-fd124c0c1af6@amd.com>
 Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- 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
-In-Reply-To: <02710e01b80c06230f399afa6a7d247b95b3f2de.1781689394.git.u.kleine-koenig@baylibre.com>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <686c79f1-f4d5-4c76-a57d-fd124c0c1af6@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:5+jR7FX8zfRPFy9sL2SnsypuSEiJDxIbtHQtrZhfm5LWgyLz4zl
- Wy/JpLkGP1ylyTPPfGs6yWOU9SSvQkZ3UuderS0lVMstkE9gk80bApZnS7li5NTe5duCxRM
- bE8H4uOH/5tizeawWK4hNe61tAeWk9lwTjxmW6hb+MPt241MyqpZ6qTiYAcxoib3NzS2aPO
- jvdJG56DYmbHwpjYM17rQ==
-UI-OutboundReport: notjunk:1;M01:P0:JcXodzwnhfU=;K9oB+ZC6II8I2ATMbMcK0GJU/ld
- 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
- LFb91800N9DcwDdw+U=
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.996]; MIME_GOOD(-0.10)[text/plain];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_FIVE(0.00)[6];
+ FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
+ canonical.com:email, suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -193,20 +140,252 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/17/26 11:44, Uwe Kleine-K=C3=B6nig (The Capable Hub) wrote:
-> The driver explicitly sets the .driver_data member of struct
-> platform_device_id to zero without relying on that value. Drop these
-> unused assignments.
->=20
-> While touching this array unify spacing and usage of commas and use
-> named initializers for .name.
->=20
-> Signed-off-by: Uwe Kleine-K=C3=B6nig (The Capable Hub) <u.kleine-koenig@=
-baylibre.com>
-> ---
->   drivers/video/fbdev/vga16fb.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
+(cc dri-devel)
 
-applied.
-Thanks!
-Helge
+Hi Mario et al
+
+Am 22.06.26 um 18:09 schrieb Mario Limonciello:
+> +Thomas Zimmermann
+
+Thanks.
+
+>
+> Here is the lore link for you for full context.
+>
+> Aaron's v1: 
+> https://lore.kernel.org/linux-pci/20260618081803.2790848-1-aaron.ma@canonical.com/
+> My proposal: 
+> https://lore.kernel.org/linux-pci/20260621175230.1453114-1-mario.limonciello@amd.com/ 
+>
+
+I saw this patch. I was slightly confused, because it says 'fbcon'.
+
+> Aaron's v2: 
+> https://lore.kernel.org/linux-pci/20260622061339.3306046-1-aaron.ma@canonical.com/
+>
+> On 6/21/26 23:13, Aaron Ma wrote:
+>> Some firmware boot displays use PCI class 0x0380
+>> (PCI_CLASS_DISPLAY_OTHER). vgaarb only registers pci_is_vga()
+>> devices, so those devices are skipped by vga_is_firmware_default()
+>> and cannot become vga_default_device().
+
+I think the current behavior is correct. The vgaarb is for mediating 
+VGA's hard-coded I/O addresses among multiple devices. IMHO the module 
+should not manage other graphics devices.
+
+IOW, I think a fix should mostly be outside of vgaarb.c.
+
+>>
+>> On hybrid systems this can leave a discrete VGA GPU as
+>> vga_default_device() even when the firmware framebuffer is on the
+>> 0x0380 device. That makes boot_vga point at the wrong GPU and can
+>> make boot_display report multiple devices through different paths.
+
+I assume that boot_display is true for both cards because one device has 
+the screen_info settings,  and the other is the 'vga_default_device', Right?
+
+>>
+>> Register legacy VGA and 0x0380 display devices for default selection
+>> and boot_vga visibility. Keep legacy VGA decode ownership limited to
+>> pci_is_vga() devices so 0x0380 devices are not treated as legacy VGA
+>> decoders.
+>>
+>> Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
+>> ---
+>> Changes in v2:
+>> - Keep legacy VGA decodes and owns limited to pci_is_vga() devices.
+>> - Keep 0x0380 devices eligible for firmware/default selection and
+>>    boot_vga visibility without treating them as legacy VGA decoders.
+>> - Update the commit message to describe the boot_vga compatibility goal.
+>
+> I really think dropping the fallback path (we found nothing, so this 
+> VGA thing must be it) is the right direction.
+>
+> I'd like Thomas' comments about that though.
+>
+> If we must keep that path, how about instead modify how 
+> vga_is_firmware_default() works.  We could instead have 
+> vga_has_firmware_default() and vga_is_firmware_default() both.
+>
+> If the system vga_has_firmware_default() then no longer activate the 
+> fallback path.
+>
+>>
+>>   drivers/pci/pci-sysfs.c |  3 ++-
+>>   drivers/pci/vgaarb.c    | 27 +++++++++++++++------------
+>>   include/linux/pci.h     | 14 ++++++++++++++
+>>   3 files changed, 31 insertions(+), 13 deletions(-)
+>>
+>> diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
+>> index d37860841260c..843d83ec9550a 100644
+>> --- a/drivers/pci/pci-sysfs.c
+>> +++ b/drivers/pci/pci-sysfs.c
+>> @@ -1717,7 +1717,8 @@ static umode_t pci_dev_attrs_are_visible(struct 
+>> kobject *kobj,
+>>       struct device *dev = kobj_to_dev(kobj);
+>>       struct pci_dev *pdev = to_pci_dev(dev);
+>>   -    if (a == &dev_attr_boot_vga.attr && pci_is_vga(pdev))
+>> +    if (a == &dev_attr_boot_vga.attr &&
+>> +        pci_is_vga_or_other_display(pdev))
+>>           return a->mode;
+>
+> I really don't think we want boot_vga exported on a non-VGA device.
+> Even if the rest of the PR hangs around, this hunk I think should go.
+
+I agree. Boot_vga does not mean that there's a mode installed, but 
+rather that the VGA device got posted by the BIOS/UEFI. That's clearly 
+not the case for the other-display device.
+
+
+>
+>>       if (a == &dev_attr_serial_number.attr && pci_get_dsn(pdev))
+>> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+>> index c360eee11dd9e..56a86779e6d28 100644
+>> --- a/drivers/pci/vgaarb.c
+>> +++ b/drivers/pci/vgaarb.c
+>> @@ -741,6 +741,7 @@ static bool vga_arbiter_add_pci_device(struct 
+>> pci_dev *pdev)
+>>       unsigned long flags;
+>>       struct pci_bus *bus;
+>>       struct pci_dev *bridge;
+>> +    bool legacy_vga = pci_is_vga(pdev);
+
+Just a word on terminology. AFAIU in this context 'legacy' does not mean 
+that VGA is legacy. Legacy refers to VGA's original hard-coded I/O 
+ranges (e.g, 0xa0000, 0x3c2, etc.) .
+
+
+
+I think Mario's suggestion at [1] might be a better way forward than 
+modifying vgaarb. For boot_vga, we want a VGA device. For the primary 
+device, we want the device with the pre-configured framebuffer on it. So 
+I'd do something like this in video_is_primary_device():
+
+if (screen_info is_valid) {
+     // do the screen_info test from [2]
+} else {
+     // fall back to the default vga device. [3]
+}
+
+This should get us at most one primary graphics device; preferably the 
+one with the framebuffer. With no framebuffer set up, using the default 
+VGA seems a sensible choice. We can still have distinct boot_display and 
+boot_vga flags, because this is what the system looks like.
+
+And with that, another patch has to go into the Xorg server. Support for 
+boot_display got added in commit 41c58693c ("Add check for 
+`pci_device_linux_sysfs_boot_display()`") [4] AFAICT.  This needs to be 
+reworks a bit, so that it first tests for boot_display; and then falls 
+back to boot_vga if the former did not exist.
+
+[1] 
+https://lore.kernel.org/linux-pci/20260621175230.1453114-1-mario.limonciello@amd.com/ 
+
+[2] 
+https://elixir.bootlin.com/linux/v7.1.1/source/arch/x86/video/video-common.c#L49
+[3] 
+https://elixir.bootlin.com/linux/v7.1.1/source/arch/x86/video/video-common.c#L46
+[4] https://gitlab.freedesktop.org/xorg/xserver/-/commit/41c58693c
+
+Best regards
+Thomas
+
+>>       u16 cmd;
+>>         /* Allocate structure */
+>> @@ -762,21 +763,23 @@ static bool vga_arbiter_add_pci_device(struct 
+>> pci_dev *pdev)
+>>       }
+>>       vgadev->pdev = pdev;
+>>   -    /* By default, assume we decode everything */
+>> -    vgadev->decodes = VGA_RSRC_LEGACY_IO | VGA_RSRC_LEGACY_MEM |
+>> -              VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
+>> +    /* By default, assume VGA devices decode everything */
+>> +    vgadev->decodes = VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
+>> +    if (legacy_vga)
+>> +        vgadev->decodes |= VGA_RSRC_LEGACY_IO | VGA_RSRC_LEGACY_MEM;
+>>   -    /* By default, mark it as decoding */
+>> -    vga_decode_count++;
+>> +    /* By default, mark legacy VGA devices as decoding */
+>> +    if (vgadev->decodes & VGA_RSRC_LEGACY_MASK)
+>> +        vga_decode_count++;
+>>         /*
+>>        * Mark that we "own" resources based on our enables, we will
+>>        * clear that below if the bridge isn't forwarding.
+>>        */
+>>       pci_read_config_word(pdev, PCI_COMMAND, &cmd);
+>> -    if (cmd & PCI_COMMAND_IO)
+>> +    if (legacy_vga && (cmd & PCI_COMMAND_IO))
+>>           vgadev->owns |= VGA_RSRC_LEGACY_IO;
+>> -    if (cmd & PCI_COMMAND_MEMORY)
+>> +    if (legacy_vga && (cmd & PCI_COMMAND_MEMORY))
+>>           vgadev->owns |= VGA_RSRC_LEGACY_MEM;
+>>         /* Check if VGA cycles can get down to us */
+>> @@ -796,7 +799,7 @@ static bool vga_arbiter_add_pci_device(struct 
+>> pci_dev *pdev)
+>>       }
+>>         if (vga_is_boot_device(vgadev)) {
+>> -        vgaarb_info(&pdev->dev, "setting as boot VGA device%s\n",
+>> +        vgaarb_info(&pdev->dev, "setting as boot display device%s\n",
+>>                   vga_default_device() ?
+>>                   " (overriding previous)" : "");
+>>           vga_set_default_device(pdev);
+>> @@ -1483,8 +1486,8 @@ static int pci_notify(struct notifier_block 
+>> *nb, unsigned long action,
+>>         vgaarb_dbg(dev, "%s\n", __func__);
+>>   -    /* Only deal with VGA class devices */
+>> -    if (!pci_is_vga(pdev))
+>> +    /* Only deal with legacy VGA and other display controller 
+>> devices */
+>> +    if (!pci_is_vga_or_other_display(pdev))
+>>           return 0;
+>>         /*
+>> @@ -1530,12 +1533,12 @@ static int __init vga_arb_device_init(void)
+>>         bus_register_notifier(&pci_bus_type, &pci_notifier);
+>>   -    /* Add all VGA class PCI devices by default */
+>> +    /* Add legacy VGA and other display controller PCI devices by 
+>> default */
+>>       pdev = NULL;
+>>       while ((pdev =
+>>           pci_get_subsys(PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
+>>                      PCI_ANY_ID, pdev)) != NULL) {
+>> -        if (pci_is_vga(pdev))
+>> +        if (pci_is_vga_or_other_display(pdev))
+>>               vga_arbiter_add_pci_device(pdev);
+>>       }
+>>   diff --git a/include/linux/pci.h b/include/linux/pci.h
+>> index 2c4454583c115..195ec1bdac863 100644
+>> --- a/include/linux/pci.h
+>> +++ b/include/linux/pci.h
+>> @@ -792,6 +792,20 @@ static inline bool pci_is_vga(struct pci_dev *pdev)
+>>       return false;
+>>   }
+>>   +/**
+>> + * pci_is_vga_or_other_display - check if the PCI device is VGA or 
+>> 0x0380
+>> + * @pdev: PCI device
+>> + *
+>> + * Return true for legacy VGA-compatible devices and for "other display
+>> + * controller" devices.  Some firmware-selected boot display devices 
+>> expose
+>> + * class 0x0380 instead of PCI_CLASS_DISPLAY_VGA.
+>> + */
+>> +static inline bool pci_is_vga_or_other_display(struct pci_dev *pdev)
+>> +{
+>> +    return pci_is_vga(pdev) ||
+>> +        (pdev->class >> 8) == PCI_CLASS_DISPLAY_OTHER;
+>> +}
+>> +
+>>   /**
+>>    * pci_is_display - check if the PCI device is a display controller
+>>    * @pdev: PCI device
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
