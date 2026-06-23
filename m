@@ -4,148 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F62ACDB479
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 13:53:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CF2CCD98F2
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 13:58:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E337110EB63;
-	Tue, 23 Jun 2026 13:53:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C458E10EB79;
+	Tue, 23 Jun 2026 13:58:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="Qb3GuF8p";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QftOpnfe";
 	dkim-atps=neutral
-Received: from LO0P265CU003.outbound.protection.outlook.com
- (mail-uksouthazon11022117.outbound.protection.outlook.com [52.101.96.117])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCD1D10EB63
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 13:53:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=naoRKJ0fCEYFdDlWRKYiqs4X29YFP2lt2YHAAT1Iupi7FIfx9eVTlcN37y3ZNczqBxcMUBMTbpV6mJ8JnxQdyJFOhw1WBqwvi9RZwEkrpxxjreoR5kQOi8D2MA1+46/PyP7onUUUqcxDVhbJ7/QABa9w/DWBIodHgwTfTIveuD1Tho1k3A1zKOZg1xJcCyughl8AhcKwNf6h7Ttj1SRmfXwQVTkhvzYNVSlRpKoUPohPLi5gWfBPvFynXTc568MzKdEnJM/4jq8tmLORO2HzichC6LZbo9Ddz54K2UONglUfFTtdaMkrCJGLhhwVXf+DaeM4Rw//NI5gOl76zv83Yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ntZ+H/jZbw6Qr7gjbdNaPlIGZcih3eFBassSF0OFppA=;
- b=Mh1sq7xZy2BGHhDlS/NNearErx7CbxP9uxFFQpVaBksUo63ziN4rYPE11kpZXe9aGbMEdK08GlFKBKoegzm8TxTLxD2wmgzavlR/uiCcApvtE+gOv/Fkj38c3PnFpqFrVEcRaVAHoT7SAcmq53jzwUR2bVUNYsbslN3r/F4d/aPF/OqKFv3R/qF8xqt7D5d3u66R6c4HgUA6vum3wv3vZS0bVYSh2d8trZ/hvjY0tZ2Wb8BP6+Ww+PFyosm+FSMLgP+fgWPFWX6y002et3RVPFNCOc6IM+eVH41P6EVvEW1yjnNWhOumr5oAMeCsE/VRhvg5llcqoDKLKS8OBqyN+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ntZ+H/jZbw6Qr7gjbdNaPlIGZcih3eFBassSF0OFppA=;
- b=Qb3GuF8pdzzKPb+EffVXBy/UGHTpj69hfN4gI4KubBV5Lqcf/KaUMeGH3dIYyVmiJdTk419zupf8hZpGteXyjwT/A+MFsRV0Knpi/XpauFKNqA+nK4dHD+bEjNYydPt002BaJeSHrOODv4yrWDzR7sMOjfgNhgWFtq5UG1gS1Co=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO9P265MB7950.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3a1::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Tue, 23 Jun
- 2026 13:53:50 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0139.020; Tue, 23 Jun 2026
- 13:53:50 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 23 Jun 2026 14:53:49 +0100
-Message-Id: <DJGH9KZY0KTF.YC8IJ8SLC4YM@garyguo.net>
-Cc: <rust-for-linux@vger.kernel.org>, <linux-modules@vger.kernel.org>,
- <driver-core@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <nova-gpu@lists.linux.dev>, <linux-kselftest@vger.kernel.org>,
- <kunit-dev@googlegroups.com>, <linux-block@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH v4 9/9] rust: macros: remove `THIS_MODULE` static from
- `module!`
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alvin Sun" <alvin.sun@linux.dev>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Luis Chamberlain" <mcgrof@kernel.org>, "Petr
- Pavlu" <petr.pavlu@suse.com>, "Daniel Gomez" <da.gomez@kernel.org>, "Sami
- Tolvanen" <samitolvanen@google.com>, "Aaron Tomlin" <atomlin@atomlin.com>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Arnd
- Bergmann" <arnd@arndb.de>, "Brendan Higgins" <brendan.higgins@linux.dev>,
- "David Gow" <david@davidgow.net>, "Rae Moar" <raemoar63@gmail.com>, "Breno
- Leitao" <leitao@debian.org>, "Jens Axboe" <axboe@kernel.dk>, "Dave Ertman"
- <david.m.ertman@intel.com>, "Ira Weiny" <ira.weiny@intel.com>, "Leon
- Romanovsky" <leon@kernel.org>, "Igor Korotin" <igor.korotin@linux.dev>,
- "FUJITA Tomonori" <fujita.tomonori@gmail.com>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?=
- <arve@android.com>, "Todd Kjos" <tkjos@android.com>, "Christian Brauner"
- <brauner@kernel.org>, "Carlos Llamas" <cmllamas@google.com>
-X-Mailer: aerc 0.21.0
-References: <20260623-fix-fops-owner-v4-0-0daf5f077d5c@linux.dev>
- <20260623-fix-fops-owner-v4-9-0daf5f077d5c@linux.dev>
-In-Reply-To: <20260623-fix-fops-owner-v4-9-0daf5f077d5c@linux.dev>
-X-ClientProxiedBy: LO4P123CA0386.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18f::13) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 123C310EB66
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 13:58:08 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4908b92904fso80758755e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 06:58:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782223086; x=1782827886; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=qm9QBhEQ0YB2AXes3jM+Kp4ITvGr2+JfvL/tfEuQ2tI=;
+ b=QftOpnfeAjhHbbdKa39CICRRwv27sVBZFN3pthY9xCIZffWRgJukgSDTKmng24PPxP
+ i6MNkktA3IgWy7PdZH+dl+wjm/Dg6n/9slLWHQZxBe/foyE4vjsrfhnwtDmiOmBBvDs5
+ 5IYy/olAEIWsJE2dFOHs0m2xTLD0sna4Azanre0m/LFGe5yqfSckisoyUfHWYTsG91U6
+ 3yiduc/+DkOVkpARwMdWiGtVPCQ6yrCuaec/LVaLcoOGlqPxtqBVfbDepayUqnoD2GJr
+ s7gfn9Tcuz8UIHCykckbqibRW1hTa4r9wwje83JNtfDWYsD8H4Smt2XegGDr4v6CpUfv
+ 9QrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782223086; x=1782827886;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=qm9QBhEQ0YB2AXes3jM+Kp4ITvGr2+JfvL/tfEuQ2tI=;
+ b=lkNQwcdyPHhKkkXYEFHgceuzMCXSqKNZUFDjXqV//CmNo+2fMOTD2Ovc4iBqjbaL9G
+ nmWecIY0v9wCioR1oWZHuHLgufnh3HkpL4pnrRM5cCqeSFACrknCecXmVbSIgcJmF7wP
+ FOOTY2ttXhdc0xpoJ+0C1GYVfYscvuztHd9nbnBCHEa4w/zjhVBHEBj3pMrkmAai9gWb
+ zDMUrA7lnEb08oBqWbPQV1/Zuc11zfOaUazYMFHzErvdjke43DXrM5MxB0QG3jYjvwW8
+ U+G0jdgHp30nmdk+DzHcH0IPEKf+PPh/0i9jGthGMMOW5gV8AdjQLxP+Y3YAW5pc1/ic
+ a+2w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/2nRKFWpMx7g62il3c7Sh3YodBQtgyeya55NDSK4mks/Tor8kOvnSFysensMVSkzwQ3v9YGLPZqoA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwWbTb0bAKKoC0ZXQxioi+TF9+92Nq7WP9vfKva1Wx2pX1s8U1d
+ eLd435I5LgK2pMC5iqRpHRWJyGXKYYKhq/KyHwn3etnP3gT8U7CGt4v+
+X-Gm-Gg: AfdE7cksjGOGvnk33l+iFpZRtmOONjQXp3U5L6ocfmsWYozEccSRHg74zMy+o/zTkSH
+ r9Cy37H+tSzjKlQQGDsgFUjArHilSYdD181wsJNi8kwS+yAnCosP8GMKQ7YROL05OXHfFmFKCd1
+ Bkd8WqI5TlEBRxi3SE0UG8xCVA1RBNZI8LmZAnRqHHBRYislh68vJQXDL83Pe4+H4mNLssqtU/V
+ mG/UmRW93j2i0VexI/V0aGdG71T6xfy/ViTF6yczewiHMVE8+K5NrIagLvs6/G7DIgWI20qOp62
+ r6IFcVurDY3E2LODJjV3FWstqPdznrV2YZDV4ZBKZIzlVPAvu+v7dd4ALtevIewcQsghRKfpnZP
+ 7mXSt2U9HC23YRpAGReZUyzdye30PEGq/a+fhNgfVq5y0s/hyYgh2FHZQ6ZPxdAHXgOfXXaMcEz
+ jXBzz3gg==
+X-Received: by 2002:a05:600c:3110:b0:492:463d:b2af with SMTP id
+ 5b1f17b1804b1-4925b38ca04mr38947105e9.31.1782223086132; 
+ Tue, 23 Jun 2026 06:58:06 -0700 (PDT)
+Received: from luca-vm.. ([81.56.18.151]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-466643f56aasm35145716f8f.6.2026.06.23.06.58.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Jun 2026 06:58:05 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ CK Hu <ck.hu@mediatek.com>, Jitao shi <jitao.shi@mediatek.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: [PATCH] dt-bindings: mediatek: cec: Correct the compatibles for
+ mt7623-mt8167
+Date: Tue, 23 Jun 2026 15:57:53 +0200
+Message-ID: <20260623135757.5111-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO9P265MB7950:EE_
-X-MS-Office365-Filtering-Correlation-Id: 970ba5c3-7513-4dc6-fa7f-08ded12edac3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|23010399003|10070799003|1800799024|921020|18002099003|22082099003|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info: WtGUz4nXCe+cI4fITPELpdJOdOyTYdVAbSYKRUfo3m/V9oXq53/KEQgMRQnDafXIBUM1y7LJuZIIy783nnPD9G7KbnxiFvtdwGtobD4redLoB+EbYYArbTtN5nSd1n154OVwquexSfB5OQq0YKw6OOGJiF6vA5Lkz43LpheylO9QQG3t6lOgfHnXJTOSNgZnEZFmnxzOukvD0zC4oGyEOjYxxRpIue1XLHSMzKz/h59T00HwQgwLUAT/aLtGuUgFBS90VTSarYn65S8ghVbAFcqmPkKhlDfevJNepHNZDSTnYMOeXbI2eIqzWrjQ1UIMiIpkvlK/m7WHExqRiSiL/h4PueNg1QQQpZ60MYlzM+lOEzYPGtGtEz/fXsY84iU/7tDs/HSylNtsoiiLWm9XxY8Bpab6T+lBW/ApbKJcHHoTNRZgZkrC9znQICp/UBfKACp3YUHv36SaCFTaTKEJkaN/hutBVy0AFzTcPQJRrn9bq4eXSJy1kQhb0kGeYuBbSYiybIxn68w2MyHOmVqkAMhqS+0QwlnKAllYpfQm0ZcCA6nzqxaN3WjSbiFA+2d3v5xE/vZZD83ubWmm8z972p426x6DYjVg8T44/undw+aGYOiyLBdJyJEg4/Bb7bXxDtKjlorymNpZ3ulcBFddqyIM1+US+r7NhIO84byHZ3gcLKXLGdNZ/zChSeeM7tvNAODJantIIlteZCndKgH4pg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(23010399003)(10070799003)(1800799024)(921020)(18002099003)(22082099003)(4143699003)(56012099006);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WGtBMDZxWlRFeGJHVlYySmFIWUhzRzF6Y29YbjN0YkpXemNjWDNvYnVVZHVW?=
- =?utf-8?B?NFJFMWlWbWtnaXRZeTByM1JjZGkzbGt6VDJBSGdnc0JjaXBpblRqMEMrclUx?=
- =?utf-8?B?djFNMCswMUFpVjBSaFhqTkp5S3hCb1crcjBnT3JtcDBzUys1bWNZTkxnSzJM?=
- =?utf-8?B?c0NUY0hscFlDck5ZUW90azhOaHV1VEord3dJL21VSnRqckU5OVByM2paVUlx?=
- =?utf-8?B?OG1pU0c3TDJCZnE0RzFtMDNSR2RYT1J1eWNhTytWNGNQZ0JKclpVQytOb3l0?=
- =?utf-8?B?dExWWjk2RHIvTm96ZVcxTllsZmVuQjNWamxnaDNkalh0MkdiQWZyKy91M0lW?=
- =?utf-8?B?MTh1cStTNDdYQklZbnA4algwaC9JUkpVdzFTY04wKzZ2YkNKQ25xNWJIckUx?=
- =?utf-8?B?V210WUk2Z0UvMVJIR0RXanpHTmpDeDh5VFV0SnBvMUcrcFJ4eTVkU25yV1RI?=
- =?utf-8?B?RGlSdEVZNVJDQm1pMTI0UHVnTlhKT3VLQVRCbTFHWHVxRFUwM21DcDRYdlhm?=
- =?utf-8?B?RFU2c0Y0TDFvcVlETi9YYy9waGQ3S01QSm8yZGJNOXl6QlVaZy9jL0dLZWlQ?=
- =?utf-8?B?UWtsRjg4ZStrNHRlQy9ERGsrcFJhMUp5aUg4LzhDYmtPampFVERUL1hqMVJ5?=
- =?utf-8?B?aGNXMXU0dEZYY2V0Q0JTTmY3M1RzNFRuR3JxMUtabklCSDF3ZTBpM24wSjZu?=
- =?utf-8?B?Q1I1WVNZU0FqUGtrMlNWS1ByOWtzVXdTS214Z3M4eHpDd3RreWZpdGh3R2tZ?=
- =?utf-8?B?c1ZvaFJ6cUc3YVVPWVdqOElocTlDT1FQTEJ6OHdqQ29SOTVVK010QVA5VGx6?=
- =?utf-8?B?ZzRzK1cyMGMrRHBjVllldjF3THBTd1ZVNjRwTzJQdno0Y2lPcnRpTVRLRkxL?=
- =?utf-8?B?OHJFSzRBVFdWdlMzekxZMTloSVRROWY4WEpMcnpidExxeXh1eGZXRWtSdjB5?=
- =?utf-8?B?ZHF5Rzh3MVV4RlkxSkkzWFZRR25WU1NlTDViVFBZektTclZZM09wdnpSbVI3?=
- =?utf-8?B?TGVYc2I1RmJUWjd0Q3I3eG1pNGU0Sm9BYXVrVkI1V0d4VCsrY2hrSDlGSzR6?=
- =?utf-8?B?OHVRRFJrZzJuOTgxcjFwNzhUclhhbXJHdHUvNVZOUFNYc2lVN2tuUU1tMW5v?=
- =?utf-8?B?NG1ScjUySmJKMjJqd3lPa1ZNWG56SGVZN3NrRG5YOThXMVdFcGRJOXZrUXRr?=
- =?utf-8?B?WS9yZTk5VU1SaC9RbGRseng3ZWtzd2RqMi9tR1RXNUc2T045b1FBNGM3bTRV?=
- =?utf-8?B?bUZ0NDczeXZXZlNYV1RtTUxzWW13cjZWbE80T2g3SDU5aW9DVTl0VXc1SkRE?=
- =?utf-8?B?LzFyMEFYWDBHWjJTSVRZcStaUWdDaWZMRGgwUTJiTkdFRGRtRmcvaE9VNjVZ?=
- =?utf-8?B?YWdRMmlJRzU3NzRnQkxDVjhHbGVwdTBiWC9CU2Q1M2pVVjQ1UXpydno0cGtQ?=
- =?utf-8?B?eW9nclJ2Q3pwMnRuL2FhQy96Zy8wVXVpdEhWUzdCTTNlSHljVkRRbzF6Tzhw?=
- =?utf-8?B?akFNUWFodFNCZDlnZnNjM2dXMXc4N3crSy8rU1hTZU90STRwZFRDTUFONTF5?=
- =?utf-8?B?VGlHN2JNSkhldmVaZE9JODF2MTZRNjhLdXZjeTZoTm5TM04rVHFidVJqV1dw?=
- =?utf-8?B?K2duY05QeGNjcndZckpVb0xGRVg4YmxmNFdUWWFZcWgzM1hFWjEzeEh0dzdW?=
- =?utf-8?B?czlPN3NaRTBIM3dKSWNjeVRSbjhBaTg2UkxCb281NmliZE94ZjQ0dG05cDNL?=
- =?utf-8?B?MDlwR0FRV084STJxTlA4Q1lCQmJqVUIxWWhYa1cycW9aMU94ZUxOSEovdWRx?=
- =?utf-8?B?c3ROMHdnc3U3TzBSOHNVYzdiOFc2RjQ0SmY4S1p4ZHJGbmc5dlo4UDIzaUJJ?=
- =?utf-8?B?YlNWRm1FZ21VSDNKR1MrYVBsODlWVXM2aDR6SThVYTNaVGZBaUY0TWJFNmdm?=
- =?utf-8?B?aFh1MXRlL1dxNlg3WDFFd2lLOGt3dUxIcENtcGZLRDhKUWF1UXArVFFPbTEy?=
- =?utf-8?B?VGhtZERVVlZrOEJneWhNelJQaitXUHk1OHVKWUhMNU5rUGxCOWQrMUZ0TGdT?=
- =?utf-8?B?MHVwVHduMmpTZmxDeFh1blBYQkRqU1c1aDF5aU5BdmNSWHlYY3EvNmV3cFRL?=
- =?utf-8?B?Z3dHbkRSN3d6MjJJWEUwTDlFbUtWYUZUQWpaam5Ldy95NlRqUmhLYXdkelBN?=
- =?utf-8?B?UWZrM29TV1BYN0xmSFByVHU5L2wyM09vV0I4TVQwYUlNclpSM0s1d0crTk05?=
- =?utf-8?B?cksyVjZuK2pQVXBnQ2ZDYVhPN1pEN0JxYThHUWJ0S2ZmVVJzcGZqMnIrQ0Vx?=
- =?utf-8?B?MW1CVXJKUmZ1OHBFeFdkNGt1MzFXd2VhZEtydVV6WUg2Zit6bFVGQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 970ba5c3-7513-4dc6-fa7f-08ded12edac3
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 13:53:50.2983 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9+aOxQ2/JEBMa0DPK2jyVDpvsA4qe1FtIAqjiyP0qOJB2lf0KqE1v+6labme7i+yFc0c9PK+yX1rL1XOqd/Jow==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO9P265MB7950
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,18 +98,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Jun 23, 2026 at 7:29 AM BST, Alvin Sun wrote:
-> All users have been migrated to `ModuleMetadata::THIS_MODULE` const or
-> `this_module::<LocalModule>()` helper. The `static THIS_MODULE`
-> generated by the `module!` macro is no longer referenced anywhere,
-> so remove it to avoid having two sources of the same `ThisModule`
-> pointer.
->=20
-> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+The HDMI CEC driver for both mt7623 and mt8167 is actually the same as
+mt8173-cec and the mt7623n.dtsi board include file already uses mt8173-cec
+compatible as a fallback, but the documentation lists them as separate
+entries. Correct the binding by adding the correct fallback.
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+This change fixes a dtbs_check error.
 
-> ---
->  rust/macros/module.rs | 16 ----------------
->  1 file changed, 16 deletions(-)
+Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+---
+ .../bindings/display/mediatek/mediatek,cec.yaml       | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,cec.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,cec.yaml
+index 080cf321209e..4d741ba415e8 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,cec.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,cec.yaml
+@@ -15,10 +15,13 @@ description: |
+ 
+ properties:
+   compatible:
+-    enum:
+-      - mediatek,mt7623-cec
+-      - mediatek,mt8167-cec
+-      - mediatek,mt8173-cec
++    oneOf:
++      - const: mediatek,mt8173-cec
++      - items:
++        - enum:
++          - mediatek,mt7623-cec
++          - mediatek,mt8167-cec
++        - const: mediatek,mt8173-cec
+ 
+   reg:
+     maxItems: 1
+-- 
+2.43.0
 
