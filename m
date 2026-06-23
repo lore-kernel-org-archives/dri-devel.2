@@ -4,44 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7680CDB471
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 20:01:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26F71CDB470
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 20:03:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51EEA10EC7A;
-	Tue, 23 Jun 2026 20:01:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87A4510EC7E;
+	Tue, 23 Jun 2026 20:03:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MO6BXShO";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="qrn7Niwy";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE19510EC7A
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:01:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0B12A60129;
- Tue, 23 Jun 2026 20:01:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AB2B1F000E9;
- Tue, 23 Jun 2026 20:01:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782244913;
- bh=abdRzSRIMzRyvEXdYQYbD4NoC24sPEJHD0qpKCIs5/c=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MO6BXShOWVkjWZrSXL78y0Os1in6Kjg4qeg3XWrNB1k94sKalH1dnnZ0UqC8yqh+6
- U9jK0KaAjJkAZksg2CQzwxn364nhFCmkvOPCBGfC9MO5T0srVgzugJK2krtF6Pxdnm
- OMiFHN4K1EZZ2WczWQ1qILOzVsrlsugBaic3aeh5oXnzmJ8zdfXGvIM4LyURStcYVC
- bngOQAMnh49rErK9+Em0XbOHfr2Tu3jJpoj0UHI5asUcgJAAJecHh5cnmUoQxSDGtD
- NFxVOilBCVcxJLcBiw09MuTlydoUk1U2gEt+Vc8lc9t+5jzbg93IUR8TPu2RbztOKs
- DBMCcEeO5hoEg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/7] drm/rcar-du: dsc: Add rudimentary Renesas R-Car
- V4H DSC driver
-To: "Tomi Valkeinen" <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260615-rcar-du-dsc-v5-3-aed1a28610e4@ideasonboard.com>
-References: <20260615-rcar-du-dsc-v5-3-aed1a28610e4@ideasonboard.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 20:01:52 +0000
-Message-Id: <20260623200153.6AB2B1F000E9@smtp.kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22B3410EC7D
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:03:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1782245027;
+ bh=LEMNvch+xEu+3Is5PhYgSbaYPcKf+aaNjlvCqRGadLk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=qrn7Niwyx9X5/cf6oD0iBsejz56tkf6uuuHGLwSsSOTkXQmRdFr7zA6fWbdRHQxWV
+ 5DgR1oseO7vzVTMkOtPX7QHDNTgesmBT1Mnufn8y6f1pe2ONFut1J1s/dAl05ln7Hd
+ YWd7Z+NkFvbfsU3AuzmL8raJau21+w9Lcu1n4iP4m1ZOF94rZ63HVqqbCQIXwNkWxV
+ aqkWJl4FkiZflSqm7yL/YsKw4rLfINNulCO5afB1iUiSvPsf4b3sIwnKh5OMWbOujd
+ EJ7zdicpVdczoxpYIaL7C54lqEMauhzon34+7VgjNazjlu5cU7C3jbR+QA9e/jMpHn
+ EFWt+vmwaZ+DQ==
+Received: from fedora-2.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 0F28A17E02B5;
+ Tue, 23 Jun 2026 22:03:47 +0200 (CEST)
+Date: Tue, 23 Jun 2026 22:03:41 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: "Christian A. Ehrhardt" <lk@c--e.de>, dri-devel@lists.freedesktop.org,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/panthor: Check VMA boundaries for PMD mappings
+Message-ID: <20260623220341.7ad4a0e2@fedora-2.home>
+In-Reply-To: <ajrRhpVH6uhOABnV@casper.infradead.org>
+References: <20260623181942.1536598-1-lk@c--e.de>
+ <ajrRhpVH6uhOABnV@casper.infradead.org>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,90 +65,60 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The DRM bridge remains registered and globally accessible after `p=
-m_runtime_disable()` is called, creating a teardown order race during drive=
-r removal.
-- [Medium] The sleeping function `pm_runtime_get_sync()` is called from an =
-atomic context path (`rcar_dsc_atomic_enable`).
---
+Hi Matthew,
 
-commit a8616c71b764dc9fa4ae244e47795371e7fead44
-Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
+On Tue, 23 Jun 2026 19:33:42 +0100
+Matthew Wilcox <willy@infradead.org> wrote:
 
-drm/rcar-du: dsc: Add rudimentary Renesas R-Car V4H DSC driver
+> On Tue, Jun 23, 2026 at 08:19:42PM +0200, Christian A. Ehrhardt wrote:
+> > The panthor version is only compile tested because I don't
+> > have the hardware. However, the code is identical to that
+> > fixed in [1] and I have a reproducer for that.
+> > 
+> > No need for for stable backports. The code is new in 7.1.  
+> 
+> What documentation did you need to see to persuade you to use
+> map_pages instead of writing a huge_fault handler?
+> 
+> (yes, you're all Doing It Wrong, please stop, but help us help you)
 
-The Renesas DSC Display Stream Compression is a bridge embedded in the
-Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
-8k or 400 Mpixel/s. Add rudimentary driver, which currently acts as a
-pass-through bridge and allows DSI1 to be operational on R-Car V4H.
+We tried [1], but couldn't figure out how to make it work with the
+current locking in the gem_shmem logic, so we decided to postpone the
+map_page() addition. We plan to get back to it and implement map_page(),
+but my understanding is that we still need the fault()+huge_fault() as a
+fallback for when we can't acquire the locks we need to service the
+fault. Oh, and BTW, we had just the fault() implementation in the
+version that was merged, no huge_fault(), but this fault()
+implementation was mapping PMDs which led to another issue [2] that
+forced us to add this huge_fault() implem.
 
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c b/drivers/gpu/drm=
-/renesas/rcar-du/rcar_dsc.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c
+I'm all for improving that, but if I'm completely honest, there are
+times where our MM-related questions are left unanswered ([3] is one
+example), and it gets hard to figure out how to do things properly
+without proper guidance from the MM experts. I thought [2] was one of
+these, but apparently the MM list/maintainers were not Cc-ed on that
+one, oops.
 
-[ ... ]
+Just to be clear, I'm not blaming anyone here (I know how busy subsystem
+maintainers are in general), I'm just trying to explain how we ended up
+with these new huge_fault() implementations (one being a fork of the
+original implementation) that you were not expecting, but also wanted to
+point out that we've been pretty transparent about where we were heading
+during the submission process, and we didn't get a clear "no, stop
+there!" back then.
 
-> +static void rcar_dsc_atomic_enable(struct drm_bridge *bridge,
-> +				   struct drm_atomic_commit *commit)
-> +{
-> +	struct rcar_dsc *dsc =3D bridge_to_rcar_dsc(bridge);
-> +
-> +	WARN_ON(pm_runtime_get_sync(dsc->dev) < 0);
+Anyway, I'll try to get back to this map_pages() implementation, and
+see how we can handle the fallback when locks can't be acquired in that
+path (I assume this would mean no PMD mapping in the fallback path if
+we get rid of huge_fault()).
 
-[Severity: Medium]
-Is it safe to call the sleeping function pm_runtime_get_sync() here?
+Regards,
 
-Since rcar_dsc_atomic_enable() is called during non-blocking atomic commits,
-doesn't this path execute in atomic context where sleeping is forbidden and
-can lead to kernel warnings or deadlocks?
+Boris
 
-> +}
-
-[ ... ]
-
-> +static int rcar_dsc_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	pm_runtime_enable(&pdev->dev);
-> +
-> +	ret =3D devm_drm_bridge_add(dev, &dsc->bridge);
-> +	if (ret)
-> +		goto err_runtime_disable;
-> +
-> +	return 0;
-> +
-> +err_runtime_disable:
-> +	pm_runtime_disable(&pdev->dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static void rcar_dsc_remove(struct platform_device *pdev)
-> +{
-> +	pm_runtime_disable(&pdev->dev);
-> +}
-
-[Severity: High]
-Does this create a teardown order race during driver removal?
-
-Because devm_drm_bridge_add() defers unregistration until after
-rcar_dsc_remove() returns, the bridge remains globally accessible to the DRM
-subsystem after pm_runtime_disable() has already shut down power management.
-
-If a concurrent modeset calls rcar_dsc_atomic_enable() during this window,
-won't pm_runtime_get_sync() return -EACCES and trigger the WARN_ON since
-power management is disabled?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615-rcar-du-ds=
-c-v5-0-aed1a28610e4@ideasonboard.com?part=3D3
+[1]https://patchew.org/linux/20251015153018.43735-1-loic.molinari@collabora.com/20251015153018.43735-4-loic.molinari@collabora.com/
+[2]https://lore.kernel.org/all/20260319015224.46896-1-pedrodemargomes@gmail.com/
+[3]https://lore.kernel.org/all/20260319155028.291f3157@fedora/
