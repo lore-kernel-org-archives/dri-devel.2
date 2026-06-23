@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9D82CDB470
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 20:37:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 865D9CDB471
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 20:40:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 324C810ECA1;
-	Tue, 23 Jun 2026 20:37:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8F7010E58B;
+	Tue, 23 Jun 2026 20:40:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="b2qgbizq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EyQ1t7bW";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83F2310ECA4
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:37:21 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DF4310E58B
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:40:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 05F5B60136;
- Tue, 23 Jun 2026 20:37:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B5171F000E9;
- Tue, 23 Jun 2026 20:37:20 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2068B4429F;
+ Tue, 23 Jun 2026 20:40:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF44B1F00A3D;
+ Tue, 23 Jun 2026 20:40:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782247040;
- bh=gMPchW13dcuwWTDyM3xB6NTuxAooMRZZUO77EtssyLU=;
+ s=k20260515; t=1782247213;
+ bh=rz/Uz3MDqqp3Q062hRrjhSkgMloIHqoA66u6jsIgMVs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=b2qgbizqM4bd1vpoHaCdkWPQfYDnuvmHwZ4az7CE83lciiCH0nJKBidszdFYX6EsN
- 0F8SpJyXZMuFRsH15P34EEcq6TQaNivHqrOg4GQMA1G+R9YI3oIxiJsAOdQUgDQMsb
- ecIiuy74zytXuvTtCDF2igG0hVEGiTdCalGcYF9ZhiwHnMiZm7xtXjtCzeE/PqBtV9
- bMHsUic8x4kqLnnmUqoiPi7ibufIkhmU04wyWP9dIRgaFlPNJITYEfNc4zz01l7Bev
- Q0Z6QzCUG2jWba291Lj+EIz0tBn5K2Eg7sTntX5FJbsbjzBji15OXdET12mRv2rqMJ
- odYQ+qcmYY2xw==
+ b=EyQ1t7bWONcoOiFV8j5/QofZL0Ww3DEwIGqHFfAyaWIZsOp613kVh6uT4SSFEZwTI
+ P1A0FlFD57OSSn1+TSC+u1QS99j0ZNhz+ue58WwErJdkFsIEulloexLDg7fVKRBbC4
+ 9Xh63s9KOqi2KuwRR3K5JHgoUcLdnvfzouQVzxdA306zLuSB5GlHDrKRU5WZ+t8IFL
+ UfscbAFvIQBOGqfY/KMaWafnDFdYfJKJSM8ti5Jd6jj1CBLu1O9hKmVL/HryaPFj/z
+ 0TcW8HiJ44x3VnflhTN05vwSgSs/On75wAN+DZElVq/gG5CjMBaHIhnT8V/egJ0p6y
+ nbSvT15P7EeBw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] drm/v3d: Reject invalid indirect BO handle in
- indirect CSD setup
-To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260618-v3d-cpu-job-fixes-v2-2-fec132484fc4@igalia.com>
-References: <20260618-v3d-cpu-job-fixes-v2-0-fec132484fc4@igalia.com>
- <20260618-v3d-cpu-job-fixes-v2-2-fec132484fc4@igalia.com>
+Subject: Re: [PATCH 4/9] drm/rockchip: vop2: Consolidate HDMI PHY PLL clock
+ parent switch
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260617-dw-hdmi-qp-yuv-v1-4-a665cfd06d7d@collabora.com>
+References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
+ <20260617-dw-hdmi-qp-yuv-v1-4-a665cfd06d7d@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 20:37:20 +0000
-Message-Id: <20260623203720.8B5171F000E9@smtp.kernel.org>
+Date: Tue, 23 Jun 2026 20:40:12 +0000
+Message-Id: <20260623204012.BF44B1F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,153 +59,56 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] Double-free of `query_info->queries` array during CPU job exte=
-nsion parsing failure.
-- [Critical] Arbitrary kernel memory read and write primitive due to missin=
-g bounds checks on CPU job offsets.
-- [High] Race condition and missing implicit synchronization due to unlocke=
-d `indirect_csd.indirect` GEM object.
-- [High] Kernel crash (NULL pointer dereference) in `v3d_get_bo_vaddr()` wh=
-en mapping imported PRIME buffers.
+- [High] Calling sleepable functions (`mutex_lock` and CCF APIs) inside an =
+atomic context.
 --
 
-commit 4335f305c6546e229d21733e148fae0311963d61
-Author: Ma=C3=ADra Canal <mcanal@igalia.com>
+commit daeb5d187e2f25bcf364f65898a9cf55a75558aa
+Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-drm/v3d: Reject invalid indirect BO handle in indirect CSD setup
+drm/rockchip: vop2: Consolidate HDMI PHY PLL clock parent switch
 
-v3d_get_cpu_indirect_csd_params() looks up the indirect buffer object
-from a userspace-supplied handle but never checks the result. A bogus
-or stale handle makes drm_gem_object_lookup() return NULL, which is
-then stored in info->indirect and only dereferenced later when the
-indirect CSD job runs, turning a userspace mistake into a NULL pointer
-dereference in the kernel.
+This commit refactors the DCLK parent switch logic for HDMI0 and HDMI1
+PHY PLLs. It consolidates duplicated clk_get_parent() and clk_set_parent()
+calls into a single shared code path based on the active HDMI endpoint.
 
-> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_s=
-ubmit.c
-> index 18467e448c91f..3a93dbfe71a2c 100644
-> --- a/drivers/gpu/drm/v3d/v3d_submit.c
-> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-> @@ -601,6 +601,8 @@ v3d_get_cpu_indirect_csd_params(struct drm_file *file=
-_priv,
->  	       sizeof(indirect_csd.wg_uniform_offsets));
-> =20
->  	info->indirect =3D drm_gem_object_lookup(file_priv, indirect_csd.indire=
-ct);
-
-[Severity: High]
-This is a pre-existing issue, but by not adding this buffer to the tracked =
-bo
-array, are we skipping implicit synchronization?
-
-The indirect_csd.indirect GEM object is looked up and stored here, but it
-doesn't appear to be appended to the job->base.bo array. As a result, does
-v3d_submit_lock_reservations() bypass dma_resv locking and
-drm_sched_job_add_implicit_dependencies() completely for this buffer?
-
-When the CPU job later executes v3d_rewrite_csd_job_wg_counts_from_indirect=
-():
-
-drivers/gpu/drm/v3d/v3d_sched.c:v3d_rewrite_csd_job_wg_counts_from_indirect=
-() {
-	...
-	((uint32_t *)indirect->vaddr)[uniform_idx] =3D wg_counts[i];
-	...
-}
-
-Will this modify the buffer concurrently without holding locks or waiting f=
-or
-prior GPU operations? Note that the patch "drm/v3d: Associate BOs with every
-job that accesses them" doesn't seem to cover indirect_csd.indirect.
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
+rm/rockchip/rockchip_drm_vop2.c
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+[ ... ]
+> @@ -1932,42 +1932,34 @@ static void vop2_crtc_atomic_enable(struct drm_cr=
+tc *crtc,
+[ ... ]
+> +		if (pll_hdmiphy) {
+> +			if (!vp->dclk_src)
+> +				vp->dclk_src =3D clk_get_parent(vp->dclk);
+> +
+> +			ret =3D clk_set_parent(vp->dclk, pll_hdmiphy);
 
 [Severity: High]
-This is a pre-existing issue, but does mapping this buffer safely handle
-imported PRIME buffers?
+This is a pre-existing issue, but does calling clk_set_parent() here
+result in a sleep inside an atomic context?
 
-If info->indirect is an imported PRIME buffer,
-drm_gem_shmem_prime_import_sg_table() only populates the scatter-gather tab=
-le
-(shmem->sgt) and leaves shmem->pages as NULL.
+The vop2_crtc_atomic_enable() function executes as a CRTC atomic enable
+callback, which runs in an atomic context where sleeping is forbidden.
 
-When vmap() is eventually called on it:
+Both clk_set_parent() and clk_prepare_enable() (called earlier in this
+function) acquire sleepable mutexes, and vop2_lock() internally calls
+mutex_lock(). Can this lead to kernel warnings or potential deadlocks
+during the atomic commit phase?
 
-drivers/gpu/drm/v3d/v3d_bo.c:v3d_get_bo_vaddr() {
-	...
-	bo->vaddr =3D vmap(obj->pages, obj->base.size >> PAGE_SHIFT, VM_MAP,
-			 pgprot_writecombine(PAGE_KERNEL));
-	...
-}
-
-Could this pass a NULL page array to vmap() and trigger a kernel crash?
-
-[Severity: Critical]
-This is a pre-existing issue, but are the offsets used for this indirect bu=
-ffer
-checked against the bounds of the allocation?
-
-In v3d_rewrite_csd_job_wg_counts_from_indirect(), the driver reads and writ=
-es
-using the user-controlled offsets from indirect_csd.offset and
-indirect_csd.wg_uniform_offsets:
-
-drivers/gpu/drm/v3d/v3d_sched.c:v3d_rewrite_csd_job_wg_counts_from_indirect=
-() {
-	...
-	wg_counts =3D (uint32_t *)(bo->vaddr + indirect_csd->offset);
-	...
-	((uint32_t *)indirect->vaddr)[uniform_idx] =3D wg_counts[i];
-	...
-}
-
-Are these offsets ever bounds-checked against the size of the respective
-vmapped buffer objects? Could an unprivileged user supply arbitrary 32-bit
-offsets to achieve out-of-bounds reads and writes relative to the vmap
-allocations? (Similar missing bounds checks appear to exist in
-v3d_timestamp_query() and v3d_reset_timestamp_queries()).
-
-> +	if (!info->indirect)
-> +		return -ENOENT;
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but could returning an error here
-trigger a double-free if a timestamp query was parsed earlier in the same j=
-ob?
-
-If a failure occurs here (or in other CPU job parsing functions) and returns
-an error to v3d_submit_cpu_ioctl(), it seems job cleanup is triggered via
-v3d_submit_cleanup_jobs(), which unconditionally calls v3d_cpu_job_free().
-
-If an error path already called v3d_timestamp_query_info_free() to clean up
-the partially initialized array:
-
-drivers/gpu/drm/v3d/v3d_submit.c:v3d_get_cpu_timestamp_query_params() {
-	...
-error:
-	v3d_timestamp_query_info_free(&job->timestamp_query, i);
-	...
-}
-
-This executes kvfree(query_info->queries) but leaves the pointer dangling.
-During the subsequent teardown:
-
-drivers/gpu/drm/v3d/v3d_submit.c:v3d_cpu_job_free() {
-	...
-	v3d_timestamp_query_info_free(&job->timestamp_query,
-				      job->timestamp_query.count);
-	...
-}
-
-Will this call kvfree() again on the same dangling pointer, resulting in a
-double-free?
-
-> =20
->  	return 0;
->  }
+> +			if (ret < 0)
+> +				drm_warn(vop2->drm,
+> +					 "Failed to switch DCLK to HDMI PHY PLL: %d\n",
+> +					 ret);
+> +		}
+>  	}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618-v3d-cpu-jo=
-b-fixes-v2-0-fec132484fc4@igalia.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617-dw-hdmi-qp=
+-yuv-v1-0-a665cfd06d7d@collabora.com?part=3D4
