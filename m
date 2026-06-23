@@ -4,51 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FB9ECDB471
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 07:19:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E01CCD4F26
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 07:23:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3609810E994;
-	Tue, 23 Jun 2026 07:19:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B57C10E414;
+	Tue, 23 Jun 2026 07:23:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="rj4Gq6m3";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="MOy7wTf6";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="pQkK9W2U";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3C7010E982;
- Tue, 23 Jun 2026 07:19:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ET7OgFlHrJ+3KEdV0J1uiTWDRciWlbKIl2vMbcrMF8I=; b=rj4Gq6m3d1xd3Jrd2o573sU7gn
- 5flzufiBtzjvqCVo2cgPTTJzKDyOP0qwxshdlvPIUeUn2QcO0c8l+5tWoUwgbjn6Ft+TdpTgtJunK
- c1uXsIHnGMMhMBTzIzAK4N9k5dt5iXp3xrtScjqwMViTp/kzm2tmUuc05knmnNuUB+kqg5PyEzAxR
- QkvYStbI4B0dGqOQK0mSu8d5XZq/rK1jnb5+Ns5LjaZhTjO3Ci9mDH53eoLQrGcbGCUzmHfGQCvjY
- WXZxbFkF1V5G8/ZlksBPaFSheBAD7gWv1dtuKuBzP+keZ4BfUMLAUy4joriA8/cDDzXJZhPVsVx/5
- 6FFmex9w==;
-Received: from [90.240.106.137] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wbvQ8-0044WG-2V; Tue, 23 Jun 2026 09:19:44 +0200
-Message-ID: <fd5e55f6-c6be-48b4-8b87-c3d6d6d0a6ff@igalia.com>
-Date: Tue, 23 Jun 2026 08:19:43 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] drm/sched: Replace completion with a flush
-To: phasta@kernel.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-References: <20260611123423.39819-1-tvrtko.ursulin@igalia.com>
- <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A99FC10E99E
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 07:22:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1782199331; cv=none;
+ d=strato.com; s=strato-dkim-0002;
+ b=sk2421s3Yyab9h4B8cgsnB189bbJvJcbhRpkJYFkBTxXDlG1GSU7XA1q8l8VTcnfZe
+ Y5OSTBBFmvYLhawUAkkBQmH36NlZpivGW4OQSkC10pzHHDZkNOEkOSJjopBBK6T07aRC
+ Ee8BsZsNKlFobp85SMPZ1VqVzy0ZwpHywv26N23f7x7RsS7C+2cePZRJbnI7MtGj0FUS
+ hzmSXEm58CGwFPkvd2+OlkHOZKxaUN5wlaLklbTveEu8m5nGILPZEETLJVHIQwVBNBv4
+ j7qNCeYRXZmJ5QQSDi87fZwrEAONoshiWhrujzbmjcDoXHSmkI18wMnKGOarhRziQgEJ
+ rIOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1782199331;
+ s=strato-dkim-0002; d=strato.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=WTYAouhypkSMMbUqkmiovoMH0bMziRxtmsQeKkczqhw=;
+ b=GLliX+TRc0SeHVl2jxQY5V9OT68L1bflDDI+wCRYWy2+B9mbpE0uJ+3RV9FGwrDf8/
+ 1JJomg4PneJy3hBN2OgPv1sebM26V2hPPO9jprJ7D2mL7NP0Km1GJQaPVUQ9HsKa8vbv
+ yvD5wLGW3sUnS3zyYsvC6qojkzpfQcwJUz7zP/akw8cd8o4L4QvDxZfsv3nOJq45GPJB
+ 8gqBlhcaPln9iPdrXOlGEbFMkSw068ZkXFz18JSpFwRUg53XosvQSkLC2vMEBS0Rxawx
+ c6HhzpEP3v/ZKi2OD9MprwTMgO2quN6phu6jZftEzh5iSextU3TcrDVYP46NTrCraa8X
+ dsVA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1782199331;
+ s=strato-dkim-0002; d=goldelico.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=WTYAouhypkSMMbUqkmiovoMH0bMziRxtmsQeKkczqhw=;
+ b=MOy7wTf6LEJl2fAWaBzYrkVlE4ae7vwWnSLQQoitxTFss67JifKatvDQ3LYYpd2qxs
+ 9K68x/wMA2kfaVMm7OdK3ROVbztViHZ4lxBGtb9dNUS3MXvABSykmL2t4HcnRRGw9CMC
+ 8OsvTbrCNE8CpXOh19M2D68Zz7LSx+S4SKaXK8MYSTQ3755rPC3QbDShoAR5CH6QC9kF
+ pDSJES5GzPHyofZJ1wHAW6AN7feKiGWSPPG6+C5PzzRs1VMon9IUTS5SWwi/q40D0cIh
+ UmkHZ0t70+WSmFKCY7befGZxn1or4dy/ValtuHrLYy/htCJULd621qTIlVefMxnvRDE8
+ L5Uw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1782199331;
+ s=strato-dkim-0003; d=goldelico.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=WTYAouhypkSMMbUqkmiovoMH0bMziRxtmsQeKkczqhw=;
+ b=pQkK9W2UDkonRrzqGHC9xllTFrZuRLYYfnn5IE5TgIzY1er79izhIoGMZyqMyh1fjG
+ 1ypa0FMmCSv1PH6eKmCA==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrT3ppdzsiNsOz5aTA7oOYU7otmLOEb1cQTmFAp"
+Received: from smtpclient.apple by smtp.strato.de (RZmta 55.0.1 AUTH)
+ with ESMTPSA id Qcf97c25N7MAvdX
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1
+ with 256 ECDH bits, eq. 3072 bits RSA))
+ (Client did not present a certificate);
+ Tue, 23 Jun 2026 09:22:10 +0200 (CEST)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH v2] drm/fb-helper: Only consider active CRTCs for vblank
+ sync
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20260622113434.682292-1-tzimmermann@suse.de>
+Date: Tue, 23 Jun 2026 09:22:00 +0200
+Cc: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ akemnade@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, letux-kernel@openphoenux.org,
+ kernel@pyra-handheld.com, sashiko-reviews@lists.linux.dev,
+ stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <685F8D2B-84D9-45AD-A979-CFDE71F7E9F2@goldelico.com>
+References: <20260622113434.682292-1-tzimmermann@suse.de>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,163 +100,150 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On 17/06/2026 09:38, Philipp Stanner wrote:
-> On Thu, 2026-06-11 at 13:34 +0100, Tvrtko Ursulin wrote:
->> Due the scheduler locking design, and the inability to always lock both
->> the entity and the run-queue in the consistent order, a completion exists
->> which effectively marks the entity as in use from a call path which is not
->> able to lock it.
->>
->> When entity is selected from the run job worker, its completion is marked
->> as non-idle all until the code is sure it will not be dereferencing it any
->> more, at which point it signals it as idle, releasing the potential
->> parallel cleanup path.
->>
->> We can remove the need for this completion by implementing the identical
->> guarantee by simply flushing the run job work from the cleanup path, after
->> having removed the entity from the run queue.
->>
->> We then know that the entity is no longer reachable by the run queue
->> selection logic, so as soon as any pending work is done the cleanup can
->> safely proceed. And because we have marked the entity as stopped, we also
->> know that the entity cannot re-enter the run queue.
->>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Danilo Krummrich <dakr@kernel.org>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Philipp Stanner <phasta@kernel.org>
->> Cc: amd-gfx@lists.freedesktop.org
->> Cc: intel-xe@lists.freedesktop.org
->> ---
->> "Perfection is achieved, not when there is nothing more to add, but when
->>   there is nothing left to take away." - Antoine de Saint-Exupéry
-> 
-> 
-> Hmm, alright, so the basic trick just seems to be that the workqueue
-> implementation already can ensure the synchronization which we manually
-> implemented so far through the completion.
-> 
-> 
-> It's a bit more LOC, and doesn't solve a bug. However, I kind of like
-> the idea because it removes a redundant mechanism. Would be cool to
-> hear some other opinions, though.
-> 
-> A comment below
-> 
->>
->> Lets see what Intel's CI says about this, not to mention our new AI
->> overlords...
->> ---
->>   drivers/gpu/drm/scheduler/sched_entity.c   | 25 +++++++++++++++-------
->>   drivers/gpu/drm/scheduler/sched_internal.h | 14 ++++++++++--
->>   drivers/gpu/drm/scheduler/sched_main.c     |  2 --
->>   drivers/gpu/drm/scheduler/sched_rq.c       | 14 +++++++-----
->>   include/drm/gpu_scheduler.h                |  9 --------
->>   5 files changed, 38 insertions(+), 26 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
->> index c51101ec70c1..e6f7c2fbefce 100644
->> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->> @@ -137,10 +137,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
->>   	entity->rq = &sched_list[0]->rq;
->>   	RCU_INIT_POINTER(entity->last_scheduled, NULL);
->>   	RB_CLEAR_NODE(&entity->rb_tree_node);
->> -	init_completion(&entity->entity_idle);
->> -
->> -	/* We start in an idle state. */
->> -	complete_all(&entity->entity_idle);
->>   
->>   	spin_lock_init(&entity->lock);
->>   	spsc_queue_init(&entity->job_queue);
->> @@ -276,18 +272,24 @@ static void drm_sched_entity_kill_jobs_cb(struct dma_fence *f,
->>    */
->>   void drm_sched_entity_kill(struct drm_sched_entity *entity)
->>   {
->> +	struct drm_gpu_scheduler *sched;
->>   	struct drm_sched_job *job;
->>   	struct dma_fence *prev;
->>   
->>   	spin_lock(&entity->lock);
->>   	entity->stopped = true;
->> -	drm_sched_rq_remove_entity(entity->rq, entity);
->> +	sched = drm_sched_rq_remove_entity(entity->rq, entity);
->>   	spin_unlock(&entity->lock);
->>   
->> -	/* Make sure this entity is not used by the scheduler at the moment */
->> -	wait_for_completion(&entity->entity_idle);
->> +	/*
->> +	 * Make sure this entity is not used by the scheduler at the moment.
->> +	 *
->> +	 * Scheduler is guaranteed to be stable after the entity was stopped and
->> +	 * removed from the run-queue.
->> +	 */
->> +	if (sched)
->> +		drm_sched_flush_run_work(sched);
->>   
->> -	/* The entity is guaranteed to not be used by the scheduler */
->>   	prev = rcu_dereference_check(entity->last_scheduled, true);
->>   	dma_fence_get(prev);
->>   	while ((job = drm_sched_entity_queue_pop(entity))) {
->> @@ -576,6 +578,13 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
->>   		return;
->>   
->>   	spin_lock(&entity->lock);
->> +
->> +	if (entity->stopped) {
->> +		spin_unlock(&entity->lock);
->> +		return;
->> +
->> +	}
-> 
-> Seems unrelated? Why wasn't this needed semantically before?
 
-It solidifies the guarantee drm_sched_entity_kill() expects that the 
-scheduler assigned to an entity cannot change after entity has been stopped.
+> Am 22.06.2026 um 13:33 schrieb Thomas Zimmermann =
+<tzimmermann@suse.de>:
+>=20
+> Only synchronize fbdev output to the vblank of an active CRTC. Go over
+> the list of CRTCs and pick the first that matches. Fixes warnings as
+> the one shown below
+>=20
+> [   77.201354] WARNING: drivers/gpu/drm/drm_vblank.c:1320 at =
+drm_crtc_wait_one_vblank+0x194/0x1cc [drm], CPU#1: kworker/1:7/1867
+> [   77.201354] omapdrm omapdrm.0: [drm] vblank wait timed out on crtc =
+0
+>=20
+> This currently happens if the fbdev output is not on CRTC 0.
+>=20
+> Atomic and non-atomic drivers require distinct code paths. As for =
+other
+> fbdev operations, implement both and select the correct one at =
+runtime.
+>=20
+> Not finding an active CRTC is not a bug. Do not wait in this case, but
+> flush the display update as before.
+>=20
+> v2:
+> - move look-up code into separate helper
+> - support drivers with legacy modesetting
+> v1:
+> - see =
+https://lore.kernel.org/dri-devel/1c9e0e24-9c4a-4259-8700-cf9e5fd60ca3@sus=
+e.de/
+>=20
+> Co-authored-by: H. Nikolaus Schaller <hns@goldelico.com>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Fixes: d8c4bddcd8bcb ("drm/fb-helper: Synchronize dirty worker with =
+vblank")
+> Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 
-There we have this sequence:
+Tested-by: H. Nikolaus Schaller <hns@goldelico.com>
 
-   spin_lock(&entity->lock);
-   entity->stopped = true;
-   sched = drm_sched_rq_remove_entity(entity->rq, entity);
-   spin_unlock(&entity->lock);
-
-   if (sched)
-   	drm_sched_flush_run_work(sched);
-
-That is, without that check, in theory, an evil driver could race 
-drm_sched_entity_select_rq() (via drm_sched_job_arm()) and 
-drm_sched_entity_kill(). I am not sure if any driver can actually do 
-that at the moment but it felt sensible to express it in code.
-
->> +
->>   	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
->>   	rq = sched ? &sched->rq : NULL;
->>   	if (rq != entity->rq) {
->> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
->> index 13ecb771d7a2..80dece3be415 100644
->> --- a/drivers/gpu/drm/scheduler/sched_internal.h
->> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
->> @@ -35,12 +35,22 @@ bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
->>   			 struct drm_sched_entity *entity);
->>   void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
->>   
->> +/**
->> + * drm_sched_flush_run_work - flush the run-job work
-> 
-> In v1, you'd probably want to document what this function typically
-> will be used for :)
-
-Well its in the scheduler _internal_ header and I am not sure what to 
-write which will add real value.
-
-"Only used to make sure a stopped entity is not in use by the scheduler 
-workers."
-
-Good enough?
-
-Regards,
-
-Tvrtko
+> Closes: https://bugs.debian.org/1138033
+> Cc: <stable@vger.kernel.org> # v6.19+
+> ---
+> drivers/gpu/drm/drm_fb_helper.c | 71 ++++++++++++++++++++++++++++++++-
+> 1 file changed, 70 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_fb_helper.c =
+b/drivers/gpu/drm/drm_fb_helper.c
+> index 7b11a582f8ec..cbf0a9a7b8e5 100644
+> --- a/drivers/gpu/drm/drm_fb_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_helper.c
+> @@ -225,16 +225,85 @@ static void drm_fb_helper_resume_worker(struct =
+work_struct *work)
+> 	console_unlock();
+> }
+>=20
+> +static int find_crtc_index_atomic(struct drm_fb_helper *helper)
+> +{
+> +	struct drm_device *dev =3D helper->dev;
+> +	struct drm_plane *plane;
+> +
+> +	drm_for_each_plane(plane, dev) {
+> +		const struct drm_plane_state *plane_state;
+> +		const struct drm_crtc *crtc;
+> +
+> +		if (plane->type !=3D DRM_PLANE_TYPE_PRIMARY)
+> +			continue;
+> +
+> +		plane_state =3D plane->state;
+> +		if (plane_state->fb !=3D helper->fb || =
+!plane_state->crtc)
+> +			continue; /* plane doesn't display fbdev =
+emulation */
+> +
+> +		crtc =3D plane_state->crtc;
+> +		if (!crtc->state->active)
+> +			continue;
+> +		if (drm_WARN_ON_ONCE(dev, crtc->index > INT_MAX))
+> +			continue; /* driver bug */
+> +
+> +		return crtc->index;
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+> +
+> +static int find_crtc_index_legacy(struct drm_fb_helper *helper)
+> +{
+> +	struct drm_device *dev =3D helper->dev;
+> +	struct drm_crtc *crtc;
+> +
+> +	drm_for_each_crtc(crtc, dev) {
+> +		struct drm_plane *plane =3D crtc->primary;
+> +
+> +		if (!crtc->enabled)
+> +			continue;
+> +		if (!plane || plane->fb !=3D helper->fb)
+> +			continue; /* CRTC doesn't display fbdev =
+emulation */
+> +		if (drm_WARN_ON_ONCE(dev, crtc->index > INT_MAX))
+> +			continue; /* driver bug */
+> +
+> +		return crtc->index;
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+> +
+> +static int drm_fb_helper_find_crtc_index(struct drm_fb_helper =
+*helper)
+> +{
+> +	struct drm_device *dev =3D helper->dev;
+> +	int crtc_index;
+> +
+> +	mutex_lock(&dev->mode_config.mutex);
+> +
+> +	if (drm_drv_uses_atomic_modeset(dev))
+> +		crtc_index =3D find_crtc_index_atomic(helper);
+> +	else
+> +		crtc_index =3D find_crtc_index_legacy(helper);
+> +
+> +	mutex_unlock(&dev->mode_config.mutex);
+> +
+> +	return crtc_index;
+> +}
+> +
+> static void drm_fb_helper_fb_dirty(struct drm_fb_helper *helper)
+> {
+> 	struct drm_device *dev =3D helper->dev;
+> 	struct drm_clip_rect *clip =3D &helper->damage_clip;
+> 	struct drm_clip_rect clip_copy;
+> +	int crtc_index;
+> 	unsigned long flags;
+> 	int ret;
+>=20
+> 	mutex_lock(&helper->lock);
+> -	drm_client_modeset_wait_for_vblank(&helper->client, 0);
+> +	crtc_index =3D drm_fb_helper_find_crtc_index(helper);
+> +	if (crtc_index >=3D 0)
+> +		drm_client_modeset_wait_for_vblank(&helper->client, =
+crtc_index);
+> 	mutex_unlock(&helper->lock);
+>=20
+> 	if (drm_WARN_ON_ONCE(dev, !helper->funcs->fb_dirty))
+> --=20
+> 2.54.0
+>=20
 
