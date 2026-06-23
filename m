@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6D5ECDB470
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 19:33:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F9D5CDB471
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 19:49:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5471110EC59;
-	Tue, 23 Jun 2026 19:33:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B5BA10EC6D;
+	Tue, 23 Jun 2026 19:49:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I+7sA48K";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Nf8r1Zyz";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58C7F10EC59
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 19:33:25 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5F6210EC6D
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 19:49:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1E24D4198F;
- Tue, 23 Jun 2026 19:33:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E12431F000E9;
- Tue, 23 Jun 2026 19:33:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D14B060018;
+ Tue, 23 Jun 2026 19:49:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F4BD1F000E9;
+ Tue, 23 Jun 2026 19:49:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782243205;
- bh=RBToOGw5tDaKlLC+yz5XHJTov4GZZ0tHDvLcNCmmuLY=;
+ s=k20260515; t=1782244162;
+ bh=Ja5q2fZKG3v7RFMZdWsvuqRkGzU83kSeBhA8tTduTvU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=I+7sA48KrqHhXWppEZO3PbQmdggF55O9Pc2lhWGBnedy48ANTg+ZSNhQGJmn7goMo
- qomWijv9j+6djUGQibsQB0rzA7eoiCVaqhquu6KCQ0s+8IOLbKm76HJvMZ5TYBLsih
- YFhwyz/oKrTnQerdV3iWhzrP8Yn9R8uA0vp5e70Q761N14PELbwHD75d3KlSGnLfVc
- TtY1q+4PLGnXvCL7kgzldFjZmh+AYz0OUG+RiEWloiiRsi44ayctaiyMeLm/5fCV1S
- 6JaIp2pwgyo1PUjOiyISSGlR1Wd0XWGjlAm+7QIjXqSAwgMnP3mmlBKl+DjxKdBRJu
- Q+8eFPsc5inUQ==
+ b=Nf8r1ZyzR8a96W1ECLiC8OFvtA9C7n/wi23dyb5/qB2gz3uyuXhxGIMZLzVdJdtr1
+ nrNYR4+bKSLunMKzAEFu9Lqr7BjVpDCAu7ggkvZrJizqkriF6fHY/ZR9r/D2cQ2qtj
+ GlhcxG5CFsJV8Met+N8YaUlNkizhq0nZqCzvJOxcwOTqbF/PRsh+0w3PPKI6RSkMza
+ /TJ2N2oxytZbYye5EhBuRixKCEMhVRuc8xDJje0YZMAi/eRM7UBqfjxoF3v5g7t9Ut
+ 9H76mBekept6+w18fE12+t1i/SeXCKvMwbvIfnFom+Z6Xr3dqZnU1TIoek3RuakAEv
+ 38zHPFtwtFOFw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] drm/v3d: Use write_to_buffer() helper in
- performance query copy
-To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260610-v3d-cpu-job-fixes-v1-3-0d9c88989edc@igalia.com>
-References: <20260610-v3d-cpu-job-fixes-v1-3-0d9c88989edc@igalia.com>
+Subject: Re: [PATCH v3 03/10] drm/bridge: synopsys: dw-dp: Add follow-up
+ bridge support
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260612-synopsys-dw-dp-improvements-v3-3-dc61e6352508@collabora.com>
+References: <20260612-synopsys-dw-dp-improvements-v3-3-dc61e6352508@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 19:33:24 +0000
-Message-Id: <20260623193324.E12431F000E9@smtp.kernel.org>
+Date: Tue, 23 Jun 2026 19:49:21 +0000
+Message-Id: <20260623194922.4F4BD1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,103 +58,129 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Memory leak of the follow-up bridge reference count.
+- [High] Unconditional probe failure causing DT backward compatibility brea=
+kage.
+
 Pre-existing issues:
-- [Critical] User-controlled offsets, strides, and counts are used to acces=
-s Buffer Object (BO) memory without any bounds checking, leading to arbitra=
-ry out-of-bounds kernel memory reads and writes.
-- [Critical] The function `v3d_get_bo_vaddr()` does not check if `vmap()` r=
-eturns NULL, which leads to a subsequent NULL pointer dereference.
+- [High] Missing completion reinitialization causes race conditions with st=
+ale completion states during AUX transfers.
+- [High] Premature registration and exposure of the DP AUX channel to users=
+pace before hardware and IRQ initialization.
 --
 
-commit d8a5e25eb7cfc120706c0d07ce2e2d8392b8454f
-Author: Ma=C3=ADra Canal <mcanal@igalia.com>
+commit ceef3e5c9dcfb09773dad5a727e1e2147c87f8e5
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-drm/v3d: Use write_to_buffer() helper in performance query copy
+drm/bridge: synopsys: dw-dp: Add follow-up bridge support
 
-The copy of performance query results to the output buffer is refactored
-to use the write_to_buffer() helper instead of open-coding the
-32-bit/64-bit selection. This replaces two nearly identical loops.
+Add support to use USB-C connectors with the DP altmode helper code on
+devicetree based platforms. To get this working there must be a DRM bridge
+chain from the DisplayPort controller to the USB-C connector.
 
-> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sc=
-hed.c
-> index 53deae1a2eda9..17751c8d7f163 100644
-> --- a/drivers/gpu/drm/v3d/v3d_sched.c
-> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
-> @@ -594,15 +594,8 @@ v3d_write_performance_query_result(struct v3d_cpu_jo=
-b *job, void *data,
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index ac7779e42bb24..98cff435dfb87 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> @@ -1970,7 +1970,7 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct=
+ drm_encoder *encoder,
+>  {
+>  	struct platform_device *pdev =3D to_platform_device(dev);
+>  	struct dw_dp *dp;
+> -	struct drm_bridge *bridge;
+> +	struct drm_bridge *bridge, *next_bridge;
+>  	void __iomem *res;
+>  	int ret;
 > =20
->  		v3d_perfmon_stop(v3d, perfmon, true);
-> =20
-> -		if (job->copy.do_64bit) {
-> -			for (j =3D 0; j < perfmon->ncounters; j++)
-> -				write_to_buffer_64(data, offset + j,
-> -						   perfmon->values[j]);
-> -		} else {
-> -			for (j =3D 0; j < perfmon->ncounters; j++)
-> -				write_to_buffer_32(data, offset + j,
-> -						   perfmon->values[j]);
-> -		}
-> +		for (j =3D 0; j < perfmon->ncounters; j++)
-> +			write_to_buffer(data, offset + j, job->copy.do_64bit, perfmon->values=
-[j]);
-                        ^^^^^^^^^^^^^^^
-[Severity: Critical]
-This is a pre-existing issue, but does this write out of bounds?
-
-Userspace submits a CPU job (e.g., V3D_CPU_JOB_TYPE_COPY_PERFORMANCE_QUERY)
-providing offset and stride via DRM ioctls. These values are parsed without
-being validated against the actual allocated size of the target BO.
-
-In v3d_submit.c:v3d_get_cpu_copy_performance_query_params():
-	job->copy.offset =3D copy.offset;
-	job->copy.stride =3D copy.stride;
-
-The unvalidated offset is used to compute the base write pointer in
-v3d_sched.c:v3d_copy_performance_query():
-	data =3D ((u8 *)bo->vaddr) + copy->offset;
-
-This loop then blindly writes to data while incrementing the pointer by
-copy->stride without checking boundaries, which can lead to arbitrary
-out-of-bounds kernel memory reads and writes. Any unprivileged userspace
-process that can open the DRM device can trigger this via
-DRM_IOCTL_V3D_SUBMIT_CPU.
-
-A similar unvalidated out-of-bounds access is present in other CPU jobs like
-indirect CSD:
-
-v3d_sched.c:v3d_rewrite_csd_job_wg_counts_from_indirect():
-	wg_counts =3D (uint32_t *)(bo->vaddr + indirect_csd->offset);
-
-> =20
->  		v3d_perfmon_put(perfmon);
+> @@ -2064,6 +2064,20 @@ struct dw_dp *dw_dp_bind(struct device *dev, struc=
+t drm_encoder *encoder,
+>  		goto unregister_aux;
 >  	}
+> =20
+> +	next_bridge =3D of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
+> +	if (IS_ERR(next_bridge)) {
 
-[Severity: Critical]
-This is a pre-existing issue, but does v3d_get_bo_vaddr() dereference a NULL
-pointer when vmap() fails?
+[Severity: High]
+Can this unconditional check break device tree backward compatibility?
 
-When the system is under memory pressure, vmap() can fail and return NULL.
-However, v3d_get_bo_vaddr() assigns this NULL pointer directly to bo->vaddr
-without checking:
+By making the absence of a follow-up bridge a fatal error instead of an
+optional configuration, this appears to cause the display driver to
+completely fail to probe on existing platforms that do not define a downstr=
+eam
+bridge endpoint in their device tree.
 
-v3d_bo.c:v3d_get_bo_vaddr():
-	bo->vaddr =3D vmap(obj->pages, obj->base.size >> PAGE_SHIFT, VM_MAP,
-			 pgprot_writecombine(PAGE_KERNEL));
+> +		ret =3D PTR_ERR(next_bridge);
+> +		dev_err_probe(dev, ret, "failed to get follow-up bridge.\n");
+> +		goto unregister_aux;
+> +	}
+> +
+> +	ret =3D drm_bridge_attach(encoder, next_bridge, bridge,
+> +				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
 
-Callers compute offsets from bo->vaddr and proceed to read or write to it
-without any NULL checks. For example:
+[Severity: High]
+Does this code leak the next_bridge reference?
 
-v3d_sched.c:v3d_copy_performance_query():
-	v3d_get_bo_vaddr(bo);
+Calling of_drm_get_bridge_by_endpoint() increments the reference count of t=
+he
+returned bridge, but there doesn't seem to be a corresponding drm_bridge_pu=
+t()
+on either the success or error paths to release it.
 
-	data =3D ((u8 *)bo->vaddr) + copy->offset;
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "Failed to attach next bridge\n");
+> +		goto unregister_aux;
+> +	}
+> +
+>  	dw_dp_init_hw(dp);
+> =20
 
-This is reachable by an untrusted userspace program triggering CPU jobs via
-DRM ioctls while the system is under memory pressure.
+[Severity: High]
+This is a pre-existing issue, but does registering the AUX channel early
+expose uninitialized hardware to userspace?
+
+Looking earlier in dw_dp_bind():
+
+	ret =3D drm_dp_aux_register(&dp->aux);
+	if (ret) {
+		dev_err_probe(dev, ret, "Aux register failed\n");
+		return ERR_PTR(ret);
+	}
+
+And then later:
+
+	dw_dp_init_hw(dp);
+
+	ret =3D phy_init(dp->phy);
+
+If a userspace process opens the AUX character device and initiates a
+transaction before dw_dp_init_hw() and the IRQ setup are called, the hardwa=
+re
+may enter an invalid state and miss completion interrupts.
+
+>  	ret =3D phy_init(dp->phy);
+
+[Severity: High]
+This is a pre-existing issue, but can the lack of completion reinitializati=
+on
+cause race conditions?
+
+Looking at dw_dp_aux_transfer() in the same file:
+
+	regmap_write(dp->regmap, DW_DP_AUX_CMD, value);
+
+	status =3D wait_for_completion_timeout(&dp->complete, timeout);
+
+If a previous AUX transfer timed out but the hardware eventually triggered a
+late interrupt, the completion object will remain in a done state. The next
+AUX transfer will see this stale state, causing wait_for_completion_timeout=
+()
+to return immediately before the new transfer has actually completed.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610-v3d-cpu-jo=
-b-fixes-v1-0-0d9c88989edc@igalia.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-synopsys-d=
+w-dp-improvements-v3-0-dc61e6352508@collabora.com?part=3D3
