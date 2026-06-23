@@ -4,60 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5ADFCCDB46F
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 10:15:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 885B2CDB470
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 10:15:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B84B010EA70;
-	Tue, 23 Jun 2026 10:15:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB2EB10EA6E;
+	Tue, 23 Jun 2026 10:15:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cr3/0at9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JCbbUVAC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C30F310EA70;
- Tue, 23 Jun 2026 10:15:16 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9387210EA7C;
+ Tue, 23 Jun 2026 10:15:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782209717; x=1813745717;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=G/k3h2BJE8WZumI5d6cXS3RO4xeI3jG46C8bYqPdoX4=;
- b=cr3/0at9GDN7exWq1xPu3m8RYLND6qoxhj+GqAblLS2H3p0w2Q7rrtBZ
- ygZtQx30qxUiZ9pfFrc3cBW8aPZutF0lQIcL7h+9jMP3/U5VVwCA9PkGt
- cOr4VgGBLpjCo8hjZPNRjSkndegxsrzb4LRtaolKR69tnm4MlKflYtKev
- sasBWLYngLFpdlfaB+vbduqXrawxFt55nwIPa8pXPIGbZ5Q553dX2KHne
- jgo9dopSOKFqv0437lBtLGmxzPXjRzlzdrR4QjdmeTGgdaizHLLYlIEV7
- 5qPpwbMujg8N+IMs9txCl3FirqbB1BfvOeZyPC0wvSWbGIP0ViUhEh+jR g==;
-X-CSE-ConnectionGUID: DWX9KaFLS6KelCWuvvhcgw==
-X-CSE-MsgGUID: iPaH1Th+SS6LfwxBJKHK3Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11825"; a="82053222"
-X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="82053222"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2026 03:15:17 -0700
-X-CSE-ConnectionGUID: VvmRnpGlSoWwUSctelntNA==
-X-CSE-MsgGUID: zBiRPfLIQeym9/bvLKew2Q==
+ t=1782209745; x=1813745745;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=vhwRlaHfCUw5+P27ffYkoK22J+Bfg1u7ICXMTgzUUzE=;
+ b=JCbbUVACXkHRWkCaDMSv0jC/8//idZhaD/xHG9nB36QmsrUo/P/aydV3
+ /q1aCdHVcEHhRFaikv4ovD+HtXc1qhrbDrguQx+Dni0TaM9K3lQp1D0Ft
+ BQjNSVh8CEszcytInRV7v8QKIUJ7YFqDtNhFEp97L/npqNzzRWHk8A2ep
+ Nh3kNjXMVZC9nqA6cdihZepu/9DL9W6K2jL+FsjggCw32bbCssHg9vC2S
+ Gn7AC+F9dFwS5jvw5eeXfNKxCzvOyGy27CUGWwOvCuUWMtgLxk3+Jz/rt
+ 9U7g00NWblVIwKiVlaapQ/C6053UGuc7DNENGJjtHuIHwm5r9wPSN/dd9 g==;
+X-CSE-ConnectionGUID: TKeMAHweR0qRUuhNfWfxWQ==
+X-CSE-MsgGUID: Xo8IQUIkQseCSLlXVVjL4w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11825"; a="82817958"
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="82817958"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2026 03:15:44 -0700
+X-CSE-ConnectionGUID: +lTD6a5QRh61rwNw/QSWkg==
+X-CSE-MsgGUID: 070HlsbHQsminhHLuVg+Yw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="273175572"
-Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by fmviesa002.fm.intel.com with ESMTP; 23 Jun 2026 03:15:12 -0700
-From: Raag Jadav <raag.jadav@intel.com>
-To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- netdev@vger.kernel.org
-Cc: simona.vetter@ffwll.ch, airlied@gmail.com, kuba@kernel.org,
- lijo.lazar@amd.com, Hawking.Zhang@amd.com, davem@davemloft.net,
- pabeni@redhat.com, edumazet@google.com, dev@lankhorst.se,
- zachary.mckevitt@oss.qualcomm.com, rodrigo.vivi@intel.com,
- riana.tauro@intel.com, michal.wajdeczko@intel.com,
- matthew.d.roper@intel.com, mallesh.koujalagi@intel.com,
- Raag Jadav <raag.jadav@intel.com>
-Subject: [PATCH v4 5/5] drm/xe/sysctrl: Reuse xe_sysctrl_create_command()
-Date: Tue, 23 Jun 2026 15:39:59 +0530
-Message-ID: <20260623101043.255897-6-raag.jadav@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260623101043.255897-1-raag.jadav@intel.com>
-References: <20260623101043.255897-1-raag.jadav@intel.com>
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="253359490"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by orviesa003.jf.intel.com with ESMTP; 23 Jun 2026 03:15:41 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+ id 6A8D095; Tue, 23 Jun 2026 12:15:39 +0200 (CEST)
+Date: Tue, 23 Jun 2026 13:15:37 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Raag Jadav <raag.jadav@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ "Michael J . Ruhl" <michael.j.ruhl@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Riana Tauro <riana.tauro@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/2] drm/xe/i2c: alerts and controller enabling
+ modifications
+Message-ID: <ajpcyS3s6hArVQy8@kuha>
+References: <20260622114759.3464047-1-heikki.krogerus@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260622114759.3464047-1-heikki.krogerus@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,62 +78,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that we have a helper to create sysctrl command, reuse it for
-threshold crossed events.
+Hi Raag,
 
-Signed-off-by: Raag Jadav <raag.jadav@intel.com>
----
- drivers/gpu/drm/xe/xe_sysctrl_event.c | 28 ++++++++-------------------
- 1 file changed, 8 insertions(+), 20 deletions(-)
+I completely forgot the enum for the clients that you proposed
+off-list. Sorry about that. I'll add it in v2.
 
-diff --git a/drivers/gpu/drm/xe/xe_sysctrl_event.c b/drivers/gpu/drm/xe/xe_sysctrl_event.c
-index b4d17329af6c..0547b7b39726 100644
---- a/drivers/gpu/drm/xe/xe_sysctrl_event.c
-+++ b/drivers/gpu/drm/xe/xe_sysctrl_event.c
-@@ -49,18 +49,6 @@ static void get_pending_event(struct xe_sysctrl *sc, struct xe_sysctrl_mailbox_c
- 	} while (response->count);
- }
- 
--static void event_request_prepare(struct xe_device *xe, struct xe_sysctrl_app_msg_hdr *header,
--				  struct xe_sysctrl_event_request *request)
--{
--	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
--
--	header->data = REG_FIELD_PREP(APP_HDR_GROUP_ID_MASK, XE_SYSCTRL_GROUP_GFSP) |
--		       REG_FIELD_PREP(APP_HDR_COMMAND_MASK, XE_SYSCTRL_CMD_GET_PENDING_EVENT);
--
--	request->vector = xe_device_has_msix(xe) ? XE_IRQ_DEFAULT_MSIX : 0;
--	request->fn = PCI_FUNC(pdev->devfn);
--}
--
- /**
-  * xe_sysctrl_event() - Handler for System Controller events
-  * @sc: System Controller instance
-@@ -72,16 +60,16 @@ void xe_sysctrl_event(struct xe_sysctrl *sc)
- 	struct xe_sysctrl_mailbox_command command = {};
- 	struct xe_sysctrl_event_response response = {};
- 	struct xe_sysctrl_event_request request = {};
--	struct xe_sysctrl_app_msg_hdr header = {};
-+	struct xe_device *xe = sc_to_xe(sc);
-+	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
- 
--	xe_device_assert_mem_access(sc_to_xe(sc));
--	event_request_prepare(sc_to_xe(sc), &header, &request);
-+	xe_device_assert_mem_access(xe);
- 
--	command.header = header;
--	command.data_in = &request;
--	command.data_in_len = sizeof(request);
--	command.data_out = &response;
--	command.data_out_len = sizeof(response);
-+	request.vector = xe_device_has_msix(xe) ? XE_IRQ_DEFAULT_MSIX : 0;
-+	request.fn = PCI_FUNC(pdev->devfn);
-+
-+	xe_sysctrl_create_command(&command, XE_SYSCTRL_GROUP_GFSP, XE_SYSCTRL_CMD_GET_PENDING_EVENT,
-+				  &request, sizeof(request), &response, sizeof(response));
- 
- 	guard(mutex)(&sc->event_lock);
- 	get_pending_event(sc, &command);
+On Mon, Jun 22, 2026 at 01:47:57PM +0200, Heikki Krogerus wrote:
+> Hi,
+> 
+> This includes support for the SMBus alerts, and special handling for the
+> IC_ENABLE register.
+> 
+> Thanks,
+> 
+> Heikki Krogerus (2):
+>   drm/xe/i2c: Handler for SMBus Alerts
+>   drm/xe/mcu_i2c: Take over control of the controller enabling
+> 
+>  drivers/gpu/drm/xe/Makefile       |  1 +
+>  drivers/gpu/drm/xe/xe_i2c.c       | 86 ++++++++++++++++++++++++++++---
+>  drivers/gpu/drm/xe/xe_i2c.h       | 16 ++++++
+>  drivers/gpu/drm/xe/xe_i2c_smbus.c | 59 +++++++++++++++++++++
+>  4 files changed, 154 insertions(+), 8 deletions(-)
+>  create mode 100644 drivers/gpu/drm/xe/xe_i2c_smbus.c
+
+thanks,
+
 -- 
-2.43.0
-
+heikki
