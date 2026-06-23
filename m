@@ -4,62 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C27EACD98F0
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 05:33:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49795CD4F26
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 05:40:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D64B10E951;
-	Tue, 23 Jun 2026 05:33:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAFA710E953;
+	Tue, 23 Jun 2026 05:40:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UGWcdCAe";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="M7pNPP72";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29B8110E94F;
- Tue, 23 Jun 2026 05:33:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 08EC46001D;
- Tue, 23 Jun 2026 05:33:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78CA71F000E9;
- Tue, 23 Jun 2026 05:33:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782192790;
- bh=ZPxkD7F8ITxnRJZO4JYJC0JKAPV/wMzHOr5uq5/AI9E=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=UGWcdCAeFz7KJBjJYTpwOnCdP9C7RdIfgUkijpZS4cldZJ1uBEAWv1SU0KAdfXEj+
- NNEUrmtvicpJSqM5Tn1H/dA7HkP3PVFWB4bhKwoEIc53L+073TWls3WsRZJP1m/P68
- znwOJCpzVWi609urNj5fJLl41YBuTaUzwKqdlPPz5e/HDGZiqv4Oa2RVE5yZ3zON6t
- CR53JGmlOY4BI7A145OsUVG9poe3djGCSCYGS4MHRM7xMOwcwiMEYmIN+jUxg7E3VF
- Cob+HW62CAJ+A0bVghkIrQS7IGF4bbzpXzjWaeGVggTi9c0cTnx01sF4SwAEHmxhpO
- RmhL53NsWzaGQ==
-Date: Tue, 23 Jun 2026 15:32:58 +1000
-From: Dave Chinner <dgc@kernel.org>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Dave Chinner <david@fromorbit.com>, Qi Zheng <zhengqi.arch@bytedance.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>
-Subject: Re: [PATCH v6 1/2] mm: Introduce opportunistic_compaction concept to
- vmscan and shrinkers
-Message-ID: <ajoaikDrKz7JGr5h@dread>
-References: <20260617032218.1165929-1-matthew.brost@intel.com>
- <20260617032218.1165929-2-matthew.brost@intel.com>
- <ajnA83DxAFqeJ-sv@dread>
- <ajnOvdbT5/J6q3IN@gsse-cloud1.jf.intel.com>
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011039.outbound.protection.outlook.com [52.101.62.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5D8610E953;
+ Tue, 23 Jun 2026 05:40:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Kwyn6/knYHpp0XhViKE0zJSn4+o1dX3Rx68LFDfFIBfxYDNxTAH2Snk262tg1FJv/buYVynSlmVIFhhmv+OL9i+SNjgbN+GdFJR/cQiXLdapcDDlKGS2gJXbga2qz3EW++POco6O4vL/mEecCvKAg7noGX2fiiSQd2WMbIjJQ4E6Mkjcxm9WMq0zgr89Nu0S8aHRNXB9UckNQFn/3QZXTSybOKwFvUiGhyoNJoVLpQWmjC2oyEnb/8bHkCK9xiBS4ApOkq5XaVY+X48qDIqFlAFNw2Ttrp+nRC7HWtsB6r6FqBIN9AdnDHPtrx7HHtcThUBCVcjpVzccEP+u8nUKCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GT1WjYlARq7nqR7ctJBqu7VbYrVOr7gION/DzEkfQNU=;
+ b=ZEzbwWRfu1s+usDn4aaQxZMglnPSfEJImF4TkYiCXbY2ZkBkhvIYLPiHz7ZqgPkDXrkAM3m/r2iCm2yWB8Zx0lvD7nGJfj3verJ0r7jc5jyNxjfubHw0dXgjtAthGp5xQzQik17Pk6qR5AsrVb/Sgu/yKs2+qR5g0UHp8ZIlfQ5B/zX9mTjbR3bKba6J0XTb40Eof3ScBStp8H5fenZP8OW1TBEpX2V8OgWBtbrWsNL92JvRcfux7Ris/Pj7m77NR3w11yFUceZ0xUqx6azMr9U9/OH3umcoF7KotZzaw9n56F3hN71Ouax44Rq4H7NYf0ch8v2gY8EdRLk6IJ1SmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GT1WjYlARq7nqR7ctJBqu7VbYrVOr7gION/DzEkfQNU=;
+ b=M7pNPP72IjDn/UnAkB692K30kGfW1npCkyeDA90F08DNqKV3ODOOsQIrom94rNTRuTFnHg8Ss7Xn8iexlXFp0hHC3RRv8RiFCUbEp7pNTNeENy0E2wusxyb9e1ob0Zb0q5kchLupIDK+33xQOgU4/Ih9GuicyUJ/fbduXlbWqp2ultkFhUgDK58FLc1XEcAOPVQkhMNqPjJRf1ZP+bvxtA7PjM7sk/xBEDATYx03DdDDAQ7DQoYSU1ydpetho6BU9guiqbNJp5MzzJfy4K5V4/vm+Hllmiuzm7TLkTX4OhbAYxo4TpxNOLEDVeyM2asTvfpwnU+6gAxV2+sq5G0LqQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by BN7PPF28614436A.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::6c9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Tue, 23 Jun
+ 2026 05:40:48 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0139.018; Tue, 23 Jun 2026
+ 05:40:48 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 23 Jun 2026 14:40:44 +0900
+Message-Id: <DJG6S20KHJK3.TKRZLBYUPGG2@nvidia.com>
+Subject: Re: [PATCH 3/6] gpu: nova-core: gsp: move boot code into local closure
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260619-nova-bootcontext-v1-0-45193cd0a2e5@nvidia.com>
+ <20260619-nova-bootcontext-v1-3-45193cd0a2e5@nvidia.com>
+ <DJFF1W6VGY4Q.2PV5MEPMFXIDB@nvidia.com>
+ <DJFO5A5XN2EO.22B58J2O6D4JG@nvidia.com>
+In-Reply-To: <DJFO5A5XN2EO.22B58J2O6D4JG@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0095.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b4::18) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ajnOvdbT5/J6q3IN@gsse-cloud1.jf.intel.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|BN7PPF28614436A:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ec67916-77ec-4355-849c-08ded0e9faaa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|10070799003|23010399003|366016|376014|7416014|18002099003|22082099003|11063799006|3023799007|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info: AhkgnPsQ+XotbLgsJnzG2u/+q6RzkGi5jEzDn5380BxtFWIe4ihDb6VdeGxyPLHtzlEo6J2OxcNExOqdagqNGpL+j6qozv1l2DQ7sfR+gkyWLj9EpUw1u2VkfV4mmLMuU6C/uaBZ7CO6OUGdmgJXHzKROPCErz/aqdd9m8YYl64GNgQI2KD1SJ+hbJpi26Mt0Qz7Uib9Cz2Be399u2M4HgNg9/z71WeyRmcTpDlBO6RnKqRc8F7yjhmK2BNhbo49s/Xbesu0+38tZUPM0o+Jc5bC+ifbQ0MCpwqybWqdHRWe3iQAqrciN5/hejshsPrIT+FRp3ctJwvMF+5QiwkL9ZZCgY4Gg9ZHU86bXrS3jnnnlcg/C5tFeBY4EMuVsY7VbJxo67qnaSEjnwX3iARhRwCbMapif+2KYYtfFbS+pPGQE+4b9FsCu+u7WngnyNZFy6pMUSrRcz2jjOA6k50ZyoW/mH9ofeI6WwO/cL+ArXnmJDidNxtibYv8whno2oM8o/ocTM4/Gh8SZ39HRn1JO81Lxab3NuKR8bVjAV6IkrDuWQEA7aj16W8FORBvgbAarIUot7+WRxtixYZKyJFheu/OS3WsgIxnS+hrvYYRcKl++oLanx5Bff5q5RCkpq8b3uVjYGwnRm0JGzPBSWuve5VZfK9G6S2a7W+RYWZhcYk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(10070799003)(23010399003)(366016)(376014)(7416014)(18002099003)(22082099003)(11063799006)(3023799007)(56012099006)(4143699003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L2hON1dxQ3JaV0NWcUN4MTJBYk44WC9WbU0xaTNWREVuWmlxcU9BOExVb2U4?=
+ =?utf-8?B?ZFIwK1NRMWRjbHRZQWtaNlRYZFNGaXVubTAyU2VtS3N0UG5Vckt5cnZYVmZ6?=
+ =?utf-8?B?ZWJyRm9xc1lOUUV3NGZPMWtUQ2xqZWkyV3V1V0YyZExwUFpIRW50eEZtR1V5?=
+ =?utf-8?B?eS9FWXlUK1NseUVPaUZLd2FGQ0pFc2FwVXhrZUlRVGF5TnUxd2FQR3oyRGp5?=
+ =?utf-8?B?NmRHOFlUTWgzY3IyWTZhdjYvV25TcFE5UWlLNUlKdUc1WWg5TTRTM2lZZEV2?=
+ =?utf-8?B?M2VRNUo2aXZ2NGR6M2ljaTZkbHYwSGRFZjRYZ2Q0NXprOGhaejh5WTJWaGtL?=
+ =?utf-8?B?ajFFbkpDQTRTOWtKYWV5TjM4QU8zTmNkaWhudHZaZWp3NmdCd1JxYmptRElH?=
+ =?utf-8?B?d3NwdHpWYjFoUnJhZlhNRjNFT0hxWUlTck8rUitWcVhDdWFZVUxzWmdnK3RW?=
+ =?utf-8?B?enR5Y1ROTTh3V1JkbW4xM1RPL0p2bnZyUnNaU01FYWdjWTdmaTdQRnl5SzRv?=
+ =?utf-8?B?MTNHMGJsd1gxclVpMW0xdmxMdEl2UUFoUnF5SXlNaUJHYWFYYkp6UHhBMnJX?=
+ =?utf-8?B?aUFHSnJPRW85aWxBNnhYaGFHSGlFemJYUXR6TXVMVnhueGliMGZ6VkwxaHJP?=
+ =?utf-8?B?NmpCVVh0anltRVlSandjQ3JGdGRCSzdjVzNFcGZQQXlSYU9Sa1d3SFdYYXll?=
+ =?utf-8?B?aU1PU2gwamx3SDZCbXNVb2V1ZHY0dEF1Rm9iSEp0M3lreUU2cDFaWGV1K3B1?=
+ =?utf-8?B?L3E1VXdzVGg5VWE5U0tsVGE2cFJEdHl3LzBzd1JsaFRrQTc5WWwyTkE3WEhB?=
+ =?utf-8?B?M2N4T0x3Vm0rNVp4WlRKeXRwazZVSC84b3hPVEhtN2dxbFluZ3lpYXQ2SHNI?=
+ =?utf-8?B?ekhKb2REVkVtVnFFUElQanZHWkgyTkU1VlVOZXBQZ2U3M1R2Z1U3cnVXOUVK?=
+ =?utf-8?B?R2cwbTN1bTFac3Zlb0NSRXM1aHBjQ1YwZFcydytHRy9kUXVuLytFZVRzeC9X?=
+ =?utf-8?B?djJ6MVoxZnpBNXFKYVpXa3BSZUdtWTh5V0w3TElTT0dOQk9sQXd3MEsrdGRl?=
+ =?utf-8?B?WkVZTnN6RW5hb1U3eG95K1VQMEpSUmJJWVdUSVErVDFLVjlsa2ZocytyS3VI?=
+ =?utf-8?B?QUhIcXlZSmg0bVAxdXR6a0ladFpoMkRnME5OQUZLY1ZlYkFoM2ZXd3QyQ2pO?=
+ =?utf-8?B?emRXTGdqYXFFZzFqWEU0aW00SDhielh6Q3hxYVRQOUlhNEY5aENoL3VnK1A5?=
+ =?utf-8?B?Nk12ZmZqbms5S2V5bGdod0Q1dWFEUzVleVJCS2RFRllvbXlhcE5EUk9qRGZw?=
+ =?utf-8?B?Z1ZqUjdCOFg5T0p0Smg1SG1RbGpnRmJ6NzBEN2FscWJnVlVBd2llVUtEbHd0?=
+ =?utf-8?B?OTY5a1o0WHFYUmtYWlBNQ0FQM01jVUFzSGxKZWV5Y09LNUNLOU1RNkliOWlE?=
+ =?utf-8?B?TzBCcUhjMUxDdXM1NTFaNEk0WXp3NHdieWpoVy9xWTl4ZzdqY2JFZWlDTG9D?=
+ =?utf-8?B?R0xHdEx5UlJnVGZPQmdKZ1g3ZGtEQ1dZVzBOYzhGbWhrWldOem8xZTlKRE9J?=
+ =?utf-8?B?RS94SWx0cTFwSWxnYnBSdk81RmttRzJOVWxVeEZjaEV3ZGdtNmFFM1JDZ1J0?=
+ =?utf-8?B?MVJPZktOVTFsbmtBL1FUWHIxb0NUclRHSGoxd3Z5ODVramg4eWpaTU5KTE1r?=
+ =?utf-8?B?RWVYQnltNVFMVDdBa2s3WGxzZ0F3QWxTS3BMK1pZcWQxd255Nitnb1ArakVD?=
+ =?utf-8?B?TGs3bmtxL3NRc3kyamtWSUpBSk9iU054blJEYnNrV3NhNTlQSW90SEtYandP?=
+ =?utf-8?B?RFBRSVQzdFQvbUdxV0l0aDRZWVg0S3pCTmxHQ0dFQ0tJd2l5NloyZDBJcGlw?=
+ =?utf-8?B?TkdIR0NGRDVUWk5kakI1VUtJT2xBUEZoMmk3VHhlT1hCcDcyb0lMaWJaekEw?=
+ =?utf-8?B?bG9acXBLeWpobDZRd055Sjd0dEhLcXF0VWd3cTVVR015c3RyRU03WUUvSUJX?=
+ =?utf-8?B?d2FEb3YzR010dHdiaExBWEVRQWtRMTl3SXp6T1RFSWVZWUR0aTF0MUNiVlYr?=
+ =?utf-8?B?UmRQUktVVmtsQ1U5S3ZWZk9MUjJWS1pXWkVSdURLS3NlZTJJZ0JseTFERCtj?=
+ =?utf-8?B?WUZuKzI0anNoTzk5S0c5ZHZFUXVlMU02YzFEM3B3b09hdnNKT3Y0Tm9WNDQ1?=
+ =?utf-8?B?TEhhQTczWSt1YndJTU1DWnIrR1gvcGpVNVVNQlpKTitHUzNrL3E4RGRKOHdk?=
+ =?utf-8?B?OEpRSWdlUUNiRTNqYmF2RUNBdCt3ZUNWcW8xS3BOZGhsV0I0QXg1NGRPV3VF?=
+ =?utf-8?B?TVB1OUdYOUhqYysyYWdXMDVaZXBXV1p0TmFzYjJhSnhLYTh3a25vNWFlRHJL?=
+ =?utf-8?Q?AYdVBsdSHYEoVJWyZKFqmfQRLU5VhiCco7WCJoa9xB+or?=
+X-MS-Exchange-AntiSpam-MessageData-1: NtBGQV2pMqLPEA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ec67916-77ec-4355-849c-08ded0e9faaa
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 05:40:48.6319 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RhZyeiFF9O7HGlHUfTXFujpJYwW9X4jmm1HMRDezTEc+U3WhstoNFETkx6SeRYI0FePc2PFXUVGhX/ASnbTjuQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF28614436A
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,420 +147,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 22, 2026 at 05:09:33PM -0700, Matthew Brost wrote:
-> On Tue, Jun 23, 2026 at 09:10:43AM +1000, Dave Chinner wrote:
-> > On Tue, Jun 16, 2026 at 08:22:17PM -0700, Matthew Brost wrote:
-> > > High-order allocations using __GFP_NORETRY or __GFP_RETRY_MAYFAIL
-> > > are often opportunistic attempts to satisfy fragmentation-sensitive
-> > > allocations rather than indications of severe memory pressure. In these
-> > > cases, reclaim may invoke shrinkers that aggressively destroy working
-> > > sets even though reclaim is unlikely to materially improve the
-> > > allocation outcome.
-> > > 
-> > > Some shrinkers manage expensive backing or migration operations where
-> > > reclaim can result in substantial working set disruption despite the
-> > > system having sufficient free memory overall. This is particularly
-> > > visible in fragmentation-heavy workloads where reclaim repeatedly tears
-> > > down active state while kswapd attempts to satisfy higher-order
-> > > allocations.
-> > > 
-> > > Introduce an opportunistic_compaction hint in shrink_control that allows
-> > > kswapd to communicate when reclaim originates from a high-order
-> > > allocation context that may be fragmentation driven rather than true
-> > > memory pressure. Shrinkers may use this hint to avoid destructive
-> > > working set reclaim while still participating normally during order-0
-> > > or stronger reclaim conditions.
-> 
-> Thanks for the input - this is a tough problem.
+On Tue Jun 23, 2026 at 12:04 AM JST, Alexandre Courbot wrote:
+> On Mon Jun 22, 2026 at 4:57 PM JST, Eliot Courtney wrote:
+>> On Fri Jun 19, 2026 at 10:42 PM JST, Alexandre Courbot wrote:
+>>> The next patch aims at replacing the cumbersome `BootUnloadGuard` with =
+a
+>>> more local and less intrusive mechanism to run the GSP unload sequence
+>>> upon GSP boot failure. Doing so requires running the boot code in a
+>>> local closure, which changes its indentation and would make other
+>>> changes difficult to track in the diff. Thus, this preparatory patch
+>>> moves said boot code into a local closure that is run upon construction=
+,
+>>> so the next patch does not need to re-indent code that changes.
+>>>
+>>> This is a mechanical preparatory patch to make the next patch easier to
+>>> read. No functional change intended.
+>>>
+>>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+>>> ---
+>>
+>> I agree with removing BootUnloadGuard, but I think it's not great to do
+>> a bunch of lifting into closures then manually handling the result. It's
+>> error prone imo (we already had several bugs relating to this kind of
+>> thing). Instead, what about just using ScopeGuard directly? This lets us
+>> avoid lifting into closures (which is a bit noisy) and avoids manual
+>> result handling for failures (which is a bit error prone). With the
+>> `GspBootContext` it's fairly easy to do now:
+>>
+>> ```
+>> let unload_guard =3D ScopeGuard::new_with_data(unload_bundle, |unload_bu=
+ndle| {
+>>     let _ =3D gsp.unload(ctx, unload_bundle);
+>> });
+>> ```
+>
+> Yes, initially I wanted to use `ScopeGuard` but ran into issues when
+> trying to make the references mutable. However it looks like you have
+> been able to overcome these issues, thanks for taking the time to craft
+> a patch!
+>
+>>
+>> I confirmed that it's also compatible with the v2 of this series that
+>> has the mutable Fsp - you can stash the context inside the ScopeGuard
+>> data (then making a &mut reference to the stashed context for brevity)
+>> or have a separate unload context type that doesn't use FSP or something
+>> (could later be type parametrized along with Gsp, for example).
+>>
+>> For example here is a rough diff on top of this patch series (you can
+>> change the Result<Option<UnloadBundle>> returns to like
+>> Result<Result<UnloadBundle>> if you want to centralise teh error
+>> handling of a failed unloadbundle although currently it can only fail in
+>> one location):
+>
+> Yes, looking at it it looks like a cleaner approach than using closures.
+>
+> The only thing that I saw as a regression is that now each HAL needs to
+> call `Gsp::unload` itself in its own `ScopeGuard`. I don't think that's
+> the HAL's work - `Gsp::boot` should be the centralized point where this
+> happens.
+>
+> But we can make both work if `unload_bundle` is passed as an output
+> argument to `GspHal::boot` instead of being returned:
+>
+>     let mut guard =3D ScopeGuard::new_with_data((ctx, None), ...);
+>     let (ctx, unload_bundle) =3D &mut *guard;
+>
+>     // `unload_bundle` is a mutable reference to the
+>     // `Option<UnloadBundle>` in `guard`.
+>     hal.boot(&self, ctx, unload_bundle, &fb_layout, &wpr_meta)?;
+>
+> The boot method can fill `unload_bundle` early, and if it returns an
+> error then the `ScopeGuard` will be able to use it. Also, and that's
+> nice, the HALs don't need to use `ScopeGuard`. But output arguments
+> aren't really something we expect to see in Rust.
+>
+> Another alternative would be to separate the unload bundle construction
+> from `GspHal::boot`:
+>
+>     let unload_bundle =3D hal.build_unload_bundle(ctx, ...);
+>     let guard =3D ScopeGuard::new_with_data((ctx, unload_bundle), ...);
+>
+>     hal.boot(...)?;
+>
+> It removes the "1 boot -> 1 unload bundle" symmetry, but on the other
+> hand it also splits concerns more clearly. And it removes the awkward
+> return type of `GspHal::boot`, which come to think of it was another
+> smell that things were not in the right place.
+>
+> The main drawback I see is that we now need to build `Vbios` twice for
+> TU102, since it is needed both for the unload bundle and for booting.
+> But the solution is the same as what the v2 of this series does to
+> `Fsp`: the BIOS is a GPU-wide subdevice that is likely to be used
+> elsewhere, not something to be confined in a GSP HAL. So I say, let's
+> extract it and make it also part of `GspBootContext`.
+>
+> How does that sound?
 
-Yes, that it is.
+I think that currently it's confusing because we have two concepts in
+use with very similar names. We have "unloadbundle" meaning what we need
+to run to unload the driver, and we have "unload_guard" which is for
+running unwind stuff if we error. And for the most part these things are
+the same, but they might not be (e.g. in my other series where we need
+to keep certain DMA allocations alive just for the error path, but not
+for an unload later, or when we are partially loaded). So it might be
+nice to make these two things more separate.
 
-> > To be honest, this seems like another "push a hint through to the XE
-> > shrinker" mechanism under a different name. You seem so focused on
-> > fixing the XE reproducer that the -systemic problem- that -any-
-> > high-order folio demand causes is not being acknowleged.
-> > 
-> 
-> I'm not exactly sure I agree here. Communicating via __GFP_NORETRY or
-> __GFP_RETRY_MAYFAIL with a higher order implies that the caller can
-> handle higher-order allocation failures, so the shrinker shouldn’t try
-> too hard to obtain a large page (e.g., evict a working set). I agree
-> that Xe is currently the only shrinker making use of this, but other
-> shrinkers could also hook into it. This information simply isn’t
-> available today.
+I think that trying to build the unload bundle separately
+(`build_unload_bundle`) is confusing because e.g. hal.boot() still needs
+to handle unwinding its state in case of error, so it adds a strong
+assumption that unloading in success is the same as unwinding in error.
 
-Right, but "we are doing compaction" isn't information that tells
-the subsystem shrinker what it needs to do. "memory compaction is
-occurring" isn't a well defined action like "count reclaimable
-objects" or "scan N objects and reclaim as many as you can without
-blocking".
+If we switch to a model where the caller owns Gsp::unload, we need to
+support prolonging some state until gsp.unload() finishes, e.g. in my
+blackwell fixes series, we need to prolong DMA allocation in the error
+case for `FmcBootArgs`. It's doable to prolong the DMA allocation
+because the callee currently owns running the Gsp::unload. But we would
+need to do some gymnastics if the caller owns running Gsp::unload and I
+can't figure out a nice way to do this. In general, if we have partially
+initialized hardware, it seems likely to me we will have to handle
+keeping a certain set of resources alive until we can guarantee they are
+not accessed anymore (gsp inactive being a clear marker).
 
-Directed high order object reclaim should be much efficient that
-trying to use general memory pressure to age out enough objects to
-reform contiguous pages. We need to help memory compaction, and we
-can't really do that by layering heuristics over reclaim algorithms
-designed to maintain working sets efficiently.
+Separately, I think it would be good to explicitly define the semantics
+of what the state should be in after each one of these calls in
+Gsp::boot. For example:
 
-> > e.g. we use high-order folios extensively in the page cache these
-> > days, and there are -many- cases where memory compaction driven by
-> > high-order demand cause significant performance regressions for page
-> > cache performance. To date, every single person who has wanted to
-> > fix the problem they are seeing has effectively attempted to -turn
-> > off compaction- via GFP flags.
-> 
-> So does that mean they clear __GFP_RECLAIM?
+"Callees that fail should call gsp.unload(ctx, unwind_bundle) to unload
+if it's required. If it succeeds, return an unload bundle."
 
-Usually __GFP_DIRECT_RECLAIM, as it's the overhead of direct
-compaction that causes the performance problems.
+For state that should be unwound *before* Gsp::unload, I think the HAL
+methods should handle it internally (regardless of what we decide for
+caller vs callee ownership of running gsp.unload). But we do have to
+deal with unwind that needs to happen after gsp shutdown unfortunately.
+It might be nice to make this more explicit.
 
-> That isn't really what in DRM or Xe. In former case we have pools of
-> lower order pages in TTM not in use that can be shrunk, potentially
-> freeing multiple lower orders pages so a higher order page formed, and
-> the later possible BOs (sets of pages) in Xe marked as purgable (not is
-> in working set) which can also be shrunk. Other DRM drivers have purging
-> concepts too.
-> 
-> I’m not very familiar with what other shrinkers or subsystems want, but
-> presumably other shrinkers have pools or caches that aren’t currently in
-> use, where they can say, “OK, I’ll give these pages up for opportunistic
-> compaction, but I won’t give up my working set.” Of course, as mentioned
-> above, if someone else explicitly requests large pages by avoiding
-> __GFP_NORETRY and __GFP_RETRY_MAYFAIL, the shrinker should then give up
-> its working set.
+So it kinda sucks to have to repeat Gsp::unload in HALs, but also I
+think that whether Gsp::unload is required depends on how far we have
+initialized, so HALs may not want to actually call it. So IMO it makes
+some sense there too to have them decide. (e.g. if we only loaded Vbios
+so far).
 
-Most caches are slab-based, so there can be 10s of objects with
-different life cycles per page. There is no almost possiblity that
-shrinker reclaim will free pages without substantial
-amounts of the cache being reclaimed.
+So concretely, IMO:
+1. Keep gsp.unload() the responsibility of the callees, because they may
+   need to prolong state until after gsp.unload, and, maybe we are not
+   initialized enough to want to call gsp.unload yet and callees know
+   this best.
+2. Through naming, explicitly differentiate between unload and unwind.
 
-> > I've even done that myself inside XFS to work around kvmalloc()
-> > issues with a lack of GFP_NOFAIL support and doing costly high order
-> > allocations that fail and trigger compaction before falling back to
-> > vmalloc().  However, these issues have since been fixed in the
-> > kvmalloc() code, such that it now does the right thing for most
-> > calling contexts (i.e. tries high-order kmalloc() without triggering
-> > compaction, then fall back to GFP_NOFAIL vmalloc()). This has made
-> > kvmalloc() more performant and better behaved for -all users-, not
-> > just XFS.
-> > 
-> > This is not sustainable - we need compaction to be robust and
-> > performant in the face of high-order folio demands, regardless of
-> > what subsystem is generating the demand.
-> > 
-> > So with that in mind, let me paraphrase the comment in the second
-> > patch in the Xe shrinker implementation:
-> > 
-> > "Shrinker reclaim is based on implementation specific object sizes
-> > so it is unlikely to ever acheive contiguous page reclaim in a
-> > manner that will measurably improve compaction rates."
-> > 
-> 
-> This might be slightly misworded—what I really mean is that I don’t want
-> to give up my working set for higher-order allocations that are allowed
-> to fail, but I do want to give up my cache.
-
-Right, that's the core of the problem - compaction is the high-order
-reclaim trigger, the existing shrinker infrastructure reclaim is for
-the working-set maintenance reclaim algorithm the subsystem uses..
-
-> > You also say:
-> > 
-> > > No functional changes are introduced for existing shrinkers.
-> > 
-> > Consider how many shrinkable caches the general statement above
-> > applies to, and then think about the fundamental impedence mismatch
-> > between the affected shrinkable caches and what this patch actually
-> > fixes.
-> > 
-> 
-> Yes, as mentioned above, I’m only addressing Xe here, and I agree that
-> this is likely an issue. Do you know of other shrinkers that have pools
-> or caches which can be shrunk under the conditions I’m introducing here,
-> but also have a working set they would prefer not to give up?
-
-The first that comes to mind is the xfs_buf cache. This cache holds
-cached metadata buffers that have different sizes can each contain
-up 64kB of contiguous pages. The allocation algorithm uses
-optimisitic large folios allocation, but if that fails it falls back
-to vmalloc. The working set is maintained by a prioritised
-multi-scan LRU so that more frequently accessed metadata is held
-tighter by the cache than less frequently accessed (e.g. btree roots
-have higher retention priority than the lowest leaves).
-
-It does not currently track buffer objects by size, by if there was
-a benefit to doing so then it could be implemented. I'd much prefer
-to have such tracking separate to the working set maintenance,
-especially as they will likely need some kind of balancing to
-prevent high-order buffers in the working set from being thrashed by
-compaction demand....
-
-I know there are other caches that have variable sized objects, but
-I'd have to go look at the code to referesh my memory of which ones
-they are...
-
-> If so, a
-> link on elixir.bootlin.com would be helpful so I can take a look. I’ll
-> also try to go through other shrinkers myself.
-
-cscope is your friend.
-
-fs/xfs/xfs_buf.c contains the XFS buffer cache and shrinker
-infrastructure, but looking at the code without any understanding of
-the filesystem structures or how it interacts with the other XFS
-shrinkable caches probably isn't as useful as you might think it
-will be. 
-
-> > For example, what happens to slab-based caches if the XE cache is being
-> > excessively reclaimed under high-order page demand? e.g. the slab-based
-> > cache may have tens of objects per page and holds a system-level
-> > performance critical working set of objects. How do these caches
-> > handle the excessive reclaim demand being generated by compaction
-> > thrashing?
-> > 
-> > Yup, they don't.
-> > 
-> 
-> Agree.
-> 
-> > In the case of filesystem caches, the "reclaim and repopulate"
-> > pattern you describe causing the XE perf problems causes internal
-> > slab cache fragmentation. Not only does this not improve compaction
-> > rates, it also results in more memory fragmentation because slab
-> > pages get pinned by a small number of long lived objects and they
-> > won't get freed until the cache is largely emptied.  IOWs, things
-> > get -even worse- from a memory fragmentation POV when compaction
-> > thrashing causes the working set of a high-object-count-per-page
-> > slab cache to thrash....
-> > 
-> 
-> Got a link to the code which you are referring to?
-
-Do a lore search for "dentry cache defragmentation". You should be
-able to find discussions that go back to around 2006 about
-discussions on identry cache fragmentation and approaches like
-slab-page based object reclaim to support internal defragmentation.
-
-The fact that we don't have slab cache defragmentation despite many
-years of people wanting such functionality should tell you how
-complex the problem is.... :/
-
-> That seems like a problem similar to another issue in DRM/Xe. We found
-> that the process of shrinking actually drove fragmentation by splitting
-> folios down to order-0 and then backing pages up one at a time. I have a
-> separate fix in flight for that.
-
-Possibly, though the life cycle differences I'm talking about can be
-a few milliseconds (temporary file) vs weeks (long running database
-instance holding it's table files open the whole time it is
-running).
-
-> Could the filesystem detect these hints and avoid shrinking in a way
-> that causes fragmentation?
-
-Not really. The fragmentation problem is caused by physical object
-placement in the slab pages at allocation time, not the act of
-reclaiming the object.
-
-i.e. we don't know what the expected cache life time of a dentry or
-an inode will be when we allocate it, so it just gets allocated in
-the next free slot in the current partial slab page. When you get a
-mix of dentries that are pinned by open files in long running
-applications and dentries for access-once files in the same page, we
-end up with reclaim freeing all the object slots that contained
-access-once files. However, the pages are still pinned by the
-objects for the open files that are in active use.
-
-IOWs, LRU-based reclaim can free >90% of the objects in a cache that
-held millions of objects with mixed lifetimes and still not free any
-memory at all. There's nothing reclaim can do about it because the
-problem is created at allocation time when lifetime is a complete
-unknown.
-
-> Alternatively, could it perform shrinking in
-> a way that doesn’t shatter folios, or detect long-lived objects so it
-> understands that shrinking isn’t going to help reduce fragmentation?
-
-Referenced filesystem objects are not on the LRUs, so the shrinkers
-aren't even aware of such long lived objects. And, as per the
-"dentry cache defrag" comment above, we can't ask the slab to
-reclaim or move objects because we don't track the owners of
-external references to the objects themselves.
-
-> 
-> > This isn't isolated to individual subsystem thrashing.  If we run a
-> > file-based workload that generates high-order folio demand and hence
-> 
-> What GFP flags are typical used for file-based workloads?
-
-Mostly GFP_KERNEL, with a mix of GFP_NOFS. non-blocking paths also
-tend to add GFP_NOWAITS, and memory reclaim sensitive paths often
-use __GFP_MEMALLOC to prevent reclaim recursion. Some filesystems
-also make extensive use of GFP_NOFAIL (e.g. XFS).
-
-> > compaction (e.g copy tens of GB of files between two XFS, ext4 or
-> > btrfs filesystems), that will -also- trash the Xe working set via
-> > the shrinker being hammered by memory compaction try to free up
-> > contiguous pages for the page cache.
-> >
-> 
-> I could see this.
-> 
-> > Similarly, if we run a Xe workload that generates sustained high
-> > order folio demand, that will trash the working set in the dentry
-> > and inode caches and any other shrinkable slab-based cache.
-> > 
-> 
-> I could also see this but DRM / Xe will set __GFP_NORETRY or
-> __GFP_RETRY_MAYFAIL on higer-orders so those caches should be able to
-> not trash its working set if looked for this hint. 
-
-This relies on all the allocation code everywhere always doing
-exactly the right thing so that memory reclaim "behaves". That is
-what I've been saying is not a sustainable approach - all it takes
-is one allocation or one shrinker not to do the right thing, and
-we've got another mole to whack.  i.e. memory allocation should do
-the right/best thing for the system with default parameters.
-
-> > Hence the abstracted case of the problem we need to solve is this:
-> > shrinker reclaim is based on x-byte objects is extremely unlikely to
-> > acheive contiguous page reclaim in a manner that will measurably
-> > improve compaction rates.
-> > 
-> > This is a problem that has to be addresses by the high level
-> > infrastructure level, not worked around by individual shrinkers.
-> > 
-> > IMO, compaction shouldn't trigger shrinkers unless the shrinkers are
-> > specifically flagged as being able to release contiguous pages of
-> > memory in short order. I don't think there's very many shrinkable
-> > caches that even hold a significant quantity of objects larger than
-> > a single page, so it's clearly questionable as to whether compaction
-> > based reclaim should run shrinker reclaim to begin with.
-> > 
-> 
-> Yes, sort of do this in Xe by changing '->count_objects' based on the
-> hint.
-
-I know. That's the problem - it's relying on the infrastructure
-passing down a specific internal context hint in an existing
-interface so a specific subsystem can work around a specific
-problematic behaviour.
-
-Indeed, for compaction we don't actually care about the count, what
-we largely care about is whether the subsystem has any objects the
-same size or larger than the current compaction demand. Efficient
-object reclaim for compaction has a different control variable set
-(e.g. find objects larger than, objects physically near to, etc),
-and this can't really be properly fitted into the existing
-count/scan shrinker reclaim algorithm.
-
-Hence I think it needs new shrinker methods to implement
-effectively.
-
-> > i.e. a subsystem that can track high order folios in a shrinkable
-> > cache should probably have a "->compaction_scan()" method that is
-> > run directly from compaction context to try to free high order
-> 
-> When you say “compaction context,” which parts of the code are you
-> referring to? I’d like to explore this option, but I need a bit more
-> context.
-
-kcompactd does background compaction, similar to how we have kswapd
-to do background memory reclaim.
-
-Direct compaction (part of direct reclaim) via
-__alloc_pages_direct_compact() that will be called before direct
-memory reclaim in the case of a high-order allocation.
-
-> 
-> > folios. This provides a direct opt-in mechanism for a subsystem, and
-> > it allows subsystems that can track low- and high- order objects
-> > independently to efficiently free objects in a way that will help
-> > improve compaction rates without impacting the entire working set of
-> > objects in the cache.
-> 
-> 
-> Does this help if, for example, the cache is holding onto two order-8
-> folios that could be freed and merged, while the caller really wants an
-> order-9 folio? This seems like a possible scenario in caches and is
-> certainly true in TTM pools.
-
-Depends on how the interface is implemented.
-
-IIUC, the direct compaction code will return a right-sized page
-early if it creates one via compact_zone(). Hence if that path can
-call into shrinkers to do high-order scanning that results in two
-mergable order-8 objects being freed and merged into an order-9
-object that fulfils the compaction requirements, then it will result
-in compaction succeeding where it currently fails.
-
-And I think that kcompactd will run until certain watermarks are
-met, so again having a high-order shrinker that directly impacts the
-high order page watermarks would be much more efficient that trying
-to use general memory pressure to randomly shoot down enough objects
-to reform contiguous pages.
-
-> > IOWs, this patch to inform kswapd about it's trigger (doesn't it
-> > already have a "reason" parameter, though?) is likely a necessary
-> > part of the solution - we don't want kswapd running shrinkers if it
-> > has been triggered to reclaim pages for compaction. This patch would
-> > allows kswapd to elide normal shrinker passes when it has been woken
-> > purely for compaction purposes. Given that the compaction code would
-> > be running the high-order reclaim capable shrinkers itself, this
-> > would avoid trashing the working set of most shrinkable caches -by
-> > default- under high order allocation demand....
-> >
-> 
-> I’m trying to parse this—are you suggesting that, one way or another, we
-> introduce a heuristic where shrinkers can act on a hint (whether it’s
-> what I have here or a new ->compaction_scan() vfunc), and then attempt
-> to fix all shrinkers in this series?
-
-I don't want existing shrinkers to be touched at all.
-
-What I want is for memory reclaim (both direct and kswapd) to elide
-the shrink_slab() calls into shrinkers when memory reclaim is being
-driven by high order allocation failure.
-
-i.e. high-order allocation failure should not generate shrinkable
-cache memory pressure because shrinkable caches in general cannot
-return contiguous memory that will allows compaction to make
-progress. The existing behaviour has more negative affects on system
-performance than positive, so we need a fix for "everyone".
-
-I think we should provide a new opt-in ->compaction_scan() method for
-compaction aware subsystem shrinkers that is run from compact_zone()
-context. This allows subsystems that can manage high order objects
-to optimise the return of high order objects to the free space pool,
-thereby significantly improving the chance for compaction to
-succeed without adversely impacting the rest of the shrinkable
-caches in the system.
-
-Further, we should not kick kswapd because of compaction failures
-because kcompactd will already be running ->compaction_scan()
-capable shrinkers from it's callouts to compact_zone() in the
-background that will do this work as efficiently as possible.
-
-> I’m open to trying to fix other
-> shrinkers as well. Do you have any particular ones in mind? I count
-> around 45 shrinkers in Linux, so it’s unlikely I can fix every single
-> one, though or all shrinkers need to be fixed.
-
-They'd all need to be fixed, which is why I suggested a new method
-to be added. Avoid calling the existing shrinkers in the adverse
-situation, call the new one from the right context where it actually
-benefits compaction and high-order memory allocation.
-
-> On a side note, I just noticed that struct shrinker has count_objects
-> and scan_objects as individual vfuncs rather than using a const struct
-> shrinker_ops *ops. Should we change that? The latter seems cleaner and
-> is typically how things are done in Linux.
-
-We probably should - the current structure is largely historical and
-there's only ever been two methods. If we are adding another method,
-then it would probably make sense to add an external ops structure
-to reduce the memory footprint a little.
-
--Dave.
--- 
-Dave Chinner
-dgc@kernel.org
+WDYT?
