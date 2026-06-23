@@ -4,60 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F7B9CD4F26
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 07:17:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FB9ECDB471
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 07:19:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E9BB10E988;
-	Tue, 23 Jun 2026 07:17:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3609810E994;
+	Tue, 23 Jun 2026 07:19:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="3+o+9s/R";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="rj4Gq6m3";
 	dkim-atps=neutral
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com
- [113.46.200.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58EFB10E982
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 07:16:59 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=NoReTMRt/9nL8Me/yJIuJ6YshE7r0MWeywzDu621joc=;
- b=3+o+9s/RjrYUzLIyU/J9WoYFZHOkVynP23xP28YFUdKprYxpuAXuPzW1LZIGpZ7/xJ1LMUzqC
- 1J8dHsO862YGiw3prExR6jl2Hm2Blqlb6z8xjkMmPoNW4md/Y2Vd4QCaHUeQFM4NEhLD8NiBugQ
- MplMmoEOVXi7CeaOCFEcLtM=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
- by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4gkx3z1sv9zcb3n;
- Tue, 23 Jun 2026 15:08:15 +0800 (CST)
-Received: from dggemv705-chm.china.huawei.com (unknown [10.3.19.32])
- by mail.maildlp.com (Postfix) with ESMTPS id C9F3940538;
- Tue, 23 Jun 2026 15:16:50 +0800 (CST)
-Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
- dggemv705-chm.china.huawei.com (10.3.19.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 23 Jun 2026 15:16:50 +0800
-Received: from [10.159.167.44] (10.159.167.44) by
- kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 23 Jun 2026 15:16:49 +0800
-Message-ID: <368398d6-e4a0-42a2-9226-1200b783bd1e@huawei.com>
-Date: Tue, 23 Jun 2026 15:16:49 +0800
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3C7010E982;
+ Tue, 23 Jun 2026 07:19:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ET7OgFlHrJ+3KEdV0J1uiTWDRciWlbKIl2vMbcrMF8I=; b=rj4Gq6m3d1xd3Jrd2o573sU7gn
+ 5flzufiBtzjvqCVo2cgPTTJzKDyOP0qwxshdlvPIUeUn2QcO0c8l+5tWoUwgbjn6Ft+TdpTgtJunK
+ c1uXsIHnGMMhMBTzIzAK4N9k5dt5iXp3xrtScjqwMViTp/kzm2tmUuc05knmnNuUB+kqg5PyEzAxR
+ QkvYStbI4B0dGqOQK0mSu8d5XZq/rK1jnb5+Ns5LjaZhTjO3Ci9mDH53eoLQrGcbGCUzmHfGQCvjY
+ WXZxbFkF1V5G8/ZlksBPaFSheBAD7gWv1dtuKuBzP+keZ4BfUMLAUy4joriA8/cDDzXJZhPVsVx/5
+ 6FFmex9w==;
+Received: from [90.240.106.137] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wbvQ8-0044WG-2V; Tue, 23 Jun 2026 09:19:44 +0200
+Message-ID: <fd5e55f6-c6be-48b4-8b87-c3d6d6d0a6ff@igalia.com>
+Date: Tue, 23 Jun 2026 08:19:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 6/6] drm/hibmc: Use gem-shmem with shadow-plane helpers
- for memory management
-To: Thomas Zimmermann <tzimmermann@suse.de>, <tiantao6@hisilicon.com>,
- <kong.kongxinwei@hisilicon.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <airlied@gmail.com>, <simona@ffwll.ch>
-CC: <dri-devel@lists.freedesktop.org>, <sashiko-reviews@lists.linux.dev>,
- <shiyongbang@huawei.com>, "Liangjian(Jim,Kunpeng Solution Development Dept)"
- <liangjian010@huawei.com>, Chenjianmin <chenjianmin@huawei.com>, "fengsheng
- (A)" <fengsheng5@huawei.com>
-References: <20260618123142.92298-1-tzimmermann@suse.de>
- <20260618123142.92298-7-tzimmermann@suse.de>
-From: Yongbang Shi <shiyongbang@huawei.com>
-In-Reply-To: <20260618123142.92298-7-tzimmermann@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.159.167.44]
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemq100007.china.huawei.com (7.202.195.175)
+Subject: Re: [RFC] drm/sched: Replace completion with a flush
+To: phasta@kernel.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+References: <20260611123423.39819-1-tvrtko.ursulin@igalia.com>
+ <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <ba8ea856526d54753da68deefe7b77f15c908fa3.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,376 +64,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Replace the gem-vram memory manager with gem-shmem. Makes the driver more
-> robust and enables dma-buf sharing with other hardware.
-> 
-> Gem-vram was created from various drivers that used TTM for their memory
-> management. All these drivers have meanwhile been converted to gem-shmem.
-> Using gem-vram is deprecated because it has several problems.
-> 
-> * TTM requires significant overcommitment of video memory for reliable
-> page flips. There needs to be 3 times the size of the largest possible
-> framebuffer available or page flips can fail. This leaves the display
-> dark without further warning. Hibmc hardware with 32 MiB and a maximum
-> framebuffer size of 1920x2000 is at the limit.
-> 
-> * No dma-buf sharing without GTT support. Neither gem-vram nor hibmc
-> hardware support a GTT address space. This is required to share buffers
-> with other devices via dma-buf interfaces.
-> 
-> * TTM requires hardware-accelerated rendering into video memory for
-> optimal results. As hibmc hardware cannot do this, hibmc renders in
-> system memory and copies the result to video memory. This can be more
-> effectively implemented with gem-shmem and DRM's shadow-plane helpers.
-> 
-> Converting hibmc to gem-shmem and shadow-plane helpers.
-> 
-> * Replace gem-vram entry points in struct drm_driver with gem-shmem
-> equivalents. This makes the driver allocate struct drm_gem_shmem_object
-> for its buffers.
-> 
-> * Use DRM_GEM_SHADOW_*_PLANE for its plane funcs and plane-helper
-> funcs. The shadow-plane helpers map a plane's gem buffer objects into
-> kernel address space during a page flip, so that atomic_update can
-> copy them to video memory.
-> 
-> * Handle framebuffer damage in hibmc_plane_atomic_update(). This updates
-> video memory from the plane's framebuffer. It automatically synchronizes
-> shared buffers with other devices. Create the framebuffer with
-> drm_gem_fb_create_with_dirty() to trigger the update on each page flip.
-> 
-> * Initialize the plane with drm_plane_enable_fb_damage_clips() to limit
-> the damage updates to the framebuffer areas that changed. We don't want
-> to do a full-buffer memcpy if only a small area has changed.
-> 
-> * Test display modes against the available video memory in
-> hibmc_mode_config_mode_valid(). We only want to announce display modes
-> that fit into display memory.
-> 
-> * Map the display memory itself into kernel address space.
-> 
-> * Do not set drm_mode_config.prefer_shadow. This would advise user space
-> to install a shadow buffer. But with gem-shmem, the gem buffer object
-> already acts as a shadow buffer for video memory.
-> 
-> We use these patterns in many other drivers with similar limitation as
-> hibmc and its hardware. With these changes in place, hibmc is more robust
-> and better integrated into the overall DRM framework.
-> 
-> v3:
-> - fix coding style
-> v2:
-> - do not select TTM symbols
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->  drivers/gpu/drm/drm_gem_shmem_helper.c        | 22 +++++--
->  drivers/gpu/drm/hisilicon/hibmc/Kconfig       |  4 +-
->  .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 38 ++++++++----
->  .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 62 ++++++++++++++-----
->  .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  5 ++
->  include/drm/drm_gem_shmem_helper.h            |  4 ++
->  6 files changed, 100 insertions(+), 35 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> index c989459eb215..22ec52e2ffb8 100644
-> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> @@ -473,10 +473,23 @@ void drm_gem_shmem_vunmap_locked(struct drm_gem_shmem_object *shmem,
->  }
->  EXPORT_SYMBOL_GPL(drm_gem_shmem_vunmap_locked);
->  
-> -static int
-> -drm_gem_shmem_create_with_handle(struct drm_file *file_priv,
-> -				 struct drm_device *dev, size_t size,
-> -				 uint32_t *handle)
-> +/**
-> + * drm_gem_shmem_create_with_handle - Allocate an object with the given size and
-> + *	returns a GEM handle
-> + * @file_priv: DRM file structure to create the dumb buffer for
-> + * @dev: DRM device
-> + * @size: Size of the object to allocate
-> + * @handle: Returns the GEM handle on success
-> + *
-> + * Allocates an shmem GEM buffer using drm_gem_shmem_create() and returns
-> + * a GEM handle to it.
-> + *
-> + * Returns:
-> + * Zero on success, or an error code otherwise.
-> + */
-> +int drm_gem_shmem_create_with_handle(struct drm_file *file_priv,
-> +				     struct drm_device *dev, size_t size,
-> +				     uint32_t *handle)
->  {
->  	struct drm_gem_shmem_object *shmem;
->  	int ret;
-> @@ -495,6 +508,7 @@ drm_gem_shmem_create_with_handle(struct drm_file *file_priv,
->  
->  	return ret;
->  }
-> +EXPORT_SYMBOL_GPL(drm_gem_shmem_create_with_handle);
->  
->  /* Update madvise status, returns true if not purged, else
->   * false or -errno.
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/Kconfig b/drivers/gpu/drm/hisilicon/hibmc/Kconfig
-> index d1f3f5793f34..adf4516bf8f6 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/Kconfig
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/Kconfig
-> @@ -5,10 +5,8 @@ config DRM_HISI_HIBMC
->  	select DRM_CLIENT_SELECTION
->  	select DRM_DISPLAY_HELPER
->  	select DRM_DISPLAY_DP_HELPER
-> +	select DRM_GEM_SHMEM_HELPER
->  	select DRM_KMS_HELPER
-> -	select DRM_VRAM_HELPER
-> -	select DRM_TTM
-> -	select DRM_TTM_HELPER
->  	select I2C
->  	select I2C_ALGOBIT
->  	help
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-> index fe73b365e547..b4ab53db1c08 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-> @@ -15,8 +15,10 @@
->  
->  #include <drm/drm_atomic.h>
->  #include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_damage_helper.h>
->  #include <drm/drm_fourcc.h>
-> -#include <drm/drm_gem_vram_helper.h>
-> +#include <drm/drm_gem_atomic_helper.h>
-> +#include <drm/drm_gem_framebuffer_helper.h>
->  #include <drm/drm_vblank.h>
->  
->  #include "hibmc_drm_drv.h"
-> @@ -100,22 +102,35 @@ static int hibmc_plane_atomic_check(struct drm_plane *plane,
->  static void hibmc_plane_atomic_update(struct drm_plane *plane,
->  				      struct drm_atomic_commit *state)
->  {
-> +	struct hibmc_drm_private *priv = to_hibmc_drm_private(plane->dev);
->  	struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state, plane);
-> +	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(new_state);
->  	struct drm_framebuffer *fb = new_state->fb;
-> +	struct drm_plane_state *old_state = drm_atomic_get_old_plane_state(state, plane);
-> +	u32 gpu_addr = 0;
->  	u32 reg;
-> -	s64 gpu_addr = 0;
->  	u32 line_l;
-> -	struct hibmc_drm_private *priv = to_hibmc_drm_private(plane->dev);
-> -	struct drm_gem_vram_object *gbo;
->  
->  	if (!fb)
->  		return;
->  
-> -	gbo = drm_gem_vram_of_gem(fb->obj[0]);
-> +	if (drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE) == 0) {
-> +		struct drm_rect damage;
-> +		struct drm_atomic_helper_damage_iter iter;
-> +
-> +		drm_atomic_helper_damage_iter_init(&iter, old_state, new_state);
-> +		drm_atomic_for_each_plane_damage(&iter, &damage) {
-> +			struct iosys_map dst[DRM_FORMAT_MAX_PLANES] = {
-> +				IOSYS_MAP_INIT_VADDR_IOMEM(priv->vram + gpu_addr),
-> +			};
->  
-> -	gpu_addr = drm_gem_vram_offset(gbo);
-> -	if (WARN_ON_ONCE(gpu_addr < 0))
-> -		return; /* Bug: we didn't pin the BO to VRAM in prepare_fb. */
-> +			iosys_map_incr(&dst[0],
-> +				       drm_fb_clip_offset(fb->pitches[0], fb->format, &damage));
-> +			drm_fb_memcpy(dst, fb->pitches, shadow_plane_state->data, fb, &damage);
-> +		}
-> +
-> +		drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
-> +	}
->  
->  	writel(gpu_addr, priv->mmio + HIBMC_CRT_FB_ADDRESS);
->  
-> @@ -149,13 +164,11 @@ static const struct drm_plane_funcs hibmc_plane_funcs = {
->  	.update_plane	= drm_atomic_helper_update_plane,
->  	.disable_plane	= drm_atomic_helper_disable_plane,
->  	.destroy = drm_plane_cleanup,
-> -	.reset = drm_atomic_helper_plane_reset,
-> -	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
-> -	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
-> +	DRM_GEM_SHADOW_PLANE_FUNCS,
->  };
->  
->  static const struct drm_plane_helper_funcs hibmc_plane_helper_funcs = {
-> -	DRM_GEM_VRAM_PLANE_HELPER_FUNCS,
-> +	DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
->  	.atomic_check = hibmc_plane_atomic_check,
->  	.atomic_update = hibmc_plane_atomic_update,
->  };
-> @@ -515,6 +528,7 @@ int hibmc_de_init(struct hibmc_drm_private *priv)
->  	}
->  
->  	drm_plane_helper_add(plane, &hibmc_plane_helper_funcs);
-> +	drm_plane_enable_fb_damage_clips(plane);
->  
->  	ret = drm_crtc_init_with_planes(dev, crtc, plane,
->  					NULL, &hibmc_crtc_funcs, NULL);
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> index 55d175028c46..4d85c89f3f88 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> @@ -19,9 +19,10 @@
->  #include <drm/clients/drm_client_setup.h>
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_drv.h>
-> -#include <drm/drm_fbdev_ttm.h>
-> +#include <drm/drm_dumb_buffers.h>
-> +#include <drm/drm_fbdev_shmem.h>
->  #include <drm/drm_gem_framebuffer_helper.h>
-> -#include <drm/drm_gem_vram_helper.h>
-> +#include <drm/drm_gem_shmem_helper.h>
->  #include <drm/drm_managed.h>
->  #include <drm/drm_module.h>
->  #include <drm/drm_vblank.h>
-> @@ -72,7 +73,13 @@ static irqreturn_t hibmc_dp_interrupt(int irq, void *arg)
->  static int hibmc_dumb_create(struct drm_file *file, struct drm_device *dev,
->  			     struct drm_mode_create_dumb *args)
->  {
-> -	return drm_gem_vram_fill_create_dumb(file, dev, 0, 128, args);
-> +	int ret;
-> +
-> +	ret = drm_mode_size_dumb(dev, args, SZ_128, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return drm_gem_shmem_create_with_handle(file, dev, args->size, &args->handle);
->  }
->  
->  static const struct drm_driver hibmc_driver = {
-> @@ -82,10 +89,9 @@ static const struct drm_driver hibmc_driver = {
->  	.desc			= "hibmc drm driver",
->  	.major			= 1,
->  	.minor			= 0,
-> -	.debugfs_init		= drm_vram_mm_debugfs_init,
-> -	.dumb_create            = hibmc_dumb_create,
-> -	.dumb_map_offset        = drm_gem_ttm_dumb_map_offset,
-> -	DRM_FBDEV_TTM_DRIVER_OPS,
-> +	.gem_prime_import	= drm_gem_shmem_prime_import_no_map,
-> +	.dumb_create		= hibmc_dumb_create,
-> +	DRM_FBDEV_SHMEM_DRIVER_OPS,
->  };
->  
->  static int __maybe_unused hibmc_pm_suspend(struct device *dev)
-> @@ -107,6 +113,27 @@ static const struct dev_pm_ops hibmc_pm_ops = {
->  				hibmc_pm_resume)
->  };
->  
-> +static enum drm_mode_status hibmc_mode_config_mode_valid(struct drm_device *dev,
-> +							 const struct drm_display_mode *mode)
-> +{
-> +	const struct drm_format_info *info =
-> +		drm_get_format_info(dev, DRM_FORMAT_XRGB8888, DRM_FORMAT_MOD_LINEAR);
-> +	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
-> +	unsigned long max_fb_size = priv->vram_size;
-> +	u64 pitch;
-> +
-> +	if (drm_WARN_ON_ONCE(dev, !info))
-> +		return MODE_ERROR; /* driver bug */
-> +
-> +	pitch = drm_format_info_min_pitch(info, 0, mode->hdisplay);
-> +	if (!pitch)
-> +		return MODE_BAD_WIDTH;
-> +	else if (pitch > max_fb_size / mode->vdisplay)
-> +		return MODE_MEM;
-> +
-> +	return MODE_OK;
-> +}
-> +
->  static struct drm_framebuffer *hibmc_mode_config_fb_create(struct drm_device *dev,
->  							   struct drm_file *file_priv,
->  							   const struct drm_format_info *info,
-> @@ -119,11 +146,11 @@ static struct drm_framebuffer *hibmc_mode_config_fb_create(struct drm_device *de
->  			return ERR_PTR(-EINVAL);
->  	}
->  
-> -	return drm_gem_fb_create(dev, file_priv, info, mode_cmd);
-> +	return drm_gem_fb_create_with_dirty(dev, file_priv, info, mode_cmd);
->  }
->  
->  static const struct drm_mode_config_funcs hibmc_mode_funcs = {
-> -	.mode_valid = drm_vram_helper_mode_valid,
-> +	.mode_valid = hibmc_mode_config_mode_valid,
->  	.atomic_check = drm_atomic_helper_check,
->  	.atomic_commit = drm_atomic_helper_commit,
->  	.fb_create = hibmc_mode_config_fb_create,
-> @@ -146,7 +173,6 @@ static int hibmc_kms_init(struct hibmc_drm_private *priv)
->  	dev->mode_config.max_height = 1200;
->  
->  	dev->mode_config.preferred_depth = 24;
-> -	dev->mode_config.prefer_shadow = 1;
->  
->  	dev->mode_config.funcs = (void *)&hibmc_mode_funcs;
->  
-> @@ -351,18 +377,22 @@ static int hibmc_load(struct drm_device *dev)
->  {
->  	struct pci_dev *pdev = to_pci_dev(dev->dev);
->  	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
-> +	resource_size_t vram_base, vram_size;
->  	int ret;
->  
->  	ret = hibmc_hw_init(priv);
->  	if (ret)
->  		return ret;
->  
-> -	ret = drmm_vram_helper_init(dev, pci_resource_start(pdev, 0),
-> -				    pci_resource_len(pdev, 0));
-> -	if (ret) {
-> -		drm_err(dev, "Error initializing VRAM MM; %d\n", ret);
-> -		return ret;
-> -	}
-> +	vram_base = pci_resource_start(pdev, 0);
-> +	vram_size = pci_resource_len(pdev, 0);
-> +
-> +	priv->vram = devm_ioremap_wc(dev->dev, vram_base, vram_size);
-> +	if (!priv->vram)
-> +		return -ENOMEM;
-> +
-> +	priv->vram_base = vram_base;
-> +	priv->vram_size = vram_size;
->  
->  	ret = hibmc_kms_init(priv);
->  	if (ret)
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-> index cd3a3fca1fe6..dce8572bf63e 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-> @@ -38,6 +38,11 @@ struct hibmc_drm_private {
->  	/* hw */
->  	void __iomem   *mmio;
->  
-> +	/* vram */
-> +	void __iomem *vram;
-> +	resource_size_t	vram_base;
-> +	resource_size_t	vram_size;
-> +
->  	/* drm */
->  	struct drm_device dev;
->  	struct drm_plane primary_plane;
-> diff --git a/include/drm/drm_gem_shmem_helper.h b/include/drm/drm_gem_shmem_helper.h
-> index b2c23af628e1..bcbb92f3fe9b 100644
-> --- a/include/drm/drm_gem_shmem_helper.h
-> +++ b/include/drm/drm_gem_shmem_helper.h
-> @@ -142,6 +142,10 @@ struct sg_table *drm_gem_shmem_get_pages_sgt(struct drm_gem_shmem_object *shmem)
->  void drm_gem_shmem_print_info(const struct drm_gem_shmem_object *shmem,
->  			      struct drm_printer *p, unsigned int indent);
->  
-> +int drm_gem_shmem_create_with_handle(struct drm_file *file_priv,
-> +				     struct drm_device *dev, size_t size,
-> +				     uint32_t *handle);
-> +
->  extern const struct vm_operations_struct drm_gem_shmem_vm_ops;
->  
->  /*
 
+On 17/06/2026 09:38, Philipp Stanner wrote:
+> On Thu, 2026-06-11 at 13:34 +0100, Tvrtko Ursulin wrote:
+>> Due the scheduler locking design, and the inability to always lock both
+>> the entity and the run-queue in the consistent order, a completion exists
+>> which effectively marks the entity as in use from a call path which is not
+>> able to lock it.
+>>
+>> When entity is selected from the run job worker, its completion is marked
+>> as non-idle all until the code is sure it will not be dereferencing it any
+>> more, at which point it signals it as idle, releasing the potential
+>> parallel cleanup path.
+>>
+>> We can remove the need for this completion by implementing the identical
+>> guarantee by simply flushing the run job work from the cleanup path, after
+>> having removed the entity from the run queue.
+>>
+>> We then know that the entity is no longer reachable by the run queue
+>> selection logic, so as soon as any pending work is done the cleanup can
+>> safely proceed. And because we have marked the entity as stopped, we also
+>> know that the entity cannot re-enter the run queue.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Danilo Krummrich <dakr@kernel.org>
+>> Cc: Matthew Brost <matthew.brost@intel.com>
+>> Cc: Philipp Stanner <phasta@kernel.org>
+>> Cc: amd-gfx@lists.freedesktop.org
+>> Cc: intel-xe@lists.freedesktop.org
+>> ---
+>> "Perfection is achieved, not when there is nothing more to add, but when
+>>   there is nothing left to take away." - Antoine de Saint-Exupéry
+> 
+> 
+> Hmm, alright, so the basic trick just seems to be that the workqueue
+> implementation already can ensure the synchronization which we manually
+> implemented so far through the completion.
+> 
+> 
+> It's a bit more LOC, and doesn't solve a bug. However, I kind of like
+> the idea because it removes a redundant mechanism. Would be cool to
+> hear some other opinions, though.
+> 
+> A comment below
+> 
+>>
+>> Lets see what Intel's CI says about this, not to mention our new AI
+>> overlords...
+>> ---
+>>   drivers/gpu/drm/scheduler/sched_entity.c   | 25 +++++++++++++++-------
+>>   drivers/gpu/drm/scheduler/sched_internal.h | 14 ++++++++++--
+>>   drivers/gpu/drm/scheduler/sched_main.c     |  2 --
+>>   drivers/gpu/drm/scheduler/sched_rq.c       | 14 +++++++-----
+>>   include/drm/gpu_scheduler.h                |  9 --------
+>>   5 files changed, 38 insertions(+), 26 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+>> index c51101ec70c1..e6f7c2fbefce 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>> @@ -137,10 +137,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
+>>   	entity->rq = &sched_list[0]->rq;
+>>   	RCU_INIT_POINTER(entity->last_scheduled, NULL);
+>>   	RB_CLEAR_NODE(&entity->rb_tree_node);
+>> -	init_completion(&entity->entity_idle);
+>> -
+>> -	/* We start in an idle state. */
+>> -	complete_all(&entity->entity_idle);
+>>   
+>>   	spin_lock_init(&entity->lock);
+>>   	spsc_queue_init(&entity->job_queue);
+>> @@ -276,18 +272,24 @@ static void drm_sched_entity_kill_jobs_cb(struct dma_fence *f,
+>>    */
+>>   void drm_sched_entity_kill(struct drm_sched_entity *entity)
+>>   {
+>> +	struct drm_gpu_scheduler *sched;
+>>   	struct drm_sched_job *job;
+>>   	struct dma_fence *prev;
+>>   
+>>   	spin_lock(&entity->lock);
+>>   	entity->stopped = true;
+>> -	drm_sched_rq_remove_entity(entity->rq, entity);
+>> +	sched = drm_sched_rq_remove_entity(entity->rq, entity);
+>>   	spin_unlock(&entity->lock);
+>>   
+>> -	/* Make sure this entity is not used by the scheduler at the moment */
+>> -	wait_for_completion(&entity->entity_idle);
+>> +	/*
+>> +	 * Make sure this entity is not used by the scheduler at the moment.
+>> +	 *
+>> +	 * Scheduler is guaranteed to be stable after the entity was stopped and
+>> +	 * removed from the run-queue.
+>> +	 */
+>> +	if (sched)
+>> +		drm_sched_flush_run_work(sched);
+>>   
+>> -	/* The entity is guaranteed to not be used by the scheduler */
+>>   	prev = rcu_dereference_check(entity->last_scheduled, true);
+>>   	dma_fence_get(prev);
+>>   	while ((job = drm_sched_entity_queue_pop(entity))) {
+>> @@ -576,6 +578,13 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+>>   		return;
+>>   
+>>   	spin_lock(&entity->lock);
+>> +
+>> +	if (entity->stopped) {
+>> +		spin_unlock(&entity->lock);
+>> +		return;
+>> +
+>> +	}
+> 
+> Seems unrelated? Why wasn't this needed semantically before?
 
-Reviewed-by: Yongbang Shi <shiyongbang@huawei.com>
+It solidifies the guarantee drm_sched_entity_kill() expects that the 
+scheduler assigned to an entity cannot change after entity has been stopped.
 
-Thanks,
-Yongbang.
+There we have this sequence:
+
+   spin_lock(&entity->lock);
+   entity->stopped = true;
+   sched = drm_sched_rq_remove_entity(entity->rq, entity);
+   spin_unlock(&entity->lock);
+
+   if (sched)
+   	drm_sched_flush_run_work(sched);
+
+That is, without that check, in theory, an evil driver could race 
+drm_sched_entity_select_rq() (via drm_sched_job_arm()) and 
+drm_sched_entity_kill(). I am not sure if any driver can actually do 
+that at the moment but it felt sensible to express it in code.
+
+>> +
+>>   	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
+>>   	rq = sched ? &sched->rq : NULL;
+>>   	if (rq != entity->rq) {
+>> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
+>> index 13ecb771d7a2..80dece3be415 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_internal.h
+>> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
+>> @@ -35,12 +35,22 @@ bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
+>>   			 struct drm_sched_entity *entity);
+>>   void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
+>>   
+>> +/**
+>> + * drm_sched_flush_run_work - flush the run-job work
+> 
+> In v1, you'd probably want to document what this function typically
+> will be used for :)
+
+Well its in the scheduler _internal_ header and I am not sure what to 
+write which will add real value.
+
+"Only used to make sure a stopped entity is not in use by the scheduler 
+workers."
+
+Good enough?
+
+Regards,
+
+Tvrtko
 
