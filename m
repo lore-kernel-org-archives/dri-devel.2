@@ -4,81 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59E8ACDB471
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 06:30:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 630C2CDB470
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 06:46:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9996110E977;
-	Tue, 23 Jun 2026 06:30:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C051410E495;
+	Tue, 23 Jun 2026 06:46:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="w+rtkiDz";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="C3GJODnX";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED08D10E5BF
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 06:30:10 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D4F56445E3;
- Tue, 23 Jun 2026 06:30:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7FB36C2BCF5;
- Tue, 23 Jun 2026 06:30:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1782196209; bh=4OYDXOyyu09vAJ0Ux9fR4L+xgeb09K0RJRxAiy1sHn4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=w+rtkiDzAw5tWieURtwK87xzu7UPt+XYOwHkbwPhdt4o0Z38NDMxybjywuaJGGTWG
- nKWTnGD927p9yZikWnppmaOx5JZyS0dAH7Ecg0TDyZ/ldd4+tOMBzsnBqMu6YWz7gz
- Mt0fpwp3DdrQrD5tbfmsE+SlHlsn6sDokXO6xjgM=
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 65839CD4F26;
- Tue, 23 Jun 2026 06:30:09 +0000 (UTC)
-From: Alvin Sun <alvin.sun@linux.dev>
-Date: Tue, 23 Jun 2026 14:29:45 +0800
-Subject: [PATCH v4 2/9] rust: module: add `THIS_MODULE` const to
- `ModuleMetadata` trait
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 632DF10E495
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 06:46:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1782197188;
+ bh=S1W9nvysVTlhGlyxf8bcbMXagzfiYnWQcaO4x3GB/Ts=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=C3GJODnXnIJLeUfyht55qPWHoxgHOXlpiGvC0bkfGT9aUg/NOJ1CAfjwnRrLfCmtu
+ p+B5mKtpmiV9NqtPAIV0No64c4iXU9TPO4SjkAo7+XbbrNow7vb16EPZ9KjN7r7RE1
+ fZ4j55hc2KQmf5WjbrruYSw8nFo7ebqSikvqhvovC/nkSH8r1cMLjo0uW2C5yYpPfn
+ h+4sE7TI+5OR/0zxMaeGsiu53hPi8IXQ4lMFvbaHdX1hW2UycB3JCiAJ7hZylif9NA
+ kXuyzxlOtPrPydxmUATT55DNasfq4kUTkR2jTNUbTQkV1am1ofCWWvZZZugEYuIHO1
+ MhdZM2pA5m5UA==
+Received: from fedora-2.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 77B6F17E0180;
+ Tue, 23 Jun 2026 08:46:28 +0200 (CEST)
+Date: Tue, 23 Jun 2026 08:46:25 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: "Christian A. Ehrhardt" <lk@c--e.de>
+Cc: dri-devel@lists.freedesktop.org, Pedro Demarchi Gomes
+ <pedrodemargomes@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH] drm/shmem_helper: Check VMA boundaries for PMD mappings
+Message-ID: <20260623084625.53f685fb@fedora-2.home>
+In-Reply-To: <20260622215718.1532689-1-lk@c--e.de>
+References: <20260622215718.1532689-1-lk@c--e.de>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260623-fix-fops-owner-v4-2-0daf5f077d5c@linux.dev>
-References: <20260623-fix-fops-owner-v4-0-0daf5f077d5c@linux.dev>
-In-Reply-To: <20260623-fix-fops-owner-v4-0-0daf5f077d5c@linux.dev>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>, 
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
- Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>, 
- Dave Ertman <david.m.ertman@intel.com>, Ira Weiny <ira.weiny@intel.com>, 
- Leon Romanovsky <leon@kernel.org>, Igor Korotin <igor.korotin@linux.dev>, 
- FUJITA Tomonori <fujita.tomonori@gmail.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
- Carlos Llamas <cmllamas@google.com>
-Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org, 
- kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782196206; l=3407;
- i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=4OYDXOyyu09vAJ0Ux9fR4L+xgeb09K0RJRxAiy1sHn4=;
- b=zdgUdpDPp3eOByd+72nMOSczbS5S5f+bBmAvMFJRai9zi+TqqOOHP4xYDT4eRHrvi6d4RhxfZ
- 4g3qwrH3TJDAgD55ieoaL1ukUGgXlljf/C5D+knxmpdrO5Nm+qiyP29
-X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
- pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
-X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
- auth_id=684
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,84 +66,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since `const_refs_to_static` has been stable as of the MSRV bump, a
-`ThisModule` pointer can now be used in const contexts.
+On Mon, 22 Jun 2026 23:57:17 +0200
+"Christian A. Ehrhardt" <lk@c--e.de> wrote:
 
-Add a `THIS_MODULE` const to the `ModuleMetadata` trait so that modules
-can provide their `ThisModule` pointer in const contexts such as static
-`file_operations`.
+> In the ->huge_fault handler do not install a PMD huge page
+> mapping if the huge page exceeds the boundaries of the VMA.
+> 
+> All other ->huge_fault handlers have similar checks and the
+> resulting mapping will trigger a VM_BUG_ON_VMA() if it ever
+> reaches copy_pmd_range().
+> 
+> Cc: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
+> Cc: Boris Brezillon <boris.brezillon@collabora.com>
+> Cc: stable@vger.kernel.org
+> Fixes: fc3bbf34e643 ("drm/shmem-helper: Fix huge page mapping in fault handler")
+> Signed-off-by: Christian A. Ehrhardt <lk@c--e.de>
 
-Add a `this_module()` helper to retrieve the `THIS_MODULE` pointer of a
-given module type, and update `__init` to use it instead of the
-`THIS_MODULE` static generated by the `module!` macro.
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-The `static THIS_MODULE` generated by the `module!` macro is retained
-for backwards compatibility with existing users and removed in a later
-patch once all references have been migrated.
-
-Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
----
- rust/kernel/module.rs |  8 ++++++++
- rust/macros/module.rs | 18 +++++++++++++++++-
- 2 files changed, 25 insertions(+), 1 deletion(-)
-
-diff --git a/rust/kernel/module.rs b/rust/kernel/module.rs
-index be242a82e86d2..5aca42f7a33fc 100644
---- a/rust/kernel/module.rs
-+++ b/rust/kernel/module.rs
-@@ -42,6 +42,14 @@ fn init(module: &'static ThisModule) -> impl pin_init::PinInit<Self, crate::erro
- pub trait ModuleMetadata {
-     /// The name of the module as specified in the `module!` macro.
-     const NAME: &'static crate::str::CStr;
-+
-+    /// The module's `THIS_MODULE` pointer.
-+    const THIS_MODULE: ThisModule;
-+}
-+
-+/// Returns a reference to the `THIS_MODULE` of the given module type.
-+pub const fn this_module<M: ModuleMetadata>() -> &'static ThisModule {
-+    &M::THIS_MODULE
- }
- 
- /// Equivalent to `THIS_MODULE` in the C API.
-diff --git a/rust/macros/module.rs b/rust/macros/module.rs
-index 06c18e2075083..aa9a618d5d19e 100644
---- a/rust/macros/module.rs
-+++ b/rust/macros/module.rs
-@@ -519,6 +519,22 @@ pub(crate) fn module(info: ModuleInfo) -> Result<TokenStream> {
- 
-         impl ::kernel::ModuleMetadata for #type_ {
-             const NAME: &'static ::kernel::str::CStr = #name_cstr;
-+
-+            #[cfg(MODULE)]
-+            const THIS_MODULE: ::kernel::ThisModule = {
-+                extern "C" {
-+                    static __this_module: ::kernel::types::Opaque<::kernel::bindings::module>;
-+                }
-+
-+                // SAFETY: `__this_module` is constructed by the kernel at load time
-+                // and lives until the module is unloaded.
-+                unsafe { ::kernel::ThisModule::from_ptr(__this_module.get()) }
-+            };
-+
-+            #[cfg(not(MODULE))]
-+            const THIS_MODULE: ::kernel::ThisModule = unsafe {
-+                ::kernel::ThisModule::from_ptr(::core::ptr::null_mut())
-+            };
-         }
- 
-         // Double nested modules, since then nobody can access the public items inside.
-@@ -616,7 +632,7 @@ pub extern "C" fn #ident_exit() {
-                 /// This function must only be called once.
-                 unsafe fn __init() -> ::kernel::ffi::c_int {
-                     let initer = <super::super::LocalModule as ::kernel::InPlaceModule>::init(
--                        &super::super::THIS_MODULE
-+                        ::kernel::module::this_module::<super::super::LocalModule>()
-                     );
-                     // SAFETY: No data race, since `__MOD` can only be accessed by this module
-                     // and there only `__init` and `__exit` access it. These functions are only
-
--- 
-2.43.0
-
+> ---
+>  drivers/gpu/drm/drm_gem_shmem_helper.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> index c989459eb215..00807039f8d7 100644
+> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> @@ -597,9 +597,13 @@ static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+>  #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
+>  	} else if (order == PMD_ORDER) {
+>  		unsigned long paddr = pfn << PAGE_SHIFT;
+> +		struct vm_area_struct *vma = vmf->vma;
+> +		unsigned long start = ALIGN_DOWN(vmf->address, PMD_SIZE);
+> +		unsigned long end = start + PMD_SIZE;
+> +		bool in_range = vma->vm_start <= start && end <= vma->vm_end;
+>  		bool aligned = (vmf->address & ~PMD_MASK) == (paddr & ~PMD_MASK);
+>  
+> -		if (aligned &&
+> +		if (aligned && in_range &&
+>  		    folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
+>  			vm_fault_t ret;
+>  
 
