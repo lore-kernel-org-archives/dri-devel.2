@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBD3FCDE004
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 22:27:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D93E5CDE006
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 22:27:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C1A010ECF2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B00010ECF3;
 	Tue, 23 Jun 2026 22:27:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W3FEx8TU";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eVBWeL39";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08A4310ECD9;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45CB310E392;
  Tue, 23 Jun 2026 22:27:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1782253660; x=1813789660;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=S7fdS5blOqr7UlrN6VqpboP6T54T6SPgBv/tucOsCCw=;
- b=W3FEx8TUBFSE/bb8ldnWlivVjLXGxpyCT47fGks+5I+dbRsl+F5oELOn
- 2xS4H1jpmEwzR4VfJEegn5IaUSNzdBnzf3ZN/xe5szoR+QwcpwSyReXUs
- mOLpmOZTys8f+A3kSCmK8+IomXMui1MJX6HSsmWgt9G3rcao+DtbAyNEI
- BT4tW70koGm+j5lfO3vfLOW6hcQnxq5/6VHXncY/kATis3yVMb4HdfNAl
- pzYp/jdWbo6j5u8gIMP42kcwVSuBbrqlhhc21qSMNys1C56P6y1R0T+N3
- lnQNK31zy8W4VXbr86adOg+iu/Uev18f8DBLnuqQhl6lJ1H0Bs1YLQ5rf w==;
-X-CSE-ConnectionGUID: 6J8nhaw4Qf2vwo1CnaGsUA==
-X-CSE-MsgGUID: luJBUDkeSzSPVXHdUuuwYQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="83048824"
-X-IronPort-AV: E=Sophos;i="6.24,221,1774335600"; d="scan'208";a="83048824"
+ bh=1K7fKoniaOU3+g5QDc+Q+0D4tOD94D8T/lUmlA5wlPk=;
+ b=eVBWeL39vvJasBv8Q0x5cZTwAi3Dg+hkEJIY5AQq7Wfc4Ft5bF1mpr4c
+ r1UqoxrvM6AFKzQSlaUQ/xM15Hf4vJF6e89SM+0q/hbzW+ntZAoAH4Rqw
+ I9eFCPqgwBRq9MR0SoqCPykTxfj/QairaPo4S/pzXWAxeJPSd7WgPk8/Q
+ uWgevGpFhJyfqdqQZ2neZKp1S0AeArtwYN3qJrWhauDbAvjDj3kP01cf5
+ hnS8t6qH8U4i6CtA+07t949G19TmFSRYSuay2vGOn+y8Zs35ZhMOM3XXx
+ 3Qkv8ZClYwAGjLnR8d5XSbtfjoE00iObOnjDB75pUFJpKw1gBXp7Zw63/ A==;
+X-CSE-ConnectionGUID: 8n8VVBfrT7ycK1eho6GbFg==
+X-CSE-MsgGUID: 08kJvLO/TFehu3tSXIervw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="83048828"
+X-IronPort-AV: E=Sophos;i="6.24,221,1774335600"; d="scan'208";a="83048828"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Jun 2026 15:27:39 -0700
-X-CSE-ConnectionGUID: RqAJR4MRQ5WNPbLFRtgvDg==
-X-CSE-MsgGUID: TZ/JBW/SQMW3VJ2FNOZ3Ww==
+X-CSE-ConnectionGUID: CTuepE6UT3+S6Fh6bKj61Q==
+X-CSE-MsgGUID: HFqwX1zaTpebYmVuMPICnA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,221,1774335600"; d="scan'208";a="273335803"
+X-IronPort-AV: E=Sophos;i="6.24,221,1774335600"; d="scan'208";a="273335809"
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Jun 2026 15:27:39 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [RFC PATCH 04/12] drm/ttm: Add fault injection for beneficial-order
- allocation failures
-Date: Tue, 23 Jun 2026 15:27:24 -0700
-Message-Id: <20260623222732.360872-5-matthew.brost@intel.com>
+Subject: [RFC PATCH 08/12] drm/xe: Handle defrag moves in xe_bo_move()
+Date: Tue, 23 Jun 2026 15:27:28 -0700
+Message-Id: <20260623222732.360872-9-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260623222732.360872-1-matthew.brost@intel.com>
 References: <20260623222732.360872-1-matthew.brost@intel.com>
@@ -69,21 +68,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a beneficial_order_fault_inject debugfs fault attribute, mirroring
-backup_fault_inject, that forces allocation at the device's beneficial
-order to fail in __ttm_pool_alloc(). When triggered, both the pool take
-and the system page allocation are skipped for that order, so the
-allocation falls into the existing lower-the-order path that records
-tt->beneficial_order_failed (and bails out with -ENOMEM for defrag
-moves).
+Teach xe_bo_move() to service a defrag move, where TTM reallocates a
+BO's backing at the device's beneficial order and hands the old, still
+populated tt to the move via the BO's defrag_old_tt.
 
-This lets the beneficial_order_failed tracking and the driver-side
-defrag path be exercised deterministically, without having to drive the
-system into real memory fragmentation to provoke a sub-optimal backing.
+A defrag move always has existing contents to copy, so force
+move_lacks_source false and fall through the XE_PL_TT -> XE_PL_TT no-op
+shortcut so the copy path runs. The relocation is performed entirely on
+the GPU via xe_migrate_copy_defrag(), reading the old pages from the
+stashed tt's sg table and writing the freshly reallocated backing.
 
-The knob is registered at
-/sys/kernel/debug/ttm/beneficial_order_fault_inject and compiles out
-when CONFIG_FAULT_INJECTION is disabled.
+Both copy passes run in order on the same migrate queue and are captured
+by the returned fence, so the teardown is pipelined via
+ttm_bo_move_accel_cleanup(): the old tt is handed to a ghost object and
+only unpopulated and freed once the fence signals, so the move need not
+block. The VF CCS attach/detach handling is extended to treat a defrag
+move (ctx->defrag) like the XE_PL_SYSTEM <-> XE_PL_TT transitions it
+mirrors.
 
 Cc: Carlos Santa <carlos.santa@intel.com>
 Cc: Ryan Neph <ryanneph@google.com>
@@ -101,66 +102,96 @@ Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Assisted-by: GitHub_Copilot:claude-opus-4.8
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/ttm/ttm_pool.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/xe/xe_bo.c | 42 +++++++++++++++++++++++++++++++++-----
+ 1 file changed, 37 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 6e9a5481d876..3330df7bc61d 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -53,6 +53,7 @@
- #ifdef CONFIG_FAULT_INJECTION
- #include <linux/fault-inject.h>
- static DECLARE_FAULT_ATTR(backup_fault_inject);
-+static DECLARE_FAULT_ATTR(beneficial_order_fault_inject);
- #else
- #define should_fail(...) false
- #endif
-@@ -802,11 +803,24 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 	     alloc->remaining_pages;
- 	     order = ttm_pool_alloc_find_order(order, alloc)) {
- 		struct ttm_pool_type *pt;
-+		bool fail_beneficial;
+diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+index 3c185200419e..04709343518c 100644
+--- a/drivers/gpu/drm/xe/xe_bo.c
++++ b/drivers/gpu/drm/xe/xe_bo.c
+@@ -1084,6 +1084,13 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+ 	move_lacks_source = !old_mem || (handle_system_ccs ? (!bo->ccs_cleared) :
+ 					 (!mem_type_is_vram(old_mem_type) && !tt_has_data));
+ 
++	/*
++	 * A defrag move always copies the existing contents from the stashed
++	 * old tt into the freshly (re)allocated backing.
++	 */
++	if (ttm_bo->defrag_old_tt)
++		move_lacks_source = false;
 +
+ 	needs_clear = (ttm && ttm->page_flags & TTM_TT_FLAG_ZERO_ALLOC) ||
+ 		(!ttm && ttm_bo->type == ttm_bo_type_device);
+ 
+@@ -1120,9 +1127,12 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+ 	/*
+ 	 * Failed multi-hop where the old_mem is still marked as
+ 	 * TTM_PL_FLAG_TEMPORARY, should just be a dummy move.
++	 *
++	 * For a defrag move the old and new tt differ, so fall through to the
++	 * copy path instead of treating it as a no-op.
+ 	 */
+ 	if (old_mem_type == XE_PL_TT &&
+-	    new_mem->mem_type == XE_PL_TT) {
++	    new_mem->mem_type == XE_PL_TT && !ttm_bo->defrag_old_tt) {
+ 		ttm_bo_move_null(ttm_bo, new_mem);
+ 		goto out;
+ 	}
+@@ -1193,6 +1203,12 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+ 			flags |= XE_MIGRATE_CLEAR_FLAG_CCS_DATA;
+ 
+ 		fence = xe_migrate_clear(migrate, bo, new_mem, flags);
++	} else if (ttm_bo->defrag_old_tt) {
++		struct xe_ttm_tt *old_xe_tt =
++			container_of(ttm_bo->defrag_old_tt, struct xe_ttm_tt, ttm);
++
++		fence = xe_migrate_copy_defrag(migrate, bo, old_mem, new_mem,
++					       old_xe_tt->sg, handle_system_ccs);
+ 	} else {
+ 		fence = xe_migrate_copy(migrate, bo, bo, old_mem, new_mem,
+ 					handle_system_ccs);
+@@ -1202,7 +1218,23 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+ 		xe_pm_runtime_put(xe);
+ 		goto out;
+ 	}
+-	if (!move_lacks_source) {
++	if (ttm_bo->defrag_old_tt) {
 +		/*
-+		 * Fault injection: pretend allocation at the device's
-+		 * beneficial order failed, forcing the object to be backed with
-+		 * a sub-optimal (smaller order) set of pages. Used to exercise
-+		 * the beneficial_order_failed tracking and the driver defrag
-+		 * path without having to drive the system into real memory
-+		 * fragmentation.
++		 * The defrag move relocates the data (and the CCS aux state for
++		 * compressed BOs) from the old backing to the new one entirely
++		 * on the GPU, all captured by @fence. Pipeline the teardown via
++		 * ttm_bo_move_accel_cleanup(): the old tt is handed to a ghost
++		 * object and only unpopulated and freed once @fence signals, so
++		 * the move need not block here.
 +		 */
-+		fail_beneficial = IS_ENABLED(CONFIG_FAULT_INJECTION) &&
-+			beneficial_order && order >= beneficial_order &&
-+			should_fail(&beneficial_order_fault_inject, 1);
++		ret = ttm_bo_move_accel_cleanup(ttm_bo, fence, evict,
++						true, new_mem);
++		if (ret) {
++			dma_fence_wait(fence, false);
++			ttm_bo_move_null(ttm_bo, new_mem);
++			ret = 0;
++		}
++	} else if (!move_lacks_source) {
+ 		ret = ttm_bo_move_accel_cleanup(ttm_bo, fence, evict, true,
+ 						new_mem);
+ 		if (ret) {
+@@ -1229,13 +1261,13 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+ 	 * BBs from BO as it is no longer needed.
+ 	 */
+ 	if (IS_VF_CCS_READY(xe) && old_mem_type == XE_PL_TT &&
+-	    new_mem->mem_type == XE_PL_SYSTEM)
++	    (new_mem->mem_type == XE_PL_SYSTEM || ctx->defrag))
+ 		xe_sriov_vf_ccs_detach_bo(bo);
  
- 		/* First, try to allocate a page from a pool if one exists. */
- 		p = NULL;
- 		pt = ttm_pool_select_type(pool, page_caching, order);
--		if (pt && allow_pools)
-+		if (pt && allow_pools && !fail_beneficial)
- 			p = ttm_pool_type_take(pt, ttm_pool_nid(pool));
+ 	if (IS_VF_CCS_READY(xe) &&
+ 	    ((move_lacks_source && new_mem->mem_type == XE_PL_TT) ||
+-	     (old_mem_type == XE_PL_SYSTEM && new_mem->mem_type == XE_PL_TT)) &&
+-	    handle_system_ccs)
++	     ((old_mem_type == XE_PL_SYSTEM || ctx->defrag) &&
++	      new_mem->mem_type == XE_PL_TT)) && handle_system_ccs)
+ 		ret = xe_sriov_vf_ccs_attach_bo(bo);
  
- 		/*
-@@ -815,7 +829,7 @@ static int __ttm_pool_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 		 * write-back cached pools of the same order. Consider removing
- 		 * that behaviour.
- 		 */
--		if (!p) {
-+		if (!p && !fail_beneficial) {
- 			page_caching = ttm_cached;
- 			allow_pools = false;
- 			p = ttm_pool_alloc_page(pool, gfp_flags, order,
-@@ -1453,6 +1467,9 @@ int ttm_pool_mgr_init(unsigned long num_pages)
- #ifdef CONFIG_FAULT_INJECTION
- 	fault_create_debugfs_attr("backup_fault_inject", ttm_debugfs_root,
- 				  &backup_fault_inject);
-+	fault_create_debugfs_attr("beneficial_order_fault_inject",
-+				  ttm_debugfs_root,
-+				  &beneficial_order_fault_inject);
- #endif
- #endif
- 
+ out:
 -- 
 2.34.1
 
