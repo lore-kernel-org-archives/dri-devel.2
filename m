@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5BFECDB470
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 10:15:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5ADFCCDB46F
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 10:15:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CDDA10EA72;
-	Tue, 23 Jun 2026 10:15:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B84B010EA70;
+	Tue, 23 Jun 2026 10:15:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eIYITJx1";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cr3/0at9";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 125F410EA6B;
- Tue, 23 Jun 2026 10:15:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C30F310EA70;
+ Tue, 23 Jun 2026 10:15:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782209712; x=1813745712;
+ t=1782209717; x=1813745717;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=PjWqZ/1dArIO2yfBSr01QxEUMOsHrYw2XQ7/Cxk/jBQ=;
- b=eIYITJx1vgvD73I7ugJyV7uY4S8RxidsG7RFA/0rXLPVTz/muGe+Z/rn
- XR4AChHmB88jdLLShTkg1y5Oh3P/LSEYZVtfFzEmwCYtxxuOuFUYuMBbb
- mRwQ0M4uToiSvFuUTXo3BeD3MzrEyHCt37e1TZ6+0+m7fmGqVyt5A1NMl
- TLQ1Jks4rgf0vfBT0N86W5Ef+9EgKmYbKjzgIi2+YpSDvd8E/VcCC/RB0
- iJNgwVrYTkzZD9JNMFrl0qht0JdobMD26WzcBpnIt2sjNo9w3Hu136oIs
- z+dp0IStXGDx+GQomCNKYH/lfvqumkjFhy9g1ZupsdEr8X11Sz7hL0jsd g==;
-X-CSE-ConnectionGUID: 9EPQrp6QRqi14feBWlajZQ==
-X-CSE-MsgGUID: QaIDzJ5NR4aHF8Wu9vC2zg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11825"; a="82053207"
-X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="82053207"
+ bh=G/k3h2BJE8WZumI5d6cXS3RO4xeI3jG46C8bYqPdoX4=;
+ b=cr3/0at9GDN7exWq1xPu3m8RYLND6qoxhj+GqAblLS2H3p0w2Q7rrtBZ
+ ygZtQx30qxUiZ9pfFrc3cBW8aPZutF0lQIcL7h+9jMP3/U5VVwCA9PkGt
+ cOr4VgGBLpjCo8hjZPNRjSkndegxsrzb4LRtaolKR69tnm4MlKflYtKev
+ sasBWLYngLFpdlfaB+vbduqXrawxFt55nwIPa8pXPIGbZ5Q553dX2KHne
+ jgo9dopSOKFqv0437lBtLGmxzPXjRzlzdrR4QjdmeTGgdaizHLLYlIEV7
+ 5qPpwbMujg8N+IMs9txCl3FirqbB1BfvOeZyPC0wvSWbGIP0ViUhEh+jR g==;
+X-CSE-ConnectionGUID: DWX9KaFLS6KelCWuvvhcgw==
+X-CSE-MsgGUID: iPaH1Th+SS6LfwxBJKHK3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11825"; a="82053222"
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="82053222"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2026 03:15:12 -0700
-X-CSE-ConnectionGUID: qbTuptXoRjqNsk2JtGB0kA==
-X-CSE-MsgGUID: Ena8hjmJTKKRmoV1yiki1w==
+ 23 Jun 2026 03:15:17 -0700
+X-CSE-ConnectionGUID: VvmRnpGlSoWwUSctelntNA==
+X-CSE-MsgGUID: zBiRPfLIQeym9/bvLKew2Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="273175563"
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="273175572"
 Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by fmviesa002.fm.intel.com with ESMTP; 23 Jun 2026 03:15:07 -0700
+ by fmviesa002.fm.intel.com with ESMTP; 23 Jun 2026 03:15:12 -0700
 From: Raag Jadav <raag.jadav@intel.com>
 To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  netdev@vger.kernel.org
@@ -50,9 +50,9 @@ Cc: simona.vetter@ffwll.ch, airlied@gmail.com, kuba@kernel.org,
  riana.tauro@intel.com, michal.wajdeczko@intel.com,
  matthew.d.roper@intel.com, mallesh.koujalagi@intel.com,
  Raag Jadav <raag.jadav@intel.com>
-Subject: [PATCH v4 4/5] drm/xe/drm_ras: Wire up error threshold callbacks
-Date: Tue, 23 Jun 2026 15:39:58 +0530
-Message-ID: <20260623101043.255897-5-raag.jadav@intel.com>
+Subject: [PATCH v4 5/5] drm/xe/sysctrl: Reuse xe_sysctrl_create_command()
+Date: Tue, 23 Jun 2026 15:39:59 +0530
+Message-ID: <20260623101043.255897-6-raag.jadav@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260623101043.255897-1-raag.jadav@intel.com>
 References: <20260623101043.255897-1-raag.jadav@intel.com>
@@ -73,77 +73,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that we have get/set error threshold support in xe driver, wire them
-up to drm_ras so that userspace can make use of the functionality.
-
-$ sudo ynl --family drm_ras --do get-error-threshold \
---json '{"node-id":0, "error-id":2}'
-{'error-id': 2, 'error-name': 'soc-internal', 'error-threshold': 16}
-
-$ sudo ynl --family drm_ras --do set-error-threshold \
---json '{"node-id":0, "error-id":2, "error-threshold":8}'
-None
+Now that we have a helper to create sysctrl command, reuse it for
+threshold crossed events.
 
 Signed-off-by: Raag Jadav <raag.jadav@intel.com>
-Reviewed-by: Riana Tauro <riana.tauro@intel.com>
 ---
-v3: Return -ENOENT on info absence (Riana)
----
- drivers/gpu/drm/xe/xe_drm_ras.c | 34 +++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ drivers/gpu/drm/xe/xe_sysctrl_event.c | 28 ++++++++-------------------
+ 1 file changed, 8 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_drm_ras.c b/drivers/gpu/drm/xe/xe_drm_ras.c
-index 7937d8ba0ed9..4afa2ad98300 100644
---- a/drivers/gpu/drm/xe/xe_drm_ras.c
-+++ b/drivers/gpu/drm/xe/xe_drm_ras.c
-@@ -86,6 +86,38 @@ static int clear_correctable_error_counter(struct drm_ras_node *node, u32 error_
- 	return clear_error_counter(xe, DRM_XE_RAS_ERR_SEV_CORRECTABLE, error_id);
+diff --git a/drivers/gpu/drm/xe/xe_sysctrl_event.c b/drivers/gpu/drm/xe/xe_sysctrl_event.c
+index b4d17329af6c..0547b7b39726 100644
+--- a/drivers/gpu/drm/xe/xe_sysctrl_event.c
++++ b/drivers/gpu/drm/xe/xe_sysctrl_event.c
+@@ -49,18 +49,6 @@ static void get_pending_event(struct xe_sysctrl *sc, struct xe_sysctrl_mailbox_c
+ 	} while (response->count);
  }
  
-+static int query_correctable_error_threshold(struct drm_ras_node *ep, u32 error_id,
-+					     const char **name, u32 *threshold)
-+{
-+	struct xe_device *xe = ep->priv;
-+	struct xe_drm_ras *ras = &xe->ras;
-+	struct xe_drm_ras_counter *info = ras->info[DRM_XE_RAS_ERR_SEV_CORRECTABLE];
+-static void event_request_prepare(struct xe_device *xe, struct xe_sysctrl_app_msg_hdr *header,
+-				  struct xe_sysctrl_event_request *request)
+-{
+-	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
+-
+-	header->data = REG_FIELD_PREP(APP_HDR_GROUP_ID_MASK, XE_SYSCTRL_GROUP_GFSP) |
+-		       REG_FIELD_PREP(APP_HDR_COMMAND_MASK, XE_SYSCTRL_CMD_GET_PENDING_EVENT);
+-
+-	request->vector = xe_device_has_msix(xe) ? XE_IRQ_DEFAULT_MSIX : 0;
+-	request->fn = PCI_FUNC(pdev->devfn);
+-}
+-
+ /**
+  * xe_sysctrl_event() - Handler for System Controller events
+  * @sc: System Controller instance
+@@ -72,16 +60,16 @@ void xe_sysctrl_event(struct xe_sysctrl *sc)
+ 	struct xe_sysctrl_mailbox_command command = {};
+ 	struct xe_sysctrl_event_response response = {};
+ 	struct xe_sysctrl_event_request request = {};
+-	struct xe_sysctrl_app_msg_hdr header = {};
++	struct xe_device *xe = sc_to_xe(sc);
++	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
+ 
+-	xe_device_assert_mem_access(sc_to_xe(sc));
+-	event_request_prepare(sc_to_xe(sc), &header, &request);
++	xe_device_assert_mem_access(xe);
+ 
+-	command.header = header;
+-	command.data_in = &request;
+-	command.data_in_len = sizeof(request);
+-	command.data_out = &response;
+-	command.data_out_len = sizeof(response);
++	request.vector = xe_device_has_msix(xe) ? XE_IRQ_DEFAULT_MSIX : 0;
++	request.fn = PCI_FUNC(pdev->devfn);
 +
-+	if (!info || !info[error_id].name)
-+		return -ENOENT;
-+
-+	if (!xe->info.has_sysctrl)
-+		return -EOPNOTSUPP;
-+
-+	*name = info[error_id].name;
-+	return xe_ras_get_threshold(xe, DRM_XE_RAS_ERR_SEV_CORRECTABLE, error_id, threshold);
-+}
-+
-+static int set_correctable_error_threshold(struct drm_ras_node *ep, u32 error_id, u32 threshold)
-+{
-+	struct xe_device *xe = ep->priv;
-+	struct xe_drm_ras *ras = &xe->ras;
-+	struct xe_drm_ras_counter *info = ras->info[DRM_XE_RAS_ERR_SEV_CORRECTABLE];
-+
-+	if (!info || !info[error_id].name)
-+		return -ENOENT;
-+
-+	if (!xe->info.has_sysctrl)
-+		return -EOPNOTSUPP;
-+
-+	return xe_ras_set_threshold(xe, DRM_XE_RAS_ERR_SEV_CORRECTABLE, error_id, threshold);
-+}
-+
- static struct xe_drm_ras_counter *allocate_and_copy_counters(struct xe_device *xe)
- {
- 	struct xe_drm_ras_counter *counter;
-@@ -134,6 +166,8 @@ static int assign_node_params(struct xe_device *xe, struct drm_ras_node *node,
- 	if (severity == DRM_XE_RAS_ERR_SEV_CORRECTABLE) {
- 		node->query_error_counter = query_correctable_error_counter;
- 		node->clear_error_counter = clear_correctable_error_counter;
-+		node->query_error_threshold = query_correctable_error_threshold;
-+		node->set_error_threshold = set_correctable_error_threshold;
- 	} else {
- 		node->query_error_counter = query_uncorrectable_error_counter;
- 		node->clear_error_counter = clear_uncorrectable_error_counter;
++	xe_sysctrl_create_command(&command, XE_SYSCTRL_GROUP_GFSP, XE_SYSCTRL_CMD_GET_PENDING_EVENT,
++				  &request, sizeof(request), &response, sizeof(response));
+ 
+ 	guard(mutex)(&sc->event_lock);
+ 	get_pending_event(sc, &command);
 -- 
 2.43.0
 
