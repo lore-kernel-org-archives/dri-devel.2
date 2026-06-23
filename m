@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24EDFCDB470
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 21:11:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D8CFCDB471
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 21:12:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E31C10ECC6;
-	Tue, 23 Jun 2026 21:11:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0656810ECC9;
+	Tue, 23 Jun 2026 21:12:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qdry8hfz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GBaZnHxt";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 539E210ECC6
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 21:11:12 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3C1A10ECC9
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 21:11:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A271B60008;
- Tue, 23 Jun 2026 21:11:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32ACD1F000E9;
- Tue, 23 Jun 2026 21:11:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8CF7143332;
+ Tue, 23 Jun 2026 21:11:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CB131F000E9;
+ Tue, 23 Jun 2026 21:11:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782249071;
- bh=XyIAzgPBzZsEl3IkHGIFkU/IFI5HXBjvscWs448WQ1Q=;
+ s=k20260515; t=1782249118;
+ bh=JO571RD5CiFzZtlEhXzGzTNX36hZ3vHw609NYWPAILw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Qdry8hfzp+PZEXGSrOPXI3ywmdtgeaKyORtgF0qxRNhxK6r6wXOPc4NRMUzd0Cqk/
- rjzQIuhNqzId9rePccdHErUVtefHS6cQAHBVjwfvHyi/URcLD9rRNiDQApvE/xLvw9
- LLsFV0lhH7Glwo39kwpqaQ4pRyDqEA2RUKm6HtOC8bo8WMYw7TAjukyw8Tm7wEd/Sg
- Ktt89DKs0y45+Mwojtx44bQYUlHfRfsfa2F9PzH71WfX2BoIfb1wkLrQ2MzVeUBxD8
- sHLTZPdg/kvKloEKKJULYKLiHY/z3ZPHUNuZBswVwlB2XYs19hcA7mOgJuq4EHhQpz
- Mv0F7RQLB1LnQ==
+ b=GBaZnHxt2Ya4C49fvapbDw88bUcX92EjSojOLKEu3kHPsDIc1SjdmRGHxn3e++1xD
+ BxdpXU9n5Gl9H7dbMzNqJYoWdtl1+rXLXtS5ZRI1Biay9helEuo8FMv17tz/d/fxWb
+ 8OLxK1fCjTrgegAtZ3W7uqecxg1YKpDxT0zz2XwxFXRap4dXaS2fr2QLvlVxWfuTHg
+ VNLKyMTHG9VpVV/q+3brDSHRdheloYRM4DuBbjXCycqHiNG4tXGr9QHxWLBxJvXDD0
+ qE8GqyKz1ODWokhDMYHAEXdo2W1lhPRsU9ShN+Tum1zvCLa2s0a1eW/IN0HSFaK9zz
+ bJcbW57rsxUwQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 06/13] gpu: nova-core: gsp: make unload take
- GspBootContext
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, ojeda@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260622-nova-bootcontext-v2-6-0ddeafc06f5d@nvidia.com>
-References: <20260622-nova-bootcontext-v2-0-0ddeafc06f5d@nvidia.com>
- <20260622-nova-bootcontext-v2-6-0ddeafc06f5d@nvidia.com>
+Subject: Re: [PATCH v9 3/6] drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RESET
+ recovery method
+To: "Mallesh Koujalagi" <mallesh.koujalagi@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260622131458.144873-11-mallesh.koujalagi@intel.com>
+References: <20260622131458.144873-8-mallesh.koujalagi@intel.com>
+ <20260622131458.144873-11-mallesh.koujalagi@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 21:11:10 +0000
-Message-Id: <20260623211111.32ACD1F000E9@smtp.kernel.org>
+Date: Tue, 23 Jun 2026 21:11:57 +0000
+Message-Id: <20260623211158.4CB131F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,50 +58,85 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] Early failures in `GspHal::boot` return a dummy `EAGAIN` error for =
-the unload bundle, triggering misleading warnings in `Gsp::boot`.
+- [Medium] The example recovery script fails to find the power control slot=
+ for directly connected PCI devices due to starting its sysfs traversal one=
+ level too high.
+- [Low] The new table row for `cold-reset` exceeds the column width defined=
+ by the reStructuredText table underlines, which will cause a 'Malformed ta=
+ble' warning and break documentation builds.
 --
 
-commit 59b7c0f9ed708bf2f09f8548faf948cfa1adfc96
-Author: Alexandre Courbot <acourbot@nvidia.com>
+commit affb0b839cc810c897bbc60a895efd262a86bba0
+Author: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
 
-gpu: nova-core: gsp: make unload take GspBootContext
+drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RESET recovery method
 
-This patch refactors Gsp::unload to accept GspBootContext instead of
-individual resource arguments. This reflects that the resources required
-to boot the GSP are also needed for unloading it.
+This patch documents the WEDGED=3Dcold-reset recovery method, which is
+used when a device requires a complete power cycle to recover from
+an error condition. It also adds an example userspace recovery script.
 
-> diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gs=
-p/boot.rs
-> index 3f11eaec26c78..336ad23c96f9b 100644
-> --- a/drivers/gpu/nova-core/gsp/boot.rs
-> +++ b/drivers/gpu/nova-core/gsp/boot.rs
+> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.=
+rst
+> index 93df92c4ac8cf..43cdac65d04f0 100644
+> --- a/Documentation/gpu/drm-uapi.rst
+> +++ b/Documentation/gpu/drm-uapi.rst
 [ ... ]
-> @@ -102,7 +100,7 @@ pub(crate) fn boot(
->                  dev_err!(dev, "GSP boot failed with error {:?}\n", e);
-> =20
->                  // Ignore errors during unload; we will return the error=
- that happened during boot.
-> -                let _ =3D self.unload(dev, bar, gsp_falcon, ctx.sec2_fal=
-con, unload_bundle);
-> +                let _ =3D self.unload(ctx, unload_bundle);
+> @@ -441,6 +441,7 @@ following expectations.
+>      rebind          unbind + bind driver
+>      bus-reset       unbind + bus reset/re-enumeration + bind
+>      vendor-specific vendor specific recovery method
+> +    cold-reset      remove device + slot power cycle + rescan
+>      unknown         consumer policy
+>      =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
 
 [Severity: Low]
-If an early operation in the HAL boot paths fails before unload_bundle is
-properly initialized (such as Vbios::new() failing in Tu102::boot(), or
-missing fsp in Gh100::boot()), does unload_bundle retain a dummy
-Err(EAGAIN) value?
+Will this exceed the column width defined by the reStructuredText table
+underlines?
 
-If so, does this cause the inspect_err() on unload_bundle to unconditionally
-trigger and log misleading warnings that falsely claim the GPU will need a
-reset even for these early initialization failures?
+The Sphinx docutils parser treats table underlines as strict column width
+boundaries. The second column's underline is 40 characters long, but the
+new text 'remove device + slot power cycle + rescan' is 41 characters.
 
-> =20
->                  Err(e)
->              }
+This usually causes a malformed table warning which can break kernel
+documentation builds that treat warnings as errors.
+
+[ ... ]
+> @@ -530,6 +542,77 @@ Recovery script::
+[ ... ]
+> +    PCI_DEVS=3D/sys/bus/pci/devices
+> +    PCI_SLOTS=3D/sys/bus/pci/slots
+> +
+> +    syspath=3D$(readlink -f "/sys/$1/device" 2>/dev/null || readlink -f =
+"/sys/$1" 2>/dev/null)
+> +    [ -n "$syspath" ] || die "cannot resolve sysfs path for: $1"
+> +
+> +    dev=3D$(basename "$syspath")
+> +    [ -e "$PCI_DEVS/$dev" ] || die "not a PCI device: $dev"
+> +    echo "device : $dev"
+> +
+> +    slot=3D""
+> +    walk=3D$(dirname "$(readlink -f "$PCI_DEVS/$dev")")
+> +
+> +    while true; do
+> +        ancestor=3D$(basename "$walk")
+
+[Severity: Medium]
+Does using dirname here skip the device's own sysfs path, causing the script
+to compare the parent bridge's address to the slot's child address?
+
+When the script executes, it initializes walk using dirname, which skips the
+target device. It compares the parent bridge's address against the slot
+address attribute.
+
+However, hotplug slot address attributes contain the address of the child
+(the device plugged into the slot), not the parent bridge. This could cause
+the script to fail to find the power control slot for directly connected PCI
+devices and abort with a 'no hotplug slot' error.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622-nova-bootc=
-ontext-v2-0-0ddeafc06f5d@nvidia.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622131458.1448=
+73-8-mallesh.koujalagi@intel.com?part=3D3
