@@ -4,68 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB0CFCDB46F
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 11:08:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B3A9CD98F2
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 11:12:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D54D310E2E7;
-	Tue, 23 Jun 2026 11:08:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A35D10EA9C;
+	Tue, 23 Jun 2026 11:12:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="cMqCQd61";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EwY6rL2J";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F13D10E2E7
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 11:08:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1782212926;
- bh=oRLUVj38EuP2J4LoI+n0itLP4n8PZdzZFqOvvhcE7RM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=cMqCQd61to2RMTd50gLHX4EQRg3EY1Ev62PA5OfCA0InlQQm+x4R3uC7ywQPH7iUv
- 803WdO3/IU3lp8pwyDKc+okPSmbv0MCJLy7CVJqjujc/JG4fdo09YAH9D8KFz30RdZ
- flm1600i9mpfJRzgHwtZ9RI3mQTVnq/jH/dhsUIaVpH9ywYwCjchyZCeVu+o5zgf8i
- do24J3BlR6G4shCvdxS0WOcZH4ac3Ww9YZpZ97O66TTqfP+KYBfgExQzAstlDwsbYy
- eihexuWI6xPt68gtW3rUA1ucdenrQ95aDce/5r0blkPKmwFVzJlx3zKj/KZ6S0mILM
- r/DO6cqLEjvqg==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4gl2PJ2QFPz4wCJ;
- Tue, 23 Jun 2026 21:08:35 +1000 (AEST)
-Message-ID: <fbb2b1a6-594f-48eb-887f-7cf0cdd4c336@ozlabs.org>
-Date: Tue, 23 Jun 2026 12:08:30 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EB9210EA9A;
+ Tue, 23 Jun 2026 11:12:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782213162; x=1813749162;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=7RK047XqAhIykEGJb5lPK4UKvV4oKO7yT7rTqZ97/QU=;
+ b=EwY6rL2JGX/m/u2gd6cBqX9r7sRCzmaSq3/cMSgBSI3DVmLuCXbW1Soy
+ h4TQuNqC5SeiWe0gTBP8+cDWFv+yMUOh9aCQyFb2RTHezW3+nE50g4zm3
+ 4Skf1p1hBbmPyntkTMbYn3njB63Ii8XHuwcX9ORy86H8CHl5tGuDx3GwT
+ nnm8EIliaw/rTdX5VhwTUKukmJ/OKY4SGn9zkznLmeZshLwh0KKBXIT6H
+ jHKfV1pgU+CVQm+SRAVbTZtUhUM7/Mt1vjaNHoxvQP+AQrHKFus+pBbP/
+ Q7bm/ebI7GnX9FhcjC/Wb8xf+cLjeen/ANxVDyfbOC9lBvZhtSObO/fwP Q==;
+X-CSE-ConnectionGUID: k2sF2W93SS6zNpB7Fwlu3g==
+X-CSE-MsgGUID: ZXtP3nXQQdWnGNe3UBKHBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11825"; a="108496508"
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="108496508"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2026 04:12:40 -0700
+X-CSE-ConnectionGUID: bFFQtLhdRxG+nVi0ISy+pg==
+X-CSE-MsgGUID: idiXUos7TYO3l3znmh23qg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="249351231"
+Received: from kamilkon-desk.igk.intel.com (HELO localhost) ([10.211.136.201])
+ by orviesa008-auth.jf.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jun 2026 04:12:39 -0700
+Date: Tue, 23 Jun 2026 13:12:20 +0200
+From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
+To: Alyssa Anne Rosenzweig <alyssa@rosenzweig.io>
+Cc: Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+ Development mailing list for IGT GPU Tools <igt-dev@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org, asahi@lists.linux.dev
+Subject: Re: [PATCH i-g-t 0/3] Add infrastruture and initial tests for ashi
+ DRM render driver
+Message-ID: <20260623111220.crlywrqwpe4zck26@kamilkon-DESK.igk.intel.com>
+Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Alyssa Anne Rosenzweig <alyssa@rosenzweig.io>,
+ Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+ Development mailing list for IGT GPU Tools <igt-dev@lists.freedesktop.org>,
+ dri-devel@lists.freedesktop.org, asahi@lists.linux.dev
+References: <20260105-asahi-tests-wave1-v1-0-a6c72617e680@jannau.net>
+ <aV3DENy3WoW7NRZO@fedora>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/9] vfio/pci: Clean up BAR zap and revocation
-Content-Language: en-GB
-To: Alex Williamson <alex@shazbot.org>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, "Tian, Kevin" <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Leon Romanovsky <leon@kernel.org>,
- Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
-References: <20260610154327.37758-1-matt@ozlabs.org>
- <20260610154327.37758-7-matt@ozlabs.org> <aixgZQiBQKgS7yIM@google.com>
- <DM6PR11MB3690489DB5FA611413BF60558CE52@DM6PR11MB3690.namprd11.prod.outlook.com>
- <ajGbRE3WWJxNxcrg@google.com>
- <BYAPR11MB3687AE280241C9E00B46FCF98CE42@BYAPR11MB3687.namprd11.prod.outlook.com>
- <24f34e59-7c3b-4b56-83bf-cb07e3f369a6@ozlabs.org>
- <20260619133116.GB278945@nvidia.com>
- <55ea7422-08d8-4c92-aa59-8ff6f9e9d781@ozlabs.org>
- <20260622171336.7d13f548@shazbot.org>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20260622171336.7d13f548@shazbot.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aV3DENy3WoW7NRZO@fedora>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,66 +77,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alex,
-
-On 23/06/2026 00:13, Alex Williamson wrote:
-> On Fri, 19 Jun 2026 16:13:17 +0100
-> Matt Evans <matt@ozlabs.org> wrote:
+Hi Alyssa,
+On 2026-01-06 at 21:21:24 -0500, Alyssa Anne Rosenzweig wrote:
+> Series is - Reviewed-by: Alyssa Rosenzweig <alyssa@rosenzweig.io>
 > 
->> Hi Jason,
->>
->> On 19/06/2026 14:31, Jason Gunthorpe wrote:
->>> On Thu, Jun 18, 2026 at 05:02:58PM +0100, Matt Evans wrote:
->>>   
->>>> My understanding is that the sequences above wake a device that happens
->>>> to have previously been put into D3, and AFAICT it could only have got
->>>> there because of a previous vfio_pci_set_power_state().  Seems its only
->>>> caller is from the emulation of PCI_PM_CTRL using
->>>> vfio_lock_and_set_power_state(), and this zaps/revokes BAR access before
->>>> a transition to D3.  Similarly, an attempt to access a BAR via an
->>>> ioctl/through vfio_pci_core_do_io_rw() fails the D3 check in
->>>> __vfio_pci_memory_enabled(), and besides will try to take the memory_lock.  
->>>
->>> I thought the general design was the bars were made inaccessible
->>> before going to a low power state, and remain inaccessible while it is
->>> in low power?
->>>
->>> So the order of D0 doesn't matter. If it is not in D0 then there is no
->>> mappings and zap/revoke is a NOP.
->>>
->>> If is it in D0 then it doesn't matter because D0 is a nop.  
->> Yes, that's what I'm getting at. :)  If it's in D3 then BARs are
->> inaccessible, so as long as we go into D0 before the DMABUF move, the
->> order of the zap relative to the "go to D0" doesn't matter.
+> Thanks Janne!
 > 
-> I believe this is correct as well, but importantly we cannot assume
-> that a stray read or write just returns -1 or gets dropped.  This is
-> exactly why we have such hard protections against the user accessing
-> the device while it's disabled.  Not all platforms, even within
-> architectures that might otherwise be considered lenient of such
-> accesses, consider this benign and might escalate to system level
-> faults.
+> Le Mon, Jan 05, 2026 at 10:03:44PM +0100, Janne Grunau a écrit :
+> > I will start with upstreaming the asahi DRM render driver. The UAPI was
+> > merged in v6.16-rc1 and the downstream Asahi Linux kernel tree has a
+> > driver implementing this fully.
+> > The asahi (OpenGL 4.6 conformant) and honeycomb (Vulkan 1.4 conformant)
+> > user space drivers using this UAPI are available in mesa since 25.2.
+> > 
+> > This initial submission contains test infrastructure and tests for the
+> > ioctl DRM_IOCTL_ASAHI_GET_PARAMS and DRM_IOCTL_ASAHI_GET_TIME.
+> > These two tests are the only ones the initial version of the initial
+> > upstream submission of the driver will pass.
+> > 
+> > I have additional tests which the downstream driver passes as well. I
+> > was planning to submit them together with upstream driver patches which
+> > implement the necessary functionality for the tests.
+> > 
+> > If preferred I could submit all tests and gate them based on the driver
+> > version to avoid expected igt-gpu-tools test failures against
+> > incomplete (as in not implementing the full UAPI) upstream driver
+> > versions.
+> > 
+> > Signed-off-by: Janne Grunau <j@jannau.net>
 
-We are in enthusiastic agreement here.
+Thank you all for contribution, I merged it with a little edit
+for drm uapi description. Please look into my replies and try to
+improve your next contributions.
 
-> Let's be careful not to frame this as "the access doesn't matter
-> anyway", the answer is instead that non-D0 devices already lack any
-> mappings to access the device.  Thanks,
+Regards,
+Kamil
 
-I agree that is not the right thing to say, for exactly that reason.
-(For avoidance of any doubt, I didn't say that :) )
-
-Thanks for confirming the behaviour.  I hope Praan and Kevin are
-satisfied that this patch doesn't cause the issues they first worried
-about (the changed order of the zap relative to the D0 transition
-doesn't have a detrimental effect because of the existing inaccessibility).
-
-Alex, I'll post v4 soon, but if you have any comments in the pipeline
-please shout and I'll hold off awhile.
-
-
-Thanks,
-
-
-Matt
-
+> > ---
+> > Janne Grunau (3):
+> >       drm-uapi/asahi: Initial import of asahi_drm.h
+> >       asahi: Add test infrastruture for asahi DRM render driver
+> >       tests/asahi: Add test for DRM_IOCTL_ASAHI_GET_TIME
+> > 
+> >  include/drm-uapi/asahi_drm.h   | 1194 ++++++++++++++++++++++++++++++++++++++++
+> >  lib/drmtest.c                  |    1 +
+> >  lib/drmtest.h                  |    1 +
+> >  lib/igt_asahi.c                |   58 ++
+> >  lib/igt_asahi.h                |   15 +
+> >  lib/meson.build                |    1 +
+> >  meson.build                    |    8 +
+> >  tests/asahi/asahi_get_params.c |   55 ++
+> >  tests/asahi/asahi_get_time.c   |   63 +++
+> >  tests/asahi/meson.build        |   14 +
+> >  tests/meson.build              |    2 +
+> >  11 files changed, 1412 insertions(+)
+> > ---
+> > base-commit: cef45b995557367ba082bc460fbab2190af943fd
+> > change-id: 20260105-asahi-tests-wave1-7a850d0e0af0
+> > 
+> > Best regards,
+> > -- 
+> > Janne Grunau <j@jannau.net>
+> > 
