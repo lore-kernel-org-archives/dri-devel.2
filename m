@@ -4,89 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4EBBCDB470
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 20:11:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AA3ECDB471
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 20:12:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F2DE10EC80;
-	Tue, 23 Jun 2026 20:11:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C225B10EC85;
+	Tue, 23 Jun 2026 20:12:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=googlemail.com header.i=@googlemail.com header.b="rXhCXYqo";
+	dkim=pass (2048-bit key; unprotected) header.d=googlemail.com header.i=@googlemail.com header.b="SLFaum1t";
 	dkim-atps=neutral
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F94C10EC80
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:11:55 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-2c7c684353dso1935945ad.2
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 13:11:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782245515; cv=none;
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
+ [209.85.215.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5871410EC85
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:12:07 +0000 (UTC)
+Received: by mail-pg1-f172.google.com with SMTP id
+ 41be03b00d2f7-c897468a244so70623a12.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 13:12:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782245527; cv=none;
  d=google.com; s=arc-20240605;
- b=XSrQvGzgu9zNDd+UKE8o2/2EG2pDJwRW7XXzazKthnYj9iTdm164r3SnGSR60+3xEb
- usm1SG12G9qIPYt2Bl4nNGmA4TpYUmBUL2nCeuvt+Cpk+l3jp+bHMjyf8VopS6zDVhVl
- xDM7on2GfU+kriTVTLWzLdkARuzB6zewRr9fsGe9WG9mYvBH+aBnEtNhZraJcTgbwhJT
- VFz4j3Wp7+UxyhLV+VOkorPskN0Xr+a/dwVMW/BnVU8xqg7wdflqqbmj20a7B2BAqZiH
- 5EyZUt1bn60/Q6DaDwkg6WxyaKQSjix8wPEWSq5LVZEMDgIkW4TURMe42fNjpK3yYo48
- kLgw==
+ b=kv5IGdnc9PkeHv5ODYKGzmcNio9X78684GvKmGuJ1k2xSnW1ueDTiJFX++tDZ438n2
+ MxnuCrNBftJNTbXhbony+Quv+sLAUXQPERf0hT3NAKX7HWIC3vMzdBdhsA8qQRNxqmzi
+ mzj5Gh72AKk3hINNNEOA3z98z9TYQOmGhz32fGafQQmIXEnWff9FMnti9XvGEafyoA+I
+ tASZZtl3tqUZYtz8k6eEQkzUth8bcivFWsnwT6DEm39VITwkl15ntHuEw3Lo0GLunawa
+ +wlwzuHV3dD1Cqd7V4yqRHc+xq9/QsrfAHxEzCLX6HM9IIlItmUhP0DbE9rl8c3KZO6Q
+ d6cg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
  bh=t9AA00HARo6TTOGKX0Hmf8exd0jNlIDDEh7Vt3olSGA=;
- fh=nshl6UmU7wcpOqGWKdyX3SsN0cHdVO1TtOc3eFugse4=;
- b=OQe6v/TFZcVPq1lcd5fbqId2VDP7yIAvpP0XgnemaC96GHy2H0xtKnxK3CCN23Xni3
- 9IRw+IvQGksrl5QU6w/fRkbJclrKNdsrRugh8WQ0/RVI8S8v8yAzE9b1zvr4/5eaU6gB
- 8riEYLZs4/cktf89/iWG9uhC1RTaGiSNw7oy8TNbXocDFrb5F1jIYezhnN02emm4WWjD
- hGrs5FfZ7SKmzLuBjmLI5pnCOXnTUAOzFoIgNRgR0YUMYTCMn5QpDDntuN84g8EFB0mQ
- tavYnlXccacER8JEgIv7rTbEGCIFUBWpz9CI9DJFF8+/g3tim5aM0cBtL28HyMkEts8W
- OGlA==; darn=lists.freedesktop.org
+ fh=xn4kEl55a9UGXWSTNJ92rDiPR9btXc/1sRcrxdhO+zk=;
+ b=iJV60oO517X7Sb0EjULtgpNXk/7GFbWOu+hqxxQOx/NeZGhyLsCglfsFve2PsYB74C
+ cPXke6SgMJ6GRfihKX6Bl31T8AOz+qIelf+pM/TWh6GjbXNIAdzy/qRNmubIXwfjdctU
+ JF4d6LjX7pydnooqIBdTnZX/7xttiZHRpD3HifVIXYQ9u70itb8elmFp361fmjStdsUR
+ VYiFKIAhPCWnyXuuHt4Xty6HPCA+gCVT9QVw9JE3Hy+yhRJKh0nwBiLjctPrOBk9buUa
+ dJ1HSiKbe8cnbiEXy7BUiovUNIH+pZohZEJaUCB6j6Hu9hLwHbmToAvj9wZTGqEtLoGK
+ nEsw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=googlemail.com; s=20251104; t=1782245515; x=1782850315;
+ d=googlemail.com; s=20251104; t=1782245527; x=1782850327;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
  bh=t9AA00HARo6TTOGKX0Hmf8exd0jNlIDDEh7Vt3olSGA=;
- b=rXhCXYqoEGHUtn21nspFhEGqcTraGjvd30szLf2JUa6XUzel3lFWRjcgHQLHCf8G5S
- yfirYTZ/HslYNOQKuZ6xtXXTTBj0wleEieORYRLIUTv2WJhpXg9O3Cfu3t3y3XpZb090
- h+mfjU9keEl/By8r8jbnKR6vRYj7bvu/KuyEYML1txIzLRT34b66OGklY5FA9POcUoVE
- RwE+oC7hlObhom781c8tGnd+H9sPhANmO07rec5f3CKANEWholcdMziVDE2KXTWyJTUt
- HVXajCtgDH0VbKM2kNmNCEzZ65akajlhYRTYHlQZOqnQFsu3fKF5HE7oOeiE6DpLnaA9
- jIuw==
+ b=SLFaum1ttzn3MWPR4xS4yuwbTzIA/ttE0RHHN+QrdNyv7/ycOucPnT9INrq5kl1pWC
+ 5wsEANx+btjQjse9azVzRKMXzLUOYDuhKlJ02CIDsLUEX3aS7JSveM8yQcmfRJB/O4LK
+ x2IdlfPBoifjEhW+bGbhGP3SbZZs3JOX++fNysLsxx8IQK/dDBwyUAutBa+FUBpa0Kbe
+ 8fpkvh2/7TWO4o77UReBgs8d1ELoWwqkH0MWi12DOZwPzMHLoDntZqpUQbNkdb3Mgo9+
+ re8XCPFSnWU1x7C6Vsmg8oJcCZ30NCXE+U1J9AkWYAUp6RegW5VHy9dZ8GdY9P6j6qyQ
+ S1cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782245515; x=1782850315;
+ d=1e100.net; s=20251104; t=1782245527; x=1782850327;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
  bh=t9AA00HARo6TTOGKX0Hmf8exd0jNlIDDEh7Vt3olSGA=;
- b=QJvR+M68cLwsbfcmM0ShdZFfghe4V1bwPKvfIRv17EH08thNDPhgrAUOMUGa1Pqc1m
- Kek0g93yPvwniA/1lC4Si20HXROkUF+3N1Mn+9e/psJX5k12P97b89U0sdAhoi4RuMDf
- jljxaOTCJmyKY+TypTEwnjXpzfvx5SDCoJxtJTt2SYp1dzvsAIO+HD07cvNIumqT/W99
- bu6fG0Mi/spfoFa3y3+jPyrZLJfzksrLvPxGRAmypYdNwdWu2agWatN3iiXyqnHU8DMv
- AoIzH+x261rlGRMxacA4kMDXSdsA8ccFKn97F+1GYa1x5jVRbLqTMi+w4EIbLhEDFhO3
- 9FXA==
+ b=pgI/Q9qbLNFuOQsJVNdi1zjlUCRq6E/H98dRaR8GkpMp6hMRWHXJIkDxLjtGVEsvNQ
+ 0QRRohfaFJGjMp+HcDkEjpMOBC0WqPi+xuQJs4uckePIwqXU69fidqocAZ4xy0ncoN99
+ zGcbeyof32FdRpYl3Q2Y0AhpDt3p4UzRJNsPpky3Sa+oDRcosatM6cUOQvpQQQtM4R8J
+ 3zgaSioApF7bQAAXiShW83A2yGWX7IQ38cofefpLTPh50NzhwSqkrRimz5cwIVLqyKBo
+ Bc4+Qt/ZsvlLnqfTH//7Rexn+7GuiHmnmC6rZEnyANCb9WjoGBvGRhXlcjjIQQvF+G58
+ JZLA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rrbnr93T2RPvSj0T56/8M9/5e2noquxw/HSweuGFZJ2jinoGM8+AneZosh72+D6gV+4I7FuibcI6Oc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzApj0V2j6ghfqxSrKflz2uNxLVsCvBSLMUOGsPfDcQuYifsPlN
- a1PzkUr5Cm4tFFdeTQfhhe0yjbD8tTrvFijwSdCUBHGqzXbM3V6rvqVfV1w8ctp112Ar6HhKS+Y
- CclXe9fqHASK9ouEgu+TUDE/oShVxim4=
-X-Gm-Gg: AfdE7cmpAba/tYyHp0yqAaABVdMHehyDorovDJE5sq84dcYEXbj2XnbePZzLQItjMlF
- UYO1UAIFudfMMPOdTX93bhrBu6sfU+ez3Hvt/TR0i4CZBH3dvHgZIJTbEACiA41sBRGhl0Zlwez
- mR88mr46NQ+FcGsujtMiKYc+B6owr0+pOiXASjPQIfsHi6tJ4cXOu0lROMD4XWTwj3yHQJdOeBz
- FDgTLEFy/rfZjgWn0ZkRmFhyX7K4koTPRmzyNxlnCHr3zyOClCGMsp/HguaN8UM/cxpf/uYj0eJ
- gni6jDMhfRCMDY1v3w1UMk/UUJip3A==
-X-Received: by 2002:a17:902:c40d:b0:2bf:160f:7043 with SMTP id
- d9443c01a7336-2c7e16f52ebmr3796575ad.34.1782245514637; Tue, 23 Jun 2026
- 13:11:54 -0700 (PDT)
+ AHgh+RpTa/xeVV/7+oVbDqr53xi7UpxLUwP2Mzy8aUHn/LnwzJ6C9K4fN/qgzfCN+IYiI1/H9jYIoOtI4iY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxTBD/4ZMmdjLAjn0x7foVO2OBH0Yrc+IKKlnDDpKr30ujyJ9O5
+ kzDOyygOb6SeK/kj4PXL3Sg9SIHTXfgUqAgPaU4tyrubQ74eAR6HIeZp+PXVStpUolUcCpWO1yY
+ Qd2h4tk2S4vAeK/bA+9XP5axrf52zO1aD3/4p
+X-Gm-Gg: AfdE7cmZrJdFZ5WRV+VMWgyxIEhlJQ2+hQAwEBs7R469Z4Cs40JNn8XrmkUkOvAVSWc
+ 6ZICls3KBQyiIPoCVKQcVxUwXH0qDKGeT0o6rlrTNumjGqZm/mLpMnYB6sJJhbA11jQ47ZHw4Vx
+ p24cDTrBkeGJ98g5ng1RTS5mWZowZe2KopiVLqtc1NHTDPAZx3CoJ0fjsY4/KfWSrWDd+Z0jcjb
+ PqMn+sMH50gKjuyL4pUH4VyY38S598B7gypmuREYFel5A80hUbYMpkk9xETbT9RMduz0JkH99h7
+ YxLnFlED1CJNkTZngQMnYlMwJNassphR8DQjNGk8
+X-Received: by 2002:a17:903:240b:b0:2b0:608d:d8a8 with SMTP id
+ d9443c01a7336-2c7e13bad7amr4514775ad.1.1782245526813; Tue, 23 Jun 2026
+ 13:12:06 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260619-drm-no-more-bridge-reset-v3-0-ff399263111b@kernel.org>
- <20260619-drm-no-more-bridge-reset-v3-55-ff399263111b@kernel.org>
-In-Reply-To: <20260619-drm-no-more-bridge-reset-v3-55-ff399263111b@kernel.org>
+ <20260619-drm-no-more-bridge-reset-v3-56-ff399263111b@kernel.org>
+In-Reply-To: <20260619-drm-no-more-bridge-reset-v3-56-ff399263111b@kernel.org>
 From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Tue, 23 Jun 2026 22:11:42 +0200
-X-Gm-Features: AVVi8CclP812_MCc2l3_hynpLrJPPYN9UiQ3ld_pgUPdTcXAwwfZrBnBsjf6dHk
-Message-ID: <CAFBinCD3suLGY4ZVK6bH_F4O2-OAtVAD81HSped+LkYUaEeNxA@mail.gmail.com>
-Subject: Re: [PATCH v3 55/78] drm/meson: encoder_dsi: Switch to
+Date: Tue, 23 Jun 2026 22:11:54 +0200
+X-Gm-Features: AVVi8Ce2NYfA8Y-QDZ6Qs0nmK98DH-xBcBFK3tKliqc_-TAchO1N47N6NmPkuP0
+Message-ID: <CAFBinCC7S2N0yKj=ayYf6FyzssLmF0z7JsokKQ=w7pucPxfZ8w@mail.gmail.com>
+Subject: Re: [PATCH v3 56/78] drm/meson: encoder_hdmi: Switch to
  atomic_create_state
 To: Maxime Ripard <mripard@kernel.org>
 Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
