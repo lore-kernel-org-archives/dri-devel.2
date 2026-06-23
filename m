@@ -4,63 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7E33CDB471
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 17:45:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 588CBCD98F2
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 17:47:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A15A10EC36;
-	Tue, 23 Jun 2026 17:45:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B10CB10EC2E;
+	Tue, 23 Jun 2026 17:47:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="V0/CDEZk";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="Kki45cJZ";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDCE610EC2E;
- Tue, 23 Jun 2026 17:45:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=rExIrn+CwI3H6PMuvZ/8l032+n7O7ou0ZKl7vHP3/Ao=; b=V0/CDEZkgfjqkuWKvYNPBQnyiT
- mwuijZPoNfgkvWDZaprsRBufwsElDBm/FxoIjx43KF5K+db79egA+ZoY21uDdnmLy8lE0cv3xd34r
- nRrbHmpelQFPa6Ii25ACmc3RjaxqBrXhwgrKE4XJg/052Lla+Pe4LBY29IV3U9pRAWP6OjhDanW8B
- LPekD9cZPG4BPBgtnHuC9bOxr6Vha2+y8DO7Vx615LpYnAyVZO9g5zbBmJ0PAMH6Yk+r/Lp0SRy9G
- 4lQwfupmFQyQmzC5vBZuLxw/2rLLvpPJ9xxF95EBK7PIz8tnIrXiDZWGzm4hPLVuNRcLKMZgFx6AP
- af002NSg==;
-Received: from 179-125-64-254-dinamico.pombonet.net.br ([179.125.64.254]
- helo=quatroqueijos.cascardo.eti.br)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wc5Bl-004HK4-42; Tue, 23 Jun 2026 19:45:33 +0200
-Date: Tue, 23 Jun 2026 14:45:23 -0300
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Cc: intel-xe@lists.freedesktop.org, Natalie Vock <natalie.vock@gmx.de>,
- Johannes Weiner <hannes@cmpxchg.org>, Tejun Heo <tj@kernel.org>,
- Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
- cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 6/6] drm/amdgpu: Wire up dmem cgroup reclaim for VRAM
- manager
-Message-ID: <ajrGM2Ij_LssrvhT@quatroqueijos.cascardo.eti.br>
-References: <20260611173301.17473-1-thomas.hellstrom@linux.intel.com>
- <20260611173301.17473-7-thomas.hellstrom@linux.intel.com>
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C7C710EC2E
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 17:47:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1782236848;
+ bh=YnpLj85EVGFLS082aT9C1I8KDlkyXpsPGbTho/uxSLo=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=Kki45cJZWsx9YAZgIjFlNXBh4gxmehNd4vPdhDGqbXNckYAUWcNK5NrOjxPnNhA0I
+ QtvyyFV0Eoh8ZNWJ7aIXyTto6helylau76gRUqZWbHqMWu67oqEojo8vwKq+EsHq6N
+ qCqcCGyNAYXq6mJLW+VOFY+Z41U9sdcsKlCkoZYyHf6ZwhMlYFnVbTEvkDeIp8eWCU
+ l96EoKWxeFlRbsj1l3UQV2fwAJuTACjiUyG5IG6lkYNHFMY9/TH/nv4V27mR0Ii/oD
+ g4Jpo55fotZNFVbkMuFlvwAb3414y7QDk/0X40yG4cgrli+myDrMBQmXrhUoGuIT0C
+ y7iLzj3Cuv5fA==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4glCFN67bcz4wB7;
+ Wed, 24 Jun 2026 03:47:20 +1000 (AEST)
+Message-ID: <feaefa41-9f67-4d4f-a3e0-282dca41f3eb@ozlabs.org>
+Date: Tue, 23 Jun 2026 18:47:14 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
+Content-Language: en-GB
+From: Matt Evans <matt@ozlabs.org>
+To: Robin Murphy <robin.murphy@arm.com>, "Tian, Kevin"
+ <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
+References: <20260610154327.37758-1-matt@ozlabs.org>
+ <20260610154327.37758-2-matt@ozlabs.org> <aisAc1HRn2Wa4F9p@google.com>
+ <DM6PR11MB36904ED2E1D2C646644F67668C182@DM6PR11MB3690.namprd11.prod.outlook.com>
+ <0dfadf98-a904-4e6a-b078-5caf27bc7922@ozlabs.org>
+ <81a9d212-996e-42e1-aabf-b120a13e94c3@arm.com>
+ <88a9ebaa-8637-4290-b299-acae0e3065f8@ozlabs.org>
+In-Reply-To: <88a9ebaa-8637-4290-b299-acae0e3065f8@ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260611173301.17473-7-thomas.hellstrom@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,163 +79,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2026 at 07:33:01PM +0200, Thomas Hellstr�m wrote:
-> Register the VRAM manager with the dmem cgroup reclaim infrastructure
-> so that lowering dmem.max below current VRAM usage triggers TTM
-> eviction rather than failing with -EBUSY.
-> 
-> Guard place->flags in amdgpu_ttm_bo_eviction_valuable() against NULL,
-> as the TTM reclaim path passes a NULL place in cgroup drain mode.
-> 
-> v3:
-> - Rebased on fix for uninitialized list and buddy allocator on the
->   drmm_cgroup_register_region() error path.
-> 
-> v5:
-> - Rebased on the introduction of struct dmem_cgroup_init.
-> - Clear the reclaim callback in amdgpu_vram_mgr_fini() to prevent
->   use-after-free if cgroup reclaim is triggered after driver unbind
->   while userspace holds an open DRM file descriptor. (Sashiko-bot)
-> - Switch from drmm_cgroup_register_region() to the raw
->   dmem_cgroup_register_region() and store the region in
->   amdgpu_vram_mgr.cg_region. Call dmem_cgroup_unregister_region()
->   in amdgpu_vram_mgr_fini() after ttm_resource_manager_evict_all()
->   to drain in-flight reclaim callbacks, and clear man->cg afterwards.
->   This is required because amdgpu's vram manager fini is called
->   explicitly during driver unbind, which may precede the DRM device
->   release and thus precede any drmm-based cleanup. (Sashiko-bot)
-> 
-> v6:
-> - Fix mgr->cg_region never being assigned, so
->   dmem_cgroup_unregister_region() in fini silently no-ops on NULL
->   and leaks the region. (Sashiko-bot)
-> - Reorder fini to call set_used(false) and evict_all() before
->   dmem_cgroup_unregister_region(), so ttm_resource_free() can
->   uncharge via man->cg during eviction; clear man->cg after
->   unregister. (Sashiko-bot)
-> 
-> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-> Signed-off-by: Thomas Hellstr�m <thomas.hellstrom@linux.intel.com>
+Hi Robin, me,
 
-Hi, Thomas.
-
-I needed the following fixup for this. Otherwise, it regresses on the dmem
-region name.
-
-Regards.
-Cascardo
-
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index 2250bab0970d..d93bb88e8b25 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -942,7 +942,8 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- 					     .size = adev->gmc.real_vram_size,
- 					     .ops = &amdgpu_vram_mgr_dmem_ops,
- 					     .reclaim_priv = man,
--					 }, "vram");
-+					 }, "drm/%s/vram",
-+					    adev_to_drm(adev)->unique);
- 	if (IS_ERR(cg))
- 		return PTR_ERR(cg);
- 
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 31 ++++++++++++++++----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h |  2 ++
->  3 files changed, 28 insertions(+), 7 deletions(-)
+On 23/06/2026 16:59, Matt Evans wrote:
+> Heya Robin,
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 2740de94e93c..8cbcd33f51a5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -1488,7 +1488,7 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
->  	dma_resv_for_each_fence(&resv_cursor, bo->base.resv,
->  				DMA_RESV_USAGE_BOOKKEEP, f) {
->  		if (amdkfd_fence_check_mm(f, current->mm) &&
-> -		    !(place->flags & TTM_PL_FLAG_CONTIGUOUS))
-> +		    !(place && (place->flags & TTM_PL_FLAG_CONTIGUOUS)))
->  			return false;
->  	}
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> index 08f05c3aed1d..2250bab0970d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -906,6 +906,10 @@ static const struct ttm_resource_manager_func amdgpu_vram_mgr_func = {
->  	.debug	= amdgpu_vram_mgr_debug
->  };
->  
-> +static const struct dmem_cgroup_ops amdgpu_vram_mgr_dmem_ops = {
-> +	.reclaim = ttm_resource_manager_dmem_reclaim,
-> +};
-> +
->  /**
->   * amdgpu_vram_mgr_init - init VRAM manager and DRM MM
->   *
-> @@ -917,6 +921,7 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
->  {
->  	struct amdgpu_vram_mgr *mgr = &adev->mman.vram_mgr;
->  	struct ttm_resource_manager *man = &mgr->manager;
-> +	struct dmem_cgroup_region *cg;
->  	int err;
->  
->  	ttm_resource_manager_init(man, &adev->mman.bdev,
-> @@ -933,12 +938,16 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
->  	if (err)
->  		return err;
->  
-> -	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram",
-> -					      &(struct dmem_cgroup_init){
-> -						.size = adev->gmc.real_vram_size,
-> -					      });
-> -	if (IS_ERR(man->cg))
-> -		return PTR_ERR(man->cg);
-> +	cg = dmem_cgroup_register_region(&(struct dmem_cgroup_init){
-> +					     .size = adev->gmc.real_vram_size,
-> +					     .ops = &amdgpu_vram_mgr_dmem_ops,
-> +					     .reclaim_priv = man,
-> +					 }, "vram");
-> +	if (IS_ERR(cg))
-> +		return PTR_ERR(cg);
-> +
-> +	mgr->cg_region = cg;
-> +	ttm_resource_manager_set_dmem_region(man, cg);
->  
->  	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
->  	ttm_resource_manager_set_used(man, true);
-> @@ -966,6 +975,16 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
->  	if (ret)
->  		return;
->  
-> +	/*
-> +	 * Drain any in-flight dmem cgroup reclaim callbacks and remove the
-> +	 * region from the global list.  This must happen after evict_all()
-> +	 * so that ttm_resource_free() can still uncharge via man->cg while
-> +	 * BOs are being evicted.
-> +	 */
-> +	dmem_cgroup_unregister_region(mgr->cg_region);
-> +	mgr->cg_region = NULL;
-> +	man->cg = NULL;
-> +
->  	mutex_lock(&mgr->lock);
->  	list_for_each_entry_safe(rsv, temp, &mgr->reservations_pending, blocks)
->  		kfree(rsv);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> index 429a21a2e9b2..07103cddb335 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-> @@ -36,6 +36,8 @@ struct amdgpu_vram_mgr {
->  	atomic64_t vis_usage;
->  	u64 default_page_size;
->  	struct list_head allocated_vres_list;
-> +	/** @cg_region: dmem cgroup region for VRAM; unregistered in fini. */
-> +	struct dmem_cgroup_region *cg_region;
->  };
->  
->  struct amdgpu_vres_task {
-> -- 
-> 2.54.0
+> On 23/06/2026 16:48, Robin Murphy wrote:
+>> On 12/06/2026 3:31 pm, Matt Evans wrote:
+>>> Hi Kevin, Pranjal, (+Robin, hi!)
+>>
+>> Oh hey there! :)
+>>
+>>> On 12/06/2026 04:39, Tian, Kevin wrote:
+>>>>> From: Pranjal Shrivastava <praan@google.com>
+>>>>> Sent: Friday, June 12, 2026 2:38 AM
+>>>>>
+>>>>> On Wed, Jun 10, 2026 at 04:43:15PM +0100, Matt Evans wrote:
+>>>>>> --- a/drivers/pci/Kconfig
+>>>>>> +++ b/drivers/pci/Kconfig
+>>>>>> @@ -206,11 +206,7 @@ config PCIE_TPH
+>>>>>>   config PCI_P2PDMA
+>>>>>>       bool "PCI peer-to-peer transfer support"
+>>>>>>       depends on ZONE_DEVICE
+>>>>>> -    #
+>>>>>> -    # The need for the scatterlist DMA bus address flag means PCI
+>>>>> P2PDMA
+>>>>>> -    # requires 64bit
+>>>>>> -    #
+>>>>>> -    depends on 64BIT
+>>>>>> +    select PCI_P2PDMA_CORE
+>>>>>>       select GENERIC_ALLOCATOR
+>>>>>>       select NEED_SG_DMA_FLAGS
+>>>>>>       help
+>>>>>
+>>>>> Nit: Did we drop depends on 64BIT intentionally here? I guess the full
+>>>>> PCI_P2PDMA stack still selects NEED_SG_DMA_FLAGS? IIRC,
+>>>>> NEED_SG_DMA_FLAGS doesn't select 64BIT?
+>>>>
+>>>> seems that comment is stale. According to the commit msg:
+>>>>
+>>>> " it would make vfio-pci only available if CONFIG_ZONE_DEVICE is
+>>>> present (e.g. 64-bit systems), "
+>>>>
+>>>> so it sounds a redundant dependency hence is removed.
+>>>
+>>> This was intentional.  In practice there is still a dependency on 64BIT
+>>> for PCI_P2PDMA, but it is because of ZONE_DEVICE (and mem hotplug).  The
+>>> key need is PCI_P2PDMA_CORE is available on !64BIT for VFIO, but I
+>>> didn't see a requirement from PCI_P2PDMA itself (as opposed to its
+>>> dependencies).  If I've missed one, I can put it back...
+>>>
+>>> But NEED_SG_DMA_FLAGS doesn't smell quite right; I see from comments in
+>>>
+>>>    af2880ec44021 ("scatterlist: add dedicated config for DMA flags")
+>>>
+>>> that it assumes 64BIT, but it seems to be missing a "depends on 64BIT".
+>>>
+>>> Robin -- should that depend on 64BIT?
+>>
+>> Indeed, looking at the history it seems like that was overlooked, but it
+>> worked out at the time since the only selector of NEED_SG_DMA_FLAGS was
+>> PCI_P2PDMA as you say. If we're now generalising then moving the
+>> explicit 64BIT dependency to NEED_SG_DMA_FLAGS itself sounds like the
+>> right thing to do.
 > 
+> Cheers for confirming.  I'll send a patch separate to this series (since
+> the deps work out OK for PCI_P2PDMA for the reasons mentioned).
+
+I think we were wrong, NEED_SG_DMA_FLAGS doesn't _need_ 64BIT.
+
+Other than P2PDMA, the other consumer of NEED_SG_DMA_FLAGS is IOMMU_DMA,
+and turns out if one builds an i386 kernel with INTEL_IOMMU (or some
+other configs, like Xen) then NEED_SG_DMA_FLAGS is enabled on 32-bit
+builds too.
+
+The scatterlist.h comments af2880ec44021 touched are just saying that
+_since_ P2PDMA depends on 64BIT, there _is_ circumstantial padding so
+let's use it for flags.  It doesn't require 64BIT.
+
+For example struct scatterlist isn't pushed over some special (e.g.
+power-of-two) size when NEED_SG_DMA_FLAGS is enabled on 32-bit; I can't
+find a reason it should be prevented on 32-bit builds (and found cases
+above in which it is already enabled in them).
+
+So I won't change the NEED_SG_DMA_FLAGS dependencies after all.  Sorry
+for the noise -- as ever if I've missed something do please explain.
+
+(I'll continue with removing the P2PDMA dependency on 64BIT because it
+seems P2PDMA's dependencies rely on 64BIT, though P2PDMA itself doesn't.)
+
+Thanks,
+
+
+Matt
