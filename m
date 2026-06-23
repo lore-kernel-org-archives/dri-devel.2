@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FFD5CD98F2
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 16:48:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92C00CDB479
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 16:48:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF95110EC06;
-	Tue, 23 Jun 2026 16:48:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC82B10EC13;
+	Tue, 23 Jun 2026 16:48:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tfWJtixB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="k1LG6ueN";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011055.outbound.protection.outlook.com [52.101.57.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B81D10EC02;
- Tue, 23 Jun 2026 16:48:25 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010038.outbound.protection.outlook.com [52.101.61.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21F2510EC10;
+ Tue, 23 Jun 2026 16:48:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QY2xm2Y1L8vE5ak99fGxpetMOiDw42b+3xliVWvp3DIRgQgCtjTZ0FUVTdrZus2BeFTIDHFB+yukr54ndWhQfPkYVY7XRnVtK/lBucONZRhCEMU+w3XwKnbWGCKfPfeOK1WFTRdoJUAbe2zEM9rfVUDZ4xoAeBVhQdbRuo+ptptpBjO3s9JDmPOXE3cO10wGbnh1cV7N/3cuL9RyJ6o7bChw0mkud8Lqyj39WPtoIIAlRkusu46MQyUjiy50LDjQZVpQiowejyVJywToYNWwGSdfaDhqbmxwkpaxBv+lvh3ko42yT9ET/4zeiKSAWkfbkEcW5gc2brDi97XEQXVVNw==
+ b=svC5kR0I3z010iuJo+JE1YeIgXp6XmE6+C119QYnXVxxeKEVhXv2oUmdjGu7LDxQpnf6m9YvacwvQ40XJJ4VvUIhJMnryIHR01s+pPxx09OYD5VEcW/Z5PVXLa176YmXFkbwC+6vEKa4rpE1NEp/Jewu0NCSUG0nfHGaDPwgtZHY71zrLbTl4TvLCjnPXBMjt9ZjES82t/EmKskpLD5TK2WP9zSGPTJsxttqtHywsK3iARCobSxFjyA0CL6dBoNCTIdwek36kDwoZjaW8ZtUDCrwxRLqO7HVcpSrCMX991kOURMOsCxoc4xRXTcuMEwjBt/gB9c8u7Giv1pYmYOcag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4mgvfisGGrEbvUcx0sdLaqPDXFRRCwfL7xIFD+JZPSU=;
- b=K85aAjSAOJ+sz2cSWC6a7++EKF9U0KOIMBfToTOs6g4ZuqZucQ+TMKOLVf67KJ6iG8EHC7OnNHjYCODFvouPivVCMy9ZdIchtGd22GWNrpI4K75kldLtZ4zow0+qaRPRAzR9JMECclZ6oQnhg+uo/l26/IA6IU84mYunNg77T5a5BFgamuomP5/z0GMC3KU01OI9kPzaPkib8qDWGsnc9fybq5/l4OUDrpVT8dFW0O9TDtKNR3LejqGTkWefADBB6M3DEGPQRNgl+jzAP4Bgeq7UVYWY7bE1zlaaeylG9eK7AeEhcC94eM/gcTGiDxd14unMyMKNYaQmoGHb5MQyXQ==
+ bh=PQEon0qmtblZygQfHmnZXaMNTQKi1yAfxolLpgdrbCo=;
+ b=VMjijt88sJRH1hlmRqFMlPfdleKOfbe7iIggm5D8c3szP3m7pzXVmOHGVswzTL3TUhPBVr19GBya15uEOaUo3lG40/pXRkHvfunlcmy+nJCNDk+hTpUMYUVEMRUjjEOGcCmavFvG6brZzHaYG4hkDYCFXaD+v6wDWSShTaKrWHE/utBfyor008yLZRrGMuo97QCs267Fyo7sgv9aLVHcrkS7xiSheMFPJSSgVkdjtR+4huAAgJ/kS5gDY3W42bE2/zRZ05mwG9clLtORxZEcDyhztvfnLA/1zlFoL2H2gVj7bkP5W76Q/kBVjD8qCJWU4OVWyZlMl9nJXKkfQoLR+Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4mgvfisGGrEbvUcx0sdLaqPDXFRRCwfL7xIFD+JZPSU=;
- b=tfWJtixB868QgavwG2zkA4sgz2N6Z6IUqY9i9FxsuOI8VLXSu1EkO1ZizYWFJTToADoY07W3utDT1WJSDM3F+1OMb5wFVN6z5W+stkm6CjJtAg/WlttgvUaL0n6M83SAQIOrDaqHLqYLk+TwpBJqLPAzHVNRDJXprPwZavmBHLs=
-Received: from DS7PR05CA0050.namprd05.prod.outlook.com (2603:10b6:8:2f::9) by
- SA5PPF5D41D38AD.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8cb)
+ bh=PQEon0qmtblZygQfHmnZXaMNTQKi1yAfxolLpgdrbCo=;
+ b=k1LG6ueNo+XLq5q4K3Qb4ExYj+n/VcUmyrXN6pju+E9R6d25AeCXkCb71bKQhgwij8sa9FLN1143p3RI/FIjOTGpcv3E05zMdFhECXZ9zNeiixcebaMxNncI/ruZ6LpkMJwuvvyVPLC9JPEy+xPEVnuEVuwP58ImEmbNlwBuJ2A=
+Received: from SJ0PR05CA0181.namprd05.prod.outlook.com (2603:10b6:a03:330::6)
+ by MW3PR12MB4377.namprd12.prod.outlook.com (2603:10b6:303:55::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Tue, 23 Jun
- 2026 16:48:18 +0000
-Received: from DS1PEPF00017099.namprd05.prod.outlook.com
- (2603:10b6:8:2f:cafe::8a) by DS7PR05CA0050.outlook.office365.com
- (2603:10b6:8:2f::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.13 via Frontend Transport; Tue,
- 23 Jun 2026 16:48:18 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.12; Tue, 23 Jun
+ 2026 16:48:27 +0000
+Received: from SJ5PEPF000001D0.namprd05.prod.outlook.com
+ (2603:10b6:a03:330:cafe::2f) by SJ0PR05CA0181.outlook.office365.com
+ (2603:10b6:a03:330::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.8 via Frontend Transport; Tue, 23
+ Jun 2026 16:48:27 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- DS1PEPF00017099.mail.protection.outlook.com (10.167.18.103) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001D0.mail.protection.outlook.com (10.167.242.52) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.10 via Frontend Transport; Tue, 23 Jun 2026 16:48:18 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.159.10 via Frontend Transport; Tue, 23 Jun 2026 16:48:26 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 23 Jun
- 2026 11:48:17 -0500
+ 2026 11:48:21 -0500
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 23 Jun
- 2026 11:48:17 -0500
+ 2026 11:48:21 -0500
 Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 23 Jun 2026 11:48:17 -0500
+ Transport; Tue, 23 Jun 2026 11:48:20 -0500
 From: Harry Wentland <harry.wentland@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>
-Subject: [PATCH v3 02/11] drm/colorop: Add limited-range YUV-to-RGB fixed
- matrix enum values
-Date: Tue, 23 Jun 2026 12:48:03 -0400
-Message-ID: <20260623164812.81110-3-harry.wentland@amd.com>
+CC: Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH v3 07/11] drm/amd/display: Use GAMCOR for first TF if YUV
+ conversion is needed
+Date: Tue, 23 Jun 2026 12:48:08 -0400
+Message-ID: <20260623164812.81110-8-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260623164812.81110-1-harry.wentland@amd.com>
 References: <20260623164812.81110-1-harry.wentland@amd.com>
@@ -77,29 +77,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017099:EE_|SA5PPF5D41D38AD:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7740c1ef-7eb2-432d-c572-08ded1473a4c
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D0:EE_|MW3PR12MB4377:EE_
+X-MS-Office365-Filtering-Correlation-Id: 936495b6-1e66-4bd0-6784-08ded1473f45
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|23010399003|36860700016|376014|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: Uu7aLUDn+rNTxbyy/B98npjmq6Zd3HNlRWGdkrNc7ZN60Oxwug2Q+fkbXZnVwf0Up3aPctSAcnHHpxndqj1IFLi4RdlNAlm+Q40IHD/z5nYrX3cmn7EmI0LT3Df5Rgg3vGDgSo0R7TFfbaESxj+gOw3MORvvN9oGiTJcId70LqCy/IG5I4XG4MDCv38MwhFlvonM/RR8CCnzxwKVml1fu2IXEV5HEPhnkEeb8U8sNYtsxzd25UWjjyZ+I52leM8XefBIht72VjgYIfb25SG+i+vkfE89+Eur9Pfz4WnR+x7+SGHfqhhnfMDm292zkf4ZNTsEB4eIDjkW0eO1p0N14rwQUGkTQtrGQG5wRQEP78TCF78B/OY/zAk5mrLr+6svbWHdlHfeEGgrD1K8oYwF/ye55o8PnRmu2mdSuw9/V71xJreiyul7uWfemhz+xg+objnfPY/ha7Za30Sc/BtyGA0bIosiBhYm5z2mgqu3Ho0JRJr7JmpZiwypeuw0et6te5WzRSe7Nl5PDjGMvz1I+f3+jtiY2YfpTBiLAsosRjbWK2cIwcQcBwwsoFkgwXf7n5NX+3SDWtAtmTObI0lURybvwYXjsAjHJI6hDI9BAtd3yNtrTMb5Zu5p8U7eQQLopTbdyfkCD9PsPzbzRwfu+TFD4ryYXjkXtYSu0Ehtiv2SkxPqyEH8yKm1rFW7sOtApaMBzGzJO/XtfH59qQ3ABw==
+ ARA:13230040|36860700016|1800799024|376014|23010399003|82310400026|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: 1oL4cQVlnR1EGV7PdoHDPrshnN/we1990vvitWpDOF1ibvZeSKRd48xg1QZlLb7RXLvlQ0LAlyU5fKqxYXmOr7Y6L5rERNtaibEj0Mihj2dP1GoWudvuBXslgBD3CjG/5eBmL7OCNFhq5ydVC009To8NCXsmjOk8YTTMsrSQr+MBw2Muek90U3lp7/RuGYiqo27q1OnOIMXER+nt385SVqGAgyQxCHnQyZoMJLwTZNa4W17xs4Se56AIYUo5eVnhgothfEy1ZtSM+BojWhHXJAwuh0VQ5lY1pKQ3/dxgZ3PnH2eQf6SH93qbxSoOG64PgGVqZriLGhPLiKouhOSZrM9M+2fdbu8Lsx/8UJvH0vbCHNlMs9M3Nypc1K0PRFgqKJhgRKveT7rOGnqrr9GzHj8eUyO6hce2eTafLV3N8+knm3V8n/LS3Ihhu9GHN6jCwaHS917epewnmkbgQxrYahZf9LHug0Ke4hZ0qRlTiFfu6aulibf2MQ2bQeJO/4N9a77CgzI7++F4KoctFbzB3BmRkbukm3yJcZcQWzRhmCAOIau5X7dgO/zxXqpEX/v3Gd+M85CrKP1vHeU0crt+zkyQWcf5TdLipVts9ydk5xzHp1pyfXKBHTDQ/8BrGaTlZnFuytP2VDp7LyAieCQGAqXgAlHZyWVFckUBgq/gt9yNHfmCE+z2PG4tSNgzfdYxgIifWnHZ+V18ib0DE5Z51g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(23010399003)(36860700016)(376014)(56012099006)(11063799006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(376014)(23010399003)(82310400026)(18002099003)(22082099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: V0b5A3uDITcFt5NR7JszhtRnwvkFqox6A2P0RLtN0/N22AiDiBK83xfDwVKgJe1THKJK2mwGTowxKHxEt88fURtobDRf3+uWCtliLBYKsFkVFgiWVr9c+uGZPYS8qQgL0MXNy8okF+G13pKBMSMdIG663SG+crfvzGWHVUjNIY23yLmFwfpKW8/+sCfSzPUVf5BqbZC3RUK2xJFJbgAUc8hdc/qwcaAtFtQkfifkfRnCUsDaeMK3+//W4sFiZVgmtLWzyL4/C4kHGPrytUS4dxB6L8uTqc2ZMJULBoZcvUhbUlU7L7sTBvWk1iBIt2Wqt7MvOrMDF3zpyizLl60haiNQ9b9v7+OkQ9scj/upOoNtT565BrD+x6evOuXHfy6PJTJ7tB8DwPOqZUwXbGD5O7pOUpp13yh+zlcTXJYJXtsymsv5CMI5C2jolVBq4mt8
+X-MS-Exchange-AntiSpam-MessageData-0: H8bLzGI/9fB39S9xLxZAkXAQUmRaykDGrHCKN6Xv+gxx+PArR6T8IZsgH4dw01/cDcYC1UYVSszaLJlBzhwUyZboV8sfm25Z9V4vAEaUiPkvs4CAPQhkOqM/5b7PaL+WT1ZJyHDlTL3wnsDjOJ/lHOqwTfGjxLcgQZCGa05O9kA98ma3zq51TjX92dFCrH1tpLVkcoqTI1eWMZ717HArGCv8KIcRN5imBLqVXfHUPVjn/UujLB4JwdhI2i81X+DllDcwawWdIE09BXkkTqF+gr5A2QOUk3i+bWSgA+jfBJ0BZtf+aop4/LgWlISe2t91gI1s899TQ497hKYrS7m9DjDTyTJOOwV2wPiG16Z/i0YeTlsMxxAcKsCw9Xb8xaZmTkV9KkC4tUoe9+kd56G04N+g17vJWyOmLcp2j/D9FlmnmShry5A436rTakOzOWrD
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 16:48:18.3444 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7740c1ef-7eb2-432d-c572-08ded1473a4c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 16:48:26.6813 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 936495b6-1e66-4bd0-6784-08ded1473f45
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017099.namprd05.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D0.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF5D41D38AD
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4377
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,92 +115,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add three new limited-range YUV-to-RGB conversion presets to the
-Fixed Matrix colorop enum:
+For subsampled formats we need to use GAMCOR instead of
+the DEGAM block. The color module can create a LUT for
+that if we set map_user_ramp to true. So do that when
+we have subsampled formats.
 
-  - DRM_COLOROP_FM_YCBCR601_LIMITED_RGB
-  - DRM_COLOROP_FM_YCBCR709_LIMITED_RGB
-  - DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB
-
-Assisted-by: Claude:claude-opus-4.6
+Assisted-by: Claude:claude-sonnet-4.5
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
 ---
- drivers/gpu/drm/drm_colorop.c |  3 +++
- include/drm/drm_colorop.h     | 30 ++++++++++++++++++++++++++++++
- 2 files changed, 33 insertions(+)
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 23 +++++++++++++++++--
+ 1 file changed, 21 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-index c11c3012fcc5..9cf89153b365 100644
---- a/drivers/gpu/drm/drm_colorop.c
-+++ b/drivers/gpu/drm/drm_colorop.c
-@@ -93,8 +93,11 @@ static const struct drm_prop_enum_list drm_colorop_lut3d_interpolation_list[] =
- 
- static const char * const colorop_fixed_matrix_type_names[] = {
- 	[DRM_COLOROP_FM_YCBCR601_FULL_RGB] = "YCbCr 601 Full to RGB",
-+	[DRM_COLOROP_FM_YCBCR601_LIMITED_RGB] = "YCbCr 601 Limited to RGB",
- 	[DRM_COLOROP_FM_YCBCR709_FULL_RGB] = "YCbCr 709 Full to RGB",
-+	[DRM_COLOROP_FM_YCBCR709_LIMITED_RGB] = "YCbCr 709 Limited to RGB",
- 	[DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB] = "YCbCr 2020 NC Full to RGB",
-+	[DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB] = "YCbCr 2020 NC Limited to RGB",
- 	[DRM_COLOROP_FM_YCBCR_LIMITED_FULL] = "YCbCr limited to full",
- 	[DRM_COLOROP_FM_RGB709_RGB2020] = "RGB709 to RGB2020",
- };
-diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-index 88933d5b4d8b..5c542c264a36 100644
---- a/include/drm/drm_colorop.h
-+++ b/include/drm/drm_colorop.h
-@@ -150,6 +150,16 @@ enum drm_colorop_fixed_matrix_type {
- 	 */
- 	DRM_COLOROP_FM_YCBCR601_FULL_RGB,
- 
-+	/**
-+	 * @DRM_COLOROP_FM_YCBCR601_LIMITED_RGB:
-+	 *
-+	 * enum string "YCbCr 601 Limited to RGB"
-+	 *
-+	 * This selects the matrix that converts limited range YCbCr into RGB
-+	 * according to the BT.601 coefficients.
-+	 */
-+	DRM_COLOROP_FM_YCBCR601_LIMITED_RGB,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index c54ca5188f68..561ee9a2e749 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -1454,11 +1454,15 @@ __set_dm_plane_degamma(struct drm_plane_state *plane_state,
+ 		if (ret)
+ 			return ret;
+        } else {
++		bool is_subsampled =
++			dc_plane_state->format >= SURFACE_PIXEL_FORMAT_VIDEO_BEGIN &&
++			dc_plane_state->format < SURFACE_PIXEL_FORMAT_SUBSAMPLE_END;
 +
- 	/**
- 	 * @DRM_COLOROP_FM_YCBCR709_FULL_RGB:
- 	 *
-@@ -160,6 +170,16 @@ enum drm_colorop_fixed_matrix_type {
- 	 */
- 	DRM_COLOROP_FM_YCBCR709_FULL_RGB,
+ 		dc_plane_state->in_transfer_func.type =
+ 			TF_TYPE_PREDEFINED;
  
-+	/**
-+	 * @DRM_COLOROP_FM_YCBCR709_LIMITED_RGB:
-+	 *
-+	 * enum string "YCbCr 709 Limited to RGB"
-+	 *
-+	 * This selects the matrix that converts limited range YCbCr into RGB
-+	 * according to the BT.709 coefficients.
-+	 */
-+	DRM_COLOROP_FM_YCBCR709_LIMITED_RGB,
-+
- 	/**
- 	 * @DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB:
- 	 *
-@@ -170,6 +190,16 @@ enum drm_colorop_fixed_matrix_type {
- 	 */
- 	DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB,
+ 		if (!mod_color_calculate_degamma_params(color_caps,
+-		    &dc_plane_state->in_transfer_func, NULL, false))
++		    &dc_plane_state->in_transfer_func, NULL, is_subsampled))
+ 			return -ENOMEM;
+ 	}
+ 	return 0;
+@@ -1471,6 +1475,8 @@ __set_colorop_in_tf_1d_curve(struct dc_plane_state *dc_plane_state,
+ 	struct dc_transfer_func *tf = &dc_plane_state->in_transfer_func;
+ 	struct drm_colorop *colorop = colorop_state->colorop;
+ 	struct drm_device *drm = colorop->dev;
++	struct dc_color_caps *color_caps = NULL;
++	bool is_subsampled_format;
  
-+	/**
-+	 * @DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB:
-+	 *
-+	 * enum string "YCbCr 2020 NC Limited to RGB"
-+	 *
-+	 * This selects the matrix that converts limited range YCbCr into RGB
-+	 * according to the BT.2020 non-constant luminance coefficients.
-+	 */
-+	DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB,
+ 	if (colorop->type != DRM_COLOROP_1D_CURVE)
+ 		return -EINVAL;
+@@ -1485,10 +1491,23 @@ __set_colorop_in_tf_1d_curve(struct dc_plane_state *dc_plane_state,
+ 	}
+ 
+ 	drm_dbg(drm, "Degamma colorop with ID: %d\n", colorop->base.id);
+-
+ 	tf->type = TF_TYPE_PREDEFINED;
 +
- 	/**
- 	 * @DRM_COLOROP_FM_YCBCR_LIMITED_FULL:
- 	 *
++	/* Check if format requires post-scale color processing (subsampled formats) */
++	is_subsampled_format = (dc_plane_state->format >= SURFACE_PIXEL_FORMAT_VIDEO_BEGIN &&
++				dc_plane_state->format < SURFACE_PIXEL_FORMAT_SUBSAMPLE_END);
++
+ 	tf->tf = amdgpu_colorop_tf_to_dc_tf(colorop_state->curve_1d_type);
+ 
++	if (dc_plane_state->ctx && dc_plane_state->ctx->dc)
++		color_caps = &dc_plane_state->ctx->dc->caps.color;
++
++	if (!mod_color_calculate_degamma_params(color_caps, tf, NULL,
++						is_subsampled_format)) {
++		drm_err(drm, "Failed to calculate degamma params\n");
++		return -EINVAL;
++	}
++
+ 	return 0;
+ }
+ 
 -- 
 2.54.0
 
