@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54DF8CD98F2
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 17:44:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28131CDB470
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 17:44:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B58A910EC31;
-	Tue, 23 Jun 2026 17:44:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6921C10EC34;
+	Tue, 23 Jun 2026 17:44:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ItjX+I8J";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="jGn5wDJ2";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E5ED10E1F5;
- Tue, 23 Jun 2026 17:43:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C405910EC21;
+ Tue, 23 Jun 2026 17:43:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=a5Ly8geR1oWprQ4p41w/ISJHm3yE4aBgqiuOQnF2jfY=; b=ItjX+I8JgOR4L4+aK2jMH1WigB
- ucnCBu9+QPQHFfIuoWPfqaNg5PzCw+yDRz9Y0j/j8V62upD2Uv6WLH/MMVr+RZLEZ3CX3mgM23bHZ
- BUK5sbEJxZjZYFIuyKu4Zq9gGJ90cJIkK3aYBplIZBUmn+NwhHKfmU2OK4wfLu2eDobd9QIOtn/b8
- IjlqCGkWTItVpwqmVLjr14ISQ9hrnbmA2gGHPySH6jJ8ClFKWp7wyRrogAqV3ujxHhpDc3plSj6VU
- cggC2RSrlE3kGcZ6H7E2/S/nib/R6NkokSayaUAzyJnSGaMi0XqLXqrmRfDQNh7wkBDjjyRXqOpT4
- DePmqqMw==;
+ bh=I6Lp4nixbOv2LqJ07br1/AHEIE91d9ecDtIof3D1v7A=; b=jGn5wDJ2fM8Z0E9iQZ+/9SppX5
+ szcatrDu7sjRL/mDjc/rTIW6HNXr0+oAkRpc+4+M67dbJDaSHaMQ21N4qzbUJ6vWuEbzw/J8PSuCv
+ rx4+NQJGJMajaT7873uRZiZ55poP+JA2HRBajtw4aW4Rz/8FxmCYkSbM6CoY4WG+Y4lYCwAJDCfGA
+ cayMXDKfZKp1qlE+2FS3plfMTlKiQobov80eVZTwtpuInF3dDCjcwUmmi91s5sNbVvLrlsotVwC8o
+ iuZDRN+v44dAukg3hVbwVRDWMGQ1ufUgHFsqKV0aQajVVgW0dAPVIxeEaY90eI5B069EKeqG1usEF
+ lyylm4mA==;
 Received: from 179-125-64-254-dinamico.pombonet.net.br ([179.125.64.254]
  helo=quatroqueijos.lan) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wc59o-004HEi-TG; Tue, 23 Jun 2026 19:43:33 +0200
+ id 1wc5AC-004HEi-V8; Tue, 23 Jun 2026 19:43:57 +0200
 From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 To: igt-dev@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
@@ -45,12 +45,13 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  Natalie Vock <natalie.vock@gmx.de>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com,
  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Subject: [PATCH i-g-t 0/7] add dmem_cgroups test
-Date: Tue, 23 Jun 2026 14:43:12 -0300
-Message-ID: <20260623174319.4138648-1-cascardo@igalia.com>
+Subject: [PATCH i-g-t 5/7] lib/amdgpu: add amdgpu_cgroup_region_name
+Date: Tue, 23 Jun 2026 14:43:17 -0300
+Message-ID: <20260623174319.4138648-6-cascardo@igalia.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260623174319.4138648-1-cascardo@igalia.com>
+References: <20260623174319.4138648-1-cascardo@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,83 +68,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patchset is based on the work of Thomas Hellström at [1] and a
-followup I have submitted at [2].
+The amdgpu dmem region name uses its PCI address, just like the one from
+Xe, but there is only a single VRAM region.
 
-With this version, I reverted the order in which to apply the patchsets, as
-this one adds the infrastructure and the drivers mechanisms, and a test for
-dmem.current and its behavior around dmem.max that is currently supported
-in the kernel.
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+---
+ lib/amdgpu/amd_memory.c | 25 +++++++++++++++++++++++++
+ lib/amdgpu/amd_memory.h |  2 ++
+ 2 files changed, 27 insertions(+)
 
-As for the new dmem.max eviction behavior, introduced by [3], it has been
-pushed to a branch at [4]. If preferred, I can submit the two patches
-independently.
-
-I have run the tests, including the ones that test dmem.max eviction
-behavior on a system with a 1GiB VRAM amdgpu card. I have not been able to
-run it on a Xe system so far. I would appreciate if people can do it. I
-have applied the patchset at [3] on top of current linux origin/master [5],
-with a fixup for the amdgpu driver.
-
-Now, for the changes since v1 [2]:
-- Changed the test name from drv_dmem_cgroups to dmem_cgroups.
-- Have system includes before igt ones.
-- Documented the current SUBTEST.
-- Changed free_vram driver hook to only release a given BO. This allows for
-  the eviction trigger by a new allocation added by write_eviction_nonblock
-  subtest.
-- Changed allocate_vram to keep more state necessary for releasing a single BO.
-- Added a global free_vram helper to free all allocated VRAM.
-
-Compared to v3 of [1]:
-- I have kept wait_for_usage_drop as release can be lazy and we test for it
-  on test_current SUBTEST, but had USAGE_DROP_TIMEOUT_MS be a little
-  longer.
-- Changed BO_SIZE and EVICT_STEP to allow for more than two eviction steps
-  on a 1GiB VRAM system.
-- Reduced USAGE_SLACK to avoid false positives, but still allow for some
-  page table accounting.
-
-[1] https://patchwork.freedesktop.org/series/163935/#rev3
-[2] https://patchwork.freedesktop.org/series/166496/
-[3] https://lore.kernel.org/dri-devel/20260611173301.17473-1-thomas.hellstrom@linux.intel.com/
-[4] https://gitlab.freedesktop.org/cascardo/igt-gpu-tools/-/commits/dmem_max?ref_type=heads
-[5] 502d801f0ab0 ("Merge tag 'erofs-for-7.2-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs")
-
-Thadeu Lima de Souza Cascardo (4):
-  lib/xe: Introduce dmem driver and implement Xe support
-  lib/amdgpu: add amdgpu_cgroup_region_name
-  lib/amdgpu: add amdgpu support to igt_dmem_driver
-  tests/dmem_cgroups: add test for dmem.current
-
-Thomas Hellström (3):
-  lib/igt_cgroup: add cgroup v2 and dmem controller helpers
-  tests/cgroup_dmem: add dmem cgroup controller test
-  lib/xe: add xe_cgroup_region_name() helper
-
- lib/amdgpu/amd_dmem.c   |  99 +++++++
- lib/amdgpu/amd_memory.c |  25 ++
- lib/amdgpu/amd_memory.h |   2 +
- lib/igt.h               |   1 +
- lib/igt_cgroup.c        | 638 ++++++++++++++++++++++++++++++++++++++++
- lib/igt_cgroup.h        |  56 ++++
- lib/igt_dmem_driver.h   |  25 ++
- lib/meson.build         |   3 +
- lib/xe/xe_dmem.c        | 159 ++++++++++
- lib/xe/xe_query.c       |  32 ++
- lib/xe/xe_query.h       |   2 +
- tests/cgroup_dmem.c     |  92 ++++++
- tests/dmem_cgroups.c    | 241 +++++++++++++++
- tests/meson.build       |   2 +
- 14 files changed, 1377 insertions(+)
- create mode 100644 lib/amdgpu/amd_dmem.c
- create mode 100644 lib/igt_cgroup.c
- create mode 100644 lib/igt_cgroup.h
- create mode 100644 lib/igt_dmem_driver.h
- create mode 100644 lib/xe/xe_dmem.c
- create mode 100644 tests/cgroup_dmem.c
- create mode 100644 tests/dmem_cgroups.c
-
+diff --git a/lib/amdgpu/amd_memory.c b/lib/amdgpu/amd_memory.c
+index 12fe23c65ab2..2da4a8a4baee 100644
+--- a/lib/amdgpu/amd_memory.c
++++ b/lib/amdgpu/amd_memory.c
+@@ -30,9 +30,11 @@
+ #include <amdgpu_drm.h>
+ #include <stdio.h>
+ #include <string.h>
++#include <limits.h>
+ #include <unistd.h>
+ #include <sys/mman.h>
+ #include <inttypes.h>
++#include "igt_device.h"
+ 
+ /**
+  *
+@@ -679,6 +681,29 @@ bool virtual_free_memory(void *address, unsigned int size)
+ 	}
+ }
+ 
++/**
++ * amdgpu_cgroup_region_name() - Build the dmem cgroup region name for an amdgpu.
++ * @fd: amdgpu device fd.
++ *
++ * Constructs the full dmem cgroup region path for VRAM on the device
++ * identified by @fd.  The returned string has the form
++ * ``drm/<pci-slot>/vram`` (e.g. ``drm/0000:03:00.0/vram``), matching
++ * the name registered by the kernel driver via drmm_cgroup_register_region().
++ *
++ * Return: A newly allocated string that the caller must free(), or %NULL if
++ * @region is not tracked by the dmem cgroup controller.
++ */
++char *amdgpu_cgroup_region_name(int fd)
++{
++	char pci_slot[NAME_MAX];
++	char *name;
++
++	igt_device_get_pci_slot_name(fd, pci_slot);
++
++	igt_assert(asprintf(&name, "drm/%s/vram", pci_slot) > 0);
++	return name;
++}
++
+ /**
+  * Wait for specific value in memory with timeout
+  */
+diff --git a/lib/amdgpu/amd_memory.h b/lib/amdgpu/amd_memory.h
+index e26c85bc4b0a..de169e580c1b 100644
+--- a/lib/amdgpu/amd_memory.h
++++ b/lib/amdgpu/amd_memory.h
+@@ -105,6 +105,8 @@ void
+ bool
+ virtual_free_memory(void *address, unsigned int size);
+ 
++char *amdgpu_cgroup_region_name(int fd);
++
+ bool
+ wait_on_value(unsigned int *ptr, unsigned int expected);
+ #endif
 -- 
 2.47.3
 
