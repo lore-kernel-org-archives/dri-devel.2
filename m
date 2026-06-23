@@ -4,60 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67C12CDB479
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 11:41:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BAB8CD98F2
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 11:44:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B752410EACA;
-	Tue, 23 Jun 2026 11:41:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD57210EABD;
+	Tue, 23 Jun 2026 11:44:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KFUbps+P";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YWQL+7dE";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7335E10EABD;
- Tue, 23 Jun 2026 11:41:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DCA810EABD;
+ Tue, 23 Jun 2026 11:44:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782214896; x=1813750896;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=oFR3fKxp2rMoamXoQfp+HWnnM/ydmzyeIyOJDGCQOJg=;
- b=KFUbps+PcQmpZNm3VJjWGDn9gQIv3jDEzsqT+DDY6W+GohLZnt4NeS2p
- ucGPYA0DGe2Yx88ZMmy0+Sx8OE1a9CAj0jDbZWLGOO6MYp8O4Ka5819Dc
- QObxGekSjosllJhqeyUYKqfG3bUUWRtKQjaxkD6KOoqiZeucNj0AurXnk
- fYJeATjcLvZBNoSnZwrTyhqyHTRwpk5DTYnXyPayiySrcoWSn3h5poka1
- YB4f+L9OEBWIlLa2MIOLOKCCOOX/m1lBL1iFUrhrrLwegihutUXr9pLfD
- DJcpS8YGRAptQsC3d9l4oySYAo1Sx9xB1Ui4TjlhyVQrNsXXM7Xi6ZYXp Q==;
-X-CSE-ConnectionGUID: Q7Bs8HPcRzSlKOLDiHD1/w==
-X-CSE-MsgGUID: maiHV8BBSqSiM1JdTkQGlg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11825"; a="82996788"
-X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="82996788"
+ t=1782215070; x=1813751070;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=KfC7LNEf+rWrSynyjXVPHNi3QlrfnqyM/nZvUmXLib0=;
+ b=YWQL+7dEex2yrB86i1w3JIaLjiEnO0ht9jYbBerieGgwI9+f79/QNxcF
+ AbiAnUOYMmKe84XqLu3o2u3jUmuiRPgAyG537TeXKEH/HmRZE5Z7bsUf7
+ 3Z++CVVLl+NeeD7tvWmcapMZF3yniiTi1CfS3IhYjbIe8BFgRAo4AVVPw
+ B26CJg+0QpsUAVtoejiEq3szGlmYCJYwHA+PjMrIUzN2zmqtO9UafXp2n
+ zmjq2udQ2z5CUjtLqxV3FEDxMCy6DvKyz92zw3zFcRxriHRyB54inwWyX
+ 1UZc6jRvUedYhl3bzctHNUkTTK7InCeHUmztMfckCpl0av375Xz38yFmY A==;
+X-CSE-ConnectionGUID: niFZCA+6T7yHH4YaU0j6WA==
+X-CSE-MsgGUID: 2floyegISs+7ZDJAKsmsRg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11825"; a="82997037"
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="82997037"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2026 04:41:36 -0700
-X-CSE-ConnectionGUID: Vu+8Rh8nQ2qd17ZzCunMEg==
-X-CSE-MsgGUID: f+qAel5wT9SbG2J6uEnxUQ==
+ 23 Jun 2026 04:44:29 -0700
+X-CSE-ConnectionGUID: vkZSM7zBQQ+LKAC5sKVMOg==
+X-CSE-MsgGUID: MejXlA9ER2WqsOvVnLYVRg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="249614954"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.67])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2026 04:41:34 -0700
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH v3 4/5] drm/i915/panel: Adjust intel_panel_compute_config()
- calling convention
-Date: Tue, 23 Jun 2026 14:41:29 +0300
-Message-ID: <20260623114130.7333-1-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260622213602.7244-5-ville.syrjala@linux.intel.com>
-References: <20260622213602.7244-5-ville.syrjala@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="249615576"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by orviesa009.jf.intel.com with ESMTP; 23 Jun 2026 04:44:25 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+ id AF54D95; Tue, 23 Jun 2026 13:44:24 +0200 (CEST)
+Date: Tue, 23 Jun 2026 14:44:23 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Raag Jadav <raag.jadav@intel.com>,
+ "Michael J . Ruhl" <michael.j.ruhl@intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Riana Tauro <riana.tauro@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] drm/xe/i2c: Handler for SMBus Alerts
+Message-ID: <ajpxl3QTu7GfOmKN@kuha>
+References: <20260622114759.3464047-1-heikki.krogerus@linux.intel.com>
+ <20260622114759.3464047-2-heikki.krogerus@linux.intel.com>
+ <ajpl3Tv-bCc8kfWG@ashevche-desk.local>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ajpl3Tv-bCc8kfWG@ashevche-desk.local>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,183 +79,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Tue, Jun 23, 2026 at 01:54:21PM +0300, Andy Shevchenko wrote:
+> On Mon, Jun 22, 2026 at 01:47:58PM +0200, Heikki Krogerus wrote:
+> > Some devices that are attached to the I2C controller use the
+> > SMBus Alert signal for example to inform the host about
+> > thermal events, so registering the default SMBus Alert
+> > device device for them. The alert device makes sure that
+> > the alert is processed and passed to the correct I2C client
+> > driver.
+> 
+> ...
+> 
+> > +	if (i2c->smbus_alert)
+> 
+> Unneeded. Also the below incorporates error pointer cases.
+> 
+> > +		i2c_unregister_device(i2c->smbus_alert);
+> > +
+> >  	if (!i2c->irqdomain)
+> >  		return;
+> 
+> ...
+> 
+> > +++ b/drivers/gpu/drm/xe/xe_i2c_smbus.c
+> > @@ -0,0 +1,59 @@
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
+> > +/*
+> > + * Intel Xe SMBus handling
+> > + *
+> > + * Copyright (C) 2026 Intel Corporation.
+> > + */
+> 
+> + bits.h // BIT()
+> + err.h // IS_ERR()
+> 
+> > +#include <linux/i2c-smbus.h>
+> > +#include <linux/regmap.h>
+> > +#include <linux/types.h>
+> 
+> ...
+> 
+> > +static struct i2c_smbus_alert_setup xe_i2c_smbus_setup;
+> > +
+> > +int xe_i2c_register_smbus_alert(struct xe_i2c *i2c)
+> > +{
+> > +	struct i2c_client *alert;
+> > +
+> > +	alert = i2c_new_smbus_alert_device(i2c->adapter, &xe_i2c_smbus_setup);
+> > +	if (IS_ERR(alert))
+> > +		return PTR_ERR(alert);
+> > +
+> > +	i2c->smbus_alert = alert;
+> > +
+> > +	return 0;
+> > +}
+> 
+> As per above comment, this IS_ERR() is not need, as the removal API is optional-aware.
+> OTOH, the other NULL-check in the driver in that case needs to be IS_ERR_OR_NULL().
+> 
+> But I'm not sure if you want to have alert setup to always succeed.
 
-Pass the full atomic state to intel_panel_compute_config(). We'll
-need this for some upcoming VRR fastset tricks. And to accompany
-full state we'll also need the crtc (or its state) as well.
+Thanks Andy. I'll get these fixed.
 
-v2: Rebase
+I have to refactor the code a little. It does not seem to be possible
+to try to conditionally include this file based on CONFIG_I2C_SMBUS
+like I'm doing now, so I'm going to propose that CONFIG_XE selects
+CONFIG_I2C_SMBUS in v2. Since there are only two functions here, I'll
+just move them to xe_i2c.c
 
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/icl_dsi.c     |  2 +-
- drivers/gpu/drm/i915/display/intel_dp.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_dvo.c   |  2 +-
- drivers/gpu/drm/i915/display/intel_lvds.c  |  2 +-
- drivers/gpu/drm/i915/display/intel_panel.c | 21 +++++++++++++--------
- drivers/gpu/drm/i915/display/intel_panel.h |  6 ++++--
- drivers/gpu/drm/i915/display/intel_sdvo.c  |  4 ++--
- drivers/gpu/drm/i915/display/vlv_dsi.c     |  2 +-
- 8 files changed, 24 insertions(+), 17 deletions(-)
+cheers,
 
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index 59184f2f805c..ea0cdb7822f3 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -1672,7 +1672,7 @@ static int gen11_dsi_compute_config(struct intel_atomic_state *state,
- 	pipe_config->sink_format = INTEL_OUTPUT_FORMAT_RGB;
- 	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
- 
--	ret = intel_panel_compute_config(intel_connector, adjusted_mode);
-+	ret = intel_panel_compute_config(state, pipe_config, intel_connector);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index b9324b590ee9..da8a94821c11 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3639,7 +3639,7 @@ intel_dp_compute_config(struct intel_atomic_state *state,
- 	int ret = 0, link_bpp_x16;
- 
- 	if (intel_dp_is_edp(intel_dp)) {
--		ret = intel_panel_compute_config(connector, adjusted_mode);
-+		ret = intel_panel_compute_config(state, pipe_config, connector);
- 		if (ret)
- 			return ret;
- 	}
-diff --git a/drivers/gpu/drm/i915/display/intel_dvo.c b/drivers/gpu/drm/i915/display/intel_dvo.c
-index 181722c41b96..f157699a7c4c 100644
---- a/drivers/gpu/drm/i915/display/intel_dvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_dvo.c
-@@ -257,7 +257,7 @@ static int intel_dvo_compute_config(struct intel_atomic_state *state,
- 	 * with the panel scaling set up to source from the H/VDisplay
- 	 * of the original mode.
- 	 */
--	ret = intel_panel_compute_config(connector, adjusted_mode);
-+	ret = intel_panel_compute_config(state, pipe_config, connector);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
-index 30e4809b36ac..872753478cf2 100644
---- a/drivers/gpu/drm/i915/display/intel_lvds.c
-+++ b/drivers/gpu/drm/i915/display/intel_lvds.c
-@@ -460,7 +460,7 @@ static int intel_lvds_compute_config(struct intel_atomic_state *state,
- 	 * with the panel scaling set up to source from the H/VDisplay
- 	 * of the original mode.
- 	 */
--	ret = intel_panel_compute_config(connector, adjusted_mode);
-+	ret = intel_panel_compute_config(state, crtc_state, connector);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index 2b8401b6d4d6..faa24537ef63 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -219,9 +219,11 @@ enum drrs_type intel_panel_drrs_type(struct intel_connector *connector)
- 	return connector->panel.vbt.drrs_type;
- }
- 
--static int intel_panel_compute_config_vrr(struct intel_connector *connector,
--					  struct drm_display_mode *adjusted_mode)
-+static int intel_panel_compute_config_vrr(struct intel_atomic_state *state,
-+					  struct intel_crtc_state *crtc_state,
-+					  struct intel_connector *connector)
- {
-+	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
- 	const struct drm_display_mode *fixed_mode;
- 	int vrefresh, fixed_mode_vrefresh;
- 
-@@ -251,9 +253,11 @@ static int intel_panel_compute_config_vrr(struct intel_connector *connector,
- 	return 0;
- }
- 
--static int intel_panel_compute_config_fixed_rr(struct intel_connector *connector,
--					       struct drm_display_mode *adjusted_mode)
-+static int intel_panel_compute_config_fixed_rr(struct intel_atomic_state *state,
-+					       struct intel_crtc_state *crtc_state,
-+					       struct intel_connector *connector)
- {
-+	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
- 	const struct drm_display_mode *fixed_mode;
- 	int vrefresh, fixed_mode_vrefresh;
- 
-@@ -286,14 +290,15 @@ static int intel_panel_compute_config_fixed_rr(struct intel_connector *connector
- 	return 0;
- }
- 
--int intel_panel_compute_config(struct intel_connector *connector,
--			       struct drm_display_mode *adjusted_mode)
-+int intel_panel_compute_config(struct intel_atomic_state *state,
-+			       struct intel_crtc_state *crtc_state,
-+			       struct intel_connector *connector)
- {
- 	int ret;
- 
--	ret = intel_panel_compute_config_vrr(connector, adjusted_mode);
-+	ret = intel_panel_compute_config_vrr(state, crtc_state, connector);
- 	if (ret)
--		ret = intel_panel_compute_config_fixed_rr(connector, adjusted_mode);
-+		ret = intel_panel_compute_config_fixed_rr(state, crtc_state, connector);
- 
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.h b/drivers/gpu/drm/i915/display/intel_panel.h
-index 23bd227826c9..30c6078ecb1b 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.h
-+++ b/drivers/gpu/drm/i915/display/intel_panel.h
-@@ -14,6 +14,7 @@ struct drm_connector;
- struct drm_connector_state;
- struct drm_display_mode;
- struct drm_edid;
-+struct intel_atomic_state;
- struct intel_connector;
- struct intel_crtc_state;
- struct intel_display;
-@@ -45,8 +46,9 @@ enum drm_mode_status
- intel_panel_mode_valid(struct intel_connector *connector,
- 		       const struct drm_display_mode *mode,
- 		       int *target_clock);
--int intel_panel_compute_config(struct intel_connector *connector,
--			       struct drm_display_mode *adjusted_mode);
-+int intel_panel_compute_config(struct intel_atomic_state *state,
-+			       struct intel_crtc_state *crtc_state,
-+			       struct intel_connector *connector);
- void intel_panel_add_edid_fixed_modes(struct intel_connector *connector,
- 				      bool use_alt_fixed_modes);
- void intel_panel_add_vbt_lfp_fixed_mode(struct intel_connector *connector);
-diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index 6b73c9a5ec7f..3075ef04df56 100644
---- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -1399,8 +1399,8 @@ static int intel_sdvo_compute_config(struct intel_atomic_state *state,
- 		const struct drm_display_mode *fixed_mode;
- 		int ret;
- 
--		ret = intel_panel_compute_config(&intel_sdvo_connector->base,
--						 adjusted_mode);
-+		ret = intel_panel_compute_config(state, pipe_config,
-+						 &intel_sdvo_connector->base);
- 		if (ret)
- 			return ret;
- 
-diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
-index b89318f5bdc2..8829f365592e 100644
---- a/drivers/gpu/drm/i915/display/vlv_dsi.c
-+++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
-@@ -281,7 +281,7 @@ static int intel_dsi_compute_config(struct intel_atomic_state *state,
- 	pipe_config->sink_format = INTEL_OUTPUT_FORMAT_RGB;
- 	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
- 
--	ret = intel_panel_compute_config(intel_connector, adjusted_mode);
-+	ret = intel_panel_compute_config(state, pipe_config, intel_connector);
- 	if (ret)
- 		return ret;
- 
 -- 
-2.53.0
-
+heikki
