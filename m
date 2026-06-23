@@ -4,63 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAE34CD98F2
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 12:52:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF846CDB46F
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 12:55:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 586CF10EB35;
-	Tue, 23 Jun 2026 12:52:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A05410EABC;
+	Tue, 23 Jun 2026 12:55:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="cLlXUUsE";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="EAp9u9xN";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 935E310EB35
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 12:52:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D72910EABC
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 12:55:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782219127;
- bh=x7zPnl50SWmAh2PPFhcivp1YUm7KJkGQWNbj4k3l66c=;
+ s=mail; t=1782219355;
+ bh=9EoUhOdA7j+seAfhvUlRUZqmYTKDM+5A8VpX20MrCZw=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=cLlXUUsEOIP1ewjgwICfih+A0Qbv1NicCl/r8PzBzL1Mr9X+g7mhJ2q9ShOYLzj/z
- CI+AvZNBHBmeDpQ4AVT6Wp1jCwrhXo6EMxZbIicLlVo2D1Sva9y2I8uE2zqeMmRdXQ
- r6Y9av9QXy5wY9rC7B76WIoYuyGw5Jlt7bFQdNyE4By1/VsmyzeQETLJYymk1XqfDE
- AtTi7C+ZE4lJvVvJgAu5zHGiN18cIOLX/znKJtO9DwGsXxrzhobvMWpFe3r03E92Ui
- S3pPIAYnUeKxneT1SzoFtRgf2ud9fiFkzfGeOFlMYQNWHOOB0P40W19E6lYqkIo/me
- KSUxGoYLZ2Ang==
+ b=EAp9u9xNWNUYg2L/9Y27jQ9W3T+1nlcti638qJVYABOZGtB6Bjt/CIa6qlGeIW7oL
+ NZ09HvdWw8AzPBCu3/YoHKFXzUyJyKCUMGbUkVs0IBO/L8DmJhwxf8IDUN28dEZslS
+ XNW8sw2b4MoNzDRghuuQA1ytSk3EfxlQp/jraO891WXvmOP736XlXx9K+ojCepBo3e
+ lh4W0fsYvOK5we9prjcyw9l+G3sDkudLlWUa1f9DHZpMlRYR/rJ8xsNZyBqynRqfl4
+ K6ydaKyKpR0i0MONiM/Xic787rbZnupr/n03bjRjBTnmPML83IwZ8jHwe8ywr6s7IU
+ GMqZh9JR04zOg==
 Received: from fedora-2.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E20D517E091C;
- Tue, 23 Jun 2026 14:52:06 +0200 (CEST)
-Date: Tue, 23 Jun 2026 14:52:03 +0200
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 58A7F17E091C;
+ Tue, 23 Jun 2026 14:55:55 +0200 (CEST)
+Date: Tue, 23 Jun 2026 14:55:50 +0200
 From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Chia-I Wu <olvaffe@gmail.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Steven Price
- <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 06/11] drm/panthor: Prepare the scheduler logic for
- FW events in IRQ context
-Message-ID: <20260623145203.01656d68@fedora-2.home>
-In-Reply-To: <20260622144949.67c8932c@fedora-2.home>
-References: <20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com>
- <20260512-panthor-signal-from-irq-v2-6-95c614a739cb@collabora.com>
- <CAPaKu7RjHvRAYZDehSF9R_8T-uTrC9-NfsAPSOX0n=-2phunpg@mail.gmail.com>
- <20260513102941.7321cbc3@fedora>
- <CAPaKu7SJbeRwN7_S5_ciC6sSf_MM_4s7-iJS8aqh=ispBZBf2w@mail.gmail.com>
- <20260518154516.65ba8592@fedora>
- <CAPaKu7RL5Hs2jXcj_v0F99xsM1Vo-U5iTzBvQ3Sev=dRiwBcuw@mail.gmail.com>
- <20260519095354.123f8b61@fedora>
- <CAPaKu7Se1jLiZ+6VNY=Ykf+nkMzu-q2r3UOdQ9Qf2DzpGNiCCQ@mail.gmail.com>
- <20260519202629.76bcc3a3@fedora>
- <CAPaKu7TUmZcAJLmub0Xu-wsFOGeQp0zwrhXKLavBo9E=83kSdA@mail.gmail.com>
- <CAPaKu7ToQmHHhTyb-az_b7EG2iRpc23=AJOYQ5P=HgrG29bS1A@mail.gmail.com>
- <20260520100946.398c5282@fedora>
- <CAPaKu7T_J3Om=rJB-ShF9Kyusdk+P6kXAk=W7S1dxim-OmAukA@mail.gmail.com>
- <20260622144949.67c8932c@fedora-2.home>
+To: Akash Goel <akash.goel@arm.com>, =?UTF-8?B?QWRyacOhbg==?= Larumbe
+ <adrian.larumbe@collabora.com>
+Cc: liviu.dudau@arm.com, steven.price@arm.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, daniel@ffwll.ch, nd@arm.com
+Subject: Re: [PATCH] drm/panthor: Fix NPD issue on partial unmap of an
+ evicted BO
+Message-ID: <20260623145550.71485c03@fedora-2.home>
+In-Reply-To: <b85679e3-5ca2-4d36-8675-2b968d97cb5b@arm.com>
+References: <20260623092413.2710066-1-akash.goel@arm.com>
+ <20260623115332.7e89f56b@fedora-2.home>
+ <9f9b372d-b465-4fd4-ab7a-9c399e35b4ed@arm.com>
+ <20260623140942.5055457c@fedora-2.home>
+ <b85679e3-5ca2-4d36-8675-2b968d97cb5b@arm.com>
 Organization: Collabora
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
@@ -81,69 +70,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 22 Jun 2026 14:49:49 +0200
-Boris Brezillon <boris.brezillon@collabora.com> wrote:
++Adrian
 
-> On Wed, 20 May 2026 15:15:54 -0700
-> Chia-I Wu <olvaffe@gmail.com> wrote:
-> 
-> > > > > I collected
-> > > > > some numbers with baseline, with this series, and with patch 9
-> > > > > reverted at https://gitlab.freedesktop.org/panfrost/linux/-/work_items/85#note_3481308.
-> > > > > Reposting the numbers here for reference
-> > > > >
-> > > > > |                    | baseline | entire series | patch 9 reverted |
-> > > > > | -                  | -        | -             | -                |
-> > > > > | frag job median    | 2.8ms    | 2.2ms         | 2.2ms            |
-> > > > > | frag job 95%       | 4.5ms    | 2.8ms         | 2.8ms            |
-> > > > > | frag job 99%       | 4.9ms    | 2.8ms         | 2.8ms            |
-> > > > > | panthor-job median | 0.8us    | 6.2us         | 0.9us            |
-> > > > > | panthor-job 95%    | 1.5us    | 16.6us        | 1.5us            |
-> > > > > | panthor-job 99%    | 1.6us    | 28.0us        | 1.8us            |    
-> > > >
-> > > > panthor-job rows are the durations of the raw irq handlers, collected
-> > > > from irq/irq_handler_{entry,exit}.
-> > > >
-> > > > frag job rows are the durations from frag jobs, collected from
-> > > > gpu_scheduler/drm_sched_job_{run,done}.
-> > > >
-> > > > The fence signaling paths of them are
-> > > >
-> > > >  - baseline: raw handler -> rt threaded handler -> wq job -> wq job ->
-> > > > fence signal
-> > > >  - entire series: raw handler -> fence signal
-> > > >  - patch 9 reverted: raw handler -> rt threaded handler -> fence signal    
-> > >
-> > > Just did another set of throughput tests, and I confirm the gains are
-> > > noticeable only with patch 9 applied (that's on rk3588, which embeds a
-> > > G610, so not the exact same setup). As an example, on
-> > > gfxbench/gl_manhattan, I get the following score bump 2391 -> 2457.
-> > >
-> > > Now I need to set things up to measure latency like you did and make
-> > > sure I'm observing the same thing: threaded handlers providing roughly
-> > > the same latency as hardirq handlers. If not it probably has to do with
-> > > some config options that differ and change the preemptability of the
-> > > system.
-> > >
-> > > I'll hold off on the submission of v3 until this is done, because if
-> > > threaded handlers are roughly as efficient as hardirq ones, we probably
-> > > want to stick to threaded handlers.   
-> 
-> Sorry for the delay, I only got back to this on Friday.
-> 
-> So, I've been using ftrace/function-graph with some noinline added to
-> get a sense of where most of the time was spent in the hardirq handler
-> after the transition to hardirqs, and unlike what I thought, it's not
-> coming from the accesses to uncached mappings of the FW
-> interface/syncobjs, but instead the various queue[_delayed]_work()
-> and/or wake_up_all() on panthor_fw::req_waitqueue. I don't expect us to
-> be able to optimize that anytime soon, so I guess we should just keep
-> everything in the threaded handler for now and accept the extra delay
-> (assuming 20+ usec for the hardirq handler is too long). This also
-> means that a lot of the things I do in this series are moot
-> (irqsave/restore, using spinlocks instead of mutexes, ...), but before
-> I go and rework that, I'd like to get some feedback from Steve and
-> Liviu to make sure this is okay with Arm.
+On Tue, 23 Jun 2026 13:41:12 +0100
+Akash Goel <akash.goel@arm.com> wrote:
 
-I ended up sending a v3 doing that. I can easily go back to the
-previous version if needed.
+> On 6/23/26 13:09, Boris Brezillon wrote:
+> > On Tue, 23 Jun 2026 12:17:51 +0100
+> > Akash Goel <akash.goel@arm.com> wrote:
+> >   
+> >> Hi Boris
+> >>
+> >> On 6/23/26 10:53, Boris Brezillon wrote:  
+> >>> On Tue, 23 Jun 2026 10:24:13 +0100
+> >>> Akash Goel <akash.goel@arm.com> wrote:
+> >>>      
+> >>>> This commit fixes the NULL pointer dereference issue that would have
+> >>>> happened on the split of GPU mapping due to partial unmap of an evicted
+> >>>> BO. There is a logic to handle the partial unmap of huge pages when the
+> >>>> GPU mapping is split. That logic was not being completely skipped for
+> >>>> the VMA of an evicted BO and that resulted in a NPD possibility for the
+> >>>> 'bo->backing.pages' pointer, which is set to NULL when pages of a
+> >>>> BO are released on eviction.
+> >>>>     
+> >>  
+> >>>>
+> >>>> Fixes: 8e7460eac786 ("drm/panthor: Support partial unmaps of huge pages")
+> >>>> Signed-off-by: Akash Goel <akash.goel@arm.com>
+> >>>> ---
+> >>>>    drivers/gpu/drm/panthor/panthor_mmu.c | 26 +++++++++++++-------------
+> >>>>    1 file changed, 13 insertions(+), 13 deletions(-)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> >>>> index 31cc57029c12..285e7b9bc100 100644
+> >>>> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> >>>> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> >>>> @@ -2358,20 +2358,20 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
+> >>>>    	 */
+> >>>>    	panthor_fix_sparse_map_offset(op->remap.next, unmap_vma->flags);
+> >>>>    
+> >>>> -	/*
+> >>>> -	 * ARM IOMMU page table management code disallows partial unmaps of huge pages,
+> >>>> -	 * so when a partial unmap is requested, we must first unmap the entire huge
+> >>>> -	 * page and then remap the difference between the huge page minus the requested
+> >>>> -	 * unmap region. Calculating the right start address and range for the expanded
+> >>>> -	 * unmap operation is the responsibility of the following function.
+> >>>> -	 */
+> >>>> -	unmap_hugepage_align(&op->remap, &unmap_start, &unmap_range);
+> >>>> -
+> >>>> -	/* If the range changed, we might have to lock a wider region to guarantee
+> >>>> -	 * atomicity. panthor_vm_lock_region() bails out early if the new region
+> >>>> -	 * is already part of the locked region, so no need to do this check here.
+> >>>> -	 */
+> >>>>    	if (!unmap_vma->evicted) {
+> >>>> +		/*
+> >>>> +		* ARM IOMMU page table management code disallows partial unmaps of huge pages,
+> >>>> +		* so when a partial unmap is requested, we must first unmap the entire huge
+> >>>> +		* page and then remap the difference between the huge page minus the requested
+> >>>> +		* unmap region. Calculating the right start address and range for the expanded
+> >>>> +		* unmap operation is the responsibility of the following function.
+> >>>> +		*/
+> >>>> +		unmap_hugepage_align(&op->remap, &unmap_start, &unmap_range);
+> >>>> +
+> >>>> +		/* If the range changed, we might have to lock a wider region to guarantee
+> >>>> +		 * atomicity. panthor_vm_lock_region() bails out early if the new region
+> >>>> +		 * is already part of the locked region, so no need to do this check here.
+> >>>> +		 */
+> >>>>    		panthor_vm_lock_region(vm, unmap_start, unmap_range);
+> >>>>    		panthor_vm_unmap_pages(vm, unmap_start, unmap_range);
+> >>>>    	}  
+> >>>
+> >>>
+> >>> I think we want something like that instead, so we can keep the
+> >>> 2M alignment for sparse mappings which go recently introduced.
+> >>>      
+> >>
+> >> Thanks for the suggestion. But sorry I didn't get it.
+> >>
+> >> I see that the patching of 'op->remap.next->gem.offset' would still be
+> >> done with my change.
+> >>
+> >> 	panthor_fix_sparse_map_offset(op->remap.next, unmap_vma->flags);
+> >>
+> >> 	if (!unmap_vma->evicted) {
+> >> 		unmap_hugepage_align(&op->remap, &unmap_start,
+> >>
+> >> IIUC, the 2M alignment is done to avoid a potential partial unmap of 2M
+> >> page. But if the VMA is in evicted state then already the unmap would
+> >> have happened for the whole virtual range covered by the VMA.  
+> > 
+> > Nah, you're correct, the patching of the drm_gpuva is independent of the
+> > adjusted unmap range, so we should be good even if we don't adjust this
+> > range for evicted sparse mappings. Sorry for the noise.
+> >   
+> 
+> No worries. Thanks for confirming.
+> 
+> Since I had a closer look at the code, sorry I have another doubt.
+> 
+> Do we really need the call to 'panthor_fix_sparse_map_offset()' in the 
+> following code block ?. The 'op->remap.next->gem.offset' would already 
+> have been patched before.
+
+That's probably not needed, indeed. Adrian to confirm.
+
+> 
+> 
+> 	if (op->remap.next) {
+> 		u64 addr = op->remap.next->va.addr;
+> 		u64 size = unmap_start + unmap_range - op->remap.next->va.addr;
+> 
+> 		if (!unmap_vma->evicted && size > 0) {
+> 			struct drm_gpuva_op_map map_op = {
+> 				.va.addr = addr,
+> 				.va.range = size,
+> 				.gem.obj = op->remap.next->gem.obj,
+> 				.gem.offset = op->remap.next->gem.offset,
+> 			};
+> 			panthor_fix_sparse_map_offset(&map_op, unmap_vma->flags);
+> 
+> 			ret = panthor_vm_exec_map_op(vm, unmap_vma->flags, &map_op);
+> 
+> 
+> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>  
+> 
+> Sorry I realized that indentation needs to be fixed in my patch.
+> 
+> Will send a v2 and ad your r-b tag.
+
+Sounds good.
+
+Thanks,
+
+Boris
