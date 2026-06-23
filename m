@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3906CCDB471
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 06:30:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20B3ECD4F26
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 06:30:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70F8310E96F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 806C810E972;
 	Tue, 23 Jun 2026 06:30:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="SKDEloUk";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="neuM+55q";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B688410E5BF
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 06:30:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA47210E966
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 06:30:11 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D4EC2445E2;
- Tue, 23 Jun 2026 06:30:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 87DE0C4AF0C;
+ by sea.source.kernel.org (Postfix) with ESMTP id 1918544604;
+ Tue, 23 Jun 2026 06:30:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B4217C32782;
  Tue, 23 Jun 2026 06:30:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1782196209; bh=NCKNYPa1eYcitZUfD0OiFCu4ehXyOiLLsU3Tp7Qt5Po=;
+ t=1782196209; bh=Ti7w8XNP4fw929XO4M5y+gDX8+sXECmyMVne5zeDayM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=SKDEloUkFLmyY3JVAnv4ekUXLh7753vqJUMVrRdthl7N4AhrVLdaPCWmtRJmbYFqR
- K0mEsgFNhVdtuSMYkoWQFYwsSxYqgilfMxztbF9jn4J/QLmlXahmyTQlGS2gELkFey
- cr3AWZxVSaGIQwXvdXuJomyEIWKDSUFsMFAE9LH8=
+ b=neuM+55qeemXxbQFeqDYtjkdRJZPD3T3q8gbmPgxbpSz9fINjheP0AWaRys2qg53e
+ +k9MDFmJ58EIUWFTP0U1xrXth56gLuWqw40aSHEu/j6IXSfYmO9B6WW5EGb3YOd225
+ ba3Yu9EJAyG897Tklu2mLE4lMlFs8F6aRwj9uZ24=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 7815CCDB47B;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 9CF32CDB47C;
  Tue, 23 Jun 2026 06:30:09 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Tue, 23 Jun 2026 14:29:46 +0800
-Subject: [PATCH v4 3/9] rust: doctest: add LocalModule fallback for
- #[vtable] ThisModule
+Date: Tue, 23 Jun 2026 14:29:48 +0800
+Subject: [PATCH v4 5/9] rust: drm: set fops.owner from driver module
+ pointer
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260623-fix-fops-owner-v4-3-0daf5f077d5c@linux.dev>
+Message-Id: <20260623-fix-fops-owner-v4-5-0daf5f077d5c@linux.dev>
 References: <20260623-fix-fops-owner-v4-0-0daf5f077d5c@linux.dev>
 In-Reply-To: <20260623-fix-fops-owner-v4-0-0daf5f077d5c@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -70,11 +70,11 @@ Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
  linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782196206; l=1210;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782196206; l=1849;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=NCKNYPa1eYcitZUfD0OiFCu4ehXyOiLLsU3Tp7Qt5Po=;
- b=swlmF2dDgj0nlzl6y06mROgxqDjudBXC10XLySKhWZnlOBT0jfn/VGwVjkkCjYtZnzOVPZa20
- n3EBhZOajMvDHUmO3LLzjMF39qEl+Jq3oMAC0r69Rv3uPzhf9tjXe4t
+ bh=Ti7w8XNP4fw929XO4M5y+gDX8+sXECmyMVne5zeDayM=;
+ b=UAbDEFquJEWH4q8B3WEPnEtU9cy0hucE0oiD/YYklQj/JkOHsvTucnDTvI9FY1BUrnZba72oJ
+ r3F3yEFaMX0BvdhtiQyrHGgl5+BeOXKHVoAj/lQcdHAIshJxgzqJfEe
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -94,43 +94,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a `LocalModule` struct with a null-pointer `ModuleMetadata` impl
-in the doctest harness, so that `crate::LocalModule` (auto-inserted
-by `#[vtable]`) resolves correctly when there is no `module!` macro.
+Change `create_fops()` to accept an owner module pointer instead of
+hardcoding `null_mut()`, ensuring the kernel correctly tracks the
+module owning the DRM device's file operations.
 
 Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+Reviewed-by: Gary Guo <gary@garyguo.net>
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- scripts/rustdoc_test_gen.rs | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ rust/kernel/drm/device.rs  | 3 ++-
+ rust/kernel/drm/gem/mod.rs | 4 ++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/scripts/rustdoc_test_gen.rs b/scripts/rustdoc_test_gen.rs
-index ee76e96b41eea..198af4e446c8c 100644
---- a/scripts/rustdoc_test_gen.rs
-+++ b/scripts/rustdoc_test_gen.rs
-@@ -239,6 +239,22 @@ macro_rules! assert_eq {{
+diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+index 403fc35353c74..d92cacb665366 100644
+--- a/rust/kernel/drm/device.rs
++++ b/rust/kernel/drm/device.rs
+@@ -111,7 +111,8 @@ impl<T: drm::Driver> Device<T> {
+         fops: &Self::GEM_FOPS,
+     };
  
- const __LOG_PREFIX: &[u8] = b"rust_doctests_kernel\0";
+-    const GEM_FOPS: bindings::file_operations = drm::gem::create_fops();
++    const GEM_FOPS: bindings::file_operations =
++        drm::gem::create_fops(crate::module::this_module::<T::OwnerModule>().as_ptr());
  
-+/// Dummy module type for doctest context.
-+struct LocalModule;
-+
-+use kernel::{{
-+    str::CStr,
-+    ModuleMetadata,
-+    ThisModule, //
-+}};
-+use core::ptr::null_mut;
-+
-+impl ModuleMetadata for LocalModule {{
-+    const NAME: &'static CStr = c"rust_doctests_kernel";
-+    // SAFETY: `try_module_get`/`module_put` handle null module pointers gracefully.
-+    const THIS_MODULE: ThisModule = unsafe {{ ThisModule::from_ptr(null_mut()) }};
-+}}
-+
- {rust_tests}
- "#
-     )
+     /// Create a new `drm::Device` for a `drm::Driver`.
+     pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<ARef<Self>> {
+diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
+index 01b5bd47a3332..9a203efc59116 100644
+--- a/rust/kernel/drm/gem/mod.rs
++++ b/rust/kernel/drm/gem/mod.rs
+@@ -357,10 +357,10 @@ impl<T: DriverObject> AllocImpl for Object<T> {
+     };
+ }
+ 
+-pub(super) const fn create_fops() -> bindings::file_operations {
++pub(super) const fn create_fops(owner: *mut bindings::module) -> bindings::file_operations {
+     let mut fops: bindings::file_operations = pin_init::zeroed();
+ 
+-    fops.owner = core::ptr::null_mut();
++    fops.owner = owner;
+     fops.open = Some(bindings::drm_open);
+     fops.release = Some(bindings::drm_release);
+     fops.unlocked_ioctl = Some(bindings::drm_ioctl);
 
 -- 
 2.43.0
