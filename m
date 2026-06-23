@@ -4,87 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31F5ECDB46F
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 14:33:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44FE6CDB479
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 14:34:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76AFD10E8C6;
-	Tue, 23 Jun 2026 14:33:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A193C10EB81;
+	Tue, 23 Jun 2026 14:34:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="KSbmA6kS";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OQMgZsbV";
 	dkim-atps=neutral
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3C2810E8C6
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 14:33:50 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-c0115a3794bso1029475266b.0
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 07:33:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1782225229; x=1782830029; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=ehF4t4EAD/IAoOVIU9uPF+z2dKiiXJu9e/jUG/hiyTQ=;
- b=KSbmA6kSKrjyFEJ10WyBKjYgqYNgHV3X0ZKwIfk1M9UD7rTJrHVHR7RuS5XpPwuzAx
- JOXZtGSPlWT34h2lnnL8xq9ckoEvcz5GoiA1G0iMR3P52PLHo7bHuwC7XgzmcCeu0uGm
- lAFPfipIWROPax2sgbfu2Y1EgVv4sonzOU6HSIBn1SH/7BzqOsOhlXtvBbXwSX+lG9oy
- evZw3lZGIrDCDiPdv2lIlgWqwvCLZHoar+vIQ0qG39QhRp7MosTXo01bogG3UHIvhnIZ
- d+YSG5xEHe8e0wAqmPjcNalBulbMBkb0bRNQbAfh3eOzULLP/ZkEKo+3zrn5yYSbK6bs
- yU8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782225229; x=1782830029;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ehF4t4EAD/IAoOVIU9uPF+z2dKiiXJu9e/jUG/hiyTQ=;
- b=BkHgcE5oK6SwdfkOZcNIoFY+6PSV3cHks+sVo1mbUXkYoh5HxuETVX/FUEXl8YQhpj
- 1+jISvZvp4oCvDMPIOQ+LC7F3KHPrwwAonBADhQ3lh0LjZLZfvDmgg24zX3j/MlhI1n7
- ZGDU2j1RFD7LgnZtqYbj5S6luOtIb7NULbRojz4+ixvVx7QGNuVH+006yThLpy1TxclE
- sCCL3XC/FgI1cB/FuH2cVGU8n+FqLQJbEk++r1Vk16zMaht1fyZUPvj3zcyy3Kg08kkW
- n8QK8v/RI1fizUA13ixO0lCnqrA/9qxcOdwJdqexMi3hiplJwoOVF8aKwmLxb7yAYXcO
- 5ejA==
-X-Gm-Message-State: AOJu0Ywz15KKuOCdcDeYIblLlfBxkJL3FmqMWvAb1Wq5jrbu+0pPUfKo
- t0J3/SwDy2dT0gYUak7NpmDFvPOwKDGYcgmIqJHOFoilqolqtgEAnyS8kJpsZYvtkOwwSeYAGK7
- 50EkZlNk=
-X-Gm-Gg: AfdE7clYV78V0PRbiC0dcLLKjoHbjXg5uepSQhJvQp/ydPiDs0jhTVCVZNxNurJ6evi
- otvpHbnFD4dF4e1ECEMq6YhpIGr8fMNcFIhRKvy0sH0m4oqUyY67B8VN6Z3Rddgmg9EePx+Btbr
- BDhVHgs0hydOgHO25/3DsEtDppcG7viDNDCrzfO7jctsPTcUP/iTfI/CP7fWbg6lPh/TOOKngfp
- PYFCKffc5Pdh+DvLHhUkaWjeWdy+J0QZ6F1wrzP+TtOYsBSaw/sUi9NhYOXU22fty4YzCd+hafu
- 8+wLjRliz7WXI/414FHtfbDU+hWZdhrt5hz4nzN4mg8fq5/rqeNAkd3gNvQkk6JRBHVtTBYSVvZ
- R3N033F5H/iQ2OBrCoLpACg2xqs/qmA9/6n/U44cx0PvzycTXWwSi7WMtan1pXhw+FyQRwpTgRn
- ZIQLc2hj2pX7MHEyYoq94=
-X-Received: by 2002:a17:907:9486:b0:bae:d29c:4e28 with SMTP id
- a640c23a62f3a-c108db17724mr165292866b.12.1782225229090; 
- Tue, 23 Jun 2026 07:33:49 -0700 (PDT)
-Received: from draszik.lan ([212.129.77.116]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c0c610e4c76sm536270666b.46.2026.06.23.07.33.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jun 2026 07:33:48 -0700 (PDT)
-Message-ID: <1467578694a17b2b4978a6193cf21db324daff98.camel@linaro.org>
-Subject: Re: [PATCH] drm/drm_crtc: fix race with dma_fence_signal() in
- ::get_driver_name()
-From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
-To: phasta@kernel.org, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Tvrtko
- Ursulin <tvrtko.ursulin@igalia.com>,  Boris Brezillon
- <boris.brezillon@collabora.com>, Danilo Krummrich <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, Peter Griffin
- <peter.griffin@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Juan
- Yescas <jyescas@google.com>, kernel-team@android.com
-Date: Tue, 23 Jun 2026 15:33:48 +0100
-In-Reply-To: <f59d6080cf31f424ebcf0e6086b4a93623813a6e.camel@mailbox.org>
-References: <20260618-linux-drm_crtc_fix2-v1-1-c03e77b36f34@linaro.org>
- <1cfd56b7f1a166e25d6588d66a621524f3d983de.camel@mailbox.org>
- <6483098adae29787862473e39b1f9cf3c3f16625.camel@linaro.org>
- <f59d6080cf31f424ebcf0e6086b4a93623813a6e.camel@mailbox.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-8+build1 
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 779B210EB81;
+ Tue, 23 Jun 2026 14:34:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782225252; x=1813761252;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=vZ9Ueq2wXFM4RPdfadUQVI4GnefEfSs6G+k0W6B2X3c=;
+ b=OQMgZsbVK7dOZWqgeF1lakVWAPpOfMusPhn1cTCVx+tm1xeils4PnKRi
+ dAjMH/0XCukmoO6COzC239LmDFT4StQJKISRA0jlW7uYm0uD0JP0CAXKL
+ d5jff2cpOk4bebEtzOVDK/4291+t7+geUDCfQ97LAU7kHFnx8km7STqbN
+ L2Kv5u+OgZ+fPR+Cteq+9IjfJmc+yvTPg+CBXl2JccQX66T40+DjOViOm
+ qtTrCrES51+C1tKnvkGV+AOLcrFE6rWZiuGzK8jUeGUPe6q+Jr4RmwSOB
+ A3zvCOIiHwJLtKD7bp8xWrvMinsNi8TPh5eth2xqgpXVS6F5ys8Yqip9k w==;
+X-CSE-ConnectionGUID: tcWvXQP0SZ2djrq8S0y21w==
+X-CSE-MsgGUID: HHkSm8rySxGBLOeUS7xK5g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="86656736"
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="86656736"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2026 07:34:12 -0700
+X-CSE-ConnectionGUID: uC6Z1sxGSDWvvF2T7tK4Zw==
+X-CSE-MsgGUID: sfSDphYiR06aKAwOflL6jg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="248384070"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2026 07:34:09 -0700
+Date: Tue, 23 Jun 2026 16:34:06 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ "Michael J . Ruhl" <michael.j.ruhl@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Riana Tauro <riana.tauro@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] drm/xe/i2c: Handler for SMBus Alerts
+Message-ID: <ajqZXnaU7709IlzA@black.igk.intel.com>
+References: <20260622114759.3464047-1-heikki.krogerus@linux.intel.com>
+ <20260622114759.3464047-2-heikki.krogerus@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260622114759.3464047-2-heikki.krogerus@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,99 +77,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Philipp,
+On Mon, Jun 22, 2026 at 01:47:58PM +0200, Heikki Krogerus wrote:
+> Some devices that are attached to the I2C controller use the
+> SMBus Alert signal for example to inform the host about
+> thermal events, so registering the default SMBus Alert
+> device device for them. The alert device makes sure that
 
-On Tue, 2026-06-23 at 13:58 +0200, Philipp Stanner wrote:
-> On Tue, 2026-06-23 at 12:37 +0100, Andr=C3=A9 Draszik wrote:
-> > On Thu, 2026-06-18 at 17:56 +0200, Philipp Stanner wrote:
-> > >=20
-> > > I continue to believe because of bugs like this and the ones I have
-> > > quoted in the threads above the robustness of the kernel could be
-> > > greatly improved if we could get dma_fence fully synchronized with it=
-s
-> > > lock.
-> >=20
-> > On top of that, sashiko highlighted=C2=A0 (via my other patch) that the=
- existing
-> > code is missing some memory barriers:
-> >=20
-> > https://sashiko.dev/#/patchset/20260618-linux-drm_crtc_fix-v1-1-801f29c=
-9853d@linaro.org?part=3D1
-> >=20
-> > I believe Lock synchronization would resolve that (as would adding expl=
-icit
-> > memory barriers).
->=20
-> That is being discussed in the thread I linked, where Gary lists which
-> barriers you would need for (presumably correct) lockless magic.
+Nit: Duplicate 'device' ;)
 
-Having read Gary's suggestion, that aligns with what I had in mind.
+> the alert is processed and passed to the correct I2C client
+> driver.
 
-> However, if my issue were to be solved with barriers, the
-> test_and_set_bit() in dma_fence_signal_timestamp_locked() would have to
-> be replaced with the more weakly ordered test_bit() and set_bit(),
-> maybe creating other pitfalls.
+...
 
-For the avoidance of doubts, I'm not saying that all the issues you raised
-can be solved by barriers instead of appropriate locks (I don't know enough
-about the code and issues in general here).
+> @@ -182,7 +183,10 @@ void xe_i2c_irq_handler(struct xe_device *xe, u32 master_ctl)
+>  		return;
+>  
+>  	/* Forward interrupt to I2C adapter */
+> -	generic_handle_irq_safe(xe->i2c->adapter_irq);
+> +	if (xe->i2c->smbus_alert)
+> +		xe_i2c_handle_smbus_alert(xe->i2c);
+> +	else
+> +		generic_handle_irq_safe(xe->i2c->adapter_irq);
 
-I do think however that appropriate locks will fix the ordering issue
-highlighted by sashiko (i.e. +1 for your argument). Barriers would fix this
-specific issue, too, but that is not a statement about any wider issues.=
-=20
+This looks like the else case will never hit since no other platform
+supports irq. Is it on the cards at some point or can we make it obsolete?
 
-> The ordering issue in the get_*_name() functions plays into that.
-> Setting the bit would then be done after setting the ops-pointer to
-> NULL. So one would have to try to move the NULL set, too.
->=20
-> Long story short, this is painful and subtle.
->=20
-> But I think what we are realizing over and over again is that dma_fence
-> has many subtleties to its API contract, and the implementation's
-> sparring use of spinlocks leads to workarounds where people take locks
-> manually or have to do an RCU dance.
->=20
-> Note that Christian is strongly opposed to guarding everything with
-> locks, in part for supposedly occuring deadlocks in the fence callbacks
-> when the driver needs to take its own locks.
-
-ww_mutex could help against deadlocks, but might affect performance, in cas=
-e
-these are all critical code paths (IDK),
-
-> The community discussion regarding that problem is currently in some
-> sort of dead end, where none of us seems to know what the correct path
-> forward is.
-
-Please ignore if the following doesn't make sense, I'm just a bystander :-)
-How about at least adding the required barriers and related changes, and
-taking it from there? This would solve some immediate and easy to hit
-issues on Arm64? If they turn out to be insufficient, code can still
-be changed.
-
-
-
-> > >=20
-> [...]
-> My understanding of the current situation is that as an issuer of
-> dma_fence's you, in general, should wait for a grace period until you
-> perform operations like driver unload, or, more generally, have fence-
-> related resources and such being accessed through callbacks go away.
-
-If I understand correctly, simply waiting for a grace period in the
-driver's unbind should be the way to go.
-
-
-> Danilo ... Maybe he's got the time to share some details with you that ar=
-e
-> relevant to your work.
-
-Will wait a little :-)
-
-
-
-BTW, thanks Philipp for all these details, much appreciated.
-
-Cheers,
-A.
+Raag
