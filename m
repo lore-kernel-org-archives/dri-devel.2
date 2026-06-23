@@ -4,88 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADE07CDB471
-	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 20:55:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FED8CDB471
+	for <dri-devel@archiver.kernel.org>; Tue, 23 Jun 2026 20:58:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07DA310ECB6;
-	Tue, 23 Jun 2026 20:55:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C85B110ECBA;
+	Tue, 23 Jun 2026 20:58:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="fv87oPOK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Dr+nwURw";
 	dkim-atps=neutral
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45F2A10ECB6
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:55:47 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-2c6b7bd4e8dso13965ad.0
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 13:55:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1782248147; x=1782852947;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=tDNBIwJuw+D53Ki5EAv9tDfTFhNZX4Fj7K/EJveLoSA=;
- b=fv87oPOKZWrsaMi3jcyEHW9gbDge6nJIXL3FxAgbWb2aOPCNnAA275Ke5fkb8KumVF
- 6EzYgD2WZt63YGyhUYRZ+uUqHguP+/1V28kWLZ0fkk/0pUqVsZzIYvgRdz3oQ5uexjbD
- zsX76bSqhdM17ief2bLSGGS91jHLHhtHcaLSKGs+d0KmlPVv7c/TdLKtybpGfqn4Cq69
- P439t47Eng8rYCfYnmwaRMUng49BPHnRbkgSRaPr+tdCdq4r5532P6LsKGaGIx9jY0BP
- CWMsojwSAqQ6iOVQ/xTh+whGzmW9Xk/JO+jLX2OSbfm+wu4AuKHCVvt5ALlkJ3xQV+ww
- ZX8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782248147; x=1782852947;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=tDNBIwJuw+D53Ki5EAv9tDfTFhNZX4Fj7K/EJveLoSA=;
- b=GLCWdbIOGyQQZwLoIsFLMBjHiRChXWu9y0C//FZiZVnUE+VcUQfLyv+ia3QSI5Pn5m
- +MRTgKi+6Qxx2smDNE/0ouUAD/gtloTk/p03OSUTY+TuVfZ5JMsyqlq5llfY9wLv3wNe
- 7Eyz3bP3qys/u9OrYCKTJDvVu2ktlcnFktB0oWes4fmRKPCL2SdImG/UTUYM8nBvVQP6
- 8Ohj8GSSVEJg/c1N0bd6zH20kDbndfGAzyD1STKzSCpJ/dMeyVomTgu2I6pSJ5FLwy6r
- KbN32DCTrAzlAqCH05yXoa5l8BkYBmlNXL5WEyIIfEWov/+uHnaLoFA9JMAqZOol8PRs
- o9Pw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrGQPE7HoKOxhgssZzMsR5KXFZPyDYukAQkej2zsiECmY5nsXHqqbeXJtQg6lEkETMT0GF+EXaHNFc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxCXFlHvGoanyRWbsu4aezK2ms5t1Vfvxxboko/HgIlhUdch3E+
- Er6SbjqxeU3rSm6GL1C6GvBxmFL3EvyBKH2aPTIwlUAYTP0jYAIuFTrMmU3zMKwhyg==
-X-Gm-Gg: AfdE7cmfOIduEpukFB0MKSDO+rp93G4SXqWr8YwU2XtWATh0MIhtar2I+Mhhhq7ymnf
- CaPCDd40M6RCMQAV4xsZFzuDhIeSbny8cM/Dw0cOIhOluppSGfXjD7xQcJM9TDGM718880VDCy/
- zklnfRoZqvrCmBxE8dZvay4feRMpbni82QQsj4d10Z1eZBwO+tdX7p1IiRzN/LTHcaGi8FPHBdm
- UGmCc3xZ8L1bYQN/qX1exydUncp9OMxguSGojytdX2dZwIU3M0kzCEj3HmhBJFx7E3dZqjIX9zy
- xNFEm8QXiCak2eoyy3QvM/7ZWMQt4WhgZYLefp/la9w0PjKdElgtZn66YAszPTuDWkdTod32tL2
- YCFLSEBCmLLyVHTtYlQBvRsOawlHMZhmCKyIK5t5QkiGcQYCAe/f/mRWOLDGt9qyzYS71u7UesH
- NkqlqN70ec+hTTjcyDuB2rjPLvl7VTtO1fWUGFsINmvftEp2P3Ag==
-X-Received: by 2002:a17:902:f689:b0:2bf:3741:5b76 with SMTP id
- d9443c01a7336-2c7e26b7724mr203255ad.3.1782248140960; 
- Tue, 23 Jun 2026 13:55:40 -0700 (PDT)
-Received: from google.com (199.255.142.34.bc.googleusercontent.com.
- [34.142.255.199]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-845a40d1b0fsm54433b3a.28.2026.06.23.13.55.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jun 2026 13:55:40 -0700 (PDT)
-Date: Tue, 23 Jun 2026 20:55:32 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: David Hu <xuehaohu@google.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
- Leon Romanovsky <leon@kernel.org>, Kevin Tian <kevin.tian@intel.com>,
- Ankit Agrawal <ankita@nvidia.com>,
- Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
- jmoroni@google.com, kpberry@google.com, chriscli@google.com,
- sashiko-bot@kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] dma-buf: Split sgl into page-aligned 2G chunks
-Message-ID: <ajryxMaT5evDUxaq@google.com>
-References: <20260621222130.1667453-1-xuehaohu@google.com>
- <20260623015459.1153884-1-xuehaohu@google.com>
- <20260623094446.4a8fc2ed@pumpkin>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260623094446.4a8fc2ed@pumpkin>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A10110ECB9
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 20:58:17 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 854FB60008;
+ Tue, 23 Jun 2026 20:58:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20B471F00A3A;
+ Tue, 23 Jun 2026 20:58:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782248296;
+ bh=FXWpQI05tIdDiSI7wu3xY4WmZ/LcP/6rALr4Ew5U8rk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Dr+nwURwjLfekZdn+7+CFvv+Dbrf3H/TBbz4cGAqeKYBcEXUb1wnBjRHDTd3NoaH0
+ S4epaPEs9SV2bfxXRucj7QPC3MXpTYZB096vylyy6pt8ml64EyuMeI0p3JkBX1uqz1
+ lyBuzYHr6u5OW2YNWuehA33nRHIU7Q5smtlfpjWJoAR8xhrlIsfOwVVfjR08bYzq1h
+ kLul0gpkdBb6hyIGGuyxBtPGiXUxbjKVxXid9Jk0QSnTy7Z/wVkOumwJzX+BT1mkxb
+ gya9t7zmUtzNVMc1F+1vsWA2w2b5ZzSBO99oerWz+TfkLHQcRb91ZcaqrNj75Z6hHG
+ JDSCv/qR9GdrA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] drm/xe/xe_drm_ras: Add error-event support for PVC
+To: "Riana Tauro" <riana.tauro@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260622101716.3313496-7-riana.tauro@intel.com>
+References: <20260622101716.3313496-5-riana.tauro@intel.com>
+ <20260622101716.3313496-7-riana.tauro@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 23 Jun 2026 20:58:15 +0000
+Message-Id: <20260623205816.20B471F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,68 +53,142 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 23, 2026 at 09:44:46AM +0100, David Laight wrote:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Potential console flood due to unratelimited `drm_err` in atomic c=
+ontext when netlink multicast fails.
+- [Medium] Emitting RAS events with unchanged/zero counter values for uncou=
+nted errors.
+- [Medium] Pointer arithmetic is performed on a potentially NULL pointer be=
+fore checking if the DRM RAS feature is enabled.
+--
 
-Hi David,
+commit 948141f8cea37215cdae8a5d0e089b0c6b181396
+Author: Riana Tauro <riana.tauro@intel.com>
 
-> On Tue, 23 Jun 2026 01:54:59 +0000
-> David Hu <xuehaohu@google.com> wrote:
-> 
-> > Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
-> > This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
-> > first entry, resulting in non-page-aligned DMA addresses for all
-> > subsequent entries.
-> 
-> There is a separate issue of whether this code is even needed at all.
-> Where can transfers over 2G (never mind 4G) actually come from.
-> 
-> The read, write and similar system calls limit transfers to INT_MAX
-> (even on 64bit) and a lot of driver code will need fixing it longer
-> lengths are allowed though.
-> io_uring better enforce the same limits.
-> So the transfers can come directly from userspace.
-> 
-> Not only that but you also need a single physically contiguous buffer.
-> Good luck allocating that!
-> 
-> Now maybe there are some peer-to-peer places where the large buffer
-> is device memory, but they will be unusual and probably need
-> special treatment anyway.
-> 
+drm/xe/xe_drm_ras: Add error-event support for PVC
 
-I agree that traditional VFS read/write face the MAX_RW_COUNT limit 
-(~2GB), and io_uring has its limits, but I'm a little confused by the
-push to enforce these limits here in the SGL code?
+Report drm_ras error event to userspace when an error occurs.
+Add support for core-compute and SoC errors in PVC.
 
-File I/O seems to be only one side of the picture. In my view, this fix
-is necessary and certainly has a use-case:
+> diff --git a/drivers/gpu/drm/xe/xe_drm_ras.c b/drivers/gpu/drm/xe/xe_drm_=
+ras.c
+> index 7937d8ba0ed9c..36afdfb5e4120 100644
+> --- a/drivers/gpu/drm/xe/xe_drm_ras.c
+> +++ b/drivers/gpu/drm/xe/xe_drm_ras.c
 
-For example, the RDMA subsystem has the capability to import dmabufs [1],
-which gives rise to use cases for dmabuf beyond standard file ops 
-(via VFS/io_uring). 
+[ ... ]
 
-In these scenarios, GPU HBM can be exported as dmabufs. With recent GPUs,
-HBM capacity can be in the order of hundreds of GBs [2]. RDMA can employ
-infrastructure like the vfio-dmabuf-exporter [3] or similar dmabuf 
-exporters to frequently move huge blocks of data via P2PDMA.
+> @@ -185,6 +185,36 @@ static int register_nodes(struct xe_device *xe)
+>  	return ret;
+>  }
+> =20
+> +/**
+> + * xe_drm_ras_event() - Report drm-ras error event to userspace
+> + * @xe: xe device structure
+> + * @component: error component (see &enum drm_xe_ras_error_component)
+> + * @severity: error severity (see &enum drm_xe_ras_error_severity)
+> + * @value: value of error counter
+> + * @flags: flags for allocation
+> + *
+> + * Report an error-event to userspace.
+> + */
+> +void xe_drm_ras_event(struct xe_device *xe, u32 component, u32 severity,=
+ u32 value, gfp_t flags)
+> +{
+> +	struct xe_drm_ras *ras =3D &xe->ras;
+> +	struct xe_drm_ras_counter *info =3D ras->info[severity];
+> +	struct drm_ras_node *node =3D &ras->node[severity];
 
-If we restrict incoming dmabuf transfers to fit within VFS-centric 
-limits (2GB), we impose unnecessary overhead on the RDMA stack, forcing
-it to manage a significantly higher number of memory registrations. By 
-cleanly splitting these massive contiguous device buffers into 
-page-aligned SGL entries, we directly improve the efficiency of P2P 
-transfers and memory registration.
+[Severity: Medium]
+Is it safe to compute the node pointer here before checking if the DRM
+RAS feature is enabled?
 
-Since this change doesn't seem to have a negative impact on standard file
-I/O or break existing VFS constraints, I'm curious why we shouldn't 
-support splitting these >4GB P2P transfers? Am I missing something?
+If xe->info.has_drm_ras is false, xe_drm_ras_init() might not have been
+called, leaving ras->node as NULL. Evaluating &ras->node[severity] on a
+NULL pointer results in undefined behavior which could be flagged by UBSAN
+or compiler optimizations.
 
-Thanks,
-Praan
+> +	int ret;
+> +
+> +	/* Event is supported only if drm_ras is enabled */
+> +	if (!xe->info.has_drm_ras)
+> +		return;
+> +
+> +	if (!info || !info[component].name)
+> +		return;
+> +
+> +	ret =3D drm_ras_nl_error_event(node, component, info[component].name, v=
+alue, flags);
+> +	if (ret)
+> +		drm_err(&xe->drm, "RAS error-event failed: %d for %s %s\n", ret,
+> +			info[component].name, error_severity[severity]);
 
-[1] https://elixir.bootlin.com/linux/v7.1.1/source/drivers/infiniband/core/umem_dmabuf.c#L174 
-[2] https://nvdam.widen.net/s/fdvdqvfvj2/hopper-h200-nvl-product-brief (Table 2-2)
-[3] https://elixir.bootlin.com/linux/v7.1.1/source/drivers/vfio/pci/vfio_pci_dmabuf.c#L297
+[Severity: High]
+Could this unratelimited drm_err() cause a console flood?
+
+Since xe_drm_ras_event() is called from hw_error_source_handler() in
+hardware error interrupt context, an interrupt storm could occur.
+If drm_ras_nl_error_event() fails (e.g., due to GFP_ATOMIC allocation
+failures under memory pressure), this will rapidly print errors to
+the console.
+
+Should this use drm_err_ratelimited() similar to how the caller
+handles its logging?
+
+> +}
+> +
+>  /**
+>   * xe_drm_ras_init() - Initialize DRM RAS
+>   * @xe: xe device instance
+
+> diff --git a/drivers/gpu/drm/xe/xe_hw_error.c b/drivers/gpu/drm/xe/xe_hw_=
+error.c
+> index 4a4b363fc844b..a833cecc74ec5 100644
+> --- a/drivers/gpu/drm/xe/xe_hw_error.c
+> +++ b/drivers/gpu/drm/xe/xe_hw_error.c
+
+[ ... ]
+
+> @@ -495,6 +495,9 @@ static void hw_error_source_handler(struct xe_tile *t=
+ile, const enum hardware_er
+>  			gt_hw_error_handler(tile, hw_err, error_id);
+>  		if (err_bit =3D=3D XE_SOC_ERROR)
+>  			soc_hw_error_handler(tile, hw_err, error_id);
+> +
+> +		value =3D atomic_read(&info[error_id].counter);
+> +		xe_drm_ras_event(xe, error_id, severity, value, GFP_ATOMIC);
+
+[Severity: Medium]
+Will this emit an event with an unchanged or zero counter value for
+correctable SOC errors?
+
+In soc_hw_error_handler(), if the error is HARDWARE_ERROR_CORRECTABLE,
+it clears the registers and jumps to unmask_gsysevtctl without
+incrementing the error counter:
+
+soc_hw_error_handler() {
+    ...
+    if (hw_err =3D=3D HARDWARE_ERROR_CORRECTABLE) {
+        ...
+        goto unmask_gsysevtctl;
+    }
+    ...
+}
+
+However, here in hw_error_source_handler(), xe_drm_ras_event() is
+called unconditionally after soc_hw_error_handler() returns.
+Does this result in userspace receiving an error event where the
+counter value hasn't actually changed?
+
+>  	}
+> =20
+>  clear_reg:
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622101716.3313=
+496-5-riana.tauro@intel.com?part=3D2
