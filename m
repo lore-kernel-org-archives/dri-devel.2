@@ -4,68 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 465BCCDE000
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 10:14:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD725CDB47C
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 10:15:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F3E710EE6A;
-	Wed, 24 Jun 2026 10:14:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C14010EE5E;
+	Wed, 24 Jun 2026 10:15:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cb1UhANJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wn77j7Ah";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C516310EE6A;
- Wed, 24 Jun 2026 10:14:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782296042; x=1813832042;
- h=date:to:cc:subject:message-id:references:mime-version:
- in-reply-to:from;
- bh=qdlq6hba7pUusRaImB9v9jjJNCh0CdFKio3R9kCkqvU=;
- b=cb1UhANJD1yCWt32cfuhO2bQVFbxQk0b1yQ2QrsJZjPSQlo5XDM5Lp9b
- JVcPWxTgSSyUtxa2DgJaGOs37AvG1wfLB7cPz0CGHpY2UJ6v+/7QZdOgb
- gqfequiD/m/QRgHpAtpTm9FA8XBpg9nSgwxyD9ib46MHn5P6gwUFAIqPd
- D7yuneUwP93fGXnG05xghuZKRXQXYgxPFPtboEc2lc9NSmjGJeIBZK1KB
- 0eUk0UZsXFjaRbafPpnKRp6Q+lFGMC+q7B0RpHDDnfALVxqwFp0tLYliL
- h5bXvEAlKsx9dayai5dxBdjnZBRDBHaLrXDjv2psx0BvyWwMiPMD6hkSY A==;
-X-CSE-ConnectionGUID: sWZgOoF1Qwu+XZ3t05N6zQ==
-X-CSE-MsgGUID: ZV6zrJg3Qlm0NrHh7RrGzg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="82925091"
-X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; d="scan'208";a="82925091"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2026 03:14:02 -0700
-X-CSE-ConnectionGUID: bXmnm89bST2CeeccQjTeLg==
-X-CSE-MsgGUID: 924S/CsuRYC0LULGuH/zSA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; d="scan'208";a="273873653"
-Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa001.fm.intel.com with ESMTP; 24 Jun 2026 03:13:59 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
- id B4CC395; Wed, 24 Jun 2026 12:13:57 +0200 (CEST)
-Date: Wed, 24 Jun 2026 13:13:56 +0300
-To: Raag Jadav <raag.jadav@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- "Michael J . Ruhl" <michael.j.ruhl@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Riana Tauro <riana.tauro@intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 2/2] drm/xe/mcu_i2c: Take over control of the
- controller enabling
-Message-ID: <ajut5N-FTomAG5DE@kuha>
-References: <20260622114759.3464047-1-heikki.krogerus@linux.intel.com>
- <20260622114759.3464047-3-heikki.krogerus@linux.intel.com>
- <ajqaid7CHChu35iR@black.igk.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ajqaid7CHChu35iR@black.igk.intel.com>
-rom: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-From: Heikki Krogerus <heikki.krogerus@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D156D10EE5E
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 10:15:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 92750442FC;
+ Wed, 24 Jun 2026 10:15:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56CFB1F000E9;
+ Wed, 24 Jun 2026 10:15:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782296130;
+ bh=xCy6HKiRg5Ve6e0nIZBTlfOfGLMrEvl6DtlZRhS2W+k=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Wn77j7Ah6/C/RcRlax1m+Q8h7nCmoXUWbW9/mIz4Bvp60ITcxrB5/T5kpDcEn+89U
+ uJsv6dPPOzLCSkHa+OepdEgGoMlDJRDaikY7uZyGslAFhxtjZEVVojHg1u/NcrQfuL
+ K5eGC1Vk9f3s/SVTefa/XYdpYAIA6y5jWkUOC/TzaHwHJVAfU6Bt34Jcr0h0x0R0sF
+ j9XR45PwSzQYKARXPbGsDoEtwYeKfbYWBWSGAWRN13UokN5MCoi8nADHtbDfkxLDjV
+ /F9hh11NYuiBto/Ss6Gk8aCIgfSRWgKopVnS8D3xrFg5oep4+kFqAFxvPGrlRdzG12
+ 7ck2lHVS5/cyw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/5] drm/ras: Cancel and free message on get counter
+ failure
+To: "Raag Jadav" <raag.jadav@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260623101043.255897-2-raag.jadav@intel.com>
+References: <20260623101043.255897-1-raag.jadav@intel.com>
+ <20260623101043.255897-2-raag.jadav@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 24 Jun 2026 10:15:29 +0000
+Message-Id: <20260624101530.56CFB1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,40 +54,109 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 23, 2026 at 04:39:05PM +0200, Raag Jadav wrote:
-> On Mon, Jun 22, 2026 at 01:47:59PM +0200, Heikki Krogerus wrote:
-> > Some platforms make an assumption that the i2c controller's
-> > enabled state indicates also the power state of the
-> > controller. This can create a problem when the controller is
-> > in disabled state, because the hardware may assume
-> > incorrectly that it is then also in low-power state.
-> > 
-> > To fix this, the controller is kept enabled by taking over
-> > the IC_ENABLE register. The controller has to be disabled
-> > when the configuration is updated and when the target
-> > address or the slave address are assigned, so disabling it
-> > when IC_CON, IC_TAR or IC_SAR registers are programmed, and
-> > then re-enabling it again.
-> 
-> ...
-> 
-> >  static int xe_i2c_read(void *context, unsigned int reg, unsigned int *val)
-> >  {
-> >  	struct xe_i2c *i2c = context;
-> >  
-> > -	*val = xe_mmio_read32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET));
-> > +	switch (reg) {
-> 
-> Curious, should I expect DW_IC_INTR_MASK case here which skips the MMIO?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Probable not. We have the ACCESS_POLLING flag set, so the
-i2c-designware will only write 0 to that register. Check
-__i2c_dw_write_intr_mask().
+Pre-existing issues:
+- [Critical] Lockless access to `drm_ras_node` pointers from the global `dr=
+m_ras_xa` XArray leads to Use-After-Free and control-flow hijacking during =
+concurrent device teardown.
+- [Medium] Missing generation counter and NLM_F_DUMP_INTR flag for lockless=
+ Netlink dumps.
+--
 
-Thanks,
+commit 17d70fc870ba118f3745064732f976f0856f2d46
+Author: Raag Jadav <raag.jadav@intel.com>
 
--- 
-heikki
+drm/ras: Cancel and free message on get counter failure
+
+This commit fixes a resource leak in doit_reply_value() where sk_buff
+and the genetlink header were not cleaned up on a get counter failure.
+It also consolidates the error handling using a goto pattern.
+
+> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
+> index d6eab29a1394c..467a169026fc1 100644
+> --- a/drivers/gpu/drm/drm_ras.c
+> +++ b/drivers/gpu/drm/drm_ras.c
+> @@ -201,25 +201,28 @@ static int doit_reply_value(struct genl_info *info,=
+ u32 node_id,
+[ ... ]
+>  	ret =3D get_node_error_counter(node_id, error_id,
+>  				     &error_name, &value);
+
+[Severity: Critical]
+This is a pre-existing issue, but does lockless access to drm_ras_node
+pointers from the global drm_ras_xa XArray lead to a use-after-free
+during concurrent device teardown?
+
+The drm_ras netlink operations use .parallel_ops =3D true, meaning handlers
+like get_node_error_counter() run concurrently without holding the global
+genl_lock().
+
+When retrieving a drm_ras_node pointer via xa_load(), the XArray API drops
+the RCU read lock immediately after the lookup, returning a raw, unprotected
+pointer:
+
+drivers/gpu/drm/drm_ras.c:get_node_error_counter() {
+	node =3D xa_load(&drm_ras_xa, node_id);
+	if (!node || !node->query_error_counter)
+		return -ENOENT;
+	...
+	return node->query_error_counter(node, error_id, name, value);
+}
+
+Concurrently, a driver can unregister its nodes during teardown, which remo=
+ves
+the node from the XArray and synchronously frees the node memory via DRM's
+managed cleanup.
+
+Could the netlink handler then dereference this freed pointer, calling func=
+tion
+pointers read from freed memory?
+
+This same pattern appears in drm_ras_nl_list_nodes_dumpit() and
+get_node_error_threshold().
+
+
+[Severity: Medium]
+This is also a pre-existing issue, but are we missing a generation counter =
+and
+NLM_F_DUMP_INTR flag for lockless Netlink dumps?
+
+The Generic Netlink UAPI rules dictate: "If iteration during a dump may ski=
+p or
+repeat objects (e.g. due to lockless data structures), set NLM_F_DUMP_INTR =
+on
+the affected message(s)."
+
+drm_ras_nl_list_nodes_dumpit() and drm_ras_nl_get_error_counter_dumpit()
+iterate over the lockless drm_ras_xa XArray across potentially multiple net=
+link
+continuations:
+
+drivers/gpu/drm/drm_ras.c:drm_ras_nl_list_nodes_dumpit() {
+	xa_for_each_start(&drm_ras_xa, id, node, ctx->restart) {
+		...
+	}
+}
+
+Because drm_ras_xa can be modified concurrently by node registration or
+unregistration, a multipart dump might skip newly registered elements. Shou=
+ld
+the implementation maintain a generation counter or set NLM_F_DUMP_INTR on =
+the
+netlink message to inform userspace of the sequence change?
+
+>  	if (ret)
+> -		return ret;
+> +		goto cancel_msg;
+> =20
+>  	ret =3D msg_reply_value(msg, error_id, error_name, value);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260623101043.2558=
+97-1-raag.jadav@intel.com?part=3D1
