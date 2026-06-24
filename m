@@ -4,69 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8BD2CDE000
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 19:17:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6783CDB479
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 19:39:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1696B10E0F2;
-	Wed, 24 Jun 2026 19:17:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 397FB10E0F1;
+	Wed, 24 Jun 2026 19:39:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jipwVXQt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oVN5/8Jw";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B60E610E0F2
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 19:17:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45F3410E0F1
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 19:39:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 060D360018;
- Wed, 24 Jun 2026 19:17:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DA3A1F000E9;
- Wed, 24 Jun 2026 19:17:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8C56A600C3;
+ Wed, 24 Jun 2026 19:39:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A81A1F000E9;
+ Wed, 24 Jun 2026 19:39:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782328643;
- bh=BXTL1/pEN/FTyKPKMA8BVIZWBMRtKuw+rExm3vmkKx4=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=jipwVXQtIhW9z8lFxljLcuY7oEB/LokW5tJFCYei9aG4AJZaD4IX+IkiuSVyW+9gX
- XkAsEiaMRxjWXGmEuXVkVh28pqAoVc/aDo37K2YiiFJUxAjm2ddCHFTl9+aM661GW3
- PE+Qcm1rb4neo7M1iuFsvHQGR9Z8jyp3VjjmJiFWU3LtteGM0CUG1TvIJmIFo9kAFC
- 4R6ORXsd+HioryjRDjvG1YfuF4t1dKBfkbIc9bDf7FTKereQM/74Au9PjcixYNzNzD
- QYNlB8bH7PIOPQgoUBOOyXhslgfwjWS1ahCofuush0ejyBFSORKT3noH+//Lvsum9v
- qnflbrsxJvUcA==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn?= Roy
- Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice
- Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo
- Krummrich <dakr@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Dave Ertman <david.m.ertman@intel.com>, Ira
- Weiny <ira.weiny@intel.com>, Leon Romanovsky <leon@kernel.org>, Paul Moore
- <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, "Rafael J.
- Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Daniel
- Almeida <daniel.almeida@collabora.com>, Viresh Kumar <vireshk@kernel.org>,
- Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>, Bjorn Helgaas
- <bhelgaas@google.com>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Igor Korotin
- <igor.korotin@linux.dev>, Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-block@vger.kernel.org, linux-security-module@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
- linux-mm@kvack.org, linux-pm@vger.kernel.org, linux-pci@vger.kernel.org,
- driver-core@lists.linux.dev, Oliver Mangold <oliver.mangold@pm.me>, Viresh
- Kumar <viresh.kumar@linaro.org>
-Subject: Re: [PATCH v17 06/10] rust: rename `AlwaysRefCounted` to `RefCounted`.
-In-Reply-To: <20260623175814.87191-1-work@onurozkan.dev>
-References: <20260604-unique-ref-v17-0-7b4c3d2930b9@kernel.org>
- <20260604-unique-ref-v17-6-7b4c3d2930b9@kernel.org>
- <20260623175814.87191-1-work@onurozkan.dev>
-Date: Wed, 24 Jun 2026 21:17:08 +0200
-Message-ID: <87cxxfiw97.fsf@t14s.mail-host-address-is-not-set>
-MIME-Version: 1.0
+ s=k20260515; t=1782329954;
+ bh=w7MHz1Bra5F35k98MM70yfJdceswq7kd3ZtLANuselc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=oVN5/8JwiyPmWSRdamK3hIgCgahY6NEXt3Z1KLD1BHiEGAKxW1f4Ch+pYwnlp+HMf
+ RGKggUgMqBvA3IegwT+ej1rynWJD9Nj5dKgezFWnGoFE9kISgN1F8+8B/RkB7jkqa5
+ ptELaqBs39S6Dxlj0znpYaYtxh5wy8Ev0xNMRILPVMZ/BRJjlYNzpN9P4j3jit/XOD
+ YPAjfMhFgj1JGumj6wU+nKGiYv77dPCXFFEfcryH402/X7t4Ec/FrW19bf6FTm5ZfM
+ asCMLqieyppFzQHmwQwLpkxrgydtxF7ssSmUFEHgCVM1NEWf3y/AOjZ222LNhUwen/
+ 04Kw/GjCSIp8Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] misc: fastrpc: reject overflowing invoke payload sizes
+To: "Yousef Alhouseen" <alhouseenyousef@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260624192225.4508-1-alhouseenyousef@gmail.com>
+References: <20260624192225.4508-1-alhouseenyousef@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Wed, 24 Jun 2026 19:39:13 +0000
+Message-Id: <20260624193914.2A81A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,82 +52,159 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Onur =C3=96zkan <work@onurozkan.dev> writes:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-> On Thu, 04 Jun 2026 22:11:18 +0200
-> Andreas Hindborg <a.hindborg@kernel.org> wrote:
->
->> From: Oliver Mangold <oliver.mangold@pm.me>
->>=20
->> There are types where it may both be reference counted in some cases and
->> owned in others. In such cases, obtaining `ARef<T>` from `&T` would be
->> unsound as it allows creation of `ARef<T>` copy from `&Owned<T>`.
->>=20
->> Therefore, we split `AlwaysRefCounted` into `RefCounted` (which `ARef<T>`
->> would require) and a marker trait to indicate that the type is always
->> reference counted (and not `Ownable`) so the `&T` -> `ARef<T>` conversion
->> is possible.
->>=20
->> - Rename `AlwaysRefCounted` to `RefCounted`.
->> - Add a new unsafe trait `AlwaysRefCounted`.
->> - Implement the new trait `AlwaysRefCounted` for the newly renamed
->>   `RefCounted` implementations. This leaves functionality of existing
->>   implementers of `AlwaysRefCounted` intact.
->>=20
->> Suggested-by: Alice Ryhl <aliceryhl@google.com>
->> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
->> Signed-off-by: Oliver Mangold <oliver.mangold@pm.me>
->> [ Andreas: Updated commit message and rebase on rust-6.20-7.0 ]
->> Acked-by: Igor Korotin <igor.korotin.linux@gmail.com>
->> Acked-by: Danilo Krummrich <dakr@kernel.org>
->> Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
->> Reviewed-by: Gary Guo <gary@garyguo.net>
->> Co-developed-by: Andreas Hindborg <a.hindborg@kernel.org>
->> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
->> ---
->>  rust/kernel/auxiliary.rs        |  7 +++++-
->>  rust/kernel/block/mq/request.rs | 15 ++++++++-----
->>  rust/kernel/cred.rs             | 13 +++++++++--
->>  rust/kernel/device.rs           | 12 ++++++++--
->>  rust/kernel/device/property.rs  | 11 +++++++--
->>  rust/kernel/drm/device.rs       |  9 ++++++--
->>  rust/kernel/drm/gem/mod.rs      | 16 ++++++++++----
->>  rust/kernel/fs/file.rs          | 16 ++++++++++----
->>  rust/kernel/i2c.rs              | 13 ++++++++---
->>  rust/kernel/mm.rs               | 15 +++++++++----
->>  rust/kernel/mm/mmput_async.rs   |  9 ++++++--
->>  rust/kernel/opp.rs              | 10 ++++++---
->>  rust/kernel/owned.rs            |  2 +-
->>  rust/kernel/pci.rs              | 10 ++++++++-
->>  rust/kernel/pid_namespace.rs    | 12 ++++++++--
->>  rust/kernel/platform.rs         |  7 +++++-
->>  rust/kernel/sync/aref.rs        | 49 ++++++++++++++++++++++++++--------=
--------
->>  rust/kernel/task.rs             | 13 +++++++++--
->>  rust/kernel/types.rs            |  3 ++-
->>  rust/kernel/usb.rs              | 17 +++++++++++---
->>  20 files changed, 195 insertions(+), 64 deletions(-)
->>=20
->> diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
->> index 93c0db1f6655..49f07740f657 100644
->> --- a/rust/kernel/auxiliary.rs
->> +++ b/rust/kernel/auxiliary.rs
->> @@ -19,6 +19,7 @@
->>          to_result, //
->>      },
->>      prelude::*,
->> +    sync::aref::{AlwaysRefCounted, RefCounted},
->
-> This patch has multiple horizontal use statements around.
+Pre-existing issues:
+- [Critical] Incomplete Integer Overflow Mitigation in Payload Size Calcula=
+tion
+- [High] Memory leak of fastrpc_map and dma_buf references for handle argum=
+ents
+- [High] Fatal double-free and Use-After-Free in fastrpc_map_attach error p=
+aths
+--
 
-Thanks, I'll take another pass to fix that.
+commit a690f181cf4241d027f4e7ef1ae4948e3ce1e15b
+Author: Yousef Alhouseen <alhouseenyousef@gmail.com>
+
+misc: fastrpc: reject overflowing invoke payload sizes
+
+This patch adds overflow checks to fastrpc_get_payload_size() to prevent
+undersized buffer allocations during invoke argument serialization. It retu=
+rns
+an error if the payload size calculation overflows or exceeds SIZE_MAX.
+
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index f3a49384586d1..226ae91617c05 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -972,7 +972,8 @@ static int fastrpc_get_meta_size(struct fastrpc_invok=
+e_ctx *ctx)
+>  	return size;
+>  }
+> =20
+> -static u64 fastrpc_get_payload_size(struct fastrpc_invoke_ctx *ctx, int =
+metalen)
+> +static int fastrpc_get_payload_size(struct fastrpc_invoke_ctx *ctx, int =
+metalen,
+> +				    u64 *out_size)
+>  {
+>  	u64 size =3D 0;
+>  	int oix;
+> @@ -982,15 +983,22 @@ static u64 fastrpc_get_payload_size(struct fastrpc_=
+invoke_ctx *ctx, int metalen)
+>  		int i =3D ctx->olaps[oix].raix;
+> =20
+>  		if (ctx->args[i].fd =3D=3D 0 || ctx->args[i].fd =3D=3D -1) {
+> +			u64 len =3D ctx->olaps[oix].mend -
+> +				  ctx->olaps[oix].mstart;
+> =20
+>  			if (ctx->olaps[oix].offset =3D=3D 0)
+>  				size =3D ALIGN(size, FASTRPC_ALIGN);
+> =20
+> -			size +=3D (ctx->olaps[oix].mend - ctx->olaps[oix].mstart);
+> +			if (check_add_overflow(size, len, &size))
+> +				return -EOVERFLOW;
+
+[Severity: Critical]
+This is a pre-existing issue, but does ALIGN(size, FASTRPC_ALIGN) silently
+wrap around to 0 if size is near U64_MAX?
+
+If size wraps to 0, check_add_overflow(size, len, &size) will not detect an
+overflow.
+
+Could this lead to an undersized allocation where fastrpc_get_args() later
+writes out-of-bounds when initializing metadata structures like rpra, list,
+and pages?
+
+>  		}
+>  	}
+> =20
+> -	return size;
+> +	if (size > SIZE_MAX)
+> +		return -EOVERFLOW;
+> +
+> +	*out_size =3D size;
+> +	return 0;
+>  }
+> =20
+>  static int fastrpc_create_maps(struct fastrpc_invoke_ctx *ctx)
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does fastrpc_context_free()
+leak maps and dma_buf references created for handle arguments?
+
+fastrpc_create_maps() creates maps for all arguments up to ctx->nscalars,
+which includes handle arguments where i >=3D ctx->nbufs.
+
+However, the teardown loop in fastrpc_context_free() only iterates up
+to ctx->nbufs:
+
+fastrpc_context_free() {
+	...
+	for (i =3D 0; i < ctx->nbufs; i++)
+		fastrpc_map_put(ctx->maps[i]);
+	...
+}
+
+Are the maps for i >=3D ctx->nbufs left attached to the fastrpc_user list
+indefinitely, allowing a user-space process to continuously leak memory per
+invoke?
 
 
-Best regards,
-Andreas Hindborg
+[Severity: High]
+This is a pre-existing issue, but can fastrpc_map_attach() trigger a
+double-free in its error handling paths?
 
+If an error occurs after map->table has been assigned, the error path
+explicitly detaches and puts the dma_buf:
 
+fastrpc_map_attach() {
+    ...
+map_err:
+	dma_buf_detach(map->buf, map->attach);
+attach_err:
+	dma_buf_put(map->buf);
+get_err:
+	fastrpc_map_put(map);
+    ...
+}
 
+However, fastrpc_map_put() eventually calls fastrpc_free_map(), which repea=
+ts
+the detach and put operations on the same pointers because map->table is se=
+t:
+
+fastrpc_free_map() {
+    ...
+	if (map->table) {
+		...
+		dma_buf_detach(map->buf, map->attach);
+		dma_buf_put(map->buf);
+	}
+    ...
+}
+
+Could this double-put cause a reference count underflow and a use-after-free
+of the DMA buffer?
+
+> @@ -1043,7 +1051,9 @@ static int fastrpc_get_args(u32 kernel, struct fast=
+rpc_invoke_ctx *ctx)
+> =20
+>  	inbufs =3D REMOTE_SCALARS_INBUFS(ctx->sc);
+>  	metalen =3D fastrpc_get_meta_size(ctx);
+> -	pkt_size =3D fastrpc_get_payload_size(ctx, metalen);
+> +	err =3D fastrpc_get_payload_size(ctx, metalen, &pkt_size);
+> +	if (err)
+> +		return err;
+> =20
+>  	err =3D fastrpc_create_maps(ctx);
+>  	if (err)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624192225.4508=
+-1-alhouseenyousef@gmail.com?part=3D1
