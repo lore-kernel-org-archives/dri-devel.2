@@ -4,135 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 463BFCDE001
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 16:06:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AF90CDE001
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 16:07:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93ED910E0B0;
-	Wed, 24 Jun 2026 16:06:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C337410EFA7;
+	Wed, 24 Jun 2026 16:06:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TBblVmJj";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="RjmT+un4";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010003.outbound.protection.outlook.com [52.101.61.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB79610E0B0;
- Wed, 24 Jun 2026 16:06:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rbPK4n79dIq8BlwIbb+IxdPK18sFIudFtd/RwsZ+AWWHLi5Hll5jM+ShellZMU3NUOnTztAXzeSDTdYiBFZ5wzdWl966k6M6UL8yGXGyfj9WAweDhipEsU7UWa6aA9+O5q3BYZP79t8g5jogwaND31+B9dwMjqaRKHqm8xaYGjDN04Y9Gs/MqmFHenButk6KDkVrO8+cNx1bhOoEPggIjo3mR/E4OpooCdxliDJ2z/0ENuoYNPhoprUAZd5IorCuoGT87OgNtdgewDpdAyky4PmfO8keiwvOstkqcFvg6Q6O3A7UHSWoJMyox3sa6cMaBKjG+FsukkTqnhc3q6+KpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QdUrrqULep6MhF7cE9TjgShpa1hSivDoozD+Kc4K3a0=;
- b=a8FkXWjInSMkLEk0XeLQxDilMRq2ZmkYk/+/Fcr2MVU5FSpWcewfegsRMMPXgFcXDjBP1fE2seGBrVHRBUzFioYg9wE5B1KdjlVCtr2T1zUvOVPAek6rZjLkYNDl0HRjPKvR4kvjk9oEhS/sEWtOTR6QHkbC9urVMK/3hhcJSApaevc69Z6/FkRxBArEdj2l/by0r2njPEg8cHNBuLparl4ytPwZNR3b9Xay/4H4js6PvrFBbK2aTmBwAFkoP85BnAvQdtTPrmDIqC7B7KaDygfdSs/TDAUTxRdEKIAJqUrUxdFNWEysPHY/CPl2G1uS+UlwchFJCgyhiJWPwvtOXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QdUrrqULep6MhF7cE9TjgShpa1hSivDoozD+Kc4K3a0=;
- b=TBblVmJjbP68GIi0WwiGFWAdLihB6JNzHrR8s5Ug1I2p4vvunu7RokbtJpGHOl7vEJMdEfkPKUjWFAQ07iw1RXh7dt6atTiuIG9hK7AIs1QmgY1SN4sSOI9P7eCmM1IPBXDF5iKtADlrACvuA8t6yNhcUBMTLn9qA4SSazyKvDQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
- by SA1PR12MB6677.namprd12.prod.outlook.com (2603:10b6:806:250::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Wed, 24 Jun
- 2026 16:06:15 +0000
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0139.018; Wed, 24 Jun 2026
- 16:06:15 +0000
-Message-ID: <ad39a114-98bd-4711-8795-00409f3175b0@amd.com>
-Date: Wed, 24 Jun 2026 12:06:04 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/15] drm/amd/display: Handle struct
- drm_plane_state.ignore_damage_clips
-To: Thomas Zimmermann <tzimmermann@suse.de>, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, airlied@redhat.com, airlied@gmail.com,
- simona@ffwll.ch, admin@kodeit.net, gargaditya08@proton.me,
- paul@crapouillou.net, jani.nikula@linux.intel.com, mhklkml@zohomail.com,
- zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
- sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
- tursulin@ursulin.net, javierm@redhat.com, dmitry.osipenko@collabora.com,
- gurchetansingh@chromium.org, olvaffe@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-mips@vger.kernel.org, virtualization@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, Zack Rusin <zackr@vmware.com>,
- stable@vger.kernel.org
-References: <20260610152505.260172-1-tzimmermann@suse.de>
- <20260610152505.260172-2-tzimmermann@suse.de>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20260610152505.260172-2-tzimmermann@suse.de>
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BFF210EFA7
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 16:06:58 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id DC8E74E407C4;
+ Wed, 24 Jun 2026 16:06:56 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id A3C69601C5;
+ Wed, 24 Jun 2026 16:06:56 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 502E1106C8468; 
+ Wed, 24 Jun 2026 18:06:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1782317215; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=N3v36YslEFTvIe9aSboloVtZTLcZwXqsmCLNtL+8QuI=;
+ b=RjmT+un4qnnBjmGoKLf/boh6gu+rTh4ct3BN5juGXqgOv7bgnvX9vEWv3HUtBp+QuzJD5Q
+ N6vRla5R96P4XxouiUhAdC1HzU5C4ileLGLhhO+vxj2PB3zdepND0Fu6fyhHaKGIe2Ku8Z
+ DsWzrXMd/nqD0xS+lLv8vZrf2rrg+kz0mJZ9Ojb7zCXHExHam5OZsbEeLNZWrV5+UUAQRQ
+ Ue1+yCqg1OKk8ghIpB+KxGaSy3evpBqIWgzGFLWS0HhHotZcB3KbL7lSv4CbEf5NBC58at
+ T6WLbK/qhE2i8Gacrjtc7yinm3pm+aC4JaMPb/LLS/JSyTkS6L6ebzc+kO+bDQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0016.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::15) To SJ0PR12MB7007.namprd12.prod.outlook.com
- (2603:10b6:a03:486::8)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|SA1PR12MB6677:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e78edeb-1d8b-45d6-a463-08ded20a8494
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|7416014|376014|1800799024|366016|921020|18002099003|22082099003|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: NCBSrW3aIfNukg7pEpvpT8iky1xJXIQXfwJXjXhVmSPfgAaLc82KoovXQAyvTe++J9Sj06AjpFKcgaUXzlSeG4ALQin5sr96oEBXogUbGmYPdtS4E9Rw8yGuJUnU/77bpNUWgVMiAk/2ZHf8tH+HEWDv+7RXi/ezEO1RMFpnpMsB9aXBBiMqYRiK6D7/fZQD20DBtye3n8TroEuMq9ZJIfu+mg73bYR0Yz7KwmVuuNw5VpkUhImf7TZfDB8NOnoarBwTExbhQg8WVjzES2ejuvRXF5EGGf+3nFk+r0JT9PUUV8d5HiXf5CMggA1uzJs/bzJqejVzfLqyRoNGDmJZPol8D9G9gWjVJyg4v8IjDHM+wKHNbyzwW9PfPVRa7tFZM1ocnIWlRKi16kirMuFcDTKKMOOdzrcnNDyKzaYpmfBWSavSdQojeh5E0iIzFiFdqKid/gSDiQflTIJ4aJQEz06bW1PlMakGFQpGmdND2JjwZWC7NVOR3KNJ/eCgLudjWeO77Pzi2Ch3lb9GdZ1TIXBGcpR3gPp9DIsTmhDkeQuurWKNJYD41WdYbKfSfk9H6EmTx/R9aqz19oTweykokhyFFTXKC37HYRJvOO/v2nJZEjQT8kFs3iUmvPombKEPKF+R07mjET/+e4Zm2BTGBuBQCQ8y0R7/9qwAGGssyFBIu0ObgkSAmOq4mh18n7/pRDorapseuYlb9YccEQNOQQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(921020)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SXZscUlRcERaTnJNeXIwdGdVTHhyM3k2WlNwSXZwYVlBQlN4WWk0NWRCKzFl?=
- =?utf-8?B?RXU2LzVjUkJ2WkxaaDU3dDZKdEZRV1lKWDZhbThLbjhKT3dTZXl0T014dTNH?=
- =?utf-8?B?MHJSakpGMHZKdFl1WmlUZTdjV3VTK2lFYUM2TjdOQ2dXRmRjSEowRXVLWVQx?=
- =?utf-8?B?U0Z2TTNnRFgxZ3VvcVJxdVh0UjZCM1ptQzlROWNiUzlzTWtxR29KMVJORXVD?=
- =?utf-8?B?bnVvb1BBTFBxQ05zYjczWWYwcjF4a2FMT3VPUURiS3kwM1dMR0ZWWmJ4NDk5?=
- =?utf-8?B?ZWJ1aEFpNkFBV3IwZHRQeWFTN1ExVDNJUVZFMmdsY1ZMREpaRVkrZFRBTW5k?=
- =?utf-8?B?YXBFdm9PNE1xQTJYRGhCSmt4eWtMUGlZcHFxeEpiTG41VmxTQzZsZmRyZHlX?=
- =?utf-8?B?dGJwMlF2RjhzYnVFQzI3UlJIZXFRa0gzNHRWbGQ2UzgwYVBrQlo5ekZ1YzZp?=
- =?utf-8?B?SlN0UjAxcjZ0Q3p2K0hyNlhPajhsMitsaEdpcTVRR3JCMTMyZEN0R3MvWDh2?=
- =?utf-8?B?U0cwa20vRm5NYVZTbnIvUXNrRXA2UDZ2eGRZVDFzT003RGhlckVMS2hzY0xF?=
- =?utf-8?B?cmdmTE9ZTU40K1VyRmh0eXg2dEcxampNU2pZMC9XNlF5bWpyaWlETnpaY1NM?=
- =?utf-8?B?dGtnZGxyWnJIdWcyR0hyOFdDN285L2wvQUdzK0hGSE5OSmZGUnlKZTUxTlNw?=
- =?utf-8?B?RTdPcTRQMHNrU0V6OFdiOG5XdVhQUER3b3dkV1VIZXdRZkRQcS8zZmlla2xN?=
- =?utf-8?B?NG5pY1JXUzdnYm5KSWxON0xhLzhZMEFTV1ZIN055UzcyRUhidWNRYVkybGs0?=
- =?utf-8?B?VldmU01CSnVWWkVQNG1zRzAzNnFKNjdTczhSdTRjelNUUUxiWUx0UHRvWU1z?=
- =?utf-8?B?bE93dG41UEVPZEpRZzhmSWcxeW95UGVzQ1pDSDlTckdlK0Z6Ulo1dmJ4RlJF?=
- =?utf-8?B?YlBDRTZIN3B1V3prelFuMzFXcUlRMTIvbFJXQTU3V1lsMkJtL1J2dVhhM0JV?=
- =?utf-8?B?TUt5WGtqWHgxMlg0Z1JFK1JCZzVubVNLaUFHMWxlQ3lpc0U4cUJrREpBK0py?=
- =?utf-8?B?TjUyR29tc1J0VzFwckpFVmVNYmkrdVNJcVNYWGk4RGNJQk9pTEZ1QlVCczI4?=
- =?utf-8?B?TVJTZUszcVZ5NHNBSEVZOFc2RUNMay9Ma0ZTTnZBK3l5b3d6ektydEdyZGg4?=
- =?utf-8?B?ZjJSK3hBWC91Z2ZDc1BjRjQxcGYwV0loTEtIUVlBYmp2eGNVS0FOVTZFMjRQ?=
- =?utf-8?B?NGNobW5DNTB1d3BSdEE4ZFFySUNJV1pVUTJEMHFHMFpORDBNdnVRQkE4MUY5?=
- =?utf-8?B?V1oyZHJyU2pvS203ZkUyS2JRa0kxM0lnLzJKUlBCOUhtR3V6dVR3NHl1MlFM?=
- =?utf-8?B?UjR1L3VkejVLSnBMc3Ard3JVTEFyTDNuYmpPWDZHZ3NEcUVNZFROUEhBdEVO?=
- =?utf-8?B?VmZmbzZoR0cxS1lxQzd1UEswMFF6dWhYNWVGYTc4RHB6R0NsZU1SbkxSa2Q0?=
- =?utf-8?B?ZW1HZ2kzeVpnaGFxaHh1dEhPMDVkRG1aVGJmV0xxanQ2anhIbHRwdDFXeVM0?=
- =?utf-8?B?VTBYcEx6dERTaDJUc09TMitheVdMU0t2SVp6WTArUld5MFpDcWM1VHJQcUpp?=
- =?utf-8?B?YjRMcWFoaUtzWFFPcmpyTzRmTUtnRUpEeHNnbEt2UWZBWXpwU3MvdFNqbjhH?=
- =?utf-8?B?bFZIeHp4TThNM3dPMGoyYWxoQzZobWR2ZWwzampaa28xQ29QZU52cFlHVno1?=
- =?utf-8?B?MlNuTFplSHdvenQrdWY3cXBKRGtoZ0JNZU5WUTdpbFZjamRTY0ZsSFVLaU5z?=
- =?utf-8?B?eGlzK1hBVGpWWHJiY1VEN095OVVZYmZYa1BRTWZSd3lwbGxybW81d3VDVmNM?=
- =?utf-8?B?YXBwMnpuZGRFU3dqZHRNSGFyY2Q5bk4xTTlhOWVuN1pHNFV5SmhEd29HbS95?=
- =?utf-8?B?ZFgyYVpWUEdZbTJYbWdiMmFSbDNGN25YbUFOVCszbU80N01LZzB1RmRNbWVy?=
- =?utf-8?B?Y2N2NUxLK2tGUTUrbmV6d2trK3lObWQ0TTVSRXZxME0rNUJIMW1lTW9yNjIr?=
- =?utf-8?B?Wk1JcGFyWXdoeUR4N3NzTHZmaExVclMrc0FqYWIvalYwMjNoUGxRVzEyOTk5?=
- =?utf-8?B?Y3VmL0lUaUVicjFjdGY0UnR5WWN5alhNWmZ5QUtKN1crSXdJaXN4cmZudzhF?=
- =?utf-8?B?Y1ovYTJ6eUJCSm0wWmdVRG5RRVBIbFRzMFA3cTNobENOcXRTQTY0dS9qYTVV?=
- =?utf-8?B?TEhKNGZRT1QyenZWN0N3QmxMc1lpK2RVNFlyZ1BIRTIySWRsaVlKSitvMitX?=
- =?utf-8?B?dUxpWWdTS1FMNzRROFBpRlNXT1l1QUR2akZQeGpXSVIzbEhuZVVEdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e78edeb-1d8b-45d6-a463-08ded20a8494
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 16:06:15.1149 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jVDnNUwNCZTIBsbc8ttGuT3Dx7IEa+dT5yCCjM2Hqrgyq7z0q5+iUHwcgbH2hNkA1PemFwsTCS3MZZ3+bMTFvQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6677
+Date: Wed, 24 Jun 2026 18:06:47 +0200
+Message-Id: <DJHEPXMBL9N8.10GN58K6CAULK@bootlin.com>
+To: "Maxime Ripard" <mripard@kernel.org>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 30/37] drm/bridge: add drm_bridge_is_tail() to know
+ whether a bridge completes the pipeline
+Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Inki Dae"
+ <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
+ Szyprowski" <m.szyprowski@samsung.com>, "Marek Vasut" <marex@denx.de>,
+ "Stefan Agner" <stefan@agner.ch>, "Frank Li" <Frank.Li@nxp.com>, "Sascha
+ Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Hui Pu"
+ <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>
+X-Mailer: aerc 0.21.0
+References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
+ <20260519-drm-bridge-hotplug-v1-30-45e2bdb3dfb4@bootlin.com>
+ <20260608-shapeless-opal-ferret-c8b105@houat>
+ <DJ4DGYZ3GQZH.3AZOC0Z69W92S@bootlin.com>
+ <20260624-vagabond-neon-gorilla-cd6487@houat>
+In-Reply-To: <20260624-vagabond-neon-gorilla-cd6487@houat>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,67 +82,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed Jun 24, 2026 at 3:04 PM CEST, Maxime Ripard wrote:
+> On Tue, Jun 09, 2026 at 10:23:24AM +0200, Luca Ceresoli wrote:
+>> Hi Maxime,
+>>
+>> thanks for the review of this long series!
+>>
+>> On Mon Jun 8, 2026 at 2:34 PM CEST, Maxime Ripard wrote:
+>> ...
+>> >> --- a/include/drm/drm_bridge.h
+>> >> +++ b/include/drm/drm_bridge.h
+>> >> @@ -78,6 +78,19 @@ struct drm_bridge_funcs {
+>> >>  	int (*attach)(struct drm_bridge *bridge, struct drm_encoder *encode=
+r,
+>> >>  		      enum drm_bridge_attach_flags flags);
+>> >>
+>> >> +	/**
+>> >> +	 * @is_tail:
+>> >> +	 *
+>> >> +	 * Returns true if this is a tail bridge, i.e. it does not need a
+>> >> +	 * next bridge to work. E.g. a panel_bridge is a tail bridge, a
+>> >> +	 * DSI-to-LVDS bridge is not a tail bridge (no matter whether the
+>> >> +	 * next bridge is present or not).
+>> >
+>> > Why a DSI-to-LDVS bridge isn't a tail bridge? It only needs a panel
+>> > next, right?
+>>
+>> Uhm, good point, but I'd say it can be a tail bridge or not: in the
+>> ATTACH_NO_CONNECTOR case it will need a bridge (a panel_bridge most
+>> likely), no?
+>
+> Yeah, I think it cannot (always) be a blanket statement from the driver.
+> For drivers that do not support ATTACH_NO_CONNECTOR, then it's always
+> going to be a tail, but if the driver supports it, we should use a
+> helper because it's going to depend on the DT, basically.
+>
+>> However this is possibly irrelevant as the whole .is_tail is meant to
+>> disappear in v2, see below.
+>>
+>> >> +	 * The @is_tail callback is optional but it is required if the
+>> >> +	 * bridge is part of a pipeline with hot-pluggable components.
+>> >> +	 */
+>> >> +	bool (*is_tail)(struct drm_bridge *bridge);
+>> >> +
+>> >
+>> > I don't think that's the right way to think about it, if only because
+>> > you never really know at the driver level if you're supposed to be las=
+t
+>> > or not. A DSI-to-LVDS bridge might just as well be chained with an
+>> > LVDS-to-eDP bridge, or feed the panel directly without any additional
+>> > bridge.
+>> >
+>> > I *think* that what you're trying to find out here is whether the chai=
+n
+>> > is complete or not.
+>>
+>> You nailed it.
+>>
+>> That was the main point discussed during the Display Next Hackfest 2026
+>> (see the report [0]) and we all agreed the .is_tail along with the
+>> -EPROBE_DEFER changes (patches 20+35) are not a good approach.
+>>
+>> This is actually the most crucial aspect of the whole work still not hav=
+ing
+>> no well-defined solution.
+>
+> Ok
+>
+>> > I think you can get the same information by checking
+>> > whether you have a connector for that bridge chain. If you don't, you
+>> > know the chain isn't complete, and if you do, it's supposed to be.
+>>
+>> There's a checken-egg problem here. Knowing whether the pipeline is
+>> complete or not is needed to know whether we have to create a
+>> connector. See patch 36:
+>>
+>>   +  if (drm_bridge_connector_pipeline_is_complete(bridge_connector))
+>>   +          drm_bridge_connector_add_connector(bridge_connector);
+>>
+>> So the question is still open, what I need the most right now is comment=
+s
+>> on the overall architecture of this aspecs. Maybe replying to [0] can be
+>> more effective than here.
+>>
+>> In a nutshell what we need is:
+>>
+>>  * when a bridge needs a following element (a bridge, or a panel which
+>>    however might/should have a panel_bridge), but that element is not
+>>    present, instead of deferring the whole card probe the card should be
+>>    allowed to probe but without a connector
+>>
+>>  * when something is added to an incomplete pipeline we need to know
+>>    whether the pipeline has become complete (in order to create the
+>>    connector)
+>>
+>> How to implement this is still an open point. I'll welcome proposals in
+>> addition to the ones in [0].
+>
+> Thanks for the notes, I think I largely agree with the discussion.
 
+Good! :)
 
-On 2026-06-10 11:18, Thomas Zimmermann wrote:
-> The mode-setting pipeline can disabled damage clippings for a commit
-> by setting ignore_damage_clips in struct drm_plane_state. The commit
-> will then do a full display update.
-> 
-> Test the flag in DCN code and do a full update in DCN code if it has
-> been set.
-> 
-> Commit 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers
-> to ignore damage clips") introduced ignore_damage_clips to selectively
-> ignore damage clipping in certain framebuffer changes. This driver does
-> not do that, but DRM's damage iterator will soon rely on the flag.
-> Therefore supporting it here as well make sense for consistency.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Fixes: 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to ignore damage clips")
-> Cc: Javier Martinez Canillas <javierm@redhat.com>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Zack Rusin <zackr@vmware.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: <stable@vger.kernel.org> # v6.8+
+> Reading through it, I thought it would be nice for a new callback called
+> get_next_bridge or something that would return either an error, NULL or a
+> (refcounted) pointer to the next bridge in the chain. And have some kind
+> of special error (ENODEV?) when the bridge should be there but isn't
+> (and thus the chain isn't complete).
 
-While I haven't looked thoroughly at the rest of the series this
-patch for amdgpu_dm looks fine.
+I initially preferred exposing the fwnode of the next bridge as discussed
+with Dmitry during the Display Next Hackfest, which looks simpler for
+driver writers. But then I realized it would be tricyk in cases such as
+dual-LVDS output bridges (ti-sn65dsi83.c) which have two output ports in
+DT, none of which is mandatory. So I've come to thinking a callback is
+better as it should be flexible enough.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Picking the best errno is probably the only aspect needing special
+attention now.
 
-Harry
+Luca
 
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 0e20194e6662..4cbb27f65a0b 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -6614,8 +6614,8 @@ static void fill_dc_dirty_rects(struct drm_plane *plane,
->  {
->  	struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(crtc_state);
->  	struct rect *dirty_rects = flip_addrs->dirty_rects;
-> -	u32 num_clips;
-> -	struct drm_mode_rect *clips;
-> +	u32 num_clips = 0;
-> +	struct drm_mode_rect *clips = NULL;
->  	bool bb_changed;
->  	bool fb_changed;
->  	u32 i = 0;
-> @@ -6631,8 +6631,10 @@ static void fill_dc_dirty_rects(struct drm_plane *plane,
->  	if (new_plane_state->rotation != DRM_MODE_ROTATE_0)
->  		goto ffu;
->  
-> -	num_clips = drm_plane_get_damage_clips_count(new_plane_state);
-> -	clips = drm_plane_get_damage_clips(new_plane_state);
-> +	if (!new_plane_state->ignore_damage_clips) {
-> +		num_clips = drm_plane_get_damage_clips_count(new_plane_state);
-> +		clips = drm_plane_get_damage_clips(new_plane_state);
-> +	}
->  
->  	if (num_clips && (!amdgpu_damage_clips || (amdgpu_damage_clips < 0 &&
->  						   is_psr_su)))
-
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
