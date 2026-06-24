@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8939CDE02A
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 18:05:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B825CDE010
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 18:05:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92ED010F052;
-	Wed, 24 Jun 2026 18:04:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE6C110F05F;
+	Wed, 24 Jun 2026 18:04:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="Y/UWAdAB";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="Mj594Pe3";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D7A410F04E;
- Wed, 24 Jun 2026 18:04:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B05C310F036;
+ Wed, 24 Jun 2026 18:04:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782324288;
- bh=0xLvIPUF7dUXs0cb7vXUK9dMYuEsI+fTHrltlGFTpL4=;
+ s=default; t=1782324283;
+ bh=1BpIYHOUDXmXhC43+6NZ+AYKZnW2+brgwbGMlhZb33k=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Y/UWAdAB932S760R/q/K6bVV639kFrFx5W0bvnM8Z10uwoKPfBbul4xGgFrBk/m/u
- 9IKqXkMGqLq2CgdFGnpy1Qjs/mQiv+74mw11imkigW8gc0jVB7ayGLKdkkBU7A/kwL
- xTZ8Ri4V6BfaYlbUflGEbi9svvLiJKeBioN3HwXHVs6SkRdi5FcFqqN3RUstKY9XHv
- IBy6F+8cff4gKutjjj3p4BKf4zBQ1FCsX7cZ5UtSiqRcv15cmsnsgZd+0C+eM6kRHC
- AK4/XVpW1mOdp3yGTNux6IVjnT2P8GJIj969zi5zRQdBMgIByAqQF6TG54G6b7TYs9
- 4havLPSEBXiLQ==
+ b=Mj594Pe3+/lBs5qnVv22Zn9fLcMH38ey8bu9sNeGO7+fZp5r9W49q/Tt+Gx18er24
+ p61MYbzC7YTD713FoPoxnbZ/1mZY9aOUurFUqIEcywHZrqnQVEK2YaScWI4Kmu8Vb1
+ Zz1IrYTkLNnk48hbsXiiZ6qXU/Uy4Xo+MnEB16D9h4jpmvXAq0E5TSG57KL4nFI0dj
+ usdwVun7txyhmH+fKMrsQS7K4jn+BwtxuguRxaz0mXQY4pZy7lWO3+oUbcTZNgiZqF
+ ML3hHvau0f1smBM6WDO2Rn9p6NZj6gPo0gqDiQEbELlo0yGJIqQUNwwMN3ciU2zSQL
+ ZFnA0FQyBEI1w==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v10 21/30] drm/i915: Use sleeping selftests for igt_atomic on
- PREEMPT_RT
-Date: Wed, 24 Jun 2026 20:04:48 +0200
-Message-ID: <20260624180459.1024068-22-dev@lankhorst.se>
+Cc: dri-devel@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Subject: [PATCH v10 14/30] drm/i915/display: Make set_pipeconf use the fw
+ variants
+Date: Wed, 24 Jun 2026 20:04:41 +0200
+Message-ID: <20260624180459.1024068-15-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260624180459.1024068-1-dev@lankhorst.se>
 References: <20260624180459.1024068-1-dev@lankhorst.se>
@@ -54,36 +54,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This makes the i915 selftests slightly happier, especially
-related to GPU reset.
+The calls are used inside the critical section when updating
+the gamma mode, and thus should use the _fw variants to prevent
+locks.
 
-I believe this may be a better approach than trying to convert
-uncore->lock to raw_spinlock
+Fixes following splat:
+| BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
+| in_atomic(): 0, irqs_disabled(): 1, non_block: 0, pid: 2115, name: modprobe
+| preempt_count: 0, expected: 0
+| RCU nest depth: 0, expected: 0
+| 4 locks held by modprobe/2115:
+|  #0: ffff99b9425161a0 (&dev->mutex){....}-{4:4}, at: __driver_attach+0xaf/0x1c0
+|  #1: ffffaa224810f6c0 (crtc_ww_class_acquire){+.+.}-{0:0}, at: intel_initial_commit+0x4c/0x200 [i915]
+|  #2: ffffaa224810f6e8 (crtc_ww_class_mutex){+.+.}-{4:4}, at: intel_initial_commit+0x4c/0x200 [i915]
+|  #3: ffff99b94a6c9030 (&uncore->lock){+.+.}-{3:3}, at: gen6_write32+0x50/0x290 [i915]
+| irq event stamp: 513344
+| hardirqs last  enabled at (513343): [<ffffffff8ba8d84c>] _raw_spin_unlock_irqrestore+0x4c/0x60
+| hardirqs last disabled at (513344): [<ffffffffc1543646>] intel_pipe_update_start+0x216/0x2c0 [i915]
+| softirqs last  enabled at (512766): [<ffffffff8af045cf>] __local_bh_enable_ip+0x10f/0x170
+| softirqs last disabled at (512712): [<ffffffffc14dfb6a>] __i915_request_queue+0x3a/0x70 [i915]
+| CPU: 3 UID: 0 PID: 2115 Comm: modprobe Tainted: G        W           6.18.0-rc1+ #17 PREEMPT_{RT,(lazy)}
+| Tainted: [W]=WARN
+| Hardware name: To Be Filled By O.E.M. To Be Filled By O.E.M./Z68 Pro3-M, BIOS P2.30 06/29/2012
+| Call Trace:
+|  <TASK>
+|  dump_stack_lvl+0x68/0x90
+|  __might_resched.cold+0xf0/0x12b
+|  rt_spin_lock+0x5f/0x200
+|  gen6_write32+0x50/0x290 [i915]
+|  ilk_set_pipeconf+0x12d/0x230 [i915]
+|  ilk_color_commit_arm+0x2d/0x70 [i915]
+|  intel_update_crtc+0x15b/0x690 [i915]
+|  intel_commit_modeset_enables+0xa6/0xd0 [i915]
+|  intel_atomic_commit_tail+0xd55/0x19a0 [i915]
+|  intel_atomic_commit+0x25d/0x2a0 [i915]
+|  drm_atomic_commit+0xad/0xe0 [drm]
+|  intel_initial_commit+0x16c/0x200 [i915]
+|  intel_display_driver_probe+0x2e/0x80 [i915]
+|  i915_driver_probe+0x791/0xc10 [i915]
+|  i915_pci_probe+0xd7/0x190 [i915]
 
+Reported-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/selftests/igt_atomic.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/i915/display/intel_display.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/selftests/igt_atomic.c b/drivers/gpu/drm/i915/selftests/igt_atomic.c
-index fb506b6990956..8ae39cf570b76 100644
---- a/drivers/gpu/drm/i915/selftests/igt_atomic.c
-+++ b/drivers/gpu/drm/i915/selftests/igt_atomic.c
-@@ -39,7 +39,14 @@ static void __hardirq_end(void)
- 	local_irq_enable();
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index f5dac380aa7ff..deb93d26e0e94 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -3030,8 +3030,9 @@ void i9xx_set_pipeconf(const struct intel_crtc_state *crtc_state)
+ 
+ 	val |= TRANSCONF_FRAME_START_DELAY(crtc_state->framestart_delay - 1);
+ 
+-	intel_de_write(display, TRANSCONF(display, cpu_transcoder), val);
+-	intel_de_posting_read(display, TRANSCONF(display, cpu_transcoder));
++	intel_de_write_fw(display, TRANSCONF(display, cpu_transcoder), val);
++	/* posting read */
++	intel_de_read_fw(display, TRANSCONF(display, cpu_transcoder));
  }
  
-+static void __maybe_unused __nop(void)
-+{}
-+
- const struct igt_atomic_section igt_atomic_phases[] = {
-+#if IS_ENABLED(CONFIG_PREEMPT_RT)
-+	{ "sleeping", __nop, __nop },
-+	{ },
-+#endif
- 	{ "preempt", __preempt_begin, __preempt_end },
- 	{ "softirq", __softirq_begin, __softirq_end },
- 	{ "hardirq", __hardirq_begin, __hardirq_end },
+ static enum intel_output_format
+@@ -3226,8 +3227,9 @@ void ilk_set_pipeconf(const struct intel_crtc_state *crtc_state)
+ 	val |= TRANSCONF_FRAME_START_DELAY(crtc_state->framestart_delay - 1);
+ 	val |= TRANSCONF_MSA_TIMING_DELAY(crtc_state->msa_timing_delay);
+ 
+-	intel_de_write(display, TRANSCONF(display, cpu_transcoder), val);
+-	intel_de_posting_read(display, TRANSCONF(display, cpu_transcoder));
++	intel_de_write_fw(display, TRANSCONF(display, cpu_transcoder), val);
++	/* posting read */
++	intel_de_read_fw(display, TRANSCONF(display, cpu_transcoder));
+ }
+ 
+ static void hsw_set_transconf(const struct intel_crtc_state *crtc_state)
 -- 
 2.53.0
 
