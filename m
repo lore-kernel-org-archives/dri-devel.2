@@ -4,76 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27581CDE006
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:03:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22D43CDB47F
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:03:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0049910F134;
-	Thu, 25 Jun 2026 07:03:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E37F10F145;
+	Thu, 25 Jun 2026 07:03:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aUTO48wR";
+	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="WPjih2wn";
 	dkim-atps=neutral
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com
- [74.125.224.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7241010E0F1
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 19:27:49 +0000 (UTC)
-Received: by mail-yx1-f44.google.com with SMTP id
- 956f58d0204a3-662dc387b7aso1631132d50.3
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 12:27:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782329268; x=1782934068; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=+BitzJFDbUPVda/ZhCxrpv+F0X4dQ/6HuYsKwRcXpws=;
- b=aUTO48wRyuBNN5OjnFjbNm73kHymhSQyfalyL07vFrnZBmwROcNlA/t2yXycQJ1ywX
- 8+zf2XBevqqtuwxBGmazbQjFmGKFZIP5TYQl4fokdiPWgSH6AZTsocgz7FeCeLXroCp6
- 8nMx74nvuo4JntmFFQvscO3KTbHu4v6NO+La3FH4IxJhPmY8qOPzJUcECJ5NDIxFfEQI
- VVtKMBk9r5/b3X7mjDzqYKRgcAmXi9XOtyQP83S8MQjIwOXSFVGawO4eLuR58VNt7Qzz
- B8y0dg2tGBo2rp/dDoHe0HcRYkEQ+Y5y5YksoFVikwfw55ceut6OA5Bo74ucVsDnI4Px
- mUBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782329268; x=1782934068;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+BitzJFDbUPVda/ZhCxrpv+F0X4dQ/6HuYsKwRcXpws=;
- b=VZl66fAv6R6gRjXxg8akFLbpFyX+1pLZM3avUtSPTxg6+NyGprqLrSSC16gcwPJibc
- 7+u0LYVCL/oIhdsR4BecXt05j8/mfHUGw4Z7IFHkPbd6xOiWPHvTacfSiN6QLCSuxKKR
- REfdSy+VzQoVy4m1I6kF2eUumkaFYvGC+d5+lZvpYLldEW7zfKr5D/QM2gi6rC0rU2R1
- pfbHWQYsZ2weGWOUWT/+R0ZNY5pR0vLeCpnZICJ2EWSu7+D6z5/KRheJDalEAF5cjTwd
- mIiIADrAc4wr9URwMhcbLhQGJbDDHvs0MnNoPySjnNRAFfHv5zCNoG5UUBTy5vr14Kly
- 6oXA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqP4xesuEsFgUk9/Lc8ObQZ22uTKEvzQFzQmmFw3t4G0u0cxy7kauWn6awpBCsmHmiq3veP9gcII3M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyNG2+RMwb+VJi9D5dMZOqLW01KxapgDwFI4sPzKnMGge1ezKhv
- VDRDWhy947Rr53Jv6e6oeFV2lds1lQ5uRunbPOSFyFx+odZ0X02SXsGM
-X-Gm-Gg: AfdE7ckRbsBIbx8LQUMs7hNq/Y6frLJY6p+lgXXhZoDGkDIBnp77nSJ6V/ar4XKzwW4
- fafaJAgo/IfvJLg4WcWKN+87gxxgwxTpN2gmWbY2DAhBAkO6vWISK6yOZDKTOBANhI6IZoraAEG
- FPeYcJNVvaAncIgAf52x/eALvz8y3hhLybQrd42l4ChVoItqngy2uTD5rA6savBtgMRQtQmW67l
- WaV/xq6Mrb1lkzy6YOZ4CIaHSG9waZ5rAKgxPC3UqSk+FRPaZwoSEtEJX2IIo7BD/ZE1xTIxqdu
- sZFzKWqxjE8CLPl4nQXtWat/tgenvSFID3SauT129bWKLyg1M1NOgDVJA0IiQlI7u9BIZo15u2S
- pn+xjdTSPt0wLJiYu7xzF2O0cEZbXZEWPc0rNTFdDdJmaHmFykm8GI6PtHfctjdGVirponX5BXO
- UgPZN0W8KBjyjMOr+jNAXItW2ypw==
-X-Received: by 2002:a05:690e:13cf:b0:65e:a838:e9d1 with SMTP id
- 956f58d0204a3-6636e6711d4mr4363227d50.59.1782329268360; 
- Wed, 24 Jun 2026 12:27:48 -0700 (PDT)
-Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
- by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-6647f926750sm329747d50.12.2026.06.24.12.27.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jun 2026 12:27:48 -0700 (PDT)
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH] misc: fastrpc: release pending invoke refs on rpmsg removal
-Date: Wed, 24 Jun 2026 21:27:00 +0200
-Message-ID: <20260624192700.5388-1-alhouseenyousef@gmail.com>
-X-Mailer: git-send-email 2.54.0
-MIME-Version: 1.0
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ (mail-northeuropeazolkn19010022.outbound.protection.outlook.com
+ [52.103.32.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C27D510E135
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 21:36:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fRPBL/1ogUEt/SL05sA/hDTC6doJyTnl3bArENb9vzYy6jPgMo2d1pEil+Wh1LefAF9RxSxK+DCt28eRelVkcHNsEeIs7SohFm6pOXzF30ZgX/JG70u5j3jaIC91aecATY8+thPtqQkvdEeR0st/cpMS+bJCtn8vOMLdY8NHtqvJ1jnBFT4IcKDcIyq3Gj0e2sSgNKpO8Tkf8fsgb70+zEaa/Q+SVUg+RehJWaaIPKOnRqgEIpTCKiHEyagPJTKMoIiUROvZVr1IS41xSF3hGZoNp4IKdefgSqHV/diK681YO8TgKcGSc4wBlqOqpviJjw9t3tFW6t5W3h9LgLDXEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wAe5ZE+nKgNN81K1MHBgU8UNFmICNMYwBivEJpghyV0=;
+ b=OJVgvsudIkC37Cc5fZKtQR67CjqN01LrSx/gNdG5ZpTT0PVP9VwUUrFcxSb6VpxbyQ4QdLIjjWM1EE79/eKyDV4erQl8OUbqjiGWs0HwZCN22g8Q/GV5k89cwi3PcYyFs9zGUae0Ynyav7lqEhiUefIQohfyQaJepPOw3ISR1AvpWTUbMZ0Fcjeg5EJYtZTZUpkkpsn2JyNDaKNTkUcscQQjHGSOvqoGrDeK9cSU3MFKCW7sJINo5oTufPJOdBh06G1BhoeUn6fZ0D431C5kgdy1g1JMSihW9Jh9jLRLPgq4I152XCqGQwRJbPsaxiBG5LnnC3L5QYUGxC9ZCh8hbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wAe5ZE+nKgNN81K1MHBgU8UNFmICNMYwBivEJpghyV0=;
+ b=WPjih2wncdhoIjXvwBh/qgP8BvLrbZATHrVXTOj+xiV9ovOdrWVRJAuwUBSVGUwwCimKSHqYmj769dSeTHkD2xwgsCGfxLe/qs2woX3bP585k9XxUzJWTt0E1OB+CU3is9H51q6NxFgCNv+kgNmPk5KXlgiIYToQFdZePbnUkAPWvE45qhOaFfdZ7+Hr0XyQaD8Ga5vsjQUgf5gNbaMV7VrGHEJj709QwTI1KbO3/gIbxQ4DodsMLXg+Lu10oHlgZW2hyotIjYgkd6BaN1zV4EiIwBIMbEN+5JqlrcupRf+cVDIkZl0UIkMTw4kEXOUd5Lphvi0r6mCwKyRLTM4nNQ==
+Received: from VI1PR05MB6992.eurprd05.prod.outlook.com (2603:10a6:800:188::10)
+ by PAVPR05MB10428.eurprd05.prod.outlook.com (2603:10a6:102:2fb::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.15; Wed, 24 Jun
+ 2026 21:36:02 +0000
+Received: from VI1PR05MB6992.eurprd05.prod.outlook.com
+ ([fe80::aded:1de5:5441:2313]) by VI1PR05MB6992.eurprd05.prod.outlook.com
+ ([fe80::aded:1de5:5441:2313%6]) with mapi id 15.21.0139.018; Wed, 24 Jun 2026
+ 21:36:01 +0000
+From: Gabriel Carvalho <gabriel-n-carvalho@outlook.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Julian Braha <julianbraha@gmail.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ Gabriel Carvalho <gabriel-n-carvalho@outlook.com>
+Subject: [PATCH] drm/meson: cleanup unnecessary condition in kconfig
+Date: Wed, 24 Jun 2026 22:35:33 +0100
+Message-ID: <VI1PR05MB699278F5D7FD140310C6EED9C8ED2@VI1PR05MB6992.eurprd05.prod.outlook.com>
+X-Mailer: git-send-email 2.53.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PR1P264CA0020.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:19f::7) To VI1PR05MB6992.eurprd05.prod.outlook.com
+ (2603:10a6:800:188::10)
+X-Microsoft-Original-Message-ID: <20260624213533.148075-1-gabriel-n-carvalho@outlook.com>
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI1PR05MB6992:EE_|PAVPR05MB10428:EE_
+X-MS-Office365-Filtering-Correlation-Id: e209ea60-ff20-409e-c672-08ded2389612
+X-Microsoft-Antispam: BCL:0;
+ ARA:14566002|22121099003|19110799012|5062599005|37011999003|23021999003|25010399006|15080799012|8060799015|39105399006|4140399003|19101099003|5072599009|40105399003|3412199025|440099028|1710799026;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?/iPz9kYzVfwIDHY4Pny9lg+E3Uw9nTfQRSX+2ebMY2yJbL0s75xTVX33l7CM?=
+ =?us-ascii?Q?vVpX4x+oNkY08BtbfoXor15B/lsF9OpFXKpMDcxU9re6Xr39Jq+SW4cyFgnC?=
+ =?us-ascii?Q?kvSz7ccCiPR1MTnB0rWD6VFHdGaRuixFJQL+WZz+1FMVJ5bWwhsamn11j0lX?=
+ =?us-ascii?Q?Hbr+Tvz+QRqlgYP0o6QiNqN7/TJUBTGSQeMpcKnoNlHE2hE9qwAyZ/Z0kkv9?=
+ =?us-ascii?Q?dB3amT0oF/gdino/rdt2xRVtERhnV45AYaig9GAx476KJuhpK2M6FY7Ac7r+?=
+ =?us-ascii?Q?Qzu4ivUV0xPmLH8XwJO22qO6V7wvFSbjWdxC1loXebVx5yiQYIJU3MAezw/V?=
+ =?us-ascii?Q?PdXBGcbve7jRlmKQIxGjHVIJHKJ6UEE1Xhu91Ge8T2wmerzOdSlWOnJ3K+4a?=
+ =?us-ascii?Q?q1jZHSkC04pJH6aVwzhqpAkYZue7FKy5XEd5a7qJ5mZ5Bt6c1ZX7nKgVKva9?=
+ =?us-ascii?Q?98Jb3GTXEpa290qvYOAbkVamRxRIwAHYk2UMXrIQaLrCOeOy7X4y97nKnWFh?=
+ =?us-ascii?Q?cgqdakJKsQkOR8ij6Cnp0y9cv8aTxDgXaU2A7J/fhfSeqem3G7KGo+Yg72bX?=
+ =?us-ascii?Q?J9RBhW0XRDqLNlMClEYjEPW9zWwNs1wB9e6UdK6m1XyfA3kOQ0HS6w2YV1M1?=
+ =?us-ascii?Q?vrCGvC9ozc4BRSnQUGiet9RCyWAFhqNFsre/OqD+8J/XNnNFbQnjiIRvee3I?=
+ =?us-ascii?Q?5lMR6OpNfmbGvXrUh1oAXfJ2fjM+KlNZFRPbpl4oUEqiRHFQi6meYUSzbXYy?=
+ =?us-ascii?Q?LprGeK5nIGZzeKR8UdUPI3jSiQSXn0OpQfNs2dZFoWypQTkM7yupSXBccJqV?=
+ =?us-ascii?Q?io8xJe16Aspvb3iZsZ2pK457perMAIGhIOeN3nL/r8PTwtdUQ5Q3fjMAypnU?=
+ =?us-ascii?Q?u9Jzs/9FZ7lrnAA1pJb0wba06PJowHuh4+22F5dtMETEgggXipTadcDa9xe5?=
+ =?us-ascii?Q?U4PD8pAxDQm47JOBdN69rx1OG9rqBbhcEE7eVwU//j45z4K07tn9XdDZ9Iek?=
+ =?us-ascii?Q?YrMRqPJr49eG5/u93qNRjjOemjBuazRr6aciy9bhyhXnPbJf7l78+j1T5EY8?=
+ =?us-ascii?Q?iZd0GdXq?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XN+l1zC96d3LErD509jxubVGvFIMERQ6ab+Rd4tV8fje0cvLgSYcrgxJALNg?=
+ =?us-ascii?Q?r/HILOKaBV0C7Tf87IiGufEJLF9EOcXJdetd1No27/5OVNE6ZfHZ9ebBO0p7?=
+ =?us-ascii?Q?B65dQcAC3Fjz5BbCwurWkOuZEUEjVN0dYLG5Zo1HJarHCs3cuY9N+cXt/0Dc?=
+ =?us-ascii?Q?i90DxVGFVNkm+Y1eR/0G+lm0RWAhWJFe0bNiPnGJoHiJddT++NZTxkJro5hy?=
+ =?us-ascii?Q?n9bsJTM9ifMBJfZZkPpMHSnlRjJx6SbGf/+aZvQfIQX8OEFDmxk9r7Qa8fSv?=
+ =?us-ascii?Q?KOFFxumU2TMyUBuFiKJzsiIF8u0WVRdVE6TMV3N6dPjBA07mD0FtR3xN4pfF?=
+ =?us-ascii?Q?aS7WXkmLhZQeDcXswJnNnfas3ggRftk5zWXO68wjtd+sIX2BzhryHyEavJD4?=
+ =?us-ascii?Q?WFfXfGLj+CpnNcJ+OOuYrn4m8PkyQB1+CjQHaeF6UmbmIz7UUHWurAgWwIqq?=
+ =?us-ascii?Q?SmR89G1WvF0fkrBBQ23XIAuhbCrcfdw5DHiomV3WZnhEMJihDXGV8OrMAOb9?=
+ =?us-ascii?Q?lPV9JKj0lzC9cbGExJlwxzr4V9yLPDx2jJR0Z4FtWEWbV3yZZfN/KToee9Qf?=
+ =?us-ascii?Q?nQAnqsYMif0mxlXQupA3JvGqgbUOhA6tc908io0vHZatTPpsOSN68xvczA2B?=
+ =?us-ascii?Q?vsyF7O93h1gNzE4TXVC8NpRRhWkclxe0AXeuFz1mDWH6NHFfsBOGxj56tAUo?=
+ =?us-ascii?Q?ff6yi4JCctIvEtg9nFU9KXtKAl2vs/Aq5alvVVqNEM5c83sIEOskIFhk18mw?=
+ =?us-ascii?Q?xUKTDQJaujtWUTyh04iHfT/bBdYVCD4QyPlz1szYIEFHfwgVHZYn5EMTVh4+?=
+ =?us-ascii?Q?UW3hHXmcbAUiv/xRPzz2OrsafquibbJM/mhJ5HHZxM/Iq6hTdKDhWUvwgomQ?=
+ =?us-ascii?Q?pGaqj23TzoXZS6RFutTduchdPySzjfSCKvVJtUGyI0rjHTriEMpTnsGAlfVu?=
+ =?us-ascii?Q?3ZTEDKc3/6/VKMrRlUODu/MlUPXb6tNdDJ+fzHyC9/2ldqrwyzrtxKA2vuZH?=
+ =?us-ascii?Q?bo4a6haT+h916InYCu3bawBmZJxmvw7/RxrRdaefWoNfJYfGPRS8H/UpIV9J?=
+ =?us-ascii?Q?VLpm3OsX5rJsnv3KxDPFfm1cl8QD0YAnDuPlPjx1bXg5AhCCqMQO3Z8ZiWLX?=
+ =?us-ascii?Q?/uYDkx43sp0QpO1UgeYcO85cEJJ3VUFRdZ4CftwXxpkCj5lHnZRHyPVkR42w?=
+ =?us-ascii?Q?aJKe3ihwY/zP1qBVyASOCoaIPy1q35JN+J26NqRLcjtpaBoj2mrAOc6wQPum?=
+ =?us-ascii?Q?s+COp7JRPB0jynBH6msJRTddfEjj71+CtLUvOEBycykE0Bpg2XQo7RS1Z6P8?=
+ =?us-ascii?Q?078kpAEuzLfaJbf4FtDK3wj4nS5A6RUn5sdtAhuXkF2zOjkm3K9v3o9JClZJ?=
+ =?us-ascii?Q?qE7RuZpuO29sC6X8MKKX47rjPBHOKoAJb+wxcgV+m/lU0fE4gg=3D=3D?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e209ea60-ff20-409e-c672-08ded2389612
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR05MB6992.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 21:36:01.9159 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR05MB10428
 X-Mailman-Approved-At: Thu, 25 Jun 2026 07:03:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,66 +133,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-fastrpc_rpmsg_remove() wakes pending invoke waiters when the rpmsg device
-is removed, but it does not release the send references taken before each
-request was submitted. Those references normally disappear only when a DSP
-reply arrives, which cannot be relied on after endpoint removal.
+DRM_MESON_DW_HDMI and DRM_MESON_DW_MIPI_DSI both already depend on
+DRM_MESON, so the "if DRM_MESON" on their "default y" lines is
+redundant.
 
-Walk the channel IDR during removal, mark in-flight contexts completed,
-and schedule the send-reference put while waking waiters with -EPIPE. This
-prevents disconnected channels from pinning invoke contexts indefinitely.
+This redundant condition was found by kconfirm, a static analysis tool
+for Kconfig.
 
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Signed-off-by: Gabriel Carvalho <gabriel-n-carvalho@outlook.com>
+Reviewed-by: Julian Braha <julianbraha@gmail.com>
 ---
- drivers/misc/fastrpc.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/meson/Kconfig | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 90281859a..bfdf8ab6a 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -2580,30 +2580,31 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 	return err;
- }
+diff --git a/drivers/gpu/drm/meson/Kconfig b/drivers/gpu/drm/meson/Kconfig
+index 417f79829cf8..c3800825ac15 100644
+--- a/drivers/gpu/drm/meson/Kconfig
++++ b/drivers/gpu/drm/meson/Kconfig
+@@ -17,13 +17,13 @@ config DRM_MESON
+ config DRM_MESON_DW_HDMI
+ 	tristate "HDMI Synopsys Controller support for Amlogic Meson Display"
+ 	depends on DRM_MESON
+-	default y if DRM_MESON
++	default y
+ 	select DRM_DW_HDMI
+ 	imply DRM_DW_HDMI_I2S_AUDIO
  
--static void fastrpc_notify_users(struct fastrpc_user *user)
-+static int fastrpc_notify_context(int id, void *ptr, void *data)
- {
--	struct fastrpc_invoke_ctx *ctx;
-+	struct fastrpc_invoke_ctx *ctx = ptr;
- 
--	spin_lock(&user->lock);
--	list_for_each_entry(ctx, &user->pending, node) {
--		ctx->retval = -EPIPE;
--		complete(&ctx->work);
-+	if (ctx->sent && !ctx->completed) {
-+		ctx->completed = true;
-+		schedule_work(&ctx->put_work);
- 	}
--	spin_unlock(&user->lock);
-+
-+	ctx->retval = -EPIPE;
-+	complete(&ctx->work);
-+
-+	return 0;
- }
- 
- static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
- {
- 	struct fastrpc_channel_ctx *cctx = dev_get_drvdata(&rpdev->dev);
- 	struct fastrpc_buf *buf, *b;
--	struct fastrpc_user *user;
- 	unsigned long flags;
- 
- 	/* No invocations past this point */
- 	spin_lock_irqsave(&cctx->lock, flags);
- 	cctx->rpdev = NULL;
--	list_for_each_entry(user, &cctx->users, user)
--		fastrpc_notify_users(user);
-+	idr_for_each(&cctx->ctx_idr, fastrpc_notify_context, NULL);
- 	spin_unlock_irqrestore(&cctx->lock, flags);
- 
- 	if (cctx->fdevice)
+ config DRM_MESON_DW_MIPI_DSI
+ 	tristate "MIPI DSI Synopsys Controller support for Amlogic Meson Display"
+ 	depends on DRM_MESON
+-	default y if DRM_MESON
++	default y
+ 	select DRM_DW_MIPI_DSI
+ 	select GENERIC_PHY_MIPI_DPHY
+
+base-commit: cdeb2ccd993ed8647adbbda2c3b103aa717fd6f7
 -- 
-2.54.0
+2.53.0
 
