@@ -4,82 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F92ACDE004
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 07:48:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFB7CCDB470
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 07:48:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A182910EDD7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C513010EDD8;
 	Wed, 24 Jun 2026 07:47:59 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UCljyDhS";
-	dkim-atps=neutral
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8D9010E36C
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 19:58:29 +0000 (UTC)
-Received: by mail-dl1-f43.google.com with SMTP id
- a92af1059eb24-1384eb94d20so542280c88.1
- for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 12:58:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782244709; x=1782849509; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cd2toS9EVtCpFi8pDPSG86Zuz4knsyDYVlmhOocX+b4=;
- b=UCljyDhSh+vkVctQUfZah4nMitm/cxnyiFMfbtXKrM4vVuYl/5rcRr4a+mvbRIkKTL
- 5IfbZVsxbGuWltEBDRpj9ZF8s0ysn1/a2AyB5+gwT37t1tbxyqdbRZrnWiU7hGnUHROg
- 3u4ae06Z6zmby9uEAKfFL0RHdE5+vKqwMOpNL1G3682kDeDlR3tXpJJBM6jtTUOkoCuH
- jRYBS2fw8Z/7xM7rb/02ks+hR5nsnnCOEFyWZ76FyP8xVDQFoSH+vl+yeriFsukkB8CH
- WdP+OVKYMj2iP5qljos8RrV8gd/M31cauA5Qh2G0CyjW8SXIvdicdfq17vwj7rKv85x/
- iCcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782244709; x=1782849509;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=cd2toS9EVtCpFi8pDPSG86Zuz4knsyDYVlmhOocX+b4=;
- b=sVxmpuJYZbMd0CN05EG0rgLCrob11GAK020swxRKxVSQD5OX2Ins+18fpk8DYfTJyA
- yI1oXnDdXqpQlO2m0OyLFMSdmdDWYZK01m3PN2fpHvoS3LdPbTuYrQUcIT7ovCycvfqU
- jGF6gnlhSArbv5aXYyNl6X/7/4AxRa8KmDveq6EX6I7LIKpb2oAVjuU6D+zakPz3L0rA
- SYji8zHMhZTJ/L4St2deTsGMRHzWct6MBrZljQPgDOSvRnkO8jGGef6ZeRjuzfgMptIi
- MVluLwEIi23ve6/WfglEU/r3L6bG8Hz6h09FtH3/dfQEUAj8YNraMeArO2sziwe14yfG
- 2/MQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ89DsOSJUX4ad+ZJeHRnymsAOG6MpUtT95ySJY1xdQThQO89DWWi3R1bswLiAUahbIvEHFFqTCdwHw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz2ypnnG7Yrg3r/5F02mMCAF+PrEvkUKWwICyvB6LzYXBromFZJ
- TOn6yMR/ZTrNoOuq+GjP3qCNha3wQYZFjIcwS4bg5J5qQShEtpbJaPOs
-X-Gm-Gg: AfdE7ck9Qr/BPECJNgnkVdQ6/QE2O0dKPzzURV9ecU/emSUIhwWvWgT4isKVoipW4Gh
- p77t/q+jw+M/rHyn+6PF/FwTp1r3+UTTPsiZaJOF1Ktd4rVZnIQD7yJkPXuMZFIKYmTi8AtDbS3
- TaG1TyMzPMuzM398543+0K6UZlwbRcqsHXx7g1bLSdnf80o3ejEQW1jgl1YxcvKGU4+Y7h64ih8
- ED5sHG1HDCfBHonP4UE+yP5749y9tF1R9+HQzFbq2PGNP1rjF9UfUgWwi2qnhDYRJmDeYFaa82N
- u9CaiyIP9ynY6/+w0VZzcRhf7FQaa/Y5l8GP7E8f2VFca6ux/xyUvvVwJFY6h2Wdq4lwshGFdVQ
- qymH9CCXOKFC+xd7MqOYGNGFlAosAp7/Iis3I0qA3DYixAxT3GXYWXdEjUDMfHAk//a2kDRMwFR
- 1g2wFW2vgZGgP5xcTWB97U7uahXbJkOPizp1QSXnSb09zmO3TDE9/2IuLVWxiibXvWZBVBwUgkm
- zqcquFstrd8wVUe3RPv5YyqJdGCutM1ZPirGNIz8W8=
-X-Received: by 2002:a05:7022:69a4:b0:138:49ea:f487 with SMTP id
- a92af1059eb24-139d0c040f2mr216795c88.6.1782244708943; 
- Tue, 23 Jun 2026 12:58:28 -0700 (PDT)
-Received: from leonardoc-nb (201-68-197-145.dsl.telesp.net.br.
- [201.68.197.145]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-139add85c40sm15730896c88.15.2026.06.23.12.58.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jun 2026 12:58:28 -0700 (PDT)
-From: Leonardo Costa <leoreis.costa@gmail.com>
-To: laurent.pinchart@ideasonboard.com, neil.armstrong@linaro.org,
- jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- nm@ti.com, vigneshr@ti.com, kristo@kernel.org,
- prabhakar.mahadev-lad.rj@bp.renesas.com, thierry.reding@gmail.com,
- sam@ravnborg.org
-Cc: leonardo.costa@toradex.com, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 2/5] dt-bindings: display: panel-lvds: Add compatible for Opto
- Logic SCX1001511GGC49
-Date: Tue, 23 Jun 2026 16:57:38 -0300
-Message-ID: <20260623195741.495734-3-leoreis.costa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260623195741.495734-1-leoreis.costa@gmail.com>
-References: <20260623195741.495734-1-leoreis.costa@gmail.com>
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B18410E002
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 03:11:58 +0000 (UTC)
+X-UUID: 7405c4f86f7a11f1aa26b74ffac11d73-20260624
+X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME,
+ HR_CTE_8B
+ HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+ HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+ HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+ HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED
+ SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
+ DMARC_NOPASS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12, REQID:bdff6945-937d-4e63-b654-f929663874c6, IP:10,
+ URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:10
+X-CID-INFO: VERSION:1.3.12, REQID:bdff6945-937d-4e63-b654-f929663874c6, IP:10,
+ UR
+ L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+ elease,TS:10
+X-CID-META: VersionHash:e7bac3a, CLOUDID:836d8f13f4505d5698e1a3767275bdb6,
+ BulkI
+ D:2606241111567D7I5HI8,BulkQuantity:0,Recheck:0,SF:17|19|38|66|78|81|82|10
+ 2|127|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:ni
+ l,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,
+ BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 7405c4f86f7a11f1aa26b74ffac11d73-20260624
+X-User: lihongfu@kylinos.cn
+Received: from localhost.localdomain [(223.70.159.239)] by mailgw.kylinos.cn
+ (envelope-from <lihongfu@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 642929655; Wed, 24 Jun 2026 11:11:54 +0800
+From: Hongfu Li <lihongfu@kylinos.cn>
+To: tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, corbet@lwn.net,
+ skhan@linuxfoundation.org, dev@lankhorst.se, mripard@kernel.org,
+ natalie.vock@gmx.de
+Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Hongfu Li <lihongfu@kylinos.cn>
+Subject: [PATCH 2/2] cgroup/dmem: introduce dmem.events.local for local counts
+Date: Wed, 24 Jun 2026 11:11:07 +0800
+Message-Id: <20260624031107.667253-3-lihongfu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260624031107.667253-1-lihongfu@kylinos.cn>
+References: <20260624031107.667253-1-lihongfu@kylinos.cn>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 24 Jun 2026 07:47:57 +0000
@@ -98,26 +76,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Leonardo Costa <leonardo.costa@toradex.com>
+Add dmem.events.local for local-only low/max event counts per DMEM
+region.  Refactor the shared events show logic used by dmem.events.
 
-The Opto Logic SCX1001511GGC49 is a 10.1" WXGA (1280x800) TFT LCD LVDS
-panel.
-
-Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
 ---
- Documentation/devicetree/bindings/display/panel/panel-lvds.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/admin-guide/cgroup-v2.rst |  5 ++--
+ kernel/cgroup/dmem.c                    | 32 +++++++++++++++++++++----
+ 2 files changed, 31 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-index b89f86bc06837..8382d4920bfd6 100644
---- a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-@@ -58,6 +58,8 @@ properties:
-           - hydis,hv070wx2-1e0
-           # Jenson Display BL-JT60050-01A 7" WSVGA (1024x600) color TFT LCD LVDS panel
-           - jenson,bl-jt60050-01a
-+          # Opto Logic SCX1001511GGC49 10.1" WXGA (1280x800) TFT LCD LVDS panel
-+          - optologic,scx1001511ggc49
-           # Riverdi RVT101HVLNWC00 10.1" WXGA (1280x800) TFT LCD LVDS panel
-           - riverdi,rvt101hvlnwc00
-           # Riverdi RVT70HSLNWCA0 7.0" WSVGA (1024x600) TFT LCD LVDS panel
+diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
+index afc924539a41..5e4dbe4a75c6 100644
+--- a/Documentation/admin-guide/cgroup-v2.rst
++++ b/Documentation/admin-guide/cgroup-v2.rst
+@@ -2881,7 +2881,7 @@ DMEM Interface Files
+ 	  drm/0000:03:00.0/vram0 12550144
+ 	  drm/0000:03:00.0/stolen 8650752
+ 
+-  dmem.events
++  dmem.events, dmem.events.local
+ 	A read-only file that reports the number of times each cgroup
+ 	has hit its configured memory limits.  The format lists each
+ 	region on a single line, followed by the event counters::
+@@ -2894,7 +2894,8 @@ DMEM Interface Files
+ 	``max`` counts how many times an allocation failed because the
+ 	cgroup or one of its ancestors hit ``dmem.max``.
+ 
+-	``dmem.events`` contains hierarchical counts.  This file exists
++	``dmem.events`` contains hierarchical counts.  ``dmem.events.local``
++	contains counts for only the cgroup itself.  These files exist
+ 	for all cgroups except root.
+ 
+ HugeTLB
+diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+index 79d4c5d0a046..29f8719561e6 100644
+--- a/kernel/cgroup/dmem.c
++++ b/kernel/cgroup/dmem.c
+@@ -60,6 +60,7 @@ struct dmemcg_state {
+ 	struct list_head pools;
+ 
+ 	struct cgroup_file events_file;
++	struct cgroup_file events_local_file;
+ };
+ 
+ enum dmemcg_memory_event {
+@@ -84,6 +85,7 @@ struct dmem_cgroup_pool_state {
+ 	struct dmem_cgroup_pool_state *parent;
+ 
+ 	atomic_long_t events[DMEMCG_NR_EVENTS];
++	atomic_long_t events_local[DMEMCG_NR_EVENTS];
+ 
+ 	refcount_t ref;
+ 	bool inited;
+@@ -196,6 +198,9 @@ static u64 get_resource_current(struct dmem_cgroup_pool_state *pool)
+ static void dmemcg_memory_event(struct dmem_cgroup_pool_state *pool,
+ 				enum dmemcg_memory_event event)
+ {
++	atomic_long_inc(&pool->events_local[event]);
++	cgroup_file_notify(&pool->cs->events_local_file);
++
+ 	for (; pool; pool = pool->parent) {
+ 		atomic_long_inc(&pool->events[event]);
+ 		cgroup_file_notify(&pool->cs->events_file);
+@@ -203,11 +208,14 @@ static void dmemcg_memory_event(struct dmem_cgroup_pool_state *pool,
+ }
+ 
+ static long dmemcg_get_event(struct dmem_cgroup_pool_state *pool,
+-			     enum dmemcg_memory_event event)
++			     enum dmemcg_memory_event event, bool local)
+ {
+ 	if (!pool)
+ 		return 0;
+ 
++	if (local)
++		return atomic_long_read(&pool->events_local[event]);
++
+ 	return atomic_long_read(&pool->events[event]);
+ }
+ 
+@@ -874,7 +882,7 @@ static int dmem_cgroup_region_max_show(struct seq_file *sf, void *v)
+ 	return dmemcg_limit_show(sf, v, get_resource_max);
+ }
+ 
+-static int dmem_cgroup_region_events_show(struct seq_file *sf, void *v)
++static int dmemcg_events_show(struct seq_file *sf, void *v, bool local)
+ {
+ 	struct dmemcg_state *dmemcs = css_to_dmemcs(seq_css(sf));
+ 	struct dmem_cgroup_region *region;
+@@ -885,14 +893,24 @@ static int dmem_cgroup_region_events_show(struct seq_file *sf, void *v)
+ 
+ 		seq_puts(sf, region->name);
+ 		seq_printf(sf, " low %ld max %ld\n",
+-			   dmemcg_get_event(pool, DMEMCG_LOW),
+-			   dmemcg_get_event(pool, DMEMCG_MAX));
++			   dmemcg_get_event(pool, DMEMCG_LOW, local),
++			   dmemcg_get_event(pool, DMEMCG_MAX, local));
+ 	}
+ 	rcu_read_unlock();
+ 
+ 	return 0;
+ }
+ 
++static int dmem_cgroup_region_events_show(struct seq_file *sf, void *v)
++{
++	return dmemcg_events_show(sf, v, false);
++}
++
++static int dmem_cgroup_region_events_local_show(struct seq_file *sf, void *v)
++{
++	return dmemcg_events_show(sf, v, true);
++}
++
+ static ssize_t dmem_cgroup_region_max_write(struct kernfs_open_file *of,
+ 				      char *buf, size_t nbytes, loff_t off)
+ {
+@@ -933,6 +951,12 @@ static struct cftype files[] = {
+ 		.file_offset = offsetof(struct dmemcg_state, events_file),
+ 		.flags = CFTYPE_NOT_ON_ROOT,
+ 	},
++	{
++		.name = "events.local",
++		.seq_show = dmem_cgroup_region_events_local_show,
++		.file_offset = offsetof(struct dmemcg_state, events_local_file),
++		.flags = CFTYPE_NOT_ON_ROOT,
++	},
+ 	{ } /* Zero entry terminates. */
+ };
+ 
+-- 
+2.25.1
+
