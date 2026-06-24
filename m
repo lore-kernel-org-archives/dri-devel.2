@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5323CDE002
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 15:01:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B295CDE003
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 15:01:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 284BB10EF84;
-	Wed, 24 Jun 2026 15:01:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B28F710EF87;
+	Wed, 24 Jun 2026 15:01:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="Ke5ZYuOX";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="oDH8bUo4";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4325E10EF74
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 15:00:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 146CC10EF77
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 15:00:48 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 11FF1444C9;
+ by sea.source.kernel.org (Postfix) with ESMTP id B9AF844559;
  Wed, 24 Jun 2026 15:00:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DE656C4AF0F;
- Wed, 24 Jun 2026 15:00:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 93A60C2BCF4;
+ Wed, 24 Jun 2026 15:00:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1782313244; bh=et7aLWDdt16IGyYP6zeuD/W5wjktc0zJWIypSVqeW1w=;
+ t=1782313245; bh=DgPxSWJm3yP+ocMCPSZPYulAvRJygW/tBHfG7di1GFE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Ke5ZYuOXe1o81Qo6QJPeYC++4RKYOIxLC9Ye6JOzi/auqcmkJJiaUD4kY5MOFFdvg
- mqVvsWm5djKSXGktZTlAopTcHVyno+i6vN/Y30UKKTRXCIAC49I9HV+pDMceYB7ECD
- 3VMIWD2Q7+ulX/CJcMCA1s4HBDDO7Q4q75JD847o=
+ b=oDH8bUo41/PjS+Gx3aKDm0dTm+WJEYiD3CovAZCOL51c+1w3uOTvuSwCVQG3hIkx9
+ xIqisQOUmTUbIcJVCt3wgofpSthqAWbbLBujwiaqTT/hvq2mhNWojgfJNrV69kpM5h
+ c760Dyob5fOr849kl4hfX58suT8FvfQkY6eXnVnk=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id CDA85CDE003;
- Wed, 24 Jun 2026 15:00:44 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 88063CDE003;
+ Wed, 24 Jun 2026 15:00:45 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Wed, 24 Jun 2026 23:00:04 +0800
-Subject: [PATCH v6 05/10] rust: drm: set fops.owner from driver module pointer
+Date: Wed, 24 Jun 2026 23:00:08 +0800
+Subject: [PATCH v6 09/10] rust: macros: remove `THIS_MODULE` static from
+ `module!`
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260624-fix-fops-owner-v6-5-5295e333cb3e@linux.dev>
+Message-Id: <20260624-fix-fops-owner-v6-9-5295e333cb3e@linux.dev>
 References: <20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev>
 In-Reply-To: <20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -69,11 +70,11 @@ Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
  linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782313241; l=1926;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782313241; l=1808;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=et7aLWDdt16IGyYP6zeuD/W5wjktc0zJWIypSVqeW1w=;
- b=py8n95enhJhr28HhwdF3waMrjIllKjZ/0N1NbzewaVaA6qPOrmQxCdWZ2hJ+VDuF45a3jo1WR
- 6ceBA3z+uS3AIpb+TiEJTa8GyQneQgHDpvNc6CfXdR+R7QueIRnY7yK
+ bh=DgPxSWJm3yP+ocMCPSZPYulAvRJygW/tBHfG7di1GFE=;
+ b=T8XDn77jqammHg8XuGEQ5zYrlxJkJ96REgrZO8/elB8ERN0tU+DY/u1pkKdZvOrIwBlsNdwGS
+ DO05YTkWapiDkrK7T8fPPtbgzL9HIEIdlHgUVOq2b5favgMu3KS960s
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -93,9 +94,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Change `create_fops()` to accept an owner module pointer instead of
-hardcoding `null_mut()`, ensuring the kernel correctly tracks the
-module owning the DRM device's file operations.
+All users have been migrated to `ModuleMetadata::THIS_MODULE` const or
+`this_module::<LocalModule>()` helper. The `static THIS_MODULE`
+generated by the `module!` macro is no longer referenced anywhere,
+so remove it to avoid having two sources of the same `ThisModule`
+pointer.
 
 Assisted-by: opencode:glm-5.2
 Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
@@ -103,41 +106,36 @@ Reviewed-by: Gary Guo <gary@garyguo.net>
 Acked-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- rust/kernel/drm/device.rs  | 3 ++-
- rust/kernel/drm/gem/mod.rs | 4 ++--
- 2 files changed, 4 insertions(+), 3 deletions(-)
+ rust/macros/module.rs | 16 ----------------
+ 1 file changed, 16 deletions(-)
 
-diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
-index 403fc35353c74..d92cacb665366 100644
---- a/rust/kernel/drm/device.rs
-+++ b/rust/kernel/drm/device.rs
-@@ -111,7 +111,8 @@ impl<T: drm::Driver> Device<T> {
-         fops: &Self::GEM_FOPS,
-     };
+diff --git a/rust/macros/module.rs b/rust/macros/module.rs
+index aa9a618d5d19e..23b6a1b456b80 100644
+--- a/rust/macros/module.rs
++++ b/rust/macros/module.rs
+@@ -497,22 +497,6 @@ pub(crate) fn module(info: ModuleInfo) -> Result<TokenStream> {
+         /// Used by the printing macros, e.g. [`info!`].
+         const __LOG_PREFIX: &[u8] = #name_cstr.to_bytes_with_nul();
  
--    const GEM_FOPS: bindings::file_operations = drm::gem::create_fops();
-+    const GEM_FOPS: bindings::file_operations =
-+        drm::gem::create_fops(crate::module::this_module::<T::OwnerModule>().as_ptr());
- 
-     /// Create a new `drm::Device` for a `drm::Driver`.
-     pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<ARef<Self>> {
-diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-index 01b5bd47a3332..9a203efc59116 100644
---- a/rust/kernel/drm/gem/mod.rs
-+++ b/rust/kernel/drm/gem/mod.rs
-@@ -357,10 +357,10 @@ impl<T: DriverObject> AllocImpl for Object<T> {
-     };
- }
- 
--pub(super) const fn create_fops() -> bindings::file_operations {
-+pub(super) const fn create_fops(owner: *mut bindings::module) -> bindings::file_operations {
-     let mut fops: bindings::file_operations = pin_init::zeroed();
- 
--    fops.owner = core::ptr::null_mut();
-+    fops.owner = owner;
-     fops.open = Some(bindings::drm_open);
-     fops.release = Some(bindings::drm_release);
-     fops.unlocked_ioctl = Some(bindings::drm_ioctl);
+-        // SAFETY: `__this_module` is constructed by the kernel at load time and will not be
+-        // freed until the module is unloaded.
+-        #[cfg(MODULE)]
+-        static THIS_MODULE: ::kernel::ThisModule = unsafe {
+-            extern "C" {
+-                static __this_module: ::kernel::types::Opaque<::kernel::bindings::module>;
+-            };
+-
+-            ::kernel::ThisModule::from_ptr(__this_module.get())
+-        };
+-
+-        #[cfg(not(MODULE))]
+-        static THIS_MODULE: ::kernel::ThisModule = unsafe {
+-            ::kernel::ThisModule::from_ptr(::core::ptr::null_mut())
+-        };
+-
+         /// The `LocalModule` type is the type of the module created by `module!`,
+         /// `module_pci_driver!`, `module_platform_driver!`, etc.
+         type LocalModule = #type_;
 
 -- 
 2.43.0
