@@ -4,57 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F67CCDB479
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 09:19:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DED34CDB479
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 09:19:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18D2A10EE28;
-	Wed, 24 Jun 2026 09:19:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34C4710EE31;
+	Wed, 24 Jun 2026 09:19:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Wux0JzQd";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="dNydEEfk";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D7EE10EE28
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 09:19:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782292740;
- bh=UbFfQafZq6sBdbOyPZkrwg5hrZbp8Tvb3WKRWbqkRyo=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Wux0JzQdrDmpxjr9HtQosDURIf4Z76zUI4I0Bw6QizM6aBn3VUUJtdxkelUFWRSj/
- F5cb+rzCZq7E700W7xKZjSagCIiyrIzvfA5ZmZlEPst0iO25pQq+OfE8R0HaPSVMgv
- MnqfmQQ0cI7lpit44S4/YvB4wUc29FJHTB07IEKLUp9RWR0Rz82lzMAFFhSd4A6GBy
- zBu9DBjiqKogByXEqnnVQtZyb96ANxAejP1n4xOxxd44XUUF+XsD5z4YFRFUg/F5ju
- 8I2817BYOW6i6KK5wyxdS1U+qowAOh0qT2fQ7D+21I26A5EWQECmopqVU3YYu8kMw7
- 0rM0uEjdsbjFg==
-Received: from fedora-2.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 402AF17E0191;
- Wed, 24 Jun 2026 11:19:00 +0200 (CEST)
-Date: Wed, 24 Jun 2026 11:18:56 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Matthew Wilcox <willy@infradead.org>
-Cc: "Christian A. Ehrhardt" <lk@c--e.de>, dri-devel@lists.freedesktop.org,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/panthor: Check VMA boundaries for PMD mappings
-Message-ID: <20260624111856.11210c19@fedora-2.home>
-In-Reply-To: <20260623224421.56dba65d@fedora-2.home>
-References: <20260623181942.1536598-1-lk@c--e.de>
- <ajrRhpVH6uhOABnV@casper.infradead.org>
- <20260623220341.7ad4a0e2@fedora-2.home>
- <20260623224421.56dba65d@fedora-2.home>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C108C10EE31
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 09:19:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=L1BDgyrbaBIk0q0GjexggCLY/p+AURs/1fKrIrX/Uk4=; b=d
+ NydEEfk/f6YHfxScXsjcS4+6cJOsJF9A7yq2Ttdvwrt2G0rblTrx9T/9yuvRMMXl
+ Tj1fCb9+9cg5NDBwGhNndLhb7fvqHPnEk5fSB1gQEHTWILV+ILS1Sh4KySnHV8W5
+ EEb68q11F5m4qNVslWFchZhnsXAuu0wzDq5KBVnW5I=
+Received: from haoxiang_li2024$163.com ( [36.112.3.223] ) by
+ ajax-webmail-wmsvr-40-108 (Coremail) ; Wed, 24 Jun 2026 17:18:44 +0800
+ (CST)
+X-Originating-IP: [36.112.3.223]
+Date: Wed, 24 Jun 2026 17:18:44 +0800 (CST)
+From: haoxiang_li2024  <haoxiang_li2024@163.com>
+To: "Geert Uytterhoeven" <geert@linux-m68k.org>
+Cc: deller@gmx.de, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ "Philip Blundell" <philb@gnu.org>, "Kars de Jong" <jongk@linux-m68k.org>,
+ linux-m68k <linux-m68k@lists.linux-m68k.org>
+Subject: Re:Re: [PATCH] video: hpfb: Unregister DIO driver on init failure
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <CAMuHMdUSVacMR2Lb-VwkeZMrS=wKz9y+XtF=nAOCuSLbDs-HdQ@mail.gmail.com>
+References: <20260622064915.767194-1-haoxiang_li2024@163.com>
+ <CAMuHMdUSVacMR2Lb-VwkeZMrS=wKz9y+XtF=nAOCuSLbDs-HdQ@mail.gmail.com>
+X-NTES-SC: AL_Qu2TAP6SvU8p4iSaYOkfmUwSj+s8WsO0vf4i245fO5B+jCLpyzEDYXpkLHTOzeC2LxuSuwqcbydQy+9XTK1GRYskqBOo6GyuEBdF3rm8s9BhGQ==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Message-ID: <a5a64f9.8403.19ef8ecbad4.Coremail.haoxiang_li2024@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: bCgvCgDnx_v0oDtqYwkQAA--.969W
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7RTOPWo7oPSwRQAA36
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,44 +63,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 23 Jun 2026 22:44:21 +0200
-Boris Brezillon <boris.brezillon@collabora.com> wrote:
-
-> On Tue, 23 Jun 2026 22:03:41 +0200
-> Boris Brezillon <boris.brezillon@collabora.com> wrote:
-> 
-> > Anyway, I'll try to get back to this map_pages() implementation, and
-> > see how we can handle the fallback when locks can't be acquired in that
-> > path (I assume this would mean no PMD mapping in the fallback path if
-> > we get rid of huge_fault()).  
-> 
-> More on that. I had a brief look at map_pages()/fault_around(), and it
-> seems it's only meant to populate PTE entries, not PMDs.
-
-I was wrong, filemap_map_pages() clearly attempts a huge_page map if
-the conditions are met (proper alignment of VMA, folio is huge, ...).
-
-Now, I have several questions around how to implement map_pages()
-properly in our case.
-
-Ideally we would use a generic helper like filemap_map_pages(), which
-basically all implementer of .map_pages() are using, because the loop,
-checks and locking is far from trivial there. Unfortunately we can't
-really use that one because
-   a. in our case, the vm_file attached to the vma is a pseudo file that
-      doesn't really back the data. Things are redirected internally to
-      another file object that's backed by shmem, meaning the
-      vmf->vm_pgoff and vmf->vma info are unusable as-is
-   b. we use PFN insertion instead of page insertion since [1]
-
-I'm sure we can hand-roll our own map_pages() implementation, but
-again, we would need custom versions of the vmf_insert_pfn() to have an
-optimal version that can batch multiple PTE updates (just like
-filemap_map_folio_range() does). The pte/pmd locking also looks a bit
-different too in map_pages(). These are all rather tricky details that
-are hard to sort out when you don't know MM internals and the various
-pitfalls around page table updates. Long story short, if you really want
-us to move away from .huge_fault(), we're gonna need a bit of
-hand-holding, because otherwise we're shooting in the dark.
-
-[1]https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=v7.1&id=8b93d1d7dbd578fd296e70008b29c0f62d09d7cb
+CgpBdCAyMDI2LTA2LTI0IDE2OjUxOjAyLCAiR2VlcnQgVXl0dGVyaG9ldmVuIiA8Z2VlcnRAbGlu
+dXgtbTY4ay5vcmc+IHdyb3RlOgo+SGVuY2UgaWYgdGhlIGRldGVjdGlvbiBvciBpbml0aWFsaXph
+dGlvbiBvbiB0aGUgaW50ZXJuYWwgYnVzIGZhaWxzLAo+b3RoZXIgZGV2aWNlcyBvbiB0aGUgRElP
+IGJ1cyBtdXN0IG5vdCBiZSBmb3JjZS11bmJvdW5kLgo+Cj5UaGlzIGlzIGFsc28gdGhlIHJlYXNv
+biB3aHkgYW55IGVycm9yIHJldHVybmVkIGJ5Cj5jb3B5X2Zyb21fa2VybmVsX25vZmF1bHQoKSBp
+cyBub3QgY29uc2lkZXJlZCBmYXRhbC4KCj4KClRoYW5rcyBmb3IgeW91ciBndWlkYW5jZSEgVW5k
+ZXJzdGFuZCB0aGF0IG5vdy4KCgpUaGFua3MsCkhhb3hpYW5n
