@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5DA5CDB470
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 07:59:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE9AECDB470
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 08:06:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09A5710EDF5;
-	Wed, 24 Jun 2026 07:59:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 300C710E04F;
+	Wed, 24 Jun 2026 08:06:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n8HFwZ7y";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VKx7MHsL";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99AF510EDF5
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 07:59:03 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 543A844038;
- Wed, 24 Jun 2026 07:59:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37A051F000E9;
- Wed, 24 Jun 2026 07:59:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782287943;
- bh=QkYKCgxQU6KvSyvLLWfg45WEOY2XnUCNPzXVNmKvy+o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=n8HFwZ7y/8Sy63L+oepv4OUd/GA8G/porNz4CZTiKCED9Cx1oudWaG+jczBNhs6x4
- GpEHfC42VPs1qeEyHJuUVNeNWC1ObC9oVt7KjI9OwpYzHV31gcSUNmfHGVdMqNSPH8
- dEXVqkXojMHTaCY9SgsnEQ00l2Z46UE2dx1H82Cfz9oL77fd5WhDwCoSvAnD8U31ah
- wyrAbV3xew9llyf8uY8tHB5obCpkbVIb55fQ9c5Zy8oTG7AETkjf4rndJ44w5qXz5P
- Y9W3jb6HgAdln6ai54HN3AWrj7YBsKAxJg9QbflMUoEedQUw0XnGP1m1J/vL4XapYe
- LPKafPkow5eqg==
-Date: Wed, 24 Jun 2026 09:58:59 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- CK Hu <ck.hu@mediatek.com>, Jitao shi <jitao.shi@mediatek.com>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH] dt-bindings: mediatek: cec: Correct the compatibles for
- mt7623-mt8167
-Message-ID: <20260624-silent-judicious-impala-56b20c@quoll>
-References: <20260623135757.5111-1-l.scorcia@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0728D10E04F
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 08:06:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782288363; x=1813824363;
+ h=from:to:subject:in-reply-to:references:date:message-id:
+ mime-version; bh=STIShcwIg7UvH80ThNShJdyT5uz0v79UPIWeULPku1E=;
+ b=VKx7MHsLK7e/21/R0aEs0qyCbd7MbQOAPhxFD8a5qrn79Qj3rrH2ynvi
+ /XBNMhHVLR0ZbblgKZGPCNxm2d1E6XAvtuDY+wgj+sEp0jthviasIndp+
+ 3CavZwXZGKfN2KfxgfQCEqynBTpBYFdoHcZ6GUbwHpx+mCErmomLiQvY7
+ cmkEyD3NPhk2LRiQ83IXwrmx6YxjSPEXwAVQK+diCF2ycuNcX7LCD4PRf
+ g+bgvSErDA3XZsI3B4OeP88H2gDjtaqx4ArCC1DPbuwfrLq+fB+O137u0
+ Q/U4d5ojapkZeb+PbnDdu7KUo3c2xUbV49k7dndwZpBRn2uhh3i+mKM+l w==;
+X-CSE-ConnectionGUID: 5MGjB6XYTrKH9bE5bHGfpQ==
+X-CSE-MsgGUID: 7JOe5wUOSJqsVsI3t+QvtA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="83093249"
+X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; d="scan'208";a="83093249"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2026 01:06:03 -0700
+X-CSE-ConnectionGUID: pLKmkdFFTMilPWjvuf/MsA==
+X-CSE-MsgGUID: pzDM3EXdSp2Bo5xZERJobg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; d="scan'208";a="245631290"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.187])
+ by fmviesa010-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Jun 2026 01:06:01 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Naveed Khan <naveed@digiscrypt.com>, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] drm/edid: check DisplayID tiled block length before
+ parsing
+In-Reply-To: <178223524141.58041.12138826976759023373@digiscrypt.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <178223524141.58041.12138826976759023373@digiscrypt.com>
+Date: Wed, 24 Jun 2026 11:05:59 +0300
+Message-ID: <3bf6abb4dfd22771b3774f22a4be9b7f647668fe@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260623135757.5111-1-l.scorcia@gmail.com>
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,51 +67,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jun 23, 2026 at 03:57:53PM +0200, Luca Leonardo Scorcia wrote:
-> The HDMI CEC driver for both mt7623 and mt8167 is actually the same as
-> mt8173-cec and the mt7623n.dtsi board include file already uses mt8173-cec
-> compatible as a fallback, but the documentation lists them as separate
-> entries. Correct the binding by adding the correct fallback.
-> 
-> This change fixes a dtbs_check error.
+On Tue, 23 Jun 2026, Naveed Khan <naveed@digiscrypt.com> wrote:
+> drm_parse_tiled_block() casts the generic DisplayID data block to
+> struct displayid_tiled_block and unconditionally reads the whole
+> fixed-size structure (tile_cap, topo[3], tile_size[4],
+> tile_pixel_bezel[5] and the 8-byte topology_id), but it never looks at
+> block->num_bytes.
+>
+> The DisplayID iterator in displayid_iter_block() only guarantees that the
+> block's *declared* length, sizeof(struct displayid_block) + num_bytes,
+> fits inside the section. A DisplayID extension that declares a tiled
+> display block (tag DATA_BLOCK_TILED_DISPLAY) with a num_bytes smaller than
+> the structure payload is therefore happily handed to the parser, which
+> then reads past the declared block. When such a block is placed near the
+> end of the last DisplayID EDID extension, the over-read runs past the end
+> of the EDID allocation - an out-of-bounds read controlled entirely by the
+> contents of the EDID.
+>
+> Reject tiled blocks that are too short to hold the structure, mirroring
+> the size check already done for the VESA vendor block in
+> drm_parse_vesa_mso_data().
 
-which one? here you paste it (can be trimmed a bit)
+Already fixed by commit faaa1e115583 ("drm/edid: fix OOB read in
+drm_parse_tiled_block()").
 
+BR,
+Jani.
 
-> 
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+>
+> Signed-off-by: Naveed Khan <naveed@digiscrypt.com>
 > ---
->  .../bindings/display/mediatek/mediatek,cec.yaml       | 11 +++++++----
->  1 file changed, 7 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,cec.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,cec.yaml
-> index 080cf321209e..4d741ba415e8 100644
-> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,cec.yaml
-> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,cec.yaml
-> @@ -15,10 +15,13 @@ description: |
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 404208bf23..b4298012eb 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -7575,6 +7575,13 @@ static void drm_parse_tiled_block(struct drm_connector *connector,
+>  	u8 num_v_tile, num_h_tile;
+>  	struct drm_tile_group *tg;
 >  
->  properties:
->    compatible:
-> -    enum:
-> -      - mediatek,mt7623-cec
-> -      - mediatek,mt8167-cec
-> -      - mediatek,mt8173-cec
-> +    oneOf:
-> +      - const: mediatek,mt8173-cec
-> +      - items:
-> +        - enum:
+> +	if (block->num_bytes < sizeof(*tile) - sizeof(*block)) {
+> +		drm_dbg_kms(connector->dev,
+> +			    "[CONNECTOR:%d:%s] Invalid tiled display block size %u\n",
+> +			    connector->base.id, connector->name, block->num_bytes);
+> +		return;
+> +	}
+> +
+>  	w = tile->tile_size[0] | tile->tile_size[1] << 8;
+>  	h = tile->tile_size[2] | tile->tile_size[3] << 8;
 
-"This change fixes a dtbs_check error."
-... and introduces new other errors, so error count stays the same. Not
-great.
-
-It does not look like you tested the bindings, at least after quick
-look. Please run 'make dt_binding_check' (see
-Documentation/devicetree/bindings/writing-schema.rst for instructions).
-Maybe you need to update your dtschema and yamllint. Don't rely on
-distro packages for dtschema and be sure you are using the latest
-released dtschema.
-
-Best regards,
-Krzysztof
-
+-- 
+Jani Nikula, Intel
