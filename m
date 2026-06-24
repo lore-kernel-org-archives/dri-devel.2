@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F784CDE00C
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 18:04:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A568CDE00B
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 18:04:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AE1B10F03F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 684FB10F041;
 	Wed, 24 Jun 2026 18:04:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="IBgTESnr";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="YVJtL0wG";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24EAA10F00F;
- Wed, 24 Jun 2026 18:04:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C5CB10F01E;
+ Wed, 24 Jun 2026 18:04:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782324277;
- bh=BDqEyaLSf5oPui7QLPP/4vffKV9STElBBLDe6hW029Y=;
+ s=default; t=1782324282;
+ bh=PaSDmC/EXg2YDTpoz4MyuTjvqaF2tjepGgaqOUkm0oI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IBgTESnrXqFJ6Ks3ED7MCaO6NyjNT9L24BSqqNxlhk5hkQQ8gWLEYjN6NDE5khdlo
- Kz1x37ogpfeUKFE+uLTRy6lMgLOc8QEKgGN7JVAagGWY9HstQ6Gsvcr9NZkFnvviA6
- V+yJ+TldMXk1hhpd5cdfIeTO6XDvg05tiC/2VVQlkbmRyvzPlh7abga0NpDL6fedfK
- fe/Pz0ixTTqIN9XQxP6U/oOSdWdqW/8BMp4t6ITzfproXFWP+JoPxMh0t/JjrkSGsW
- M7zwCSWR6niVYJCQf5vLjZRIAYnYVWQO5CJHVF4YuBLASLus5JAtUgsQAJvpQoJwe2
- do0qYZpiUvY3A==
+ b=YVJtL0wG8jdGj5AwDtEvjKa6L4JnKiigbVN+I+NgNNjyNjl24/y7Oahn7U0BFDPQf
+ qaAOOt751Mj2Xx9egjyw/dU/cm98t5S/bPHSQhqIocbTwcCX/889PPiz0x+n0Si11L
+ pLAvyktMHelCl8PJf27MMmbWRkesokM7d331K8bJCWW2QBcn8K+VgMhyUztOWLHIAp
+ SDqHOQyLA5iH6X+7b78P6lj/wCaWqj4DS0y9nlIJumokSTh0rfKxN9ysseHWBRXQs+
+ +Ttps/luOwUSHrX0ID85CLS+rXdPXRLsAmaO9GS8wmFVMAFqVf8v5pClhGnxq4aVEw
+ g5UuhqS5DkDDA==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v10 04/30] drm/intel/display: Convert vblank event handling to
- 2-stage arming
-Date: Wed, 24 Jun 2026 20:04:31 +0200
-Message-ID: <20260624180459.1024068-5-dev@lankhorst.se>
+Subject: [PATCH v10 13/30] drm/i915/display: Use intel_de_write_fw in
+ intel_pipe_fastset
+Date: Wed, 24 Jun 2026 20:04:40 +0200
+Message-ID: <20260624180459.1024068-14-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260624180459.1024068-1-dev@lankhorst.se>
 References: <20260624180459.1024068-1-dev@lankhorst.se>
@@ -54,153 +54,244 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is converts the vblank functions to be called with interrupts
-disabled, even on PREEMPT_RT kernels.
+intel_set_pipe_src_size(), hsw_set_linetime_wm(),
+intel_cpu_transcoder_set_m1_n1() and intel_set_transcoder_timings_lrr()
+are called from an atomic context on PREEMPT_RT, and should be using the
+_fw functions.
 
-Because the PREEMPT_RT kernel converts all spinlocks to rt-mutexes,
-the normal vblank functions cannot be used inside the critical section.
+This likely prevents a deadlock on i915.
 
-Instead, prepare the vblank at the start, and then enable the vblank
-work after the hardware programming is completed.
-
-This allows us to keep programming the hardware with interrupts
-disabled, and still schedule completion on PREEMPT_RT on next vblank.
+Again noticed when trying to disable preemption in vblank evasion:
+<3> BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
+<3> in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 1505, name: kms_cursor_lega
+<3> preempt_count: 1, expected: 0
+<3> RCU nest depth: 0, expected: 0
+<4> 4 locks held by kms_cursor_lega/1505:
+<4>  #0: ffffc90003c6f988 (crtc_ww_class_acquire){+.+.}-{0:0}, at: drm_mode_atomic_ioctl+0x13b/0xe90
+<4>  #1: ffffc90003c6f9b0 (crtc_ww_class_mutex){+.+.}-{3:3}, at: drm_mode_atomic_ioctl+0x13b/0xe90
+<4>  #2: ffff888135b838b8 (&intel_dp->psr.lock){+.+.}-{3:3}, at: intel_psr_lock+0xc5/0xf0 [xe]
+<4>  #3: ffff88812607bbc0 (&wl->lock){+.+.}-{2:2}, at: intel_dmc_wl_get+0x3c/0x140 [xe]
+<4> CPU: 6 UID: 0 PID: 1505 Comm: kms_cursor_lega Tainted: G     U              6.18.0-rc3-lgci-xe-xe-pw-156729v1+ #1 PREEMPT_{RT,(lazy)}
+<4> Tainted: [U]=USER
+<4> Hardware name: Intel Corporation Panther Lake Client Platform/PTL-UH LP5 T3 RVP1, BIOS PTLPFWI1.R00.3383.D02.2509240621 09/24/2025
+<4> Call Trace:
+<4>  <TASK>
+<4>  dump_stack_lvl+0xc1/0xf0
+<4>  dump_stack+0x10/0x20
+<4>  __might_resched+0x174/0x260
+<4>  rt_spin_lock+0x63/0x200
+<4>  ? intel_dmc_wl_get+0x3c/0x140 [xe]
+<4>  intel_dmc_wl_get+0x3c/0x140 [xe]
+<4>  intel_set_pipe_src_size+0x89/0xe0 [xe]
+<4>  intel_update_crtc+0x3c1/0x950 [xe]
+<4>  ? intel_pre_update_crtc+0x258/0x400 [xe]
+<4>  skl_commit_modeset_enables+0x217/0x720 [xe]
+<4>  intel_atomic_commit_tail+0xd4e/0x1af0 [xe]
+<4>  ? lock_release+0xce/0x2a0
+<4>  intel_atomic_commit+0x2e5/0x330 [xe]
+<4>  ? intel_atomic_commit+0x2e5/0x330 [xe]
+<4>  drm_atomic_commit+0xaf/0xf0
+<4>  ? __pfx___drm_printfn_info+0x10/0x10
+<4>  drm_mode_atomic_ioctl+0xbd5/0xe90
+<4>  ? lock_acquire+0xc4/0x2e0
+<4>  ? __pfx_drm_mode_atomic_ioctl+0x10/0x10
+<4>  drm_ioctl_kernel+0xb6/0x120
+<4>  drm_ioctl+0x2d7/0x5a0
+<4>  ? __pfx_drm_mode_atomic_ioctl+0x10/0x10
+<4>  ? rt_spin_unlock+0xa0/0x140
+<4>  ? __pm_runtime_resume+0x53/0x90
+<4>  xe_drm_ioctl+0x56/0x90 [xe]
+<4>  __x64_sys_ioctl+0xa8/0x110
+<4>  ? lock_acquire+0xc4/0x2e0
+<4>  x64_sys_call+0x1144/0x26a0
+<4>  do_syscall_64+0x93/0xae0
+<4>  ? lock_release+0xce/0x2a0
+<4>  ? __task_pid_nr_ns+0xd9/0x270
+<4>  ? do_syscall_64+0x1b7/0xae0
+<4>  ? find_held_lock+0x31/0x90
+<4>  ? __task_pid_nr_ns+0xcf/0x270
+<4>  ? __lock_acquire+0x43e/0x2860
+<4>  ? __task_pid_nr_ns+0xd9/0x270
+<4>  ? lock_acquire+0xc4/0x2e0
+<4>  ? find_held_lock+0x31/0x90
+<4>  ? __task_pid_nr_ns+0xcf/0x270
+<4>  ? lock_release+0xce/0x2a0
+<4>  ? __task_pid_nr_ns+0xd9/0x270
+<4>  ? do_syscall_64+0x1b7/0xae0
+<4>  ? do_syscall_64+0x1b7/0xae0
+<4>  entry_SYSCALL_64_after_hwframe+0x76/0x7e
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/display/intel_crtc.c | 84 ++++++++++++-----------
- 1 file changed, 44 insertions(+), 40 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cmtg.c    |  6 +--
+ drivers/gpu/drm/i915/display/intel_display.c | 42 ++++++++++----------
+ drivers/gpu/drm/i915/display/intel_vrr.c     | 18 ++++-----
+ 3 files changed, 33 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-index 805645318747f..34a159f7c9a43 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -527,6 +527,10 @@ static void intel_crtc_vblank_work_init(struct intel_crtc_state *crtc_state)
+diff --git a/drivers/gpu/drm/i915/display/intel_cmtg.c b/drivers/gpu/drm/i915/display/intel_cmtg.c
+index 6da28c1850802..387d90df144da 100644
+--- a/drivers/gpu/drm/i915/display/intel_cmtg.c
++++ b/drivers/gpu/drm/i915/display/intel_cmtg.c
+@@ -326,7 +326,7 @@ void intel_cmtg_set_vrr_ctl(const struct intel_crtc_state *crtc_state)
+ 	if (crtc_state->cmrr.enable)
+ 		vrr_ctl |= VRR_CTL_CMRR_ENABLE;
  
- 	drm_vblank_work_init(&crtc_state->vblank_work, &crtc->base,
- 			     intel_crtc_vblank_work);
-+
-+	drm_vblank_work_schedule_disabled(&crtc_state->vblank_work,
-+					  drm_crtc_accurate_vblank_count(&crtc->base) + 1);
-+
- 	/*
- 	 * Interrupt latency is critical for getting the vblank
- 	 * work executed as early as possible during the vblank.
-@@ -571,6 +575,21 @@ int intel_scanlines_to_usecs(const struct drm_display_mode *adjusted_mode,
- 				adjusted_mode->crtc_clock);
+-	intel_de_write(display, TRANS_VRR_CTL(display, cmtg_transcoder), vrr_ctl);
++	intel_de_write_fw(display, TRANS_VRR_CTL(display, cmtg_transcoder), vrr_ctl);
  }
  
-+static void intel_crtc_arm_vblank_event(struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	unsigned long irqflags;
-+
-+	if (!crtc_state->uapi.event)
-+		return;
-+
-+	drm_WARN_ON(crtc->base.dev, drm_crtc_vblank_get(&crtc->base) != 0);
-+
-+	spin_lock_irqsave(&crtc->base.dev->event_lock, irqflags);
-+	drm_crtc_prepare_arm_vblank_event(&crtc->base, crtc_state->uapi.event);
-+	spin_unlock_irqrestore(&crtc->base.dev->event_lock, irqflags);
-+}
-+
- /**
-  * intel_pipe_update_start() - start update of a set of display registers
-  * @state: the atomic state
-@@ -607,6 +626,8 @@ void intel_pipe_update_start(struct intel_atomic_state *state,
+ void intel_cmtg_set_m_n(const struct intel_crtc_state *crtc_state)
+@@ -338,8 +338,8 @@ void intel_cmtg_set_m_n(const struct intel_crtc_state *crtc_state)
+ 	if (!intel_cmtg_is_allowed(crtc_state))
+ 		return;
  
- 	if (intel_crtc_needs_vblank_work(new_crtc_state))
- 		intel_crtc_vblank_work_init(new_crtc_state);
-+	else
-+		intel_crtc_arm_vblank_event(new_crtc_state);
+-	intel_de_write(display, PIPE_LINK_M1(display, cmtg_transcoder), m_n->link_m);
+-	intel_de_write(display, PIPE_LINK_N1(display, cmtg_transcoder), m_n->link_n);
++	intel_de_write_fw(display, PIPE_LINK_M1(display, cmtg_transcoder), m_n->link_m);
++	intel_de_write_fw(display, PIPE_LINK_N1(display, cmtg_transcoder), m_n->link_n);
+ }
  
- 	if (state->base.legacy_cursor_update) {
- 		struct intel_plane *plane;
-@@ -684,23 +705,6 @@ static void dbg_vblank_evade(struct intel_crtc *crtc, ktime_t end)
- static void dbg_vblank_evade(struct intel_crtc *crtc, ktime_t end) {}
- #endif
+ static void intel_cmtg_enable_sync(const struct intel_crtc_state *crtc_state)
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 5bc8e6ea10a50..f5dac380aa7ff 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1605,9 +1605,9 @@ static void hsw_set_linetime_wm(const struct intel_crtc_state *crtc_state)
+ 	struct intel_display *display = to_intel_display(crtc_state);
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
  
--static void intel_crtc_arm_vblank_event(struct intel_crtc_state *crtc_state)
--{
--	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
--	unsigned long irqflags;
--
--	if (!crtc_state->uapi.event)
--		return;
--
--	drm_WARN_ON(crtc->base.dev, drm_crtc_vblank_get(&crtc->base) != 0);
--
--	spin_lock_irqsave(&crtc->base.dev->event_lock, irqflags);
--	drm_crtc_arm_vblank_event(&crtc->base, crtc_state->uapi.event);
--	spin_unlock_irqrestore(&crtc->base.dev->event_lock, irqflags);
--
--	crtc_state->uapi.event = NULL;
--}
--
- void intel_crtc_prepare_vblank_event(struct intel_crtc_state *crtc_state,
- 				     struct drm_pending_vblank_event **event)
+-	intel_de_write(display, WM_LINETIME(crtc->pipe),
+-		       HSW_LINETIME(crtc_state->linetime) |
+-		       HSW_IPS_LINETIME(crtc_state->ips_linetime));
++	intel_de_write_fw(display, WM_LINETIME(crtc->pipe),
++			  HSW_LINETIME(crtc_state->linetime) |
++			  HSW_IPS_LINETIME(crtc_state->ips_linetime));
+ }
+ 
+ static void hsw_set_frame_start_delay(const struct intel_crtc_state *crtc_state)
+@@ -2607,14 +2607,14 @@ void intel_set_m_n(struct intel_display *display,
+ 		   intel_reg_t data_m_reg, intel_reg_t data_n_reg,
+ 		   intel_reg_t link_m_reg, intel_reg_t link_n_reg)
  {
-@@ -754,29 +758,10 @@ void intel_pipe_update_end(struct intel_atomic_state *state,
- 	 * event outside of the critical section - the spinlock might spin for a
- 	 * while ... */
- 	if (intel_crtc_needs_vblank_work(new_crtc_state)) {
--		drm_vblank_work_schedule(&new_crtc_state->vblank_work,
--					 drm_crtc_accurate_vblank_count(&crtc->base) + 1,
--					 false);
--	} else {
--		intel_crtc_arm_vblank_event(new_crtc_state);
--	}
--
--	if (state->base.legacy_cursor_update) {
--		struct intel_plane *plane;
--		struct intel_plane_state *old_plane_state;
--		int i;
--
--		for_each_old_intel_plane_in_state(state, plane, old_plane_state, i) {
--			if (old_plane_state->hw.crtc == &crtc->base &&
--			    old_plane_state->unpin_work.vblank) {
--				drm_vblank_work_schedule(&old_plane_state->unpin_work,
--							 drm_crtc_accurate_vblank_count(&crtc->base) + 1,
--							 false);
--
--				/* Remove plane from atomic state, cleanup/free is done from vblank worker. */
--				memset(&state->base.planes[i], 0, sizeof(state->base.planes[i]));
--			}
--		}
-+		drm_vblank_work_enable(&new_crtc_state->vblank_work);
-+	} else if (new_crtc_state->uapi.event) {
-+		drm_crtc_arm_prepared_vblank_event(new_crtc_state->uapi.event);
-+		new_crtc_state->uapi.event = NULL;
+-	intel_de_write(display, data_m_reg, TU_SIZE(m_n->tu) | m_n->data_m);
+-	intel_de_write(display, data_n_reg, m_n->data_n);
+-	intel_de_write(display, link_m_reg, m_n->link_m);
++	intel_de_write_fw(display, data_m_reg, TU_SIZE(m_n->tu) | m_n->data_m);
++	intel_de_write_fw(display, data_n_reg, m_n->data_n);
++	intel_de_write_fw(display, link_m_reg, m_n->link_m);
+ 	/*
+ 	 * On BDW+ writing LINK_N arms the double buffered update
+ 	 * of all the M/N registers, so it must be written last.
+ 	 */
+-	intel_de_write(display, link_n_reg, m_n->link_n);
++	intel_de_write_fw(display, link_n_reg, m_n->link_n);
+ }
+ 
+ bool intel_cpu_transcoder_has_m2_n2(struct intel_display *display,
+@@ -2794,9 +2794,9 @@ void intel_set_transcoder_timings_lrr(const struct intel_crtc_state *crtc_state,
  	}
  
+ 	if (DISPLAY_VER(display) >= 13) {
+-		intel_de_write(display,
+-			       TRANS_SET_CONTEXT_LATENCY(display, transcoder),
+-			       crtc_state->set_context_latency);
++		intel_de_write_fw(display,
++				  TRANS_SET_CONTEXT_LATENCY(display, transcoder),
++				  crtc_state->set_context_latency);
+ 
+ 		/*
+ 		 * VBLANK_START not used by hw, just clear it
+@@ -2812,9 +2812,9 @@ void intel_set_transcoder_timings_lrr(const struct intel_crtc_state *crtc_state,
+ 	 * The hardware actually ignores TRANS_VBLANK.VBLANK_END in DP mode.
+ 	 * But let's write it anyway to keep the state checker happy.
+ 	 */
+-	intel_de_write(display, TRANS_VBLANK(display, transcoder),
+-		       VBLANK_START(crtc_vblank_start - 1) |
+-		       VBLANK_END(crtc_vblank_end - 1));
++	intel_de_write_fw(display, TRANS_VBLANK(display, transcoder),
++		          VBLANK_START(crtc_vblank_start - 1) |
++		          VBLANK_END(crtc_vblank_end - 1));
+ 
  	/*
-@@ -800,6 +785,25 @@ void intel_pipe_update_end(struct intel_atomic_state *state,
+ 	 * DP doesn't have vertical sync, so TRANS_VSYNC only affects
+@@ -2822,17 +2822,17 @@ void intel_set_transcoder_timings_lrr(const struct intel_crtc_state *crtc_state,
+ 	 * using the VRR timing generator!). Thus updating TRANS_VSYNC
+ 	 * here seems fine even if it isn't double buffered.
+ 	 */
+-	intel_de_write(display, TRANS_VSYNC(display, transcoder),
+-		       VSYNC_START(adjusted_mode->crtc_vsync_start - 1) |
+-		       VSYNC_END(adjusted_mode->crtc_vsync_end - 1));
++	intel_de_write_fw(display, TRANS_VSYNC(display, transcoder),
++			  VSYNC_START(adjusted_mode->crtc_vsync_start - 1) |
++			  VSYNC_END(adjusted_mode->crtc_vsync_end - 1));
  
- 	local_irq_enable();
+ 	/*
+ 	 * The double buffer latch point for TRANS_VTOTAL
+ 	 * is the transcoder's undelayed vblank.
+ 	 */
+-	intel_de_write(display, TRANS_VTOTAL(display, transcoder),
+-		       VACTIVE(crtc_vdisplay - 1) |
+-		       VTOTAL(crtc_vtotal - 1));
++	intel_de_write_fw(display, TRANS_VTOTAL(display, transcoder),
++			  VACTIVE(crtc_vdisplay - 1) |
++			  VTOTAL(crtc_vtotal - 1));
+ }
  
-+	/* Run after local_irq_enable(), not timing sensitive */
-+	if (state->base.legacy_cursor_update) {
-+		struct intel_plane *plane;
-+		struct intel_plane_state *old_plane_state;
-+		int i;
-+
-+		for_each_old_intel_plane_in_state(state, plane, old_plane_state, i) {
-+			if (old_plane_state->hw.crtc == &crtc->base &&
-+			    old_plane_state->unpin_work.vblank) {
-+				drm_vblank_work_schedule(&old_plane_state->unpin_work,
-+							 drm_crtc_accurate_vblank_count(&crtc->base) + 1,
-+							 false);
-+
-+				/* Remove plane from atomic state, cleanup/free is done from vblank worker. */
-+				memset(&state->base.planes[i], 0, sizeof(state->base.planes[i]));
-+			}
-+		}
-+	}
-+
- 	if (intel_parent_vgpu_active(display))
- 		goto out;
+ static void intel_set_pipe_src_size(const struct intel_crtc_state *crtc_state)
+@@ -2846,8 +2846,8 @@ static void intel_set_pipe_src_size(const struct intel_crtc_state *crtc_state)
+ 	/* pipesrc controls the size that is scaled from, which should
+ 	 * always be the user's requested size.
+ 	 */
+-	intel_de_write(display, PIPESRC(display, pipe),
+-		       PIPESRC_WIDTH(width - 1) | PIPESRC_HEIGHT(height - 1));
++	intel_de_write_fw(display, PIPESRC(display, pipe),
++			  PIPESRC_WIDTH(width - 1) | PIPESRC_HEIGHT(height - 1));
+ }
  
+ static bool intel_pipe_is_interlaced(const struct intel_crtc_state *crtc_state)
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index 5d9b11185296f..ef94bf5d9c5f5 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -328,12 +328,12 @@ void intel_vrr_set_fixed_rr_timings(const struct intel_crtc_state *crtc_state,
+ 	if (!intel_vrr_possible(crtc_state))
+ 		return;
+ 
+-	intel_de_write(display, TRANS_VRR_VMIN(display, transcoder),
+-		       intel_vrr_fixed_rr_hw_vmin(crtc_state) - 1);
+-	intel_de_write(display, TRANS_VRR_VMAX(display, transcoder),
+-		       intel_vrr_fixed_rr_hw_vmax(crtc_state) - 1);
+-	intel_de_write(display, TRANS_VRR_FLIPLINE(display, transcoder),
+-		       intel_vrr_fixed_rr_hw_flipline(crtc_state) - 1);
++	intel_de_write_fw(display, TRANS_VRR_VMIN(display, transcoder),
++			  intel_vrr_fixed_rr_hw_vmin(crtc_state) - 1);
++	intel_de_write_fw(display, TRANS_VRR_VMAX(display, transcoder),
++			  intel_vrr_fixed_rr_hw_vmax(crtc_state) - 1);
++	intel_de_write_fw(display, TRANS_VRR_FLIPLINE(display, transcoder),
++			  intel_vrr_fixed_rr_hw_flipline(crtc_state) - 1);
+ }
+ 
+ static
+@@ -919,8 +919,8 @@ static void intel_vrr_tg_enable(const struct intel_crtc_state *crtc_state,
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+ 	u32 vrr_ctl;
+ 
+-	intel_de_write(display, TRANS_PUSH(display, cpu_transcoder),
+-		       trans_vrr_push(crtc_state, false));
++	intel_de_write_fw(display, TRANS_PUSH(display, cpu_transcoder),
++			  trans_vrr_push(crtc_state, false));
+ 
+ 	vrr_ctl = VRR_CTL_VRR_ENABLE | trans_vrr_ctl(crtc_state);
+ 
+@@ -932,7 +932,7 @@ static void intel_vrr_tg_enable(const struct intel_crtc_state *crtc_state,
+ 	if (cmrr_enable)
+ 		vrr_ctl |= VRR_CTL_CMRR_ENABLE;
+ 
+-	intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder), vrr_ctl);
++	intel_de_write_fw(display, TRANS_VRR_CTL(display, cpu_transcoder), vrr_ctl);
+ 
+ 	intel_cmtg_set_vrr_ctl(crtc_state);
+ }
 -- 
 2.53.0
 
