@@ -4,42 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9CBECDB481
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 14:59:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D374CDE002
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 15:00:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E09310EF6A;
-	Wed, 24 Jun 2026 14:59:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03B0810EF71;
+	Wed, 24 Jun 2026 15:00:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h5l6UepJ";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="VbXl5dD2";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 587B510EF6A
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 14:59:49 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 977CD60018;
- Wed, 24 Jun 2026 14:59:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B8B41F000E9;
- Wed, 24 Jun 2026 14:59:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782313188;
- bh=AZEn7YlLZZ3X+5MENOsGvvnrwvW+b10dLjwAopKBy0Q=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=h5l6UepJq0D1oNpaixyTlIEecG93t6sx162Yw2KVg7cLO7N5GimL4Ee/5Kv0Bki6s
- OduWWqOCoKOKErE4ANGmi8cNbO71Ini0f7xa8QmgnibgtLO+cIC+5ifUPCD55eM9gv
- n1lp1NY55pWZ30hNsbEJTOxtwksE1DNHlslqWXhw/Z+3zAMHu3cSKNrkhRamLim9VD
- cGRpDxW5SH61r+AXYooqFzwGMA6Ukq/m7QBTjcvVubawDLhd3r25dSaB0M1mei0LWS
- GS/eupw42yY8NH5XhWFcNZLk94vbQxDBtUYK7vTq4ma2iKIo2l35jXhLvhabPZQc/M
- F5BIV37yjGlxg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] fbdev: via: return an error when DMA copy times out
-To: "Pengpeng Hou" <pengpeng@iscas.ac.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260624144313.79291-1-pengpeng@iscas.ac.cn>
-References: <20260624144313.79291-1-pengpeng@iscas.ac.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Jun 2026 14:59:47 +0000
-Message-Id: <20260624145948.3B8B41F000E9@smtp.kernel.org>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46E2B10EF74
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 15:00:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id CB31244369;
+ Wed, 24 Jun 2026 15:00:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7E805C4AF0C;
+ Wed, 24 Jun 2026 15:00:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
+ t=1782313244; bh=aF47iLMPZHY8ikZj0/3fPMH5Q4mRqmYCLQexdlk5/mo=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=VbXl5dD2klxW7ztBYpX6Cx4tD/LzcmI2fuNoVbrtyw9bQ8x2GY1tfm1ojdb8TcGxo
+ GhT8bHzohPWUus1sAK0AykQrv/B+oosZ16ztyj+E8p1IA/QSG4hKYWE4NAifCNgZQR
+ lDRr6FR0jPCmkeo2kncaqbP8dkHK3uWnyWaF+N+U=
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 67D06CDE002;
+ Wed, 24 Jun 2026 15:00:44 +0000 (UTC)
+From: Alvin Sun <alvin.sun@linux.dev>
+Date: Wed, 24 Jun 2026 23:00:01 +0800
+Subject: [PATCH v6 02/10] rust: module: add `THIS_MODULE` const to
+ `ModuleMetadata` trait
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260624-fix-fops-owner-v6-2-5295e333cb3e@linux.dev>
+References: <20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev>
+In-Reply-To: <20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>, 
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+ Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>, 
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
+ Igor Korotin <igor.korotin@linux.dev>, 
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+ Carlos Llamas <cmllamas@google.com>
+Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org, 
+ kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782313241; l=3594;
+ i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
+ bh=aF47iLMPZHY8ikZj0/3fPMH5Q4mRqmYCLQexdlk5/mo=;
+ b=jId57luVVrbaOalxRuJDlrEICPq88yKk+cTlU1HiwK/OFFI04zMWq8zExYJLnbNh24Exv/CjK
+ QOiEt8cKJvQCH19pk2Lzzl9ZK2Pp+213MsElyswT/+kElxDtVT/CJlW
+X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
+ auth_id=684
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,149 +91,92 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Since `const_refs_to_static` has been stable as of the MSRV bump, a
+`ThisModule` pointer can now be used in const contexts.
 
-Pre-existing issues:
-- [High] The function returns -ETIMEDOUT and frees DMA descriptors on timeo=
-ut without safely aborting the active DMA transfer, leading to hardware use=
--after-free, memory corruption, and spurious completion races.
-- [High] The newly added -ETIMEDOUT return value is ignored by the caller, =
-causing failed DMA transfers to be reported as successfully completed to us=
-erspace.
-- [High] Interrupt enablement state is modified without holding the require=
-d subsystem spinlock, causing a data race with other subdevices.
-- [High] The exported generic DMA copy function unconditionally writes to d=
-escr[-1], resulting in a buffer underflow.
---
+Add a `THIS_MODULE` const to the `ModuleMetadata` trait so that modules
+can provide their `ThisModule` pointer in const contexts such as static
+`file_operations`.
 
-commit 9ab471ce4cf985645becf738f0f42716441159d1
-Author: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Add a `this_module()` helper to retrieve the `THIS_MODULE` pointer of a
+given module type, and update `__init` to use it instead of the
+`THIS_MODULE` static generated by the `module!` macro.
 
-    fbdev: via: return an error when DMA copy times out
-   =20
-    viafb_dma_copy_out_sg() logs a VIA DMA timeout when the DONE bit is not
-    set after the completion wait and grace delay, but still returns success
-    to the caller.
-   =20
-    Preserve the existing cleanup sequence and return -ETIMEDOUT when the D=
-MA
-    engine did not report completion.
+The `static THIS_MODULE` generated by the `module!` macro is retained
+for backwards compatibility with existing users and removed in a later
+patch once all references have been migrated.
 
-> diff --git a/drivers/video/fbdev/via/via-core.c b/drivers/video/fbdev/via=
-/via-core.c
-> index a8d4a3e2c65ed..1632a669941ab 100644
-> --- a/drivers/video/fbdev/via/via-core.c
-> +++ b/drivers/video/fbdev/via/via-core.c
-> @@ -234,6 +234,7 @@ int viafb_dma_copy_out_sg(unsigned int offset, struct=
- scatterlist *sg, int nsg)
->  	dma_addr_t descr_handle;
->  	unsigned long flags;
->  	int i;
-> +	int ret =3D 0;
->  	struct scatterlist *sgentry;
->  	dma_addr_t nextdesc;
+Assisted-by: opencode:glm-5.2
+Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Acked-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+---
+ rust/kernel/module.rs |  9 +++++++++
+ rust/macros/module.rs | 18 +++++++++++++++++-
+ 2 files changed, 26 insertions(+), 1 deletion(-)
 
-[Severity: High]
-This is a pre-existing issue, but does viafb_dma_copy_out_sg() unconditiona=
-lly
-write to descr[-1] here?
+diff --git a/rust/kernel/module.rs b/rust/kernel/module.rs
+index be242a82e86d2..d713705984477 100644
+--- a/rust/kernel/module.rs
++++ b/rust/kernel/module.rs
+@@ -42,6 +42,15 @@ fn init(module: &'static ThisModule) -> impl pin_init::PinInit<Self, crate::erro
+ pub trait ModuleMetadata {
+     /// The name of the module as specified in the `module!` macro.
+     const NAME: &'static crate::str::CStr;
++
++    /// The module's `THIS_MODULE` pointer.
++    const THIS_MODULE: ThisModule;
++}
++
++/// Returns a reference to the `THIS_MODULE` of the given module type.
++#[inline]
++pub const fn this_module<M: ModuleMetadata>() -> &'static ThisModule {
++    &M::THIS_MODULE
+ }
+ 
+ /// Equivalent to `THIS_MODULE` in the C API.
+diff --git a/rust/macros/module.rs b/rust/macros/module.rs
+index 06c18e2075083..aa9a618d5d19e 100644
+--- a/rust/macros/module.rs
++++ b/rust/macros/module.rs
+@@ -519,6 +519,22 @@ pub(crate) fn module(info: ModuleInfo) -> Result<TokenStream> {
+ 
+         impl ::kernel::ModuleMetadata for #type_ {
+             const NAME: &'static ::kernel::str::CStr = #name_cstr;
++
++            #[cfg(MODULE)]
++            const THIS_MODULE: ::kernel::ThisModule = {
++                extern "C" {
++                    static __this_module: ::kernel::types::Opaque<::kernel::bindings::module>;
++                }
++
++                // SAFETY: `__this_module` is constructed by the kernel at load time
++                // and lives until the module is unloaded.
++                unsafe { ::kernel::ThisModule::from_ptr(__this_module.get()) }
++            };
++
++            #[cfg(not(MODULE))]
++            const THIS_MODULE: ::kernel::ThisModule = unsafe {
++                ::kernel::ThisModule::from_ptr(::core::ptr::null_mut())
++            };
+         }
+ 
+         // Double nested modules, since then nobody can access the public items inside.
+@@ -616,7 +632,7 @@ pub extern "C" fn #ident_exit() {
+                 /// This function must only be called once.
+                 unsafe fn __init() -> ::kernel::ffi::c_int {
+                     let initer = <super::super::LocalModule as ::kernel::InPlaceModule>::init(
+-                        &super::super::THIS_MODULE
++                        ::kernel::module::this_module::<super::super::LocalModule>()
+                     );
+                     // SAFETY: No data race, since `__MOD` can only be accessed by this module
+                     // and there only `__init` and `__exit` access it. These functions are only
 
-If viafb_dma_copy_out_sg() is called with nsg =3D=3D 0, the for_each_sg loo=
-p is
-bypassed and the descr pointer remains at the start of the allocation. The
-function then does:
+-- 
+2.43.0
 
-    descr[-1].next_desc_low =3D VIAFB_DMA_FINAL_SEGMENT|VIAFB_DMA_MAGIC;
 
-Because dma_alloc_coherent() can successfully allocate memory and not return
-NULL for size 0, does this proceed and corrupt the memory immediately prece=
-ding
-the allocation?
-
-> =20
-> @@ -290,8 +291,10 @@ int viafb_dma_copy_out_sg(unsigned int offset, struc=
-t scatterlist *sg, int nsg)
->  	 */
->  	wait_for_completion_timeout(&viafb_dma_completion, 1);
->  	msleep(1);
-> -	if ((viafb_mmio_read(VDMA_CSR0)&VDMA_C_DONE) =3D=3D 0)
-> +	if ((viafb_mmio_read(VDMA_CSR0) & VDMA_C_DONE) =3D=3D 0) {
->  		printk(KERN_ERR "VIA DMA timeout!\n");
-> +		ret =3D -ETIMEDOUT;
-> +	}
->  	/*
->  	 * Clean up and we're done.
->  	 */
-> @@ -301,7 +304,7 @@ int viafb_dma_copy_out_sg(unsigned int offset, struct=
- scatterlist *sg, int nsg)
->  	dma_free_coherent(&global_dev.pdev->dev,
->  			nsg*sizeof(struct viafb_vx855_dma_descr), descrpages,
->  			descr_handle);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but if
-wait_for_completion_timeout() times out, is the DMA hardware still actively
-reading from memory?
-
-The error path proceeds to dma_free_coherent() to unmap and free the descri=
-ptor
-pages without explicitly aborting the DMA transfer (e.g. using VDMA_C_ABORT=
-).
-
-Could the running hardware continue reading from the freed memory, leading =
-to
-physical memory corruption and falsely complete a subsequent DMA transfer v=
-ia
-the global viafb_dma_completion variable?
-
-> -	return 0;
-> +	return ret;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is this newly added -ETIMEDO=
-UT
-return value ignored by the caller in drivers/media/platform/via/via-camera=
-.c?
-
-Looking at viacam_irq():
-
-    viafb_dma_copy_out_sg(cam->cb_offsets[bufn], sgt->sgl, sgt->nents);
-    vb->vbuf.sequence =3D cam->sequence++;
-    ...
-    vb2_buffer_done(&vb->vbuf, VB2_BUF_STATE_DONE);
-
-When the DMA times out, viacam_irq() silently ignores the newly added error
-code and unconditionally passes the buffer to userspace. Will userspace
-erroneously receive incomplete or corrupted video frames, defeating the
-purpose of this patch?
-
->  }
->  EXPORT_SYMBOL_GPL(viafb_dma_copy_out_sg);
-
-[Severity: High]
-This is a pre-existing issue, but do viafb_request_dma() and viafb_release_=
-dma()
-in drivers/video/fbdev/via/via-core.c modify the interrupt enablement state
-without holding global_dev.reg_lock?
-
-Looking at viafb_request_dma():
-
-    viafb_irq_enable(VDE_I_DMA0TDEN);
-
-and viafb_release_dma():
-
-    viafb_irq_disable(VDE_I_DMA0TDEN);
-
-Does this create a data race with other subdevices that correctly hold the
-lock, potentially corrupting the interrupt enablement register and permanen=
-tly
-disabling other subdevices' interrupts?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624144313.7929=
-1-1-pengpeng@iscas.ac.cn?part=3D1
