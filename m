@@ -4,49 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AE7BCDB479
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 15:34:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25C10CDE001
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 15:39:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57B8910EC53;
-	Wed, 24 Jun 2026 15:34:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8831F10EF95;
+	Wed, 24 Jun 2026 15:39:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="sHs/yrnX";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="R2tbTHoH";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id D2BB410EC53
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 15:34:56 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C8E7E25E1;
- Wed, 24 Jun 2026 08:34:51 -0700 (PDT)
-Received: from [10.57.80.146] (unknown [10.57.80.146])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8DE0B3F905;
- Wed, 24 Jun 2026 08:34:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1782315296; bh=8MbUdECE7vtm2+3ukK2M86Rfe7gaoQ5YuHIyq3drERg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=sHs/yrnXAFcD3Ti+VgtyyEOF+UIy4qMqQx+ZzHYLwdjJUI+Lh/j1YH/cfwy1sR5n4
- qNE8iWVmtlEBRZEwBsMpPmRs/vGQWoib8zqUt6hDjZRM33/BnP6POGuDsXp7sCyLhi
- VQrqzANPlK2d5HKpK2mUQdWtxeLIvqmXwstdplyU=
-Message-ID: <c16ba190-b979-4313-89f1-4cc2bda72304@arm.com>
-Date: Wed, 24 Jun 2026 16:34:51 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/panthor: Check VMA boundaries for PMD mappings
-To: "Christian A. Ehrhardt" <lk@c--e.de>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- dri-devel@lists.freedesktop.org
-Cc: Liviu Dudau <liviu.dudau@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260623181942.1536598-1-lk@c--e.de>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260623181942.1536598-1-lk@c--e.de>
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC9FA10E057
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 15:39:31 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 1B7574E407D5;
+ Wed, 24 Jun 2026 15:39:30 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id C776B601C5;
+ Wed, 24 Jun 2026 15:39:29 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id B65AB106C83D2; 
+ Wed, 24 Jun 2026 17:39:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1782315568; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=7wlapFSWGO6DNer+Ht2N3RKQcuhgJMsXd2Wu+AmSoUk=;
+ b=R2tbTHoHg6xp8JHCk54cyMomtr3bBIbZWDSp+cCHNJ9OtWW9AnRTIPAEs/OcMPdUKK5JsB
+ k1kNCA8XHXGluZErZz0oiODLWi6Rjj6JmeMb5WlzQLrDI33rqMd7/NTArt1Hx8h+/8SDyb
+ 4wcxhbwXNOGXUr2zV6+Pid3E9PaXrfYhfy5rSCzSwOfqGX1klzu5jp9oZy6sr19dEeTcCt
+ q9vMmT/B2ERe48YTHNtQEThtcTQaOnh0NHReQpRz7CDPJ9TH8CQiyLEdBvtOPQ6KBgoS/d
+ 2EpjsuTaGx+EfvHQQHy/zY8pEP3SfIHLt38I9JcBfnfOydt3GUe0TJtqZwm3Fw==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Wed, 24 Jun 2026 17:39:19 +0200
+Message-Id: <DJHE4WR3TVF2.21M3201WSTC9O@bootlin.com>
+Subject: Re: [PATCH 06/37] drm/display: bridge-connector: use a
+ drm_bridge_connector internally, not a drm_connector
+Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Inki Dae"
+ <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
+ Szyprowski" <m.szyprowski@samsung.com>, "Marek Vasut" <marex@denx.de>,
+ "Stefan Agner" <stefan@agner.ch>, "Frank Li" <Frank.Li@nxp.com>, "Sascha
+ Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Hui Pu"
+ <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>
+To: "Maxime Ripard" <mripard@kernel.org>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.21.0
+References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
+ <20260519-drm-bridge-hotplug-v1-6-45e2bdb3dfb4@bootlin.com>
+ <20260608-little-lyrebird-of-competition-c25f7d@houat>
+ <DJ736L2DR8H8.35296DRNZ1OW@bootlin.com>
+ <20260624-chicken-of-infinite-enthusiasm-8b0e3f@houat>
+In-Reply-To: <20260624-chicken-of-infinite-enthusiasm-8b0e3f@houat>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,52 +82,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 23/06/2026 19:19, Christian A. Ehrhardt wrote:
-> When checking a different patch[1] sashiko AI pointed out that
-> panthor needs the same fix[2]:
-> 
-> In the ->huge_fault handler do not install a PMD huge page
-> mapping if the huge page exceeds the boundaries of the VMA.
-> 
-> [1] https://lore.kernel.org/lkml/20260622215718.1532689-1-lk@c--e.de/
-> [2] https://sashiko.dev/#/patchset/20260622215718.1532689-1-lk%40c--e.de
-> 
-> Cc: Boris Brezillon <boris.brezillon@collabora.com>
-> Cc: Steven Price <steven.price@arm.com>
-> Cc: Liviu Dudau <liviu.dudau@arm.com>
-> Fixes: 68cbf96b1e9b ("drm/panthor: Part ways with drm_gem_shmem_object")
-> Signed-off-by: Christian A. Ehrhardt <lk@c--e.de>
+On Wed Jun 24, 2026 at 1:47 PM CEST, Maxime Ripard wrote:
+> On Fri, Jun 12, 2026 at 02:57:39PM +0200, Luca Ceresoli wrote:
+>> On Mon Jun 8, 2026 at 1:41 PM CEST, Maxime Ripard wrote:
+>> > On Tue, May 19, 2026 at 12:37:23PM +0200, Luca Ceresoli wrote:
+>> >> Currently drm_bridge_connector_init() always returns the added connec=
+tor or
+>> >> errors out. When adding bridge hotplug the bridge-connector can be
+>> >> successfully initialized without creating a connector, which can be a=
+dded
+>> >> later when the pipeline will be complete.
+>> >>
+>> >> For this the internal function drm_bridge_connector_add_connector() m=
+ust be
+>> >> able to return a valid drm_bridge_connector even without any drm_conn=
+ector.
+>> >>
+>> >> In preparation to support bridge hotplug, change its return value to =
+be the
+>> >> same drm_bridge_connector pointer it gets as input, or a PTR_ERR.
+>> >>
+>> >> No functional changes, just changing an internal API.
+>> >>
+>> >> Note the return value could now become an int (0 or negative error) b=
+ecause
+>> >> returning the same value received as input does not carry any added
+>> >> value. However this would be change a lot of lines, so leave such cha=
+nge as
+>> >> a future cleanup.
+>> >
+>> > You just created that function and changed "a lot of lines" already, s=
+o
+>> > I'm not sure that argument holds.
+>>
+>> Do you refer to the previous patch?
+>>
+>> My comment is more about the following patches. It means I separated
+>> changes moving code to a subfunction from changes to the the return valu=
+e
+>> in separate patches, so that each patch is trivial to review for
+>> correctness.
+>>
+>> Makes sense?
+>
+> What confused me is that I took it as "I'm not going to do that work
+> (yet?)". If you do it later on, I'd drop the "future cleanup" part, or
+> rephrase it.
 
-Reviewed-by: Steven Price <steven.price@arm.com>
+Ah, I see the issue. I really meant "this change [returning int] is done in
+a following commit".
 
-> ---
->  drivers/gpu/drm/panthor/panthor_gem.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> NOTE:
-> The panthor version is only compile tested because I don't
-> have the hardware. However, the code is identical to that
-> fixed in [1] and I have a reproducer for that.
-> 
-> No need for for stable backports. The code is new in 7.1.
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-> index a1e2eb1ca7bb..54535bae2b0c 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gem.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
-> @@ -802,9 +802,13 @@ static vm_fault_t insert_page(struct vm_fault *vmf, unsigned int order, struct p
->  	} else if (order == PMD_ORDER) {
->  		unsigned long pfn = page_to_pfn(page);
->  		unsigned long paddr = pfn << PAGE_SHIFT;
-> +		struct vm_area_struct *vma = vmf->vma;
-> +		unsigned long start = ALIGN_DOWN(vmf->address, PMD_SIZE);
-> +		unsigned long end = start + PMD_SIZE;
-> +		bool in_range = vma->vm_start <= start && end <= vma->vm_end;
->  		bool aligned = (vmf->address & ~PMD_MASK) == (paddr & ~PMD_MASK);
->  
-> -		if (aligned &&
-> +		if (aligned && in_range &&
->  		    folio_test_pmd_mappable(page_folio(page))) {
->  			pfn &= PMD_MASK >> PAGE_SHIFT;
->  			return vmf_insert_pfn_pmd(vmf, pfn, vmf->flags & FAULT_FLAG_WRITE);
+I guess I'll just drop the whole paragraph.
 
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
