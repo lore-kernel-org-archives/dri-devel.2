@@ -4,55 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B067CDB47C
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 10:04:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 465BCCDE000
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 10:14:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE3FD10EE5D;
-	Wed, 24 Jun 2026 10:04:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F3E710EE6A;
+	Wed, 24 Jun 2026 10:14:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WsA3GFLl";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cb1UhANJ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56C2F10EE53
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 10:04:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6DD9A60018;
- Wed, 24 Jun 2026 10:04:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73A861F000E9;
- Wed, 24 Jun 2026 10:04:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782295451;
- bh=V2xL5spx0Bw3nq5DCJ41peJmadVLewOTsGrgOweshTg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=WsA3GFLl8oEmpAYbgnyy1sjrM/OUy2YwTdbA/HqXIeqPekL7nXV49/ZuidyAKBwPH
- b2o6jJmsLjpQ5C9zJtcxp8RZYzMMzJnfUlXTjpi5uGVBGKvKZXSYrDnoDtPzO1dIF3
- 3tIgGnYSoMsYA0EB/t39Xs+pi9D5mnU4h6HZsmduygKi8RJUfYVZLKnaa2Lj/7AJSr
- oCAbG+le+GIESH1CSeluTfX1vYETQ3ItuVytwI73SRDxptQf1MJ7Cn/DZmJhvb9Y7T
- obs0HgGFzpf7ZO0ARQ7Bwyu/PVVFbP7bHWGMJ27W12lwEuWKeM4POnqHCYPlvyTqD+
- p8PrGXZThNp2A==
-Date: Wed, 24 Jun 2026 11:04:03 +0100
-From: Daniel Thompson <danielt@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v5 14/14] video: leds: backlight: lm3533: Support getting
- LED sources from DT
-Message-ID: <ajurk9wOxHh6rOH-@aspen.lan>
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-15-clamor95@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C516310EE6A;
+ Wed, 24 Jun 2026 10:14:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782296042; x=1813832042;
+ h=date:to:cc:subject:message-id:references:mime-version:
+ in-reply-to:from;
+ bh=qdlq6hba7pUusRaImB9v9jjJNCh0CdFKio3R9kCkqvU=;
+ b=cb1UhANJD1yCWt32cfuhO2bQVFbxQk0b1yQ2QrsJZjPSQlo5XDM5Lp9b
+ JVcPWxTgSSyUtxa2DgJaGOs37AvG1wfLB7cPz0CGHpY2UJ6v+/7QZdOgb
+ gqfequiD/m/QRgHpAtpTm9FA8XBpg9nSgwxyD9ib46MHn5P6gwUFAIqPd
+ D7yuneUwP93fGXnG05xghuZKRXQXYgxPFPtboEc2lc9NSmjGJeIBZK1KB
+ 0eUk0UZsXFjaRbafPpnKRp6Q+lFGMC+q7B0RpHDDnfALVxqwFp0tLYliL
+ h5bXvEAlKsx9dayai5dxBdjnZBRDBHaLrXDjv2psx0BvyWwMiPMD6hkSY A==;
+X-CSE-ConnectionGUID: sWZgOoF1Qwu+XZ3t05N6zQ==
+X-CSE-MsgGUID: ZV6zrJg3Qlm0NrHh7RrGzg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="82925091"
+X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; d="scan'208";a="82925091"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2026 03:14:02 -0700
+X-CSE-ConnectionGUID: bXmnm89bST2CeeccQjTeLg==
+X-CSE-MsgGUID: 924S/CsuRYC0LULGuH/zSA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; d="scan'208";a="273873653"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa001.fm.intel.com with ESMTP; 24 Jun 2026 03:13:59 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+ id B4CC395; Wed, 24 Jun 2026 12:13:57 +0200 (CEST)
+Date: Wed, 24 Jun 2026 13:13:56 +0300
+To: Raag Jadav <raag.jadav@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ "Michael J . Ruhl" <michael.j.ruhl@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Riana Tauro <riana.tauro@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 2/2] drm/xe/mcu_i2c: Take over control of the
+ controller enabling
+Message-ID: <ajut5N-FTomAG5DE@kuha>
+References: <20260622114759.3464047-1-heikki.krogerus@linux.intel.com>
+ <20260622114759.3464047-3-heikki.krogerus@linux.intel.com>
+ <ajqaid7CHChu35iR@black.igk.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260617080031.99156-15-clamor95@gmail.com>
+In-Reply-To: <ajqaid7CHChu35iR@black.igk.intel.com>
+rom: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+From: Heikki Krogerus <heikki.krogerus@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,13 +81,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 17, 2026 at 11:00:31AM +0300, Svyatoslav Ryhel wrote:
-> Add Control Bank to HVLED/LVLED muxing support based on the led-sources
-> defined in the device tree.
->
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+On Tue, Jun 23, 2026 at 04:39:05PM +0200, Raag Jadav wrote:
+> On Mon, Jun 22, 2026 at 01:47:59PM +0200, Heikki Krogerus wrote:
+> > Some platforms make an assumption that the i2c controller's
+> > enabled state indicates also the power state of the
+> > controller. This can create a problem when the controller is
+> > in disabled state, because the hardware may assume
+> > incorrectly that it is then also in low-power state.
+> > 
+> > To fix this, the controller is kept enabled by taking over
+> > the IC_ENABLE register. The controller has to be disabled
+> > when the configuration is updated and when the target
+> > address or the slave address are assigned, so disabling it
+> > when IC_CON, IC_TAR or IC_SAR registers are programmed, and
+> > then re-enabling it again.
+> 
+> ...
+> 
+> >  static int xe_i2c_read(void *context, unsigned int reg, unsigned int *val)
+> >  {
+> >  	struct xe_i2c *i2c = context;
+> >  
+> > -	*val = xe_mmio_read32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET));
+> > +	switch (reg) {
+> 
+> Curious, should I expect DW_IC_INTR_MASK case here which skips the MMIO?
 
-Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
+Probable not. We have the ACCESS_POLLING flag set, so the
+i2c-designware will only write 0 to that register. Check
+__i2c_dw_write_intr_mask().
 
+Thanks,
 
-Daniel.
+-- 
+heikki
