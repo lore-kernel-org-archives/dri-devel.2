@@ -4,47 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90E6DCDE007
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:03:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94C0ACDE006
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:03:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3286E10F12F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E2B910F132;
 	Thu, 25 Jun 2026 07:03:19 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A928310EF73
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 14:43:17 +0000 (UTC)
-Received: from localhost.localdomain (unknown [111.196.245.140])
- by APP-05 (Coremail) with SMTP id zQCowADXYQUD7Ttq0YoHFQ--.42917S2;
- Wed, 24 Jun 2026 22:43:15 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Florian Tobias Schandinat <FlorianSchandinat@gmx.de>,
- Helge Deller <deller@gmx.de>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] fbdev: via: return an error when DMA copy times out
-Date: Wed, 24 Jun 2026 22:43:13 +0800
-Message-ID: <20260624144313.79291-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HTr58yUD";
+	dkim-atps=neutral
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43C1D10E0C4
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 17:21:10 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4924f8db066so7637585e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 10:21:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782321669; x=1782926469; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=TbgHCjopHlS/2Xfh1jkQjyRfQ4ZwvIFloenkAWi04I4=;
+ b=HTr58yUDoCrXBJdS3SUqhMyTjkggeh1sqzgWyPd13oXEDvZTGY/FO7HPWF7EF0jMzD
+ i7XIL1oBpNg9SB2J9siHWTIAQ3kwFmqzvTWw+5QO2OZ0RdVZlYMSQREI/HQNMWLVrd5q
+ XVuT/1+O7vN+nzadZsYLMWwYeJVGGPSnkCjfZsvHspc3HEmNpQj+GvpgcQhMFbya6A4P
+ T5MmKVHAsiv5YHyuz7GEIajWkJztema/DashMxT2gdq21q+uJzn0fs7fXBRKERyMszKb
+ hFOQz9nttYCbwjo2TcwvODYvO5dvj1IBp0B9WSjDwCTK8FTkdMXEe1s1tlZ7ceyq0qOa
+ d36Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782321669; x=1782926469;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TbgHCjopHlS/2Xfh1jkQjyRfQ4ZwvIFloenkAWi04I4=;
+ b=M6W7f7ReDBXIyo3aLnb2zmUB9meQec1MUstYCrm4AyNqCOs+Q+HmFFgfZAsVq3tO6j
+ V39+2UcNDJDe7mu095g/liyMII7lISjXMyddIc0UCFnZDkaG/79W93tn+5kWW+YhE/ts
+ wKAp2KCwKVp22FxRf2gPnToaOtVr9vY13wtx5LflGZ+OCXmN2I1fHZLLtgCPBbWYs3Dr
+ ah7jYRNsOtcE8FWMyRMLWST/CI2bzoR3j5JEoiPuGFIgni/OAspj8uGa5XPAEfYaP43D
+ DbZPKCIuX3cQhRhUJzqxwjc4DUx/j2R2lvaF+5oSKOyKWunxb7PqIPt5vnE+AEPUVykJ
+ tVjA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/FH26MkUTVPxwxZkAcKR+rONMEljcc5BZTNWIcE1q4cqIi16mZwd0JC89pRoOiyDkrUB1H+BT2Z3A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxL6TgrWJ1j04wvY1B2kMf8XsBkoJFRAPqjCYTfYGL41zAtCczk
+ kPbIT3To00G0pkpWMAjNYoSo/LWuthLBBOqQTadh2mK7zkO3LoZZlYAP
+X-Gm-Gg: AfdE7clIMJFw0DOHpmpz6IKRH2eRk1UUMrv+thLrGufGMAzH2MglqpuyLpuaWsUfrg3
+ 8o9ARdL9VM9GIvDG3CUAVR3AjrpYtmar4bk/Z3XvzOzW44iNjOG+Krgt8GajJmrPyvNi2ctzUYR
+ p0UcEQmLboLfb9hkLQMnziNFmMN6GbXBv2rVykdCHrX3u7SJidU3KRRQNFZuCdL9pkF1AzYCTDc
+ 31O3uGkqTEGIJMEetWTa2ukDeJR/GhztefjJJ0XdRp/Nx8p+d4BHX2n59lN3WiHod7E3zwduqjV
+ HzdUxgIruEnNEpbV1K+LqCjLyu6xLN1expe0CeTpQdn16lNdDNRHVEEXa2M6xIhTHSE4+sZ6fJB
+ bynuarIpBm8daXzR9TVNL1Wdx31KA4hKkGxzqlFg5fo/187x/cu4s5+Und4TU+9Sb7W00wtt9qi
+ iPIgrZ8t8VEzqdGoQfTQGPSwgStA==
+X-Received: by 2002:a05:600c:6290:b0:492:463c:48b7 with SMTP id
+ 5b1f17b1804b1-4925b379813mr131866485e9.22.1782321668471; 
+ Wed, 24 Jun 2026 10:21:08 -0700 (PDT)
+Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49264021121sm10826125e9.4.2026.06.24.10.21.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Jun 2026 10:21:07 -0700 (PDT)
+From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Yousef Alhouseen <alhouseenyousef@gmail.com>
+Subject: [PATCH] drm/amdgpu: reject mapping info for unmapped BOs
+Date: Wed, 24 Jun 2026 19:20:29 +0200
+Message-ID: <20260624172029.2508-1-alhouseenyousef@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowADXYQUD7Ttq0YoHFQ--.42917S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tFW3trW3Zr4kXr4xJr48tFb_yoW8WFW7pF
- 98Ga4avFy3tr1vkw4UKF40gFy5CFyfJFWfGFWxC3s09w4ayr45ury5tFyjqrW5uF9akF4x
- XFyDt34rur4Y9aDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
- 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
- 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
- AVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
- v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkG
- c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI
- 0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
- JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUj2YLD
- UUUUU==
-X-Originating-IP: [111.196.245.140]
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 X-Mailman-Approved-At: Thu, 25 Jun 2026 07:03:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,51 +89,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-viafb_dma_copy_out_sg() logs a VIA DMA timeout when the DONE bit is not
-set after the completion wait and grace delay, but still returns success
-to the caller.
+AMDGPU_GEM_OP_GET_MAPPING_INFO looks up the BO's VM mapping and then
+iterates the valid and invalid mapping lists unconditionally. A GEM BO can
+be queried before it has been mapped into the file VM, in which case
+amdgpu_vm_bo_find() returns NULL and the list walk dereferences it.
 
-Preserve the existing cleanup sequence and return -ETIMEDOUT when the DMA
-engine did not report completion.
+Return -ENOENT for an unmapped BO, matching the VA operation path that
+already rejects missing BO-VA state before touching the mapping lists.
 
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
 ---
- drivers/video/fbdev/via/via-core.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/video/fbdev/via/via-core.c b/drivers/video/fbdev/via/via-core.c
-index a8d4a3e2c..ff691f83e 100644
---- a/drivers/video/fbdev/via/via-core.c
-+++ b/drivers/video/fbdev/via/via-core.c
-@@ -234,6 +234,7 @@ int viafb_dma_copy_out_sg(unsigned int offset, struct scatterlist *sg, int nsg)
- 	dma_addr_t descr_handle;
- 	unsigned long flags;
- 	int i;
-+	int ret = 0;
- 	struct scatterlist *sgentry;
- 	dma_addr_t nextdesc;
- 
-@@ -290,8 +291,10 @@ int viafb_dma_copy_out_sg(unsigned int offset, struct scatterlist *sg, int nsg)
- 	 */
- 	wait_for_completion_timeout(&viafb_dma_completion, 1);
- 	msleep(1);
--	if ((viafb_mmio_read(VDMA_CSR0)&VDMA_C_DONE) == 0)
-+	if ((viafb_mmio_read(VDMA_CSR0) & VDMA_C_DONE) == 0) {
- 		printk(KERN_ERR "VIA DMA timeout!\n");
-+		ret = -ETIMEDOUT;
-+	}
- 	/*
- 	 * Clean up and we're done.
- 	 */
-@@ -301,7 +304,7 @@ int viafb_dma_copy_out_sg(unsigned int offset, struct scatterlist *sg, int nsg)
- 	dma_free_coherent(&global_dev.pdev->dev,
- 			nsg*sizeof(struct viafb_vx855_dma_descr), descrpages,
- 			descr_handle);
--	return 0;
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(viafb_dma_copy_out_sg);
- #endif /* CONFIG_VIDEO_VIA_CAMERA */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 212c14d99..4b2699931 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -1087,6 +1087,12 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
+ 		struct drm_amdgpu_gem_vm_entry *vm_entries;
+ 		struct amdgpu_bo_va_mapping *mapping;
+ 		int num_mappings = 0;
++
++		if (!bo_va) {
++			r = -ENOENT;
++			goto out_exec;
++		}
++
+ 		/*
+ 		 * num_entries is set as an input to the size of the user-allocated array of
+ 		 * drm_amdgpu_gem_vm_entry stored at args->value.
 -- 
-2.50.1 (Apple Git-155)
+2.54.0
 
