@@ -4,50 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DED34CDB479
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 09:19:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 912F6CDB47F
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 09:23:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34C4710EE31;
-	Wed, 24 Jun 2026 09:19:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02DD010EE39;
+	Wed, 24 Jun 2026 09:23:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="dNydEEfk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XVtWEvxQ";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C108C10EE31
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 09:19:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
- Message-ID; bh=L1BDgyrbaBIk0q0GjexggCLY/p+AURs/1fKrIrX/Uk4=; b=d
- NydEEfk/f6YHfxScXsjcS4+6cJOsJF9A7yq2Ttdvwrt2G0rblTrx9T/9yuvRMMXl
- Tj1fCb9+9cg5NDBwGhNndLhb7fvqHPnEk5fSB1gQEHTWILV+ILS1Sh4KySnHV8W5
- EEb68q11F5m4qNVslWFchZhnsXAuu0wzDq5KBVnW5I=
-Received: from haoxiang_li2024$163.com ( [36.112.3.223] ) by
- ajax-webmail-wmsvr-40-108 (Coremail) ; Wed, 24 Jun 2026 17:18:44 +0800
- (CST)
-X-Originating-IP: [36.112.3.223]
-Date: Wed, 24 Jun 2026 17:18:44 +0800 (CST)
-From: haoxiang_li2024  <haoxiang_li2024@163.com>
-To: "Geert Uytterhoeven" <geert@linux-m68k.org>
-Cc: deller@gmx.de, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- "Philip Blundell" <philb@gnu.org>, "Kars de Jong" <jongk@linux-m68k.org>,
- linux-m68k <linux-m68k@lists.linux-m68k.org>
-Subject: Re:Re: [PATCH] video: hpfb: Unregister DIO driver on init failure
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <CAMuHMdUSVacMR2Lb-VwkeZMrS=wKz9y+XtF=nAOCuSLbDs-HdQ@mail.gmail.com>
-References: <20260622064915.767194-1-haoxiang_li2024@163.com>
- <CAMuHMdUSVacMR2Lb-VwkeZMrS=wKz9y+XtF=nAOCuSLbDs-HdQ@mail.gmail.com>
-X-NTES-SC: AL_Qu2TAP6SvU8p4iSaYOkfmUwSj+s8WsO0vf4i245fO5B+jCLpyzEDYXpkLHTOzeC2LxuSuwqcbydQy+9XTK1GRYskqBOo6GyuEBdF3rm8s9BhGQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19D2A10EE39;
+ Wed, 24 Jun 2026 09:23:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782292986; x=1813828986;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=ER0Ha8/W/1ogI3UhR2iFbBaUkIegTlSxqgNA1aKKQ+Q=;
+ b=XVtWEvxQIhFeSv7pjYFWwkB6OMDfK18TROn9pKzHsJaf+MW1U3YSI7x5
+ xHJ6nhR0NsJiDCy0BZNVlD+nuTLtivWp4gjE0mm/b13TJigafujliuMyi
+ z883c6Q2btEF/lJrRC7Hw/EDfFPqZ2IT5nUDegUEn+lsvEDvfR3D7sSLg
+ rHVMrMgKryVbpWmljwqmGXjSGrINqliZVnXMZ6WZS6z7ZuS/8n03fnc4m
+ cMT3+a9iOwwImibNeg981XD9C/79wLWZ0QgFBXcZasFNmzOdPfUFRl9nB
+ k61ZAdno6yh4FvtBxASPwINEhxnaf6IzwWbS5jk41xND7Uj4raYVzJ4My g==;
+X-CSE-ConnectionGUID: SOKylyyWSGmxuWrmMoNR4w==
+X-CSE-MsgGUID: d0D/S9TARMGJfuYchUbdPg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="100473637"
+X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; d="scan'208";a="100473637"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2026 02:23:05 -0700
+X-CSE-ConnectionGUID: BxUn7xoeRPSQeDtkX+eq4g==
+X-CSE-MsgGUID: TayrNkd3RB6Ru63uwUvdAA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; d="scan'208";a="254762946"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by orviesa005.jf.intel.com with ESMTP; 24 Jun 2026 02:23:03 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+ id E525295; Wed, 24 Jun 2026 11:23:01 +0200 (CEST)
+Date: Wed, 24 Jun 2026 12:23:00 +0300
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Raag Jadav <raag.jadav@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ "Michael J . Ruhl" <michael.j.ruhl@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Riana Tauro <riana.tauro@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] drm/xe/i2c: Handler for SMBus Alerts
+Message-ID: <ajuh9K5C3gcDeKwl@kuha>
+References: <20260622114759.3464047-1-heikki.krogerus@linux.intel.com>
+ <20260622114759.3464047-2-heikki.krogerus@linux.intel.com>
+ <ajqZXnaU7709IlzA@black.igk.intel.com>
 MIME-Version: 1.0
-Message-ID: <a5a64f9.8403.19ef8ecbad4.Coremail.haoxiang_li2024@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: bCgvCgDnx_v0oDtqYwkQAA--.969W
-X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7RTOPWo7oPSwRQAA36
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ajqZXnaU7709IlzA@black.igk.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,10 +79,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CgpBdCAyMDI2LTA2LTI0IDE2OjUxOjAyLCAiR2VlcnQgVXl0dGVyaG9ldmVuIiA8Z2VlcnRAbGlu
-dXgtbTY4ay5vcmc+IHdyb3RlOgo+SGVuY2UgaWYgdGhlIGRldGVjdGlvbiBvciBpbml0aWFsaXph
-dGlvbiBvbiB0aGUgaW50ZXJuYWwgYnVzIGZhaWxzLAo+b3RoZXIgZGV2aWNlcyBvbiB0aGUgRElP
-IGJ1cyBtdXN0IG5vdCBiZSBmb3JjZS11bmJvdW5kLgo+Cj5UaGlzIGlzIGFsc28gdGhlIHJlYXNv
-biB3aHkgYW55IGVycm9yIHJldHVybmVkIGJ5Cj5jb3B5X2Zyb21fa2VybmVsX25vZmF1bHQoKSBp
-cyBub3QgY29uc2lkZXJlZCBmYXRhbC4KCj4KClRoYW5rcyBmb3IgeW91ciBndWlkYW5jZSEgVW5k
-ZXJzdGFuZCB0aGF0IG5vdy4KCgpUaGFua3MsCkhhb3hpYW5n
+On Tue, Jun 23, 2026 at 04:34:06PM +0200, Raag Jadav wrote:
+> On Mon, Jun 22, 2026 at 01:47:58PM +0200, Heikki Krogerus wrote:
+> > Some devices that are attached to the I2C controller use the
+> > SMBus Alert signal for example to inform the host about
+> > thermal events, so registering the default SMBus Alert
+> > device device for them. The alert device makes sure that
+> 
+> Nit: Duplicate 'device' ;)
+> 
+> > the alert is processed and passed to the correct I2C client
+> > driver.
+> 
+> ...
+> 
+> > @@ -182,7 +183,10 @@ void xe_i2c_irq_handler(struct xe_device *xe, u32 master_ctl)
+> >  		return;
+> >  
+> >  	/* Forward interrupt to I2C adapter */
+> > -	generic_handle_irq_safe(xe->i2c->adapter_irq);
+> > +	if (xe->i2c->smbus_alert)
+> > +		xe_i2c_handle_smbus_alert(xe->i2c);
+> > +	else
+> > +		generic_handle_irq_safe(xe->i2c->adapter_irq);
+> 
+> This looks like the else case will never hit since no other platform
+> supports irq. Is it on the cards at some point or can we make it obsolete?
+
+I'm not sure yet. Right now it looks like there could be need for it
+later, but I'm just not sure. Let's keep it for now.
+
+thanks,
+
+-- 
+heikki
