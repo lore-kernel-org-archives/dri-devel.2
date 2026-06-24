@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E78CECDB479
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 10:15:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A6C9CDE002
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 10:15:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF4C310EE77;
-	Wed, 24 Jun 2026 10:15:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43BAB10EE7C;
+	Wed, 24 Jun 2026 10:15:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="S37ScJK6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IFbx46fk";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4502410EE6D
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 10:15:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5918A10EE6D
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 10:15:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BF0DD60138;
- Wed, 24 Jun 2026 10:15:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63C8B1F00A3A;
- Wed, 24 Jun 2026 10:15:33 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7790C60018;
+ Wed, 24 Jun 2026 10:15:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 123091F000E9;
+ Wed, 24 Jun 2026 10:15:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782296133;
- bh=3ETaqt9hY+Z13KIFY2UMBAcKeANwzMskjUsNsVclVH8=;
+ s=k20260515; t=1782296132;
+ bh=3Z6vVtiARmzoF0hJLufenUaSJACEjbpI3NSqndz55D0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=S37ScJK6PKb8qReko85QL2SLloLrhfq9EwzS0hnPWSDX2NmkVrdFmWwZ58RysBe1o
- lROd7woQxjrcecw4HwK+01NQZDHNW0+s2LJfRpVK/HVK4a+gGRgybOe339+650jfJ6
- m1WnhIeGXe5nyIT2oTXiGjwC6inzEtrkOVXk6N23zdPyeb/AkoNnlBuo45GUwB3e0t
- f+tPDFKkzT3a817Hue4IGNe19wtRnLSjpL8V3gES0wYPd3l0QcYTa3HS5JaI0o8v52
- 7aiv1oGjwdaGfHR/pMpsJ1CX7NjyGV9XKZnds43wyPTWPrvprAoE/D5N0JBSr25joh
- 5k5FEVeE/J/YA==
+ b=IFbx46fkCBTQGNnbC3oEu0DISdYrL5s0fRmRq2Gnp2pFg/XIRQ/tBJKY9aGe7IRVS
+ 1lAliMUrW6gtNYTVDn5diB6xxWl+r9bqzp3RWTAfB0dMmeHMkK3YKOZWDA9m2co6h7
+ ADjm5RB/YDKKCfgpk0DYQNvZVSzygDtE+W0nO3rghjQqTdFtnaWafldhVOG+FTxauF
+ V4sIKxJewFeQ1cUjUFYzP0I9m0QTzK9qS0d1/xXkbSv0k1+oUcT6c6WlxZgadhtr1z
+ PdNQ1pD6PAh+LWlkiVA2xKQkec2jRBEBylvcfd/cejnB0ogPx4+tHy/LnH6Lrb6jiD
+ UXDJWeAMBd0ew==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/5] drm/xe/drm_ras: Wire up error threshold callbacks
+Subject: Re: [PATCH v4 3/5] drm/xe/ras: Add support for error threshold
 To: "Raag Jadav" <raag.jadav@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260623101043.255897-5-raag.jadav@intel.com>
+In-Reply-To: <20260623101043.255897-4-raag.jadav@intel.com>
 References: <20260623101043.255897-1-raag.jadav@intel.com>
- <20260623101043.255897-5-raag.jadav@intel.com>
+ <20260623101043.255897-4-raag.jadav@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Jun 2026 10:15:32 +0000
-Message-Id: <20260624101533.63C8B1F00A3A@smtp.kernel.org>
+Date: Wed, 24 Jun 2026 10:15:31 +0000
+Message-Id: <20260624101532.123091F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,61 +59,76 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The set_error_threshold callback implementation does not perform=
- bounds checking on the threshold value.
+- [Medium] The `threshold` and `reserved` fields are incorrectly swapped in=
+ `struct xe_ras_set_threshold_response`.
 --
 
-commit fed54e8b69e86b28d2dcdaf8a7fe08701b357d95
+commit b88a93d0104e4bd53859ba2c4b041330bc44ceef
 Author: Raag Jadav <raag.jadav@intel.com>
 
-drm/xe/drm_ras: Wire up error threshold callbacks
+drm/xe/ras: Add support for error threshold
 
-This commit wires up the get and set error threshold callbacks to the
-drm_ras infrastructure, allowing userspace to configure these thresholds
-via netlink commands.
+System controller allows getting/setting per counter threshold for
+correctable errors, which it uses to raise error events to the driver.
+Get/set it using the respective mailbox command.
 
-> diff --git a/drivers/gpu/drm/xe/xe_drm_ras.c b/drivers/gpu/drm/xe/xe_drm_=
-ras.c
-> index 7937d8ba0ed9c..4afa2ad98300f 100644
-> --- a/drivers/gpu/drm/xe/xe_drm_ras.c
-> +++ b/drivers/gpu/drm/xe/xe_drm_ras.c
-
+> diff --git a/drivers/gpu/drm/xe/xe_ras_types.h b/drivers/gpu/drm/xe/xe_ra=
+s_types.h
+> index 6688e11f57a86..747b651880cd5 100644
+> --- a/drivers/gpu/drm/xe/xe_ras_types.h
+> +++ b/drivers/gpu/drm/xe/xe_ras_types.h
 [ ... ]
-
-> @@ -86,6 +86,38 @@ static int clear_correctable_error_counter(struct drm_=
-ras_node *node, u32 error_
-
+> +struct xe_ras_get_threshold_response {
+> +	/** @counter: Counter ID */
+> +	struct xe_ras_error_class counter;
+> +	/** @threshold: Current threshold of the counter */
+> +	u32 threshold;
+> +	/** @reserved: Reserved for future use */
+> +	u32 reserved[4];
+> +} __packed;
 [ ... ]
-
-> +static int set_correctable_error_threshold(struct drm_ras_node *ep, u32 =
-error_id, u32 threshold)
-> +{
-> +	struct xe_device *xe =3D ep->priv;
-> +	struct xe_drm_ras *ras =3D &xe->ras;
-> +	struct xe_drm_ras_counter *info =3D ras->info[DRM_XE_RAS_ERR_SEV_CORREC=
-TABLE];
+> +struct xe_ras_set_threshold_request {
+> +	/** @counter: Counter to set threshold for */
+> +	struct xe_ras_error_class counter;
+> +	/** @threshold: Threshold to be set */
+> +	u32 threshold;
+> +	/** @reserved: Reserved for future use */
+> +	u32 reserved;
+> +} __packed;
 > +
-> +	if (!info || !info[error_id].name)
-> +		return -ENOENT;
-> +
-> +	if (!xe->info.has_sysctrl)
-> +		return -EOPNOTSUPP;
-> +
+> +/**
+> + * struct xe_ras_set_threshold_response - Response structure for set thr=
+eshold
+> + */
+> +struct xe_ras_set_threshold_response {
+> +	/** @counter: Counter ID */
+> +	struct xe_ras_error_class counter;
+> +	/** @reserved: Reserved */
+> +	u32 reserved;
+> +	/** @threshold: Updated threshold */
+> +	u32 threshold;
+> +	/** @status: Operation status */
+> +	u32 status;
 
 [Severity: Medium]
-Does this code need bounds checking for the threshold value before passing =
-it
-to the hardware?
+Are the reserved and threshold fields swapped in this structure compared to
+the firmware specification?
 
-The drm_ras API documentation for set_error_threshold specifies that the
-driver is responsible for error threshold bounds checking. If a privileged
-user provides an extreme value, such as 0, could this result in undefined
-hardware behavior or continuous interrupts from the system controller?
+In xe_ras_set_threshold_request and xe_ras_get_threshold_response, the
+threshold payload immediately follows the counter struct. Placing reserved
+before threshold here shifts the threshold and status fields to different
+offsets.
 
-> +	return xe_ras_set_threshold(xe, DRM_XE_RAS_ERR_SEV_CORRECTABLE, error_i=
-d, threshold);
-> +}
+If this is a mistake, it could cause ras_status_to_errno() to read the
+wrong offset and silently ignore firmware errors when xe_ras_set_threshold()
+checks response.status, as well as log an incorrect threshold value.
+
+> +	/** @reserved1: Reserved for future use */
+> +	u32 reserved1[2];
+> +} __packed;
+> +
+>  #endif
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260623101043.2558=
-97-1-raag.jadav@intel.com?part=3D4
+97-1-raag.jadav@intel.com?part=3D3
