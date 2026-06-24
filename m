@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEECDCDB479
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 11:42:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E66B5CDB471
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 11:42:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19DB210E081;
-	Wed, 24 Jun 2026 11:42:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5401310EEAD;
+	Wed, 24 Jun 2026 11:42:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q4d4gG0x";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="Vfw1P4/4";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC7C910EED0
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 11:41:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E7EC260018;
- Wed, 24 Jun 2026 11:41:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FBAE1F000E9;
- Wed, 24 Jun 2026 11:41:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782301317;
- bh=ShjfYmyMNme2ZizdbgTF3XrR13Mrtlb7YIX/iZpb3NM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Q4d4gG0xlLhiN/laQaD2KxgfY6UFlil4u8XQNprH7J2MSCUUdd8qV/+cDhwB3QtZK
- A3JA6NCXYZdoq9VYSQ5GCWV/NHqR9EYFUxUmaqU/q6UjqLnHFxWX+rx++I86gG54Hj
- 8ux3dka1wQcydp24WchfAPwsThjr8kdq9Y1ZbtZ3ZyE4dkb/yClBQFX4D6A431eh/I
- wn/+j/we6znBedCsjX1akjh7ufk5ww4Jf9Tsk9ZGqGf1eXNF577wsIFd3ZMFhCk2sh
- KZ0/fBzt6PZoCIu5CU1t3Fv1x2jjqrq07R5xiiNFO5uR+hcKvZeGMbP2wF1/JIRDch
- OcxLRr6EnqkmQ==
-Date: Wed, 24 Jun 2026 13:41:55 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
- Jagan Teki <jagan@amarulasolutions.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
- Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 05/37] drm/display: bridge-connector: split code creating
- the connector to a subfunction
-Message-ID: <20260624-proud-unbiased-pony-ecc3c3@houat>
-References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
- <20260519-drm-bridge-hotplug-v1-5-45e2bdb3dfb4@bootlin.com>
- <20260608-mindful-heavy-frigatebird-be9faf@houat>
- <DJ735MTNMYD1.3LPNV404V8PIU@bootlin.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B1BD710EEAD
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 11:42:22 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9855215A1;
+ Wed, 24 Jun 2026 04:42:17 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 263A93F632;
+ Wed, 24 Jun 2026 04:42:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1782301342; bh=riMPr912UFIPMnkd77dj4O/2qenW/y+bhggkPiDqP2Y=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Vfw1P4/4IoI5cqXw4yBJZNOTaVkYRmMS6+C6sbeyrmmGnGWWzzWff8oMzVCkvRHpG
+ /WfA6cZgcjrIZBg4la2twn3GyGmuyUH3yH5HcauiNCm7UhB5ttO+fuGOsQ/50nUI2x
+ XbN64JsbCSXXQ+WSm4c6Fyy4/VKP2cHszV2Zyuew=
+Message-ID: <b49a3107-68be-4f7f-8c66-0f78206c7359@arm.com>
+Date: Wed, 24 Jun 2026 12:42:17 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="ggct6afei637l4eq"
-Content-Disposition: inline
-In-Reply-To: <DJ735MTNMYD1.3LPNV404V8PIU@bootlin.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
+To: Matt Evans <matt@ozlabs.org>, "Tian, Kevin" <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
+References: <20260610154327.37758-1-matt@ozlabs.org>
+ <20260610154327.37758-2-matt@ozlabs.org> <aisAc1HRn2Wa4F9p@google.com>
+ <DM6PR11MB36904ED2E1D2C646644F67668C182@DM6PR11MB3690.namprd11.prod.outlook.com>
+ <0dfadf98-a904-4e6a-b078-5caf27bc7922@ozlabs.org>
+ <81a9d212-996e-42e1-aabf-b120a13e94c3@arm.com>
+ <88a9ebaa-8637-4290-b299-acae0e3065f8@ozlabs.org>
+ <feaefa41-9f67-4d4f-a3e0-282dca41f3eb@ozlabs.org>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <feaefa41-9f67-4d4f-a3e0-282dca41f3eb@ozlabs.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,80 +76,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 23/06/2026 6:47 pm, Matt Evans wrote:
+> Hi Robin, me,
+> 
+> On 23/06/2026 16:59, Matt Evans wrote:
+>> Heya Robin,
+>>
+>> On 23/06/2026 16:48, Robin Murphy wrote:
+>>> On 12/06/2026 3:31 pm, Matt Evans wrote:
+>>>> Hi Kevin, Pranjal, (+Robin, hi!)
+>>>
+>>> Oh hey there! :)
+>>>
+>>>> On 12/06/2026 04:39, Tian, Kevin wrote:
+>>>>>> From: Pranjal Shrivastava <praan@google.com>
+>>>>>> Sent: Friday, June 12, 2026 2:38 AM
+>>>>>>
+>>>>>> On Wed, Jun 10, 2026 at 04:43:15PM +0100, Matt Evans wrote:
+>>>>>>> --- a/drivers/pci/Kconfig
+>>>>>>> +++ b/drivers/pci/Kconfig
+>>>>>>> @@ -206,11 +206,7 @@ config PCIE_TPH
+>>>>>>>    config PCI_P2PDMA
+>>>>>>>        bool "PCI peer-to-peer transfer support"
+>>>>>>>        depends on ZONE_DEVICE
+>>>>>>> -    #
+>>>>>>> -    # The need for the scatterlist DMA bus address flag means PCI
+>>>>>> P2PDMA
+>>>>>>> -    # requires 64bit
+>>>>>>> -    #
+>>>>>>> -    depends on 64BIT
+>>>>>>> +    select PCI_P2PDMA_CORE
+>>>>>>>        select GENERIC_ALLOCATOR
+>>>>>>>        select NEED_SG_DMA_FLAGS
+>>>>>>>        help
+>>>>>>
+>>>>>> Nit: Did we drop depends on 64BIT intentionally here? I guess the full
+>>>>>> PCI_P2PDMA stack still selects NEED_SG_DMA_FLAGS? IIRC,
+>>>>>> NEED_SG_DMA_FLAGS doesn't select 64BIT?
+>>>>>
+>>>>> seems that comment is stale. According to the commit msg:
+>>>>>
+>>>>> " it would make vfio-pci only available if CONFIG_ZONE_DEVICE is
+>>>>> present (e.g. 64-bit systems), "
+>>>>>
+>>>>> so it sounds a redundant dependency hence is removed.
+>>>>
+>>>> This was intentional.  In practice there is still a dependency on 64BIT
+>>>> for PCI_P2PDMA, but it is because of ZONE_DEVICE (and mem hotplug).  The
+>>>> key need is PCI_P2PDMA_CORE is available on !64BIT for VFIO, but I
+>>>> didn't see a requirement from PCI_P2PDMA itself (as opposed to its
+>>>> dependencies).  If I've missed one, I can put it back...
+>>>>
+>>>> But NEED_SG_DMA_FLAGS doesn't smell quite right; I see from comments in
+>>>>
+>>>>     af2880ec44021 ("scatterlist: add dedicated config for DMA flags")
+>>>>
+>>>> that it assumes 64BIT, but it seems to be missing a "depends on 64BIT".
+>>>>
+>>>> Robin -- should that depend on 64BIT?
+>>>
+>>> Indeed, looking at the history it seems like that was overlooked, but it
+>>> worked out at the time since the only selector of NEED_SG_DMA_FLAGS was
+>>> PCI_P2PDMA as you say. If we're now generalising then moving the
+>>> explicit 64BIT dependency to NEED_SG_DMA_FLAGS itself sounds like the
+>>> right thing to do.
+>>
+>> Cheers for confirming.  I'll send a patch separate to this series (since
+>> the deps work out OK for PCI_P2PDMA for the reasons mentioned).
+> 
+> I think we were wrong, NEED_SG_DMA_FLAGS doesn't _need_ 64BIT.
+> 
+> Other than P2PDMA, the other consumer of NEED_SG_DMA_FLAGS is IOMMU_DMA,
+> and turns out if one builds an i386 kernel with INTEL_IOMMU (or some
+> other configs, like Xen) then NEED_SG_DMA_FLAGS is enabled on 32-bit
+> builds too.
+> 
+> The scatterlist.h comments af2880ec44021 touched are just saying that
+> _since_ P2PDMA depends on 64BIT, there _is_ circumstantial padding so
+> let's use it for flags.  It doesn't require 64BIT.
+> 
+> For example struct scatterlist isn't pushed over some special (e.g.
+> power-of-two) size when NEED_SG_DMA_FLAGS is enabled on 32-bit; I can't
+> find a reason it should be prevented on 32-bit builds (and found cases
+> above in which it is already enabled in them).
+> 
+> So I won't change the NEED_SG_DMA_FLAGS dependencies after all.  Sorry
+> for the noise -- as ever if I've missed something do please explain.
 
---ggct6afei637l4eq
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 05/37] drm/display: bridge-connector: split code creating
- the connector to a subfunction
-MIME-Version: 1.0
+Ah, I was also taking the comments at face value, plus conflating the 
+memory of the original series which did stash the P2P flag in bit 2 of 
+the page_link pointer - in my defence, it's far too hot for my brain to 
+work properly :)
 
-Hi,x
+Doing a bit more archaeology, the separate dma_flags field was a late 
+suggestion just before the series was merged, so I guess it's actually 
+just that the comments never got updated accordingly. Sorry for 
+perpetuating the confusion!
 
-On Fri, Jun 12, 2026 at 02:56:24PM +0200, Luca Ceresoli wrote:
-> On Mon Jun 8, 2026 at 1:40 PM CEST, Maxime Ripard wrote:
-> > On Tue, May 19, 2026 at 12:37:22PM +0200, Luca Ceresoli wrote:
-> >> In preparation to introduce bridge hotplug, split out from
-> >> drm_bridge_connector_init() the code adding the drm_connector into a
-> >> dedicated function. This will be needed to be able to add (and re-add)=
- the
-> >> connector from different code paths.
-> >
-> > Same story here, explaining what you need later on that calls for that
-> > change would be nice.
->=20
-> Here's a more verbose version:
->=20
->     Currently drm_bridge_connector_init() does two things:
->=20
->      * allocate and initialize the drm_bridge_connector
->        (which embeds a drm_connector)
->      * initialize and register the embedded drm_connector
->=20
->     For bridge hotplug we need to separate these two actions:
->=20
->      * the drm_connector needs to be added and removed at any time based =
-on
->        hotplug events
->      * the drm_bridge_connector is designated to create and remove the
->        drm_connector, so it must be persistent for the card lifetime
->=20
->     As the lifetimes of drm_bridge_connector and drm_connector become
->     different, we need to create them in different moments.
->=20
->     In preparation to support that, split out from
->     drm_bridge_connector_init() the code adding the drm_connector into a
->     dedicated function. No functional changes, just moving code around for
->     now. A future commit will make the drm_connector be created based on
->     hotplug events.
->=20
-> Looks good?
+Cheers,
+Robin.
 
-The message itself, yes, thanks.
+> (I'll continue with removing the P2PDMA dependency on 64BIT because it
+> seems P2PDMA's dependencies rely on 64BIT, though P2PDMA itself doesn't.)
+> 
+> Thanks,
+> 
+> 
+> Matt
 
-However, I have questions now :)
-
-Do we really expect drm_bridge_connector to stick around when a bridge
-gets unplugged? If so, how does it cope with having, say, an HDMI
-connector, and then swapping out the hotplugged part for an LVDS one?
-Does the HDMI connector sticks around indefinitely?
-
-*Especially* if we're using overlays for this, I'd expect everything
- after the first hotplugged bridge to be destroyed, no?
-
-Maxime
-
---ggct6afei637l4eq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCajvCeAAKCRAnX84Zoj2+
-dhuUAYDFJqooNqUx588XAwTFLaml7a7KW4JruaolEF1p9BhcIvYFBDvNrKfeFNmP
-g/vAax4BfRNosW1vwCuAixIjSRCuI4sKHQdfzCecAWgVrpSjTSYU7afdO4ghM4Js
-DadrDa7/6Q==
-=c8Y7
------END PGP SIGNATURE-----
-
---ggct6afei637l4eq--
