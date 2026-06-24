@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC49ECDB47F
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 19:10:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5D67CDB47F
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 19:12:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22A7F10E122;
-	Wed, 24 Jun 2026 19:10:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0509A10F014;
+	Wed, 24 Jun 2026 19:12:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c2xJfCAc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AE99TYoH";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B95810E122
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 19:10:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D320310F014
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 19:12:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8EE4C60018;
- Wed, 24 Jun 2026 19:10:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F46B1F000E9;
- Wed, 24 Jun 2026 19:10:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4271360018;
+ Wed, 24 Jun 2026 19:12:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE0BA1F000E9;
+ Wed, 24 Jun 2026 19:12:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782328213;
- bh=Tuy4xXgYf99GgjxbMRH9mgPLPQEOS+b6fFbopiPGeKk=;
+ s=k20260515; t=1782328322;
+ bh=wZlYI+K7qJ4TLIfHtxdHbieFPRrkgwgAZEdYe2Hr8XI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=c2xJfCAcq7jRUy58vYwM2hD/xBH6U8eIygxeauRmA/MsPpjQVAKpfdPEXCwkK3fn+
- juJbwNfJdhpBHYoJ5lQbtjfisy97/4WxoP30JDwuSP02z08p2q827j8myjToNFvhey
- yB7+PKPYnFX068jqZRjMhkx+0hyIlzcfWx53zaolf/7Yv/3C+lLg49ZUZ1hDV91LYv
- Z7ikGI4zXaa8TH4ubKJnp+uAmewwR5C+k1K7tepbrGauOUIUdn0hvBLMUmJnPtyrvi
- YKz2MpKl91/91IhtbOlZSbK4qXWEkYgvvVqiOaYQ/XMU5vtwvRLqmXiGAa3kfJNvON
- I0xcNGMuMiqmQ==
+ b=AE99TYoH9RG19DAeM6sWAxaMTDCTHaGglUdYFlIQNfeUn3+uX195nmh7JKxSJbxBR
+ Ip9sDBD5q3piM3fp3Y1zZCuqcjfaz2MK18mSDH0qzhyczaH1TseY/Ek8Fh9svWsKgT
+ jyg5PbLdBL+f3HuB2L3vX82EpVs8AcSv2B67rgzdd+XY/O+LF6k0y6Rrvxi6STrzRM
+ zk0c3YYEnokrYqpM1rhI8axJMdQ8NfzRy6rRNI4l+PxEs6bvvJY+k6NZizSl7iOXqr
+ kTBZzyc5L6rmGWwaRGnqQUAKDawFcs+96gQ1Vj2syM/d5KCthrSL2JtRL4nPS05r6X
+ xJCddcycZeRBw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] misc: fastrpc: initialize invoke refcount before publish
+Subject: Re: [PATCH] misc: fastrpc: reject oversized inline invoke payloads
 To: "Yousef Alhouseen" <alhouseenyousef@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260624185427.1451-1-alhouseenyousef@gmail.com>
-References: <20260624185427.1451-1-alhouseenyousef@gmail.com>
+In-Reply-To: <20260624185549.1669-1-alhouseenyousef@gmail.com>
+References: <20260624185549.1669-1-alhouseenyousef@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Jun 2026 19:10:12 +0000
-Message-Id: <20260624191013.2F46B1F000E9@smtp.kernel.org>
+Date: Wed, 24 Jun 2026 19:12:01 +0000
+Message-Id: <20260624191201.CE0BA1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,152 +56,152 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
 
-New issues:
-- [Critical] The patch transforms a refcount underflow warning into an expl=
-oitable Use-After-Free (UAF) and list corruption by prematurely freeing the=
- context on an early DSP response.
-
 Pre-existing issues:
-- [Critical] `fastrpc_rpmsg_callback()` is vulnerable to duplicate or late =
-DSP responses, leading to Use-After-Free vulnerabilities.
-- [High] If `fastrpc_internal_invoke()` is interrupted by a signal or times=
- out, the `fastrpc_invoke_ctx` and its associated `fastrpc_user` are perman=
-ently leaked, leading to local DoS.
-- [High] When the DSP crashes or is removed, pending `fastrpc_invoke_ctx` o=
-bjects are permanently leaked.
+- [Critical] Integer overflow in `fastrpc_get_payload_size()` accumulator l=
+eads to undersized DMA buffer and massive heap out-of-bounds write.
+- [Critical] Heap buffer underflow via overlaps between mapped and unmapped=
+ buffers in `fastrpc_get_buff_overlaps()`.
+- [High] SMMU isolation bypass via unverified VMA offset calculations.
+- [High] Resource leak of `fastrpc_map` objects and DMA attachments for inp=
+ut/output handles.
+- [High] Implicit integer truncation to heap buffer overflow on 32-bit arch=
+itectures.
 --
 
-commit 285340b375fb7017cf7735f77379c860ac74a67c
+commit a53ab016dbb10f6c8573b1c5e13acf7acf361b1d
 Author: Yousef Alhouseen <alhouseenyousef@gmail.com>
 
-misc: fastrpc: initialize invoke refcount before publish
+misc: fastrpc: reject oversized inline invoke payloads
 
-fastrpc_context_alloc() adds a new invoke context to the pending list
-and the channel IDR before initializing its refcount. Initialize the
-refcount before publishing the context to prevent a racing DSP
-response from dropping a reference before kref_init() has run.
+fastrpc_get_args() computes inline payload spans from 64-bit user
+buffer ranges, but stores each span in an int before comparing it with
+the remaining DMA buffer space. A large span can truncate before the bounds
+check and advance the DMA write cursor by the wrong amount. This patch keeps
+the span 64-bit and fails the invoke when the serialized payload would exce=
+ed
+the buffer.
 
 > diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index f3a49384586d1..9f2929cb39d93 100644
+> index f3a49384586d1..c60bab4f45c01 100644
 > --- a/drivers/misc/fastrpc.c
 > +++ b/drivers/misc/fastrpc.c
-> @@ -690,6 +690,7 @@ static struct fastrpc_invoke_ctx *fastrpc_context_all=
-oc(
->  	ctx->cctx =3D cctx;
->  	init_completion(&ctx->work);
->  	INIT_WORK(&ctx->put_work, fastrpc_context_put_wq);
-> +	kref_init(&ctx->refcount);
+> @@ -1067,7 +1067,7 @@ static int fastrpc_get_args(u32 kernel, struct fast=
+rpc_invoke_ctx *ctx)
+>  	ctx->rpra =3D rpra;
 > =20
->  	spin_lock(&user->lock);
->  	list_add_tail(&ctx->node, &user->pending);
-> @@ -705,8 +706,6 @@ static struct fastrpc_invoke_ctx *fastrpc_context_all=
-oc(
->  	ctx->ctxid =3D ret << 4;
-
-[Severity: Critical]
-By moving kref_init() before idr_alloc_cyclic(), does this introduce a
-Use-After-Free?
-
-If a delayed or duplicate DSP response arrives immediately after
-idr_alloc_cyclic() returns, fastrpc_rpmsg_callback() can find the context
-in the IDR and schedule put_work. This would drop the refcount to 0,
-prematurely freeing the context while the allocating thread continues execu=
-tion:
-
-drivers/misc/fastrpc.c:fastrpc_context_alloc() {
-    ...
-    kref_init(&ctx->refcount);
-    ...
-    ret =3D idr_alloc_cyclic(&cctx->ctx_idr, ctx, ...);
-   =20
-    // DSP response arrives here, drops the only reference, freeing ctx
-   =20
-    ctx->ctxid =3D ret << 4; // Use-After-Free
-}
-
-Prior to this change, the uninitialized refcount prevented the free.
-
->  	spin_unlock_irqrestore(&cctx->lock, flags);
-> =20
-> -	kref_init(&ctx->refcount);
-> -
->  	return ctx;
-
-[Severity: Critical]
-This is a pre-existing issue, but is fastrpc_rpmsg_callback() vulnerable to
-duplicate or late DSP responses?
-
-When a response arrives, it looks up the context and blindly schedules put_=
-work
-without checking if a response is expected or removing the context from the=
- IDR:
-
-drivers/misc/fastrpc.c:fastrpc_rpmsg_callback() {
-    ...
-    ctx =3D idr_find(&cctx->ctx_idr, ctxid);
-    ...
-    schedule_work(&ctx->put_work);
-}
-
-If a faulty DSP sends multiple responses for the same ID, could this schedu=
-le
-put_work multiple times and lead to a Use-After-Free?
-
+>  	for (oix =3D 0; oix < ctx->nbufs; ++oix) {
+> -		int mlen;
+> +		u64 mlen;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does fastrpc_internal_invoke=
-()
-leak the context on signals or timeouts?
+This isn't a bug introduced by this patch, but does the use of 64-bit sizes
+lead to truncation issues on 32-bit architectures?
 
-If wait_for_completion_interruptible() returns -ERESTARTSYS or -ETIMEDOUT, =
-the
-error path intentionally bypasses dropping the context reference:
+When pkt_size is passed to dma_alloc_coherent() via __fastrpc_buf_alloc(),
+the 64-bit size is implicitly truncated to a 32-bit size_t. This can result
+in a small kernel allocation for values exceeding 4GB.
 
-drivers/misc/fastrpc.c:fastrpc_internal_invoke() {
-    ...
-    if (err !=3D -ERESTARTSYS && err !=3D -ETIMEDOUT) {
-        spin_lock(&fl->lock);
-        list_del(&ctx->node);
-        spin_unlock(&fl->lock);
-        fastrpc_context_put(ctx);
-    }
-}
+The bounds checks use the untruncated 64-bit lengths, and copy_from_user()
+will truncate the 64-bit len to a 32-bit unsigned long. Could coordinating
+these lengths to wrap around the 32-bit boundary cause copy_from_user() to
+copy a large payload into the truncated DMA buffer allocation?
 
-Since fastrpc_context_alloc() takes a reference on fastrpc_user, does this
-create a permanent reference cycle that prevents fastrpc_user_free() from e=
-ver
-being called, potentially allowing an unprivileged user to exhaust IDR slot=
-s?
-
+> =20
+>  		i =3D ctx->olaps[oix].raix;
+>  		len =3D ctx->args[i].length;
 
 [Severity: High]
-This is a pre-existing issue, but are pending contexts permanently leaked w=
-hen
-the DSP crashes or is removed?
+This is a pre-existing issue, but is there a risk of SMMU isolation bypass
+for mapped buffers?
 
-fastrpc_invoke_send() takes a reference on the context on behalf of the DSP:
+For mapped DMA buffers, fastrpc_get_args() computes the physical address
+offset by subtracting the VMA start address:
 
-drivers/misc/fastrpc.c:fastrpc_invoke_send() {
+drivers/misc/fastrpc.c:fastrpc_get_args() {
     ...
-    fastrpc_context_get(ctx);
-    ret =3D rpmsg_send(...);
+			vma =3D vma_lookup(current->mm, ctx->args[i].ptr);
+			if (vma)
+				pages[i].addr +=3D (ctx->args[i].ptr & PAGE_MASK) -
+						 vma->vm_start;
+    ...
 }
 
-When the DSP is removed, fastrpc_rpmsg_remove() notifies users but doesn't
-appear to drop this extra reference:
+Does the code verify that the resolved VMA actually corresponds to the
+underlying dma_buf, or that offset + len is within the map's size? If not,
+could an attacker forge an arbitrary IOVA offset using a large anonymous VMA
+to read or write arbitrary memory mapped within the shared SMMU domain?
 
-drivers/misc/fastrpc.c:fastrpc_rpmsg_remove() {
+[ ... ]
+
+> @@ -1107,8 +1107,10 @@ static int fastrpc_get_args(u32 kernel, struct fas=
+trpc_invoke_ctx *ctx)
+> =20
+>  			mlen =3D ctx->olaps[oix].mend - ctx->olaps[oix].mstart;
+> =20
+> -			if (rlen < mlen)
+> +			if (rlen < mlen) {
+> +				err =3D -EOVERFLOW;
+>  				goto bail;
+
+[Severity: Critical]
+This is a pre-existing issue, but does rlen bypass this check if pkt_size
+wraps around and rlen underflows?
+
+In fastrpc_get_payload_size(), size accumulates the buffer lengths without
+checking for wrap-around. An attacker could supply lengths such that the sum
+exceeds U64_MAX, resulting in a small positive pkt_size and causing an
+undersized DMA allocation.
+
+Then in fastrpc_get_args():
+    rlen =3D pkt_size - metalen;
+
+If pkt_size is smaller than metalen, rlen underflows to a massive 64-bit
+value, which trivially bypasses this rlen < mlen check. Could this lead to
+copy_from_user() copying the untruncated len into the undersized heap
+allocation?
+
+[Severity: High]
+This is a pre-existing issue, but could this early exit leak DMA map
+attachments for scalar handles?
+
+In fastrpc_create_maps(), map objects are created and attached for all
+arguments up to ctx->nscalars. However, when the context is freed:
+
+drivers/misc/fastrpc.c:fastrpc_context_free() {
     ...
-    list_for_each_entry(user, &cctx->users, user)
-        fastrpc_notify_users(user);
+	for (i =3D 0; i < ctx->nbufs; i++)
+		fastrpc_map_put(ctx->maps[i]);
+    ...
 }
 
-Since the DSP will never respond, does this leave the in-flight contexts and
-their parent structures permanently leaked?
+The cleanup loop only iterates up to ctx->nbufs, failing to drop references
+for handle maps (i >=3D ctx->nbufs). If this goto bail is hit, do the maps =
+for
+scalar handles remain pinned in the user process's list, potentially
+exhausting kernel memory and DMA allocations?
+
+> +			}
+> =20
+>  			rpra[i].buf.pv =3D args - ctx->olaps[oix].offset;
+
+[Severity: Critical]
+This is a pre-existing issue, but can this address underflow to a location
+before the allocated heap buffer?
+
+If fastrpc_get_buff_overlaps() processes an unmapped inline buffer that
+overlaps entirely within a preceding mapped buffer, it sets mstart and
+mend to 0, and offset to the distance from the mapped buffer's start.
+
+Because args would not have advanced for this buffer, could subtracting
+offset from args here result in an address pointing before
+ctx->buf->virt, leading to an out-of-bounds write when copy_from_user()
+is called later in fastrpc_get_args()?
+
+>  			pages[i].addr =3D ctx->buf->dma_addr -
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624185427.1451=
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624185549.1669=
 -1-alhouseenyousef@gmail.com?part=3D1
