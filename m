@@ -4,39 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 963CACDE027
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 18:05:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76332CDE02F
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 18:05:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0E5710F05B;
-	Wed, 24 Jun 2026 18:04:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C4DE10F024;
+	Wed, 24 Jun 2026 18:04:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="RxmBcz65";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="MXDlsdJe";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71D6910F042;
- Wed, 24 Jun 2026 18:04:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 640BC10F05D;
+ Wed, 24 Jun 2026 18:04:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782324284;
- bh=Q8sFpW0LaWK/Smzuxt/7dTEculaPVCfQO31xaLLhI2w=;
+ s=default; t=1782324291;
+ bh=Smwtu6CwhUCwK5agwnez+Jaqs++M2OVTTW4z7GIcls4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RxmBcz65riGxH8gBcw/hTQf0U7RskozlYSiOc8IzdY4Oz/9f4VI5WIZbx/+m8NuIS
- H5uCBnSZgH7y04znpEPnpmZzJ/8/DLQRGDTT3USZ2vQPf9aYK4w4Wn4kDfIQrnptkW
- Aky+a5daa9HNIBcO0eXXCsue/l2a42R8qY7ZkjaYIvoNwTVSKM6vVJJdO7Nhv08Wpn
- zxDGqu+wPUwOVh4Sn/H/gDYjyusWeQ6c190JqC0e6UTtvTcJPxOjY2rl4mR+mEojLD
- AbXUR66bcn4Ljbi4W7q1HpeuVZYKQMnY91mRu2pGdLJuFcz0PappToWC6qvQgbxu06
- xytt4rBz7g3nw==
+ b=MXDlsdJefSe/lMAeo59JiL2Y7TAaOzE1/asxgclyEzBhgbxcetrKiCwn/mPahIwHw
+ hPsW8XyIbbSCjuixPfa2lb5jOXxZJhxdc8YDEIw+d36AtR/GvDRun5Am9OrblBYPJI
+ ncj6m4JOO5km75UMz2e5GqA3kFO2CYL0w091Z00KoQAhTv5t65kl1M+CBJey+6hVbO
+ cEfcvIFvcdS5uiP1e26Yd973SvB7RPbAeDy+tJ+dWHGUvjuJXrO4XCLOfz06dzKNGj
+ UtBdAVhAKnVleXLEa94PMBHf9JDtiITjO6YVqoW3HUdqPoBPDNZqZX3MMqNGA2Beb0
+ fiZdrRdAe/zVg==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Clark Williams <williams@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v10 15/30] drm/i915/gt: Use spin_lock_irq() instead of
- local_irq_disable() + spin_lock()
-Date: Wed, 24 Jun 2026 20:04:42 +0200
-Message-ID: <20260624180459.1024068-16-dev@lankhorst.se>
+Subject: [PATCH v10 25/30] drm/i915/gt: Add a spinlock to prevent starvation
+ of irq_work.
+Date: Wed, 24 Jun 2026 20:04:52 +0200
+Message-ID: <20260624180459.1024068-26-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260624180459.1024068-1-dev@lankhorst.se>
 References: <20260624180459.1024068-1-dev@lankhorst.se>
@@ -59,92 +57,72 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-execlists_dequeue() is invoked from a function which uses
-local_irq_disable() to disable interrupts so the spin_lock() behaves
-like spin_lock_irq().
-This breaks PREEMPT_RT because local_irq_disable() + spin_lock() is not
-the same as spin_lock_irq().
+IRQ-Work (FIFO-1) will be preempted by the threaded-interrupt (FIFO-50)
+and the interrupt will poll on signaler_active while the irq-work can't
+make progress.
 
-execlists_dequeue_irq() and execlists_dequeue() has each one caller
-only. If intel_engine_cs::active::lock is acquired and released with the
-_irq suffix then it behaves almost as if execlists_dequeue() would be
-invoked with disabled interrupts. The difference is the last part of the
-function which is then invoked with enabled interrupts.
-I can't tell if this makes a difference. From looking at it, it might
-work to move the last unlock at the end of the function as I didn't find
-anything that would acquire the lock again.
+Solve this by adding a spinlock to prevent starvation and force
+completion.
 
-Reported-by: Clark Williams <williams@redhat.com>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- .../drm/i915/gt/intel_execlists_submission.c    | 17 +++++------------
- 1 file changed, 5 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c       | 8 +++++++-
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h | 1 +
+ 2 files changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 1359fc9cb88ef..e11db81dca9c5 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -1300,7 +1300,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 	 * and context switches) submission.
- 	 */
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index c10ac0ab3bfa8..c2b174bfa1418 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -209,6 +209,7 @@ static void signal_irq_work(struct irq_work *work)
+ 		intel_breadcrumbs_disarm_irq(b);
  
--	spin_lock(&sched_engine->lock);
-+	spin_lock_irq(&sched_engine->lock);
- 
- 	/*
- 	 * If the queue is higher priority than the last
-@@ -1400,7 +1400,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 				 * Even if ELSP[1] is occupied and not worthy
- 				 * of timeslices, our queue might be.
- 				 */
--				spin_unlock(&sched_engine->lock);
-+				spin_unlock_irq(&sched_engine->lock);
- 				return;
- 			}
+ 	rcu_read_lock();
++	spin_lock(&b->signaler_active_sync);
+ 	atomic_inc(&b->signaler_active);
+ 	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
+ 		struct i915_request *rq;
+@@ -246,6 +247,7 @@ static void signal_irq_work(struct irq_work *work)
  		}
-@@ -1426,7 +1426,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 
- 		if (last && !can_merge_rq(last, rq)) {
- 			spin_unlock(&ve->base.sched_engine->lock);
--			spin_unlock(&engine->sched_engine->lock);
-+			spin_unlock_irq(&engine->sched_engine->lock);
- 			return; /* leave this for another sibling */
- 		}
- 
-@@ -1588,7 +1588,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
- 	 */
- 	sched_engine->queue_priority_hint = queue_prio(sched_engine);
- 	i915_sched_engine_reset_on_empty(sched_engine);
--	spin_unlock(&sched_engine->lock);
-+	spin_unlock_irq(&sched_engine->lock);
- 
- 	/*
- 	 * We can skip poking the HW if we ended up with exactly the same set
-@@ -1614,13 +1614,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
  	}
+ 	atomic_dec(&b->signaler_active);
++	spin_unlock(&b->signaler_active_sync);
+ 	rcu_read_unlock();
+ 
+ 	llist_for_each_safe(signal, sn, signal) {
+@@ -290,6 +292,7 @@ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine)
+ 	init_llist_head(&b->signaled_requests);
+ 
+ 	spin_lock_init(&b->irq_lock);
++	spin_lock_init(&b->signaler_active_sync);
+ 	init_irq_work(&b->irq_work, signal_irq_work);
+ 
+ 	b->irq_engine = irq_engine;
+@@ -487,8 +490,11 @@ void intel_context_remove_breadcrumbs(struct intel_context *ce,
+ 	if (release)
+ 		intel_context_put(ce);
+ 
+-	while (atomic_read(&b->signaler_active))
++	while (atomic_read(&b->signaler_active)) {
++		spin_lock(&b->signaler_active_sync);
++		spin_unlock(&b->signaler_active_sync);
+ 		cpu_relax();
++	}
  }
  
--static void execlists_dequeue_irq(struct intel_engine_cs *engine)
--{
--	local_irq_disable(); /* Suspend interrupts across request submission */
--	execlists_dequeue(engine);
--	local_irq_enable(); /* flush irq_work (e.g. breadcrumb enabling) */
--}
--
- static void clear_ports(struct i915_request **ports, int count)
- {
- 	memset_p((void **)ports, NULL, count);
-@@ -2475,7 +2468,7 @@ static void execlists_submission_tasklet(struct tasklet_struct *t)
- 	}
+ static void print_signals(struct intel_breadcrumbs *b, struct drm_printer *p)
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+index bdf09fd67b6e7..28dae32628aab 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+@@ -40,6 +40,7 @@ struct intel_breadcrumbs {
+ 	struct list_head signalers;
+ 	struct llist_head signaled_requests;
+ 	atomic_t signaler_active;
++	spinlock_t signaler_active_sync;
  
- 	if (!engine->execlists.pending[0]) {
--		execlists_dequeue_irq(engine);
-+		execlists_dequeue(engine);
- 		start_timeslice(engine);
- 	}
- 
+ 	spinlock_t irq_lock; /* protects the interrupt from hardirq context */
+ 	struct irq_work irq_work; /* for use from inside irq_lock */
 -- 
 2.53.0
 
