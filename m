@@ -4,54 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 071D8CDB47C
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 10:26:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AC10CDB479
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 10:31:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65CEF10EE53;
-	Wed, 24 Jun 2026 10:26:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9203110EE7D;
+	Wed, 24 Jun 2026 10:31:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="apSiimHy";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="c/pdAAqg";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18A4710EE7D
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 10:26:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782296801;
- bh=vB/+pduY8W2aSe2B53EzG0p/Gq5D5OvsdlA7KCSPxrY=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=apSiimHyCPKHyW4pfJO5br+B6Opds6HPMpLL+tFOWsb1ErJZ9mAtByaqMcxn43hmZ
- 9TGU1QHMHZu3mnzl5Y/tJlu2+xPFnzm7U5l74+v8aqu/eBxOT++/KMY3qetujTdZ3l
- a7MJVOAzcmHpzuavGQDusF2bMcR45lzQpS3h9whUfx1KWXn1WXaDwyrT4n06FCzfuG
- J78OqTscGXA2qszTbI7Om8LvDmdqavwliiyDafrJl8kLo1Mgs5Xve79MfEvNWE292X
- H6elRWWnmzQeZakuIdEiLifBnz7CdWnm5oTnyu0mUB4oDPRwBGRzXaGfPT5j+N9ZhR
- N/67ntEsQXVcA==
-Received: from fedora-2.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1BB2C17E0C91;
- Wed, 24 Jun 2026 12:26:41 +0200 (CEST)
-Date: Wed, 24 Jun 2026 12:26:36 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: "Christian A. Ehrhardt" <lk@c--e.de>
-Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Andrew Morton
- <akpm@linux-foundation.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/panthor: Check VMA boundaries for PMD mappings
-Message-ID: <20260624122636.22d34274@fedora-2.home>
-In-Reply-To: <20260623181942.1536598-1-lk@c--e.de>
-References: <20260623181942.1536598-1-lk@c--e.de>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDFE710EE7D;
+ Wed, 24 Jun 2026 10:31:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782297111; x=1813833111;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=DtJ/CNN9GumTvr2hAj6sRgQ9MHu53c3lB1R067sVku8=;
+ b=c/pdAAqgNnSqHxYEADCgqwqiXxMMAlZfV6+TclF6uviA63in/Q+eu0o2
+ 8G2YYXMry8WTCu7vDb3WTrSYhVQhzpraWHvP1KdbwmhthtJOgPEp3X9RK
+ o4W9ZIUrBo9W4Ey7nGNs4rBublR/m2VFjUcosa0llTsW7bxXYNHXmWzQg
+ F+KTDZ4QM8JqeCPG7NsKKCdj2MOfA1TFpP7KzV11iSooieONVYpKxWAI5
+ CMrbF7XAgAVG3EQlVVe2qklpXJZejAZYuGuKQwdQPsFNP/5kUCduZhFV3
+ qXVEgq7OFZCZIcFUwuX3ELL8yoIQq9/RpRsmXnSSA6SV6G6cFPGC62RMw Q==;
+X-CSE-ConnectionGUID: AUr9s5GzRc+xOagyIMuimQ==
+X-CSE-MsgGUID: ViBzy96DQJ6TpwulJLLGbQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="86898254"
+X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; d="scan'208";a="86898254"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2026 03:31:50 -0700
+X-CSE-ConnectionGUID: gZSgSSrXSQGPs8UD06tZCg==
+X-CSE-MsgGUID: lU/PpAQQT8efGMJ9IEQrjA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; d="scan'208";a="253690412"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.244])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2026 03:31:48 -0700
+Date: Wed, 24 Jun 2026 13:31:43 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: =?iso-8859-1?Q?Gabr=EDel_Arth=FAr_P=E9tursson?=
+ <gabriel.petursson@jbtmarel.com>, 
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
+ "tursulin@ursulin.net" <tursulin@ursulin.net>
+Subject: Re: [PATCH] drm/i915: Calculate CDCLK on modeset after sanitizing
+ pre-os programming
+Message-ID: <ajuyD3vOdMdvbGqx@intel.com>
+References: <AM9PR06MB78601E2636164181A4689CC281EF2@AM9PR06MB7860.eurprd06.prod.outlook.com>
+ <ajqXK-fZnty-YGCK@intel.com>
+ <178228365985.16303.14222363163462260344@jlahtine-mobl>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <178228365985.16303.14222363163462260344@jlahtine-mobl>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,58 +82,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 23 Jun 2026 20:19:42 +0200
-"Christian A. Ehrhardt" <lk@c--e.de> wrote:
+On Wed, Jun 24, 2026 at 09:47:39AM +0300, Joonas Lahtinen wrote:
+> Quoting Ville Syrjälä (2026-06-23 17:24:43)
+> > This smells like the same thing I already fixed with
+> > commit 3f9de66f8acb ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL
+> > without a full PLL re-enable")
+> > 
+> > Sadly it looks like I forgot to cc:stable it :/
+> > 
+> > Jani, can you pick that up for -fixes and slap a cc:stable on it?
+> 
+> I'll include it in drm-intel-next-fixes, do we have a
+> Fixes: tag to add?
 
-> When checking a different patch[1] sashiko AI pointed out that
-> panthor needs the same fix[2]:
-> 
-> In the ->huge_fault handler do not install a PMD huge page
-> mapping if the huge page exceeds the boundaries of the VMA.
-> 
-> [1] https://lore.kernel.org/lkml/20260622215718.1532689-1-lk@c--e.de/
-> [2] https://sashiko.dev/#/patchset/20260622215718.1532689-1-lk%40c--e.de
-> 
-> Cc: Boris Brezillon <boris.brezillon@collabora.com>
-> Cc: Steven Price <steven.price@arm.com>
-> Cc: Liviu Dudau <liviu.dudau@arm.com>
-> Fixes: 68cbf96b1e9b ("drm/panthor: Part ways with drm_gem_shmem_object")
-> Signed-off-by: Christian A. Ehrhardt <lk@c--e.de>
+It's been basically broken forever so the correct fixes
+tags probably aren't super useful.
 
-I know the discussion is ongoing to decide what we should do about
-these huge_fault() handlers, but I think it's worth getting this fix in
-in the meantime.
+However the nastier user visible regression happened in 
+commit ba91b9eecb47 ("drm/i915/cdclk: Decouple cdclk from
+state->modeset") which therefore might make sense as a
+fixes tag. But if we put that in then I'm worried that it
+won't get backported to older kernels. I guess we could throw
+that in there along with the ancient commits that actually
+introduced the problem.
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+So something along the lines of:
+Fixes: ba91b9eecb47 ("drm/i915/cdclk: Decouple cdclk from state->modeset")
+Fixes: d66a21947e21 ("drm/i915/bxt: Sanitize CDCLK to fix breakage during S4 resume")
+Fixes: c73666f394fc ("drm/i915/skl: If needed sanitize bios programmed cdclk")
 
-> ---
->  drivers/gpu/drm/panthor/panthor_gem.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> NOTE:
-> The panthor version is only compile tested because I don't
-> have the hardware. However, the code is identical to that
-> fixed in [1] and I have a reproducer for that.
-> 
-> No need for for stable backports. The code is new in 7.1.
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-> index a1e2eb1ca7bb..54535bae2b0c 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gem.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
-> @@ -802,9 +802,13 @@ static vm_fault_t insert_page(struct vm_fault *vmf, unsigned int order, struct p
->  	} else if (order == PMD_ORDER) {
->  		unsigned long pfn = page_to_pfn(page);
->  		unsigned long paddr = pfn << PAGE_SHIFT;
-> +		struct vm_area_struct *vma = vmf->vma;
-> +		unsigned long start = ALIGN_DOWN(vmf->address, PMD_SIZE);
-> +		unsigned long end = start + PMD_SIZE;
-> +		bool in_range = vma->vm_start <= start && end <= vma->vm_end;
->  		bool aligned = (vmf->address & ~PMD_MASK) == (paddr & ~PMD_MASK);
->  
-> -		if (aligned &&
-> +		if (aligned && in_range &&
->  		    folio_test_pmd_mappable(page_folio(page))) {
->  			pfn &= PMD_MASK >> PAGE_SHIFT;
->  			return vmf_insert_pfn_pmd(vmf, pfn, vmf->flags & FAULT_FLAG_WRITE);
-
+-- 
+Ville Syrjälä
+Intel
