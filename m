@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCDF7CDE002
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 15:00:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A34C3CDE003
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 15:00:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D024A10EF79;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D35A310EF80;
 	Wed, 24 Jun 2026 15:00:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="mmTg++VR";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="cZPaeaYu";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D747210EF71
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 15:00:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C3C510EF79
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 15:00:47 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id EC86544476;
- Wed, 24 Jun 2026 15:00:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B8750C4AF1A;
- Wed, 24 Jun 2026 15:00:44 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9EAC844547;
+ Wed, 24 Jun 2026 15:00:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7B43AC2BCB7;
+ Wed, 24 Jun 2026 15:00:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1782313244; bh=iQHGWPaM+K+cKo+H5JDtUc/37urf23KbdiF6XVV5Cf0=;
+ t=1782313245; bh=0iEJ9CoHu7M3V0ejPEkK0764ck94VjFLyF6WPTDVWGc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=mmTg++VRmiwo8AaWTVuAwO7lrBPGgHb8O6l9zpBJNPfwMUywV7WaTCDNV1RYZWKp1
- dZkobQu8BAFaF+kInc9UcVcgEsWHwZZ8bXa9nfMJqwlWbUpJ5QsNMbV/WPU8P5AV7B
- 49ijqJ2/jqfR60jh2jsvkpPYBxrM5yVSLis0EIfM=
+ b=cZPaeaYuvPXFW16yS4h5jK7GIvfVXWWFrA9SpB6FzR/f6kxfdyHp/hFf5X0al4BtR
+ pchH7/2cH58erhFtTi1TOmoEyhJdKCYDHCvu6dcAmYKMeBnTeK6ZufLydvuJCWba4m
+ hdJtzNocjQobxtpa6kzYlKDEnGQJX0Ek9z5iMb7w=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id A5968CDB479;
- Wed, 24 Jun 2026 15:00:44 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 6F8E1CDB47F;
+ Wed, 24 Jun 2026 15:00:45 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Wed, 24 Jun 2026 23:00:03 +0800
-Subject: [PATCH v6 04/10] rust: macros: auto-insert OwnerModule in
- #[vtable]
+Date: Wed, 24 Jun 2026 23:00:07 +0800
+Subject: [PATCH v6 08/10] rust: binder: use `LocalModule` for `THIS_MODULE`
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260624-fix-fops-owner-v6-4-5295e333cb3e@linux.dev>
+Message-Id: <20260624-fix-fops-owner-v6-8-5295e333cb3e@linux.dev>
 References: <20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev>
 In-Reply-To: <20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -70,11 +69,11 @@ Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
  linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782313241; l=4578;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782313241; l=1377;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=iQHGWPaM+K+cKo+H5JDtUc/37urf23KbdiF6XVV5Cf0=;
- b=0H5X/5+MZbZ75STC83f0RU8t0fV+DnH5gNS+HA+9TWhXpbW4zWrArcTFBkdZTQc+Sni8f4Lgx
- iB4t0APdpJ8BfhghcTei9QDZZgJpKN4mpwJSzzUa7uxOzyrhDSxFGuQ
+ bh=0iEJ9CoHu7M3V0ejPEkK0764ck94VjFLyF6WPTDVWGc=;
+ b=90DVehEzX4GVxkJQKp/UkmxJ/SvBfRIhVfUWxWBiHcaw5Y90iPWP+6yMllw1lFeTiju16tIx+
+ 6gL491tyPcBAe94hlWjWZaF7bZauaIu1tJn66BkwMb2Z2dx2gGxHoUA
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -94,116 +93,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Auto-add `type OwnerModule: ::kernel::ModuleMetadata;` as a required
-associated type on the trait side if not already defined, and
-auto-insert `type OwnerModule = crate::LocalModule;` on the impl side
-if not explicitly provided, eliminating the need to manually declare
-and implement `OwnerModule` in every vtable trait and impl.
+Replace the `THIS_MODULE` static reference in the binder fops with
+`this_module::<LocalModule>()`, consistent with the move of
+`THIS_MODULE` into the `ModuleMetadata` trait.
 
 Assisted-by: opencode:glm-5.2
-Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
-Suggested-by: Gary Guo <gary@garyguo.net>
-Link: https://lore.kernel.org/all/DIMMWHUOLPSH.13JFRHDKDQJGO@garyguo.net
 Reviewed-by: Gary Guo <gary@garyguo.net>
 Acked-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- rust/macros/lib.rs    |  6 ++++++
- rust/macros/vtable.rs | 41 ++++++++++++++++++++++++++++++++++++-----
- 2 files changed, 42 insertions(+), 5 deletions(-)
+ drivers/android/binder/rust_binder_main.rs | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/rust/macros/lib.rs b/rust/macros/lib.rs
-index 2cfd59e0f9e7c..bc7ded353c5ca 100644
---- a/rust/macros/lib.rs
-+++ b/rust/macros/lib.rs
-@@ -176,6 +176,12 @@ pub fn module(input: TokenStream) -> TokenStream {
- ///
- /// This macro should not be used when all functions are required.
- ///
-+/// Additionally, this macro automatically handles the `OwnerModule`
-+/// associated type: on the trait side, `type OwnerModule: ModuleMetadata;`
-+/// is added as a required associated type if not already defined; on the
-+/// impl side, `type OwnerModule = LocalModule;` is automatically inserted
-+/// if not explicitly defined.
-+///
- /// # Examples
- ///
- /// ```
-diff --git a/rust/macros/vtable.rs b/rust/macros/vtable.rs
-index c6510b0c4ea1d..be9a5ed8abe5e 100644
---- a/rust/macros/vtable.rs
-+++ b/rust/macros/vtable.rs
-@@ -30,6 +30,22 @@ fn handle_trait(mut item: ItemTrait) -> Result<ItemTrait> {
-          const USE_VTABLE_ATTR: ();
-     });
+diff --git a/drivers/android/binder/rust_binder_main.rs b/drivers/android/binder/rust_binder_main.rs
+index dc1941cd2407b..d6ceebbd5f94e 100644
+--- a/drivers/android/binder/rust_binder_main.rs
++++ b/drivers/android/binder/rust_binder_main.rs
+@@ -17,6 +17,7 @@
+     bindings::{self, seq_file},
+     fs::File,
+     list::{ListArc, ListArcSafe, ListLinksSelfPtr, TryNewListArc},
++    module::this_module,
+     prelude::*,
+     seq_file::SeqFile,
+     seq_print,
+@@ -318,7 +319,7 @@ unsafe impl<T> Sync for AssertSync<T> {}
+     let zeroed_ops = unsafe { core::mem::MaybeUninit::zeroed().assume_init() };
  
-+    // Add `type OwnerModule: ModuleMetadata` as a required associated type if
-+    // the trait does not already define it.
-+    if !item
-+        .items
-+        .iter()
-+        .any(|i| matches!(i, TraitItem::Type(t) if t.ident == "OwnerModule"))
-+    {
-+        gen_items.push(parse_quote! {
-+            /// The module implementing this vtable trait.
-+            ///
-+            /// Automatically set to `crate::LocalModule` by the `#[vtable]`
-+            /// impl macro.
-+            type OwnerModule: ::kernel::ModuleMetadata;
-+        });
-+    }
-+
-     for item in &item.items {
-         if let TraitItem::Fn(fn_item) = item {
-             let name = &fn_item.sig.ident;
-@@ -57,12 +73,18 @@ fn handle_trait(mut item: ItemTrait) -> Result<ItemTrait> {
- 
- fn handle_impl(mut item: ItemImpl) -> Result<ItemImpl> {
-     let mut gen_items = Vec::new();
--    let mut defined_consts = HashSet::new();
-+    let mut defined_items = HashSet::new();
- 
--    // Iterate over all user-defined constants to gather any possible explicit overrides.
-+    // Iterate over all user-defined items to gather any possible explicit overrides.
-     for item in &item.items {
--        if let ImplItem::Const(const_item) = item {
--            defined_consts.insert(const_item.ident.clone());
-+        match item {
-+            ImplItem::Const(const_item) => {
-+                defined_items.insert(const_item.ident.clone());
-+            }
-+            ImplItem::Type(type_item) => {
-+                defined_items.insert(type_item.ident.clone());
-+            }
-+            _ => {}
-         }
-     }
- 
-@@ -70,6 +92,15 @@ fn handle_impl(mut item: ItemImpl) -> Result<ItemImpl> {
-         const USE_VTABLE_ATTR: () = ();
-     });
- 
-+    // Auto-insert `type OwnerModule = crate::LocalModule` if not explicitly defined.
-+    // `crate::LocalModule` resolves to the real module type (via `module!`) or a
-+    // dummy fallback in non-module contexts (e.g., doctests).
-+    if !defined_items.contains(&parse_quote!(OwnerModule)) {
-+        gen_items.push(parse_quote! {
-+            type OwnerModule = crate::LocalModule;
-+        });
-+    }
-+
-     for item in &item.items {
-         if let ImplItem::Fn(fn_item) = item {
-             let name = &fn_item.sig.ident;
-@@ -78,7 +109,7 @@ fn handle_impl(mut item: ItemImpl) -> Result<ItemImpl> {
-                 name.span(),
-             );
-             // Skip if it's declared already -- this allows user override.
--            if defined_consts.contains(&gen_const_name) {
-+            if defined_items.contains(&gen_const_name) {
-                 continue;
-             }
-             let cfg_attrs = crate::helpers::gather_cfg_attrs(&fn_item.attrs);
+     let ops = kernel::bindings::file_operations {
+-        owner: THIS_MODULE.as_ptr(),
++        owner: this_module::<LocalModule>().as_ptr(),
+         poll: Some(rust_binder_poll),
+         unlocked_ioctl: Some(rust_binder_ioctl),
+         compat_ioctl: bindings::compat_ptr_ioctl,
 
 -- 
 2.43.0
