@@ -4,60 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E288CDB479
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 13:04:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E041CDB481
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 13:04:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 693AE10EF17;
-	Wed, 24 Jun 2026 13:04:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83F8810EF1B;
+	Wed, 24 Jun 2026 13:04:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cqwoBYv1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FVDAUURG";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D81A10EF17
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 13:04:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782306244; x=1813842244;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=kiTOvM/hNnyxlhusTmCns63nmkO4Be0o5SF6htiXnYA=;
- b=cqwoBYv100RYfOEyvonpARmQfwN8NaAp7yc1nEaaiFJToUxUwBaTndrI
- /QebB190m/hAgiejIeSqqnwLjWsY22O3tNJFMiugzYU2NmbDBzZQ85x2l
- ClBuw6mRdIlPUzXtDJlnhv1HHNPBk07eCBIyoTyT/wzFdSkDCMwBh6Efr
- YCdMBnDCThXUqaxNfA+i53Bi1wF0eycBvV5fUoUSr3WMNAZL0ZGjBi2DU
- MSZANNl4RGJQhgkQNxetdRpj3CzJS1W3uMdAtA2MKLtZN4pd9u2ugwru5
- BI2GVAbadZI64fg5EeqHLJXUeXAVcgU4uMSAYUGr4XvWPTMXwn/6/2md5 g==;
-X-CSE-ConnectionGUID: U6OK5FndRDupw3tPYfAMDA==
-X-CSE-MsgGUID: eizGUk+8RGOOGgbBQuApxA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="85623772"
-X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; d="scan'208";a="85623772"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2026 06:04:03 -0700
-X-CSE-ConnectionGUID: 9ZERmlspSMWcak+c+6G67A==
-X-CSE-MsgGUID: VKKqMC//ShymcweiQMaEEw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; d="scan'208";a="287974169"
-Received: from lkp-server02.sh.intel.com (HELO ea128546eb3d) ([10.239.97.151])
- by orviesa001.jf.intel.com with ESMTP; 24 Jun 2026 06:04:00 -0700
-Received: from kbuild by ea128546eb3d with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wcNGn-000000003N3-0Z6f;
- Wed, 24 Jun 2026 13:03:57 +0000
-Date: Wed, 24 Jun 2026 21:02:58 +0800
-From: kernel test robot <lkp@intel.com>
-To: Joyeta Modak <joyetamdk@gmail.com>, andy@kernel.org,
- gregkh@linuxfoundation.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
- Joyeta Modak <joyetamdk@gmail.com>
-Subject: Re: [PATCH] staging: fbtft: use ARRAY_SIZE() in NUMARGS macro
-Message-ID: <202606242026.MmYHG2FZ-lkp@intel.com>
-References: <20260624073804.4391-1-joyetamdk@gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33D1410EF1B
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 13:04:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 87E3C60018;
+ Wed, 24 Jun 2026 13:04:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C30851F000E9;
+ Wed, 24 Jun 2026 13:04:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782306262;
+ bh=eWHl0udhvjCV2mjGVC5uD1U/TvHNrVW3aXd0HzDYa1U=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=FVDAUURG5/OnVD/2XG5fzA49+V/z3pAgKME/Z9UXdbjAATGJL7M3qh98G+bnxhA8y
+ zvn8Vir+IzYGhhHsGRzq15UnjwPKF3AWWu37ET7ogGxEu95K7qdVsdQ4W2hTvJMESV
+ BCwWgJDd84CnVWefJoKqTcKxoZ5DOc0EgfqgJ6eedQs5wdcaHeFoUa+Htx2y3HpN3y
+ 0ehEMWnE+LupoJaQcFZpdLLmP97qbW0M9g2fxDKXUKvgup+VBq3KxMNhTQyHyiZ5fL
+ AztfsXKYTjbMO6PWpYeSCHDEuxlk0qhkY5eU1VhvqfK7oFMtH/4wyCDTTa0+Fm3JHN
+ 6INBjM3evlPJQ==
+Date: Wed, 24 Jun 2026 15:04:19 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
+ Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 30/37] drm/bridge: add drm_bridge_is_tail() to know
+ whether a bridge completes the pipeline
+Message-ID: <20260624-vagabond-neon-gorilla-cd6487@houat>
+References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
+ <20260519-drm-bridge-hotplug-v1-30-45e2bdb3dfb4@bootlin.com>
+ <20260608-shapeless-opal-ferret-c8b105@houat>
+ <DJ4DGYZ3GQZH.3AZOC0Z69W92S@bootlin.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="kbqprj5uqeblzkb7"
 Content-Disposition: inline
-In-Reply-To: <20260624073804.4391-1-joyetamdk@gmail.com>
+In-Reply-To: <DJ4DGYZ3GQZH.3AZOC0Z69W92S@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,431 +77,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Joyeta,
 
-kernel test robot noticed the following build errors:
+--kbqprj5uqeblzkb7
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 30/37] drm/bridge: add drm_bridge_is_tail() to know
+ whether a bridge completes the pipeline
+MIME-Version: 1.0
 
-[auto build test ERROR on staging/staging-testing]
+On Tue, Jun 09, 2026 at 10:23:24AM +0200, Luca Ceresoli wrote:
+> Hi Maxime,
+>=20
+> thanks for the review of this long series!
+>=20
+> On Mon Jun 8, 2026 at 2:34 PM CEST, Maxime Ripard wrote:
+> ...
+> >> --- a/include/drm/drm_bridge.h
+> >> +++ b/include/drm/drm_bridge.h
+> >> @@ -78,6 +78,19 @@ struct drm_bridge_funcs {
+> >>  	int (*attach)(struct drm_bridge *bridge, struct drm_encoder *encoder,
+> >>  		      enum drm_bridge_attach_flags flags);
+> >>
+> >> +	/**
+> >> +	 * @is_tail:
+> >> +	 *
+> >> +	 * Returns true if this is a tail bridge, i.e. it does not need a
+> >> +	 * next bridge to work. E.g. a panel_bridge is a tail bridge, a
+> >> +	 * DSI-to-LVDS bridge is not a tail bridge (no matter whether the
+> >> +	 * next bridge is present or not).
+> >
+> > Why a DSI-to-LDVS bridge isn't a tail bridge? It only needs a panel
+> > next, right?
+>=20
+> Uhm, good point, but I'd say it can be a tail bridge or not: in the
+> ATTACH_NO_CONNECTOR case it will need a bridge (a panel_bridge most
+> likely), no?
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Joyeta-Modak/staging-fbtft-use-ARRAY_SIZE-in-NUMARGS-macro/20260624-153912
-base:   staging/staging-testing
-patch link:    https://lore.kernel.org/r/20260624073804.4391-1-joyetamdk%40gmail.com
-patch subject: [PATCH] staging: fbtft: use ARRAY_SIZE() in NUMARGS macro
-config: um-randconfig-002-20260624 (https://download.01.org/0day-ci/archive/20260624/202606242026.MmYHG2FZ-lkp@intel.com/config)
-compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260624/202606242026.MmYHG2FZ-lkp@intel.com/reproduce)
+Yeah, I think it cannot (always) be a blanket statement from the driver.
+For drivers that do not support ATTACH_NO_CONNECTOR, then it's always
+going to be a tail, but if the driver supports it, we should use a
+helper because it's going to depend on the DT, basically.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202606242026.MmYHG2FZ-lkp@intel.com/
+> However this is possibly irrelevant as the whole .is_tail is meant to
+> disappear in v2, see below.
+>
+> >> +	 * The @is_tail callback is optional but it is required if the
+> >> +	 * bridge is part of a pipeline with hot-pluggable components.
+> >> +	 */
+> >> +	bool (*is_tail)(struct drm_bridge *bridge);
+> >> +
+> >
+> > I don't think that's the right way to think about it, if only because
+> > you never really know at the driver level if you're supposed to be last
+> > or not. A DSI-to-LVDS bridge might just as well be chained with an
+> > LVDS-to-eDP bridge, or feed the panel directly without any additional
+> > bridge.
+> >
+> > I *think* that what you're trying to find out here is whether the chain
+> > is complete or not.
+>=20
+> You nailed it.
+>=20
+> That was the main point discussed during the Display Next Hackfest 2026
+> (see the report [0]) and we all agreed the .is_tail along with the
+> -EPROBE_DEFER changes (patches 20+35) are not a good approach.
+>=20
+> This is actually the most crucial aspect of the whole work still not havi=
+ng
+> no well-defined solution.
 
-All errors (new ones prefixed by >>):
+Ok
 
-   In file included from drivers/staging/fbtft/fb_ili9486.c:13:
-   In file included from drivers/staging/fbtft/fbtft.h:8:
-   In file included from include/linux/fb.h:5:
-   In file included from include/uapi/linux/fb.h:6:
-   In file included from include/linux/i2c.h:19:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:13:
-   In file included from include/linux/cgroup.h:27:
-   In file included from include/linux/kernel_stat.h:8:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from arch/um/include/asm/hardirq.h:24:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:12:
-   In file included from arch/um/include/asm/io.h:24:
-   include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-    1209 |         return (port > MMIO_UPPER_LIMIT) ? NULL : PCI_IOBASE + port;
-         |                                                   ~~~~~~~~~~ ^
->> drivers/staging/fbtft/fb_ili9486.c:51:11: error: initializer element is not a compile-time constant
-      51 |                           0x80 | (par->bgr << 3));
-         |                           ~~~~~^~~~~~~~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:240:47: note: expanded from macro 'write_reg'
-     240 |         ((par)->fbtftops.write_register(par, NUMARGS(__VA_ARGS__), __VA_ARGS__))
-         |                                                      ^~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:237:43: note: expanded from macro 'NUMARGS'
-     237 | #define NUMARGS(...)  ARRAY_SIZE(((int[]){__VA_ARGS__}))
-         |                                           ^~~~~~~~~~~
-   include/linux/array_size.h:11:75: note: expanded from macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                                                           ^~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler.h:204:39: note: expanded from macro '__is_array'
-     204 | #define __is_array(a)           (!__same_type((a), &(a)[0]))
-         |                                                ^
-   include/linux/compiler_types.h:610:63: note: expanded from macro '__same_type'
-     610 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
-         |                                                               ^
-   include/linux/compiler.h:200:84: note: expanded from macro '__BUILD_BUG_ON_ZERO_MSG'
-     200 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
-         |                                                                                    ^
-   drivers/staging/fbtft/fb_ili9486.c:55:11: error: initializer element is not a compile-time constant
-      55 |                           0x20 | (par->bgr << 3));
-         |                           ~~~~~^~~~~~~~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:240:47: note: expanded from macro 'write_reg'
-     240 |         ((par)->fbtftops.write_register(par, NUMARGS(__VA_ARGS__), __VA_ARGS__))
-         |                                                      ^~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:237:43: note: expanded from macro 'NUMARGS'
-     237 | #define NUMARGS(...)  ARRAY_SIZE(((int[]){__VA_ARGS__}))
-         |                                           ^~~~~~~~~~~
-   include/linux/array_size.h:11:75: note: expanded from macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                                                           ^~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler.h:204:39: note: expanded from macro '__is_array'
-     204 | #define __is_array(a)           (!__same_type((a), &(a)[0]))
-         |                                                ^
-   include/linux/compiler_types.h:610:63: note: expanded from macro '__same_type'
-     610 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
-         |                                                               ^
-   include/linux/compiler.h:200:84: note: expanded from macro '__BUILD_BUG_ON_ZERO_MSG'
-     200 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
-         |                                                                                    ^
-   drivers/staging/fbtft/fb_ili9486.c:59:11: error: initializer element is not a compile-time constant
-      59 |                           0x40 | (par->bgr << 3));
-         |                           ~~~~~^~~~~~~~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:240:47: note: expanded from macro 'write_reg'
-     240 |         ((par)->fbtftops.write_register(par, NUMARGS(__VA_ARGS__), __VA_ARGS__))
-         |                                                      ^~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:237:43: note: expanded from macro 'NUMARGS'
-     237 | #define NUMARGS(...)  ARRAY_SIZE(((int[]){__VA_ARGS__}))
-         |                                           ^~~~~~~~~~~
-   include/linux/array_size.h:11:75: note: expanded from macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                                                           ^~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler.h:204:39: note: expanded from macro '__is_array'
-     204 | #define __is_array(a)           (!__same_type((a), &(a)[0]))
-         |                                                ^
-   include/linux/compiler_types.h:610:63: note: expanded from macro '__same_type'
-     610 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
-         |                                                               ^
-   include/linux/compiler.h:200:84: note: expanded from macro '__BUILD_BUG_ON_ZERO_MSG'
-     200 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
-         |                                                                                    ^
-   drivers/staging/fbtft/fb_ili9486.c:63:11: error: initializer element is not a compile-time constant
-      63 |                           0xE0 | (par->bgr << 3));
-         |                           ~~~~~^~~~~~~~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:240:47: note: expanded from macro 'write_reg'
-     240 |         ((par)->fbtftops.write_register(par, NUMARGS(__VA_ARGS__), __VA_ARGS__))
-         |                                                      ^~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:237:43: note: expanded from macro 'NUMARGS'
-     237 | #define NUMARGS(...)  ARRAY_SIZE(((int[]){__VA_ARGS__}))
-         |                                           ^~~~~~~~~~~
-   include/linux/array_size.h:11:75: note: expanded from macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                                                           ^~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler.h:204:39: note: expanded from macro '__is_array'
-     204 | #define __is_array(a)           (!__same_type((a), &(a)[0]))
-         |                                                ^
-   include/linux/compiler_types.h:610:63: note: expanded from macro '__same_type'
-     610 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
-         |                                                               ^
-   include/linux/compiler.h:200:84: note: expanded from macro '__BUILD_BUG_ON_ZERO_MSG'
-     200 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
-         |                                                                                    ^
-   1 warning and 4 errors generated.
---
-   In file included from drivers/staging/fbtft/fbtft-core.c:18:
-   In file included from include/linux/fb.h:5:
-   In file included from include/uapi/linux/fb.h:6:
-   In file included from include/linux/i2c.h:19:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:13:
-   In file included from include/linux/cgroup.h:27:
-   In file included from include/linux/kernel_stat.h:8:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from arch/um/include/asm/hardirq.h:24:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:12:
-   In file included from arch/um/include/asm/io.h:24:
-   include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-    1209 |         return (port > MMIO_UPPER_LIMIT) ? NULL : PCI_IOBASE + port;
-         |                                                   ~~~~~~~~~~ ^
->> drivers/staging/fbtft/fbtft-core.c:204:15: error: initializer element is not a compile-time constant
-     204 |                   (xs >> 8) & 0xFF, xs & 0xFF, (xe >> 8) & 0xFF, xe & 0xFF);
-         |                   ~~~~~~~~~~^~~~~~
-   drivers/staging/fbtft/fbtft.h:240:47: note: expanded from macro 'write_reg'
-     240 |         ((par)->fbtftops.write_register(par, NUMARGS(__VA_ARGS__), __VA_ARGS__))
-         |                                                      ^~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:237:43: note: expanded from macro 'NUMARGS'
-     237 | #define NUMARGS(...)  ARRAY_SIZE(((int[]){__VA_ARGS__}))
-         |                                           ^~~~~~~~~~~
-   include/linux/array_size.h:11:75: note: expanded from macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                                                           ^~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler.h:204:39: note: expanded from macro '__is_array'
-     204 | #define __is_array(a)           (!__same_type((a), &(a)[0]))
-         |                                                ^
-   include/linux/compiler_types.h:610:63: note: expanded from macro '__same_type'
-     610 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
-         |                                                               ^
-   include/linux/compiler.h:200:84: note: expanded from macro '__BUILD_BUG_ON_ZERO_MSG'
-     200 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
-         |                                                                                    ^
-   drivers/staging/fbtft/fbtft-core.c:207:15: error: initializer element is not a compile-time constant
-     207 |                   (ys >> 8) & 0xFF, ys & 0xFF, (ye >> 8) & 0xFF, ye & 0xFF);
-         |                   ~~~~~~~~~~^~~~~~
-   drivers/staging/fbtft/fbtft.h:240:47: note: expanded from macro 'write_reg'
-     240 |         ((par)->fbtftops.write_register(par, NUMARGS(__VA_ARGS__), __VA_ARGS__))
-         |                                                      ^~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:237:43: note: expanded from macro 'NUMARGS'
-     237 | #define NUMARGS(...)  ARRAY_SIZE(((int[]){__VA_ARGS__}))
-         |                                           ^~~~~~~~~~~
-   include/linux/array_size.h:11:75: note: expanded from macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                                                           ^~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler.h:204:39: note: expanded from macro '__is_array'
-     204 | #define __is_array(a)           (!__same_type((a), &(a)[0]))
-         |                                                ^
-   include/linux/compiler_types.h:610:63: note: expanded from macro '__same_type'
-     610 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
-         |                                                               ^
-   include/linux/compiler.h:200:84: note: expanded from macro '__BUILD_BUG_ON_ZERO_MSG'
-     200 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
-         |                                                                                    ^
-   1 warning and 2 errors generated.
---
-   In file included from drivers/staging/fbtft/fb_upd161704.c:17:
-   In file included from drivers/staging/fbtft/fbtft.h:8:
-   In file included from include/linux/fb.h:5:
-   In file included from include/uapi/linux/fb.h:6:
-   In file included from include/linux/i2c.h:19:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:13:
-   In file included from include/linux/cgroup.h:27:
-   In file included from include/linux/kernel_stat.h:8:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from arch/um/include/asm/hardirq.h:24:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:12:
-   In file included from arch/um/include/asm/io.h:24:
-   include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-    1209 |         return (port > MMIO_UPPER_LIMIT) ? NULL : PCI_IOBASE + port;
-         |                                                   ~~~~~~~~~~ ^
->> drivers/staging/fbtft/fb_upd161704.c:119:26: error: initializer element is not a compile-time constant
-     119 |                 write_reg(par, 0x0006, xs);
-         |                                        ^~
-   drivers/staging/fbtft/fbtft.h:240:47: note: expanded from macro 'write_reg'
-     240 |         ((par)->fbtftops.write_register(par, NUMARGS(__VA_ARGS__), __VA_ARGS__))
-         |                                                      ^~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:237:43: note: expanded from macro 'NUMARGS'
-     237 | #define NUMARGS(...)  ARRAY_SIZE(((int[]){__VA_ARGS__}))
-         |                                           ^~~~~~~~~~~
-   include/linux/array_size.h:11:75: note: expanded from macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                                                           ^~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler.h:204:39: note: expanded from macro '__is_array'
-     204 | #define __is_array(a)           (!__same_type((a), &(a)[0]))
-         |                                                ^
-   include/linux/compiler_types.h:610:63: note: expanded from macro '__same_type'
-     610 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
-         |                                                               ^
-   include/linux/compiler.h:200:84: note: expanded from macro '__BUILD_BUG_ON_ZERO_MSG'
-     200 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
-         |                                                                                    ^
-   drivers/staging/fbtft/fb_upd161704.c:120:26: error: initializer element is not a compile-time constant
-     120 |                 write_reg(par, 0x0007, ys);
-         |                                        ^~
-   drivers/staging/fbtft/fbtft.h:240:47: note: expanded from macro 'write_reg'
-     240 |         ((par)->fbtftops.write_register(par, NUMARGS(__VA_ARGS__), __VA_ARGS__))
-         |                                                      ^~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:237:43: note: expanded from macro 'NUMARGS'
-     237 | #define NUMARGS(...)  ARRAY_SIZE(((int[]){__VA_ARGS__}))
-         |                                           ^~~~~~~~~~~
-   include/linux/array_size.h:11:75: note: expanded from macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                                                           ^~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler.h:204:39: note: expanded from macro '__is_array'
-     204 | #define __is_array(a)           (!__same_type((a), &(a)[0]))
-         |                                                ^
-   include/linux/compiler_types.h:610:63: note: expanded from macro '__same_type'
-     610 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
-         |                                                               ^
-   include/linux/compiler.h:200:84: note: expanded from macro '__BUILD_BUG_ON_ZERO_MSG'
-     200 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
-         |                                                                                    ^
-   drivers/staging/fbtft/fb_upd161704.c:123:36: error: initializer element is not a compile-time constant
-     123 |                 write_reg(par, 0x0006, WIDTH - 1 - xs);
-         |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
-   drivers/staging/fbtft/fbtft.h:240:47: note: expanded from macro 'write_reg'
-     240 |         ((par)->fbtftops.write_register(par, NUMARGS(__VA_ARGS__), __VA_ARGS__))
-         |                                              ~~~~~~~~^~~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:237:43: note: expanded from macro 'NUMARGS'
-     237 | #define NUMARGS(...)  ARRAY_SIZE(((int[]){__VA_ARGS__}))
-         |                       ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
-   include/linux/array_size.h:11:75: note: expanded from macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                                           ~~~~~~~~~~~~~~~~^~~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler.h:204:39: note: expanded from macro '__is_array'
-     204 | #define __is_array(a)           (!__same_type((a), &(a)[0]))
-         |                                                ^
-   include/linux/compiler_types.h:610:63: note: expanded from macro '__same_type'
-     610 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
-         |                                                               ^
-   include/linux/compiler.h:200:84: note: expanded from macro '__BUILD_BUG_ON_ZERO_MSG'
-     200 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
-         |                                                                                    ^
-   drivers/staging/fbtft/fb_upd161704.c:124:37: error: initializer element is not a compile-time constant
-     124 |                 write_reg(par, 0x0007, HEIGHT - 1 - ys);
-         |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
-   drivers/staging/fbtft/fbtft.h:240:47: note: expanded from macro 'write_reg'
-     240 |         ((par)->fbtftops.write_register(par, NUMARGS(__VA_ARGS__), __VA_ARGS__))
-         |                                              ~~~~~~~~^~~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:237:43: note: expanded from macro 'NUMARGS'
-     237 | #define NUMARGS(...)  ARRAY_SIZE(((int[]){__VA_ARGS__}))
-         |                       ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
-   include/linux/array_size.h:11:75: note: expanded from macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                                           ~~~~~~~~~~~~~~~~^~~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler.h:204:39: note: expanded from macro '__is_array'
-     204 | #define __is_array(a)           (!__same_type((a), &(a)[0]))
-         |                                                ^
-   include/linux/compiler_types.h:610:63: note: expanded from macro '__same_type'
-     610 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
-         |                                                               ^
-   include/linux/compiler.h:200:84: note: expanded from macro '__BUILD_BUG_ON_ZERO_MSG'
-     200 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
-         |                                                                                    ^
-   drivers/staging/fbtft/fb_upd161704.c:127:36: error: initializer element is not a compile-time constant
-     127 |                 write_reg(par, 0x0006, WIDTH - 1 - ys);
-         |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
-   drivers/staging/fbtft/fbtft.h:240:47: note: expanded from macro 'write_reg'
-     240 |         ((par)->fbtftops.write_register(par, NUMARGS(__VA_ARGS__), __VA_ARGS__))
-         |                                              ~~~~~~~~^~~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:237:43: note: expanded from macro 'NUMARGS'
-     237 | #define NUMARGS(...)  ARRAY_SIZE(((int[]){__VA_ARGS__}))
-         |                       ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
-   include/linux/array_size.h:11:75: note: expanded from macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                                           ~~~~~~~~~~~~~~~~^~~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
---
-   In file included from drivers/staging/fbtft/fb_pcd8544.c:15:
-   In file included from include/linux/spi/spi.h:17:
-   In file included from include/linux/scatterlist.h:9:
-   In file included from arch/um/include/asm/io.h:24:
-   include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-    1209 |         return (port > MMIO_UPPER_LIMIT) ? NULL : PCI_IOBASE + port;
-         |                                                   ~~~~~~~~~~ ^
->> drivers/staging/fbtft/fb_pcd8544.c:53:17: error: initializer element is not a compile-time constant
-      53 |         write_reg(par, 0x04 | (tc & 0x3));
-         |                        ^~~~~~~~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:240:47: note: expanded from macro 'write_reg'
-     240 |         ((par)->fbtftops.write_register(par, NUMARGS(__VA_ARGS__), __VA_ARGS__))
-         |                                                      ^~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:237:43: note: expanded from macro 'NUMARGS'
-     237 | #define NUMARGS(...)  ARRAY_SIZE(((int[]){__VA_ARGS__}))
-         |                                           ^~~~~~~~~~~
-   include/linux/array_size.h:11:75: note: expanded from macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                                                           ^~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler.h:204:39: note: expanded from macro '__is_array'
-     204 | #define __is_array(a)           (!__same_type((a), &(a)[0]))
-         |                                                ^
-   include/linux/compiler_types.h:610:63: note: expanded from macro '__same_type'
-     610 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
-         |                                                               ^
-   include/linux/compiler.h:200:84: note: expanded from macro '__BUILD_BUG_ON_ZERO_MSG'
-     200 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
-         |                                                                                    ^
-   drivers/staging/fbtft/fb_pcd8544.c:63:17: error: initializer element is not a compile-time constant
-      63 |         write_reg(par, 0x10 | (bs & 0x7));
-         |                        ^~~~~~~~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:240:47: note: expanded from macro 'write_reg'
-     240 |         ((par)->fbtftops.write_register(par, NUMARGS(__VA_ARGS__), __VA_ARGS__))
-         |                                                      ^~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:237:43: note: expanded from macro 'NUMARGS'
-     237 | #define NUMARGS(...)  ARRAY_SIZE(((int[]){__VA_ARGS__}))
-         |                                           ^~~~~~~~~~~
-   include/linux/array_size.h:11:75: note: expanded from macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                                                           ^~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler.h:204:39: note: expanded from macro '__is_array'
-     204 | #define __is_array(a)           (!__same_type((a), &(a)[0]))
-         |                                                ^
-   include/linux/compiler_types.h:610:63: note: expanded from macro '__same_type'
-     610 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
-         |                                                               ^
-   include/linux/compiler.h:200:84: note: expanded from macro '__BUILD_BUG_ON_ZERO_MSG'
-     200 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
-         |                                                                                    ^
-   drivers/staging/fbtft/fb_pcd8544.c:137:17: error: initializer element is not a compile-time constant
-     137 |         write_reg(par, 0x80 | curves[0]);
-         |                        ^~~~~~~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:240:47: note: expanded from macro 'write_reg'
-     240 |         ((par)->fbtftops.write_register(par, NUMARGS(__VA_ARGS__), __VA_ARGS__))
-         |                                                      ^~~~~~~~~~~
-   drivers/staging/fbtft/fbtft.h:237:43: note: expanded from macro 'NUMARGS'
-     237 | #define NUMARGS(...)  ARRAY_SIZE(((int[]){__VA_ARGS__}))
-         |                                           ^~~~~~~~~~~
-   include/linux/array_size.h:11:75: note: expanded from macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                                                           ^~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler.h:204:39: note: expanded from macro '__is_array'
-     204 | #define __is_array(a)           (!__same_type((a), &(a)[0]))
-         |                                                ^
-   include/linux/compiler_types.h:610:63: note: expanded from macro '__same_type'
-     610 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
-         |                                                               ^
-   include/linux/compiler.h:200:84: note: expanded from macro '__BUILD_BUG_ON_ZERO_MSG'
-     200 | #define __BUILD_BUG_ON_ZERO_MSG(e, msg, ...) ((int)sizeof(struct {_Static_assert(!(e), msg);}))
-         |                                                                                    ^
-   1 warning and 3 errors generated.
-..
+> > I think you can get the same information by checking
+> > whether you have a connector for that bridge chain. If you don't, you
+> > know the chain isn't complete, and if you do, it's supposed to be.
+>=20
+> There's a checken-egg problem here. Knowing whether the pipeline is
+> complete or not is needed to know whether we have to create a
+> connector. See patch 36:
+>=20
+>   +  if (drm_bridge_connector_pipeline_is_complete(bridge_connector))
+>   +          drm_bridge_connector_add_connector(bridge_connector);
+>=20
+> So the question is still open, what I need the most right now is comments
+> on the overall architecture of this aspecs. Maybe replying to [0] can be
+> more effective than here.
+>=20
+> In a nutshell what we need is:
+>=20
+>  * when a bridge needs a following element (a bridge, or a panel which
+>    however might/should have a panel_bridge), but that element is not
+>    present, instead of deferring the whole card probe the card should be
+>    allowed to probe but without a connector
+>=20
+>  * when something is added to an incomplete pipeline we need to know
+>    whether the pipeline has become complete (in order to create the
+>    connector)
+>=20
+> How to implement this is still an open point. I'll welcome proposals in
+> addition to the ones in [0].
 
+Thanks for the notes, I think I largely agree with the discussion.
+Reading through it, I thought it would be nice for a new callback called
+get_next_bridge or something that would return either an error, NULL or a
+(refcounted) pointer to the next bridge in the chain. And have some kind
+of special error (ENODEV?) when the bridge should be there but isn't
+(and thus the chain isn't complete).
 
-vim +51 drivers/staging/fbtft/fb_ili9486.c
+Maxime
 
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  45  
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  46  static int set_var(struct fbtft_par *par)
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  47  {
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  48  	switch (par->info->var.rotate) {
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  49  	case 0:
-49475ed0cbb5623 Priit Laes       2015-12-20  50  		write_reg(par, MIPI_DCS_SET_ADDRESS_MODE,
-49475ed0cbb5623 Priit Laes       2015-12-20 @51  			  0x80 | (par->bgr << 3));
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  52  		break;
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  53  	case 90:
-49475ed0cbb5623 Priit Laes       2015-12-20  54  		write_reg(par, MIPI_DCS_SET_ADDRESS_MODE,
-49475ed0cbb5623 Priit Laes       2015-12-20  55  			  0x20 | (par->bgr << 3));
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  56  		break;
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  57  	case 180:
-49475ed0cbb5623 Priit Laes       2015-12-20  58  		write_reg(par, MIPI_DCS_SET_ADDRESS_MODE,
-49475ed0cbb5623 Priit Laes       2015-12-20  59  			  0x40 | (par->bgr << 3));
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  60  		break;
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  61  	case 270:
-49475ed0cbb5623 Priit Laes       2015-12-20  62  		write_reg(par, MIPI_DCS_SET_ADDRESS_MODE,
-49475ed0cbb5623 Priit Laes       2015-12-20  63  			  0xE0 | (par->bgr << 3));
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  64  		break;
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  65  	default:
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  66  		break;
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  67  	}
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  68  
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  69  	return 0;
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  70  }
-8d64b032aa71963 Thomas Petazzoni 2014-12-31  71  
+--kbqprj5uqeblzkb7
+Content-Type: application/pgp-signature; name="signature.asc"
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCajvVzAAKCRAnX84Zoj2+
+dlmUAYD85u1Hv2vXFhhpb6AcHYKPXjuNOtyNzQsT4JWMH1ryh7eB79pKZqOgRdEy
+eq2O3/oBgPEWUBztGIVs76NR8fkCDIHxxd33fzv2OlQ6wFx/V7B8rXw601tQObK3
+cTgu6ITMBQ==
+=amXL
+-----END PGP SIGNATURE-----
+
+--kbqprj5uqeblzkb7--
