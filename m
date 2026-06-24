@@ -4,72 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FA05CDB479
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 17:35:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D4C5CDB47F
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 17:35:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6773710E0F5;
-	Wed, 24 Jun 2026 17:35:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 906C210EE2E;
+	Wed, 24 Jun 2026 17:35:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="fSqG0wgG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X1fxMZ1r";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1A6210E0F5
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 17:35:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782322541; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=DDVdUgeH7zJvQYOG7GEYThlZZ3fbrC5Prx5kCV+GZXTiVOfN2ka3fm5ZttDee1G0OuBNGxkvHAz1jFWQQhudyt7yg0FGaodd10EupB+n+8bR1GexX+JyFe2Yka/wW60Lp5upnrTTLGrayztUIDbf/sHzWDvjFzcYSnc2uJxBc4o=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1782322541;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=zqKFR1eYsc6fWBZow0rBCx89NPUaO0f/5Z1k7T53TSg=; 
- b=XEeW1QYVevnuLBF2WcdY3VZ2GsZ0JRBgLTunDF74bTKupuf4SzueE/phdYnWh/hwewkiSuHzpjeeSnjh22SQy/oPUGxojkD/CfgEujwW98+BfH75oqq1RlAulWJYJn7R7gW5XC7MpuiS53rRuqg/CEfVjGbYd4sXly/7zN7o7gk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782322541; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:References:Date:Date:Message-Id:Message-Id:Reply-To;
- bh=zqKFR1eYsc6fWBZow0rBCx89NPUaO0f/5Z1k7T53TSg=;
- b=fSqG0wgGOkfBE8hYj6i7lfjv5rwRg4ELjVQyp1QUU9kZCkICjYMFeCCCzS42Xs3L
- BQX5fjSoCnwHoBLNnHnMRS8wSWDe3mVmnktWH8kEGisd4rjfwjAQ2DceRd1j3ntic13
- k/3iRNOY6/xOIJ7eB3Ui4gBTSX625Is/IeomKqUA=
-Received: by mx.zohomail.com with SMTPS id 178232254073826.500951919288923;
- Wed, 24 Jun 2026 10:35:40 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 769DF10EE2E
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 17:35:53 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-490b8ac62baso1066045e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 10:35:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782322552; x=1782927352; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Y3ESHjFhIcPG4hvwDoMj3pKaSJ5JAGh6fCIgpcDiAdw=;
+ b=X1fxMZ1rMSZPD6jhPlIYkBSyOsxL+UgIeATLgyGr62Fvv0STRpS4cTU7ojw4LMSkXl
+ MZmdKtjf+iWXMm8R5U+DP8LEAtG16QyTmUwTVITXrpGtWGwHVnJcH28XU8wrqJRwhdu/
+ /BPUYuHDDmhMRF8oHUxrrjZ7D/ICxVZeJUez7fFd8L4WpO0QWCakiHaTI8DAlNaL0Txx
+ QMArQvLP829CVIz/4lbM7/ikkCaWT3eyEqze4qOxotBLKusbZX7o4fnQcw/sQ0sQRdXR
+ Z1sBPBWDQOOV8SJNAXKwINS4q6BlMp2tQTUKsPE1igcZCJF+GwsIkxIvR/WtLkJufT4i
+ mZMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782322552; x=1782927352;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Y3ESHjFhIcPG4hvwDoMj3pKaSJ5JAGh6fCIgpcDiAdw=;
+ b=OqqKYqFA2rsfoAoZqWfQavdMe/EtBv4V3ThHSVX+2sKhqOHaPlJNOqHtKzNcw6gpJ5
+ r3PXNc5TKwa73LVDgiHA1MmPtodWpKl4qOPtFJ2+66zo+w2BpbZ5Q+78ggHTICPSMdA3
+ qtm+yFKLCrqrg77yBBGSpvVljazORCRsBzDMNVLAkdB4Ut32SLEg5P6Qi4Z6ifsaMXW3
+ tDKNXdA2o1BjD/XJXpXcQtdWyrKguPDYgXIH3BuzBkJ1DBA6n5lAu7cCUbsI2fAmlu8d
+ RSLfaITyAxAwxqaJfRag7GCby7Gtq9iEx1SVdapmnP8ho+Gnl2UB+Cqjy/NPGqq/bYjD
+ TrLQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8wVPa/M7Fx9ma36y3PJlYbjK/aM6iic2vBbM6lnAUAanlg+Kr8bPeBDAP4KkqvSl2kMwylc3s6eGc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz2fvxej9a3CUYlFidzIX3q8TAYeVmOu67NxKBpwWpbcKDchi3C
+ /cGuV6ukJxAFARP4bYGjHsscZ6979GXcFuRfhUoVjMxg4AkPl2QUjZCq
+X-Gm-Gg: AfdE7clzSEsMLvxAWOyoByD0Ed4hY/XfwLE5mP1h/RhY9f5tHkhO/bLgR6dlZ0eoCSL
+ mFchkwFJ5YyCNQ4hmTEDiPvZ6Q+bBYhpo5duq3+TqdynRCYcfXAENBIg2SG4/oWgJ2/M31KYFs9
+ Fs4tb3k8gSyVTNKKYovVaM3e92fJnTY6dRdLcMtW9boBz+LSUaRUVcB7cHQCNplLh0dCzXLY+6n
+ zdgS1WMTcn2D+zrYj76WCT1K7E5sZ4rT62LMuWEQGS7ovjGCCv/I0mfztQJBzkoDBkhKDt1EUlI
+ 5W0lEaOYy/wxutclU5oECvPbUnJplAZO3JymRJGTZfgvOMVp7luYIKCOdw4sbjlRw7t5aNt0+gg
+ oyietySepYWqaFieatrahoIRxtG3V8QjTIfpzEudSfrkP0egClorpZLzqETMdXz+Evq6Hu14cig
+ Q2JVNV2g==
+X-Received: by 2002:a05:600c:4503:b0:492:6348:d7b0 with SMTP id
+ 5b1f17b1804b1-4926348d7e5mr17448505e9.18.1782322551566; 
+ Wed, 24 Jun 2026 10:35:51 -0700 (PDT)
+Received: from luca-vm.. ([81.56.18.151]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49260d917a5sm41336865e9.2.2026.06.24.10.35.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Jun 2026 10:35:51 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ CK Hu <ck.hu@mediatek.com>, Jitao shi <jitao.shi@mediatek.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: [PATCH] dt-bindings: mediatek: hdmi-ddc: Correct the compatibles for
+ mt7623-mt8167
+Date: Wed, 24 Jun 2026 19:34:56 +0200
+Message-ID: <20260624173514.19752-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2 1/2] drm/panthor: Add vm_bind region with kbo range
- overlap check
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-To: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260619-vm_bind_checks-v2-1-b51abab35f71@collabora.com>
-References: <20260619-vm_bind_checks-v2-0-b51abab35f71@collabora.com>
- <20260619-vm_bind_checks-v2-1-b51abab35f71@collabora.com>
-Date: Wed, 24 Jun 2026 18:35:34 +0100
-Message-Id: <178232253441.11712.16049726294094104029.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1328;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=QVtFORrOVlRVQrjg9UzIAEUHBFm4FOTbmQZkrOLqjYs=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqPBVo3hVOcoycFl/ame0/JprkQtFOU5zNgPnd+
- DBQx1Cx6GeJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCajwVaAAKCRAOJn5M7lND
- Pa9LC/9WXZpInvFPs7+fzCkluzcvlB4F36QoV+YaZq3Yi4loR1Ye1iHpc1JigpNaPHpHDy9jft3
- yi05W3e+icxakA7TZod7ZQ9+gqKLEV34Ci9KKY11MoOh4mMib5fwTubtN74R3gmU6WDCtY8HYxx
- f0+viWq+BhbsoZdGaH6obF+5cNzfBjdUYW1cOs4kOb3tUDRBOhFFVNfpXRXm1OQcsWe7d09/ZTv
- Q7DUVX7Ni8UzL6MtYR0HNHCtINwuA7XHllI+4OV0eS6m4jIOCaPF/yV/Cpl+5IbSSrieUx3j64q
- dtxGPOz4VQYJsFM486xYQxDT5v+Rig6pRXWQ5aaaF10jaPVt2eLgEWH1iCnjlAUAxp70ydt6gyS
- S3ZTFcCV9dxW0Yao++m7IFSQb0MhowB/udG8BurVDG21uFY5eW9EgLhSsSdiem8jlz07M58WWnt
- dFtMkGAN7p99yy1ZJzKsdJE17iNz93LWb21wRWekR7IjN4NJW6mdxDFkr4qcvh/zdU2aQ=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,32 +98,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 19 Jun 2026 13:41:22 +0100, Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 31cc57029c12..a8de4fe6b231 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -2981,6 +2986,10 @@ panthor_vm_bind_prepare_op_ctx(struct drm_file *file,
->  	if (!IS_ALIGNED(op->va | op->size | op->bo_offset, vm_pgsz))
->  		return -EINVAL;
->  
-> +	/* We don't allow mappings that overlap with kbo's reserved range */
-> +	if (op->va + op->size > vm->user_va_end)
-> +		return -EINVAL;
+The HDMI DDC driver for both mt7623 and mt8167 is actually the same as
+mt8173-hdmi-ddc and the mt7623n.dtsi board include file already uses
+mt8173-hdmi-ddc compatible as a fallback, but the documentation lists
+them as separate entries. Correct the binding by adding the correct
+fallback.
 
-I wrote an overflow check as follows, in panthor_vm_prepare_map_op_ctx():
+This change fixes the following dtbs_check errors:
 
-/* Protect against sparse VA range overflow */
-if (is_sparse && check_add_overflow(op->va, op->size, &end))
-	return -EINVAL;
+DTC [C] arch/arm/boot/dts/mediatek/mt7623n-rfb-emmc.dtb
+i2c@11013000 (mediatek,mt7623-hdmi-ddc): compatible:
+  ['mediatek,mt7623-hdmi-ddc', 'mediatek,mt8173-hdmi-ddc'] is too long
+DTC [C] arch/arm/boot/dts/mediatek/mt7623n-bananapi-bpi-r2.dtb
+i2c@11013000 (mediatek,mt7623-hdmi-ddc): compatible:
+  ['mediatek,mt7623-hdmi-ddc', 'mediatek,mt8173-hdmi-ddc'] is too long
 
-However, despite Shashiko's warning, it seems there's no need for this, because drm_gpuvm
-core code is already performing this kind of check inside __drm_gpuvm_sm_map():
+Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+---
+ .../bindings/display/mediatek/mediatek,hdmi-ddc.yaml  | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-__drm_gpuvm_sm_map -> drm_gpuvm_range_valid -> drm_gpuvm_check_overflow
-
-So even though we wouldn't catch the overflow when we test that the bind range falls within
-the user_va boundary, it will be caught later at map time, and maybe that's enough?
-
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml
+index bd8f7b8ae0ff..966127e1ee63 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml
+@@ -15,10 +15,13 @@ description: |
+ 
+ properties:
+   compatible:
+-    enum:
+-      - mediatek,mt7623-hdmi-ddc
+-      - mediatek,mt8167-hdmi-ddc
+-      - mediatek,mt8173-hdmi-ddc
++    oneOf:
++      - const: mediatek,mt8173-hdmi-ddc
++      - items:
++          - enum:
++              - mediatek,mt7623-hdmi-ddc
++              - mediatek,mt8167-hdmi-ddc
++          - const: mediatek,mt8173-hdmi-ddc
+ 
+   reg:
+     maxItems: 1
 -- 
-Adrián Larumbe <adrian.larumbe@collabora.com>
+2.43.0
+
