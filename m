@@ -4,67 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A001CDB479
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 14:09:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D576DCDB481
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 14:23:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD35910E085;
-	Wed, 24 Jun 2026 14:09:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3940E10E065;
+	Wed, 24 Jun 2026 14:23:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="vwIo7hMx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rfhb03xY";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E07710E085
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 14:09:12 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id EF4811A0909;
- Wed, 24 Jun 2026 14:09:10 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id B64C2601C5;
- Wed, 24 Jun 2026 14:09:10 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id C245A106C8468; 
- Wed, 24 Jun 2026 16:08:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1782310149; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=mPDkO1NcxOi2yneUaOfec5RhTuU+EenKgtvTV73EXfw=;
- b=vwIo7hMxQ71YV730wXNBAMmgVvFBgSTcr6/Zj0mghHoUun1/MrbC1Ii2cSPFVaiO1UJp2F
- JX/9ZkPu8w8O9OudojoBK11jXwpQAkZs+T0Vlt7+9N7KQGroKaYyRwMVYrRuKEiiN6L01C
- xZbzTTUIQ2jZulFVdYdDt6thOwokeXvV0ydZBq4Ay/gGycxQh5EbqE/KXmL7yWlCodbUmZ
- V7pFcyQd2Dc10/bWsO67rhf3Rynw+EUL5AWglSohvVU8//VzxoVyb0+tcjZTz5SDOg3o/J
- FaiYlZg4Q3kvTUkAuXzIlrnFkUAUVDkpCz/q5/slwpa3XoMEHo9c1cJEgBhk0A==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Diederik de Haas <diederik@cknow-tech.com>, 
- Maud Spierings <maud_spierings@hotmail.com>
-In-Reply-To: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
-References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
-Subject: Re: (subset) [PATCH v7 00/30] Add HDMI 2.0 support to DW HDMI QP
- TX
-Message-Id: <178231013719.859921.5124678664798209095.b4-ty@b4>
-Date: Wed, 24 Jun 2026 16:08:57 +0200
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAC6F10E065
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 14:23:28 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-4631679f204so1146812f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 07:23:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782311007; x=1782915807; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Per6MI6n5CBZ4jce2Yah0coKW3mXxHCaIKwWKmwmsgQ=;
+ b=rfhb03xYioME4h4rRWHevJj5QtN3xHD3VlEA8G3YnT5pMBtdsyrTPK7zCB7IjHvraj
+ WhcWLxK9Z4Yrfd2TWlrguqzKeuHpPHjBOkRjwVuXbgo4XyqVTD9HNLMwHjRXWYIdjGZh
+ tnJml36TUxKIAnXuyD683gs52ZHwRbHsRjxTLqlMMH2TKyiAmlgc9Xh+KGE7/s32nBgd
+ 09VUZo9HGWyUmCb0YIJ5RFWEXpC88BhbSd9FoGco22P3IyXbbH0UNgoXpWeNOPr3ZY7e
+ WN8G3drW3A4crTHnDb8kvsjLsP3eKjaUJoxatQApBKpnk0s+9hnuca3If17ePEHTt8MM
+ zMsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782311007; x=1782915807;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Per6MI6n5CBZ4jce2Yah0coKW3mXxHCaIKwWKmwmsgQ=;
+ b=VkdssRQevbTluw/Zgci2tbZjuJ3kKSh8Dx/TYKvhP/I9Np2FrPUkFxTjLU6vJx0Ntk
+ 181xPSCuuNQNUeLfx1nu09Yu2p3LkCBuctw/xFHqDgj9KEvX+4CyqUSirfV60jYYHo4A
+ 2biH6iCe4HgBLB/1NctYBJ90PQI4aCpubKuuqYfvNmeSx7Lc7T2Rm3A6TQD7+2RpnGWn
+ r9z8BMdA4SEaETz0QpgKwibRWz7Jv/2q5q25tnGdL+mKHqo1awZlpQQ+0zkbrV7NCiyA
+ MwF3231uS2LVfLOmTQnfnNO29jG+KKJcOiQZjr8BaxCtdixUy1m//W8IUeyW/VST3uPf
+ SDRw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoBTBdPKCi/m8UtSuyD2TEj1E665aoRtRmOEFL8lxETis/HA1lxl5INkRBoXiuYy27djZ8gk7naonk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyoQMPmeDgB2vqXrSbQxdIDqKCrqfb+DGO7USvoOLLVjbpN6wuV
+ wG9tFNHJTlOYLos9CP7s6LiVYLRf/MSMdQukLQIBWCx6bw52vs9s/FqB
+X-Gm-Gg: AfdE7cmiP9NA7kq/5mcDB8iM+h9Y64k12bFlVdF+CZtSXhk+C5S0vV879So+fX9T5Oo
+ rhAA6+OoUZItPmRawsFSp23+VMUMI9xGJCaFXpln/Qo31/TGHgnF3EwVKBn9ZJjxiZRuXULAu8e
+ JmVVFSEKvim3RlfM1wrN7+DR1ciHi3Tkh5c362K/moVRhcbx07mRKHoWJoLV4uLcL3SPWYyc/+a
+ VW8hPuI2iKOAmGxYoBmwcitIvh5xhKz2dFZC3NM/1nnsrXDEBaN7D/2fmyHgdJ39D8g42r8dp+t
+ QBP33Wv9LfrB/7mGVbBljG8c/esp1R/PoCMSUqU3jUaX0ORm/KbtiaK4MDdDg2TqUOsDWIjz07O
+ LSyzJzAPzfUIkA+pOSNVfB4ZCvUB8UjuOwohZlA8AbZWqe1pZOzLWJ++tvG1ZuISvbgJqQCx48N
+ Dn/dgOyie1dv0jrXqjIKwJr0WmaMljIqDU6zlAYVkeZyCXxojKtw==
+X-Received: by 2002:a05:6000:471a:b0:460:2e53:a6f6 with SMTP id
+ ffacd0b85a97d-46d04583b35mr1261972f8f.12.1782311006854; 
+ Wed, 24 Jun 2026 07:23:26 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-46c221d9405sm8183744f8f.22.2026.06.24.07.23.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Jun 2026 07:23:26 -0700 (PDT)
+Date: Wed, 24 Jun 2026 15:23:24 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Kaitao Cheng <kaitao.cheng@linux.dev>, Andrew Morton
+ <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, Jens
+ Axboe <axboe@kernel.dk>, Tejun Heo <tj@kernel.org>, Alexander Viro
+ <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Alexei
+ Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
+ <namhyung@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Juri Lelli
+ <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, Paul
+ Moore <paul@paul-moore.com>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, "Paul E. McKenney"
+ <paulmck@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, David Howells
+ <dhowells@redhat.com>, Simona Vetter <simona.vetter@ffwll.ch>, Randy Dunlap
+ <rdunlap@infradead.org>, Luca Ceresoli <luca.ceresoli@bootlin.com>, Philipp
+ Stanner <phasta@kernel.org>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
+ linux-ntfs-dev@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
+ io-uring@vger.kernel.org, audit@vger.kernel.org, bpf@vger.kernel.org,
+ netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, live-patching@vger.kernel.org,
+ linux-modules@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-pm@vger.kernel.org, rcu@vger.kernel.org, sched-ext@lists.linux.dev,
+ linux-mm@kvack.org, virtualization@lists.linux.dev, damon@lists.linux.dev,
+ llvm@lists.linux.dev, Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: Re: [PATCH v3 1/7] list: Add mutable iterator variants
+Message-ID: <20260624152324.3def88ce@pumpkin>
+In-Reply-To: <cf8467c7-b98f-44a5-9cf9-60b43b5da711@amd.com>
+References: <20260622040533.29824-1-kaitao.cheng@linux.dev>
+ <20260622040533.29824-2-kaitao.cheng@linux.dev>
+ <20260622094242.64531b9a@pumpkin>
+ <351a6b67-b394-4c58-aee2-88b6c8089ad5@linux.dev>
+ <cf8467c7-b98f-44a5-9cf9-60b43b5da711@amd.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,30 +118,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed, 24 Jun 2026 15:23:47 +0200
+Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
 
-On Tue, 02 Jun 2026 01:44:00 +0300, Cristian Ciocaltea wrote:
-> Enable HDMI 2.0 display modes (e.g. 4K@60Hz) on the Synopsys DW HDMI QP
-> TX controller, as found in Rockchip RK3576 & RK3588 SoCs, by adding SCDC
-> management for high TMDS clock ratio and scrambling.
-> 
-> Since SCDC state is lost on sink disconnects, the bridge driver needs to
-> trigger a CRTC reset during connector detection.  To support this, the
-> series introduces the connector and bridge scrambling infrastructure
-> (patches 1-8), wires it up through the bridge connector layer with an
-> atomic-aware detect_ctx hook (patches 9-11), then implements the SCDC
-> scrambling feature in the DW HDMI QP bridge driver (patches 12-15).
-> 
-> [...]
+> On 6/24/26 15:14, Kaitao Cheng wrote:
+> >=20
+> >=20
+> > =E5=9C=A8 2026/6/22 16:42, David Laight =E5=86=99=E9=81=93: =20
+> >> On Mon, 22 Jun 2026 12:05:31 +0800
+> >> Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
+> >> =20
+> >>> From: Kaitao Cheng <chengkaitao@kylinos.cn>
+> >>>
+> >>> The list_for_each*_safe() helpers are used when the loop body may
+> >>> remove the current entry.  Their API exposes the temporary cursor at
+> >>> every call site, even though most users only need it for the iterator
+> >>> implementation and never reference it in the loop body.
+> >>>
+> >>> Add *_mutable() variants for list and hlist iteration.  The new helpe=
+rs
+> >>> support both forms: callers may keep passing an explicit temporary cu=
+rsor
+> >>> when they need to inspect or reset it, or omit it and let the helper =
+use
+> >>> a unique internal cursor. =20
+> >>
+> >> I'm not really sure 'mutable' means anything either.
+> >> It is possible to make it valid for the loop body (or even other threa=
+ds)
+> >> to delete arbitrary list items - but that needs significant extra over=
+heads.
+> >>
+> >> It might be worth doing something that doesn't need the extra variable,
+> >> but there is little point doing all the churn just to rename things.
+> >> =20
+> >>>
+> >>> This makes call sites that only mutate the list through the current e=
+ntry
+> >>> less noisy, while keeping the existing *_safe() helpers available for
+> >>> compatibility.
+> >>>
+> >>> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+> >>> ---
+> >>>  include/linux/list.h | 269 +++++++++++++++++++++++++++++++++++++----=
+--
+> >>>  1 file changed, 231 insertions(+), 38 deletions(-)
+> >>>
+> >>> diff --git a/include/linux/list.h b/include/linux/list.h
+> >>> index 09d979976b3b..1081def7cea9 100644
+> >>> --- a/include/linux/list.h
+> >>> +++ b/include/linux/list.h
+> >>> @@ -7,6 +7,7 @@
+> >>>  #include <linux/stddef.h>
+> >>>  #include <linux/poison.h>
+> >>>  #include <linux/const.h>
+> >>> +#include <linux/args.h>
+> >>> =20
+> >>>  #include <asm/barrier.h>
+> >>> =20
+> >>> @@ -763,28 +764,72 @@ static inline void list_splice_tail_init(struct=
+ list_head *list,
+> >>>  #define list_for_each_prev(pos, head) \
+> >>>  	for (pos =3D (head)->prev; !list_is_head(pos, (head)); pos =3D pos-=
+>prev)
+> >>> =20
+> >>> -/**
+> >>> - * list_for_each_safe - iterate over a list safe against removal of =
+list entry
+> >>> - * @pos:	the &struct list_head to use as a loop cursor.
+> >>> - * @n:		another &struct list_head to use as temporary storage
+> >>> - * @head:	the head for your list.
+> >>> +/*
+> >>> + * list_for_each_safe is an old interface, use list_for_each_mutable=
+ instead.
+> >>>   */
+> >>>  #define list_for_each_safe(pos, n, head) \
+> >>>  	for (pos =3D (head)->next, n =3D pos->next; \
+> >>>  	     !list_is_head(pos, (head)); \
+> >>>  	     pos =3D n, n =3D pos->next)
+> >>> =20
+> >>> +#define __list_for_each_mutable_internal(pos, tmp, head)		\
+> >>> +	for (typeof(pos) tmp =3D (pos =3D (head)->next)->next;		\ =20
+> >>
+> >> Use auto
+> >> =20
+> >>> +	     !list_is_head(pos, (head));				\
+> >>> +	     pos =3D tmp, tmp =3D pos->next)
+> >>> +
+> >>> +#define __list_for_each_mutable1(pos, head)				\
+> >>> +	__list_for_each_mutable_internal(pos, __UNIQUE_ID(next), head)
+> >>> +
+> >>> +#define __list_for_each_mutable2(pos, next, head)			\
+> >>> +	list_for_each_safe(pos, next, head)
+> >>> +
+> >>>  /**
+> >>> - * list_for_each_prev_safe - iterate over a list backwards safe agai=
+nst removal of list entry
+> >>> + * list_for_each_mutable - iterate over a list safe against entry re=
+moval
+> >>>   * @pos:	the &struct list_head to use as a loop cursor.
+> >>> - * @n:		another &struct list_head to use as temporary storage
+> >>> - * @head:	the head for your list.
+> >>> + * @...:	either (head) or (next, head)
+> >>> + *
+> >>> + * next:	another &struct list_head to use as optional temporary stor=
+age.
+> >>> + *		The temporary cursor is internal unless explicitly supplied by
+> >>> + *		the caller.
+> >>> + * head:	the head for your list.
+> >>> + */
+> >>> +#define list_for_each_mutable(pos, ...)					\
+> >>> +	CONCATENATE(__list_for_each_mutable, COUNT_ARGS(__VA_ARGS__))	\
+> >>> +		(pos, __VA_ARGS__) =20
+> >>
+> >> The variable argument count logic really just slows down compilation.
+> >> Maybe there aren't enough copies of this code to make that significant.
+> >> But just because you can do it doesn't mean it is a gooD idea.
+> >> I'm also not sure it really adds anything to the readability.
+> >>
+> >> And, it you are going to make the middle argument optional there is
+> >> no need to change the macro name. =20
+> >=20
+> > Christian K=C3=B6nig and Jani Nikula also disagree with the variadic-ar=
+gument
+> > implementation approach. If we abandon that method, it means we will
+> > inevitably need to add some new macros. If mutable is not a good name,
+> > suggestions for better alternatives would be welcome; coming up with a
+> > suitable name is indeed rather tricky. =20
+>=20
+> I don't think you need to add a new macro for the specific use case that =
+people want to modify the next element of the iteration.
+>=20
+> If I remember your numbers correctly that is a really corner case and kee=
+ping using the existing *_safe() macros for that sounds perfectly fine to m=
+e.
 
-Applied, thanks!
+IIRC currently you have a choice of either:
+	define               Item that can't be deleted
+	list_for_each()	     The current item.
+	list_for_each_safe() The next item.
+There is also likely to be code that updates the variables to allow
+for other scenarios.
 
-[01/30] drm/fb-helper: Remove unused local variable in hotplug_event()
-        commit: cdeb2ccd993ed8647adbbda2c3b103aa717fd6f7
+Note that if increase a reference count and release a lock then list_for_ea=
+ch()
+is likely safer than list_for_each_safe() :-)
 
-Best regards,
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+list.h has 9 variants of the 'safe' loop.
+The bloat of another 9 is getting excessive.
 
+It has to be said that this is one of my least favourite type of list...
+
+	David
+
+>=20
+> Regards,
+> Christian.
 
