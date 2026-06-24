@@ -4,37 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23B14CDE032
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 18:05:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59362CDE039
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 18:05:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11A6C10F06B;
-	Wed, 24 Jun 2026 18:04:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96F3F10F04C;
+	Wed, 24 Jun 2026 18:04:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="Qio7mq4T";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="ZDROC0MH";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDF7E10F04B;
- Wed, 24 Jun 2026 18:04:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C89A310F05E;
+ Wed, 24 Jun 2026 18:04:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782324285;
- bh=aJ674jKfdfYzA1796ckniFKjkGKFKlysonuWe+TKQpQ=;
+ s=default; t=1782324294;
+ bh=N5KhZ0RSeZ3StdcSSUx6eMBPMdhBmpPkvQhNVsbfOxU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Qio7mq4T4S7ZMLdOd0WTZgp+rm5d6x2PF9ps/nfMUL5UecYPK8eoere1g5OkgC/nz
- QReZP7dsar9VKwGbY6xCQo6iUZ5q7jFVZPKiq0NL6aphg+jhCa9vZ0cgO3cRwKQjmn
- SmQaGj5Z17RX9kvpSe5e13QXeUqUyJzc5oTKhc1CcN4qcUU//38B2Uj748U4hFcDkT
- gvrJoxyJDBHLJE6XT9OpsPrUwU45Es0VMDHqDogyJudFTTER25mcA0q4mIQJkoOIMl
- XtYO66ayR+aGnlMKpXHAGDdJQkKs/PG8MAfdMUQccJ6OvfJoKTHFeQmexeLwYY/lxf
- +ttmaCLXWOlDQ==
+ b=ZDROC0MHByPb8J4rmZXNASFgSlWcWwgSKLxGdzQUc/9ghumYabdOsFjQgWBFR7PaO
+ oLHetK57DWyk2/dfyisVO22/p8BBrck6CY9DhZMkmnzE2c4OBmh4qhqOVyhHkIayc1
+ MW4qWN1vYzCNK3VE8DMJRq5+KuAtXTw+TUCdQxhnLglz9Yety0iHOK+3fwlpXM2rhy
+ 0ZxtjXhE1gVLaFPEmr5a3fli7jppgX5Jjw/sO/WfbRRH0utxyKu6dSiQZCUHgjt3LD
+ jc7zXxGQ9zj1bEt5gPeAzyrP6PCcRunas3Q9Bgsb+4Q1YTYx+oQBmXQLQ1rlgLJF6m
+ ygPGUIA/mNNUw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- "John B. Wyatt IV" <jwyatt@redhat.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v10 17/30] drm/i915/guc: Consider also RCU depth in busy loop.
-Date: Wed, 24 Jun 2026 20:04:44 +0200
-Message-ID: <20260624180459.1024068-18-dev@lankhorst.se>
+	Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v10 30/30] drm/i915: Disable "busy" pmu event on
+ CONFIG_PREEMPT_RT
+Date: Wed, 24 Jun 2026 20:04:57 +0200
+Message-ID: <20260624180459.1024068-31-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260624180459.1024068-1-dev@lankhorst.se>
 References: <20260624180459.1024068-1-dev@lankhorst.se>
@@ -55,36 +54,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+The busyness implementation for guc is incompatible with PMU,
+so disable it to prevent upsetting lockdep.
 
-intel_guc_send_busy_loop() looks at in_atomic() and irqs_disabled() to
-decide if it should busy-spin while waiting or if it may sleep.
-Both checks will report false on PREEMPT_RT if sleeping spinlocks are
-acquired leading to RCU splats while the function sleeps.
-
-Check also if RCU has been disabled.
-
-Reported-by: "John B. Wyatt IV" <jwyatt@redhat.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_pmu.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 053780f562c1a..b25fa8f4dc4bd 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -362,7 +362,7 @@ static inline int intel_guc_send_busy_loop(struct intel_guc *guc,
+diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+index 65771e54b9b51..f381e6f30d987 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.c
++++ b/drivers/gpu/drm/i915/i915_pmu.c
+@@ -554,6 +554,10 @@ engine_event_status(struct intel_engine_cs *engine,
  {
- 	int err;
- 	unsigned int sleep_period_ms = 1;
--	bool not_atomic = !in_atomic() && !irqs_disabled();
-+	bool not_atomic = !in_atomic() && !irqs_disabled() && !rcu_preempt_depth();
- 
- 	/*
- 	 * FIXME: Have caller pass in if we are in an atomic context to avoid
+ 	switch (sample) {
+ 	case I915_SAMPLE_BUSY:
++		/* The guc submission engine->busyness() callback has issues with CONFIG_PREEMPT_RT */
++		if (IS_ENABLED(CONFIG_PREEMPT_RT) && intel_uc_uses_guc_submission(&engine->gt->uc))
++			return -ENODEV;
++		break;
+ 	case I915_SAMPLE_WAIT:
+ 		break;
+ 	case I915_SAMPLE_SEMA:
 -- 
 2.53.0
 
