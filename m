@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25750CDB47F
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 17:10:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10B65CDB47F
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 17:10:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55F0C10E0BF;
-	Wed, 24 Jun 2026 17:10:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 728BD10E0C3;
+	Wed, 24 Jun 2026 17:10:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XM21iIdU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ik/zbCb6";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B961410E0BF
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 17:10:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 208C110E0C3
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 17:10:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7573043F1A;
- Wed, 24 Jun 2026 17:10:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 320EC1F00A3A;
- Wed, 24 Jun 2026 17:10:06 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0985C402CF;
+ Wed, 24 Jun 2026 17:10:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C315B1F000E9;
+ Wed, 24 Jun 2026 17:10:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782321006;
- bh=BlovTqSBgB3I+WqsBzL2eUdU+bu1F64gfQigcQZS95c=;
+ s=k20260515; t=1782321045;
+ bh=Ur9nzRHBcbYMIVWJS+TxJPbAQXD9PUn4LW8kUq0k40M=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XM21iIdUmQfu4aRLHouw8OYeZkaf17sqelkukNHUVbmowwhCAMpF/GbZuHC2R7rEp
- /fpwzz943UD6MuWqT4+r8IbLNSDEK+YWz/2hdST9I5H/XWsS+g40iEHMCXKQ7xMBMq
- KqpDjrPkKb7+LIzvXZX1OuRxsHkOZX8W62117u7VOd0gFI5LnjZEetC1w05iOUNKeH
- sjo0QbvnAN6XkDpefzqmM377pArXWcDACRq2qDfRJ1LbR0XSec/KX+zBDqbyESs8LT
- v9aHHwtT0yUbfsZPxj4C99rb1Rw9smfYCBLt1NtuCMdKzSiogmR1t+DyNuTB1j51Vr
- QKFJPjDoUG8Ag==
+ b=Ik/zbCb6OwXsXNSJvmtqcoPgl62h3S0biOlYNBfZ/pX1jmPYMoAACoYYd7ULoBaHg
+ 6uVU7LvxzAKvs9DH9vih+AKDkjrPoMXE1dKXktIMmRvuPcUDdOh7Y2j5y6OKWn+nqj
+ TAavCPPMUfFJhZjwEP2ij5PJzkvjwVNLwTECfUaSIfDjK0Ai0JhOV6gEHnaWWQNfuG
+ deAxrQ9QE8efJMLpZJ0DKOuiZCOCjyLDNP8chubDc4Sju+XAdjmB9glrT+yCm1ooXX
+ kK+G7ncdgMrcyZqAjdkLIbO0e/aymauFs0OMjBv3aZWmPIX4/iYrUBSV0Lr5zjvDLE
+ MBfOtk2s0mQRQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 01/10] Revert "backlight: Remove notifier"
+Subject: Re: [PATCH v6 03/10] drm: link connectors to backlight devices
 To: "Mario Limonciello" <mario.limonciello@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260624165751.2014759-2-mario.limonciello@amd.com>
+In-Reply-To: <20260624165751.2014759-4-mario.limonciello@amd.com>
 References: <20260624165751.2014759-1-mario.limonciello@amd.com>
- <20260624165751.2014759-2-mario.limonciello@amd.com>
+ <20260624165751.2014759-4-mario.limonciello@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Jun 2026 17:10:05 +0000
-Message-Id: <20260624171006.320EC1F00A3A@smtp.kernel.org>
+Date: Wed, 24 Jun 2026 17:10:44 +0000
+Message-Id: <20260624171045.C315B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,156 +57,229 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
 s) to consider:
-
-New issues:
-- [Low] Multiple copy-paste errors and typos in the newly added kerneldoc c=
-omments for the backlight notifier API.
-- [Low] Missing include or forward declaration for `struct notifier_block` =
-in `<linux/backlight.h>`.
-
-Pre-existing issues:
-- [High] Concurrent `backlight_update_status()` and `backlight_device_unreg=
-ister()` can cause a Use-After-Free of `bd->ops` or execution of unmapped m=
-emory.
-- [High] `backlight_device_get_by_type` returns a pointer to a `backlight_d=
-evice` without incrementing its reference count, leading to a Use-After-Fre=
-e.
-- [High] `backlight_enable()` and `backlight_disable()` modify `bd->props.s=
-tate` locklessly, causing data races and state corruption.
+- [Critical] Missing unregistration of `drm_backlight` on connector registr=
+ation error paths leads to List Corruption and Use-After-Free.
+- [High] `drm_backlight_get_device()` returns an unreferenced pointer, caus=
+ing a Use-After-Free vulnerability.
+- [High] Calling a sleeping function (`kobject_uevent_env`) while holding a=
+ spinlock in `drm_backlight_link()`.
+- [High] Out-of-band modification of atomic state in `__drm_backlight_real_=
+changed()`.
+- [High] Dangling sysfs 'backlight' symlink permanently leaked during conne=
+ctor unregistration.
+- [High] Global shared property bounds corruption in `__drm_backlight_updat=
+e_prop_range()`.
+- [Medium] Unconditional lockdep assertion failure and unsafe list access i=
+n backlight registration functions.
 --
 
-commit 692a77b3d3423be93e071e88f6a741af5c0ebe7d
+commit 97672c232ba720c2f01bd5c726f55338a93bdc07
 Author: Mario Limonciello (AMD) <superm1@kernel.org>
-Subject: Revert "backlight: Remove notifier"
 
-This reverts a previous commit to restore backlight notifier support.
-The backlight notifier support is needed in order to add backlight
-control support into DRM connectors.
+drm: link connectors to backlight devices
 
-> diff --git a/drivers/video/backlight/backlight.c b/drivers/video/backligh=
-t/backlight.c
-> index a22d0bbb6e639..ff2c2084c73a4 100644
-> --- a/drivers/video/backlight/backlight.c
-> +++ b/drivers/video/backlight/backlight.c
+This commit introduces DRM backlight helpers to connect hardware backlight
+devices to DRM connectors. It adds a generic LUMINANCE property and manages
+the links, sysfs symlinks, and legacy sysfs inhibitions.
+
+> --- /dev/null
+> +++ b/drivers/gpu/drm/drm_backlight.c
 [ ... ]
-> @@ -484,6 +488,9 @@ void backlight_device_unregister(struct backlight_dev=
-ice *bd)
->  	mutex_unlock(&pmac_backlight_mutex);
->  #endif
+> +/* caller must hold @drm_backlight_lock */
+> +static void __drm_backlight_real_changed(struct drm_backlight *b, uint64=
+_t v)
+> +{
+[ ... ]
+> +	/* Update the atomic state directly.
+> +	 * For atomic drivers, the luminance value is stored in
+> +	 * connector->state->luminance, not in the legacy property array.
+> +	 * We update it unconditionally to reflect the hardware state,
+> +	 * regardless of DPMS.
+> +	 */
+> +	if (connector->state)
+> +		connector->state->luminance =3D set;
+
+[Severity: High]
+Is it safe to mutate the atomic state out-of-band here?
+
+When the hardware brightness changes, this function acts as a notifier
+callback and directly assigns connector->state->luminance without
+executing an atomic commit or acquiring DRM modeset locks.
+
+Since the state object is expected to be strictly immutable during normal
+operation, could this cause data races against concurrent commits modifying
+or duplicating the state?
+
+[ ... ]
+> +static void __drm_backlight_update_prop_range(struct drm_backlight *b)
+> +{
+[ ... ]
+> +	/* Update property range to match hardware capabilities.
+> +	 * Range of 0-0 indicates no backing device.
+> +	 * Range of 1-max for normal operation.
+> +	 * Range of 0-max means that the display would turn off at 0
+> +	 */
+> +	if (prop->values[1] !=3D max) {
+> +		prop->values[0] =3D max ? (can_disable ? 0 : 1) : 0;
+> +		prop->values[1] =3D max;
+> +	}
+> +}
+
+[Severity: High]
+Can this corrupt the permissible brightness range for other connectors?
+
+The LUMINANCE DRM property is created once per device in
+drm_mode_create_standard_properties() and shared across all connectors on
+that device.
+
+When __drm_backlight_update_prop_range() dynamically overwrites the global
+prop->values[0] and prop->values[1] array, it changes the metadata for
+the shared property. If a driver exposes multiple display connectors with
+backlights that have different maximum brightness ranges, it seems this wou=
+ld
+overwrite the bounds for all of them.
+
+[ ... ]
+> +void drm_backlight_register(struct drm_backlight *b)
+> +{
+> +	if (!b)
+> +		return;
+> +
+> +	WARN_ON(__drm_backlight_is_registered(b));
+> +
+> +	guard(spinlock)(&drm_backlight_lock);
+> +	list_add(&b->list, &drm_backlight_list);
+> +}
+
+[Severity: Medium]
+Does this trigger an unconditional lockdep splat?
+
+Looking at drm_backlight_register(), it calls __drm_backlight_is_registered=
+(b)
+before acquiring the drm_backlight_lock spinlock. However, the helper conta=
+ins:
+
+static bool __drm_backlight_is_registered(...)
+{
+    lockdep_assert_held(&drm_backlight_lock);
+    ...
+}
+
+Since the lock isn't held yet, this appears to trigger an assertion failure
+and creates a data race when accessing the list. Should the lock be acquired
+before checking the registration status?
+
+[ ... ]
+> +void drm_backlight_link(struct drm_backlight *b, struct backlight_device=
+ *bd)
+> +{
+[ ... ]
+> +	guard(spinlock)(&drm_backlight_lock);
+> +	send_uevent =3D __drm_backlight_link(b, bd);
+> +
+> +	if (send_uevent)
+> +		kobject_uevent_env(&b->connector->kdev->kobj, KOBJ_CHANGE,
+> +				   (char **)ep);
+> +}
+
+[Severity: High]
+Could this lead to a sleep-in-atomic issue?
+
+The guard(spinlock)(&drm_backlight_lock) acquires the spinlock for the enti=
+re
+duration of the function scope. Later in the function, it calls
+kobject_uevent_env(), which performs memory allocations using GFP_KERNEL and
+can sleep.
+
+Is there a way to drop the lock before sending the uevent?
+
+[ ... ]
+> +struct backlight_device *drm_backlight_get_device(struct drm_backlight *=
+b)
+> +{
+> +	if (!b)
+> +		return NULL;
+> +
+> +	guard(spinlock)(&drm_backlight_lock);
+> +	return b->link;
+> +}
+
+[Severity: High]
+Could this result in a use-after-free when creating the sysfs link?
+
+In drm_backlight_get_device(), the pointer b->link is returned while briefly
+holding a spinlock. However, it doesn't take a reference to the underlying
+backlight_device before returning.
+
+When drm_sysfs_connector_add_late() uses this pointer to call
+sysfs_create_link(), what prevents the backlight driver from concurrently
+unregistering and freeing the device before the kobj is accessed?
+
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+[ ... ]
+> @@ -845,6 +847,8 @@ int drm_connector_register(struct drm_connector *conn=
+ector)
+>  	if (connector->registration_state !=3D DRM_CONNECTOR_INITIALIZING)
+>  		goto unlock;
 > =20
-> +	blocking_notifier_call_chain(&backlight_notifier,
-> +				     BACKLIGHT_UNREGISTERED, bd);
+> +	drm_backlight_register(connector->backlight);
 > +
->  	mutex_lock(&bd->ops_lock);
->  	bd->ops =3D NULL;
->  	mutex_unlock(&bd->ops_lock);
+>  	ret =3D drm_sysfs_connector_add(connector);
+>  	if (ret)
+>  		goto unlock;
 
-[Severity: High]
-This is a pre-existing issue, but can the lockless check in
-backlight_update_status() race with this teardown?
+[Severity: Critical]
+Does the error path here leak the backlight registration?
 
-If a panel driver concurrently calls backlight_update_status(), which checks
-bd->ops under the update_lock but without the ops_lock, and this function
-sets bd->ops to NULL under the ops_lock:
+If a subsequent operation like drm_sysfs_connector_add() fails, the function
+aborts via goto unlock but doesn't call drm_backlight_unregister().
 
-include/linux/backlight.h:backlight_update_status() {
-    ...
-    mutex_lock(&bd->update_lock);
-    if (bd->ops && bd->ops->update_status)
-        ret =3D bd->ops->update_status(bd);
-    ...
-}
+Later, when drm_connector_cleanup() calls drm_backlight_free(), it performs
+kfree(b). Since the object was never unregistered, it remains part of
+drm_backlight_list, which would lead to list corruption and a use-after-fre=
+e.
 
-Could it lead to a use-after-free or executing unmapped module memory if the
-driver is unbound right after the check passes?
+Should drm_backlight_unregister() be called on the error paths?
 
 [ ... ]
-> +/**
-> + * backlight_unregister_notifier - unregister a backlight notifier
-> + * @nb: notifier block to unregister
-> + *
-> + * Register a notifier to get notified when backlight devices get regist=
-ered
-> + * or unregistered.
-
-[Severity: Low]
-This kerneldoc description appears to be copied directly from
-backlight_register_notifier().
-
-Should this be updated to describe unregistering a notifier instead?
-
-[ ... ]
-
-[Severity: High]
-This isn't a bug introduced by this patch, but I noticed a potential
-use-after-free in backlight_device_get_by_type() in the same file.
-
-drivers/video/backlight/backlight.c:backlight_device_get_by_type() {
-    ...
-    mutex_unlock(&backlight_dev_list_mutex);
-    return found ? bd : NULL;
-}
-
-This function returns a matched backlight_device pointer without taking a
-reference count via get_device(). If the backlight device is concurrently
-unregistered, the device could be freed, leaving the caller with a dangling
-pointer.
-
-Should this function increment the reference count before returning?
-
-> diff --git a/include/linux/backlight.h b/include/linux/backlight.h
-> index f29a9ef1052e7..d905173c7f73c 100644
-> --- a/include/linux/backlight.h
-> +++ b/include/linux/backlight.h
-[ ... ]
-> +enum backlight_notification {
-> +	/**
-> +	 * @BACKLIGHT_REGISTERED: The backlight device is registered.
-> +	 */
-> +	BACKLIGHT_REGISTERED,
+> @@ -931,6 +935,8 @@ EXPORT_SYMBOL(drm_connector_dynamic_register);
+>  void drm_connector_unregister(struct drm_connector *connector)
+>  {
+>  	mutex_lock(&connector->mutex);
+> +	drm_backlight_unregister(connector->backlight);
 > +
-> +	/**
-> +	 * @BACKLIGHT_UNREGISTERED: The backlight revice is unregistered.
-> +	 */
-
-[Severity: Low]
-Is the word revice a typo for device here?
-
-> +	BACKLIGHT_UNREGISTERED,
-> +};
+>  	if (connector->registration_state !=3D DRM_CONNECTOR_REGISTERED) {
+>  		mutex_unlock(&connector->mutex);
+>  		return;
+>  	}
 [ ... ]
->  void backlight_force_update(struct backlight_device *bd,
->  			    enum backlight_update_reason reason);
-> +int backlight_register_notifier(struct notifier_block *nb);
-> +int backlight_unregister_notifier(struct notifier_block *nb);
->  struct backlight_device *backlight_device_get_by_name(const char *name);
+>  	drm_sysfs_connector_remove_early(connector);
 
-[Severity: Low]
-Does this header need a forward declaration of struct notifier_block, or an
-include of linux/notifier.h?
-
-Relying on implicit includes could cause build failures in downstream modul=
-es
-that include this header.
+> --- a/drivers/gpu/drm/drm_sysfs.c
+> +++ b/drivers/gpu/drm/drm_sysfs.c
+[ ... ]
+>  void drm_sysfs_connector_remove_early(struct drm_connector *connector)
+>  {
+> +	if (connector->backlight && drm_backlight_get_device(connector->backlig=
+ht))
+> +		sysfs_remove_link(&connector->kdev->kobj, "backlight");
+> +
+>  	if (connector->ddc)
 
 [Severity: High]
-This is a pre-existing issue, but there appears to be a potential data race
-regarding state in backlight_enable() and backlight_disable().
+Is the backlight sysfs symlink permanently leaked during unregistration?
 
-include/linux/backlight.h:backlight_enable() {
-    ...
-    bd->props.power =3D BACKLIGHT_POWER_ON;
-    bd->props.state &=3D ~BL_CORE_FBBLANK;
-    ...
-}
+In drm_connector_unregister(), drm_backlight_unregister() is called first,
+which clears the backlight link.
 
-These functions modify the state locklessly. Since other backlight
-functions like backlight_suspend() modify the same state while holding
-the ops_lock, could a concurrent call to backlight_enable() silently
-overwrite and lose bits like BL_CORE_SUSPENDED?
+Shortly after, drm_sysfs_connector_remove_early() is called. It checks if
+drm_backlight_get_device(connector->backlight) returns a non-NULL pointer.
+Because the backlight was just unregistered, this check fails and the
+symlink is never removed from sysfs.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624165751.2014=
-759-1-mario.limonciello@amd.com?part=3D1
+759-1-mario.limonciello@amd.com?part=3D3
