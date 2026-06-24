@@ -4,72 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8352CCDB47F
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:03:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBAA0CDB466
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:03:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFF7A10F12B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A64A010F11E;
 	Thu, 25 Jun 2026 07:03:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qKYYISJ3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g8y5BfBW";
 	dkim-atps=neutral
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
- [209.85.128.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 447EE10E071
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 12:53:57 +0000 (UTC)
-Received: by mail-yw1-f181.google.com with SMTP id
- 00721157ae682-80260a90522so13295677b3.0
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 05:53:57 -0700 (PDT)
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com
+ [209.85.128.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7527610E0CC
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 17:50:14 +0000 (UTC)
+Received: by mail-yw1-f176.google.com with SMTP id
+ 00721157ae682-7dfe7712572so12394937b3.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 10:50:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782305636; x=1782910436; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1782323413; x=1782928213; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=M1WZO8vWv2VJGmEwDoBM9gWeu5JjgR3Wcyzn9bhpYvk=;
- b=qKYYISJ3dnGR6D16g7WtCp3fruyh8TZ1hW8SOedTb6hRlUFAtS51jAcPM5b/SqqskH
- oUzj0Xt7hZE/d7HiHI38uL3L03GyRw9BgfRQIzYiToCP9s12ydW+VZUVPWdPfNa8z7HM
- mxxBzxFQcjGC7/s4uJcYBpPzSZaUhm/HS/KfvdeT6Moz41/wNy7LHqeOXuq4h7Uz036n
- cW5GWJuyGET23nlVGIoSqM465f2N0g2TVI0KdQ5F4AF6haOn1yqWmuTeJXFA5aqg1Aj+
- 8W6kXN08XWWDPnnDrTufTP5IdqffIVQm4Q1YKtEmbAL9hgMELJiY7IHtPbMnc9SOp7+2
- KW6Q==
+ bh=j/uILbh1n2PkpNOCtS0svqEcnFHuP4Pdw3ur3cUKxxI=;
+ b=g8y5BfBW7QOOCePdedanBm6tuFYcMQWKeQ33H6ZdSAfrKBeKWQ8m+5J5g+Gi2YnjSr
+ GWncPeVFyKIlDdg3qq6D95EbjQEsm3EjGvY4CjM+ZhJVk2ERy5IOvGbhkZMLiMa+jRm7
+ noDgIE+W7m8+26DsaCbl3G/0pxfsD0B8X3A4mhgsi/Z686rD9aXmw1vqwiWllycw5GVI
+ tJ55oUp9Ir4NWU3zOjrZA43Ph4eyqOhOgG/tMSRbRmEaq3q7paNkKr4gVohvcw4R71OF
+ kr5xZnAYnfcWHAvn2GNayUKTRXuyn+dqJx+P3FTB42LVQjx07dKQrTTkmfhZmAjgawPW
+ uGFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782305636; x=1782910436;
+ d=1e100.net; s=20251104; t=1782323413; x=1782928213;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=M1WZO8vWv2VJGmEwDoBM9gWeu5JjgR3Wcyzn9bhpYvk=;
- b=W8K16zQiKU9YPda2K0Q+MFGbbOLrXzOkIfFeW0jLE7EYmiC5GIzdX1P2TULDHRk8BC
- VQ3WVpYDTGF7s1HaDYOTr2POZBxstNnyt4msAs7S/x/JN+YIGg6/+bDSRa+Kmme3br9r
- t8KPmNe8mRduxOpvbzRd4GBDyjhTFHtt2V8b4W4PdvpgJUN/gUnCiANp9h2K+WCnrD58
- cT1r3PlBTmATTXYKCbP6H9MVrs+W+iQf8IaVRqCddJ5mQP62LqezZ6lOIKa7IaRLXkEL
- rT0QDJFrLwPfhJMuWQfgYtUTC65JvNG/i1JwdIW7R4fd3EQ6F53R9/7gB5a9F3r9YkG2
- IUvA==
-X-Gm-Message-State: AOJu0Yxia9y5OjV9bLMDVAgAXTUib5zyuaUYRT9NBAp4rEhvv87EfV1J
- 4XPfim0MHhm/9C8K0LKOaexKlcRRDcv0kId1MEiCY0cvK2jvvbQ1gx5D
-X-Gm-Gg: AfdE7ckOxv8ROPiqrme2/E8JPV0DrstuSIgH0vw3dxyNUz4LQk7ljOD9jdDy4fGXDam
- 75lTq72rEJ4yOVmZ9OeSt3WzKN1xnYm99PCaRCeiEXt8Suk0q2FTfa1PAtCha5ChEFnrQU0gG9F
- 4zOhqBKlG+k43avCrtivPt+NxPeRrTTDFFJ+W+8mmjM+f6FbGpDYWguz2eaoGw/TKMhlyRSvB6i
- gq/vxDYMQ+HQs6R3+CuAdyKDds0nF8ZJFgqCSqPukK/2RfbQ6jVlsBURXxt9eT+zKxtZTNB2lFR
- 0JQ4fYiDgoSyNiCVxK//mbVMlum4WwhPWtKGRvilVN3T707KvEWCN55nHo8kaixgy1N5hlwVHaF
- h3gUWTO3pMkEiZLqPuLLM1tjG7zIOFp/rFuxkyju/gEcH25O1Beba0G85Ki9qSpUAPoUjxAmz/F
- fwPHUUJ9vp+Yk0uS/+0ZpLMFbt3Q==
-X-Received: by 2002:a05:690c:c4f7:b0:7fd:d8ba:44dd with SMTP id
- 00721157ae682-806c3a16dc1mr67516207b3.42.1782305635714; 
- Wed, 24 Jun 2026 05:53:55 -0700 (PDT)
+ bh=j/uILbh1n2PkpNOCtS0svqEcnFHuP4Pdw3ur3cUKxxI=;
+ b=EqZgJmM/9zzRla5Hi8whO/k6Idu2EiZMrXB0SHPSwMLNG1y+ypDA2vDn+vcDHzyVrS
+ i9NUVLS1CpPdn0cdhBOEf3xiJTkbhx3tBJ3oBFhhP/dZNg3p6CUUsdxfkcZuExIxTz2C
+ IgZMzleN6OCdO9MCq42tUaEOjeIUQVoPfp0Z0rqv5XAbNwFXbzfKAlUqHbkmsTSw7yhn
+ OU0/sYImPrWCnwUnX27zSQyZ5YolcK3W9+swMK06OLMX1ByQYc3rhGuNLgfMWbgAYw0c
+ FXQAxx92VtHlRAs4udrr9CUaeWpdMSQ+C5WyXZ+SLT3warxfVWtD4AJgIG+siG81x6iK
+ M6Yg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp0xgC1SuPXiDq/QNm5x/vlm52JtR2E+CZkbmHFplJgUd0Kww0Z9trpsiymUQGCKGx4tTjgFL899nI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzAwPdEtyq4rUP63zoXgP7tIYHJVjD1oxQKovn+ABceH47rw0p1
+ dHUAoK4woK5doHeJnrfc0B2lzNKWetAzGMDrr0Qi78Uz4ePfoLQTIRCV
+X-Gm-Gg: AfdE7cnMtnQU7xgtdIuJTsL3fk088pZoDTUQTXKJ8IpnatEUmmreanJJCpuyW9wIiYi
+ 4aCzEpeOx+hNPbopTiD9Bw2VTAlaI7Zh+KjcCRRjp5VFtWtj6Kp0t0/QsTzKNZURr+MgD+yXhyM
+ mICJ/t/TZOiaW4aFPxDV51Sfly4boAo8O3ohXBMeRPFLllWSM+hzRvpPv/8tJ1ZnQE54ppon2um
+ H4Lf6TjkgTUcq/QWD9Yx7+DyGS2wOC2Im+qz/IKG6DZEWxgd9WksjF+y2Y4QKBULaB2z8bQSjGB
+ K8bYM9klw+l0PEP1k1e3ifD6hrbE/S3wuRuzOpq00iEz+DVpL8/1HQHhwYJFz06tVIbzaAc3UtV
+ Kn0xtsEqHx21cnAHJ34+hnJv5UBUYmAV/x6+L/BtP9vIt3UbGrKW/maKZuX5Srif2BXBxCd8+W9
+ 0Z/3oHOOKpexknTmHR/meSP5CrTTDmL0wEnJ4T
+X-Received: by 2002:a05:690c:6306:b0:7e1:e20c:1e3e with SMTP id
+ 00721157ae682-807ef91a515mr44538487b3.28.1782323413407; 
+ Wed, 24 Jun 2026 10:50:13 -0700 (PDT)
 Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
  by smtp.gmail.com with ESMTPSA id
- 00721157ae682-8025cf69b5asm57476257b3.20.2026.06.24.05.53.53
+ 00721157ae682-80259d20d84sm61339237b3.0.2026.06.24.10.50.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jun 2026 05:53:55 -0700 (PDT)
+ Wed, 24 Jun 2026 10:50:13 -0700 (PDT)
 From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-To: Gerd Hoffmann <kraxel@redhat.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH] dma-buf: udmabuf: avoid list copy size overflow
-Date: Wed, 24 Jun 2026 14:52:42 +0200
-Message-ID: <20260624125242.11232-1-alhouseenyousef@gmail.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Yousef Alhouseen <alhouseenyousef@gmail.com>
+Subject: [PATCH] misc: fastrpc: remove map before remote unmap
+Date: Wed, 24 Jun 2026 19:49:32 +0200
+Message-ID: <20260624174932.7419-1-alhouseenyousef@gmail.com>
 X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -89,48 +90,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-UDMABUF_CREATE_LIST copies an array whose element count comes from
-userspace. The count is compared against list_limit, but list_limit is a
-signed module parameter while the count is u32.
+FASTRPC_IOCTL_MEM_UNMAP found a map under fl->lock, then dropped the lock.
 
-If the limit is raised too far or made negative, that comparison no
-longer bounds the count to a range where sizeof(*list) * count fits in
-the u32 temporary used for the copy length. A wrapped copy length lets
-memdup_user() copy fewer entries than udmabuf_create() subsequently
-walks, leading to out-of-bounds reads from the copied list.
+It used that map until the DSP completed the unmap.
 
-Take a positive snapshot of the module limit and use memdup_array_user()
-so the multiplication is checked before copying.
+A second unmap can find the same map and race to fastrpc_map_put().
+
+That can cause a use-after-free or double list deletion.
+
+Remove the map from the lookup list before the remote unmap.
+
+Reinsert it if the remote side reports an error.
 
 Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
 ---
- drivers/dma-buf/udmabuf.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/misc/fastrpc.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index bced421c0..b4078ec84 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -469,14 +469,15 @@ static long udmabuf_ioctl_create_list(struct file *filp, unsigned long arg)
- 	struct udmabuf_create_list head;
- 	struct udmabuf_create_item *list;
- 	int ret = -EINVAL;
--	u32 lsize;
-+	int limit;
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 6a5239b1c..6ced210ca 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -365,7 +365,8 @@ static void fastrpc_free_map(struct kref *ref)
  
- 	if (copy_from_user(&head, (void __user *)arg, sizeof(head)))
- 		return -EFAULT;
--	if (head.count > list_limit)
-+	limit = READ_ONCE(list_limit);
-+	if (!head.count || limit <= 0 || head.count > limit)
- 		return -EINVAL;
--	lsize = sizeof(struct udmabuf_create_item) * head.count;
--	list = memdup_user((void __user *)(arg + sizeof(head)), lsize);
-+	list = memdup_array_user((void __user *)(arg + sizeof(head)),
-+				 head.count, sizeof(*list));
- 	if (IS_ERR(list))
- 		return PTR_ERR(list);
- 
+ 	if (map->fl) {
+ 		spin_lock(&map->fl->lock);
+-		list_del(&map->node);
++		if (!list_empty(&map->node))
++			list_del_init(&map->node);
+ 		spin_unlock(&map->fl->lock);
+ 		map->fl = NULL;
+ 	}
+@@ -2064,6 +2065,7 @@ static int fastrpc_req_mem_unmap_impl(struct fastrpc_user *fl, struct fastrpc_me
+ 	list_for_each_entry_safe(iter, m, &fl->maps, node) {
+ 		if ((req->fd < 0 || iter->fd == req->fd) && (iter->raddr == req->vaddr)) {
+ 			map = iter;
++			list_del_init(&map->node);
+ 			break;
+ 		}
+ 	}
+@@ -2088,6 +2090,9 @@ static int fastrpc_req_mem_unmap_impl(struct fastrpc_user *fl, struct fastrpc_me
+ 				      &args[0]);
+ 	if (err) {
+ 		dev_err(dev, "unmmap\tpt fd = %d, 0x%09llx error\n",  map->fd, map->raddr);
++		spin_lock(&fl->lock);
++		list_add_tail(&map->node, &fl->maps);
++		spin_unlock(&fl->lock);
+ 		return err;
+ 	}
+ 	fastrpc_map_put(map);
 -- 
 2.54.0
 
