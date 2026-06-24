@@ -4,64 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 222E5CDB47F
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 11:49:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB69FCDB471
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 12:15:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65A5210EED0;
-	Wed, 24 Jun 2026 11:48:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E7EC10E033;
+	Wed, 24 Jun 2026 12:15:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P9TX2/8J";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="EP2/iL96";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48C3A10E033
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 11:48:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A863B60018;
- Wed, 24 Jun 2026 11:48:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1CCB1F000E9;
- Wed, 24 Jun 2026 11:48:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782301736;
- bh=HvtRRLwB5nRGK6z7KOkjZragdUXab8f1dvYJB1vbLQs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=P9TX2/8JO3pJem0y/w8F3b3OVb59ZCN/A0wmXbugp9GUlJjVycnp3K6qkW5XOa0/O
- jjSksdRrPefLjvpZh6FwS08cM1YwJueYh4Z+ZJsF0zPzgBvZYOLxbE4y+c7azRjoIp
- KWjtV4YhlmZUon2UC0cnPNVimDZyQrNr8iwbobczz1ZyhP77eb3+ua+4hWbh772K93
- ZMjfdHX/KcJlbiAaYUsp6lOOXBX/mctKtEA+cBKibNz9ytvHEMpJ408r286WFodVCx
- LEIqKOCBPeue+FbgCVezsHMXtkxXuue73oPvPrwh3UNTkRy2gPrviLWreyI5ymXLnc
- TY5jUNI2pIzPA==
-Date: Wed, 24 Jun 2026 13:48:54 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1DF210E08D
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 12:15:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=NFSbDBYaQRiLzxAE88i5T68DnsPfuFAkWjSH6Y4PEsk=; b=EP2/iL96KvL7nj09fzhQRQTkQi
+ kmcCe5AUByzzQO8+VobZuEKfz4svklk2CIdR3mQqd0dc8Oz7VK0jRbajvmoWCzWQA7ipSvjl+w/2x
+ 82lsWlAiZZ7qfV1OJoKedW/2IuyLvoW/3MguXXvIfa1BSAtybHg97iitxl+u5TvksIX6zKe6XXazn
+ aCvQeC3WmYCbm57AmTMoEli5unYF3kBzS/nXIJ+YAzqSX2QUOfjSjKv6zVHo0sU437tXNKVtCp2sr
+ 3c892Xg8VfF6F4s8z2AIXJfQyH/h7ubZG2btUyPqTWZM0A6qy6JNfsF1yMPFHxbnVYuqg1I9JaFwR
+ Njir2O8Q==;
+Received: from sslproxy01.your-server.de ([78.46.139.224])
+ by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.96.2) (envelope-from <alexander.stein@ew.tq-group.com>)
+ id 1wcMVj-000Ofb-0o; Wed, 24 Jun 2026 14:15:19 +0200
+Received: from localhost ([127.0.0.1])
+ by sslproxy01.your-server.de with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.96) (envelope-from <alexander.stein@ew.tq-group.com>)
+ id 1wcMVi-0003Nl-33; Wed, 24 Jun 2026 14:15:18 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
- Jagan Teki <jagan@amarulasolutions.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
- Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 15/37] drm/display: bridge-connector: allocate the
- connector dynamically
-Message-ID: <20260624-judicious-enigmatic-hippo-b13ffe@houat>
-References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
- <20260519-drm-bridge-hotplug-v1-15-45e2bdb3dfb4@bootlin.com>
- <20260608-rustling-infrared-turkey-e09af8@houat>
- <DJ72WOUW5FA2.G1MPCAHJQ13F@bootlin.com>
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 2/4] drm/bridge: tc358767: allow panels or bridges
+ (connectors) on output
+Date: Wed, 24 Jun 2026 14:15:12 +0200
+Message-ID: <20260624121515.2301219-2-alexander.stein@ew.tq-group.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260624121515.2301219-1-alexander.stein@ew.tq-group.com>
+References: <20260624121515.2301219-1-alexander.stein@ew.tq-group.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="gyx3n54eiizonhu6"
-Content-Disposition: inline
-In-Reply-To: <DJ72WOUW5FA2.G1MPCAHJQ13F@bootlin.com>
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28041/Wed Jun 24 08:24:54 2026)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,70 +71,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+With DRM_BRIDGE_ATTACH_NO_CONNECTOR becoming more common, explicit
+connectors (bridges on its own) are necessary. Allow specifying bridges
+on the output endpoint.
 
---gyx3n54eiizonhu6
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 15/37] drm/display: bridge-connector: allocate the
- connector dynamically
-MIME-Version: 1.0
+Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+---
+ drivers/gpu/drm/bridge/tc358767.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-On Fri, Jun 12, 2026 at 02:44:43PM +0200, Luca Ceresoli wrote:
-> On Mon Jun 8, 2026 at 1:46 PM CEST, Maxime Ripard wrote:
-> > On Tue, May 19, 2026 at 12:37:32PM +0200, Luca Ceresoli wrote:
-> >> Currently the drm_bridge_connector has an embedded drm_connector, so t=
-heir
-> >> allocation lifetimes are tied to each other. This is insufficient to
-> >> support DRM bridge hotplugging, which requires the connector to be add=
-ed
-> >> and removed dynamically at runtime multiple times based on hotplug/unp=
-lug
-> >> events while the drm_bridge_connector is persistent.
-> >>
-> >> Moreover the drm_connector is exposed to user space and thus an ongoing
-> >> operation (e.g. an ioctl) might last for an arbitrarily long time even
-> >> after the hardware gets removed. This means a new connector might have=
- to
-> >> be added when the previous one is still referenced by user space.
-> >>
-> >> In preparation to handle hotplug, allocate the drm-connector dynamical=
-ly,
-> >> to allow:
-> >>
-> >>  * creating and destroying a connector multiple times during a single
-> >>    drm_bridge_connector lifetime
-> >>  * creating a new connector even though the previous one is still in u=
-se
-> >>    and thus still refcounted and not yet freed
-> >>
-> >> This commit does not introduce the actions in the two bullets (it will
-> >> happen in a later commit), it only moves to dynamic APIs for connector
-> >> allocation and init.
-> >>
-> >> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> >
-> > I think this patch should be split in half, with the switch to using
-> > destroy first, and then the actual move to the dynamically allocated
-> > connector API.
->=20
-> Is it doable? drm_connector_dynamic_init() mandates a .destroy callback,
-> drm_connector_init() forbids it.
+diff --git a/drivers/gpu/drm/bridge/tc358767.c b/drivers/gpu/drm/bridge/tc358767.c
+index a1663cc6c2236..2e705bd0d6be5 100644
+--- a/drivers/gpu/drm/bridge/tc358767.c
++++ b/drivers/gpu/drm/bridge/tc358767.c
+@@ -2346,11 +2346,12 @@ static int tc_probe_dpi_bridge_endpoint(struct tc_data *tc)
+ static int tc_probe_edp_bridge_endpoint(struct tc_data *tc)
+ {
+ 	struct device *dev = tc->dev;
++	struct drm_bridge *bridge;
+ 	struct drm_panel *panel;
+ 	int ret;
+ 
+ 	/* port@2 is the output port */
+-	ret = drm_of_find_panel_or_bridge(dev->of_node, 2, 0, &panel, NULL);
++	ret = drm_of_find_panel_or_bridge(dev->of_node, 2, 0, &panel, &bridge);
+ 	if (ret && ret != -ENODEV)
+ 		return dev_err_probe(dev, ret,
+ 				     "Could not find DSI panel or bridge\n");
+-- 
+2.54.0
 
-drmm_connector_init forbids it. drm_connector_init mandates it.
-
-Maxime
-
---gyx3n54eiizonhu6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCajvEJQAKCRAnX84Zoj2+
-diY/AYD61uA2nIV5nv2saKAonASdA6xG5aMdfOpsdoDTfSXoIEmfuvVOSm9Strmc
-XNUwH0ABgJ4zLMBRfrGdi32Zl2qPuAgiR2EeAI/luJ4I2OMIEfgM7nSUdQU2Dwv6
-rqixHOXClA==
-=lXQW
------END PGP SIGNATURE-----
-
---gyx3n54eiizonhu6--
