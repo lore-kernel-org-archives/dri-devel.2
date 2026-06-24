@@ -4,58 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DF23CDB47F
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 08:54:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9F78CDB47F
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 08:54:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 816B410EE1F;
-	Wed, 24 Jun 2026 08:54:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A3B910EE1D;
+	Wed, 24 Jun 2026 08:54:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IVhn+24W";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="e/AkngrM";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2951A10EE1C
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 08:53:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 123BE41E64;
- Wed, 24 Jun 2026 08:53:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717AD1F000E9;
- Wed, 24 Jun 2026 08:53:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782291239;
- bh=4Zl5Ebn9buIu2G1ZtxyEcZ4/F83TLtSV53gJrVovQNQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=IVhn+24WGRJEbfzhY0ffLwBbOQwPb2tPq0CJtDgTbT9gnHigERZTZlSgsCSnEIYE5
- /iBpHxhf+aBY0D31GAm4o6Y0z9vYsFRlLmBsgDPHTkg3qdhZB0Akg9wN3GarVpt8qk
- 1DJ8XAz4s7mLxouI3gX1dvFnq/H8ACKd9cf+5b/iSHvhWcgZEKlEsRieBsKp1MyNqH
- mPnFEA+AuWG2ke6iQf0BygHBaYMsAE9LvQ3Xw9AQ3T8mu3kvpiPChGZloyB0uLpH6f
- ZRRQfsfxQAE+NIHCsCwAB1D5rSt56kXAHpvAdWqTar9ivaOaedJqpUgaZXKYfnbWrz
- U4MRTcqabGZ6A==
-Date: Wed, 24 Jun 2026 10:53:55 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Cc: Brian Masney <bmasney@redhat.com>, 
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Helge Deller <deller@gmx.de>, 
- Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>, 
- linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ~postmarketos/upstreaming@lists.sr.ht
-Subject: Re: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and
- use this in simple[fb|drm]
-Message-ID: <20260624-ultramarine-beetle-of-vastness-acd51e@houat>
-References: <20260527094811.116977-1-johannes.goede@oss.qualcomm.com>
- <ahd4XgTo3KZqGS9M@redhat.com>
- <66a76d9f-fe04-4a72-b6fe-42c2922fe9d9@oss.qualcomm.com>
- <20260528-sloth-of-delightful-chaos-1f02dc@houat>
- <4b09bd91-9a08-407a-9b01-216dd4d7aae0@oss.qualcomm.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13EE410EE1D
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 08:54:11 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65O5u6qL1976802; Wed, 24 Jun 2026 08:54:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=hJHk5wjhlMQ0wgulFoUtIN
+ frY0/hDHa/js0k3HbsAKw=; b=e/AkngrM2ySBmXH+u2bvlzoXa/KtpmBhm5Dtcq
+ ykVbRmHMjUHoVpThjZZWDh3pD/vq18CI5NaeR8PaDKmo3goFM0qZuq172QCSKJBg
+ Cvs0puqBPDaxn9ISNiEE1SYCtbaO1Pu1JUZSown3efrk411nznziBVAtN4OL7oKi
+ pV47QJRCcgJDw7JcYioJ/ytfhXp13axIjfjHqoqNhMq4WfJGA0o9KKmTMSA7KG+/
+ Ddt0y18o6FFC1kmD5d/ZgL+FVdBPoUmJxF3opQe/kHXWXcow2ZJ0XaCYXXZord66
+ m6LNcegnHdILl1ZQ6J3cVUxoLJsCOzLipAsUz8yf+/eULV4g==
+Received: from apblrppmta02.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f05aq9bev-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 24 Jun 2026 08:54:06 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 65O8s24F009039; 
+ Wed, 24 Jun 2026 08:54:02 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4ewkxk3jsr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 24 Jun 2026 08:54:02 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 65O8puWD006941;
+ Wed, 24 Jun 2026 08:54:02 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-arpisain-hyd.qualcomm.com
+ [10.147.248.17])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 65O8s2qF009009
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 24 Jun 2026 08:54:02 +0000 (GMT)
+Received: from hu-arpisain-hyd.qualcomm.com (localhost [127.0.0.1])
+ by hu-devc-hyd-u22-c.qualcomm.com (Postfix) with ESMTP id 7947B630;
+ Wed, 24 Jun 2026 14:24:01 +0530 (+0530)
+From: Arpit Saini <arpit.saini@oss.qualcomm.com>
+Subject: [PATCH v3 0/2] drm/panel: add support for Ilitek ILI7807S DSI panels
+Date: Wed, 24 Jun 2026 14:23:50 +0530
+Message-Id: <20260624-ili7807s-v3-0-ddf37052a289@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="3v5pwppls5iobxny"
-Content-Disposition: inline
-In-Reply-To: <4b09bd91-9a08-407a-9b01-216dd4d7aae0@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAB6bO2oC/0WNQQqDMBBFryJZdyRGqrar3qO4SNKxDmiiGSsW8
+ e6NltLNwJv/+H8VjIGQxTVZRcCZmLyLkJ8SYVvtngj0iCyUVIUssjNQR2UlS4ZBO+xE9IxmBBO
+ 0s+1uOlwm+Ooq3/MhYEPLsXGvI7fEkw/vY3JW+/fXXv3bZwUSTN5Im8mLyaS6eeZ0fOnO+r5P4
+ xH1tm0fsk1IesAAAAA=
+X-Change-ID: 20260615-ili7807s-panel
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: arpit.saini@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ayushi.makhija@oss.qualcomm.com,
+ rajeevny@qti.qualcomm.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782291241; l=1563;
+ i=arpit.saini@oss.qualcomm.com; h=from:subject:message-id;
+ bh=Fv4t24U4qIyt+txv+AYBAngaBAML14UvjtFFAc3BDf0=;
+ b=CDKIUPvFA7Ey7flh+uupHMksl5BbSxbgC3GlnhtpBlas/H/xDJbk+oRjICLkMV5jGpqS9o1WE
+ WFn9t7ThTy2Cn3D6by0R0rneqARzmDoO2HD5V5p3+1sgxcB5cdhl9LE
+X-Developer-Key: i=arpit.saini@oss.qualcomm.com; a=ed25519;
+ pk=OGOh7FGwrnkILHNlcTTABbBMQxxo319duzbTg0YPDAc=
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI0MDA3MyBTYWx0ZWRfX2wLIbM4jCvdY
+ K547A6Iz8wvLx6W6lshfnCzVAWv2z7k8MVK/caFm7x9rqZafG1a9Hw9+3Ldrz2GIshhoNDU/n+8
+ rdMb22/oN48din4h1hzUW5HiRyfVj3dNuVew5NMegqH2BEoaxKpxwsgRPWNy6wDSrSuUBGy3iJ7
+ vSm6P3OIu8tz/XQV8OuWqziJ8o4DHZc8Bjfn5LDCYQhSKfaXplCByGkdvoxEfsg2XyLImmtMPPZ
+ sWhvvZg/jfhYZ52Sz/4Ffrv0dQygk4KUZXFLiEJ3ddPnZnbAfaNU+pLvdeJosu+SOuwwLavKWGl
+ ZivLaoLRjpKKHfWa000mlgIZnQZxNY9ZpAqW8YxFXkfXNK3AUiD6oivBwaC4xmtyjnE9tDeUCYb
+ oyk0TLLUr9QO0heM4EBSafU8DkE4DBpqUoXRpSScMOku7WMw1OyNageTyGGYI1QnuilRrI325eC
+ nLBxbj7SfV5sa2N6BCg==
+X-Proofpoint-GUID: 9j_u4p_gl5xroIuQq5jQ1M53vvj12UiI
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI0MDA3MyBTYWx0ZWRfX/gub8XPq9uNN
+ XjpJGEtf4TVFJTMt6sW4CdiTsaT1OgpxRRAG0LzxLZWTnKXFai1R6bTh4zShXPU5TDlVftBgazO
+ Ga8YeXWI9yBWxwvCDT+J/2+q+UhlkSk=
+X-Proofpoint-ORIG-GUID: 9j_u4p_gl5xroIuQq5jQ1M53vvj12UiI
+X-Authority-Analysis: v=2.4 cv=UphT8ewB c=1 sm=1 tr=0 ts=6a3b9b2e cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=RCrcYMzkqC15-5_egV8A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-24_02,2026-06-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 adultscore=0
+ impostorscore=0 phishscore=0 spamscore=0 suspectscore=0 malwarescore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606240073
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,123 +129,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Add DT bindings and a DRM panel driver for panels based on the Ilitek
+ILI7807S display controller. The first supported panel is the DLC
+DLC0697 1080x1920@60Hz MIPI DSI panel.
 
---3v5pwppls5iobxny
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and
- use this in simple[fb|drm]
-MIME-Version: 1.0
+Changes in v3:
+- Return devm_mipi_dsi_attach() directly (Neil Armstrong)
+- Link to v2: https://lore.kernel.org/all/20260618-ili7807s-v2-0-b3f0c109b102@oss.qualcomm.com/
 
-On Thu, May 28, 2026 at 03:02:09PM +0200, Hans de Goede wrote:
-> On 28-May-26 2:08 PM, Maxime Ripard wrote:
-> > On Thu, May 28, 2026 at 12:12:10PM +0200, Hans de Goede wrote:
-> >> Hi Brian,
-> >>
-> >> On 28-May-26 1:03 AM, Brian Masney wrote:
-> >>> Hi Hans,
-> >>>
-> >>> On Wed, May 27, 2026 at 11:48:08AM +0200, Hans de Goede wrote:
-> >>>> 2) One option considered was detaching the simple-framebuffer driver=
- later,
-> >>>>    after the real display driver has had a chance to claim the clock=
-s. But
-> >>>>    this won't work in cases where the real display driver picks diff=
-erent
-> >>>>    parent clocks then the boot firmware did and needs to reparent cl=
-ocks.
-> >>>
-> >>> Why won't that work in the case where different parent clocks are sel=
-ected?
-> >>> I'll describe a scenario below.
-> >>>
-> >>>>
-> >>>>    Basically the goal is for things to behave as if the simple-frame=
-buffer
-> >>>>    driver was not there at all, because that leaves the hw in the st=
-ate
-> >>>>    the real display driver expects.
-> >>>
-> >>> I think the deferred unbinding could have some potential here where
-> >>> there is some kind of notification mechanism between simple-framebuff=
-er
-> >>> and the real drm driver. So:
-> >>>
-> >>> - simple-framebuffer driver takes reference(s) to the clk(s).
-> >>>
-> >>> - real drm driver eventually loads, takes reference(s) to the necessa=
-ry
-> >>>   clk(s).
-> >>>
-> >>> - real drm driver sends a notification to simple-framebuffer that it's
-> >>>   done, and has control.
-> >>>
-> >>> - simple-framebuffer can unbind and release its references to the clk=
-s.
-> >>>
-> >>> No clks will be shutdown prematurely in this scenario.
-> >>>
-> >>> If the real drm driver needs a different parent, then presumably thin=
-gs
-> >>> should be setup correctly, and simple-framebuffer can have the clocks
-> >>> shut down when it calls clk_disable_unprepare().
-> >>
-> >> If the real drm driver needs a different parent, then how does it
-> >> do the reparenting while the simple-framebuffer driver is holding
-> >> a reference to the clock ?  In that case the clock might have
-> >> a protected_count of non 0 (depends on the core-clk flags) and
-> >> reparenting won't work.
-> >=20
-> > The only case where it should reparent you listed was that you might
-> > need to pick up a different resolution. However, that can only be
-> > enforced by an ioctl or a client.
-> >=20
-> > simplefb/drm is removed in msm_drm_kms_init. The device is published
-> > drm_dev_register called right after msm_drm_kms_init, and the clients
-> > are registered in msm_drm_kms_post_init, called after drm_dev_register.
-> >=20
-> > There's no way in the current msm architecture to have a modeset happen
-> > while the simpledrm driver is still active.
->=20
-> Ok, new plan, please let me know what you think about this:
->=20
-> 1. Add a new "disable" callback argument to
-> devm_aperture_acquire_for_platform_device() and store this in
-> struct aperture_range
->=20
-> 2. Add a new aperture_disable_conflicting_devices() which
-> calls the disable callback for matching devices.
->=20
-> 3. Have the simple[fd|drm] drivers implement a disable callback
-> which unregisters the drm dev and releases any claims on the
-> aperture mem-region, while keeping clks, regulators, etc.
-> enabled. And have them check if disable was called on remove()
-> and if not do the disable() things on remove(0
->=20
-> 4. Have msm call aperture_disable_conflicting_devices() where it
-> now call aperture_remove_conflicting_devices() and call
-> aperture_remove_conflicting_devices() at the point where it has
-> claimed any clks it needs.
->=20
-> Does this sound like something which would be acceptable ?
+Changes in v2:
+- Drop MAINTAINERS entry (Dmitry Baryshkov)
+- Use devm_drm_panel_add() instead of drm_panel_add() to avoid
+  manual drm_panel_remove() in the error path (Dmitry Baryshkov)
+- Rework backlight: call drm_panel_of_backlight() first and fall back
+  to creating a DCS backlight device if panel->backlight is still NULL
+  (Dmitry Baryshkov)
+- Remove backlight-en-gpios from the binding (Dmitry Baryshkov)
+- Fix mode_flags LPM not restored on backlight update error path
+- Link to v1 : https://lore.kernel.org/all/20260518-ili7807s-panel-v1-0-d7b048163b1c@oss.qualcomm.com/
 
-Generally speaking, yes, but I'd also like to understand what you're
-trying to fix exactly, because I don't see how it can be what you hinted
-at before.
+---
+Arpit Saini (2):
+      dt-bindings: display: panel: add Ilitek ILI7807S panel controller
+      drm/panel: add Ilitek ILI7807S panel driver
 
-Maxime
+ .../bindings/display/panel/ilitek,ili7807s.yaml    |  71 +++++
+ drivers/gpu/drm/panel/Kconfig                      |  12 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-ilitek-ili7807s.c      | 293 +++++++++++++++++++++
+ 4 files changed, 377 insertions(+)
+---
+base-commit: 4e5dfb7c84012007c3c7061126491bbc92d71bf1
+change-id: 20260615-ili7807s-panel
 
---3v5pwppls5iobxny
-Content-Type: application/pgp-signature; name="signature.asc"
+Best regards,
+-- 
+Arpit Saini <arpit.saini@oss.qualcomm.com>
 
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCajubIgAKCRAnX84Zoj2+
-dvMDAYCoDoEuVS2C+WS3QyeeEXq7mW3a6slIYHufpnpz3Eex/cfoISTR//povPdq
-oy3gMYwBfRblB2aWaEAHLvyzzJhFRNyYOVCSWrWj3cO5CX9yzWi0T2ZR6XG6qJFQ
-69ZadJ3xjA==
-=3T3C
------END PGP SIGNATURE-----
-
---3v5pwppls5iobxny--
