@@ -4,52 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72C06CDB471
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 12:47:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6E5FCDB471
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 12:48:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BADCE89E47;
-	Wed, 24 Jun 2026 12:47:43 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9239A89E47;
- Wed, 24 Jun 2026 12:47:41 +0000 (UTC)
-Received: from localhost.localdomain (unknown [117.182.75.66])
- by APP-05 (Coremail) with SMTP id zQCowADXYQXl0Ttq9ogDFQ--.42119S2;
- Wed, 24 Jun 2026 20:47:35 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Lijo Lazar <lijo.lazar@amd.com>, Mario Limonciello <superm1@kernel.org>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Xiaogang Chen <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: [PATCH v4] drm/amdgpu: Fix resource leak in
- amdgpu_gfx_run_cleaner_shader_job()
-Date: Wed, 24 Jun 2026 20:47:31 +0800
-Message-Id: <20260624124731.37479-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C1A810EF12;
+	Wed, 24 Jun 2026 12:48:13 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZX54rOT8";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4B8910EEF9
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 12:48:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7245E43BF0;
+ Wed, 24 Jun 2026 12:48:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4781F000E9;
+ Wed, 24 Jun 2026 12:48:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782305291;
+ bh=Ng1Fu3iV0uz9YEcwWiFwkJYNZd8hGnnPbM07z97sbwo=;
+ h=From:To:Cc:Subject:Date;
+ b=ZX54rOT8atVKo9c5J5Q15q+IKKKVwuwOAOGRokO4ofI/WuoKd72gRCTsPOvf5zci2
+ //oqV9U2MF3u/G3XPHNINLdLiVixEx439C76qRXAYLvHmueaLiMxF4lxxzn6JAKf3+
+ LvpathzUcS34ylGPqUKEfk9Y4syniWEVl+mxOH4aQle7szgvX1mxc84bXFX+wKu1BA
+ ltRdCHseUDfQXFwKhEdsJFm80fufqplh1zG53YJuxXLMFKhxICPR0gSzcfcvCw3sAV
+ WIjhxLATJNoPMqtchCNfn74S/Fy1qR9p9N1phCS2Iw5E3KLnkBfMC6aLNQnWsD9kyH
+ 8HE6pfIPLg2Rg==
+From: Philipp Stanner <phasta@kernel.org>
+To: Matthew Brost <matthew.brost@intel.com>,
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Subject: [PATCH] drm/sched: Protect entity->last_scheduled with spinlock
+Date: Wed, 24 Jun 2026 14:46:52 +0200
+Message-ID: <20260624124651.1414814-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowADXYQXl0Ttq9ogDFQ--.42119S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tr4DXF4xWw4kZryUGF45Wrg_yoW8GF4rpF
- sYgw12vryUZa1xt34UZ3WkXF95Kay3Xa4fGrnFk39Y93Z8X3Z5JFy3JFWYqr97CrWkCF4a
- grWqq3y7XFnIvaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
- 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
- jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
- 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
- n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
- AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
- 17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
- IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
- IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
- C2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
-X-Originating-IP: [117.182.75.66]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwsIA2o7lQXSkAAAsE
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,40 +61,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When amdgpu_job_alloc_with_ib() fails in
-amdgpu_gfx_run_cleaner_shader_job(), the function returns directly
-without destroying the scheduler entity, causing a resource leak.
+The entity->last_scheduled field has always been set and read with
+special RCU functions in addition to memory barriers. There is no
+obvious reason for that, since the entity lock is available and taken at all
+places that evaluate the last_scheduled field. The only exception is
+drm_sched_entity_error(), which is not performance critical in any way.
 
-Fix this by moving the entity cleanup to a common error path. Set r = 0
-on success and use a single cleanup point at the err label to ensure the
-entity is always destroyed regardless of whether the function succeeds
-or fails.
+Improve robustness, readability and maintainability by replacing RCU and
+barriers with the lock.
 
-Also remove the unnecessary error check for dma_fence_wait() since it
-never fails with intr=false and infinite timeout.
+As a preparational step, while at it, also guard spsc_queue_pop() with
+the lock, since spsc_queue is deprecated and supposed to be replaced
+with a locked list.
 
-Cc: stable@vger.kernel.org
-Fixes: 559a285816af ("drm/amdgpu: Replace 'amdgpu_job_submit_direct' with 'drm_sched_entity' in cleaner shader")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Tested with drm_sched unit tests, which all ran fine.
+---
+ drivers/gpu/drm/scheduler/sched_entity.c | 49 +++++++++++-------------
+ include/drm/gpu_scheduler.h              |  9 ++---
+ 2 files changed, 26 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 523b681d0da9..29a07af6f5f4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -1689,9 +1689,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index c51101ec70c1..95b2c48a604a 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -135,7 +135,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
+ 	entity->num_sched_list = num_sched_list;
+ 	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
+ 	entity->rq = &sched_list[0]->rq;
+-	RCU_INIT_POINTER(entity->last_scheduled, NULL);
+ 	RB_CLEAR_NODE(&entity->rb_tree_node);
+ 	init_completion(&entity->entity_idle);
  
- 	dma_fence_put(f);
+@@ -201,10 +200,10 @@ int drm_sched_entity_error(struct drm_sched_entity *entity)
+ 	struct dma_fence *fence;
+ 	int r;
  
--	/* Clean up the scheduler entity */
--	drm_sched_entity_destroy(&entity);
--	return 0;
-+	r = 0;
+-	rcu_read_lock();
+-	fence = rcu_dereference(entity->last_scheduled);
++	spin_lock(&entity->lock);
++	fence = entity->last_scheduled;
+ 	r = fence ? fence->error : 0;
+-	rcu_read_unlock();
++	spin_unlock(&entity->lock);
  
- err:
-     /* Clean up the scheduler entity */
+ 	return r;
+ }
+@@ -288,8 +287,10 @@ void drm_sched_entity_kill(struct drm_sched_entity *entity)
+ 	wait_for_completion(&entity->entity_idle);
+ 
+ 	/* The entity is guaranteed to not be used by the scheduler */
+-	prev = rcu_dereference_check(entity->last_scheduled, true);
++	spin_lock(&entity->lock);
++	prev = entity->last_scheduled;
+ 	dma_fence_get(prev);
++	spin_unlock(&entity->lock);
+ 	while ((job = drm_sched_entity_queue_pop(entity))) {
+ 		struct drm_sched_fence *s_fence = job->s_fence;
+ 
+@@ -381,8 +382,8 @@ void drm_sched_entity_fini(struct drm_sched_entity *entity)
+ 		entity->dependency = NULL;
+ 	}
+ 
+-	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
+-	RCU_INIT_POINTER(entity->last_scheduled, NULL);
++	dma_fence_put(entity->last_scheduled);
++	WRITE_ONCE(entity->last_scheduled, NULL);
+ 	drm_sched_entity_stats_put(entity->stats);
+ }
+ EXPORT_SYMBOL(drm_sched_entity_fini);
+@@ -523,18 +524,18 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+ 	if (entity->guilty && atomic_read(entity->guilty))
+ 		dma_fence_set_error(&sched_job->s_fence->finished, -ECANCELED);
+ 
+-	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
+-	rcu_assign_pointer(entity->last_scheduled,
+-			   dma_fence_get(&sched_job->s_fence->finished));
++	spin_lock(&entity->lock);
++	dma_fence_put(entity->last_scheduled);
++	entity->last_scheduled = dma_fence_get(&sched_job->s_fence->finished);
+ 
+-	/*
+-	 * If the queue is empty we allow drm_sched_entity_select_rq() to
+-	 * locklessly access ->last_scheduled. This only works if we set the
+-	 * pointer before we dequeue and if we a write barrier here.
++	/* A recent rework required taking the spinlock above. Since spsc_queue
++	 * is scheduled for removal as per the DRM-TODO-list, we access it here
++	 * locked already to prepare for that cleanup.
++	 *
++	 * TODO: Fully replace spsc_queue with a locked (h)list.
+ 	 */
+-	smp_wmb();
+-
+ 	spsc_queue_pop(&entity->job_queue);
++	spin_unlock(&entity->lock);
+ 
+ 	drm_sched_rq_pop_entity(entity);
+ 
+@@ -561,21 +562,15 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+ 	if (spsc_queue_count(&entity->job_queue))
+ 		return;
+ 
+-	/*
+-	 * Only when the queue is empty are we guaranteed that
+-	 * drm_sched_run_job_work() cannot change entity->last_scheduled. To
+-	 * enforce ordering we need a read barrier here. See
+-	 * drm_sched_entity_pop_job() for the other side.
+-	 */
+-	smp_rmb();
+-
+-	fence = rcu_dereference_check(entity->last_scheduled, true);
++	spin_lock(&entity->lock);
++	fence = entity->last_scheduled;
+ 
+ 	/* stay on the same engine if the previous job hasn't finished */
+-	if (fence && !dma_fence_is_signaled(fence))
++	if (fence && !dma_fence_is_signaled(fence)) {
++		spin_unlock(&entity->lock);
+ 		return;
++	}
+ 
+-	spin_lock(&entity->lock);
+ 	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
+ 	rq = sched ? &sched->rq : NULL;
+ 	if (rq != entity->rq) {
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index d61c19e78182..176ff1f936cd 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -100,7 +100,8 @@ struct drm_sched_entity {
+ 	 * @lock:
+ 	 *
+ 	 * Lock protecting the run-queue (@rq) to which this entity belongs,
+-	 * @priority and the list of schedulers (@sched_list, @num_sched_list).
++	 * @priority, @last_scheduled and the list of schedulers (@sched_list,
++	 * @num_sched_list).
+ 	 */
+ 	spinlock_t			lock;
+ 
+@@ -202,11 +203,9 @@ struct drm_sched_entity {
+ 	/**
+ 	 * @last_scheduled:
+ 	 *
+-	 * Points to the finished fence of the last scheduled job. Only written
+-	 * by drm_sched_entity_pop_job(). Can be accessed locklessly from
+-	 * drm_sched_job_arm() if the queue is empty.
++	 * Points to the finished fence of the last scheduled job.
+ 	 */
+-	struct dma_fence __rcu		*last_scheduled;
++	struct dma_fence		*last_scheduled;
+ 
+ 	/**
+ 	 * @last_user: last group leader pushing a job into the entity.
+
+base-commit: 60b5fa6edfef867322fce7c8306e5c4b46211be7
 -- 
-2.39.5 (Apple Git-154)
+2.54.0
 
