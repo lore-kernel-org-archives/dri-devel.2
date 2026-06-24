@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBE6FCDB47F
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 12:29:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8989CDE005
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 12:29:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7B0F10EEEB;
-	Wed, 24 Jun 2026 12:29:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8177B10EEF6;
+	Wed, 24 Jun 2026 12:29:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b99fbtZg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iVtKmPUO";
 	dkim-atps=neutral
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B9CD10EEE7
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 12:29:25 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-461edb387ddso1136518f8f.3
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 05:29:25 -0700 (PDT)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 958D110EEE7
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 12:29:23 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-45ef189aa1cso758817f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 05:29:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782304164; x=1782908964; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1782304162; x=1782908962; darn=lists.freedesktop.org;
  h=content-transfer-encoding:reply-to:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to;
- bh=f2YBNpTeLYg62fGg7sbOleS8wV+O2KANj9vsOiEQ0A4=;
- b=b99fbtZgzRcjySyEurLacN+1k5v9L06U0Ak+VQcTLa1L4pCk2KjWqMBqiAlusDyGUV
- K6HdJqJI+fvaSw9Xa3guH/NHNns6RTZlhSReMgdJxTnwUGhsJCk4EZLFopE37A5W9Z26
- IobqtQ91XtzHo+Dsfb8t24lcCF69l6mvUZbG/vE9kMTmdcEWJjpekj008DfTfKjX68A6
- wAHUoIb4Y/vryObMnK0HYGXE+zmZD+ZMdWEP0RHnOPUZnJ+UlDA5yEstT/hlUZ9FxDgJ
- mwDx0aZO7+rPd+TKfMaII/W1dbwm+4f6d3d0R9txK37sY1bkBm7ew1jQK7s+ZD3Q5sYY
- kbRw==
+ bh=XAJmFy8LAnGJsBUtLmdOHGEG0gZamE6rRydN5uBopPw=;
+ b=iVtKmPUOXO/Mnb8d1vlYdPknsXtlol6z4yMS8x5VsWKvpfn/w2k1FSwNT0LUNdjtEe
+ UcSFoaM3BQJUeSon33ualAtrsbq67quQr63RPB16mTAG9jZbQpuqVItE6aeNQwjX3wYO
+ RI7GRIkzol7hDGWtogb3b4RHPmuNTDT6a+FIqTd3DP3NJHfqJTbNCMQkD9nQmZGQz8yY
+ k58CCSgyUaP1ShbcqNCz8ntBVyh/ziSU20q69xG2JpL0QOoYOvUeL2OBw6ni/+BVTxBF
+ PB3aAszFRk+mTVOJ8kK/X1yJNgYGjd0H839DnAJFHiuW3pyoOpb0fQ92Dy4Qaq3QdGGl
+ vvCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782304164; x=1782908964;
+ d=1e100.net; s=20251104; t=1782304162; x=1782908962;
  h=content-transfer-encoding:reply-to:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=f2YBNpTeLYg62fGg7sbOleS8wV+O2KANj9vsOiEQ0A4=;
- b=gSOs2xU7nZQZ9JDzHwA/ldsU1j6Wgr1gTT660f4jgcXwLAhHVSUr1vbVmU87+7hDYc
- UbzoI2tk/oJ/nE5ih/u36jQTne5EBgrU0a1sgtiIneXjOw58Jw+nkmEt0eu4xeqYgOn8
- H27Usu0tTRXqunPJPzcHiFXXDZrt2ZiWik/NFzAjGoMusPArOSa/DimdLB8aIS1Ds+OQ
- 7WM+SYTBeNlPrR1u6xbqoz6+xZCx1oc+A0fV593Ms/sn2mMs6OLhMT14Osyj/YFqCPMZ
- uEcnvzD/yf4TSLqNmcL04/RWQ8/L06JVFoGeVD0VkeT4vj7qH6shopc7Db+mE17xm0rp
- 25sQ==
-X-Gm-Message-State: AOJu0Yx9+ISa2x15LP8lbwWbynOCakderGT8zf4niWscLYrVrC5q8n2z
- qf9Irlrm/FK48h/XcT4p37m7lJr0+nigC/LMeWB8YK52K+pZEZoosNDC
-X-Gm-Gg: AfdE7cnsqQH8Tuh2WRBZIIx1mJGa2R/s3aMa3M/Rzinm+c6UxROsMnpsxJQWRAhsZxi
- e7nYrEklHpTMqcu817CT3zmkxRCiw8e/BG3eHw1ltWYE/fpJLyFiMlEen5GFXrsRMshbn6E2WzK
- GTRM7vDs0BsoS4iaS6rb0YjhlEHwXAlTvIHpuBk/dvpYSpVEfSxn59NNxWIJM7Y1ET81h9ZMXOH
- JnAkvUMhVbQkl3WnAIkOW5dYRVBmSokDTLWZ4B9DZ2TNkIMrCIP1oRrDPevPnn9aWF6wpIbNEg3
- qhhRltiH5nyQvFjWYhv0kfEa2jlgtl0hbvL4Dl0gxrhY5dHBj9K9jAIb31jxYacp8OkNVuvSzL7
- 4V3lxJ+P0H6Y+TAfu1AMiH1k9DDRytN1NV9Uz6p2FsrncJhlf0w+ZGnGXYjHTEGn7db9Tx872Zm
- LTXMKS/EhmGkM5cch2rPwyYc3/Kw==
-X-Received: by 2002:a5d:490e:0:b0:461:a169:f965 with SMTP id
- ffacd0b85a97d-46c0b8b182bmr3421914f8f.34.1782304163747; 
- Wed, 24 Jun 2026 05:29:23 -0700 (PDT)
+ bh=XAJmFy8LAnGJsBUtLmdOHGEG0gZamE6rRydN5uBopPw=;
+ b=TuGktRt3ou7CgX14HC6jSrtfQh0w0Dks83IsxLi3HFZxeoaJTJFCHrn0txnR4mdAYG
+ jKjvZ3PJkO5k/cYczk61QDukDebU0ETjBClsT5fhVirWNCTWNZ5aJDV9WwQtu0Ns+5He
+ iBqFGHa2OSpcwtIXQ1iZGFnUCoNLsEKjXiGyH6GLiTMQeumV54XsbkZdg/KnMY8YAeoR
+ Z+TB4ZT9mGjce1eIsa1boBvS+LactPlqiK0WEdUmKLRaxUi1ZoFl9YsEY9YIcmmKGlEu
+ I1uwn9M/tmPfD3XJ8SekGsmAtKcDFPCcPirxA4oML9kuWzsVTFA1vYl+GqEXFKuNB3vj
+ h+SQ==
+X-Gm-Message-State: AOJu0Yw5m1QYupwWlgfAA+TQYagOrU8MaHJuYOdLRNCx6J6fCzmlurYJ
+ V4vTymiTcr8eHD+QoS647ujBbxKbsPDK9AqDfX7AF9xbSsllMgKFP5yE
+X-Gm-Gg: AfdE7cn7d8O+CmAroLeZh5DGAVX/11OhiS9TBCBkW2avtL72Kdo/n02N6bEjjXyTn0t
+ KV52nS3W02fYQR14YQd7Z6XFe/a2/CSH/5csIA+ucM/23vbZ+gGu9B5HCqANEZIjZJMtu5cpmYA
+ +R735H/MbnGqOqgPBRno1EB5r4PZGmA+N2+VP2iVRcJSlwr/28LnVTBdUTszQI/J4PaZkG9r2o5
+ 5gAQ9r4Xtsvfu4yKGvpujknSr8NNxhmaL4N16pyxP7RrnYb1E7fWTDDnhrkrr/F+CXKuThKfnKe
+ h8PHmL6gBHXvmsh0QNM1IrgGFx9MEvuYZ7TiQytdnr6XQieq3loHmKQOV0PYcRXAHo5zDecygPU
+ LvmLApNobs0oU2wKRsAOTQK7+053tgHQAUP5qguGwM9Io9I3URHP1JItDgOKFHq3/x7m2qADtVZ
+ Vy6aJNUXaN3Ajni4bmTs3Hs4pFSQ==
+X-Received: by 2002:a05:6000:2587:b0:45d:41e0:467b with SMTP id
+ ffacd0b85a97d-46c0951d92emr5308154f8f.3.1782304161896; 
+ Wed, 24 Jun 2026 05:29:21 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:157e:3500:2be7:1a89:41c5:9239])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-46c9787dddbsm3896530f8f.3.2026.06.24.05.29.22
+ ffacd0b85a97d-46c9787dddbsm3896530f8f.3.2026.06.24.05.29.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jun 2026 05:29:23 -0700 (PDT)
+ Wed, 24 Jun 2026 05:29:21 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -67,9 +67,9 @@ To: phasta@kernel.org, simona@ffwll.ch, sumit.semwal@linaro.org,
  tvrtko.ursulin@igalia.com, dakr@kernel.org
 Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
  linaro-mm-sig@lists.linaro.org
-Subject: [PATCH 04/10] drm/nouveau: use dma_fence_test_signaled_flag()
-Date: Wed, 24 Jun 2026 13:13:28 +0200
-Message-ID: <20260624122917.2483-5-christian.koenig@amd.com>
+Subject: [PATCH 02/10] dma-buf: use dma_fence_test_signaled_flag()
+Date: Wed, 24 Jun 2026 13:13:26 +0200
+Message-ID: <20260624122917.2483-3-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260624122917.2483-1-christian.koenig@amd.com>
 References: <20260624122917.2483-1-christian.koenig@amd.com>
@@ -99,22 +99,36 @@ The extra polling check seems unecessary for those use cases.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_fence.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/dma-buf/sw_sync.c | 2 +-
+ include/linux/dma-fence.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_fence.c b/drivers/gpu/drm/nouveau/nouveau_fence.c
-index edbe9e08ba0f..6601ef52e301 100644
---- a/drivers/gpu/drm/nouveau/nouveau_fence.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_fence.c
-@@ -83,7 +83,7 @@ nouveau_fence_context_kill(struct nouveau_fence_chan *fctx, int error)
+diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
+index 8df20b0218a9..243991bc1506 100644
+--- a/drivers/dma-buf/sw_sync.c
++++ b/drivers/dma-buf/sw_sync.c
+@@ -262,7 +262,7 @@ static struct sync_pt *sync_pt_create(struct sync_timeline *obj,
+ 	INIT_LIST_HEAD(&pt->link);
  
- 	spin_lock_irqsave(&fctx->lock, flags);
- 	list_for_each_entry_safe(fence, tmp, &fctx->pending, head) {
--		if (error && !dma_fence_is_signaled_locked(&fence->base))
-+		if (error && !dma_fence_test_signaled_flag(&fence->base))
- 			dma_fence_set_error(&fence->base, error);
+ 	spin_lock_irq(&obj->lock);
+-	if (!dma_fence_is_signaled_locked(&pt->base)) {
++	if (!dma_fence_test_signaled_flag(&pt->base)) {
+ 		struct rb_node **p = &obj->pt_tree.rb_node;
+ 		struct rb_node *parent = NULL;
  
- 		if (nouveau_fence_signal(fence))
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index 158cd609f103..803e10ca76e3 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -658,7 +658,7 @@ static inline struct dma_fence *dma_fence_later(struct dma_fence *f1,
+  */
+ static inline int dma_fence_get_status_locked(struct dma_fence *fence)
+ {
+-	if (dma_fence_is_signaled_locked(fence))
++	if (dma_fence_test_signaled_flag(fence))
+ 		return fence->error ?: 1;
+ 	else
+ 		return 0;
 -- 
 2.43.0
 
