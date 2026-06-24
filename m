@@ -4,73 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C155CDB479
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 08:51:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9814BCDB47F
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 08:53:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CB2310E059;
-	Wed, 24 Jun 2026 08:51:24 +0000 (UTC)
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com
- [209.85.221.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8513C10EE1C
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 08:51:16 +0000 (UTC)
-Received: by mail-vk1-f171.google.com with SMTP id
- 71dfb90a1353d-5bbc6c99c3aso549102e0c.3
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 01:51:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782291075; x=1782895875;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=BqytCPnwBH27Ys1F84xwvi9+7+D3fwtua39hc9A5h9k=;
- b=aJ0HL6iHLtxkWl7xy2CGOrtmeeRP+mL92hWFVHDhUGFgrBIA4HXGQfZj8KY9lZnAq8
- 5uLkNqbj0pXk1XjkM1QUUIwtarrChSAKlwjHGUu+MrP2e1ouaylcEzHnDpBy+ZTkWeT8
- qy7BcQ+y/LgmH3uiOtegsbOpgq+2jkBUqxzwq6fmR6yIxwFY3ss0I5ypgl0YOtn62STD
- urbXcD8BmEpsbxvAbEAro09+ah6LP88dGkLJvV2nEkmgiKBB01YA8vvRbSu3T7CUoYbQ
- nNFQwWpHgi2rHnnYHDoPy1272A/lVz1UqXjpIh+/KBSUXbhu7qv8KfeDHotd86MHfnWr
- pSzw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9CP52JPnW4+vYkBBLgU/npnLVE3cItsJd+P3atfG9fueyiB/8hlCE4ztvpmancRYRtjVhEo+kkb0g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy9T4vspt91OJZHzjBv1HgnEMbEgabt9aHJlA+fXrW8f/mKN/LD
- d3lxbpP5i794WO50j/nSR/AvqRnn/F4D9xM1iQn/O+6jsSmwshQbt8NBXQmro8hX
-X-Gm-Gg: AfdE7cmRq0PVZ380pGvXyL1DXgIeg0h7tdb/f/z0XoxLCY7cmHNzmbq/4U3ItdhYo5R
- 522pQRjk2+rcpXcCe3BMMyoQisMht9ONSMOylqMcfuO5zovegadroILfLGIUDP8ciVbxURggmyU
- jYgla9Ou1EjIiOT7Ytx/y0+LyCu/6nDGxsIWm86aISHeLJt6v5iW729yNG1piZ3nIsxVf0AXtJE
- 9XPUwtRzjrWVzypE8eqh/ziuhIoBX6dq3ONUQZ70u417ybvgv4xwEyFPTxJlM+6+sC85rYxkLGY
- ZnPtaycPjH3oCAhPrGAG3UVpdkuvwZoy7o264yOH70fRgHXRKsX7PO//f3ADi/JM6JiVEO3vuEk
- sNRN00Dwcx+WT41b7KVI7RAgTXeyH/NZS68K544wduTbvsFyZpgEbgS1rp2tn9uDQh2KrzuRoaR
- 9dHmk/EcCWSJ/7GQJCvUNckfdWYnV69e6vqt7oMQOgGXTL6RzBoA==
-X-Received: by 2002:a05:6122:341c:b0:5bb:d0ab:5ed3 with SMTP id
- 71dfb90a1353d-5bc3eda793cmr1103751e0c.1.1782291075426; 
- Wed, 24 Jun 2026 01:51:15 -0700 (PDT)
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com.
- [209.85.217.47]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5bbfbab451bsm10185260e0c.18.2026.06.24.01.51.13
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jun 2026 01:51:14 -0700 (PDT)
-Received: by mail-vs1-f47.google.com with SMTP id
- ada2fe7eead31-6ca94e539f9so446053137.2
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 01:51:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ/M+snZWt/YazvWuak9vT9pTQP97sC4Yh5QYwhGxRUSdJlO0XuqwRPxkQWir3UBhQEpKxDgIRfPbU4=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:1628:b0:726:cd42:d039 with SMTP id
- ada2fe7eead31-7311593bc40mr980150137.24.1782291073707; Wed, 24 Jun 2026
- 01:51:13 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260622064915.767194-1-haoxiang_li2024@163.com>
-In-Reply-To: <20260622064915.767194-1-haoxiang_li2024@163.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 24 Jun 2026 10:51:02 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUSVacMR2Lb-VwkeZMrS=wKz9y+XtF=nAOCuSLbDs-HdQ@mail.gmail.com>
-X-Gm-Features: AVVi8CdAnFBD23v1TZLF1N6maP__8rBsA0F0VCuhXPs6KKGubkqUcrjbf5oJASY
-Message-ID: <CAMuHMdUSVacMR2Lb-VwkeZMrS=wKz9y+XtF=nAOCuSLbDs-HdQ@mail.gmail.com>
-Subject: Re: [PATCH] video: hpfb: Unregister DIO driver on init failure
-To: Haoxiang Li <haoxiang_li2024@163.com>
-Cc: deller@gmx.de, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Philip Blundell <philb@gnu.org>, Kars de Jong <jongk@linux-m68k.org>, 
- linux-m68k <linux-m68k@lists.linux-m68k.org>
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B9F410EE1B;
+	Wed, 24 Jun 2026 08:53:35 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LPapHAMP";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 373BA10EE1B
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 08:53:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0843A402EC;
+ Wed, 24 Jun 2026 08:53:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB0FC1F00A3A;
+ Wed, 24 Jun 2026 08:53:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782291213;
+ bh=46QUJ9fsaJKHNRIpJ3NlGPMVZCwhhA8dRxYQ0KERPuY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=LPapHAMP6oc5RJDhbXEGCqIuKn0r3PzW0TyzzTZ2sUJK5WmKTIePYkVXX5bXqeSOq
+ VBPfg+tw7sYYI8vlkmb5SDIAl5OkuvJA9HPoW34wgAdgL8n1DgmB+xyNz00Oy/3qB7
+ VNvVTS2ApoV3Z+wOtAmCMuNJOJAxhVCmWVLizFrpdflLJvY+I1ZxmRv8BxCH86K/yv
+ 7cJMkMYPiF1xNnfn7W0ITpufUjwsWrWgKWMuhowzvzw69ANp4eH5HxXbjQZdg8gExs
+ kIBYQBLTC1YFpqx7eQo7mlATaH5NgJE7hN0L7d8gPsCPQS9s9CK0nSK51DKhWkkmsG
+ bbEi4r7MSLBRg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/bridge: lt9611uxc: support displays with up to 4
+ EDID blocks
+To: vishnu.saini@oss.qualcomm.com
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260624-lt9611usc_edid34_misc_next-v2-1-24ce3f5770b8@oss.qualcomm.com>
+References: <20260624-lt9611usc_edid34_misc_next-v2-1-24ce3f5770b8@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 24 Jun 2026 08:53:33 +0000
+Message-Id: <20260624085333.BB0FC1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,64 +53,166 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Haoxiang,
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Clearing the 0xb028 EDID bank register to 0x00 after reading block=
+s 1 or 3 prevents DRM core retries from succeeding.
+- [High] Race condition between lt9611uxc_hpd_work and the IRQ handler can =
+corrupt the edid_read state, leading to permanent EDID read timeouts.
+- [Medium] lt9611uxc_get_edid_block() silently returns success (0) when the=
+ EDID polling loop times out, feeding incorrect data to the DRM core and am=
+plifying retry delays.
+- [Medium] Polling the EDID data buffer directly for a header match races w=
+ith the MCU's internal memory writes, risking torn reads.
+- [Low] Unconditional memcmp of 8 bytes may read past the end of buf if a c=
+aller provides a short buffer.
+--
 
-CC hp300
+commit f8ef2cd8a0639401cecc3757e315eeb45035f222
+Author: Ravi Agola <raviagol@qti.qualcomm.com>
 
-On Tue, 23 Jun 2026 at 06:41, Haoxiang Li <haoxiang_li2024@163.com> wrote:
-> hpfb_init() registers the DIO driver via dio_register_driver().
-> If a later error occurs, the function returns directly without
-> unregistering the DIO driver. Unregister the DIO driver before
-> returning from these error paths.
->
-> Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+drm/bridge: lt9611uxc: support displays with up to 4 EDID blocks
 
-Thanks for your patch, which is now commit d6c3e2402523ce01 ("fbdev:
-hpfb: Unregister DIO driver on init failure") in fbdev/for-next
+The LT9611UXC bridge can fetch only 2 EDID blocks at a time, which
+previously limited EDID reading to 2 blocks and prevented support
+for displays exposing more than 2 EDID blocks. Add driver support to fetch
+up to 4 EDID blocks by re-triggering EDID access.
 
-> --- a/drivers/video/fbdev/hpfb.c
-> +++ b/drivers/video/fbdev/hpfb.c
-> @@ -407,10 +407,13 @@ static int __init hpfb_init(void)
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c b/drivers/gpu/drm=
+/bridge/lontium-lt9611uxc.c
+> --- a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
+> +++ b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
 
-As per the comment out-of-context above, this driver supports devices
-on two types of buses:
+[ ... ]
 
-        /* Topcats can be on the internal IO bus or real DIO devices.
-         * The internal variant sits at 0x560000; it has primary
-         * and secondary ID registers just like the DIO version.
-         * So we merge the two detection routines.
+> @@ -170,6 +170,9 @@ static void lt9611uxc_hpd_work(struct work_struct *wo=
+rk)
+>  	connected =3D lt9611uxc->hdmi_connected;
+>  	mutex_unlock(&lt9611uxc->ocm_lock);
+> =20
+> +	if (!connected)
+> +		lt9611uxc->edid_read =3D false;
+> +
+>  	drm_bridge_hpd_notify(&lt9611uxc->bridge,
+>  			      connected ?
 
->         err = copy_from_kernel_nofault(&i, (unsigned char *)INTFBVADDR + DIO_IDOFF, 1);
->
->         if (!err && (i == DIO_ID_FBUFFER) && topcat_sid_ok(sid = DIO_SECID(INTFBVADDR))) {
-> -               if (!request_mem_region(INTFBPADDR, DIO_DEVSIZE, "Internal Topcat"))
-> +               if (!request_mem_region(INTFBPADDR, DIO_DEVSIZE, "Internal Topcat")) {
-> +                       dio_unregister_driver(&hpfb_driver);
->                         return -EBUSY;
-> +               }
->                 printk(KERN_INFO "Internal Topcat found (secondary id %02x)\n", sid);
->                 if (hpfb_init_one(INTFBPADDR, INTFBVADDR)) {
-> +                       dio_unregister_driver(&hpfb_driver);
->                         return -ENOMEM;
->                 }
->         }
+[Severity: High]
+Could this create a race condition with the IRQ handler?
 
-Hence if the detection or initialization on the internal bus fails,
-other devices on the DIO bus must not be force-unbound.
+If an HPD connect interrupt fires right after ocm_lock is dropped, the IRQ
+handler could set both hdmi_connected and edid_read to true and queue a new
+work.
 
-This is also the reason why any error returned by
-copy_from_kernel_nofault() is not considered fatal.
+When this thread resumes, it will evaluate the stale connected variable
+(false) and overwrite edid_read back to false.
 
-Gr{oetje,eeting}s,
+When the new work thread runs, it sees connected =3D=3D true and skips upda=
+ting
+edid_read, potentially causing lt9611uxc_wait_for_edid() to permanently
+time out.
 
-                        Geert
+[ ... ]
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> @@ -395,20 +423,44 @@ static int lt9611uxc_get_edid_block(void *data, u8 =
+*buf, unsigned int block, siz
+>  	if (block >=3D EDID_NUM_BLOCKS)
+>  		return -EINVAL;
+> =20
+> -	lt9611uxc_lock(lt9611uxc);
+> +	if (block =3D=3D 0 || block =3D=3D 2) {
+> =20
+> -	regmap_write(lt9611uxc->regmap, 0xb00b, 0x10);
+> +		lt9611uxc_lock(lt9611uxc);
+> =20
+> -	regmap_write(lt9611uxc->regmap, 0xb00a, block * EDID_BLOCK_SIZE);
+> +		edid_ready_flag =3D (block =3D=3D 0) ? BIT(0) : BIT(1);
+> =20
+> -	ret =3D regmap_noinc_read(lt9611uxc->regmap, 0xb0b0, buf, len);
+> -	if (ret)
+> -		dev_err(lt9611uxc->dev, "edid read failed: %d\n", ret);
+> +		/*
+> +		 * Set the EDID ready flag so that lt9611uxc can fetch correct EDID bl=
+ock
+> +		 */
+> +		regmap_write(lt9611uxc->regmap, 0xb028, edid_ready_flag);
+> =20
+> -	lt9611uxc_unlock(lt9611uxc);
+> +		lt9611uxc_unlock(lt9611uxc);
+> =20
+> -	return 0;
+> -};
+> +		do {
+> +			msleep(100);
+> +			ret =3D lt9611uxc_read_edid_block(lt9611uxc, block, buf, len);
+> +			if (ret)
+> +				break;
+> +			/*
+> +			 * Compare first 8 bytes of EDID header for block 0 and block 2
+> +			 * to confirm EDID read successfully
+> +			 */
+> +			header_matched =3D (memcmp(edid_header, buf, 8) =3D=3D 0);
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+[Severity: Low]
+Is it possible for len to be less than 8 here? If a caller provides a short
+buffer, this memcmp could read past the end of buf.
+
+[Severity: Medium]
+Does polling the I2C SRAM buffer directly for a header match risk a torn
+read?
+
+Since the MCU writes to this SRAM sequentially from the slow DDC bus, the C=
+PU
+might see the first 8 bytes match and immediately break the loop, while the
+MCU is still writing the remaining 120 bytes.
+
+Could this cause a mix of old and new data to be read, leading to EDID
+checksum failures?
+
+> +			if ((block =3D=3D 0 && header_matched) ||
+> +			    (block =3D=3D 2 && !header_matched))
+> +				break;
+> +
+> +		} while (retry_cnt-- > 0);
+
+[Severity: Medium]
+If this retry loop times out (retry_cnt drops below 0), will it incorrectly
+return success?
+
+Since lt9611uxc_read_edid_block() sets ret to 0 upon completing the I2C
+read (even if it's the wrong block), ret remains 0.
+
+This could cause the DRM core to process garbage data, fail validation, and
+repeatedly retry, multiplying the delay. Should this return an error code l=
+ike
+-ETIMEDOUT when exhausted?
+
+> +	} else {
+> +		ret =3D lt9611uxc_read_edid_block(lt9611uxc, block, buf, len);
+> +
+> +		lt9611uxc_lock(lt9611uxc);
+> +		regmap_write(lt9611uxc->regmap, 0xb028, 0x00);
+> +		lt9611uxc_unlock(lt9611uxc);
+> +	}
+
+[Severity: High]
+Will clearing the 0xb028 register to 0x00 break DRM core retries for blocks=
+ 1
+and 3?
+
+If the DRM core encounters a checksum error and retries the read, it will
+enter this else branch again.
+
+But since the register was already cleared to 0x00, won't the retry
+consistently read invalid data and fail?
+
+> +
+> +	return ret;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624-lt9611usc_=
+edid34_misc_next-v2-1-24ce3f5770b8@oss.qualcomm.com?part=3D1
