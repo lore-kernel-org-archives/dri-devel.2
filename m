@@ -4,64 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48375CDB47F
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 12:26:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D12E6CDB47F
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 12:29:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9ABDE10EEE6;
-	Wed, 24 Jun 2026 12:26:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40C0A10EA50;
+	Wed, 24 Jun 2026 12:29:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jhyfHIEM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z20W21WU";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBFE910EEE6
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 12:26:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2B935601FA;
- Wed, 24 Jun 2026 12:26:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67A861F00A3D;
- Wed, 24 Jun 2026 12:26:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782304002;
- bh=FyoWGqDXNXkDv+TpnC2bHZVSCNeq8GboVi/p3SCbn98=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=jhyfHIEMGRWNkp3KiQUMVY7dHLKfjJzrWbIsyAeIsseRu5QuOZJhwAPPHwmQ0QWvH
- WGYwlNYxl1mnVmp1ZGZ8iqsxwxFXzoRVne3yK1M534Q2V4qGdWv9onURl4Ee8BG0FS
- lcsLTQrTg0ozRtjGNY5rpJVc1OCqzc7X8nap9bkj1+JTb5Fv53GwRtOuC8WOLUEUYM
- 3bdSV/ZrMI2nyHYRJKGfkE/1JVqdloixiX3wwfbhAu598I30csYL3xHzuD5SjT/0T5
- kWjcrqimprGPD4LcpMUuPUjr2GYV2l3KQFiGOd7tkFcjP8G8LhbOXkUWmcax7V0BeL
- YhktxORHN27PA==
-Date: Wed, 24 Jun 2026 14:26:40 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
- Jagan Teki <jagan@amarulasolutions.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
- Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 18/37] drm/bridge: samsung-dsim: remove the panel_bridge
- on host_detach
-Message-ID: <20260624-delectable-sexy-crayfish-e15c1f@houat>
-References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
- <20260519-drm-bridge-hotplug-v1-18-45e2bdb3dfb4@bootlin.com>
- <20260608-nano-kangaroo-of-piety-b5ab3d@houat>
- <DJ5EHSOPNQZH.22I96C6QXN9KJ@bootlin.com>
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E688010EA50
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 12:29:21 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-45ef56d9b67so834910f8f.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 05:29:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782304160; x=1782908960; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=pFbStoNOnxZ8EusijrnYkbV2hWnyICFUOIVa9+YJMwM=;
+ b=Z20W21WUEnsWS6+KgHMw2/O6rUnl30yGlGm+mFZJl1QTcW0j4ZTNG+o2KwH/HTqpQu
+ N3uf2MDtEWykZO8E/mTkPo/HN2ZZBloGR8qtdCqd1zRNkq6jTYMdZVXJAK+Wgfyc/IMj
+ snArs0xLO57xM4NIWBIfzYqWE/9MoWUQPz+/rXrmHsuJaR2bSCwd7y4wkZSbKbYZ7YWd
+ PI6nmcZe7Jx0WZ7UeMU1R6unL8GHAe7OnVShrkUyF/PvcPuwKWWTRAS/nsNGjn8zcW+S
+ BkxDYw6E/VNJNRDAjMOUfLyTbTMClTYuiGFwqOGvx1WRk0p1AgscYtyxdT60yv6P3177
+ dmbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782304160; x=1782908960;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=pFbStoNOnxZ8EusijrnYkbV2hWnyICFUOIVa9+YJMwM=;
+ b=JSSFKc/O8XNxmNdqUYYtwxFDfa5B/htW6NNR/w0E0Ivq7i/L/ElYgVHeOaQiMcOtN+
+ Tj3y92bkaGmW3Ag6rlWis4MxU8/CZqdz3j6riIx72EY5GNfNr7uSnafcHjfTAKS1WhJn
+ 0OpQHeYAX6VBkflhkgLakNZoGbJZtDLw0/v1iTfk2jtz9jSYumn0SuRTxl4HPQB3dPYA
+ f0TbfF8fX2T5yF0t4+UtC9XRuND4OvRztGjhRD69vK20ESHqBEax7RMaRp6Qk8HDijgk
+ 4/teY7opflpgV0fcP0zS2Sn8j4Jo7EkG71VJRKTR7sOFrLDFZPAkWXJnEZ+s22jPrWYa
+ 9eCA==
+X-Gm-Message-State: AOJu0YzJNsf6Sa4voXJjyxiyP7rQostOnwJyR2H1aT7RlhTz+wHm/ZMq
+ bMTMJnm/BdH0GS8deq8Q29cm1303LOKFte8Hlic3gtkgZl8IAk4nLMpV
+X-Gm-Gg: AfdE7cl1yuoaZylyLzetSx3h6qjpc7nq1lWekbmOqGq8UJb7PH0BOga9K6X7VzbpD9v
+ vc/+lNCZQUDCUhm0x93gLUQyerA+n7cV+hPKupZ+JLg96AAAdYbpb9XU8EfKnURXGBOnWAPTwMT
+ 13OiPbXCPGtDEjpNicngFVBbjBYDwtsN6fhuuoNUAqAUmlXpCX6MyZnifbf6QndmnLq04WYT2Zg
+ rJUYKFSEeAhajrYtJHiWPwz4fcMNR333Dd7AiO3qWAT9ZvEoZTlzs2+pWxa9wWQH87YNSRA2mUV
+ xavzTCym2kXtQOXSwz7gIbP+aqzXPlbjnKDtDhDmzhNyw754alauAcJZFLPkBfEwruizKsGv5yu
+ xU1J6FmrKDrUu4JWoQ00Cnp5t5FI8YA6pZxeyBIz5/sO83Zzk16FP/oftDENBuHaZ/klOHsTrp5
+ 8rAlsF2TkMhfFuFVjvY7VCaBZ7Dg==
+X-Received: by 2002:a05:6000:26d0:b0:45e:e44b:312b with SMTP id
+ ffacd0b85a97d-46c09427c74mr5404079f8f.18.1782304159998; 
+ Wed, 24 Jun 2026 05:29:19 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:157e:3500:2be7:1a89:41c5:9239])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-46c9787dddbsm3896530f8f.3.2026.06.24.05.29.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Jun 2026 05:29:19 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: phasta@kernel.org, simona@ffwll.ch, sumit.semwal@linaro.org,
+ tvrtko.ursulin@igalia.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+Subject: dma_fence cleanup/rework
+Date: Wed, 24 Jun 2026 13:13:24 +0200
+Message-ID: <20260624122917.2483-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="cstjwexp6hdv64qh"
-Content-Disposition: inline
-In-Reply-To: <DJ5EHSOPNQZH.22I96C6QXN9KJ@bootlin.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,175 +87,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+In a recent discussion with Philip and Danilo the question came up what
+was already tried and never finished to cleanup the dma_fence framework.
 
---cstjwexp6hdv64qh
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 18/37] drm/bridge: samsung-dsim: remove the panel_bridge
- on host_detach
-MIME-Version: 1.0
+So here are the different ideas I came with but never fully finished,
+with the patches itself modernized and rebased on top of drm-misc-next.
 
-On Wed, Jun 10, 2026 at 03:24:10PM +0200, Luca Ceresoli wrote:
-> On Mon Jun 8, 2026 at 1:53 PM CEST, Maxime Ripard wrote:
-> > On Tue, May 19, 2026 at 12:37:35PM +0200, Luca Ceresoli wrote:
-> >> In preparation for DRM bridge hot-plugging, we need to handle the dyna=
-mic
-> >> lifetime of the following bridge in case the samsung-dsim is always pr=
-esent
-> >> and the following bridge (next_bridge) is hot-unplugged.
-> >>
-> >> Based on the 'if (!IS_ERR(panel))' check in samsung_dsim_host_attach()=
-, the
-> >> next_bridge could be A) a panel bridge created by this driver via
-> >> devm_drm_panel_bridge_add() or B) a pre-existing bridge obtained via
-> >> of_drm_find_and_get_bridge().
-> >>
-> >> For case B) we need to put that reference when the next_bridge is remo=
-ved,
-> >> which is already handled by calling drm_bridge_clear_and_put() in
-> >> samsung_dsim_host_detach() and in the samsung_dsim_host_attach() error
-> >> management code.
-> >>
-> >> In case A) we additionally have to remove the panel bridge. Currently =
-it is
-> >> created by devm_drm_panel_bridge_add(), which adds two devm actions wi=
-th
-> >> the refcounted panel bridge:
-> >>
-> >>  - drm_bridge_put_void() via devm_drm_bridge_alloc() on panel->dev
-> >>  - devm_drm_panel_bridge_release() via devm_drm_panel_bridge_add_typed=
-()
-> >>    on the consumer device (samsung-dsim)
-> >>
-> >> The first action is OK: being tied to panel->dev it will happen when t=
-he
-> >> panel is unplugged.
-> >>
-> >> The second action is bound to the consumer device, so the devm semanti=
-cs is
-> >> not useful here when introducing hotplug. Indeed we need to drop the
-> >> next_bridge in samsung_dsim_host_detach() anyway, before the driver .r=
-emove
-> >> function, in order to support {add, {attach, detach} x N, remove} hotp=
-lug
-> >> event sequences.
-> >>
-> >> Thus move to the non-devm drm_panel_bridge_add() along with the matchi=
-ng
-> >> drm_panel_bridge_remove(), so the lifetime of the panel-bridge is tied=
- to
-> >> the host_attach/host_detach cycle and not the whole samsung-dsim device
-> >> lifetime.
-> >>
-> >> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> >>
-> >> ---
-> >>
-> >> In a previous discussion with Maxime he mentioned a plan to make every
-> >> drm_panel always have a wrapping bridge. With that done, all the code
-> >> handling the panel and adding the panel_bridge would become useless he=
-re
-> >> (and in many other places) and could be entirely removed. This patch i=
-s a
-> >> temporary solution until that happens. The best pointer I could find to
-> >> that discussion is [0], but there might be more recent material I coul=
-d not
-> >> find at the moment.
-> >>
-> >> [0] https://lore.kernel.org/lkml/20250218-faithful-white-magpie-da9ac9=
-@houat/
-> >> ---
-> >>  drivers/gpu/drm/bridge/samsung-dsim.c | 17 ++++++++++++++---
-> >>  include/drm/bridge/samsung-dsim.h     |  2 ++
-> >>  2 files changed, 16 insertions(+), 3 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/b=
-ridge/samsung-dsim.c
-> >> index 5b799619e07e..2af287221e22 100644
-> >> --- a/drivers/gpu/drm/bridge/samsung-dsim.c
-> >> +++ b/drivers/gpu/drm/bridge/samsung-dsim.c
-> >> @@ -1951,14 +1951,16 @@ static int samsung_dsim_host_attach(struct mip=
-i_dsi_host *host,
-> >>  	if (!remote)
-> >>  		return -ENODEV;
-> >>
-> >> +	dsi->panel_bridge_added =3D false;
-> >>  	panel =3D of_drm_find_panel(remote);
-> >>  	if (!IS_ERR(panel)) {
-> >> -		next_bridge =3D devm_drm_panel_bridge_add(dev, panel);
-> >> +		next_bridge =3D drm_panel_bridge_add(panel);
-> >>  		if (IS_ERR(next_bridge)) {
-> >>  			ret =3D PTR_ERR(next_bridge);
-> >>  			next_bridge =3D NULL; // Inhibit the cleanup action on an ERR_PTR
-> >>  		} else {
-> >>  			drm_bridge_get(next_bridge);
-> >> +			dsi->panel_bridge_added =3D true;
-> >>  		}
-> >>  	} else {
-> >>  		next_bridge =3D of_drm_find_and_get_bridge(remote);
-> >> @@ -1989,7 +1991,7 @@ static int samsung_dsim_host_attach(struct mipi_=
-dsi_host *host,
-> >>  	if (!(device->mode_flags & MIPI_DSI_MODE_VIDEO)) {
-> >>  		ret =3D samsung_dsim_register_te_irq(dsi, &device->dev);
-> >>  		if (ret)
-> >> -			goto err_remove_bridge;
-> >> +			goto err_remove_panel_bridge;
-> >>  	}
-> >>
-> >>  	// The next bridge can be used by host_ops->attach
-> >> @@ -2011,8 +2013,12 @@ static int samsung_dsim_host_attach(struct mipi=
-_dsi_host *host,
-> >>  	drm_bridge_clear_and_put(&dsi->bridge.next_bridge);
-> >>  	if (!(device->mode_flags & MIPI_DSI_MODE_VIDEO))
-> >>  		samsung_dsim_unregister_te_irq(dsi);
-> >> -err_remove_bridge:
-> >> +err_remove_panel_bridge:
-> >>  	drm_bridge_remove(&dsi->bridge);
-> >> +	if (dsi->panel_bridge_added) {
-> >> +		drm_panel_bridge_remove(next_bridge);
-> >> +		dsi->panel_bridge_added =3D false;
-> >> +	}
-> >
-> > This is a pretty big abstraction leak. We don't want to have that in
-> > everything driver. The removal path should be the same for both cases,
-> > and it's not something the driver should take care of.
->=20
-> Yes. The comment after the '---' separator was meant to discuss this
-> concern:
->=20
-> > In a previous discussion with Maxime he mentioned a plan to make every
-> > drm_panel always have a wrapping bridge. With that done, all the code
-> > handling the panel and adding the panel_bridge would become useless here
-> > (and in many other places) and could be entirely removed. This patch is=
- a
-> > temporary solution until that happens. The best pointer I could find to
-> > that discussion is [0], but there might be more recent material I could=
- not
-> > find at the moment.
->=20
-> Do you have any update about that plan?
+The main goal of those changes is to make it easier to implement dma_fence
+backends and don't enforce unnecessary constrains on implementations.
 
-I think we're pretty much there. As of 7.2, all panels will use
-devm_drm_panel_alloc. It should be fairly easy now to create a bridge
-for them all in devm_drm_panel_alloc, and then call drm_bridge_add in
-drm_panel_add.
+As first step the locking around the dma_fence_ops.signaled callback is
+made consistent by removing the dma_fence_is_signaled_locked() function.
 
-It's also tangentially related to https://lore.kernel.org/ksummit/0fa2fb42-=
-0714-49f7-ba43-22928e1dd488@linaro.org/
+This was mostly used by backends itself, but if polling the HW is desired
+the backends can call their own functions for this directly without going
+through the dma-fence layer.
 
-Maxime
+XE actually seems to be the only driver which make use of that for a bit
+more handling. For all other cases testing the signaled flag should be enough.
 
---cstjwexp6hdv64qh
-Content-Type: application/pgp-signature; name="signature.asc"
+Then forcefully calling dma_fence_signaled() is removed from the dma-fence
+layer and moved into the backend implementations.
 
------BEGIN PGP SIGNATURE-----
+This allows the backend implementations to cleanup after they have
+signaled the fence. Such cleanup can include removing now signaled fences
+from lists, dropping references, starting work etc....
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCajvM+wAKCRAnX84Zoj2+
-dvs6AYCbYwiAHI0RWkIrSJ6HTAS/XRbFVnFHU9MxYcXvsGs3GaljrmWoPw/w/qWK
-d1Yg7qsBgLOHhMlyHfj3U/HJUmXpsK4aLwubF45HUsdZTfAggKa53Wz+5lLcDmOy
-cJOZr5wk3A==
-=S5Am
------END PGP SIGNATURE-----
+Especially nouveau seems to have some really messy workaround because of
+that involving the DMA_FENCE_FLAG_USER_BITS and installing callbacks
+because the reference to the context couldn't be dropped directly after
+signaling. This can now be cleaned up as far as I can see.
 
---cstjwexp6hdv64qh--
+In the long term this should also allow reworking the error handling, e.g.
+removing dma_fence_set_error() and instead giving the error as mandatory
+parameter to dma_fence_signal().
+
+Then the last piece is dropping calling enable_signaling callback with the
+dma_fence lock held. This makes it possible for backends to acquire locks
+which are semantically ordered outside of the dma_fence lock.
+
+This is necessary to allows using the dma_fence inline lock in more cases,
+previously backends used some common external lock for their dma_fences to
+for example make it possible remove fences from linked lists.
+
+Please comment and review,
+Christian.
+
