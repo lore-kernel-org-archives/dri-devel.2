@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ACD5CDB47F
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 18:00:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11D78CDB47F
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 18:01:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DA9410E0E2;
-	Wed, 24 Jun 2026 18:00:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64BC910E0DF;
+	Wed, 24 Jun 2026 18:01:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F9a0soq6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XM368j7F";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D5D710E0E2
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 18:00:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC25F10E0DF
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 18:01:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 649324074B;
- Wed, 24 Jun 2026 18:00:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 256871F000E9;
- Wed, 24 Jun 2026 18:00:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BAB9B40BEE;
+ Wed, 24 Jun 2026 18:01:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87A081F000E9;
+ Wed, 24 Jun 2026 18:01:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782324039;
- bh=TojP5aZhgq4h5n6WyWN7mbPcgecv3v3oIctG7adxRIA=;
+ s=k20260515; t=1782324105;
+ bh=iUCEe2p/gU4X9gCg0PJMXB6u28ySiIJg+So6RnpTMR0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=F9a0soq6iByt8Uy+OgbVDG0VyWIuVBIUuxiSYS6T7UV/lMXvrTYf1BiwkoqYH9cfN
- Huwx4PtjzSYUwH4jpNqDCCGIEwxldKRUIDV6yy0wC9+lxS/PtL+uPvhhYJhcAxnWaY
- yE463XqxqCvt3kPF+VkD613RFtkMmsF6139YeZ91mXiqukVB8MVC+U6avpu5kUioo3
- oYFzDd5tfl6Wj8eEG2KgNnqvt9hVVOEG7QchaN0M3f+04NGIxoRsBUaHp3np7WxGu+
- Y6p8tPk9EBwxiFX+qHeqVVn1ijNuKU/nBcKbr2ybXkaVGod79Ao1Ivfih8v0twxsZ9
- 5J9p33eMHc5iA==
+ b=XM368j7FYY6sT80azOna/16I+hQU2fRd55PkibL3VjIcFNWU1E8UCMuKPFvJ4f1p+
+ raIkAWC/9BQwBbGR33jUYbqJAy04Iw7kU4/UHxLvTjES7F8fkt4uczLDBlGpbZ0V41
+ RCS2EZj9GmspmzclWie/4WAe2Z/gf/tfluZ8Ql0WQJ3B6wPEvxUR4+i/pTe3lURkQm
+ O7SUsbYafPVpZg76CSh7nCWdrU/M1rmVytt6/yyjorgJBplKrtEMpniXktz9dRoezo
+ cOx65u7Jnvl9Opxbg6LynhLRulEv75+k1Dxhv7LLFnELmA5AytjbN+IZQZl2w+IWqK
+ SEj/NT/0dvo5w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] misc: fastrpc: reject overflowing invoke buffer ranges
+Subject: Re: [PATCH] misc: fastrpc: remove mmap entry before remote unmap
 To: "Yousef Alhouseen" <alhouseenyousef@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260624174410.6074-1-alhouseenyousef@gmail.com>
-References: <20260624174410.6074-1-alhouseenyousef@gmail.com>
+In-Reply-To: <20260624174652.6792-1-alhouseenyousef@gmail.com>
+References: <20260624174652.6792-1-alhouseenyousef@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Jun 2026 18:00:38 +0000
-Message-Id: <20260624180039.256871F000E9@smtp.kernel.org>
+Date: Wed, 24 Jun 2026 18:01:45 +0000
+Message-Id: <20260624180145.87A081F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,136 +56,136 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Use-After-Free and list corruption on the `fastrpc_req_munmap` err=
+or path due to unhandled race with `fastrpc_req_mmap`.
+
 Pre-existing issues:
-- [Critical] The kernel trusts pointer and length values read directly from=
- the DSP-shared DMA buffer, allowing an arbitrary kernel read/write vulnera=
-bility.
-- [High] Context is published to the IDR before its refcount is initialized=
-, allowing a concurrent DSP callback to trigger a Use-After-Free.
-- [High] `cctx->rpdev` is read locklessly after an initial check, leading t=
-o a NULL pointer dereference if `fastrpc_rpmsg_remove` runs concurrently.
-- [High] Integer truncation of `mlen` breaks buffer serialization and leads=
- to DMA memory corruption.
+- [Critical] Missing TrustZone memory cleanup leads to a fatal hypervisor D=
+enial of Service upon reallocation.
+- [High] Concurrent double-unmap vulnerability leading to Use-After-Free in=
+ `fastrpc_req_mem_unmap_impl`.
 --
 
-commit 00821efcac58f87521dc0b1c609d5329a9afc752
+commit ddfb73eb827659f1e8a6e70335752c48fead38e3
 Author: Yousef Alhouseen <alhouseenyousef@gmail.com>
 
-misc: fastrpc: reject overflowing invoke buffer ranges
+misc: fastrpc: remove mmap entry before remote unmap
 
-This commit adds an overflow check to fastrpc_get_buff_overlaps(). It
-verifies that adding the buffer length to its start address does not
-overflow, returning -EOVERFLOW if it does. This prevents the use of
-wrapped end addresses that could misstate payload sizes or feed invalid
-ranges into invoke metadata.
+This patch removes the buffer from the fastrpc user mmaps list before
+calling into the DSP to unmap memory. If the remote unmap fails, the
+buffer is added back to the list.
 
 > diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index f3a49384586d1..ba4ade8747833 100644
+> index f3a49384586d1..964d3ab845f87 100644
 > --- a/drivers/misc/fastrpc.c
 > +++ b/drivers/misc/fastrpc.c
 
 [ ... ]
 
-> @@ -675,7 +681,13 @@ static struct fastrpc_invoke_ctx *fastrpc_context_al=
-loc(
->  			return ERR_PTR(-ENOMEM);
->  		}
->  		ctx->args =3D args;
-> -		fastrpc_get_buff_overlaps(ctx);
-> +		ret =3D fastrpc_get_buff_overlaps(ctx);
-> +		if (ret) {
-> +			kfree(ctx->olaps);
-> +			kfree(ctx->maps);
-> +			kfree(ctx);
-> +			return ERR_PTR(ret);
-> +		}
+> @@ -1924,7 +1927,14 @@ static int fastrpc_req_munmap(struct fastrpc_user =
+*fl, char __user *argp)
+>  		return -EINVAL;
 >  	}
 > =20
->  	/* Released in fastrpc_context_put() */
+> -	return fastrpc_req_munmap_impl(fl, buf);
+> +	err =3D fastrpc_req_munmap_impl(fl, buf);
+> +	if (err) {
+> +		spin_lock(&fl->lock);
+> +		list_add_tail(&buf->node, &fl->mmaps);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but since we are modifying
-fastrpc_context_alloc(), could the context be published to the IDR
-before it is fully initialized?
+Can this fallback path corrupt the list?
 
-Further down in this function, the context is published:
+If a concurrent thread calling fastrpc_req_mmap() fails in copy_to_user(),
+it branches to err_assign and calls fastrpc_req_munmap_impl() while the
+buffer is still attached to the fl->mmaps list.
 
-	ret =3D idr_alloc_cyclic(&cctx->ctx_idr, ctx, 1,
-			       FASTRPC_CTX_MAX, GFP_ATOMIC);
+If another thread concurrently calls fastrpc_req_munmap() on the same buffe=
+r,
+it detaches it from the list and calls fastrpc_req_munmap_impl(). If the fi=
+rst
+thread succeeds in the DSP unmap and frees the buffer, and the second thread
+fails the DSP unmap, it will execute list_add_tail() on the already-freed
+buffer.
 
-But the reference count is initialized later:
-
-	kref_init(&ctx->refcount);
-
-If an asynchronous callback like fastrpc_rpmsg_callback() retrieves this
-newly published context from the IDR and drops its reference, could it
-free the context before kref_init() executes, leading to a
-use-after-free?
-
+> +		spin_unlock(&fl->lock);
+> +	}
+> +
+> +	return err;
+>  }
 
 [Severity: High]
-This is a pre-existing issue, but looking at fastrpc_internal_invoke(),
-is there a lockless check that could lead to a NULL pointer dereference?
+This isn't a bug introduced by this patch, but the exact same concurrent
+vulnerability you fixed in fastrpc_req_munmap() remains unaddressed in
+fastrpc_req_mem_unmap_impl().
 
-	if (!fl->cctx->rpdev)
-		return -EPIPE;
+drivers/misc/fastrpc.c:fastrpc_req_mem_unmap_impl() {
+    ...
+	spin_lock(&fl->lock);
+	list_for_each_entry_safe(iter, m, &fl->maps, node) {
+		if ((req->fd < 0 || iter->fd =3D=3D req->fd) &&
+		    (iter->raddr =3D=3D req->vaddr)) {
+			map =3D iter;
+			break;
+		}
+	}
+	spin_unlock(&fl->lock);
+    ...
+	err =3D fastrpc_internal_invoke(fl, true, FASTRPC_INIT_HANDLE, sc,
+				      &args[0]);
+	if (err) {
+		dev_err(dev, "unmmap\tpt fd =3D %d, 0x%09llx error\n",
+			map->fd, map->raddr);
+		return err;
+	}
+	fastrpc_map_put(map);
+    ...
+}
 
-If this check passes, and a concurrent device unbind clears the pointer
-in fastrpc_rpmsg_remove() under a spinlock:
+Could two threads calling FASTRPC_IOCTL_MEM_UNMAP on the same mapping both
+find the map in fl->maps because the lock is dropped without detaching the
+map or taking a reference?
 
-	spin_lock_irqsave(&cctx->lock, flags);
-	cctx->rpdev =3D NULL;
-	...
-	spin_unlock_irqrestore(&cctx->lock, flags);
-
-Could the invocation thread then dereference the NULL pointer when it
-calls fastrpc_invoke_send()?
-
-	ret =3D rpmsg_send(cctx->rpdev->ept, (void *)msg, sizeof(*msg));
-
+If the first thread succeeds and frees the map, would the second thread
+trigger a use-after-free when it logs the error, or a double-free if it
+succeeds?
 
 [Severity: Critical]
-This is a pre-existing issue, but does fastrpc_put_args() trust pointers
-and lengths read directly from the DSP-shared DMA buffer without
-validation?
+This is a pre-existing issue, but does fastrpc_buf_free() fail to restore
+High-Level OS (HLOS) permissions before releasing memory?
 
-In fastrpc_put_args():
+When allocating memory with the ADSP_MMAP_REMOTE_HEAP_ADDR flag:
 
-			void *src =3D (void *)(uintptr_t)rpra[i].buf.pv;
-			void *dst =3D (void *)(uintptr_t)ctx->args[i].ptr;
-			u64 len =3D rpra[i].buf.len;
+drivers/misc/fastrpc.c:fastrpc_req_mmap() {
+    ...
+	if (req.flags =3D=3D ADSP_MMAP_REMOTE_HEAP_ADDR && fl->cctx->vmcount) {
+		u64 src_perms =3D BIT(QCOM_SCM_VMID_HLOS);
 
-			if (!kernel) {
-				if (copy_to_user((void __user *)dst, src, len)) {
+		err =3D qcom_scm_assign_mem(buf->dma_addr, (u64)buf->size,
+			&src_perms, fl->cctx->vmperms, fl->cctx->vmcount);
+    ...
+}
 
-If a compromised DSP supplies arbitrary addresses in this shared region,
-could this result in an arbitrary kernel read or write?
+This transfers physical memory ownership from HLOS to TrustZone. However, w=
+hen
+fastrpc_buf_free() is called:
 
+drivers/misc/fastrpc.c:fastrpc_buf_free() {
+	dma_free_coherent(buf->dev, buf->size, buf->virt,
+			  fastrpc_ipa_to_dma_addr(buf->fl->cctx,
+						  buf->dma_addr));
+	kfree(buf);
+}
 
-[Severity: High]
-This is a pre-existing issue, but does fastrpc_get_args() truncate the
-64-bit overlap size into a 32-bit signed integer?
-
-	for (oix =3D 0; oix < ctx->nbufs; ++oix) {
-		int mlen;
-		...
-			mlen =3D ctx->olaps[oix].mend - ctx->olaps[oix].mstart;
-
-			if (rlen < mlen)
-				goto bail;
-
-			rpra[i].buf.pv =3D args - ctx->olaps[oix].offset;
-			...
-			args =3D args + mlen;
-
-If the overlap exceeds 2GB, mlen could truncate to a negative value or a
-small positive value. Could this cause unsigned promotion to erroneously
-reject the buffer, or fail to advance the payload pointer sufficiently,
-overwriting subsequent buffers?
+The memory is returned to the kernel allocator without reverting the TrustZ=
+one
+assignment. Might a subsequent kernel allocation that touches this physical
+memory trigger a fatal hypervisor exception and system crash?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624174410.6074=
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624174652.6792=
 -1-alhouseenyousef@gmail.com?part=3D1
