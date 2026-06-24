@@ -4,42 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11D78CDB47F
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 18:01:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2690CDE007
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 18:04:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64BC910E0DF;
-	Wed, 24 Jun 2026 18:01:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DC9510E0D9;
+	Wed, 24 Jun 2026 18:04:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XM368j7F";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="KhvJJoO8";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC25F10E0DF
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 18:01:45 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BAB9B40BEE;
- Wed, 24 Jun 2026 18:01:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87A081F000E9;
- Wed, 24 Jun 2026 18:01:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782324105;
- bh=iUCEe2p/gU4X9gCg0PJMXB6u28ySiIJg+So6RnpTMR0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XM368j7FYY6sT80azOna/16I+hQU2fRd55PkibL3VjIcFNWU1E8UCMuKPFvJ4f1p+
- raIkAWC/9BQwBbGR33jUYbqJAy04Iw7kU4/UHxLvTjES7F8fkt4uczLDBlGpbZ0V41
- RCS2EZj9GmspmzclWie/4WAe2Z/gf/tfluZ8Ql0WQJ3B6wPEvxUR4+i/pTe3lURkQm
- O7SUsbYafPVpZg76CSh7nCWdrU/M1rmVytt6/yyjorgJBplKrtEMpniXktz9dRoezo
- cOx65u7Jnvl9Opxbg6LynhLRulEv75+k1Dxhv7LLFnELmA5AytjbN+IZQZl2w+IWqK
- SEj/NT/0dvo5w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] misc: fastrpc: remove mmap entry before remote unmap
-To: "Yousef Alhouseen" <alhouseenyousef@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260624174652.6792-1-alhouseenyousef@gmail.com>
-References: <20260624174652.6792-1-alhouseenyousef@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Jun 2026 18:01:45 +0000
-Message-Id: <20260624180145.87A081F000E9@smtp.kernel.org>
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A982610E0D9;
+ Wed, 24 Jun 2026 18:04:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1782324274;
+ bh=Gr/vB0DqwD44ZHmcTfuWPpTEH85Esko2KA0ZofgMbhU=;
+ h=From:To:Cc:Subject:Date:From;
+ b=KhvJJoO8HIP4EksWQChJHuPnxe/kRmaa20am4segrJYnH/hAD/py79pcf5PzL/0Pi
+ qLayHIlhOSH/d7MXV4Pnn8xFkS1DxPIQIr0s2rWqWN808FMkKDS1UI5yWpufedC/TD
+ OC0KSpJU8FtTbkUp14cwh4tefT+m2WKdPFNkkjbPOvs4cK/gCKTPGKMQVNtG+SWgEg
+ XZDvAXLOXLAnix4jSmkt++SNKRy26Ez65cCqbvUjy2JwNi3HDPNTKZNJNJj9eRJNXO
+ YEqsJIgplkqjxo6Q7SExTfkmEbRtHfmVAhFx2bcGEUm8QfhYs1dm6bjk/1Dj71TWXp
+ GPbgMmpkAkrUg==
+From: Maarten Lankhorst <dev@lankhorst.se>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+	Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v10 00/30] drm/i915/display: All patches to make PREEMPT_RT
+ work on i915 + xe.
+Date: Wed, 24 Jun 2026 20:04:27 +0200
+Message-ID: <20260624180459.1024068-1-dev@lankhorst.se>
+X-Mailer: git-send-email 2.53.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,140 +49,102 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Still waiting for feedback on the vblank approach, and check to see if there are some
+bugs left.
 
-New issues:
-- [High] Use-After-Free and list corruption on the `fastrpc_req_munmap` err=
-or path due to unhandled race with `fastrpc_req_mmap`.
+Changes since previous version:
+- Hopefully finally fix all i915 pmu bugs.
 
-Pre-existing issues:
-- [Critical] Missing TrustZone memory cleanup leads to a fatal hypervisor D=
-enial of Service upon reallocation.
-- [High] Concurrent double-unmap vulnerability leading to Use-After-Free in=
- `fastrpc_req_mem_unmap_impl`.
---
+For Xe, we also prohibit the use of DSM when CONFIG_PREEMPT_RT is enabled,
+and avoid the use of DSM if we cannot take over the framebuffer from the
+firmware.
 
-commit ddfb73eb827659f1e8a6e70335752c48fead38e3
-Author: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Ideally we copy the framebuffer after intel_fbdev_init_bios(),
+when we decide to preserve the framebuffer and the hardware is
+completely initialized.
 
-misc: fastrpc: remove mmap entry before remote unmap
+At that point we can use the migration engine to copy the contents over,
+this can potentially be used for preserving the initial framebuffer
+in the other cases where we cannot not use the initial FB too.
 
-This patch removes the buffer from the fastrpc user mmaps list before
-calling into the DSP to unmap memory. If the remote unmap fails, the
-buffer is added back to the list.
+Maarten Lankhorst (24):
+  drm/vblank_work: Add methods to schedule vblank_work in 2 stages
+  drm/vblank: Add a 2-stage version of drm_crtc_arm_vblank_event
+  drm/intel/display: Make intel_crtc_arm_vblank_event static
+  drm/intel/display: Convert vblank event handling to 2-stage arming
+  drm/i915/display: Move vblank put until after critical section
+  drm/i915/display: Remove locking from intel_vblank_evade critical
+    section
+  drm/i915/display: Handle vlv dsi workaround in scanline_in_safe_range
+    too
+  drm/i915/display: Make get_vblank_counter use intel_de_read_fw()
+  drm/i915/display: Do not take uncore lock in i915_get_vblank_counter
+  drm/i915/display: Make icl_dsi_frame_update use _fw too
+  drm/i915/display: Use intel_de_read/write_fw in colorops
+  drm/i915/display: Use intel_de_write_fw in intel_pipe_fastset
+  drm/i915/display: Make set_pipeconf use the fw variants
+  drm/i915/gt: Fix selftests on PREEMPT_RT
+  drm/i915/gt: Set stop_timeout() correctly on PREEMPT-RT
+  drm/i915/display: Remove uncore lock from vlv_atomic_update_fifo
+  drm/i915: Use sleeping selftests for igt_atomic on PREEMPT_RT
+  PREEMPT_RT injection
+  FOR-CI: bump MAX_STACK_TRACE_ENTRIES
+  drm/xe: Avoid using stolen memory for DPT.
+  drm/xe/display: Avoid using stolen memory for framebuffer when media
+    gt exists.
+  drm/xe/display: Do not allocate into stolen for new framebuffers.
+  drm/i915/pmu: Convert to raw spinlock
+  drm/i915: Disable "busy" pmu event on CONFIG_PREEMPT_RT
 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index f3a49384586d1..964d3ab845f87 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
+Mike Galbraith (1):
+  drm/i915: Use preempt_disable/enable_rt() where recommended
 
-[ ... ]
+Sebastian Andrzej Siewior (5):
+  drm/i915/gt: Use spin_lock_irq() instead of local_irq_disable() +
+    spin_lock()
+  drm/i915: Drop the irqs_disabled() check
+  drm/i915/guc: Consider also RCU depth in busy loop.
+  Revert "drm/i915: Depend on !PREEMPT_RT."
+  drm/i915/gt: Add a spinlock to prevent starvation of irq_work.
 
-> @@ -1924,7 +1927,14 @@ static int fastrpc_req_munmap(struct fastrpc_user =
-*fl, char __user *argp)
->  		return -EINVAL;
->  	}
-> =20
-> -	return fastrpc_req_munmap_impl(fl, buf);
-> +	err =3D fastrpc_req_munmap_impl(fl, buf);
-> +	if (err) {
-> +		spin_lock(&fl->lock);
-> +		list_add_tail(&buf->node, &fl->mmaps);
+ drivers/gpu/drm/drm_vblank.c                  |  64 +++++++++-
+ drivers/gpu/drm/drm_vblank_work.c             | 110 +++++++++++++----
+ drivers/gpu/drm/i915/Kconfig                  |   1 -
+ drivers/gpu/drm/i915/display/i9xx_wm.c        |   4 -
+ drivers/gpu/drm/i915/display/icl_dsi.c        |   4 +-
+ drivers/gpu/drm/i915/display/intel_cmtg.c     |   6 +-
+ drivers/gpu/drm/i915/display/intel_color.c    |   6 +-
+ drivers/gpu/drm/i915/display/intel_crtc.c     |  86 ++++++-------
+ drivers/gpu/drm/i915/display/intel_crtc.h     |   1 -
+ drivers/gpu/drm/i915/display/intel_cursor.c   |   8 +-
+ drivers/gpu/drm/i915/display/intel_de.h       |   8 ++
+ drivers/gpu/drm/i915/display/intel_display.c  |  52 ++++----
+ drivers/gpu/drm/i915/display/intel_vblank.c   | 115 ++++++++++--------
+ drivers/gpu/drm/i915/display/intel_vblank.h   |   1 +
+ drivers/gpu/drm/i915/display/intel_vrr.c      |  18 +--
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   |   8 +-
+ .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |   1 +
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   2 +-
+ .../drm/i915/gt/intel_execlists_submission.c  |  17 +--
+ drivers/gpu/drm/i915/gt/selftest_engine_pm.c  |   8 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   2 +-
+ drivers/gpu/drm/i915/i915_pmu.c               |  26 ++--
+ drivers/gpu/drm/i915/i915_pmu.h               |   2 +-
+ drivers/gpu/drm/i915/i915_request.c           |   2 -
+ drivers/gpu/drm/i915/intel_uncore.h           |  26 ++--
+ drivers/gpu/drm/i915/selftests/igt_atomic.c   |   7 ++
+ .../drm/xe/compat-i915-headers/intel_uncore.h |   7 ++
+ drivers/gpu/drm/xe/display/xe_display_bo.c    |  40 ++----
+ drivers/gpu/drm/xe/display/xe_fb_pin.c        |  33 ++---
+ include/drm/drm_vblank.h                      |  14 ++-
+ include/drm/drm_vblank_work.h                 |  12 ++
+ kernel/Kconfig.preempt                        |   4 +-
+ lib/Kconfig.debug                             |   5 +-
+ 33 files changed, 435 insertions(+), 265 deletions(-)
 
-[Severity: High]
-Can this fallback path corrupt the list?
+-- 
+2.53.0
 
-If a concurrent thread calling fastrpc_req_mmap() fails in copy_to_user(),
-it branches to err_assign and calls fastrpc_req_munmap_impl() while the
-buffer is still attached to the fl->mmaps list.
-
-If another thread concurrently calls fastrpc_req_munmap() on the same buffe=
-r,
-it detaches it from the list and calls fastrpc_req_munmap_impl(). If the fi=
-rst
-thread succeeds in the DSP unmap and frees the buffer, and the second thread
-fails the DSP unmap, it will execute list_add_tail() on the already-freed
-buffer.
-
-> +		spin_unlock(&fl->lock);
-> +	}
-> +
-> +	return err;
->  }
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the exact same concurrent
-vulnerability you fixed in fastrpc_req_munmap() remains unaddressed in
-fastrpc_req_mem_unmap_impl().
-
-drivers/misc/fastrpc.c:fastrpc_req_mem_unmap_impl() {
-    ...
-	spin_lock(&fl->lock);
-	list_for_each_entry_safe(iter, m, &fl->maps, node) {
-		if ((req->fd < 0 || iter->fd =3D=3D req->fd) &&
-		    (iter->raddr =3D=3D req->vaddr)) {
-			map =3D iter;
-			break;
-		}
-	}
-	spin_unlock(&fl->lock);
-    ...
-	err =3D fastrpc_internal_invoke(fl, true, FASTRPC_INIT_HANDLE, sc,
-				      &args[0]);
-	if (err) {
-		dev_err(dev, "unmmap\tpt fd =3D %d, 0x%09llx error\n",
-			map->fd, map->raddr);
-		return err;
-	}
-	fastrpc_map_put(map);
-    ...
-}
-
-Could two threads calling FASTRPC_IOCTL_MEM_UNMAP on the same mapping both
-find the map in fl->maps because the lock is dropped without detaching the
-map or taking a reference?
-
-If the first thread succeeds and frees the map, would the second thread
-trigger a use-after-free when it logs the error, or a double-free if it
-succeeds?
-
-[Severity: Critical]
-This is a pre-existing issue, but does fastrpc_buf_free() fail to restore
-High-Level OS (HLOS) permissions before releasing memory?
-
-When allocating memory with the ADSP_MMAP_REMOTE_HEAP_ADDR flag:
-
-drivers/misc/fastrpc.c:fastrpc_req_mmap() {
-    ...
-	if (req.flags =3D=3D ADSP_MMAP_REMOTE_HEAP_ADDR && fl->cctx->vmcount) {
-		u64 src_perms =3D BIT(QCOM_SCM_VMID_HLOS);
-
-		err =3D qcom_scm_assign_mem(buf->dma_addr, (u64)buf->size,
-			&src_perms, fl->cctx->vmperms, fl->cctx->vmcount);
-    ...
-}
-
-This transfers physical memory ownership from HLOS to TrustZone. However, w=
-hen
-fastrpc_buf_free() is called:
-
-drivers/misc/fastrpc.c:fastrpc_buf_free() {
-	dma_free_coherent(buf->dev, buf->size, buf->virt,
-			  fastrpc_ipa_to_dma_addr(buf->fl->cctx,
-						  buf->dma_addr));
-	kfree(buf);
-}
-
-The memory is returned to the kernel allocator without reverting the TrustZ=
-one
-assignment. Might a subsequent kernel allocation that touches this physical
-memory trigger a fatal hypervisor exception and system crash?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624174652.6792=
--1-alhouseenyousef@gmail.com?part=3D1
