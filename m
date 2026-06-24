@@ -4,44 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DCC1CDB479
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 03:27:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A2BCCDB475
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 03:48:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B400E10E025;
-	Wed, 24 Jun 2026 03:27:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D7D110ED66;
+	Wed, 24 Jun 2026 03:48:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G42b6V3M";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="apjoRpfJ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6143D10E025
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 03:27:00 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 082F041A50;
- Wed, 24 Jun 2026 03:27:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A63391F000E9;
- Wed, 24 Jun 2026 03:26:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782271619;
- bh=0qW8cjE+jdxzwm1Exj3TrJ9on/5HEPiKKfQKexTZocM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=G42b6V3MfIpoMzYkzLtiUSd38ZxgxzahNNEaVRkisYxD7gqIhg0kqMIsr5Auxckd0
- DTTlQqdE4Qrdn1MtC+dFjcq4zSdzGntibvIrnBe4OnbIvLOwbvB2JvvG/j4rC3516o
- JqSFIeHYTN6XvoR+7Jzc1sP8BL3kPOq3yVCR0ZNXdAdmbAzHLd+6HFQLyuMTFBWl8s
- lW7g5GMThS+ZNL7KsGxK8bwPey5yD6dTRSkX5Q46Ek7z2OWBRgKjZfYmbhEB0WufUh
- PuQvOphdrqrDjdy4RGf5q63seLWaL8WdVZshd1ZEyBD+XhPbz7V3AARBcvB7v6Ipw5
- PmtTOJkTr6AOA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] cgroup/dmem: add per-region event counters
-To: "Hongfu Li" <lihongfu@kylinos.cn>
-Cc: tj@kernel.org, mkoutny@suse.com, dri-devel@lists.freedesktop.org,
- hannes@cmpxchg.org
-In-Reply-To: <20260624031107.667253-2-lihongfu@kylinos.cn>
-References: <20260624031107.667253-1-lihongfu@kylinos.cn>
- <20260624031107.667253-2-lihongfu@kylinos.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Jun 2026 03:26:59 +0000
-Message-Id: <20260624032659.A63391F000E9@smtp.kernel.org>
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9116D10ED66
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 03:48:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+ Message-ID; bh=hWqeOcKYSXqhiRM/h2H2eirMHc4akdFF5TlpRlWw0jw=; b=a
+ pjoRpfJq3OiGIpVKUlFBqWhS7JrmAqFbS/oIQTp/4rCNvbXzff+E44gE20v6EmjP
+ bh6nFPPLZBnLE/+ofPKrCBYQED7/VUa/lGUfOK4suXe2GbwWWDtFyODhFhVWjp6t
+ oTvpv0WOrudqF6lmGFoblbWdbFB5bg3pA9M3In1BO0=
+Received: from haoxiang_li2024$163.com ( [36.112.3.223] ) by
+ ajax-webmail-wmsvr-40-108 (Coremail) ; Wed, 24 Jun 2026 11:48:39 +0800
+ (CST)
+X-Originating-IP: [36.112.3.223]
+Date: Wed, 24 Jun 2026 11:48:39 +0800 (CST)
+From: haoxiang_li2024  <haoxiang_li2024@163.com>
+To: "Helge Deller" <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re:Re: [PATCH] video: hpfb: Unregister DIO driver on init failure
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260403(27802f6d) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <2d21c6b7-e7f5-476a-aed3-09ac6d89b099@gmx.de>
+References: <20260622064915.767194-1-haoxiang_li2024@163.com>
+ <2d21c6b7-e7f5-476a-aed3-09ac6d89b099@gmx.de>
+X-NTES-SC: AL_Qu2TAP6cvUEq7yKZYekfmUwSj+s8WsO0vf4i245fO5B+jCLpyzEDYXpkLHTOzeC2LxuSuwqcbydQy+9XTK1GRYskVNUiF2fsbx52B8YBZg3b5w==
+Content-Type: multipart/alternative; 
+ boundary="----=_Part_55893_858495486.1782272919226"
+MIME-Version: 1.0
+Message-ID: <e01946b.3a0c.19ef7be86bb.Coremail.haoxiang_li2024@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: bCgvCgDX3wKXUztqr6IPAA--.1121W
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7hdj0Wo7U5cvxwAA32
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,54 +58,86 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] DMEMCG_LOW event counter is heavily inflated by incrementing per=
--skipped-object during LRU walks instead of per reclaim fallback.
---
+------=_Part_55893_858495486.1782272919226
+Content-Type: text/plain; charset=GBK
+Content-Transfer-Encoding: base64
 
-commit 36a407edf0ff46972d31f3cdddb8b463ec3f07d8
-Author: Hongfu Li <lihongfu@kylinos.cn>
-cgroup/dmem: add per-region event counters
+CkF0IDIwMjYtMDYtMjMgMTY6MTA6MjEsICJIZWxnZSBEZWxsZXIiIDxkZWxsZXJAZ214LmRlPiB3
+cm90ZToKPk9uIDYvMjIvMjYgMDg6NDksIEhhb3hpYW5nIExpIHdyb3RlOgo+PiBocGZiX2luaXQo
+KSByZWdpc3RlcnMgdGhlIERJTyBkcml2ZXIgdmlhIGRpb19yZWdpc3Rlcl9kcml2ZXIoKS4KPj4g
+SWYgYSBsYXRlciBlcnJvciBvY2N1cnMsIHRoZSBmdW5jdGlvbiByZXR1cm5zIGRpcmVjdGx5IHdp
+dGhvdXQKPj4gdW5yZWdpc3RlcmluZyB0aGUgRElPIGRyaXZlci4gVW5yZWdpc3RlciB0aGUgRElP
+IGRyaXZlciBiZWZvcmUKPj4gcmV0dXJuaW5nIGZyb20gdGhlc2UgZXJyb3IgcGF0aHMuCj4+IAo+
+PiBTaWduZWQtb2ZmLWJ5OiBIYW94aWFuZyBMaSA8aGFveGlhbmdfbGkyMDI0QDE2My5jb20+Cj4+
+IC0tLQo+PiAgIGRyaXZlcnMvdmlkZW8vZmJkZXYvaHBmYi5jIHwgNSArKysrLQo+PiAgIDEgZmls
+ZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPgo+VGhhbmtzISBQYXRj
+aCBhcHBsaWVkIHRvIGZiZGV2IGdpdCB0cmVlLgo+Cj5CeSB0aGUgd2F5Li4uIGRvZXNuJ3QgdGhl
+IHJlcXVlc3RfbWVtX3JlZ2lvbigpIGJlbG93IG5lZWRzIGEgY29ycmVzcG9uZGluZwo+cmVsZWFz
+ZV9tZW1fcmVnaW9uKCkgaW4gdGhlIGZhaWx1cmUgcGF0aD8KPgo+SGVsZ2UKCj4KCgpUaGFua3Mg
+Zm9yIHlvdXIgcmV2aWV3ISBJIHRoaW5rIHlvdSBhcmUgcmlnaHQuIEkgd291bGQgc3VibWl0IHRo
+aXMgcGF0Y2ggbGF0ZXIuCgoKPj4gCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3ZpZGVvL2ZiZGV2
+L2hwZmIuYyBiL2RyaXZlcnMvdmlkZW8vZmJkZXYvaHBmYi5jCj4+IGluZGV4IGExMTQ0YjE1MDk4
+Mi4uMTQwNTcxMmU1YjRmIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL3ZpZGVvL2ZiZGV2L2hwZmIu
+Ywo+PiArKysgYi9kcml2ZXJzL3ZpZGVvL2ZiZGV2L2hwZmIuYwo+PiBAQCAtNDA3LDEwICs0MDcs
+MTMgQEAgc3RhdGljIGludCBfX2luaXQgaHBmYl9pbml0KHZvaWQpCj4+ICAgCWVyciA9IGNvcHlf
+ZnJvbV9rZXJuZWxfbm9mYXVsdCgmaSwgKHVuc2lnbmVkIGNoYXIgKilJTlRGQlZBRERSICsgRElP
+X0lET0ZGLCAxKTsKPj4gICAKPj4gICAJaWYgKCFlcnIgJiYgKGkgPT0gRElPX0lEX0ZCVUZGRVIp
+ICYmIHRvcGNhdF9zaWRfb2soc2lkID0gRElPX1NFQ0lEKElOVEZCVkFERFIpKSkgewo+PiAtCQlp
+ZiAoIXJlcXVlc3RfbWVtX3JlZ2lvbihJTlRGQlBBRERSLCBESU9fREVWU0laRSwgIkludGVybmFs
+IFRvcGNhdCIpKQo+PiArCQlpZiAoIXJlcXVlc3RfbWVtX3JlZ2lvbihJTlRGQlBBRERSLCBESU9f
+REVWU0laRSwgIkludGVybmFsIFRvcGNhdCIpKSB7Cj4+ICsJCQlkaW9fdW5yZWdpc3Rlcl9kcml2
+ZXIoJmhwZmJfZHJpdmVyKTsKPj4gICAJCQlyZXR1cm4gLUVCVVNZOwo+PiArCQl9Cj4+ICAgCQlw
+cmludGsoS0VSTl9JTkZPICJJbnRlcm5hbCBUb3BjYXQgZm91bmQgKHNlY29uZGFyeSBpZCAlMDJ4
+KVxuIiwgc2lkKTsKPj4gICAJCWlmIChocGZiX2luaXRfb25lKElOVEZCUEFERFIsIElOVEZCVkFE
+RFIpKSB7Cj4+ICsJCQlkaW9fdW5yZWdpc3Rlcl9kcml2ZXIoJmhwZmJfZHJpdmVyKTsKPj4gICAJ
+CQlyZXR1cm4gLUVOT01FTTsKPj4gICAJCX0KCj4+IH0KCgpUaGFua3MsCkhhb3hpYW5n
+------=_Part_55893_858495486.1782272919226
+Content-Type: text/html; charset=GBK
+Content-Transfer-Encoding: base64
 
-This patch adds the dmem.events interface to report hierarchical low and max
-event counts per DMEM region. It introduces counters that increment on
-dmem.max allocation failures and dmem.low protection events.
+PGRpdiBkYXRhLW50ZXM9Im50ZXNfbWFpbF9ib2R5X3Jvb3QiIHN0eWxlPSJsaW5lLWhlaWdodDox
+Ljc7Y29sb3I6IzAwMDAwMDtmb250LXNpemU6MTRweDtmb250LWZhbWlseTpBcmlhbCI+PHByZT48
+YnI+QXQgMjAyNi0wNi0yMyAxNjoxMDoyMSwgIkhlbGdlIERlbGxlciIgJmx0O2RlbGxlckBnbXgu
+ZGUmZ3Q7IHdyb3RlOgomZ3Q7T24gNi8yMi8yNiAwODo0OSwgSGFveGlhbmcgTGkgd3JvdGU6CiZn
+dDsmZ3Q7IGhwZmJfaW5pdCgpIHJlZ2lzdGVycyB0aGUgRElPIGRyaXZlciB2aWEgZGlvX3JlZ2lz
+dGVyX2RyaXZlcigpLgomZ3Q7Jmd0OyBJZiBhIGxhdGVyIGVycm9yIG9jY3VycywgdGhlIGZ1bmN0
+aW9uIHJldHVybnMgZGlyZWN0bHkgd2l0aG91dAomZ3Q7Jmd0OyB1bnJlZ2lzdGVyaW5nIHRoZSBE
+SU8gZHJpdmVyLiBVbnJlZ2lzdGVyIHRoZSBESU8gZHJpdmVyIGJlZm9yZQomZ3Q7Jmd0OyByZXR1
+cm5pbmcgZnJvbSB0aGVzZSBlcnJvciBwYXRocy4KJmd0OyZndDsgCiZndDsmZ3Q7IFNpZ25lZC1v
+ZmYtYnk6IEhhb3hpYW5nIExpICZsdDtoYW94aWFuZ19saTIwMjRAMTYzLmNvbSZndDsKJmd0OyZn
+dDsgLS0tCiZndDsmZ3Q7ICAgZHJpdmVycy92aWRlby9mYmRldi9ocGZiLmMgfCA1ICsrKystCiZn
+dDsmZ3Q7ICAgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQom
+Z3Q7CiZndDtUaGFua3MhIFBhdGNoIGFwcGxpZWQgdG8gZmJkZXYgZ2l0IHRyZWUuCiZndDsKJmd0
+O0J5IHRoZSB3YXkuLi4gZG9lc24ndCB0aGUgcmVxdWVzdF9tZW1fcmVnaW9uKCkgYmVsb3cgbmVl
+ZHMgYSBjb3JyZXNwb25kaW5nCiZndDtyZWxlYXNlX21lbV9yZWdpb24oKSBpbiB0aGUgZmFpbHVy
+ZSBwYXRoPwomZ3Q7CiZndDtIZWxnZQo8L3ByZT48ZGl2PiZndDs8L2Rpdj48ZGl2Pjxicj48L2Rp
+dj48ZGl2PjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTogbW9ub3NwYWNlOyI+VGhhbmtzIGZvciB5
+b3VyIHJldmlldyEgSSB0aGluayB5b3UgYXJlIHJpZ2h0LiBJIHdvdWxkIHN1Ym1pdCB0aGlzIHBh
+dGNoIGxhdGVyLjwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTogbW9u
+b3NwYWNlOyI+PGJyPgo8L3NwYW4+PC9kaXY+PHByZT4mZ3Q7Jmd0OyAKJmd0OyZndDsgZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvdmlkZW8vZmJkZXYvaHBmYi5jIGIvZHJpdmVycy92aWRlby9mYmRldi9o
+cGZiLmMKJmd0OyZndDsgaW5kZXggYTExNDRiMTUwOTgyLi4xNDA1NzEyZTViNGYgMTAwNjQ0CiZn
+dDsmZ3Q7IC0tLSBhL2RyaXZlcnMvdmlkZW8vZmJkZXYvaHBmYi5jCiZndDsmZ3Q7ICsrKyBiL2Ry
+aXZlcnMvdmlkZW8vZmJkZXYvaHBmYi5jCiZndDsmZ3Q7IEBAIC00MDcsMTAgKzQwNywxMyBAQCBz
+dGF0aWMgaW50IF9faW5pdCBocGZiX2luaXQodm9pZCkKJmd0OyZndDsgICAJZXJyID0gY29weV9m
+cm9tX2tlcm5lbF9ub2ZhdWx0KCZhbXA7aSwgKHVuc2lnbmVkIGNoYXIgKilJTlRGQlZBRERSICsg
+RElPX0lET0ZGLCAxKTsKJmd0OyZndDsgICAKJmd0OyZndDsgICAJaWYgKCFlcnIgJmFtcDsmYW1w
+OyAoaSA9PSBESU9fSURfRkJVRkZFUikgJmFtcDsmYW1wOyB0b3BjYXRfc2lkX29rKHNpZCA9IERJ
+T19TRUNJRChJTlRGQlZBRERSKSkpIHsKJmd0OyZndDsgLQkJaWYgKCFyZXF1ZXN0X21lbV9yZWdp
+b24oSU5URkJQQUREUiwgRElPX0RFVlNJWkUsICJJbnRlcm5hbCBUb3BjYXQiKSkKJmd0OyZndDsg
+KwkJaWYgKCFyZXF1ZXN0X21lbV9yZWdpb24oSU5URkJQQUREUiwgRElPX0RFVlNJWkUsICJJbnRl
+cm5hbCBUb3BjYXQiKSkgewomZ3Q7Jmd0OyArCQkJZGlvX3VucmVnaXN0ZXJfZHJpdmVyKCZhbXA7
+aHBmYl9kcml2ZXIpOwomZ3Q7Jmd0OyAgIAkJCXJldHVybiAtRUJVU1k7CiZndDsmZ3Q7ICsJCX0K
+Jmd0OyZndDsgICAJCXByaW50ayhLRVJOX0lORk8gIkludGVybmFsIFRvcGNhdCBmb3VuZCAoc2Vj
+b25kYXJ5IGlkICUwMngpXG4iLCBzaWQpOwomZ3Q7Jmd0OyAgIAkJaWYgKGhwZmJfaW5pdF9vbmUo
+SU5URkJQQUREUiwgSU5URkJWQUREUikpIHsKJmd0OyZndDsgKwkJCWRpb191bnJlZ2lzdGVyX2Ry
+aXZlcigmYW1wO2hwZmJfZHJpdmVyKTsKJmd0OyZndDsgICAJCQlyZXR1cm4gLUVOT01FTTsKJmd0
+OyZndDsgICAJCX0KPC9wcmU+PGRpdj4mZ3Q7Jmd0OyAgIAl9PC9kaXY+PGRpdj48YnI+PC9kaXY+
+PGRpdj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6IG1vbm9zcGFjZTsiPlRoYW5rcyw8L3NwYW4+
+PC9kaXY+PGRpdj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6IG1vbm9zcGFjZTsiPkhhb3hpYW5n
+Cjwvc3Bhbj48L2Rpdj48L2Rpdj4=
+------=_Part_55893_858495486.1782272919226--
 
-> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-> index 4753a67d0f0f2..79d4c5d0a0469 100644
-> --- a/kernel/cgroup/dmem.c
-> +++ b/kernel/cgroup/dmem.c
-
-[ ... ]
-
-> @@ -345,6 +374,7 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgr=
-oup_pool_state *limit_pool,
->  			return true;
-> =20
->  		*ret_hit_low =3D true;
-> +		dmemcg_memory_event(test_pool, DMEMCG_LOW);
-
-[Severity: Medium]
-Does incrementing the event here inflate the DMEMCG_LOW counter by counting
-every single skipped object during an LRU walk?
-
-Because dmem_cgroup_state_evict_valuable() is typically called in a loop for
-each object during eviction (for example, in ttm_bo_evict_cb), this will hit
-for every protected object rather than once per reclaim fallback.
-
-Could this also introduce a performance overhead, as the atomic increments
-and hierarchical cgroup_file_notify() calls are now happening inside the
-tight eviction loop?
-
->  		return false;
->  	}
->  	return true;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624031107.6672=
-53-1-lihongfu@kylinos.cn?part=3D1
