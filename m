@@ -4,80 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2454DCDB47F
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 12:30:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0AD2CDB47F
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 12:31:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DF2E10EEED;
-	Wed, 24 Jun 2026 12:30:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 126EC10EEF2;
+	Wed, 24 Jun 2026 12:31:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="R0l5uaRB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dsppSV9V";
 	dkim-atps=neutral
-Received: from out-183.mta1.migadu.com (out-183.mta1.migadu.com
- [95.215.58.183])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE09610EEED
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 12:29:59 +0000 (UTC)
-Message-ID: <f99b70cc-e11c-42a9-a986-d20b3f232a31@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1782304195;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=eNfuHxO86n8b93ev9jYNFJxXkathlRXlXpz1k/8S9nI=;
- b=R0l5uaRBMcxiN2aXXeE7sJmbbWZ+nIwvYOIBg2hW4xeZNywWJj11l3PcvXG3Ip7YlbinqT
- P/PQ6kfAvOv13VlW7fdMv2tpC85uXP91R5VJRz9HOOc6aZfnOL/SuWOVvCXI8elJq6bVmX
- Hq88NW9qj4aWnLm21y4nDBq7fAgYa9M=
-Date: Wed, 24 Jun 2026 20:29:26 +0800
-MIME-Version: 1.0
-Subject: Re: [PATCH v3 0/7] Prepare mutable list iterators to cache cursor
- state
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Tejun Heo <tj@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Paul Moore <paul@paul-moore.com>, "Paul E. McKenney" <paulmck@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Howells <dhowells@redhat.com>, Simona Vetter <simona.vetter@ffwll.ch>,
- Randy Dunlap <rdunlap@infradead.org>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Philipp Stanner <phasta@kernel.org>, linux-block@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>,
- "open list:CONTROL GROUP (CGROUP)" <cgroups@vger.kernel.org>,
- linux-ntfs-dev@lists.sourceforge.net,
- Linux-Fsdevel <linux-fsdevel@vger.kernel.org>,
- io-uring <io-uring@vger.kernel.org>, audit@vger.kernel.org,
- bpf <bpf@vger.kernel.org>, Network Development <netdev@vger.kernel.org>,
- dri-devel@lists.freedesktop.org,
- "linux-perf-use." <linux-perf-users@vger.kernel.org>,
- linux-trace-kernel <linux-trace-kernel@vger.kernel.org>,
- kexec@lists.infradead.org, live-patching@vger.kernel.org,
- linux-modules@vger.kernel.org,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- Linux Power Management <linux-pm@vger.kernel.org>, rcu@vger.kernel.org,
- sched-ext@lists.linux.dev, linux-mm <linux-mm@kvack.org>,
- virtualization@lists.linux.dev, damon@lists.linux.dev,
- clang-built-linux <llvm@lists.linux.dev>,
- chengkaitao <chengkaitao@kylinos.cn>, Muchun Song <muchun.song@linux.dev>
-References: <20260622040533.29824-1-kaitao.cheng@linux.dev>
- <CAADnVQJmPWFT01b7DuLdtafv=8FyB84GYHNZ8zSTck+9Aw0JpA@mail.gmail.com>
- <8c8f1849-86d3-4c69-be27-30bbdffdf616@linux.dev>
- <ajkSftEbdGoiJXYs@ashevche-desk.local>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Kaitao Cheng <kaitao.cheng@linux.dev>
-In-Reply-To: <ajkSftEbdGoiJXYs@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8586310EEF2
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 12:31:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id EA6E9601FC;
+ Wed, 24 Jun 2026 12:31:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D2161F000E9;
+ Wed, 24 Jun 2026 12:31:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782304298;
+ bh=MCthOd3Um/cxAv6THxFutEBI/SJXQ365jPYZDTkO0EU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=dsppSV9VdbQYXNnXqlgW5YIs3bmT0pzhVpJMDrmi49N1vzSTqLpCCCU/9k6A5s8Dt
+ jNqwaQihoo3WYRoRD2GFe0opmWeoOVh5jtjLgMkFGGoMPN9SCOJ1LAoCxRB2KZtL9b
+ gAef5ZXWjC8RrEElOPlWquk2UBgGLIYxBqfazhRZpOKoSAiiNcE6NBjK1Co27kYNor
+ NR8d7uoP8Oh85NKbCvUuS8ChmIxCF/5nB/84HN6I35MOky/gNlc6ZwZxRb7kCZCfEM
+ bbBpH16vK86/rgpFZk256rkMIiYb+/GKo90mXq3Q9b0H20qubtK1P57ILDGqqFOlA6
+ Cz6DFNmKWyC2A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/4] drm/bridge: tc358767: register DP aux bus even in
+ DRM_BRIDGE_ATTACH_NO_CONNECTOR case
+To: "Alexander Stein" <alexander.stein@ew.tq-group.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260624121515.2301219-1-alexander.stein@ew.tq-group.com>
+References: <20260624121515.2301219-1-alexander.stein@ew.tq-group.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 24 Jun 2026 12:31:37 +0000
+Message-Id: <20260624123138.7D2161F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,182 +53,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
+Pre-existing issues:
+- [High] The bridge detach function `tc_edp_bridge_detach` does not call `d=
+rm_connector_cleanup()` for the connector initialized in `tc_edp_bridge_att=
+ach()`, leading to a use-after-free when the module unloads.
+--
 
-在 2026/6/22 18:46, Andy Shevchenko 写道:
-> On Mon, Jun 22, 2026 at 02:15:01PM +0800, Kaitao Cheng wrote:
->> 在 2026/6/22 13:28, Alexei Starovoitov 写道:
->>> On Sun, Jun 21, 2026 at 9:06 PM Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
-> 
-> ...
-> 
->>>>  block/bfq-iosched.c                 |  17 +-
->>>>  block/blk-cgroup.c                  |  12 +-
->>>>  block/blk-flush.c                   |   4 +-
->>>>  block/blk-iocost.c                  |  18 +-
->>>>  block/blk-mq.c                      |   8 +-
->>>>  block/blk-throttle.c                |   4 +-
->>>>  block/kyber-iosched.c               |   4 +-
->>>>  block/partitions/ldm.c              |   8 +-
->>>>  block/sed-opal.c                    |   4 +-
->>>>  include/linux/list.h                | 269 ++++++++++++++++++++++++----
->>>>  include/linux/llist.h               |  81 +++++++--
->>>>  init/initramfs.c                    |   5 +-
->>>>  io_uring/cancel.c                   |   6 +-
->>>>  io_uring/poll.c                     |   3 +-
->>>>  io_uring/rw.c                       |   4 +-
->>>>  io_uring/timeout.c                  |   8 +-
->>>>  io_uring/uring_cmd.c                |   3 +-
->>>>  kernel/audit_tree.c                 |   4 +-
->>>>  kernel/audit_watch.c                |  16 +-
->>>>  kernel/auditfilter.c                |   4 +-
->>>>  kernel/auditsc.c                    |   4 +-
->>>>  kernel/bpf/arena.c                  |  10 +-
->>>>  kernel/bpf/arraymap.c               |   8 +-
->>>>  kernel/bpf/bpf_local_storage.c      |   3 +-
->>>>  kernel/bpf/bpf_lru_list.c           |  25 ++-
->>>>  kernel/bpf/btf.c                    |  18 +-
->>>>  kernel/bpf/cgroup.c                 |   7 +-
->>>>  kernel/bpf/cpumap.c                 |   4 +-
->>>>  kernel/bpf/devmap.c                 |  10 +-
->>>>  kernel/bpf/helpers.c                |   8 +-
->>>>  kernel/bpf/local_storage.c          |   4 +-
->>>>  kernel/bpf/memalloc.c               |  16 +-
->>>>  kernel/bpf/offload.c                |   8 +-
->>>>  kernel/bpf/states.c                 |   4 +-
->>>>  kernel/bpf/stream.c                 |   4 +-
->>>>  kernel/bpf/verifier.c               |   6 +-
->>>>  kernel/cgroup/cgroup-v1.c           |   4 +-
->>>>  kernel/cgroup/cgroup.c              |  54 +++---
->>>>  kernel/cgroup/dmem.c                |  12 +-
->>>>  kernel/cgroup/rdma.c                |   8 +-
->>>>  kernel/events/core.c                |  44 +++--
->>>>  kernel/events/uprobes.c             |  12 +-
->>>>  kernel/exit.c                       |   8 +-
->>>>  kernel/fail_function.c              |   4 +-
->>>>  kernel/gcov/clang.c                 |   4 +-
->>>>  kernel/irq_work.c                   |   4 +-
->>>>  kernel/kexec_core.c                 |   4 +-
->>>>  kernel/kprobes.c                    |  16 +-
->>>>  kernel/livepatch/core.c             |   4 +-
->>>>  kernel/livepatch/core.h             |   4 +-
->>>>  kernel/liveupdate/kho_block.c       |   4 +-
->>>>  kernel/liveupdate/luo_flb.c         |   4 +-
->>>>  kernel/locking/rwsem.c              |   2 +-
->>>>  kernel/locking/test-ww_mutex.c      |   2 +-
->>>>  kernel/module/main.c                |  11 +-
->>>>  kernel/padata.c                     |   4 +-
->>>>  kernel/power/snapshot.c             |   8 +-
->>>>  kernel/power/wakelock.c             |   4 +-
->>>>  kernel/printk/printk.c              |  11 +-
->>>>  kernel/ptrace.c                     |   4 +-
->>>>  kernel/rcu/rcutorture.c             |   3 +-
->>>>  kernel/rcu/tasks.h                  |   9 +-
->>>>  kernel/rcu/tree.c                   |   6 +-
->>>>  kernel/resource.c                   |   4 +-
->>>>  kernel/sched/core.c                 |   4 +-
->>>>  kernel/sched/ext.c                  |  22 +--
->>>>  kernel/sched/fair.c                 |  28 +--
->>>>  kernel/sched/topology.c             |   4 +-
->>>>  kernel/sched/wait.c                 |   4 +-
->>>>  kernel/seccomp.c                    |   4 +-
->>>>  kernel/signal.c                     |  11 +-
->>>>  kernel/smp.c                        |   4 +-
->>>>  kernel/taskstats.c                  |   8 +-
->>>>  kernel/time/clockevents.c           |   6 +-
->>>>  kernel/time/clocksource.c           |   4 +-
->>>>  kernel/time/posix-cpu-timers.c      |   4 +-
->>>>  kernel/time/posix-timers.c          |   3 +-
->>>>  kernel/torture.c                    |   3 +-
->>>>  kernel/trace/bpf_trace.c            |   4 +-
->>>>  kernel/trace/ftrace.c               |  49 +++--
->>>>  kernel/trace/ring_buffer.c          |  25 ++-
->>>>  kernel/trace/trace.c                |  12 +-
->>>>  kernel/trace/trace_dynevent.c       |   6 +-
->>>>  kernel/trace/trace_dynevent.h       |   5 +-
->>>>  kernel/trace/trace_events.c         |  35 ++--
->>>>  kernel/trace/trace_events_filter.c  |   4 +-
->>>>  kernel/trace/trace_events_hist.c    |   8 +-
->>>>  kernel/trace/trace_events_trigger.c |  17 +-
->>>>  kernel/trace/trace_events_user.c    |  16 +-
->>>>  kernel/trace/trace_stat.c           |   4 +-
->>>>  kernel/user-return-notifier.c       |   3 +-
->>>>  kernel/workqueue.c                  |  16 +-
->>>>  mm/backing-dev.c                    |   8 +-
->>>>  mm/balloon.c                        |   8 +-
->>>>  mm/cma.c                            |   4 +-
->>>>  mm/compaction.c                     |   4 +-
->>>>  mm/damon/core.c                     |   4 +-
->>>>  mm/damon/sysfs-schemes.c            |   4 +-
->>>>  mm/dmapool.c                        |   4 +-
->>>>  mm/huge_memory.c                    |   8 +-
->>>>  mm/hugetlb.c                        |  56 +++---
->>>>  mm/hugetlb_vmemmap.c                |  16 +-
->>>>  mm/khugepaged.c                     |  14 +-
->>>>  mm/kmemleak.c                       |   7 +-
->>>>  mm/ksm.c                            |  25 +--
->>>>  mm/list_lru.c                       |   4 +-
->>>>  mm/memcontrol-v1.c                  |   8 +-
->>>>  mm/memory-failure.c                 |  12 +-
->>>>  mm/memory-tiers.c                   |   4 +-
->>>>  mm/migrate.c                        |  23 ++-
->>>>  mm/mmu_notifier.c                   |   9 +-
->>>>  mm/page_alloc.c                     |   8 +-
->>>>  mm/page_reporting.c                 |   2 +-
->>>>  mm/percpu.c                         |  11 +-
->>>>  mm/pgtable-generic.c                |   4 +-
->>>>  mm/rmap.c                           |  10 +-
->>>>  mm/shmem.c                          |   9 +-
->>>>  mm/slab_common.c                    |  14 +-
->>>>  mm/slub.c                           |  33 ++--
->>>>  mm/swapfile.c                       |   4 +-
->>>>  mm/userfaultfd.c                    |  12 +-
->>>>  mm/vmalloc.c                        |  24 +--
->>>>  mm/vmscan.c                         |   7 +-
->>>>  mm/zsmalloc.c                       |   4 +-
->>>>  124 files changed, 875 insertions(+), 681 deletions(-)
->>>
->>> Not sure what you were thinking, but this diff stat
->>> is not landable.
->>
->> [PATCH v3 1/7] and [PATCH v3 2/7] contain the main logic and can
->> be merged directly. They are also compatible with the old API.
->> [PATCH v3 3/7] through [PATCH v3 7/7] are just simple interface
->> replacements and do not change any functional logic. They can be
->> left unmerged for now; individual modules can pick them up later
->> if needed.
->>
->> In v2, Andy Shevchenko mentioned: "If it's done by Linus himself
->> during the day when he prepares -rc1, it's fine."
-> 
-> Yes, but you need to get his blessing first to go with this.
-> Have you communicated with him on this?
+commit 29555064108dbff74cdded5aeba9baee8adfd8a7
+Author: Alexander Stein <alexander.stein@ew.tq-group.com>
 
-Not yet, because the overall approach is still not mature. People
-have different opinions on the implementation details and on how
-to move this forward, so I think we should iterate through a few
-versions first before making a final decision.
+drm/bridge: tc358767: register DP aux bus even in DRM_BRIDGE_ATTACH_NO_CONN=
+ECTOR case
 
->> Even so, the
->> changes in this patch series are indeed quite large and touch
->> almost every subsystem. I have only converted part of them for
->> now, so I wanted to send this out first and see what people think.
-> 
-> That's why it's better to provide a script to convert (e.g., coccinelle)
-> instead of tons of patches.
+This commit changes the bridge attach sequence to always register the DP aux
+bus. It achieves this by moving the check for the no-connector flag to after
+the aux registration is complete.
 
-I tried writing conversion scripts with Coccinelle, but there were
-always cases that got missed. In contrast, I found that using AI
-for focused replacements was actually more efficient.
+> diff --git a/drivers/gpu/drm/bridge/tc358767.c b/drivers/gpu/drm/bridge/t=
+c358767.c
+> index 7188935fdb826..a1663cc6c2236 100644
+> --- a/drivers/gpu/drm/bridge/tc358767.c
+> +++ b/drivers/gpu/drm/bridge/tc358767.c
+> @@ -1833,14 +1833,14 @@ static int tc_edp_bridge_attach(struct drm_bridge=
+ *bridge,
+>  			return ret;
+>  	}
+> =20
+> -	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
+> -		return 0;
+> -
+>  	tc->aux.drm_dev =3D drm;
+>  	ret =3D drm_dp_aux_register(&tc->aux);
+>  	if (ret < 0)
+>  		return ret;
+> =20
+> +	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
+> +		return 0;
+> +
+>  	/* Create DP/eDP connector */
+>  	drm_connector_helper_add(&tc->connector, &tc_connector_helper_funcs);
+>  	ret =3D drm_connector_init(drm, &tc->connector, &tc_connector_funcs, tc=
+->bridge.type);
 
-As David Hildenbrand mentioned, "If we decide we want this, I guess
-we should target per-subsystem conversions." I would like to provide
-the new interface first; adapting each subsystem on demand later may
-be easier to achieve.
--- 
-Thanks
-Kaitao Cheng
+[Severity: High]
+This isn't a bug introduced by this patch, but is a pre-existing issue. Does
+tc_edp_bridge_detach() properly clean up the connector initialized here?
 
+Looking at the detach function in drivers/gpu/drm/bridge/tc358767.c:
+
+static void tc_edp_bridge_detach(struct drm_bridge *bridge)
+{
+	drm_dp_aux_unregister(&bridge_to_tc(bridge)->aux);
+}
+
+It seems drm_connector_cleanup() is never called for tc->connector.
+
+Since tc_data (which embeds the connector) is allocated via devm_kzalloc,
+could the freed connector remain linked in the active drm_device connector
+list when the driver is unbound?
+
+Would this cause a use-after-free if the DRM core accesses the connector li=
+st
+after the module is unloaded or unbound?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624121515.2301=
+219-1-alexander.stein@ew.tq-group.com?part=3D1
