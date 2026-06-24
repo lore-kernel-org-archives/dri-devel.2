@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A34C3CDE003
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 15:00:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0747CDE007
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 15:00:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D35A310EF80;
-	Wed, 24 Jun 2026 15:00:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 307B110EF81;
+	Wed, 24 Jun 2026 15:00:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="cZPaeaYu";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="ed2xAtHc";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C3C510EF79
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C07910EF79
  for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 15:00:47 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9EAC844547;
+ by sea.source.kernel.org (Postfix) with ESMTP id 69F3D43F9D;
  Wed, 24 Jun 2026 15:00:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7B43AC2BCB7;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 41F2CC2BCF6;
  Wed, 24 Jun 2026 15:00:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1782313245; bh=0iEJ9CoHu7M3V0ejPEkK0764ck94VjFLyF6WPTDVWGc=;
+ t=1782313245; bh=gU6gZs9B/IA8ULZetqvCr1eysZf16s5NNe4fRGEWm7c=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=cZPaeaYuvPXFW16yS4h5jK7GIvfVXWWFrA9SpB6FzR/f6kxfdyHp/hFf5X0al4BtR
- pchH7/2cH58erhFtTi1TOmoEyhJdKCYDHCvu6dcAmYKMeBnTeK6ZufLydvuJCWba4m
- hdJtzNocjQobxtpa6kzYlKDEnGQJX0Ek9z5iMb7w=
+ b=ed2xAtHcrCLW03Pn2SBHDYoUbR+7hr1tR2KbsavAbaoxY8isMurzjvmAqiPvUf5hD
+ zEQqB99QE0pKMjgF4CURbzmlTwq+tBaHSTxOZPUemfB/3uDwkzQReQmRNJ6vNAexpy
+ hzFZQVuMjB8Sm8UyTHHqRU8jZr9JlyAFWdz8pTDg=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 6F8E1CDB47F;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 2D49ECDB47F;
  Wed, 24 Jun 2026 15:00:45 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Wed, 24 Jun 2026 23:00:07 +0800
-Subject: [PATCH v6 08/10] rust: binder: use `LocalModule` for `THIS_MODULE`
+Date: Wed, 24 Jun 2026 23:00:06 +0800
+Subject: [PATCH v6 07/10] rust: configfs: use `LocalModule` for `THIS_MODULE`
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260624-fix-fops-owner-v6-8-5295e333cb3e@linux.dev>
+Message-Id: <20260624-fix-fops-owner-v6-7-5295e333cb3e@linux.dev>
 References: <20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev>
 In-Reply-To: <20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -69,11 +69,11 @@ Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
  linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782313241; l=1377;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782313241; l=2650;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=0iEJ9CoHu7M3V0ejPEkK0764ck94VjFLyF6WPTDVWGc=;
- b=90DVehEzX4GVxkJQKp/UkmxJ/SvBfRIhVfUWxWBiHcaw5Y90iPWP+6yMllw1lFeTiju16tIx+
- 6gL491tyPcBAe94hlWjWZaF7bZauaIu1tJn66BkwMb2Z2dx2gGxHoUA
+ bh=gU6gZs9B/IA8ULZetqvCr1eysZf16s5NNe4fRGEWm7c=;
+ b=MVvdIxw7WXMiycv+EFc0egEcg9YYNpWs+fDj5SvSJ457mR4yww5ZNTNGgBIkNmEHmLmMxhPf1
+ HXh6n2Q2HMhBZXTflKkkt+WTEY7/ywaCb2Sou/EVFnsiFHl+Oz30KJT
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -93,39 +93,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace the `THIS_MODULE` static reference in the binder fops with
-`this_module::<LocalModule>()`, consistent with the move of
-`THIS_MODULE` into the `ModuleMetadata` trait.
+Replace the `THIS_MODULE` static reference in the `configfs_attrs!`
+macro with `this_module::<LocalModule>()`, and update
+rnull to import `LocalModule` instead of `THIS_MODULE`, consistent
+with the move of `THIS_MODULE` into the `ModuleMetadata` trait.
 
 Assisted-by: opencode:glm-5.2
-Reviewed-by: Gary Guo <gary@garyguo.net>
+Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
 Acked-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- drivers/android/binder/rust_binder_main.rs | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/block/rnull/configfs.rs | 6 ++----
+ rust/kernel/configfs.rs         | 8 +++++---
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/android/binder/rust_binder_main.rs b/drivers/android/binder/rust_binder_main.rs
-index dc1941cd2407b..d6ceebbd5f94e 100644
---- a/drivers/android/binder/rust_binder_main.rs
-+++ b/drivers/android/binder/rust_binder_main.rs
-@@ -17,6 +17,7 @@
-     bindings::{self, seq_file},
-     fs::File,
-     list::{ListArc, ListArcSafe, ListLinksSelfPtr, TryNewListArc},
-+    module::this_module,
-     prelude::*,
-     seq_file::SeqFile,
-     seq_print,
-@@ -318,7 +319,7 @@ unsafe impl<T> Sync for AssertSync<T> {}
-     let zeroed_ops = unsafe { core::mem::MaybeUninit::zeroed().assume_init() };
+diff --git a/drivers/block/rnull/configfs.rs b/drivers/block/rnull/configfs.rs
+index c10a55fc58948..b2547ad1e5ddd 100644
+--- a/drivers/block/rnull/configfs.rs
++++ b/drivers/block/rnull/configfs.rs
+@@ -1,9 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
  
-     let ops = kernel::bindings::file_operations {
--        owner: THIS_MODULE.as_ptr(),
-+        owner: this_module::<LocalModule>().as_ptr(),
-         poll: Some(rust_binder_poll),
-         unlocked_ioctl: Some(rust_binder_ioctl),
-         compat_ioctl: bindings::compat_ptr_ioctl,
+-use super::{
+-    NullBlkDevice,
+-    THIS_MODULE, //
+-};
++use super::NullBlkDevice;
++use crate::LocalModule;
+ use kernel::{
+     block::mq::gen_disk::{
+         GenDisk,
+diff --git a/rust/kernel/configfs.rs b/rust/kernel/configfs.rs
+index 2339c6467325d..c31d7882e216d 100644
+--- a/rust/kernel/configfs.rs
++++ b/rust/kernel/configfs.rs
+@@ -875,7 +875,7 @@ fn as_ptr(&self) -> *const bindings::config_item_type {
+ ///                 configfs::Subsystem<Configuration>,
+ ///                 Configuration
+ ///                 >::new_with_child_ctor::<N,Child>(
+-///             &THIS_MODULE,
++///             ::kernel::module::this_module::<crate::LocalModule>(),
+ ///             &CONFIGURATION_ATTRS
+ ///         );
+ ///
+@@ -1021,7 +1021,8 @@ macro_rules! configfs_attrs {
+ 
+                     static [< $data:upper _TPE >] : $crate::configfs::ItemType<$container, $data>  =
+                         $crate::configfs::ItemType::<$container, $data>::new::<N>(
+-                            &THIS_MODULE, &[<$ data:upper _ATTRS >]
++                            $crate::module::this_module::<LocalModule>(),
++                            &[<$ data:upper _ATTRS >]
+                         );
+                 )?
+ 
+@@ -1030,7 +1031,8 @@ macro_rules! configfs_attrs {
+                         $crate::configfs::ItemType<$container, $data>  =
+                             $crate::configfs::ItemType::<$container, $data>::
+                             new_with_child_ctor::<N, $child>(
+-                                &THIS_MODULE, &[<$ data:upper _ATTRS >]
++                                $crate::module::this_module::<LocalModule>(),
++                                &[<$ data:upper _ATTRS >]
+                             );
+                 )?
+ 
 
 -- 
 2.43.0
