@@ -4,76 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FBB9CDE002
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:03:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CDD2CDE006
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:03:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 744D110F146;
-	Thu, 25 Jun 2026 07:03:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72F5110F140;
+	Thu, 25 Jun 2026 07:03:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GTFFDBwk";
+	dkim=permerror (0-bit key) header.d=fastmail.org header.i=@fastmail.org header.b="YED66C0E";
+	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="KB560JV+";
 	dkim-atps=neutral
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
- [209.85.128.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88BCA10E0EC
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 19:15:01 +0000 (UTC)
-Received: by mail-yw1-f181.google.com with SMTP id
- 00721157ae682-804e46366d7so14984507b3.2
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 12:15:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782328500; x=1782933300; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=7sROD5HlkA+LmTbleM4dPRK+UQLEfjLcyo66jmPeZ7M=;
- b=GTFFDBwkBZw2uZoPobrjeF7vyH0CJCkRHPLXbycich7sORoBkRcGZ9XbsRB4HwIcCQ
- vGvx2g4EuN2gy0bFLl1Z5ddmF2ZzNr0UWIa2et1lQtN8Q71x6IbY7aEyWUd9rI67yJyO
- /Jf7OKXrEok24jxVI7sMatqWr5qaxLd9LLYrnJm4EV5JRY9VwfJ+qk741rlyTwhl9efV
- UH9YL5i1AZsOZ5igFCoZtewvc/jJlzMdR8UdHw2xt48/py4+ZpEs1qAZlY3nRl+bJZvK
- EF+lIvO32QXZ57X+rp9nxkNz/I+I/EvIEY8iVPU4fO+fcSs1vID5Cv+VcfTHLKy9vXet
- NYDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782328500; x=1782933300;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7sROD5HlkA+LmTbleM4dPRK+UQLEfjLcyo66jmPeZ7M=;
- b=XMxTQG/ZBiSH4GKLC/cbQW/qIW2h98n4nhWX9n3RDP6iv+/o+wWBWI3eVsgKtLPJ0O
- gvEVlAxxXPE66jjjfM4ZGca/4aMeNm1nPJClRzCGjVaetn9C68C/L+/Pp2MtQx5ELGkF
- geNtyzSD20RaGAdbNrVWQP2n/oFoXffLqOva7Ag3X/CK90cHh1gjFVzvuY9RWOUZeLfc
- Z6yKbIt3hUabFnsjrDDc5sWZdiTNYWxPYGP4LOxSJagM0FmvG/3nDmDQQgeA16RTH72E
- grtfQuyj0WKSIqS0nd+RakGu+uI7zpn0+LKJe5QFAiqDg5NzyXmPX0pKGsCbTEr2F6qo
- GELw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rrs9zxQStuaYAyFc5grUxvqCc8qX+YkW4aec06xpQElpk9kHK0NJh0/QlquecQIUQTxpxxCYW35hWw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxMf6vOVdwBfCwdpVYz13ekyqPddVZi/29MiLW67PZQVivgIUuj
- v/I5iyhYt/ta3LounHbcMA+Gw8gdDT0eQPmPoLTDJtZ5zocg02HEqalw
-X-Gm-Gg: AfdE7cmPWRNCZwV+9biKPZ5cYNmLOIwNBShWPMUFzon8oSmaOPP7H5xyfASw+pl+u7n
- m6l9uvbQNoK1CUHooIVie94eXuCaVmsVBnU8FsMY00azsQRRtUkBItricCVsLeHzqp/jZ90TGP2
- aMAsoQbzbXdQvhOkGj9iugvUkaRq8wqOkCYEH/YVucEYW54ddLchEmL4cWS+hNydQ9l5cwhqibO
- 3QWZX5i+GdxzA6gx9NnH3W+dY8PK6RuAS4uJyUOjINgA2MAmGY6gyTY1mBO7VYhg3GQsSkOpObv
- paTdKrikCRvDfQR6bVg8SljjNO8CdyXWULl7obvv9v8BPHVKa84VwBv771MIVrcFjRFgbkScgui
- Ee9GIOwDQZNRqFyso2eEQeyBUPSxp4WRhSw7TpAPB7ZNbLlAYtHpqlgjVhgId2d0N1zyitmQidy
- We/5BwPbd/rkvk4pu8wkKHJo198w==
-X-Received: by 2002:a05:690c:b14:b0:7d4:3090:f39 with SMTP id
- 00721157ae682-806c43f58f3mr92422577b3.42.1782328500344; 
- Wed, 24 Jun 2026 12:15:00 -0700 (PDT)
-Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
- by smtp.gmail.com with ESMTPSA id
- 00721157ae682-8025cf63680sm62743047b3.19.2026.06.24.12.14.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jun 2026 12:14:59 -0700 (PDT)
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH] misc: fastrpc: ignore unsent and duplicate invoke replies
-Date: Wed, 24 Jun 2026 21:14:15 +0200
-Message-ID: <20260624191415.4034-1-alhouseenyousef@gmail.com>
-X-Mailer: git-send-email 2.54.0
+Received: from flow-a7-smtp.messagingengine.com
+ (flow-a7-smtp.messagingengine.com [103.168.172.142])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB89A10E10D
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 21:56:38 +0000 (UTC)
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+ by mailflow.phl.internal (Postfix) with ESMTP id 1272F13807EA;
+ Wed, 24 Jun 2026 17:56:38 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-09.internal (MEProxy); Wed, 24 Jun 2026 17:56:38 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1782338198;
+ x=1782341798; bh=++Hjyr/flMkWyZftah+JkNBEHI2dny5JtQZ8P9/MZG4=; b=
+ YED66C0E2IMe73v0XetOqZXPuwuog+doss/UaSc1tk9kL4Be5G0LR+K6yeAm4YTa
+ YzDZjfVD9fslgvWj00VnPSNWyoxWyhT4V6dwS91tWtBfQXYaoOC7QFs0DCNBc+PC
+ U2CG5oaPYI2SEL4gd58uAaBx3k+Z+CwHQBoMBZKsIO9BtskNcYlg3b4VoQzZ2Nbf
+ HcA40UYBwe6AlWX7n3igNVV0DVZ7lOoLWrKV/O9xxjBqzSyWB7Id+il7xukLjDiv
+ Umyq9iKPlv60q7qjugb/RgxtmPMGK9NqlImDLY5PiObXNKRdHXRtP/q3ULagA21+
+ +X6GtG8rS1ieOzAqHhCUHg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1782338198; x=
+ 1782341798; bh=++Hjyr/flMkWyZftah+JkNBEHI2dny5JtQZ8P9/MZG4=; b=K
+ B560JV++2VbtnNqcqV7JA0WK+BDLBm4agN2NoGFvwn9N1kkhOlphPV2b8IpPnbWE
+ fyHjPGAmJlsyvkEq+CQEXOKtPGMZVS7oyT8KeNDeTcWGQL0YkuJxG8SyDPpc9vo7
+ oFnLfMht2P0DdIvXczzUO4TV7++B04gPa6UUV1ZF5xAs6qDsJzMSl4NUtopFMhzw
+ 5cBseXeDkuuFXjr776XdtGsOZET4qUYLWUCdgmTjDomTejkGwF/8+jUf69xVufKV
+ fyUh7PKFPZtyS20YwPBQCOZyzpItTUSvpBWL+kw/AqyskjF/Sj9Bx0UEHFImFboH
+ 3ADYJNTF1rnq+SSyv2p8w==
+X-ME-Sender: <xms:lVI8ap-2DdrHo0IsiEKSrQBBK0D9TjjemYyIUBocN3dm4K67wU9_pA>
+ <xme:lVI8asyW5vRP1jhOKL8iVoG8kUiJ6TH-HoYJAEcdVY-Cpi49f1mosqLWGo41cAdk-
+ wbcPTuJrTQzBvvAbsgd6qeiGlHsWLRKR7Mxo3eaQsO3G8Jl6U7KjA>
+X-ME-Received: <xmr:lVI8atM6RvGD-6LU2mhgsVFCf3w1mGoodjbmZCV0G46oH3Ih_B00inPj1iA>
+X-ME-Proxy-Cause: dmFkZTEgvGkpZ5p2QPL5lJ6IWjjT4tYK8UbnmaNzxExsASxMTRkHIPRCwrrXhraNRIyWDv
+ SAipnGeJ4XhINc/4rHq4Id+gB20D86mt5I67kiQLtsg3LrbcEKnlao1LFnLJViJjnuod0C
+ +btXPJU6vwvwu1X6dEZ68qUaKa9VcSNvxkOzsYxl6RPaBfsLuaKDgO+nl0ptXC9tHG2yBS
+ wJiKfuMYzdBSDvN//7TzjOHaUwmPGZdUh3jiFGZJKrXC9CW6HObFOb/nJmVLCYtg620FYK
+ WyH0UySQ/byKd6nMb/hIrwPmIb2ntnNsIEpVvWomqj5+n5MW0tjvMZMyH1c0QrChm4esre
+ gOCLfCfAEJ0nfGR5vVV8aZJd/U5PjGax7vcpL3C6N77VWwkZPZxdYoHnxC/GTG4Bq51jsj
+ j1C5zi2ij8qieOSFzNt7TbdklyLhZrO0/s7o99ZvtiV/r7uQSG8WKZwVJefrNKjfH6+4iD
+ XqVKte/04NI0A5PHgdn0EkDxfXVl2EqIYzWpbNnq1hpkns6zZb7XG0z65zmd8AD0AhvLNC
+ wvzwgRmlAzL4Bdr+XEZxsQu6JcKc384yf+GfcX8GEawqyE/+OcCvMceGwpouDkv68VGhmJ
+ NaEMfwsVbf5ilXaSZTzrIzBL3VWuY9jMUqEtwVw2aF1a8vC6M8zUp0gdzRYQ
+X-ME-Proxy: <xmx:lVI8ap-7LX2cqV6jpSmmMOTgaN_2TwwqfOhXrJbLxqvCFfGT3TgOgw>
+ <xmx:lVI8ai5L3GMBrKZMvYl8b0zn2SgvLQW0RBclLrnyTeYTOSOgNrJdLQ>
+ <xmx:lVI8an5Ud4MgWO5EEf4TV70pQxcULM_ckSan3yialUIOMP9SMlGydg>
+ <xmx:lVI8ajp-o9p1krTjN_8kzOW-vSZ5SNGXtH1hVySQiS9-aw9672PbqA>
+ <xmx:lVI8ag0gfJb4x02entmBKNu1tK9F57kP2Z8FP56xXJfUWLHhvEAsydmW>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 24 Jun 2026 17:56:36 -0400 (EDT)
+Date: Wed, 24 Jun 2026 16:56:34 -0500
+From: Ian Bridges <icb@fastmail.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] fbcon: fix NULL pointer dereference for a console
+ without vc_data
+Message-ID: <ajxSktk5FqXOfWuA@dev>
+References: <ajxICA0v-_5NrqhS@dev>
+ <20260624213027.6C1E01F000E9@smtp.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260624213027.6C1E01F000E9@smtp.kernel.org>
 X-Mailman-Approved-At: Thu, 25 Jun 2026 07:03:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,80 +100,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-fastrpc_rpmsg_callback() drops the invoke reference taken before sending
-the request. The callback can currently consume a reference for a guessed
-context ID before the request has been sent, and duplicate replies can
-schedule multiple puts for the same send reference.
+On Wed, Jun 24, 2026 at 09:30:26PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> 
+> Pre-existing issues:
+> - [High] Pre-existing NULL pointer dereference via `font_data_get(NULL)` in `fbcon_set_disp()` if the foreground console's font is uninitialized.
+> - [High] Pre-existing NULL pointer dereference in `fb_videomode_to_var()` when a console is switched to or resized while its `mode` is NULL.
+> --
+> 
+> commit 6f0719a9bd0a2231fe53bfe57ca1abf9ddec2785
+> Author: Ian Bridges <icb@fastmail.org>
+> 
+> fbcon: fix NULL pointer dereference for a console without vc_data
+> 
+> This commit fixes a NULL pointer dereference in fbcon_new_modelist(). It
+> does this by ensuring a console's mode is only set while it has a valid
+> vc_data structure.
+> 
+> Closes: https://syzkaller.appspot.com/bug?extid=42525d636f430fd5d983
+> 
+> > diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+> > index b0e3e765360d1..7187be0eea872 100644
+> > --- a/drivers/video/fbdev/core/fbcon.c
+> > +++ b/drivers/video/fbdev/core/fbcon.c
+> > @@ -1274,6 +1274,7 @@ static void fbcon_deinit(struct vc_data *vc)
+> >  	int idx;
+> >  
+> >  	fbcon_free_font(p);
+> > +	p->mode = NULL;
+> 
+> [Severity: High]
+> This is a pre-existing issue, but does setting p->mode to NULL here expose
+> us to a crash during a VT switch?
+> 
+> If a subsequent fbcon_init() fails early (e.g. var_to_display() fails to find
+> a matching mode), p->mode will remain NULL. Later, if a user switches to this
+> VT, the VT layer calls fbcon_switch(), which unconditionally passes p to
+> display_to_var():
 
-Track whether an invoke has been sent and whether a reply has already
-been accepted while holding the channel IDR lock. Reject unsent and
-duplicate replies so only the first valid response consumes the send
-reference.
+This is a seperate bug that I'm also working on a patch for (although it
+is proving a bit more difficult to find the correct place to make the
+change). The NULL mode that fbcon_switch() reaches through
+display_to_var() is set by var_to_display() at
+drivers/video/fbdev/core/fbcon.c:988, which assigns disp->mode the result of
+fb_match_mode(). On the no-match path that result is NULL, independent of
+this patch. The p->mode = NULL added to fbcon_deinit() only applies to a
+console that has been deinitialised and has no vc_data. fbcon_new_modelist()
+skips such a console through its existing mode check, and the console cannot
+be switched to without first being re-initialised, which re-runs
+var_to_display() and overwrites the mode. So this patch does not add a path
+that reaches display_to_var() with a NULL mode. The dereference is reached
+when the modelist is replaced from userspace while fbcon is unbound.
 
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
----
- drivers/misc/fastrpc.c | 25 +++++++++++++++++++++++--
- 1 file changed, 23 insertions(+), 2 deletions(-)
+> 
+> drivers/video/fbdev/core/fbcon.c:fbcon_switch() {
+>     ...
+>     memset(&var, 0, sizeof(struct fb_var_screeninfo));
+>     display_to_var(&var, p);
+>     ...
+> }
+> 
+> display_to_var() then calls fb_videomode_to_var():
+> 
+> drivers/video/fbdev/core/fbcon.c:display_to_var() {
+>     ...
+>     fb_videomode_to_var(var, disp->mode);
+>     ...
+> }
+> 
+> And fb_videomode_to_var() immediately dereferences the pointer:
+> 
+> drivers/video/fbdev/core/modedb.c:fb_videomode_to_var() {
+>     ...
+>     var->xres = mode->xres;
+>     ...
+> }
+> 
+> Can this lead to a NULL pointer dereference if the modelist is altered from
+> userspace?
+> 
+> >  	idx = con2fb_map[vc->vc_num];
+> >  
+> >  	if (idx == -1)
+> 
+> [ ... ]
+> 
+> > @@ -1445,14 +1446,14 @@ static void fbcon_set_disp(struct fb_info *info, struct fb_var_screeninfo *var,
+> >  
+> >  	p = &fb_display[unit];
+> >  
+> > -	if (var_to_display(p, var, info))
+> > -		return;
+> > -
+> >  	vc = vc_cons[unit].d;
+> >  
+> >  	if (!vc)
+> >  		return;
+> >  
+> > +	if (var_to_display(p, var, info))
+> > +		return;
+> > +
+> >  	default_mode = vc->vc_display_fg;
+> >  	svc = *default_mode;
+> >  	t = &fb_display[svc->vc_num];
+> 
+> [Severity: High]
+> This is a pre-existing issue, but can this lead to a NULL pointer dereference
+> in font_data_get() if the foreground console's font is uninitialized?
+>
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index c91d5da42..4eaecee1b 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -250,6 +250,8 @@ struct fastrpc_invoke_ctx {
- 	uintptr_t *buf_pv;
- 	struct fastrpc_buf_overlap *olaps;
- 	struct fastrpc_channel_ctx *cctx;
-+	bool sent;
-+	bool completed;
- };
- 
- struct fastrpc_session_ctx {
-@@ -1239,6 +1241,8 @@ static int fastrpc_invoke_send(struct fastrpc_session_ctx *sctx,
- 	struct fastrpc_channel_ctx *cctx;
- 	struct fastrpc_user *fl = ctx->fl;
- 	struct fastrpc_msg *msg = &ctx->msg;
-+	unsigned long flags;
-+	bool put_ref = true;
- 	int ret;
- 
- 	cctx = fl->cctx;
-@@ -1255,10 +1259,23 @@ static int fastrpc_invoke_send(struct fastrpc_session_ctx *sctx,
- 	msg->size = roundup(ctx->msg_sz, PAGE_SIZE);
- 	fastrpc_context_get(ctx);
- 
-+	spin_lock_irqsave(&cctx->lock, flags);
-+	ctx->sent = true;
-+	spin_unlock_irqrestore(&cctx->lock, flags);
-+
- 	ret = rpmsg_send(cctx->rpdev->ept, (void *)msg, sizeof(*msg));
- 
--	if (ret)
--		fastrpc_context_put(ctx);
-+	if (ret) {
-+		spin_lock_irqsave(&cctx->lock, flags);
-+		if (ctx->completed)
-+			put_ref = false;
-+		else
-+			ctx->sent = false;
-+		spin_unlock_irqrestore(&cctx->lock, flags);
-+
-+		if (put_ref)
-+			fastrpc_context_put(ctx);
-+	}
- 
- 	return ret;
- 
-@@ -2586,6 +2603,10 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
- 
- 	spin_lock_irqsave(&cctx->lock, flags);
- 	ctx = idr_find(&cctx->ctx_idr, ctxid);
-+	if (ctx && (!ctx->sent || ctx->completed))
-+		ctx = NULL;
-+	if (ctx)
-+		ctx->completed = true;
- 	spin_unlock_irqrestore(&cctx->lock, flags);
- 
- 	if (!ctx) {
--- 
-2.54.0
+The block quoted sits below the hunk, and this patch only moves the vc_data
+check ahead of var_to_display(). That block is reached only after
+var_to_display() succeeds and vc is non-NULL, which holds in both the old and
+the new order, so its reachability is unchanged with this patch.
 
+Ian
+
+> Just below this hunk in fbcon_set_disp(), the code does:
+> 
+>     if (!p->fontdata) {
+>         ...
+>         p->fontdata = t->fontdata;
+>         font_data_get(p->fontdata);
+>     }
+> 
+> If fbcon_init() previously failed early for the foreground console, its
+> t->fontdata could be NULL. This assigns NULL to p->fontdata and then passes
+> it to font_data_get():
+> 
+> lib/fonts/fonts.c:font_data_get() {
+>     if (font_data_is_internal(fd))
+>         return; /* never ref static data */
+> 
+>     if (WARN_ON(!REFCOUNT(fd)))
+>         return; /* should never be 0 */
+>     ++REFCOUNT(fd);
+> }
+> 
+> The REFCOUNT() macro and font_data_is_internal() will unconditionally
+> dereference fd, causing a crash if it is NULL. Does this need an extra NULL
+> check?
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/ajxICA0v-_5NrqhS@dev?part=1
