@@ -4,44 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCE7ACDB471
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 12:24:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48375CDB47F
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 12:26:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FB5210E074;
-	Wed, 24 Jun 2026 12:24:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ABDE10EEE6;
+	Wed, 24 Jun 2026 12:26:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nycyjDHj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jhyfHIEM";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A85A210E074
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 12:24:35 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBFE910EEE6
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 12:26:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 729F4444B1;
- Wed, 24 Jun 2026 12:24:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FAA81F000E9;
- Wed, 24 Jun 2026 12:24:35 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2B935601FA;
+ Wed, 24 Jun 2026 12:26:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67A861F00A3D;
+ Wed, 24 Jun 2026 12:26:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782303875;
- bh=uedtJ28eaeDMnwsan7By07cwA+HscIRGd3VPvG9IPjQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nycyjDHj2wqlsSc1Ck4EN4Uu757Zh/2Cj3o2LllYYEvQ9H4c3wkDauM1vx0WzaYXT
- vgmtFHn95SmIoFZmTXpWNdrKPjuVZpkmu7as9p0xe831eY4W+2ZrZTBvD31RreGtNU
- /Fb0xBNSAsKoJicWEHRD3gjsy0MGLmsnVy+hmfcWCeFhTgEkvzuiIROGDdJ7KkSxMJ
- 6fuuP+39SgFIRnZIi3wN2wZ8d16+jdjdx4SAbqcHimTF1LxZQhRlsOQzURr0rDdvgl
- I0K9tBtOuU77df4nJPK2qcik0JPI6OvDLII2o489P8a6eX2V+kq74OVxZC/Mh2Zc/b
- dkAVqlCGT1y5g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] drm/bridge: tc358767: do not open-code
- devm_drm_of_get_bridge in DSI path
-To: "Alexander Stein" <alexander.stein@ew.tq-group.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260624121515.2301219-4-alexander.stein@ew.tq-group.com>
-References: <20260624121515.2301219-1-alexander.stein@ew.tq-group.com>
- <20260624121515.2301219-4-alexander.stein@ew.tq-group.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Jun 2026 12:24:34 +0000
-Message-Id: <20260624122435.2FAA81F000E9@smtp.kernel.org>
+ s=k20260515; t=1782304002;
+ bh=FyoWGqDXNXkDv+TpnC2bHZVSCNeq8GboVi/p3SCbn98=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=jhyfHIEMGRWNkp3KiQUMVY7dHLKfjJzrWbIsyAeIsseRu5QuOZJhwAPPHwmQ0QWvH
+ WGYwlNYxl1mnVmp1ZGZ8iqsxwxFXzoRVne3yK1M534Q2V4qGdWv9onURl4Ee8BG0FS
+ lcsLTQrTg0ozRtjGNY5rpJVc1OCqzc7X8nap9bkj1+JTb5Fv53GwRtOuC8WOLUEUYM
+ 3bdSV/ZrMI2nyHYRJKGfkE/1JVqdloixiX3wwfbhAu598I30csYL3xHzuD5SjT/0T5
+ kWjcrqimprGPD4LcpMUuPUjr2GYV2l3KQFiGOd7tkFcjP8G8LhbOXkUWmcax7V0BeL
+ YhktxORHN27PA==
+Date: Wed, 24 Jun 2026 14:26:40 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
+ Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 18/37] drm/bridge: samsung-dsim: remove the panel_bridge
+ on host_detach
+Message-ID: <20260624-delectable-sexy-crayfish-e15c1f@houat>
+References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
+ <20260519-drm-bridge-hotplug-v1-18-45e2bdb3dfb4@bootlin.com>
+ <20260608-nano-kangaroo-of-piety-b5ab3d@houat>
+ <DJ5EHSOPNQZH.22I96C6QXN9KJ@bootlin.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="cstjwexp6hdv64qh"
+Content-Disposition: inline
+In-Reply-To: <DJ5EHSOPNQZH.22I96C6QXN9KJ@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,85 +74,178 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Probe fails with -ENODEV when port 2 has no downstream panel or br=
-idge defined, breaking DisplayPort output.
---
 
-commit 70b94894718399f191075561feb4f2f4f31b4aa9
-Author: Alexander Stein <alexander.stein@ew.tq-group.com>
+--cstjwexp6hdv64qh
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 18/37] drm/bridge: samsung-dsim: remove the panel_bridge
+ on host_detach
+MIME-Version: 1.0
 
-drm/bridge: tc358767: do not open-code devm_drm_of_get_bridge in DSI path
+On Wed, Jun 10, 2026 at 03:24:10PM +0200, Luca Ceresoli wrote:
+> On Mon Jun 8, 2026 at 1:53 PM CEST, Maxime Ripard wrote:
+> > On Tue, May 19, 2026 at 12:37:35PM +0200, Luca Ceresoli wrote:
+> >> In preparation for DRM bridge hot-plugging, we need to handle the dyna=
+mic
+> >> lifetime of the following bridge in case the samsung-dsim is always pr=
+esent
+> >> and the following bridge (next_bridge) is hot-unplugged.
+> >>
+> >> Based on the 'if (!IS_ERR(panel))' check in samsung_dsim_host_attach()=
+, the
+> >> next_bridge could be A) a panel bridge created by this driver via
+> >> devm_drm_panel_bridge_add() or B) a pre-existing bridge obtained via
+> >> of_drm_find_and_get_bridge().
+> >>
+> >> For case B) we need to put that reference when the next_bridge is remo=
+ved,
+> >> which is already handled by calling drm_bridge_clear_and_put() in
+> >> samsung_dsim_host_detach() and in the samsung_dsim_host_attach() error
+> >> management code.
+> >>
+> >> In case A) we additionally have to remove the panel bridge. Currently =
+it is
+> >> created by devm_drm_panel_bridge_add(), which adds two devm actions wi=
+th
+> >> the refcounted panel bridge:
+> >>
+> >>  - drm_bridge_put_void() via devm_drm_bridge_alloc() on panel->dev
+> >>  - devm_drm_panel_bridge_release() via devm_drm_panel_bridge_add_typed=
+()
+> >>    on the consumer device (samsung-dsim)
+> >>
+> >> The first action is OK: being tied to panel->dev it will happen when t=
+he
+> >> panel is unplugged.
+> >>
+> >> The second action is bound to the consumer device, so the devm semanti=
+cs is
+> >> not useful here when introducing hotplug. Indeed we need to drop the
+> >> next_bridge in samsung_dsim_host_detach() anyway, before the driver .r=
+emove
+> >> function, in order to support {add, {attach, detach} x N, remove} hotp=
+lug
+> >> event sequences.
+> >>
+> >> Thus move to the non-devm drm_panel_bridge_add() along with the matchi=
+ng
+> >> drm_panel_bridge_remove(), so the lifetime of the panel-bridge is tied=
+ to
+> >> the host_attach/host_detach cycle and not the whole samsung-dsim device
+> >> lifetime.
+> >>
+> >> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> >>
+> >> ---
+> >>
+> >> In a previous discussion with Maxime he mentioned a plan to make every
+> >> drm_panel always have a wrapping bridge. With that done, all the code
+> >> handling the panel and adding the panel_bridge would become useless he=
+re
+> >> (and in many other places) and could be entirely removed. This patch i=
+s a
+> >> temporary solution until that happens. The best pointer I could find to
+> >> that discussion is [0], but there might be more recent material I coul=
+d not
+> >> find at the moment.
+> >>
+> >> [0] https://lore.kernel.org/lkml/20250218-faithful-white-magpie-da9ac9=
+@houat/
+> >> ---
+> >>  drivers/gpu/drm/bridge/samsung-dsim.c | 17 ++++++++++++++---
+> >>  include/drm/bridge/samsung-dsim.h     |  2 ++
+> >>  2 files changed, 16 insertions(+), 3 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/b=
+ridge/samsung-dsim.c
+> >> index 5b799619e07e..2af287221e22 100644
+> >> --- a/drivers/gpu/drm/bridge/samsung-dsim.c
+> >> +++ b/drivers/gpu/drm/bridge/samsung-dsim.c
+> >> @@ -1951,14 +1951,16 @@ static int samsung_dsim_host_attach(struct mip=
+i_dsi_host *host,
+> >>  	if (!remote)
+> >>  		return -ENODEV;
+> >>
+> >> +	dsi->panel_bridge_added =3D false;
+> >>  	panel =3D of_drm_find_panel(remote);
+> >>  	if (!IS_ERR(panel)) {
+> >> -		next_bridge =3D devm_drm_panel_bridge_add(dev, panel);
+> >> +		next_bridge =3D drm_panel_bridge_add(panel);
+> >>  		if (IS_ERR(next_bridge)) {
+> >>  			ret =3D PTR_ERR(next_bridge);
+> >>  			next_bridge =3D NULL; // Inhibit the cleanup action on an ERR_PTR
+> >>  		} else {
+> >>  			drm_bridge_get(next_bridge);
+> >> +			dsi->panel_bridge_added =3D true;
+> >>  		}
+> >>  	} else {
+> >>  		next_bridge =3D of_drm_find_and_get_bridge(remote);
+> >> @@ -1989,7 +1991,7 @@ static int samsung_dsim_host_attach(struct mipi_=
+dsi_host *host,
+> >>  	if (!(device->mode_flags & MIPI_DSI_MODE_VIDEO)) {
+> >>  		ret =3D samsung_dsim_register_te_irq(dsi, &device->dev);
+> >>  		if (ret)
+> >> -			goto err_remove_bridge;
+> >> +			goto err_remove_panel_bridge;
+> >>  	}
+> >>
+> >>  	// The next bridge can be used by host_ops->attach
+> >> @@ -2011,8 +2013,12 @@ static int samsung_dsim_host_attach(struct mipi=
+_dsi_host *host,
+> >>  	drm_bridge_clear_and_put(&dsi->bridge.next_bridge);
+> >>  	if (!(device->mode_flags & MIPI_DSI_MODE_VIDEO))
+> >>  		samsung_dsim_unregister_te_irq(dsi);
+> >> -err_remove_bridge:
+> >> +err_remove_panel_bridge:
+> >>  	drm_bridge_remove(&dsi->bridge);
+> >> +	if (dsi->panel_bridge_added) {
+> >> +		drm_panel_bridge_remove(next_bridge);
+> >> +		dsi->panel_bridge_added =3D false;
+> >> +	}
+> >
+> > This is a pretty big abstraction leak. We don't want to have that in
+> > everything driver. The removal path should be the same for both cases,
+> > and it's not something the driver should take care of.
+>=20
+> Yes. The comment after the '---' separator was meant to discuss this
+> concern:
+>=20
+> > In a previous discussion with Maxime he mentioned a plan to make every
+> > drm_panel always have a wrapping bridge. With that done, all the code
+> > handling the panel and adding the panel_bridge would become useless here
+> > (and in many other places) and could be entirely removed. This patch is=
+ a
+> > temporary solution until that happens. The best pointer I could find to
+> > that discussion is [0], but there might be more recent material I could=
+ not
+> > find at the moment.
+>=20
+> Do you have any update about that plan?
 
-This commit replaces the open-coded panel/bridge discovery logic
-with devm_drm_of_get_bridge() to simplify the probing code path
-in the tc358767 bridge driver.
+I think we're pretty much there. As of 7.2, all panels will use
+devm_drm_panel_alloc. It should be fairly easy now to create a bridge
+for them all in devm_drm_panel_alloc, and then call drm_bridge_add in
+drm_panel_add.
 
-> diff --git a/drivers/gpu/drm/bridge/tc358767.c b/drivers/gpu/drm/bridge/t=
-c358767.c
-> --- a/drivers/gpu/drm/bridge/tc358767.c
-> +++ b/drivers/gpu/drm/bridge/tc358767.c
-[ ... ]
-> @@ -2341,28 +2341,22 @@ static int tc_probe_edp_bridge_endpoint(struct tc=
-_data *tc)
->  {
->  	struct device *dev =3D tc->dev;
->  	struct drm_bridge *bridge;
-> -	struct drm_panel *panel;
->  	int ret;
-> =20
->  	/* port@2 is the output port */
-> -	ret =3D drm_of_find_panel_or_bridge(dev->of_node, 2, 0, &panel, &bridge=
-);
-> -	if (ret && ret !=3D -ENODEV)
-> -		return dev_err_probe(dev, ret,
-> -				     "Could not find DSI panel or bridge\n");
-> -
-> -	if (panel) {
-> -		struct drm_bridge *panel_bridge;
-> -
-> -		panel_bridge =3D devm_drm_panel_bridge_add(dev, panel);
-> -		if (IS_ERR(panel_bridge))
-> -			return PTR_ERR(panel_bridge);
-> -
-> -		tc->panel_bridge =3D panel_bridge;
-> -		tc->bridge.type =3D DRM_MODE_CONNECTOR_eDP;
-> -	} else {
-> -		tc->bridge.type =3D DRM_MODE_CONNECTOR_DisplayPort;
-> +	bridge =3D devm_drm_of_get_bridge(dev, dev->of_node, 2, 0);
-> +	if (IS_ERR(bridge)) {
-> +		ret =3D PTR_ERR(bridge);
-> +		if (ret !=3D -ENODEV)
-> +			return dev_err_probe(dev, ret,
-> +					     "Could not find DSI panel or bridge\n");
-> +		else
-> +			return ret;
+It's also tangentially related to https://lore.kernel.org/ksummit/0fa2fb42-=
+0714-49f7-ba43-22928e1dd488@linaro.org/
 
-[Severity: High]
-Does this break the probe sequence for DisplayPort configurations?
+Maxime
 
-The previous code in tc_probe_edp_bridge_endpoint() allowed -ENODEV
-to bypass the early return, falling back to setting the bridge type to
-DRM_MODE_CONNECTOR_DisplayPort when no panel or bridge was found.
+--cstjwexp6hdv64qh
+Content-Type: application/pgp-signature; name="signature.asc"
 
-By explicitly returning ret when it equals -ENODEV, probe is now aborted
-if the downstream device isn't fixed in the device tree. Could this cause
-the DisplayPort/eDP bridge driver to fail to load on valid hardware setups?
+-----BEGIN PGP SIGNATURE-----
 
->  	}
-> =20
-> +	tc->panel_bridge =3D bridge;
-> +	tc->bridge.type =3D bridge->type;
-> +
->  	if (tc->hpd_pin >=3D 0)
->  		tc->bridge.ops |=3D DRM_BRIDGE_OP_DETECT;
->  	tc->bridge.ops |=3D DRM_BRIDGE_OP_EDID;
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCajvM+wAKCRAnX84Zoj2+
+dvs6AYCbYwiAHI0RWkIrSJ6HTAS/XRbFVnFHU9MxYcXvsGs3GaljrmWoPw/w/qWK
+d1Yg7qsBgLOHhMlyHfj3U/HJUmXpsK4aLwubF45HUsdZTfAggKa53Wz+5lLcDmOy
+cJOZr5wk3A==
+=S5Am
+-----END PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624121515.2301=
-219-1-alexander.stein@ew.tq-group.com?part=3D4
+--cstjwexp6hdv64qh--
