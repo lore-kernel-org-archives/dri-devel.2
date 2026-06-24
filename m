@@ -4,133 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BF4ECDB470
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 04:30:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66A1BCDB479
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 05:25:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BAF410E00F;
-	Wed, 24 Jun 2026 04:30:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEE9D10E041;
+	Wed, 24 Jun 2026 05:25:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="SqR2IaaF";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="i4PMNbop";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010010.outbound.protection.outlook.com [52.101.201.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 865CF10E00F;
- Wed, 24 Jun 2026 04:30:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V0NKhu7Tlska0dYNCbjB0iPXKhSQT3dy/+UJkPk2hfNH7e/jcxt5zoeaW1zzspf5nQ0qmYltciYdLIhofVvNpqSe4aAeEYI/ZcpPC3KqhO987Wq5mn6xdZPqD4aBjOy21pnn1tfwoUsUKo8exDstij3o1Y58FYLw2lmwzvJED307SOmTvjlN6+VVFvmLo4MfacipjQmt0HsDm5y6c8j5aZa/kSDDVXrwN2VMtJ8agH3akxQ34ncn42JLIKgCWCYTLd7sYUoc+rb2k1E+kyBJBxWcIFvKSlPLSSH1p2xjmzfFNlyjsigtrfVj0OiJs72qCn2F1sJlMVTMZOQxuBE7Gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WLk+yj0MMzjvjpqEtT6p/A5a5n2TXbjCYEP6NKbvXgk=;
- b=sCgFifuNHiGh5c9V73u/SE0MuZ6AV3nF31XMhHoQli/q9ShQaJhaOj6u7cmbBoVjEr1X+RFxEFLX30AtMtKMDWGRbhvsxCr6mYG8riXGD6IdgeHlSBhk7HQnHKzufpDaT+e2j7kxM98g5fAgnbajdMZdO4P9RLokDQZaSe0hfkHBO3hCz/lsJ+JDYDDNVCrf8M4FF08FCMXVH1styGK2dGyfovFXpWCwpBNSnOaQZWVilIMg7YhYlyBE1PNB7F5NMS5YZNj7orndYCeEhZbP9yD9b+OXysfsv4qwLLnfAb5maWmldtBbe1sKT6jJo4YEm+/3YC4U9lUzVPwL76McCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WLk+yj0MMzjvjpqEtT6p/A5a5n2TXbjCYEP6NKbvXgk=;
- b=SqR2IaaFn9wU42XfjNjpp4BVxT+bzYpN/IMigS8X7m99pLawRiTM15UgwOs4KvApHMsUoQNJUmHz+O2WTmCqnfL9PSjBPFg/6JmHgyJVj/ylgh/bauyHdySJiW3mByOMwkZXBlJfc4K9cyzeZYbKiiUtoLZVhwi61oBDLTcmKScRqn44+ckkzMzZulkWfoyXHMtwmMj7MEoemT1oDdX/wvNPj8xVX6q8opVrjKmtQtRz4iv5707yFNYWI4Irrz/TkC6OtiF8InWMiDBhLICjyFGNZ4Km2RUEZBF5Vyp2aN66k8SNOw6XNR2Sn4J45Vkdy0u5uT6t0XRWOWp6nXZW/w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by MN2PR12MB4357.namprd12.prod.outlook.com (2603:10b6:208:262::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Wed, 24 Jun
- 2026 04:30:54 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0159.013; Wed, 24 Jun 2026
- 04:30:53 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 24 Jun 2026 13:30:50 +0900
-Message-Id: <DJGZX2MGM1DD.3VAEGR7G5QVBE@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH 3/6] gpu: nova-core: gsp: move boot code into local closure
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20260619-nova-bootcontext-v1-0-45193cd0a2e5@nvidia.com>
- <20260619-nova-bootcontext-v1-3-45193cd0a2e5@nvidia.com>
- <DJFF1W6VGY4Q.2PV5MEPMFXIDB@nvidia.com>
- <DJFO5A5XN2EO.22B58J2O6D4JG@nvidia.com>
- <DJG6S20KHJK3.TKRZLBYUPGG2@nvidia.com>
-In-Reply-To: <DJG6S20KHJK3.TKRZLBYUPGG2@nvidia.com>
-X-ClientProxiedBy: TYCPR01CA0046.jpnprd01.prod.outlook.com
- (2603:1096:405:1::34) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4634A10E034
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 05:25:09 +0000 (UTC)
+Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65O39dvK2360867
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 22:25:07 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=obF+BXbpjwuxPtFMpKFj4tWFuIoMfWAxgPOaOEO/2Kk=; b=i4PMNbopiEyN
+ dzJXF0sq4fQea/c+oGnEpQ3W40KWgQKMYp94BGV8TEah8W7YPRSPV0TWDxq9lK/c
+ IH69OUDDNs4d0nLVIpJwr+XEv92pv/JuZswxBiUsvdERfmY5R4LlqN0TVFMY2Dvn
+ 08IxKg79hkxPM+eiEkYQh+L2YtGse+/WxlLJoLeIZTZ7DJJufjtjFVKTVUf07DeY
+ Q0Fv1ltuXkx9gHTE8OgS6FoI4d2kaZ96QvTwthCibr43A1fFQI9UNcJYigi296TU
+ 3a6RjwS1xU1710l1vTTAfpyebNS7gpak3yb9NRra53jg5yCM5pdMRjLZuvUzzMdY
+ 3oI6N0shDA==
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
+ [209.85.210.69])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4eyv23dnkx-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 22:25:06 -0700 (PDT)
+Received: by mail-ot1-f69.google.com with SMTP id
+ 46e09a7af769-7e943138b94so992298a34.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 23 Jun 2026 22:25:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782278706; cv=none;
+ d=google.com; s=arc-20240605;
+ b=XBE+qcQLykUWRK2huQZkP0xuYWfxPDmwGPLUyLXwrmwvF6snY0wNIMVRzOPnY48njU
+ JQiZVFJjm9ySIjuK1CSQ5qYdD1dsT9/AuGYORXhATRItgUis2WbNuE5paRUcIlXk6JhZ
+ 4QDBHsrc2zKNTI10POZJXn2cFZB8K5MLIIEakbjkJwGxwAv85wdOCBWSZ+r0vo/OmBIQ
+ bJl/+UhPTkhCSVjOF0q5koqwH5mpijFOiUlZPnUCVMB6TEPlxTdMaScAJPzGZYIm1PJ9
+ aYdwJDO4DScEId1vMmvwzhZlEIYAU1psz9RF/rOLKBV3YdaGX2fxKFGOi8ogX0rnEcNv
+ 4q3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version;
+ bh=nmAO6MORM+JCILZd6Ab8MnktXVX1EvzetGEcyzVhRCY=;
+ fh=f1wCs6YMEITmT1pS/vrMq+88ZB0saoy5tm/7V3wMc7A=;
+ b=lcEyLFVnbIurQYTb4FYC/Z7sb79BoD7SdCZwmHr7FbSzxXfNeihqRtwbBHnNNx2yDT
+ mswXmAhwG+WWdTECgoI3E6BJHMbsBovzN8Ciwu221VdB50QIJ6ftwdzFElgYA8MZDPxk
+ q+B9iaVSs803XC7wLGPJHiscULBjT3GRF/QtZz7YdWmG9nguMkP45+TNZb2g0FhUfI2X
+ YgVhVvx/RIovT/gU089wJoBmDvGL13bSGPpejpHmiNexXmpJbO5wz2wo9jGKyxJw+IXQ
+ JXNKOVXiiHhcImxuXI4xsXWG48wTMo4ZIttOlm59eXFPToZqMy9Rs4UPLRlR1jsUnmQH
+ BSYw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782278706; x=1782883506;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=nmAO6MORM+JCILZd6Ab8MnktXVX1EvzetGEcyzVhRCY=;
+ b=PaSLoWoXivXq6/M6yHP2kY1r4Et+3xbro0JyiNSxOY2eP2N21JvGWBZ7NVWXRh71k+
+ DvhkezDYWXCo1gh6SqY+P8bW4Zc9xqgj2EyGAvJhrivndc8RTdztq7S++fm35rXR6L0c
+ VMCX3Jx92Yt7Mn6zlrBOGvn3Nc00EN5aWNnQlw6X+z9AWN/7RMmjCYk38TOMKgznEHYm
+ ZYkjbj2hTXPN2sZNrrOIRWEY2H/hb/pRNpQcZwFmCn9mcbRpXfWCuRY+OcaqbwsWJyog
+ nqShRRayBeJrhko+LGvjNniPf8KeBWnmgb/YFj10P5CIOF+nhFjT0XxzxQrO47RNGrae
+ 9H9A==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ84qhqCHb2gEVNbVzH9UhHpKhRm+DU71RIwEKu5+rqt5beifNnRLaSzvyaRLCUtkEKft23+lJAQ8iU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx0dnUesyF7YXJfUJgFy5CVFIEFtmVb2h8HQhzxFkYiieVLE+wn
+ Bf2I0Jqc/cC2Vvb3xUxSxzPPA3PLqusJEwYhHVawbWb4XKkJdtb4wk4tskwwbjNKuDf70+6GTdN
+ WQ2WqPJiQSOBtlqAnqWgzlOSs3a5EQiWihAQC0SaMh3T4lOxZNeYr0POCBrlwUqMnq8W+k1SOEm
+ LNqzZtRh4BnZ+md6ewX1moxBQQ48Jh4BpWixmt+Gt8zGc=
+X-Gm-Gg: AfdE7cmHmMY6L1f5OL6LVYeaYZqF8Ywk2X5IKRtTfMvFjJfcdKNnP9nRTsGV5xm03J1
+ n9MfhhmO05JPbqP+ssyH798LBebNLirISzOFemreOCuDW3wAL2Ly6gIjL+Br5TK1hNVXJ+czMm0
+ UY2lad2Lo2va/JqK1SH87RX5Zqv4f1pdzET/DZ1qlTN6/G8WQEl0dl2z9cF2GtKp4DPXehGl5hd
+ BZX4yVK/AZLgKBYaElt03r9HelUag==
+X-Received: by 2002:a05:6830:6c12:b0:7e6:f4a3:1dfc with SMTP id
+ 46e09a7af769-7e986c83822mr1589289a34.23.1782278705576; 
+ Tue, 23 Jun 2026 22:25:05 -0700 (PDT)
+X-Received: by 2002:a05:6830:6c12:b0:7e6:f4a3:1dfc with SMTP id
+ 46e09a7af769-7e986c83822mr1589274a34.23.1782278705036; Tue, 23 Jun 2026
+ 22:25:05 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|MN2PR12MB4357:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3d95b54b-e27b-482c-6ec1-08ded1a960a7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|23010399003|1800799024|366016|7416014|376014|22082099003|18002099003|3023799007|11063799006|4143699003|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info: rb5MyP7sN2v96DAvS5V77BqKdNfqozc2oKW7Ao1pKD6A4U4OG8OXkc/q6kixMLenRZGMnqDu0pGq7kxSQahAGwDuBt/Wlr3uFfCGL2aODsnCdI13lXuzVR1b8R2UpIiywp8ziG4sg8CFwfnljkeX22HR7W2KHERakfiIVvYAi+OPUP9kKG0XTIoE515vXhmEc6nhigh4tKAX+oiP+Nb2YcIHOLdETnHgAlpSvmr8w70KYSLq9ieWaLNKOlzimReqJGbIjNM/hiWUmTK17CXLUZCFHM+h6PQScxAym7Fzl0IJhhG4HEkh/UG4iRlFoIULbK+9Y2egvTuaEvHe1jI2+9D5W0cmJti6c5K0lkAB0fuWFW6i5424jy/6qEF3OvX+wvFxim0LMjqCMybQ9wT+TejgmF9J+dvvX919ny79z7W5gcDMGpq+Xm3qDgTTqz28jUUc+UjMKp3urZQtNe4SCsqqErhSmHDLdC7PsLOXL6F3xPkGYu1C4DRADgWGUGmUNnl0igqp62LAlFJEi81RGl2WG0IIb9yLMhh4gWl+KzbFWbptihMReKbpidRQ5HUubKsQzkKRTLiAM3HqNCCzUVhtMiL1pRmLsGGmB9VVxMKTnI0eSy6jx/KjrURocEaTFS0C36YyVuz2QaXZrNBFAHUO9UZf5zaVnYEB+6mNsIg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(23010399003)(1800799024)(366016)(7416014)(376014)(22082099003)(18002099003)(3023799007)(11063799006)(4143699003)(56012099006)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YmdwQXF5dU5xaWF4MGNPZ1lKdm5Ea29oYnVrN2ZIcUFjRVBZT1pVUWhMR1JK?=
- =?utf-8?B?WVlSZzYybUduc084cmNUNlZrOXVlY3VscTRaZjZpaFRXcGwwSXFvYXA5cjE5?=
- =?utf-8?B?NUdreVNNU3hXYk4xeVIrV3dnZzNLc1JQaE54Qmx2bE44SHBJVDNEN2lBcE0v?=
- =?utf-8?B?L1dtMFF2YncrWVMvODFidzduaGNGenNMdG1aK0FBbEd3a0Z6U0J2ZHRIakxu?=
- =?utf-8?B?RzQzNllaU1FnRVZ3aVJiQ1MwRWYwZk1DWWFpeXdYWGd4VkVqYnNVbFo1ZmtG?=
- =?utf-8?B?citkZjlMZWFGZ0p2RFFLd1M4T3ZoMHpEa2dVUEszZi9JZzNSUVJFT0FpLzRE?=
- =?utf-8?B?NGdVb0x3OWs0Q1FKbERwR05GSTVqVVhpZWh1MCtZWngyMStOZmNVR3ZVUllM?=
- =?utf-8?B?dURWM2VsUlZkNzM1M0c4NnFGdDRMdm91Q1V6UVdYZmUvVTFtdVNOdWtlcGhj?=
- =?utf-8?B?QU5MN1Y4SlZtOXlzR0F4Yzd2dC9LODhxMVNLbFZTUm9QcFFkQ1BSWU9rN3ky?=
- =?utf-8?B?K3dlcTBKZVNDQ1dpeVNEdGltanhQOHBKbkErT2dJNTRDdTlyR0tqcnZkbUQ3?=
- =?utf-8?B?b2pyYTNxZnNXQmNDb1dDTlhEdTRFYU9vL0ovcW9IV3l3NVAwWGxxcjZjZzFh?=
- =?utf-8?B?Qzd6YUJaQ0tZTjNIRS9lRjhtOGhyMnFuTEU3SUZjejZOSStHTThCUEk4WTgy?=
- =?utf-8?B?OE0xRFZVR3Y2RUVsZ2xWRXpURFNZQXdoRVZWN3pLcEtXeU9oR0NqS3VqZ1Rx?=
- =?utf-8?B?KzJkNXp5M0VreGhIMXNVc3BTYmdjYW1xTHNLWWxjZjF5S0k4elZ0UEZGNm1r?=
- =?utf-8?B?ZUk5KzZ6ZDV3NlNhNHF5WDdPaEZzcElUak5Nb1V2QVB6ZTBzd25aa3lXVmdx?=
- =?utf-8?B?ZWZqWjNXQ0d2WFN2bm0vcWVTdC9Zck5DeVYxTGdjOFU2ODBrdlVqcXVST1pT?=
- =?utf-8?B?VTZtOVBwb1pjdWc1bmQ4ajdpNWcydGpBYTdSVW5ycXBnYm4wcUZWSlBYK1VQ?=
- =?utf-8?B?ZWRLUkxhUUtEdnpEN2ZlOGVKcEtxSlZzK0VJcm5qcTZqMkZGaVNjekF3MWU1?=
- =?utf-8?B?a1Btcm5LZkMxcExUWkhoa2VNbFJoVGE2YXJob21Dbyt1OE51RXhhQkdHdkxq?=
- =?utf-8?B?c2tyMUhDQnRqWUZkOHd5ak1XQWNRTVBVQzJvb3R4dFJnbFB5VDRhcWRZT1VJ?=
- =?utf-8?B?UGkvamFSazZNUHUyRlpiM2E2MGs0NFNjZVlVckt0WWRBZzdQWitrYkNZUFBG?=
- =?utf-8?B?bGVHY01FM0lCeTN3L3hYc3F3MGNpSEI2WWNZZ25FdURoZXlHd3BmRUpZT2ZQ?=
- =?utf-8?B?ZHFUdTFMbGtQVEhhSGRHUlZYU0xKb0hkMm9MbzhXMEx5eXpEQUZEdnAydTdJ?=
- =?utf-8?B?ZW1jRnQ5YmRLYno4dzRldnVjbnh1Y3ZJekovdlNtQUtaSGxONWtmbThxN1FH?=
- =?utf-8?B?WEliWTNUUGYwY21EM2lrMm4wN29VWm9ZWlNsb1VHM2JUWVBsWG5ZNW5xL3lk?=
- =?utf-8?B?bnRQVUp1aFVKVHJTcnJkTnh4L0ZFUEd0L0lBNDFHSU4xU3M0WGJtZkVLT3RS?=
- =?utf-8?B?eFR1b1pwN1NkSlhNR3l6OEZTeENVY2RBRnRIZE5uY282Y2srSFFkRXJIaVVJ?=
- =?utf-8?B?SVBlMjd2eXZzMVc4cTN1Q3dXNzFtcVMzb3FWSWhNV2hqKzc0WkZ1NGwxZHQ2?=
- =?utf-8?B?ZzhvcTRrTXRoRkdFNDJJNjFTVFI3WkFzbXJzMCtkMGh5WjVsRUNIRWlFK1lR?=
- =?utf-8?B?MzB5WHFWWHdOY1Z1bXRtZ2hRaEtZUStBU1ZMY1dCd0xSU3pkeHNkbkgwT0lt?=
- =?utf-8?B?OVd3cVdBOHgyakJDWkluSXdjRk84dm1ZT0RnVVFTZFpXT2t0R1c0RnJkYU8r?=
- =?utf-8?B?TjBIZ3d1RzN5RzAzc0pZemFjdzRYY3FUVGdrczJ3TjBqNmFYaGo3eEo5WjYz?=
- =?utf-8?B?QzhBRHcxV1FwcFhGL2FscWtWUHZaeUZSSGJHS0xXdGxVejhYbVRpWmh0YUUr?=
- =?utf-8?B?cC8yWXhDZytpWm1WcS9aOUJFUUk5aEF6MEZzelpZOHJpVEJQekM1aWMyZTJQ?=
- =?utf-8?B?RUJVNkNWaFFpR3J5WXVRcERwWjI3VHhaWDJIT3VQOENMRVdWTFM2aEF0aXhj?=
- =?utf-8?B?dEd6SFNXRzBjUUozUG12Z3dQLzF5NHdta1N4SXF2bEU1NCttVDJkS2RQdmNu?=
- =?utf-8?B?TXJXM1doMmFiV1d4SCtsck1PR0hXMzVmVmxPLzNFOSt3ZnFUTExCd2U5enlo?=
- =?utf-8?B?amNCK2g2N1F1b0JsajdpMlV2cjFGekxTdkJteWxHTHJkYkpTOHJrN3QvakMv?=
- =?utf-8?B?UnpQOTF0R1BXS3RRNjRNb3ZUcVdaWUd6Mk1CdWhZb1ZWUzYzR3BCUU92L1FP?=
- =?utf-8?Q?s9Jr5IPaGB6dUC79JLSicTdPRYrpuYMkJxAhcPh5+eDXZ?=
-X-MS-Exchange-AntiSpam-MessageData-1: R/QMIOP1MRKYAQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d95b54b-e27b-482c-6ec1-08ded1a960a7
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 04:30:53.8159 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cM1E1NRuKhAWP3DSJpIdEZ99pTNvpQtSuGieN6diAYhLL44HUfDijcu2NGNE3M31uhWn0PxzXvhrUG9iBipRXw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4357
+References: <20260622184211.2229399-1-zhipingz@meta.com>
+ <20260622184211.2229399-4-zhipingz@meta.com>
+ <20260623121736.4d9e38b9@shazbot.org>
+In-Reply-To: <20260623121736.4d9e38b9@shazbot.org>
+From: Zhiping Zhang <zhipingz@meta.com>
+Date: Tue, 23 Jun 2026 22:24:54 -0700
+X-Gm-Features: AVVi8CcrRluVCfzsDiRhgyOh9k6XVpc_dByJFZOVuR1nJUXz2ghm7PL2MvWIArU
+Message-ID: <CAH3zFs25EfNMRpYTtDTPXNY3FcYg7tYWKExVm-rbcuQRE=qBLw@mail.gmail.com>
+Subject: Re: [PATCH v9 3/4] vfio/pci: implement get_pci_tph and DMA_BUF_TPH
+ feature
+To: Alex Williamson <alex@shazbot.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Michael Guralnik <michaelgur@nvidia.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian Konig <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, kvm@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI0MDA0MSBTYWx0ZWRfX0lbtJLlA6nr1
+ HBKd4dfMqh3u1lnBQYRTKkMPrlr7KQxKW/w1ar4mKp+r5ncfge0vEfa8XPU5xuJp2qs9xYnqKYw
+ JyNgi1fVXK50ud4v8caWH3AgZ0/277ofBdeo3D49cuNdCYrK32Uw+KfefLVcgzANWK3YV9lFaFO
+ dlSqwFjHSU+46R2nmBlR9GYw+lTVU4fNrFc6piGnc/+8899LhMLtnrAgsST5+bxs3GBTYaWBD0J
+ 0z3jV5SeWsUaPnybrsNwerS++ZixTrqnZWHsGESBi4jnFc70d0EzlzGX2nboiJEzg+o3pA/iF+1
+ A8yQnC3td5GokLJ6k3sh9VeRTFJciDMhlKcdpOHiiYQci0uUjRV6kECD+C1JupvTyewMGAN7P4q
+ SKyAvt1X/bwBb+rB5ZmgU3HW22eT3w==
+X-Proofpoint-ORIG-GUID: FL_GKY0XzzLXYX-Tj0wFWmsyBt9LBVCZ
+X-Authority-Analysis: v=2.4 cv=b9aCJNGx c=1 sm=1 tr=0 ts=6a3b6a32 cx=c_pps
+ a=z9lCQkyTxNhZyzAvolXo/A==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=8elwO82fXORLTBIkMd32:22
+ a=r1p2_3pzAAAA:8 a=VabnemYjAAAA:8 a=_DGCK_szeJEHVohcwy8A:9 a=QEXdDO2ut3YA:10
+ a=EyFUmsFV_t8cxB2kMr4A:22 a=r_pkcD-q9-ctt7trBg_g:22 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI0MDA0MSBTYWx0ZWRfX30PmOyVKYDhu
+ bFvV2T5t98EWLkhUETS3MXLok53fDlq0jAj7GekJErB9hp7qTCDnSe89WE085jClX9xEjTBTixC
+ 6UNIrGrxkm53b//zpRdcAJY4UXLmfQ4=
+X-Proofpoint-GUID: FL_GKY0XzzLXYX-Tj0wFWmsyBt9LBVCZ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-24_01,2026-06-23_01,2025-10-01_01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,158 +143,357 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Jun 23, 2026 at 2:40 PM JST, Eliot Courtney wrote:
-> On Tue Jun 23, 2026 at 12:04 AM JST, Alexandre Courbot wrote:
->> On Mon Jun 22, 2026 at 4:57 PM JST, Eliot Courtney wrote:
->>> On Fri Jun 19, 2026 at 10:42 PM JST, Alexandre Courbot wrote:
->>>> The next patch aims at replacing the cumbersome `BootUnloadGuard` with=
- a
->>>> more local and less intrusive mechanism to run the GSP unload sequence
->>>> upon GSP boot failure. Doing so requires running the boot code in a
->>>> local closure, which changes its indentation and would make other
->>>> changes difficult to track in the diff. Thus, this preparatory patch
->>>> moves said boot code into a local closure that is run upon constructio=
-n,
->>>> so the next patch does not need to re-indent code that changes.
->>>>
->>>> This is a mechanical preparatory patch to make the next patch easier t=
-o
->>>> read. No functional change intended.
->>>>
->>>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
->>>> ---
->>>
->>> I agree with removing BootUnloadGuard, but I think it's not great to do
->>> a bunch of lifting into closures then manually handling the result. It'=
-s
->>> error prone imo (we already had several bugs relating to this kind of
->>> thing). Instead, what about just using ScopeGuard directly? This lets u=
-s
->>> avoid lifting into closures (which is a bit noisy) and avoids manual
->>> result handling for failures (which is a bit error prone). With the
->>> `GspBootContext` it's fairly easy to do now:
->>>
->>> ```
->>> let unload_guard =3D ScopeGuard::new_with_data(unload_bundle, |unload_b=
-undle| {
->>>     let _ =3D gsp.unload(ctx, unload_bundle);
->>> });
->>> ```
->>
->> Yes, initially I wanted to use `ScopeGuard` but ran into issues when
->> trying to make the references mutable. However it looks like you have
->> been able to overcome these issues, thanks for taking the time to craft
->> a patch!
->>
->>>
->>> I confirmed that it's also compatible with the v2 of this series that
->>> has the mutable Fsp - you can stash the context inside the ScopeGuard
->>> data (then making a &mut reference to the stashed context for brevity)
->>> or have a separate unload context type that doesn't use FSP or somethin=
-g
->>> (could later be type parametrized along with Gsp, for example).
->>>
->>> For example here is a rough diff on top of this patch series (you can
->>> change the Result<Option<UnloadBundle>> returns to like
->>> Result<Result<UnloadBundle>> if you want to centralise teh error
->>> handling of a failed unloadbundle although currently it can only fail i=
-n
->>> one location):
->>
->> Yes, looking at it it looks like a cleaner approach than using closures.
->>
->> The only thing that I saw as a regression is that now each HAL needs to
->> call `Gsp::unload` itself in its own `ScopeGuard`. I don't think that's
->> the HAL's work - `Gsp::boot` should be the centralized point where this
->> happens.
->>
->> But we can make both work if `unload_bundle` is passed as an output
->> argument to `GspHal::boot` instead of being returned:
->>
->>     let mut guard =3D ScopeGuard::new_with_data((ctx, None), ...);
->>     let (ctx, unload_bundle) =3D &mut *guard;
->>
->>     // `unload_bundle` is a mutable reference to the
->>     // `Option<UnloadBundle>` in `guard`.
->>     hal.boot(&self, ctx, unload_bundle, &fb_layout, &wpr_meta)?;
->>
->> The boot method can fill `unload_bundle` early, and if it returns an
->> error then the `ScopeGuard` will be able to use it. Also, and that's
->> nice, the HALs don't need to use `ScopeGuard`. But output arguments
->> aren't really something we expect to see in Rust.
->>
->> Another alternative would be to separate the unload bundle construction
->> from `GspHal::boot`:
->>
->>     let unload_bundle =3D hal.build_unload_bundle(ctx, ...);
->>     let guard =3D ScopeGuard::new_with_data((ctx, unload_bundle), ...);
->>
->>     hal.boot(...)?;
->>
->> It removes the "1 boot -> 1 unload bundle" symmetry, but on the other
->> hand it also splits concerns more clearly. And it removes the awkward
->> return type of `GspHal::boot`, which come to think of it was another
->> smell that things were not in the right place.
->>
->> The main drawback I see is that we now need to build `Vbios` twice for
->> TU102, since it is needed both for the unload bundle and for booting.
->> But the solution is the same as what the v2 of this series does to
->> `Fsp`: the BIOS is a GPU-wide subdevice that is likely to be used
->> elsewhere, not something to be confined in a GSP HAL. So I say, let's
->> extract it and make it also part of `GspBootContext`.
->>
->> How does that sound?
+On Tue, Jun 23, 2026 at 11:17=E2=80=AFAM Alex Williamson <alex@shazbot.org>=
+ wrote:
 >
-> I think that currently it's confusing because we have two concepts in
-> use with very similar names. We have "unloadbundle" meaning what we need
-> to run to unload the driver, and we have "unload_guard" which is for
-> running unwind stuff if we error. And for the most part these things are
-> the same, but they might not be (e.g. in my other series where we need
-> to keep certain DMA allocations alive just for the error path, but not
-> for an unload later, or when we are partially loaded). So it might be
-> nice to make these two things more separate.
+> >
+> On Mon, 22 Jun 2026 11:41:36 -0700
+> Zhiping Zhang <zhipingz@meta.com> wrote:
 >
-> I think that trying to build the unload bundle separately
-> (`build_unload_bundle`) is confusing because e.g. hal.boot() still needs
-> to handle unwinding its state in case of error, so it adds a strong
-> assumption that unloading in success is the same as unwinding in error.
+> > Implement dma-buf get_pci_tph for vfio-pci exported dma-bufs and add
+> > VFIO_DEVICE_FEATURE_DMA_BUF_TPH so userspace can publish TPH metadata
+> > for a VFIO-owned device.
+> >
+> > 8-bit ST and 16-bit Extended ST are distinct PCIe TPH namespaces; the
+> > uAPI carries both with explicit validity flags, and get_pci_tph()
+> > returns the value matching the importer's requested namespace or
+> > -EOPNOTSUPP.
+> >
+> > Publish and read the TPH descriptor under dmabuf->resv, matching the
+> > locking used for other importer-visible dma-buf state. The SET ioctl
+> > takes dma_resv_lock_interruptible(), while the callback runs under
+> > DMA-buf's asserted resv lock.
+> >
+> > Reject requests the device cannot consume as a completer:
+> > pcie_tph_completer_type() must report at least
+> > PCI_EXP_DEVCAP2_TPH_COMP_TPH_ONLY, and Extended ST requires
+> > PCI_EXP_DEVCAP2_TPH_COMP_EXT_TPH. Make PROBE follow the same hardware
+> > gate so the feature only probes as supported when the device can really
+> > consume it.
+> >
+> > Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+> > ---
+> >  drivers/vfio/pci/vfio_pci_core.c   |  3 +
+> >  drivers/vfio/pci/vfio_pci_dmabuf.c | 97 +++++++++++++++++++++++++++++-
+> >  drivers/vfio/pci/vfio_pci_priv.h   | 12 ++++
+> >  include/uapi/linux/vfio.h          | 37 ++++++++++++
+> >  4 files changed, 148 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_p=
+ci_core.c
+> > index a28f1e99362c..c7d6902bc61b 100644
+> > --- a/drivers/vfio/pci/vfio_pci_core.c
+> > +++ b/drivers/vfio/pci/vfio_pci_core.c
+> > @@ -1572,6 +1572,9 @@ int vfio_pci_core_ioctl_feature(struct vfio_devic=
+e *device, u32 flags,
+> >               return vfio_pci_core_feature_token(vdev, flags, arg, args=
+z);
+> >       case VFIO_DEVICE_FEATURE_DMA_BUF:
+> >               return vfio_pci_core_feature_dma_buf(vdev, flags, arg, ar=
+gsz);
+> > +     case VFIO_DEVICE_FEATURE_DMA_BUF_TPH:
+> > +             return vfio_pci_core_feature_dma_buf_tph(vdev, flags, arg,
+> > +                                                      argsz);
+> >       default:
+> >               return -ENOTTY;
+> >       }
+> > diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio=
+_pci_dmabuf.c
+> > index c16f460c01d6..d6f5dd321000 100644
+> > --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> > +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> > @@ -3,6 +3,7 @@
+> >   */
+> >  #include <linux/dma-buf-mapping.h>
+> >  #include <linux/pci-p2pdma.h>
+> > +#include <linux/pci-tph.h>
+> >  #include <linux/dma-resv.h>
+> >
+> >  #include "vfio_pci_priv.h"
+> > @@ -19,7 +20,14 @@ struct vfio_pci_dma_buf {
+> >       u32 nr_ranges;
+> >       struct kref kref;
+> >       struct completion comp;
+> > -     u8 revoked : 1;
+> > +
+> > +     /* Protected by dmabuf->resv. */
+>
+> Nit, it would be more accurate to say:
+>
+>         /*
+>          * Updates protected by dmabuf->resv, @revoked additionally
+>          * protected by memory_lock.
+>          */
+>
+> revoked also has an unprotected read, but it's previously existing and
+> benign, and likely just needs a READ_ONCE() annotation.
+>
 
-I don't think `hal.boot()` can unwind its state properly - or I should
-say, I don't think it can unwind it better than just running its unload
-bundle itself.
+Agreed, I'll update the comment and add READ_ONCE() as well.
 
-There is little point calling `Gsp::unload` from a HAL failure as it
-just queues an `UnloadGuestDriver` message (that the GSP wouldn't be in
-condition to process) before running the unload bundle. So here we can
-simply skip the guaranteed message timeout and run the unload bundle (or
-the relevant part) directly. But even doing so doesn't guarantee that we
-can recover.
+> > +     u16 tph_st_ext;
+> > +     u8 tph_st;
+> > +     u8 revoked:1;
+> > +     u8 tph_st_valid:1;
+> > +     u8 tph_st_ext_valid:1;
+> > +     u8 tph_ph:2;
+> >  };
+> >
+> >  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+> > @@ -69,6 +77,26 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *atta=
+chment,
+> >       return ret;
+> >  }
+> >
+> > +static int vfio_pci_dma_buf_get_pci_tph(struct dma_buf *dmabuf, bool e=
+xtended,
+> > +                                     u16 *steering_tag, u8 *ph)
+> > +{
+> > +     struct vfio_pci_dma_buf *priv =3D dmabuf->priv;
+> > +
+> > +     dma_resv_assert_held(dmabuf->resv);
+> > +
+> > +     if (extended) {
+> > +             if (!priv->tph_st_ext_valid)
+> > +                     return -EOPNOTSUPP;
+> > +             *steering_tag =3D priv->tph_st_ext;
+> > +     } else {
+> > +             if (!priv->tph_st_valid)
+> > +                     return -EOPNOTSUPP;
+> > +             *steering_tag =3D priv->tph_st;
+> > +     }
+> > +     *ph =3D priv->tph_ph;
+> > +     return 0;
+> > +}
+> > +
+> >  static void vfio_pci_dma_buf_unmap(struct dma_buf_attachment *attachme=
+nt,
+> >                                  struct sg_table *sgt,
+> >                                  enum dma_data_direction dir)
+> > @@ -101,6 +129,7 @@ static void vfio_pci_dma_buf_release(struct dma_buf=
+ *dmabuf)
+> >
+> >  static const struct dma_buf_ops vfio_pci_dmabuf_ops =3D {
+> >       .attach =3D vfio_pci_dma_buf_attach,
+> > +     .get_pci_tph =3D vfio_pci_dma_buf_get_pci_tph,
+> >       .map_dma_buf =3D vfio_pci_dma_buf_map,
+> >       .unmap_dma_buf =3D vfio_pci_dma_buf_unmap,
+> >       .release =3D vfio_pci_dma_buf_release,
+> > @@ -333,6 +362,72 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_=
+core_device *vdev, u32 flags,
+> >       return ret;
+> >  }
+> >
+> > +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vde=
+v,
+> > +                                   u32 flags,
+> > +                                   struct vfio_device_feature_dma_buf_=
+tph __user *arg,
+> > +                                   size_t argsz)
+> > +{
+> > +     struct vfio_device_feature_dma_buf_tph set_tph;
+> > +     struct vfio_pci_dma_buf *priv;
+> > +     struct dma_buf *dmabuf;
+> > +     u8 comp;
+> > +     int ret;
+> > +
+> > +     comp =3D pcie_tph_completer_type(vdev->pdev);
+> > +     if (comp =3D=3D PCI_EXP_DEVCAP2_TPH_COMP_NONE)
+> > +             return -EOPNOTSUPP;
+> > +
+> > +     ret =3D vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET,
+> > +                              sizeof(set_tph));
+> > +     if (ret !=3D 1)
+> > +             return ret;
+> > +
+> > +     if (copy_from_user(&set_tph, arg, sizeof(set_tph)))
+> > +             return -EFAULT;
+> > +
+> > +     if (set_tph.flags & ~(VFIO_DMA_BUF_TPH_ST | VFIO_DMA_BUF_TPH_ST_E=
+XT))
+> > +             return -EINVAL;
+> > +
+> > +     if (set_tph.ph & ~0x3)
+> > +             return -EINVAL;
+> > +
+> > +     if ((set_tph.flags & VFIO_DMA_BUF_TPH_ST_EXT) &&
+> > +         comp !=3D PCI_EXP_DEVCAP2_TPH_COMP_EXT_TPH)
+> > +             return -EOPNOTSUPP;
+> > +
+> > +     dmabuf =3D dma_buf_get(set_tph.dmabuf_fd);
+> > +     if (IS_ERR(dmabuf))
+> > +             return PTR_ERR(dmabuf);
+> > +
+> > +     if (dmabuf->ops !=3D &vfio_pci_dmabuf_ops) {
+> > +             ret =3D -EINVAL;
+> > +             goto out_put;
+> > +     }
+> > +
+> > +     priv =3D dmabuf->priv;
+> > +     if (priv->vdev !=3D vdev) {
+> > +             ret =3D -EINVAL;
+> > +             goto out_put;
+> > +     }
+> > +
+> > +     ret =3D dma_resv_lock_interruptible(dmabuf->resv, NULL);
+> > +     if (ret)
+> > +             goto out_put;
+> > +
+> > +     priv->tph_st         =3D set_tph.steering_tag;
+> > +     priv->tph_st_ext     =3D set_tph.steering_tag_ext;
+> > +     priv->tph_ph         =3D set_tph.ph;
+> > +     priv->tph_st_valid   =3D !!(set_tph.flags & VFIO_DMA_BUF_TPH_ST);
+> > +     priv->tph_st_ext_valid =3D
+> > +             !!(set_tph.flags & VFIO_DMA_BUF_TPH_ST_EXT);
+> > +     dma_resv_unlock(dmabuf->resv);
+> > +     ret =3D 0;
+> > +
+> > +out_put:
+> > +     dma_buf_put(dmabuf);
+> > +     return ret;
+> > +}
+> > +
+> >  void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool rev=
+oked)
+> >  {
+> >       struct vfio_pci_dma_buf *priv;
+> > diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_p=
+ci_priv.h
+> > index fca9d0dfac90..c58f369be4b3 100644
+> > --- a/drivers/vfio/pci/vfio_pci_priv.h
+> > +++ b/drivers/vfio/pci/vfio_pci_priv.h
+> > @@ -118,6 +118,10 @@ static inline bool vfio_pci_is_vga(struct pci_dev =
+*pdev)
+> >  int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u=
+32 flags,
+> >                                 struct vfio_device_feature_dma_buf __us=
+er *arg,
+> >                                 size_t argsz);
+> > +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vde=
+v,
+> > +                                   u32 flags,
+> > +                                   struct vfio_device_feature_dma_buf_=
+tph __user *arg,
+> > +                                   size_t argsz);
+> >  void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev);
+> >  void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool rev=
+oked);
+> >  #else
+> > @@ -128,6 +132,14 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core=
+_device *vdev, u32 flags,
+> >  {
+> >       return -ENOTTY;
+> >  }
+> > +
+> > +static inline int
+> > +vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev, u=
+32 flags,
+> > +                               struct vfio_device_feature_dma_buf_tph =
+__user *arg,
+> > +                               size_t argsz)
+> > +{
+> > +     return -ENOTTY;
+> > +}
+> >  static inline void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_devic=
+e *vdev)
+> >  {
+> >  }
+> > diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
+> > index 5de618a3a5ee..2d30ba43e2cf 100644
+> > --- a/include/uapi/linux/vfio.h
+> > +++ b/include/uapi/linux/vfio.h
+> > @@ -1534,6 +1534,43 @@ struct vfio_device_feature_dma_buf {
+> >   */
+> >  #define VFIO_DEVICE_FEATURE_MIG_PRECOPY_INFOv2  12
+> >
+> > +/**
+> > + * Upon VFIO_DEVICE_FEATURE_SET associate TPH (TLP Processing Hints) m=
+etadata
+> > + * with a vfio-exported dma-buf. The dma-buf must have been created by
+> > + * VFIO_DEVICE_FEATURE_DMA_BUF on this device, and the device must rep=
+ort
+> > + * TPH Completer support in Device Capabilities 2 (bits 13:12); reques=
+ts
+> > + * carrying VFIO_DMA_BUF_TPH_ST_EXT additionally require the device to
+> > + * report the Extended TPH Completer encoding. Otherwise the ioctl
+> > + * returns -EOPNOTSUPP.
+> > + *
+> > + * dmabuf_fd is the file descriptor returned by VFIO_DEVICE_FEATURE_DM=
+A_BUF.
+> > + *
+> > + * 8-bit ST (steering_tag) and 16-bit Extended ST (steering_tag_ext) a=
+re
+> > + * distinct namespaces. Userspace supplies whichever values are valid =
+and sets
+> > + * the matching VFIO_DMA_BUF_TPH_ST / VFIO_DMA_BUF_TPH_ST_EXT bits in =
+@flags;
+> > + * an importer requests one namespace and receives the matching value.
+> > + *
+> > + * @flags =3D=3D 0 marks any previously published ST / Extended-ST as =
+invalid
+> > + * for future PCI TPH queries on this dma-buf.
+>
+> I think we should avoid "published" as it still suggests we're somehow
+> able to invalidate what was previously reported and consumed.  It's
+> offset by the trailing clause here, but that's absent below.
+>
+> Also, we're noting @flags =3D=3D 0 as if it's a special case, but we real=
+ly
+> need the clarity that if either flag bit is not set, the corresponding
+> field is marked invalid for future queries.  Perhaps something like:
+>
+>    * @flags is the authoritative validity for each namespace: when
+>    * VFIO_DMA_BUF_TPH_ST is set, @steering_tag becomes the valid 8-bit ST=
+; when
+>    * VFIO_DMA_BUF_TPH_ST_EXT is set, @steering_tag_ext becomes the valid =
+16-bit
+>    * Extended ST.  A namespace whose bit is clear is marked invalid and
+>    * reported as unsupported to importers requesting it.
+>    *
+>    * Each SET fully replaces the dma-buf's TPH state: any namespace not s=
+elected
+>    * in @flags is left invalid, so @flags =3D=3D 0 marks both ST and Exte=
+nded ST
+>    * invalid.  This only affects TPH queries made after the SET completes=
+; an
+>    * importer that has already retrieved a value is unaffected.  Userspac=
+e must
+>    * therefore configure TPH before handing the dma-buf fd to an importer.
+>
 
-For TU102, the unload bundle runs two firmwares to reset the GSP falcon
-to its original state and to remove the WPR2 region. I don't think we
-can/should run them selectively, as they don't undo work in the same
-order as the boot sequence - or even from the same microcontroller! For
-instance, FWSEC-FRTS (GSP falcon) sets up the WPR2 region, but it is
-tore down by Booter Unload (SEC2 falcon). So the best we can do if
-something fails on the boot path is run the whole unload bundle and hope
-that we can recover.
+Thanks, I'll use your suggested wording here.
 
-For GH100, the unload bundle just waits for the GSP falcon to get out of
-RISC-V mode, as a consequence of the `UnloadingGuestDriver` GSP command
-sent by `Gsp::unload`. The problem is, that in case of failure that
-command cannot even be sent as the GSP is not up! :) So the unload
-bundle will either succeed immediately (if we failed early) or timeout
-(if the GSP is already in RISC-V mode and stuck somewhere else). It's
-actually probably better to not even try to run it in this case, and
-just wait for the GSP lockdown release to try and address the DMA buffer
-lifetime you raised.
+> > + *
+> > + * ph is the 2-bit TLP Processing Hint and must be in the range [0, 3].
+>
+> Slight inconsistency here, @ph.  We might also help to silence the
+> Sashiko warning to note:
+>
+>    * Undefined @flags and @ph bits must always be zero.
+>
 
-Which supports your case that the HALs should be be responsible for
-their own unwinding - only not by running `Gsp::unload` IMHO.
+Yes, I'll fix @ph and add the undefined-bits-must-be-zero wording.
 
-In any case, there doesn't seem to be a recovery path that we can
-execute reliably in case of GSP boot failure. So making the HALs
-responsible for recovering does indeed sound like the safest solution
-(with TU102 trying to run the unload bundle, and GH100 doing... I'm not
-sure what :)) and should address the issues you raised - but please let
-me know if I missed something.
+> > + *
+> > + * Userspace must publish TPH before handing the dma-buf fd to an impo=
+rter.
+> > + * Calling SET again replaces the published values.
+>
+> The above suggestion is meant to replace this as well.
+>
+> > + */
+> > +#define VFIO_DEVICE_FEATURE_DMA_BUF_TPH 13
+>
+> There are several series in-flight contending for device feature
+> indexes, so this should really go in through the vfio tree to reduce
+> the risk of duplicates.  We also still need acks from the relevant
+> maintainers for PCI, dma-buf, and mlx5 before this can be queued for
+> v7.3.  Thanks,
+>
+> Alex
+>
+
+Sure!
+
+Thanks,
+Zhiping
