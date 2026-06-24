@@ -4,48 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6E5FCDB471
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 12:48:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB24ACDB481
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 12:57:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C1A810EF12;
-	Wed, 24 Jun 2026 12:48:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4161B10E071;
+	Wed, 24 Jun 2026 12:57:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZX54rOT8";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="bmt+sTC7";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4B8910EEF9
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 12:48:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7245E43BF0;
- Wed, 24 Jun 2026 12:48:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4781F000E9;
- Wed, 24 Jun 2026 12:48:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782305291;
- bh=Ng1Fu3iV0uz9YEcwWiFwkJYNZd8hGnnPbM07z97sbwo=;
- h=From:To:Cc:Subject:Date;
- b=ZX54rOT8atVKo9c5J5Q15q+IKKKVwuwOAOGRokO4ofI/WuoKd72gRCTsPOvf5zci2
- //oqV9U2MF3u/G3XPHNINLdLiVixEx439C76qRXAYLvHmueaLiMxF4lxxzn6JAKf3+
- LvpathzUcS34ylGPqUKEfk9Y4syniWEVl+mxOH4aQle7szgvX1mxc84bXFX+wKu1BA
- ltRdCHseUDfQXFwKhEdsJFm80fufqplh1zG53YJuxXLMFKhxICPR0gSzcfcvCw3sAV
- WIjhxLATJNoPMqtchCNfn74S/Fy1qR9p9N1phCS2Iw5E3KLnkBfMC6aLNQnWsD9kyH
- 8HE6pfIPLg2Rg==
-From: Philipp Stanner <phasta@kernel.org>
-To: Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Subject: [PATCH] drm/sched: Protect entity->last_scheduled with spinlock
-Date: Wed, 24 Jun 2026 14:46:52 +0200
-Message-ID: <20260624124651.1414814-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.54.0
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B925510EF04
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 12:57:35 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id C8C2C44555;
+ Wed, 24 Jun 2026 12:57:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 99B83C4AF0C;
+ Wed, 24 Jun 2026 12:57:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
+ t=1782305854; bh=/Ez1yD+QBc3OyMPlvXhRRCxYyERmjWfx2EKbWZexp0o=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=bmt+sTC7M54lo2VDRzUcQvqKWlox3181Di2l5pFK+VsXilbB1o+0AFmHV9qM7wo3V
+ GyFTcuz2r8OmOkc/kB8dQasFiMY8uWS25DC2ooqtGgd+39eXPbshWIDHArMkTY3Ln6
+ qa6JLxlYQr7qTm/1zKPblpgnMBAGEXnu4ytVI0QU=
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 7CE9FCDB47F;
+ Wed, 24 Jun 2026 12:57:34 +0000 (UTC)
+From: Alvin Sun <alvin.sun@linux.dev>
+Date: Wed, 24 Jun 2026 20:57:25 +0800
+Subject: [PATCH v5 2/9] rust: module: add `THIS_MODULE` const to
+ `ModuleMetadata` trait
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260624-fix-fops-owner-v5-2-aa1cba242f05@linux.dev>
+References: <20260624-fix-fops-owner-v5-0-aa1cba242f05@linux.dev>
+In-Reply-To: <20260624-fix-fops-owner-v5-0-aa1cba242f05@linux.dev>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>, 
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+ Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>, 
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
+ Igor Korotin <igor.korotin@linux.dev>, 
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+ Carlos Llamas <cmllamas@google.com>
+Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org, 
+ kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782305851; l=3548;
+ i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
+ bh=/Ez1yD+QBc3OyMPlvXhRRCxYyERmjWfx2EKbWZexp0o=;
+ b=mVu3Aelu7qgY3lekWiSWVI2T3XR2eySrEe1dl6F13y1Owp8r8su6dZ3MZhpzlnLVhF9VWd40P
+ 9QI27dWhEwqAw3cKOsewjX93bdEd8RA+VIGgbyL2jOt/D1Nvv28VPtI
+X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
+ auth_id=684
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,161 +94,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The entity->last_scheduled field has always been set and read with
-special RCU functions in addition to memory barriers. There is no
-obvious reason for that, since the entity lock is available and taken at all
-places that evaluate the last_scheduled field. The only exception is
-drm_sched_entity_error(), which is not performance critical in any way.
+Since `const_refs_to_static` has been stable as of the MSRV bump, a
+`ThisModule` pointer can now be used in const contexts.
 
-Improve robustness, readability and maintainability by replacing RCU and
-barriers with the lock.
+Add a `THIS_MODULE` const to the `ModuleMetadata` trait so that modules
+can provide their `ThisModule` pointer in const contexts such as static
+`file_operations`.
 
-As a preparational step, while at it, also guard spsc_queue_pop() with
-the lock, since spsc_queue is deprecated and supposed to be replaced
-with a locked list.
+Add a `this_module()` helper to retrieve the `THIS_MODULE` pointer of a
+given module type, and update `__init` to use it instead of the
+`THIS_MODULE` static generated by the `module!` macro.
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
+The `static THIS_MODULE` generated by the `module!` macro is retained
+for backwards compatibility with existing users and removed in a later
+patch once all references have been migrated.
+
+Assisted-by: opencode:glm-5.2
+Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
-Tested with drm_sched unit tests, which all ran fine.
----
- drivers/gpu/drm/scheduler/sched_entity.c | 49 +++++++++++-------------
- include/drm/gpu_scheduler.h              |  9 ++---
- 2 files changed, 26 insertions(+), 32 deletions(-)
+ rust/kernel/module.rs |  9 +++++++++
+ rust/macros/module.rs | 18 +++++++++++++++++-
+ 2 files changed, 26 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index c51101ec70c1..95b2c48a604a 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -135,7 +135,6 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
- 	entity->num_sched_list = num_sched_list;
- 	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
- 	entity->rq = &sched_list[0]->rq;
--	RCU_INIT_POINTER(entity->last_scheduled, NULL);
- 	RB_CLEAR_NODE(&entity->rb_tree_node);
- 	init_completion(&entity->entity_idle);
- 
-@@ -201,10 +200,10 @@ int drm_sched_entity_error(struct drm_sched_entity *entity)
- 	struct dma_fence *fence;
- 	int r;
- 
--	rcu_read_lock();
--	fence = rcu_dereference(entity->last_scheduled);
-+	spin_lock(&entity->lock);
-+	fence = entity->last_scheduled;
- 	r = fence ? fence->error : 0;
--	rcu_read_unlock();
-+	spin_unlock(&entity->lock);
- 
- 	return r;
+diff --git a/rust/kernel/module.rs b/rust/kernel/module.rs
+index be242a82e86d2..d713705984477 100644
+--- a/rust/kernel/module.rs
++++ b/rust/kernel/module.rs
+@@ -42,6 +42,15 @@ fn init(module: &'static ThisModule) -> impl pin_init::PinInit<Self, crate::erro
+ pub trait ModuleMetadata {
+     /// The name of the module as specified in the `module!` macro.
+     const NAME: &'static crate::str::CStr;
++
++    /// The module's `THIS_MODULE` pointer.
++    const THIS_MODULE: ThisModule;
++}
++
++/// Returns a reference to the `THIS_MODULE` of the given module type.
++#[inline]
++pub const fn this_module<M: ModuleMetadata>() -> &'static ThisModule {
++    &M::THIS_MODULE
  }
-@@ -288,8 +287,10 @@ void drm_sched_entity_kill(struct drm_sched_entity *entity)
- 	wait_for_completion(&entity->entity_idle);
  
- 	/* The entity is guaranteed to not be used by the scheduler */
--	prev = rcu_dereference_check(entity->last_scheduled, true);
-+	spin_lock(&entity->lock);
-+	prev = entity->last_scheduled;
- 	dma_fence_get(prev);
-+	spin_unlock(&entity->lock);
- 	while ((job = drm_sched_entity_queue_pop(entity))) {
- 		struct drm_sched_fence *s_fence = job->s_fence;
+ /// Equivalent to `THIS_MODULE` in the C API.
+diff --git a/rust/macros/module.rs b/rust/macros/module.rs
+index 06c18e2075083..aa9a618d5d19e 100644
+--- a/rust/macros/module.rs
++++ b/rust/macros/module.rs
+@@ -519,6 +519,22 @@ pub(crate) fn module(info: ModuleInfo) -> Result<TokenStream> {
  
-@@ -381,8 +382,8 @@ void drm_sched_entity_fini(struct drm_sched_entity *entity)
- 		entity->dependency = NULL;
- 	}
+         impl ::kernel::ModuleMetadata for #type_ {
+             const NAME: &'static ::kernel::str::CStr = #name_cstr;
++
++            #[cfg(MODULE)]
++            const THIS_MODULE: ::kernel::ThisModule = {
++                extern "C" {
++                    static __this_module: ::kernel::types::Opaque<::kernel::bindings::module>;
++                }
++
++                // SAFETY: `__this_module` is constructed by the kernel at load time
++                // and lives until the module is unloaded.
++                unsafe { ::kernel::ThisModule::from_ptr(__this_module.get()) }
++            };
++
++            #[cfg(not(MODULE))]
++            const THIS_MODULE: ::kernel::ThisModule = unsafe {
++                ::kernel::ThisModule::from_ptr(::core::ptr::null_mut())
++            };
+         }
  
--	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
--	RCU_INIT_POINTER(entity->last_scheduled, NULL);
-+	dma_fence_put(entity->last_scheduled);
-+	WRITE_ONCE(entity->last_scheduled, NULL);
- 	drm_sched_entity_stats_put(entity->stats);
- }
- EXPORT_SYMBOL(drm_sched_entity_fini);
-@@ -523,18 +524,18 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
- 	if (entity->guilty && atomic_read(entity->guilty))
- 		dma_fence_set_error(&sched_job->s_fence->finished, -ECANCELED);
- 
--	dma_fence_put(rcu_dereference_check(entity->last_scheduled, true));
--	rcu_assign_pointer(entity->last_scheduled,
--			   dma_fence_get(&sched_job->s_fence->finished));
-+	spin_lock(&entity->lock);
-+	dma_fence_put(entity->last_scheduled);
-+	entity->last_scheduled = dma_fence_get(&sched_job->s_fence->finished);
- 
--	/*
--	 * If the queue is empty we allow drm_sched_entity_select_rq() to
--	 * locklessly access ->last_scheduled. This only works if we set the
--	 * pointer before we dequeue and if we a write barrier here.
-+	/* A recent rework required taking the spinlock above. Since spsc_queue
-+	 * is scheduled for removal as per the DRM-TODO-list, we access it here
-+	 * locked already to prepare for that cleanup.
-+	 *
-+	 * TODO: Fully replace spsc_queue with a locked (h)list.
- 	 */
--	smp_wmb();
--
- 	spsc_queue_pop(&entity->job_queue);
-+	spin_unlock(&entity->lock);
- 
- 	drm_sched_rq_pop_entity(entity);
- 
-@@ -561,21 +562,15 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
- 	if (spsc_queue_count(&entity->job_queue))
- 		return;
- 
--	/*
--	 * Only when the queue is empty are we guaranteed that
--	 * drm_sched_run_job_work() cannot change entity->last_scheduled. To
--	 * enforce ordering we need a read barrier here. See
--	 * drm_sched_entity_pop_job() for the other side.
--	 */
--	smp_rmb();
--
--	fence = rcu_dereference_check(entity->last_scheduled, true);
-+	spin_lock(&entity->lock);
-+	fence = entity->last_scheduled;
- 
- 	/* stay on the same engine if the previous job hasn't finished */
--	if (fence && !dma_fence_is_signaled(fence))
-+	if (fence && !dma_fence_is_signaled(fence)) {
-+		spin_unlock(&entity->lock);
- 		return;
-+	}
- 
--	spin_lock(&entity->lock);
- 	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
- 	rq = sched ? &sched->rq : NULL;
- 	if (rq != entity->rq) {
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index d61c19e78182..176ff1f936cd 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -100,7 +100,8 @@ struct drm_sched_entity {
- 	 * @lock:
- 	 *
- 	 * Lock protecting the run-queue (@rq) to which this entity belongs,
--	 * @priority and the list of schedulers (@sched_list, @num_sched_list).
-+	 * @priority, @last_scheduled and the list of schedulers (@sched_list,
-+	 * @num_sched_list).
- 	 */
- 	spinlock_t			lock;
- 
-@@ -202,11 +203,9 @@ struct drm_sched_entity {
- 	/**
- 	 * @last_scheduled:
- 	 *
--	 * Points to the finished fence of the last scheduled job. Only written
--	 * by drm_sched_entity_pop_job(). Can be accessed locklessly from
--	 * drm_sched_job_arm() if the queue is empty.
-+	 * Points to the finished fence of the last scheduled job.
- 	 */
--	struct dma_fence __rcu		*last_scheduled;
-+	struct dma_fence		*last_scheduled;
- 
- 	/**
- 	 * @last_user: last group leader pushing a job into the entity.
+         // Double nested modules, since then nobody can access the public items inside.
+@@ -616,7 +632,7 @@ pub extern "C" fn #ident_exit() {
+                 /// This function must only be called once.
+                 unsafe fn __init() -> ::kernel::ffi::c_int {
+                     let initer = <super::super::LocalModule as ::kernel::InPlaceModule>::init(
+-                        &super::super::THIS_MODULE
++                        ::kernel::module::this_module::<super::super::LocalModule>()
+                     );
+                     // SAFETY: No data race, since `__MOD` can only be accessed by this module
+                     // and there only `__init` and `__exit` access it. These functions are only
 
-base-commit: 60b5fa6edfef867322fce7c8306e5c4b46211be7
 -- 
-2.54.0
+2.43.0
+
 
