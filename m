@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 399BBCDB47F
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 19:39:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20B10CDB479
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 19:41:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7539B10E0FB;
-	Wed, 24 Jun 2026 19:39:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E71B10E0FD;
+	Wed, 24 Jun 2026 19:41:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ovff4OMA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZYplya1/";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A428C10E0FB
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 19:39:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8847C10E0FD
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 19:41:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4F1FC405A0;
- Wed, 24 Jun 2026 19:39:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A75A1F000E9;
- Wed, 24 Jun 2026 19:39:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5F77941A36;
+ Wed, 24 Jun 2026 19:41:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 269161F000E9;
+ Wed, 24 Jun 2026 19:41:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782329981;
- bh=vmVzPjF4tUjBj724pVUzzq3C6uTqkzYiTsNeMd8aBrE=;
+ s=k20260515; t=1782330063;
+ bh=6od0YbyGD4/8Wlo2Tr+MeHi7I1O4uX8cyY5u3Q7dkT4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ovff4OMAmfpSMHJzS+8GgtsnujBAUcu4H7YRCYlgXCH39Q2iIy8bSXHDS9dxl1fPJ
- 2nla6qyYe9pjtun3ZrBnKRqzUX5utkVnN6q1hwC4L3N5mJg4tonLbu6x6ou2yXTUFw
- v5WpiTCL9pPXDJUp8QTcUPnLlk/JG8ljv7M2a+C+EwlU+qpW9X38MPeQqFCe1xMvUs
- wGU1wAsTHbATfP8+u0IReJ9VdIkwgVEBZDr3RikK3dSmivZx4LplJ8UNsDFeMCKNWd
- gNBaVIflkHHqpc8Axe8PpHViQpNdYCjGdC1lnRXvA6T7TZrIf8nJnuRjx4q8niu0ix
- UpwWf5myAusQg==
+ b=ZYplya1/nfoKbB/tKN5JDKh87A0UaZtO2Kg+6nFFRVRlrteWgVUpZTcF8oVXq3632
+ vu94A/oc6I+V66sCycBQsHPzKjyq4L7F9hvM6Du+6MiPfVw83SPJtP9DBuvCB6AYTf
+ 8+H37xFtUQVqtNAb803BXKunzSxeXJh7cU91crpFHWNxdu3EMhyGH5O45KqLo9bSgI
+ Ha0Ni3lValCvgNj2518J1iydFgTwYp5yPwVng7QXO8As36Qp7fVg8TAuN/MY/fichM
+ 56+kuNG84C1VPdofI69dgY5mBxjQjGSjnUcEK36Wn2ax8hWQcdnX8LVjSdJA3xAoBx
+ doG7i4snN+r2Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] misc: fastrpc: drop invoke context on interrupted waits
+Subject: Re: [PATCH] misc: fastrpc: exclude mapped buffers from inline overlaps
 To: "Yousef Alhouseen" <alhouseenyousef@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260624192554.5172-1-alhouseenyousef@gmail.com>
-References: <20260624192554.5172-1-alhouseenyousef@gmail.com>
+In-Reply-To: <20260624192309.4723-1-alhouseenyousef@gmail.com>
+References: <20260624192309.4723-1-alhouseenyousef@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Jun 2026 19:39:40 +0000
-Message-Id: <20260624193941.0A75A1F000E9@smtp.kernel.org>
+Date: Wed, 24 Jun 2026 19:41:02 +0000
+Message-Id: <20260624194103.269161F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,186 +56,171 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] The fastrpc driver is vulnerable to a use-after-free or double=
- free if the DSP sends multiple responses for the same context ID.
-- [High] Iterating and modifying `fl->mmaps` and `cctx->invoke_interrupted_=
-mmaps` without locks on the error path causes severe list corruption.
-- [High] Buffers moved to `cctx->invoke_interrupted_mmaps` on `-ERESTARTSYS=
-` are never freed, causing a permanent memory leak of DMA buffers and mappi=
-ngs.
-- [High] Pending contexts and their associated `fastrpc_user` structures ar=
-e permanently leaked if the DSP crashes or the rpmsg channel is removed.
-- [High] `fastrpc_invoke_send` accesses `cctx->rpdev->ept` without synchron=
-ization, leading to a NULL pointer dereference if the rpmsg channel is remo=
-ved concurrently.
-- [High] `fastrpc_context_free` leaks `fastrpc_map` structures and dma-buf =
-references for handle arguments.
-- [Medium] The `ctx_idr` initialized for each channel context is never dest=
-royed, leaking internal radix tree memory.
+- [Critical] Integer truncation in `__fastrpc_buf_alloc` allows out-of-boun=
+ds DMA access.
+- [Critical] Use-After-Free and Double Free in `fastrpc_map_attach` error p=
+ath.
+- [Critical] Integer truncation of `mlen` allows kernel buffer overflow via=
+ `copy_from_user`.
+- [High] Memory leak of `struct fastrpc_map` for handles during context cle=
+anup.
+- [High] Circular reference leak when `fastrpc_internal_invoke` is interrup=
+ted.
 --
 
-commit 987838af3ff819b971471dae5de97f93f9b3abb9
+commit a1f9ba556dd9f43a1a5e5fbad752e8ca90d62449
 Author: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Subject: misc: fastrpc: exclude mapped buffers from inline overlaps
 
-misc: fastrpc: drop invoke context on interrupted waits
-
-This patch modifies fastrpc_internal_invoke() to remove the context from the
-pending list and drop the caller reference on all exits, including interrup=
-ted
-waits and timeouts. This ensures that contexts aren't pinned for the lifeti=
-me
-of the file when userspace is interrupted.
+This commit modifies fastrpc_get_buff_overlaps() to ignore mapped buffers w=
+hen
+computing overlap offsets. It ensures that only buffers without a file
+descriptor are serialized into the inline DMA payload. This prevents the
+serializer from deriving negative offsets and writing to unreserved memory.
 
 > diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index f3a49384586d1..79b428addf062 100644
 > --- a/drivers/misc/fastrpc.c
 > +++ b/drivers/misc/fastrpc.c
+
 [ ... ]
->  	if (err =3D=3D -ERESTARTSYS) {
->  		list_for_each_entry_safe(buf, b, &fl->mmaps, node) {
-[Severity: High]
-This is a pre-existing issue, but does iterating and modifying fl->mmaps
-without holding fl->lock race with concurrent mmap operations?
-
-It appears another thread could be adding or removing mmaps concurrently us=
-ing
-spin_lock(&fl->lock), which might corrupt the list during this traversal.
-
->  			list_del(&buf->node);
->  			list_add_tail(&buf->node, &fl->cctx->invoke_interrupted_mmaps);
-[Severity: High]
-This is a pre-existing issue, but are the buffers moved to
-cctx->invoke_interrupted_mmaps ever actually freed?
-
-Looking at fastrpc_rpmsg_remove() in drivers/misc/fastrpc.c, the nodes are
-deleted from the list during teardown, but fastrpc_buf_free() is never call=
-ed
-on them:
-
-fastrpc_rpmsg_remove() {
-    ...
-    list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
-        list_del(&buf->node);
-    ...
-}
-
-Could this permanently leak the pinned DMA buffers and mapping structures if
-userspace sends signals to interrupt an ongoing RPC invocation?
-
->  		}
->  	}
-[ ... ]
-
-While reviewing the context management in this driver, I noticed a few other
-pre-existing issues:
-
-[Severity: High]
-This is a pre-existing issue, but how is the reference count for the remote
-DSP handled if the channel is removed?
-
-In fastrpc_invoke_send(), a reference is taken before sending the message:
-
-fastrpc_invoke_send() {
-    ...
-    fastrpc_context_get(ctx);
-    ret =3D rpmsg_send(cctx->rpdev->ept, (void *)msg, sizeof(*msg));
-    ...
-}
-
-If the DSP crashes and fastrpc_notify_users() wakes up waiters to abort:
-
-fastrpc_notify_users() {
-    ...
-    ctx->retval =3D -EPIPE;
-    complete(&ctx->work);
-    ...
-}
-
-It doesn't seem to drop the reference count acquired for the remote DSP. Wi=
-ll
-this permanently pin the context and its associated fastrpc_user structures?
-
 
 [Severity: Critical]
-This is a pre-existing issue, but what happens if the remote DSP sends
-multiple responses for the same context ID?
+This is a pre-existing issue, but does passing the 64-bit buf->size to the=
+=20
+size_t argument of dma_alloc_coherent() result in truncation on 32-bit=20
+architectures?
 
-When a reply is received, fastrpc_rpmsg_callback() queues work:
-
-fastrpc_rpmsg_callback() {
+drivers/misc/fastrpc.c:__fastrpc_buf_alloc() {
     ...
-    schedule_work(&ctx->put_work);
+    buf->virt =3D dma_alloc_coherent(dev, buf->size, &buf->dma_addr, GFP_KE=
+RNEL);
     ...
 }
 
-Since the context is not removed from the IDR tree upon the first reply, a
-duplicate response would queue put_work again. Could this artificially drop
-the refcount to zero and lead to a use-after-free if the context is freed
-while the original caller is still accessing it?
+Could this cause an out-of-bounds DMA access when the untruncated 64-bit si=
+ze=20
+is sent to the DSP here?
 
+drivers/misc/fastrpc.c:fastrpc_invoke_send() {
+    ...
+    msg->size =3D roundup(ctx->msg_sz, PAGE_SIZE);
+    ...
+}
 
 [Severity: High]
-This is a pre-existing issue, but is cctx->rpdev adequately protected again=
-st
-concurrent removal?
+This is a pre-existing issue, but does this allocation lack a corresponding=
+=20
+cleanup path for handles?
 
-During teardown, fastrpc_rpmsg_remove() clears the pointer:
-
-fastrpc_rpmsg_remove() {
+drivers/misc/fastrpc.c:fastrpc_create_maps() {
     ...
-    spin_lock_irqsave(&cctx->lock, flags);
-    cctx->rpdev =3D NULL;
-    ...
-}
-
-However, fastrpc_invoke_send() accesses the endpoint without synchronizatio=
-n:
-
-fastrpc_invoke_send() {
-    ...
-    ret =3D rpmsg_send(cctx->rpdev->ept, (void *)msg, sizeof(*msg));
+    else
+        err =3D fastrpc_map_attach(ctx->fl, ctx->args[i].fd, ctx->args[i].l=
+ength, ctx->args[i].attr, &ctx->maps[i]);
     ...
 }
 
-Can this result in a NULL pointer dereference if the rpmsg channel is unbou=
-nd
-concurrently?
+The cleanup loop in fastrpc_context_free() terminates prematurely at ctx->n=
+bufs:
 
-
-[Severity: Medium]
-This is a pre-existing issue, but is the IDR tree properly cleaned up when
-freeing the channel context?
-
-fastrpc_channel_ctx_free() {
-    ...
-    kfree(cctx);
-    ...
-}
-
-It frees the cctx structure without calling idr_destroy(&cctx->ctx_idr). Do=
-es
-this leave the internal radix tree memory allocated?
-
-
-[Severity: High]
-This is a pre-existing issue, but does fastrpc_context_free() fail to relea=
-se
-all dma-buf references for handle arguments?
-
-fastrpc_context_free() {
+drivers/misc/fastrpc.c:fastrpc_context_free() {
     ...
     for (i =3D 0; i < ctx->nbufs; i++)
         fastrpc_map_put(ctx->maps[i]);
     ...
 }
 
-The loop iterates up to ctx->nbufs. If userspace invokes an RPC call with
-handle arguments where ctx->nscalars is greater than ctx->nbufs, does this
-loop abandon the maps stored at the higher indices?
+Does this fail to drop references for mappings populated up to ctx->nscalar=
+s,=20
+resulting in a memory leak of struct fastrpc_map?
+
+[Severity: High]
+This is a pre-existing issue, but does this create a circular reference if =
+the=20
+context is not freed?
+
+drivers/misc/fastrpc.c:fastrpc_context_alloc() {
+    ...
+    /* Take a reference to user, released in fastrpc_context_free() */
+    fastrpc_user_get(user);
+    ...
+}
+
+Looking at the error path for -ERESTARTSYS, it bypasses context cleanup:
+
+drivers/misc/fastrpc.c:fastrpc_internal_invoke() {
+    ...
+    if (err !=3D -ERESTARTSYS && err !=3D -ETIMEDOUT) {
+        spin_lock(&fl->lock);
+        list_del(&ctx->node);
+        spin_unlock(&fl->lock);
+        fastrpc_context_put(ctx);
+    }
+    ...
+}
+
+If interrupted, does this strand the context with its elevated refcount and=
+ leak=20
+the fastrpc_invoke_ctx and fastrpc_user resources?
+
+[Severity: Critical]
+This is a pre-existing issue, but the error path manually detaches and puts=
+ the=20
+buffer, then drops the map reference:
+
+drivers/misc/fastrpc.c:fastrpc_map_attach() {
+    ...
+map_err:
+    dma_buf_detach(map->buf, map->attach);
+attach_err:
+    dma_buf_put(map->buf);
+get_err:
+    fastrpc_map_put(map);
+    ...
+}
+
+Does fastrpc_free_map() then execute its own cleanup block because map->tab=
+le=20
+is non-NULL?
+
+drivers/misc/fastrpc.c:fastrpc_free_map() {
+    ...
+    if (map->table) {
+        // ...
+        dma_buf_unmap_attachment_unlocked(map->attach, map->table, DMA_BIDI=
+RECTIONAL);
+        dma_buf_detach(map->buf, map->attach);
+        dma_buf_put(map->buf);
+    }
+    ...
+}
+
+Could this lead to a use-after-free and double free of the dma_buf_attachme=
+nt?
+
+[Severity: Critical]
+This is a pre-existing issue, but does assigning the 64-bit difference to t=
+he=20
+32-bit int mlen silently truncate the value?
+
+drivers/misc/fastrpc.c:fastrpc_get_args() {
+    ...
+    for (oix =3D 0; oix < ctx->nbufs; ++oix) {
+        int mlen;
+        // ...
+        mlen =3D ctx->olaps[oix].mend - ctx->olaps[oix].mstart;
+    ...
+}
+
+Can this truncation cause validation checks to fail and pointer arithmetic =
+to=20
+underflow, allowing an out-of-bounds write during copy_from_user?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624192554.5172=
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624192309.4723=
 -1-alhouseenyousef@gmail.com?part=3D1
