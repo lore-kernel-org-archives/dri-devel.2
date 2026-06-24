@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0747CDE007
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 15:00:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF51ECDE005
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 15:00:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 307B110EF81;
-	Wed, 24 Jun 2026 15:00:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D040410EF7E;
+	Wed, 24 Jun 2026 15:00:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="ed2xAtHc";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="MkxskqGk";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C07910EF79
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 15:00:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CC8010EF77
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 15:00:48 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 69F3D43F9D;
+ by sea.source.kernel.org (Postfix) with ESMTP id DE71D443FC;
  Wed, 24 Jun 2026 15:00:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 41F2CC2BCF6;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BB237C2BCFB;
  Wed, 24 Jun 2026 15:00:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1782313245; bh=gU6gZs9B/IA8ULZetqvCr1eysZf16s5NNe4fRGEWm7c=;
+ t=1782313245; bh=5rcnLftEgCOp4lCy02ddo3ou6gJMaO0JvPUiLpW7d+w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ed2xAtHcrCLW03Pn2SBHDYoUbR+7hr1tR2KbsavAbaoxY8isMurzjvmAqiPvUf5hD
- zEQqB99QE0pKMjgF4CURbzmlTwq+tBaHSTxOZPUemfB/3uDwkzQReQmRNJ6vNAexpy
- hzFZQVuMjB8Sm8UyTHHqRU8jZr9JlyAFWdz8pTDg=
+ b=MkxskqGkDR7ziybrs4WVyyJtxyF/p5yta4Zi7sxJd0jTKW7oin2Je82H9unuIQ3v5
+ DgjXQYKDjDA1/yxRRKcn5Sw+IXmYm4xztxdeit/7AfoJnN5UR+zEn+kYYc/KPSiu7m
+ H7X0OpP3Qm072tlaDlsiudW6ZB5itrl7mM4P05JA=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 2D49ECDB47F;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id B13FBCDE002;
  Wed, 24 Jun 2026 15:00:45 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Wed, 24 Jun 2026 23:00:06 +0800
-Subject: [PATCH v6 07/10] rust: configfs: use `LocalModule` for `THIS_MODULE`
+Date: Wed, 24 Jun 2026 23:00:09 +0800
+Subject: [PATCH v6 10/10] rust: module: update MAINTAINERS to cover module.rs
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260624-fix-fops-owner-v6-7-5295e333cb3e@linux.dev>
+Message-Id: <20260624-fix-fops-owner-v6-10-5295e333cb3e@linux.dev>
 References: <20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev>
 In-Reply-To: <20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -69,11 +69,11 @@ Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
  linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782313241; l=2650;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782313241; l=868;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=gU6gZs9B/IA8ULZetqvCr1eysZf16s5NNe4fRGEWm7c=;
- b=MVvdIxw7WXMiycv+EFc0egEcg9YYNpWs+fDj5SvSJ457mR4yww5ZNTNGgBIkNmEHmLmMxhPf1
- HXh6n2Q2HMhBZXTflKkkt+WTEY7/ywaCb2Sou/EVFnsiFHl+Oz30KJT
+ bh=5rcnLftEgCOp4lCy02ddo3ou6gJMaO0JvPUiLpW7d+w=;
+ b=cmstUrkbLuPuqCovz0itKEpXgZDBXA1/IayJUxZLZYmVoYtq98FdyfxRGEpcVd24CXF9kuRxb
+ Q72y5Oy3kZcBCRmCDuJYlM3aqxGtITNQLqxXObuuHhfQbSegDS9NZq6
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -93,69 +93,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace the `THIS_MODULE` static reference in the `configfs_attrs!`
-macro with `this_module::<LocalModule>()`, and update
-rnull to import `LocalModule` instead of `THIS_MODULE`, consistent
-with the move of `THIS_MODULE` into the `ModuleMetadata` trait.
+Module types now live in `rust/kernel/module.rs` alongside
+`rust/kernel/module_param.rs`. Update the MODULE SUPPORT file pattern
+from `rust/kernel/module_param.rs` to `rust/kernel/module*.rs` so both
+files are covered.
 
 Assisted-by: opencode:glm-5.2
-Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
-Acked-by: Danilo Krummrich <dakr@kernel.org>
+Link: https://lore.kernel.org/rust-for-linux/8ea21b29-9baf-4926-a16f-7d21c5a1a1b8@suse.com
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- drivers/block/rnull/configfs.rs | 6 ++----
- rust/kernel/configfs.rs         | 8 +++++---
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/block/rnull/configfs.rs b/drivers/block/rnull/configfs.rs
-index c10a55fc58948..b2547ad1e5ddd 100644
---- a/drivers/block/rnull/configfs.rs
-+++ b/drivers/block/rnull/configfs.rs
-@@ -1,9 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- 
--use super::{
--    NullBlkDevice,
--    THIS_MODULE, //
--};
-+use super::NullBlkDevice;
-+use crate::LocalModule;
- use kernel::{
-     block::mq::gen_disk::{
-         GenDisk,
-diff --git a/rust/kernel/configfs.rs b/rust/kernel/configfs.rs
-index 2339c6467325d..c31d7882e216d 100644
---- a/rust/kernel/configfs.rs
-+++ b/rust/kernel/configfs.rs
-@@ -875,7 +875,7 @@ fn as_ptr(&self) -> *const bindings::config_item_type {
- ///                 configfs::Subsystem<Configuration>,
- ///                 Configuration
- ///                 >::new_with_child_ctor::<N,Child>(
--///             &THIS_MODULE,
-+///             ::kernel::module::this_module::<crate::LocalModule>(),
- ///             &CONFIGURATION_ATTRS
- ///         );
- ///
-@@ -1021,7 +1021,8 @@ macro_rules! configfs_attrs {
- 
-                     static [< $data:upper _TPE >] : $crate::configfs::ItemType<$container, $data>  =
-                         $crate::configfs::ItemType::<$container, $data>::new::<N>(
--                            &THIS_MODULE, &[<$ data:upper _ATTRS >]
-+                            $crate::module::this_module::<LocalModule>(),
-+                            &[<$ data:upper _ATTRS >]
-                         );
-                 )?
- 
-@@ -1030,7 +1031,8 @@ macro_rules! configfs_attrs {
-                         $crate::configfs::ItemType<$container, $data>  =
-                             $crate::configfs::ItemType::<$container, $data>::
-                             new_with_child_ctor::<N, $child>(
--                                &THIS_MODULE, &[<$ data:upper _ATTRS >]
-+                                $crate::module::this_module::<LocalModule>(),
-+                                &[<$ data:upper _ATTRS >]
-                             );
-                 )?
- 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index e035a3be797c4..74733de3e41ee 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17984,7 +17984,7 @@ F:	include/linux/module*.h
+ F:	kernel/module/
+ F:	lib/test_kmod.c
+ F:	lib/tests/module/
+-F:	rust/kernel/module_param.rs
++F:	rust/kernel/module*.rs
+ F:	rust/macros/module.rs
+ F:	scripts/module*
+ F:	tools/testing/selftests/kmod/
 
 -- 
 2.43.0
