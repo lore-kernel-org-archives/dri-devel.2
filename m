@@ -4,69 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C562ACDB479
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 15:34:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AE7BCDB479
+	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 15:34:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 150D410E8F2;
-	Wed, 24 Jun 2026 15:34:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57B8910EC53;
+	Wed, 24 Jun 2026 15:34:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="oyQNmsCI";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="sHs/yrnX";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB0E010E8F2
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 15:34:27 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id B6ACDC6B3B3;
- Wed, 24 Jun 2026 15:34:33 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id AB872601C5;
- Wed, 24 Jun 2026 15:34:25 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 7EAC5106C8382; 
- Wed, 24 Jun 2026 17:34:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1782315264; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=hQIzpvMfwF06Dy+Dr6X7XbgYJ2zdNKivwH5fV0BlR9A=;
- b=oyQNmsCIcNTgs68aF1WzEwUyaqMGrQDkkQYBeAFupUMciys441g2Pmpqb9q63M9TgB3z9E
- obW679sV3ac8zlACQM9Jmg/vA1v3ow+j/P/Xhfnreqz+gfsGN0Qft8YbEltzMW38iraK5G
- 9iEx3IU3pw62tpfcDlC29EJONLP21quC1Rlrlhpp4LfK2hpOrdisPqhb0sZ1oOElcLMo3u
- oTaeeKfmEJ1VM5c5SAWIaeFvOjdocre7HQHMPxIxunAsVG/t7aa/fRy61Zs8UWONtYA4mP
- QamLzEJxL0b9mjX7CEKx7PilFcaI1roV0COlX17AIapF6umjrYF86R9VRHohCg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D2BB410EC53
+ for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 15:34:56 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C8E7E25E1;
+ Wed, 24 Jun 2026 08:34:51 -0700 (PDT)
+Received: from [10.57.80.146] (unknown [10.57.80.146])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8DE0B3F905;
+ Wed, 24 Jun 2026 08:34:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1782315296; bh=8MbUdECE7vtm2+3ukK2M86Rfe7gaoQ5YuHIyq3drERg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=sHs/yrnXAFcD3Ti+VgtyyEOF+UIy4qMqQx+ZzHYLwdjJUI+Lh/j1YH/cfwy1sR5n4
+ qNE8iWVmtlEBRZEwBsMpPmRs/vGQWoib8zqUt6hDjZRM33/BnP6POGuDsXp7sCyLhi
+ VQrqzANPlK2d5HKpK2mUQdWtxeLIvqmXwstdplyU=
+Message-ID: <c16ba190-b979-4313-89f1-4cc2bda72304@arm.com>
+Date: Wed, 24 Jun 2026 16:34:51 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/panthor: Check VMA boundaries for PMD mappings
+To: "Christian A. Ehrhardt" <lk@c--e.de>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Liviu Dudau <liviu.dudau@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260623181942.1536598-1-lk@c--e.de>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260623181942.1536598-1-lk@c--e.de>
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 24 Jun 2026 17:34:14 +0200
-Message-Id: <DJHE108R7TU6.35ECAUQ8ZX041@bootlin.com>
-Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
- Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Inki Dae"
- <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
- Szyprowski" <m.szyprowski@samsung.com>, "Marek Vasut" <marex@denx.de>,
- "Stefan Agner" <stefan@agner.ch>, "Frank Li" <Frank.Li@nxp.com>, "Sascha
- Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Hui Pu"
- <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>
-To: "Maxime Ripard" <mripard@kernel.org>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH 15/37] drm/display: bridge-connector: allocate the
- connector dynamically
-X-Mailer: aerc 0.21.0
-References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
- <20260519-drm-bridge-hotplug-v1-15-45e2bdb3dfb4@bootlin.com>
- <20260608-rustling-infrared-turkey-e09af8@houat>
- <DJ72WOUW5FA2.G1MPCAHJQ13F@bootlin.com>
- <20260624-judicious-enigmatic-hippo-b13ffe@houat>
-In-Reply-To: <20260624-judicious-enigmatic-hippo-b13ffe@houat>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,73 +62,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+On 23/06/2026 19:19, Christian A. Ehrhardt wrote:
+> When checking a different patch[1] sashiko AI pointed out that
+> panthor needs the same fix[2]:
+> 
+> In the ->huge_fault handler do not install a PMD huge page
+> mapping if the huge page exceeds the boundaries of the VMA.
+> 
+> [1] https://lore.kernel.org/lkml/20260622215718.1532689-1-lk@c--e.de/
+> [2] https://sashiko.dev/#/patchset/20260622215718.1532689-1-lk%40c--e.de
+> 
+> Cc: Boris Brezillon <boris.brezillon@collabora.com>
+> Cc: Steven Price <steven.price@arm.com>
+> Cc: Liviu Dudau <liviu.dudau@arm.com>
+> Fixes: 68cbf96b1e9b ("drm/panthor: Part ways with drm_gem_shmem_object")
+> Signed-off-by: Christian A. Ehrhardt <lk@c--e.de>
 
-thanks for the feedback.
+Reviewed-by: Steven Price <steven.price@arm.com>
 
-On Wed Jun 24, 2026 at 1:48 PM CEST, Maxime Ripard wrote:
-> On Fri, Jun 12, 2026 at 02:44:43PM +0200, Luca Ceresoli wrote:
->> On Mon Jun 8, 2026 at 1:46 PM CEST, Maxime Ripard wrote:
->> > On Tue, May 19, 2026 at 12:37:32PM +0200, Luca Ceresoli wrote:
->> >> Currently the drm_bridge_connector has an embedded drm_connector, so =
-their
->> >> allocation lifetimes are tied to each other. This is insufficient to
->> >> support DRM bridge hotplugging, which requires the connector to be ad=
-ded
->> >> and removed dynamically at runtime multiple times based on hotplug/un=
-plug
->> >> events while the drm_bridge_connector is persistent.
->> >>
->> >> Moreover the drm_connector is exposed to user space and thus an ongoi=
-ng
->> >> operation (e.g. an ioctl) might last for an arbitrarily long time eve=
-n
->> >> after the hardware gets removed. This means a new connector might hav=
-e to
->> >> be added when the previous one is still referenced by user space.
->> >>
->> >> In preparation to handle hotplug, allocate the drm-connector dynamica=
-lly,
->> >> to allow:
->> >>
->> >>  * creating and destroying a connector multiple times during a single
->> >>    drm_bridge_connector lifetime
->> >>  * creating a new connector even though the previous one is still in =
-use
->> >>    and thus still refcounted and not yet freed
->> >>
->> >> This commit does not introduce the actions in the two bullets (it wil=
-l
->> >> happen in a later commit), it only moves to dynamic APIs for connecto=
-r
->> >> allocation and init.
->> >>
->> >> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
->> >
->> > I think this patch should be split in half, with the switch to using
->> > destroy first, and then the actual move to the dynamically allocated
->> > connector API.
->>
->> Is it doable? drm_connector_dynamic_init() mandates a .destroy callback,
->> drm_connector_init() forbids it.
->
-> drmm_connector_init forbids it. drm_connector_init mandates it.
+> ---
+>  drivers/gpu/drm/panthor/panthor_gem.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> NOTE:
+> The panthor version is only compile tested because I don't
+> have the hardware. However, the code is identical to that
+> fixed in [1] and I have a reproducer for that.
+> 
+> No need for for stable backports. The code is new in 7.1.
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+> index a1e2eb1ca7bb..54535bae2b0c 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gem.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
+> @@ -802,9 +802,13 @@ static vm_fault_t insert_page(struct vm_fault *vmf, unsigned int order, struct p
+>  	} else if (order == PMD_ORDER) {
+>  		unsigned long pfn = page_to_pfn(page);
+>  		unsigned long paddr = pfn << PAGE_SHIFT;
+> +		struct vm_area_struct *vma = vmf->vma;
+> +		unsigned long start = ALIGN_DOWN(vmf->address, PMD_SIZE);
+> +		unsigned long end = start + PMD_SIZE;
+> +		bool in_range = vma->vm_start <= start && end <= vma->vm_end;
+>  		bool aligned = (vmf->address & ~PMD_MASK) == (paddr & ~PMD_MASK);
+>  
+> -		if (aligned &&
+> +		if (aligned && in_range &&
+>  		    folio_test_pmd_mappable(page_folio(page))) {
+>  			pfn &= PMD_MASK >> PAGE_SHIFT;
+>  			return vmf_insert_pfn_pmd(vmf, pfn, vmf->flags & FAULT_FLAG_WRITE);
 
-Something bogus in my reply, sorry. :)
-
-So you mean splitting in:
-
- * first patch: move from drmm_connector[_hdmi]_init() to
-   drm_connector[_hdmi]_init() and add a .destroy
- * second patch: move from drm_connector[_hdmi]_init() to
-   drm_connector[_hdmi]_dynamic_init() +
-   drm_connector_dynamic_register/unregister()
-
-?
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
