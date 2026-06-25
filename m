@@ -4,59 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57EBECDB466
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:38:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9D43CDB47F
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:41:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C555110F163;
-	Thu, 25 Jun 2026 07:38:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42FEF10F15A;
+	Thu, 25 Jun 2026 07:41:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="dNUfN3mS";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gL1VEv14";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LxOizU7r";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85B6A10F15C
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 07:38:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782373122;
- bh=0K2hUP62uCFVYaeZNRquyG49fgBEe3ySHkEEa+g2AHc=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=dNUfN3mSjoHRoEjJuMTvJApJ7BiMxXplA8r0d4e9+zsICDax+hciNBS7x9E498/rv
- QbEAt/JGg6z3OhgCM+iYVATQho0/68w9uK3VxwAFWBRa2zDpp/Lgm4paWAHb6fXmHX
- hCDirJY3lKc68NaJP9QWNPhRvfU14F8+oPcfgGyqmqgorIvOtSYYMieo6aL6A5QIU7
- cCurMvxevi4tz8VfYtI/Ux8aNnDyNcgzoyh3PjwYauGlFXBwX5wjhPrs/N5x1Fjstf
- YX6iwWwQGzGFsybcYfk+4T3rTBt7N20/fcgh41UbRkw6gOSvCubaDpVE0R0M+TaqSh
- xClZpoqae4OcA==
-Received: from fedora-2.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id CB9D017E155B;
- Thu, 25 Jun 2026 09:38:41 +0200 (CEST)
-From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 25 Jun 2026 09:38:24 +0200
-Subject: [PATCH v4 14/14] drm/panthor: Automate CSG IRQ processing at group
- unbind time
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29A3A10E1B3
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 07:41:00 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65P6glMH1527031
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 07:40:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ V4N3Gga+dK+IdPbI/DXsNqi9huRn9GF1tNNYDx1OsWY=; b=gL1VEv14I52SGICN
+ PEIaFnfDGXje94zYIL+3fgzGSekcPBv1y059At8J07o+I1N12qdAIbVs6VwiU89u
+ Lp5y1JFYdpM9hWY7eajP/gh1EjndQAI4KlE0Vqw06Q0/pjBl7FXM9cqmbzwjpH/A
+ +OdUiT7eLwmt4yQzuwQUKw5Yob1EUmneaJHbNbrBWKYahyzd8X5n0VuUpDA/9d5M
+ tms288tueD39Zhm2yEaHtTTqLkcS+qGDaywy4Sp1ZtmuzGTPNw9cvl1MH7XtP9e5
+ cx2JNAjUMIEjyVbWV/tFxR0I4QMrIlFDbYMSIwJl2xeqIRpI2phl0yrciG1lXkSC
+ Ajn06w==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f0ya8r764-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 07:40:58 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-9229581de9eso44236785a.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 00:40:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1782373258; x=1782978058;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=V4N3Gga+dK+IdPbI/DXsNqi9huRn9GF1tNNYDx1OsWY=;
+ b=LxOizU7r44pQYdUlwgnoCxSb50b3iYRyOcBiT3rdywcc00Yws9DxrrEwLpwe85Z6us
+ QAIN6Bk9GKqQDBKKlQfdbaffy/lZFdeU2a/W4zpn56V/efpUP/b5KZggZf3mtMB1nzK5
+ vGPDftfO0UAwVs3uGQXye95r9+XA3aVSG+0UZjJzlP1gx6xQ8+m4h74+FtkHziI5K8Ve
+ PzhoO7ZPegEnXF7ywornnnww6QZ9dbIBGuwaljsXAUj9kb7dE4rPuP4xMsyKwdtcBhg+
+ 99Gm5QJcT9HM3edRqKLrSwZzX090YmrKdWe08GoAKtaz+qUkDkwBkGDLz1nEnOFwPHxL
+ 1Kqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782373258; x=1782978058;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=V4N3Gga+dK+IdPbI/DXsNqi9huRn9GF1tNNYDx1OsWY=;
+ b=r03fgyT4BWN3r/p4xcOBeQV0v3r+xBxeMZjQhymqyd0DpmZ+ltUbagk1xAQRK+mliW
+ Xzmsm1wUcU02fdWi7QGNTfj6Uhn2Yzor8x+DkMMnra+GQ5pvGu1MEXZwoxs5/+/h8UfK
+ Da2QI5UhKXoMhhrqP4CDODv4Gnv+SRlce00RsjTe4qX8jcwIzq/20oPuEg0AN4ICEzwE
+ UiwX/UfKA/0toivJD7SGsJT0jXlkRhAvNt88RG3O87we3aYwcwB6fKUAkSVIRo+rVFcL
+ M0CCrBOqNWc3bNFbb1fYSRQoNLqohwPdIjodH0sDgTfmXwojJDVHQARluTQdzCDwk92j
+ +OcQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8eYFvS0qxkWukfFgkmU7IG3UYr7dGUwGtXusdLuCNRurjezS5cJP03+9AAA5/j0sDg+yRaidHoHz8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyFmQrJr3PqwprqCyCt5ApSN+Kle1CdKl6S4begm7H1ga2OmdRy
+ ZmNmFO9TVx73AoQ85V8jADy26RGKzYxbh/BhZAfvOVsHI95CajqlAwdlA2+ISLPaQsz4nUmeeX9
+ 46t5fhl/eo+3MHM+9m93CbCdQK8HyKId3pQMyPC6aSFBg+c5HUPBdTwx5REhfFHef9cf7/+s=
+X-Gm-Gg: AfdE7clYd0BRp6XLqfUAHcGctfBdEF/9HJagEs/u2Nr2eA3zoeEc9BH4eCTvHGaZcvc
+ I1E8qtshpFR+08AerP5j+7wLgCeRccX/CQWaP1aIwjun84tuynuFBChL9HqYT5EFyJGkLrSQ1Mp
+ 1jT2EdZsyyethof/+SLMNcbKnZq0l4onyUFShM/S86ZrzeK/e/0QcOlU0mTmsHaSrbC5GgvG0W4
+ vCWEzgxxHNf8r3QyGoZWaJDzOP5+7sNnGaLhHbVOJ6uCmSUzAg+UsOdpxXyAds0jRosQ7XKvgk7
+ XAPdYNfnuLWgdUnibQqiCZKZpm8+urB3ZT2EUy9Kc4qWoYH2TYZ+6h3ie7oAmiux9aJUQkNceWK
+ aqXvQSY6jqaC8vu6DI4RYJqo5YV+FWIDq7cw=
+X-Received: by 2002:a05:620a:8807:b0:920:798b:e290 with SMTP id
+ af79cd13be357-9293ddae942mr101792185a.7.1782373257728; 
+ Thu, 25 Jun 2026 00:40:57 -0700 (PDT)
+X-Received: by 2002:a05:620a:8807:b0:920:798b:e290 with SMTP id
+ af79cd13be357-9293ddae942mr101789585a.7.1782373257172; 
+ Thu, 25 Jun 2026 00:40:57 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c11fbba8b61sm116339766b.4.2026.06.25.00.40.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 25 Jun 2026 00:40:56 -0700 (PDT)
+Message-ID: <c1984f80-f8a8-4ee2-a087-c49ad3ad1e39@oss.qualcomm.com>
+Date: Thu, 25 Jun 2026 09:40:53 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] misc: fastrpc: release pending invoke refs on rpmsg
+ removal
+To: Yousef Alhouseen <alhouseenyousef@gmail.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260624192700.5388-1-alhouseenyousef@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260624192700.5388-1-alhouseenyousef@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-panthor-signal-from-irq-v4-14-3d2908912afa@collabora.com>
-References: <20260625-panthor-signal-from-irq-v4-0-3d2908912afa@collabora.com>
-In-Reply-To: <20260625-panthor-signal-from-irq-v4-0-3d2908912afa@collabora.com>
-To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Chia-I Wu <olvaffe@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Boris Brezillon <boris.brezillon@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782373111; l=6865;
- i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=0K2hUP62uCFVYaeZNRquyG49fgBEe3ySHkEEa+g2AHc=;
- b=w92/KlID0A4pY/sW2UVMD4pvnZHE7qqT358UlUtTZkwzmPe6UGp9t/xPmOwsI5WdY9bnfduME
- h7PSzRKLuvdADZ3JOvBmdSgwPMZKyd66n/6TcyTqEg5LFzfFI/etGKT
-X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
- pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI1MDA2NSBTYWx0ZWRfX67l+7Ug+Z/zY
+ skOtyUpp7GVz/KwPJ5qBu74Gp15PUCmkb6rVSi2ly8Tu/Ylq5mITmuuQR6RKknOHq59Yk2TLp/9
+ CLOlaHRkPhoz30IpvzIcukWixwt1xHA=
+X-Proofpoint-GUID: d6QxT4X9PllbdAQjoQ1_TFMSWfqsGn32
+X-Proofpoint-ORIG-GUID: d6QxT4X9PllbdAQjoQ1_TFMSWfqsGn32
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDA2NSBTYWx0ZWRfXzT3biHkfSkC9
+ qDLHbNowjJv4VojcRWMPJxaY21PBSE39T4Fix3n8zjXhkSRdck0adphhyaRFltEGEu88uA/OGCJ
+ /VO52U+tjo1LFQC32OQtqfSPQZPZiNXLgLkmHrtnYXV9WUgJbN160Xm0TYyrFidrUhBOMOAcSDo
+ KnzSD9Ir+PkLgSsQjr1LAoLDxT+h1069+D3B6zr3xnFj925/qOGODNfy/XwgLF9vgaus1cpeRF1
+ jzawNmqHraMluIoNrGDbgdmw2l5FGCttFDV+Iku7HmZNSVwVEy1RXUUSBJ/dOjV2eJEwVqJnFuX
+ IdaRU724e4Y1+Knwi4BrXGF+b3EwgsRA7/3/4LaBjal+i8sNAJiKgWeiGCusKDaQmuWaucSGbHQ
+ E+Wece8HEBvULK9Mz1rlUAB7WIRu8e5AJxN8BxwSJTy1/JaHVhK8mOOU+SQvko9ZOoj1BKlAOet
+ oGF2QNh07EzvYm3Ov/A==
+X-Authority-Analysis: v=2.4 cv=Z+Xc2nRA c=1 sm=1 tr=0 ts=6a3cdb8a cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=pGLkceISAAAA:8 a=nLcEm9eC-BXa-18sqisA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-25_01,2026-06-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 bulkscore=0 suspectscore=0 phishscore=0
+ spamscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606250065
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,236 +149,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Make the sched_process_csg_irq_locked() call part of
-group_unbind_locked() so we don't have to manually call it in
-tick_ctx_apply()/panthor_sched_suspend().
+On 6/24/26 9:27 PM, Yousef Alhouseen wrote:
+> fastrpc_rpmsg_remove() wakes pending invoke waiters when the rpmsg device
+> is removed, but it does not release the send references taken before each
+> request was submitted. Those references normally disappear only when a DSP
+> reply arrives, which cannot be relied on after endpoint removal.
+> 
+> Walk the channel IDR during removal, mark in-flight contexts completed,
+> and schedule the send-reference put while waking waiters with -EPIPE. This
+> prevents disconnected channels from pinning invoke contexts indefinitely.
+> 
+> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+> ---
 
-This implies moving group_[un]bind_locked() around to avoid a
-forward declaration.
+You sent ~10 patches to fastrpc as separate threads, do they have
+any sort of co-dependence? Can they be applied in random order?
 
-Reviewed-by: Steven Price <steven.price@arm.com>
-Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
----
- drivers/gpu/drm/panthor/panthor_sched.c | 182 +++++++++++++++-----------------
- 1 file changed, 84 insertions(+), 98 deletions(-)
+Generally if your changes are even vaguely related, it's best to
+send them in a single series, if only to reduce the possibility of
+a merge conflict
 
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index 8533b0f6f87d..d2a0bf43566b 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -989,87 +989,6 @@ group_get(struct panthor_group *group)
- 	return group;
- }
- 
--/**
-- * group_bind_locked() - Bind a group to a group slot
-- * @group: Group.
-- * @csg_id: Slot.
-- *
-- * Return: 0 on success, a negative error code otherwise.
-- */
--static int
--group_bind_locked(struct panthor_group *group, u32 csg_id)
--{
--	struct panthor_device *ptdev = group->ptdev;
--	int ret;
--
--	lockdep_assert_held(&ptdev->scheduler->lock);
--
--	if (drm_WARN_ON(&ptdev->base, group->csg_id != -1 || csg_id >= MAX_CSGS ||
--			ptdev->scheduler->csg_slots[csg_id].group))
--		return -EINVAL;
--
--	ret = panthor_vm_active(group->vm);
--	if (ret)
--		return ret;
--
--	group_get(group);
--
--	/* Dummy doorbell allocation: doorbell is assigned to the group and
--	 * all queues use the same doorbell.
--	 *
--	 * TODO: Implement LRU-based doorbell assignment, so the most often
--	 * updated queues get their own doorbell, thus avoiding useless checks
--	 * on queues belonging to the same group that are rarely updated.
--	 */
--	for (u32 i = 0; i < group->queue_count; i++)
--		group->queues[i]->doorbell_id = csg_id + 1;
--
--	scoped_guard(spinlock, &ptdev->scheduler->events_lock) {
--		ptdev->scheduler->csg_slots[csg_id].group = group;
--		group->csg_id = csg_id;
--	}
--
--	return 0;
--}
--
--/**
-- * group_unbind_locked() - Unbind a group from a slot.
-- * @group: Group to unbind.
-- *
-- * Return: 0 on success, a negative error code otherwise.
-- */
--static int
--group_unbind_locked(struct panthor_group *group)
--{
--	struct panthor_device *ptdev = group->ptdev;
--
--	lockdep_assert_held(&ptdev->scheduler->lock);
--
--	if (drm_WARN_ON(&ptdev->base, group->csg_id < 0 || group->csg_id >= MAX_CSGS))
--		return -EINVAL;
--
--	if (drm_WARN_ON(&ptdev->base, group->state == PANTHOR_CS_GROUP_ACTIVE))
--		return -EINVAL;
--
--	scoped_guard(spinlock, &ptdev->scheduler->events_lock) {
--		ptdev->scheduler->csg_slots[group->csg_id].group = NULL;
--		group->csg_id = -1;
--	}
--
--	panthor_vm_idle(group->vm);
--
--	/* Tiler OOM events will be re-issued next time the group is scheduled. */
--	atomic_set(&group->tiler_oom, 0);
--	if (cancel_work(&group->tiler_oom_work))
--		group_put(group);
--
--	for (u32 i = 0; i < group->queue_count; i++)
--		group->queues[i]->doorbell_id = -1;
--
--	group_put(group);
--	return 0;
--}
--
- static bool
- group_is_idle(struct panthor_group *group)
- {
-@@ -1980,6 +1899,89 @@ void panthor_sched_report_fw_events(struct panthor_device *ptdev, u32 events)
- 	}
- }
- 
-+/**
-+ * group_bind_locked() - Bind a group to a group slot
-+ * @group: Group.
-+ * @csg_id: Slot.
-+ *
-+ * Return: 0 on success, a negative error code otherwise.
-+ */
-+static int
-+group_bind_locked(struct panthor_group *group, u32 csg_id)
-+{
-+	struct panthor_device *ptdev = group->ptdev;
-+	int ret;
-+
-+	lockdep_assert_held(&ptdev->scheduler->lock);
-+
-+	if (drm_WARN_ON(&ptdev->base, group->csg_id != -1 || csg_id >= MAX_CSGS ||
-+			ptdev->scheduler->csg_slots[csg_id].group))
-+		return -EINVAL;
-+
-+	ret = panthor_vm_active(group->vm);
-+	if (ret)
-+		return ret;
-+
-+	group_get(group);
-+
-+	/* Dummy doorbell allocation: doorbell is assigned to the group and
-+	 * all queues use the same doorbell.
-+	 *
-+	 * TODO: Implement LRU-based doorbell assignment, so the most often
-+	 * updated queues get their own doorbell, thus avoiding useless checks
-+	 * on queues belonging to the same group that are rarely updated.
-+	 */
-+	for (u32 i = 0; i < group->queue_count; i++)
-+		group->queues[i]->doorbell_id = csg_id + 1;
-+
-+	scoped_guard(spinlock, &ptdev->scheduler->events_lock) {
-+		ptdev->scheduler->csg_slots[csg_id].group = group;
-+		group->csg_id = csg_id;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * group_unbind_locked() - Unbind a group from a slot.
-+ * @group: Group to unbind.
-+ *
-+ * Return: 0 on success, a negative error code otherwise.
-+ */
-+static int
-+group_unbind_locked(struct panthor_group *group)
-+{
-+	struct panthor_device *ptdev = group->ptdev;
-+
-+	lockdep_assert_held(&ptdev->scheduler->lock);
-+
-+	if (drm_WARN_ON(&ptdev->base, group->csg_id < 0 || group->csg_id >= MAX_CSGS))
-+		return -EINVAL;
-+
-+	if (drm_WARN_ON(&ptdev->base, group->state == PANTHOR_CS_GROUP_ACTIVE))
-+		return -EINVAL;
-+
-+	scoped_guard(spinlock, &ptdev->scheduler->events_lock) {
-+		/* Process all pending IRQs before returning the slot. */
-+		sched_process_csg_irq_locked(ptdev, group->csg_id);
-+		ptdev->scheduler->csg_slots[group->csg_id].group = NULL;
-+		group->csg_id = -1;
-+	}
-+
-+	panthor_vm_idle(group->vm);
-+
-+	/* Tiler OOM events will be re-issued next time the group is scheduled. */
-+	atomic_set(&group->tiler_oom, 0);
-+	if (cancel_work(&group->tiler_oom_work))
-+		group_put(group);
-+
-+	for (u32 i = 0; i < group->queue_count; i++)
-+		group->queues[i]->doorbell_id = -1;
-+
-+	group_put(group);
-+	return 0;
-+}
-+
- static const char *fence_get_driver_name(struct dma_fence *fence)
- {
- 	return "panthor";
-@@ -2406,18 +2408,8 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
- 
- 	/* Unbind evicted groups. */
- 	for (prio = PANTHOR_CSG_PRIORITY_COUNT - 1; prio >= 0; prio--) {
--		list_for_each_entry(group, &ctx->old_groups[prio], run_node) {
--			/* This group is gone. Process interrupts to clear
--			 * any pending interrupts before we start the new
--			 * group.
--			 */
--			if (group->csg_id >= 0) {
--				guard(spinlock)(&sched->events_lock);
--				sched_process_csg_irq_locked(ptdev, group->csg_id);
--			}
--
-+		list_for_each_entry(group, &ctx->old_groups[prio], run_node)
- 			group_unbind_locked(group);
--		}
- 	}
- 
- 	for (i = 0; i < sched->csg_slot_count; i++) {
-@@ -3004,12 +2996,6 @@ void panthor_sched_suspend(struct panthor_device *ptdev)
- 			continue;
- 
- 		group_get(group);
--
--		if (group->csg_id >= 0) {
--			guard(spinlock)(&sched->events_lock);
--			sched_process_csg_irq_locked(ptdev, group->csg_id);
--		}
--
- 		group_unbind_locked(group);
- 
- 		drm_WARN_ON(&group->ptdev->base, !list_empty(&group->run_node));
-
--- 
-2.54.0
-
+Konrad
