@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12056CDE002
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:38:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69B43CDE007
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:38:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63E5210F16E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3AE710F171;
 	Thu, 25 Jun 2026 07:38:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="hmGym9Wt";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="AwhtcOPL";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BD3B10E18B
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 07:38:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0E9710E1B5
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 07:38:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782373114;
- bh=ByXPHeUxTLvHTIsy8GQMZTZezTDoNQPmI6yOuDE2RoQ=;
+ s=mail; t=1782373118;
+ bh=gvVJwitGNAjT05IbeVOO4z8pIthBP2UjW0j3Lxfb5Fk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=hmGym9WtMZESFq+/Bf8qOoNBFc5QiT/pqjx59wLuLOHpNifORfHaKKmajkhpBCgiS
- 93mIZ4dV+BHhfA3DDPjS3cuxzAF6/KsytxQApx4duID4z8sBhLIcVGcqVquRUigSCt
- 9oUD5fJvNbwQ+DW05yS4UbAA49h0CPh5hBm54wPpshXDNinrqOthOQKGJCTgyoVU0x
- wt/6YnvY4MgPzK76cEQheXjhQ2+ZXgooI7xfaZmMzwl+G6ZnXLrsibjsM97ECawJ4f
- pJO+YI5sDPuFo/HcT137igkD2wUUJ8QlDe3GY/kjr9+6c7YGFEmdiRdLR9EUGPeGTF
- t6coQePbYXIIA==
+ b=AwhtcOPLvJWjPrlb5RPjlt9fiS0O+zFA74lc5UdWiVJnHSDonsRGJFfnT6FXJsG1D
+ RCHbpUup+ZgZe/LSVlPvK+pf+oMrKxbu9xrFpG0Em3fogvsANhOIGiiWd3aWGAeDVl
+ wcTwptiC3qOXWwrjCmGMh0AmkSV0mttU/ZmcnIKJ/ryJ1fOHfAXpVF28IFke1DUGUG
+ V+6RexCHeAnVmIhMgxBTNY0GM66lFfgrrDuh6b4C/Mci3kmzDhRhjYaCR8qQsSRNIc
+ AoQx7Z8DZSJFEpvLefzFIkSv15NzpJOQKR6GA6N1zhQQE0LeKVuqDfUt/JXwSqkE+C
+ VuWEkOVrAU6VA==
 Received: from fedora-2.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 7534817E0C91;
- Thu, 25 Jun 2026 09:38:33 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 1320F17E1270;
+ Thu, 25 Jun 2026 09:38:38 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 25 Jun 2026 09:38:12 +0200
-Subject: [PATCH v4 02/14] drm/panthor: Drop a needless check in
- panthor_fw_unplug()
+Date: Thu, 25 Jun 2026 09:38:19 +0200
+Subject: [PATCH v4 09/14] drm/panthor: Don't update might_have_idle_groups
+ in process_idle_event_locked()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-panthor-signal-from-irq-v4-2-3d2908912afa@collabora.com>
+Message-Id: <20260625-panthor-signal-from-irq-v4-9-3d2908912afa@collabora.com>
 References: <20260625-panthor-signal-from-irq-v4-0-3d2908912afa@collabora.com>
 In-Reply-To: <20260625-panthor-signal-from-irq-v4-0-3d2908912afa@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
@@ -50,11 +50,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782373111; l=921;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782373111; l=985;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=ByXPHeUxTLvHTIsy8GQMZTZezTDoNQPmI6yOuDE2RoQ=;
- b=KOVY59GDqg/o/9Hv4MBveIvPjRsqz3hETK4legI4PrHaM13A7M5Q0d0n07SqRThyJUidpMNrZ
- yvzVHvriQ4FCkr27kOYmK7cgV7MQ79Vlu7UH9vST8y/ifg+lzmiIEl7
+ bh=gvVJwitGNAjT05IbeVOO4z8pIthBP2UjW0j3Lxfb5Fk=;
+ b=FyIh3/QK183C+7NK4Mips0fwZZUg+NxJbxxxeZ7Sat+txhAhImX/DlI2N26kTkmNoKNCjOSiV
+ fbo7nZ6JZY2CNRBmDlYDJBSGxxQFkp4/gUFwaU4ihOsMa8ZTGWUm2CN
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,29 +72,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-panthor_fw_unplug() is only called if we at least managed to initialize
-the IRQ, so it's safe to drop the "is IRQ initialized" check.
+By scheduling an immediate tick, we already force idleness re-evaluation,
+which gives the scheduler the opportunity to evict idle groups
+and schedule onces that have jobs pending.
 
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_fw.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/panthor/panthor_sched.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-index 986151681b24..4fbddb9e18c8 100644
---- a/drivers/gpu/drm/panthor/panthor_fw.c
-+++ b/drivers/gpu/drm/panthor/panthor_fw.c
-@@ -1279,9 +1279,7 @@ void panthor_fw_unplug(struct panthor_device *ptdev)
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index 1caa803c2850..99381b71dd58 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -1734,8 +1734,6 @@ static void csg_slot_process_idle_event_locked(struct panthor_device *ptdev, u32
  
- 	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev)) {
- 		/* Make sure the IRQ handler cannot be called after that point. */
--		if (ptdev->fw->irq.irq)
--			panthor_job_irq_suspend(&ptdev->fw->irq);
+ 	lockdep_assert_held(&sched->lock);
+ 
+-	sched->might_have_idle_groups = true;
 -
-+		panthor_job_irq_suspend(&ptdev->fw->irq);
- 		panthor_fw_stop(ptdev);
- 	}
- 
+ 	/* Schedule a tick so we can evict idle groups and schedule non-idle
+ 	 * ones. This will also update runtime PM and devfreq busy/idle states,
+ 	 * so the device can lower its frequency or get suspended.
 
 -- 
 2.54.0
