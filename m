@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8F30CDE001
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 12:40:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB8CBCDE000
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 12:40:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84A0A10F299;
-	Thu, 25 Jun 2026 12:40:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06AA510F29E;
+	Thu, 25 Jun 2026 12:40:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="WGv3oOvj";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="QuO6NzsJ";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A25B110E1FA
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F9D710E1FA
  for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 12:40:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782391233;
- bh=8FQRBaZNq7IzG4werkwkDR5b324eM5qckDb+vhtZ8WE=;
+ s=mail; t=1782391232;
+ bh=yx9hawI83xM0bKBVn9h6tWl1wS9JbU7rfhE200y+lzk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=WGv3oOvjPl4+pGv86VWSNAy06OShKJewULyiIzOdtrbviROsKSMuBdqkN8PmrDsnF
- 5XlVbsR4UkNseiFMqjEq8W2rX5sSs/z45H33EOHi6LA5mDllMSDNLzPBuct2rwiNGP
- MSCIUBCAR6vb2eXkWTYUwEMiILRD+qJ8KbEAKJsumviROOGhDxX2tZgKG0ozv5iEE7
- zDtU+fLUyQsI2RFcZeCW786JbTl3RKutk2dMZsedEQqRfLClmIIqCnk2zLL2NZ6L5y
- /v3R3ayBYbjj59NUzaRMSWD+V4QWkybs4UapY7SOXsaqukXYS48n0+OCT4tITCC5bh
- NFCHgNOSFCPOg==
+ b=QuO6NzsJg0Ri8GrHWp9e4CpYdoCxMdEeArdOGpyuTP3UDN3u8o7syn7QPMjEhCELO
+ DSDrdfgpoZqxqs/ub2Qhg+0ksbz67mH/fvP9v0SFtCkwWCJ/0E6LcguqjdwVwQazZD
+ /JRvR69WQmFCD5AzwrzgJiQwCvBPKwO+auOqJ97GmchZ/VFDoq16PAV0HiULOyHRwm
+ m5e43MqUnPKJPn8Q+rqaPCwvwZDNaqOgsV1ctwfTJRVg9txzNvRLj/b5vBhz83DDLN
+ +S1BtkoijFGLo5XPKmhf547iF9Xl2pu7xdFN0CPLbVWu0WGqw3GhVaKyrZuMu5pViv
+ F6dA5i4TfCnlA==
 Received: from fedora-2.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E2E6C17E10FC;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 409F517E0F44;
  Thu, 25 Jun 2026 14:40:32 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 25 Jun 2026 14:40:31 +0200
-Subject: [PATCH 05/11] drm/panthor: Fix theoretical IOMEM access in
- suspended state
+Date: Thu, 25 Jun 2026 14:40:30 +0200
+Subject: [PATCH 04/11] drm/panthor: Fix potential invalid pointer deref in
+ group_process_tiler_oom()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-panthor-misc-fixes-v1-5-b67ed973fea6@collabora.com>
+Message-Id: <20260625-panthor-misc-fixes-v1-4-b67ed973fea6@collabora.com>
 References: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
 In-Reply-To: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
@@ -51,11 +51,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>, sashiko-bot@kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782391229; l=2117;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782391229; l=1197;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=8FQRBaZNq7IzG4werkwkDR5b324eM5qckDb+vhtZ8WE=;
- b=EVeWGGQR6QubyOrJS4vjd67iiditdRBtHSEfX6Sjysc5BuDjkUl6G9YQo+VqEWwRHLkY0zygQ
- CLBebdN76jqCKxCf0MGEnCkrE+71PaqWBGl0ErCxtslsK/tzPVceZ7A
+ bh=yx9hawI83xM0bKBVn9h6tWl1wS9JbU7rfhE200y+lzk=;
+ b=B9AVovW/1s9Oo6T9DGL+D5IUQ+HUDTytIJLf7HQnRTGXeOBMYzqhAn3m0FgJyNVhMFNXRMFuh
+ p2GEwfQfuXyAKNzmFfvuFFyxasqD+6I44h1o6geeA8EmBBBFmvqfNv1
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,51 +73,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In theory, our hardirq handler can be called while the device (and
-thus the panthor_irq) is suspended, because the IRQ line is shared.
-In practice though, in all the designs we've seen, the line is only
-shared within the GPU, and because sub-component suspend state is
-consistent (all-suspended or all-resumed), we shouldn't end up with
-an interrupt triggered while we're suspended.
+If heaps is an ERR_PTR(), panthor_heap_pool_put() will deref an invalid
+pointer. Make sure we set it to NULL in that case.
 
-Fix the problem anyway, if nothing else, for our sanity.
-
-Fixes: 0b2d86670a84 ("drm/panthor: Rework panthor_irq::suspended into panthor_irq::state")
+Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
 Reported-by: sashiko-bot@kernel.org
-Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v4-0-3d2908912afa@collabora.com?part=1
+Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com?part=2
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_device.h | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/panthor/panthor_sched.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-index 35679bfa1f3a..a39386bd6382 100644
---- a/drivers/gpu/drm/panthor/panthor_device.h
-+++ b/drivers/gpu/drm/panthor/panthor_device.h
-@@ -512,9 +512,6 @@ static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void *data)
- 	struct panthor_irq *pirq = data;							\
- 	enum panthor_irq_state old_state;							\
- 												\
--	if (!gpu_read(pirq->iomem, INT_STAT))							\
--		return IRQ_NONE;								\
--												\
- 	guard(spinlock_irqsave)(&pirq->mask_lock);						\
- 	old_state = atomic_cmpxchg(&pirq->state,						\
- 				   PANTHOR_IRQ_STATE_ACTIVE,					\
-@@ -522,6 +519,13 @@ static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void *data)
- 	if (old_state != PANTHOR_IRQ_STATE_ACTIVE)						\
- 		return IRQ_NONE;								\
- 												\
-+	if (!gpu_read(pirq->iomem, INT_STAT)) {							\
-+		atomic_cmpxchg(&pirq->state,							\
-+			       PANTHOR_IRQ_STATE_PROCESSING,					\
-+			       PANTHOR_IRQ_STATE_ACTIVE);					\
-+		return IRQ_NONE;								\
-+	}											\
-+												\
- 	gpu_write(pirq->iomem, INT_MASK, 0);							\
- 	return IRQ_WAKE_THREAD;									\
- }												\
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index e97f29469d28..8fd4d97b062e 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -1600,7 +1600,10 @@ static int group_process_tiler_oom(struct panthor_group *group, u32 cs_id)
+ 	if (unlikely(csg_id < 0))
+ 		return 0;
+ 
+-	if (IS_ERR(heaps) || frag_end > vt_end || vt_end >= vt_start) {
++	if (IS_ERR(heaps)) {
++		ret = -EINVAL;
++		heaps = NULL;
++	} else if (frag_end > vt_end || vt_end >= vt_start) {
+ 		ret = -EINVAL;
+ 	} else {
+ 		/* We do the allocation without holding the scheduler lock to avoid
 
 -- 
 2.54.0
