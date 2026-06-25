@@ -4,58 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 705F2CDE00B
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 15:01:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E500CDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 15:04:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DFF410F304;
-	Thu, 25 Jun 2026 15:01:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3E1A10E206;
+	Thu, 25 Jun 2026 15:04:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="ycI0Burm";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="BPfrj+sv";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HKRm90AE";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="aw+WTHqT";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="I/773ghd";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 334FB10F305
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 15:01:30 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31F6810E206
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 15:04:57 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gmMSz0dPXz9vDY;
- Thu, 25 Jun 2026 17:01:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1782399684; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AC4D871C6A;
+ Thu, 25 Jun 2026 15:04:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782399895; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=eDf8uKydeb/dWDgOUroHzcLhyUDFhghnhH6xp9NcqCs=;
- b=ycI0BurmMS2ieeqdTbYQ84MnvXcjhlbp53mhDYB9+wT3sGlmCH48HAU8XRCob/RY15qKfa
- 46vH0a9/eUKKIR6acC0jVlN70oxzUXcuQ3A7lfNj4LGqNiG2AoTlWmdwoe7jO7wc9PRn5c
- FX/dlwNXmSfJw5lsGBbl3YhKjkWsZ02u3jekBXN3SwwTNuqptKlYhuMf5nD+/NfEld7Ibh
- SZvnezVMZStCMT+ko8iO8+rIXht+Hz+DQ9enUvZRxRk40lcClIkValkQnBvj8oEanFnqWw
- WvnJHDu3QY6aDNry8JeBVbaI9nfArpBP2ct0WI5HTIu/avTb6zCPcw6MwLQT6Q==
-Message-ID: <de3b9b978ffeeb43c18d877080e93823214313ec.camel@mailbox.org>
-Subject: Re: [PATCH] dma-fence: Fix dma_fence_timeline_name() to call
- get_timeline_name()
-From: Philipp Stanner <phasta@mailbox.org>
-To: Baineng Shou <shoubaineng@gmail.com>, Sumit Semwal
- <sumit.semwal@linaro.org>,  Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, =?ISO-8859-1?Q?Andr=E9?= Draszik	
- <andre.draszik@linaro.org>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>, Philipp Stanner
- <phasta@kernel.org>,  Akash Goel <akash.goel@arm.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-Date: Thu, 25 Jun 2026 17:01:15 +0200
-In-Reply-To: <20260625141227.38931-1-shoubaineng@gmail.com>
-References: <20260625141227.38931-1-shoubaineng@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=KzggUgTvPO75sojZnEGWKA6d2yXkTbrwYEONUppR//8=;
+ b=BPfrj+sv6w7n+gmiG2iIdGXmJxUlDbu3HSpcquG2SAcsnFeyp17ZidKBm/D46BZHt7EUUb
+ THUg5zqBz0Nj+5Ct+/Arm25WxQx93eaFxCwCr2Z3QYZXucGx3diYMMH9iq6PggoB0E6Xzk
+ PKLb8tBZbnpNV4yRhpD+JWAo7mxgzHs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782399895;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=KzggUgTvPO75sojZnEGWKA6d2yXkTbrwYEONUppR//8=;
+ b=HKRm90AEAb+BVSkFlsfYRXtYho6u4uL+vtQv9mZVZ7utmzu2VYLoKfnognyftVimbpvzWb
+ UzxP9KzFkrqdnJCg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=aw+WTHqT;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="I/773ghd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782399891; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=KzggUgTvPO75sojZnEGWKA6d2yXkTbrwYEONUppR//8=;
+ b=aw+WTHqTaud8aM2myU4+DWvoJBJfDfIwzNdUuRID+AnyTEbLB4FtAHI3E4aWc4dYzyYZSw
+ DFBHJfbqJmZ15BXgIOPxR4GD3+MUanJDmtLAQUaWSrLCXKaHpF4LtSno0+1mNxO8hGEnDk
+ JIIJ7mUu2qaOrAr1kHQ93Z+ymtVXgL8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782399891;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=KzggUgTvPO75sojZnEGWKA6d2yXkTbrwYEONUppR//8=;
+ b=I/773ghdFNhqVT7xorQZLCxBA31dTB7MWLqkneyXb6Z71BdxfWLoCpH9SSP6ukb/2IcuJ6
+ 0P+HN6vNhtRf5HCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 73CA0779A8;
+ Thu, 25 Jun 2026 15:04:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 7E/SGpNDPWrSOAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 25 Jun 2026 15:04:51 +0000
+Message-ID: <7dd87e55-5170-4317-8c9e-38a7868f68fc@suse.de>
+Date: Thu, 25 Jun 2026 17:04:50 +0200
 MIME-Version: 1.0
-X-MBO-RS-ID: 1c878a47db5afd3a54a
-X-MBO-RS-META: xyidt6keibsxozexi515dqim3gdtwzox
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fbdev: fbcon: fix out-of-bounds read in err_out of
+ fbcon_do_set_font()
+To: w15303746062@163.com, deller@gmx.de, simona@ffwll.ch
+Cc: syoshida@redhat.com, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mingyu Wang <25181214217@stu.xidian.edu.cn>, stable@vger.kernel.org
+References: <20260624083316.389677-1-w15303746062@163.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260624083316.389677-1-w15303746062@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: AC4D871C6A
+X-Spamd-Result: default: False [-4.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.19)[-0.975]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[163.com,gmx.de];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[163.com,gmx.de,ffwll.ch];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[9]; MID_RHS_MATCH_FROM(0.00)[];
+ DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim, suse.de:email, suse.de:mid,
+ xidian.edu.cn:email, imap1.dmz-prg2.suse.org:rdns,
+ imap1.dmz-prg2.suse.org:helo, suse.com:url]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,58 +149,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-+Cc Andr=C3=A9
+Hi
 
-On Thu, 2026-06-25 at 22:12 +0800, Baineng Shou wrote:
-> dma_fence_timeline_name() incorrectly invokes ops->get_driver_name()
-> instead of ops->get_timeline_name(), so every caller receives the
-> driver name where the timeline name was expected.
->=20
-> This is a copy-paste regression that has resurfaced twice. It was
-> originally introduced by commit 62918542b7bf ("dma-fence: Fix sparse
-> warnings due __rcu annotations") when adding the __rcu casts, fixed
-> by commit 033559473dd3 ("dma-fence: Fix safe access wrapper to call
-> timeline name method"), and then accidentally reintroduced by commit
-> e58b4dea9054 ("dma-buf/dma-fence: Add dma_fence_test_signaled_flag()")
-> when both wrappers were refactored to use the new helper.
->=20
-> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+Am 24.06.26 um 10:33 schrieb w15303746062@163.com:
+> From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+>
+> When fbcon_do_set_font() fails (e.g., due to a memory allocation failure
+> inside vc_resize() under heavy memory pressure), it jumps to the `err_out`
+> label to roll back the console state. However, the current rollback logic
+> forgets to restore the `hi_font` state, leading to a severe state machine
+> corruption.
+>
+> Earlier in the function, `set_vc_hi_font()` might be called to change
+> `vc->vc_hi_font_mask` and mutate the screen buffer. If `vc_resize()`
+> subsequently fails, the `err_out` path restores `vc_font.charcount`
+> but entirely skips rolling back the `vc_hi_font_mask` and the screen
+> buffer.
+>
+> This mismatch leaves the terminal in a desynchronized state. Because
+> `vc_hi_font_mask` remains set, the VT subsystem will still accept
+> character indices greater than 255 from userspace and write them to the
+> screen buffer. Subsequent rendering calls (e.g., `fbcon_putcs()`) will
+> then use these inflated indices to access the reverted, 256-character
+> font array, leading to a deterministic out-of-bounds read and potential
+> kernel memory disclosure.
+>
+> Fix this by adding the missing rollback logic for the `hi_font` mask
+> and screen buffer in the error path.
+>
+> Fixes: a5a923038d70 ("fbdev: fbcon: Properly revert changes when vc_resize() failed")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 
-Andr=C3=A9 has caught this a few days ago already:
+The email in your S-o-b tag differs from the one in the mail's From: 
+line. I think this is not accepted in the kernel. Can you please 
+resubmit with the email addresses synchronized.
 
-https://lore.kernel.org/dri-devel/20260618-linux-drm_crtc_fix-v1-1-801f29c9=
-853d@linaro.org/
+Apart from that:
 
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-To save my honor I want to state that e58b4dea9054 did not actually *do
-this* change. But merging it must have caused it somehow, since that
-commit was still based on the old bug. I guess somewhere in conflict
-resolution somehow tho old code must have entered.
+Thanks for fixing this problem.
 
-
-P.
+Best regards
+Thomas
 
 > ---
-> =C2=A0drivers/dma-buf/dma-fence.c | 2 +-
-> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index b3bfa6943a8e..5292d714419b 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -1202,7 +1202,7 @@ const char __rcu *dma_fence_timeline_name(struct dm=
-a_fence *fence)
-> =C2=A0	/* RCU protection is required for safe access to returned string *=
-/
-> =C2=A0	ops =3D rcu_dereference(fence->ops);
-> =C2=A0	if (!dma_fence_test_signaled_flag(fence))
-> -		return (const char __rcu *)ops->get_driver_name(fence);
-> +		return (const char __rcu *)ops->get_timeline_name(fence);
-> =C2=A0	else
-> =C2=A0		return (const char __rcu *)"signaled-timeline";
-> =C2=A0}
-	=09
+>   drivers/video/fbdev/core/fbcon.c | 7 +++++++
+>   1 file changed, 7 insertions(+)
+>
+> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+> index 9077d3b99357..5880ab9f3cde 100644
+> --- a/drivers/video/fbdev/core/fbcon.c
+> +++ b/drivers/video/fbdev/core/fbcon.c
+> @@ -2405,6 +2405,7 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+>   	int resize, ret, old_width, old_height, old_charcount;
+>   	font_data_t *old_fontdata = p->fontdata;
+>   	const u8 *old_data = vc->vc_font.data;
+> +	int old_hi_font_mask = vc->vc_hi_font_mask;
+>   
+>   	font_data_get(data);
+>   
+> @@ -2451,6 +2452,12 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+>   	vc->vc_font.height = old_height;
+>   	vc->vc_font.charcount = old_charcount;
+>   
+> +	/* Restore the hi_font state and screen buffer */
+> +	if (old_hi_font_mask && !vc->vc_hi_font_mask)
+> +		set_vc_hi_font(vc, true);
+> +	else if (!old_hi_font_mask && vc->vc_hi_font_mask)
+> +		set_vc_hi_font(vc, false);
+> +
+>   	font_data_put(data);
+>   
+>   	return ret;
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
