@@ -4,60 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D863CDB479
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 12:41:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 606F5CDE000
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 12:43:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C23AE10F2AA;
-	Thu, 25 Jun 2026 12:41:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5618A10F2A6;
+	Thu, 25 Jun 2026 12:43:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Nazs8AN8";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="TWjGaG1h";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E135A10F29F
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 12:40:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A6F810F2A6
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 12:43:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782391236;
- bh=EjMNoCtdmTlFzgPpR2n296dmmF/gMfxRAN22sL6ij+s=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Nazs8AN8JIb9Esaxy3DLEK0VX0DRaD75txPkETqX2fAN9UVeigzVikt929/Fd69pv
- JA1fLME3GAb0DiulSdqEuUdgxJjdkSkbXb8oG+WoFPRbY5VOJa7HqHK1Sump2I94Rk
- u+EYImnXTaVaAhAhnOBzbnS+IhFFg1S2NmW1TaOlC59CD2PBQWJo9SstPQptUPRhMh
- fG3MhcrLAzcYQqvtTJ/d6D99PEvhXxFx1RKb77/ZjCseSeejvfeFbGXyTNn1TyTrwe
- 9lBqKkwK8ikLb8lyWu0tDzRX9kuujHbKHB1STAHx+iIHe2TJRwb9cKRyhx5vB8/THX
- Q22C71Y9YTCzw==
+ s=mail; t=1782391399;
+ bh=l/HmvLeKbqzUTyJ+tBW+QxidJ66+fgQQlz4MoTP4rig=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=TWjGaG1hb7io//YzYGJrvlINU1BMsI9iXMicHEiQPnNy5dNKvytzhyPC4+o4lQ398
+ hIwC3i4y893i6OaRAvU93xm1Sa9xnaNG5RtFvmMOQjITmHHkF9nE/VXJu9AmE/VZzi
+ KZuQIowq0GUaWm853ieQNCE6W1YCQiBBVtclZe+t5cDdgg6pba0n7wBGjvimRjmTKv
+ jRed/hqnZ6LUZYWhCB41Rvc6JQAvRKKsqz4ZeECniIzZZm702HXN/2mXhqRhq1JPrk
+ QyFkCfwCD9oBLn7IIZ6rIV/yPFG4Idl74lL4a+0hb02MOD7K+ZbWBhhOiJuyl4kur6
+ TKskq+eqLssnQ==
 Received: from fedora-2.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 2B2A217E0CF3;
- Thu, 25 Jun 2026 14:40:36 +0200 (CEST)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9541817E0C88;
+ Thu, 25 Jun 2026 14:43:18 +0200 (CEST)
+Date: Thu, 25 Jun 2026 14:43:13 +0200
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 25 Jun 2026 14:40:36 +0200
-Subject: [PATCH 10/11] drm/panthor: Interrupt group start/resumption if
- group_bind_locked() fails
+To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Chia-I Wu <olvaffe@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 00/16] drm/panthor: Reduce dma_fence signalling latency
+Message-ID: <20260625144313.5a9c872f@fedora-2.home>
+In-Reply-To: <20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com>
+References: <20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-panthor-misc-fixes-v1-10-b67ed973fea6@collabora.com>
-References: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
-In-Reply-To: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
-To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Chia-I Wu <olvaffe@gmail.com>, Karunika Choo <karunika.choo@arm.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Boris Brezillon <boris.brezillon@collabora.com>, sashiko-bot@kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782391229; l=1614;
- i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=EjMNoCtdmTlFzgPpR2n296dmmF/gMfxRAN22sL6ij+s=;
- b=poilMur5pICW5Zggh8awaVTPcQrtWd2JzAGoZSXvlhsZO2VSox8euXjBWjSAnIpugoqlKrb1s
- 7iMTLckkgvVBDg6YMsqxn9/E0RkstSJ4Ifad3WolvBFEfWsNh85Ul4I
-X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
- pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,41 +66,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-group_bind_locked() can fail if the MMU block is stuck. This is normally
-a reset situation, but by the time we reset the GPU, we might have
-tried to resume a group that's not resident, which will probably trip
-out the FW. So let's avoid that by bailing out when group_bind_locked()
-returns an error. We don't even try to start more groups because the
-GPU will be reset anyway.
+On Thu, 25 Jun 2026 11:36:15 +0200
+Boris Brezillon <boris.brezillon@collabora.com> wrote:
 
-Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://sashiko.dev/#/patchset/20260623-panthor-signal-from-irq-v3-0-2ece396f8ee0@collabora.com?part=7
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
----
- drivers/gpu/drm/panthor/panthor_sched.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+> Right now, panthor is one of the rare drivers to signal fences
+> from work items (not even from the threaded IRQ handler). We
+> tried moving the job_completion check to hardirq handlers like
+> other drivers do, but the duration of this handler gets
+> slightly over the few usec (20+ usecs) we usually expect from
+> hardird handlers, and we're not sure we want to hold off the
+> processing of other interrupts for that long. So this series
+> just gets rid of the threaded-handler -> work_item indirection
+> and checks for job completion (and thus, fence signalling)
+> directly in the threaded handler.
+> 
+> Sorry for the high submission rate (v4 was sent this morning),
+> but I'd like get the remaining blockers out of the way, and
+> shashiko keeps finding new legitimate issues :-).
+> 
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> ---
+> Changes in v5:
+> - Add a fix for a theoretical IOMEM access in suspended state (patch 1)
+> - Make sure we don't delay a pending immediate tick in
+>   sched_resume_tick() (patch 2)
+> - Make sure we initialize panthor_irq::state properly in the irq_request
+>   helper
+> - Link to v4: https://lore.kernel.org/r/20260625-panthor-signal-from-irq-v4-0-3d2908912afa@collabora.com
+> 
+> Changes in v4:
+> - Add a bunch of fixes for bugs reported by shashiko
+> - Link to v3: https://lore.kernel.org/r/20260623-panthor-signal-from-irq-v3-0-2ece396f8ee0@collabora.com
+> 
+> Changes in v3:
+> - Save/restore the irq state in the raw handler.
+> - Rename panthor_irq::mask_lock into panthor_irq::lock
+> - Use the __always_inline specifier on
+>   panthor_irq_default_threaded_handler()
+> - Use devm_request_threaded_irq() even when the threaded handler is
+>   NULL
+> - Drop the patch that dynamically enables request-related interrupts
+>   (FW-side race) after the polling period has expired
+> - Don't process FW events from the hardirq handler (too heavy for an
+>   hardirq handler according to our testing)
+> - Link to v2: https://lore.kernel.org/r/20260512-panthor-signal-from-irq-v2-0-95c614a739cb@collabora.com
+> 
+> Changes in v2:
+> - Fix commit message in patch 4
+> - Move devm_kasprintf() before panthor_irq_resume() in patch 3
+> - Fix erroneous lockdep_assert_held() in patch 6
+> - Make sure events_lock is held when calling
+>   csg_slot_sync_update_locked() in patch 6
+> - Restore a csg_slot_sync_update_locked() call in patch 7
+> - Fix a potential deadlock in patch 9
+> - Drop the IRQ coalescing patch (formerly patch 10)
+> - Change panthor_irq_request() so we don't have to define a dummy
+>   threaded handler, and we can let RT kernels move the hard handler
+>   to a thread
+> - Add patches to transition GPU event processing to the hard IRQ handler
+> - Link to v1: https://lore.kernel.org/r/20260429-panthor-signal-from-irq-v1-0-4b92ae4142d2@collabora.com
+> 
+> ---
+> Boris Brezillon (16):
+>       drm/panthor: Fix theoretical IOMEM access in suspended state
+>       drm/panthor: Don't overrule pending immediate ticks in sched_resume_tick()
+>       drm/panthor: Fix panthor_pwr_unplug()
+>       drm/panthor: Drop a needless check in panthor_fw_unplug()
+>       drm/panthor: Fix a leak when a group is evicted before the tiler OOM is serviced
+>       drm/panthor: Interrupt group start/resumption if group_bind_locked() fails
+>       drm/panthor: Keep interrupts masked until they are needed
 
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index 5fe95d03f23e..298b046c95ed 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -2368,7 +2368,13 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
- 
- 			csg_iface = panthor_fw_get_csg_iface(ptdev, csg_id);
- 			csg_slot = &sched->csg_slots[csg_id];
--			group_bind_locked(group, csg_id);
-+			ret = group_bind_locked(group, csg_id);
-+			if (ret) {
-+				panthor_device_schedule_reset(ptdev);
-+				ctx->csg_upd_failed_mask |= BIT(csg_id);
-+				return;
-+			}
-+
- 			csg_slot_prog_locked(ptdev, csg_id, new_csg_prio--);
- 			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
- 						group->state == PANTHOR_CS_GROUP_SUSPENDED ?
+If you're reviewing this version, please ignore anything coming before
+patch 8, since those have been re-posted as a separate misc-fixes
+series[1].
 
--- 
-2.54.0
+Thanks,
 
+Boris
+
+>       drm/panthor: Make panthor_irq::state a non-atomic field
+>       drm/panthor: Move the register accessors before the IRQ helpers
+>       drm/panthor: Replace the panthor_irq macro machinery by inline helpers
+>       drm/panthor: Don't update might_have_idle_groups in process_idle_event_locked()
+>       drm/panthor: Get rid of panthor_group::fatal_lock
+>       drm/panthor: Protect events processing with a separate spinlock
+>       drm/panthor: Don't defer job completion checks
+>       drm/panthor: Don't defer FW event processing
+>       drm/panthor: Automate CSG IRQ processing at group unbind time
+
+[1]https://lore.kernel.org/dri-devel/20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com/T/#t
