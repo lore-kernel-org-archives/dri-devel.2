@@ -4,41 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8399ECDE009
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 11:22:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35E2ECDE008
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 11:26:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9762610E1E9;
-	Thu, 25 Jun 2026 11:22:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CE0310E20D;
+	Thu, 25 Jun 2026 11:26:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="DTzFY2HQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nSlebkbi";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A207010E1E9;
- Thu, 25 Jun 2026 11:22:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782386530;
- bh=4/Dt0W/KnSvGYW9NJhemgRVNXT0Cb4ZvkjqCQL04TU8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=DTzFY2HQ2/aX/q96YMljbI2YH7s03m//BB0jTbArBlx0vZSHx+uPvqJYOy4s2j9Ag
- fit86NQwXDum13VLOKngAhYfvWMByiZfI+r7PCJZBEN3XPqItkvbANXzMpa75faFwW
- LyQZyFgMvWAfU8eOsL0l/hj2IGAXYGcQFbSLUQpMbrwM31B9ajwmZ5vRrSV05RdhkM
- n5pXmSxFbI8gCdd+xyp83fnK35pZgCjMZFvgAu0DOPY1WZ2iaojj84mhuzn/qo2Vai
- POVjLM0U9RPXnYwZ2C8sfzCFbz7MQCE09PdgIYL3ijaCnsuSsd1j/KSkkMNvBdNDLl
- aGLlvu3Iz1+ag==
-Message-ID: <7e7b2ab7-4e43-42cd-aaa0-ab83d9ede493@lankhorst.se>
-Date: Thu, 25 Jun 2026 13:22:36 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 00/30] drm/i915/display: All patches to make
- PREEMPT_RT work on i915 + xe.
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2075B10E20D
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 11:26:22 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6E3E5600FC;
+ Thu, 25 Jun 2026 11:26:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DA321F00A3E;
+ Thu, 25 Jun 2026 11:26:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782386781;
+ bh=loIiHtrFunkmDyzLyxoCZ2phvbI1tmgeJoZzVFFSmCU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=nSlebkbiraj04zFB8JujNK2/m+cZrsPeaHjxDdlpszAPZSg3Dyla7wXBtMJ+53e/f
+ FjZOOJpCO48GwsrbLujfIrXfSJZKK28o3rN3E7fvCUZ3TZ9FD3wThrQbResce4inhp
+ 0wO8HrDkHEBtqTxnzTXMT08KcPb3HjIgz6OAnxTKJPV4cob5xRrqnOVxwInHvW+Uh2
+ emj5pUA8xyVRACRY504yOB2i/fav4OWiLqrTbljJANeJS1YTaGdOHAajvJ/WRD3YC3
+ svuZxmXhhPxNPQKKT0oHxgjoSt+8/inlTVC4iFSg99p1vFjuhEMUAdzvI4XJcA0OXx
+ W0LtBSxRMTYYg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] drm/amdgpu: block THP for HSA userptr notifiers
+To: "Yitao Jiang" <jytscientist@hotmail.com>
 Cc: dri-devel@lists.freedesktop.org
-References: <20260624180459.1024068-1-dev@lankhorst.se>
-Content-Language: en-US
-From: Maarten Lankhorst <dev@lankhorst.se>
-In-Reply-To: <20260624180459.1024068-1-dev@lankhorst.se>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <SY1PR01MB1059636EEFF3E5C5156F899B8C0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
+References: <SY1PR01MB10596EB75463208A8E1EBBA0FC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
+ <SY1PR01MB1059636EEFF3E5C5156F899B8C0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 25 Jun 2026 11:26:19 +0000
+Message-Id: <20260625112620.3DA321F00A3E@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,103 +53,81 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-No CI run yet, might be 'from' is broken due to a bug in patchwork, will requeue if replying to 00/30 fixes it.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] Unaligned user_addr from KFD_IOC_ALLOC_MEMORY_OF_GPU causes VM=
+A tree corruption via split_vma()
+--
 
-On 6/24/26 20:04, Maarten Lankhorst wrote:
-> Still waiting for feedback on the vblank approach, and check to see if there are some
-> bugs left.
-> 
-> Changes since previous version:
-> - Hopefully finally fix all i915 pmu bugs.
-> 
-> For Xe, we also prohibit the use of DSM when CONFIG_PREEMPT_RT is enabled,
-> and avoid the use of DSM if we cannot take over the framebuffer from the
-> firmware.
-> 
-> Ideally we copy the framebuffer after intel_fbdev_init_bios(),
-> when we decide to preserve the framebuffer and the hardware is
-> completely initialized.
-> 
-> At that point we can use the migration engine to copy the contents over,
-> this can potentially be used for preserving the initial framebuffer
-> in the other cases where we cannot not use the initial FB too.
-> 
-> Maarten Lankhorst (24):
->   drm/vblank_work: Add methods to schedule vblank_work in 2 stages
->   drm/vblank: Add a 2-stage version of drm_crtc_arm_vblank_event
->   drm/intel/display: Make intel_crtc_arm_vblank_event static
->   drm/intel/display: Convert vblank event handling to 2-stage arming
->   drm/i915/display: Move vblank put until after critical section
->   drm/i915/display: Remove locking from intel_vblank_evade critical
->     section
->   drm/i915/display: Handle vlv dsi workaround in scanline_in_safe_range
->     too
->   drm/i915/display: Make get_vblank_counter use intel_de_read_fw()
->   drm/i915/display: Do not take uncore lock in i915_get_vblank_counter
->   drm/i915/display: Make icl_dsi_frame_update use _fw too
->   drm/i915/display: Use intel_de_read/write_fw in colorops
->   drm/i915/display: Use intel_de_write_fw in intel_pipe_fastset
->   drm/i915/display: Make set_pipeconf use the fw variants
->   drm/i915/gt: Fix selftests on PREEMPT_RT
->   drm/i915/gt: Set stop_timeout() correctly on PREEMPT-RT
->   drm/i915/display: Remove uncore lock from vlv_atomic_update_fifo
->   drm/i915: Use sleeping selftests for igt_atomic on PREEMPT_RT
->   PREEMPT_RT injection
->   FOR-CI: bump MAX_STACK_TRACE_ENTRIES
->   drm/xe: Avoid using stolen memory for DPT.
->   drm/xe/display: Avoid using stolen memory for framebuffer when media
->     gt exists.
->   drm/xe/display: Do not allocate into stolen for new framebuffers.
->   drm/i915/pmu: Convert to raw spinlock
->   drm/i915: Disable "busy" pmu event on CONFIG_PREEMPT_RT
-> 
-> Mike Galbraith (1):
->   drm/i915: Use preempt_disable/enable_rt() where recommended
-> 
-> Sebastian Andrzej Siewior (5):
->   drm/i915/gt: Use spin_lock_irq() instead of local_irq_disable() +
->     spin_lock()
->   drm/i915: Drop the irqs_disabled() check
->   drm/i915/guc: Consider also RCU depth in busy loop.
->   Revert "drm/i915: Depend on !PREEMPT_RT."
->   drm/i915/gt: Add a spinlock to prevent starvation of irq_work.
-> 
->  drivers/gpu/drm/drm_vblank.c                  |  64 +++++++++-
->  drivers/gpu/drm/drm_vblank_work.c             | 110 +++++++++++++----
->  drivers/gpu/drm/i915/Kconfig                  |   1 -
->  drivers/gpu/drm/i915/display/i9xx_wm.c        |   4 -
->  drivers/gpu/drm/i915/display/icl_dsi.c        |   4 +-
->  drivers/gpu/drm/i915/display/intel_cmtg.c     |   6 +-
->  drivers/gpu/drm/i915/display/intel_color.c    |   6 +-
->  drivers/gpu/drm/i915/display/intel_crtc.c     |  86 ++++++-------
->  drivers/gpu/drm/i915/display/intel_crtc.h     |   1 -
->  drivers/gpu/drm/i915/display/intel_cursor.c   |   8 +-
->  drivers/gpu/drm/i915/display/intel_de.h       |   8 ++
->  drivers/gpu/drm/i915/display/intel_display.c  |  52 ++++----
->  drivers/gpu/drm/i915/display/intel_vblank.c   | 115 ++++++++++--------
->  drivers/gpu/drm/i915/display/intel_vblank.h   |   1 +
->  drivers/gpu/drm/i915/display/intel_vrr.c      |  18 +--
->  drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   |   8 +-
->  .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |   1 +
->  drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   2 +-
->  .../drm/i915/gt/intel_execlists_submission.c  |  17 +--
->  drivers/gpu/drm/i915/gt/selftest_engine_pm.c  |   8 +-
->  drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   2 +-
->  drivers/gpu/drm/i915/i915_pmu.c               |  26 ++--
->  drivers/gpu/drm/i915/i915_pmu.h               |   2 +-
->  drivers/gpu/drm/i915/i915_request.c           |   2 -
->  drivers/gpu/drm/i915/intel_uncore.h           |  26 ++--
->  drivers/gpu/drm/i915/selftests/igt_atomic.c   |   7 ++
->  .../drm/xe/compat-i915-headers/intel_uncore.h |   7 ++
->  drivers/gpu/drm/xe/display/xe_display_bo.c    |  40 ++----
->  drivers/gpu/drm/xe/display/xe_fb_pin.c        |  33 ++---
->  include/drm/drm_vblank.h                      |  14 ++-
->  include/drm/drm_vblank_work.h                 |  12 ++
->  kernel/Kconfig.preempt                        |   4 +-
->  lib/Kconfig.debug                             |   5 +-
->  33 files changed, 435 insertions(+), 265 deletions(-)
-> 
+commit 84a588c64a29eedb721607110e005505178f21fc
+Author: Yitao Jiang <jytscientist@hotmail.com>
 
+drm/amdgpu: block THP for HSA userptr notifiers
+
+This commit modifies the registration of HSA userptr interval notifiers
+to use the MMU_INTERVAL_NOTIFIER_BLOCK_THP flag. This prevents CPU THP
+remaps of active userptr ranges from causing asynchronous GPU work failures.
+GFX userptrs continue to use the existing notifier path.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_hmm.c
+> index 99bc9ad67d5b8..c0b36164c35e2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+[ ... ]
+> @@ -130,16 +131,24 @@ static const struct mmu_interval_notifier_ops amdgp=
+u_hmm_hsa_ops =3D {
+>   */
+>  int amdgpu_hmm_register(struct amdgpu_bo *bo, unsigned long addr)
+>  {
+[ ... ]
+> +	if (bo->kfd_bo) {
+> +		mmap_write_lock(mm);
+> +		r =3D mmu_interval_notifier_insert_locked_flags(&bo->notifier, mm,
+> +							      addr, size,
+> +							      &amdgpu_hmm_hsa_ops,
+> +							      MMU_INTERVAL_NOTIFIER_BLOCK_THP);
+[Severity: Critical]
+Can addr be unaligned when passed to this function?
+
+A user space process can call the KFD_IOC_ALLOC_MEMORY_OF_GPU ioctl with the
+KFD_IOC_ALLOC_MEM_FLAGS_USERPTR flag and provide an unaligned virtual addre=
+ss
+in args->mmap_offset. The ioctl handler in kfd_ioctl_alloc_memory_of_gpu()
+(in drivers/gpu/drm/amd/amdkfd/kfd_chardev.c) does not enforce page alignme=
+nt
+on this offset:
+
+drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:kfd_ioctl_alloc_memory_of_gpu() {
+    ...
+    err =3D amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+        dev->adev, args->va_addr, args->size,
+        pdd->drm_priv, (struct kgd_mem **) &mem, &offset,
+        flags, false);
+    ...
+}
+
+The unaligned offset propagates through init_user_pages() unmodified as
+user_addr, which is eventually passed here as addr to amdgpu_hmm_register().
+
+With the MMU_INTERVAL_NOTIFIER_BLOCK_THP flag added by this patch, the core
+MM calls mmu_interval_notifier_block_thp_locked(), which uses this addr as
+the start address. It iteratively passes this address to vma_modify_flags()
+and subsequently split_vma().
+
+Since VMA boundaries must be strictly page-aligned, split_vma() will corrupt
+the VMA tree and break invariants by applying the unaligned address to the =
+new
+VMA bounds. This can lead to kernel panics or a local denial-of-service.
+
+Should addr and size be aligned before calling
+mmu_interval_notifier_insert_locked_flags(), or should the ioctl enforce
+page alignment on user pointers?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/SY1PR01MB10596EB754=
+63208A8E1EBBA0FC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com?part=3D2
