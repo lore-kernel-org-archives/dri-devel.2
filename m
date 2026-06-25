@@ -4,66 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 494C7CDE000
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 13:27:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CCA8CDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 13:29:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1416310F2B7;
-	Thu, 25 Jun 2026 13:27:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D052610E1F9;
+	Thu, 25 Jun 2026 13:29:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="KqqsH+Yf";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="vrJMjOhI";
 	dkim-atps=neutral
-Received: from out28-111.mail.aliyun.com (out28-111.mail.aliyun.com
- [115.124.28.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3012910F2B7
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 13:27:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
- t=1782394022; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
- bh=gRSJ4CRS8OCB04rZdFrPRMpEbw/Vc3lgI3K6YTTYbew=;
- b=KqqsH+YfVBA+ArSVB4deJQn8HgQ0YWsFEWeMqjTHKSCmH3hNVtvcfR4KIUbdUDq1bGQkplPxJSRgNqco7W7iP1jUV7AJjhF/G+oJ/vYr3BJKodDvMmx+N2j57HBszXWvJhuMUPJykyMdz7Kz+e0WoP2VpJcpbLND3jpishNy5n22+Xb3sIt/RPA9h1BNMflSmy7twcboVumib1xNlRzkQVXi1b3yEtCcd+HjHx3N4rHn5CPp8kKhpnyk/pmwX5boXZpES4a3UNGkjHkhXn+Zp3t9ul8f0P+IovRzQJi2OzISEqPrQLgOrEeL8V1s6ZR0YbkddiXobgPJfeivy0zkBA==
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07516154|-1; CH=blue; DM=|OVERLOAD|false|;
- DS=CONTINUE|ham_regular_dialog|0.110469-0.00242109-0.88711;
- FP=18109304622815978754|1|1|2|0|-1|-1|-1;
- HT=maildocker-contentspam033037028158; MF=syyang@lontium.com; NM=1; PH=DS;
- RN=1; RT=1; SR=0; TI=SMTPD_---.i5Op77I_1782394020; 
-Received: from mail-oi1-f176.google.com(mailfrom:syyang@lontium.com
- fp:SMTPD_---.i5Op77I_1782394020 cluster:ay29) by smtp.aliyun-inc.com;
- Thu, 25 Jun 2026 21:27:01 +0800
-Received: by mail-oi1-f176.google.com with SMTP id
- 5614622812f47-48611ccd5aeso1486797b6e.2
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 06:27:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ/M+Yzs+K2krydZQSb3Gguzi3KrY8XZzUroJZwGZJ2MtGDdNrScluQLz3B1XS9MKoRdo0TaHE4fSYs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzgqqTtQEpz5TOXBLukMrlW4gwlHwmaTf8pV9jmVe50buFC4uev
- IsQSuio09fpzzjeJ4RjhzEgif+lqjtxeOKyiF8cK6ukqxnQzMCfeyZGtvSLHxyc3TKlH5Z8Itxi
- PQV4KMSOSadVpYloL8/Q86zSN5W1ks6c=
-X-Received: by 2002:a05:6808:c2b6:b0:490:315d:e0d5 with SMTP id
- 5614622812f47-4921791c07bmr2492458b6e.16.1782394019404; Thu, 25 Jun 2026
- 06:26:59 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260508134009.4582-1-syyang@lontium.com>
- <20260508134009.4582-3-syyang@lontium.com>
- <3188f63f-5358-48d7-b934-af20a8f95c6f@kernel.org>
- <CAFQXuNbKBfyeQL3N3P5QY=6BWoD3O6DSbXN-WMA1rRG9vCs3Kg@mail.gmail.com>
- <a0352a42-15db-4c7a-ae73-8a4e1543cd50@kernel.org>
-In-Reply-To: <a0352a42-15db-4c7a-ae73-8a4e1543cd50@kernel.org>
-From: Sunyun Yang <syyang@lontium.com>
-Date: Thu, 25 Jun 2026 21:26:47 +0800
-X-Gmail-Original-Message-ID: <CAFQXuNZVE6cZJGwrGKGtWnB-seSJLHFh8zW3jjAs6U4JLZFWng@mail.gmail.com>
-X-Gm-Features: AVVi8CdcsgeQPjqxnZ4gT207zSP4WZU_6qclErTnYRUAvVG4BxkgLFK7wlIGlqc
-Message-ID: <CAFQXuNZVE6cZJGwrGKGtWnB-seSJLHFh8zW3jjAs6U4JLZFWng@mail.gmail.com>
-Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com, 
- rfoss@kernel.org, mripard@kernel.org, Laurent.pinchart@ideasonboard.com, 
- tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com, 
- xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
-Content-Type: text/plain; charset="UTF-8"
+Received: from CWXP265CU008.outbound.protection.outlook.com
+ (mail-ukwestazon11020128.outbound.protection.outlook.com [52.101.195.128])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F92E10E1F9
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 13:29:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uDgk/WZrbR37/gBCZSiAibhYa4vqp/AP+nxK+FaIRZ/QYfDfJutVeAsoPtPJYu0DGVCOsNDaq2v6oRHrQ7n3wG8JzwB9Ltq43gz9ZvwVjWOJl1tGyJr3LRZfV+yiEtEXQSUKUedQiSKrRl9UuBZpLFAXPpmabgUmul/YWUAGCAuUk9VeiPqIAFdj10+D9YrNEJHSutSke9aLqYSWmzfkiFENB9GyrL3V61kEnJKDHC7YtK+pUp7t31YQWfM5hGqGrLi25D6pOsrjkIu+/gxgzVwvP5RTiGJ/yhn1KLZGMCSactOVaCFuYSNgq87Ydha3rRI0WezgEVwHLCAdK92AZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0es9qWF0Nh369myl9gu47wQq6hd1/WMrxIePp1qfYhY=;
+ b=o1ixDs3vDAoxabA6Ub90+4CzCBxck2vofsHcK3a8QM3m1ySV8gzADxYqETflGAySXGd+maqGJOQfCoPsiwoirQbElIxaaS+uJzlwQfR8KXwU4bQS3Z9pfx2HweT52e3kppvikSxDrlQDxFhbwcatnOL52JK79RsUoNJRHHDH2K5HK+Owvr6gDNXYU0Mq3zJ7jumYCGIwPaSTyaJyktxYDKliIX1/f+p12OF+Tz+RL6Bb2Y/J8z+k76d0WcCmIYqigvwXi1V+FlL97fnr9VMRRfKE4eF6G+LlLxbX0FH5JRkQiWW6Xck1XhtVgSofAt6zXuM0yd2TaW7dHNbJnea1uA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0es9qWF0Nh369myl9gu47wQq6hd1/WMrxIePp1qfYhY=;
+ b=vrJMjOhIE5WGn0ivukwwMlyS4cm0iCzqC9Lxa7cFi6kOqbA7jIq9o+/JWGiUENbm8TNfT3JXAPzfqQt3R5nyIvewkT3/a0KCbKVX98diSb6gkDo8xpzJs8w/5gheYjNOwHDb03eQiHeNHDSBDJYRBSOHBhBQ/p5+/fZtUylCSHQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO2P265MB3056.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:17b::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
+ 2026 13:29:23 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0159.015; Thu, 25 Jun 2026
+ 13:29:23 +0000
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 25 Jun 2026 14:29:22 +0100
+Message-Id: <DJI5ZY2TPFSW.BEKOVZYRSTQZ@garyguo.net>
+Subject: Re: [PATCH v18 3/8] rust: implement `ForeignOwnable` for `Owned`
+From: "Gary Guo" <gary@garyguo.net>
+To: "Andreas Hindborg" <a.hindborg@kernel.org>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
+ <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
+ Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Trevor Gross"
+ <tmgross@umich.edu>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Tamir Duberstein" <tamird@kernel.org>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "Lyude Paul" <lyude@redhat.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?=
+ <arve@android.com>, "Todd Kjos" <tkjos@android.com>, "Christian Brauner"
+ <brauner@kernel.org>, "Carlos Llamas" <cmllamas@google.com>, "Rafael J.
+ Wysocki" <rafael@kernel.org>, "Dave Ertman" <david.m.ertman@intel.com>,
+ "Ira Weiny" <ira.weiny@intel.com>, "Leon Romanovsky" <leon@kernel.org>,
+ "Paul Moore" <paul@paul-moore.com>, "Serge Hallyn" <sergeh@kernel.org>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>, "Jan Kara" <jack@suse.cz>,
+ "Igor Korotin" <igor.korotin@linux.dev>, "Viresh Kumar"
+ <vireshk@kernel.org>, "Nishanth Menon" <nm@ti.com>, "Stephen Boyd"
+ <sboyd@kernel.org>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Pavel
+ Tikhomirov" <ptikhomirov@virtuozzo.com>, "Michal Wilczynski"
+ <m.wilczynski@samsung.com>
+Cc: "Philipp Stanner" <phasta@kernel.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
+ <driver-core@lists.linux.dev>, <linux-block@vger.kernel.org>,
+ <linux-security-module@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-fsdevel@vger.kernel.org>, <linux-pm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <linux-pwm@vger.kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20260625-unique-ref-v18-0-4e06b5896d47@kernel.org>
+ <20260625-unique-ref-v18-3-4e06b5896d47@kernel.org>
+In-Reply-To: <20260625-unique-ref-v18-3-4e06b5896d47@kernel.org>
+X-ClientProxiedBy: LO4P302CA0044.GBRP302.PROD.OUTLOOK.COM
+ (2603:10a6:600:317::10) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO2P265MB3056:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0856a34d-cd95-4a01-c4ff-08ded2bdc4f2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|7416014|376014|23010399003|10070799003|921020|4143699003|56012099006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 8LKznPTof3iVNHmP3pXSHcaUIimErZZWEGHLEfHyFR5+ov7q7GiOx3EerIZJjFd5d7Gwf5i39WIO5F91zXasIcxDKvM86dvryOhmlr42eq2LneL3TFW2ncB7iFBe3ZfKcgts3vhsQqJIjdn0/OrVcbDnvtyMovlnyFg6T3LOiQ9ed7s+ZWKuJzQnfJ7ZkjEFvAPNRyTrjNkUvWYiueicko+pFZKKXdL3fGCLFIVv4FakupZWPqFXOhoABifUrIQ/ZzbmlXwknj9qoO2DOYrQl0OQ0pa4y+oOstu46gAMgLY/E9ro2RaJE90dryyXMGDqTxFuk8vuRgjQFJ8jguZ2y0Hm4uhqsm9goETir5nj3yu4N3EvCsZtM9KmcJ7v6YJhULW80yPITLkd6cDeYtOZ3Ejh3ddnDvB25Fiv4zU7xVV2OH+CbQMuhYme5P+EOxXlQE0Gcrcj5YHQ6AOcoLDF1tnF6tLK3YIbEaKGQLBmPIbRsxTsiRRPh/Y13wLFRNaDjMaktgqCk+Kj8eFO4SvEZczAxgdMXdlU2/qyFO5cvj5FXuCf7riZA9tM+sUS1iJg5Ebdrg0s9qd1zXdwoHsarmewP7pFxQ1yuoQju2HXnb3ott+puBDW77etV6nx/qsyDW+djyzYYEyWzh2FiWI8YemE+P8lZ86crOu0581ieWlSaQdcusWzfOnqTt58RS53bG4xXzcy3BXYXoGdQJWfSg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(10070799003)(921020)(4143699003)(56012099006)(6133799003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eDg5VGs5bWdjei9HNC9pSkxXdXVSNXNra0Z0ekNPbmtRTUR1WUJRVGNsQ0tp?=
+ =?utf-8?B?bXhLYm42UWpockU0RjMvaXU0aXdwTVYxZDRtU0YycnZON0dKMDFzVDRKQ1N6?=
+ =?utf-8?B?QVNJbmRiY09yRDNLSmtQU3ZiS09pMmU2NUNWS0lTTmlGKzAwOHBlcjUwalVM?=
+ =?utf-8?B?MlhlcmVsMTdEbTB6RzY5NFI3TVYwQVRaMGNZZ2NZSjQ3KzM2bXBId0NWTzM1?=
+ =?utf-8?B?UDNGeld1VGhjN3NNWUlEVUlBdjhTZW5SRTAxSGlnbEZFY2laVHM4RkdoWkp1?=
+ =?utf-8?B?U0RQcXFmR1RkYm50Rk9Oa2ZwWGZxZHBMZlJhZ0hyUjkzNHorbEpnamp0VnFB?=
+ =?utf-8?B?TlFwalp1NHBGa09vR3kxTm05U21vWEkraDNuQURoRmt4MHVlemFjYWU3T2Jm?=
+ =?utf-8?B?MHFNVi9icS93SDJnMmdIMjRFWG4zRkN0eWNSMlpLdXhxdEVNbDZaZ0dJK2FT?=
+ =?utf-8?B?dDVvQ0pWV1VWcktGLzJaZzBjWjZnYTNpSkxMTStDWWFWbmdOUW1ORTVUSVpm?=
+ =?utf-8?B?Tit4SGVQZTdaRkFYcTkyZkdISms0YzUxNDJySGY0ZHgxUlg3UUhVcWxzZVZU?=
+ =?utf-8?B?cFhIMzIrSzlubnQ1d1ZaNHEycjMxZ1JSZG8ycVIrcms1RjgxTGhVTkRSeXVa?=
+ =?utf-8?B?Z2J4NGpIem9rUlNZNWNQbmZSVTdDNDJEZ2I5YjJyQXBiVldRaWNObkQ0TUl0?=
+ =?utf-8?B?QVhoazN3TUx4MzUwWmdHMmsxZHFWQ29weWFkd0dYQzJaU1lnZHNhdmJ6Sndy?=
+ =?utf-8?B?TzBWYXFvSklnbVpwYVk4WS9Ld3Q3NWZlT0dCUFJhU0JBRitld0F2Rk1tamdT?=
+ =?utf-8?B?S084V1pKeTQxNTQxZnFLL0lrd2xOWDZsQ1czbVNhMXhkR3JBcEx3WTBoQlI3?=
+ =?utf-8?B?bWg1ZlVmbnMyZ2VJU0VJaFZhTjdlL0lLVjlqbHlFSk8zOTFqZlhHdEZCRHph?=
+ =?utf-8?B?ak01VW5VeW9yUXBYNWZSbmo2dmU5TDJIVUVOeXk1WDhyN3dSSXo3Wk1VSVpD?=
+ =?utf-8?B?WDMycEFyandlVmh5L3crLzZERHZoZVJPZWZIR045TWtGNnoxVHlOTmFYQSs1?=
+ =?utf-8?B?M2psV3ZDa3RtS3dEUUtaUUI3RzRXN0oyN0N4bXN5VEJUWXVyTDZjWVZjSWRU?=
+ =?utf-8?B?Uk1rMjNMRlFlU2Q5bTR3QUdobnlKd0RMdVJ6eDhraXJNMTFVUkxxSEJQMXN4?=
+ =?utf-8?B?c241cWljd0s3ZVNOQ0w0QndlakEySXFlQVUrNUIvYWwxV2d1MW9sbWhSS2xS?=
+ =?utf-8?B?WWZjTmNOUnRmOEFtZlFiYWUzNndKRGc3QTg1MkJqQzBWWFBsWHJHSlBlYkdX?=
+ =?utf-8?B?aUNOUFdqYTNEZWZzTEJVTmpOYnpNN2RGOTA1cDlZWTZVUnBsd3MveDBEYjVu?=
+ =?utf-8?B?K0NmYXYwSmpMbFRLQXA2akpyaTB6TUhaVmNXaTE0anVwbzZKZ2tSVS9YTU81?=
+ =?utf-8?B?WWhzbnk4N1JWQit0OVp1T3dHWFVONTIxWEtoOXhWb0Q4RGJqb1FZdnNoM1pM?=
+ =?utf-8?B?UUR6QnUyRW8xT1hmeitGOGFZRGUxUW1BZU9tODhxVDNNSlZ6QnltVy9xNWx4?=
+ =?utf-8?B?NmM0bXJJNlpZZnVsc05JM0Q1VVp0WExFeGR3dXc3NlIwWEtyTFVaTnRJc3ox?=
+ =?utf-8?B?UEZnTGFseS8zazRSOHYxVlhVbytxL3ZxREJ2Z1dSYXJTRCs5WUZyZzQwMGpo?=
+ =?utf-8?B?T2ZsMTFHTFdvL01uYXZRTGVlUXphSTBqQnA3bjBnTDYwZG1oTnJldWVocTlh?=
+ =?utf-8?B?cmR0SEFWaUVxSzFpZ1JsYmlCMWx1aFJzOVhycU9UVnYxRGNIRHQzaFEwSVNT?=
+ =?utf-8?B?QjY1L2cvSTViZEZ6dWhDcWRJNU5TUUZXZ2FBOUFUNGtLaCt0Z3RsRVZINko4?=
+ =?utf-8?B?QjB6V29pdEZCT1hVc1YzTmpLeGx2NHliY1Y4Z2pVTU5aSzJsYm8wUUNHUzdK?=
+ =?utf-8?B?SnNVV3Q5dzFRZ2N2NmZPMkFVKzFSZTRINHNCWURWSjY1ZlQ5RmVUdVg4S3NT?=
+ =?utf-8?B?bHczNDlIUVZRNTcyeGNRbGg1bXBFNEpKRjlpVnA1WjFYZDRDaVhTVnROR3Bh?=
+ =?utf-8?B?SkJqWGVrNG5aRFZjVFhGUCtVTllIckdaZThFSTBUQnIzT2RlbWEwTU9RL25G?=
+ =?utf-8?B?NklkYUk3eXQ5U0RDTjBzTEcrbVJnSUxWLzE1MVppNDRTbEJOZ1dLSGlUSE1r?=
+ =?utf-8?B?NHJVZFAraHg5YWZZWmdZdGNZb21Nc1hrTkt1ZEMzQ3Q1WmtQaXFwUmYzQkhN?=
+ =?utf-8?B?VHNXcVpwOXd6WVVXVi91Vlpjd3M5dExxdHJUOWFlQkNpQnBtS2ErK0NRaElz?=
+ =?utf-8?B?YVdvTHRCR1RiamJaS2FOTHlMMUxaV3pJYUpuWXZWRVlpYVQ3dEQwZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0856a34d-cd95-4a01-c4ff-08ded2bdc4f2
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 13:29:22.9473 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 86WHaphtrbszSh2qs/CpBttGq4piGrJ0Sum2KFkMnXDqilF4w1V6BMKrXI6YksCIYgDUkbnLok65/SBzWkjhKQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB3056
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,62 +164,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8825=E6=
-=97=A5=E5=91=A8=E5=9B=9B 21:17=E5=86=99=E9=81=93=EF=BC=9A
+On Thu Jun 25, 2026 at 11:15 AM BST, Andreas Hindborg wrote:
+> Implement `ForeignOwnable` for `Owned<T>`. This allows use of `Owned<T>` =
+in
+> places such as the `XArray`.
 >
-> On 25/06/2026 15:14, Sunyun Yang wrote:
-> > Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=882=
-5=E6=97=A5=E5=91=A8=E5=9B=9B 20:54=E5=86=99=E9=81=93=EF=BC=9A
-> >>
-> >> On 08/05/2026 15:40, syyang@lontium.com wrote:
-> >>> +
-> >>> +static void lt9611c_reset(struct lt9611c *lt9611c)
-> >>> +{
-> >>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> >>> +     msleep(20);
-> >>> +
-> >>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> >>> +     msleep(20);
-> >>> +
-> >>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> >>
-> >> This is just plain wrong. Why do you assert, then de-assert and then
-> >> finally assert AGAIN the reset leaving the device in powerdown stage?
-> >>
-> > I am using software to emulate the hardware RESET button on our EVB.
-> > When the hardware RESET button is pressed while our chip is running,
-> > the signal level changes from HIGH to LOW and then back to HIGH.
-> >
-> > Of course, we can also use the following:
-> > static void lt9611c_reset(struct lt9611c *lt9611c)
-> > {
-> >     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> >     msleep(50);
-> >     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> >     msleep(20);
-> > }
+> Note that `T` does not need to implement `ForeignOwnable` for `Owned<T>` =
+to
+> implement `ForeignOwnable`.
 >
-> Makes no sense either and you just did not get the point and did not
-> answer my question. I asked WHY you leave asserted. Answer "we emulate"
-> is just plain wrong.
+> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+> ---
+>  rust/kernel/owned.rs | 53 ++++++++++++++++++++++++++++++++++++++++++++++=
+++++++
+>  1 file changed, 53 insertions(+)
 >
-> So again please answer:
->
-> Why do you leave device with reset asserted?
->
+> diff --git a/rust/kernel/owned.rs b/rust/kernel/owned.rs
+> index 7fe9ec3e55126..9c92d4a83cc1b 100644
+> --- a/rust/kernel/owned.rs
+> +++ b/rust/kernel/owned.rs
+> @@ -15,6 +15,8 @@
+>      ptr::NonNull, //
+>  };
+> =20
+> +use kernel::types::ForeignOwnable;
+> +
+>  /// Types that specify their own way of performing allocation and destru=
+ction. Typically, this trait
+>  /// is implemented on types from the C side.
+>  ///
+> @@ -186,3 +188,54 @@ fn drop(&mut self) {
+>          unsafe { T::release(self.ptr) };
+>      }
+>  }
+> +
+> +// SAFETY: We derive the pointer to `T` from a valid `T`, so the returne=
+d
+> +// pointer satisfy alignment requirements of `T`.
+> +unsafe impl<T: Ownable> ForeignOwnable for Owned<T> {
+> +    const FOREIGN_ALIGN: usize =3D core::mem::align_of::<T>();
+> +
+> +    type Borrowed<'a>
+> +        =3D &'a T
+> +    where
+> +        Self: 'a;
+> +    type BorrowedMut<'a>
+> +        =3D Pin<&'a mut T>
+> +    where
+> +        Self: 'a;
+> +
+> +    #[inline]
+> +    fn into_foreign(self) -> *mut kernel::ffi::c_void {
+> +        let ptr =3D self.ptr.as_ptr().cast();
+> +        core::mem::forget(self);
+> +        ptr
 
- devicetree:   reset-gpios =3D <&tlmm 128 GPIO_ACTIVE_HIGH>;
+I think the pattern in `into_raw` is better:
 
-GPIO_ACTIVE_HIGH:
+    ManuallyDrop::new(self).ptr.as_ptr().cast()
 
-gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);   ------   reset pin
-is Low level : Clear the register configuration in the chip to stop
-the chip from working.
+Or perhaps this can just use `Self::into_raw(self).as_ptr().cast()`.
 
-gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);   ------  reset pin
-is high level:  The chip resumes operation.
+> +    }
+> +
+> +    #[inline]
+> +    unsafe fn from_foreign(ptr: *mut kernel::ffi::c_void) -> Self {
+> +        // INVARIANT: By the function safety contract, `ptr` was returne=
+d by `into_foreign`, which
+> +        // gave up exclusive ownership of a valid, pinned `T`; we retake=
+ that ownership here.
+> +        Self {
+> +            // SAFETY: By function safety contract, `ptr` came from
+> +            // `into_foreign` and cannot be null.
+> +            ptr: unsafe { NonNull::new_unchecked(ptr.cast()) },
+> +        }
+> +    }
+
+Same here, could be using `Self::from_raw`.
+
+However, the current code looks correct to me regardless, so:
+
+Reviewed-by: Gary Guo <gary@garyguo.net>
+
+Best,
+Gary
+
+> +
+> +    #[inline]
+> +    unsafe fn borrow<'a>(ptr: *mut kernel::ffi::c_void) -> Self::Borrowe=
+d<'a> {
+> +        // SAFETY: By function safety requirements, `ptr` is valid for u=
+se as a
+> +        // reference for `'a`.
+> +        unsafe { &*ptr.cast() }
+> +    }
+> +
+> +    #[inline]
+> +    unsafe fn borrow_mut<'a>(ptr: *mut kernel::ffi::c_void) -> Self::Bor=
+rowedMut<'a> {
+> +        // SAFETY: By function safety requirements, `ptr` is valid for u=
+se as a
+> +        // unique reference for `'a`.
+> +        let inner =3D unsafe { &mut *ptr.cast() };
+> +
+> +        // SAFETY: We never move out of inner, and we do not hand out mu=
+table
+> +        // references when `T: !Unpin`.
+> +        unsafe { Pin::new_unchecked(inner) }
+> +    }
+> +}
 
 
-
-> Best regards,
-> Krzysztof
