@@ -4,83 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA1AECDE008
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:56:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83DE6CD4F26
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:56:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 217DF10F4BB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C442D10F4BE;
 	Fri, 26 Jun 2026 07:56:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P7R6ulXE";
+	dkim=fail reason="key not found in DNS" (0-bit key; unprotected) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="tOBLxWgM";
 	dkim-atps=neutral
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95F3710F200
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 09:45:22 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-37de8c6a2b6so1025436a91.0
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 02:45:22 -0700 (PDT)
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net
+ (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6978710E208
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 16:03:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782380722; x=1782985522; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=58+0tcE1xtERmBsdwhzofL6yvn0GjZ9wff4i+1M3Fr4=;
- b=P7R6ulXESQSFCXFENR5xpPK+AOfVJyYmpXasNRSSD3L+mfiMG+sOVxVKj+6eWC+mOc
- ElDG3S91rVDrbjd/loX9pdK35pW9PYuS3Ko5C2rq0rJcMozCgdVy5Tliap5GHzTWO/Ps
- tEV4BkyfG/ihubP2+v9UCTIWWIJFJxREet/YgMH7mMO825pUgcp8LSZNEZJwku6AqAlA
- v/z+9KJN4i2JFgcw/0dsnn74dvKnFhEuKZDQ05Zjf0cMQsloEoRUc/mvHC0l/qXmHpCX
- HiCZ8SWMzYRUMsWbBP6Hyjd5z2c6qRytqsCYyRXwtrmo9ATnN+AaxG4VHdSIkCEee195
- NEbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782380722; x=1782985522;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=58+0tcE1xtERmBsdwhzofL6yvn0GjZ9wff4i+1M3Fr4=;
- b=LFfdt6tz0Gh5+sqy63A3BUCtb+KCh9w3CGJaFYRRIr790NV8WN9RhzmHgDRaGgNlC1
- G4ccZYCQ/By69YgHJOLfzFMit0DInldpkjmk52M+tKUB1lx56H8HpDlyKL0KMg9aKiaf
- 4lPw110mYsLQQq7aHDcPz5Gwdt8Cg6syHmUpf7rvHsAohOgTUuzrTliF9VqgRQ1EiVHQ
- 2UMlXA/y0dfQzQFAXm432n4tq5AXcRnFpyjcQeQD6tpUUnCLxYPy6BkobQ3K2fs1HwZQ
- AOKHmAD68VADEBc76TZBnvyr1RCg9+WT051VRpSGSKYk/F4ot7c+xdpdVZ8yrxt1lF04
- 4izw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RojDLAyZv1mcjt9wF1+XAmGBaIoqZgljvDi7aYGSFEFZvbJUBPT35AdmE3J6qVY7jH2GZ0QcoWoSZ4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyiOHSmIJYAQO4oy2Xt9BHqMYZ+dbRtmvp8qA/kauj1WrR5rPeN
- JaLgrq/OB1DTkngKqKV83oX0n//2ikajvZcqMJUWq3Xoptm7qdhxfB/f
-X-Gm-Gg: AfdE7cne9UzZweC5jaggtBb/cTME/9UalWl9fam7ZixMcEN5mMNfinIMdh+IysuLIFt
- S5UwebjQ69D8cUUOBgN2DnVofP4olX1PjKjuVGf03FRXt1TE7WeeyTxZV/lS6ro51lmwanUg7qZ
- SppEmEpE9IKiKuVMUMJ9D4wPWvMP210J0G7oyO/80gNrIWSV5/B0aDVIxROIfE2VTXCGnIxt7bG
- A4L/+oOD/R2HYWSKeJLv29ApxYflqhVXdNE/WV070S0tbXxxLqDmpeHQBTE8uG0JjmyRRP3jqpa
- P99ZRU2S/oy2fK/8ldg0u2jX/6GPu0mpyWpE6XHs08QtyXuK15lUO4E/D73ZdLsHOrno8SJH5h+
- oD4pYlfNwpD21pJFwQeRTpuKAVMLM2QIf79fjbA4FqNc5ryochJ5MdnvxcsJ7f/HgDD2HV7By2J
- 8Fx2OvnaBLrvpTziLVnBai8NCmoxAvJK8g5LwcVPl38GWFOUHM0vnmJPTjmvH3o3sT9dVQFkpX1
- A==
-X-Received: by 2002:a17:902:fc84:b0:2c6:afd8:5704 with SMTP id
- d9443c01a7336-2c7fc632ba3mr20484605ad.4.1782380722046; 
- Thu, 25 Jun 2026 02:45:22 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c7f5ac8c26sm16614995ad.1.2026.06.25.02.45.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jun 2026 02:45:21 -0700 (PDT)
-From: Joey Lu <a0987203069@gmail.com>
-To: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH v5 7/7] drm/verisilicon: extend Kconfig to support ARCH_MA35
- platforms
-Date: Thu, 25 Jun 2026 17:44:49 +0800
-Message-ID: <20260625094449.708386-8-a0987203069@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260625094449.708386-1-a0987203069@gmail.com>
-References: <20260625094449.708386-1-a0987203069@gmail.com>
+ d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+ Message-Id:MIME-Version:Content-Transfer-Encoding; bh=T8/WLYardC
+ tv6AXvQJyez5N5S5F59yReGTMgkUtb4vY=; b=tOBLxWgMYVfYBLB/OWvGtfHPl8
+ xK5FUWZGNTZvsHlJ3brp1x8d+BZpUfzWlP0zeuBMzLZARAWPjzcYRB2cyDcbwfXW
+ khjBglHXGXJFqOTsLLVVJ4CaJPJTv8Xet8PBBEUiROGWD92IdgxdbJMvx9MLPZ4n
+ Cz529xigziL3TIpUk=
+Received: from wmy.localdomain (unknown [113.200.174.100])
+ by hzbj-edu-front-4.icoremail.net (Coremail) with SMTP id
+ BrQMCkAmTxVAUT1q3zwBAA--.5710S2; 
+ Fri, 26 Jun 2026 00:03:15 +0800 (CST)
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+To: deller@gmx.de,
+	tzimmermann@suse.de,
+	simona@ffwll.ch
+Cc: syoshida@redhat.com, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ w15303746062@163.com, Mingyu Wang <25181214217@stu.xidian.edu.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH v2] fbdev: fbcon: fix out-of-bounds read in err_out of
+ fbcon_do_set_font()
+Date: Fri, 26 Jun 2026 00:03:06 +0800
+Message-Id: <20260625160306.438847-1-25181214217@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 26 Jun 2026 07:53:42 +0000
+X-CM-TRANSID: BrQMCkAmTxVAUT1q3zwBAA--.5710S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGFW7Ww13WFWxCr1DJr1rtFb_yoW5Jw4xp3
+ y3Kw13Kr1ktr1rGa10gw4kCF15Wan7A34jqayxK345Kw15Gr4UXFW0yFyYvF98C3srXF10
+ qw1vg3s29FyDC3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUBK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+ 4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+ 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
+ rcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14
+ v_JwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v2
+ 6r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2
+ Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
+ Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMI
+ IF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUUsXo7UUUUU=
+ =
+X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgUPEWo9RfMFSgABs2
+X-Mailman-Approved-At: Fri, 26 Jun 2026 07:53:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,28 +77,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add ARCH_MA35 to the platform dependencies to allow the driver to be
-built for Nuvoton MA35D1.
+When fbcon_do_set_font() fails (e.g., due to a memory allocation failure
+inside vc_resize() under heavy memory pressure), it jumps to the `err_out`
+label to roll back the console state. However, the current rollback logic
+forgets to restore the `hi_font` state, leading to a severe state machine
+corruption.
 
-Signed-off-by: Joey Lu <a0987203069@gmail.com>
-Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Earlier in the function, `set_vc_hi_font()` might be called to change
+`vc->vc_hi_font_mask` and mutate the screen buffer. If `vc_resize()`
+subsequently fails, the `err_out` path restores `vc_font.charcount`
+but entirely skips rolling back the `vc_hi_font_mask` and the screen
+buffer.
+
+This mismatch leaves the terminal in a desynchronized state. Because
+`vc_hi_font_mask` remains set, the VT subsystem will still accept
+character indices greater than 255 from userspace and write them to the
+screen buffer. Subsequent rendering calls (e.g., `fbcon_putcs()`) will
+then use these inflated indices to access the reverted, 256-character
+font array, leading to a deterministic out-of-bounds read and potential
+kernel memory disclosure.
+
+Fix this by adding the missing rollback logic for the `hi_font` mask
+and screen buffer in the error path.
+
+Fixes: a5a923038d70 ("fbdev: fbcon: Properly revert changes when vc_resize() failed")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/verisilicon/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/video/fbdev/core/fbcon.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/verisilicon/Kconfig b/drivers/gpu/drm/verisilicon/Kconfig
-index 7cce86ec8603..295d246eb4b4 100644
---- a/drivers/gpu/drm/verisilicon/Kconfig
-+++ b/drivers/gpu/drm/verisilicon/Kconfig
-@@ -2,7 +2,7 @@
- config DRM_VERISILICON_DC
- 	tristate "DRM Support for Verisilicon DC-series display controllers"
- 	depends on DRM && COMMON_CLK
--	depends on RISCV || COMPILE_TEST
-+	depends on RISCV || ARCH_MA35 || COMPILE_TEST
- 	select DRM_BRIDGE_CONNECTOR
- 	select DRM_CLIENT_SELECTION
- 	select DRM_DISPLAY_HELPER
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 9077d3b99357..37beb93045af 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -2405,6 +2405,7 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	int resize, ret, old_width, old_height, old_charcount;
+ 	font_data_t *old_fontdata = p->fontdata;
+ 	const u8 *old_data = vc->vc_font.data;
++	unsigned short old_hi_font_mask = vc->vc_hi_font_mask;
+ 
+ 	font_data_get(data);
+ 
+@@ -2451,6 +2452,12 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	vc->vc_font.height = old_height;
+ 	vc->vc_font.charcount = old_charcount;
+ 
++	/* Restore the hi_font state and screen buffer */
++	if (old_hi_font_mask && !vc->vc_hi_font_mask)
++		set_vc_hi_font(vc, true);
++	else if (!old_hi_font_mask && vc->vc_hi_font_mask)
++		set_vc_hi_font(vc, false);
++
+ 	font_data_put(data);
+ 
+ 	return ret;
 -- 
-2.43.0
+2.34.1
 
