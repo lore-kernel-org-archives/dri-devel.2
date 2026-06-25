@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32917CDB466
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 09:37:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D74D1CDB47F
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 09:37:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5098110F1EB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4BCC10F1FB;
 	Thu, 25 Jun 2026 09:37:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="GxrcRRAN";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="keaMqzxd";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63A4110F1F8
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 09:36:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB19310F1E3
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 09:36:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782380196;
- bh=lRfyHE64wZe5ThrgGum2pqCF6QCFyLha7tJhq2fQATY=;
+ s=mail; t=1782380194;
+ bh=RMYZKivovEOOsKi51GYB10RFfeZO58K7MGXJlOsglUo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=GxrcRRANv/y9r81D5fDb2a4QIkevVdFPwUuKuZMa0wj53BSm6SB7RsksPNIWnx9RI
- SKp17H0HGvebd/VvI7h7gaJtHKdrw+hmXR0JykEJ3VEZUq0mCdX6Qo5VtRqPfvA76p
- d+ya7AxMinOV4GIef35g9f5H7bDBeR4drRa2vhNaVmR0yXJFbF7+7RMG3Ry5Eic8Zs
- gpF1vrem5y7Il9P1S4UHDrmERzyW6iB2RS8vrPlFy5J70d3DB6/c2xDghlVkz6lbvx
- 3xCc6VAWVpBivx+Bo7LFTU/EpH5uwMSkhoTEwKaecXHOOXqhTWRU7m/5CksoJpTdmV
- ITZZShohclZFQ==
+ b=keaMqzxdf7SjZpFPcMgJkhSh/l2AQaLEFadaI9DUhD5qlWLuWNaNdHuHAU4u964zb
+ 0nVRKneKVxyDqryfOBfdE/bS95V/3GcxkbiE82beXhiSfOiidvPDMKSn+la77wFSKb
+ 1leh7Qdn2+Df67Gw9wf6dJVEYLlOHVkxtAtVNhfxUOBl+y5bRM7sBF1F6WmG9tA8+f
+ MBg45nsYbIRZfsJTeaFLDlVxVoOYWL6Gkens91BHrflK8fhzdDu/cmqWdlx8Wgggk4
+ 7iGGxY+Fb/fVios85qwhsWuKgO440edKAjGpmk8ZRLmtR8alAmk0avq7sWWLEG7SZi
+ ymaUkjOC7Hxqg==
 Received: from fedora-2.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id BB98A17E120F;
- Thu, 25 Jun 2026 11:36:35 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 0F67717E1553;
+ Thu, 25 Jun 2026 11:36:34 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 25 Jun 2026 11:36:29 +0200
-Subject: [PATCH v5 14/16] drm/panthor: Don't defer job completion checks
+Date: Thu, 25 Jun 2026 11:36:26 +0200
+Subject: [PATCH v5 11/16] drm/panthor: Don't update might_have_idle_groups
+ in process_idle_event_locked()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-panthor-signal-from-irq-v5-14-8836a74e0ef9@collabora.com>
+Message-Id: <20260625-panthor-signal-from-irq-v5-11-8836a74e0ef9@collabora.com>
 References: <20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com>
 In-Reply-To: <20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
@@ -49,11 +50,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782380187; l=7776;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782380187; l=985;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=lRfyHE64wZe5ThrgGum2pqCF6QCFyLha7tJhq2fQATY=;
- b=2QuAZKN+CldfzQ9DmiT1Z7HE4geuZAHjElOtqYKVH+28NNi1Ve3GOmp+BolF73AEEKY5Y2WdP
- QV2tylRvwQjC1tChVJ4Yl+kt8wnFJ8TcIsdtchR+edC+TpnmeMpAL2s
+ bh=RMYZKivovEOOsKi51GYB10RFfeZO58K7MGXJlOsglUo=;
+ b=kh2qs7Nvx6FseCkjhfs+H5fS19LaYxsfs1i+WjKM4BBwG+Q1HYYLevDP4BbQfdp3Z8MLdjsoJ
+ xkTTpCV1pCaA7+N9At/oPZqs9oTpxs57jH/mOp0ZEE9wNYLXiNGdh7L
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -71,242 +72,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Call group_check_job_completion() directly from
-csg_slot_sync_update_locked() instead of deferring it.
+By scheduling an immediate tick, we already force idleness re-evaluation,
+which gives the scheduler the opportunity to evict idle groups
+and schedule onces that have jobs pending.
 
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_sched.c | 182 +++++++++++++++-----------------
- 1 file changed, 87 insertions(+), 95 deletions(-)
+ drivers/gpu/drm/panthor/panthor_sched.c | 2 --
+ 1 file changed, 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index 2ef6c4f19388..eea80121212f 100644
+index 237f6a75e624..a5dfb1beafff 100644
 --- a/drivers/gpu/drm/panthor/panthor_sched.c
 +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -697,9 +697,6 @@ struct panthor_group {
- 	 */
- 	struct panthor_kernel_bo *protm_suspend_buf;
+@@ -1734,8 +1734,6 @@ static void csg_slot_process_idle_event_locked(struct panthor_device *ptdev, u32
  
--	/** @sync_upd_work: Work used to check/signal job fences. */
--	struct work_struct sync_upd_work;
--
- 	/** @tiler_oom_work: Work used to process tiler OOM events happening on this group. */
- 	struct work_struct tiler_oom_work;
+ 	lockdep_assert_held(&sched->lock);
  
-@@ -1763,6 +1760,92 @@ static void csg_slot_process_idle_event_locked(struct panthor_device *ptdev, u32
- 	sched_queue_delayed_work(sched, tick, 0);
- }
- 
-+static void update_fdinfo_stats(struct panthor_job *job)
-+{
-+	struct panthor_group *group = job->group;
-+	struct panthor_queue *queue = group->queues[job->queue_idx];
-+	struct panthor_gpu_usage *fdinfo = &group->fdinfo.data;
-+	struct panthor_job_profiling_data *slots = queue->profiling.slots->kmap;
-+	struct panthor_job_profiling_data *data = &slots[job->profiling.slot];
-+
-+	scoped_guard(spinlock_irqsave, &group->fdinfo.lock) {
-+		if (job->profiling.mask & PANTHOR_DEVICE_PROFILING_CYCLES)
-+			fdinfo->cycles += data->cycles.after - data->cycles.before;
-+		if (job->profiling.mask & PANTHOR_DEVICE_PROFILING_TIMESTAMP)
-+			fdinfo->time += data->time.after - data->time.before;
-+	}
-+}
-+
-+static bool queue_check_job_completion(struct panthor_queue *queue)
-+{
-+	struct panthor_syncobj_64b *syncobj = NULL;
-+	struct panthor_job *job, *job_tmp;
-+	bool cookie, progress = false;
-+	LIST_HEAD(done_jobs);
-+
-+	cookie = dma_fence_begin_signalling();
-+	spin_lock(&queue->fence_ctx.lock);
-+	list_for_each_entry_safe(job, job_tmp, &queue->fence_ctx.in_flight_jobs, node) {
-+		if (!syncobj) {
-+			struct panthor_group *group = job->group;
-+
-+			syncobj = group->syncobjs->kmap +
-+				  (job->queue_idx * sizeof(*syncobj));
-+		}
-+
-+		if (syncobj->seqno < job->done_fence->seqno)
-+			break;
-+
-+		list_move_tail(&job->node, &done_jobs);
-+		dma_fence_signal_locked(job->done_fence);
-+	}
-+
-+	if (list_empty(&queue->fence_ctx.in_flight_jobs)) {
-+		/* If we have no job left, we cancel the timer, and reset remaining
-+		 * time to its default so it can be restarted next time
-+		 * queue_resume_timeout() is called.
-+		 */
-+		queue_suspend_timeout_locked(queue);
-+
-+		/* If there's no job pending, we consider it progress to avoid a
-+		 * spurious timeout if the timeout handler and the sync update
-+		 * handler raced.
-+		 */
-+		progress = true;
-+	} else if (!list_empty(&done_jobs)) {
-+		queue_reset_timeout_locked(queue);
-+		progress = true;
-+	}
-+	spin_unlock(&queue->fence_ctx.lock);
-+	dma_fence_end_signalling(cookie);
-+
-+	list_for_each_entry_safe(job, job_tmp, &done_jobs, node) {
-+		if (job->profiling.mask)
-+			update_fdinfo_stats(job);
-+		list_del_init(&job->node);
-+		panthor_job_put(&job->base);
-+	}
-+
-+	return progress;
-+}
-+
-+static void group_check_job_completion(struct panthor_group *group)
-+{
-+	u32 queue_idx;
-+	bool cookie;
-+
-+	cookie = dma_fence_begin_signalling();
-+	for (queue_idx = 0; queue_idx < group->queue_count; queue_idx++) {
-+		struct panthor_queue *queue = group->queues[queue_idx];
-+
-+		if (!queue)
-+			continue;
-+
-+		queue_check_job_completion(queue);
-+	}
-+	dma_fence_end_signalling(cookie);
-+}
-+
- static void csg_slot_sync_update_locked(struct panthor_device *ptdev,
- 					u32 csg_id)
- {
-@@ -1772,7 +1855,7 @@ static void csg_slot_sync_update_locked(struct panthor_device *ptdev,
- 	lockdep_assert_held(&ptdev->scheduler->events_lock);
- 
- 	if (group)
--		group_queue_work(group, sync_upd);
-+		group_check_job_completion(group);
- 
- 	sched_queue_work(ptdev->scheduler, sync_upd);
- }
-@@ -3044,22 +3127,6 @@ void panthor_sched_post_reset(struct panthor_device *ptdev, bool reset_failed)
- 	}
- }
- 
--static void update_fdinfo_stats(struct panthor_job *job)
--{
--	struct panthor_group *group = job->group;
--	struct panthor_queue *queue = group->queues[job->queue_idx];
--	struct panthor_gpu_usage *fdinfo = &group->fdinfo.data;
--	struct panthor_job_profiling_data *slots = queue->profiling.slots->kmap;
--	struct panthor_job_profiling_data *data = &slots[job->profiling.slot];
+-	sched->might_have_idle_groups = true;
 -
--	scoped_guard(spinlock, &group->fdinfo.lock) {
--		if (job->profiling.mask & PANTHOR_DEVICE_PROFILING_CYCLES)
--			fdinfo->cycles += data->cycles.after - data->cycles.before;
--		if (job->profiling.mask & PANTHOR_DEVICE_PROFILING_TIMESTAMP)
--			fdinfo->time += data->time.after - data->time.before;
--	}
--}
--
- void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile)
- {
- 	struct panthor_group_pool *gpool = pfile->groups;
-@@ -3080,80 +3147,6 @@ void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile)
- 	xa_unlock(&gpool->xa);
- }
- 
--static bool queue_check_job_completion(struct panthor_queue *queue)
--{
--	struct panthor_syncobj_64b *syncobj = NULL;
--	struct panthor_job *job, *job_tmp;
--	bool cookie, progress = false;
--	LIST_HEAD(done_jobs);
--
--	cookie = dma_fence_begin_signalling();
--	spin_lock(&queue->fence_ctx.lock);
--	list_for_each_entry_safe(job, job_tmp, &queue->fence_ctx.in_flight_jobs, node) {
--		if (!syncobj) {
--			struct panthor_group *group = job->group;
--
--			syncobj = group->syncobjs->kmap +
--				  (job->queue_idx * sizeof(*syncobj));
--		}
--
--		if (syncobj->seqno < job->done_fence->seqno)
--			break;
--
--		list_move_tail(&job->node, &done_jobs);
--		dma_fence_signal_locked(job->done_fence);
--	}
--
--	if (list_empty(&queue->fence_ctx.in_flight_jobs)) {
--		/* If we have no job left, we cancel the timer, and reset remaining
--		 * time to its default so it can be restarted next time
--		 * queue_resume_timeout() is called.
--		 */
--		queue_suspend_timeout_locked(queue);
--
--		/* If there's no job pending, we consider it progress to avoid a
--		 * spurious timeout if the timeout handler and the sync update
--		 * handler raced.
--		 */
--		progress = true;
--	} else if (!list_empty(&done_jobs)) {
--		queue_reset_timeout_locked(queue);
--		progress = true;
--	}
--	spin_unlock(&queue->fence_ctx.lock);
--	dma_fence_end_signalling(cookie);
--
--	list_for_each_entry_safe(job, job_tmp, &done_jobs, node) {
--		if (job->profiling.mask)
--			update_fdinfo_stats(job);
--		list_del_init(&job->node);
--		panthor_job_put(&job->base);
--	}
--
--	return progress;
--}
--
--static void group_sync_upd_work(struct work_struct *work)
--{
--	struct panthor_group *group =
--		container_of(work, struct panthor_group, sync_upd_work);
--	u32 queue_idx;
--	bool cookie;
--
--	cookie = dma_fence_begin_signalling();
--	for (queue_idx = 0; queue_idx < group->queue_count; queue_idx++) {
--		struct panthor_queue *queue = group->queues[queue_idx];
--
--		if (!queue)
--			continue;
--
--		queue_check_job_completion(queue);
--	}
--	dma_fence_end_signalling(cookie);
--
--	group_put(group);
--}
--
- struct panthor_job_ringbuf_instrs {
- 	u64 buffer[MAX_INSTRS_PER_JOB];
- 	u32 count;
-@@ -3721,7 +3714,6 @@ int panthor_group_create(struct panthor_file *pfile,
- 	INIT_LIST_HEAD(&group->wait_node);
- 	INIT_LIST_HEAD(&group->run_node);
- 	INIT_WORK(&group->term_work, group_term_work);
--	INIT_WORK(&group->sync_upd_work, group_sync_upd_work);
- 	INIT_WORK(&group->tiler_oom_work, group_tiler_oom_work);
- 	INIT_WORK(&group->release_work, group_release_work);
- 
+ 	/* Schedule a tick so we can evict idle groups and schedule non-idle
+ 	 * ones. This will also update runtime PM and devfreq busy/idle states,
+ 	 * so the device can lower its frequency or get suspended.
 
 -- 
 2.54.0
