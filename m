@@ -4,76 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9C4DCDB466
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:03:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBFEFCDE007
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:03:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EEC810F13D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB23810F142;
 	Thu, 25 Jun 2026 07:03:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=fastmail.org header.i=@fastmail.org header.b="MFBx5/t3";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="aXKg3ZQb";
+	dkim=permerror (0-bit key) header.d=fastmail.org header.i=@fastmail.org header.b="KrzK3w2D";
+	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VoHavp4c";
 	dkim-atps=neutral
-Received: from flow-a3-smtp.messagingengine.com
- (flow-a3-smtp.messagingengine.com [103.168.172.138])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A2D088697
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 21:11:39 +0000 (UTC)
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
- by mailflow.phl.internal (Postfix) with ESMTP id C546313806D7;
- Wed, 24 Jun 2026 17:11:38 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-07.internal (MEProxy); Wed, 24 Jun 2026 17:11:38 -0400
+Received: from flow-a5-smtp.messagingengine.com
+ (flow-a5-smtp.messagingengine.com [103.168.172.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50A2010E16E
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 04:13:17 +0000 (UTC)
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailflow.phl.internal (Postfix) with ESMTP id 6782A13803BC;
+ Thu, 25 Jun 2026 00:13:16 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-05.internal (MEProxy); Thu, 25 Jun 2026 00:13:16 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
  cc:content-type:content-type:date:date:from:from:in-reply-to
  :message-id:mime-version:reply-to:subject:subject:to:to; s=fm1;
- t=1782335498; x=1782339098; bh=HLvIbEEh4LRcXndYsesxCx6snQfBdL+u
- rW4VdjcGabI=; b=MFBx5/t3bDYp1v4eLJ0wdxfgxFFCywm49fVzIiIfFZm1nPJ7
- vuxMwsb/CdAYXSB8O/7pJJitubIPZx+IaQXiPrPUwft/oT1Km6e4EWrBx1gMFb7J
- IOQM11kK7keQfklGc7/eOAw3hdPaAx5zZ0Qaekzl8wkyATwsgGi3pEmFMyVdf7p5
- r6cmanEsPcHr1bzwUpnE5Qo09R3kCXg7Zl05BDK4k5hVZhuP8Ifv7vXTDZSiBu/y
- 6yzf05RbMT8n/BxWEvF5NsEIjUwYUZ11rew7rCKe9K/l0W9dp3YREnO8/ZGc4rGA
- vn97VYGLJsQan4UtCpLbaDmcBrlI3xYMzR3IqQ==
+ t=1782360796; x=1782364396; bh=oIov2InzFrXnsVaxp1cxfQru10Cyooue
+ 4oYFo+7Wk7k=; b=KrzK3w2DKxlOenpxJAYpTHLM9ErKVFlS5Caxf1zO+H45fo+w
+ 7iIVyhDf8b0jutCASaH9wZ0Rwoo69XdkOeHIBRBM8bjKdbZmDJHxjZgP29CNggkr
+ i0V4MdcVVPSL9AAwF/yHRkF0wX2hEG2ti3Snbe9QPvl8uIDcg1ys3ReeX80zZ3ec
+ ZvADrXmu2LpgGRE3b6dWL9ysnwcXPQDfaWR8tCYLteKV/MWaDF55SiVY4kkZTzLz
+ RTxO06hbY7CBjcedH83QPWlmT3Q1k68a3+u1gPKgIwNRAYW92YDxEtUdaTyRSYRQ
+ YbxswP/zg33EHJeJDrN9VN3jPAWi8yjBaUuK/g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:content-type:date:date
  :feedback-id:feedback-id:from:from:in-reply-to:message-id
  :mime-version:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1782335498; x=
- 1782339098; bh=HLvIbEEh4LRcXndYsesxCx6snQfBdL+urW4VdjcGabI=; b=a
- XKg3ZQbnXTZwQRCFg2XqvVo6IBgR0dkKRqheaJKiI5UNhsyf9+ZqCUO1+Nsv3Psj
- JC3jUSisdi9Wrf9glUBy+uauWNge1ciFpAyifOUA5cd73QFe/IjiqRj1b2PLsHtm
- GCIupW9p1HXinriB6DVSvOYsI+ffBYT9bjSJbinLV3Y5sdk8qliDawglKRvbG9gv
- uABoubV4sYPiO8LtE2x0ptZE+enrOfeK+OaiHxJ2JawMNUj6U8pELp2aeOziaKO1
- tHCQBFlc8t9uGitA6zbuKLznx8tbxaey3ZkSe/tBVBOVCjBUoqlxiHxJNVSFjR9V
- NmXsnQCim0lK2qiHyKkMw==
-X-ME-Sender: <xms:Ckg8aibLDL6qVcZMY67fHExBIFJPLCKOGe1F3PpFUfj_dEmV4j410Q>
- <xme:Ckg8agXCLjRKQZvmYlOm1KoIzk7Q16XVvWTj6NY-2KVb3bTuzpUaHjr3736zm_Vqz
- pRYb6Bqm6FWSdgItMeOLOvXfLitULafP2kyf0wg5BGN9I88l0OWJyZ6>
-X-ME-Received: <xmr:Ckg8ar-Q3XoSIX-QVEXeo9mVKqCyMRD2NJmeD8l6BxwHDlc4LKEX9jsXLiA>
-X-ME-Proxy-Cause: dmFkZTEoJUJZAbIrMiuSeodSbMwEfc4MOjLc8W4PcGDO69zM/tp1kxpSFKNl05EZ+oYspp
- 9s5vDWghVzHBTnV+6rRNv2VDSyt8wl9UPm9OTDQPsenMFy4zHsUa6UijWeXrH/MFHm6z/T
- kDtDDwk7nXVSNYBpHua5sIQYeN9Pu6vaXlyfA1RSmY1DoXmA823EcoLjVZ0IrVaSgkbKc4
- cn2HD3hK3axHZi0AKBEuquYDzX9JY+BAC05NcRLYkoqjtMQsycOBmFS6pu3k5cyuNkk6Og
- zFzFWJQzGuFlLbMdLWYiC4RhWzrhzOk6TyRD04nrUyE4IgGNQpRzTG3jTNUCOKhnaL4zWs
- Z5LPENRPZAOQTb5hw/zUecu+URwE4BDoM/Fx5UBZC7e90eeKAF6ODKWBjbrNw3M3AT9iiK
- 8D8ONuTAF3XmDbXg4yB1WlpBWXwCIHrmStOHwMlV8rnFxcBRlUDiawY7pFdgOBjxYGs+R8
- mTNEphw6ts8io0Mny1EFp+R/gMGOt9/G7BGvuAQtBBKJif7lV4vtS7V6tVKQkDMPjCrDUl
- PhH7/aLTFvmEsCNPrGGP2qP0gK2XyJqjiQztDPJ1A0yKszDWGmQizFbq9CK5O19M2gjqe8
- jO5b1kDzPJ9W6tD/CiedCHnrZK7lesyygYeO11MxQmw4nYy91k4sA+CfdMVQ
-X-ME-Proxy: <xmx:Ckg8ap8_RHHF5hchWpNVSuTF3MupdNfvB9FlMZue9FMuk5Yjx8LNLA>
- <xmx:Ckg8arTMD_9uxo6uSofBVVHF8zKHVx2_dTL-E2K_UzPLaUep8NYPNA>
- <xmx:Ckg8atdOQygom_5CoLGH5KEZUuPlXYdw83WlY-iwzgRVrMOo6P6Zhw>
- <xmx:Ckg8avCPZgWj3Pj3Q7U-O14oD6-9UmWDmFevBMfjtO-J-eAZDFqslw>
- <xmx:Ckg8atCKT2eaGq88AfJqwn6JbCiFq0RwZUaPRj9vSRZOSzLfNXgt_62A>
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1782360796; x=
+ 1782364396; bh=oIov2InzFrXnsVaxp1cxfQru10Cyooue4oYFo+7Wk7k=; b=V
+ oHavp4ctilH55rRx19FnNJlt2S1fUBJ43KKBoXKhPqSvi0vPxOiVKho8ye6DDAeg
+ cnPfureFbJI77vaVQDaKlVBgpsglAzW3vn2PYpTUOmGSOFY8hX3eNaGRTU1jIgg0
+ 7Pi5R8d6I5/P0k6GLybsQVtkzO5FeBg1HETSG+oXm6iRcSV0Nan1pLry1mWbHwxN
+ SnOlRaRVm76xMnWJk0MpurSh/oUElY/z+0nV1CjRjYsAK+wU7200XKLTJU2wT0b2
+ dR4HeScN9Zn4bMIBbiAL+/MdVmjOfidigLNn0wcDUSaJ4T7uCJPeQg/JaY4I9SJE
+ 9ragUg6u9ls83A+yt1g4g==
+X-ME-Sender: <xms:3Ko8aj3LThjdokhwSNQo3yjsSeLrz2yJDD5RaC6r_Rvd2QTWDYslSg>
+ <xme:3Ko8arCwXWrEAUWKUeSF8vW-j4UTFgbQi7Ew0YOcsW55LfRwbcdgtN1b6vmzLuPjX
+ D6T2kyrPLnohemDDTSOLfDQvLaFmorghaNJvpRi62bAJt7Ojkg803c>
+X-ME-Received: <xmr:3Ko8aveiG087GwMF-wRrfvar51ljffeShJiRPK7Y294hSvvZMlQpvtWOE0s>
+X-ME-Proxy-Cause: dmFkZTFFDB7hD4CYMJYInpomOqdKSTXPf1B9fZNTsvQHvPJKV2pMaM6uhg4aZF2l9g7Wqi
+ 0BkvuDexx3wnoF1UlBS/yVt75HgPvZh2aNB5ISjgaZ2V/n2EVyDcSGKHnwDfRkA7YCSMEa
+ C2dg6dX0b5tMSPkHx+iBRIT8HjPmdMsp1/SZMVRw/IoIHutCl8FnncI2ikijbClOw4/4Pq
+ Frra+ShyAhLTmnUy58ziFg3bo0WQIJV69RQgAMN4GDl2gkC7i9F7ZO7yESTONGxg15hCdF
+ VZ4+0miwQmCG2uE5jjkA5E5Ejo6gQk8LR6NshEiFDXzypqD6cQDNDJwBgcosIIswGlb8Ne
+ 1z68qiYw0fNwyEH8c/Tjd87jotovmvSILACF9nejwEGMR+IkOtAfHVxwTZ2PbmKslKusNF
+ TCt9p8dZzQ8v2zMqiWIBBmQNBnFIXqb2iHKy2pVtwpBaNm6BXxXS7JkyJlbFD0YQyLzrJ/
+ f0w3zojbsz283FOV2TH5bYyFigZaU1ZYr+MYNdxWJevP36dXxtAuLTmMdnFpQ7yTL2PedB
+ R32S7VvCuXgVG3OboAQG3gknUuxk+KCuHa4XnPyhnKb8UWl1FEcB2BdLM2vuSQ4L//hy3I
+ hv4csw87oygv0jZwOIWa8TrcArJL0VbpLW7TqE+Do2JIOInSgSSODz+bWWVg
+X-ME-Proxy: <xmx:3Ko8ao6OU-hPHxVT38Pkd2rOZKhmnXEJDLTtRLkCC7uAeJRoo_-M0w>
+ <xmx:3Ko8aiWhUtX5lK1ShLzg-SyOnemqOq1jmVZCaCzVHmdecMPPtxnHFg>
+ <xmx:3Ko8an5K_5iVny4Snuz0c4VsxFLO0UkyqVoe-gI00S7TmfIrQ1D38A>
+ <xmx:3Ko8atq6PdgFzl_AeiGUiI5gvoB_YilGeeud4tEyF8cT2vKmURge-w>
+ <xmx:3Ko8as8u-VwL5k_gdk6IPKYSFOUnXHirWe6wpQhBKVjSb8Z42kWTtZVI>
 Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 24 Jun 2026 17:11:37 -0400 (EDT)
-Date: Wed, 24 Jun 2026 16:11:36 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 25 Jun 2026 00:13:15 -0400 (EDT)
+Date: Wed, 24 Jun 2026 23:13:12 -0500
 From: Ian Bridges <icb@fastmail.org>
-To: Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] fbcon: fix NULL pointer dereference for a console without
- vc_data
-Message-ID: <ajxICA0v-_5NrqhS@dev>
+To: Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] fbdev: Fix fb_new_modelist to prevent null-ptr-deref in
+ fb_videomode_to_var
+Message-ID: <ajyq2Fr-2fMfftGC@dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
@@ -93,106 +93,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-fbcon_new_modelist() runs when a framebuffer's modelist changes. For each
-console mapped to it with fb_display[i].mode set, it reads vc_cons[i].d and
-passes the vc_num to fbcon_set_disp(). This assumes a console with a mode
-set has a vc_data, but it can be NULL. fbcon_set_disp() sets
-fb_display[i].mode before it checks vc_data, and fbcon_deinit() leaves the
-mode set after the vc_data is freed. fbcon_new_modelist() then dereferences
-the NULL vc_data.
+info->var, a framebuffer's current mode, is expected to have a matching
+entry in info->modelist. var_to_display() relies on this and treats a
+failed fb_match_mode() as "This should not happen". fb_set_var() keeps it
+true by adding the mode to the list on every change, and
+do_register_framebuffer() does the same at registration.
 
-Keep fb_display[i].mode set only while the console has a vc_data. Check
-vc_data before setting the mode in fbcon_set_disp(), and clear the mode in
-fbcon_deinit(). The existing mode check in fbcon_new_modelist() then skips
-such consoles.
+store_modes() replaces the modelist from userspace. fb_new_modelist()
+validates the new modes but does not check that info->var still has a
+match. It relies on fbcon_new_modelist() to re-point consoles, but that
+only handles consoles mapped to the framebuffer. With fbcon unbound there
+are none, so info->var is left describing a mode that is no longer in the
+list.
 
-Reported-by: syzbot+42525d636f430fd5d983@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=42525d636f430fd5d983
+A later console takeover runs var_to_display(), where fb_match_mode()
+returns NULL and leaves fb_display[i].mode NULL. fbcon_switch() passes it
+to display_to_var(), and fb_videomode_to_var() dereferences the NULL mode.
+
+Keep the current mode in the list in fb_new_modelist(), the same way
+fb_set_var() does.
+
 Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Ian Bridges <icb@fastmail.org>
 ---
-This patch fixes a NULL pointer dereference in the framebuffer console code.
-fbcon_new_modelist() dereferences a NULL vc_data. It was found while writing
-a reproducer for a separate use-after-free in store_modes(). Sashiko
-independently flagged the same dereference in its review of the fix for that
-use-after-free [1].
+This patch fixes a NULL pointer dereference in fb_videomode_to_var(), reached
+through the framebuffer console. The fix is in fb_new_modelist(). Sashiko
+flagged this dereference while reviewing the fix for a separate NULL pointer
+dereference in fbcon_new_modelist() [1].
 
-The dereference happens when a console has fb_display[i].mode set but no
-vc_data, and the modelist is then replaced, as follows.
+The dereference happens when a framebuffer's current mode is dropped from its
+modelist while fbcon is unbound, and a console is then taken over onto it, as
+follows.
 
-1. A console ends up with fb_display[i].mode set while vc_cons[i].d is NULL.
-   Either fbcon_set_disp() sets the mode (fbcon.c:1446) before it checks
-   vc_data, so mapping an unused console with FBIOPUT_CON2FBMAP leaves the
-   mode set, or fbcon_deinit() (fbcon.c:1268) frees the vc_data but keeps the
-   mode.
-2. A write to the modes attribute calls store_modes() (fbsysfs.c:91), which
-   replaces the modelist and calls fb_new_modelist() (fbsysfs.c:108).
-3. fb_new_modelist() calls fbcon_new_modelist() (fbmem.c:770).
-4. fbcon_new_modelist() walks the consoles mapped to the framebuffer, takes
-   vc = vc_cons[i].d for the one with the mode set, and reads vc->vc_num with
-   vc NULL (fbcon.c:3046). This is a NULL pointer dereference.
+1. With fbcon unbound, a write to the modes attribute calls store_modes()
+   (fbsysfs.c:91), which replaces the modelist and calls fb_new_modelist()
+   (fbsysfs.c:108). fb_new_modelist() (fbmem.c:746) validates the new modes but
+   does not keep info->var in the list, and the fbcon_new_modelist() it calls
+   (fbmem.c:770) only re-points consoles mapped to the framebuffer. With fbcon
+   unbound there are none, so info->var is left describing a mode no longer in
+   the list.
+2. Mapping a console with FBIOPUT_CON2FBMAP takes the framebuffer over,
+   set_con2fb_map() -> do_fbcon_takeover() (fbcon.c:930).
+3. The takeover initialises the console, fbcon_init() -> var_to_display()
+   (fbcon.c:1113). fb_match_mode() finds no entry for info->var, so
+   var_to_display() leaves fb_display[i].mode NULL (fbcon.c:988).
+4. The takeover switches to the console, fbcon_switch() -> display_to_var()
+   (fbcon.c:2181), and fb_videomode_to_var() reads the NULL mode
+   (modedb.c:905). This is a NULL pointer dereference.
 
-This patch does not change that line:
+The faulting line is not touched by this patch:
 
-    fbcon_set_disp(info, &var, vc->vc_num);
+    var->xres = mode->xres;
 
-vc is vc_cons[i].d, which is NULL.
+mode is the fb_display[i].mode passed by display_to_var(). Instead of guarding
+this read, the patch keeps info->var in the modelist in fb_new_modelist(),
+so the mode is never NULL here.
 
-syzbot reported the same crash, with the call stack store_modes() ->
-fb_new_modelist() -> fbcon_new_modelist() [2]. That report had no reproducer
-and was closed as obsolete.
+The same dereference, fb_videomode_to_var() on a NULL mode, was fixed twice
+before, by CVE-2025-38214 in fb_set_var() and CVE-2025-38215 in
+do_register_framebuffer(). Both keep info->var in the modelist, and both are
+already in this base. This bug reaches the same line through a different
+path, a modelist replacement, and this fix keeps info->var in the list
+the same way.
 
-It reproduces on a KASAN kernel with two framebuffers, two ways:
+It reproduces on a KASAN kernel with two framebuffers:
 
-1. Map an unused console to one framebuffer and back to the other with
-   FBIOPUT_CON2FBMAP, then write a modelist to that framebuffer's modes
-   attribute.
-2. Open and close /dev/ttyN, then write a modelist to its framebuffer's
-   modes attribute.
+1. Unbind fbcon, so the store in step 3 does not re-sync the mode.
+2. Set a video mode on fb0 with FBIOPUT_VSCREENINFO.
+3. Write a different modelist to /sys/class/graphics/fb0/modes, so the mode
+   from step 2 is no longer in the modelist.
+4. Map a console to fb0 with FBIOPUT_CON2FBMAP. With fbcon unbound this takes
+   fb0 over, sets the console mode to NULL (the mode is not in the modelist),
+   and switches to the console.
 
 The reproducer was written with the help of a coding agent (Claude Code). The
 patch is against commit 3726ce7f6cef on the for-next branch of
 git://git.kernel.org/pub/scm/linux/kernel/git/deller/linux-fbdev.git. The
-file offsets above are from that commit. The dereference is present in the
-initial 2.6.12-rc2 import, so there is no Fixes tag.
+file offsets above are from that commit. The defect is present in the initial
+2.6.12-rc2 import, so there is no Fixes tag.
 
-[1] https://lore.kernel.org/all/20260622080749.D7FC61F000E9@smtp.kernel.org/
-[2] https://syzkaller.appspot.com/bug?extid=42525d636f430fd5d983
+[1] https://lore.kernel.org/all/20260624213027.6C1E01F000E9@smtp.kernel.org/
 
- drivers/video/fbdev/core/fbcon.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/video/fbdev/core/fbmem.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 9077d3b99357..97d4b836b26a 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -1273,6 +1273,7 @@ static void fbcon_deinit(struct vc_data *vc)
- 	int idx;
+diff --git a/drivers/video/fbdev/core/fbmem.c b/drivers/video/fbdev/core/fbmem.c
+index e5221653ec2b..2f1c56e5a7a2 100644
+--- a/drivers/video/fbdev/core/fbmem.c
++++ b/drivers/video/fbdev/core/fbmem.c
+@@ -767,6 +767,18 @@ int fb_new_modelist(struct fb_info *info)
+ 	if (list_empty(&info->modelist))
+ 		return 1;
  
- 	fbcon_free_font(p);
-+	p->mode = NULL;
- 	idx = con2fb_map[vc->vc_num];
- 
- 	if (idx == -1)
-@@ -1443,14 +1444,14 @@ static void fbcon_set_disp(struct fb_info *info, struct fb_var_screeninfo *var,
- 
- 	p = &fb_display[unit];
- 
--	if (var_to_display(p, var, info))
--		return;
--
- 	vc = vc_cons[unit].d;
- 
- 	if (!vc)
- 		return;
- 
-+	if (var_to_display(p, var, info))
-+		return;
++	/*
++	 * The new modelist may not contain the current mode (info->var), and
++	 * fbcon_new_modelist() below only re-points consoles mapped to this
++	 * framebuffer. Add the current mode here so info->var keeps a match
++	 * even when fbcon is unbound.
++	 */
++	if (!fb_match_mode(&info->var, &info->modelist)) {
++		fb_var_to_videomode(&mode, &info->var);
++		if (fb_add_videomode(&mode, &info->modelist))
++			return 1;
++	}
 +
- 	default_mode = vc->vc_display_fg;
- 	svc = *default_mode;
- 	t = &fb_display[svc->vc_num];
+ 	fbcon_new_modelist(info);
+ 
+ 	return 0;
 -- 
 2.47.3
 
