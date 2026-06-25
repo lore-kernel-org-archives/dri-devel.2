@@ -4,48 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D78ABCDE008
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 10:49:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62CD2CDE008
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 10:56:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 159ED10F24F;
-	Thu, 25 Jun 2026 10:49:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C14F110E1D7;
+	Thu, 25 Jun 2026 10:56:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A3tQPUVB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JZuHnXTB";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20A0710F24F
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 10:49:15 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECBA910E1D2
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 10:56:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 305E260018;
- Thu, 25 Jun 2026 10:49:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC5E11F00A3D;
- Thu, 25 Jun 2026 10:49:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AA3D740C43;
+ Thu, 25 Jun 2026 10:56:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 149181F000E9;
+ Thu, 25 Jun 2026 10:56:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782384553;
- bh=tyNOuSGWa5+Rly53LmNbMQLpph/AWKvqGd2joeA46v0=;
- h=From:To:Cc:Subject:Date;
- b=A3tQPUVBP2wgG77tbLbXKdyRIiqq2XXHyYh7/wC97/Ce3m4Mkx8Fe9a+i4DBvMXfp
- 1lO0SOij3fQhKp804No5vRdVSAORgcXuKOZDDHyCYxC+UF6oQwF2jsmJEf9e0RDoWs
- lM2w1AnB2pL1ohy49hITHoS1HkQiHcndtTvUGV3W+sfEOIuh6X3RPczR1k+rLQqF2v
- +OIa7E7aylWf4mgxu99FKAk7omcsJR8QSgBVSccYn4z0Os4NVctkDV0LY6WE6pULtM
- W0fNGkq4ujVmt+IKhAiIWvFlAeVmT28ckZo7OExGENDnUO+BaZ7c/q7YEWhYRfnENU
- LKd3BZRfJR7KQ==
-From: Philipp Stanner <phasta@kernel.org>
-To: Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/sched: Remove forgotten header
-Date: Thu, 25 Jun 2026 12:49:04 +0200
-Message-ID: <20260625104903.1713213-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.54.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1782385011;
+ bh=haLRd/7iK2UAWm9b/wOf0VERYgLg/GM/K5+HuVZsoYw=;
+ h=Date:From:To:Subject:In-Reply-To:References:Cc;
+ b=JZuHnXTBT1wZc5a4CjAWJQMMrL1I4sqeC8gBNzp9at7SKRvdGHL7Nd1md2qEEoS2i
+ JhJY/hTFlrloWmVdoB8MZ3DK4V/WYOdu+0U01wY78/nUFugTvZK8HNlJxUfAwHwCZE
+ Vq4P4G1sAesSwELuQe6Vd5/UeB+ar5y+v3vhylTgU0/T7jLg4c/4xZp/LcR7vjSsdR
+ 4eLg80nEJwpNWTptj96LgXJ+GR5twqsLiDCM1qsfCfcXF7kWsBQvvNj646QCY+l3Dl
+ a90oDqQ+xkjLTPJrUxY0E0yRRE1REPAvZPxB8vNUCQjFq0iZlpsx3gEX22T0xFEJcU
+ qraEWBQmB5pWQ==
+Message-ID: <bc7054cbee208f10518f50935602445f@kernel.org>
+Date: Thu, 25 Jun 2026 10:56:48 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Subject: Re: [PATCH v3 0/7] drm/sysfb: simpledrm: Various improvements
+In-Reply-To: <20260625094509.157581-1-tzimmermann@suse.de>
+References: <20260625094509.157581-1-tzimmermann@suse.de>
+Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org, javierm@redhat.com,
+ jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ neil.armstrong@linaro.org, rayyan@ansari.sh, sashiko-reviews@lists.linux.dev,
+ simona@ffwll.ch, treding@nvidia.com, "Maxime Ripard" <mripard@kernel.org>
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,28 +57,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-sched_main.c still contains the spsc queue header, which is not needed
-anymore in that file.
+On Thu, 25 Jun 2026 11:39:32 +0200, Thomas Zimmermann wrote:
+> Patches 1 to 5 improve validation of the values provided by the
+> device firmware.
+>=20
+> Patches 6 and 7 improve support for panel orientation. There's a rotation
+> property in the DT panel node. Read the value and set the connector's
+>=20
+> [ ... ]
 
-Remove the surplus header import.
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- drivers/gpu/drm/scheduler/sched_main.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index d2ca01b31ee4..9446b08fff1c 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -77,7 +77,6 @@
- #include <drm/drm_gem.h>
- #include <drm/drm_syncobj.h>
- #include <drm/gpu_scheduler.h>
--#include <drm/spsc_queue.h>
- 
- #include "sched_internal.h"
- 
--- 
-2.54.0
-
+Thanks!
+Maxime
