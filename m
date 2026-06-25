@@ -4,97 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06CFDCDB47F
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 05:55:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCC4DCDB466
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 06:10:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B291A10EC87;
-	Thu, 25 Jun 2026 05:55:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEE9F10F0E1;
+	Thu, 25 Jun 2026 06:10:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; unprotected) header.d=canonical.com header.i=@canonical.com header.b="Hg1NhNZm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RUOvcwXT";
 	dkim-atps=neutral
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E809E10E178
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 05:55:39 +0000 (UTC)
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 534813F97E
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 05:55:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1782366938;
- bh=hrK/hqc0KTSs3qSmB6J+wib7JPcAUEvvkJ6klAPWA3M=;
- h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
- b=Hg1NhNZmiyR300zXNDW4D6Elo2/dqLNXIz6fr9g76cMvu1syrG9cWkdPT/5N3aLLW
- +efcaZRzphnyOP3EEtmOx7eCSjBBHK0A1sNC1QN/fR2D5E7/yCv0wd6YDO37nKjDeW
- jqPEm2ATMAPapj8qe4eyIs0iybLWr6/YlBHpjZEWz2jdIybfNimV2iWsqEN5vOHsJs
- 6Rgg4bt5QWMhFatUB+yimh+NXXpcpwFD56JygGZ0q77XrvJX/vpBlH6X5owmEeS/UL
- d594U8lFcn9wLR+5sxhzNh2qcVdWoNLxlwDgFM0f8h0BK6htdtIxYzkOiNuUPkmADr
- WVK9s3dAtOxldA+jc2zfDCLgKGYSny/8VRrOcm12tV/GXdLQrGaVN6fu82m9OUzzjX
- LeoQ324x6B+DoYxpUVGz5dg5OxAly7o4OjZriGw7j+YOAfSWu9dAkGIgScj3VXxkDz
- /WhtboeqPZlNkNYlxKiTZz0qpXz7G21bGrtJaYH/7yVP04jK1WZfFiOYa0UmRbvgat
- D0HV8Xff6jJezhH2voGZNgvBr+UG6Wb6stEXZOcrM22OM5qrkhNMsqG4rzKHX0MfzM
- BvPl2XP7YJ2xN4ilsfgOYMOQSfVrGjFhHjwjP+AebKaBgJ+DNgHL1PVLhB7XKzXdlB
- xeFsyVp1vrFh1heUGqemstWw=
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-8db8b467f13so36144146d6.1
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 22:55:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782366937; x=1782971737;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hrK/hqc0KTSs3qSmB6J+wib7JPcAUEvvkJ6klAPWA3M=;
- b=Q3dPwzljzPgu+ieQvYfUxg//vQYhW+Po+E7DizJPVwu96asAyboy/sqJIY30oKgfLp
- WaVdPdT7HbMCQ6E7t64e3ljf4Vh8mg4X1WM/1fhqX6K1h+TKOJW6b6eG4/BHB72H+JxJ
- c6JZMOOWuk5EzNP5SU/ldQJ41jz6g6ro4J/aDZczXMV+33cDiX1lIjBw549Sl9dco7Tk
- RJzipb0QfmhVKuiSMCWai5wZ3g1TG/tdDm8j8+C8UncP8kYBx/4tMFe3DgipSAyys5S9
- pIqUwY4+Oz8UGQR6Q50wge/RMAiTLDg1En+TXyrLLFvklr3AAWElwa44zMVY+CoW0BKE
- 14cQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8v8WoaTLpffLzwFhc+uZT3VRZ4T+xomBbwtkTtdGR3o5a+Mczl8HfMARuT0QFgq4yBJDQIyE9eLss=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwFPrD/0iKo/mkTFFiqdeq/lE7zo9YzSbX3r1c7FuVg5sWAOoim
- EU+1XWAymtXBg1WZgw47DRbPIryt4PK21NWDgpwVLWEQTmMhT60LcWkSgIqGdAlkAqZizpe/eI2
- TYGYfdmOKdGb0HA4Kfu38AFnGIF2AS94fC/5dsLKmvMxuDoMZHgBjSDIuBkqC1ScT9jbwmntgw8
- twvVRpu08Phg==
-X-Gm-Gg: AfdE7cnbPuVo4oeI+MyMA5gi1nOV431IC1hy9hXE7RIQOAnQ2GkLtPmgTeJ+2A8afi9
- fWCeXxL8y529WBX/ldWkbJJG63qAQK30MvEYKhRw5r6yoUm3V6a/uA17TQIiu6KsBuPBzKzdG1z
- iOQhdZkmH/phe3m3S8preQroDBBuaOCtro7nefyOUDHGXG1kXfb5P8j/HmyowILoPgUXeR5n47k
- 2AwdTsGnALbCOfZHjOrI3v8+qM9VZ+bha+VBDyRp48AeNM2I9s94a5bLZBpTpgnXMCG9oF5V4OB
- O5av54PM4d6JpZoARs3zzfluuHvxTOlolq/k2h1ZDjYpssEOVC4UnlIuliZH6WkbXtkhfiDbsrq
- +f4udx+KuubAAXddsj8RwWdZ9PzkLKDLbZqDzbHxkEXrXmU8tixwBNQSvYuJbqOEPtpxPsoALvt
- QvEMebaS0=
-X-Received: by 2002:a05:620a:1b95:b0:918:419:4b49 with SMTP id
- af79cd13be357-9293d4b31aemr151566185a.32.1782366937137; 
- Wed, 24 Jun 2026 22:55:37 -0700 (PDT)
-X-Received: by 2002:a05:620a:1b95:b0:918:419:4b49 with SMTP id
- af79cd13be357-9293d4b31aemr151562685a.32.1782366936736; 
- Wed, 24 Jun 2026 22:55:36 -0700 (PDT)
-Received: from localhost.localdomain ([103.155.100.9])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-926000c2a09sm720088185a.31.2026.06.24.22.55.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jun 2026 22:55:35 -0700 (PDT)
-From: Aaron Ma <aaron.ma@canonical.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
- =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Subject: [PATCH v2] drm/i915/psr: Skip PSR exit for legacy cursor updates on
- LunarLake onwards
-Date: Thu, 25 Jun 2026 13:55:14 +0800
-Message-ID: <20260625055514.3636380-1-aaron.ma@canonical.com>
-X-Mailer: git-send-email 2.43.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC5DE10F0E1
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 06:10:01 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3C70F41874;
+ Thu, 25 Jun 2026 06:10:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1B6D2C2BCB4;
+ Thu, 25 Jun 2026 06:10:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1782367801;
+ bh=V6K1YiAOADM0w5NxogiTTsD1GsVpcD1cZ3yCCsGCYSU=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=RUOvcwXTONRCy/IRGVGhBLsT3yVpe/cf7TKT7bNnGNXKp8XJ8H+Uqt54zxy0MSEYl
+ NXX3SD9sX8dIuzfZswB9dlROyWDjiBNSl3UAMbcdzNMpaWZlnZTR6MUIWRLSHmlyi+
+ KNO8YZbHXP3ITLOS6B427AgztOPGslJoDxWO3wTy6P5P4JrI4s0uAsxed3PcJj0CZ0
+ Be0AArCHeU+OneeCNZ6KaZREPjDiULjpUT3Rg8/rV86Bczt3YXpoFNJC7gRmSgYgAn
+ sx36wO1nunZ6CV6xANaWB2VZMlQ3E5SvRxf0dgQFtJddqDoNtKcEn0LCv7jtOFt6de
+ FF5p98bT2+iFg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id EFAEACDB466;
+ Thu, 25 Jun 2026 06:10:00 +0000 (UTC)
+From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
+Date: Thu, 25 Jun 2026 01:10:01 -0500
+Subject: [PATCH] udmabuf: serialize the sg_table cache under the
+ reservation lock
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260625-b4-disp-67d1f3db-v1-1-a47fb9edab9e@proton.me>
+X-B4-Tracking: v=1; b=H4sIADjGPGoC/x3MTQqAIBBA4avErBtQS/u5SrRIZ6zZVChEEN09a
+ fkt3nsgcxLOMFYPJL4ky7EX6LqCsC37yihUDEYZp5yx6FskySe6jnRsyKNSvRl0Hyl4CyU7E0e
+ 5/+U0v+8HHB1aSGIAAAA=
+To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Gerd Hoffmann <kraxel@redhat.com>, 
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Gurchetan Singh <gurchetansingh@chromium.org>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782367800; l=4089;
+ i=hexlabsecurity@proton.me; s=proton; h=from:subject:message-id;
+ bh=tbMBMPicpQt1QqKD+RCY9Vxm4yTDKoprdEZEpVOUo3g=;
+ b=uTiRAaRRHN6K0aI7q5dY+Tx2srEy2QVFrHcunyVvDItOWdzlQAjI1XbWnYa3eMlrrVP6xoXuC
+ 3E3POaKKHdQChLdG3ck/9dbM/iaN/Clc8utwzYJADtY3DzS+gnDIOUU
+X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
+ pk=dmppBMZNLLoPzxHi9l8tZDzEZUunPbgsYqIZYXeUrL0=
+X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/proton with
+ auth_id=814
+X-Original-From: Bryam Vargas <hexlabsecurity@proton.me>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,51 +75,112 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: hexlabsecurity@proton.me
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ORIGIN_CURSOR_UPDATE falls through to _psr_flush_handle() on
-DISPLAY_VER >= 20, which calls intel_psr_exit(). Cursor plane updated
-via legacy ioctl (drmModeMoveCursor) does not dirty the primary
-frontbuffer, no PSR2 state change is needed. Match the existing
-ORIGIN_FLIP behavior by returning early on DISPLAY_VER >= 20.
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-Before this, the psr2_sel_fetch_enabled guard only prevented the early
-return when PSR2 selective fetch was active, sending cursor updates
-through intel_psr_exit() and causing a black line artifact on some
-panels during the exit/re-enable transition.
+begin_cpu_udmabuf() builds and caches ubuf->sg with an unserialised
+check-then-set, and end_cpu_udmabuf() reads the same field unlocked. The
+core invokes both cpu-access hooks without holding the reservation lock and
+DMA_BUF_IOCTL_SYNC is unlocked, so concurrent SYNC ioctls on a shared
+udmabuf fd race on ubuf->sg: two begins can both observe NULL and both call
+get_sg_table(), and the later store orphans the earlier table and its DMA
+mapping, which release_udmabuf() never frees. Each won race permanently
+leaks an sg_table and an unbalanced DMA mapping.
 
-Preserve the fallthrough for pre-LNL platforms with PSR2 selective
-fetch, where intel_psr_force_update() (CURSURFLIVE write) is needed
-for cursor tracking.
+Serialize both hooks under the buffer's reservation lock, as panfrost and
+panthor do. dma_buf_begin/end_cpu_access() already annotate might_lock() on
+that lock, so taking it here matches the documented contract.
+Single-threaded callers are unaffected.
 
-Fixes: ef39826c12b4 ("drm/i915/display: Fix glitches when moving cursor with PSR2 selective fetch enabled")
-Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
+Fixes: 284562e1f348 ("udmabuf: implement begin_cpu_access/end_cpu_access hooks")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
 ---
-Changes in v2:
-- Add DISPLAY_VER >= 20 guard to only skip PSR exit on LunarLake onwards,
-  preserving the intel_psr_force_update() fallthrough for pre-LNL platforms
-  with PSR2 selective fetch (addresses Sashiko review about cursor trailing
-  artifacts on pre-LNL)
+Same leak-with-dangling-pointer class as CVE-2024-56712 (export_udmabuf()
+error path) -- a distinct site the 2024 fix does not cover.
 
-v1: https://lore.kernel.org/r/20260623084137.3421894-1-aaron.ma@canonical.com
+udmabuf is the only exporter that lazily builds its sg_table cache inside the
+cpu-access hook without serialising the check-then-set. The exporters that do
+comparable in-hook cache work all take a lock first: panfrost and panthor
+dma_resv_lock() (both hooks), omapdrm omap_obj->lock around its lazy page-get,
+the dma-heaps buffer->lock, and the TTM/GEM exporters (amdgpu, i915, xe) their
+object's reservation lock. tegra and videobuf2 take no lock here because they
+only sync an sg_table built earlier, so there is nothing to serialise.
 
- drivers/gpu/drm/i915/display/intel_psr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Confirmed with an out-of-tree A/B exercising the begin/begin race: this driver
+built as a module with get_sg_table()/put_sg_table() counting allocations
+against frees, driven by a userspace racer that creates 3000 udmabufs and fires
+DMA_BUF_IOCTL_SYNC(SYNC_START) from N threads on each shared fd.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index e138982dc91f6..ba8c427f45463 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -3772,7 +3772,7 @@ void intel_psr_flush(struct intel_display *display,
+  arm                            leaked sg_tables (of 3000 buffers)
+  vulnerable, 4 threads          4761
+  control, 1 thread              0
+  patched (resv lock), 4 threads 0
+
+One sg_table and its DMA mapping leak per won race; the single-thread control
+does not leak, isolating the race; with the lock the lazy-init runs once per
+buffer (3000 allocations, zero leaked). end_cpu_udmabuf() is locked for the
+same field too: an unlocked end could otherwise observe the transient IS_ERR
+store begin makes before resetting ubuf->sg to NULL, and dereference it. In a
+tighter 5000-iteration loop the unpatched leak runs around 15-20 MB/s of slab.
+---
+ drivers/dma-buf/udmabuf.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index bced421c0d65..702ae13b97d1 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -226,6 +226,8 @@ static int begin_cpu_udmabuf(struct dma_buf *buf,
+ 	struct device *dev = ubuf->device->this_device;
+ 	int ret = 0;
  
- 		if (origin == ORIGIN_FLIP ||
- 		    (origin == ORIGIN_CURSOR_UPDATE &&
--		     !intel_dp->psr.psr2_sel_fetch_enabled)) {
-+		     (DISPLAY_VER(display) >= 20 || !intel_dp->psr.psr2_sel_fetch_enabled))) {
- 			tgl_dc3co_flush_locked(intel_dp, frontbuffer_bits, origin);
- 			goto unlock;
- 		}
++	dma_resv_lock(buf->resv, NULL);
++
+ 	if (!ubuf->sg) {
+ 		ubuf->sg = get_sg_table(dev, buf, direction);
+ 		if (IS_ERR(ubuf->sg)) {
+@@ -238,6 +240,8 @@ static int begin_cpu_udmabuf(struct dma_buf *buf,
+ 		dma_sync_sgtable_for_cpu(dev, ubuf->sg, direction);
+ 	}
+ 
++	dma_resv_unlock(buf->resv);
++
+ 	return ret;
+ }
+ 
+@@ -246,12 +250,18 @@ static int end_cpu_udmabuf(struct dma_buf *buf,
+ {
+ 	struct udmabuf *ubuf = buf->priv;
+ 	struct device *dev = ubuf->device->this_device;
++	int ret = 0;
++
++	dma_resv_lock(buf->resv, NULL);
+ 
+ 	if (!ubuf->sg)
+-		return -EINVAL;
++		ret = -EINVAL;
++	else
++		dma_sync_sgtable_for_device(dev, ubuf->sg, direction);
+ 
+-	dma_sync_sgtable_for_device(dev, ubuf->sg, direction);
+-	return 0;
++	dma_resv_unlock(buf->resv);
++
++	return ret;
+ }
+ 
+ static const struct dma_buf_ops udmabuf_ops = {
+
+---
+base-commit: 7eed1fb17959e721031555e5b5654083fe6a7d02
+change-id: 20260625-b4-disp-67d1f3db-0082918fdcb5
+
+Best regards,
 -- 
-2.43.0
+Bryam Vargas <hexlabsecurity@proton.me>
+
 
