@@ -4,60 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 294A6CDE001
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 14:00:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 948E1CDE000
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 14:04:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71C2F10F2CA;
-	Thu, 25 Jun 2026 14:00:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBC1810F2CB;
+	Thu, 25 Jun 2026 14:04:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Q/N7acC+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MNI1pI5+";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A899A10F2CA
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 13:59:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782396000; x=1813932000;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=H+7DugO4QPsYK+5l9G86Mtbq1kKJwp90ZGLt7miTQJ4=;
- b=Q/N7acC+WisoU9ttoY3GCP5/+98/NavKoqMGgZyYbRhxHp9IoRAnz9th
- igAkfnHIQkmxK45mFlotMJI0Id5bUNfGPxO0DJuy6NssfCVzHMMpDLDId
- ohl9PmigPJFzH7bWAU83ydcZZl+/wKCPU1JEmimxT39RlOnSQbaANhh81
- dUWuf7kECCnIYogH+XJryHzBdfG7jJW+uy+otRokL5gyiRhQxBP0s4jgk
- ONUP2AHsSORxu+wLJ7uUoIvjjn1LzCDEm/Ci3b1SXve82ybN+vfv3kzUj
- wvhPUu9gEsEOR6g844mgSPLmdIGRe39XtN4l9DRVF3tC/ZKrT6YY+iMnn A==;
-X-CSE-ConnectionGUID: x/ANr5oPQwqAP9HhlFUD/w==
-X-CSE-MsgGUID: KT4p+K9rRM+/HWZq/akfOg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="82156379"
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="82156379"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2026 06:59:59 -0700
-X-CSE-ConnectionGUID: FUXGyTl8SKqiZbGKsj3rlA==
-X-CSE-MsgGUID: chE6dVCaSNC1bwlI3PARCw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="246351708"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2026 06:59:57 -0700
-Date: Thu, 25 Jun 2026 16:59:55 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: suryasaimadhu <suryasaimadhu369@gmail.com>
-Cc: andy@kernel.org, gregkh@linuxfoundation.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: fbtft: fix unaligned vmem writes when txbuf is
- byte-offset
-Message-ID: <aj00W8sbiqsYDH7b@ashevche-desk.local>
-References: <20260625104220.21E5A1F00A3D@smtp.kernel.org>
- <20260625110237.304435-1-suryasaimadhu369@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260625110237.304435-1-suryasaimadhu369@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0918410F2CB
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 14:04:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3CDE660018;
+ Thu, 25 Jun 2026 14:03:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B63CB1F00A3A;
+ Thu, 25 Jun 2026 14:03:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782396238;
+ bh=uHWTL7LJEM6fU/6LiGYusl4aDKnB2Rmm27qS5l8djlU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=MNI1pI5+2XnCW9Za8k138PJ2TVbwwd3ev5pyoiZG+30e1QAgvD4JM2m2ZcTFwEvDq
+ ifnk0X4UEDsPEukH32RWKx9+nv94/mVHJbtQis+j7FoX6mqbg9WTNRjTd4aUcKFPeS
+ YT69vhRo2nUwba8sVH2xeo+g44nV4WErtbLBskm0ssNkkgYp2Td1j0Nz16/7i16gMq
+ UCJ8JtdhT1dfYPx+ZiY0PA7OC1h0qvEvISrDcdA3sT2HIPIK1iu87ZzNhw1CvDQAs0
+ Dvtfjv6Aesl5hGdIx0dPE5oCLVgDgDNkFYu+pJyiMkP0oY2G16gYAb92Z5BXfWQTl4
+ BGkBim00WNyBQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/amdgpu: reject mapping info when BO VA is gone
+To: "Yousef Alhouseen" <alhouseenyousef@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260625135341.1159-1-alhouseenyousef@gmail.com>
+References: <20260624172029.2508-1-alhouseenyousef@gmail.com>
+ <20260625135341.1159-1-alhouseenyousef@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 25 Jun 2026 14:03:58 +0000
+Message-Id: <20260625140358.B63CB1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,60 +53,99 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 25, 2026 at 07:02:37PM +0800, suryasaimadhu wrote:
-> fbtft_write_vmem16_bus8() and fb_ra8875's write_vmem16_bus8() offset
-> txbuf16 by one byte for a command/start prefix, then store 16-bit pixel
-> data via txbuf16[i]. On strict-alignment architectures this can fault
-> the same way as the write_reg path fixed in the previous patch.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-.write_reg()
+New issues:
+- [Medium] Duplicate check for `!bo_va` introduces dead code and changes th=
+e returned error code without justification, while the commit message incor=
+rectly claims the list was walked unconditionally.
 
-Can you provide a real world example of the failure?
+Pre-existing issues:
+- [High] Memory allocation using `GFP_KERNEL` while holding `dma_resv` lock=
+s, risking AB-BA deadlock with memory reclaim.
+--
 
-> Use put_unaligned() for these stores.
+commit 6e50ec4c3e751796a8ad26f809bc3ef0737b1ddc
+Author: Yousef Alhouseen <alhouseenyousef@gmail.com>
 
-Sounds like a fix without Fixes tag.
+drm/amdgpu: reject mapping info when BO VA is gone
 
-> Signed-off-by: suryasaimadhu <suryasaimadhu369@gmail.com>
+The commit adds a check to return -EINVAL if the BO-VA mapping is missing
+during AMDGPU_GEM_OP_GET_MAPPING_INFO. It claims this prevents unconditiona=
+lly
+walking the lists after a racing close.
 
-Use your name in accordance with your official documents.
+> If a racing close drops the last handle reference in that window,
+> amdgpu_gem_object_close() can remove the BO-VA before
+> amdgpu_vm_bo_find() runs. The ioctl then walks the BO-VA mapping lists
+> unconditionally.
 
-...
+Is it accurate that the ioctl walks the BO-VA mapping lists unconditionally?
 
-> +++ b/drivers/staging/fbtft/fb_ra8875.c
-> @@ -10,6 +10,7 @@
->  #include <linux/delay.h>
+Looking at amdgpu_gem_op_ioctl(), there is already a pre-existing check for
+!bo_va that returns -ENOENT before any lists are walked.
 
->  
+[ ... ]
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gem.c
+> index 28f89ae8ca745..f048bbc4c672e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -1087,6 +1087,12 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, vo=
+id *data,
+>  		struct drm_amdgpu_gem_vm_entry *vm_entries;
+>  		struct amdgpu_bo_va_mapping *mapping;
+>  		int num_mappings =3D 0;
+> +
+> +		if (!bo_va) {
+> +			r =3D -EINVAL;
+> +			goto out_exec;
+> +		}
+> +
 
-You should move this blank line to be...
+[Severity: Medium]
+Does adding this check introduce unreachable dead code just below it?
 
->  #include <linux/gpio/consumer.h>
-> +#include <linux/unaligned.h>
+A few lines further down in amdgpu_gem_op_ioctl(), there is another !bo_va
+check:
 
-...here.
+		if (!bo_va) {
+			r =3D -ENOENT;
+			goto out_exec;
+		}
 
->  #include "fbtft.h"
+With the newly added check returning -EINVAL, the pre-existing -ENOENT
+check becomes unreachable. Is there a specific reason to change the error
+code from -ENOENT to -EINVAL?
 
-...
+[Severity: High]
+This is a pre-existing issue, but can this function trigger an AB-BA deadlo=
+ck
+during memory reclaim?
 
->  #define DRVNAME "fb_ra8875"
+Further down in amdgpu_gem_op_ioctl() for this same op:
 
-Are other drivers also being affected?
+		vm_entries =3D kvcalloc(args->num_entries, sizeof(*vm_entries), GFP_KERNE=
+L);
 
-...
+This memory allocation occurs while holding the dma_resv locks after
+drm_exec_until_all_locked() has successfully acquired them.
 
-> +++ b/drivers/staging/fbtft/fbtft-bus.c
+Allocating with GFP_KERNEL under a dma_resv lock allows direct memory
+reclaim, which can invoke the graphics shrinkers. Shrinkers often attempt
+to acquire dma_resv locks to evict buffers, causing a deadlock if the
+thread already holds them.
 
-Also needs linux/unaligned.h.
+>  		/*
+>  		 * num_entries is set as an input to the size of the user-allocated ar=
+ray of
+>  		 * drm_amdgpu_gem_vm_entry stored at args->value.
 
-> +			put_unaligned(cpu_to_be16(vmem16[i]), &txbuf16[i]);
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625135341.1159=
+-1-alhouseenyousef@gmail.com?part=3D1
