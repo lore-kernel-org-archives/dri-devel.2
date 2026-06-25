@@ -4,43 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 972BDCDE001
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 15:37:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91594CDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 15:48:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D496F10E216;
-	Thu, 25 Jun 2026 15:37:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98BDC10E219;
+	Thu, 25 Jun 2026 15:48:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TW/wejn5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LWDXcJ+z";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E038310E216
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 15:37:41 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9DCDB433D7;
- Thu, 25 Jun 2026 15:37:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D9F31F000E9;
- Thu, 25 Jun 2026 15:37:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782401861;
- bh=PJMaTOTEV+3qAiDvmou8y3Qd9f5k/8zmUmGSxE6J34I=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=TW/wejn5gaFl4QwhRo84CStKHCVWQ/xMwoL9elIFVYdz+MhwrbTpDsMiHbmR8KXXZ
- pQohcmjdCDftVUmNwFMG39Fw/eGg+i6ct3HBkHvyuWcLaWJxwq4iqpNgCq0+jocVYI
- CX7Mym39UHj6DCKQ3WxUXzsKv3aPTahoeItsJZTPYtgJ30hHvwu0AM23Lc/8H1pnqw
- dm4LZwEjH/NQjQg97cLQDPbrlTDHh34ZbFDW6aioUKvH/6Q6hodV0zLRXuBpsAKSqJ
- k1MmrECK+LLMh4H4jOqlpgMWu/GWA9kJ76kUK6gao2ykBWcnbAIVVR2b1FQJRIZect
- rvLeOgcq6zZ7A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amd/display: Fix dangling pointer in plane state
- reset on allocation failure
-To: "Evgenii Burenchev" <evg28bur@yandex.ru>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260625151717.27757-1-evg28bur@yandex.ru>
-References: <20260625151717.27757-1-evg28bur@yandex.ru>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 15:37:40 +0000
-Message-Id: <20260625153741.4D9F31F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E0AE10E219;
+ Thu, 25 Jun 2026 15:48:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782402500; x=1813938500;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=1+A6gPT4LQUsY2QnTfPNBJkWRgFjnYZMeyYX+1UYPNk=;
+ b=LWDXcJ+zH+ZGMNgOmUOiKgzOkAHDM35/bFsuoLOrFa9OROAt2obIr4ZW
+ 5uyB3Brl5ShcoLLUC/+Pne3+SMPl5nPEUQrQGnwt7Dvrp0Gh08Z6n/Tph
+ 6F/qXqveor3a0fRRYx/3Ov2ZWwmpZTYi5W5Qj6+eB2ZmxTMMm3GfjW7LC
+ C2ngSYUd6kW9vaNMT19O+giUvV8xWYAoIWUftaqiptW1i8ch89grGbWoq
+ sJhqCt/v20yvl5xuFpK9mIRx2cMGUELJUA9TRxhB+LvKqymJ06XyfRk+A
+ 9vmpdcVMlGsA3VmLIjWu7Nq+MsCYMaemVVRwCzfb4eGyaYoXuOU4xmk3B A==;
+X-CSE-ConnectionGUID: TaTcoHFWR0+A5Xyn0QyxUw==
+X-CSE-MsgGUID: hrhsxAbuTKiTvefJk4k73A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11828"; a="94672790"
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="94672790"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 08:48:19 -0700
+X-CSE-ConnectionGUID: bnTDR+9oSp2v6LlaA//k7g==
+X-CSE-MsgGUID: bsv1XPUrSYWzkAVo2KV/4g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="249751034"
+Received: from dev-417.igk.intel.com ([10.91.214.181])
+ by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 08:48:16 -0700
+Date: Thu, 25 Jun 2026 17:48:14 +0200 (CEST)
+From: =?ISO-8859-2?Q?Micha=B3_Grzelak?= <michal.grzelak@intel.com>
+To: Krzysztof Karas <krzysztof.karas@intel.com>
+cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ iommu@lists.linux.dev, Andi Shyti <andi.shyti@linux.intel.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, 
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH 1/3] drivers/iommu: Unroll unsuccessful mapping
+In-Reply-To: <20260625134342.1102921-2-krzysztof.karas@intel.com>
+Message-ID: <5016dea0-5710-b0f9-754b-36d0c7325d46@intel.com>
+References: <20260625134342.1102921-1-krzysztof.karas@intel.com>
+ <20260625134342.1102921-2-krzysztof.karas@intel.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="8323329-886975909-1782402498=:605841"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,93 +69,91 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Pre-existing issues:
-- [High] Dangling pointers in `amdgpu_dm_crtc_reset_state` and `amdgpu_dm_c=
-onnector_funcs_reset` upon memory allocation failure.
---
+--8323329-886975909-1782402498=:605841
+Content-Type: text/plain; format=flowed; charset=ISO-8859-2
+Content-Transfer-Encoding: 8BIT
 
-commit a2f21c8f5312ce74d2f0b34c962db8d83e4d242f
-Author: Evgenii Burenchev <evg28bur@yandex.ru>
+Hi Krzysztof,
 
-    drm/amd/display: Fix dangling pointer in plane state reset on allocatio=
-n failure
+I'm wondering about changing the prefix of patch's title into
+iommu/dma:, but there are commits changing dma-iommu.c having other
+prefixes as well; not sure if it matters.
 
-    In amdgpu_dm_plane_drm_plane_reset(), the old plane state is freed
-    before allocating a new one. If kzalloc_obj() fails, the function
-    returns without updating plane->state, leaving a dangling pointer
-    to already freed memory.
+On Thu, 25 Jun 2026, Krzysztof Karas wrote:
+> Currently, if iommu maps fewer bytes than requested (iova_len),
+> it proceeds to free the iova, but never tries to unmap already
+> touched bytes. This behavior may cause memory hogging down the
+> line.
+>
+> Correct that by unmapping before exiting.
+>
+> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> ---
+> drivers/iommu/dma-iommu.c | 10 ++++++++--
+> 1 file changed, 8 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+> index 381b60d9e7ce..c4c058ba07ef 100644
+> --- a/drivers/iommu/dma-iommu.c
+> +++ b/drivers/iommu/dma-iommu.c
+> @@ -1515,8 +1515,14 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+> 	 * implementation - it knows better than we do.
+> 	 */
+> 	ret = iommu_map_sg(domain, iova, sg, nents, prot, GFP_ATOMIC);
+> -	if (ret < 0 || ret < iova_len)
+> +	if (ret < 0 || ret < iova_len) {
+> +		if (ret > 0) {
+> +			/* Unmap partially mapped bytes before freeing IOVA */
+> +			if (iommu_unmap(domain, iova, ret) != ret)
+> +				ret = -EIO;
+> +		}
+> 		goto out_free_iova;
+> +	}
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/dr=
-ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index c7f8e08feaf4b..65c0aeeba090c 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -1490,20 +1490,30 @@ static void amdgpu_dm_plane_drm_plane_reset(struc=
-t drm_plane *plane)
->  {
->  	struct dm_plane_state *amdgpu_state =3D NULL;
-> =20
-> -	if (plane->state)
-> -		plane->funcs->atomic_destroy_state(plane, plane->state);
-> -
->  	amdgpu_state =3D kzalloc_obj(*amdgpu_state);
-> -	WARN_ON(amdgpu_state =3D=3D NULL);
+Also thinking whether not to split this into two separate if's,
+something like:
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does the same dangling
-pointer issue exist in other reset functions within amdgpu_dm?
+ret = iommu_map_sg(domain, iova, sg, nents, prot, GFP_ATOMIC);
+if (ret < 0)
+ 	goto out_free_iova;
 
-For example, in drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-within amdgpu_dm_crtc_reset_state():
+if (ret < iova_len) {
+ 	if (ret > 0) {
+ 		/* Unmap partially mapped bytes before freeing IOVA */
+ 		if (iommu_unmap(domain, iova, ret) != ret)
+ 			ret = -EIO;
+ 	}
 
-	if (crtc->state)
-		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
+ 	goto out_free_iova;
+}
 
-	state =3D kzalloc_obj(*state);
-	if (WARN_ON(!state))
-		return;
+But that's probably just a matter of opinion. Whether it applies or not:
 
-If kzalloc_obj() fails, this returns early without setting crtc->state to=20
-NULL, leaving a dangling pointer to the state freed by=20
-amdgpu_dm_crtc_destroy_state().
+Reviewed-by: Micha³ Grzelak <michal.grzelak@intel.com>
 
-Similarly, in drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-within amdgpu_dm_connector_funcs_reset():
+BR,
+Micha³
 
-	kfree(state);
-
-	state =3D kzalloc_obj(*state);
-
-	if (state) {
-		// ...
-		__drm_atomic_helper_connector_reset(connector, &state->base);
-	}
-
-If the allocation fails here, connector->state is never cleared and remains=
-=20
-dangling.
-
-Could these locations also be updated to prevent a potential use-after-free=
-=20
-under memory pressure?
-
-> =20
->  	if (!amdgpu_state)
-> -		return;
-> +		goto err_alloc;
-> +
-> +	/* Old state can now be safely destroyed. The new state is already allo=
-cated and will be assigned */
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625151717.2775=
-7-1-evg28bur@yandex.ru?part=3D1
+>
+> 	return __finalise_sg(dev, sg, nents, iova);
+>
+> @@ -1525,7 +1531,7 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+> out_restore_sg:
+> 	__invalidate_sg(sg, nents);
+> out:
+> -	if (ret != -ENOMEM && ret != -EREMOTEIO)
+> +	if (ret != -ENOMEM && ret != -EREMOTEIO && ret != -EIO)
+> 		return -EINVAL;
+> 	return ret;
+> }
+> -- 
+> 2.34.1
+>
+>
+--8323329-886975909-1782402498=:605841--
