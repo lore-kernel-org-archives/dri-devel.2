@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4D1FCDE007
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 09:37:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FDC4CDB47F
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 09:37:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D23E10F1FA;
-	Thu, 25 Jun 2026 09:37:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 737D910F1EC;
+	Thu, 25 Jun 2026 09:37:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="c+TN4ozf";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="WTcZlaYm";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDBE110E1B8
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 09:36:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 427E210F1EB
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 09:36:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782380192;
- bh=UYenAnDS3JKgwpOsFkoEvQ5CAt4SJngR2rXz4+W5UHw=;
+ s=mail; t=1782380195;
+ bh=/MqMSDnyDPtHid8qa23FgXMqpWgOVHAPSC4ACPUjrGI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=c+TN4ozf3lmeHdHTZXFsTj+lJ5QAK1kBNhfZMlC1q3XeV8F+vjtKW78QREW/96g3G
- hg6iVev/ULf4DFK7UdBNhg5EB2s7mUHW1RjJwRLA6sH8deHxkOQhSGoq2KMtXIBy83
- p8K/eILfH1DlWS2WISZSUt56VC2oQqjrfiIJ/GSPcCMH9gQjzcOnZ69Fb04Wn8YxsJ
- L/T85Ka8H5f5rzxL8gzWA/FK8VflVMAqL8eJfU0RH6PSQSKXZk2N7AqGwCpQ4tPPe6
- Wo+LKICzEjgkYQRhrm3mDkPIjJxqLw04uzbK9Qgvky13zI60onnPBPWhMxJmbyOYGn
- +ahWInLBjnBYA==
+ b=WTcZlaYmEiXrJL/7y5D4tMHI1xZtuM8yRzY+lil2LKh5A4iuwYDfUrkj+r6TOSkvY
+ fwTfvGYbZUcX8jtKpkOOgL39cH/r0h+O3Uiy6ATaQhpCvFcyUI6hCFbezIQN8zj4I3
+ LPvtBrmdUHrJ8AOnrygC2Zzy3MEvmHR33WvZTla8EFVC9oGntG08EWpWlRA1jzuobW
+ xdU9x3Hqqs0h8pLSWYWklXAspq3F8MrGbpG7NC0+1CR31eQBX5OIUkaJHRVdMmw7qA
+ /FRahqcYmCPj65/kJ1LdcbYpS4HqgN7Uszmr+fF/BPDhQxIwKiDxjycB63Tv3W7fTx
+ FviQlp5IPDDPw==
 Received: from fedora-2.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 4E07017E14FA;
- Thu, 25 Jun 2026 11:36:32 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 995D317E155B;
+ Thu, 25 Jun 2026 11:36:34 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 25 Jun 2026 11:36:23 +0200
-Subject: [PATCH v5 08/16] drm/panthor: Make panthor_irq::state a non-atomic
- field
+Date: Thu, 25 Jun 2026 11:36:27 +0200
+Subject: [PATCH v5 12/16] drm/panthor: Get rid of panthor_group::fatal_lock
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-panthor-signal-from-irq-v5-8-8836a74e0ef9@collabora.com>
+Message-Id: <20260625-panthor-signal-from-irq-v5-12-8836a74e0ef9@collabora.com>
 References: <20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com>
 In-Reply-To: <20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
@@ -50,11 +49,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782380187; l=7250;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782380187; l=1093;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=UYenAnDS3JKgwpOsFkoEvQ5CAt4SJngR2rXz4+W5UHw=;
- b=ZigsjT4lVKz7AEmwNFn9Q1JqaNvYpGnQjsr4+eMaDfqkkWIG+EGsHJbBkr4KSNQ4ONexQsmu8
- 1aPPFQFT6MhA32zaiQc1msAk5aiprTp6TENRfTTJfjQh0IkxYHRZFHP
+ bh=/MqMSDnyDPtHid8qa23FgXMqpWgOVHAPSC4ACPUjrGI=;
+ b=hIh27GQTDmw2EOxTXAYFKioXy3R+5In/GfGEZsG5tJiqizn6/0QuXGvGdgB24xEToKDgXNRvF
+ 8cFA+A40n+yBcwSuS6e/OJwIslIXrOTQPNkniYrHRewisuoTIVdwPwT
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,170 +71,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The only place where panthor_irq::state is accessed without
-panthor_irq::mask_lock held is in the prologue of _irq_suspend(),
-which is not really a fast-path. So let's simplify things by assuming
-panthor_irq::state must always be accessed with the mask_lock held,
-and add a scoped_guard() in _irq_suspend().
+This lock is never used, and we're about to make fatal_queues an
+atomic to cope with concurrent updates.
 
-While at it, rename the lock so it's clear it doesn't just protect
-access to the panthor_irq::mask or the INT_MASK register.
-
-Reviewed-by: Steven Price <steven.price@arm.com>
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_device.h | 61 +++++++++++++++-----------------
- 1 file changed, 28 insertions(+), 33 deletions(-)
+ drivers/gpu/drm/panthor/panthor_sched.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-index 0fda64fbe5f2..4e5f7b0fb53f 100644
---- a/drivers/gpu/drm/panthor/panthor_device.h
-+++ b/drivers/gpu/drm/panthor/panthor_device.h
-@@ -92,17 +92,21 @@ struct panthor_irq {
- 	u32 mask;
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index a5dfb1beafff..b3ee891d05aa 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -565,9 +565,6 @@ struct panthor_group {
+ 	/** @idle_queues: Bitmask reflecting the idle queues. */
+ 	u32 idle_queues;
  
- 	/**
--	 * @mask_lock: protects modifications to _INT_MASK and @mask.
-+	 * @lock: protects modifications to _INT_MASK, @mask and @state.
- 	 *
- 	 * In paths where _INT_MASK is updated based on a state
- 	 * transition/check, it's crucial for the state update/check to be
- 	 * inside the locked section, otherwise it introduces a race window
- 	 * leading to potential _INT_MASK inconsistencies.
- 	 */
--	spinlock_t mask_lock;
-+	spinlock_t lock;
+-	/** @fatal_lock: Lock used to protect access to fatal fields. */
+-	spinlock_t fatal_lock;
+-
+ 	/** @fatal_queues: Bitmask reflecting the queues that hit a fatal exception. */
+ 	u32 fatal_queues;
  
--	/** @state: one of &enum panthor_irq_state reflecting the current state. */
--	atomic_t state;
-+	/**
-+	 * @state: one of &enum panthor_irq_state reflecting the current state.
-+	 *
-+	 * Must be accessed with lock held.
-+	 */
-+	enum panthor_irq_state state;
- };
+@@ -3678,7 +3675,6 @@ int panthor_group_create(struct panthor_file *pfile,
+ 	if (!group)
+ 		return -ENOMEM;
  
- /**
-@@ -510,22 +514,15 @@ const char *panthor_exception_name(struct panthor_device *ptdev,
- static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void *data)			\
- {												\
- 	struct panthor_irq *pirq = data;							\
--	enum panthor_irq_state old_state;							\
- 												\
--	guard(spinlock_irqsave)(&pirq->mask_lock);						\
--	old_state = atomic_cmpxchg(&pirq->state,						\
--				   PANTHOR_IRQ_STATE_ACTIVE,					\
--				   PANTHOR_IRQ_STATE_PROCESSING);				\
--	if (old_state != PANTHOR_IRQ_STATE_ACTIVE)						\
-+	guard(spinlock_irqsave)(&pirq->lock);							\
-+	if (pirq->state != PANTHOR_IRQ_STATE_ACTIVE)						\
- 		return IRQ_NONE;								\
- 												\
--	if (!gpu_read(pirq->iomem, INT_STAT)) {							\
--		atomic_cmpxchg(&pirq->state,							\
--			       PANTHOR_IRQ_STATE_PROCESSING,					\
--			       PANTHOR_IRQ_STATE_ACTIVE);					\
-+	if (!gpu_read(pirq->iomem, INT_STAT))							\
- 		return IRQ_NONE;								\
--	}											\
- 												\
-+	pirq->state = PANTHOR_IRQ_STATE_PROCESSING;						\
- 	gpu_write(pirq->iomem, INT_MASK, 0);							\
- 	return IRQ_WAKE_THREAD;									\
- }												\
-@@ -554,14 +551,11 @@ static irqreturn_t panthor_ ## __name ## _irq_threaded_handler(int irq, void *da
- 		ret = IRQ_HANDLED;								\
- 	}											\
- 												\
--	scoped_guard(spinlock_irqsave, &pirq->mask_lock) {					\
--		enum panthor_irq_state old_state;						\
--												\
--		old_state = atomic_cmpxchg(&pirq->state,					\
--					   PANTHOR_IRQ_STATE_PROCESSING,			\
--					   PANTHOR_IRQ_STATE_ACTIVE);				\
--		if (old_state == PANTHOR_IRQ_STATE_PROCESSING)					\
-+	scoped_guard(spinlock_irqsave, &pirq->lock) {						\
-+		if (pirq->state == PANTHOR_IRQ_STATE_PROCESSING) {				\
-+			pirq->state = PANTHOR_IRQ_STATE_ACTIVE;					\
- 			gpu_write(pirq->iomem, INT_MASK, pirq->mask);				\
-+		}										\
- 	}											\
- 												\
- 	return ret;										\
-@@ -569,19 +563,20 @@ static irqreturn_t panthor_ ## __name ## _irq_threaded_handler(int irq, void *da
- 												\
- static inline void panthor_ ## __name ## _irq_suspend(struct panthor_irq *pirq)			\
- {												\
--	scoped_guard(spinlock_irqsave, &pirq->mask_lock) {					\
--		atomic_set(&pirq->state, PANTHOR_IRQ_STATE_SUSPENDING);				\
-+	scoped_guard(spinlock_irqsave, &pirq->lock) {						\
-+		pirq->state = PANTHOR_IRQ_STATE_SUSPENDING;					\
- 		gpu_write(pirq->iomem, INT_MASK, 0);						\
- 	}											\
- 	synchronize_irq(pirq->irq);								\
--	atomic_set(&pirq->state, PANTHOR_IRQ_STATE_SUSPENDED);					\
-+	scoped_guard(spinlock_irqsave, &pirq->lock)						\
-+		pirq->state = PANTHOR_IRQ_STATE_SUSPENDED;					\
- }												\
- 												\
- static inline void panthor_ ## __name ## _irq_resume(struct panthor_irq *pirq)			\
- {												\
--	guard(spinlock_irqsave)(&pirq->mask_lock);						\
-+	guard(spinlock_irqsave)(&pirq->lock);							\
- 												\
--	atomic_set(&pirq->state, PANTHOR_IRQ_STATE_ACTIVE);					\
-+	pirq->state = PANTHOR_IRQ_STATE_ACTIVE;							\
- 	gpu_write(pirq->iomem, INT_CLEAR, pirq->mask);						\
- 	gpu_write(pirq->iomem, INT_MASK, pirq->mask);						\
- }												\
-@@ -594,8 +589,8 @@ static int panthor_request_ ## __name ## _irq(struct panthor_device *ptdev,			\
- 	pirq->irq = irq;									\
- 	pirq->mask = 0;										\
- 	pirq->iomem = iomem;									\
--	spin_lock_init(&pirq->mask_lock);							\
--	atomic_set(&pirq->state, PANTHOR_IRQ_STATE_SUSPENDED);					\
-+	spin_lock_init(&pirq->lock);								\
-+	pirq->state = PANTHOR_IRQ_STATE_SUSPENDED;						\
- 	gpu_write(pirq->iomem, INT_MASK, 0);							\
- 												\
- 	return devm_request_threaded_irq(ptdev->base.dev, irq,					\
-@@ -607,7 +602,7 @@ static int panthor_request_ ## __name ## _irq(struct panthor_device *ptdev,			\
- 												\
- static inline void panthor_ ## __name ## _irq_enable_events(struct panthor_irq *pirq, u32 mask)	\
- {												\
--	guard(spinlock_irqsave)(&pirq->mask_lock);						\
-+	guard(spinlock_irqsave)(&pirq->lock);							\
- 	pirq->mask |= mask;									\
- 												\
- 	/* The only situation where we need to write the new mask is if the IRQ is active.	\
-@@ -615,13 +610,13 @@ static inline void panthor_ ## __name ## _irq_enable_events(struct panthor_irq *
- 	 * on the PROCESSING -> ACTIVE transition.						\
- 	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
- 	 */											\
--	if (atomic_read(&pirq->state) == PANTHOR_IRQ_STATE_ACTIVE)				\
-+	if (pirq->state == PANTHOR_IRQ_STATE_ACTIVE)						\
- 		gpu_write(pirq->iomem, INT_MASK, pirq->mask);					\
- }												\
- 												\
- static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq *pirq, u32 mask)\
- {												\
--	guard(spinlock_irqsave)(&pirq->mask_lock);						\
-+	guard(spinlock_irqsave)(&pirq->lock);							\
- 	pirq->mask &= ~mask;									\
- 												\
- 	/* The only situation where we need to write the new mask is if the IRQ is active.	\
-@@ -629,7 +624,7 @@ static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq
- 	 * on the PROCESSING -> ACTIVE transition.						\
- 	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
- 	 */											\
--	if (atomic_read(&pirq->state) == PANTHOR_IRQ_STATE_ACTIVE)				\
-+	if (pirq->state == PANTHOR_IRQ_STATE_ACTIVE)						\
- 		gpu_write(pirq->iomem, INT_MASK, pirq->mask);					\
- }
- 
+-	spin_lock_init(&group->fatal_lock);
+ 	kref_init(&group->refcount);
+ 	group->state = PANTHOR_CS_GROUP_CREATED;
+ 	group->csg_id = -1;
 
 -- 
 2.54.0
