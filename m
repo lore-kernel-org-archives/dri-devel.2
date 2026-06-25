@@ -4,125 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B631ECDE000
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 12:58:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27CDFCDE000
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 12:59:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EDBA10E2D8;
-	Thu, 25 Jun 2026 12:58:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 833E110E50F;
+	Thu, 25 Jun 2026 12:59:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ICJpzssW";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="I6zi1tn5";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012067.outbound.protection.outlook.com [52.101.53.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1274710E2D8
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 12:58:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HK9kJSSSpGG7TDCZjl6iNC3/W4NdvKHQSXSt3IarXTU0mI7T0Np4zt1iVmleK7WaJ8o4dww8CpyXhpnKpYudq884F/4yEiGV6atT0zjdOFQzMNd9nDv3knKiygSKF+mEyaedsOJ+Go6NuWQjqvAu+PoZkvfeY8hS5cTaxcF3bilMKSiHc0WGc94par7s6FMiC4jwftMH/KlVH4IOSP5N3a5IM1MuQoozeMOk1VyKgSm4cDQZ17zbGpbSal53dOs+gKWVEaUE6Gk4qpNAwbwuzSF58+ripbDziuBruTK5cIjmvcREYCiGLlhfz1znhaBFX2UVdiOt6gRug1qbPwk0yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uizVK4a1ukLloz8ocen0sOjHT0IbSw3jVdTC2OBwOLw=;
- b=i7jrI8IP1+2CuSLS+HhIJ7U6enGeWpT+plnWBEfeQT/7wSOU6421m7W0ouRgABCl6BPBfBwTJJtXzw9sr44/pQJK3M6crqrm2UECoC/GEx/MNFLLVaeG4SPlfkwu0+siovukgUxVF4Iaa+0ZSScagErRexZnH78TOOMDlbUZfC600IA0CB34Itn4Qv3DQ16qfQLJM9qwHcE4R8wQR3tmton3izw+LlnCg3lPcEkQ1WtW6IuLqhTM2ibPb++9lW4/1Oeoukg8oUERelNU3PvhSTiIjF7sUq/bieKNIA/iUnWNLU2iWgYzcXUItFVscdYaqbMlFUw2TVe/SxduupZceg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uizVK4a1ukLloz8ocen0sOjHT0IbSw3jVdTC2OBwOLw=;
- b=ICJpzssWZadU6IynMfQeZ1Nwc5KQEpfBmN5E3BGu21gOci83tYsW8EZ3a0h4vriJdkqQH6qTGPxVFcm6SmtrMO3UcIZiE7AKZ6OZ7x/Lp/PjOYe4nptHdOnwfzAjoVZCSRnDwZwuV6/i96xubsco316+QR0PCAfLk3SdVkecFMk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
- by BL4PR12MB9477.namprd12.prod.outlook.com (2603:10b6:208:58d::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Thu, 25 Jun
- 2026 12:58:13 +0000
-Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
- ([fe80::c3e5:48f8:beb6:ea68]) by SJ0PR12MB5673.namprd12.prod.outlook.com
- ([fe80::c3e5:48f8:beb6:ea68%5]) with mapi id 15.21.0159.007; Thu, 25 Jun 2026
- 12:58:13 +0000
-Message-ID: <91df07da-3938-4890-b120-e827873683b0@amd.com>
-Date: Thu, 25 Jun 2026 14:58:08 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: udmabuf: make list limit unsigned
-To: Yousef Alhouseen <alhouseenyousef@gmail.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-References: <20260625085735.4488-1-alhouseenyousef@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260625085735.4488-1-alhouseenyousef@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0351.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f4::14) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C525A10E50F;
+ Thu, 25 Jun 2026 12:59:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782392384; x=1813928384;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=64n9msp9lwVstrlR6VZvtVSttvrMMUgiaBUBrWzuD0s=;
+ b=I6zi1tn5xN5gYsmRGeoEb40KQCR1rP7IxhTbGPbbSB/SBTgNoAWZYOIg
+ GDiMxWFpHrnahfOZS2uupugBU5JC4c3yhdk+FmGMgqWxeyqn4i3HJ6Dp0
+ h+iyT1QfXvgRZSHqBfEbOaaatClLsURBQ80YoyDcgqSW3iQJqQfJiVIpL
+ 0Bb3ro7jtFY6QERSSXIbQ2R/jTd1+WfZQnmBbs66yKCwbtutmISGh6fGT
+ LbIG3rzlBIJfZ9uhExN6VOt4GGaSyf2rZmK6pPwQvub/11xBi9K/QnEu9
+ BOw6w8BX5IxmZtQ6AkkGMLYAeRHryFSsAObPE7nb9kJD2TQL74uVpvsR5 A==;
+X-CSE-ConnectionGUID: 5IVL5c8OQ6WOJQkkGE89XQ==
+X-CSE-MsgGUID: 9OhtXOysTBuwwnx+cRAEOg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="82287345"
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="82287345"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 05:59:43 -0700
+X-CSE-ConnectionGUID: 8XL4TjupQzyXsGMVZP3kgw==
+X-CSE-MsgGUID: MBqnCnu3R7q4Pe2seIFjDw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="280857006"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by orviesa002.jf.intel.com with ESMTP; 25 Jun 2026 05:59:40 -0700
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Raag Jadav <raag.jadav@intel.com>,
+ "Michael J . Ruhl" <michael.j.ruhl@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Riana Tauro <riana.tauro@intel.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andi Shyti <andi.shyti@kernel.org>,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/3] drm/xe/i2c: alerts and controller enabling
+ modifications
+Date: Thu, 25 Jun 2026 14:59:36 +0200
+Message-ID: <20260625125939.429078-1-heikki.krogerus@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|BL4PR12MB9477:EE_
-X-MS-Office365-Filtering-Correlation-Id: c1e62f9c-21ba-4aba-2595-08ded2b96a5f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: xH+cuD/zLa7jGHPcrulcgSHsaO9oe0AzM9C8Mkk66koyXKxbtvNlGiylopMNPwwdOdzpd6AG68dduwO+yN7wCV0x1H2g64EKHmR7rpyFqmSX/PJU0+xDoUanCYpTZert711ubcEd/Gt0jgXBvWAgN0i8YYvJkE+ptlDV9oEFTfhkFl+X7j2xVfWtFmnnqh1epTeLVHbPde4V4cXUAijqNK2phrXWRu+DkD8gruQ29oV9c9yKac0g0NjSWhHZqHiAUZueVkTtcGQmg+fGw0KthZ/0qh08up11uuPvCb2WXSP82IUyxsdVugHoY+1s71MudwmpePUY4IgesPbDxNNPylRtCxjQL2p/xOZtdZeGSrgtrOTWYQA3ibadjf8g2t1poFzq8cbatkPhwJ+YdTC8XgxUjyOselBloWQomU9Upz2UuRJ1t7zn+hfRv+vvlnkLOKU1IDkx85S7vMyV9nHlR8PRUddqj1fONmOCnOAmbeWKdBphX4NY2EwRbjcXXltArnfgMCyaI74Df3Ry7IS7BPc+HGJN71zq0ZmVsLXYJtGhkwnOfY4w4u0HZANn9/1kYWO1tZVtS70q46425rXbnceRDiJoWnGDqxQN2WktQs/js7YFJH4SFI6LEe1DHXxMKy7BtRfq621jbPbG2bQFb8Xit8YCVzuswNzMGqEYhbo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?elUrV1Q4aER5cFpwVWUydTZ2OGFLODFoc0NUU1BUWEFPWnBTOVFZSzBvWWt4?=
- =?utf-8?B?UlNNTm5Fc2tjTmx0ZEViMDY5blc4NDl5OUFOeXZkL0htODlHMTFhOUI4MnJ6?=
- =?utf-8?B?K253ZzlhRFRuTDlheHNJQVRjL2JtQ3FZWkhaUDFGZlFCb0dSSWxWS0xrV015?=
- =?utf-8?B?dUJkdTJ1R1dmZ0xKaUdBNWl0bk5kNXVpYS9XOUI2WTBEUVB4Q2RtbC85ZEpa?=
- =?utf-8?B?d0hIUitOREhEd3NrK2swaHZsNEp1ZFJuWGRJUmlOY0xxdU53aSs1SGZNeXlQ?=
- =?utf-8?B?ZVozUzlCcDVaRVd3L1YrcDFDUVZSdHVqbHdESjhBOGx2QzRZTnZSQkxRYjRB?=
- =?utf-8?B?K3BtNDc5SXphb3AzOEZ2T1F1OElORGt2QVhJempheUlrYzBjOWF5ZmFCZzMw?=
- =?utf-8?B?SWpza2tiL1dYc2JzNE5paTZmK2ZvM3NNcTE0OEV0ZC9kWmZiTk9ObHk2V0lj?=
- =?utf-8?B?TmpmQm1WY3RmNXB0ZUx5c0JJd0Y5b0srVVRCQ2ZxeG8xU1pWVFVTeTgzbjhh?=
- =?utf-8?B?VTd5cVFmOU5EaFdRNFBYb2lRM2ptYWExVDFOcTZaclRJVlk0UTJNMlh2Yzdy?=
- =?utf-8?B?VTRGZnl1NzlIOTZQS0sybWtGdXptdlkrcmtHQ1ZYUkh3dlQ0bmE5N0hYcThj?=
- =?utf-8?B?V2VwdkkzTUc4TGJrWHVPTEFBKzdOanVPTmpuS0crNUFTWjh3dENqdU5CUmMv?=
- =?utf-8?B?Z1hNbnQvR0tPZDU0RGFPUWROak5xUmtLem4rOTJ2aXBKdGRxQnhiYXVadlRM?=
- =?utf-8?B?S1BleDlGUXB4UlB4MVNIdUg4cnpCN24rY0dpZVpVY2lNR0VpdVJENVpwR0Vw?=
- =?utf-8?B?aGNHN01rT0dMT0k0NjhtRmt5aG1VQzJQdWFNSmwzQUxFZXNBT1JjS1k5bDBP?=
- =?utf-8?B?R2NadWJiQ0t5Q0hDdHp4ZjhtTVVGR21VUHpoOVVYT0NOYkF4Qmo3U29QS0lu?=
- =?utf-8?B?cVFyZER1WkwxOGQzdk43UC9mVWx4Z3U5dVNuRXQycGtvVDBQSm4xb0lFQ3Yz?=
- =?utf-8?B?c1RkSkI3ZmZWZjJITHFSUkdsWUZJTzZJMzlyWXFjWElJYTJ1UnQ5KzQ1TDFx?=
- =?utf-8?B?RkRFbndDa0htTkFkVWJuU2NnWFpncG9wcVVuNlptSGl3OWFhWTRCVVhpNFg1?=
- =?utf-8?B?elBVVlRZRmhaZkdWc1ZlYm1Ja0RCRHUzUEdLdzc5QmhHRFpydnp4VXZ6b2Vl?=
- =?utf-8?B?aytkTHFjRGk1WnJtaGpQWXRid1BqUkVDM0Z6aXBYOHZOWUMyU2I2N1Fua3JX?=
- =?utf-8?B?eEl0WlFBblFqZFl1UFp4L0RXVkVFZTJaU2ZidFBaMTBCN2t4akY4V2NTQXMz?=
- =?utf-8?B?OFBuZzM0OXlnVzV1Q0QvN2ZMUHV4ZGwvZnNFSElBbytQbzNodkpPMk5oQjdu?=
- =?utf-8?B?SmgraVVHV0hTOTl4ajk3a29UZnFzRDF5elExZVJWV2JYaVBkUGxGV3BMZDk2?=
- =?utf-8?B?UVl5Yy9PTHl3NVdZajJkNXJ2YWFkaWY4V0c4a2UvZ29DR1ZKYlZoTWNZR2lJ?=
- =?utf-8?B?NkNwNGcya3JwckxWUFNZWENVSFdCS0tRU0FlT2xMQ09pbU1hbzhXR0taNkhu?=
- =?utf-8?B?d05BZENXWEJaOWY4TktwVlR4bFVFcUhuQUVxc0tLQ1RZcURZMitRZGFYVzVq?=
- =?utf-8?B?TFRJbUI3dU5XNjBTbzZIL0JKekhPK295Q25wVGJlYytHb3RQOW1rNHg3eVl6?=
- =?utf-8?B?aGQ2M0lqbk1QbHY2YjVZanpXTnl5L2xQeHhmV2ZTMXdHa3pMbnltczkwM1dR?=
- =?utf-8?B?VXdac0QxWDByQkp3YllXcUpzTk40QmdpaXkrNlN5d2E5aHNnanRydTZ2TWZC?=
- =?utf-8?B?ZUMzZ3R0eUxKMnJZeitRYkc0OEJleHZpU2xXN05aK1FOOC8rL3RZeFpwQVJ3?=
- =?utf-8?B?bEVOazM3bEsyZHh0WmdFUXUxUXpVVHBFNCtZTHJIL3JRN2tMVkRYVHBjYVdC?=
- =?utf-8?B?SXY0M1dtcWtxSU5ITnloMHRJTys5ekwyMlRTNEtWYXMzcC9OVENJbGFpOWJx?=
- =?utf-8?B?dE1JMnhzZWlxUXdON3ZaME50ZVNTT1RWc3lMSnBoUWVuVjVOS1NDMlgrbzBj?=
- =?utf-8?B?ZFdZL3dRdnMxOUVEcHZ5cWRxdVRXenp5bUNwMHVJcGlkZDhjV29BVGJrOG1a?=
- =?utf-8?B?REREUTR3RVIrL01nM0UrWjUxY1Z0d2pMQ2Q1VWc5Vmw1NzNlRmlDZE81VjZS?=
- =?utf-8?B?elowWjd4UWRpSG92N0JMQ2UxeUpLcVU2TkVTWmFON28yeERNcTBBd3NxMTRw?=
- =?utf-8?B?RXl2RGRpaXEzMEFNY3VlZ3FhOUxoRWlLY29PZU1tZFdNV09WVHZRN1p0Uk1Y?=
- =?utf-8?Q?6oh8jGibsa8tr6onXu?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1e62f9c-21ba-4aba-2595-08ded2b96a5f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 12:58:13.2231 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Du2t1hq7L+W/fbqqRK232Dy4Hy26wKmTm8Q6xTEjVyQXX7/TbXm70cQO8nOcTiQN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9477
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,55 +74,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/25/26 10:57, Yousef Alhouseen wrote:
-> UDMABUF_CREATE_LIST uses list_limit only as an upper bound for the
-> unsigned entry count supplied by userspace. Negative values have no
-> useful meaning and complicate the bounds check.
-> 
-> Make the module parameter unsigned and keep the checked array copy so
-> large counts cannot wrap the allocation size before udmabuf_create()
-> walks the copied list.
-> 
-> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Hi,
 
-Looks good to me, but somebody more familiar with udmabuf should probably take another look.
+Changed since v1:
+- Global header for the DesignWare I2C registers which meant a bit of
+  patch refactoring.
+- Selecting CONFIG_SMBUS in CONFIG_XE and handling smbus in xe_i2c.c instead of
+  separate file.
+- Storing the alert device to the client array and providing enum for the
+  clients.
+- Allowing other fields in the IC_ENABLE register to be updated except the
+  Enable bit.
+- Can't sleep in xe_i2c_disable() so using udelay().
 
-Acked-by: Christian König <christian.koenig@amd.com>
+v1: https://lore.kernel.org/lkml/20260622114759.3464047-1-heikki.krogerus@linux.intel.com/
 
-Regards,
-Christian.
+This includes support for the SMBus alerts, and special handling for the
+IC_ENABLE register.
 
-> ---
->  drivers/dma-buf/udmabuf.c | 8 +++-----
->  1 file changed, 3 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-> index b4078ec84..620113df3 100644
-> --- a/drivers/dma-buf/udmabuf.c
-> +++ b/drivers/dma-buf/udmabuf.c
-> @@ -16,8 +16,8 @@
->  #include <linux/vmalloc.h>
->  #include <linux/iosys-map.h>
->  
-> -static int list_limit = 1024;
-> -module_param(list_limit, int, 0644);
-> +static uint list_limit = 1024;
-> +module_param(list_limit, uint, 0644);
->  MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
->  
->  static int size_limit_mb = 64;
-> @@ -469,12 +469,10 @@ static long udmabuf_ioctl_create_list(struct file *filp, unsigned long arg)
->  	struct udmabuf_create_list head;
->  	struct udmabuf_create_item *list;
->  	int ret = -EINVAL;
-> -	int limit;
->  
->  	if (copy_from_user(&head, (void __user *)arg, sizeof(head)))
->  		return -EFAULT;
-> -	limit = READ_ONCE(list_limit);
-> -	if (!head.count || limit <= 0 || head.count > limit)
-> +	if (!head.count || head.count > READ_ONCE(list_limit))
->  		return -EINVAL;
->  	list = memdup_array_user((void __user *)(arg + sizeof(head)),
->  				 head.count, sizeof(*list));
+Thanks,
+
+Heikki Krogerus (3):
+  i2c: designware: Global register definitions
+  drm/xe/i2c: Handler for SMBus Alerts
+  drm/xe/mcu_i2c: Take over control of the controller enabling
+
+ MAINTAINERS                                |   1 +
+ drivers/gpu/drm/xe/Kconfig                 |   1 +
+ drivers/gpu/drm/xe/regs/xe_i2c_regs.h      |   2 +
+ drivers/gpu/drm/xe/xe_i2c.c                | 108 +++++++++++++++++++--
+ drivers/gpu/drm/xe/xe_i2c.h                |   6 ++
+ drivers/i2c/busses/i2c-designware-common.c |   1 +
+ drivers/i2c/busses/i2c-designware-core.h   |  84 +---------------
+ drivers/i2c/busses/i2c-designware-master.c |   1 +
+ include/linux/designware_i2c.h             | 107 ++++++++++++++++++++
+ 9 files changed, 222 insertions(+), 89 deletions(-)
+ create mode 100644 include/linux/designware_i2c.h
+
+-- 
+2.50.1
 
