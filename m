@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C2AECDB47F
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 09:36:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 812E9CDE002
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 09:37:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0596B10F1F6;
-	Thu, 25 Jun 2026 09:36:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 612F810F1F8;
+	Thu, 25 Jun 2026 09:37:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="dOjFd2Kz";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="aU62iK35";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 182E210E1B8
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 09:36:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0340210F1F8
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 09:36:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782380189;
- bh=3Ft9dGdmUtcV/N1tEFG7N6nAk5JOgANkCn64VS1VOCw=;
+ s=mail; t=1782380196;
+ bh=6VcJm57uvAYL/E78fxLO5afvFR0x39zRGx6pkGseE9s=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=dOjFd2KzkH56HVGT1ttkqD2Kv+e+COuqjuuuf6gN8ct9MdlMr4VYsT+WPdJvUNdEu
- rH2Y/HLuigvNLLq1HgHgjY3JP7Zqva7+rbIN0YAJYCXHVFL8DpcusQl3GXJeVLV7P1
- T/J60z0wDircNNdZcikV5ojMWtddBqOL+lJLUecBmpU31kxrkq7dPBLCS7oKoDtUTC
- ZwfUTNlyJsLov/wHSGPbzgph3K+X5QSZxtSAeu6s4cGFCMOj3UactbXo8khQOYcKvM
- +eIwL3O9aZa62xmas/NVYW/vWd0oQeWIeUOKd268MN8hzrgoTmssQHXZrS6MJ1K7b1
- FHKItdPmKUDGw==
+ b=aU62iK35JXDAwBXWmUyEszM+Mj32PxZN+yW+5GUow8Ps54/CPV0BsnWDmZpQo7+1h
+ +S/kVYxT+WTbEzeY/NbG4dSfM/W5LzknoPXANTtrovw3wTuJWOKl3cF/qweJQTvB8V
+ 09YxcZ2MITrSjLqrxGUMTkrxli5D8bUPYyDbh5LNt0JLZ2ei6X1otVJUk1N+U+QUJC
+ av4+wN6nq0N2b7Df1pxzAf9Swuf8wwWbk9EckY3hiRl6BNth7dsH5kDh+8F1w1qfj/
+ XiY41ySoh4L5onGKM99XcXFHuhr5RnWl7axxpHZlkuwD80eNO1x2M2eNvGnBxkc3/e
+ LWI9P2Zy15dvg==
 Received: from fedora-2.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 630E217E1164;
- Thu, 25 Jun 2026 11:36:29 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 515A317E1562;
+ Thu, 25 Jun 2026 11:36:36 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 25 Jun 2026 11:36:18 +0200
-Subject: [PATCH v5 03/16] drm/panthor: Fix panthor_pwr_unplug()
+Date: Thu, 25 Jun 2026 11:36:30 +0200
+Subject: [PATCH v5 15/16] drm/panthor: Don't defer FW event processing
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-panthor-signal-from-irq-v5-3-8836a74e0ef9@collabora.com>
+Message-Id: <20260625-panthor-signal-from-irq-v5-15-8836a74e0ef9@collabora.com>
 References: <20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com>
 In-Reply-To: <20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
@@ -49,11 +49,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782380187; l=1195;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782380187; l=3475;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=3Ft9dGdmUtcV/N1tEFG7N6nAk5JOgANkCn64VS1VOCw=;
- b=qESUQYQXmJacS3vUfXJVI0+Ci8t6jx7RJ6rwRSqSWr4WLPqOk/cXljEMS6+tT0lQWmtSSiueh
- NY4Etg5k3A5AA3yDW7gFqyWm8uAQhsOm8oj6nBJdDorsK6Dd3VtSsbh
+ bh=6VcJm57uvAYL/E78fxLO5afvFR0x39zRGx6pkGseE9s=;
+ b=/DY40WrOi2KaZbQB65zvP7iTBvj5eNI1WSy6Hu7hXtdYNzGUIOkV/4yonoRMWnB3LV4Eind5W
+ +5s/VG7U0qDDu81oz1Ytc7LzuHHr5zQv4J1FIkzECeLtp7zFl+OUMt6
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -71,32 +71,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We can't call panthor_pwr_irq_suspend() if the device is suspended,
-or this leads to a hang when the IOMEM region is accessed while the
-clks are disabled. Do what other sub-components do and conditionally
-call panthor_pwr_irq_suspend() if we know the PWR regbank block is
-accessible.
+Avoid a workqueue roundtrip and process things immediately from
+panthor_sched_report_fw_events().
 
-Fixes: c27787f2b77f ("drm/panthor: Introduce panthor_pwr API and power control framework")
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_pwr.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/panthor/panthor_sched.c | 48 +++++++--------------------------
+ 1 file changed, 9 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
-index 7c7f424a1436..090362bd700b 100644
---- a/drivers/gpu/drm/panthor/panthor_pwr.c
-+++ b/drivers/gpu/drm/panthor/panthor_pwr.c
-@@ -453,7 +453,8 @@ void panthor_pwr_unplug(struct panthor_device *ptdev)
- 		return;
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index eea80121212f..2a7cd88d012a 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -177,23 +177,6 @@ struct panthor_scheduler {
+ 	 */
+ 	struct work_struct sync_upd_work;
  
- 	/* Make sure the IRQ handler is not running after that point. */
--	panthor_pwr_irq_suspend(&ptdev->pwr->irq);
-+	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
-+		panthor_pwr_irq_suspend(&ptdev->pwr->irq);
+-	/**
+-	 * @fw_events_work: Work used to process FW events outside the interrupt path.
+-	 *
+-	 * Even if the interrupt is threaded, we need any event processing
+-	 * that require taking the panthor_scheduler::lock to be processed
+-	 * outside the interrupt path so we don't block the tick logic when
+-	 * it calls panthor_fw_{csg,wait}_wait_acks(). Since most of the
+-	 * event processing requires taking this lock, we just delegate all
+-	 * FW event processing to the scheduler workqueue.
+-	 */
+-	struct work_struct fw_events_work;
+-
+-	/**
+-	 * @fw_events: Bitmask encoding pending FW events.
+-	 */
+-	atomic_t fw_events;
+-
+ 	/**
+ 	 * @resched_target: When the next tick should occur.
+ 	 *
+@@ -1972,14 +1955,17 @@ static void sched_process_global_irq_locked(struct panthor_device *ptdev)
+ 		sched_process_idle_event_locked(ptdev);
+ }
  
- 	/* Wake-up all waiters. */
- 	spin_lock_irqsave(&ptdev->pwr->reqs_lock, flags);
+-static void process_fw_events_work(struct work_struct *work)
++/**
++ * panthor_sched_report_fw_events() - Report FW events to the scheduler.
++ * @ptdev: Device.
++ * @events: Bitmask of pending FW events to report.
++ */
++void panthor_sched_report_fw_events(struct panthor_device *ptdev, u32 events)
+ {
+-	struct panthor_scheduler *sched = container_of(work, struct panthor_scheduler,
+-						      fw_events_work);
+-	u32 events = atomic_xchg(&sched->fw_events, 0);
+-	struct panthor_device *ptdev = sched->ptdev;
++	if (!ptdev->scheduler)
++		return;
+ 
+-	guard(spinlock)(&sched->events_lock);
++	guard(spinlock)(&ptdev->scheduler->events_lock);
+ 
+ 	if (events & JOB_INT_GLOBAL_IF) {
+ 		sched_process_global_irq_locked(ptdev);
+@@ -1994,20 +1980,6 @@ static void process_fw_events_work(struct work_struct *work)
+ 	}
+ }
+ 
+-/**
+- * panthor_sched_report_fw_events() - Report FW events to the scheduler.
+- * @ptdev: Device.
+- * @events: Bitmask of pending FW events to report.
+- */
+-void panthor_sched_report_fw_events(struct panthor_device *ptdev, u32 events)
+-{
+-	if (!ptdev->scheduler)
+-		return;
+-
+-	atomic_or(events, &ptdev->scheduler->fw_events);
+-	sched_queue_work(ptdev->scheduler, fw_events);
+-}
+-
+ static const char *fence_get_driver_name(struct dma_fence *fence)
+ {
+ 	return "panthor";
+@@ -4085,7 +4057,6 @@ void panthor_sched_unplug(struct panthor_device *ptdev)
+ 	struct panthor_scheduler *sched = ptdev->scheduler;
+ 
+ 	disable_delayed_work_sync(&sched->tick_work);
+-	disable_work_sync(&sched->fw_events_work);
+ 	disable_work_sync(&sched->sync_upd_work);
+ 
+ 	mutex_lock(&sched->lock);
+@@ -4170,7 +4141,6 @@ int panthor_sched_init(struct panthor_device *ptdev)
+ 	sched->tick_period = msecs_to_jiffies(10);
+ 	INIT_DELAYED_WORK(&sched->tick_work, tick_work);
+ 	INIT_WORK(&sched->sync_upd_work, sync_upd_work);
+-	INIT_WORK(&sched->fw_events_work, process_fw_events_work);
+ 
+ 	spin_lock_init(&sched->events_lock);
+ 
 
 -- 
 2.54.0
