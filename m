@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D725CDE000
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 805BACDE001
 	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 12:40:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4782E10F29F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8493910F2A0;
 	Thu, 25 Jun 2026 12:40:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oJXBjFFV";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="FpOWn3Kf";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6260F10F29F
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 12:40:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9429F10F29A
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 12:40:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782391236;
- bh=H2vAHHHsjLs0xG6S2+xUXGAtGgZm00QhXu+uCO/wy8E=;
+ s=mail; t=1782391235;
+ bh=ByXPHeUxTLvHTIsy8GQMZTZezTDoNQPmI6yOuDE2RoQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=oJXBjFFVMXlXslaBOJPvMkf1M4BiqgkgAYbyGmSSdXlkyHWwiBewd3mmQV2GqUnsD
- sb/lOqhVVHWRIokQK+MDZEfo2EVjo2LrWGh7vX+WGF1e8+cvZR+iztu4XMR5d1sIGw
- yNiwVvoRHUwMYCinQLm3v93aZshmbkbLlLr5Q/EEK5xgp3bgKyCq1uI/jUSbGkJe1n
- X7+BBkl+vO/jXhOKhnKVJ5MRLCNKC4ida9SQG2ByElsYS4p48/O7sJJRpRfztxEI1X
- uyAr7/cZDvpYxjI758H+PpnzJKfautpZDhpnHLizvrz/2ZED9/d0xhsuRrDtLO17xw
- SVXnlPv2V8/tA==
+ b=FpOWn3KfrbGjxZbGWS2oGmL0NSno+rqDxWyAJE61i7Xd3F0jp8Tzl4ieNdqwTsKG6
+ s8M8Jmk7FNf437jN5OqN1UZw8ZEbAOHCwB52lNffF8twbG4y/fDRjRLVtX+2FDeAcm
+ PLA9eSCmLiiuZzhFOnfUF4OdJeMkpzgO3H07uzES5WlBOCqN120QsojrgqefuicLoO
+ x2Z4ebPDOeDzqy+RjQVdiRho7W/MrTox4klAqh94z5KyF3ABCrQxUP/moHlJRA1Ptc
+ nzx/c3oV/++lhVghUSyh3Vi/Lpr6/ILLNcYxsK0Ab2jzoyoSCpc0XIeY8EUbpc7gbi
+ r8KlJB7U5zfdQ==
 Received: from fedora-2.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 7D0BD17E0909;
- Thu, 25 Jun 2026 14:40:35 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id D714217E0C88;
+ Thu, 25 Jun 2026 14:40:34 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 25 Jun 2026 14:40:35 +0200
-Subject: [PATCH 09/11] drm/panthor: Fix a leak when a group is evicted
- before the tiler OOM is serviced
+Date: Thu, 25 Jun 2026 14:40:34 +0200
+Subject: [PATCH 08/11] drm/panthor: Drop a needless check in
+ panthor_fw_unplug()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-panthor-misc-fixes-v1-9-b67ed973fea6@collabora.com>
+Message-Id: <20260625-panthor-misc-fixes-v1-8-b67ed973fea6@collabora.com>
 References: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
 In-Reply-To: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
@@ -49,13 +49,13 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
  Chia-I Wu <olvaffe@gmail.com>, Karunika Choo <karunika.choo@arm.com>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Boris Brezillon <boris.brezillon@collabora.com>, sashiko-bot@kernel.org
+ Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782391229; l=1131;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782391229; l=921;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=H2vAHHHsjLs0xG6S2+xUXGAtGgZm00QhXu+uCO/wy8E=;
- b=TvCoSXXes1TtdhDhLrdSfsF/b8epTv2YVYi4V+2CBgTLspmL0N9uLXbLutDFvOiGe6y+oStPR
- qjpO7SwdxYfCmOSfOi2F2V9RBZ5VqQ1r1VaXuWgSEtRdP21kvovdsR7
+ bh=ByXPHeUxTLvHTIsy8GQMZTZezTDoNQPmI6yOuDE2RoQ=;
+ b=UWVnsI7K0mC9km3s9+c3xnOcLDs3gSmqkrcagWmkkCUQpQL5HGT3Z7z7YEB2lWTSI80Blhh1M
+ Xwf/tx/Sg+UAahNgpwxWMtJp8ZdHPeRvJzAVtzZEywD2yr327746C3e
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,31 +73,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A group ref is tied to the pending tiler_oom_work, so we need to release
-it if the cancel was effective.
+panthor_fw_unplug() is only called if we at least managed to initialize
+the IRQ, so it's safe to drop the "is IRQ initialized" check.
 
-Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://sashiko.dev/#/patchset/20260623-panthor-signal-from-irq-v3-0-2ece396f8ee0@collabora.com?part=7
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_sched.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/panthor/panthor_fw.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index ab3e13e44a26..5fe95d03f23e 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -1057,7 +1057,8 @@ group_unbind_locked(struct panthor_group *group)
+diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+index 986151681b24..4fbddb9e18c8 100644
+--- a/drivers/gpu/drm/panthor/panthor_fw.c
++++ b/drivers/gpu/drm/panthor/panthor_fw.c
+@@ -1279,9 +1279,7 @@ void panthor_fw_unplug(struct panthor_device *ptdev)
  
- 	/* Tiler OOM events will be re-issued next time the group is scheduled. */
- 	atomic_set(&group->tiler_oom, 0);
--	cancel_work(&group->tiler_oom_work);
-+	if (cancel_work(&group->tiler_oom_work))
-+		group_put(group);
+ 	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev)) {
+ 		/* Make sure the IRQ handler cannot be called after that point. */
+-		if (ptdev->fw->irq.irq)
+-			panthor_job_irq_suspend(&ptdev->fw->irq);
+-
++		panthor_job_irq_suspend(&ptdev->fw->irq);
+ 		panthor_fw_stop(ptdev);
+ 	}
  
- 	for (u32 i = 0; i < group->queue_count; i++)
- 		group->queues[i]->doorbell_id = -1;
 
 -- 
 2.54.0
