@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08F1ECDB479
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 10:01:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8B18CDB466
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 10:04:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45AF310F210;
-	Thu, 25 Jun 2026 10:01:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AC6510F215;
+	Thu, 25 Jun 2026 10:04:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qi/n/BWT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nhW57eiV";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11F1910F210
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 10:01:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BF8D10F215
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 10:04:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EEF7B43C2B;
- Thu, 25 Jun 2026 10:01:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4553F1F000E9;
- Thu, 25 Jun 2026 10:01:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6AAE740B3A;
+ Thu, 25 Jun 2026 10:04:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392811F000E9;
+ Thu, 25 Jun 2026 10:04:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782381665;
- bh=EsE76Z4xRSFuaUsnBBypJxmuqqG+w7zMjPB5P48Qr30=;
+ s=k20260515; t=1782381897;
+ bh=h9ugp1HvSwXlSb6EqEXZSPHCRha1BUpRA6TDvjdsbDg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Qi/n/BWTuFVm8wnsXRkvBBwNjqwtUdYjgx9lz4U+3x6qbzmGu5ug8F7gBgXirTkyq
- JTquM+ALNCoO+35pq3rBrC+i97FWSKQM8OWLblC+6ishhCeYD6QgBbM1VNjubMew5/
- jTfRnf3WaFnn5U8iKlaKmTGJhmXr1TvXq1YW5mGJOzUjp7elGW6aQteafaAXSL0LmS
- ijcx1MOEUpFpewf2AyG2uZF3FOLFD1n5lMDIcbB4cR8hT7yQ0cyQY3e7CjTpNfxB2V
- TcDV4KgRkqTJvBpenuV/OaL7z41mka8ROuo0f3iDi2L5OwwQaezOkYRIStK99p5vE5
- 3PLKKk2agZOQg==
+ b=nhW57eiVKoZ8+Lqpu3mVb9tJBLkFrkqQsh2TAqPM7xYBoF7rSoZqf6ijyIC30IR1t
+ THoDnwHck71du9b+NGcMWPD/fP7OVHRr92x1deSM/3Wn1oqwU+Sg3E9oyqJgbBx/xD
+ YwdnuFpz/uohQbLWMH+Gn57Zj1glvNturWAUfdEw+Li7JN1a9ge1whL4NnYw9dxAI0
+ xPnKvxmarfMsHEU3NQR7WeXRIV5lub15U1mRAIPFI+rZ74OJtKb7wpQQlNqJjJ/upo
+ LUtH8ZEgXs4hDuG69jEyafMB5/DFZSsLQzZJrfByrVyj9N4Ps3iLLuhhZcMdh/pG6J
+ oifrasca1qyVg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/7] drm/verisilicon: make axi and ahb clocks optional
-To: "Joey Lu" <a0987203069@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260625094449.708386-5-a0987203069@gmail.com>
-References: <20260625094449.708386-1-a0987203069@gmail.com>
- <20260625094449.708386-5-a0987203069@gmail.com>
+Subject: Re: [PATCH v5 02/16] drm/panthor: Don't overrule pending immediate
+ ticks in sched_resume_tick()
+To: "Boris Brezillon" <boris.brezillon@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260625-panthor-signal-from-irq-v5-2-8836a74e0ef9@collabora.com>
+References: <20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com>
+ <20260625-panthor-signal-from-irq-v5-2-8836a74e0ef9@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 10:01:04 +0000
-Message-Id: <20260625100105.4553F1F000E9@smtp.kernel.org>
+Date: Thu, 25 Jun 2026 10:04:56 +0000
+Message-Id: <20260625100457.392811F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,76 +58,122 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Possible NULL pointer dereference in the IRQ handler if an interru=
-pt triggers before DRM initialization completes.
+- [High] Dereference of ERR_PTR in panthor_heap_pool_put() during tiler OOM=
+ handling.
+- [High] Asynchronous cleanup of scheduling groups executes without holding=
+ a DRM device reference, leading to a Use-After-Free of panthor_device.
+- [High] Missing bounds check on synchronization object offset allows out-o=
+f-bounds read.
 --
 
-commit 2cd6077ab2fb5ed065ee2cef55004b713c80f827
-Author: Joey Lu <a0987203069@gmail.com>
+commit eccb99f3f3029758d8c3f80d0f349c280e91b3c2
+Author: Boris Brezillon <boris.brezillon@collabora.com>
 
-drm/verisilicon: make axi and ahb clocks optional
+drm/panthor: Don't overrule pending immediate ticks in sched_resume_tick()
 
-The Nuvoton MA35D1 SoC integrates a DCUltraLite display controller whose
-AXI and AHB bus clocks share a single gate enable bit with the display
-core clock, so the clock driver does not expose them separately. This
-patch makes the axi and ahb clocks optional in the probe.
+We schedule immediate ticks when we need to process events on CSGs,
+but those immediate ticks don't change the resched_target because we
+want the other groups to stay scheduled for the remaining of the GPU
+timeslot they were given. Make sure these immediate ticks don't get
+overruled by a sched_queue_delayed_work() that would delay the tick
+execution.
 
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisi=
-licon/vs_dc.c
-> index 9729b693d360e..fd1f5fe67a68b 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
-[ ... ]
-> @@ -90,13 +90,13 @@ static int vs_dc_probe(struct platform_device *pdev)
->  		return PTR_ERR(dc->core_clk);
->  	}
+Fixes: 99820b4b7e50 ("drm/panthor: Make sure we resume the tick when new jo=
+bs are submitted")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v4-=
+0-3d2908912afa@collabora.com?part=3D9
+
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/pa=
+nthor/panthor_sched.c
+> index 5b34032deff81..1913bc8a62977 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -2668,7 +2668,14 @@ static void sched_resume_tick(struct panthor_devic=
+e *ptdev)
+>  	else
+>  		delay_jiffies =3D 0;
 > =20
-> -	dc->axi_clk =3D devm_clk_get_enabled(dev, "axi");
-> +	dc->axi_clk =3D devm_clk_get_optional_enabled(dev, "axi");
->  	if (IS_ERR(dc->axi_clk)) {
+> -	sched_queue_delayed_work(sched, tick, delay_jiffies);
+> +	/* We schedule immediate ticks when we need to process events on CSGs,
+> +	 * but those don't change the resched_target because we want the other
+> +	 * groups to stay scheduled for the remaining of the GPU timeslot they
+> +	 * were given. Make sure those immediate ticks don't get overruled by
+> +	 * a sched_queue_delayed_work() that would delay the tick execution.
+> +	 */
+> +	if (!delayed_work_pending(&sched->tick_work))
+> +		sched_queue_delayed_work(sched, tick, delay_jiffies);
+>  }
 
 [Severity: High]
-This is a pre-existing issue, but is it possible for an interrupt to trigger
-a NULL pointer dereference during probe if the bootloader left the display
-active?
+This isn't a bug introduced by this patch, but we noticed a potential
+out-of-bounds read nearby. In panthor_queue_get_syncwait_obj(), the
+return value of panthor_gem_sync() is ignored:
 
-Looking further down in vs_dc_probe(), the IRQ handler is registered before
-vs_drm_initialize() is called:
+drivers/gpu/drm/panthor/panthor_sched.c:panthor_queue_get_syncwait_obj() {
+    ...
+	panthor_gem_sync(&bo->base,
+			 DRM_PANTHOR_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE,
+			 queue->syncwait.offset,
+			 queue->syncwait.sync64 ?
+			 sizeof(struct panthor_syncobj_64b) :
+			 sizeof(struct panthor_syncobj_32b));
 
-	ret =3D devm_request_irq(dev, irq, vs_dc_irq_handler, 0,
-			       dev_name(dev), dc);
-	if (ret) {
-		dev_err(dev, "can't request irq\n");
-		goto err_rst_assert;
-	}
+	return queue->syncwait.kmap + queue->syncwait.offset;
+}
 
-	dev_set_drvdata(dev, dc);
+If panthor_gem_sync() detects the offset is out of bounds and returns
+-EINVAL, the function ignores the error and still returns the
+pointer, which points outside the buffer boundary.
 
-	ret =3D vs_drm_initialize(dc, pdev);
+Could this allow panthor_queue_eval_syncwait() to dereference an
+out-of-bounds pointer when it reads syncobj->sync64.seqno?
 
-If a pending interrupt (such as VSYNC) fires immediately after
-devm_request_irq() is called, vs_dc_irq_handler() will be triggered and will
-eventually call vs_drm_handle_irq().
+[Severity: High]
+This is a pre-existing issue, but is it safe for group_release() to queue
+asynchronous cleanup work without pinning the DRM device?
 
-Looking at vs_drm_handle_irq() in vs_drm.c, it unconditionally dereferences
-the drm_dev pointer:
+drivers/gpu/drm/panthor/panthor_sched.c:group_release() {
+	...
+	queue_work(panthor_cleanup_wq, &group->release_work);
+}
 
-	if (dc->drm_dev->crtcs[i])
-		drm_crtc_handle_vblank(&dc->drm_dev->crtcs[i]->base);
+When the DRM device file is closed and panthor_postclose() executes group
+destruction, it doesn't flush the panthor_cleanup_wq workqueue. If the
+device is hot-unplugged, the DRM core might free the panthor_device.
 
-Since vs_drm_initialize() hasn't allocated or assigned dc->drm_dev yet,
-could this cause a kernel panic during boot on platforms where the bootload=
-er
-leaves interrupts enabled?
+When group_release_work() eventually executes later, does this lead to a
+use-after-free when it accesses the freed panthor_device during cleanup
+(e.g., in panthor_kernel_bo_destroy())?
 
-Would it be safer to request the IRQ after the DRM device is fully
-initialized, or to mask interrupts in the hardware before registering the
-handler?
+[Severity: High]
+This is a pre-existing issue, but we noticed a potential pointer dereference
+issue in the tiler OOM handling path. In group_process_tiler_oom():
+
+drivers/gpu/drm/panthor/panthor_sched.c:group_process_tiler_oom() {
+    ...
+	heaps =3D panthor_vm_get_heap_pool(group->vm, false);
+    ...
+	if (IS_ERR(heaps) || frag_end > vt_end || vt_end >=3D vt_start) {
+		ret =3D -EINVAL;
+    ...
+out_put_heap_pool:
+	panthor_heap_pool_put(heaps);
+	return ret;
+}
+
+If heaps is an ERR_PTR (like ERR_PTR(-ENOENT)), the code correctly sets
+ret =3D -EINVAL but later jumps to out_put_heap_pool and calls
+panthor_heap_pool_put().
+
+Since panthor_heap_pool_put() only checks if (pool) and doesn't check
+IS_ERR(pool), wouldn't this try to dereference an invalid error pointer
+in kref_put()?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625094449.7083=
-86-1-a0987203069@gmail.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625-panthor-si=
+gnal-from-irq-v5-0-8836a74e0ef9@collabora.com?part=3D2
