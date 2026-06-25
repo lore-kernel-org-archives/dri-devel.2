@@ -4,44 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A830CDE000
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 12:56:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B631ECDE000
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 12:58:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C170B10E212;
-	Thu, 25 Jun 2026 12:56:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EDBA10E2D8;
+	Thu, 25 Jun 2026 12:58:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A7tVnEW/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ICJpzssW";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E2CE10E212
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 12:56:01 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2255C4382A;
- Thu, 25 Jun 2026 12:56:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4C51F000E9;
- Thu, 25 Jun 2026 12:56:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782392161;
- bh=BYEWWCm7/Qt/Xvxb80GnWbVgRMUkxitHiEBBhEGegoo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=A7tVnEW/glHTvMvWMGz/+FUx8UBudnR0ex2gdTfW3zUTzuc+/xoOyPVLQMohfTTVd
- PUDKNVAepcjBh8t8Kyu1E/ZNPPdyMJ0kCzC8t6gi3H04GliZyejdjVLu5tySeAACLD
- 6rUu1iqPkkaG7TtXGTFC0UK66aRMZKTzM+Unq0Y670lEWGcPE+ltGQmZCc4VR+Glp5
- 6UFh1W9w0+s43ktwrw7UoBcLLN5jDicwnbhHbpdjDU6rW8tHl9c1fX2ntjAt72EWbX
- k+w7dQi2tLaK63EUAyzlmDs/gylpInwyUT/7mLqhJI78kSEgHf2x8b6XcfAgndtycO
- SbTzTFA+/vJdw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 03/11] drm/panthor: Fix UAF on works queued to
- panthor_cleanup_wq
-To: "Boris Brezillon" <boris.brezillon@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260625-panthor-misc-fixes-v1-3-b67ed973fea6@collabora.com>
-References: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
- <20260625-panthor-misc-fixes-v1-3-b67ed973fea6@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 12:56:00 +0000
-Message-Id: <20260625125600.DA4C51F000E9@smtp.kernel.org>
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012067.outbound.protection.outlook.com [52.101.53.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1274710E2D8
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 12:58:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HK9kJSSSpGG7TDCZjl6iNC3/W4NdvKHQSXSt3IarXTU0mI7T0Np4zt1iVmleK7WaJ8o4dww8CpyXhpnKpYudq884F/4yEiGV6atT0zjdOFQzMNd9nDv3knKiygSKF+mEyaedsOJ+Go6NuWQjqvAu+PoZkvfeY8hS5cTaxcF3bilMKSiHc0WGc94par7s6FMiC4jwftMH/KlVH4IOSP5N3a5IM1MuQoozeMOk1VyKgSm4cDQZ17zbGpbSal53dOs+gKWVEaUE6Gk4qpNAwbwuzSF58+ripbDziuBruTK5cIjmvcREYCiGLlhfz1znhaBFX2UVdiOt6gRug1qbPwk0yw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uizVK4a1ukLloz8ocen0sOjHT0IbSw3jVdTC2OBwOLw=;
+ b=i7jrI8IP1+2CuSLS+HhIJ7U6enGeWpT+plnWBEfeQT/7wSOU6421m7W0ouRgABCl6BPBfBwTJJtXzw9sr44/pQJK3M6crqrm2UECoC/GEx/MNFLLVaeG4SPlfkwu0+siovukgUxVF4Iaa+0ZSScagErRexZnH78TOOMDlbUZfC600IA0CB34Itn4Qv3DQ16qfQLJM9qwHcE4R8wQR3tmton3izw+LlnCg3lPcEkQ1WtW6IuLqhTM2ibPb++9lW4/1Oeoukg8oUERelNU3PvhSTiIjF7sUq/bieKNIA/iUnWNLU2iWgYzcXUItFVscdYaqbMlFUw2TVe/SxduupZceg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uizVK4a1ukLloz8ocen0sOjHT0IbSw3jVdTC2OBwOLw=;
+ b=ICJpzssWZadU6IynMfQeZ1Nwc5KQEpfBmN5E3BGu21gOci83tYsW8EZ3a0h4vriJdkqQH6qTGPxVFcm6SmtrMO3UcIZiE7AKZ6OZ7x/Lp/PjOYe4nptHdOnwfzAjoVZCSRnDwZwuV6/i96xubsco316+QR0PCAfLk3SdVkecFMk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
+ by BL4PR12MB9477.namprd12.prod.outlook.com (2603:10b6:208:58d::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Thu, 25 Jun
+ 2026 12:58:13 +0000
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68]) by SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68%5]) with mapi id 15.21.0159.007; Thu, 25 Jun 2026
+ 12:58:13 +0000
+Message-ID: <91df07da-3938-4890-b120-e827873683b0@amd.com>
+Date: Thu, 25 Jun 2026 14:58:08 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: udmabuf: make list limit unsigned
+To: Yousef Alhouseen <alhouseenyousef@gmail.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+References: <20260625085735.4488-1-alhouseenyousef@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260625085735.4488-1-alhouseenyousef@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0351.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f4::14) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|BL4PR12MB9477:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1e62f9c-21ba-4aba-2595-08ded2b96a5f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|376014|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: xH+cuD/zLa7jGHPcrulcgSHsaO9oe0AzM9C8Mkk66koyXKxbtvNlGiylopMNPwwdOdzpd6AG68dduwO+yN7wCV0x1H2g64EKHmR7rpyFqmSX/PJU0+xDoUanCYpTZert711ubcEd/Gt0jgXBvWAgN0i8YYvJkE+ptlDV9oEFTfhkFl+X7j2xVfWtFmnnqh1epTeLVHbPde4V4cXUAijqNK2phrXWRu+DkD8gruQ29oV9c9yKac0g0NjSWhHZqHiAUZueVkTtcGQmg+fGw0KthZ/0qh08up11uuPvCb2WXSP82IUyxsdVugHoY+1s71MudwmpePUY4IgesPbDxNNPylRtCxjQL2p/xOZtdZeGSrgtrOTWYQA3ibadjf8g2t1poFzq8cbatkPhwJ+YdTC8XgxUjyOselBloWQomU9Upz2UuRJ1t7zn+hfRv+vvlnkLOKU1IDkx85S7vMyV9nHlR8PRUddqj1fONmOCnOAmbeWKdBphX4NY2EwRbjcXXltArnfgMCyaI74Df3Ry7IS7BPc+HGJN71zq0ZmVsLXYJtGhkwnOfY4w4u0HZANn9/1kYWO1tZVtS70q46425rXbnceRDiJoWnGDqxQN2WktQs/js7YFJH4SFI6LEe1DHXxMKy7BtRfq621jbPbG2bQFb8Xit8YCVzuswNzMGqEYhbo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?elUrV1Q4aER5cFpwVWUydTZ2OGFLODFoc0NUU1BUWEFPWnBTOVFZSzBvWWt4?=
+ =?utf-8?B?UlNNTm5Fc2tjTmx0ZEViMDY5blc4NDl5OUFOeXZkL0htODlHMTFhOUI4MnJ6?=
+ =?utf-8?B?K253ZzlhRFRuTDlheHNJQVRjL2JtQ3FZWkhaUDFGZlFCb0dSSWxWS0xrV015?=
+ =?utf-8?B?dUJkdTJ1R1dmZ0xKaUdBNWl0bk5kNXVpYS9XOUI2WTBEUVB4Q2RtbC85ZEpa?=
+ =?utf-8?B?d0hIUitOREhEd3NrK2swaHZsNEp1ZFJuWGRJUmlOY0xxdU53aSs1SGZNeXlQ?=
+ =?utf-8?B?ZVozUzlCcDVaRVd3L1YrcDFDUVZSdHVqbHdESjhBOGx2QzRZTnZSQkxRYjRB?=
+ =?utf-8?B?K3BtNDc5SXphb3AzOEZ2T1F1OElORGt2QVhJempheUlrYzBjOWF5ZmFCZzMw?=
+ =?utf-8?B?SWpza2tiL1dYc2JzNE5paTZmK2ZvM3NNcTE0OEV0ZC9kWmZiTk9ObHk2V0lj?=
+ =?utf-8?B?TmpmQm1WY3RmNXB0ZUx5c0JJd0Y5b0srVVRCQ2ZxeG8xU1pWVFVTeTgzbjhh?=
+ =?utf-8?B?VTd5cVFmOU5EaFdRNFBYb2lRM2ptYWExVDFOcTZaclRJVlk0UTJNMlh2Yzdy?=
+ =?utf-8?B?VTRGZnl1NzlIOTZQS0sybWtGdXptdlkrcmtHQ1ZYUkh3dlQ0bmE5N0hYcThj?=
+ =?utf-8?B?V2VwdkkzTUc4TGJrWHVPTEFBKzdOanVPTmpuS0crNUFTWjh3dENqdU5CUmMv?=
+ =?utf-8?B?Z1hNbnQvR0tPZDU0RGFPUWROak5xUmtLem4rOTJ2aXBKdGRxQnhiYXVadlRM?=
+ =?utf-8?B?S1BleDlGUXB4UlB4MVNIdUg4cnpCN24rY0dpZVpVY2lNR0VpdVJENVpwR0Vw?=
+ =?utf-8?B?aGNHN01rT0dMT0k0NjhtRmt5aG1VQzJQdWFNSmwzQUxFZXNBT1JjS1k5bDBP?=
+ =?utf-8?B?R2NadWJiQ0t5Q0hDdHp4ZjhtTVVGR21VUHpoOVVYT0NOYkF4Qmo3U29QS0lu?=
+ =?utf-8?B?cVFyZER1WkwxOGQzdk43UC9mVWx4Z3U5dVNuRXQycGtvVDBQSm4xb0lFQ3Yz?=
+ =?utf-8?B?c1RkSkI3ZmZWZjJITHFSUkdsWUZJTzZJMzlyWXFjWElJYTJ1UnQ5KzQ1TDFx?=
+ =?utf-8?B?RkRFbndDa0htTkFkVWJuU2NnWFpncG9wcVVuNlptSGl3OWFhWTRCVVhpNFg1?=
+ =?utf-8?B?elBVVlRZRmhaZkdWc1ZlYm1Ja0RCRHUzUEdLdzc5QmhHRFpydnp4VXZ6b2Vl?=
+ =?utf-8?B?aytkTHFjRGk1WnJtaGpQWXRid1BqUkVDM0Z6aXBYOHZOWUMyU2I2N1Fua3JX?=
+ =?utf-8?B?eEl0WlFBblFqZFl1UFp4L0RXVkVFZTJaU2ZidFBaMTBCN2t4akY4V2NTQXMz?=
+ =?utf-8?B?OFBuZzM0OXlnVzV1Q0QvN2ZMUHV4ZGwvZnNFSElBbytQbzNodkpPMk5oQjdu?=
+ =?utf-8?B?SmgraVVHV0hTOTl4ajk3a29UZnFzRDF5elExZVJWV2JYaVBkUGxGV3BMZDk2?=
+ =?utf-8?B?UVl5Yy9PTHl3NVdZajJkNXJ2YWFkaWY4V0c4a2UvZ29DR1ZKYlZoTWNZR2lJ?=
+ =?utf-8?B?NkNwNGcya3JwckxWUFNZWENVSFdCS0tRU0FlT2xMQ09pbU1hbzhXR0taNkhu?=
+ =?utf-8?B?d05BZENXWEJaOWY4TktwVlR4bFVFcUhuQUVxc0tLQ1RZcURZMitRZGFYVzVq?=
+ =?utf-8?B?TFRJbUI3dU5XNjBTbzZIL0JKekhPK295Q25wVGJlYytHb3RQOW1rNHg3eVl6?=
+ =?utf-8?B?aGQ2M0lqbk1QbHY2YjVZanpXTnl5L2xQeHhmV2ZTMXdHa3pMbnltczkwM1dR?=
+ =?utf-8?B?VXdac0QxWDByQkp3YllXcUpzTk40QmdpaXkrNlN5d2E5aHNnanRydTZ2TWZC?=
+ =?utf-8?B?ZUMzZ3R0eUxKMnJZeitRYkc0OEJleHZpU2xXN05aK1FOOC8rL3RZeFpwQVJ3?=
+ =?utf-8?B?bEVOazM3bEsyZHh0WmdFUXUxUXpVVHBFNCtZTHJIL3JRN2tMVkRYVHBjYVdC?=
+ =?utf-8?B?SXY0M1dtcWtxSU5ITnloMHRJTys5ekwyMlRTNEtWYXMzcC9OVENJbGFpOWJx?=
+ =?utf-8?B?dE1JMnhzZWlxUXdON3ZaME50ZVNTT1RWc3lMSnBoUWVuVjVOS1NDMlgrbzBj?=
+ =?utf-8?B?ZFdZL3dRdnMxOUVEcHZ5cWRxdVRXenp5bUNwMHVJcGlkZDhjV29BVGJrOG1a?=
+ =?utf-8?B?REREUTR3RVIrL01nM0UrWjUxY1Z0d2pMQ2Q1VWc5Vmw1NzNlRmlDZE81VjZS?=
+ =?utf-8?B?elowWjd4UWRpSG92N0JMQ2UxeUpLcVU2TkVTWmFON28yeERNcTBBd3NxMTRw?=
+ =?utf-8?B?RXl2RGRpaXEzMEFNY3VlZ3FhOUxoRWlLY29PZU1tZFdNV09WVHZRN1p0Uk1Y?=
+ =?utf-8?Q?6oh8jGibsa8tr6onXu?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1e62f9c-21ba-4aba-2595-08ded2b96a5f
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 12:58:13.2231 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Du2t1hq7L+W/fbqqRK232Dy4Hy26wKmTm8Q6xTEjVyQXX7/TbXm70cQO8nOcTiQN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9477
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,95 +135,58 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On 6/25/26 10:57, Yousef Alhouseen wrote:
+> UDMABUF_CREATE_LIST uses list_limit only as an upper bound for the
+> unsigned entry count supplied by userspace. Negative values have no
+> useful meaning and complicate the bounds check.
+> 
+> Make the module parameter unsigned and keep the checked array copy so
+> large counts cannot wrap the allocation size before udmabuf_create()
+> walks the copied list.
+> 
+> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
 
-New issues:
-- [High] Calling `drain_workqueue()` on a globally shared workqueue drops n=
-on-chained works from all other devices, leading to resource leaks.
+Looks good to me, but somebody more familiar with udmabuf should probably take another look.
 
-Pre-existing issues:
-- [High] The patch fails to prevent the Use-After-Free because `drain_workq=
-ueue()` does not permanently prevent new works from being queued after unpl=
-ug.
---
+Acked-by: Christian König <christian.koenig@amd.com>
 
-commit a8d1c4b2d56a32fc02ddadc07ead22f7dc20b168
-Author: Boris Brezillon <boris.brezillon@collabora.com>
+Regards,
+Christian.
 
-drm/panthor: Fix UAF on works queued to panthor_cleanup_wq
+> ---
+>  drivers/dma-buf/udmabuf.c | 8 +++-----
+>  1 file changed, 3 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+> index b4078ec84..620113df3 100644
+> --- a/drivers/dma-buf/udmabuf.c
+> +++ b/drivers/dma-buf/udmabuf.c
+> @@ -16,8 +16,8 @@
+>  #include <linux/vmalloc.h>
+>  #include <linux/iosys-map.h>
+>  
+> -static int list_limit = 1024;
+> -module_param(list_limit, int, 0644);
+> +static uint list_limit = 1024;
+> +module_param(list_limit, uint, 0644);
+>  MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
+>  
+>  static int size_limit_mb = 64;
+> @@ -469,12 +469,10 @@ static long udmabuf_ioctl_create_list(struct file *filp, unsigned long arg)
+>  	struct udmabuf_create_list head;
+>  	struct udmabuf_create_item *list;
+>  	int ret = -EINVAL;
+> -	int limit;
+>  
+>  	if (copy_from_user(&head, (void __user *)arg, sizeof(head)))
+>  		return -EFAULT;
+> -	limit = READ_ONCE(list_limit);
+> -	if (!head.count || limit <= 0 || head.count > limit)
+> +	if (!head.count || head.count > READ_ONCE(list_limit))
+>  		return -EINVAL;
+>  	list = memdup_array_user((void __user *)(arg + sizeof(head)),
+>  				 head.count, sizeof(*list));
 
-This patch adds a drain_workqueue() call in panthor_device_unplug() to
-ensure cleanup works are executed before the panthor device is destroyed.
-
-Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v5-=
-0-8836a74e0ef9@collabora.com?part=3D2
-
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/p=
-anthor/panthor_device.c
-> index 0b25abebb803c..a0774e28aa94d 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -101,6 +101,11 @@ void panthor_device_unplug(struct panthor_device *pt=
-dev)
->  	panthor_gpu_unplug(ptdev);
->  	panthor_pwr_unplug(ptdev);
-> =20
-> +	/* Make sure works queued to panthor_cleanup_wq are executed
-> +	 * before the device is destroyed.
-> +	 */
-> +	drain_workqueue(panthor_cleanup_wq);
-
-[Severity: High]
-Since panthor_cleanup_wq is a global workqueue shared by all panthor devices
-(allocated once in panthor_init()), does calling drain_workqueue() here
-cause issues for other active panthor devices?
-
-drain_workqueue() temporarily sets the __WQ_DRAINING flag on the workqueue.
-If any other active panthor device attempts to queue work while this flag
-is set, __queue_work() will hit a WARN_ONCE and silently discard the
-non-chained work.
-
-Will this break cleanup for all other panthor devices system-wide, causing
-resource leaks (e.g., VMs, BOs, groups) that can lead to system degradation?
-
-[Severity: High]
-This is a pre-existing issue, but does this actually prevent the
-Use-After-Free?
-
-drain_workqueue() only waits for currently queued works to finish and then
-clears the __WQ_DRAINING flag before returning.
-
-If a userspace process holds an open DRM file descriptor during a device
-hot-unplug, the ptdev isn't freed immediately. When the process later closes
-the FD, drm_release() will destroy the group pool and call group_release().
-
-At this point:
-
-drivers/gpu/drm/panthor/panthor_sched.c:group_release() {
-    ...
-    queue_work(panthor_cleanup_wq, &group->release_work);
-    ...
-}
-
-This successfully queues new asynchronous cleanup works because __WQ_DRAINI=
-NG
-has already been cleared.
-
-When drm_release() then drops the final device reference, synchronously
-freeing ptdev, the newly queued group_release_work will execute
-asynchronously and access the freed ptdev, triggering the exact
-Use-After-Free this was intended to fix.
-
-> +
->  	pm_runtime_dont_use_autosuspend(ptdev->base.dev);
->  	pm_runtime_put_sync_suspend(ptdev->base.dev);
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625-panthor-mi=
-sc-fixes-v1-0-b67ed973fea6@collabora.com?part=3D3
