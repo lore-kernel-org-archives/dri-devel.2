@@ -4,43 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1568CDB479
-	for <dri-devel@archiver.kernel.org>; Wed, 24 Jun 2026 21:30:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3AA0CDB47C
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 00:39:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1539810E04B;
-	Wed, 24 Jun 2026 21:30:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 429AE10E130;
+	Thu, 25 Jun 2026 00:39:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EaPbtYoV";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="P0SWiuO2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 248AE10E04B
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 21:30:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B975040441;
- Wed, 24 Jun 2026 21:30:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C1E01F000E9;
- Wed, 24 Jun 2026 21:30:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782336627;
- bh=kpsp1O/a2h++t3FFNQQ7+EXZZRgkv8H3NC3g2014xIw=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=EaPbtYoVQPEvr2gjcRqSmMC1tGZkuU5Qws5yCeBGNuQeUUvGaEMtgza9LvBAmWeMz
- h+m4pJ7/uB2Kv4UiIxSgvq7kB80jxUpJgQIJoXwbrPGKdBXyqInD1cfFBLWC9Z0Wj/
- zcX9lhLXxoseDqz3p2I9+a3IBi9O7a5tPJWYIGGDgyHaGB6f3HbRSN8uw0BWshiTER
- 3SDAthZV3PYaP38buIz2Op4ZYHSI6RsmHqyd3JuBCTH+RjNi0y90xUAf9XHmdZffG1
- p1AFnVmG67e2DHN7zCWbUjt33oiHd8vibomA9DVxOVz/qjfl1qLZUuXIiPJldwZzqt
- RTeuhDMm7YQjQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] fbcon: fix NULL pointer dereference for a console
- without vc_data
-To: "Ian Bridges" <icb@fastmail.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <ajxICA0v-_5NrqhS@dev>
-References: <ajxICA0v-_5NrqhS@dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Jun 2026 21:30:26 +0000
-Message-Id: <20260624213027.6C1E01F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D837C10E130
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 00:39:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782347961; x=1813883961;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=+w+Dy1m6aWzVQOu+uaA8apzuoTF7yQud1wetSJm1ryc=;
+ b=P0SWiuO2tQBtHppJCMY4YVy5mihnczybSdqMLLtkNqQT0FByTbYAC9R9
+ d3sDUsyDdr7E3CPop/kM6DScVrs3eHLP5h/pimKwWLQPsDD9q0Q69K8UK
+ SBhNrWgg9evVWoUa0zny1bWst5GWYuaTygliPIOOrhcwNGzxGSKkEywWj
+ kS8y6/yPwJW9UXDnVFyrDJcuhz00dIavaZqZdA/hRMjmdvdkJLcAEMQGj
+ pzrWTr9s/A+gu5GujeIoBQrsiQQ0EAeZzhc9EmuW6j9SgYQpbmITKThjK
+ KhfqgMyIAZAN7CeZmXaX1U0FtyUntWoz0x+dB/XkPL8pJrDB/ao1zEQsy Q==;
+X-CSE-ConnectionGUID: VKf/Z3+VQIitk7p7cMLv3g==
+X-CSE-MsgGUID: ux9fGz1qRKe6tnmIzBEZRA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="93721401"
+X-IronPort-AV: E=Sophos;i="6.24,223,1774335600"; d="scan'208";a="93721401"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2026 17:39:20 -0700
+X-CSE-ConnectionGUID: VTcsF6wOQ2KoV/D+RnaC/w==
+X-CSE-MsgGUID: 1KQ39IkEQgq2hmtyqyavbg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,223,1774335600"; d="scan'208";a="250245496"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2026 17:39:20 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 24 Jun 2026 17:39:19 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 24 Jun 2026 17:39:19 -0700
+Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.20) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 24 Jun 2026 17:39:19 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KaVbpzsmUzyNEv9+6kz1emkOJ02Y7KNow0DY25R37K2ED0bQdlG4vCAYFiDQWEupqZUVeQ4OIjiow3kNFwyfjmcWX/UKqIwJw1NBOZ/1KoH0qZvPClrwau26Uu0ZTYCOHWSoGpK2TlEiv8guSy1/vOkOgAsovO6Ic9umiaC+ZUGyciH80e3H4dtXryovtemY6NUA6g8gG8NuI8Y+dSPHInKNqolFuwOFqtjYQ2hZjEJNnlGlCSKaFEsbbrLpkO978aOiU5UiTG50Ogb1+1mkQm6uj25A4V2YCpgVq5LYaWf8H/lvQD0V2ROxl74seH9iK7d1rikIm/pj9ImbmDsPMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xvo0ZdeuennVst8tvdfTt7abfAq20xrdloI3Ia85Lyw=;
+ b=HkzVNkSW8Pc14HDMNexiUWe8xNrHsDwUSOBkwICuB979W7/JL11oAYVklGbTkoqcmKFPC+gXFho9DsXB9NFR60wARIh2LCvHC7qT5dPoyT2oc2V5t7OveqI2ZX+MhGdMcD95SUjT7cZfFjXkyhKd0C5VDGy9z58RCUjJ8hjV1poXijXpx48VplnPsn51R1BKJiIi0ZGu/syI9nGW53ysObeBSlgJ3iMn7gxfD6YtHmXELPtQXWHVrq3BlGTkXx+OPo5MUaJ4I8Yn3fLowDTw3ejewV1Su13T0Pq4fe/b4GHXXixXqa/AghcBhB3vkswRbQ74eMkH5PHeP8b6GfAb6A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by DM3PPF9EFFC957B.namprd11.prod.outlook.com (2603:10b6:f:fc00::f40)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
+ 2026 00:39:12 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0159.014; Thu, 25 Jun 2026
+ 00:39:12 +0000
+Date: Wed, 24 Jun 2026 17:39:09 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: <christian.koenig@amd.com>
+CC: <phasta@kernel.org>, <simona@ffwll.ch>, <sumit.semwal@linaro.org>,
+ <tvrtko.ursulin@igalia.com>, <dakr@kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-media@vger.kernel.org>,
+ <linaro-mm-sig@lists.linaro.org>
+Subject: Re: [PATCH 01/10] dma-buf: rename dma_fence_enable_sw_signaling
+Message-ID: <ajx4rStJiHc6/I2q@gsse-cloud1.jf.intel.com>
+References: <20260624122917.2483-1-christian.koenig@amd.com>
+ <20260624122917.2483-2-christian.koenig@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260624122917.2483-2-christian.koenig@amd.com>
+X-ClientProxiedBy: SJ0PR03CA0090.namprd03.prod.outlook.com
+ (2603:10b6:a03:331::35) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|DM3PPF9EFFC957B:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2207ed55-f8fc-4df1-5293-08ded2522cef
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|11063799006|4143699003|6133799003|56012099006;
+X-Microsoft-Antispam-Message-Info: 4fMl0Zu3R78FecJfoTqcf0SdqsiB1uMVuJq78lx5kGSmilsM9lb3LtSxY88f+T3e4YRiANSpvYKLWpAj8w3TV2kvSwUooYkqn1AMXTMSGQtbOqnuSs+6MBHzYgTpg63WHo1rnA4slJ4SndgpmS9p4Xhh5pKyH3WcZXLOm5xDsZeTpiE9gi901+L14m0A7PypmTUl5JJ3JGbPmoaO/UV645PgV7IJOJ/rNssHjPmYDqlhKsvkDJLgMXNWgkSCNJfTYL7GaV5KUWgu+mf850z+p8blNScQTbk3M4mpJ3dwB1dQMJb/OhTT+DtL0u0J2z/D6EU91MIQWF1uOiINgthvLmbef/DTrL32O2pAt6u7BmpMdCUljv0hJVUI7xsiWlck4Exe+W+hBhU3m7dme5gdatv4rTORrE07ZGlHHKSZuFgb7sIA3u6TqCISeSu2D36reUhzRB64fvDV5PT3ytPZj2fVi6YLA3jhziVbabsTQB9BMav7gI7kw3HsJ3stO7DkJu+NXeH570YWH8xfya68JH+sJp3aAzIe5G4s4H5mcuDZZoVQxpPT3DVw1u2qRMYrB50yHA5R+YdDCF5GfUweIjHcp5fCGUl20zZ7vr47EwS70Z8YkdjgsX5dB74ZE7ONdSQQVoO0gLAcdYVx9u+ANYZ+gDu1P/96ILm3ldvo3EQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(11063799006)(4143699003)(6133799003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?tjfatzwj3yQx4TVETLH8aACLvwD41NEhy2Uab3giIJKfsEH7ME1kPAmb6A?=
+ =?iso-8859-1?Q?z20oit0xr+kb04UVy+9JU1/6NHyynitNQIHwT7kB9W+3Gw0hIrNXT/zt4u?=
+ =?iso-8859-1?Q?Tt8Fh+tBPKB6Tqpkx+++uEO+Z/uyQFjJc9y+60JLo7hJOQ16sBPfQC2gmr?=
+ =?iso-8859-1?Q?F03j5TYei9eC9K3bNK5F4lMKi3rmbpO/Gn9lbdZ8ryzbZE+zzSoIFB9G0G?=
+ =?iso-8859-1?Q?/mNc5s3tF6Jj9HPqKBV2A32p8Wf9v0jxDDbL4qY7p7EQh/iwyNvia9Lvw9?=
+ =?iso-8859-1?Q?yV3zc5jV3PVxl3jbOo78rkrU5FlT6EFlMDSmfNpt8J99jrabF/ScWELRsJ?=
+ =?iso-8859-1?Q?9q+Zoe+V7r/dkRnvbxytta2oRpjrHaUFThvVF86g14HxuXcCRQWBK6kRlD?=
+ =?iso-8859-1?Q?BQyRkOKx0oHVRW3vD3FQ1AkS7igXjnH9dNxggxHDoYFZwQZtCIvDAntECd?=
+ =?iso-8859-1?Q?pimhn7kGSLiG88bxh/Jgn9XZhOeYPGZoOlqGq/U9qVaGhnXeGUooJsghFy?=
+ =?iso-8859-1?Q?5rh+oOpvRymKHR7rIc0I1lS83cInzlrf8IM3jKNrJqItrL+8Km4sdhRoMW?=
+ =?iso-8859-1?Q?WJAXZUIowWWhOy9Hk8u1kF3oP878xiJelsovVZINLIHfiyzVyvI0f7uZMU?=
+ =?iso-8859-1?Q?5bG3y062uC1/igbgYkErmBTD+rvH42iDAZR+4AU4XFZ/6Qtcg1LWmxGdw4?=
+ =?iso-8859-1?Q?EXk+qlqryVPFikTJ9LpZcjdjwNnRsQgJdfX+2NJ8zHb4ExDflaoM4aB+gc?=
+ =?iso-8859-1?Q?QwfrHUuG0vn4JQdbM4opPOjzuiiSJoqI6W2PAWW6Aap9teM64mPhP+WuAa?=
+ =?iso-8859-1?Q?pqFYPqYAgVJ/pg3Q8cSTB7VoepVPa+WfQTy0swzTmLYfSHdVoQq/7mbdeY?=
+ =?iso-8859-1?Q?5znPKI5+83Fyzd4s9GNisuROd1oHKJNNYZfhA0RUt6VRl4R+Ixc/Dy6HMl?=
+ =?iso-8859-1?Q?Z6l5pwqOqYQZhe5TcqCvZgfCOeKRVHn7z/lKSy+xmuX5qkY5Ko1AAT8rfi?=
+ =?iso-8859-1?Q?Evg6ONPUVcE28sWmNM4MfpWcXPg/NRmarGbnwc3HPtQQLozjHE7fns+SjZ?=
+ =?iso-8859-1?Q?2dWfhlFR4uPn/d4Vg4PY33H7KeZ4QNyKFBmRZVQuAwj/7vhpsUZxISz1a6?=
+ =?iso-8859-1?Q?L43Y4iOCBfdtcDCdc3GJxHnS2LB7SwvWDVPtFpAzvBYsJT3O50ekpeeF2V?=
+ =?iso-8859-1?Q?s5yqfAEb2Nf0mPdleDendslMm1BV0hOLanaveWlUqqTNoQVpoVc0HdLWl0?=
+ =?iso-8859-1?Q?XPOsmAsM3pBgCwNF9X9pj+r0u4RQPoCi52hNJ8TcIJb25izD27GcMvBxTH?=
+ =?iso-8859-1?Q?RK/w8mH1dAd7uhBF/0anylNAgr3Ub9ZczkNncGj1/yzKst091y0X6k7bvK?=
+ =?iso-8859-1?Q?n9U+sxDbOX95A9z20ziGVC9XrqlFkGA2sI05WmydMUWtH1EdGXf7qJMWcq?=
+ =?iso-8859-1?Q?Pb+yti851w9xvPpM/NJFiF50eVbPZgsasOofA6b1vJV5QvTC3/gHJkhxMH?=
+ =?iso-8859-1?Q?zblKxaTL1zc6IqaKuuMQmJu3tK9BoKnPxc2hC0tFerZJwSQBlTkZeiEosm?=
+ =?iso-8859-1?Q?TbixltYd2QocW3FovMuffSLZDyDS7ZToZS3VgenyyExA4qPxUlN9tM7cyE?=
+ =?iso-8859-1?Q?gVNzZW9lYBWXvwMYxSvL1EnE1+gNW5Df/LynYdK62W6BMYE8SoR5N+av3d?=
+ =?iso-8859-1?Q?/mWHYEvNO3xzGaVfUlbpSvMwGjjVbO2lr8BjYL+Xlmmre0P4lzNae69rlA?=
+ =?iso-8859-1?Q?gy1sG8dmOj1AeGMVWFiSO5MuWAJqp4iyLqfaMtTRmuCa+mkSfM17xrNfMm?=
+ =?iso-8859-1?Q?teGBmh4jO23rP0/WPe5IHw5DuUGXiGw=3D?=
+X-Exchange-RoutingPolicyChecked: hJuKtuTHWGSQ+C9E0mr5ArhEcOt9ZcbywxyLEqeshGEtUrtkJETABRvJgmJmvlZAAQsMNtWMRrMEwWDFmtu7ocXuvwL3zmFZ5qI36DIeARPh1Y5yCZz+PF5Wm7pwhqEn/5Hg18m32yHT1bg2LdXrw003XsOFGg6tVdWvJwex1rQxIL/rD4Et8fdJhiewbAn/M8bSE5SUfYVKxbbjfy8o5kfJp69CGudYCUDkqMVfRu6H4XtPeuGUohU+bsx0R4RcEyXmmRZO3xyTrVpSQAzcMoAS1n+Km/l6ebrlz8cdZrPd8D82+0DUBUYBvyVzDjaCdOFaUpXxAggAnY3m8J5wRA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2207ed55-f8fc-4df1-5293-08ded2522cef
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 00:39:11.8572 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Igxjsh2CCSjR285fmee2D624ls/prGonVgGPGWLGURbLleKYZZaTCpK75KgPcXsT7P95uy4K8SMb/DuAezaoTw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF9EFFC957B
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,135 +160,559 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Wed, Jun 24, 2026 at 01:13:25PM +0200, Christian König wrote:
+> Dropping the _sw_ part from the names was proposed multiple times now and
+> IIRC people generally agreed with the idea already.
 
-Pre-existing issues:
-- [High] Pre-existing NULL pointer dereference via `font_data_get(NULL)` in=
- `fbcon_set_disp()` if the foreground console's font is uninitialized.
-- [High] Pre-existing NULL pointer dereference in `fb_videomode_to_var()` w=
-hen a console is switched to or resized while its `mode` is NULL.
---
+I certainly agree.
 
-commit 6f0719a9bd0a2231fe53bfe57ca1abf9ddec2785
-Author: Ian Bridges <icb@fastmail.org>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 
-fbcon: fix NULL pointer dereference for a console without vc_data
-
-This commit fixes a NULL pointer dereference in fbcon_new_modelist(). It
-does this by ensuring a console's mode is only set while it has a valid
-vc_data structure.
-
-Closes: https://syzkaller.appspot.com/bug?extid=3D42525d636f430fd5d983
-
-> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/=
-fbcon.c
-> index b0e3e765360d1..7187be0eea872 100644
-> --- a/drivers/video/fbdev/core/fbcon.c
-> +++ b/drivers/video/fbdev/core/fbcon.c
-> @@ -1274,6 +1274,7 @@ static void fbcon_deinit(struct vc_data *vc)
->  	int idx;
-> =20
->  	fbcon_free_font(p);
-> +	p->mode =3D NULL;
-
-[Severity: High]
-This is a pre-existing issue, but does setting p->mode to NULL here expose
-us to a crash during a VT switch?
-
-If a subsequent fbcon_init() fails early (e.g. var_to_display() fails to fi=
-nd
-a matching mode), p->mode will remain NULL. Later, if a user switches to th=
-is
-VT, the VT layer calls fbcon_switch(), which unconditionally passes p to
-display_to_var():
-
-drivers/video/fbdev/core/fbcon.c:fbcon_switch() {
-    ...
-    memset(&var, 0, sizeof(struct fb_var_screeninfo));
-    display_to_var(&var, p);
-    ...
-}
-
-display_to_var() then calls fb_videomode_to_var():
-
-drivers/video/fbdev/core/fbcon.c:display_to_var() {
-    ...
-    fb_videomode_to_var(var, disp->mode);
-    ...
-}
-
-And fb_videomode_to_var() immediately dereferences the pointer:
-
-drivers/video/fbdev/core/modedb.c:fb_videomode_to_var() {
-    ...
-    var->xres =3D mode->xres;
-    ...
-}
-
-Can this lead to a NULL pointer dereference if the modelist is altered from
-userspace?
-
->  	idx =3D con2fb_map[vc->vc_num];
-> =20
->  	if (idx =3D=3D -1)
-
-[ ... ]
-
-> @@ -1445,14 +1446,14 @@ static void fbcon_set_disp(struct fb_info *info, =
-struct fb_var_screeninfo *var,
-> =20
->  	p =3D &fb_display[unit];
-> =20
-> -	if (var_to_display(p, var, info))
-> -		return;
-> -
->  	vc =3D vc_cons[unit].d;
-> =20
->  	if (!vc)
+> 
+> The function requests a fence to signal and triggers some sort of HW
+> interaction on most backends.
+> 
+> So this is not really software related at all and the callback is already
+> just named enable_signaling as well.
+> 
+> Just streamline that and use a consistent name everywhere.
+> 
+> Assisted-by: Claude Sonet 4
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>  drivers/dma-buf/dma-fence.c                   |  8 ++--
+>  drivers/dma-buf/st-dma-fence-chain.c          |  4 +-
+>  drivers/dma-buf/st-dma-fence-unwrap.c         | 42 +++++++++----------
+>  drivers/dma-buf/st-dma-fence.c                | 16 +++----
+>  drivers/dma-buf/st-dma-resv.c                 | 10 ++---
+>  drivers/gpu/drm/i915/i915_active.c            |  2 +-
+>  .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
+>  drivers/gpu/drm/ttm/ttm_bo.c                  |  2 +-
+>  drivers/gpu/drm/xe/xe_bo.c                    |  2 +-
+>  drivers/gpu/drm/xe/xe_sched_job.c             |  2 +-
+>  drivers/gpu/drm/xe/xe_svm.c                   |  2 +-
+>  drivers/gpu/drm/xe/xe_userptr.c               |  2 +-
+>  drivers/gpu/drm/xe/xe_vm.c                    |  4 +-
+>  include/linux/dma-fence.h                     |  4 +-
+>  14 files changed, 51 insertions(+), 51 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index c7ea1e75d38a..0ec81a568bbd 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -534,7 +534,7 @@ dma_fence_wait_timeout(struct dma_fence *fence, bool intr, signed long timeout)
+>  
+>  	__dma_fence_might_wait();
+>  
+> -	dma_fence_enable_sw_signaling(fence);
+> +	dma_fence_enable_signaling(fence);
+>  
+>  	rcu_read_lock();
+>  	ops = rcu_dereference(fence->ops);
+> @@ -656,14 +656,14 @@ static bool __dma_fence_enable_signaling(struct dma_fence *fence)
+>  }
+>  
+>  /**
+> - * dma_fence_enable_sw_signaling - enable signaling on fence
+> + * dma_fence_enable_signaling - enable signaling on fence
+>   * @fence: the fence to enable
+>   *
+>   * This will request for sw signaling to be enabled, to make the fence
+>   * complete as soon as possible. This calls &dma_fence_ops.enable_signaling
+>   * internally.
+>   */
+> -void dma_fence_enable_sw_signaling(struct dma_fence *fence)
+> +void dma_fence_enable_signaling(struct dma_fence *fence)
+>  {
+>  	unsigned long flags;
+>  
+> @@ -671,7 +671,7 @@ void dma_fence_enable_sw_signaling(struct dma_fence *fence)
+>  	__dma_fence_enable_signaling(fence);
+>  	dma_fence_unlock_irqrestore(fence, flags);
+>  }
+> -EXPORT_SYMBOL(dma_fence_enable_sw_signaling);
+> +EXPORT_SYMBOL(dma_fence_enable_signaling);
+>  
+>  /**
+>   * dma_fence_add_callback - add a callback to be called when the fence
+> diff --git a/drivers/dma-buf/st-dma-fence-chain.c b/drivers/dma-buf/st-dma-fence-chain.c
+> index a3023d3fedc9..e0d9b69bfa76 100644
+> --- a/drivers/dma-buf/st-dma-fence-chain.c
+> +++ b/drivers/dma-buf/st-dma-fence-chain.c
+> @@ -82,7 +82,7 @@ static void test_sanitycheck(struct kunit *test)
+>  
+>  	chain = mock_chain(NULL, f, 1);
+>  	if (chain)
+> -		dma_fence_enable_sw_signaling(chain);
+> +		dma_fence_enable_signaling(chain);
+>  	else
+>  		KUNIT_FAIL(test, "Failed to create chain");
+>  
+> @@ -139,7 +139,7 @@ static int fence_chains_init(struct fence_chains *fc, unsigned int count,
+>  
+>  		fc->tail = fc->chains[i];
+>  
+> -		dma_fence_enable_sw_signaling(fc->chains[i]);
+> +		dma_fence_enable_signaling(fc->chains[i]);
+>  	}
+>  
+>  	fc->chain_length = i;
+> diff --git a/drivers/dma-buf/st-dma-fence-unwrap.c b/drivers/dma-buf/st-dma-fence-unwrap.c
+> index 4e7ee25372ba..4d9d313b460c 100644
+> --- a/drivers/dma-buf/st-dma-fence-unwrap.c
+> +++ b/drivers/dma-buf/st-dma-fence-unwrap.c
+> @@ -103,7 +103,7 @@ static void test_sanitycheck(struct kunit *test)
+>  	f = mock_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f);
+>  
+> -	dma_fence_enable_sw_signaling(f);
+> +	dma_fence_enable_signaling(f);
+>  
+>  	array = mock_array(1, f);
+>  	KUNIT_ASSERT_NOT_NULL(test, array);
+> @@ -122,7 +122,7 @@ static void test_unwrap_array(struct kunit *test)
+>  	f1 = mock_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f1);
+>  
+> -	dma_fence_enable_sw_signaling(f1);
+> +	dma_fence_enable_signaling(f1);
+>  
+>  	f2 = mock_fence();
+>  	if (!f2) {
+> @@ -131,7 +131,7 @@ static void test_unwrap_array(struct kunit *test)
 >  		return;
-> =20
-> +	if (var_to_display(p, var, info))
-> +		return;
-> +
->  	default_mode =3D vc->vc_display_fg;
->  	svc =3D *default_mode;
->  	t =3D &fb_display[svc->vc_num];
-
-[Severity: High]
-This is a pre-existing issue, but can this lead to a NULL pointer dereferen=
-ce
-in font_data_get() if the foreground console's font is uninitialized?
-
-Just below this hunk in fbcon_set_disp(), the code does:
-
-    if (!p->fontdata) {
-        ...
-        p->fontdata =3D t->fontdata;
-        font_data_get(p->fontdata);
-    }
-
-If fbcon_init() previously failed early for the foreground console, its
-t->fontdata could be NULL. This assigns NULL to p->fontdata and then passes
-it to font_data_get():
-
-lib/fonts/fonts.c:font_data_get() {
-    if (font_data_is_internal(fd))
-        return; /* never ref static data */
-
-    if (WARN_ON(!REFCOUNT(fd)))
-        return; /* should never be 0 */
-    ++REFCOUNT(fd);
-}
-
-The REFCOUNT() macro and font_data_is_internal() will unconditionally
-dereference fd, causing a crash if it is NULL. Does this need an extra NULL
-check?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/ajxICA0v-_5NrqhS@de=
-v?part=3D1
+>  	}
+>  
+> -	dma_fence_enable_sw_signaling(f2);
+> +	dma_fence_enable_signaling(f2);
+>  
+>  	array = mock_array(2, f1, f2);
+>  	KUNIT_ASSERT_NOT_NULL(test, array);
+> @@ -160,7 +160,7 @@ static void test_unwrap_chain(struct kunit *test)
+>  	f1 = mock_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f1);
+>  
+> -	dma_fence_enable_sw_signaling(f1);
+> +	dma_fence_enable_signaling(f1);
+>  
+>  	f2 = mock_fence();
+>  	if (!f2) {
+> @@ -169,7 +169,7 @@ static void test_unwrap_chain(struct kunit *test)
+>  		return;
+>  	}
+>  
+> -	dma_fence_enable_sw_signaling(f2);
+> +	dma_fence_enable_signaling(f2);
+>  
+>  	chain = mock_chain(f1, f2);
+>  	KUNIT_ASSERT_NOT_NULL(test, chain);
+> @@ -198,7 +198,7 @@ static void test_unwrap_chain_array(struct kunit *test)
+>  	f1 = mock_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f1);
+>  
+> -	dma_fence_enable_sw_signaling(f1);
+> +	dma_fence_enable_signaling(f1);
+>  
+>  	f2 = mock_fence();
+>  	if (!f2) {
+> @@ -207,7 +207,7 @@ static void test_unwrap_chain_array(struct kunit *test)
+>  		return;
+>  	}
+>  
+> -	dma_fence_enable_sw_signaling(f2);
+> +	dma_fence_enable_signaling(f2);
+>  
+>  	array = mock_array(2, f1, f2);
+>  	KUNIT_ASSERT_NOT_NULL(test, array);
+> @@ -239,7 +239,7 @@ static void test_unwrap_merge(struct kunit *test)
+>  	f1 = mock_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f1);
+>  
+> -	dma_fence_enable_sw_signaling(f1);
+> +	dma_fence_enable_signaling(f1);
+>  
+>  	f2 = mock_fence();
+>  	if (!f2) {
+> @@ -247,7 +247,7 @@ static void test_unwrap_merge(struct kunit *test)
+>  		goto error_put_f1;
+>  	}
+>  
+> -	dma_fence_enable_sw_signaling(f2);
+> +	dma_fence_enable_signaling(f2);
+>  
+>  	f3 = dma_fence_unwrap_merge(f1, f2);
+>  	if (!f3) {
+> @@ -285,7 +285,7 @@ static void test_unwrap_merge_duplicate(struct kunit *test)
+>  	f1 = mock_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f1);
+>  
+> -	dma_fence_enable_sw_signaling(f1);
+> +	dma_fence_enable_signaling(f1);
+>  
+>  	f2 = dma_fence_unwrap_merge(f1, f1);
+>  	if (!f2) {
+> @@ -322,7 +322,7 @@ static void test_unwrap_merge_seqno(struct kunit *test)
+>  	f1 = __mock_fence(ctx[1], 1);
+>  	KUNIT_ASSERT_NOT_NULL(test, f1);
+>  
+> -	dma_fence_enable_sw_signaling(f1);
+> +	dma_fence_enable_signaling(f1);
+>  
+>  	f2 = __mock_fence(ctx[1], 2);
+>  	if (!f2) {
+> @@ -330,7 +330,7 @@ static void test_unwrap_merge_seqno(struct kunit *test)
+>  		goto error_put_f1;
+>  	}
+>  
+> -	dma_fence_enable_sw_signaling(f2);
+> +	dma_fence_enable_signaling(f2);
+>  
+>  	f3 = __mock_fence(ctx[0], 1);
+>  	if (!f3) {
+> @@ -338,7 +338,7 @@ static void test_unwrap_merge_seqno(struct kunit *test)
+>  		goto error_put_f2;
+>  	}
+>  
+> -	dma_fence_enable_sw_signaling(f3);
+> +	dma_fence_enable_signaling(f3);
+>  
+>  	f4 = dma_fence_unwrap_merge(f1, f2, f3);
+>  	if (!f4) {
+> @@ -378,7 +378,7 @@ static void test_unwrap_merge_order(struct kunit *test)
+>  	f1 = mock_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f1);
+>  
+> -	dma_fence_enable_sw_signaling(f1);
+> +	dma_fence_enable_signaling(f1);
+>  
+>  	f2 = mock_fence();
+>  	if (!f2) {
+> @@ -387,7 +387,7 @@ static void test_unwrap_merge_order(struct kunit *test)
+>  		return;
+>  	}
+>  
+> -	dma_fence_enable_sw_signaling(f2);
+> +	dma_fence_enable_signaling(f2);
+>  
+>  	a1 = mock_array(2, f1, f2);
+>  	KUNIT_ASSERT_NOT_NULL(test, a1);
+> @@ -442,7 +442,7 @@ static void test_unwrap_merge_complex(struct kunit *test)
+>  	f1 = mock_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f1);
+>  
+> -	dma_fence_enable_sw_signaling(f1);
+> +	dma_fence_enable_signaling(f1);
+>  
+>  	f2 = mock_fence();
+>  	if (!f2) {
+> @@ -450,7 +450,7 @@ static void test_unwrap_merge_complex(struct kunit *test)
+>  		goto error_put_f1;
+>  	}
+>  
+> -	dma_fence_enable_sw_signaling(f2);
+> +	dma_fence_enable_signaling(f2);
+>  
+>  	f3 = dma_fence_unwrap_merge(f1, f2);
+>  	if (!f3) {
+> @@ -510,7 +510,7 @@ static void test_unwrap_merge_complex_seqno(struct kunit *test)
+>  	f1 = __mock_fence(ctx[0], 2);
+>  	KUNIT_ASSERT_NOT_NULL(test, f1);
+>  
+> -	dma_fence_enable_sw_signaling(f1);
+> +	dma_fence_enable_signaling(f1);
+>  
+>  	f2 = __mock_fence(ctx[1], 1);
+>  	if (!f2) {
+> @@ -518,7 +518,7 @@ static void test_unwrap_merge_complex_seqno(struct kunit *test)
+>  		goto error_put_f1;
+>  	}
+>  
+> -	dma_fence_enable_sw_signaling(f2);
+> +	dma_fence_enable_signaling(f2);
+>  
+>  	f3 = __mock_fence(ctx[0], 1);
+>  	if (!f3) {
+> @@ -526,7 +526,7 @@ static void test_unwrap_merge_complex_seqno(struct kunit *test)
+>  		goto error_put_f2;
+>  	}
+>  
+> -	dma_fence_enable_sw_signaling(f3);
+> +	dma_fence_enable_signaling(f3);
+>  
+>  	f4 = __mock_fence(ctx[1], 2);
+>  	if (!f4) {
+> @@ -534,7 +534,7 @@ static void test_unwrap_merge_complex_seqno(struct kunit *test)
+>  		goto error_put_f3;
+>  	}
+>  
+> -	dma_fence_enable_sw_signaling(f4);
+> +	dma_fence_enable_signaling(f4);
+>  
+>  	f5 = mock_array(2, dma_fence_get(f1), dma_fence_get(f2));
+>  	if (!f5) {
+> diff --git a/drivers/dma-buf/st-dma-fence.c b/drivers/dma-buf/st-dma-fence.c
+> index 499272229696..856d0d302a5d 100644
+> --- a/drivers/dma-buf/st-dma-fence.c
+> +++ b/drivers/dma-buf/st-dma-fence.c
+> @@ -42,7 +42,7 @@ static void test_sanitycheck(struct kunit *test)
+>  	f = mock_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f);
+>  
+> -	dma_fence_enable_sw_signaling(f);
+> +	dma_fence_enable_signaling(f);
+>  
+>  	dma_fence_signal(f);
+>  	dma_fence_put(f);
+> @@ -55,7 +55,7 @@ static void test_signaling(struct kunit *test)
+>  	f = mock_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f);
+>  
+> -	dma_fence_enable_sw_signaling(f);
+> +	dma_fence_enable_signaling(f);
+>  
+>  	if (dma_fence_is_signaled(f)) {
+>  		KUNIT_FAIL(test, "Fence unexpectedly signaled on creation");
+> @@ -127,7 +127,7 @@ static void test_late_add_callback(struct kunit *test)
+>  	f = mock_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f);
+>  
+> -	dma_fence_enable_sw_signaling(f);
+> +	dma_fence_enable_signaling(f);
+>  
+>  	dma_fence_signal(f);
+>  
+> @@ -209,7 +209,7 @@ static void test_status(struct kunit *test)
+>  	f = mock_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f);
+>  
+> -	dma_fence_enable_sw_signaling(f);
+> +	dma_fence_enable_signaling(f);
+>  
+>  	if (dma_fence_get_status(f)) {
+>  		KUNIT_FAIL(test, "Fence unexpectedly has signaled status on creation");
+> @@ -233,7 +233,7 @@ static void test_error(struct kunit *test)
+>  	f = mock_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f);
+>  
+> -	dma_fence_enable_sw_signaling(f);
+> +	dma_fence_enable_signaling(f);
+>  
+>  	dma_fence_set_error(f, -EIO);
+>  
+> @@ -260,7 +260,7 @@ static void test_wait(struct kunit *test)
+>  	f = mock_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f);
+>  
+> -	dma_fence_enable_sw_signaling(f);
+> +	dma_fence_enable_signaling(f);
+>  
+>  	if (dma_fence_wait_timeout(f, false, 0) != 0) {
+>  		KUNIT_FAIL(test, "Wait reported complete before being signaled");
+> @@ -300,7 +300,7 @@ static void test_wait_timeout(struct kunit *test)
+>  	wt.f = mock_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, wt.f);
+>  
+> -	dma_fence_enable_sw_signaling(wt.f);
+> +	dma_fence_enable_signaling(wt.f);
+>  
+>  	if (dma_fence_wait_timeout(wt.f, false, 1) != 0) {
+>  		KUNIT_FAIL(test, "Wait reported complete before being signaled");
+> @@ -379,7 +379,7 @@ static int thread_signal_callback(void *arg)
+>  			break;
+>  		}
+>  
+> -		dma_fence_enable_sw_signaling(f1);
+> +		dma_fence_enable_signaling(f1);
+>  
+>  		rcu_assign_pointer(t->fences[t->id], f1);
+>  		smp_wmb();
+> diff --git a/drivers/dma-buf/st-dma-resv.c b/drivers/dma-buf/st-dma-resv.c
+> index 95a4becdb892..0b96136bbd54 100644
+> --- a/drivers/dma-buf/st-dma-resv.c
+> +++ b/drivers/dma-buf/st-dma-resv.c
+> @@ -48,7 +48,7 @@ static void test_sanitycheck(struct kunit *test)
+>  	f = alloc_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f);
+>  
+> -	dma_fence_enable_sw_signaling(f);
+> +	dma_fence_enable_signaling(f);
+>  
+>  	dma_fence_signal(f);
+>  	dma_fence_put(f);
+> @@ -73,7 +73,7 @@ static void test_signaling(struct kunit *test)
+>  	f = alloc_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f);
+>  
+> -	dma_fence_enable_sw_signaling(f);
+> +	dma_fence_enable_signaling(f);
+>  
+>  	dma_resv_init(&resv);
+>  	r = dma_resv_lock(&resv, NULL);
+> @@ -117,7 +117,7 @@ static void test_for_each(struct kunit *test)
+>  	f = alloc_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f);
+>  
+> -	dma_fence_enable_sw_signaling(f);
+> +	dma_fence_enable_signaling(f);
+>  
+>  	dma_resv_init(&resv);
+>  	r = dma_resv_lock(&resv, NULL);
+> @@ -176,7 +176,7 @@ static void test_for_each_unlocked(struct kunit *test)
+>  	f = alloc_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f);
+>  
+> -	dma_fence_enable_sw_signaling(f);
+> +	dma_fence_enable_signaling(f);
+>  
+>  	dma_resv_init(&resv);
+>  	r = dma_resv_lock(&resv, NULL);
+> @@ -246,7 +246,7 @@ static void test_get_fences(struct kunit *test)
+>  	f = alloc_fence();
+>  	KUNIT_ASSERT_NOT_NULL(test, f);
+>  
+> -	dma_fence_enable_sw_signaling(f);
+> +	dma_fence_enable_signaling(f);
+>  
+>  	dma_resv_init(&resv);
+>  	r = dma_resv_lock(&resv, NULL);
+> diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
+> index 5cb7a72774a0..e7632c1ff4be 100644
+> --- a/drivers/gpu/drm/i915/i915_active.c
+> +++ b/drivers/gpu/drm/i915/i915_active.c
+> @@ -543,7 +543,7 @@ static void enable_signaling(struct i915_active_fence *active)
+>  	if (!fence)
+>  		return;
+>  
+> -	dma_fence_enable_sw_signaling(fence);
+> +	dma_fence_enable_signaling(fence);
+>  	dma_fence_put(fence);
+>  }
+>  
+> diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+> index 2db221f6fc3a..56ad8ef32584 100644
+> --- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+> +++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+> @@ -69,7 +69,7 @@ static void dma_resv_kunit_active_fence_init(struct kunit *test,
+>  	struct dma_fence *fence;
+>  
+>  	fence = alloc_mock_fence(test);
+> -	dma_fence_enable_sw_signaling(fence);
+> +	dma_fence_enable_signaling(fence);
+>  
+>  	dma_resv_lock(resv, NULL);
+>  	dma_resv_reserve_fences(resv, 1);
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> index bcd76f6bb7f0..3980f376e3ba 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -224,7 +224,7 @@ static void ttm_bo_flush_all_fences(struct ttm_buffer_object *bo)
+>  
+>  	dma_resv_iter_begin(&cursor, resv, DMA_RESV_USAGE_BOOKKEEP);
+>  	dma_resv_for_each_fence_unlocked(&cursor, fence)
+> -		dma_fence_enable_sw_signaling(fence);
+> +		dma_fence_enable_signaling(fence);
+>  	dma_resv_iter_end(&cursor);
+>  }
+>  
+> diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+> index 4c80bac67622..85e6d9a0f575 100644
+> --- a/drivers/gpu/drm/xe/xe_bo.c
+> +++ b/drivers/gpu/drm/xe/xe_bo.c
+> @@ -670,7 +670,7 @@ static int xe_bo_trigger_rebind(struct xe_device *xe, struct xe_bo *bo,
+>  		dma_resv_iter_begin(&cursor, bo->ttm.base.resv,
+>  				    DMA_RESV_USAGE_BOOKKEEP);
+>  		dma_resv_for_each_fence_unlocked(&cursor, fence)
+> -			dma_fence_enable_sw_signaling(fence);
+> +			dma_fence_enable_signaling(fence);
+>  		dma_resv_iter_end(&cursor);
+>  	}
+>  
+> diff --git a/drivers/gpu/drm/xe/xe_sched_job.c b/drivers/gpu/drm/xe/xe_sched_job.c
+> index ae5b38b2a884..a4fa00632a30 100644
+> --- a/drivers/gpu/drm/xe/xe_sched_job.c
+> +++ b/drivers/gpu/drm/xe/xe_sched_job.c
+> @@ -214,7 +214,7 @@ void xe_sched_job_set_error(struct xe_sched_job *job, int error)
+>  
+>  	trace_xe_sched_job_set_error(job);
+>  
+> -	dma_fence_enable_sw_signaling(job->fence);
+> +	dma_fence_enable_signaling(job->fence);
+>  	xe_hw_fence_irq_run(job->q->fence_irq);
+>  }
+>  
+> diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
+> index e1651e70c8f0..dba73786d82a 100644
+> --- a/drivers/gpu/drm/xe/xe_svm.c
+> +++ b/drivers/gpu/drm/xe/xe_svm.c
+> @@ -1090,7 +1090,7 @@ static int xe_drm_pagemap_populate_mm(struct drm_pagemap *dpagemap,
+>  				dma_resv_wait_timeout(bo->ttm.base.resv, DMA_RESV_USAGE_KERNEL,
+>  						      false, MAX_SCHEDULE_TIMEOUT);
+>  			else if (pre_migrate_fence)
+> -				dma_fence_enable_sw_signaling(pre_migrate_fence);
+> +				dma_fence_enable_signaling(pre_migrate_fence);
+>  		}
+>  
+>  		drm_pagemap_devmem_init(&bo->devmem_allocation, dev, mm,
+> diff --git a/drivers/gpu/drm/xe/xe_userptr.c b/drivers/gpu/drm/xe/xe_userptr.c
+> index 6761005c0b90..2e45e42c648f 100644
+> --- a/drivers/gpu/drm/xe/xe_userptr.c
+> +++ b/drivers/gpu/drm/xe/xe_userptr.c
+> @@ -180,7 +180,7 @@ xe_vma_userptr_invalidate_pass1(struct xe_vm *vm, struct xe_userptr_vma *uvma)
+>  	dma_resv_iter_begin(&cursor, xe_vm_resv(vm),
+>  			    DMA_RESV_USAGE_BOOKKEEP);
+>  	dma_resv_for_each_fence_unlocked(&cursor, fence) {
+> -		dma_fence_enable_sw_signaling(fence);
+> +		dma_fence_enable_signaling(fence);
+>  		if (signaled && !dma_fence_is_signaled(fence))
+>  			signaled = false;
+>  	}
+> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+> index 080c2fff0e95..73ac031ffb04 100644
+> --- a/drivers/gpu/drm/xe/xe_vm.c
+> +++ b/drivers/gpu/drm/xe/xe_vm.c
+> @@ -256,7 +256,7 @@ int xe_vm_add_compute_exec_queue(struct xe_vm *vm, struct xe_exec_queue *q)
+>  	 */
+>  	wait = __xe_vm_userptr_needs_repin(vm) || preempt_fences_waiting(vm);
+>  	if (wait)
+> -		dma_fence_enable_sw_signaling(pfence);
+> +		dma_fence_enable_signaling(pfence);
+>  
+>  	xe_svm_notifier_unlock(vm);
+>  
+> @@ -287,7 +287,7 @@ void xe_vm_remove_compute_exec_queue(struct xe_vm *vm, struct xe_exec_queue *q)
+>  		--vm->preempt.num_exec_queues;
+>  	}
+>  	if (q->lr.pfence) {
+> -		dma_fence_enable_sw_signaling(q->lr.pfence);
+> +		dma_fence_enable_signaling(q->lr.pfence);
+>  		dma_fence_put(q->lr.pfence);
+>  		q->lr.pfence = NULL;
+>  	}
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index b52ab692b22e..158cd609f103 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -448,7 +448,7 @@ int dma_fence_add_callback(struct dma_fence *fence,
+>  			   dma_fence_func_t func);
+>  bool dma_fence_remove_callback(struct dma_fence *fence,
+>  			       struct dma_fence_cb *cb);
+> -void dma_fence_enable_sw_signaling(struct dma_fence *fence);
+> +void dma_fence_enable_signaling(struct dma_fence *fence);
+>  
+>  /**
+>   * DOC: Safe external access to driver provided object members
+> @@ -534,7 +534,7 @@ dma_fence_is_signaled_locked(struct dma_fence *fence)
+>   * Returns true if the fence was already signaled, false if not. Since this
+>   * function doesn't enable signaling, it is not guaranteed to ever return
+>   * true if dma_fence_add_callback(), dma_fence_wait() or
+> - * dma_fence_enable_sw_signaling() haven't been called before.
+> + * dma_fence_enable_signaling() haven't been called before.
+>   *
+>   * It's recommended for seqno fences to call dma_fence_signal when the
+>   * operation is complete, it makes it possible to prevent issues from
+> -- 
+> 2.43.0
+> 
