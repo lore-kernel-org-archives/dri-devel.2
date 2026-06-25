@@ -4,43 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66922CDB466
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 06:17:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD6A5CDB466
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 06:19:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92DB810E502;
-	Thu, 25 Jun 2026 06:17:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 206AD10F108;
+	Thu, 25 Jun 2026 06:19:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cye2bB3C";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iQz4Y8zZ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60A5410E502
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 06:17:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 86873600FC;
- Thu, 25 Jun 2026 06:17:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2957C1F000E9;
- Thu, 25 Jun 2026 06:17:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782368243;
- bh=4P1F+qsnPy8woF4AXwG0lXDzNsX28qDh2pupithWkpc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Cye2bB3Cq2jA9rR5U0/JtvL1kj28VY6orl0J+wHOi/Y2JyvSrLa1shafHXbGGodPZ
- oVSMB/RD7+PGQf6LgrB5aL/ETO5SpfGJa092/pzW97hqF03SMV8jk88zWdHHxbXjn2
- 461lVwTtCzhOhgBTelNwgnP80exOvD8Ba5R1H9ZrXnapApcq4DFQDueXl2K/B3Mh8R
- bS/6kxpK0+xvQ6oh9RhNnRDRqOs1Uw7hVzu8XpqeTqvWBzxG5IXH32ucOK+S5BtFh6
- csY9jor3so+EbkAKw9CJMyrmlQfD+q8iRyYzbr1IlwFfI/WBs5Z3JSE6xKtTzvfHuM
- vx4vQpAJ6WFsQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/i915/psr: Skip PSR exit for legacy cursor
- updates on LunarLake onwards
-To: "Aaron Ma" <aaron.ma@canonical.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260625055514.3636380-1-aaron.ma@canonical.com>
-References: <20260625055514.3636380-1-aaron.ma@canonical.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 06:17:22 +0000
-Message-Id: <20260625061723.2957C1F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A47A10F108;
+ Thu, 25 Jun 2026 06:19:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782368396; x=1813904396;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=AyM+aw5nNVjxOuNEXVRIO3mu4AwClj92WraJZX4Q9rA=;
+ b=iQz4Y8zZTiy1IOPLcp72wRcXaNiiqlu8Fh4KGCocBPjK3qYcz7CAZNrm
+ S8mVBXIknjbApqptPZcUyENMF+xXbUtetWB89loMtfhHXjeqUNKHaSA/T
+ YX1dHtQNHB0QZVIc87QFKCk/SF3raCKIt139mzn/1rc/hJ7QsHchDwpdB
+ ytsGkL4pUuHTVOewpSou1h5CeBtNEc0JX0Yb52yjR/ZvLTGRbk4kmFa8n
+ yE/AWK2T+cUMTiOyDUFRiKtmBZJRsp5kIz0ZlssLUnMHhqoVFTdoOWCyZ
+ We4Uwr2H5yJn/fJQf5u/0eeF6S9FNNBhaIh/O7ySt9ILDRTlUutuNHfqa w==;
+X-CSE-ConnectionGUID: UcxrcFvMSeaCp6R2oXGCOQ==
+X-CSE-MsgGUID: VQd3QReISHG+15zDHAzGJg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="93496693"
+X-IronPort-AV: E=Sophos;i="6.24,223,1774335600"; d="scan'208";a="93496693"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2026 23:19:56 -0700
+X-CSE-ConnectionGUID: xEnSM9nuSCWF15fHn1U8Dw==
+X-CSE-MsgGUID: dt0NpfcqQ86NEx4+nD/jlg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,223,1774335600"; d="scan'208";a="246008921"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.75])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2026 23:19:51 -0700
+Date: Thu, 25 Jun 2026 09:19:48 +0300
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-intel-next-fixes
+Message-ID: <ajzIhInnHnGCwMlu@jlahtine-mobl>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,58 +75,48 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Skipping PSR exit on LunarLake for legacy cursor updates leaves th=
-e panel in self-refresh, freezing the cursor visually.
---
+Hi Dave & Sima,
 
-commit 04eaf4bdd079c2712c8f636ed5b61d70a97e245e
-Author: Aaron Ma <aaron.ma@canonical.com>
+Here goes drm-intel-next-fixes PR towards 7.2-rc1.
 
-drm/i915/psr: Skip PSR exit for legacy cursor updates on LunarLake onwards
+Just one display corruption fix for GLK and one Spectre
+mitigation for parallel submit IOCTL.
 
-This commit attempts to optimize PSR behavior for legacy cursor updates on
-LunarLake and newer platforms by skipping the PSR exit and matching the
-ORIGIN_FLIP behavior.
+Regards, Joonas
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i=
-915/display/intel_psr.c
-> --- a/drivers/gpu/drm/i915/display/intel_psr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-[ ... ]
-> @@ -3772,7 +3772,7 @@ void intel_psr_flush(struct intel_display *display,
-> =20
->  		if (origin =3D=3D ORIGIN_FLIP ||
->  		    (origin =3D=3D ORIGIN_CURSOR_UPDATE &&
-> -		     !intel_dp->psr.psr2_sel_fetch_enabled)) {
-> +		     (DISPLAY_VER(display) >=3D 20 || !intel_dp->psr.psr2_sel_fetch_en=
-abled))) {
->  			tgl_dc3co_flush_locked(intel_dp, frontbuffer_bits, origin);
->  			goto unlock;
->  		}
+***
 
-[Severity: High]
-Will this cause the cursor to freeze on the screen during legacy cursor
-updates while the panel is in Panel Self-Refresh (PSR) mode?
+drm-intel-next-fixes-2026-06-25-1:
 
-LunarLake lacks hardware PSR tracking. When userspace uses drmModeMoveCurso=
-r,
-the fast-path cursor update writes directly to cursor MMIO registers and
-triggers a frontbuffer flush with ORIGIN_CURSOR_UPDATE. Since this fast-path
-does not use the atomic commit flow, it never calls intel_vrr_send_push() to
-send a TRANS_PUSH frame change event.
+- Fix corrupted display output on GLK, #16209 (Ville)
+- Add missing Spectre mitigation for parallel submit IOCTL (Joonas)
 
-By returning early here on DISPLAY_VER >=3D 20, the driver skips
-_psr_flush_handle() and intel_psr_exit(). Without a PSR exit or a TRANS_PUSH
-event, won't the panel remain asleep and ignore the newly written cursor MM=
-IO
-registers?
+The following changes since commit 062499cc4813b5a3cbed5dd4fbe0177265858450:
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625055514.3636=
-380-1-aaron.ma@canonical.com?part=3D1
+  drm/i915/mtl+: Enable PPS before PLL (2026-06-16 13:06:09 -0400)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-next-fixes-2026-06-25-1
+
+for you to fetch changes up to 2ee8dbd880b14fb0b5115bf2353c7900aa33b95b:
+
+  drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enable (2026-06-24 13:53:32 +0300)
+
+----------------------------------------------------------------
+- Fix corrupted display output on GLK, #16209 (Ville)
+- Add missing Spectre mitigation for parallel submit IOCTL (Joonas)
+
+----------------------------------------------------------------
+Joonas Lahtinen (1):
+      drm/i915/gem: Add missing nospec on parallel submit slot
+
+Ville Syrjälä (1):
+      drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enable
+
+ drivers/gpu/drm/i915/display/intel_cdclk.c  | 41 ++++++++++++++++++++++++-----
+ drivers/gpu/drm/i915/gem/i915_gem_context.c |  1 +
+ 2 files changed, 35 insertions(+), 7 deletions(-)
