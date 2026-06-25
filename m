@@ -4,76 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57009CDB47F
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:03:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D4A4CDE007
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:03:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC25C10E1AD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0DE410F135;
 	Thu, 25 Jun 2026 07:03:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bUGO/C4S";
+	dkim=pass (2048-bit key; unprotected) header.d=jasonxiang.net header.i=@jasonxiang.net header.b="h0NJwydc";
 	dkim-atps=neutral
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
- [209.85.128.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D75E10EDF7
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 18:55:14 +0000 (UTC)
-Received: by mail-yw1-f170.google.com with SMTP id
- 00721157ae682-7e1916922b9so18969067b3.1
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 11:55:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782327313; x=1782932113; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=7YgHnl2lJKwXfRhDrg0bud/BfHOtjapxwR6hn+EBYNI=;
- b=bUGO/C4S7Cq5QDBX+jb16gu1NrAwdBvgWwe4XB2TotqhDAVf+0YBe36VlbEhImE9BK
- Duyb1pxSsPrJ6HA+KBBddIedqSOmuwweV8u301bLsINQO9X77OMYAExQhcs0GXyoWe7e
- 0vxelj7XX1dnRZmbRdsOm+CDVs3oVd8FvLMx2Nr2nXtjcV2A6iEhkFc1z6RlPRLmif73
- Ip+u+Z7WPg9ekd7dIslnAq0GMNviJCD4kN6jd98aZkAvq09g4oJVSE41RnbqqL+HCLsM
- MVwulRu6Nh6yXDdvAa4IlMmfiNp/cDi1TBgPBAWLc8WfTCFSpDdJ/Gdk2BBIDBcNCxr3
- MDxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782327313; x=1782932113;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7YgHnl2lJKwXfRhDrg0bud/BfHOtjapxwR6hn+EBYNI=;
- b=ald6NzGXsw2CB/fIlRV4F4NvyFQiVqEhD32Jd+k56/GZxb3se9V95mbT9tfYKgall4
- uIurikSbyyA8UtqNpPi7UkZSZdneh7+03fJjXbTTg9BKEnYQSReSwGOl7Wr6LNGuvdGd
- 8heTv3QDOeIi7n4txKmsFOWJTkAx/ixkjc7PcKMz0Hy5G5Escu7euB9bggpfsEFVh4oU
- rNl+5afJRizVWG6qCMwlz7X2Fst5Qn8rr+J59WbH6DFtnhxSGsLGUlDxkZ5p1a7datP5
- UjNWfaWKsP+/biGKgP1W/XhPYCN3tp8qBBzb+kmOldOegRaQNf4qKhhBl3uAr07O/4dG
- QJsw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqlFFsAcPLnQtASSDV9CrDzGdeepuS11dpeI+kGI7AtUL2HvTr3LA2zM7+99tGOAiYmTGrXVT+0NZA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzpogz+zw9tkON6TLd9ilWer4s17UUT8AMZxD9me+rwFDZadJN9
- D2s2t8hfEINxuedwYzUyORKtunV+tQWjImu9tPUJmahgawCG7Ze0fVF6
-X-Gm-Gg: AfdE7cl24N4OyObdXsgCmpvKk67DD0G181xT9Zy4R3if86wDTnMCNvTnwsjgZJJyCor
- Wgwuot96M4E/k/7AZPzRXaP24uLM5Lkzs1TrxLdEYW+DRx2NgHYffyoqK7AxGESQmQ67Nr96teB
- WHZsPQp3dlToi/mZ/sQCSs+gJFyVdmiF6FlxLRE+eobdsFeOOUX2nysN8mSjArJsKzjU3vuf/54
- YJ+WkLrwYLdKPR6R+NJeIiSA6HuKs75dVBF8MUeoVs7pmYO+MCrK3gqa48UlNtorqwKJTFFxKn9
- djQtqrYg1gZ2SvVoSSi5jneihJejHjRJnGzmOGTGgI4aplDsb+4ITAQEhlRg9wp/jfagt8y+Pf2
- 7cjkShzgD91IAms/dBVA1rn+226O+SNkFMlSGB4Aev0tilqFXsZSzkfoIgV1nm21qAZPVGQd4V/
- 3ufRBf/XlP9zF+8G4FJW11OHi+ig==
-X-Received: by 2002:a05:690c:e241:20b0:809:9422:8c47 with SMTP id
- 00721157ae682-80994228e31mr20933047b3.22.1782327313072; 
- Wed, 24 Jun 2026 11:55:13 -0700 (PDT)
-Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
- by smtp.gmail.com with ESMTPSA id
- 00721157ae682-8025ffc2730sm61645687b3.34.2026.06.24.11.55.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jun 2026 11:55:12 -0700 (PDT)
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH] misc: fastrpc: initialize invoke refcount before publish
-Date: Wed, 24 Jun 2026 20:54:27 +0200
-Message-ID: <20260624185427.1451-1-alhouseenyousef@gmail.com>
-X-Mailer: git-send-email 2.54.0
+X-Greylist: delayed 360 seconds by postgrey-1.36 at gabe;
+ Thu, 25 Jun 2026 02:40:18 UTC
+Received: from outbound.qs.icloud.com (qs-2007d-snip4-1.eps.apple.com
+ [57.103.84.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B28C710E141
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 02:40:18 +0000 (UTC)
+Received: from outbound.qs.icloud.com (unknown [127.0.0.2])
+ by p00-icloudmta-asmtp-us-east-2d-10-percent-0 (Postfix) with ESMTPS id
+ 53A6630000B9; Thu, 25 Jun 2026 02:34:14 +0000 (UTC)
+X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQtJC0MFXgJeC0sEQwVZAFBcHA4HTytYEUoXXRVeClwXFxZWGRcNVk1TGUACWRNbEVcfHQNSHxICWkUKTV8OXh8EF0YZVQRHHl1WQh4ZAlEcVg1XQ1QEX1BJDEFQbFoARxdIHV0ZWW9QXRwOB1YYXR5BEVIDUEVcFU1YXgRTVg5CCUoFXQFZB0ALSwBYDkUARglJAkAGRlgIeRJSHlgFShlYFlRDWQ5GThkMSh1SVlEFSgxcAGgPXR1YEV0=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jasonxiang.net; s=sig1;
+ t=1782354857; x=1784946857; bh=9xwfsavpZ6AjRJVASdrQrHxjcLHdD9uha06sBvvM74s=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme;
+ b=h0NJwydc9nvZYOKGyS3xTcqmsxbSYtIqIMRvdsgW+X9slCwhkPeWlFcqQZVD72FCb7CfkN5z6t1ePg9z9KdhLwT/6nStoX8lZKaJZQ55qRQ5L062z5itH+tGS19PJ7uze6p/bjIuVuasPhbhL94gt2T5Ye/AeKZu5M+3nk9GopvLGu9uV5ZKcoFCLJa8mGwbWPR+rWrU0gWmLlX9jYMqH918CN+uD5Df51+V2nms5aM3ZVJTvvshAXSby/E0iGFp5KhwsmpBQQtIaDVMl9qqRA/4/mae7arlP41R/rWi6AUS7gqJytZdNI4pCXNcnmDeoH765FASZzhCH/VU6xR+uQ==
+mail-alias-created-date: 1782291625467
+Received: from JasonPC.localdomain (unknown [17.57.155.37])
+ by p00-icloudmta-asmtp-us-east-2d-10-percent-0 (Postfix) with ESMTPSA id
+ C12EA3000102; Thu, 25 Jun 2026 02:34:10 +0000 (UTC)
+From: Jason Xiang <jx@jasonxiang.net>
+To: Paul Kocialkowski <paulk@sys-base.io>,
+	dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ Jason Xiang <jx@jasonxiang.net>
+Subject: [PATCH] drm/logicvc: Fix layer_node reference leak in
+ logicvc_layers_init()
+Date: Thu, 25 Jun 2026 10:33:59 +0800
+Message-ID: <20260625023359.26011-1-jx@jasonxiang.net>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: EMQoFXPYZ1JIXWaGB8izQ3NdQZ-v0mt7
+X-Proofpoint-GUID: EMQoFXPYZ1JIXWaGB8izQ3NdQZ-v0mt7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDAyMCBTYWx0ZWRfXyqZuaI7e3vFy
+ G/5f57qkx0Jf6mqKut97QcV6rk90q+VdqdoWianWQFXyWR41x4foEO8G5utg6Ax7erjT98b4aw0
+ LwCxAM5oyMMjf8NngD/qdXWa5A0xPODBsdaLkoUFhYUaABXW2s37Zz89xNkCPatSAFxrqDYAbO6
+ ICNGSawna6KWF6JywJVNwnNjJrCtbXJbjm3GW51mWKzUaTpDh/SjDUdNRKAjWEW5d3f6AcJCVhK
+ J3Z06j2EjY5EvpTiaD/MRTNG+g/lLUDne9zD1+j0bVUv8zbwQei4X8FFCbP69LlP3NL2fr/YhAe
+ UgVMCl0wVbgLn2Qb4hZ
 X-Mailman-Approved-At: Thu, 25 Jun 2026 07:03:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,39 +69,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-fastrpc_context_alloc() adds a new invoke context to the pending list
-and the channel IDR before initializing its refcount.
+for_each_child_of_node() returns each child node with its reference
+count incremented, so breaking out of the loop early requires
+dropping the reference on the current node. In logicvc_layers_init(),
+when logicvc_layer_init() fails, the error path releases the parent
+"layers" node but not the child node 'layer_node' that the loop is
+currently holding, leaking its reference. The leak has been present
+since the driver was introduced.
 
-A racing DSP response can find that context by ID and drop a reference
-before kref_init() has run. Initialize the refcount before publishing the
-context.
+Release 'layer_node' before jumping to the error label.
 
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Fixes: efeeaefe9be5 ("drm: Add support for the LogiCVC display controller")
+Signed-off-by: Jason Xiang <jx@jasonxiang.net>
 ---
- drivers/misc/fastrpc.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/logicvc/logicvc_layer.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 6ced210ca..42fc128e1 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -703,6 +703,7 @@ static struct fastrpc_invoke_ctx *fastrpc_context_alloc(
- 	ctx->cctx = cctx;
- 	init_completion(&ctx->work);
- 	INIT_WORK(&ctx->put_work, fastrpc_context_put_wq);
-+	kref_init(&ctx->refcount);
+diff --git a/drivers/gpu/drm/logicvc/logicvc_layer.c b/drivers/gpu/drm/logicvc/logicvc_layer.c
+index 7f5ba000188a..e83a2aafed77 100644
+--- a/drivers/gpu/drm/logicvc/logicvc_layer.c
++++ b/drivers/gpu/drm/logicvc/logicvc_layer.c
+@@ -613,6 +613,7 @@ int logicvc_layers_init(struct logicvc_drm *logicvc)
  
- 	spin_lock(&user->lock);
- 	list_add_tail(&ctx->node, &user->pending);
-@@ -718,8 +719,6 @@ static struct fastrpc_invoke_ctx *fastrpc_context_alloc(
- 	ctx->ctxid = ret << 4;
- 	spin_unlock_irqrestore(&cctx->lock, flags);
- 
--	kref_init(&ctx->refcount);
--
- 	return ctx;
- err_idr:
- 	spin_lock(&user->lock);
+ 		ret = logicvc_layer_init(logicvc, layer_node, index);
+ 		if (ret) {
++			of_node_put(layer_node);
+ 			of_node_put(layers_node);
+ 			goto error;
+ 		}
+
+base-commit: f0e6f20cb52b14c2c441f04e21cef0c95d498cac
 -- 
-2.54.0
+2.50.1
 
