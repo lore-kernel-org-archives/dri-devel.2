@@ -4,62 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A926DCDB479
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 13:00:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7223CDE000
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 13:00:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2EFB10E6A5;
-	Thu, 25 Jun 2026 13:00:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3889210EA7D;
+	Thu, 25 Jun 2026 13:00:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="as/4kRlJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O19z30Wp";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5246110EAA5;
- Thu, 25 Jun 2026 12:59:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782392394; x=1813928394;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Ju3gfzFeBeams+3Iev1BlEjXoqqkURWq1dmcBXf0Gac=;
- b=as/4kRlJR8JJYKBvLFUQwjKrpExIgArLZ54zyXj/Bog75xmMY1ry0u/6
- 1kze4B0ZwGTkKGmcQihwc0vgVhu3cNogtY9p3YQAZwBCx3qYB0z9HbCF6
- HLgvhmVqHDVmVBLqXk8BRoET11pVDChuf7sF07PpcfFdYsoWhpYtWlL6J
- XQnw4tPjqLuxQ/9cvHfhWANsrNCmvJoXGxFPJqdF7IgY5eRUoTbmsbi1X
- F+cNdgUlDGF9fmSvKpoHsvbfbXuR8ycy626gLQ3JAXvSIMe01IuJF7PUM
- JqmkBWx3vaxsQfBc2MJvHyRLqanEihJZQVJXO94rA3c4nX2CFVihDFj2A g==;
-X-CSE-ConnectionGUID: i4uDSgtiRpCBGjwWxL4keA==
-X-CSE-MsgGUID: yXyCaomCTHO2uzSbkjQYvA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="82287398"
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="82287398"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2026 05:59:54 -0700
-X-CSE-ConnectionGUID: iyYEnqxrRCqiMDSh7gcxFQ==
-X-CSE-MsgGUID: JDi4aJs1SZSPji3+mUzr0Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="280857128"
-Received: from black.igk.intel.com ([10.91.253.5])
- by orviesa002.jf.intel.com with ESMTP; 25 Jun 2026 05:59:50 -0700
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Raag Jadav <raag.jadav@intel.com>,
- "Michael J . Ruhl" <michael.j.ruhl@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- Riana Tauro <riana.tauro@intel.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andi Shyti <andi.shyti@kernel.org>,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] drm/xe/mcu_i2c: Take over control of the controller
- enabling
-Date: Thu, 25 Jun 2026 14:59:39 +0200
-Message-ID: <20260625125939.429078-4-heikki.krogerus@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260625125939.429078-1-heikki.krogerus@linux.intel.com>
-References: <20260625125939.429078-1-heikki.krogerus@linux.intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2188A10E86D
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 13:00:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 09A1E4058C;
+ Thu, 25 Jun 2026 13:00:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56B761F00A3D;
+ Thu, 25 Jun 2026 12:59:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782392405;
+ bh=gSBd4Rw1MdowAEeCt5ovJ/JxAGFvVF8arYEar3Fhowg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=O19z30WpGvU+89hX4CfQxdmKYMDvqCEYCYumDzxUJZmD5B2L55eLCKm6CKdpNZFpP
+ MfF/aQaHQOKx5iT0LKmC67A6xCAoHK/1303FLJvpZm8vZWh224+10JHaLviIGwKV3O
+ lbG8ARmAnOsuVFp0SxCfMoh6/14UBsZz3Xh98kuCxDkvFbLe3aRkbTH/4C5C3xNGLx
+ XZyt50LbWiA3mqnTZP90JvTEBCQQAAlK1A0lW6O3tQ9PYMhIpj53gF2QG3C67DnbvW
+ Xpa2duuyBeCv4Z4nfekW8I0VbNfvO6FWmo1x+fzqU5EHh7ScxXsM/XTCIMRjsUp0rs
+ jknFvfbjb1e6g==
+Message-ID: <206f2e80-132a-4586-bd27-5983783f97ce@kernel.org>
+Date: Thu, 25 Jun 2026 14:59:55 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
+ MIPI DSI to HDMI driver
+To: Sunyun Yang <syyang@lontium.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
+ rfoss@kernel.org, mripard@kernel.org, Laurent.pinchart@ideasonboard.com,
+ tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com,
+ xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
+References: <20260508142500.4922-1-syyang@lontium.com>
+ <CAFQXuNYq5QYAXRzcUBnyvVh5ofPBVYONCs1dM6qPgK0BDja5Ow@mail.gmail.com>
+ <495f0dc3-b5ee-429e-bc60-78b13bcb42c3@kernel.org>
+ <CAFQXuNajWT31q1MccwTDa074_7=6tfaz-FOmP-tx_q83R60QfQ@mail.gmail.com>
+ <CAFQXuNbvSQSZayBGcS6L106ic6M9D+xi8CF9=k27fCAn5U8tdg@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAFQXuNbvSQSZayBGcS6L106ic6M9D+xi8CF9=k27fCAn5U8tdg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,121 +113,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Some platforms make an assumption that the i2c controller's
-enabled state indicates also the power state of the
-controller. This can create a problem when the controller is
-in disabled state, because the hardware may assume
-incorrectly that it is then also in low-power state.
+On 25/06/2026 04:01, Sunyun Yang wrote:
+> Sunyun Yang <syyang@lontium.com> 于2026年6月25日周四 08:52写道：
+>>
+>> Krzysztof Kozlowski <krzk@kernel.org> 于2026年6月24日周三 22:05写道：
+>>>
+>>> On 11/05/2026 05:28, Sunyun Yang wrote:
+>>>> <syyang@lontium.com> 于2026年5月8日周五 22:25写道：
+>>>>>
+>>>>> From: Sunyun Yang <syyang@lontium.com>
+>>>>>
+>>>>> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
+>>>>> mipi dsi and output hdmi, differences in hardware features:
+>>>>> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
+>>>>> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
+>>>>> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
+>>>>>
+>>>>> Signed-off-by: Sunyun Yang <syyang@lontium.com>
+>>>>> ---
+>>>>>  .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++++--
+>>>>>  1 file changed, 6 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+>>>>> index 429a06057ae8..e0821a63d9d7 100644
+>>>>> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+>>>>> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+>>>>> @@ -4,19 +4,23 @@
+>>>>>  $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
+>>>>>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>>>
+>>>>> -title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
+>>>>> +title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
+>>>>>
+>>>>>  maintainers:
+>>>>>    - Vinod Koul <vkoul@kernel.org>
+>>>>>
+>>>>>  description: |
+>>>>> -  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDMI
+>>>>> +  The LT9611、LT9611UXC、LT9611C、LT9611EX and LT9611UXD
+>>>>> +  are bridge devices which convert DSI to HDMI
+>>>>>
+>>>>>  properties:
+>>>>>    compatible:
+>>>>>      enum:
+>>>>>        - lontium,lt9611
+>>>>> +      - lontium,lt9611c
+>>>>> +      - lontium,lt9611ex
+>>>>>        - lontium,lt9611uxc
+>>>>> +      - lontium,lt9611uxd
+>>>>>
+>>>>>    reg:
+>>>>>      maxItems: 1
+>>>>> --
+>>>>
+>>>> Gentle ping.
+>>>> Thanks.
+>>>
+>>> Except mess with threading, your patchset does not build, when applied
+>>> on next-20260618.
+>>>
+>>> What is the base of this?
+>>>
+>>
+>> Thanks for testing my patchset on next-20260618.
+>>
+>> The base of this series is v7.0.
+>>
+> Krzysztof,   Is Sashiko AI review required before merging a patch now?
 
-To fix this, the controller is kept enabled by taking over
-the IC_ENABLE register. The controller has to be disabled
-when the configuration is updated and when the target
-address or the slave address are assigned, so disabling it
-when IC_CON, IC_TAR or IC_SAR registers are programmed, and
-then re-enabling it again.
+Fixing obvious bugs in your code is required before merging.
 
-Signed-off-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
----
- drivers/gpu/drm/xe/xe_i2c.c | 55 +++++++++++++++++++++++++++++++++++--
- drivers/gpu/drm/xe/xe_i2c.h |  1 +
- 2 files changed, 54 insertions(+), 2 deletions(-)
+But even without bugs, this cannot be merged - does not apply. And you
+sending the same three different times does not help, because now there
+is complete mess in reviews.
 
-diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-index 0495b561957a2..e2d8e77653cf2 100644
---- a/drivers/gpu/drm/xe/xe_i2c.c
-+++ b/drivers/gpu/drm/xe/xe_i2c.c
-@@ -8,6 +8,7 @@
- #include <drm/drm_print.h>
- #include <linux/array_size.h>
- #include <linux/container_of.h>
-+#include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/designware_i2c.h>
- #include <linux/err.h>
-@@ -294,11 +295,40 @@ static void xe_i2c_remove_irq(struct xe_i2c *i2c)
- 	irq_domain_remove(i2c->irqdomain);
- }
- 
-+/* See "Disabling DW_apb_i2c" in the DesignWare DW_abp_i2c databook. */
-+static void xe_i2c_disable(struct xe_i2c *i2c)
-+{
-+	int timeout = 100;
-+	u32 status;
-+
-+	xe_mmio_rmw32(i2c->mmio, I2C_REG(DW_IC_ENABLE), 1, 0);
-+
-+	do {
-+		status = xe_mmio_read32(i2c->mmio, I2C_REG(DW_IC_ENABLE_STATUS));
-+		if (!(status & 1))
-+			return;
-+		/* Can't sleep here. */
-+		udelay(25);
-+	} while (timeout--);
-+
-+	dev_warn(&i2c->adapter->dev, "timeout in disabling adapter\n");
-+}
-+
- static int xe_i2c_read(void *context, unsigned int reg, unsigned int *val)
- {
- 	struct xe_i2c *i2c = context;
- 
--	*val = xe_mmio_read32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET));
-+	*val = xe_mmio_read32(i2c->mmio, I2C_REG(reg));
-+
-+	switch (reg) {
-+	case DW_IC_ENABLE:
-+	case DW_IC_ENABLE_STATUS:
-+		FIELD_MODIFY(DW_IC_ENABLE_ENABLE, val,
-+			     i2c->ic_enable & DW_IC_ENABLE_ENABLE);
-+		break;
-+	default:
-+		break;
-+	}
- 
- 	return 0;
- }
-@@ -307,7 +337,28 @@ static int xe_i2c_write(void *context, unsigned int reg, unsigned int val)
- {
- 	struct xe_i2c *i2c = context;
- 
--	xe_mmio_write32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET), val);
-+	switch (reg) {
-+	case DW_IC_CON:
-+	case DW_IC_TAR:
-+	case DW_IC_SAR:
-+		/* Disable the controller. */
-+		xe_i2c_disable(i2c);
-+
-+		/* Write the register. */
-+		xe_mmio_write32(i2c->mmio, I2C_REG(reg), val);
-+
-+		/* Enable the controller. */
-+		xe_mmio_rmw32(i2c->mmio, I2C_REG(DW_IC_ENABLE), 0, 1);
-+		break;
-+	case DW_IC_ENABLE:
-+		i2c->ic_enable = val;
-+		/* Other fields can be updated except the enable bit. */
-+		val |= DW_IC_ENABLE_ENABLE;
-+		fallthrough;
-+	default:
-+		xe_mmio_write32(i2c->mmio, I2C_REG(reg), val);
-+		break;
-+	}
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/xe/xe_i2c.h b/drivers/gpu/drm/xe/xe_i2c.h
-index b3327db998708..231e36df09017 100644
---- a/drivers/gpu/drm/xe/xe_i2c.h
-+++ b/drivers/gpu/drm/xe/xe_i2c.h
-@@ -39,6 +39,7 @@ struct xe_i2c {
- 	struct platform_device *pdev;
- 	struct i2c_adapter *adapter;
- 	struct i2c_client *client[XE_I2C_MAX_CLIENTS];
-+	unsigned int ic_enable;
- 
- 	struct notifier_block bus_notifier;
- 	struct work_struct work;
--- 
-2.50.1
-
+Best regards,
+Krzysztof
