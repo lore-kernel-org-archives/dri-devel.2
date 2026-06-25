@@ -4,77 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFF23CDE008
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1FC9CDE00E
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F20B610F486;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F037110F485;
 	Fri, 26 Jun 2026 07:53:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="wuLpQMlw";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jKXn70O+";
 	dkim-atps=neutral
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D322710E249
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 19:06:22 +0000 (UTC)
-Received: by mail-dl1-f50.google.com with SMTP id
- a92af1059eb24-1397e093f90so674386c88.1
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 12:06:22 -0700 (PDT)
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0EFF10F1FF
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 09:45:00 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-2c80810247dso499065ad.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 02:45:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1782414382; x=1783019182; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1782380700; x=1782985500; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ZzC7fmG1jZ13lVBNr652TT3bsOKLyvGJ+KuwuiC1EcU=;
- b=wuLpQMlwmeeALyNrDaxjkU/7Lj6upusYIwryvh0Mj7f2oW17Mf5vIXa4uNdtuI8kgx
- S8jhc2QXp7ECZMHIqTCJr2S5Fcf0qsjj+0OrjAoYN1m0wIl0VHcLSceW6i3KC9UUhp/F
- 2mRs5hbQoNYPg7o3RVb32kuWBLJYHgQpHre4XXq744X7aSBnQboBLkpuX54kgC4xb0NO
- LxTxvV7lN49ZNS1EDrhRAn+UMFqznZXox77JBRbMA/pYExcFpgai6qmgAM0G7vU0ulPg
- ZVR5aX8D7gkZtWFqbB8pb4RoZZuQ49iblbtlSVvao/eGCpTeOdUt7Nh6WLCvVmrCncGL
- V4Bw==
+ bh=eWFRHwCJWqyDwSA9g6vZ6qYM6bFdwonDXcZifiRo3bA=;
+ b=jKXn70O+Z9yRP3O44CPh93VQbbY7OID1cws7Di+S18ORiFqhgzULGA5NkWbUlGviih
+ a25FCzVPPO43Oqo0GAFW6+x1Sc3uWf9ieTeTQlPrCCFl/59kGc3gG4/df5S3NppewofF
+ K5C2OAKwmPbMQQPgsvCIvobXUrnqVnuOPGIbJjOvyS5W0qpdBStds1J4uAfyE7rKVWAq
+ jMzzWqVPX96gFbKVCVhRrGESNDRvI0ALM2hdXfj8mQLX1YK03pk5uIwI86Dxh9pQIlOv
+ GYuc3JePDKbnd11O7JFTtXvK98DX3EEqqSk7c5B9wo715FC0C35x+F11bi8CehfN4Mq7
+ hDlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782414382; x=1783019182;
+ d=1e100.net; s=20251104; t=1782380700; x=1782985500;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=ZzC7fmG1jZ13lVBNr652TT3bsOKLyvGJ+KuwuiC1EcU=;
- b=Gz9Rf71IcK3Gruws70L/dcViX6czOdMdWPIH6pUtzyCPE+fw9PfikDXs2vqFC6xIZP
- vSRmsWqYYD45DFpdHbmc3WdcinPjUM1xJwHUY4Bj6T3XW5bZK43kS1zJHWJ6aUuz97iQ
- rg7F5Nmq6XOAPQUYUNXmxLYCPAkuvWRnSVsF0SmjVmWTKxOBAsozEx3p7yEAfZPgSn+4
- iKef5E42zc6RPaF7keEt9MuQZfknLcGHjQRHcwP4I+jBWsP0RhfoH7kN7yC3u66u0WBS
- 6Ybufxd7ryz3/Qg8oCkNKGByucHFVd/RvB+pdDm00lsiBcOu4qeSMhi0iiQYlAUY7Dsk
- HlzQ==
+ bh=eWFRHwCJWqyDwSA9g6vZ6qYM6bFdwonDXcZifiRo3bA=;
+ b=HzC/dsqgE6CnNxjGDl6mzxzGxezM3++yjd2XBzL9iJfsJAFoFWQI7VuD16y6NFjsxk
+ ZId0M9YVomoRStfY1wr4SAVM1S0UvNcyLqWT4bTgOc3BCGDRvmqPebB25Du7NN260WHL
+ FJgfpUPqerP72C/J9BtkeBxKwJ4sjpGGfcVLmE47AUFVn7GNHtjZINfibn9pZ/SC69Tf
+ wg6dXAgRz0dCy6HkDMkyhQ8lTwMQog5bYVXoq8RmMTYRg5jbcfy8ByOt4o0+58q8vleW
+ ISDx3BLYVMelNQwHD8fNsyf1naFqZL/1DE0z7kNuni3xL6Li6VOZ6iFUOfSL/ppEzub3
+ ZcTg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/k3tgKz7pjwJJ+P37wQld+qBP6QpPKBATCzw7Pt49t+ZKVEKS6VAqDNKpMpsMnBfHrVdVEEfNI2qE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyWMlLD0UT+JuZHcmuLdqX8V+7WJjGNaDxljIjB2yiPtXPMHqYu
- l+BX2ONB/6h6Tc9kvqnGcRsjAUNaIz/1m+0pPU72gO2mmIVpiHRc3dHqLYf8AlJXw6A=
-X-Gm-Gg: AfdE7cmTaGabmTMp1NXrTZwLvwDqIu4Fwnb8j6eqNl3zjaKlIw6hobh8ibcjbCtXgxX
- EQs1AfLMUduSfw2uAwI1i9lI7PiuRVeINS84NFFX9tXrDzq6MP1FfdVpgOoZ+HwQKMOFpo5obyu
- vjaziGHn4wptHuJEYuG8EWg178svT2koTu991vX/pE8R/zIy0DGGnIAxjXT1QxEF+xZpR4zwCcE
- kIDR/3YNc7qtmt8piJ/vcf6NMFsR5HXj0+wQMsyh6an5S27nMa0AptAoqHmrjb1Z3CeEmymxtq1
- 7d7K4ztC8MlY0bJNF+jIiPyA35tTyN+VU7H2fX7TaEHw8pk8x+6FTRbk0AMYpuIVwwdxkMjHaFQ
- /fK3e2p+dTJjISl/rZkcm96kgOy9z8Q8YPHBZvSmslixHkk2dyE7Asa/s8sjTm08AsYEneK1rMx
- ulgw7I9BaAFrJ1tD8=
-X-Received: by 2002:a05:7022:2226:b0:139:90ab:36bc with SMTP id
- a92af1059eb24-139dbb05d2cmr3690379c88.38.1782414382014; 
- Thu, 25 Jun 2026 12:06:22 -0700 (PDT)
-Received: from niyudi-linux.semfio.usp.br (nat.ime.usp.br. [143.107.45.1])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-139d8f6acf9sm10742999c88.6.2026.06.25.12.06.18
+ AHgh+RoXc5rpwCbifZ+4jTJWxL5NZ4Ykc/sAuBranWkPqnO9BjDbqagNhzKWEhLdERsPnkS3LVOtzwh2vmw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywq4waN6HOMwqiE4W8lY8v4qlcVeHVkYbeoRfDzpXE/5+z8k4iG
+ K4G28x62nQxTMgQO5BkbP9+W+fqgUL0iONnthEuj8xCvIjvEWWN09oVG
+X-Gm-Gg: AfdE7ckrIHi5AQ6O1gRqp+eyW3WxpBJQMcSD+71Wmi4aZoEIdwvIIUj4qxfw+PNXp+o
+ A9/WwaeD/Ox+HCDRZBhsdrF2GS4VfCber70Vc/ZCk9xmtPOTeP/3/vWsATTZ7DUbsbV+nlOoz5Q
+ ytPqGI8XXY6dd1EhBZnY+ZWDCruP7xqjffcOwt1umkF0xcKWqvnF4mTvYc8YhOKPr4bEstI9S3V
+ 3p0tXE18weVe8p4KapvkVOQ8LbwHwVerPghLHXZ1TFmOHyJaIL1UOztkvU0BHgnAJw24ae788vR
+ q3UWyzDxz3AUQne5Ge8Dzno3DKlqU1fnBVi3bX+hhnL/G78BhMM7rRFpt1Ew/6LKWnP9soi+F8O
+ nikH2FL1zyITluzmZlPeiOSu4ONaKfT4CWA5BGHT+I8+RZzfB4n+XCyOVw3IlN/NF50ObstYL9E
+ d7n89ywirU35GH3BQI7PyF8ne/O6EBusG3D2upfsuN3WRPUUcoQqr2sdtCx1zVm6L4bx7VM5shk
+ Rq4/no4CcIw
+X-Received: by 2002:a17:903:19e7:b0:2bf:23c3:34ba with SMTP id
+ d9443c01a7336-2c7fc7948aemr19245855ad.28.1782380700312; 
+ Thu, 25 Jun 2026 02:45:00 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net.
+ [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2c7f5ac8c26sm16614995ad.1.2026.06.25.02.44.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jun 2026 12:06:21 -0700 (PDT)
-From: Pedro Yudi Honda <niyudi.honda@usp.br>
-X-Google-Original-From: Pedro Yudi Honda
-To: dakr@kernel.org,
-	acourbot@nvida.com,
-	nova-gpu@lists.linux.dev
-Cc: aliceryhl@google.com, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, ojeda@kernel.org,
- rust-for-linux@vgdm.kernel.org, Pedro Yudi Honda <niyudi.honda@usp.br>
-Subject: [PATCH 5/7] drm/nova: use `zerocopy` in bootloader.rs
-Date: Thu, 25 Jun 2026 16:05:51 -0300
-Message-Id: <20260625190553.7245-6-niyudi.honda@usp.br>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260625190553.7245-1-niyudi.honda@usp.br>
-References: <20260625190553.7245-1-niyudi.honda@usp.br>
+ Thu, 25 Jun 2026 02:44:59 -0700 (PDT)
+From: Joey Lu <a0987203069@gmail.com>
+To: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH v5 1/7] dt-bindings: display: verisilicon,
+ dc: generalize for single-output variants
+Date: Thu, 25 Jun 2026 17:44:43 +0800
+Message-ID: <20260625094449.708386-2-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260625094449.708386-1-a0987203069@gmail.com>
+References: <20260625094449.708386-1-a0987203069@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 26 Jun 2026 07:53:42 +0000
@@ -93,85 +96,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Pedro Yudi Honda <niyudi.honda@usp.br>
+The verisilicon,dc binding was originally written for the T-Head TH1520
+SoC carrying a DC8200, and hard-codes five clocks, three resets and two
+output ports.
 
-In firmware/fwsec/bootloader.rs, replace the following `transmute`
-traits with their `zerocopy` equivalents:
+Add the Nuvoton MA35D1 DCUltraLite (nuvoton,ma35d1-dcu) to the binding.
+The DCUltraLite uses only two clocks (core, pix0) and one reset (core),
+with a single output port.
 
-- `transmute::FromBytes` -> `zerocopy::FromBytes`
-- `transmute::AsBytes` -> `zerocopy::IntoBytes`
-- add `zerocopy::Immutable` where necessary
+Use allOf/if blocks to express per-variant constraints rather than
+hard-coding the DC8200 topology at the top level.  Each compatible's
+block constrains the clock and reset item counts; the nuvoton block
+additionally overrides clock-names to the two names it actually uses.
 
-Update call sites accordingly.
-
-Signed-off-by: Pedro Yudi Honda <niyudi.honda@usp.br>
+Signed-off-by: Joey Lu <a0987203069@gmail.com>
 ---
- .../gpu/nova-core/firmware/fwsec/bootloader.rs   | 16 +++-------------
- 1 file changed, 3 insertions(+), 13 deletions(-)
+ .../bindings/display/verisilicon,dc.yaml      | 57 +++++++++++++++++++
+ 1 file changed, 57 insertions(+)
 
-diff --git a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-index 13af1c381df1..6f1c8daad7d3 100644
---- a/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-+++ b/drivers/gpu/nova-core/firmware/fwsec/bootloader.rs
-@@ -23,14 +23,8 @@
-         Alignment, //
-     },
-     sizes,
--    transmute::{
--        AsBytes,
--        FromBytes, //
--    },
- };
+diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+index 9dc35ab973f2..1e751f3c7ce8 100644
+--- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
++++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+@@ -17,6 +17,7 @@ properties:
+     items:
+       - enum:
+           - thead,th1520-dc8200
++          - nuvoton,ma35d1-dcu
+       - const: verisilicon,dc # DC IPs have discoverable ID/revision registers
  
--use zerocopy::FromBytes as _;
--
- use crate::{
-     driver::Bar0,
-     falcon::{
-@@ -61,7 +55,7 @@
- ///
- /// Most of its fields appear to be legacy and carry incorrect values, so they are left unused.
- #[repr(C)]
--#[derive(Debug, Clone)]
-+#[derive(Debug, Clone, FromBytes)]
- struct BootloaderDesc {
-     /// Starting tag of bootloader.
-     start_tag: u32,
-@@ -77,15 +71,13 @@ struct BootloaderDesc {
-     /// Size of data section in the image. Unused as we build the data section ourselves.
-     _data_size: u32,
- }
--// SAFETY: any byte sequence is valid for this struct.
--unsafe impl FromBytes for BootloaderDesc {}
+   reg:
+@@ -77,6 +78,62 @@ required:
+   - clock-names
+   - ports
  
- /// Structure used by the boot-loader to load the rest of the code.
- ///
- /// This has to be filled by the GPU driver and copied into DMEM at offset
- /// [`BootloaderDesc.dmem_load_off`].
- #[repr(C, packed)]
--#[derive(Debug, Clone)]
-+#[derive(Debug, Clone, IntoBytes, zerocopy_derive::Immutable)]
- struct BootloaderDmemDescV2 {
-     /// Reserved, should always be first element.
-     reserved: [u32; 4],
-@@ -124,8 +116,6 @@ struct BootloaderDmemDescV2 {
-     /// Arguments to be passed to the target firmware being loaded.
-     argv: u32,
- }
--// SAFETY: This struct doesn't contain uninitialized bytes and doesn't have interior mutability.
--unsafe impl AsBytes for BootloaderDmemDescV2 {}
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: thead,th1520-dc8200
++    then:
++      properties:
++        clocks:
++          minItems: 5
++          maxItems: 5
++
++        clock-names:
++          minItems: 5
++          maxItems: 5
++
++        resets:
++          minItems: 3
++          maxItems: 3
++
++        reset-names:
++          minItems: 3
++          maxItems: 3
++
++      required:
++        - resets
++        - reset-names
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: nuvoton,ma35d1-dcu
++    then:
++      properties:
++        clocks:
++          minItems: 2
++          maxItems: 2
++
++        clock-names:
++          items:
++            - const: core
++            - const: pix0
++
++        resets:
++          minItems: 1
++          maxItems: 1
++
++        reset-names:
++          items:
++            - const: core
++
++      required:
++        - resets
++        - reset-names
++
+ additionalProperties: false
  
- /// Wrapper for [`FwsecFirmware`] that includes the bootloader performing the actual load
- /// operation.
-@@ -164,7 +154,7 @@ pub(crate) fn new(
- 
-             fw.data()
-                 .get(desc_offset..)
--                .and_then(BootloaderDesc::from_bytes_copy_prefix)
-+                .and_then(|b| BootloaderDesc::read_from_prefix(b).ok())
-                 .ok_or(EINVAL)?
-                 .0
-         };
+ examples:
 -- 
-2.34.1
+2.43.0
 
