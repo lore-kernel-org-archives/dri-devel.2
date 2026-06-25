@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26458CDE002
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:38:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 688B2CDB47F
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:38:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A90310F158;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E526610F15C;
 	Thu, 25 Jun 2026 07:38:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="g2I7Ph7a";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Nm1sBIhQ";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E2CB10E1B5
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 07:38:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6753410E1B5
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 07:38:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1782373120;
- bh=Bt3PLWoNd7meENVXFLieJjB9siI7HNCF9za3PY7ttSY=;
+ bh=Xmrzlj8tuVF+Y++8NOYn7EyaF6fQKl5mCjOPAT8e9e4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=g2I7Ph7aSzxEtsh+jqezPggrtKvtON5/vSshA6oKBa87AtKo0mcgZDG1zBlXwZA99
- lrj2MeMgAyUYaJ7kPera4SfqSliMW/Iiw0PvKvsQdRom/3BLQK9VVB3d2mCdzFxPdl
- DkXbx4TaZ4bey0mLcbGTUzUqILykXKqyzX8y+i3JN797sgeusy1q5H4eLI/xzf8H/4
- uRwf8QrW1fszW7AqaA0Ryfqcpnv/SkaXOIRA80gpxmnUjCdRq2VnFILuYJC+XFIuiw
- hwPANmcr3sHAfxyFa1KRKK8+ObG01h5GRf0+WHa8d8zuBejT3hTgxQsIjm6VwouAcw
- k5vCBGWJowClQ==
+ b=Nm1sBIhQlX8ng5HH97F8CAzgFrIuiQeuqwI3RWOD5UNHb47o+hYRWwyDYchRWnMVj
+ 2c0070VuzYMZqYUtRTKyyY6tIAIjZ4WuwNrUU2LQS4DUrGUvCtDkimHtAPJGQVGHm0
+ UaVcMESBpKjnCVbOCjPJ/MOSMAIcBJEuRRI6i9LJJ+VkC2gryjAjImtd6jtCk90aM4
+ JwI4jo6s+FB12jvBVS0hm3olGipCcpSCXFggR+ULWM6qL3XjNCfmRQiC8yYiOugnZM
+ 1IoVBaMlBGkiEX+pDO0JA9E71ZyALuBWgMLtbst9+oijKzOsf/HITCGUticRP9YROU
+ nEp+iLUwRFekw==
 Received: from fedora-2.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 58B2917E1539;
- Thu, 25 Jun 2026 09:38:40 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 8AA5217E1531;
+ Thu, 25 Jun 2026 09:38:39 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 25 Jun 2026 09:38:22 +0200
-Subject: [PATCH v4 12/14] drm/panthor: Don't defer job completion checks
+Date: Thu, 25 Jun 2026 09:38:21 +0200
+Subject: [PATCH v4 11/14] drm/panthor: Protect events processing with a
+ separate spinlock
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-panthor-signal-from-irq-v4-12-3d2908912afa@collabora.com>
+Message-Id: <20260625-panthor-signal-from-irq-v4-11-3d2908912afa@collabora.com>
 References: <20260625-panthor-signal-from-irq-v4-0-3d2908912afa@collabora.com>
 In-Reply-To: <20260625-panthor-signal-from-irq-v4-0-3d2908912afa@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
@@ -49,11 +50,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782373111; l=7776;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782373111; l=14333;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=Bt3PLWoNd7meENVXFLieJjB9siI7HNCF9za3PY7ttSY=;
- b=NjzX+a5B5NZly4xeNQpXQ704D9vcHK0jfqDLK7+o4vBJbC23jojLurVY0il4OoEB9Rrw+ynvE
- U4fFXGKGUSQDS2FNUEXyUIStqgKCYgvR1+n/tEw1cTRbFG+o5UjAm4p
+ bh=Xmrzlj8tuVF+Y++8NOYn7EyaF6fQKl5mCjOPAT8e9e4=;
+ b=GbB4ssaHTfZvA9uiYDwpIIDGPwqGyQ7GXyM4I1D9WVR/Bp6URuuLCb1msSaq5ejptoCxX74wd
+ DmjourCfNuqBdlQGXpOMDcP+nrwMQt7jZDG2M+18L54BlA7UWh4EeQI
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -71,242 +72,398 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Call group_check_job_completion() directly from
-csg_slot_sync_update_locked() instead of deferring it.
+Add a specific spinlock for events processing so we can selectively
+move some event processing to the threaded IRQ handler. For events to be
+processed, we need to have access to the group attached to the CSG slot
+which also forces us to protect the csg_slots[] updates with this
+lock.
+
+Note that fatal_queues/timedout are turned into atomics to avoid having
+to take the events_lock every time those are checked or updated.
 
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_sched.c | 182 +++++++++++++++-----------------
- 1 file changed, 87 insertions(+), 95 deletions(-)
+ drivers/gpu/drm/panthor/panthor_sched.c | 123 ++++++++++++++++++++------------
+ 1 file changed, 78 insertions(+), 45 deletions(-)
 
 diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index 528a23a89913..ea5725a3ba61 100644
+index c361cbaac0cd..528a23a89913 100644
 --- a/drivers/gpu/drm/panthor/panthor_sched.c
 +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -697,9 +697,6 @@ struct panthor_group {
+@@ -254,8 +254,21 @@ struct panthor_scheduler {
+ 		struct list_head waiting;
+ 	} groups;
+ 
++	/**
++	 * @events_lock: Lock taken when processing events.
++	 *
++	 * This also needs to be taken when csg_slots are updated, to make sure
++	 * the event processing logic doesn't touch groups that have left the CSG
++	 * slot.
++	 */
++	spinlock_t events_lock;
++
+ 	/**
+ 	 * @csg_slots: FW command stream group slots.
++	 *
++	 * Updates to these slots must happen with both panthor_scheduler::lock and
++	 * panthor_scheduler::events_lock held. As a result, reads can happen with
++	 * either of these locks held.
  	 */
- 	struct panthor_kernel_bo *protm_suspend_buf;
+ 	struct panthor_csg_slot csg_slots[MAX_CSGS];
  
--	/** @sync_upd_work: Work used to check/signal job fences. */
--	struct work_struct sync_upd_work;
+@@ -565,8 +578,13 @@ struct panthor_group {
+ 	/** @idle_queues: Bitmask reflecting the idle queues. */
+ 	u32 idle_queues;
+ 
+-	/** @fatal_queues: Bitmask reflecting the queues that hit a fatal exception. */
+-	u32 fatal_queues;
++	/**
++	 * @fatal_queues: Bitmask reflecting the queues that hit a fatal exception.
++	 *
++	 * This is an atomic because we don't want to acquire the events_lock
++	 * every time we need to check the group state.
++	 */
++	atomic_t fatal_queues;
+ 
+ 	/** @tiler_oom: Mask of queues that have a tiler OOM event to process. */
+ 	atomic_t tiler_oom;
+@@ -602,8 +620,14 @@ struct panthor_group {
+ 	 * any timeout situation is unrecoverable, and the group becomes useless. We
+ 	 * simply wait for all references to be dropped so we can release the group
+ 	 * object.
++	 *
++	 * This is an atomic because it can be set from both a scheduling context
++	 * (protected with panthor_scheduler::lock) and an event processing context
++	 * (protected with panthor_scheduler::events_lock). We could protect access
++	 * with the events_lock, but this is simpler to make it an atomic since the
++	 * only allowed transition is false -> true.
+ 	 */
+-	bool timedout;
++	atomic_t timedout;
+ 
+ 	/**
+ 	 * @innocent: True when the group becomes unusable because the group suspension
+@@ -996,7 +1020,6 @@ static int
+ group_bind_locked(struct panthor_group *group, u32 csg_id)
+ {
+ 	struct panthor_device *ptdev = group->ptdev;
+-	struct panthor_csg_slot *csg_slot;
+ 	int ret;
+ 
+ 	lockdep_assert_held(&ptdev->scheduler->lock);
+@@ -1009,9 +1032,7 @@ group_bind_locked(struct panthor_group *group, u32 csg_id)
+ 	if (ret)
+ 		return ret;
+ 
+-	csg_slot = &ptdev->scheduler->csg_slots[csg_id];
+ 	group_get(group);
+-	group->csg_id = csg_id;
+ 
+ 	/* Dummy doorbell allocation: doorbell is assigned to the group and
+ 	 * all queues use the same doorbell.
+@@ -1023,7 +1044,10 @@ group_bind_locked(struct panthor_group *group, u32 csg_id)
+ 	for (u32 i = 0; i < group->queue_count; i++)
+ 		group->queues[i]->doorbell_id = csg_id + 1;
+ 
+-	csg_slot->group = group;
++	scoped_guard(spinlock, &ptdev->scheduler->events_lock) {
++		ptdev->scheduler->csg_slots[csg_id].group = group;
++		group->csg_id = csg_id;
++	}
+ 
+ 	return 0;
+ }
+@@ -1038,7 +1062,6 @@ static int
+ group_unbind_locked(struct panthor_group *group)
+ {
+ 	struct panthor_device *ptdev = group->ptdev;
+-	struct panthor_csg_slot *slot;
+ 
+ 	lockdep_assert_held(&ptdev->scheduler->lock);
+ 
+@@ -1048,9 +1071,12 @@ group_unbind_locked(struct panthor_group *group)
+ 	if (drm_WARN_ON(&ptdev->base, group->state == PANTHOR_CS_GROUP_ACTIVE))
+ 		return -EINVAL;
+ 
+-	slot = &ptdev->scheduler->csg_slots[group->csg_id];
++	scoped_guard(spinlock, &ptdev->scheduler->events_lock) {
++		ptdev->scheduler->csg_slots[group->csg_id].group = NULL;
++		group->csg_id = -1;
++	}
++
+ 	panthor_vm_idle(group->vm);
+-	group->csg_id = -1;
+ 
+ 	/* Tiler OOM events will be re-issued next time the group is scheduled. */
+ 	atomic_set(&group->tiler_oom, 0);
+@@ -1060,8 +1086,6 @@ group_unbind_locked(struct panthor_group *group)
+ 	for (u32 i = 0; i < group->queue_count; i++)
+ 		group->queues[i]->doorbell_id = -1;
+ 
+-	slot->group = NULL;
 -
- 	/** @tiler_oom_work: Work used to process tiler OOM events happening on this group. */
- 	struct work_struct tiler_oom_work;
- 
-@@ -1763,6 +1760,92 @@ static void csg_slot_process_idle_event_locked(struct panthor_device *ptdev, u32
- 	sched_queue_delayed_work(sched, tick, 0);
+ 	group_put(group);
+ 	return 0;
+ }
+@@ -1079,8 +1103,9 @@ group_can_run(struct panthor_group *group)
+ {
+ 	return group->state != PANTHOR_CS_GROUP_TERMINATED &&
+ 	       group->state != PANTHOR_CS_GROUP_UNKNOWN_STATE &&
+-	       !group->destroyed && group->fatal_queues == 0 &&
+-	       !group->timedout;
++	       !group->destroyed &&
++	       !atomic_read(&group->fatal_queues) &&
++	       !atomic_read(&group->timedout);
  }
  
-+static void update_fdinfo_stats(struct panthor_job *job)
-+{
-+	struct panthor_group *group = job->group;
-+	struct panthor_queue *queue = group->queues[job->queue_idx];
-+	struct panthor_gpu_usage *fdinfo = &group->fdinfo.data;
-+	struct panthor_job_profiling_data *slots = queue->profiling.slots->kmap;
-+	struct panthor_job_profiling_data *data = &slots[job->profiling.slot];
-+
-+	scoped_guard(spinlock_irqsave, &group->fdinfo.lock) {
-+		if (job->profiling.mask & PANTHOR_DEVICE_PROFILING_CYCLES)
-+			fdinfo->cycles += data->cycles.after - data->cycles.before;
-+		if (job->profiling.mask & PANTHOR_DEVICE_PROFILING_TIMESTAMP)
-+			fdinfo->time += data->time.after - data->time.before;
-+	}
-+}
-+
-+static bool queue_check_job_completion(struct panthor_queue *queue)
-+{
-+	struct panthor_syncobj_64b *syncobj = NULL;
-+	struct panthor_job *job, *job_tmp;
-+	bool cookie, progress = false;
-+	LIST_HEAD(done_jobs);
-+
-+	cookie = dma_fence_begin_signalling();
-+	spin_lock(&queue->fence_ctx.lock);
-+	list_for_each_entry_safe(job, job_tmp, &queue->fence_ctx.in_flight_jobs, node) {
-+		if (!syncobj) {
-+			struct panthor_group *group = job->group;
-+
-+			syncobj = group->syncobjs->kmap +
-+				  (job->queue_idx * sizeof(*syncobj));
-+		}
-+
-+		if (syncobj->seqno < job->done_fence->seqno)
-+			break;
-+
-+		list_move_tail(&job->node, &done_jobs);
-+		dma_fence_signal_locked(job->done_fence);
-+	}
-+
-+	if (list_empty(&queue->fence_ctx.in_flight_jobs)) {
-+		/* If we have no job left, we cancel the timer, and reset remaining
-+		 * time to its default so it can be restarted next time
-+		 * queue_resume_timeout() is called.
-+		 */
-+		queue_suspend_timeout_locked(queue);
-+
-+		/* If there's no job pending, we consider it progress to avoid a
-+		 * spurious timeout if the timeout handler and the sync update
-+		 * handler raced.
-+		 */
-+		progress = true;
-+	} else if (!list_empty(&done_jobs)) {
-+		queue_reset_timeout_locked(queue);
-+		progress = true;
-+	}
-+	spin_unlock(&queue->fence_ctx.lock);
-+	dma_fence_end_signalling(cookie);
-+
-+	list_for_each_entry_safe(job, job_tmp, &done_jobs, node) {
-+		if (job->profiling.mask)
-+			update_fdinfo_stats(job);
-+		list_del_init(&job->node);
-+		panthor_job_put(&job->base);
-+	}
-+
-+	return progress;
-+}
-+
-+static void group_check_job_completion(struct panthor_group *group)
-+{
-+	u32 queue_idx;
-+	bool cookie;
-+
-+	cookie = dma_fence_begin_signalling();
-+	for (queue_idx = 0; queue_idx < group->queue_count; queue_idx++) {
-+		struct panthor_queue *queue = group->queues[queue_idx];
-+
-+		if (!queue)
-+			continue;
-+
-+		queue_check_job_completion(queue);
-+	}
-+	dma_fence_end_signalling(cookie);
-+}
-+
- static void csg_slot_sync_update_locked(struct panthor_device *ptdev,
- 					u32 csg_id)
+ static bool
+@@ -1482,7 +1507,7 @@ cs_slot_process_fatal_event_locked(struct panthor_device *ptdev,
+ 	u32 fatal;
+ 	u64 info;
+ 
+-	lockdep_assert_held(&sched->lock);
++	lockdep_assert_held(&sched->events_lock);
+ 
+ 	cs_iface = panthor_fw_get_cs_iface(ptdev, csg_id, cs_id);
+ 	fatal = cs_iface->output->fatal;
+@@ -1492,7 +1517,7 @@ cs_slot_process_fatal_event_locked(struct panthor_device *ptdev,
+ 		drm_warn(&ptdev->base, "CS_FATAL: pid=%d, comm=%s\n",
+ 			 group->task_info.pid, group->task_info.comm);
+ 
+-		group->fatal_queues |= BIT(cs_id);
++		atomic_or(BIT(cs_id), &group->fatal_queues);
+ 	}
+ 
+ 	if (CS_EXCEPTION_TYPE(fatal) == DRM_PANTHOR_EXCEPTION_CS_UNRECOVERABLE) {
+@@ -1530,7 +1555,7 @@ cs_slot_process_fault_event_locked(struct panthor_device *ptdev,
+ 	u32 fault;
+ 	u64 info;
+ 
+-	lockdep_assert_held(&sched->lock);
++	lockdep_assert_held(&sched->events_lock);
+ 
+ 	cs_iface = panthor_fw_get_cs_iface(ptdev, csg_id, cs_id);
+ 	fault = cs_iface->output->fault;
+@@ -1620,7 +1645,7 @@ static int group_process_tiler_oom(struct panthor_group *group, u32 cs_id)
+ 	 */
+ 	if (ret && ret != -ENOMEM) {
+ 		drm_warn(&ptdev->base, "Failed to extend the tiler heap\n");
+-		group->fatal_queues |= BIT(cs_id);
++		atomic_or(BIT(cs_id), &group->fatal_queues);
+ 		sched_queue_delayed_work(sched, tick, 0);
+ 		goto out_put_heap_pool;
+ 	}
+@@ -1680,7 +1705,7 @@ cs_slot_process_tiler_oom_event_locked(struct panthor_device *ptdev,
+ 	struct panthor_csg_slot *csg_slot = &sched->csg_slots[csg_id];
+ 	struct panthor_group *group = csg_slot->group;
+ 
+-	lockdep_assert_held(&sched->lock);
++	lockdep_assert_held(&sched->events_lock);
+ 
+ 	if (drm_WARN_ON(&ptdev->base, !group))
+ 		return;
+@@ -1701,7 +1726,7 @@ static bool cs_slot_process_irq_locked(struct panthor_device *ptdev,
+ 	struct panthor_fw_cs_iface *cs_iface;
+ 	u32 req, ack, events;
+ 
+-	lockdep_assert_held(&ptdev->scheduler->lock);
++	lockdep_assert_held(&ptdev->scheduler->events_lock);
+ 
+ 	cs_iface = panthor_fw_get_cs_iface(ptdev, csg_id, cs_id);
+ 	req = cs_iface->input->req;
+@@ -1729,7 +1754,7 @@ static void csg_slot_process_idle_event_locked(struct panthor_device *ptdev, u32
  {
-@@ -1772,7 +1855,7 @@ static void csg_slot_sync_update_locked(struct panthor_device *ptdev,
- 	lockdep_assert_held(&ptdev->scheduler->events_lock);
+ 	struct panthor_scheduler *sched = ptdev->scheduler;
+ 
+-	lockdep_assert_held(&sched->lock);
++	lockdep_assert_held(&sched->events_lock);
+ 
+ 	/* Schedule a tick so we can evict idle groups and schedule non-idle
+ 	 * ones. This will also update runtime PM and devfreq busy/idle states,
+@@ -1744,7 +1769,7 @@ static void csg_slot_sync_update_locked(struct panthor_device *ptdev,
+ 	struct panthor_csg_slot *csg_slot = &ptdev->scheduler->csg_slots[csg_id];
+ 	struct panthor_group *group = csg_slot->group;
+ 
+-	lockdep_assert_held(&ptdev->scheduler->lock);
++	lockdep_assert_held(&ptdev->scheduler->events_lock);
  
  	if (group)
--		group_queue_work(group, sync_upd);
-+		group_check_job_completion(group);
+ 		group_queue_work(group, sync_upd);
+@@ -1759,14 +1784,14 @@ csg_slot_process_progress_timer_event_locked(struct panthor_device *ptdev, u32 c
+ 	struct panthor_csg_slot *csg_slot = &sched->csg_slots[csg_id];
+ 	struct panthor_group *group = csg_slot->group;
  
- 	sched_queue_work(ptdev->scheduler, sync_upd);
- }
-@@ -3037,22 +3120,6 @@ void panthor_sched_post_reset(struct panthor_device *ptdev, bool reset_failed)
+-	lockdep_assert_held(&sched->lock);
++	lockdep_assert_held(&sched->events_lock);
+ 
+ 	group = csg_slot->group;
+ 	if (!drm_WARN_ON(&ptdev->base, !group)) {
+ 		drm_warn(&ptdev->base, "CSG_PROGRESS_TIMER_EVENT: pid=%d, comm=%s\n",
+ 			 group->task_info.pid, group->task_info.comm);
+ 
+-		group->timedout = true;
++		atomic_set(&group->timedout, true);
  	}
- }
  
--static void update_fdinfo_stats(struct panthor_job *job)
--{
--	struct panthor_group *group = job->group;
--	struct panthor_queue *queue = group->queues[job->queue_idx];
--	struct panthor_gpu_usage *fdinfo = &group->fdinfo.data;
--	struct panthor_job_profiling_data *slots = queue->profiling.slots->kmap;
--	struct panthor_job_profiling_data *data = &slots[job->profiling.slot];
--
--	scoped_guard(spinlock, &group->fdinfo.lock) {
--		if (job->profiling.mask & PANTHOR_DEVICE_PROFILING_CYCLES)
--			fdinfo->cycles += data->cycles.after - data->cycles.before;
--		if (job->profiling.mask & PANTHOR_DEVICE_PROFILING_TIMESTAMP)
--			fdinfo->time += data->time.after - data->time.before;
--	}
--}
--
- void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile)
+ 	drm_warn(&ptdev->base, "CSG slot %d progress timeout\n", csg_id);
+@@ -1780,7 +1805,7 @@ static void sched_process_csg_irq_locked(struct panthor_device *ptdev, u32 csg_i
+ 	struct panthor_fw_csg_iface *csg_iface;
+ 	u32 ring_cs_db_mask = 0;
+ 
+-	lockdep_assert_held(&ptdev->scheduler->lock);
++	lockdep_assert_held(&ptdev->scheduler->events_lock);
+ 
+ 	if (drm_WARN_ON(&ptdev->base, csg_id >= ptdev->scheduler->csg_slot_count))
+ 		return;
+@@ -1838,7 +1863,7 @@ static void sched_process_idle_event_locked(struct panthor_device *ptdev)
  {
- 	struct panthor_group_pool *gpool = pfile->groups;
-@@ -3073,80 +3140,6 @@ void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile)
- 	xa_unlock(&gpool->xa);
+ 	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
+ 
+-	lockdep_assert_held(&ptdev->scheduler->lock);
++	lockdep_assert_held(&ptdev->scheduler->events_lock);
+ 
+ 	/* Acknowledge the idle event and schedule a tick. */
+ 	panthor_fw_update_reqs(glb_iface, req, glb_iface->output->ack, GLB_IDLE);
+@@ -1854,7 +1879,7 @@ static void sched_process_global_irq_locked(struct panthor_device *ptdev)
+ 	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
+ 	u32 req, ack, evts;
+ 
+-	lockdep_assert_held(&ptdev->scheduler->lock);
++	lockdep_assert_held(&ptdev->scheduler->events_lock);
+ 
+ 	req = READ_ONCE(glb_iface->input->req);
+ 	ack = READ_ONCE(glb_iface->output->ack);
+@@ -1871,7 +1896,7 @@ static void process_fw_events_work(struct work_struct *work)
+ 	u32 events = atomic_xchg(&sched->fw_events, 0);
+ 	struct panthor_device *ptdev = sched->ptdev;
+ 
+-	mutex_lock(&sched->lock);
++	guard(spinlock)(&sched->events_lock);
+ 
+ 	if (events & JOB_INT_GLOBAL_IF) {
+ 		sched_process_global_irq_locked(ptdev);
+@@ -1884,8 +1909,6 @@ static void process_fw_events_work(struct work_struct *work)
+ 		sched_process_csg_irq_locked(ptdev, csg_id);
+ 		events &= ~BIT(csg_id);
+ 	}
+-
+-	mutex_unlock(&sched->lock);
  }
  
--static bool queue_check_job_completion(struct panthor_queue *queue)
--{
--	struct panthor_syncobj_64b *syncobj = NULL;
--	struct panthor_job *job, *job_tmp;
--	bool cookie, progress = false;
--	LIST_HEAD(done_jobs);
--
--	cookie = dma_fence_begin_signalling();
--	spin_lock(&queue->fence_ctx.lock);
--	list_for_each_entry_safe(job, job_tmp, &queue->fence_ctx.in_flight_jobs, node) {
--		if (!syncobj) {
--			struct panthor_group *group = job->group;
--
--			syncobj = group->syncobjs->kmap +
--				  (job->queue_idx * sizeof(*syncobj));
--		}
--
--		if (syncobj->seqno < job->done_fence->seqno)
--			break;
--
--		list_move_tail(&job->node, &done_jobs);
--		dma_fence_signal_locked(job->done_fence);
--	}
--
--	if (list_empty(&queue->fence_ctx.in_flight_jobs)) {
--		/* If we have no job left, we cancel the timer, and reset remaining
--		 * time to its default so it can be restarted next time
--		 * queue_resume_timeout() is called.
--		 */
--		queue_suspend_timeout_locked(queue);
--
--		/* If there's no job pending, we consider it progress to avoid a
--		 * spurious timeout if the timeout handler and the sync update
--		 * handler raced.
--		 */
--		progress = true;
--	} else if (!list_empty(&done_jobs)) {
--		queue_reset_timeout_locked(queue);
--		progress = true;
--	}
--	spin_unlock(&queue->fence_ctx.lock);
--	dma_fence_end_signalling(cookie);
--
--	list_for_each_entry_safe(job, job_tmp, &done_jobs, node) {
--		if (job->profiling.mask)
--			update_fdinfo_stats(job);
--		list_del_init(&job->node);
--		panthor_job_put(&job->base);
--	}
--
--	return progress;
--}
--
--static void group_sync_upd_work(struct work_struct *work)
--{
--	struct panthor_group *group =
--		container_of(work, struct panthor_group, sync_upd_work);
--	u32 queue_idx;
--	bool cookie;
--
--	cookie = dma_fence_begin_signalling();
--	for (queue_idx = 0; queue_idx < group->queue_count; queue_idx++) {
--		struct panthor_queue *queue = group->queues[queue_idx];
--
--		if (!queue)
--			continue;
--
--		queue_check_job_completion(queue);
--	}
--	dma_fence_end_signalling(cookie);
--
--	group_put(group);
--}
--
- struct panthor_job_ringbuf_instrs {
- 	u64 buffer[MAX_INSTRS_PER_JOB];
- 	u32 count;
-@@ -3714,7 +3707,6 @@ int panthor_group_create(struct panthor_file *pfile,
- 	INIT_LIST_HEAD(&group->wait_node);
- 	INIT_LIST_HEAD(&group->run_node);
- 	INIT_WORK(&group->term_work, group_term_work);
--	INIT_WORK(&group->sync_upd_work, group_sync_upd_work);
- 	INIT_WORK(&group->tiler_oom_work, group_tiler_oom_work);
- 	INIT_WORK(&group->release_work, group_release_work);
+ /**
+@@ -2132,11 +2155,12 @@ tick_ctx_init(struct panthor_scheduler *sched,
+ 		 * CSG IRQs, so we can flag the faulty queue.
+ 		 */
+ 		if (panthor_vm_has_unhandled_faults(group->vm)) {
+-			sched_process_csg_irq_locked(ptdev, i);
++			scoped_guard(spinlock, &sched->events_lock)
++				sched_process_csg_irq_locked(ptdev, i);
  
+ 			/* No fatal fault reported, flag all queues as faulty. */
+-			if (!group->fatal_queues)
+-				group->fatal_queues |= GENMASK(group->queue_count - 1, 0);
++			atomic_cmpxchg(&group->fatal_queues, 0,
++				       GENMASK(group->queue_count - 1, 0));
+ 		}
+ 
+ 		tick_ctx_insert_old_group(sched, ctx, group);
+@@ -2169,9 +2193,9 @@ group_term_post_processing(struct panthor_group *group)
+ 		struct panthor_syncobj_64b *syncobj;
+ 		int err;
+ 
+-		if (group->fatal_queues & BIT(i))
++		if (atomic_read(&group->fatal_queues) & BIT(i))
+ 			err = -EINVAL;
+-		else if (group->timedout)
++		else if (atomic_read(&group->timedout))
+ 			err = -ETIMEDOUT;
+ 		else
+ 			err = -ECANCELED;
+@@ -2332,8 +2356,10 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
+ 			 * any pending interrupts before we start the new
+ 			 * group.
+ 			 */
+-			if (group->csg_id >= 0)
++			if (group->csg_id >= 0) {
++				guard(spinlock)(&sched->events_lock);
+ 				sched_process_csg_irq_locked(ptdev, group->csg_id);
++			}
+ 
+ 			group_unbind_locked(group);
+ 		}
+@@ -2855,7 +2881,7 @@ void panthor_sched_suspend(struct panthor_device *ptdev)
+ 			/* We consider group suspension failures as fatal and flag the
+ 			 * group as unusable by setting timedout=true.
+ 			 */
+-			csg_slot->group->timedout = true;
++			atomic_set(&csg_slot->group->timedout, true);
+ 
+ 			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
+ 						CSG_STATE_TERMINATE,
+@@ -2904,10 +2930,12 @@ void panthor_sched_suspend(struct panthor_device *ptdev)
+ 			u32 csg_id = ffs(slot_mask) - 1;
+ 			struct panthor_csg_slot *csg_slot = &sched->csg_slots[csg_id];
+ 
+-			if (flush_caches_failed)
++			if (flush_caches_failed) {
+ 				csg_slot->group->state = PANTHOR_CS_GROUP_TERMINATED;
+-			else
++			} else {
++				guard(spinlock)(&sched->events_lock);
+ 				csg_slot_sync_update_locked(ptdev, csg_id);
++			}
+ 
+ 			slot_mask &= ~BIT(csg_id);
+ 		}
+@@ -2922,8 +2950,10 @@ void panthor_sched_suspend(struct panthor_device *ptdev)
+ 
+ 		group_get(group);
+ 
+-		if (group->csg_id >= 0)
++		if (group->csg_id >= 0) {
++			guard(spinlock)(&sched->events_lock);
+ 			sched_process_csg_irq_locked(ptdev, group->csg_id);
++		}
+ 
+ 		group_unbind_locked(group);
+ 
+@@ -3416,7 +3446,7 @@ queue_timedout_job(struct drm_sched_job *sched_job)
+ 	queue_stop(queue, job);
+ 
+ 	mutex_lock(&sched->lock);
+-	group->timedout = true;
++	atomic_set(&group->timedout, true);
+ 	if (group->csg_id >= 0) {
+ 		sched_queue_delayed_work(ptdev->scheduler, tick, 0);
+ 	} else {
+@@ -3839,12 +3869,13 @@ int panthor_group_get_state(struct panthor_file *pfile,
+ 	memset(get_state, 0, sizeof(*get_state));
+ 
+ 	mutex_lock(&sched->lock);
+-	if (group->timedout)
++	if (atomic_read(&group->timedout))
+ 		get_state->state |= DRM_PANTHOR_GROUP_STATE_TIMEDOUT;
+-	if (group->fatal_queues) {
++
++	get_state->fatal_queues = atomic_read(&group->fatal_queues);
++	if (get_state->fatal_queues)
+ 		get_state->state |= DRM_PANTHOR_GROUP_STATE_FATAL_FAULT;
+-		get_state->fatal_queues = group->fatal_queues;
+-	}
++
+ 	if (group->innocent)
+ 		get_state->state |= DRM_PANTHOR_GROUP_STATE_INNOCENT;
+ 	mutex_unlock(&sched->lock);
+@@ -4142,6 +4173,8 @@ int panthor_sched_init(struct panthor_device *ptdev)
+ 	INIT_WORK(&sched->sync_upd_work, sync_upd_work);
+ 	INIT_WORK(&sched->fw_events_work, process_fw_events_work);
+ 
++	spin_lock_init(&sched->events_lock);
++
+ 	ret = drmm_mutex_init(&ptdev->base, &sched->lock);
+ 	if (ret)
+ 		return ret;
 
 -- 
 2.54.0
