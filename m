@@ -4,178 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FDAFCDE001
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 16:18:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02D6FCDE000
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 16:19:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA3E010E21E;
-	Thu, 25 Jun 2026 16:18:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D2D910F32C;
+	Thu, 25 Jun 2026 16:19:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="YDEr/DB4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZVSyqXmS";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E488610E21E
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 16:18:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1782404293; x=1783009093; i=deller@gmx.de;
- bh=wEqQnucdYqXikC0tfDH75q4hToX9NFR5mDe+redajDU=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=YDEr/DB4bKjhYfk/mjVR+TL9SmWaYVRU98e/RKA6CMdCR7AZagwnZ/oR1MXZbxcn
- DJRDHtFMgrQfuVu9Y4kLfxqsZCmFfQ/A97zEJcloA1zHq/Xh0x6Uq0QGvhzaBal1E
- fQzJTq3cTmuB55mOcBL0OfSX6F5gzPnhMrF7zuLO5FdVD15E7qYj1Y+VqLNGpMoCq
- Z8NVG+jcQfl1araLap37DTElHnetQZhwuGGngQk2Z8I4y3Lf1VbmFRu5Y6/5WJHUs
- 4tJpo+lzJQ2jMfE/YvNkxyOztGhPUctgNEx1XFBs1+rBfvL56neuLtCinE8UqvawP
- 82Ihq38Yg6RpOGIN3A==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MVvPD-1wkAl73wpx-00K9OX; Thu, 25
- Jun 2026 18:18:13 +0200
-Message-ID: <79ba53b6-97d6-41dc-aeaf-69181262e8b5@gmx.de>
-Date: Thu, 25 Jun 2026 18:18:09 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C291910E22A
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 16:19:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9B631600AE;
+ Thu, 25 Jun 2026 16:19:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D40571F000E9;
+ Thu, 25 Jun 2026 16:19:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782404352;
+ bh=cwlz6DXkJh5bTDTJuqHu3tOZMgpskrhak8DTNmeTZck=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=ZVSyqXmS+SvYPCpfX0888NpFXWd/Z/firFR26nZHuHnwFm/gO9LHpWrJwbqYOoiPM
+ mJNOvxZCDiovETPJkDI9sWeulbeBsbIJBqLy3YSUph9MDEvks4S5ty7w80yzoI58DF
+ eBZ29Wsp/MWAQfRF/f75SZYgkLUWMRp4qJP4R6zRnKupTKRLtSfmf2FmlRYP9SuBig
+ BXozySGkP+rChKJZ0vK4DaAQtKqqoiwlKQ5VWUqXZ40CODNX1eElWUAZpI9CAYEVVN
+ PlQiHs6475iNZ02R0P8MNXRWI/mfcIN1ulMRXOGJ0QJGyae94hJ8zQCsm7aDtiu+89
+ PLuS0bSc/LWNg==
+Date: Thu, 25 Jun 2026 18:19:09 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Daniel Stone <daniel@fooishbar.org>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, Daniel Stone <daniels@collabora.com>
+Subject: Re: [PATCH v6 0/4] Add SCDC information to connector debugfs
+Message-ID: <20260625-tangerine-vicugna-of-purring-e95ce3@houat>
+References: <20260611-scdc-link-health-v6-0-6307875a6b5e@collabora.com>
+ <5DBSVhedT12K_nGj0amyCw@collabora.com>
+ <20260615-mature-frog-of-certainty-d05f99@houat>
+ <GWBGXfaiTF64ibliB2zCRg@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] fbdev: fbcon: fix out-of-bounds read in err_out of
- fbcon_do_set_font()
-To: Mingyu Wang <25181214217@stu.xidian.edu.cn>, tzimmermann@suse.de,
- simona@ffwll.ch
-Cc: syoshida@redhat.com, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- w15303746062@163.com, stable@vger.kernel.org
-References: <20260625160306.438847-1-25181214217@stu.xidian.edu.cn>
-Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- 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
-In-Reply-To: <20260625160306.438847-1-25181214217@stu.xidian.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:Z5EmV5/CvzIIvYhlz8ba1UGYGRN7gmFeXZ4/8wMRNJes1x41pS0
- gqATlltZYt4NJjZLe111okZeZKC4I/3syn6ZNsDyqAX6F5L4/lfRt5xGAJyw77DKmLcJ/9l
- xLWuW5XXOg4JAhOPuZsQhS9gf42tfSATGmKD9B4jZzYgjHyqZteldmbiRY17i95zLozcYZf
- I3lYPH20bX+PPsMRSs7bA==
-UI-OutboundReport: notjunk:1;M01:P0:jRfPgT09SQ8=;moUaJNiVOX+7nM91aN8wIqIibfD
- 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
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="yijabvvzevni7pdb"
+Content-Disposition: inline
+In-Reply-To: <GWBGXfaiTF64ibliB2zCRg@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -191,40 +72,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/25/26 18:03, Mingyu Wang wrote:
-> When fbcon_do_set_font() fails (e.g., due to a memory allocation failure
-> inside vc_resize() under heavy memory pressure), it jumps to the `err_ou=
-t`
-> label to roll back the console state. However, the current rollback logi=
-c
-> forgets to restore the `hi_font` state, leading to a severe state machin=
-e
-> corruption.
->=20
-> Earlier in the function, `set_vc_hi_font()` might be called to change
-> `vc->vc_hi_font_mask` and mutate the screen buffer. If `vc_resize()`
-> subsequently fails, the `err_out` path restores `vc_font.charcount`
-> but entirely skips rolling back the `vc_hi_font_mask` and the screen
-> buffer.
->=20
-> This mismatch leaves the terminal in a desynchronized state. Because
-> `vc_hi_font_mask` remains set, the VT subsystem will still accept
-> character indices greater than 255 from userspace and write them to the
-> screen buffer. Subsequent rendering calls (e.g., `fbcon_putcs()`) will
-> then use these inflated indices to access the reverted, 256-character
-> font array, leading to a deterministic out-of-bounds read and potential
-> kernel memory disclosure.
->=20
-> Fix this by adding the missing rollback logic for the `hi_font` mask
-> and screen buffer in the error path.
->=20
-> Fixes: a5a923038d70 ("fbdev: fbcon: Properly revert changes when vc_resi=
-ze() failed")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-applied.
+--yijabvvzevni7pdb
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 0/4] Add SCDC information to connector debugfs
+MIME-Version: 1.0
 
-Thanks!
-Helge
+Hi,
+
+On Tue, Jun 16, 2026 at 02:04:13PM +0200, Nicolas Frattaroli wrote:
+> On Monday, 15 June 2026 18:33:11 Central European Summer Time Maxime Ripa=
+rd wrote:
+> > On Mon, Jun 15, 2026 at 10:07:02AM +0200, Nicolas Frattaroli wrote:
+> > > On Saturday, 13 June 2026 08:57:29 Central European Summer Time Hans =
+Verkuil wrote:
+> > > > Hi Nicolas,
+> > > >=20
+> > > > On 11/06/2026 14:57, Nicolas Frattaroli wrote:
+> > > > > HDMI uses the DDC I2C bus for communicating various bits of link =
+status
+> > > > > out of band with the actual HDMI video signal. This information c=
+an be
+> > > > > useful for debugging issues like questionable cables sabotaged by=
+ feline
+> > > > > teeth, Enthusiast Grade cables made of cow fencing wire, and othe=
+r such
+> > > > > problems that ruin one's media viewing plans.
+> > > > >=20
+> > > > > Consequently, this series exposes various bits of pertinent infor=
+mation
+> > > > > from the SCDC protocol in an HDMI connector's debugfs. To continu=
+ally
+> > > > > poll the link status, userspace can poll the debugfs file.
+> > > >=20
+> > > > Something is not quite right: I've been testing this series with my=
+ i915
+> > > > based laptop with HDMI connector, and I never see the scdc_status f=
+ile.
+> > > > And that's because CONFIG_DRM_BRIDGE_CONNECTOR is not set for my co=
+nfiguration.
+> > >=20
+> > > That's to be expected. i915 does not use bridge connectors, and neith=
+er
+> > > does amdgpu iirc. I am working on embedded boards that do use bridge
+> > > connectors, along with all the rest of the HDMI state helpers.
+> > >=20
+> > > Implementing something new in DRM usually involves having to triplica=
+te
+> > > certain parts of the work in order to have i915 and amdgpu behave the
+> > > same as everyone else.
+> > >=20
+> > > > So I think you are creating the debugfs entry in the wrong place.
+> > >=20
+> > > I can't create it for all drm_connectors as Maxime suggested due to t=
+he
+> > > cyclical dependency that would create. If someone has any idea on how
+> > > to break that dependency cycle, I'm open to suggestions.
+> >=20
+> > Back when we introduce the audio support, we floated the idea to
+> > de-midlayer this and turn it into a debugfs_init helper. We don't have a
+> > lot of users yet so it might be the best time to do so, and would solve
+> > your issue.
+>=20
+> I agree and will be happy to do that. I need some more concrete info
+> though on what "de-midlayer" means here. From what I can tell, the
+> core problem is that drm_connector.c directly calls into
+> drm_debugfs_connector_add of drm_debugfs.c, which if it did also
+> do a direct call into drm_scdc_helper.c would mean drm_scdc_helper.c
+> needs drm_connector.c but drm_connector.c needs drm_scdc_helper.c.
+>=20
+> So I guess the de-midlayer and turn it into helper part is that
+> drm_connector does an indirect call to a function pointer instead,
+> which is default-filled at runtime with the helper debugfs_init
+> function? I don't know if we can then do this by default for all
+> drivers in drm_connector.c or if it needs to be done per-driver
+> like some of the other helpers. If the latter, then we don't
+> really gain much over what I'm doing with bridge connector.
+
+I'd promote the hdmi_debugfs_add() call in drm_debugfs_connector_add to
+an debugfs_init helper for drivers that use the HDMI state helpers,
+because it's only useful for those anyway.
+
+> The other maybe less intrusive change is that
+> drm_scdc_debugfs_init and scdc_status_fops travels to drm_debugfs.c,
+> while the actual implementation of the read op remains in
+> drm_scdc_helper.c. I think that would solve it without a big refactor?
+
+Then, depending on what makes the most sense, you can either create
+another debugfs_init helper for scdc that would be called by the new
+hdmi state debugfs_init helper or any other relevant driver, or put it
+directly into that new helper.
+
+Maxime
+
+--yijabvvzevni7pdb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaj1U+QAKCRAnX84Zoj2+
+drRhAYCOPLwZMIlhU+n2hqtG6w1PG2M+xnnZ/NBwDYdaEJDyqs7K+pmaLZRIfRHM
+GVpKf3IBf3/EjOGi8RVCosAA2agJ9Ni4UjtDDMtLdaqL84ev7uQV29tTeM5MYQtT
+4d3eSwfSoQ==
+=VpRD
+-----END PGP SIGNATURE-----
+
+--yijabvvzevni7pdb--
