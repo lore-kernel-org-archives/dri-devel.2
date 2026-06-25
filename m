@@ -4,98 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D490CDE015
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F702CD4F26
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28F6E10F494;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CDFB10F498;
 	Fri, 26 Jun 2026 07:53:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KaT1iddS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TnrXWh33";
 	dkim-atps=neutral
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
- [209.85.128.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FA4610F2E3
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 14:26:38 +0000 (UTC)
-Received: by mail-yw1-f175.google.com with SMTP id
- 00721157ae682-7f69b71f7b2so26576617b3.1
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 07:26:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782397597; cv=none;
- d=google.com; s=arc-20260327;
- b=Opdcl+cZu8XltH3ogJjfOPx21UWjTqu0mSpCyc4oWrLl/71A6HnnciXCqwLn2QYmMR
- Z1XMoJrlEbLfgMHQos8PlcA2yS4bJ9ClnVGYpmbzfkq0cOlwuEe4kpiZoaD4yU0O8HpA
- 9f1P/JINNtSYvkX1ZNiut8RF8dZ1cnoTTM2gkG5+bi0xxMdy0Smk7I2D5caUFCxJxCPI
- CKsXBlSta3VX88/qHSzFR9251EsUbrpe6J534qBGmDcpc70fmGC5sIR1wvt4mMDfI03B
- e7olQ/jmHPN9xi/77draInGuXRABWEKgbmxxJn4pBCAwGwBJjtEkm8KP9BVQ2+9ynA90
- 7WlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:references:in-reply-to:dkim-signature;
- bh=zG0ziIrnl5+Uq7ZzfQ6z6EifKGZA4Cbm70aG+1ToxjY=;
- fh=iuK5IhqSiVdnBcNOF+xCdpznzkeJgK7GiBXRDQJ44Bs=;
- b=iQ1u6BvsjafedB11faZwB2ssLODYpSys9DBJYADl/KMvdUr/i8xvQHP7CaT7B9Ldq6
- J6P7q6zOHcsBZMvjDBmrswt96N7WILnBKZjvwNS8r9up7iaD+9WbcMI5NWdDjb6T+a+D
- SuWlSZfHFTYUFROaW9JHZqtxXEy9WRC/iqTEQCNcNDeueuz4mDtIbEy8X12wATJsfziP
- m/3CtXhFTpKT4an8v1fBaItTX4mmhzm9EBRcPCn9IIdh8Mw0EBZ8BGwdoHnBja/Wkl3C
- zzAkrJneSip8Qb/hixu+w2eOF6LsA1J5kdtJMVFYay8yU9DnfMUZAmFcb34g7oq0lgJM
- Ln2w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A36910F1FF
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 09:44:57 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-2c7ebfb63c6so9456905ad.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 02:44:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782397597; x=1783002397; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:references:in-reply-to:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zG0ziIrnl5+Uq7ZzfQ6z6EifKGZA4Cbm70aG+1ToxjY=;
- b=KaT1iddSxn/bETwnP6DZu3AsNZ19jacJhqD8V7Ib26Ti0VIRUKtl1xCEZPvGoRvksN
- tvMy01A6CVEp80kwHurjVL+worT6UAWZxUjKxzLX0Tg42MrV96cvNnqgmV0Z6QIPbNTl
- k9JDlp4yUN18QY7BhGDHJOexwEk9CNXcrTvzU00M2CxbeMouOzGjxND2iJDjBct3bi5o
- cRUtwdOVJWZmoaqgbF/OhR/3cnn7ywNnzsPdXXzWdO+8mKHQpL+308yEE2KGdjwfENQ+
- hmwtXcdmTlHf9v9cfuJDlH32PAYOs3EWmCY/C64xssEYE2LS45HhbXLoKVncGkWshtfK
- gcFw==
+ d=gmail.com; s=20251104; t=1782380697; x=1782985497; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Q7LZb4Oyp6MyCiFD5fuuqoWQdDcqkeN2EAojsuCFuQk=;
+ b=TnrXWh33XJwbX9glLHXgerWCiXLNNk1tRtw7uIwJ3uIjYpDAZ2L9ofBWUyyV87+uvM
+ Yk/zQ2XH14zBzmAHk4ZxJcwc74blSixbRM84bkNnMAgvTBtaIKyvbdXIsZbmzLTj7X0I
+ WoeUIOMQXPDJy7VBd+bdYzNvw6dkMSzdsLqjdHDBKzS6aTsuEiI2WloWb+hFwAAv3xnA
+ k+d4xAfyITrAkeUljyV4G10A+lMOCE0S70YezR4nj8QE/3vyWeFsGJjyHbhN47vFNLqv
+ 1tSvhiqJe8q7FxtNBDTINQev7OiXDeRqiBav0OoZR5BjB7v0X08sT8kPdR7yWi4FTfQx
+ atxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782397597; x=1783002397;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:references:in-reply-to:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=zG0ziIrnl5+Uq7ZzfQ6z6EifKGZA4Cbm70aG+1ToxjY=;
- b=rO7KkG1Vn4FuY3mtzRsmdXhs6kPixVUAKuTOvYHQ990KAn7aKMf0aeOvDzRJQaoxkE
- cP2nB3Q9CmoNnlde0unbwMJOmmyvKe2HFemo4iSWXZo6g2B1sYeBV/qPFmq20KMbjBzs
- kxrjGDQu099QMM/I4iydIDKvnKTQsb2G8KO6nDSLnxU68/XulqU9weXtCnLUBguX0RyR
- 9bMZWagSY1mLhhYwdLA6gd0yjXAG1BGwZHiyKVSDx1EaGJiQy7i+VGveVoLw+NALi1Za
- OmImKy+jUjI2lLL+EZM5MK1Gt+0sK2YwC89i7/Ww/YOcF+pw/KMQa1rqTYJg6ZfoO4GS
- aZ1Q==
+ d=1e100.net; s=20251104; t=1782380697; x=1782985497;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Q7LZb4Oyp6MyCiFD5fuuqoWQdDcqkeN2EAojsuCFuQk=;
+ b=A6B6HQSUfABROzaDxzIrRkGkrHhgc8mqUaVUPLy+V51wG9/7dLZ/nvShedfJ1oOFy+
+ 9pY96bfK9DJunqRyeMbYqJfvPd3fyIGW27ZRRBEqpQ825tfmF3u2a7La5jjx+jgOvfUH
+ OZF1ztoEHF6MOfJruOrmvVTvg+YBGfZPiaykt9CndAWZ3vr1S8K8i9D7j07Emjtt+LiJ
+ FDPuLPUMcxtSzeSByEFAgfKDdAHebPMH4o1YTJ5bDaxsaJ/2/uKtOtn62XlxOvgX1wf2
+ IFVCLrpTq4M8KRMUh92x9irBZc5G1PIaS/VzPFPn+G06/+q4ahR1JXuj2tXBwqmxgZYa
+ 2kNw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrHkNNL+xvk9usNxc2FcUW7JG/KeDBNoqtvWe0uQNR0PDahuZ6jlskcdQ7+xXSToHkwHyicU5kD6/Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzcCyEnGjQmhwHwGJw6R3fvIVDui48EGYZqUtCtJwBzGoGhde3D
- lDPrjCpgdIGETLwircA+RG8CSIcissHSRjKOW9529Bx0ez0YKKtPT7XGtaQe9COPIJyoU2B9tkH
- Vlca4b99iSzMo8BPccLSu2UFPKKndx0o=
-X-Gm-Gg: AfdE7cljnAR2plC1ufFveA3ij6z52hloXJu7izhcVqj5bPIPEGuTxPAdhpSOvM+V8IR
- 1Ki10hKZfBGkDq9t2gmLCDjmk1vnOK0EHRbnAeyvHHsZ2SayX6ERdl0mftvpWuwur9C4Yun/XzF
- 1E4grtRoC2HyZAq6a5UphJgxUtYL/olXzcPadBUuHYaofTiAgLOXn9MbwenHqKRWDPxMrhA7/wO
- qfQd9H+5fXuw7/RGzrHjfztejLEKlZFMTV5cvYIULwxcxZtPyQ6h+w6nWVrvXsOArU2HTRt8Q==
-X-Received: by 2002:a05:690c:368d:b0:7be:fedd:726b with SMTP id
- 00721157ae682-80a6d262368mr24686747b3.42.1782397597299; Thu, 25 Jun 2026
- 07:26:37 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Thu, 25 Jun 2026 07:26:36 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Thu, 25 Jun 2026 07:26:36 -0700
-In-Reply-To: <20260625135341.1159-1-alhouseenyousef@gmail.com>
-References: <20260624172029.2508-1-alhouseenyousef@gmail.com>
- <20260625135341.1159-1-alhouseenyousef@gmail.com>
+ AHgh+Rpr1ajFEYk3+GNkSz0E4j/NOn1P4jWyeJbKizni4OvjrFqoqIF6zo1VbdKF0Xv3ZDYenUNlxdQCelM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwtizBpvtrDrWb55rkL6TDGCB6Q3NvFzC5fPcqu1v2aEcjGW4cA
+ QW0IP7BQmdSF+hpYee4xWrzngQJFQ1T6gdLLq6/JR8+v+ArIZjJJZHN3
+X-Gm-Gg: AfdE7ckYWW0FpJDWtj++3ZE2VNOl2wHyN2G1qUJRcNvc2LoLaZUc5FcPqeGNZvav322
+ e9ZGL1k5OfLYAXwMM2ZmA/LkUuqAFwWs4fMm8a0GbbqnHVsaugUghQye2ichJF9tuitXo17xpXU
+ fTzvbUiOnoIMGei2bbha1LwcA608DafmxfHHiffkksqCdVZt+Kz4ev/KkxH3dDxbxMLWdW9oxIb
+ 8flYp/2uP/Ofa1cAiMkQ7AD6WAPNGRCa5z/MgCQ3X95y+Imers2GzNCQmnzCPQeu2vVjYerpZfw
+ MLJR3RFHxn946OizIfOUv5fBUaTT+8n2q29hF9dvmsT4p7+s1bH86ja/Eijl+xpIBd+g4mXCbYY
+ fUq0TYar4lg7doCWPv81cAkRnnrki3qJOfzKBVl7BfhbxiU52bpr6tPQ+sqpU34j3wMaHkeA4RB
+ vVzdYVwGBEUsBVNCJs2hMkA03m+CCQ7CXlCnvv2Rmk61ixojEoKB7ocSI1qDxBqse0rx196qwct
+ mvd3P2QJNDj
+X-Received: by 2002:a17:902:e843:b0:2c1:a19:8396 with SMTP id
+ d9443c01a7336-2c7fca3eeb3mr18687905ad.31.1782380696777; 
+ Thu, 25 Jun 2026 02:44:56 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net.
+ [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2c7f5ac8c26sm16614995ad.1.2026.06.25.02.44.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jun 2026 02:44:56 -0700 (PDT)
+From: Joey Lu <a0987203069@gmail.com>
+To: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH v5 0/7] drm/verisilicon: add Nuvoton MA35D1 DCU Lite support
+Date: Thu, 25 Jun 2026 17:44:42 +0800
+Message-ID: <20260625094449.708386-1-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-Date: Thu, 25 Jun 2026 07:26:36 -0700
-X-Gm-Features: AVVi8CesCW6iLL67hakaynYG37WtYiPVPjL9y6jKGomdujasLZOfkHuY3iSrjGg
-Message-ID: <CAMuQ4bWVb-vxCWMxF_JpJmBnKD=rVH2KZWf36jnzPbC35CdrmA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: reject mapping info when BO VA is gone
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 26 Jun 2026 07:53:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,63 +92,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alex, Christian,
+This series adds support for the Verisilicon DCUltraLite display
+controller as integrated in the Nuvoton MA35D1 SoC.
 
-Please drop this v2 as well.
+The Verisilicon DC driver and its DT binding were originally written by
+Icenowy Zheng <zhengxingda@iscas.ac.cn> for the T-Head TH1520 SoC, which
+carries a DC8200 IP block.  The present series builds on that foundation
+with gratitude to Icenowy for the original work.
 
-I rechecked the target tree and missed the existing !bo_va check in
-AMDGPU_GEM_OP_GET_MAPPING_INFO. The close-race case is already handled
-before the mapping list walks, so this patch only makes the later check
-unreachable and changes the errno.
+The DCUltraLite is a different variant in the DC IP family.  While the two
+IPs share a broadly similar register layout, a number of differences
+prevent the existing driver from working on the MA35D1 without
+modification:
 
-Sorry for the churn.
+  - No CONFIG_EX commit path: the DC8200 staging registers
+    (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT, FB_BLEND_CONFIG,
+    PANEL_CONFIG_EX) are absent.  The DCUltraLite uses enable (bit 0) and
+    reset (bit 4) bits in FB_CONFIG for direct framebuffer updates, and
+    requires a per-frame VALID bit toggle (FB_CONFIG bit 3) to latch
+    configuration changes.
 
-Thanks,
-Yousef
+  - No PANEL_START register: panel output begins when
+    PANEL_CONFIG.RUNNING is set; the DC8200 multi-display sync start
+    register at 0x1CCC does not exist.
 
-On Thu, 25 Jun 2026 15:53:41 +0200, Yousef Alhouseen
-<alhouseenyousef@gmail.com> wrote:
-> AMDGPU_GEM_OP_GET_MAPPING_INFO looks up the GEM object from the file
-> handle and then locks the object and VM before resolving the BO-VA. The
-> GEM object reference keeps the BO alive, but it does not keep the
-> per-file handle open.
->
-> If a racing close drops the last handle reference in that window,
-> amdgpu_gem_object_close() can remove the BO-VA before
-> amdgpu_vm_bo_find() runs. The ioctl then walks the BO-VA mapping lists
-> unconditionally.
->
-> Return -EINVAL if the BO is no longer associated with this VM.
->
-> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
-> ---
-> Changes in v2:
-> - Describe the handle-close race instead of an initially unmapped BO.
-> - Return -EINVAL instead of -ENOENT.
->
-> drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++++
-> 1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gem.c
-> index 212c14d99..6f5b6f4c2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -1087,6 +1087,12 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, vo=
-id *data,
-> struct drm_amdgpu_gem_vm_entry *vm_entries;
-> struct amdgpu_bo_va_mapping *mapping;
-> int num_mappings =3D 0;
-> +
-> + if (!bo_va) {
-> + r =3D -EINVAL;
-> + goto out_exec;
-> + }
-> +
-> /*
-> * num_entries is set as an input to the size of the user-allocated array =
-of
-> * drm_amdgpu_gem_vm_entry stored at args->value.
-> --
-> 2.54.0
+  - Different IRQ registers: DISP_IRQ_STA at 0x147C / DISP_IRQ_EN at
+    0x1480, versus the DC8200's TOP_IRQ_ACK at 0x0010 / TOP_IRQ_EN at
+    0x0014.
+
+  - Simpler clock topology: two clocks ("core" bus gate and "pix0" pixel
+    divider); no axi or ahb clocks required.
+
+  - Single display output: no per-output indexing beyond index 0 is
+    needed.
+
+  - Hardware-discoverable identity: the DCUltraLite exposes chip identity
+    registers whose model field reads 0x0 (revision 0x5560,
+    customer_id 0x305), allowing the existing vs_fill_chip_identity()
+    path to identify the variant purely through register reads.
+
+Patch 1 generalises the verisilicon,dc DT binding to accommodate the
+Nuvoton MA35D1 SoC-specific compatible and the variant's two-clock,
+one-reset, single-port topology.
+
+Patch 2 adds the register-level macros needed by the DC8000 ops.
+
+Patches 3-5 introduce the driver changes in three logical steps: the
+vs_dc_funcs hardware ops vtable with DC8200 ops extracted into
+vs_dc8200.c; making axi/ahb clocks optional as a separate atomic change;
+and the DC8000 ops in vs_dc8000.c.  Patch 6 adds the DCUltraLite HWDB
+entry that gates hardware recognition once all support is in place.
+
+Patch 7 adds the Kconfig dependency on ARCH_MA35, placed last because it
+is only meaningful after the HWDB entry is added.
+
+All patches have been tested on Nuvoton MA35D1 hardware.
+
+Changes from v4:
+  - [dt-bindings] Kept clock and reset item descriptions in the global
+    clocks:/resets: properties; per-compatible sections only constrain
+    minItems/maxItems and override clock-names items for nuvoton,ma35d1-dcu.
+  - [dt-bindings] Dropped redundant global minItems/maxItems on clocks:
+    and clock-names:.
+  - [dt-bindings] Dropped the extra-space typo fix in port@0 description
+    to keep the patch atomic; left for a separate patch later.
+  - [ops] Renamed crtc_enable/crtc_disable hooks to crtc_enable_ex/
+    crtc_disable_ex.
+  - [ops] Added unified IRQ bit definitions; each irq_ack() implementation
+    now translates hardware-specific bits before returning.
+  - [clocks] Split the axi/ahb optional-clock change into its own patch
+    for atomicity.
+  - [hwdb] Simplified the commit message for patch 6.
+  - [kconfig] Simplified the commit message for patch 7.
+
+Joey Lu (7):
+  dt-bindings: display: verisilicon,dc: generalize for single-output
+    variants
+  drm/verisilicon: add register-level macros for DC8000
+  drm/verisilicon: introduce per-variant hardware ops table
+  drm/verisilicon: make axi and ahb clocks optional
+  drm/verisilicon: add DC8000 (DCUltraLite) display controller support
+  drm/verisilicon: add DCUltraLite chip identity to HWDB
+  drm/verisilicon: extend Kconfig to support ARCH_MA35 platforms
+
+ .../bindings/display/verisilicon,dc.yaml      |  57 +++++++++
+ drivers/gpu/drm/verisilicon/Kconfig           |   2 +-
+ drivers/gpu/drm/verisilicon/Makefile          |   2 +-
+ drivers/gpu/drm/verisilicon/vs_bridge.c       |  20 +--
+ drivers/gpu/drm/verisilicon/vs_crtc.c         |  38 +++++-
+ drivers/gpu/drm/verisilicon/vs_crtc_regs.h    |   1 +
+ drivers/gpu/drm/verisilicon/vs_dc.c           |  13 +-
+ drivers/gpu/drm/verisilicon/vs_dc.h           |  33 +++++
+ drivers/gpu/drm/verisilicon/vs_dc8000.c       |  86 +++++++++++++
+ drivers/gpu/drm/verisilicon/vs_dc8200.c       | 115 ++++++++++++++++++
+ drivers/gpu/drm/verisilicon/vs_drm.c          |   5 +-
+ drivers/gpu/drm/verisilicon/vs_drm.h          |   8 ++
+ drivers/gpu/drm/verisilicon/vs_hwdb.c         |  14 +++
+ drivers/gpu/drm/verisilicon/vs_hwdb.h         |   6 +
+ .../gpu/drm/verisilicon/vs_primary_plane.c    |  32 +----
+ .../drm/verisilicon/vs_primary_plane_regs.h   |   3 +
+ 16 files changed, 378 insertions(+), 57 deletions(-)
+ create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8000.c
+ create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8200.c
+
+-- 
+2.43.0
+
