@@ -4,80 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89597CDE00E
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:53:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E859BCD4F26
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:53:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 837D910F473;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5B6B10F47A;
 	Fri, 26 Jun 2026 07:53:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rOsxvKcD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RCC2guPd";
 	dkim-atps=neutral
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com
- [74.125.224.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EE7F10E1C9
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 08:57:29 +0000 (UTC)
-Received: by mail-yx1-f42.google.com with SMTP id
- 956f58d0204a3-6647c26a4a3so1104994d50.1
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 01:57:29 -0700 (PDT)
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
+ [209.85.128.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABDA210E1CE
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 09:07:07 +0000 (UTC)
+Received: by mail-yw1-f179.google.com with SMTP id
+ 00721157ae682-80af3058e29so810417b3.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 02:07:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782378426; cv=none;
+ d=google.com; s=arc-20260327;
+ b=OPRiaDVOXnuAFF/NasgxxWQm6STrO5ctrvzI/2omsFYvg+nzxhhPS21OVCKSmTJT0z
+ qcMBufKdqgIoWxd6KXrlDbOKJXch4aG7aroPYgdgLunHC1H1E84A3whX/umOhilS7ruX
+ vlp5+QTFtJfTsMeebDGNNvcuUpyRjxlbzbu8MgXURLuv/1tioazNwbno/Iu22qtLxDSf
+ 2G8z7Mvz48RLYHW0RTfkeMoLNlemQpRlMzDarGmnB8g2vpmpnj0HEAPhWnIct1//CP/W
+ yTr2VZ7Vv8k6So8uCOfXHrJ0m9LT6xP0kokLf84KP+jt1Y7zbPQApiz/ko5bHDpXddZ9
+ cCcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:references:in-reply-to:dkim-signature;
+ bh=1lF2p0zapEf+xhq/90YUTa1Z2VnVgWZbekIEo47QZ4A=;
+ fh=DLNDq0yTJpxjaslDZFTtdcGdaInAIm4Ff93/8juLzbU=;
+ b=P7PjV4no9BZJoWuI9kZm+X3QR5Tz2dM63TW0chLW3+oU1XONY0Q/eRPSiU1czuQQf6
+ WCh9J3mRu0n4TOHO3GQcFDq86/M3/aJtdw00X1rx2uV5LGRjlFjIGV/2LtrE7JOZbU5m
+ lUO6PeJKsMW8oYPutq32s2EM+5LBSM/+QQBhuMdErJ481dagX2XoRiTC/xAOkOQEGFNF
+ kgrg7Z28qsOUK87VfGuWL/GWQKHslv1Ytof8mjO1pn3xgrefOy1tIHuKFtN0tHzMHEkN
+ 9803l02ZbxprzZ1wJ/jGuoPp4a7lcE1JbVhVrWmD3qcRm8b8Mbays5xjAZhS3gXEAjIq
+ gP2g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782377848; x=1782982648; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1782378426; x=1782983226; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:references:in-reply-to:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3HXBGWP+mHV9r0WWwErucYsy42UpdRmWv6NJcEbVBLI=;
- b=rOsxvKcDGJv6fs1bH3Mh9h+xH7Uo0p5w8AfnYxe4DP8QN7dAmphmb1MyCiLQUVhTnn
- /XSV3LvxhRKeaokcm62M2M6Cna1hMw6nckiBpSnJqPAyvnOy5Y+jXy+oKuULW1ovUrGR
- PYNEftspBHDN09eKClnqNxDsPKphVb1ndyzxfPMFdIfECDdGTW4wj8uZu+/RvfbCzUcG
- s3YSzF13YqY9vpVSvnuJpqZlrms+UzAJwBeNjmtWJ0Vu2tctt1UtuCVii5D3troGltcm
- z/uM41H9X0Laz/QuN8hask84LO1foiTYMGWniCb2Yu5DXuIIKbG4PD+nH1WaDo8abCqh
- EQnA==
+ bh=1lF2p0zapEf+xhq/90YUTa1Z2VnVgWZbekIEo47QZ4A=;
+ b=RCC2guPdJ+UWt8NUcwdYaIbBdmV86R/G2bx6yD2UiunTWMNt7J25mZnpnNMWftON+K
+ uO3rPO1T4Pe/wGDxhYHr29tTjYizC4ZEovjFgRvs3X8Kf9uuRb8OFwQsLHFi2/GmkHbE
+ G5FkCrdjL+yPpSHKII6LdTTr7jIFSRp7Gi6momLbUD5EdYCQpJ/4H/RD5co1b+4aZa3Z
+ HYwF+Y9JytdQ1Ud1GQALqdxGNCmPXtGkdNKXAQZZSijJaFEg5lXEOw3tg5+TCYC3j7KW
+ hAtkjcOwnK6cV0BExQ8cWl2QzcSwifXN1g8XOgSzSsdvMWKZW5su9pwjXb3hyPqPFSJ8
+ jJXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782377848; x=1782982648;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1782378426; x=1782983226;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:references:in-reply-to:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=3HXBGWP+mHV9r0WWwErucYsy42UpdRmWv6NJcEbVBLI=;
- b=bS749QUh+bUfj2NLnI0fV7Kc654t8E+dDT8tdqv7S1KKLzgP1SeM9Wr0R4lGf8VgI2
- 7+rqxcpadaj4PV3JBQX+V96SrXdCDbWnFvbwYFSNQAV47iGUecgMyFUAYVOl0jcwU+Di
- MyH3v6ezHgmV1+J3yke2DrqOgjVyBcm74xEyRyPqPAGDRfTrmBTCk/+PQgIIHMGVy7AP
- TOkjZiAxbPLU1n4biq0j+q66Jp1BzEVdMDcI45Cs9hmyObG8cG78OU7xxUvL+dyhB8zi
- qjqDWsewv2x2Y0m926o0KQ0Q93588T1aZNnENoiq1xI376bPcQzDGdeq6YVuFe+bB62K
- Xu0Q==
+ bh=1lF2p0zapEf+xhq/90YUTa1Z2VnVgWZbekIEo47QZ4A=;
+ b=UaA41rRlUhncHYpshY7BnQoKEOrwFxPIvX/7NqMFxW+H6fNI0t6HXvqkF76a2L3eJV
+ bLvYt9meZXa4zGjsknp8CXUNVl0aLG0SlfFhwW8UZ/lZ0k3tGZuIXfeyH9ECV/z8a1mB
+ mKfu7frYmFBQcRHtJmkEngtVi8G7EtINloDxEDCr4nR84bCBewI8ujjNp4K7Ie+FQrZF
+ n7EofffhZ1/mkE4Nsw0FRa9WRz63gGrz34Qfi1C1XJnEcIgPK2vGqpDfqIQ3HvvsbOyC
+ BHpdZ3O9VYSB8X4s9SS2o89TS0Xu5A1M9s2TW59jOrz+81Sqwz3N4acA+JswBy3PXf8i
+ vT4A==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrqtBpRFE+dH8lSKvvwLsRSBPdKKDp+SCvQ6ZY968ly3DuCEO0vytV1cck25KFJnV2AiaFoTeGFwh0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxj8M7PjA+m2d5tjAYbjt7q1rDtFSL/9LSHUDfFJ8MOWfodocyZ
- Jrp2pbQioNKSmAc5OllIpxDFGRRIt+egj6S6liiDhqqVcS1rFffzVXYV
-X-Gm-Gg: AfdE7clTG2vfHjs0Vvo6Nzh1Mg8SWKhjWI0j1FNAjSPYTFhv4iYPa58N3voUOsNTVsU
- mlB2yHf+om4JJvABjCr/Tf2zf6bhOaXPvZUBLgqrAiqQxn2HuIdhjEY7Uh5zGtYSfVn35pA6M/s
- UWcZ7rzXiFqYW3gRtNcWLx1FTFpQczEg7ui/vMTQakLdEqjgbe1PihuBc7UIqIljJiyjI/35MRJ
- Z3UfeBAc4iTz1Maf1nbr2b18PLhVbp/4BUmRT9EVaRAdPoF0msaspbH7B0UFgFSrBu41ohPO3qK
- Q0QNj3EadpxtB60J7B1PG4nKPiQKNU8OvAz06DZhvLSqp3t8JPPjouChJa6khaleOv87nY0XDz5
- D+NktJLY7q6GLYdrzZr7rN40DdOkqTXENfoBMh07amBQxkTpFGi2q4H8q2BbDylVzL27NGN6pOu
- gEvUqEuU72GN3bJ/9BL4ENdKHTAw==
-X-Received: by 2002:a05:690e:b4a:b0:660:ffe0:2df7 with SMTP id
- 956f58d0204a3-66487c28ae6mr1186398d50.23.1782377847966; 
- Thu, 25 Jun 2026 01:57:27 -0700 (PDT)
-Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
- by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-6647f785f6bsm1105061d50.6.2026.06.25.01.57.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jun 2026 01:57:27 -0700 (PDT)
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH 3/3] misc: fastrpc: protect interrupted mmap cleanup
-Date: Thu, 25 Jun 2026 10:56:59 +0200
-Message-ID: <20260625085659.4469-3-alhouseenyousef@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260625085659.4469-1-alhouseenyousef@gmail.com>
-References: <20260625085659.4469-1-alhouseenyousef@gmail.com>
+ AHgh+RrC03qq/CzUqgDLl2T/48W+IcpynD9B13rv0B9gbhmKpg3jy1zC8H4nzofDi0t97hiR+yXiI9sX5B0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxG1L8qPn5fb4XPi3SoXk2uPlnvW11hnFxkaoETxGecleBX60ln
+ 4jbQsLCGqpUc8flgHSOk7+huCUA+HgmoPgxc/P1qD0ah8qfOiHzmG+DdS260j0ylJimDv7jvIM9
+ 7dxbI2QJWMd4DxM/eUB2/xOt6I0jP3uw=
+X-Gm-Gg: AfdE7ckH/M2zOp2u0AwLJ2RP8sre9hA4lEYjm6HvpKXvue9vALld8sCQJIoSdLf1Smg
+ ZuP9uUIeEdcAo6TRYZNTASxvabrmQt9PBMdGJwKp3NWIHqjhS8nj6NWRo+sOs2RcJE9QqjGEXon
+ f3wci28ujDS6yeIFpHAILf2UWa+sMCIIz0pu0BflSJES5PubNA8rnnazxrA5gvckiIWEb9tAfqJ
+ HbVXf7id7MvsqY1rLOX3O8diyTm0/5cFFyrzHJuN5TqINpKxtpUrGD87EO9+5lNH3FoB2q0JA==
+X-Received: by 2002:a05:690c:f06:b0:7bd:cf35:e33b with SMTP id
+ 00721157ae682-80a680fd6b5mr15809967b3.17.1782378426348; Thu, 25 Jun 2026
+ 02:07:06 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
+ Thu, 25 Jun 2026 02:07:05 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
+ Thu, 25 Jun 2026 02:07:05 -0700
+In-Reply-To: <72aa8cb3-2b48-4b08-ab17-788c3dd18fe6@amd.com>
+References: <20260624172029.2508-1-alhouseenyousef@gmail.com>
+ <72aa8cb3-2b48-4b08-ab17-788c3dd18fe6@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Date: Thu, 25 Jun 2026 02:07:05 -0700
+X-Gm-Features: AVVi8CediwaEU0lbA3vIZaDjcsLl9lonps5TiuUPNt_1EGi3rRkszgQM2DjFHFE
+Message-ID: <CAMuQ4bXYumKw9jTJ-FpCYfnzipR9jcFVSbp_k=LAbModoinRsQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: reject mapping info for unmapped BOs
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 26 Jun 2026 07:53:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,51 +112,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The interrupted invoke path walks and moves fl->mmaps without holding
-fl->lock, racing concurrent mmap and munmap operations that use the same
-list. Move the buffers while holding the user lock and use list_del_init()
-so later cleanup can safely identify moved nodes.
+Hi Christian,
 
-Buffers moved to the channel interrupted list are also discarded on rpmsg
-removal without freeing their coherent DMA allocations. Free them during
-channel removal so interrupted invokes cannot permanently leak DMA buffers.
+You're right. I rechecked the handle-open path and bo_va should
+already be created for this file, so I do not have a valid reproducer
+for the NULL case.
 
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
----
- drivers/misc/fastrpc.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+Please drop this patch.
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 50f90e17e..608878052 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -1395,10 +1395,12 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
- 
- bail:
- 	if (err == -ERESTARTSYS) {
-+		spin_lock(&fl->lock);
- 		list_for_each_entry_safe(buf, b, &fl->mmaps, node) {
--			list_del(&buf->node);
-+			list_del_init(&buf->node);
- 			list_add_tail(&buf->node, &fl->cctx->invoke_interrupted_mmaps);
- 		}
-+		spin_unlock(&fl->lock);
- 	}
- 
- 	/* We are done with this compute context */
-@@ -2628,8 +2630,10 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
- 	if (cctx->secure_fdevice)
- 		misc_deregister(&cctx->secure_fdevice->miscdev);
- 
--	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
--		list_del(&buf->node);
-+	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node) {
-+		list_del_init(&buf->node);
-+		fastrpc_buf_free(buf);
-+	}
- 
- 	if (cctx->remote_heap)
- 		fastrpc_buf_free(cctx->remote_heap);
--- 
-2.54.0
+Thanks,
+Yousef
 
+On Thu, 25 Jun 2026 10:46:24 +0200, "Christian K=C3=B6nig"
+<christian.koenig@amd.com> wrote:
+> On 6/24/26 19:20, Yousef Alhouseen wrote:
+> > AMDGPU_GEM_OP_GET_MAPPING_INFO looks up the BO's VM mapping and then
+> > iterates the valid and invalid mapping lists unconditionally. A GEM BO =
+can
+> > be queried before it has been mapped into the file VM, in which case
+> > amdgpu_vm_bo_find() returns NULL and the list walk dereferences it.
+>
+> Mhm, that is not correct at all.
+>
+> The bo_va is created when the handle is opened inside the filp and not wh=
+en the first mapping is created.
+>
+> Do you have a test case to reproduce the issue?
+>
+> Thanks,
+> Christian.
+>
+> >
+> > Return -ENOENT for an unmapped BO, matching the VA operation path that
+> > already rejects missing BO-VA state before touching the mapping lists.
+> >
+> > Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+> > ---
+> > drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++++
+> > 1 file changed, 6 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_gem.c
+> > index 212c14d99..4b2699931 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> > @@ -1087,6 +1087,12 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, =
+void *data,
+> > struct drm_amdgpu_gem_vm_entry *vm_entries;
+> > struct amdgpu_bo_va_mapping *mapping;
+> > int num_mappings =3D 0;
+> > +
+> > + if (!bo_va) {
+> > + r =3D -ENOENT;
+> > + goto out_exec;
+> > + }
+> > +
+> > /*
+> > * num_entries is set as an input to the size of the user-allocated arra=
+y of
+> > * drm_amdgpu_gem_vm_entry stored at args->value.
+> > --
+> > 2.54.0
+> >
