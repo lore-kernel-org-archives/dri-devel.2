@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52740CDB479
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 10:00:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08F1ECDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 10:01:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE83710F20C;
-	Thu, 25 Jun 2026 10:00:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45AF310F210;
+	Thu, 25 Jun 2026 10:01:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M4cpGyXT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qi/n/BWT";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCE8B10F20C
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 10:00:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11F1910F210
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 10:01:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 73D76403C5;
- Thu, 25 Jun 2026 10:00:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A62261F000E9;
- Thu, 25 Jun 2026 10:00:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EEF7B43C2B;
+ Thu, 25 Jun 2026 10:01:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4553F1F000E9;
+ Thu, 25 Jun 2026 10:01:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782381628;
- bh=s4wi7KUoHwqHPhKC1mQdne57vEZl/ZbVeoy4xyyUpVM=;
+ s=k20260515; t=1782381665;
+ bh=EsE76Z4xRSFuaUsnBBypJxmuqqG+w7zMjPB5P48Qr30=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=M4cpGyXTX2AshboG22UAPbdMkxbsMbeFeYSHLBlV6gmiLDq0E43aspa8jdp6z5g9M
- p+8MZzs3TDANAzSiSF47nChWZvYZE3srUKheeQWdXjES6T65cJRXlrYuOtH4j3rlWn
- /xKvPR+vb8itkvz7mLbbH+lUIx2i+EBsOxIcuEAZugvImFpyflt3JHFcc+La4mrMQJ
- 0mD24KgpfcyPphzjFtO94dvqSGymrivqyP+PvfhqaIaPNro5ag216Lyuoyt2HzFzGp
- ylgwUptGqOIGxabmay0HPik++A3DXQ7fwkQyO/1SWb/pQW3FKTStBUvGSNADBhedmu
- yHWEszI4w46rg==
+ b=Qi/n/BWTuFVm8wnsXRkvBBwNjqwtUdYjgx9lz4U+3x6qbzmGu5ug8F7gBgXirTkyq
+ JTquM+ALNCoO+35pq3rBrC+i97FWSKQM8OWLblC+6ishhCeYD6QgBbM1VNjubMew5/
+ jTfRnf3WaFnn5U8iKlaKmTGJhmXr1TvXq1YW5mGJOzUjp7elGW6aQteafaAXSL0LmS
+ ijcx1MOEUpFpewf2AyG2uZF3FOLFD1n5lMDIcbB4cR8hT7yQ0cyQY3e7CjTpNfxB2V
+ TcDV4KgRkqTJvBpenuV/OaL7z41mka8ROuo0f3iDi2L5OwwQaezOkYRIStK99p5vE5
+ 3PLKKk2agZOQg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 04/16] drm/panthor: Drop a needless check in
- panthor_fw_unplug()
-To: "Boris Brezillon" <boris.brezillon@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260625-panthor-signal-from-irq-v5-4-8836a74e0ef9@collabora.com>
-References: <20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com>
- <20260625-panthor-signal-from-irq-v5-4-8836a74e0ef9@collabora.com>
+Subject: Re: [PATCH v5 4/7] drm/verisilicon: make axi and ahb clocks optional
+To: "Joey Lu" <a0987203069@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260625094449.708386-5-a0987203069@gmail.com>
+References: <20260625094449.708386-1-a0987203069@gmail.com>
+ <20260625094449.708386-5-a0987203069@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 10:00:27 +0000
-Message-Id: <20260625100027.A62261F000E9@smtp.kernel.org>
+Date: Thu, 25 Jun 2026 10:01:04 +0000
+Message-Id: <20260625100105.4553F1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,64 +62,72 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The reset work `panthor_device_reset_work` can execute before devi=
-ce initialization completes, leading to a NULL pointer dereference.
+- [High] Possible NULL pointer dereference in the IRQ handler if an interru=
+pt triggers before DRM initialization completes.
 --
 
-commit b7f6d51a0860da42553b0a2ac207a7c13c51cd47
-Author: Boris Brezillon <boris.brezillon@collabora.com>
+commit 2cd6077ab2fb5ed065ee2cef55004b713c80f827
+Author: Joey Lu <a0987203069@gmail.com>
 
-drm/panthor: Drop a needless check in panthor_fw_unplug()
+drm/verisilicon: make axi and ahb clocks optional
 
-panthor_fw_unplug() is only called if we at least managed to initialize
-the IRQ, so it's safe to drop the "is IRQ initialized" check.
+The Nuvoton MA35D1 SoC integrates a DCUltraLite display controller whose
+AXI and AHB bus clocks share a single gate enable bit with the display
+core clock, so the clock driver does not expose them separately. This
+patch makes the axi and ahb clocks optional in the probe.
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panth=
-or/panthor_fw.c
-> index 986151681b246..4fbddb9e18c8b 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -1279,9 +1279,7 @@ void panthor_fw_unplug(struct panthor_device *ptdev)
-> =20
->  	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev)) {
->  		/* Make sure the IRQ handler cannot be called after that point. */
-> -		if (ptdev->fw->irq.irq)
-> -			panthor_job_irq_suspend(&ptdev->fw->irq);
-> -
-> +		panthor_job_irq_suspend(&ptdev->fw->irq);
->  		panthor_fw_stop(ptdev);
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisi=
+licon/vs_dc.c
+> index 9729b693d360e..fd1f5fe67a68b 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
+[ ... ]
+> @@ -90,13 +90,13 @@ static int vs_dc_probe(struct platform_device *pdev)
+>  		return PTR_ERR(dc->core_clk);
 >  	}
 > =20
+> -	dc->axi_clk =3D devm_clk_get_enabled(dev, "axi");
+> +	dc->axi_clk =3D devm_clk_get_optional_enabled(dev, "axi");
+>  	if (IS_ERR(dc->axi_clk)) {
 
 [Severity: High]
-This is a pre-existing issue, but can the reset work panthor_device_reset_w=
-ork
-execute before device initialization completes?
+This is a pre-existing issue, but is it possible for an interrupt to trigger
+a NULL pointer dereference during probe if the bootloader left the display
+active?
 
-During device initialization in panthor_device_init(), panthor_fw_init() is
-called, which invokes panthor_vm_active(). This in turn calls
-panthor_mmu_as_enable() and as_send_cmd_and_wait().
+Looking further down in vs_dc_probe(), the IRQ handler is registered before
+vs_drm_initialize() is called:
 
-If the MMU AS_ACTIVE bit gets stuck and times out,
-panthor_device_schedule_reset() is called. Because the device PM state has
-already been transitioned to ACTIVE earlier via pm_runtime_resume_and_get(),
-the reset work is queued and executes asynchronously.
+	ret =3D devm_request_irq(dev, irq, vs_dc_irq_handler, 0,
+			       dev_name(dev), dc);
+	if (ret) {
+		dev_err(dev, "can't request irq\n");
+		goto err_rst_assert;
+	}
 
-The reset worker unconditionally calls panthor_sched_pre_reset(), which
-immediately dereferences ptdev->scheduler:
+	dev_set_drvdata(dev, dc);
 
-drivers/gpu/drm/panthor/panthor_sched.c:panthor_sched_pre_reset() {
-        struct panthor_scheduler *sched =3D ptdev->scheduler;
-        u32 i;
+	ret =3D vs_drm_initialize(dc, pdev);
 
-        mutex_lock(&sched->reset.lock);
-        ...
-}
+If a pending interrupt (such as VSYNC) fires immediately after
+devm_request_irq() is called, vs_dc_irq_handler() will be triggered and will
+eventually call vs_drm_handle_irq().
 
-Since ptdev->scheduler is only allocated later in the probe sequence by
-panthor_sched_init(), could this result in a NULL pointer dereference if the
-reset happens during the probe window?
+Looking at vs_drm_handle_irq() in vs_drm.c, it unconditionally dereferences
+the drm_dev pointer:
+
+	if (dc->drm_dev->crtcs[i])
+		drm_crtc_handle_vblank(&dc->drm_dev->crtcs[i]->base);
+
+Since vs_drm_initialize() hasn't allocated or assigned dc->drm_dev yet,
+could this cause a kernel panic during boot on platforms where the bootload=
+er
+leaves interrupts enabled?
+
+Would it be safer to request the IRQ after the DRM device is fully
+initialized, or to mask interrupts in the hardware before registering the
+handler?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625-panthor-si=
-gnal-from-irq-v5-0-8836a74e0ef9@collabora.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625094449.7083=
+86-1-a0987203069@gmail.com?part=3D4
