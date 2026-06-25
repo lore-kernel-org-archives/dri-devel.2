@@ -4,81 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEEC1CDB47F
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 08:25:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2EF4CDB466
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 08:26:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C4EF10F1A6;
-	Thu, 25 Jun 2026 08:25:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A0DF10F1A9;
+	Thu, 25 Jun 2026 08:26:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R2S8t7fF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kPFygwjk";
 	dkim-atps=neutral
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63E1110F1A6
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 08:25:23 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-5ad536cd0c6so2227225e87.2
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 01:25:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782375922; x=1782980722; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hOBOWB3vXJggjp/KtLxMj/oE2ncu81mEOJd6q25I4nM=;
- b=R2S8t7fFF5AwtjSkK4fYBqwHyGn/KjmMN1wrd+lwWSJpwGGd7gaN7RtMn5o/20Dwj2
- hDqGou1sQA83SVNlUXehktpCNw7L0xrS02ENNT2feiHfjV7W/3Jx19/SKJBBnkA0Y3ui
- 5Bd8aiTshV8SbdkZuHqbxNwqSKTngAqanXwQ6jxsqPDkntikaB/ks2udRl9S/Jnxaf9O
- apt9pCmJp1y1vJAEsygVhLINfYpWqdUiHlFJpzIl+Xr3Ge9RkMjSGH24Rbrmviu5dO3y
- 0KLt37eZPBKOff4eGhq3CZLRryeQdeJYrkwb3EhfZGkWLWGCsNt5HSkuMbKi0ovRfrb1
- r3fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782375922; x=1782980722;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=hOBOWB3vXJggjp/KtLxMj/oE2ncu81mEOJd6q25I4nM=;
- b=Ebvec73JgiTT1qsw3HZQa1bn/WIxwvlSiQoCLXucNvlCqK69xwKfupxx4SR69Ut4jU
- 9zWtpesu4LoHqWXclccW/FqWuKCdJ0mA7fb13/QeisKd+/mQ5ULzCmTmXYlINCVVv7FH
- hnqXHervVjrtCteRySYfBkewpfYSwpUOm1H6tID1pVePLh6X7GhQety6d1mimUdPowT/
- EsP+QsfsSYpPoaWJWk87I7Hvt42PcQYDJ+nsIQsC723brSYE4UKvoiGG68xBix5JydZm
- hwR2jexcM1JrXis5r4El8ddvvJbEPIIGasSaT2qaNFE46YMl7SaCWqSYTarPrpM1okQ7
- cS5Q==
-X-Gm-Message-State: AOJu0YzUJnifVY8EfLReOdSUZdfnuXcmtH7qWFfYtMoxo966yV/ugbCQ
- DyjGHLnS7ej8uqD3BSFaU8eBhKIAgGtfq2LavMYxfkMuSTnG9RAxVN+a
-X-Gm-Gg: AfdE7cnGTtFRTXemlM6j3dgpxXEtld7eo/MfpajcNkjGeaPnI/gMgVF8QwpbIVL27NJ
- kpc/0pjGPz/isJ5DALZbWpXpuTm31pxokE4EWi9cJiQPEsXTwa5gj9PYU4L4nkgKKMJ7fHQIveu
- Gb104ffyAr542q/kYB4awLYHuPNtdgR8fTV7XTqf+RmEDLcHSACDs31//u1O74XB221SGImUVLC
- 245jLGDwIagCPdchCOSO24NVQCeN1+vL3W4toOZOg1czO7vnIWBIbKcBIwE+a28MIZDC5h4lkpw
- MGX8T2vd2mo+WdDFGdr9cGYe7JQrwgWoBP9jIHy1vRyiMBSKaHv7eANstYyoY+JdVuogVIfs39Q
- CN9jH/XQnKa5BRVqEKW7YfgiQx+aqgL8STBivoUVJBfHV4AWa1GRHsnIMfTmTkrx4ZZUZAgXih1
- RJTP9mdaRlqA8WxBm0WAiE1pOddeC/Wy/smA==
-X-Received: by 2002:a05:6512:6710:b0:5ad:a51:20a8 with SMTP id
- 2adb3069b0e04-5aea1f3c0a2mr475517e87.18.1782375921482; 
- Thu, 25 Jun 2026 01:25:21 -0700 (PDT)
-Received: from xeon ([188.163.112.61]) by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3999af9f3a9sm39064081fa.7.2026.06.25.01.25.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jun 2026 01:25:19 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/1] gpu/drm: bridge: tc358768: Add delay after PLL setup
-Date: Thu, 25 Jun 2026 11:25:07 +0300
-Message-ID: <20260625082507.57703-2-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260625082507.57703-1-clamor95@gmail.com>
-References: <20260625082507.57703-1-clamor95@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9BF210F1A7
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 08:26:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B7C9143A99;
+ Thu, 25 Jun 2026 08:26:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70A251F000E9;
+ Thu, 25 Jun 2026 08:26:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782375978;
+ bh=ei75v/vDLBZ28WkMycO+AKLf74ZitRua7zsygYXs+II=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=kPFygwjkJUwoQRg2aaPUOz0kUMFKR/uiupVxJh63Vk4BqkTsOXWS38SSi9gskneO9
+ NY3ReBcisp/grMtmNLnBnoCYXu6VafXgZ1OlhPKUG03kV9lhNBAo9EH/DXTjr/mnl9
+ vrZv1GripO4OjJZyGwcw6+k/9P9PlRCQNPAK4SzhfcZxd+pHrB0V/Typq60DRWFJ+r
+ gVoRa7ehCAipHISvv3Zmy8zvbh1tsuH+jfa0joAb9xtn7eO4e0gR1zZh2zcvLhV+7l
+ iS0l7+vJ3rnsbiQx5crWpyMhBAMwCY4KJTCMhDYMrgKRTjLaq3gG55XSN6nJUpQLWf
+ ndKCv3TbDETng==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1] misc: fastrpc: avoid duplicate DMA mappings in
+ fastrpc_create_maps()
+To: "Jianping Li" <jianping.li@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260625080832.17477-1-jianping.li@oss.qualcomm.com>
+References: <20260625080832.17477-1-jianping.li@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 25 Jun 2026 08:26:18 +0000
+Message-Id: <20260625082618.70A251F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,39 +53,96 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-After tc358768_setup_pll() enables PLL_CKEN and the lock indicator comes
-up, the DSI register sequence runs near immediately. On TF700T this
-results in the bridge claiming PLL lock but producing no DSI video output:
-the panel powers up, the backlight comes on, but the framebuffer is never
-scanned out.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Insert a small settling delay between PLL setup and the rest of the
-attach.
+New issues:
+- [Critical] Use-After-Free and Double Free due to bypassing reference coun=
+ting for handles.
 
-Suggested-by: Michele Brocco <brocco@perceptos.de>
-Tested-by: Michele Brocco <brocco@perceptos.de> # TF700T
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/gpu/drm/bridge/tc358768.c | 3 +++
- 1 file changed, 3 insertions(+)
+Pre-existing issues:
+- [High] Memory leak of newly created DMA maps for handle arguments.
+- [High] Race condition in `fdlist` cleanup leading to Kernel Use-After-Fre=
+e.
+- [High] Circular reference causing permanent resource leak on interrupted =
+invocations.
+--
 
-diff --git a/drivers/gpu/drm/bridge/tc358768.c b/drivers/gpu/drm/bridge/tc358768.c
-index 0f2820b37302..ea358c8da0e9 100644
---- a/drivers/gpu/drm/bridge/tc358768.c
-+++ b/drivers/gpu/drm/bridge/tc358768.c
-@@ -824,6 +824,9 @@ static void tc358768_bridge_atomic_pre_enable(struct drm_bridge *bridge,
- 		return;
- 	}
- 
-+	/* Allow the PLL to settle */
-+	mdelay(20);
-+
- 	drm_display_mode_to_videomode(mode, &vm);
- 
- 	dsiclk = priv->dsiclk;
--- 
-2.53.0
+Note: The format of this review is altered to provide a free-form summary
+rather than inline quotes to comply with system recitation restrictions.
 
+commit ad847e952f22a54c8e1f599b332d32abb92a3e6a
+Author: Jianping Li <jianping.li@oss.qualcomm.com>
+
+misc: fastrpc: avoid duplicate DMA mappings in fastrpc_create_maps()
+
+This patch modifies fastrpc_create_maps() to bypass reference counting when
+looking up existing DMA mappings for handle arguments. It achieves this by
+introducing a boolean take_ref flag to fastrpc_map_create() to prevent
+duplicate DMA mappings and unbalanced reference counts.
+
+[Severity: Critical]
+Does bypassing the reference count for handle arguments introduce a
+use-after-free and double-free risk?
+
+In drivers/misc/fastrpc.c:fastrpc_create_maps(), this patch forces
+take_ref =3D false for arguments where i >=3D ctx->nbufs. This populates
+ctx->maps[i] with a weak reference.
+
+If a concurrent thread calls FASTRPC_IOCTL_MEM_UNMAP and drops the map's
+reference, could fastrpc_get_args() dereference a freed pointer when it
+accesses ctx->maps[i]->dma_addr?
+
+Additionally, if the DSP returns the handle in fdlist, fastrpc_put_args()
+will unconditionally call fastrpc_map_put(). Since a reference was never
+taken during creation, does this consume an unbalanced reference and free
+explicit memory maps prematurely?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the error path leak
+newly created DMA maps for handle arguments?
+
+When fastrpc_map_create() does not find an existing mapping, it calls
+fastrpc_map_attach(), which allocates a new map with a reference count of 1.
+
+However, looking at drivers/misc/fastrpc.c:fastrpc_context_free(), the
+cleanup loop only iterates up to ctx->nbufs. Since handle arguments
+(i >=3D ctx->nbufs) are deliberately skipped during this cleanup, are the
+maps created for them permanently leaked, potentially leading to memory
+exhaustion if a user repeatedly passes new memfds?
+
+[Severity: High]
+This is a pre-existing issue, but is there a race condition in the fdlist
+cleanup that could lead to a use-after-free?
+
+In drivers/misc/fastrpc.c:fastrpc_put_args(), the code looks up the map
+without taking a reference (take_ref =3D false), and then immediately calls
+fastrpc_map_put() to drop a reference.
+
+If a compromised or buggy DSP returns the same file descriptor in the
+fdlist for two concurrent invocations, could both threads simultaneously
+execute the lookup and drop a reference without adequate locking, causing
+the second thread to drop a reference on an already freed map?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the invocation error
+handling create a circular reference that permanently leaks resources?
+
+In drivers/misc/fastrpc.c:fastrpc_internal_invoke(), if the invocation is
+interrupted (returning -ERESTARTSYS or -ETIMEDOUT), the code explicitly
+skips calling fastrpc_context_put().
+
+Because fastrpc_context_alloc() takes a strong reference to the user
+structure (fastrpc_user_get()), and the leaked context holds this
+reference, the user reference count never reaches zero. Does this prevent
+fastrpc_user_free() from ever executing to clean up pending contexts,
+allowing a local user to easily exhaust resources by interrupting
+invocations?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625080832.1747=
+7-1-jianping.li@oss.qualcomm.com?part=3D1
