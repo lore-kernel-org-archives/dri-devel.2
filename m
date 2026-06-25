@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79876CDE008
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 11:11:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8C27CDE008
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 11:16:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CCA510E1E0;
-	Thu, 25 Jun 2026 11:11:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CF5910F272;
+	Thu, 25 Jun 2026 11:16:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Gwhcm+iK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JOBNGHal";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF55910E1E0
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 11:11:35 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63D9610E209
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 11:16:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 87BA24349F;
- Thu, 25 Jun 2026 11:11:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44DBB1F000E9;
- Thu, 25 Jun 2026 11:11:35 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B2E4260018;
+ Thu, 25 Jun 2026 11:16:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 438761F000E9;
+ Thu, 25 Jun 2026 11:16:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782385895;
- bh=kyGlEq6hj+WA4FFSNlYY8yglxD7I/c4FXP6xdKKc2/Q=;
+ s=k20260515; t=1782386162;
+ bh=7elxOrSoxphV1JlBy+bW2qPFP02wnv6Q1WL1ahz+jSk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Gwhcm+iK4zRcXlvGYdiAdglG/YiociOQSFEazyuMHIgnldJTItuPc8tZuqPCsQU0K
- Lg1ndqC7jOpZNOGnZ04Zjm2yLICBxk/jusO2bRswnoHwkQIzVVHP8dpuioAxfOwZ6+
- coMR8/Annocu7q8PvbhBELC9RaNZgJroVNt+y7Ze86tCaFXI/B5M2TQ1HIluYkUpEd
- sLYN2eMqfjleSzY9x7ETo3p9ChKV+HCOj7k/CVpsCZSFWLDECN56L7Mm0YANWiuV6E
- 7Xi8FASfcWK0iKsvT6AwQzQLhxQ5HvmsBy1QPWjHj6B6L3OqE0A90LOvMJteCywhQ+
- 9rBi/J1e2JE/Q==
+ b=JOBNGHala55kZ8eZQaXxGhqsFfj/U1ZSIr8CsEOWc9YLEXleDu7RR5hUOONNzqM7Z
+ V/FNuszgrSb7F9tTCpDMUbNaFTNKnPdPiqESGTpHTvJcm7RIrjgsbuH72TPVak8IM8
+ ZQ8iu0/F+g8VsIdDHe8L5bIlzSmKETZ25LzjlEcK9ObTO+vG38pHH5Z0Ip2zDQn8u5
+ NEyar8fQaclIT602wx85zV8QyaQ7rNHo800Dg0j80MftXkSTKUAXks3I8iscX1uPxu
+ sGXX4TKp+VRKaFOq/NQ4J21dzqz3u45Y0ld+IjH2SVdDd6grN8nv9fp781/CNXGkiM
+ 7Pvph57D3tbBg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] drm/amdkfd: block THP for non-replayable SVM ranges
-To: "Yitao Jiang" <jytscientist@hotmail.com>
+Subject: Re: [PATCH] staging: fbtft: fix unaligned vmem writes when txbuf is
+ byte-offset
+To: suryasaimadhu <suryasaimadhu369@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <SY1PR01MB10596F9476BAA5333F02F5A6BC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
-References: <SY1PR01MB10596EB75463208A8E1EBBA0FC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
- <SY1PR01MB10596F9476BAA5333F02F5A6BC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
+In-Reply-To: <20260625110237.304435-1-suryasaimadhu369@gmail.com>
+References: <20260625104220.21E5A1F00A3D@smtp.kernel.org>
+ <20260625110237.304435-1-suryasaimadhu369@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 11:11:34 +0000
-Message-Id: <20260625111135.44DBB1F000E9@smtp.kernel.org>
+Date: Thu, 25 Jun 2026 11:16:01 +0000
+Message-Id: <20260625111602.438761F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,182 +58,157 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Error handling in `svm_range_set_attr` aborts the transaction mid-=
-flight without rollback, leaving overlapping ranges in the SVM interval tre=
-e and leaking memory.
-- [High] `svm_range_add_notifier_locked` silently ignores failures when reg=
-istering the MMU interval notifier, leading to WARN_ON_ONCE and interval tr=
-ee corruption.
-- [High] Clearing the `KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED` attribute perm=
-anently leaks a THP block node and permanently disables THP for the virtual=
- address range.
-- [High] Dynamically disabling XNACK via ioctl does not update SVM range no=
-tifier flags, leaving THP unblocked and risking GPU page faults.
+- [Low] Missing `#include <linux/unaligned.h>` in `fbtft-bus.c`.
 
 Pre-existing issues:
-- [High] If a user maps SVM memory at virtual address 0, its MMU interval n=
-otifier is never removed, causing a Use-After-Free.
+- [High] Unaligned memory stores in `define_fbtft_write_reg` macro when `st=
+artbyte` is used.
+- [High] An integer underflow in `tx_array_size` leads to an out-of-bounds =
+heap write if the `txbuflen` device property is set to a small value.
+- [High] Missing NULL check for `par->txbuf.buf` in `fb_ra8875.c` leads to =
+a NULL pointer dereference on Big Endian systems.
 --
 
-commit f4df270ac94ba46190c602a81dedff1aa60cc86a
-Author: Yitao Jiang <jytscientist@hotmail.com>
+commit 57041cf8757e7586efa49957106ff7e0611f087c
+Author: suryasaimadhu <suryasaimadhu369@gmail.com>
 
-drm/amdkfd: block THP for non-replayable SVM ranges
+staging: fbtft: fix unaligned vmem writes when txbuf is byte-offset
 
-KFD SVM ranges on processes without XNACK, and ranges requested as
-GPU_ALWAYS_MAPPED, cannot rely on replayable GPU faults after a CPU THP
-remap of the registered VA range. Keep those ranges backed by base
-pages while their interval notifier is active.
+This commit addresses unaligned memory access in the fbtft driver. It
+updates write_vmem16_bus8() in both fb_ra8875.c and fbtft-bus.c to use
+put_unaligned() when storing 16-bit pixel data.
 
-Opt those SVM interval notifiers into MMU_INTERVAL_NOTIFIER_BLOCK_THP
-and update the flag when SVM attributes change. XNACK-enabled ranges
-that can handle remaps through replayable faults remain eligible for
-THP unless GPU_ALWAYS_MAPPED is requested.
-
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/a=
-mdkfd/kfd_svm.c
-> index 3841943da5ece..0d0feba7b7852 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-
-[ ... ]
-
-> @@ -81,6 +82,26 @@ static const struct mmu_interval_notifier_ops svm_rang=
-e_mn_ops =3D {
->  	.invalidate =3D svm_range_cpu_invalidate_pagetables,
->  };
+> diff --git a/drivers/staging/fbtft/fb_ra8875.c b/drivers/staging/fbtft/fb=
+_ra8875.c
+> index 0ab1de6647d07..5b95b00953994 100644
+> --- a/drivers/staging/fbtft/fb_ra8875.c
+> +++ b/drivers/staging/fbtft/fb_ra8875.c
+> @@ -10,6 +10,7 @@
+>  #include <linux/delay.h>
 > =20
-> +static unsigned int
-> +svm_range_mn_flags(struct svm_range *prange)
-> +{
-> +	struct kfd_process *p =3D container_of(prange->svms, struct kfd_process,
-> +					     svms);
-> +
-> +	if (!p->xnack_enabled ||
-> +	    (prange->flags & KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED))
-> +		return MMU_INTERVAL_NOTIFIER_BLOCK_THP;
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-When a process dynamically disables XNACK using the KFD_IOC_SMI_EVENTS ioct=
-l,
-does this leave THP unblocked on existing ranges?
-
-In svm_range_switch_xnack_reserve_mem(), p->xnack_enabled is updated
-dynamically:
-
-        p->xnack_enabled =3D xnack_enabled;
-
-However, it does not seem to update the interval notifier flags for existing
-SVM ranges. Because the existing ranges remain with THP unblocked, could
-khugepaged collapse THPs and generate unrecoverable GPU page faults since
-XNACK is disabled?
-
-> +
-> +static int
-> +svm_range_update_mn_flags_locked(struct svm_range *prange)
-> +{
-> +	return mmu_interval_notifier_set_flags_locked(&prange->notifier,
-> +						      svm_range_mn_flags(prange));
-> +}
-
-[Severity: High]
-If userspace clears the KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED flag or XNACK
-is enabled, does this permanently leak a THP block node?
-
-When svm_range_update_mn_flags_locked() calls
-mmu_interval_notifier_set_flags_locked() with flags =3D 0, the
-interval_sub->flags are zeroed out locally. However, since there is no
-teardown path to call mmu_interval_notifier_unblock_thp_locked(), the THP
-block node remains.
-
-When the SVM range is eventually freed, mmu_interval_notifier_remove() will
-also skip the unblock path because the flag was cleared, resulting in a
-permanent memory leak and permanently disabling THP for the virtual address
-range.
-
-[ ... ]
-
-> @@ -112,10 +133,11 @@ svm_range_add_notifier_locked(struct mm_struct *mm,=
- struct svm_range *prange)
->  	pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx]\n", prange->svms,
->  		 prange, prange->start, prange->last);
+>  #include <linux/gpio/consumer.h>
+> +#include <linux/unaligned.h>
+>  #include "fbtft.h"
 > =20
-> -	mmu_interval_notifier_insert_locked(&prange->notifier, mm,
-> -				     prange->start << PAGE_SHIFT,
-> -				     prange->npages << PAGE_SHIFT,
-> -				     &svm_range_mn_ops);
-> +	mmu_interval_notifier_insert_locked_flags(&prange->notifier, mm,
-> +						  prange->start << PAGE_SHIFT,
-> +						  prange->npages << PAGE_SHIFT,
-> +						  &svm_range_mn_ops,
-> +						  svm_range_mn_flags(prange));
->  }
+>  #define DRVNAME "fb_ra8875"
 
 [Severity: High]
-Does this silently ignore failures during interval notifier registration?
+This is a pre-existing issue, but does write_vmem16_bus8() have a potential
+null pointer dereference here?
 
-If mmu_interval_notifier_insert_locked_flags() fails, it returns an error
-code and prange->notifier.mm remains NULL. Because the return value is
-discarded here, subsequent code in svm_range_set_attr() will call
-svm_range_update_mn_flags_locked() on the same transaction. This passes the
-uninitialized notifier to mmu_interval_notifier_set_flags_locked(), which
-will hit a WARN_ON_ONCE(!mm), return -EINVAL, and cause the transaction to
-abort, potentially corrupting the interval tree.
+fb_ra8875.c:write_vmem16_bus8() {
+    ...
+    txbuf16 =3D par->txbuf.buf + 1;
+    tx_array_size -=3D 2;
+    *(u8 *)(par->txbuf.buf) =3D 0x00;
+    ...
+}
 
-[ ... ]
+If the txbuflen device property is 0, par->txbuf.buf remains null on big
+endian systems because the fallback allocation is gated by a little endian
+check.
 
-> @@ -3763,6 +3785,12 @@ svm_range_set_attr(struct kfd_process *p, struct m=
-m_struct *mm,
->  	}
->  	list_for_each_entry(prange, &update_list, update_list) {
->  		svm_range_apply_attrs(p, prange, nattr, attrs, &update_mapping);
-> +		r =3D svm_range_update_mn_flags_locked(prange);
-> +		if (r) {
-> +			mutex_unlock(&svms->lock);
-> +			mmap_write_unlock(mm);
-> +			goto out;
-> +		}
+Could this cause a crash when assigning 0x00 unconditionally?
+
 
 [Severity: High]
-Does aborting the transaction here leak memory and corrupt the interval tre=
-e?
+This is a pre-existing issue, but could tx_array_size underflow and cause
+an out-of-bounds heap write?
 
-If svm_range_update_mn_flags_locked() fails, the goto out path completely
-bypasses the remove_list processing located further down in the function.
-This leaves old cloned ranges permanently in the interval tree alongside
-their newly inserted replacements that were added during the insert_list
-loop. Additionally, because remove_list is a stack variable, skipping its
-teardown leaks the ranges and leaves dangling pointers in the update_list
-links.
+fb_ra8875.c:write_vmem16_bus8() {
+    ...
+    tx_array_size =3D par->txbuf.len / 2;
+    txbuf16 =3D par->txbuf.buf + 1;
+    tx_array_size -=3D 2;
+    ...
+    while (remain) {
+        to_copy =3D min(tx_array_size, remain);
+    ...
+}
 
->  		/* TODO: unmap ranges from GPU that lost access */
->  	}
->  	update_mapping |=3D !p->xnack_enabled && !list_empty(&remap_list);
+If par->txbuf.len is set to a small value like 2 via the device tree,
+tx_array_size evaluates to 1. Subtracting 2 causes it to underflow to a
+huge value.
+
+Would the min() check then just use remain, causing the loop to write past
+the end of the allocated heap buffer?
+
+> @@ -262,7 +263,7 @@ static int write_vmem16_bus8(struct fbtft_par *par, s=
+ize_t offset, size_t len)
+>  			to_copy, remain - to_copy);
+> =20
+>  		for (i =3D 0; i < to_copy; i++)
+> -			txbuf16[i] =3D cpu_to_be16(vmem16[i]);
+> +			put_unaligned(cpu_to_be16(vmem16[i]), &txbuf16[i]);
+> =20
+>  		vmem16 =3D vmem16 + to_copy;
+>  		ret =3D par->fbtftops.write(par, par->txbuf.buf,
+> diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fb=
+tft-bus.c
+> index 30e436ff19e4c..9e25c19ec9ada 100644
+> --- a/drivers/staging/fbtft/fbtft-bus.c
+> +++ b/drivers/staging/fbtft/fbtft-bus.c
 
 [Severity: High]
-This is a pre-existing issue, but does svm_range_remove_notifier() fail to
-remove the notifier if the SVM range starts at virtual address 0?
+This is a pre-existing issue, but does the define_fbtft_write_reg macro
+also suffer from unaligned stores?
 
-In drivers/gpu/drm/amd/amdkfd/kfd_svm.c:svm_range_remove_notifier():
+fbtft-bus.c:define_fbtft_write_reg() {
+    ...
+    if (par->startbyte)
+        *buf++ =3D par->startbyte | (((size & 0xF) + 1) << 4);
+    ...
+    *buf =3D modifier((data_type)va_arg(args, unsigned int));
+    ...
+}
 
-	if (prange->notifier.interval_tree.start !=3D 0 &&
-	    prange->notifier.interval_tree.last !=3D 0)
-		mmu_interval_notifier_remove(&prange->notifier);
+If par->startbyte is used, buf is offset by 1 byte. If data_type is a
+16-bit type, would this dereference create a misaligned store and fault
+on strict-alignment architectures?
 
-If an SVM range is mapped starting at virtual address 0 (which is permitted
-if vm.mmap_min_addr is 0 or if the user has CAP_SYS_RAWIO), the check
-evaluates to false and incorrectly skips mmu_interval_notifier_remove().
-The prange is subsequently freed, but its embedded notifier structure
-remains linked in the mm->notifier_subscriptions->itree, which will cause a
-use-after-free the next time the tree is modified.
+
+[Severity: High]
+This is a pre-existing issue, but fbtft_write_vmem16_bus8() shares the same
+integer underflow behavior as fb_ra8875.c:
+
+fbtft-bus.c:fbtft_write_vmem16_bus8() {
+    ...
+    tx_array_size =3D par->txbuf.len / 2;
+    if (par->startbyte) {
+        ...
+        tx_array_size -=3D 2;
+    ...
+    while (remain) {
+        to_copy =3D min(tx_array_size, remain);
+    ...
+}
+
+Could this similarly overwrite memory beyond the heap buffer if a small
+txbuflen is provided?
+
+> @@ -154,7 +154,7 @@ int fbtft_write_vmem16_bus8(struct fbtft_par *par, si=
+ze_t offset, size_t len)
+>  			to_copy, remain - to_copy);
+> =20
+>  		for (i =3D 0; i < to_copy; i++)
+> -			txbuf16[i] =3D cpu_to_be16(vmem16[i]);
+> +			put_unaligned(cpu_to_be16(vmem16[i]), &txbuf16[i]);
+
+[Severity: Low]
+Does this file need to include linux/unaligned.h?
+
+Since the header was included in fb_ra8875.c but not added here, could
+this cause build failures on architectures where put_unaligned() isn't
+transitively included by other headers?
+
+> =20
+>  		vmem16 =3D vmem16 + to_copy;
+>  		ret =3D par->fbtftops.write(par, par->txbuf.buf,
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/SY1PR01MB10596EB754=
-63208A8E1EBBA0FC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625110237.3044=
+35-1-suryasaimadhu369@gmail.com?part=3D1
