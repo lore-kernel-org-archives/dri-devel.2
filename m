@@ -4,132 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 593F3CDB47F
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 08:08:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87CBFCDB466
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 08:19:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4A3F10E892;
-	Thu, 25 Jun 2026 08:08:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1CF510E1C5;
+	Thu, 25 Jun 2026 08:19:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="c1AYtYZs";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DNpj41WG";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ao50NhUv";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F4AA10E6DE
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 08:08:41 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65P7SPQ72762965
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 08:08:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=sb+3siK+bp3PKyAROTwDlHIQzDF1Ozu9V1v
- 6eRxHPHs=; b=c1AYtYZsA5L6JLazbZ0GHTuR3U/9PQ+N5i+ft17sh3hgufBUOgi
- 2Qvo0TE3TETJwTsPU9lbIaKTvnqB4ZZjOBX6M91tdSnQPrzoEQY6hF9tecN06PG3
- U7OI3my9GCTr4H7mghOYUU877iaeoUcVoDuuTl+tOcuHS7vRkQdOM1AbTqziKqkD
- SA7I0tbfiAiCx21lE9RehRwYKKzHcb9ojJLQyHQc7RehT1LHcPI8jDyAS6oZAD00
- 6GrvwIRfiv0JC2Wfr2BNNHqWywX8SG9bIJvpvnb2UmMxYlZ3cM25XmpaJsiH5FaS
- 8qltYuktOFUHyaY2RnJ1FYw3rLrsgM4TwxQ==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f0yynr507-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 08:08:40 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id
- 41be03b00d2f7-c894c1c4aa9so1216931a12.0
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 01:08:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1782374920; x=1782979720;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=sb+3siK+bp3PKyAROTwDlHIQzDF1Ozu9V1v6eRxHPHs=;
- b=DNpj41WGTCgjN4hpaS5dN1Di6lZVOnpreTTNAeVU91UdvjbYCHs/demCY6sma7JpC+
- B9CvpVu6vu58abz/PyD2t3Krg9Y+mdL73Gq+z5DLgCyr/KiTTKtAZwaArW9wI68Dz85m
- hHElTHU5ltPWRC/xkck5oyG3bu6G8C95G+NoReDDMhAMUPIgiRXOFaxSWMg/i4n0RDCX
- v+uIx15zplbN6Wx3IwfetXrUymI4HzG9IupJwJs/YPLa0rqOmL4w+dgtqDipVJL1KQor
- FCRSNq5nZIoxCwQiCErTNHTaqV7o7kvgRIxz4eQthAxKZsic5iBCJoJWyXonf+K5vo4l
- ohxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782374920; x=1782979720;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=sb+3siK+bp3PKyAROTwDlHIQzDF1Ozu9V1v6eRxHPHs=;
- b=rXEPQRFcjSJdmmGh2NRSZwE7BQPMJ21+2b/Ax/Jalil6wbtDOvtKC+7yUSx/KONdQA
- NhVibKGS+Zv21aWW5f5/JJf9+VK2Qgt3+oKPPIoXW7iumQsFwOogshsl7xEP+E5PmcCY
- WCcVe/4vyPiku6rEGTI6bFAUeiAc847SnJnHd9QjEYe+s4eSRyrqFBrjOg9mrVh9DpZE
- xIPYeFNFAb3ZNnaCAybr5jd87J/kpZBUzY0hJ/u6or5gcn3dNBAOMEpE9zfgLvMYoLQi
- k6N37tXlckGd/RWLegrxB99qIZMEVEZM3tlltHXOMyKUBPFXL9IwcJbHC1B6OeKVOCs1
- 5LJw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqeKcXI4lpZmCgcVpXPUDB/wj4761uo0CWjbqIxSCz/AadXlWC9EDJio5e2zHUFUAPBQ8naE22QL/4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzkmzxHQ/2y87Zn/lDUGeY1BifcXy68K+lnPPrezEeiEpFBIv8G
- VHMDWwNVWkrooe5eKfBawpYXDalviBkwHtYNi5aB5J2NAxuZbZZhwEgJwZuuoPkqWnpQtfBdq6N
- n/tfq4Ub4+BzPy0E5TiOJIb+jNuEn9wFkMLYePI/R+S0emPmpXkD7f7DLMPxXSnbn24E9DQo=
-X-Gm-Gg: AfdE7cn0PMku4bZAa3hLcX6aheqWhxuxkRXKdv246shANe55qVbnFBbIRaUq61ikpeQ
- Y/fZEeSQhrhVA6sXs4atUmEPTTmykudVeLSOrn4yAU+3N4u1jjP4F0po0iOh6AYg3agQcHcUQFy
- eVKSSnqC6nbvTaMEEmKcxGQaAjC8tNxbw4C6EsCxhWVZH1KWCI0Qe7GR35j7Rh2q1L5jMxUQ2cQ
- QiRPhsBzzH8v84uW6wCzTEtizoLV03we+5P5TT8v64b/n+miSGtnKubje7ucnYm3RHTweTvRHG5
- ++Eoh1OCb8LipOBUb3lOksIH6/sHWF2RrcdUA0rvH2is/ZD7+gyD79uLf1Y4ZJFgZJuO61lHuE3
- jZWv1sb2fFXiv8y7pMg8DypOF8G2a/zFoHAMIrRreXceqOHxgJOEQCxBKWZ12unts1Uwe0tLju1
- fXmNQLSmUX
-X-Received: by 2002:a05:6a00:14cd:b0:842:4387:34c2 with SMTP id
- d2e1a72fcca58-845b39f2224mr1854508b3a.10.1782374919824; 
- Thu, 25 Jun 2026 01:08:39 -0700 (PDT)
-X-Received: by 2002:a05:6a00:14cd:b0:842:4387:34c2 with SMTP id
- d2e1a72fcca58-845b39f2224mr1854476b3a.10.1782374919366; 
- Thu, 25 Jun 2026 01:08:39 -0700 (PDT)
-Received: from QCOM-SocCW5bzXR.qualcomm.com
- (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-845b927cc0bsm495077b3a.21.2026.06.25.01.08.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jun 2026 01:08:39 -0700 (PDT)
-From: Jianping Li <jianping.li@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>
-Cc: Jianping Li <jianping.li@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Ling Xu <quic_lxu5@quicinc.com>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com, stable@kernel.org
-Subject: [PATCH v1] misc: fastrpc: avoid duplicate DMA mappings in
- fastrpc_create_maps()
-Date: Thu, 25 Jun 2026 16:08:32 +0800
-Message-Id: <20260625080832.17477-1-jianping.li@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3042410E19C
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 08:19:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1782375563;
+ bh=nCyO76GcZTqJ8IWlo+QkFWSRUHPwnxqO6bLkIAX5v30=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=ao50NhUvUzm8tGdnsJslAfW/6WZAND9921SEJ92KLLqAo67oy0lHn16BQT2GeLIIb
+ fhntkvmDwarLS9ae4u/ket3QEVFuCcVapcfKGXrvSEfuyoo6bDVbN8Wv4HWCtHYR0k
+ o0d9jHUh6Ylqmcl3v2NTORcs3NQuJm2gn6A4G8e6Tb27XcvIN2v6apdjKkyyK77IzW
+ 61t7eoVxUpmPqYcJgi/K5pro6KA0CCMp/tC3RwgEzdkZ2hHWODB732DpEGLmLP5oCv
+ DdmEpOsY6RGpDfVxVmfseW9ZO9wAtnK+9earnrKW+/S1jtMb0Xeg7UTftCNVs6HvxK
+ HvYTO6M6X8IpA==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id DBA4717E03D7;
+ Thu, 25 Jun 2026 10:19:22 +0200 (CEST)
+Message-ID: <b520e77d-1ae3-4222-b442-e59442903107@collabora.com>
+Date: Thu, 25 Jun 2026 11:19:22 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 25/30] drm/vc4: hdmi: Convert to common HDMI 2.0 SCDC
+ scrambling helpers
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
+ <20260602-dw-hdmi-qp-scramb-v7-25-445eb54ee1ed@collabora.com>
+ <20260612-primitive-chital-of-tempering-18bc7c@houat>
+ <8937d785-4daa-4246-9553-24aed7d279b5@collabora.com>
+ <20260625-busy-ultra-oryx-ffb3c9@houat>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20260625-busy-ultra-oryx-ffb3c9@houat>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDA2OSBTYWx0ZWRfX60/7LQKuHUst
- Gt+l9WvvFu1y/+y2QteR3QxUtVw3n+dsfk7+jyV/Ipxme+o6gjd+PV23ANzg2zOntoWwM1vPBZy
- r6sOZahmPDEmqaDDgxX5Bg1GDW0wXDelbkc6PuYsv7MRobTLZ0Ip/fnWj6NjjKTy+GFMGjT6kHr
- /b7WOT+q+ST7ioW8cS/thF36U51ihjs4VCe7HDOg06aTMqEA7z8F7sHYWDwouVwx5J1cYBOBVrG
- DOogBqMa2YjG+a2yTpn6RzUB9LRnvq4hAAb/rV5CuChqXMIXnki2YvjFalD0AjEO0W2zNe9mBBo
- cTVZfvRJorkscytuEyrKqZcB/BfNbUm1I5sYUBxktrQWjcIz2vGKX2fdDypOfI0gvWttBYN/iYM
- ToaVz8QYMy9eFw7/aHitgXBvUS9A6+iA2vXzxtwkZ/FS8+mDtqGbdToZce/yjZ3D7TsE4maYUIP
- gnZ2Gav4wnkCyEuMrmw==
-X-Authority-Analysis: v=2.4 cv=aoyCzyZV c=1 sm=1 tr=0 ts=6a3ce208 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=oQxmpDa7-PQQZ_56PAcA:9 a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-ORIG-GUID: dP_jVO2qjHht6A4lj7YeyhZs9Y5f2L1N
-X-Proofpoint-GUID: dP_jVO2qjHht6A4lj7YeyhZs9Y5f2L1N
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI1MDA2OSBTYWx0ZWRfXxztEOJ/eMviy
- Gu2koYtjMRTqzM0gbEIMR/nO39gxPwvqWuOH4e5GuH8omfKKhyOTsrIRZs84AqE0KTUeeT9vSlR
- kqnuLyCIsFgLtlBUKFBYZhZep+Vd2zM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-25_01,2026-06-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 priorityscore=1501
- clxscore=1015 adultscore=0 malwarescore=0 phishscore=0 bulkscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606250069
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,97 +79,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-fastrpc_create_maps() performs map lookup only for buffer
-arguments (i < ctx->nbufs) via fastrpc_map_create(). For
-arguments beyond this range, no lookup is performed, which
-can result in duplicate DMA mappings for the same file
-descriptor.
+On 6/25/26 10:44 AM, Maxime Ripard wrote:
+> On Sat, Jun 13, 2026 at 03:41:20AM +0300, Cristian Ciocaltea wrote:
+>> Hi Maxime,
+>>
+>> On 6/12/26 3:04 PM, Maxime Ripard wrote:
+>>> Hi,
+>>>
+>>> On Tue, Jun 02, 2026 at 01:44:25AM +0300, Cristian Ciocaltea wrote:
+>>>> Replace the vc4-local scrambling implementation with the newly
+>>>> introduced DRM common SCDC scrambling infrastructure:
+>>>>
+>>>> - Advertise source-side scrambling support by setting
+>>>>   connector->hdmi.scrambling_supported based on the variant's
+>>>>   max_pixel_clock before drmm_connector_hdmi_init().
+>>>>
+>>>> - Provide minimal .scrambler_{enable|disable} connector callbacks that
+>>>>   only toggle the VC5 HDMI_SCRAMBLER_CTL register.  Sink-side SCDC
+>>>>   programming and periodic status monitoring are now delegated to
+>>>>   drm_scdc_{start|stop}_scrambling().
+>>>>
+>>>> - Replace vc4_hdmi_enable_scrambling() with a conditional call to
+>>>>   drm_scdc_start_scrambling() in post_crtc_enable, gated on
+>>>>   conn_state->hdmi.scrambler_needed (computed by the HDMI state helper).
+>>>>
+>>>> - Replace vc4_hdmi_disable_scrambling() with drm_scdc_stop_scrambling()
+>>>>   in post_crtc_disable.
+>>>>
+>>>> - Drop vc4_hdmi_reset_link() and vc4_hdmi_handle_hotplug(), switching
+>>>>   the .detect_ctx() path to
+>>>>   drm_atomic_helper_connector_hdmi_hotplug_ctx() which internally calls
+>>>>   drm_scdc_sync_status() to trigger a CRTC reset on reconnection.
+>>>>
+>>>> - Drop the local scrambling_work delayed workqueue and scdc_enabled
+>>>>   flag, now tracked by the common drm_connector_hdmi layer.
+>>>>
+>>>> - Drop vc4_hdmi_supports_scrambling() and
+>>>>   vc4_hdmi_mode_needs_scrambling() helpers, inlining the remaining 4KP60
+>>>>   warning with an explicit drm_hdmi_compute_mode_clock() check.
+>>>>
+>>>> - Seed connector->hdmi.scrambler_enabled = true in connector_init() to
+>>>>   ensure drm_scdc_stop_scrambling() runs at boot and disables any stale
+>>>>   scrambling state left by the bootloader.
+>>>>
+>>>> No functional change is expected for the supported modes.
+>>>>
+>>>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+>>>
+>>> I'd really like it to be broken down into several patches:
+>>>
+>>>> ---
+>>>>  drivers/gpu/drm/vc4/vc4_hdmi.c | 265 ++++++-----------------------------------
+>>>>  drivers/gpu/drm/vc4/vc4_hdmi.h |   8 --
+>>>>  2 files changed, 35 insertions(+), 238 deletions(-)
+>>>>
 
-Additionally, if the same file descriptor is passed multiple
-times within a single invocation, performing lookups with
-reference counting would increment the reference multiple
-times, while fastrpc_put_args() would release it only once,
-leading to an imbalanced reference count.
+[...]
 
-Fix this by allowing fastrpc_map_create() to control whether
-the lookup should take a reference. For arguments beyond
-ctx->nbufs, the lookup is performed without taking a
-reference, ensuring that existing mappings are reused
-without introducing duplicate DMA mappings or reference
-count imbalance.
+>>>> -
+>>>> -	/*
+>>>> -	 * HDMI 2.0 says that one should not send scrambled data
+>>>> -	 * prior to configuring the sink scrambling, and that
+>>>> -	 * TMDS clock/data transmission should be suspended when
+>>>> -	 * changing the TMDS clock rate in the sink. So let's
+>>>> -	 * just do a full modeset here, even though some sinks
+>>>> -	 * would be perfectly happy if were to just reconfigure
+>>>> -	 * the SCDC settings on the fly.
+>>>> -	 */
+>>>> -	return drm_atomic_helper_reset_crtc(crtc, ctx);
+>>>> -}
+>>>
+>>> This one doesn't look functionally equivalent to me to
+>>> drm_scdc_reset_crtc: this part was, in part, making sure we would only
+>>> reset the scrambler if it was enabled in the first place.
+>>> drm_scdc_reset_crtc() doesn't and will always trigger a modeset on
+>>> hotplug. That's unnecessary and a significant functional different.
+>>
+>> drm_scdc_reset_crtc() alone was not meant to be an equivalent of
+>> vc4_hdmi_reset_link(), as it only checks the sink side and it serves as an
+>> internal helper used exclusively by drm_scdc_sync_status().  
+>>
+>> As a matter of fact, the latter is the one responsible for verifying if the
+>> scrambler was enabled on the controller side before attempting to invoke the
+>> reset logic, hence we should get the same behavior.  But we don't invoke it
+>> directly either, it's part of the drm_atomic_helper_connector_hdmi_hotplug_ctx()
+>> call path.
+> 
+> Oh, right, sorry.
+> 
+>>> I'd argue that it's drm_scdc_reset_crtc() that needs to align to what
+>>> vc4 was doing, not the opposite.
+>>
+>> The only difference consists in dropping the crtc state check:
+>>
+>>     ret = drm_modeset_lock(&crtc->mutex, ctx);
+>>     if (ret)
+>>             return ret;
+>>
+>>     crtc_state = crtc->state;
+>>     if (!crtc_state->active)
+>>             return 0;
+>>
+>> The rationale was that when CRTC is inactive, drm_atomic_helper_reset_crtc()
+>> should result in a no-op commit anyway.
+> 
+> A commit is expensive, so I'd skip it if we can.
+> 
+>> And the one for the in-flight commit:
+>>
+>>     if (conn_state->commit &&
+>>         !try_wait_for_completion(&conn_state->commit->hw_done)) {
+>>             mutex_unlock(&vc4_hdmi->mutex);
+>>             return 0;
+>>     }
+> 
+> And yeah, we'll need this one too.
+> 
+>> Both checks are also missing in drm_bridge_helper_reset_crtc(), taken as an
+>> initial reference. Should we still keep any/both and sync the bridge helper
+>> accordingly?
+> 
+> Yes, but I'd expect the bridge helpers to converge / reuse your helpers
+> eventually anyway?
 
-Fixes: 10df039834f84 ("misc: fastrpc: Skip reference for DMA handles")
-Cc: stable@kernel.org
-Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
----
- drivers/misc/fastrpc.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+Ack.
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index a9b2ae44c06f..2622a1360a65 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -924,9 +924,9 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
- }
- 
- static int fastrpc_map_create(struct fastrpc_user *fl, int fd,
--			      u64 len, u32 attr, struct fastrpc_map **ppmap)
-+			      u64 len, u32 attr, struct fastrpc_map **ppmap, bool take_ref)
- {
--	if (!fastrpc_map_lookup(fl, fd, ppmap, true))
-+	if (!fastrpc_map_lookup(fl, fd, ppmap, take_ref))
- 		return 0;
- 
- 	return fastrpc_map_attach(fl, fd, len, attr, ppmap);
-@@ -999,23 +999,23 @@ static int fastrpc_create_maps(struct fastrpc_invoke_ctx *ctx)
- 	int i, err;
- 
- 	for (i = 0; i < ctx->nscalars; ++i) {
-+		bool take_ref = true;
- 
- 		if (ctx->args[i].fd == 0 || ctx->args[i].fd == -1 ||
- 		    ctx->args[i].length == 0)
- 			continue;
- 
--		if (i < ctx->nbufs)
--			err = fastrpc_map_create(ctx->fl, ctx->args[i].fd,
--				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
--		else
--			err = fastrpc_map_attach(ctx->fl, ctx->args[i].fd,
--				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
-+		if (i >= ctx->nbufs)
-+			take_ref = false;
-+
-+		err = fastrpc_map_create(ctx->fl, ctx->args[i].fd, ctx->args[i].length,
-+			 ctx->args[i].attr, &ctx->maps[i], take_ref);
- 		if (err) {
- 			dev_err(dev, "Error Creating map %d\n", err);
- 			return -EINVAL;
- 		}
--
- 	}
-+
- 	return 0;
- }
- 
-@@ -1508,7 +1508,7 @@ static int fastrpc_init_create_process(struct fastrpc_user *fl,
- 	fl->pd = USER_PD;
- 
- 	if (init.filelen && init.filefd) {
--		err = fastrpc_map_create(fl, init.filefd, init.filelen, 0, &map);
-+		err = fastrpc_map_create(fl, init.filefd, init.filelen, 0, &map, true);
- 		if (err)
- 			goto err;
- 	}
-@@ -2100,7 +2100,7 @@ static int fastrpc_req_mem_map(struct fastrpc_user *fl, char __user *argp)
- 		return -EFAULT;
- 
- 	/* create SMMU mapping */
--	err = fastrpc_map_create(fl, req.fd, req.length, 0, &map);
-+	err = fastrpc_map_create(fl, req.fd, req.length, 0, &map, true);
- 	if (err) {
- 		dev_err(dev, "failed to map buffer, fd = %d\n", req.fd);
- 		return err;
--- 
-2.43.0
+[...]
 
+>>>> -	vc4_hdmi_disable_scrambling(encoder);
+>>>> +	drm_scdc_stop_scrambling(&vc4_hdmi->connector);
+>>>
+>>> I don't think the names here are right. It's not *only* related to scdc
+>>> but also to the HDMI controller. I'm fine with using a scdc prefix but
+>>> only for the things related to scdc. This is related (in part) to the
+>>> HDMI controller, so it should use a drm_connector_hdmi prefix.
+>>
+>> Ack. I guess we should also move these helpers out of drm_scdc_helper.c, but
+>> unsure where.  FWIW I'm currently working on adding HDMI 2.1 FRL support, and
+>> implemented the link training in a dedicated drm_hdmi_frl_helper.c.  
+>>
+>> Should we create drm_hdmi_scrambler_helper.c?  Or maybe have a common one to
+>> hold both - any suggestion for the naming?
+> 
+> display/drm_hdmi_helper.c sounds like a great place for both?
+
+Indeed, let's move all the stuff there.
+
+>>>>  	drm_dev_exit(idx);
+>>>>  
+>>>> @@ -1625,6 +1434,7 @@ static void vc4_hdmi_encoder_post_crtc_enable(struct drm_encoder *encoder,
+>>>>  	struct drm_display_info *display = &vc4_hdmi->connector.display_info;
+>>>>  	bool hsync_pos = mode->flags & DRM_MODE_FLAG_PHSYNC;
+>>>>  	bool vsync_pos = mode->flags & DRM_MODE_FLAG_PVSYNC;
+>>>> +	struct drm_connector_state *conn_state;
+>>>>  	unsigned long flags;
+>>>>  	int ret;
+>>>>  	int idx;
+>>>> @@ -1693,7 +1503,10 @@ static void vc4_hdmi_encoder_post_crtc_enable(struct drm_encoder *encoder,
+>>>>  	}
+>>>>  
+>>>>  	vc4_hdmi_recenter_fifo(vc4_hdmi);
+>>>> -	vc4_hdmi_enable_scrambling(encoder);
+>>>> +
+>>>> +	conn_state = drm_atomic_get_new_connector_state(state, connector);
+>>>> +	if (conn_state && conn_state->hdmi.scrambler_needed)
+>>>> +		drm_scdc_start_scrambling(connector);
+>>>
+>>> And the nice thing with a drm_connector_hdmi_* prefix is that you don't
+>>> have to shoehorn it into SCDC support anymore, so you can take a state
+>>> as an argument, and do the check in the helper instead of doing it in
+>>> every driver and hoping they get it right.
+>>
+>> I was about to consider a similar approach before deciding to let drivers manage
+>> the logic, i.e. to prevent loosing flexibility later when dealing with HDMI 2.1.
+>> That was mostly in the context of supporting drivers to define if/when a display
+>> mode that fits in TMDS should be sent over FRL. 
+>>
+>> Thinking again, that's not really a valid concern right now, e.g. will use TMDS
+>> by default for all supported modes, and switch to FRL only when absolutely
+>> required.  Later we might consider extending the infrastructure to support
+>> dynamic control if required.
+> 
+> Thanks for working on FRL as well :)
+> 
+> I agree, let's focus on getting HDMI 2.0 right, and then we'll try to
+> make 2.1 the easiest to work with for drivers.
+
+Thanks for clarifying the remaining details — I should now have everything I
+need to prepare a new revision. :)
+
+Regards,
+Cristian
