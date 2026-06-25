@@ -4,53 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B36ACDB47F
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:25:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C26ECDB47F
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:26:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D613A10F14C;
-	Thu, 25 Jun 2026 07:25:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8113710F14E;
+	Thu, 25 Jun 2026 07:26:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="kvR2dK2k";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ETSqUzsh";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B04410F14C
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 07:25:50 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gm9MH20n3z9tQr;
- Thu, 25 Jun 2026 09:25:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1782372347; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VQD35UO6Szx2rw0N2+oli/oEjPgYfVwfdvJ9X7POARs=;
- b=kvR2dK2kR1dyf5Tq8+qbQ76pCXcAPQg/vW3aGUr814ncITGW7RZEVrI1TXRAF+7hPogHHu
- FKFE/D8vmBW/yql8Aij69QlVwh41e7VpM3GilLj+yxK/5U7VAFIrzikZQ9gL+hTUfwxgpr
- yFmJfEeoA0y+3qlO8Mc9hMkK0kfgCU/BdINVJ0HQl7iOq0Yj65appxMXfl/Cirm2UTGMdh
- PFXnW2n0gPs0qt1f1K9iwUXu3VrQhkRYATOEC+BQkegbyO5F1kIYmfkh4JERMWgLI2wfNA
- iboDfIzVyIR5KxCW5OpC/7/lL/xBojMW1fZr8bFpyOW9KJFFocJ5q7shM0MMBA==
-Message-ID: <c9d8f3a762601f352bd176d4ae5c7977edaeab11.camel@mailbox.org>
-Subject: Re: dma_fence cleanup/rework
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
- phasta@kernel.org, simona@ffwll.ch, sumit.semwal@linaro.org, 
- tvrtko.ursulin@igalia.com, dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org
-Date: Thu, 25 Jun 2026 09:25:43 +0200
-In-Reply-To: <20260624122917.2483-1-christian.koenig@amd.com>
-References: <20260624122917.2483-1-christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57F3D10F14E
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 07:26:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782372414; x=1813908414;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=/JAMbYV6/MvMS5YmktMrYNIX493b56t4m6w329yYRCY=;
+ b=ETSqUzshfU7gxWrTA/fMB0Mb9/V2FTIm617Z1QHjw1jl619AfRwhsR7I
+ yiX1eWs8KH/4tczmlVKt9QKvxq5PKFPC7Q+ju6ZYn40NGBEG3JaALq7Zo
+ uDxfJ7MWmsuZNW/oNidMtUajDn37ZNy0iyFiXJNYq/iku+6l+1IzEkDW/
+ 6dwyFO13BHrj8W8q33NSJ0yUm1QIuPbr91K56v5wzT5z1TMcowYlJ++x+
+ 6MPAd6CJx5Yx/U2cv3j2hAeINd2SBHjnovgESZ8i/fOY16ZQ93qf6yOff
+ wnWaav8OOfkAK1yW81QVor8lHdc5fTBvACcNry2qmw5OKSn8EjnwBK0lb w==;
+X-CSE-ConnectionGUID: TReqOSecSACxLmo9DZW64A==
+X-CSE-MsgGUID: 3Gvo48frQNmdxj/c8KMbBQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="94636022"
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="94636022"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 00:26:54 -0700
+X-CSE-ConnectionGUID: 0cBg5HpcQ92wuLGB//QaJw==
+X-CSE-MsgGUID: 7G2IFw+sSgmoVJWfCXXYsg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="249049141"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 00:26:49 -0700
+Date: Thu, 25 Jun 2026 10:26:47 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+ Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v5 07/14] mfd: lm3533: Use dev_groups in struct
+ device_driver
+Message-ID: <ajzYN6nrvaiKqP5I@ashevche-desk.local>
+References: <20260617080031.99156-1-clamor95@gmail.com>
+ <20260617080031.99156-8-clamor95@gmail.com>
+ <ajzXidQCd8pe-L5b@ashevche-desk.local>
 MIME-Version: 1.0
-X-MBO-RS-META: 6h4y7a4cen9tnptfx3f9ke37werybozk
-X-MBO-RS-ID: 14a23481600515e0d57
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ajzXidQCd8pe-L5b@ashevche-desk.local>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,37 +79,34 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-06-24 at 13:13 +0200, Christian K=C3=B6nig wrote:
-> Then the last piece is dropping calling enable_signaling callback with th=
-e
-> dma_fence lock held. This makes it possible for backends to acquire locks
-> which are semantically ordered outside of the dma_fence lock.
->=20
-> This is necessary to allows using the dma_fence inline lock in more cases=
-,
-> previously backends used some common external lock for their dma_fences t=
-o
-> for example make it possible remove fences from linked lists.
+On Thu, Jun 25, 2026 at 10:24:00AM +0300, Andy Shevchenko wrote:
+> On Wed, Jun 17, 2026 at 11:00:24AM +0300, Svyatoslav Ryhel wrote:
 
-Hi Christian,
+...
 
-thx for all this work! I will review around a bit during the next days.
+> >  	.attrs		= lm3533_attributes
+> >  };
+> >  
+> > +static const struct attribute_group *lm3533_attribute_groups[] = {
+> > +	&lm3533_attribute_group,
+> > +	NULL,
+> > +};
+> 
+> We have ATTRIBUTE_GROUPS() macro.
 
-For completeness, let me ask here:
-Is there any relation, or any work in the pipe, which you would
-consider a good solution for the race conditions described in these two
-threads [1][2]?
+Okay, it uses is_visible, so __ATTRIBUTE_GROUPS() that we can still use.
+
+...
+
+> > +++ b/drivers/video/backlight/lm3533_bl.c
+> 
+> Same as per above.
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-Regards
-P.
-
-
-[1] https://lore.kernel.org/dri-devel/20260618-linux-drm_crtc_fix2-v1-1-c03=
-e77b36f34@linaro.org/
-[2] https://lore.kernel.org/dri-devel/fa0dc9757bf8343516c4b156a2b70ec91b64e=
-f8f.camel@mailbox.org/
