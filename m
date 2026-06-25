@@ -4,87 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DFB0CDE001
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 14:30:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD520CDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 14:31:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80DEA10F2F8;
-	Thu, 25 Jun 2026 14:30:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D05B10F2EF;
+	Thu, 25 Jun 2026 14:31:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="Q+bW08MB";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="qFc3oCu2";
 	dkim-atps=neutral
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C6AE10F2F8;
- Thu, 25 Jun 2026 14:30:18 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65P4JFRl405670; Thu, 25 Jun 2026 15:03:46 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=OcTQy6whelO1gq+B72/7YO9
- fJ7m0kZ9hwFtZQ6QGIm4=; b=Q+bW08MBvtXvrbd00vATpn9TEahpf0CrWEfhNUr
- dNNS9wXGSv4JddgmcoD93EHs3IJqiU0/Qba4FU4A6dwdwXapYFvrbeyiDMX/XZhZ
- sHFEkVqz756pkDmvMrxKIVSvopVpPOpB6cB75Y3HWKr8zOqlJEoyERNm4vOoMkfa
- JfFyzjiBRJIzDiE38HDVS9JapKFEArWMgWQgIliGEOs6mPBhvpPv9iuFnBHA1Nua
- RNkM6oI9yd0++7dp0u6sPugW9LVNEJaXCIm4sox1tjtdtmcdHZxhR43g4cyf6hUi
- 8A+OlCDZ/M/hv6YrNvsKE8LZwHWYAfXu6yt80Jp412gVZvQ==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4f0t728jce-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 Jun 2026 15:03:46 +0100 (BST)
-Received: from [127.0.1.1] (172.25.4.185) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 25 Jun
- 2026 15:03:45 +0100
-From: Matt Coster <matt.coster@imgtec.com>
-Subject: [PATCH 0/3] drm/imagination: Maintainer updates
-Date: Thu, 25 Jun 2026 15:03:36 +0100
-Message-ID: <20260625-maintainer-updates-v1-0-35112b2f038e@imgtec.com>
+Received: from CWXP265CU008.outbound.protection.outlook.com
+ (mail-ukwestazon11020138.outbound.protection.outlook.com [52.101.195.138])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E079810F2EF
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 14:31:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NJ/sCsURMHFHNGSKRMRC1UU0OwGB11hLBkOXDEbhokT3mUW5KfBPGbrCEreOr4rzsoVx07deBfrz1GjU7azyxdbIJ/kUh4Gs6mnyeUWQVdJXWSiPuy5o4WGoRuvAts6s9mqfyYIwzLuC2rMSv97NvLptYoOB+k3TF5RwtauBC1oXprhWXI8H5VJeASYHBzmb9+qk8sEWMrFL6xfVkYAXFogSXVxkP0ctI8G6LNcHkXRol2R1ZjG8vdEzwCzFeLNR3H7iuX/hvAc6eW35ttC4wfJ2ErsI4o4j18/Iv1IVAfGFq/d9U/ypxMQ59ThDftNctF0ckZQEsBBLcOLFYSzjCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=F4cKQWsb2grxb7B0k9Obt1pLRdNlrrpOkIkUkF7Hwc4=;
+ b=r2OKIwYa+odExamXV0HzAGkGzklrD/6wUOeHqWAqeNIcQUgk1PJfusvW8Pr8iryiJHzxPL8EV9quTHystQkUTVVdvhIUrF2Hshe7anZuVzbseV5yhyh4WStKpS78oTbHcJySB152A8icD7s0XFkLsRydYOGMxXyhNSboiXQ5SDHt0/n2fApHJPRbWkpWliqFHCwa6p/pCZASEkZv52ASM7PZHcD3AocMAC1ocGFlrkK6kUg3iFYbaLWYmx6oleaw/qpVnXa2WnZnwfQ48HPT+kGxbGmNW02Yv2Op5ItAN1dzAh3gY6HkeOjond9ay4JPVdPzt1LNrHHJAyf20LTWFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=F4cKQWsb2grxb7B0k9Obt1pLRdNlrrpOkIkUkF7Hwc4=;
+ b=qFc3oCu2ncW56fRDtaOgSYjDBom9D0kxiosQ183z5ztImc22IhAxNoKgsEMa7VHZjVxJmc1SHi0jUivJAU43DFi+OrOpXX3XnLD8yi1C00NkyDG/9jbaA1q9nMC6FJe1P0iJGkedCVuEYIpS/jPRHz5zNEqwHsILM9nkoTE4d9c=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO6P265MB7200.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:344::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
+ 2026 14:31:31 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0159.015; Thu, 25 Jun 2026
+ 14:31:31 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 25 Jun 2026 15:31:30 +0100
+Message-Id: <DJI7BIXM00EX.1QA63RTRJAC4T@garyguo.net>
+To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
+ <rafael@kernel.org>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
+ <acourbot@nvidia.com>, <ecourtney@nvidia.com>, <m.wilczynski@samsung.com>,
+ <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
+ <daniel.almeida@collabora.com>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>
+Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pwm@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v3 5/7] rust: devres: add DevresLt for ForLt-aware
+ device resource access
+From: "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.21.0
+References: <20260618230834.812007-1-dakr@kernel.org>
+ <20260618230834.812007-6-dakr@kernel.org>
+In-Reply-To: <20260618230834.812007-6-dakr@kernel.org>
+X-ClientProxiedBy: LO4P123CA0048.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:152::17) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIADg1PWoC/yXMQQ5AMBCF4avIrDWhUcFVxKJqMBIlnVYk4u6Kx
- Vt8i/dfwOgIGZrkAocHMW02Ik8TMLO2EwoaokFmssxKWYhVk/Vx6ETYB+2RRT+avKqlKpRSEI+
- 7w5HOL9p2vzn0Cxr/luC+H65h4+V2AAAA
-X-Change-ID: 20260624-maintainer-updates-bfc189254555
-To: <imagination@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
- <luigi.santivetti@imgtec.com>, Frank Binns <frank.binns@imgtec.com>,
- "Brajesh Gupta" <brajesh.gupta@imgtec.com>, Alexandru Dadu
- <alexandru.dadu@imgtec.com>,
- <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- Matt Coster <matt.coster@imgtec.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=988; i=matt.coster@imgtec.com; 
- h=from:subject:message-id;
- bh=iSZ+AgvC2DWDc+PLE6JDggxMSRLW5Vxm2W02U3jdNjU=; 
- b=owGbwMvMwCVWuUfy8817WRsYT6slMWTZmtq/+x1yWuzsDnO5BPYgg4UVp/917TAqDA4VsNSYd
- cNxb9+kjlIWBjEuBlkxRZYdKyxXqP1R05K48asYZg4rE8gQBi5OAZjIKS1GhqO6hZLuLsVCVt3r
- W2MnNi+092h9lruc/4xixc7Aa4fd3BgZpmzdVXFvB7dk7eHnHhyZu54cPz7p624xw88NnDcypCO
- MmAA=
-X-Developer-Key: i=matt.coster@imgtec.com; a=openpgp;
- fpr=05A40CFCE7269D61D97100A1747F0A9036F90DFA
-X-Originating-IP: [172.25.4.185]
-X-Proofpoint-ORIG-GUID: _Waomku9iG-GnkieZfxTcdMeDC2gyrxW
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI1MDEyMCBTYWx0ZWRfX3aI0ywAgxuju
- uqLSW1R2Gd68sSM9vw8Hfo2MTmhVKg/9tN5sqajXqsmmAgNlax+WoNYKcpM/Y/TyUG52fphw+tc
- AxLEVAmZUlDReqUx6b9trfLpzzjVijA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDEyMCBTYWx0ZWRfXyZW552nZ5rpp
- cDHIF0v04YcuS45MDbOJ0yCUqyMmZ0WGFWVKMIQStFoTvs8EsQyCoJy3RH8CxowuCj0tG1n010G
- XYD+r3ZImhtemKQwG3b0aw5KP4bIT3lPz3/p+gfmvJReVlM0BakYzTdqR+PkkraWS8U8aOmpaC5
- TFkO+D8763tscH8jfmIJ+borzq3zWVViGSeIK3Vfao3OvZhPWO7zomzCNxnHd1GEiz13kKTFRWF
- oQ2ABCbD4k3YdQlMqwFvcwaFFJF5gfWjszzOqxg7h0HhuDRPQe3a7l/KET5ehWQ5c227OISWdQz
- f6PBCLGCynE6p591h+tlWoc+aRe4i2gGZniXyr4opB6lJZAmpmcwcBm+1s6a2XKsdCE8NxVdsck
- xYo5hSlvW5DqJG23qwBVXp/Zo++78LT1sPH4tHOmgEkzW4er3T7EzTvNw5Em/iyq+9UUePkUzRW
- r+cFT4ZXf+PXA4R2eFg==
-X-Authority-Analysis: v=2.4 cv=ee0NubEH c=1 sm=1 tr=0 ts=6a3d3542 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=e416AD1ZbSsA:10 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=C7lNtc9udWNi9DOn6YEA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-GUID: _Waomku9iG-GnkieZfxTcdMeDC2gyrxW
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO6P265MB7200:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8b6f792d-3c31-4b22-a7fa-08ded2c67321
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|23010399003|7416014|1800799024|376014|366016|921020|6133799003|56012099006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: G2OjPSOG5xPt6ay9E3n6oXSGQhD6O6XAMs1WOlz1+jLSYg0C+RY2A477PBowHvoPiMvBHl46p/QUHnv4ClXdS//L8t8CZ3JVW6CH6MY6e8IVOYShcDeSjPQLKzNFSs+Pzz5EX2eo1wuvpsF+3sQLiJsHGUCIS8bDK0JsFq3tdxOV08W7npQMLKDJgxfOzhOfso5POqNXlYTUGiQumPx12dXx9JITJ0HpP9auvw/0FnhJyGtWpMh1qxUNA7I/VUJnkn8D0iw0tZu9CXiBXhWzvIijyB9JGpGB6TTT0ACd1B6AciaXecAq+Bz/qcyyCBBKMpd+N4npev3O5mF2tFIauleclnie8+eJlkD8QlGNx1lqSlPDLQZ7BMbflEYytq97VQ5cJU0fBo43S/VwwFlHzNV34pDqs1182pVM1loX1Fb1SI/Pt7xaoVjKQvjytnJhY9sstW5drOTmQ3gLiBPkhU/M48bv5Ly/uSTYpmOBt6aRjn0XM+R6+wf5Vo0NVepQJTzQE3QNTQ+gIpqywCE7eYkGQVD9oyqFaePDD9DOqqp2RvW7Z6+26LHjrnabmmNs02K8Y2S7rGmPHztJ7HmZooxOm2QZAzoN1i4WQNk7DOCMNhztUrC9R/Foa0rhbcMbUBujnydWE58ST07fhKnShuPLKvNXzwd2YOrG08zZgsbVlbOOo0EehJT8CZAM1FabRzJr+/0pJLzJGLdfWgke2Q==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(23010399003)(7416014)(1800799024)(376014)(366016)(921020)(6133799003)(56012099006)(4143699003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?em9SVjJVZEJyOWZKSGVTZi9LTU9BV1AyUDAvYkNPaDQ1Y2paZE41WEl0WVQ1?=
+ =?utf-8?B?QklqSlc3TmFaUVlzR0l0cmgvSGc3YzcxSS9XUUVOZ05xbFEreEJ1NWtFNjhF?=
+ =?utf-8?B?YWtiQVZlL0dpOGQvOFRNUGRWSmszc2IzcXJ3aFlIaUh2bnFoY0k0V2lyQmNJ?=
+ =?utf-8?B?SitNdXRqOXRZQnVZeTVoZlk3K0RvNVFGVUkrUnB2L3p4Wmc4OTNmRVVqTlhZ?=
+ =?utf-8?B?WkpYQ1RtVmVBdDNvSDBqZVlrdWtsbGxrQkJJUXNaZXdScVJVY1lCUUNQcXIx?=
+ =?utf-8?B?L29CbnFkbkxwNXkwWnM2UVlCZmN4S05ZcjZWd2ZnendaWmxuZjVSQkVKM2U4?=
+ =?utf-8?B?RHZQaW5RcjhaZklQemo4OWI0UUVtV3FUT00yK01MNzVIOGRJQk9IM0c1bXpj?=
+ =?utf-8?B?dVRSMFEvYkVNZk9ZS3piY3MvYmZQbWF4UG00QTllYzlMckZ5TEw4eHpqR2l1?=
+ =?utf-8?B?dGJrN3RMOTFvcG5LUUVaejFpWWJoT0NOdC9taitnMjBoUzJqcStqQXBLb3My?=
+ =?utf-8?B?SkpNRHVVL25vYnROWW00UnRCcDYzWElXRFlpWkpWb0F1cmpyTlYyeVlhUDlR?=
+ =?utf-8?B?R3NWWVN1aTRneXNuN0wzVlFjazNReUc4TUpxL3J1NkJMZ1VNY0pGcEEzYlJn?=
+ =?utf-8?B?SnF6MlB2b1BXNGllcCtzTlJXenVXQml1NGNPb0xrcFNlM2lITndWc2JDZDVZ?=
+ =?utf-8?B?RzZZY2FCU1ZheVYvNkhaNjIyMThGYkdRcmE0ZDVxQWZyYzNkZEl3WGtwaGRG?=
+ =?utf-8?B?NHgvdUZjbThDS1NrRVhNUUZLNFljU1hyWDBIYysvdkFaSkZXdWdidDFUYTNM?=
+ =?utf-8?B?UHppSmpnbHVPalVoTm9McEp4UzBlRi9OamxaS1NSSXNmRExML1JJUE9DcVIv?=
+ =?utf-8?B?OElsNkJ4QUxPVEpDNDNLZEp3M3gwZW5hQ0UrcHVxbEIzY3R1T01pMzdTdndN?=
+ =?utf-8?B?NDhlTnN4OWFCblE5YzFsdVM0Sk5LK2o4RDlBZlpUSi96MVlBSGhOK0JiQnNh?=
+ =?utf-8?B?SHJOWG1iTHJCZFl1SVliMDZ4Vld4a0lJUEYwQTczMlFXRGZpOGoyb3VmUi9s?=
+ =?utf-8?B?RDNkUTl4NlFSa2drVGowZFZSTXFxVDFpbVBNa2d0cnBtM216UWF3SFJDTjN1?=
+ =?utf-8?B?M3QwVk52UEtiRFJCcG1NZFprTEdvQlptU3hwMEhmZWlkSElBYmdscDkwYVZL?=
+ =?utf-8?B?QUgyVmN4VmhRSFh6RVpsYm1DTW5WTEw4T1NadFlFcmRabmx0VVIzYWZkZmtX?=
+ =?utf-8?B?c0dYOWtVajNlK0UzeHBpYzI3aU4yTWp3U3VaYThtNW94TW1XMlJRNVBwbGFx?=
+ =?utf-8?B?MkN1UUJYNXlIQkFtY3d1U2tCYVF0WjVHUzJaczk2cWlBNGNUQ1FhekhnZHJx?=
+ =?utf-8?B?SkpHSXBVck0yMUtZZnh0SjlQK0xNc0JacWx5c1Y3T2ExOHM5OGxEOEVibnBF?=
+ =?utf-8?B?czBJcFNnYVFlY3JXZU9oOUo0MVZUcXlSbUM5OXhzS3hNZFVpZWdIb01kMlov?=
+ =?utf-8?B?R1ZPVllrTHZHa25DWXAvY2hGdmVjY3dRRUh5YjVjcS9FTEltSnlQY1BWZHMx?=
+ =?utf-8?B?aEVIbXE5YWJkaWlUUldlQUFuL1c5Q2I0WllMQnJXa0d1Q2pJYXh1N3lubXBI?=
+ =?utf-8?B?M2h3eTJEaXhaSFZSNXdVVjV4SjRISGt1eHBVYUttMUszdVVMSlhxTXBTcWU2?=
+ =?utf-8?B?YnhvSXZEWk5QbjRxM0ZMcVRVVHNTZWdxWTA1L2xuTkZsYXpOdFlGN0plcjBK?=
+ =?utf-8?B?VWtIOFpScU1MRlMxcVYycjR0RDBBQjlXUWYycFpzdW1CTFJQeTVLLzVBMWFF?=
+ =?utf-8?B?YktIeDZyc0huVUdvcm5ER2RHMjlPYzhJVnZyWmg0TjZZSTZxK0ducXNBTkIx?=
+ =?utf-8?B?UEUzeTFHSkI0QlBLZld3L1E4empjSjFNQ3lyTFZ5WDdkR2xMN1dxcGlBNmN4?=
+ =?utf-8?B?ckxzRGlBU08rcXNRZHRlb2liNG5BQW5uZ3VobnMvM0oyZUo3RGFzdldFekpR?=
+ =?utf-8?B?eEplK1VmZTU5Ym1NaHNRSFBQam1RVFg0YWtkYW53YUJyT05oTE5YUnJlR0dK?=
+ =?utf-8?B?ejJzcXFLNTNYZEZhU2ppOTlWOVFjd21lYlJqRVkyaUloSDhnMDc1NjQyNXVQ?=
+ =?utf-8?B?MXdGWCszRnVJY09Yczh6NzErOVM4ZjdybmdBWktjOEVBbEJQM2d3RHJHYXhK?=
+ =?utf-8?B?OWpiOGRoSFlCanZMNEl4U1NoRlEwbE5ZWXJ3MENhcDM1MnRCVTRpb2V0ZDR3?=
+ =?utf-8?B?TzkrOEdtZ0VlSlA2aHlKcDU4bXpIUXN4VFVuMG5jVHQ2QzBoNXJ2ek01VDEv?=
+ =?utf-8?B?elJGUGR3UTVTMmsybEczTGdtTGRYUHA1TlZ4alAwVklWSTU4NnVsdz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b6f792d-3c31-4b22-a7fa-08ded2c67321
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 14:31:31.1214 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vVyEmA998hH6U/n/Lhq9FGgUfk3j/Y8GthRVX75YT2z9zn6z2FY72Lm7UlMr5kgL9ockpDPHUgtgAJr1ex6NXg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P265MB7200
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,26 +145,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We've got some new people stepping up to help out with maintainership of
-the imagination driver, so let's take this opportunity to unify the
-maintainer list where it appears across multiple files.
+On Fri Jun 19, 2026 at 12:08 AM BST, Danilo Krummrich wrote:
+> Devres<T> stores resources as T and returns &'a T from access(). For
+> lifetime-parameterized types like Bar<'a, SIZE> that are transmuted to
+> 'static for storage, this exposes the synthetic 'static lifetime to
+> callers -- any method on the stored type that returns a reference with
+> its lifetime parameter would yield a &'static reference, which is
+> unsound.
+>
+> Add DevresLt<F: ForLt>, a thin wrapper around Devres<F::Of<'static>>
+> that shortens the stored 'static lifetime to the caller's borrow
+> lifetime in all access methods.
+>
+> DevresLt::new() is unsafe because the caller must guarantee that the
+> data remains valid for the device's full bound scope; the internal
+> transmute from F::Of<'a> to F::Of<'static> would otherwise allow
+> use-after-free.
+>
+> Two access patterns are provided:
+>
+> - CovariantForLt types get direct-reference accessors (access,
+>   try_access) that return shortened references via
+>   CovariantForLt::cast_ref.
+>
+> - Plain ForLt types use closure-based accessors (access_with,
+>   try_access_with) whose universally quantified lifetime prevents
+>   callers from smuggling in concrete short-lived references.
+>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>  rust/kernel/devres.rs | 100 ++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 100 insertions(+)
+>
+> diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
+> index 11ce500e9b76..e11deff3e1be 100644
+> --- a/rust/kernel/devres.rs
+> +++ b/rust/kernel/devres.rs
+> @@ -24,6 +24,8 @@
+>          Arc, //
+>      },
+>      types::{
+> +        CovariantForLt,
+> +        ForLt,
+>          ForeignOwnable,
+>          Opaque, //
+>      },
+> @@ -365,6 +367,104 @@ fn drop(&mut self) {
+>      }
+>  }
+> =20
+> +/// Guard returned by [`DevresLt::try_access`].
+> +///
+> +/// Dereferences to `F::Of<'a>`, shortening the lifetime of the stored d=
+ata to the guard's borrow
+> +/// lifetime.
+> +pub struct DevresGuard<'a, F: CovariantForLt>(RevocableGuard<'a, F::Of<'=
+static>>);
+> +
+> +impl<'a, F: CovariantForLt> core::ops::Deref for DevresGuard<'a, F> {
+> +    type Target =3D F::Of<'a>;
+> +
+> +    fn deref(&self) -> &Self::Target {
+> +        F::cast_ref(&*self.0)
+> +    }
+> +}
+> +
+> +/// Device-managed resource with [`ForLt`](trait@ForLt)-aware access.
+> +///
+> +/// `DevresLt` wraps [`Devres`] and shortens the stored `'static` lifeti=
+me to the caller's borrow
+> +/// lifetime in all access methods.
+> +///
+> +/// Types that implement [`trait@CovariantForLt`] get direct-reference a=
+ccessors ([`Self::access`],
+> +/// [`Self::try_access`]). Plain [`ForLt`](trait@ForLt) types use closur=
+e-based accessors
+> +/// ([`Self::access_with`], [`Self::try_access_with`]).
+> +pub struct DevresLt<F: ForLt>(Devres<F::Of<'static>>)
+> +where
+> +    F::Of<'static>: Send;
 
-There are also some new resources (mailing list, patchwork, IRC) that
-didn't previously exist and had not yet been added, so let's do that now
-as well.
+This bound looks weird. I know this is to satisfy `Devres`'s bound, but I t=
+hink
+this should actually read:
 
-Signed-off-by: Matt Coster <matt.coster@imgtec.com>
----
-Matt Coster (3):
-      MAINTAINERS: Update imagination details
-      MAINTAINERS: Update imagination maintainers
-      dt-bindings: gpu: img,powervr-*: Add maintainer entries
+    for<'a> F::Of<'a>: Send
 
- Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml |  4 +++-
- Documentation/devicetree/bindings/gpu/img,powervr-sgx.yaml   |  4 +++-
- MAINTAINERS                                                  | 10 +++++++---
- 3 files changed, 13 insertions(+), 5 deletions(-)
----
-base-commit: 60b5fa6edfef867322fce7c8306e5c4b46211be7
-change-id: 20260624-maintainer-updates-bfc189254555
+Best,
+Gary
+
+> +
+> +impl<F: ForLt> DevresLt<F>
+> +where
+> +    F::Of<'static>: Send,
+> +{
+> +    /// Creates a new [`DevresLt`] instance of the given `data`.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// The data must remain valid for the device's full bound scope. [`=
+DevresLt`] allows
+> +    /// access until the device is unbound, which may outlast `'a`.
+> +    pub unsafe fn new<'a, E>(
+> +        dev: &'a Device<Bound>,
+> +        data: impl PinInit<F::Of<'a>, E>,
+> +    ) -> Result<Self>
+> +    where
+> +        Error: From<E>,
+> +    {
+> +        // SAFETY: The caller guarantees the data is valid for the devic=
+e's full bound scope.
+> +        // Lifetimes do not affect layout, so F::Of<'a> and F::Of<'stati=
+c> have identical
+> +        // representation; casting the slot pointer is sound.
+> +        let data =3D unsafe {
+> +            pin_init::pin_init_from_closure::<F::Of<'static>, E>(move |s=
+lot| {
+> +                data.__pinned_init(slot.cast())
+> +            })
+> +        };
+> +
+> +        Ok(Self(Devres::new(dev, data)?))
+> +    }
+> +
+> +    /// Return a reference of the [`Device`] this [`DevresLt`] instance =
+has been created with.
+> +    pub fn device(&self) -> &Device {
+> +        self.0.device()
+> +    }
+> +
+> +    /// Obtain `&F::Of<'_>`, bypassing the [`Revocable`], through a clos=
+ure.
+> +    ///
+> +    /// This method works like [`DevresLt::access`](DevresLt::access) bu=
+t accepts any
+> +    /// [`trait@ForLt`] type, not just [`trait@CovariantForLt`].
+> +    pub fn access_with<R, G>(&self, dev: &Device<Bound>, f: G) -> Result=
+<R>
+> +    where
+> +        G: for<'a> FnOnce(&F::Of<'a>) -> R,
+> +    {
+> +        self.0.access(dev).map(f)
+> +    }
+> +
+> +    /// [`DevresLt`] accessor for [`Revocable::try_access_with`].
+> +    pub fn try_access_with<R, G>(&self, f: G) -> Option<R>
+> +    where
+> +        G: for<'a> FnOnce(&F::Of<'a>) -> R,
+> +    {
+> +        self.0.data().try_access_with(f)
+> +    }
+> +}
+> +
+> +impl<F: CovariantForLt> DevresLt<F>
+> +where
+> +    F::Of<'static>: Send,
+> +{
+> +    /// Obtain `&'a F::Of<'a>`, bypassing the [`Revocable`].
+> +    ///
+> +    /// This method works like [`Devres::access`], but shortens the retu=
+rned reference's lifetime
+> +    /// from `'static` to `'a` via [`CovariantForLt::cast_ref`].
+> +    pub fn access<'a>(&'a self, dev: &'a Device<Bound>) -> Result<&'a F:=
+:Of<'a>> {
+> +        self.0.access(dev).map(F::cast_ref)
+> +    }
+> +
+> +    /// [`DevresLt`] accessor for [`Revocable::try_access`].
+> +    pub fn try_access(&self) -> Option<DevresGuard<'_, F>> {
+> +        self.0.data().try_access().map(DevresGuard)
+> +    }
+> +}
+> +
+>  /// Consume `data` and [`Drop::drop`] `data` once `dev` is unbound.
+>  fn register_foreign<P>(dev: &Device<Bound>, data: P) -> Result
+>  where
+
 
