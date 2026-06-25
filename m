@@ -4,43 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62DF2CDB47C
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 02:44:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BF06CDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 03:02:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B49410E141;
-	Thu, 25 Jun 2026 02:44:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF4C510E14C;
+	Thu, 25 Jun 2026 03:02:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NVRGLeMm";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="f3XfhSe6";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4630310E141
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 02:44:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2F80760018;
- Thu, 25 Jun 2026 02:44:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 970D41F000E9;
- Thu, 25 Jun 2026 02:44:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782355447;
- bh=3Ed2BxiIMhPYhguUas11kdQuuX+949t4PYJnWbso7fE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NVRGLeMmLalGytwhg5adDBNe+7jCzIwUs9rKVghYKGYPCDlpfU6vAGFJiZCvnXwvl
- /GKBo62am4QeQ+9VAmTPkJ80Ej3m/3LWw1dekF2pZaQ3vztPD1PNBNwpxMkZmoEmSq
- cEudMBhJGgi2twp+npUmvdc9RX3AFAPmuxq9CMM7LExn/QsJVXOM4Zm301tMYZcimi
- uUpINIyWSSbOROuU0Q+hY+NUOl/ikp4Vi3BW4S+hdMlQS1X7xp4KfMNS2QI4UD5jr0
- RKjdxa3mL1Z8HIQpUhRoDxoL68+OM4G8XI2pLatYLvgnD4zIgPR6p3kkvYmbwQtrsZ
- zK4WjqVXxKKQA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/logicvc: Fix layer_node reference leak in
- logicvc_layers_init()
-To: "Jason Xiang" <jx@jasonxiang.net>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260625023359.26011-1-jx@jasonxiang.net>
-References: <20260625023359.26011-1-jx@jasonxiang.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 02:44:07 +0000
-Message-Id: <20260625024407.970D41F000E9@smtp.kernel.org>
+Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com
+ [91.218.175.185])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 641D810E14C
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 03:02:19 +0000 (UTC)
+Message-ID: <0ed6b5c3-e955-46e2-9fc6-075a0dfd1c4f@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1782356535;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=bg7TU7hDzDNv/08FHHH/On04xmb+0Xhy9JCW39bnqOs=;
+ b=f3XfhSe6G7brFNVp6GZqjOXNU3vcFca4poUFfkwgVZymI1EYtq9zeoyJzoopay7HWx5JvC
+ E0YJXxuEv9p9ioc24zHIhHD7MfpA8W6eQqa3vo59Vdd3bvTmswHZxeWqPUReOxJ21Oxizv
+ nnsvKa6R3D4a+gLxizvgKiVabRJ3kcE=
+Date: Thu, 25 Jun 2026 11:01:21 +0800
+MIME-Version: 1.0
+Subject: Re: [PATCH v3 1/7] list: Add mutable iterator variants
+To: David Laight <david.laight.linux@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ "David Hildenbrand (Arm)" <david@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Tejun Heo <tj@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Paul Moore <paul@paul-moore.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ "Paul E. McKenney" <paulmck@kernel.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, David Howells <dhowells@redhat.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>, Randy Dunlap
+ <rdunlap@infradead.org>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Philipp Stanner <phasta@kernel.org>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
+ linux-ntfs-dev@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
+ io-uring@vger.kernel.org, audit@vger.kernel.org, bpf@vger.kernel.org,
+ netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, live-patching@vger.kernel.org,
+ linux-modules@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-pm@vger.kernel.org, rcu@vger.kernel.org, sched-ext@lists.linux.dev,
+ linux-mm@kvack.org, virtualization@lists.linux.dev, damon@lists.linux.dev,
+ llvm@lists.linux.dev, Kaitao Cheng <chengkaitao@kylinos.cn>,
+ Muchun Song <muchun.song@linux.dev>
+References: <20260622040533.29824-1-kaitao.cheng@linux.dev>
+ <20260622040533.29824-2-kaitao.cheng@linux.dev>
+ <20260622094242.64531b9a@pumpkin>
+ <351a6b67-b394-4c58-aee2-88b6c8089ad5@linux.dev>
+ <cf8467c7-b98f-44a5-9cf9-60b43b5da711@amd.com>
+ <20260624152324.3def88ce@pumpkin>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+In-Reply-To: <20260624152324.3def88ce@pumpkin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,89 +88,210 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+在 2026/6/24 22:23, David Laight 写道:
+> On Wed, 24 Jun 2026 15:23:47 +0200
+> Christian König <christian.koenig@amd.com> wrote:
+>> On 6/24/26 15:14, Kaitao Cheng wrote:
+>>> 在 2026/6/22 16:42, David Laight 写道:  
+>>>> On Mon, 22 Jun 2026 12:05:31 +0800
+>>>> Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
+>>>>  
+>>>>> From: Kaitao Cheng <chengkaitao@kylinos.cn>
+>>>>>
+>>>>> The list_for_each*_safe() helpers are used when the loop body may
+>>>>> remove the current entry.  Their API exposes the temporary cursor at
+>>>>> every call site, even though most users only need it for the iterator
+>>>>> implementation and never reference it in the loop body.
+>>>>>
+>>>>> Add *_mutable() variants for list and hlist iteration.  The new helpers
+>>>>> support both forms: callers may keep passing an explicit temporary cursor
+>>>>> when they need to inspect or reset it, or omit it and let the helper use
+>>>>> a unique internal cursor.  
+>>>>
+>>>> I'm not really sure 'mutable' means anything either.
+>>>> It is possible to make it valid for the loop body (or even other threads)
+>>>> to delete arbitrary list items - but that needs significant extra overheads.
+>>>>
+>>>> It might be worth doing something that doesn't need the extra variable,
+>>>> but there is little point doing all the churn just to rename things.
+>>>>  
+>>>>>
+>>>>> This makes call sites that only mutate the list through the current entry
+>>>>> less noisy, while keeping the existing *_safe() helpers available for
+>>>>> compatibility.
+>>>>>
+>>>>> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+>>>>> ---
+>>>>>  include/linux/list.h | 269 +++++++++++++++++++++++++++++++++++++------
+>>>>>  1 file changed, 231 insertions(+), 38 deletions(-)
+>>>>>
+>>>>> diff --git a/include/linux/list.h b/include/linux/list.h
+>>>>> index 09d979976b3b..1081def7cea9 100644
+>>>>> --- a/include/linux/list.h
+>>>>> +++ b/include/linux/list.h
+>>>>> @@ -7,6 +7,7 @@
+>>>>>  #include <linux/stddef.h>
+>>>>>  #include <linux/poison.h>
+>>>>>  #include <linux/const.h>
+>>>>> +#include <linux/args.h>
+>>>>>  
+>>>>>  #include <asm/barrier.h>
+>>>>>  
+>>>>> @@ -763,28 +764,72 @@ static inline void list_splice_tail_init(struct list_head *list,
+>>>>>  #define list_for_each_prev(pos, head) \
+>>>>>  	for (pos = (head)->prev; !list_is_head(pos, (head)); pos = pos->prev)
+>>>>>  
+>>>>> -/**
+>>>>> - * list_for_each_safe - iterate over a list safe against removal of list entry
+>>>>> - * @pos:	the &struct list_head to use as a loop cursor.
+>>>>> - * @n:		another &struct list_head to use as temporary storage
+>>>>> - * @head:	the head for your list.
+>>>>> +/*
+>>>>> + * list_for_each_safe is an old interface, use list_for_each_mutable instead.
+>>>>>   */
+>>>>>  #define list_for_each_safe(pos, n, head) \
+>>>>>  	for (pos = (head)->next, n = pos->next; \
+>>>>>  	     !list_is_head(pos, (head)); \
+>>>>>  	     pos = n, n = pos->next)
+>>>>>  
+>>>>> +#define __list_for_each_mutable_internal(pos, tmp, head)		\
+>>>>> +	for (typeof(pos) tmp = (pos = (head)->next)->next;		\  
+>>>>
+>>>> Use auto
+>>>>  
+>>>>> +	     !list_is_head(pos, (head));				\
+>>>>> +	     pos = tmp, tmp = pos->next)
+>>>>> +
+>>>>> +#define __list_for_each_mutable1(pos, head)				\
+>>>>> +	__list_for_each_mutable_internal(pos, __UNIQUE_ID(next), head)
+>>>>> +
+>>>>> +#define __list_for_each_mutable2(pos, next, head)			\
+>>>>> +	list_for_each_safe(pos, next, head)
+>>>>> +
+>>>>>  /**
+>>>>> - * list_for_each_prev_safe - iterate over a list backwards safe against removal of list entry
+>>>>> + * list_for_each_mutable - iterate over a list safe against entry removal
+>>>>>   * @pos:	the &struct list_head to use as a loop cursor.
+>>>>> - * @n:		another &struct list_head to use as temporary storage
+>>>>> - * @head:	the head for your list.
+>>>>> + * @...:	either (head) or (next, head)
+>>>>> + *
+>>>>> + * next:	another &struct list_head to use as optional temporary storage.
+>>>>> + *		The temporary cursor is internal unless explicitly supplied by
+>>>>> + *		the caller.
+>>>>> + * head:	the head for your list.
+>>>>> + */
+>>>>> +#define list_for_each_mutable(pos, ...)					\
+>>>>> +	CONCATENATE(__list_for_each_mutable, COUNT_ARGS(__VA_ARGS__))	\
+>>>>> +		(pos, __VA_ARGS__)  
+>>>>
+>>>> The variable argument count logic really just slows down compilation.
+>>>> Maybe there aren't enough copies of this code to make that significant.
+>>>> But just because you can do it doesn't mean it is a gooD idea.
+>>>> I'm also not sure it really adds anything to the readability.
+>>>>
+>>>> And, it you are going to make the middle argument optional there is
+>>>> no need to change the macro name.  
+>>>
+>>> Christian König and Jani Nikula also disagree with the variadic-argument
+>>> implementation approach. If we abandon that method, it means we will
+>>> inevitably need to add some new macros. If mutable is not a good name,
+>>> suggestions for better alternatives would be welcome; coming up with a
+>>> suitable name is indeed rather tricky.  
+>>
+>> I don't think you need to add a new macro for the specific use case that people want to modify the next element of the iteration.
+>>
+>> If I remember your numbers correctly that is a really corner case and keeping using the existing *_safe() macros for that sounds perfectly fine to me.
+> 
+> IIRC currently you have a choice of either:
+> 	define               Item that can't be deleted
+> 	list_for_each()	     The current item.
+> 	list_for_each_safe() The next item.
+> There is also likely to be code that updates the variables to allow
+> for other scenarios.
+> 
+> Note that if increase a reference count and release a lock then list_for_each()
+> is likely safer than list_for_each_safe() :-)
+> 
+> list.h has 9 variants of the 'safe' loop.
+> The bloat of another 9 is getting excessive.
+> 
+> It has to be said that this is one of my least favourite type of list...
 
-Pre-existing issues:
-- [High] Use-after-free on DRM mode objects (plane, CRTC) due to `devm_kzal=
-loc` memory allocation combined with `drmm_mode_config_init` lifecycle mana=
-gement, and incorrect explicit freeing via `devm_kfree()`.
---
+Hi Christian König, David Laight, Jani Nikula, David Hildenbrand,
+Andy Shevchenko, Alexei Starovoitov
 
-commit 0b8e61159a658d64dd9da573a68be2d6791f659b
-Author: Jason Xiang <jx@jasonxiang.net>
+For ease of discussion, I need to summarize the currently possible
+approaches and briefly describe their respective pros and cons,
+using the list_for_each_entry* interfaces as examples.
 
-drm/logicvc: Fix layer_node reference leak in logicvc_layers_init()
+1. Add list_for_each_entry_mutable, while keeping list_for_each_entry
+and list_for_each_entry_safe unchanged. list_for_each_entry_mutable
+would be used specifically for safe deletion scenarios that do not
+need to expose the temporary cursor externally. The code can refer to
+the v1 version.
 
-This commit fixes a reference leak on layer_node in the error path of
-logicvc_layers_init() by adding an of_node_put() call.
+Pros: Does not depend on immediate per-subsystem adaptation and can be
+      merged directly.
+Cons: Requires adding a whole set of mutable interfaces, which makes the
+      code somewhat redundant.
 
-> diff --git a/drivers/gpu/drm/logicvc/logicvc_layer.c b/drivers/gpu/drm/lo=
-gicvc/logicvc_layer.c
-> index 7f5ba000188ab..e83a2aafed779 100644
-> --- a/drivers/gpu/drm/logicvc/logicvc_layer.c
-> +++ b/drivers/gpu/drm/logicvc/logicvc_layer.c
-> @@ -613,6 +613,7 @@ int logicvc_layers_init(struct logicvc_drm *logicvc)
-> =20
->  		ret =3D logicvc_layer_init(logicvc, layer_node, index);
->  		if (ret) {
-> +			of_node_put(layer_node);
->  			of_node_put(layers_node);
->  			goto error;
+2. Directly optimize away the temporary cursor in list_for_each_entry_safe
+and define it inside the loop instead, changing the interface from four
+arguments to three.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does jumping to this error
-label cause a use-after-free on DRM mode objects?
+Pros: Does not add redundant interfaces.
+Cons: (1) Users need to manually update special cases that use the
+      traversal variable of list_for_each_entry_safe, the new
+      list_for_each_entry_safe would no longer apply there and would
+      need to be open-coded.
+      (2) Because the macro arguments changes, all list_for_each_entry_safe
+      callers would need to be modified and merged together, making it
+      difficult to merge such a large amount of code at once.
 
-Looking at logicvc_layer_init(), layers are allocated with devm_kzalloc():
+3. Use a variadic macro approach to optimize list_for_each_entry_safe,
+so that it supports both three and four arguments.
 
-drivers/gpu/drm/logicvc/logicvc_layer.c:logicvc_layer_init() {
-	...
-	layer =3D devm_kzalloc(dev, sizeof(*layer), GFP_KERNEL);
-	...
-	ret =3D drm_universal_plane_init(drm_dev, &layer->drm_plane, ...);
-	...
-}
+Pros: (1) Does not add redundant interfaces.
+      (2) Does not depend on immediate per-subsystem adaptation and can
+      be merged directly.
+Cons: (1) Increases compile time.
+      (2) Makes the interface harder for users to use.
 
-If an error occurs in logicvc_layers_init() after some layers are
-successfully initialized, it jumps to the error label:
+4. Optimize list_for_each_entry by defining the temporary cursor internally,
+making it compatible with the functionality of list_for_each_entry_safe.
+The code can refer to the v2 version.
 
-drivers/gpu/drm/logicvc/logicvc_layer.c:logicvc_layers_init() {
-	...
-error:
-	list_for_each_entry_safe(layer, next, &logicvc->layers_list, list)
-		logicvc_layer_fini(logicvc, layer);
-	...
-}
+Pros: (1) Does not add redundant interfaces.
+      (2) The number of externally visible arguments of list_for_each_entry
+      remains unchanged, still three.
+Cons: (1) list_for_each_entry and list_for_each_entry_safe would be merged
+      into one, and list_for_each_entry_safe would gradually be deprecated.
+      (2) Users need to manually update special cases that use the traversal
+      variable of list_for_each_entry, the new list_for_each_entry would no
+      longer apply there and would need to be open-coded. There are 15 such
+      cases in total.
 
-Then logicvc_layer_fini() explicitly frees the layer memory using devm_kfre=
-e():
+5. Use a variadic macro approach to optimize list_for_each_entry, so that
+it supports both three and four arguments.
 
-drivers/gpu/drm/logicvc/logicvc_layer.c:logicvc_layer_fini() {
-	...
-	list_del(&layer->list);
-	devm_kfree(dev, layer);
-}
+Pros: (1) Does not add redundant interfaces.
+      (2) Does not depend on immediate per-subsystem adaptation and can be
+      merged directly.
+Cons: (1) Increases compile time.
+      (2) list_for_each_entry and list_for_each_entry_safe would be merged
+      into one, and list_for_each_entry_safe would gradually be deprecated.
 
-Since the layer was registered with drm_universal_plane_init(), manually
-freeing the layer without calling drm_plane_cleanup() leaves a dangling
-pointer in drm_dev->mode_config.plane_list.
+6. Make no changes, keep the current logic unchanged, and close the current
+email discussion.
 
-Additionally, on driver unbind or probe unwind, devres cleans up memory
-before drmm_mode_config_init() runs its cleanup, which could iterate over
-freed objects. A similar pattern appears to exist for the CRTC allocation
-in logicvc_crtc_init().
 
-Does this driver need to be updated to use drmm_universal_plane_alloc() and
-similar drmm_* helpers to safely tie the object lifecycles to the DRM device
-instead of devres?
+Which of the six solutions above do people prefer?
 
->  		}
+-- 
+Thanks
+Kaitao Cheng
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625023359.2601=
-1-1-jx@jasonxiang.net?part=3D1
