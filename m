@@ -4,56 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D36F1CDB479
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 15:23:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 972BDCDE001
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 15:37:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 877DD10F316;
-	Thu, 25 Jun 2026 15:23:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D496F10E216;
+	Thu, 25 Jun 2026 15:37:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="noaEykE2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TW/wejn5";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26D7A10F311;
- Thu, 25 Jun 2026 15:23:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782400989; x=1813936989;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=izqtDzGnHbtQxmtPbrBFDOh/jxd8obvs5oRqGmLQp8s=;
- b=noaEykE2DWWkb+54FQRSQlzSaaz+o6dQ+rNABvnEIfw6K/MCyyPaZ2x5
- 0dvcl0sd28WtzJOXfrTkjoBEovSHSpq9T/eUMoshizsnvt9F952Oa8hwW
- sE9jZFQakcsHIRgzrY4grbauiAEdXdsWTpQKsO4zfNI1gm8STp1O+HKDG
- x/f7JpAzIqDJ8Rkm/4pyzjGFgR0BtT3a5Ve0AAHIS2ze4oj33V/Kvq5Sc
- fv5TJNApDlFTG/ao+0MbowiXO/fhXUYbhCZLCCEftt75VeiYU66anpmMg
- I/tl5poJ790gw/oAZp9MPAuQhzDReBr/JEVHvHwD/SgPLDEJqC20BNjCg g==;
-X-CSE-ConnectionGUID: 0hps54/fTLecjMFNEcl80Q==
-X-CSE-MsgGUID: ebDy0K8tQayIp6L4ZmB/Rw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="83056872"
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="83056872"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2026 08:22:57 -0700
-X-CSE-ConnectionGUID: b/SIcBjkR8K01b+45U1XYg==
-X-CSE-MsgGUID: cc8dx6h4S8SoRjjm6y4ZuQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="251333019"
-Received: from black.igk.intel.com ([10.91.253.5])
- by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2026 08:22:56 -0700
-Date: Thu, 25 Jun 2026 17:22:53 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Andi Shyti <andi.shyti@linux.intel.com>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Andi Shyti <andi.shyti@kernel.org>
-Subject: Re: [PATCH] drm/i915/gt: Return bool values from a boolean helper
-Message-ID: <aj1HzUjokwiZCk7T@black.igk.intel.com>
-References: <20260625114442.2912230-1-andi.shyti@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260625114442.2912230-1-andi.shyti@linux.intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E038310E216
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 15:37:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9DCDB433D7;
+ Thu, 25 Jun 2026 15:37:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D9F31F000E9;
+ Thu, 25 Jun 2026 15:37:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782401861;
+ bh=PJMaTOTEV+3qAiDvmou8y3Qd9f5k/8zmUmGSxE6J34I=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=TW/wejn5gaFl4QwhRo84CStKHCVWQ/xMwoL9elIFVYdz+MhwrbTpDsMiHbmR8KXXZ
+ pQohcmjdCDftVUmNwFMG39Fw/eGg+i6ct3HBkHvyuWcLaWJxwq4iqpNgCq0+jocVYI
+ CX7Mym39UHj6DCKQ3WxUXzsKv3aPTahoeItsJZTPYtgJ30hHvwu0AM23Lc/8H1pnqw
+ dm4LZwEjH/NQjQg97cLQDPbrlTDHh34ZbFDW6aioUKvH/6Q6hodV0zLRXuBpsAKSqJ
+ k1MmrECK+LLMh4H4jOqlpgMWu/GWA9kJ76kUK6gao2ykBWcnbAIVVR2b1FQJRIZect
+ rvLeOgcq6zZ7A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/amd/display: Fix dangling pointer in plane state
+ reset on allocation failure
+To: "Evgenii Burenchev" <evg28bur@yandex.ru>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260625151717.27757-1-evg28bur@yandex.ru>
+References: <20260625151717.27757-1-evg28bur@yandex.ru>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 25 Jun 2026 15:37:40 +0000
+Message-Id: <20260625153741.4D9F31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,40 +53,93 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 25, 2026 at 01:44:42PM +0200, Andi Shyti wrote:
-> intel_has_gpu_reset() returns logically correct values by
-> returning a function pointer when GPU reset is supported and
-> NULL otherwise. However, as a boolean helper, it is more
-> appropriate to return explicit true or false values.
-> 
-> Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/intel_reset.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-> index b2cf672564dd..a3f198646e1d 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_reset.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-> @@ -797,9 +797,9 @@ static int __intel_gt_reset(struct intel_gt *gt, intel_engine_mask_t engine_mask
->  bool intel_has_gpu_reset(const struct intel_gt *gt)
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+
+Pre-existing issues:
+- [High] Dangling pointers in `amdgpu_dm_crtc_reset_state` and `amdgpu_dm_c=
+onnector_funcs_reset` upon memory allocation failure.
+--
+
+commit a2f21c8f5312ce74d2f0b34c962db8d83e4d242f
+Author: Evgenii Burenchev <evg28bur@yandex.ru>
+
+    drm/amd/display: Fix dangling pointer in plane state reset on allocatio=
+n failure
+
+    In amdgpu_dm_plane_drm_plane_reset(), the old plane state is freed
+    before allocating a new one. If kzalloc_obj() fails, the function
+    returns without updating plane->state, leaving a dangling pointer
+    to already freed memory.
+
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/dr=
+ivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index c7f8e08feaf4b..65c0aeeba090c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -1490,20 +1490,30 @@ static void amdgpu_dm_plane_drm_plane_reset(struc=
+t drm_plane *plane)
 >  {
->  	if (!gt->i915->params.reset)
-> -		return NULL;
-> +		return false;
+>  	struct dm_plane_state *amdgpu_state =3D NULL;
+> =20
+> -	if (plane->state)
+> -		plane->funcs->atomic_destroy_state(plane, plane->state);
+> -
+>  	amdgpu_state =3D kzalloc_obj(*amdgpu_state);
+> -	WARN_ON(amdgpu_state =3D=3D NULL);
 
-I know the logic remains the same but isn't this Fixes material?
+[Severity: High]
+This isn't a bug introduced by this patch, but does the same dangling
+pointer issue exist in other reset functions within amdgpu_dm?
 
-Raag
+For example, in drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+within amdgpu_dm_crtc_reset_state():
 
-> -	return intel_get_gpu_reset(gt);
-> +	return !!intel_get_gpu_reset(gt);
->  }
->  
->  bool intel_has_reset_engine(const struct intel_gt *gt)
-> -- 
-> 2.53.0
-> 
+	if (crtc->state)
+		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
+
+	state =3D kzalloc_obj(*state);
+	if (WARN_ON(!state))
+		return;
+
+If kzalloc_obj() fails, this returns early without setting crtc->state to=20
+NULL, leaving a dangling pointer to the state freed by=20
+amdgpu_dm_crtc_destroy_state().
+
+Similarly, in drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+within amdgpu_dm_connector_funcs_reset():
+
+	kfree(state);
+
+	state =3D kzalloc_obj(*state);
+
+	if (state) {
+		// ...
+		__drm_atomic_helper_connector_reset(connector, &state->base);
+	}
+
+If the allocation fails here, connector->state is never cleared and remains=
+=20
+dangling.
+
+Could these locations also be updated to prevent a potential use-after-free=
+=20
+under memory pressure?
+
+> =20
+>  	if (!amdgpu_state)
+> -		return;
+> +		goto err_alloc;
+> +
+> +	/* Old state can now be safely destroyed. The new state is already allo=
+cated and will be assigned */
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625151717.2775=
+7-1-evg28bur@yandex.ru?part=3D1
