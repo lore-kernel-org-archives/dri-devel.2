@@ -4,62 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50815CDE008
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:49:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9C45CD4F26
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:53:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A68EB10F466;
-	Fri, 26 Jun 2026 07:49:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEB8D10F469;
+	Fri, 26 Jun 2026 07:53:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ENrxtksp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lcYBgwVL";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC2D010F466
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 07:49:21 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 247ED600AE;
- Fri, 26 Jun 2026 07:49:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AF641F000E9;
- Fri, 26 Jun 2026 07:49:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782460160;
- bh=0Z+lWCSvofkli6OyVNpk9Jgr3cVRVtExR6E73RKGyXA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ENrxtkspaetlYvSL1aVOlUDXkwgZvAC/Ljngw/vxT4HLbRsaShuutYLh4TqJEOBrk
- +Vlvk2/iCs3Ep8q899Dn9+YenP2EZTxt2zNGv7XsuMPlWYX6wPL1kUktKO8qY78Xk0
- 41c+ZUmzZ7wHkhSj197jm78o2B22Jmv6wvamoswHTWlmlrh17KiDLNaCOYKXtGwgcA
- WQApsKmMpY3qkVrmKw+lsP1bHAG2OOZJyHSOEEuS9aulLS/W39QCHK8218tfXuMdy6
- xhSUHVI+P1DfcIVh8sVcIsF4s221ok4H/C7hHECpc9kim5xl2CtUtU5D4P6hCpGL2g
- wuGHkKxZUvHIw==
-Date: Fri, 26 Jun 2026 09:49:18 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Sunyun Yang <syyang@lontium.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, robh@kernel.org, 
- krzk+dt@kernel.org, conor+dt@kernel.org, andrzej.hajda@intel.com, 
- neil.armstrong@linaro.org, dmitry.baryshkov@oss.qualcomm.com, 
- maarten.lankhorst@linux.intel.com, rfoss@kernel.org,
- Laurent.pinchart@ideasonboard.com, 
- tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com,
- xbpeng@lontium.com
-Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-Message-ID: <20260626-zippy-affable-hamster-22101d@houat>
-References: <20260508134009.4582-1-syyang@lontium.com>
- <20260508134009.4582-3-syyang@lontium.com>
- <3188f63f-5358-48d7-b934-af20a8f95c6f@kernel.org>
- <CAFQXuNbKBfyeQL3N3P5QY=6BWoD3O6DSbXN-WMA1rRG9vCs3Kg@mail.gmail.com>
- <a0352a42-15db-4c7a-ae73-8a4e1543cd50@kernel.org>
- <CAFQXuNZVE6cZJGwrGKGtWnB-seSJLHFh8zW3jjAs6U4JLZFWng@mail.gmail.com>
- <CAFQXuNa8bJCpZBkMs_3mtbK_pjVzDdaDaoGk0KDxiG_Pf7txdg@mail.gmail.com>
- <6371d1d8-cdfb-40fa-84c7-ba3ec4e2ac00@kernel.org>
- <CAFQXuNZtzBu+WiG8n0BeN47zagQmL-iz_6Af7prk-xHLAeRBwg@mail.gmail.com>
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A21A210E258
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 19:18:49 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-463f1165e16so120265f8f.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 12:18:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782415128; x=1783019928; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=tTyM35y6Mbrz+qoI5NtVOHtNU0+Ypkllq1+98zXeje0=;
+ b=lcYBgwVLLIfmiSKnSf9JqYRPlKcxkdB9ZufSDi3nB8mQwAfm+eamevUFLVBUqaQXxR
+ WI7fiMi0orH0rXvGBcIW3aKiPHydO7i71AZ61QLxtahsGBA1Xlu4rB/XzhPa6P5Hn3Mp
+ 8E93Oi90yh5NHcIqwJtzuellL8/KzkHb1RoU7q4FhRUt6yT6qO4qQ2QXCVlg7gnMkxB6
+ NyOdkyngjpJ88FguceB4ZVfemjEoxr3nz6fjDlFOyIu0PpWUj+UJIZHvF6QwkiIruA2U
+ 7rrEGtftiVsHwFvYd9pzuofC7+eU2QWVKuh4OnkIHwsdAoHUG2q//I3aYmUkZgKLup6z
+ owFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782415128; x=1783019928;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tTyM35y6Mbrz+qoI5NtVOHtNU0+Ypkllq1+98zXeje0=;
+ b=NYU5llveEIAK1HP+I4uBlByp+X+jPDgAavFEN5Gbsc+LCelElSEVPy2WlhLuFUeqp8
+ 2ypNZbFSnEERc14JMfvaSp65HMO7UQsaKGkhj/RKif9FjSmoES4ZJIp90KE1V/srVsiM
+ 1BM4ePZ/S1MVKhIsC+Bo2QHSZFpwpYWXwIhnYWCaMKIc6H8r687eNkvuxzC3gs/ArYkE
+ ZbmnfJ5o035FS6793QA81zd97rFh8V3Mf+ZUpk/ecSUJRYFu204RU9zhbBtwkVhdLheX
+ s3CXRnbSKluGRlwrApe2eBep5spY6eGHvavYwKDXMXk6Q1A/rdirJ3AIgEmwWNZk+lsx
+ IQUA==
+X-Gm-Message-State: AOJu0Yz/EuAYVvk3MWV9IfamXE8SmKbDlmxBNaBcBujfXvyC7eLr/mxW
+ EEdvTGfcmqQ3nNbjaAIt2n2xLd1m+ywXS/0+QL2jD3wG+ebFFmE6sAi0Y6V0bna5
+X-Gm-Gg: AfdE7cn1JBfSSTsMlyVnsNnuoROwOLZh1AccGCZ+ZLKz98mf8PMSzs6baQ1PFPfu7lS
+ 6HyI283azmIjkSaQJ3hrplaL7aPMCM5q6tnhQFElMs4TG64tzZSIFmVwLSVWprDzEOS+zg0nUCb
+ rTPFOmH2o6PaSz77CNGLACaf75yXy68SG/Edhnff6CnNvuE4uRVBeamghnKj5xSJlQaJIWfEEFa
+ f0ByRC6tcvS05qIXM9uwrskbO3GhG+PTlFFNa/eBDVeDbZ7OwJ7VXwUzOI2xQKVBmkaHCBvruZ2
+ HJjy39y/GGDmC9PTa9k8TmtGzRX/VwUedTBBVXIPT22+JsVD0kmopFBnAF8tmg98mLhAl5xxMgt
+ mD+Bg/w2B0UH88cEsA//wPH8lib/4okWsiN09lCCwL3XacuEq4OFGWUpm+iah/PaoOyAWqwzkxI
+ aj3ak7vtu8TfveNFZR89A3pjMOejnQGvPDlHi2hNb3B8yZ7NOXMh+cPSLoCwldRK81cgp7fv+oI
+ 7U3
+X-Received: by 2002:a05:600d:644a:20b0:490:a298:acf7 with SMTP id
+ 5b1f17b1804b1-49266899f6dmr42968995e9.17.1782415127585; 
+ Thu, 25 Jun 2026 12:18:47 -0700 (PDT)
+Received: from torre-GIGABYTE-B550-AORUS-ELITE-V2
+ (212.pool95-21-2.static.orange.es. [95.21.2.212])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-492691f60bcsm16514615e9.1.2026.06.25.12.18.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jun 2026 12:18:47 -0700 (PDT)
+From: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>
+Subject: [PATCH] Memory leak error in qxl unbind
+Date: Thu, 25 Jun 2026 21:18:12 +0200
+Message-ID: <20260625191812.70066-1-megia.oscar@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="gnx6ikseltg43tzx"
-Content-Disposition: inline
-In-Reply-To: <CAFQXuNZtzBu+WiG8n0BeN47zagQmL-iz_6Af7prk-xHLAeRBwg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 26 Jun 2026 07:53:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,133 +90,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+I discovered 64 bytes memory leak when qxl unbind is executed.
 
---gnx6ikseltg43tzx
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-MIME-Version: 1.0
+Checked with echo scan > /sys/kernel/debug/kmemleak
 
-On Fri, Jun 26, 2026 at 10:15:03AM +0800, Sunyun Yang wrote:
-> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8825=
-=E6=97=A5=E5=91=A8=E5=9B=9B 21:51=E5=86=99=E9=81=93=EF=BC=9A
-> >
-> > On 25/06/2026 15:40, Sunyun Yang wrote:
-> > > Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=E6=9C=8825=
-=E6=97=A5=E5=91=A8=E5=9B=9B 21:26=E5=86=99=E9=81=93=EF=BC=9A
-> > >>
-> > >> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=
-=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:17=E5=86=99=E9=81=93=EF=BC=9A
-> > >>>
-> > >>> On 25/06/2026 15:14, Sunyun Yang wrote:
-> > >>>> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=
-=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 20:54=E5=86=99=E9=81=93=EF=BC=9A
-> > >>>>>
-> > >>>>> On 08/05/2026 15:40, syyang@lontium.com wrote:
-> > >>>>>> +
-> > >>>>>> +static void lt9611c_reset(struct lt9611c *lt9611c)
-> > >>>>>> +{
-> > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> > >>>>>> +     msleep(20);
-> > >>>>>> +
-> > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> > >>>>>> +     msleep(20);
-> > >>>>>> +
-> > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> > >>>>>
-> > >>>>> This is just plain wrong. Why do you assert, then de-assert and t=
-hen
-> > >>>>> finally assert AGAIN the reset leaving the device in powerdown st=
-age?
-> > >>>>>
-> > >>>> I am using software to emulate the hardware RESET button on our EV=
-B.
-> > >>>> When the hardware RESET button is pressed while our chip is runnin=
-g,
-> > >>>> the signal level changes from HIGH to LOW and then back to HIGH.
-> > >>>>
-> > >>>> Of course, we can also use the following:
-> > >>>> static void lt9611c_reset(struct lt9611c *lt9611c)
-> > >>>> {
-> > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> > >>>>     msleep(50);
-> > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> > >>>>     msleep(20);
-> > >>>> }
-> > >>>
-> > >>> Makes no sense either and you just did not get the point and did not
-> > >>> answer my question. I asked WHY you leave asserted. Answer "we emul=
-ate"
-> > >>> is just plain wrong.
-> > >>>
-> > >>> So again please answer:
-> > >>>
-> > >>> Why do you leave device with reset asserted?
-> > >>>
-> > >>
-> > >>  devicetree:   reset-gpios =3D <&tlmm 128 GPIO_ACTIVE_HIGH>;
-> > >>
-> > >> GPIO_ACTIVE_HIGH:
-> > >>
-> > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);   ------   reset p=
-in
-> > >> is Low level : Clear the register configuration in the chip to stop
-> > >> the chip from working.
-> > >>
-> > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);   ------  reset pin
-> > >> is high level:  The chip resumes operation.
-> > >>
-> > >>
-> > >
-> > > Our purpose is: pull the level low to clear the register configuration
-> > > in the chip, and then pull it high to allow the MCU inside the chip to
-> > > re=E2=80=91initialize the registers.
-> >
-> >
-> > And you do completely opposite... so that confirms your code is just wr=
-ong.
-> >
->=20
-> The lontium-lt9611.yaml uses GPIO_ACTIVE_HIGH. I am just following the
-> rule of this device tree. If I modify the device tree to use
-> GPIO_ACTIVE_LOW,
-> and use the following code in my driver, then my driver would be correct.
-> However, would the existing kernel drivers lontium-lt9611uxc.c and
-> lontium-lt9611.c be affected?
+You need to apply
+[PATCH] drm/qxl: fix use-after-free in qxl_irq_handler on PCI
+before test it.
 
-It might, but then it's a DT problem. The GPIO API for drivers always
-considers the logical state of a GPIO, so if you need to assert a
-signal, you'll always need to set 1. That's what Krzysztof was trying to
-explain.
+Assisted-by: OpenCode:1.17.8-Big Pickle
+Signed-off-by: Óscar Megía López <megia.oscar@gmail.com>
+---
+ drivers/gpu/drm/ttm/ttm_pool.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-The DT will provide with GPIO_ACTIVE_* how that logical state translates
-to a physical GPIO state.
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index 278bbe7a11ad..15191efe9f7e 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -401,6 +401,7 @@ static void ttm_pool_type_fini(struct ttm_pool_type *pt)
+ 
+ 	list_lru_walk(&pt->pages, pool_move_to_dispose_list, &dispose, LONG_MAX);
+ 	ttm_pool_dispose_list(pt, &dispose);
++	list_lru_destroy(&pt->pages);
+ }
+ 
+ /* Return the pool_type to use for the given caching and order */
+-- 
+2.54.0
 
-If the DT says that this particular GPIO is active-high, then it means
-that we need to set the GPIO to 1 to assert reset. Now of course, it
-might not make sense for the controller itself, but it might for the
-board if there's a GPIO inverter in the middle for example.
-
-Anyway, in the case you're raising, the issue definitely lies in the DT,
-and that's what would need to be fixed.
-
-I also wouldn't be too concerned about lontium-lt9611.yaml, it's just an
-example.
-
-Maxime
-
---gnx6ikseltg43tzx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaj4u/gAKCRAnX84Zoj2+
-dqNLAX9z69D2OFoJUyMGybrjCXf43nZF1Hh6FsJ1C2j70iKcWxXlKrkcrmNAMHse
-58B1vxcBf27xWlsEv8gazvq3QBinLgCk+ZV6tON+aUbvlwgZCSb8KwSH+H/Wk7Ok
-dachx3g9/w==
-=c2Ft
------END PGP SIGNATURE-----
-
---gnx6ikseltg43tzx--
