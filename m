@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81F83CDE000
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 13:02:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AD99CDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 13:03:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1FF210ECF7;
-	Thu, 25 Jun 2026 13:02:45 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Sveoc4cA";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E15DF10EAA5
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 13:02:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BCA9D443C5
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 13:02:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D5421F000E9;
- Thu, 25 Jun 2026 13:02:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782392560;
- bh=wWpfoYo0he+1/XkBK644Cd03AtNcgDe0rI1UeR8YX1Y=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=Sveoc4cAKUNYDUtQpv4K47fJt/hl7zZK8tsbX7Ne7/wCLB9uAGPnltdA6YWtTRmJU
- /7xHIU7y01csInUJPCg/9YhVEti1MXSSaQW6E6aOPRwZjo//DcXdHRau31CXto4Hji
- eEgUU7pqSa6ZEQDgQQzdCMSue43OPdISm4w3RcDKye391ngRppV/oBzlwI2rSP4Rsx
- Ut773Qzi7tSBz58yGrEDUuGtDK55hnMqIKhvfqGjBSWWCgCw0h69p/1kmQW+L5oKoW
- FP4dONHVHNdJwMd12HA7Zi7KhLHbHYvnRVoiISe1fU8lM2RPiyeRbyyDeEaqzP5quo
- PIzLXh3E/J1Tw==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-pci@vger.kernel.org, ojeda@kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v18 8/8] rust: page: add `from_raw()`
-In-Reply-To: <20260625102549.B56171F00A3E@smtp.kernel.org>
-References: <20260625-unique-ref-v18-0-4e06b5896d47@kernel.org>
- <20260625-unique-ref-v18-8-4e06b5896d47@kernel.org>
- <24fS7Cgk-Y_pR5s6G0gXJ3zpbj_q2vdQ6BamOE62CiY_dtN1xrG5oDJqTy0LCceddw2AsvATlzKDX0MwJIg7Cw==@protonmail.internalid>
- <20260625102549.B56171F00A3E@smtp.kernel.org>
-Date: Thu, 25 Jun 2026 15:02:28 +0200
-Message-ID: <871pduixi3.fsf@t14s.mail-host-address-is-not-set>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FC1810EBD7;
+	Thu, 25 Jun 2026 13:03:20 +0000 (UTC)
+X-Greylist: delayed 4698 seconds by postgrey-1.36 at gabe;
+ Thu, 25 Jun 2026 13:03:19 UTC
+Received: from 20.mo581.mail-out.ovh.net (20.mo581.mail-out.ovh.net
+ [46.105.49.208])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EA5110EBD7
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 13:03:19 +0000 (UTC)
+Received: from director9.ghost.mail-out.ovh.net (unknown [10.110.0.173])
+ by mo581.mail-out.ovh.net (Postfix) with ESMTP id 4gmH6M3XtXz5yYZ
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 11:44:59 +0000 (UTC)
+Received: from ghost-submission-7d8d68f679-xfpdk (unknown [10.111.182.62])
+ by director9.ghost.mail-out.ovh.net (Postfix) with ESMTPS id D12D680EFF;
+ Thu, 25 Jun 2026 11:44:58 +0000 (UTC)
+Received: from etezian.org ([37.59.142.102])
+ by ghost-submission-7d8d68f679-xfpdk with ESMTPSA
+ id vF+/G7oUPWp1RSYAtJDhiQ
+ (envelope-from <andi@etezian.org>); Thu, 25 Jun 2026 11:44:58 +0000
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-102R00415302d01-2a52-45cb-9a42-458e3b3c8a61,
+ 20FD450D999EB22A6E066B2D596748FFE04DB42B) smtp.auth=andi@etezian.org
+X-OVh-ClientIp: 178.82.31.9
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: dri-devel <dri-devel@lists.freedesktop.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>, Andi Shyti <andi.shyti@kernel.org>
+Subject: [PATCH] drm/i915/gt: Return bool values from a boolean helper
+Date: Thu, 25 Jun 2026 13:44:42 +0200
+Message-ID: <20260625114442.2912230-1-andi.shyti@linux.intel.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 1493787704206267421
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: dmFkZTGVaW+6PV9gVfPh92WHYd0KDcfoF5+9nwYDvlaBN3PWZTxNIEUaF2megbst3Y0VmJnlJPFzJmph4fZPnGmTcEfy2DhY9WJK3sgOl62ZKMQEgeCv9CVyjgDjYNSGPW6n5Ug02OFt7eKdfg7L02GfTe0xKZHHQ9quidsSyAKeQm94KnTwaZzQJc0E1V9KJEUD0TIfxX97Fri5cUlWpkAeGf/Zs14NTJBv3m5XH/F4cjF2BF2vCYkZS51o7S6Pu8LpFFoay2d7QoQeHCy4n3nav4Cf7UWwMZHr/8HfUew4b24jU/fgi/lvx457SLslKva5KMKH3o9YUSM4+HCWvwQeEUbXKp+Fy350xtd+ZdwUNKPZCniCDvqwd80xSJyYID12K2eSoKIx2EkoZIPRSnw37642WkeEPK2N6+RsRkLEPj95AOzj9/fPYw3irm8dUHcF/gkylFFHLtX86T2LccmaB96R7Vz3eww8p+Bzt35p4I0dboVHDpdtTnH4p6Ul62K/CBEDyPByp8GsRUr6JX2xCzia230IiQax9fjl7ayEn2PyF5PfpNi0NDBjVBsVB8LgjZ3rhAQ7esdVuK6y1o69pJJqJx0SlB5WqJvGf9XXEyZp8o7JaAlx+bPWNRTW0IzJPGWk4j2/iQoNVCIDo4d+g/qepBVHSvBlc2sIxOrw0WdLvA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,66 +58,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-<sashiko-bot@kernel.org> writes:
+intel_has_gpu_reset() returns logically correct values by
+returning a function pointer when GPU reset is supported and
+NULL otherwise. However, as a boolean helper, it is more
+appropriate to return explicit true or false values.
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] The `# Safety` documentation for `Page::from_raw` is missing the precondition that `ptr` must point to a valid `struct page`.
-> --
->
-> commit f6aeebdd661d4004190de07e9d991442f793517a
-> Author: Andreas Hindborg <a.hindborg@kernel.org>
->
-> rust: page: add `from_raw()`
->
-> This commit adds a from_raw() method to the Page abstraction. It allows
-> the construction of a shared reference to a Page instance directly from a
-> raw struct page pointer.
->
->> diff --git a/rust/kernel/page.rs b/rust/kernel/page.rs
->> index 6dc1c2395acaf..c88fda09ead5a 100644
->> --- a/rust/kernel/page.rs
->> +++ b/rust/kernel/page.rs
->
-> [ ... ]
->
->> @@ -143,6 +143,20 @@ pub fn nid(&self) -> i32 {
->>          unsafe { bindings::page_to_nid(self.as_ptr()) }
->>      }
->>
->> +    /// Create a `&Page` from a raw `struct page` pointer.
->> +    ///
->> +    /// # Safety
->> +    ///
->> +    /// `ptr` must be convertible to a shared reference with a lifetime of `'a`.
->> +    #[inline]
->> +    pub unsafe fn from_raw<'a>(ptr: *const bindings::page) -> &'a Self {
->
-> [Severity: Medium]
-> Is the safety documentation missing a requirement here?
->
-> The # Safety section only requires that ptr is convertible to a shared
-> reference. Under Rust's rules, an uninitialized or dummy pointer could
-> technically be converted to a shared reference if properly aligned.
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_reset.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-This is not correct. A pointer is only convertible to a shared reference
-if it is pointing to properly initialized data [1].
-
->
->> +        // INVARIANT: By the function safety requirements, `ptr` refers to a valid `struct page`, so
->> +        // the returned reference upholds the type invariant of `Page`.
->
-> The invariant justification inside the function explicitly relies on the
-> caller guaranteeing that ptr refers to a valid struct page. Could the
-> # Safety documentation be updated to explicitly require that ptr points
-> to a valid, initialized struct page so that callers do not inadvertently
-> violate the Page type invariant?
-
-For `ptr` to be convertible to a shared reference, it must point to
-valid and initialized data.
-
-Best regards,
-Andreas Hindborg
-
-
-[1] https://doc.rust-lang.org/stable/core/ptr/index.html#pointer-to-reference-conversion
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index b2cf672564dd..a3f198646e1d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -797,9 +797,9 @@ static int __intel_gt_reset(struct intel_gt *gt, intel_engine_mask_t engine_mask
+ bool intel_has_gpu_reset(const struct intel_gt *gt)
+ {
+ 	if (!gt->i915->params.reset)
+-		return NULL;
++		return false;
+ 
+-	return intel_get_gpu_reset(gt);
++	return !!intel_get_gpu_reset(gt);
+ }
+ 
+ bool intel_has_reset_engine(const struct intel_gt *gt)
+-- 
+2.53.0
 
