@@ -4,80 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4AE7CDE012
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0191CDE008
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63A2610F48B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 735E510F48D;
 	Fri, 26 Jun 2026 07:53:45 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RrbZBANT";
-	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9ABC910F1FF
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 09:45:04 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-37e00ef16ccso124338a91.1
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 02:45:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782380704; x=1782985504; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zG+ncOED8kJvI4v12/W3LY0+BgurY5fCH2pouNtIlDQ=;
- b=RrbZBANTrhilRvTB4x2dgcBdPQtGT4jarVMvxFsX8jhzkuKgbfB1JM0FoQVIA26nml
- 6bArjpI4olDTMLO5vNL6lfkfZL2WRP4jOz/wpz7yPLQzSOI5EjEcPLMYuuN/2/r+muFe
- Fn/w6y9/jPmjnNvccD+jWv7C0m2Y8JN8nF5g5Q70GoeN+tcyzQFFtzilnUFqbtLmRsj0
- UbAH6fWLCwrE7bgp+z57Mrcz96382UIkPubIN/VBKYpiKqJ9tehgfVICH5iMi+m7ERx9
- imDMi5JjBdjazbQQG0eSTNMtzagYuXtgXpa3dfPGgXO+MI3QXmgavqHwKKOr0DaSpQO6
- lDoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782380704; x=1782985504;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=zG+ncOED8kJvI4v12/W3LY0+BgurY5fCH2pouNtIlDQ=;
- b=sKRarb2GjWK7XzDARArk4OHvPMPIgdXCDAfLbCFCoOHRh1FLOxpz12evXoPFLJISz+
- 8SW5VBr7athAvxDRiqih5MiSNp7Wp8I6HiOHa/EbPacPjrPvHdyWebB1rMlusYWHbBGi
- hpuJfKRjaxSp8ygF4DH3VP2bQuDOvfBGX+6EvDP94e6NNdjYaun8n8M4SiRKVLoV2Wkb
- FxKE5ct5q0NAyCpODW9WrCrITT46sAruM/U5xotX+/eQWkpHZOwjwOpoET7j2D3U10Vo
- 1BUQt73xPOuOsiSJ50id08foCimaXru0Jwpcf+ThaCIBYl7Wilh67ffBR+Mrpf0yVd7z
- jUcA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rrj1CKCeuvEZ2h+UyJHs365oOaPwbEKUBUxCG/CoVKydi7QVskrgmYXC0sow0SR+a7HJ8IrMOsR+Q8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxvP/L3nvRRm8pZy7bRV0ULTsr6XRkvkijhPpf4QGjc2KErwUyq
- TfFXQFfm0udKJplp11kiIXhJEBkXuwlpWTaBbwr2tFVoDH7y4a34lIas
-X-Gm-Gg: AfdE7clwHIc4mynyXD3w1w6q6qzGGPFfo1uS++48CYHIYemPHpWTQMc5wXN0XNLLato
- XuvinaLDNPX8Gr1EhvywUkIJI1lbYL220XjVZYDORer5Nr7lPRhcvZUsuIQturc3yBGCtHV/HjL
- zUh7k6/G6MsgHZaHYQcaYFqu8YBfegrszYZHMZvT8mxSXzXYo/GL6ezxdT8l4oEZpSC225KwWvo
- 8NP7uD3dH1VLlM7sV2oadRbSxaHQgvEqIyJQ1SImS1mv+X0U6Uy0jiFQYAWmPNRLMkb27uwwNwS
- D4Q1kBFwNcAfZf5LvJaBTtXjRX3Z/m6lAkHI4kfrilRF/7ZzYPJx/jYKuQBCViO6v+9vzCUQ7fr
- BtMA/30yaQST3ZE6wIegPITJUQz0Xg0ystQ4rG8OxDnugi8xrfhGHBN9Se1RvxkOKIixeVx9H2w
- TWpyaSzPmkkrmFTB6RDA/FnDjq8MDHR3lwMYCtyA4TBWbfIUNtANHsdbfiRphe8cuoH0ebg2cfk
- w==
-X-Received: by 2002:a17:902:fc4b:b0:2c7:e318:1d86 with SMTP id
- d9443c01a7336-2c7fc6545f7mr18443535ad.1.1782380704007; 
- Thu, 25 Jun 2026 02:45:04 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c7f5ac8c26sm16614995ad.1.2026.06.25.02.45.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jun 2026 02:45:03 -0700 (PDT)
-From: Joey Lu <a0987203069@gmail.com>
-To: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH v5 2/7] drm/verisilicon: add register-level macros for DC8000
-Date: Thu, 25 Jun 2026 17:44:44 +0800
-Message-ID: <20260625094449.708386-3-a0987203069@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260625094449.708386-1-a0987203069@gmail.com>
-References: <20260625094449.708386-1-a0987203069@gmail.com>
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0FDD10E1C3
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 10:21:21 +0000 (UTC)
+X-UUID: 99c25ac0707f11f1aa26b74ffac11d73-20260625
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12, REQID:0080bd47-685c-4fc7-9089-0ad4c452358a, IP:10,
+ URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:10
+X-CID-INFO: VERSION:1.3.12, REQID:0080bd47-685c-4fc7-9089-0ad4c452358a, IP:10,
+ UR
+ L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+ elease,TS:10
+X-CID-META: VersionHash:e7bac3a, CLOUDID:429edb8e878399609e86c16f6629f87f,
+ BulkI
+ D:260624112706YSGBNPCQ,BulkQuantity:7,Recheck:0,SF:17|19|38|64|66|78|80|81
+ |82|83|102|127|841|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:
+ nil,RT:nil,Bulk:40,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:
+ 0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 99c25ac0707f11f1aa26b74ffac11d73-20260625
+X-User: lihongfu@kylinos.cn
+Received: from [192.168.109.123] [(223.70.159.239)] by mailgw.kylinos.cn
+ (envelope-from <lihongfu@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+ with ESMTP id 1977568665; Thu, 25 Jun 2026 18:21:16 +0800
+Message-ID: <c645a8df-1d76-4e4d-bb97-47c539f7a205@kylinos.cn>
+Date: Thu, 25 Jun 2026 18:21:11 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] cgroup/dmem: add per-region event counters
+To: Natalie Vock <natalie.vock@gmx.de>, tj@kernel.org
+Cc: cgroups@vger.kernel.org, corbet@lwn.net, dev@lankhorst.se,
+ dri-devel@lists.freedesktop.org, hannes@cmpxchg.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, mkoutny@suse.com,
+ mripard@kernel.org, skhan@linuxfoundation.org, hongfu.li@linux.dev
+References: <ajwnf0uzT4PMHYZx@slm.duckdns.org>
+ <20260625021053.488107-1-lihongfu@kylinos.cn>
+ <b549422c-7c35-434d-ad4a-49a4676970ac@gmx.de>
+From: Hongfu Li <lihongfu@kylinos.cn>
+In-Reply-To: <b549422c-7c35-434d-ad4a-49a4676970ac@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 26 Jun 2026 07:53:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -95,54 +70,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add register-level constants needed by the forthcoming DC8000 (DCUltraLite)
-hardware ops:
+Hi,
 
-  VSDC_DISP_IRQ_VSYNC(n) in vs_crtc_regs.h: bit mask for per-output
-  VSYNC interrupt bits in DISP_IRQ_STA (0x147C) / DISP_IRQ_EN (0x1480),
-  which are the IRQ registers used by DCUltraLite in place of the DC8200
-  TOP_IRQ_ACK / TOP_IRQ_EN registers.
+On 6/25/26 4:57 PM, Natalie Vock wrote:
+> Hi,
+>
+> On 6/25/26 04:10, Hongfu Li wrote:
+>> Hi, Tejun
+>> Thanks for the review comments.
+>>
+>>>> Add dmem.events to report hierarchical low/max event counts per DMEM
+>>>> region.  Increment counters on dmem.max allocation failures and
+>>>> dmem.low protection events.  The file is available for non-root 
+>>>> cgroups
+>>>> only.
+>>>
+>>> Please don't double space in descs or comments. Also, maybe it's 
+>>> obvious but
+>>> it'd help if you list why and how this is useful. Why do we want to add
+>>> this?
+>>
+>> I'll fix the double spacing in the commit message and comments.
+>>
+>> As for the motivation: dmem already exposes per-region limits and 
+>> current
+>> usage, but not how often those limits actually matter at runtime. 
+>> Without
+>> event counters, it's hard to tell whether allocation failures come from
+>> this cgroup, a parent limit, or pressure elsewhere in the hierarchy.
+>> dmem.events provides that visibility for tuning dmem.low/dmem.max and
+>> diagnosing recurring device memory pressure.
+>
+> Shouldn't you be able to deduce this rather trivially from just 
+> looking at the current usage together with the low/max limits you 
+> already set? I'm not sure I really see anything this events file 
+> provides that analysis of current usage and set limits doesn't? If 
+> your usage is highly variable, the separately-developed dmem.peak file 
+> might also suit your needs, but still, not sure what you can do with 
+> dmem.events that you can't already do with these tools. 
+Thanks for the question.
 
-  VSDC_FB_CONFIG_ENABLE (bit 0), VSDC_FB_CONFIG_VALID (bit 3) and
-  VSDC_FB_CONFIG_RESET (bit 4) in vs_primary_plane_regs.h: control bits
-  in the FB_CONFIG register used by DCUltraLite for framebuffer enable
-  and per-frame commit handshake.
+Besides exposing counters, dmem.events notifies userspace on changes via
+cgroup_file_notify(). This allows tools to monitor limit-related events
+(for example, allocation failures or low-protection fallbacks) 
+asynchronously,
+without the need to periodically poll dmem.current against the limits. 
+While
+you could infer some conditions from current usage and limits, polling is
+inefficient and cannot capture transient events in real time. dmem.peak only
+records the highest usage, not these specific events.
 
-No behaviour change for existing DC8200 platforms.
+So dmem.events provides both lower overhead and richer, actionable 
+information.
 
-Signed-off-by: Joey Lu <a0987203069@gmail.com>
-Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
----
- drivers/gpu/drm/verisilicon/vs_crtc_regs.h          | 1 +
- drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h | 3 +++
- 2 files changed, 4 insertions(+)
+Best regards,
+Hongfu
 
-diff --git a/drivers/gpu/drm/verisilicon/vs_crtc_regs.h b/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
-index c7930e817635..d4da22b08cd5 100644
---- a/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
-+++ b/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
-@@ -54,6 +54,7 @@
- #define VSDC_DISP_GAMMA_DATA(n)			(0x1460 + 0x4 * (n))
- 
- #define VSDC_DISP_IRQ_STA			0x147C
-+#define VSDC_DISP_IRQ_VSYNC(n)			BIT(n)
- 
- #define VSDC_DISP_IRQ_EN			0x1480
- 
-diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h b/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
-index cbb125c46b39..67d4b00f294e 100644
---- a/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
-+++ b/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
-@@ -16,6 +16,9 @@
- #define VSDC_FB_STRIDE(n)			(0x1408 + 0x4 * (n))
- 
- #define VSDC_FB_CONFIG(n)			(0x1518 + 0x4 * (n))
-+#define VSDC_FB_CONFIG_ENABLE			BIT(0)
-+#define VSDC_FB_CONFIG_VALID			BIT(3)
-+#define VSDC_FB_CONFIG_RESET			BIT(4)
- #define VSDC_FB_CONFIG_CLEAR_EN			BIT(8)
- #define VSDC_FB_CONFIG_ROT_MASK			GENMASK(13, 11)
- #define VSDC_FB_CONFIG_ROT(v)			((v) << 11)
--- 
-2.43.0
+
 
