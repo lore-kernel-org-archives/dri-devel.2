@@ -4,44 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BF7FCDE008
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 10:28:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CD45CDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 10:28:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 834A510F232;
-	Thu, 25 Jun 2026 10:28:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8795F10F235;
+	Thu, 25 Jun 2026 10:28:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D4EOUmhZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ec4JaeAg";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECD7C10F235
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 10:28:01 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 56C01600C3
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 10:28:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4C3B1F00A3A;
- Thu, 25 Jun 2026 10:28:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782383281;
- bh=Se1i/efxHDqMxUzl5H2oEaiBwA8yDR/7EEA+2RmhhYM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=D4EOUmhZTb5RkQ7lpIa46aFFZxnk9656p0i2q1Y4Z8J+id6QjtQD1SI2LGflalnIK
- TMGmmO2LMopZmJ3TGx6YsDUw0zBH/oQ53gFW4gPHu08kG4G3UYQfWIPreV8f2vK1a2
- xe1eN1g2MeKHu+pPvx4/yD1mMY0GZzo+0546IJU6w/HX+Wyr67U2/cjA+EtCIhbI8n
- z29lF8MfinrciRbYVgfnjcg7a7tfNmdRSJC5GvfvnyE014eVVpKr9IOB2QhSryrQr7
- 1fCN2jdzUypVsgo6sH9kIpWa+/2SnTigusvbyMm9od6Y/cLzs7wHeQxDYT9bcUoaCp
- sqnorWTYeUakw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v18 5/8] rust: rename `AlwaysRefCounted` to `RefCounted`.
-To: "Andreas Hindborg" <a.hindborg@kernel.org>
-Cc: linux-pci@vger.kernel.org, ojeda@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260625-unique-ref-v18-5-4e06b5896d47@kernel.org>
-References: <20260625-unique-ref-v18-0-4e06b5896d47@kernel.org>
- <20260625-unique-ref-v18-5-4e06b5896d47@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 10:28:00 +0000
-Message-Id: <20260625102800.B4C3B1F00A3A@smtp.kernel.org>
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
+ [209.85.167.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A736E10F235
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 10:28:25 +0000 (UTC)
+Received: by mail-oi1-f173.google.com with SMTP id
+ 5614622812f47-48662d16d08so815985b6e.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 03:28:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782383305; x=1782988105; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=otpXdjNkhvgaZ3XJWWSziZvKCi33swAVBBkTmAhDpkc=;
+ b=ec4JaeAgOP0xuTqqHlg2CZ+1HAVk6GdgYHKs32xjPAJP06hH26wl10ykgS72SagwJf
+ Bg6pgwr2pULhB8UMvYI8kMTmRqgKmgSzNDFpx3P2IYsUSUBI33y7VGSWQFo+TEl8J04E
+ N4py5weaNlyRSU/NPDfAAe2ibQjUUEZRc6Q6LqPCy6lWjK8+KJb7N1+UTp4YFPImefKG
+ aUaE8gCzdI3hhGEiM9jgupiRmq4aakNvYudeDS/g74sRIbY0A+sJirfURHn4hAFg3JOH
+ syVw72p3VG6DXHTlHd7mM965At2MXko3OmFOYtRnFk+F9P8DuFkO3zGeL04fcyjLhF2V
+ ExEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782383305; x=1782988105;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=otpXdjNkhvgaZ3XJWWSziZvKCi33swAVBBkTmAhDpkc=;
+ b=fBg1tgd8vU7gMRwkzcLWHuW5A1IMUTB3VGltkDULQOBy0GQJy6MU4Mmq6vxtBvk1xm
+ cMiFzx/pKR/sCqva3tv581HxAoYQF+3ybAoB0dp+JtddZwZEWqnnrxvbUFMyBEemKuVe
+ PzsJtsLYlQxY+QuWLtboPsM7FlPk73yfXllNdUoCiIwbwHxthLQNGyyU7K46p0rsFvPn
+ /4I1oLUJImvXYURINkb3tPPVfm5k3yDJEpECsgsOHhRuqQ2rGoh1FP8NySbOkTkE2yNo
+ csMpBoo0pst4t9kg6Do1TASvQ2hPmxTNqnfku+U6Nff7XuhiU4kqcQOv8383BSxEkl8E
+ mdXw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8ZUwPOUuCfVltzYE4h/LChnxCWQXelhONOcv73w9G/uUMPbXBc6JKWHiH5DOVYcmyZ78ySJCra6xY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwH1TVx2Y2VoYHbiCfXkZA7bLKKsm+8W2qzSVex/1vOBu/DOKNN
+ zdECrMU34VcZQVhLFRXhAgRmrV+GzDd33PatipBnJxRrAdNuhR+QbNH8
+X-Gm-Gg: AfdE7clLuMJCqlhWUz4apOkt8S+Yl49teu1iYW1Wf+yyIreI7bkr0LvL65wK9TvJbu7
+ L1dmBG0rJAlKxCWjiBzlEdKNzERebGZxPAbzybJiYS1MFAEmOJaWM21kZEbyINbh0FqVSYTsT0s
+ RbyQ9826m6dsRxtT7Bp2yaJzt7TGywIogL8XKIuTwZ9/eY4F1NU1CXpLuNInulXnPQ0HSTZTLTX
+ ZvPQWR3a+LsjNIo4VvDfADQ5IzC5nP8HAOH8fYZiUav1hl/fMCoD7QYe3bS+Z1DXwOVHRNzx0L5
+ h5XxeptnqbvUOIVm3Mpblk6rSvYiVncRBKNQt8cfOY0VmszRJlKjePAQInYCW1f4YxFfqSRExcY
+ nmB46m8cyN2MNZB6FBb38Z4OWKEiMC4ZdH6QUCVEbLB7ZEeszGcb1M/W42TvoBya2iLxOh9xW6S
+ OFrEUl
+X-Received: by 2002:a05:6808:6718:b0:490:b586:1459 with SMTP id
+ 5614622812f47-4921573deccmr1924568b6e.2.1782383304720; 
+ Thu, 25 Jun 2026 03:28:24 -0700 (PDT)
+Received: from localhost ([74.80.182.98]) by smtp.gmail.com with ESMTPSA id
+ 5614622812f47-48aebb9f1e4sm10496756b6e.1.2026.06.25.03.28.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jun 2026 03:28:22 -0700 (PDT)
+Date: Thu, 25 Jun 2026 13:28:15 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: suryasaimadhu <suryasaimadhu369@gmail.com>
+Cc: andy@kernel.org, gregkh@linuxfoundation.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: fbtft: replace empty modifier argument with
+ no-op macro
+Message-ID: <aj0Cv0Wzb3rieNqW@stanley.mountain>
+References: <20260625092721.238366-1-suryasaimadhu369@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260625092721.238366-1-suryasaimadhu369@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,95 +86,20 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Incomplete Refactoring / Trait Bound Violation for workqueue ite=
-ms
-- [Medium] Stale and misleading documentation for `ARef` usage
---
+On Thu, Jun 25, 2026 at 05:27:21PM +0800, suryasaimadhu wrote:
+> Define fbtft_write_reg_no_modifier() as an identity function and
+> use it in place of empty modifier arguments in define_fbtft_write_reg()
+> calls to fix checkpatch errors.
+> 
+> Signed-off-by: suryasaimadhu <suryasaimadhu369@gmail.com>
+> ---
 
-commit 46d36a47415ab0722d334e8010242374e8bba94c
-Author: Oliver Mangold <oliver.mangold@pm.me>
+I don't hate this patch, but I think we've decided to leave this
+as-is.
 
-    rust: rename AlwaysRefCounted to RefCounted.
+regards,
+dan carpenter
 
-This commit splits the AlwaysRefCounted trait into RefCounted (for actual
-reference counting logic) and a new AlwaysRefCounted marker trait. This cha=
-nge
-allows types that can be both reference-counted and owned to safely use
-ARef<T> conversions without violating ownership constraints.
-
-> diff --git a/rust/kernel/sync/aref.rs b/rust/kernel/sync/aref.rs
-> index 3bd5eb8a1a526..fb7466a362741 100644
-> --- a/rust/kernel/sync/aref.rs
-> +++ b/rust/kernel/sync/aref.rs
-
-[Severity: Medium]
-In the module documentation which isn't included in this diff, it states:
-
-//! To make use of [`ARef<MyType>`], `MyType` needs to implement
-//! [`AlwaysRefCounted`].
-
-Should this documentation be updated to reference RefCounted instead?
-
-Leaving this as AlwaysRefCounted might mislead developers into implementing=
- the
-marker trait for new types, which could violate the safety contract if their
-type is also Ownable.
-
-> @@ -24,11 +24,9 @@
->      ptr::NonNull, //
->  };
-> =20
-> -/// Types that are _always_ reference counted.
-> +/// Types that are internally reference counted.
->  ///
->  /// It allows such types to define their own custom ref increment and de=
-crement functions.
-> -/// Additionally, it allows users to convert from a shared reference `&T=
-` to an owned reference
-> -/// [`ARef<T>`].
-
-[ ... ]
-
-> @@ -45,9 +43,8 @@
->  /// at least until matching decrements are performed.
->  ///
->  /// Implementers must also ensure that all instances are reference-count=
-ed. (Otherwise they
-> -/// won't be able to honour the requirement that [`AlwaysRefCounted::inc=
-_ref`] keep the object
-> -/// alive.)
-> -pub unsafe trait AlwaysRefCounted {
-> +/// won't be able to honour the requirement that [`RefCounted::inc_ref`]=
- keep the object alive.)
-> +pub unsafe trait RefCounted {
->      /// Increments the reference count on the object.
->      fn inc_ref(&self);
-
-[Severity: Medium]
-Since this patch renames AlwaysRefCounted to RefCounted and re-adds
-AlwaysRefCounted as a marker trait, does rust/kernel/workqueue.rs need to be
-updated to use the new bound?
-
-Currently, rust/kernel/workqueue.rs enforces T: AlwaysRefCounted for work
-items using ARef<T>:
-
-rust/kernel/workqueue.rs:
-    unsafe impl<T, const ID: u64> WorkItemPointer<ID> for ARef<T>
-    where
-        T: AlwaysRefCounted,
-
-The same bound is used for RawWorkItem and RawDelayedWorkItem.
-
-Does keeping this bound unnecessarily prevent purely RefCounted types from
-being scheduled as work items via ARef<T>? It appears this might defeat the
-goal of the trait split for workqueue users.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625-unique-ref=
--v18-0-4e06b5896d47@kernel.org?part=3D5
