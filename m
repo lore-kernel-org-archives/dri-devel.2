@@ -4,76 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BFFCCDE008
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:53:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89597CDE00E
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:53:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BFC510F46C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 837D910F473;
 	Fri, 26 Jun 2026 07:53:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CpO89/+q";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rOsxvKcD";
 	dkim-atps=neutral
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D204510F2CD
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 14:12:44 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-845b6d9bf39so381125b3a.1
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 07:12:44 -0700 (PDT)
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com
+ [74.125.224.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EE7F10E1C9
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 08:57:29 +0000 (UTC)
+Received: by mail-yx1-f42.google.com with SMTP id
+ 956f58d0204a3-6647c26a4a3so1104994d50.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 01:57:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782396764; x=1783001564; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=1agOcM108mYien5bPYKqYcmwOSbFBw2SAS45aRrQL3c=;
- b=CpO89/+q37Aa+urU+B/w0QXuxVyPrWSzAFBYk1rI7khCzMVzdP7u9dSBFKfLLbkr1R
- 8f/tQD2LUysKKMa9edjzKTrmueLeQ/XSlNKf/FqUbbpsVLLJz7BkS7tgD0M/8488FIn8
- yUGnPE53l9MC5CDdxTW0j/3rnVbxR1xy9TVyX0KFVxTr3Hhtcg1ccQTrpu32jB8ZUldg
- J7B7rFVNhUbZPH2kxSm8ryxlcU1WBHGbXxIjanh2Z0S6oXe8rFDfG9LZneMj77YZDc0Z
- t5pxXXFXXkubYtEjcsexug4GuTXM2VBzOAJwlEfJX70E0wFa5tbFD4f/FHRohHQeKGIx
- Sc+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782396764; x=1783001564;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1782377848; x=1782982648; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1agOcM108mYien5bPYKqYcmwOSbFBw2SAS45aRrQL3c=;
- b=am01q1Mg3FRoBZOpzEJzAjCP6V+WmoY0SyGT4JXyKqNTRFqgPLQcgL45oNbx/i6D0A
- wXgAGqV3el5DexH6Gm7T7gcspx2XgmLLqP7bLe5KaaEgVAMY6QxNu57mQiH4hXh00oCy
- EoeCIwDET/yQMHifgYeHgTd2gwdgJzGR29LDNvmIfRcvTtxQNXpokrX3C5zRSa3crSvw
- NV3/rH1zKCOAByMOrbgssYyRnPvlRHt891LrF6r9TFykCtntpkzLwdSmjX5y/gCU5T+s
- UwP5w6PYMuEkyAVuZERUAKX3PenVJMNYQQhV+HaTgFAoSJ3HQCzJcj15q8gWjs+1Q9HK
- eokw==
+ bh=3HXBGWP+mHV9r0WWwErucYsy42UpdRmWv6NJcEbVBLI=;
+ b=rOsxvKcDGJv6fs1bH3Mh9h+xH7Uo0p5w8AfnYxe4DP8QN7dAmphmb1MyCiLQUVhTnn
+ /XSV3LvxhRKeaokcm62M2M6Cna1hMw6nckiBpSnJqPAyvnOy5Y+jXy+oKuULW1ovUrGR
+ PYNEftspBHDN09eKClnqNxDsPKphVb1ndyzxfPMFdIfECDdGTW4wj8uZu+/RvfbCzUcG
+ s3YSzF13YqY9vpVSvnuJpqZlrms+UzAJwBeNjmtWJ0Vu2tctt1UtuCVii5D3troGltcm
+ z/uM41H9X0Laz/QuN8hask84LO1foiTYMGWniCb2Yu5DXuIIKbG4PD+nH1WaDo8abCqh
+ EQnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782377848; x=1782982648;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=3HXBGWP+mHV9r0WWwErucYsy42UpdRmWv6NJcEbVBLI=;
+ b=bS749QUh+bUfj2NLnI0fV7Kc654t8E+dDT8tdqv7S1KKLzgP1SeM9Wr0R4lGf8VgI2
+ 7+rqxcpadaj4PV3JBQX+V96SrXdCDbWnFvbwYFSNQAV47iGUecgMyFUAYVOl0jcwU+Di
+ MyH3v6ezHgmV1+J3yke2DrqOgjVyBcm74xEyRyPqPAGDRfTrmBTCk/+PQgIIHMGVy7AP
+ TOkjZiAxbPLU1n4biq0j+q66Jp1BzEVdMDcI45Cs9hmyObG8cG78OU7xxUvL+dyhB8zi
+ qjqDWsewv2x2Y0m926o0KQ0Q93588T1aZNnENoiq1xI376bPcQzDGdeq6YVuFe+bB62K
+ Xu0Q==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/SWWR9vAqno5Nt3JcIE1zbYVmkyTAUCW3iBWugxIqy+2cBhx9ghevFI/waXxM3jMBLzXBW+CWOOmk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyJvkVV3Gy1LQOrSHRMlb2SY4UrQxsl6UEssJ5mL/5YmpMj2Hma
- a+zcO2Pmez45Ua1KcJWgGPZkNotqU5h/K4z/8LPrGtCDu++i3x2HoMNx
-X-Gm-Gg: AfdE7cm6HMlSG/CUYInlCWO8EuKlnJt7xAzdt0C7v78AZtRsWx3xce/znE6DhDgdeEh
- R1Gk1spANMBVsxGMw2Sh9Ptofj1OjGqhapsspwX0eDvEHJdLpNpDZ9GAa1a4AvDauAWKLfYnegE
- 5EzvcUoIXbYwdHonvorQtC+qbC09tliCq+iRDQiXpIMwOb+RPxMYQMcAJmxJzU04EDq5tggCO1U
- Isc/p2bYFn7zeusE6T0N8dvB+o5eEYz5OzDxJXho+jtBvizwXucq9ou+OCszd9wGEaAEFoXe1Mu
- 2hE6f7pNi3ySHNgWQRckQ5/FPwnDg+aJXRSypnXkYZYsexCm/JfH9UfHs/Hb1eNBNlgR/aWs6GK
- PbqP2gpPh38HLdyM9lChoVm3qAsCmTmTIIafbVeMqc4I0Fbb0+76Y/cWmr74MVOVBOD6WLXQpnV
- vNNJuUd8t0uLGll4WA02I1YxiP7jlf
-X-Received: by 2002:a05:6a00:10c7:b0:83f:250d:5a5 with SMTP id
- d2e1a72fcca58-845b44eb213mr2676677b3a.16.1782396764267; 
- Thu, 25 Jun 2026 07:12:44 -0700 (PDT)
-Received: from localhost.localdomain ([117.133.183.252])
+ AHgh+RrqtBpRFE+dH8lSKvvwLsRSBPdKKDp+SCvQ6ZY968ly3DuCEO0vytV1cck25KFJnV2AiaFoTeGFwh0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxj8M7PjA+m2d5tjAYbjt7q1rDtFSL/9LSHUDfFJ8MOWfodocyZ
+ Jrp2pbQioNKSmAc5OllIpxDFGRRIt+egj6S6liiDhqqVcS1rFffzVXYV
+X-Gm-Gg: AfdE7clTG2vfHjs0Vvo6Nzh1Mg8SWKhjWI0j1FNAjSPYTFhv4iYPa58N3voUOsNTVsU
+ mlB2yHf+om4JJvABjCr/Tf2zf6bhOaXPvZUBLgqrAiqQxn2HuIdhjEY7Uh5zGtYSfVn35pA6M/s
+ UWcZ7rzXiFqYW3gRtNcWLx1FTFpQczEg7ui/vMTQakLdEqjgbe1PihuBc7UIqIljJiyjI/35MRJ
+ Z3UfeBAc4iTz1Maf1nbr2b18PLhVbp/4BUmRT9EVaRAdPoF0msaspbH7B0UFgFSrBu41ohPO3qK
+ Q0QNj3EadpxtB60J7B1PG4nKPiQKNU8OvAz06DZhvLSqp3t8JPPjouChJa6khaleOv87nY0XDz5
+ D+NktJLY7q6GLYdrzZr7rN40DdOkqTXENfoBMh07amBQxkTpFGi2q4H8q2BbDylVzL27NGN6pOu
+ gEvUqEuU72GN3bJ/9BL4ENdKHTAw==
+X-Received: by 2002:a05:690e:b4a:b0:660:ffe0:2df7 with SMTP id
+ 956f58d0204a3-66487c28ae6mr1186398d50.23.1782377847966; 
+ Thu, 25 Jun 2026 01:57:27 -0700 (PDT)
+Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-845a40d23d7sm4838015b3a.30.2026.06.25.07.12.41
+ 956f58d0204a3-6647f785f6bsm1105061d50.6.2026.06.25.01.57.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jun 2026 07:12:43 -0700 (PDT)
-From: Baineng Shou <shoubaineng@gmail.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>, Philipp Stanner <phasta@kernel.org>,
- Akash Goel <akash.goel@arm.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Baineng Shou <shoubaineng@gmail.com>
-Subject: [PATCH] dma-fence: Fix dma_fence_timeline_name() to call
- get_timeline_name()
-Date: Thu, 25 Jun 2026 22:12:27 +0800
-Message-Id: <20260625141227.38931-1-shoubaineng@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ Thu, 25 Jun 2026 01:57:27 -0700 (PDT)
+From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Yousef Alhouseen <alhouseenyousef@gmail.com>
+Subject: [PATCH 3/3] misc: fastrpc: protect interrupted mmap cleanup
+Date: Thu, 25 Jun 2026 10:56:59 +0200
+Message-ID: <20260625085659.4469-3-alhouseenyousef@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260625085659.4469-1-alhouseenyousef@gmail.com>
+References: <20260625085659.4469-1-alhouseenyousef@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 26 Jun 2026 07:53:42 +0000
@@ -92,36 +94,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dma_fence_timeline_name() incorrectly invokes ops->get_driver_name()
-instead of ops->get_timeline_name(), so every caller receives the
-driver name where the timeline name was expected.
+The interrupted invoke path walks and moves fl->mmaps without holding
+fl->lock, racing concurrent mmap and munmap operations that use the same
+list. Move the buffers while holding the user lock and use list_del_init()
+so later cleanup can safely identify moved nodes.
 
-This is a copy-paste regression that has resurfaced twice. It was
-originally introduced by commit 62918542b7bf ("dma-fence: Fix sparse
-warnings due __rcu annotations") when adding the __rcu casts, fixed
-by commit 033559473dd3 ("dma-fence: Fix safe access wrapper to call
-timeline name method"), and then accidentally reintroduced by commit
-e58b4dea9054 ("dma-buf/dma-fence: Add dma_fence_test_signaled_flag()")
-when both wrappers were refactored to use the new helper.
+Buffers moved to the channel interrupted list are also discarded on rpmsg
+removal without freeing their coherent DMA allocations. Free them during
+channel removal so interrupted invokes cannot permanently leak DMA buffers.
 
-Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
 ---
- drivers/dma-buf/dma-fence.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/misc/fastrpc.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index b3bfa6943a8e..5292d714419b 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -1202,7 +1202,7 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
- 	/* RCU protection is required for safe access to returned string */
- 	ops = rcu_dereference(fence->ops);
- 	if (!dma_fence_test_signaled_flag(fence))
--		return (const char __rcu *)ops->get_driver_name(fence);
-+		return (const char __rcu *)ops->get_timeline_name(fence);
- 	else
- 		return (const char __rcu *)"signaled-timeline";
- }
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 50f90e17e..608878052 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -1395,10 +1395,12 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
+ 
+ bail:
+ 	if (err == -ERESTARTSYS) {
++		spin_lock(&fl->lock);
+ 		list_for_each_entry_safe(buf, b, &fl->mmaps, node) {
+-			list_del(&buf->node);
++			list_del_init(&buf->node);
+ 			list_add_tail(&buf->node, &fl->cctx->invoke_interrupted_mmaps);
+ 		}
++		spin_unlock(&fl->lock);
+ 	}
+ 
+ 	/* We are done with this compute context */
+@@ -2628,8 +2630,10 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+ 	if (cctx->secure_fdevice)
+ 		misc_deregister(&cctx->secure_fdevice->miscdev);
+ 
+-	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
+-		list_del(&buf->node);
++	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node) {
++		list_del_init(&buf->node);
++		fastrpc_buf_free(buf);
++	}
+ 
+ 	if (cctx->remote_heap)
+ 		fastrpc_buf_free(cctx->remote_heap);
 -- 
-2.34.1
+2.54.0
 
