@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED0B6CDE000
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 19:16:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BC05CDE009
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 19:23:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5022F10E244;
-	Thu, 25 Jun 2026 19:16:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEA7C10E25B;
+	Thu, 25 Jun 2026 19:23:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WGr98NzT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dLUZ6FRq";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AB8410E244
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 19:16:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A200610E25B
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 19:23:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 21FAC40885;
- Thu, 25 Jun 2026 19:16:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8B591F000E9;
- Thu, 25 Jun 2026 19:16:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 66E2F43B04;
+ Thu, 25 Jun 2026 19:23:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 225381F000E9;
+ Thu, 25 Jun 2026 19:23:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782414999;
- bh=edI3rj3HNxRZfpLUeK16z4yykcz4oiMW1qXxcKyGqXc=;
+ s=k20260515; t=1782415383;
+ bh=B3/D3ru/9ynhqTXUtvnOMrdmadP3xVIBah+PdPAzeT4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WGr98NzThXwcQhfirzWhpkLkfcNCXjBGctJ7QSOnPzabncvao3hG/p6YbRBUr2hQ+
- iDbLGbNiY+zSnapUqDsKnhuiwIVdvmJp84SeXAANmPPRMGX4eHhautSvVHg7dZ47wS
- Q2E6UdSaWj6MweuueyO8e+pPPj3PT4X0IKJoZ/5LjTZTA7pGGC/+a/7Ckrl3bMXUpL
- Sxm68zzLS6hMqEgG6aB2XV2W9xoX6WwWq7/Vf5XrBxI+qvcpGIuOEwkhKKQ23XuTzv
- 3mVRUgQKZz7mrelQvNmMjCwKdXXp2G37gDG/6gESDtRMpKl7wjAEnqTWdw/M22RiDg
- VtsV0KW6cxPNg==
+ b=dLUZ6FRq0Rc4zw+yYpBYt2yQE9LsjTXBcwDbs9R1rsph6vTP6VrM8ZSJp8mcK2q51
+ bXWFTkoro37ofvPjftGJjkzleztkPBTeUqeMCz4ty32T30pDw2VhedCrZb9rRqaav0
+ WhU2yFnJy4oXosWCsbdfyOqnFEsnq4doarS5ORMQgqb1Ua01zUXobZMCiPuhmaKnm5
+ jdMPG7e+coYWrUIeF8w1JbU7C06iJjINDXrhg2lYUuseb/EIshZpwtsve4qCR/KpEP
+ FyNu2sStHCtc3P/dOfnoa34JX8ouol8wfBynmOovku0waf9QRGS77mnil7asCUgd7q
+ 9WLAmg7fLvd5g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/7] drm/nova: use `zerocopy` in vbios.rs
-To: "Pedro Yudi Honda" <niyudi.honda@usp.br>
-Cc: "Danilo Krummrich" <dakr@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260625190553.7245-3-niyudi.honda@usp.br>
-References: <20260625190553.7245-1-niyudi.honda@usp.br>
- <20260625190553.7245-3-niyudi.honda@usp.br>
+Subject: Re: [PATCH v2 3/3] drm/msm: Validate lazy VM in GEM_NEW
+To: "Rob Clark" <robin.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260625191537.47965-4-robin.clark@oss.qualcomm.com>
+References: <20260625191537.47965-1-robin.clark@oss.qualcomm.com>
+ <20260625191537.47965-4-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 19:16:38 +0000
-Message-Id: <20260625191638.B8B591F000E9@smtp.kernel.org>
+Date: Thu, 25 Jun 2026 19:23:02 +0000
+Message-Id: <20260625192303.225381F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,66 +59,54 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] VBIOS byte stream reconstruction from MMIO uses `to_ne_bytes()` an=
-d struct parsing uses native integer types, corrupting VBIOS reading on big=
--endian architectures.
+- [High] The newly allocated GEM object 'obj' is leaked on the error path i=
+f the VM is not found or unsupported.
 --
 
-commit 1cc33aae3ba2ca65527c5d72b5ee976f3c73ac92
-Author: Pedro Yudi Honda <niyudi.honda@usp.br>
+commit ebb450a0150beb70fa2ad61c737f157a48b8cb86
+Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
-drm/nova: use `zerocopy` in vbios.rs
-   =20
-This commit replaces the `transmute::FromBytes` trait with its `zerocopy`
-equivalent for various VBIOS structures in vbios.rs. It also updates the
-call sites accordingly to use the new trait methods.
+drm/msm: Validate lazy VM in GEM_NEW
 
-> diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios=
-.rs
-> index e6d144587c4ee..a3c0c06f6818d 100644
-> --- a/drivers/gpu/nova-core/vbios.rs
-> +++ b/drivers/gpu/nova-core/vbios.rs
+Otherwise creating a _NO_SHARE BO before any BOs are mapped could cause
+a NPE.
 
-[ ... ]
-
-> @@ -359,7 +356,7 @@ pub(crate) fn fwsec_image(&self) -> &FwSecBiosImage {
->  }
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> index efd3d3c9a4490..733a094354e1d 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
+> @@ -1147,7 +1147,12 @@ int msm_gem_new_handle(struct drm_device *dev, str=
+uct drm_file *file,
 > =20
->  /// PCI Data Structure as defined in PCI Firmware Specification
-> -#[derive(Debug, Clone)]
-> +#[derive(Debug, Clone, FromBytes)]
->  #[repr(C)]
->  struct PcirStruct {
->      /// PCI Data Structure signature ("PCIR" or "NPDS")
->      signature: [u8; 4],
->      /// PCI Vendor ID (e.g., 0x10DE for NVIDIA)
->      vendor_id: u16,
+>  	if (flags & MSM_BO_NO_SHARE) {
+>  		struct msm_context *ctx =3D file->driver_priv;
+> -		struct drm_gem_object *r_obj =3D drm_gpuvm_resv_obj(ctx->vm);
+> +		struct drm_gpuvm *vm =3D msm_context_vm(dev, ctx);
+> +
+> +		if (!vm)
+> +			return UERR(EINVAL, dev, "not supported with shared VM");
+                        ^^^^
 
 [Severity: High]
-This is a pre-existing issue, but since the VBIOS structures map directly to
-little-endian VBIOS data, does using native integer types like u16 cause
-the parsing to fail on big-endian architectures?
+Does this code leak the newly allocated obj?
 
-Also, since VbiosIterator::read_more() converts MMIO 32-bit words back into=
- a
-byte stream using word.to_ne_bytes():
+Looking earlier in msm_gem_new_handle(), obj is allocated:
 
-    word.to_ne_bytes()
-        .iter()
-        .try_for_each(|&b| self.data.push(b, GFP_KERNEL))?;
+	obj =3D msm_gem_new(dev, size, flags);
 
-doesn't this byte-swap the little-endian hardware register data on big-endi=
-an
-systems?
+	if (IS_ERR(obj))
+		return PTR_ERR(obj);
 
-Should explicit little-endian types (e.g.,
-zerocopy::byteorder::little_endian::U16) and word.to_le_bytes() be used to
-ensure the correct byte order is maintained?
+If vm is NULL, we return directly here without calling drm_gem_object_put(o=
+bj)
+to release the reference.
 
-[ ... ]
+> +
+> +		struct drm_gem_object *r_obj =3D drm_gpuvm_resv_obj(vm);
+> =20
+>  		drm_gem_object_get(r_obj);
+>
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625190553.7245=
--1-niyudi.honda@usp.br?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625191537.4796=
+5-1-robin.clark@oss.qualcomm.com?part=3D3
