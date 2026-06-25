@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E806CDB466
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 09:36:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F8F4CDE006
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 09:36:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CB4A10F1D4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD12910F1E4;
 	Thu, 25 Jun 2026 09:36:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="fiNndOqF";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="InWAWtD9";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6015010E1B8
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 09:36:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 363C110E1B8
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 09:36:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782380192;
- bh=dfMEj0u97XlGyj7jLN/Qa5wZc2WlOZrk9eOi78kmVTw=;
+ s=mail; t=1782380191;
+ bh=geHDcKNR7ATPaDyOWtxYAWZZljYUFZuf6OUllF6Es/w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=fiNndOqFTooPHOJnFtdrSLl7OlKrONiM+Hibc+GzHFQ+Ew/ADM/8kB1ylsZDmJzNC
- GhNoz6FS8zHiaEwC6uGLGXFgA5fB1ce5d6ho8mfesEbiDUPX3IalCxT6OqIONIyzw2
- MxuUmT82tPuaVfimPpvZe+qlQEkFGTEG+4mTfKkpXY9xSBcANFg8pFrPyC27uvZUaN
- HsmYaVebcJfRTsQcW36xW1D/q7nF8fisIEaMB1nxenfo4ngXX4la+vl0Q/gDKQmlpN
- i37fVmhS4wbEK16OVGOgQ6BcJKffysogd0WCDD8omRXKwbtJYAATYOwaHgSS4mCNnZ
- OsCfsnstM40gA==
+ b=InWAWtD984jgtBZg5P13ocG94QyPNl/8d7twkQ/Yn0qIRypjWGvjVDzQlZ+0+1nMn
+ EveDXHOVntS9Le6CzbFEw1gyMCl/zFNsZPHK+hfuQeI9mvw16Uor5dZW8EJXHlDg6E
+ H4YTboodS5HPNL/m+dD9pWcv0/CAm166zeoqOqAhPDUHO++A0ZehrMRSHG4kDLG+M5
+ BNEIDYLV4evvBbB5u/okBnZE91KKwMR/rfbzMK/IKO4YSnqPERkRpbcygK07e9ABeF
+ rtiDmNTsvHwJlmpwiork+xlqy+NlLg3EVQI6MteFLNXylE/J/KEi+q/8C2Exy9jO/P
+ Y/nl31erfLnhA==
 Received: from fedora-2.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B171517E14E5;
- Thu, 25 Jun 2026 11:36:31 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 84BA717E1270;
+ Thu, 25 Jun 2026 11:36:30 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 25 Jun 2026 11:36:22 +0200
-Subject: [PATCH v5 07/16] drm/panthor: Keep interrupts masked until they
- are needed
+Date: Thu, 25 Jun 2026 11:36:20 +0200
+Subject: [PATCH v5 05/16] drm/panthor: Fix a leak when a group is evicted
+ before the tiler OOM is serviced
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-panthor-signal-from-irq-v5-7-8836a74e0ef9@collabora.com>
+Message-Id: <20260625-panthor-signal-from-irq-v5-5-8836a74e0ef9@collabora.com>
 References: <20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com>
 In-Reply-To: <20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
@@ -48,14 +48,13 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Shashiko <sashiko-bot@kernel.org>
+ Boris Brezillon <boris.brezillon@collabora.com>, sashiko-bot@kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782380187; l=5237;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782380187; l=1131;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=dfMEj0u97XlGyj7jLN/Qa5wZc2WlOZrk9eOi78kmVTw=;
- b=1V+9yMg+SrJ5Ngn60T4Dg7YaXwLwU6D5Kg1GTH59GvUp6RWCGs83+3Zk7YvVAvJxuDxz2QI8s
- hdoY6LELwxbBuqcyS5sh6XwOTcI0GnIv3cp8T4YuSMvpj/iG1RIWOUl
+ bh=geHDcKNR7ATPaDyOWtxYAWZZljYUFZuf6OUllF6Es/w=;
+ b=TZLH68nTPrmLqMzHgd22mnmjKc3suumN51wK7AtksyiE0PUCmlBjssiE2ePl3hXXthSdpNli0
+ rFl+mzhFO1vD241NwvOenElsFSrtVfXlJJJNhC8wxMKf4leyMM3xafM
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,131 +72,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The autogenerated panthor_request_xx_irq() helpers unmask Mali
-interrupts before we're sure we'll have a handler registered. For
-non-shared IRQ lines, that's fine, but for shared ones, it might cause
-an interrupt flood if the HW block raises an interrupt for any reason.
+A group ref is tied to the pending tiler_oom_work, so we need to release
+it if the cancel was effective.
 
-We could reworking the calls in panthor_request_xx_irq(), but it's just
-simpler to let the caller decide when they are ready to handle interrupts
-and call panthor_pwr_irq_resume() themselves. While at it, rework the
-prototype to let users call panthor_pwr_irq_enable_events() explicitly
-instead of passing an initial mask to panthor_request_pwr_irq().
-
-Fixes: 5fe909cae118 ("drm/panthor: Add the device logical block")
-Reported-by: Shashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260623-panthor-signal-from-irq-v3-0-2ece396f8ee0@collabora.com?part=3
+Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://sashiko.dev/#/patchset/20260623-panthor-signal-from-irq-v3-0-2ece396f8ee0@collabora.com?part=7
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_device.h | 7 ++++---
- drivers/gpu/drm/panthor/panthor_fw.c     | 2 +-
- drivers/gpu/drm/panthor/panthor_gpu.c    | 3 ++-
- drivers/gpu/drm/panthor/panthor_mmu.c    | 9 +++++++--
- drivers/gpu/drm/panthor/panthor_pwr.c    | 7 ++++---
- 5 files changed, 18 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/panthor/panthor_sched.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-index a39386bd6382..0fda64fbe5f2 100644
---- a/drivers/gpu/drm/panthor/panthor_device.h
-+++ b/drivers/gpu/drm/panthor/panthor_device.h
-@@ -588,14 +588,15 @@ static inline void panthor_ ## __name ## _irq_resume(struct panthor_irq *pirq)
- 												\
- static int panthor_request_ ## __name ## _irq(struct panthor_device *ptdev,			\
- 					      struct panthor_irq *pirq,				\
--					      int irq, u32 mask, void __iomem *iomem)		\
-+					      int irq, void __iomem *iomem)			\
- {												\
- 	pirq->ptdev = ptdev;									\
- 	pirq->irq = irq;									\
--	pirq->mask = mask;									\
-+	pirq->mask = 0;										\
- 	pirq->iomem = iomem;									\
- 	spin_lock_init(&pirq->mask_lock);							\
--	panthor_ ## __name ## _irq_resume(pirq);						\
-+	atomic_set(&pirq->state, PANTHOR_IRQ_STATE_SUSPENDED);					\
-+	gpu_write(pirq->iomem, INT_MASK, 0);							\
- 												\
- 	return devm_request_threaded_irq(ptdev->base.dev, irq,					\
- 					 panthor_ ## __name ## _irq_raw_handler,		\
-diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-index 4fbddb9e18c8..de8e6689a869 100644
---- a/drivers/gpu/drm/panthor/panthor_fw.c
-+++ b/drivers/gpu/drm/panthor/panthor_fw.c
-@@ -1474,7 +1474,7 @@ int panthor_fw_init(struct panthor_device *ptdev)
- 	if (irq <= 0)
- 		return -ENODEV;
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index 1913bc8a6297..a9119aaddabc 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -1057,7 +1057,8 @@ group_unbind_locked(struct panthor_group *group)
  
--	ret = panthor_request_job_irq(ptdev, &fw->irq, irq, 0,
-+	ret = panthor_request_job_irq(ptdev, &fw->irq, irq,
- 				      ptdev->iomem + JOB_INT_BASE);
- 	if (ret) {
- 		drm_err(&ptdev->base, "failed to request job irq");
-diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-index e52c5675981f..c013d6bf9a59 100644
---- a/drivers/gpu/drm/panthor/panthor_gpu.c
-+++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-@@ -170,11 +170,12 @@ int panthor_gpu_init(struct panthor_device *ptdev)
- 		return irq;
+ 	/* Tiler OOM events will be re-issued next time the group is scheduled. */
+ 	atomic_set(&group->tiler_oom, 0);
+-	cancel_work(&group->tiler_oom_work);
++	if (cancel_work(&group->tiler_oom_work))
++		group_put(group);
  
- 	ret = panthor_request_gpu_irq(ptdev, &ptdev->gpu->irq, irq,
--				      GPU_INTERRUPTS_MASK,
- 				      ptdev->iomem + GPU_INT_BASE);
- 	if (ret)
- 		return ret;
- 
-+	panthor_gpu_irq_enable_events(&ptdev->gpu->irq, GPU_INTERRUPTS_MASK);
-+	panthor_gpu_irq_resume(&ptdev->gpu->irq);
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index 31cc57029c12..1fef3c5c1b50 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -3406,7 +3406,6 @@ int panthor_mmu_init(struct panthor_device *ptdev)
- 		return -ENODEV;
- 
- 	ret = panthor_request_mmu_irq(ptdev, &mmu->irq, irq,
--				      panthor_mmu_fault_mask(ptdev, ~0),
- 				      ptdev->iomem + MMU_INT_BASE);
- 	if (ret)
- 		return ret;
-@@ -3424,7 +3423,13 @@ int panthor_mmu_init(struct panthor_device *ptdev)
- 		ptdev->gpu_info.mmu_features |= BITS_PER_LONG;
- 	}
- 
--	return drmm_add_action_or_reset(&ptdev->base, panthor_mmu_release_wq, mmu->vm.wq);
-+	ret = drmm_add_action_or_reset(&ptdev->base, panthor_mmu_release_wq, mmu->vm.wq);
-+	if (ret)
-+		return ret;
-+
-+	panthor_mmu_irq_enable_events(&mmu->irq, panthor_mmu_fault_mask(ptdev, ~0));
-+	panthor_mmu_irq_resume(&mmu->irq);
-+	return 0;
- }
- 
- #ifdef CONFIG_DEBUG_FS
-diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
-index 090362bd700b..f2c2c3000590 100644
---- a/drivers/gpu/drm/panthor/panthor_pwr.c
-+++ b/drivers/gpu/drm/panthor/panthor_pwr.c
-@@ -484,12 +484,13 @@ int panthor_pwr_init(struct panthor_device *ptdev)
- 	if (irq < 0)
- 		return irq;
- 
--	err = panthor_request_pwr_irq(
--		ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK,
--		pwr->iomem + PWR_INT_BASE);
-+	err = panthor_request_pwr_irq(ptdev, &pwr->irq, irq,
-+				      pwr->iomem + PWR_INT_BASE);
- 	if (err)
- 		return err;
- 
-+	panthor_pwr_irq_enable_events(&pwr->irq, PWR_INTERRUPTS_MASK);
-+	panthor_pwr_irq_resume(&pwr->irq);
- 	return 0;
- }
- 
+ 	for (u32 i = 0; i < group->queue_count; i++)
+ 		group->queues[i]->doorbell_id = -1;
 
 -- 
 2.54.0
