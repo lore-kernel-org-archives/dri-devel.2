@@ -4,78 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BF06CDB479
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 03:02:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29A24CDB47C
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 03:13:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF4C510E14C;
-	Thu, 25 Jun 2026 03:02:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80BA210E159;
+	Thu, 25 Jun 2026 03:13:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="f3XfhSe6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WRW8kEjm";
 	dkim-atps=neutral
-Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com
- [91.218.175.185])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 641D810E14C
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 03:02:19 +0000 (UTC)
-Message-ID: <0ed6b5c3-e955-46e2-9fc6-075a0dfd1c4f@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1782356535;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=bg7TU7hDzDNv/08FHHH/On04xmb+0Xhy9JCW39bnqOs=;
- b=f3XfhSe6G7brFNVp6GZqjOXNU3vcFca4poUFfkwgVZymI1EYtq9zeoyJzoopay7HWx5JvC
- E0YJXxuEv9p9ioc24zHIhHD7MfpA8W6eQqa3vo59Vdd3bvTmswHZxeWqPUReOxJ21Oxizv
- nnsvKa6R3D4a+gLxizvgKiVabRJ3kcE=
-Date: Thu, 25 Jun 2026 11:01:21 +0800
-MIME-Version: 1.0
-Subject: Re: [PATCH v3 1/7] list: Add mutable iterator variants
-To: David Laight <david.laight.linux@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- "David Hildenbrand (Arm)" <david@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Tejun Heo <tj@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Paul Moore <paul@paul-moore.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- "Paul E. McKenney" <paulmck@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, David Howells <dhowells@redhat.com>,
- Simona Vetter <simona.vetter@ffwll.ch>, Randy Dunlap
- <rdunlap@infradead.org>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Philipp Stanner <phasta@kernel.org>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
- linux-ntfs-dev@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, audit@vger.kernel.org, bpf@vger.kernel.org,
- netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- kexec@lists.infradead.org, live-patching@vger.kernel.org,
- linux-modules@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-pm@vger.kernel.org, rcu@vger.kernel.org, sched-ext@lists.linux.dev,
- linux-mm@kvack.org, virtualization@lists.linux.dev, damon@lists.linux.dev,
- llvm@lists.linux.dev, Kaitao Cheng <chengkaitao@kylinos.cn>,
- Muchun Song <muchun.song@linux.dev>
-References: <20260622040533.29824-1-kaitao.cheng@linux.dev>
- <20260622040533.29824-2-kaitao.cheng@linux.dev>
- <20260622094242.64531b9a@pumpkin>
- <351a6b67-b394-4c58-aee2-88b6c8089ad5@linux.dev>
- <cf8467c7-b98f-44a5-9cf9-60b43b5da711@amd.com>
- <20260624152324.3def88ce@pumpkin>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Kaitao Cheng <kaitao.cheng@linux.dev>
-In-Reply-To: <20260624152324.3def88ce@pumpkin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6510210E159
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 03:13:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 23C2841B28;
+ Thu, 25 Jun 2026 03:13:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D41A81F000E9;
+ Thu, 25 Jun 2026 03:13:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782357186;
+ bh=7gE2gY6lf1KVYUkOUFMu+JgzR+jdtBTW6v3Awa2cxgQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=WRW8kEjmgiuTha7Hdo1jmZhbDBIg8a6CdZLJRg7NcGHZw3cTq2Fx52iG8eUj6jelw
+ 8jGQTz74u00aqpvwaGSJcXgDiFCwE7o9SSuHlnJn4exE1X61g/F9b9h3j98S40ynq8
+ Boh4xW/HuGm5NUoFM7CDia8xFpAOSfZMJ6EN9Y2HS6xvjAPCRKFGDtjytqBRTf2qVV
+ FkJtII3RvgJ2/BPL075/I15vndkIoa80a2ZY4aLpyed5N7f+S6jLhEHrNMaYtHcoci
+ 6jSAJCmlFSK/v/4V/DUgOkYlUY0s4VYaKbDWYfZRkVRt4ioZGdGjawzPk8EfurVoAz
+ iOMOQZhezmrOw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] fbdev: goldfishfb: fail pan display on base-update timeout
+To: "Pengpeng Hou" <pengpeng@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260625030102.79755-1-pengpeng@iscas.ac.cn>
+References: <20260625030102.79755-1-pengpeng@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 25 Jun 2026 03:13:05 +0000
+Message-Id: <20260625031305.D41A81F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,210 +52,203 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-在 2026/6/24 22:23, David Laight 写道:
-> On Wed, 24 Jun 2026 15:23:47 +0200
-> Christian König <christian.koenig@amd.com> wrote:
->> On 6/24/26 15:14, Kaitao Cheng wrote:
->>> 在 2026/6/22 16:42, David Laight 写道:  
->>>> On Mon, 22 Jun 2026 12:05:31 +0800
->>>> Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
->>>>  
->>>>> From: Kaitao Cheng <chengkaitao@kylinos.cn>
->>>>>
->>>>> The list_for_each*_safe() helpers are used when the loop body may
->>>>> remove the current entry.  Their API exposes the temporary cursor at
->>>>> every call site, even though most users only need it for the iterator
->>>>> implementation and never reference it in the loop body.
->>>>>
->>>>> Add *_mutable() variants for list and hlist iteration.  The new helpers
->>>>> support both forms: callers may keep passing an explicit temporary cursor
->>>>> when they need to inspect or reset it, or omit it and let the helper use
->>>>> a unique internal cursor.  
->>>>
->>>> I'm not really sure 'mutable' means anything either.
->>>> It is possible to make it valid for the loop body (or even other threads)
->>>> to delete arbitrary list items - but that needs significant extra overheads.
->>>>
->>>> It might be worth doing something that doesn't need the extra variable,
->>>> but there is little point doing all the churn just to rename things.
->>>>  
->>>>>
->>>>> This makes call sites that only mutate the list through the current entry
->>>>> less noisy, while keeping the existing *_safe() helpers available for
->>>>> compatibility.
->>>>>
->>>>> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
->>>>> ---
->>>>>  include/linux/list.h | 269 +++++++++++++++++++++++++++++++++++++------
->>>>>  1 file changed, 231 insertions(+), 38 deletions(-)
->>>>>
->>>>> diff --git a/include/linux/list.h b/include/linux/list.h
->>>>> index 09d979976b3b..1081def7cea9 100644
->>>>> --- a/include/linux/list.h
->>>>> +++ b/include/linux/list.h
->>>>> @@ -7,6 +7,7 @@
->>>>>  #include <linux/stddef.h>
->>>>>  #include <linux/poison.h>
->>>>>  #include <linux/const.h>
->>>>> +#include <linux/args.h>
->>>>>  
->>>>>  #include <asm/barrier.h>
->>>>>  
->>>>> @@ -763,28 +764,72 @@ static inline void list_splice_tail_init(struct list_head *list,
->>>>>  #define list_for_each_prev(pos, head) \
->>>>>  	for (pos = (head)->prev; !list_is_head(pos, (head)); pos = pos->prev)
->>>>>  
->>>>> -/**
->>>>> - * list_for_each_safe - iterate over a list safe against removal of list entry
->>>>> - * @pos:	the &struct list_head to use as a loop cursor.
->>>>> - * @n:		another &struct list_head to use as temporary storage
->>>>> - * @head:	the head for your list.
->>>>> +/*
->>>>> + * list_for_each_safe is an old interface, use list_for_each_mutable instead.
->>>>>   */
->>>>>  #define list_for_each_safe(pos, n, head) \
->>>>>  	for (pos = (head)->next, n = pos->next; \
->>>>>  	     !list_is_head(pos, (head)); \
->>>>>  	     pos = n, n = pos->next)
->>>>>  
->>>>> +#define __list_for_each_mutable_internal(pos, tmp, head)		\
->>>>> +	for (typeof(pos) tmp = (pos = (head)->next)->next;		\  
->>>>
->>>> Use auto
->>>>  
->>>>> +	     !list_is_head(pos, (head));				\
->>>>> +	     pos = tmp, tmp = pos->next)
->>>>> +
->>>>> +#define __list_for_each_mutable1(pos, head)				\
->>>>> +	__list_for_each_mutable_internal(pos, __UNIQUE_ID(next), head)
->>>>> +
->>>>> +#define __list_for_each_mutable2(pos, next, head)			\
->>>>> +	list_for_each_safe(pos, next, head)
->>>>> +
->>>>>  /**
->>>>> - * list_for_each_prev_safe - iterate over a list backwards safe against removal of list entry
->>>>> + * list_for_each_mutable - iterate over a list safe against entry removal
->>>>>   * @pos:	the &struct list_head to use as a loop cursor.
->>>>> - * @n:		another &struct list_head to use as temporary storage
->>>>> - * @head:	the head for your list.
->>>>> + * @...:	either (head) or (next, head)
->>>>> + *
->>>>> + * next:	another &struct list_head to use as optional temporary storage.
->>>>> + *		The temporary cursor is internal unless explicitly supplied by
->>>>> + *		the caller.
->>>>> + * head:	the head for your list.
->>>>> + */
->>>>> +#define list_for_each_mutable(pos, ...)					\
->>>>> +	CONCATENATE(__list_for_each_mutable, COUNT_ARGS(__VA_ARGS__))	\
->>>>> +		(pos, __VA_ARGS__)  
->>>>
->>>> The variable argument count logic really just slows down compilation.
->>>> Maybe there aren't enough copies of this code to make that significant.
->>>> But just because you can do it doesn't mean it is a gooD idea.
->>>> I'm also not sure it really adds anything to the readability.
->>>>
->>>> And, it you are going to make the middle argument optional there is
->>>> no need to change the macro name.  
->>>
->>> Christian König and Jani Nikula also disagree with the variadic-argument
->>> implementation approach. If we abandon that method, it means we will
->>> inevitably need to add some new macros. If mutable is not a good name,
->>> suggestions for better alternatives would be welcome; coming up with a
->>> suitable name is indeed rather tricky.  
->>
->> I don't think you need to add a new macro for the specific use case that people want to modify the next element of the iteration.
->>
->> If I remember your numbers correctly that is a really corner case and keeping using the existing *_safe() macros for that sounds perfectly fine to me.
-> 
-> IIRC currently you have a choice of either:
-> 	define               Item that can't be deleted
-> 	list_for_each()	     The current item.
-> 	list_for_each_safe() The next item.
-> There is also likely to be code that updates the variables to allow
-> for other scenarios.
-> 
-> Note that if increase a reference count and release a lock then list_for_each()
-> is likely safer than list_for_each_safe() :-)
-> 
-> list.h has 9 variants of the 'safe' loop.
-> The bloat of another 9 is getting excessive.
-> 
-> It has to be said that this is one of my least favourite type of list...
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
 
-Hi Christian König, David Laight, Jani Nikula, David Hildenbrand,
-Andy Shevchenko, Alexei Starovoitov
+New issues:
+- [High] Strict error check on pan display may cause probe to unconditional=
+ly fail due to hardware deduplication.
+- [High] State desynchronization between kernel and hardware on timeout.
 
-For ease of discussion, I need to summarize the currently possible
-approaches and briefly describe their respective pros and cons,
-using the list_for_each_entry* interfaces as examples.
+Pre-existing issues:
+- [High] Unhandled hardware interrupt leak causing an interrupt storm.
+- [High] Hardware DMA Use-After-Free during probe error and device removal.
+- [High] DMA free size mismatch due to mutable screen resolution variables.
+- [Medium] Unconditional timeout delay and false-positive error during prob=
+e.
+- [Medium] Integer overflow in framebuffer DMA size calculation.
+--
 
-1. Add list_for_each_entry_mutable, while keeping list_for_each_entry
-and list_for_each_entry_safe unchanged. list_for_each_entry_mutable
-would be used specifically for safe deletion scenarios that do not
-need to expose the temporary cursor externally. The code can refer to
-the v1 version.
+commit e61a80b8db4bb16d36d4a68c1bf1c49ae2fe7019
+Author: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-Pros: Does not depend on immediate per-subsystem adaptation and can be
-      merged directly.
-Cons: Requires adding a whole set of mutable interfaces, which makes the
-      code somewhat redundant.
+fbdev: goldfishfb: fail pan display on base-update timeout
 
-2. Directly optimize away the temporary cursor in list_for_each_entry_safe
-and define it inside the loop instead, changing the interface from four
-arguments to three.
+goldfish_fb_pan_display() waits for the device to acknowledge the new
+framebuffer base, but it only logs a timeout and still reports success.
+The probe path also ignores the initial pan-display result before
+registering the framebuffer. This patch returns -ETIMEDOUT when the
+base-update acknowledgment does not arrive.
 
-Pros: Does not add redundant interfaces.
-Cons: (1) Users need to manually update special cases that use the
-      traversal variable of list_for_each_entry_safe, the new
-      list_for_each_entry_safe would no longer apply there and would
-      need to be open-coded.
-      (2) Because the macro arguments changes, all list_for_each_entry_safe
-      callers would need to be modified and merged together, making it
-      difficult to merge such a large amount of code at once.
+> diff --git a/drivers/video/fbdev/goldfishfb.c b/drivers/video/fbdev/goldf=
+ishfb.c
+> index c9871281bc1da..e5d79886ea66b 100644
+> --- a/drivers/video/fbdev/goldfishfb.c
+> +++ b/drivers/video/fbdev/goldfishfb.c
+> @@ -138,10 +138,12 @@ static int goldfish_fb_pan_display(struct fb_var_sc=
+reeninfo *var,
+>  	writel(fb->fb.fix.smem_start + fb->fb.var.xres * 2 * var->yoffset,
+>  						fb->reg_base + FB_SET_BASE);
+>  	spin_unlock_irqrestore(&fb->lock, irq_flags);
+> -	wait_event_timeout(fb->wait,
+> -			fb->base_update_count !=3D base_update_count, HZ / 15);
+> -	if (fb->base_update_count =3D=3D base_update_count)
+> +	if (!wait_event_timeout(fb->wait,
+> +				fb->base_update_count !=3D base_update_count,
+> +				HZ / 15)) {
+>  		pr_err("%s: timeout waiting for base update\n", __func__);
+> +		return -ETIMEDOUT;
 
-3. Use a variadic macro approach to optimize list_for_each_entry_safe,
-so that it supports both three and four arguments.
+[Severity: High]
+Does returning an error here permanently desynchronize the kernel's fbdev
+state from the actual hardware scanout state?
 
-Pros: (1) Does not add redundant interfaces.
-      (2) Does not depend on immediate per-subsystem adaptation and can
-      be merged directly.
-Cons: (1) Increases compile time.
-      (2) Makes the interface harder for users to use.
+By returning -ETIMEDOUT, the generic fbdev core refuses to update the
+xoffset and yoffset software state. However, the hardware has already
+been programmed with the new offset via FB_SET_BASE and will switch
+to it when it finishes.
 
-4. Optimize list_for_each_entry by defining the temporary cursor internally,
-making it compatible with the functionality of list_for_each_entry_safe.
-The code can refer to the v2 version.
+> +	}
+>  	return 0;
+>  }
+> =20
+> @@ -251,7 +253,9 @@ static int goldfish_fb_probe(struct platform_device *=
+pdev)
 
-Pros: (1) Does not add redundant interfaces.
-      (2) The number of externally visible arguments of list_for_each_entry
-      remains unchanged, still three.
-Cons: (1) list_for_each_entry and list_for_each_entry_safe would be merged
-      into one, and list_for_each_entry_safe would gradually be deprecated.
-      (2) Users need to manually update special cases that use the traversal
-      variable of list_for_each_entry, the new list_for_each_entry would no
-      longer apply there and would need to be open-coded. There are 15 such
-      cases in total.
+[Severity: Medium]
+This is a pre-existing issue, but can the framesize calculation overflow?
 
-5. Use a variadic macro approach to optimize list_for_each_entry, so that
-it supports both three and four arguments.
+Earlier in goldfish_fb_probe(), width and height are read directly from 32-=
+bit
+device registers:
 
-Pros: (1) Does not add redundant interfaces.
-      (2) Does not depend on immediate per-subsystem adaptation and can be
-      merged directly.
-Cons: (1) Increases compile time.
-      (2) list_for_each_entry and list_for_each_entry_safe would be merged
-      into one, and list_for_each_entry_safe would gradually be deprecated.
+        width =3D readl(fb->reg_base + FB_GET_WIDTH);
+        height =3D readl(fb->reg_base + FB_GET_HEIGHT);
+        ...
+        framesize =3D width * height * 2 * 2;
 
-6. Make no changes, keep the current logic unchanged, and close the current
-email discussion.
+If large dimensions are provided, the 32-bit arithmetic could wrap around,
+resulting in a small allocation while the hardware attempts to scan out a
+much larger region.
 
+[Severity: Medium]
+This is a pre-existing issue, but does calling fb_set_var() earlier in this
+function cause an unconditional timeout delay?
 
-Which of the six solutions above do people prefer?
+In goldfish_fb_probe(), fb_set_var() is called before request_irq():
 
--- 
-Thanks
-Kaitao Cheng
+        ret =3D fb_set_var(&fb->fb, &fb->fb.var);
+        if (ret)
+                goto err_fb_set_var_failed;
 
+        ret =3D request_irq(fb->irq, goldfish_fb_interrupt, ...);
+
+fb_set_var() implicitly invokes goldfish_fb_pan_display(), which waits
+for an interrupt. Because the interrupt handler is not yet registered and
+interrupts are not enabled, this wait will always time out.
+
+>  		goto err_request_irq_failed;
+> =20
+>  	writel(FB_INT_BASE_UPDATE_DONE, fb->reg_base + FB_INT_ENABLE);
+> -	goldfish_fb_pan_display(&fb->fb.var, &fb->fb); /* updates base */
+> +	ret =3D goldfish_fb_pan_display(&fb->fb.var, &fb->fb); /* updates base =
+*/
+> +	if (ret)
+> +		goto err_pan_display_failed;
+
+[Severity: High]
+Will this strict error check cause the probe to unconditionally fail due
+to hardware deduplication?
+
+The probe path implicitly writes the base offset to FB_SET_BASE during
+fb_set_var() (which currently times out). It then explicitly calls
+goldfish_fb_pan_display() here with the exact same offset, writing to
+FB_SET_BASE again.
+
+If the virtual hardware deduplicates identical writes and does not assert
+an interrupt for a redundant update, the wait will time out. Because this
+patch now aborts on timeout, won't the probe unconditionally fail?
+
+> =20
+>  	ret =3D register_framebuffer(&fb->fb);
+>  	if (ret)
+> @@ -259,6 +263,7 @@ static int goldfish_fb_probe(struct platform_device *=
+pdev)
+>  	return 0;
+> =20
+>  err_register_framebuffer_failed:
+> +err_pan_display_failed:
+>  	free_irq(fb->irq, fb);
+
+[Severity: High]
+This is a pre-existing issue, but does this error path leave device
+interrupts enabled?
+
+The hardware interrupt is enabled just before calling
+goldfish_fb_pan_display():
+
+        writel(FB_INT_BASE_UPDATE_DONE, fb->reg_base + FB_INT_ENABLE);
+
+If goldfish_fb_pan_display() fails, the code jumps to err_pan_display_failed
+and frees the IRQ handler. However, it never writes 0 to FB_INT_ENABLE to
+disable the device's interrupt generation. Can this cause an unhandled
+interrupt storm that permanently disables the shared IRQ line?
+
+>  err_request_irq_failed:
+>  err_fb_set_var_failed:
+
+[Severity: High]
+This is a pre-existing issue, but does this error path cause a DMA
+use-after-free by the hardware?
+
+The hardware is programmed to scan actively from the DMA address:
+
+goldfish_fb_pan_display() {
+        ...
+        writel(fb->fb.fix.smem_start + fb->fb.var.xres * 2 * var->yoffset,
+                                        fb->reg_base + FB_SET_BASE);
+}
+
+If the probe fails after this point, or when goldfish_fb_remove() is
+called, the driver frees the DMA memory here in the error path:
+
+err_fb_set_var_failed:
+        dma_free_coherent(&pdev->dev, framesize,
+                                (void *)fb->fb.screen_base,
+                                fb->fb.fix.smem_start);
+
+Since the driver never halts the hardware scanout (e.g., by setting the
+base address to 0 or writing to FB_SET_BLANK), won't the hardware continue
+to read from the freed memory?
+
+[ ... ]
+
+[Severity: High]
+This is a pre-existing issue, but does goldfish_fb_remove() use a
+mismatched size when freeing DMA memory?
+
+In goldfish_fb_probe(), memory is allocated with a fixed size:
+
+        framesize =3D width * height * 2 * 2;
+        fb->fb.screen_base =3D dma_alloc_coherent(..., framesize, ...);
+
+However, in goldfish_fb_remove(), the size to free is dynamically
+recalculated:
+
+goldfish_fb_remove() {
+        ...
+        framesize =3D fb->fb.var.xres_virtual * fb->fb.var.yres_virtual * 2;
+        dma_free_coherent(..., framesize, ...);
+}
+
+Since userspace can modify yres_virtual via the FBIOPUT_VSCREENINFO
+ioctl, wouldn't remove() attempt to free a different size than was
+allocated, violating the DMA API?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625030102.7975=
+5-1-pengpeng@iscas.ac.cn?part=3D1
