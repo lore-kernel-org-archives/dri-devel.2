@@ -4,152 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BA20CDE000
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 13:32:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8154ECDE000
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 13:40:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 998D310F2C1;
-	Thu, 25 Jun 2026 13:32:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B157610E1EA;
+	Thu, 25 Jun 2026 13:40:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="EzG496de";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W1Psm/sF";
 	dkim-atps=neutral
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022072.outbound.protection.outlook.com [52.101.101.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E1A010F2C1
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 13:32:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rrRJrM0vftclD9fKYoCuse0aYqBJoPKekw5FolNKN51nW7n8R7EBPvmQM1CJrevjjI1yF7BHXikJa4YnR7qrsiYnG/3Bcnnkwy+xkNDGm5C3cz1Oy8fJ0Y1xv8vq2/TedbzI30hbildIywfkZYSJNfTLA4vzw2gCDp3DNffW49VCPxdGgIb/u0VeLm1YK+eJetD51amiIMy3sKQbRaBk+4wWsphnZv8u2e1/F5jjITrMvK6ods3MuPs1jh+3P4MqFisAoQNbbBGPi/rRav5evQmmE+xDOCUb3JGPa3nqqakgqKyVbaZbcxNVNPnYpNQZQ+H1syrSgqexXdJm6xD4vQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yHQ6guUSIGY4OOtnNLgDKLo15+iwCoCAyyi9+8zC5AI=;
- b=Ruw4Nw1BGJ6Gm9IY1v1ju59/IgvEKmTgf5sqFe7U4NB6ml1NR37TkZtduvShyCNISiWzyrLXxKD9KfELex/igQOLzqO2BnNfTmnOHNhmgh5aubtdtISHS7LqOKRBr4qAVaiRdSFhLj6xNDvjMIG8LbgbRHhl9BeFfjLTmc6IoXml0dXEP3GSvEZtq2g/cvmKUjEvadt/o6DKt5QaDEZHmj1kBcKjjrcnNMebL/3HKL/Cf+cXU0jYteA4at4lbLWKl/Fwzo9StzwnU8IeIpGMNx6M6SV/AqASDe2Eby3a0Ga+tmiP+3s4TQFW37YN2vykeldQ8tkMZxwpcj48zsZKyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yHQ6guUSIGY4OOtnNLgDKLo15+iwCoCAyyi9+8zC5AI=;
- b=EzG496de8O7LTbLaSHx1N/W/Liz+2iSMPVJXMWozYMJqlmeYByAqF12w2YmS9M/9f2+rBypPzPx1nBxNTjbP6WFsswCKvjnCcIt6S1jcAc9iy7mpdVubVtQo04DfifG9Y+kfRzYpICrEAJEgUQSDbqV8eoOQ/aNpNp9xaxYZL6M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CW1P265MB8585.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27e::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
- 2026 13:32:02 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0159.015; Thu, 25 Jun 2026
- 13:32:02 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D1B210E1EA
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 13:40:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9AF1260018;
+ Thu, 25 Jun 2026 13:40:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 278061F000E9;
+ Thu, 25 Jun 2026 13:40:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782394813;
+ bh=wQHcfa/X5NsZDXcZGSVp4y7Kgx10jzQH3t41uG3WyHE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=W1Psm/sFUaVcsCN3ywSGsY5hLUqdafupneiaPfQqRJhUpC4Hew0gDFsY8qYoZSoKq
+ s4A+Jt21nsgQBgvUDhA5wJPrsZbCtL4AP6spy6JUv5HdX8LXhf7hv8cCPt+6TsZFhs
+ YHuSgBjK6ZBCxwRS11rTTLH4lk86CTGko/0Tmz+q7SDtihnPzTwynR4vnq/21/2Y6A
+ 2eE6r1MbNhjaCkdz3jupnigFWtbw1u3dD7fKTWSgo02oY7IwAr2tcTlCPCR8dHcEYo
+ dp4EiVs4nYAmzX640v2sbdy3p/69+tMNedRRIAI5/yHiLHIKFLt89yWd+W9Isr8Eu4
+ FO3C1mQGL2/Gg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/logicvc: Fix port node reference leak in
+ logicvc_crtc_init()
+To: "Jason Xiang" <jx@jasonxiang.net>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260625132438.191290-1-jx@jasonxiang.net>
+References: <20260625132438.191290-1-jx@jasonxiang.net>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 25 Jun 2026 14:32:01 +0100
-Message-Id: <DJI61Z8Q0EUH.3Q0D4YKWP6PM4@garyguo.net>
-Cc: "Philipp Stanner" <phasta@kernel.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
- <driver-core@lists.linux.dev>, <linux-block@vger.kernel.org>,
- <linux-security-module@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-fsdevel@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <linux-pwm@vger.kernel.org>, "Asahi Lina"
- <lina+kernel@asahilina.net>
-Subject: Re: [PATCH v18 4/8] rust: page: convert to `Ownable`
-From: "Gary Guo" <gary@garyguo.net>
-To: "Andreas Hindborg" <a.hindborg@kernel.org>, "Danilo Krummrich"
- <dakr@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Vlastimil Babka"
- <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, "Uladzislau
- Rezki" <urezki@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Trevor Gross"
- <tmgross@umich.edu>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Tamir Duberstein" <tamird@kernel.org>, "Alexandre Courbot"
- <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "Lyude Paul" <lyude@redhat.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?=
- <arve@android.com>, "Todd Kjos" <tkjos@android.com>, "Christian Brauner"
- <brauner@kernel.org>, "Carlos Llamas" <cmllamas@google.com>, "Rafael J.
- Wysocki" <rafael@kernel.org>, "Dave Ertman" <david.m.ertman@intel.com>,
- "Ira Weiny" <ira.weiny@intel.com>, "Leon Romanovsky" <leon@kernel.org>,
- "Paul Moore" <paul@paul-moore.com>, "Serge Hallyn" <sergeh@kernel.org>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>, "Jan Kara" <jack@suse.cz>,
- "Igor Korotin" <igor.korotin@linux.dev>, "Viresh Kumar"
- <vireshk@kernel.org>, "Nishanth Menon" <nm@ti.com>, "Stephen Boyd"
- <sboyd@kernel.org>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Pavel
- Tikhomirov" <ptikhomirov@virtuozzo.com>, "Michal Wilczynski"
- <m.wilczynski@samsung.com>
-X-Mailer: aerc 0.21.0
-References: <20260625-unique-ref-v18-0-4e06b5896d47@kernel.org>
- <20260625-unique-ref-v18-4-4e06b5896d47@kernel.org>
-In-Reply-To: <20260625-unique-ref-v18-4-4e06b5896d47@kernel.org>
-X-ClientProxiedBy: LO4P123CA0200.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a5::7) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CW1P265MB8585:EE_
-X-MS-Office365-Filtering-Correlation-Id: c19f4044-ea34-411e-d679-08ded2be23d1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|366016|23010399003|10070799003|921020|22082099003|18002099003|56012099006|4143699003|6133799003;
-X-Microsoft-Antispam-Message-Info: cGtWeyoJfiqXtXeiGufoeMFxnj/8smGV/dsHBHRINDDqgS8OfV1+uaALHyNCNQxQdj9eCQrBlVg5Hv5p6OQUqCzDckdi1TluxF9uUipnB8vYfuFjqE3E2t0RJv1t+iNBde1eX/GSakkRREDc/IhXWUXat4XFc9+gJ1nVFaUOAVjabXb6cSTlvQIy8kttsT5tj3LfPCep++HMt6o6QD8eC0j4usrHJjShaiPjZl2+RjgskRZKB0fzE2JTOvGX6NkZBxfyuhOx0/y16BukJDCEmI1HNnUCM+ti6QUX7gJOkYLzYhT7UQzB4CXSXiZPQKRWtS00EJ1+JBGY197qmKcYQu3uuP1YR/8PP4DMvHTlzIfMV0U8oLtfRrBEsuhEd9aWsPq2vyT9k0jJB5yZ5H/hZKDyzxAodAqvy/xOmwZ/lJixL9CH/0WvtUKBCi7YqLa6mFrwNfL/IsONVrGM37eqURnbbLE6/8WeTkyYAVSI26nor7PjvGZTQVw9SOgHYVS4L1wPMXZynb0CRO1+iGqqc9mXkIudQR2fZEBQshm/2fmao1p7MymYO0ifH0mIhfOps/Zx7OcSY6aj00y4Q21SOhEJSsddqsbdXvy2AbVXSihS2ZuZ9wMq4+Stf/HYqlCxguRf2+PfDJrGtjMJYoG9ZDueSc6VIHKcMw8ccK/h+wOiwc03Hp8neGMNsaf9EeHrxQ4RtCnC0nn6ns2PgOJ3Sw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10070799003)(921020)(22082099003)(18002099003)(56012099006)(4143699003)(6133799003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bEc4RUd5STc1NHh0T05rWTdoLzlKVEY3K2N6RVBxdXl3bHVwbVpuNVRhT21y?=
- =?utf-8?B?OWNYLytCUy9DUDMyNVZ0QTkxazduL0lGZ2JYekZsSStud3ZqeURHMnNzSWNB?=
- =?utf-8?B?VGxZSHdsUHV5QmZPemRTbUxQQ3cvSWs0Rk5YTjEySThqTWVqeE53SlNQWkIz?=
- =?utf-8?B?RVVPY0FydUlUM3J0UnQ0N3Z3TkNmaXg3TUlYdW9JNVlkalZFekhoTnNOQ21s?=
- =?utf-8?B?VjBaZ2NOUG9jL0g5MGtYWHN5MHdkNVN5ZjZEeHhTUnNrSXZNa29pL1FhSmkz?=
- =?utf-8?B?QTJnV0RobXRJSzZtUi9QcjJhMHB4RktKeFR5bWhsRTZrWFpQSVpJUHZQMmFN?=
- =?utf-8?B?VWxIZ1BjNGtuREgwaWhVakpJUWoybUxScVo0RHZDWXhXOUQ5ZXFDbVBkWWJS?=
- =?utf-8?B?eVpyMmJwYUhlcDEwM05GbGpQNlFyaEhXc1lPZWx1MWMxOFlCV2dKTElQYmtN?=
- =?utf-8?B?bElUZk9hY0RWOTJnUWtid1R6bmtLTmZvRjlUSjFHRWUrRzNqOEFOU0RrZXBa?=
- =?utf-8?B?dE1RSG9PaDREOVF6d05hamptVHlNU2pXa1VROXcvdGs4TWwxTFMzOHdnWjl2?=
- =?utf-8?B?dVVvVHJySmhsbnVpQ29od3hJSVpkbVR1aFVIRTJ2NnNqQ0pwZVFHUGhoWEVO?=
- =?utf-8?B?YzBDM0RaTWhuUlo1UGV5bWp6ZWdwV3lWajRDYzFxMFd1L0EveEtKVzR6NkJ3?=
- =?utf-8?B?cmRYd2o4ajY1WlJQRUFDNDhWQjUrankzRTRaZlNsUXJna2RxWUs1V2hvOVNz?=
- =?utf-8?B?QkllVTMvOU9oSm1iVXN0Q1FsZ01SNUpadjlwMmNETG1UOCtIaFJFNmJYc2Nv?=
- =?utf-8?B?ZXE4cjBXbHAwZVFveU9DTDd5WitYWUhaUE4ycWlrUnJJWHA4c01MZEl3QkRl?=
- =?utf-8?B?dGQzbVdDT0VpUU81c2wrYzdpRjIrUkd2ZWtBRVZrVGVrQjBUQkN6Q1E3UUps?=
- =?utf-8?B?MHRBemEwK1FLNExaMW9sbWpiMmU5TXVLS25pUWVRK0I4U3dlcjN1V0JNR29R?=
- =?utf-8?B?SEpaTytMRFBFSDFMeXpUN1ZNS2h2RG5CbnY2REZkOFBJZk1CbE1qRUlTUzIw?=
- =?utf-8?B?RTkzc0ZxM0hYZXliZ3Q0K2pOcGRZU2JBd29NNENkckg5Z3VVdnFoUnNLSkNt?=
- =?utf-8?B?MDZsSEhCQk9wamNrZkYzeFlyOGVaR1Ayb0xCM2hhVmxqWEJXSEFiL3VpcUor?=
- =?utf-8?B?MzdDTHZRL2F4K0IrQW1TbnRVaGIwZWtGMk0yZEZ3OElSUEVPeW03ZFAxaXdi?=
- =?utf-8?B?ckRpUndjMCsrZmZoc0ZXanFBWE5aZkxaZjBGNDFvMWF6NURRZU1YeUhrTyth?=
- =?utf-8?B?NzZlQnJaQ0xGMWZlRm5nVVQ3Rkx1bW5jcVdmM3dxbFlKWkMrV2tjLzBYcnZj?=
- =?utf-8?B?N25nckltYU5PbnRGQ3pNSjVNL1lONlF1b0ExQVhzNDlZbmxpWlhpSjJMd1Bm?=
- =?utf-8?B?UGlBdVdwSDZPcHJ2MkZyemFaNks4SEtBTWs0T29xQXV6MmpZUXY4amx0UzJZ?=
- =?utf-8?B?NFAwSHYzQmdzY2UzY29JRDBwMHlGNnRGU3UzVWgxR2U5TnRpOWY3L2o2Rkw2?=
- =?utf-8?B?Umh0OUpjUWV6VWN2TnB4Z1ZDRWZRWmx3b2NzZUM1a0xVOEJqQXpCQXBzTDYv?=
- =?utf-8?B?YjFSU0NYb0FOcmUyNHFPUG05Qm5seXpubGJpS2pPWW1yNVdvY0NWNUd2RzRx?=
- =?utf-8?B?d3pvdUZ5OWV0Q1RzS3VCeDdBRE1sQzJ2MXNhbE4wU3lKSXNCRGFkWklxOWE5?=
- =?utf-8?B?SkNaQnJ4WFlLbkJ3UGkwb1MwVDNhTklqM3oxcFp4ZG9QR1pXTkU5anhCczV0?=
- =?utf-8?B?Ulp4QWVPYVl6M1o3eUZCSVRhNTM3d0FvTERJRDdlNWxiZEFtV08rdDdHbHZO?=
- =?utf-8?B?TUk3bkhObmZCK0IvRXkzcE9xWEh5cDJtay9yZ1JOT2x6MWpib2VXSm9tZkp1?=
- =?utf-8?B?YXc3MWlPN05aanFLTWs3V2F0dm02VHBKR1FtYmQ2dkxpMnAyVE1xUldJUlhW?=
- =?utf-8?B?UEt6K0VtaEFKc1NGMHgwN05SaWI0aXhHL0VtYnhaRXBsTE93cWdnNkNBVU8w?=
- =?utf-8?B?VnJQc2wyeXo5SmVMQ0M1Um5Vd1NDSXJ4SkZRUWJyTE11S0FEYXNGUEVHOUYv?=
- =?utf-8?B?emhWU3kwSjcydTl3a05CVGpxU0xONlRHUHRXdjZPYVFQNHlhNkg2YXMxaTVQ?=
- =?utf-8?B?SFJnZlpBRkU4czVaTlZ5Qk1xMXlsYUpIUGEveit2QTMzK3Ird0Z0WTZZZStS?=
- =?utf-8?B?czRLdlBXVVhkTGFjMTVnV3dwZ29jRGdBVjJERU5ZaUdtOTFhT2h2ZEpqYk5Q?=
- =?utf-8?B?dmsyZzJVM1MxVUlveFZ1emFyYm5ycFp1SGE5R09sNjhEYmV2MFZRQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: c19f4044-ea34-411e-d679-08ded2be23d1
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 13:32:02.0641 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9Ly8TGOMP25bIwz1Wmd8sYio/7TZ9lDh2MglRXrJTP7nGjoYMCuFZI3EDUj2cGpsaEfgNLMBDvmu8Jgxni133w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB8585
+Date: Thu, 25 Jun 2026 13:40:12 +0000
+Message-Id: <20260625134013.278061F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,30 +53,142 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Jun 25, 2026 at 11:15 AM BST, Andreas Hindborg wrote:
-> From: Asahi Lina <lina@asahilina.net>
->=20
-> This allows Page references to be returned as borrowed references,
-> without necessarily owning the struct page.
->=20
-> Remove `BorrowedPage` and update users to use `Owned<Page>`.
->=20
-> Signed-off-by: Asahi Lina <lina@asahilina.net>
-> [ Andreas: Fix formatting and add a safety comment, update users. ]
-> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Nice to see `BorrowedPage` going away.
+Pre-existing issues:
+- [High] Use-After-Free due to devres and drmm lifetime mismatch.
+- [High] Use-After-Free caused by explicit devm_kfree() without drm_plane_c=
+leanup().
+- [Medium] OF node reference leak when breaking out of for_each_child_of_no=
+de().
+--
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+commit a08081e9643ffc88f8c23d8338f577d6209738f8
+Author: Jason Xiang <jx@jasonxiang.net>
 
-> ---
->  drivers/android/binder/page_range.rs |  10 +--
->  rust/kernel/alloc/allocator.rs       |  19 +++---
->  rust/kernel/alloc/allocator/iter.rs  |   6 +-
->  rust/kernel/page.rs                  | 122 +++++++++--------------------=
-------
->  4 files changed, 46 insertions(+), 111 deletions(-)
+drm/logicvc: Fix port node reference leak in logicvc_crtc_init()
 
+This commit uses devm_add_action_or_reset() to drop the port node reference
+obtained from of_graph_get_port_by_id(), fixing a node reference leak on
+unbind and probe error paths.
+
+> diff --git a/drivers/gpu/drm/logicvc/logicvc_crtc.c b/drivers/gpu/drm/log=
+icvc/logicvc_crtc.c
+> index 81e5b80736fa7..4de48822ca21b 100644
+> --- a/drivers/gpu/drm/logicvc/logicvc_crtc.c
+> +++ b/drivers/gpu/drm/logicvc/logicvc_crtc.c
+
+[ ... ]
+
+> @@ -274,6 +279,10 @@ int logicvc_crtc_init(struct logicvc_drm *logicvc)
+> =20
+>  	crtc->drm_crtc.port =3D of_graph_get_port_by_id(of_node, 1);
+> =20
+> +	ret =3D devm_add_action_or_reset(dev, logicvc_crtc_of_node_put, crtc->d=
+rm_crtc.port);
+> +	if (ret)
+> +		return ret;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but this new error return
+introduces another path that triggers a use-after-free due to a lifetime
+mismatch between devres and drmm.
+
+The CRTC is allocated using devres:
+
+drivers/gpu/drm/logicvc/logicvc_crtc.c:logicvc_crtc_init() {
+	...
+	crtc =3D devm_kzalloc(dev, sizeof(*crtc), GFP_KERNEL);
+	...
+}
+
+However, the DRM device is also managed by devres:
+
+drivers/gpu/drm/logicvc/logicvc_drm.c:logicvc_drm_probe() {
+	...
+	logicvc =3D devm_drm_dev_alloc(dev, &logicvc_drm_driver,
+				     struct logicvc_drm, drm_dev);
+	...
+}
+
+Since devres executes in reverse order of allocation, the CRTC and planes
+are freed by devm_kzalloc unwinding before devm_drm_dev_alloc unwinding
+calls drm_dev_put().
+
+When drm_dev_put() runs, it calls drm_mode_config_cleanup(), which iterates
+over the mode_config lists and calls .destroy() hooks on the already-freed
+CRTC and plane structures.
+
+Can we convert the CRTC allocation to use drmm_kzalloc() or similar
+DRM-managed APIs to prevent this memory corruption on teardown?
+
+
+While reviewing this, I noticed a couple of other pre-existing issues in
+the driver's layer initialization.
+
+[Severity: Medium]
+This is a pre-existing issue, but does logicvc_layers_init() leak the device
+node reference if layer initialization fails?
+
+Looking at logicvc_layers_init() in drivers/gpu/drm/logicvc/logicvc_layer.c:
+
+drivers/gpu/drm/logicvc/logicvc_layer.c:logicvc_layers_init() {
+	...
+	for_each_child_of_node(layers_node, layer_node) {
+		...
+		ret =3D logicvc_layer_init(logicvc, layer_node, index);
+		if (ret) {
+			of_node_put(layers_node);
+			goto error;
+		}
+	...
+}
+
+The for_each_child_of_node() macro automatically drops the reference on the
+previous child node and acquires it for the next one.
+
+If the loop is terminated early via the goto error path, wouldn't the caller
+need to manually drop the reference to the current layer_node using
+of_node_put()?
+
+
+[Severity: High]
+This is a pre-existing issue, but does the error unwinding path in
+logicvc_layers_init() cause a use-after-free in the DRM core?
+
+If logicvc_layer_init() succeeds for at least one layer but fails for a
+subsequent layer, the error path iterates over the successfully initialized
+layers:
+
+drivers/gpu/drm/logicvc/logicvc_layer.c:logicvc_layers_init() {
+	...
+error:
+	list_for_each_entry_safe(layer, next, &logicvc->layers_list, list)
+		logicvc_layer_fini(logicvc, layer);
+	...
+}
+
+This calls logicvc_layer_fini(), which explicitly frees the layer memory:
+
+drivers/gpu/drm/logicvc/logicvc_layer.c:logicvc_layer_fini() {
+	...
+	devm_kfree(dev, layer);
+}
+
+The layer's drm_plane was already added to the DRM device's
+mode_config.plane_list during initialization.
+
+Because drm_plane_cleanup() is never called to unlink the plane from the
+core list, the explicitly freed memory remains accessible to the DRM core.
+
+When probe ultimately unwinds and drm_mode_config_cleanup() is called, will
+it dereference the freed plane?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625132438.1912=
+90-1-jx@jasonxiang.net?part=3D1
