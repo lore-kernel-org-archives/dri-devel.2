@@ -4,72 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4644ACDE008
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 11:06:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79876CDE008
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 11:11:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C90F10F07A;
-	Thu, 25 Jun 2026 11:06:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CCA510E1E0;
+	Thu, 25 Jun 2026 11:11:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZFjU5vAQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Gwhcm+iK";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47A1410E164;
- Thu, 25 Jun 2026 11:06:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782385606; x=1813921606;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=3mMUyu41hsUV3+8vmn2FEljozTYUkLukSLGnNifcCP4=;
- b=ZFjU5vAQ8TToVEyFbJjdpAuqiQT/e/pM77n1BHV4WyLWer9SRFrymgPH
- ECfPiScvkrFfnxaDdlt1sM2pxqoKXrT9TT2AC4epJpZJs13+fEVbDxNDS
- ElPjcwsUZ9VlPu4SZlhkHVIeQnoPpZ0/wSWu7vcM4j8TaPtHPgPUQxI+p
- eg21m0LKkY0V3yWDRn6Ez46uvG+gEB3HZxE5aVdlt/+poL9WLOzbbAjlp
- PcheLFUNojQ6lrYul3a/HreB6ea6YWuLhLUAAYKZdEK0fSfpUzmhIroiq
- D336ES1RwMk0YYijfHnG/fldm0F2v77tiI9GVpxNZOxM9pW/mkD+Tz3Uc Q==;
-X-CSE-ConnectionGUID: FNOKNt0OR6aKFPGEP2dCIw==
-X-CSE-MsgGUID: bxWt7Lq5QxyOXfOtwI1b6A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="82144903"
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="82144903"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2026 04:06:05 -0700
-X-CSE-ConnectionGUID: Ff5wjq2eS3y4NEnYZUPVEg==
-X-CSE-MsgGUID: /T55+aBtS92ybM5/4REhrg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="249131302"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.126])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2026 04:05:58 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Steven Rostedt <rostedt@kernel.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Andrew Morton
- <akpm@linux-foundation.org>, Linus Torvalds
- <torvalds@linux-foundation.org>, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>, John Ogness <john.ogness@linutronix.de>, Thomas
- Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Julia
- Lawall <julia.lawall@inria.fr>, Yury Norov <yury.norov@gmail.com>,
- linux-doc@vger.kernel.org, linux-kbuild@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v4 0/2] tracing: Move non-trace_printk prototypes into
- trace_controls.h
-In-Reply-To: <20260625104007.041432666@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260625104007.041432666@kernel.org>
-Date: Thu, 25 Jun 2026 14:05:56 +0300
-Message-ID: <2037b6b62264c0192d45733ec1099c3ec14085a2@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF55910E1E0
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 11:11:35 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 87BA24349F;
+ Thu, 25 Jun 2026 11:11:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44DBB1F000E9;
+ Thu, 25 Jun 2026 11:11:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782385895;
+ bh=kyGlEq6hj+WA4FFSNlYY8yglxD7I/c4FXP6xdKKc2/Q=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Gwhcm+iK4zRcXlvGYdiAdglG/YiociOQSFEazyuMHIgnldJTItuPc8tZuqPCsQU0K
+ Lg1ndqC7jOpZNOGnZ04Zjm2yLICBxk/jusO2bRswnoHwkQIzVVHP8dpuioAxfOwZ6+
+ coMR8/Annocu7q8PvbhBELC9RaNZgJroVNt+y7Ze86tCaFXI/B5M2TQ1HIluYkUpEd
+ sLYN2eMqfjleSzY9x7ETo3p9ChKV+HCOj7k/CVpsCZSFWLDECN56L7Mm0YANWiuV6E
+ 7Xi8FASfcWK0iKsvT6AwQzQLhxQ5HvmsBy1QPWjHj6B6L3OqE0A90LOvMJteCywhQ+
+ 9rBi/J1e2JE/Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] drm/amdkfd: block THP for non-replayable SVM ranges
+To: "Yitao Jiang" <jytscientist@hotmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <SY1PR01MB10596F9476BAA5333F02F5A6BC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
+References: <SY1PR01MB10596EB75463208A8E1EBBA0FC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
+ <SY1PR01MB10596F9476BAA5333F02F5A6BC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 25 Jun 2026 11:11:34 +0000
+Message-Id: <20260625111135.44DBB1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,63 +53,186 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 25 Jun 2026, Steven Rostedt <rostedt@kernel.org> wrote:
-> Remove trace_printk.h by creating a trace_controls.h for those places that
-> need access to tracing prototypes like tracing_off() and for the places that
-> need trace_printk() directly, to have it included directly.
->
-> Changse since v3: https://lore.kernel.org/all/20260624081806.120105649@kernel.org/
->
-> - Always include trace_controls.h in rcu.h (kernel test robot)
->
->   There are other configs that may include tracing_off() in rcu.h besides
->   the one that had the include of trace_controls.h. Just always include
->   it in that header to be safe.
->
-> Steven Rostedt (2):
->       tracing: Move non-trace_printk prototypes into trace_controls.h
->       tracing: Remove trace_printk.h from kernel.h
->
-> ----
->  arch/powerpc/kvm/book3s_xics.c         |  1 +
->  arch/powerpc/xmon/xmon.c               |  1 +
->  arch/s390/kernel/ipl.c                 |  1 +
->  arch/s390/kernel/machine_kexec.c       |  1 +
->  drivers/gpu/drm/i915/gt/intel_gtt.h    |  1 +
->  drivers/gpu/drm/i915/i915_gem.h        |  2 ++
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-For the i915 parts,
+New issues:
+- [High] Error handling in `svm_range_set_attr` aborts the transaction mid-=
+flight without rollback, leaving overlapping ranges in the SVM interval tre=
+e and leaking memory.
+- [High] `svm_range_add_notifier_locked` silently ignores failures when reg=
+istering the MMU interval notifier, leading to WARN_ON_ONCE and interval tr=
+ee corruption.
+- [High] Clearing the `KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED` attribute perm=
+anently leaks a THP block node and permanently disables THP for the virtual=
+ address range.
+- [High] Dynamically disabling XNACK via ioctl does not update SVM range no=
+tifier flags, leaving THP unblocked and risking GPU page faults.
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+Pre-existing issues:
+- [High] If a user maps SVM memory at virtual address 0, its MMU interval n=
+otifier is never removed, causing a Use-After-Free.
+--
 
-for merging via whichever tree.
+commit f4df270ac94ba46190c602a81dedff1aa60cc86a
+Author: Yitao Jiang <jytscientist@hotmail.com>
 
->  drivers/hwtracing/stm/dummy_stm.c      |  1 +
->  drivers/infiniband/hw/hfi1/trace_dbg.h |  1 +
->  drivers/tty/sysrq.c                    |  1 +
->  drivers/usb/early/xhci-dbc.c           |  1 +
->  fs/ext4/inline.c                       |  1 +
->  include/linux/ftrace.h                 |  2 ++
->  include/linux/kernel.h                 |  1 -
->  include/linux/sunrpc/debug.h           |  1 +
->  include/linux/trace_controls.h         | 54 ++++++++++++++++++++++++++++++++
->  include/linux/trace_printk.h           | 56 ++--------------------------------
->  kernel/debug/debug_core.c              |  1 +
->  kernel/panic.c                         |  1 +
->  kernel/rcu/rcu.h                       |  1 +
->  kernel/rcu/rcutorture.c                |  1 +
->  kernel/trace/ring_buffer_benchmark.c   |  1 +
->  kernel/trace/trace.h                   |  1 +
->  kernel/trace/trace_benchmark.c         |  1 +
->  lib/sys_info.c                         |  1 +
->  samples/fprobe/fprobe_example.c        |  1 +
->  samples/ftrace/ftrace-direct-too.c     |  1 -
->  samples/trace_printk/trace-printk.c    |  1 +
->  27 files changed, 82 insertions(+), 55 deletions(-)
->  create mode 100644 include/linux/trace_controls.h
+drm/amdkfd: block THP for non-replayable SVM ranges
 
--- 
-Jani Nikula, Intel
+KFD SVM ranges on processes without XNACK, and ranges requested as
+GPU_ALWAYS_MAPPED, cannot rely on replayable GPU faults after a CPU THP
+remap of the registered VA range. Keep those ranges backed by base
+pages while their interval notifier is active.
+
+Opt those SVM interval notifiers into MMU_INTERVAL_NOTIFIER_BLOCK_THP
+and update the flag when SVM attributes change. XNACK-enabled ranges
+that can handle remaps through replayable faults remain eligible for
+THP unless GPU_ALWAYS_MAPPED is requested.
+
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/a=
+mdkfd/kfd_svm.c
+> index 3841943da5ece..0d0feba7b7852 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+
+[ ... ]
+
+> @@ -81,6 +82,26 @@ static const struct mmu_interval_notifier_ops svm_rang=
+e_mn_ops =3D {
+>  	.invalidate =3D svm_range_cpu_invalidate_pagetables,
+>  };
+> =20
+> +static unsigned int
+> +svm_range_mn_flags(struct svm_range *prange)
+> +{
+> +	struct kfd_process *p =3D container_of(prange->svms, struct kfd_process,
+> +					     svms);
+> +
+> +	if (!p->xnack_enabled ||
+> +	    (prange->flags & KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED))
+> +		return MMU_INTERVAL_NOTIFIER_BLOCK_THP;
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+When a process dynamically disables XNACK using the KFD_IOC_SMI_EVENTS ioct=
+l,
+does this leave THP unblocked on existing ranges?
+
+In svm_range_switch_xnack_reserve_mem(), p->xnack_enabled is updated
+dynamically:
+
+        p->xnack_enabled =3D xnack_enabled;
+
+However, it does not seem to update the interval notifier flags for existing
+SVM ranges. Because the existing ranges remain with THP unblocked, could
+khugepaged collapse THPs and generate unrecoverable GPU page faults since
+XNACK is disabled?
+
+> +
+> +static int
+> +svm_range_update_mn_flags_locked(struct svm_range *prange)
+> +{
+> +	return mmu_interval_notifier_set_flags_locked(&prange->notifier,
+> +						      svm_range_mn_flags(prange));
+> +}
+
+[Severity: High]
+If userspace clears the KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED flag or XNACK
+is enabled, does this permanently leak a THP block node?
+
+When svm_range_update_mn_flags_locked() calls
+mmu_interval_notifier_set_flags_locked() with flags =3D 0, the
+interval_sub->flags are zeroed out locally. However, since there is no
+teardown path to call mmu_interval_notifier_unblock_thp_locked(), the THP
+block node remains.
+
+When the SVM range is eventually freed, mmu_interval_notifier_remove() will
+also skip the unblock path because the flag was cleared, resulting in a
+permanent memory leak and permanently disabling THP for the virtual address
+range.
+
+[ ... ]
+
+> @@ -112,10 +133,11 @@ svm_range_add_notifier_locked(struct mm_struct *mm,=
+ struct svm_range *prange)
+>  	pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx]\n", prange->svms,
+>  		 prange, prange->start, prange->last);
+> =20
+> -	mmu_interval_notifier_insert_locked(&prange->notifier, mm,
+> -				     prange->start << PAGE_SHIFT,
+> -				     prange->npages << PAGE_SHIFT,
+> -				     &svm_range_mn_ops);
+> +	mmu_interval_notifier_insert_locked_flags(&prange->notifier, mm,
+> +						  prange->start << PAGE_SHIFT,
+> +						  prange->npages << PAGE_SHIFT,
+> +						  &svm_range_mn_ops,
+> +						  svm_range_mn_flags(prange));
+>  }
+
+[Severity: High]
+Does this silently ignore failures during interval notifier registration?
+
+If mmu_interval_notifier_insert_locked_flags() fails, it returns an error
+code and prange->notifier.mm remains NULL. Because the return value is
+discarded here, subsequent code in svm_range_set_attr() will call
+svm_range_update_mn_flags_locked() on the same transaction. This passes the
+uninitialized notifier to mmu_interval_notifier_set_flags_locked(), which
+will hit a WARN_ON_ONCE(!mm), return -EINVAL, and cause the transaction to
+abort, potentially corrupting the interval tree.
+
+[ ... ]
+
+> @@ -3763,6 +3785,12 @@ svm_range_set_attr(struct kfd_process *p, struct m=
+m_struct *mm,
+>  	}
+>  	list_for_each_entry(prange, &update_list, update_list) {
+>  		svm_range_apply_attrs(p, prange, nattr, attrs, &update_mapping);
+> +		r =3D svm_range_update_mn_flags_locked(prange);
+> +		if (r) {
+> +			mutex_unlock(&svms->lock);
+> +			mmap_write_unlock(mm);
+> +			goto out;
+> +		}
+
+[Severity: High]
+Does aborting the transaction here leak memory and corrupt the interval tre=
+e?
+
+If svm_range_update_mn_flags_locked() fails, the goto out path completely
+bypasses the remove_list processing located further down in the function.
+This leaves old cloned ranges permanently in the interval tree alongside
+their newly inserted replacements that were added during the insert_list
+loop. Additionally, because remove_list is a stack variable, skipping its
+teardown leaks the ranges and leaves dangling pointers in the update_list
+links.
+
+>  		/* TODO: unmap ranges from GPU that lost access */
+>  	}
+>  	update_mapping |=3D !p->xnack_enabled && !list_empty(&remap_list);
+
+[Severity: High]
+This is a pre-existing issue, but does svm_range_remove_notifier() fail to
+remove the notifier if the SVM range starts at virtual address 0?
+
+In drivers/gpu/drm/amd/amdkfd/kfd_svm.c:svm_range_remove_notifier():
+
+	if (prange->notifier.interval_tree.start !=3D 0 &&
+	    prange->notifier.interval_tree.last !=3D 0)
+		mmu_interval_notifier_remove(&prange->notifier);
+
+If an SVM range is mapped starting at virtual address 0 (which is permitted
+if vm.mmap_min_addr is 0 or if the user has CAP_SYS_RAWIO), the check
+evaluates to false and incorrectly skips mmu_interval_notifier_remove().
+The prange is subsequently freed, but its embedded notifier structure
+remains linked in the mm->notifier_subscriptions->itree, which will cause a
+use-after-free the next time the tree is modified.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/SY1PR01MB10596EB754=
+63208A8E1EBBA0FC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com?part=3D3
