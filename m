@@ -4,62 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC12BCDB479
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 14:09:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34BE4CDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 14:20:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EED1D10E228;
-	Thu, 25 Jun 2026 14:09:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CDA510F2DC;
+	Thu, 25 Jun 2026 14:20:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TNeglqTd";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="k2P5v4WE";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0352910E228
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 14:09:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782396595; x=1813932595;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=c0Bmn6hGAyuAnYk1EnLNUGmPoh3wiWyFQ1JCR1xdNDM=;
- b=TNeglqTdTJbbhXlleiqx0UCu7VPf2DhTyRxjkpgcK8GgjRxlE+8WOBgZ
- UlAOX+ERFa0gkJ+ljgEv+HUOZIGpnqp6JKKag4j3G/vrkZDMWjdmsa6Lu
- Sz5DqzYCDrp5BQltjGEWOA25SKVwcOnxKEVsqT3lzVMDH/LSaMhxLWKhI
- pcTEutiDE5TIK13Br6cmWI+aOLFaVCswSuIqUKHS9z87Bi9RQBGwgh/0Q
- 1mXwdb9jLVWWDf69FA7MHHUXjw6R/XNpcww/93Hf5m0QK4mSn0QXUH8+r
- KbOCm653RwN48NEq/1eSCPDpbpGSYZSZcckEr11O9HYnj4eHV5N/t971C g==;
-X-CSE-ConnectionGUID: C0em/IOZRhWBS+8LJwTF+g==
-X-CSE-MsgGUID: oYldQvnbROOM/dVCcvKdcQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="100597976"
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="100597976"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2026 07:09:54 -0700
-X-CSE-ConnectionGUID: fJBYsruzT7O3YosKUuaS6w==
-X-CSE-MsgGUID: DDU2IQeoRC2DL9WI0rmhJw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="255652309"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2026 07:09:52 -0700
-Date: Thu, 25 Jun 2026 17:09:49 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Sai Madhu <suryasaimadhu369@gmail.com>
-Cc: Dan Carpenter <error27@gmail.com>, andy@kernel.org,
- gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: fbtft: replace empty modifier argument with
- no-op macro
-Message-ID: <aj02rT4eRKRPhrNe@ashevche-desk.local>
-References: <20260625092721.238366-1-suryasaimadhu369@gmail.com>
- <aj0Cv0Wzb3rieNqW@stanley.mountain>
- <CAB0uMAeMOV4Xhq2cNVjxne89yqF8vdubM8-OpPYGK4f4yBLMNw@mail.gmail.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB2D310F2DC
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 14:20:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1782397238;
+ bh=VMFPhL9qWWY3o87HlGHRQAIC0bU8r7sxyyc2r8OQoEI=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=k2P5v4WEpgP1QbQKqad1URswH/dxla8HE4Ry69llrZsBSCIegasJ4WZANnIHEXsMY
+ bvI7SFeNudB85wcT7C/VNA4bfrHlKN2+KqRqQ6R1NAEiS6TJ0U36iCi2cFMZL2SOyi
+ A7dXqd+xBgL9gjN4RULHt0tJbUSSQCKXn3/AoUZYMDeg2WBje/ZG98svnqD/B9c0zQ
+ UDAiDPPF+Inf5jNDeVseZd1/u79I9r9kGETgc2Aq4NSehnml5NIVNfqCBAZobA/EZR
+ C7Cem2XPzIxBcIh2FevlcFG+3ig/ORszHlf+0yCulKFereAgkrTkgNM2B2xDfgF1Sr
+ EtkoiJFpukqdA==
+Received: from fedora-2.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E016A17E0114;
+ Thu, 25 Jun 2026 16:20:37 +0200 (CEST)
+Date: Thu, 25 Jun 2026 16:20:31 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Nicolas Frattaroli
+ <nicolas.frattaroli@collabora.com>, Chia-I Wu <olvaffe@gmail.com>, Karunika
+ Choo <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, sashiko-bot@kernel.org
+Subject: Re: [PATCH 03/11] drm/panthor: Fix UAF on works queued to
+ panthor_cleanup_wq
+Message-ID: <20260625162031.31aa32c6@fedora-2.home>
+In-Reply-To: <20260625-panthor-misc-fixes-v1-3-b67ed973fea6@collabora.com>
+References: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
+ <20260625-panthor-misc-fixes-v1-3-b67ed973fea6@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAB0uMAeMOV4Xhq2cNVjxne89yqF8vdubM8-OpPYGK4f4yBLMNw@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,26 +68,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 25, 2026 at 04:00:24PM +0530, Sai Madhu wrote:
+On Thu, 25 Jun 2026 14:40:29 +0200
+Boris Brezillon <boris.brezillon@collabora.com> wrote:
 
-First of all, do not top-post!
-
-> Thank you for the feedback. I understand and will drop this patch.
+> If we don't drain the panthor_cleanup_wq before
+> unregistering/destroying the panthor_device, we might end up with
+> cleanup works that are executed after the device is gone.
 > 
-> I have also noticed two pre-existing bugs in the same file
-> (unaligned access and buffer size calculation when startbyte is used)
-> and have sent a separate patch to fix those.
+> Add a drain_workqueue() call in panthor_device_unplug() to prevent
+> that.
+> 
+> Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
+> Fixes: 647810ec2476 ("drm/panthor: Add the MMU/VM logical block")
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com?part=2
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_device.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+> index 0b25abebb803..a0774e28aa94 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> @@ -101,6 +101,11 @@ void panthor_device_unplug(struct panthor_device *ptdev)
+>  	panthor_gpu_unplug(ptdev);
+>  	panthor_pwr_unplug(ptdev);
+>  
+> +	/* Make sure works queued to panthor_cleanup_wq are executed
+> +	 * before the device is destroyed.
+> +	 */
+> +	drain_workqueue(panthor_cleanup_wq);
 
-> On Thu, 25 Jun 2026 at 15:58, Dan Carpenter <error27@gmail.com> wrote:
-> > On Thu, Jun 25, 2026 at 05:27:21PM +0800, suryasaimadhu wrote:
+As shashiko pointed out[1], this doesn't work. __flush_workqueue()
+could work, but I'm actually considering moving those work to the
+panthor_mmu/panthor_scheduler, so we can easily call
+disable_work_sync() when the MMU/scheduler components are torn down.
 
-> > I don't hate this patch, but I think we've decided to leave this
-> > as-is.
+> +
+>  	pm_runtime_dont_use_autosuspend(ptdev->base.dev);
+>  	pm_runtime_put_sync_suspend(ptdev->base.dev);
+>  
+> 
 
-Yep. as Dan said,
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+[1]https://sashiko.dev/#/patchset/20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com?part=3
