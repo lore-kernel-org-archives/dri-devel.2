@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD2A7CDE008
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 10:22:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF25DCDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 10:22:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3868210F229;
-	Thu, 25 Jun 2026 10:22:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C95410F22B;
+	Thu, 25 Jun 2026 10:22:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nxTZobx/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mZES0BhR";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90E2010F229
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 10:22:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12AF510F229
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 10:22:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7A8E0406A9
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 10:22:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DF121F000E9;
- Thu, 25 Jun 2026 10:22:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F1483440D8;
+ Thu, 25 Jun 2026 10:22:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 777AD1F00A3A;
+ Thu, 25 Jun 2026 10:22:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782382927;
- bh=kHYninHeoO15QPVSpDTTpGn+Wym7QkYbV3//DkbL/BI=;
+ s=k20260515; t=1782382928;
+ bh=yLJeep5IuhycEZg2kBNl+sQC2H+Q7PjuP10Kajolifo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nxTZobx/bitU2o0ayop7tvoh53gpwrRdmRpVhYl4KlS/5ykfnxcEyd7MuLVRtrvYs
- RIkACGKd73+Oacd5MJqOInFt5OZMWjWmL3PF0Fivggqsc30eBddXcYBZLd7Qvvfhgj
- H9UoqYAWuuI7QySS3hZR4EQTWzQhX+9Coi9EJWfkXrsmZfxHNddQHRVGUqlZV1mKtg
- /nQCE0nznwXtcksBfwGDyKwr2kpPucIpowuUY7UQl7e+50UgYSaMVcCrOplt52H3pR
- b+Atlfft2TzxwKTfTzAqqgDXCmDU+LP6LR3Tz7G1F3s4OUXZb08jDFEStylI470aSG
- KWQtgef1KToDQ==
+ b=mZES0BhRVJ/NFHUuTyRSLjFfL5lLOUgMveGEwBV+UFZ+up0UkSjtfAcIje3wk4LCN
+ FvjNZA1GFX4jNPS5Z7zrRobU0LNUAZ8s+vsG/IopbALvWh3j7hQvdvzEr/TvtAVCdw
+ mrPfQovHlTYjbLG9SRTpcDrQa7D2uXfMvzuO2eG0OKqJEkHFWZHyngDFQL4TkYRAgd
+ 3rJVoj2JvLn9fweotQDq8qOkzSQ8OdmDaWq+4gY/brOc4wdcQH7mmWRMsoKLaUdSSs
+ bvTGf8tbx5Rv9XyBxHcXBENV3rFNMzjOPeuMfYYBtiiHuhFmIBpPYY7DTKFgCiVw3x
+ jXkfqdcV+u9HQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v18 1/8] rust: alloc: add `KBox::into_non_null`
-To: "Andreas Hindborg" <a.hindborg@kernel.org>
-Cc: linux-pci@vger.kernel.org, ojeda@kernel.org,
+Subject: Re: [PATCH v5 6/7] drm/verisilicon: add DCUltraLite chip identity
+ to HWDB
+To: "Joey Lu" <a0987203069@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
  dri-devel@lists.freedesktop.org
-In-Reply-To: <20260625-unique-ref-v18-1-4e06b5896d47@kernel.org>
-References: <20260625-unique-ref-v18-0-4e06b5896d47@kernel.org>
- <20260625-unique-ref-v18-1-4e06b5896d47@kernel.org>
+In-Reply-To: <20260625094449.708386-7-a0987203069@gmail.com>
+References: <20260625094449.708386-1-a0987203069@gmail.com>
+ <20260625094449.708386-7-a0987203069@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 10:22:06 +0000
-Message-Id: <20260625102207.1DF121F000E9@smtp.kernel.org>
+Date: Thu, 25 Jun 2026 10:22:07 +0000
+Message-Id: <20260625102208.777AD1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,51 +61,67 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Mismatch between SAFETY comment and executed code in `into_non_null=
-`.
+- [High] The newly added DCUltraLite chip restricts the max cursor size to =
+32x32, but the driver does not configure `drm->mode_config.cursor_width` or=
+ `cursor_height`. DRM core defaults to 64x64 when these fields are 0. This =
+incorrectly exposes a `DRM_CAP_CURSOR_WIDTH` of 64 to userspace, causing at=
+omic commits with 64x64 hardware cursors to be rejected with `-EINVAL`, bre=
+aking display compositors.
 --
 
-commit c2c9f847b4c97663dbc3f96c92652dbd5698f0aa
-Author: Andreas Hindborg <a.hindborg@kernel.org>
+commit a3c0d8a714c977c54ec25009535f44e9ded7c881
+Author: Joey Lu <a0987203069@gmail.com>
 
-rust: alloc: add KBox::into_non_null
+drm/verisilicon: add DCUltraLite chip identity to HWDB
 
-This commit adds an into_non_null() method to Box<T, A> that consumes the b=
-ox
-and returns a NonNull<T>. It acts as a convenience wrapper around
-Self::into_raw() for callers requiring a NonNull pointer.
+The Nuvoton MA35D1 chip contains a DCUltraLite display controller with
+model number 0x0 (sic, the model name contains no number either),
+revision 0x5560 and customer ID 0x305.  It has a similar register map
+with DC8000, only one display output and only 32x32 cursor supported.
 
-> diff --git a/rust/kernel/alloc/kbox.rs b/rust/kernel/alloc/kbox.rs
-> index 35d1e015848dd..d534e8adcf7b3 100644
-> --- a/rust/kernel/alloc/kbox.rs
-> +++ b/rust/kernel/alloc/kbox.rs
-[ ... ]
-> @@ -211,6 +211,15 @@ pub fn leak<'a>(b: Self) -> &'a mut T {
->          // which points to an initialized instance of `T`.
->          unsafe { &mut *Box::into_raw(b) }
->      }
+> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/veri=
+silicon/vs_hwdb.c
+> index 91524d16f7785..7d630a667a3f0 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+> @@ -129,6 +129,16 @@ static struct vs_chip_identity vs_chip_identities[] =
+=3D {
+>  		.max_cursor_size =3D 64,
+>  		.formats =3D &vs_formats_no_yuv444,
+>  	},
+> +	{
+> +		.model =3D 0x0,		/* DCUltraLite */
+> +		.revision =3D 0x5560,
+> +		.customer_id =3D 0x305,
 > +
-> +    /// Consumes the `Box<T,A>` and returns a `NonNull<T>`.
-> +    ///
-> +    /// Like [`Self::into_raw`], but returns a `NonNull`.
-> +    #[inline]
-> +    pub fn into_non_null(b: Self) -> NonNull<T> {
-> +        // SAFETY: `KBox::into_raw` returns a valid pointer.
-> +        unsafe { NonNull::new_unchecked(Self::into_raw(b)) }
+> +		.generation =3D VSDC_GEN_DC8000,
+> +		.display_count =3D 1,
+> +		.max_cursor_size =3D 32,
 
-[Severity: Low]
-This isn't a bug, but there is a mismatch between the safety comment and the
-executed code in into_non_null(). The safety comment specifies KBox::into_r=
-aw,
-but the code executes Self::into_raw(b) on the generic Box<T, A>.=20
+[Severity: High]
+Does this code expose an incorrect DRM_CAP_CURSOR_WIDTH to userspace?
 
-Would it be better for the comment to reference the actual generic type met=
-hod
-being called to prevent reader confusion?
+Looking at vs_mode_config_init() in drivers/gpu/drm/verisilicon/vs_drm.c,
+the driver does not seem to configure drm->mode_config.cursor_width or
+cursor_height:
 
-> +    }
->  }
+drivers/gpu/drm/verisilicon/vs_drm.c:vs_mode_config_init() {
+    ...
+    drm->mode_config.helper_private =3D &vs_mode_config_helper_funcs;
+}
+
+When these fields are 0, the DRM core defaults to 64x64. This means userspa=
+ce
+compositors might query the capability, receive 64x64, and attempt to commit
+a 64x64 hardware cursor.
+
+If this new chip restricts the max cursor size to 32x32, will the driver's
+atomic check reject the 64x64 state and break display compositors?
+
+> +		.formats =3D &vs_formats_no_yuv444,
+> +	},
+>  };
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625-unique-ref=
--v18-0-4e06b5896d47@kernel.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625094449.7083=
+86-1-a0987203069@gmail.com?part=3D6
