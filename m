@@ -4,66 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF42FCDE00C
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 22:39:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72C01CDE00C
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 22:40:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A3A110F3B2;
-	Thu, 25 Jun 2026 22:39:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8C9310E295;
+	Thu, 25 Jun 2026 22:40:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="We7ym64l";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D+Ubm5Ow";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CBE910E295;
- Thu, 25 Jun 2026 22:39:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=iSqoogcXxBiMpfVVgDCHCqL3LKy3w6cdDOiA0buc+Zo=; b=We7ym64l/dRYkiui+djH3QX0R3
- bkYhE9iaIItaLxg9oyq9Dzvd/WZ/KjNpsbhKzGmfaPykILr/daCO9NQ44OJUZe79d98l1qZxORXKv
- wFfUEi+fz0GnVmoWYhKpkIsMu/IGYQve8B50fhry8EzWbo8GoBsF+5CMFU7jwrdi5Y/ZKPz43aaGa
- yVw0dRLYe2nKk+0NG2A1HJrtXOc5S+OFfQkvGXM8pOoqM0BRKGH/YFvGcWb+6v5SLwBVpB1dm9v2Z
- RI8NK2TW5ohC9UL3/tIk/bPlLmVMRrgUbKhtVhcC5fAS98TULK9KOVyIi3XIWrbtG2xlnYGZWuz5V
- Is4TDDYQ==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
- helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wcsip-005FpT-Or; Fri, 26 Jun 2026 00:38:59 +0200
-Message-ID: <2a1ea63b-646e-4064-bb60-982b6b027c75@Igalia.com>
-Date: Thu, 25 Jun 2026 15:38:50 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] drm/atomic: reject colorop update from inactive
- color pipeline
-To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
- alexander.deucher@amd.com, alex.hung@amd.com, aurabindo.pillai@amd.com,
- christian.koenig@amd.com, contact@emersion.fr, daniels@collabora.com,
- harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20260609121230.1358786-1-mwen@igalia.com>
- <20260609121230.1358786-3-mwen@igalia.com>
-Content-Language: en-GB
-From: John Harrison <John.Harrison@Igalia.com>
-In-Reply-To: <20260609121230.1358786-3-mwen@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB44B10E295
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 22:40:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 20F7E60098;
+ Thu, 25 Jun 2026 22:40:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A08321F000E9;
+ Thu, 25 Jun 2026 22:40:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782427212;
+ bh=rkcW+Fl7rcZ9pgg2bVHK6ASURcIVJQ/ulnMU/LeDYig=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=D+Ubm5OwojkBHb0CJHuwtkPfWmyINkdyLYKCOwB+5LCOplJZ8yiX5N1Xh3tRDgqL3
+ szZe4b/y0/3XwYsjeGgsyEG+OsG60s5+D8HTi1GywXD3s0ard8PNhe3LwTtGcduMXV
+ jKWV5b5rUv+srBlprnC939Rc/Qf7aLfrwtg/3yDs4aXJRKBSA2bbjb45StFtp/rIAC
+ oQtR1oC2QBkZuB5n06ImPFX7l0N5w4qD14IlpMznESyjpC0FtHIwTK+5G55ZJw07yj
+ ROppPY6Zxwo1fL9R/85oZajw6pMy7jr/qwydJgH6ba7urfxnT2AskqTD6hSXAfEyub
+ oskrdFuUkh7pw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/4] drm/msm: Fix per-process-pgtables check
+To: "Rob Clark" <robin.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260625222744.22254-5-robin.clark@oss.qualcomm.com>
+References: <20260625222744.22254-1-robin.clark@oss.qualcomm.com>
+ <20260625222744.22254-5-robin.clark@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 25 Jun 2026 22:40:12 +0000
+Message-Id: <20260625224012.A08321F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,122 +53,116 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/9/26 13:51, Melissa Wen wrote:
-> Only allow updates on colorops that are part of an active pipeline, i.e.
-> check if a colorop belongs to the color pipeline of a plane in its
-> current, new or old state. If not, reject the state change of this
-> inactive colorop. Performing this check later in drm_atomic_check_only()
-> to remove the ordering dependency that would exist if done at the time
-> of colorop property setting. Userspace is allowed to change colorops of
-> an active color pipeline, or when activating or deactivating its
-> pipeline in the same commit. However, changes in inactive color pipeline
-> is not allowed.
-The last two sentences here seem to be a duplicate of the first two 
-sentences. Maybe drop them as redundant?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
->
-> Suggested-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> ---
->   drivers/gpu/drm/drm_atomic.c | 60 ++++++++++++++++++++++++++++++++++++
->   1 file changed, 60 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 464562861408..960b52624deb 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -943,6 +943,55 @@ drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
->   	return 0;
->   }
->   
-> +/**
-> + * drm_atomic_colorop_check - check new colorop state
-> + * @new_colorop_state: new colorop state to check
-> + *
-> + * Ensure that the colorop in @new_colorop_state belongs to an active color
-> + * pipeline, i.e. it's in the chain of colorops set to the color_pipeline
-> + * property of current, old or new plane state.
-> + *
-> + * Returns: 0 on success, -EINVAL otherwise.
-> + */
-> +static int drm_atomic_colorop_check(const struct drm_colorop_state *new_colorop_state)
-> +{
-> +	struct drm_atomic_commit *state = new_colorop_state->state;
-> +	struct drm_plane *plane = new_colorop_state->colorop->plane;
-> +	struct drm_plane_state *new_plane_state, *old_plane_state;
-> +	struct drm_colorop *colorop;
-> +
-> +	new_plane_state = drm_atomic_get_new_plane_state(state, plane);
-> +	old_plane_state = drm_atomic_get_old_plane_state(state, plane);
-> +
-> +	/* No changes in the plane state. Check current-committed plane state */
-> +	if (!new_plane_state) {
-> +		for (colorop = plane->state->color_pipeline; colorop; colorop = colorop->next)
-Doesn't the first patch add a macro for wrapping this for loop?
+Pre-existing issues:
+- [Critical] Insufficient capability check and silent fallback to the globa=
+l GPU VM allows userspace to manage the global VM via VM_BIND.
+- [High] A time-of-check to time-of-use (TOCTOU) data race when opting into=
+ VM_BIND mode allows a state mismatch between `ctx->userspace_managed_vm` a=
+nd the underlying IOMMU page table configuration.
+--
 
-> +			if (colorop == new_colorop_state->colorop)
-> +				return 0;
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (WARN_ON(!old_plane_state))
-> +		return -EINVAL;
-> +
-> +	/* Check if the colorop is active in the new plane state */
-> +	for (colorop = new_plane_state->color_pipeline; colorop; colorop = colorop->next)
-> +		if (colorop == new_colorop_state->colorop)
-> +			return 0;
-> +
-> +	/* Same color pipeline as new; no point walking old. Colorop isn't active */
-> +	if (new_plane_state->color_pipeline == old_plane_state->color_pipeline)
-> +		return -EINVAL;
-> +
-> +	/* Check if the colorop was active in the old plane state */
-> +	for (colorop = old_plane_state->color_pipeline; colorop; colorop = colorop->next)
-> +		if (colorop == new_colorop_state->colorop)
-> +			return 0;
-Doesn't this situation count as changing the properties of an inactive 
-colorop? And should therefore be rejected? The colorop was previously in 
-use but once the commit goes through, it will not be. So any changes to 
-its state will not actually affect the new post-commit universe. Or am I 
-missing something?
+commit 29eb04f2a503cc0bd049bafc825248eb1ad0a013
+Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
-John.
+drm/msm: Fix per-process-pgtables check
 
-> +
-> +	/* Colorop is not part of an active color pipeline. */
-> +	return -EINVAL;
-> +}
-> +
->   static void drm_atomic_colorop_print_state(struct drm_printer *p,
->   					   const struct drm_colorop_state *state)
->   {
-> @@ -1792,6 +1841,8 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
->   	struct drm_plane *plane;
->   	struct drm_plane_state *old_plane_state;
->   	struct drm_plane_state *new_plane_state;
-> +	struct drm_colorop *colorop;
-> +	struct drm_colorop_state *new_colorop_state;
->   	struct drm_crtc *crtc;
->   	struct drm_crtc_state *old_crtc_state;
->   	struct drm_crtc_state *new_crtc_state;
-> @@ -1808,6 +1859,15 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
->   			requested_crtc |= drm_crtc_mask(crtc);
->   	}
->   
-> +	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
-> +		ret = drm_atomic_colorop_check(new_colorop_state);
-> +		if (ret) {
-> +			drm_dbg_atomic(dev, "[COLOROP:%d:%d] isn't in an active color pipeline.\n",
-> +				       colorop->base.id, colorop->type);
-> +			return ret;
-> +		}
-> +	}
-> +
->   	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
->   		ret = drm_atomic_plane_check(old_plane_state, new_plane_state);
->   		if (ret) {
+ctx->vm should not be inialized yet (or if it has, an error is returned
+immediately following this check), so this isn't a valid way to check
+for per-process-pgtable support. Instead just check if create_private_vm()
+is supported.
 
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: feb8ef4636a4 ("drm/msm: Add opt-in for VM_BIND")
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
+m/adreno/adreno_gpu.c
+> index c62c45bb0ddbb..bff2a773c0d4e 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -505,7 +505,7 @@ int adreno_set_param(struct msm_gpu *gpu, struct msm_=
+context *ctx,
+>  		return msm_context_set_sysprof(ctx, gpu, value);
+>  	case MSM_PARAM_EN_VM_BIND:
+>  		/* We can only support VM_BIND with per-process pgtables: */
+> -		if (ctx->vm =3D=3D gpu->vm)
+> +		if (!gpu->funcs->create_private_vm)
+
+[Severity: Critical]
+This is a pre-existing issue, but does relying on a static function
+pointer here rather than verifying actual VM creation success allow an
+invalid configuration to proceed?
+
+If dynamic creation of the private VM fails in msm_gpu_create_private_vm()
+(e.g., due to memory allocation failure or missing IOMMU support returning
+-ENODEV), it silently falls back to returning the global, kernel-managed
+gpu->vm:
+
+drivers/gpu/drm/msm/msm_gpu.c:msm_gpu_create_private_vm() {
+	...
+	if (IS_ERR_OR_NULL(vm))
+		vm =3D drm_gpuvm_get(gpu->vm);
+	...
+}
+
+Because this check allows userspace to set ctx->userspace_managed_vm to
+true, could a malicious process then use DRM_IOCTL_MSM_GEM_VM_BIND to issue
+unmap and map operations against the global VM?
+
+This seems to allow unmapping kernel structures like the memptrs ringbuffer
+and mapping arbitrary memory in its place, potentially hijacking the GPU
+ringbuffer and compromising the kernel. Furthermore, passing offset !=3D 0 =
+or
+handle =3D=3D 0 could trigger a BUG_ON() causing a kernel panic.
+
+>  			return UERR(EINVAL, drm, "requires per-process pgtables");
+> =20
+>  		/*
+>  		 * We can only swtich to VM_BIND mode if the VM has not yet
+>  		 * been created:
+>  		 */
+>  		if (ctx->vm)
+>  			return UERR(EBUSY, drm, "VM already created");
+> =20
+>  		ctx->userspace_managed_vm =3D value;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is there a race condition
+here because the check of ctx->vm and assignment to ctx->userspace_managed_=
+vm
+are done without synchronization?
+
+Could a concurrent ioctl (like MSM_GEM_SUBMIT) invoke msm_context_vm(),
+which reads ctx->userspace_managed_vm before it is set to true here, causing
+it to lazily create a legacy kernel-managed private VM?
+
+drivers/gpu/drm/msm/msm_drv.c:msm_context_vm() {
+	...
+	vm =3D msm_gpu_create_private_vm(
+		priv->gpu, current, !ctx->userspace_managed_vm);
+	...
+}
+
+If adreno_set_param() then overwrites ctx->userspace_managed_vm to true,
+and userspace subsequently issues DRM_IOCTL_MSM_GEM_VM_BIND, would the
+ioctl proceed on the kernel-managed VM?
+
+During the bind operation, wouldn't msm_gem_vma_new() see
+vm->managed =3D=3D true and execute BUG_ON() if offset !=3D 0 or handle =3D=
+=3D 0,
+triggering a kernel panic?
+
+> =20
+>  		return 0;
+>  	default:
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625222744.2225=
+4-1-robin.clark@oss.qualcomm.com?part=3D4
