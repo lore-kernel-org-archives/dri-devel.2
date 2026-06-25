@@ -4,135 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9904FCDE008
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 10:14:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0C87CDE008
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 10:15:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E337610F21B;
-	Thu, 25 Jun 2026 10:14:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22ABC10F213;
+	Thu, 25 Jun 2026 10:15:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yXK0gqkx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FZ9E4325";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011006.outbound.protection.outlook.com
- [40.93.194.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40D3710F20B;
- Thu, 25 Jun 2026 10:13:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PqYf2s4mOjw/crlP8cxe3ZwVPsaMBjQLGQ+Xcg7RlCRABLPq+YEE/gjY+pHfC31b679A8+RNhqiZHavHadN1jiOOq1MfPHs4Jaq+qhb4hzp8VyQ1VVvnZ5vH4IUkCX+g0cIHmNm0QQqu8nUNXj6QMqgwgq3lXap/+1LvEpB2iqTLUU+JNb13rcZvpE0n20fJFg/Z8hKJ4Ze2qbiHMRcFmaA3kcacs/Xvpuygiof940MLWmLTL8zPfTZPcb7ha5C9odJ8SLk6KLgzShZFgcKEe5idTR4PdidQETKIIApXW/tZ5TjwaHWvfY+igw4POHaNelnsRv14xDsdCYqLZ04ylA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mrMBxvLUYSeL2UVUtpLkcwzMoaaAtLDTiZMqoS/qN1o=;
- b=vAve8R+BoFuNCwsCqI7SzcnbUgPVLLwiP2Hs6VoGWzcHBOolcI1LVbVrnpuXJzW0dGTWs9i1w1ynkS3D0HGHPxHFewUbITwkLcCaiMBpZWv84EkIAcDTpc6wPcifPpg4/Dhvww9UR+jDGXpuSO2TciEc/jOa/U4HhHNzRQKyDoRskr+a7fWa1cr38MIisW5QeY/A0gNF8CQOdwr3VYKgdKc8pUW8ntRukFHqAQBIBliwYcXaiig5GD5pCgM6Z7KOff1sblCVl5T3gdJLbJKsIkP6AkMAD2sh7E0+7yEMa8PiQy2Kt6RSsC2Eg0u7kBWcdWOPJNiRWog3piZ9xk7Hpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mrMBxvLUYSeL2UVUtpLkcwzMoaaAtLDTiZMqoS/qN1o=;
- b=yXK0gqkx0ZcMyc1jYeCeu551SnW4xutc2i+9am+M9BCjJJNYVy6WVrOlasmhg2DehHr2bGPsm39WJrIEH3f2y3bdsfCU2TJJJjEBObn6Ny5uWATfQaj0/ycPR87LJAQafuMpXRKEsAhtZbs0JKhlIthNilQn/8XFOmn51Ax5wkI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY8PR12MB9036.namprd12.prod.outlook.com (2603:10b6:930:78::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.14; Thu, 25 Jun
- 2026 10:13:55 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0139.018; Thu, 25 Jun 2026
- 10:13:55 +0000
-Message-ID: <ff6ec078-9b3f-4740-bb87-66b76e36e571@amd.com>
-Date: Thu, 25 Jun 2026 12:13:49 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] drm/amd/display: Pin native scanout to VRAM on
- large-carveout APUs
-To: Harry Wentland <harry.wentland@amd.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>, Melissa Wen
- <mwen@igalia.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, natalie.vock@gmx.de
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- "Paneer Selvam, Arunpravin" <Arunpravin.PaneerSelvam@amd.com>,
- "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>
-References: <20260616071037.26718-1-matthew.schwartz@linux.dev>
- <334d4642-a7ce-4d04-ab14-6b95653e6f86@amd.com>
- <09a37c38-3f99-40bf-9a87-f88298ce349a@amd.com>
- <9b96d6a5-7c3c-4bd5-8785-76c9642bc933@amd.com>
- <faa1c424-2282-4e70-9934-e29f437f8bbb@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <faa1c424-2282-4e70-9934-e29f437f8bbb@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0294.namprd13.prod.outlook.com
- (2603:10b6:208:2bc::29) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79E3910F213
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 10:15:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 32F4F40BBB;
+ Thu, 25 Jun 2026 10:15:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093711F000E9;
+ Thu, 25 Jun 2026 10:15:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782382554;
+ bh=ZToO+NQD3LW0EAmo0Z2TAVZkC45YHlFo8YdIzTw1Q2A=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=FZ9E4325NuPDynK8zLdwbNfS+lbrGpPD6GpiFQY9yM+ZvbhO1TFzNBkRBA5AHz7us
+ gg/U00xWrsz1s/i8RCxBwnI9xmiiVdfZYF9JmoEpc5yGosCDjf/Y/BI6RKtv4NFK8+
+ aJOJUZ37Hes4cAXKVRCiazykWCkSVhDptaO91vQBvl3gpQ9KPtfURJy+eLQhlPhtlu
+ GjebExOR/ZHbbNPr3ZSySn3nPzQ2jy9/QyIiFKtYqo0o6CUiHfuFoMAzsLodoX+icv
+ RbGPKHldyC093xSpf3gnl5pADqKYapZP/BICOcqdgKbbYp0EaqZyQ1t7QC/6z6Ifhi
+ 6c3/XEXORjwWA==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+Date: Thu, 25 Jun 2026 12:15:09 +0200
+Subject: [PATCH v18 7/8] rust: Add `OwnableRefCounted`
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB9036:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef1ff40b-60fc-42e4-43f2-08ded2a276f3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|56012099006|11063799006|5023799004|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 7RRVmwaYk+qnVpG+UFQSaerQA/vHb0dnpTt+DmZB2L4KXMbU8FFotworJtrY9uPS/A1OiSQUym6dCdEK7Tz/0B8Cgk9LaKwoCCxRP0C9CZ3NTwP/wu6ZvvjXrrVRD/LrhiOIuz2wQ77XRb0+uRnpBSicJDFAE/kxM8qpqk/dyLszAaN3o/iizCPJvk2hzy0U62IWpbG4ytF3s+QjMmIGHOXe7apkHspVVbt4VaLbMI9/x0CwdEoUozgWlAp3j0WHhqJYM7/x9L0yJaUMCZFWgpsVre9GChXIMKzNFDrU2VGH3goqP/XdNVlmD4ESfUyd/IK0T2B1IrfS3YJ7FwDHFrImLPv/RqzPgSGm6En4oxHDKY8Q90Ra0+XzJzWWVfzyZtPbNRTx3VLrOmffOfco0RiHghH3rFDHdkOX8kX8GQmxxBnRCLu8wYtYMjeE6ypSLY0sJmnW0YPoIVmjRdbfJ7dTgIoUOIzpNGGuz+8CjsseH7VVHZmGm3hsVP3VgykC6IvbaGTyLtmbtXyAdRXAHQuOv69ltXQIwUo2g39pmilZPVEJWduUOOREcOiBGhT1+9ZYo8lOIh36+V1AQ5GLBiLUFluDZsVNBHJDXXs7CJFifKVbLeBmCixGzzn+uOWLtd/04nMRfC56+aUwh0Qaxjzjk8G+YNpmGhZfWLbp09w=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(56012099006)(11063799006)(5023799004)(4143699003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RUUvdHR5bUM0MWlZMEdqTXF1UHhwWGM1Ym5sTTFzMERnMTIxbTR2WllTanVv?=
- =?utf-8?B?a21zWXZvTXE3NkgwS0tmbWpyYmxvcHA3Rzd3QVpxZzFudjNhMmJJNnhoNkcr?=
- =?utf-8?B?UG9nb2ZURFhMcXlGYU5HLzd0TFFFV21NMDM5UncyWHhYRXBoVXZpTkwwUmlN?=
- =?utf-8?B?cFVhcmVVclY3a2EzTE9Rc1FnMEFwNnY1MHk1WUdSdHh3UVFhMnVXYldCaTZ6?=
- =?utf-8?B?KzdVbXpLZTdqVkFLRWwyS3dQSzdjRVZqNS9nRkovcjUycXZOV2VKaWlLWjVP?=
- =?utf-8?B?azdpOGhjOG1rQzZKaTZjTnpPQ3I3VU1HVzh5Y2xjckxUdkVCV2RVcnlYRDcv?=
- =?utf-8?B?ditsaHhrc3BBbEVOaUozVFhRSmpzeUxLMGJSeFEyTldJWnhsbHBCNE5LNnRS?=
- =?utf-8?B?T1NzVkRvSGEwblN5anAvbXhjWmlKU2xCcURsN0tybCtYZTZuVTBUaG9YRzky?=
- =?utf-8?B?K1UrT0VnQWdRdWNLRVBFM3pQMWViRFJuVmhsdXlPeUErOEsrRDEyVDNqTTU5?=
- =?utf-8?B?Ni90RnJhRm1ENTd0YkxsTW1OSEVTbFIwbW5HN1lXS0h6MTU4SnoxcFdVcEM2?=
- =?utf-8?B?YndTYXlDVThJcFZDUFZkbE5TWXVESFduVnpRU25rVVl2R0h2alNXUDFWaXE5?=
- =?utf-8?B?ZUc1bndFbzVjUFExSzZ4SjNETXNvZ2pIWXY0Rk1pRjhrcGFrWXlDSmhEKzNy?=
- =?utf-8?B?enVlUXB3RndkdmwvNDVJdmNuNU5sdFU2YlRGeWlmRVNsckMwQ3J3TWV1Z0p3?=
- =?utf-8?B?aDdaR3Qrak9TK3RHeGZuY0xIK3Y0ZEE5TkNDTlV5N01zdHRRVzUrQTFKdzJo?=
- =?utf-8?B?bjV1d08zMGM1dGpUeERqcFNoNC9hTXE5cDVzQm9xZkpBWHEvaE1PQlBmNmRq?=
- =?utf-8?B?RGJSYjVBRG03amVVU3hMRko3K2Nucm9PelhoT3FwRDh6enFFZzJmWFhSdEFC?=
- =?utf-8?B?Wnl2OUZTbDJseUswS1F5djdXWHprUC9BZjZYMjJHTUVncTFxZHVNVmR4dkdG?=
- =?utf-8?B?UWIwUTkzbXVKWVlQQ3dJZlJzOWNGUEJoZWJqNDJEejBHbThDZTBYakphL0pQ?=
- =?utf-8?B?bisvbW1hbzZZSEVFbFFQdC9sWmhSQTJCcXJwTTNucjJoU3o0b3RwQWJsWXN5?=
- =?utf-8?B?Mm9zdkZFTWliU241MEZKRWRGL3htb29EUjhxTXc4em9JczBlK3FiaTRKNitY?=
- =?utf-8?B?UUZWYmRTbS95dUVPU1kvV0hJZXd6U2VWcHQ5VVg5c0hubEJyVGdNbkpsZC9o?=
- =?utf-8?B?amJESEp1VzN1bUJzbDIvdmFSRzlHM2d5aTZjVU5yemFOa2h0dGdQNXQ3c1dC?=
- =?utf-8?B?SWwvcHNnMUkwN1I5QzVqQlMvNFgzcHhKMW40emVNS3M5dXlobzF2cHRMT0NQ?=
- =?utf-8?B?QnFRU1dZRjFtdkZaN2JOSHBhYjlBMlpUREpyTDlXYXNXRFJleUUzVHJEMTZI?=
- =?utf-8?B?MWNoRTRBQk5xSmlWaDFBZ2R4V3ZHbmFXdEplMUp0T1UzampraXdVaUZBVTVX?=
- =?utf-8?B?WjBBQzNLZ3FCczVRb1RYNThYRzY5eU16MFRoMFNnWUZJZGRhaXRaWFcvYkZX?=
- =?utf-8?B?cDNHUTJFWGtBVW5aRUppRUVWNndXSVpnbkFmMTM2Y3VPQ04rRkUzQUhrUmZ4?=
- =?utf-8?B?azh3cEF4SEozeHJhcGU1L0tTRDJ6Z2FCOCtvRlU4RE11VWgvajNJNzU5RXNX?=
- =?utf-8?B?ajY2amM4a3VxOXBDaUVESGJ6V290RWtUVkEzRkxQRHJtVmhVUXZEUy9pdVBP?=
- =?utf-8?B?R09zdjE3NDJEdFlhQU8yL0tTdzF2alFScGxOdnNVYXkzQjhnbmM0R3VMVEZB?=
- =?utf-8?B?eGs4aGZaUlNZYThMbmxJVCtDbi8xVVc1QnFwMzkzWEVXUHk0czM0bG16WDBq?=
- =?utf-8?B?bUhWZ3hEVnAyK2tBMGVMRUNaVG5qWGVZVmhIb1FVTW01SVA1MUZzUi8yZThI?=
- =?utf-8?B?YXZhRUQ0Mmd3T1FHVHVBNkZ4MnZzYWE1aFUxRDJyd0lyUjNRNFlONjY2clQv?=
- =?utf-8?B?S2x0QUN1RENpaU9nZXpocWVQZmpJQ0VpRmgrbzg4NUNkdE5ocUVBdFZ4SEFp?=
- =?utf-8?B?am9Oay9ZR1gvSUN3NmRRWGtOUnp2TFhkRk1kd1hMbjRPVnFFemxKUkVSQU5X?=
- =?utf-8?B?VWVzaHBDZ0lRSnJPZy9laVR3bFFWSWRnNDJEZ09hTGVOV1c0Z3ZodWwvTDNR?=
- =?utf-8?B?bkFrRzNZdHZEaHdPTkZMcVBsaHVTdGVJZmFVcW9sczFlSnhDUWpGbHJTKzhn?=
- =?utf-8?B?eTRwWWhVK0RBWnIweG44anBYbERWRllQdmY3UVUvZjdQYldhRkUzNG03ZWJC?=
- =?utf-8?Q?iimllv6A9JLFXS86Dz?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef1ff40b-60fc-42e4-43f2-08ded2a276f3
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 10:13:55.7057 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6btiBhToYvk60+igugP1txcLkb1lxpejOwd0P3XyrzfuU2a4O+AQu4uhQF3amk8h
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB9036
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260625-unique-ref-v18-7-4e06b5896d47@kernel.org>
+References: <20260625-unique-ref-v18-0-4e06b5896d47@kernel.org>
+In-Reply-To: <20260625-unique-ref-v18-0-4e06b5896d47@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Lyude Paul <lyude@redhat.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+ Carlos Llamas <cmllamas@google.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Dave Ertman <david.m.ertman@intel.com>, Ira Weiny <ira.weiny@intel.com>, 
+ Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+ Serge Hallyn <sergeh@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Jan Kara <jack@suse.cz>, Igor Korotin <igor.korotin@linux.dev>, 
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, 
+ Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Andreas Hindborg <a.hindborg@kernel.org>, 
+ Philipp Stanner <phasta@kernel.org>, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ driver-core@lists.linux.dev, linux-block@vger.kernel.org, 
+ linux-security-module@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-fsdevel@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-pci@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ Oliver Mangold <oliver.mangold@pm.me>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9473; i=a.hindborg@kernel.org; 
+ h=from:subject:message-id;
+ bh=cWJqdUJZGXrcHaKbHpYDZftK3zE/sexxuAi+S26aqlw=; 
+ b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqPP/Du39o/7gxB53usiQFtTa8MFJbFxK5czvjr
+ 83YAteFVpiJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCajz/wwAKCRD6UCkIqsW9
+ 0Af9D/9w10G3io//DOmUeHH9FD6KsXpwAK/zpVsZ/QT6kNTFOGFn6S+fnXjMpb2m56aKPaCYGlE
+ eVcKwRT9xacubbqlID9d1mFW6lIrwuR01kff3cVlzFNlF05UScRgidldx8PoLSdGMlVktTUgT1n
+ oaTYDcojM+IWpqK0aUU8nGFhwKFCScnaBaNJSpYNSRxtb4A++eweLs15r0bBglVqsuaZR6GTbqY
+ Oig66z+jCWVptLSXAjJVj+jVn/fz4kHX3I9UwnMkdzFrWh8YMAt6EGO/1wN4sVr8IvW1vcg+TCg
+ GNeePvc+YEwh6SfmxhuTrIhDbxPwLFZ0xs+GDXvdzryDurPfB7dHh10Vb59WJeSTMy3/Uwm6sD7
+ JjPYO3a2RYqzccURIrqcFZR/hZqGLFT1p9er66xsxT3ODZJakt0wP+hLIiSZQ4o1B69RbJ8yRG9
+ 8RVMuGZ0/tGttIzpYXfPlojokwgWvCcwAJpdtYMlM3pWg6jzMS+2m0eJ7DjlGwGoFnnmKWHb3Xh
+ IFWxGg+FN9pqhAlQ3NiR40jYCKL2QUKjtqREWqVlMuqsIBvvwTsCDOjBMkxBydMAGmmcs6m4YtT
+ BUqvXMqrl0TQS0IzFpbuREHR/s0O2Gp+97s2oCAxGeS5YQKQ+o09DRnOOcmj8peXME0ZNv5hc5V
+ cpyJprpdU6ZxEaw==
+X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
+ fpr=3108C10F46872E248D1FB221376EB100563EF7A7
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,185 +107,245 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Adding a few more people on CC.
+From: Oliver Mangold <oliver.mangold@pm.me>
 
-On 6/24/26 19:55, Harry Wentland wrote:
-> On 2026-06-24 11:52, Christian König wrote:
->> On 6/24/26 17:30, Harry Wentland wrote:
->>> On 2026-06-16 03:31, Christian König wrote:
->>>> On 6/16/26 09:10, Matthew Schwartz wrote:
->>>>> Native scanout buffers on APUs are pinned with the VRAM|GTT domain, so
->>>>> under VRAM carveout pressure a swapchain can end up split across VRAM and
->>>>> GTT. The scanout buffer's memory type then changes from one flip to the
->>>>> next, and amdgpu_dm_crtc_mem_type_changed() rejects an async page flip
->>>>> across the change. The result is repeated async page flip failures,
->>>>> observed as choppy updates under carveout pressure, until the buffers
->>>>> reconverge to a single domain.
->>>>
->>>> That's intentional behavior.
->>>>
->>>>> Pin native scanout buffers in VRAM only so the swapchain stays in one
->>>>> memory domain. Restrict this to APUs whose carveout is larger than
->>>
->>> Above you mention that under VRAM pressure a swapchain can end up split
->>> across VRAM and GTT. Wouldn't restricting the swapchain to VRAM now mean
->>> that in those cases you fail to allocate the swapchain entirely?
->>
->> Yes, exactly that.
->>
->> My educated guess is that the display server then falls back to using a copy instead of a flip and that helps saving memory somehow (e.g. less scanout buffers alocated concurrently).
->>
->> Would it somehow be possible to get DC to dynamically switch between VRAM and GTT?
->>
-> 
-> DCN can't switch between mapped and unmapped memory. I'm not a memory
-> management expert but wouldn't GTT be in GART (mapped) and VRAM in
-> the (unmapped) FB aperture?
+Types implementing one of these traits can safely convert between an
+`ARef<T>` and an `Owned<T>`.
 
-Well at the moment yes, but that is changeable.
+This is useful for types which generally are accessed through an `ARef`
+but have methods which can only safely be called when the reference is
+unique, like e.g. `block::mq::Request::end_ok()`.
 
-It's correct that for scanout we currently access GTT buffers "mapped" through the GART while VRAM buffers are accessed "unmapped" through the FB aperture.
+Signed-off-by: Oliver Mangold <oliver.mangold@pm.me>
+[ Andreas: Fix formatting, update documentation, fix error handling in
+  examples. ]
+Co-developed-by: Andreas Hindborg <a.hindborg@kernel.org>
+Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+---
+ rust/kernel/owned.rs     | 140 +++++++++++++++++++++++++++++++++++++++++++++--
+ rust/kernel/sync/aref.rs |  16 +++++-
+ rust/kernel/types.rs     |   1 +
+ 3 files changed, 151 insertions(+), 6 deletions(-)
 
-As far as I know starting with I think Vega or Navi 1x (or maybe Navi 2x/3x you probably know that better than me) the DCN block became capable of scanning out through the GART as well, which is a prerequisite that we can allocate framebuffers on APUs in GTT in the first place.
+diff --git a/rust/kernel/owned.rs b/rust/kernel/owned.rs
+index e79936c00002c..bb4223c0f725a 100644
+--- a/rust/kernel/owned.rs
++++ b/rust/kernel/owned.rs
+@@ -14,20 +14,26 @@
+     pin::Pin,
+     ptr::NonNull, //
+ };
++use kernel::{
++    sync::aref::ARef,
++    types::RefCounted, //
++};
+ 
+ use kernel::types::ForeignOwnable;
+ 
+ /// Types that specify their own way of performing allocation and destruction. Typically, this trait
+ /// is implemented on types from the C side.
+ ///
+-/// Implementing this trait allows types to be referenced via the [`Owned<Self>`] pointer type. This
+-/// is useful when it is desirable to tie the lifetime of the reference to an owned object, rather
+-/// than pass around a bare reference. [`Ownable`] types can define custom drop logic that is
+-/// executed when the owned reference [`Owned<Self>`] pointing to the object is dropped.
++/// Implementing this trait allows types to be referenced via the [`Owned<Self>`] pointer type.
++///  - This is useful when it is desirable to tie the lifetime of an object reference to an owned
++///    object, rather than pass around a bare reference.
++///  - [`Ownable`] types can define custom drop logic that is executed when the owned reference
++///    of type [`Owned<_>`] pointing to the object is dropped.
+ ///
+ /// Note: The underlying object is not required to provide internal reference counting, because it
+ /// represents a unique, owned reference. If reference counting (on the Rust side) is required,
+-/// [`RefCounted`](crate::types::RefCounted) should be implemented.
++/// [`RefCounted`] should be implemented. [`OwnableRefCounted`] should be implemented if conversion
++/// between unique and shared (reference counted) ownership is needed.
+ ///
+ /// # Examples
+ ///
+@@ -239,3 +245,127 @@ unsafe fn borrow_mut<'a>(ptr: *mut kernel::ffi::c_void) -> Self::BorrowedMut<'a>
+         unsafe { Pin::new_unchecked(inner) }
+     }
+ }
++
++/// A trait for objects that can be wrapped in either one of the reference types [`Owned`] and
++/// [`ARef`].
++///
++/// # Examples
++///
++/// A minimal example implementation of [`OwnableRefCounted`], [`Ownable`] and its usage with
++/// [`ARef`] and [`Owned`] looks like this:
++///
++/// ```
++/// # #![expect(clippy::disallowed_names)]
++/// # use core::cell::Cell;
++/// # use core::ptr::NonNull;
++/// # use kernel::alloc::{flags, kbox::KBox, AllocError};
++/// # use kernel::sync::aref::{ARef, RefCounted};
++/// # use kernel::types::{Owned, Ownable, OwnableRefCounted};
++///
++/// // An internally refcounted struct for demonstration purposes.
++/// //
++/// // # Invariants
++/// //
++/// // - `refcount` is always non-zero for a valid object.
++/// // - `refcount` is >1 if there is more than one Rust reference to it.
++/// //
++/// struct Foo {
++///     refcount: Cell<usize>,
++/// }
++///
++/// impl Foo {
++///     fn new() -> Result<Owned<Self>> {
++///         // We are just using a `KBox` here to handle the actual allocation, as our `Foo` is
++///         // not actually a C-allocated object.
++///         // INVARIANT: We initialize `refcount` to 1, satisfying the invariants.
++///         let result = KBox::new(
++///             Foo {
++///                 refcount: Cell::new(1),
++///             },
++///             flags::GFP_KERNEL,
++///         )?;
++///         let result = KBox::into_non_null(result);
++///         // SAFETY:
++///         //  - We just allocated the `Self`, thus it is valid and we own it.
++///         //  - We can transfer this ownership to the `from_raw` method.
++///         Ok(unsafe { Owned::from_raw(result) })
++///     }
++/// }
++///
++/// // SAFETY: We increment and decrement each time the respective function is called and only free
++/// // the `Foo` when the refcount reaches zero.
++/// unsafe impl RefCounted for Foo {
++///     fn inc_ref(&self) {
++///         self.refcount.replace(self.refcount.get() + 1);
++///     }
++///
++///     unsafe fn dec_ref(this: NonNull<Self>) {
++///         // SAFETY: By requirement on calling this function, the refcount is non-zero,
++///         // implying the underlying object is valid.
++///         let refcount = unsafe { &this.as_ref().refcount };
++///         let new_refcount = refcount.get() - 1;
++///         if new_refcount == 0 {
++///             // The `Foo` will be dropped when `KBox` goes out of scope.
++///             // SAFETY: The [`KBox<Foo>`] is still alive as the old refcount is 1. We can pass
++///             // ownership to the [`KBox`] as by requirement on calling this function,
++///             // the `Self` will no longer be used by the caller.
++///             unsafe { KBox::from_raw(this.as_ptr()) };
++///         } else {
++///             refcount.replace(new_refcount);
++///         }
++///     }
++/// }
++///
++/// impl OwnableRefCounted for Foo {
++///     fn try_from_shared(this: ARef<Self>) -> Result<Owned<Self>, ARef<Self>> {
++///         if this.refcount.get() == 1 {
++///             // SAFETY: The `Foo` is still alive and has no other Rust references as the refcount
++///             // is 1.
++///             Ok(unsafe { Owned::from_raw(ARef::into_raw(this)) })
++///         } else {
++///             Err(this)
++///         }
++///     }
++/// }
++///
++/// impl Ownable for Foo {
++///     unsafe fn release(this: NonNull<Self>) {
++///         // SAFETY: Using `dec_ref()` from [`RefCounted`] to release is okay, as the refcount is
++///         // always 1 for an [`Owned<Foo>`].
++///         unsafe { Foo::dec_ref(this) };
++///     }
++/// }
++///
++/// let foo = Foo::new()?;
++/// let foo = ARef::from(foo);
++/// {
++///     let bar = foo.clone();
++///     assert!(Owned::try_from(bar).is_err());
++/// }
++/// assert!(Owned::try_from(foo).is_ok());
++/// # Ok::<(), Error>(())
++/// ```
++pub trait OwnableRefCounted: RefCounted + Ownable + Sized {
++    /// Checks if the [`ARef`] is unique and converts it to an [`Owned`] if that is the case.
++    /// Otherwise it returns again an [`ARef`] to the same underlying object.
++    fn try_from_shared(this: ARef<Self>) -> Result<Owned<Self>, ARef<Self>>;
++
++    /// Converts the [`Owned`] into an [`ARef`].
++    #[inline]
++    fn into_shared(this: Owned<Self>) -> ARef<Self> {
++        // SAFETY: `Owned::into_raw` returns a pointer to a valid `Self`, and the `Owned` owned the
++        // reference count that we now transfer to the new `ARef`.
++        unsafe { ARef::from_raw(Owned::into_raw(this)) }
++    }
++}
++
++impl<T: OwnableRefCounted> TryFrom<ARef<T>> for Owned<T> {
++    type Error = ARef<T>;
++    /// Tries to convert the [`ARef`] to an [`Owned`] by calling
++    /// [`try_from_shared()`](OwnableRefCounted::try_from_shared). In case the [`ARef`] is not
++    /// unique, it returns again an [`ARef`] to the same underlying object.
++    #[inline]
++    fn try_from(b: ARef<T>) -> Result<Owned<T>, Self::Error> {
++        T::try_from_shared(b)
++    }
++}
+diff --git a/rust/kernel/sync/aref.rs b/rust/kernel/sync/aref.rs
+index d0865aeb9371b..77eb390139079 100644
+--- a/rust/kernel/sync/aref.rs
++++ b/rust/kernel/sync/aref.rs
+@@ -23,6 +23,10 @@
+     ops::Deref,
+     ptr::NonNull, //
+ };
++use kernel::types::{
++    OwnableRefCounted,
++    Owned, //
++};
+ 
+ /// Types that are internally reference counted.
+ ///
+@@ -35,7 +39,10 @@
+ /// Note: Implementing this trait allows types to be wrapped in an [`ARef<Self>`]. It requires an
+ /// internal reference count and provides only shared references. If unique references are required
+ /// [`Ownable`](crate::types::Ownable) should be implemented which allows types to be wrapped in an
+-/// [`Owned<Self>`](crate::types::Owned).
++/// [`Owned<Self>`](crate::types::Owned). Implementing the trait
++/// [`OwnableRefCounted`] allows to convert between unique and
++/// shared references (i.e. [`Owned<Self>`](crate::types::Owned) and
++/// [`ARef<Self>`](crate::types::Owned)).
+ ///
+ /// # Safety
+ ///
+@@ -188,6 +195,13 @@ fn from(b: &T) -> Self {
+     }
+ }
+ 
++impl<T: OwnableRefCounted> From<Owned<T>> for ARef<T> {
++    #[inline]
++    fn from(b: Owned<T>) -> Self {
++        T::into_shared(b)
++    }
++}
++
+ impl<T: RefCounted> Drop for ARef<T> {
+     fn drop(&mut self) {
+         // SAFETY: The type invariants guarantee that the `ARef` owns the reference we're about to
+diff --git a/rust/kernel/types.rs b/rust/kernel/types.rs
+index 5ef763717e59a..6aa760952cb63 100644
+--- a/rust/kernel/types.rs
++++ b/rust/kernel/types.rs
+@@ -18,6 +18,7 @@
+ pub use crate::{
+     owned::{
+         Ownable,
++        OwnableRefCounted,
+         Owned, //
+     },
+     sync::aref::{
 
-So what we could do in theory is to allocate a window in the GART address space, map the VRAM buffer into it and then start scanning out from that address instead.
+-- 
+2.51.2
 
-We already do that for a couple of workarounds on older HW and to copy TMZ buffers etc... So most of the infrastructure necessary is now already there.
-
-This would also reduce the pressure on the VRAM manager backend because we don't need to allocate those buffers contigiously any more. Leading to less pin failed with -12 errors when memory becomes tight.
-
-The only problem I see is that I don't know if this doesn't have any negative effect on the DCN power consumption or something like that? That's where I need input from the display team.
-
-Additional to that we need to find somebody who implements/tests that stuff, but maybe Timur or somebody else from Valve could take that since I think.
-
-Regards,
-Christian.
-
-> 
-> From DCHUB HW doc:
-> "No change from mapped to unmapped or unmapped to mapped is 
-> allowed for immediate f lip"
-> 
-> If so, we can't async flip between them.
-> 
-> Harry
-> 
->> Regards,
->> Christian
->>
->>>
->>> Harry
->>>
->>>>> AMDGPU_SG_THRESHOLD, so small-carveout parts keep their existing VRAM|GTT
->>>>> placement, and fall back to GTT when the buffer does not fit in VRAM, so
->>>>> the flip still succeeds and the swapchain stays in one domain. Imported
->>>>> buffers may only be pinnable in GTT, so leave those on the default
->>>>> domains.
->>>>
->>>> The display guys need to take a closer look at that, but it sounds like what we used to have before and that caused problems.
->>>>
->>>> We somehow need to change the DC stuff to allow switching between VRAM and GTT frame buffers to fully fix this.
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>>
->>>>> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
->>>>> ---
->>>>> Hi,
->>>>>
->>>>> This came up while testing my kernel patch to fix mem_type detection for
->>>>> async flips here: https://lore.kernel.org/amd-gfx/20260611154438.571685-1-matthew.schwartz@linux.dev/
->>>>>
->>>>> I found a new issue where splitting a swapchain between VRAM and GTT
->>>>> causes a noticeable stutter in gameplay if gamescope is using direct
->>>>> scanout and tearing is enabled while a game is already running.
->>>>>
->>>>> Once a swapchain is split across the VRAM carveout and GTT, the scanout
->>>>> buffer's mem_type changes from one flip to the next, so
->>>>> amdgpu_dm_crtc_mem_type_changed() rejects the async flip. Under direct
->>>>> scanout with tearing that rejection recurs every time the displayed buffer
->>>>> crosses domains, which is what surfaces as the choppiness. 
->>>>>
->>>>> With this patch, I can enable tearing on top of an already-disabled frame
->>>>> limit mid-game and no longer reproduce the choppiness.
->>>>>
->>>>> amdgpu_gem_info confirms the swapchain converges to a single domain
->>>>> instead of splitting across VRAM and GTT.
->>>>>
->>>>> Before:
->>>>> 0x00000f81:      3981312 byte GTT exported as ino:275 NO_CPU_ACCESS CPU_GTT_USWC VRAM_CLEARED VRAM_CONTIGUOUS EXPLICIT_SYNC     write fence:drm_sched gfx_0.0.0 seq 88248 signalled
->>>>> 0x00000f82:      3981312 byte GTT exported as ino:276 NO_CPU_ACCESS CPU_GTT_USWC VRAM_CLEARED VRAM_CONTIGUOUS EXPLICIT_SYNC     write fence:drm_sched gfx_0.0.0 seq 88224 signalled
->>>>> 0x00000f83:      3981312 byte VRAM VISIBLE pin count 1 exported as ino:277 NO_CPU_ACCESS CPU_GTT_USWC VRAM_CLEARED VRAM_CONTIGUOUS EXPLICIT_SYNC        write fence:drm_sched gfx_0.0.0 seq 88236 signalled
->>>>>
->>>>> After:
->>>>> 0x00000f82:      3981312 byte VRAM VISIBLE pin count 1 exported as ino:548 NO_CPU_ACCESS CPU_GTT_USWC VRAM_CLEARED VRAM_CONTIGUOUS EXPLICIT_SYNC        write fence:drm_sched gfx_0.0.0 seq 822258 signalled
->>>>> 0x00000f83:      3981312 byte VRAM VISIBLE exported as ino:549 NO_CPU_ACCESS CPU_GTT_USWC VRAM_CLEARED VRAM_CONTIGUOUS EXPLICIT_SYNC    write fence:drm_sched gfx_0.0.0 seq 822255 signalled
->>>>> 0x00000f84:      3981312 byte VRAM VISIBLE exported as ino:550 NO_CPU_ACCESS CPU_GTT_USWC VRAM_CLEARED VRAM_CONTIGUOUS EXPLICIT_SYNC    write fence:drm_sched gfx_0.0.0 seq 822261 signalled
->>>>>
->>>>> Does this seem like the correct approach to take for fixing the observed
->>>>> issue? I wanted to start with an RFC to make sure I didn't overlook
->>>>> anything obvious or miss any better methods of fixing this.
->>>>>
->>>>> Thanks,
->>>>> Matt
->>>>> ---
->>>>>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 29 +++++++++++++++++--
->>>>>  1 file changed, 26 insertions(+), 3 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
->>>>> index 23a9faa2ea89..b99f938e58ec 100644
->>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
->>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
->>>>> @@ -932,6 +932,7 @@ static int amdgpu_dm_plane_helper_prepare_fb(struct drm_plane *plane,
->>>>>  	struct amdgpu_bo *rbo;
->>>>>  	struct dm_plane_state *dm_plane_state_new, *dm_plane_state_old;
->>>>>  	uint32_t domain;
->>>>> +	bool pin_vram_only;
->>>>>  	int r;
->>>>>  
->>>>>  	if (!new_state->fb) {
->>>>> @@ -958,13 +959,35 @@ static int amdgpu_dm_plane_helper_prepare_fb(struct drm_plane *plane,
->>>>>  	if (r)
->>>>>  		goto error_unlock;
->>>>>  
->>>>> -	if (plane->type != DRM_PLANE_TYPE_CURSOR)
->>>>> -		domain = amdgpu_display_supported_domains(adev, rbo->flags);
->>>>> -	else
->>>>> +	/*
->>>>> +	 * Pin native scanout in VRAM on APUs so a swapchain stays in one
->>>>> +	 * memory domain. A VRAM/GTT split changes its mem_type between flips
->>>>> +	 * and amdgpu_dm_crtc_mem_type_changed() rejects the async flip. Skip
->>>>> +	 * small carveouts that may not fit, and imported buffers.
->>>>> +	 */
->>>>> +	pin_vram_only = plane->type != DRM_PLANE_TYPE_CURSOR &&
->>>>> +			(adev->flags & AMD_IS_APU) &&
->>>>> +			!rbo->tbo.base.import_attach &&
->>>>> +			adev->gmc.real_vram_size > AMDGPU_SG_THRESHOLD;
->>>>> +
->>>>> +	if (plane->type == DRM_PLANE_TYPE_CURSOR || pin_vram_only)
->>>>>  		domain = AMDGPU_GEM_DOMAIN_VRAM;
->>>>> +	else
->>>>> +		domain = amdgpu_display_supported_domains(adev, rbo->flags);
->>>>>  
->>>>>  	rbo->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
->>>>>  	r = amdgpu_bo_pin(rbo, domain);
->>>>> +	if (r == -ENOMEM && pin_vram_only) {
->>>>> +		/*
->>>>> +		 * VRAM could not fit the buffer. Fall back to GTT where
->>>>> +		 * allowed so the swapchain stays in one domain.
->>>>> +		 */
->>>>> +		domain = amdgpu_display_supported_domains(adev, rbo->flags);
->>>>> +		if (domain & AMDGPU_GEM_DOMAIN_GTT) {
->>>>> +			domain = AMDGPU_GEM_DOMAIN_GTT;
->>>>> +			r = amdgpu_bo_pin(rbo, domain);
->>>>> +		}
->>>>> +	}
->>>>>  	if (unlikely(r != 0)) {
->>>>>  		if (r != -ERESTARTSYS)
->>>>>  			DRM_ERROR("Failed to pin framebuffer with error %d\n", r);
->>>>
->>>
->>
-> 
 
