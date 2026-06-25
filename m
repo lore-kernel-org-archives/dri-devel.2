@@ -4,43 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8786FCDE00B
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 22:50:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85F20CDE00B
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 22:53:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB4CD10E2B1;
-	Thu, 25 Jun 2026 22:50:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1BB610F3BF;
+	Thu, 25 Jun 2026 22:53:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KZBV9g74";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ewzwAMhZ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D86F10E2B1
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 22:50:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C768E401FF;
- Thu, 25 Jun 2026 22:50:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EC691F000E9;
- Thu, 25 Jun 2026 22:50:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782427810;
- bh=NnpWXwvbPfWB4bclWA/bnS1vkYrmVaKoTyA1YgpIkHM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KZBV9g74INKOaEaCkkp24iOeNa8ztHTVb/vri/kZoCPGBUQVfVrWs6JhmuLlFpnTN
- uP02i1rpNLJ3tdQMvVR+vwbxvzMsOELFxY9TC0XnPET0XHbRTICkJCHx+6zvYoiqlY
- WpO7+mWbDriKv8L1fIHWxFdsFa02HqKnZHVpEwH1c75ioeuEFR6seGudB4WBoqygME
- 7eAKM7kxXe0vXYU4WolfdJTjUnArkGuEwIVtGB6ojlcB+pQDHcumwJV9XZ4cmGFdUB
- KWNG0Af61BX3aVgwXarM8ghlfIgXr8f0KZzMvv0XvK20j4pF8JxC2KadBX81IxoNOE
- xHBc1/6AgtXKA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/4] drm/msm: Validate lazy VM is created in GEM_SUBMIT
-To: "Rob Clark" <robin.clark@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260625222744.22254-3-robin.clark@oss.qualcomm.com>
-References: <20260625222744.22254-1-robin.clark@oss.qualcomm.com>
- <20260625222744.22254-3-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 22:50:09 +0000
-Message-Id: <20260625225010.7EC691F000E9@smtp.kernel.org>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6E7D10F3BD;
+ Thu, 25 Jun 2026 22:53:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=SeQUkQiyF5X1qXChmHKlCt3Ean9AaLLtMUxpoOPrDqQ=; b=ewzwAMhZsdUzL05xcHfw2gF0Gs
+ FVvpUnxl1S5o5h7Qft0lAkVpDrY+OD3G8E/9XCnQ7T5CFFajBjc7JJ+PKcAQqKwRg9PtYSZDiUpqH
+ ODY16qntmkVyBHs1mU9DdHLaXxoiJJHt8drdw2VvuXJnPpVczIMM/jKeNUFjVXFgA54Zu7/ZzKOm5
+ ewlHNTU6bLdXzxsutNjlbre3kjIe/gcdXqwB0jZZYXAOWpTnQN7v5snlrzDfsQiERd3HG1xWxT0f0
+ 3jteVOWk+NxcVci6vigmHUZRVRHPFXnCWx6j/0D5zbLOotm3CM/pn+043YRJgfzYNluU/HfoJnZyZ
+ m5peeCOQ==;
+Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
+ helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wcsvy-005G2R-Ot; Fri, 26 Jun 2026 00:52:34 +0200
+Message-ID: <3691d76a-4a9c-41ea-ba3b-de08d6c90260@Igalia.com>
+Date: Thu, 25 Jun 2026 15:52:25 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/7] drm/amd/display: don't check colorop status if its
+ in an inactive pipeline
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, alex.hung@amd.com, aurabindo.pillai@amd.com,
+ christian.koenig@amd.com, contact@emersion.fr, daniels@collabora.com,
+ harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Sashiko <sashiko-bot@kernel.org>, dri-devel@lists.freedesktop.org
+References: <20260609121230.1358786-1-mwen@igalia.com>
+ <20260609121230.1358786-4-mwen@igalia.com>
+Content-Language: en-GB
+From: John Harrison <John.Harrison@Igalia.com>
+In-Reply-To: <20260609121230.1358786-4-mwen@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,69 +76,91 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 6/9/26 13:51, Melissa Wen wrote:
+> If colorop BYPASS property is true, but the colorop isn't part of an
+Should this say 'is false'?
 
-Pre-existing issues:
-- [High] Ineffective integer overflow protection during allocation size cal=
-culation in `submit_create` leads to potential heap buffer overflows.
---
+John.
 
-commit 0bc0c946b740e56645786e074bd1e98b7bdd28a0
-Author: Rob Clark <robin.clark@oss.qualcomm.com>
-Subject: drm/msm: Validate lazy VM is created in GEM_SUBMIT
+> active/transient active color pipeline, this colorop status should not
+> be taken into account when checking if a plane color pipeline is
+> actually active. For example, if the userspace doesn't explicitly set a
+> colorop obj to bypass but deactivates its color pipeline by setting
+> plane COLOR_PIPELINE to bypass, it means that colorop is inactive
+> regardless of its BYPASS property status.
+>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Fixes: d3a549f4df78 ("drm/amd/display: Use overlay cursor when color pipeline is active")
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
+> ---
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 31 +++++++++++++------
+>   1 file changed, 21 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index ba7f98a87808..2edec3e1b838 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -12590,9 +12590,9 @@ static int add_affected_mst_dsc_crtcs(struct drm_atomic_commit *state, struct dr
+>    * @use_old: if true, inspect the old colorop states; otherwise the new ones
+>    *
+>    * A color pipeline may be selected (color_pipeline != NULL) but still is
+> - * inactive if every colorop in the chain is bypassed.  Only return
+> - * true when at least one colorop has bypass == false, meaning the cursor
+> - * would be subjected to the transformation in native mode.
+> + * inactive if every colorop in the chain is bypassed. Only return true when at
+> + * least one active colorop has bypass == false, meaning the cursor would be
+> + * subjected to the transformation in native mode.
+>    *
+>    * Return: true if the pipeline modifies pixels, false otherwise.
+>    */
+> @@ -12600,18 +12600,29 @@ static bool dm_plane_color_pipeline_active(struct drm_atomic_commit *state,
+>   					   struct drm_plane *plane,
+>   					   bool use_old)
+>   {
+> -	struct drm_colorop *colorop;
+> -	struct drm_colorop_state *old_colorop_state, *new_colorop_state;
+> -	int i;
+> +	struct drm_plane_state *plane_state = use_old ?
+> +					      drm_atomic_get_old_plane_state(state, plane) :
+> +					      drm_atomic_get_new_plane_state(state, plane);
+> +	struct drm_colorop *colorop, *pipeline;
+> +	struct drm_colorop_state *cstate;
+>   
+> -	for_each_oldnew_colorop_in_state(state, colorop, old_colorop_state, new_colorop_state, i) {
+> -		struct drm_colorop_state *cstate = use_old ? old_colorop_state : new_colorop_state;
+> +	pipeline = plane_state ? plane_state->color_pipeline :
+> +				 plane->state->color_pipeline;
+Why would plane_state be null? And if it is, why is it correct to use 
+plane->state rather than the old or new state as requested by the 
+use_old flag? Seems like there should be a comment to explain this.
 
-This commit fixes a potential NULL pointer dereference in the GEM_SUBMIT
-ioctl. It ensures that the lazy VM is validated and created before any
-buffer objects are mapped.
+>   
+> -		if (cstate->colorop->plane != plane)
+> -			continue;
+> +	if (!pipeline)
+> +		return false;
+> +
+> +	drm_for_each_colorop_in_pipeline(colorop, pipeline) {
+> +		cstate = use_old ?
+> +			 drm_atomic_get_old_colorop_state(state, colorop) :
+> +			 drm_atomic_get_new_colorop_state(state, colorop);
+> +
+> +		if (!cstate)
+> +			cstate = colorop->state;
+Same question as above. Why would there not be a old/new state and if 
+there isn't, why is it correct to use the current state when a check 
+against the old/new state was explicitly requested?
 
-> diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/m=
-sm_gem_submit.c
-> index 26ea8a28be474..0dc983d155cd2 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> @@ -30,7 +30,7 @@
->   */
-> =20
->  static struct msm_gem_submit *submit_create(struct drm_device *dev,
-> -		struct msm_gpu *gpu,
-> +		struct msm_gpu *gpu, struct drm_gpuvm *vm,
->  		struct msm_gpu_submitqueue *queue, uint32_t nr_bos,
->  		uint32_t nr_cmds, u64 drm_client_id)
->  {
+John.
 
-[Severity: High]
-This is a pre-existing issue, but does the overflow check in this function
-work as intended?
+>   		if (!cstate->bypass)
+>   			return true;
+>   	}
+> +
+>   	return false;
+>   }
+>   
 
-In submit_create(), sz is calculated using struct_size() and assigned to a
-uint64_t variable:
-
-	sz =3D struct_size(submit, bos, nr_bos) +
-			((u64)nr_cmds * sizeof(submit->cmd[0]));
-
-	if (sz > SIZE_MAX)
-		return ERR_PTR(-ENOMEM);
-
-Since sz and SIZE_MAX share the same maximum width on 64-bit architectures,
-can sz ever evaluate to strictly greater than SIZE_MAX?
-
-If the struct_size() calculation saturates to SIZE_MAX upon overflow, the
-subsequent addition of the command array size could wrap sz around to a sma=
-ll
-positive value.
-
-This would cause the check to evaluate to false and bypass the protection,
-allocating a memory block that is too small for the requested elements and
-allowing a potential heap buffer overflow if userspace provides extremely
-large values for the number of buffer objects or commands.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625222744.2225=
-4-1-robin.clark@oss.qualcomm.com?part=3D2
