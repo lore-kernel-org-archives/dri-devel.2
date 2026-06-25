@@ -4,67 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53C7ECDE000
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 13:21:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DF4FCDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 13:21:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B772910F2BB;
-	Thu, 25 Jun 2026 13:21:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CAD010F2B5;
+	Thu, 25 Jun 2026 13:21:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="NgtoIeMW";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lOPPXudh";
 	dkim-atps=neutral
-Received: from out28-89.mail.aliyun.com (out28-89.mail.aliyun.com
- [115.124.28.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54DB610F2BB
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 13:21:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
- t=1782393682; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
- bh=wK/ZKOardcwv/Aodd8pEJaJbQNMwYl1VUq+9vFFehTc=;
- b=NgtoIeMWBkHk7xjbnFfp5da6y3wbORpXRwu5ap93SeCBVXSv3YOFcPnIuEhzxFb4/fZbOozQYTPdTUIOFz2TfTifGB2QPVVwsZ/EfHdco2qlrzv+Z5EAIKoC9/FB3a/kp92DKPnCHdVB4KlE6rLleNRtXH0KAA/uTEaNs0EiZsC8Zyw/h0eEzYRi7cako8k39/Gm47Z97xWiAygY0c5OFJ3yvtjvgNspvw0icnFBQKZKvBwJRuhPUfcyhV7L8V9VQLQvS6V9XTAWTSa39vZvNKhxButXDyTXu9KOmMyTJGrJYxloB4oyELj1Yvxls9fvWAJeaBTTGVjqtzZ++kWY1g==
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.09206045|-1; CH=blue; DM=|OVERLOAD|false|;
- DS=CONTINUE|ham_regular_dialog|0.0384528-0.0220204-0.939527;
- FP=18248887180456620888|8|1|5|0|-1|-1|-1;
- HT=maildocker-contentspam033068016216; MF=syyang@lontium.com; NM=1; PH=DS;
- RN=1; RT=1; SR=0; TI=SMTPD_---.i5LQL5x_1782393679; 
-Received: from mail-ot1-f52.google.com(mailfrom:syyang@lontium.com
- fp:SMTPD_---.i5LQL5x_1782393679 cluster:ay29) by smtp.aliyun-inc.com;
- Thu, 25 Jun 2026 21:21:20 +0800
-Received: by mail-ot1-f52.google.com with SMTP id
- 46e09a7af769-7e93b04a142so808046a34.1
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 06:21:20 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ/P0eC6RJ7QBIEwIHf3F+tsl4XO/joyfNm8hOpUQTOZzjjYeC7kZ3eKpOYLdig8n2DQy8I/LICr+10=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyLmeRdESqDHVTDg20ugMVPSx7uIir4fQ4MBIFmywtbRnhRLjI3
- //kc5OZRak6ssIw2RjuuZXrmwW62cNh45ZH1fEcUGThWxUDfZESD/z1Bsln744DoQLETkHskpys
- vwNbduR79Tvob9KNF89vuNM+0wGABGv4=
-X-Received: by 2002:a05:6808:508b:b0:48c:6ab8:b22f with SMTP id
- 5614622812f47-49218410421mr2874082b6e.33.1782393678366; Thu, 25 Jun 2026
- 06:21:18 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 841DD10F2B5
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 13:21:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782393715; x=1813929715;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=/clckuDznykys0MUCbzF0O2r6zO6B0BkqHBx4uqj4Ms=;
+ b=lOPPXudh9G1ayRHPc8jyjtzo1sV93Mw1msolKhLqs7bfmETtt0p+4nIA
+ So56R9H0+5CnYB0rvAEL+9fuYaD/wIF/Ndz1Wi+mrmFGAWPTXNaJs2RfO
+ 5p0SHQQqx5J5DJd3xo05ncm66W4zaowFa6EfKqkeNIjttGZAudAr54thr
+ rJaXnJLmIyJRnRK6EWBNHmStECpO/GI2ganiXNXAoppdb1CnQDZIqKGVq
+ m6s9HwnXg4l9U3TzrHzzEUy4Thm8yPRNdDrgywkNl64UzZynQiTJwWrcD
+ AeIdZ8c14nlZNH7adn15SmXqRZ04uPlsthp9uEf2wiRIwXXcl/RrXE6QO g==;
+X-CSE-ConnectionGUID: IxoJ8OVWT5qP8lkOp8iYbg==
+X-CSE-MsgGUID: bHmV1Ti/SvCQUKI3HeUBbQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="94661089"
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="94661089"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 06:21:55 -0700
+X-CSE-ConnectionGUID: tETcVABsRg2gG+V9oRv3DA==
+X-CSE-MsgGUID: YBB0oqC7Q3GdMyglW6aueg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="252652467"
+Received: from lkp-server02.sh.intel.com (HELO ea128546eb3d) ([10.239.97.151])
+ by fmviesa004.fm.intel.com with ESMTP; 25 Jun 2026 06:21:53 -0700
+Received: from kbuild by ea128546eb3d with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wck1e-0000000049Z-0mAG;
+ Thu, 25 Jun 2026 13:21:50 +0000
+Date: Thu, 25 Jun 2026 21:20:56 +0800
+From: kernel test robot <lkp@intel.com>
+To: suryasaimadhu <suryasaimadhu369@gmail.com>, andy@kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, gregkh@linuxfoundation.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ suryasaimadhu <suryasaimadhu369@gmail.com>
+Subject: Re: [PATCH] staging: fbtft: fix unaligned vmem writes when txbuf is
+ byte-offset
+Message-ID: <202606252119.rClVa8On-lkp@intel.com>
+References: <20260625110237.304435-1-suryasaimadhu369@gmail.com>
 MIME-Version: 1.0
-References: <20260508142500.4922-1-syyang@lontium.com>
- <CAFQXuNYq5QYAXRzcUBnyvVh5ofPBVYONCs1dM6qPgK0BDja5Ow@mail.gmail.com>
- <495f0dc3-b5ee-429e-bc60-78b13bcb42c3@kernel.org>
- <CAFQXuNajWT31q1MccwTDa074_7=6tfaz-FOmP-tx_q83R60QfQ@mail.gmail.com>
- <CAFQXuNbvSQSZayBGcS6L106ic6M9D+xi8CF9=k27fCAn5U8tdg@mail.gmail.com>
- <206f2e80-132a-4586-bd27-5983783f97ce@kernel.org>
-In-Reply-To: <206f2e80-132a-4586-bd27-5983783f97ce@kernel.org>
-From: Sunyun Yang <syyang@lontium.com>
-Date: Thu, 25 Jun 2026 21:21:06 +0800
-X-Gmail-Original-Message-ID: <CAFQXuNZMwwNrUft=w9o_dB96cOchKoh07jnk3Z2CioJoqhYybw@mail.gmail.com>
-X-Gm-Features: AVVi8CcRLVVCVFUu6dNTXTPJQjRM91gouORofLQ5rIVxZgeiGY6BSZ5XTAxS8O0
-Message-ID: <CAFQXuNZMwwNrUft=w9o_dB96cOchKoh07jnk3Z2CioJoqhYybw@mail.gmail.com>
-Subject: Re: [PATCH v6 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
- MIPI DSI to HDMI driver
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com, 
- rfoss@kernel.org, mripard@kernel.org, Laurent.pinchart@ideasonboard.com, 
- tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com, 
- xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260625110237.304435-1-suryasaimadhu369@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,100 +73,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8825=E6=
-=97=A5=E5=91=A8=E5=9B=9B 20:59=E5=86=99=E9=81=93=EF=BC=9A
->
-> On 25/06/2026 04:01, Sunyun Yang wrote:
-> > Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=E6=9C=8825=E6=
-=97=A5=E5=91=A8=E5=9B=9B 08:52=E5=86=99=E9=81=93=EF=BC=9A
-> >>
-> >> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=88=
-24=E6=97=A5=E5=91=A8=E4=B8=89 22:05=E5=86=99=E9=81=93=EF=BC=9A
-> >>>
-> >>> On 11/05/2026 05:28, Sunyun Yang wrote:
-> >>>> <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B45=E6=9C=888=E6=97=A5=E5=
-=91=A8=E4=BA=94 22:25=E5=86=99=E9=81=93=EF=BC=9A
-> >>>>>
-> >>>>> From: Sunyun Yang <syyang@lontium.com>
-> >>>>>
-> >>>>> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual=
- port
-> >>>>> mipi dsi and output hdmi, differences in hardware features:
-> >>>>> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
-> >>>>> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-> >>>>> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
-> >>>>>
-> >>>>> Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> >>>>> ---
-> >>>>>  .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++=
-++--
-> >>>>>  1 file changed, 6 insertions(+), 2 deletions(-)
-> >>>>>
-> >>>>> diff --git a/Documentation/devicetree/bindings/display/bridge/lonti=
-um,lt9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,l=
-t9611.yaml
-> >>>>> index 429a06057ae8..e0821a63d9d7 100644
-> >>>>> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt96=
-11.yaml
-> >>>>> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt96=
-11.yaml
-> >>>>> @@ -4,19 +4,23 @@
-> >>>>>  $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.y=
-aml#
-> >>>>>  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> >>>>>
-> >>>>> -title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
-> >>>>> +title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
-> >>>>>
-> >>>>>  maintainers:
-> >>>>>    - Vinod Koul <vkoul@kernel.org>
-> >>>>>
-> >>>>>  description: |
-> >>>>> -  The LT9611 and LT9611UXC are bridge devices which convert DSI to=
- HDMI
-> >>>>> +  The LT9611=E3=80=81LT9611UXC=E3=80=81LT9611C=E3=80=81LT9611EX an=
-d LT9611UXD
-> >>>>> +  are bridge devices which convert DSI to HDMI
-> >>>>>
-> >>>>>  properties:
-> >>>>>    compatible:
-> >>>>>      enum:
-> >>>>>        - lontium,lt9611
-> >>>>> +      - lontium,lt9611c
-> >>>>> +      - lontium,lt9611ex
-> >>>>>        - lontium,lt9611uxc
-> >>>>> +      - lontium,lt9611uxd
-> >>>>>
-> >>>>>    reg:
-> >>>>>      maxItems: 1
-> >>>>> --
-> >>>>
-> >>>> Gentle ping.
-> >>>> Thanks.
-> >>>
-> >>> Except mess with threading, your patchset does not build, when applie=
-d
-> >>> on next-20260618.
-> >>>
-> >>> What is the base of this?
-> >>>
-> >>
-> >> Thanks for testing my patchset on next-20260618.
-> >>
-> >> The base of this series is v7.0.
-> >>
-> > Krzysztof,   Is Sashiko AI review required before merging a patch now?
->
-> Fixing obvious bugs in your code is required before merging.
->
-> But even without bugs, this cannot be merged - does not apply. And you
-> sending the same three different times does not help, because now there
-> is complete mess in reviews.
->
-We will modify the driver and the device tree, and test it on next-20260623=
-.
-Additionally, we would like to ask you a question regarding Sashiko
-AI: Is Sashiko AI review required before merging a patch now?
+Hi suryasaimadhu,
 
-> Best regards,
-> Krzysztof
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on staging/staging-testing]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/suryasaimadhu/staging-fbtft-fix-unaligned-vmem-writes-when-txbuf-is-byte-offset/20260625-190423
+base:   staging/staging-testing
+patch link:    https://lore.kernel.org/r/20260625110237.304435-1-suryasaimadhu369%40gmail.com
+patch subject: [PATCH] staging: fbtft: fix unaligned vmem writes when txbuf is byte-offset
+config: sh-allmodconfig (https://download.01.org/0day-ci/archive/20260625/202606252119.rClVa8On-lkp@intel.com/config)
+compiler: sh4-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260625/202606252119.rClVa8On-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202606252119.rClVa8On-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/staging/fbtft/fbtft-bus.c: In function 'fbtft_write_vmem16_bus8':
+>> drivers/staging/fbtft/fbtft-bus.c:157:25: error: implicit declaration of function 'put_unaligned' [-Wimplicit-function-declaration]
+     157 |                         put_unaligned(cpu_to_be16(vmem16[i]), &txbuf16[i]);
+         |                         ^~~~~~~~~~~~~
+
+
+vim +/put_unaligned +157 drivers/staging/fbtft/fbtft-bus.c
+
+   113	
+   114	/*****************************************************************************
+   115	 *
+   116	 *   int (*write_vmem)(struct fbtft_par *par);
+   117	 *
+   118	 *****************************************************************************/
+   119	
+   120	/* 16 bit pixel over 8-bit databus */
+   121	int fbtft_write_vmem16_bus8(struct fbtft_par *par, size_t offset, size_t len)
+   122	{
+   123		u16 *vmem16;
+   124		__be16 *txbuf16 = par->txbuf.buf;
+   125		size_t remain;
+   126		size_t to_copy;
+   127		size_t tx_array_size;
+   128		int i;
+   129		int ret = 0;
+   130		size_t startbyte_size = 0;
+   131	
+   132		remain = len / 2;
+   133		vmem16 = (u16 *)(par->info->screen_buffer + offset);
+   134	
+   135		gpiod_set_value(par->gpio.dc, 1);
+   136	
+   137		/* non buffered write */
+   138		if (!par->txbuf.buf)
+   139			return par->fbtftops.write(par, vmem16, len);
+   140	
+   141		/* buffered write */
+   142		tx_array_size = par->txbuf.len / 2;
+   143	
+   144		if (par->startbyte) {
+   145			txbuf16 = par->txbuf.buf + 1;
+   146			tx_array_size -= 2;
+   147			*(u8 *)(par->txbuf.buf) = par->startbyte | 0x2;
+   148			startbyte_size = 1;
+   149		}
+   150	
+   151		while (remain) {
+   152			to_copy = min(tx_array_size, remain);
+   153			dev_dbg(par->info->device, "to_copy=%zu, remain=%zu\n",
+   154				to_copy, remain - to_copy);
+   155	
+   156			for (i = 0; i < to_copy; i++)
+ > 157				put_unaligned(cpu_to_be16(vmem16[i]), &txbuf16[i]);
+   158	
+   159			vmem16 = vmem16 + to_copy;
+   160			ret = par->fbtftops.write(par, par->txbuf.buf,
+   161							startbyte_size + to_copy * 2);
+   162			if (ret < 0)
+   163				return ret;
+   164			remain -= to_copy;
+   165		}
+   166	
+   167		return ret;
+   168	}
+   169	EXPORT_SYMBOL(fbtft_write_vmem16_bus8);
+   170	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
