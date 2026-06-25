@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9E99CDE00B
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 12:40:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2505ECDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 12:40:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1ABE10F29B;
-	Thu, 25 Jun 2026 12:40:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8165710F2A2;
+	Thu, 25 Jun 2026 12:40:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="UmpAR7eQ";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="STQ1hlJN";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F91910E1FA
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E89DE10E1FA
  for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 12:40:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1782391234;
- bh=l4G0WrXVngKha9UQ5nbyt/Cwn4XiR2SaOKpwKIgQPBk=;
+ bh=3Ft9dGdmUtcV/N1tEFG7N6nAk5JOgANkCn64VS1VOCw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=UmpAR7eQ3SjEDOoJLrs/tYLa3xOUnNM5h1Rd69UdL4tvov+ffImP88hl84951vAt+
- PM3lXaHSPGcsXO0cxKctJZDsvh8z5F6MS6CqgtJC+35YfbpTy0AIVzc6RkEJVlJN79
- mTW4vG5vouflo8Lw5WJAJROmyCpVj4TX+TDWj2DU15NVC4D1qgmcF1/WEpOtyB31dW
- 8fCqmXhVqXN6F8scEY7H0TJJb8gtCkVCPknE1aRBSGBEh9Awp8HTSnoQj+sbbx1Z1w
- z40MAPWbg9fEbjkcqMW4Qrh2JeP2vpYECvgU2+SPTcZWXpoYTrQM9PQeDFQUinTsih
- weCIDm0dd3Dxw==
+ b=STQ1hlJNv06ibMnr88XCND/m9AW9X0LXVfltBK2PGiPIPo84lPDCIKH/Jq1PnNMmv
+ ig3FJUYOCrmfAevVVjbTCTVaAvJFSiSLQNNyFEiUjR3TZNkr6qz8oFuNgNoWCvMstb
+ a3y5WEgiLkYCNKZv11v24cmxsZK9vJRUc3YXsQDG9XKCIryKLX1mf6WZNqfaOZMkMS
+ NlgBKqZN+Qe55wcup80Zp7GQp44x5iofWM59n+uTXivZI8XKo3TRfBBSApbyAoOQq+
+ FyGxGgjmAJHyJZUQ8BneyQpdOISp9kxECOPYCeH6Dn2OEQD/kyFYi9W6plIAFWB64E
+ 9RZcjmZXXZ6IQ==
 Received: from fedora-2.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9042817E1164;
- Thu, 25 Jun 2026 14:40:33 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 3E5C017E120F;
+ Thu, 25 Jun 2026 14:40:34 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 25 Jun 2026 14:40:32 +0200
-Subject: [PATCH 06/11] drm/panthor: Don't overrule pending immediate ticks
- in sched_resume_tick()
+Date: Thu, 25 Jun 2026 14:40:33 +0200
+Subject: [PATCH 07/11] drm/panthor: Fix panthor_pwr_unplug()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-panthor-misc-fixes-v1-6-b67ed973fea6@collabora.com>
+Message-Id: <20260625-panthor-misc-fixes-v1-7-b67ed973fea6@collabora.com>
 References: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
 In-Reply-To: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
@@ -49,13 +48,13 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
  Chia-I Wu <olvaffe@gmail.com>, Karunika Choo <karunika.choo@arm.com>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Boris Brezillon <boris.brezillon@collabora.com>, sashiko-bot@kernel.org
+ Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782391229; l=1771;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782391229; l=1195;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=l4G0WrXVngKha9UQ5nbyt/Cwn4XiR2SaOKpwKIgQPBk=;
- b=+n0e56lGMxPCfuW4bWyoDDfGZRH57ElpvYqQooLXi6+/jN4GgmUDC8U/dxf5SzEQRNEL2MRM9
- vMPGbU+RHMnA7+S9DKLaBsr7piCIEaM7EPeAFWVlHOh20CB3LDicyZB
+ bh=3Ft9dGdmUtcV/N1tEFG7N6nAk5JOgANkCn64VS1VOCw=;
+ b=OAtnZpl2W0+4OUTW2Wy+7vM88OFOhC1COkQEm5zGdMsohjPYC9u85Zl1n4O1k5Jlv8+sklnEY
+ ZY1yDDZ/FRSBMnucsJtsD9tVaEuD4foS2BlAIwQ3kIGItrlz7I89jty
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,41 +72,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We schedule immediate ticks when we need to process events on CSGs,
-but those immediate ticks don't change the resched_target because we
-want the other groups to stay scheduled for the remaining of the GPU
-timeslot they were given. Make sure these immediate ticks don't get
-overruled by a sched_queue_delayed_work() that would delay the tick
-execution.
+We can't call panthor_pwr_irq_suspend() if the device is suspended,
+or this leads to a hang when the IOMEM region is accessed while the
+clks are disabled. Do what other sub-components do and conditionally
+call panthor_pwr_irq_suspend() if we know the PWR regbank block is
+accessible.
 
-Fixes: 99820b4b7e50 ("drm/panthor: Make sure we resume the tick when new jobs are submitted")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v4-0-3d2908912afa@collabora.com?part=9
+Fixes: c27787f2b77f ("drm/panthor: Introduce panthor_pwr API and power control framework")
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_sched.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/panthor/panthor_pwr.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index 8fd4d97b062e..ab3e13e44a26 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -2667,7 +2667,14 @@ static void sched_resume_tick(struct panthor_device *ptdev)
- 	else
- 		delay_jiffies = 0;
+diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
+index 7c7f424a1436..090362bd700b 100644
+--- a/drivers/gpu/drm/panthor/panthor_pwr.c
++++ b/drivers/gpu/drm/panthor/panthor_pwr.c
+@@ -453,7 +453,8 @@ void panthor_pwr_unplug(struct panthor_device *ptdev)
+ 		return;
  
--	sched_queue_delayed_work(sched, tick, delay_jiffies);
-+	/* We schedule immediate ticks when we need to process events on CSGs,
-+	 * but those don't change the resched_target because we want the other
-+	 * groups to stay scheduled for the remaining of the GPU timeslot they
-+	 * were given. Make sure those immediate ticks don't get overruled by
-+	 * a sched_queue_delayed_work() that would delay the tick execution.
-+	 */
-+	if (!delayed_work_pending(&sched->tick_work))
-+		sched_queue_delayed_work(sched, tick, delay_jiffies);
- }
+ 	/* Make sure the IRQ handler is not running after that point. */
+-	panthor_pwr_irq_suspend(&ptdev->pwr->irq);
++	if (!IS_ENABLED(CONFIG_PM) || pm_runtime_active(ptdev->base.dev))
++		panthor_pwr_irq_suspend(&ptdev->pwr->irq);
  
- static void group_schedule_locked(struct panthor_group *group, u32 queue_mask)
+ 	/* Wake-up all waiters. */
+ 	spin_lock_irqsave(&ptdev->pwr->reqs_lock, flags);
 
 -- 
 2.54.0
