@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DDC2CDB47F
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 08:27:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67090CDB47F
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 08:31:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ACE310F1A7;
-	Thu, 25 Jun 2026 08:27:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B998A10F1AA;
+	Thu, 25 Jun 2026 08:31:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="lpwEnTR6";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hDb+a9F3";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E92EA10F1A7
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 08:27:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782376041;
- bh=3/LY8KlTihlMDpw21vo/W499ESW2H40mbT2W0+IKHaE=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=lpwEnTR69cAw6BGZ8RcZ1Y0OKSSYaUSXjXIwI1l5nxNRP0Lldb+D9gIul57l6dhRu
- 040xDbSq8R70JI2jTOjWwi6hrSvb1AI5W1EP9G74ykG7Brusm1zEiIGnMWVG5KMQ9o
- FxPRFv0/lCmeVlEoba4KDbhxqpQ8mm8uo92G9b3B+egsmOgOlXgyUSG11gDRoKgHSb
- WlE8NkQmscThLBWOx9Zjj4OrjN0xCunXHlz1+nlwaNgBNyyltBjGUMtJ3zERFNxgOQ
- 3N0gjN604GcjfnkEW6Xs5OYvwPIn4bePFmHhn0k3SjULJAYtniYPtoso6EYLLPomh8
- BR04vvdB51zuQ==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9355B17E02B5;
- Thu, 25 Jun 2026 10:27:20 +0200 (CEST)
-Message-ID: <0e8ae8b8-3a6e-49e1-acdd-27ce4921bd21@collabora.com>
-Date: Thu, 25 Jun 2026 11:27:20 +0300
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEB5010F1A8;
+ Thu, 25 Jun 2026 08:31:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782376292; x=1813912292;
+ h=message-id:date:mime-version:from:to:cc:subject:
+ content-transfer-encoding;
+ bh=4oKU/4FqLtrV5VGuw696pPPkQZaHiKm24g+4H9U1CMQ=;
+ b=hDb+a9F3LN5V+5O+e4xcV4Lbf+lEazXnyaKC/p9JYWjPqBtFyQOr/nyU
+ N5xQC4QhQANjedCNMkcawamflMzEqmVItLZG4Jjoif+Yt//y24fVaIBgZ
+ RIOzEN46MF1E/Ub/AwP3DT6+ROqQ2ieJOBbEtLSHHcJVTOLuIlDAlabh7
+ 489KtH9c0kbHjfxtMqVlX+ZdMHRIJbwznyAvWei2U4ASyhAiovvmVRP5U
+ D34EBc/EQTHB0an+QZF5liYSJzRr1qTUkj0wmz17+Y80Dy/cstbg/BWpM
+ BYplD0RIPnH3dpV874RgLncCj8NNjV3h+V5z0/FIM663OpOHtIogU5h11 w==;
+X-CSE-ConnectionGUID: fYQBU1SxSX6k6J7XFN5Iqg==
+X-CSE-MsgGUID: ydwnqe/ETCWu+2Ft/tNdIQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="93801072"
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="93801072"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 01:31:31 -0700
+X-CSE-ConnectionGUID: E/PmwROmTByQPXTVclp+qg==
+X-CSE-MsgGUID: PvAdd3xpRU2D+58wXr+uUA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="249072550"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.245.136])
+ ([10.245.245.136])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 01:31:27 -0700
+Message-ID: <2d17f718-43f5-4772-9c04-a975c9ad4bc3@linux.intel.com>
+Date: Thu, 25 Jun 2026 10:31:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 04/30] drm/display: scdc_helper: Add HDMI 2.0
- scrambling management helpers
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org
-References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
- <20260602-dw-hdmi-qp-scramb-v7-4-445eb54ee1ed@collabora.com>
- <20260625-screeching-uptight-elephant-5bdaed@houat>
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Simona Vetter <simona.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
+Cc: dim-tools@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Oded Gabbay <ogabbay@kernel.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Subject: [PULL] drm-misc-fixes
 Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <20260625-screeching-uptight-elephant-5bdaed@houat>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -77,60 +77,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/25/26 11:05 AM, Maxime Ripard wrote:
-> On Tue, Jun 02, 2026 at 01:44:04AM +0300, Cristian Ciocaltea wrote:
->> +static int drm_scdc_reset_crtc(struct drm_connector *connector,
->> +			       struct drm_modeset_acquire_ctx *ctx)
->> +{
->> +	struct drm_device *dev = connector->dev;
->> +	struct drm_crtc *crtc;
->> +	u8 config;
->> +	int ret;
->> +
->> +	if (!ctx)
->> +		return 0;
->> +
->> +	/*
->> +	 * This is normally part of .detect_ctx() call path, which already holds
->> +	 * connection_mutex through @ctx.  However, re-acquiring it with the
->> +	 * same context is a no-op and makes the helper safe under any caller.
->> +	 */
->> +	ret = drm_modeset_lock(&dev->mode_config.connection_mutex, ctx);
->> +	if (ret)
->> +		return ret;
->> +
->> +	if (!connector->state)
->> +		return 0;
->> +
->> +	crtc = connector->state->crtc;
->> +	if (!crtc)
->> +		return 0;
->> +
->> +	ret = drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
->> +	if (ret) {
->> +		drm_scdc_dbg(connector, "Failed to read TMDS config: %d\n", ret);
->> +		return ret;
->> +	}
->> +
->> +	if ((config & SCDC_SCRAMBLING_ENABLE) &&
->> +	    (config & SCDC_TMDS_BIT_CLOCK_RATIO_BY_40))
->> +		return 0;
-> 
-> I don't think we should care about the bit clock ratio here. From a
-> technical standpoint, and since you ignore low rates for the scrambler
-> for now, they are indeed equivalents. But semantically, scrambler can be
-> enabled for any rate, and the bit clock ratio should be changed only for
-> rates higher than 340MHz.
-> 
-> This function makes sure to trigger a modeset when the scrambler is
-> enabled or not. From a spec point of view, it's somewhat orthogonal to
-> the bit clock ratio. From a function name point of view, it's
-> misleading.
-> 
-> So yeah, I'd just drop the check on the bit clock ratio here. Drivers
-> will then get to enable either when the commit actually happens.
+Hi Dave, Simona,
 
-Ack.
+drm-misc-next-fixes is still empty, but here's all the drm-misc-fixes for next release!
 
-Thanks,
-Cristian
+Kind regards,
+~Maarten Lankhorst
+
+drm-misc-fixes-2026-06-25:
+drm-misc-fixes for v7.2:
+- drm/sysfb truncation and alignment fixes.
+- fix edid OOB read.
+- fix error handling paths in nouveau
+- amdxdna get_bo_info fix.
+- increase displayid topology id to correct size.
+- fix leak when error handling in ivpu.
+The following changes since commit 2f41af638c92bac6f1f9275ea2d1901baef578f3:
+
+  accel/amdxdna: Fix mm_struct reference leak in aie2_populate_range() (2026-06-11 09:50:07 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-06-25
+
+for you to fetch changes up to 9206b22fb959f4a9cf1921f34aed0df1dcb1ab04:
+
+  drm/sysfb: Avoid truncating maximum stride (2026-06-22 11:03:23 +0200)
+
+----------------------------------------------------------------
+drm-misc-fixes for v7.2:
+- drm/sysfb truncation and alignment fixes.
+- fix edid OOB read.
+- fix error handling paths in nouveau
+- amdxdna get_bo_info fix.
+- increase displayid topology id to correct size.
+- fix leak when error handling in ivpu.
+
+----------------------------------------------------------------
+Jani Nikula (1):
+      drm/displayid: fix Tiled Display Topology ID size
+
+Junrui Luo (1):
+      drm/nouveau: fix reversed error cleanup order in ucopy functions
+
+Karol Wachowski (1):
+      accel/ivpu: fix HWS command queue leak on registration failure
+
+Shuvam Pandey (1):
+      accel/amdxdna: Use caller client for debug BO sync
+
+Thomas Zimmermann (4):
+      drm/sysfb: Do not page-align visible size of the framebuffer
+      drm/sysfb: Avoid possible truncation with calculating visible size
+      drm/sysfb: Return errno code from drm_sysfb_get_visible_size()
+      drm/sysfb: Avoid truncating maximum stride
+
+Wentao Liang (1):
+      drm/nouveau/acr: fix missing nvkm_done() in error path of nvkm_acr_oneinit()
+
+Xiang Mei (1):
+      drm/edid: fix OOB read in drm_parse_tiled_block()
+
+ drivers/accel/amdxdna/amdxdna_gem.c            |  3 ++-
+ drivers/accel/ivpu/ivpu_job.c                  | 10 +++++-----
+ drivers/gpu/drm/drm_connector.c                | 12 ++++++------
+ drivers/gpu/drm/drm_displayid_internal.h       |  2 +-
+ drivers/gpu/drm/drm_edid.c                     |  8 ++++++++
+ drivers/gpu/drm/nouveau/nouveau_exec.c         |  4 ++--
+ drivers/gpu/drm/nouveau/nouveau_uvmm.c         |  4 ++--
+ drivers/gpu/drm/nouveau/nvkm/subdev/acr/base.c |  1 +
+ drivers/gpu/drm/sysfb/drm_sysfb_helper.h       |  2 +-
+ drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c  | 13 ++++++++++---
+ drivers/gpu/drm/sysfb/efidrm.c                 |  7 ++++---
+ drivers/gpu/drm/sysfb/vesadrm.c                |  6 +++---
+ include/drm/drm_connector.h                    |  6 +++---
+ 13 files changed, 48 insertions(+), 30 deletions(-)
