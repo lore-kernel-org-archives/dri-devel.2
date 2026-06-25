@@ -4,44 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62CD2CDE008
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 10:56:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8D42CDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 11:00:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C14F110E1D7;
-	Thu, 25 Jun 2026 10:56:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D1BC10E109;
+	Thu, 25 Jun 2026 11:00:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JZuHnXTB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RVx48wg2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECBA910E1D2
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 10:56:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AA3D740C43;
- Thu, 25 Jun 2026 10:56:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 149181F000E9;
- Thu, 25 Jun 2026 10:56:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782385011;
- bh=haLRd/7iK2UAWm9b/wOf0VERYgLg/GM/K5+HuVZsoYw=;
- h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=JZuHnXTBT1wZc5a4CjAWJQMMrL1I4sqeC8gBNzp9at7SKRvdGHL7Nd1md2qEEoS2i
- JhJY/hTFlrloWmVdoB8MZ3DK4V/WYOdu+0U01wY78/nUFugTvZK8HNlJxUfAwHwCZE
- Vq4P4G1sAesSwELuQe6Vd5/UeB+ar5y+v3vhylTgU0/T7jLg4c/4xZp/LcR7vjSsdR
- 4eLg80nEJwpNWTptj96LgXJ+GR5twqsLiDCM1qsfCfcXF7kWsBQvvNj646QCY+l3Dl
- a90oDqQ+xkjLTPJrUxY0E0yRRE1REPAvZPxB8vNUCQjFq0iZlpsx3gEX22T0xFEJcU
- qraEWBQmB5pWQ==
-Message-ID: <bc7054cbee208f10518f50935602445f@kernel.org>
-Date: Thu, 25 Jun 2026 10:56:48 +0000
-From: "Maxime Ripard" <mripard@kernel.org>
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Subject: Re: [PATCH v3 0/7] drm/sysfb: simpledrm: Various improvements
-In-Reply-To: <20260625094509.157581-1-tzimmermann@suse.de>
-References: <20260625094509.157581-1-tzimmermann@suse.de>
-Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org, javierm@redhat.com,
- jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- neil.armstrong@linaro.org, rayyan@ansari.sh, sashiko-reviews@lists.linux.dev,
- simona@ffwll.ch, treding@nvidia.com, "Maxime Ripard" <mripard@kernel.org>
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E08010E109
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 11:00:29 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-46e30429b10so177009f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 04:00:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782385228; cv=none;
+ d=google.com; s=arc-20260327;
+ b=LFe8HAtgD50JCco483TGCq2a+57r8mk+x7DyTUL00xhQmTscgfZ1CTmlKNY3tw+GkO
+ 9NPb2JNNRmkxuACYqXcnRUWhwdex4/IvHJ4JaAhL9+hgwHEFhBJrOUX957TxJr/uCN9o
+ iP1FkcuLE89J89CCwdh5sh7m4ZqJbATJrP+NWLx53Q1Tq0nLUY/rA4XWihdjskmiJ+lL
+ asvvhWq2fqLkwJKP3Fhb0Syb+oZzdcrlfFJ/qpoyHlIGbO9kVOFscMylUf7RHhiEBmsp
+ 5M3AVWlrP34Nq3Ok0g/y3F2tavm4Ahj4C/eDtM3f7OL4PCQyE0nwDiIxTZKt/fNQIz7L
+ jNsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=SYJ9K/irCjAHZhFgkU4tEC3o9IbVrQ1kbJDsUWJW4tg=;
+ fh=tjbNSYmX2/9iAljWr6J//maPQ3wriLBqLRNGWG1QMxc=;
+ b=p/I6m2WbWRTiuPfviDeHMWW7oW0CKul1NkbFo6qWWeRyq9j29UnoTlVm6pul9IGsk7
+ OrUFWtYhL+Ffhw2FosyNtQKjcChvBhT7Ga8DYiqLGhuA62GnfX+98Y2J9X5x0pNiovdv
+ 4xhXUBzQtahBeAKS5NVCH90SiVzE2o5RPfHTjXHqeeWnJ+2yPDjdl9693ztUKZhYE0lA
+ F/7b/1laONsdRFTJdrTS53ZGBQ1H50NS1jRdSlX8vr2I4HCNte45XVMnrWULZ9DN6PH9
+ djwWo10gnb11D9S9yWTEpAe6RZJR3/0JezBLO2Jx+bGv/oyZdtAq/nCqyqyceF6tAOR/
+ u/tg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782385228; x=1782990028; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=SYJ9K/irCjAHZhFgkU4tEC3o9IbVrQ1kbJDsUWJW4tg=;
+ b=RVx48wg2CRlAt2vHkWcWHnrDX63x98TLxSUHTJakoDYvq2qSxe+ePYe/GwUc7a1Ez8
+ nS+oYxaeotuJWEeVvNN5hAbsVm8YJlz6iKjSw3CBn42wZX2KvsYyHEU44vqP95817Wa3
+ dgAZODUj/gaxSt1St4UJ05iPDYosNUTNEtN5RIYpG01Nfu4s4HFwHd4iytB5BzkaVOzh
+ 45wdiWe3ODdu7z+i+3XIRZ6bBwYZ1QydXS3EhEZSTOWHR+l65ZYXQvLSR0I5pUHiEyki
+ VHdzzVI4P9nigE8/O2p5XBOWwvJKofN4Susalr9h/6HbN+4CnNdBr8+8d/wofab0+zWa
+ tYUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782385228; x=1782990028;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SYJ9K/irCjAHZhFgkU4tEC3o9IbVrQ1kbJDsUWJW4tg=;
+ b=fl/mbFxdYvcsZSaeiocs0u9elP7Q9eJPTmYPIK4hDWuWlPXutD8KyNr7mFFBtB19yX
+ ZpcdR962cH78jFR5WTF+EbGF5ONQFIYgxtqgpCWGwo1hrd3Yb0LYFoMaFQKYMwzrr6c6
+ pWvl+Ny0/VDqOZ0WfvOmdwvewQBXpInsCtGOx1Rn7RgUOlFB8tabp5t8E+teGMzWevgk
+ a7vl65/xBhgQ3bZUk7tblme2a+Ldm/++w+/e0YYnRtWnuuAJsnuS29Czm+LgggRZiHGp
+ XniMcwEjjTQWkyFINVCFnkvPoYBZiXCkajSZ09GfpEv0kM7wDjL3Ab4cWZPvv8c+i5lh
+ 5zsA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoADKx8ylsMo2d4VqCWDrG80qRzFcwi2v/aN5bKhp/N0lPgVNhP9Vhq3Uwf21ZZAxpozniHUzsgJgU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxrM97LaiJUXDqdlXFHGucAXLkAb4aZErxXdTir2ciAy+GoCQ07
+ VO5hBrRGZ/bjl7F1cEDlbhoihGSnTuJ1PPkXOUWFki8eulfdyvfL5vm58SNgma7hk1LtROgS8TN
+ f+ihTsa86Pd+JwOyDkXc+9cdZgXetTSk=
+X-Gm-Gg: AfdE7cmrczlL960xUxG8lnGLd82z8aoZjOuPxNEwB9/Nga3jJC1wdgCWqtjtPUUhWJN
+ IhuXNxTc68Aj2s8L721oEPZ2/BEt7r5N4z9MyddeKNtgFxtjMYK4WQqMaeKeqftWmxw48LBkPXo
+ 28yvPtx0PopbE9LjXQAfq9M5irV9UxL5TpCPyxJf7XYnu7lrTCnjqcWS8mjRc0uW2gLeWZEghYR
+ q4aW9pclBXBf4BHHLPy4gSQkjuF4uXLPkhsfa56f2/psBqk91j+HckpFqJ6QhZmWgb0fVZI
+X-Received: by 2002:a05:6000:98b:b0:46e:1bcd:6a0f with SMTP id
+ ffacd0b85a97d-46e1bcd6be1mr1709213f8f.10.1782385227477; Thu, 25 Jun 2026
+ 04:00:27 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260521133537.3438468-1-maoyixie.tju@gmail.com>
+In-Reply-To: <20260521133537.3438468-1-maoyixie.tju@gmail.com>
+From: Maoyi Xie <maoyixie.tju@gmail.com>
+Date: Thu, 25 Jun 2026 19:00:14 +0800
+X-Gm-Features: AVVi8CdjQVfdmvFjsaSWCi4UnNz1OBoLuP5LUHLjBHGhcG0i8c0m07TuDEVi3ZA
+Message-ID: <CAHPEe=GiP6GKaFWrd1M2Oc2Dod5PECD0nCwX1OfdP88nQM+z2Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: remove dead empty checks in ring_mux
+ ib_mark_offset and end_ib
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,16 +105,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 25 Jun 2026 11:39:32 +0200, Thomas Zimmermann wrote:
-> Patches 1 to 5 improve validation of the values provided by the
-> device firmware.
->=20
-> Patches 6 and 7 improve support for panel orientation. There's a rotation
-> property in the DT panel node. Read the value and set the connector's
->=20
-> [ ... ]
+Ping. Christian acked the approach in the inquiry thread, could this be applied?
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
+https://lore.kernel.org/amd-gfx/ecab2606-e54b-4d21-93f0-0feaade64e6c@amd.com/
 
-Thanks!
-Maxime
+Best,
+Maoyi
