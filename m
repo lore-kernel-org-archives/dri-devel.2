@@ -4,78 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 486BCCD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52808CDE013
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9023010F4AB;
-	Fri, 26 Jun 2026 07:53:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 419E410F4B0;
+	Fri, 26 Jun 2026 07:53:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="XyF7Do8M";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="PXKyb1pe";
 	dkim-atps=neutral
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
- [74.125.82.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B618010F305
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 20:52:52 +0000 (UTC)
-Received: by mail-dy1-f177.google.com with SMTP id
- 5a478bee46e88-30b6dad2382so697711eec.0
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 13:52:52 -0700 (PDT)
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A9E110E249
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 19:06:15 +0000 (UTC)
+Received: by mail-dl1-f42.google.com with SMTP id
+ a92af1059eb24-13981833e13so283878c88.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 12:06:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1782420772; x=1783025572; darn=lists.freedesktop.org;
+ d=usp.br; s=usp-google; t=1782414375; x=1783019175; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=90Bh++27PWYhH7a1Hqb3PFYlIq7kRvjS/VwtSAfZ+kU=;
- b=XyF7Do8MW4PoiO7VgCBJGP0rYMJSR6hpUKWwh0G2tQrfFtJNZMXLFaSB30R2aciP8m
- zETs4NKuT/cIHwk8ZIqRo/A4dBEXhA73swNipDMIN6JpuiXvBl+z3nH/OT1m+B6lmY+D
- 2m7raRCb5J7eE6W8ecBAwZlRsdPV7RmilDt3PFi8jeP9KzshyVO2+4XXoj2Ni2Zomj6M
- fUBXo9V0pjWEENimMtC8D2yn0qkWs5s2V0r9InV6KUvMtFAiXBEnWddXLu7q3LQi6IuT
- MXWmW6XHakVXfxeZ6riwnMAsN2IHGNzr7ReLTF9S3aQV36RaEPOxGcwX3IRLD9rSZTiN
- ZMOw==
+ bh=WOafAK7HDkFPoXdNsVBZ8vVOqlRlb6xT0ugQxmB4YIM=;
+ b=PXKyb1ped0Dfkedg6IBXP8aIpn5cBsdEBoSPudz+YpuJUFjC+TwQ+mu8Ob8jLTOIAU
+ 3oUd7QfKGLlWgXNEo5HV+lND0Wsy5Mau3Inf/Mkszk5Zhpwwkz2TbhIpt4jdHUQUFbSB
+ olDZPdUoPkl+/ehEvNZWwBvOhoRnNK7OSXiPOYnnJ9N6Fysl0YMrHakjiZKLFUhsjyS+
+ jiECgeGuxtZnlkkQ/AlgQEMIzPF9nBofy/2vYch7ucd+4vMPzyaSibVl3u68QeeLb9ob
+ QodyaXrfuGeacbcTbXMvXLvO/TeAFcBqPwsl95BcZ0uAWQ/vPvZltr9VM1G2XSDqRFkh
+ 7+HA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782420772; x=1783025572;
+ d=1e100.net; s=20251104; t=1782414375; x=1783019175;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=90Bh++27PWYhH7a1Hqb3PFYlIq7kRvjS/VwtSAfZ+kU=;
- b=hlBxwN2sZACOvV9v2t+Pt/RwEi7z1vNyiWTlzBm+q5z8yuZ2eqoTVDtFPs6iZ5Q8MX
- 0ADM6J8l/gh76oWaS+fa2mLHiqRzj44K6Di8FkPkuBjfwlAyGx39fBm7qKZD839lz5m6
- /Xk0HNj7zhQoTi7KxWPiPLpgQ5KjTRzcI1b0MRgVNWTQppADBqQf1UVkKXnGR2+05tPI
- xvAKk/iV1YyA5tVjDLmIayESK8XkNbYTICOJLJHRWse8OlJ6WO1TXu1O44CewER1zEZt
- bp5d+LQfsF5lu1xB+6gltPr9yDie1Wby1OG+BjJF+hiUWfzvnrAeMVfE50qJqHJoMumn
- P55Q==
+ bh=WOafAK7HDkFPoXdNsVBZ8vVOqlRlb6xT0ugQxmB4YIM=;
+ b=rekti9wQYTve5jSjwpSnu+EyTiPv36jnbWLCB5tJblfeFoB4mNRd5DpCTh1iL8yyEN
+ 4/VmjhDGeK8utjQNB1CdmD5nOWIeoc5v8U+XGceaRAodk7YKhKEo1taWz5cBEiLwNIfv
+ KhYJ6yYRQROUXgkLvYzi8j9P82j65UL6wbsiKSz6HB8Y9rxe5CNRAwCbsCf9pUIApItI
+ lcRMNOueq/Z6J56+Wmjm+MtIom6ksBcoFkQhjPsRC0rNNFxvMtXXA+BLVrdduMsMzpsX
+ zxj01ucUTyDVB4Fhnab+65bc2zdVIJPaUiTeSIrVBmibNVx4JjTA5/2c9A7088YLx3B6
+ gsLA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqwjJJEx5P9CjjEuXmECavhRama++99MUBQ3biKeFOL9dzpGTW2KqysSe6rNll929gzk7XJy+yAMAQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzE5vq5hftWYVgPO8Kou3YZzzxu7/V68g3LWH/EeP2JyUIgnEjg
- QMqFQojl8xcfz4ZC2hFumRE1a1ZbI5nkRjtN008CynePYxOqMhn5BdllmqFkNr+bqi0=
-X-Gm-Gg: AfdE7ckAMc1uWE/3NSx2upr+b6lriaLu5bfQxJeC+vxU1oayyJIf4cXC4LQC2LLp64Z
- avuKw/Bbykr2i3VTwgbOB7amQajCEFmu0KXtZc/NWFBcQt3gMzfCtdmfrKTVy1xEtU220NB3MRV
- yErxL7zBrQFniNQPLV91w6qpQ3nOm3MlYgA+Yq9Tjcx3h1bzH1GoexFV4BA1CXOItWiISRWeKCA
- zXwgXH19u5CcgqY+52J7r8FJ74Xej/LCx71PAmo6SNd4yYEU3F3N5dxSafLBv4djGjjuTCUXdDp
- u4ZWQ7NIJIxNL2b9GETB6qIYhYq3/bnly7XYTPkmYOJKP35Kjl7ub7eyAWp/E4DTmwKBZlp9roF
- 5vzSuANN0W/Ol97sKTDqz6ohONuLTy1m5NS3wUcN/gKly/9aLObvRqPbzXeR1Ln8fC21Lpzrb0o
- eDZH46R0vvDEB2tYrd/cB/onLIaA==
-X-Received: by 2002:a05:7301:9c95:b0:304:e587:5063 with SMTP id
- 5a478bee46e88-30c84b6f548mr4769384eec.12.1782420771923; 
- Thu, 25 Jun 2026 13:52:51 -0700 (PDT)
-Received: from niyudi-linux.. (179-242-249-142.3g.claro.net.br.
- [179.242.249.142]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-30c7c4c691dsm10981525eec.5.2026.06.25.13.52.48
+ AFNElJ9awuB6Y590wYLcYhifIZg3S2kpVtIu0Lyhkxb5ADBKKdfJUwFXmyV3opeQYyPtbfqdH7Nl924O0jo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxhIiGEFF6ZPm4Da9wdXyV//lzWkasgzCkJrmgSyK0ptmitfCaf
+ IMB37mWrEcLLfOV87SndGeQUDzqhOJubYA284VGzv8gFYe6bXSmQgS2yPaMDHdFLVho=
+X-Gm-Gg: AfdE7cmHamCYCjSMvlhw/gE++ktqPheKU9arJjZWawCwp4O8ZH5iIa8jb6gYcRmY1hB
+ ILZ3VXvo3K/Xab1/mUmxf7TG7YaWGpM7LXXvoqRtnTvBTxOfxugLUzGLUCD4/PaLtWEN4MfRMLT
+ fPdvON9PBNgo2+DSTttowHaHyQAwRg470LPi76nLJB9OHm6skmIRLmD7fGP2OspRfUjfT4UNyai
+ n1HbSfTm/oDc8QDxwpvqyz/R4Gc3ysVaXnv9mGfO8mzK19hKs2QL4MjBqyxWjxRRjEJGYln5YFy
+ C+qtcq5R6LfqcWxPaEMwzzhr4j6lFSdc7dl1t1p7lVkk1Jc6Wvam3GjrfVm0+9PS08uOP+btr8P
+ BYwrd/qR5BWmFi6V2Wzu00yvv1y0JPdLMcATOxa6jPsJtO92nGtqpxQ0Wph5WksHMPBsxTWuzhG
+ UGezhd19e+9cAf9hE=
+X-Received: by 2002:a05:7022:1003:b0:139:bf81:638b with SMTP id
+ a92af1059eb24-139dba0627cmr3156576c88.4.1782414374519; 
+ Thu, 25 Jun 2026 12:06:14 -0700 (PDT)
+Received: from niyudi-linux.semfio.usp.br (nat.ime.usp.br. [143.107.45.1])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-139d8f6acf9sm10742999c88.6.2026.06.25.12.06.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jun 2026 13:52:51 -0700 (PDT)
+ Thu, 25 Jun 2026 12:06:14 -0700 (PDT)
 From: Pedro Yudi Honda <niyudi.honda@usp.br>
 X-Google-Original-From: Pedro Yudi Honda
 To: dakr@kernel.org,
-	acourbot@nvidia.com,
+	acourbot@nvida.com,
 	nova-gpu@lists.linux.dev
 Cc: aliceryhl@google.com, airlied@gmail.com, simona@ffwll.ch,
  dri-devel@lists.freedesktop.org, ojeda@kernel.org,
- rust-for-linux@vger.kernel.org, Pedro Yudi Honda <niyudi.honda@usp.br>
-Subject: [PATCH 7/7] drm/nova: remove unused trait in commands.rs
-Date: Thu, 25 Jun 2026 17:51:46 -0300
-Message-Id: <20260625205146.5047-8-niyudi.honda@usp.br>
+ rust-for-linux@vgdm.kernel.org, Pedro Yudi Honda <niyudi.honda@usp.br>
+Subject: [PATCH 3/7] drm/nova: use `zerocopy` in booter.rs
+Date: Thu, 25 Jun 2026 16:05:49 -0300
+Message-Id: <20260625190553.7245-4-niyudi.honda@usp.br>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260625205146.5047-1-niyudi.honda@usp.br>
-References: <20260625205146.5047-1-niyudi.honda@usp.br>
+In-Reply-To: <20260625190553.7245-1-niyudi.honda@usp.br>
+References: <20260625190553.7245-1-niyudi.honda@usp.br>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 26 Jun 2026 07:53:42 +0000
@@ -96,40 +95,124 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Pedro Yudi Honda <niyudi.honda@usp.br>
 
-In gsp/commands.rs, remove unused `transmute::FromBytes` implementation.
+In firmware/booter.rs, replace the following `transmute` traits with
+their `zerocopy` equivalents:
+
+- `transmute::FromBytes` -> `zerocopy::FromBytes`
+
+Update call sites accordingly.
 
 Signed-off-by: Pedro Yudi Honda <niyudi.honda@usp.br>
 ---
- drivers/gpu/nova-core/gsp/commands.rs | 9 +--------
- 1 file changed, 1 insertion(+), 8 deletions(-)
+ drivers/gpu/nova-core/firmware/booter.rs | 26 +++++++-----------------
+ 1 file changed, 7 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index f84de9f4f045..a3c0b7fa3b9e 100644
---- a/drivers/gpu/nova-core/gsp/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -12,10 +12,7 @@
+diff --git a/drivers/gpu/nova-core/firmware/booter.rs b/drivers/gpu/nova-core/firmware/booter.rs
+index d9313ac361af..0cda2c50fbbe 100644
+--- a/drivers/gpu/nova-core/firmware/booter.rs
++++ b/drivers/gpu/nova-core/firmware/booter.rs
+@@ -10,8 +10,7 @@
+ use kernel::{
      device,
-     pci,
-     prelude::*,
--    transmute::{
--        AsBytes,
--        FromBytes, //
--    }, //
-+    transmute::AsBytes//
+     dma::Coherent,
+-    prelude::*,
+-    transmute::FromBytes, //
++    prelude::*, //
  };
  
  use crate::{
-@@ -149,10 +146,6 @@ fn init_variable_payload(
- /// Message type for GSP initialization done notification.
- struct GspInitDone;
+@@ -44,7 +43,7 @@ fn frombytes_at<S: FromBytes + Sized>(slice: &[u8], offset: usize) -> Result<S>
+     let end = offset.checked_add(size_of::<S>()).ok_or(EINVAL)?;
+     slice
+         .get(offset..end)
+-        .and_then(S::from_bytes_copy)
++        .and_then(|b| S::read_from_bytes(b).ok())
+         .ok_or(EINVAL)
+ }
  
--// SAFETY: `GspInitDone` is a zero-sized type with no bytes, therefore it
--// trivially has no uninitialized bytes.
--unsafe impl FromBytes for GspInitDone {}
+@@ -53,7 +52,7 @@ fn frombytes_at<S: FromBytes + Sized>(slice: &[u8], offset: usize) -> Result<S>
+ /// Such firmwares have an application-specific payload that needs to be patched with a given
+ /// signature.
+ #[repr(C)]
+-#[derive(Debug, Clone)]
++#[derive(Debug, Clone, FromBytes)]
+ struct HsHeaderV2 {
+     /// Offset to the start of the signatures.
+     sig_prod_offset: u32,
+@@ -76,9 +75,6 @@ struct HsHeaderV2 {
+     header_size: u32,
+ }
+ 
+-// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
+-unsafe impl FromBytes for HsHeaderV2 {}
 -
- impl MessageFromGsp for GspInitDone {
-     const FUNCTION: MsgFunction = MsgFunction::GspInitDone;
-     type InitError = Infallible;
+ /// Heavy-Secured Firmware image container.
+ ///
+ /// This provides convenient access to the fields of [`HsHeaderV2`] that are actually indices to
+@@ -145,6 +141,7 @@ fn signatures_iter(&'a self) -> Result<impl Iterator<Item = BooterSignature<'a>>
+ 
+ /// Signature parameters, as defined in the firmware.
+ #[repr(C)]
++#[derive(FromBytes)]
+ struct HsSignatureParams {
+     /// Fuse version to use.
+     fuse_ver: u32,
+@@ -154,9 +151,6 @@ struct HsSignatureParams {
+     ucode_id: u32,
+ }
+ 
+-// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
+-unsafe impl FromBytes for HsSignatureParams {}
+-
+ impl HsSignatureParams {
+     /// Returns the signature parameters contained in `hs_fw`.
+     ///
+@@ -171,14 +165,14 @@ fn new(hs_fw: &HsFirmwareV2<'_>) -> Result<Self> {
+         hs_fw
+             .fw
+             .get(start..end)
+-            .and_then(Self::from_bytes_copy)
++            .and_then(|b| Self::read_from_bytes(b).ok())
+             .ok_or(EINVAL)
+     }
+ }
+ 
+ /// Header for code and data load offsets.
+ #[repr(C)]
+-#[derive(Debug, Clone)]
++#[derive(Debug, Clone, FromBytes)]
+ struct HsLoadHeaderV2 {
+     // Offset at which the code starts.
+     os_code_offset: u32,
+@@ -192,9 +186,6 @@ struct HsLoadHeaderV2 {
+     num_apps: u32,
+ }
+ 
+-// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
+-unsafe impl FromBytes for HsLoadHeaderV2 {}
+-
+ impl HsLoadHeaderV2 {
+     /// Returns the load header contained in `hs_fw`.
+     ///
+@@ -206,7 +197,7 @@ fn new(hs_fw: &HsFirmwareV2<'_>) -> Result<Self> {
+ 
+ /// Header for app code loader.
+ #[repr(C)]
+-#[derive(Debug, Clone)]
++#[derive(Debug, Clone, FromBytes)]
+ struct HsLoadHeaderV2App {
+     /// Offset at which to load the app code.
+     offset: u32,
+@@ -214,9 +205,6 @@ struct HsLoadHeaderV2App {
+     len: u32,
+ }
+ 
+-// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
+-unsafe impl FromBytes for HsLoadHeaderV2App {}
+-
+ impl HsLoadHeaderV2App {
+     /// Returns the [`HsLoadHeaderV2App`] for app `idx` of `hs_fw`.
+     ///
 -- 
 2.34.1
 
