@@ -4,79 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52808CDE013
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FA09CDE015
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 419E410F4B0;
-	Fri, 26 Jun 2026 07:53:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB70410F493;
+	Fri, 26 Jun 2026 07:53:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="PXKyb1pe";
+	dkim=pass (2048-bit key; unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="aVizIMNR";
 	dkim-atps=neutral
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A9E110E249
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 19:06:15 +0000 (UTC)
-Received: by mail-dl1-f42.google.com with SMTP id
- a92af1059eb24-13981833e13so283878c88.1
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 12:06:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1782414375; x=1783019175; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WOafAK7HDkFPoXdNsVBZ8vVOqlRlb6xT0ugQxmB4YIM=;
- b=PXKyb1ped0Dfkedg6IBXP8aIpn5cBsdEBoSPudz+YpuJUFjC+TwQ+mu8Ob8jLTOIAU
- 3oUd7QfKGLlWgXNEo5HV+lND0Wsy5Mau3Inf/Mkszk5Zhpwwkz2TbhIpt4jdHUQUFbSB
- olDZPdUoPkl+/ehEvNZWwBvOhoRnNK7OSXiPOYnnJ9N6Fysl0YMrHakjiZKLFUhsjyS+
- jiECgeGuxtZnlkkQ/AlgQEMIzPF9nBofy/2vYch7ucd+4vMPzyaSibVl3u68QeeLb9ob
- QodyaXrfuGeacbcTbXMvXLvO/TeAFcBqPwsl95BcZ0uAWQ/vPvZltr9VM1G2XSDqRFkh
- 7+HA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782414375; x=1783019175;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=WOafAK7HDkFPoXdNsVBZ8vVOqlRlb6xT0ugQxmB4YIM=;
- b=rekti9wQYTve5jSjwpSnu+EyTiPv36jnbWLCB5tJblfeFoB4mNRd5DpCTh1iL8yyEN
- 4/VmjhDGeK8utjQNB1CdmD5nOWIeoc5v8U+XGceaRAodk7YKhKEo1taWz5cBEiLwNIfv
- KhYJ6yYRQROUXgkLvYzi8j9P82j65UL6wbsiKSz6HB8Y9rxe5CNRAwCbsCf9pUIApItI
- lcRMNOueq/Z6J56+Wmjm+MtIom6ksBcoFkQhjPsRC0rNNFxvMtXXA+BLVrdduMsMzpsX
- zxj01ucUTyDVB4Fhnab+65bc2zdVIJPaUiTeSIrVBmibNVx4JjTA5/2c9A7088YLx3B6
- gsLA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9awuB6Y590wYLcYhifIZg3S2kpVtIu0Lyhkxb5ADBKKdfJUwFXmyV3opeQYyPtbfqdH7Nl924O0jo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxhIiGEFF6ZPm4Da9wdXyV//lzWkasgzCkJrmgSyK0ptmitfCaf
- IMB37mWrEcLLfOV87SndGeQUDzqhOJubYA284VGzv8gFYe6bXSmQgS2yPaMDHdFLVho=
-X-Gm-Gg: AfdE7cmHamCYCjSMvlhw/gE++ktqPheKU9arJjZWawCwp4O8ZH5iIa8jb6gYcRmY1hB
- ILZ3VXvo3K/Xab1/mUmxf7TG7YaWGpM7LXXvoqRtnTvBTxOfxugLUzGLUCD4/PaLtWEN4MfRMLT
- fPdvON9PBNgo2+DSTttowHaHyQAwRg470LPi76nLJB9OHm6skmIRLmD7fGP2OspRfUjfT4UNyai
- n1HbSfTm/oDc8QDxwpvqyz/R4Gc3ysVaXnv9mGfO8mzK19hKs2QL4MjBqyxWjxRRjEJGYln5YFy
- C+qtcq5R6LfqcWxPaEMwzzhr4j6lFSdc7dl1t1p7lVkk1Jc6Wvam3GjrfVm0+9PS08uOP+btr8P
- BYwrd/qR5BWmFi6V2Wzu00yvv1y0JPdLMcATOxa6jPsJtO92nGtqpxQ0Wph5WksHMPBsxTWuzhG
- UGezhd19e+9cAf9hE=
-X-Received: by 2002:a05:7022:1003:b0:139:bf81:638b with SMTP id
- a92af1059eb24-139dba0627cmr3156576c88.4.1782414374519; 
- Thu, 25 Jun 2026 12:06:14 -0700 (PDT)
-Received: from niyudi-linux.semfio.usp.br (nat.ime.usp.br. [143.107.45.1])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-139d8f6acf9sm10742999c88.6.2026.06.25.12.06.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jun 2026 12:06:14 -0700 (PDT)
-From: Pedro Yudi Honda <niyudi.honda@usp.br>
-X-Google-Original-From: Pedro Yudi Honda
-To: dakr@kernel.org,
-	acourbot@nvida.com,
-	nova-gpu@lists.linux.dev
-Cc: aliceryhl@google.com, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, ojeda@kernel.org,
- rust-for-linux@vgdm.kernel.org, Pedro Yudi Honda <niyudi.honda@usp.br>
-Subject: [PATCH 3/7] drm/nova: use `zerocopy` in booter.rs
-Date: Thu, 25 Jun 2026 16:05:49 -0300
-Message-Id: <20260625190553.7245-4-niyudi.honda@usp.br>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260625190553.7245-1-niyudi.honda@usp.br>
-References: <20260625190553.7245-1-niyudi.honda@usp.br>
-MIME-Version: 1.0
+Received: from SY5PR01CU010.outbound.protection.outlook.com
+ (mail-australiaeastazolkn19012065.outbound.protection.outlook.com
+ [52.103.72.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFA4110E109;
+ Thu, 25 Jun 2026 11:00:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YEO7EncGJYNZSnRs5y91M6C3aWGgC3F6WWGKnJsyJ/Fektq0SJunmJBtkVvs9jhOkYYISwAt56A7LEdW2VYrtwhRM4ReX/B4uAZ6U3+dELpj2gYt7NNVX7e+ygdUfLh4y4vBxkP7UIyeM+oUrxLvZugV/3S8qI9H20YnFwZhfPl1kwlMIBstYjv4G2nbh4ABt2Rk162J2vukqdomnBPnhcS0TiY6dpclcF0sbun0Z4mApEr4uXJwZ0ztxHc1AYHd31wy0hxON8Mh+YJkZW8zH9l87EDtxjfsJqs+PTBMt006PvgXxTPfHOM3IxYgVZxSrPEMGoaq4wfErbPcyJHXag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=plP1Mpcw8Xprc2kCb50fb6i+G2ud9L4zxpNqy85Ru2s=;
+ b=bmI15q5Ma9kr68pgxUBY6ugCC3SOgdiOIJNK7nEHknVxWepx/3W5FLt6BnGViG5sDulN5OKRR2L7hc0Mnqxr02tle7yjOPh9Shgbsf/5xIB8QnMmNFS3adTp19XAcC0Vqj/TGhhDeTxXF4LkCPCPEE62qdCeCLZ5TBp6m+UGfO3AbL1wULGiaZHTTyRe4R1zhxvTfIxT3U2exmm3fXNEyhdFw88NPCzCKrrb+Q6o+3eKPrNuRLwwd3/L0P8Dsn9B729Q7UeucjqvBq0xmlWJUfrkxmiQOhjv83pgod+BEJ+4KK0CfHfDSOrGIq4X2yifIzgyt3LOuJDhUOCMLcJx9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=plP1Mpcw8Xprc2kCb50fb6i+G2ud9L4zxpNqy85Ru2s=;
+ b=aVizIMNRA35D2OumtdZLWb57RZvrAcBUVu2m7Q6ZOk7Y+AD6J6VkXYZAW7ZEN0xfBHqZ+ICKYyUqC0JpSoZD81bOHkN+Qi3S4k00qjfLSs4YaMjY9R1PnLtQi5uM14NpNet6i4qq6kuz7W5lQH4zYb6S6kEiJ+DTOvWtev2rXrVdPC8uxUJqbh2VAa0LYoqyTakdiPg27jHHT7NxCpAZJAI6KUsa+p+RP2i0ISU1TI6hXR4pdR3yUPQ2p9AJuCiNUo0h3RHOBehANMjwPMqqqB5eRYYtrrWFXPNS9Ac1iJ1H7PRAy4VAGLxjdANj9v2PGFXye+oYn8MWFrfcPYrOjQ==
+Received: from SY1PR01MB10596.ausprd01.prod.outlook.com (2603:10c6:10:31a::15)
+ by ME5PR01MB10091.ausprd01.prod.outlook.com (2603:10c6:220:24c::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Thu, 25 Jun
+ 2026 11:00:22 +0000
+Received: from SY1PR01MB10596.ausprd01.prod.outlook.com
+ ([fe80::7ab4:1f80:a8a0:7d3f]) by SY1PR01MB10596.ausprd01.prod.outlook.com
+ ([fe80::7ab4:1f80:a8a0:7d3f%6]) with mapi id 15.21.0159.012; Thu, 25 Jun 2026
+ 11:00:22 +0000
+From: Yitao Jiang <jytscientist@hotmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jann Horn <jannh@google.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, Yitao Jiang <jytscientist@hotmail.com>
+Subject: [PATCH 2/3] drm/amdgpu: block THP for HSA userptr notifiers
+Date: Thu, 25 Jun 2026 18:59:52 +0800
+Message-ID: <SY1PR01MB1059636EEFF3E5C5156F899B8C0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <SY1PR01MB10596EB75463208A8E1EBBA0FC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
+References: <SY1PR01MB10596EB75463208A8E1EBBA0FC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TP0P295CA0028.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:5::8)
+ To SY1PR01MB10596.ausprd01.prod.outlook.com
+ (2603:10c6:10:31a::15)
+X-Microsoft-Original-Message-ID: <20260625105953.70647-3-jytscientist@hotmail.com>
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SY1PR01MB10596:EE_|ME5PR01MB10091:EE_
+X-MS-Office365-Filtering-Correlation-Id: e1ae0c4e-dede-4a14-b197-08ded2a8f402
+X-Microsoft-Antispam: BCL:0;
+ ARA:14566002|8060799015|51005399006|23021999003|24021099003|16051099003|19110799012|41001999006|25010399006|5072599009|15080799012|40105399003|440099028|3412199025|1710799026;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?fP0jNFORvB7y/LSRAH20Wxj20lQdoZBmRv/v/OFwrObdWUWoxE9DPudQJQH+?=
+ =?us-ascii?Q?CtrHwYycoI8K7BuL83ZugdhoZ3R0PhtsbWnrdt5HZt04XcRlS/FnsrnoalXy?=
+ =?us-ascii?Q?TsrRylve53IWqkTpKa+aHiWECU7opPkaWRk48/K73aldh3pKte/CQSAvHTda?=
+ =?us-ascii?Q?CTQKuzPnw3X2Jlrb+kUGU2V8aG8xzkVakANMYFMz3MAIy6DIJqx2uTYknI9u?=
+ =?us-ascii?Q?8QLqYf/f7QNSOM2YGelaQ6/1zL0H0sVCRC8wulR6HgyBWIpqkyzCA7aYY4Zh?=
+ =?us-ascii?Q?0n79BVvQy7SUmXnwZkqrbA56DxqQSYnuebtwfV1+zPUhD9o08pH4CH+eIcWm?=
+ =?us-ascii?Q?e7UEPcFTmzawXk6WjhQtOb/dNBhir40H+FP4hyhRlV+7H4fISuO8SpgMADtK?=
+ =?us-ascii?Q?q+nsnyJQqrKouCq5CNZFMPeu2+dXiwAdHqFDCtfxYF4nxRDtVgtYG9yjRBH+?=
+ =?us-ascii?Q?83tqzSQrNfHB6n4bUt6DFDxBf0+KbNKrbGxlaQuB2ebN3IBHJ994Sp8gGf7B?=
+ =?us-ascii?Q?Vpc2Pcd8r3aeiYn32yaHs89oUKumk+jv1wo7062bHVmdcBOv4IbKkmcsIyoR?=
+ =?us-ascii?Q?8uKEeozh6FSn481Ak7+rILvAN5N66IaeB75vtD0F3I3QgSskunnoV9sMLwHq?=
+ =?us-ascii?Q?oh4155LO8ppZ8SydfwH5Ob9/fhxH3XvpJYz2UkdvmeRyrWc+3ZioNPPQXax1?=
+ =?us-ascii?Q?cX10uja44qlrovGHQK1g7FMNYNrRbTJ5LMj9Gzf/IWCe/794piLvZPIiN8iC?=
+ =?us-ascii?Q?zxe6GxKoLPTqTRTMHa/loD6Uq6A4umXqaGRAwp10cik3OPEaunO5AIXNpEEQ?=
+ =?us-ascii?Q?PgBxii4hfE4+478ARhQC1mJpOCATHBIU9xmW/Kdj4lCooBQp/BjSA2KjPwbL?=
+ =?us-ascii?Q?CghJHsk/ASefXGpd8cAHwgUGBBxFSQ0LCUNDagfzgLwT6ZFyyq2Ov4fXByaD?=
+ =?us-ascii?Q?4uFvfbWxM5xUHbbGq4v8MoK+RuwBp6g2S541I+F2PAgtcNbNqY++nkw4w7GO?=
+ =?us-ascii?Q?Z3JpbAU6sUdpkn9Qxr6ssfJ/ug=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XCWtRY+TcNXCqXQf/tnak73lP8IG4xRteO4xFB+Vcf5UCDAestnIAJlRwHyw?=
+ =?us-ascii?Q?Uu8brPtVLnShsRqwiND3PSNeZff2COCduYxHds0+NCNF/5s11daHMBJRrEUV?=
+ =?us-ascii?Q?UHc/aoEXUrxmCkxwDX5RZpDI33yNDnaivvI4HMtX2jl718VzRhj1NOmWriFg?=
+ =?us-ascii?Q?Z+9lOmfe9V/PX1ab+VnVo3WIPQNcovhJcE89z/Sb9gJ/l4w4lAURi3PM5wD9?=
+ =?us-ascii?Q?S9gmVxOnD+huCOM9YvJU56XOPKtD5+1oNlVcJVg0CRIDBPBy9D7zAh2+3FJZ?=
+ =?us-ascii?Q?faKz9Pyz0tdnGp8Uic7TMZGQidrWtEMIYjO7fTtbulerS7tKeMBFYPiFGOM6?=
+ =?us-ascii?Q?eCOhdA7S3Q6bYYR8D8zdcCglX+L3KmjDHk4BZKv2poVUoVWJ3Krng8aLFxVH?=
+ =?us-ascii?Q?gACYzhoq0bPl4d+hTjnSAc3+wdhHCBakdt/NTlWZrqdcZ2ALA1KNfITXxr/Y?=
+ =?us-ascii?Q?ZZjaR/6yOelAsncHzTcgx49TlXc5ARFGT+r69XeSXwe+0DveKVitQJfkb/Os?=
+ =?us-ascii?Q?nWENhc2pcEAJ58vF7PoKMS47R+n/bxHy+9cpgpKuGKixpDsNxL/HIBFhr2vN?=
+ =?us-ascii?Q?9j/SGJZgO6m+kYa+QzY8qKzclJLW19H4eKYOTnPb/48JpS1nJVVOkjF7uXpw?=
+ =?us-ascii?Q?5CAiYqXCJVsDqj+BFLU9lrDmN5yA7GwhMwV6pnoD6zQgAfzaMwRHiSYzBlqp?=
+ =?us-ascii?Q?rL38bZ5ke/P8T0WBUAbe6yiVuXH4GnzwYGqd/fJGrogHH+fnBHuLvxUcROnI?=
+ =?us-ascii?Q?SFg/iSTWclodq1qQFQJv1oWfLHKlcBDMEIAF5EJlJyM/7gjJLv1N9l4pVs7o?=
+ =?us-ascii?Q?eG4kRpaTZl+k3drssPZ1trYTNsCokm3T+EmlvEUJ0JSdZ7LcPiaqRmQVy7JS?=
+ =?us-ascii?Q?079qkRAMm6YTTh5UqVAznKh6y9WlDC4OPPaEKV0PuXi/o3kH+e56FRTDxpOF?=
+ =?us-ascii?Q?W6z6Y3SmG2ZEx8HOE/hjAJldWYhFlXXjweLE7zSoRQGyz+/2C00EvtHd5Z2/?=
+ =?us-ascii?Q?P5sm9PLw9aVrYz4hIXEVQbEfW5ubk8P0lGAWYA71KFjY0HWkkUcE82C02ZBP?=
+ =?us-ascii?Q?LvJLEzcYzfdBf86TDn7TSP4Iy7UdI4co0tSxmLcxBqd7B/a9J3f+qzfwdfFR?=
+ =?us-ascii?Q?9da3zGRktHbShpIL03xxn+5Ie6w2m1+8CxrgwqltMtOlmC8mkyraELtANjU8?=
+ =?us-ascii?Q?BFZCt9sT2EkShB0ZDVqdiX8HbdAFcTXtF7Hkph4hkfMmWnmbNrvCjOr2On+4?=
+ =?us-ascii?Q?v5FqINWq4bgd5BobcdGgw88mWuFeWVEapL41VO/r/8srgNJQJIQFBGoDPhFw?=
+ =?us-ascii?Q?jp/8/D8Kwq8WF5Ugs5Z5F6oR70aBKWdXeGqzyPbhFK3ECrFcceYNob8oBuuY?=
+ =?us-ascii?Q?32rvUyNwiqbyco0gakm6vFxNlUB07MJB7MChntq2OwGivd6TseDWFGCrUY/R?=
+ =?us-ascii?Q?4WSykx4ANOXa+iqgmaBydz5lqyOJrqkyYXrisiUB+nfl+JOT5QrZ0Q=3D=3D?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-feddd.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: e1ae0c4e-dede-4a14-b197-08ded2a8f402
+X-MS-Exchange-CrossTenant-AuthSource: SY1PR01MB10596.ausprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 11:00:22.5044 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ME5PR01MB10091
 X-Mailman-Approved-At: Fri, 26 Jun 2026 07:53:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,126 +144,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Pedro Yudi Honda <niyudi.honda@usp.br>
+HSA userptr buffer objects are used by KFD compute queues. On systems
+where the GPU cannot reliably tolerate a CPU THP remap of an active
+userptr range, allowing khugepaged or MADV_COLLAPSE to replace PTE
+mappings with a PMD mapping can leave later GPU work failing
+asynchronously.
 
-In firmware/booter.rs, replace the following `transmute` traits with
-their `zerocopy` equivalents:
+Register HSA userptr interval notifiers with
+MMU_INTERVAL_NOTIFIER_BLOCK_THP. GFX userptrs keep the existing
+notifier path and do not opt in.
 
-- `transmute::FromBytes` -> `zerocopy::FromBytes`
-
-Update call sites accordingly.
-
-Signed-off-by: Pedro Yudi Honda <niyudi.honda@usp.br>
+Assisted-by: OpenAI-Codex:GPT-5.5
+Signed-off-by: Yitao Jiang <jytscientist@hotmail.com>
 ---
- drivers/gpu/nova-core/firmware/booter.rs | 26 +++++++-----------------
- 1 file changed, 7 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 25 +++++++++++++++++--------
+ 1 file changed, 17 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/firmware/booter.rs b/drivers/gpu/nova-core/firmware/booter.rs
-index d9313ac361af..0cda2c50fbbe 100644
---- a/drivers/gpu/nova-core/firmware/booter.rs
-+++ b/drivers/gpu/nova-core/firmware/booter.rs
-@@ -10,8 +10,7 @@
- use kernel::{
-     device,
-     dma::Coherent,
--    prelude::*,
--    transmute::FromBytes, //
-+    prelude::*, //
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+index 99bc9ad67..c0b36164c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
+@@ -44,6 +44,7 @@
+  */
  
- use crate::{
-@@ -44,7 +43,7 @@ fn frombytes_at<S: FromBytes + Sized>(slice: &[u8], offset: usize) -> Result<S>
-     let end = offset.checked_add(size_of::<S>()).ok_or(EINVAL)?;
-     slice
-         .get(offset..end)
--        .and_then(S::from_bytes_copy)
-+        .and_then(|b| S::read_from_bytes(b).ok())
-         .ok_or(EINVAL)
- }
+ #include <linux/firmware.h>
++#include <linux/mm.h>
+ #include <linux/module.h>
+ #include <drm/drm.h>
  
-@@ -53,7 +52,7 @@ fn frombytes_at<S: FromBytes + Sized>(slice: &[u8], offset: usize) -> Result<S>
- /// Such firmwares have an application-specific payload that needs to be patched with a given
- /// signature.
- #[repr(C)]
--#[derive(Debug, Clone)]
-+#[derive(Debug, Clone, FromBytes)]
- struct HsHeaderV2 {
-     /// Offset to the start of the signatures.
-     sig_prod_offset: u32,
-@@ -76,9 +75,6 @@ struct HsHeaderV2 {
-     header_size: u32,
- }
+@@ -130,16 +131,24 @@ static const struct mmu_interval_notifier_ops amdgpu_hmm_hsa_ops = {
+  */
+ int amdgpu_hmm_register(struct amdgpu_bo *bo, unsigned long addr)
+ {
++	struct mm_struct *mm = current->mm;
++	unsigned long size = amdgpu_bo_size(bo);
+ 	int r;
  
--// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
--unsafe impl FromBytes for HsHeaderV2 {}
--
- /// Heavy-Secured Firmware image container.
- ///
- /// This provides convenient access to the fields of [`HsHeaderV2`] that are actually indices to
-@@ -145,6 +141,7 @@ fn signatures_iter(&'a self) -> Result<impl Iterator<Item = BooterSignature<'a>>
- 
- /// Signature parameters, as defined in the firmware.
- #[repr(C)]
-+#[derive(FromBytes)]
- struct HsSignatureParams {
-     /// Fuse version to use.
-     fuse_ver: u32,
-@@ -154,9 +151,6 @@ struct HsSignatureParams {
-     ucode_id: u32,
- }
- 
--// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
--unsafe impl FromBytes for HsSignatureParams {}
--
- impl HsSignatureParams {
-     /// Returns the signature parameters contained in `hs_fw`.
-     ///
-@@ -171,14 +165,14 @@ fn new(hs_fw: &HsFirmwareV2<'_>) -> Result<Self> {
-         hs_fw
-             .fw
-             .get(start..end)
--            .and_then(Self::from_bytes_copy)
-+            .and_then(|b| Self::read_from_bytes(b).ok())
-             .ok_or(EINVAL)
-     }
- }
- 
- /// Header for code and data load offsets.
- #[repr(C)]
--#[derive(Debug, Clone)]
-+#[derive(Debug, Clone, FromBytes)]
- struct HsLoadHeaderV2 {
-     // Offset at which the code starts.
-     os_code_offset: u32,
-@@ -192,9 +186,6 @@ struct HsLoadHeaderV2 {
-     num_apps: u32,
- }
- 
--// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
--unsafe impl FromBytes for HsLoadHeaderV2 {}
--
- impl HsLoadHeaderV2 {
-     /// Returns the load header contained in `hs_fw`.
-     ///
-@@ -206,7 +197,7 @@ fn new(hs_fw: &HsFirmwareV2<'_>) -> Result<Self> {
- 
- /// Header for app code loader.
- #[repr(C)]
--#[derive(Debug, Clone)]
-+#[derive(Debug, Clone, FromBytes)]
- struct HsLoadHeaderV2App {
-     /// Offset at which to load the app code.
-     offset: u32,
-@@ -214,9 +205,6 @@ struct HsLoadHeaderV2App {
-     len: u32,
- }
- 
--// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
--unsafe impl FromBytes for HsLoadHeaderV2App {}
--
- impl HsLoadHeaderV2App {
-     /// Returns the [`HsLoadHeaderV2App`] for app `idx` of `hs_fw`.
-     ///
+-	if (bo->kfd_bo)
+-		r = mmu_interval_notifier_insert(&bo->notifier, current->mm,
+-						    addr, amdgpu_bo_size(bo),
+-						    &amdgpu_hmm_hsa_ops);
+-	else
+-		r = mmu_interval_notifier_insert(&bo->notifier, current->mm, addr,
+-							amdgpu_bo_size(bo),
+-							&amdgpu_hmm_gfx_ops);
++	if (unlikely(!mm))
++		return -ESRCH;
++
++	if (bo->kfd_bo) {
++		mmap_write_lock(mm);
++		r = mmu_interval_notifier_insert_locked_flags(&bo->notifier, mm,
++							      addr, size,
++							      &amdgpu_hmm_hsa_ops,
++							      MMU_INTERVAL_NOTIFIER_BLOCK_THP);
++		mmap_write_unlock(mm);
++	} else {
++		r = mmu_interval_notifier_insert(&bo->notifier, mm, addr, size,
++						 &amdgpu_hmm_gfx_ops);
++	}
+ 	if (r)
+ 		/*
+ 		 * Make sure amdgpu_hmm_unregister() doesn't call
 -- 
-2.34.1
+2.53.0
 
