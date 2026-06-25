@@ -4,132 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD520CDB479
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 14:31:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90860CDE001
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 14:37:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D05B10F2EF;
-	Thu, 25 Jun 2026 14:31:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D350310F2F2;
+	Thu, 25 Jun 2026 14:37:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="qFc3oCu2";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="cyP/bcjf";
 	dkim-atps=neutral
-Received: from CWXP265CU008.outbound.protection.outlook.com
- (mail-ukwestazon11020138.outbound.protection.outlook.com [52.101.195.138])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E079810F2EF
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 14:31:37 +0000 (UTC)
+Received: from LO2P265CU024.outbound.protection.outlook.com
+ (mail-uksouthazon11021122.outbound.protection.outlook.com [52.101.95.122])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 531ED10F2F2
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 14:37:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NJ/sCsURMHFHNGSKRMRC1UU0OwGB11hLBkOXDEbhokT3mUW5KfBPGbrCEreOr4rzsoVx07deBfrz1GjU7azyxdbIJ/kUh4Gs6mnyeUWQVdJXWSiPuy5o4WGoRuvAts6s9mqfyYIwzLuC2rMSv97NvLptYoOB+k3TF5RwtauBC1oXprhWXI8H5VJeASYHBzmb9+qk8sEWMrFL6xfVkYAXFogSXVxkP0ctI8G6LNcHkXRol2R1ZjG8vdEzwCzFeLNR3H7iuX/hvAc6eW35ttC4wfJ2ErsI4o4j18/Iv1IVAfGFq/d9U/ypxMQ59ThDftNctF0ckZQEsBBLcOLFYSzjCA==
+ b=I90heEliB6oC5xwTh08QJEQg7pXIWfu+c9Y6oJM1Ou/88EtN0jTrxlXax9HiIHMXZKFHhiaVJE14MixiBSDcm71AXe3x58TQ9QAMlckbEnmH59IoDnokHeB8wrKYkqOmEcbE9nti+pTAXu5uaCSIcoxmqVN3R/pGmbmbQlEyKvKYcivTvAiZvGU3O5poJDGSRHyP++OXAk23E2zAHFG8AS7oD0eqysCAizcpixauzRtCAb16lPuUxz1Qs6qR7uypf47E2zkMqHZaLCcnl4nt4tOhMeJpJxNfBg1HJJXE8GctfoUSbnHhPKR0GHNRHK1GsWQiaB0iMEoHdZ1Zt43yww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F4cKQWsb2grxb7B0k9Obt1pLRdNlrrpOkIkUkF7Hwc4=;
- b=r2OKIwYa+odExamXV0HzAGkGzklrD/6wUOeHqWAqeNIcQUgk1PJfusvW8Pr8iryiJHzxPL8EV9quTHystQkUTVVdvhIUrF2Hshe7anZuVzbseV5yhyh4WStKpS78oTbHcJySB152A8icD7s0XFkLsRydYOGMxXyhNSboiXQ5SDHt0/n2fApHJPRbWkpWliqFHCwa6p/pCZASEkZv52ASM7PZHcD3AocMAC1ocGFlrkK6kUg3iFYbaLWYmx6oleaw/qpVnXa2WnZnwfQ48HPT+kGxbGmNW02Yv2Op5ItAN1dzAh3gY6HkeOjond9ay4JPVdPzt1LNrHHJAyf20LTWFw==
+ bh=jeZ46F5NU2IQYCQYOMIdAtXEWTjT1aICWq5YUy5nZFk=;
+ b=gJ99x058vgcf4gFNhzd7YCECpbs6XH/OJ5kZjm03rvWLfqDwKfWofDAL8kXVasTVkM4nGv0s9y7UmSYpKUlqaLGszAA8WN9+hhIkbEXbxM8XGVxNUmerBPtP6pZMJN7zwupAP+uJrKBljPBpkRsVcv+rARUm14VYdpiHNE6MZngI+jYo6b2UngaRvWv9u7MAllRHwzCE4eqig0rt/ycNVnkhu6tO5gasyr+zCpqOd3PF4GM+YIuESVN/FUlYAjtC4HpxTOWNw3mFsZBZkZzJ22lukiwR4Z3sF1Z8jFuw41gUo/7u84QT+pm6fxTxjKQ8J5fokCiRbvb8u3nA4F+MxA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F4cKQWsb2grxb7B0k9Obt1pLRdNlrrpOkIkUkF7Hwc4=;
- b=qFc3oCu2ncW56fRDtaOgSYjDBom9D0kxiosQ183z5ztImc22IhAxNoKgsEMa7VHZjVxJmc1SHi0jUivJAU43DFi+OrOpXX3XnLD8yi1C00NkyDG/9jbaA1q9nMC6FJe1P0iJGkedCVuEYIpS/jPRHz5zNEqwHsILM9nkoTE4d9c=
+ bh=jeZ46F5NU2IQYCQYOMIdAtXEWTjT1aICWq5YUy5nZFk=;
+ b=cyP/bcjfFQ2gRpzXfFbY7PY1+1/u26XjvYIc8if0vo+IPajGhpB8nYP6aUU+xFOjJRzuPGta7Xyw0Sj3xxXnmINnetUYB8uF8afVwDLuZpJVcXy7xI8KuhLN4xtUp65lAKKN3iopOC3xfedc4vXw/oJIbA+vYKNW/e5Wr4MApps=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO6P265MB7200.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:344::11)
- with Microsoft SMTP Server (version=TLS1_2,
+ by CWLP265MB5852.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1a5::5) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
- 2026 14:31:31 +0000
+ 2026 14:37:51 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0159.015; Thu, 25 Jun 2026
- 14:31:31 +0000
+ 14:37:51 +0000
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 25 Jun 2026 15:31:30 +0100
-Message-Id: <DJI7BIXM00EX.1QA63RTRJAC4T@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
- <rafael@kernel.org>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
- <acourbot@nvidia.com>, <ecourtney@nvidia.com>, <m.wilczynski@samsung.com>,
- <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
- <daniel.almeida@collabora.com>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>
-Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pwm@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v3 5/7] rust: devres: add DevresLt for ForLt-aware
- device resource access
+Date: Thu, 25 Jun 2026 15:37:50 +0100
+Message-Id: <DJI7GDLWO14I.2Z3XN62XCNVP9@garyguo.net>
 From: "Gary Guo" <gary@garyguo.net>
+To: "Alvin Sun" <alvin.sun@linux.dev>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Luis Chamberlain" <mcgrof@kernel.org>, "Petr
+ Pavlu" <petr.pavlu@suse.com>, "Daniel Gomez" <da.gomez@kernel.org>, "Sami
+ Tolvanen" <samitolvanen@google.com>, "Aaron Tomlin" <atomlin@atomlin.com>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Arnd
+ Bergmann" <arnd@arndb.de>, "Brendan Higgins" <brendan.higgins@linux.dev>,
+ "David Gow" <david@davidgow.net>, "Rae Moar" <raemoar63@gmail.com>, "Breno
+ Leitao" <leitao@debian.org>, "Jens Axboe" <axboe@kernel.dk>, "Dave Ertman"
+ <david.m.ertman@intel.com>, "Leon Romanovsky" <leon@kernel.org>, "Igor
+ Korotin" <igor.korotin@linux.dev>, "FUJITA Tomonori"
+ <fujita.tomonori@gmail.com>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, "Todd Kjos"
+ <tkjos@android.com>, "Christian Brauner" <brauner@kernel.org>, "Carlos
+ Llamas" <cmllamas@google.com>
+Cc: <rust-for-linux@vger.kernel.org>, <linux-modules@vger.kernel.org>,
+ <driver-core@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <nova-gpu@lists.linux.dev>, <linux-kselftest@vger.kernel.org>,
+ <kunit-dev@googlegroups.com>, <linux-block@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH v6 01/10] rust: module: move module types into `module.rs`
 X-Mailer: aerc 0.21.0
-References: <20260618230834.812007-1-dakr@kernel.org>
- <20260618230834.812007-6-dakr@kernel.org>
-In-Reply-To: <20260618230834.812007-6-dakr@kernel.org>
-X-ClientProxiedBy: LO4P123CA0048.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:152::17) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+References: <20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev>
+ <20260624-fix-fops-owner-v6-1-5295e333cb3e@linux.dev>
+In-Reply-To: <20260624-fix-fops-owner-v6-1-5295e333cb3e@linux.dev>
+X-ClientProxiedBy: LO4P265CA0281.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:37a::13) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:488::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO6P265MB7200:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8b6f792d-3c31-4b22-a7fa-08ded2c67321
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB5852:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7424d797-c0af-49d4-e23c-08ded2c755e7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|23010399003|7416014|1800799024|376014|366016|921020|6133799003|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: G2OjPSOG5xPt6ay9E3n6oXSGQhD6O6XAMs1WOlz1+jLSYg0C+RY2A477PBowHvoPiMvBHl46p/QUHnv4ClXdS//L8t8CZ3JVW6CH6MY6e8IVOYShcDeSjPQLKzNFSs+Pzz5EX2eo1wuvpsF+3sQLiJsHGUCIS8bDK0JsFq3tdxOV08W7npQMLKDJgxfOzhOfso5POqNXlYTUGiQumPx12dXx9JITJ0HpP9auvw/0FnhJyGtWpMh1qxUNA7I/VUJnkn8D0iw0tZu9CXiBXhWzvIijyB9JGpGB6TTT0ACd1B6AciaXecAq+Bz/qcyyCBBKMpd+N4npev3O5mF2tFIauleclnie8+eJlkD8QlGNx1lqSlPDLQZ7BMbflEYytq97VQ5cJU0fBo43S/VwwFlHzNV34pDqs1182pVM1loX1Fb1SI/Pt7xaoVjKQvjytnJhY9sstW5drOTmQ3gLiBPkhU/M48bv5Ly/uSTYpmOBt6aRjn0XM+R6+wf5Vo0NVepQJTzQE3QNTQ+gIpqywCE7eYkGQVD9oyqFaePDD9DOqqp2RvW7Z6+26LHjrnabmmNs02K8Y2S7rGmPHztJ7HmZooxOm2QZAzoN1i4WQNk7DOCMNhztUrC9R/Foa0rhbcMbUBujnydWE58ST07fhKnShuPLKvNXzwd2YOrG08zZgsbVlbOOo0EehJT8CZAM1FabRzJr+/0pJLzJGLdfWgke2Q==
+ ARA:13230040|10070799003|376014|7416014|366016|23010399003|1800799024|56012099006|921020|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: HdKWcFtQMcLKOrjpP//YXO/DGO5/s94FhF/KS+sW+C6cO62qB9RaiKLnAKV97wV3vf+cXI5FlLxNHW+dsgvZcov1uqJYqZXC71Zpg3cu4rqRSCx3K8dxNLT3jEdK4byFvbhkaqLWF+9Q5mW7tNW+JM+2xsGGLKiRvm/nGnZK+SYpcKOJYr62m7QwgVcLHUZm9bJ4mX0UPFj6RZM8CCKGjL5MNr1V+/X9uo+QekEYbiCyved41mxkcfkk2wZXeTSU1vHG76QYUM6CTnOLDNbEse1L2VUwCuWnyROIAVEtv+vgJopaYidkgX7bApjJ0oyWW9okySNMqeIblhd1tGu1FDU62DErbzYwKTxN8IMQ6QKAp/Zq+mA4VhzTyTflU158XxTCAhnxpgKfI02cUqFSo1lobKk0PRXI8W1xiLGb0/xWf7qAjCObsWw4eUrOayuFJAusQz29zF8t5xEL4X6luvMT6yv7z8uY/wzxMWqUk8iTDgucjGMreZUD0dTkcrYp59ZRKCdQ8bqwlecjqLFgH94OFjtElL0SeUFq3Bx4Hz39129opwLBGygsDb9ntGJkO76MG3/DLtqPvLOYHkKwGVY+FVAhGKOvwrsWBmV5FvN1ht15RkiRwwahpuS75k+nmwIvLHxhMjDCzNEtg2x1py4m/2Jp4SHcl6cIHyPJ1Wurf/61lkw4wFuVRkqaA2Vrv203jqDJAhK5PynjCP7NKg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(23010399003)(7416014)(1800799024)(376014)(366016)(921020)(6133799003)(56012099006)(4143699003)(22082099003)(18002099003);
+ SFS:(13230040)(10070799003)(376014)(7416014)(366016)(23010399003)(1800799024)(56012099006)(921020)(4143699003)(18002099003)(22082099003);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?em9SVjJVZEJyOWZKSGVTZi9LTU9BV1AyUDAvYkNPaDQ1Y2paZE41WEl0WVQ1?=
- =?utf-8?B?QklqSlc3TmFaUVlzR0l0cmgvSGc3YzcxSS9XUUVOZ05xbFEreEJ1NWtFNjhF?=
- =?utf-8?B?YWtiQVZlL0dpOGQvOFRNUGRWSmszc2IzcXJ3aFlIaUh2bnFoY0k0V2lyQmNJ?=
- =?utf-8?B?SitNdXRqOXRZQnVZeTVoZlk3K0RvNVFGVUkrUnB2L3p4Wmc4OTNmRVVqTlhZ?=
- =?utf-8?B?WkpYQ1RtVmVBdDNvSDBqZVlrdWtsbGxrQkJJUXNaZXdScVJVY1lCUUNQcXIx?=
- =?utf-8?B?L29CbnFkbkxwNXkwWnM2UVlCZmN4S05ZcjZWd2ZnendaWmxuZjVSQkVKM2U4?=
- =?utf-8?B?RHZQaW5RcjhaZklQemo4OWI0UUVtV3FUT00yK01MNzVIOGRJQk9IM0c1bXpj?=
- =?utf-8?B?dVRSMFEvYkVNZk9ZS3piY3MvYmZQbWF4UG00QTllYzlMckZ5TEw4eHpqR2l1?=
- =?utf-8?B?dGJrN3RMOTFvcG5LUUVaejFpWWJoT0NOdC9taitnMjBoUzJqcStqQXBLb3My?=
- =?utf-8?B?SkpNRHVVL25vYnROWW00UnRCcDYzWElXRFlpWkpWb0F1cmpyTlYyeVlhUDlR?=
- =?utf-8?B?R3NWWVN1aTRneXNuN0wzVlFjazNReUc4TUpxL3J1NkJMZ1VNY0pGcEEzYlJn?=
- =?utf-8?B?SnF6MlB2b1BXNGllcCtzTlJXenVXQml1NGNPb0xrcFNlM2lITndWc2JDZDVZ?=
- =?utf-8?B?RzZZY2FCU1ZheVYvNkhaNjIyMThGYkdRcmE0ZDVxQWZyYzNkZEl3WGtwaGRG?=
- =?utf-8?B?NHgvdUZjbThDS1NrRVhNUUZLNFljU1hyWDBIYysvdkFaSkZXdWdidDFUYTNM?=
- =?utf-8?B?UHppSmpnbHVPalVoTm9McEp4UzBlRi9OamxaS1NSSXNmRExML1JJUE9DcVIv?=
- =?utf-8?B?OElsNkJ4QUxPVEpDNDNLZEp3M3gwZW5hQ0UrcHVxbEIzY3R1T01pMzdTdndN?=
- =?utf-8?B?NDhlTnN4OWFCblE5YzFsdVM0Sk5LK2o4RDlBZlpUSi96MVlBSGhOK0JiQnNh?=
- =?utf-8?B?SHJOWG1iTHJCZFl1SVliMDZ4Vld4a0lJUEYwQTczMlFXRGZpOGoyb3VmUi9s?=
- =?utf-8?B?RDNkUTl4NlFSa2drVGowZFZSTXFxVDFpbVBNa2d0cnBtM216UWF3SFJDTjN1?=
- =?utf-8?B?M3QwVk52UEtiRFJCcG1NZFprTEdvQlptU3hwMEhmZWlkSElBYmdscDkwYVZL?=
- =?utf-8?B?QUgyVmN4VmhRSFh6RVpsYm1DTW5WTEw4T1NadFlFcmRabmx0VVIzYWZkZmtX?=
- =?utf-8?B?c0dYOWtVajNlK0UzeHBpYzI3aU4yTWp3U3VaYThtNW94TW1XMlJRNVBwbGFx?=
- =?utf-8?B?MkN1UUJYNXlIQkFtY3d1U2tCYVF0WjVHUzJaczk2cWlBNGNUQ1FhekhnZHJx?=
- =?utf-8?B?SkpHSXBVck0yMUtZZnh0SjlQK0xNc0JacWx5c1Y3T2ExOHM5OGxEOEVibnBF?=
- =?utf-8?B?czBJcFNnYVFlY3JXZU9oOUo0MVZUcXlSbUM5OXhzS3hNZFVpZWdIb01kMlov?=
- =?utf-8?B?R1ZPVllrTHZHa25DWXAvY2hGdmVjY3dRRUh5YjVjcS9FTEltSnlQY1BWZHMx?=
- =?utf-8?B?aEVIbXE5YWJkaWlUUldlQUFuL1c5Q2I0WllMQnJXa0d1Q2pJYXh1N3lubXBI?=
- =?utf-8?B?M2h3eTJEaXhaSFZSNXdVVjV4SjRISGt1eHBVYUttMUszdVVMSlhxTXBTcWU2?=
- =?utf-8?B?YnhvSXZEWk5QbjRxM0ZMcVRVVHNTZWdxWTA1L2xuTkZsYXpOdFlGN0plcjBK?=
- =?utf-8?B?VWtIOFpScU1MRlMxcVYycjR0RDBBQjlXUWYycFpzdW1CTFJQeTVLLzVBMWFF?=
- =?utf-8?B?YktIeDZyc0huVUdvcm5ER2RHMjlPYzhJVnZyWmg0TjZZSTZxK0ducXNBTkIx?=
- =?utf-8?B?UEUzeTFHSkI0QlBLZld3L1E4empjSjFNQ3lyTFZ5WDdkR2xMN1dxcGlBNmN4?=
- =?utf-8?B?ckxzRGlBU08rcXNRZHRlb2liNG5BQW5uZ3VobnMvM0oyZUo3RGFzdldFekpR?=
- =?utf-8?B?eEplK1VmZTU5Ym1NaHNRSFBQam1RVFg0YWtkYW53YUJyT05oTE5YUnJlR0dK?=
- =?utf-8?B?ejJzcXFLNTNYZEZhU2ppOTlWOVFjd21lYlJqRVkyaUloSDhnMDc1NjQyNXVQ?=
- =?utf-8?B?MXdGWCszRnVJY09Yczh6NzErOVM4ZjdybmdBWktjOEVBbEJQM2d3RHJHYXhK?=
- =?utf-8?B?OWpiOGRoSFlCanZMNEl4U1NoRlEwbE5ZWXJ3MENhcDM1MnRCVTRpb2V0ZDR3?=
- =?utf-8?B?TzkrOEdtZ0VlSlA2aHlKcDU4bXpIUXN4VFVuMG5jVHQ2QzBoNXJ2ek01VDEv?=
- =?utf-8?B?elJGUGR3UTVTMmsybEczTGdtTGRYUHA1TlZ4alAwVklWSTU4NnVsdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MHRHVFRNSXlvMXhIcVBYQXJMTU81QngyM0l2SUd5bVFsQjlvWERYT3c5YlpB?=
+ =?utf-8?B?NlBuTWpkS0tCOTVQRUovRTE3QXJBVnNXMmhmckFKcjN2NGszamZjMG5HbUp2?=
+ =?utf-8?B?YWtjQXFhOExaemZvQWd5aktqU0ZNcEdUTW5XL3FWcGM4Z1NlZXJLSmY2bnB5?=
+ =?utf-8?B?ZzdqS2Y0MkZtRERvNlQrVG16NUk5dktIb3lBY0c1cVR4V1BiTkpxTHhoL21h?=
+ =?utf-8?B?TWVOTzdpWG1rSWhyZHR6bTdhMy9yWUxqZkVjL2k2RUtRdmF3aEhrZW8xdVZn?=
+ =?utf-8?B?dFY0OWc1K3YvOFBMa1QxdURKVjQ2T09ybWxBMTk0eHZYR2dpclRtdDZuZmF1?=
+ =?utf-8?B?VHVVRWZuNzhTWDFZSzNBMTcxMFY5VDk1M3lyTktRN3VIbVBGblZJT3lZOUdW?=
+ =?utf-8?B?eG9BcUJjWGcwc0hZZEVsUjNwVFpZMzV1Lzc3dVJVcjIvbnc3ZVU2VXB1L3oz?=
+ =?utf-8?B?TnZIMC9Ma2JjRno0aUVOR1RXYUtUWldlcFZhT0p4M2ROcGlla0dnQUcwb21F?=
+ =?utf-8?B?Rk95d2N2dk9Yb2RYZlpYYVFlNHZ4TVM3ZUNBSENVTEVxbFNkdERmSFJEVnFL?=
+ =?utf-8?B?Mko2ckZ2bFBUQ0E4dG5PbUpEUk1yTVJsR2JRZE45M0c4RGpIRUlua0dyOUJS?=
+ =?utf-8?B?MDYwMDI2eVZRUHNGa3FXRTVqNlFXTWRJYXdNYWhHOXUzL1U4cmFWUEN5Q0Rx?=
+ =?utf-8?B?bjA1aUs0Yktsb3NqWHVQWjNOUnVod0JRVWNpTEZRNUpVNUprR2V5ZEVibGJo?=
+ =?utf-8?B?MGZETU12RkJmb0RFZGlWdXczQU9Ea2hHeTZrUGg5OFFMc3FhUHNmR3lFUlFt?=
+ =?utf-8?B?a1J1V2FGSHBKV0daaTZpeGplUTQ5QTV1WHlIVExSVGVmdXJLRDRMM0JuNUQ0?=
+ =?utf-8?B?ak9ZNExEV3E1SWJHcG1JcHJ2NzVNS0J5UUFhY1BKZmxJZFYxaWJaVVhPVmVj?=
+ =?utf-8?B?K3I4aTk0K2NNQUNhdWFYem9JMHZlOUkraTUzdS9UdDloMitoMUEya2NoS1Jq?=
+ =?utf-8?B?dXNqNVplcmVsdG44M2U3TmZ3dEVzRlQrdmk0NDJISWdEZjBEYjNZdFRERTky?=
+ =?utf-8?B?UHpCUGVXYit1cHdRbDR0WXNjMjVQMVk0OEZ0bVM2ejFOZlVFek93VzYxMGcw?=
+ =?utf-8?B?eU1kaUo5SzVLNG9uRis4dnVab1p1bEdvSUhwK1R3WExUOS9KTmthVzBUQk9Z?=
+ =?utf-8?B?YUdkSVBXZzMvd3B4Yy9ndlVUWGlKR01tLy84NGZLbUY1eFVrcmdBTFlzZ0M0?=
+ =?utf-8?B?YkdSeW51Z2kwNHRUSFdScVBSa3I2eS80aVJQTHBoTFUrYTNBN3NuU2psU0lY?=
+ =?utf-8?B?S1FVMHZua0JiMGtaUUQvYkFFaVdyZUxvNHRXalk5N1NLcHVaanoyRi9tR2ZW?=
+ =?utf-8?B?ZWE5ajJQbkRMSmhWTDdJUXE5MlBvZUJBdzdYTVlHSjFmeWRLdGpLeDFsM3pH?=
+ =?utf-8?B?Q0ZtSzJ6YkpBdmdKQ3dpR0V2RnU5a0Q5RHlWS21YMDZROWk1anYzdytCWThU?=
+ =?utf-8?B?T3Fldno0V3FEWUhwN1dReCtRK1kreHI3dm5JcUNkVDAweGo0S2VWYU53V0ow?=
+ =?utf-8?B?VGJwT3FGTEN4RGo0V3UwQmJuNHc4ODBwZngyUHF1OFRzdURaajZudTdaRkdz?=
+ =?utf-8?B?TDlxa01rQXJ4OEhpZHFoQmcxaWRzYlZ2SUR6NnRDSll0ckJZSkhxSjdVVVhU?=
+ =?utf-8?B?VVh4RGRzMk5xRHJWRGY2RnlyWmxjU1VweFB2S2o1Z2JnMWtpWmRCOFVMeExQ?=
+ =?utf-8?B?SlN5SlBaZjQ2dnRnM2ZVd3EreVJDNUZBUlpiclpjQTFjTksramxIUnpubGJL?=
+ =?utf-8?B?UTFUMVEyaGVTaUVrNDhjVVdtYWFBcjc2cDB4YUc2bHFxQmxQOVpEWHFSNGZM?=
+ =?utf-8?B?UmxiM2RWWC83bnR3UTFDNmQ1UVQ4N293elhrTTFNelJlbU5ZeW5vUjQyWEds?=
+ =?utf-8?B?K01qWG1LYWcvUCtJQXlZWmxsY01rUGhiNUhtVHlQakN5d3lCcXNPeWxINEEz?=
+ =?utf-8?B?QkEzWjdTS3Fha1dDeS9rdWduOG9hUUFSRWRZZyttazFqRjFubzBObnFRVVdQ?=
+ =?utf-8?B?MnNCMlpWSkVDWk5DQnB2SzV5a09hQThyWmZRcHFDQlMzL2k5YTdMcXJWVzB3?=
+ =?utf-8?B?ajhHdk9XaFgxV1l4aTI1ME9SODk0QnV6cWpDSCt6UUtIdllrWUNiZXBjaFJ2?=
+ =?utf-8?B?ell1bWcxcWVCNllrNi80ZTdIcGNja21hcTc0YVVGaExFYkZpckRpbEtvd3lY?=
+ =?utf-8?B?SmlnSitNb0kwaUUyeVJZVTJNemJpLzVPRHd2b0lTYUozRkE3ZENSNGZnZW1L?=
+ =?utf-8?B?WXp3Ung0R29FZ0pWVlRXOGRRRjJHTG4yVW9aVmRFcHVKS2R5VWpXUT09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b6f792d-3c31-4b22-a7fa-08ded2c67321
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7424d797-c0af-49d4-e23c-08ded2c755e7
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 14:31:31.1214 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 14:37:51.5446 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vVyEmA998hH6U/n/Lhq9FGgUfk3j/Y8GthRVX75YT2z9zn6z2FY72Lm7UlMr5kgL9ockpDPHUgtgAJr1ex6NXg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P265MB7200
+X-MS-Exchange-CrossTenant-UserPrincipalName: Xa0M+OlPuxB8Wu4J5DLAlGDE1IyUEMdusI34WQJXWuTDAcF8svRY0T26eu6fLvW3/adm5od112sQHZdUGeACVQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB5852
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,180 +160,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jun 19, 2026 at 12:08 AM BST, Danilo Krummrich wrote:
-> Devres<T> stores resources as T and returns &'a T from access(). For
-> lifetime-parameterized types like Bar<'a, SIZE> that are transmuted to
-> 'static for storage, this exposes the synthetic 'static lifetime to
-> callers -- any method on the stored type that returns a reference with
-> its lifetime parameter would yield a &'static reference, which is
-> unsound.
->
-> Add DevresLt<F: ForLt>, a thin wrapper around Devres<F::Of<'static>>
-> that shortens the stored 'static lifetime to the caller's borrow
-> lifetime in all access methods.
->
-> DevresLt::new() is unsafe because the caller must guarantee that the
-> data remains valid for the device's full bound scope; the internal
-> transmute from F::Of<'a> to F::Of<'static> would otherwise allow
-> use-after-free.
->
-> Two access patterns are provided:
->
-> - CovariantForLt types get direct-reference accessors (access,
->   try_access) that return shortened references via
->   CovariantForLt::cast_ref.
->
-> - Plain ForLt types use closure-based accessors (access_with,
->   try_access_with) whose universally quantified lifetime prevents
->   callers from smuggling in concrete short-lived references.
->
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+On Wed Jun 24, 2026 at 4:00 PM BST, Alvin Sun wrote:
+> Move `Module`, `InPlaceModule`, `ModuleMetadata` and `ThisModule` from
+> `lib.rs` into a new `rust/kernel/module.rs`. Re-export them from `lib.rs`
+> to avoid tree-wide changes.
+>=20
+> Switch six bus driver registrations from `module.0` to the public
+> `ThisModule::as_ptr()` accessor, since the field is no longer visible
+> outside the new `module` submodule.
+>=20
+> No functional change.
+>=20
+> Assisted-by: opencode:glm-5.2
+> Acked-by: Danilo Krummrich <dakr@kernel.org>
+> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+
+Suggested-by: Gary Guo <gary@garyguo.net>
+Link: https://lore.kernel.org/all/DJFIQPLOVO4T.1K8T0VZM30LDA@garyguo.net/
+Reviewed-by: Gary Guo <gary@garyguo.net>
+
 > ---
->  rust/kernel/devres.rs | 100 ++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 100 insertions(+)
->
-> diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
-> index 11ce500e9b76..e11deff3e1be 100644
-> --- a/rust/kernel/devres.rs
-> +++ b/rust/kernel/devres.rs
-> @@ -24,6 +24,8 @@
->          Arc, //
->      },
->      types::{
-> +        CovariantForLt,
-> +        ForLt,
->          ForeignOwnable,
->          Opaque, //
->      },
-> @@ -365,6 +367,104 @@ fn drop(&mut self) {
->      }
->  }
-> =20
-> +/// Guard returned by [`DevresLt::try_access`].
-> +///
-> +/// Dereferences to `F::Of<'a>`, shortening the lifetime of the stored d=
-ata to the guard's borrow
-> +/// lifetime.
-> +pub struct DevresGuard<'a, F: CovariantForLt>(RevocableGuard<'a, F::Of<'=
-static>>);
-> +
-> +impl<'a, F: CovariantForLt> core::ops::Deref for DevresGuard<'a, F> {
-> +    type Target =3D F::Of<'a>;
-> +
-> +    fn deref(&self) -> &Self::Target {
-> +        F::cast_ref(&*self.0)
-> +    }
-> +}
-> +
-> +/// Device-managed resource with [`ForLt`](trait@ForLt)-aware access.
-> +///
-> +/// `DevresLt` wraps [`Devres`] and shortens the stored `'static` lifeti=
-me to the caller's borrow
-> +/// lifetime in all access methods.
-> +///
-> +/// Types that implement [`trait@CovariantForLt`] get direct-reference a=
-ccessors ([`Self::access`],
-> +/// [`Self::try_access`]). Plain [`ForLt`](trait@ForLt) types use closur=
-e-based accessors
-> +/// ([`Self::access_with`], [`Self::try_access_with`]).
-> +pub struct DevresLt<F: ForLt>(Devres<F::Of<'static>>)
-> +where
-> +    F::Of<'static>: Send;
-
-This bound looks weird. I know this is to satisfy `Devres`'s bound, but I t=
-hink
-this should actually read:
-
-    for<'a> F::Of<'a>: Send
-
-Best,
-Gary
-
-> +
-> +impl<F: ForLt> DevresLt<F>
-> +where
-> +    F::Of<'static>: Send,
-> +{
-> +    /// Creates a new [`DevresLt`] instance of the given `data`.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// The data must remain valid for the device's full bound scope. [`=
-DevresLt`] allows
-> +    /// access until the device is unbound, which may outlast `'a`.
-> +    pub unsafe fn new<'a, E>(
-> +        dev: &'a Device<Bound>,
-> +        data: impl PinInit<F::Of<'a>, E>,
-> +    ) -> Result<Self>
-> +    where
-> +        Error: From<E>,
-> +    {
-> +        // SAFETY: The caller guarantees the data is valid for the devic=
-e's full bound scope.
-> +        // Lifetimes do not affect layout, so F::Of<'a> and F::Of<'stati=
-c> have identical
-> +        // representation; casting the slot pointer is sound.
-> +        let data =3D unsafe {
-> +            pin_init::pin_init_from_closure::<F::Of<'static>, E>(move |s=
-lot| {
-> +                data.__pinned_init(slot.cast())
-> +            })
-> +        };
-> +
-> +        Ok(Self(Devres::new(dev, data)?))
-> +    }
-> +
-> +    /// Return a reference of the [`Device`] this [`DevresLt`] instance =
-has been created with.
-> +    pub fn device(&self) -> &Device {
-> +        self.0.device()
-> +    }
-> +
-> +    /// Obtain `&F::Of<'_>`, bypassing the [`Revocable`], through a clos=
-ure.
-> +    ///
-> +    /// This method works like [`DevresLt::access`](DevresLt::access) bu=
-t accepts any
-> +    /// [`trait@ForLt`] type, not just [`trait@CovariantForLt`].
-> +    pub fn access_with<R, G>(&self, dev: &Device<Bound>, f: G) -> Result=
-<R>
-> +    where
-> +        G: for<'a> FnOnce(&F::Of<'a>) -> R,
-> +    {
-> +        self.0.access(dev).map(f)
-> +    }
-> +
-> +    /// [`DevresLt`] accessor for [`Revocable::try_access_with`].
-> +    pub fn try_access_with<R, G>(&self, f: G) -> Option<R>
-> +    where
-> +        G: for<'a> FnOnce(&F::Of<'a>) -> R,
-> +    {
-> +        self.0.data().try_access_with(f)
-> +    }
-> +}
-> +
-> +impl<F: CovariantForLt> DevresLt<F>
-> +where
-> +    F::Of<'static>: Send,
-> +{
-> +    /// Obtain `&'a F::Of<'a>`, bypassing the [`Revocable`].
-> +    ///
-> +    /// This method works like [`Devres::access`], but shortens the retu=
-rned reference's lifetime
-> +    /// from `'static` to `'a` via [`CovariantForLt::cast_ref`].
-> +    pub fn access<'a>(&'a self, dev: &'a Device<Bound>) -> Result<&'a F:=
-:Of<'a>> {
-> +        self.0.access(dev).map(F::cast_ref)
-> +    }
-> +
-> +    /// [`DevresLt`] accessor for [`Revocable::try_access`].
-> +    pub fn try_access(&self) -> Option<DevresGuard<'_, F>> {
-> +        self.0.data().try_access().map(DevresGuard)
-> +    }
-> +}
-> +
->  /// Consume `data` and [`Drop::drop`] `data` once `dev` is unbound.
->  fn register_foreign<P>(dev: &Device<Bound>, data: P) -> Result
->  where
-
+>  rust/kernel/auxiliary.rs |  2 +-
+>  rust/kernel/i2c.rs       |  2 +-
+>  rust/kernel/lib.rs       | 75 +++++-------------------------------------=
+------
+>  rust/kernel/module.rs    | 71 ++++++++++++++++++++++++++++++++++++++++++=
++++
+>  rust/kernel/net/phy.rs   |  6 +++-
+>  rust/kernel/pci.rs       |  2 +-
+>  rust/kernel/platform.rs  |  2 +-
+>  rust/kernel/usb.rs       |  2 +-
+>  8 files changed, 88 insertions(+), 74 deletions(-)
 
