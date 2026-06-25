@@ -4,65 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCC4DCDB466
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 06:10:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66922CDB466
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 06:17:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEE9F10F0E1;
-	Thu, 25 Jun 2026 06:10:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92DB810E502;
+	Thu, 25 Jun 2026 06:17:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RUOvcwXT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cye2bB3C";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC5DE10F0E1
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 06:10:01 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3C70F41874;
- Thu, 25 Jun 2026 06:10:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1B6D2C2BCB4;
- Thu, 25 Jun 2026 06:10:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1782367801;
- bh=V6K1YiAOADM0w5NxogiTTsD1GsVpcD1cZ3yCCsGCYSU=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=RUOvcwXTONRCy/IRGVGhBLsT3yVpe/cf7TKT7bNnGNXKp8XJ8H+Uqt54zxy0MSEYl
- NXX3SD9sX8dIuzfZswB9dlROyWDjiBNSl3UAMbcdzNMpaWZlnZTR6MUIWRLSHmlyi+
- KNO8YZbHXP3ITLOS6B427AgztOPGslJoDxWO3wTy6P5P4JrI4s0uAsxed3PcJj0CZ0
- Be0AArCHeU+OneeCNZ6KaZREPjDiULjpUT3Rg8/rV86Bczt3YXpoFNJC7gRmSgYgAn
- sx36wO1nunZ6CV6xANaWB2VZMlQ3E5SvRxf0dgQFtJddqDoNtKcEn0LCv7jtOFt6de
- FF5p98bT2+iFg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id EFAEACDB466;
- Thu, 25 Jun 2026 06:10:00 +0000 (UTC)
-From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
-Date: Thu, 25 Jun 2026 01:10:01 -0500
-Subject: [PATCH] udmabuf: serialize the sg_table cache under the
- reservation lock
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-b4-disp-67d1f3db-v1-1-a47fb9edab9e@proton.me>
-X-B4-Tracking: v=1; b=H4sIADjGPGoC/x3MTQqAIBBA4avErBtQS/u5SrRIZ6zZVChEEN09a
- fkt3nsgcxLOMFYPJL4ky7EX6LqCsC37yihUDEYZp5yx6FskySe6jnRsyKNSvRl0Hyl4CyU7E0e
- 5/+U0v+8HHB1aSGIAAAA=
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Gerd Hoffmann <kraxel@redhat.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782367800; l=4089;
- i=hexlabsecurity@proton.me; s=proton; h=from:subject:message-id;
- bh=tbMBMPicpQt1QqKD+RCY9Vxm4yTDKoprdEZEpVOUo3g=;
- b=uTiRAaRRHN6K0aI7q5dY+Tx2srEy2QVFrHcunyVvDItOWdzlQAjI1XbWnYa3eMlrrVP6xoXuC
- 3E3POaKKHdQChLdG3ck/9dbM/iaN/Clc8utwzYJADtY3DzS+gnDIOUU
-X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
- pk=dmppBMZNLLoPzxHi9l8tZDzEZUunPbgsYqIZYXeUrL0=
-X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/proton with
- auth_id=814
-X-Original-From: Bryam Vargas <hexlabsecurity@proton.me>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60A5410E502
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 06:17:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 86873600FC;
+ Thu, 25 Jun 2026 06:17:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2957C1F000E9;
+ Thu, 25 Jun 2026 06:17:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782368243;
+ bh=4P1F+qsnPy8woF4AXwG0lXDzNsX28qDh2pupithWkpc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Cye2bB3Cq2jA9rR5U0/JtvL1kj28VY6orl0J+wHOi/Y2JyvSrLa1shafHXbGGodPZ
+ oVSMB/RD7+PGQf6LgrB5aL/ETO5SpfGJa092/pzW97hqF03SMV8jk88zWdHHxbXjn2
+ 461lVwTtCzhOhgBTelNwgnP80exOvD8Ba5R1H9ZrXnapApcq4DFQDueXl2K/B3Mh8R
+ bS/6kxpK0+xvQ6oh9RhNnRDRqOs1Uw7hVzu8XpqeTqvWBzxG5IXH32ucOK+S5BtFh6
+ csY9jor3so+EbkAKw9CJMyrmlQfD+q8iRyYzbr1IlwFfI/WBs5Z3JSE6xKtTzvfHuM
+ vx4vQpAJ6WFsQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/i915/psr: Skip PSR exit for legacy cursor
+ updates on LunarLake onwards
+To: "Aaron Ma" <aaron.ma@canonical.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260625055514.3636380-1-aaron.ma@canonical.com>
+References: <20260625055514.3636380-1-aaron.ma@canonical.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 25 Jun 2026 06:17:22 +0000
+Message-Id: <20260625061723.2957C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,112 +53,58 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: hexlabsecurity@proton.me
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Skipping PSR exit on LunarLake for legacy cursor updates leaves th=
+e panel in self-refresh, freezing the cursor visually.
+--
 
-begin_cpu_udmabuf() builds and caches ubuf->sg with an unserialised
-check-then-set, and end_cpu_udmabuf() reads the same field unlocked. The
-core invokes both cpu-access hooks without holding the reservation lock and
-DMA_BUF_IOCTL_SYNC is unlocked, so concurrent SYNC ioctls on a shared
-udmabuf fd race on ubuf->sg: two begins can both observe NULL and both call
-get_sg_table(), and the later store orphans the earlier table and its DMA
-mapping, which release_udmabuf() never frees. Each won race permanently
-leaks an sg_table and an unbalanced DMA mapping.
+commit 04eaf4bdd079c2712c8f636ed5b61d70a97e245e
+Author: Aaron Ma <aaron.ma@canonical.com>
 
-Serialize both hooks under the buffer's reservation lock, as panfrost and
-panthor do. dma_buf_begin/end_cpu_access() already annotate might_lock() on
-that lock, so taking it here matches the documented contract.
-Single-threaded callers are unaffected.
+drm/i915/psr: Skip PSR exit for legacy cursor updates on LunarLake onwards
 
-Fixes: 284562e1f348 ("udmabuf: implement begin_cpu_access/end_cpu_access hooks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
----
-Same leak-with-dangling-pointer class as CVE-2024-56712 (export_udmabuf()
-error path) -- a distinct site the 2024 fix does not cover.
+This commit attempts to optimize PSR behavior for legacy cursor updates on
+LunarLake and newer platforms by skipping the PSR exit and matching the
+ORIGIN_FLIP behavior.
 
-udmabuf is the only exporter that lazily builds its sg_table cache inside the
-cpu-access hook without serialising the check-then-set. The exporters that do
-comparable in-hook cache work all take a lock first: panfrost and panthor
-dma_resv_lock() (both hooks), omapdrm omap_obj->lock around its lazy page-get,
-the dma-heaps buffer->lock, and the TTM/GEM exporters (amdgpu, i915, xe) their
-object's reservation lock. tegra and videobuf2 take no lock here because they
-only sync an sg_table built earlier, so there is nothing to serialise.
+> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i=
+915/display/intel_psr.c
+> --- a/drivers/gpu/drm/i915/display/intel_psr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
+[ ... ]
+> @@ -3772,7 +3772,7 @@ void intel_psr_flush(struct intel_display *display,
+> =20
+>  		if (origin =3D=3D ORIGIN_FLIP ||
+>  		    (origin =3D=3D ORIGIN_CURSOR_UPDATE &&
+> -		     !intel_dp->psr.psr2_sel_fetch_enabled)) {
+> +		     (DISPLAY_VER(display) >=3D 20 || !intel_dp->psr.psr2_sel_fetch_en=
+abled))) {
+>  			tgl_dc3co_flush_locked(intel_dp, frontbuffer_bits, origin);
+>  			goto unlock;
+>  		}
 
-Confirmed with an out-of-tree A/B exercising the begin/begin race: this driver
-built as a module with get_sg_table()/put_sg_table() counting allocations
-against frees, driven by a userspace racer that creates 3000 udmabufs and fires
-DMA_BUF_IOCTL_SYNC(SYNC_START) from N threads on each shared fd.
+[Severity: High]
+Will this cause the cursor to freeze on the screen during legacy cursor
+updates while the panel is in Panel Self-Refresh (PSR) mode?
 
-  arm                            leaked sg_tables (of 3000 buffers)
-  vulnerable, 4 threads          4761
-  control, 1 thread              0
-  patched (resv lock), 4 threads 0
+LunarLake lacks hardware PSR tracking. When userspace uses drmModeMoveCurso=
+r,
+the fast-path cursor update writes directly to cursor MMIO registers and
+triggers a frontbuffer flush with ORIGIN_CURSOR_UPDATE. Since this fast-path
+does not use the atomic commit flow, it never calls intel_vrr_send_push() to
+send a TRANS_PUSH frame change event.
 
-One sg_table and its DMA mapping leak per won race; the single-thread control
-does not leak, isolating the race; with the lock the lazy-init runs once per
-buffer (3000 allocations, zero leaked). end_cpu_udmabuf() is locked for the
-same field too: an unlocked end could otherwise observe the transient IS_ERR
-store begin makes before resetting ubuf->sg to NULL, and dereference it. In a
-tighter 5000-iteration loop the unpatched leak runs around 15-20 MB/s of slab.
----
- drivers/dma-buf/udmabuf.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+By returning early here on DISPLAY_VER >=3D 20, the driver skips
+_psr_flush_handle() and intel_psr_exit(). Without a PSR exit or a TRANS_PUSH
+event, won't the panel remain asleep and ignore the newly written cursor MM=
+IO
+registers?
 
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index bced421c0d65..702ae13b97d1 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -226,6 +226,8 @@ static int begin_cpu_udmabuf(struct dma_buf *buf,
- 	struct device *dev = ubuf->device->this_device;
- 	int ret = 0;
- 
-+	dma_resv_lock(buf->resv, NULL);
-+
- 	if (!ubuf->sg) {
- 		ubuf->sg = get_sg_table(dev, buf, direction);
- 		if (IS_ERR(ubuf->sg)) {
-@@ -238,6 +240,8 @@ static int begin_cpu_udmabuf(struct dma_buf *buf,
- 		dma_sync_sgtable_for_cpu(dev, ubuf->sg, direction);
- 	}
- 
-+	dma_resv_unlock(buf->resv);
-+
- 	return ret;
- }
- 
-@@ -246,12 +250,18 @@ static int end_cpu_udmabuf(struct dma_buf *buf,
- {
- 	struct udmabuf *ubuf = buf->priv;
- 	struct device *dev = ubuf->device->this_device;
-+	int ret = 0;
-+
-+	dma_resv_lock(buf->resv, NULL);
- 
- 	if (!ubuf->sg)
--		return -EINVAL;
-+		ret = -EINVAL;
-+	else
-+		dma_sync_sgtable_for_device(dev, ubuf->sg, direction);
- 
--	dma_sync_sgtable_for_device(dev, ubuf->sg, direction);
--	return 0;
-+	dma_resv_unlock(buf->resv);
-+
-+	return ret;
- }
- 
- static const struct dma_buf_ops udmabuf_ops = {
-
----
-base-commit: 7eed1fb17959e721031555e5b5654083fe6a7d02
-change-id: 20260625-b4-disp-67d1f3db-0082918fdcb5
-
-Best regards,
--- 
-Bryam Vargas <hexlabsecurity@proton.me>
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625055514.3636=
+380-1-aaron.ma@canonical.com?part=3D1
