@@ -4,97 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E18ACDB479
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 12:54:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A830CDE000
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 12:56:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 037E210E1F2;
-	Thu, 25 Jun 2026 12:54:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C170B10E212;
+	Thu, 25 Jun 2026 12:56:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BpAq7m4+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A7tVnEW/";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8DE910E1F2
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 12:54:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E2CE10E212
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 12:56:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7AF41407BC;
- Thu, 25 Jun 2026 12:54:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D4AE1F00A3A;
- Thu, 25 Jun 2026 12:54:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2255C4382A;
+ Thu, 25 Jun 2026 12:56:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4C51F000E9;
+ Thu, 25 Jun 2026 12:56:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782392093;
- bh=C8t5+lGRlrzToqOeSgrxbTw2NaFhqhYI+fQbtcvk/Og=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=BpAq7m4+fswodKhLqDVmO1WZZMn52tutfYsGlU8bY0CIWx52+jGFaljPkXDeqrpNi
- MU31ClXwhk+T5kKsttqG+u5fXJ/8wScR8bnAH2SrWu2IXmK3xBDA6iRemimS/3nFbl
- QpXh1NMgY2SmckecIUc5xMUfsjop/Bw61s9ZE/V3gK7oir+PIgePYrWrWxZ3xP+Pe9
- yxjn+zx+m99nBk3BNCO2LDjhQYnoJOKJRwFBqIk6WUpdBMywZtFg2WZTP7JX+Feheh
- 5zxOmuxI8f1WzQXpYwrA23AqsNEN1mV/kBCPZFjZRYnIqXWM4ZcjfB0Ytw3g1gldkA
- tS56x3wJ/DnrQ==
-Message-ID: <3188f63f-5358-48d7-b934-af20a8f95c6f@kernel.org>
-Date: Thu, 25 Jun 2026 14:54:43 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-To: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
- rfoss@kernel.org, mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- yangsunyun1993@gmail.com, xmzhu@lontium.corp-partner.google.com,
- xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
-References: <20260508134009.4582-1-syyang@lontium.com>
- <20260508134009.4582-3-syyang@lontium.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260508134009.4582-3-syyang@lontium.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ s=k20260515; t=1782392161;
+ bh=BYEWWCm7/Qt/Xvxb80GnWbVgRMUkxitHiEBBhEGegoo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=A7tVnEW/glHTvMvWMGz/+FUx8UBudnR0ex2gdTfW3zUTzuc+/xoOyPVLQMohfTTVd
+ PUDKNVAepcjBh8t8Kyu1E/ZNPPdyMJ0kCzC8t6gi3H04GliZyejdjVLu5tySeAACLD
+ 6rUu1iqPkkaG7TtXGTFC0UK66aRMZKTzM+Unq0Y670lEWGcPE+ltGQmZCc4VR+Glp5
+ 6UFh1W9w0+s43ktwrw7UoBcLLN5jDicwnbhHbpdjDU6rW8tHl9c1fX2ntjAt72EWbX
+ k+w7dQi2tLaK63EUAyzlmDs/gylpInwyUT/7mLqhJI78kSEgHf2x8b6XcfAgndtycO
+ SbTzTFA+/vJdw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 03/11] drm/panthor: Fix UAF on works queued to
+ panthor_cleanup_wq
+To: "Boris Brezillon" <boris.brezillon@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260625-panthor-misc-fixes-v1-3-b67ed973fea6@collabora.com>
+References: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
+ <20260625-panthor-misc-fixes-v1-3-b67ed973fea6@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 25 Jun 2026 12:56:00 +0000
+Message-Id: <20260625125600.DA4C51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,31 +54,95 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 08/05/2026 15:40, syyang@lontium.com wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+
+New issues:
+- [High] Calling `drain_workqueue()` on a globally shared workqueue drops n=
+on-chained works from all other devices, leading to resource leaks.
+
+Pre-existing issues:
+- [High] The patch fails to prevent the Use-After-Free because `drain_workq=
+ueue()` does not permanently prevent new works from being queued after unpl=
+ug.
+--
+
+commit a8d1c4b2d56a32fc02ddadc07ead22f7dc20b168
+Author: Boris Brezillon <boris.brezillon@collabora.com>
+
+drm/panthor: Fix UAF on works queued to panthor_cleanup_wq
+
+This patch adds a drain_workqueue() call in panthor_device_unplug() to
+ensure cleanup works are executed before the panthor device is destroyed.
+
+Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v5-=
+0-8836a74e0ef9@collabora.com?part=3D2
+
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/p=
+anthor/panthor_device.c
+> index 0b25abebb803c..a0774e28aa94d 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> @@ -101,6 +101,11 @@ void panthor_device_unplug(struct panthor_device *pt=
+dev)
+>  	panthor_gpu_unplug(ptdev);
+>  	panthor_pwr_unplug(ptdev);
+> =20
+> +	/* Make sure works queued to panthor_cleanup_wq are executed
+> +	 * before the device is destroyed.
+> +	 */
+> +	drain_workqueue(panthor_cleanup_wq);
+
+[Severity: High]
+Since panthor_cleanup_wq is a global workqueue shared by all panthor devices
+(allocated once in panthor_init()), does calling drain_workqueue() here
+cause issues for other active panthor devices?
+
+drain_workqueue() temporarily sets the __WQ_DRAINING flag on the workqueue.
+If any other active panthor device attempts to queue work while this flag
+is set, __queue_work() will hit a WARN_ONCE and silently discard the
+non-chained work.
+
+Will this break cleanup for all other panthor devices system-wide, causing
+resource leaks (e.g., VMs, BOs, groups) that can lead to system degradation?
+
+[Severity: High]
+This is a pre-existing issue, but does this actually prevent the
+Use-After-Free?
+
+drain_workqueue() only waits for currently queued works to finish and then
+clears the __WQ_DRAINING flag before returning.
+
+If a userspace process holds an open DRM file descriptor during a device
+hot-unplug, the ptdev isn't freed immediately. When the process later closes
+the FD, drm_release() will destroy the group pool and call group_release().
+
+At this point:
+
+drivers/gpu/drm/panthor/panthor_sched.c:group_release() {
+    ...
+    queue_work(panthor_cleanup_wq, &group->release_work);
+    ...
+}
+
+This successfully queues new asynchronous cleanup works because __WQ_DRAINI=
+NG
+has already been cleared.
+
+When drm_release() then drops the final device reference, synchronously
+freeing ptdev, the newly queued group_release_work will execute
+asynchronously and access the freed ptdev, triggering the exact
+Use-After-Free this was intended to fix.
+
 > +
-> +static void lt9611c_reset(struct lt9611c *lt9611c)
-> +{
-> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> +	msleep(20);
-> +
-> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> +	msleep(20);
-> +
-> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+>  	pm_runtime_dont_use_autosuspend(ptdev->base.dev);
+>  	pm_runtime_put_sync_suspend(ptdev->base.dev);
+>
 
-This is just plain wrong. Why do you assert, then de-assert and then
-finally assert AGAIN the reset leaving the device in powerdown stage?
-
-> +	msleep(400);
-> +
-> +	dev_dbg(lt9611c->dev, "lt9611c reset");
-
-Drop such debug statements. This is some downstream, semi-useless code.
-You are not supposed to add debug to every call.
-
-
-Best regards,
-Krzysztof
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625-panthor-mi=
+sc-fixes-v1-0-b67ed973fea6@collabora.com?part=3D3
