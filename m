@@ -4,48 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 033CECDB479
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 14:29:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17DBFCDE001
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 14:30:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45F2B10F2B0;
-	Thu, 25 Jun 2026 14:29:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C7E410F2EB;
+	Thu, 25 Jun 2026 14:30:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="MnWZqGEn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Plo7PGzq";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4B17210F2B0;
- Thu, 25 Jun 2026 14:29:14 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 262973165;
- Thu, 25 Jun 2026 07:29:09 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 669E53F836;
- Thu, 25 Jun 2026 07:29:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1782397753; bh=qjgPdRm4ZE5PWnURF3lUNHIhYW/JfrxqkVr5Kw1oNwE=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=MnWZqGEnKH2EhQavXCW7Yl0+Q8r4veQKBRHMWp+oc8Bz6nX8Ny55VHMzy1n3XM1v3
- Ci0wWwUw/VUTmG1EyJiBOhzksBI6DlkdWWg194tllBG2FoG7rgJurqCmkvMxyf580d
- jnj2+fdQZRxD5uEIgUBAUEqxO9xom3Jd/BkU1ceY=
-Message-ID: <ce5f27fd-82be-4750-8592-2eeb31a54523@arm.com>
-Date: Thu, 25 Jun 2026 15:29:10 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F2F310F2EB;
+ Thu, 25 Jun 2026 14:30:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782397810; x=1813933810;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=GfEwlZIV8S62vB3Rmcqn5RV50vxb9nuEJ062kbqrins=;
+ b=Plo7PGzqaC6AnEYdLplPNdESxoez4e49FGFAtMXRoXEzPciIjibEl1/j
+ woerGcUpztSEQxfsKGAorJXEBwIQxmjfdcSXjDRrwcgEEBiAgejEKDx4T
+ ZXtqyK9/F+8iwoEICwRVvXCl3MV6lZyKI4nO7iYCLrZA2S146xWoKMSJa
+ hF5hHTYlEBVGvvSFIyIPEIhTP/Jq/zGVid2DX7hM9byMmuYJqAB4OYVvD
+ ufYq09dx3YvbFc5RZgmFeXTRfZSlRhpa1GmC4UPk8v2UlLPwMoCKi7Rp9
+ rwdiHUU3ZBEYi81ssdCxWhYB17SVMkE0zWojMvhzEsH+3SDDLEgqW9w3x g==;
+X-CSE-ConnectionGUID: 1rHxymLPTbypj7b1TOPsQA==
+X-CSE-MsgGUID: 6FXQfQD8Ty29HFiFf45PFg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="83364154"
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="83364154"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 07:30:10 -0700
+X-CSE-ConnectionGUID: ZkUYfC9ARH6XCkoLifHRPQ==
+X-CSE-MsgGUID: bZaDGQ/VS4OEMO1ld3+cNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="250388012"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 07:30:06 -0700
+Date: Thu, 25 Jun 2026 17:30:04 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Raag Jadav <raag.jadav@intel.com>,
+ "Michael J . Ruhl" <michael.j.ruhl@intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Riana Tauro <riana.tauro@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andi Shyti <andi.shyti@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] i2c: designware: Global register definitions
+Message-ID: <aj07bEjP6EQCXXq_@ashevche-desk.local>
+References: <20260625125939.429078-1-heikki.krogerus@linux.intel.com>
+ <20260625125939.429078-2-heikki.krogerus@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drivers/iommu: Unroll unsuccessful mapping
-To: Krzysztof Karas <krzysztof.karas@intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- iommu@lists.linux.dev
-Cc: Andi Shyti <andi.shyti@linux.intel.com>, Joerg Roedel <joro@8bytes.org>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-References: <20260625134342.1102921-1-krzysztof.karas@intel.com>
- <20260625134342.1102921-2-krzysztof.karas@intel.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260625134342.1102921-2-krzysztof.karas@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260625125939.429078-2-heikki.krogerus@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,53 +79,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 25/06/2026 2:43 pm, Krzysztof Karas wrote:
-> Currently, if iommu maps fewer bytes than requested (iova_len),
-> it proceeds to free the iova, but never tries to unmap already
-> touched bytes. This behavior may cause memory hogging down the
-> line.
+On Thu, Jun 25, 2026 at 02:59:37PM +0200, Heikki Krogerus wrote:
+> Moving the register definitions to a global header file
+> include/linux/designware_i2c.h. That removes the need to
+> duplicate them in the adaptation layers for this driver
+> outside of drivers/i2c/busses/. There is at least one of
+> those in drivers/gpu/drm/xe/xe_i2c.c.
 
-Huh? iommu_map_sg() has always unmapped internally upon any error - can 
-you clarify how you've seen it returning a short mapping in a non-error 
-case?
+OK!
 
-Thanks,
-Robin.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-> Correct that by unmapping before exiting.
-> 
-> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-> ---
->   drivers/iommu/dma-iommu.c | 10 ++++++++--
->   1 file changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-> index 381b60d9e7ce..c4c058ba07ef 100644
-> --- a/drivers/iommu/dma-iommu.c
-> +++ b/drivers/iommu/dma-iommu.c
-> @@ -1515,8 +1515,14 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
->   	 * implementation - it knows better than we do.
->   	 */
->   	ret = iommu_map_sg(domain, iova, sg, nents, prot, GFP_ATOMIC);
-> -	if (ret < 0 || ret < iova_len)
-> +	if (ret < 0 || ret < iova_len) {
-> +		if (ret > 0) {
-> +			/* Unmap partially mapped bytes before freeing IOVA */
-> +			if (iommu_unmap(domain, iova, ret) != ret)
-> +				ret = -EIO;
-> +		}
->   		goto out_free_iova;
-> +	}
->   
->   	return __finalise_sg(dev, sg, nents, iova);
->   
-> @@ -1525,7 +1531,7 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
->   out_restore_sg:
->   	__invalidate_sg(sg, nents);
->   out:
-> -	if (ret != -ENOMEM && ret != -EREMOTEIO)
-> +	if (ret != -ENOMEM && ret != -EREMOTEIO && ret != -EIO)
->   		return -EINVAL;
->   	return ret;
->   }
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
