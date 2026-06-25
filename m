@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5603CDB479
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 03:13:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 441F4CDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 04:26:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3589D10E15E;
-	Thu, 25 Jun 2026 03:13:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36DDB10E140;
+	Thu, 25 Jun 2026 04:26:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TR+Zil1n";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JgcEFKhx";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABAFB10E15E
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 03:13:22 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41F1310E140
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 04:26:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9487844384;
- Thu, 25 Jun 2026 03:13:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 442A41F000E9;
- Thu, 25 Jun 2026 03:13:22 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 627A260018;
+ Thu, 25 Jun 2026 04:26:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBD031F000E9;
+ Thu, 25 Jun 2026 04:26:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782357202;
- bh=l6STr5j/hLQ7GOPpQjslrTjnZSZvuarhf4FnEqS5914=;
+ s=k20260515; t=1782361567;
+ bh=D+b32WYuAkEe/98OGr1o5gygitPeJVpkxeTAdorBT3M=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=TR+Zil1nUACkyPzebp1ccynWgj5FgMljyTb6Mtl3FOA4JM8+VkiTd5cyqJ6ky0afS
- urznvi3a5mGvfcKBb56EH5JFoWFsHsMlFWAW58es4RUjTY3LLEVuMNsp053BWSsKQB
- 0+Ze7VQgRbNf0Y/UQ1pPD8Ao9u1BCIQ2ppEr4ck5UmengZLuPBTyQ1yC5Dk5/rwpQC
- qAcWI3v0FYXy6A5ui42yQ7yZKJaXbW0ueHWzT9pfaYa32FFzcv1unDx6cvn5++8Jzp
- 5ivGoNuYVMUgS/diwcBDzYYAXJ5su7B6wW5AJ7Ek5jMG87csPLzJ9vVasHeUvdMztm
- wDxA0o6dKSzhA==
+ b=JgcEFKhx/knNWLPqSNZ28M4C5d8EADgS6HOeomW08uSs5PZKkcnCxibRNERqoxs+5
+ JeoOw19t+jZf2Urye4CxEeS9nL+xB7AO+r59XqY6+WbUIptG6w1N5b8hJfNQ+ZfGmp
+ NNPTLIXQFqDfjwjEEcPbNnc+OQdHOyqEnln4tZE8Q6LTS8m6+ov5/TjfUv/iwVSLB7
+ TEwUhpFPh6VxC7c076pvv3THxXCW4XqzG+LULqEVolcvr+9CZqS7LEtamXvvLfQf0Q
+ sOec0og+8cK/Nathjpo+L8O1GqQtlb/jlJiwiDXYBFOrg4Xk5nfI4JAnOPRT4MAZd+
+ 1pAszLqbd8atg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/virtio: fail init on display-info timeout
-To: "Pengpeng Hou" <pengpeng@iscas.ac.cn>
+Subject: Re: [PATCH] fbdev: Fix fb_new_modelist to prevent null-ptr-deref in
+ fb_videomode_to_var
+To: "Ian Bridges" <icb@fastmail.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260625030202.82590-1-pengpeng@iscas.ac.cn>
-References: <20260625030202.82590-1-pengpeng@iscas.ac.cn>
+In-Reply-To: <ajyq2Fr-2fMfftGC@dev>
+References: <ajyq2Fr-2fMfftGC@dev>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 03:13:21 +0000
-Message-Id: <20260625031322.442A41F000E9@smtp.kernel.org>
+Date: Thu, 25 Jun 2026 04:26:06 +0000
+Message-Id: <20260625042606.DBD031F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,95 +57,86 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Pending virtqueue buffers and dynamically allocated response struc=
-tures are leaked on the timeout error path, causing a kmem_cache_destroy() =
-warning.
-- [High] Missing cancellation of workqueues in the timeout error path leads=
- to use-after-free, NULL pointer dereferences, and data races.
+
+Pre-existing issues:
+- [High] Buffer overflow in `show_modes()` due to unbounded accumulation of=
+ offset.
 --
 
-commit 81c055cf6da869ee835f7a7f8d32208780ea1dd0
-Author: Pengpeng Hou <pengpeng@iscas.ac.cn>
+commit c6eace86a62190121a8b0640238eca3a23f8495d
+Author: Ian Bridges <icb@fastmail.org>
 
-drm/virtio: fail init on display-info timeout
+fbdev: Fix fb_new_modelist to prevent null-ptr-deref in fb_videomode_to_var
 
-virtio_gpu_init() sends GET_DISPLAY_INFO when scanouts are present and
-waits for display_info_pending to clear. If the response never arrives,
-the wait result is ignored and probe still succeeds.
+This commit fixes a null pointer dereference in fb_videomode_to_var by
+ensuring that the current mode is kept in the modelist during
+fb_new_modelist() if it is not already present.
 
-Return -ETIMEDOUT on display-info timeout. Because this happens after
-virtio_device_ready(), reset the device and tear down modesetting before
-using the existing vbuf and virtqueue cleanup path.
+> diff --git a/drivers/video/fbdev/core/fbmem.c b/drivers/video/fbdev/core/=
+fbmem.c
+> index e5221653ec2b9..2f1c56e5a7a23 100644
+> --- a/drivers/video/fbdev/core/fbmem.c
+> +++ b/drivers/video/fbdev/core/fbmem.c
 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virti=
-o/virtgpu_kms.c
-> index cfde9f573df6e..31209bea97ae1 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-> @@ -262,11 +262,19 @@ int virtio_gpu_init(struct virtio_device *vdev, str=
-uct drm_device *dev)
->  			virtio_gpu_cmd_get_edids(vgdev);
->  		virtio_gpu_cmd_get_display_info(vgdev);
->  		virtio_gpu_notify(vgdev);
-> -		wait_event_timeout(vgdev->resp_wq, !vgdev->display_info_pending,
-> -				   5 * HZ);
-> +		if (!wait_event_timeout(vgdev->resp_wq,
-> +					!vgdev->display_info_pending,
-> +					5 * HZ)) {
-> +			DRM_ERROR("timed out waiting for display info\n");
-> +			ret =3D -ETIMEDOUT;
-> +			goto err_ready;
-> +		}
->  	}
->  	return 0;
+[ ... ]
+
+> @@ -767,6 +767,18 @@ int fb_new_modelist(struct fb_info *info)
+>  	if (list_empty(&info->modelist))
+>  		return 1;
 > =20
-> +err_ready:
-> +	virtio_reset_device(vgdev->vdev);
-> +	virtio_gpu_modeset_fini(vgdev);
->  err_scanouts:
->  	virtio_gpu_free_vbufs(vgdev);
+> +	/*
+> +	 * The new modelist may not contain the current mode (info->var), and
+> +	 * fbcon_new_modelist() below only re-points consoles mapped to this
+> +	 * framebuffer. Add the current mode here so info->var keeps a match
+> +	 * even when fbcon is unbound.
+> +	 */
 
 [Severity: High]
-Does this error path leak the pending virtqueue buffers and dynamically
-allocated response structures?
+This is a pre-existing issue, but while reviewing how modelists are populat=
+ed
+here, I noticed an older problem when the modelist is read from sysfs.
 
-The driver queues commands via virtio_gpu_cmd_get_display_info() and
-virtio_gpu_cmd_get_edids() which allocate vbuf objects from the vgdev->vbufs
-cache, as well as resp_buf via kzalloc_obj().
+Does this code overflow the sysfs buffer on the kernel heap?
 
-If wait_event_timeout() expires, the error path resets the device and
-immediately calls virtio_gpu_free_vbufs(), which destroys the cache. Because
-the commands are still in the virtqueue (and never detached/freed), will th=
-is
-trigger a 'Slab cache still has objects' warning from kmem_cache_destroy() =
-and
-permanently leak the dynamically allocated resp_buf pointers?
+If a driver populates the framebuffer's modelist with many entries, or root
+writes them via the store_modes sysfs interface, the offset i accumulates
+the return value of mode_string() continuously in show_modes():
 
-[Severity: High]
-Does the cleanup path miss cancelling the virtqueue workqueues before the
-device is destroyed?
+drivers/video/fbdev/core/fbsysfs.c:show_modes() {
+    ...
+    i +=3D mode_string(buf, i, mode);
+    ...
+}
 
-Since virtio_device_ready() enables interrupts, if a virtqueue interrupt
-fires just as the timeout expires, virtio_gpu_ctrl_ack() could schedule
-vgdev->ctrlq.dequeue_work.
+The mode_string() function passes this offset directly to snprintf:
 
-This timeout error path resets the device but doesn't cancel the asynchrono=
-usly
-scheduled workqueues.
+drivers/video/fbdev/core/fbsysfs.c:mode_string() {
+    ...
+    return snprintf(&buf[offset], PAGE_SIZE - offset, "%c:%dx%d%c-%d\n",
+                    m, mode->xres, mode->yres, v, mode->refresh);
+}
 
-Since the function returns -ETIMEDOUT, the caller (virtio_gpu_probe()) will
-free the vgdev structure via drmm managed release. When the scheduled work
-later executes, could it cause a use-after-free when accessing the freed
-vgdev, or a NULL pointer dereference when attempting to call
-kmem_cache_free(vgdev->vbufs, vbuf) where vgdev->vbufs was set to NULL by t=
-he
-error path?
+Because snprintf returns the number of characters that would have been
+written regardless of truncation, the offset will eventually exceed PAGE_SI=
+ZE
+if there are enough modes.=20
 
->  err_vbufs:
->  	vgdev->vdev->config->del_vqs(vgdev->vdev);
+When offset is greater than PAGE_SIZE, the expression PAGE_SIZE - offset
+integer-underflows to a massive positive size_t value, causing snprintf
+to write past the 1-page sysfs buffer allocation.
+
+> +	if (!fb_match_mode(&info->var, &info->modelist)) {
+> +		fb_var_to_videomode(&mode, &info->var);
+> +		if (fb_add_videomode(&mode, &info->modelist))
+> +			return 1;
+> +	}
+> +
+>  	fbcon_new_modelist(info);
+> =20
+>  	return 0;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625030202.8259=
-0-1-pengpeng@iscas.ac.cn?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/ajyq2Fr-2fMfftGC@de=
+v?part=3D1
