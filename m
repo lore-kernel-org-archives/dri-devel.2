@@ -4,134 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F22C4CDE000
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 12:37:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E9E1CDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 12:40:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5058110F28F;
-	Thu, 25 Jun 2026 12:37:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE60F10F296;
+	Thu, 25 Jun 2026 12:40:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MYTnbgWF";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="g7++DTVO";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011040.outbound.protection.outlook.com [40.107.208.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C098E10F28E;
- Thu, 25 Jun 2026 12:37:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p6XZYCFr5N3DpbHCwftvOu/fqPBnNdOk10lQD5dWLKc11oKzhP731TG5Kdzt+IlktNQuoP+PU6cgBm7lTCzeQ2dI282FlWZ4rqgypA1Q93GDAidy13YteNA/1Qu+YdSMY0+B2ReyGzCN6HZ+IymkEBcky/aWMOdaKvpbtmQdGt1VujX/7uzx3eXWXEDz23oyjwCI6kBlNNaLJEJljV494Qiequ+7K6BC1wCC9UXY0HLMZJs15VJjW4Nlgn6XFJC0LdJoeAXh3Wx/HDXa8kgAD3+2LdwhgrHUkpgeSJ1gP65Ia6Ec3Xw6AqmYR3FWAyBddEFt1E94aHbzj1UrJrGQMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+ZJmav+l4wWvycEDiTRl/SxHmv37D0WfFytN3TQ6iPw=;
- b=Ab2Us7pyGVr4Dr0Fh3iyEr2DGDUvp+hZB+GUFLLudF0P1v5kBAEgcbNTZDN65eVluvaqVyHdresGM0lNTWX+qD5tMMaUKwAnkeygeonPm42TMWOSnH8A7rNabefxnBSoapOw9Xxzh5ErtNuwoOy3ZOllG6Xmk1lzsPfD9sMwgYkDYErZlACUToZ8piWqmwuIHhf/d0FZnlA/OkKtoH+KUOHCDEYIC1w5xR3JA+rlH4OhU/+I4DvVCH4zK/EX8nf0UMBPM0EiPlMwLFSvD3+Gh0GiNssKSlvlJ7RzwXR2A636C4gqf/bTmojXeAu52EQVCljpzoLLPS60eqLn0ZSfPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+ZJmav+l4wWvycEDiTRl/SxHmv37D0WfFytN3TQ6iPw=;
- b=MYTnbgWFOPIwiPe3LRFwSIgqWl+OrO0cflnGPyiqpj8nhAbVtL1pEgmp2HSxLHejfOBK9lDabjVK2ua7YyHtt8hh8S472mjqNkUvzSxhJZwkSDoyMcI49iKdgYPrMEvJAaNBhdYq9tM2KtlWTkpha8RSi2zBcFpj8XdTSRk1hMA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS7PR12MB6167.namprd12.prod.outlook.com (2603:10b6:8:98::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
- 2026 12:36:56 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0139.018; Thu, 25 Jun 2026
- 12:36:56 +0000
-Message-ID: <5b9c74e5-d1e8-48b1-b5e9-7c761b9dfcac@amd.com>
-Date: Thu, 25 Jun 2026 14:36:48 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drm/amdgpu: block THP for HSA userptr notifiers
-To: Yitao Jiang <jytscientist@hotmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Felix Kuehling <Felix.Kuehling@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R . Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jann Horn <jannh@google.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org
-References: <SY1PR01MB10596EB75463208A8E1EBBA0FC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
- <SY1PR01MB1059636EEFF3E5C5156F899B8C0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <SY1PR01MB1059636EEFF3E5C5156F899B8C0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0311.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f6::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9871310E1FA
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 12:40:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1782391230;
+ bh=U/9uURAqeOPvchWGcfqGa/gIuEM9tjr7Dkjj8Z708jM=;
+ h=From:Subject:Date:To:Cc:From;
+ b=g7++DTVOWTiVoGs7MyV+2FQQI2drBj1243TzRRDjGXJFlbcK+eZxmnsNRFb6Kogc4
+ Kc5T+UrOUo3mLe5ffY0jzTSM6rtKmzp+2UYkbTmMTDMYDu/PbGzNpVW/ZNqJ4CLFJT
+ 3H/uuF6sqOdEq2DKm/JGOKBvWyQgXWRtchhQ9IlUh5F83w1U/ebbnmsTTVadfyRMVZ
+ r++4VHiJVN5KgzlgV6qbsLwmhaYYqqDtyDF/0cYdEV51cz63EYP5MiM9b9iau5LbrL
+ QNV4oKG6NLoGnraEX0y6bUa+dRX67sMCXMZNZqQh7ZETSAGueNjYA+rjxUpH22pNUS
+ 6SbUR+xTWbOjw==
+Received: from fedora-2.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 95F2417E0909;
+ Thu, 25 Jun 2026 14:40:29 +0200 (CEST)
+From: Boris Brezillon <boris.brezillon@collabora.com>
+Subject: [PATCH 00/11] drm/panthor: Misc fixes for bugs found by shashiko
+Date: Thu, 25 Jun 2026 14:40:26 +0200
+Message-Id: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB6167:EE_
-X-MS-Office365-Filtering-Correlation-Id: a6d9146a-7417-4a8b-e3e8-08ded2b67137
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|23010399003|1800799024|56012099006|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 5MmGkQNzvs9bS8AAjWuV+zPJ48t+waDQ5FyFvVsbfaIXzLH1+2jJn+H7ak8iiWivRnvY6L5PKNTrU7aW8gzMrX8PGTdvE1j3g1h5pWvbRlDXZVUQtgSNmrpv4IKkr6a5I1AyAy6TsTfgaBNen0WH/L7SdeFqPAHnUjv9WrCmmyxCuxJ86Hxc9BOUD6BIJNmAzpYe9WRecpJ5TkvaRlAUThA3CPzo/ZxOG1jfUkE7ZNm+egFcBOS6P5EGD8w+wZqfcVOTD0PGow7VV+/bRHz3S1nZsccMrW5eF3jNwqPjElESdfIlkQa57vF4w5fIoyegZb/IpWWTdfdw38X+AbFitQKs4r6BmoDI2fdnr59Wj3XO08mVYtX4pyd+3yj8NEMvd3pX7ap9OpopPn/xzEv/nmIbsHlc8+aCRjTz+NTWEaaJNXLVVyO1w+6MPhHFQoHmtWHY9iJels9iVW9XoU/kfPahAMAKfID6ZM4Lp31C8IFPudzPdpPub0iLDA3qzcEHmta43TMSQLx91s+rqmMGmg5LdztQ8bFsSrYYCiscGcElWrIaMv3I09SEIgqKFNOhM2OrZ24LTPC0xglak99cQeyZgynE5j5GZEKQxhu6I7zILxco1ELvyKFH719gegib2aCkdaEeC6jxNBATvAAMwe2mEPPhkyWtAiwlwh9n3SM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a29nOE9laGV2ckFUdzJFSnBhNzhLaDd1WlYwQytXUlZVd1VBL1ZJa21QdVZw?=
- =?utf-8?B?Y2JNekRMenlKVDY1bmxtc0E1amZFLzl0ODRxcDVnSDh1UVJad0FxRkh4eUxV?=
- =?utf-8?B?NlErTSs5cUlCejIzU2tSTDI3R2dodVpFTGNtbEphY25VTGk1QjdpOXJ1YURj?=
- =?utf-8?B?cE85TnBxYUM1dktBY245TG5DRjB2L3ord1pYc0YwSTQvSUVYSDRSc0VPUUtE?=
- =?utf-8?B?UnE2d24zWiszSVV0T3ZUTmRaeDFNNWpUMkNUbzRoYitxVXM5eXBKSjd1bWMw?=
- =?utf-8?B?SElQT2trOEVjWDNQenU1QTJXc2l6bFRPV21FSXJsT2ZiQ2tEMlZ4UnMvbkl1?=
- =?utf-8?B?U05rNVlxdkJqWlo4WVl3VXlUM0lPNkMzdWpQcEY2eldnWVBRTmxYREc4bkUv?=
- =?utf-8?B?bnQvSnJhbFhYbTAxRzhpcVkyLzFXdkw0Y3NMUGtmRERyYWJlSEFiaVhBNVpz?=
- =?utf-8?B?ZXlnV241Q3JSVmhqSVFzZzl5NEJ6blZJa21aSU5ITlRBOHhEZHY1V3VVSUhu?=
- =?utf-8?B?c2NFZndnSDh0eGZxMERFeWs3SDE4YXdsZTc2QkhZc1JwUzVSOGp5UG9WSm9w?=
- =?utf-8?B?TTd1MjhGWXdFL0FMVFFNYU9SL0hMbk5aSmRUSEh0a2NHZnlDN3VGUUovVU5k?=
- =?utf-8?B?Rks2STc1N2gvRWx2VW1iYXNYVWJKY2EvdHgvVUFpYSttYnJGS0NvRnBBZ2ZW?=
- =?utf-8?B?VXgybkw4UXkrZklpRVR0S3M0NFg5OGFpYjluaTV5VVdTSFhoUElrSUJsanlJ?=
- =?utf-8?B?MnJzQ1hRUy9MNjZKQkY0aUJtaHZWajF2RVF1Uyt3NUl1VUNjbmtkaG8xWUtU?=
- =?utf-8?B?c0hlZUZFeGZ1dHNLNUY4d096SDhBWFR4UFROMTVIeHROR1VFaStQa2RFaGF4?=
- =?utf-8?B?cFB0UjkxN0hSbnF0cStNNnF1QWViZHlWU1dadml0ZDNjbUU5RzdqY1FBWExy?=
- =?utf-8?B?azA0WXYrQmEyVi9JVEZOSnpmM29rTXlhNjlKd2Ziam0xcCthSFUzUm5GQ24v?=
- =?utf-8?B?Uk0xL0pKNDdhbCtRUm5iZXk0NGY5T1dzeTBqMHNuU2FZQ2VBaFRwY09KaUFK?=
- =?utf-8?B?Q2hLK1JBb0YvQVBjZk9xaVhvMHBVVEtHK0lsSDA0UkRyL1V0TnA1bHBFLy9l?=
- =?utf-8?B?NVhwaTlvTkt5NnVGM1BHSW1UZ2Q1MlJYcHBXVjdpQ2xFaEZ5MXhhUHVXblJ1?=
- =?utf-8?B?eGYwa2l6VzFXUmNRWlVOd2NEdElCM25xS2dUTG54TjZuOVVyVTZsaGgwelJO?=
- =?utf-8?B?QUFOcXlLcm9YcmFyZkg0OG5EWCt0YjdSMGVwWmZpcks3ZGd1ajZWTkJYRmND?=
- =?utf-8?B?YVNpMWUrR3c3QnFuZzZXT1BKNXIrSTRWVE1kZ1VMSTNhRVcxT0V5N1lRTDdY?=
- =?utf-8?B?SHVjaU5lTVNwK2owVUpEZEpsNjU0MTZ3bEQ1OWNVSDZtcnZtVzZndXFLMGd5?=
- =?utf-8?B?R2hjK25lVldqNFBFK09DaHRjYmlja3AvVXJUSXpGcVBrbWIvRVQ4N2Zja0Zk?=
- =?utf-8?B?aU5ka25QM2xycXphRTBaSlQ0VDFtSWVJWUwvZ3RJVTJiZ054QnhROEZQU2tr?=
- =?utf-8?B?UWQ0R2xOZk5Gd1MwN1dveE5iMERCUVlZcWt2THJYMGJ3UDBERldqaWVLWUpl?=
- =?utf-8?B?QkRhYXV4dFFWNDkxWmpEOHdNeFdNdDNKRGtTVTlwSW95a2VRNThxZmQyMkRj?=
- =?utf-8?B?L1ZHRDBDc0c2YnUzaU9QWlZ0Z2VjN1BkdE5UNUtNbzc0Q2htdTRrNzh2ZXl5?=
- =?utf-8?B?RlBFOEpGMWdOVENQTEI5K1R4UHFEQUVYcmxPZitDVXRrRlppMEJJMHBHWVd6?=
- =?utf-8?B?c3Q0YTJLR0JWK3czMHJuSjhPc2srQkUzTWU2VURZQzZiUzBFSWFvajJzMEJa?=
- =?utf-8?B?M2F5UTZCbWlrUnJWMlNWZnFmOVFRNkQzSllLM2RES0lzb245TjRqZEVkcmxM?=
- =?utf-8?B?cjFNcm0zZ0Vwc3U4UFBnWWo5YW5Yb043WnNLbTB0RTVhMlFKbXlzS1BSQ2tU?=
- =?utf-8?B?SHMyS0xONFV6T3I0RFVhbXdLb1VUcEhYbXZyeWkyNGNTYmttdldYSFlaeTF4?=
- =?utf-8?B?R0RmRy9Sdk1MSHpGd3dXWUJBcmlET2trcmxQOFhBWFUyNlhNVXJ1bUtMbmJY?=
- =?utf-8?B?NDZqMzlDMnZiZGZVY3o2VitFRVQyZm5qZ3Vsd2RrQmNEUnowai9mYyt0YzMx?=
- =?utf-8?B?eE9CSHpSeUpnbVBKSVVkTjMzdzhad0xrSmhVQW5WNGRjRUN3cWVCSXhzclZs?=
- =?utf-8?B?c1FYYm9BK1BsUndnM0NtR2RBWjEveFZwZC9QUllyWnRIang3NEtwTFB0cGF6?=
- =?utf-8?Q?I9Px2vjtkfH4FLFGNo?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6d9146a-7417-4a8b-e3e8-08ded2b67137
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 12:36:55.9849 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: z6oaLuvs3Im+fVYBP4kbnebitk4+bKI5ug+r6Pv+jLjcqNUFQSHsWguwSyuG9Uec
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6167
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDMBBFryKzbiDGVtCrFBdx/NZZJNpMLAXx7
+ g11+d7n/YMUSaDUVwclfERljQXqW0W8+PiCkakwOeta27qH2XzMy5pMEGUzyxdq0Lh7zWgxW0s
+ l3BL+Q+mew8UJ771850vS6BWG1xAk9xVPGB3z1HUNaDjPH8Js1gyUAAAA
+X-Change-ID: 20260625-panthor-misc-fixes-e3241ce6ef00
+To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Chia-I Wu <olvaffe@gmail.com>, Karunika Choo <karunika.choo@arm.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Boris Brezillon <boris.brezillon@collabora.com>, sashiko-bot@kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782391229; l=1879;
+ i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
+ bh=U/9uURAqeOPvchWGcfqGa/gIuEM9tjr7Dkjj8Z708jM=;
+ b=5tCy137h53xJZkNVDb//tHUbxj3uJK6YE+x4GS6xBXvh4LKWxfeWXdWlxF00pc52YzCn6w1SS
+ 9Nvj5VJH7ezCB8xviQYxJ+tHy4eyLX96gS1sOknM6eWs2WRr6tueSLW
+X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
+ pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,79 +74,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/25/26 12:59, Yitao Jiang wrote:
-> [Some people who received this message don't often get email from jytscientist@hotmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> HSA userptr buffer objects are used by KFD compute queues. On systems
-> where the GPU cannot reliably tolerate a CPU THP remap of an active
-> userptr range, allowing khugepaged or MADV_COLLAPSE to replace PTE
-> mappings with a PMD mapping can leave later GPU work failing
-> asynchronously.
+This is a collection of fixes for bugs found by shashiko during
+the review of [1] and the previous iterations. Because shashiko
+keeps finding new issues at each new submission, I decided to
+extract the fixes out of this series.
 
-Absolutely clear NAK to this.
+[1]https://lore.kernel.org/dri-devel/20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com/
 
-That largely sounds like it just work around some issue and is not really a doable fix.
+Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+---
+Boris Brezillon (11):
+      drm/panthor: Always use the IRQ-safe variant when acquiring the fence lock
+      drm/panthor: Keep the reset work disabled until everything is initialized
+      drm/panthor: Fix UAF on works queued to panthor_cleanup_wq
+      drm/panthor: Fix potential invalid pointer deref in group_process_tiler_oom()
+      drm/panthor: Fix theoretical IOMEM access in suspended state
+      drm/panthor: Don't overrule pending immediate ticks in sched_resume_tick()
+      drm/panthor: Fix panthor_pwr_unplug()
+      drm/panthor: Drop a needless check in panthor_fw_unplug()
+      drm/panthor: Fix a leak when a group is evicted before the tiler OOM is serviced
+      drm/panthor: Interrupt group start/resumption if group_bind_locked() fails
+      drm/panthor: Keep interrupts masked until they are needed
 
-Regards,
-Christian.
+ drivers/gpu/drm/panthor/panthor_device.c |   9 +++
+ drivers/gpu/drm/panthor/panthor_device.h |  17 +++--
+ drivers/gpu/drm/panthor/panthor_fw.c     |   6 +-
+ drivers/gpu/drm/panthor/panthor_gpu.c    |   3 +-
+ drivers/gpu/drm/panthor/panthor_mmu.c    |   9 ++-
+ drivers/gpu/drm/panthor/panthor_pwr.c    |  10 +--
+ drivers/gpu/drm/panthor/panthor_sched.c  | 108 +++++++++++++++++--------------
+ 7 files changed, 97 insertions(+), 65 deletions(-)
+---
+base-commit: cdeb2ccd993ed8647adbbda2c3b103aa717fd6f7
+change-id: 20260625-panthor-misc-fixes-e3241ce6ef00
 
-> 
-> Register HSA userptr interval notifiers with
-> MMU_INTERVAL_NOTIFIER_BLOCK_THP. GFX userptrs keep the existing
-> notifier path and do not opt in.
-> 
-> Assisted-by: OpenAI-Codex:GPT-5.5
-> Signed-off-by: Yitao Jiang <jytscientist@hotmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 25 +++++++++++++++++--------
->  1 file changed, 17 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> index 99bc9ad67..c0b36164c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> @@ -44,6 +44,7 @@
->   */
-> 
->  #include <linux/firmware.h>
-> +#include <linux/mm.h>
->  #include <linux/module.h>
->  #include <drm/drm.h>
-> 
-> @@ -130,16 +131,24 @@ static const struct mmu_interval_notifier_ops amdgpu_hmm_hsa_ops = {
->   */
->  int amdgpu_hmm_register(struct amdgpu_bo *bo, unsigned long addr)
->  {
-> +       struct mm_struct *mm = current->mm;
-> +       unsigned long size = amdgpu_bo_size(bo);
->         int r;
-> 
-> -       if (bo->kfd_bo)
-> -               r = mmu_interval_notifier_insert(&bo->notifier, current->mm,
-> -                                                   addr, amdgpu_bo_size(bo),
-> -                                                   &amdgpu_hmm_hsa_ops);
-> -       else
-> -               r = mmu_interval_notifier_insert(&bo->notifier, current->mm, addr,
-> -                                                       amdgpu_bo_size(bo),
-> -                                                       &amdgpu_hmm_gfx_ops);
-> +       if (unlikely(!mm))
-> +               return -ESRCH;
-> +
-> +       if (bo->kfd_bo) {
-> +               mmap_write_lock(mm);
-> +               r = mmu_interval_notifier_insert_locked_flags(&bo->notifier, mm,
-> +                                                             addr, size,
-> +                                                             &amdgpu_hmm_hsa_ops,
-> +                                                             MMU_INTERVAL_NOTIFIER_BLOCK_THP);
-> +               mmap_write_unlock(mm);
-> +       } else {
-> +               r = mmu_interval_notifier_insert(&bo->notifier, mm, addr, size,
-> +                                                &amdgpu_hmm_gfx_ops);
-> +       }
->         if (r)
->                 /*
->                  * Make sure amdgpu_hmm_unregister() doesn't call
-> --
-> 2.53.0
-> 
+Best regards,
+-- 
+Boris Brezillon <boris.brezillon@collabora.com>
 
