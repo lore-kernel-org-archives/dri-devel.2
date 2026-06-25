@@ -4,130 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FA09CDE015
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E774CCDE00E
 	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB70410F493;
-	Fri, 26 Jun 2026 07:53:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E915010F4A0;
+	Fri, 26 Jun 2026 07:53:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="aVizIMNR";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="tlYxxQmJ";
 	dkim-atps=neutral
-Received: from SY5PR01CU010.outbound.protection.outlook.com
- (mail-australiaeastazolkn19012065.outbound.protection.outlook.com
- [52.103.72.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFA4110E109;
- Thu, 25 Jun 2026 11:00:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YEO7EncGJYNZSnRs5y91M6C3aWGgC3F6WWGKnJsyJ/Fektq0SJunmJBtkVvs9jhOkYYISwAt56A7LEdW2VYrtwhRM4ReX/B4uAZ6U3+dELpj2gYt7NNVX7e+ygdUfLh4y4vBxkP7UIyeM+oUrxLvZugV/3S8qI9H20YnFwZhfPl1kwlMIBstYjv4G2nbh4ABt2Rk162J2vukqdomnBPnhcS0TiY6dpclcF0sbun0Z4mApEr4uXJwZ0ztxHc1AYHd31wy0hxON8Mh+YJkZW8zH9l87EDtxjfsJqs+PTBMt006PvgXxTPfHOM3IxYgVZxSrPEMGoaq4wfErbPcyJHXag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=plP1Mpcw8Xprc2kCb50fb6i+G2ud9L4zxpNqy85Ru2s=;
- b=bmI15q5Ma9kr68pgxUBY6ugCC3SOgdiOIJNK7nEHknVxWepx/3W5FLt6BnGViG5sDulN5OKRR2L7hc0Mnqxr02tle7yjOPh9Shgbsf/5xIB8QnMmNFS3adTp19XAcC0Vqj/TGhhDeTxXF4LkCPCPEE62qdCeCLZ5TBp6m+UGfO3AbL1wULGiaZHTTyRe4R1zhxvTfIxT3U2exmm3fXNEyhdFw88NPCzCKrrb+Q6o+3eKPrNuRLwwd3/L0P8Dsn9B729Q7UeucjqvBq0xmlWJUfrkxmiQOhjv83pgod+BEJ+4KK0CfHfDSOrGIq4X2yifIzgyt3LOuJDhUOCMLcJx9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=plP1Mpcw8Xprc2kCb50fb6i+G2ud9L4zxpNqy85Ru2s=;
- b=aVizIMNRA35D2OumtdZLWb57RZvrAcBUVu2m7Q6ZOk7Y+AD6J6VkXYZAW7ZEN0xfBHqZ+ICKYyUqC0JpSoZD81bOHkN+Qi3S4k00qjfLSs4YaMjY9R1PnLtQi5uM14NpNet6i4qq6kuz7W5lQH4zYb6S6kEiJ+DTOvWtev2rXrVdPC8uxUJqbh2VAa0LYoqyTakdiPg27jHHT7NxCpAZJAI6KUsa+p+RP2i0ISU1TI6hXR4pdR3yUPQ2p9AJuCiNUo0h3RHOBehANMjwPMqqqB5eRYYtrrWFXPNS9Ac1iJ1H7PRAy4VAGLxjdANj9v2PGFXye+oYn8MWFrfcPYrOjQ==
-Received: from SY1PR01MB10596.ausprd01.prod.outlook.com (2603:10c6:10:31a::15)
- by ME5PR01MB10091.ausprd01.prod.outlook.com (2603:10c6:220:24c::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Thu, 25 Jun
- 2026 11:00:22 +0000
-Received: from SY1PR01MB10596.ausprd01.prod.outlook.com
- ([fe80::7ab4:1f80:a8a0:7d3f]) by SY1PR01MB10596.ausprd01.prod.outlook.com
- ([fe80::7ab4:1f80:a8a0:7d3f%6]) with mapi id 15.21.0159.012; Thu, 25 Jun 2026
- 11:00:22 +0000
-From: Yitao Jiang <jytscientist@hotmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R . Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jann Horn <jannh@google.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, Yitao Jiang <jytscientist@hotmail.com>
-Subject: [PATCH 2/3] drm/amdgpu: block THP for HSA userptr notifiers
-Date: Thu, 25 Jun 2026 18:59:52 +0800
-Message-ID: <SY1PR01MB1059636EEFF3E5C5156F899B8C0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <SY1PR01MB10596EB75463208A8E1EBBA0FC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
-References: <SY1PR01MB10596EB75463208A8E1EBBA0FC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TP0P295CA0028.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:5::8)
- To SY1PR01MB10596.ausprd01.prod.outlook.com
- (2603:10c6:10:31a::15)
-X-Microsoft-Original-Message-ID: <20260625105953.70647-3-jytscientist@hotmail.com>
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
+ [74.125.82.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BDC710F305
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 20:52:48 +0000 (UTC)
+Received: by mail-dy1-f178.google.com with SMTP id
+ 5a478bee46e88-30b9e755555so750723eec.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 13:52:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=usp.br; s=usp-google; t=1782420768; x=1783025568; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9cVZWX31i00/Q+AQyz7DVfvfVMzM7hxRZQOP4HWyMgo=;
+ b=tlYxxQmJ9727KSapwXup3DWnkT2q/1+9vG0GAy9VCN2KuaT7L8xJqM4aAdGeK9R1Mr
+ OeThKYzSJfZLPB8t1/DbltFdpcFANX3s0iUmxHIlZqJMgFdmZ9mO9gW3jfqoDpaxPHnQ
+ x1DYmDQ0NWS64kVp9BARBgC9UN/BTIWquWpZUL8E1/T8AgiAcECaTmcdgZ1gVCuEN2JX
+ JpyOcoukse1mmdnJDadF+X9risb9FUiOHM5og4dOz7XPFC8pxSd8BUttN6OHI6GCIkot
+ tHyrKOh+7+Ez89sYUW/Ju9qr/NyTyA14lBpLuOfDTp357HCqMaCviM8ZhZvFEPjhCRdq
+ ZoCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782420768; x=1783025568;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=9cVZWX31i00/Q+AQyz7DVfvfVMzM7hxRZQOP4HWyMgo=;
+ b=NG4Mcyz4bg+k9dOIwTM9g/s8y8V26YWQvXEt6L+VRfxRmG8WMsPmUK0K6BUBR0penS
+ jtgle43hpAo1V3nPbosXI+LDT8jlg2h0ErCVrdKDjuF8rHanLdTF7f+759Tow00D4FfY
+ nrp8bsucEHTAXPZx1H683LE5OeM5AC46zNAAdWU3Whi5Fsk6ef/69Nlk1dx3R+32qL8K
+ pZsF4WymQFCvb7RLQgQI/2Rx16vXTk3moPYBQbUB6Ol+vtBTNrXeAm8N7p7II0JwVSjr
+ IAzRL9KjzsSZ7C/8OcFX5MC9vqZmukIl9HNab/9/K2msgQwKSxxBGYzvNnfYEUa7Wjb9
+ DnGA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rqqv9TSBtFZo/9tNmmq2fIeSU83gf6S4/GlJfk2JqvQdOCmU7/yS88R5xHh36b7WigEjhLPvdh+0bA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyxuI5+rURIuXdlhNlYHjRN22nRAKgS00ApHqHkRa2xcgNlipq3
+ auoiIqJKT3okVwBNIAVzHwOAaIiWzprtdyRmvNGnpQu/RKM+XKW8bS+6VfJ1PYQh0hA=
+X-Gm-Gg: AfdE7ckyLPbLV5HDoeDbUaRTVnzLkSS3FWNXugdDsy2sW6MXCywntOkN6fBq1TvUEuM
+ sOYYBIO+25h9DkiWay3YHiwJ698QNT2lN65sHVwSj37WZRozhkcjy0KearkYpS29i5yD7VxiHB2
+ OL68XNtnYyB6aorHp8SJSHjPXXplThqmIDCHh/bWz9O+XvGaqmA7U9XY7q6RrTPYFtzCEgyg91x
+ PzKkGLVscs+/enIFqtmqV6rkfyHPmgR/X9LPyXVXrcRX2lt/pbU5TAuhh0Ipm0MHRhZG6qmTtPF
+ PphV0oVc5sHiB1VuYJAT34AgBfO6Y+XWmanv8h9Zwbcu5cnjjxuRHjmoXMn3Grh9pU99zBOuJAM
+ xOh/DbllQILyUeCeSA/MYgOqgc3ofOnRz6rHrw1E149juyVyBkNu517gOixWNApADMRNauaT/Mp
+ RzLkn1hM1ZyQlo1hVKKmObKlccmnBH8DuwQBgh
+X-Received: by 2002:a05:7300:a497:b0:307:3a6c:ecea with SMTP id
+ 5a478bee46e88-30c84b95570mr4109057eec.1.1782420767666; 
+ Thu, 25 Jun 2026 13:52:47 -0700 (PDT)
+Received: from niyudi-linux.. (179-242-249-142.3g.claro.net.br.
+ [179.242.249.142]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-30c7c4c691dsm10981525eec.5.2026.06.25.13.52.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jun 2026 13:52:47 -0700 (PDT)
+From: Pedro Yudi Honda <niyudi.honda@usp.br>
+X-Google-Original-From: Pedro Yudi Honda
+To: dakr@kernel.org,
+	acourbot@nvidia.com,
+	nova-gpu@lists.linux.dev
+Cc: aliceryhl@google.com, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, ojeda@kernel.org,
+ rust-for-linux@vger.kernel.org, Pedro Yudi Honda <niyudi.honda@usp.br>
+Subject: [PATCH 6/7] drm/nova: use `zerocopy` in riscv.rs
+Date: Thu, 25 Jun 2026 17:51:45 -0300
+Message-Id: <20260625205146.5047-7-niyudi.honda@usp.br>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260625205146.5047-1-niyudi.honda@usp.br>
+References: <20260625205146.5047-1-niyudi.honda@usp.br>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SY1PR01MB10596:EE_|ME5PR01MB10091:EE_
-X-MS-Office365-Filtering-Correlation-Id: e1ae0c4e-dede-4a14-b197-08ded2a8f402
-X-Microsoft-Antispam: BCL:0;
- ARA:14566002|8060799015|51005399006|23021999003|24021099003|16051099003|19110799012|41001999006|25010399006|5072599009|15080799012|40105399003|440099028|3412199025|1710799026;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?fP0jNFORvB7y/LSRAH20Wxj20lQdoZBmRv/v/OFwrObdWUWoxE9DPudQJQH+?=
- =?us-ascii?Q?CtrHwYycoI8K7BuL83ZugdhoZ3R0PhtsbWnrdt5HZt04XcRlS/FnsrnoalXy?=
- =?us-ascii?Q?TsrRylve53IWqkTpKa+aHiWECU7opPkaWRk48/K73aldh3pKte/CQSAvHTda?=
- =?us-ascii?Q?CTQKuzPnw3X2Jlrb+kUGU2V8aG8xzkVakANMYFMz3MAIy6DIJqx2uTYknI9u?=
- =?us-ascii?Q?8QLqYf/f7QNSOM2YGelaQ6/1zL0H0sVCRC8wulR6HgyBWIpqkyzCA7aYY4Zh?=
- =?us-ascii?Q?0n79BVvQy7SUmXnwZkqrbA56DxqQSYnuebtwfV1+zPUhD9o08pH4CH+eIcWm?=
- =?us-ascii?Q?e7UEPcFTmzawXk6WjhQtOb/dNBhir40H+FP4hyhRlV+7H4fISuO8SpgMADtK?=
- =?us-ascii?Q?q+nsnyJQqrKouCq5CNZFMPeu2+dXiwAdHqFDCtfxYF4nxRDtVgtYG9yjRBH+?=
- =?us-ascii?Q?83tqzSQrNfHB6n4bUt6DFDxBf0+KbNKrbGxlaQuB2ebN3IBHJ994Sp8gGf7B?=
- =?us-ascii?Q?Vpc2Pcd8r3aeiYn32yaHs89oUKumk+jv1wo7062bHVmdcBOv4IbKkmcsIyoR?=
- =?us-ascii?Q?8uKEeozh6FSn481Ak7+rILvAN5N66IaeB75vtD0F3I3QgSskunnoV9sMLwHq?=
- =?us-ascii?Q?oh4155LO8ppZ8SydfwH5Ob9/fhxH3XvpJYz2UkdvmeRyrWc+3ZioNPPQXax1?=
- =?us-ascii?Q?cX10uja44qlrovGHQK1g7FMNYNrRbTJ5LMj9Gzf/IWCe/794piLvZPIiN8iC?=
- =?us-ascii?Q?zxe6GxKoLPTqTRTMHa/loD6Uq6A4umXqaGRAwp10cik3OPEaunO5AIXNpEEQ?=
- =?us-ascii?Q?PgBxii4hfE4+478ARhQC1mJpOCATHBIU9xmW/Kdj4lCooBQp/BjSA2KjPwbL?=
- =?us-ascii?Q?CghJHsk/ASefXGpd8cAHwgUGBBxFSQ0LCUNDagfzgLwT6ZFyyq2Ov4fXByaD?=
- =?us-ascii?Q?4uFvfbWxM5xUHbbGq4v8MoK+RuwBp6g2S541I+F2PAgtcNbNqY++nkw4w7GO?=
- =?us-ascii?Q?Z3JpbAU6sUdpkn9Qxr6ssfJ/ug=3D=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XCWtRY+TcNXCqXQf/tnak73lP8IG4xRteO4xFB+Vcf5UCDAestnIAJlRwHyw?=
- =?us-ascii?Q?Uu8brPtVLnShsRqwiND3PSNeZff2COCduYxHds0+NCNF/5s11daHMBJRrEUV?=
- =?us-ascii?Q?UHc/aoEXUrxmCkxwDX5RZpDI33yNDnaivvI4HMtX2jl718VzRhj1NOmWriFg?=
- =?us-ascii?Q?Z+9lOmfe9V/PX1ab+VnVo3WIPQNcovhJcE89z/Sb9gJ/l4w4lAURi3PM5wD9?=
- =?us-ascii?Q?S9gmVxOnD+huCOM9YvJU56XOPKtD5+1oNlVcJVg0CRIDBPBy9D7zAh2+3FJZ?=
- =?us-ascii?Q?faKz9Pyz0tdnGp8Uic7TMZGQidrWtEMIYjO7fTtbulerS7tKeMBFYPiFGOM6?=
- =?us-ascii?Q?eCOhdA7S3Q6bYYR8D8zdcCglX+L3KmjDHk4BZKv2poVUoVWJ3Krng8aLFxVH?=
- =?us-ascii?Q?gACYzhoq0bPl4d+hTjnSAc3+wdhHCBakdt/NTlWZrqdcZ2ALA1KNfITXxr/Y?=
- =?us-ascii?Q?ZZjaR/6yOelAsncHzTcgx49TlXc5ARFGT+r69XeSXwe+0DveKVitQJfkb/Os?=
- =?us-ascii?Q?nWENhc2pcEAJ58vF7PoKMS47R+n/bxHy+9cpgpKuGKixpDsNxL/HIBFhr2vN?=
- =?us-ascii?Q?9j/SGJZgO6m+kYa+QzY8qKzclJLW19H4eKYOTnPb/48JpS1nJVVOkjF7uXpw?=
- =?us-ascii?Q?5CAiYqXCJVsDqj+BFLU9lrDmN5yA7GwhMwV6pnoD6zQgAfzaMwRHiSYzBlqp?=
- =?us-ascii?Q?rL38bZ5ke/P8T0WBUAbe6yiVuXH4GnzwYGqd/fJGrogHH+fnBHuLvxUcROnI?=
- =?us-ascii?Q?SFg/iSTWclodq1qQFQJv1oWfLHKlcBDMEIAF5EJlJyM/7gjJLv1N9l4pVs7o?=
- =?us-ascii?Q?eG4kRpaTZl+k3drssPZ1trYTNsCokm3T+EmlvEUJ0JSdZ7LcPiaqRmQVy7JS?=
- =?us-ascii?Q?079qkRAMm6YTTh5UqVAznKh6y9WlDC4OPPaEKV0PuXi/o3kH+e56FRTDxpOF?=
- =?us-ascii?Q?W6z6Y3SmG2ZEx8HOE/hjAJldWYhFlXXjweLE7zSoRQGyz+/2C00EvtHd5Z2/?=
- =?us-ascii?Q?P5sm9PLw9aVrYz4hIXEVQbEfW5ubk8P0lGAWYA71KFjY0HWkkUcE82C02ZBP?=
- =?us-ascii?Q?LvJLEzcYzfdBf86TDn7TSP4Iy7UdI4co0tSxmLcxBqd7B/a9J3f+qzfwdfFR?=
- =?us-ascii?Q?9da3zGRktHbShpIL03xxn+5Ie6w2m1+8CxrgwqltMtOlmC8mkyraELtANjU8?=
- =?us-ascii?Q?BFZCt9sT2EkShB0ZDVqdiX8HbdAFcTXtF7Hkph4hkfMmWnmbNrvCjOr2On+4?=
- =?us-ascii?Q?v5FqINWq4bgd5BobcdGgw88mWuFeWVEapL41VO/r/8srgNJQJIQFBGoDPhFw?=
- =?us-ascii?Q?jp/8/D8Kwq8WF5Ugs5Z5F6oR70aBKWdXeGqzyPbhFK3ECrFcceYNob8oBuuY?=
- =?us-ascii?Q?32rvUyNwiqbyco0gakm6vFxNlUB07MJB7MChntq2OwGivd6TseDWFGCrUY/R?=
- =?us-ascii?Q?4WSykx4ANOXa+iqgmaBydz5lqyOJrqkyYXrisiUB+nfl+JOT5QrZ0Q=3D=3D?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-feddd.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1ae0c4e-dede-4a14-b197-08ded2a8f402
-X-MS-Exchange-CrossTenant-AuthSource: SY1PR01MB10596.ausprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 11:00:22.5044 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ME5PR01MB10091
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 26 Jun 2026 07:53:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,67 +94,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-HSA userptr buffer objects are used by KFD compute queues. On systems
-where the GPU cannot reliably tolerate a CPU THP remap of an active
-userptr range, allowing khugepaged or MADV_COLLAPSE to replace PTE
-mappings with a PMD mapping can leave later GPU work failing
-asynchronously.
+From: Pedro Yudi Honda <niyudi.honda@usp.br>
 
-Register HSA userptr interval notifiers with
-MMU_INTERVAL_NOTIFIER_BLOCK_THP. GFX userptrs keep the existing
-notifier path and do not opt in.
+In riscv.rs, replave the following `transmute` traits with their
+`zerocopy` equivalents:
 
-Assisted-by: OpenAI-Codex:GPT-5.5
-Signed-off-by: Yitao Jiang <jytscientist@hotmail.com>
+- `transmute::FromBytes` -> `zerocopy::FromBytes`
+
+Update call sites accordingly.
+
+Signed-off-by: Pedro Yudi Honda <niyudi.honda@usp.br>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c | 25 +++++++++++++++++--------
- 1 file changed, 17 insertions(+), 8 deletions(-)
+ drivers/gpu/nova-core/firmware/riscv.rs | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-index 99bc9ad67..c0b36164c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-@@ -44,6 +44,7 @@
-  */
+diff --git a/drivers/gpu/nova-core/firmware/riscv.rs b/drivers/gpu/nova-core/firmware/riscv.rs
+index 2afa7f36404e..ba56bc7d4188 100644
+--- a/drivers/gpu/nova-core/firmware/riscv.rs
++++ b/drivers/gpu/nova-core/firmware/riscv.rs
+@@ -7,8 +7,7 @@
+     device,
+     dma::Coherent,
+     firmware::Firmware,
+-    prelude::*,
+-    transmute::FromBytes, //
++    prelude::*, //
+ };
  
- #include <linux/firmware.h>
-+#include <linux/mm.h>
- #include <linux/module.h>
- #include <drm/drm.h>
+ use crate::{
+@@ -18,7 +17,7 @@
  
-@@ -130,16 +131,24 @@ static const struct mmu_interval_notifier_ops amdgpu_hmm_hsa_ops = {
-  */
- int amdgpu_hmm_register(struct amdgpu_bo *bo, unsigned long addr)
- {
-+	struct mm_struct *mm = current->mm;
-+	unsigned long size = amdgpu_bo_size(bo);
- 	int r;
+ /// Descriptor for microcode running on a RISC-V core.
+ #[repr(C)]
+-#[derive(Debug)]
++#[derive(Debug, FromBytes)]
+ struct RmRiscvUCodeDesc {
+     version: u32,
+     bootloader_offset: u32,
+@@ -36,9 +35,6 @@ struct RmRiscvUCodeDesc {
+     monitor_code_size: u32,
+ }
  
--	if (bo->kfd_bo)
--		r = mmu_interval_notifier_insert(&bo->notifier, current->mm,
--						    addr, amdgpu_bo_size(bo),
--						    &amdgpu_hmm_hsa_ops);
--	else
--		r = mmu_interval_notifier_insert(&bo->notifier, current->mm, addr,
--							amdgpu_bo_size(bo),
--							&amdgpu_hmm_gfx_ops);
-+	if (unlikely(!mm))
-+		return -ESRCH;
-+
-+	if (bo->kfd_bo) {
-+		mmap_write_lock(mm);
-+		r = mmu_interval_notifier_insert_locked_flags(&bo->notifier, mm,
-+							      addr, size,
-+							      &amdgpu_hmm_hsa_ops,
-+							      MMU_INTERVAL_NOTIFIER_BLOCK_THP);
-+		mmap_write_unlock(mm);
-+	} else {
-+		r = mmu_interval_notifier_insert(&bo->notifier, mm, addr, size,
-+						 &amdgpu_hmm_gfx_ops);
-+	}
- 	if (r)
- 		/*
- 		 * Make sure amdgpu_hmm_unregister() doesn't call
+-// SAFETY: all bit patterns are valid for this type, and it doesn't use interior mutability.
+-unsafe impl FromBytes for RmRiscvUCodeDesc {}
+-
+ impl RmRiscvUCodeDesc {
+     /// Interprets the header of `bin_fw` as a [`RmRiscvUCodeDesc`] and returns it.
+     ///
+@@ -50,7 +46,7 @@ fn new(bin_fw: &BinFirmware<'_>) -> Result<Self> {
+         bin_fw
+             .fw
+             .get(offset..end)
+-            .and_then(Self::from_bytes_copy)
++            .and_then(|b| Self::read_from_bytes(b).ok())
+             .ok_or(EINVAL)
+     }
+ }
 -- 
-2.53.0
+2.34.1
 
