@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19B26CDE009
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E35CFCDB47F
 	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:38:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1F2810F15E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFDD410F176;
 	Thu, 25 Jun 2026 07:38:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="aU15TexJ";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="DJq/0CDx";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 642F810E1B3
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 07:38:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6B2510E1B5
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 07:38:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782373117;
- bh=anelvkvqfcM2c2ZO0iew0M61FG/Ia4OacsGdi8AnIKw=;
+ s=mail; t=1782373121;
+ bh=xUIEeACT8SHcBSZwUV1pIhB5/VP0RIJDJOzlFXWF1sU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=aU15TexJFGWzfumLAZurIt6mhg1UmtX7R2IKBRT7WQFuf5nzpLZCUnGofB0s9X6pO
- nJMoSR8csRpkYQj0XvjwEmK/iGrAaLOUpweHJgef+F1xUMadBo2cmckz2AR471vNQi
- BYbWy9Rd6tS3eBx8Ob1j2t1nzvEFtqkUrUKw2mvSJlsVk8PwaF6lq/Nat9TSyACj2V
- 1TzrNvdr7fZjPdYjmomTOkm+jFHiSYWF/BXTWrzR5O2s2aXFALT5rQkvIFBbpErazp
- 199ZsnA0NqfRK7q3yltUGeYtS+6EfbElFjpEuUlcMUIgjrsT7fhb9VPLVoLhbFVVK9
- dt6aQPLlOHLyg==
+ b=DJq/0CDxhEsQgYcthbfFOADMcXT8XDsdDBb5yqHEmdbZQ7s6JTHGaFRMr0pj9cKe5
+ mPmTvInxC4n8UtXr0XGzSivGKYMAVqa7tFgwHRK1gGUY8pbhYmOykZDrgdWXTSA8f6
+ 04ZX+4zunWQ34nhRFagAiCrxapLrJHMEEzJJ4gF3PE3MHKXEAQvVJQB6RaoeCQwxtm
+ 6srwsuXR5w3Tl8Rc2hek9fhJxDgL9Tr3c0BC+xDJJ1MI6ExRZ3YTTQ1hAeuoP7TYbj
+ JaqW14ASIooMSODk7FBphbAEP4xQDMQl9bY1LQD+2oKpHp1qdtFqJhqsfqYQvtLQAl
+ S+yoXpicA3iAQ==
 Received: from fedora-2.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B610D17E1164;
- Thu, 25 Jun 2026 09:38:36 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 1089417E1553;
+ Thu, 25 Jun 2026 09:38:41 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Thu, 25 Jun 2026 09:38:17 +0200
-Subject: [PATCH v4 07/14] drm/panthor: Move the register accessors before
- the IRQ helpers
+Date: Thu, 25 Jun 2026 09:38:23 +0200
+Subject: [PATCH v4 13/14] drm/panthor: Don't defer FW event processing
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-panthor-signal-from-irq-v4-7-3d2908912afa@collabora.com>
+Message-Id: <20260625-panthor-signal-from-irq-v4-13-3d2908912afa@collabora.com>
 References: <20260625-panthor-signal-from-irq-v4-0-3d2908912afa@collabora.com>
 In-Reply-To: <20260625-panthor-signal-from-irq-v4-0-3d2908912afa@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
@@ -50,11 +49,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782373111; l=5742;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782373111; l=3475;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=anelvkvqfcM2c2ZO0iew0M61FG/Ia4OacsGdi8AnIKw=;
- b=NAgmOpDp//aZRTSLQ7WDYaDZNruP/zTv1TuqXlZkN7aR4ejuiwi+Avf/LbF2rXe1Xpg0FsuAN
- lL2tzIg2qF4A/GSJHzBpC/1YjVkvOM5FP6bxig1L9gIDGYDv7uFnf5H
+ bh=xUIEeACT8SHcBSZwUV1pIhB5/VP0RIJDJOzlFXWF1sU=;
+ b=XBTPQ7Axa3axEO9hqX7WwPLSx9VJm9rkYqNExVmNBemrYOOWY+F1UxdHOHm/ycXbDm3l4E+Cc
+ Y96zUzjyuhpCCUwlpBz4NbHHVweT/kZ7Qv9TkUW70RcpIxZU2CdbAtU
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,177 +71,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We're about to add an IRQ inline helper using gpu_read(). Move things
-around to avoid forward declarations.
+Avoid a workqueue roundtrip and process things immediately from
+panthor_sched_report_fw_events().
 
-No functional changes.
-
-Reviewed-by: Steven Price <steven.price@arm.com>
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_device.h | 142 +++++++++++++++----------------
- 1 file changed, 71 insertions(+), 71 deletions(-)
+ drivers/gpu/drm/panthor/panthor_sched.c | 48 +++++++--------------------------
+ 1 file changed, 9 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-index c8b453a4e44a..fca5b5e60f6f 100644
---- a/drivers/gpu/drm/panthor/panthor_device.h
-+++ b/drivers/gpu/drm/panthor/panthor_device.h
-@@ -495,6 +495,77 @@ panthor_exception_is_fault(u32 exception_code)
- const char *panthor_exception_name(struct panthor_device *ptdev,
- 				   u32 exception_code);
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index ea5725a3ba61..8533b0f6f87d 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -177,23 +177,6 @@ struct panthor_scheduler {
+ 	 */
+ 	struct work_struct sync_upd_work;
  
-+static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
-+{
-+	writel(data, iomem + reg);
-+}
-+
-+static inline u32 gpu_read(void __iomem *iomem, u32 reg)
-+{
-+	return readl(iomem + reg);
-+}
-+
-+static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
-+{
-+	return readl_relaxed(iomem + reg);
-+}
-+
-+static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
-+{
-+	gpu_write(iomem, reg, lower_32_bits(data));
-+	gpu_write(iomem, reg + 4, upper_32_bits(data));
-+}
-+
-+static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
-+{
-+	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
-+}
-+
-+static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
-+{
-+	return (gpu_read_relaxed(iomem, reg) |
-+		((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
-+}
-+
-+static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
-+{
-+	u32 lo, hi1, hi2;
-+	do {
-+		hi1 = gpu_read(iomem, reg + 4);
-+		lo = gpu_read(iomem, reg);
-+		hi2 = gpu_read(iomem, reg + 4);
-+	} while (hi1 != hi2);
-+	return lo | ((u64)hi2 << 32);
-+}
-+
-+#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
-+	read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, false,	\
-+			  iomem, reg)
-+
-+#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
-+				     timeout_us)				\
-+	read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_us,	\
-+				 false, iomem, reg)
-+
-+#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
-+	read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, false,	\
-+			  iomem, reg)
-+
-+#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
-+				       timeout_us)				\
-+	read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout_us,	\
-+				 false, iomem, reg)
-+
-+#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, delay_us,	\
-+					     timeout_us)			\
-+	read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,		\
-+				 timeout_us, false, iomem, reg)
-+
-+#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,	\
-+					timeout_us)				\
-+	read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeout_us,	\
-+			  false, iomem, reg)
-+
- #define INT_RAWSTAT 0x0
- #define INT_CLEAR   0x4
- #define INT_MASK    0x8
-@@ -629,75 +700,4 @@ static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq
+-	/**
+-	 * @fw_events_work: Work used to process FW events outside the interrupt path.
+-	 *
+-	 * Even if the interrupt is threaded, we need any event processing
+-	 * that require taking the panthor_scheduler::lock to be processed
+-	 * outside the interrupt path so we don't block the tick logic when
+-	 * it calls panthor_fw_{csg,wait}_wait_acks(). Since most of the
+-	 * event processing requires taking this lock, we just delegate all
+-	 * FW event processing to the scheduler workqueue.
+-	 */
+-	struct work_struct fw_events_work;
+-
+-	/**
+-	 * @fw_events: Bitmask encoding pending FW events.
+-	 */
+-	atomic_t fw_events;
+-
+ 	/**
+ 	 * @resched_target: When the next tick should occur.
+ 	 *
+@@ -1972,14 +1955,17 @@ static void sched_process_global_irq_locked(struct panthor_device *ptdev)
+ 		sched_process_idle_event_locked(ptdev);
+ }
  
- extern struct workqueue_struct *panthor_cleanup_wq;
+-static void process_fw_events_work(struct work_struct *work)
++/**
++ * panthor_sched_report_fw_events() - Report FW events to the scheduler.
++ * @ptdev: Device.
++ * @events: Bitmask of pending FW events to report.
++ */
++void panthor_sched_report_fw_events(struct panthor_device *ptdev, u32 events)
+ {
+-	struct panthor_scheduler *sched = container_of(work, struct panthor_scheduler,
+-						      fw_events_work);
+-	u32 events = atomic_xchg(&sched->fw_events, 0);
+-	struct panthor_device *ptdev = sched->ptdev;
++	if (!ptdev->scheduler)
++		return;
  
--static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
+-	guard(spinlock)(&sched->events_lock);
++	guard(spinlock)(&ptdev->scheduler->events_lock);
+ 
+ 	if (events & JOB_INT_GLOBAL_IF) {
+ 		sched_process_global_irq_locked(ptdev);
+@@ -1994,20 +1980,6 @@ static void process_fw_events_work(struct work_struct *work)
+ 	}
+ }
+ 
+-/**
+- * panthor_sched_report_fw_events() - Report FW events to the scheduler.
+- * @ptdev: Device.
+- * @events: Bitmask of pending FW events to report.
+- */
+-void panthor_sched_report_fw_events(struct panthor_device *ptdev, u32 events)
 -{
--	writel(data, iomem + reg);
+-	if (!ptdev->scheduler)
+-		return;
+-
+-	atomic_or(events, &ptdev->scheduler->fw_events);
+-	sched_queue_work(ptdev->scheduler, fw_events);
 -}
 -
--static inline u32 gpu_read(void __iomem *iomem, u32 reg)
--{
--	return readl(iomem + reg);
--}
--
--static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
--{
--	return readl_relaxed(iomem + reg);
--}
--
--static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
--{
--	gpu_write(iomem, reg, lower_32_bits(data));
--	gpu_write(iomem, reg + 4, upper_32_bits(data));
--}
--
--static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
--{
--	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
--}
--
--static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
--{
--	return (gpu_read_relaxed(iomem, reg) |
--		((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
--}
--
--static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
--{
--	u32 lo, hi1, hi2;
--	do {
--		hi1 = gpu_read(iomem, reg + 4);
--		lo = gpu_read(iomem, reg);
--		hi2 = gpu_read(iomem, reg + 4);
--	} while (hi1 != hi2);
--	return lo | ((u64)hi2 << 32);
--}
--
--#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
--	read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, false,	\
--			  iomem, reg)
--
--#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
--				     timeout_us)				\
--	read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_us,	\
--				 false, iomem, reg)
--
--#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
--	read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, false,	\
--			  iomem, reg)
--
--#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
--				       timeout_us)				\
--	read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout_us,	\
--				 false, iomem, reg)
--
--#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, delay_us,	\
--					     timeout_us)			\
--	read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,		\
--				 timeout_us, false, iomem, reg)
--
--#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,	\
--					timeout_us)				\
--	read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeout_us,	\
--			  false, iomem, reg)
--
- #endif
+ static const char *fence_get_driver_name(struct dma_fence *fence)
+ {
+ 	return "panthor";
+@@ -4078,7 +4050,6 @@ void panthor_sched_unplug(struct panthor_device *ptdev)
+ 	struct panthor_scheduler *sched = ptdev->scheduler;
+ 
+ 	disable_delayed_work_sync(&sched->tick_work);
+-	disable_work_sync(&sched->fw_events_work);
+ 	disable_work_sync(&sched->sync_upd_work);
+ 
+ 	mutex_lock(&sched->lock);
+@@ -4163,7 +4134,6 @@ int panthor_sched_init(struct panthor_device *ptdev)
+ 	sched->tick_period = msecs_to_jiffies(10);
+ 	INIT_DELAYED_WORK(&sched->tick_work, tick_work);
+ 	INIT_WORK(&sched->sync_upd_work, sync_upd_work);
+-	INIT_WORK(&sched->fw_events_work, process_fw_events_work);
+ 
+ 	spin_lock_init(&sched->events_lock);
+ 
 
 -- 
 2.54.0
