@@ -4,43 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35E2ECDE008
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 11:26:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4A19CDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 11:32:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CE0310E20D;
-	Thu, 25 Jun 2026 11:26:22 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nSlebkbi";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2075B10E20D
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 11:26:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6E3E5600FC;
- Thu, 25 Jun 2026 11:26:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DA321F00A3E;
- Thu, 25 Jun 2026 11:26:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782386781;
- bh=loIiHtrFunkmDyzLyxoCZ2phvbI1tmgeJoZzVFFSmCU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nSlebkbiraj04zFB8JujNK2/m+cZrsPeaHjxDdlpszAPZSg3Dyla7wXBtMJ+53e/f
- FjZOOJpCO48GwsrbLujfIrXfSJZKK28o3rN3E7fvCUZ3TZ9FD3wThrQbResce4inhp
- 0wO8HrDkHEBtqTxnzTXMT08KcPb3HjIgz6OAnxTKJPV4cob5xRrqnOVxwInHvW+Uh2
- emj5pUA8xyVRACRY504yOB2i/fav4OWiLqrTbljJANeJS1YTaGdOHAajvJ/WRD3YC3
- svuZxmXhhPxNPQKKT0oHxgjoSt+8/inlTVC4iFSg99p1vFjuhEMUAdzvI4XJcA0OXx
- W0LtBSxRMTYYg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] drm/amdgpu: block THP for HSA userptr notifiers
-To: "Yitao Jiang" <jytscientist@hotmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <SY1PR01MB1059636EEFF3E5C5156F899B8C0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
-References: <SY1PR01MB10596EB75463208A8E1EBBA0FC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
- <SY1PR01MB1059636EEFF3E5C5156F899B8C0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 11:26:19 +0000
-Message-Id: <20260625112620.3DA321F00A3E@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D105610E1D6;
+	Thu, 25 Jun 2026 11:32:49 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4152B10E1D6
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 11:32:47 +0000 (UTC)
+Received: from localhost.localdomain (unknown [117.182.75.66])
+ by APP-05 (Coremail) with SMTP id zQCowABXr9LaET1qLRs0FQ--.11371S2;
+ Thu, 25 Jun 2026 19:32:44 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: mamin506@gmail.com,
+	lizhi.hou@amd.com,
+	ogabbay@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
+Subject: [PATCH] accel/amdxdna: Fix use-after-free in amdxdna_gem_dmabuf_mmap()
+Date: Thu, 25 Jun 2026 19:32:39 +0800
+Message-Id: <20260625113239.49764-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowABXr9LaET1qLRs0FQ--.11371S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uryDtw4DXry7tw1xAw43Wrg_yoW8GF1fpF
+ sxur15AFZ8Xw40qFsrZ3WDua4F9F13t3yrJryktw4fur15XF4UtFWfC3saqFs0ka4kCw4a
+ qF47tFW5X3WqyFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+ 6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+ 0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y
+ 0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+ WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
+ IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbSfO7UUUU
+ U==
+X-Originating-IP: [117.182.75.66]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCREJA2o84AnBZQAAsJ
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,81 +59,41 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] Unaligned user_addr from KFD_IOC_ALLOC_MEMORY_OF_GPU causes VM=
-A tree corruption via split_vma()
---
+When vm_insert_pages() fails, the error path calls vma->vm_ops->close(vma)
+which internally calls drm_gem_vm_close() → drm_gem_object_put(), 
+releasing the GEM object reference acquired at the start of the function.
+However, the close_vma label then falls through to put_obj, which calls
+drm_gem_object_put() a second time on the same object.
 
-commit 84a588c64a29eedb721607110e005505178f21fc
-Author: Yitao Jiang <jytscientist@hotmail.com>
+If the first put releases the last reference, the object is freed and the
+second put accesses freed memory, causing a use-after-free.
 
-drm/amdgpu: block THP for HSA userptr notifiers
+Fix by returning directly from close_vma instead of falling through to
+put_obj, since the close handler already performs all necessary cleanup
+including the object put.
 
-This commit modifies the registration of HSA userptr interval notifiers
-to use the MMU_INTERVAL_NOTIFIER_BLOCK_THP flag. This prevents CPU THP
-remaps of active userptr ranges from causing asynchronous GPU work failures.
-GFX userptrs continue to use the existing notifier path.
+Cc: stable@vger.kernel.org
+Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/accel/amdxdna/amdxdna_gem.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_hmm.c
-> index 99bc9ad67d5b8..c0b36164c35e2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_hmm.c
-[ ... ]
-> @@ -130,16 +131,24 @@ static const struct mmu_interval_notifier_ops amdgp=
-u_hmm_hsa_ops =3D {
->   */
->  int amdgpu_hmm_register(struct amdgpu_bo *bo, unsigned long addr)
->  {
-[ ... ]
-> +	if (bo->kfd_bo) {
-> +		mmap_write_lock(mm);
-> +		r =3D mmu_interval_notifier_insert_locked_flags(&bo->notifier, mm,
-> +							      addr, size,
-> +							      &amdgpu_hmm_hsa_ops,
-> +							      MMU_INTERVAL_NOTIFIER_BLOCK_THP);
-[Severity: Critical]
-Can addr be unaligned when passed to this function?
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index 6e367ddb9e1b..fec9763c518c 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -469,6 +469,7 @@ static int amdxdna_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struc
+ 
+ close_vma:
+ 	vma->vm_ops->close(vma);
++	return ret;
+ put_obj:
+ 	drm_gem_object_put(gobj);
+ 	return ret;
+-- 
+2.39.5 (Apple Git-154)
 
-A user space process can call the KFD_IOC_ALLOC_MEMORY_OF_GPU ioctl with the
-KFD_IOC_ALLOC_MEM_FLAGS_USERPTR flag and provide an unaligned virtual addre=
-ss
-in args->mmap_offset. The ioctl handler in kfd_ioctl_alloc_memory_of_gpu()
-(in drivers/gpu/drm/amd/amdkfd/kfd_chardev.c) does not enforce page alignme=
-nt
-on this offset:
-
-drivers/gpu/drm/amd/amdkfd/kfd_chardev.c:kfd_ioctl_alloc_memory_of_gpu() {
-    ...
-    err =3D amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
-        dev->adev, args->va_addr, args->size,
-        pdd->drm_priv, (struct kgd_mem **) &mem, &offset,
-        flags, false);
-    ...
-}
-
-The unaligned offset propagates through init_user_pages() unmodified as
-user_addr, which is eventually passed here as addr to amdgpu_hmm_register().
-
-With the MMU_INTERVAL_NOTIFIER_BLOCK_THP flag added by this patch, the core
-MM calls mmu_interval_notifier_block_thp_locked(), which uses this addr as
-the start address. It iteratively passes this address to vma_modify_flags()
-and subsequently split_vma().
-
-Since VMA boundaries must be strictly page-aligned, split_vma() will corrupt
-the VMA tree and break invariants by applying the unaligned address to the =
-new
-VMA bounds. This can lead to kernel panics or a local denial-of-service.
-
-Should addr and size be aligned before calling
-mmu_interval_notifier_insert_locked_flags(), or should the ioctl enforce
-page alignment on user pointers?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/SY1PR01MB10596EB754=
-63208A8E1EBBA0FC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com?part=3D2
