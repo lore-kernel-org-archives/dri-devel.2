@@ -4,49 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3F8DCDE001
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 11:45:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D33A5CDE008
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 11:47:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B0B810E1DC;
-	Thu, 25 Jun 2026 11:45:55 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D4A810E1DC
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 11:45:53 +0000 (UTC)
-Received: from localhost.localdomain (unknown [117.182.75.66])
- by APP-05 (Coremail) with SMTP id zQCowAAnoPPtFD1qrYw0FQ--.21749S2;
- Thu, 25 Jun 2026 19:45:50 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: robh@kernel.org,
-	tomeu@tomeuvizoso.net,
-	ogabbay@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: [PATCH] accel/ethosu: Fix use-after-free and memory leak in
- ioctl_submit_job
-Date: Thu, 25 Jun 2026 19:45:47 +0800
-Message-Id: <20260625114547.50649-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AFC310E1FB;
+	Thu, 25 Jun 2026 11:47:36 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G5Vm4Dz0";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6BE910E1F4;
+ Thu, 25 Jun 2026 11:47:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id EE1106021E;
+ Thu, 25 Jun 2026 11:47:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44B4F1F00A3A;
+ Thu, 25 Jun 2026 11:47:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782388053;
+ bh=Lp9WB6zXi8E2sTZp694xYWZZj+zJNQ67XHQgfj0Z/o8=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=G5Vm4Dz00Z/WLyF8vee9vI6yArVVZqfevw4mjzc3wX4tYDj+DouC6+0eeQLgfB03H
+ x2jAUEEpx/TBBsYrCT376J3HvRA1EzqIWgal0oyWDYQ6DD3pmUV+VlpkMm/DR8HeqO
+ 7O7OdjZ6cKAEES2+cqf1mfUzHFYwePzNC+2GqSiA68T9O6m1JwsKrqaLwfUZ/AbH5I
+ o62zOrANcxlik21ipb5n71ccrMDxphD0BksXrXd4lk7BtftRXoLCuZkKl/n8I3hJz0
+ UR0RrkVhQyAlcMPjuoAhH3ejl1q/Saw984qzf2c45g9y2Bb2JokMEchZI7FS7dYewe
+ zyN/Lek5/TJGw==
+Message-ID: <d462612c-508c-4682-a776-92f4f4a40e28@kernel.org>
+Date: Thu, 25 Jun 2026 13:47:25 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowAAnoPPtFD1qrYw0FQ--.21749S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw1fZw43AF4xXw17KryUWrg_yoW8ZF43pa
- 1rW3yjgrZ8Xa10gayDAw4jgF15Ka12gryIkr4kuw4avFn5Xr12qa1rCr92qFy8ZrZ7t3Wx
- XFW2kw1rWa4rAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
- 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
- jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
- 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
- 6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
- 0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y
- 0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
- W8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
- IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU18sqtUUUU
- U==
-X-Originating-IP: [117.182.75.66]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgoJA2o835HLRQAAsQ
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] mm/mmu_notifier, drm/amdgpu: block THP for GPU user
+ mappings
+To: Yitao Jiang <jytscientist@hotmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jann Horn <jannh@google.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org
+References: <SY1PR01MB10596EB75463208A8E1EBBA0FC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <SY1PR01MB10596EB75463208A8E1EBBA0FC0EC2@SY1PR01MB10596.ausprd01.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,55 +116,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Two bugs exist in ethosu_ioctl_submit_job():
+On 6/25/26 12:59, Yitao Jiang wrote:
+> Hi,
+> 
+> This series fixes a THP policy problem I found while debugging
+> frequent ROCm GPU failures on an AMD Radeon 780M system during ML
+> training.
+> 
+> Some AMDGPU/KFD user mappings are registered through interval
+> notifiers and cannot safely tolerate the backing VMA changing from base
+> pages to a transparent huge page after registration. Userspace can
+> still apply MADV_HUGEPAGE or MADV_COLLAPSE, and khugepaged can also
+> collapse the range, after the GPU mapping has been registered.
 
-1. Use-after-free via NULL pointer dereference: When done_fence
-   allocation fails, the error path jumps to out_cleanup_job which calls
-   drm_sched_job_cleanup() on an uninitialized struct, dereferencing the
-   NULL s_fence pointer.
+Huh, why? As a memory notifier user, you must be prepared from memory to get
+unmapped+remapped at random points in time.
 
-2. Memory leak of done_fence: The done_fence struct is allocated
-   separately with kzalloc() but is never freed on any error path that
-   occurs after successful allocation (including drm_sched_job_init
-   failure, BO lookup failures, etc.). It cannot be freed via
-   dma_fence_put() because dma_fence_init() is not called until
-   ethosu_job_run().
+What is the precise problem here? How are you handling THPs at registration time?
 
-Fix by:
-- Changing the done_fence allocation failure goto target from
-  out_cleanup_job to out_put_job, which skips the uninitialized
-  drm_sched_job_cleanup() call.
-- Adding kfree(job->done_fence) in ethosu_job_err_cleanup() to ensure
-  the separately allocated fence struct is released on all error paths.
+Letting arbitrary drivers make THP policies sounds like the very wrong approach.
 
-Cc: stable@vger.kernel.org
-Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/accel/ethosu/ethosu_job.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
-index ec85f4156744..9a8164a54454 100644
---- a/drivers/accel/ethosu/ethosu_job.c
-+++ b/drivers/accel/ethosu/ethosu_job.c
-@@ -150,6 +150,7 @@ static void ethosu_job_err_cleanup(struct ethosu_job *job)
- 	for (i = 0; i < job->region_cnt; i++)
- 		drm_gem_object_put(job->region_bo[i]);
- 
-+	kfree(job->done_fence);
- 	drm_gem_object_put(job->cmd_bo);
- 
- 	kfree(job);
-@@ -393,7 +394,7 @@ static int ethosu_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
- 	ejob->done_fence = kzalloc_obj(*ejob->done_fence);
- 	if (!ejob->done_fence) {
- 		ret = -ENOMEM;
--		goto out_cleanup_job;
-+		goto out_put_job;
- 	}
- 
- 	ret = drm_sched_job_init(&ejob->base,
 -- 
-2.39.5 (Apple Git-154)
+Cheers,
 
+David
