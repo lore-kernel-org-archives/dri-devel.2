@@ -4,98 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E859BCD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:53:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28F3ACDE012
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:53:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5B6B10F47A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB10510F47C;
 	Fri, 26 Jun 2026 07:53:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RCC2guPd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fp3uUYNl";
 	dkim-atps=neutral
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
- [209.85.128.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABDA210E1CE
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 09:07:07 +0000 (UTC)
-Received: by mail-yw1-f179.google.com with SMTP id
- 00721157ae682-80af3058e29so810417b3.0
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 02:07:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782378426; cv=none;
- d=google.com; s=arc-20260327;
- b=OPRiaDVOXnuAFF/NasgxxWQm6STrO5ctrvzI/2omsFYvg+nzxhhPS21OVCKSmTJT0z
- qcMBufKdqgIoWxd6KXrlDbOKJXch4aG7aroPYgdgLunHC1H1E84A3whX/umOhilS7ruX
- vlp5+QTFtJfTsMeebDGNNvcuUpyRjxlbzbu8MgXURLuv/1tioazNwbno/Iu22qtLxDSf
- 2G8z7Mvz48RLYHW0RTfkeMoLNlemQpRlMzDarGmnB8g2vpmpnj0HEAPhWnIct1//CP/W
- yTr2VZ7Vv8k6So8uCOfXHrJ0m9LT6xP0kokLf84KP+jt1Y7zbPQApiz/ko5bHDpXddZ9
- cCcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:references:in-reply-to:dkim-signature;
- bh=1lF2p0zapEf+xhq/90YUTa1Z2VnVgWZbekIEo47QZ4A=;
- fh=DLNDq0yTJpxjaslDZFTtdcGdaInAIm4Ff93/8juLzbU=;
- b=P7PjV4no9BZJoWuI9kZm+X3QR5Tz2dM63TW0chLW3+oU1XONY0Q/eRPSiU1czuQQf6
- WCh9J3mRu0n4TOHO3GQcFDq86/M3/aJtdw00X1rx2uV5LGRjlFjIGV/2LtrE7JOZbU5m
- lUO6PeJKsMW8oYPutq32s2EM+5LBSM/+QQBhuMdErJ481dagX2XoRiTC/xAOkOQEGFNF
- kgrg7Z28qsOUK87VfGuWL/GWQKHslv1Ytof8mjO1pn3xgrefOy1tIHuKFtN0tHzMHEkN
- 9803l02ZbxprzZ1wJ/jGuoPp4a7lcE1JbVhVrWmD3qcRm8b8Mbays5xjAZhS3gXEAjIq
- gP2g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95FE710E1C9
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 08:57:49 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-491609cdd8fso12421775e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 01:57:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782378426; x=1782983226; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:references:in-reply-to:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1lF2p0zapEf+xhq/90YUTa1Z2VnVgWZbekIEo47QZ4A=;
- b=RCC2guPdJ+UWt8NUcwdYaIbBdmV86R/G2bx6yD2UiunTWMNt7J25mZnpnNMWftON+K
- uO3rPO1T4Pe/wGDxhYHr29tTjYizC4ZEovjFgRvs3X8Kf9uuRb8OFwQsLHFi2/GmkHbE
- G5FkCrdjL+yPpSHKII6LdTTr7jIFSRp7Gi6momLbUD5EdYCQpJ/4H/RD5co1b+4aZa3Z
- HYwF+Y9JytdQ1Ud1GQALqdxGNCmPXtGkdNKXAQZZSijJaFEg5lXEOw3tg5+TCYC3j7KW
- hAtkjcOwnK6cV0BExQ8cWl2QzcSwifXN1g8XOgSzSsdvMWKZW5su9pwjXb3hyPqPFSJ8
- jJXw==
+ d=gmail.com; s=20251104; t=1782377868; x=1782982668; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=I7mK938UvamZb4f9XlJ0eXBktak5gapPH+AoT8mY1/M=;
+ b=fp3uUYNljsXhKF4yMQgfJpFiU0OanwNUMGNt+FtDf/QJ4P6JdWlDoRZJIBN77j3Fm4
+ dUxvL+Ya3XPJ4RRhmCuXse09uPrPuzl40GLDESy+du6s/SSGXZIHR5Uzv9909Lx09pob
+ GmR0uBbvnczogc94mm2Jax0JIglvMnT6hvxrEJI8JT8koIEdBWn5YK9BQDSfuvVHkP5U
+ ZJkM9W17jPE29usY9MC3yGtQOXSTBJS02L+dcbFj+wC/BNt+akeapGajkZxtKlWmvxqV
+ jq4ZQn/ZQ4wCM7mHVKxgybQuaHe7G0fpV391sHLHW4BIIHVpbUBNNia5huJii9joGIex
+ oQuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782378426; x=1782983226;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:references:in-reply-to:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=1lF2p0zapEf+xhq/90YUTa1Z2VnVgWZbekIEo47QZ4A=;
- b=UaA41rRlUhncHYpshY7BnQoKEOrwFxPIvX/7NqMFxW+H6fNI0t6HXvqkF76a2L3eJV
- bLvYt9meZXa4zGjsknp8CXUNVl0aLG0SlfFhwW8UZ/lZ0k3tGZuIXfeyH9ECV/z8a1mB
- mKfu7frYmFBQcRHtJmkEngtVi8G7EtINloDxEDCr4nR84bCBewI8ujjNp4K7Ie+FQrZF
- n7EofffhZ1/mkE4Nsw0FRa9WRz63gGrz34Qfi1C1XJnEcIgPK2vGqpDfqIQ3HvvsbOyC
- BHpdZ3O9VYSB8X4s9SS2o89TS0Xu5A1M9s2TW59jOrz+81Sqwz3N4acA+JswBy3PXf8i
- vT4A==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrC03qq/CzUqgDLl2T/48W+IcpynD9B13rv0B9gbhmKpg3jy1zC8H4nzofDi0t97hiR+yXiI9sX5B0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxG1L8qPn5fb4XPi3SoXk2uPlnvW11hnFxkaoETxGecleBX60ln
- 4jbQsLCGqpUc8flgHSOk7+huCUA+HgmoPgxc/P1qD0ah8qfOiHzmG+DdS260j0ylJimDv7jvIM9
- 7dxbI2QJWMd4DxM/eUB2/xOt6I0jP3uw=
-X-Gm-Gg: AfdE7ckH/M2zOp2u0AwLJ2RP8sre9hA4lEYjm6HvpKXvue9vALld8sCQJIoSdLf1Smg
- ZuP9uUIeEdcAo6TRYZNTASxvabrmQt9PBMdGJwKp3NWIHqjhS8nj6NWRo+sOs2RcJE9QqjGEXon
- f3wci28ujDS6yeIFpHAILf2UWa+sMCIIz0pu0BflSJES5PubNA8rnnazxrA5gvckiIWEb9tAfqJ
- HbVXf7id7MvsqY1rLOX3O8diyTm0/5cFFyrzHJuN5TqINpKxtpUrGD87EO9+5lNH3FoB2q0JA==
-X-Received: by 2002:a05:690c:f06:b0:7bd:cf35:e33b with SMTP id
- 00721157ae682-80a680fd6b5mr15809967b3.17.1782378426348; Thu, 25 Jun 2026
- 02:07:06 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Thu, 25 Jun 2026 02:07:05 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Thu, 25 Jun 2026 02:07:05 -0700
-In-Reply-To: <72aa8cb3-2b48-4b08-ab17-788c3dd18fe6@amd.com>
-References: <20260624172029.2508-1-alhouseenyousef@gmail.com>
- <72aa8cb3-2b48-4b08-ab17-788c3dd18fe6@amd.com>
-MIME-Version: 1.0
+ d=1e100.net; s=20251104; t=1782377868; x=1782982668;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=I7mK938UvamZb4f9XlJ0eXBktak5gapPH+AoT8mY1/M=;
+ b=AmPjmdSzxNVsO79IltM7fV3gqsINKsdVmQPZ6JR6o1VrL2k9RzTEplJ2w5mvDLTtIw
+ leJIhpVgj2X7twKN4LWY6vTuK6boyMJfipneXu0DsqSl02WLrz/J0xqkB4K2eTY876In
+ WMJlWZVJvc4hPYH3R4UwKyFOgp8YR3vT8DvAg736u1fr0+wTdizc4i7t2USrraY5VtUR
+ 45juLEIjXQjQMBJqSteCzY+I/BHm80uQtUEPGkgCqSRSVuzOh9XVXYpUl5J9Vy+gNWxq
+ OcsjxsHYOt2WEJUpd5/h861nahwfev+flCBmG6Xug2OH8AIHmNwGFcv99dLUme3s4/tM
+ yzmw==
+X-Gm-Message-State: AOJu0Yyb53PZZHmNvTC5Zb5P7St/HG5F0Mtvrw3QzsvxvBMmjAqEFiu6
+ tKAp0DFoldehErvKB+oxe/f4UbGaTMjA2K2TkEkT846Ix7+TWobAZgp4
+X-Gm-Gg: AfdE7cml1c3S5jzCFJ/GG7UHI+t+rc0j5r8u7ZorzRKmHHvR54pvAM3fD4kuTcI3A+w
+ yMHmSMVqFmcso1/ftxUEY8wvP2nIllrCoCv2PC9H3PNlDS/5qx6btygoGg0cwqOZnWNPpAhBrhf
+ bgkctKkEOPOk22hJR3sKQxdu79F41Clt0Am3GbliZUdvLLHHUGTMat3K9JkpsXRG8q/5ex6KL0d
+ f3R72vf5warYRTPGqSnpZ7+nUx9x3csoOug49ZjEg4kQa7Q4AheOA+677M2AAhmUa/p56WIremt
+ 1v5RyEYnUeld4/wDn15PT1RTY/DX1JKTT2zIyo62OVFWefvPFAFG3eOB0LowRZfoAtkDf5D/8pa
+ HfikLs/07zuptKSpRYQlFEE3r+wJ/WDmpKiVIVFsHDxvk5f22y8VouE+DDdzMeRACZ3k2W5cEyY
+ Vhn23wkZ4IphOaaYcP/tp7u+rfcA==
+X-Received: by 2002:a05:600c:a12:b0:490:e19b:bd99 with SMTP id
+ 5b1f17b1804b1-492668ad891mr20377325e9.30.1782377867583; 
+ Thu, 25 Jun 2026 01:57:47 -0700 (PDT)
+Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4926541e03asm40015555e9.2.2026.06.25.01.57.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jun 2026 01:57:47 -0700 (PDT)
 From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-Date: Thu, 25 Jun 2026 02:07:05 -0700
-X-Gm-Features: AVVi8CediwaEU0lbA3vIZaDjcsLl9lonps5TiuUPNt_1EGi3rRkszgQM2DjFHFE
-Message-ID: <CAMuQ4bXYumKw9jTJ-FpCYfnzipR9jcFVSbp_k=LAbModoinRsQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: reject mapping info for unmapped BOs
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+To: Gerd Hoffmann <kraxel@redhat.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Yousef Alhouseen <alhouseenyousef@gmail.com>
+Subject: [PATCH] dma-buf: udmabuf: make list limit unsigned
+Date: Thu, 25 Jun 2026 10:57:35 +0200
+Message-ID: <20260625085735.4488-1-alhouseenyousef@gmail.com>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 26 Jun 2026 07:53:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,65 +89,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Christian,
+UDMABUF_CREATE_LIST uses list_limit only as an upper bound for the
+unsigned entry count supplied by userspace. Negative values have no
+useful meaning and complicate the bounds check.
 
-You're right. I rechecked the handle-open path and bo_va should
-already be created for this file, so I do not have a valid reproducer
-for the NULL case.
+Make the module parameter unsigned and keep the checked array copy so
+large counts cannot wrap the allocation size before udmabuf_create()
+walks the copied list.
 
-Please drop this patch.
+Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+---
+ drivers/dma-buf/udmabuf.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-Thanks,
-Yousef
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index b4078ec84..620113df3 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -16,8 +16,8 @@
+ #include <linux/vmalloc.h>
+ #include <linux/iosys-map.h>
+ 
+-static int list_limit = 1024;
+-module_param(list_limit, int, 0644);
++static uint list_limit = 1024;
++module_param(list_limit, uint, 0644);
+ MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
+ 
+ static int size_limit_mb = 64;
+@@ -469,12 +469,10 @@ static long udmabuf_ioctl_create_list(struct file *filp, unsigned long arg)
+ 	struct udmabuf_create_list head;
+ 	struct udmabuf_create_item *list;
+ 	int ret = -EINVAL;
+-	int limit;
+ 
+ 	if (copy_from_user(&head, (void __user *)arg, sizeof(head)))
+ 		return -EFAULT;
+-	limit = READ_ONCE(list_limit);
+-	if (!head.count || limit <= 0 || head.count > limit)
++	if (!head.count || head.count > READ_ONCE(list_limit))
+ 		return -EINVAL;
+ 	list = memdup_array_user((void __user *)(arg + sizeof(head)),
+ 				 head.count, sizeof(*list));
+-- 
+2.54.0
 
-On Thu, 25 Jun 2026 10:46:24 +0200, "Christian K=C3=B6nig"
-<christian.koenig@amd.com> wrote:
-> On 6/24/26 19:20, Yousef Alhouseen wrote:
-> > AMDGPU_GEM_OP_GET_MAPPING_INFO looks up the BO's VM mapping and then
-> > iterates the valid and invalid mapping lists unconditionally. A GEM BO =
-can
-> > be queried before it has been mapped into the file VM, in which case
-> > amdgpu_vm_bo_find() returns NULL and the list walk dereferences it.
->
-> Mhm, that is not correct at all.
->
-> The bo_va is created when the handle is opened inside the filp and not wh=
-en the first mapping is created.
->
-> Do you have a test case to reproduce the issue?
->
-> Thanks,
-> Christian.
->
-> >
-> > Return -ENOENT for an unmapped BO, matching the VA operation path that
-> > already rejects missing BO-VA state before touching the mapping lists.
-> >
-> > Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
-> > ---
-> > drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++++
-> > 1 file changed, 6 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_gem.c
-> > index 212c14d99..4b2699931 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> > @@ -1087,6 +1087,12 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, =
-void *data,
-> > struct drm_amdgpu_gem_vm_entry *vm_entries;
-> > struct amdgpu_bo_va_mapping *mapping;
-> > int num_mappings =3D 0;
-> > +
-> > + if (!bo_va) {
-> > + r =3D -ENOENT;
-> > + goto out_exec;
-> > + }
-> > +
-> > /*
-> > * num_entries is set as an input to the size of the user-allocated arra=
-y of
-> > * drm_amdgpu_gem_vm_entry stored at args->value.
-> > --
-> > 2.54.0
-> >
