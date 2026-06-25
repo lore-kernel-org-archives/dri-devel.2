@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBE04CDE000
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 13:51:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BFECCDE001
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 13:51:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2013D10EC2C;
-	Thu, 25 Jun 2026 13:51:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89F2110F2BF;
+	Thu, 25 Jun 2026 13:51:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cz2Gtm/7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mHrA2fO/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D216A10EC2C
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 13:51:08 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 249D710F10A
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 13:51:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9BC5C43BCD;
- Thu, 25 Jun 2026 13:51:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27C611F000E9;
- Thu, 25 Jun 2026 13:51:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7577C60018;
+ Thu, 25 Jun 2026 13:51:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079A41F000E9;
+ Thu, 25 Jun 2026 13:51:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782395468;
- bh=jWToBIL5m9uigLFzc/+YrKGhjYbdNomJ4Aeysudoj8w=;
+ s=k20260515; t=1782395496;
+ bh=k4bAaRswZ5Ym8Ylj56fitM9fcDMFe1118bxAv+PK3Lc=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=cz2Gtm/7Gtfa3gQQG5eAs7V0aCLDlfTgiizaeiV6lc7SNfU1paxAHWsvo0f64KGjB
- a+18yaTOHhe+NWi+dlWVhWM4Zzszu7buMlxKQm13zndbPyr5Td9lSkt6sPTAEDFRHr
- h/fEgFEz4v9bddePfQX6gwcl7HMhgb6GBimITlABB4DtSse9JqmevXDGqijGBG1s4A
- vPb92krGwLzWd7YRIobFHlcPtdY1xLTFp6kJ2tRs4MteKIcAWEVT35YguHafWx8Mxj
- +QcXx6QpyAKPL0S3nJ9gLW0UXnJP07pq6cbu+eCF7zrUzGOnlNFxOjfOEeKkVp+nxD
- mDQt77h4yz+gg==
-Message-ID: <8a14ed89-fe48-4d57-8f46-800d228eb9ed@kernel.org>
-Date: Thu, 25 Jun 2026 15:50:58 +0200
+ b=mHrA2fO/t7PGWTaoLEJ4uIXleWG43weD7A1u0Vl8aH8btH4csZc7NSFYrVybkb1Wp
+ p7KCjfYQ6hQV3AedRWKIQgjut00d19Q/00pp+wNfbhgjb07ilS+eGZaS2aEULedxjn
+ S3gWwnWfgu1oI30hd6+LsECRd6QX3eONV0WR4YxfVtzFRFnptVB2mWhvyH2ranEgx1
+ 3Bt9/zJCJwt/FU1tpA7AkKyQ/zXUV4G/p/AvNGDIqpgAYP4DHe0BsdQ94V1uko2m5s
+ E44ObOMe1N6KzrPxis9rYBpf9ccbNWN/hgV8MY261B0MjnYmTc1sjqFCVmMFMhy9fx
+ ChGegcWjHEwUw==
+Message-ID: <6371d1d8-cdfb-40fa-84c7-ba3ec4e2ac00@kernel.org>
+Date: Thu, 25 Jun 2026 15:51:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
@@ -51,6 +51,7 @@ References: <20260508134009.4582-1-syyang@lontium.com>
  <CAFQXuNbKBfyeQL3N3P5QY=6BWoD3O6DSbXN-WMA1rRG9vCs3Kg@mail.gmail.com>
  <a0352a42-15db-4c7a-ae73-8a4e1543cd50@kernel.org>
  <CAFQXuNZVE6cZJGwrGKGtWnB-seSJLHFh8zW3jjAs6U4JLZFWng@mail.gmail.com>
+ <CAFQXuNa8bJCpZBkMs_3mtbK_pjVzDdaDaoGk0KDxiG_Pf7txdg@mail.gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -96,7 +97,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <CAFQXuNZVE6cZJGwrGKGtWnB-seSJLHFh8zW3jjAs6U4JLZFWng@mail.gmail.com>
+In-Reply-To: <CAFQXuNa8bJCpZBkMs_3mtbK_pjVzDdaDaoGk0KDxiG_Pf7txdg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -114,56 +115,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 25/06/2026 15:26, Sunyun Yang wrote:
-> Krzysztof Kozlowski <krzk@kernel.org> 于2026年6月25日周四 21:17写道：
+On 25/06/2026 15:40, Sunyun Yang wrote:
+> Sunyun Yang <syyang@lontium.com> 于2026年6月25日周四 21:26写道：
 >>
->> On 25/06/2026 15:14, Sunyun Yang wrote:
->>> Krzysztof Kozlowski <krzk@kernel.org> 于2026年6月25日周四 20:54写道：
->>>>
->>>> On 08/05/2026 15:40, syyang@lontium.com wrote:
->>>>> +
->>>>> +static void lt9611c_reset(struct lt9611c *lt9611c)
->>>>> +{
->>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
->>>>> +     msleep(20);
->>>>> +
->>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
->>>>> +     msleep(20);
->>>>> +
->>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
->>>>
->>>> This is just plain wrong. Why do you assert, then de-assert and then
->>>> finally assert AGAIN the reset leaving the device in powerdown stage?
->>>>
->>> I am using software to emulate the hardware RESET button on our EVB.
->>> When the hardware RESET button is pressed while our chip is running,
->>> the signal level changes from HIGH to LOW and then back to HIGH.
+>> Krzysztof Kozlowski <krzk@kernel.org> 于2026年6月25日周四 21:17写道：
 >>>
->>> Of course, we can also use the following:
->>> static void lt9611c_reset(struct lt9611c *lt9611c)
->>> {
->>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
->>>     msleep(50);
->>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
->>>     msleep(20);
->>> }
+>>> On 25/06/2026 15:14, Sunyun Yang wrote:
+>>>> Krzysztof Kozlowski <krzk@kernel.org> 于2026年6月25日周四 20:54写道：
+>>>>>
+>>>>> On 08/05/2026 15:40, syyang@lontium.com wrote:
+>>>>>> +
+>>>>>> +static void lt9611c_reset(struct lt9611c *lt9611c)
+>>>>>> +{
+>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+>>>>>> +     msleep(20);
+>>>>>> +
+>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
+>>>>>> +     msleep(20);
+>>>>>> +
+>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+>>>>>
+>>>>> This is just plain wrong. Why do you assert, then de-assert and then
+>>>>> finally assert AGAIN the reset leaving the device in powerdown stage?
+>>>>>
+>>>> I am using software to emulate the hardware RESET button on our EVB.
+>>>> When the hardware RESET button is pressed while our chip is running,
+>>>> the signal level changes from HIGH to LOW and then back to HIGH.
+>>>>
+>>>> Of course, we can also use the following:
+>>>> static void lt9611c_reset(struct lt9611c *lt9611c)
+>>>> {
+>>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
+>>>>     msleep(50);
+>>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+>>>>     msleep(20);
+>>>> }
+>>>
+>>> Makes no sense either and you just did not get the point and did not
+>>> answer my question. I asked WHY you leave asserted. Answer "we emulate"
+>>> is just plain wrong.
+>>>
+>>> So again please answer:
+>>>
+>>> Why do you leave device with reset asserted?
+>>>
 >>
->> Makes no sense either and you just did not get the point and did not
->> answer my question. I asked WHY you leave asserted. Answer "we emulate"
->> is just plain wrong.
+>>  devicetree:   reset-gpios = <&tlmm 128 GPIO_ACTIVE_HIGH>;
 >>
->> So again please answer:
+>> GPIO_ACTIVE_HIGH:
 >>
->> Why do you leave device with reset asserted?
+>> gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);   ------   reset pin
+>> is Low level : Clear the register configuration in the chip to stop
+>> the chip from working.
+>>
+>> gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);   ------  reset pin
+>> is high level:  The chip resumes operation.
+>>
 >>
 > 
->  devicetree:   reset-gpios = <&tlmm 128 GPIO_ACTIVE_HIGH>;
+> Our purpose is: pull the level low to clear the register configuration
+> in the chip, and then pull it high to allow the MCU inside the chip to
+> re‑initialize the registers.
 
-That's irrelevant. I do not talk about DT.
 
-Review is happening in specific place - here I question driver code. If
-you do not have actual arguments why device is left in reset stage, then
-please fix it.
+And you do completely opposite... so that confirms your code is just wrong.
 
 
 Best regards,
