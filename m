@@ -4,76 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEBE8CDB47F
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:03:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63400CDB47F
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 07:03:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5D2A10E198;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D54AF10E158;
 	Thu, 25 Jun 2026 07:03:17 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="liifelaR";
-	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1525310E0F1
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 19:25:06 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-490b4a8e28bso11041235e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 24 Jun 2026 12:25:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782329104; x=1782933904; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=eTNgkQdTW5rge9w2rIY/43V8cY+8H+JG9cF1K9K10rg=;
- b=liifelaRwwxJib+SWzLVyRPwNNPaXAG0aC3cKfjf2PDXSC0NMfjlRVAxom+/uCd6DW
- d01bzrZLVffN/4OVaINy8Qk4gS49A1Bfmlm1URdLPgwyr2XQ9EtxT1qfQ8odEr7Hco9d
- kGvfqeprfBIx31XGHm0YX5llwa03rCL+N9kC4rhZ1Wjl+IOQbOcxLogbQ4KgjKzt92mx
- ZliId5Jx6PLfBotzB+OcVksr1gWeIkvQelxOnRgIZmI80xPzlq+zmLiRBWNA7fGhYuI0
- AU1mCgOEP0g02zC84M/6p0em2JkTWELjx9pngq0mK0Y9A0zDeSfEetBpxs2m7w0P4M44
- ffgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782329104; x=1782933904;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=eTNgkQdTW5rge9w2rIY/43V8cY+8H+JG9cF1K9K10rg=;
- b=li+xKpyv/8Ojm0sz59sqjHb0atIy227LutoGXCOeQ35Sr5JP1YseYWpj9HiNkC6lJs
- YWbEDe8KG34M5XmEXhf4dotKqGmam29hoDG8zWVdboYV1JHEB7qfRmIgZlEm1zawKNtU
- NGKrfHlwmtHb3YgdFXgZ+9UrENnUi7ps9UYdOuQo+gQ5rDProFD+J+0weyKnWvB2RDLg
- X6KxkPIbvty7zirtqS0AvIV8fasEoDywD7BH4SiFJ0U0ovzrMz/yU60ioTqv6hFqc/28
- Nm5i9VosBxlGtOco+4f/x30lGj00y+2Pt1qHSoiDYzji2y2vOL3gzOj1zdqISdZ3T6WQ
- UGLw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+uORgN012YLsXezRMyk7zDVjlr+ZWa5gITs/6js7ZNT+BkRUZDaAzwLJrd9cvjzhp1OqsyjFhU8is=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxGvb08ZvZqO1HqsXLkx/O41Hv4E+dRTJKK88gAQMwsnGxQf5JH
- nmpskiPJMTzSPR/T8Re1nUWK8+RqxIhotjyPr7WWL5WO+aRhgt6sqjiQ
-X-Gm-Gg: AfdE7cm6ximufhNa/1bARWmdZd6s6Z287b/vWTKsKQV9mzxdaU3oKfvKfJu9b9ELSyd
- xRIXSjWpkqclmHgnUHCOBl6oiRnJDBzZp1UKyzmhkUk8kYlhr7qw9naprEmuc4hp0OIecEZm7rf
- Gepbx2841pXeHaDWsbYJpZO9gF446SjLCZtpUgv1FOZQreROmpG70jBzQysGGE6tEXqNLY3iHyT
- dqPLN44MDKUlDRZ4gG6S/zcCcKOlPWw2PIfzEd05IpkKKeeW4Y2jlvcEIENJMrVydXW9HW1F0ug
- zNN/Iacc+gIXK5U4iZBJARcYYnmzvqa7axw5oCumExqFbfokOLV/2GGxeZQK7KqQIArwUrKFR7D
- eib5VgVhh7FqWEo1UP8AwqKLcI/Nz56ryxQiKFllcE36rD7kdKWysZaeKMsXtFdILlR+6Xel3cJ
- LpNm1LacyzW6+/XpiswcfVw7Lt9g==
-X-Received: by 2002:a05:600c:4443:b0:491:8043:5c4a with SMTP id
- 5b1f17b1804b1-49260879105mr68640375e9.31.1782329104364; 
- Wed, 24 Jun 2026 12:25:04 -0700 (PDT)
-Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-46c9787dddbsm6955406f8f.3.2026.06.24.12.25.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jun 2026 12:25:03 -0700 (PDT)
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH] misc: fastrpc: hold rpmsg device while using endpoint
-Date: Wed, 24 Jun 2026 21:24:52 +0200
-Message-ID: <20260624192452.4949-1-alhouseenyousef@gmail.com>
-X-Mailer: git-send-email 2.54.0
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0F4710E502;
+ Thu, 25 Jun 2026 06:06:55 +0000 (UTC)
+Received: from localhost.localdomain (unknown [111.196.245.140])
+ by APP-05 (Coremail) with SMTP id zQCowABnus15xTxqv3coFQ--.18797S2;
+ Thu, 25 Jun 2026 14:06:49 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Roman Li <Roman.Li@amd.com>, Ovidiu Bunea <ovidiu.bunea@amd.com>,
+ Chuanyu Tseng <chuanyu.tseng@amd.com>, Charlene Liu <Charlene.Liu@amd.com>,
+ Gaghik Khachatrian <gaghik.khachatrian@amd.com>,
+ Leo Chen <leo.chen@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Pengpeng Hou <pengpeng@iscas.ac.cn>
+Subject: [RFC PATCH] drm/amd/display: wire DCN42B mcache programming callback
+Date: Thu, 25 Jun 2026 14:06:47 +0800
+Message-ID: <20260625060647.2353-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowABnus15xTxqv3coFQ--.18797S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tFW7Kw4xWryxJFyrAw4xZwb_yoW8CFWUpa
+ 17Xa1a9F4kXFy2vr43W3WUWFsxGw4qyFWrtrs3Ga1fZa4UAryUtFZ0kFyjq3y5uF4Iyr4f
+ t3W09r47trn8AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+ n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+ kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+ 67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+ CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+ MIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
+ nIWIevJa73UjIFyTuYvjTRCnmRDUUUU
+X-Originating-IP: [111.196.245.140]
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 X-Mailman-Approved-At: Thu, 25 Jun 2026 07:03:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,88 +68,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Invoke and remote heap setup paths dereference cctx->rpdev after only a
-lockless NULL check. fastrpc_rpmsg_remove() can clear that pointer while
-an ioctl is preparing an invoke, leaving the send path to dereference a
-NULL or stale rpmsg device pointer.
+DCN42B enables DML2 and DML21 by default and defines
+dcn42b_prepare_mcache_programming(), but the resource function table only
+wires the callback when CONFIG_DRM_AMD_DC_DML21 is defined.
 
-Take a device reference while holding the channel lock before using the
-rpmsg device. Return -EPIPE if the rpmsg endpoint has already gone away.
+There is no in-tree Kconfig symbol named DRM_AMD_DC_DML21, so the
+preprocessor always removes the callback entry.  Sibling DCN42 and DCN401
+resource tables wire their prepare_mcache_programming callbacks
+unconditionally, and the core DC code already checks whether the callback
+pointer is present before calling it.
 
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Remove the stale guard so DCN42B exposes the callback relation that its
+source and DML21 build world already provide.
+
+This is an RFC patch draft from static conditional callback legality
+auditing.  It needs AMD display maintainer review before submission as a
+final fix.
+
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
- drivers/misc/fastrpc.c | 33 +++++++++++++++++++++++++++------
- 1 file changed, 27 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 1b70acc10..4b258dbcd 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -486,9 +486,24 @@ static int fastrpc_buf_alloc(struct fastrpc_user *fl, struct device *dev,
- static int fastrpc_remote_heap_alloc(struct fastrpc_user *fl, struct device *dev,
- 				     u64 size, struct fastrpc_buf **obuf)
- {
--	struct device *rdev = &fl->cctx->rpdev->dev;
-+	struct fastrpc_channel_ctx *cctx = fl->cctx;
-+	struct rpmsg_device *rpdev;
-+	unsigned long flags;
-+	int ret;
-+
-+	spin_lock_irqsave(&cctx->lock, flags);
-+	rpdev = cctx->rpdev;
-+	if (rpdev)
-+		get_device(&rpdev->dev);
-+	spin_unlock_irqrestore(&cctx->lock, flags);
-+
-+	if (!rpdev)
-+		return -EPIPE;
- 
--	return  __fastrpc_buf_alloc(fl, rdev, size, obuf);
-+	ret = __fastrpc_buf_alloc(fl, &rpdev->dev, size, obuf);
-+	put_device(&rpdev->dev);
-+
-+	return ret;
- }
- 
- static void fastrpc_channel_ctx_free(struct kref *ref)
-@@ -1260,6 +1275,7 @@ static int fastrpc_invoke_send(struct fastrpc_session_ctx *sctx,
- 	struct fastrpc_channel_ctx *cctx;
- 	struct fastrpc_user *fl = ctx->fl;
- 	struct fastrpc_msg *msg = &ctx->msg;
-+	struct rpmsg_device *rpdev;
- 	unsigned long flags;
- 	bool put_ref = true;
- 	int ret;
-@@ -1279,10 +1295,18 @@ static int fastrpc_invoke_send(struct fastrpc_session_ctx *sctx,
- 	fastrpc_context_get(ctx);
- 
- 	spin_lock_irqsave(&cctx->lock, flags);
-+	rpdev = cctx->rpdev;
-+	if (!rpdev) {
-+		spin_unlock_irqrestore(&cctx->lock, flags);
-+		fastrpc_context_put(ctx);
-+		return -EPIPE;
-+	}
-+	get_device(&rpdev->dev);
- 	ctx->sent = true;
- 	spin_unlock_irqrestore(&cctx->lock, flags);
- 
--	ret = rpmsg_send(cctx->rpdev->ept, (void *)msg, sizeof(*msg));
-+	ret = rpmsg_send(rpdev->ept, (void *)msg, sizeof(*msg));
-+	put_device(&rpdev->dev);
- 
- 	if (ret) {
- 		spin_lock_irqsave(&cctx->lock, flags);
-@@ -1312,9 +1336,6 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
- 	if (!fl->sctx)
- 		return -EINVAL;
- 
--	if (!fl->cctx->rpdev)
--		return -EPIPE;
--
- 	if (handle == FASTRPC_INIT_HANDLE && !kernel) {
- 		dev_warn_ratelimited(fl->sctx->dev, "user app trying to send a kernel RPC message (%d)\n",  handle);
- 		return -EPERM;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
+index 000000000000..000000000000 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn42b/dcn42b_resource.c
+@@ -1882,8 +1882,6 @@ static const struct resource_funcs dcn42b_res_pool_funcs = {
+ 	.add_phantom_pipes = dcn32_add_phantom_pipes,
+ 	.calculate_mall_ways_from_bytes = dcn32_calculate_mall_ways_from_bytes,
+-#ifdef CONFIG_DRM_AMD_DC_DML21
+ 	.prepare_mcache_programming = dcn42b_prepare_mcache_programming,
+-#endif
+ 	.build_pipe_pix_clk_params = dcn42b_build_pipe_pix_clk_params,
+ 	.get_power_profile = dcn401_get_power_profile,
+ 	.get_vstartup_for_pipe = dcn401_get_vstartup_for_pipe,
 -- 
-2.54.0
+2.39.5
 
