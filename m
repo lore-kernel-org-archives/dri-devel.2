@@ -4,43 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2EF4CDB466
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 08:26:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DDC2CDB47F
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 08:27:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A0DF10F1A9;
-	Thu, 25 Jun 2026 08:26:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8ACE310F1A7;
+	Thu, 25 Jun 2026 08:27:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kPFygwjk";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="lpwEnTR6";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9BF210F1A7
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 08:26:18 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B7C9143A99;
- Thu, 25 Jun 2026 08:26:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70A251F000E9;
- Thu, 25 Jun 2026 08:26:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782375978;
- bh=ei75v/vDLBZ28WkMycO+AKLf74ZitRua7zsygYXs+II=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kPFygwjkJUwoQRg2aaPUOz0kUMFKR/uiupVxJh63Vk4BqkTsOXWS38SSi9gskneO9
- NY3ReBcisp/grMtmNLnBnoCYXu6VafXgZ1OlhPKUG03kV9lhNBAo9EH/DXTjr/mnl9
- vrZv1GripO4OjJZyGwcw6+k/9P9PlRCQNPAK4SzhfcZxd+pHrB0V/Typq60DRWFJ+r
- gVoRa7ehCAipHISvv3Zmy8zvbh1tsuH+jfa0joAb9xtn7eO4e0gR1zZh2zcvLhV+7l
- iS0l7+vJ3rnsbiQx5crWpyMhBAMwCY4KJTCMhDYMrgKRTjLaq3gG55XSN6nJUpQLWf
- ndKCv3TbDETng==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1] misc: fastrpc: avoid duplicate DMA mappings in
- fastrpc_create_maps()
-To: "Jianping Li" <jianping.li@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260625080832.17477-1-jianping.li@oss.qualcomm.com>
-References: <20260625080832.17477-1-jianping.li@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 08:26:18 +0000
-Message-Id: <20260625082618.70A251F000E9@smtp.kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E92EA10F1A7
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 08:27:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1782376041;
+ bh=3/LY8KlTihlMDpw21vo/W499ESW2H40mbT2W0+IKHaE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=lpwEnTR69cAw6BGZ8RcZ1Y0OKSSYaUSXjXIwI1l5nxNRP0Lldb+D9gIul57l6dhRu
+ 040xDbSq8R70JI2jTOjWwi6hrSvb1AI5W1EP9G74ykG7Brusm1zEiIGnMWVG5KMQ9o
+ FxPRFv0/lCmeVlEoba4KDbhxqpQ8mm8uo92G9b3B+egsmOgOlXgyUSG11gDRoKgHSb
+ WlE8NkQmscThLBWOx9Zjj4OrjN0xCunXHlz1+nlwaNgBNyyltBjGUMtJ3zERFNxgOQ
+ 3N0gjN604GcjfnkEW6Xs5OYvwPIn4bePFmHhn0k3SjULJAYtniYPtoso6EYLLPomh8
+ BR04vvdB51zuQ==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9355B17E02B5;
+ Thu, 25 Jun 2026 10:27:20 +0200 (CEST)
+Message-ID: <0e8ae8b8-3a6e-49e1-acdd-27ce4921bd21@collabora.com>
+Date: Thu, 25 Jun 2026 11:27:20 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 04/30] drm/display: scdc_helper: Add HDMI 2.0
+ scrambling management helpers
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+References: <20260602-dw-hdmi-qp-scramb-v7-0-445eb54ee1ed@collabora.com>
+ <20260602-dw-hdmi-qp-scramb-v7-4-445eb54ee1ed@collabora.com>
+ <20260625-screeching-uptight-elephant-5bdaed@houat>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20260625-screeching-uptight-elephant-5bdaed@houat>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,96 +74,63 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On 6/25/26 11:05 AM, Maxime Ripard wrote:
+> On Tue, Jun 02, 2026 at 01:44:04AM +0300, Cristian Ciocaltea wrote:
+>> +static int drm_scdc_reset_crtc(struct drm_connector *connector,
+>> +			       struct drm_modeset_acquire_ctx *ctx)
+>> +{
+>> +	struct drm_device *dev = connector->dev;
+>> +	struct drm_crtc *crtc;
+>> +	u8 config;
+>> +	int ret;
+>> +
+>> +	if (!ctx)
+>> +		return 0;
+>> +
+>> +	/*
+>> +	 * This is normally part of .detect_ctx() call path, which already holds
+>> +	 * connection_mutex through @ctx.  However, re-acquiring it with the
+>> +	 * same context is a no-op and makes the helper safe under any caller.
+>> +	 */
+>> +	ret = drm_modeset_lock(&dev->mode_config.connection_mutex, ctx);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	if (!connector->state)
+>> +		return 0;
+>> +
+>> +	crtc = connector->state->crtc;
+>> +	if (!crtc)
+>> +		return 0;
+>> +
+>> +	ret = drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
+>> +	if (ret) {
+>> +		drm_scdc_dbg(connector, "Failed to read TMDS config: %d\n", ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	if ((config & SCDC_SCRAMBLING_ENABLE) &&
+>> +	    (config & SCDC_TMDS_BIT_CLOCK_RATIO_BY_40))
+>> +		return 0;
+> 
+> I don't think we should care about the bit clock ratio here. From a
+> technical standpoint, and since you ignore low rates for the scrambler
+> for now, they are indeed equivalents. But semantically, scrambler can be
+> enabled for any rate, and the bit clock ratio should be changed only for
+> rates higher than 340MHz.
+> 
+> This function makes sure to trigger a modeset when the scrambler is
+> enabled or not. From a spec point of view, it's somewhat orthogonal to
+> the bit clock ratio. From a function name point of view, it's
+> misleading.
+> 
+> So yeah, I'd just drop the check on the bit clock ratio here. Drivers
+> will then get to enable either when the commit actually happens.
 
-New issues:
-- [Critical] Use-After-Free and Double Free due to bypassing reference coun=
-ting for handles.
+Ack.
 
-Pre-existing issues:
-- [High] Memory leak of newly created DMA maps for handle arguments.
-- [High] Race condition in `fdlist` cleanup leading to Kernel Use-After-Fre=
-e.
-- [High] Circular reference causing permanent resource leak on interrupted =
-invocations.
---
-
-Note: The format of this review is altered to provide a free-form summary
-rather than inline quotes to comply with system recitation restrictions.
-
-commit ad847e952f22a54c8e1f599b332d32abb92a3e6a
-Author: Jianping Li <jianping.li@oss.qualcomm.com>
-
-misc: fastrpc: avoid duplicate DMA mappings in fastrpc_create_maps()
-
-This patch modifies fastrpc_create_maps() to bypass reference counting when
-looking up existing DMA mappings for handle arguments. It achieves this by
-introducing a boolean take_ref flag to fastrpc_map_create() to prevent
-duplicate DMA mappings and unbalanced reference counts.
-
-[Severity: Critical]
-Does bypassing the reference count for handle arguments introduce a
-use-after-free and double-free risk?
-
-In drivers/misc/fastrpc.c:fastrpc_create_maps(), this patch forces
-take_ref =3D false for arguments where i >=3D ctx->nbufs. This populates
-ctx->maps[i] with a weak reference.
-
-If a concurrent thread calls FASTRPC_IOCTL_MEM_UNMAP and drops the map's
-reference, could fastrpc_get_args() dereference a freed pointer when it
-accesses ctx->maps[i]->dma_addr?
-
-Additionally, if the DSP returns the handle in fdlist, fastrpc_put_args()
-will unconditionally call fastrpc_map_put(). Since a reference was never
-taken during creation, does this consume an unbalanced reference and free
-explicit memory maps prematurely?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the error path leak
-newly created DMA maps for handle arguments?
-
-When fastrpc_map_create() does not find an existing mapping, it calls
-fastrpc_map_attach(), which allocates a new map with a reference count of 1.
-
-However, looking at drivers/misc/fastrpc.c:fastrpc_context_free(), the
-cleanup loop only iterates up to ctx->nbufs. Since handle arguments
-(i >=3D ctx->nbufs) are deliberately skipped during this cleanup, are the
-maps created for them permanently leaked, potentially leading to memory
-exhaustion if a user repeatedly passes new memfds?
-
-[Severity: High]
-This is a pre-existing issue, but is there a race condition in the fdlist
-cleanup that could lead to a use-after-free?
-
-In drivers/misc/fastrpc.c:fastrpc_put_args(), the code looks up the map
-without taking a reference (take_ref =3D false), and then immediately calls
-fastrpc_map_put() to drop a reference.
-
-If a compromised or buggy DSP returns the same file descriptor in the
-fdlist for two concurrent invocations, could both threads simultaneously
-execute the lookup and drop a reference without adequate locking, causing
-the second thread to drop a reference on an already freed map?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the invocation error
-handling create a circular reference that permanently leaks resources?
-
-In drivers/misc/fastrpc.c:fastrpc_internal_invoke(), if the invocation is
-interrupted (returning -ERESTARTSYS or -ETIMEDOUT), the code explicitly
-skips calling fastrpc_context_put().
-
-Because fastrpc_context_alloc() takes a strong reference to the user
-structure (fastrpc_user_get()), and the leaked context holds this
-reference, the user reference count never reaches zero. Does this prevent
-fastrpc_user_free() from ever executing to clean up pending contexts,
-allowing a local user to easily exhaust resources by interrupting
-invocations?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625080832.1747=
-7-1-jianping.li@oss.qualcomm.com?part=3D1
+Thanks,
+Cristian
