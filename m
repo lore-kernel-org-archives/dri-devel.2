@@ -4,57 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A25DCDE001
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 14:08:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC12BCDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 14:09:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E47A610F2CC;
-	Thu, 25 Jun 2026 14:08:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EED1D10E228;
+	Thu, 25 Jun 2026 14:09:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="d3qQK7m5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TNeglqTd";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3153610F2CC
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 14:08:17 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0352910E228
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 14:09:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782396497; x=1813932497;
+ t=1782396595; x=1813932595;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=G4bOlvhhdVwBaq8kCvvh+9q6vDkJkXVzE3VkYXm/UN0=;
- b=d3qQK7m5HkPq7LmbK2cF3gLuj47S1TUrLY8eglMaD8jSjtVbSrJfExVa
- 7fZdwvfnae93mdqSGs/oJyCjkWaHPwIZ2uybRGEist3cfJKOgEsDrtVhT
- x1M63/NLba0bGJF5Ss9NZtMarsnc3w1l6wHq1UfFM6LBrfhcKr9tCe/DY
- 5Z3310+VUGxHOei38g3qXu/Kp7sn3iDeH6wO3oMbdanbld1qxTirxCHbU
- wrZtk7zVeRXtPEAmk1ibIgup/uxA/AMOUkhkq+LU/OuNmnMaX4tv5TeRL
- ZVaH/GhvsZbzb+V97vUaHKfCFFyW9k0ToSa2hiMMROzCkjix57C2YTioo Q==;
-X-CSE-ConnectionGUID: IhLGIgnNSWqr26p7bD7KlQ==
-X-CSE-MsgGUID: 1XQ4II+sQhikoX2w5lP+XA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="94569711"
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="94569711"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2026 07:08:16 -0700
-X-CSE-ConnectionGUID: O6ZI7uD3TeG2GgYuKgT3ZQ==
-X-CSE-MsgGUID: shf94d8NTFWU0aUritrzjg==
+ bh=c0Bmn6hGAyuAnYk1EnLNUGmPoh3wiWyFQ1JCR1xdNDM=;
+ b=TNeglqTdTJbbhXlleiqx0UCu7VPf2DhTyRxjkpgcK8GgjRxlE+8WOBgZ
+ UlAOX+ERFa0gkJ+ljgEv+HUOZIGpnqp6JKKag4j3G/vrkZDMWjdmsa6Lu
+ Sz5DqzYCDrp5BQltjGEWOA25SKVwcOnxKEVsqT3lzVMDH/LSaMhxLWKhI
+ pcTEutiDE5TIK13Br6cmWI+aOLFaVCswSuIqUKHS9z87Bi9RQBGwgh/0Q
+ 1mXwdb9jLVWWDf69FA7MHHUXjw6R/XNpcww/93Hf5m0QK4mSn0QXUH8+r
+ KbOCm653RwN48NEq/1eSCPDpbpGSYZSZcckEr11O9HYnj4eHV5N/t971C g==;
+X-CSE-ConnectionGUID: C0em/IOZRhWBS+8LJwTF+g==
+X-CSE-MsgGUID: oYldQvnbROOM/dVCcvKdcQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="100597976"
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="100597976"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 07:09:54 -0700
+X-CSE-ConnectionGUID: fJBYsruzT7O3YosKUuaS6w==
+X-CSE-MsgGUID: DDU2IQeoRC2DL9WI0rmhJw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="244368609"
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="255652309"
 Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2026 07:08:15 -0700
-Date: Thu, 25 Jun 2026 17:08:12 +0300
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 07:09:52 -0700
+Date: Thu, 25 Jun 2026 17:09:49 +0300
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: suryasaimadhu <suryasaimadhu369@gmail.com>
-Cc: andy@kernel.org, gregkh@linuxfoundation.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: fbtft: fix unaligned access and buffer size
- when startbyte is used
-Message-ID: <aj02TPm9nawLC18g@ashevche-desk.local>
-References: <20260625103041.281190-1-suryasaimadhu369@gmail.com>
+To: Sai Madhu <suryasaimadhu369@gmail.com>
+Cc: Dan Carpenter <error27@gmail.com>, andy@kernel.org,
+ gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: fbtft: replace empty modifier argument with
+ no-op macro
+Message-ID: <aj02rT4eRKRPhrNe@ashevche-desk.local>
+References: <20260625092721.238366-1-suryasaimadhu369@gmail.com>
+ <aj0Cv0Wzb3rieNqW@stanley.mountain>
+ <CAB0uMAeMOV4Xhq2cNVjxne89yqF8vdubM8-OpPYGK4f4yBLMNw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260625103041.281190-1-suryasaimadhu369@gmail.com>
+In-Reply-To: <CAB0uMAeMOV4Xhq2cNVjxne89yqF8vdubM8-OpPYGK4f4yBLMNw@mail.gmail.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,22 +75,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 25, 2026 at 06:30:41PM +0800, suryasaimadhu wrote:
-> When par->startbyte is non-zero, buf is advanced by one byte creating
-> an unaligned pointer for 16-bit types (u16, __be16). Dereferencing this
-> unaligned pointer can cause a kernel panic on strict-alignment
-> architectures.
-> 
-> Fix by using put_unaligned() instead of direct pointer dereference.
-> 
-> Also fix incorrect buffer size calculation in fbtft_write_buf_dc() call:
->   len * (sizeof(data_type) + offset)  /* wrong: multiplies offset by len */
->   len * sizeof(data_type) + offset    /* correct: one startbyte +
->                                          len items */
+On Thu, Jun 25, 2026 at 04:00:24PM +0530, Sai Madhu wrote:
 
-Same comments as per your other patch contributions. Make it cleaner next time.
-So it seem a v2 should be a mini-series with fixes for different
-issues/drivers/et cetera.
+First of all, do not top-post!
+
+> Thank you for the feedback. I understand and will drop this patch.
+> 
+> I have also noticed two pre-existing bugs in the same file
+> (unaligned access and buffer size calculation when startbyte is used)
+> and have sent a separate patch to fix those.
+
+> On Thu, 25 Jun 2026 at 15:58, Dan Carpenter <error27@gmail.com> wrote:
+> > On Thu, Jun 25, 2026 at 05:27:21PM +0800, suryasaimadhu wrote:
+
+> > I don't hate this patch, but I think we've decided to leave this
+> > as-is.
+
+Yep. as Dan said,
 
 -- 
 With Best Regards,
