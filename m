@@ -4,44 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A976CDE00C
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 12:59:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A926DCDB479
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 13:00:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C62B10EA15;
-	Thu, 25 Jun 2026 12:59:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2EFB10E6A5;
+	Thu, 25 Jun 2026 13:00:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vp7PtQ8b";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="as/4kRlJ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14DBF10E9FC
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 12:59:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F012C443B3;
- Thu, 25 Jun 2026 12:59:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B03D91F00A3E;
- Thu, 25 Jun 2026 12:59:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782392390;
- bh=z4LyccaNUqgtxnU3ZSm86kZKqPvA2Gy3yHNQE3bF9tk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Vp7PtQ8bLl32HjDQuWNMKqIsR1kWKe0Qpl1VvWjyErG6QxJ30tg6giYUFuFpv9bQx
- NPJAV3qDWmK834IwibjU/bRiUNVGFgKKrY2ivOIiAHf9LVxYfRiiXxZb843g0wc6HA
- 1bwsLUJuQtJGCHWNYiQkQd6Njav11eXHEfzGMraiQH/i9pvkwB5vOK1GM9zyNQ8k8W
- 8rLOd41gGQyQ8Hw0rMl06RMrfaT1VzKEL7n0OKzYizv12bwsdUtISrQcfypP7NIC1q
- OtMLy6cLllNn49ozWdselGTBubYZm0IiqslXCDt7qFkmb+8mt0KRu6/me3SfxtBEdm
- 5RDnw/8HJYEcQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 02/11] drm/panthor: Keep the reset work disabled until
- everything is initialized
-To: "Boris Brezillon" <boris.brezillon@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260625-panthor-misc-fixes-v1-2-b67ed973fea6@collabora.com>
-References: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
- <20260625-panthor-misc-fixes-v1-2-b67ed973fea6@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 12:59:49 +0000
-Message-Id: <20260625125950.B03D91F00A3E@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5246110EAA5;
+ Thu, 25 Jun 2026 12:59:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782392394; x=1813928394;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Ju3gfzFeBeams+3Iev1BlEjXoqqkURWq1dmcBXf0Gac=;
+ b=as/4kRlJR8JJYKBvLFUQwjKrpExIgArLZ54zyXj/Bog75xmMY1ry0u/6
+ 1kze4B0ZwGTkKGmcQihwc0vgVhu3cNogtY9p3YQAZwBCx3qYB0z9HbCF6
+ HLgvhmVqHDVmVBLqXk8BRoET11pVDChuf7sF07PpcfFdYsoWhpYtWlL6J
+ XQnw4tPjqLuxQ/9cvHfhWANsrNCmvJoXGxFPJqdF7IgY5eRUoTbmsbi1X
+ F+cNdgUlDGF9fmSvKpoHsvbfbXuR8ycy626gLQ3JAXvSIMe01IuJF7PUM
+ JqmkBWx3vaxsQfBc2MJvHyRLqanEihJZQVJXO94rA3c4nX2CFVihDFj2A g==;
+X-CSE-ConnectionGUID: i4uDSgtiRpCBGjwWxL4keA==
+X-CSE-MsgGUID: yXyCaomCTHO2uzSbkjQYvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="82287398"
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="82287398"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 05:59:54 -0700
+X-CSE-ConnectionGUID: iyYEnqxrRCqiMDSh7gcxFQ==
+X-CSE-MsgGUID: JDi4aJs1SZSPji3+mUzr0Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="280857128"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by orviesa002.jf.intel.com with ESMTP; 25 Jun 2026 05:59:50 -0700
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Raag Jadav <raag.jadav@intel.com>,
+ "Michael J . Ruhl" <michael.j.ruhl@intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Riana Tauro <riana.tauro@intel.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andi Shyti <andi.shyti@kernel.org>,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2 3/3] drm/xe/mcu_i2c: Take over control of the controller
+ enabling
+Date: Thu, 25 Jun 2026 14:59:39 +0200
+Message-ID: <20260625125939.429078-4-heikki.krogerus@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260625125939.429078-1-heikki.krogerus@linux.intel.com>
+References: <20260625125939.429078-1-heikki.krogerus@linux.intel.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,113 +73,124 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Some platforms make an assumption that the i2c controller's
+enabled state indicates also the power state of the
+controller. This can create a problem when the controller is
+in disabled state, because the hardware may assume
+incorrectly that it is then also in low-power state.
 
-New issues:
-- [High] Disabling the reset work during initialization causes asynchronous=
- reset requests to be silently dropped, permanently wedging the GPU by leav=
-ing the pending flag stuck at 1.
+To fix this, the controller is kept enabled by taking over
+the IC_ENABLE register. The controller has to be disabled
+when the configuration is updated and when the target
+address or the slave address are assigned, so disabling it
+when IC_CON, IC_TAR or IC_SAR registers are programmed, and
+then re-enabling it again.
 
-Pre-existing issues:
-- [High] The reset work remains enabled during the error teardown path if `=
-drm_dev_register` fails, allowing concurrent reset work to access sub-compo=
-nents as they are destroyed.
---
+Signed-off-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+---
+ drivers/gpu/drm/xe/xe_i2c.c | 55 +++++++++++++++++++++++++++++++++++--
+ drivers/gpu/drm/xe/xe_i2c.h |  1 +
+ 2 files changed, 54 insertions(+), 2 deletions(-)
 
-commit d88d89caab294e4f6ec4a893f2e535ca95fb0890
-Author: Boris Brezillon <boris.brezillon@collabora.com>
+diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
+index 0495b561957a2..e2d8e77653cf2 100644
+--- a/drivers/gpu/drm/xe/xe_i2c.c
++++ b/drivers/gpu/drm/xe/xe_i2c.c
+@@ -8,6 +8,7 @@
+ #include <drm/drm_print.h>
+ #include <linux/array_size.h>
+ #include <linux/container_of.h>
++#include <linux/delay.h>
+ #include <linux/device.h>
+ #include <linux/designware_i2c.h>
+ #include <linux/err.h>
+@@ -294,11 +295,40 @@ static void xe_i2c_remove_irq(struct xe_i2c *i2c)
+ 	irq_domain_remove(i2c->irqdomain);
+ }
+ 
++/* See "Disabling DW_apb_i2c" in the DesignWare DW_abp_i2c databook. */
++static void xe_i2c_disable(struct xe_i2c *i2c)
++{
++	int timeout = 100;
++	u32 status;
++
++	xe_mmio_rmw32(i2c->mmio, I2C_REG(DW_IC_ENABLE), 1, 0);
++
++	do {
++		status = xe_mmio_read32(i2c->mmio, I2C_REG(DW_IC_ENABLE_STATUS));
++		if (!(status & 1))
++			return;
++		/* Can't sleep here. */
++		udelay(25);
++	} while (timeout--);
++
++	dev_warn(&i2c->adapter->dev, "timeout in disabling adapter\n");
++}
++
+ static int xe_i2c_read(void *context, unsigned int reg, unsigned int *val)
+ {
+ 	struct xe_i2c *i2c = context;
+ 
+-	*val = xe_mmio_read32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET));
++	*val = xe_mmio_read32(i2c->mmio, I2C_REG(reg));
++
++	switch (reg) {
++	case DW_IC_ENABLE:
++	case DW_IC_ENABLE_STATUS:
++		FIELD_MODIFY(DW_IC_ENABLE_ENABLE, val,
++			     i2c->ic_enable & DW_IC_ENABLE_ENABLE);
++		break;
++	default:
++		break;
++	}
+ 
+ 	return 0;
+ }
+@@ -307,7 +337,28 @@ static int xe_i2c_write(void *context, unsigned int reg, unsigned int val)
+ {
+ 	struct xe_i2c *i2c = context;
+ 
+-	xe_mmio_write32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET), val);
++	switch (reg) {
++	case DW_IC_CON:
++	case DW_IC_TAR:
++	case DW_IC_SAR:
++		/* Disable the controller. */
++		xe_i2c_disable(i2c);
++
++		/* Write the register. */
++		xe_mmio_write32(i2c->mmio, I2C_REG(reg), val);
++
++		/* Enable the controller. */
++		xe_mmio_rmw32(i2c->mmio, I2C_REG(DW_IC_ENABLE), 0, 1);
++		break;
++	case DW_IC_ENABLE:
++		i2c->ic_enable = val;
++		/* Other fields can be updated except the enable bit. */
++		val |= DW_IC_ENABLE_ENABLE;
++		fallthrough;
++	default:
++		xe_mmio_write32(i2c->mmio, I2C_REG(reg), val);
++		break;
++	}
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/xe/xe_i2c.h b/drivers/gpu/drm/xe/xe_i2c.h
+index b3327db998708..231e36df09017 100644
+--- a/drivers/gpu/drm/xe/xe_i2c.h
++++ b/drivers/gpu/drm/xe/xe_i2c.h
+@@ -39,6 +39,7 @@ struct xe_i2c {
+ 	struct platform_device *pdev;
+ 	struct i2c_adapter *adapter;
+ 	struct i2c_client *client[XE_I2C_MAX_CLIENTS];
++	unsigned int ic_enable;
+ 
+ 	struct notifier_block bus_notifier;
+ 	struct work_struct work;
+-- 
+2.50.1
 
-drm/panthor: Keep the reset work disabled until everything is initialized
-
-The reset work will sub-component reset helpers, which might not be
-ready if the reset happens during initialization, leading to NULL
-pointer dereferences or worse. Avoid that by keeping the reset work
-disabled while we're initializing those sub-components.
-
-Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v5-=
-0-8836a74e0ef9@collabora.com?part=3D4
-
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/p=
-anthor/panthor_device.c
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -207,6 +207,7 @@ int panthor_device_init(struct panthor_device *ptdev)
->  	*dummy_page_virt =3D 1;
-> =20
->  	INIT_WORK(&ptdev->reset.work, panthor_device_reset_work);
-> +	disable_work(&ptdev->reset.work);
->  	ptdev->reset.wq =3D alloc_ordered_workqueue("panthor-reset-wq", 0);
->  	if (!ptdev->reset.wq)
->  		return -ENOMEM;
-
-[ ... ]
-
-> @@ -285,6 +286,9 @@ int panthor_device_init(struct panthor_device *ptdev)
-> =20
->  	panthor_gem_init(ptdev);
-> =20
-> +	/* Now that everything is initialized, we can enable the reset work. */
-> +	enable_work(&ptdev->reset.work);
-> +
->  	/* ~3 frames */
->  	pm_runtime_set_autosuspend_delay(ptdev->base.dev, 50);
->  	pm_runtime_use_autosuspend(ptdev->base.dev);
-
-[Severity: High]
-If a reset is requested while the work is disabled (e.g., due to a
-firmware timeout or early MMU fault during driver probe), does the device
-become permanently wedged?
-
-Looking at panthor_device_schedule_reset(), it relies on queue_work()
-succeeding after atomic_cmpxchg() sets the pending flag:
-
-panthor_device_schedule_reset() {
-    if (!atomic_cmpxchg(&ptdev->reset.pending, 0, 1) &&
-        atomic_read(&ptdev->pm.state) =3D=3D PANTHOR_DEVICE_PM_STATE_ACTIVE=
-) {
-        queue_work(ptdev->reset.wq, &ptdev->reset.work);
-    }
-}
-
-Because the work is disabled via disable_work() earlier, queue_work()
-fails and the work is never queued.
-
-When enable_work() is called here, it decrements the disable count but
-does not requeue the dropped work or clear the pending flag. Because
-ptdev->reset.pending remains 1, will all future reset requests fail the
-atomic_cmpxchg() check, leaving the GPU unable to recover?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but if drm_dev_register()
-fails shortly after this, does the reset work remain enabled during the
-teardown sequence?
-
-If drm_dev_register() fails, the driver jumps to err_disable_autosuspend
-to destroy sub-components sequentially. Because drm_dev_unplug() is not
-called in this explicit error path, dev->unplugged remains false.
-
-If a concurrent FW timeout or fault triggers during this teardown sequence,
-any concurrently scheduled reset work will pass the drm_dev_enter() check
-in panthor_device_reset_work():
-
-panthor_device_reset_work() {
-    if (!drm_dev_enter(&ptdev->base, &cookie))
-        return;
-
-    panthor_sched_pre_reset(ptdev);
-    panthor_fw_pre_reset(ptdev, true);
-    ...
-}
-
-Could this cause the reset work to interact with sub-components that are
-actively being destroyed, leading to use-after-free or NULL pointer
-dereferences?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625-panthor-mi=
-sc-fixes-v1-0-b67ed973fea6@collabora.com?part=3D2
