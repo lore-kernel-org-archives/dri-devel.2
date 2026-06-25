@@ -4,91 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63933CDE008
-	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 11:00:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9667CDE008
+	for <dri-devel@archiver.kernel.org>; Thu, 25 Jun 2026 11:02:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6E9210E1D2;
-	Thu, 25 Jun 2026 11:00:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E993C10E1E3;
+	Thu, 25 Jun 2026 11:02:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ft52+1SA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MPWVywPJ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB6DE10E1D2
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 11:00:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782385256; x=1813921256;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=vUCknLxuUl+l9swTriiC6ceqP2YAiFjd4mW5kfnFb/U=;
- b=Ft52+1SATq1u9siZpCOShDXPUvQAEG9ceDn7d9ZMPuM0nNyneHaVsdhA
- 8PEM0RUVdQ2PaDACVwhwaAFzd7noGS03jnog8lD3zVPxeY7okREDQEVxE
- qP9mAd3ifJyapa+aBDMAlWpOlGaiqn2rJCoVw5DJLjtx+ecHuzin0SWW3
- 4tR/vC28360JA6YUveloUPYzjUc2LWb5VZVZQNDNCOds2CJ6zGcjXzptW
- JokMDaD019UtCfYUSjYdHqFr5zuA/Ug897IFsMtYRA7yxs2parB9ogQJR
- izsOSKsHwdKywvHy89LMPAiQ9RRyCClmtT/a3AH4RExovS5Dt/1btygar w==;
-X-CSE-ConnectionGUID: Ba3/N22mQ8GMQue6K/xL4g==
-X-CSE-MsgGUID: 37NoiFaNSia9scSCKL3dpA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="86838505"
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="86838505"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2026 04:00:55 -0700
-X-CSE-ConnectionGUID: vmMDYz3IR0yKtgcbLjpOxw==
-X-CSE-MsgGUID: owF9N6AWRaOmSHlf6kHSKg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="254729051"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.126])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2026 04:00:42 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Kaitao Cheng <kaitao.cheng@linux.dev>, David Laight
- <david.laight.linux@gmail.com>, Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>, "David Hildenbrand (Arm)" <david@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
- <david@kernel.org>, Jens Axboe <axboe@kernel.dk>, Tejun Heo
- <tj@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, Christian
- Brauner <brauner@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
- <namhyung@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Juri Lelli
- <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
- Paul Moore <paul@paul-moore.com>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, "Paul E. McKenney"
- <paulmck@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, David Howells
- <dhowells@redhat.com>, Simona Vetter <simona.vetter@ffwll.ch>, Randy
- Dunlap <rdunlap@infradead.org>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Philipp Stanner <phasta@kernel.org>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
- linux-ntfs-dev@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, audit@vger.kernel.org, bpf@vger.kernel.org,
- netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- kexec@lists.infradead.org, live-patching@vger.kernel.org,
- linux-modules@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-pm@vger.kernel.org, rcu@vger.kernel.org, sched-ext@lists.linux.dev,
- linux-mm@kvack.org, virtualization@lists.linux.dev, damon@lists.linux.dev,
- llvm@lists.linux.dev, Kaitao Cheng <chengkaitao@kylinos.cn>, Muchun Song
- <muchun.song@linux.dev>
-Subject: Re: [PATCH v3 1/7] list: Add mutable iterator variants
-In-Reply-To: <0ed6b5c3-e955-46e2-9fc6-075a0dfd1c4f@linux.dev>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260622040533.29824-1-kaitao.cheng@linux.dev>
- <20260622040533.29824-2-kaitao.cheng@linux.dev>
- <20260622094242.64531b9a@pumpkin>
- <351a6b67-b394-4c58-aee2-88b6c8089ad5@linux.dev>
- <cf8467c7-b98f-44a5-9cf9-60b43b5da711@amd.com>
- <20260624152324.3def88ce@pumpkin>
- <0ed6b5c3-e955-46e2-9fc6-075a0dfd1c4f@linux.dev>
-Date: Thu, 25 Jun 2026 14:00:39 +0300
-Message-ID: <734f66ca51485ee3ec9788c0eaaead681e00664b@intel.com>
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
+ [74.125.82.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 728C710E1E3
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 11:02:49 +0000 (UTC)
+Received: by mail-dy1-f182.google.com with SMTP id
+ 5a478bee46e88-30b6dad2382so3777967eec.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 04:02:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782385369; x=1782990169; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dzVXIO2M/zZGRMQrA3as78zSud+6/fQ7nehrf8i6Zh4=;
+ b=MPWVywPJiOs0EqAiA/3nca1eN4x9XEP0QhuylbBETeZGr8cVbytUI5bDdOW3KeR9t4
+ R2ouCW8X2yK6AqgI+fZYRBCCEK7pUcPzRdMSn4TzeyCPI/L+rLSA4mnIMt2e5uwi5ju9
+ 41Owi6YL0sqFDEiyH2ZnUJUYpYswV8P3gPKaEfwlrHzxn8HlJ21JG7h7sExvtN6NIYsU
+ WKgsDxtV677yMl4cMt8/K80EqvbA/vfqxXCJ/A4fvR2xOBwcw+Y+8OtaBTSmkf7OTm36
+ Il0qhYcrgwsZINgoZ1jkEASfIHID7KbzJjSbl1/EWjGk3eUrfy9K5KejRokFx/f6gTmv
+ Wn6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782385369; x=1782990169;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=dzVXIO2M/zZGRMQrA3as78zSud+6/fQ7nehrf8i6Zh4=;
+ b=PVABMsnYgUaZ7w6HJS0ZRu7uoBE9B2+KDsNij6eM2azVWrot9TCdQANBAlJPq6GfaC
+ eS/UnWGINogPcfjLXjnQkExmpW3AHilSdKioH7UeBrKfEK1r2FTkFDrGC91BOjyA/rVm
+ VsRSFRUd3VFxBLlSmVsLsvHs6pFxIKxlDdbMX16Cnr2ao7G7PYSzfp9YVjf2A/6O+eY7
+ sbUydiGVC8PYmfaOkIMbsKDoIesvVOSY0LhcHNjn/S7jN4ADqNsD+571PTaayCXmnsxH
+ UKYmPfPa+EzVan6atwl2QePUjRKEYLZotG6bGQqlrrrR63bAgrS5Zd47FldpTU9bsSk+
+ 4ONA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqsixUHK4XhQjNjzrXXW/1DtfCIO/9ZWV9iUfVy/H72oKSywers0bTW+pdSHnQVoemXpHTJwnGuNVI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxjfkt46U9cIIP5hljjvBDRvgUz/i4vSd/di0o3EvMkaDC8zEMB
+ BppAed4nCc6mjtsCuuiTGnhGA2x3cscae4Lbi/vdUHQLMNHyHaY5euiG
+X-Gm-Gg: AfdE7clR6H9ExQTWg+9/4rCO573u1uircBbFZNYyu/5688mcURwqFTt6KT9OOebTXnM
+ GRO2e4u0MRQcGyIxP0xA89BstNRuwvH0Da7/pMEqleqYEuwZf31211j+AZVukKSoewJjyH+eyya
+ Ppo6u8omG3dKv7yYVyM+PSPImY6MyaClXqnd0zRw++xcWLR76eTanGJ8IbLsHynnsdJubFpP8sj
+ p2gXHN5pFA2j2hcTRctEd/yqnrI5f4jCohpk2yeGMrr/AKqnC4VwDaQn7MA2/Vgn3K+SbA+SLvW
+ WnQCjpTDEjrQPp92ka0EH0TEj8HW5MzmeLB3lXDg2l4BLAnEPo3M/5piwXH3NoU6/YSWnhnDjt5
+ QGiSem1VZpFQ4LDIl9JvIH5XMXrAqElo18UjFT82wtG+oxWT6tdZTlRpQN14pPB/lvpU4BuhnwY
+ Zp0KQjN74Bbnxs+PVylgcKYt421E/VG7TGAeD+M6IYep2M
+X-Received: by 2002:a05:7300:8606:b0:30c:5807:abc7 with SMTP id
+ 5a478bee46e88-30c84cac264mr2452317eec.17.1782385368531; 
+ Thu, 25 Jun 2026 04:02:48 -0700 (PDT)
+Received: from 10-86-27-11.ban-spse ([165.204.217.251])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-30c7ca87caasm7229314eec.27.2026.06.25.04.02.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jun 2026 04:02:48 -0700 (PDT)
+From: suryasaimadhu <suryasaimadhu369@gmail.com>
+To: andy@kernel.org
+Cc: gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org, suryasaimadhu <suryasaimadhu369@gmail.com>
+Subject: [PATCH] staging: fbtft: fix unaligned vmem writes when txbuf is
+ byte-offset
+Date: Thu, 25 Jun 2026 19:02:37 +0800
+Message-ID: <20260625110237.304435-1-suryasaimadhu369@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260625104220.21E5A1F00A3D@smtp.kernel.org>
+References: <20260625104220.21E5A1F00A3D@smtp.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,255 +91,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 25 Jun 2026, Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
-> =E5=9C=A8 2026/6/24 22:23, David Laight =E5=86=99=E9=81=93:
->> On Wed, 24 Jun 2026 15:23:47 +0200
->> Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
->>> On 6/24/26 15:14, Kaitao Cheng wrote:
->>>> =E5=9C=A8 2026/6/22 16:42, David Laight =E5=86=99=E9=81=93:=20=20
->>>>> On Mon, 22 Jun 2026 12:05:31 +0800
->>>>> Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
->>>>>=20=20
->>>>>> From: Kaitao Cheng <chengkaitao@kylinos.cn>
->>>>>>
->>>>>> The list_for_each*_safe() helpers are used when the loop body may
->>>>>> remove the current entry.  Their API exposes the temporary cursor at
->>>>>> every call site, even though most users only need it for the iterator
->>>>>> implementation and never reference it in the loop body.
->>>>>>
->>>>>> Add *_mutable() variants for list and hlist iteration.  The new help=
-ers
->>>>>> support both forms: callers may keep passing an explicit temporary c=
-ursor
->>>>>> when they need to inspect or reset it, or omit it and let the helper=
- use
->>>>>> a unique internal cursor.=20=20
->>>>>
->>>>> I'm not really sure 'mutable' means anything either.
->>>>> It is possible to make it valid for the loop body (or even other thre=
-ads)
->>>>> to delete arbitrary list items - but that needs significant extra ove=
-rheads.
->>>>>
->>>>> It might be worth doing something that doesn't need the extra variabl=
-e,
->>>>> but there is little point doing all the churn just to rename things.
->>>>>=20=20
->>>>>>
->>>>>> This makes call sites that only mutate the list through the current =
-entry
->>>>>> less noisy, while keeping the existing *_safe() helpers available for
->>>>>> compatibility.
->>>>>>
->>>>>> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
->>>>>> ---
->>>>>>  include/linux/list.h | 269 +++++++++++++++++++++++++++++++++++++---=
+fbtft_write_vmem16_bus8() and fb_ra8875's write_vmem16_bus8() offset
+txbuf16 by one byte for a command/start prefix, then store 16-bit pixel
+data via txbuf16[i]. On strict-alignment architectures this can fault
+the same way as the write_reg path fixed in the previous patch.
+
+Use put_unaligned() for these stores.
+
+Signed-off-by: suryasaimadhu <suryasaimadhu369@gmail.com>
 ---
->>>>>>  1 file changed, 231 insertions(+), 38 deletions(-)
->>>>>>
->>>>>> diff --git a/include/linux/list.h b/include/linux/list.h
->>>>>> index 09d979976b3b..1081def7cea9 100644
->>>>>> --- a/include/linux/list.h
->>>>>> +++ b/include/linux/list.h
->>>>>> @@ -7,6 +7,7 @@
->>>>>>  #include <linux/stddef.h>
->>>>>>  #include <linux/poison.h>
->>>>>>  #include <linux/const.h>
->>>>>> +#include <linux/args.h>
->>>>>>=20=20
->>>>>>  #include <asm/barrier.h>
->>>>>>=20=20
->>>>>> @@ -763,28 +764,72 @@ static inline void list_splice_tail_init(struc=
-t list_head *list,
->>>>>>  #define list_for_each_prev(pos, head) \
->>>>>>  	for (pos =3D (head)->prev; !list_is_head(pos, (head)); pos =3D pos=
-->prev)
->>>>>>=20=20
->>>>>> -/**
->>>>>> - * list_for_each_safe - iterate over a list safe against removal of=
- list entry
->>>>>> - * @pos:	the &struct list_head to use as a loop cursor.
->>>>>> - * @n:		another &struct list_head to use as temporary storage
->>>>>> - * @head:	the head for your list.
->>>>>> +/*
->>>>>> + * list_for_each_safe is an old interface, use list_for_each_mutabl=
-e instead.
->>>>>>   */
->>>>>>  #define list_for_each_safe(pos, n, head) \
->>>>>>  	for (pos =3D (head)->next, n =3D pos->next; \
->>>>>>  	     !list_is_head(pos, (head)); \
->>>>>>  	     pos =3D n, n =3D pos->next)
->>>>>>=20=20
->>>>>> +#define __list_for_each_mutable_internal(pos, tmp, head)		\
->>>>>> +	for (typeof(pos) tmp =3D (pos =3D (head)->next)->next;		\=20=20
->>>>>
->>>>> Use auto
->>>>>=20=20
->>>>>> +	     !list_is_head(pos, (head));				\
->>>>>> +	     pos =3D tmp, tmp =3D pos->next)
->>>>>> +
->>>>>> +#define __list_for_each_mutable1(pos, head)				\
->>>>>> +	__list_for_each_mutable_internal(pos, __UNIQUE_ID(next), head)
->>>>>> +
->>>>>> +#define __list_for_each_mutable2(pos, next, head)			\
->>>>>> +	list_for_each_safe(pos, next, head)
->>>>>> +
->>>>>>  /**
->>>>>> - * list_for_each_prev_safe - iterate over a list backwards safe aga=
-inst removal of list entry
->>>>>> + * list_for_each_mutable - iterate over a list safe against entry r=
-emoval
->>>>>>   * @pos:	the &struct list_head to use as a loop cursor.
->>>>>> - * @n:		another &struct list_head to use as temporary storage
->>>>>> - * @head:	the head for your list.
->>>>>> + * @...:	either (head) or (next, head)
->>>>>> + *
->>>>>> + * next:	another &struct list_head to use as optional temporary sto=
-rage.
->>>>>> + *		The temporary cursor is internal unless explicitly supplied by
->>>>>> + *		the caller.
->>>>>> + * head:	the head for your list.
->>>>>> + */
->>>>>> +#define list_for_each_mutable(pos, ...)					\
->>>>>> +	CONCATENATE(__list_for_each_mutable, COUNT_ARGS(__VA_ARGS__))	\
->>>>>> +		(pos, __VA_ARGS__)=20=20
->>>>>
->>>>> The variable argument count logic really just slows down compilation.
->>>>> Maybe there aren't enough copies of this code to make that significan=
-t.
->>>>> But just because you can do it doesn't mean it is a gooD idea.
->>>>> I'm also not sure it really adds anything to the readability.
->>>>>
->>>>> And, it you are going to make the middle argument optional there is
->>>>> no need to change the macro name.=20=20
->>>>
->>>> Christian K=C3=B6nig and Jani Nikula also disagree with the variadic-a=
-rgument
->>>> implementation approach. If we abandon that method, it means we will
->>>> inevitably need to add some new macros. If mutable is not a good name,
->>>> suggestions for better alternatives would be welcome; coming up with a
->>>> suitable name is indeed rather tricky.=20=20
->>>
->>> I don't think you need to add a new macro for the specific use case tha=
-t people want to modify the next element of the iteration.
->>>
->>> If I remember your numbers correctly that is a really corner case and k=
-eeping using the existing *_safe() macros for that sounds perfectly fine to=
- me.
->>=20
->> IIRC currently you have a choice of either:
->> 	define               Item that can't be deleted
->> 	list_for_each()	     The current item.
->> 	list_for_each_safe() The next item.
->> There is also likely to be code that updates the variables to allow
->> for other scenarios.
->>=20
->> Note that if increase a reference count and release a lock then list_for=
-_each()
->> is likely safer than list_for_each_safe() :-)
->>=20
->> list.h has 9 variants of the 'safe' loop.
->> The bloat of another 9 is getting excessive.
->>=20
->> It has to be said that this is one of my least favourite type of list...
->
-> Hi Christian K=C3=B6nig, David Laight, Jani Nikula, David Hildenbrand,
-> Andy Shevchenko, Alexei Starovoitov
->
-> For ease of discussion, I need to summarize the currently possible
-> approaches and briefly describe their respective pros and cons,
-> using the list_for_each_entry* interfaces as examples.
->
-> 1. Add list_for_each_entry_mutable, while keeping list_for_each_entry
-> and list_for_each_entry_safe unchanged. list_for_each_entry_mutable
-> would be used specifically for safe deletion scenarios that do not
-> need to expose the temporary cursor externally. The code can refer to
-> the v1 version.
->
-> Pros: Does not depend on immediate per-subsystem adaptation and can be
->       merged directly.
-> Cons: Requires adding a whole set of mutable interfaces, which makes the
->       code somewhat redundant.
+ drivers/staging/fbtft/fb_ra8875.c | 3 ++-
+ drivers/staging/fbtft/fbtft-bus.c | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-Seems fine, and the original _safe naming is ambiguous anyway.
+diff --git a/drivers/staging/fbtft/fb_ra8875.c b/drivers/staging/fbtft/fb_ra8875.c
+index 0ab1de664..5b95b0095 100644
+--- a/drivers/staging/fbtft/fb_ra8875.c
++++ b/drivers/staging/fbtft/fb_ra8875.c
+@@ -10,6 +10,7 @@
+ #include <linux/delay.h>
+ 
+ #include <linux/gpio/consumer.h>
++#include <linux/unaligned.h>
+ #include "fbtft.h"
+ 
+ #define DRVNAME "fb_ra8875"
+@@ -262,7 +263,7 @@ static int write_vmem16_bus8(struct fbtft_par *par, size_t offset, size_t len)
+ 			to_copy, remain - to_copy);
+ 
+ 		for (i = 0; i < to_copy; i++)
+-			txbuf16[i] = cpu_to_be16(vmem16[i]);
++			put_unaligned(cpu_to_be16(vmem16[i]), &txbuf16[i]);
+ 
+ 		vmem16 = vmem16 + to_copy;
+ 		ret = par->fbtftops.write(par, par->txbuf.buf,
+diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fbtft-bus.c
+index cfcf4d7e7..fc3faab7d 100644
+--- a/drivers/staging/fbtft/fbtft-bus.c
++++ b/drivers/staging/fbtft/fbtft-bus.c
+@@ -158,7 +158,7 @@ int fbtft_write_vmem16_bus8(struct fbtft_par *par, size_t offset, size_t len)
+ 			to_copy, remain - to_copy);
+ 
+ 		for (i = 0; i < to_copy; i++)
+-			txbuf16[i] = cpu_to_be16(vmem16[i]);
++			put_unaligned(cpu_to_be16(vmem16[i]), &txbuf16[i]);
+ 
+ 		vmem16 = vmem16 + to_copy;
+ 		ret = par->fbtftops.write(par, par->txbuf.buf,
+-- 
+2.47.3
 
-> 2. Directly optimize away the temporary cursor in list_for_each_entry_safe
-> and define it inside the loop instead, changing the interface from four
-> arguments to three.
->
-> Pros: Does not add redundant interfaces.
-> Cons: (1) Users need to manually update special cases that use the
->       traversal variable of list_for_each_entry_safe, the new
->       list_for_each_entry_safe would no longer apply there and would
->       need to be open-coded.
->       (2) Because the macro arguments changes, all list_for_each_entry_sa=
-fe
->       callers would need to be modified and merged together, making it
->       difficult to merge such a large amount of code at once.
-
-This won't fly because there are literally thousands of
-list_for_each_entry_safe() users.
-
-> 3. Use a variadic macro approach to optimize list_for_each_entry_safe,
-> so that it supports both three and four arguments.
->
-> Pros: (1) Does not add redundant interfaces.
->       (2) Does not depend on immediate per-subsystem adaptation and can
->       be merged directly.
-> Cons: (1) Increases compile time.
->       (2) Makes the interface harder for users to use.
-
-Basically I'm against any variadic macro tricks where the optional
-argument is not the last argument. That's just way too surprising, and
-goes against common practice in just about all other languages.
-
-> 4. Optimize list_for_each_entry by defining the temporary cursor internal=
-ly,
-> making it compatible with the functionality of list_for_each_entry_safe.
-> The code can refer to the v2 version.
->
-> Pros: (1) Does not add redundant interfaces.
->       (2) The number of externally visible arguments of list_for_each_ent=
-ry
->       remains unchanged, still three.
-> Cons: (1) list_for_each_entry and list_for_each_entry_safe would be merged
->       into one, and list_for_each_entry_safe would gradually be deprecate=
-d.
->       (2) Users need to manually update special cases that use the traver=
-sal
->       variable of list_for_each_entry, the new list_for_each_entry would =
-no
->       longer apply there and would need to be open-coded. There are 15 su=
-ch
->       cases in total.
-
-This sounds good to me, though I take it there's some code size increase
-and/or performance penalty?
-
-Maybe the 15 cases are questionable anyway?
-
-> 5. Use a variadic macro approach to optimize list_for_each_entry, so that
-> it supports both three and four arguments.
->
-> Pros: (1) Does not add redundant interfaces.
->       (2) Does not depend on immediate per-subsystem adaptation and can be
->       merged directly.
-> Cons: (1) Increases compile time.
->       (2) list_for_each_entry and list_for_each_entry_safe would be merged
->       into one, and list_for_each_entry_safe would gradually be deprecate=
-d.
-
-Please don't do the macro tricks.
-
-> 6. Make no changes, keep the current logic unchanged, and close the curre=
-nt
-> email discussion.
-
-I like hiding the temporary stuff when possible.
-
-
-BR,
-Jani.
-
---=20
-Jani Nikula, Intel
