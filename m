@@ -4,57 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48748CDE008
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:53:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49533CDE012
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:53:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3E6310F47F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1BDE10F480;
 	Fri, 26 Jun 2026 07:53:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=jasonxiang.net header.i=@jasonxiang.net header.b="MZMp/0Sa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OkLP4cPe";
 	dkim-atps=neutral
-X-Greylist: delayed 1200 seconds by postgrey-1.36 at gabe;
- Thu, 25 Jun 2026 14:06:37 UTC
-Received: from outbound.st.icloud.com
- (p-east2-cluster2-host8-snip4-5.eps.apple.com [57.103.78.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEBB410F2CC
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 14:06:37 +0000 (UTC)
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
- by p00-icloudmta-asmtp-us-east-1a-20-percent-1 (Postfix) with ESMTPS id
- B27591800368; Thu, 25 Jun 2026 13:30:58 +0000 (UTC)
-X-ICL-RepId: 019efefa-0503-76d6-9dfa-749527867608
-X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQtJC0MFXgJeC0sEQwVZAFBcHA4HTytYEUoXXRVeClwXFxZWGRcNVk1TGUACWRNbEVcfHQNSHxICWkUCXRcDVxxWRVwYQwldBVccHR5DRVsTVRdGCRkIXR0ZCEcfCjADQg5WA0MHRQAtGRxXUF0KQR9XAFoMWQwcHlwMEwBeDw9MC0gBWwddAEUISwFZBFMcQQBJAVQHRgNdUwBzB1YYXR5BEVIDUEVcFU1GExlOG1dNWg1AGVgGbRRWFVIEWQ==
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jasonxiang.net; s=sig1;
- t=1782394260; x=1784986260; bh=8gzP47/zMqNUOp3tsfzngD7CU94ViX4vNvN0q/Lo+ik=;
- h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme;
- b=MZMp/0SasVVMsN5wHpoKjMFgMpl2EBi8Ja2z/HTwteAP0W2truRFNu7on136PDsdc4Q7Ro3uzsJtrKedH1LCNS0csVwzVOZHFauf7OMIML0UDu3+SVhbypkg2JPgpG7nqYO92RbKvOOmNVZD9bdi2AwdkoN4oj/l1MgTYyR7GcX5DtpJeDe7tyssRci5iTibFEEWy3h4xp8s+qZRyvbVzZmAq9PhIMUbch9svBz8uFsoRI2MQywXEXT21E6NdAQqFvfsica7WDsnIYv26phfGanEKMP1/w6Bc735qiJQAjgK8gihnXXJOM+oTKx+fMbnSHUo35Dz+BpnQqkumObHZQ==
-mail-alias-created-date: 1782291625467
-Received: from JasonPC.localdomain (unknown [17.42.251.67])
- by p00-icloudmta-asmtp-us-east-1a-20-percent-1 (Postfix) with ESMTPSA id
- CF2821800AB4; Thu, 25 Jun 2026 13:30:55 +0000 (UTC)
-From: Jason Xiang <jx@jasonxiang.net>
-To: Paul Kocialkowski <paulk@sys-base.io>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Jason Xiang <jx@jasonxiang.net>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/logicvc: Fix port node reference leak in
- logicvc_crtc_init()
-Date: Thu, 25 Jun 2026 21:24:37 +0800
-Message-ID: <20260625132438.191290-1-jx@jasonxiang.net>
-X-Mailer: git-send-email 2.53.0
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com
+ [74.125.224.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 398BB10E1C2
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 08:57:26 +0000 (UTC)
+Received: by mail-yx1-f44.google.com with SMTP id
+ 956f58d0204a3-662b76dabfcso2187318d50.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 01:57:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782377845; x=1782982645; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=YCYjeG3UoXuLJvf4tB6q96AYo9bWZwxnIXnqLkpJp/o=;
+ b=OkLP4cPegPrJHK+6lb3DAAD+ppY9inv2ExcwoXplD1vGSkJBDfXQmu5psVL80K+rJu
+ i53iqHq3hF5h8Z0igdfrgll88Q21tUx9HuMnUI1b54VgZvjPvq3H9ZoosHUKYt526TuZ
+ Ei7eq486Ig3Ygz93vNJl3fnXsY8hiXczpy5ZPGcvXVNTffjq0WcVDAtE3m1khUIY44/S
+ 99BDseuYJZlDiATZKmDmCILwiuqXuOyAIBCvzbOoDCILwPWGJzyO9ZWUdyEzajpmW8w1
+ KryFCWjhjLwo/NZXB7bCOOjtZam9tAit4MsotfrjdLABmRqj2U5u1leArU0HkH3RzkfN
+ 9MFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782377845; x=1782982645;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=YCYjeG3UoXuLJvf4tB6q96AYo9bWZwxnIXnqLkpJp/o=;
+ b=j6DjQEMRaGO3rDF6DrQFL94TLt7kw8eYapalJRG7OWWnp4PgdteKJlcc1pPfmDtMRL
+ p5OX2bswodMPWE7rnwkk1BNYV4nTU229tf7eD5Kk5cStuZjBQowWNbzV0ExTE7loWfEC
+ 9C0aGML6TD9g4GNf/39VFSfwA1RTwdAzkwhLPwwOxvAgopdbmVccmWi9gfyo5xq0pTeF
+ 51tXKli/jCYZIxWEQfyq7VOx6aFOhN9zscRKXZjuxckApgJIiYv/iivoejIApgMrIfBJ
+ 50rik0ntCtfHp6FKLUaFwOYUd32E+aqdmi9gboAgZWpVbnVsKLXhV0cXiY6MM6AR1Z++
+ oaaw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rr72RU+BLkBzX2ltxUsHP8f/eB67Djvib+sQgs5oA6Nm7kSMHKZehhWT+XipLpcrbbPFWfgWoi32IY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YweMjGmBroWKBSIo6kiVoajOWURsOZLJV/rZ+r9lf/TnNGq8rrg
+ zRdzlIlBclTsF3I4ennGaeOrb6eksJsxllzAKHzFnIX25hWKuDVwoFlQ
+X-Gm-Gg: AfdE7cli6A3fK3RBukyiqPPvqUC1hrro4RqXRq6bELe5vaqzC/9z9XzX7OIVNFQogJ1
+ SE8EaTuGDfIaaySQ7321mkz3px01aVb6GOA31BP2MVSDyKuwaoZuOAeGcivHWqfnYmQ0pAEsHev
+ bgzZpXkw08Rw0Mg2bioj2/4nx7UCEjXDr1eV2SMG5Aw9OhXXzEzV/uFbYLmvY4LCPBOkFfbo1+C
+ caRHD0W83A42pApqVwy8NboJ2xMXNlw5496JRZFVirFiTVIULaRIyqnpiPt1vsnCIZUtKLWlFT1
+ RvHyJG/6u9nYsk6Kj5gIPJ2mLTq2OZEF1Wk15W2/AITKcoLJz1A61XHmZQ0M1apegZvPwOWbuHt
+ 7Qd9XuANtZf/iELbPQ2PZndwc0Cr+JJVSvCyBQ75QnLDuovkv0chnR4zXGqOwnp49JPoKnPQPAu
+ I7+pi+5QeycIpsXS5EUBqNi04ipoqlBbVOjKRo
+X-Received: by 2002:a53:ac9b:0:b0:660:5a7b:9d7f with SMTP id
+ 956f58d0204a3-66487c7810amr1149739d50.15.1782377845163; 
+ Thu, 25 Jun 2026 01:57:25 -0700 (PDT)
+Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
+ by smtp.gmail.com with ESMTPSA id
+ 956f58d0204a3-6647f785f6bsm1105061d50.6.2026.06.25.01.57.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jun 2026 01:57:24 -0700 (PDT)
+From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Yousef Alhouseen <alhouseenyousef@gmail.com>
+Subject: [PATCH 2/3] misc: fastrpc: fix map cleanup paths
+Date: Thu, 25 Jun 2026 10:56:58 +0200
+Message-ID: <20260625085659.4469-2-alhouseenyousef@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260625085659.4469-1-alhouseenyousef@gmail.com>
+References: <20260625085659.4469-1-alhouseenyousef@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDExNiBTYWx0ZWRfX4bLP1CwFcp5r
- EgoJq5/5P2qU5xyzVk+gm/GoP1yTWPpULSPAbLr9177/ZfOR2saQYN34Vj6sO9sMohRnnwJnJm4
- 59xtPpR1Aa9fMRUhaPIF+s02SH82Ax4SCDKdcn4BZO6d8aQgiGBb4ZuENW2DyirK0fDqZHZQhw8
- OMhH1ukfS05w+tnjLTqWCwBoSnmbaT/P3fGskgMxQNag1ONEtoNSd4opwvW+1xRkkBU7qvgzedD
- 6L3cNAAtBwPk+FxWtCRZomG63qOpvKccIR3TXdr5K+uFQzRAkpdYfc9aFbspI5Bt2P8DrHDY7kl
- Iqu9tSXhO6zKsC7+IVw
-X-Proofpoint-ORIG-GUID: QLiWq3RgxSC_OEwWGEEJe2qtt1gji6wq
-X-Proofpoint-GUID: QLiWq3RgxSC_OEwWGEEJe2qtt1gji6wq
 X-Mailman-Approved-At: Fri, 26 Jun 2026 07:53:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,52 +94,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-of_graph_get_port_by_id() returns the port node with its reference
-count incremented; the caller has to drop that reference with
-of_node_put() when done. logicvc_crtc_init() stores the node in
-crtc->port but never releases it. The core CRTC cleanup
-(drm_crtc_cleanup()) does not put crtc->port either, so the reference
-is leaked on unbind, and also on any probe error after this point.
+fastrpc_create_maps() can attach dma-bufs for every scalar argument,
+including handle arguments beyond the input and output buffer count.
+fastrpc_context_free() only dropped references up to nbufs, leaving
+handle maps attached after invoke cleanup.
 
-Drop the reference with a device-managed action, as done in other
-DRM drivers (e.g. arm/malidp, arm/hdlcd). The leak has been present
-since the driver was introduced.
+fastrpc_map_attach() also falls through to fastrpc_map_put() after
+manually detaching and putting the dma-buf on late errors. Leave the map
+object in a state that matches the resources still owned by the release
+path so the attachment and dma-buf are not released twice.
 
-Fixes: efeeaefe9be5 ("drm: Add support for the LogiCVC display controller")
-Signed-off-by: Jason Xiang <jx@jasonxiang.net>
+Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
 ---
- drivers/gpu/drm/logicvc/logicvc_crtc.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/misc/fastrpc.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/logicvc/logicvc_crtc.c b/drivers/gpu/drm/logicvc/logicvc_crtc.c
-index 81e5b80736fa..4de48822ca21 100644
---- a/drivers/gpu/drm/logicvc/logicvc_crtc.c
-+++ b/drivers/gpu/drm/logicvc/logicvc_crtc.c
-@@ -243,6 +243,11 @@ void logicvc_crtc_vblank_handler(struct logicvc_drm *logicvc)
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 8992b5c0c..50f90e17e 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -580,7 +580,7 @@ static void fastrpc_context_free(struct kref *ref)
+ 	cctx = ctx->cctx;
+ 	fl = ctx->fl;
+ 
+-	for (i = 0; i < ctx->nbufs; i++)
++	for (i = 0; i < ctx->nscalars; i++)
+ 		fastrpc_map_put(ctx->maps[i]);
+ 
+ 	if (ctx->buf)
+@@ -917,7 +917,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+ 	table = dma_buf_map_attachment_unlocked(map->attach, DMA_BIDIRECTIONAL);
+ 	if (IS_ERR(table)) {
+ 		err = PTR_ERR(table);
+-		goto map_err;
++		goto detach_err;
  	}
- }
+ 	map->table = table;
  
-+static void logicvc_crtc_of_node_put(void *data)
-+{
-+	of_node_put(data);
-+}
-+
- int logicvc_crtc_init(struct logicvc_drm *logicvc)
- {
- 	struct drm_device *drm_dev = &logicvc->drm_dev;
-@@ -274,6 +279,10 @@ int logicvc_crtc_init(struct logicvc_drm *logicvc)
- 
- 	crtc->drm_crtc.port = of_graph_get_port_by_id(of_node, 1);
- 
-+	ret = devm_add_action_or_reset(dev, logicvc_crtc_of_node_put, crtc->drm_crtc.port);
-+	if (ret)
-+		return ret;
-+
- 	logicvc->crtc = crtc;
- 
+@@ -966,9 +966,15 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
  	return 0;
-
-base-commit: f0e6f20cb52b14c2c441f04e21cef0c95d498cac
+ 
+ map_err:
++	dma_buf_unmap_attachment_unlocked(map->attach, map->table,
++					  DMA_BIDIRECTIONAL);
++	map->table = NULL;
++detach_err:
+ 	dma_buf_detach(map->buf, map->attach);
++	map->attach = NULL;
+ attach_err:
+ 	dma_buf_put(map->buf);
++	map->buf = NULL;
+ get_err:
+ 	fastrpc_map_put(map);
+ 
 -- 
-2.53.0
+2.54.0
 
