@@ -4,60 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33541CDE00E
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:46:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F331DCDE002
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:47:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 772E710E37F;
-	Fri, 26 Jun 2026 12:46:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 638E110E399;
+	Fri, 26 Jun 2026 12:47:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NiiKt4F+";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="EWH/LCAX";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D20A10E399
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:46:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 03AE3436B3;
- Fri, 26 Jun 2026 12:46:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 638C01F000E9;
- Fri, 26 Jun 2026 12:46:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782478003;
- bh=fP2BM5siPysCREjfmNXTR/AxtHEbdVc8M5zdwdMP+mk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=NiiKt4F+FD/xr4ICI51VvWflhjUH201ZGxa4dXz5iiGpggTXlyRUeAEBpU4bFkG7h
- Y16rYAzZyT3r6wXl83K3BfFQY3el38xkXteaSudkhkQSUreTxcwg6rm8vjncEdNT9b
- 6pd4eR1ofgNdscUQ2uGqwoaQSWZWXgwZdYvXLFJ+/QxJLoaYL+dPAGeAw18D/J8q4f
- emR3NPxczJIXQFq4eRJjgQ71hNBq5nNHsXADJdHso6mcdeDGahZ4MyqhMVFMOlcHnC
- aSrUG8rOJBFeY+EpwxrZVdaDXdsB30aB8cnpEZTQER8/k1ChsAYecSMAnrfeDn5giZ
- aA8Zh1BOaXgCQ==
-Date: Fri, 26 Jun 2026 14:46:41 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Cc: Brian Masney <bmasney@redhat.com>, 
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Helge Deller <deller@gmx.de>, 
- Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>, 
- linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ~postmarketos/upstreaming@lists.sr.ht
-Subject: Re: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and
- use this in simple[fb|drm]
-Message-ID: <20260626-elegant-remarkable-chipmunk-31dbed@houat>
-References: <20260527094811.116977-1-johannes.goede@oss.qualcomm.com>
- <ahd4XgTo3KZqGS9M@redhat.com>
- <66a76d9f-fe04-4a72-b6fe-42c2922fe9d9@oss.qualcomm.com>
- <20260528-sloth-of-delightful-chaos-1f02dc@houat>
- <4b09bd91-9a08-407a-9b01-216dd4d7aae0@oss.qualcomm.com>
- <20260624-ultramarine-beetle-of-vastness-acd51e@houat>
- <7c91795c-f8bf-429b-b588-f7e96d97b1a1@oss.qualcomm.com>
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11010017.outbound.protection.outlook.com [52.101.229.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A087B10E399
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:47:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pB6IAMs3F2Lo6juQDWOGg55ps9263przxOIlBUwc58OZidTm0Ly//y0plfYMSU0Gbdv3hfsqbuh8fAi4JahT/yK1ogGP2Ol1lmLMho8kEeULJmKzl3powqoyvOMzeBmtIy27LsQyN8FScgh3ceNwk17XcaSJvtgDuJfhwo4b4ZAOm7wqHGJewcwvQTIDuNWnS1iC0SWpni3NMQH4FIYcDxDpleXzYXFd6Dwe0TOEnIlYuDH03iCpgwCYx2RZFeL8bw9LJRwD5Kf1mxPCpOZaw0kKQpFToDbJCx+UUgD+jPo8urXskxB632Z/zMmjGxNyhyq1mU8ab318bW6q5v1bmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=stehnteWIH6lCabVFSapJmEwXMbhXAz1y4P5YV09riE=;
+ b=KJK/rEaeYGPbL31EBdU5S8IUKNqzpKGJsHW+ArXAV46Nja/z540bMbB+eb0ll2/wdhhkyy7K4Pxg3gLhJGvm39FVSikElyHrWVX111kgYCq6zz+8/Br/PSwb782ylwdeu7UkxNVjXR/UMGHjYFcb9lNz2YP2V/qYgG2pXS2QuYd/5TKwCmordWp7naFFoCf2MOknqEM58N1jWTZIDJMdRyn3NkpUFTd/r2342j8t66W4l3H7MsFND5uct5NLzsrGBvYhEuSIldctc5Gg7vpEgSjDJieMmUexdVal3bxpdxGpBXhoyLPcvb4ATDGYOvdxEtRNQcBz6ghIh6d206+9Lg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=stehnteWIH6lCabVFSapJmEwXMbhXAz1y4P5YV09riE=;
+ b=EWH/LCAXnk2Uc8vqOBMGYyA0PHUWqmQYPEN7Okbf58e/XAeTg726Nm2PkeT4EU+GTsZCB+rOBufp/qr0X2w7aoGpKN0YC2a22wR0PLxC+hAGVR4WDAb6IGCN24XB8VjhBNXbLK7mNPIUnRKeVf5QVa56XLPdG3L40P2c0eqL/yE=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by OS9PR01MB17285.jpnprd01.prod.outlook.com (2603:1096:604:451::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Fri, 26 Jun
+ 2026 12:47:26 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0159.015; Fri, 26 Jun 2026
+ 12:47:25 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>,
+ biju.das.au <biju.das.au@gmail.com>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ wsa+renesas <wsa+renesas@sang-engineering.com>
+Subject: RE: [PATCH v5 2/2] drm: renesas: rz-du: Add support for RZ/G3L LVDS
+ encoder
+Thread-Topic: [PATCH v5 2/2] drm: renesas: rz-du: Add support for RZ/G3L LVDS
+ encoder
+Thread-Index: AQHdBMdwfYzVFUEh20GOxrmsfACKerZPiPUAgAE5c3A=
+Date: Fri, 26 Jun 2026 12:47:25 +0000
+Message-ID: <TY3PR01MB11346CFBFF8B833AAF7E0FBD186EB2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260625172359.292631-1-biju.das.jz@bp.renesas.com>
+ <20260625172359.292631-3-biju.das.jz@bp.renesas.com>
+ <20260625173715.231A51F000E9@smtp.kernel.org>
+In-Reply-To: <20260625173715.231A51F000E9@smtp.kernel.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OS9PR01MB17285:EE_
+x-ms-office365-filtering-correlation-id: 88b2624f-f2e4-4a01-9531-08ded381132b
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|376014|6133799003|22082099003|4143699003|56012099006|18002099003|11063799006|38070700021;
+x-microsoft-antispam-message-info: LhUrKTp95dMbpGEgMyo/0Wf7EAagrH25fFeryUTbBh53zebKn0opdvhVp8npXVLkhKQdujXPuB3XmnHFnleph4q8WaS/pdAwp3UTK+gP1bVqCceyR5BLAVXppHv2RGcrhcHVjaGiNVpR7+sagJtka+V6IbNMhDBoyrzVcmoskO/WbJYA7xdKRTYRN0J+zRx4vnBa+a5Wi039Zzj01O+p9EGNsaEbBLbKxSarXBfC5Bj+XH7kw8HZkPKiZZE9btENfhNpK91JyVGF9aUAGNsVae7JQbnEmAy78SVbB+tnDBBML1I7jqFpGgt3wp+voVRnJNtQRyf1WIfRe9j/DNc6eYk6YhWjeDlKPFLGfw0T+ciTdEcQhg7+BEUGVPfLF1lJaCp7MdzsPJNCyQ+N6i3nGMs1sQDaFjVvH75BHgkxlI0y0/stDVZwkAS99qc6dopQXMrMX4gwOoyzfKlRSBW+8RdbzrTdLYRabYPPUAs3UuhqtL4M2N1o3H+pN+yr1WzyxIc69cBevkKh3w94ekNQXPIVXKBOJAT93ueO/VwDJqka0LQF6i+GIeFBbIGwq3/o7NBAWclHUaVrc2aY7KkVTUm0q8UUgljl9iMub+jrHCwr6BrvmcmtZOvsSOykbL/UEDrbmTwozsu6WMYVDGMIAO/BjRWNGkxX3OPTZoQscig=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(6133799003)(22082099003)(4143699003)(56012099006)(18002099003)(11063799006)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?RkhITS93ZitUbjNDUXE1RU95QTJMNDVKcTZxRFpWVUx3MCtXZmM1ZGlKc3R6?=
+ =?utf-8?B?dHluYjJDekp2eXBPd2hkb1NlSnprTTZVcHNiOG1aWmRTbFdNNnoxRERXYUpZ?=
+ =?utf-8?B?ZFVkRzRON0hrOVgvSFdEOTJWdEo4dFN1OFIxVjB0S25IRENaLzZKNG0wZFVa?=
+ =?utf-8?B?NFArRDVyUDBSTUpCL05LWlF6MDMxZkkvcWR2SVpYZkFVZTB6NXBmZnc5T0Va?=
+ =?utf-8?B?SFlhbXFsM3hQV1ZmMmE0V3hVajlUZ1dJUkFKdGRJS1BTcE04SFgybnhVL3Vt?=
+ =?utf-8?B?aUI4SnE0VVRONlRFZEFPWERFTWowZTcwK0lFVjBRRjNDTlZVclQ4dS9qcFg0?=
+ =?utf-8?B?QXlPZWRNSW1aVkJRTDdnMnhleXJBVkZaZUg4a09PakYvY2xYSEpidWk2bzk5?=
+ =?utf-8?B?ajdCNnlzK21wTW9OT2swOENDTTRQZUFNNktLTGh0UCsyZVJCd05WVGNzcEF6?=
+ =?utf-8?B?Tm1ERTU4Sm8rRDAyWUh6cTJBSmJZeHZUT0VCaFZoV2p6M01SdWFPeVJvSVhP?=
+ =?utf-8?B?emRXdjF6ZFBMRHJHdzA2WlZ0bFBudTJSNld2V0FNZG05dVZOTEhPQXNabERT?=
+ =?utf-8?B?NExGcXY0bzhGNVZLd1Z3Q1JDYlNiUEhpNzQvaHZ1ckpXTVh1TW5Vb1Rkd3pu?=
+ =?utf-8?B?YWhkUGtFckR4b0tHSmg1cWtoV0tDNlB3c1l2Qk1ZanhqVDZMVUpVdVVpc294?=
+ =?utf-8?B?dFRSblQ5VE1jZmR6d09qbjhRV3g5ZWRQWWx0a0NCSTVpamxXbjdHK2phellz?=
+ =?utf-8?B?Q1FvMGFlNGFaQUdiWXJNcVd4ZEtlcEV3Q3NjM0ZFYlVXWDU2YkpmNnpwVSto?=
+ =?utf-8?B?RndWWTh2aktsWW43UURZb3ZIUmQ4SVNRTGZFTEZSSDNCaVZqSFNsaCtDd0xx?=
+ =?utf-8?B?MmFSeVhLOURQc1BkSVd0emhmWCt2dXBZWjdDb2x0bUJxU2pPMjRRTHZPUWlD?=
+ =?utf-8?B?UU9scUwzNi8xb2hPbmtvNjltU3QrQis3S1dlZlpybm1JekdZSWJPKzNUUUxO?=
+ =?utf-8?B?V3NsNzBhOXFESGQ5dXdBOHZ4MURFa1VwRC9VM2c0WlJhc0RlcnBTNVFZTmNT?=
+ =?utf-8?B?UjRhK1RaWjg1V1J1SU1sR09CR1pmaVRTQThuMnY1M0lSRU1JKzlteUhCMVA1?=
+ =?utf-8?B?cVVBV0xHVURNcTQwc3dGN1U4MmhyZWhpNDUrQ0o2cm83SFUzWUIvTjdLT09Q?=
+ =?utf-8?B?YTJEbjAwYlEzVkhlNFhvZW5uSm0wMGNydnFDLzBUc3RNZ2ZPU2Fqc0JoYXFN?=
+ =?utf-8?B?alBwTzgyZlhMY2NLSEdBU3hmWWFKZ3dibmhpNVdCOFU3Q215dFNNS2xBS3RV?=
+ =?utf-8?B?WUk1bWRmcEFkL1VUbjk0aGZqclRSMHZMZGxzaXBRTnI4MGxmUWtqVjBoUTJl?=
+ =?utf-8?B?V3lucFZtRWRvbDFGeVhZM1lwWTVTWHZpRE5GMXIrNHpZWUxIaWR5Y2s4RlRR?=
+ =?utf-8?B?MlY1UlpyNmwwdU9LQkRFZElVaWUveWk5NjhGcTBFU2VoMUtwdXBPUWJFeVUw?=
+ =?utf-8?B?U3hQdXNsbFN4MkpNd1pQM29kZ1pVYWg0UVZzemxCeXRBb3NmZTZSOU5JK1I2?=
+ =?utf-8?B?VHR2SndvOTU5YUZlMGo0VkpueDZBTGVqTnE0NW5yR0JoS1c4SDZFdi8xT1No?=
+ =?utf-8?B?ckg4RXRPbXZ4aVI0Ujc2UXRoVGt1a0dwTDdldlFOZXpvU29XeTV2bWFORkZV?=
+ =?utf-8?B?MFB3dEtwVlZRME1QT0lPaWJqU3Y0VzB2WFlGNkduVFJZUHg5cVJJb1haZG5D?=
+ =?utf-8?B?Qyt0TEc5THFTMTR4aHNYTk4zR28yV0dINzh1TlFhOUxwUG0xbGZCYnZxWnRn?=
+ =?utf-8?B?YkFaSHE2STI4aGsvaWJOa3o2UnVqMjhOUlpXMlUybVpDSGhuRE1GSVVhb1Rz?=
+ =?utf-8?B?OU1ZVHJERENoTm0vY0p6dENTM1MxcGUwV3dWNWFXS1IrV2FlVXBRWWlXMXk3?=
+ =?utf-8?B?dnZON2ZjZDI0TFcrVXBnM3JDVVE5VmNKRWdSNmlBSDY2dUtmR01wNjREUjda?=
+ =?utf-8?B?VEZLclgxVit1ZmI2SzRXTHlsdDEvL085aXIvbXJ4anF4YUNobHhZdnRIR3lx?=
+ =?utf-8?B?UHA5cEVSNnVDRnNnRnV4RHNISW0wd0J2QmpKcnhDaFRCdkZaRUJqSkR0bUVV?=
+ =?utf-8?B?dkI4aVlLYW1uM0JLVlhBWFpHNHkxaFdKbHNmS2grOXJic281KzRKNmdQdzI3?=
+ =?utf-8?B?N2U5cTRGNy92RGxhb29WbGVWZ3BuMDVGRDZYYStCNUZ0RmhCZ3NjRTlxTVBp?=
+ =?utf-8?B?Mm1zcE41WnZsK1d0alFzN0hnSUlZU1ozQmIyRFptVzJWYjRLd0JyREpBQ0Ez?=
+ =?utf-8?B?RFRWQ2VJc2lPcG9Fd3dsZXN5Q0JVNExhSzZ3K1JaZnBxWjhYV0k5UT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="by3ip33exiefhb24"
-Content-Disposition: inline
-In-Reply-To: <7c91795c-f8bf-429b-b588-f7e96d97b1a1@oss.qualcomm.com>
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88b2624f-f2e4-4a01-9531-08ded381132b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jun 2026 12:47:25.8067 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: iA5IkmDxjv3K9p2IxJIxuUctdAekcJfTt6yDRymnqR249DxNNXNKLV6lqvFaSv/H/HQEA6VC4+tevDLR/DMsWnPZKs5JiXOzt2zyERr5cfQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB17285
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,180 +143,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
---by3ip33exiefhb24
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/3] clk: Add __clk_disable_unprepare_counts_only() and
- use this in simple[fb|drm]
-MIME-Version: 1.0
-
-On Wed, Jun 24, 2026 at 11:06:49AM +0200, Hans de Goede wrote:
-> Hi,
->=20
-> On 24-Jun-26 10:53, Maxime Ripard wrote:
-> > On Thu, May 28, 2026 at 03:02:09PM +0200, Hans de Goede wrote:
-> >> On 28-May-26 2:08 PM, Maxime Ripard wrote:
-> >>> On Thu, May 28, 2026 at 12:12:10PM +0200, Hans de Goede wrote:
-> >>>> Hi Brian,
-> >>>>
-> >>>> On 28-May-26 1:03 AM, Brian Masney wrote:
-> >>>>> Hi Hans,
-> >>>>>
-> >>>>> On Wed, May 27, 2026 at 11:48:08AM +0200, Hans de Goede wrote:
-> >>>>>> 2) One option considered was detaching the simple-framebuffer driv=
-er later,
-> >>>>>>    after the real display driver has had a chance to claim the clo=
-cks. But
-> >>>>>>    this won't work in cases where the real display driver picks di=
-fferent
-> >>>>>>    parent clocks then the boot firmware did and needs to reparent =
-clocks.
-> >>>>>
-> >>>>> Why won't that work in the case where different parent clocks are s=
-elected?
-> >>>>> I'll describe a scenario below.
-> >>>>>
-> >>>>>>
-> >>>>>>    Basically the goal is for things to behave as if the simple-fra=
-mebuffer
-> >>>>>>    driver was not there at all, because that leaves the hw in the =
-state
-> >>>>>>    the real display driver expects.
-> >>>>>
-> >>>>> I think the deferred unbinding could have some potential here where
-> >>>>> there is some kind of notification mechanism between simple-framebu=
-ffer
-> >>>>> and the real drm driver. So:
-> >>>>>
-> >>>>> - simple-framebuffer driver takes reference(s) to the clk(s).
-> >>>>>
-> >>>>> - real drm driver eventually loads, takes reference(s) to the neces=
-sary
-> >>>>>   clk(s).
-> >>>>>
-> >>>>> - real drm driver sends a notification to simple-framebuffer that i=
-t's
-> >>>>>   done, and has control.
-> >>>>>
-> >>>>> - simple-framebuffer can unbind and release its references to the c=
-lks.
-> >>>>>
-> >>>>> No clks will be shutdown prematurely in this scenario.
-> >>>>>
-> >>>>> If the real drm driver needs a different parent, then presumably th=
-ings
-> >>>>> should be setup correctly, and simple-framebuffer can have the cloc=
-ks
-> >>>>> shut down when it calls clk_disable_unprepare().
-> >>>>
-> >>>> If the real drm driver needs a different parent, then how does it
-> >>>> do the reparenting while the simple-framebuffer driver is holding
-> >>>> a reference to the clock ?  In that case the clock might have
-> >>>> a protected_count of non 0 (depends on the core-clk flags) and
-> >>>> reparenting won't work.
-> >>>
-> >>> The only case where it should reparent you listed was that you might
-> >>> need to pick up a different resolution. However, that can only be
-> >>> enforced by an ioctl or a client.
-> >>>
-> >>> simplefb/drm is removed in msm_drm_kms_init. The device is published
-> >>> drm_dev_register called right after msm_drm_kms_init, and the clients
-> >>> are registered in msm_drm_kms_post_init, called after drm_dev_registe=
-r.
-> >>>
-> >>> There's no way in the current msm architecture to have a modeset happ=
-en
-> >>> while the simpledrm driver is still active.
-> >>
-> >> Ok, new plan, please let me know what you think about this:
-> >>
-> >> 1. Add a new "disable" callback argument to
-> >> devm_aperture_acquire_for_platform_device() and store this in
-> >> struct aperture_range
-> >>
-> >> 2. Add a new aperture_disable_conflicting_devices() which
-> >> calls the disable callback for matching devices.
-> >>
-> >> 3. Have the simple[fd|drm] drivers implement a disable callback
-> >> which unregisters the drm dev and releases any claims on the
-> >> aperture mem-region, while keeping clks, regulators, etc.
-> >> enabled. And have them check if disable was called on remove()
-> >> and if not do the disable() things on remove(0
-> >>
-> >> 4. Have msm call aperture_disable_conflicting_devices() where it
-> >> now call aperture_remove_conflicting_devices() and call
-> >> aperture_remove_conflicting_devices() at the point where it has
-> >> claimed any clks it needs.
-> >>
-> >> Does this sound like something which would be acceptable ?
-> >=20
-> > Generally speaking, yes, but I'd also like to understand what you're
-> > trying to fix exactly, because I don't see how it can be what you hinted
-> > at before.
->=20
-> The basic problem is that on handover from simpledrm -> msm
-> the clocks get turned off, without fully shutting down the
-> display pipeline first (since simpledrm does not know how).
->=20
-> Then when msm later tries to re-enable things, the hw is
-> in a confused state and we hit this error:
->=20
-> [    2.980181] disp_cc_mdss_dptx3_pixel0_clk_src: rcg didn't update its c=
-onfiguration.
-> [    2.980272] WARNING: drivers/clk/qcom/clk-rcg2.c:136 at update_config+=
-0xdc/0x100
->=20
-> So we need a way to handover things to the msm driver
-> without anything getting disabled by simpledrm in an
-> uncontrolled (not following proper pwr-down seq) manner.
->=20
-> The idea behind the 2 step simpledrm removal process is
-> that on the first step drm_dev_unplug() gets called for
-> the simpledrm device and any struct resource claim on
-> the aperture gets released. While keeping all the clocks,
-> regulators, etc. claims.
->
-> Then msm can take things over and call the second step
-> when it has taken everything over. On the second step
-> simpeldrm will release its enable count ref on the clocks,
-> etc. in question.
-
-So I'm not really sure you need a hand-over, and you kind of rejected
-doing a proper one anyway.
-
-I see two issues there:
- - simpledrm doesn't safely disable its resources on QC SoCs
-
- - there's no way to claim the resources from simpledrm after the main
-   drm driver is active.
-
-And you're trying to work around the first one with the second one. The
-second one is generic to me, so it shouldn't be an msm (or simpledrm)
-specific solution.
-
-The first one is SoC-specific, and fixing the second won't prevent
-completely the first. If you unbind simpledrm while it's active, you'll
-get the same issue, and you can't rely on the msm driver being always
-there to cover for you.
-
-So we need to fix both. We should discuss the second part with Thomas
-really, but for the first one, simple-framebuffer having its own
-compatible will allow you to trigger any coordinated poweroff sequence.
-
-Maxime
-
---by3ip33exiefhb24
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaj50qQAKCRAnX84Zoj2+
-dojtAYCmeW3bzu+YkChvIKdC+nbW6MN2bPTAHpqM1GM0ZtbH0AKJtQh4UWvJueJq
-TGdm2wsBf1swiWMaFoBi9UoEdVkB4y02Gcisr2W4HluPhEGwb2/bFOxt6x3RsQYy
-Lnuh3GI3Wg==
-=O0bd
------END PGP SIGNATURE-----
-
---by3ip33exiefhb24--
+SGksDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogZHJpLWRldmVsIDxk
+cmktZGV2ZWwtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiBzYXNo
+aWtvLWJvdEBrZXJuZWwub3JnDQo+IFNlbnQ6IDI1IEp1bmUgMjAyNiAxODozNw0KPiBUbzogYmlq
+dS5kYXMuYXUgPGJpanUuZGFzLmF1QGdtYWlsLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2
+NSAyLzJdIGRybTogcmVuZXNhczogcnotZHU6IEFkZCBzdXBwb3J0IGZvciBSWi9HM0wgTFZEUyBl
+bmNvZGVyDQo+IA0KPiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJ
+IHJldmlldyBmb3VuZCAzIHBvdGVudGlhbCBpc3N1ZShzKSB0byBjb25zaWRlcjoNCj4gLSBbSGln
+aF0gRGVmZW5zaXZlIGVhcmx5IHJldHVybnMgaW4gYXRvbWljX2VuYWJsZSBsZWFkIHRvIGZhdGFs
+IGhhcmR3YXJlIGFjY2Vzc2VzIGFuZCBQTSB1c2FnZSB1bmRlcmZsb3dzDQo+IGluIGF0b21pY19k
+aXNhYmxlLg0KPiAtIFtMb3ddIFRoZSBEUk1fUlpHM0xfTFZEUyB0cmlzdGF0ZSBieXBhc3NlcyBD
+T01QSUxFX1RFU1QgYmVjYXVzZSBpdCBpcyBkZWZpbmVkIGFzIGBkZWZfdHJpc3RhdGUNCj4gRFJN
+X1JaRzJMX0RVYC4NCj4gLSBbTG93XSBUaGUgZHJtX2JyaWRnZV9mdW5jcyBzdHJ1Y3R1cmUgdXNl
+cyBhIG5vbi1leGlzdGVudCBmaWVsZCBhdG9taWNfY3JlYXRlX3N0YXRlLg0KPiAtLQ0KPiANCj4g
+Y29tbWl0IGEyYjdhZTgwODVhYzY2NTQ0NTRhNmIzZTIwNTFiZjI5M2E4N2U3YjkNCj4gQXV0aG9y
+OiBCaWp1IERhcyA8YmlqdS5kYXMuanpAYnAucmVuZXNhcy5jb20+DQo+IA0KPiAgICAgZHJtOiBy
+ZW5lc2FzOiByei1kdTogQWRkIHN1cHBvcnQgZm9yIFJaL0czTCBMVkRTIGVuY29kZXINCj4gDQo+
+ICAgICBBZGQgc3VwcG9ydCBmb3IgdGhlIFJaL0czTCBMVkRTIGVuY29kZXIgZHJpdmVyLiBJdCBv
+cGVyYXRlcyBpbiBzaW5nbGUtbGluaw0KPiAgICAgbW9kZSB3aXRoIDQgbGFuZXMgKERhdGEpICsg
+MSBsYW5lIChDbG9jaykgYW5kIHN1cHBvcnRzIHBpeGVsIGNsb2NrIHJhdGVzDQo+ICAgICBmcm9t
+IDI1IHRvIDg3IE1Iei4NCj4gDQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yZW5l
+c2FzL3J6LWR1L0tjb25maWcNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9yZW5lc2FzL3J6LWR1L0tj
+b25maWcNCj4gPiBpbmRleCA3ZjJlZjcxMzdhZTUzLi4wZGJlODZiZDY1ZDA5IDEwMDY0NA0KPiA+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yZW5lc2FzL3J6LWR1L0tjb25maWcNCj4gPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9yei1kdS9LY29uZmlnDQo+ID4gQEAgLTI2LDMgKzI2LDE2
+IEBAIGNvbmZpZyBEUk1fUlpHMkxfTUlQSV9EU0kNCj4gWyAuLi4gXQ0KPiA+ICtjb25maWcgRFJN
+X1JaRzNMX1VTRV9MVkRTDQo+ID4gKwlib29sICJSWi9HM0wgRFUgTFZEUyBFbmNvZGVyIFN1cHBv
+cnQiDQo+ID4gKwlkZXBlbmRzIG9uIERSTV9CUklER0UgJiYgT0YNCj4gPiArCWRlcGVuZHMgb24g
+RFJNX1JaRzJMX0RVIHx8IENPTVBJTEVfVEVTVA0KPiA+ICsJZGVmYXVsdCBEUk1fUlpHMkxfRFUN
+Cj4gPiArCWhlbHANCj4gPiArCSAgRW5hYmxlIHN1cHBvcnQgZm9yIHRoZSBSWi9HM0wgRGlzcGxh
+eSBVbml0IGVtYmVkZGVkIExWRFMgZW5jb2Rlci4NCj4gPiArDQo+ID4gK2NvbmZpZyBEUk1fUlpH
+M0xfTFZEUw0KPiA+ICsJZGVmX3RyaXN0YXRlIERSTV9SWkcyTF9EVQ0KPiANCj4gW1NldmVyaXR5
+OiBMb3ddDQo+IERvZXMgdGhpcyBoYXJkY29kZWQgZGVmYXVsdCBieXBhc3MgdGhlIENPTVBJTEVf
+VEVTVCBpbnRlbnQ/DQo+IA0KPiBJZiBEUk1fUlpHMkxfRFUgaXMgZGlzYWJsZWQgKHN1Y2ggYXMg
+ZHVyaW5nIGNyb3NzLWNvbXBpbGF0aW9uIHRlc3RpbmcpLCB0aGlzIGV2YWx1YXRlcyB0byAnbicg
+ZXZlbiBpZg0KPiBDT01QSUxFX1RFU1QgYW5kIERSTV9SWkczTF9VU0VfTFZEUyBhcmUgZW5hYmxl
+ZC4NCj4gVGhpcyBjb3VsZCBwcmV2ZW50IHRoZSBtb2R1bGUgZnJvbSBiZWluZyBidWlsdCBmb3Ig
+dGVzdCBjb3ZlcmFnZS4NCg0KTFZEUyBkcml2ZXIgaGFzIGZ1bmN0aW9uYWwgZGVwZW5kZW5jeSBv
+biBEUk1fUlpHMkxfRFUuIFNvLCB5b3UgY2FuJ3QgdGVzdCBMVkRTDQp3aXRoIERVIGRyaXZlci4N
+Cg0KQm90aCB0aGUgZHJpdmVycyBjYW4gYmUgY29tcGlsZSB0ZXN0ZWQgdXNpbmcgQ09NUElMRV9U
+RVNULiBTZWUgWzFdIFg4NiBjb21waWxhdGlvbiB3aXRoIGFsbG1vZGNvbmZpZy4NCg0KWzFdDQpm
+aWxlIGRyaXZlcnMvZ3B1L2RybS9yZW5lc2FzL3J6LWR1L3J6ZzJsLWR1LWRybS5vDQpkcml2ZXJz
+L2dwdS9kcm0vcmVuZXNhcy9yei1kdS9yemcybC1kdS1kcm0ubzogRUxGIDY0LWJpdCBMU0IgcmVs
+b2NhdGFibGUsIHg4Ni02NCwgdmVyc2lvbiAxIChTWVNWKSwgbm90IHN0cmlwcGVkDQoNCmZpbGUg
+ZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcnotZHUvcnpnMmwtZHUtZHJtLmtvIA0KZHJpdmVycy9n
+cHUvZHJtL3JlbmVzYXMvcnotZHUvcnpnMmwtZHUtZHJtLmtvOiBFTEYgNjQtYml0IExTQiByZWxv
+Y2F0YWJsZSwgeDg2LTY0LCB2ZXJzaW9uIDEgKFNZU1YpLCBCdWlsZElEW3NoYTFdPTI3ZDFkMGJm
+ZWM5NDVmZjNkZGJmZmZlNjZmMTA2NWNhYWY5NjE0OWYsIG5vdCBzdHJpcHBlZA0KDQpmaWxlIGRy
+aXZlcnMvZ3B1L2RybS9yZW5lc2FzL3J6LWR1L3J6ZzNsX2x2ZHMubw0KZHJpdmVycy9ncHUvZHJt
+L3JlbmVzYXMvcnotZHUvcnpnM2xfbHZkcy5vOiBFTEYgNjQtYml0IExTQiByZWxvY2F0YWJsZSwg
+eDg2LTY0LCB2ZXJzaW9uIDEgKFNZU1YpLCBub3Qgc3RyaXBwZWQNCg0KZmlsZSBkcml2ZXJzL2dw
+dS9kcm0vcmVuZXNhcy9yei1kdS9yemczbF9sdmRzLmtvIA0KZHJpdmVycy9ncHUvZHJtL3JlbmVz
+YXMvcnotZHUvcnpnM2xfbHZkcy5rbzogRUxGIDY0LWJpdCBMU0IgcmVsb2NhdGFibGUsIHg4Ni02
+NCwgdmVyc2lvbiAxIChTWVNWKSwgQnVpbGRJRFtzaGExXT1hZjRjMzJkZWVjMjQ0MjNiMWRlMDRk
+ZDE4NjZhZjYwMDY2ZGI1NzEyLCBub3Qgc3RyaXBwZWQNCg0KPiANCj4gPiArCWRlcGVuZHMgb24g
+RFJNX1JaRzNMX1VTRV9MVkRTDQo+ID4gKwlzZWxlY3QgRFJNX0tNU19IRUxQRVINCj4gPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcnotZHUvcnpnM2xfbHZkcy5jDQo+ID4g
+Yi9kcml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9yei1kdS9yemczbF9sdmRzLmMNCj4gPiBuZXcgZmls
+ZSBtb2RlIDEwMDY0NA0KPiA+IGluZGV4IDAwMDAwMDAwMDAwMDAuLmQ4MzI1ZGU2NThjMTgNCj4g
+PiAtLS0gL2Rldi9udWxsDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcnotZHUv
+cnpnM2xfbHZkcy5jDQo+ID4gQEAgLTAsMCArMSwyODIgQEANCj4gWyAuLi4gXQ0KPiA+ICtzdGF0
+aWMgdm9pZCByemczbF9sdmRzX2F0b21pY19lbmFibGUoc3RydWN0IGRybV9icmlkZ2UgKmJyaWRn
+ZSwNCj4gPiArCQkJCSAgICAgc3RydWN0IGRybV9hdG9taWNfY29tbWl0ICpzdGF0ZSkgew0KPiA+
+ICsJc3RydWN0IHJ6ZzNsX2x2ZHMgKmx2ZHMgPSBicmlkZ2VfdG9fcnpnM2xfbHZkcyhicmlkZ2Up
+Ow0KPiA+ICsJY29uc3Qgc3RydWN0IGRybV9icmlkZ2Vfc3RhdGUgKmJyaWRnZV9zdGF0ZTsNCj4g
+PiArCXUzMiBmbXQ7DQo+ID4gKw0KPiA+ICsJLyogR2V0IHRoZSBMVkRTIGZvcm1hdCBmcm9tIHRo
+ZSBicmlkZ2Ugc3RhdGUuICovDQo+ID4gKwlicmlkZ2Vfc3RhdGUgPSBkcm1fYXRvbWljX2dldF9u
+ZXdfYnJpZGdlX3N0YXRlKHN0YXRlLCBicmlkZ2UpOw0KPiA+ICsJaWYgKFdBUk5fT04oIWJyaWRn
+ZV9zdGF0ZSkpDQo+ID4gKwkJcmV0dXJuOw0KPiANCj4gWyAuLi4gXQ0KPiANCj4gPiArCWlmIChX
+QVJOX09OKHBtX3J1bnRpbWVfZ2V0X3N5bmMobHZkcy0+ZGV2KSA8IDApKQ0KPiA+ICsJCXJldHVy
+bjsNCj4gDQo+IFtTZXZlcml0eTogSGlnaF0NCj4gSWYgdGhlc2UgZGVmZW5zaXZlIFdBUk5fT04g
+Y2hlY2tzIHRyaWdnZXIgYW5kIHRoZSBmdW5jdGlvbiByZXR1cm5zIGVhcmx5LCBjb3VsZCBpdCBs
+ZWFkIHRvIGlzc3VlcyBkdXJpbmcNCj4gdGVhcmRvd24/DQo+IA0KPiBTaW5jZSB0aGUgRFJNIGNv
+cmUgY29uc2lkZXJzIHRoZSBicmlkZ2UgZW5hYmxlZCwgcnpnM2xfbHZkc19hdG9taWNfZGlzYWJs
+ZSgpIHdpbGwgZXZlbnR1YWxseSBiZSBjYWxsZWQuDQo+IFRoaXMgZnVuY3Rpb24gdW5jb25kaXRp
+b25hbGx5IHRvdWNoZXMgbWVtb3J5LW1hcHBlZCByZWdpc3RlcnMgYW5kIGRyb3BzIHRoZSBQTSBy
+ZWZlcmVuY2U6DQoNCk9LIHdpbGwgdXNlIHNjb3BlZCBQTSBjb2RlLCB0aGF0IHdvbid0IHRvdWNo
+IG1lbW9yeS1tYXBwZWQgcmVnaXN0ZXJzLg0KDQo+IA0KPiByemczbF9sdmRzX2F0b21pY19kaXNh
+YmxlKCkNCj4gew0KDQorICAgICAgIGludCByZXQ7DQorICAgICAgIA0KKyAgICAgICBQTV9SVU5U
+SU1FX0FDUVVJUkVfSUZfRU5BQkxFRChsdmRzLT5kZXYsIHBtKTsNCisgICAgICAgcmV0ID0gUE1f
+UlVOVElNRV9BQ1FVSVJFX0VSUigmcG0pOw0KKyAgICAgICBpZiAocmV0IDwgMCkgDQorICAgICAg
+ICAgICAgICAgZ290byBwbV9wdXRfc3luYzsNCg0KPiAJLi4uDQo+IAlyZWdtYXBfdXBkYXRlX2Jp
+dHMobHZkcy0+cmVnbWFwLCBMVkRTX0NNTiwgTFZEU19DTU5fUEhZX1JFU0VULCAwKTsNCj4gCS4u
+Lg0KPiAJcG1fcnVudGltZV9wdXQobHZkcy0+ZGV2KTsNCg0KLSAgICAgICBwbV9ydW50aW1lX3B1
+dChsdmRzLT5kZXYpOw0KK3BtX3B1dF9zeW5jOg0KKyAgICAgICBwbV9ydW50aW1lX3B1dF9zeW5j
+KGx2ZHMtPmRldik7DQoNCj4gfQ0KPiANCj4gQWNjZXNzaW5nIHJlZ2lzdGVycyBvZiBhbiB1bnBv
+d2VyZWQgaGFyZHdhcmUgYmxvY2sgYW5kIGRyb3BwaW5nIGFuIHVuaW5jcmVtZW50ZWQgUE0gcmVm
+ZXJlbmNlIGNvdWxkIGNhdXNlDQo+IGEgc3luY2hyb25vdXMgZXh0ZXJuYWwgYWJvcnQgb3IgUE0g
+dXNhZ2UgY291bnRlciB1bmRlcmZsb3cuDQo+IA0KPiBbIC4uLiBdDQo+IA0KPiA+ICtzdGF0aWMg
+Y29uc3Qgc3RydWN0IGRybV9icmlkZ2VfZnVuY3MgcnpnM2xfbHZkc19icmlkZ2Vfb3BzID0gew0K
+PiA+ICsJLmF0dGFjaCA9IHJ6ZzNsX2x2ZHNfYXR0YWNoLA0KPiA+ICsJLmF0b21pY19kdXBsaWNh
+dGVfc3RhdGUgPSBkcm1fYXRvbWljX2hlbHBlcl9icmlkZ2VfZHVwbGljYXRlX3N0YXRlLA0KPiA+
+ICsJLmF0b21pY19kZXN0cm95X3N0YXRlID0gZHJtX2F0b21pY19oZWxwZXJfYnJpZGdlX2Rlc3Ry
+b3lfc3RhdGUsDQo+ID4gKwkuYXRvbWljX2NyZWF0ZV9zdGF0ZSA9IGRybV9hdG9taWNfaGVscGVy
+X2JyaWRnZV9jcmVhdGVfc3RhdGUsDQo+IA0KPiBbU2V2ZXJpdHk6IExvd10NCj4gSXMgdGhlIGF0
+b21pY19jcmVhdGVfc3RhdGUgZnVuY3Rpb24gYXZhaWxhYmxlIGluIHRoZSBjdXJyZW50IGNvZGVi
+YXNlPw0KDQpUaGlzIGZ1bmN0aW9uIGN1cnJlbnRseSBhdmFpbGFibGUgb25seSBpbiBkcm0tbWlz
+Yy1uZXh0IHRyZWUgWzFdLg0KDQpbMV0gaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2Ry
+bS9taXNjL2tlcm5lbC8tL2NvbW1pdC8zNzY1NDI2OTZjYTExNjlkYmNhZTIwNDlkMzE0OWNhZWZi
+ZTYyNTNjDQoNCkNoZWVycywNCkJpanUNCg0K
