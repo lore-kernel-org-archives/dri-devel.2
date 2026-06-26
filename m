@@ -4,36 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF33EC44516
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A73BFC44509
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F097610F5E4;
-	Fri, 26 Jun 2026 13:42:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7ABD10F5F9;
+	Fri, 26 Jun 2026 13:42:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="aBDeioRM";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="ccK2ZvDS";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A5B210F5C8;
- Fri, 26 Jun 2026 13:42:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1C5D10F5E5;
+ Fri, 26 Jun 2026 13:42:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782481322;
- bh=urxsbtugd8+UdPADq6BZx60lq8D4HcydlFOp3SgwB5E=;
+ s=default; t=1782481327;
+ bh=Q8sFpW0LaWK/Smzuxt/7dTEculaPVCfQO31xaLLhI2w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=aBDeioRMCjaOXgmlvEDqFb4NU9SJ00tgKfAC/gSHDNQwvnUo/9+D2v4iJ7Yl8w/Zd
- TV+3uItasmTMl5C+24wg6Q92JqsAvP+FmNwXcPtTioAE5cCOF1hk+461cmdFwELGUA
- xEyn2w1+yWSLYSSjmPptQ4q2hRpCULsrGl/KNHjn3ArHfu5UwNNOXYugAkYfGNwktq
- gdMvQmJzmdi2qmympFpmNBRegexKcxIOWcKcxU/rxAegdiJyv0QN9gwKfM9mW84v9W
- 2sGNoavxACGfrKgjQhn3MK0i9uxX61dThBe19yivzN/Cg71JED0qHIshuezBBxip/O
- JBXHQcEEjy7Cw==
+ b=ccK2ZvDSe7sWnkwZVYHEus48/FyJjVgErgvAkWlTz0klQyAgfJGa39iuPcmRlSIO+
+ SaBzYnGMqXKt/z45bZCn6lWmSPgiN2EWrtP0kKVavSOcRimpI/IiCac+k5ycA6XdUr
+ Q9x55HLj/O8tUNPYOtNtQ8swOqaGqWx3ZaSK2/lIRYpFA7uf71evti6fAnxyvaRB80
+ 0dwUb3tIk1DBCETI7B5kzVPA8mhKDG8pjGjwET3Rp8ogbBAR42NxZtrOLRpl6h0fC3
+ Em67tiXquEZ6xfzUf+mdgS8Xz62As2cGebSqgz9bHIVp4GgKDICgVd1139JHM9U36D
+ nose3BPrWvXmw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
- Uma Shankar <uma.shankar@intel.com>
-Subject: [PATCH v10.5 07/29] drm/i915/display: Handle vlv dsi workaround in
- scanline_in_safe_range too
-Date: Fri, 26 Jun 2026 15:41:58 +0200
-Message-ID: <20260626134222.1198252-8-dev@lankhorst.se>
+Cc: dri-devel@lists.freedesktop.org,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <williams@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v10.5 15/29] drm/i915/gt: Use spin_lock_irq() instead of
+ local_irq_disable() + spin_lock()
+Date: Fri, 26 Jun 2026 15:42:06 +0200
+Message-ID: <20260626134222.1198252-16-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260626134222.1198252-1-dev@lankhorst.se>
 References: <20260626134222.1198252-1-dev@lankhorst.se>
@@ -54,71 +57,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that we have a macro, might as well handle the VLV dsi workaround
-too.
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-This makes the vblank evasion code slightly more deterministic, by not
-looping with interrupts disabled.
+execlists_dequeue() is invoked from a function which uses
+local_irq_disable() to disable interrupts so the spin_lock() behaves
+like spin_lock_irq().
+This breaks PREEMPT_RT because local_irq_disable() + spin_lock() is not
+the same as spin_lock_irq().
 
+execlists_dequeue_irq() and execlists_dequeue() has each one caller
+only. If intel_engine_cs::active::lock is acquired and released with the
+_irq suffix then it behaves almost as if execlists_dequeue() would be
+invoked with disabled interrupts. The difference is the last part of the
+function which is then invoked with enabled interrupts.
+I can't tell if this makes a difference. From looking at it, it might
+work to move the last unlock at the end of the function as I didn't find
+anything that would acquire the lock again.
+
+Reported-by: Clark Williams <williams@redhat.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vblank.c | 36 ++++++++++-----------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+ .../drm/i915/gt/intel_execlists_submission.c    | 17 +++++------------
+ 1 file changed, 5 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
-index ca08059e088ea..6f1fa952b5391 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.c
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -739,6 +739,24 @@ static bool scanline_in_safe_range(struct intel_vblank_evade_ctx *evade, int *sc
- 	else
- 		*scanline = __intel_get_crtc_scanline(evade->crtc);
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 1359fc9cb88ef..e11db81dca9c5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -1300,7 +1300,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	 * and context switches) submission.
+ 	 */
  
-+	/*
-+	 * On VLV/CHV DSI the scanline counter would appear to
-+	 * increment approx. 1/3 of a scanline before start of vblank.
-+	 * The registers still get latched at start of vblank however.
-+	 * This means we must not write any registers on the first
-+	 * line of vblank (since not the whole line is actually in
-+	 * vblank). And unfortunately we can't use the interrupt to
-+	 * wait here since it will fire too soon. We could use the
-+	 * frame start interrupt instead since it will fire after the
-+	 * critical scanline, but that would require more changes
-+	 * in the interrupt code. So for now we'll just do the nasty
-+	 * thing and poll for the bad scanline to pass us by.
-+	 *
-+	 * FIXME figure out if BXT+ DSI suffers from this as well
-+	 */
-+	if (evade->need_vlv_dsi_wa && *scanline == evade->vblank_start)
-+		return false;
-+
- 	return *scanline < evade->min || *scanline > evade->max;
+-	spin_lock(&sched_engine->lock);
++	spin_lock_irq(&sched_engine->lock);
+ 
+ 	/*
+ 	 * If the queue is higher priority than the last
+@@ -1400,7 +1400,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 				 * Even if ELSP[1] is occupied and not worthy
+ 				 * of timeslices, our queue might be.
+ 				 */
+-				spin_unlock(&sched_engine->lock);
++				spin_unlock_irq(&sched_engine->lock);
+ 				return;
+ 			}
+ 		}
+@@ -1426,7 +1426,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 
+ 		if (last && !can_merge_rq(last, rq)) {
+ 			spin_unlock(&ve->base.sched_engine->lock);
+-			spin_unlock(&engine->sched_engine->lock);
++			spin_unlock_irq(&engine->sched_engine->lock);
+ 			return; /* leave this for another sibling */
+ 		}
+ 
+@@ -1588,7 +1588,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	 */
+ 	sched_engine->queue_priority_hint = queue_prio(sched_engine);
+ 	i915_sched_engine_reset_on_empty(sched_engine);
+-	spin_unlock(&sched_engine->lock);
++	spin_unlock_irq(&sched_engine->lock);
+ 
+ 	/*
+ 	 * We can skip poking the HW if we ended up with exactly the same set
+@@ -1614,13 +1614,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	}
  }
  
-@@ -769,24 +787,6 @@ int intel_vblank_evade(struct intel_vblank_evade_ctx *evade)
- 		local_irq_disable();
+-static void execlists_dequeue_irq(struct intel_engine_cs *engine)
+-{
+-	local_irq_disable(); /* Suspend interrupts across request submission */
+-	execlists_dequeue(engine);
+-	local_irq_enable(); /* flush irq_work (e.g. breadcrumb enabling) */
+-}
+-
+ static void clear_ports(struct i915_request **ports, int count)
+ {
+ 	memset_p((void **)ports, NULL, count);
+@@ -2475,7 +2468,7 @@ static void execlists_submission_tasklet(struct tasklet_struct *t)
  	}
  
--	/*
--	 * On VLV/CHV DSI the scanline counter would appear to
--	 * increment approx. 1/3 of a scanline before start of vblank.
--	 * The registers still get latched at start of vblank however.
--	 * This means we must not write any registers on the first
--	 * line of vblank (since not the whole line is actually in
--	 * vblank). And unfortunately we can't use the interrupt to
--	 * wait here since it will fire too soon. We could use the
--	 * frame start interrupt instead since it will fire after the
--	 * critical scanline, but that would require more changes
--	 * in the interrupt code. So for now we'll just do the nasty
--	 * thing and poll for the bad scanline to pass us by.
--	 *
--	 * FIXME figure out if BXT+ DSI suffers from this as well
--	 */
--	while (evade->need_vlv_dsi_wa && scanline == evade->vblank_start)
--		scanline = intel_get_crtc_scanline(crtc);
--
- 	return scanline;
- }
+ 	if (!engine->execlists.pending[0]) {
+-		execlists_dequeue_irq(engine);
++		execlists_dequeue(engine);
+ 		start_timeslice(engine);
+ 	}
  
 -- 
 2.53.0
