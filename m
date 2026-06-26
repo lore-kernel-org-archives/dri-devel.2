@@ -4,59 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4AF1C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:41:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A47EEC43638
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F18410F5DE;
-	Fri, 26 Jun 2026 13:41:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0CDF10F5C5;
+	Fri, 26 Jun 2026 13:42:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ALG9V/vv";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="UrheN2XH";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0372910F5D6;
- Fri, 26 Jun 2026 13:41:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DCC8A4011A;
- Fri, 26 Jun 2026 13:41:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0D2C1F00A3A;
- Fri, 26 Jun 2026 13:41:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782481305;
- bh=4txFycxbGV/RFNZJTvjJwQwjftcOihEUIdkXBmeW3tc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ALG9V/vvIVU10JZWTTjly6p+VmclsZWjg55M1u16HNz4+LjrHqttZsT2C24wKHTBu
- /g4iPBtS8fsRGU7aRGVtfwqMoN9KerXUEoe+36PnpIXqpCT2Rr2NmVqYdjUEWb++O1
- Nk5Y/APG1ZU5rpj3cNRRycHMlv8BDeYV6VhlIQaesXLOGtANbqgUtlAJOaKbnrtHuH
- jYTAHO11i0xlABhdTmAsum1WNX6sRW81w8NE2APxYdDPW9HMj97tmklmCMRZbYaxfK
- Ld5vum/ooCPBfcavWhS3aBtGTnINWDyQmal80/ewdqljyWTQuPtaa/Ao8agCoWpqKB
- 7uc1Ngw7ZhljQ==
-From: Sumit Garg <sumit.garg@kernel.org>
-To: andersson@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org,
- konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, vikash.garodia@oss.qualcomm.com, bod@kernel.org,
- mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com, amirreza.zarrabi@oss.qualcomm.com,
- jens.wiklander@linaro.org, op-tee@lists.trustedfirmware.org,
- apurupa@qti.qualcomm.com, skare@qti.qualcomm.com,
- linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: [PATCH v8 13/14] firmware: qcom_scm: Remove SCM PAS wrappers
-Date: Fri, 26 Jun 2026 19:04:33 +0530
-Message-ID: <20260626133440.692849-14-sumit.garg@kernel.org>
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A91DB10F5BD;
+ Fri, 26 Jun 2026 13:41:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1782481317;
+ bh=pylyyD9anJXI0vxeZy2WV/dvPJsbsf/Fy/c+S6LMFO0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=UrheN2XH2wB2q2dO5EMGQpNIZtsXqy6OLXh+kdpKSRpC3pgA5FH0xYzntMDhhdw3F
+ 15jNJbL7P7IryvTncv/BRUxdQlrO1NxinCuME3Nla92iklAdDj/hZMZACUlRFrHwX1
+ 3/cxL7xvvBTvwU7l1lJxJmCXhs9vNieZgCDJM9gvdHgk2yyPsojmJpCiGgvA/dHpEb
+ jAIhCVETTHKwHcMibxYS9117BWbgXpvMBHNrMiwGCVni1z6fZWjzbPAm7ow1FkSkqu
+ U/fulvvAr7rHMt2JK1uLMivRq+AUzIbuLHa6U+9rHEmSrtqlFTi4VBnU4DZEOuYuK6
+ Wk36HMPBWvn9A==
+From: Maarten Lankhorst <dev@lankhorst.se>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+	Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v10.5 00/29] drm/i915/display: All patches to make PREEMPT_RT
+ work on i915 + xe.
+Date: Fri, 26 Jun 2026 15:41:51 +0200
+Message-ID: <20260626134222.1198252-1-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260626133440.692849-1-sumit.garg@kernel.org>
-References: <20260626133440.692849-1-sumit.garg@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,305 +52,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+Still waiting for feedback on the vblank approach, and check to see if there are some
+bugs left.
 
-Now since all the Qcom SCM client drivers have been migrated over to
-generic PAS TZ service, let's drop the exported SCM PAS wrappers.
+Changes since previous version:
+- Only change: Disable PMU on i915 entirely now, no way to make it work.
 
-Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
-Tested-by: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com> # IPQ9650
-Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
----
- drivers/firmware/qcom/qcom_scm.c       | 143 +++++--------------------
- include/linux/firmware/qcom/qcom_scm.h |  29 -----
- 2 files changed, 29 insertions(+), 143 deletions(-)
+For Xe, we also prohibit the use of DSM when CONFIG_PREEMPT_RT is enabled,
+and avoid the use of DSM if we cannot take over the framebuffer from the
+firmware.
 
-diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
-index 7933e55803dc..1deee6aea387 100644
---- a/drivers/firmware/qcom/qcom_scm.c
-+++ b/drivers/firmware/qcom/qcom_scm.c
-@@ -553,26 +553,6 @@ static void qcom_scm_set_download_mode(u32 dload_mode)
- 		dev_err(__scm->dev, "failed to set download mode: %d\n", ret);
- }
- 
--struct qcom_scm_pas_context *devm_qcom_scm_pas_context_alloc(struct device *dev,
--							     u32 pas_id,
--							     phys_addr_t mem_phys,
--							     size_t mem_size)
--{
--	struct qcom_pas_context *ctx;
--
--	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
--	if (!ctx)
--		return ERR_PTR(-ENOMEM);
--
--	ctx->dev = dev;
--	ctx->pas_id = pas_id;
--	ctx->mem_phys = mem_phys;
--	ctx->mem_size = mem_size;
--
--	return (struct qcom_scm_pas_context *)ctx;
--}
--EXPORT_SYMBOL_GPL(devm_qcom_scm_pas_context_alloc);
--
- static int __qcom_scm_pas_init_image(struct device *dev, u32 pas_id,
- 				     dma_addr_t mdata_phys,
- 				     struct qcom_scm_res *res)
-@@ -630,9 +610,9 @@ static int qcom_scm_pas_prep_and_init_image(struct device *dev,
- 	return ret ? : res.result[0];
- }
- 
--static int __qcom_scm_pas_init_image2(struct device *dev, u32 pas_id,
--				      const void *metadata, size_t size,
--				      struct qcom_pas_context *ctx)
-+static int qcom_scm_pas_init_image(struct device *dev, u32 pas_id,
-+				   const void *metadata, size_t size,
-+				   struct qcom_pas_context *ctx)
- {
- 	struct qcom_scm_res res;
- 	dma_addr_t mdata_phys;
-@@ -672,16 +652,8 @@ static int __qcom_scm_pas_init_image2(struct device *dev, u32 pas_id,
- 	return ret ? : res.result[0];
- }
- 
--int qcom_scm_pas_init_image(u32 pas_id, const void *metadata, size_t size,
--			    struct qcom_scm_pas_context *ctx)
--{
--	return __qcom_scm_pas_init_image2(__scm->dev, pas_id, metadata, size,
--					  (struct qcom_pas_context *)ctx);
--}
--EXPORT_SYMBOL_GPL(qcom_scm_pas_init_image);
--
--static void __qcom_scm_pas_metadata_release(struct device *dev,
--					    struct qcom_pas_context *ctx)
-+static void qcom_scm_pas_metadata_release(struct device *dev,
-+					  struct qcom_pas_context *ctx)
- {
- 	if (ctx->use_tzmem)
- 		qcom_tzmem_free(ctx->ptr);
-@@ -691,15 +663,8 @@ static void __qcom_scm_pas_metadata_release(struct device *dev,
- 	ctx->ptr = NULL;
- }
- 
--void qcom_scm_pas_metadata_release(struct qcom_scm_pas_context *ctx)
--{
--	__qcom_scm_pas_metadata_release(__scm->dev,
--					(struct qcom_pas_context *)ctx);
--}
--EXPORT_SYMBOL_GPL(qcom_scm_pas_metadata_release);
--
--static int __qcom_scm_pas_mem_setup(struct device *dev, u32 pas_id,
--				    phys_addr_t addr, phys_addr_t size)
-+static int qcom_scm_pas_mem_setup(struct device *dev, u32 pas_id,
-+				  phys_addr_t addr, phys_addr_t size)
- {
- 	int ret;
- 	struct qcom_scm_desc desc = {
-@@ -730,12 +695,6 @@ static int __qcom_scm_pas_mem_setup(struct device *dev, u32 pas_id,
- 	return ret ? : res.result[0];
- }
- 
--int qcom_scm_pas_mem_setup(u32 pas_id, phys_addr_t addr, phys_addr_t size)
--{
--	return __qcom_scm_pas_mem_setup(__scm->dev, pas_id, addr, size);
--}
--EXPORT_SYMBOL_GPL(qcom_scm_pas_mem_setup);
--
- static void *__qcom_scm_pas_get_rsc_table(struct device *dev, u32 pas_id,
- 					  void *input_rt_tzm,
- 					  size_t input_rt_size,
-@@ -789,11 +748,10 @@ static void *__qcom_scm_pas_get_rsc_table(struct device *dev, u32 pas_id,
- 	return ret ? ERR_PTR(ret) : output_rt_tzm;
- }
- 
--static void *__qcom_scm_pas_get_rsc_table2(struct device *dev,
--					   struct qcom_pas_context *ctx,
--					   void *input_rt,
--					   size_t input_rt_size,
--					   size_t *output_rt_size)
-+static void *qcom_scm_pas_get_rsc_table(struct device *dev,
-+					struct qcom_pas_context *ctx,
-+					void *input_rt, size_t input_rt_size,
-+					size_t *output_rt_size)
- {
- 	struct resource_table empty_rsc = {};
- 	size_t size = SZ_16K;
-@@ -864,19 +822,7 @@ static void *__qcom_scm_pas_get_rsc_table2(struct device *dev,
- 	return ret ? ERR_PTR(ret) : tbl_ptr;
- }
- 
--struct resource_table *qcom_scm_pas_get_rsc_table(struct qcom_scm_pas_context *ctx,
--						  void *input_rt,
--						  size_t input_rt_size,
--						  size_t *output_rt_size)
--{
--	return __qcom_scm_pas_get_rsc_table2(__scm->dev,
--					     (struct qcom_pas_context *)ctx,
--					     input_rt, input_rt_size,
--					     output_rt_size);
--}
--EXPORT_SYMBOL_GPL(qcom_scm_pas_get_rsc_table);
--
--static int __qcom_scm_pas_auth_and_reset(struct device *dev, u32 pas_id)
-+static int qcom_scm_pas_auth_and_reset(struct device *dev, u32 pas_id)
- {
- 	int ret;
- 	struct qcom_scm_desc desc = {
-@@ -905,14 +851,8 @@ static int __qcom_scm_pas_auth_and_reset(struct device *dev, u32 pas_id)
- 	return ret ? : res.result[0];
- }
- 
--int qcom_scm_pas_auth_and_reset(u32 pas_id)
--{
--	return __qcom_scm_pas_auth_and_reset(__scm->dev, pas_id);
--}
--EXPORT_SYMBOL_GPL(qcom_scm_pas_auth_and_reset);
--
--static int __qcom_scm_pas_prepare_and_auth_reset(struct device *dev,
--						 struct qcom_pas_context *ctx)
-+static int qcom_scm_pas_prepare_and_auth_reset(struct device *dev,
-+					       struct qcom_pas_context *ctx)
- {
- 	u64 handle;
- 	int ret;
-@@ -923,7 +863,7 @@ static int __qcom_scm_pas_prepare_and_auth_reset(struct device *dev,
- 	 * memory region and then invokes a call to TrustZone to authenticate.
- 	 */
- 	if (!ctx->use_tzmem)
--		return __qcom_scm_pas_auth_and_reset(dev, ctx->pas_id);
-+		return qcom_scm_pas_auth_and_reset(dev, ctx->pas_id);
- 
- 	/*
- 	 * When Linux runs @ EL2 Linux must create the shmbridge itself and then
-@@ -933,21 +873,14 @@ static int __qcom_scm_pas_prepare_and_auth_reset(struct device *dev,
- 	if (ret)
- 		return ret;
- 
--	ret = __qcom_scm_pas_auth_and_reset(dev, ctx->pas_id);
-+	ret = qcom_scm_pas_auth_and_reset(dev, ctx->pas_id);
- 	qcom_tzmem_shm_bridge_delete(handle);
- 
- 	return ret;
- }
- 
--int qcom_scm_pas_prepare_and_auth_reset(struct qcom_scm_pas_context *ctx)
--{
--	return __qcom_scm_pas_prepare_and_auth_reset(__scm->dev,
--						     (struct qcom_pas_context *)ctx);
--}
--EXPORT_SYMBOL_GPL(qcom_scm_pas_prepare_and_auth_reset);
--
--static int __qcom_scm_pas_set_remote_state(struct device *dev, u32 state,
--					   u32 pas_id)
-+static int qcom_scm_pas_set_remote_state(struct device *dev, u32 state,
-+					 u32 pas_id)
- {
- 	struct qcom_scm_desc desc = {
- 		.svc = QCOM_SCM_SVC_BOOT,
-@@ -965,13 +898,7 @@ static int __qcom_scm_pas_set_remote_state(struct device *dev, u32 state,
- 	return ret ? : res.result[0];
- }
- 
--int qcom_scm_set_remote_state(u32 state, u32 id)
--{
--	return __qcom_scm_pas_set_remote_state(__scm->dev, state, id);
--}
--EXPORT_SYMBOL_GPL(qcom_scm_set_remote_state);
--
--static int __qcom_scm_pas_shutdown(struct device *dev, u32 pas_id)
-+static int qcom_scm_pas_shutdown(struct device *dev, u32 pas_id)
- {
- 	int ret;
- 	struct qcom_scm_desc desc = {
-@@ -1000,13 +927,7 @@ static int __qcom_scm_pas_shutdown(struct device *dev, u32 pas_id)
- 	return ret ? : res.result[0];
- }
- 
--int qcom_scm_pas_shutdown(u32 pas_id)
--{
--	return __qcom_scm_pas_shutdown(__scm->dev, pas_id);
--}
--EXPORT_SYMBOL_GPL(qcom_scm_pas_shutdown);
--
--static bool __qcom_scm_pas_supported(struct device *dev, u32 pas_id)
-+static bool qcom_scm_pas_supported(struct device *dev, u32 pas_id)
- {
- 	int ret;
- 	struct qcom_scm_desc desc = {
-@@ -1027,23 +948,17 @@ static bool __qcom_scm_pas_supported(struct device *dev, u32 pas_id)
- 	return ret ? false : !!res.result[0];
- }
- 
--bool qcom_scm_pas_supported(u32 pas_id)
--{
--	return __qcom_scm_pas_supported(__scm->dev, pas_id);
--}
--EXPORT_SYMBOL_GPL(qcom_scm_pas_supported);
--
- static struct qcom_pas_ops qcom_pas_ops_scm = {
- 	.drv_name		= "qcom_scm",
--	.supported		= __qcom_scm_pas_supported,
--	.init_image		= __qcom_scm_pas_init_image2,
--	.mem_setup		= __qcom_scm_pas_mem_setup,
--	.get_rsc_table		= __qcom_scm_pas_get_rsc_table2,
--	.auth_and_reset		= __qcom_scm_pas_auth_and_reset,
--	.prepare_and_auth_reset	= __qcom_scm_pas_prepare_and_auth_reset,
--	.set_remote_state	= __qcom_scm_pas_set_remote_state,
--	.shutdown		= __qcom_scm_pas_shutdown,
--	.metadata_release	= __qcom_scm_pas_metadata_release,
-+	.supported		= qcom_scm_pas_supported,
-+	.init_image		= qcom_scm_pas_init_image,
-+	.mem_setup		= qcom_scm_pas_mem_setup,
-+	.get_rsc_table		= qcom_scm_pas_get_rsc_table,
-+	.auth_and_reset		= qcom_scm_pas_auth_and_reset,
-+	.prepare_and_auth_reset	= qcom_scm_pas_prepare_and_auth_reset,
-+	.set_remote_state	= qcom_scm_pas_set_remote_state,
-+	.shutdown		= qcom_scm_pas_shutdown,
-+	.metadata_release	= qcom_scm_pas_metadata_release,
- };
- 
- /**
-diff --git a/include/linux/firmware/qcom/qcom_scm.h b/include/linux/firmware/qcom/qcom_scm.h
-index 5747bd191bf1..a0a6bc0229c4 100644
---- a/include/linux/firmware/qcom/qcom_scm.h
-+++ b/include/linux/firmware/qcom/qcom_scm.h
-@@ -64,35 +64,6 @@ bool qcom_scm_is_available(void);
- int qcom_scm_set_cold_boot_addr(void *entry);
- int qcom_scm_set_warm_boot_addr(void *entry);
- void qcom_scm_cpu_power_down(u32 flags);
--int qcom_scm_set_remote_state(u32 state, u32 id);
--
--struct qcom_scm_pas_context {
--	struct device *dev;
--	u32 pas_id;
--	phys_addr_t mem_phys;
--	size_t mem_size;
--	void *ptr;
--	dma_addr_t phys;
--	ssize_t size;
--	bool use_tzmem;
--};
--
--struct qcom_scm_pas_context *devm_qcom_scm_pas_context_alloc(struct device *dev,
--							     u32 pas_id,
--							     phys_addr_t mem_phys,
--							     size_t mem_size);
--int qcom_scm_pas_init_image(u32 pas_id, const void *metadata, size_t size,
--			    struct qcom_scm_pas_context *ctx);
--void qcom_scm_pas_metadata_release(struct qcom_scm_pas_context *ctx);
--int qcom_scm_pas_mem_setup(u32 pas_id, phys_addr_t addr, phys_addr_t size);
--int qcom_scm_pas_auth_and_reset(u32 pas_id);
--int qcom_scm_pas_shutdown(u32 pas_id);
--bool qcom_scm_pas_supported(u32 pas_id);
--struct resource_table *qcom_scm_pas_get_rsc_table(struct qcom_scm_pas_context *ctx,
--						  void *input_rt, size_t input_rt_size,
--						  size_t *output_rt_size);
--
--int qcom_scm_pas_prepare_and_auth_reset(struct qcom_scm_pas_context *ctx);
- 
- int qcom_scm_io_readl(phys_addr_t addr, unsigned int *val);
- int qcom_scm_io_writel(phys_addr_t addr, unsigned int val);
+Ideally we copy the framebuffer after intel_fbdev_init_bios(),
+when we decide to preserve the framebuffer and the hardware is
+completely initialized.
+
+At that point we can use the migration engine to copy the contents over,
+this can potentially be used for preserving the initial framebuffer
+in the other cases where we cannot not use the initial FB too.
+
+Maarten Lankhorst (23):
+  drm/vblank_work: Add methods to schedule vblank_work in 2 stages
+  drm/vblank: Add a 2-stage version of drm_crtc_arm_vblank_event
+  drm/intel/display: Make intel_crtc_arm_vblank_event static
+  drm/intel/display: Convert vblank event handling to 2-stage arming
+  drm/i915/display: Move vblank put until after critical section
+  drm/i915/display: Remove locking from intel_vblank_evade critical
+    section
+  drm/i915/display: Handle vlv dsi workaround in scanline_in_safe_range
+    too
+  drm/i915/display: Make get_vblank_counter use intel_de_read_fw()
+  drm/i915/display: Do not take uncore lock in i915_get_vblank_counter
+  drm/i915/display: Make icl_dsi_frame_update use _fw too
+  drm/i915/display: Use intel_de_read/write_fw in colorops
+  drm/i915/display: Use intel_de_write_fw in intel_pipe_fastset
+  drm/i915/display: Make set_pipeconf use the fw variants
+  drm/i915/gt: Fix selftests on PREEMPT_RT
+  drm/i915/gt: Set stop_timeout() correctly on PREEMPT-RT
+  drm/i915/display: Remove uncore lock from vlv_atomic_update_fifo
+  drm/i915: Use sleeping selftests for igt_atomic on PREEMPT_RT
+  PREEMPT_RT injection
+  FOR-CI: bump MAX_STACK_TRACE_ENTRIES
+  drm/xe: Avoid using stolen memory for DPT.
+  drm/xe/display: Avoid using stolen memory for framebuffer when media
+    gt exists.
+  drm/xe/display: Do not allocate into stolen for new framebuffers.
+  drm/i915/pmu: Disable on PREEMPT_RT
+
+Mike Galbraith (1):
+  drm/i915: Use preempt_disable/enable_rt() where recommended
+
+Sebastian Andrzej Siewior (5):
+  drm/i915/gt: Use spin_lock_irq() instead of local_irq_disable() +
+    spin_lock()
+  drm/i915: Drop the irqs_disabled() check
+  drm/i915/guc: Consider also RCU depth in busy loop.
+  Revert "drm/i915: Depend on !PREEMPT_RT."
+  drm/i915/gt: Add a spinlock to prevent starvation of irq_work.
+
+ drivers/gpu/drm/drm_vblank.c                  |  64 +++++++++-
+ drivers/gpu/drm/drm_vblank_work.c             | 110 +++++++++++++----
+ drivers/gpu/drm/i915/Kconfig                  |   1 -
+ drivers/gpu/drm/i915/display/i9xx_wm.c        |   4 -
+ drivers/gpu/drm/i915/display/icl_dsi.c        |   4 +-
+ drivers/gpu/drm/i915/display/intel_cmtg.c     |   6 +-
+ drivers/gpu/drm/i915/display/intel_color.c    |   6 +-
+ drivers/gpu/drm/i915/display/intel_crtc.c     |  86 ++++++-------
+ drivers/gpu/drm/i915/display/intel_crtc.h     |   1 -
+ drivers/gpu/drm/i915/display/intel_cursor.c   |   8 +-
+ drivers/gpu/drm/i915/display/intel_de.h       |   8 ++
+ drivers/gpu/drm/i915/display/intel_display.c  |  52 ++++----
+ drivers/gpu/drm/i915/display/intel_vblank.c   | 115 ++++++++++--------
+ drivers/gpu/drm/i915/display/intel_vblank.h   |   1 +
+ drivers/gpu/drm/i915/display/intel_vrr.c      |  18 +--
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   |   8 +-
+ .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |   1 +
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   2 +-
+ .../drm/i915/gt/intel_execlists_submission.c  |  17 +--
+ drivers/gpu/drm/i915/gt/selftest_engine_pm.c  |   8 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   2 +-
+ drivers/gpu/drm/i915/i915_pmu.c               |  10 ++
+ drivers/gpu/drm/i915/i915_request.c           |   2 -
+ drivers/gpu/drm/i915/intel_uncore.h           |  26 ++--
+ drivers/gpu/drm/i915/selftests/igt_atomic.c   |   7 ++
+ .../drm/xe/compat-i915-headers/intel_uncore.h |   7 ++
+ drivers/gpu/drm/xe/display/xe_display_bo.c    |  40 ++----
+ drivers/gpu/drm/xe/display/xe_fb_pin.c        |  33 ++---
+ include/drm/drm_vblank.h                      |  14 ++-
+ include/drm/drm_vblank_work.h                 |  12 ++
+ kernel/Kconfig.preempt                        |   4 +-
+ lib/Kconfig.debug                             |   5 +-
+ 32 files changed, 429 insertions(+), 253 deletions(-)
+
 -- 
 2.53.0
 
