@@ -4,50 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00476C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:29:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74FBBC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:30:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3709110E3A2;
-	Fri, 26 Jun 2026 13:29:00 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48F7910E3A2
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:28:58 +0000 (UTC)
-Received: from localhost.localdomain (unknown [117.182.75.66])
- by APP-05 (Coremail) with SMTP id zQCowABHntGSfj5qhXFqFQ--.43105S2;
- Fri, 26 Jun 2026 21:28:52 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
- simona@ffwll.ch, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- WenTao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: [PATCH] fix: drm/mediatek: mtk_drm_probe: of_node_get in loop
- overwrites previous node references without release
-Date: Fri, 26 Jun 2026 21:28:49 +0800
-Message-Id: <20260626132849.38694-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D288E10E030;
+	Fri, 26 Jun 2026 13:30:06 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Myt0t36k";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABE2010E030
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:30:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7A68D411AE;
+ Fri, 26 Jun 2026 13:30:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D95341F000E9;
+ Fri, 26 Jun 2026 13:30:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782480605;
+ bh=OJjUHAkdEe8N19JTuNyB6kPUYFo46bJCGP/sbky4+QA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Myt0t36kBx9THArqbWjrPX94ioWae/lGSdLYouZdRg+7FoJeWlA9GupN3U3VRzm+E
+ MTd0eYSc+68TfL3Si2vYdqRs28XeystLlHYznq2gvTpC29mC17Ex4SKVGOThiorci8
+ 0bDCnOOZ/sFC2hEiGR+h8FMTKqSmX8LcknT0JuQjWoahQwRnFUIMNnvX6E0wkEkHiK
+ V/9nVKSaPNamOn2hDhZ2vATODPGpvPWjEHCIsHFZ81WBJxVgO8fgruBDXsG3OdpK34
+ qr4yR6V1/tieO2coVu7Qy1K8sfffvs58IxDshRF5sRy4n3Jdpb6pd5B3kBCDjlOQ/K
+ 9JyWGS1V90f0Q==
+Date: Fri, 26 Jun 2026 15:30:02 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 02/37] drm/bridge: analogix-anx6345: Switch to atomic
+ bridge callbacks
+Message-ID: <20260626-berserk-ochre-barnacle-8de921@houat>
+References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
+ <20260617-drm-all-atomic-bridges-v1-2-b63e6316166b@kernel.org>
+ <99c89977-85f8-41d4-afbd-ef39e2355c6e@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowABHntGSfj5qhXFqFQ--.43105S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7AFy8ur4ktF43Ar4xCF4fGrg_yoW8XryfpF
- WUKFWYyry0gr4xKFyvyF1Uuryay3WIqayxWa12ga1xZws5tFyUXFyFqay7KFZ2yFy8CF13
- JFn8AFyfur17AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
- Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
- 0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
- zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
- 4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
- CwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcS
- sGvfC2KfnxnUUI43ZEXa7VUbzpBDUUUUU==
-X-Originating-IP: [117.182.75.66]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwwKA2o+TTuTHAAAsv
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="kk4cs5qqpksw37n2"
+Content-Disposition: inline
+In-Reply-To: <99c89977-85f8-41d4-afbd-ef39e2355c6e@suse.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,40 +66,223 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In the for_each_child_of_node loop, private->comp_node[comp_id] and
-  private->mutex_node are assigned via of_node_get without first releasing
-  any previously stored reference for the same index. When the same comp_id
-  or mmsys_id matches multiple nodes, earlier node references are
-  overwritten and permanently leaked.
 
-Cc: stable@vger.kernel.org
-Fixes: 1ef7ed48356c ("drm/mediatek: Modify mediatek-drm for mt8195 multi mmsys support")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/mediatek/mtk_drm_drv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+--kk4cs5qqpksw37n2
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 02/37] drm/bridge: analogix-anx6345: Switch to atomic
+ bridge callbacks
+MIME-Version: 1.0
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index c86a3f54f35b..2c0d8db9ade2 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -1138,6 +1138,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
- 
- 			id = of_alias_get_id(node, "mutex");
- 			if (id < 0 || id == private->data->mmsys_id) {
-+				of_node_put(private->mutex_node);
- 				private->mutex_node = of_node_get(node);
- 				dev_dbg(dev, "get mutex for mmsys %d", private->data->mmsys_id);
- 			}
-@@ -1153,7 +1154,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
- 
- 		if (!mtk_drm_find_mmsys_comp(private, comp_id))
- 			continue;
--
-+		of_node_put(private->comp_node[comp_id]);
- 		private->comp_node[comp_id] = of_node_get(node);
- 
- 		/*
--- 
-2.39.5 (Apple Git-154)
+On Thu, Jun 25, 2026 at 10:08:21AM +0200, Thomas Zimmermann wrote:
+> Hi
+>=20
+> Am 17.06.26 um 12:14 schrieb Maxime Ripard:
+> > The analogix-anx6345 bridge still uses the deprecated non-atomic bridge
+> > callbacks.
+> >=20
+> > Switch to their atomic counterparts, adding the bridge state
+> > handlers if not already present.
+> >=20
+> > Generated by the following Coccinelle script:
+> >=20
+> > @ is_bridge @
+> > identifier funcs;
+> > @@
+> >=20
+> >   struct drm_bridge_funcs funcs =3D {
+> > 	...,
+> >   };
+> >=20
+> > @ has_create_state depends on is_bridge @
+> > identifier funcs, f;
+> > @@
+> >=20
+> > struct drm_bridge_funcs funcs =3D {
+> >    ...,
+> >    .atomic_create_state =3D f,
+> >    ...,
+> > };
+> >=20
+> > @ update_struct depends on (is_bridge && !has_create_state) @
+> > identifier is_bridge.funcs;
+> > identifier f;
+> > @@
+> >=20
+> >   struct drm_bridge_funcs funcs =3D {
+> > +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
+> > +	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
+> > +	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
+> >   	...,
+> >   };
+> >=20
+> > @ update_pre_enable_struct depends on (is_bridge && !has_create_state) @
+> > identifier is_bridge.funcs;
+> > identifier f;
+> > @@
+> >=20
+> >   struct drm_bridge_funcs funcs =3D {
+> >   	...,
+> > -	.pre_enable =3D f,
+> > +	.atomic_pre_enable =3D f,
+> >   	...,
+> >   };
+> >=20
+> > @ update_pre_enable_impl depends on update_pre_enable_struct @
+> > identifier update_pre_enable_struct.f;
+> > identifier b;
+> > @@
+> >=20
+> > -void f(struct drm_bridge *b)
+> > +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
+> >   {
+> > 	...
+> >   }
+> >=20
+> > @ update_enable_struct depends on (is_bridge && !has_create_state) @
+> > identifier is_bridge.funcs;
+> > identifier f;
+> > @@
+> >=20
+> >   struct drm_bridge_funcs funcs =3D {
+> >   	...,
+> > -	.enable =3D f,
+> > +	.atomic_enable =3D f,
+> >   	...,
+> >   };
+> >=20
+> > @ update_enable_impl depends on update_enable_struct @
+> > identifier update_enable_struct.f;
+> > identifier b;
+> > @@
+> >=20
+> > -void f(struct drm_bridge *b)
+> > +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
+> >   {
+> > 	...
+> >   }
+> >=20
+> > @ update_disable_struct depends on (is_bridge && !has_create_state) @
+> > identifier is_bridge.funcs;
+> > identifier f;
+> > @@
+> >=20
+> >   struct drm_bridge_funcs funcs =3D {
+> >   	...,
+> > -	.disable =3D f,
+> > +	.atomic_disable =3D f,
+> >   	...,
+> >   };
+> >=20
+> > @ update_disable_impl depends on update_disable_struct @
+> > identifier update_disable_struct.f;
+> > identifier b;
+> > @@
+> >=20
+> > -void f(struct drm_bridge *b)
+> > +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
+> >   {
+> > 	...
+> >   }
+> >=20
+> > @ update_post_disable_struct depends on (is_bridge && !has_create_state=
+) @
+> > identifier is_bridge.funcs;
+> > identifier f;
+> > @@
+> >=20
+> >   struct drm_bridge_funcs funcs =3D {
+> >   	...,
+> > -	.post_disable =3D f,
+> > +	.atomic_post_disable =3D f,
+> >   	...,
+> >   };
+> >=20
+> > @ update_post_disable_impl depends on update_post_disable_struct @
+> > identifier update_post_disable_struct.f;
+> > identifier b;
+> > @@
+> >=20
+> > -void f(struct drm_bridge *b)
+> > +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
+> >   {
+> > 	...
+> >   }
+> >=20
+> > Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> > ---
+> >   drivers/gpu/drm/bridge/analogix/analogix-anx6345.c | 13 +++++++++----
+> >   1 file changed, 9 insertions(+), 4 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c b/drive=
+rs/gpu/drm/bridge/analogix/analogix-anx6345.c
+> > index f3fe47b12edc..eba5c6dcb5ad 100644
+> > --- a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+> > +++ b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+> > @@ -564,11 +564,12 @@ anx6345_bridge_mode_valid(struct drm_bridge *brid=
+ge,
+> >   		return MODE_CLOCK_HIGH;
+> >   	return MODE_OK;
+> >   }
+> > -static void anx6345_bridge_disable(struct drm_bridge *bridge)
+> > +static void anx6345_bridge_disable(struct drm_bridge *bridge,
+> > +				   struct drm_atomic_commit *commit)
+> >   {
+> >   	struct anx6345 *anx6345 =3D bridge_to_anx6345(bridge);
+> >   	/* Power off all modules except configuration registers access */
+> >   	anx6345_set_bits(anx6345->map[I2C_IDX_TXCOM], SP_POWERDOWN_CTRL_REG,
+> > @@ -578,11 +579,12 @@ static void anx6345_bridge_disable(struct drm_bri=
+dge *bridge)
+> >   	if (anx6345->powered)
+> >   		anx6345_poweroff(anx6345);
+> >   }
+> > -static void anx6345_bridge_enable(struct drm_bridge *bridge)
+> > +static void anx6345_bridge_enable(struct drm_bridge *bridge,
+> > +				  struct drm_atomic_commit *commit)
+> >   {
+> >   	struct anx6345 *anx6345 =3D bridge_to_anx6345(bridge);
+> >   	int err;
+> >   	if (anx6345->panel)
+> > @@ -598,15 +600,18 @@ static void anx6345_bridge_enable(struct drm_brid=
+ge *bridge)
+> >   	if (err)
+> >   		DRM_ERROR("Failed to enable DP output: %d\n", err);
+> >   }
+> >   static const struct drm_bridge_funcs anx6345_bridge_funcs =3D {
+> > +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
+> > +	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
+> > +	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
+> >   	.attach =3D anx6345_bridge_attach,
+> >   	.detach =3D anx6345_bridge_detach,
+> >   	.mode_valid =3D anx6345_bridge_mode_valid,
+> > -	.disable =3D anx6345_bridge_disable,
+> > -	.enable =3D anx6345_bridge_enable,
+> > +	.atomic_disable =3D anx6345_bridge_disable,
+> > +	.atomic_enable =3D anx6345_bridge_enable,
+>=20
+> More of a style issue:=A0 since these enable/disable helpers now implemen=
+t the
+> atomic callbacks, could they be renamed to _atomic_enable and
+> _atomic_disable ?=A0 IIRC I've seen other cases with _pre_enable and
+> _post_disable that might be renamed as well.
 
+I'd really prefer not to :)
+
+It's going to be a pain to do automatically, and even more painful by hand.
+
+Maxime
+
+--kk4cs5qqpksw37n2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaj5+2gAKCRAnX84Zoj2+
+djNSAX9xcxRCn/oQHSnx0C+VKGSJ5yPoH+4gu/Vo5AQ5RGmsajRU30qPdtr1+tfv
+H4XIqysBfieOq0vsIkYtQMV4F5sM1zERlJEtDSr4MIlOvgUWMSQ9Lf55AqgMLkqB
+9rBYRpQZdw==
+=4yXb
+-----END PGP SIGNATURE-----
+
+--kk4cs5qqpksw37n2--
