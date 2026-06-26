@@ -4,82 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BD2DC43458
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 11:42:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E2F0C43327
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 11:42:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BF4A10E5D9;
-	Sun, 28 Jun 2026 11:42:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0F9310E5D6;
+	Sun, 28 Jun 2026 11:42:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hgX5Df1F";
+	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="V3Yc3L7o";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6148D10E49F
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 10:56:32 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-4924f8db066so8836155e9.2
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:56:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782557791; x=1783162591; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:references
- :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=cCHDQwHO051j6poc/kdUmVrjY2DgXjJsQLd/2FbnuEo=;
- b=hgX5Df1FlEPttURclTXLL3fh3GuhkNgMj2QD/Vv9vfth+/baXF6quRxMvEArMiTepX
- OBtCm6k2EDHX8c41xzZNTqNbKneDQ7OF1QEPA1ewB/KtPTtkFZG4WlIzimn7je4lA10K
- KYdNIZ5JK3Y8b+Id/1DOq8vkRlNEDKTgaq2uRnDQ+T9mzbFvi3Yw5TyjsjR9wd5YKwLJ
- aBfG5+qfSe4Y035fvIXuUoaA1TOtnhir6UBEvnahlhsyBqerTGghwuEiyVTVaK66F9s5
- G8S9VgGB70bMnrr6TvYeELez878K7bx84p3cF+NXntT+0i3tRn8Qo+fUJCvSYryAUS0w
- Q7fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782557791; x=1783162591;
- h=content-transfer-encoding:mime-version:message-id:references
- :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cCHDQwHO051j6poc/kdUmVrjY2DgXjJsQLd/2FbnuEo=;
- b=MtR52hc7zDsuQPcbc702J7q3tc+ig84ATN1nHYPDKEDrzqcCih9wKrplQXpRiF9/yQ
- xjO+bn0deaYEVg/KveR70IOWvd1x9N3E0rkpj1B5XRCg9zPaU1VirNuexfrl2THL/ob5
- EGc7oZ7HuaCjizBeWcRrIUNE+uYLrdEWor6PotSvTlru8qqWvp4NLPq07BUXZ0z+0n+2
- bmkpLsen/lAQ3cG/JTXItbUfgIFLNnij6MAxODUiMusMk8gbc6+MRxKZGLupncTifUZ1
- 0lCDAENf7620n4t5RgELsg98TPXgppAKI7mDf0gyovwDx3stXYc1UA8bUpH+YLXaN4VK
- GnOA==
-X-Gm-Message-State: AOJu0Yw566QXxEXdHuLreC6ompoH7/hbsbPZAAkZBYAup2Yu4WzawhD8
- p6WLITI60/5L4KIUhKFllaXXdhnGyRX2Zp9zqyJyuOOe1ofjOEWPcCpJ
-X-Gm-Gg: AfdE7cmFQZPBoyC/r0yHsqsxQ8PBMzvCQ9kCd58JKcC0XjiM+qraSPWpVGUNzMLJeJm
- Hn80qqyfAVr/PpNYrN7ICutvSTR2RlKic7eWGUCkboSbIuXzEYs6yjpSTTLDTxnDtqYvqYs9t+s
- Vxp7Inl7GuN/2I165vban8IyKOCassdkKxc8D2dChje0YJ5Dp6vqKjhlb/8ja2VnHl1nPIGGlMR
- 23+JPGXMa/buOOVXKDP6mRrRWCuS012DpB3PTYQ9AxqvCoVByGNhrEA9O6cRNYW/Q7Hcrcs2ISm
- lmikZgtgLfmIFuDekJPz+IZT8IbBAfg0LBpOAl/ytgRxDlOMOMUIdHkhrmxZv2VP82r6yXLqENw
- K2zmPdNRXf1xG+B24MniZ9Y1rIzk0h57pVGCxWR4+IrpMPQYinyh9qZi2ZLvp59Q1z1KhhqBWrH
- kMkgNQJBDQA2Tcwc3u00xcPjSUIBCl9lcBBG0K/W6BkEuOD7m0/8jiA7xr2EaEVQY=
-X-Received: by 2002:a05:600c:3b1e:b0:490:e190:3b50 with SMTP id
- 5b1f17b1804b1-4926686b374mr172747975e9.9.1782557790540; 
- Sat, 27 Jun 2026 03:56:30 -0700 (PDT)
-Received: from ehlo.thunderbird.net (046125148194.public.t-mobile.at.
- [46.125.148.194]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4926c291489sm102962715e9.2.2026.06.27.03.56.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 27 Jun 2026 03:56:30 -0700 (PDT)
-Date: Sat, 27 Jun 2026 12:56:26 +0200
-From: Diogo <diogompaissilva@gmail.com>
-To: =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>,
- Chen-Yu Tsai <wens@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Samuel Holland <samuel@sholland.org>
-CC: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/sun4i: Remove dependency on DRM simple helpers
-User-Agent: Thunderbird for Android
-In-Reply-To: <PMdb9FVETQuPUnyh12NM2Q@gmail.com>
-References: <20260623-sun4i_simple-v1-1-fa6696df1fad@gmail.com>
- <PMdb9FVETQuPUnyh12NM2Q@gmail.com>
-Message-ID: <17D4D2AF-5A7E-48CB-AB0F-1FE34DA75794@gmail.com>
+Received: from forward103d.mail.yandex.net (forward103d.mail.yandex.net
+ [178.154.239.214])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 659D510E405;
+ Fri, 26 Jun 2026 19:13:43 +0000 (UTC)
+Received: from mail-nwsmtp-smtp-production-main-81.klg.yp-c.yandex.net
+ (mail-nwsmtp-smtp-production-main-81.klg.yp-c.yandex.net
+ [IPv6:2a02:6b8:c43:1743:0:640:287f:0])
+ by forward103d.mail.yandex.net (Yandex) with ESMTPS id D03C8C005D;
+ Fri, 26 Jun 2026 22:13:40 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-81.klg.yp-c.yandex.net (smtp)
+ with ESMTPSA id VDgZvirmX8c0-CwsHMUqk; 
+ Fri, 26 Jun 2026 22:13:39 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+ t=1782501219; bh=jNeglCViEBka8yVtR4z5raXj3iuBh/ECJABlpgTpemQ=;
+ h=Message-ID:Date:Cc:Subject:To:From;
+ b=V3Yc3L7oLn1exA8LeYfoQtfnj8/pVwN991YkA4uX0bX/F4bCEtKyyEWA8yZ1Xig8U
+ IoHAfosCeg281DD+G8MtnSgQntE1iWpso+GSozZ91pxSPZbsrH8kUolwUZ6p7ANXLX
+ 6ELXikKk032hyzfftzeWqSnzUmgWenfzGRpDshOI=
+Authentication-Results: mail-nwsmtp-smtp-production-main-81.klg.yp-c.yandex.net;
+ dkim=pass header.i=@yandex.ru
+From: Evgenii Burenchev <evg28bur@yandex.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Evgenii Burenchev <evg28bur@yandex.ru>, harry.wentland@amd.com,
+ sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ mario.limonciello@amd.com, alex.hung@amd.com, superm1@kernel.org,
+ timur.kristof@gmail.com, ivan.lipski@amd.com, ray.wu@amd.com,
+ aurabindo.pillai@amd.com, chen-yu.chen@amd.com, mripard@kernel.org,
+ Dillon.Varone@amd.com, mwen@igalia.com, chiahsuan.chung@amd.com,
+ kenneth.feng@amd.com, srinivasan.shanmugam@amd.com, tzimmermann@suse.de,
+ Alvin.Lee2@amd.com, dmitry.baryshkov@oss.qualcomm.com,
+ chaitanya.kumar.borah@intel.com, ekurzinger@gmail.com,
+ pierre-eric.pelloux-prayer@amd.com, HaoPing.Liu@amd.com,
+ Tony.Cheng@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ lvc-project@linuxtesting.org
+Subject: [PATCH v3] drm/amd/display: Fix dangling pointers in state reset
+ functions on allocation failure
+Date: Fri, 26 Jun 2026 22:13:03 +0300
+Message-ID: <20260626191314.29933-1-evg28bur@yandex.ru>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary=----6FORVBMYDGCKTX9PAYBZ7F84TESZPB
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 28 Jun 2026 11:42:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,67 +73,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-------6FORVBMYDGCKTX9PAYBZ7F84TESZPB
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Multiple reset functions in amdgpu_dm free the old state before allocating
+a new one. If kzalloc_obj() fails, the function returns without updating
+the state pointer, leaving a dangling pointer to already freed memory.
 
-Hey,
+Fix this by allocating the new state first. In case of allocation failure,
+the old state remains untouched and the function safely returns, preserving
+the existing state.
 
-I saw the task to open-code the drm_simple_encoder_init in the DRM tasks, =
-and thought that sending individual patches for each platform would be the =
-easiest=2E
-Thomas Zimmermann, is it ok if I do all drivers at once as a patch series?
+For amdgpu_dm_connector_funcs_reset(), additionally restore the explicit
+kfree(old_state) which was lost when the function was refactored, as
+__drm_atomic_helper_connector_destroy_state() only frees resources but not
+the state structure itself.
 
-BR,
-Diogo
+This affects three functions:
+- amdgpu_dm_plane_drm_plane_reset()
+- amdgpu_dm_crtc_reset_state()
+- amdgpu_dm_connector_funcs_reset()
 
-On 27 June 2026 08:55:04 CEST, "Jernej =C5=A0krabec" <jernej=2Eskrabec@gma=
-il=2Ecom> wrote:
->Dne torek, 23=2E junij 2026 ob 22:34:40 Srednjeevropski poletni =C4=8Das =
-je Diogo Silva napisal(a):
->> Simple KMS helper are deprecated since they only add an intermediate
->> layer between drivers and the atomic modesetting=2E
->> This patch removes the dependency on drm simple helpers from sun4i
->> DRM drivers=2E
->>=20
->> Signed-off-by: Diogo Silva <diogompaissilva@gmail=2Ecom>
->
->This doesn't look as useful change=2E Is this tree-wide attempt? If so, i=
-t
->should be done in one go in one patch series, coordinated with DRM
->maintainers=2E
->
->Best regards,
->Jernej
->
->
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-------6FORVBMYDGCKTX9PAYBZ7F84TESZPB
-Content-Type: text/html;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Fixes: 5d945cbcd4b1 ("drm/amd/display: Create a file dedicated to planes")
+Fixes: 473683a03495 ("drm/amd/display: Create a file dedicated for CRTC")
+Fixes: e7b07ceef2a6 ("drm/amd/display: Merge amdgpu_dm_types and amdgpu_dm")
+Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
+---
+Changes in v3:
+- Restore explicit kfree(old_state) in amdgpu_dm_connector_funcs_reset()
+  to prevent memory leak (reviewer Mario Limonciello <mario.limonciello@amd.com>)
 
-<html><head></head><body><div dir=3D"auto">Hey,<br><br>I saw the task to op=
-en-code the drm_simple_encoder_init in the DRM tasks, and thought that send=
-ing individual patches for each platform would be the easiest=2E<br>Thomas =
-Zimmermann, is it ok if I do all drivers at once as a patch series?<br><br>=
-BR,<br>Diogo</div><br><br><div class=3D"gmail_quote"><div dir=3D"auto">On 2=
-7 June 2026 08:55:04 CEST, "Jernej =C5=A0krabec" &lt;jernej=2Eskrabec@gmail=
-=2Ecom&gt; wrote:</div><blockquote class=3D"gmail_quote" style=3D"margin: 0=
-pt 0pt 0pt 0=2E8ex; border-left: 1px solid rgb(204, 204, 204); padding-left=
-: 1ex;">
-<pre class=3D"net-thunderbird-android__plain-text-message-pre"><div dir=3D=
-"auto">Dne torek, 23=2E junij 2026 ob 22:34:40 Srednjeevropski poletni =C4=
-=8Das je Diogo Silva napisal(a):<br></div><blockquote class=3D"gmail_quote"=
- style=3D"margin-bottom: 1ex; --net-thunderbird-android__blockquote-default=
--border-color: #729fcf;"><div dir=3D"auto">Simple KMS helper are deprecated=
- since they only add an intermediate<br>layer between drivers and the atomi=
-c modesetting=2E<br>This patch removes the dependency on drm simple helpers=
- from sun4i<br>DRM drivers=2E<br><br>Signed-off-by: Diogo Silva &lt;diogomp=
-aissilva@gmail=2Ecom&gt;<br></div></blockquote><div dir=3D"auto"><br>This d=
-oesn't look as useful change=2E Is this tree-wide attempt? If so, it<br>sho=
-uld be done in one go in one patch series, coordinated with DRM<br>maintain=
-ers=2E<br><br>Best regards,<br>Jernej<br><br><br></div></pre></blockquote><=
-/div></body></html>
-------6FORVBMYDGCKTX9PAYBZ7F84TESZPB--
+Changes in v2:
+- Also fix amdgpu_dm_crtc_reset_state() and amdgpu_dm_connector_funcs_reset()
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 46 +++++++++++--------
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  8 ++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 14 +++---
+ 3 files changed, 39 insertions(+), 29 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 97ab1e83b318..8829e884167b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -8151,33 +8151,41 @@ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
+ 
+ void amdgpu_dm_connector_funcs_reset(struct drm_connector *connector)
+ {
+-	struct dm_connector_state *state =
++	/* Remember the old state */
++	struct dm_connector_state *old_state =
+ 		to_dm_connector_state(connector->state);
+ 
++	struct dm_connector_state *state;
++
++	/* Allocate new state */
++	state = kzalloc_obj(*state);
++	if (WARN_ON(!state))
++		return;
++
++	/* Release resources owned by the previous state and free memory */
+ 	if (connector->state)
+ 		__drm_atomic_helper_connector_destroy_state(connector->state);
+ 
+-	kfree(state);
++	kfree(old_state);
+ 
+-	state = kzalloc_obj(*state);
++	/* Install and initialize the new DRM connector state */
++	__drm_atomic_helper_connector_reset(connector, &state->base);
+ 
+-	if (state) {
+-		state->scaling = RMX_OFF;
+-		state->underscan_enable = false;
+-		state->underscan_hborder = 0;
+-		state->underscan_vborder = 0;
+-		state->base.max_requested_bpc = 8;
+-		state->vcpi_slots = 0;
+-		state->pbn = 0;
+-
+-		if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
+-			if (amdgpu_dm_abm_level <= 0)
+-				state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
+-			else
+-				state->abm_level = amdgpu_dm_abm_level;
+-		}
++	/* Initialize AMD-specific connector state */
++	state->scaling = RMX_OFF;
++	state->underscan_enable = false;
++	state->underscan_hborder = 0;
++	state->underscan_vborder = 0;
++	state->base.max_requested_bpc = 8;
++	state->vcpi_slots = 0;
++	state->pbn = 0;
+ 
+-		__drm_atomic_helper_connector_reset(connector, &state->base);
++	/* Initialize eDP-specific defaults */
++	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
++		if (amdgpu_dm_abm_level <= 0)
++			state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
++		else
++			state->abm_level = amdgpu_dm_abm_level;
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index 3dcedaa67ed8..6146fbc528c3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -437,13 +437,15 @@ static void amdgpu_dm_crtc_reset_state(struct drm_crtc *crtc)
+ {
+ 	struct dm_crtc_state *state;
+ 
+-	if (crtc->state)
+-		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
+-
++	/* Allocate new state first */
+ 	state = kzalloc_obj(*state);
+ 	if (WARN_ON(!state))
+ 		return;
+ 
++	/* Destroy old state only after successful allocation */
++	if (crtc->state)
++		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
++
+ 	__drm_atomic_helper_crtc_reset(crtc, &state->base);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index e957657b06c7..eb1c0a26f20d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1488,17 +1488,17 @@ static const struct drm_plane_helper_funcs dm_primary_plane_helper_funcs = {
+ 
+ static void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
+ {
+-	struct dm_plane_state *amdgpu_state = NULL;
+-
+-	if (plane->state)
+-		plane->funcs->atomic_destroy_state(plane, plane->state);
++	struct dm_plane_state *amdgpu_state;
+ 
++	/* Allocate new state first */
+ 	amdgpu_state = kzalloc_obj(*amdgpu_state);
+-	WARN_ON(amdgpu_state == NULL);
+-
+-	if (!amdgpu_state)
++	if (WARN_ON(!amdgpu_state))
+ 		return;
+ 
++	/* Destroy old state only after successful allocation */
++	if (plane->state)
++		plane->funcs->atomic_destroy_state(plane, plane->state);
++
+ 	__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
+ 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+ 	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
+-- 
+2.43.0
+
