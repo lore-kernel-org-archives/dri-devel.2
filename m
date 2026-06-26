@@ -4,54 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2807ACDE008
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 08:04:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76AB5CD4F26
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 08:05:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 840C410F4D2;
-	Fri, 26 Jun 2026 08:04:50 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A974F10F4DC
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 08:04:48 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.182])
- by APP-03 (Coremail) with SMTP id rQCowAA3WuGbMj5qHavoFQ--.17430S2;
- Fri, 26 Jun 2026 16:04:43 +0800 (CST)
-Message-ID: <2cbe37cbaf246f56d54288d8180d383fcbdd5eb4.camel@iscas.ac.cn>
-Subject: Re: [PATCH v5 6/7] drm/verisilicon: add DCUltraLite chip identity
- to HWDB
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 26 Jun 2026 16:04:43 +0800
-In-Reply-To: <20260625094449.708386-7-a0987203069@gmail.com>
-References: <20260625094449.708386-1-a0987203069@gmail.com>
- <20260625094449.708386-7-a0987203069@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D96E810F4CB;
+	Fri, 26 Jun 2026 08:05:12 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="OPWCwQ/V";
+	dkim-atps=neutral
+Received: from out28-106.mail.aliyun.com (out28-106.mail.aliyun.com
+ [115.124.28.106])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57D7110F4CB
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 08:05:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
+ t=1782461109; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
+ bh=HhV3bWO9gIVoUi3jAkMYRQDGZL+blyVm2vY9bmLhsaM=;
+ b=OPWCwQ/VFhTxH5ihoiwkUKbPzdpeTEZZO0/Ae4p0IS67yhLetFJe7E0lq8q5/D+DVbG6RR6j8anGj2YYmJKXtlPAkIGX9KQmkAidjriYUINJ2FpvNTuK8H5fQbfWwTnsJTFgdOJSas2j/7BTwg9aJkV+VZ/8+pVSRzuVltk7lW4j9plT7Hg6LTjbOdot6Kb8psYYt8UHFPYxwCTe8hIDmCUQRppGJ8owhZPCnmrhut7Jz/vWsfeRCNCZJCBYA4SCSKKPaDWvy3MMI7rcyULKkpv/yKxulaLT3EA3iQu19rlTKRNToc6+VRWNW0WAEArwu2OREfvqLNVjsIP671iGuA==
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07437418|-1; CH=blue; DM=|OVERLOAD|false|;
+ DS=CONTINUE|ham_regular_dialog|0.0255571-0.00402946-0.970414;
+ FP=18253397270903497986|0|0|0|0|-1|-1|-1;
+ HT=maildocker-contentspam033037031241; MF=syyang@lontium.com; NM=1; PH=DS;
+ RN=1; RT=1; SR=0; TI=SMTPD_---.i6OJIrF_1782461107; 
+Received: from mail-oa1-f51.google.com(mailfrom:syyang@lontium.com
+ fp:SMTPD_---.i6OJIrF_1782461107 cluster:ay29) by smtp.aliyun-inc.com;
+ Fri, 26 Jun 2026 16:05:07 +0800
+Received: by mail-oa1-f51.google.com with SMTP id
+ 586e51a60fabf-43cce34c881so447933fac.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 01:05:07 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/yA0DJ0ydB1Mv80H5CqF/93DY/L0MKvWZvx1QP1NzhzbDdrO/+AyWVy3wF896X4Zbv1nickijGPlY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwrR/MlgAlCd5xVWzHfkQhjhJnXqauovYQb9XaKOP5f2ltEn109
+ TkvHGboq5W9fdEWUCA0rVUEGsuqo27mSy7r+aCYknh0pzNZ87m3oiFYbB8c7pmV33WFD9FwvvRn
+ /cv1Av4jOOlaapPOz8SLniKICEboCq8s=
+X-Received: by 2002:a05:6808:67c8:b0:489:6b4c:d779 with SMTP id
+ 5614622812f47-49217d2713amr5165727b6e.20.1782461106299; Fri, 26 Jun 2026
+ 01:05:06 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260508134009.4582-1-syyang@lontium.com>
+ <20260508134009.4582-3-syyang@lontium.com>
+ <3188f63f-5358-48d7-b934-af20a8f95c6f@kernel.org>
+ <CAFQXuNbKBfyeQL3N3P5QY=6BWoD3O6DSbXN-WMA1rRG9vCs3Kg@mail.gmail.com>
+ <a0352a42-15db-4c7a-ae73-8a4e1543cd50@kernel.org>
+ <CAFQXuNZVE6cZJGwrGKGtWnB-seSJLHFh8zW3jjAs6U4JLZFWng@mail.gmail.com>
+ <CAFQXuNa8bJCpZBkMs_3mtbK_pjVzDdaDaoGk0KDxiG_Pf7txdg@mail.gmail.com>
+ <6371d1d8-cdfb-40fa-84c7-ba3ec4e2ac00@kernel.org>
+ <CAFQXuNZtzBu+WiG8n0BeN47zagQmL-iz_6Af7prk-xHLAeRBwg@mail.gmail.com>
+ <e8001fe1-684d-4de2-bde4-8b0c1ce1dd0d@kernel.org>
+In-Reply-To: <e8001fe1-684d-4de2-bde4-8b0c1ce1dd0d@kernel.org>
+From: Sunyun Yang <syyang@lontium.com>
+Date: Fri, 26 Jun 2026 16:04:54 +0800
+X-Gmail-Original-Message-ID: <CAFQXuNYx1qFkM_iuM6nqfa7HDVW21AeGAJ2QY=dc-gnkJdGSNg@mail.gmail.com>
+X-Gm-Features: AVVi8CdilLO5T98OMihI_-qQERGzIO1j1r0pJRpQqMWJHbfI3o1AP2MIwXAucP0
+Message-ID: <CAFQXuNYx1qFkM_iuM6nqfa7HDVW21AeGAJ2QY=dc-gnkJdGSNg@mail.gmail.com>
+Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
+ dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com, 
+ rfoss@kernel.org, mripard@kernel.org, Laurent.pinchart@ideasonboard.com, 
+ tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com, 
+ xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
-MIME-Version: 1.0
-X-CM-TRANSID: rQCowAA3WuGbMj5qHavoFQ--.17430S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7AF1ruFyDJryUGrWxuF1kGrg_yoW8Gr1kpF
- 47KryDW3s5J3ZIyr97Ar4j9Fy5C3Z3J393W3Zay34I9Fs0kryUGry7GF98CFZYgF4xJFyI
- gF4vkFW7Crsayr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvlb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
- C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
- MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
- 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
- 67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
- x0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
- x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvj
- DU0xZFpf9x07jbVyxUUUUU=
-X-Originating-IP: [112.94.101.182]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,50 +84,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-06-25=E5=9B=9B=E7=9A=84 17:44 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
-> The Nuvoton MA35D1 chip contains a DCUltraLite display controller
-> with
-> model number 0x0 (sic, the model name contains no number either),
-> revision 0x5560 and customer ID 0x305.=C2=A0 It has a similar register ma=
-p
-> with DC8000, only one display output and only 32x32 cursor supported.
->=20
-> Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> =C2=A0drivers/gpu/drm/verisilicon/vs_hwdb.c | 10 ++++++++++
-> =C2=A01 file changed, 10 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> index 91524d16f778..7d630a667a3f 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> @@ -129,6 +129,16 @@ static struct vs_chip_identity
-> vs_chip_identities[] =3D {
-> =C2=A0		.max_cursor_size =3D 64,
-> =C2=A0		.formats =3D &vs_formats_no_yuv444,
-> =C2=A0	},
-> +	{
-> +		.model =3D 0x0,		/* DCUltraLite */
-> +		.revision =3D 0x5560,
-> +		.customer_id =3D 0x305,
-> +
-> +		.generation =3D VSDC_GEN_DC8000,
-> +		.display_count =3D 1,
-> +		.max_cursor_size =3D 32,
-> +		.formats =3D &vs_formats_no_yuv444,
-> +	},
+Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8826=E6=
+=97=A5=E5=91=A8=E4=BA=94 15:38=E5=86=99=E9=81=93=EF=BC=9A
 
-Checked against the MA35D1 manual, and it looks okay.
 
-```
-Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-```
+>
+> On 26/06/2026 04:15, Sunyun Yang wrote:
+> > Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=882=
+5=E6=97=A5=E5=91=A8=E5=9B=9B 21:51=E5=86=99=E9=81=93=EF=BC=9A
+> >>
+> >> On 25/06/2026 15:40, Sunyun Yang wrote:
+> >>> Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=E6=9C=8825=
+=E6=97=A5=E5=91=A8=E5=9B=9B 21:26=E5=86=99=E9=81=93=EF=BC=9A
+> >>>>
+> >>>> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=
+=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:17=E5=86=99=E9=81=93=EF=BC=9A
+> >>>>>
+> >>>>> On 25/06/2026 15:14, Sunyun Yang wrote:
+> >>>>>> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=
+=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 20:54=E5=86=99=E9=81=93=EF=BC=9A
+> >>>>>>>
+> >>>>>>> On 08/05/2026 15:40, syyang@lontium.com wrote:
+> >>>>>>>> +
+> >>>>>>>> +static void lt9611c_reset(struct lt9611c *lt9611c)
+> >>>>>>>> +{
+> >>>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> >>>>>>>> +     msleep(20);
+> >>>>>>>> +
+> >>>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
+> >>>>>>>> +     msleep(20);
+> >>>>>>>> +
+> >>>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> >>>>>>>
+> >>>>>>> This is just plain wrong. Why do you assert, then de-assert and t=
+hen
+> >>>>>>> finally assert AGAIN the reset leaving the device in powerdown st=
+age?
+> >>>>>>>
+> >>>>>> I am using software to emulate the hardware RESET button on our EV=
+B.
+> >>>>>> When the hardware RESET button is pressed while our chip is runnin=
+g,
+> >>>>>> the signal level changes from HIGH to LOW and then back to HIGH.
+> >>>>>>
+> >>>>>> Of course, we can also use the following:
+> >>>>>> static void lt9611c_reset(struct lt9611c *lt9611c)
+> >>>>>> {
+> >>>>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
+> >>>>>>     msleep(50);
+> >>>>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> >>>>>>     msleep(20);
+> >>>>>> }
+> >>>>>
+> >>>>> Makes no sense either and you just did not get the point and did no=
+t
+> >>>>> answer my question. I asked WHY you leave asserted. Answer "we emul=
+ate"
+> >>>>> is just plain wrong.
+> >>>>>
+> >>>>> So again please answer:
+> >>>>>
+> >>>>> Why do you leave device with reset asserted?
+> >>>>>
+> >>>>
+> >>>>  devicetree:   reset-gpios =3D <&tlmm 128 GPIO_ACTIVE_HIGH>;
+> >>>>
+> >>>> GPIO_ACTIVE_HIGH:
+> >>>>
+> >>>> gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);   ------   reset p=
+in
+> >>>> is Low level : Clear the register configuration in the chip to stop
+> >>>> the chip from working.
+> >>>>
+> >>>> gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);   ------  reset pi=
+n
+> >>>> is high level:  The chip resumes operation.
+> >>>>
+> >>>>
+> >>>
+> >>> Our purpose is: pull the level low to clear the register configuratio=
+n
+> >>> in the chip, and then pull it high to allow the MCU inside the chip t=
+o
+> >>> re=E2=80=91initialize the registers.
+> >>
+> >>
+> >> And you do completely opposite... so that confirms your code is just w=
+rong.
+> >>
+> >
+> > The lontium-lt9611.yaml uses GPIO_ACTIVE_HIGH. I am just following the
+> > rule of this device tree. If I modify the device tree to use
+> > GPIO_ACTIVE_LOW,
+> > and use the following code in my driver, then my driver would be correc=
+t.
+> > However, would the existing kernel drivers lontium-lt9611uxc.c and
+> > lontium-lt9611.c be affected?
+>
+> DT has nothing to do here. 1 is assert, 0 is de-assert. Your code does
+> things opposite to any logic, because you finish function with reset
+> asserted.
+>
 
-Thanks,
-Icenowy
+I understand your point, and I will make the changes in the next version.
 
-> =C2=A0};
-> =C2=A0
-> =C2=A0int vs_fill_chip_identity(struct regmap *regs,
+Additionally, I have another question I would like to ask you
+regarding sashiko-bot@kernel.org. Since sashiko-bot sometimes has
+opinions that differ from yours, whose advice should I follow?
 
+If I do not adopt sashiko-bot's suggestions, will my patches still be
+accepted into the upstream Linux kernel?
+
+>
+> Best regards,
+> Krzysztof
