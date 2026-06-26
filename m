@@ -4,61 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B435C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 15:55:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A674C43211
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 16:12:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE5BD10F684;
-	Fri, 26 Jun 2026 15:55:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C31A810E3E0;
+	Fri, 26 Jun 2026 16:11:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="oCqBGv2u";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="C/NUSohY";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3942C10F684;
- Fri, 26 Jun 2026 15:55:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782489353; x=1814025353;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=U/gjwRcby5HPhUf6tNl2cTSPH3fsDm/J33wljVCYVj0=;
- b=oCqBGv2uirYwro/OK78LpMw9o/rPIrAJTHXjDtl9c+VHiQZJU8ymhjQr
- mA6uQhTbVLdnUO5/+Ryh2P70mDzA4GjpHEUcq81EOJmx56HteqDkqkbTP
- odHSUzFfQgrTl7Ku1MrhUTYYJy3+pSlVh/+wgari4peTOdiGRzxttiF4o
- x3RPYj/kjEEq1oDUfDXFAph+t2CKIWpnxGrlpSdjy1HSdWERI2Kt3RRzB
- r3CEI46T/5+ZZLru3x0l//fzecG2nuGUXOfdHBP482B56zYhaGPBelkNJ
- N9NKjuGV6dy1RLYlv4I1dsH0jf2HIk27JwAngfOrtJaviOUA5w3F3fXLd A==;
-X-CSE-ConnectionGUID: 6wcv3M7WQ56tGAfIUuCGtQ==
-X-CSE-MsgGUID: tDCF/uUlQx6lVZi49NpPww==
-X-IronPort-AV: E=McAfee;i="6800,10657,11829"; a="87183618"
-X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; d="scan'208";a="87183618"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2026 08:55:52 -0700
-X-CSE-ConnectionGUID: S877QZZyQQOObyLatAhVgg==
-X-CSE-MsgGUID: NBuwpKe6SnCUGibKYFd2Kw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; d="scan'208";a="244958602"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.22])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2026 08:55:49 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Chenyu Chen <chen-yu.chen@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Ray
- Wu <Ray.Wu@amd.com>, Limonciello Mario <Mario.Limonciello@amd.com>, Chenyu
- Chen <chen-yu.chen@amd.com>
-Subject: Re: [PATCH v3 2/3] drm/edid: parse panel type from DisplayID 2.x
- Display Parameters
-In-Reply-To: <20260526030254.1460480-3-chen-yu.chen@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260526030254.1460480-1-chen-yu.chen@amd.com>
- <20260526030254.1460480-3-chen-yu.chen@amd.com>
-Date: Fri, 26 Jun 2026 18:55:47 +0300
-Message-ID: <1957bee7418e347b9c548e3be2e2d90da551ff93@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A62110E3E0
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 16:11:58 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 2F3E6C5CD68;
+ Fri, 26 Jun 2026 16:12:05 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 465EB60232;
+ Fri, 26 Jun 2026 16:11:56 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 1D56E104C98AB; 
+ Fri, 26 Jun 2026 18:11:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1782490314; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=2aMpjqPpJ3jB+9a9ya7QqmAO5GA2YL86oNP/6GMR7AA=;
+ b=C/NUSohY5vtGaRJld8ZdfDxYs5JmRhsZfHf2sMEvr+zI2ISREqyOFDdPUzfAlNDNSkmwjv
+ m4MDWVI6r3d8tyl53THMcnLJBvOgU4C46LVuZAh5GvlJ++5QTILp9oIzONPtQBdVUeKdX5
+ 8iyisAOJwjmUNtOX9ubsQ/aiTmiZUkrBrwhxwzbsHFvTK5UI9J/s1ITN+vayybv0HyFW/l
+ 9zK2ebMFYtf7OWlPohfx2BGrQAdkK5Th7Y+LhdsUDTatQpo9D/rQFfgHkxJgAmTAql6iFM
+ sPuvdkbNEz8O2TklPCFL7VZQhhTaBdkIqo2cUDzyP2p6a2jDXW4AkDMmsXGrYg==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 26 Jun 2026 18:11:46 +0200
+Message-Id: <DJJ42UCJ1Y6X.TBR370GE9U1Q@bootlin.com>
+Subject: Re: [PATCH 3/4] drm-bridge: lontium lt9611c: fixes and improvements
+Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Vinod Koul" <vkoul@kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <boss@oss.qualcomm.com>,
+ <qc-display-maintainer@oss.qualcomm.com>
+To: "Mohit Dsor" <mohit.dsor@oss.qualcomm.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.21.0
+References: <20260611-lt9611-b4-send-v1-0-42abbcd3bb1e@oss.qualcomm.com>
+ <20260611-lt9611-b4-send-v1-3-42abbcd3bb1e@oss.qualcomm.com>
+ <DJ6YOZ4G73A3.37QF618MHAR4F@bootlin.com>
+ <ajkl2kl5oFh5tNG6@hu-mdsor-hyd.qualcomm.com>
+In-Reply-To: <ajkl2kl5oFh5tNG6@hu-mdsor-hyd.qualcomm.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,196 +76,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 26 May 2026, Chenyu Chen <chen-yu.chen@amd.com> wrote:
-> Parse the Display Parameters Data Block (tag 0x21) defined in
-> DisplayID v2.1a Section 4.2.6. Extract the Display Device Technology
-> field from the color depth and device technology byte, which indicates
-> whether the panel uses LCD or OLED technology.
+Hello Mohit,
+
+On Mon Jun 22, 2026 at 2:08 PM CEST, Mohit Dsor wrote:
+> On Fri, Jun 12, 2026 at 11:26:34AM +0200, Luca Ceresoli wrote:
+>> On Wed Jun 10, 2026 at 11:14 PM CEST, Mohit Dsor wrote:
+>> > Remove two redundant lt9611c_reset() calls:
+>> >
+>> > 1. In lt9611c_bridge_atomic_pre_enable(): a reset is already performed
+>> >    during probe and resume; calling it again on every display enable
+>> >    adds ~440ms of unnecessary latency.
+>> >
+>> > 2. At the end of lt9611c_probe(): a reset was already performed earlie=
+r
+>> >    in probe before lt9611c_lock(). The second reset is redundant.
+>> >
+>> > Also, the DRM HDMI bridge framework requires hdmi_write_hdmi_infoframe=
+ and
+>> > hdmi_clear_hdmi_infoframe callbacks for HDMI vendor-specific infoframe
+>> > (VSI) support, used for features such as HDR metadata signalling.
+>> >
+>> > This patch add stub implementations that return success. Wire them int=
+o the bridge
+>> > function table.
+>> >
+>> > Also, Store the chip variant enum value in the of_match_table .data fi=
+eld and
+>> > retrieve it via of_device_get_match_data() when probing from a DT node=
+.
+>> > Fall back to i2c_device_id.driver_data for non-DT (e.g. ACPI) probe
+>> > paths.
+>> >
+>> > This is the standard kernel pattern for passing per-compatible data
+>> > through the OF match table, and avoids relying solely on the I2C devic=
+e
+>> > ID table for chip type detection when DT is available.
+>> >
+>> > Populate bridge.vendor and bridge.product so the DRM HDMI framework ca=
+n
+>> > report the correct manufacturer and product name in the HDMI connector
+>> > properties (visible via xrandr --prop and related sysfs entries).
+>> >
+>> > Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+>>
+>> These are several unrelated changes and should be separate commits.
+>>
+>> Luca
+>>
+>> --
+>> Luca Ceresoli, Bootlin
+>> Embedded Linux and Kernel engineering
+>> https://bootlin.com
 >
-> Add a panel_type field to struct drm_display_info and populate it
-> during DisplayID iteration so downstream drivers can use it for
-> panel-type-dependent behavior. Add DRM_MODE_PANEL_TYPE_LCD to the UAPI
-> panel type property alongside the existing OLED value.
+> Hi Luca,
+> Thanks for the review.
+> I see your point about separation, but in this case I intended this as a =
+single cohesive update to the driver rather than unrelated changes.
 >
-> Assisted-by: Copilot:Claude-Opus-4.6
-> Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
+> The redundant lt9611c_reset() removals are cleanup to avoid unnecessary l=
+atency during enable/probe.
+> The HDMI VSI infoframe callbacks are required to align with the DRM HDMI =
+bridge framework expectations.
+> The OF match data change ensures correct chip variant detection when prob=
+ing via DT.
+> The bridge vendor/product population improves user-visible HDMI connector=
+ reporting.
 
-Some nitpicks inline, but regardless of whether you decide to do
-something about them or not, overall,
+This a list of 4 things your patch does, and they seem fairly independent
+from each other. That's a hint that they should probably be 4 patches.
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+If each is small, no problem.
 
-> ---
->  drivers/gpu/drm/drm_connector.c          |  3 +-
->  drivers/gpu/drm/drm_displayid_internal.h | 24 +++++++++++++
->  drivers/gpu/drm/drm_edid.c               | 45 ++++++++++++++++++++++++
->  include/drm/drm_connector.h              |  6 ++++
->  include/uapi/drm/drm_mode.h              |  1 +
->  5 files changed, 78 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index aec05adbc889..f2ac4542a7d3 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -1176,6 +1176,7 @@ static const struct drm_prop_enum_list drm_link_status_enum_list[] = {
->  static const struct drm_prop_enum_list drm_panel_type_enum_list[] = {
->  	{ DRM_MODE_PANEL_TYPE_UNKNOWN, "unknown" },
->  	{ DRM_MODE_PANEL_TYPE_OLED, "OLED" },
-> +	{ DRM_MODE_PANEL_TYPE_LCD, "LCD" },
->  };
->  
->  /**
-> @@ -1508,7 +1509,7 @@ EXPORT_SYMBOL(drm_hdmi_connector_get_output_format_name);
->   * 	never read back the value of "DPMS" because it can be incorrect.
->   * panel_type:
->   * 	Immutable enum property to indicate the type of connected panel.
-> - * 	Possible values are "unknown" (default) and "OLED".
-> + * 	Possible values are "unknown" (default), "OLED", and "LCD".
->   * PATH:
->   * 	Connector path property to identify how this sink is physically
->   * 	connected. Used by DP MST. This should be set by calling
-> diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
-> index 5b1b32f73516..6f431aafafcf 100644
-> --- a/drivers/gpu/drm/drm_displayid_internal.h
-> +++ b/drivers/gpu/drm/drm_displayid_internal.h
-> @@ -142,6 +142,30 @@ struct displayid_formula_timing_block {
->  	struct displayid_formula_timings_9 timings[];
->  } __packed;
->  
-> +#define DISPLAYID_DEVICE_TECH_UNSPECIFIED	0
-> +#define DISPLAYID_DEVICE_TECH_LCD		1
-> +#define DISPLAYID_DEVICE_TECH_OLED		2
-> +
-> +#define DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH	GENMASK(6, 4)
+An additional, pragmatic reason to split: if there's a bug in one of your
+patches, it can be easily bisected and the problematic patch be reverted
+without removing the other 3 patches.
 
-For masks, I'd add _MASK suffix. There's GENMASK_U8() for 8-bit masks.
+Luca
 
-> +
-> +struct displayid_display_params_block {
-> +	struct displayid_block base;
-> +	__le16 horiz_image_size;
-> +	__le16 vert_image_size;
-> +	__le16 horiz_pixel_count;
-> +	__le16 vert_pixel_count;
-> +	u8 features;
-> +	u8 primary_color1[3];
-> +	u8 primary_color2[3];
-> +	u8 primary_color3[3];
-> +	u8 white_point[3];
-> +	__le16 max_luminance_full;
-> +	__le16 max_luminance_10;
-> +	__le16 min_luminance;
-> +	u8 color_depth_and_tech;	/* [2:0] depth, [6:4] device tech, [7] theme */
-> +	u8 gamma_eotf;
-> +} __packed;
-> +
->  #define DISPLAYID_VESA_MSO_OVERLAP	GENMASK(3, 0)
->  #define DISPLAYID_VESA_MSO_MODE		GENMASK(6, 5)
->  
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index 7ad3f939dbe6..a9d480981c8f 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -6713,6 +6713,8 @@ static void drm_reset_display_info(struct drm_connector *connector)
->  
->  	info->source_physical_address = CEC_PHYS_ADDR_INVALID;
->  	memset(&info->amd_vsdb, 0, sizeof(info->amd_vsdb));
-> +
-> +	info->panel_type = DRM_MODE_PANEL_TYPE_UNKNOWN;
->  }
->  
->  static void drm_displayid_process_base_section_header(struct drm_connector *connector,
-> @@ -6731,6 +6733,45 @@ static void drm_displayid_process_base_section_header(struct drm_connector *conn
->  		info->non_desktop = true;
->  }
->  
-> +static void
-> +drm_displayid_parse_display_params(struct drm_connector *connector,
-> +				   const struct displayid_block *block)
-> +{
-> +	struct drm_display_info *info = &connector->display_info;
-> +	const struct displayid_display_params_block *params =
-> +		(const struct displayid_display_params_block *)block;
-> +	u8 tech;
-> +
-> +	if (block->num_bytes < sizeof(*params) - sizeof(params->base)) {
-
-I actually like using the size inline when it comes to parsing specs
-like this. The point is, the spec may get amended, with more fields
-added to the end, but we'll still need to be able to parse all sizes.
-
-> +		drm_dbg_kms(connector->dev,
-> +			    "[CONNECTOR:%d:%s] DisplayID Display Parameters block too short (%u < %zu)\n",
-> +			    connector->base.id, connector->name,
-> +			    block->num_bytes,
-> +			    sizeof(*params) - sizeof(params->base));
-> +		return;
-> +	}
-> +
-> +	tech = FIELD_GET(DISPLAYID_DISPLAY_PARAMS_DEVICE_TECH,
-> +			 params->color_depth_and_tech);
-> +
-> +	drm_dbg_kms(connector->dev,
-> +		    "[CONNECTOR:%d:%s] DisplayID Display Parameters: device technology %s\n",
-> +		    connector->base.id, connector->name,
-> +		    tech == DISPLAYID_DEVICE_TECH_LCD ? "LCD" :
-> +		    tech == DISPLAYID_DEVICE_TECH_OLED ? "OLED" : "unspecified");
-> +
-> +	switch (tech) {
-> +	case DISPLAYID_DEVICE_TECH_LCD:
-> +		info->panel_type = DRM_MODE_PANEL_TYPE_LCD;
-> +		break;
-> +	case DISPLAYID_DEVICE_TECH_OLED:
-> +		info->panel_type = DRM_MODE_PANEL_TYPE_OLED;
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +}
-> +
->  static void update_displayid_info(struct drm_connector *connector,
->  				  const struct drm_edid *drm_edid)
->  {
-> @@ -6744,6 +6785,10 @@ static void update_displayid_info(struct drm_connector *connector,
->  			drm_displayid_process_base_section_header(connector, &iter);
->  			base_section_header_processed = true;
->  		}
-> +
-> +		if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
-> +		    block->tag == DATA_BLOCK_2_DISPLAY_PARAMETERS)
-> +			drm_displayid_parse_display_params(connector, block);
->  	}
->  	displayid_iter_end(&iter);
->  }
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index c398dbc68bbc..745cd917fe40 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -899,6 +899,12 @@ struct drm_display_info {
->  	 * @amd_vsdb: AMD-specific VSDB information.
->  	 */
->  	struct drm_amd_vsdb_info amd_vsdb;
-> +
-> +	/**
-> +	 * @panel_type: Panel type from DisplayID Display Parameters
-> +	 * Data Block (tag 0x21). Uses DRM_MODE_PANEL_TYPE_* constants.
-> +	 */
-> +	u8 panel_type;
->  };
->  
->  int drm_display_info_set_bus_formats(struct drm_display_info *info,
-> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-> index 3693d82b5279..d7ca1040b92e 100644
-> --- a/include/uapi/drm/drm_mode.h
-> +++ b/include/uapi/drm/drm_mode.h
-> @@ -169,6 +169,7 @@ extern "C" {
->  /* Panel type property */
->  #define DRM_MODE_PANEL_TYPE_UNKNOWN	0
->  #define DRM_MODE_PANEL_TYPE_OLED	1
-> +#define DRM_MODE_PANEL_TYPE_LCD		2
->  
->  /*
->   * DRM_MODE_ROTATE_<degrees>
-
--- 
-Jani Nikula, Intel
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
