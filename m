@@ -4,60 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 349FCCDE008
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 09:09:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21C7ECDE00E
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 09:11:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C44810F463;
-	Fri, 26 Jun 2026 09:09:20 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D4DF10F463
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 09:09:18 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.182])
- by APP-01 (Coremail) with SMTP id qwCowADnjNW4QT5qNX5fAw--.14227S2;
- Fri, 26 Jun 2026 17:09:13 +0800 (CST)
-Message-ID: <996c3d442e92e7f908fb3a32973805dd2d2680d7.camel@iscas.ac.cn>
-Subject: Re: [PATCH v5 1/7] dt-bindings: display: verisilicon,dc: generalize
- for single-output variants
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Conor Dooley <conor.dooley@microchip.com>
-Cc: Conor Dooley <conor@kernel.org>, Joey Lu <a0987203069@gmail.com>, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, ychuang3@nuvoton.com, schung@nuvoton.com,
- yclu4@nuvoton.com, 	dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Date: Fri, 26 Jun 2026 17:09:12 +0800
-In-Reply-To: <20260626-agreement-express-b16c71315f7b@wendy>
-References: <20260625094449.708386-1-a0987203069@gmail.com>
- <20260625094449.708386-2-a0987203069@gmail.com>
- <20260625-bobbing-annotate-d1c4d6874ee2@spud>
- <20260626-zit-amuck-e743e58d2e15@wendy>
- <84b93c496fabdeee05d2f962a1b764fdbfaacdb7.camel@iscas.ac.cn>
- <20260626-agreement-express-b16c71315f7b@wendy>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B0EB10F511;
+	Fri, 26 Jun 2026 09:11:31 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="jBSVO8vy";
+	dkim-atps=neutral
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B13F810F511
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 09:11:29 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 947F21655
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 02:11:24 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ DDCA13F836
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 02:11:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1782465089; bh=jm7egqUyEzW6DOGD9yfCsukCGAJ2Ls8ut4uVYSyLZc4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=jBSVO8vyOkG540vwk2xIqp6jnQqQXnWYoenX+rP+SgaiYnZxFqM9hLb+X58iFbBu/
+ w9yzY1AUt6Xuus9auqSicdWkryzCt3mlpn6OEhF2RN3vM0B1DZLMPjnK+jCN15uzar
+ 31fwpKPiiKEixRl+o+uHihCukm2JIXThYi6jF6to=
+Date: Fri, 26 Jun 2026 10:11:17 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Chia-I Wu <olvaffe@gmail.com>, Karunika Choo <karunika.choo@arm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ sashiko-bot@kernel.org
+Subject: Re: [PATCH 01/11] drm/panthor: Always use the IRQ-safe variant when
+ acquiring the fence lock
+Message-ID: <aj5CNZGu632lGc8r@e142607>
+References: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
+ <20260625-panthor-misc-fixes-v1-1-b67ed973fea6@collabora.com>
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowADnjNW4QT5qNX5fAw--.14227S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXF4DCrWktr1UAr1rKrWfXwb_yoW5Kw1fpF
- yrJFW5ta4DJr1rXr1kKw18JFyvkw1xJ3WDXr95XFyxAFn0vr10gF12qF909F9rXrs7C3Zr
- Xr4jqryxZryYyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvlb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
- C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
- MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
- 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
- 67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
- x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
- z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvj
- DU0xZFpf9x07b4oGdUUUUU=
-X-Originating-IP: [112.94.101.182]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260625-panthor-misc-fixes-v1-1-b67ed973fea6@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,118 +65,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-06-26=E4=BA=94=E7=9A=84 09:57 +0100=EF=BC=8CConor Dooley=E5=
-=86=99=E9=81=93=EF=BC=9A
-> On Fri, Jun 26, 2026 at 03:58:14PM +0800, Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-06-26=E4=BA=94=E7=9A=84 08:22 +0100=EF=BC=8CConor Dooley=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > > On Thu, Jun 25, 2026 at 05:33:37PM +0100, Conor Dooley wrote:
-> > > > On Thu, Jun 25, 2026 at 05:44:43PM +0800, Joey Lu wrote:
-> > > > > +
-> > > > > +=C2=A0 - if:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 const: nuvoton,ma35d1-dcu
-> > > > > +=C2=A0=C2=A0=C2=A0 then:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 minItems:=
- 2
-> > > >=20
-> > > > Anything that updates the minimum constraint should be done at
-> > > > the
-> > > > top
-> > > > level of this schema. The conditional section should then
-> > > > tighten
-> > > > the
-> > > > constraint, in this case that means only having maxItems.
-> > > >=20
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems:=
- 2
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - const: core
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - const: pix0
-> > > >=20
-> > > > Does this even work when the top level schema thinks clock 2
-> > > > should
-> > > > be
-> > > > called axi?
-> > >=20
-> > > Additionally here, only have core and pix0 seems like it might be
-> > > an
-> > > oversimplification. I doubt removing the second output port means
-> > > that
-> > > the axi and ahb clocks are no longer needed.
-> > > Is it the case that your device supplies the same clock to core,
-> > > ahb
-> > > and
-> > > axi? If so, then you should fill those clocks in in your
-> > > devicetree
-> > > and
-> > > this can just constrain the number of clocks/clock-names to 4.
-> >=20
-> > The clock controller of that SoC is quite weird -- it has only a
-> > single
-> > gate bit, but controlling 3 clock gates. All core, ahb and axi
-> > clocks
-> > have gates controlled by this single bit, so it's why currently
-> > it's
-> > modelled as only core clock supplied.
->=20
-> Yeah, then what's in the binding is definitely wrong.
-> Even if the same clock was provided to all clock inputs in the IP,
-> all
-> individual clock should be listed in the devicetree - although it
-> will
-> look a little silly to see clocks =3D <&foo 2>, <&foo 2>, <&foo 2>,
-> <&foo 2>;
-> In this case, 3 clocks controlled by 1 gate bit is an implementation
-> detail
-> of the SoC's clocking hardware, and not relevant to how the dc
-> instance
-> should be described.
->=20
-> > Well it might be worthful to supply the bus clock before the gate
-> > as
-> > ahb/axi, especially axi, because both the AXI clock and the core
-> > clock
-> > constraints the maximum pixel clock.
->=20
-> Right. And looking at patch 4/7, and the wording:
-> > The Nuvoton MA35D1 SoC integrates a DCUltraLite display controller
-> > whose
-> > AXI and AHB bus clocks share a single gate enable bit with the
-> > display
-> > core clock, so the clock driver does not expose them separately.
-> > This
-> > patch makes the axi and ahb clocks optional in the probe.
->=20
-> It sounds like there's probably some issues with how things are
-> modelled
-> clock wise in this device, unless this is not an accurate statement
-> and
-> there's actually one clock provided to all three inputs. If they're
-> distinct clocks, with different rates, only having one exposed has a
-> lot
-> of potential to be problematic!
+On Thu, Jun 25, 2026 at 02:40:27PM +0200, Boris Brezillon wrote:
+> Since dma_fence objects can be shared with other subsystems, they may be
+> accessed from hardirq context in those drivers, and we have to take
+> that into account by also using the IRQ-safe variant when acquiring
+> the lock.
+> 
+> While at it, switch to the guard model.
+> 
+> Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com?part=11
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-Yes, I agree with this, they're different clocks according to the
-manual.
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-I added the clk people to the CC list in a reply of the previous
-revision, but they didn't react yet. I don't know how to represent
-multiple clock gates sharing a single control bit in the clock
-framework...
+Best regards,
+Liviu
 
-Maybe just supplying the ungated AXI/AHB clocks here, and let the core
-clock manage the gate?
+> ---
+>  drivers/gpu/drm/panthor/panthor_sched.c | 83 ++++++++++++++++-----------------
+>  1 file changed, 39 insertions(+), 44 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 5b34032deff8..e97f29469d28 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -1151,15 +1151,14 @@ queue_suspend_timeout_locked(struct panthor_queue *queue)
+>  static void
+>  queue_suspend_timeout(struct panthor_queue *queue)
+>  {
+> -	spin_lock(&queue->fence_ctx.lock);
+> +	guard(spinlock_irqsave)(&queue->fence_ctx.lock);
+>  	queue_suspend_timeout_locked(queue);
+> -	spin_unlock(&queue->fence_ctx.lock);
+>  }
+>  
+>  static void
+>  queue_resume_timeout(struct panthor_queue *queue)
+>  {
+> -	spin_lock(&queue->fence_ctx.lock);
+> +	guard(spinlock_irqsave)(&queue->fence_ctx.lock);
+>  
+>  	if (queue_timeout_is_suspended(queue)) {
+>  		mod_delayed_work(queue->scheduler.timeout_wq,
+> @@ -1168,8 +1167,6 @@ queue_resume_timeout(struct panthor_queue *queue)
+>  
+>  		queue->timeout.remaining = MAX_SCHEDULE_TIMEOUT;
+>  	}
+> -
+> -	spin_unlock(&queue->fence_ctx.lock);
+>  }
+>  
+>  /**
+> @@ -1542,7 +1539,7 @@ cs_slot_process_fault_event_locked(struct panthor_device *ptdev,
+>  		u64 cs_extract = queue->iface.output->extract;
+>  		struct panthor_job *job;
+>  
+> -		spin_lock(&queue->fence_ctx.lock);
+> +		guard(spinlock_irqsave)(&queue->fence_ctx.lock);
+>  		list_for_each_entry(job, &queue->fence_ctx.in_flight_jobs, node) {
+>  			if (cs_extract >= job->ringbuf.end)
+>  				continue;
+> @@ -1552,7 +1549,6 @@ cs_slot_process_fault_event_locked(struct panthor_device *ptdev,
+>  
+>  			dma_fence_set_error(job->done_fence, -EINVAL);
+>  		}
+> -		spin_unlock(&queue->fence_ctx.lock);
+>  	}
+>  
+>  	if (group) {
+> @@ -2183,13 +2179,13 @@ group_term_post_processing(struct panthor_group *group)
+>  		if (!queue)
+>  			continue;
+>  
+> -		spin_lock(&queue->fence_ctx.lock);
+> -		list_for_each_entry_safe(job, tmp, &queue->fence_ctx.in_flight_jobs, node) {
+> -			list_move_tail(&job->node, &faulty_jobs);
+> -			dma_fence_set_error(job->done_fence, err);
+> -			dma_fence_signal_locked(job->done_fence);
+> +		scoped_guard(spinlock_irqsave, &queue->fence_ctx.lock) {
+> +			list_for_each_entry_safe(job, tmp, &queue->fence_ctx.in_flight_jobs, node) {
+> +				list_move_tail(&job->node, &faulty_jobs);
+> +				dma_fence_set_error(job->done_fence, err);
+> +				dma_fence_signal_locked(job->done_fence);
+> +			}
+>  		}
+> -		spin_unlock(&queue->fence_ctx.lock);
+>  
+>  		/* Manually update the syncobj seqno to unblock waiters. */
+>  		syncobj = group->syncobjs->kmap + (i * sizeof(*syncobj));
+> @@ -3049,39 +3045,39 @@ static bool queue_check_job_completion(struct panthor_queue *queue)
+>  	LIST_HEAD(done_jobs);
+>  
+>  	cookie = dma_fence_begin_signalling();
+> -	spin_lock(&queue->fence_ctx.lock);
+> -	list_for_each_entry_safe(job, job_tmp, &queue->fence_ctx.in_flight_jobs, node) {
+> -		if (!syncobj) {
+> -			struct panthor_group *group = job->group;
+> +	scoped_guard(spinlock_irqsave, &queue->fence_ctx.lock) {
+> +		list_for_each_entry_safe(job, job_tmp, &queue->fence_ctx.in_flight_jobs, node) {
+> +			if (!syncobj) {
+> +				struct panthor_group *group = job->group;
+>  
+> -			syncobj = group->syncobjs->kmap +
+> -				  (job->queue_idx * sizeof(*syncobj));
+> +				syncobj = group->syncobjs->kmap +
+> +					  (job->queue_idx * sizeof(*syncobj));
+> +			}
+> +
+> +			if (syncobj->seqno < job->done_fence->seqno)
+> +				break;
+> +
+> +			list_move_tail(&job->node, &done_jobs);
+> +			dma_fence_signal_locked(job->done_fence);
+>  		}
+>  
+> -		if (syncobj->seqno < job->done_fence->seqno)
+> -			break;
+> +		if (list_empty(&queue->fence_ctx.in_flight_jobs)) {
+> +			/* If we have no job left, we cancel the timer, and reset remaining
+> +			 * time to its default so it can be restarted next time
+> +			 * queue_resume_timeout() is called.
+> +			 */
+> +			queue_suspend_timeout_locked(queue);
+>  
+> -		list_move_tail(&job->node, &done_jobs);
+> -		dma_fence_signal_locked(job->done_fence);
+> +			/* If there's no job pending, we consider it progress to avoid a
+> +			 * spurious timeout if the timeout handler and the sync update
+> +			 * handler raced.
+> +			 */
+> +			progress = true;
+> +		} else if (!list_empty(&done_jobs)) {
+> +			queue_reset_timeout_locked(queue);
+> +			progress = true;
+> +		}
+>  	}
+> -
+> -	if (list_empty(&queue->fence_ctx.in_flight_jobs)) {
+> -		/* If we have no job left, we cancel the timer, and reset remaining
+> -		 * time to its default so it can be restarted next time
+> -		 * queue_resume_timeout() is called.
+> -		 */
+> -		queue_suspend_timeout_locked(queue);
+> -
+> -		/* If there's no job pending, we consider it progress to avoid a
+> -		 * spurious timeout if the timeout handler and the sync update
+> -		 * handler raced.
+> -		 */
+> -		progress = true;
+> -	} else if (!list_empty(&done_jobs)) {
+> -		queue_reset_timeout_locked(queue);
+> -		progress = true;
+> -	}
+> -	spin_unlock(&queue->fence_ctx.lock);
+>  	dma_fence_end_signalling(cookie);
+>  
+>  	list_for_each_entry_safe(job, job_tmp, &done_jobs, node) {
+> @@ -3346,9 +3342,8 @@ queue_run_job(struct drm_sched_job *sched_job)
+>  	job->ringbuf.end = job->ringbuf.start + (instrs.count * sizeof(u64));
+>  
+>  	panthor_job_get(&job->base);
+> -	spin_lock(&queue->fence_ctx.lock);
+> -	list_add_tail(&job->node, &queue->fence_ctx.in_flight_jobs);
+> -	spin_unlock(&queue->fence_ctx.lock);
+> +	scoped_guard(spinlock_irqsave, &queue->fence_ctx.lock)
+> +		list_add_tail(&job->node, &queue->fence_ctx.in_flight_jobs);
+>  
+>  	/* Make sure the ring buffer is updated before the INSERT
+>  	 * register.
+> 
+> -- 
+> 2.54.0
+> 
 
-Thanks,
-Icenowy
-
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
