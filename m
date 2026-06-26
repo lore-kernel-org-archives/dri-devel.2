@@ -4,60 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCE8DCD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 08:51:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 242F4CDE008
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 08:53:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32D1210E325;
-	Fri, 26 Jun 2026 08:51:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78A3210F50E;
+	Fri, 26 Jun 2026 08:53:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZuN86shS";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="sSYV2gbW";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE71D10E325;
- Fri, 26 Jun 2026 08:51:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E0C03600AE;
- Fri, 26 Jun 2026 08:51:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55C131F000E9;
- Fri, 26 Jun 2026 08:51:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782463886;
- bh=dczgg0EG8SzCmQOx10ra7Wu7tyi/QlMQ5W656css9gI=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=ZuN86shSSyy0XeJHxDjAleAAh3O8h5DItrYs4TSav34bAuZW0MAx9ZBBE9S3nKp+q
- JUucAqzuWIOp1XCgdpd9P3oFXnLbWNeWduuAN7d3BLmln+qoARZNZxKF2O06nPeYv4
- 1dAdVGA0JDyuC0sJVCZD2wvL+fK7VqCql7n7upa+dFP/qqyZ8tCeX05jqkcgPFDC5w
- tFX0+2mg/DvZd1BW9undZCZbfHnid5R0fV0ghRYpjUgkCITPyYbrNbnJWUD3Su88Bu
- iGHlEwHR4XUomu86ZdOshDLSTLNHrTMNbY7gs9BX+9uYtxaMeTpyySj/HlKZUt2HrK
- 5/RKab/63CQEw==
-Date: Fri, 26 Jun 2026 04:51:19 -0400
-From: Steven Rostedt <rostedt@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, Masami
- Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Andrew Morton
- <akpm@linux-foundation.org>, Linus Torvalds
- <torvalds@linux-foundation.org>, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>, John Ogness <john.ogness@linutronix.de>, Thomas
- Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Julia
- Lawall <julia.lawall@inria.fr>, Yury Norov <yury.norov@gmail.com>,
- linux-doc@vger.kernel.org, linux-kbuild@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v4 2/2] tracing: Remove trace_printk.h from kernel.h
-Message-ID: <20260626045119.659d1e6b@fedora>
-In-Reply-To: <20260625234158.GA261868@ax162>
-References: <20260625104007.041432666@kernel.org>
- <20260625104402.210473477@kernel.org>
- <20260625234158.GA261868@ax162>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15DE910F502;
+ Fri, 26 Jun 2026 08:53:25 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gmqFr5M37z9tsY;
+ Fri, 26 Jun 2026 10:53:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1782464000;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Z8ththMBG+84d8ctaLVozbhNg629lcbcbIJXlC8vPYc=;
+ b=sSYV2gbWRD8EpJdL+FgRmhxlqbGnugHjH9TdZydsrY5QlqaDQwv/UYrZL+CjnJgLdIlraD
+ QpIthiSHBXWErDXVnH4Ct0q6yCG77seXX8NU6Da67AbtDMUoMFIMgpXtbMSxvvABmIHASC
+ h8kboyCurkg3L4j8Fg91bMv4u4aanxpJ0dHOlF7apBe/ui4PYSsne86EvsEX48LZ+guhR7
+ KxCn6eGHO4vGhem50G5lveeX+3u51c8ApRI4BTXmkvwWsEjrP8n+yTfzZyzUuL5gBfqEnL
+ B8VSfFE6sxdPTlZfbujKRBY0zBmMUwTj7OHuN9hsnXW3v5Ye7fE8iK/Wy1+rsg==
+Message-ID: <7a474010-67a1-426b-9ca2-76c11cfbb0ac@mailbox.org>
+Date: Fri, 26 Jun 2026 10:53:15 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Subject: Re: [RFC PATCH] drm/amd/display: extend HPD debounce filter to
+ DisplayPort SST
+To: Nick Haghiri <nick@haghiri.net>, Ivan Lipski <ivlipski@amd.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Xaver Hugl <xaver.hugl@kde.org>
+References: <20260625150439.330875-1-nick@haghiri.net>
+ <928d4c2a-d8b7-43d7-995e-a3e6996d2952@amd.com>
+ <8e62f139-1d61-433e-8029-b10025a289d3@haghiri.net>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+In-Reply-To: <8e62f139-1d61-433e-8029-b10025a289d3@haghiri.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: 4atn6ks4z84yes6ty6tdpkipeqfayuif
+X-MBO-RS-ID: 9796ec2181fda82a13a
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,39 +70,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 25 Jun 2026 16:41:58 -0700
-Nathan Chancellor <nathan@kernel.org> wrote:
 
+[ Adding Xaver for awareness ]
 
-> The following diff resolves it for me, should I send it as a separate
-> patch or do you want to just fold it in with a note?
+On 6/25/26 21:45, Nick Haghiri wrote:
+> On 6/25/26 3:15 PM, Ivan Lipski wrote:
+>> I don't think I've encountered a situation when a monitor with DP can
+>> wake a system up from DPMS, so that's interesting. What distro and
+>> desktop environment are you using? I'd like to reproduce this issue
+>> and help with it.
 > 
-> diff --git a/include/linux/lockdep.h b/include/linux/lockdep.h
-> index 621566345406..2301a701ffbb 100644
-> --- a/include/linux/lockdep.h
-> +++ b/include/linux/lockdep.h
-> @@ -10,6 +10,7 @@
->  #ifndef __LINUX_LOCKDEP_H
->  #define __LINUX_LOCKDEP_H
->  
-> +#include <linux/instruction_pointer.h>
+> openSUSE Tumbleweed, KDE Plasma 6.7 on Wayland (KWin). GPU is an RX 9070
+> XT (RDNA4), monitor is an MSI MPG 274U over DisplayPort SST.
+> 
+> What happens: when the output goes DPMS-off and the monitor drops into
+> deep sleep, it briefly de-asserts and re-asserts HPD. amdgpu forwards
+> that as a hotplug, KWin re-probes and re-enables the output, and the
+> panel comes right back on, so it never actually stays asleep while
+> connected.
 
-Ah, so the reason for this breakage is because lockdep was relying on
-instruction_pointer.h, that just happened to be included in kernel.h
-via trace_printk.h.
-
-This is a separate issue, so it should be a separate patch. I'll add it
-as patch 1 of this series.
-
-Can you send me the config you used. This didn't trigger in my tests.
-
-Thanks,
-
--- Steve
+FWIW, that the panel comes on and stays on might be a KWin bug. Mutter had a bug like that, which I fixed in https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4209/diffs?commit_id=ec73076e07640fc0752d9ecc66c5934726db2d7e.
 
 
+P.S. For other reasons, mutter also has debouncing similar to this. If the kernel debounces as well, it'll take longer until mutter actually removes an unplugged display from its display configuration, hopefully not too bad though.
 
->  #include <linux/lockdep_types.h>
->  #include <linux/smp.h>
->  #include <asm/percpu.h>
-
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
