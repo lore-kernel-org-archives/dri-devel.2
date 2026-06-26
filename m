@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C06CEC43327
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:57:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBB4FC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:57:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F34E610F621;
-	Fri, 26 Jun 2026 13:57:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E1D310F627;
+	Fri, 26 Jun 2026 13:57:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SOyy/pjD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cv9NMoa4";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09CF610F618
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:57:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39B8410F627
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:57:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 816FB600C8;
- Fri, 26 Jun 2026 13:57:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC4E71F000E9;
- Fri, 26 Jun 2026 13:57:42 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B129E600DC;
+ Fri, 26 Jun 2026 13:57:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B40E61F00A3A;
+ Fri, 26 Jun 2026 13:57:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782482263;
- bh=j99cdnVISgJsHxpnr1RivSWJmnHt/Q5ccfIOzoVqcbo=;
+ s=k20260515; t=1782482272;
+ bh=vmHOtXIPi6T8bC/fuazWCmvGNZ+r2Sa+CyXVtmNQV5w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=SOyy/pjDlJi69LXw3OJGujtK7HaiNMm4TnuW/g4WhfNLvVMHA3LmdGydT1bSmUJRk
- onpCZCDj/T5xqzOs7JMHacrBON4HxCqkjDFEs7TdLMEwMdp4S7+jlb9vWXGChcXenm
- OU/mYlF6koC/cHy/0YjXiof1cy0eK/rO++KhQEAvtnkF0Ks/ILnog6pp265WLL6TDF
- RcTleMrYkx8JHKsgmYxF0RP2JAX3PPK+nVWdNhbB7e6FFcGOhuRd9HZOm0rzGaJCAs
- SlBtQPNLXYij6k+Vk7Jwwa9ooQ1EhMtT9ZPt/dcbTIOj1q8zaQZ4WRNEN+sqZp6gHL
- 1mZqWqET4X9QA==
+ b=cv9NMoa4bg/XApqdpD564gTWf/wMcc7RimzK0rLBxj8rQhanPnm0o/eew3nTb1+Ng
+ qwmhJn/qu+t90fpeZAKR6HbgX27o3nkQKXX+i/3cJAg/X0C6AimA2vi1VE4pf7Fuq0
+ L+rITKyMQkWK5bd9oI0wZYjftC34k/vW7jYrIg02tY1owQbi1CJDUTqjYjvn1N2Crr
+ c9W+B+83jAvclwXUXcmaZ8DNZjVHko8cSrO7hu3n3jqgSJt0OyyRv0zYva2gv543Vs
+ vMn+CJBDfIJssrNOwE0JMmzqxEZV18GdByTDrOE2jTZeuFs6evR1eAKE0Ke+ELqLEx
+ Bq7S0bsCkMpUw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 26 Jun 2026 15:57:08 +0200
-Subject: [PATCH v3 07/30] drm/bridge: Implement atomic_print_state
+Date: Fri, 26 Jun 2026 15:57:10 +0200
+Subject: [PATCH v3 09/30] drm/atomic: Only call atomic_destroy_state on a
+ !NULL pointer
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260626-drm-state-readout-v3-7-d5825e3299a8@kernel.org>
+Message-Id: <20260626-drm-state-readout-v3-9-d5825e3299a8@kernel.org>
 References: <20260626-drm-state-readout-v3-0-d5825e3299a8@kernel.org>
 In-Reply-To: <20260626-drm-state-readout-v3-0-d5825e3299a8@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -52,12 +53,12 @@ Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org,
  Maxime Ripard <mripard@kernel.org>, 
  Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2017; i=mripard@kernel.org;
- h=from:subject:message-id; bh=D4A2g2LA6oJb1p7XMJW9QwCJcKV5GOXFM9h5rqQ9a0g=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFl2rSYZyqddbgQJbOj++NNjSeuCBAnmGTGPnn/ijlh4V
- qrUd2Jvx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjI7H+MtcLzlrT/E1ive6Pd
- InyjRcwsXTG7iQsXqFw3cMoL+1i0ZaX7nLKswDPHl1wVuNSzZOJVMcb6JEutxbv+Fjz72jjz4yP
- BxQWxx89zbSp0Mjglzf1WcveEGL/8wK1rd8yXPDhP92rgEtmrAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3804; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=IEju5m12o3e2ISvuQrkRaWIUzfb3UiWjNXTMdzzX+H4=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFl2raZHLl+u+qF+esEeLbbXAjM812z3qLm53MrTvVxCr
+ uGax8bGjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCR48aMNRxbLFt2f3t74NjN
+ 7FiHlivLplmnvGB2zyrhubZG/GXZtl29D49/0P/G++zr4deL7cXOnGNs2Fjyt3ligW+qHcPPqX/
+ 4NGMNT6xg+XLEMfJoSmy2+LEFdsu3HFjfU61V+VZqhy7LgU5hAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,57 +76,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bridges have some fields in their state worth printing, but we don't
-provide an atomic_print_state implementation to show those fields.
+The drm_atomic_commit structure is freed through the
+drm_atomic_commit_put() function, that eventually calls
+drm_atomic_commit_default_clear() by default when there's no active
+users of that state.
 
-Provide one.
+It then iterates over all objects with a state, and will call the
+atomic_destroy_state callback on the state pointer. The state pointer is
+mostly used these days to point to which of the old or new state needs
+to be freed, depending on whether the state was committed or not.
+
+So it all makes sense.
+
+However, with the hardware state readout support approaching, we might
+have a state, with multiple objects in it, but no state to free because
+we want them to persist. In such a case, the state pointer is going to
+be NULL, and thus we'll end up with NULL pointer dereference.
+
+Test if the state pointer is non-NULL before calling
+atomic_destroy_state on it.
 
 Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_bridge.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ drivers/gpu/drm/drm_atomic.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index b7b0ec7c2d4b..e6f1174be62a 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -548,14 +548,35 @@ drm_bridge_atomic_create_priv_state(struct drm_private_obj *obj)
- 		return ERR_CAST(state);
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 6bae998dd36a..d43ea69c2c9c 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -291,12 +291,14 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
+ 		struct drm_connector *connector = state->connectors[i].ptr;
  
- 	return &state->base;
- }
+ 		if (!connector)
+ 			continue;
  
-+static void
-+drm_bridge_atomic_print_priv_state(struct drm_printer *p,
-+				   const struct drm_private_state *s)
-+{
-+	const struct drm_bridge_state *state = drm_priv_to_bridge_state(s);
-+	struct drm_bridge *bridge = drm_priv_to_bridge(s->obj);
+-		connector->funcs->atomic_destroy_state(connector,
+-						       state->connectors[i].state_to_destroy);
++		if (state->connectors[i].state_to_destroy)
++			connector->funcs->atomic_destroy_state(connector,
++							       state->connectors[i].state_to_destroy);
 +
-+	if (bridge->of_node)
-+		drm_printf(p, "bridge: %ps (%pOFfc)\n", bridge->funcs, bridge->of_node);
-+	else
-+		drm_printf(p, "bridge: %ps\n", bridge->funcs);
-+
-+	drm_printf_indent(p, 1, "input bus configuration:");
-+	drm_printf_indent(p, 2, "code: %04x", state->input_bus_cfg.format);
-+	drm_printf_indent(p, 2, "flags: %08x", state->input_bus_cfg.flags);
-+	drm_printf_indent(p, 1, "output bus configuration:");
-+	drm_printf_indent(p, 2, "code: %04x", state->output_bus_cfg.format);
-+	drm_printf_indent(p, 2, "flags: %08x", state->output_bus_cfg.flags);
-+}
-+
- static const struct drm_private_state_funcs drm_bridge_priv_state_funcs = {
- 	.atomic_create_state = drm_bridge_atomic_create_priv_state,
- 	.atomic_duplicate_state = drm_bridge_atomic_duplicate_priv_state,
- 	.atomic_destroy_state = drm_bridge_atomic_destroy_priv_state,
-+	.atomic_print_state = drm_bridge_atomic_print_priv_state,
- };
+ 		state->connectors[i].ptr = NULL;
+ 		state->connectors[i].state_to_destroy = NULL;
+ 		state->connectors[i].old_state = NULL;
+ 		state->connectors[i].new_state = NULL;
+ 		drm_connector_put(connector);
+@@ -306,12 +308,13 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
+ 		struct drm_crtc *crtc = state->crtcs[i].ptr;
  
- /**
-  * drm_private_obj_is_bridge - check if a private object backs a bridge
-  * @obj: private object to check
+ 		if (!crtc)
+ 			continue;
+ 
+-		crtc->funcs->atomic_destroy_state(crtc,
+-						  state->crtcs[i].state_to_destroy);
++		if (state->crtcs[i].state_to_destroy)
++			crtc->funcs->atomic_destroy_state(crtc,
++							  state->crtcs[i].state_to_destroy);
+ 
+ 		state->crtcs[i].ptr = NULL;
+ 		state->crtcs[i].state_to_destroy = NULL;
+ 		state->crtcs[i].old_state = NULL;
+ 		state->crtcs[i].new_state = NULL;
+@@ -326,12 +329,14 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
+ 		struct drm_plane *plane = state->planes[i].ptr;
+ 
+ 		if (!plane)
+ 			continue;
+ 
+-		plane->funcs->atomic_destroy_state(plane,
+-						   state->planes[i].state_to_destroy);
++		if (state->planes[i].state_to_destroy)
++			plane->funcs->atomic_destroy_state(plane,
++							   state->planes[i].state_to_destroy);
++
+ 		state->planes[i].ptr = NULL;
+ 		state->planes[i].state_to_destroy = NULL;
+ 		state->planes[i].old_state = NULL;
+ 		state->planes[i].new_state = NULL;
+ 	}
+@@ -354,12 +359,14 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
+ 		struct drm_private_obj *obj = state->private_objs[i].ptr;
+ 
+ 		if (!obj)
+ 			continue;
+ 
+-		obj->funcs->atomic_destroy_state(obj,
+-						 state->private_objs[i].state_to_destroy);
++		if (state->private_objs[i].state_to_destroy)
++			obj->funcs->atomic_destroy_state(obj,
++							 state->private_objs[i].state_to_destroy);
++
+ 		state->private_objs[i].ptr = NULL;
+ 		state->private_objs[i].state_to_destroy = NULL;
+ 		state->private_objs[i].old_state = NULL;
+ 		state->private_objs[i].new_state = NULL;
+ 	}
 
 -- 
 2.54.0
