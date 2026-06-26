@@ -4,36 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDF89C4451A
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D7AAC4451D
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2988D10F5F1;
-	Fri, 26 Jun 2026 13:42:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F2C610F5D8;
+	Fri, 26 Jun 2026 13:42:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="ogYShWac";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="ZhUq7ymc";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B63B710F5C7;
- Fri, 26 Jun 2026 13:42:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7C1610F5E7;
+ Fri, 26 Jun 2026 13:42:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782481319;
- bh=SmCb7iPHg2+9A/ixj9TBOSkQYHIyXxixNZ3hoWoXINI=;
+ s=default; t=1782481329;
+ bh=T/OQGU8prg+GP3iTibN/WUfOED1EMA169ETe4ayUGKY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ogYShWackqtd4O2WNTQFQ2uEP1nIMxVWr8xkmxMd7hyL8uZV/CsHQhRZ8NYu02hG5
- fKmDxeA50RM3Fsth6t+z5mnYHJe8gnFEYz5iiDSQ9lDLZvXSNiOryZsaYkgObiF3QW
- vzu0mBccIfzWjXoz7Lv6WFA3vmPuDi01IBaU/3q90xkvEDjzmO1y2ljArTZi9EBoWv
- dn2zhZ7Rf4OenX2g6Na2B6jWPG01/Ba5k+nVm4Fu+bx2RiOxOQ8yPZKO9urz/eLxoW
- LbdHdQBzhcH4MpcukDZ4wUp8HZq8VqPagF71L89izmNsnsaSfAxyoZ4jJ+ASjX/E3Y
- 4XOnKdk/DCx6g==
+ b=ZhUq7ymcHC4fMTlXCxEI9Hmuw8Mt8dGOQQNBGoB/cFLh9dZjxfLqwHtc4m+fp+8bK
+ qIcDxyMc3zjes+48fHMOJn/x223oQddoYgafQytkr/vWGdxYswqik1ofo7+oIZSE7B
+ GiqqFK10dWkl4AW3POH/NdGckQiCHCRmpsU56aUs+RqbP7zV8BJzPXRpwNUCqvEQV8
+ 5nq19ezQFckaSDQIwQ54niGN8qrQzEVaryhUYnRg6ych23hhNlyn7m00hJQu/pnrmC
+ 907rSkdmlvxB5q5RGemYQ5WuvX4pEots5wPdYhb86CFW3FTw3WXTic9SRUZZQU7YbZ
+ yZrwFbKDJsR0w==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v10.5 03/29] drm/intel/display: Make
- intel_crtc_arm_vblank_event static
-Date: Fri, 26 Jun 2026 15:41:54 +0200
-Message-ID: <20260626134222.1198252-4-dev@lankhorst.se>
+Subject: [PATCH v10.5 18/29] drm/i915/gt: Fix selftests on PREEMPT_RT
+Date: Fri, 26 Jun 2026 15:42:09 +0200
+Message-ID: <20260626134222.1198252-19-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260626134222.1198252-1-dev@lankhorst.se>
 References: <20260626134222.1198252-1-dev@lankhorst.se>
@@ -54,39 +53,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Only used inside intel_crtc.c now, so no need to export it any more.
-
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/display/intel_crtc.c | 2 +-
- drivers/gpu/drm/i915/display/intel_crtc.h | 1 -
- 2 files changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_engine_pm.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-index 10ed9bdfee763..805645318747f 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -684,7 +684,7 @@ static void dbg_vblank_evade(struct intel_crtc *crtc, ktime_t end)
- static void dbg_vblank_evade(struct intel_crtc *crtc, ktime_t end) {}
- #endif
+diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+index 10e556a7eac45..c1eff9edd8a5e 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+@@ -277,11 +277,11 @@ static int live_engine_busy_stats(void *arg)
+ 		st_engine_heartbeat_disable(engine);
  
--void intel_crtc_arm_vblank_event(struct intel_crtc_state *crtc_state)
-+static void intel_crtc_arm_vblank_event(struct intel_crtc_state *crtc_state)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	unsigned long irqflags;
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.h b/drivers/gpu/drm/i915/display/intel_crtc.h
-index 12507b51ee77e..f65cbafe2b42a 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.h
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.h
-@@ -33,7 +33,6 @@ int intel_usecs_to_scanlines(const struct drm_display_mode *adjusted_mode,
- 			     int usecs);
- int intel_scanlines_to_usecs(const struct drm_display_mode *adjusted_mode,
- 			     int scanlines);
--void intel_crtc_arm_vblank_event(struct intel_crtc_state *crtc_state);
- void intel_crtc_prepare_vblank_event(struct intel_crtc_state *crtc_state,
- 				     struct drm_pending_vblank_event **event);
- u32 intel_crtc_max_vblank_count(const struct intel_crtc_state *crtc_state);
+ 		ENGINE_TRACE(engine, "measuring idle time\n");
+-		preempt_disable();
++		migrate_disable();
+ 		de = intel_engine_get_busy_time(engine, &t[0]);
+ 		udelay(100);
+ 		de = ktime_sub(intel_engine_get_busy_time(engine, &t[1]), de);
+-		preempt_enable();
++		migrate_enable();
+ 		dt = ktime_sub(t[1], t[0]);
+ 		if (de < 0 || de > 10) {
+ 			pr_err("%s: reported %lldns [%d%%] busyness while sleeping [for %lldns]\n",
+@@ -316,11 +316,11 @@ static int live_engine_busy_stats(void *arg)
+ 		}
+ 
+ 		ENGINE_TRACE(engine, "measuring busy time\n");
+-		preempt_disable();
++		migrate_disable();
+ 		de = intel_engine_get_busy_time(engine, &t[0]);
+ 		mdelay(100);
+ 		de = ktime_sub(intel_engine_get_busy_time(engine, &t[1]), de);
+-		preempt_enable();
++		migrate_enable();
+ 		dt = ktime_sub(t[1], t[0]);
+ 		if (100 * de < 95 * dt || 95 * de > 100 * dt) {
+ 			pr_err("%s: reported %lldns [%d%%] busyness while spinning [for %lldns]\n",
 -- 
 2.53.0
 
