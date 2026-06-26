@@ -4,68 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86580CD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:23:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B128CDE008
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:30:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A870A10F43C;
-	Fri, 26 Jun 2026 07:23:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C15210E318;
+	Fri, 26 Jun 2026 07:30:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=microchip.com header.i=@microchip.com header.b="SNganFz/";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="EjIA0fQN";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lAVrHvDf";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EjIA0fQN";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lAVrHvDf";
 	dkim-atps=neutral
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FAE710E315
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 07:23:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
- t=1782458609; x=1813994609;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=lYOOGzE7LwdgMGhlQH4i2dwWqqICBmMwCeAwhl5UGLA=;
- b=SNganFz/TVtSbwRwHKaaAqwEXogw5VfZx1IVCxZ/NMN4QYBgCVjyqYDF
- VdH8vhfORYZ4DE1pwOUlVRu6K/ndqP4JbgLgiQkpt4EFKwsCYNTSq7GmI
- 0Y0ZpVuaCG6H6sx78ZMhqga9/50+CW/FrKCeNPeAWdmYePmL73pIUlbDK
- Tl8iU3ok6CxO1ofKlkgISnJADuW5uFcDtw/JgAhuFEm4jyeid8Buxi8Ma
- c3wl2RSkJNM2hqpp1QPMvMJLGOJeBrRp/caLjnpIDp7UFgcJMgmTBX+Sb
- ctmNSvburZf9pXKeXBNGYuxHpQ9RbwO6Dn22ppGzWlOQizlON+Y5YIjEu g==;
-X-CSE-ConnectionGUID: YXc+Jpe1T8GT2zvd2E5JkQ==
-X-CSE-MsgGUID: xAUdhOBNSdGhplnRPVZPqQ==
-X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; 
- d="asc'?scan'208";a="58876145"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
- by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 26 Jun 2026 00:23:28 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Fri, 26 Jun 2026 00:23:27 -0700
-Received: from wendy (10.10.85.11) by chn-vm-ex04.mchp-main.com (10.10.85.152)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Fri, 26 Jun 2026 00:23:23 -0700
-Date: Fri, 26 Jun 2026 08:22:33 +0100
-From: Conor Dooley <conor.dooley@microchip.com>
-To: Conor Dooley <conor@kernel.org>
-CC: Joey Lu <a0987203069@gmail.com>, <zhengxingda@iscas.ac.cn>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <ychuang3@nuvoton.com>, <schung@nuvoton.com>, <yclu4@nuvoton.com>,
- <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v5 1/7] dt-bindings: display: verisilicon,dc: generalize
- for single-output variants
-Message-ID: <20260626-zit-amuck-e743e58d2e15@wendy>
-References: <20260625094449.708386-1-a0987203069@gmail.com>
- <20260625094449.708386-2-a0987203069@gmail.com>
- <20260625-bobbing-annotate-d1c4d6874ee2@spud>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB61610E318
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 07:30:53 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 439EF759BE;
+ Fri, 26 Jun 2026 07:30:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782459052; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Cn0PtJjGRM91dum2BvUS3J2KV+mR2z/ujYEBK7nDp38=;
+ b=EjIA0fQNfSUrlZjN++GAoo/jE7F8lDGiZw3O7j7J7BwyU/LrW0Mc13VVPAsf3WTT9vxN9I
+ 9IFc51ECX5U6KG9hb2kp4whvykhSmC9XlVMxkPLCACtjSYzNmUXANV3iIH5csEKg/d9Cud
+ e4XQKh4/Yut1w9hAucBU2yDpg06pzG8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782459052;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Cn0PtJjGRM91dum2BvUS3J2KV+mR2z/ujYEBK7nDp38=;
+ b=lAVrHvDfQjpQyhPZBLdUz8Vk6TuAgy448dxCHP+r5d5xzwLvtsxj7UWEXtSHk6kHbVCnr5
+ hmMzmwMVomNwHkCQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782459052; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Cn0PtJjGRM91dum2BvUS3J2KV+mR2z/ujYEBK7nDp38=;
+ b=EjIA0fQNfSUrlZjN++GAoo/jE7F8lDGiZw3O7j7J7BwyU/LrW0Mc13VVPAsf3WTT9vxN9I
+ 9IFc51ECX5U6KG9hb2kp4whvykhSmC9XlVMxkPLCACtjSYzNmUXANV3iIH5csEKg/d9Cud
+ e4XQKh4/Yut1w9hAucBU2yDpg06pzG8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782459052;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Cn0PtJjGRM91dum2BvUS3J2KV+mR2z/ujYEBK7nDp38=;
+ b=lAVrHvDfQjpQyhPZBLdUz8Vk6TuAgy448dxCHP+r5d5xzwLvtsxj7UWEXtSHk6kHbVCnr5
+ hmMzmwMVomNwHkCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E3F6A779A8;
+ Fri, 26 Jun 2026 07:30:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id VYv9NasqPmpNUAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 26 Jun 2026 07:30:51 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: hns@goldelico.com, zhengxingda@iscas.ac.cn, jani.nikula@linux.intel.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, akemnade@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ letux-kernel@openphoenux.org, kernel@pyra-handheld.com,
+ sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v3] drm/fb-helper: Only consider active CRTCs for vblank sync
+Date: Fri, 26 Jun 2026 09:30:40 +0200
+Message-ID: <20260626073048.453206-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="zir5oJSkmyAXG85W"
-Content-Disposition: inline
-In-Reply-To: <20260625-bobbing-annotate-d1c4d6874ee2@spud>
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-0.999];
+ MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_HAS_DN(0.00)[]; RCPT_COUNT_TWELVE(0.00)[14];
+ MIME_TRACE(0.00)[0:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ FREEMAIL_TO(0.00)[goldelico.com,iscas.ac.cn,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,164 +105,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---zir5oJSkmyAXG85W
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Only synchronize fbdev output to the vblank of an active CRTC. Go over
+the list of CRTCs and pick the first that matches. Fixes warnings as
+the one shown below
 
-On Thu, Jun 25, 2026 at 05:33:37PM +0100, Conor Dooley wrote:
-> On Thu, Jun 25, 2026 at 05:44:43PM +0800, Joey Lu wrote:
-> > The verisilicon,dc binding was originally written for the T-Head TH1520
-> > SoC carrying a DC8200, and hard-codes five clocks, three resets and two
-> > output ports.
-> >=20
-> > Add the Nuvoton MA35D1 DCUltraLite (nuvoton,ma35d1-dcu) to the binding.
-> > The DCUltraLite uses only two clocks (core, pix0) and one reset (core),
-> > with a single output port.
-> >=20
-> > Use allOf/if blocks to express per-variant constraints rather than
-> > hard-coding the DC8200 topology at the top level.  Each compatible's
-> > block constrains the clock and reset item counts; the nuvoton block
-> > additionally overrides clock-names to the two names it actually uses.
-> >=20
-> > Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> > ---
-> >  .../bindings/display/verisilicon,dc.yaml      | 57 +++++++++++++++++++
-> >  1 file changed, 57 insertions(+)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.y=
-aml b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> > index 9dc35ab973f2..1e751f3c7ce8 100644
-> > --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> > +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> > @@ -17,6 +17,7 @@ properties:
-> >      items:
-> >        - enum:
-> >            - thead,th1520-dc8200
-> > +          - nuvoton,ma35d1-dcu
-> >        - const: verisilicon,dc # DC IPs have discoverable ID/revision r=
-egisters
-> > =20
-> >    reg:
-> > @@ -77,6 +78,62 @@ required:
-> >    - clock-names
-> >    - ports
-> > =20
-> > +allOf:
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            const: thead,th1520-dc8200
-> > +    then:
-> > +      properties:
-> > +        clocks:
-> > +          minItems: 5
-> > +          maxItems: 5
-> > +
-> > +        clock-names:
-> > +          minItems: 5
-> > +          maxItems: 5
->=20
-> All the maxItems here repeat the maximum constraint and do nothing.
->=20
-> Since you didn't change the minimum constraint at the top level, your
-> minItems also do nothing.
->=20
-> > +
-> > +        resets:
-> > +          minItems: 3
-> > +          maxItems: 3
-> > +
-> > +        reset-names:
-> > +          minItems: 3
-> > +          maxItems: 3
-> > +
-> > +      required:
-> > +        - resets
-> > +        - reset-names
->=20
-> Both conditional sections have this, but the original binding doesn't
-> require these for the thead device. This is a functional change
-> therefore and shouldn't be in a patch calling itself "generalise for
-> single ended variants".
->=20
-> FWIW, adding your new compatible shouldn't really be in a patch with
-> that subject either, it really should say "add support for nuvoton
-> ma35d1" or something.
->=20
-> > +
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            const: nuvoton,ma35d1-dcu
-> > +    then:
-> > +      properties:
-> > +        clocks:
-> > +          minItems: 2
->=20
-> Anything that updates the minimum constraint should be done at the top
-> level of this schema. The conditional section should then tighten the
-> constraint, in this case that means only having maxItems.
->=20
-> > +          maxItems: 2
-> > +
-> > +        clock-names:
-> > +          items:
-> > +            - const: core
-> > +            - const: pix0
->=20
-> Does this even work when the top level schema thinks clock 2 should be
-> called axi?
+[   77.201354] WARNING: drivers/gpu/drm/drm_vblank.c:1320 at drm_crtc_wait_one_vblank+0x194/0x1cc [drm], CPU#1: kworker/1:7/1867
+[   77.201354] omapdrm omapdrm.0: [drm] vblank wait timed out on crtc 0
 
-Additionally here, only have core and pix0 seems like it might be an
-oversimplification. I doubt removing the second output port means that
-the axi and ahb clocks are no longer needed.
-Is it the case that your device supplies the same clock to core, ahb and
-axi? If so, then you should fill those clocks in in your devicetree and
-this can just constrain the number of clocks/clock-names to 4.
+This currently happens if the fbdev output is not on CRTC 0.
 
->=20
-> > +
-> > +        resets:
-> > +          minItems: 1
-> > +          maxItems: 1
-> > +
-> > +        reset-names:
-> > +          items:
-> > +            - const: core
->=20
-> This is just maxItems: 1.
->=20
-> pw-bot: changes-requested
->=20
-> Thanks,
-> Conor.
->=20
-> > +
-> > +      required:
-> > +        - resets
-> > +        - reset-names
-> > +
-> >  additionalProperties: false
-> > =20
-> >  examples:
-> > --=20
-> > 2.43.0
-> >=20
+Atomic and non-atomic drivers require distinct code paths. As for other
+fbdev operations, implement both and select the correct one at runtime.
 
+Not finding an active CRTC is not a bug. Do not wait in this case, but
+flush the display update as before.
 
+v3:
+- drop excessive state validation (Jani)
+- acquire plane and CRTC mutices (Sashiko)
+v2:
+- move look-up code into separate helper
+- support drivers with legacy modesetting
+v1:
+- see https://lore.kernel.org/dri-devel/1c9e0e24-9c4a-4259-8700-cf9e5fd60ca3@suse.de/
 
---zir5oJSkmyAXG85W
-Content-Type: application/pgp-signature; name="signature.asc"
+Co-authored-by: H. Nikolaus Schaller <hns@goldelico.com>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: d8c4bddcd8bcb ("drm/fb-helper: Synchronize dirty worker with vblank")
+Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Tested-by: H. Nikolaus Schaller <hns@goldelico.com>
+Closes: https://bugs.debian.org/1138033
+---
+ drivers/gpu/drm/drm_fb_helper.c | 73 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 72 insertions(+), 1 deletion(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index 7b11a582f8ec..67b187f5c6bf 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -225,16 +225,87 @@ static void drm_fb_helper_resume_worker(struct work_struct *work)
+ 	console_unlock();
+ }
+ 
++static int find_crtc_index_atomic(struct drm_fb_helper *helper)
++{
++	struct drm_device *dev = helper->dev;
++	struct drm_plane *plane;
++	int crtc_index = -EINVAL;
++
++	drm_for_each_plane(plane, dev) {
++		const struct drm_plane_state *plane_state;
++
++		if (plane->type != DRM_PLANE_TYPE_PRIMARY)
++			continue;
++
++		drm_modeset_lock(&plane->mutex, NULL);
++		plane_state = plane->state;
++
++		if (plane_state->fb == helper->fb && plane_state->crtc) {
++			struct drm_crtc *crtc = plane_state->crtc;
++
++			drm_modeset_lock(&crtc->mutex, NULL);
++			if (crtc->state->active)
++				crtc_index = crtc->index;
++			drm_modeset_unlock(&crtc->mutex);
++		}
++		drm_modeset_unlock(&plane->mutex);
++
++		if (crtc_index >= 0)
++			break;
++	}
++
++	return crtc_index;
++}
++
++static int find_crtc_index_legacy(struct drm_fb_helper *helper)
++{
++	struct drm_device *dev = helper->dev;
++	struct drm_crtc *crtc;
++
++	drm_for_each_crtc(crtc, dev) {
++		struct drm_plane *plane = crtc->primary;
++
++		if (!crtc->enabled)
++			continue;
++		if (!plane || plane->fb != helper->fb)
++			continue; /* CRTC doesn't display fbdev emulation */
++
++		return crtc->index;
++	}
++
++	return -EINVAL;
++}
++
++static int drm_fb_helper_find_crtc_index(struct drm_fb_helper *helper)
++{
++	struct drm_device *dev = helper->dev;
++	int crtc_index;
++
++	mutex_lock(&dev->mode_config.mutex);
++
++	if (drm_drv_uses_atomic_modeset(dev))
++		crtc_index = find_crtc_index_atomic(helper);
++	else
++		crtc_index = find_crtc_index_legacy(helper);
++
++	mutex_unlock(&dev->mode_config.mutex);
++
++	return crtc_index;
++}
++
+ static void drm_fb_helper_fb_dirty(struct drm_fb_helper *helper)
+ {
+ 	struct drm_device *dev = helper->dev;
+ 	struct drm_clip_rect *clip = &helper->damage_clip;
+ 	struct drm_clip_rect clip_copy;
++	int crtc_index;
+ 	unsigned long flags;
+ 	int ret;
+ 
+ 	mutex_lock(&helper->lock);
+-	drm_client_modeset_wait_for_vblank(&helper->client, 0);
++	crtc_index = drm_fb_helper_find_crtc_index(helper);
++	if (crtc_index >= 0)
++		drm_client_modeset_wait_for_vblank(&helper->client, crtc_index);
+ 	mutex_unlock(&helper->lock);
+ 
+ 	if (drm_WARN_ON_ONCE(dev, !helper->funcs->fb_dirty))
+-- 
+2.54.0
 
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaj4ouQAKCRB4tDGHoIJi
-0gbuAP9YNrkk4sSHNNI/u1TL50xLKK0vVA2UxUnlFzZLo8p6BAEAyTBb18kN4Jsr
-vttFNioIt2c8wadFCGvKcOjGHBz05g0=
-=SCHK
------END PGP SIGNATURE-----
-
---zir5oJSkmyAXG85W--
