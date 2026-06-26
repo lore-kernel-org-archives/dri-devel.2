@@ -4,52 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DD7BC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 19:02:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60505C43211
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 19:03:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 698DB10F704;
-	Fri, 26 Jun 2026 19:02:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F55F10F709;
+	Fri, 26 Jun 2026 19:03:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FstiwF0N";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Tw9iWJ3A";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 687DF10F704;
- Fri, 26 Jun 2026 19:02:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 890F710F706;
+ Fri, 26 Jun 2026 19:03:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 91BB5600C8;
- Fri, 26 Jun 2026 19:02:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02B91F000E9;
- Fri, 26 Jun 2026 19:02:17 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E1BDB600AA;
+ Fri, 26 Jun 2026 19:03:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B10911F000E9;
+ Fri, 26 Jun 2026 19:03:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782500539;
- bh=UUIgku0dEeTkAIbEWbmP2c4kgTyRAbCcRnpJ75y3OUk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=FstiwF0N2TKXY0zUW6qxHZC2DhJ7UIsuxklD9FRC7G5Ub6nedrarR5rIBl62qwf81
- DAzynZykkyWrvW5K7JOzHlBQLiTqUUaBhY17H9d5DsRO1PjBifTpMzGM0OxuLlJ/FG
- 3m7PYebotrPF7kBpbtauyfrSxcbJ3FLCxiB1bQQPoe14IHV5tbizpn8RPexr6OImz8
- CN4L3Ve3hxRFNYHDsWNoi9XykmXOopwmIhQU/q6KoqMQUrVX9f6gYm4CAE2dzcM/7g
- bzb00ieDYhxGq1puMyvJkrkAwRWfMqRR2GTqqKQUJwv/IOMJ0MGU9ZTxFoS4+sQtHg
- mOku3Cru3MR1w==
-Message-ID: <9b3b135c-0e9d-4439-bbe7-877ac9824249@kernel.org>
-Date: Fri, 26 Jun 2026 14:02:17 -0500
+ s=k20260515; t=1782500612;
+ bh=TyFl9GWmXNLl+QLk0gYGvkiIPobdLVhGYz9j6ia1saU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Tw9iWJ3AW/qVhYN7KGc/ZTiaZzg/3oECz+DiP4VJfyn3QB4fPWwrgNuAJIGNxs+V2
+ gQMOySYXH+qHCB0JOy7ShmXUDJ864WlfuAmNSW4eC0jw1v5I1DDn/MBUmLRwI+Zmn+
+ Tvx68PQugVu+ljQ23TFRCcjPeBFQjWYKgQD+yv+Dj0NPAyY7KU1ce1064Yq2UJQHNh
+ 7PCVds29NYJupkBRTBhXtnaGXQquqVp6AN7Xp9L5f6IxL0XEVKpAcZfxaTF8hC29A2
+ GZgsbwtmAy/ydDOu69TLhC+XE3g2v+Sxjbre9Fp/7W+UikRELgut2FYBWl4v+dv3IH
+ ZX2QubJjR77jQ==
+Date: Fri, 26 Jun 2026 12:03:25 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Steven Rostedt <rostedt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ John Ogness <john.ogness@linutronix.de>, Thomas Gleixner <tglx@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Julia Lawall <julia.lawall@inria.fr>,
+ Yury Norov <yury.norov@gmail.com>, linux-doc@vger.kernel.org,
+ linux-kbuild@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v4 2/2] tracing: Remove trace_printk.h from kernel.h
+Message-ID: <20260626190325.GA3913132@ax162>
+References: <20260625104007.041432666@kernel.org>
+ <20260625104402.210473477@kernel.org>
+ <20260625234158.GA261868@ax162> <20260626045119.659d1e6b@fedora>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fix: drm/amd/display: detect_link_and_local_sink: DP alt
- mode timeout path leaks prev_sink reference
-Content-Language: en-US
-To: WenTao Liang <vulab@iscas.ac.cn>, harry.wentland@amd.com,
- sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch
-Cc: siqueira@igalia.com, alex.hung@amd.com, timur.kristof@gmail.com,
- wenjing.liu@amd.com, Relja.Vojvodic@amd.com, Derek.Lai@amd.com,
- srinivasan.shanmugam@amd.com, clayking@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260626124555.36910-1-vulab@iscas.ac.cn>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260626124555.36910-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260626045119.659d1e6b@fedora>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,39 +74,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/26/26 07:45, WenTao Liang wrote:
-> prev_sink is unconditionally retained via dc_sink_retain at function
->    entry, but the DP alt mode timeout path inside SIGNAL_TYPE_DISPLAY_PORT
->    returns false without releasing prev_sink. All other return paths in the
->    function correctly call dc_sink_release(prev_sink), making this the only
->    missing cleanup.
+On Fri, Jun 26, 2026 at 04:51:19AM -0400, Steven Rostedt wrote:
+> On Thu, 25 Jun 2026 16:41:58 -0700
+> Nathan Chancellor <nathan@kernel.org> wrote:
 > 
-> Cc: stable@vger.kernel.org
-> Fixes: 54618888d1ea ("drm/amd/display: break down dc_link.c")
-> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-
-Applied, thanks.
-
-> ---
->   drivers/gpu/drm/amd/display/dc/link/link_detection.c | 5 ++++-
->   1 file changed, 4 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> index 794dd6a95918..03bb210ebab8 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> @@ -1069,8 +1069,11 @@ static bool detect_link_and_local_sink(struct dc_link *link,
->   			    link->link_enc->features.flags.bits.DP_IS_USB_C == 1) {
->   
->   				/* if alt mode times out, return false */
-> -				if (!wait_for_entering_dp_alt_mode(link))
-> +				if (!wait_for_entering_dp_alt_mode(link)) {
-> +					if (prev_sink)
-> +						dc_sink_release(prev_sink);
->   					return false;
-> +				}
->   			}
->   
->   			if (!detect_dp(link, &sink_caps, reason)) {
+> > The following diff resolves it for me, should I send it as a separate
+> > patch or do you want to just fold it in with a note?
+> > 
+> > diff --git a/include/linux/lockdep.h b/include/linux/lockdep.h
+> > index 621566345406..2301a701ffbb 100644
+> > --- a/include/linux/lockdep.h
+> > +++ b/include/linux/lockdep.h
+> > @@ -10,6 +10,7 @@
+> >  #ifndef __LINUX_LOCKDEP_H
+> >  #define __LINUX_LOCKDEP_H
+> >  
+> > +#include <linux/instruction_pointer.h>
+> 
+> Ah, so the reason for this breakage is because lockdep was relying on
+> instruction_pointer.h, that just happened to be included in kernel.h
+> via trace_printk.h.
 
+Correct.
+
+> This is a separate issue, so it should be a separate patch. I'll add it
+> as patch 1 of this series.
+
+Sounds good, thanks!
+
+> Can you send me the config you used. This didn't trigger in my tests.
+
+It is a plain allmodconfig, for example on arm:
+
+  $ make -skj"$(nproc)" ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- allmodconfig lib/test_context-analysis.o
+  In file included from include/linux/local_lock_internal.h:8,
+                   from include/linux/local_lock.h:5,
+                   from lib/test_context-analysis.c:9:
+  include/linux/local_lock_internal.h: In function 'local_lock_acquire':
+  include/linux/lockdep.h:541:87: error: '_THIS_IP_' undeclared (first use in this function)
+    541 | #define lock_map_acquire(l)                     lock_acquire_exclusive(l, 0, 0, NULL, _THIS_IP_)
+        |                                                                                       ^~~~~~~~~
+  include/linux/lockdep.h:509:88: note: in definition of macro 'lock_acquire_exclusive'
+    509 | #define lock_acquire_exclusive(l, s, t, n, i)           lock_acquire(l, s, t, 0, 1, n, i)
+        |                                                                                        ^
+  include/linux/local_lock_internal.h:46:9: note: in expansion of macro 'lock_map_acquire'
+     46 |         lock_map_acquire(&l->dep_map);
+        |         ^~~~~~~~~~~~~~~~
+  include/linux/lockdep.h:541:87: note: each undeclared identifier is reported only once for each function it appears in
+  ...
+
+I also reproduced it on top of allnoconfig:
+
+  $ cat allno.config
+  CONFIG_CONTEXT_ANALYSIS_TEST=y
+  CONFIG_DEBUG_KERNEL=y
+  CONFIG_DEBUG_LOCK_ALLOC=y
+  CONFIG_EXPERT=y
+  CONFIG_MMU=y
+  CONFIG_RUNTIME_TESTING_MENU=y
+
+  $ make -skj"$(nproc)" ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- KCONFIG_ALLCONFIG=1 clean allnoconfig lib/test_context-analysis.o
+  <same error as above>
+
+-- 
+Cheers,
+Nathan
