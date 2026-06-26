@@ -4,43 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83129C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:25:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00476C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:29:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4A6010F00B;
-	Fri, 26 Jun 2026 13:25:20 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PkkyVx9P";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A9E210ED89
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:25:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 95E1C600D8;
- Fri, 26 Jun 2026 13:25:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D1D61F000E9;
- Fri, 26 Jun 2026 13:25:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782480318;
- bh=7N03x+e/uAY722IFMuRCuPrCqHXJUgsyCd+hAHe9hnI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PkkyVx9P8/4mqEMi32o6hckQNLHrotVmCHfUbV0EIxR0AX0DB4RHT5grH6MOGKt9z
- alW/6e3xsmGU9xjf12u+msa4sY8gNinEPg9U5IWOCcNfZJ/01A0XJbWojXKoB52seI
- zUhsiNYGiGXJU7BVQJMV+JbQUQj0rRDTPcCZRtcEY6tphurtJ9ony5EvwqMudDnSv1
- Y9x5h08p8aCJtt+saUWHB5zwy4L/Hd1Ytzh0dg4spzBHRZ/YJ/+QQmzyPJot3n5GSo
- kQOrrMFJE6eNORUe6Yf83kVb75AMRUQNbxNwvwfPk45wFRvs34jQmKChrjSe6WPCcl
- 0c4WBVcBWW8Pg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] fix: drm: drm_mode_obj_get_properties_ioctl:
- DRM_MODESET_LOCK_ALL_BEGIN   retry leaks drm_mode_object reference
-To: "WenTao Liang" <vulab@iscas.ac.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260626131308.37604-1-vulab@iscas.ac.cn>
-References: <20260626131308.37604-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 13:25:17 +0000
-Message-Id: <20260626132518.2D1D61F000E9@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3709110E3A2;
+	Fri, 26 Jun 2026 13:29:00 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48F7910E3A2
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:28:58 +0000 (UTC)
+Received: from localhost.localdomain (unknown [117.182.75.66])
+ by APP-05 (Coremail) with SMTP id zQCowABHntGSfj5qhXFqFQ--.43105S2;
+ Fri, 26 Jun 2026 21:28:52 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
+ simona@ffwll.ch, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ WenTao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
+Subject: [PATCH] fix: drm/mediatek: mtk_drm_probe: of_node_get in loop
+ overwrites previous node references without release
+Date: Fri, 26 Jun 2026 21:28:49 +0800
+Message-Id: <20260626132849.38694-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowABHntGSfj5qhXFqFQ--.43105S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7AFy8ur4ktF43Ar4xCF4fGrg_yoW8XryfpF
+ WUKFWYyry0gr4xKFyvyF1Uuryay3WIqayxWa12ga1xZws5tFyUXFyFqay7KFZ2yFy8CF13
+ JFn8AFyfur17AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+ Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+ 0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+ zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
+ 4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
+ CwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcS
+ sGvfC2KfnxnUUI43ZEXa7VUbzpBDUUUUU==
+X-Originating-IP: [117.182.75.66]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwwKA2o+TTuTHAAAsv
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,79 +60,43 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Double-free / Use-after-free on drm_mode_object pointer during m=
-odeset lock retry
---
+In the for_each_child_of_node loop, private->comp_node[comp_id] and
+  private->mutex_node are assigned via of_node_get without first releasing
+  any previously stored reference for the same index. When the same comp_id
+  or mmsys_id matches multiple nodes, earlier node references are
+  overwritten and permanently leaked.
 
-commit 09179daaa80ba21f29576fb6c0abc2ca7e1a0fbd
-Author: WenTao Liang <vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org
+Fixes: 1ef7ed48356c ("drm/mediatek: Modify mediatek-drm for mt8195 multi mmsys support")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-fix: drm: drm_mode_obj_get_properties_ioctl: DRM_MODESET_LOCK_ALL_BEGIN ret=
-ry leaks drm_mode_object reference
+diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+index c86a3f54f35b..2c0d8db9ade2 100644
+--- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
++++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+@@ -1138,6 +1138,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
+ 
+ 			id = of_alias_get_id(node, "mutex");
+ 			if (id < 0 || id == private->data->mmsys_id) {
++				of_node_put(private->mutex_node);
+ 				private->mutex_node = of_node_get(node);
+ 				dev_dbg(dev, "get mutex for mmsys %d", private->data->mmsys_id);
+ 			}
+@@ -1153,7 +1154,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
+ 
+ 		if (!mtk_drm_find_mmsys_comp(private, comp_id))
+ 			continue;
+-
++		of_node_put(private->comp_node[comp_id]);
+ 		private->comp_node[comp_id] = of_node_get(node);
+ 
+ 		/*
+-- 
+2.39.5 (Apple Git-154)
 
-This commit attempts to fix a memory leak during deadlock retries by calling
-drm_mode_object_put() at the start of the lock block. It modifies the code
-following the DRM_MODESET_LOCK_ALL_BEGIN macro to release the object if a
-retry occurs.
-
-> diff --git a/drivers/gpu/drm/drm_mode_object.c b/drivers/gpu/drm/drm_mode=
-_object.c
-> index 21fc9deda4371..2360c61d1ae04 100644
-> --- a/drivers/gpu/drm/drm_mode_object.c
-> +++ b/drivers/gpu/drm/drm_mode_object.c
-[ ... ]
-> @@ -487,6 +487,8 @@ int drm_mode_obj_get_properties_ioctl(struct drm_devi=
-ce *dev, void *data,
->  		return -EOPNOTSUPP;
-> =20
->  	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
-> +	if (obj)
-> +		drm_mode_object_put(obj);
-> =20
->  	obj =3D drm_mode_object_find(dev, file_priv, arg->obj_id, arg->obj_type=
-);
->  	if (!obj) {
-
-[Severity: Medium]
-Will this result in a double-free if the retry is triggered by code within =
-the
-block returning -EDEADLK?
-
-If drm_mode_object_get_properties() returns -EDEADLK, the flow proceeds to =
-the
-error labels:
-
-	ret =3D drm_mode_object_get_properties(...);
-
-out_unref:
-	drm_mode_object_put(obj);
-out:
-	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
-
-The DRM_MODESET_LOCK_ALL_END macro detects the -EDEADLK, performs backoff, =
-and
-jumps to the modeset_lock_retry label located inside DRM_MODESET_LOCK_ALL_B=
-EGIN.
-
-Since the object was already released in out_unref, and local variables ret=
-ain
-their values across goto, the obj pointer remains non-NULL. The newly added
-check will then call drm_mode_object_put(obj) on the same pointer again bef=
-ore
-finding a new object, causing a double-free.
-
-Additionally, if drm_modeset_lock_all_ctx() itself returns -EDEADLK during =
-the
-initial acquisition inside DRM_MODESET_LOCK_ALL_BEGIN, it jumps over the
-entire block. In that scenario, drm_mode_object_find() has not executed yet,
-so there is no object to leak.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626131308.3760=
-4-1-vulab@iscas.ac.cn?part=3D1
