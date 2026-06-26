@@ -4,62 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36B5AC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:58:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4FB4C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 14:16:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87DED10F638;
-	Fri, 26 Jun 2026 13:58:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D962F10E3B1;
+	Fri, 26 Jun 2026 14:16:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BZkWJMLc";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="m5HGN2LN";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA04510F636
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:58:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3CBA1600E2;
- Fri, 26 Jun 2026 13:58:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 560181F000E9;
- Fri, 26 Jun 2026 13:58:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782482299;
- bh=G7fGmpxnIqbCEG+ehECXniMD8RItpMC5ZXv6d3lOwe0=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=BZkWJMLcb3F6DVcakwQrznGdQUKiN0nxN35R//JqMo5zXfWNNaS+LrYR+K22d57II
- objXCg7Bn+r2kWLLxlxlYJcOy0NOz1MlQqYegGS/KqG6oNoPMaLpzrK/1h9aLBO4Id
- YcmxJgR52mTsqFd2em+v4ALBDL3oUNHs0u1UVT7S478Aw0Y7DjhRsdyp21qy5d0pRm
- bsYyN4kxOobOnANC02TFVofUhxdC0iJzsLrrYCPVmBjg1XHaBivS8YLSrp6gaqQgQY
- gZx9nXbMj/bd2cG4XlhrAtezz6oBfqOJ35Mx8KfzVWJRYFiKXMhJ6aUACg5EeKsgIm
- K+NBUHgaziRoQ==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 26 Jun 2026 15:57:19 +0200
-Subject: [PATCH v3 18/30] drm/atomic_sro: Provide helpers to implement
- hardware state readout
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260626-drm-state-readout-v3-18-d5825e3299a8@kernel.org>
-References: <20260626-drm-state-readout-v3-0-d5825e3299a8@kernel.org>
-In-Reply-To: <20260626-drm-state-readout-v3-0-d5825e3299a8@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
- lidrm_printf_indentnux-kernel@vger.kernel.org, 
- Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14956; i=mripard@kernel.org;
- h=from:subject:message-id; bh=BDyGwUZ6RO/3wQT29oz8lq4f2XgMKsgv0zcBif8xUGY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFl2rZZ/tszdq/ekhEFGIezgpY0vHTRbjp9Rfl5Z7aPP7
- PGWuzC6YyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEzkpDFjw+rFz6Y/f7bjy9Sv
- C53zTLIz4nor1n69r2wX9u1B7Pyq3bofU9sPT9k52yHoa+Mr/keH2RkbNmZbFH3suyLnY5N1vu5
- 8S5fr0+qjs/P7v6U+kCnvKAmqCaxeaaoVqXJz16z4TXI8qy4BAA==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48DE910E39D
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 14:16:54 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 02A4FC6344B;
+ Fri, 26 Jun 2026 14:17:01 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 151A760232;
+ Fri, 26 Jun 2026 14:16:52 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id DF1E0104C83B5; 
+ Fri, 26 Jun 2026 16:16:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1782483410; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=HiXIftSGz3/FakEy7iV1z44v7wCiE7fCNRBBHRqbE8s=;
+ b=m5HGN2LNoMhBXxCIbtrRqDG7GXhu7+7ogaB+/nzDsIn4MLa5kkPA5pY+/7jFFwOuQ51aWQ
+ Y+Tcx7DX2+P+8d4ut48OT1anz9HquQENZ0WzjRUAbHX97j1gupFhLqqki/VKyD2A9Dx2Be
+ vdrjbYznwyl/q40lt4C1+d3/sLQEQa9cofGSPagfyOQAbLY1FANy+Q5RI5xWEVCyUsQ6x6
+ dLkRu2lAcI5a7ksYedje41gF8Tyhu6BXYRvD3w7z40eozal46JS+mxnRIqaZlqdlgLoBB7
+ rCRGmf8nusV+T4bc92twcZU1dSIM6/9nCt3HH2Mj2fsKKtnIRvB42cBwUIsl8Q==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 26 Jun 2026 16:16:39 +0200
+Message-Id: <DJJ1MPCEJGZD.UZM9183V6ZE5@bootlin.com>
+Subject: Re: [PATCH 05/37] drm/display: bridge-connector: split code
+ creating the connector to a subfunction
+Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Inki Dae"
+ <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
+ Szyprowski" <m.szyprowski@samsung.com>, "Marek Vasut" <marex@denx.de>,
+ "Stefan Agner" <stefan@agner.ch>, "Frank Li" <Frank.Li@nxp.com>, "Sascha
+ Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Hui Pu"
+ <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>
+To: "Maxime Ripard" <mripard@kernel.org>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.21.0
+References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
+ <20260519-drm-bridge-hotplug-v1-5-45e2bdb3dfb4@bootlin.com>
+ <20260608-mindful-heavy-frigatebird-be9faf@houat>
+ <DJ735MTNMYD1.3LPNV404V8PIU@bootlin.com>
+ <20260624-proud-unbiased-pony-ecc3c3@houat>
+ <DJHEAWSEZR79.19UFIKS8QJBQ7@bootlin.com>
+ <20260626-polite-hairy-perch-25e1aa@houat>
+In-Reply-To: <20260626-polite-hairy-perch-25e1aa@houat>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,492 +84,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Drivers implementing SRO need to iterate over their KMS objects,
-allocate a pristine state for each, call the readout hook, and store
-the result in the SRO state container.
+Hi Maxime,
 
-Provide helpers for each object type
-(drm_atomic_helper_sro_readout_planes_state(),
-drm_atomic_helper_sro_readout_crtcs_state(), etc.) and a top-level
-drm_atomic_helper_sro_build_state() that calls them in sequence.
+On Fri Jun 26, 2026 at 12:09 PM CEST, Maxime Ripard wrote:
+> On Wed, Jun 24, 2026 at 05:47:10PM +0200, Luca Ceresoli wrote:
+>> On Wed Jun 24, 2026 at 1:41 PM CEST, Maxime Ripard wrote:
+>> > Hi,x
+>> >
+>> > On Fri, Jun 12, 2026 at 02:56:24PM +0200, Luca Ceresoli wrote:
+>> >> On Mon Jun 8, 2026 at 1:40 PM CEST, Maxime Ripard wrote:
+>> >> > On Tue, May 19, 2026 at 12:37:22PM +0200, Luca Ceresoli wrote:
+>> >> >> In preparation to introduce bridge hotplug, split out from
+>> >> >> drm_bridge_connector_init() the code adding the drm_connector into=
+ a
+>> >> >> dedicated function. This will be needed to be able to add (and re-=
+add) the
+>> >> >> connector from different code paths.
+>> >> >
+>> >> > Same story here, explaining what you need later on that calls for t=
+hat
+>> >> > change would be nice.
+>> >>
+>> >> Here's a more verbose version:
+>> >>
+>> >>     Currently drm_bridge_connector_init() does two things:
+>> >>
+>> >>      * allocate and initialize the drm_bridge_connector
+>> >>        (which embeds a drm_connector)
+>> >>      * initialize and register the embedded drm_connector
+>> >>
+>> >>     For bridge hotplug we need to separate these two actions:
+>> >>
+>> >>      * the drm_connector needs to be added and removed at any time ba=
+sed on
+>> >>        hotplug events
+>> >>      * the drm_bridge_connector is designated to create and remove th=
+e
+>> >>        drm_connector, so it must be persistent for the card lifetime
+>> >>
+>> >>     As the lifetimes of drm_bridge_connector and drm_connector become
+>> >>     different, we need to create them in different moments.
+>> >>
+>> >>     In preparation to support that, split out from
+>> >>     drm_bridge_connector_init() the code adding the drm_connector int=
+o a
+>> >>     dedicated function. No functional changes, just moving code aroun=
+d for
+>> >>     now. A future commit will make the drm_connector be created based=
+ on
+>> >>     hotplug events.
+>> >>
+>> >> Looks good?
+>> >
+>> > The message itself, yes, thanks.
+>> >
+>> > However, I have questions now :)
+>> >
+>> > Do we really expect drm_bridge_connector to stick around when a bridge
+>> > gets unplugged? If so, how does it cope with having, say, an HDMI
+>> > connector, and then swapping out the hotplugged part for an LVDS one?
+>> > Does the HDMI connector sticks around indefinitely?
+>>
+>> In your example, the HDMI drm_connector would be unregistered and put on
+>> hotunplug. Its allocation will stick around until the last put but that'=
+s
+>> quite irrelevant. Then, on plugging the LVDS addon, a new LVDS
+>> drm_connector will be created and registered.
+>>
+>> > *Especially* if we're using overlays for this, I'd expect everything
+>> >  after the first hotplugged bridge to be destroyed, no?
+>>
+>> As said, it would be unregistered immediately but might be freed later o=
+n
+>> if still refcounted.
+>>
+>> This is visible in patches 36+15, the path to follow is:
+>>
+>>  drm_bridge_connector_handle_event(event =3D DRM_BRIDGE_DETACHED) [patch=
+ 36]
+>>  -> drm_bridge_connector_dynconn_release()                      [patch 1=
+5]
+>>
+>> Does this solve your concern?
+>
+> Not really, I'm talking about drm_bridge_connector. The fact that
+> bridges are destroyed make sense to me. The fact that
+> drm_bridge_connector sticks around doesn't. It's supposed to be a
+> connector for bridges. If you don't have bridges because they got
+> destroyed, and connector, drm_bridge_connector doesn't have a reason to
+> exist anymore, unless it's drm_bridge_hotplug in a trench coat :)
 
-Also provide default implementations for the atomic_sro_compare_state
-hooks: drm_atomic_helper_plane_compare_state(),
-drm_atomic_helper_crtc_compare_state(),
-drm_atomic_helper_connector_compare_state(), and
-drm_atomic_helper_bridge_compare_state(). These compare the base
-state fields and report mismatches through a drm_printer.
+It is not a hotplug-bridge in a trench coat, no :) The code is clear about
+this.
 
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/Makefile                |   1 +
- drivers/gpu/drm/drm_atomic_sro_helper.c | 406 ++++++++++++++++++++++++++++++++
- include/drm/drm_atomic_sro_helper.h     |  28 +++
- 3 files changed, 435 insertions(+)
+I'd say with this series a "drm_bridge_connector" is just becoming
+something more (perhaps something else too). Somewhat as "a drm_bridge is
+either a bridge or something else". :)
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 64705ac96bd1..082721f1453c 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -140,10 +140,11 @@ obj-$(CONFIG_DRM_TTM_HELPER) += drm_ttm_helper.o
- # Modesetting helpers
- #
- 
- drm_kms_helper-y := \
- 	drm_atomic_helper.o \
-+	drm_atomic_sro_helper.o \
- 	drm_atomic_state_helper.o \
- 	drm_bridge_helper.o \
- 	drm_crtc_helper.o \
- 	drm_damage_helper.o \
- 	drm_flip_work.o \
-diff --git a/drivers/gpu/drm/drm_atomic_sro_helper.c b/drivers/gpu/drm/drm_atomic_sro_helper.c
-new file mode 100644
-index 000000000000..d492aebda119
---- /dev/null
-+++ b/drivers/gpu/drm/drm_atomic_sro_helper.c
-@@ -0,0 +1,406 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_atomic_sro.h>
-+#include <drm/drm_atomic_sro_helper.h>
-+#include <drm/drm_bridge.h>
-+#include <drm/drm_connector.h>
-+#include <drm/drm_crtc.h>
-+#include <drm/drm_encoder.h>
-+#include <drm/drm_modeset_helper_vtables.h>
-+#include <drm/drm_plane.h>
-+#include <drm/drm_print.h>
-+
-+#include <linux/gfp.h>
-+#include <linux/sched/mm.h>
-+
-+/**
-+ * drm_atomic_helper_sro_readout_planes_state - read out all plane states from hardware
-+ * @dev: DRM device
-+ * @state: SRO state container to fill
-+ *
-+ * Iterates over all planes, allocates a state for each via
-+ * atomic_create_state, and calls the plane's
-+ * atomic_sro_readout_state hook to fill it from hardware.
-+ *
-+ * RETURNS:
-+ *
-+ * 0 on success, a negative error code otherwise.
-+ */
-+int
-+drm_atomic_helper_sro_readout_planes_state(struct drm_device *dev,
-+					   struct drm_atomic_sro_state *state)
-+{
-+	struct drm_plane *plane;
-+
-+	might_alloc(GFP_KERNEL);
-+
-+	drm_for_each_plane(plane, dev) {
-+		const struct drm_plane_funcs *plane_funcs = plane->funcs;
-+		struct drm_plane_state *plane_state;
-+		int ret;
-+
-+		if (!plane_funcs->atomic_sro_readout_state) {
-+			drm_warn(dev, "No plane readout implementation.");
-+			continue;
-+		}
-+
-+		drm_dbg_kms(dev, "Initializing Plane %s state.\n", plane->name);
-+
-+		plane_state = plane_funcs->atomic_create_state(plane);
-+		if (drm_WARN_ON(dev, IS_ERR(plane_state)))
-+			return 0;
-+
-+		ret = plane_funcs->atomic_sro_readout_state(plane, state,
-+							    plane_state);
-+		if (drm_WARN_ON(dev, ret)) {
-+			plane_funcs->atomic_destroy_state(plane, plane_state);
-+			return ret;
-+		}
-+
-+		drm_atomic_sro_set_plane_state(state, plane, plane_state);
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * drm_atomic_helper_sro_readout_crtcs_state - read out all CRTC states from hardware
-+ * @dev: DRM device
-+ * @state: SRO state container to fill
-+ *
-+ * Iterates over all CRTCs, allocates a state for each via
-+ * atomic_create_state, and calls the CRTC's
-+ * atomic_sro_readout_state hook to fill it from hardware.
-+ *
-+ * RETURNS:
-+ *
-+ * 0 on success, a negative error code otherwise.
-+ */
-+int
-+drm_atomic_helper_sro_readout_crtcs_state(struct drm_device *dev,
-+					  struct drm_atomic_sro_state *state)
-+{
-+	struct drm_crtc *crtc;
-+
-+	might_alloc(GFP_KERNEL);
-+
-+	drm_for_each_crtc(crtc, dev) {
-+		const struct drm_crtc_funcs *crtc_funcs = crtc->funcs;
-+		struct drm_crtc_state *crtc_state;
-+		int ret;
-+
-+		if (!crtc_funcs->atomic_sro_readout_state) {
-+			drm_warn(dev, "No CRTC readout implementation.");
-+			continue;
-+		}
-+
-+		drm_dbg_kms(dev, "Initializing CRTC %s state.\n", crtc->name);
-+
-+		crtc_state = crtc_funcs->atomic_create_state(crtc);
-+		if (drm_WARN_ON(dev, IS_ERR(crtc_state)))
-+			return PTR_ERR(crtc_state);
-+
-+		ret = crtc_funcs->atomic_sro_readout_state(crtc, state,
-+							   crtc_state);
-+		if (drm_WARN_ON(dev, ret)) {
-+			crtc_funcs->atomic_destroy_state(crtc, crtc_state);
-+			return ret;
-+		}
-+
-+		drm_atomic_sro_set_crtc_state(state, crtc, crtc_state);
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * drm_atomic_helper_sro_readout_connectors_state - read out all connector states from hardware
-+ * @dev: DRM device
-+ * @state: SRO state container to fill
-+ *
-+ * Iterates over all connectors, allocates a state for each via
-+ * atomic_create_state, and calls the connector's
-+ * atomic_sro_readout_state hook to fill it from hardware.
-+ *
-+ * RETURNS:
-+ *
-+ * 0 on success, a negative error code otherwise.
-+ */
-+int
-+drm_atomic_helper_sro_readout_connectors_state(struct drm_device *dev,
-+					       struct drm_atomic_sro_state *state)
-+{
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_connector *connector;
-+
-+	might_alloc(GFP_KERNEL);
-+
-+	drm_connector_list_iter_begin(dev, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		const struct drm_connector_funcs *conn_funcs = connector->funcs;
-+		struct drm_connector_state *conn_state;
-+		int ret;
-+
-+		if (!conn_funcs->atomic_sro_readout_state) {
-+			drm_warn(dev, "No Connector readout implementation.");
-+			continue;
-+		}
-+
-+		drm_dbg_kms(dev, "Initializing Connector %s state.\n", connector->name);
-+
-+		conn_state = conn_funcs->atomic_create_state(connector);
-+		if (drm_WARN_ON(dev, IS_ERR(conn_state)))
-+			return PTR_ERR(conn_state);
-+
-+		ret = conn_funcs->atomic_sro_readout_state(connector, state,
-+							   conn_state);
-+		if (drm_WARN_ON(dev, ret)) {
-+			conn_funcs->atomic_destroy_state(connector, conn_state);
-+			return ret;
-+		}
-+
-+		drm_atomic_sro_set_connector_state(state, connector, conn_state);
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+
-+	return 0;
-+}
-+
-+/**
-+ * drm_atomic_helper_sro_readout_bridges_state - read out all bridge states from hardware
-+ * @dev: DRM device
-+ * @state: SRO state container to fill
-+ *
-+ * Iterates over all encoders and their bridge chains, allocates a state
-+ * for each bridge via atomic_create_state, and calls the bridge's
-+ * atomic_sro_readout_state hook to fill it from hardware.
-+ *
-+ * Bridges are handled separately from other private objects because
-+ * bridge registration does not guarantee ordering. Traversing the
-+ * encoder bridge chains ensures each bridge can query the state of
-+ * preceding bridges in its chain.
-+ *
-+ * RETURNS:
-+ *
-+ * 0 on success, a negative error code otherwise.
-+ */
-+int
-+drm_atomic_helper_sro_readout_bridges_state(struct drm_device *dev,
-+					    struct drm_atomic_sro_state *state)
-+{
-+	struct drm_encoder *encoder;
-+
-+	might_alloc(GFP_KERNEL);
-+
-+	/*
-+	 * It works a bit differently for bridges. Indeed they rely on a
-+	 * drm_private_obj and drm_private_state, but bridge
-+	 * registration doesn't guarantee ordering.
-+	 *
-+	 * In order for each bridge callback to be able to query the
-+	 * previous bridge state, we thus need to read out the bridge
-+	 * state by looking at each encoder and then traversing its
-+	 * bridge list.
-+	 *
-+	 * And we'll then readout all the non-bridge drm_private_obj
-+	 * later.
-+	 */
-+	drm_for_each_encoder(encoder, dev) {
-+		struct drm_bridge *bridge;
-+		int ret;
-+
-+		list_for_each_entry(bridge, &encoder->bridge_chain, chain_node) {
-+			struct drm_private_obj *bridge_obj = &bridge->base;
-+			const struct drm_private_state_funcs *bridge_obj_funcs =
-+				bridge_obj->funcs;
-+			struct drm_private_state *bridge_obj_state;
-+
-+			if (!bridge_obj_funcs->atomic_sro_readout_state) {
-+				drm_warn(dev,
-+					 "No bridge %s readout implementation.",
-+					 bridge->name);
-+				continue;
-+			}
-+
-+			drm_dbg_kms(dev, "Initializing Bridge %s", bridge->name);
-+
-+			bridge_obj_state =
-+				bridge_obj_funcs->atomic_create_state(
-+					bridge_obj);
-+			if (drm_WARN_ON(dev, IS_ERR(bridge_obj_state)))
-+				return ret;
-+
-+			ret = bridge_obj_funcs->atomic_sro_readout_state(
-+				bridge_obj, state, bridge_obj_state);
-+			if (drm_WARN_ON(dev, ret)) {
-+				bridge_obj_funcs->atomic_destroy_state(
-+					bridge_obj, bridge_obj_state);
-+				return ret;
-+			}
-+
-+			drm_atomic_sro_set_private_obj_state(state, bridge_obj,
-+							     bridge_obj_state);
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * drm_atomic_helper_sro_readout_private_objs_state - read out non-bridge private object states
-+ * @dev: DRM device
-+ * @state: SRO state container to fill
-+ *
-+ * Iterates over all private objects that are not bridges (bridges are
-+ * handled by drm_atomic_helper_sro_readout_bridges_state()), allocates
-+ * a state for each via atomic_create_state, and calls the object's
-+ * atomic_sro_readout_state hook to fill it from hardware.
-+ *
-+ * RETURNS:
-+ *
-+ * 0 on success, a negative error code otherwise.
-+ */
-+int
-+drm_atomic_helper_sro_readout_private_objs_state(struct drm_device *dev,
-+						 struct drm_atomic_sro_state *state)
-+{
-+	struct drm_private_obj *privobj;
-+
-+	might_alloc(GFP_KERNEL);
-+
-+	drm_for_each_privobj(privobj, dev) {
-+		const struct drm_private_state_funcs *priv_funcs =
-+			privobj->funcs;
-+		struct drm_private_state *priv_state;
-+		int ret;
-+
-+		/*
-+		 * We already accounted readout the bridge state earlier, we only
-+		 * have to deal with !bridges drm_private_obj now.
-+		 */
-+		if (drm_private_obj_is_bridge(privobj))
-+			continue;
-+
-+		if (!priv_funcs->atomic_sro_readout_state) {
-+			drm_warn(dev,
-+				 "No private object %s readout implementation.",
-+				 privobj->name);
-+			continue;
-+		}
-+
-+		drm_dbg_kms(dev, "Initializing Private Object %s",
-+			    privobj->name);
-+
-+		priv_state = priv_funcs->atomic_create_state(privobj);
-+		if (drm_WARN_ON(dev, IS_ERR(priv_state)))
-+			return PTR_ERR(priv_state);
-+
-+		ret = priv_funcs->atomic_sro_readout_state(privobj, state,
-+							   priv_state);
-+		if (drm_WARN_ON(dev, ret)) {
-+			priv_funcs->atomic_destroy_state(privobj, priv_state);
-+			return ret;
-+		}
-+
-+		drm_atomic_sro_set_private_obj_state(state, privobj,
-+						     priv_state);
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * drm_atomic_helper_sro_build_state - build an SRO state from hardware
-+ * @dev: DRM device to build the state for
-+ *
-+ * Allocates a &struct drm_atomic_sro_state and calls the readout hooks
-+ * for CRTCs, planes, connectors, bridges, and private objects in
-+ * sequence to fill it from the current hardware state.
-+ *
-+ * This is the default implementation for
-+ * &drm_mode_config_helper_funcs.atomic_sro_build_state.
-+ *
-+ * RETURNS:
-+ *
-+ * A &struct drm_atomic_sro_state on success, an error pointer otherwise.
-+ */
-+struct drm_atomic_sro_state *
-+drm_atomic_helper_sro_build_state(struct drm_device *dev)
-+{
-+	struct drm_atomic_sro_state *state;
-+	struct drm_printer p = drm_dbg_printer(dev, DRM_UT_ATOMIC, NULL);
-+	int ret;
-+
-+	drm_dbg_kms(dev, "Starting to build atomic state from hardware state.\n");
-+
-+	state = drm_atomic_sro_state_alloc(dev);
-+	if (drm_WARN_ON(dev, !state))
-+		return ERR_PTR(-ENOMEM);
-+
-+	ret = drm_atomic_helper_sro_readout_crtcs_state(dev, state);
-+	if (ret)
-+		goto err_state_free;
-+
-+	ret = drm_atomic_helper_sro_readout_planes_state(dev, state);
-+	if (ret)
-+		goto err_state_free;
-+
-+	ret = drm_atomic_helper_sro_readout_connectors_state(dev, state);
-+	if (ret)
-+		goto err_state_free;
-+
-+	ret = drm_atomic_helper_sro_readout_bridges_state(dev, state);
-+	if (ret)
-+		goto err_state_free;
-+
-+	ret = drm_atomic_helper_sro_readout_private_objs_state(dev, state);
-+	if (ret)
-+		goto err_state_free;
-+
-+	drm_atomic_sro_state_print(state, &p);
-+
-+	return state;
-+
-+err_state_free:
-+	drm_atomic_sro_state_free(state);
-+	return ERR_PTR(ret);
-+}
-+EXPORT_SYMBOL(drm_atomic_helper_sro_build_state);
-+
-+/**
-+ * drm_atomic_helper_sro_readout_state - default &drm_mode_config_funcs.atomic_sro_readout_state implementation
-+ * @dev: DRM device to read out state for
-+ *
-+ * Checks if the device supports hardware state readout, builds the SRO
-+ * state via &drm_mode_config_helper_funcs.atomic_sro_build_state,
-+ * installs it as the current state of all DRM objects, and frees the
-+ * SRO container.
-+ *
-+ * RETURNS:
-+ *
-+ * 0 on success, -ENOTSUPP if the device does not support readout, a
-+ * negative error code otherwise.
-+ */
-+int drm_atomic_helper_sro_readout_state(struct drm_device *dev)
-+{
-+	const struct drm_mode_config_helper_funcs *funcs =
-+		dev->mode_config.helper_private;
-+	struct drm_atomic_sro_state *state;
-+
-+	if (!drm_atomic_sro_device_can_readout(dev)) {
-+		drm_info(dev, "Device doesn't support hardware state readout.");
-+		return -ENOTSUPP;
-+	}
-+
-+	state = funcs->atomic_sro_build_state(dev);
-+	if (IS_ERR(state))
-+		return PTR_ERR(state);
-+
-+	drm_atomic_sro_install_state(state);
-+	drm_atomic_sro_state_free(state);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_atomic_helper_sro_readout_state);
-diff --git a/include/drm/drm_atomic_sro_helper.h b/include/drm/drm_atomic_sro_helper.h
-new file mode 100644
-index 000000000000..a42ed8136a49
---- /dev/null
-+++ b/include/drm/drm_atomic_sro_helper.h
-@@ -0,0 +1,28 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+
-+#ifndef DRM_ATOMIC_SRO_HELPER_H_
-+#define DRM_ATOMIC_SRO_HELPER_H_
-+
-+struct drm_atomic_sro_state;
-+struct drm_device;
-+
-+int
-+drm_atomic_helper_sro_readout_planes_state(struct drm_device *dev,
-+					   struct drm_atomic_sro_state *state);
-+int
-+drm_atomic_helper_sro_readout_crtcs_state(struct drm_device *dev,
-+					  struct drm_atomic_sro_state *state);
-+int
-+drm_atomic_helper_sro_readout_connectors_state(struct drm_device *dev,
-+					       struct drm_atomic_sro_state *state);
-+int
-+drm_atomic_helper_sro_readout_bridges_state(struct drm_device *dev,
-+					    struct drm_atomic_sro_state *state);
-+int
-+drm_atomic_helper_sro_readout_private_objs_state(struct drm_device *dev,
-+						 struct drm_atomic_sro_state *state);
-+struct drm_atomic_sro_state *
-+drm_atomic_helper_sro_build_state(struct drm_device *dev);
-+int drm_atomic_helper_sro_readout_state(struct drm_device *dev);
-+
-+#endif /* DRM_ATOMIC_SRO_HELPER_H_ */
 
--- 
-2.54.0
+But let's leave names aside for a moment. If just looking at the current
+code, the drm_bridge_connector is "a handler, owned by the card/encoder and
+having the same lifetime, which takes care of drm_connector
+creation/destruction at card probe/removal".
 
+What we need now is just the same plug " and on hotplug events" appended.
+
+So in both cases there needs to be "a handler persitent with the card".
+
+Do we agree so far?
+
+
+Now, the reason I chose to extend the drm_bridge_connector to achieve the
+above is what I tried to motivate in the cover letter:
+
+> The drm_bridge_connector is nowadays the recommended way to implement DRM
+> connectors when a chain of bridges is used. It takes care of adding the
+> drm_connector when the pipeline is composed by an arbitrarily long chain =
+of
+> bridges, which it scans to properly implement the drm_connector
+> operations.
+>
+> As such the drm_bridge_connector looked like the ideal component to
+> implement DRM bridge hotplug.
+>
+> This series augments the drm_bridge_connector code to be able to create a=
+nd
+> destroy the drm_connector reacting on hot(un)plug events.
+
+Before taking that approach I considered some options:
+
+ 1. Create a new component, which is a "a handler, owned by the
+    card/encoder and having the same lifetime, which takes care of
+    drm_connector creation/destruction at card probe/removal and on hotplug
+    events", and wait for drivers to migrate from the drm_bridge_connector
+    to this new thing
+
+ 2. Create a new component, which is a "handler, owned by the card/encoder
+    and having the same lifetime, which reacts to hotplug events by
+    creating/destroying a drm_bridge_connector (slightly modified to be
+    non-drmm), which in turn takes care of drm_connector
+    creation/destruction", and wait for drivers to migrate to this new
+    thing
+
+ 3. Extend the dm_bridge_connector to:
+    - behave as before if using the current API
+    - behave as before + hotplug if using a new API
+    (the migration in most cases is as simple as patch 37)
+
+All 3 options require changes in card drivers to use a new API (and a new
+object type for cases 1 and 2).
+
+To me options 1 and 2 involve more redundant code and/or more complexity.
+
+Your thoughts?
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
