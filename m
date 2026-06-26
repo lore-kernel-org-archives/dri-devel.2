@@ -4,62 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB6DAC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:38:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6222C43327
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:38:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F9CA10F5C0;
-	Fri, 26 Jun 2026 13:38:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2314310ED89;
+	Fri, 26 Jun 2026 13:38:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HwFpMxvR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Gih9d4Xz";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0801510F2F9;
- Fri, 26 Jun 2026 13:38:02 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 21E0E10ED89
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:38:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DACCB40A83;
- Fri, 26 Jun 2026 13:38:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ACC21F00A3D;
- Fri, 26 Jun 2026 13:37:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7F8B1600C8;
+ Fri, 26 Jun 2026 13:38:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2086C1F000E9;
+ Fri, 26 Jun 2026 13:38:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782481081;
- bh=iyRP6bU8GJwZIUhpMbHL1XggSQuYlDgwK1TwcImYTrg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=HwFpMxvRpfAKkvj84g44PYk1X91/f7jZs29AVgqKOoefwXZDvMmVya/eboUtgdE3N
- KjUOkoCFVUsKThToHZcT/rKczr7Ee4DBurfFDGw5fiIq26oeBZaLI0oGPJH6YRR96J
- DY11bXS5pPOYvWTpbwVqB3l2eJdPdB4DLOQrMIyIpje95SGZjctigUszFsc04K7b7i
- lohQnA/b3YtSFaDNvjdyd4aEN7n1ex/5NC6kAVF4qbQrLlkIHYrRK8h538Vg65sPx9
- 5wY2CvwhTR9ikKAWntRNQmB6fnmhu6gRsGpDc6VXFZ+pUKxkmMGS45p0xvekdKf0cl
- joPXCQpsCWRkA==
-From: Sumit Garg <sumit.garg@kernel.org>
-To: andersson@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org,
- konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, vikash.garodia@oss.qualcomm.com, bod@kernel.org,
- mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com, amirreza.zarrabi@oss.qualcomm.com,
- jens.wiklander@linaro.org, op-tee@lists.trustedfirmware.org,
- apurupa@qti.qualcomm.com, skare@qti.qualcomm.com,
- linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: [PATCH v8 05/14] remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ
- APIs
-Date: Fri, 26 Jun 2026 19:04:25 +0530
-Message-ID: <20260626133440.692849-6-sumit.garg@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260626133440.692849-1-sumit.garg@kernel.org>
-References: <20260626133440.692849-1-sumit.garg@kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1782481108;
+ bh=89C8Ddyrn1BCNGEuCZ30ANY2nDi6vqPqzUTD/c2ut/I=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Gih9d4XzDcEvAIM+fj6SOdyGuKePomwDJI3tB3w4Dex024ygf2281n34XW+5sp0Y7
+ y9B3n3uIEprS66QAlD2j99M7nBaVk8LaOZEKrpuHdEWK/lTiyikzt0GhNtB4qVg+u9
+ 7T996rcCczI3BYYCKlMGWfJyckSKMhoq+7zhtnOWQv/poDkwSz6dRpRsHN45YjjvG+
+ 6Pr3vTQu3CQparO/fVAicrbEEyDNfQY0G8QBTFpwex7bsqpKuu4RvqsUA+mLNaygyz
+ fGABd1ysskUBUKoB7qcKMM915GMU1bYe5522HBOtR/1b9qYQhL57HJO9Fhi7MHBDdX
+ J33pR/tTzAw3Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] fix: drm/mediatek: mtk_drm_probe: of_node_get in loop
+ overwrites previous   node references without release
+To: "WenTao Liang" <vulab@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260626132849.38694-1-vulab@iscas.ac.cn>
+References: <20260626132849.38694-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 13:38:27 +0000
+Message-Id: <20260626133828.2086C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,53 +53,134 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Switch qcom_q6v5_mss client driver over to generic PAS TZ APIs. Generic PAS
-TZ service allows to support multiple TZ implementation backends like QTEE
-based SCM PAS service, OP-TEE based PAS service and any further future TZ
-backend service.
+Pre-existing issues:
+- [High] Double free of device node reference during display pipeline build=
+ing.
+- [High] Missing error check for platform_device_register_data and resource=
+ leak of ovl_adaptor.
+- [Medium] Memory leak of device node reference on initial endpoint parsing=
+ failure.
+--
 
-Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
-Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
----
- drivers/remoteproc/qcom_q6v5_mss.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+commit f5070502c5d9a79054533fcb309f450daf5da836
+Author: WenTao Liang <vulab@iscas.ac.cn>
 
-diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom_q6v5_mss.c
-index ae78f5c7c1b6..96888007faa8 100644
---- a/drivers/remoteproc/qcom_q6v5_mss.c
-+++ b/drivers/remoteproc/qcom_q6v5_mss.c
-@@ -34,6 +34,7 @@
- #include "qcom_pil_info.h"
- #include "qcom_q6v5.h"
- 
-+#include <linux/firmware/qcom/qcom_pas.h>
- #include <linux/firmware/qcom/qcom_scm.h>
- 
- #define MPSS_CRASH_REASON_SMEM		421
-@@ -1480,7 +1481,7 @@ static int q6v5_mpss_load(struct q6v5 *qproc)
- 	}
- 
- 	if (qproc->need_pas_mem_setup) {
--		ret = qcom_scm_pas_mem_setup(MPSS_PAS_ID, qproc->mpss_phys, qproc->mpss_size);
-+		ret = qcom_pas_mem_setup(MPSS_PAS_ID, qproc->mpss_phys, qproc->mpss_size);
- 		if (ret) {
- 			dev_err(qproc->dev,
- 				"setting up mpss memory failed: %d\n", ret);
-@@ -2077,7 +2078,7 @@ static int q6v5_probe(struct platform_device *pdev)
- 	if (!desc)
- 		return -EINVAL;
- 
--	if (desc->need_mem_protection && !qcom_scm_is_available())
-+	if (desc->need_mem_protection && !qcom_pas_is_available())
- 		return -EPROBE_DEFER;
- 
- 	mba_image = desc->hexagon_mba_image;
--- 
-2.53.0
+fix: drm/mediatek: mtk_drm_probe: of_node_get in loop overwrites previous n=
+ode references without release
 
+In the for_each_child_of_node loop, private->comp_node[comp_id] and
+private->mutex_node are assigned via of_node_get without first releasing
+any previously stored reference for the same index. When the same comp_id
+or mmsys_id matches multiple nodes, earlier node references are
+overwritten and permanently leaked.
+
+> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/med=
+iatek/mtk_drm_drv.c
+> index c86a3f54f35bc..2c0d8db9ade29 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> @@ -1138,6 +1138,7 @@ static int mtk_drm_probe(struct platform_device *pd=
+ev)
+> =20
+>  			id =3D of_alias_get_id(node, "mutex");
+>  			if (id < 0 || id =3D=3D private->data->mmsys_id) {
+> +				of_node_put(private->mutex_node);
+>  				private->mutex_node =3D of_node_get(node);
+>  				dev_dbg(dev, "get mutex for mmsys %d", private->data->mmsys_id);
+>  			}
+> @@ -1153,7 +1154,7 @@ static int mtk_drm_probe(struct platform_device *pd=
+ev)
+> =20
+>  		if (!mtk_drm_find_mmsys_comp(private, comp_id))
+>  			continue;
+> -
+> +		of_node_put(private->comp_node[comp_id]);
+>  		private->comp_node[comp_id] =3D of_node_get(node);
+> =20
+>  		/*
+
+[Severity: High]
+This isn't a bug introduced by this patch, but looking at mtk_drm_probe()
+slightly earlier in the same function, is there a missing error check for
+platform_device_register_data()?
+
+drivers/gpu/drm/mediatek/mtk_drm_drv.c:mtk_drm_probe() {
+    ...
+	if (mtk_drm_find_mmsys_comp(private, DDP_COMPONENT_DRM_OVL_ADAPTOR)) {
+		ovl_adaptor =3D platform_device_register_data(dev, "mediatek-disp-ovl-ada=
+ptor",
+							    PLATFORM_DEVID_AUTO,
+							    (void *)private->mmsys_dev,
+							    sizeof(*private->mmsys_dev));
+		private->ddp_comp[DDP_COMPONENT_DRM_OVL_ADAPTOR].dev =3D &ovl_adaptor->de=
+v;
+    ...
+}
+
+If platform_device_register_data() fails, it returns an ERR_PTR.
+Would taking the address of &ovl_adaptor->dev on an ERR_PTR and passing it =
+to
+mtk_ddp_comp_init() result in an invalid pointer dereference?
+
+Additionally, if the registration succeeds, there doesn't seem to be a
+corresponding platform_device_unregister() call in the error paths (like
+err_node or err_pm) or in mtk_drm_remove(). Could this leak orphaned platfo=
+rm
+devices permanently on probe failures?
+
+[Severity: High]
+This is another pre-existing issue, but in the related
+mtk_drm_of_ddp_path_build_one() function, is there a potential double-free
+of the device node reference?
+
+drivers/gpu/drm/mediatek/mtk_drm_drv.c:mtk_drm_of_ddp_path_build_one() {
+    ...
+		ret =3D mtk_drm_of_get_ddp_ep_cid(next, 1, cpath, &next, &temp_path[idx]);
+		of_node_put(prev);
+		if (ret) {
+			of_node_put(next);
+			break;
+		}
+    ...
+}
+
+If mtk_drm_of_get_ddp_ep_cid() returns an error like -ENOENT (e.g., at the
+end of the pipeline) without modifying next, prev and next would point
+to the same node.
+
+Since of_node_put(prev) is called unconditionally, wouldn't the subsequent
+of_node_put(next) in the error block result in a double-free of the
+same node reference?
+
+[Severity: Medium]
+This is also a pre-existing issue, but earlier in
+mtk_drm_of_ddp_path_build_one(), does the error return path leak a
+device node reference?
+
+drivers/gpu/drm/mediatek/mtk_drm_drv.c:mtk_drm_of_ddp_path_build_one() {
+    ...
+			} else {
+				if (next)
+					dev_err(dev, "Invalid component %pOF\n", next);
+				else
+					dev_err(dev, "Cannot find first endpoint for path %d\n", cpath);
+
+				return ret;
+			}
+    ...
+}
+
+If mtk_drm_of_get_ddp_ep_cid() populates next with a reference but
+returns an error, won't returning ret directly leak the reference
+held by next?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626132849.3869=
+4-1-vulab@iscas.ac.cn?part=3D1
