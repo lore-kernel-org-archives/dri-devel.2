@@ -4,125 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05C36CDE002
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:34:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B347CDE00E
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:34:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FC0910F5BC;
-	Fri, 26 Jun 2026 12:34:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68D7910E10A;
+	Fri, 26 Jun 2026 12:34:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wHBfuK9B";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZL68iv5M";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013030.outbound.protection.outlook.com
- [40.93.201.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D31410F5BC
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:34:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CQZmu5UQVmKwCZFWpE7T0HesLNiL1hhyQhZcX5XwEhWisE+QjhOSN3xZVouo5PYsH3HQwZkJYf5NpFKsAFoRJ6cHLm3F9kfHP+jCveO8jUopPZMZ7JGYo3sLS5QtdhmuCfYj1dxkOmf8zBh00s4n5WQCPVtw6K6P+Oh2Bk1tkUv6p2ubBBooqANC1eqU0fo8GlVkF3drqZVJYGPq6sDuYIH9sNn0iNBMuvOXr3LUv1T3K298EZZ8kyj5BtVYGu/XlF5p6QWLebfZN6n4wVR7K7AKqEqDiHykwMCPBJn5hSgjCnzlwmhYd4iwAMZAlaCTV3c3Yn/e5CY2wkb3IeNK/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uR1mEWNmQzsZX5ybjlcNz5c4f4pT+EKoC36s4D3BbVE=;
- b=j9QwIiC0d0/478Vs3DM5eF0Eu+ZlM3Us/CIB58VuaCPFZrfcq4vQ7UppD03Q0d6pT7BoJnESQMflgOjdKy2yHpnsyDSPai1eG4BwYVST2ILD1bxHAN7UQRfH1wEXxAyw5Hu/dXBjJStB+vAmVVBNIx2+LG5P63apfDptwH5TpfQS7BmRnCbT9C6qcn0BGb5/rvkBw6x19nWPetWdeXNXBOmQlirKl/9SrAnWOXOTjunchEGg+r6yB/aInGyufIHiB0uOibmf6U6J6qF4BgdonC/7vkw/DvMgvzI/pZTM92qxDXd4RPHdN8Z6iD2M+VS0/50Q0M8xuhnWUunvlzzK0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uR1mEWNmQzsZX5ybjlcNz5c4f4pT+EKoC36s4D3BbVE=;
- b=wHBfuK9BtbbtGZdTsoNFHnwBxJqi/2UhKCUyx6rLFFaAFnAG3kq//hyp8weHaWX5lK9t+h8mdyGpoaFLREEElMeuT0uZr0li00G7oSqg43BR3QMoZbkw0bjw85wtyT0ajbAxqOrqvg9yAApkPq5v0bFewuFNGux1Fq5SrWNjL6M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY5PR12MB6372.namprd12.prod.outlook.com (2603:10b6:930:e::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Fri, 26 Jun
- 2026 12:33:58 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
- 12:33:58 +0000
-Message-ID: <414021d5-e6b2-4219-9ad9-2c342cbbc7f3@amd.com>
-Date: Fri, 26 Jun 2026 14:33:54 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fix: dma-buf: fence_chains_init: error unwind path leaks
- enable_sw_signaling reference
-To: WenTao Liang <vulab@iscas.ac.cn>, sumit.semwal@linaro.org
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260626121825.35310-1-vulab@iscas.ac.cn>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260626121825.35310-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1P221CA0043.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:208:5b5::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY5PR12MB6372:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6511d4b2-a26e-4e49-3534-08ded37f319b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|366016|22082099003|18002099003|6133799003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: bruDg/mtsJrljz4ebKN2qZsRJFilhrwg/mf4/DjAC+VLKGsl99rqxAnNNcnqC5i9YFrns2Nn2b8SDD5vXZlFjlggHF8gWg4KoU831WdnSXY3cZZPBgcayhxSbRQlL9ESRSBLD2t0EpeKH1m2n84t97iooz2nCJ/IAAdaZbqW49jl7WMotBnOHaHSViGWWXUjLRU9lLzPIj0ivFYc6gaw8QMJTMuxMw2ogHvrXhPtoepfn7a1LzoK4JFaD8UexvQ4S9afM8tS3bcWL7moCAcLrp9Rr01Qk3JRL0awMhfg0rWXhhLGA9hEDmqWF1bYHANKyvtQqb/YV8ZnM2YFER+XAdOR4dxoqXnpx53mXl4QwRlHPnexjI1lFDlDKtVbF9+g7Zaf13Uim6HwatMtAtvf+mKyP++gtYN6BEcednRx98Xv5PL2mq3FH/LoX79AGLTRbOGJtQc5BpgyrpFqYSXEAj1AhCrBNZzUipk87zZ7HaBXbPmS9tUHRI8ttQ6iV91K9Z7N3SHm8uwCD3VA0dbrhqOb38Cy7Kn8TtOHbxUdnkTWAopxTISNtllLuNVy6GKNCxWBURhA0e2sXw9X3+xoLGo8elMqaZoJFj8d3jGV469ylV5RE0OUVViW8DUO/14JPw/2R1y9WfzcBCfBtOSl7XjJaHqa/GYj1xEMwCp5sFs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(6133799003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MXpBL0NNNEJ4NEh5NytmVXhZYWFHeTZPREVKaG5Tb0Q2NDFIN2VrenBWU2l6?=
- =?utf-8?B?UENHZ0M1d0h0NittbEdFREUwemFGWE14UmZ4d1V2QmxFYjRORmMwU0RqSUFu?=
- =?utf-8?B?Z1pSUllvbS9WUGxCR2R3QlhOaWlkMkxhV0RtbXJCY1U1L0M5empHdWYvMlZ6?=
- =?utf-8?B?ZitlZ2R6VWVZaTZtVHRadERSL05HelArdy9zbjB1UENvcWRrT0pLZ0dnbXdV?=
- =?utf-8?B?TE9VdmRGeUFZajBVd1VJY1Q1YWFGU2cyV0FJK01lWGowT0JHUjZSclRQaktt?=
- =?utf-8?B?NXVmRXZqZFhubHBLNkhVQjJTVTZhQ2toL1M0MkdpUENmMFkvOVFIdWljamZz?=
- =?utf-8?B?eGZrb1k3YXlINUlKUmZnTm5YdEFtTWdpQkRwOUhENTRZQWlpNVJTdHJwRmhQ?=
- =?utf-8?B?UmlXeHJwMkd5UkM5by9wdFppTERIL2FwMjNsZ3FhVHhFdDlraVpoMWh3WmFr?=
- =?utf-8?B?U1lqeXg5eGR6YlFHMnVSUUtSd0hkL1B1ZUhlYkFZekU1TGxlZ1ZzL2ZJWHBh?=
- =?utf-8?B?cXZ1WlpUbXFKaTNoNHFEc3NsVTF2T05qWkVRWndUQkN2RjVPT056dG5vVGta?=
- =?utf-8?B?clh3VC9PcnUxZHlwZjRuS1QvMVNYTjhKaEZZRlBNd0x0RGhtVWk3R3B3Z3Ba?=
- =?utf-8?B?TzZIVTFxTGx1TGxHcFhmOUkyWWs2UHBZVGlnT0NpYmJkZU9ZVmRNZ2E0Y2cz?=
- =?utf-8?B?dlBSaDNpOGRuTzdaLzBTTzBwa2pFeG54cE9jNVhCRStBTkRtcitkR2toWFVB?=
- =?utf-8?B?T0kyWW1CRGptQ2RLaEpzU1JUTDRldk1weVhrRHg0c1ppb3pFaE5ieHhWcUdR?=
- =?utf-8?B?SmVaTVd1NnJWZ2Y4STJlTHptODA4U0ZFdVdXY2tIeDlkeDZ5amtRT1JmMHpX?=
- =?utf-8?B?R1ZmQWhGSU5wMFFMVDdHT2ZGVGlWTWhGNVpXVS9EZ1hyU2EzTk5mbU14RGln?=
- =?utf-8?B?eTRmSXp0UXJSakhoUUxVL3grR1dZd3gzaFVKRlF5QkZla3pQa2pDN0krMkJ4?=
- =?utf-8?B?M2VUdWpjT1RUY1NYbUFId3VMcDdUcGtLaFRoYlRUbG9tZ3lqVUxyZTgwT3A5?=
- =?utf-8?B?ZVQ5NXA5TlZoRVZ4S0ZkbCt5TVIyakVQeEsxaHZTTDBzOXF4RmIvd0VFVHdF?=
- =?utf-8?B?cWVqczJKYlNROXgzR1l3MENZVjd2dU1ZNzA2WkN5dnFYNWI5OWMwYjR1clE0?=
- =?utf-8?B?NUcwaHNoUEsxTVdqakttZlhPSG5IemwrU0ptcEJ4aG1TQm1OVytlWisvbG40?=
- =?utf-8?B?WjB6TFh3NkRsK2diK0Rzc0pJeFFIZHZoellMdEwySnU4QmR4TlhrS2hHcERt?=
- =?utf-8?B?ZW11ZjM4c0JCZEJqQmQxem8wMnVpTFRkSUw5MzE1OVl2WFBqcUpTRGVQZ3Bw?=
- =?utf-8?B?V2h0alpsdGN0QkV2NXJUNEsxbkgzeHU2OGRpQVAvT0xOSzBDQXd5NURhSURi?=
- =?utf-8?B?Mnk4L0VoM2phT2pST05mMW80SEJKTytKdWZua2NTeStkSmNjUzhyMnZtcU1D?=
- =?utf-8?B?VjB1bThlSG1FSklETGg3eklPUGZHKzlHTDQzTVF5dWR6Z3Z3QU1LeW9EVSsv?=
- =?utf-8?B?eVNqcXpLUWxMMXZQb0ZlYzdpbHBnR2ZRaGxwWjBhL0QwQ2hBOWJmQ09JK0Nn?=
- =?utf-8?B?MkhteXhnTDhRU0xrRGxOQi9OQWdZb0FjUW4zS0wzdGxmSWhheTFydXpVbHFH?=
- =?utf-8?B?NExMbm9tV0d6ckRYdnlGUzE5aUZkZ3ZQQTNDdkw4d3VKS2pZOTdCWWt2ckZD?=
- =?utf-8?B?S3hDOEVlYmpPaCtoZnFLOVZzTWIzVTVjcGlwdlBvekdMTU5uM0FLeXlRdzA0?=
- =?utf-8?B?UUVWZ25KSlJ0c0ttTHQ3WEc4R0k0VUdZWnppM3pzR1o5cmpJM2hxL2tSeWVR?=
- =?utf-8?B?UVQyZVB4dHIyMXN3cHgzUGVzWXcvYWFySWFDaE1rcjUybytkZjEzdi9IelAx?=
- =?utf-8?B?U3paSmdkS09DVFAvZDlRbk1LQ3FrZEJPZ2RFVFY1bmtsQzgzM2U4SS9MRG9r?=
- =?utf-8?B?b3hOU0dhdVA0S1VHR0tJaXc1S21DWUFqQzdrRXBMYWlqZXpOWUVKR1I1WHJS?=
- =?utf-8?B?Vlp0WWk4ek1sZTlQOHZHYjFEWHJMamFzbEw1SHpqRXFHcmpGTTVCSFpFZVhV?=
- =?utf-8?B?Tktic3B6cWVPQzJUY2tYNG1zaDJ1dUVKOFNUcDdkMlFEMkxnZ2lieTF0QTho?=
- =?utf-8?B?WVNhMVdTTE0yOG5pNDJtc0loVW9ONGtUVjdKOThWbmZ1VnA5QzVEZC9ScTNN?=
- =?utf-8?B?eWFxUWNDYXgrNUtuSGlDWGFIeG11RVRVUHNDN3NJVSszeDVFejlRL2w3MXBH?=
- =?utf-8?Q?STSex74g7M+4eG31uR?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6511d4b2-a26e-4e49-3534-08ded37f319b
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 12:33:58.1291 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2AOtuVfL4EaQCi7pVRJ6kXw2j9peBELcRDRIqdyFAYcdRsRXZsN+uUUsguCbreEz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6372
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3838C10E61B
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:34:56 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1095E408BD;
+ Fri, 26 Jun 2026 12:34:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE3321F000E9;
+ Fri, 26 Jun 2026 12:34:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782477295;
+ bh=sst3p+kyQonD4gz2uY3IzHNXtBbBQKwvtWI/MCVrdko=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ZL68iv5MBDLeYJoLxYTTYfv6Arvh42psa25J4XAHO9BPtnFCotte7tYEmVGayU0wJ
+ H3MDOOEkwOZkx+uihDk2ZDvlWViINsYUb8VhDNbMW/7U+/rH0/tZDHela9QvJ4w7SO
+ eWnuZZwsNUQIh7xL+36OQ3RgrT0Waz2NV8ioncE42m9sZc6DMZorjKmrAe2raTdqCT
+ RFWhQx6XL75WXNdjOyM8ZnhM27BAJZePShJaPuwH4ZYxDMh4XkGBsRGXedJz19JKHD
+ 0mR76FOLB3cJgPL1V8q+aARo8mkrk9V7g09h/FiIt7+hoJrVFCUTroony6eZuFYSkg
+ 3HAL2aEZT4Ong==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] fix: dma-buf: unwrap_merge_complex: dma_fence_get_stub
+ reference leaked   on all paths
+To: "WenTao Liang" <vulab@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260626122836.35856-1-vulab@iscas.ac.cn>
+References: <20260626122836.35856-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 12:34:55 +0000
+Message-Id: <20260626123455.BE3321F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,53 +53,62 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/26/26 14:18, WenTao Liang wrote:
-> dma_fence_enable_sw_signaling acquires an extra reference on each chain
->   fence. The error unwind loop calls dma_fence_put only once per
->   chain/fence without first signaling the fence to trigger the callback
->   that releases the signaling reference. This prevents the chain fence kref
->   from reaching 0, permanently leaking the chain and its contained fence.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: dc2f7e67a28a ("dma-buf: Exercise dma-fence-chain under selftests")
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Double free / refcount underflow on the global static `dma_fence=
+_stub` in `unwrap_merge_complex()`.
+--
 
-Please drop that, this is a minor issue in a unit test and not anything which needs backporting.
+commit 361d06ca0291c480e1aafadac1b89e324d9431ab
+Author: WenTao Liang <vulab@iscas.ac.cn>
 
-> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/dma-buf/st-dma-fence-chain.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/dma-buf/st-dma-fence-chain.c b/drivers/dma-buf/st-dma-fence-chain.c
-> index 821023dd34df..7dc18e294387 100644
-> --- a/drivers/dma-buf/st-dma-fence-chain.c
-> +++ b/drivers/dma-buf/st-dma-fence-chain.c
-> @@ -152,7 +152,10 @@ static int fence_chains_init(struct fence_chains *fc, unsigned int count,
->  
->  unwind:
->  	for (i = 0; i < count; i++) {
-> -		dma_fence_put(fc->fences[i]);
-> +		if (fc->fences[i]) {
-> +			dma_fence_signal(fc->fences[i]);
-> +			dma_fence_put(fc->fences[i]);
-> +		}
+fix: dma-buf: unwrap_merge_complex: dma_fence_get_stub reference leaked on =
+all paths
 
-The usual text book idiom for such cleanup cases is:
+This commit fixes a reference leak on the global stub fence in
+unwrap_merge_complex() by adding dma_fence_put() calls to the success and
+error paths.
 
-while (i--) {
-	dma_fence_signal(fc->fences[i]);
-	dma_fence_put(fc->chains[i]);
-}
-
-Additional to that we need a different error handling target for the case that the mock_chain() allocation fails (or just do another dma_fence_put there).
-
-Regards,
-Christian.
-
->  		dma_fence_put(fc->chains[i]);
+> diff --git a/drivers/dma-buf/st-dma-fence-unwrap.c b/drivers/dma-buf/st-d=
+ma-fence-unwrap.c
+> --- a/drivers/dma-buf/st-dma-fence-unwrap.c
+> +++ b/drivers/dma-buf/st-dma-fence-unwrap.c
+[ ... ]
+> @@ -530,8 +531,10 @@ static int unwrap_merge_complex(void *arg)
+>  		err =3D -EINVAL;
 >  	}
->  	kvfree(fc->fences);
+> =20
+> +	dma_fence_put(stub);
+>  	dma_fence_put(f5);
+> -error_put_f4:
+> +error_put_stub:
+> +	dma_fence_put(stub);
 
+[Severity: Medium]
+Does this cause a double-put of the stub on the success path?
+
+When unwrap_merge_complex() successfully completes, it appears execution
+will call dma_fence_put(stub) just before putting f5, and then fall right
+through into the error_put_stub label where it calls dma_fence_put(stub) a
+second time.
+
+Since dma_fence_get_stub() only acquires a single reference, putting it
+twice would underflow the refcount and trigger dma_fence_release(). This
+could result in an attempt to call kfree_rcu() on the statically allocated
+dma_fence_stub global variable, causing a panic during the selftest.
+
+Would it be better to only place dma_fence_put(stub) after the
+error_put_stub label, allowing the success path to fall through and clean
+it up once naturally along with the other fences?
+
+>  	dma_fence_put(f4);
+>  error_put_f3:
+>  	dma_fence_put(f3);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626122836.3585=
+6-1-vulab@iscas.ac.cn?part=3D1
