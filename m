@@ -4,40 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79B84C4450F
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CE3FC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:48:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 366CA10F61C;
-	Fri, 26 Jun 2026 13:42:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 836AE10F633;
+	Fri, 26 Jun 2026 13:48:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="OpAGGA1o";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IsZG0p1K";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B24A10F613;
- Fri, 26 Jun 2026 13:42:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782481337;
- bh=XYNDq4eXOGhO09kEjocWzK9cHQLXrilgRy5+i3vFxPo=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OpAGGA1oloyf6PX2hS2O7QEs/uosX+IaAdciS1qGd2FD8Xeoaa+amacrG6RLk0jHH
- 1DF5+9fzWEPzuNyK3LK7gE39YoGOPv3bJa4ob7i4V4eDNL/0VN8Pnx52qQzmENmy5T
- ppCtIiRC0dv2FsA3lttIyWSIkEVukdH2m8DTUPJBap3/ueaG+p72FE90dnH2hDk+Xi
- PRCqfJ9FbTEL+xHTs8o0DnGD3hdSxSos1zr5eHFz4k4yHMkNMGnpuCHeZ//u2eeAQQ
- YzkW4L6ujyftWa4fjbcn4qZ1vYHaVFPdCF8Clkq0pVdXq9XnXm2rGciQeeoFL36eK4
- 6E1Kd2ZKUEP9Q==
-From: Maarten Lankhorst <dev@lankhorst.se>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v10.5 29/29] drm/i915/pmu: Disable on PREEMPT_RT
-Date: Fri, 26 Jun 2026 15:42:20 +0200
-Message-ID: <20260626134222.1198252-30-dev@lankhorst.se>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260626134222.1198252-1-dev@lankhorst.se>
-References: <20260626134222.1198252-1-dev@lankhorst.se>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D441D10E397
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:48:25 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 803E841238;
+ Fri, 26 Jun 2026 13:48:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F2131F000E9;
+ Fri, 26 Jun 2026 13:48:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782481705;
+ bh=M0DY0NZiKdSwJFeKBUrJJCO5UPSjm4/y4LFJ02pAHys=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=IsZG0p1K8YxD4G6sauClb2Je8zXCq9KUk+ut7uRR7GxsueAij0x6xailIjXj45C8e
+ 8XWBLCclf2UdeFaz0aopRAH8N3xh4GztvHWZQifg5XqTX8KBe6oACwLu4BQdF42eR6
+ iZdO9SrupqvbWomqy4pZ2dsaEM9heGIjtrbNA+TdXruHatDIIzNWXlviGgGb2GkRJh
+ 352W9ueR6nQ4qYYqjX4sAcJ1F/fmDPjVv2RBZyFPPcVnYGq7ZShZZjrCsa2K8EYXR3
+ yAFO0P+pB/cQjwScdJjnNTZBgHDjplAYXZjx+kL72bDS999nfh4mRDpVdvikd2ce87
+ x6vhfLR73jpaw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/amd/display: Fix dangling pointers in state
+ reset functions on allocation failure
+To: "Evgenii Burenchev" <evg28bur@yandex.ru>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260626133859.21492-1-evg28bur@yandex.ru>
+References: <20260626133859.21492-1-evg28bur@yandex.ru>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 13:48:24 +0000
+Message-Id: <20260626134825.2F2131F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,43 +53,79 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-I tried to come up with alternative and lockless approaches
-to make pmu work, but since the perf events are run in
-atomic context on PREEMPT_RT, ordinary spinlocks no longer
-work and forcewake and register accesses become problematic.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The old connector state memory is leaked during a successful con=
+nector reset in `amdgpu_dm_connector_funcs_reset()`.
+--
 
-Disable perf events on PREEMPT_RT for now, without affecting
-!PREEMPT_RT users.
+commit 48ece48fead57764b257711d256ed0e86eefc3c4
+Author: Evgenii Burenchev <evg28bur@yandex.ru>
+Subject: drm/amd/display: Fix dangling pointers in state reset functions on=
+ allocation failure
 
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
----
- drivers/gpu/drm/i915/i915_pmu.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+This patch addresses dangling pointers in AMD display state reset functions=
+ by
+allocating new state structures before destroying the old ones.
 
-diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index 1c3bafda9c708..c2ff315de4481 100644
---- a/drivers/gpu/drm/i915/i915_pmu.c
-+++ b/drivers/gpu/drm/i915/i915_pmu.c
-@@ -1156,6 +1156,16 @@ void i915_pmu_register(struct drm_i915_private *i915)
- 	};
- 	int ret = -ENOMEM;
- 
-+	/*
-+	 * PREEMPT_RT has problems with forcewake. Forcewake is used by the
-+	 * engine 'busy' event when guc submission is enabled, and to measure
-+	 * rc6 residency.
-+	 *
-+	 * Disable pmu events on PREEMPT_RT entirely to prevent deadlocks.
-+	 */
-+	if (IS_ENABLED(CONFIG_PREEMPT_RT))
-+		reeturn;
-+
- 	spin_lock_init(&pmu->lock);
- 	hrtimer_setup(&pmu->timer, i915_sample, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
- 	init_rc6(pmu);
--- 
-2.53.0
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index eb5696b5daeb7..c7fe28758e962 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -8151,33 +8151,35 @@ static void amdgpu_dm_connector_destroy(struct dr=
+m_connector *connector)
+> =20
+>  void amdgpu_dm_connector_funcs_reset(struct drm_connector *connector)
+>  {
+> -	struct dm_connector_state *state =3D
+> -		to_dm_connector_state(connector->state);
+> -
+> -	if (connector->state)
+> -		__drm_atomic_helper_connector_destroy_state(connector->state);
+> -
+> -	kfree(state);
+> +	struct dm_connector_state *state;
+> =20
+> +	/* Allocate new state first */
+>  	state =3D kzalloc_obj(*state);
+> +	if (WARN_ON(!state))
+> +		return;
+> =20
+> -	if (state) {
+> -		state->scaling =3D RMX_OFF;
 
+[ ... ]
+
+> +	/* Destroy old state only after successful allocation */
+> +	if (connector->state)
+> +		__drm_atomic_helper_connector_destroy_state(connector->state);
+> =20
+> -		__drm_atomic_helper_connector_reset(connector, &state->base);
+> +	/* Let DRM core install the new state */
+> +	__drm_atomic_helper_connector_reset(connector, &state->base);
+
+[Severity: Medium]
+Does this code leak the old connector state memory?
+
+The original code explicitly called kfree(state) after calling
+__drm_atomic_helper_connector_destroy_state(connector->state). The new
+implementation removes this kfree() call.
+
+Looking at __drm_atomic_helper_connector_destroy_state(), it only cleans up
+references to nested DRM objects (like CRTCs or properties) but does not fr=
+ee
+the connector_state structure itself. When __drm_atomic_helper_connector_re=
+set()
+then overwrites connector->state with the new pointer, it appears to
+permanently orphan the old memory.
+
+Should the old state memory be explicitly freed here as it was previously?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626133859.2149=
+2-1-evg28bur@yandex.ru?part=3D1
