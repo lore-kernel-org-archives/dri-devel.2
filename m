@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68243C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 15:06:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EDCAC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 15:06:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B563610F675;
-	Fri, 26 Jun 2026 15:06:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87EA610F6A5;
+	Fri, 26 Jun 2026 15:06:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mU5R5TjA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BDWpRwcS";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39E3E10F647
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 15:06:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A58AE10F67C
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 15:06:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B14CF600C8;
- Fri, 26 Jun 2026 15:06:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 356271F000E9;
- Fri, 26 Jun 2026 15:06:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 28AF1600C8;
+ Fri, 26 Jun 2026 15:06:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A111F00A3A;
+ Fri, 26 Jun 2026 15:06:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782486376;
- bh=BScSLW7paEA8IOa+CNovFvuI76QIymtgkJQnNAzKDaw=;
+ s=k20260515; t=1782486387;
+ bh=nWdhka9vlxHskt8+WKq6JmVRC3RuOXuW2e3AQwKJTbU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mU5R5TjAEHuyMjQzByXL70U6jYmKJeLxPtNm/z6ruu9/cNNwfRa4FSIPBtnbh0j3W
- 5jb2TfOc3RGae+EZIpoGWehECoa8LHX+Br3ZI/ejOHiYrnRffMM6l/xX5PkKXQJ8Yz
- 8l+cnBoRWqUaeQkmpFw10HdNAAjVq7ug3oCyEtbUMIqG7EdJs96NzG2JvYKOl44EUO
- 2Jc6wDQxQ2wTpLnem+gJdTNJKQq3F8l5aI/id+7Um8m/YwjE7jWAjwES5/YzTQWTp3
- 6lUwpNd72745GX8eJA3PnOBjUP+27+bdGbsmr/T7amyJbH6KBo7XXYBY4xjB4rI1v4
- GslR8HitCeyUw==
+ b=BDWpRwcSSsnPL1I9mSjsGmZUrxnyEcNzjTiaJJR/QJz8kswphtz9J4FRolfT+tdIl
+ 6oIMcv2x3DQIk0u8nW4LS+dH8lkZl/F319BQ2PigSyHuFnqFbS1Vg8tENU9f2Jsjre
+ LR/t7ENiZTYqAPcfWYjL9cvspKvgDN4pcWWNzWbmXQVU8dsLZadBz8shw+4GXDeR6A
+ HnK+aoHaqANJgzFFifSKFhZ/QSP8hyaliwe5OoM5W1WZJh/oYjovCikX1Uz4H5JkI2
+ QUAYGUMU/7uvYvvFgRMRd+FMSgzxHIhsJaJQTRNm4tQ14Wzt6KQ7nXq/4Lc4nE5Yvl
+ 0SxWwJs+dAGkg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] fix: drm/ttm/tests: use KUNIT_ASSERT_EQ for critical
- error checks to   prevent kref underflow
-To: "WenTao Liang" <vulab@iscas.ac.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260626145409.49370-1-vulab@iscas.ac.cn>
-References: <20260626145409.49370-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH v5 17/20] gpu: nova-core: use I/O projection for cleaner
+ encapsulation
+To: "Gary Guo" <gary@garyguo.net>
+Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
+ Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org,
+ linux-pci@vger.kernel.org
+In-Reply-To: <20260626-io_projection-v5-17-d0961471ae50@garyguo.net>
+References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
+ <20260626-io_projection-v5-17-d0961471ae50@garyguo.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 15:06:15 +0000
-Message-Id: <20260626150616.356271F000E9@smtp.kernel.org>
+Date: Fri, 26 Jun 2026 15:06:26 +0000
+Message-Id: <20260626150627.30A111F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,89 +60,62 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Using KUNIT_ASSERT_EQ aborts the test function on failure and by=
-passes required manual resource teardown.
-- [Medium] Erroneous fix replacing KUNIT_EXPECT_EQ with KUNIT_ASSERT_EQ aft=
-er ttm_bo_validate() causes a leaked BO reference and potential Use-After-F=
-ree.
+
+Pre-existing issues:
+- [High] Data corruption in GSP command queue due to missing memory barrier=
+ before updating the ring buffer write pointer.
 --
 
-commit af379b6fc27176bd6e80498788a4a528ca8f7559
-Author: WenTao Liang <vulab@iscas.ac.cn>
-fix: drm/ttm/tests: use KUNIT_ASSERT_EQ for critical error checks to preven=
-t kref underflow
+commit abd2f0cd14180222d86d47f37c313be60a30d773
+Author: Gary Guo <gary@garyguo.net>
 
-Replace KUNIT_EXPECT_EQ with KUNIT_ASSERT_EQ in ttm_bo_validate test cases
-where subsequent ttm_bo_fini would cause a kref underflow if the preceding
-ttm_bo_init_reserved (or ttm_bo_validate) failed. When those functions fail
-they already release their internal references, leaving the refcount at 0.
-Continuing to ttm_bo_fini without aborting performs an extra kref_put.
+gpu: nova-core: use I/O projection for cleaner encapsulation
 
-Cc: stable@vger.kernel.org
-Fixes: 8bd1ff5ddc7b ("drm/ttm/tests: Test simple BO creation and validation=
-")
+This commit refactors the nova-core GSP driver to use the io_project!,
+io_read!, and io_write! macros for memory-mapped I/O access. It replaces
+the previous dma_read! and dma_write! usage to enforce better encapsulation
+for PTE arrays and message queues.
 
-> Replace KUNIT_EXPECT_EQ with KUNIT_ASSERT_EQ in ttm_bo_validate test cases
-> where subsequent ttm_bo_fini would cause a kref underflow if the preceding
-> ttm_bo_init_reserved (or ttm_bo_validate) failed. When those functions fa=
-il
-> they already release their internal references, leaving the refcount at 0.
-
-Is this description accurate regarding ttm_bo_validate()?
-
-Looking at ttm_bo_validate(), it does not drop the BO reference on its error
-paths. Only ttm_bo_init_reserved() does this, so a failure in
-ttm_bo_validate() would leave the reference intact.
-
-> diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/g=
-pu/drm/ttm/tests/ttm_bo_validate_test.c
-> index 2db221f6fc3a1..7c4179f6349c5 100644
-> --- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-> +++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-[ ... ]
-> @@ -249,7 +249,7 @@ static void ttm_bo_validate_basic(struct kunit *test)
->  	err =3D ttm_bo_init_reserved(priv->ttm_dev, bo, params->bo_type,
->  				   fst_placement, PAGE_SIZE, &ctx_init, NULL,
->  				   NULL, &dummy_ttm_bo_destroy);
-> -	KUNIT_EXPECT_EQ(test, err, 0);
-> +	KUNIT_ASSERT_EQ(test, err, 0);
-
-[Severity: Medium]
-Will this leak the mock managers on failure?
-
-Because KUNIT_ASSERT_EQ() aborts the test function immediately upon failure,
-if ttm_bo_init_reserved() fails here, execution skips the
-ttm_mock_manager_fini() cleanup at the end of ttm_bo_validate_basic().
-
-This could leave dangling mock managers in the global state.
-
-This pattern is also present in ttm_bo_validate_same_placement(),
-ttm_bo_validate_all_pinned_evict(), and ttm_bo_validate_allowed_only_evict(=
-),
-where manual cleanups and mock manager teardowns would also be skipped.
+> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
+p/cmdq.rs
+> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
 
 [ ... ]
-> @@ -840,7 +840,7 @@ static void ttm_bo_validate_happy_evict(struct kunit =
-*test)
->  	err =3D ttm_bo_validate(bo_val, placement, &ctx_val);
->  	ttm_bo_unreserve(bo_val);
-> =20
-> -	KUNIT_EXPECT_EQ(test, err, 0);
-> +	KUNIT_ASSERT_EQ(test, err, 0);
 
-[Severity: Medium]
-Does this skip necessary cleanup and leak the buffer object?
+> @@ -438,12 +441,17 @@
+>      // Informs the GSP that it can process `elem_count` new pages from t=
+he command queue.
+>      fn advance_cpu_write_ptr(&mut self, elem_count: u32) {
+> -        super::fw::gsp_mem::advance_cpu_write_ptr(&self.0, elem_count)
+> +        let tx =3D io_project!(self.0, .cpuq.tx);
+> +        let wptr =3D MsgqTxHeader::write_ptr(tx).wrapping_add(elem_count=
+) % MSGQ_NUM_PAGES;
+> +        MsgqTxHeader::set_write_ptr(tx, wptr);
+> +
+> +        // Ensure all command data is visible before triggering the GSP =
+read.
+> +        fence(Ordering::SeqCst);
 
-As noted above, ttm_bo_validate() does not drop the BO reference on failure.
-If it fails here, aborting the test skips the mandatory ttm_bo_fini() loops
-at the end of ttm_bo_validate_happy_evict().
+[Severity: High]
+This is a pre-existing issue, but is it possible that the memory barrier is
+placed too late in this function?
 
-While the test array is freed by KUnit on test exit, the leaked elements
-might still be referenced by the DRM device's VMA manager. This could
-potentially cause a use-after-free when the device is destroyed.
+In advance_cpu_write_ptr(), the fence(Ordering::SeqCst) is placed after
+updating the ring buffer's write pointer via set_write_ptr(). Since the
+payload is written to coherent memory using normal memory stores while the
+write pointer uses a volatile store, weakly-ordered CPUs might reorder the
+operations.
+
+If the GSP firmware polls the write pointer before the payload writes are
+globally visible, could it read uninitialized or stale data? Should the
+fence be placed before the set_write_ptr() call to prevent this race?
+
+>      }
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626145409.4937=
-0-1-vulab@iscas.ac.cn?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626-io_project=
+ion-v5-0-d0961471ae50@garyguo.net?part=3D17
