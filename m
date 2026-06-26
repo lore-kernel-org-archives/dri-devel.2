@@ -4,72 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61F84CDE00B
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 03:02:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58358CDE008
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 04:56:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF20910E2A1;
-	Fri, 26 Jun 2026 03:02:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D28CE10F416;
+	Fri, 26 Jun 2026 04:56:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="Q3DWILNq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B0EF3wbl";
 	dkim-atps=neutral
-Received: from out-182.mta1.migadu.com (out-182.mta1.migadu.com
- [95.215.58.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 495ED10E2A1
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 03:02:30 +0000 (UTC)
-Message-ID: <6d2b7611-41ec-45f0-a155-3b5c90c5d883@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1782442947;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=f271ICHhBS5Ku8NbvazkeutM3PKmnGfN//6w5jBctrk=;
- b=Q3DWILNq4rp7hL2oZ6zGRWnQi51EjKsSeNeF9gJ2kjLwYticVzg/5adTwdCkossO18oJMv
- IX52h1GK1926K2SnQvL/RfDBYyDo0cmHpp2mWBjWBwBXYlPzRxN9/ESbADYOUha3RRcoHu
- ysyaxxln8iygLQDFXJyQQTJeou2c7/8=
-Date: Fri, 26 Jun 2026 11:01:48 +0800
+Received: from mail-oo1-f68.google.com (mail-oo1-f68.google.com
+ [209.85.161.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD5C910E2FA
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 04:56:31 +0000 (UTC)
+Received: by mail-oo1-f68.google.com with SMTP id
+ 006d021491bc7-6a11ee16bafso460213eaf.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 21:56:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782449791; cv=none;
+ d=google.com; s=arc-20260327;
+ b=AF5PBmBxlmS2x4L+jKwdYEd2c1uTb3nDEXt2xEmab+l36gOrnfjvOpVhuTU0TqzqdZ
+ IZbLFrru+1YvoI7N52yR2aafalVWkyR1rqsPpsnd67+kYj2fGbmJfO9Ydx3HbjHSYIId
+ JsnYr6jKQU3Ifvkzaow7tiIjQWEwpfcFUtev+DMjlbbU9/0k92eQbGpD1LahXlOPDty/
+ PzxByG85He4irNsvNd7mU+caxrzr3PrXmwxXHyt8abXCKd23KnaXyuFXKcm5nJGfvrXq
+ N0FixTNrd641D+BVd2kGsHSfvKehiypY8faAibeemcbOqqo1mEnJ/A5/rLB/Y7glCVNS
+ qA7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=TLCDSxTzhM1JO0GFxs3906RW+bAoUMN+D9UfGDqItVw=;
+ fh=pq+0IFKQbyqkYPg9eZ3Qmhg6OOWYGNDwE0XiUhCov/k=;
+ b=QyVLYclN2hDkxneX29cBEcvoGEcaJr2uZ3c5mkA7nLOC7aHWqdFokuFfp7YzddMlXs
+ Q4qJo+eaczl4sDTWuBvLX3BVzwnea8JWe3IdW8npIaibdP4lI3zlFI5a69Qx5XedM8Ld
+ iXrxQ2p6Tj9djJ3hOXhoChygD81wkqnWrvQ+t2Xn4VF6HqQkJbWs3FsFO5/DtTr9fljS
+ vEFIXNQ40Dself+v8ivAJ7Zpxk1b0Ean8Rgfm3gneGlgZhv0Q8PDo4vhd+QuschbVqa+
+ mg+WJ8QP4JQPAZzpT1w3W77NL7xJinLtfTyiliql0ixEj4KsuojTKYQcvHlxBgP25Xg2
+ usTw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782449791; x=1783054591; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TLCDSxTzhM1JO0GFxs3906RW+bAoUMN+D9UfGDqItVw=;
+ b=B0EF3wblvGhAUENkJTCpBypuauGf7a1M3Ob9UFmnc3P/6HrOhAl2Gzs8lbGyfjhIWo
+ nZU5pvLPWaSN8Zd995i0TiBFzsVMx5Im92y7fkIbKl+oLJcE+gmqJalTm+mF4pTKVISg
+ b3KN9dqk7QwQ6pymv8pp8qa0h30t22UX92S85JGJj+rvtw5ZHl0YhTF9EevTB1IRmbUq
+ NIDGlZ8YQnMLyRBlKn9krTZRKNc5ghiFgVb8liaj3z18RIYhx2p7dP36HwhLyjN8C70z
+ d5f/wXjyHw0eWOqj2EpT0Fzcp6PXm9OL5fLgMHBF9BtM7PKAaHK6HZscSCNs5nCC9z29
+ Z+MA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782449791; x=1783054591;
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=TLCDSxTzhM1JO0GFxs3906RW+bAoUMN+D9UfGDqItVw=;
+ b=olO0xE5ZuDGtH85Gs5+MvA8NxPX2m7z05J3nbc4wqCthBqgMHHhz/6aRsdhno8lFL8
+ qSuOZORqwcfUUY1aVe1yr532SuKVGh+lATl5M4houWHDy6hwMowIdDV8/kR/H7p94nuC
+ hJ5j52m2EKhvyJRHYi1Pb8XZDWgJ1ZrfmqGiryVH9iHZp69O7kAAzPc5RvYmQK8zPz2N
+ XyXgqMIxpNRpD+LLYBNgdXUbCGH6IToThLzaUVRtT/ugKBp+6rRr/8Ex9a1GmugtncIY
+ UMlI9dMsH7Ym/XKKum9f5WwgiU4ZX0sfnhyIDAQ2QtoswjvgL5dSPMtGAS22oe9cSo1J
+ 83jw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8IxT6nYUkQBDXfhq2JKrLPuCuMr365hOi452rTJ76zalfn5gaGEUKa7+X/lfDd05kgn4FP5Le9q3Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwAsEyvAyeDyBQU+p1gRpBMWbiNm8dt/irQQzFE7gG43q+tBnvS
+ nVCg80XdOzHBb0AX3fKxh0fb/si+c/u+0d2iahGQ6XdbOcZ1cC/lKVGhq0g6UHNYrT700RiKkH2
+ V5iUYrU83pRr6iYxnRlcNjmV/5saD4ysnMz7IsYgjug==
+X-Gm-Gg: AfdE7cl75kX3pweX85FMJZ1j4PehpJE4t+e8F/3fiHxylVAc4XkD2Y+F3i+BPFB2hqA
+ NYlH6VerGmPt3OmM2nDe4go4EVyx1s1RKoSICnkGdYvFQvfmE5Hjx2i/qD0nVc94setpO0bi4K+
+ DF3tv2ohRTkbaj3sWuy9wYhEV94gJr5MjlkmZwVmshULwpoyooQd/uoRZRUchjOStYpE2n43Gux
+ xzwJ0cw+TGih7rXi8ToOPsWebojpS4DdYmFEBhDAtJYltIehstjxuP6STaJ8TdyZKcEnC7OA+Ux
+ sRlJprHm7esFpoD0eslCRBhU5NsVf68=
+X-Received: by 2002:a05:6820:178e:b0:69e:b425:744d with SMTP id
+ 006d021491bc7-6a135055ad0mr4528390eaf.6.1782449790927; Thu, 25 Jun 2026
+ 21:56:30 -0700 (PDT)
 MIME-Version: 1.0
-Subject: Re: [PATCH v6 10/10] rust: module: update MAINTAINERS to cover
- module.rs
-To: Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann
- <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>,
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>,
- Igor Korotin <igor.korotin@linux.dev>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- =?UTF-8?Q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>,
- Carlos Llamas <cmllamas@google.com>
-Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
- nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev>
- <20260624-fix-fops-owner-v6-10-5295e333cb3e@linux.dev>
- <DJI7HR91X68U.3BVK3U4OJC18B@garyguo.net>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Alvin Sun <alvin.sun@linux.dev>
-In-Reply-To: <DJI7HR91X68U.3BVK3U4OJC18B@garyguo.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+References: <20260620-ch7218-rfc-v1-b4-v1-1-3412debf44b6@gmail.com>
+ <b9256d5f-ac08-46cd-ab84-3fc0e6e52b61@amd.com>
+In-Reply-To: <b9256d5f-ac08-46cd-ab84-3fc0e6e52b61@amd.com>
+From: Stephen <stevester.codes@gmail.com>
+Date: Thu, 25 Jun 2026 22:56:25 -0600
+X-Gm-Features: AVVi8Cf64YJ4owdxmkzWNKc4BReuGudKjy14P2Lq_16_tPqhQ4ExlJJJtpbeL-k
+Message-ID: <CANC0aFeXLE0j8ukyRS_gzP3uQhJb9xD98+a=jE96Cc4EuNFcmw@mail.gmail.com>
+Subject: Re: [PATCH RFC 1/3] drm/amd/display: quirk malformed CH7218 PCON
+ topology
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,52 +105,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi George,
 
-On 6/25/26 22:39, Gary Guo wrote:
-> On Wed Jun 24, 2026 at 4:00 PM BST, Alvin Sun wrote:
->> Module types now live in `rust/kernel/module.rs` alongside
->> `rust/kernel/module_param.rs`. Update the MODULE SUPPORT file pattern
->> from `rust/kernel/module_param.rs` to `rust/kernel/module*.rs` so both
->> files are covered.
->>
->> Assisted-by: opencode:glm-5.2
-> Did you actually use a LLM for this patch even? :)
+This dongle is from Amazon and is described as the "MysRuida USB Type
+C to HDMI 2.1 EMI/RFI Braided Cable 0.6ft, 48Gbps,
+8K@60Hz/4K@144Hz/2K@240Hz, HDCP2.3/Dynamic
+HDR/eARC/VRR/ALLM/DSC1.2/Dolby Atmos/DTS, DP Alt Mode Compatible with
+PS5 Xbox Monitor"
 
-Yes, I've created a skill that generates commit messages for the code I 
-modify
-manually.
+Just FYI, these CH7218 USB-C to HDMI 2.1 adapters seem hard to come
+by, hence why I purchased this specific one. I=E2=80=99d note that the Vola=
+ns
+brand one, despite claiming to be CH7218A, is not. Mine was VMM7100. I
+suspect the Lindy 43428 may actually be CH7218-based, but I have not
+tested that one personally.
 
+The one I tested exposes:
+branch_dev_id: 0x2b02f0
+branch_dev_name: CH7218
+
+Thanks,
+Stephen
+
+On Thu, Jun 25, 2026 at 2:38=E2=80=AFPM George Zhang <george.zhang@amd.com>=
+ wrote:
+> Hi Stephen, thank you for the patch.
 >
->> Link: https://lore.kernel.org/rust-for-linux/8ea21b29-9baf-4926-a16f-7d21c5a1a1b8@suse.com
->> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-> This patch should probably be squashed into the actual move, i.e. patch 1.
-
-Sure. Looking at the change history of the `MAINTAINERS` file, the 
-modifications
-are always in standalone commits, so I followed the same convention.
-
-Best regards,
-Alvin
-
+> What dongle you are observing this issue on? We are interested in
+> reproducing the observed bug.
 >
-> Best,
-> Gary
->
->> ---
->>   MAINTAINERS | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index e035a3be797c4..74733de3e41ee 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -17984,7 +17984,7 @@ F:	include/linux/module*.h
->>   F:	kernel/module/
->>   F:	lib/test_kmod.c
->>   F:	lib/tests/module/
->> -F:	rust/kernel/module_param.rs
->> +F:	rust/kernel/module*.rs
->>   F:	rust/macros/module.rs
->>   F:	scripts/module*
->>   F:	tools/testing/selftests/kmod/
->
+> Thanks,
+> George
