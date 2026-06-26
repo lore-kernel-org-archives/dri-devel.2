@@ -4,39 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3DB5C4450C
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABD83C44517
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C7E810F617;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D371310F625;
 	Fri, 26 Jun 2026 13:42:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="YkmTIY8A";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mquDSpOP";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F028D10F60C;
- Fri, 26 Jun 2026 13:42:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782481335;
- bh=SrqQAMYrLxDPK7Yj+2MrfgB0HHUwyS8YP/VDKTn/AAY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YkmTIY8AvYHy0g8ezs9ZrY6JANLxSwF/fOzVnWMaF9EJSsUNvRAR0nEPArtUfZf4E
- iu3alXwfDqmDd8JzL2VlBuN+iwi0TxlIjHM9p84fjXs9e/TujGeC4A6OW3Bu3eKII2
- L0JpjvJyjIcUGY9omGHrWmIgsJ866c3hzeDoSEsLusd+gCeHio/jsVAb+fGPqSQUkb
- Ga6MvNxOVIr468MITxFdZN3dImdkvZey7KUljc+O5intiVvoKifymfSBXHsiE7WnTv
- we6nB0xmJ0xktOjQgjblAL3YzyUpjVlQJ6GAarBupbBS5IuSdWt1vbEiqxNnEt8zZ7
- NOTBAAi9CNoig==
-From: Maarten Lankhorst <dev@lankhorst.se>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v10.5 27/29] drm/xe/display: Avoid using stolen memory for
- framebuffer when media gt exists.
-Date: Fri, 26 Jun 2026 15:42:18 +0200
-Message-ID: <20260626134222.1198252-28-dev@lankhorst.se>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D4F210F60A;
+ Fri, 26 Jun 2026 13:42:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 66F8A412C2;
+ Fri, 26 Jun 2026 13:42:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AE331F00A3D;
+ Fri, 26 Jun 2026 13:41:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782481341;
+ bh=XJUsMAYjmWAnU9O7bNhJ//OMZ13Hh1LDu2wdf2fpjto=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=mquDSpOP4TG3h9syVbjc0phTij1tuiiPAgBU80powv0FLrpBIgWzva7ZL7PN2UNEJ
+ tqBTK2bKPvDzruG06ALOUKtHcYbKkqWUFj9DkadZ0Po4yYSoqWUtXDz08A7K04ef/+
+ uOu5xB7u+SQnh6MLMZ6CkK5v+UGicaSXMWG0gKyp+TLta6mMABV5i/qJ/L8RfyT+sE
+ w71NGn7eiTWg6N6cIMXiyvP52Fz8GdBgX+XDj2x7gS1eMow5w+M64F4anKs/QN4y8c
+ B98ugQqjAgLQmRy3HipPfslJgqdVmnR3DQwxcCEuebUvpfAAos3JaH9L5kKDf7cQDf
+ b/qAn43Qp5KWQ==
+From: Sumit Garg <sumit.garg@kernel.org>
+To: andersson@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org,
+ konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org, airlied@gmail.com,
+ simona@ffwll.ch, vikash.garodia@oss.qualcomm.com, bod@kernel.org,
+ mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+ pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+ tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+ srinivas.kandagatla@oss.qualcomm.com, amirreza.zarrabi@oss.qualcomm.com,
+ jens.wiklander@linaro.org, op-tee@lists.trustedfirmware.org,
+ apurupa@qti.qualcomm.com, skare@qti.qualcomm.com,
+ linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: [PATCH v8 14/14] MAINTAINERS: Add maintainer entry for Qualcomm PAS
+ TZ service
+Date: Fri, 26 Jun 2026 19:04:34 +0530
+Message-ID: <20260626133440.692849-15-sumit.garg@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260626134222.1198252-1-dev@lankhorst.se>
-References: <20260626134222.1198252-1-dev@lankhorst.se>
+In-Reply-To: <20260626133440.692849-1-sumit.garg@kernel.org>
+References: <20260626133440.692849-1-sumit.garg@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -54,35 +75,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On systems with media GT, extra latency is added when accessing stolen
-memory when the GT is in MC6.
+From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-Simply disable allocating stolen memory for framebuffers when media gt
-is found.
+Add Sumit Garg as the maintainer for the Qualcomm generic Peripheral
+Authentication Service (PAS) as well as the PAS TEE backend driver.
 
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 ---
- drivers/gpu/drm/xe/display/xe_display_bo.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ MAINTAINERS | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/display/xe_display_bo.c b/drivers/gpu/drm/xe/display/xe_display_bo.c
-index 7fbac223b0977..a5080f6540d46 100644
---- a/drivers/gpu/drm/xe/display/xe_display_bo.c
-+++ b/drivers/gpu/drm/xe/display/xe_display_bo.c
-@@ -130,6 +130,13 @@ bool xe_display_bo_fbdev_prefer_stolen(struct xe_device *xe, unsigned int size)
- 	if (IS_DGFX(xe))
- 		return false;
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 15011f5752a9..7847b2a98f90 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22315,6 +22315,15 @@ F:	Documentation/devicetree/bindings/media/*qcom*
+ F:	drivers/media/platform/qcom
+ F:	include/dt-bindings/media/*qcom*
  
-+	/*
-+	 * Avoid stolen memory when the media_gt exists,
-+	 * because a lot of latency is added when media gt is in MC6
-+	 */
-+	if (xe_device_get_root_tile(xe)->media_gt)
-+		return false;
++QUALCOMM PAS TZ SERVICE
++M:	Sumit Garg <sumit.garg@oss.qualcomm.com>
++L:	linux-arm-msm@vger.kernel.org
++S:	Maintained
++F:	drivers/firmware/qcom/qcom_pas.c
++F:	drivers/firmware/qcom/qcom_pas.h
++F:	drivers/firmware/qcom/qcom_pas_tee.c
++F:	include/linux/firmware/qcom/qcom_pas.h
 +
- 	if (XE_DEVICE_WA(xe, 22019338487_display))
- 		return false;
- 
+ QUALCOMM SMB CHARGER DRIVER
+ M:	Casey Connolly <casey.connolly@linaro.org>
+ L:	linux-arm-msm@vger.kernel.org
 -- 
 2.53.0
 
