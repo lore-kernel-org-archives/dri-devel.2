@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A197C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:58:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15DACC43602
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:58:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8333310F62B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE54710F634;
 	Fri, 26 Jun 2026 13:58:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OofUa/Xe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OfFJ9Fcd";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96C4510F62B
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:58:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9D9810F62E
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:58:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0B931600DA;
- Fri, 26 Jun 2026 13:58:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31F191F00A3A;
- Fri, 26 Jun 2026 13:58:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C231B4133A;
+ Fri, 26 Jun 2026 13:58:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DE9E1F000E9;
+ Fri, 26 Jun 2026 13:58:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782482284;
- bh=+5TV7C0bY1N2BB9PPVIvRc3qeGYx/4cMfXPgDg/1y7s=;
+ s=k20260515; t=1782482287;
+ bh=KwZT9hl/KfB+jYFDcjHcN5f7n7bsXlEq59U5hO7dKJU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=OofUa/XeJSCUazs8Mw4HkL0aAj0zGEJqvG1FnttGcgrwIAoYMRSKU0HYFMVHLXmnK
- mnufKbOtFQtsj+mO1Plco9BOFH+vCacxgfHYyENEfubzTiHKfK4AUpvK3kVbwZGjuh
- PpFTPPBG+SbKcGaVi+3txebIu2riHXxsHMgpyrorNRjVD+kw3c0/VMBm17+L0w96IM
- pblAQxv8wEEFTeiILIYb3DP5l0PEJmIQ2vV0KtwVoSAsc9qSPfXnSyh/6bJwMePW3t
- djc91Q+CeY6pzs61cWui/MDJQb8XwPizIL18ptVUAR/wXi77XMwFsaDJzr+ef9V9RG
- GY4jUP2YjUbhQ==
+ b=OfFJ9FcdPZb9hwfvonf6nTnuRmbwdnqd+cegD1gmQYd0QI6h/Xg2+wqO4ryqucYtm
+ KT+gYMGwvGamZlaD7t/zcZ3lDDuiwIOuRY/D5tXeJVZAlD+JO7Hpg5f2lg5g8nW8NQ
+ q5Uk7deW9bNkyTvlgzCk508aBwxlbECVvyWffnGlpofXrZxrc9xhOpmKhjhj2oADVF
+ l1XRniZY71U+KZ+SL3r44L87CtyD4qzaCKOvJO5/qGa3CUspE3nVIto1+4mVXgT97P
+ ZejaFn+jEAOBmUgB4qYRJUTgKMH66ut2jGa2wcqkvNYb5vu5ASqGAOb1WHOUF6xoP4
+ swrCJpgz8QY8Q==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 26 Jun 2026 15:57:14 +0200
-Subject: [PATCH v3 13/30] drm/atomic_sro: Add function to install state
- into drm objects
+Date: Fri, 26 Jun 2026 15:57:15 +0200
+Subject: [PATCH v3 14/30] drm/atomic_sro: Create documentation
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260626-drm-state-readout-v3-13-d5825e3299a8@kernel.org>
+Message-Id: <20260626-drm-state-readout-v3-14-d5825e3299a8@kernel.org>
 References: <20260626-drm-state-readout-v3-0-d5825e3299a8@kernel.org>
 In-Reply-To: <20260626-drm-state-readout-v3-0-d5825e3299a8@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -52,12 +51,12 @@ Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org,
  lidrm_printf_indentnux-kernel@vger.kernel.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10090; i=mripard@kernel.org;
- h=from:subject:message-id; bh=m/DUQPnjg1vxmQgZgZdXVMtoeJLI0EJr/+gFwfqJ1Q4=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFl2rWbrJsw4aZGx21S9ea7+8tCraVocF8UZj+v6fY0pT
- N1/K3tnx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZiItiFjwyOvB7OOWKg6pCzT
- EFbuvJDxhO3TnsAgxz8lT+uOelp8Ydzpfklu0rsJ3goLNMpCd9pkMzbM7mHl/sJy7fNU0Q8Vi9b
- qr1SSD4+5WGdqoXJk1uFF8ZKus58zvDry9b3T3ai+ABbjBT4A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2670; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=04iiJDZg8Y3shr225hJ5LraTfnhSxL0+W1zMmHBJXyo=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFl2reZnumblvxMO+FQvzvP34NM9Qu4vfizd/fCo7TXOn
+ FvJORPFO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEDDsZ6+vaBXsWTb+Y8W1d
+ cqFvwdEQrwuah55G9HZf7/susW3idZP/Whd075/N2Ske8PX4Ot8D8Yx1ykf9Onhcvv5ccMVOi1l
+ NMYslYOtdV+5SjyMWZUWcJVd8m+wEgued5H9rLyJ9NHGtuQkA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,280 +74,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Once the SRO state has been built from hardware, it needs to be
-installed as the current state of each KMS object.
+The SRO infrastructure has grown to span multiple files and hooks
+but lacks an overview section explaining the overall design and how
+drivers should integrate with it.
 
-Add drm_atomic_sro_install_state() which walks through the SRO state
-container and assigns each readout state to its object's state
-pointer. Before each assignment, it calls the optional
-atomic_sro_install_state hook to give drivers a chance to acquire the
-resources they need to keep the hardware state active.
-
-Also introduce the atomic_sro_install_state hook in the plane, CRTC,
-connector, and private object funcs vtables.
+Add a DOC: overview section to drm_atomic_sro.c describing the various
+SRO phases and how drivers wire up the callbacks.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic_sro.c | 97 ++++++++++++++++++++++++++++++++++++++++
- include/drm/drm_atomic.h         | 18 ++++++++
- include/drm/drm_atomic_sro.h     |  2 +
- include/drm/drm_connector.h      | 18 ++++++++
- include/drm/drm_crtc.h           | 18 ++++++++
- include/drm/drm_plane.h          | 18 ++++++++
- 6 files changed, 171 insertions(+)
+ drivers/gpu/drm/drm_atomic_sro.c | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_atomic_sro.c b/drivers/gpu/drm/drm_atomic_sro.c
-index f90f7cda182b..0c63f880002d 100644
+index 0c63f880002d..1243046dbfb0 100644
 --- a/drivers/gpu/drm/drm_atomic_sro.c
 +++ b/drivers/gpu/drm/drm_atomic_sro.c
-@@ -515,5 +515,102 @@ void drm_atomic_sro_set_private_obj_state(struct drm_atomic_sro_state *state,
- 	drm_dbg_atomic(state->dev,
- 		       "Added new private object %p state %p to readout state %p\n", obj,
- 		       obj_state, state);
- }
- EXPORT_SYMBOL(drm_atomic_sro_set_private_obj_state);
-+
+@@ -12,10 +12,44 @@
+ #include <linux/module.h>
+ 
+ #include "drm_internal.h"
+ #include "drm_crtc_internal.h"
+ 
 +/**
-+ * drm_atomic_sro_install_state - install readout state into DRM objects
-+ * @state: SRO state to install
++ * DOC: overview
 + *
-+ * Takes a &struct drm_atomic_sro_state built by
-+ * drm_atomic_helper_sro_build_state() and installs its contents as the
-+ * current state of each DRM object (setting &drm_crtc.state,
-+ * &drm_plane.state, &drm_connector.state and &drm_private_obj.state).
++ * The atomic State Read-Out (SRO) infrastructure allows drivers to
++ * initialize the KMS atomic state from the hardware state left by the
++ * firmware at boot, rather than programming a new state. This enables
++ * flicker-free boot (also called "fastboot" by i915): if the
++ * firmware already configured the display, the first userspace
++ * modeset can be skipped when the requested mode matches.
 + *
-+ * For each object, the optional atomic_sro_install_state hook is
-+ * called before the state pointer is updated, allowing drivers to
-+ * perform any needed action.
++ * The SRO lifecycle has two phases. The first phase is the readout
++ * itself: at driver registration time, each KMS object (CRTCs, planes,
++ * connectors, bridges, private objects) has its
++ * atomic_sro_readout_state hook called to populate a
++ * &struct drm_atomic_sro_state from hardware registers.
++ *
++ * The second phase is the installation. Once all states have been read
++ * out, drm_atomic_sro_install_state() walks through the
++ * &struct drm_atomic_sro_state and assigns each readout state as the
++ * object's current state. Before doing so, it calls the optional
++ * atomic_sro_install_state hook on each object. This gives drivers a
++ * chance to acquire the resources needed to keep the hardware state
++ * active, such as power domains, clocks, or interrupts. This hook
++ * cannot fail.
++ *
++ * Drivers integrate with SRO by implementing the readout and compare
++ * hooks in their object funcs vtables and setting the
++ * &drm_mode_config_funcs.atomic_sro_readout_state and
++ * &drm_mode_config_helper_funcs.atomic_sro_build_state callbacks. The
++ * default helpers drm_atomic_helper_sro_readout_state() and
++ * drm_atomic_helper_sro_build_state() handle the standard readout
++ * sequence.
 + */
-+void drm_atomic_sro_install_state(struct drm_atomic_sro_state *state)
-+{
-+	unsigned int i;
 +
-+	for (i = 0; i < state->dev->mode_config.num_connector; i++) {
-+		struct drm_connector *conn = state->connectors[i].ptr;
-+		const struct drm_connector_funcs *conn_funcs = conn->funcs;
-+		struct drm_connector_state *conn_state =
-+			state->connectors[i].state;
-+
-+		if (conn->state) {
-+			conn_funcs->atomic_destroy_state(conn, conn->state);
-+			conn->state = NULL;
-+		}
-+
-+		if (conn_funcs->atomic_sro_install_state)
-+			conn_funcs->atomic_sro_install_state(conn, conn_state);
-+
-+		conn->state = conn_state;
-+		state->connectors[i].state = NULL;
-+		state->connectors[i].ptr = NULL;
-+		drm_connector_put(conn);
-+	}
-+
-+	for (i = 0; i < state->dev->mode_config.num_crtc; i++) {
-+		struct drm_crtc *crtc = state->crtcs[i].ptr;
-+		const struct drm_crtc_funcs *crtc_funcs = crtc->funcs;
-+		struct drm_crtc_state *crtc_state = state->crtcs[i].state;
-+
-+		if (crtc->state) {
-+			crtc_funcs->atomic_destroy_state(crtc, crtc->state);
-+			crtc->state = NULL;
-+		}
-+
-+		if (crtc_funcs->atomic_sro_install_state)
-+			crtc_funcs->atomic_sro_install_state(crtc, crtc_state);
-+
-+		crtc->state = crtc_state;
-+		state->crtcs[i].state = NULL;
-+		state->crtcs[i].ptr = NULL;
-+	}
-+
-+	for (i = 0; i < state->dev->mode_config.num_total_plane; i++) {
-+		struct drm_plane *plane = state->planes[i].ptr;
-+		const struct drm_plane_funcs *plane_funcs = plane->funcs;
-+		struct drm_plane_state *plane_state = state->planes[i].state;
-+
-+		if (plane->state) {
-+			plane_funcs->atomic_destroy_state(plane, plane->state);
-+			plane->state = NULL;
-+		}
-+
-+		if (plane_funcs->atomic_sro_install_state)
-+			plane_funcs->atomic_sro_install_state(plane,
-+							      plane_state);
-+
-+		plane->state = plane_state;
-+		state->planes[i].state = NULL;
-+		state->planes[i].ptr = NULL;
-+	}
-+
-+	for (i = 0; i < count_private_obj(state->dev); i++) {
-+		struct drm_private_obj *obj = state->private_objs[i].ptr;
-+		const struct drm_private_state_funcs *obj_funcs = obj->funcs;
-+		struct drm_private_state *obj_state =
-+			state->private_objs[i].state;
-+
-+		if (obj->state) {
-+			obj_funcs->atomic_destroy_state(obj, obj->state);
-+			obj->state = NULL;
-+		}
-+
-+		if (obj_funcs->atomic_sro_install_state)
-+			obj_funcs->atomic_sro_install_state(obj,
-+							      obj_state);
-+
-+		obj->state = obj_state;
-+		state->private_objs[i].state = NULL;
-+		state->private_objs[i].ptr = NULL;
-+	}
-+	state->num_private_objs = 0;
-+}
-+EXPORT_SYMBOL(drm_atomic_sro_install_state);
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index 657f5f4c223f..0e5c87f258ef 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -321,10 +321,28 @@ struct drm_private_state_funcs {
- 	 */
- 	int (*atomic_sro_readout_state)(struct drm_private_obj *obj,
- 					struct drm_atomic_sro_state *state,
- 					struct drm_private_state *obj_state);
- 
-+	/**
-+	 * @atomic_sro_install_state:
-+	 *
-+	 * This optional hook is called when a state read out from
-+	 * hardware is about to be installed as the private object's
-+	 * current state.
-+	 *
-+	 * It allows drivers to acquire the resources needed to keep
-+	 * the current hardware state active, such as power domains,
-+	 * clocks, or interrupts.
-+	 *
-+	 * This hook cannot fail. It is called during
-+	 * drm_atomic_sro_install_state(), which is part of the
-+	 * hardware state readout initialization sequence.
-+	 */
-+	void (*atomic_sro_install_state)(struct drm_private_obj *obj,
-+					 struct drm_private_state *obj_state);
-+
- 	/**
- 	 * @atomic_print_state:
- 	 *
- 	 * If driver subclasses &struct drm_private_state, it should implement
- 	 * this optional hook for printing additional driver specific state.
-diff --git a/include/drm/drm_atomic_sro.h b/include/drm/drm_atomic_sro.h
-index 6e5262384c71..195154850ab4 100644
---- a/include/drm/drm_atomic_sro.h
-+++ b/include/drm/drm_atomic_sro.h
-@@ -48,6 +48,8 @@ drm_atomic_sro_get_private_obj_state(struct drm_atomic_sro_state *state,
- 				     struct drm_private_obj *private_obj);
- void drm_atomic_sro_set_private_obj_state(struct drm_atomic_sro_state *state,
- 					  struct drm_private_obj *obj,
- 					  struct drm_private_state *obj_state);
- 
-+void drm_atomic_sro_install_state(struct drm_atomic_sro_state *state);
-+
- #endif /* DRM_ATOMIC_SRO_H_ */
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 7e2fda565f63..96ac5d472198 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1686,10 +1686,28 @@ struct drm_connector_funcs {
- 	 */
- 	int (*atomic_sro_readout_state)(struct drm_connector *connector,
- 					struct drm_atomic_sro_state *state,
- 					struct drm_connector_state *conn_state);
- 
-+	/**
-+	 * @atomic_sro_install_state:
-+	 *
-+	 * This optional hook is called when a state read out from
-+	 * hardware is about to be installed as the connector's current
-+	 * state.
-+	 *
-+	 * It allows drivers to acquire the resources needed to keep
-+	 * the current hardware state active, such as power domains,
-+	 * clocks, or interrupts.
-+	 *
-+	 * This hook cannot fail. It is called during
-+	 * drm_atomic_sro_install_state(), which is part of the
-+	 * hardware state readout initialization sequence.
-+	 */
-+	void (*atomic_sro_install_state)(struct drm_connector *conn,
-+					 struct drm_connector_state *conn_state);
-+
- 	/**
- 	 * @atomic_duplicate_state:
- 	 *
- 	 * Duplicate the current atomic state for this connector and return it.
- 	 * The core and helpers guarantee that any atomic state duplicated with
-diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-index fde0e5f87665..4689a4a68c28 100644
---- a/include/drm/drm_crtc.h
-+++ b/include/drm/drm_crtc.h
-@@ -678,10 +678,28 @@ struct drm_crtc_funcs {
- 	 */
- 	int (*atomic_sro_readout_state)(struct drm_crtc *crtc,
- 					struct drm_atomic_sro_state *state,
- 					struct drm_crtc_state *crtc_state);
- 
-+	/**
-+	 * @atomic_sro_install_state:
-+	 *
-+	 * This optional hook is called when a state read out from
-+	 * hardware is about to be installed as the CRTC's current
-+	 * state.
-+	 *
-+	 * It allows drivers to acquire the resources needed to keep
-+	 * the current hardware state active, such as power domains,
-+	 * clocks, or interrupts.
-+	 *
-+	 * This hook cannot fail. It is called during
-+	 * drm_atomic_sro_install_state(), which is part of the
-+	 * hardware state readout initialization sequence.
-+	 */
-+	void (*atomic_sro_install_state)(struct drm_crtc *crtc,
-+					 struct drm_crtc_state *crtc_state);
-+
- 	/**
- 	 * @atomic_duplicate_state:
- 	 *
- 	 * Duplicate the current atomic state for this CRTC and return it.
- 	 * The core and helpers guarantee that any atomic state duplicated with
-diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
-index d841fee3a9cd..358c4f4062b4 100644
---- a/include/drm/drm_plane.h
-+++ b/include/drm/drm_plane.h
-@@ -428,10 +428,28 @@ struct drm_plane_funcs {
- 	 */
- 	int (*atomic_sro_readout_state)(struct drm_plane *plane,
- 					struct drm_atomic_sro_state *state,
- 					struct drm_plane_state *plane_state);
- 
-+	/**
-+	 * @atomic_sro_install_state:
-+	 *
-+	 * This optional hook is called when a state read out from
-+	 * hardware is about to be installed as the plane's current
-+	 * state.
-+	 *
-+	 * It allows drivers to acquire the resources needed to keep
-+	 * the current hardware state active, such as power domains,
-+	 * clocks, or interrupts.
-+	 *
-+	 * This hook cannot fail. It is called during
-+	 * drm_atomic_sro_install_state(), which is part of the
-+	 * hardware state readout initialization sequence.
-+	 */
-+	void (*atomic_sro_install_state)(struct drm_plane *plane,
-+					 struct drm_plane_state *plane_state);
-+
- 	/**
- 	 * @atomic_duplicate_state:
- 	 *
- 	 * Duplicate the current atomic state for this plane and return it.
- 	 * The core and helpers guarantee that any atomic state duplicated with
+ enum drm_atomic_readout_status {
+ 	DRM_ATOMIC_READOUT_DISABLED = 0,
+ 	DRM_ATOMIC_READOUT_ENABLED,
+ 	DRM_ATOMIC_READOUT_SKIP_MISSING_COMPARE,
+ 	DRM_ATOMIC_READOUT_SKIP_MISSING_READOUT,
 
 -- 
 2.54.0
