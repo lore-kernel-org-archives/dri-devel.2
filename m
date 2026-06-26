@@ -4,42 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDDEACDE008
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 05:09:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56F83CDE010
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 05:26:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A0BE10E30C;
-	Fri, 26 Jun 2026 05:09:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E11310E313;
+	Fri, 26 Jun 2026 05:26:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lxVqQL5F";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CBY/Hixc";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 325DC10E30C
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 05:09:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 48A3660098;
- Fri, 26 Jun 2026 05:09:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C13871F000E9;
- Fri, 26 Jun 2026 05:09:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782450543;
- bh=VjjHz0qKSG91xc6NHzmoYcfnjU98Hz08LdbTuxGTHbc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lxVqQL5FkeFcsqH7SfAKeDOoxcCKWr/k6G9kEnN8u7ERCdudNp6JYl3Y++SMf/IpG
- vXZulsqmS2UD8ZHzwIvTt/MElAo0VX1Zk8ijAx0UibnHHZwTMSwPAGpwFPrdRv+WM6
- CYodgaQf0PGeAbQZuY3K540dXNpXPxwRMwerkdxFqlaAH+XcdS5LxyRVYUA+MY5eJX
- hpHmS/0SlBse13+PU1AEWDgb1HDeZb/2SqOO1xUjtibtdqliOk37sW0/RqqbL2r7Xd
- dkIkFy/jD5XeQKnRLToHW963+2MT8jXhsQgth9rrhOIwmfjwvgidK2sSC7fSJrAUNG
- c9QAU/t9Kom1g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] fbdev: fix use-after-free in store_modes()
-To: "Ian Bridges" <icb@fastmail.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <aj4FKJtIuU97rEA4@dev>
-References: <aj4FKJtIuU97rEA4@dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 05:09:02 +0000
-Message-Id: <20260626050902.C13871F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 738DF10E2EF;
+ Fri, 26 Jun 2026 05:26:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782451570; x=1813987570;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=6BkGb7vt73iD+1MX4LuDu0911A5EIvXWZyidx3fvNCU=;
+ b=CBY/Hixchbtzil2wgp3uVNQasZB/EJSibi7KovV+SwXfAEufNNpweUUt
+ xmrynJ1DOfcanrjgNGlLy53elk+RweOXHnnJ6H9oAdoEJ7zb+G6pUIyh7
+ ND0A0JgkZlBn0TxdMwBAaKbdLLnyRzZBTdUK+qx71iF2vllmMjD0wFQuh
+ 3m0N7haSF/8Z+IXjuIkim8EIIXtcEqXC26Dyw30eL1e0ruIFPNIXOKwXA
+ 8UqYN1DST+HymjTC//2xvU6f6kBgQqL0stPK/OgezOiuMiarwylzjNdx4
+ 5/dbGxzd5JZcmr0ksHTWpybtOXT/hmWYgEnOTrtLSdXF7gZddTEbtgC9q A==;
+X-CSE-ConnectionGUID: PekutrYhRX6hKKThWYVqIQ==
+X-CSE-MsgGUID: 7L2XMaJoSKazopfBrUUbOg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11828"; a="94730315"
+X-IronPort-AV: E=Sophos;i="6.24,225,1774335600"; d="scan'208";a="94730315"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 22:26:10 -0700
+X-CSE-ConnectionGUID: 3OPbp6c0QZqOZLHJBtflfA==
+X-CSE-MsgGUID: yqONAcKFSZS+LZ3si+nCTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,225,1774335600"; d="scan'208";a="281334177"
+Received: from dut6094bmgfrd.fm.intel.com ([10.80.55.40])
+ by orviesa002.jf.intel.com with ESMTP; 25 Jun 2026 22:26:10 -0700
+From: Jia Yao <jia.yao@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Jia Yao <jia.yao@intel.com>, dri-devel@lists.freedesktop.org,
+ Shuicheng Lin <shuicheng.lin@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Maciej Plewka <maciej.plewka@intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>
+Subject: [PATCH v8] drm/i915/dg2: Add per-context control for Wa_22013059131
+Date: Fri, 26 Jun 2026 05:25:51 +0000
+Message-ID: <20260626052551.1327022-1-jia.yao@intel.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,165 +67,240 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Wa_22013059131 sets FORCE_1_SUB_MESSAGE_PER_FRAGMENT in LSC_CHICKEN_BIT_0
+at engine init, but this is known to cause GPU hangs in certain workloads.
+Add I915_CONTEXT_PARAM_WA_22013059131 so userspace that handles the
+workaround itself (e.g. by limiting SLM size) can set it to 1 to let the
+kernel know bit 15 programming is not needed for that context.
 
-Pre-existing issues:
-- [High] Missing locking in sysfs readers (`show_mode`, `show_modes`) creat=
-es a TOCTOU race leading to Use-After-Free.
-- [High] Buffer overflow via integer underflow in `mode_string()`.
-- [High] `FBIOPUT_VSCREENINFO` ioctl with `FB_ACTIVATE_INV_MODE` deletes mo=
-des without clearing dangling pointers.
-- [High] Unchecked NULL pointer dereference in `display_to_var()` leads to =
-kernel panic.
---
+LSC_CHICKEN_BIT_0 is not context-saved by hardware, so the kernel restores
+the correct value on every context switch via the indirect context
+batchbuffer to avoid leaking state between contexts. The old unconditional
+application of Wa22013059131 in intel_workarounds.c is removed.
 
-commit f37a3c1901e8e451a34ca5fd10fa0a9b6e643e23
-Author: Ian Bridges <icb@fastmail.org>
+v8:
+- Clarify in the uAPI comment that setting this parameter only opts out
+  of LSC_CHICKEN_BIT_0 bit 15 (FORCE_1_SUB_MESSAGE_PER_FRAGMENT);
+  LSC_CHICKEN_BIT_0_UDW MAXREQS_PER_BANK remains unconditionally
+  programmed by the kernel as the other part of Wa_22013059131
 
-fbdev: fix use-after-free in store_modes()
+v7:
+- Reject ioctl with -ENODEV on non-DG2-G11 platforms
 
-store_modes() replaces a framebuffer's modelist with modes from userspace.
-This patch fixes use-after-free bugs by clearing fb_display[i].mode and
-fb_info->mode pointers before freeing the old modelist.
+v6:
+- Remove excessive blank lines
 
-Link: https://lore.kernel.org/all/ajjoDhAi2y4ArSlz@dev/
+v5:
+- Remove fix and stable
 
-diff --git a/drivers/video/fbdev/core/fbsysfs.c b/drivers/video/fbdev/core/=
-fbsysfs.c
-index d9743ef353552..ea196603c7a87 100644
---- a/drivers/video/fbdev/core/fbsysfs.c
-+++ b/drivers/video/fbdev/core/fbsysfs.c
+v4:
+- Add a link of the userspace using this API
 
-[ ... ]
+v3:
+- Kernel-internal context will not change workaround settings
 
-@@ -108,8 +109,15 @@ static ssize_t store_modes(struct device *device,
- 	if (fb_new_modelist(fb_info)) {
- 		fb_destroy_modelist(&fb_info->modelist);
- 		list_splice(&old_list, &fb_info->modelist);
+Bspec: 54833
+Link: https://github.com/intel/compute-runtime/pull/919
+Cc: dri-devel@lists.freedesktop.org
+Cc: Shuicheng Lin <shuicheng.lin@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Maciej Plewka <maciej.plewka@intel.com>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
+Signed-off-by: Jia Yao <jia.yao@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   | 14 ++++++
+ .../gpu/drm/i915/gem/i915_gem_context_types.h |  1 +
+ drivers/gpu/drm/i915/gt/intel_context_types.h |  1 +
+ drivers/gpu/drm/i915/gt/intel_lrc.c           | 43 ++++++++++++++++++-
+ drivers/gpu/drm/i915/gt/intel_workarounds.c   | 10 ++---
+ include/uapi/drm/i915_drm.h                   | 15 +++++++
+ 6 files changed, 78 insertions(+), 6 deletions(-)
 
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a missing lock in
-the sysfs readers that could lead to a use-after-free?
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 6ac0f23570f3..048393264ede 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -911,6 +911,17 @@ static int set_proto_ctx_param(struct drm_i915_file_private *fpriv,
+ 			ret = -EINVAL;
+ 		break;
+ 
++	case I915_CONTEXT_PARAM_WA_22013059131:
++		if (args->size)
++			ret = -EINVAL;
++		else if (!IS_DG2_G11(i915))
++			ret = -ENODEV;
++		else if (args->value)
++			pc->user_flags |= BIT(UCONTEXT_WA_22013059131);
++		else
++			pc->user_flags &= ~BIT(UCONTEXT_WA_22013059131);
++		break;
++
+ 	case I915_CONTEXT_PARAM_RECOVERABLE:
+ 		if (args->size)
+ 			ret = -EINVAL;
+@@ -1003,6 +1014,9 @@ static int intel_context_set_gem(struct intel_context *ce,
+ 	if (test_bit(UCONTEXT_LOW_LATENCY, &ctx->user_flags))
+ 		__set_bit(CONTEXT_LOW_LATENCY, &ce->flags);
+ 
++	if (test_bit(UCONTEXT_WA_22013059131, &ctx->user_flags))
++		__set_bit(CONTEXT_WA_22013059131, &ce->flags);
++
+ 	return ret;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+index 0267c924634b..4efc0e758d3b 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+@@ -338,6 +338,7 @@ struct i915_gem_context {
+ #define UCONTEXT_RECOVERABLE		3
+ #define UCONTEXT_PERSISTENCE		4
+ #define UCONTEXT_LOW_LATENCY		5
++#define UCONTEXT_WA_22013059131		6
+ 
+ 	/**
+ 	 * @flags: small set of booleans
+diff --git a/drivers/gpu/drm/i915/gt/intel_context_types.h b/drivers/gpu/drm/i915/gt/intel_context_types.h
+index 10070ee4d74c..84011ce7c84d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_context_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_context_types.h
+@@ -133,6 +133,7 @@ struct intel_context {
+ #define CONTEXT_EXITING			13
+ #define CONTEXT_LOW_LATENCY		14
+ #define CONTEXT_OWN_STATE		15
++#define CONTEXT_WA_22013059131		16
+ 
+ 	struct {
+ 		u64 timeout_us;
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 147d22907960..13344ebb847e 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -1348,6 +1348,37 @@ gen12_invalidate_state_cache(u32 *cs)
+ 	return cs;
+ }
+ 
++static u32 *
++dg2_g11_emit_wa_22013059131(const struct intel_context *ce, u32 *cs)
++{
++	/*
++	 * While re-writing LSC_CHICKEN_BIT_0 for Wa_22013059131, the
++	 * other bits of the register will also get overwritten.  The
++	 * hardware default for all other bits is 0, but any workarounds
++	 * that adjust the other bits in the lower dword of the register
++	 * also need to be re-applied here.  At the moment that's just
++	 * Wa_22014226127, which is always set for DG2-G11 platforms.
++	 */
++	u32 val = DISABLE_D8_D16_COASLESCE;
++
++	/*
++	 * Wa_22013059131: only set FORCE_1_SUB_MESSAGE_PER_FRAGMENT for
++	 * userspace contexts that have not opted out.  Kernel-internal
++	 * contexts (gem_context == NULL) never run shader workloads that
++	 * require this workaround, so skip them unconditionally.
++	 */
++	if (rcu_access_pointer(ce->gem_context) &&
++	    !test_bit(CONTEXT_WA_22013059131, &ce->flags)) {
++		val |= FORCE_1_SUB_MESSAGE_PER_FRAGMENT;
++	}
++
++	*cs++ = MI_LOAD_REGISTER_IMM(1);
++	*cs++ = i915_mmio_reg_offset(LSC_CHICKEN_BIT_0);
++	*cs++ = val;
++
++	return cs;
++}
++
+ static u32 *
+ gen12_emit_indirect_ctx_rcs(const struct intel_context *ce, u32 *cs)
+ {
+@@ -1371,6 +1402,10 @@ gen12_emit_indirect_ctx_rcs(const struct intel_context *ce, u32 *cs)
+ 	    IS_DG2(ce->engine->i915))
+ 		cs = dg2_emit_draw_watermark_setting(cs);
+ 
++	/* Wa_22013059131:dg2 */
++	if (IS_DG2_G11(ce->engine->i915))
++		cs = dg2_g11_emit_wa_22013059131(ce, cs);
++
+ 	return cs;
+ }
+ 
+@@ -1387,7 +1422,13 @@ gen12_emit_indirect_ctx_xcs(const struct intel_context *ce, u32 *cs)
+ 						    PIPE_CONTROL_INSTRUCTION_CACHE_INVALIDATE,
+ 						    0);
+ 
+-	return gen12_emit_aux_table_inv(ce->engine, cs);
++	cs = gen12_emit_aux_table_inv(ce->engine, cs);
++
++	/* Wa_22013059131:dg2 */
++	if (IS_DG2_G11(ce->engine->i915))
++		cs = dg2_g11_emit_wa_22013059131(ce, cs);
++
++	return cs;
+ }
+ 
+ static u32 *xehp_emit_fastcolor_blt_wabb(const struct intel_context *ce, u32 *cs)
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 24ea5d8d529c..ef6eea3ab597 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -2840,7 +2840,11 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
+ 	if (IS_GFX_GT_IP_STEP(gt, IP_VER(12, 70), STEP_A0, STEP_B0) ||
+ 	    IS_GFX_GT_IP_STEP(gt, IP_VER(12, 71), STEP_A0, STEP_B0) ||
+ 	    IS_DG2(i915)) {
+-		/* Wa_22014226127 */
++		/*
++		 * Wa_22014226127: Note that this workaround also needs to be
++		 * re-applied in intel_lrc.c when LSC_CHICKEN_BIT_0 is
++		 * re-written for Wa_22013059131.
++		 */
+ 		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0, DISABLE_D8_D16_COASLESCE);
+ 	}
+ 
+@@ -2867,10 +2871,6 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
+ 				     MAXREQS_PER_BANK,
+ 				     REG_FIELD_PREP(MAXREQS_PER_BANK, 2));
+ 
+-		/* Wa_22013059131:dg2 */
+-		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0,
+-				FORCE_1_SUB_MESSAGE_PER_FRAGMENT);
+-
+ 		/*
+ 		 * Wa_22012654132
+ 		 *
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 535cb68fdb5c..dc7e143536ef 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -2172,6 +2172,21 @@ struct drm_i915_gem_context_param {
+  * Note that this is a debug API not available on production kernel builds.
+  */
+ #define I915_CONTEXT_PARAM_CONTEXT_IMAGE	0xf
++
++/*
++ * I915_CONTEXT_PARAM_WA_22013059131:
++ *
++ * Default value 0 means the kernel sets LSC_CHICKEN_BIT_0 bit 15
++ * (FORCE_1_SUB_MESSAGE_PER_FRAGMENT) for this context as part of
++ * Wa_22013059131.  Set to 1 to inform the kernel that userspace is
++ * handling the SLM contention workaround itself (e.g. by limiting SLM
++ * size), so bit 15 programming is not needed for this context.
++ *
++ * Note: LSC_CHICKEN_BIT_0_UDW MAXREQS_PER_BANK (bits 39:37) is the
++ * other part of Wa_22013059131 and remains unconditionally programmed
++ * by the kernel regardless of this setting.  DG2-G11 only.
++ */
++#define I915_CONTEXT_PARAM_WA_22013059131	0x10
+ /* Must be kept compact -- no holes and well documented */
+ 
+ 	/** @value: Context parameter value to be set or queried */
+-- 
+2.43.0
 
-While store_modes() correctly takes lock_fb_info() before replacing the
-modelist, show_mode() and show_modes() appear to read fb_info->mode and
-iterate fb_info->modelist locklessly:
-
-drivers/video/fbdev/core/fbsysfs.c:show_mode() {
-        if (!fb_info->mode)
-                return 0;
-        return mode_string(buf, 0, fb_info->mode);
-}
-
-drivers/video/fbdev/core/fbsysfs.c:show_modes() {
-        ...
-        list_for_each_entry(modelist, &fb_info->modelist, list) {
-                mode =3D &modelist->mode;
-                i +=3D mode_string(buf, i, mode);
-        }
-        ...
-}
-
-If store_modes() executes concurrently, replaces the modelist, frees the
-old nodes via fb_destroy_modelist(), and sets fb_info->mode to NULL, could
-a concurrent sysfs read hit a use-after-free or NULL pointer dereference?
-
-
-[Severity: High]
-This is a pre-existing issue, but does show_modes() have an integer
-underflow leading to a buffer overflow?
-
-In show_modes(), the offset accumulates indefinitely based on the return
-value of snprintf:
-
-drivers/video/fbdev/core/fbsysfs.c:show_modes() {
-        ...
-        list_for_each_entry(modelist, &fb_info->modelist, list) {
-                mode =3D &modelist->mode;
-                i +=3D mode_string(buf, i, mode);
-        }
-        ...
-}
-
-If there are enough modes in the modelist, i will exceed PAGE_SIZE. This
-value is then passed as the offset to mode_string():
-
-drivers/video/fbdev/core/fbsysfs.c:mode_string() {
-        return snprintf(&buf[offset], PAGE_SIZE - offset, "%c:%dx%d%c-%d\n",
-                        m, mode->xres, mode->yres, v, mode->refresh);
-}
-
-When offset is greater than PAGE_SIZE, does PAGE_SIZE - offset underflow to
-a massive unsigned limit, causing snprintf() to write out of bounds beyond
-the sysfs page buffer?
-
-> -	} else
-> +	} else {
-> +		/*
-> +		 * fb_display[i].mode and fb_info->mode both point into the old
-> +		 * list. Clear them before it is freed.
-> +		 */
-> +		fbcon_delete_modelist(&old_list);
-> +		fb_info->mode =3D NULL;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does clearing the modelist
-here expose an unchecked NULL pointer dereference?
-
-The patch modifies store_modes() to call fbcon_delete_modelist(), which
-clears disp->mode to NULL. However, functions like fbcon_resize() and
-fbcon_switch() unconditionally call display_to_var():
-
-drivers/video/fbdev/core/fbcon.c:display_to_var() {
-        ...
-        fb_videomode_to_var(var, disp->mode);
-        ...
-}
-
-drivers/video/fbdev/core/fbcon.c:fbcon_resize() {
-        ...
-        display_to_var(&var, p);
-        fb_videomode_to_var(&var, mode);
-        ...
-}
-
-Can a user write to sysfs modes, setting fb_display[i].mode to NULL,
-followed by a console resize or VT switch that leads to a kernel panic when
-fb_videomode_to_var() dereferences the NULL mode?
-
->  		fb_destroy_modelist(&old_list);
-> +	}
-> =20
->  	unlock_fb_info(fb_info);
->  	console_unlock();
-
-[Severity: High]
-This is a pre-existing issue, but does fb_set_var() suffer from the exact
-same dangling pointer issue this patch fixes in store_modes()?
-
-When executing an FBIOPUT_VSCREENINFO ioctl with FB_ACTIVATE_INV_MODE,
-fb_set_var() checks if the mode is used by mapped consoles:
-
-drivers/video/fbdev/core/fbmem.c:fb_set_var() {
-        ...
-        ret =3D fbcon_mode_deleted(info, &mode1);
-        if (!ret)
-                fb_delete_videomode(&mode1, &info->modelist);
-        ...
-}
-
-Since fbcon_mode_deleted() intentionally skips unmapped consoles, it will
-return 0 if the mode is only referenced by unmapped consoles.
-
-Does this result in fb_delete_videomode() freeing the mode while
-fb_display[i].mode in the unmapped console and fb_info->mode still point
-to the freed memory?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/aj4FKJtIuU97rEA4@de=
-v?part=3D1
