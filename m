@@ -4,67 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BF79C43211
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 21:45:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94B99C43211
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 21:49:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E038110F711;
-	Fri, 26 Jun 2026 21:45:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF17010F6B2;
+	Fri, 26 Jun 2026 21:49:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="aGuphVXY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QLMqXiF3";
 	dkim-atps=neutral
-Received: from mail-qt1-f202.google.com (mail-qt1-f202.google.com
- [209.85.160.202])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6066510F518
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 21:45:19 +0000 (UTC)
-Received: by mail-qt1-f202.google.com with SMTP id
- d75a77b69052e-51a0761fdbdso26495961cf.1
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 14:45:19 -0700 (PDT)
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A95010E3DA
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 21:49:32 +0000 (UTC)
+Received: by mail-dl1-f42.google.com with SMTP id
+ a92af1059eb24-1365eb2a773so100760c88.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 14:49:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782510572; cv=none;
+ d=google.com; s=arc-20260327;
+ b=dBG/sgFOvnhNqJyz9otJFG16CJaSwIzxPYpEZJ0ou93fGncD7idpAAF07TeBAJEfrn
+ NJYdkfOlFLOJFXywsgJd66ecqiecjvqHz21T+UE+EWPVH/ViR9UNw+r8Ttjt8SxMwA7T
+ RvwS+v1sMHFHYsaKuGNA35Hiy9oFusuE00fCu/aWD8nrEkECDB6RAnnY1FBQIdw/n8Fz
+ BMykjU9y+VOycrgTidYZuFc1wRuQi5/hMsPweDGlAM2vGLuBfM9XyWJE4xsjeF3cv/8e
+ f4CKruBi5Hxr3+lW3PLx9hWYg6Ls3RvC73a90TjvDZp4MR9gj39rhntkCdD6Lj5NqySI
+ lhMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=GwWlgxvrw/Wm/U7DbeeEyNi2oClEcjrfWLtOvXaNbXs=;
+ fh=n5xajTO/dlgZqUsxCNS1ZiLzfa9oGz7jYZwzf0hKTz0=;
+ b=egoBBOWNYyr+wCdehhdJeaUV2uWCo0XCl5l+bK92BtdwMVWrhopLn/Jrf+m/hh769S
+ zfyESLH8YW5HCA5ISp1jHRfkfHIcqfYk4T8SVBO6CibSQgj74Qp+r1UnoO70ra+N7hsD
+ 2d8QRZh+L69dMUeBusuPkoIfxH3osdD2fE3B7/D4Wxzlvs7V4hUBluZ6r8jrFleyiUPw
+ 27HjWi+DPBUXKWk+R6+jblikro1dKFXCSXO8jUnHGVuRxTUnXOSrnenA40swi4Tij033
+ 0lNEAONLEkAPeZvsc8ykKPqVUKF44ael0kikmN6ZnJOYRfBU1NdUfKp8B5ajNeR0u9Sj
+ kgCA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1782510318; x=1783115118;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=olj0JxUOmKBAVq/owrQmbC5vaced392C6i7uIXa5kD0=;
- b=aGuphVXYbxCeCpuUQ7TmMSIx+aa9Us/Zny5hq0puxdmn6I/bXQpPHxEMob9ENyDo80
- HUxU6cm7pW8Np74rPThRZ04bT8+wtb7Mi/w6OMoDtZA8EVYk6gHZJQgArcE7422unrpn
- rBRWYYOS+KJtNcD3RdY4h6+ubxavGehdpgYV4l82Q53d9QubK3+ZbBLfqVqua3fW21S0
- Nn/nxGD5t+42bdl1jqcJgHW4pvyO2UidyaI1ydAhPVu/05yH+2b8yVoeDmAjSgpd2G9A
- 1S+ccaOa+FD00C3sMIMAhyFGXX/EmazPHk4apOMsxIv8yk8tTarKlXKg2qPHrNdI1pT7
- Ql7g==
+ d=gmail.com; s=20251104; t=1782510572; x=1783115372; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=GwWlgxvrw/Wm/U7DbeeEyNi2oClEcjrfWLtOvXaNbXs=;
+ b=QLMqXiF3gas3KP9x0vcLqCr+5TY7GrjbBHtJp/r4zIsep1bg9HGNnlEA7laGoB20nU
+ es+Z2TA3RaBu4fr9+ptiuIXqNtXC1yQ2Lbl/NpEhmZK++OT+ARbrLyG4nh4LZfQi3F0U
+ oPl/GntaOYc12SvsoiheQQSPRaD/lmBt3brS3Gb+RkftZhfZTPtCzJRUYTPVnuQgIOEK
+ MRR4oR8+RWrZ2AKF4xon/CVDEr+pASjxnlpiBouxpfrEzSQt0guMdjjR42Ws7F0iPeNA
+ 9u5N0OQuK4sxk6PqeZjT2w7uhm5TbLcJwPJ5zqhoeNqhknyTICzZ8SFhlrdbIJ7H9oKG
+ ElVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782510318; x=1783115118;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=olj0JxUOmKBAVq/owrQmbC5vaced392C6i7uIXa5kD0=;
- b=Bkay7Sj1Ajn0y+G06FzDefnpYg10JEFEcHKbZvenSAIJyjIOjvbtdpvt3Fht1XLHBP
- TcefyCt/u18Nr3tjrmYZlRmpbOuyzfShW3ZgfQiBaQ6XKtPORSt2G9CsFUAJjiSVjFWb
- ThUUwNALMR/DCVR+FZZc/MX5Niliiv1ngsSRQQeZWr2B9oCDJxA1zQgwDfuSme1wcCrr
- T+Dea9SYIMg17zbklX32YSqG56vn5+f4H9H0p0xLEoRfF/8diB+mNhm3x5w0ArRpFGAO
- S+50UsKKths/aYBX18c5fp5lXO8k/cTPz+4u6mjUAhcVIfPtTKtiORAaWFghWn4/lMKA
- a43A==
+ d=1e100.net; s=20251104; t=1782510572; x=1783115372;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=GwWlgxvrw/Wm/U7DbeeEyNi2oClEcjrfWLtOvXaNbXs=;
+ b=o58Q3ni9GGjveRD3u2Pfz/zxZvJcp+1sOIy44+ogBJMM+HbExgu/I+jOaLw7GN7SZX
+ Wjnds4VE40HMvd1KuQcbdCaR28DZdoLm8H1VtSF4LyhxAhb2K7ue4F/omqxJWfFiZ9HJ
+ v+0r6+UpvgnGHuBXmQJ5/rAz6kJ7UE3X65KjWf1w0kPEve5mFliYdhOPBGhX1eYz2J6A
+ z1fcMotQO8uW6giaahBEbqf5FOL6bbkvMishBp+ZPJcdoD203K5r2q5VpwKOOzjo5yK5
+ 0Ewya0BiE3cTMVjwB4CEWvL9513Ht4hsxNRjJtBFfTxDdNrE7vegbkS6GFSXI534QJE4
+ 8Tmg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8OPLACLKS4qwzFPWw6kJ48Wb8ZPdoutUyYFKQdkU4MHdFD48r/V1CvSNFAWBVsKF61wuHv5c8mxBc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwDf6bKQX/Zb75Ck07bj8yIZDENfm5lTJzcUUOOPv+GgmJTObvi
- QMVyzYVufQlri/970WrcWg3HkfLDBu1k0DyNQNhGhv1x2XdduP2H05iCgNmCnlUk59aeVNCp/X2
- VbXh8wl3m5Zhiwg==
-X-Received: from qtnp2.prod.google.com ([2002:ac8:4602:0:b0:50e:60ce:5caa])
- (user=gildekel job=prod-delivery.src-stubby-dispatcher) by
- 2002:ac8:7d42:0:b0:517:906b:c043 with SMTP id
- d75a77b69052e-51a8b0e29d1mr31549171cf.36.1782510317872; 
- Fri, 26 Jun 2026 14:45:17 -0700 (PDT)
-Date: Fri, 26 Jun 2026 17:44:42 -0400
-In-Reply-To: <20260626214513.179943-1-gildekel@google.com>
-Mime-Version: 1.0
-References: <20260626214513.179943-1-gildekel@google.com>
-X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
-Message-ID: <20260626214513.179943-3-gildekel@google.com>
-Subject: [PATCH v3 2/2] drm/i915/display/mst: Enable HDR over DP MST
-From: Gil Dekel <gildekel@google.com>
-To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: uma.shankar@intel.com, jani.nikula@intel.com, imre.deak@intel.com, 
- khaled.almahallawy@intel.com, navaremanasi@google.com, 
- Gil Dekel <gildekel@google.com>
+ AFNElJ/X7IBxG3Iz5zAFhSgVHeeu58Z7hVLriENm9lURaevtlSOcUyKKsvyn9BuZ45qL4O0PJeKTDff7s6A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxQtdJ+y8FGzezYLZlDXTBCBmchBDHL4rnzok7vXdmYExTEmxip
+ /vhWfjm0G56ILqWQ00S122uqwtlkFU9YVlywtO3Cq5aa/NQT5QncnmzxQ02ySoVfXsFfbpSv73y
+ tllCoHGmcpnYNhbRBiaAcmUvN+LUJH3g=
+X-Gm-Gg: AfdE7cnm9/VEK3f7eRekm7EKfFUhsxrU/7D2hWrIz2UxSp1a/2Y2I7YMFIkai3cyyoX
+ k78YsVNEktRpZGcXQqe3Jl/EQABJm3S07p7N6h/li7Hf2TTylkQ6/PixwpI+wGZDwvWZXpQ7xPd
+ c7GsQBNCoFrTg0fDWRQ0Ui1hcmdtsZTHf2B3AXAoUDGa2W0s3fABqG51ND1bLu0KP7vy5IQuVyJ
+ SjfjOcr5ecYxWDzOiT+qWnvge292Bz2kCVqnXAUfdSwZEDHqTVrqmAj/1Z47zIhmoC9r5TTMCiJ
+ s1nJeGwAGohpbKOjVx8QQqiHdxCGRID2HrDNKFIEme3GIW3rzt4laa/peCo=
+X-Received: by 2002:a05:7022:1085:b0:139:90ab:36ac with SMTP id
+ a92af1059eb24-139dbb1e039mr2362650c88.7.1782510571709; Fri, 26 Jun 2026
+ 14:49:31 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260626030013.20569-1-tiagodourado@usp.br>
+ <20260626030013.20569-2-tiagodourado@usp.br>
+ <104c8e60-11f5-4c08-86ca-51ca5c8bf57b@amd.com>
+In-Reply-To: <104c8e60-11f5-4c08-86ca-51ca5c8bf57b@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 26 Jun 2026 17:49:19 -0400
+X-Gm-Features: AVVi8Cf7sEZtYouWUOPdAwzR66k49DaN5x35HjJ1GOvsJ5itj00iqqvtgBA2e1Y
+Message-ID: <CADnq5_PWN4a0-64xTvQE=Ri=es7NRyY7hMqEu7+pjmoEvwf5FA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] drm/amdgpu/jpeg: deduplicate jpeg_v3_0
+ process_interrupt
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Tiago Dourado <tiagodourado@usp.br>, kernel@lists.ime.usp.br,
+ airlied@gmail.com, 
+ alexander.deucher@amd.com, simona@ffwll.ch, "Liu, Leo" <Leo.Liu@amd.com>, 
+ Luiz Fernandes <luiz.f.f.fernandes@usp.br>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,142 +111,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Compute and attach VSC SDP and HDR metadata infoframes for logical MST
-stream connectors.
+On Fri, Jun 26, 2026 at 8:14=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 6/26/26 04:59, Tiago Dourado wrote:
+> > The jpeg_v3_0_process_interrupt function is identical to
+> > jpeg_v2_0_process_interrupt. Remove the duplicate implementation
+> > in jpeg_v3_0 and assign the jpeg_v2_0 version directly to the irq_funcs=
+ struct.
+> > Export jpeg_v2_0_process_interrupt through jpeg_v2_0.h to allow
+> > cross-version reuse.
+>
+> Usually we intentionally don't do any cross IP version reuse, that has ca=
+use tons of problems in the past.
+>
+> @Leo any particular reason why we don't have a separate SRCID file for VC=
+N3?
+>
+> My educated guess is that nothing changed compared to VCN2 and nobody car=
+ed to re-generate the file from the HW definition.
+>
 
-Update mst_stream_enable() and implement mst_stream_update_pipe() to
-configure the transcoder's Video DIP registers with VSC and HDR infoframes.
-This allows fastsets (such as toggling HDR ON/OFF) to update the hardware
-without triggering a full modeset.
+I think it's the same so no need for a separate one.  There are a
+number of existing places where VCN or jpeg use one function
+implementation across multiple generations.
 
-Expose the max_bpc, HDR metadata, and DP Colorspace connector properties
-during MST connector initialization to enable userspace configuration.
+Alex
 
-Assisted-by: jetski:gemini-2.5-pro
-Signed-off-by: Gil Dekel <gildekel@google.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c     |  9 +++---
- drivers/gpu/drm/i915/display/intel_dp.h     |  6 ++++
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 31 ++++++++++++++++++++-
- 3 files changed, 41 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 1de26c4c867f..686782d9987f 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3157,12 +3157,13 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
- 		as_sdp->coasting_vtotal = crtc_state->vrr.vmax;
- }
- 
--static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
--				     struct intel_crtc_state *crtc_state,
--				     const struct drm_connector_state *conn_state)
-+void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
-+			      struct intel_crtc_state *crtc_state,
-+			      const struct drm_connector_state *conn_state)
- {
- 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
- 	struct drm_dp_vsc_sdp *vsc;
-+
- 	if ((!connector->dp.colorimetry_support ||
- 	     !intel_dp_needs_vsc_sdp(crtc_state, conn_state)) &&
- 	    !crtc_state->has_psr)
-@@ -3218,7 +3219,7 @@ intel_dp_in_hdr_mode(const struct drm_connector_state *conn_state)
- 	return hdr_metadata->hdmi_metadata_type1.eotf == HDMI_EOTF_SMPTE_ST2084;
- }
- 
--static void
-+void
- intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
- 					    struct intel_crtc_state *crtc_state,
- 					    const struct drm_connector_state *conn_state)
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 26b3a0eb354e..29282540d6ca 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -76,6 +76,12 @@ int intel_dp_compute_config(struct intel_atomic_state *state,
- 			    struct intel_encoder *encoder,
- 			    struct intel_crtc_state *pipe_config,
- 			    struct drm_connector_state *conn_state);
-+void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
-+			      struct intel_crtc_state *crtc_state,
-+			      const struct drm_connector_state *conn_state);
-+void intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
-+						 struct intel_crtc_state *crtc_state,
-+						 const struct drm_connector_state *conn_state);
- bool intel_dp_needs_8b10b_fec(const struct intel_crtc_state *crtc_state,
- 			      bool dsc_enabled_on_crtc);
- void intel_dp_dsc_reset_config(struct intel_crtc_state *crtc_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 5b76d12bb00f..d438e4942d9c 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -761,6 +761,10 @@ static int mst_stream_compute_config(struct intel_atomic_state *state,
- 
- 	intel_psr_compute_config(intel_dp, pipe_config, conn_state);
- 
-+	intel_dp_compute_vsc_sdp(intel_dp, pipe_config, conn_state);
-+
-+	intel_dp_compute_hdr_metadata_infoframe_sdp(intel_dp, pipe_config, conn_state);
-+
- 	return intel_dp_tunnel_atomic_compute_stream_bw(state, intel_dp, connector,
- 							pipe_config);
- }
-@@ -1332,6 +1336,8 @@ static void mst_stream_enable(struct intel_atomic_state *state,
- 
- 	intel_ddi_enable_transcoder_func(encoder, pipe_config);
- 
-+	intel_dp_set_infoframes(primary_encoder, true, pipe_config, conn_state);
-+
- 	intel_vrr_transcoder_enable(pipe_config);
- 
- 	intel_ddi_clear_act_sent(encoder, pipe_config);
-@@ -1708,6 +1714,11 @@ static int mst_topology_add_connector_properties(struct intel_dp *intel_dp,
- 	if (connector->base.max_bpc_property)
- 		drm_connector_attach_max_bpc_property(&connector->base, 6, 12);
- 
-+	if (intel_dp_has_gamut_metadata_dip(&dp_to_dig_port(intel_dp)->base))
-+		drm_connector_attach_hdr_output_metadata_property(&connector->base);
-+
-+	intel_attach_dp_colorspace_property(&connector->base);
-+
- 	return drm_connector_set_path_property(&connector->base, pathprop);
- }
- 
-@@ -1856,6 +1867,24 @@ static const struct drm_dp_mst_topology_cbs mst_topology_cbs = {
- 	.poll_hpd_irq = mst_topology_poll_hpd_irq,
- };
- 
-+static void mst_stream_update_pipe(struct intel_atomic_state *state,
-+				   struct intel_encoder *encoder,
-+				   const struct intel_crtc_state *crtc_state,
-+				   const struct drm_connector_state *conn_state)
-+{
-+	struct intel_encoder *primary_encoder = to_primary_encoder(encoder);
-+
-+	/* Fallback to standard DDI updates (like Audio) */
-+	intel_ddi_update_pipe(state, encoder, crtc_state, conn_state);
-+
-+	/*
-+	 * intel_ddi_update_pipe historically ignores MST for InfoFrames.
-+	 * We must explicitly update the Transcoder's Video DIP registers here
-+	 * so Atomic Fastsets (e.g. toggling HDR in the UI) propagate to the hardware.
-+	 */
-+	intel_dp_set_infoframes(primary_encoder, true, crtc_state, conn_state);
-+}
-+
- /* Create a fake encoder for an individual MST stream */
- static struct intel_dp_mst_encoder *
- mst_stream_encoder_create(struct intel_digital_port *dig_port, enum pipe pipe)
-@@ -1896,7 +1925,7 @@ mst_stream_encoder_create(struct intel_digital_port *dig_port, enum pipe pipe)
- 	encoder->disable = mst_stream_disable;
- 	encoder->post_disable = mst_stream_post_disable;
- 	encoder->post_pll_disable = mst_stream_post_pll_disable;
--	encoder->update_pipe = intel_ddi_update_pipe;
-+	encoder->update_pipe = mst_stream_update_pipe;
- 	encoder->pre_pll_enable = mst_stream_pre_pll_enable;
- 	encoder->pre_enable = mst_stream_pre_enable;
- 	encoder->enable = mst_stream_enable;
--- 
-Gil Dekel, Software Engineer, Google / ChromeOS Display and Graphics
-
+> Regards,
+> Christian.
+>
+> >
+> > Signed-off-by: Tiago Dourado <tiagodourado@usp.br>
+> > Co-developed-by: Luiz Fernandes <luiz.f.f.fernandes@usp.br>
+> > Signed-off-by: Luiz Fernandes <luiz.f.f.fernandes@usp.br>
+> > ---
+> >
+> > v2:
+> > - Assigned function directly to irq_funcs instead of using a macro.
+> >
+> >  drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c |  2 +-
+> >  drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h |  4 ++++
+> >  drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c | 21 +--------------------
+> >  3 files changed, 6 insertions(+), 21 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/a=
+md/amdgpu/jpeg_v2_0.c
+> > index 9fe8d10ab..9006fc57e 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+> > @@ -747,7 +747,7 @@ static int jpeg_v2_0_set_interrupt_state(struct amd=
+gpu_device *adev,
+> >       return 0;
+> >  }
+> >
+> > -static int jpeg_v2_0_process_interrupt(struct amdgpu_device *adev,
+> > +int jpeg_v2_0_process_interrupt(struct amdgpu_device *adev,
+> >                                     struct amdgpu_irq_src *source,
+> >                                     struct amdgpu_iv_entry *entry)
+> >  {
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h b/drivers/gpu/drm/a=
+md/amdgpu/jpeg_v2_0.h
+> > index 654e43e83..4f400fb47 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h
+> > @@ -58,6 +58,10 @@ void jpeg_v2_0_dec_ring_emit_vm_flush(struct amdgpu_=
+ring *ring,
+> >  void jpeg_v2_0_dec_ring_emit_wreg(struct amdgpu_ring *ring, uint32_t r=
+eg, uint32_t val);
+> >  void jpeg_v2_0_dec_ring_nop(struct amdgpu_ring *ring, uint32_t count);
+> >
+> > +int jpeg_v2_0_process_interrupt(struct amdgpu_device *adev,
+> > +                             struct amdgpu_irq_src *source,
+> > +                             struct amdgpu_iv_entry *entry);
+> > +
+> >  extern const struct amdgpu_ip_block_version jpeg_v2_0_ip_block;
+> >
+> >  #endif /* __JPEG_V2_0_H__ */
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/a=
+md/amdgpu/jpeg_v3_0.c
+> > index 98f5e0622..2f3a5a17e 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+> > @@ -539,25 +539,6 @@ static int jpeg_v3_0_set_interrupt_state(struct am=
+dgpu_device *adev,
+> >       return 0;
+> >  }
+> >
+> > -static int jpeg_v3_0_process_interrupt(struct amdgpu_device *adev,
+> > -                                   struct amdgpu_irq_src *source,
+> > -                                   struct amdgpu_iv_entry *entry)
+> > -{
+> > -     DRM_DEBUG("IH: JPEG TRAP\n");
+> > -
+> > -     switch (entry->src_id) {
+> > -     case VCN_2_0__SRCID__JPEG_DECODE:
+> > -             amdgpu_fence_process(adev->jpeg.inst->ring_dec);
+> > -             break;
+> > -     default:
+> > -             DRM_ERROR("Unhandled interrupt: %d %d\n",
+> > -                       entry->src_id, entry->src_data[0]);
+> > -             break;
+> > -     }
+> > -
+> > -     return 0;
+> > -}
+> > -
+> >  static int jpeg_v3_0_ring_reset(struct amdgpu_ring *ring,
+> >                               unsigned int vmid,
+> >                               struct amdgpu_fence *timedout_fence)
+> > @@ -629,7 +610,7 @@ static void jpeg_v3_0_set_dec_ring_funcs(struct amd=
+gpu_device *adev)
+> >
+> >  static const struct amdgpu_irq_src_funcs jpeg_v3_0_irq_funcs =3D {
+> >       .set =3D jpeg_v3_0_set_interrupt_state,
+> > -     .process =3D jpeg_v3_0_process_interrupt,
+> > +     .process =3D jpeg_v2_0_process_interrupt,
+> >  };
+> >
+> >  static void jpeg_v3_0_set_irq_funcs(struct amdgpu_device *adev)
+>
