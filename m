@@ -4,78 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B485DCDE00E
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9A18CDE008
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:54:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F37110F4AF;
-	Fri, 26 Jun 2026 07:53:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F25B310F4A1;
+	Fri, 26 Jun 2026 07:53:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="F6VnDwvP";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="DfFGe01N";
 	dkim-atps=neutral
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
- [209.85.128.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACFCB10F2C7
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 13:54:05 +0000 (UTC)
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-7ff05e5d009so20348487b3.1
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 06:54:05 -0700 (PDT)
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F07510E2A1
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 03:00:22 +0000 (UTC)
+Received: by mail-dl1-f50.google.com with SMTP id
+ a92af1059eb24-1390f75d8bbso48448c88.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 20:00:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782395645; x=1783000445; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=m9aAmr8/iGyamwXOE0x+7nRWzrQLtbEEZ6iUw+t3oT4=;
- b=F6VnDwvPLtkffmEFUTsKUCZA2oS4Mg0M8w8iCDsiJnRW/L9dQEG4DZoCQ2cv2CXZNU
- O0JQokZntyCNM948YsN9kQ+JxZPTe1FtavegXjcIkNctB1/OuBUz5VDFXoJwWzxQO+py
- xauVb4R8ZzARMG4XjARNx96nZVYW5X2ayC+AQa3BAiwXpWf6bxF6KieGrh35aeSIvNTZ
- 7pxjHqVO181wqHxaGwB3aSMLL4kIt+fMGsuJHTqBbKxVXaPBab7+0h4F0hqCT+6z7ggz
- ZAL+6MF7BSgXBnZW6AyUEz0Rw2F6Kuqy3x096qp8THLBlLG5EYm4xBsEMn2DsLUm4CQw
- u/VQ==
+ d=usp.br; s=usp-google; t=1782442822; x=1783047622; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=xyfqQaJzQGqQ+w3Wgkei2isTk6qDBF7q1W+qeueb6IQ=;
+ b=DfFGe01N7W7muGjca4A9MDNH4HNtWw91wuF4IS6PWSbEzXi9TW/EJKu4CX+oIqjw6N
+ OKqlpdUbNnqgj0dzJf1qLl6ip0CRyin7zFLy5eBVYrsasGNLB/kAA8Kn2tMHvUDQ4Ujp
+ Yt4jMxWFnkS9DZ9V9s5j6BTtfkxgk+As/T9j7BxAkAfLPAGPpcgmNE1kzE6P8ij90yDi
+ NvpiTeDOxFw6XvR2zp9f0cxF2uLLSNOCIcmygfjGaYjBNGKJRwZo+rCnXHtHKVHDHgQ6
+ 0n26CHJ03J+JQ5QGpr4gFU87UQMS3sJZa9c3jYZTtnJhYU3cru1B2/IqE/3LURTW2wgU
+ NYwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782395645; x=1783000445;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=m9aAmr8/iGyamwXOE0x+7nRWzrQLtbEEZ6iUw+t3oT4=;
- b=pJntxIwKXEWH58ofHh4PJcfDt1gohhgQQkdPhLIVzQpaO5mLiKAx0Q6j50ZhiHg2fU
- fLeOU9PZbBjXibFkFVvltugfzs9JDmnxXTo9kVlJs17UiOdiHy/mua5oS5rEzusRKwHm
- eH8WJM/dTc7cB9c0hLjX1qEFpGkWYyci8xxlW2Fh901RpnE5zQSw9dlrxvot4M723rZE
- eW3yTi11A6zMLrS6jtpLXhAfWhSVjymNDfV2EHejxgG8VJJ+wsWViCCJHr3I/JCoMloe
- w758dCH5pK3kEbAG9rVxHPACnsCD9tUyyKB9pamzndJc5kP8v9Co148xo5ZPrSNJSij3
- fy5w==
+ d=1e100.net; s=20251104; t=1782442822; x=1783047622;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=xyfqQaJzQGqQ+w3Wgkei2isTk6qDBF7q1W+qeueb6IQ=;
+ b=FrYbkHAK9L2W9vGdKzJnJKw8nlCYOtSn9xHk/eslV0SB9YYZ8ADQyG43Ie4jOe9kpd
+ lmaZymqakd6lssZZ8wwFCxwyFCi1ScDKNqQliTIJoOarPEkMOJ8+iHOzEwJq7nO5idX0
+ tEYSKWbivV1RXq4JVEE3moF4AAencq/TvpTH2o7EcJIzjnX2qTwPQsnQARyfI+ZlrnL/
+ Rb0q/zWk/lliQK0oFGUD8Ea29PM3lQHriM46I14qtCq/kL3RYqE+AzxDAhye48QoVl+H
+ iQe6C+fJTyeQBZo7dIdOr9WDyROSCVWHzBEcRB5dRqHx3m7YTfq3D8QSIRu+hs2cAdEd
+ O1IQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpYTBANtQRHLZwZBsSDMgUVRNc3mfBO+igm5/nOBKKYrVllEILyphYhrVPvdhqL2rV0BMCSiokFXF0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy1foDysNKx/FnEs6S+11TBtMUU1nPGn0C5tev7z/LPYXUutHu8
- evf9/3F9DCOidhWKCgcuNry/d/1oGQ18t+x5bZZWWKhsjPrCnocuTjrQ
-X-Gm-Gg: AfdE7ck+MLwf2m+LVaP4qbWyXgVH8BdwDfa+1kO6GBLxE2LBCprYEQSy9v7BQy0awkD
- xJmqh9r4uFc/TCP4j5z7r6i6zon1p/b7gkeNuCmPXo3g72w1PeKltMBWgODPZ87S2jgTC3apkYQ
- AIIfibvPaXTZ0a0YPyd5cftm8KRnSZG1ZDZ4gWwp+HF5AbtLrcqOdLxmA9cxOEAshPBVhxmYWNY
- LkTg1HZbcMq6ckVAkfvX/c1oVEbc17C0dqP1tN3Fjst3FC3iwaFk2uGhiAd9VH1swBJ4YyOS2+O
- jTQJ5MuTMQbHCdmY8St8qbPiE/yiy42WOUEpiasYoGAzHCEOOB+qdt2j6Idsvi26oHiPTYqJjW7
- C9vPU2F9bkG+2OCIl8FeVoE3fmDV0/rYZ3pWVsgn+/7nAJ7WYcm6BChUzCSgPkqX6RKEPetTULX
- rvd0A3t0MBN0moHTKPervbyr6jpbaIzwK7hMgI
-X-Received: by 2002:a05:690c:6e02:b0:7f8:7e31:28ab with SMTP id
- 00721157ae682-80a6b898733mr25315367b3.51.1782395644452; 
- Thu, 25 Jun 2026 06:54:04 -0700 (PDT)
-Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
- by smtp.gmail.com with ESMTPSA id
- 00721157ae682-8025f8da5fbsm72143407b3.30.2026.06.25.06.54.02
+ AFNElJ+3ZZcXlLyvfOf0EJsMv3neMoD8CETjV766Nwgvphlnz3D3np5BtIS1Fy6ORzWT62NhAs/jyncQyQo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YySL25A97kYZ+8WHHxtQ1FcUrJCkj3VF8VwQvCjJCKk0i/w+pae
+ m5cTd+nru7i+0R5ia5lZV5Th0/ubNWglasn8LUSH/wojTUgDx0xxctSLux7zTEI6aJU=
+X-Gm-Gg: AfdE7ck6PfoH0SRQK3W1vaOjD1/oFMUOQ2TO8qLna+gMAHzcXBaQEg7wuIHAUlLgRMl
+ d8whJRs4yvRhFIY987yvpy3Ge2xsh3I7HbEtm1aRg0lUuOb9dBX8YHFdT89YW+HGmjV62Nq2O9c
+ k5+fWa2+BeMfUCb1NjNzCVfmAgTOXtphIf+/XNqMqvPbknYJigglQnpVZnriF6br8U26RMon7/S
+ GWjdR841yJk9i9XMWXTwldnoVfDrUFY34s5N/w3Ssb/vFULV7vCRMQgFOqGiG/WimWXVqHJfgkp
+ EtqGbO1rgPaPLUGFd5dtNK5R6Yn4dxLqnyruMuKf7R8o+4kAjhwuWv9DiPPb9k5YWpCxxRot9sU
+ pREmkXQr8wvKOwp863nvw6u0WWRAd9hS8sEBA9dAmlhxVe4M/EnEXBlrZIBhTmnwojppx9p9P6+
+ tfG8tnTJ6MkT22y33g1yODRGdZQdlES6iHmUAWyfAAJB5gMOyO1yxIeTutVS91YetaVkuG1g==
+X-Received: by 2002:a05:7022:5f08:b0:139:dfe9:c8b1 with SMTP id
+ a92af1059eb24-139dfe9c90emr1949342c88.8.1782442821140; 
+ Thu, 25 Jun 2026 20:00:21 -0700 (PDT)
+Received: from voyager.. ([179.119.40.186]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-139d8f6acf9sm13048415c88.6.2026.06.25.20.00.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jun 2026 06:54:04 -0700 (PDT)
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH v2] drm/amdgpu: reject mapping info when BO VA is gone
-Date: Thu, 25 Jun 2026 15:53:41 +0200
-Message-ID: <20260625135341.1159-1-alhouseenyousef@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260624172029.2508-1-alhouseenyousef@gmail.com>
-References: <20260624172029.2508-1-alhouseenyousef@gmail.com>
+ Thu, 25 Jun 2026 20:00:20 -0700 (PDT)
+From: Tiago Dourado <tiagodourado@usp.br>
+To: kernel@lists.ime.usp.br, airlied@gmail.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, simona@ffwll.ch
+Cc: Tiago Dourado <tiagodourado@usp.br>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v2 0/2] drm/amdgpu/jpeg: deduplicate process_interrupt across
+ JPEG versions
+Date: Thu, 25 Jun 2026 23:59:11 -0300
+Message-ID: <20260626030013.20569-1-tiagodourado@usp.br>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 26 Jun 2026 07:53:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -93,44 +87,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-AMDGPU_GEM_OP_GET_MAPPING_INFO looks up the GEM object from the file
-handle and then locks the object and VM before resolving the BO-VA. The
-GEM object reference keeps the BO alive, but it does not keep the
-per-file handle open.
+The JPEG versions v3_0 and v5_3_0 have process_interrupt implementations identical to their predecessor versions (v2_0, v5_0_0 respectively). This patchset removes these duplicates by exporting the original functions and reusing them.
 
-If a racing close drops the last handle reference in that window,
-amdgpu_gem_object_close() can remove the BO-VA before
-amdgpu_vm_bo_find() runs. The ioctl then walks the BO-VA mapping lists
-unconditionally.
+v2:
+- Replaced macro alias with direct function pointer assignment in the irq_funcs struct, as requested by Alex Deucher.
 
-Return -EINVAL if the BO is no longer associated with this VM.
+Tiago Dourado (2):
+  drm/amdgpu/jpeg: deduplicate jpeg_v3_0 process_interrupt
+  drm/amdgpu/jpeg: deduplicate jpeg_v5_3_0 process_interrupt
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
----
-Changes in v2:
-- Describe the handle-close race instead of an initially unmapped BO.
-- Return -EINVAL instead of -ENOENT.
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.h   |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c   | 21 +--------------------
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c | 22 ++--------------------
+ 6 files changed, 13 insertions(+), 42 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 212c14d99..6f5b6f4c2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -1087,6 +1087,12 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 		struct drm_amdgpu_gem_vm_entry *vm_entries;
- 		struct amdgpu_bo_va_mapping *mapping;
- 		int num_mappings = 0;
-+
-+		if (!bo_va) {
-+			r = -EINVAL;
-+			goto out_exec;
-+		}
-+
- 		/*
- 		 * num_entries is set as an input to the size of the user-allocated array of
- 		 * drm_amdgpu_gem_vm_entry stored at args->value.
 -- 
-2.54.0
+2.43.0
+
