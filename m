@@ -4,65 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EF20CDE002
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:32:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 993ABCDE00E
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:33:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B47C10F5BB;
-	Fri, 26 Jun 2026 12:32:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F04BF10F5B6;
+	Fri, 26 Jun 2026 12:33:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NorX4JAl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YasClcFx";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B954310F5BB;
- Fri, 26 Jun 2026 12:32:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782477168; x=1814013168;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=KcZgACwtmX+SVYeSnRzH9eljl4Ne8+uOz5GEYaGLwJY=;
- b=NorX4JAlF7OboufltQJA7Eo5Dg1SuKScBbrs9aA5IzMIndlQ5vhgdkPV
- Qe+yBVVmV88k/4s8JfNZEuXr3BDQrsyQz6pOwMQf67cLxROiar9x4y58r
- JiBRCdbgVuGD/6ee8+rDu4GJ30gdlOHWv4tvr7wLHe7/5VEuxxHks3NVf
- APU/cY5jMHPna1qsuK6eo12Pi4/So/YJ6myYI0FoBKm/bhFwRUFgSBUL6
- LKnuKwmaY1j0AIjdyuTO4Jt8NRJY3Ci9aDudX3DSH/s1h2PvvkQvSGjOV
- BxnDU7oE35f7oZ0zrlqLuDHaAHkPKA3s3C6BPSAB8JLJn2PWPdzlS4BoR w==;
-X-CSE-ConnectionGUID: uxwk+f9aRBaUQ1kVAgJFIQ==
-X-CSE-MsgGUID: 4Q4XsduLRoKcWHKtHJQ19A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11828"; a="94417422"
-X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; d="scan'208";a="94417422"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2026 05:32:47 -0700
-X-CSE-ConnectionGUID: d63zfJFfQVeB/pl+AWWgSQ==
-X-CSE-MsgGUID: H6vs7KUrSeahz+oWRGy/Rw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; d="scan'208";a="247948579"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.244.1])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2026 05:32:43 -0700
-Date: Fri, 26 Jun 2026 15:32:41 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Dave Airlie <airlied@redhat.com>, Kees Cook <kees@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Timur Tabi <ttabi@nvidia.com>,
- Ben Skeggs <bskeggs@nvidia.com>, Mel Henning <mhenning@darkrefraction.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>
-Subject: Re: [PATCH 2/2] drm/nouveau/gsp/r570: Never enter Gcoff state
-Message-ID: <aj5xaeHusBhWhDK1@ashevche-desk.local>
-References: <20260625231252.89684-1-lyude@redhat.com>
- <20260625231252.89684-3-lyude@redhat.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260625231252.89684-3-lyude@redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE74110F5B6
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:33:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B0C0A60098;
+ Fri, 26 Jun 2026 12:33:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 365511F000E9;
+ Fri, 26 Jun 2026 12:33:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782477202;
+ bh=NUnRORpUbpb7UqJA0XrJa48xsJE9cicgXLWmh89S6Bk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=YasClcFxVa88j0WC7btAB+kb/X6pQHhbCW+BOIyH6u5RVtPwKvWG2hCA9ow6LN/7V
+ /WZ1D1JqHXHkTP3GsbqukJZT0bKtE1T0NZOGgGRbWhtb1ynhMRaC/zNatGeYYYKfAz
+ gaU0IrDJh8kiySfji4RuhB3C5x9VhI7/SGm70GyoznRq4QzTTs3unOjM+7JsSejOdE
+ d6VR/2ZewlAhem5jzDW8mRJfaFEeQiZNnLmrNFvbVv21ZO+K4Dtj2BpIG04eHndWRn
+ 43EriQqZ71BfMUQsMAzlnnWoBTborGUsI9xpuic/Evarlc/6sl621j4Q6Ww+PTbWcb
+ hiyw2SJXK/8Hw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] fix: dma-buf: unwrap_merge_order: success path leaks
+ chain and array   fence references
+To: "WenTao Liang" <vulab@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260626122145.35549-1-vulab@iscas.ac.cn>
+References: <20260626122145.35549-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 12:33:21 +0000
+Message-Id: <20260626123322.365511F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,39 +53,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 25, 2026 at 07:10:55PM -0400, Lyude Paul wrote:
-> It turns out that the only reason our previous fixes looked like they
-> worked for this was because we would occasionally set the Gcoff state to 0
-> in the normal S3 path, which fixed suspend/resume on desktops - but not on
-> machines using runtime suspend.
-> 
-> The proper fix is to just never set this flag. Our current guess for the
-> reasoning behind this is that Gcoff likely coincides with GC6, and not
-> literally power off.
-> 
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Fixes: 8302d0afeaec ("nouveau/gsp: fix suspend/resume regression on r570 firmware")
-> Cc: <stable@vger.kernel.org>
-> Cc: Lyude Paul <lyude@redhat.com>
-> Cc: Dave Airlie <airlied@redhat.com>
-> Cc: Kees Cook <kees@kernel.org>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Timur Tabi <ttabi@nvidia.com>
-> Cc: Ben Skeggs <bskeggs@nvidia.com>
-> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Cc: Mel Henning <mhenning@darkrefraction.com>
-> Cc: <stable@vger.kernel.org> # v6.19+
-> ---
->  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The commit message is factually incorrect regarding the referenc=
+e counting behavior of `mock_chain()`. It claims that `mock_chain()` acquir=
+es its own references, making the `dma_fence_get()` calls on lines 440 and =
+445 surplus and permanently leaked. In reality, `mock_chain()` (and underly=
+ing `dma_fence_chain_init()`) takes ownership of the references passed to i=
+t without acquiring new ones. Since the original references to `f1` and `f2=
+` were already consumed by `mock_array()`, the `dma_fence_get()` calls are =
+strictly necessary to pass new references to `mock_chain()` and avoid a dou=
+ble-free. Furthermore, the commit message implies `c1` is leaked, but the p=
+atch correctly omits `dma_fence_put(c1)` because ownership of `c1` is trans=
+ferred to `c2`.
+--
 
-Same comment here.
+commit 96e1c6f7abe617d57c291e7a9fc66a1436a69266
+Author: WenTao Liang <vulab@iscas.ac.cn>
 
--- 
-With Best Regards,
-Andy Shevchenko
+fix: dma-buf: unwrap_merge_order: success path leaks chain and array fence =
+references
 
+This commit adds missing dma_fence_put() calls to fix resource leaks in the
+unwrap_merge_order() success path.
 
+> The success path only releases a2 via dma_fence_put but does not release
+>   a1, c1, or c2. The dma_fence_get calls at lines 440 and 445 were intend=
+ed
+>   to pass references to mock_chain, but mock_chain already acquires its o=
+wn
+>   references internally, making these extra gets surplus and permanently
+>   leaked.
+
+[Severity: Medium]
+Is this description accurate regarding how mock_chain() handles reference
+counting?
+
+The commit message states that mock_chain() "already acquires its own refer=
+ences
+internally". However, mock_chain() and the underlying dma_fence_chain_init()
+actually take ownership of the reference passed to them without acquiring n=
+ew
+ones.
+
+Because the original references to f1 and f2 are consumed by mock_array(), =
+the
+dma_fence_get() calls seem to be necessary to pass new references to
+mock_chain() and avoid a double-free, rather than being surplus.
+
+Additionally, the commit message claims that c1 is leaked, but the patch
+correctly omits a dma_fence_put(c1) because ownership of c1 is transferred
+to c2.
+
+Could the commit message be updated to avoid implying c1 needs to be releas=
+ed
+or that the get calls are surplus?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626122145.3554=
+9-1-vulab@iscas.ac.cn?part=3D1
