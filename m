@@ -4,52 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF515C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 14:26:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64851C43327
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 14:35:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E77CC10E312;
-	Fri, 26 Jun 2026 14:26:43 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECA8710E312;
- Fri, 26 Jun 2026 14:26:41 +0000 (UTC)
-Received: from localhost.localdomain (unknown [117.182.75.66])
- by APP-01 (Coremail) with SMTP id qwCowAD3mtMajD5qiQ1qAw--.16354S2;
- Fri, 26 Jun 2026 22:26:36 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Ben Skeggs <bskeggs@redhat.com>,
- nouveau@lists.freedesktop.org, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH] fix: drm/nouveau: validate_init: break paths after
- drm_gem_object_lookup leak GEM reference
-Date: Fri, 26 Jun 2026 22:26:31 +0800
-Message-Id: <20260626142631.48578-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowAD3mtMajD5qiQ1qAw--.16354S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cw43XFyUGF4kJFW8Gw43GFg_yoW8GrWrpF
- ZxKryjvrWUKa17Kr4IyF1DA3WS9a1vgFWxGFySy34S9r1fAF17Xry5Gw15XrWSyFWfC3yY
- qwnrtasaqFyYyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
- 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
- jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
- 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
- n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
- AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
- 17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
- IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
- IxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIda
- VFxhVjvjDU0xZFpf9x0JUqeHgUUUUU=
-X-Originating-IP: [117.182.75.66]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgEKA2o+h0EOmQABsK
+	by gabe.freedesktop.org (Postfix) with ESMTP id C786710E3A4;
+	Fri, 26 Jun 2026 14:35:26 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q//ggRUl";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E239C10E3A4
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 14:35:25 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1ABD6600D8;
+ Fri, 26 Jun 2026 14:35:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92A0D1F000E9;
+ Fri, 26 Jun 2026 14:35:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782484524;
+ bh=PXSShUtVPVHsE86M0NUMvk7zjxFtwhmiCcLBFYhUzKs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Q//ggRUlMlqLP3pn0jFNUJNSn1g5+wA8Ld55Dq9WGQ3/WLpU+E18hXPqsL2vIKZ5l
+ nX47wmzCxiF/r4rppPRGy3YRoLD20w33dVALLt282jhy1l5qqydyqzqjNP+/XuMU1D
+ 7/C5N55sHAVFAU+e5wWnrghgYoXQuxjEL7mOVt6o1Wn+lwykDe3+P1MTpnDrgDguJY
+ OYdF76JA3BY/eIK3b5HUBaSChj9aCRYugWgmZXiGZljSqYUEJ7r+UyITjX5glfGMS8
+ iRxktr2LavsSkN9juCQL7yqkzKUa3+/KL9b//6w/7h+3W+fTBTqvwo1Pwo9cA35Kmj
+ yinux+hEq0e8A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] fix: drm/nouveau: validate_init: break paths after
+ drm_gem_object_lookup   leak GEM reference
+To: "WenTao Liang" <vulab@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260626142631.48578-1-vulab@iscas.ac.cn>
+References: <20260626142631.48578-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 14:35:24 +0000
+Message-Id: <20260626143524.92A0D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,43 +53,74 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_gem_object_lookup acquires a GEM object reference at the start of
-  each loop iteration. Two break paths (ttm_bo_reserve failure non-EDEADLK
-  and "vma not found") exit the loop without adding the gem to any cleanup
-  list and without calling drm_gem_object_put, causing a GEM object
-  reference leak.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Cc: stable@vger.kernel.org
-Fixes: 9242829a87e9 ("drm/nouveau: Keep only a single list for validation.")
-Fixes: 19ca10d82e33 ("drm/nouveau/gem: lookup VMAs for buffers referenced by pushbuf ioctl")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/nouveau/nouveau_gem.c | 2 ++
- 1 file changed, 2 insertions(+)
+Pre-existing issues:
+- [High] Missing WW mutex unreserve and lock leak on `!vma` error path
+- [High] Direct return on deadlock retry limit bypasses all cleanup
+--
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
-index 20dba02d6175..c654256f4081 100644
---- a/drivers/gpu/drm/nouveau/nouveau_gem.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
-@@ -513,6 +513,7 @@ validate_init(struct nouveau_channel *chan, struct drm_file *file_priv,
- 			if (unlikely(ret)) {
- 				if (ret != -ERESTARTSYS)
- 					NV_PRINTK(err, cli, "fail reserve\n");
-+				drm_gem_object_put(gem);
- 				break;
- 			}
- 		}
-@@ -523,6 +524,7 @@ validate_init(struct nouveau_channel *chan, struct drm_file *file_priv,
- 			if (!vma) {
- 				NV_PRINTK(err, cli, "vma not found!\n");
- 				ret = -EINVAL;
-+				drm_gem_object_put(gem);
- 				break;
- 			}
- 
--- 
-2.39.5 (Apple Git-154)
+commit adecd1d5de2e904d8bd7b79540301f6e207076ed
+Author: WenTao Liang <vulab@iscas.ac.cn>
 
+fix: drm/nouveau: validate_init: break paths after drm_gem_object_lookup le=
+ak GEM reference
+
+This commit fixes GEM object reference leaks in nouveau's validate_init().
+It adds drm_gem_object_put() on two error paths where the validation loop
+breaks early.
+
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouv=
+eau/nouveau_gem.c
+> index 20dba02d6175b..c654256f4081e 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_gem.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
+[ ... ]
+> @@ -523,6 +524,7 @@ validate_init(struct nouveau_channel *chan, struct dr=
+m_file *file_priv,
+>  			if (!vma) {
+>  				NV_PRINTK(err, cli, "vma not found!\n");
+>  				ret =3D -EINVAL;
+> +				drm_gem_object_put(gem);
+>  				break;
+>  			}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does breaking out of the
+loop here leak the WW mutex lock?
+
+At this point in the loop, ttm_bo_reserve() has already successfully
+completed. Because the loop breaks before adding the buffer to the tracking
+lists (vram_list, gart_list, etc.), validate_fini() will not see the object
+to unreserve it.
+
+Could this lead to a WW mutex deadlock and a potential stack use-after-free
+when op->ticket goes out of scope?
+
+[Severity: High]
+This is another pre-existing issue in the same function, but does the
+deadlock avoidance retry logic at the top of validate_init() bypass cleanup?
+
+drivers/gpu/drm/nouveau/nouveau_gem.c:validate_init() {
+    ...
+retry:
+	if (++trycnt > 100000) {
+		NV_PRINTK(err, cli, "%s failed and gave up.\n", __func__);
+		return -EINVAL;
+	}
+    ...
+}
+
+If the loop hits this retry limit and returns directly, it skips
+ww_acquire_fini() and fails to unreserve the slow-reserved buffer (res_bo).
+Can this result in a permanent leak of GEM references, the WW ticket
+context, and WW mutex locks?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626142631.4857=
+8-1-vulab@iscas.ac.cn?part=3D1
