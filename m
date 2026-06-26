@@ -4,48 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 383A5C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 11:30:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3722C43458
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 11:42:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2183C10E5C4;
-	Sun, 28 Jun 2026 11:30:31 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3830F10E5C4
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 11:30:29 +0000 (UTC)
-Received: from localhost.localdomain (unknown [117.182.74.7])
- by APP-05 (Coremail) with SMTP id zQCowACX7hHNBUFqhG3CFQ--.47413S2;
- Sun, 28 Jun 2026 19:30:22 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: dri-devel@lists.freedesktop.org
-Cc: ogabbay@kernel.org, koby.elbaz@intel.com, konstantin.sinyuk@intel.com,
- kees@kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- WenTao Liang <vulab@iscas.ac.cn>, Greg KH <gregkh@linuxfoundation.org>
-Subject: [PATCH v2] accel/habanalabs: fix kref underflow in
- hl_cs_signal_sob_wraparound_handler
-Date: Sun, 28 Jun 2026 19:30:20 +0800
-Message-Id: <20260628113020.43942-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CD0D10E5DA;
+	Sun, 28 Jun 2026 11:42:37 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XPmV8Rit";
+	dkim-atps=neutral
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+ [209.85.208.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C448310E3A5
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:55:21 +0000 (UTC)
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-691c5776f35so1453610a12.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 05:55:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782478520; x=1783083320; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QsVffdBc7bPXV4cXmRez2xscdfa7HYA+uxVYDAWdk7Q=;
+ b=XPmV8Rith1nLwAq1u+oeXP1Ouc87ZFMUobr5R6b2gw2qnuOIkx/GAQLCXSbpM3OjgJ
+ YQrFsIm6NF7hqGSJJ6dj1rpjO6cJNq/V4N/HHe71CbHOayIJ7h5VVC+NdW+cQBSe7qjN
+ RCgpZBWkex+jshF2nlZOdwoKeWPSQhHpb+Zhv/x+ujwanqQjhbasmEwDMtBmoJeUoIYJ
+ nEyCyfPV4nLHW3fcbedo8A2Xp1Q3OMxVPyMVRVREaHEbq8ewtIHdkQPlTPm/wxk65KBl
+ N01KXKjZil/hBvs9cO76BTImAgYeGCiAf9IDqvhjggVgSpspCAx5I46Cw+xx5Kj7xY3P
+ x9wQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782478520; x=1783083320;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=QsVffdBc7bPXV4cXmRez2xscdfa7HYA+uxVYDAWdk7Q=;
+ b=sKBPZJO/OPfVoDMYMCx4Y1hkvVgKcqmdD2w1+CBWQpfQqhruUhgWkja2Hzngk+5G/X
+ izaMod6cDiofnE5folV6vbooGuAzF3R/Sgtonl+tblWerzyVcWzmGQms+g8rY1c19z/9
+ g4IS1gdvFHym0y3/H2g1MD43PcWgw1UhFeX7NSvyG8J6BqFOO1NuaSBnoZY+Ia1qTKsw
+ PyfS3xUWcPQAfjsBHiDkuiGQiKMbw4xdrF5uQNzmx8r46jo2ixqbadErlNOob/UWPJgv
+ Oc6jm80Q3aDb0QySmVE6gxE2r4NhQiZRU5aZg6lRPiYN9xmEbGyWUKkqKlXhi7PljIya
+ 7ROg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoILYK1D9UMiUwLH4j3XyZx53deBvoqzQkoM5ucmumS3x6nXHqCnozek3DYD+Z4mvGT8KBWlJqlS2g=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzmGNArfnbmA8ZWwwDNM5e1+ELJ4P8PdoNEuFZF+G51g7o4Z6WB
+ Rm+R+ulMKTTUOLiing0Ai0Plz5IbAIxGFw31qUGFkndT20/Tk8daQHCT
+X-Gm-Gg: AfdE7cm1s3P1SPFA2Im/E2Npp18lIdu9d1t1YUJAVOIQeEFpmXPgNpEPSz/h8/Y1+vy
+ toB5OLRGA5072kXwrd7gJH5PhjqmmnVCv+TFNqUDGIL9qf9FKaDbRTsYxeKOLAVnaaniegh5nB3
+ 8xE7VLVVcvgXxP1oyzEeD5FtUOAdB3Y28pxarYmvTohE9L6yJDb9bpSgViSJdLP5esGgDL9fJjR
+ hq8pnhcaKcS0By53Nm13o/jIVdAEbkzbxJR6pWH9pxaxCVroPASS0u6AKvpSmTKj2V0pGebUI3L
+ IZdV1ibn88d4ygKhoZjWL0VXb90SdmqefJNRTKtFIko0f5QpiYMGsohoWKOGnQsq8e5Bn7++bIL
+ FuJGTl6RTmhiTG/AQW6M1RzVWW6oh7Jvz4E1yVqGotyOnsQafWlQzvmkEXRyWi5+jT7I+dyx6Yy
+ UH8lCvgAat8rA84jCrbgYp6Vm2n0KGWg6+PuvwyjkJmRLnJQqRfFIYxflJWBHPryigr5Ogsx7Iy
+ lUpEPP+79k81evJFShb4Jk3FDrshBddxw==
+X-Received: by 2002:a05:6402:3585:b0:697:f686:80c7 with SMTP id
+ 4fb4d7f45d1cf-69810b1d4fdmr1909867a12.26.1782478519921; 
+ Fri, 26 Jun 2026 05:55:19 -0700 (PDT)
+Received: from fedora ([154.66.167.183]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-697f46e15besm2750532a12.15.2026.06.26.05.55.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 26 Jun 2026 05:55:19 -0700 (PDT)
+From: aquiles <achillezongo07@gmail.com>
+To: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
+ rodrigo.vivi@intel.com
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ aquiles <achillezongo07@gmail.com>
+Subject: Re: [PATCH 1/2] drm/xe: count UMA shrinkable BOs as reclaimable
+ without swap
+Date: Fri, 26 Jun 2026 12:54:43 +0000
+Message-ID: <20260626125443.2114770-1-achillezongo07@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260626112638.2042298-1-achillezongo07@gmail.com>
+References: <20260626112638.2042298-1-achillezongo07@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowACX7hHNBUFqhG3CFQ--.47413S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr17Zr1DWw1fWF1UKFW3ZFb_yoW8Xw17pa
- s8GF4rJF9rXr9rAFnrCw4UZFyrGa9xKr9rKa1xG395urn8G34xJryYk3WF9rWj9rs3XF48
- XF9Fqr4UC3W8A37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkG14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
- 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
- jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
- 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q
- 6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
- 0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
- 0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
- W8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1l
- IxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUQZ2fUUU
- UU=
-X-Originating-IP: [117.182.74.7]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAAMA2pAiorLTQAAsv
+X-Mailman-Approved-At: Sun, 28 Jun 2026 11:42:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,43 +92,6 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When other_sob->need_reset is true and encaps_sig is false,
-hw_sob_put(other_sob) decrements the kref to 0, but the matching
-hw_sob_get(other_sob) is skipped because it is inside the encaps_sig
-block. The function returns other_sob with kref=0, causing a subsequent
-kref_put to underflow. Fix by adding hw_sob_get(other_sob) in the else
-branch.
+Withdrawing this patch, the approach is wrong.
 
-Suggested-by: Greg KH <gregkh@linuxfoundation.org>
-Fixes: dadf17abb724 ("habanalabs: add support for encapsulated signals reservation")
-Cc: stable@vger.kernel.org
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
-Changes in v2:
-- Correct Fixes hash based on reviewer feedback
----
----
- drivers/accel/habanalabs/common/command_submission.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/accel/habanalabs/common/command_submission.c b/drivers/accel/habanalabs/common/command_submission.c
-index ba4257bda77b..675301dfc0ef 100644
---- a/drivers/accel/habanalabs/common/command_submission.c
-+++ b/drivers/accel/habanalabs/common/command_submission.c
-@@ -1860,11 +1860,10 @@ int hl_cs_signal_sob_wraparound_handler(struct hl_device *hdev, u32 q_idx,
- 		if (other_sob->need_reset)
- 			hw_sob_put(other_sob);
- 
--		if (encaps_sig) {
-+		if (encaps_sig)
- 			/* set reset indication for the sob */
- 			sob->need_reset = true;
--			hw_sob_get(other_sob);
--		}
-+		hw_sob_get(other_sob);
- 
- 		dev_dbg(hdev->dev, "switched to SOB %d, q_idx: %d\n",
- 				prop->curr_sob_offset, q_idx);
--- 
-2.39.5 (Apple Git-154)
-
+Signed-off-by: aquiles <achillezongo07@gmail.com>
