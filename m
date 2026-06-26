@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48EFFC43327
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 18:46:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50A7FC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 18:50:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94CE410E20F;
-	Fri, 26 Jun 2026 18:46:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CF6110E3C8;
+	Fri, 26 Jun 2026 18:50:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nfJdRvTI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z5ZmyL5t";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB29010E20F
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 18:46:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA9E610E3C8
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 18:50:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4391A60A68;
- Fri, 26 Jun 2026 18:46:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABFA61F00A3A;
- Fri, 26 Jun 2026 18:46:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1C67860A6C;
+ Fri, 26 Jun 2026 18:50:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CA331F000E9;
+ Fri, 26 Jun 2026 18:50:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782499574;
- bh=3Gvo+G/2K9GYr2kz4HtZsmXw8TlF40NkahgCHVH6JJ0=;
+ s=k20260515; t=1782499855;
+ bh=IStO88XHZPtIT0shR+QnhDZxd8FpsK3IRCV0Kq9xZto=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nfJdRvTIawPb2q3zgUs+ni2ROHv3TkJv9Np9SnDg2ouXlLf8WAxBNPyPOs6+HLmr4
- 4T8XW7ienTarD/1KwPGDmQB0ZvzbL1+euKid87VKC+D5kAJw24bO0TRTK4/lXxd1sU
- zR6EkKs/fn27p85WnQN6vNd4q1Yh/+QAr+/QoHUWEpxNjBDmLefqgYMKKD+gVLrHJ6
- CSZKnirii1+QHQZ4YJ5DqV/dQ8EM3DM5PEps66mjjChqiIMHkEdYaYc5/SIWbAkyDA
- rKsqs5wiiugi3MhHl5x0+ZUPfPH7jxXAlrwCxSYee3Z/r0VhNhH0L7iFErDOP6h1th
- F5ztRkIjNQoBg==
+ b=Z5ZmyL5tUFZGeffAzfbkzby+YcDt5rIeNfarNTvnzQ/G7nRpebPMKRd8cbvLLijbY
+ K9LGwdP7R4ccs0OeBkLWRpvHL2Mq455OYqdmYYp3e4UVk/VHZcvMp5afx94UFrIlDy
+ HiZ1Syl9lALaFuUS/hHOXl7j2LjBi+vo9IugQfa8aUEwdDfJx2lOfGGdC1XyPOWp9h
+ QIVjD/Fcmv9aPY4Qz+rLQSyGbvRisjGzZ30FGwZNaP6PdzWSLpj6iefuG5PzvI3ffP
+ QXdsGOd65rX5r/hm1YN9VqCyQ8gIf2UUw8DfARod4xY86QeF6LITS5dc33ohGaF99U
+ xIoVXVjEvJZGQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 6/7] rust: pci: return DevresLt from Bar::into_devres()
+Subject: Re: [PATCH v4 5/7] rust: devres: add DevresLt for ForLt-aware
+ device resource access
 To: "Danilo Krummrich" <dakr@kernel.org>
 Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org,
  "Alexandre Courbot" <acourbot@nvidia.com>
-In-Reply-To: <20260626183630.2585057-7-dakr@kernel.org>
+In-Reply-To: <20260626183630.2585057-6-dakr@kernel.org>
 References: <20260626183630.2585057-1-dakr@kernel.org>
- <20260626183630.2585057-7-dakr@kernel.org>
+ <20260626183630.2585057-6-dakr@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 18:46:13 +0000
-Message-Id: <20260626184613.ABFA61F00A3A@smtp.kernel.org>
+Date: Fri, 26 Jun 2026 18:50:54 +0000
+Message-Id: <20260626185055.7CA331F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,57 +61,88 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Missing default generic parameter `SIZE =3D 0` on the `DevresBar` t=
-ype alias.
+- [High] `DevresGuard` implements `Deref` tying the returned reference's in=
+ner lifetime to the `DevresLt` borrow rather than the guard itself, allowin=
+g references to escape the RCU read-side lock and causing a use-after-free.
 --
 
-commit 017789d5b34f5d46a0492fb61faa312b02cc8a26
+commit 62b48d10ff277ed9a20edb541dfb07cf0af74ca2
 Author: Danilo Krummrich <dakr@kernel.org>
-rust: pci: return DevresLt from Bar::into_devres()
 
-This commit updates Bar::into_devres() to return DevresLt, which can shorten
-the stored static lifetime back to the caller's borrow lifetime. It impleme=
-nts
-CovariantForLt and ForLt for Bar and adds a DevresBar type alias.
+rust: devres: add DevresLt for ForLt-aware device resource access
 
-> diff --git a/rust/kernel/pci/io.rs b/rust/kernel/pci/io.rs
-> index 0461e01aaa20e..7a0d2d74129d1 100644
-> --- a/rust/kernel/pci/io.rs
-> +++ b/rust/kernel/pci/io.rs
+This commit introduces DevresLt, a wrapper around Devres that safely shorte=
+ns
+the synthetic 'static lifetime of stored resources to the caller's borrow
+lifetime. It provides both direct-reference accessors for CovariantForLt ty=
+pes
+and closure-based accessors for plain ForLt types.
+
+> diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
+> index 11ce500e9b76f..b7c075a39ba47 100644
+> --- a/rust/kernel/devres.rs
+> +++ b/rust/kernel/devres.rs
+
 [ ... ]
-> @@ -151,6 +155,19 @@ pub struct Bar<'a, const SIZE: usize =3D 0> {
->      num: i32,
+
+> @@ -365,6 +367,110 @@ fn drop(&mut self) {
+>      }
 >  }
 > =20
-> +impl<const SIZE: usize> ForLt for Bar<'static, SIZE> {
-> +    type Of<'a> =3D Bar<'a, SIZE>;
-> +}
-> +
-> +// SAFETY: `Bar<'a, SIZE>` is covariant over `'a`; it holds `&'a Device<=
-Bound>`,
-> +// which is covariant.
-> +unsafe impl<const SIZE: usize> CovariantForLt for Bar<'static, SIZE> {}
-> +
-> +/// A device-managed PCI BAR mapping.
+> +/// Guard returned by [`DevresLt::try_access`].
 > +///
-> +/// See [`Bar::into_devres`].
-> +pub type DevresBar<const SIZE: usize> =3D DevresLt<Bar<'static, SIZE>>;
+> +/// Dereferences to `F::Of<'a>`, shortening the lifetime of the stored d=
+ata to the guard's borrow
+> +/// lifetime.
+> +pub struct DevresGuard<'a, F: CovariantForLt>(RevocableGuard<'a, F::Of<'=
+static>>);
+> +
+> +impl<'a, F: CovariantForLt> core::ops::Deref for DevresGuard<'a, F> {
+> +    type Target =3D F::Of<'a>;
+> +
+> +    #[inline]
+> +    fn deref(&self) -> &Self::Target {
+> +        F::cast_ref(&*self.0)
+> +    }
+> +}
 
-[Severity: Low]
-This isn't a bug, but should DevresBar provide a default size parameter to
-match the underlying Bar struct?
+[Severity: High]
+Does this allow references to escape the RCU read-side lock and cause a
+use-after-free?
 
-The Bar struct defines its size parameter with a default of 0 as seen in the
-context above, but the new DevresBar alias omits this default. This omission
-requires callers to explicitly specify the size when using the alias, which
-creates a slight inconsistency in API ergonomics between the base type and =
-its
-device-managed counterpart.
+Because Target is F::Of<'a>, the inner lifetime of the returned type is tied
+to the DevresLt borrow ('a) rather than the guard itself. If a caller extra=
+cts
+a reference from the returned type, it will have the lifetime 'a.
 
-Would it make sense to define it as:
-pub type DevresBar<const SIZE: usize =3D 0> =3D DevresLt<Bar<'static, SIZE>=
->; ?
+The caller can then drop the guard, releasing the RCU read lock, and the
+device could unbind. This would free the devres allocation while the extrac=
+ted
+reference remains alive in safe Rust for the duration of 'a.
+
+[ ... ]
+
+> +impl<F: CovariantForLt> DevresLt<F>
+> +where
+> +    for<'a> F::Of<'a>: Send,
+> +{
+
+[ ... ]
+
+> +    /// [`DevresLt`] accessor for [`Revocable::try_access`].
+> +    #[inline]
+> +    pub fn try_access(&self) -> Option<DevresGuard<'_, F>> {
+> +        self.0.data().try_access().map(DevresGuard)
+> +    }
+> +}
+
+[Severity: High]
+Does this accessor create a guard that enables the lifetime escape mentioned
+above?
+
+By parameterizing DevresGuard with the DevresLt borrow lifetime ('_), this
+sets up the condition where inner references can outlive the guard itself.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626183630.2585=
-057-1-dakr@kernel.org?part=3D6
+057-1-dakr@kernel.org?part=3D5
