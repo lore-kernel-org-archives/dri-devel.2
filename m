@@ -4,42 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3C33CD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 08:04:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2807ACDE008
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 08:04:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21DB110F4C7;
-	Fri, 26 Jun 2026 08:04:06 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U8QI7bhz";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C42A10F4C5
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 08:04:00 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 40CCD42A0A;
- Fri, 26 Jun 2026 08:04:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82BE1F000E9;
- Fri, 26 Jun 2026 08:03:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782461040;
- bh=G/xc9Wmg70H+OywpMdRATP5caijVm7g7aoctgrvYl28=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=U8QI7bhzz564R+zi+4E9v2r++O3m5CP6G0QHTR27gYMQvEyygu3ZLsnJwbWsEEIHd
- R+8oU83EjRkaZEqxOvSnVvRwpNldAvH5NTjfVRa74SydCybkupdlaqQ+KqJ7noeXp+
- XeSsXqhN/495x4RcbiqldgjH2rux6D+oHuW1lhY+pcUJk3cUvDhvOHVij3uZ+L07K9
- RON+BxjEEXx88Ufb3VArYq/KE+xJ3Nj6YeuUo6RK/xnMh6NKJbLdDbxMGR3uO1Jdue
- /HXwyP1/a7h0j+UmsbZT0u1lhYtYZ1S1B+ZK1LG1z/1D+QHXFYgdbk3k7t/nP4giAM
- Bn1ad/nSw/nYg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] Memory leak error in qxl unbind
-To: =?utf-8?b?w5NzY2FyIE1lZ8OtYSBMw7NwZXo=?= <megia.oscar@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260625191812.70066-1-megia.oscar@gmail.com>
-References: <20260625191812.70066-1-megia.oscar@gmail.com>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 840C410F4D2;
+	Fri, 26 Jun 2026 08:04:50 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A974F10F4DC
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 08:04:48 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.182])
+ by APP-03 (Coremail) with SMTP id rQCowAA3WuGbMj5qHavoFQ--.17430S2;
+ Fri, 26 Jun 2026 16:04:43 +0800 (CST)
+Message-ID: <2cbe37cbaf246f56d54288d8180d383fcbdd5eb4.camel@iscas.ac.cn>
+Subject: Re: [PATCH v5 6/7] drm/verisilicon: add DCUltraLite chip identity
+ to HWDB
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 26 Jun 2026 16:04:43 +0800
+In-Reply-To: <20260625094449.708386-7-a0987203069@gmail.com>
+References: <20260625094449.708386-1-a0987203069@gmail.com>
+ <20260625094449.708386-7-a0987203069@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 08:03:59 +0000
-Message-Id: <20260626080359.E82BE1F000E9@smtp.kernel.org>
+User-Agent: Evolution 3.58.3 
+MIME-Version: 1.0
+X-CM-TRANSID: rQCowAA3WuGbMj5qHavoFQ--.17430S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7AF1ruFyDJryUGrWxuF1kGrg_yoW8Gr1kpF
+ 47KryDW3s5J3ZIyr97Ar4j9Fy5C3Z3J393W3Zay34I9Fs0kryUGry7GF98CFZYgF4xJFyI
+ gF4vkFW7Crsayr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvlb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+ C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Jr0_Gr
+ 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+ MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+ 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+ 67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+ x0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
+ x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvj
+ DU0xZFpf9x07jbVyxUUUUU=
+X-Originating-IP: [112.94.101.182]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,99 +64,53 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+=E5=9C=A8 2026-06-25=E5=9B=9B=E7=9A=84 17:44 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
+> The Nuvoton MA35D1 chip contains a DCUltraLite display controller
+> with
+> model number 0x0 (sic, the model name contains no number either),
+> revision 0x5560 and customer ID 0x305.=C2=A0 It has a similar register ma=
+p
+> with DC8000, only one display output and only 32x32 cursor supported.
+>=20
+> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+> =C2=A0drivers/gpu/drm/verisilicon/vs_hwdb.c | 10 ++++++++++
+> =C2=A01 file changed, 10 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c
+> b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+> index 91524d16f778..7d630a667a3f 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+> @@ -129,6 +129,16 @@ static struct vs_chip_identity
+> vs_chip_identities[] =3D {
+> =C2=A0		.max_cursor_size =3D 64,
+> =C2=A0		.formats =3D &vs_formats_no_yuv444,
+> =C2=A0	},
+> +	{
+> +		.model =3D 0x0,		/* DCUltraLite */
+> +		.revision =3D 0x5560,
+> +		.customer_id =3D 0x305,
+> +
+> +		.generation =3D VSDC_GEN_DC8000,
+> +		.display_count =3D 1,
+> +		.max_cursor_size =3D 32,
+> +		.formats =3D &vs_formats_no_yuv444,
+> +	},
 
-New issues:
-- [High] The patch introduces a use-after-free race condition between `ttm_=
-pool_type_fini()` and the active memory shrinker `ttm_pool_shrink()` by cal=
-ling `list_lru_destroy()` prematurely.
+Checked against the MA35D1 manual, and it looks okay.
 
-Pre-existing issues:
-- [High] `ttm_pool_type_init()` ignores the return value of `list_lru_init(=
-)`, leading to a NULL pointer dereference if allocation fails.
-- [High] `ttm_pool_shrink()` assumes `shrinker_list` is never empty, causin=
-g memory corruption and crashes during module unload if triggered.
---
+```
+Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+```
 
-commit 2d02cce6fc533c55922ee9772ecc91925df8846e
-Author: =C3=93scar Meg=C3=ADa L=C3=B3pez <megia.oscar@gmail.com>
-Subject: Memory leak error in qxl unbind
+Thanks,
+Icenowy
 
-This commit fixes a 64 bytes memory leak discovered when qxl unbind is
-executed.
+> =C2=A0};
+> =C2=A0
+> =C2=A0int vs_fill_chip_identity(struct regmap *regs,
 
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_poo=
-l.c
-> index 278bbe7a11add..15191efe9f7e8 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> @@ -401,6 +401,7 @@ static void ttm_pool_type_fini(struct ttm_pool_type *=
-pt)
-> =20
->  	list_lru_walk(&pt->pages, pool_move_to_dispose_list, &dispose, LONG_MAX=
-);
->  	ttm_pool_dispose_list(pt, &dispose);
-> +	list_lru_destroy(&pt->pages);
-
-[Severity: High]
-Can this list_lru_destroy() call cause a use-after-free race with the active
-memory shrinker?
-
-If ttm_pool_shrink() executes concurrently, it takes a read lock on
-pool_shrink_rwsem and iterates over pt->pages:
-
-drivers/gpu/drm/ttm/ttm_pool.c:ttm_pool_shrink() {
-    ...
-    num_pages =3D list_lru_walk_node(&pt->pages, nid, pool_move_to_dispose_=
-list,
-                                   &dispose, &num_to_free);
-    ...
-}
-
-Because list_lru_destroy() is called here before
-ttm_pool_synchronize_shrinkers() (which is called later in ttm_pool_fini()),
-the shrinker might access the LRU after its memory has been freed. Should
-this destruction be deferred until after the shrinkers are synchronized?
-
->  }
-> =20
->  /* Return the pool_type to use for the given caching and order */
-
-[Severity: High]
-This isn't a bug introduced by this patch, but I noticed that
-ttm_pool_type_init() ignores the return value of list_lru_init():
-
-drivers/gpu/drm/ttm/ttm_pool.c:ttm_pool_type_init() {
-    ...
-    list_lru_init(&pt->pages);
-    ...
-}
-
-If the internal allocation in list_lru_init() fails under memory pressure,
-it returns -ENOMEM and leaves pt->pages uninitialized. Does this lead to a
-NULL pointer dereference when the shrinker later iterates or when a page is
-added?
-
-[Severity: High]
-This is a pre-existing issue, but I noticed that ttm_pool_shrink() assumes
-shrinker_list is never empty:
-
-drivers/gpu/drm/ttm/ttm_pool.c:ttm_pool_shrink() {
-    ...
-    pt =3D list_first_entry(&shrinker_list, typeof(*pt), shrinker_list);
-    ...
-}
-
-During module unload in ttm_pool_mgr_fini(), all pool types are unlinked
-from shrinker_list. Before shrinker_free() resolves, there is a window where
-the list is empty. If the shrinker triggers during this window, will
-list_first_entry() return a bogus pointer and cause memory corruption?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625191812.7006=
-6-1-megia.oscar@gmail.com?part=3D1
