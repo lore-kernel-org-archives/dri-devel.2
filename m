@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61B0BC43327
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 14:45:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00D38C44500
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 14:45:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5435110F65A;
-	Fri, 26 Jun 2026 14:45:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A98A10F661;
+	Fri, 26 Jun 2026 14:45:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="ZgxpmRg0";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="FPkNh4ca";
 	dkim-atps=neutral
-Received: from LO2P265CU024.outbound.protection.outlook.com
- (mail-uksouthazon11021073.outbound.protection.outlook.com [52.101.95.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 817ED10F649
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 14:45:24 +0000 (UTC)
+Received: from LO0P265CU003.outbound.protection.outlook.com
+ (mail-uksouthazon11022098.outbound.protection.outlook.com [52.101.96.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 247DB10F64B
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 14:45:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VM7ysP7Rydxt6osR1oCuw/z4P5pQbnlYecvqW+EBGy7EW7LYJiw+7mePXtIHwcyyZuDnDrw/+TwGaZ3YG4cvZLbqRh2U9lNOeD12G4qW0VzoTZ4nZydd4MJJhHJ0j1zYLeMJcMBSclkDW/sCqQctvaVbP+6XZXmIFlzuGWfxG+bFSTnH14+rF2lHHpYOWMPYRmmKyjlmi6Jdo8Ur4kWBLuZGDYBxLDMytN4mHy8Bf/HYxlK0ELLDTwvZkf4gIybQKLQaS9m0t1jA31TLSS42nuqIGpA8q2X6gULrkmqjNfrUAZAXzRDu+Y9Xjsy/noke2+AeGSZOvxi9OlVvREK97Q==
+ b=pLbyHlCKtZLc2M9QdrDSP9a7v+wSqLCyQQgh8TIKCDVIvE3vgzwa/mQC1qSO3nywEfWy2qaJvjWEA5bVSepe9jkmXtngOx1q5QvNS++Q5hjArVqg/feQQ8M0Ixi6TW3shYxWAyNB4iro7IXATMX3xhzB236pkiurj6srj+xOur4OXEyt6d2gggYNHwGDJ0OIgED0xI5HhN88s56g2DxtAC84tsuuXURHN/HNZTBQqx4T5LlGeNII5ZzSQKC0MuB6RV+p2bwYfxXtZrq0vzdrwDynbz80ElASRaODLjmmxJ5KQiBeKYXhBAuGCWGqF2i7PPyV6j/otV/r/EuDEWGwRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H9wQ15I+NBRD+S+qojXgJPVcWlu9LaUPUdTo0T5SEhY=;
- b=YQ+220HWn7T8ASNOd885YfW5S680c9j0RZ7OZSNXbdEbVgW4+twAbuJc9koe5z+AcVQHJSbcuojrtU9/TxXsg9c68ogtaoeJT6KgS09CkmsLNOQ7qIWqaXc7I3YOhQsT7UZ5LkdH0ya2O4/MZZjgQtuYX29cA1qYFcnH9dBccM2IgRFGi5LPo4p1XJDVVexcrFvbohnDCYuDk25XzOn/MEm9xCOjlCLSC0nzgOg6PZTcf/4pFHTu3AJ5ZKp2qynLcgvbIX8tNjDJXkKapk8OfCl1lbCHv5GUynEElz4Rt3KRQXMqHyjVu4YC3njQjTiHQfnvRoEOluQ3zhNoXUVMYw==
+ bh=7GYfeCL1vcP7b/80s97P05/yaKN4CE2PVWQBlpuVbHE=;
+ b=pp9/efkZTMjhyzpuKBUT86oZfuOUs72ue4WzCtJPubdff4gwYaa8DjmVOSJ8RW11VUEW6eV1dFCuCV94BlTKV7BCjnAvAFdithqwxtcw4kJln7VFa0Jbzqr6CoR2ExKqskaBm4CfPcICSKrKugu2LB7VJwlibuesZZW/RFLjbA8kUZZXwLOuBhGSCOdZ5SRkxABN7mDtAszpMIyavEbJrZ8hyDZFIuAE+gpuEArhQlUoBeNSTVpl09bAK3fT3sYPMmlVDDbGbORjtPg0G9fURLSiKdi4n6jT30Qk5dyijQvqIgC/EYaoONu/UrAr5rYMYlPg3OvsQP/v4EG6vfQ+gw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H9wQ15I+NBRD+S+qojXgJPVcWlu9LaUPUdTo0T5SEhY=;
- b=ZgxpmRg0e1bCRX0Oo/scDyw5TsjPpey6KluWZqCWxx64bL4+3WKyrYaCXj21esTLNQDkQcDn5ebzI/1VeDmcHcJbPDntHAmj3gAzR38AsHPKQsLebpWpSPskOS4KV2Nkbq1DiCceKyJQJJwuVrrD2FatMrHS9Ac9JLIjNtDYmDg=
+ bh=7GYfeCL1vcP7b/80s97P05/yaKN4CE2PVWQBlpuVbHE=;
+ b=FPkNh4caNDgtDqMOS6Q/J+Ar/eUd7uPlxtxIaluSDW3Tf6y53bKLaWi9a3LL2V3weN1mTQAhQHYc5DCd4szbRykJr0VNAXuRwkVahiYaWyShaIcDlqgbZM82/SxqcbBYmU/r+ZuR88dJOJ4sSrp7sWf2v8F8N8t6b2HRS/hW+Kk=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO6P265MB7248.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:341::11)
- with Microsoft SMTP Server (version=TLS1_2,
+ by CWXP265MB2694.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:ab::5) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Fri, 26 Jun
- 2026 14:45:20 +0000
+ 2026 14:45:24 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
- 14:45:20 +0000
+ 14:45:24 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Fri, 26 Jun 2026 15:45:11 +0100
-Subject: [PATCH v5 07/20] rust: io: implement `Mmio` as view type
+Date: Fri, 26 Jun 2026 15:45:18 +0100
+Subject: [PATCH v5 14/20] rust: io: add I/O backend for system memory with
+ volatile access
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260626-io_projection-v5-7-d0961471ae50@garyguo.net>
+Message-Id: <20260626-io_projection-v5-14-d0961471ae50@garyguo.net>
 References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
 In-Reply-To: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
 To: Alice Ryhl <aliceryhl@google.com>, 
@@ -70,13 +71,14 @@ To: Alice Ryhl <aliceryhl@google.com>,
 Cc: Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev, 
  rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org
+ dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org, 
+ Laura Nao <laura.nao@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782485116; l=16251;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782485116; l=5302;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=um6cTW9AX/ZfgyDuPqM0KWFysy6fm/Z3QMYdK6hsSXw=;
- b=62yeWoQxrRrr3S1+JQ/YnNTd43j/Ocpama3E8HprvDW+iS9Z6jNzbenrX7joQ9N7BJssjvSw5
- NQVGolTzBW/Ch3GUgj0erkgrUHJ+i4uPzj3SmRXJ6hC9fCyhCq4Xlk8
+ bh=8W9y9DrpwlwnkHeO/rH/iGKPpeFRxr3aT64tjmYoGsU=;
+ b=vyKljdPZLudlhSYkvLZp4CduRkmebsPy++TgZ4wLKiBLPyw6VO/m41GobfMcjD0lzPS5EffAK
+ /eojQSvl4IYCzi378hE4QsUJnNMhNtGt21/PnCVRv7LHs4b3xnUehqr
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO6P265CA0010.GBRP265.PROD.OUTLOOK.COM
@@ -84,67 +86,67 @@ X-ClientProxiedBy: LO6P265CA0010.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:488::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO6P265MB7248:EE_
-X-MS-Office365-Filtering-Correlation-Id: 806816a6-1688-4380-9678-08ded3918c05
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWXP265MB2694:EE_
+X-MS-Office365-Filtering-Correlation-Id: c3d2ecc5-8e11-48b0-9a7c-08ded3918e1c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|10070799003|23010399003|366016|7416014|18002099003|22082099003|921020|5023799004|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info: B3O51/N66DIhwihGSdx9vu7YWgBaivQTtdpbcGl7dqs718G+1qC68UDfRIAmxFNDMKQAWEXRcNGO3MTFtS0n8JQMpvg1lACBF5hMYQPu4hHlASFCdWRkSvkxCKCVROxD7j+XNC1b8qZtbUlYF8l54/zGM0AjaQMpurwNdZGeNLWNcOQd4dDRFMGngBXSuSXOqwjOpez3BTIEqIIQPS60EyA6ZnSN7oYocg6rvIzUO0aonzIE6Aa1+mJe+LxKzOEWTNxBRHuUd4aBlWHKhKQsrOhcq7q9BJS6qYa3puqz/dqyZIpX69a1YFj1uc4Au788pMefoylRmN+67Z2UnZKVREYIm/fnYumbDJ6gWsOf7zcvnfyUFQepHoChfc2t1DkfWizP8/MlCO8as1zxIlmwaegb9JFBbFL/az0YfHaQ/2A3A4G65yIFtWABgtAx3JXtdLLwBnv8bqjX2DpH2bY+Na+uF9FTLSWsLHow/LI6JrEFygW4jIiIpBZBaHPgAR+9boGVeu6vaUG6NbN2QgeCYCVpDUY7NWhnZFmLmayZEXnvQNPs97JqrZMjbgGZ4NawDv7VJLR5RaKJiUX17yk3ZXfYAhFvWCsWtVF1IVSDJ6AaFI3yf2ZnNar9JJtvkk6G+o3bzdW2hATrCgAujjwijBc9jCcT43apLRkMdcHAX5JnVEnG4uzkV6WcsHSl3SKPt8Uv6SYTz8bTTfOIRULsgg==
+ ARA:13230040|7416014|376014|23010399003|1800799024|366016|10070799003|921020|18002099003|5023799004|22082099003|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info: zdEuxhjQ0eRx2HudU2YmrkgS6caYQ+ywm1f4CiunL352gzn/3+kApfNU86UpVSiufWPZ1+REZNHXM9zS5RvC8orIT44sbhf2ZplFzUkwxYGvR2mqcmBmIdlUCJfakJrMpowFtNaByhF5lsDjASng7xWeR5YVepeDTWenBvCim914xkyHBrhEMjCk+SubBjR+W3DR00MZhgQur9u8ayo8hkcHwBaLKJ6Hi8P+fU9kXyhebeT/SJxpl6swbbl/zXs+1c9X1mfhBqK7+2fdh86hwPdlRv/nAVL+CFRZa+6LuXkVHAht8wPnuPs6OnZpNCOYT5gSASm9wfDNH2zDrp2axxf2djOhLjkt0Qj5cRAomotkaZvnkOgBwUo89QWhvTtLsKVRe1/S8WIO+i31XmFgvTylQ792bLy9vCZUUmV5AFhaiOJkUA0/ykmihUiL1qXLk/94d+INCdwnkkj1JMgozYDMnrzjtyNdkkJ7S30rs7NZcuD5bUoOkkIofWayYfOB0elFpp8oZVH7nj2j2iUszVkid6rln6rkDNoSk3aj8QoAIX1Cg39ThASb9c6OOqvt2n3RJuGlGoBVwTI9JnVsJr597bdWDXL7u6SfUXOxXOO6vRTAW8KcP/cEK00y6JvTs7H8AbLTu1yBapH2pQVKnaiGIESk/bvphy1Hkw9GF4QckpU1tsAK3XZxNWX48cruXkjRq4JLipJKueQ+1jXfTg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(10070799003)(23010399003)(366016)(7416014)(18002099003)(22082099003)(921020)(5023799004)(56012099006)(6133799003);
+ SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(10070799003)(921020)(18002099003)(5023799004)(22082099003)(56012099006)(6133799003);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NXRqSTBVTlp3VTlwcGN1RTFSRHFJekFFTTI3TUowM3ByU2lrTDBMck1lQUZM?=
- =?utf-8?B?QkdKTXg4dzZ6elJLTW9WNEJTcDc3WDlmNkw2UUV3cHJZWWhQUmUzK2ZjVTdG?=
- =?utf-8?B?OXZzSWlLVWV2dXBwSTZHa1ZNaW1XS1k2anB6aXNYdjM3dC9IamhlbzNBcnhr?=
- =?utf-8?B?dzdibGxlSjhQWUxEd2s0ZGtjSWxOOWs5TW1yVG84WVhmUlRhejJIZ2xKNVVi?=
- =?utf-8?B?Y056Z1FYMTUwbkMyUUV4ZXFqeGhyV2pwWU5qU3JBNUsrUitWZ1dWNDQ0ZVV5?=
- =?utf-8?B?alRmVUNXZy9VdHpUWU5vK1dEKzRhS0JxTTA1SmZYUjJ5MHZFN213b2Y5L1Jt?=
- =?utf-8?B?czFWbUxpOGVJK2dHVkc5S2M4UmxoanpPM1A3TWQzWXNET1MvWVRwblN6Z1Vs?=
- =?utf-8?B?bHpBMWlmNTlDbVpsSlRWemNjSnpqYnRZWVZNQ0dJZ0VHQm1uYnlUaGc5NEJC?=
- =?utf-8?B?cVV4MGc3ZGNsNVZhanI3MHJoZzN2SUs5Tzdad09KalBLUUw2ZjdaSk9DV1pI?=
- =?utf-8?B?U0h0M2F4QjBZQi84a2hoU05pYzF4VzhpaHZBakhjUkhrR1k3bjVTek9PcS90?=
- =?utf-8?B?S3FGSDRrdG9ySnYvSVVRT2IxaWFtOWVlcnFLUEtyNVBsWmNtbExVdW1qb3Jv?=
- =?utf-8?B?TFVEWUUzQW9JbFo4UmhRbmxaUVFHUGtnMlpibE9YVUczdnJLRkJBeFptTFFm?=
- =?utf-8?B?MXBibk1JR0QyeUErbHZSdC9kNVZDT21CQkQ3ZUlzb1pjQlBwcGg2cFpqRGk0?=
- =?utf-8?B?RFk2OUhqcjR1NC9VRWFuc3R2SE5kOURDVDFxVWEwdUYybGlvY0RRR28yQXhh?=
- =?utf-8?B?Q3lPbnM4Q1R1Zk9Vc3JHUnM0VEdTN08xckdKZWc5S2hDci9DM29XRWVRL0Rz?=
- =?utf-8?B?ZDNwREEzVWJqWkZaN1dEVDRIclVsdVlHSEhOa2ovLy9BL2J6dUhNd2g0cmdO?=
- =?utf-8?B?ckQrRzU3Y1BoblhjL1pYMi9oU00rR0Z5aUswdHZXKzN5dlUrM0QvalRwbThN?=
- =?utf-8?B?L1hsaktUZ1VNY2VhaFg1TlhXVUNVcnlibCt3R1MydjY2RjZZSGpYWWZoazZu?=
- =?utf-8?B?VnNNVHFWWlBEUUQ3RTRtakxqWUxGV1pIQktRdXU1OUVCaGZCOU04Rk01TzY0?=
- =?utf-8?B?aWw4VnJTYnpSd2JQQnh1ODltTUlpRS83VXkyeHE1OHZkQksyODVtRnZHRWpK?=
- =?utf-8?B?c1ZPMjlRRnZLOGo3TGptdytxOXFJek00VnNjZlUzT01TZDhnUWxYb2lhUGNn?=
- =?utf-8?B?QmIxb3BqSCtuQWNmbGo3aVg3T3pFT0w0Y3Bka3JyQ3p3QzI2K0Y4Yll3UDI1?=
- =?utf-8?B?VWlGZC9jL3l5RUhJTmhxaTBudkJ0dllpdlRzQmZWZ0paem51cm84dzFhcURL?=
- =?utf-8?B?RTUyRlJsNHFFMC9kQURBMGo0TVlQYkNtUnowKzRReEQ2M3NHekgzQUxXVysv?=
- =?utf-8?B?a2pyN0ZYNG9GbWpldmN1dG1UZTFCVEFlR245MDErNEJOMzFTSFB3bDZSVUhE?=
- =?utf-8?B?blc2YkVsb1grRGhQb3E2SkhKN3hrbk56OEpQYWNESFozVGlZSmszQjkxUE9v?=
- =?utf-8?B?MWtLV0FxRm9reDd3b2tnY0xEd3B5aFFPdVhlbzFDcjk5b3BoaiszU0QwOTQv?=
- =?utf-8?B?dk81Zmc1WGJnWXU4dVJLTEphUU95M3pUdFhyK3FlU09ybGsxNC90b0tLSXpQ?=
- =?utf-8?B?dlZpdDNqYUJPb2ZFMk9mL2cyRFdSM0htbmVhVkhwN3ZFRnhEc2FBRmVqQWJS?=
- =?utf-8?B?SDVsdlhPV0orNCtWRHdaM25zOEIvdStkWkE4S0IxMUZTRFJLVlg3VWRKUU1F?=
- =?utf-8?B?WThXNUhxbFBHeEV2enJkbllzTVNwcnI1NnVLMEJYVTFFVXAwR1BvcFMrL3J3?=
- =?utf-8?B?aUZXMXp4aWYycE9qcHk2TFpjS0h3OHdubW1Deks2MWMwZnpQUHlpU0tkTHox?=
- =?utf-8?B?YWJ2ejJPS1FPeDVwbS8yRUZGTFVlZ3pDS01KL1RycDlXVWFudmFlM2E4d2x4?=
- =?utf-8?B?MlJpMkhBanMzd3RRU1JtVytSclNPT0o0Y2VOSFFCSVpMZ0pHV256YUFrQjh3?=
- =?utf-8?B?OTJJUkNPVWt4cERRUnl2Y0FmbG1KQzZjc29JOFd4UkVPc2VIeVMvVXdwOXZG?=
- =?utf-8?B?R2xzM2pZNEpmR2VzRDJEcU91TGZtMWkzM3ZSaWNORUVyVmdRQy9wTHRCeFc3?=
- =?utf-8?B?UUdkeE1LT2REZ1BNRUsvU0ZReGViMHhPS0U1YWNvbFN6QzUwUG1KYWVwNFBs?=
- =?utf-8?B?bDlYVmNpeXlhL1ZCZHVzQmVQVDgwa3FqdTI5anhQTkFadEJuM0NwNHM4djNL?=
- =?utf-8?B?YWxzWFhXTER1Ulhhdk1scnNwRy81OHhHR1FqM1dkTlJpWjUwSDBDZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UVEzYVZJeFJ2bE9YNkZCMlBOOE1sQ0xTZHpWNlFsTkU1WmdHcnZPRGcvUFpy?=
+ =?utf-8?B?ZzQxVkVsUjB6SkNVZDM3L3ZMa2ptdWE3eWUwZHJacWE4OUxxQndSWVVGcldH?=
+ =?utf-8?B?UVFhWnk0a05BSjNobWQ2RlVKdm5KbEtuRkdabFVBTHVYaE1xQXNTV0hyNFEw?=
+ =?utf-8?B?L1hlSVp6M0d4eUp5SC8xQ2Rxc1liTXl1Y3pRSms2OVIvdXpKdlNDMERjNVIw?=
+ =?utf-8?B?VGtvVERobzlmZTVqZnVFMnhTekVrSmxKWXRwb2ljWFNvSjRMSG1FN1dRczA3?=
+ =?utf-8?B?bVJJY1FvbEJNVWZ4d2VEVWFOTmxiRHdlTGphSTRhYXoyUzhoRm56cFB4L2VW?=
+ =?utf-8?B?OUNtZGE3MEltOWM4U0JlV3YwMThkWjlUdnp4dkxpZ2xUUHdHRklqWlBKcUZr?=
+ =?utf-8?B?aTVORk55a1EvOFc5NzhMSTJ4QTNmK2QyN0NCSVh0UDlRZlhDcFZaYU93NTU5?=
+ =?utf-8?B?Q3FZZHNPUUg0UkM0VmkxRXlXMUZ3WSswOXVvSG0yWWw2LzdGN2Z0MDNFcm51?=
+ =?utf-8?B?Wld5Nm55OGFGRHprNWxHN3ZzYmhvdml3d3dGNzZXai9KdFRLc3krYVRONXN2?=
+ =?utf-8?B?cW9JTWJLQzRuS0g5OW11RWNVWW9JVTNYbGo3M1h4bWFpcEFtd1VMK0VnejJr?=
+ =?utf-8?B?ZGFoZk9ab29EN25JYWxzSm9ybXhnaFNJMFJWNGpvb0xrVTkrQ1F4aERKVEg5?=
+ =?utf-8?B?b1ptMDRUbFlHbmVVY1U5eEcrL0crVDlCbXduZ2M0MlNzdWtraTk4V1I2QmZa?=
+ =?utf-8?B?Y3NTQVdoVlZ0aDd5RXk0NUVMQUxraEVEMkQ1cXhsUFQrTWF5ZEpqd2ZpTHVJ?=
+ =?utf-8?B?UnRwOTlLUkYvZnExd0VwMDVKOFVlNWI3TVZ4UFpqMnV1bXk2anJEQjhocWhs?=
+ =?utf-8?B?OEtFR2VGSEdiU21FMkFsM1ZrTDl3MHczemRScWhEKzNrYVN4eUs4TTJYcHk4?=
+ =?utf-8?B?dDZTY2QxUnZNbUEyVzBsa1dPMmVqdVR4OVF2KysyQzJ5Z0Z6ZGJPcGVSNXdt?=
+ =?utf-8?B?d0pkcDh6VGp6WTNhQWtRb1EzNUhDNUNVZG9sNWJ3YTRsZXhZL21SczlaZGQ0?=
+ =?utf-8?B?cy94VjJUY20rWnlSTHFzZDdkVS9iVGRsLzBHZENxUzJOK3BrQ09lYUNJSzZD?=
+ =?utf-8?B?cDNqVVZ2L0sreGlrWThGTm52Q3Y4cUJnRFRQSG5BOG01VjhLczZrNCtoTzFO?=
+ =?utf-8?B?ZzR4NU1UMWFsZ25UOFBBRitNekY5eTd1RlR6dUFWU3VDaWQvbkowdERMNTFm?=
+ =?utf-8?B?VEloaXBHRmIwZDA1OHZxQkVpeGlDVjhDWG5Eby92cVorL250bVVoN1RxYng1?=
+ =?utf-8?B?d2pka1FuUWxzanJGSVRaZWhKUFdud3l1bzdlcDRsL3NmWmIxL0tPVDY4NERN?=
+ =?utf-8?B?aUl6VExGTDJ0VTNIQ3o2a01MOUxJM3B0dCtKQW1FNG13eEJMdTViT1lqWXFj?=
+ =?utf-8?B?SzAxL2xXRkw3NW5hSVVpSm9Da0VQTkNLajZmSFhSald6Vmh5V2hPS3grdTBZ?=
+ =?utf-8?B?ZlE5cHNCUll2cCtBekJLZ3NDaTVCZm51cVMvQlpJUzFMaXd1NURSQVVNQnNB?=
+ =?utf-8?B?YmZRbll3a2lwcENuV0liaHkxWGlQeTJhTDE4YnRiZnRTSklocVovSDB0Y2hy?=
+ =?utf-8?B?SEd6U2NsZGJoelB2TlgrWmJVTTBiczJpcWgxc2RYVXR4bjFBZ1VkQnp2TzRY?=
+ =?utf-8?B?bkEvQmVFNXNZb0tCS3Fycm1FVlNkR1M0cGk2K21vMjZQK0FWY0UxTkxSNDMw?=
+ =?utf-8?B?RC9SS0VLclVpWmcyRXVMZlV1cm5PQktpb1FkdHNySVZVL2R3UTJWeTh6Ulhu?=
+ =?utf-8?B?MDJna0l3OWRLQkNhVDR6MVlwcndIaUhPelpOY2NncThEZ2FRUmE4b1NkUVY0?=
+ =?utf-8?B?R25OTG4yVncxNG93WFB6YkVjUTQxQUNyVDd3OFhtZU1mcC8yWDRFdnFvbFFu?=
+ =?utf-8?B?MHRtZlFvakFFcGd2UkplMDBzMG1IdCttSFc4N3dzV1EydTEybTNpUmdLTHBx?=
+ =?utf-8?B?Z1ZjV0V5TEFhYTFZZnBMNE9JM1ZjMmlaS0lvczFROThCdUp3ZzQvMldqNUdh?=
+ =?utf-8?B?UGlLQjJobVVkVnFBQlBzOXQ2U21tcGsvWVd0Rjc4L0k4VTdRelJaRlMyRWRp?=
+ =?utf-8?B?a0UzKzlCV0s5T0p0ZnFWRUlTVE9GZm5VSjJSU1YwbnVrQXJEOUJZcnlRNlc5?=
+ =?utf-8?B?UW0yblZRVUNHYWpVQ283QXF0eDRjOHFXNmZWSkMrdjFoeFdxaFhSVWdydGZD?=
+ =?utf-8?B?WTBiblk3R05ZcnBjR2dWNmtsTnNJTHlab21oZkFiaDFNa3E0OU5RQVpzeFA5?=
+ =?utf-8?B?MHM2MjJtRkhmNTc3MmhEbnA0cE94bVpEWEdueDVJc3BXTjNUTG45QT09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 806816a6-1688-4380-9678-08ded3918c05
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3d2ecc5-8e11-48b0-9a7c-08ded3918e1c
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 14:45:20.6760 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 14:45:24.1997 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rUxh6Ryhk9SvZG5FznFsW8qXNC+GpFwvezZJocXkBstWnBhXnpb8OGDQUJSLVqtMeDtqsc/XZVD+ellC/q2W8g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P265MB7248
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9ENygNhqZ7N5P4jBVGlbmLSb5r9Obw48dH36/2UDwcfpphGkoX2FG5wF3+76N1NQnAcnxagYW6wa/fb7V1PVcw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2694
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,508 +162,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement `Mmio` as view type and convert `RelaxedMmio` to view type as
-well. I/O implementations of `MmioOwned` are changed to delegate to the
-`Mmio` view type.
+From: Laura Nao <laura.nao@collabora.com>
 
-All existing users of `MmioOwned` in the documentation which do not
-actually reflect the owning semantics is converted.
+Add `SysMem`, an `Io` trait implementation for kernel virtual address
+ranges. It uses volatile accessors to provide safe access to shared
+memory that may be concurrently accessed by external hardware. Implement
+`IoCapable` for `u8`, `u16`, `u32`, and `u64` (for 64-bit system).
 
+This can be used for instead of `Coherent` for cases where a different
+layer takes care of mapping the system memory to the device (e.g. dma-buf
+or GPUVM).
+
+Signed-off-by: Laura Nao <laura.nao@collabora.com>
+[ Rebased and adapted on top of I/O rework. - Gary ]
+Co-developed-by: Gary Guo <gary@garyguo.net>
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/io.rs          | 176 ++++++++++++++++++++++++++++++++++-----------
- rust/kernel/io/poll.rs     |  10 +--
- rust/kernel/io/register.rs |  24 +++----
- 3 files changed, 153 insertions(+), 57 deletions(-)
+ rust/kernel/io.rs | 122 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 122 insertions(+)
 
 diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-index f93be7f78069..8110b49aa430 100644
+index 96962498af77..5c06785facea 100644
 --- a/rust/kernel/io.rs
 +++ b/rust/kernel/io.rs
-@@ -4,6 +4,10 @@
- //!
- //! C header: [`include/asm-generic/io.h`](srctree/include/asm-generic/io.h)
+@@ -1034,6 +1034,128 @@ pub fn relaxed(self) -> RelaxedMmio<'a, T> {
+ #[cfg(CONFIG_64BIT)]
+ impl_mmio_io_capable!(RelaxedMmioBackend, u64, readq_relaxed, writeq_relaxed);
  
-+use core::{
-+    marker::PhantomData, //
-+};
++/// I/O Backend for system memory.
++pub struct SysMemBackend;
 +
- use crate::{
-     bindings,
-     prelude::*,
-@@ -537,10 +541,11 @@ fn write64(self, value: u64, offset: usize)
-     /// ```no_run
-     /// use kernel::io::{
-     ///     Io,
--    ///     MmioOwned,
-+    ///     Mmio,
-+    ///     Region,
-     /// };
-     ///
--    /// fn do_reads(io: &MmioOwned) -> Result {
-+    /// fn do_reads(io: Mmio<'_, Region>) -> Result {
-     ///     // 32-bit read from address `0x10`.
-     ///     let v: u32 = io.try_read(0x10)?;
-     ///
-@@ -571,10 +576,11 @@ fn try_read<T, L>(self, location: L) -> Result<T>
-     /// ```no_run
-     /// use kernel::io::{
-     ///     Io,
--    ///     MmioOwned,
-+    ///     Mmio,
-+    ///     Region,
-     /// };
-     ///
--    /// fn do_writes(io: &MmioOwned) -> Result {
-+    /// fn do_writes(io: Mmio<'_, Region>) -> Result {
-     ///     // 32-bit write of value `1` at address `0x10`.
-     ///     io.try_write(0x10, 1u32)?;
-     ///
-@@ -609,7 +615,8 @@ fn try_write<T, L>(self, location: L, value: T) -> Result
-     /// use kernel::io::{
-     ///     register,
-     ///     Io,
--    ///     MmioOwned,
-+    ///     Mmio,
-+    ///     Region,
-     /// };
-     ///
-     /// register! {
-@@ -625,7 +632,7 @@ fn try_write<T, L>(self, location: L, value: T) -> Result
-     ///     }
-     /// }
-     ///
--    /// fn do_write_reg(io: &MmioOwned) -> Result {
-+    /// fn do_write_reg(io: Mmio<'_, Region>) -> Result {
-     ///
-     ///     io.try_write_reg(VERSION::new(1, 0))
-     /// }
-@@ -654,10 +661,11 @@ fn try_write_reg<T, L, V>(self, value: V) -> Result
-     /// ```no_run
-     /// use kernel::io::{
-     ///     Io,
--    ///     MmioOwned,
-+    ///     Mmio,
-+    ///     Region,
-     /// };
-     ///
--    /// fn do_update(io: &MmioOwned<0x1000>) -> Result {
-+    /// fn do_update(io: Mmio<'_, Region<0x1000>>) -> Result {
-     ///     io.try_update(0x10, |v: u32| {
-     ///         v + 1
-     ///     })
-@@ -691,10 +699,11 @@ fn try_update<T, L, F>(self, location: L, f: F) -> Result
-     /// ```no_run
-     /// use kernel::io::{
-     ///     Io,
--    ///     MmioOwned,
-+    ///     Mmio,
-+    ///     Region,
-     /// };
-     ///
--    /// fn do_reads(io: &MmioOwned<0x1000>) {
-+    /// fn do_reads(io: Mmio<'_, Region<0x1000>>) {
-     ///     // 32-bit read from address `0x10`.
-     ///     let v: u32 = io.read(0x10);
-     ///
-@@ -723,10 +732,11 @@ fn read<T, L>(self, location: L) -> T
-     /// ```no_run
-     /// use kernel::io::{
-     ///     Io,
--    ///     MmioOwned,
-+    ///     Mmio,
-+    ///     Region,
-     /// };
-     ///
--    /// fn do_writes(io: &MmioOwned<0x1000>) {
-+    /// fn do_writes(io: Mmio<'_, Region<0x1000>>) {
-     ///     // 32-bit write of value `1` at address `0x10`.
-     ///     io.write(0x10, 1u32);
-     ///
-@@ -757,7 +767,8 @@ fn write<T, L>(self, location: L, value: T)
-     /// use kernel::io::{
-     ///     register,
-     ///     Io,
--    ///     MmioOwned,
-+    ///     Mmio,
-+    ///     Region,
-     /// };
-     ///
-     /// register! {
-@@ -773,7 +784,7 @@ fn write<T, L>(self, location: L, value: T)
-     ///     }
-     /// }
-     ///
--    /// fn do_write_reg(io: &MmioOwned<0x1000>) {
-+    /// fn do_write_reg(io: Mmio<'_, Region<0x1000>>) {
-     ///     io.write_reg(VERSION::new(1, 0));
-     /// }
-     /// ```
-@@ -801,10 +812,11 @@ fn write_reg<T, L, V>(self, value: V)
-     /// ```no_run
-     /// use kernel::io::{
-     ///     Io,
--    ///     MmioOwned,
-+    ///     Mmio,
-+    ///     Region,
-     /// };
-     ///
--    /// fn do_update(io: &MmioOwned<0x1000>) {
-+    /// fn do_update(io: Mmio<'_, Region<0x1000>>) {
-     ///     io.update(0x10, |v: u32| {
-     ///         v + 1
-     ///     })
-@@ -828,16 +840,72 @@ fn update<T, L, F>(self, location: L, f: F)
-     }
- }
- 
-+/// A view of memory-mapped I/O region.
-+///
-+/// # Invariant
-+///
-+/// `ptr` points to a valid and aligned memory-mapped I/O region for the duration lifetime `'a`.
-+pub struct Mmio<'a, T: ?Sized> {
-+    ptr: *mut T,
-+    phantom: PhantomData<&'a ()>,
-+}
++impl IoBackend for SysMemBackend {
++    type View<'a, T: ?Sized + KnownSize> = SysMem<'a, T>;
 +
-+impl<T: ?Sized> Copy for Mmio<'_, T> {}
-+impl<T: ?Sized> Clone for Mmio<'_, T> {
 +    #[inline]
-+    fn clone(&self) -> Self {
-+        *self
++    fn as_ptr<'a, T: ?Sized + KnownSize>(view: Self::View<'a, T>) -> *mut T {
++        view.ptr
 +    }
-+}
 +
-+impl<'a, T: ?Sized> Mmio<'a, T> {
-+    /// Create a `Mmio`, providing the accessors to the MMIO mapping.
-+    ///
-+    /// # Safety
-+    ///
-+    /// `raw` represents a valid and aligned memory-mapped I/O region while `'a` is alive.
 +    #[inline]
-+    pub unsafe fn from_raw(raw: MmioRaw<T>) -> Self {
-+        // INVARIANT: Per safety requirement.
-+        Self {
-+            ptr: raw.ptr,
++    unsafe fn project_view<'a, T: ?Sized + KnownSize, U: ?Sized + KnownSize>(
++        _view: Self::View<'a, T>,
++        ptr: *mut U,
++    ) -> Self::View<'a, U> {
++        // INVARIANT: Per safety requirement, `ptr` is projection from `view`, so it is also a valid
++        // kernel accessible memory region.
++        SysMem {
++            ptr,
 +            phantom: PhantomData,
 +        }
 +    }
 +}
 +
-+// SAFETY: `Mmio<'_, T>` is conceptually `&T` but in I/O memory.
-+unsafe impl<T: ?Sized + Sync> Send for Mmio<'_, T> {}
++/// Implements [`IoCapable`] on `SysMemBackend` for `$ty` using `read_volatile` and
++/// `write_volatile`.
++macro_rules! impl_sysmem_io_capable {
++    ($ty:ty) => {
++        impl IoCapable<$ty> for SysMemBackend {
++            #[inline]
++            fn io_read(view: SysMem<'_, $ty>) -> $ty {
++                // SAFETY:
++                // - Per type invariant, `ptr` is valid and aligned.
++                // - Using read_volatile() here so that race with hardware is well-defined.
++                // - Using read_volatile() here is not sound if it races with other CPU per Rust
++                //   rules, but this is allowed per LKMM.
++                // - The macro is only used on primitives so all bit patterns are valid.
++                unsafe { view.ptr.read_volatile() }
++            }
 +
-+// SAFETY: `Mmio<'_, T>` is conceptually `&T` but in I/O memory.
-+unsafe impl<T: ?Sized + Sync> Sync for Mmio<'_, T> {}
-+
-+impl<T: ?Sized + KnownSize> Io for Mmio<'_, T> {
-+    type Target = T;
-+
-+    #[inline]
-+    fn addr(self) -> usize {
-+        self.ptr.addr()
-+    }
-+
-+    #[inline]
-+    fn maxsize(self) -> usize {
-+        KnownSize::size(self.ptr)
-+    }
++            #[inline]
++            fn io_write(view: SysMem<'_, $ty>, value: $ty) {
++                // SAFETY:
++                // - Per type invariant, `ptr` is valid and aligned.
++                // - Using write_volatile() here so that race with hardware is well-defined.
++                // - Using write_volatile() here is not sound if it races with other CPU per Rust
++                //   rules, but this is allowed per LKMM.
++                unsafe { view.ptr.write_volatile(value) }
++            }
++        }
++    };
 +}
 +
- /// Implements [`IoCapable`] on `$mmio` for `$ty` using `$read_fn` and `$write_fn`.
- macro_rules! impl_mmio_io_capable {
-     ($mmio:ident, $(#[$attr:meta])* $ty:ty, $read_fn:ident, $write_fn:ident) => {
-         $(#[$attr])*
--        impl<const SIZE: usize> IoCapable<$ty> for &$mmio<SIZE> {
-+        impl<T: ?Sized> IoCapable<$ty> for $mmio<'_, T> {
-+            #[inline]
-             unsafe fn io_read(self, address: usize) -> $ty {
-                 // SAFETY: By the trait invariant `address` is a valid address for MMIO operations.
-                 unsafe { bindings::$read_fn(address as *const c_void) }
-             }
- 
-+            #[inline]
-             unsafe fn io_write(self, value: $ty, address: usize) {
-                 // SAFETY: By the trait invariant `address` is a valid address for MMIO operations.
-                 unsafe { bindings::$write_fn(value, address as *mut c_void) }
-@@ -847,17 +915,12 @@ unsafe fn io_write(self, value: $ty, address: usize) {
- }
- 
- // MMIO regions support 8, 16, and 32-bit accesses.
--impl_mmio_io_capable!(MmioOwned, u8, readb, writeb);
--impl_mmio_io_capable!(MmioOwned, u16, readw, writew);
--impl_mmio_io_capable!(MmioOwned, u32, readl, writel);
-+impl_mmio_io_capable!(Mmio, u8, readb, writeb);
-+impl_mmio_io_capable!(Mmio, u16, readw, writew);
-+impl_mmio_io_capable!(Mmio, u32, readl, writel);
- // MMIO regions on 64-bit systems also support 64-bit accesses.
--impl_mmio_io_capable!(
--    MmioOwned,
--    #[cfg(CONFIG_64BIT)]
--    u64,
--    readq,
--    writeq
--);
++impl_sysmem_io_capable!(u8);
++impl_sysmem_io_capable!(u16);
++impl_sysmem_io_capable!(u32);
 +#[cfg(CONFIG_64BIT)]
-+impl_mmio_io_capable!(Mmio, u64, readq, writeq);
- 
- impl<'a, const SIZE: usize> Io for &'a MmioOwned<SIZE> {
-     type Target = Region<SIZE>;
-@@ -875,6 +938,23 @@ fn maxsize(self) -> usize {
-     }
- }
- 
-+impl<'a, const SIZE: usize, T> IoCapable<T> for &'a MmioOwned<SIZE>
-+where
-+    Mmio<'a, Region<SIZE>>: IoCapable<T>,
-+{
-+    #[inline]
-+    unsafe fn io_read(self, address: usize) -> T {
-+        // SAFETY: Per safety requirement.
-+        unsafe { self.as_view().io_read(address) }
-+    }
++impl_sysmem_io_capable!(u64);
 +
-+    #[inline]
-+    unsafe fn io_write(self, value: T, address: usize) {
-+        // SAFETY: Per safety requirement.
-+        unsafe { self.as_view().io_write(value, address) }
-+    }
++/// System memory region.
++///
++/// Provides `Io` trait implementation for kernel virtual address ranges,
++/// using volatile read/write to safely access shared memory that may be
++/// concurrently accessed by external hardware.
++///
++/// # Invariants
++///
++/// `self.ptr.addr() .. self.ptr.addr() + KnownSize::size(self.ptr)` is valid and aligned kernel
++/// accessible memory region for the lifetime `'a`.
++pub struct SysMem<'a, T: ?Sized> {
++    ptr: *mut T,
++    phantom: PhantomData<&'a ()>,
 +}
 +
- impl<const SIZE: usize> MmioOwned<SIZE> {
-     /// Converts an `MmioRaw` into an `MmioOwned` instance, providing the accessors to the MMIO
-     /// mapping.
-@@ -887,19 +967,33 @@ pub unsafe fn from_raw(raw: &MmioRaw<Region<SIZE>>) -> &Self {
-         // SAFETY: `MmioOwned` is a transparent wrapper around `MmioRaw`.
-         unsafe { &*core::ptr::from_ref(raw).cast() }
-     }
-+
-+    /// Return a view that covers the full region.
-+    #[inline]
-+    pub fn as_view(&self) -> Mmio<'_, Region<SIZE>> {
-+        // SAFETY: `Mmio` has same invariant as `MmioOwned`.
-+        unsafe { Mmio::from_raw(self.0) }
-+    }
- }
- 
--/// [`MmioOwned`] wrapper using relaxed accessors.
-+/// [`Mmio`] but using relaxed accessors.
- ///
- /// This type provides an implementation of [`Io`] that uses relaxed I/O MMIO operands instead of
- /// the regular ones.
- ///
--/// See [`MmioOwned::relaxed`] for a usage example.
--#[repr(transparent)]
--pub struct RelaxedMmio<const SIZE: usize = 0>(MmioOwned<SIZE>);
-+/// See [`Mmio::relaxed`] for a usage example.
-+pub struct RelaxedMmio<'a, T: ?Sized>(Mmio<'a, T>);
- 
--impl<'a, const SIZE: usize> Io for &'a RelaxedMmio<SIZE> {
--    type Target = Region<SIZE>;
-+impl<T: ?Sized> Copy for RelaxedMmio<'_, T> {}
-+impl<T: ?Sized> Clone for RelaxedMmio<'_, T> {
++impl<T: ?Sized> Copy for SysMem<'_, T> {}
++impl<T: ?Sized> Clone for SysMem<'_, T> {
 +    #[inline]
 +    fn clone(&self) -> Self {
 +        *self
 +    }
 +}
 +
-+impl<T: ?Sized + KnownSize> Io for RelaxedMmio<'_, T> {
-+    type Target = T;
- 
-     #[inline]
-     fn addr(self) -> usize {
-@@ -912,8 +1006,8 @@ fn maxsize(self) -> usize {
-     }
- }
- 
--impl<const SIZE: usize> MmioOwned<SIZE> {
--    /// Returns a [`RelaxedMmio`] reference that performs relaxed I/O operations.
-+impl<'a, T: ?Sized> Mmio<'a, T> {
-+    /// Returns a [`RelaxedMmio`] that performs relaxed I/O operations.
-     ///
-     /// Relaxed accessors do not provide ordering guarantees with respect to DMA or memory accesses
-     /// and can be used when such ordering is not required.
-@@ -923,20 +1017,20 @@ impl<const SIZE: usize> MmioOwned<SIZE> {
-     /// ```no_run
-     /// use kernel::io::{
-     ///     Io,
--    ///     MmioOwned,
-+    ///     Mmio,
-+    ///     Region,
-     ///     RelaxedMmio,
-     /// };
-     ///
--    /// fn do_io(io: &MmioOwned<0x100>) {
-+    /// fn do_io(io: Mmio<'_, Region<0x100>>) {
-     ///     // The access is performed using `readl_relaxed` instead of `readl`.
-     ///     let v = io.relaxed().read32(0x10);
-     /// }
-     ///
-     /// ```
--    pub fn relaxed(&self) -> &RelaxedMmio<SIZE> {
--        // SAFETY: `RelaxedMmio` is `#[repr(transparent)]` over `MmioOwned`, so `MmioOwned<SIZE>`
--        // and `RelaxedMmio<SIZE>` have identical layout.
--        unsafe { core::mem::transmute(self) }
++// SAFETY: `SysMem<'_, T>` is conceptually `&T` but in I/O memory.
++unsafe impl<T: ?Sized + Sync> Send for SysMem<'_, T> {}
++
++// SAFETY: `SysMem<'_, T>` is conceptually `&T` but in I/O memory.
++unsafe impl<T: ?Sized + Sync> Sync for SysMem<'_, T> {}
++
++impl<'a, T: ?Sized> SysMem<'a, T> {
++    /// Create a `SysMem` from a raw pointer.
++    ///
++    /// # Safety
++    ///
++    /// `ptr.addr() .. ptr.addr() + KnownSize::size(ptr)` must be valid and aligned kernel
++    /// accessible memory region for the lifetime `'a`.
 +    #[inline]
-+    pub fn relaxed(self) -> RelaxedMmio<'a, T> {
-+        RelaxedMmio(self)
-     }
- }
- 
-diff --git a/rust/kernel/io/poll.rs b/rust/kernel/io/poll.rs
-index 79828a8006b5..d75f2fcf46f2 100644
---- a/rust/kernel/io/poll.rs
-+++ b/rust/kernel/io/poll.rs
-@@ -47,14 +47,15 @@
- /// ```no_run
- /// use kernel::io::{
- ///     Io,
--///     MmioOwned,
-+///     Mmio,
-+///     Region,
- ///     poll::read_poll_timeout, //
- /// };
- /// use kernel::time::Delta;
- ///
- /// const HW_READY: u16 = 0x01;
- ///
--/// fn wait_for_hardware<const SIZE: usize>(io: &MmioOwned<SIZE>) -> Result {
-+/// fn wait_for_hardware<const SIZE: usize>(io: Mmio<'_, Region<SIZE>>) -> Result {
- ///     read_poll_timeout(
- ///         // The `op` closure reads the value of a specific status register.
- ///         || io.try_read16(0x1000),
-@@ -134,14 +135,15 @@ pub fn read_poll_timeout<Op, Cond, T>(
- /// ```no_run
- /// use kernel::io::{
- ///     Io,
--///     MmioOwned,
-+///     Mmio,
-+///     Region,
- ///     poll::read_poll_timeout_atomic, //
- /// };
- /// use kernel::time::Delta;
- ///
- /// const HW_READY: u16 = 0x01;
- ///
--/// fn wait_for_hardware<const SIZE: usize>(io: &MmioOwned<SIZE>) -> Result {
-+/// fn wait_for_hardware<const SIZE: usize>(io: Mmio<'_, Region<SIZE>>) -> Result {
- ///     read_poll_timeout_atomic(
- ///         // The `op` closure reads the value of a specific status register.
- ///         || io.try_read16(0x1000),
-diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-index 43284d9fba96..80e638a892d7 100644
---- a/rust/kernel/io/register.rs
-+++ b/rust/kernel/io/register.rs
-@@ -58,7 +58,7 @@
- //!     },
- //!     num::Bounded,
- //! };
--//! # use kernel::io::MmioOwned;
-+//! # use kernel::io::{Mmio, Region};
- //! # register! {
- //! #     pub BOOT_0(u32) @ 0x00000100 {
- //! #         15:8 vendor_id;
-@@ -66,7 +66,7 @@
- //! #         3:0 minor_revision;
- //! #     }
- //! # }
--//! # fn test(io: &MmioOwned<0x1000>) {
-+//! # fn test(io: Mmio<'_, Region<0x1000>>) {
- //! # fn obtain_vendor_id() -> u8 { 0xff }
- //!
- //! // Read from the register's defined offset (0x100).
-@@ -446,7 +446,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///         Io,
- ///     },
- /// };
--/// # use kernel::io::MmioOwned;
-+/// # use kernel::io::{Mmio, Region};
- ///
- /// register! {
- ///     FIXED_REG(u32) @ 0x100 {
-@@ -455,7 +455,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///     }
- /// }
- ///
--/// # fn test(io: &MmioOwned<0x1000>) {
-+/// # fn test(io: Mmio<'_, Region<0x1000>>) {
- /// let val = io.read(FIXED_REG);
- ///
- /// // Write from an already-existing value.
-@@ -559,7 +559,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///         Io,
- ///     },
- /// };
--/// # use kernel::io::MmioOwned;
-+/// # use kernel::io::{Mmio, Region};
- ///
- /// // Type used to identify the base.
- /// pub struct CpuCtlBase;
-@@ -584,7 +584,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///     }
- /// }
- ///
--/// # fn test(io: MmioOwned<0x1000>) {
-+/// # fn test(io: Mmio<'_, Region<0x1000>>) {
- /// // Read the status of `Cpu0`.
- /// let cpu0_started = io.read(CPU_CTL::of::<Cpu0>());
- ///
-@@ -601,7 +601,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///     }
- /// }
- ///
--/// # fn test2(io: MmioOwned<0x1000>) {
-+/// # fn test2(io: Mmio<'_, Region<0x1000>>) {
- /// // Start the aliased `CPU0`, leaving its other fields untouched.
- /// io.update(CPU_CTL_ALIAS::of::<Cpu0>(), |r| r.with_alias_start(true));
- /// # }
-@@ -638,7 +638,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///         Io,
- ///     },
- /// };
--/// # use kernel::io::MmioOwned;
-+/// # use kernel::io::{Mmio, Region};
- /// # fn get_scratch_idx() -> usize {
- /// #   0x15
- /// # }
-@@ -651,7 +651,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///     }
- /// }
- ///
--/// # fn test(io: &MmioOwned<0x1000>)
-+/// # fn test(io: Mmio<'_, Region<0x1000>>)
- /// #     -> Result<(), Error>{
- /// // Read scratch register 0, i.e. I/O address `0x80`.
- /// let scratch_0 = io.read(SCRATCH::at(0)).value();
-@@ -724,7 +724,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///         Io,
- ///     },
- /// };
--/// # use kernel::io::MmioOwned;
-+/// # use kernel::io::{Mmio, Region};
- /// # fn get_scratch_idx() -> usize {
- /// #   0x15
- /// # }
-@@ -752,7 +752,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///     }
- /// }
- ///
--/// # fn test(io: &MmioOwned<0x1000>) -> Result<(), Error> {
-+/// # fn test(io: Mmio<'_, Region<0x1000>>) -> Result<(), Error> {
- /// // Read scratch register 0 of CPU0.
- /// let scratch = io.read(CPU_SCRATCH::of::<Cpu0>().at(0));
- ///
-@@ -794,7 +794,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- ///     }
- /// }
- ///
--/// # fn test2(io: &MmioOwned<0x1000>) -> Result<(), Error> {
-+/// # fn test2(io: Mmio<'_, Region<0x1000>>) -> Result<(), Error> {
- /// let cpu0_status = io.read(CPU_FIRMWARE_STATUS::of::<Cpu0>()).status();
- /// # Ok(())
- /// # }
++    pub unsafe fn new(ptr: *mut T) -> Self {
++        // INVARIANT: Per safety requirement.
++        Self {
++            ptr,
++            phantom: PhantomData,
++        }
++    }
++
++    /// Obtain the raw pointer to the memory.
++    #[inline]
++    pub fn as_ptr(self) -> *mut T {
++        self.ptr
++    }
++}
++
++impl<'a, T: ?Sized + KnownSize> IoBase<'a> for SysMem<'a, T> {
++    type Backend = SysMemBackend;
++    type Target = T;
++
++    #[inline]
++    fn as_view(self) -> <Self::Backend as IoBackend>::View<'a, Self::Target> {
++        self
++    }
++}
++
+ // This helper turns associated functions to methods so it can be invoked in macro.
+ // Used by `io_project!()` only.
+ #[doc(hidden)]
 
 -- 
 2.54.0
