@@ -4,36 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57A78C4450D
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F41CDC44519
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F52410F5F6;
-	Fri, 26 Jun 2026 13:42:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E701A10F603;
+	Fri, 26 Jun 2026 13:42:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="nfSl+11b";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="WrEnaoC6";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AA7B10F5D0;
- Fri, 26 Jun 2026 13:42:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B78210F5E5;
+ Fri, 26 Jun 2026 13:42:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782481323;
- bh=07jvFRigIF4c2WP1/tQ0UqgvxYpJAG8Jfl5912+WIUE=;
+ s=default; t=1782481328;
+ bh=Oh1os3TsHNdW2Pq4AI0gYhWG24uRvSoJ0dx3b6zoRio=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nfSl+11bVReBawYBMu1o2jK7oQOm6twE56X2grXTex9XfZu2En+gak3ojtNkS1yx3
- N3ulPqY5qWqsMs5zcklczaQjNgXALSoAxCywvHp0WP6IPkdx+jYujHkMXj59Mn8kFl
- qiHro6Whi1I2nL2lr1Sn3LPtjYyKHnPgTboLgIs+4h6+Tz0v91oT0Znl5S3x/TQzr7
- dTB/RhLlNIcHT/R6F1SI5sN7KMv2svaKZJwzQt/kW8kgBy9RqVAJjmkHocsyIl9iNd
- xR2+h9dFyTwYgEddK68XWcJI2gWDkML49ZKTiM4grX1sw9zpBf+OqesLRsDMv3vITf
- swXhVvs/KdY0g==
+ b=WrEnaoC6FbrSPbruGhhufYYPc0Elst2sPqNbMv6K6PienLGWXwJiqCXmlTyPfpQb9
+ 7wjBUlnUAxyCmDoST9U9pJjvMcP4TPvv7m0nz2RauryK80zskhac4FUCcfSHwbVIK+
+ lpo21epzqX6AWqHF26O5uwl9Lr7Z0Ig0oYt+sAzkCF0PFJEcieYPYLVURUznV554go
+ gwCeJfG23gCBx+KsgDpnCwjfSYuIzHM94/zvvl5MXbNWlPgSRCdHU4wXJHayoZp1AF
+ 0uzHiYeRjJGX+x6cygPpx9zi/ty3dJMwR4qy4AnptkBXsq18N9KjzI9AogVwx5kksA
+ 8tigVXY/io2Cg==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v10.5 09/29] drm/i915/display: Make get_vblank_counter use
- intel_de_read_fw()
-Date: Fri, 26 Jun 2026 15:42:00 +0200
-Message-ID: <20260626134222.1198252-10-dev@lankhorst.se>
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v10.5 16/29] drm/i915: Drop the irqs_disabled() check
+Date: Fri, 26 Jun 2026 15:42:07 +0200
+Message-ID: <20260626134222.1198252-17-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260626134222.1198252-1-dev@lankhorst.se>
 References: <20260626134222.1198252-1-dev@lankhorst.se>
@@ -54,44 +56,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fixes the following lockdep splat on PREEMPT_RT:
-<3> BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
-<3> in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 1373, name: xe_module_load
-<3> preempt_count: 1, expected: 0
-<3> RCU nest depth: 0, expected: 0
-<4> 11 locks held by xe_module_load/1373:
-<4>  #0: ffff888107b691a0 (&dev->mutex){....}-{3:3}, at: __driver_attach+0x104/0x220
-<4>  #1: ffff88813cd30280 (&dev->clientlist_mutex){+.+.}-{3:3}, at: drm_client_register+0x32/0xe0
-<4>  #2: ffffffff837f88f8 (registration_lock){+.+.}-{3:3}, at: register_framebuffer+0x1b/0x50
-<4>  #3: ffffffff835985e0 (console_lock){+.+.}-{0:0}, at: fbcon_fb_registered+0x6f/0x90
-<4>  #4: ffff88812589e6a0 (&helper->lock){+.+.}-{3:3}, at: __drm_fb_helper_restore_fbdev_mode_unlocked+0x7b/0x110
-<4>  #5: ffff88813cd30158 (&dev->master_mutex){+.+.}-{3:3}, at: drm_master_internal_acquire+0x20/0x50
-<4>  #6: ffff88812589e488 (&client->modeset_mutex){+.+.}-{3:3}, at: drm_client_modeset_commit_locked+0x2a/0x1b0
-<4>  #7: ffffc9000031eef0 (crtc_ww_class_acquire){+.+.}-{0:0}, at: drm_client_modeset_commit_atomic+0x4c/0x2b0
-<4>  #8: ffffc9000031ef18 (crtc_ww_class_mutex){+.+.}-{3:3}, at: drm_client_modeset_commit_atomic+0x4c/0x2b0
-<4>  #9: ffff888114f7b8b8 (&intel_dp->psr.lock){+.+.}-{3:3}, at: intel_psr_lock+0xc5/0xf0 [xe]
-<4>  #10: ffff88812a0cbbc0 (&wl->lock){+.+.}-{2:2}, at: intel_dmc_wl_get+0x3c/0x140 [xe]
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-This splat will happen otherwise on all tracepoints too, for similar reasons.
+The !irqs_disabled() check triggers on PREEMPT_RT even with
+i915_sched_engine::lock acquired. The reason is the lock is transformed
+into a sleeping lock on PREEMPT_RT and does not disable interrupts.
 
+There is no need to check for disabled interrupts. The lockdep
+annotation below already check if the lock has been acquired by the
+caller and will yell if the interrupts are not disabled.
+
+Remove the !irqs_disabled() check.
+
+Reported-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Acked-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/display/intel_vblank.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_request.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
-index 07dca05332e5b..c0cc0a4c25dbe 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.c
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -132,7 +132,7 @@ u32 g4x_get_vblank_counter(struct drm_crtc *crtc)
- 	if (!vblank->max_vblank_count)
- 		return 0;
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index d2c7b1090df08..f66f8efc70629 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -610,7 +610,6 @@ bool __i915_request_submit(struct i915_request *request)
  
--	return intel_de_read(display, PIPE_FRMCOUNT_G4X(display, pipe));
-+	return intel_de_read_fw(display, PIPE_FRMCOUNT_G4X(display, pipe));
- }
+ 	RQ_TRACE(request, "\n");
  
- static u32 intel_crtc_scanlines_since_frame_timestamp(struct intel_crtc *crtc)
+-	GEM_BUG_ON(!irqs_disabled());
+ 	lockdep_assert_held(&engine->sched_engine->lock);
+ 
+ 	/*
+@@ -719,7 +718,6 @@ void __i915_request_unsubmit(struct i915_request *request)
+ 	 */
+ 	RQ_TRACE(request, "\n");
+ 
+-	GEM_BUG_ON(!irqs_disabled());
+ 	lockdep_assert_held(&engine->sched_engine->lock);
+ 
+ 	/*
 -- 
 2.53.0
 
