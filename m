@@ -4,37 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A47EEC43638
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEDEAC44501
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0CDF10F5C5;
-	Fri, 26 Jun 2026 13:42:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D47DB10F5C7;
+	Fri, 26 Jun 2026 13:42:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="UrheN2XH";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="YyJ0yQzN";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A91DB10F5BD;
- Fri, 26 Jun 2026 13:41:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D6F510F5BE;
+ Fri, 26 Jun 2026 13:42:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782481317;
- bh=pylyyD9anJXI0vxeZy2WV/dvPJsbsf/Fy/c+S6LMFO0=;
- h=From:To:Cc:Subject:Date:From;
- b=UrheN2XH2wB2q2dO5EMGQpNIZtsXqy6OLXh+kdpKSRpC3pgA5FH0xYzntMDhhdw3F
- 15jNJbL7P7IryvTncv/BRUxdQlrO1NxinCuME3Nla92iklAdDj/hZMZACUlRFrHwX1
- 3/cxL7xvvBTvwU7l1lJxJmCXhs9vNieZgCDJM9gvdHgk2yyPsojmJpCiGgvA/dHpEb
- jAIhCVETTHKwHcMibxYS9117BWbgXpvMBHNrMiwGCVni1z6fZWjzbPAm7ow1FkSkqu
- U/fulvvAr7rHMt2JK1uLMivRq+AUzIbuLHa6U+9rHEmSrtqlFTi4VBnU4DZEOuYuK6
- Wk36HMPBWvn9A==
+ s=default; t=1782481318;
+ bh=x/pMnmGlf0E1qkYHnHqsVenD9HzTf66a+fzX4nCRg38=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=YyJ0yQzNEhuNaeR1a8ojNv5uUHm/XVGOrRDahMhdnqvU3KQyRIv1QKz1SjlJhoSRU
+ 0SxeYM4X1tltK+dioGuMV5QZDyBi3kSEHHsw4T4vT0lrGW+0CoI/dUjmPCP3PFTx9m
+ 5XfQcEPhGHpqF8BNn4py8bbk1OiN3NSparxvYAFj6IGpu9A6k7fkogHsN5WBQrR9wq
+ D/Db5eGVXZXcGEB1X/b89dCV5di60PEiKhU/3GeVcZTToAIgo8pzMvkN9iUblS+HCS
+ SMCQgWNPXTFhHrwSU37f1Of8tPwY+ccinkdEn0+TaS0gVl+c0p4jqcgx+HCq7zf95G
+ NCrb1H4TNOa9w==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v10.5 00/29] drm/i915/display: All patches to make PREEMPT_RT
- work on i915 + xe.
-Date: Fri, 26 Jun 2026 15:41:51 +0200
-Message-ID: <20260626134222.1198252-1-dev@lankhorst.se>
+Subject: [PATCH v10.5 02/29] drm/vblank: Add a 2-stage version of
+ drm_crtc_arm_vblank_event
+Date: Fri, 26 Jun 2026 15:41:53 +0200
+Message-ID: <20260626134222.1198252-3-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260626134222.1198252-1-dev@lankhorst.se>
+References: <20260626134222.1198252-1-dev@lankhorst.se>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -52,97 +54,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Still waiting for feedback on the vblank approach, and check to see if there are some
-bugs left.
+When trying to fix the hardware programming in intel/display, I had
+to take all the vblank locks with local_irqs_disabled(). This
+required converting the entire vblank code to raw spinlocks.
 
-Changes since previous version:
-- Only change: Disable PMU on i915 entirely now, no way to make it work.
+In the alternative approach, do all preparations in advance, and only
+enable the vblank_event with interrupts disabled, this requires only
+a simple write and prevents a complete re-architecture of the code.
 
-For Xe, we also prohibit the use of DSM when CONFIG_PREEMPT_RT is enabled,
-and avoid the use of DSM if we cannot take over the framebuffer from the
-firmware.
+Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+---
+ drivers/gpu/drm/drm_vblank.c | 64 +++++++++++++++++++++++++++++++++++-
+ include/drm/drm_vblank.h     | 14 +++++++-
+ 2 files changed, 76 insertions(+), 2 deletions(-)
 
-Ideally we copy the framebuffer after intel_fbdev_init_bios(),
-when we decide to preserve the framebuffer and the hardware is
-completely initialized.
-
-At that point we can use the migration engine to copy the contents over,
-this can potentially be used for preserving the initial framebuffer
-in the other cases where we cannot not use the initial FB too.
-
-Maarten Lankhorst (23):
-  drm/vblank_work: Add methods to schedule vblank_work in 2 stages
-  drm/vblank: Add a 2-stage version of drm_crtc_arm_vblank_event
-  drm/intel/display: Make intel_crtc_arm_vblank_event static
-  drm/intel/display: Convert vblank event handling to 2-stage arming
-  drm/i915/display: Move vblank put until after critical section
-  drm/i915/display: Remove locking from intel_vblank_evade critical
-    section
-  drm/i915/display: Handle vlv dsi workaround in scanline_in_safe_range
-    too
-  drm/i915/display: Make get_vblank_counter use intel_de_read_fw()
-  drm/i915/display: Do not take uncore lock in i915_get_vblank_counter
-  drm/i915/display: Make icl_dsi_frame_update use _fw too
-  drm/i915/display: Use intel_de_read/write_fw in colorops
-  drm/i915/display: Use intel_de_write_fw in intel_pipe_fastset
-  drm/i915/display: Make set_pipeconf use the fw variants
-  drm/i915/gt: Fix selftests on PREEMPT_RT
-  drm/i915/gt: Set stop_timeout() correctly on PREEMPT-RT
-  drm/i915/display: Remove uncore lock from vlv_atomic_update_fifo
-  drm/i915: Use sleeping selftests for igt_atomic on PREEMPT_RT
-  PREEMPT_RT injection
-  FOR-CI: bump MAX_STACK_TRACE_ENTRIES
-  drm/xe: Avoid using stolen memory for DPT.
-  drm/xe/display: Avoid using stolen memory for framebuffer when media
-    gt exists.
-  drm/xe/display: Do not allocate into stolen for new framebuffers.
-  drm/i915/pmu: Disable on PREEMPT_RT
-
-Mike Galbraith (1):
-  drm/i915: Use preempt_disable/enable_rt() where recommended
-
-Sebastian Andrzej Siewior (5):
-  drm/i915/gt: Use spin_lock_irq() instead of local_irq_disable() +
-    spin_lock()
-  drm/i915: Drop the irqs_disabled() check
-  drm/i915/guc: Consider also RCU depth in busy loop.
-  Revert "drm/i915: Depend on !PREEMPT_RT."
-  drm/i915/gt: Add a spinlock to prevent starvation of irq_work.
-
- drivers/gpu/drm/drm_vblank.c                  |  64 +++++++++-
- drivers/gpu/drm/drm_vblank_work.c             | 110 +++++++++++++----
- drivers/gpu/drm/i915/Kconfig                  |   1 -
- drivers/gpu/drm/i915/display/i9xx_wm.c        |   4 -
- drivers/gpu/drm/i915/display/icl_dsi.c        |   4 +-
- drivers/gpu/drm/i915/display/intel_cmtg.c     |   6 +-
- drivers/gpu/drm/i915/display/intel_color.c    |   6 +-
- drivers/gpu/drm/i915/display/intel_crtc.c     |  86 ++++++-------
- drivers/gpu/drm/i915/display/intel_crtc.h     |   1 -
- drivers/gpu/drm/i915/display/intel_cursor.c   |   8 +-
- drivers/gpu/drm/i915/display/intel_de.h       |   8 ++
- drivers/gpu/drm/i915/display/intel_display.c  |  52 ++++----
- drivers/gpu/drm/i915/display/intel_vblank.c   | 115 ++++++++++--------
- drivers/gpu/drm/i915/display/intel_vblank.h   |   1 +
- drivers/gpu/drm/i915/display/intel_vrr.c      |  18 +--
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   |   8 +-
- .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |   1 +
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   2 +-
- .../drm/i915/gt/intel_execlists_submission.c  |  17 +--
- drivers/gpu/drm/i915/gt/selftest_engine_pm.c  |   8 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   2 +-
- drivers/gpu/drm/i915/i915_pmu.c               |  10 ++
- drivers/gpu/drm/i915/i915_request.c           |   2 -
- drivers/gpu/drm/i915/intel_uncore.h           |  26 ++--
- drivers/gpu/drm/i915/selftests/igt_atomic.c   |   7 ++
- .../drm/xe/compat-i915-headers/intel_uncore.h |   7 ++
- drivers/gpu/drm/xe/display/xe_display_bo.c    |  40 ++----
- drivers/gpu/drm/xe/display/xe_fb_pin.c        |  33 ++---
- include/drm/drm_vblank.h                      |  14 ++-
- include/drm/drm_vblank_work.h                 |  12 ++
- kernel/Kconfig.preempt                        |   4 +-
- lib/Kconfig.debug                             |   5 +-
- 32 files changed, 429 insertions(+), 253 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+index f90fb2d13e423..b52e0215312f8 100644
+--- a/drivers/gpu/drm/drm_vblank.c
++++ b/drivers/gpu/drm/drm_vblank.c
+@@ -1127,12 +1127,71 @@ void drm_crtc_arm_vblank_event(struct drm_crtc *crtc,
+ 
+ 	assert_spin_locked(&dev->event_lock);
+ 
++	WARN_ON(e->postponed);
+ 	e->pipe = pipe;
+ 	e->sequence = drm_crtc_accurate_vblank_count(crtc) + 1;
+ 	list_add_tail(&e->base.link, &dev->vblank_event_list);
+ }
+ EXPORT_SYMBOL(drm_crtc_arm_vblank_event);
+ 
++/**
++ * drm_crtc_prepare_arm_vblank_event - arm vblank event *before* pageflip.
++ * @crtc: the source CRTC of the vblank event
++ * @e: the event to send
++ *
++ * See drm_crtc_arm_vblank_event(). This function is a 2-stage version of
++ * that call. This function is called *BEFORE* programming the hardware.
++ *
++ * After programming, call drm_crtc_arm_prepared_vblank_event() and the
++ * event will be scheduled on the next vblank.
++ *
++ * This is mainly useful for code that has to run on PREEMPT_RT kernels,
++ * with interrupts disabled, since all vblank spinlocks are converted to
++ * rtmutexes, and code running with irqs disabled cannot take any vblank lock.
++ *
++ * It also increases determinism for any hardware
++ * programming, since no vblank related locks are taking when arming.
++ */
++void drm_crtc_prepare_arm_vblank_event(struct drm_crtc *crtc,
++				       struct drm_pending_vblank_event *e)
++{
++	drm_crtc_arm_vblank_event(crtc, e);
++
++	/* Set the flag, so that the event is not fired yet */
++	e->postponed = true;
++}
++EXPORT_SYMBOL(drm_crtc_prepare_arm_vblank_event);
++
++/**
++ * drm_crtc_arm_prepared_vblank_event - arm prepared vblank event *after* pageflip.
++ * @crtc: the source CRTC of the vblank event
++ * @e: the event to send
++ *
++ * See drm_crtc_prepare_arm_vblank_event(). This function is a 2-stage version of
++ * that call. This function is called directly *AFTER* programming the hardware.
++ *
++ * Before this function is called, drm_crtc_prepare_arm_vblank_event() should be
++ * called instead.
++ *
++ * This is mainly useful for code that has to run on PREEMPT_RT kernels,
++ * with interrupts disabled, since all vblank spinlocks are converted to
++ * rtmutexes, and code running with irqs disabled cannot take any vblank lock.
++ *
++ * It also increases determinism for any hardware
++ * programming, since no vblank related locks are taking when arming.
++ */
++void drm_crtc_arm_prepared_vblank_event(struct drm_pending_vblank_event *e)
++{
++	WARN_ON(!e->postponed);
++
++	/* Ensure previous writes are visible */
++	smp_wmb();
++
++	/* remove the flag to be processed as a normal event */
++	WRITE_ONCE(e->postponed, false);
++}
++EXPORT_SYMBOL(drm_crtc_arm_prepared_vblank_event);
++
+ /**
+  * drm_crtc_send_vblank_event - helper to send vblank event after pageflip
+  * @crtc: the source CRTC of the vblank event
+@@ -1390,6 +1449,8 @@ void drm_crtc_vblank_off(struct drm_crtc *crtc)
+ 	list_for_each_entry_safe(e, t, &dev->vblank_event_list, base.link) {
+ 		if (e->pipe != pipe)
+ 			continue;
++
++		WARN_ON(e->postponed);
+ 		drm_dbg_core(dev, "Sending premature vblank event on disable: "
+ 			     "wanted %llu, current %llu\n",
+ 			     e->sequence, seq);
+@@ -1892,7 +1953,8 @@ static void drm_handle_vblank_events(struct drm_device *dev, unsigned int pipe)
+ 	seq = drm_vblank_count_and_time(dev, pipe, &now);
+ 
+ 	list_for_each_entry_safe(e, t, &dev->vblank_event_list, base.link) {
+-		if (e->pipe != pipe)
++		/* Matches WRITE_ONCE in drm_crtc_arm_prepared_vblank_event() */
++		if (e->pipe != pipe || READ_ONCE(e->postponed))
+ 			continue;
+ 		if (!drm_vblank_passed(seq, e->sequence))
+ 			continue;
+diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
+index 2fcef9c0f5b1b..956d5621eb7f9 100644
+--- a/include/drm/drm_vblank.h
++++ b/include/drm/drm_vblank.h
+@@ -53,6 +53,13 @@ struct drm_pending_vblank_event {
+ 	 * @sequence: frame event should be triggered at
+ 	 */
+ 	u64 sequence;
++
++	/**
++	 * @postponed: whether drm_crtc_prepare_arm_vblank_event() is called,
++	 * and drm_crtc_arm_prepared_vblank_event has yet to be called to arm.
++	 */
++	bool postponed;
++
+ 	/**
+ 	 * @event: Actual event which will be sent to userspace.
+ 	 */
+@@ -294,7 +301,12 @@ int drm_crtc_next_vblank_start(struct drm_crtc *crtc, ktime_t *vblanktime);
+ void drm_crtc_send_vblank_event(struct drm_crtc *crtc,
+ 			       struct drm_pending_vblank_event *e);
+ void drm_crtc_arm_vblank_event(struct drm_crtc *crtc,
+-			      struct drm_pending_vblank_event *e);
++			       struct drm_pending_vblank_event *e);
++
++void drm_crtc_prepare_arm_vblank_event(struct drm_crtc *crtc,
++				       struct drm_pending_vblank_event *e);
++void drm_crtc_arm_prepared_vblank_event(struct drm_pending_vblank_event *e);
++
+ void drm_vblank_set_event(struct drm_pending_vblank_event *e,
+ 			  u64 *seq,
+ 			  ktime_t *now);
 -- 
 2.53.0
 
