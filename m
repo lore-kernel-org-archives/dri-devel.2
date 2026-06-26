@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 362B7CD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:06:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A843DCDE008
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:06:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A7BD10F5A4;
-	Fri, 26 Jun 2026 12:06:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07A3610F5A6;
+	Fri, 26 Jun 2026 12:06:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VHEyf3vT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dvxIEU2E";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1490410F5A4
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:06:32 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEA1710F5A6
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:06:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5FD3E60132
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:06:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C45EE1F00A3A;
- Fri, 26 Jun 2026 12:06:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D768F43DC2
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:06:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A9831F000E9;
+ Fri, 26 Jun 2026 12:06:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782475591;
- bh=kA3E2g3ttE8yH6xTuGwPiUWm4eg6v9MsNrIT9t2Sh9A=;
+ s=k20260515; t=1782475598;
+ bh=Ebfyh62a+4cmQgbyCZOBJwwzYGPxadkF96xyvQ5+pd4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VHEyf3vTqV7IHp+OjWluIJUsYMrl9sK1u94HHyETLIc/au6uPK02ipseKe7J2GFTi
- 4h1pUn0/RLTRODaTWwSZLcKZ+7v2G4I1rYO6kHVPRc1dYvWrT8CVTo9+Od8ri1+C2U
- Hf+eG+sqPCH9RDFE1Abv0eVfLOC99KXH2cDboDM3xkinzcc+w3tkWbNgJxj4We8B6B
- lLisp07yginLrGLHySaaefG1p6ZopNGmtJ1eJUobFSB9TbTVTXVBPgZdD2u/pTdabn
- rd1HuzSNukVhbtUzpv3NC505Li2+MbBi4ZTcIPUkPR1FYW6qfzZD2hLXRFsE4f8tkX
- KV77aWFgqZ92A==
+ b=dvxIEU2Ehsl2WQSBqM5ZAF29JJ4jUDbsb0bJivkBUy5ZE/FlpnNSdvESnrpXD+fLw
+ vOVGf259zwZDeRFRyDzAeOglbUSgWVXyz6Nbp6N48nlds5A3nhwX12LyRdjPUsS4Hl
+ YckIOZMfCgLb+VQoNyEa+DZivFFZCQndpw9MGpDg1BKT94GszCvMK5ct7DceC+n84C
+ jMU1stoWnGlUmGdGXMJEk+iz0mrMHd7rHlHOMxYlXbmt8JslZCWXGHbfxfrbfwAcku
+ DXciuAvnEBc6wi/4WsRzR+9r+Etmj76O+TU1TdwSZJwNg9Nz0NCN440Hz1e9HaLVsv
+ DRnDa5tP2CPpg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 8/8] rust: page: add `from_raw()`
+Subject: Re: [PATCH v19 5/8] rust: rename `AlwaysRefCounted` to `RefCounted`.
 To: "Andreas Hindborg" <a.hindborg@kernel.org>
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
+Cc: dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org,
  ojeda@kernel.org
-In-Reply-To: <20260626-unique-ref-v19-8-2607ca88dfdf@kernel.org>
+In-Reply-To: <20260626-unique-ref-v19-5-2607ca88dfdf@kernel.org>
 References: <20260626-unique-ref-v19-0-2607ca88dfdf@kernel.org>
- <20260626-unique-ref-v19-8-2607ca88dfdf@kernel.org>
+ <20260626-unique-ref-v19-5-2607ca88dfdf@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 12:06:29 +0000
-Message-Id: <20260626120630.C45EE1F00A3A@smtp.kernel.org>
+Date: Fri, 26 Jun 2026 12:06:38 +0000
+Message-Id: <20260626120638.7A9831F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,52 +60,57 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The `# Safety` documentation for `Page::from_raw` fails to requi=
-re that `ptr` points to a valid kernel `struct page`.
+- [Low] Copy-paste error in SAFETY comments for `I2cAdapter` and `I2cClient=
+`.
 --
 
-commit 06f58b70c6165ba4fd1569c291c6f0d211dba674
-Author: Andreas Hindborg <a.hindborg@kernel.org>
+commit c7fe859c40ffae9a22f5e5fa80c3b5a426e7197d
+Author: Oliver Mangold <oliver.mangold@pm.me>
 
-rust: page: add from_raw()
+rust: rename AlwaysRefCounted to RefCounted.
 
-This commit adds a method to Page that allows construction of an instance
-from a struct page pointer.
+This commit splits the AlwaysRefCounted trait into RefCounted and a new
+marker trait AlwaysRefCounted. This prevents the unsound creation of an
+ARef<T> from an &Owned<T> when types can be either reference counted or
+owned.
 
-> diff --git a/rust/kernel/page.rs b/rust/kernel/page.rs
-> --- a/rust/kernel/page.rs
-> +++ b/rust/kernel/page.rs
+> diff --git a/rust/kernel/i2c.rs b/rust/kernel/i2c.rs
+> index 624b971ca8b0b..02b2c9220eb11 100644
+> --- a/rust/kernel/i2c.rs
+> +++ b/rust/kernel/i2c.rs
+
 [ ... ]
-> +    /// Create a &Page from a raw struct page pointer.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// ptr must be convertible to a shared reference with a lifetime of=
- 'a.
-> +    #[inline]
-> +    pub unsafe fn from_raw<'a>(ptr: *const bindings::page) -> &'a Self {
 
-[Severity: Medium]
-Does the safety documentation for from_raw() need to explicitly require
-that ptr points to a valid kernel struct page?
+> @@ -435,6 +436,9 @@ unsafe fn dec_ref(obj: NonNull<Self>) {
+>          unsafe { bindings::i2c_put_adapter(obj.as_ref().as_raw()) }
+>      }
+>  }
+> +// SAFETY: We do not implement `Ownable`, thus it is okay to obtain an `=
+ARef<Device>` from an
+> +// `&I2cAdapter`.
+> +unsafe impl AlwaysRefCounted for I2cAdapter {}
 
-The current safety requirements only demand that ptr is convertible to a
-shared reference (non-null, aligned, valid memory). However, the internal
-INVARIANT comment explicitly relies on ptr being a valid struct page.
+[Severity: Low]
+This isn't a bug, but should this SAFETY comment refer to ARef<I2cAdapter>
+instead of ARef<Device>? It appears to be a typo from copying the
+Device implementation.
 
-Could a caller technically satisfy the safety requirements with a
-stack-allocated or dummy struct page, but break the type invariant
-and cause issues when methods like page_to_nid() are called later?
+[ ... ]
 
-> +        // INVARIANT: By the function safety requirements, ptr refers to=
- a valid struct page, so
-> +        // the returned reference upholds the type invariant of Page.
-> +        // SAFETY: By function safety requirements, ptr is not null and =
-is convertible to a shared
-> +        // reference.
-> +        unsafe { &*ptr.cast() }
-> +    }
+> @@ -511,6 +515,9 @@ unsafe fn dec_ref(obj: NonNull<Self>) {
+>          unsafe { bindings::put_device(&raw mut (*obj.as_ref().as_raw()).=
+dev) }
+>      }
+>  }
+> +// SAFETY: We do not implement `Ownable`, thus it is okay to obtain an `=
+ARef<Device>` from an
+> +// `&I2cClient`.
+> +unsafe impl AlwaysRefCounted for I2cClient {}
+
+[Severity: Low]
+This isn't a bug either, but is ARef<Device> also a typo here? It looks
+like it should refer to ARef<I2cClient>.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626-unique-ref=
--v19-0-2607ca88dfdf@kernel.org?part=3D8
+-v19-0-2607ca88dfdf@kernel.org?part=3D5
