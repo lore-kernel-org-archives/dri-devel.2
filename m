@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FA8EC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 18:36:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BAA1C43327
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 18:36:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC54C10E3EF;
-	Fri, 26 Jun 2026 18:36:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F05410F6F2;
+	Fri, 26 Jun 2026 18:36:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cjIz799V";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E8MlqPeN";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0665810F6F1
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 18:36:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F410910F6F2
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 18:36:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1150E60A60;
+ by tor.source.kernel.org (Postfix) with ESMTP id 7870860A61;
+ Fri, 26 Jun 2026 18:36:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34A4C1F00A3D;
  Fri, 26 Jun 2026 18:36:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C156E1F000E9;
- Fri, 26 Jun 2026 18:36:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782499010;
- bh=dbjWsB/o9pmwUbOFSwNyjzxufXt+7eum/gZ3ROFEAbo=;
+ s=k20260515; t=1782499016;
+ bh=RPb8YdizCdHRgJNFdlPXuuKMRX6FlYypJFHJ2cj7UxM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=cjIz799VCamTx6CPXw4p7ESPMBy7RQQJ+ut1LcPDef7tsXbJWHOTaPrvB00bTzlva
- Wjm/Sw1ydZUr3tlEQiynkHLuU6uT24lPDHfmOBK6ZLOZ59z0T7gjqavptWYyRfKcn3
- nk6OQu/qleYX31kuWVZM2Isz3URtcyCaEMCDQmlCR+M23U0j7RMA4IDDJHw4h/41Qb
- Ruf0gjcWc7kmWJY3BsV6FJMmBJ/RYMnu4QnM775YAUMrH3uCcD52kxp9hAUQdB4ijd
- fGAPhgfowct8iETpzbGYaxOw/iyW8ukR50KrVC+NWoUSXIj2b5cQHbIHIwpBeBoclX
- x1Ptb5Tkn8rrQ==
+ b=E8MlqPeNZ/Le1kKCl1go68pYmh3IpVV6W8xZt/1QN7yjK8oSwguElD1PerX4xhEYe
+ GrzGf5Ou9RmRK3Cec/sj8nNgW52MK++bF7V3hxbb/AR2f3jQ+zLMt2QsiqRXkvRk29
+ FViDndApRuMe11hz2R7oihGfOoRtJI9JA8sTJoXb8odJ2qtPKVpySeTEVg99NdzAu1
+ Tn6YVdMBnCg1W1tE9dYrMOgP2S/JeSqNUzfdFi0WMdxCDZYhU6QoRFwp1XNgVzsJyK
+ QhU9Zx/UGCeo72h0D3/CKqRNRuXfEYsoLRBMdH6CKFalAsje4tJxxaz9HT5oKxkzwf
+ bWxngWbHAeeYw==
 From: Danilo Krummrich <dakr@kernel.org>
 To: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
  ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
@@ -41,10 +41,10 @@ To: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
 Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  linux-pwm@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject: [PATCH v4 2/7] rust: types: introduce ForLt base trait for
- CovariantForLt
-Date: Fri, 26 Jun 2026 20:36:09 +0200
-Message-ID: <20260626183630.2585057-3-dakr@kernel.org>
+Subject: [PATCH v4 3/7] rust: auxiliary: add registration_data_with() for
+ ForLt types
+Date: Fri, 26 Jun 2026 20:36:10 +0200
+Message-ID: <20260626183630.2585057-4-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260626183630.2585057-1-dakr@kernel.org>
 References: <20260626183630.2585057-1-dakr@kernel.org>
@@ -65,308 +65,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a new ForLt trait as a base for CovariantForLt:
+Add registration_data_with() taking a for<'a> closure that receives
+Pin<&'a F::Of<'a>>, which works with any ForLt type. Taking a for<'a>
+closure rather than returning a direct reference prevents callers from
+choosing a concrete lifetime for the data, which is required for
+soundness with non-covariant ForLt types.
 
-  - ForLt (non-unsafe): represents a type generic over a lifetime, with
-    no covariance guarantee.
+Extract the common null-check, TypeId-check and KBox-borrow logic into a
+private registration_data_pinned() helper shared by both
+registration_data_with() and the existing registration_data().
 
-  - CovariantForLt (unsafe): becomes a subtrait of ForLt that
-    additionally proves the type is covariant over its lifetime
-    parameter, providing a safe cast_ref() method.
+Relax Registration's bound from CovariantForLt to ForLt so that
+non-covariant types can be registered.
 
-This split allows non-covariant types (e.g. types behind a Mutex) to
-implement ForLt and participate in DevresLt / registration data patterns
-that use HRTB closures for sound access, without requiring a covariance
-proof that would fail to compile.
-
-Both macros share the UnsafeForLtImpl helper type, distinguished by
-a const generic N: ForLt! emits N = 0 (no covariance proof),
-CovariantForLt! emits N = 1 (with compile-time covariance proof).
-
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- rust/kernel/types.rs        |  1 +
- rust/kernel/types/for_lt.rs | 72 +++++++++++++++++++++++++++++--------
- rust/macros/for_lt.rs       | 68 ++++++++++++++++++++++++-----------
- rust/macros/lib.rs          | 19 +++++++++-
- 4 files changed, 123 insertions(+), 37 deletions(-)
+ rust/kernel/auxiliary.rs | 93 +++++++++++++++++++++++++++++-----------
+ 1 file changed, 67 insertions(+), 26 deletions(-)
 
-diff --git a/rust/kernel/types.rs b/rust/kernel/types.rs
-index cbe6907042d3..c1ed05d1046c 100644
---- a/rust/kernel/types.rs
-+++ b/rust/kernel/types.rs
-@@ -14,6 +14,7 @@
- #[doc(hidden)]
- pub mod for_lt;
- pub use for_lt::CovariantForLt;
-+pub use for_lt::ForLt;
- 
- /// Used to transfer ownership to and from foreign (non-Rust) languages.
- ///
-diff --git a/rust/kernel/types/for_lt.rs b/rust/kernel/types/for_lt.rs
-index a11f7509633c..0b53494080b7 100644
---- a/rust/kernel/types/for_lt.rs
-+++ b/rust/kernel/types/for_lt.rs
-@@ -1,17 +1,59 @@
- // SPDX-License-Identifier: Apache-2.0 OR MIT
- 
--//! Provide implementation and test of the `CovariantForLt` trait and macro.
-+//! Provide implementation and test of the `ForLt` and `CovariantForLt` traits and macros.
- //!
--//! This module is hidden and user should just use `CovariantForLt!` directly.
-+//! This module is hidden and users should just use `ForLt!` / `CovariantForLt!` directly.
- 
- use core::marker::PhantomData;
- 
- /// Representation of types generic over a lifetime.
- ///
--/// The type must be covariant over the generic lifetime, i.e. the lifetime parameter
--/// can be soundly shortened.
-+/// # Macro
-+///
-+/// It is not recommended to implement this trait directly. `ForLt!` macro is provided to obtain a
-+/// type that implements this trait.
- ///
--/// The lifetime involved must be covariant.
-+/// The full syntax is
-+///
-+/// ```
-+/// # use kernel::types::ForLt;
-+/// # fn expect_lt<F: ForLt>() {}
-+/// # struct TypeThatUse<'a>(&'a ());
-+/// # expect_lt::<
-+/// ForLt!(for<'a> TypeThatUse<'a>)
-+/// # >();
-+/// ```
-+///
-+/// which gives a type so that `<ForLt!(for<'a> TypeThatUse<'a>) as ForLt>::Of<'b>`
-+/// is `TypeThatUse<'b>`.
-+///
-+/// You may also use a short-hand syntax which works similar to lifetime elision.
-+/// The macro also accepts types that do not involve a lifetime at all.
-+///
-+/// ```
-+/// # use kernel::types::ForLt;
-+/// # fn expect_lt<F: ForLt>() {}
-+/// # struct TypeThatUse<'a>(&'a ());
-+/// # expect_lt::<
-+/// ForLt!(TypeThatUse<'_>) // Equivalent to `ForLt!(for<'a> TypeThatUse<'a>)`.
-+/// # >();
-+/// # expect_lt::<
-+/// ForLt!(&u32) // Equivalent to `ForLt!(for<'a> &'a u32)`.
-+/// # >();
-+/// # expect_lt::<
-+/// ForLt!(u32) // Equivalent to `ForLt!(for<'a> u32)`.
-+/// # >();
-+/// ```
-+pub trait ForLt {
-+    /// The type parameterized by the lifetime.
-+    type Of<'a>: 'a;
-+}
-+pub use macros::ForLt;
-+
-+/// [`trait@ForLt`] subtrait for types that are covariant over their lifetime parameter.
-+///
-+/// Provides a safe [`cast_ref`](CovariantForLt::cast_ref) method for types that are proven to be
-+/// covariant. The `CovariantForLt!` macro syntax is the same as `ForLt!`.
- ///
- /// # Macro
- ///
-@@ -84,10 +126,7 @@
- /// # Safety
- ///
- /// `Self::Of<'a>` must be covariant over the lifetime `'a`.
--pub unsafe trait CovariantForLt {
--    /// The type parameterized by the lifetime.
--    type Of<'a>: 'a;
--
-+pub unsafe trait CovariantForLt: ForLt {
-     /// Cast a reference to a shorter lifetime.
-     #[inline(always)]
-     fn cast_ref<'r, 'short: 'r, 'long: 'short>(long: &'r Self::Of<'long>) -> &'r Self::Of<'short> {
-@@ -99,25 +138,28 @@ fn cast_ref<'r, 'short: 'r, 'long: 'short>(long: &'r Self::Of<'long>) -> &'r Sel
- 
- /// This is intended to be an "unsafe-to-refer-to" type.
- ///
--/// Must only be used by the `CovariantForLt!` macro.
-+/// Must only be used by the `ForLt!` / `CovariantForLt!` macros.
- ///
- /// `T` is the magic `dyn for<'a> WithLt<'a, TypeThatUse<'a>>` generated by macro.
- ///
- /// `WF` is a type that the macro can use to assert some specific type is well-formed.
- ///
- /// `N` is to provide the macro a place to emit arbitrary items, in case it needs to prove
--/// additional properties.
-+/// additional properties. `ForLt!` emits `N = 0`; `CovariantForLt!` emits `N = 1` after a
-+/// covariance proof.
- #[doc(hidden)]
- pub struct UnsafeForLtImpl<T: ?Sized, WF, const N: usize>(PhantomData<(WF, T)>);
- 
--// This is a helper trait for implementation `CovariantForLt` to be able to use HRTB.
-+// This is a helper trait for implementation of `ForLt` / `CovariantForLt` to be able to use HRTB.
- #[doc(hidden)]
- pub trait WithLt<'a> {
-     type Of: 'a;
- }
- 
--// SAFETY: In `CovariantForLt!` macro, a covariance proof is generated when naming
--// `UnsafeForLtImpl` and it will fail to evaluate if the type is not covariant.
--unsafe impl<T: ?Sized + for<'a> WithLt<'a>, WF> CovariantForLt for UnsafeForLtImpl<T, WF, 0> {
-+impl<T: ?Sized + for<'a> WithLt<'a>, WF, const N: usize> ForLt for UnsafeForLtImpl<T, WF, N> {
-     type Of<'a> = <T as WithLt<'a>>::Of;
- }
-+
-+// SAFETY: In `CovariantForLt!` macro, a covariance proof is generated in the `N` const generic
-+// and it will fail to evaluate if the type is not covariant. Only `N = 1` gets this impl.
-+unsafe impl<T: ?Sized + for<'a> WithLt<'a>, WF> CovariantForLt for UnsafeForLtImpl<T, WF, 1> {}
-diff --git a/rust/macros/for_lt.rs b/rust/macros/for_lt.rs
-index 9487a9352f1c..9270a069cd3a 100644
---- a/rust/macros/for_lt.rs
-+++ b/rust/macros/for_lt.rs
-@@ -176,8 +176,10 @@ fn prove(&mut self, ty: &'a Type) {
+diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
+index 40a0af74a8e5..19a488700bb9 100644
+--- a/rust/kernel/auxiliary.rs
++++ b/rust/kernel/auxiliary.rs
+@@ -21,6 +21,7 @@
+     prelude::*,
+     types::{
+         CovariantForLt,
++        ForLt,
+         ForeignOwnable,
+         Opaque, //
+     },
+@@ -270,18 +271,15 @@ pub fn parent(&self) -> &device::Device<device::Bound> {
+         unsafe { parent.as_bound() }
      }
- }
  
--pub(crate) fn covariant_for_lt(input: HigherRankedType) -> TokenStream {
--    let (ty, lifetime) = match input {
-+/// Resolve the higher-ranked type into a concrete `(ty, lifetime)` pair, expanding elided
-+/// lifetimes as needed. Shared by both `for_lt` and `covariant_for_lt`.
-+fn resolve_hrt(input: HigherRankedType) -> (Type, Lifetime) {
-+    match input {
-         HigherRankedType::Explicit { lifetime, ty, .. } => (ty, lifetime),
-         HigherRankedType::Implicit { ty } => {
-             // If there's no explicit `for<'a>` binder, inject a synthetic `'__elided` lifetime
-@@ -188,14 +190,33 @@ pub(crate) fn covariant_for_lt(input: HigherRankedType) -> TokenStream {
-             };
-             (ty.expand_elided_lifetime(&lifetime), lifetime)
+-    /// Returns a pinned reference to the registration data set by the registering (parent) driver.
++    /// Returns the stored registration data as a pinned reference.
+     ///
+-    /// `F` is the [`CovariantForLt`](trait@CovariantForLt) encoding of the data type. The returned
+-    /// reference has its lifetime shortened from `'static` to `&self`'s borrow lifetime via
+-    /// [`CovariantForLt::cast_ref`].
++    /// Performs null and [`TypeId`] checks, then borrows the stored [`KBox`].
+     ///
+-    /// Returns [`EINVAL`] if `F` does not match the type used by the parent driver when calling
+-    /// [`Registration::new()`].
++    /// # Safety
+     ///
+-    /// Returns [`ENOENT`] if no registration data has been set, e.g. when the device was
+-    /// registered by a C driver.
+-    pub fn registration_data<F: CovariantForLt + 'static>(&self) -> Result<Pin<&F::Of<'_>>> {
++    /// Callers must ensure that the lifetime shortening from the original `'static` storage to
++    /// `'_` is sound, e.g. via an HRTB closure or [`CovariantForLt`] guarantee.
++    unsafe fn registration_data_pinned<F: ForLt + 'static>(&self) -> Result<Pin<&F::Of<'_>>> {
+         // SAFETY: By the type invariant, `self.as_raw()` is a valid `struct auxiliary_device`.
+         let ptr = unsafe { (*self.as_raw()).registration_data_rust };
+         if ptr.is_null() {
+@@ -300,17 +298,59 @@ pub fn registration_data<F: CovariantForLt + 'static>(&self) -> Result<Pin<&F::O
+             return Err(EINVAL);
          }
--    };
+ 
+-        // SAFETY: The `TypeId` check above confirms that the stored type matches
+-        // `F::Of<'static>`; `ptr` remains valid until `Registration::drop()` calls
+-        // `from_foreign()`.
+-        let wrapper = unsafe { Pin::<KBox<RegistrationData<F::Of<'static>>>>::borrow(ptr) };
++        // SAFETY: The `TypeId` check above confirms that the stored type matches `F`'s
++        // encoding; lifetimes are erased at runtime, so borrowing as `F::Of<'_>` is
++        // layout-compatible with the stored `F::Of<'static>`. `ptr` remains valid until
++        // `Registration::drop()` calls `from_foreign()`.
++        let wrapper = unsafe { Pin::<KBox<RegistrationData<F::Of<'_>>>>::borrow(ptr) };
+ 
+         // SAFETY: `data` is a structurally pinned field of `RegistrationData`.
+-        let pinned: Pin<&F::Of<'_>> = unsafe { wrapper.map_unchecked(|w| &w.data) };
++        Ok(unsafe { wrapper.map_unchecked(|w| &w.data) })
 +    }
-+}
+ 
+-        // SAFETY: The data was pinned when stored; `cast_ref` only shortens
+-        // the lifetime, so the pinning guarantee is preserved.
+-        Ok(unsafe { Pin::new_unchecked(F::cast_ref(pinned.get_ref())) })
++    /// Access the registration data set by the registering (parent) driver through a closure.
++    ///
++    /// `F` is the [`ForLt`](trait@ForLt) encoding of the data type. The closure receives a pinned
++    /// reference to the registration data.
++    ///
++    /// For covariant types that implement [`trait@CovariantForLt`], prefer
++    /// [`registration_data`](Self::registration_data) which returns a direct reference.
++    ///
++    /// Returns [`EINVAL`] if `F` does not match the type used by the parent driver when calling
++    /// [`Registration::new()`].
++    ///
++    /// Returns [`ENOENT`] if no registration data has been set, e.g. when the device was
++    /// registered by a C driver.
++    #[inline]
++    pub fn registration_data_with<F: ForLt + 'static, R>(
++        &self,
++        f: impl for<'a> FnOnce(Pin<&'a F::Of<'a>>) -> R,
++    ) -> Result<R> {
++        // SAFETY: The HRTB closure prevents the caller from smuggling in references with a
++        // concrete short lifetime, making the round-trip from `'static` sound regardless of
++        // variance.
++        let pinned = unsafe { self.registration_data_pinned::<F>()? };
 +
-+/// Produce the `'static`-substituted type for the WF check. Shared by both macros.
-+fn ty_static(ty: &Type, lifetime: &Lifetime) -> Type {
-+    ty.replace_lifetime(
-+        lifetime,
-+        &Lifetime {
-+            apostrophe: Span::mixed_site(),
-+            ident: format_ident!("static"),
-+        },
-+    )
-+}
++        Ok(f(pinned))
++    }
 +
-+/// Shared implementation for both `ForLt!` and `CovariantForLt!`.
-+///
-+/// Both macros run the prover and emit `ProveWf` structs to check well-formedness for all lifetime
-+/// instances (workaround for <https://github.com/rust-lang/rust/issues/152489>). `CovariantForLt!`
-+/// additionally emits covariance proof functions and sets `N = 1`.
-+fn for_lt_inner(input: HigherRankedType, prove_covariance: bool) -> TokenStream {
-+    let (ty, lifetime) = resolve_hrt(input);
- 
-     let mut prover = Prover(&lifetime, Vec::new());
-     prover.prove(&ty);
- 
-     let mut proof = Vec::new();
- 
--    // Emit proofs for every type that requires additional compiler help in proving covariance.
-     for (idx, required_proof) in prover.1.into_iter().enumerate() {
-         // Insert a proof that the type is well-formed.
-         //
-@@ -210,15 +231,16 @@ struct #wf_proof_name<#lifetime>(
-             );
-         ));
- 
--        // Insert a proof that the type is covariant.
--        let cov_proof_name = format_ident!("prove_covariant_{idx}");
--        proof.push(quote!(
--            fn #cov_proof_name<'__short, '__long: '__short>(
--                long: #wf_proof_name<'__long>
--            ) -> #wf_proof_name<'__short> {
--                long
--            }
--        ));
-+        if prove_covariance {
-+            let cov_proof_name = format_ident!("prove_covariant_{idx}");
-+            proof.push(quote!(
-+                fn #cov_proof_name<'__short, '__long: '__short>(
-+                    long: #wf_proof_name<'__long>
-+                ) -> #wf_proof_name<'__short> {
-+                    long
-+                }
-+            ));
-+        }
++    /// Returns a pinned reference to the registration data set by the registering (parent) driver.
++    ///
++    /// This method is only available when `F` implements [`trait@CovariantForLt`], which guarantees
++    /// that the lifetime shortening is sound.
++    ///
++    /// For non-covariant types, use the closure-based [`Self::registration_data_with`].
++    ///
++    /// Returns [`EINVAL`] if `F` does not match the type used by the parent driver when calling
++    /// [`Registration::new()`].
++    ///
++    /// Returns [`ENOENT`] if no registration data has been set, e.g. when the device was
++    /// registered by a C driver.
++    #[inline]
++    pub fn registration_data<F: CovariantForLt + 'static>(&self) -> Result<Pin<&F::Of<'_>>> {
++        // SAFETY: `CovariantForLt` guarantees covariance, which makes the lifetime shortening
++        // from `'static` to `'_` performed by `registration_data_pinned` sound.
++        unsafe { self.registration_data_pinned::<F>() }
      }
- 
-     // Make sure that the type is wellformed when substituting lifetime with `'static`.
-@@ -226,13 +248,9 @@ fn #cov_proof_name<'__short, '__long: '__short>(
-     // Currently the Rust compiler doesn't check this, see the above `ProveWf` documentation.
-     //
-     // We prefer to use this way of proving WF-ness as it can work when generics are involved.
--    let ty_static = ty.replace_lifetime(
--        &lifetime,
--        &Lifetime {
--            apostrophe: Span::mixed_site(),
--            ident: format_ident!("static"),
--        },
--    );
-+    let ty_static = ty_static(&ty, &lifetime);
-+
-+    let n: usize = prove_covariance.into();
- 
-     quote!(
-         ::kernel::types::for_lt::UnsafeForLtImpl::<
-@@ -241,8 +259,16 @@ fn #cov_proof_name<'__short, '__long: '__short>(
-             {
-                 #(#proof)*
- 
--                0
-+                #n
-             }
-         >
-     )
- }
-+
-+pub(crate) fn for_lt(input: HigherRankedType) -> TokenStream {
-+    for_lt_inner(input, false)
-+}
-+
-+pub(crate) fn covariant_for_lt(input: HigherRankedType) -> TokenStream {
-+    for_lt_inner(input, true)
-+}
-diff --git a/rust/macros/lib.rs b/rust/macros/lib.rs
-index 2167cb270928..e970769609f3 100644
---- a/rust/macros/lib.rs
-+++ b/rust/macros/lib.rs
-@@ -491,11 +491,28 @@ pub fn kunit_tests(attr: TokenStream, input: TokenStream) -> TokenStream {
-         .into()
  }
  
--/// Obtain a type that implements [`CovariantForLt`] for the given higher-ranked type.
-+/// Obtain a type that implements [`ForLt`] for the given higher-ranked type.
-+///
-+/// Please refer to the documentation of the [`ForLt`] trait.
-+///
-+/// [`ForLt`]: trait.ForLt.html
-+#[proc_macro]
-+#[allow(non_snake_case)]
-+pub fn ForLt(input: TokenStream) -> TokenStream {
-+    for_lt::for_lt(parse_macro_input!(input)).into()
-+}
-+
-+/// Obtain a type that implements [`CovariantForLt`] (and [`ForLt`]) for the given higher-ranked
-+/// type.
-+///
-+/// Unlike [`ForLt!`], this macro additionally proves that the type is covariant over the lifetime,
-+/// providing a safe [`CovariantForLt::cast_ref`] method.
+@@ -399,22 +439,23 @@ struct RegistrationData<T> {
+ /// This type represents the registration of a [`struct auxiliary_device`]. When its parent device
+ /// is unbound, the corresponding auxiliary device will be unregistered from the system.
  ///
- /// Please refer to the documentation of the [`CovariantForLt`] trait.
+-/// The type parameter `F` is a [`CovariantForLt`](trait@CovariantForLt) encoding of the
+-/// registration data type. For non-lifetime-parameterized types, use
+-/// [`CovariantForLt!(T)`](macro@CovariantForLt).
+-/// The data can be accessed by the auxiliary driver through [`Device::registration_data()`].
++/// The type parameter `F` is a [`ForLt`](trait@ForLt) encoding of the registration
++/// data type. For non-lifetime-parameterized types, use [`ForLt!(T)`](macro@ForLt).
++///
++/// The data can be accessed by the auxiliary driver through [`Device::registration_data()`] and
++/// [`Device::registration_data_with()`].
  ///
- /// [`CovariantForLt`]: trait.CovariantForLt.html
-+/// [`CovariantForLt::cast_ref`]: trait.CovariantForLt.html#method.cast_ref
-+/// [`ForLt`]: trait.ForLt.html
- #[proc_macro]
- #[allow(non_snake_case)]
- pub fn CovariantForLt(input: TokenStream) -> TokenStream {
+ /// # Invariants
+ ///
+ /// `self.adev` always holds a valid pointer to an initialized and registered
+ /// [`struct auxiliary_device`] whose `registration_data_rust` field points to a
+ /// valid `Pin<KBox<RegistrationData<F::Of<'static>>>>`.
+-pub struct Registration<'a, F: CovariantForLt + 'static> {
++pub struct Registration<'a, F: ForLt + 'static> {
+     adev: NonNull<bindings::auxiliary_device>,
+     _phantom: PhantomData<F::Of<'a>>,
+ }
+ 
+-impl<'a, F: CovariantForLt> Registration<'a, F>
++impl<'a, F: ForLt> Registration<'a, F>
+ where
+     for<'b> F::Of<'b>: Send + Sync,
+ {
+@@ -526,7 +567,7 @@ pub fn new<E>(
+     }
+ }
+ 
+-impl<F: CovariantForLt> Drop for Registration<'_, F> {
++impl<F: ForLt> Drop for Registration<'_, F> {
+     fn drop(&mut self) {
+         // SAFETY: By the type invariant of `Self`, `self.adev.as_ptr()` is a valid registered
+         // `struct auxiliary_device`.
+@@ -548,7 +589,7 @@ fn drop(&mut self) {
+ }
+ 
+ // SAFETY: A `Registration` of a `struct auxiliary_device` can be released from any thread.
+-unsafe impl<F: CovariantForLt> Send for Registration<'_, F> where for<'a> F::Of<'a>: Send {}
++unsafe impl<F: ForLt> Send for Registration<'_, F> where for<'a> F::Of<'a>: Send {}
+ 
+ // SAFETY: `Registration` does not expose any methods or fields that need synchronization.
+-unsafe impl<F: CovariantForLt> Sync for Registration<'_, F> where for<'a> F::Of<'a>: Send {}
++unsafe impl<F: ForLt> Sync for Registration<'_, F> where for<'a> F::Of<'a>: Send {}
 -- 
 2.54.0
 
