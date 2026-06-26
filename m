@@ -4,102 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CA35CDE012
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 06:37:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58022CD4F26
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 06:48:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97A1610F42F;
-	Fri, 26 Jun 2026 06:37:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EF3210E30B;
+	Fri, 26 Jun 2026 06:48:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GY2f82LX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rUN/htI4";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011011.outbound.protection.outlook.com [52.101.62.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A94510F42B;
- Fri, 26 Jun 2026 06:37:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HqmOvytKV8+B4kiSl9cE9lMXr8jcJk1I9YmgDctBzR3xtsk4Icr7VdS79lSzB+x8X51Afd357SHSlAZYlCr+GUsGXPiiCfik5ANu1PZtLtrPLroD1LBJtmFqpitmNK9Eafc9gqi9D42h/Rx+v+XTyQyJ9snuuiZLMA6wbUxRMiNIKGOSJ+Z6ia0vPPUmLmcLhcMCJoBwsup4xhc8f9U8JOcycaREklfGOjFOBCCU5ipv30YqAOe1FZpUVXbqpRL4xYX3PBiwagHBmzCi/QK1j/0Hz6N7uJcPUw+FwpQDbF4JCn1/dZ1mvXVPqTztB06nGzsSwTOoWv0VpxTdOB8vEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ggr6u9216LoeQgSPX1obf+AY9QMHx3wUFWjGFRk34x0=;
- b=NtLzi7XRsdCwz/ji3J7gyt7UrPkN89BilU/NrYJPO5CzviTpNIieTy9xHZaMKKbcrqkKapKdzvYIpYEz1SNjNYaeNAqwr34Vu2aeXRFRRxGUfVkYuyK7FKIJGMqDvSICQInUkzp94wZl0vvUzjyNFOOM0t00NNdjAmUi3uV+m3Oxx3IxiBKE8iwcIdUyvrnwxupeR6joFk4KlyCM2YPGfOiMDBd3vjKTGTYqzHE+Kkuobhek2+epxPcgMj2Xq8R8d2f20/KEzSzUXqe92CYYDlEpGaQ61UGVabeewFcCIIn0vKL5bo0N3wyxoOXQXHT6PnXuofI5HfGisTapDyHlBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ursulin.net smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ggr6u9216LoeQgSPX1obf+AY9QMHx3wUFWjGFRk34x0=;
- b=GY2f82LXiy6HJ5sfCYsWKXHnNVW//Hq6GgHl5+3bwhShHDuoSBuJ4vjUQkEOELE10gi9ZUuABLYqZ+9+hEy8jBhCsfTXFdWrfl7RBJQOafpeNkMqUl2M4JeDW5WJG/s4yQdbtkzYzwWysd6L9ROCfAtuItMh6+3FOzHnINq8hEQ=
-Received: from DM6PR02CA0118.namprd02.prod.outlook.com (2603:10b6:5:1b4::20)
- by CH3PR12MB8404.namprd12.prod.outlook.com (2603:10b6:610:12d::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Fri, 26 Jun
- 2026 06:37:25 +0000
-Received: from SN1PEPF0002BA4B.namprd03.prod.outlook.com
- (2603:10b6:5:1b4:cafe::53) by DM6PR02CA0118.outlook.office365.com
- (2603:10b6:5:1b4::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.17 via Frontend Transport; Fri,
- 26 Jun 2026 06:37:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF0002BA4B.mail.protection.outlook.com (10.167.242.68) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Fri, 26 Jun 2026 06:37:23 +0000
-Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 26 Jun
- 2026 01:37:20 -0500
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <christian.koenig@amd.com>, <tursulin@ursulin.net>,
- <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <nouveau@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
- <Arunpravin.PaneerSelvam@amd.com>, =?UTF-8?q?Thomas=20Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>
-Subject: [PATCH v2] drm/ttm: add generic drvparam[] alias for
- ttm_place::fpfn/lpfn
-Date: Fri, 26 Jun 2026 12:06:58 +0530
-Message-ID: <20260626063658.10237-1-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B93910E30B
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 06:48:14 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-490cdae130cso3646015e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 23:48:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782456493; x=1783061293; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9N0cksKNHvZ81428H3lVKSOV4A7mJ0/dw00DfAdSSuw=;
+ b=rUN/htI4FyB+uO/qOltqAj939aq4II9NeRkDdmRdnAy/Hnb/s+shkpVMBjEQA0XOrz
+ TyCY6OMvHP8zASQ04w5PHXSyU26ngdKRxmryp3XoqJ0mucFjfVOHy4F2SMngsDeVbeAb
+ HfTIcGk9ub0FCUh0SStfbcNhlGyF8bEZbU3DRq4igWuq3BVGyZcQOtmFXDeB2vYOGOvQ
+ BKrPr4R6OS6ViWm2ETqUEz8HpfK4RNHyIZLM2j6SksjNyn999sOYGFgls72Eop8hSp20
+ cevvSU0fYyqsGT+G1KVKcA3l4ODchu3X86wv8HBPk+fFkPG0x/rHckC+pk3jpVm5iiTJ
+ Bwpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782456493; x=1783061293;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=9N0cksKNHvZ81428H3lVKSOV4A7mJ0/dw00DfAdSSuw=;
+ b=OtgEjMtcKzckqb3OPtGXYC53flE/FiwxvASRN4FQhOxC6Q8tUzuWIuDHmGKIs1jJ5E
+ y8gzYPWIXaHPXQCmGM1TFrejhh+L0W3SSQ52UjOZib2q3/ITd9I1tn0orGligUDs2GB0
+ rQsWm+WPvkXQVl9LfHaOTTYqNvYcq1wf/dvCvXLNmhgfA3D0FiPQbIR5f2RijkZbqtdo
+ NkGJEUIoteONDV9wea0dn3kTDMKppT79yX+fdYlFYiSetT76X6Ks4mLOWHF0WrzuXSx1
+ IAOPGBAFIevrJ/Glw/AFqPo0yRI9Xl0GYXEMHQAk1Wol9p3MVHKCHEtmUBHe2RDV3WbN
+ 0Spw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+jB7dNCG6f64ICBVi7uCw/VLRKK7BiFOVN85T18vaeR3Dv5L7FiQGB2JHTtr+/Co/9zSmhA4dQ2pg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyaDVwMzp/j+EmSNwo8shIrG187TjTNBFThYA2cwfEQQkubdgtc
+ 6j8rxMrD2rTVjHOPPV+HNhwRpEkaryTcdbRvqlcHoA9E9j7Nd9vkZvo9
+X-Gm-Gg: AfdE7ckI7dW0ddHrNh8+hjMcjwLEUT4km7rdxJra2DYF4YG1f3rC6hX3KVrrgvPrAJp
+ BGdQ6OKGghXAObGkpNGfrqQQJu19YvXovGIIW1hkir2K7QqRep4RcIk9II5nU7nzbNEwWwPMt5S
+ uDlAkmF9ykGbPSELTHWa7ZY7nr4XUIyGyuNLSYBBBrKgbI4X+efRbTOmVdTgh6Il0O9/WEPCoM8
+ 49Shtm/yIg9kfNcUF1WB95VjtC66/uQsspS8XG1cN9UdLnkGq9NYF9zZf4pBe3RGkokk5M6ilmY
+ BbUPn+7AI10Up6X/M6MN5ZERz3oTCUVqMCFRLjYR7l8hnGzVf3EkshlKiKGQgtAc35s+p2FEztK
+ pR+MCiW+lNtylinI9QQMyKS1PdHETatdr05mm4h1rVwdOJAD16+gUIXYaceZNtpnCiOdeNYKehs
+ nXkEeKYo4nOh/+e7hiNswi8V8Kt1QmQphD19r6vhMZnff3exMZqg==
+X-Received: by 2002:a05:600c:3143:b0:492:4cce:53e2 with SMTP id
+ 5b1f17b1804b1-4926683b1a2mr69365785e9.3.1782456492535; 
+ Thu, 25 Jun 2026 23:48:12 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-492690a1a85sm93653035e9.15.2026.06.25.23.48.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jun 2026 23:48:12 -0700 (PDT)
+Date: Fri, 26 Jun 2026 07:48:10 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: suryasaimadhu <suryasaimadhu369@gmail.com>
+Cc: andy@kernel.org, gregkh@linuxfoundation.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: fbtft: fix unaligned access and buffer size
+ when startbyte is used
+Message-ID: <20260626074810.433c4006@pumpkin>
+In-Reply-To: <20260625103041.281190-1-suryasaimadhu369@gmail.com>
+References: <20260625103041.281190-1-suryasaimadhu369@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4B:EE_|CH3PR12MB8404:EE_
-X-MS-Office365-Filtering-Correlation-Id: a8dedce0-0046-4241-1069-08ded34d61a2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|23010399003|36860700016|7416014|376014|18002099003|3023799007|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: 6yxEEAyTx+NEmNUTQZ11IucteDeDICAH76SxgbGLnzXYbQfpip2pbE+yBxqPJ7j1FdBtaDRJRaNRmIagEGuC4D9wwkji4GfRwIMCP8iHsWTejPlevZucLU712Tkn0q/UsXK3rADrbO3yNeRqTmyJNfRsd8ALvKXAs+58/P57u4hGmlk6IOzX/usxSsv1WeLfU2f4iZ//F2Q75PH6LwT3sBgIu6sjs6LwoE/OgifHjtGcOdMRdfhRDZpqJ9lYpdZ65fQ5dvVgpjwyYnmOFb4Tnd1qPL3TbDgmihjMSo9nqyIgpIT320PR95yZqdtE0Q2QDzxgR/P3tOPsLqWHQGWG7R2zWVaS38eWeE/Mgg0EUDrV7NcGCMk3gYv7MmmcrUinbC4aJaX4A14PFMqbCoYHUBHa8AK32ETlyBJyheeLEm1IOcLR9ikbFPJHn+4ok3GIAcZ6G/ORROjFRVgRYGxHGKi7Zgdg52d1z+ZLn4ryxg6oQ96ui2NI/2gg1eA1iL2jURlAucFUvAqIr5fprzNp1cF8XoAJYwxO02rFj2DavlNHtqzUrrB6mEYMBsgz4jwuxiTbNe8GfKs4GS6DHh7CHKRH5m4L6LlLzxzI/pg8TDIN3y3DJDg0OHtq7yeeKi8pOkAgK+Rz5UMBHpIJ3lOflZo4fl/mSsCEiZvwfHvL6tDMrrrha2Oy9b4Sew++0w4JRclk0WDPIwSiXFjJrw/Nfg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(23010399003)(36860700016)(7416014)(376014)(18002099003)(3023799007)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: to/m/0R06wlPH/BfB7PFi85clDhhXRQ3sKmzsd/aSrm1Yr5ougMUobLeLbwNU7oog1vYUrCrcUZliMhMr6epkkM0DZ51tlX+nAazqAang4OrdhdDmn1/upu9gvWg9NJu0Ii1wFAa8sLj0rq3UDblrJASEosMCofJ+iiPKTFxwymCnmh/fu9xyx+iDPWSi7h16IZpOIYnBuS+p8wOzrmBbGcWMpMapPXRxzGtZiyPY7wFNFjp0x3+tBaRjWBdpSiM0RUPeTM3j9rQtrryPZvVVF0uu5cHnFnLpOSynx3STqQVyKued4xJwIs1JzIZuboqE313fcxEpzvrhKUT7Y5Lx8x6TYeKAmeAZ8AXnMh1QrplbAG7BnM9eA5u+XIXkKA766e35Zx+mokhJikhxqEeOUB922Gsh7l6XVaNRYntZb7V932UtGsiTBulQpy73mN+
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 06:37:23.6531 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8dedce0-0046-4241-1069-08ded34d61a2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA4B.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8404
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,64 +92,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The fpfn/lpfn fields in struct ttm_place are named after page frame
-numbers, but they are really just placement parameters interpreted by
-the backend resource manager. Wrap them in a union with a generic
-drvparam[2] array so backends can access the same storage without the
-PFN-specific naming.
+On Thu, 25 Jun 2026 18:30:41 +0800
+suryasaimadhu <suryasaimadhu369@gmail.com> wrote:
 
-drvparam[0]/drvparam[1] alias fpfn/lpfn, so existing users and the
-VRAM range manager are unchanged. This decouples the API from
-PFN/range-specific semantics so that these fields can be used more
-flexibly in the future (e.g. mask-based or segment-aware placement
-constraints). No functional change.
+> When par->startbyte is non-zero, buf is advanced by one byte creating
+> an unaligned pointer for 16-bit types (u16, __be16). Dereferencing this
+> unaligned pointer can cause a kernel panic on strict-alignment
+> architectures.
+> 
+> Fix by using put_unaligned() instead of direct pointer dereference.
+> 
+> Also fix incorrect buffer size calculation in fbtft_write_buf_dc() call:
+>   len * (sizeof(data_type) + offset)  /* wrong: multiplies offset by len */
+>   len * sizeof(data_type) + offset    /* correct: one startbyte +
+>                                          len items */
 
-v2: Use a union exposing a generic drvparam[2] array instead of
-    renaming fpfn/lpfn to param1/param2, keeping existing users
-    unchanged (Tvrtko Ursulin)
+That should probably be a separate patch.
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Assisted-by: Claude:claude-opus-4-8
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
----
- include/drm/ttm/ttm_placement.h | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> Signed-off-by: suryasaimadhu <suryasaimadhu369@gmail.com>
+> ---
+>  drivers/staging/fbtft/fbtft-bus.c | 13 ++++++++-----
+>  1 file changed, 8 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fbtft-bus.c
+> index 2169f8d1d..cfcf4d7e7 100644
+> --- a/drivers/staging/fbtft/fbtft-bus.c
+> +++ b/drivers/staging/fbtft/fbtft-bus.c
+> @@ -4,6 +4,7 @@
+>  #include <linux/gpio/consumer.h>
+>  #include <linux/spi/spi.h>
+>  #include "fbtft.h"
+> +#include <linux/unaligned.h>
+>  
+>  /*****************************************************************************
+>   *
+> @@ -40,7 +41,7 @@ void func(struct fbtft_par *par, int len, ...)                                \
 
-diff --git a/include/drm/ttm/ttm_placement.h b/include/drm/ttm/ttm_placement.h
-index ab2639e42c54..7db2073f3236 100644
---- a/include/drm/ttm/ttm_placement.h
-+++ b/include/drm/ttm/ttm_placement.h
-@@ -75,14 +75,22 @@
-  *
-  * @fpfn:	first valid page frame number to put the object
-  * @lpfn:	last valid page frame number to put the object
-+ * @drvparam:	generic driver/backend placement parameters; the
-+ *		interpretation is defined by the backend resource manager.
-+ *		drvparam[0] and drvparam[1] alias @fpfn and @lpfn.
-  * @mem_type:	One of TTM_PL_* where the resource should be allocated from.
-  * @flags:	memory domain and caching flags for the object
-  *
-  * Structure indicating a possible place to put an object.
-  */
- struct ttm_place {
--	uint64_t	fpfn;
--	uint64_t	lpfn;
-+	union {
-+		struct {
-+			uint64_t	fpfn;
-+			uint64_t	lpfn;
-+		};
-+		uint64_t	drvparam[2];
-+	};
- 	uint32_t	mem_type;
- 	uint32_t	flags;
- };
+I'd consider changing that to:
+	func(struct fbtft_par *par, int len, u8 cmd, ...)
+and probably reducing len by one.
 
-base-commit: cdeb2ccd993ed8647adbbda2c3b103aa717fd6f7
--- 
-2.34.1
+It makes it more obvious that the first parameter is mandatory and the ... is
+associated data.
+
+	David
+
+>  		offset = 1;                                                   \
+>  	}                                                                     \
+>  									      \
+> -	*buf = modifier((data_type)va_arg(args, unsigned int));               \
+> +	put_unaligned(modifier((data_type)va_arg(args, unsigned int)), buf);  \
+>  	ret = fbtft_write_buf_dc(par, par->buf, sizeof(data_type) + offset,   \
+>  				 0);                                          \
+>  	if (ret < 0)							      \
+> @@ -52,11 +53,13 @@ void func(struct fbtft_par *par, int len, ...)                                \
+>  									      \
+>  	if (len) {                                                            \
+>  		i = len;                                                      \
+> -		while (i--)						      \
+> -			*buf++ = modifier((data_type)va_arg(args,             \
+> -							    unsigned int));   \
+> +		while (i--) {                                                 \
+> +			put_unaligned(modifier((data_type)va_arg(args,        \
+> +					       unsigned int)), buf);          \
+> +			buf++;                                                \
+> +		}                                                             \
+>  		fbtft_write_buf_dc(par, par->buf,			      \
+> -				   len * (sizeof(data_type) + offset), 1);    \
+> +				   len * sizeof(data_type) + offset, 1);      \
+>  	}                                                                     \
+>  out:									      \
+>  	va_end(args);                                                         \
 
