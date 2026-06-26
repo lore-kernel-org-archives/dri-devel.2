@@ -4,44 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F129BCD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:07:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A86BDCD4F26
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:18:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5692010F5A9;
-	Fri, 26 Jun 2026 12:07:11 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BEIRRi6J";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3925010F5A9
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:07:10 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 154CE4388E
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:07:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8DAB1F000E9;
- Fri, 26 Jun 2026 12:07:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782475630;
- bh=ppjgt+FXUa/Fw0EA5nU9+z5Wr4fLZ76N/w51kvSjYxI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BEIRRi6JApGaVMdkrpeErFC0eXmVIGx2JHrKWoAoKplgsv8QTFDmVM7tVBhYt0fJH
- XzJnNvWLAz/JOrDu4JhbnDzcOdp8T1NPQ30NtmPCJup1ECrMgJ/acXWA7eJq+p2W1m
- Wy3T8bQkU9Tlm57CfTyvw1kBKlnt6UQV7JjfAlJWIaKT6ZA5hIkMfPErzo8lIC/+qn
- v8juTac1hTBhhmtFcET4P8VnDZvSmsSzG5YSVoqkj7E4L4r+xqw5WTVknrOMMeO2GY
- kQhhbbjzJVByzdPmeGdwEAwHPIBLvVzUPtLfAHJ/yHjYiOxniRA7+sOJ7qxUeJAHh/
- 2Q0YMqZDzg/Ag==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 3/8] rust: implement `ForeignOwnable` for `Owned`
-To: "Andreas Hindborg" <a.hindborg@kernel.org>
-Cc: linux-pci@vger.kernel.org, ojeda@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260626-unique-ref-v19-3-2607ca88dfdf@kernel.org>
-References: <20260626-unique-ref-v19-0-2607ca88dfdf@kernel.org>
- <20260626-unique-ref-v19-3-2607ca88dfdf@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 12:07:08 +0000
-Message-Id: <20260626120709.A8DAB1F000E9@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF7EB10E351;
+	Fri, 26 Jun 2026 12:18:33 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77CF810E351
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:18:31 +0000 (UTC)
+Received: from localhost.localdomain (unknown [117.182.75.66])
+ by APP-05 (Coremail) with SMTP id zQCowACnMwcTbj5qSbNnFQ--.22821S2;
+ Fri, 26 Jun 2026 20:18:29 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: sumit.semwal@linaro.org,
+	christian.koenig@amd.com
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ WenTao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
+Subject: [PATCH] fix: dma-buf: fence_chains_init: error unwind path leaks
+ enable_sw_signaling reference
+Date: Fri, 26 Jun 2026 20:18:25 +0800
+Message-Id: <20260626121825.35310-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowACnMwcTbj5qSbNnFQ--.22821S2
+X-Coremail-Antispam: 1UD129KBjvJXoWrKw18XF17GFyUXw45Ary8Grg_yoW8Jryrpa
+ 93Kr1UKr98K3WxZayDAF1DtFyFkr4rXry8WF4jka4Sv3s8ZFyUXr4vy3y2qF98Cr97GFZ8
+ J345Cry5WF1rAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+ 6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+ 0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
+ 0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+ W8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1l
+ IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjMqcUUUUU
+ U==
+X-Originating-IP: [117.182.75.66]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAcKA2o+ThJiEgAAs6
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,59 +59,38 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Use of `kernel::` instead of `crate::` for intra-crate imports and =
-paths.
---
+dma_fence_enable_sw_signaling acquires an extra reference on each chain
+  fence. The error unwind loop calls dma_fence_put only once per
+  chain/fence without first signaling the fence to trigger the callback
+  that releases the signaling reference. This prevents the chain fence kref
+  from reaching 0, permanently leaking the chain and its contained fence.
 
-commit 5d83778cf519ec33130e7eef0e627d3e0a92700a
-Author: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: stable@vger.kernel.org
+Fixes: dc2f7e67a28a ("dma-buf: Exercise dma-fence-chain under selftests")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+ drivers/dma-buf/st-dma-fence-chain.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-rust: implement ForeignOwnable for Owned
+diff --git a/drivers/dma-buf/st-dma-fence-chain.c b/drivers/dma-buf/st-dma-fence-chain.c
+index 821023dd34df..7dc18e294387 100644
+--- a/drivers/dma-buf/st-dma-fence-chain.c
++++ b/drivers/dma-buf/st-dma-fence-chain.c
+@@ -152,7 +152,10 @@ static int fence_chains_init(struct fence_chains *fc, unsigned int count,
+ 
+ unwind:
+ 	for (i = 0; i < count; i++) {
+-		dma_fence_put(fc->fences[i]);
++		if (fc->fences[i]) {
++			dma_fence_signal(fc->fences[i]);
++			dma_fence_put(fc->fences[i]);
++		}
+ 		dma_fence_put(fc->chains[i]);
+ 	}
+ 	kvfree(fc->fences);
+-- 
+2.39.5 (Apple Git-154)
 
-This commit implements ForeignOwnable for Owned<T>, which allows it to be
-used in places such as the XArray.
-
-> diff --git a/rust/kernel/owned.rs b/rust/kernel/owned.rs
-> index 7fe9ec3e55126..93a5dfcc1e6f5 100644
-> --- a/rust/kernel/owned.rs
-> +++ b/rust/kernel/owned.rs
-> @@ -15,6 +15,8 @@
->      ptr::NonNull, //
->  };
-> =20
-> +use kernel::types::ForeignOwnable;
-
-[Severity: Low]
-This isn't a bug, but should this import use crate::types::ForeignOwnable
-instead of kernel::types::ForeignOwnable for an intra-crate reference?
-
-[ ... ]
-
-> +    #[inline]
-> +    fn into_foreign(self) -> *mut kernel::ffi::c_void {
-
-[Severity: Low]
-This is also a minor style detail, but is there a reason to use kernel::
-instead of crate:: for the c_void path here?
-
-Would it be better to use crate::ffi::c_void for the return type, as well
-as for the ptr arguments in from_foreign(), borrow(), and borrow_mut() belo=
-w?
-
-> +        Owned::into_raw(self).as_ptr().cast()
-> +    }
-> +
-> +    #[inline]
-> +    unsafe fn from_foreign(ptr: *mut kernel::ffi::c_void) -> Self {
-> +        // SAFETY: By function safety contract, `ptr` came from `into_fo=
-reign` and cannot be null.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626-unique-ref=
--v19-0-2607ca88dfdf@kernel.org?part=3D3
