@@ -4,57 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB4E6CDE010
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 05:27:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA33ACDE010
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 05:37:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 205C310F425;
-	Fri, 26 Jun 2026 05:27:32 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 934D210F425
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 05:27:30 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.182])
- by APP-01 (Coremail) with SMTP id qwCowABnB9C6DT5qwhlYAw--.61200S2;
- Fri, 26 Jun 2026 13:27:24 +0800 (CST)
-Message-ID: <e3fe23ddbc504879bd797bbaa595d3653fa139ff.camel@iscas.ac.cn>
-Subject: Re: [PATCH v5 1/7] dt-bindings: display: verisilicon,dc: generalize
- for single-output variants
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Conor Dooley <conor@kernel.org>, Joey Lu <a0987203069@gmail.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, 	airlied@gmail.com, simona@ffwll.ch, robh@kernel.org,
- krzk+dt@kernel.org, 	conor+dt@kernel.org, ychuang3@nuvoton.com,
- schung@nuvoton.com, yclu4@nuvoton.com, 	dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Date: Fri, 26 Jun 2026 13:27:21 +0800
-In-Reply-To: <20260625-bobbing-annotate-d1c4d6874ee2@spud>
-References: <20260625094449.708386-1-a0987203069@gmail.com>
- <20260625094449.708386-2-a0987203069@gmail.com>
- <20260625-bobbing-annotate-d1c4d6874ee2@spud>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.58.3 
-MIME-Version: 1.0
-X-CM-TRANSID: qwCowABnB9C6DT5qwhlYAw--.61200S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWrWkJw1UGw1DAw1xGFyUKFg_yoWrury5pF
- Z5JFWUJry8Jrn5Jr1UtF1UAFyUAr1kJ3WDJr1xXFy5tF45Jr1jgr4jgr1qgr1UJr48Jr1U
- tr4UXrnrZr12yFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUPlb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
- A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
- w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
- vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACY4xI67k04243AVAKzVAKj4xxM4xv
- F2IEb7IF0Fy26I8I3I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wr
- yl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWU
- JVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7V
- AKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42
- IY6I8E87Iv6xkF7I0E14v26r4j6r4UJwCE64xvF2IEb7IF0Fy7YxBIdaVFxhVjvjDU0xZF
- pf9x07bsq2_UUUUU=
-X-Originating-IP: [112.94.101.182]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7AFA10E304;
+	Fri, 26 Jun 2026 05:37:24 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VXioAr4b";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9382E10E301
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 05:37:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5881A4430F;
+ Fri, 26 Jun 2026 05:37:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 186481F00A3A;
+ Fri, 26 Jun 2026 05:37:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782452243;
+ bh=3L9kUMFvkcsEwXd1FMeno5feXTAes1pulqJgLgUwPnw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=VXioAr4bBSEys1YvqtmFTQbC7bfVJQwXTQTsktQ2lrPHUiDmjuUH/KfgCykKaix4A
+ fuJOBY0SLIIVa2YFArsaYsiM6Cug5urjAGpu5stqCNgZY6ruXVbjAM+nig9/vAOLrU
+ Lc8VFe+TYD71jc1uwOxIREcdpAmunNdpVwnT5114EnOoVbTggbnlJXpfzXqAV7PhYz
+ 3lifZ49vka1YfS0PDa6ts7YkpYw2VDvey0PkVNcBE9RvhqXp6uhgnbzO4uE6ZbfsVc
+ iDIumFFrnX+neKEWTF4kNffgOvdkdRcn/qv5opwPqf4SAmfV2YJv1qpINgu6ANxLCf
+ GyoF0GOWEAYVA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8] drm/i915/dg2: Add per-context control for
+ Wa_22013059131
+To: "Jia Yao" <jia.yao@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260626052551.1327022-1-jia.yao@intel.com>
+References: <20260626052551.1327022-1-jia.yao@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 05:37:22 +0000
+Message-Id: <20260626053723.186481F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,86 +53,105 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-5ZyoIDIwMjYtMDYtMjXlm5vnmoQgMTc6MzMgKzAxMDDvvIxDb25vciBEb29sZXnlhpnpgZPvvJoK
-PiBPbiBUaHUsIEp1biAyNSwgMjAyNiBhdCAwNTo0NDo0M1BNICswODAwLCBKb2V5IEx1IHdyb3Rl
-Ogo+ID4gVGhlIHZlcmlzaWxpY29uLGRjIGJpbmRpbmcgd2FzIG9yaWdpbmFsbHkgd3JpdHRlbiBm
-b3IgdGhlIFQtSGVhZAo+ID4gVEgxNTIwCj4gPiBTb0MgY2FycnlpbmcgYSBEQzgyMDAsIGFuZCBo
-YXJkLWNvZGVzIGZpdmUgY2xvY2tzLCB0aHJlZSByZXNldHMgYW5kCj4gPiB0d28KPiA+IG91dHB1
-dCBwb3J0cy4KPiA+IAo+ID4gQWRkIHRoZSBOdXZvdG9uIE1BMzVEMSBEQ1VsdHJhTGl0ZSAobnV2
-b3RvbixtYTM1ZDEtZGN1KSB0byB0aGUKPiA+IGJpbmRpbmcuCj4gPiBUaGUgRENVbHRyYUxpdGUg
-dXNlcyBvbmx5IHR3byBjbG9ja3MgKGNvcmUsIHBpeDApIGFuZCBvbmUgcmVzZXQKPiA+IChjb3Jl
-KSwKPiA+IHdpdGggYSBzaW5nbGUgb3V0cHV0IHBvcnQuCj4gPiAKPiA+IFVzZSBhbGxPZi9pZiBi
-bG9ja3MgdG8gZXhwcmVzcyBwZXItdmFyaWFudCBjb25zdHJhaW50cyByYXRoZXIgdGhhbgo+ID4g
-aGFyZC1jb2RpbmcgdGhlIERDODIwMCB0b3BvbG9neSBhdCB0aGUgdG9wIGxldmVsLsKgIEVhY2gK
-PiA+IGNvbXBhdGlibGUncwo+ID4gYmxvY2sgY29uc3RyYWlucyB0aGUgY2xvY2sgYW5kIHJlc2V0
-IGl0ZW0gY291bnRzOyB0aGUgbnV2b3RvbiBibG9jawo+ID4gYWRkaXRpb25hbGx5IG92ZXJyaWRl
-cyBjbG9jay1uYW1lcyB0byB0aGUgdHdvIG5hbWVzIGl0IGFjdHVhbGx5Cj4gPiB1c2VzLgo+ID4g
-Cj4gPiBTaWduZWQtb2ZmLWJ5OiBKb2V5IEx1IDxhMDk4NzIwMzA2OUBnbWFpbC5jb20+Cj4gPiAt
-LS0KPiA+IMKgLi4uL2JpbmRpbmdzL2Rpc3BsYXkvdmVyaXNpbGljb24sZGMueWFtbMKgwqDCoMKg
-wqAgfCA1Nwo+ID4gKysrKysrKysrKysrKysrKysrKwo+ID4gwqAxIGZpbGUgY2hhbmdlZCwgNTcg
-aW5zZXJ0aW9ucygrKQo+ID4gCj4gPiBkaWZmIC0tZ2l0Cj4gPiBhL0RvY3VtZW50YXRpb24vZGV2
-aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L3ZlcmlzaWxpY29uLGRjLnlhbWwKPiA+IGIvRG9jdW1l
-bnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVyaXNpbGljb24sZGMueWFtbAo+
-ID4gaW5kZXggOWRjMzVhYjk3M2YyLi4xZTc1MWYzYzdjZTggMTAwNjQ0Cj4gPiAtLS0gYS9Eb2N1
-bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS92ZXJpc2lsaWNvbixkYy55YW1s
-Cj4gPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS92ZXJp
-c2lsaWNvbixkYy55YW1sCj4gPiBAQCAtMTcsNiArMTcsNyBAQCBwcm9wZXJ0aWVzOgo+ID4gwqDC
-oMKgwqAgaXRlbXM6Cj4gPiDCoMKgwqDCoMKgwqAgLSBlbnVtOgo+ID4gwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgLSB0aGVhZCx0aDE1MjAtZGM4MjAwCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgIC0gbnV2
-b3RvbixtYTM1ZDEtZGN1Cj4gPiDCoMKgwqDCoMKgwqAgLSBjb25zdDogdmVyaXNpbGljb24sZGMg
-IyBEQyBJUHMgaGF2ZSBkaXNjb3ZlcmFibGUKPiA+IElEL3JldmlzaW9uIHJlZ2lzdGVycwo+ID4g
-wqAKPiA+IMKgwqAgcmVnOgo+ID4gQEAgLTc3LDYgKzc4LDYyIEBAIHJlcXVpcmVkOgo+ID4gwqDC
-oCAtIGNsb2NrLW5hbWVzCj4gPiDCoMKgIC0gcG9ydHMKPiA+IMKgCj4gPiArYWxsT2Y6Cj4gPiAr
-wqAgLSBpZjoKPiA+ICvCoMKgwqDCoMKgIHByb3BlcnRpZXM6Cj4gPiArwqDCoMKgwqDCoMKgwqAg
-Y29tcGF0aWJsZToKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqAgY29udGFpbnM6Cj4gPiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBjb25zdDogdGhlYWQsdGgxNTIwLWRjODIwMAo+ID4gK8KgwqDCoCB0
-aGVuOgo+ID4gK8KgwqDCoMKgwqAgcHJvcGVydGllczoKPiA+ICvCoMKgwqDCoMKgwqDCoCBjbG9j
-a3M6Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1pbkl0ZW1zOiA1Cj4gPiArwqDCoMKgwqDCoMKg
-wqDCoMKgIG1heEl0ZW1zOiA1Cj4gPiArCj4gPiArwqDCoMKgwqDCoMKgwqAgY2xvY2stbmFtZXM6
-Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1pbkl0ZW1zOiA1Cj4gPiArwqDCoMKgwqDCoMKgwqDC
-oMKgIG1heEl0ZW1zOiA1Cj4gCj4gQWxsIHRoZSBtYXhJdGVtcyBoZXJlIHJlcGVhdCB0aGUgbWF4
-aW11bSBjb25zdHJhaW50IGFuZCBkbyBub3RoaW5nLgo+IAo+IFNpbmNlIHlvdSBkaWRuJ3QgY2hh
-bmdlIHRoZSBtaW5pbXVtIGNvbnN0cmFpbnQgYXQgdGhlIHRvcCBsZXZlbCwgeW91cgo+IG1pbkl0
-ZW1zIGFsc28gZG8gbm90aGluZy4KPiAKPiA+ICsKPiA+ICvCoMKgwqDCoMKgwqDCoCByZXNldHM6
-Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1pbkl0ZW1zOiAzCj4gPiArwqDCoMKgwqDCoMKgwqDC
-oMKgIG1heEl0ZW1zOiAzCj4gPiArCj4gPiArwqDCoMKgwqDCoMKgwqAgcmVzZXQtbmFtZXM6Cj4g
-PiArwqDCoMKgwqDCoMKgwqDCoMKgIG1pbkl0ZW1zOiAzCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKg
-IG1heEl0ZW1zOiAzCj4gPiArCj4gPiArwqDCoMKgwqDCoCByZXF1aXJlZDoKPiA+ICvCoMKgwqDC
-oMKgwqDCoCAtIHJlc2V0cwo+ID4gK8KgwqDCoMKgwqDCoMKgIC0gcmVzZXQtbmFtZXMKPiAKPiBC
-b3RoIGNvbmRpdGlvbmFsIHNlY3Rpb25zIGhhdmUgdGhpcywgYnV0IHRoZSBvcmlnaW5hbCBiaW5k
-aW5nIGRvZXNuJ3QKPiByZXF1aXJlIHRoZXNlIGZvciB0aGUgdGhlYWQgZGV2aWNlLiBUaGlzIGlz
-IGEgZnVuY3Rpb25hbCBjaGFuZ2UKPiB0aGVyZWZvcmUgYW5kIHNob3VsZG4ndCBiZSBpbiBhIHBh
-dGNoIGNhbGxpbmcgaXRzZWxmICJnZW5lcmFsaXNlIGZvcgo+IHNpbmdsZSBlbmRlZCB2YXJpYW50
-cyIuCgpXZWxsIHllcyB0aGV5J3JlIHJlcXVpcmVkLgoKU2hvdWxkIEkgc2VuZCBhIHBhdGNoIGFk
-ZGluZyB0aGUgYHRoZWFkLHRoMTUyMC1kYzgyMDBgIHBhcnQgb2YgdGhlCnNjaGVtYT8KCj4gCj4g
-RldJVywgYWRkaW5nIHlvdXIgbmV3IGNvbXBhdGlibGUgc2hvdWxkbid0IHJlYWxseSBiZSBpbiBh
-IHBhdGNoIHdpdGgKPiB0aGF0IHN1YmplY3QgZWl0aGVyLCBpdCByZWFsbHkgc2hvdWxkIHNheSAi
-YWRkIHN1cHBvcnQgZm9yIG51dm90b24KPiBtYTM1ZDEiIG9yIHNvbWV0aGluZy4KPiAKPiA+ICsK
-PiA+ICvCoCAtIGlmOgo+ID4gK8KgwqDCoMKgwqAgcHJvcGVydGllczoKPiA+ICvCoMKgwqDCoMKg
-wqDCoCBjb21wYXRpYmxlOgo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoCBjb250YWluczoKPiA+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnN0OiBudXZvdG9uLG1hMzVkMS1kY3UKPiA+ICvCoMKg
-wqAgdGhlbjoKPiA+ICvCoMKgwqDCoMKgIHByb3BlcnRpZXM6Cj4gPiArwqDCoMKgwqDCoMKgwqAg
-Y2xvY2tzOgo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoCBtaW5JdGVtczogMgo+IAo+IEFueXRoaW5n
-IHRoYXQgdXBkYXRlcyB0aGUgbWluaW11bSBjb25zdHJhaW50IHNob3VsZCBiZSBkb25lIGF0IHRo
-ZQo+IHRvcAo+IGxldmVsIG9mIHRoaXMgc2NoZW1hLiBUaGUgY29uZGl0aW9uYWwgc2VjdGlvbiBz
-aG91bGQgdGhlbiB0aWdodGVuIHRoZQo+IGNvbnN0cmFpbnQsIGluIHRoaXMgY2FzZSB0aGF0IG1l
-YW5zIG9ubHkgaGF2aW5nIG1heEl0ZW1zLgo+IAo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoCBtYXhJ
-dGVtczogMgo+ID4gKwo+ID4gK8KgwqDCoMKgwqDCoMKgIGNsb2NrLW5hbWVzOgo+ID4gK8KgwqDC
-oMKgwqDCoMKgwqDCoCBpdGVtczoKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC0gY29uc3Q6
-IGNvcmUKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC0gY29uc3Q6IHBpeDAKPiAKPiBEb2Vz
-IHRoaXMgZXZlbiB3b3JrIHdoZW4gdGhlIHRvcCBsZXZlbCBzY2hlbWEgdGhpbmtzIGNsb2NrIDIg
-c2hvdWxkCj4gYmUKPiBjYWxsZWQgYXhpPwo+IAo+ID4gKwo+ID4gK8KgwqDCoMKgwqDCoMKgIHJl
-c2V0czoKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWluSXRlbXM6IDEKPiA+ICvCoMKgwqDCoMKg
-wqDCoMKgwqAgbWF4SXRlbXM6IDEKPiA+ICsKPiA+ICvCoMKgwqDCoMKgwqDCoCByZXNldC1uYW1l
-czoKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqAgaXRlbXM6Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCAtIGNvbnN0OiBjb3JlCj4gCj4gVGhpcyBpcyBqdXN0IG1heEl0ZW1zOiAxLgoKV2VsbCB0
-aGUgaW1wbGljaXQgcnVsZXMgb2YgRFQgYmluZGluZyBzY2hlbWFzIGFyZSBxdWl0ZSB3ZWlyZC4u
-LgoKVGhhbmtzLApJY2Vub3d5Cgo+IAo+IHB3LWJvdDogY2hhbmdlcy1yZXF1ZXN0ZWQKPiAKPiBU
-aGFua3MsCj4gQ29ub3IuCj4gCj4gPiArCj4gPiArwqDCoMKgwqDCoCByZXF1aXJlZDoKPiA+ICvC
-oMKgwqDCoMKgwqDCoCAtIHJlc2V0cwo+ID4gK8KgwqDCoMKgwqDCoMKgIC0gcmVzZXQtbmFtZXMK
-PiA+ICsKPiA+IMKgYWRkaXRpb25hbFByb3BlcnRpZXM6IGZhbHNlCj4gPiDCoAo+ID4gwqBleGFt
-cGxlczoKPiA+IC0tIAo+ID4gMi40My4wCj4gPiAK
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Race condition between concurrent engines due to per-context toggl=
+ing of shared global MCR register `LSC_CHICKEN_BIT_0`.
+- [High] Invalid cross-domain hardware programming by unconditionally emitt=
+ing Render/Compute workaround on Video (VCS) and Copy (BCS) engines.
+--
 
+commit 77b4f585118e5a808b879e93ddf1a2f08c7c13c1
+Author: Jia Yao <jia.yao@intel.com>
+Subject: drm/i915/dg2: Add per-context control for Wa_22013059131
+
+This commit introduces a per-context control for Wa_22013059131, which
+toggles FORCE_1_SUB_MESSAGE_PER_FRAGMENT in LSC_CHICKEN_BIT_0 at engine
+init. It adds I915_CONTEXT_PARAM_WA_22013059131 to allow userspace to
+manage the workaround itself, skipping the bit 15 programming.
+LSC_CHICKEN_BIT_0 is dynamically rewritten on every context switch to
+avoid leaking state between contexts.
+
+Link: https://github.com/intel/compute-runtime/pull/919
+
+> diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/g=
+t/intel_lrc.c
+> index 147d22907960b..13344ebb847ec 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_lrc.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+[ ... ]
+> @@ -1348,6 +1348,37 @@ gen12_invalidate_state_cache(u32 *cs)
+>  	return cs;
+>  }
+> =20
+> +static u32 *
+> +dg2_g11_emit_wa_22013059131(const struct intel_context *ce, u32 *cs)
+> +{
+[ ... ]
+> +	if (rcu_access_pointer(ce->gem_context) &&
+> +	    !test_bit(CONTEXT_WA_22013059131, &ce->flags)) {
+> +		val |=3D FORCE_1_SUB_MESSAGE_PER_FRAGMENT;
+> +	}
+> +
+> +	*cs++ =3D MI_LOAD_REGISTER_IMM(1);
+> +	*cs++ =3D i915_mmio_reg_offset(LSC_CHICKEN_BIT_0);
+> +	*cs++ =3D val;
+
+[Severity: High]
+Does dynamically overwriting LSC_CHICKEN_BIT_0 using MI_LOAD_REGISTER_IMM
+during an engine-local context switch create a race condition?
+
+Because LSC_CHICKEN_BIT_0 is a shared Multicast (MCR) register across the D=
+SS,
+concurrent engines (like RCS and CCS) execute independently. Would a context
+switch on one engine clobber the workaround state of another context active=
+ly
+executing on a concurrent engine, leading to GPU hangs or workload corrupti=
+on?
+
+> +
+> +	return cs;
+> +}
+> +
+[ ... ]
+> @@ -1387,7 +1422,13 @@ gen12_emit_indirect_ctx_xcs(const struct intel_con=
+text *ce, u32 *cs)
+>  						    PIPE_CONTROL_INSTRUCTION_CACHE_INVALIDATE,
+>  						    0);
+> =20
+> -	return gen12_emit_aux_table_inv(ce->engine, cs);
+> +	cs =3D gen12_emit_aux_table_inv(ce->engine, cs);
+> +
+> +	/* Wa_22013059131:dg2 */
+> +	if (IS_DG2_G11(ce->engine->i915))
+> +		cs =3D dg2_g11_emit_wa_22013059131(ce, cs);
+
+[Severity: High]
+Does gen12_emit_indirect_ctx_xcs() incorrectly emit a Render/Compute regist=
+er
+write on Video (VCS) and Copy (BCS) engines?
+
+Since gen12_emit_indirect_ctx_xcs() is called to build the indirect context
+batch buffer for all non-Render engines, this unconditionally emits the
+MI_LOAD_REGISTER_IMM to LSC_CHICKEN_BIT_0.
+
+As LSC (Load/Store Cache) is part of the Xe-Core (Render/Compute domain),
+Video and Blitter engines don't have access to this register domain. Will t=
+his
+invalid cross-domain hardware programming cause command exceptions, dropped
+writes, or command streamer hangs?
+
+Would it be better to add an engine class check here, such as
+(ce->engine->class =3D=3D COMPUTE_CLASS)?
+
+> +
+> +	return cs;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626052551.1327=
+022-1-jia.yao@intel.com?part=3D1
