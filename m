@@ -4,57 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF2BFCDE008
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 11:40:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C3B8CD4F26
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 11:40:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0328B10E34E;
-	Fri, 26 Jun 2026 11:40:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ABDD10E36E;
+	Fri, 26 Jun 2026 11:40:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="jGwD1bJR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O/EquRBg";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C12C610E34E
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 11:40:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782474033;
- bh=ItFHcTXy/Z84JIIJJfgIO2Thrx6FCmqfpef5CRmRZc8=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=jGwD1bJRrj5LfWL2ZYzurU1hT0UPXZpiPM018loMgNPA0jjtHMe++LPIbW7xFhMPS
- 58e/bYa09pzp4fnyQVWSD7y2KzMRx6hOJ2FasPGuI4gPwQmKlcvWHWlVrDcssqX8Ws
- sNqfNsYW4n4bdNQMmqDiAObrknW26W1kbeRumro5qAnh0JRr6QEcr34FNX1SgIVg+Y
- TIIdFBwPvb+U2vMbPZbzbkmD5UKR5Ce5y6EyWE3N8dMmdOqjRnN7S92plX3euZdk1v
- mXIKz68FMM2Na/9EHopPNzLWjkL++SBtHzFJ7capdAEGLeL2lih0y7C5WKnCLRkW0/
- Xb25gxtqH1BMg==
-Received: from fedora-2.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9B17517E018C;
- Fri, 26 Jun 2026 13:40:32 +0200 (CEST)
-Date: Fri, 26 Jun 2026 13:40:28 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Liviu Dudau <liviu.dudau@arm.com>
-Cc: Steven Price <steven.price@arm.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Nicolas Frattaroli
- <nicolas.frattaroli@collabora.com>, Chia-I Wu <olvaffe@gmail.com>, Karunika
- Choo <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, sashiko-bot@kernel.org
-Subject: Re: [PATCH 05/11] drm/panthor: Fix theoretical IOMEM access in
- suspended state
-Message-ID: <20260626134028.518607ea@fedora-2.home>
-In-Reply-To: <aj5GkoBpmrpMWHSV@e142607>
-References: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
- <20260625-panthor-misc-fixes-v1-5-b67ed973fea6@collabora.com>
- <aj5GkoBpmrpMWHSV@e142607>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F33CD10E36E
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 11:40:44 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 349A760145;
+ Fri, 26 Jun 2026 11:40:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F9D21F00A3E;
+ Fri, 26 Jun 2026 11:40:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782474043;
+ bh=P6QYw1ftRkk88jxrnsEdoc5dsC32AZ29NF4eXPzq7Jg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=O/EquRBgSJUOaa3Td9INgfICKb3cuMbOIuX+VQvZAl3fOq0vX0ehU2vqbRkHT4oo0
+ 3V5WSJmHNA+zGuy7BZBnG6s2bPI7jq1yF8nvJ9Q1nYMGiDPYqJEDMadbuXBUPllGnE
+ wB0wm4vUxhVmU3SoaM0wqyrpO56OilT5qIlli29b5Tq4kEnr3c4iaAqgVIFAkOr2Ot
+ 56cQJRWw8Gpr8uF20nAqQ5twe5D4cUJrK92PBLRzgk93cqZYMFX5WrSpHNsPRNgsB8
+ OIIgbmXRPzykhZW2+QM/tl1jfl6rHSmTmzmvO8fIm+2fzYNNbC0jiV/C6xgDf/mCUl
+ fqVZQjUnlyteA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] drm/xe: count UMA shrinkable BOs as reclaimable
+ without swap
+To: aquiles <achillezongo07@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260626112638.2042298-1-achillezongo07@gmail.com>
+References: <20260626112638.2042298-1-achillezongo07@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 11:40:43 +0000
+Message-Id: <20260626114043.8F9D21F00A3E@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,62 +53,101 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 26 Jun 2026 10:29:54 +0100
-Liviu Dudau <liviu.dudau@arm.com> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] xe_shrinker_count() reports shrinkable UMA BOs regardless of __GFP=
+_FS, but xe_shrinker_scan() bails out without scanning them when __GFP_FS i=
+s missing.
+- [High] Bypassing ttm_backup_bytes_avail() for UMA shrinkable BOs falsely =
+assumes they can be freed without swap space, causing useless CPU overhead =
+yielding zero net memory reclamation.
+--
 
-> On Thu, Jun 25, 2026 at 02:40:31PM +0200, Boris Brezillon wrote:
-> > In theory, our hardirq handler can be called while the device (and
-> > thus the panthor_irq) is suspended, because the IRQ line is shared.
-> > In practice though, in all the designs we've seen, the line is only
-> > shared within the GPU, and because sub-component suspend state is
-> > consistent (all-suspended or all-resumed), we shouldn't end up with
-> > an interrupt triggered while we're suspended.
-> > 
-> > Fix the problem anyway, if nothing else, for our sanity.
-> > 
-> > Fixes: 0b2d86670a84 ("drm/panthor: Rework panthor_irq::suspended into panthor_irq::state")
-> > Reported-by: sashiko-bot@kernel.org
-> > Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v4-0-3d2908912afa@collabora.com?part=1
-> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> > ---
-> >  drivers/gpu/drm/panthor/panthor_device.h | 10 +++++++---
-> >  1 file changed, 7 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> > index 35679bfa1f3a..a39386bd6382 100644
-> > --- a/drivers/gpu/drm/panthor/panthor_device.h
-> > +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> > @@ -512,9 +512,6 @@ static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void *data)
-> >  	struct panthor_irq *pirq = data;							\
-> >  	enum panthor_irq_state old_state;							\
-> >  												\
-> > -	if (!gpu_read(pirq->iomem, INT_STAT))							\
-> > -		return IRQ_NONE;								\
-> > -												\
-> >  	guard(spinlock_irqsave)(&pirq->mask_lock);						\
-> >  	old_state = atomic_cmpxchg(&pirq->state,						\
-> >  				   PANTHOR_IRQ_STATE_ACTIVE,					\
-> > @@ -522,6 +519,13 @@ static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void *data)
-> >  	if (old_state != PANTHOR_IRQ_STATE_ACTIVE)						\
-> >  		return IRQ_NONE;								\
-> >  												\
-> > +	if (!gpu_read(pirq->iomem, INT_STAT)) {							\
-> > +		atomic_cmpxchg(&pirq->state,							\
-> > +			       PANTHOR_IRQ_STATE_PROCESSING,					\
-> > +			       PANTHOR_IRQ_STATE_ACTIVE);					\
-> > +		return IRQ_NONE;								\
-> > +	}											\  
-> 
-> Hmm,
-> 
-> I get it that you're trying to revert the effect of the previous atomic_cmpxchg() here but it feels
-> like a better option would be to not do the swap at all if the state is not ACTIVE.
+commit eb93ae097c20ae5f357e41557ba0c3d785cb142c
+Author: aquiles <achillezongo07@gmail.com>
 
-That's what [1] does, but it's not possible until we've made this
-atomic -> lock-based transition, and I want a fix that's not dependent
-on non-Fixes patches so we can backport it.
+drm/xe: count UMA shrinkable BOs as reclaimable without swap
 
-[1]https://lore.kernel.org/dri-devel/20260625-panthor-signal-from-irq-v5-8-8836a74e0ef9@collabora.com/
+This commit modifies the xe shrinker count logic to unconditionally report
+UMA shrinkable buffer objects as reclaimable, even without swap space. It
+subtracts UMA shrinkable pages from the ttm backup limit check and adds
+them back unconditionally.
+
+> diff --git a/drivers/gpu/drm/xe/xe_shrinker.c b/drivers/gpu/drm/xe/xe_shr=
+inker.c
+> index 83374cd576608..3ca2de342dcd6 100644
+> --- a/drivers/gpu/drm/xe/xe_shrinker.c
+> +++ b/drivers/gpu/drm/xe/xe_shrinker.c
+[ ... ]
+> @@ -140,16 +140,22 @@ xe_shrinker_count(struct shrinker *shrink, struct s=
+hrink_control *sc)
+>  {
+>  	struct xe_shrinker *shrinker =3D to_xe_shrinker(shrink);
+>  	unsigned long num_pages;
+> +	long uma_reclaimable_pages;
+>  	bool can_backup =3D !!(sc->gfp_mask & __GFP_FS);
+> +	bool is_uma =3D !IS_DGFX(shrinker->xe);
+> =20
+>  	num_pages =3D ttm_backup_bytes_avail() >> PAGE_SHIFT;
+>  	read_lock(&shrinker->lock);
+> =20
+> +	uma_reclaimable_pages =3D is_uma ? shrinker->shrinkable_pages : 0;
+> +
+>  	if (can_backup)
+> -		num_pages =3D min_t(unsigned long, num_pages, shrinker->shrinkable_pag=
+es);
+> +		num_pages =3D min_t(unsigned long, num_pages,
+> +				  shrinker->shrinkable_pages - uma_reclaimable_pages);
+
+[Severity: High]
+Does bypassing the ttm_backup_bytes_avail() limit for UMA shrinkable BOs
+result in zero net memory reclamation without swap?
+
+On UMA systems without swap, the shrinker uses ttm_bo_shrink() which
+backs up the BO by copying its pages to a shmem file. Because no swap space
+is available, the newly allocated shmem backup pages cannot be swapped to
+disk and remain permanently pinned in physical memory.
+
+This deceives the core MM into trying to reclaim these pages, burning CPU
+cycles on copying memory that yields zero net free physical memory.
+
+>  	else
+>  		num_pages =3D 0;
+> =20
+> +	num_pages +=3D uma_reclaimable_pages;
+
+[Severity: High]
+Can unconditionally returning uma_reclaimable_pages cause an infinite
+reclaim retry loop when __GFP_FS is missing?
+
+When the shrinker is invoked with __GFP_FS missing (e.g., direct reclaim in
+the filesystem or block layer), can_backup is false, but this code adds
+uma_reclaimable_pages to the returned count anyway.
+
+Looking at xe_shrinker_scan() in the same file, the scan loop explicitly
+bails out if !can_backup before it ever attempts to scan non-purgeable
+(shrinkable) pages:
+
+	if (nr_scanned >=3D nr_to_scan || !can_backup)
+		goto out;
+
+	/* ... */
+	shrink_flags.purge =3D false;
+
+The shrinker API strictly requires the count to accurately reflect only the
+objects that the scan function will attempt to free under the given gfp_mas=
+k.
+Returning a falsely high count for objects that the scan function explicitly
+skips breaks the VM reclaim feedback loop, causing infinite reclaim loops.
+
+>  	num_pages +=3D shrinker->purgeable_pages;
+>  	read_unlock(&shrinker->lock);
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626112638.2042=
+298-1-achillezongo07@gmail.com?part=3D1
