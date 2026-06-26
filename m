@@ -4,50 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F1D6C43602
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 11:42:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 720E0C43458
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 11:42:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62FA810E5DC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E367E10E5DD;
 	Sun, 28 Jun 2026 11:42:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=yeah.net header.i=@yeah.net header.b="AH7r4MkT";
+	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="LIj3K3Es";
 	dkim-atps=neutral
-X-Greylist: delayed 623 seconds by postgrey-1.36 at gabe;
- Sat, 27 Jun 2026 09:40:51 UTC
-Received: from mail-m16.yeah.net (mail-m16.yeah.net [220.197.32.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 690D210E489;
- Sat, 27 Jun 2026 09:40:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yeah.net;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=C8
- lZKwGDt2f7adfxqjwjv6Pu205yOu85uuRaLpr0plU=; b=AH7r4MkTjx9B/YfpkH
- IaFn+WBB2AP4ofOm9ApJtcBXwAw8ccoKBgyuyoSsgqRthrwOUkTXu/qIVJdNmQtt
- WtXcZdPbP3y+SQiPpE11ddRuAswagu5PTFqFjXBjd4YA3F/BRvmjBNQ6LGFUkndm
- INgvyNOsbBpaiByRlRCM9ux2o=
-Received: from zhang.. (unknown [])
- by gzsmtp2 (Coremail) with UTF8SMTPSA id Ms8vCgD3v1GMlz9qZpppAA--.53477S4;
- Sat, 27 Jun 2026 17:27:42 +0800 (CST)
-From: Ziran Zhang <zhangcoder@yeah.net>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Ziran Zhang <zhangcoder@yeah.net>
-Subject: [PATCH] drm/amd/display: Remove redundant NULL check before kfree in
- mod_power_create()
-Date: Sat, 27 Jun 2026 17:26:12 +0800
-Message-ID: <20260627092612.5282-1-zhangcoder@yeah.net>
+Received: from forward100a.mail.yandex.net (forward100a.mail.yandex.net
+ [178.154.239.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DD5210F2F9;
+ Fri, 26 Jun 2026 13:40:04 +0000 (UTC)
+Received: from mail-nwsmtp-smtp-production-main-55.vla.yp-c.yandex.net
+ (mail-nwsmtp-smtp-production-main-55.vla.yp-c.yandex.net
+ [IPv6:2a02:6b8:c1f:582e:0:640:200:0])
+ by forward100a.mail.yandex.net (Yandex) with ESMTPS id C44DDC0735;
+ Fri, 26 Jun 2026 16:40:01 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-55.vla.yp-c.yandex.net (smtp)
+ with ESMTPSA id rdanEUkf5Gk0-AkfTld3r; 
+ Fri, 26 Jun 2026 16:40:00 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+ t=1782481200; bh=e9YMAmOw7IfaTS4/uOeKkF1326th313osWzDsbfnnqo=;
+ h=Message-ID:Date:Cc:Subject:To:From;
+ b=LIj3K3EsdqMFaoe1y6wJVJzk0ObBELltGEm3Mf5hqdoomBHz5B2NUaF4Gw2FEtyXT
+ +n5leGC6MSBb1Zqj9s6SMJcVDK52G/Xo0i5Cm26D73OT6z6W+//x+GXD9n1vD36dcG
+ 0dYGAWirlFQF0LxVv7qo8YNHWpATZ4FaoOM4sLZg=
+Authentication-Results: mail-nwsmtp-smtp-production-main-55.vla.yp-c.yandex.net;
+ dkim=pass header.i=@yandex.ru
+From: Evgenii Burenchev <evg28bur@yandex.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Evgenii Burenchev <evg28bur@yandex.ru>, harry.wentland@amd.com,
+ sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ mario.limonciello@amd.com, alex.hung@amd.com, superm1@kernel.org,
+ timur.kristof@gmail.com, ivan.lipski@amd.com, ray.wu@amd.com,
+ aurabindo.pillai@amd.com, chen-yu.chen@amd.com, mripard@kernel.org,
+ Dillon.Varone@amd.com, mwen@igalia.com, chiahsuan.chung@amd.com,
+ kenneth.feng@amd.com, srinivasan.shanmugam@amd.com, contact@emersion.fr,
+ Alvin.Lee2@amd.com, chaitanya.kumar.borah@intel.com,
+ dmitry.baryshkov@oss.qualcomm.com, pierre-eric.pelloux-prayer@amd.com,
+ ekurzinger@gmail.com, HaoPing.Liu@amd.com, Tony.Cheng@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
+Subject: [PATCH v2] drm/amd/display: Fix dangling pointers in state reset
+ functions on allocation failure
+Date: Fri, 26 Jun 2026 16:38:49 +0300
+Message-ID: <20260626133859.21492-1-evg28bur@yandex.ru>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: Ms8vCgD3v1GMlz9qZpppAA--.53477S4
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZF13Ww1rZw1rWFyDZryfXrb_yoW8Zry7pF
- 4DKw15tw48G3W8KFnFg3W8XFy8Wa1kAFW3ur4UC3Wa9343Zr9YkF18A34YgFWDWFy7tF17
- tF1UKF4UXFyakw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRUUUUUUUUU=
-X-Originating-IP: [116.149.202.60]
-X-CM-SenderInfo: x2kd0wpfrgv2o61htxgoqh3/1tbiNg9zNGo-l4-U3wAA34
 X-Mailman-Approved-At: Sun, 28 Jun 2026 11:42:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,57 +72,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-kfree() safely handles NULL pointers, so there is no need to check for
-NULL before calling kfree().
+Multiple reset functions in amdgpu_dm free the old state before allocating
+a new one. If kzalloc_obj() fails, the function returns without updating
+the state pointer, leaving a dangling pointer to already freed memory.
 
-Remove redundant NULL check.
+Fix this by allocating the new state first. If allocation fails, warn and
+return without touching the old state, as it remains valid and the caller
+will handle the error appropriately.
 
-Found by Coccinelle ifnullfree script.
+This affects three functions:
+- amdgpu_dm_plane_drm_plane_reset()
+- amdgpu_dm_crtc_reset_state()
+- amdgpu_dm_connector_funcs_reset()
 
-Signed-off-by: Ziran Zhang <zhangcoder@yeah.net>
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: 5d945cbcd4b1 ("drm/amd/display: Create a file dedicated to planes")
+Fixes: 473683a03495 ("drm/amd/display: Create a file dedicated for CRTC")
+Fixes: e7b07ceef2a6 ("drm/amd/display: Merge amdgpu_dm_types and amdgpu_dm")
+Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
 ---
- drivers/gpu/drm/amd/display/modules/power/power.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+Changes in v2:
+- Also fix amdgpu_dm_crtc_reset_state() and amdgpu_dm_connector_funcs_reset()
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 48 ++++++++++---------
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  8 ++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 14 +++---
+ 3 files changed, 37 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power.c b/drivers/gpu/drm/amd/display/modules/power/power.c
-index 5659a38b3..74d5530de 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power.c
-@@ -270,12 +270,10 @@ struct mod_power *mod_power_create(struct dc *dc,
- fail_bad_brightness_range:
- fail_alloc_backlight_array:
- 	for (inst = 0; inst < edp_num; inst++)
--		if (core_power->bl_prop[inst].backlight_lut)
--			kfree(core_power->bl_prop[inst].backlight_lut);
-+		kfree(core_power->bl_prop[inst].backlight_lut);
- fail_construct:
- 	for (i = 0; i < MOD_POWER_MAX_CONCURRENT_STREAMS; i++) {
--		if (core_power->map[i].psr_context)
--			kfree(core_power->map[i].psr_context);
-+		kfree(core_power->map[i].psr_context);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 97ab1e83b318..6ef1b07ec251 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -8151,33 +8151,35 @@ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
+ 
+ void amdgpu_dm_connector_funcs_reset(struct drm_connector *connector)
+ {
+-	struct dm_connector_state *state =
+-		to_dm_connector_state(connector->state);
+-
+-	if (connector->state)
+-		__drm_atomic_helper_connector_destroy_state(connector->state);
+-
+-	kfree(state);
++	struct dm_connector_state *state;
+ 
++	/* Allocate new state first */
+ 	state = kzalloc_obj(*state);
++	if (WARN_ON(!state))
++		return;
+ 
+-	if (state) {
+-		state->scaling = RMX_OFF;
+-		state->underscan_enable = false;
+-		state->underscan_hborder = 0;
+-		state->underscan_vborder = 0;
+-		state->base.max_requested_bpc = 8;
+-		state->vcpi_slots = 0;
+-		state->pbn = 0;
+-
+-		if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
+-			if (amdgpu_dm_abm_level <= 0)
+-				state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
+-			else
+-				state->abm_level = amdgpu_dm_abm_level;
+-		}
++	/* Destroy old state only after successful allocation */
++	if (connector->state)
++		__drm_atomic_helper_connector_destroy_state(connector->state);
+ 
+-		__drm_atomic_helper_connector_reset(connector, &state->base);
++	/* Let DRM core install the new state */
++	__drm_atomic_helper_connector_reset(connector, &state->base);
++
++	/* Initialize driver-specific fields */
++	state->scaling = RMX_OFF;
++	state->underscan_enable = false;
++	state->underscan_hborder = 0;
++	state->underscan_vborder = 0;
++	state->base.max_requested_bpc = 8;
++	state->vcpi_slots = 0;
++	state->pbn = 0;
++
++	/* eDP-specific initialization */
++	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
++		if (amdgpu_dm_abm_level <= 0)
++			state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
++		else
++			state->abm_level = amdgpu_dm_abm_level;
  	}
- 	kfree(core_power->map);
+ }
  
-@@ -295,8 +293,7 @@ void mod_power_destroy(struct mod_power *mod_power)
- 				MOD_POWER_TO_CORE(mod_power);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index 3dcedaa67ed8..6146fbc528c3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -437,13 +437,15 @@ static void amdgpu_dm_crtc_reset_state(struct drm_crtc *crtc)
+ {
+ 	struct dm_crtc_state *state;
  
- 		for (i = 0; i < MOD_POWER_MAX_CONCURRENT_STREAMS; i++)
--			if (core_power->map[i].psr_context)
--				kfree(core_power->map[i].psr_context);
-+			kfree(core_power->map[i].psr_context);
+-	if (crtc->state)
+-		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
+-
++	/* Allocate new state first */
+ 	state = kzalloc_obj(*state);
+ 	if (WARN_ON(!state))
+ 		return;
  
- 		for (i = 0; i < core_power->num_entities; i++)
- 			if (core_power->map[i].stream)
-@@ -305,8 +302,7 @@ void mod_power_destroy(struct mod_power *mod_power)
- 		kfree(core_power->map);
++	/* Destroy old state only after successful allocation */
++	if (crtc->state)
++		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
++
+ 	__drm_atomic_helper_crtc_reset(crtc, &state->base);
+ }
  
- 		for (i = 0; i < MAX_NUM_EDP; i++)
--			if (core_power->bl_prop[i].backlight_lut)
--				kfree(core_power->bl_prop[i].backlight_lut);
-+			kfree(core_power->bl_prop[i].backlight_lut);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index e957657b06c7..eb1c0a26f20d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1488,17 +1488,17 @@ static const struct drm_plane_helper_funcs dm_primary_plane_helper_funcs = {
  
- 		kfree(core_power);
- 	}
+ static void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
+ {
+-	struct dm_plane_state *amdgpu_state = NULL;
+-
+-	if (plane->state)
+-		plane->funcs->atomic_destroy_state(plane, plane->state);
++	struct dm_plane_state *amdgpu_state;
+ 
++	/* Allocate new state first */
+ 	amdgpu_state = kzalloc_obj(*amdgpu_state);
+-	WARN_ON(amdgpu_state == NULL);
+-
+-	if (!amdgpu_state)
++	if (WARN_ON(!amdgpu_state))
+ 		return;
+ 
++	/* Destroy old state only after successful allocation */
++	if (plane->state)
++		plane->funcs->atomic_destroy_state(plane, plane->state);
++
+ 	__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
+ 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
+ 	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
 -- 
 2.43.0
 
