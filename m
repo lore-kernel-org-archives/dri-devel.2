@@ -4,62 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B06F1CD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:23:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B902CD4F26
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:24:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D19610F5B2;
-	Fri, 26 Jun 2026 12:23:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C051010F5AE;
+	Fri, 26 Jun 2026 12:24:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SK4q9IfR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LAf5gb4H";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60A1810F5B2
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:23:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782476629; x=1814012629;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=wCsEapXgJ6j0IzYX0QqS6bCUf4OhIkDzGupdQn6gFNo=;
- b=SK4q9IfRi2rMA8+qDpnKAthRY5IIuZc32Xao2cmaGWZXXFKRksn9Dnok
- 1EH6CnfbqndUJtAt2Lt55P/c6IhhyfimyFajNgfneJtVWZBu0UKhUGihO
- KNXneJ3ZNHVqWPIXhyAivUcxzN6v4iL71RJeKQcuP3uoNnzFFykw6dukO
- xh9opVmEWc1JFRUP4k45fH2Z9BRoAiBXX1ZEr/cYkB7nZaFdWulyjrzJu
- wKt1hmWwJAhGajmoZeANrDE9z3cN9dsbNtMjDuNp/eMPrni8YFEydHCqA
- i5xS5shnPh/xQog0iLCc3l4LQa7vcRffpRGknj8X7dG2UGjOjJWQhNwfr A==;
-X-CSE-ConnectionGUID: SUAg+3PiRgSi8/uDk1QMlw==
-X-CSE-MsgGUID: S0uvkRk7ST2BpT2q6diJNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11828"; a="86947529"
-X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; d="scan'208";a="86947529"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2026 05:23:49 -0700
-X-CSE-ConnectionGUID: Hr5DbzKkTJeEnXxrPVaphg==
-X-CSE-MsgGUID: NNTVQMAERh+nuRJq6IBnRQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; d="scan'208";a="253227496"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.244.1])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2026 05:23:47 -0700
-Date: Fri, 26 Jun 2026 15:23:44 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Joyeta Modak <joyetamdk@gmail.com>
-Cc: andy@kernel.org, gregkh@linuxfoundation.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: fbtft: use ARRAY_SIZE() in NUMARGS macro
-Message-ID: <aj5vUDuzh67hkJjp@ashevche-desk.local>
-References: <20260624073804.4391-1-joyetamdk@gmail.com>
- <ajvAGK-0kCfkThcs@ashevche-desk.local>
- <CAN3JnUCem3Mw17e5D9b-aX58_ZaAvC6GZ-sBPEQfTTTP=o-WHA@mail.gmail.com>
-MIME-Version: 1.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6017C10F5AE
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:24:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id A365D60098;
+ Fri, 26 Jun 2026 12:24:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 002C31F000E9;
+ Fri, 26 Jun 2026 12:24:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782476663;
+ bh=+f7Tl9yTLbF4wJOgKlG8Yes9EsM08NSO/C8EiTuiKXo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=LAf5gb4HDVjQSdB09+Y/JiXuuHApdcRF/ZljmgnY3F0lSsUeqK16MUypUuJjfV0hU
+ si5Hzh/T/cWaCboPFn8ilj9B2YkqNL30x+ooFR8ctsJNSUKLP8yoz8aUB0s7Rg385d
+ 2H/ld9x0lI3lpv+VpkPBd/cZ+78FSlKMJ0y/i7IveTBL2KUmOsRfE9Cy0rMnvGIPSb
+ xMadENKcxIKtY1a9zSb0QsaRhrxUG/8DveWd1d8UFKBUSRAKQA283WZk9M2Qj6FpuI
+ 9WLSAo6M3TF2yNWXm1+j/dosFNJ0f+lXU6WyRpoDGBPS/2Ge2yR3b+0ZLV2pnQeGum
+ WtgbB28f+9FgA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/5] drm/bridge/panel: hold a reference to the wrapped
+ panel
+To: "Albert Esteve" <aesteve@redhat.com>
+Cc: wsa+renesas@sang-engineering.com, imx@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
+ Frank.Li@kernel.org
+In-Reply-To: <20260626-drm_refcount_wiring-v1-2-cca1a7b3bdef@redhat.com>
+References: <20260626-drm_refcount_wiring-v1-0-cca1a7b3bdef@redhat.com>
+ <20260626-drm_refcount_wiring-v1-2-cca1a7b3bdef@redhat.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAN3JnUCem3Mw17e5D9b-aX58_ZaAvC6GZ-sBPEQfTTTP=o-WHA@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 12:24:22 +0000
+Message-Id: <20260626122423.002C31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,60 +56,111 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jun 26, 2026 at 02:27:25PM +0530, Joyeta Modak wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Please, do not top-post!
+New issues:
+- [High] Accessing `panel_bridge->panel` after calling `drm_bridge_remove()=
+` causes a use-after-free if the panel device was removed first.
 
-> Thank you for the feedback and the question.
-> 
-> I checked every write_reg() across all fbtft drivers and found that
-> the largest number of arguments is 129 in write_reg(par,
-> MIPI_DCS_WRITE_LUT,...)
-> As COUNT_ARGS() in args.h only supports up to 15, it is not a safe fit here.
-> 
-> However, the kernel test robot reported a problem with my
-> implementation as the __must_be_array() check in ARRAY_SIZE() requires
-> the array to be a compile time constant expression and thus breaks the
-> call at several places.(example par->bgr)
-> 
-> I tried to reproduce this locally on my system using both GCC and
-> Clang with ARCH=um on x86_64 but could not reproduce the build
-> failure.
+Pre-existing issues:
+- [High] Passing `panel->dev` to `devm_drm_put_bridge()` can cause a use-af=
+ter-free or a WARN_ON if the panel's struct device has already been freed.
+--
 
-How "um" is anyhow related to the real world cases? Try to compile your stuff
-with real ARCH settings, like x86_64.
+commit 0ea9791b2d1689f026240930cee1476a24170351
+Author: Albert Esteve <aesteve@redhat.com>
 
-> Since the original sizeof() based approach had no such errors flagged,
-> I am thinking of dropping the ARRAY_SIZE() approach.
-> 
-> Any other feedback is appreciated. Thanks again.
+drm/bridge/panel: hold a reference to the wrapped panel
 
-> On Wed, Jun 24, 2026 at 5:01 PM Andy Shevchenko
-> <andriy.shevchenko@intel.com> wrote:
-> >
-> > On Wed, Jun 24, 2026 at 01:08:04PM +0530, Joyeta Modak wrote:
-> > > NUMARGS() computes the number of arguments by dividing the size of a
-> > > temporary int array by sizeof(int). Using the standard ARRAY_SIZE()
-> > > macro is the correct way to count array elements in the kernel, and
-> > > ARRAY_SIZE() also provides a __must_be_array() compile time check. There
-> > > are no functional changes.
+drm_panel_bridge_add_typed() stores a pointer to the drm_panel it
+wraps, but never acquires a reference to it. If the panel device
+goes away while a panel_bridge still exists, the dangling pointer can
+be dereferenced through panel_bridge->panel.
 
-...
+Acquire a reference in drm_panel_bridge_add_typed() with drm_panel_get()
+and release it in each teardown path.
 
-> > > -#define NUMARGS(...)  (sizeof((int[]){__VA_ARGS__}) / sizeof(int))
-> > > +#define NUMARGS(...)  ARRAY_SIZE(((int[]){__VA_ARGS__}))
-> > >
-> > >  #define write_reg(par, ...)                                            \
-> > >       ((par)->fbtftops.write_register(par, NUMARGS(__VA_ARGS__), __VA_ARGS__))
-> >
-> > What is the maximum parameters .write_register() takes in practice in the
-> > fbtft drivers? If it's less than or equal to 15, we may use args.h instead.
+> diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/pane=
+l.c
+> index 4978ec98a0828..6b98ad19508df 100644
+> --- a/drivers/gpu/drm/bridge/panel.c
+> +++ b/drivers/gpu/drm/bridge/panel.c
 
--- 
-With Best Regards,
-Andy Shevchenko
+[ ... ]
 
+> @@ -316,6 +316,7 @@ EXPORT_SYMBOL(drm_panel_bridge_add_typed);
+>  void drm_panel_bridge_remove(struct drm_bridge *bridge)
+>  {
+>  	struct panel_bridge *panel_bridge;
+> +	struct drm_panel *panel;
+> =20
+>  	if (!bridge)
+>  		return;
+> @@ -326,10 +327,12 @@ void drm_panel_bridge_remove(struct drm_bridge *bri=
+dge)
+>  	}
+> =20
+>  	panel_bridge =3D drm_bridge_to_panel_bridge(bridge);
+> +	panel =3D panel_bridge->panel;
+> =20
+>  	drm_bridge_remove(bridge);
+>  	/* TODO remove this after reworking panel_bridge lifetime */
+> -	devm_drm_put_bridge(panel_bridge->panel->dev, bridge);
+> +	devm_drm_put_bridge(panel->dev, bridge);
 
+[Severity: High]
+This isn't a bug introduced by this patch, but could this pass a freed or
+unbound device pointer to devm_drm_put_bridge()?
+
+If the panel device is unbound and unregistered, its struct device might be
+freed if no other references are held. Even though the struct drm_panel is
+kept alive by drm_panel_get(), it does not inherently hold a reference to
+panel->dev.
+
+If the host device later removes the bridge via drm_panel_bridge_remove(),
+passing panel->dev to devm_drm_put_bridge() would dereference a dangling
+pointer, or trigger a WARN_ON if the device was kept alive but unbound.
+
+> +	drm_panel_put(panel);
+>  }
+>  EXPORT_SYMBOL(drm_panel_bridge_remove);
+
+[ ... ]
+
+> @@ -357,11 +360,14 @@ EXPORT_SYMBOL(drm_panel_bridge_set_orientation);
+>  static void devm_drm_panel_bridge_release(struct device *dev, void *res)
+>  {
+>  	struct drm_bridge *bridge =3D *(struct drm_bridge **)res;
+> +	struct panel_bridge *panel_bridge;
+> =20
+>  	if (!bridge)
+>  		return;
+> =20
+> +	panel_bridge =3D drm_bridge_to_panel_bridge(bridge);
+>  	drm_bridge_remove(bridge);
+> +	drm_panel_put(panel_bridge->panel);
+
+[Severity: High]
+Does this cause a use-after-free of panel_bridge?
+
+If the panel device is unbound before the host device, its devres actions
+drop the bridge's initial reference. Later, when the host device unbinds,
+devm_drm_panel_bridge_release() calls drm_bridge_remove().
+
+Because that was the final reference, drm_bridge_remove() frees the
+panel_bridge structure. The immediate next line dereferences
+panel_bridge->panel.
+
+Should we cache the panel pointer in a local variable before calling
+drm_bridge_remove(), similar to what was done in drm_panel_bridge_remove()?
+
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626-drm_refcou=
+nt_wiring-v1-0-cca1a7b3bdef@redhat.com?part=3D2
