@@ -4,45 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5065DC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 14:54:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34F27C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 14:54:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B922310F688;
-	Fri, 26 Jun 2026 14:54:00 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fiycdi5f";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F08310F688
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 14:53:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 97CDF600C8;
- Fri, 26 Jun 2026 14:53:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E689E1F000E9;
- Fri, 26 Jun 2026 14:53:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782485638;
- bh=ky/CA2O6RC56KEbujWxESCs6Eo0AP0g1YwCbV0Ddly0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fiycdi5fEvsc/QmsndPNj0a3nWVDcfptpkfypsMkHUkItbvRS+sKFNTqXPgfIXTYv
- IRLuSxsyT1VCphMimZtSDzvnBp6niRM3NyAgvHPCjSmoz8e1Nz4034mdcX7kLdt0jE
- nm3phaClnLe3CVtoHeXKdIKkxrE+ewlCV0+DBATMGxASrlf0B56/MaIyRmXw1BoMYj
- L6W1A5goxn78k9OG3Inkjn0sqjwo4ogSZlfyI77f/Fmc0KoURelqbfuLAQoLdPSTPh
- /WGRM4nKan/svfT90610DhvjThcYbsyyiLzDzopBj2yUvZDRBLLLTPO6yHP8xCAaDe
- gyEh/NJjMDbRw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 08/20] rust: pci: io: make `ConfigSpace` a view
-To: "Gary Guo" <gary@garyguo.net>
-Cc: linux-pci@vger.kernel.org, "Danilo Krummrich" <dakr@kernel.org>,
- dri-devel@lists.freedesktop.org, "Alexandre
- Courbot" <acourbot@nvidia.com>, ojeda@kernel.org
-In-Reply-To: <20260626-io_projection-v5-8-d0961471ae50@garyguo.net>
-References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
- <20260626-io_projection-v5-8-d0961471ae50@garyguo.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 14:53:57 +0000
-Message-Id: <20260626145357.E689E1F000E9@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 921DA10E3B8;
+	Fri, 26 Jun 2026 14:54:21 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF80610E3B8
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 14:54:19 +0000 (UTC)
+Received: from localhost.localdomain (unknown [117.182.75.66])
+ by APP-01 (Coremail) with SMTP id qwCowAAHrNSSkj5qoPNqAw--.9971S2;
+ Fri, 26 Jun 2026 22:54:11 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Karolina Stolarek <karolina.stolarek@intel.com>,
+ Amaranath Somalapuram <asomalap@amd.com>,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+ WenTao Liang <vulab@iscas.ac.cn>
+Subject: [PATCH] fix: drm/ttm/tests: use KUNIT_ASSERT_EQ for critical error
+ checks to prevent kref underflow
+Date: Fri, 26 Jun 2026 22:54:09 +0800
+Message-Id: <20260626145409.49370-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qwCowAAHrNSSkj5qoPNqAw--.9971S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxuw4DGw1kKr1DuryxKrWkXrb_yoW7Zr1UpF
+ WUGFWjkry8JrsFgayUAr1UtFnFk39Y9FZYgrn5Wa1fXFnIv3Z8JFn5tF1fur43XFWjvFsY
+ ka1YyanxX34kXwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+ n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+ kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+ 67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+ CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+ MIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
+ nIWIevJa73UjIFyTuYvjfU5iihUUUUU
+X-Originating-IP: [117.182.75.66]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAAKA2o+idsWxQAAsQ
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,33 +67,125 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> In order to support I/O projection, we are splitting I/O types into two
-> categories: owned objects and views. Owned objects have a specific type
-> that is related to setting up and tearing down, while views can have their
-> type changed with I/O projection.
->=20
-> Things like `IoMem` or `Bar` are owned objects, which requires setting up
-> mapping and cleaning up on drop. On the other side, `ConfigSpace` is real=
-ly
-> just a view, as the resource is associated with the `pci::Device`.
->=20
-> Remove the `ConfigSpaceKind` bound on `ConfigSpace` and make it a generic
-> view. This means that `ConfigSpace` object now represents a subregion and
-> therefore encodes offset (as address of pointers) and size (as metadata of
-> pointers) itself. The full region case is still supported with offset 0 a=
-nd
-> size of `cfg_size`.
->=20
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Gary Guo <gary@garyguo.net>
+Replace KUNIT_EXPECT_EQ with KUNIT_ASSERT_EQ in ttm_bo_validate test cases
+where subsequent ttm_bo_fini would cause a kref underflow if the preceding
+ttm_bo_init_reserved (or ttm_bo_validate) failed. When those functions fail
+they already release their internal references, leaving the refcount at 0.
+Continuing to ttm_bo_fini without aborting performs an extra kref_put.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Cc: stable@vger.kernel.org
+Fixes: 8bd1ff5ddc7b ("drm/ttm/tests: Test simple BO creation and validation")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+ .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  | 22 +++++++++----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626-io_project=
-ion-v5-0-d0961471ae50@garyguo.net?part=3D8
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+index 2db221f6fc3a..7c4179f6349c 100644
+--- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+@@ -217,7 +217,7 @@ static void ttm_bo_init_reserved_resv(struct kunit *test)
+ 				   &dummy_ttm_bo_destroy);
+ 	dma_resv_unlock(bo->base.resv);
+ 
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 	KUNIT_EXPECT_PTR_EQ(test, bo->base.resv, &resv);
+ 
+ 	ttm_resource_free(bo, &bo->resource);
+@@ -249,7 +249,7 @@ static void ttm_bo_validate_basic(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo, params->bo_type,
+ 				   fst_placement, PAGE_SIZE, &ctx_init, NULL,
+ 				   NULL, &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 
+ 	snd_place = ttm_place_kunit_init(test, snd_mem, GPU_BUDDY_TOPDOWN_ALLOCATION);
+ 	snd_placement = ttm_placement_kunit_init(test, snd_place, 1);
+@@ -395,7 +395,7 @@ static void ttm_bo_validate_same_placement(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo, params->bo_type,
+ 				   placement, PAGE_SIZE, &ctx_init, NULL,
+ 				   NULL, &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 
+ 	err = ttm_bo_validate(bo, placement, &ctx_val);
+ 	dma_resv_unlock(bo->base.resv);
+@@ -722,7 +722,7 @@ static void ttm_bo_validate_move_fence_not_signaled(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo, bo_type, placement_init,
+ 				   PAGE_SIZE, &ctx_init, NULL, NULL,
+ 				   &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 
+ 	ttm_mock_manager_init(priv->ttm_dev, fst_mem, MANAGER_SIZE);
+ 	ttm_mock_manager_init(priv->ttm_dev, snd_mem, MANAGER_SIZE);
+@@ -840,7 +840,7 @@ static void ttm_bo_validate_happy_evict(struct kunit *test)
+ 	err = ttm_bo_validate(bo_val, placement, &ctx_val);
+ 	ttm_bo_unreserve(bo_val);
+ 
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 	KUNIT_EXPECT_EQ(test, bos[0].resource->mem_type, mem_type_evict);
+ 	KUNIT_EXPECT_TRUE(test, bos[0].ttm->page_flags & TTM_TT_FLAG_ZERO_ALLOC);
+ 	KUNIT_EXPECT_TRUE(test, bos[0].ttm->page_flags & TTM_TT_FLAG_PRIV_POPULATED);
+@@ -879,7 +879,7 @@ static void ttm_bo_validate_all_pinned_evict(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_big, bo_type, placement,
+ 				   PAGE_SIZE, &ctx_init, NULL, NULL,
+ 				   &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 
+ 	ttm_bo_pin(bo_big);
+ 	dma_resv_unlock(bo_big->base.resv);
+@@ -930,7 +930,7 @@ static void ttm_bo_validate_allowed_only_evict(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_pinned, bo_type, placement,
+ 				   PAGE_SIZE, &ctx_init, NULL, NULL,
+ 				   &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 	ttm_bo_pin(bo_pinned);
+ 	dma_resv_unlock(bo_pinned->base.resv);
+ 
+@@ -941,7 +941,7 @@ static void ttm_bo_validate_allowed_only_evict(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_evictable, bo_type, placement,
+ 				   PAGE_SIZE, &ctx_init, NULL, NULL,
+ 				   &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 	dma_resv_unlock(bo_evictable->base.resv);
+ 
+ 	bo = ttm_bo_kunit_init(test, test->priv, BO_SIZE, NULL);
+@@ -995,7 +995,7 @@ static void ttm_bo_validate_deleted_evict(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_big, bo_type, placement,
+ 				   PAGE_SIZE, &ctx_init, NULL, NULL,
+ 				   &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 	KUNIT_EXPECT_EQ(test, ttm_resource_manager_usage(man), big);
+ 
+ 	dma_resv_unlock(bo_big->base.resv);
+@@ -1052,7 +1052,7 @@ static void ttm_bo_validate_busy_domain_evict(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_init, bo_type, placement,
+ 				   PAGE_SIZE, &ctx_init, NULL, NULL,
+ 				   &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 	dma_resv_unlock(bo_init->base.resv);
+ 
+ 	bo_val = ttm_bo_kunit_init(test, test->priv, BO_SIZE, NULL);
+@@ -1096,7 +1096,7 @@ static void ttm_bo_validate_evict_gutting(struct kunit *test)
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo_evict, bo_type, placement,
+ 				   PAGE_SIZE, &ctx_init, NULL, NULL,
+ 				   &dummy_ttm_bo_destroy);
+-	KUNIT_EXPECT_EQ(test, err, 0);
++	KUNIT_ASSERT_EQ(test, err, 0);
+ 	dma_resv_unlock(bo_evict->base.resv);
+ 
+ 	bo = ttm_bo_kunit_init(test, test->priv, BO_SIZE, NULL);
+-- 
+2.39.5 (Apple Git-154)
 
