@@ -4,102 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7384AC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 16:48:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80F16C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 16:51:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FF3A10E1E6;
-	Fri, 26 Jun 2026 16:48:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C96A010E3D2;
+	Fri, 26 Jun 2026 16:51:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AyWVh+IX";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="co0ZolZJ";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010025.outbound.protection.outlook.com [52.101.56.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 484FA10E1E6
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 16:47:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nssZprXzn3eR1tJg4u3UAWgqBeKompgISFB2VVkYm8qPh3IXAKD6mahqA4zq/20DQZ6ZYO+3oI2lasgsFU4TM8DAVSE3/APZuXCZr4yVt6JmNa1MZxOldqHnEBN6qMDI+bIGBt/MvjVP0GBj+q8L+l2GVzPnmYg0trixHeM9bwtH8hAdY9z5ADw6ERBPLYkgMOCV9+loNKqcivTYaNdzfDaM+/e9Whz4XHPv4ZCbsMxejHfhiaV9Urh51tO7bKRi3QHUoIxHaF5NNiR/OMTuNTotmC6JbmKGBrlLOLpN/UoahZnI4D/PEj9IRw5XdK57C648dM9qv8K66lu/OaThjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JjU3/0btqkpalm97bPTco8DqFomCTrBe34psB4TOmmE=;
- b=p0DI4YWPSC/dE9BVLKjRnc2YLHJCPOf9RhkYfeTJQfd3UA6Vpf96GtklHrRj5BpHXB5n37AanlEpcztiHPMn+Fg9TBjm1blrp3Xz3phJ22IppPZ/5dhi73vCHv7BlW2F/w408xflHSghKJYRPu59nddELlh7H0uwVZdXYGM1TwvcMmRA4doZSxfXdiCYoDnPfj2u16hINVLV/vzeLHp/4I9oMEBsRIaup1pzsNrwhQEmWPm+nvFmnk8ogMA9j6VsVTRiPsU72W6E0fevoS3ILmJuNYeaeMoaC3R4saY8kiTgxw/YXEdGSEN9ijn3Ot847FpYBz5UXV/NEeRnKFdlrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=iscas.ac.cn smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JjU3/0btqkpalm97bPTco8DqFomCTrBe34psB4TOmmE=;
- b=AyWVh+IXDqA0ojcetLWgYdOHI09A4hcq2hlDQcjd7S6etHeNYHKqLTsrNuc3eI5E62Oy2M2YMLJneKOQQUjSt/X2txDBv+FZ4Zo3SXXKYwJ3fJUyj4atJPXCEqYb3GR8fZMWcPeZd+o5Qx6RIZCM/2rDGVkK6yOICd/KJ+VEIhc=
-Received: from CH0PR13CA0015.namprd13.prod.outlook.com (2603:10b6:610:b1::20)
- by DS7PR12MB6311.namprd12.prod.outlook.com (2603:10b6:8:94::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.15; Fri, 26 Jun
- 2026 16:47:52 +0000
-Received: from CH3PEPF00000009.namprd04.prod.outlook.com
- (2603:10b6:610:b1:cafe::94) by CH0PR13CA0015.outlook.office365.com
- (2603:10b6:610:b1::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Fri, 26
- Jun 2026 16:47:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF00000009.mail.protection.outlook.com (10.167.244.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Fri, 26 Jun 2026 16:47:50 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 26 Jun
- 2026 11:47:48 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 26 Jun 2026 11:47:47 -0500
-Message-ID: <cb0d1d74-2be5-8b54-4638-4c9629b15055@amd.com>
-Date: Fri, 26 Jun 2026 09:47:42 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] accel/amdxdna: Fix use-after-free in
- amdxdna_gem_dmabuf_mmap()
-Content-Language: en-US
-To: Wentao Liang <vulab@iscas.ac.cn>, <mamin506@gmail.com>,
- <ogabbay@kernel.org>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>
-References: <20260625113239.49764-1-vulab@iscas.ac.cn>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20260625113239.49764-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000009:EE_|DS7PR12MB6311:EE_
-X-MS-Office365-Filtering-Correlation-Id: 159acc39-dd7f-411d-ac47-08ded3a2a8c6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: 3mBgEhSJTt2flkdByd0iveO1DekN3IzF8BXA3XXJb17xpvNSy4foB1WeUvM8qMlCL0SXFx1rmLdm5bcJrMqb9LoK64RLAYSCB923wANgC5TlUpPjC8S64Q33ZEX5y9kI/lC+gtXe2b7h0JUDsgyVTU5odn9dqBuiAguJBB9lzxsynNjAOfe7ravDAD/wrI+fublMv/OtVf2/ESWn0KLs94qf/McKHQASpmxoXeCRzw26yq+nwdIYFg9lcA2fYAUU8FTag5pPWIDyNgHzZzaCXbJSYyuKve9SNyFpUST9n1tERaMxxC6BRnnkhLHRbpqfQ/4/pXnGGWQUKHywDodUuDIv2YxZMfb5vdDSHpGaRF7daiNARxTiMTmMJKqJeNaLAcGsbp0PEbSgaBraz1ooSuKwzj7uTO0Yx1EtvWc3jsPFt6tLbla+6lIzzndvs4DxhpSft8Ho86TSpdqJ548ivj0k3JXhAZWIJviu6YYYmQ54NLY6Y2Si8SsU/cjowP1yF0N+KVPdAMJb0fx+rCqlHePp9PW5ljutJNxo4PYxXBaLrl6zCxrTd/doeCA15DlOWPdlSzGZzSgd7kTaxUDmYZ7oeoO6WJjvb28xmvd//p0ZUHrsmhA4pfVdk1a+xKLeBoHChMvQHt8PtNrLxyRnU/ro2YGP18i9VFdYt0HuQurZ9MWTtcZ1xT7PcHi/Cg9zW+ZLWkdVTTGp/U2uX0v0aw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: D6G3AZ6a9s5dsn+bODynya5O5F9lj8FMvZPcKwjn5nbEhM71wmfTwmsNdeQ0GbWa/hEv9lSDMZ8ZAn3/U75yp4XPF8bFW3DeryKXWyzs7iwZQ4f3sjRM+PYEWE18n4BjkNV5aHUUxCNtlQiZmzFT9Af3pjiqjfc6ozLUsALMVLu/GtosgM4tBHJP+Z5ZftP4bfZrhsliA/m/x9Qi6LNg2cduHFRskSE8JLNd1uPq7QMwl0l90Zbw2epUq5Y5qikxfK4rph3SC7IXPxvUUbVP5Ecbx+i5kE6R0IWIu6JnQsYkk740jNVKmC45XSeF3rehm8P64Dg0O3QcNDLCbxdXiSAX+0L5w7E49OcF0qqKV3Cb8ELAmX3JoZwsq8cieaErIrHZbJhze1VDQftK0ZZ5KfWazXdZukEbuhTa2nHbkbpcsPW+okPZdQcyvjSoJN9o
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 16:47:50.2408 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 159acc39-dd7f-411d-ac47-08ded3a2a8c6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000009.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6311
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 110D410E3D2
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 16:51:26 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 0750FC5CD6A;
+ Fri, 26 Jun 2026 16:51:33 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id F1E3460232;
+ Fri, 26 Jun 2026 16:51:23 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 42B2D104C9D9B; 
+ Fri, 26 Jun 2026 18:51:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1782492682; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=8iEHH7+jMGAu88nTaddZ+kCu6HVN0Ooq1Pzt5v1N4lk=;
+ b=co0ZolZJ858fCfOk8D33vEBCh0s9JzN/MrFxHMj1DWEl0PeQg+TvCZNcOBIk9uJm8A70aQ
+ NtjIEBNc92ycLE6QVXH5Wx9qnfc0mU+Ln60OMBNf/UKB1cKvJgbLHzXBq8rEfVvugoE0zM
+ L7w/q6YkjZrBjop4aIVdjCttWllHn8T8JWL94GdmmD5mJe+APArqEaM4tkXMUI0RxIwLNu
+ HxDcFfDuc8rYTFZFlIqLDDa7aePw9gBvLYD3z4aBlHHR617Z7ZXOoxSDAw+0ac1YH+Hly+
+ oHDEv37X29MEiyfdk4N+Jf7eQxI5P1uIuINj2LLK9d0l53+EyGdzHOue48e2CQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 26 Jun 2026 18:51:14 +0200
+Message-Id: <DJJ4X22CJ3FG.5EYF84LVRNOG@bootlin.com>
+Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Inki Dae"
+ <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
+ Szyprowski" <m.szyprowski@samsung.com>, "Marek Vasut" <marex@denx.de>,
+ "Stefan Agner" <stefan@agner.ch>, "Frank Li" <Frank.Li@nxp.com>, "Sascha
+ Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Hui Pu"
+ <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>
+To: "Maxime Ripard" <mripard@kernel.org>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 05/37] drm/display: bridge-connector: split code
+ creating the connector to a subfunction
+X-Mailer: aerc 0.21.0
+References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
+ <20260519-drm-bridge-hotplug-v1-5-45e2bdb3dfb4@bootlin.com>
+ <20260608-mindful-heavy-frigatebird-be9faf@houat>
+ <DJ735MTNMYD1.3LPNV404V8PIU@bootlin.com>
+ <20260624-proud-unbiased-pony-ecc3c3@houat>
+ <DJHEAWSEZR79.19UFIKS8QJBQ7@bootlin.com>
+ <20260626-polite-hairy-perch-25e1aa@houat>
+ <DJJ1MPCEJGZD.UZM9183V6ZE5@bootlin.com>
+ <20260626-classy-nightingale-of-romance-1cacad@houat>
+In-Reply-To: <20260626-classy-nightingale-of-romance-1cacad@houat>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,38 +86,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Fri Jun 26, 2026 at 4:38 PM CEST, Maxime Ripard wrote:
+> On Fri, Jun 26, 2026 at 04:16:39PM +0200, Luca Ceresoli wrote:
+>> Hi Maxime,
+>>
+>> On Fri Jun 26, 2026 at 12:09 PM CEST, Maxime Ripard wrote:
+>> > On Wed, Jun 24, 2026 at 05:47:10PM +0200, Luca Ceresoli wrote:
+>> >> On Wed Jun 24, 2026 at 1:41 PM CEST, Maxime Ripard wrote:
+>> >> > Hi,x
+>> >> >
+>> >> > On Fri, Jun 12, 2026 at 02:56:24PM +0200, Luca Ceresoli wrote:
+>> >> >> On Mon Jun 8, 2026 at 1:40 PM CEST, Maxime Ripard wrote:
+>> >> >> > On Tue, May 19, 2026 at 12:37:22PM +0200, Luca Ceresoli wrote:
+>> >> >> >> In preparation to introduce bridge hotplug, split out from
+>> >> >> >> drm_bridge_connector_init() the code adding the drm_connector i=
+nto a
+>> >> >> >> dedicated function. This will be needed to be able to add (and =
+re-add) the
+>> >> >> >> connector from different code paths.
+>> >> >> >
+>> >> >> > Same story here, explaining what you need later on that calls fo=
+r that
+>> >> >> > change would be nice.
+>> >> >>
+>> >> >> Here's a more verbose version:
+>> >> >>
+>> >> >>     Currently drm_bridge_connector_init() does two things:
+>> >> >>
+>> >> >>      * allocate and initialize the drm_bridge_connector
+>> >> >>        (which embeds a drm_connector)
+>> >> >>      * initialize and register the embedded drm_connector
+>> >> >>
+>> >> >>     For bridge hotplug we need to separate these two actions:
+>> >> >>
+>> >> >>      * the drm_connector needs to be added and removed at any time=
+ based on
+>> >> >>        hotplug events
+>> >> >>      * the drm_bridge_connector is designated to create and remove=
+ the
+>> >> >>        drm_connector, so it must be persistent for the card lifeti=
+me
+>> >> >>
+>> >> >>     As the lifetimes of drm_bridge_connector and drm_connector bec=
+ome
+>> >> >>     different, we need to create them in different moments.
+>> >> >>
+>> >> >>     In preparation to support that, split out from
+>> >> >>     drm_bridge_connector_init() the code adding the drm_connector =
+into a
+>> >> >>     dedicated function. No functional changes, just moving code ar=
+ound for
+>> >> >>     now. A future commit will make the drm_connector be created ba=
+sed on
+>> >> >>     hotplug events.
+>> >> >>
+>> >> >> Looks good?
+>> >> >
+>> >> > The message itself, yes, thanks.
+>> >> >
+>> >> > However, I have questions now :)
+>> >> >
+>> >> > Do we really expect drm_bridge_connector to stick around when a bri=
+dge
+>> >> > gets unplugged? If so, how does it cope with having, say, an HDMI
+>> >> > connector, and then swapping out the hotplugged part for an LVDS on=
+e?
+>> >> > Does the HDMI connector sticks around indefinitely?
+>> >>
+>> >> In your example, the HDMI drm_connector would be unregistered and put=
+ on
+>> >> hotunplug. Its allocation will stick around until the last put but th=
+at's
+>> >> quite irrelevant. Then, on plugging the LVDS addon, a new LVDS
+>> >> drm_connector will be created and registered.
+>> >>
+>> >> > *Especially* if we're using overlays for this, I'd expect everythin=
+g
+>> >> >  after the first hotplugged bridge to be destroyed, no?
+>> >>
+>> >> As said, it would be unregistered immediately but might be freed late=
+r on
+>> >> if still refcounted.
+>> >>
+>> >> This is visible in patches 36+15, the path to follow is:
+>> >>
+>> >>  drm_bridge_connector_handle_event(event =3D DRM_BRIDGE_DETACHED) [pa=
+tch 36]
+>> >>  -> drm_bridge_connector_dynconn_release()                      [patc=
+h 15]
+>> >>
+>> >> Does this solve your concern?
+>> >
+>> > Not really, I'm talking about drm_bridge_connector. The fact that
+>> > bridges are destroyed make sense to me. The fact that
+>> > drm_bridge_connector sticks around doesn't. It's supposed to be a
+>> > connector for bridges. If you don't have bridges because they got
+>> > destroyed, and connector, drm_bridge_connector doesn't have a reason t=
+o
+>> > exist anymore, unless it's drm_bridge_hotplug in a trench coat :)
+>>
+>> It is not a hotplug-bridge in a trench coat, no :) The code is clear abo=
+ut
+>> this.
+>>
+>> I'd say with this series a "drm_bridge_connector" is just becoming
+>> something more (perhaps something else too). Somewhat as "a drm_bridge i=
+s
+>> either a bridge or something else". :)
+>>
+>>
+>> But let's leave names aside for a moment. If just looking at the current
+>> code, the drm_bridge_connector is "a handler, owned by the card/encoder =
+and
+>> having the same lifetime, which takes care of drm_connector
+>> creation/destruction at card probe/removal".
+>>
+>> What we need now is just the same plug " and on hotplug events" appended=
+.
+>>
+>> So in both cases there needs to be "a handler persitent with the card".
+>>
+>> Do we agree so far?
+>
+> Ish. If we go for that, then we need to update the name.
 
-On 6/25/26 04:32, Wentao Liang wrote:
-> When vm_insert_pages() fails, the error path calls vma->vm_ops->close(vma)
-> which internally calls drm_gem_vm_close() → drm_gem_object_put(),
-> releasing the GEM object reference acquired at the start of the function.
-> However, the close_vma label then falls through to put_obj, which calls
-> drm_gem_object_put() a second time on the same object.
+drm_connector_manager?
+drm_bridge_connector_manager?
+
+> drm_bridge_connector for something that is neither a bridge or a
+> connector is not great.
 >
-> If the first put releases the last reference, the object is freed and the
-> second put accesses freed memory, causing a use-after-free.
->
-> Fix by returning directly from close_vma instead of falling through to
-> put_obj, since the close handler already performs all necessary cleanup
-> including the object put.
->
-> Cc: stable@vger.kernel.org
-> Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->   drivers/accel/amdxdna/amdxdna_gem.c | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-> index 6e367ddb9e1b..fec9763c518c 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-> @@ -469,6 +469,7 @@ static int amdxdna_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struc
->   
->   close_vma:
->   	vma->vm_ops->close(vma);
-> +	return ret;
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
->   put_obj:
->   	drm_gem_object_put(gobj);
->   	return ret;
+> But even then, I'm not even sure why we need to have that "manager" in
+> the first place. You want to make bridges be aware if they are the last
+> in the chain or not. Use that property in attach to either create a
+> drm_bridge_connector instance if you're last, or attach the next bridge
+> if you aren't.
+
+What? o_O
+
+Several encoder drivers have been painfully converted to create a
+drm_bridge_connector. Now if the bridges start doing it themselves we
+should go back to those encoder drivers and ditch all the
+drm_bridge_connector from there?
+
+I must be missing something. Can you elaborate on this?
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
