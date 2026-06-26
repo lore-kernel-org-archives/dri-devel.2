@@ -4,54 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6800AC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 14:59:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF109C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 15:00:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA95B10E3DC;
-	Fri, 26 Jun 2026 14:59:57 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F31110E3DC
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 14:59:56 +0000 (UTC)
-Received: from localhost.localdomain (unknown [117.182.75.66])
- by APP-01 (Coremail) with SMTP id qwCowACHLtfjkz5qSjlrAw--.37345S2;
- Fri, 26 Jun 2026 22:59:48 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: Zack Rusin <zack.rusin@broadcom.com>,
-	dri-devel@lists.freedesktop.org
-Cc: Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Thomas Hellstrom <thellstrom@vmware.com>,
- Christian Koenig <christian.koenig@amd.com>, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH] fix: drm/vmwgfx: ttm_base_object_init: fix tfile reference
- leak on error paths
-Date: Fri, 26 Jun 2026 22:59:46 +0800
-Message-Id: <20260626145946.49620-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowACHLtfjkz5qSjlrAw--.37345S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZrWUZFy8Gw4kZrW5GFy8Xwb_yoW8Wr1kpa
- yaqry3AryrJr48KrZrAan5XFnIy3sF9rn8KFyYv3ZxZr15Za43Crs5ta1qgFWUGrs7Ar42
- qF4j9F9xZFWUZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
- 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
- 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
- n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
- kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
- 67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
- CI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
- CwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcS
- sGvfC2KfnxnUUI43ZEXa7VUbo5l5UUUUU==
-X-Originating-IP: [117.182.75.66]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAAKA2o+idsaBAAAsd
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21BD010F5D4;
+	Fri, 26 Jun 2026 15:00:02 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jvu7kOGM";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A248E10F5D4
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 15:00:01 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 26683600DC;
+ Fri, 26 Jun 2026 15:00:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D85821F00A3E;
+ Fri, 26 Jun 2026 14:59:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782486000;
+ bh=KlgSE5z5Eql/AnHmC6HqkP0aIfvAuYOWMm1HbYthlV0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Jvu7kOGMx1KFhnl/5ZT0kpIIPkfNlQ4hmf/ZZ22d866ih3bPapuvkuun0N3tLjeGO
+ BwO5TK1vnHaw2ooOeHduVHu8BShrfiA5aC9W7iN5ghJXz3b4K9rmgK79ejMVu0L730
+ foFQZLLjKJexLWWG5kEpkpbf5PRfrAXg+wEgcpDAIOnZizbt+Iuvj1CccnLDQji15G
+ 2wFW2ruRR1kpzYjx4cIDay9I+NDVMMk9VnESpHfNunfOkmMXNzw4FFrzSVKQNqYu7C
+ AQmNR351WefNr0DeSOOGmlTH1ozduEr/gqrnnXKHnS5gMRFkI3inthqN/aT1Dy73+d
+ PSHRXEo/RV38Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 16/20] rust: io: add `read_val` and `write_val`
+ functions on `Io`
+To: "Gary Guo" <gary@garyguo.net>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org,
+ ojeda@kernel.org, "Danilo
+ Krummrich" <dakr@kernel.org>, linux-pci@vger.kernel.org
+In-Reply-To: <20260626-io_projection-v5-16-d0961471ae50@garyguo.net>
+References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
+ <20260626-io_projection-v5-16-d0961471ae50@garyguo.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 14:59:59 +0000
+Message-Id: <20260626145959.D85821F00A3E@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,49 +56,36 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ttm_base_object_init calls ttm_object_file_ref(tfile) to acquire a tfile
-  reference early in the function. On error paths (idr_alloc failure and
-  ttm_ref_object_add failure), the function returns without calling
-  ttm_object_file_unref to release this reference, causing a tfile
-  reference leak.
+> Provide `read_val` and `write_val` that allow I/O views to be accessed wh=
+en
+> they're narrowed down to just views of primitives.
+>=20
+> This is used to provide `io_read!` and `io_write!` macros, which are
+> generalized version of current `dma_read!` and `dma_write!` macro that wo=
+rk
+> for all types that implement `Io`.
+>=20
+> Note though `io_read!` and `io_write!` only works if backend implements
+> `IoCapable` for the type; which is typically only implemented for
+> atomically accessible primitives. `dma_read!` and `dma_write!` currently
+> supports them via `read_volatile` and `write_volatile`; this can be
+> undesirable for aggregates as LLVM may turn them to multiple instructions
+> to access parts and re-assemble, even if they could be combined to a sing=
+le
+> instruction. Thus, `io_read!()` and `io_write!()` does not fully replace
+> `dma_read!()` and `dma_write!()` in this scenario. The ability to
+> read/write aggregates (when atomicity is of no concern) is better served
+> with copying primitives (e.g. memcpy_{from,to}io).
+>=20
+> Signed-off-by: Gary Guo <gary@garyguo.net>
 
-Add proper cleanup in the error paths to release the tfile reference via
-  ttm_object_file_unref.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Cc: stable@vger.kernel.org
-Fixes: 0b8762e997df ("drm/ttm, drm/vmwgfx: Move the lock- and object functionality to the vmwgfx driver")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/vmwgfx/ttm_object.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/vmwgfx/ttm_object.c b/drivers/gpu/drm/vmwgfx/ttm_object.c
-index 2421b0dd057c..93ae5a07d70a 100644
---- a/drivers/gpu/drm/vmwgfx/ttm_object.c
-+++ b/drivers/gpu/drm/vmwgfx/ttm_object.c
-@@ -204,7 +204,7 @@ int ttm_base_object_init(struct ttm_object_file *tfile,
- 	spin_unlock(&tdev->object_lock);
- 	idr_preload_end();
- 	if (ret < 0)
--		return ret;
-+		goto err_unref_tfile;
- 
- 	base->handle = ret;
- 	ret = ttm_ref_object_add(tfile, base, NULL, false);
-@@ -218,6 +218,10 @@ int ttm_base_object_init(struct ttm_object_file *tfile,
- 	spin_lock(&tdev->object_lock);
- 	idr_remove(&tdev->idr, base->handle);
- 	spin_unlock(&tdev->object_lock);
-+	ttm_object_file_unref(&base->tfile);
-+	return ret;
-+err_unref_tfile:
-+	ttm_object_file_unref(&base->tfile);
- 	return ret;
- }
- 
--- 
-2.39.5 (Apple Git-154)
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626-io_project=
+ion-v5-0-d0961471ae50@garyguo.net?part=3D16
 
