@@ -4,134 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B2A5C43211
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 17:24:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3692DC43211
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 17:42:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10ECB10E181;
-	Fri, 26 Jun 2026 17:24:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02BFF10F6D5;
+	Fri, 26 Jun 2026 17:42:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ACSgK6cd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="z7KVCzmq";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011001.outbound.protection.outlook.com [40.107.208.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC7DF10E181;
- Fri, 26 Jun 2026 17:24:44 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011049.outbound.protection.outlook.com [52.101.52.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B1AD10F6D5;
+ Fri, 26 Jun 2026 17:42:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lN1Z81gBJpv0ZHEWvK8F9pWjReXdQWeMDXNifCIczi+FYnWQLlA/rrsj3OUlsxEM/eoVcfXXhUT1QgcQnobTDgbsR5m95dWn5JFRM9HEVlInt7Awq5po0AlqqET7TYHfAY2Nbe6KCNS8ZtCJZvcmLms4XUcAIj5Ak1HNea/HKf4lsvNS1sDENedY8t2yHyx0KedZKoBj5m81ZiD8x68tZkLPP06w/X/M7cB+JPRJ7RtzRtZM64NWZ5I5A81hEqcL/NNOnnMC8eSG7AbCrtw/0fw6DsywCXccDaQ4WBLyyobEbt/26bh7Jm0AeD01QhJS5OjSNF6N2FQYojXZam00rA==
+ b=FvfHYnbrGv5u4ndjOKGoiKYkV1936SLLQA9paTvjFgsnWn3jIxErjjsKXPqOkeRT7dMTrvX6M8AXnyYCr6y4OZMw0tj7zoIb1KEo6OSA72edSnRCvDlQrLIU4n5BwD2VzkP2/gN3TxV6aAJD4Q2IdYLh26aLarwJiiTccBZlvnwjZyu7ibd4hg9BrrwEwa6HhNQhv+qzWkS1WJis4yC3PRIVqT8XCRXmhKva675/qX3V9y3H/qiwIYz59M/QwvcrNQZ+qfocotifekYWs3WCRLbMQy3OPl0UbbEfIsRUSkmXfzGveEqQy75sCSy4bLLguC/qCsBXsliPfMGQ8H/DeQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zvPpf2lruBpYrAYz2xYPfvzciwA5+9cOoa1tV3Bqkso=;
- b=N7QWmTndaFVNDi1R1uR0z9Uh3BBf9AVyY+yME51LWNVZwpz25DBFZGkZAR09Odn/WgoqHfLyT51G9kX2nb8NXebwi7cYH04BBdkTlvROGmQ5l9sP6SvlqeJOemUhs6FIo9LmptblIQXufMNWHjFOfC1cWICltnmkyllLQ9O34B43LcfnrhZ/DiAVBSnhWo5T63nnTm3sd1croU+jTcj3IGN7TD7pU9WxnlpztaBUohs6F1c0QTLgipyiQL/cx/OeQz49y2Mqw5D+SRoVQECtLS70m/4xzqkBmNu/bQXuB2NJk00VTwCSlhQHmrwNdqZguxxM+OH8uVnovgLMPhmgbw==
+ bh=q5x+beIO5JG8yGfuEZ1bip9NdUt+e3xROvQk7azY3iE=;
+ b=E8IW0htMsRHmV81pzTLUakKfIosI2yoFGn+F3DAMDNXVKg+PLibgqy3I5UTlvEBHoQ7m/aAA7T395wMGo3fe4Y5ExP2jyXH8wPnb2Qqe9fscdz4m22JjJZqX0fW0TG/yir0bnh+jVY9NjUzpzXXRUTrlSYH9SNrs62BgHa1tpM10RCCukiNOhmXGxEAx4DYEvxjj5YCwpTznMLulJ24cEqEgsKDtF6mmSTcJUZ//Tw3iXTIk+MXQa/fRsjBp8oETwlo7Pbb3hHkWeXc8hUqba1a6tSbWt/JwvZ/Fjvl1LOD0c/h3kPhGB7kq61ZtTYZGRhKygo8xCqavf1hnMvtr5Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zvPpf2lruBpYrAYz2xYPfvzciwA5+9cOoa1tV3Bqkso=;
- b=ACSgK6cdA9WBPlzCxig/tmswtIYbtwHsxlkNIZ1aBfWcvj+YMwS+uws+gap4HzDbOpNNwbGtblCIBq1KlLJG14U/QRqTI+uFpSXCqklTAw9poNWhx9Grn3xYY7OQVH6xoDjYlCu25w7/G3JSqXUNdw0QZlxWM7k8aVo63/Shank=
+ bh=q5x+beIO5JG8yGfuEZ1bip9NdUt+e3xROvQk7azY3iE=;
+ b=z7KVCzmq34V99BuJ6+4DjxY7jH2CMaCBNnOJJmXNhPQO5v6mbG5ucvzIrXd7oGBdJdvhnnmfgSKyFjx8vbRdCusPX5/L/DN55+U4UQR3fqnXIl3NKqO8BU3CXFPXwIcMW5e8LMyTHIhbNLqufOx1zFblBE62HKRgzgmXFcPJY/E=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by SN7PR12MB7203.namprd12.prod.outlook.com (2603:10b6:806:2aa::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Fri, 26 Jun
- 2026 17:24:39 +0000
+ by DM4PR12MB8569.namprd12.prod.outlook.com (2603:10b6:8:18a::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Fri, 26 Jun
+ 2026 17:42:44 +0000
 Received: from PH8PR12MB6914.namprd12.prod.outlook.com
  ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
  ([fe80::2893:177a:72b0:6000%6]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
- 17:24:39 +0000
-Message-ID: <6f93acaf-7483-42d4-b29d-72b3b9933fe9@amd.com>
-Date: Fri, 26 Jun 2026 12:24:34 -0500
+ 17:42:43 +0000
+Message-ID: <716a31c5-0484-4ef9-b49e-b71310f92d86@amd.com>
+Date: Fri, 26 Jun 2026 12:42:41 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amd/display: Fix dangling pointers in state reset
- functions on allocation failure
+Subject: Re: [PATCH] drm/amd/amdgpu: add firmware file fallback for APU VBIOS
+ discovery
 Content-Language: en-US
-To: Evgenii Burenchev <evg28bur@yandex.ru>, stable@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, alex.hung@amd.com, superm1@kernel.org,
- timur.kristof@gmail.com, ivan.lipski@amd.com, ray.wu@amd.com,
- aurabindo.pillai@amd.com, chen-yu.chen@amd.com, mripard@kernel.org,
- Dillon.Varone@amd.com, mwen@igalia.com, chiahsuan.chung@amd.com,
- kenneth.feng@amd.com, srinivasan.shanmugam@amd.com, contact@emersion.fr,
- Alvin.Lee2@amd.com, chaitanya.kumar.borah@intel.com,
- dmitry.baryshkov@oss.qualcomm.com, pierre-eric.pelloux-prayer@amd.com,
- ekurzinger@gmail.com, HaoPing.Liu@amd.com, Tony.Cheng@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
-References: <20260626133859.21492-1-evg28bur@yandex.ru>
+To: Oz Tiram <oz@shift-computing.de>, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20260621173211.28443-1-oz@shift-computing.de>
+ <20260621180154.30421-1-oz@shift-computing.de>
 From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260626133859.21492-1-evg28bur@yandex.ru>
+In-Reply-To: <20260621180154.30421-1-oz@shift-computing.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0PR03CA0360.namprd03.prod.outlook.com
- (2603:10b6:610:11a::11) To PH8PR12MB6914.namprd12.prod.outlook.com
+X-ClientProxiedBy: SA1P222CA0191.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:3c4::24) To PH8PR12MB6914.namprd12.prod.outlook.com
  (2603:10b6:510:1cb::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SN7PR12MB7203:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe2ac424-e142-4340-77a4-08ded3a7cd67
+X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|DM4PR12MB8569:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a25203e-9281-4e5b-e655-08ded3aa5372
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|7416014|1800799024|366016|18002099003|22082099003|11063799006|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info: pLbN7iOXZ5C3YckikebK81+P+pGXXT9SI6nnH3tzbDudhFk3g04kgA7+TbsX8g4ykFm8LumyDEEeWvusvsDLiOsAFxD8z+sHym6b7celWCHah5KyDbqRUw2wEk8noV7E+Xa04h+odBgtFbW8xavDaa3Vx0nyzDXbbhCtCb31V27gs37TiotLwQOgdQTTmj5bEi7kJ7XKM7XJBDxOvQQTSaZjtV3xAbYpfWbjZ7dS6FYtOs6LOVmVdHJfzqpqMfXykuSDHmQUKiVJMxdpBLanVaj96aMc8M9Ec6eQHjfEVARUrALn3nafjJ55fVMcsq70kefGpGCvCL4wHWCXHYGnE7ObMQgYwWlxDTcEN9o28cAOQwqZiuh8dUAu9akefmbwhZpGY3nSDcgxoNe4077CLcWCNr1GODwTzDonv+KzKC4NZBAwdNyZ/LT572b+l0Udx93iptbSQ0YhzMSKPziq7zgKPiWHOsTeKJUPuytd4QSHRO/vyF7og20ekwzqmsH/xlMjNmHBeKUUrNFU/xN3FPTr1iwwMNp3D/1edMpbtNDYpDdOc3pfIUbZSBghZtQIGkJ1KskHkLbc1Y9ceJWtpVKyAdEYkaLBwNAq4rkKjNMuwTEzRoAQF/ysmc0EkvFMwnq4tr0hDvnoCM/b+0j6KuWT4JIhJKypFPK/+5nq5Qg=
+ ARA:13230040|1800799024|366016|23010399003|376014|22082099003|18002099003|3023799007|11063799006|4143699003|5023799004|56012099006;
+X-Microsoft-Antispam-Message-Info: 3RRcDK9vEBwv+Zu6xn2dgbKX8mWSyNvn5Qxx02H55wppcP6nE3SUQR1CTifpCxrvMx0THGQlqLVoP44rSz6l5fEvhw/B7joo9B7pffHK4ceYN3qv2zjIaPOiqVBdhPyuYbE7+GnGkn4Z+lMwd4jXk7SPdPlzL+9VOK1R3ZWgEH0Vc0R6FRhgZbyfg10EUaXAsCuamyZmj4DML07qvyYWSMlzJ3YZmtbq9NsX4SBBhyTnOk1D1xdQrLgJNEiiPrgbe3hHfztrsmzcNjyQE5WODyJTqzUZlqFdk50SdomL5CmeVWP/1ulJznOFOMHYsOPK3llf/DuSjlZWF+lYmAvJDaxpBgzdFhWgtO0Ivy27HP82TdgOgHHzhNI/+Dm+ur5VfJ2EeEb/l4QrxPrnKqo+puWvMUGSOnsYF72tgCJcANanN9Twi3wAMZ6MJxGCGwxInRW674uBNJEzYpyoKQHRyL8x2D32txWkyKGiL+VKJ3m1fiitdPVrIXTa4R9EkFbXeXEpJdek7HelIYmaE2aePJA4l5GTvEM+9aHoF3OWBHsMJpFDBSrPrJwC41lP71yt/EUBVQwJk17ahDzisDvZ5DiBjrVNTG4hcogqZKrstKwV+h8kGBLwBjdGPp00AFuDA/PZHK9UTW2Cg2JVNbI6MSvB7N4UoS16qcyBOJbRWYA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(22082099003)(11063799006)(56012099006)(6133799003);
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(22082099003)(18002099003)(3023799007)(11063799006)(4143699003)(5023799004)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?akJWVlB6UEpuVFdmaW83TUtiYkdDcjBYcDdxWUlKamM1MnlrcGNXcTFJUFUy?=
- =?utf-8?B?ZWl1Y0tvR0Z3RzREWW5maG9xUGc0RFFrT0xIaTFqVENoTFo5OWNPcXpRSWs5?=
- =?utf-8?B?UVB5cEpyVktoNHQ0NmJTTXQ5eSs2VFFsTkJsVXhJUDcxMFA1KzNVN3YrQUVn?=
- =?utf-8?B?NUhKcnBHOHpJNWFOb2tWNEx0NzVuOEt2aHM1aGJuVEFlSVM2Z3hyNVQvRXFM?=
- =?utf-8?B?TWRObHFaQXBhN05vQktpWjJsN3NxL0NaYWtON0tWampLOVRJeXUzMDNmdExP?=
- =?utf-8?B?OEp6aHlnc1pBV1ZyS3UzaUxpVkR6SmhvaVhHSE15RnVOYWE0bE1iWjJWa01B?=
- =?utf-8?B?R2x3WkM4Y2tQaHZndUtVazVRMXFyalNlTUVrSGdndGtYMEVLNk4xZTBBTFA5?=
- =?utf-8?B?WHo5ZGZQclV0c3YvdEZ0SGJYQlhRWUlFdE02eFlnaUYxZHlicFFVclQxRDRN?=
- =?utf-8?B?Z21xc0dyK3g5Qzh4ZG1BOTU5N2RVT1NVMEw2VlVXakJNaStYamFCUHloMXpW?=
- =?utf-8?B?NmI0VEQ4NXFFOU44ajFKNjZXbGhLTnZBMExMMm9OeVc4MkQvYU5xVWhrT3Jy?=
- =?utf-8?B?RzlhK2trQWM1NVcranA1cXdiZDl6TnZDaW1NSXNhSk9nbWpwVnNyelk3NWIz?=
- =?utf-8?B?emxZaGhUYkhWUlQxU3NZVEE0eTVsU1g2RGFtbVF6S1BMY04vNTJBaElaTEVo?=
- =?utf-8?B?TXR6TGF3M3VhNzB3OS9XdWo0cHlIbjJrNTdhVldUY0lJaUxtTDhTTnovQldS?=
- =?utf-8?B?RlBybXk0djAzTnRTYWsxZGdYTnBFdmUvWUNPNXlRSVpvVno3dmRCYWY4Zmln?=
- =?utf-8?B?K2tFek9FQkJLQXhJVU1YQmFxdVBvZE9jaXlWQ2tURlZEM09RdE9ZVFVOTFZH?=
- =?utf-8?B?M1BwelhJeWxZZWV2UEZyRW1ZdjZFM2loRzV3NG5raEcrdldNTGlzeFRsN0Vq?=
- =?utf-8?B?clpHaDZvWDF3OExDM3BpOVhGVmRFYy9VUDFpcm5XRmVjZ1B6dU1TV0pOOWZH?=
- =?utf-8?B?RlRITC90ZTNnOU1QblVOQXlTc0J6bmhmM1o2MXpvVXpHWUh4L2VJa1Z2eWlJ?=
- =?utf-8?B?UVN4Y00rVEZqN1hFUWxvVjZ2TkpNZ01VR0hDNmtMamJXRjVmdlp0OW9zQ3Zs?=
- =?utf-8?B?N2cxYUMrckwrOXBwWndEejd2NncxUjdCNjZrRDE0VGl6OFNSVXJ4MXNxd0Zw?=
- =?utf-8?B?bFdveXpuQldYUVZBU2FmWGVBcEZXY2ozeEE1b1FLeHdXd2h2Y1V1WlV2Wnlp?=
- =?utf-8?B?WVZNU1dPOW1NRHM4Mzc5UGdicitjWk55WDEyN1gxSkZZNGw0U3JUOHpDa0Zw?=
- =?utf-8?B?d2NPYXdMRGNWODhWUE5pUXFubFhrV00rTnNkQThlbVdHMk9CdFh5Q1FpK0Zq?=
- =?utf-8?B?aTBFMHNSVWRaZ1BEbHlMV1MzZlYwZEpPQTE4NUVLU2hyclpZYXpvNTlQYUJ3?=
- =?utf-8?B?blNIVmdvL2YwOWlvdEFsZVRYcVNkb0dlOVE4WE5WN0w0eldwb2Q5WFBZMjBn?=
- =?utf-8?B?WkhFUU9ENWNtWnFqWlJZZzVmSVFrV3R1OVoyQnIwTXhnOXpGcVllT29NODlJ?=
- =?utf-8?B?NnRBcEZzQXVMb1lpTllYelVodjJ2aHFRczFZczJoVUl1a0o0RForaXN0bU53?=
- =?utf-8?B?ZWpyaElTUWlkL2RqaXFDMFVmTlduNlpuZVR2N0ttN1BWUEljOUlKT2JncXRH?=
- =?utf-8?B?UnRjNnI0NlRWR1czbitKOUd2OFduZDRzTUU2c2RwUE9YVTc3ZGttdnFLTW91?=
- =?utf-8?B?OWpjTEZJNzBZM0RzandqVTc5OVFOWFZRZjZqL3hEQnpmd2FaRU9nSGVpSDFm?=
- =?utf-8?B?TW9pZXlTSnZpYkYrdDZ4U2VBU0o1ZExKQ3RtQWhZdzRWVTA0OWp5Nm91Tk5W?=
- =?utf-8?B?SWJIaWxLY09jZU41enY3VlY1YkRNTlhXUURsODk0Z0F4eC82NXlBUFlTZkpu?=
- =?utf-8?B?d3pXa08wRkZmcU1CLzVSU2tSYjl4Q3FwZUNON1kzeVhwMmxZVUxLZzZxU0VJ?=
- =?utf-8?B?RUJnTTNzV1dqZURISGRUUUNtakNPWXNkRjUvdFd2SEF3WnNyZ0loV1hwZWhL?=
- =?utf-8?B?WDQwc0pUTU5PYzE3Vkd1clN5OFY0YW91Qm9XWGlKaXZwQjczR3FyQWRFWFNM?=
- =?utf-8?B?T1JydjdNUkxZNkNnNVozRUhKSWpqekw0MUU4RDVUZG1ReE9CZUl4OVZpT3ho?=
- =?utf-8?B?a20rdHhwMDBMNjNhSEFJbEplNWhUVHFPTURJSVVPTVFtM2lBeHdHUHR3YlpS?=
- =?utf-8?B?akEzeXd2VTlycUFibVJaaVR2NkF6WjVVdWhyYi9OdVZRa0lubGhOTDVCYVBi?=
- =?utf-8?Q?Ei9hoHmQuRreXuWnZD?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NXdSZXU3Ynl6V3ZtUmFzSVMwVkptSXZTYnlvZjNPM1VHa28vZW1nODRta1Bp?=
+ =?utf-8?B?TkRrRlJqZmFXRGFDd041NElrWWlDSnlqcHlwZjNmUWdrQ3JSYWY1ZUFFWGZh?=
+ =?utf-8?B?NW1RNk0xbjBjMUl5RnNvWGE2bmloN1dOeWJ4bmgvWjVuY3dJQ0xrbU9kQ0J5?=
+ =?utf-8?B?aFVHZlk1eWJ2RkpkY0l3Sjh2azZDRjBuUCtFbnZFbTlyZml2cjdNNVNBb3pu?=
+ =?utf-8?B?Y0pjM0ZuTVZJaEEzTWlVT0VXMlJXbXdOYXo2V1ByanVtSm5qcVR6Y0NIaEdH?=
+ =?utf-8?B?V3pIdlR6eVpacTI1Q25MdGV1dW1MZjhwa1UxWFprVG9XSEhlbm5YaHgxYXBX?=
+ =?utf-8?B?d3AxaWFrSS93OEMvNGk2b1VSU3JLaGw2M2haeldhMytMeWxKL25vdWZ0QWJP?=
+ =?utf-8?B?NDV1Qk9uYjgwZEtjMmJFU3hiUDg0anVRcHVYYmtrb2xsQzE1L2hUeG5vMSt5?=
+ =?utf-8?B?dVcwMFM1dXJBZFVScGlKdmZOUDNjejR1ZVo0SkZqdmNnTndiRFhGNTRvb2pP?=
+ =?utf-8?B?Nk4wRVFDbWZhNW80SXJQd1NxNERNQmNLK1Nmc0RKRFU0NFh3YXVVdWhPSGhn?=
+ =?utf-8?B?N2hySXN4a2duMkxtYk0rSGh3bFlWdnNrVWNtT3RKOUxNOHo4cndRbDFCTHVJ?=
+ =?utf-8?B?NGpUQjF0M0prU0kyZmFkYlBXR0hHWm5seUtWc0tENWY2dmQ3andZYSs0N1Fm?=
+ =?utf-8?B?dGN6RzY1MnpwWSt3cHVhTGw2a0dHZ3NtYlJVRE5WejJYcEovQWI2cjNKQXB6?=
+ =?utf-8?B?R3gvTytKd2Z2WEthQUF3dVdRR3VFNS93bG9TRGIvYTNnZ1VsQVluYW95UkJt?=
+ =?utf-8?B?V2p4OEFqMVREUXlCN0g0UUN4MjNyR1E2b3VTQUtvOW1MSmpNaW1meUlpTjFS?=
+ =?utf-8?B?TnZleVFXR2pkcHZRVmFmOVJwQ2NuaEQ5OUIzSkZlQ00vM0hSZnQwckNKMUpN?=
+ =?utf-8?B?TnBDV3FXK3hvelBZY3ZHQThZK3VWNjdYRjh2dWdOQzRUSmQrUWNDekhtVlBo?=
+ =?utf-8?B?c1VDUWJzQk9vL3FidVBzUS9tbkhsdGt5akE3SzZET0FEQXJoZ0lndjBhVzJP?=
+ =?utf-8?B?ZFA3UWdER0xuZlF6UW1FZ0s2ZGY5ajQ1U2lXZXlJZEhrclZnaU1EejV6Z2xM?=
+ =?utf-8?B?QzNNcWtNUzBYOEpFbFJBMTZxU3pGU3lIaElqdnFPaUJyMlZwTU4yK2tTOG12?=
+ =?utf-8?B?cXRjUWZMUUMxR0d5NWwrT2lvZm52ZCtHbUFONVY4M3FrSlVydXdNSitQV1lp?=
+ =?utf-8?B?eTRUL21mcmZXQWxuK0VSZVc4Z09pL0wxNUV4RTJLSUFSR3lpQ1ZFa0hrZFRo?=
+ =?utf-8?B?VGZ4WVlqQTFjWGwzbEd5YzViNWpjMlhRSCtGam9haWdMNCtCeDIwdVFqN1p0?=
+ =?utf-8?B?STZnUGIyVGVxOTF1MEF6WVBGVkU4VWpEKzNjY1VqdUp6V244K1YrOFdrSExk?=
+ =?utf-8?B?Ym96K1RRMkJ4RDArUmNjRXNWNkZIdUYyNFhoYWZnMTJqN0VzNVMyNWNJNS9W?=
+ =?utf-8?B?N3lwN2dDRzFzSHNIY21JM25pcFloWldZeEtLR0lnTVdNWlczaXZNMDlubkVG?=
+ =?utf-8?B?V0JLVHc2RkxlSC91OVhPZXFDWE5CUFFsSHJXNEEzWjJVTWFhVFdSbjhJMEtQ?=
+ =?utf-8?B?c3kvdzRETDVOQUlEa0hHVDF2TXdVaGxLZ2VvanlIUXdxT1VGM2ZVTG4zbVdh?=
+ =?utf-8?B?cWZrRlVTbU51L2lheEhtU1VlOUZCRlJLWUZ5aXJtbFRaRUFSazVtVXU0SnZZ?=
+ =?utf-8?B?VXk0NGZJd203WHJPc3o5azZuemZzbFEvQjVzOVREQ2E0ZUFGa21IZFJpYVZB?=
+ =?utf-8?B?M21wbnh0emNiZ0cwSkY3a3dGdkF5K0Z2c1g4bTY1MHZXYnlQdFBvZG9LajNm?=
+ =?utf-8?B?K1A4dGdtaDlHd2cybzRJbE5Ea1Mrd2wxSGpodTZqS2MweWFkYWV5ZXZ5bkh0?=
+ =?utf-8?B?cHdhYkEvZlk5L0NaeFhXSzZ5SFBuaEdVcjd2R2w0d0JkSS9RMzBET1hZOWZB?=
+ =?utf-8?B?ekIvalBKVDdYYUNWZmZzUzVaalRUSXFPK0hpV2VZNkhkWVJHUHRQbWNybm9T?=
+ =?utf-8?B?a3ZKZCtJS25UdTBKTGJqSkh4b3lyKzVMZHh1bmtHdE0xQjZ5Y1J0MjNhOFhp?=
+ =?utf-8?B?N0NoTVkrR3NwRUVHeGRMM2xKbjBLQzRNLzhJRFJYNThBRm9kVlNEVGI4MGNG?=
+ =?utf-8?B?OUY3d0JMK3ROK3E4MmtBSG50UXRKVHlvamVseXBJakhoaEgyOFZBbWhhUkpl?=
+ =?utf-8?B?REIvZFlRQ2ZzZDVnRUJUaTZ3QngvT2E5bkwzYkZONFZXTis5aElzUExxaWtM?=
+ =?utf-8?Q?NBBW5/maMdIPG4dEu6?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe2ac424-e142-4340-77a4-08ded3a7cd67
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a25203e-9281-4e5b-e655-08ded3aa5372
 X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 17:24:39.4918 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 17:42:43.2682 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bumvIlyNoFF/nYwvz5PpUeEY+zR44GtdEy/eZ5PjK6sxRsp9sGPbjIWwzDPwoUaFMdu5F80Yt+/71moFfCn1DA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7203
+X-MS-Exchange-CrossTenant-UserPrincipalName: yuGIXXfWo03ftOt7as6lCG8YiM2eYh8oX1w/l0T1GeZEX+ImFlkfQgf+KB9b+z1z4+gLTaXQxzsIav6meTCdtg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8569
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,151 +142,97 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 6/26/26 08:38, Evgenii Burenchev wrote:
-> Multiple reset functions in amdgpu_dm free the old state before allocating
-> a new one. If kzalloc_obj() fails, the function returns without updating
-> the state pointer, leaving a dangling pointer to already freed memory.
+On 6/21/26 13:01, Oz Tiram wrote:
+> APUs (e.g. AMD Radeon 780M / HawkPoint, PCI 1002:1900) have no
+> dedicated VBIOS ROM chip.  amdgpu_get_bios_apu() attempts four paths
+> before giving up:
 > 
-> Fix this by allocating the new state first. If allocation fails, warn and
-> return without touching the old state, as it remains valid and the caller
-> will handle the error appropriately.
+>    1. ACPI VFCT table
+>    2. VRAM BAR read
+>    3. ROM BAR read
+>    4. platform BIOS
 > 
-> This affects three functions:
-> - amdgpu_dm_plane_drm_plane_reset()
-> - amdgpu_dm_crtc_reset_state()
-> - amdgpu_dm_connector_funcs_reset()
-> 
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
-> 
-> Fixes: 5d945cbcd4b1 ("drm/amd/display: Create a file dedicated to planes")
-> Fixes: 473683a03495 ("drm/amd/display: Create a file dedicated for CRTC")
-> Fixes: e7b07ceef2a6 ("drm/amd/display: Merge amdgpu_dm_types and amdgpu_dm")
-> Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
-> ---
-> Changes in v2:
-> - Also fix amdgpu_dm_crtc_reset_state() and amdgpu_dm_connector_funcs_reset()
-> ---
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 48 ++++++++++---------
->   .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  8 ++--
->   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 14 +++---
->   3 files changed, 37 insertions(+), 33 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 97ab1e83b318..6ef1b07ec251 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -8151,33 +8151,35 @@ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
->   
->   void amdgpu_dm_connector_funcs_reset(struct drm_connector *connector)
->   {
-> -	struct dm_connector_state *state =
-> -		to_dm_connector_state(connector->state);
-> -
-> -	if (connector->state)
-> -		__drm_atomic_helper_connector_destroy_state(connector->state);
-> -
-> -	kfree(state);
+> On some systems all four fail:
 
-You seem to have lost this kfree() in your refactor.
+That's pretty odd to me.  Isn't this a BIOS bug?  Can you share more 
+about why all of these are failing?
 
-> +	struct dm_connector_state *state;
+Does the UEFI GOP driver work?
+
+> 
+>    - The VFCT table is absent or contains only the discrete GPU entry
+>      (e.g. when a custom ACPI override is present for the dGPU only).
+>    - The VRAM BAR is unmapped at probe time.
+>    - The ROM BAR is zero (PCI firmware did not assign it; observed even
+>      with pci=realloc,assign-busses).
+>    - No platform BIOS mapping exists.
+> 
+> The driver then prints "Unable to locate a BIOS ROM" and refuses to
+> bind, leaving the APU completely unusable under Linux even though the
+> hardware is functional.
+> 
+> Add a fifth fallback: request a firmware file named
+> "amdgpu/<vendor>_<device>.bin" (e.g. "amdgpu/1002_1900.bin") via
+> request_firmware().  This allows a VBIOS image extracted from the
+> running hardware 
+
+I thought you just said this didn't work.  How did you extract it?
+
+> to be shipped as a firmware blob in /lib/firmware/ and
+> makes the binding succeed without any change to the ACPI tables.
+> 
+> The fallback is only reached if all existing paths have already failed,
+> so there is no regression risk for boards where VFCT or ROM BAR work.
+> 
+> Signed-off-by: Oz Tiram <oz@shift-computing.de>
+> ---
+> v2: Validate the fetched firmware with check_atom_bios() before accepting
+>      it, consistent with all other VBIOS discovery paths.  Save fw->size
+>      before release_firmware() so it remains valid for the size check.
+>      Release the buffer via amdgpu_bios_release() if validation fails.
+> 
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 23 +++++++++++++++++++++++
+>   1 file changed, 23 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> index aa039e148a5e..86064c753b09 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+> @@ -26,6 +26,7 @@
+>    *          Jerome Glisse
+>    */
 >   
-> +	/* Allocate new state first */
->   	state = kzalloc_obj(*state);
-> +	if (WARN_ON(!state))
-> +		return;
+> +#include <linux/firmware.h>
+>   #include "amdgpu.h"
+>   #include "atom.h"
 >   
-> -	if (state) {
-> -		state->scaling = RMX_OFF;
-> -		state->underscan_enable = false;
-> -		state->underscan_hborder = 0;
-> -		state->underscan_vborder = 0;
-> -		state->base.max_requested_bpc = 8;
-> -		state->vcpi_slots = 0;
-> -		state->pbn = 0;
-> -
-> -		if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
-> -			if (amdgpu_dm_abm_level <= 0)
-> -				state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
-> -			else
-> -				state->abm_level = amdgpu_dm_abm_level;
-> -		}
-> +	/* Destroy old state only after successful allocation */
-> +	if (connector->state)
-> +		__drm_atomic_helper_connector_destroy_state(connector->state);
->   
-> -		__drm_atomic_helper_connector_reset(connector, &state->base);
-> +	/* Let DRM core install the new state */
-> +	__drm_atomic_helper_connector_reset(connector, &state->base);
-> +
-> +	/* Initialize driver-specific fields */
-> +	state->scaling = RMX_OFF;
-> +	state->underscan_enable = false;
-> +	state->underscan_hborder = 0;
-> +	state->underscan_vborder = 0;
-> +	state->base.max_requested_bpc = 8;
-> +	state->vcpi_slots = 0;
-> +	state->pbn = 0;
-> +
-> +	/* eDP-specific initialization */
-> +	if (connector->connector_type == DRM_MODE_CONNECTOR_eDP) {
-> +		if (amdgpu_dm_abm_level <= 0)
-> +			state->abm_level = ABM_LEVEL_IMMEDIATE_DISABLE;
-> +		else
-> +			state->abm_level = amdgpu_dm_abm_level;
+> @@ -457,6 +458,28 @@ static bool amdgpu_get_bios_apu(struct amdgpu_device *adev)
+>   		goto success;
 >   	}
->   }
 >   
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> index 3dcedaa67ed8..6146fbc528c3 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> @@ -437,13 +437,15 @@ static void amdgpu_dm_crtc_reset_state(struct drm_crtc *crtc)
->   {
->   	struct dm_crtc_state *state;
->   
-> -	if (crtc->state)
-> -		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
-> -
-> +	/* Allocate new state first */
->   	state = kzalloc_obj(*state);
->   	if (WARN_ON(!state))
->   		return;
->   
-> +	/* Destroy old state only after successful allocation */
-> +	if (crtc->state)
-> +		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
+> +	{
+> +		const struct firmware *fw;
+> +		char fw_name[32];
+> +		size_t fw_size;
 > +
->   	__drm_atomic_helper_crtc_reset(crtc, &state->base);
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index e957657b06c7..eb1c0a26f20d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -1488,17 +1488,17 @@ static const struct drm_plane_helper_funcs dm_primary_plane_helper_funcs = {
->   
->   static void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
->   {
-> -	struct dm_plane_state *amdgpu_state = NULL;
-> -
-> -	if (plane->state)
-> -		plane->funcs->atomic_destroy_state(plane, plane->state);
-> +	struct dm_plane_state *amdgpu_state;
->   
-> +	/* Allocate new state first */
->   	amdgpu_state = kzalloc_obj(*amdgpu_state);
-> -	WARN_ON(amdgpu_state == NULL);
-> -
-> -	if (!amdgpu_state)
-> +	if (WARN_ON(!amdgpu_state))
->   		return;
->   
-> +	/* Destroy old state only after successful allocation */
-> +	if (plane->state)
-> +		plane->funcs->atomic_destroy_state(plane, plane->state);
+> +		snprintf(fw_name, sizeof(fw_name), "amdgpu/%04x_%04x.bin",
+> +			 adev->pdev->vendor, adev->pdev->device);
+> +		if (request_firmware(&fw, fw_name, adev->dev) == 0) {
+> +			adev->bios = kmemdup(fw->data, fw->size, GFP_KERNEL);
+> +			fw_size = fw->size;
+> +			release_firmware(fw);
+> +			if (!adev->bios || !check_atom_bios(adev, fw_size)) {
+> +				amdgpu_bios_release(adev);
+> +			} else {
+> +				adev->bios_size = fw_size;
+> +				dev_info(adev->dev, "Fetched VBIOS from firmware file %s\n",
+> +					 fw_name);
+> +				goto success;
+> +			}
+> +		}
+> +	}
 > +
->   	__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
->   	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
->   	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
+>   	dev_err(adev->dev, "Unable to locate a BIOS ROM\n");
+>   	return false;
+>   
 
