@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B472CDE008
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:47:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50815CDE008
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:49:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A82B10F45B;
-	Fri, 26 Jun 2026 07:47:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A68EB10F466;
+	Fri, 26 Jun 2026 07:49:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UQktW/sG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ENrxtksp";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24AE610E31A;
- Fri, 26 Jun 2026 07:46:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782460020; x=1813996020;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=e3IG+R5dVcnKL4ygLKeL0m2vEuU45wiOiGT8SBpf4eY=;
- b=UQktW/sGUsk4kf+l4f9iToYF/ur+JcVeoL2MdA8PkSACmyzEe5qmSlPR
- +2p/VWxzQ4avlrkCka55xv4ZmheSmcyUFjgbOxLZfUrobnbaiNkeI/oEF
- n4P9SWkt7W8JyE/FWBUbl0AWfw5HAJNkKRKhUnfp2tl9RGymjpujf14Y/
- CANap0WtzdfuHjl1ZyfDdVIlq7ETyfusuL3gZ0OFiJafsd2XT032A4fFf
- 266uaMwxvWg0JrhL+abBlEB3Svo3+hPJfe++CG+O00g8oWcKCPmoJS67a
- NqZwJCxqvt09DKZTj17IY79y7UVq/jT/LTAl/Cx6TTc7rr4tfjRh8B5FP A==;
-X-CSE-ConnectionGUID: eFcAZUyVSXaJXTXzsGHTzA==
-X-CSE-MsgGUID: ZO6WrFloSwWIIBNzxjqghA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11828"; a="83022642"
-X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; d="scan'208";a="83022642"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2026 00:46:59 -0700
-X-CSE-ConnectionGUID: NdUpLxY3SBWPzMmklOKPQw==
-X-CSE-MsgGUID: HBLSC6LcQ+GSKqajZFZ5BQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; d="scan'208";a="247304328"
-Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2026 00:46:58 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH] drm/ttm: Account for NULL pages in ttm_pool_backup
-Date: Fri, 26 Jun 2026 00:46:53 -0700
-Message-Id: <20260626074653.1326683-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC2D010F466
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 07:49:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 247ED600AE;
+ Fri, 26 Jun 2026 07:49:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AF641F000E9;
+ Fri, 26 Jun 2026 07:49:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782460160;
+ bh=0Z+lWCSvofkli6OyVNpk9Jgr3cVRVtExR6E73RKGyXA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=ENrxtkspaetlYvSL1aVOlUDXkwgZvAC/Ljngw/vxT4HLbRsaShuutYLh4TqJEOBrk
+ +Vlvk2/iCs3Ep8q899Dn9+YenP2EZTxt2zNGv7XsuMPlWYX6wPL1kUktKO8qY78Xk0
+ 41c+ZUmzZ7wHkhSj197jm78o2B22Jmv6wvamoswHTWlmlrh17KiDLNaCOYKXtGwgcA
+ WQApsKmMpY3qkVrmKw+lsP1bHAG2OOZJyHSOEEuS9aulLS/W39QCHK8218tfXuMdy6
+ xhSUHVI+P1DfcIVh8sVcIsF4s221ok4H/C7hHECpc9kim5xl2CtUtU5D4P6hCpGL2g
+ wuGHkKxZUvHIw==
+Date: Fri, 26 Jun 2026 09:49:18 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Sunyun Yang <syyang@lontium.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, robh@kernel.org, 
+ krzk+dt@kernel.org, conor+dt@kernel.org, andrzej.hajda@intel.com, 
+ neil.armstrong@linaro.org, dmitry.baryshkov@oss.qualcomm.com, 
+ maarten.lankhorst@linux.intel.com, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, 
+ tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com,
+ xbpeng@lontium.com
+Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
+Message-ID: <20260626-zippy-affable-hamster-22101d@houat>
+References: <20260508134009.4582-1-syyang@lontium.com>
+ <20260508134009.4582-3-syyang@lontium.com>
+ <3188f63f-5358-48d7-b934-af20a8f95c6f@kernel.org>
+ <CAFQXuNbKBfyeQL3N3P5QY=6BWoD3O6DSbXN-WMA1rRG9vCs3Kg@mail.gmail.com>
+ <a0352a42-15db-4c7a-ae73-8a4e1543cd50@kernel.org>
+ <CAFQXuNZVE6cZJGwrGKGtWnB-seSJLHFh8zW3jjAs6U4JLZFWng@mail.gmail.com>
+ <CAFQXuNa8bJCpZBkMs_3mtbK_pjVzDdaDaoGk0KDxiG_Pf7txdg@mail.gmail.com>
+ <6371d1d8-cdfb-40fa-84c7-ba3ec4e2ac00@kernel.org>
+ <CAFQXuNZtzBu+WiG8n0BeN47zagQmL-iz_6Af7prk-xHLAeRBwg@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="gnx6ikseltg43tzx"
+Content-Disposition: inline
+In-Reply-To: <CAFQXuNZtzBu+WiG8n0BeN47zagQmL-iz_6Af7prk-xHLAeRBwg@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,135 +75,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Pages in ttm_pool_backup can be NULL, and set_pages_array_wb() cannot
-handle NULL entries. Switch to set_pages_wb() after checking for NULL
-pages.
 
-Fixes the following oops:
+--gnx6ikseltg43tzx
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
+MIME-Version: 1.0
 
-Oops: general protection fault, kernel NULL pointer dereference 0x0: 0000 [#1] SMP NOPTI
-RIP: 0010:__cpa_process_fault+0xf8/0x770
-RSP: 0018:ffffc90000a87718 EFLAGS: 00010287
-RAX: 0000000000000000 RBX: ffffc90000a87868 RCX: 0000000000000000
-RDX: 0000000000001000 RSI: 0005088000000000 RDI: ffffffff827c5f34
-RBP: 0005088000000000 R08: ffffc90000a877cb R09: ffffc90000a877d0
-R10: 0000000000000000 R11: 000000000000001b R12: 000ffffffffff000
-R13: ffffc90000a87868 R14: ffffc90000a87868 R15: ffff88815b882ae0
-FS:  0000000000000000(0000) GS:ffff8884ec840000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f930b844000 CR3: 000000000262e003 CR4: 0000000008f70ef0
-PKRU: 55555554
-Call Trace:
- <TASK>
- __change_page_attr_set_clr+0x989/0xe90
- ? __purge_vmap_area_lazy+0x6c/0x3a0
- ? _vm_unmap_aliases+0x250/0x2a0
- set_pages_array_wb+0x7f/0x120
- ttm_pool_backup+0x4c9/0x5b0 [ttm]
- ? dma_resv_wait_timeout+0x3b/0xf0
- ttm_tt_backup+0x32/0x60 [ttm]
- ttm_bo_shrink+0x66/0x110 [ttm]
- xe_bo_shrink_purge+0x12b/0x1b0 [xe]
- xe_bo_shrink+0xbb/0x270 [xe]
- __xe_shrinker_walk+0xf7/0x160 [xe]
- xe_shrinker_walk+0x9d/0xc0 [xe]
- xe_shrinker_scan+0x11f/0x210 [xe]
- do_shrink_slab+0x13b/0x270
- shrink_slab+0xf1/0x400
- shrink_node+0x352/0x8a0
- balance_pgdat+0x32c/0x700
- kswapd+0x205/0x2f0
- ? __pfx_autoremove_wake_function+0x10/0x10
- ? __pfx_kswapd+0x10/0x10
- kthread+0xd1/0x110
- ? __pfx_kthread+0x10/0x10
- ret_from_fork+0x1b1/0x200
- ? __pfx_kthread+0x10/0x10
- ret_from_fork_asm+0x1a/0x30
- </TASK>
+On Fri, Jun 26, 2026 at 10:15:03AM +0800, Sunyun Yang wrote:
+> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8825=
+=E6=97=A5=E5=91=A8=E5=9B=9B 21:51=E5=86=99=E9=81=93=EF=BC=9A
+> >
+> > On 25/06/2026 15:40, Sunyun Yang wrote:
+> > > Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=E6=9C=8825=
+=E6=97=A5=E5=91=A8=E5=9B=9B 21:26=E5=86=99=E9=81=93=EF=BC=9A
+> > >>
+> > >> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=
+=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:17=E5=86=99=E9=81=93=EF=BC=9A
+> > >>>
+> > >>> On 25/06/2026 15:14, Sunyun Yang wrote:
+> > >>>> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=
+=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 20:54=E5=86=99=E9=81=93=EF=BC=9A
+> > >>>>>
+> > >>>>> On 08/05/2026 15:40, syyang@lontium.com wrote:
+> > >>>>>> +
+> > >>>>>> +static void lt9611c_reset(struct lt9611c *lt9611c)
+> > >>>>>> +{
+> > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> > >>>>>> +     msleep(20);
+> > >>>>>> +
+> > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
+> > >>>>>> +     msleep(20);
+> > >>>>>> +
+> > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> > >>>>>
+> > >>>>> This is just plain wrong. Why do you assert, then de-assert and t=
+hen
+> > >>>>> finally assert AGAIN the reset leaving the device in powerdown st=
+age?
+> > >>>>>
+> > >>>> I am using software to emulate the hardware RESET button on our EV=
+B.
+> > >>>> When the hardware RESET button is pressed while our chip is runnin=
+g,
+> > >>>> the signal level changes from HIGH to LOW and then back to HIGH.
+> > >>>>
+> > >>>> Of course, we can also use the following:
+> > >>>> static void lt9611c_reset(struct lt9611c *lt9611c)
+> > >>>> {
+> > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
+> > >>>>     msleep(50);
+> > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> > >>>>     msleep(20);
+> > >>>> }
+> > >>>
+> > >>> Makes no sense either and you just did not get the point and did not
+> > >>> answer my question. I asked WHY you leave asserted. Answer "we emul=
+ate"
+> > >>> is just plain wrong.
+> > >>>
+> > >>> So again please answer:
+> > >>>
+> > >>> Why do you leave device with reset asserted?
+> > >>>
+> > >>
+> > >>  devicetree:   reset-gpios =3D <&tlmm 128 GPIO_ACTIVE_HIGH>;
+> > >>
+> > >> GPIO_ACTIVE_HIGH:
+> > >>
+> > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);   ------   reset p=
+in
+> > >> is Low level : Clear the register configuration in the chip to stop
+> > >> the chip from working.
+> > >>
+> > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);   ------  reset pin
+> > >> is high level:  The chip resumes operation.
+> > >>
+> > >>
+> > >
+> > > Our purpose is: pull the level low to clear the register configuration
+> > > in the chip, and then pull it high to allow the MCU inside the chip to
+> > > re=E2=80=91initialize the registers.
+> >
+> >
+> > And you do completely opposite... so that confirms your code is just wr=
+ong.
+> >
+>=20
+> The lontium-lt9611.yaml uses GPIO_ACTIVE_HIGH. I am just following the
+> rule of this device tree. If I modify the device tree to use
+> GPIO_ACTIVE_LOW,
+> and use the following code in my driver, then my driver would be correct.
+> However, would the existing kernel drivers lontium-lt9611uxc.c and
+> lontium-lt9611.c be affected?
 
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/ttm/ttm_pool.c | 49 +++++++++++++++++-----------------
- 1 file changed, 24 insertions(+), 25 deletions(-)
+It might, but then it's a DT problem. The GPIO API for drivers always
+considers the logical state of a GPIO, so if you need to assert a
+signal, you'll always need to set 1. That's what Krzysztof was trying to
+explain.
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 682ae4f40424..ea14447411a6 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -1064,34 +1064,33 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
- 	    ttm_pool_uses_dma_alloc(pool) || ttm_tt_is_backed_up(tt))
- 		return -EBUSY;
- 
--#ifdef CONFIG_X86
--	/* Anything returned to the system needs to be cached. */
--	if (tt->caching != ttm_cached)
--		set_pages_array_wb(tt->pages, tt->num_pages);
--#endif
-+	for (i = 0; i < tt->num_pages; i += num_pages) {
-+		unsigned int order;
- 
--	if (tt->dma_address || flags->purge) {
--		for (i = 0; i < tt->num_pages; i += num_pages) {
--			unsigned int order;
-+		page = tt->pages[i];
-+		if (unlikely(!page)) {
-+			num_pages = 1;
-+			continue;
-+		}
- 
--			page = tt->pages[i];
--			if (unlikely(!page)) {
--				num_pages = 1;
--				continue;
--			}
-+		order = ttm_pool_page_order(pool, page);
-+		num_pages = 1UL << order;
- 
--			order = ttm_pool_page_order(pool, page);
--			num_pages = 1UL << order;
--			if (tt->dma_address)
--				ttm_pool_unmap(pool, tt->dma_address[i],
--					       num_pages);
--			if (flags->purge) {
--				shrunken += num_pages;
--				page->private = 0;
--				__free_pages_gpu_account(page, order, false);
--				memset(tt->pages + i, 0,
--				       num_pages * sizeof(*tt->pages));
--			}
-+#ifdef CONFIG_X86
-+		/* Anything returned to the system needs to be cached. */
-+		if (tt->caching != ttm_cached)
-+			set_pages_wb(page, 1 << order);
-+#endif
-+
-+		if (tt->dma_address)
-+			ttm_pool_unmap(pool, tt->dma_address[i],
-+				       num_pages);
-+		if (flags->purge) {
-+			shrunken += num_pages;
-+			page->private = 0;
-+			__free_pages_gpu_account(page, order, false);
-+			memset(tt->pages + i, 0,
-+			       num_pages * sizeof(*tt->pages));
- 		}
- 	}
- 
--- 
-2.34.1
+The DT will provide with GPIO_ACTIVE_* how that logical state translates
+to a physical GPIO state.
 
+If the DT says that this particular GPIO is active-high, then it means
+that we need to set the GPIO to 1 to assert reset. Now of course, it
+might not make sense for the controller itself, but it might for the
+board if there's a GPIO inverter in the middle for example.
+
+Anyway, in the case you're raising, the issue definitely lies in the DT,
+and that's what would need to be fixed.
+
+I also wouldn't be too concerned about lontium-lt9611.yaml, it's just an
+example.
+
+Maxime
+
+--gnx6ikseltg43tzx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaj4u/gAKCRAnX84Zoj2+
+dqNLAX9z69D2OFoJUyMGybrjCXf43nZF1Hh6FsJ1C2j70iKcWxXlKrkcrmNAMHse
+58B1vxcBf27xWlsEv8gazvq3QBinLgCk+ZV6tON+aUbvlwgZCSb8KwSH+H/Wk7Ok
+dachx3g9/w==
+=c2Ft
+-----END PGP SIGNATURE-----
+
+--gnx6ikseltg43tzx--
