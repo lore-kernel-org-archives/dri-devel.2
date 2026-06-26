@@ -4,71 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4FB4C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 14:16:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2AC2C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 14:20:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D962F10E3B1;
-	Fri, 26 Jun 2026 14:16:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E4BE10E391;
+	Fri, 26 Jun 2026 14:20:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="m5HGN2LN";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nfraprado@collabora.com header.b="gjuVN2pA";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48DE910E39D
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 14:16:54 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 02A4FC6344B;
- Fri, 26 Jun 2026 14:17:01 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 151A760232;
- Fri, 26 Jun 2026 14:16:52 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id DF1E0104C83B5; 
- Fri, 26 Jun 2026 16:16:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1782483410; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=HiXIftSGz3/FakEy7iV1z44v7wCiE7fCNRBBHRqbE8s=;
- b=m5HGN2LNoMhBXxCIbtrRqDG7GXhu7+7ogaB+/nzDsIn4MLa5kkPA5pY+/7jFFwOuQ51aWQ
- Y+Tcx7DX2+P+8d4ut48OT1anz9HquQENZ0WzjRUAbHX97j1gupFhLqqki/VKyD2A9Dx2Be
- vdrjbYznwyl/q40lt4C1+d3/sLQEQa9cofGSPagfyOQAbLY1FANy+Q5RI5xWEVCyUsQ6x6
- dLkRu2lAcI5a7ksYedje41gF8Tyhu6BXYRvD3w7z40eozal46JS+mxnRIqaZlqdlgLoBB7
- rCRGmf8nusV+T4bc92twcZU1dSIM6/9nCt3HH2Mj2fsKKtnIRvB42cBwUIsl8Q==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 26 Jun 2026 16:16:39 +0200
-Message-Id: <DJJ1MPCEJGZD.UZM9183V6ZE5@bootlin.com>
-Subject: Re: [PATCH 05/37] drm/display: bridge-connector: split code
- creating the connector to a subfunction
-Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
- Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Inki Dae"
- <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
- Szyprowski" <m.szyprowski@samsung.com>, "Marek Vasut" <marex@denx.de>,
- "Stefan Agner" <stefan@agner.ch>, "Frank Li" <Frank.Li@nxp.com>, "Sascha
- Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Hui Pu"
- <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>
-To: "Maxime Ripard" <mripard@kernel.org>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.21.0
-References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
- <20260519-drm-bridge-hotplug-v1-5-45e2bdb3dfb4@bootlin.com>
- <20260608-mindful-heavy-frigatebird-be9faf@houat>
- <DJ735MTNMYD1.3LPNV404V8PIU@bootlin.com>
- <20260624-proud-unbiased-pony-ecc3c3@houat>
- <DJHEAWSEZR79.19UFIKS8QJBQ7@bootlin.com>
- <20260626-polite-hairy-perch-25e1aa@houat>
-In-Reply-To: <20260626-polite-hairy-perch-25e1aa@houat>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2A0410E391;
+ Fri, 26 Jun 2026 14:20:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1782483606; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=amMJ57mcMYX52UjAj+HszuIE2Wpn6141jOUIQiNz6hWeEZHyTUZACdnt1b2kqzs1GQS8mJ9uIZMYA5vM7iWVR+iovc3YnKxzeWgKcECk7pHpSa+mlpWtaQ+v6j1MZmlxfpPKG3jSdZacMB+Mb4GCY/Su73MJPDWHBpOD0XhqHOg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1782483606;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=cQyjiVRTcXnC6EW1WnK2c+p4P+ZHsMUWyzuRTT8Dx98=; 
+ b=YF+ruGfeObIm2RzRLnhhKl9Eal3cDF0dRad497sqPARzXVoYEPfihlbhGiq/LM4HtQgjAlZPcQ0AFvyZXe6at0t9n0EcptHbNKwS3cGe2Wp1LC56QyLic+jbGPw91Z+ctvbRLsvZi8P+qYgMsMOrMLIEz2UnApXedeTcyt/qDPs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nfraprado@collabora.com;
+ dmarc=pass header.from=<nfraprado@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782483606; 
+ s=zohomail; d=collabora.com; i=nfraprado@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
+ bh=cQyjiVRTcXnC6EW1WnK2c+p4P+ZHsMUWyzuRTT8Dx98=;
+ b=gjuVN2pAzQSyvU1/0pyfP3dLYWgXBEcA8X/m9z1jTh9S3okyDwG8gf3EFsjQxMLj
+ 6g5VpyeKOeAF8ccF3wir1WYDcWKRAjBLRBRWWJ66NPJbNY4t565z09N5dTomFZRN5Nw
+ nfOZKEBNPdM1SfLlvzHHKuikJ/ttlcsVhsx6Owio=
+Received: by mx.zohomail.com with SMTPS id 1782483604203501.78261578975673;
+ Fri, 26 Jun 2026 07:20:04 -0700 (PDT)
+From: =?utf-8?q?N=C3=ADcolas_F=2E_R=2E_A=2E_Prado?= <nfraprado@collabora.com>
+Date: Fri, 26 Jun 2026 10:18:06 -0400
+Subject: [PATCH] drm/amd/display: Always notify the HDA driver on connector
+ disconnect
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260626-amdgpu-dm-always-eld-notify-on-disconnect-v1-1-40ce473cd724@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAB2KPmoC/x3NywqEMAxA0V+RrCegBTuPXxlmUZrUCWgqjfMQ8
+ d8tLs/m3g2Mi7DBo9mg8FdMslZ0lwbiO+jAKFQNrnW+9a7HMNEwf5AmDOMvrIY8EmpeJK2YFUk
+ sZlWOC977jv01Bb4xQe3NhZP8z9fzte8HAUqwbHsAAAA=
+X-Change-ID: 20260625-amdgpu-dm-always-eld-notify-on-disconnect-951e67fae8ed
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?N=C3=ADcolas_F=2E_R=2E_A=2E_Prado?= <nfraprado@collabora.com>
+X-Mailer: b4 0.14.3
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,163 +74,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+amdgpu_dm_audio_eld_notify() is currently only called in atomic commits.
+This results in the state of the HDA driver never getting updated when
+an audio sink is removed and an atomic commit never comes. (eg the HDMI
+audio jack switch in ALSA stays 'on' after the HDMI cable is
+disconnected if no other display is connected to cause the compositor to
+submit an atomic commit)
 
-On Fri Jun 26, 2026 at 12:09 PM CEST, Maxime Ripard wrote:
-> On Wed, Jun 24, 2026 at 05:47:10PM +0200, Luca Ceresoli wrote:
->> On Wed Jun 24, 2026 at 1:41 PM CEST, Maxime Ripard wrote:
->> > Hi,x
->> >
->> > On Fri, Jun 12, 2026 at 02:56:24PM +0200, Luca Ceresoli wrote:
->> >> On Mon Jun 8, 2026 at 1:40 PM CEST, Maxime Ripard wrote:
->> >> > On Tue, May 19, 2026 at 12:37:22PM +0200, Luca Ceresoli wrote:
->> >> >> In preparation to introduce bridge hotplug, split out from
->> >> >> drm_bridge_connector_init() the code adding the drm_connector into=
- a
->> >> >> dedicated function. This will be needed to be able to add (and re-=
-add) the
->> >> >> connector from different code paths.
->> >> >
->> >> > Same story here, explaining what you need later on that calls for t=
-hat
->> >> > change would be nice.
->> >>
->> >> Here's a more verbose version:
->> >>
->> >>     Currently drm_bridge_connector_init() does two things:
->> >>
->> >>      * allocate and initialize the drm_bridge_connector
->> >>        (which embeds a drm_connector)
->> >>      * initialize and register the embedded drm_connector
->> >>
->> >>     For bridge hotplug we need to separate these two actions:
->> >>
->> >>      * the drm_connector needs to be added and removed at any time ba=
-sed on
->> >>        hotplug events
->> >>      * the drm_bridge_connector is designated to create and remove th=
-e
->> >>        drm_connector, so it must be persistent for the card lifetime
->> >>
->> >>     As the lifetimes of drm_bridge_connector and drm_connector become
->> >>     different, we need to create them in different moments.
->> >>
->> >>     In preparation to support that, split out from
->> >>     drm_bridge_connector_init() the code adding the drm_connector int=
-o a
->> >>     dedicated function. No functional changes, just moving code aroun=
-d for
->> >>     now. A future commit will make the drm_connector be created based=
- on
->> >>     hotplug events.
->> >>
->> >> Looks good?
->> >
->> > The message itself, yes, thanks.
->> >
->> > However, I have questions now :)
->> >
->> > Do we really expect drm_bridge_connector to stick around when a bridge
->> > gets unplugged? If so, how does it cope with having, say, an HDMI
->> > connector, and then swapping out the hotplugged part for an LVDS one?
->> > Does the HDMI connector sticks around indefinitely?
->>
->> In your example, the HDMI drm_connector would be unregistered and put on
->> hotunplug. Its allocation will stick around until the last put but that'=
-s
->> quite irrelevant. Then, on plugging the LVDS addon, a new LVDS
->> drm_connector will be created and registered.
->>
->> > *Especially* if we're using overlays for this, I'd expect everything
->> >  after the first hotplugged bridge to be destroyed, no?
->>
->> As said, it would be unregistered immediately but might be freed later o=
-n
->> if still refcounted.
->>
->> This is visible in patches 36+15, the path to follow is:
->>
->>  drm_bridge_connector_handle_event(event =3D DRM_BRIDGE_DETACHED) [patch=
- 36]
->>  -> drm_bridge_connector_dynconn_release()                      [patch 1=
-5]
->>
->> Does this solve your concern?
->
-> Not really, I'm talking about drm_bridge_connector. The fact that
-> bridges are destroyed make sense to me. The fact that
-> drm_bridge_connector sticks around doesn't. It's supposed to be a
-> connector for bridges. If you don't have bridges because they got
-> destroyed, and connector, drm_bridge_connector doesn't have a reason to
-> exist anymore, unless it's drm_bridge_hotplug in a trench coat :)
+Call amdgpu_dm_audio_eld_notify() in
+amdgpu_dm_update_connector_after_detect() when a sink is no longer
+available to ensure that the HDA driver always gets notified on
+disconnect regardless of atomic commits.
 
-It is not a hotplug-bridge in a trench coat, no :) The code is clear about
-this.
+Assisted-by: Copilot:claude-sonnet-4.6
+Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c     | 2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h     | 2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 9 +++++++++
+ 3 files changed, 11 insertions(+), 2 deletions(-)
 
-I'd say with this series a "drm_bridge_connector" is just becoming
-something more (perhaps something else too). Somewhat as "a drm_bridge is
-either a bridge or something else". :)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
+index 13c9a9d145ba..c9da19335eac 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c
+@@ -168,7 +168,7 @@ void amdgpu_dm_audio_fini(struct amdgpu_device *adev)
+ }
+ EXPORT_IF_KUNIT(amdgpu_dm_audio_fini);
+ 
+-STATIC_IFN_KUNIT void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin)
++void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin)
+ {
+ 	struct drm_audio_component *acomp = adev->dm.audio_component;
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h
+index 7acfc5ef69b3..d0361fd95f60 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_audio.h
+@@ -40,6 +40,7 @@ void amdgpu_dm_commit_audio(struct drm_device *dev,
+ void amdgpu_dm_fill_audio_info(struct audio_info *audio_info,
+ 		     const struct drm_connector *drm_connector,
+ 		     const struct dc_sink *dc_sink);
++void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin);
+ 
+ #if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
+ struct device;
+@@ -48,7 +49,6 @@ int amdgpu_dm_audio_component_bind(struct device *kdev,
+ 				   struct device *hda_kdev, void *data);
+ void amdgpu_dm_audio_component_unbind(struct device *kdev,
+ 				      struct device *hda_kdev, void *data);
+-void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin);
+ int amdgpu_dm_audio_get_param(void);
+ void amdgpu_dm_audio_set_param(int val);
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 300ee26f26ff..9286f86a20cd 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -464,6 +464,8 @@ void amdgpu_dm_update_connector_after_detect(
+ 	struct drm_connector *connector = &aconnector->base;
+ 	struct dc_sink *sink __free(sink_release) = NULL;
+ 	struct drm_device *dev = connector->dev;
++	struct amdgpu_device *adev = drm_to_adev(dev);
++	int inst;
+ 
+ 	/* MST handled by drm_mst framework */
+ 	if (aconnector->mst_mgr.mst_state == true)
+@@ -601,6 +603,13 @@ void amdgpu_dm_update_connector_after_detect(
+ 		/* Set CP to DESIRED if it was ENABLED, so we can re-enable it again on hotplug */
+ 		if (connector->state->content_protection == DRM_MODE_CONTENT_PROTECTION_ENABLED)
+ 			connector->state->content_protection = DRM_MODE_CONTENT_PROTECTION_DESIRED;
++
++		mutex_lock(&adev->dm.audio_lock);
++		inst = aconnector->audio_inst;
++		aconnector->audio_inst = -1;
++		mutex_unlock(&adev->dm.audio_lock);
++		if (inst != -1)
++			amdgpu_dm_audio_eld_notify(adev, inst);
+ 	}
+ 
+ 	update_subconnector_property(aconnector);
 
+---
+base-commit: 30ffa8de54e5cc80d93fd211ca134d1764a7011f
+change-id: 20260625-amdgpu-dm-always-eld-notify-on-disconnect-951e67fae8ed
 
-But let's leave names aside for a moment. If just looking at the current
-code, the drm_bridge_connector is "a handler, owned by the card/encoder and
-having the same lifetime, which takes care of drm_connector
-creation/destruction at card probe/removal".
+Best regards,
+-- 
+Nícolas F. R. A. Prado <nfraprado@collabora.com>
 
-What we need now is just the same plug " and on hotplug events" appended.
-
-So in both cases there needs to be "a handler persitent with the card".
-
-Do we agree so far?
-
-
-Now, the reason I chose to extend the drm_bridge_connector to achieve the
-above is what I tried to motivate in the cover letter:
-
-> The drm_bridge_connector is nowadays the recommended way to implement DRM
-> connectors when a chain of bridges is used. It takes care of adding the
-> drm_connector when the pipeline is composed by an arbitrarily long chain =
-of
-> bridges, which it scans to properly implement the drm_connector
-> operations.
->
-> As such the drm_bridge_connector looked like the ideal component to
-> implement DRM bridge hotplug.
->
-> This series augments the drm_bridge_connector code to be able to create a=
-nd
-> destroy the drm_connector reacting on hot(un)plug events.
-
-Before taking that approach I considered some options:
-
- 1. Create a new component, which is a "a handler, owned by the
-    card/encoder and having the same lifetime, which takes care of
-    drm_connector creation/destruction at card probe/removal and on hotplug
-    events", and wait for drivers to migrate from the drm_bridge_connector
-    to this new thing
-
- 2. Create a new component, which is a "handler, owned by the card/encoder
-    and having the same lifetime, which reacts to hotplug events by
-    creating/destroying a drm_bridge_connector (slightly modified to be
-    non-drmm), which in turn takes care of drm_connector
-    creation/destruction", and wait for drivers to migrate to this new
-    thing
-
- 3. Extend the dm_bridge_connector to:
-    - behave as before if using the current API
-    - behave as before + hotplug if using a new API
-    (the migration in most cases is as simple as patch 37)
-
-All 3 options require changes in card drivers to use a new API (and a new
-object type for cases 1 and 2).
-
-To me options 1 and 2 involve more redundant code and/or more complexity.
-
-Your thoughts?
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
