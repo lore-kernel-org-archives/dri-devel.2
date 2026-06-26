@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15DACC43602
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:58:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED697C43327
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:58:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE54710F634;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C91D110F62F;
 	Fri, 26 Jun 2026 13:58:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OfFJ9Fcd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CGKs4fxv";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9D9810F62E
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:58:07 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A776110F618
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:58:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C231B4133A;
- Fri, 26 Jun 2026 13:58:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DE9E1F000E9;
- Fri, 26 Jun 2026 13:58:06 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1BC77600C8;
+ Fri, 26 Jun 2026 13:58:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 368831F000E9;
+ Fri, 26 Jun 2026 13:58:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782482287;
- bh=KwZT9hl/KfB+jYFDcjHcN5f7n7bsXlEq59U5hO7dKJU=;
+ s=k20260515; t=1782482281;
+ bh=+D8Xxmi8Q0LxsmOf8TGF3NW7tWUzTcON4mif4TKED90=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=OfFJ9FcdPZb9hwfvonf6nTnuRmbwdnqd+cegD1gmQYd0QI6h/Xg2+wqO4ryqucYtm
- KT+gYMGwvGamZlaD7t/zcZ3lDDuiwIOuRY/D5tXeJVZAlD+JO7Hpg5f2lg5g8nW8NQ
- q5Uk7deW9bNkyTvlgzCk508aBwxlbECVvyWffnGlpofXrZxrc9xhOpmKhjhj2oADVF
- l1XRniZY71U+KZ+SL3r44L87CtyD4qzaCKOvJO5/qGa3CUspE3nVIto1+4mVXgT97P
- ZejaFn+jEAOBmUgB4qYRJUTgKMH66ut2jGa2wcqkvNYb5vu5ASqGAOb1WHOUF6xoP4
- swrCJpgz8QY8Q==
+ b=CGKs4fxvj8HEmtJoD1ExFAXuxv4qrpLvoQv1cSnQJWvdDaryMedjRM1/zsBcSjDMr
+ eWlNb0xQcd/0XjAoQjXCfGtlARKD/t7NygepCZO6eD0fr3TQ+un45dnn0jBlqU7Jjw
+ Mu0XZm2/BUAWPcf8wMGvRWfKWQ6VywSMogR+75krcrp1hxEd16gDlg48Sr7UiGc7L4
+ KpsZbUgbCeZUMPyLCRwGnqbbwU4CDOKerA6RVW0HVMHsIMiA1JUQw6LkztYcxiR48M
+ f/ewsoz9L9eDzd5x1cgbuPl8lFyWwkpy8jlNNPFCean/x8hSoTUvE4WKjS5xXQiE8j
+ eOqQVzV24h82Q==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 26 Jun 2026 15:57:15 +0200
-Subject: [PATCH v3 14/30] drm/atomic_sro: Create documentation
+Date: Fri, 26 Jun 2026 15:57:13 +0200
+Subject: [PATCH v3 12/30] drm/atomic_sro: Add atomic state readout
+ infrastructure
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260626-drm-state-readout-v3-14-d5825e3299a8@kernel.org>
+Message-Id: <20260626-drm-state-readout-v3-12-d5825e3299a8@kernel.org>
 References: <20260626-drm-state-readout-v3-0-d5825e3299a8@kernel.org>
 In-Reply-To: <20260626-drm-state-readout-v3-0-d5825e3299a8@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -51,12 +52,12 @@ Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org,
  lidrm_printf_indentnux-kernel@vger.kernel.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2670; i=mripard@kernel.org;
- h=from:subject:message-id; bh=04iiJDZg8Y3shr225hJ5LraTfnhSxL0+W1zMmHBJXyo=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFl2reZnumblvxMO+FQvzvP34NM9Qu4vfizd/fCo7TXOn
- FvJORPFO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEDDsZ6+vaBXsWTb+Y8W1d
- cqFvwdEQrwuah55G9HZf7/susW3idZP/Whd075/N2Ske8PX4Ot8D8Yx1ykf9Onhcvv5ccMVOi1l
- NMYslYOtdV+5SjyMWZUWcJVd8m+wEgued5H9rLyJ9NHGtuQkA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=15033; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=0d09a73Wr6rJ8AM9GcWI/tyS3D+fmTavlkeS8iSN1+w=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFl2rWZRPgpJwXr/T/351f54aWAlp+7xrJ+xyQVzfNdOF
+ TPcZqPXMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACay8DBjrSBb2qON6zYmLzim
+ fqf4zu/5epF3niRUtkyrY/z0almkx42+Ha++L7gVe/vVGRlF1iiDAsZ6F6s78pUramQdP0a/vWz
+ Idb/mxe+pE/l+xxT3rP6i0BDC2DgjdPfyDp3jST9n/ZitVjMbAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,67 +75,447 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The SRO infrastructure has grown to span multiple files and hooks
-but lacks an overview section explaining the overall design and how
-drivers should integrate with it.
+In order to enable drivers to read their initial state from the
+hardware, each KMS object needs a hook to fill a pre-allocated state
+from the hardware registers.
 
-Add a DOC: overview section to drm_atomic_sro.c describing the various
-SRO phases and how drivers wire up the callbacks.
+Introduce the atomic_sro_readout_state hook in every KMS object funcs
+vtable: drm_crtc_funcs, drm_plane_funcs, drm_connector_funcs,
+drm_bridge_funcs, and drm_private_state_funcs.
+
+Also introduce the drm_mode_config_funcs.atomic_sro_readout_state and
+drm_mode_config_helper_funcs.atomic_sro_build_state hooks, which are the
+top-level entry points for drivers and helpers respectively.
+
+Finally, add drm_atomic_sro_can_readout() to verify that all objects on
+a device implement the readout hook, and wire it into
+drm_atomic_sro_device_can_readout().
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic_sro.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ drivers/gpu/drm/drm_atomic_sro.c         | 59 ++++++++++++++++++++++++++++++++
+ include/drm/drm_atomic.h                 | 25 ++++++++++++++
+ include/drm/drm_bridge.h                 | 31 +++++++++++++++++
+ include/drm/drm_connector.h              | 26 ++++++++++++++
+ include/drm/drm_crtc.h                   | 26 ++++++++++++++
+ include/drm/drm_mode_config.h            | 18 ++++++++++
+ include/drm/drm_modeset_helper_vtables.h | 23 +++++++++++++
+ include/drm/drm_plane.h                  | 26 ++++++++++++++
+ 8 files changed, 234 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_atomic_sro.c b/drivers/gpu/drm/drm_atomic_sro.c
-index 0c63f880002d..1243046dbfb0 100644
+index 28beba4de0ce..f90f7cda182b 100644
 --- a/drivers/gpu/drm/drm_atomic_sro.c
 +++ b/drivers/gpu/drm/drm_atomic_sro.c
-@@ -12,10 +12,44 @@
+@@ -4,10 +4,11 @@
+ #include <drm/drm_atomic_sro.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_connector.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_drv.h>
++#include <drm/drm_modeset_helper_vtables.h>
+ #include <drm/drm_plane.h>
+ #include <drm/drm_print.h>
  #include <linux/module.h>
  
  #include "drm_internal.h"
- #include "drm_crtc_internal.h"
+@@ -23,10 +24,62 @@ enum drm_atomic_readout_status {
+ static unsigned int atomic_readout = DRM_ATOMIC_READOUT_ENABLED;
+ module_param_unsafe(atomic_readout, uint, 0400);
+ MODULE_PARM_DESC(atomic_readout,
+ 		 "Enable Hardware State Readout (0 = disabled, 1 = enabled, 2 = ignore missing compares, 3 = ignore missing readouts and compares, default = 1)");
  
-+/**
-+ * DOC: overview
-+ *
-+ * The atomic State Read-Out (SRO) infrastructure allows drivers to
-+ * initialize the KMS atomic state from the hardware state left by the
-+ * firmware at boot, rather than programming a new state. This enables
-+ * flicker-free boot (also called "fastboot" by i915): if the
-+ * firmware already configured the display, the first userspace
-+ * modeset can be skipped when the requested mode matches.
-+ *
-+ * The SRO lifecycle has two phases. The first phase is the readout
-+ * itself: at driver registration time, each KMS object (CRTCs, planes,
-+ * connectors, bridges, private objects) has its
-+ * atomic_sro_readout_state hook called to populate a
-+ * &struct drm_atomic_sro_state from hardware registers.
-+ *
-+ * The second phase is the installation. Once all states have been read
-+ * out, drm_atomic_sro_install_state() walks through the
-+ * &struct drm_atomic_sro_state and assigns each readout state as the
-+ * object's current state. Before doing so, it calls the optional
-+ * atomic_sro_install_state hook on each object. This gives drivers a
-+ * chance to acquire the resources needed to keep the hardware state
-+ * active, such as power domains, clocks, or interrupts. This hook
-+ * cannot fail.
-+ *
-+ * Drivers integrate with SRO by implementing the readout and compare
-+ * hooks in their object funcs vtables and setting the
-+ * &drm_mode_config_funcs.atomic_sro_readout_state and
-+ * &drm_mode_config_helper_funcs.atomic_sro_build_state callbacks. The
-+ * default helpers drm_atomic_helper_sro_readout_state() and
-+ * drm_atomic_helper_sro_build_state() handle the standard readout
-+ * sequence.
-+ */
++static bool drm_atomic_sro_can_readout(struct drm_device *dev)
++{
++	struct drm_crtc *crtc;
++	struct drm_plane *plane;
++	struct drm_connector *connector;
++	struct drm_private_obj *privobj;
++	struct drm_connector_list_iter conn_iter;
 +
- enum drm_atomic_readout_status {
- 	DRM_ATOMIC_READOUT_DISABLED = 0,
- 	DRM_ATOMIC_READOUT_ENABLED,
- 	DRM_ATOMIC_READOUT_SKIP_MISSING_COMPARE,
- 	DRM_ATOMIC_READOUT_SKIP_MISSING_READOUT,
++	if (atomic_readout == DRM_ATOMIC_READOUT_SKIP_MISSING_READOUT)
++		return true;
++
++	if (!dev->mode_config.funcs->atomic_sro_readout_state)
++		return false;
++
++	drm_for_each_privobj(privobj, dev) {
++		if (!privobj->funcs->atomic_sro_readout_state) {
++			drm_dbg_atomic(dev,
++				       "Private object %s missing readout callback",
++				       privobj->name);
++			return false;
++		}
++	}
++
++	drm_for_each_plane(plane, dev) {
++		if (!plane->funcs->atomic_sro_readout_state) {
++			drm_dbg_atomic(dev, "Plane %s missing readout callback",
++				       plane->name);
++			return false;
++		}
++	}
++
++	drm_for_each_crtc(crtc, dev) {
++		if (!crtc->funcs->atomic_sro_readout_state) {
++			drm_dbg_atomic(dev, "CRTC %s missing readout callback",
++				       crtc->name);
++			return false;
++		}
++	}
++
++	drm_connector_list_iter_begin(dev, &conn_iter);
++	drm_for_each_connector_iter(connector, &conn_iter) {
++		if (!connector->funcs->atomic_sro_readout_state) {
++			drm_dbg_atomic(dev, "Connector %s missing readout callback",
++				       connector->name);
++			return false;
++		}
++	}
++	drm_connector_list_iter_end(&conn_iter);
++
++	return true;
++}
++
+ /**
+  * drm_atomic_sro_device_can_readout - check if a device supports hardware state readout
+  * @dev: DRM device to check
+  *
+  * Verifies that the device is an atomic driver, that readout is
+@@ -37,16 +90,22 @@ MODULE_PARM_DESC(atomic_readout,
+  * True if the device supports full hardware state readout, false
+  * otherwise.
+  */
+ bool drm_atomic_sro_device_can_readout(struct drm_device *dev)
+ {
++	bool ret;
++
+ 	if (!drm_drv_uses_atomic_modeset(dev))
+ 		return false;
+ 
+ 	if (atomic_readout == DRM_ATOMIC_READOUT_DISABLED)
+ 		return false;
+ 
++	ret = drm_atomic_sro_can_readout(dev);
++	if (!ret)
++		return false;
++
+ 	return true;
+ }
+ EXPORT_SYMBOL(drm_atomic_sro_device_can_readout);
+ 
+ struct __drm_atomic_sro_plane {
+diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+index 47b2fe2b039e..657f5f4c223f 100644
+--- a/include/drm/drm_atomic.h
++++ b/include/drm/drm_atomic.h
+@@ -296,10 +296,35 @@ struct drm_private_state_funcs {
+ 	 * Frees the private object state created with @atomic_duplicate_state.
+ 	 */
+ 	void (*atomic_destroy_state)(struct drm_private_obj *obj,
+ 				     struct drm_private_state *state);
+ 
++	/**
++	 * @atomic_sro_readout_state:
++	 *
++	 * Initializes @obj_state to reflect the current hardware state
++	 * of the private object.
++	 *
++	 * It is meant to be used by drivers that want to implement
++	 * flicker-free boot (also called fastboot by i915) and allows
++	 * to initialize the atomic state from the hardware state left
++	 * by the firmware.
++	 *
++	 * It is used at initialization time, so drivers must make sure
++	 * that the power state is sensible when accessing the hardware.
++	 *
++	 * This hook is mandatory for drivers implementing SRO, but can
++	 * be left unassigned otherwise.
++	 *
++	 * RETURNS:
++	 *
++	 * 0 on success, a negative error code otherwise.
++	 */
++	int (*atomic_sro_readout_state)(struct drm_private_obj *obj,
++					struct drm_atomic_sro_state *state,
++					struct drm_private_state *obj_state);
++
+ 	/**
+ 	 * @atomic_print_state:
+ 	 *
+ 	 * If driver subclasses &struct drm_private_state, it should implement
+ 	 * this optional hook for printing additional driver specific state.
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index d14c50460e94..9f15c9087e58 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -373,10 +373,41 @@ struct drm_bridge_funcs {
+ 	 * The @atomic_post_disable callback is optional.
+ 	 */
+ 	void (*atomic_post_disable)(struct drm_bridge *bridge,
+ 				    struct drm_atomic_commit *state);
+ 
++	/**
++	 * @atomic_sro_readout_state:
++	 *
++	 * Initializes @bridge_state to reflect the current hardware
++	 * state of the bridge.
++	 *
++	 * It is meant to be used by drivers that want to implement
++	 * flicker-free boot (also called fastboot by i915) and allows
++	 * to initialize the atomic state from the hardware state left
++	 * by the firmware.
++	 *
++	 * It is used at initialization time, so drivers must make sure
++	 * that the power state is sensible when accessing the hardware.
++	 *
++	 * The @crtc_state and @conn_state parameters point to the CRTC
++	 * and connector states for the pipeline this bridge is part
++	 * of.
++	 *
++	 * This hook is mandatory for drivers implementing SRO, but can
++	 * be left unassigned otherwise.
++	 *
++	 * RETURNS:
++	 *
++	 * 0 on success, a negative error code otherwise.
++	 */
++	int (*atomic_sro_readout_state)(struct drm_bridge *bridge,
++					struct drm_atomic_sro_state *state,
++					struct drm_bridge_state *bridge_state,
++					struct drm_crtc_state *crtc_state,
++					struct drm_connector_state *conn_state);
++
+ 	/**
+ 	 * @atomic_duplicate_state:
+ 	 *
+ 	 * Duplicate the current bridge state object (which is guaranteed to be
+ 	 * non-NULL).
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 4317166562cf..7e2fda565f63 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -32,10 +32,11 @@
+ #include <drm/drm_util.h>
+ #include <drm/drm_property.h>
+ 
+ #include <uapi/drm/drm_mode.h>
+ 
++struct drm_atomic_sro_state;
+ struct drm_connector_helper_funcs;
+ struct drm_modeset_acquire_ctx;
+ struct drm_device;
+ struct drm_crtc;
+ struct drm_display_mode;
+@@ -1660,10 +1661,35 @@ struct drm_connector_funcs {
+ 	 * A new, pristine, connector state instance or an error pointer
+ 	 * on failure.
+ 	 */
+ 	struct drm_connector_state *(*atomic_create_state)(struct drm_connector *connector);
+ 
++	/**
++	 * @atomic_sro_readout_state:
++	 *
++	 * Initializes @conn_state to reflect the current hardware
++	 * state of the connector.
++	 *
++	 * It is meant to be used by drivers that want to implement
++	 * flicker-free boot (also called fastboot by i915) and allows
++	 * to initialize the atomic state from the hardware state left
++	 * by the firmware.
++	 *
++	 * It is used at initialization time, so drivers must make sure
++	 * that the power state is sensible when accessing the hardware.
++	 *
++	 * This hook is mandatory for drivers implementing SRO, but can
++	 * be left unassigned otherwise.
++	 *
++	 * RETURNS:
++	 *
++	 * 0 on success, a negative error code otherwise.
++	 */
++	int (*atomic_sro_readout_state)(struct drm_connector *connector,
++					struct drm_atomic_sro_state *state,
++					struct drm_connector_state *conn_state);
++
+ 	/**
+ 	 * @atomic_duplicate_state:
+ 	 *
+ 	 * Duplicate the current atomic state for this connector and return it.
+ 	 * The core and helpers guarantee that any atomic state duplicated with
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index 152349f973e3..fde0e5f87665 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -33,10 +33,11 @@
+ #include <drm/drm_device.h>
+ #include <drm/drm_plane.h>
+ #include <drm/drm_debugfs_crc.h>
+ #include <drm/drm_mode_config.h>
+ 
++struct drm_atomic_sro_state;
+ struct drm_connector;
+ struct drm_device;
+ struct drm_framebuffer;
+ struct drm_mode_set;
+ struct drm_file;
+@@ -652,10 +653,35 @@ struct drm_crtc_funcs {
+ 	 * A new, pristine, CRTC state instance or an error pointer
+ 	 * on failure.
+ 	 */
+ 	struct drm_crtc_state *(*atomic_create_state)(struct drm_crtc *crtc);
+ 
++	/**
++	 * @atomic_sro_readout_state:
++	 *
++	 * Initializes @crtc_state to reflect the current hardware
++	 * state of the CRTC.
++	 *
++	 * It is meant to be used by drivers that want to implement
++	 * flicker-free boot (also called fastboot by i915) and allows
++	 * to initialize the atomic state from the hardware state left
++	 * by the firmware.
++	 *
++	 * It is used at initialization time, so drivers must make sure
++	 * that the power state is sensible when accessing the hardware.
++	 *
++	 * This hook is mandatory for drivers implementing SRO, but can
++	 * be left unassigned otherwise.
++	 *
++	 * RETURNS:
++	 *
++	 * 0 on success, a negative error code otherwise.
++	 */
++	int (*atomic_sro_readout_state)(struct drm_crtc *crtc,
++					struct drm_atomic_sro_state *state,
++					struct drm_crtc_state *crtc_state);
++
+ 	/**
+ 	 * @atomic_duplicate_state:
+ 	 *
+ 	 * Duplicate the current atomic state for this CRTC and return it.
+ 	 * The core and helpers guarantee that any atomic state duplicated with
+diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
+index d8f5b7e9673e..14eab7b126ea 100644
+--- a/include/drm/drm_mode_config.h
++++ b/include/drm/drm_mode_config.h
+@@ -319,10 +319,28 @@ struct drm_mode_config_funcs {
+ 	 *
+ 	 * Subclassing of &drm_atomic_commit is deprecated in favour of using
+ 	 * &drm_private_state and &drm_private_obj.
+ 	 */
+ 	void (*atomic_state_free)(struct drm_atomic_commit *state);
++
++	/**
++	 * @atomic_sro_readout_state:
++	 *
++	 * This optional hook is called at initialization time to read
++	 * out the hardware state and initialize the DRM objects' atomic
++	 * states from it.
++	 *
++	 * When implemented, the framework will prefer hardware state
++	 * readout over creating pristine default states, enabling the
++	 * first modeset to be skipped if the firmware already set up
++	 * the display (flicker-free boot).
++	 *
++	 * RETURNS:
++	 *
++	 * 0 on success, a negative error code otherwise.
++	 */
++	 int (*atomic_sro_readout_state)(struct drm_device *dev);
+ };
+ 
+ /**
+  * struct drm_mode_config - Mode configuration control structure
+  * @min_width: minimum fb pixel width on this device
+diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_modeset_helper_vtables.h
+index ca6268945c28..697d90c9e66d 100644
+--- a/include/drm/drm_modeset_helper_vtables.h
++++ b/include/drm/drm_modeset_helper_vtables.h
+@@ -1550,8 +1550,31 @@ struct drm_mode_config_helper_funcs {
+ 	 * how one should implement this.
+ 	 *
+ 	 * This hook is optional.
+ 	 */
+ 	int (*atomic_commit_setup)(struct drm_atomic_commit *state);
++
++	/**
++	 * @atomic_sro_build_state:
++	 *
++	 * Builds a &struct drm_atomic_sro_state from the current
++	 * hardware state by calling the atomic_sro_readout_state hooks
++	 * on every KMS object.
++	 *
++	 * This hook is called both at initialization time, to create
++	 * the initial state from what the firmware programmed, and
++	 * after blocking commits, to read back the hardware state and
++	 * compare it to what was committed.
++	 *
++	 * The default implementation is
++	 * drm_atomic_helper_sro_build_state().
++	 *
++	 * RETURNS:
++	 *
++	 * A &struct drm_atomic_sro_state on success, an error pointer
++	 * otherwise.
++	 */
++	struct drm_atomic_sro_state *
++	(*atomic_sro_build_state)(struct drm_device *dev);
+ };
+ 
+ #endif
+diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
+index 2c5a5a70a71b..d841fee3a9cd 100644
+--- a/include/drm/drm_plane.h
++++ b/include/drm/drm_plane.h
+@@ -30,10 +30,11 @@
+ #include <drm/drm_color_mgmt.h>
+ #include <drm/drm_rect.h>
+ #include <drm/drm_modeset_lock.h>
+ #include <drm/drm_util.h>
+ 
++struct drm_atomic_sro_state;
+ struct drm_crtc;
+ struct drm_plane_size_hint;
+ struct drm_printer;
+ struct drm_modeset_acquire_ctx;
+ 
+@@ -402,10 +403,35 @@ struct drm_plane_funcs {
+ 	 * A new, pristine, plane state instance or an error pointer
+ 	 * on failure.
+ 	 */
+ 	struct drm_plane_state *(*atomic_create_state)(struct drm_plane *plane);
+ 
++	/**
++	 * @atomic_sro_readout_state:
++	 *
++	 * Initializes @plane_state to reflect the current hardware
++	 * state of the plane.
++	 *
++	 * It is meant to be used by drivers that want to implement
++	 * flicker-free boot (also called fastboot by i915) and allows
++	 * to initialize the atomic state from the hardware state left
++	 * by the firmware.
++	 *
++	 * It is used at initialization time, so drivers must make sure
++	 * that the power state is sensible when accessing the hardware.
++	 *
++	 * This hook is mandatory for drivers implementing SRO, but can
++	 * be left unassigned otherwise.
++	 *
++	 * RETURNS:
++	 *
++	 * 0 on success, a negative error code otherwise.
++	 */
++	int (*atomic_sro_readout_state)(struct drm_plane *plane,
++					struct drm_atomic_sro_state *state,
++					struct drm_plane_state *plane_state);
++
+ 	/**
+ 	 * @atomic_duplicate_state:
+ 	 *
+ 	 * Duplicate the current atomic state for this plane and return it.
+ 	 * The core and helpers guarantee that any atomic state duplicated with
 
 -- 
 2.54.0
