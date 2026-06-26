@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E01F4C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 15:10:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72861C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 15:11:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4791610E302;
-	Fri, 26 Jun 2026 15:10:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9D0810E3C9;
+	Fri, 26 Jun 2026 15:11:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WwT0RstN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DL8TEnUi";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9ABC810E302
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 15:10:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CEAF10E3C9
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 15:11:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5DA7442E56;
- Fri, 26 Jun 2026 15:10:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C7BD1F000E9;
- Fri, 26 Jun 2026 15:10:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 84AB842E58;
+ Fri, 26 Jun 2026 15:11:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37D661F000E9;
+ Fri, 26 Jun 2026 15:11:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782486658;
- bh=jVcR1pkxoxSKmAHB2mhltyvCJy6OuCMldqt9yVmC6/k=;
+ s=k20260515; t=1782486695;
+ bh=GeEQzOxYYOVWRBg7LNltCqytEaDsrpAoKZdlfcv1x7U=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WwT0RstNq4mQOAiaAEbMOzm4vA0s/11khYWcFHt9e6tdaNnnVegOoGHUtGzweH02M
- Oeg/QoDI4d7+RXv/G9GUfLP+l3qmQhaQAnEHDOtElCs1sKvo6iVb5s05F4o7+sO9F3
- rn3DxUDS2SmyHUgVTu5XAadX9cA0EF1HX57XczM0yhRb3Ba7IqfP8/zEz/5hmNp7We
- Kq2jfTGxTMg0PMEmeqa1RRKoSxUoxhD8EZHbDaW2qRO/qukdoMgTx/HMqySssZdgXC
- XOuClGb7+Wu4POH3PjhHXh6aQyrbf3uCFSHAObMjz5+bNFdD4BufDTluKs4wV8aX4P
- VRBZqjQ85aIqA==
+ b=DL8TEnUizlB/kIqppKzUh/9WEv5PFTQRoDoK8Bg7uyhDhz5fh8a0k8Luo53FjLzxZ
+ rCQNn77ypBDbrjsWzZ5znjZsiRjPeNnyZicKcAWNdiZUKYI8lqbNw4Ip5oH7afEKJM
+ 0QDHhuMKa239BEsZT7HwgpqyfQWUy7+kV3ZGgbVVJqkOuAo7w56713+/U4qokZlm2X
+ wgLrdxToIW4QFopLbvlHj72CgMsTUpM9z3SCt3MlYJi+f7AC3P/Bxc795rdwkxXolY
+ wxUPruFRA2B9po3KKKx45C3ZX3cjcdUgb9RioCt14hWeH3ruMIBz8RfNIzN0sjhn6l
+ 1ZC46+oaOe81w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] fix: drm/nouveau: nvkm_ucgrp_new: nvkm_cgrp_new failure
- leaks ucgrp   object and engine reference
+Subject: Re: [PATCH] fix: drm/vc4: vc4_cl_lookup_bos: fix NULL pointer
+ dereference on   drm_gem_objects_lookup failure
 To: "WenTao Liang" <vulab@iscas.ac.cn>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260626144717.49109-1-vulab@iscas.ac.cn>
-References: <20260626144717.49109-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260626145655.49508-1-vulab@iscas.ac.cn>
+References: <20260626145655.49508-1-vulab@iscas.ac.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 15:10:57 +0000
-Message-Id: <20260626151058.2C7BD1F000E9@smtp.kernel.org>
+Date: Fri, 26 Jun 2026 15:11:34 +0000
+Message-Id: <20260626151135.37D661F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,59 +59,76 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The patch adds redundant cleanup code based on a false premise, vio=
-lating the Nouveau object lifecycle design.
+
+Pre-existing issues:
+- [High] An off-by-one bounds check in `vc4_validate_shader_recs` allows an=
+ out-of-bounds read past the end of the `exec->bo` array, leading to a pote=
+ntial arbitrary pointer dereference.
 --
 
-commit bc4fa3965bb025027291bc92ec2fa2ec144efd31
+commit ded73237e9f7dd1d57c4b86e834979a9f46dac6e
 Author: WenTao Liang <vulab@iscas.ac.cn>
 
-fix: drm/nouveau: nvkm_ucgrp_new: nvkm_cgrp_new failure leaks ucgrp object =
-and engine reference
+fix: drm/vc4: vc4_cl_lookup_bos: fix NULL pointer dereference on drm_gem_ob=
+jects_lookup failure
 
-This commit attempts to fix a purported resource leak in nvkm_ucgrp_new()
-by adding an explicit call to nvkm_object_del() when nvkm_cgrp_new() fails.
+When drm_gem_objects_lookup fails, it sets *objs_out to NULL, leaving
+  exec->bo as NULL. The fail_put_bo error handler unconditionally iterates
+  over exec->bo[i] without checking for NULL, causing a NULL pointer
+  dereference.
 
->     The caller ignores *pobject on error, so the ucgrp object and its eng=
-ine
->     reference are permanently leaked.
+Add a NULL check for exec->bo before accessing its entries in the
+  fail_put_bo error path.
 
-Is this description of the caller's behavior accurate?
+Cc: stable@vger.kernel.org
+Fixes: ba3f6db4afee ("drm/vc4: replace obj lookup steps with drm_gem_object=
+s_lookup")
 
-The core framework caller, nvkm_ioctl_new(), appears to correctly capture
-the object pointer and invoke nvkm_object_del() when the constructor
-returns an error code. Since *pobject is assigned before the failure in
-nvkm_ucgrp_new(), does a leak actually occur here?
-
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c b/drivers/g=
-pu/drm/nouveau/nvkm/engine/fifo/ucgrp.c
-> index dfa3c7dbdf348..7d11b92f946ba 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c
-> @@ -113,8 +113,10 @@ nvkm_ucgrp_new(struct nvkm_fifo *fifo, const struct =
-nvkm_oclass *oclass, void *a
->  	*pobject =3D &ucgrp->object;
+> diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
+> index e231c906709c1..b6cf24ca176cd 100644
+> --- a/drivers/gpu/drm/vc4/vc4_gem.c
+> +++ b/drivers/gpu/drm/vc4/vc4_gem.c
+> @@ -723,10 +723,12 @@ vc4_cl_lookup_bos(struct drm_device *dev,
 > =20
->  	ret =3D nvkm_cgrp_new(runl, args->v0.name, vmm, true, &ucgrp->cgrp);
-> -	if (ret)
-> +	if (ret) {
-> +		nvkm_object_del(pobject);
-
-[Severity: Low]
-Does adding this explicit cleanup conflict with the subsystem's centralized=
-=20
-object lifecycle design?
-
-Because the framework caller handles the cleanup of partially constructed=20
-objects when an error is returned, is this manual call to nvkm_object_del()
-redundant?
-
->  		goto done;
+>  fail_put_bo:
+>  	/* Release any reference to acquired objects. */
+> -	for (i =3D 0; i < exec->bo_count && exec->bo[i]; i++)
+> -		drm_gem_object_put(exec->bo[i]);
+> +	if (exec->bo) {
+> +		for (i =3D 0; i < exec->bo_count && exec->bo[i]; i++)
+> +			drm_gem_object_put(exec->bo[i]);
+> =20
+> -	kvfree(exec->bo);
+> +		kvfree(exec->bo);
 > +	}
-> =20
->  	/* Return channel group info to caller. */
->  	args->v0.cgid =3D ucgrp->cgrp->id;
+>  	exec->bo =3D NULL;
+>  	return ret;
+>  }
+
+[Severity: High]
+This is a pre-existing issue, but there appears to be an off-by-one bounds
+check when validating shader records that could allow an out-of-bounds read
+past the end of the exec->bo array.
+
+In drivers/gpu/drm/vc4/vc4_validate.c:validate_gl_shader_rec():
+
+    for (i =3D 0; i < shader_reloc_count; i++) {
+        if (src_handles[i] > exec->bo_count) {
+            DRM_DEBUG("Shader handle %d too big\n", src_handles[i]);
+            return -EINVAL;
+        }
+
+        bo[i] =3D to_drm_gem_dma_obj(exec->bo[src_handles[i]]);
+        if (!bo[i])
+            return -EINVAL;
+    }
+
+If the handle index provided in src_handles[i] is exactly equal to
+exec->bo_count, the check passes, and exec->bo[exec->bo_count] is accessed.
+
+Could this result in an out-of-bounds read and a pointer dereference when
+this out-of-bounds value is cast to a drm_gem_dma_object?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626144717.4910=
-9-1-vulab@iscas.ac.cn?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626145655.4950=
+8-1-vulab@iscas.ac.cn?part=3D1
