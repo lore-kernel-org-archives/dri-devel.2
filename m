@@ -4,52 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C69E4C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 14:40:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CE01C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 14:41:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D73C10E3BA;
-	Fri, 26 Jun 2026 14:40:01 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F030810E3BA;
- Fri, 26 Jun 2026 14:39:59 +0000 (UTC)
-Received: from localhost.localdomain (unknown [117.182.75.66])
- by APP-01 (Coremail) with SMTP id qwCowAA33NQ5jz5qf3RqAw--.18622S2;
- Fri, 26 Jun 2026 22:39:55 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Ben Skeggs <bskeggs@redhat.com>,
- nouveau@lists.freedesktop.org, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH] fix: drm/nouveau: nvkm_chan_new_: multiple error paths return
- without releasing acquired references
-Date: Fri, 26 Jun 2026 22:39:53 +0800
-Message-Id: <20260626143953.48952-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C542010F5C3;
+	Fri, 26 Jun 2026 14:41:22 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="XpudTMrM";
+	dkim-atps=neutral
+Received: from LO2P265CU024.outbound.protection.outlook.com
+ (mail-uksouthazon11021141.outbound.protection.outlook.com [52.101.95.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A4D810F5C3
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 14:41:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qKzrQrVSxrh+X2tb0dsTt7xWHROmWC4P0trnbWQP0CLzlPDA0YtLZMm30s5fBBrpgXUzH5VZcHGS5Zpwglp15lQ94i1KU1JggDxfjbR9vsh0v8Kl5ttGzO7gIYmo9vXWhoNlf8Fp/fee9gj9vnB6p8WrOkuRDb69GeFbfc7x1XXX447D4o8WSzA7tg/YzBXYyk3YRBKjgTaXiQqzmNaihFleiBAfQnf/WrjC4WQsAUpqxMID6fPARQ05O/hTZ9GZzAn0qe/AOfSHdwesOuxP/3U3lDbgRnrjCoow3qhra64fNPY2FuMuKv+IumfiCxCK4uYxIzQSIz9Vp9ukZ5IJ3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3/In0jbnny/jXUU6cRuOSSncCBRe+lWCbcL4moOM3qQ=;
+ b=W00OkI4+GqKvIcEeTLoES6o9OIg5vtaTHBAnxp3TFFGHXr55XsD49wAXhelXu2X9XR8DxrfnEwXS+8G5/wucEmS3FEcyPoqHz51mgk9P6i9a1pzG3JH367ApRi/82C1SwhOyAO34X20Gee1tJwz/ZjSbC4OLezz3C+WreDhiunQsN3rWSFiwGgg4Qb6ckW8xN1ID2SfTwFvDYgb8w+oPhRh2aJdbessE23lrD5XkMTd1qtswmvwiWLIWQQQadbXWWvAFJzhqIJNnvz7uD9hiFlBAWX4lxna3qWxNayhvvZ0P5ptzg1uKFt7RygWEgiT/Ahg2s1qRb30ZQYAhzGsd9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3/In0jbnny/jXUU6cRuOSSncCBRe+lWCbcL4moOM3qQ=;
+ b=XpudTMrMDLcjFW4p2OGQfPN2zrPX4yBwAqhWtu7FujgCLaGCJqiFjuaO618KHopIS0R3mnhO63dMbhiwLSWXCEUCFfWunqixpBamweITySXbdkR6zEjUKWtP4+0Ql461Eo+MlOzm6Mqq/WjRiUCIM8kh3hmX1xarhxgKXBD9/S0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CWXP265MB2181.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:85::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.15; Fri, 26 Jun
+ 2026 14:41:17 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
+ 14:41:17 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 26 Jun 2026 15:41:16 +0100
+Message-Id: <DJJ25JJ3TDO9.1UFOP60U0IPX5@garyguo.net>
+Subject: Re: [PATCH v6 07/10] rust: configfs: use `LocalModule` for
+ `THIS_MODULE`
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alvin Sun" <alvin.sun@linux.dev>, "Gary Guo" <gary@garyguo.net>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Luis Chamberlain" <mcgrof@kernel.org>, "Petr
+ Pavlu" <petr.pavlu@suse.com>, "Daniel Gomez" <da.gomez@kernel.org>, "Sami
+ Tolvanen" <samitolvanen@google.com>, "Aaron Tomlin" <atomlin@atomlin.com>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Arnd
+ Bergmann" <arnd@arndb.de>, "Brendan Higgins" <brendan.higgins@linux.dev>,
+ "David Gow" <david@davidgow.net>, "Rae Moar" <raemoar63@gmail.com>, "Breno
+ Leitao" <leitao@debian.org>, "Jens Axboe" <axboe@kernel.dk>, "Dave Ertman"
+ <david.m.ertman@intel.com>, "Leon Romanovsky" <leon@kernel.org>, "Igor
+ Korotin" <igor.korotin@linux.dev>, "FUJITA Tomonori"
+ <fujita.tomonori@gmail.com>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, "Todd Kjos"
+ <tkjos@android.com>, "Christian Brauner" <brauner@kernel.org>, "Carlos
+ Llamas" <cmllamas@google.com>
+Cc: <rust-for-linux@vger.kernel.org>, <linux-modules@vger.kernel.org>,
+ <driver-core@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <nova-gpu@lists.linux.dev>, <linux-kselftest@vger.kernel.org>,
+ <kunit-dev@googlegroups.com>, <linux-block@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev>
+ <20260624-fix-fops-owner-v6-7-5295e333cb3e@linux.dev>
+ <DJI7IOXAD84M.2F6VSBY64BO62@garyguo.net>
+ <34a009d9-a1f3-4347-9e92-866ec05ddb60@linux.dev>
+In-Reply-To: <34a009d9-a1f3-4347-9e92-866ec05ddb60@linux.dev>
+X-ClientProxiedBy: LO3P265CA0006.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:bb::11) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowAA33NQ5jz5qf3RqAw--.18622S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGry5ur18urWxZw15KryDZFb_yoW5WryxpF
- 43WayYkr18trsYyas2yr48GasIyw4UKw4jka4UCw1SvrnxXrW8Cr4rAa10vFZ5Jr4xGr45
- GFsIqa4SqF15Ar7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
- 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
- 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
- n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
- kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
- 67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
- CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
- MIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
- nIWIevJa73UjIFyTuYvjfUOlkVUUUUU
-X-Originating-IP: [117.182.75.66]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUKA2o+iCgR+wABsK
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWXP265MB2181:EE_
+X-MS-Office365-Filtering-Correlation-Id: be4d2d70-3212-4e42-1472-08ded390fab5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|7416014|1800799024|10070799003|366016|18002099003|22082099003|921020|4143699003|56012099006|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: n1/Litt233JeXjMcKfMVO5Ik0DQYng3aPcXxHykxEQ6XPCTXmbwhTOvfQgARoGyZzL2nCGXiEPwRHGD70UbPJHCdR82GV9COBvC6lZ7Aoc0EsRKi1sehaV0Lz376SB6UmjESIyxwJ6OgeuEARQ7BNaUU5uVnVoFdZIZTVWI7Aq981GAK7PJ/SNM7CnDdlzDBns++Rb1ZAeBZQlaVbcY4RBVs3DvHBfpWA4icz7JRG5fepPYNHE6Uxtks3zYncKOhrr4UWBrG9dq5tBMdth/vLz0GGU5ls+dHu3vsxj06pynlin25OWzSfP3W+CCrPfuI51hV1OWm59RzH2HvLl4qqVkD6nFCIL3ra4bzJpALakJv5RmKHqT4ID4hfmN1WTe2DTrsIzLpfNXWgmrHf8E9CuCpJtXm1rfD6tDSxf90C9s+Be7x0WF+lO4jxaqyZlFAn3F9rF5EojBsvWcdRAYRjp9PfWp+C6m6eTvb6ZrgxRJa3gy2MnsN0sEQD6NrQu4f5LOZdYzehE89ayUJi4Ll7zWFGUGgfrmzVwaqPvJJwWYjrLB8CAow5qriwIVzS7ONbtv3cn/a2LJsZzTX3tTy7Qn8nGwPcuTWYKk64n+xPbmgYyA0KUD3qfqKIrKsblpBdV52Yrifo211ZSjr2OOfffG+ACsHvCiU0oCP31FAKsc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(10070799003)(366016)(18002099003)(22082099003)(921020)(4143699003)(56012099006)(6133799003)(3023799007);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SVFiUzdOOFNnemJEbjA0WjBIRDNiN2FHQlV5MVVmWFNBeDRBdk42RW9pVVhs?=
+ =?utf-8?B?RWNiTE1vTnJvWERIQk5uV0taSlBLaFcySzBaSkR4cVJqcDRYbmVqd2l0b0FH?=
+ =?utf-8?B?MHlOb3NBOC9PVXU5c0Z0YThpVXE0TklHRUt2RTlacEJEVUp4Y212b3BWL2ww?=
+ =?utf-8?B?M0Z3aVo1Nm5hZ1RBZ2tvVlBwRlhNQXE5eHYwcHNxelhSNUEvbEx6Z3lndHVo?=
+ =?utf-8?B?dGtGb0pJT0ZYZnhOS0JyRGVRNCtTL3orYUQyVzNROFU5Q3BoL2ZSYUgzTlBq?=
+ =?utf-8?B?ZGFYTHVNcUR5SzRXVnAzUi83eGhqdGlqUDNqYy8weS9Yb2RvMklpTlFIeTRP?=
+ =?utf-8?B?QWJwT1pSUFNZTFhEcUdJUjAvRGMrRnVCVWx1SmpKY2RvdHlBRGhPRlB6RGtu?=
+ =?utf-8?B?RkpxejFTaDEyblg2eFp5L3dSVjVuTzk4YStydWNtTmxzejFhM2xPOEM2Nzd5?=
+ =?utf-8?B?UmZZRXhZMGRBaDBrdTBCZ3JMc01OdkJ5YjhrU0Y1RCttZlQrL2FrNWRpUUE4?=
+ =?utf-8?B?ZjBrd0tQYWZyYmdBM2JDTGtUTW0rMm81WHlUb2ErdWN1Z2YwUzJvYTVzUHBt?=
+ =?utf-8?B?ZGdHN3dYN1BHQnhFS2tQaDZIZ2c2Z1MzMmpHWHExR2d3U3ovcVE4WjhTc2FE?=
+ =?utf-8?B?TlRDQjI3SmcvdHpQejd4ZEpmVjBEQmpYeHFHdFJESFJ0OVcvQnpJcWEzR1JP?=
+ =?utf-8?B?bmc5SmRmU2RsMzhjcjhvOEg2ejMrVXVhNkdtMWNSTDRtUXl5S2VTZEl3VHds?=
+ =?utf-8?B?VnR1eVVWTDFlZmIrQmFBb2NZcmdrc1Z5YWZVODRpRnZCd3F6d09SdFBCcFMy?=
+ =?utf-8?B?OEhXWHlDcVpNSENvVFFSTjgwZTA0Ty9DNy9yS1dmdGZpcVNzckRIcE0vWUhj?=
+ =?utf-8?B?c0Y1alJscGRhVmNTS2w0YlM4ZE1FVktCZ1lwUTdsRTNEb3VyeCsrZG9FYnMr?=
+ =?utf-8?B?VGF0bXRwbDAySGFBSVVLaFlnUFU2UFd3aGxHeVRYVFBURDMxUTM5R3BTTjRH?=
+ =?utf-8?B?UTRzV1Q2c3UvcFBSTWtYdGZxNHRLWjdDeTJjZVhpcFE4dmFLWnRuWTJGNUxF?=
+ =?utf-8?B?SmFyditMbjliNDNINjVhWWR3RmpzcHB3SVRnOU9yY0VsUnFkOEVRMmJSVEla?=
+ =?utf-8?B?S25nOEZyd2FLZ1V2c1l2OGpPZUdacjJXdktCT1Fwb2trdzZ3TnFnZVkvMWp2?=
+ =?utf-8?B?WUY1S0FyQ0hWanE4amtpWGZkM083V0VUTlFoRFFaZlpxMGpiL0wwSUlUeFVH?=
+ =?utf-8?B?QVlyMFVveXRQZ2NhZFhmNkEyL04yYUUwUk9aK2hzNFhJQzdWQXI3ZTdVVkQr?=
+ =?utf-8?B?UlRTaFdkemdCcU9qaHhWREJiR2JaU01Na0prMWxhR24xM0VxcjJkcHBvRWhD?=
+ =?utf-8?B?aEdpRElBK3VBcXNmcFhUTWFGaUxmYUVNZzU1eXFSbnZPWjNDUWlnNEdmNit6?=
+ =?utf-8?B?enoyUXJpZ2wrVm00QW9wVzcxTkhBTkZYcGFxclgxTGFQL2V1eGYrNng3NEYx?=
+ =?utf-8?B?NXpMS2JxSFdTRVQxeUEzUVFMakdwWE1nUVdnaGdiTjJQVnpCd2lxOHlqQXVZ?=
+ =?utf-8?B?WmZiZjVlc04xNjZCZXdQa2R6SExvZmFrdUliWXJlZC85VDRocjBqUWYzMHF4?=
+ =?utf-8?B?OUFkSCtObWpXOFppVldQTSt1eFptNmhLUXZadko5UkN3d1V5UnpQTG01aDk3?=
+ =?utf-8?B?MFc5WnhOVW9YK3BpMXhUeFJZZVpMbm1iSTJuVDNkSGkzY3ZpWk5qZURlc1Yr?=
+ =?utf-8?B?aCtSWUhyN0VsOXZlOHlGdWpxdnpSMGlONE1TYXI5U2d6eHMvYlZkQVF2WEY1?=
+ =?utf-8?B?eTRUbGF6R2FNR2FvNUM2bjhkVkdxZEkrTVc3QkZ2aityeWlwcWM2QkRqSmQ1?=
+ =?utf-8?B?elA2YVIvVWc0eFk3dlZTR1RRMm5FaWVBOFV2bDl6V3JOUkVFeENudDBtMnR4?=
+ =?utf-8?B?ZDFHNlBndHVSTkhlbngyaVFhYk50QW5wTXdqemIwL3JKd1Z1ZkVobXJubHZD?=
+ =?utf-8?B?M2xpNUNFRGVIcXFuRklzVnh5aWhUcEt1b3Rpc3kxYjlITVBDV2EvMUMrWGsw?=
+ =?utf-8?B?c1NpVURRdWxTMEM0Y05odXJyWWM0ZUpaQ3J6VU1lOVhlQ1MxYlhjc1gwbmZE?=
+ =?utf-8?B?MWFkNzJIV2JmU3pVcUptTnRjTWZYN2k2eXVuTnhkUlVud3hXNWtZQ080Rzht?=
+ =?utf-8?B?SU5xZUxmOWR1V1hGaGF4SzhWM1hNMWZxYy9JYmVjbUMveHZaNXpidEFQdFFV?=
+ =?utf-8?B?VWtIbExDZndVdDlRTUh5S0I5WXVaSkJ3UWkrTWhvN0FVSzdxU1puU0paT25N?=
+ =?utf-8?B?WHFvOHFySllKSERuK3d3dzdUVjdMK3B0QWZvWkdwYkFoOE1vRnNEdz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: be4d2d70-3212-4e42-1472-08ded390fab5
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 14:41:16.9371 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uExMzTkpxOygcNcgL/5vaLRujOt3acoS2ACqEgdMmDJX4xISRFoNpZVOhuIPZsjUjCb3UdK1bhKVXx15yqAwdw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2181
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,98 +163,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-After allocating chan and acquiring references on cgrp, vmm, memory, and
-  chid, numerous subsequent error paths return ret directly without calling
-  kfree, nvkm_cgrp_unref, nvkm_vmm_unref, nvkm_memory_unref, or
-  nvkm_chid_put. Every error return after the initial allocations leaks one
-  or more acquired resources.
+On Fri Jun 26, 2026 at 3:35 AM BST, Alvin Sun wrote:
+>
+> On 6/25/26 22:40, Gary Guo wrote:
+>> On Wed Jun 24, 2026 at 4:00 PM BST, Alvin Sun wrote:
+>>> Replace the `THIS_MODULE` static reference in the `configfs_attrs!`
+>>> macro with `this_module::<LocalModule>()`, and update
+>>> rnull to import `LocalModule` instead of `THIS_MODULE`, consistent
+>>> with the move of `THIS_MODULE` into the `ModuleMetadata` trait.
+>>>
+>>> Assisted-by: opencode:glm-5.2
+>>> Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+>>> Acked-by: Danilo Krummrich <dakr@kernel.org>
+>>> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+>>> ---
+>>>   drivers/block/rnull/configfs.rs | 6 ++----
+>>>   rust/kernel/configfs.rs         | 8 +++++---
+>>>   2 files changed, 7 insertions(+), 7 deletions(-)
+>>>
+>>> diff --git a/drivers/block/rnull/configfs.rs b/drivers/block/rnull/conf=
+igfs.rs
+>>> index c10a55fc58948..b2547ad1e5ddd 100644
+>>> --- a/drivers/block/rnull/configfs.rs
+>>> +++ b/drivers/block/rnull/configfs.rs
+>>> @@ -1,9 +1,7 @@
+>>>   // SPDX-License-Identifier: GPL-2.0
+>>>  =20
+>>> -use super::{
+>>> -    NullBlkDevice,
+>>> -    THIS_MODULE, //
+>>> -};
+>>> +use super::NullBlkDevice;
+>>> +use crate::LocalModule;
+>>>   use kernel::{
+>>>       block::mq::gen_disk::{
+>>>           GenDisk,
+>>> diff --git a/rust/kernel/configfs.rs b/rust/kernel/configfs.rs
+>>> index 2339c6467325d..c31d7882e216d 100644
+>>> --- a/rust/kernel/configfs.rs
+>>> +++ b/rust/kernel/configfs.rs
+>>> @@ -875,7 +875,7 @@ fn as_ptr(&self) -> *const bindings::config_item_ty=
+pe {
+>>>   ///                 configfs::Subsystem<Configuration>,
+>>>   ///                 Configuration
+>>>   ///                 >::new_with_child_ctor::<N,Child>(
+>>> -///             &THIS_MODULE,
+>>> +///             ::kernel::module::this_module::<crate::LocalModule>(),
+>>>   ///             &CONFIGURATION_ATTRS
+>>>   ///         );
+>>>   ///
+>>> @@ -1021,7 +1021,8 @@ macro_rules! configfs_attrs {
+>>>  =20
+>>>                       static [< $data:upper _TPE >] : $crate::configfs:=
+:ItemType<$container, $data>  =3D
+>>>                           $crate::configfs::ItemType::<$container, $dat=
+a>::new::<N>(
+>>> -                            &THIS_MODULE, &[<$ data:upper _ATTRS >]
+>>> +                            $crate::module::this_module::<LocalModule>=
+(),
+>> ^ You only changed one single place. This is still plain `LocalModule`.
+>
+> Initially I wrote it as `crate::LocalModule`, but clippy warned about it.=
+ So
+> instead of putting the crate path in the macro body, I added `use
+> crate::LocalModule` in the calling file.
+>
+> ```
+> warning: `crate` references the macro call's crate
+>  =C2=A0 =C2=A0 --> rust/kernel/configfs.rs:1024:59
+>  =C2=A0 =C2=A0 =C2=A0|
+> 1024 | ... =C2=A0$crate::module::this_module::<crate::LocalModule>(),
+>  =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^^^^^ hel=
+p:=20
+> to reference the macro definition's crate, use: `$crate`
+>  =C2=A0 =C2=A0 =C2=A0|
+>  =C2=A0 =C2=A0 =C2=A0=3D help: for further information visit=20
+> https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#crate_in_m=
+acro_def
+>  =C2=A0 =C2=A0 =C2=A0=3D note: `-W clippy::crate-in-macro-def` implied by=
+ `-W clippy::all`
+>  =C2=A0 =C2=A0 =C2=A0=3D help: to override `-W clippy::all` add=20
+> `#[allow(clippy::crate_in_macro_def)]`
+>
+> warning: 1 warning emitted
+> ```
 
-Cc: stable@vger.kernel.org
-Fixes: 06db7fded6de ("drm/nouveau/fifo: add new channel classes")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
- .../gpu/drm/nouveau/nvkm/engine/fifo/chan.c   | 25 +++++++++++++------
- 1 file changed, 17 insertions(+), 8 deletions(-)
+Clippy has a point about `crate::` being usually wrong in macros, but it is=
+ what
+we actually want here, so obviously you should allow the warning.
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/chan.c b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/chan.c
-index 418a8918bcb8..1bf595bafa9a 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/chan.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/chan.c
-@@ -410,18 +410,18 @@ nvkm_chan_new_(const struct nvkm_chan_func *func, struct nvkm_runl *runl, int ru
- 			      &chan->inst);
- 	if (ret) {
- 		RUNL_DEBUG(runl, "inst %d", ret);
--		return ret;
-+		goto done;
- 	}
- 
- 	/* Initialise virtual address-space. */
- 	if (func->inst->vmm) {
- 		if (WARN_ON(vmm->mmu != device->mmu))
--			return -EINVAL;
-+			goto done;
- 
- 		ret = nvkm_vmm_join(vmm, chan->inst->memory);
- 		if (ret) {
- 			RUNL_DEBUG(runl, "vmm %d", ret);
--			return ret;
-+			goto done;
- 		}
- 
- 		chan->vmm = nvkm_vmm_ref(vmm);
-@@ -432,7 +432,7 @@ nvkm_chan_new_(const struct nvkm_chan_func *func, struct nvkm_runl *runl, int ru
- 		ret = nvkm_object_bind(&dmaobj->object, chan->inst, -16, &chan->push);
- 		if (ret) {
- 			RUNL_DEBUG(runl, "bind %d", ret);
--			return ret;
-+			goto done;
- 		}
- 	}
- 
-@@ -443,13 +443,13 @@ nvkm_chan_new_(const struct nvkm_chan_func *func, struct nvkm_runl *runl, int ru
- 			if (ouserd + chan->func->userd->size >=
- 				nvkm_memory_size(userd)) {
- 				RUNL_DEBUG(runl, "ouserd %llx", ouserd);
--				return -EINVAL;
-+				goto done;
- 			}
- 
- 			ret = nvkm_memory_kmap(userd, &chan->userd.mem);
- 			if (ret) {
- 				RUNL_DEBUG(runl, "userd %d", ret);
--				return ret;
-+				goto done;
- 			}
- 
- 			chan->userd.base = ouserd;
-@@ -461,7 +461,7 @@ nvkm_chan_new_(const struct nvkm_chan_func *func, struct nvkm_runl *runl, int ru
- 
- 	if (chan->id < 0) {
- 		RUNL_ERROR(runl, "!chids");
--		return -ENOSPC;
-+		goto done;
- 	}
- 
- 	if (cgrp->id < 0)
-@@ -475,8 +475,17 @@ nvkm_chan_new_(const struct nvkm_chan_func *func, struct nvkm_runl *runl, int ru
- 	ret = chan->func->ramfc->write(chan, offset, length, devm, priv);
- 	if (ret) {
- 		RUNL_DEBUG(runl, "ramfc %d", ret);
--		return ret;
-+		goto done;
- 	}
- 
- 	return 0;
-+
-+done:
-+	if (chan->id >= 0)
-+		nvkm_chid_put(runl->chid, chan->id, &chan->cgrp->lock);
-+	nvkm_memory_unref(&chan->userd.mem);
-+	nvkm_vmm_unref(&chan->vmm);
-+	nvkm_cgrp_unref(&chan->cgrp);
-+	*pchan = NULL;
-+	return ret;
- }
--- 
-2.39.5 (Apple Git-154)
+It is the exact same case in `vtable` macro, just that Clippy is unable to =
+check
+proc macros!
 
+Best,
+Gary
+
+>
+> Alternatively, `#[allow(clippy::crate_in_macro_def)]` could be added on=20
+> the macro
+> definition. Would you suggest that approach?
