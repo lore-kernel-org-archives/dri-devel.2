@@ -4,42 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06A2ACDE008
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 08:20:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 164B1CD4F26
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 08:21:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BCDF10E33C;
-	Fri, 26 Jun 2026 08:20:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71FF210E371;
+	Fri, 26 Jun 2026 08:21:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="kaawmade";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dZ6wUmHl";
 	dkim-atps=neutral
-X-Greylist: delayed 439 seconds by postgrey-1.36 at gabe;
- Fri, 26 Jun 2026 08:20:46 UTC
-Received: from out-170.mta0.migadu.com (out-170.mta0.migadu.com
- [91.218.175.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C432610E33C
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 08:20:46 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1782461605;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=hVXcUv9YI3BwSeys0voxuca3R/WAQc1fgr2LF5ndO3g=;
- b=kaawmade3x1ug1rVE5qqbPvBZWAIBodU6Fjm8n8NxVmwo9ovpQ4lG4uXRUAV6z141Ye0nj
- NDtMxXO4Nj51000giv8+GJddZdxUdehXIwDB5/dAgEKN7j2dBvjRWx+3zIjCd9IHtNvxiF
- uIbvte+HGDm7T5da44HkHtn+WH7e0VU=
-From: hongfu.li@linux.dev
-To: tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, dev@lankhorst.se,
- mripard@kernel.org, natalie.vock@gmx.de
-Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Hongfu Li <hongfu.li@linux.dev>
-Subject: [PATCH] cgroup/dmem: Use size_t for try_charge() and uncharge() size
-Date: Fri, 26 Jun 2026 16:12:31 +0800
-Message-ID: <20260626081231.47464-1-hongfu.li@linux.dev>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A19A310E371
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 08:21:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 10609600AE;
+ Fri, 26 Jun 2026 08:21:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3A601F000E9;
+ Fri, 26 Jun 2026 08:21:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782462099;
+ bh=/URyDSaM1Mp00hYDxzcu1PlaeGQCy7y9ufaCKG+1pYk=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc;
+ b=dZ6wUmHlou3J6WeaopCIhZOzl5LxPzE65VLGwts7XKUdv71sYAo7u0DcmzHudoAeC
+ dUUU3ZBCDSL1NXw420mqK9HQKDWL+3Mf932mHOQbY5haEiBgbzgz+TvikEdOG8odvD
+ b1xMWbiwWliWZPzhGeLA+1YDYFPXwVtjUHD231hpuDUDCdBWWpz8fTMT2aNKlNClA0
+ auSTv8t3dvuaYganHC6zeXelxXxD1hJBswndcayL5cTEfGWd7sDNN5UuosA5B5UhWE
+ 0iB4C44h6WSBaWEu/jEws2dH0VFYZi9QvILF/Ez8Hd6jBU8RVZlmVkL2yPhIEpb/tG
+ Z7rdZkOnXcovw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 19B8839389E8; Fri, 26 Jun 2026 08:21:28 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Subject: Re: [PATCH v13 0/4] kunit: Add support for suppressing warning
+ backtraces
+From: patchwork-bot+linux-riscv@kernel.org
+Message-Id: <178246208674.3816447.9584369939582811196.git-patchwork-notify@kernel.org>
+Date: Fri, 26 Jun 2026 08:21:26 +0000
+References: <20260515-kunit_add_support-v13-0-18ee42f96e7b@redhat.com>
+In-Reply-To: <20260515-kunit_add_support-v13-0-18ee42f96e7b@redhat.com>
+To: Albert Esteve <aesteve@redhat.com>
+Cc: linux-riscv@lists.infradead.org, arnd@arndb.de, brendan.higgins@linux.dev, 
+ david@davidgow.net, raemoar63@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ corbet@lwn.net, skhan@linuxfoundation.org, akpm@linux-foundation.org,
+ pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+ linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
+ dri-devel@lists.freedesktop.org, workflows@vger.kernel.org,
+ linux-doc@vger.kernel.org, peterz@infradead.org, acarmina@redhat.com,
+ linux@roeck-us.net, kees@kernel.org, lkft@linaro.org, mcanal@igalia.com,
+ error27@gmail.com, simona.vetter@ffwll.ch
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,82 +70,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Hongfu Li <hongfu.li@linux.dev>
+Hello:
 
-The charge APIs currently accept the allocation size as u64, but every
-caller passes a size_t value derived from drm_gem_object::size.
-Using u64 is unnecessary and, on 32-bit architectures, may lead to
-truncation when the value is later cast to unsigned long for internal
-page_counter functions.
+This series was applied to riscv/linux.git (fixes)
+by Shuah Khan <skhan@linuxfoundation.org>:
 
-Change the public function signatures to take size_t instead of u64.
-Inside the implementation, pass the size directly to
-page_counter_try_charge() and page_counter_uncharge(), which already
-expect unsigned long.
+On Fri, 15 May 2026 14:29:31 +0200 you wrote:
+> Some unit tests intentionally trigger warning backtraces by passing bad
+> parameters to kernel API functions. Such unit tests typically check the
+> return value from such calls, not the existence of the warning backtrace.
+> 
+> Such intentionally generated warning backtraces are neither desirable
+> nor useful for a number of reasons:
+> - They can result in overlooked real problems.
+> - A warning that suddenly starts to show up in unit tests needs to be
+>   investigated and has to be marked to be ignored, for example by
+>   adjusting filter scripts. Such filters are ad hoc because there is
+>   no real standard format for warnings. On top of that, such filter
+>   scripts would require constant maintenance.
+> 
+> [...]
 
-Signed-off-by: Hongfu Li <hongfu.li@linux.dev>
----
- include/linux/cgroup_dmem.h | 8 ++++----
- kernel/cgroup/dmem.c        | 4 ++--
- 2 files changed, 6 insertions(+), 6 deletions(-)
+Here is the summary with links:
+  - [v13,1/4] bug/kunit: Core support for suppressing warning backtraces
+    (no matching commit)
+  - [v13,2/4] kunit: Add backtrace suppression self-tests
+    (no matching commit)
+  - [v13,3/4] drm: Suppress intentional warning backtraces in scaling unit tests
+    (no matching commit)
+  - [v13,4/4] kunit: Add documentation for warning backtrace suppression API
+    https://git.kernel.org/riscv/c/5c1553dd5db3
 
-diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
-index dd4869f1d736..ed7440eb9c28 100644
---- a/include/linux/cgroup_dmem.h
-+++ b/include/linux/cgroup_dmem.h
-@@ -17,10 +17,10 @@ struct dmem_cgroup_region;
- #if IS_ENABLED(CONFIG_CGROUP_DMEM)
- struct dmem_cgroup_region *dmem_cgroup_register_region(u64 size, const char *name_fmt, ...) __printf(2,3);
- void dmem_cgroup_unregister_region(struct dmem_cgroup_region *region);
--int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, u64 size,
-+int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, size_t size,
- 			   struct dmem_cgroup_pool_state **ret_pool,
- 			   struct dmem_cgroup_pool_state **ret_limit_pool);
--void dmem_cgroup_uncharge(struct dmem_cgroup_pool_state *pool, u64 size);
-+void dmem_cgroup_uncharge(struct dmem_cgroup_pool_state *pool, size_t size);
- bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
- 				      struct dmem_cgroup_pool_state *test_pool,
- 				      bool ignore_low, bool *ret_hit_low);
-@@ -36,7 +36,7 @@ dmem_cgroup_register_region(u64 size, const char *name_fmt, ...)
- static inline void dmem_cgroup_unregister_region(struct dmem_cgroup_region *region)
- { }
- 
--static inline int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, u64 size,
-+static inline int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, size_t size,
- 					 struct dmem_cgroup_pool_state **ret_pool,
- 					 struct dmem_cgroup_pool_state **ret_limit_pool)
- {
-@@ -48,7 +48,7 @@ static inline int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, u64
- 	return 0;
- }
- 
--static inline void dmem_cgroup_uncharge(struct dmem_cgroup_pool_state *pool, u64 size)
-+static inline void dmem_cgroup_uncharge(struct dmem_cgroup_pool_state *pool, size_t size)
- { }
- 
- static inline
-diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-index 4753a67d0f0f..38108536d2d6 100644
---- a/kernel/cgroup/dmem.c
-+++ b/kernel/cgroup/dmem.c
-@@ -619,7 +619,7 @@ get_cg_pool_unlocked(struct dmemcg_state *cg, struct dmem_cgroup_region *region)
-  * Must be called with the returned pool as argument,
-  * and same @index and @size.
-  */
--void dmem_cgroup_uncharge(struct dmem_cgroup_pool_state *pool, u64 size)
-+void dmem_cgroup_uncharge(struct dmem_cgroup_pool_state *pool, size_t size)
- {
- 	if (!pool)
- 		return;
-@@ -649,7 +649,7 @@ EXPORT_SYMBOL_GPL(dmem_cgroup_uncharge);
-  *
-  * Return: 0 on success, -EAGAIN on hitting a limit, or a negative errno on failure.
-  */
--int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, u64 size,
-+int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, size_t size,
- 			  struct dmem_cgroup_pool_state **ret_pool,
- 			  struct dmem_cgroup_pool_state **ret_limit_pool)
- {
+You are awesome, thank you!
 -- 
-2.54.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
