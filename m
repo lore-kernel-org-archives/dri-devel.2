@@ -4,102 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2AF1CDE008
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:40:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B472CDE008
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:47:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 173EC10E323;
-	Fri, 26 Jun 2026 07:40:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A82B10F45B;
+	Fri, 26 Jun 2026 07:47:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l8DprBuf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UQktW/sG";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F45F10E323
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 07:40:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C8082401C0;
- Fri, 26 Jun 2026 07:40:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D7941F000E9;
- Fri, 26 Jun 2026 07:40:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782459649;
- bh=N8XrY+wXxLK2NxQ4BW48R9sEgb+goFZ/Ui0Zz6LHgw0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=l8DprBuf6Iya+bmN6b3AdCa8GMgRBC09SjyD/wZcdFS3TzPLlTlsrIseVwqO2Qw1M
- U++7kuXoVfJCjDF5CnHLBj9ypbGqqOevTtZBwQs1q/ybBGg1QmhgP9AeBsv//Cd8Mj
- ZDiBrIJb9d86SMlKQAnTdPlTHjZYv/eZHkwH7BWnqUQeUrY9UwDlwq1Izw1WrjWXPI
- OQpfRiRS5oNwNuY6y/OSasdaMbBNW64cvtwZHteqH8ileT1TUaMCaC42WxY3eFizwZ
- 3GjUKcqfkiIp6QghQ1vZg0R/QDymYEAVCWnzNI0YeSdqiQ2CrkycbjsP7F8xWKzkXL
- g1X1fA+nTQkiw==
-Message-ID: <440a78ed-2ac9-4926-affd-8697348eb83d@kernel.org>
-Date: Fri, 26 Jun 2026 09:40:40 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24AE610E31A;
+ Fri, 26 Jun 2026 07:46:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782460020; x=1813996020;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=e3IG+R5dVcnKL4ygLKeL0m2vEuU45wiOiGT8SBpf4eY=;
+ b=UQktW/sGUsk4kf+l4f9iToYF/ur+JcVeoL2MdA8PkSACmyzEe5qmSlPR
+ +2p/VWxzQ4avlrkCka55xv4ZmheSmcyUFjgbOxLZfUrobnbaiNkeI/oEF
+ n4P9SWkt7W8JyE/FWBUbl0AWfw5HAJNkKRKhUnfp2tl9RGymjpujf14Y/
+ CANap0WtzdfuHjl1ZyfDdVIlq7ETyfusuL3gZ0OFiJafsd2XT032A4fFf
+ 266uaMwxvWg0JrhL+abBlEB3Svo3+hPJfe++CG+O00g8oWcKCPmoJS67a
+ NqZwJCxqvt09DKZTj17IY79y7UVq/jT/LTAl/Cx6TTc7rr4tfjRh8B5FP A==;
+X-CSE-ConnectionGUID: eFcAZUyVSXaJXTXzsGHTzA==
+X-CSE-MsgGUID: ZO6WrFloSwWIIBNzxjqghA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11828"; a="83022642"
+X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; d="scan'208";a="83022642"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jun 2026 00:46:59 -0700
+X-CSE-ConnectionGUID: NdUpLxY3SBWPzMmklOKPQw==
+X-CSE-MsgGUID: HBLSC6LcQ+GSKqajZFZ5BQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; d="scan'208";a="247304328"
+Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jun 2026 00:46:58 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] drm/ttm: Account for NULL pages in ttm_pool_backup
+Date: Fri, 26 Jun 2026 00:46:53 -0700
+Message-Id: <20260626074653.1326683-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-To: Sunyun Yang <syyang@lontium.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- maarten.lankhorst@linux.intel.com, rfoss@kernel.org, mripard@kernel.org,
- Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com,
- xbpeng@lontium.com
-References: <20260508134009.4582-1-syyang@lontium.com>
- <20260508134009.4582-3-syyang@lontium.com>
- <3188f63f-5358-48d7-b934-af20a8f95c6f@kernel.org>
- <CAFQXuNbKBfyeQL3N3P5QY=6BWoD3O6DSbXN-WMA1rRG9vCs3Kg@mail.gmail.com>
- <a0352a42-15db-4c7a-ae73-8a4e1543cd50@kernel.org>
- <CAFQXuNZVE6cZJGwrGKGtWnB-seSJLHFh8zW3jjAs6U4JLZFWng@mail.gmail.com>
- <tpqutwzasfwhraxzymorkiot7uryef4l2n32fyo3i3fp337sak@fugghdkcqfrj>
- <CAFQXuNaOkDADrnUNMWt9JL0R9yAPrSUN1M08Z5CT=J3uXqwhkw@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAFQXuNaOkDADrnUNMWt9JL0R9yAPrSUN1M08Z5CT=J3uXqwhkw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -117,70 +74,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 26/06/2026 03:55, Sunyun Yang wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年6月25日周四 22:57写道：
->>
->> On Thu, Jun 25, 2026 at 09:26:47PM +0800, Sunyun Yang wrote:
->>> Krzysztof Kozlowski <krzk@kernel.org> 于2026年6月25日周四 21:17写道：
->>>>
->>>> On 25/06/2026 15:14, Sunyun Yang wrote:
->>>>> Krzysztof Kozlowski <krzk@kernel.org> 于2026年6月25日周四 20:54写道：
->>>>>>
->>>>>> On 08/05/2026 15:40, syyang@lontium.com wrote:
->>>>>>> +
->>>>>>> +static void lt9611c_reset(struct lt9611c *lt9611c)
->>>>>>> +{
->>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
->>>>>>> +     msleep(20);
->>>>>>> +
->>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
->>>>>>> +     msleep(20);
->>>>>>> +
->>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
->>>>>>
->>>>>> This is just plain wrong. Why do you assert, then de-assert and then
->>>>>> finally assert AGAIN the reset leaving the device in powerdown stage?
->>>>>>
->>>>> I am using software to emulate the hardware RESET button on our EVB.
->>>>> When the hardware RESET button is pressed while our chip is running,
->>>>> the signal level changes from HIGH to LOW and then back to HIGH.
->>>>>
->>>>> Of course, we can also use the following:
->>>>> static void lt9611c_reset(struct lt9611c *lt9611c)
->>>>> {
->>>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
->>>>>     msleep(50);
->>>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
->>>>>     msleep(20);
->>>>> }
->>>>
->>>> Makes no sense either and you just did not get the point and did not
->>>> answer my question. I asked WHY you leave asserted. Answer "we emulate"
->>>> is just plain wrong.
->>>>
->>>> So again please answer:
->>>>
->>>> Why do you leave device with reset asserted?
->>>>
->>>
->>>  devicetree:   reset-gpios = <&tlmm 128 GPIO_ACTIVE_HIGH>;
->>
->> It should be GPIO_ACTIVE_LOW, if the pin as active-low.
->>
-> 
-> Yes, I understand that.
-> 
-> I used GPIO_ACTIVE_HIGH intentionally, because I did not want to
-> modify the existing reset-gpios = <&tlmm 128 GPIO_ACTIVE_HIGH>
-> property in the lontium-lt9611.yaml device tree file that was
+Pages in ttm_pool_backup can be NULL, and set_pages_array_wb() cannot
+handle NULL entries. Switch to set_pages_wb() after checking for NULL
+pages.
 
-The example there does not matter. You must write correct driver.
+Fixes the following oops:
 
-That is it.
+Oops: general protection fault, kernel NULL pointer dereference 0x0: 0000 [#1] SMP NOPTI
+RIP: 0010:__cpa_process_fault+0xf8/0x770
+RSP: 0018:ffffc90000a87718 EFLAGS: 00010287
+RAX: 0000000000000000 RBX: ffffc90000a87868 RCX: 0000000000000000
+RDX: 0000000000001000 RSI: 0005088000000000 RDI: ffffffff827c5f34
+RBP: 0005088000000000 R08: ffffc90000a877cb R09: ffffc90000a877d0
+R10: 0000000000000000 R11: 000000000000001b R12: 000ffffffffff000
+R13: ffffc90000a87868 R14: ffffc90000a87868 R15: ffff88815b882ae0
+FS:  0000000000000000(0000) GS:ffff8884ec840000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f930b844000 CR3: 000000000262e003 CR4: 0000000008f70ef0
+PKRU: 55555554
+Call Trace:
+ <TASK>
+ __change_page_attr_set_clr+0x989/0xe90
+ ? __purge_vmap_area_lazy+0x6c/0x3a0
+ ? _vm_unmap_aliases+0x250/0x2a0
+ set_pages_array_wb+0x7f/0x120
+ ttm_pool_backup+0x4c9/0x5b0 [ttm]
+ ? dma_resv_wait_timeout+0x3b/0xf0
+ ttm_tt_backup+0x32/0x60 [ttm]
+ ttm_bo_shrink+0x66/0x110 [ttm]
+ xe_bo_shrink_purge+0x12b/0x1b0 [xe]
+ xe_bo_shrink+0xbb/0x270 [xe]
+ __xe_shrinker_walk+0xf7/0x160 [xe]
+ xe_shrinker_walk+0x9d/0xc0 [xe]
+ xe_shrinker_scan+0x11f/0x210 [xe]
+ do_shrink_slab+0x13b/0x270
+ shrink_slab+0xf1/0x400
+ shrink_node+0x352/0x8a0
+ balance_pgdat+0x32c/0x700
+ kswapd+0x205/0x2f0
+ ? __pfx_autoremove_wake_function+0x10/0x10
+ ? __pfx_kswapd+0x10/0x10
+ kthread+0xd1/0x110
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork+0x1b1/0x200
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
 
-If you cannot bring the arguments why reset must be asserted for the
-normal operation of the device, then this is the end of discussion.
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+---
+ drivers/gpu/drm/ttm/ttm_pool.c | 49 +++++++++++++++++-----------------
+ 1 file changed, 24 insertions(+), 25 deletions(-)
 
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index 682ae4f40424..ea14447411a6 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -1064,34 +1064,33 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
+ 	    ttm_pool_uses_dma_alloc(pool) || ttm_tt_is_backed_up(tt))
+ 		return -EBUSY;
+ 
+-#ifdef CONFIG_X86
+-	/* Anything returned to the system needs to be cached. */
+-	if (tt->caching != ttm_cached)
+-		set_pages_array_wb(tt->pages, tt->num_pages);
+-#endif
++	for (i = 0; i < tt->num_pages; i += num_pages) {
++		unsigned int order;
+ 
+-	if (tt->dma_address || flags->purge) {
+-		for (i = 0; i < tt->num_pages; i += num_pages) {
+-			unsigned int order;
++		page = tt->pages[i];
++		if (unlikely(!page)) {
++			num_pages = 1;
++			continue;
++		}
+ 
+-			page = tt->pages[i];
+-			if (unlikely(!page)) {
+-				num_pages = 1;
+-				continue;
+-			}
++		order = ttm_pool_page_order(pool, page);
++		num_pages = 1UL << order;
+ 
+-			order = ttm_pool_page_order(pool, page);
+-			num_pages = 1UL << order;
+-			if (tt->dma_address)
+-				ttm_pool_unmap(pool, tt->dma_address[i],
+-					       num_pages);
+-			if (flags->purge) {
+-				shrunken += num_pages;
+-				page->private = 0;
+-				__free_pages_gpu_account(page, order, false);
+-				memset(tt->pages + i, 0,
+-				       num_pages * sizeof(*tt->pages));
+-			}
++#ifdef CONFIG_X86
++		/* Anything returned to the system needs to be cached. */
++		if (tt->caching != ttm_cached)
++			set_pages_wb(page, 1 << order);
++#endif
++
++		if (tt->dma_address)
++			ttm_pool_unmap(pool, tt->dma_address[i],
++				       num_pages);
++		if (flags->purge) {
++			shrunken += num_pages;
++			page->private = 0;
++			__free_pages_gpu_account(page, order, false);
++			memset(tt->pages + i, 0,
++			       num_pages * sizeof(*tt->pages));
+ 		}
+ 	}
+ 
+-- 
+2.34.1
 
-Best regards,
-Krzysztof
