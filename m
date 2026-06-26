@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41342C44502
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5052EC43638
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3093010F5E9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5278410F5EA;
 	Fri, 26 Jun 2026 13:42:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="IL9Dtsal";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="THgatc8L";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41FA110F5DC;
- Fri, 26 Jun 2026 13:42:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A702010F5C8;
+ Fri, 26 Jun 2026 13:42:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782481326;
- bh=PaSDmC/EXg2YDTpoz4MyuTjvqaF2tjepGgaqOUkm0oI=;
+ s=default; t=1782481321;
+ bh=xF/Z0Myz+A8ZRO9Nq1ZV67SO0YqRqvq7QO8j8B3ElGg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IL9DtsalComh49oRXuY5F1phPZbriRUxO2bkvRoS6kgJaR5QoOXTVxn1w2CtUv+6O
- 6IzM3BPRazLskhunaVMg4cVQgBhOvIw+YRCPcSpxSfEMSKP7/Hh/CJgT+HyLQO7nuZ
- vGPHYnKfCstxydDyURGdWwnlsjiLp4fQWW1vxnd1wtD+c45GbqjqbkM9AKJgr1CGyg
- /mz4PozncdcUTZVZDXnEpY6NQUqEM0U9rkwWYQX9PEkjKPOiDSdbRTIrL9IRl6Zlw2
- VF0srjJfkWD9qDKkXpzpoI/Ze6AfPAuuJFPKNJ4dLllFyb80mWcp7ipOF0oKBylzmm
- nylFd6wUYOumw==
+ b=THgatc8Lz//WlsigcqqCopAD00r3DgvEULWHUfPJ60RuTb2r76SRPNPZMcMOK0vs3
+ MD/WBwvb72dSxJA+VZFe1YeNbbPZLYwzr9lQr2H3CGNgpjOoQk502KLcabvI5OVBvf
+ N/rG5dsMMwqZCF9tyQh4l/L4ubaZnap4OV8rEHMk82b3xN8kEPCJoDfGJ8yGk/IXWi
+ 9XOu+7HKmGhq3XUCrjD+u5Jqpcdg77khW6G4jsofApNek1YDFGMD9yJpNuprfj7Vl6
+ I5l2b8gl5fJ27wM9XNLChpdRhZlVT0I217V5PpkolRGq+YqS+RmU4e+tv3uqscpSmT
+ 6YZu3Sk6SRXuw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v10.5 13/29] drm/i915/display: Use intel_de_write_fw in
- intel_pipe_fastset
-Date: Fri, 26 Jun 2026 15:42:04 +0200
-Message-ID: <20260626134222.1198252-14-dev@lankhorst.se>
+Subject: [PATCH v10.5 06/29] drm/i915/display: Remove locking from
+ intel_vblank_evade critical section
+Date: Fri, 26 Jun 2026 15:41:57 +0200
+Message-ID: <20260626134222.1198252-7-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260626134222.1198252-1-dev@lankhorst.se>
 References: <20260626134222.1198252-1-dev@lankhorst.se>
@@ -54,244 +54,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-intel_set_pipe_src_size(), hsw_set_linetime_wm(),
-intel_cpu_transcoder_set_m1_n1() and intel_set_transcoder_timings_lrr()
-are called from an atomic context on PREEMPT_RT, and should be using the
-_fw functions.
+finish_wait() may take a lock, which means that it can take any amount
+of time. On PREEMPT-RT we should not be taking any lock after disabling
+preemption, so ensure that the completion is done before disabling
+interrupts.
 
-This likely prevents a deadlock on i915.
-
-Again noticed when trying to disable preemption in vblank evasion:
-<3> BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
-<3> in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 1505, name: kms_cursor_lega
-<3> preempt_count: 1, expected: 0
-<3> RCU nest depth: 0, expected: 0
-<4> 4 locks held by kms_cursor_lega/1505:
-<4>  #0: ffffc90003c6f988 (crtc_ww_class_acquire){+.+.}-{0:0}, at: drm_mode_atomic_ioctl+0x13b/0xe90
-<4>  #1: ffffc90003c6f9b0 (crtc_ww_class_mutex){+.+.}-{3:3}, at: drm_mode_atomic_ioctl+0x13b/0xe90
-<4>  #2: ffff888135b838b8 (&intel_dp->psr.lock){+.+.}-{3:3}, at: intel_psr_lock+0xc5/0xf0 [xe]
-<4>  #3: ffff88812607bbc0 (&wl->lock){+.+.}-{2:2}, at: intel_dmc_wl_get+0x3c/0x140 [xe]
-<4> CPU: 6 UID: 0 PID: 1505 Comm: kms_cursor_lega Tainted: G     U              6.18.0-rc3-lgci-xe-xe-pw-156729v1+ #1 PREEMPT_{RT,(lazy)}
-<4> Tainted: [U]=USER
-<4> Hardware name: Intel Corporation Panther Lake Client Platform/PTL-UH LP5 T3 RVP1, BIOS PTLPFWI1.R00.3383.D02.2509240621 09/24/2025
-<4> Call Trace:
-<4>  <TASK>
-<4>  dump_stack_lvl+0xc1/0xf0
-<4>  dump_stack+0x10/0x20
-<4>  __might_resched+0x174/0x260
-<4>  rt_spin_lock+0x63/0x200
-<4>  ? intel_dmc_wl_get+0x3c/0x140 [xe]
-<4>  intel_dmc_wl_get+0x3c/0x140 [xe]
-<4>  intel_set_pipe_src_size+0x89/0xe0 [xe]
-<4>  intel_update_crtc+0x3c1/0x950 [xe]
-<4>  ? intel_pre_update_crtc+0x258/0x400 [xe]
-<4>  skl_commit_modeset_enables+0x217/0x720 [xe]
-<4>  intel_atomic_commit_tail+0xd4e/0x1af0 [xe]
-<4>  ? lock_release+0xce/0x2a0
-<4>  intel_atomic_commit+0x2e5/0x330 [xe]
-<4>  ? intel_atomic_commit+0x2e5/0x330 [xe]
-<4>  drm_atomic_commit+0xaf/0xf0
-<4>  ? __pfx___drm_printfn_info+0x10/0x10
-<4>  drm_mode_atomic_ioctl+0xbd5/0xe90
-<4>  ? lock_acquire+0xc4/0x2e0
-<4>  ? __pfx_drm_mode_atomic_ioctl+0x10/0x10
-<4>  drm_ioctl_kernel+0xb6/0x120
-<4>  drm_ioctl+0x2d7/0x5a0
-<4>  ? __pfx_drm_mode_atomic_ioctl+0x10/0x10
-<4>  ? rt_spin_unlock+0xa0/0x140
-<4>  ? __pm_runtime_resume+0x53/0x90
-<4>  xe_drm_ioctl+0x56/0x90 [xe]
-<4>  __x64_sys_ioctl+0xa8/0x110
-<4>  ? lock_acquire+0xc4/0x2e0
-<4>  x64_sys_call+0x1144/0x26a0
-<4>  do_syscall_64+0x93/0xae0
-<4>  ? lock_release+0xce/0x2a0
-<4>  ? __task_pid_nr_ns+0xd9/0x270
-<4>  ? do_syscall_64+0x1b7/0xae0
-<4>  ? find_held_lock+0x31/0x90
-<4>  ? __task_pid_nr_ns+0xcf/0x270
-<4>  ? __lock_acquire+0x43e/0x2860
-<4>  ? __task_pid_nr_ns+0xd9/0x270
-<4>  ? lock_acquire+0xc4/0x2e0
-<4>  ? find_held_lock+0x31/0x90
-<4>  ? __task_pid_nr_ns+0xcf/0x270
-<4>  ? lock_release+0xce/0x2a0
-<4>  ? __task_pid_nr_ns+0xd9/0x270
-<4>  ? do_syscall_64+0x1b7/0xae0
-<4>  ? do_syscall_64+0x1b7/0xae0
-<4>  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+This also has the benefit of making vblank evasion more deterministic,
+by performing the final vblank check after all locking is done.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/display/intel_cmtg.c    |  6 +--
- drivers/gpu/drm/i915/display/intel_display.c | 42 ++++++++++----------
- drivers/gpu/drm/i915/display/intel_vrr.c     | 18 ++++-----
- 3 files changed, 33 insertions(+), 33 deletions(-)
+ drivers/gpu/drm/i915/display/intel_crtc.c   |  2 +-
+ drivers/gpu/drm/i915/display/intel_vblank.c | 30 +++++++++------------
+ drivers/gpu/drm/i915/display/intel_vblank.h |  1 +
+ 3 files changed, 15 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cmtg.c b/drivers/gpu/drm/i915/display/intel_cmtg.c
-index 6da28c1850802..387d90df144da 100644
---- a/drivers/gpu/drm/i915/display/intel_cmtg.c
-+++ b/drivers/gpu/drm/i915/display/intel_cmtg.c
-@@ -326,7 +326,7 @@ void intel_cmtg_set_vrr_ctl(const struct intel_crtc_state *crtc_state)
- 	if (crtc_state->cmrr.enable)
- 		vrr_ctl |= VRR_CTL_CMRR_ENABLE;
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
+index 34a159f7c9a43..8218938985b41 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+@@ -734,7 +734,7 @@ void intel_pipe_update_end(struct intel_atomic_state *state,
+ 	struct intel_crtc_state *new_crtc_state =
+ 		intel_atomic_get_new_crtc_state(state, crtc);
+ 	enum pipe pipe = crtc->pipe;
+-	int scanline_end = intel_get_crtc_scanline(crtc);
++	int scanline_end = __intel_get_crtc_scanline(crtc);
+ 	u32 end_vbl_count = intel_crtc_get_vblank_counter(crtc);
+ 	ktime_t end_vbl_time = ktime_get();
  
--	intel_de_write(display, TRANS_VRR_CTL(display, cmtg_transcoder), vrr_ctl);
-+	intel_de_write_fw(display, TRANS_VRR_CTL(display, cmtg_transcoder), vrr_ctl);
- }
- 
- void intel_cmtg_set_m_n(const struct intel_crtc_state *crtc_state)
-@@ -338,8 +338,8 @@ void intel_cmtg_set_m_n(const struct intel_crtc_state *crtc_state)
- 	if (!intel_cmtg_is_allowed(crtc_state))
- 		return;
- 
--	intel_de_write(display, PIPE_LINK_M1(display, cmtg_transcoder), m_n->link_m);
--	intel_de_write(display, PIPE_LINK_N1(display, cmtg_transcoder), m_n->link_n);
-+	intel_de_write_fw(display, PIPE_LINK_M1(display, cmtg_transcoder), m_n->link_m);
-+	intel_de_write_fw(display, PIPE_LINK_N1(display, cmtg_transcoder), m_n->link_n);
- }
- 
- static void intel_cmtg_enable_sync(const struct intel_crtc_state *crtc_state)
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 5bc8e6ea10a50..f5dac380aa7ff 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1605,9 +1605,9 @@ static void hsw_set_linetime_wm(const struct intel_crtc_state *crtc_state)
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 
--	intel_de_write(display, WM_LINETIME(crtc->pipe),
--		       HSW_LINETIME(crtc_state->linetime) |
--		       HSW_IPS_LINETIME(crtc_state->ips_linetime));
-+	intel_de_write_fw(display, WM_LINETIME(crtc->pipe),
-+			  HSW_LINETIME(crtc_state->linetime) |
-+			  HSW_IPS_LINETIME(crtc_state->ips_linetime));
- }
- 
- static void hsw_set_frame_start_delay(const struct intel_crtc_state *crtc_state)
-@@ -2607,14 +2607,14 @@ void intel_set_m_n(struct intel_display *display,
- 		   intel_reg_t data_m_reg, intel_reg_t data_n_reg,
- 		   intel_reg_t link_m_reg, intel_reg_t link_n_reg)
+diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
+index 28d81199792ef..ca08059e088ea 100644
+--- a/drivers/gpu/drm/i915/display/intel_vblank.c
++++ b/drivers/gpu/drm/i915/display/intel_vblank.c
+@@ -241,7 +241,7 @@ int intel_crtc_scanline_offset(const struct intel_crtc_state *crtc_state)
+  * intel_de_read_fw(), only for fast reads of display block, no need for
+  * forcewake etc.
+  */
+-static int __intel_get_crtc_scanline(struct intel_crtc *crtc)
++int __intel_get_crtc_scanline(struct intel_crtc *crtc)
  {
--	intel_de_write(display, data_m_reg, TU_SIZE(m_n->tu) | m_n->data_m);
--	intel_de_write(display, data_n_reg, m_n->data_n);
--	intel_de_write(display, link_m_reg, m_n->link_m);
-+	intel_de_write_fw(display, data_m_reg, TU_SIZE(m_n->tu) | m_n->data_m);
-+	intel_de_write_fw(display, data_n_reg, m_n->data_n);
-+	intel_de_write_fw(display, link_m_reg, m_n->link_m);
- 	/*
- 	 * On BDW+ writing LINK_N arms the double buffered update
- 	 * of all the M/N registers, so it must be written last.
- 	 */
--	intel_de_write(display, link_n_reg, m_n->link_n);
-+	intel_de_write_fw(display, link_n_reg, m_n->link_n);
+ 	struct intel_display *display = to_intel_display(crtc);
+ 	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(&crtc->base);
+@@ -732,6 +732,16 @@ void intel_vblank_evade_init(const struct intel_crtc_state *old_crtc_state,
+ 		evade->min -= vblank_delay;
  }
  
- bool intel_cpu_transcoder_has_m2_n2(struct intel_display *display,
-@@ -2794,9 +2794,9 @@ void intel_set_transcoder_timings_lrr(const struct intel_crtc_state *crtc_state,
++static bool scanline_in_safe_range(struct intel_vblank_evade_ctx *evade, int *scanline, bool unlocked)
++{
++	if (unlocked)
++		*scanline = intel_get_crtc_scanline(evade->crtc);
++	else
++		*scanline = __intel_get_crtc_scanline(evade->crtc);
++
++	return *scanline < evade->min || *scanline > evade->max;
++}
++
+ /* must be called with vblank interrupt already enabled! */
+ int intel_vblank_evade(struct intel_vblank_evade_ctx *evade)
+ {
+@@ -739,24 +749,12 @@ int intel_vblank_evade(struct intel_vblank_evade_ctx *evade)
+ 	struct intel_display *display = to_intel_display(crtc);
+ 	long timeout = msecs_to_jiffies_timeout(1);
+ 	wait_queue_head_t *wq = drm_crtc_vblank_waitqueue(&crtc->base);
+-	DEFINE_WAIT(wait);
+ 	int scanline;
+ 
+ 	if (evade->min <= 0 || evade->max <= 0)
+ 		return 0;
+ 
+-	for (;;) {
+-		/*
+-		 * prepare_to_wait() has a memory barrier, which guarantees
+-		 * other CPUs can see the task state update by the time we
+-		 * read the scanline.
+-		 */
+-		prepare_to_wait(wq, &wait, TASK_UNINTERRUPTIBLE);
+-
+-		scanline = intel_get_crtc_scanline(crtc);
+-		if (scanline < evade->min || scanline > evade->max)
+-			break;
+-
++	while (!scanline_in_safe_range(evade, &scanline, false)) {
+ 		if (!timeout) {
+ 			drm_dbg_kms(display->drm,
+ 				    "Potential atomic update failure on pipe %c\n",
+@@ -766,13 +764,11 @@ int intel_vblank_evade(struct intel_vblank_evade_ctx *evade)
+ 
+ 		local_irq_enable();
+ 
+-		timeout = schedule_timeout(timeout);
++		timeout = wait_event_timeout(*wq, scanline_in_safe_range(evade, &scanline, true), timeout);
+ 
+ 		local_irq_disable();
  	}
  
- 	if (DISPLAY_VER(display) >= 13) {
--		intel_de_write(display,
--			       TRANS_SET_CONTEXT_LATENCY(display, transcoder),
--			       crtc_state->set_context_latency);
-+		intel_de_write_fw(display,
-+				  TRANS_SET_CONTEXT_LATENCY(display, transcoder),
-+				  crtc_state->set_context_latency);
- 
- 		/*
- 		 * VBLANK_START not used by hw, just clear it
-@@ -2812,9 +2812,9 @@ void intel_set_transcoder_timings_lrr(const struct intel_crtc_state *crtc_state,
- 	 * The hardware actually ignores TRANS_VBLANK.VBLANK_END in DP mode.
- 	 * But let's write it anyway to keep the state checker happy.
- 	 */
--	intel_de_write(display, TRANS_VBLANK(display, transcoder),
--		       VBLANK_START(crtc_vblank_start - 1) |
--		       VBLANK_END(crtc_vblank_end - 1));
-+	intel_de_write_fw(display, TRANS_VBLANK(display, transcoder),
-+		          VBLANK_START(crtc_vblank_start - 1) |
-+		          VBLANK_END(crtc_vblank_end - 1));
- 
+-	finish_wait(wq, &wait);
+-
  	/*
- 	 * DP doesn't have vertical sync, so TRANS_VSYNC only affects
-@@ -2822,17 +2822,17 @@ void intel_set_transcoder_timings_lrr(const struct intel_crtc_state *crtc_state,
- 	 * using the VRR timing generator!). Thus updating TRANS_VSYNC
- 	 * here seems fine even if it isn't double buffered.
- 	 */
--	intel_de_write(display, TRANS_VSYNC(display, transcoder),
--		       VSYNC_START(adjusted_mode->crtc_vsync_start - 1) |
--		       VSYNC_END(adjusted_mode->crtc_vsync_end - 1));
-+	intel_de_write_fw(display, TRANS_VSYNC(display, transcoder),
-+			  VSYNC_START(adjusted_mode->crtc_vsync_start - 1) |
-+			  VSYNC_END(adjusted_mode->crtc_vsync_end - 1));
- 
- 	/*
- 	 * The double buffer latch point for TRANS_VTOTAL
- 	 * is the transcoder's undelayed vblank.
- 	 */
--	intel_de_write(display, TRANS_VTOTAL(display, transcoder),
--		       VACTIVE(crtc_vdisplay - 1) |
--		       VTOTAL(crtc_vtotal - 1));
-+	intel_de_write_fw(display, TRANS_VTOTAL(display, transcoder),
-+			  VACTIVE(crtc_vdisplay - 1) |
-+			  VTOTAL(crtc_vtotal - 1));
- }
- 
- static void intel_set_pipe_src_size(const struct intel_crtc_state *crtc_state)
-@@ -2846,8 +2846,8 @@ static void intel_set_pipe_src_size(const struct intel_crtc_state *crtc_state)
- 	/* pipesrc controls the size that is scaled from, which should
- 	 * always be the user's requested size.
- 	 */
--	intel_de_write(display, PIPESRC(display, pipe),
--		       PIPESRC_WIDTH(width - 1) | PIPESRC_HEIGHT(height - 1));
-+	intel_de_write_fw(display, PIPESRC(display, pipe),
-+			  PIPESRC_WIDTH(width - 1) | PIPESRC_HEIGHT(height - 1));
- }
- 
- static bool intel_pipe_is_interlaced(const struct intel_crtc_state *crtc_state)
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 5d9b11185296f..ef94bf5d9c5f5 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -328,12 +328,12 @@ void intel_vrr_set_fixed_rr_timings(const struct intel_crtc_state *crtc_state,
- 	if (!intel_vrr_possible(crtc_state))
- 		return;
- 
--	intel_de_write(display, TRANS_VRR_VMIN(display, transcoder),
--		       intel_vrr_fixed_rr_hw_vmin(crtc_state) - 1);
--	intel_de_write(display, TRANS_VRR_VMAX(display, transcoder),
--		       intel_vrr_fixed_rr_hw_vmax(crtc_state) - 1);
--	intel_de_write(display, TRANS_VRR_FLIPLINE(display, transcoder),
--		       intel_vrr_fixed_rr_hw_flipline(crtc_state) - 1);
-+	intel_de_write_fw(display, TRANS_VRR_VMIN(display, transcoder),
-+			  intel_vrr_fixed_rr_hw_vmin(crtc_state) - 1);
-+	intel_de_write_fw(display, TRANS_VRR_VMAX(display, transcoder),
-+			  intel_vrr_fixed_rr_hw_vmax(crtc_state) - 1);
-+	intel_de_write_fw(display, TRANS_VRR_FLIPLINE(display, transcoder),
-+			  intel_vrr_fixed_rr_hw_flipline(crtc_state) - 1);
- }
- 
- static
-@@ -919,8 +919,8 @@ static void intel_vrr_tg_enable(const struct intel_crtc_state *crtc_state,
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
- 	u32 vrr_ctl;
- 
--	intel_de_write(display, TRANS_PUSH(display, cpu_transcoder),
--		       trans_vrr_push(crtc_state, false));
-+	intel_de_write_fw(display, TRANS_PUSH(display, cpu_transcoder),
-+			  trans_vrr_push(crtc_state, false));
- 
- 	vrr_ctl = VRR_CTL_VRR_ENABLE | trans_vrr_ctl(crtc_state);
- 
-@@ -932,7 +932,7 @@ static void intel_vrr_tg_enable(const struct intel_crtc_state *crtc_state,
- 	if (cmrr_enable)
- 		vrr_ctl |= VRR_CTL_CMRR_ENABLE;
- 
--	intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder), vrr_ctl);
-+	intel_de_write_fw(display, TRANS_VRR_CTL(display, cpu_transcoder), vrr_ctl);
- 
- 	intel_cmtg_set_vrr_ctl(crtc_state);
- }
+ 	 * On VLV/CHV DSI the scanline counter would appear to
+ 	 * increment approx. 1/3 of a scanline before start of vblank.
+diff --git a/drivers/gpu/drm/i915/display/intel_vblank.h b/drivers/gpu/drm/i915/display/intel_vblank.h
+index 98d04cacd65f8..aa1974400e9fc 100644
+--- a/drivers/gpu/drm/i915/display/intel_vblank.h
++++ b/drivers/gpu/drm/i915/display/intel_vblank.h
+@@ -38,6 +38,7 @@ u32 g4x_get_vblank_counter(struct drm_crtc *crtc);
+ bool intel_crtc_get_vblank_timestamp(struct drm_crtc *crtc, int *max_error,
+ 				     ktime_t *vblank_time, bool in_vblank_irq);
+ int intel_get_crtc_scanline(struct intel_crtc *crtc);
++int __intel_get_crtc_scanline(struct intel_crtc *crtc);
+ void intel_wait_for_pipe_scanline_stopped(struct intel_crtc *crtc);
+ void intel_wait_for_pipe_scanline_moving(struct intel_crtc *crtc);
+ void intel_crtc_update_active_timings(const struct intel_crtc_state *crtc_state,
 -- 
 2.53.0
 
