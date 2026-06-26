@@ -4,57 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8258CDE008
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 11:59:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C008CD4F26
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:00:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3B3C10E35A;
-	Fri, 26 Jun 2026 11:59:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 956C710E372;
+	Fri, 26 Jun 2026 12:00:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rebhu.com header.i=shubham@rebhu.com header.b="rgjH7fgq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z4Fb04Qm";
 	dkim-atps=neutral
-Received: from sender-op-o11.zoho.in (sender-op-o11.zoho.in [103.117.158.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89E5710E349
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 09:50:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782467420; cv=none; d=zohomail.in; s=zohoarc; 
- b=RmUS6VC7km4sAsheGaE+ETBO5oS5aEH3fyaG7G5XXqDm6F/nVQXeqA1+ozTMeVgDMeWJLnCpoXpafGaTvClsKckdqSQvPyYAWyPKqg9sALGq5vR5bWvqPRiCrugMYQgX7eqn89vVD4mYbsajEg4UgOFzQ3peVPwGd48hXs7g+PI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in;
- s=zohoarc; t=1782467420;
- h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=sET9CEszVQFsTQEBjINbwDd749FE6ul7+R4eIg2DXlM=; 
- b=H0ln0DFzGyDl1PwJVQeaqazdV4RPBFG94KffCC5PSOsSHdNJA3xdkNF86TY1PlzeYO0q9gEsKiu2sXhUPgVWtaHdG2cpZB5GST/zMRVfwnxzNxNpFolNbc2y5RiXfc/tqKr+G3WYG/p7lF8LEEKUsiyKdbCBp/f0CbiXpZ5wz3g=
-ARC-Authentication-Results: i=1; mx.zohomail.in; dkim=pass  header.i=rebhu.com;
- spf=pass  smtp.mailfrom=shubham@rebhu.com;
- dmarc=pass header.from=<shubham@rebhu.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782467420; 
- s=zmail; d=rebhu.com; i=shubham@rebhu.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=sET9CEszVQFsTQEBjINbwDd749FE6ul7+R4eIg2DXlM=;
- b=rgjH7fgq2WWXDhMRgQ7nf556xTWh9TOcZXvObvzfQS/RHC/8i47lyXDxJoWnCtlr
- JcEgRfDQvSj+iRbzKGAVR1BCp3Q/oYfzoZ/zdAzMKHWWprmq+yURG0Aw6G0yTEMkeAZ
- 6AXj2FxvOsFtLsTFwWnWOU6ikQbtdLBdcvC77Jzk=
-Received: by mx.zoho.in with SMTPS id 1782467418005855.6222380842893;
- Fri, 26 Jun 2026 15:20:18 +0530 (IST)
-From: Shubham <shubham@rebhu.com>
-To: tomi.valkeinen@ideasonboard.com
-Cc: a-bhatia1@ti.com, afd@ti.com, airlied@gmail.com, aradhya.bhatia@linux.dev,
- conor+dt@kernel.org, devarsht@ti.com, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, j-choudhary@ti.com, krzk+dt@kernel.org,
- lee@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, louis.chauvet@bootlin.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, nm@ti.com,
- robertcnelson@gmail.com, robh@kernel.org, s-jain1@ti.com, simona@ffwll.ch,
- tzimmermann@suse.de, vigneshr@ti.com
-Subject: Re: [PATCH v3 00/15] drm/tidss: Add BeagleY-AI display support (and
- some more)
-Date: Fri, 26 Jun 2026 15:19:56 +0530
-Message-ID: <20260626094956.243978-1-shubham@rebhu.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
-References: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
-X-Mailman-Approved-At: Fri, 26 Jun 2026 11:59:44 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 425FB10E35B
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:00:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9416960098;
+ Fri, 26 Jun 2026 12:00:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18CE21F000E9;
+ Fri, 26 Jun 2026 12:00:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782475229;
+ bh=BSiJ35d9X+22B034sLT2uyAuV5PW8RmMuocyOolkHKo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Z4Fb04Qmw9k1dZ2td+vQxEepPh85aL4vxCkfIE5Z5yASVjopS9ThmmDoaM66wFl2J
+ CAbvIemob2CjFjECToJlbuvYEsOHoXwukDQuFPDW07aCx87WmDlyNPjK5aSFBLAhWm
+ qCEM3WIfhTrrQtaEd/UT3qf+D9ChoDzLUMETZYrBfQPLhAUKUwwwh8xjn8RP0c4FJ4
+ UbOtQd3uM1QLCEyRDFmaH8EuletPYrECdoLvJatmoiRNG82PmDNJlyYpqksebF6AoY
+ usStUCT7eCT2IvSGGy+qDT9BtE7Ska26/ZuaERlmBkcfRJiW/gDnG/6Oumi3H7UxM5
+ 0Utt22w6iSeFg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] fix: accel/qaic: qaic_attach_slice_bo_ioctl: success
+ path missing   drm_gem_object_put
+To: "WenTao Liang" <vulab@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260626114359.32938-1-vulab@iscas.ac.cn>
+References: <20260626114359.32938-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 12:00:28 +0000
+Message-Id: <20260626120029.18CE21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,89 +53,80 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Tomi,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-A big update on the Raspberry Pi Touch Display 2 (5-inch, native ILI9881C
-MIPI-DSI, 720x1280, 2 lanes) bring-up on BeagleY-AI (AM67A/J722S), still on
-Robert's v7.0.x-arm64-k3 tree (7.0.11-arm64-k3-r20): tidss + cdns-dsi +
-cdns-dphy, DSS = ti,am62p-dss (dispc_am625_feats).
+New issues:
+- [Critical] Reference count underflow and Use-After-Free (UAF) due to prem=
+ature GEM object release.
 
-The earlier "tidss comes up before the DSI bridge is added" problem is
-resolved (cdns-dsi now adds its input bridge in probe, so tidss attaches it),
-and after fixing two more issues the panel is now alive -- but I'm stuck on
-one last step and would value your read.
+Pre-existing issues:
+- [High] Concurrent list operations on `dbc->bo_lists` are not synchronized=
+, leading to list corruption.
+--
 
-What is now confirmed working
------------------------------
+commit 9afead81ed2f91d5b21fa630783b8bff00c9912d
+Author: WenTao Liang <vulab@iscas.ac.cn>
 
-  - DSI-1 connector is created, tidss initializes, no probe errors, nothing
-    left in /sys/kernel/debug/devices_deferred.
-  - The panel is ALIVE and initialized: a DCS read of GET_POWER_MODE (0x0A)
-    returns 0x9c (booster on, sleep-out, display-on). So the LP command path
-    over the cdns works and the ILI9881C processed its init sequence.
-  - cdns-dsi looks healthy while a test pattern streams:
-      MCTL_MAIN_STS = 0x0000000F  (PLL_LOCKED + CLK_LANE_RDY + DATA_LANE_RDY 0/1)
-      MCTL_DPHY_ERR = 0x00000000  (no D-PHY errors)
-      VID_MODE_STS  = 0x00000001  (VSG_RUNNING, no error bits)
-      MCTL_LANE_STS -> clock lane in HS
-      VID_MAIN_CTL  = 0x80A0FE00  (RGB888, packed-pixel DT 0x3E)
-      VID_HSIZE2 hact = 2160 (720*3), VID_VSIZE2 vact = 1280
-    cdns-dphy PLL locks (no "Failed to lock PLL").
-  - The DSS is scanning out:
-      modetest -M tidss -s <dsi>@<crtc>:720x1280 -v  ->  steady 60.01 Hz.
+fix: accel/qaic: qaic_attach_slice_bo_ioctl: success path missing drm_gem_o=
+bject_put
 
-(For reference, the two fixes that got the panel this far were: nesting the
-DSS port@1 under the controller's "ports" node in my overlay, and correcting
-the BeagleY-AI MIPI mux OE polarity -- it is active-low, and the data-lane
-mux had been left disabled while i2c still worked through a separate path.)
+This commit adds a drm_gem_object_put() call to the success path of
+qaic_attach_slice_bo_ioctl(). It attempts to prevent a perceived GEM
+object reference leak.
 
-The problem: cdns data lanes never transmit
--------------------------------------------
+> diff --git a/drivers/accel/qaic/qaic_data.c b/drivers/accel/qaic/qaic_dat=
+a.c
+> index ef0351b6dc9b5..46842d4a0848e 100644
+> --- a/drivers/accel/qaic/qaic_data.c
+> +++ b/drivers/accel/qaic/qaic_data.c
+> @@ -1084,6 +1084,7 @@ int qaic_attach_slice_bo_ioctl(struct drm_device *d=
+ev, void *data, struct drm_fi
+> =20
+>  	bo->sliced =3D true;
+>  	list_add_tail(&bo->bo_list, &bo->dbc->bo_lists);
 
-Sampling MCTL_LANE_STS 20000 times while the pattern is actively streaming
-(modetest -v at 60 Hz, from a second session):
+[Severity: High]
+This isn't a bug introduced by this patch, but are the list operations on
+dbc->bo_lists safely synchronized?
 
-  DATA0 states: {'IDLE': 20000}
-  DATA1 states: {'IDLE': 20000}
+Looking at qaic_attach_slice_bo_ioctl() and detach_slice_bo(), they modify
+this list using list_add_tail() and list_del(). However, the only shared
+lock held appears to be srcu_read_lock(&dbc->ch_lock), which allows
+concurrent readers. The mutex_lock(&bo->lock) only protects the specific BO.
 
-So the clock lane is in HS and the VSG reports "running", but the data lanes
-are 100% IDLE -- the cdns is in video mode yet never emits pixel packets.
-The DSS VP does not appear to feed the cdns DPI input even though the VP
-timing generator runs at 60 Hz, and the panel (correctly initialized) just
-shows backlight, no image.
+Could concurrent ioctl calls for different BOs on the same dbc corrupt the
+list?
 
-What I have ruled out
----------------------
+> +	drm_gem_object_put(obj);
 
-  - Videoport selection: I tried the DSI on DSS port@1 (VP2 = DISPC_VP_DPI)
-    and on DSS port@0 (VP1 = DISPC_VP_INTERNAL). Identical result, data lanes
-    IDLE in both.
-  - tidss correctly treats the cdns as internal: the bridge of_node
-    compatible "ti,j721e-dsi" is in tidss_internal_bridge_compatibles[], so
-    dpi_output is false and it does not touch ti,am625-dss-dpi0-clk-ctrl for
-    this videoport.
-  - Overlay/graph: cdns DSI_OUTPUT_PORT=0 (panel) / DSI_INPUT_PORT=1 (DSS)
-    wired accordingly; panel attaches; no -ENODEV; VID timing is correct.
+[Severity: Critical]
+Does adding this drm_gem_object_put() cause a reference count underflow?
 
-Questions
----------
+The original code appears to intentionally retain this GEM object reference
+because list_add_tail() transfers ownership of the BO to dbc->bo_lists.
 
-  1. On AM67A/J722S, what internally connects a DSS video port's DPI to the
-     cdns-dsi DPI input, and is there a clock/enable/routing step (beyond the
-     DT graph and dpi0-clk-ctrl, which tidss skips for the internal path)
-     required for the DSS to actually feed the cdns?
-  2. Which DSS VP is wired to the internal DSI on this SoC (VP1/INTERNAL vs
-     VP2/DPI), and does the DISPC_VP_INTERNAL path need any handling that the
-     DISPC_VP_DPI path does not get?
-  3. Any reason the cdns VSG would report VSG_RUNNING with the clock lane in
-     HS and both data lanes "ready", yet never drive the data lanes (no pixel
-     packets) while the DSS VP is visibly scanning at 60 Hz?
+Later, detach_slice_bo() explicitly drops this list reference:
 
-I'm happy to share the full overlay, dmesg and register dumps, and to test
-patches.
+drivers/accel/qaic/qaic_data.c:detach_slice_bo() {
+    ...
+	list_del(&bo->bo_list);
+	drm_gem_object_put(&bo->base);
+    ...
+}
 
-Thanks,
-Shubham
+If the reference is dropped here during attachment, could the BO be freed
+prematurely while still in dbc->bo_lists, leading to a use-after-free
+when release_dbc() iterates over the list?
+
+>  	srcu_read_unlock(&dbc->ch_lock, rcu_id);
+>  	mutex_unlock(&bo->lock);
+>  	kfree(slice_ent);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626114359.3293=
+8-1-vulab@iscas.ac.cn?part=3D1
