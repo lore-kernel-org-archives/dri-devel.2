@@ -4,104 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88F81CD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:38:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60AB7CDE008
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:39:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABDA610E315;
-	Fri, 26 Jun 2026 07:38:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A037F10F44C;
+	Fri, 26 Jun 2026 07:39:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BO2P4jk3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X9+jv7yg";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66EB710E315
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 07:38:57 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3440810F44C
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 07:39:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 85E1060122;
- Fri, 26 Jun 2026 07:38:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21C971F00A3A;
- Fri, 26 Jun 2026 07:38:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 146D3402C5;
+ Fri, 26 Jun 2026 07:39:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCC301F000E9;
+ Fri, 26 Jun 2026 07:39:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782459536;
- bh=ic8Bm5KdmIIXc6QloY21tIYgrTVRgIkjPmPTeOkkreU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=BO2P4jk3NTslrrLva3ZcZkVVj/ASsV0FGfySjnCevyCXdsq9TYlWipPzN7PCgeZD0
- 1qbelKqNv5rKTF+IqhR6QMzo+h5yhsRBfRRuuvuhOKw66q69PHCAmuqsMsyYy1GJ6E
- Ic1M+3yfpwwHRAkHy400wXTDxfd0SkpetfBQF6kPGiTSbdBnPboCjkuXsChySVPeDz
- QBbhAaOWDaV/WlAmvgSllpdR/LjqlfbLFxpvsH9GAGX5VqnnhDY/K0EFUzcVT60KiY
- 4iMYPUswndSLLOjeGDz19LMU2IYt1Ab4S6mZG3fDhA3Rh3v9ZGMeVTTkwht47jaKuB
- wP+qYm0GKb95Q==
-Message-ID: <e8001fe1-684d-4de2-bde4-8b0c1ce1dd0d@kernel.org>
-Date: Fri, 26 Jun 2026 09:38:48 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-To: Sunyun Yang <syyang@lontium.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
- rfoss@kernel.org, mripard@kernel.org, Laurent.pinchart@ideasonboard.com,
- tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com,
- xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
-References: <20260508134009.4582-1-syyang@lontium.com>
- <20260508134009.4582-3-syyang@lontium.com>
- <3188f63f-5358-48d7-b934-af20a8f95c6f@kernel.org>
- <CAFQXuNbKBfyeQL3N3P5QY=6BWoD3O6DSbXN-WMA1rRG9vCs3Kg@mail.gmail.com>
- <a0352a42-15db-4c7a-ae73-8a4e1543cd50@kernel.org>
- <CAFQXuNZVE6cZJGwrGKGtWnB-seSJLHFh8zW3jjAs6U4JLZFWng@mail.gmail.com>
- <CAFQXuNa8bJCpZBkMs_3mtbK_pjVzDdaDaoGk0KDxiG_Pf7txdg@mail.gmail.com>
- <6371d1d8-cdfb-40fa-84c7-ba3ec4e2ac00@kernel.org>
- <CAFQXuNZtzBu+WiG8n0BeN47zagQmL-iz_6Af7prk-xHLAeRBwg@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAFQXuNZtzBu+WiG8n0BeN47zagQmL-iz_6Af7prk-xHLAeRBwg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1782459544;
+ bh=eXY8FDSRb5eT3g6s5JakCT8NftyFAeZjgCx6Cc53uSI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=X9+jv7yguiCsGHPkyowTWTxq5J1BNwW2wIb4fD3gAyvEnkTq7WKHd+RTBhcF6x0UP
+ EH9xDgn43eOF9erz8xEO13Y3vlTjbDsjisk7qghJENZwFhFSimcyMd9zRHhEcCTN5d
+ dsIzVq9wKdKk1Gq5qDpssLXIHmOaT5xqmbWO/ok1Alf4AnZI4Tqu8oCUxX7gc+f32X
+ 6kTMRjISpwLlTmSCh4dOdpJML3jkB8scIUtcv+dFpf18553dyIWBFULCe3oLiTac64
+ eBRTEAuxMTX+++Cc8B/Oe+6+Kd358lugYLaIV0X1vDFz5lUh9LHzIIPRRNRyZDq78U
+ eSRXUGNRzxCSQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] drm/fb-helper: Only consider active CRTCs for vblank
+ sync
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260626073048.453206-1-tzimmermann@suse.de>
+References: <20260626073048.453206-1-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 07:39:03 +0000
+Message-Id: <20260626073903.BCC301F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,89 +53,79 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 26/06/2026 04:15, Sunyun Yang wrote:
-> Krzysztof Kozlowski <krzk@kernel.org> 于2026年6月25日周四 21:51写道：
->>
->> On 25/06/2026 15:40, Sunyun Yang wrote:
->>> Sunyun Yang <syyang@lontium.com> 于2026年6月25日周四 21:26写道：
->>>>
->>>> Krzysztof Kozlowski <krzk@kernel.org> 于2026年6月25日周四 21:17写道：
->>>>>
->>>>> On 25/06/2026 15:14, Sunyun Yang wrote:
->>>>>> Krzysztof Kozlowski <krzk@kernel.org> 于2026年6月25日周四 20:54写道：
->>>>>>>
->>>>>>> On 08/05/2026 15:40, syyang@lontium.com wrote:
->>>>>>>> +
->>>>>>>> +static void lt9611c_reset(struct lt9611c *lt9611c)
->>>>>>>> +{
->>>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
->>>>>>>> +     msleep(20);
->>>>>>>> +
->>>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
->>>>>>>> +     msleep(20);
->>>>>>>> +
->>>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
->>>>>>>
->>>>>>> This is just plain wrong. Why do you assert, then de-assert and then
->>>>>>> finally assert AGAIN the reset leaving the device in powerdown stage?
->>>>>>>
->>>>>> I am using software to emulate the hardware RESET button on our EVB.
->>>>>> When the hardware RESET button is pressed while our chip is running,
->>>>>> the signal level changes from HIGH to LOW and then back to HIGH.
->>>>>>
->>>>>> Of course, we can also use the following:
->>>>>> static void lt9611c_reset(struct lt9611c *lt9611c)
->>>>>> {
->>>>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
->>>>>>     msleep(50);
->>>>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
->>>>>>     msleep(20);
->>>>>> }
->>>>>
->>>>> Makes no sense either and you just did not get the point and did not
->>>>> answer my question. I asked WHY you leave asserted. Answer "we emulate"
->>>>> is just plain wrong.
->>>>>
->>>>> So again please answer:
->>>>>
->>>>> Why do you leave device with reset asserted?
->>>>>
->>>>
->>>>  devicetree:   reset-gpios = <&tlmm 128 GPIO_ACTIVE_HIGH>;
->>>>
->>>> GPIO_ACTIVE_HIGH:
->>>>
->>>> gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);   ------   reset pin
->>>> is Low level : Clear the register configuration in the chip to stop
->>>> the chip from working.
->>>>
->>>> gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);   ------  reset pin
->>>> is high level:  The chip resumes operation.
->>>>
->>>>
->>>
->>> Our purpose is: pull the level low to clear the register configuration
->>> in the chip, and then pull it high to allow the MCU inside the chip to
->>> re‑initialize the registers.
->>
->>
->> And you do completely opposite... so that confirms your code is just wrong.
->>
-> 
-> The lontium-lt9611.yaml uses GPIO_ACTIVE_HIGH. I am just following the
-> rule of this device tree. If I modify the device tree to use
-> GPIO_ACTIVE_LOW,
-> and use the following code in my driver, then my driver would be correct.
-> However, would the existing kernel drivers lontium-lt9611uxc.c and
-> lontium-lt9611.c be affected?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Acquiring multiple modeset locks sequentially without an acquire c=
+ontext causes AB-BA deadlocks with concurrent atomic commits and triggers l=
+ockdep splats.
+--
 
-DT has nothing to do here. 1 is assert, 0 is de-assert. Your code does
-things opposite to any logic, because you finish function with reset
-asserted.
+commit 5bf4951cc945bdc22bbaea8b5337320cd5b7047d
+Author: Thomas Zimmermann <tzimmermann@suse.de>
 
+drm/fb-helper: Only consider active CRTCs for vblank sync
 
-Best regards,
-Krzysztof
+This commit synchronizes fbdev output only to the vblank of an active
+CRTC to prevent vblank wait timeouts. It implements separate atomic and
+non-atomic code paths to select the correct active CRTC at runtime.
+
+> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_hel=
+per.c
+> index 7b11a582f8ec4..67b187f5c6bfc 100644
+> --- a/drivers/gpu/drm/drm_fb_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_helper.c
+
+[ ... ]
+
+> +static int find_crtc_index_atomic(struct drm_fb_helper *helper)
+> +{
+> +	struct drm_device *dev =3D helper->dev;
+> +	struct drm_plane *plane;
+> +	int crtc_index =3D -EINVAL;
+> +
+> +	drm_for_each_plane(plane, dev) {
+> +		const struct drm_plane_state *plane_state;
+> +
+> +		if (plane->type !=3D DRM_PLANE_TYPE_PRIMARY)
+> +			continue;
+> +
+> +		drm_modeset_lock(&plane->mutex, NULL);
+> +		plane_state =3D plane->state;
+> +
+> +		if (plane_state->fb =3D=3D helper->fb && plane_state->crtc) {
+> +			struct drm_crtc *crtc =3D plane_state->crtc;
+> +
+> +			drm_modeset_lock(&crtc->mutex, NULL);
+
+[Severity: High]
+Can this sequence cause an AB-BA deadlock with concurrent atomic commits?
+
+Because drm_modeset_lock() is called here on both plane->mutex and
+crtc->mutex with a NULL acquire context, it falls back to standard blocking
+mutex acquisition without the wait/wound deadlock avoidance mechanism.
+
+If a concurrent atomic commit thread from a userspace compositor acquires
+crtc->mutex and then attempts to acquire plane->mutex, could this permanent=
+ly
+hang both threads since the fbdev worker cannot be wound or back off?
+
+> +			if (crtc->state->active)
+> +				crtc_index =3D crtc->index;
+> +			drm_modeset_unlock(&crtc->mutex);
+> +		}
+> +		drm_modeset_unlock(&plane->mutex);
+> +
+> +		if (crtc_index >=3D 0)
+> +			break;
+> +	}
+> +
+> +	return crtc_index;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626073048.4532=
+06-1-tzimmermann@suse.de?part=3D1
