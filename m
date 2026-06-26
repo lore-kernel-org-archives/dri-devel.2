@@ -4,92 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58358CDE008
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 04:56:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDDEACDE008
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 05:09:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D28CE10F416;
-	Fri, 26 Jun 2026 04:56:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A0BE10E30C;
+	Fri, 26 Jun 2026 05:09:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B0EF3wbl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lxVqQL5F";
 	dkim-atps=neutral
-Received: from mail-oo1-f68.google.com (mail-oo1-f68.google.com
- [209.85.161.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD5C910E2FA
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 04:56:31 +0000 (UTC)
-Received: by mail-oo1-f68.google.com with SMTP id
- 006d021491bc7-6a11ee16bafso460213eaf.0
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 21:56:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782449791; cv=none;
- d=google.com; s=arc-20260327;
- b=AF5PBmBxlmS2x4L+jKwdYEd2c1uTb3nDEXt2xEmab+l36gOrnfjvOpVhuTU0TqzqdZ
- IZbLFrru+1YvoI7N52yR2aafalVWkyR1rqsPpsnd67+kYj2fGbmJfO9Ydx3HbjHSYIId
- JsnYr6jKQU3Ifvkzaow7tiIjQWEwpfcFUtev+DMjlbbU9/0k92eQbGpD1LahXlOPDty/
- PzxByG85He4irNsvNd7mU+caxrzr3PrXmwxXHyt8abXCKd23KnaXyuFXKcm5nJGfvrXq
- N0FixTNrd641D+BVd2kGsHSfvKehiypY8faAibeemcbOqqo1mEnJ/A5/rLB/Y7glCVNS
- qA7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=TLCDSxTzhM1JO0GFxs3906RW+bAoUMN+D9UfGDqItVw=;
- fh=pq+0IFKQbyqkYPg9eZ3Qmhg6OOWYGNDwE0XiUhCov/k=;
- b=QyVLYclN2hDkxneX29cBEcvoGEcaJr2uZ3c5mkA7nLOC7aHWqdFokuFfp7YzddMlXs
- Q4qJo+eaczl4sDTWuBvLX3BVzwnea8JWe3IdW8npIaibdP4lI3zlFI5a69Qx5XedM8Ld
- iXrxQ2p6Tj9djJ3hOXhoChygD81wkqnWrvQ+t2Xn4VF6HqQkJbWs3FsFO5/DtTr9fljS
- vEFIXNQ40Dself+v8ivAJ7Zpxk1b0Ean8Rgfm3gneGlgZhv0Q8PDo4vhd+QuschbVqa+
- mg+WJ8QP4JQPAZzpT1w3W77NL7xJinLtfTyiliql0ixEj4KsuojTKYQcvHlxBgP25Xg2
- usTw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782449791; x=1783054591; darn=lists.freedesktop.org;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=TLCDSxTzhM1JO0GFxs3906RW+bAoUMN+D9UfGDqItVw=;
- b=B0EF3wblvGhAUENkJTCpBypuauGf7a1M3Ob9UFmnc3P/6HrOhAl2Gzs8lbGyfjhIWo
- nZU5pvLPWaSN8Zd995i0TiBFzsVMx5Im92y7fkIbKl+oLJcE+gmqJalTm+mF4pTKVISg
- b3KN9dqk7QwQ6pymv8pp8qa0h30t22UX92S85JGJj+rvtw5ZHl0YhTF9EevTB1IRmbUq
- NIDGlZ8YQnMLyRBlKn9krTZRKNc5ghiFgVb8liaj3z18RIYhx2p7dP36HwhLyjN8C70z
- d5f/wXjyHw0eWOqj2EpT0Fzcp6PXm9OL5fLgMHBF9BtM7PKAaHK6HZscSCNs5nCC9z29
- Z+MA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782449791; x=1783054591;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=TLCDSxTzhM1JO0GFxs3906RW+bAoUMN+D9UfGDqItVw=;
- b=olO0xE5ZuDGtH85Gs5+MvA8NxPX2m7z05J3nbc4wqCthBqgMHHhz/6aRsdhno8lFL8
- qSuOZORqwcfUUY1aVe1yr532SuKVGh+lATl5M4houWHDy6hwMowIdDV8/kR/H7p94nuC
- hJ5j52m2EKhvyJRHYi1Pb8XZDWgJ1ZrfmqGiryVH9iHZp69O7kAAzPc5RvYmQK8zPz2N
- XyXgqMIxpNRpD+LLYBNgdXUbCGH6IToThLzaUVRtT/ugKBp+6rRr/8Ex9a1GmugtncIY
- UMlI9dMsH7Ym/XKKum9f5WwgiU4ZX0sfnhyIDAQ2QtoswjvgL5dSPMtGAS22oe9cSo1J
- 83jw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8IxT6nYUkQBDXfhq2JKrLPuCuMr365hOi452rTJ76zalfn5gaGEUKa7+X/lfDd05kgn4FP5Le9q3Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwAsEyvAyeDyBQU+p1gRpBMWbiNm8dt/irQQzFE7gG43q+tBnvS
- nVCg80XdOzHBb0AX3fKxh0fb/si+c/u+0d2iahGQ6XdbOcZ1cC/lKVGhq0g6UHNYrT700RiKkH2
- V5iUYrU83pRr6iYxnRlcNjmV/5saD4ysnMz7IsYgjug==
-X-Gm-Gg: AfdE7cl75kX3pweX85FMJZ1j4PehpJE4t+e8F/3fiHxylVAc4XkD2Y+F3i+BPFB2hqA
- NYlH6VerGmPt3OmM2nDe4go4EVyx1s1RKoSICnkGdYvFQvfmE5Hjx2i/qD0nVc94setpO0bi4K+
- DF3tv2ohRTkbaj3sWuy9wYhEV94gJr5MjlkmZwVmshULwpoyooQd/uoRZRUchjOStYpE2n43Gux
- xzwJ0cw+TGih7rXi8ToOPsWebojpS4DdYmFEBhDAtJYltIehstjxuP6STaJ8TdyZKcEnC7OA+Ux
- sRlJprHm7esFpoD0eslCRBhU5NsVf68=
-X-Received: by 2002:a05:6820:178e:b0:69e:b425:744d with SMTP id
- 006d021491bc7-6a135055ad0mr4528390eaf.6.1782449790927; Thu, 25 Jun 2026
- 21:56:30 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260620-ch7218-rfc-v1-b4-v1-1-3412debf44b6@gmail.com>
- <b9256d5f-ac08-46cd-ab84-3fc0e6e52b61@amd.com>
-In-Reply-To: <b9256d5f-ac08-46cd-ab84-3fc0e6e52b61@amd.com>
-From: Stephen <stevester.codes@gmail.com>
-Date: Thu, 25 Jun 2026 22:56:25 -0600
-X-Gm-Features: AVVi8Cf64YJ4owdxmkzWNKc4BReuGudKjy14P2Lq_16_tPqhQ4ExlJJJtpbeL-k
-Message-ID: <CANC0aFeXLE0j8ukyRS_gzP3uQhJb9xD98+a=jE96Cc4EuNFcmw@mail.gmail.com>
-Subject: Re: [PATCH RFC 1/3] drm/amd/display: quirk malformed CH7218 PCON
- topology
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 325DC10E30C
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 05:09:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 48A3660098;
+ Fri, 26 Jun 2026 05:09:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C13871F000E9;
+ Fri, 26 Jun 2026 05:09:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782450543;
+ bh=VjjHz0qKSG91xc6NHzmoYcfnjU98Hz08LdbTuxGTHbc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=lxVqQL5FkeFcsqH7SfAKeDOoxcCKWr/k6G9kEnN8u7ERCdudNp6JYl3Y++SMf/IpG
+ vXZulsqmS2UD8ZHzwIvTt/MElAo0VX1Zk8ijAx0UibnHHZwTMSwPAGpwFPrdRv+WM6
+ CYodgaQf0PGeAbQZuY3K540dXNpXPxwRMwerkdxFqlaAH+XcdS5LxyRVYUA+MY5eJX
+ hpHmS/0SlBse13+PU1AEWDgb1HDeZb/2SqOO1xUjtibtdqliOk37sW0/RqqbL2r7Xd
+ dkIkFy/jD5XeQKnRLToHW963+2MT8jXhsQgth9rrhOIwmfjwvgidK2sSC7fSJrAUNG
+ c9QAU/t9Kom1g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] fbdev: fix use-after-free in store_modes()
+To: "Ian Bridges" <icb@fastmail.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <aj4FKJtIuU97rEA4@dev>
+References: <aj4FKJtIuU97rEA4@dev>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 05:09:02 +0000
+Message-Id: <20260626050902.C13871F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,37 +52,165 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi George,
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-This dongle is from Amazon and is described as the "MysRuida USB Type
-C to HDMI 2.1 EMI/RFI Braided Cable 0.6ft, 48Gbps,
-8K@60Hz/4K@144Hz/2K@240Hz, HDCP2.3/Dynamic
-HDR/eARC/VRR/ALLM/DSC1.2/Dolby Atmos/DTS, DP Alt Mode Compatible with
-PS5 Xbox Monitor"
+Pre-existing issues:
+- [High] Missing locking in sysfs readers (`show_mode`, `show_modes`) creat=
+es a TOCTOU race leading to Use-After-Free.
+- [High] Buffer overflow via integer underflow in `mode_string()`.
+- [High] `FBIOPUT_VSCREENINFO` ioctl with `FB_ACTIVATE_INV_MODE` deletes mo=
+des without clearing dangling pointers.
+- [High] Unchecked NULL pointer dereference in `display_to_var()` leads to =
+kernel panic.
+--
 
-Just FYI, these CH7218 USB-C to HDMI 2.1 adapters seem hard to come
-by, hence why I purchased this specific one. I=E2=80=99d note that the Vola=
-ns
-brand one, despite claiming to be CH7218A, is not. Mine was VMM7100. I
-suspect the Lindy 43428 may actually be CH7218-based, but I have not
-tested that one personally.
+commit f37a3c1901e8e451a34ca5fd10fa0a9b6e643e23
+Author: Ian Bridges <icb@fastmail.org>
 
-The one I tested exposes:
-branch_dev_id: 0x2b02f0
-branch_dev_name: CH7218
+fbdev: fix use-after-free in store_modes()
 
-Thanks,
-Stephen
+store_modes() replaces a framebuffer's modelist with modes from userspace.
+This patch fixes use-after-free bugs by clearing fb_display[i].mode and
+fb_info->mode pointers before freeing the old modelist.
 
-On Thu, Jun 25, 2026 at 2:38=E2=80=AFPM George Zhang <george.zhang@amd.com>=
- wrote:
-> Hi Stephen, thank you for the patch.
->
-> What dongle you are observing this issue on? We are interested in
-> reproducing the observed bug.
->
-> Thanks,
-> George
+Link: https://lore.kernel.org/all/ajjoDhAi2y4ArSlz@dev/
+
+diff --git a/drivers/video/fbdev/core/fbsysfs.c b/drivers/video/fbdev/core/=
+fbsysfs.c
+index d9743ef353552..ea196603c7a87 100644
+--- a/drivers/video/fbdev/core/fbsysfs.c
++++ b/drivers/video/fbdev/core/fbsysfs.c
+
+[ ... ]
+
+@@ -108,8 +109,15 @@ static ssize_t store_modes(struct device *device,
+ 	if (fb_new_modelist(fb_info)) {
+ 		fb_destroy_modelist(&fb_info->modelist);
+ 		list_splice(&old_list, &fb_info->modelist);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is there a missing lock in
+the sysfs readers that could lead to a use-after-free?
+
+While store_modes() correctly takes lock_fb_info() before replacing the
+modelist, show_mode() and show_modes() appear to read fb_info->mode and
+iterate fb_info->modelist locklessly:
+
+drivers/video/fbdev/core/fbsysfs.c:show_mode() {
+        if (!fb_info->mode)
+                return 0;
+        return mode_string(buf, 0, fb_info->mode);
+}
+
+drivers/video/fbdev/core/fbsysfs.c:show_modes() {
+        ...
+        list_for_each_entry(modelist, &fb_info->modelist, list) {
+                mode =3D &modelist->mode;
+                i +=3D mode_string(buf, i, mode);
+        }
+        ...
+}
+
+If store_modes() executes concurrently, replaces the modelist, frees the
+old nodes via fb_destroy_modelist(), and sets fb_info->mode to NULL, could
+a concurrent sysfs read hit a use-after-free or NULL pointer dereference?
+
+
+[Severity: High]
+This is a pre-existing issue, but does show_modes() have an integer
+underflow leading to a buffer overflow?
+
+In show_modes(), the offset accumulates indefinitely based on the return
+value of snprintf:
+
+drivers/video/fbdev/core/fbsysfs.c:show_modes() {
+        ...
+        list_for_each_entry(modelist, &fb_info->modelist, list) {
+                mode =3D &modelist->mode;
+                i +=3D mode_string(buf, i, mode);
+        }
+        ...
+}
+
+If there are enough modes in the modelist, i will exceed PAGE_SIZE. This
+value is then passed as the offset to mode_string():
+
+drivers/video/fbdev/core/fbsysfs.c:mode_string() {
+        return snprintf(&buf[offset], PAGE_SIZE - offset, "%c:%dx%d%c-%d\n",
+                        m, mode->xres, mode->yres, v, mode->refresh);
+}
+
+When offset is greater than PAGE_SIZE, does PAGE_SIZE - offset underflow to
+a massive unsigned limit, causing snprintf() to write out of bounds beyond
+the sysfs page buffer?
+
+> -	} else
+> +	} else {
+> +		/*
+> +		 * fb_display[i].mode and fb_info->mode both point into the old
+> +		 * list. Clear them before it is freed.
+> +		 */
+> +		fbcon_delete_modelist(&old_list);
+> +		fb_info->mode =3D NULL;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does clearing the modelist
+here expose an unchecked NULL pointer dereference?
+
+The patch modifies store_modes() to call fbcon_delete_modelist(), which
+clears disp->mode to NULL. However, functions like fbcon_resize() and
+fbcon_switch() unconditionally call display_to_var():
+
+drivers/video/fbdev/core/fbcon.c:display_to_var() {
+        ...
+        fb_videomode_to_var(var, disp->mode);
+        ...
+}
+
+drivers/video/fbdev/core/fbcon.c:fbcon_resize() {
+        ...
+        display_to_var(&var, p);
+        fb_videomode_to_var(&var, mode);
+        ...
+}
+
+Can a user write to sysfs modes, setting fb_display[i].mode to NULL,
+followed by a console resize or VT switch that leads to a kernel panic when
+fb_videomode_to_var() dereferences the NULL mode?
+
+>  		fb_destroy_modelist(&old_list);
+> +	}
+> =20
+>  	unlock_fb_info(fb_info);
+>  	console_unlock();
+
+[Severity: High]
+This is a pre-existing issue, but does fb_set_var() suffer from the exact
+same dangling pointer issue this patch fixes in store_modes()?
+
+When executing an FBIOPUT_VSCREENINFO ioctl with FB_ACTIVATE_INV_MODE,
+fb_set_var() checks if the mode is used by mapped consoles:
+
+drivers/video/fbdev/core/fbmem.c:fb_set_var() {
+        ...
+        ret =3D fbcon_mode_deleted(info, &mode1);
+        if (!ret)
+                fb_delete_videomode(&mode1, &info->modelist);
+        ...
+}
+
+Since fbcon_mode_deleted() intentionally skips unmapped consoles, it will
+return 0 if the mode is only referenced by unmapped consoles.
+
+Does this result in fb_delete_videomode() freeing the mode while
+fb_display[i].mode in the unmapped console and fb_info->mode still point
+to the freed memory?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/aj4FKJtIuU97rEA4@de=
+v?part=3D1
