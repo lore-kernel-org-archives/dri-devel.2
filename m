@@ -4,52 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41591C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:12:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DFACC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:13:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 933F010E38D;
-	Fri, 26 Jun 2026 13:12:41 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="tEHQoanW";
-	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id C264310E38D
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:12:40 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DE0031FCD
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 06:12:35 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 3207F3F632
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 06:12:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1782479560; bh=/pFqPig/BQYa1aIM5fHtz2O/tRy/uSvCH0TRXumAzI4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=tEHQoanWLLSB6UEps8u7ymgqoMt5c+f8Bt7+3UDHS0EfiEJ1ObriETdGM52W89nsY
- Sh3Rqej4s3IPTybE5EnfQtxhBF9avcM6nBvBy/7voDhoCnDfV4oFW6L0IPBbwCWgS4
- 5uvrl1fuJwgA2sMro7ou/eb9ie99TLMxDRQJhmZs=
-Date: Fri, 26 Jun 2026 14:12:29 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Chia-I Wu <olvaffe@gmail.com>, Karunika Choo <karunika.choo@arm.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- sashiko-bot@kernel.org
-Subject: Re: [PATCH 09/11] drm/panthor: Fix a leak when a group is evicted
- before the tiler OOM is serviced
-Message-ID: <aj56vat4MdUi-kX2@e142607>
-References: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
- <20260625-panthor-misc-fixes-v1-9-b67ed973fea6@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B97710E61B;
+	Fri, 26 Jun 2026 13:13:19 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8395610E7D0
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:13:17 +0000 (UTC)
+Received: from localhost.localdomain (unknown [117.182.75.66])
+ by APP-05 (Coremail) with SMTP id zQCowABHkcTmej5q09ppFQ--.22955S2;
+ Fri, 26 Jun 2026 21:13:12 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ WenTao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
+Subject: [PATCH] fix: drm: drm_mode_obj_get_properties_ioctl:
+ DRM_MODESET_LOCK_ALL_BEGIN retry leaks drm_mode_object reference
+Date: Fri, 26 Jun 2026 21:13:08 +0800
+Message-Id: <20260626131308.37604-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260625-panthor-misc-fixes-v1-9-b67ed973fea6@collabora.com>
+X-CM-TRANSID: zQCowABHkcTmej5q09ppFQ--.22955S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw4fCr1UAr15tryrtF18Xwb_yoW8Xr48pr
+ 43K34jkrW0yrZ7KFs7CFWv9F9Yya129rWrGF1Sk3Wag3ZYyF1UZFy5ur4DtFy7tr93Jr1a
+ qFnIyF9xAay7Ar7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkG14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q
+ 6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+ 0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
+ 0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+ WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1l
+ IxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUqeHgUUU
+ UU=
+X-Originating-IP: [117.182.75.66]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBg0KA2o+SxmZGAAAsF
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,49 +61,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 25, 2026 at 02:40:35PM +0200, Boris Brezillon wrote:
-> A group ref is tied to the pending tiler_oom_work, so we need to release
-> it if the cancel was effective.
-> 
-> Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
-> Reported-by: sashiko-bot@kernel.org
-> Closes: https://sashiko.dev/#/patchset/20260623-panthor-signal-from-irq-v3-0-2ece396f8ee0@collabora.com?part=7
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+The DRM_MODESET_LOCK_ALL_BEGIN macro retries the ioctl on -EDEADLK. Each
+  retry re-executes drm_mode_object_find, overwriting the obj pointer
+  without releasing the previous reference via drm_mode_object_put. The
+  out_unref label only releases the final obj, leaking references from
+  earlier retry iterations.
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Cc: stable@vger.kernel.org
+Fixes: 949619f32eee ("drm: Extract drm_mode_object.[hc]")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/drm_mode_object.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Best regards,
-Liviu
-
-> ---
->  drivers/gpu/drm/panthor/panthor_sched.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index ab3e13e44a26..5fe95d03f23e 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -1057,7 +1057,8 @@ group_unbind_locked(struct panthor_group *group)
->  
->  	/* Tiler OOM events will be re-issued next time the group is scheduled. */
->  	atomic_set(&group->tiler_oom, 0);
-> -	cancel_work(&group->tiler_oom_work);
-> +	if (cancel_work(&group->tiler_oom_work))
-> +		group_put(group);
->  
->  	for (u32 i = 0; i < group->queue_count; i++)
->  		group->queues[i]->doorbell_id = -1;
-> 
-> -- 
-> 2.54.0
-> 
-
+diff --git a/drivers/gpu/drm/drm_mode_object.c b/drivers/gpu/drm/drm_mode_object.c
+index 2d943a610b88..10fce40f7020 100644
+--- a/drivers/gpu/drm/drm_mode_object.c
++++ b/drivers/gpu/drm/drm_mode_object.c
+@@ -479,7 +479,7 @@ int drm_mode_obj_get_properties_ioctl(struct drm_device *dev, void *data,
+ 				      struct drm_file *file_priv)
+ {
+ 	struct drm_mode_obj_get_properties *arg = data;
+-	struct drm_mode_object *obj;
++	struct drm_mode_object *obj = NULL;
+ 	struct drm_modeset_acquire_ctx ctx;
+ 	int ret = 0;
+ 
+@@ -487,7 +487,9 @@ int drm_mode_obj_get_properties_ioctl(struct drm_device *dev, void *data,
+ 		return -EOPNOTSUPP;
+ 
+ 	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+-
++	if (obj)
++		drm_mode_object_put(obj);
++
+ 	obj = drm_mode_object_find(dev, file_priv, arg->obj_id, arg->obj_type);
+ 	if (!obj) {
+ 		ret = -ENOENT;
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+2.39.5 (Apple Git-154)
+
