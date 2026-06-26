@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C008CD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:00:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 561CACDE008
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:01:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 956C710E372;
-	Fri, 26 Jun 2026 12:00:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F35810E35B;
+	Fri, 26 Jun 2026 12:01:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z4Fb04Qm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GoxYzMV1";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 425FB10E35B
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:00:30 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59F6410E35B
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:01:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9416960098;
- Fri, 26 Jun 2026 12:00:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18CE21F000E9;
- Fri, 26 Jun 2026 12:00:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3603340DD7
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:01:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E844C1F000E9;
+ Fri, 26 Jun 2026 12:01:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782475229;
- bh=BSiJ35d9X+22B034sLT2uyAuV5PW8RmMuocyOolkHKo=;
+ s=k20260515; t=1782475261;
+ bh=khjGmYHEPhF/pA6xHxKQr52lgEJocPMDHM6JFbmBuSA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Z4Fb04Qmw9k1dZ2td+vQxEepPh85aL4vxCkfIE5Z5yASVjopS9ThmmDoaM66wFl2J
- CAbvIemob2CjFjECToJlbuvYEsOHoXwukDQuFPDW07aCx87WmDlyNPjK5aSFBLAhWm
- qCEM3WIfhTrrQtaEd/UT3qf+D9ChoDzLUMETZYrBfQPLhAUKUwwwh8xjn8RP0c4FJ4
- UbOtQd3uM1QLCEyRDFmaH8EuletPYrECdoLvJatmoiRNG82PmDNJlyYpqksebF6AoY
- usStUCT7eCT2IvSGGy+qDT9BtE7Ska26/ZuaERlmBkcfRJiW/gDnG/6Oumi3H7UxM5
- 0Utt22w6iSeFg==
+ b=GoxYzMV1DB7OA8P58p0V6MY4G9uJg/kGvbq7Q4mWm1kePVC9wnwd+BXvYmqQw8nyx
+ NpshZgzCF7khmf6KOF70UmmrmQTyy6PQNR8ywi3CysMtygkk3JOnOkG6EJa5mz0VQ1
+ iHdC6DkFxzdEJH/a/38aCb4AENTY4oyVEz/DSKVg/zIhnua9x8IapcCT2+PSOgX4Pr
+ mPsz0T9NKZPvGbmUPJ6kC9Aa8ceafdXDQ0aE7DzVDYnvbzzHcXoU5M0wnHd3DAIP1S
+ d6RZ6GXfJvcAluTNjxf6p44phAQ+sWcIiNJBBE5NbKqfqWjOEGKVZK86uCI2nFgns+
+ TReYBd/NcOkaA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] fix: accel/qaic: qaic_attach_slice_bo_ioctl: success
- path missing   drm_gem_object_put
-To: "WenTao Liang" <vulab@iscas.ac.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260626114359.32938-1-vulab@iscas.ac.cn>
-References: <20260626114359.32938-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH v19 1/8] rust: alloc: add `KBox::into_non_null`
+To: "Andreas Hindborg" <a.hindborg@kernel.org>
+Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-pci@vger.kernel.org
+In-Reply-To: <20260626-unique-ref-v19-1-2607ca88dfdf@kernel.org>
+References: <20260626-unique-ref-v19-0-2607ca88dfdf@kernel.org>
+ <20260626-unique-ref-v19-1-2607ca88dfdf@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 12:00:28 +0000
-Message-Id: <20260626120029.18CE21F000E9@smtp.kernel.org>
+Date: Fri, 26 Jun 2026 12:01:00 +0000
+Message-Id: <20260626120100.E844C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,76 +58,58 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [Critical] Reference count underflow and Use-After-Free (UAF) due to prem=
-ature GEM object release.
-
-Pre-existing issues:
-- [High] Concurrent list operations on `dbc->bo_lists` are not synchronized=
-, leading to list corruption.
+- [Low] The SAFETY comment refers to `KBox::into_raw`, but the code calls `=
+Self::into_raw` for a generic `Box<T, A>`.
 --
 
-commit 9afead81ed2f91d5b21fa630783b8bff00c9912d
-Author: WenTao Liang <vulab@iscas.ac.cn>
+commit b26e998f8fbb891dd6bb1b2e1c41a63a8ecd7700
+Author: Andreas Hindborg <a.hindborg@kernel.org>
 
-fix: accel/qaic: qaic_attach_slice_bo_ioctl: success path missing drm_gem_o=
-bject_put
+rust: alloc: add `KBox::into_non_null`
 
-This commit adds a drm_gem_object_put() call to the success path of
-qaic_attach_slice_bo_ioctl(). It attempts to prevent a perceived GEM
-object reference leak.
+This commit adds a method to consume a `Box<T, A>` and return a `NonNull<T>=
+`.
+It serves as a convenience wrapper around `Self::into_raw` for callers that
+need a `NonNull` pointer rather than a raw pointer.
 
-> diff --git a/drivers/accel/qaic/qaic_data.c b/drivers/accel/qaic/qaic_dat=
-a.c
-> index ef0351b6dc9b5..46842d4a0848e 100644
-> --- a/drivers/accel/qaic/qaic_data.c
-> +++ b/drivers/accel/qaic/qaic_data.c
-> @@ -1084,6 +1084,7 @@ int qaic_attach_slice_bo_ioctl(struct drm_device *d=
-ev, void *data, struct drm_fi
-> =20
->  	bo->sliced =3D true;
->  	list_add_tail(&bo->bo_list, &bo->dbc->bo_lists);
+> diff --git a/rust/kernel/alloc/kbox.rs b/rust/kernel/alloc/kbox.rs
+> --- a/rust/kernel/alloc/kbox.rs
+> +++ b/rust/kernel/alloc/kbox.rs
+[ ... ]
+> @@ -211,6 +211,15 @@ pub fn leak<'a>(b: Self) -> &'a mut T {
+>          // which points to an initialized instance of `T`.
+>          unsafe { &mut *Box::into_raw(b) }
+>      }
+> +
+> +    /// Consumes the `Box<T,A>` and returns a `NonNull<T>`.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but are the list operations on
-dbc->bo_lists safely synchronized?
+[Severity: Low]
+This isn't a bug, but there appears to be a missing space after the comma in
+`Box<T,A>`. Should this be updated to `Box<T, A>` to match standard kernel
+formatting?
 
-Looking at qaic_attach_slice_bo_ioctl() and detach_slice_bo(), they modify
-this list using list_add_tail() and list_del(). However, the only shared
-lock held appears to be srcu_read_lock(&dbc->ch_lock), which allows
-concurrent readers. The mutex_lock(&bo->lock) only protects the specific BO.
+> +    ///
+> +    /// Like [`Self::into_raw`], but returns a `NonNull`.
+> +    #[inline]
+> +    pub fn into_non_null(b: Self) -> NonNull<T> {
+> +        // SAFETY: `KBox::into_raw` returns a valid pointer.
 
-Could concurrent ioctl calls for different BOs on the same dbc corrupt the
-list?
+[Severity: Low]
+This isn't a bug, but the SAFETY comment references `KBox::into_raw`, while
+the method is implemented for the generic `Box<T, A>` and directly calls
+`Self::into_raw`.=20
 
-> +	drm_gem_object_put(obj);
+Since `KBox` is an alias specifically for the `Kmalloc` allocator, should t=
+he
+comment refer to `Self::into_raw` or `Box::into_raw` to accurately reflect
+that this works for any allocator?
 
-[Severity: Critical]
-Does adding this drm_gem_object_put() cause a reference count underflow?
-
-The original code appears to intentionally retain this GEM object reference
-because list_add_tail() transfers ownership of the BO to dbc->bo_lists.
-
-Later, detach_slice_bo() explicitly drops this list reference:
-
-drivers/accel/qaic/qaic_data.c:detach_slice_bo() {
-    ...
-	list_del(&bo->bo_list);
-	drm_gem_object_put(&bo->base);
-    ...
-}
-
-If the reference is dropped here during attachment, could the BO be freed
-prematurely while still in dbc->bo_lists, leading to a use-after-free
-when release_dbc() iterates over the list?
-
->  	srcu_read_unlock(&dbc->ch_lock, rcu_id);
->  	mutex_unlock(&bo->lock);
->  	kfree(slice_ent);
+> +        unsafe { NonNull::new_unchecked(Self::into_raw(b)) }
+> +    }
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626114359.3293=
-8-1-vulab@iscas.ac.cn?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626-unique-ref=
+-v19-0-2607ca88dfdf@kernel.org?part=3D1
