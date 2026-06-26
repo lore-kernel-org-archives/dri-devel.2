@@ -4,63 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A674C43211
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 16:12:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C713C43211
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 16:18:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C31A810E3E0;
-	Fri, 26 Jun 2026 16:11:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 796ED10F619;
+	Fri, 26 Jun 2026 16:18:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="C/NUSohY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YCaHU7qQ";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A62110E3E0
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 16:11:58 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 2F3E6C5CD68;
- Fri, 26 Jun 2026 16:12:05 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 465EB60232;
- Fri, 26 Jun 2026 16:11:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 1D56E104C98AB; 
- Fri, 26 Jun 2026 18:11:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1782490314; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=2aMpjqPpJ3jB+9a9ya7QqmAO5GA2YL86oNP/6GMR7AA=;
- b=C/NUSohY5vtGaRJld8ZdfDxYs5JmRhsZfHf2sMEvr+zI2ISREqyOFDdPUzfAlNDNSkmwjv
- m4MDWVI6r3d8tyl53THMcnLJBvOgU4C46LVuZAh5GvlJ++5QTILp9oIzONPtQBdVUeKdX5
- 8iyisAOJwjmUNtOX9ubsQ/aiTmiZUkrBrwhxwzbsHFvTK5UI9J/s1ITN+vayybv0HyFW/l
- 9zK2ebMFYtf7OWlPohfx2BGrQAdkK5Th7Y+LhdsUDTatQpo9D/rQFfgHkxJgAmTAql6iFM
- sPuvdkbNEz8O2TklPCFL7VZQhhTaBdkIqo2cUDzyP2p6a2jDXW4AkDMmsXGrYg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 26 Jun 2026 18:11:46 +0200
-Message-Id: <DJJ42UCJ1Y6X.TBR370GE9U1Q@bootlin.com>
-Subject: Re: [PATCH 3/4] drm-bridge: lontium lt9611c: fixes and improvements
-Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Vinod Koul" <vkoul@kernel.org>,
- <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <boss@oss.qualcomm.com>,
- <qc-display-maintainer@oss.qualcomm.com>
-To: "Mohit Dsor" <mohit.dsor@oss.qualcomm.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.21.0
-References: <20260611-lt9611-b4-send-v1-0-42abbcd3bb1e@oss.qualcomm.com>
- <20260611-lt9611-b4-send-v1-3-42abbcd3bb1e@oss.qualcomm.com>
- <DJ6YOZ4G73A3.37QF618MHAR4F@bootlin.com>
- <ajkl2kl5oFh5tNG6@hu-mdsor-hyd.qualcomm.com>
-In-Reply-To: <ajkl2kl5oFh5tNG6@hu-mdsor-hyd.qualcomm.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A5AF10F619;
+ Fri, 26 Jun 2026 16:18:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782490736; x=1814026736;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=zeOFSRy8pc3s2Pxnc5jJZ1C2YFWNUFAAxi+3HlbawKA=;
+ b=YCaHU7qQwQYz6OSEuYNRb6DEIwPHDnOhpUKXQJSHuxNa9HCCLsHRnaFv
+ Ez8cfwz5qPq9W19sbvc+SYZETnEVrtjyVMoLONC7apd7LK5qaONrGFjrj
+ Y6ILrVrM003xYc7gyEMQe4bXy/ZraVzNgNforNgnjFtVpgdTvdtoYwJGM
+ 3iSgdscP4iO5jV9oFAeh4bkS03FX7srImjVoWv9RnZYYW5Z6BFEaIQ/D5
+ NyxGJhOt7zcJWwoZZLaVOuDyFfqwk2XbmdP2uXsKtep5fFgbU9CPp0/f4
+ 1scW8ivWkvbd7sjPyQgEtQcrLJHMt7QR7XGA+XKeFYW9436v81zJXN4Wv g==;
+X-CSE-ConnectionGUID: cIYKFzUYROO22spB/rdS8A==
+X-CSE-MsgGUID: rJbppZ/7Q4KEuWlu+fntwg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11829"; a="94675805"
+X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; d="scan'208";a="94675805"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jun 2026 09:18:56 -0700
+X-CSE-ConnectionGUID: KAlv5linTqqYNG898QQPtQ==
+X-CSE-MsgGUID: mSrnC0mtTiK205WH7kn0Cg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; d="scan'208";a="246898587"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.22])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jun 2026 09:18:54 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>, dri-devel
+ <dri-devel@lists.freedesktop.org>, intel-gfx
+ <intel-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/i915/gt: Return bool values from a boolean helper
+In-Reply-To: <aj51Ia0HE9xDufPh@zenone.zhora.eu>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260625114442.2912230-1-andi.shyti@linux.intel.com>
+ <53ba85083a23024c7d54b656c834c144abbb57cf@intel.com>
+ <aj51Ia0HE9xDufPh@zenone.zhora.eu>
+Date: Fri, 26 Jun 2026 19:18:51 +0300
+Message-ID: <9bc5c33ea64ddfdf0e317be0b039a5a246a9bf58@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,84 +73,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Mohit,
-
-On Mon Jun 22, 2026 at 2:08 PM CEST, Mohit Dsor wrote:
-> On Fri, Jun 12, 2026 at 11:26:34AM +0200, Luca Ceresoli wrote:
->> On Wed Jun 10, 2026 at 11:14 PM CEST, Mohit Dsor wrote:
->> > Remove two redundant lt9611c_reset() calls:
->> >
->> > 1. In lt9611c_bridge_atomic_pre_enable(): a reset is already performed
->> >    during probe and resume; calling it again on every display enable
->> >    adds ~440ms of unnecessary latency.
->> >
->> > 2. At the end of lt9611c_probe(): a reset was already performed earlie=
-r
->> >    in probe before lt9611c_lock(). The second reset is redundant.
->> >
->> > Also, the DRM HDMI bridge framework requires hdmi_write_hdmi_infoframe=
- and
->> > hdmi_clear_hdmi_infoframe callbacks for HDMI vendor-specific infoframe
->> > (VSI) support, used for features such as HDR metadata signalling.
->> >
->> > This patch add stub implementations that return success. Wire them int=
-o the bridge
->> > function table.
->> >
->> > Also, Store the chip variant enum value in the of_match_table .data fi=
-eld and
->> > retrieve it via of_device_get_match_data() when probing from a DT node=
-.
->> > Fall back to i2c_device_id.driver_data for non-DT (e.g. ACPI) probe
->> > paths.
->> >
->> > This is the standard kernel pattern for passing per-compatible data
->> > through the OF match table, and avoids relying solely on the I2C devic=
-e
->> > ID table for chip type detection when DT is available.
->> >
->> > Populate bridge.vendor and bridge.product so the DRM HDMI framework ca=
-n
->> > report the correct manufacturer and product name in the HDMI connector
->> > properties (visible via xrandr --prop and related sysfs entries).
->> >
->> > Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
->>
->> These are several unrelated changes and should be separate commits.
->>
->> Luca
->>
->> --
->> Luca Ceresoli, Bootlin
->> Embedded Linux and Kernel engineering
->> https://bootlin.com
+On Fri, 26 Jun 2026, Andi Shyti <andi.shyti@kernel.org> wrote:
+>> > diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+>> > index b2cf672564dd..a3f198646e1d 100644
+>> > --- a/drivers/gpu/drm/i915/gt/intel_reset.c
+>> > +++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+>> > @@ -797,9 +797,9 @@ static int __intel_gt_reset(struct intel_gt *gt, intel_engine_mask_t engine_mask
+>> >  bool intel_has_gpu_reset(const struct intel_gt *gt)
+>> >  {
+>> >  	if (!gt->i915->params.reset)
+>> > -		return NULL;
+>> > +		return false;
+>> >  
+>> > -	return intel_get_gpu_reset(gt);
+>> > +	return !!intel_get_gpu_reset(gt);
+>> 
+>> !! is superfluous.
 >
-> Hi Luca,
-> Thanks for the review.
-> I see your point about separation, but in this case I intended this as a =
-single cohesive update to the driver rather than unrelated changes.
->
-> The redundant lt9611c_reset() removals are cleanup to avoid unnecessary l=
-atency during enable/probe.
-> The HDMI VSI infoframe callbacks are required to align with the DRM HDMI =
-bridge framework expectations.
-> The OF match data change ensures correct chip variant detection when prob=
-ing via DT.
-> The bridge vendor/product population improves user-visible HDMI connector=
- reporting.
+> OK, I can resend it. I actually like the use of "!!" because it
+> explicitly converts the result to 1 or 0, by definition of true
+> and false, but I don't have a strong opinion on it in this case.
 
-This a list of 4 things your patch does, and they seem fairly independent
-from each other. That's a hint that they should probably be 4 patches.
+!! is a convention from the time predating stdbool, when you had to use
+an integer type to represent booleans, and often wanted to normalize the
+value to 0 or 1 avoid errors with inadvertent val == TRUE comparisons
+and the like.
 
-If each is small, no problem.
+Since C99 and stdbool, the !! is just redundant because of the implicit
+type conversion that guarantees the same for you.
 
-An additional, pragmatic reason to split: if there's a bug in one of your
-patches, it can be easily bisected and the problematic patch be reverted
-without removing the other 3 patches.
+I don't like adding the redundant stuff, because I think they set a bad
+example for people to replicate.
 
-Luca
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+BR,
+Jani.
+
+
+-- 
+Jani Nikula, Intel
