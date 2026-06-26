@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1755C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 14:57:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D918CC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 14:59:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C2BB10F68D;
-	Fri, 26 Jun 2026 14:57:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4313F10E3B3;
+	Fri, 26 Jun 2026 14:59:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FGAFGxoN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R8eGf0sc";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C821310F68D
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 14:57:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BD2110F5FA
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 14:59:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4DD12600D8;
- Fri, 26 Jun 2026 14:57:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96D881F00A3D;
- Fri, 26 Jun 2026 14:57:18 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A5408600D9;
+ Fri, 26 Jun 2026 14:59:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FC7F1F00A3A;
+ Fri, 26 Jun 2026 14:59:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782485839;
- bh=vcj031Wc1kQS8ykJghfPG2WWW4TP7CPrY0uzc2LC1FQ=;
+ s=k20260515; t=1782485968;
+ bh=rTh09xxTNUQ7wmzvVvJ3mY4veTFxbFJgPPII5D+9y0A=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FGAFGxoNJkxu7ZwaeV8ArNUmbt4/qqExGvc/dxUAVTOzB9j8QAReH4jGgBWBUqU5F
- a070NLAjbXjxdGYIq1MDv8P9DuoJxIBFg0sr8WSl5M+peT3zO4/u5Q/Md/UpgkRCBG
- f2hqX9qEtVpHrO8hBwgBouiMq+T+dS+SBQaDzU+s8Hm0YOhH3Q6Y+mxJPryLdnOTPp
- HpzquO8za+GTOaEgwmtmhDZTxXiLzpkKNzQEAZOIAJlx9qatjY2OSSv0XcmI3Rx2Fx
- lTiJIZdECv0+hezoz4eCLqGcg/LzUGrD97flqI9Qb/5haFBst1x8gGD5uWNTT1zAcn
- PBor9wsi3NqWA==
+ b=R8eGf0scenIWNsNykhG3vkU+J//To3O6jd9YPAhIHza+5ITRp9hDO1yQkmtz0XL6/
+ HTLSZpGatJl3BvaQ0Sk5jxKSSZzRrrucqk8kYBQB5OY9mPT0N2RZ/ckXyA2yxJNoBH
+ Yoh9vi5GuvT0KuBXWgS8IIx+BLe/NVaZfXE2NPQ4Snx7/j78ChdkJCpE2HBnLMLo7B
+ TU4oeZOtw7JHBSKZB+a5O6+1Boa+jrksGv12VpxEnZu++ni42pfOh2AS5GK0/fdf4n
+ pKSdKq+nhoLZEi4G4N1BBaeOxfLulQ8/O2ThEFXKqhVYHQuaKp9T+F8QCOe+CyOTG1
+ rCEcVvG/PUXQA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 14/20] rust: io: add I/O backend for system memory
- with volatile access
+Subject: Re: [PATCH v5 20/20] rust: io: implement `IoSysMap`
 To: "Gary Guo" <gary@garyguo.net>
-Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
- Courbot" <acourbot@nvidia.com>, linux-pci@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260626-io_projection-v5-14-d0961471ae50@garyguo.net>
+Cc: dri-devel@lists.freedesktop.org, "Danilo Krummrich" <dakr@kernel.org>,
+ "Alexandre
+ Courbot" <acourbot@nvidia.com>, ojeda@kernel.org, linux-pci@vger.kernel.org
+In-Reply-To: <20260626-io_projection-v5-20-d0961471ae50@garyguo.net>
 References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
- <20260626-io_projection-v5-14-d0961471ae50@garyguo.net>
+ <20260626-io_projection-v5-20-d0961471ae50@garyguo.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 14:57:17 +0000
-Message-Id: <20260626145718.96D881F00A3D@smtp.kernel.org>
+Date: Fri, 26 Jun 2026 14:59:26 +0000
+Message-Id: <20260626145927.1FC7F1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,25 +59,25 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> From: Laura Nao <laura.nao@collabora.com>
+> Add an enum as sum type for `Mmio` and `SysMem`. This serves similar
+> purpose of `iosys_map`. Thanks to Rust's type system, all of projection a=
+nd
+> struct read/write can be handled by the generic I/O projection mechanism
+> (i.e. `io_project!`, `io_read!, `io_write!`) for free, and there is no ne=
+ed
+> to provide things like `iosys_map_rd_field` or `iosys_map_wr_field`. An
+> enum type also makes it very easy to construct or destruct.
 >=20
-> Add `SysMem`, an `Io` trait implementation for kernel virtual address
-> ranges. It uses volatile accessors to provide safe access to shared
-> memory that may be concurrently accessed by external hardware. Implement
-> `IoCapable` for `u8`, `u16`, `u32`, and `u64` (for 64-bit system).
+> This could be made more generic by implementing on a general purpose sum
+> type like `Either`; however this is kept specific unless a need arises th=
+at
+> warrants this to be generic over other I/O backends.
 >=20
-> This can be used for instead of `Coherent` for cases where a different
-> layer takes care of mapping the system memory to the device (e.g. dma-buf
-> or GPUVM).
->=20
-> Signed-off-by: Laura Nao <laura.nao@collabora.com>
-> [ Rebased and adapted on top of I/O rework. - Gary ]
-> Co-developed-by: Gary Guo <gary@garyguo.net>
 > Signed-off-by: Gary Guo <gary@garyguo.net>
 
 Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626-io_project=
-ion-v5-0-d0961471ae50@garyguo.net?part=3D14
+ion-v5-0-d0961471ae50@garyguo.net?part=3D20
 
