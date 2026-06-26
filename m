@@ -4,45 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D61CC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 15:05:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68243C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 15:06:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8004510E3E6;
-	Fri, 26 Jun 2026 15:05:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B563610F675;
+	Fri, 26 Jun 2026 15:06:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f5yNFkYj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mU5R5TjA";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93B0710E3E6
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 15:05:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39E3E10F647
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 15:06:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 087C6600C8;
- Fri, 26 Jun 2026 15:05:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D4381F00A3A;
- Fri, 26 Jun 2026 15:05:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B14CF600C8;
+ Fri, 26 Jun 2026 15:06:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 356271F000E9;
+ Fri, 26 Jun 2026 15:06:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782486319;
- bh=hIMH/CW8sOItdSGkkqGRNFq3zKeoOYtSzviJ3wvaV6g=;
+ s=k20260515; t=1782486376;
+ bh=BScSLW7paEA8IOa+CNovFvuI76QIymtgkJQnNAzKDaw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=f5yNFkYjMcVjwsSvo+vtFVjuuUE1LAQufFQR234cztX+uolEr7cxqx7FrGw+7wVoW
- XPllW9IUFmE0qH9JIr0baONau5lkDEHOnKriTcdHBB5IxvtGQjDvhABCWrn/P9TpJn
- pzNGVuK5HAmX1xdXvEMB/lu99mGlne1CEHGjotlGCE6l7KYLx27BaNILIaSTVRWufC
- QZDSiOqDKSqo2kQzFV2Co4o3CwvRho7zIF7CMCyZ5yfs90eKhUeOpXQ2vSWgF39Y/b
- 6u8oq+Q90ayN5Aki6r+WQfIKNPSOnGugeaGoCqktGITF0KHU+sWksQn8aKkeyKHdPE
- KT+vKdAe9yOlQ==
+ b=mU5R5TjAEHuyMjQzByXL70U6jYmKJeLxPtNm/z6ruu9/cNNwfRa4FSIPBtnbh0j3W
+ 5jb2TfOc3RGae+EZIpoGWehECoa8LHX+Br3ZI/ejOHiYrnRffMM6l/xX5PkKXQJ8Yz
+ 8l+cnBoRWqUaeQkmpFw10HdNAAjVq7ug3oCyEtbUMIqG7EdJs96NzG2JvYKOl44EUO
+ 2Jc6wDQxQ2wTpLnem+gJdTNJKQq3F8l5aI/id+7Um8m/YwjE7jWAjwES5/YzTQWTp3
+ 6lUwpNd72745GX8eJA3PnOBjUP+27+bdGbsmr/T7amyJbH6KBo7XXYBY4xjB4rI1v4
+ GslR8HitCeyUw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 15/20] rust: io: implement a view type for `Coherent`
-To: "Gary Guo" <gary@garyguo.net>
-Cc: "Danilo Krummrich" <dakr@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, linux-pci@vger.kernel.org,
- ojeda@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260626-io_projection-v5-15-d0961471ae50@garyguo.net>
-References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
- <20260626-io_projection-v5-15-d0961471ae50@garyguo.net>
+Subject: Re: [PATCH] fix: drm/ttm/tests: use KUNIT_ASSERT_EQ for critical
+ error checks to   prevent kref underflow
+To: "WenTao Liang" <vulab@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260626145409.49370-1-vulab@iscas.ac.cn>
+References: <20260626145409.49370-1-vulab@iscas.ac.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 15:05:18 +0000
-Message-Id: <20260626150519.4D4381F00A3A@smtp.kernel.org>
+Date: Fri, 26 Jun 2026 15:06:15 +0000
+Message-Id: <20260626150616.356271F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,93 +59,87 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] `CoherentView<'a, T>` automatically implements `Send` when `T: Syn=
-c`, but provides an `as_mut()` capability to generate `&mut T`, allowing th=
-read-safety bounds bypass.
-- [High] `CoherentView::as_mut` consumes `self` by value on a `Copy` type a=
-nd returns `&'a mut T`, but its safety documentation fails to require stric=
-t exclusivity.
+- [Medium] Using KUNIT_ASSERT_EQ aborts the test function on failure and by=
+passes required manual resource teardown.
+- [Medium] Erroneous fix replacing KUNIT_EXPECT_EQ with KUNIT_ASSERT_EQ aft=
+er ttm_bo_validate() causes a leaked BO reference and potential Use-After-F=
+ree.
 --
 
-commit 12e6f6d7abcd0a26719f3c4f268f24a07774b118
-Author: Gary Guo <gary@garyguo.net>
+commit af379b6fc27176bd6e80498788a4a528ca8f7559
+Author: WenTao Liang <vulab@iscas.ac.cn>
+fix: drm/ttm/tests: use KUNIT_ASSERT_EQ for critical error checks to preven=
+t kref underflow
 
-rust: io: implement a view type for `Coherent`
+Replace KUNIT_EXPECT_EQ with KUNIT_ASSERT_EQ in ttm_bo_validate test cases
+where subsequent ttm_bo_fini would cause a kref underflow if the preceding
+ttm_bo_init_reserved (or ttm_bo_validate) failed. When those functions fail
+they already release their internal references, leaving the refcount at 0.
+Continuing to ttm_bo_fini without aborting performs an extra kref_put.
 
-Implement a `CoherentView` type which is a view of `Coherent`. To be able
-to give out DMA handles, the view type contains both CPU and DMA pointers,
-and the projection method projects both at once.
+Cc: stable@vger.kernel.org
+Fixes: 8bd1ff5ddc7b ("drm/ttm/tests: Test simple BO creation and validation=
+")
 
-Delegate most of the `Io` implementation to `SysMemBackend`. Provide a
-method to erase the DMA handle and give out a `SysMem` view, if the user
-does not need the `dma_handle`.
+> Replace KUNIT_EXPECT_EQ with KUNIT_ASSERT_EQ in ttm_bo_validate test cases
+> where subsequent ttm_bo_fini would cause a kref underflow if the preceding
+> ttm_bo_init_reserved (or ttm_bo_validate) failed. When those functions fa=
+il
+> they already release their internal references, leaving the refcount at 0.
 
-> diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
-> index 200def84fb69e..ab6504910e4f5 100644
-> --- a/rust/kernel/dma.rs
-> +++ b/rust/kernel/dma.rs
+Is this description accurate regarding ttm_bo_validate()?
+
+Looking at ttm_bo_validate(), it does not drop the BO reference on its error
+paths. Only ttm_bo_init_reserved() does this, so a failure in
+ttm_bo_validate() would leave the reference intact.
+
+> diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/g=
+pu/drm/ttm/tests/ttm_bo_validate_test.c
+> index 2db221f6fc3a1..7c4179f6349c5 100644
+> --- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+> +++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+[ ... ]
+> @@ -249,7 +249,7 @@ static void ttm_bo_validate_basic(struct kunit *test)
+>  	err =3D ttm_bo_init_reserved(priv->ttm_dev, bo, params->bo_type,
+>  				   fst_placement, PAGE_SIZE, &ctx_init, NULL,
+>  				   NULL, &dummy_ttm_bo_destroy);
+> -	KUNIT_EXPECT_EQ(test, err, 0);
+> +	KUNIT_ASSERT_EQ(test, err, 0);
+
+[Severity: Medium]
+Will this leak the mock managers on failure?
+
+Because KUNIT_ASSERT_EQ() aborts the test function immediately upon failure,
+if ttm_bo_init_reserved() fails here, execution skips the
+ttm_mock_manager_fini() cleanup at the end of ttm_bo_validate_basic().
+
+This could leave dangling mock managers in the global state.
+
+This pattern is also present in ttm_bo_validate_same_placement(),
+ttm_bo_validate_all_pinned_evict(), and ttm_bo_validate_allowed_only_evict(=
+),
+where manual cleanups and mock manager teardowns would also be skipped.
 
 [ ... ]
-
-> @@ -1133,6 +1140,132 @@ unsafe impl Send for CoherentHandle {}
->  // plain `Copy` values.
->  unsafe impl Sync for CoherentHandle {}
+> @@ -840,7 +840,7 @@ static void ttm_bo_validate_happy_evict(struct kunit =
+*test)
+>  	err =3D ttm_bo_validate(bo_val, placement, &ctx_val);
+>  	ttm_bo_unreserve(bo_val);
 > =20
-> +/// View type for `Coherent`.
-> +///
-> +/// This is same as [`SysMem`] but with additional information that allo=
-ws handing out a DMA handle.
-> +pub struct CoherentView<'a, T: ?Sized> {
-> +    cpu_addr: SysMem<'a, T>,
-> +    dma_handle: DmaAddress,
-> +}
+> -	KUNIT_EXPECT_EQ(test, err, 0);
+> +	KUNIT_ASSERT_EQ(test, err, 0);
 
-[Severity: High]
-Since SysMem<'a, T> automatically implements Send when T: Sync, CoherentView
-also implements Send when T: Sync.
+[Severity: Medium]
+Does this skip necessary cleanup and leak the buffer object?
 
-If T is !Send, can a caller move CoherentView to another thread and call
-as_mut() to get a mutable reference? This appears to allow bypassing Rust's
-concurrency guarantees and could lead to data races or memory corruption if
-the type relies on thread-local invariants.
+As noted above, ttm_bo_validate() does not drop the BO reference on failure.
+If it fails here, aborting the test skips the mandatory ttm_bo_fini() loops
+at the end of ttm_bo_validate_happy_evict().
 
-Note that this same pattern seems to pre-exist in Coherent<T> as well.
-
-[ ... ]
-
-> +    /// Returns a mutable reference to the data in the region.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// * Callers must ensure that the device does not read/write to/fro=
-m memory while the returned
-> +    ///   reference is live.
-> +    /// * Callers must ensure that this call does not race with a read o=
-r write to the same region
-> +    ///   while the returned reference is live.
-> +    #[inline]
-> +    pub unsafe fn as_mut(self) -> &'a mut T {
-
-[Severity: High]
-Because CoherentView derives Copy and as_mut() takes self by value instead =
-of
-taking a mutable borrow, can a caller call as_mut() multiple times in
-succession to create overlapping mutable references?
-
-While the safety documentation requires callers to prevent races, it does
-not explicitly require strict exclusivity. Could a caller sequentially use
-two aliases without data races, believing they adhered to the safety
-contract, but still trigger undefined behavior due to aliasing violations?
-
-This documentation omission might also exist in the preexisting
-Coherent::as_mut.
-
-> +        // SAFETY: pointer is aligned and valid per type invariant. Alia=
-sing rule is satisfied per
-> +        // safety requirement.
-> +        unsafe { &mut *self.cpu_addr.as_ptr() }
-> +    }
+While the test array is freed by KUnit on test exit, the leaked elements
+might still be referenced by the DRM device's VMA manager. This could
+potentially cause a use-after-free when the device is destroyed.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626-io_project=
-ion-v5-0-d0961471ae50@garyguo.net?part=3D15
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626145409.4937=
+0-1-vulab@iscas.ac.cn?part=3D1
