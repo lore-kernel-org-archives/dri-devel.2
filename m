@@ -4,71 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F13EACD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 08:13:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05CBCCDE008
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 08:13:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 432BA10F4CE;
-	Fri, 26 Jun 2026 08:13:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B71E10F4D1;
+	Fri, 26 Jun 2026 08:13:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="SNbUL4Or";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eoK1afvW";
 	dkim-atps=neutral
-Received: from out28-91.mail.aliyun.com (out28-91.mail.aliyun.com
- [115.124.28.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4CFB10F4CE
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 08:13:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
- t=1782461613; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
- bh=Hz7GoxRrDOeP6izzI+KPGlftBZo8WhaNw4ObLmMqKhs=;
- b=SNbUL4OrY9iTZXYpwQJBU/7i+T8UrjCYJfdQeG9/A9qLm8B6N+5Z6HosMLhTNrNsJujrKvtljRU78fEKb6ekbu7dl+3SeGP3q4W0mPGVbIfvwiWzJK1qoZbTVa2qQYrAkmgnRYThAn8u371hmNV6CPsCZwx5/nRJgONZGJuDrqPrNTHyb1nctgl3S/1OMcLrWit6O6wzNLK8ZpxEkkXWdW5Gb4EnjBU4I+wwhBhjNPTPi5GZ9roReAMejpNiPU9R0DREVNhuLkDn0Eg9aOZoySOaEuIa9ip1odd/TZLsCgSW/72RYynx4oQDbuimVyrJ0D+ol5Qi5j++cBJGtTH87g==
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07436325|-1; CH=blue; DM=|OVERLOAD|false|;
- DS=CONTINUE|ham_regular_dialog|0.230135-0.00832398-0.761541;
- FP=18253502819858982146|10|1|8|0|-1|-1|-1;
- HT=maildocker-contentspam033037021217; MF=syyang@lontium.com; NM=1; PH=DS;
- RN=1; RT=1; SR=0; TI=SMTPD_---.i6HmC0C_1782461610; 
-Received: from mail-ot1-f43.google.com(mailfrom:syyang@lontium.com
- fp:SMTPD_---.i6HmC0C_1782461610 cluster:ay29) by smtp.aliyun-inc.com;
- Fri, 26 Jun 2026 16:13:31 +0800
-Received: by mail-ot1-f43.google.com with SMTP id
- 46e09a7af769-7e6e9408e30so623616a34.2
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 01:13:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ+ffJBWAYduQKlf3WWtV9WPuzM0hW4tE3M1ppMtL5mb56FWqK4dVM7JKk3vuSPVWN4Z+4TBrAukxKI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwshiA/iw42OHe0Mnkho1sjQPKXlvzgKC3Aue9sQXBSgLTsMQXo
- vogXXwvXmQZ3k8pr3Xxrqbp9zL74+91GN2+6/+WtlDUkyRnesGUtwvaeyZgtlL+IUR5NNU9w0Xr
- DZNMEYd9AT17SZjbZ/lklUyBnxyGlqrc=
-X-Received: by 2002:a05:6808:c185:b0:490:a66f:9aac with SMTP id
- 5614622812f47-492190fc5b3mr5591967b6e.14.1782461609193; Fri, 26 Jun 2026
- 01:13:29 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DDAE10F4D1
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 08:13:43 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 97C5460128;
+ Fri, 26 Jun 2026 08:13:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9EE61F00A3D;
+ Fri, 26 Jun 2026 08:13:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782461622;
+ bh=zyl9k86lbrVCiEygxwBa4j5grW5306H5gmNEnV5J2/c=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=eoK1afvW6qY2auOWdYbd6t5gPRZ8XP1D0WkyTKKA1Gj7nu4gr0Oziu4dTbVFYu2AE
+ yES0Z/q/SSWZWVPwFTF6e5Kjsq3aQlFBRtQRhKo3jrNWYFPdxr05GtRYcpzUPwVLeT
+ Wnl7XAkuycNamH14xkjMkG0hWTn8kVvqiyxb4sYn0vwXpmT4Vp1b7Oo2UBK+EttGGA
+ Fx5//LO5GTTM6ZpJF+xJ4AKCXodSgUm8LPi20YdbJbnyC13x8yr4426bsBFvNP0cbu
+ Tqt9BsgAMSwPalkzxMR1vz82x3JYUJzMTH7mk+AvADKvn3WuMx+bQQHsTC61L2EVHJ
+ t28qd2hqn1Hng==
+Date: Fri, 26 Jun 2026 10:13:39 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 06/37] drm/bridge: chrontel-ch7033: Switch to atomic
+ bridge callbacks
+Message-ID: <20260626-pretty-gabby-beluga-cf3e22@houat>
+References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
+ <20260617-drm-all-atomic-bridges-v1-6-b63e6316166b@kernel.org>
+ <798816a3-28f1-4b23-8d51-ada047f803fc@suse.de>
 MIME-Version: 1.0
-References: <20260508134009.4582-1-syyang@lontium.com>
- <20260508134009.4582-3-syyang@lontium.com>
- <3188f63f-5358-48d7-b934-af20a8f95c6f@kernel.org>
- <CAFQXuNbKBfyeQL3N3P5QY=6BWoD3O6DSbXN-WMA1rRG9vCs3Kg@mail.gmail.com>
- <a0352a42-15db-4c7a-ae73-8a4e1543cd50@kernel.org>
- <CAFQXuNZVE6cZJGwrGKGtWnB-seSJLHFh8zW3jjAs6U4JLZFWng@mail.gmail.com>
- <CAFQXuNa8bJCpZBkMs_3mtbK_pjVzDdaDaoGk0KDxiG_Pf7txdg@mail.gmail.com>
- <6371d1d8-cdfb-40fa-84c7-ba3ec4e2ac00@kernel.org>
- <CAFQXuNZtzBu+WiG8n0BeN47zagQmL-iz_6Af7prk-xHLAeRBwg@mail.gmail.com>
- <20260626-zippy-affable-hamster-22101d@houat>
-In-Reply-To: <20260626-zippy-affable-hamster-22101d@houat>
-From: Sunyun Yang <syyang@lontium.com>
-Date: Fri, 26 Jun 2026 16:13:18 +0800
-X-Gmail-Original-Message-ID: <CAFQXuNbN1bW3DVGUtVf7--dW_UhSk4LZdk+v14P=VSbDU4ZzsQ@mail.gmail.com>
-X-Gm-Features: AVVi8Ccy1Vot-JXWqeZuZ9hQ6HBLxv1b4oTaGEUoItSLAk3USIt4bCYDgyYi4Os
-Message-ID: <CAFQXuNbN1bW3DVGUtVf7--dW_UhSk4LZdk+v14P=VSbDU4ZzsQ@mail.gmail.com>
-Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com, 
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, 
- jonas@kwiboo.se, jernej.skrabec@gmail.com, devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, 
- xbpeng@lontium.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="2vnqj4q55mdiovwe"
+Content-Disposition: inline
+In-Reply-To: <798816a3-28f1-4b23-8d51-ada047f803fc@suse.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,130 +66,225 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Maxime Ripard <mripard@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8826=E6=97=
-=A5=E5=91=A8=E4=BA=94 15:49=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Fri, Jun 26, 2026 at 10:15:03AM +0800, Sunyun Yang wrote:
-> > Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=882=
-5=E6=97=A5=E5=91=A8=E5=9B=9B 21:51=E5=86=99=E9=81=93=EF=BC=9A
-> > >
-> > > On 25/06/2026 15:40, Sunyun Yang wrote:
-> > > > Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=E6=9C=8825=
-=E6=97=A5=E5=91=A8=E5=9B=9B 21:26=E5=86=99=E9=81=93=EF=BC=9A
-> > > >>
-> > > >> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=
-=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:17=E5=86=99=E9=81=93=EF=BC=9A
-> > > >>>
-> > > >>> On 25/06/2026 15:14, Sunyun Yang wrote:
-> > > >>>> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=
-=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 20:54=E5=86=99=E9=81=93=EF=BC=9A
-> > > >>>>>
-> > > >>>>> On 08/05/2026 15:40, syyang@lontium.com wrote:
-> > > >>>>>> +
-> > > >>>>>> +static void lt9611c_reset(struct lt9611c *lt9611c)
-> > > >>>>>> +{
-> > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> > > >>>>>> +     msleep(20);
-> > > >>>>>> +
-> > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> > > >>>>>> +     msleep(20);
-> > > >>>>>> +
-> > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> > > >>>>>
-> > > >>>>> This is just plain wrong. Why do you assert, then de-assert and=
- then
-> > > >>>>> finally assert AGAIN the reset leaving the device in powerdown =
-stage?
-> > > >>>>>
-> > > >>>> I am using software to emulate the hardware RESET button on our =
-EVB.
-> > > >>>> When the hardware RESET button is pressed while our chip is runn=
-ing,
-> > > >>>> the signal level changes from HIGH to LOW and then back to HIGH.
-> > > >>>>
-> > > >>>> Of course, we can also use the following:
-> > > >>>> static void lt9611c_reset(struct lt9611c *lt9611c)
-> > > >>>> {
-> > > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> > > >>>>     msleep(50);
-> > > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> > > >>>>     msleep(20);
-> > > >>>> }
-> > > >>>
-> > > >>> Makes no sense either and you just did not get the point and did =
-not
-> > > >>> answer my question. I asked WHY you leave asserted. Answer "we em=
-ulate"
-> > > >>> is just plain wrong.
-> > > >>>
-> > > >>> So again please answer:
-> > > >>>
-> > > >>> Why do you leave device with reset asserted?
-> > > >>>
-> > > >>
-> > > >>  devicetree:   reset-gpios =3D <&tlmm 128 GPIO_ACTIVE_HIGH>;
-> > > >>
-> > > >> GPIO_ACTIVE_HIGH:
-> > > >>
-> > > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);   ------   reset=
- pin
-> > > >> is Low level : Clear the register configuration in the chip to sto=
-p
-> > > >> the chip from working.
-> > > >>
-> > > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);   ------  reset =
-pin
-> > > >> is high level:  The chip resumes operation.
-> > > >>
-> > > >>
-> > > >
-> > > > Our purpose is: pull the level low to clear the register configurat=
-ion
-> > > > in the chip, and then pull it high to allow the MCU inside the chip=
- to
-> > > > re=E2=80=91initialize the registers.
-> > >
-> > >
-> > > And you do completely opposite... so that confirms your code is just =
-wrong.
-> > >
-> >
-> > The lontium-lt9611.yaml uses GPIO_ACTIVE_HIGH. I am just following the
-> > rule of this device tree. If I modify the device tree to use
-> > GPIO_ACTIVE_LOW,
-> > and use the following code in my driver, then my driver would be correc=
-t.
-> > However, would the existing kernel drivers lontium-lt9611uxc.c and
-> > lontium-lt9611.c be affected?
->
-> It might, but then it's a DT problem. The GPIO API for drivers always
-> considers the logical state of a GPIO, so if you need to assert a
-> signal, you'll always need to set 1. That's what Krzysztof was trying to
-> explain.
->
-> The DT will provide with GPIO_ACTIVE_* how that logical state translates
-> to a physical GPIO state.
->
-> If the DT says that this particular GPIO is active-high, then it means
-> that we need to set the GPIO to 1 to assert reset. Now of course, it
-> might not make sense for the controller itself, but it might for the
-> board if there's a GPIO inverter in the middle for example.
->
-> Anyway, in the case you're raising, the issue definitely lies in the DT,
-> and that's what would need to be fixed.
->
-> I also wouldn't be too concerned about lontium-lt9611.yaml, it's just an
-> example.
->
-> Maxime
 
-thanks Maxime, I will modify this code in the next version of the
-driver, and I hope you can accept these changes.
+--2vnqj4q55mdiovwe
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 06/37] drm/bridge: chrontel-ch7033: Switch to atomic
+ bridge callbacks
+MIME-Version: 1.0
 
-Maxime:
-I have another question I would like to ask you
-regarding sashiko-bot@kernel.org. Since sashiko-bot sometimes has
-opinions that differ from yours, whose advice should I follow?
+Hi,
 
-If I do not adopt sashiko-bot's suggestions, will my patches still be
-accepted into the upstream Linux kernel?
+On Thu, Jun 25, 2026 at 09:55:47AM +0200, Thomas Zimmermann wrote:
+> Hi Maxime
+>=20
+> Am 17.06.26 um 12:14 schrieb Maxime Ripard:
+> > The chrontel-ch7033 bridge still uses the deprecated non-atomic bridge
+> > callbacks.
+> >=20
+> > Switch to their atomic counterparts, adding the bridge state
+> > handlers if not already present.
+> >=20
+> > Generated by the following Coccinelle script:
+> >=20
+> > @ is_bridge @
+> > identifier funcs;
+> > @@
+> >=20
+> >   struct drm_bridge_funcs funcs =3D {
+> > 	...,
+> >   };
+> >=20
+> > @ has_create_state depends on is_bridge @
+> > identifier funcs, f;
+> > @@
+> >=20
+> > struct drm_bridge_funcs funcs =3D {
+> >    ...,
+> >    .atomic_create_state =3D f,
+> >    ...,
+> > };
+> >=20
+> > @ update_struct depends on (is_bridge && !has_create_state) @
+> > identifier is_bridge.funcs;
+> > identifier f;
+> > @@
+> >=20
+> >   struct drm_bridge_funcs funcs =3D {
+> > +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
+> > +	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
+> > +	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
+> >   	...,
+> >   };
+> >=20
+> > @ update_pre_enable_struct depends on (is_bridge && !has_create_state) @
+> > identifier is_bridge.funcs;
+> > identifier f;
+> > @@
+> >=20
+> >   struct drm_bridge_funcs funcs =3D {
+> >   	...,
+> > -	.pre_enable =3D f,
+> > +	.atomic_pre_enable =3D f,
+> >   	...,
+> >   };
+> >=20
+> > @ update_pre_enable_impl depends on update_pre_enable_struct @
+> > identifier update_pre_enable_struct.f;
+> > identifier b;
+> > @@
+> >=20
+> > -void f(struct drm_bridge *b)
+> > +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
+> >   {
+> > 	...
+> >   }
+> >=20
+> > @ update_enable_struct depends on (is_bridge && !has_create_state) @
+> > identifier is_bridge.funcs;
+> > identifier f;
+> > @@
+> >=20
+> >   struct drm_bridge_funcs funcs =3D {
+> >   	...,
+> > -	.enable =3D f,
+> > +	.atomic_enable =3D f,
+> >   	...,
+> >   };
+> >=20
+> > @ update_enable_impl depends on update_enable_struct @
+> > identifier update_enable_struct.f;
+> > identifier b;
+> > @@
+> >=20
+> > -void f(struct drm_bridge *b)
+> > +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
+> >   {
+> > 	...
+> >   }
+> >=20
+> > @ update_disable_struct depends on (is_bridge && !has_create_state) @
+> > identifier is_bridge.funcs;
+> > identifier f;
+> > @@
+> >=20
+> >   struct drm_bridge_funcs funcs =3D {
+> >   	...,
+> > -	.disable =3D f,
+> > +	.atomic_disable =3D f,
+> >   	...,
+> >   };
+> >=20
+> > @ update_disable_impl depends on update_disable_struct @
+> > identifier update_disable_struct.f;
+> > identifier b;
+> > @@
+> >=20
+> > -void f(struct drm_bridge *b)
+> > +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
+> >   {
+> > 	...
+> >   }
+> >=20
+> > @ update_post_disable_struct depends on (is_bridge && !has_create_state=
+) @
+> > identifier is_bridge.funcs;
+> > identifier f;
+> > @@
+> >=20
+> >   struct drm_bridge_funcs funcs =3D {
+> >   	...,
+> > -	.post_disable =3D f,
+> > +	.atomic_post_disable =3D f,
+> >   	...,
+> >   };
+> >=20
+> > @ update_post_disable_impl depends on update_post_disable_struct @
+> > identifier update_post_disable_struct.f;
+> > identifier b;
+> > @@
+> >=20
+> > -void f(struct drm_bridge *b)
+> > +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
+> >   {
+> > 	...
+> >   }
+> >=20
+> > Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> > ---
+> >   drivers/gpu/drm/bridge/chrontel-ch7033.c | 13 +++++++++----
+> >   1 file changed, 9 insertions(+), 4 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/bridge/chrontel-ch7033.c b/drivers/gpu/drm=
+/bridge/chrontel-ch7033.c
+> > index a237c65ebd69..92d464727e41 100644
+> > --- a/drivers/gpu/drm/bridge/chrontel-ch7033.c
+> > +++ b/drivers/gpu/drm/bridge/chrontel-ch7033.c
+> > @@ -328,19 +328,21 @@ static enum drm_mode_status ch7033_bridge_mode_va=
+lid(struct drm_bridge *bridge,
+> >   	if (mode->vdisplay >=3D 1080)
+> >   		return MODE_BAD_VVALUE;
+> >   	return MODE_OK;
+> >   }
+> > -static void ch7033_bridge_disable(struct drm_bridge *bridge)
+> > +static void ch7033_bridge_disable(struct drm_bridge *bridge,
+> > +				  struct drm_atomic_commit *commit)
+> >   {
+> >   	struct ch7033_priv *priv =3D bridge_to_ch7033_priv(bridge);
+> >   	regmap_write(priv->regmap, 0x03, 0x04);
+> >   	regmap_update_bits(priv->regmap, 0x52, RESETDB, 0x00);
+> >   }
+> > -static void ch7033_bridge_enable(struct drm_bridge *bridge)
+> > +static void ch7033_bridge_enable(struct drm_bridge *bridge,
+> > +				 struct drm_atomic_commit *commit)
+> >   {
+> >   	struct ch7033_priv *priv =3D bridge_to_ch7033_priv(bridge);
+> >   	regmap_write(priv->regmap, 0x03, 0x04);
+> >   	regmap_update_bits(priv->regmap, 0x52, RESETDB, RESETDB);
+> > @@ -512,15 +514,18 @@ static void ch7033_bridge_mode_set(struct drm_bri=
+dge *bridge,
+> >   	regmap_write(priv->regmap, 0x11, mode->clock >> 8);
+> >   	regmap_write(priv->regmap, 0x12, mode->clock);
+> >   }
+> >   static const struct drm_bridge_funcs ch7033_bridge_funcs =3D {
+> > +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
+> > +	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
+> > +	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
+> >   	.attach =3D ch7033_bridge_attach,
+> >   	.detach =3D ch7033_bridge_detach,
+> >   	.mode_valid =3D ch7033_bridge_mode_valid,
+> > -	.disable =3D ch7033_bridge_disable,
+> > -	.enable =3D ch7033_bridge_enable,
+> > +	.atomic_disable =3D ch7033_bridge_disable,
+> > +	.atomic_enable =3D ch7033_bridge_enable,
+> >   	.mode_set =3D ch7033_bridge_mode_set,
+>=20
+> This driver uses mode_set and the docs have a number of comments on that.
+> Does this need to be reworked as well?
+
+I guess it might, but not right now. mode_set is pretty bug-prone in
+general, but it's also not easy to mass-convert.
+
+drivers/gpu/drm//bridge/ti-dlpc3433.c is trivial to convert for example,
+but drivers/gpu/drm//bridge/tda998x_drv.c isn't, so I wouldn't be able
+to do it without a device.
+
+I can try to have a look later, but I'm not sure when this might be.
+
+Maxime
+
+--2vnqj4q55mdiovwe
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaj40swAKCRAnX84Zoj2+
+dnUkAX9ctvSny1Ym7m5jwXhDLVe3s0hESFv3Zyz9P4kYun2O7d53+97vrDrquL45
+KCQu938BgNXGJWxcaX/3GL8h/ifoHXgOfbGTlvqnzeNHlH5NlQqURPyFKQBR97Ga
+cGFlKb6Uvg==
+=4/Ys
+-----END PGP SIGNATURE-----
+
+--2vnqj4q55mdiovwe--
