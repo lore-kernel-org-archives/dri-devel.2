@@ -4,93 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8A6BC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:59:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F1E1C43327
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:00:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0851D10E6A9;
-	Fri, 26 Jun 2026 12:59:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A91410E3A7;
+	Fri, 26 Jun 2026 13:00:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SUXMgmgW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="St8tXqum";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43B2A10E51E
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:59:52 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9D4310E3A7
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:00:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6BF23600C7;
- Fri, 26 Jun 2026 12:59:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8032F1F000E9;
- Fri, 26 Jun 2026 12:59:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A71F6439BA;
+ Fri, 26 Jun 2026 13:00:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C8B01F000E9;
+ Fri, 26 Jun 2026 13:00:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782478791;
- bh=iuAhpilzZ82xLPk+JSQEUu87jLlBPaxS3Zm76C7j3bE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=SUXMgmgWimGLbzlNMZ7wcG+1j38gd4fRHDIlDqaegwcqfVuQgLYX8VuUJtvM15vYp
- jX12ep+d309u8bLQbPbyAdBvJmd8GAsRPjPQZkY4YwXDX5gr9XzTy4IoAL7jcTI2rV
- 8MTxA1z++Ku+mxv+86TWL/aJ6xmEhLbsBHRnhMPe0NgKiyIhsLVeyivZGTUIIikGnb
- y3xB6TtxeLHebb/RguAspWG9yWJwnaIq7UkWwS/TVbfgzD/kJBZNxTlsLf/tTqaRX3
- 91ZGmQgom/jibidOew2L8xqAHAtkawCvVu8yAOpBH0ClZXAOWEuwCJJPHM/LEHesNi
- Azxjd24IvLvoA==
-Date: Fri, 26 Jun 2026 14:59:48 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Albert Esteve <aesteve@redhat.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Inki Dae <inki.dae@samsung.com>, 
- Jagan Teki <jagan@amarulasolutions.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Lucas Stach <l.stach@pengutronix.de>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, 
- Paul Cercueil <paul@crapouillou.net>, Linus Walleij <linusw@kernel.org>,
- Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, 
- Biju Das <biju.das.jz@bp.renesas.com>, Sandy Huang <hjc@rock-chips.com>, 
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, 
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>, Jyri Sarha <jyri.sarha@iki.fi>, 
- Jingoo Han <jingoohan1@gmail.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
- Alison Wang <alison.wang@nxp.com>, Paul Kocialkowski <paulk@sys-base.io>, 
- Alain Volmat <alain.volmat@foss.st.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-mips@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
- linux-samsung-soc@vger.kernel.org, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH 5/5] drm: release panel reference after panel bridge
- creation
-Message-ID: <20260626-ivory-tarantula-of-valor-af0e2a@houat>
-References: <20260626-drm_refcount_wiring-v1-0-cca1a7b3bdef@redhat.com>
- <20260626-drm_refcount_wiring-v1-5-cca1a7b3bdef@redhat.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="hx5apeednlr6fj2q"
-Content-Disposition: inline
-In-Reply-To: <20260626-drm_refcount_wiring-v1-5-cca1a7b3bdef@redhat.com>
+ s=k20260515; t=1782478848;
+ bh=JXjYrqcfd9r/Im9QezGkVyuRX1sLS7OXYa8fX1qaoyU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=St8tXqumJfv5s7Yu4IWKZ1inBGGjRhKNt2FxRkUNl0SEP6wDsCbTIFMQWCZG3x70c
+ cNUXzQKUxTY+0LtKVl9vhViLpTWb0zKT/ev9XXuFBAMbUnZ0heWsGuWc7O4VGcut/N
+ n3xN2lIzHED042oFtQk6od5adaSXUGVTreBUvUN2INlC/qXiZcvDc0oUpFBmCsTJ9T
+ cfR2Gpv5Oz9N46HC8Z/S1yYBCDyoWZYKib/eGqbyMZtgBSHPEry1Cr9AhOlZNjAmZi
+ UyZtBNDPyrb/oZKA2ooTQndPQMg+mYLk+U2RcWen1n4p4Hd/Q1HDQomGx4YI/BhvHC
+ oAwTXKmdrn8Dw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] fix: drm/display: drm_dp_mst_topology_mgr_set_mst:
+ error path after DPCD   write failure leaks MST branch device reference
+To: "WenTao Liang" <vulab@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260626125117.37153-1-vulab@iscas.ac.cn>
+References: <20260626125117.37153-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 13:00:48 +0000
+Message-Id: <20260626130048.6C8B01F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,57 +53,73 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The patch introduces a permanent, unrecoverable memory leak of the=
+ MST branch device by clearing the `mgr->mst_primary` pointer without decre=
+menting its reference count.
+--
 
---hx5apeednlr6fj2q
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 5/5] drm: release panel reference after panel bridge
- creation
-MIME-Version: 1.0
+commit ecf0dbf046159857ec56d411e54fc1853de6778c
+Author: WenTao Liang <vulab@iscas.ac.cn>
 
-On Fri, Jun 26, 2026 at 02:03:27PM +0200, Albert Esteve wrote:
-> of_drm_find_panel() and drm_of_find_panel_or_bridge() now return a
-> counted reference. In drivers that immediately wrap the panel in a
-> bridge via devm_drm_panel_bridge_add() or equivalent, the bridge
-> acquires its own reference, so the caller's lookup reference must be
-> released right afterwards.
->=20
-> Also handle the cases where a panel is found but cannot be used,
-> dropping the reference immediately in those paths.
->=20
-> Assisted-by: Claude:claude-opus-4-6
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
+fix: drm/display: drm_dp_mst_topology_mgr_set_mst: error path after DPCD wr=
+ite failure leaks MST branch device reference
 
-drm_of_find_panel_or_bridge() does indeed return a refcounted pointer
-now, but afaik the doc wasn't updated to reflect that.
+This commit attempts to fix an issue in the DPCD write failure path of=20
+drm_dp_mst_topology_mgr_set_mst() by clearing the mgr->mst_primary pointer=
+=20
+before unlocking.
 
-More importantly, I feel like with both of_drm_find_panel and
-drm_of_find_panel_or_bridge we update a path that is considered legacy
-anyway now, and we should rather focus on providing a safe alternative.
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/=
+drm/display/drm_dp_mst_topology.c
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> @@ -3681,8 +3681,10 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_=
+mst_topology_mgr *mgr, bool ms
+>  					     DP_MST_EN |
+>  					     DP_UP_REQ_EN |
+>  					     DP_UPSTREAM_IS_SRC);
+> -		if (ret < 0)
+> +		if (ret < 0) {
+> +			mgr->mst_primary =3D NULL;
+>  			goto out_unlock;
+> +		}
 
-But none of the functions you updated are unsafe, so it won't be more
-unsafe, or provide any illusion of safety to the caller. Idk.
+[Severity: High]
+Does clearing this pointer without dropping its reference permanently leak=
+=20
+the MST branch device?
 
-Either way, this should all be on its way out if Luca creates a bridge
-for every panel, and we'll consolidate on bridges only, so maybe it's
-not such a big deal to merge this patch.
+When drm_dp_add_mst_branch_device() returns mstb earlier in this function,=
+=20
+it has an initial topology_kref of 1.
 
-Maxime
+Shortly after, drm_dp_mst_topology_get_mstb(mgr->mst_primary) increments th=
+e=20
+reference count to 2.
 
---hx5apeednlr6fj2q
-Content-Type: application/pgp-signature; name="signature.asc"
+If drm_dp_dpcd_write_byte() fails, this patch sets mgr->mst_primary =3D NUL=
+L=20
+and jumps to out_unlock.
 
------BEGIN PGP SIGNATURE-----
+At out_unlock, drm_dp_mst_topology_put_mstb(mstb) is called once,=20
+decrementing the reference count to 1.
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaj53xAAKCRAnX84Zoj2+
-dsH4AX98DVuJ2nWYEJlnvBoa7TLPQIxJp+N3SqD7GpI68AgQPx9+XXIRd6eD3iVF
-E+I0SeQBgPnPf10X5ME+9qUOY4BE8jXvhoS7IaHARK1hueut9qHTwNXhFYoQyHlo
-Wk/+lJPV9A==
-=+ukr
------END PGP SIGNATURE-----
+Because mgr->mst_primary was set to NULL, future calls to disable MST=20
+(such as drm_dp_mst_topology_mgr_set_mst(..., false)) won't be able to=20
+find the primary branch device to clean up the final reference, which means=
+=20
+the struct drm_dp_mst_branch object will be permanently leaked.
 
---hx5apeednlr6fj2q--
+> =20
+>  		/* Write reset payload */
+>  		drm_dp_dpcd_clear_payload(mgr->aux);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626125117.3715=
+3-1-vulab@iscas.ac.cn?part=3D1
