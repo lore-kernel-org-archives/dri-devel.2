@@ -4,137 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE192C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 20:41:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4F4BC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 21:12:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5593710F70D;
-	Fri, 26 Jun 2026 20:41:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0732C10E174;
+	Fri, 26 Jun 2026 21:12:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Xjkds+57";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ceDlLRRo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RsFQfv6W";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B459E10F70D
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 20:41:40 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65QJ8d0e1980951
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 20:41:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=1uaGDXBW7Kq2zoKPgn7o7FFe
- mmz8E/gP79jq5g9mVQc=; b=Xjkds+57Dv5n2+7wLveuOQqMfFuJrIZOpRqz/qhM
- eHoWOqTwnj+3hWHvxA1thaGFnVYtXyvor2zE0dd/sQ8+abmgcg/5SH4VRJEYeT+L
- UdwOiw8MfZyRXVBIYBd4aM9+HIhpwfFU8YyTh+fZAIHDbdyBi3N9O7E2V6S7kXZg
- KaNnf14O8VmBYlRWfXZotB+23q8UB6Jj4OC33y8x7sY7uweeHfWSnsEYUptaAXH+
- n6Vk8UKy4NF1H673BpD/gnMbmvKwE+OR+oEMnNx7Lq+G87RX7TavqULlmEagm7Zb
- dfxkLUCRHOd6El0gHdbE7/EdugdJqsxLlzTzYTp5Jok5ZQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f1p2ttj77-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 20:41:39 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-92af3d5e85aso169045785a.0
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:41:39 -0700 (PDT)
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
+ [209.85.222.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B002B10E3D7
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 21:12:38 +0000 (UTC)
+Received: by mail-qk1-f182.google.com with SMTP id
+ af79cd13be357-92c7a0a7059so97285a.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 14:12:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782508358; cv=none;
+ d=google.com; s=arc-20260327;
+ b=DKu+ucUMDo8xA6uCcruAvUdD1Fnl+3Ve7G5J3EAjscsET12xTdl3ixA16JEPYsVf2E
+ i+VbceU09gLw1XDp8zP9GvwSs8niCfOckGoZqnHYIrjzjXGDimlLGrD97osV4wxZhqui
+ b2J/wchjbFIMQC3NwheZIbdoAZ45Dj6eNFCEbDepXWz6zUp7LohOqhvp2KJ3KEdmlXY8
+ GpZda+g1hSV2Fn01ac5XkEtZXkyECbGeFTVsJV8C3m+/i0eOom56AJbViUQijbG9VDIW
+ D6ohpPGe2hVZoUTwEls4wohY3e3QOs1m5OqPYmRiLJiMQfg7fOWBQR3D+zMGb1AMYfW8
+ U/oA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :mime-version:dkim-signature;
+ bh=nZ39sfbitXUXtcziRdXb/IE2TsHmpt+rDZX8E4vivbU=;
+ fh=hhDhD4o6ytY6jjjDoOc59Iidn+8MKyaa0XrgOy5SBEE=;
+ b=XfPyHUR08WNapVBT5vhJShl0PVdSowVO7Zs1QOTFH3oI2TpYgjT0BMgSgDeHVatIXX
+ oWSeSGjfyBlJw5/0WWN1+RKwr2W5mqr5Mls83wF3Hfdsp65dV+Ob2fqDO88/vReg8ENC
+ Ib2r5Vz+I0NfdBFeWYmKvpkQxWjyKYGJ52BTDnMsA20PrZ9dbt5Z4m0LpYNAYECSaqpM
+ aOrt9co2RuG9K2erxNZ0UQV5AjxIUMvc7NCbwkrDDbUsSl86evZP6IPuDN8O/JMwJnQF
+ JHKUB3J5XwOVCCJlkbCjezxKH9pY4aik6vxDSgjuw/MvrtCMF8febrFTX60SpGkk/3M4
+ H6WQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1782506499; x=1783111299;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=1uaGDXBW7Kq2zoKPgn7o7FFemmz8E/gP79jq5g9mVQc=;
- b=ceDlLRRo60L3nr0xD5nTb8xkkGFUUNvcrZc9vmabVP4Tcflm0w9YOjKwRHKR8mMx13
- xwDa6zjHrLDUk1XV8yNgNAfgSML7M+egs15NoMSJHIt8Ob7y70xN2/G+KLUBHkgyaEVX
- XZXFd3w5LfNyk+ljiCRi5A/REIv1mlavpsTk/6STnE8yIuRKpm4IlmYNEmzkp2+4mYF0
- Yyj3XeVV8jIJuf2jd7VOPFI/8zeimsOyo1cOPSzXi2a/XC9mHP7IYt1xXlDLRi9TcxFq
- pODCpUjZ/5B5UI+IKBrbJzlMxpOA48Ck4XWg/caxVmQHnafUsM/Bye4WJFh7hh+B63lu
- QMQg==
+ d=gmail.com; s=20251104; t=1782508358; x=1783113158; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=nZ39sfbitXUXtcziRdXb/IE2TsHmpt+rDZX8E4vivbU=;
+ b=RsFQfv6W49hW8VzpbrkLhdm0iDM2JU7HuYwDCM+5D0se8ZAxam16fUgdRbSwejQulY
+ 188wUCMXnICAKZDsBzTReqC8RzPZU5VTih4rJ1Wmzg3upLrpwWlmqJ1FzKfGe9ncCoZt
+ jkGS7NJYS5xrJ4kudlopTmgr+pyYlvvimFqRCHwUTyXPp9G/6KuSjYnuSWoSEB0dOYi5
+ Driqgoe0yS9GzPgdvi8a6GBAuj4XYnocRiTK49mcxymLFZFInWwHz3cO8h3Pye5tfDo+
+ N1lUpUSB7btQeheVd9QHbWKrfBSwiGePxtoOQvRDXf43lwMwwvH7fDE1d0B0gWAeZ+RE
+ 8IGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782506499; x=1783111299;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=1uaGDXBW7Kq2zoKPgn7o7FFemmz8E/gP79jq5g9mVQc=;
- b=T7G7zsaxNkwRsC3JKEHNpIp5inhaEqZxBTgC5WlbKckfo3ESJahO9+Joi/AuYnk5SS
- T/neWdWGsc681tol/atuw/FW3ihVHR8HjTO3uPMWQQYKaZkd/vPHn/Rolw5PpHqvzGtC
- lyvX78NpbDC3sfLzOk+t5rNS6db5m/CxFXOfdoXXyaYCsuyN5Gqs8UkrarQDb+CwmTiH
- EVwE59EcAz6prJyyo62aLsnMwqHkJ9Uj8ZRN+LrxmFOeOxqV8Ub1tXBI24H8fbbOOp4+
- T+d9E7ehauioMtA5OUbuMP6zkr18v7OarGcqVS6VJfUfzLcqoosNnEzTna0yf60sxbsg
- xEJw==
+ d=1e100.net; s=20251104; t=1782508358; x=1783113158;
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=nZ39sfbitXUXtcziRdXb/IE2TsHmpt+rDZX8E4vivbU=;
+ b=IaCJ4ZZ9XkL4Qrv8+m5k+ANcLfRpZpoa/k9henSyD9D2OZEeLGu8X6NQvS6ftFBfAH
+ BiO/9MUvAOUHg4cipmRUmZhHldjaDc/vjWHO6EOJT/pjAJ/F4oUpEtvuKgsowavMA5/A
+ Rr6lmeB1iRrr5bbhemPzM/HKvhH4/hTec8jSOIhq1xUIZRFfTT4fCVFvei3rOmboUkML
+ 5DcEVnkcj/2mMcp/UhL/gw4Ydv5dLHzub9kGksUKslK2BJ6RrMMQan9LQkJLS13o+Pgk
+ /lsX/SjJb9LrzJxhRUBoOFvgUrq5dUmOgRzvKcrrK7K2vbk+bwT+uM76KVyzoH372QvG
+ panQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9XswYoYPlqEyWE6V6D+ejB11qIwPfvJRW5XkZm0Goh/51qVAUPo0vmYAJfo+sSLww1UvLExPuAISo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YypznKg+FmWipFPRP41rGniQo/IGNvtQ61PyLRZxfGwos4o9i9O
- YYaLFIQIUPsF4YwzioyCMWoE13uEgd5y64OjkSMRVf+04OzMeYqESjVX1lYUO/SoF34V0YPFH/k
- 7V3uMErMaFjLfuwJUuAYtw5kfUCph8VvidioovnQ5dyoG1mGPtOdo5EoSiZyrWd+PKvT/RgE=
-X-Gm-Gg: AfdE7cmF6P9tn/ANAIsiVpArV4g4YrlOuOVl/MSdtngwl9NoMzQo1GBxT8L98lp4diH
- 4q+1onUNn2yhV5UoWGBnepUSv+uxfdZ+7mseXJ6/vPMg3RprMdvRPfrfxEQuOlR0x2S2k3n+m9S
- QOpC2DEGOQ8B0+FailGD8hhKwbPt3nNmz3vqZZkr+0RU46qgNLv7qsrishAvnP0S2NjYEm8rzKH
- dCiMzFJiuIB9qidqZC0kor6q8sh2VSxz1QQ6T2mNlGx1VQdORwfWpTUQceO1ipgXYrocBL+SVQj
- 2dAGqauyKd6/RjGNU914m/oMgLy6o16B/raBp4gEyZNUaFXyaeuX+Zc1bmWIVPJfzq+lTAftMqK
- 1Wn4p0rPKdoXeYE1ptLims5Lq1eWMOGTfQ+bmxM9delehB9bBdduvaDirt7tYBbb63v4t0CqUw9
- 19sPIDy5bLrKPVE15+6NXFgVGU
-X-Received: by 2002:a05:620a:44d4:b0:925:eb05:d194 with SMTP id
- af79cd13be357-9293d4b2daamr1286066085a.57.1782506498928; 
- Fri, 26 Jun 2026 13:41:38 -0700 (PDT)
-X-Received: by 2002:a05:620a:44d4:b0:925:eb05:d194 with SMTP id
- af79cd13be357-9293d4b2daamr1286057785a.57.1782506498017; 
- Fri, 26 Jun 2026 13:41:38 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3999b1b143fsm52646381fa.39.2026.06.26.13.41.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Jun 2026 13:41:35 -0700 (PDT)
-Date: Fri, 26 Jun 2026 23:41:31 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Arpit Saini <arpit.saini@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, ayushi.makhija@oss.qualcomm.com,
- rajeevny@qti.qualcomm.com
-Subject: Re: [PATCH v3 2/2] drm/panel: add Ilitek ILI7807S panel driver
-Message-ID: <5pvhrsikc3spr5jworztun7pjpgnkfihxvqd3dthhn7yeoud56@vcajuuwqplvo>
-References: <20260624-ili7807s-v3-0-ddf37052a289@oss.qualcomm.com>
- <20260624-ili7807s-v3-2-ddf37052a289@oss.qualcomm.com>
+ AFNElJ8Vr2dT6IebJhHxvQL1GSQ3uvGPAxGnzmaA5IS9nx3AhHU8dHBqtoy/q13uZONd06Zs5Q4TyEYEONo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxrvIQ1cbZ1QYl951ZQCn168bmsE/4FFEPaFQ7FLUGF0Y7hX9QK
+ KyLf929KfUbQQN7YiHjROpL+CuuPzG+vD235uyAWGfkQ9PFDF1t6UUGyvmnDtv+cJM/qjqHS4e4
+ z+mONz0X07Ul+/QgBg4CXlKGEcxyc32iLwm+dhisjGQ==
+X-Gm-Gg: AfdE7cn283DcjChlC/bnTn4lbEPnY4CmkcrbRRYz2Gzy4PgOKRzaWR7Kw7lVYw5v+qf
+ XvMQmwulqysiX8MmRxLLtKFA2At+qVdO/uG9yt1G7FWXSjlnpIrZu9yWbpLexs3VZpVER183wKJ
+ IzWYYxPugusU0NOJc+J7JEI/SSJCRMACLeI6HYDwYt5CccOyM8fU8MUGwVE10XmcqvJh8L/pEtU
+ BWNYbQEt2ByToXoccbVnCyQDFBeiloIy2QiJQIE66SCZ6tXJLDBVvfes8TPfVlffEpjIOpuKcNQ
+ tluoLYXJi9D0X9ygos3sU129Fx0vS+3O/IXvnsYjzGAST+Ixzv1hPsSE5A==
+X-Received: by 2002:a05:620a:6f0d:b0:929:2308:5995 with SMTP id
+ af79cd13be357-9293c027bf4mr1312200885a.26.1782508357502; Fri, 26 Jun 2026
+ 14:12:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260624-ili7807s-v3-2-ddf37052a289@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI2MDE3MCBTYWx0ZWRfXw28DSIVFayXW
- k5BfvfImxvL/IJx7Vh5YBy+RjjUWRQ2kdHGCK3cauTTeIP5Bb/izlQwQkkCmP15g5fWozkoE7cd
- QurYo/hoJLeYoXCePpNtPTYRY+Hw4uo=
-X-Proofpoint-GUID: eoS0MLNXTRsM-yNjVFLB_h5raSDQRPrE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI2MDE3MCBTYWx0ZWRfX8r2TKFpfsk6p
- rYWeVA/Ee/xAj01fLXENoZn533l0VSCTctvrLN78LW+SRTOuU/+kej1qjP7V8fZ7pmyX9NN5EQS
- Kw0MMBDUuKTETDKsrGob1UMUtwnBnvRsc4m24emYcX3z9y0Nv9nRk4xoQqSNGbWXSrfyyIWmPHg
- fr1PNuRxs4j93zXB8Di3W9cLHMQFicUtv/2cRxfQ2yaveX4RNuxnx9tYziXClpBEXaE79o4he7p
- 53Bv6qRsTsBq0KMDvYcB4BXjE+kSJK2aEIjo/wssBxBaNZgpUPNzsFTwoIgG9RJ8UttkRVblwXa
- dEoLDfAFej882QW5/akjo+RenYkLzYZIlmX7ID6Oyw0AmVI5D3WGpmzshPZEJgdYePkmZBxQn8m
- Hm4RihbRA+JrEjzXQ1wTE3DZXX/hT4gHnRELqnxcMaY4Ff5PBOAjusr+EWjgC4zQSu1hCXo0Nna
- CwPE26IvhmW471RdYIA==
-X-Proofpoint-ORIG-GUID: eoS0MLNXTRsM-yNjVFLB_h5raSDQRPrE
-X-Authority-Analysis: v=2.4 cv=IM8yzAvG c=1 sm=1 tr=0 ts=6a3ee403 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=UkQgNfaBbZvMdpwfnggA:9 a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-26_05,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
- impostorscore=0 priorityscore=1501 phishscore=0 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606260170
+From: Dave Airlie <airlied@gmail.com>
+Date: Sat, 27 Jun 2026 07:12:25 +1000
+X-Gm-Features: AVVi8CdZR6l2Xtvk_jC7qXuSB4Lc5iCroT1SK3ukkyYTHjBMLo6qfibRTyHDAW0
+Message-ID: <CAPM=9tys2rN-EwfmUowvdozkZXqJENMz4GsCYHG6eOwyo_-R1g@mail.gmail.com>
+Subject: [git pull] drm-next-fixes for 7.2-rc1
+To: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,315 +102,321 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jun 24, 2026 at 02:23:52PM +0530, Arpit Saini wrote:
-> Add a DRM panel driver for the DLC DLC0697 1080x1920@60Hz MIPI DSI
-> panel based on the Ilitek ILI7807S display controller.
-> 
-> The panel operates in video burst mode with four data lanes using
-> RGB888 pixel format.
-> 
-> Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/panel/Kconfig                 |  12 ++
->  drivers/gpu/drm/panel/Makefile                |   1 +
->  drivers/gpu/drm/panel/panel-ilitek-ili7807s.c | 293 ++++++++++++++++++++++++++
->  3 files changed, 306 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> index 7450b27622a2..1cbaac1bf545 100644
-> --- a/drivers/gpu/drm/panel/Kconfig
-> +++ b/drivers/gpu/drm/panel/Kconfig
-> @@ -264,6 +264,18 @@ config DRM_PANEL_HYDIS_HV101HD1
->  
->  	  If M is selected the module will be called panel-hydis-hv101hd1
->  
-> +config DRM_PANEL_ILITEK_ILI7807S
-> +	tristate "Ilitek ILI7807S-based panels"
-> +	depends on OF
-> +	depends on DRM_MIPI_DSI
-> +	depends on BACKLIGHT_CLASS_DEVICE
-> +	help
-> +	  Say Y if you want to enable support for panels based on the
-> +	  Ilitek ILI7807S display controller, such as the DLC DLC0697
-> +	  1080x1920 MIPI DSI panel.
-> +
-> +	  If M is selected the module will be called panel-ilitek-ili7807s.
-> +
->  config DRM_PANEL_ILITEK_IL9322
->  	tristate "Ilitek ILI9322 320x240 QVGA panels"
->  	depends on OF && SPI
-> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-> index c2c5cf817116..c3002b351cb8 100644
-> --- a/drivers/gpu/drm/panel/Makefile
-> +++ b/drivers/gpu/drm/panel/Makefile
-> @@ -26,6 +26,7 @@ obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112B) += panel-himax-hx83112b.o
->  obj-$(CONFIG_DRM_PANEL_HIMAX_HX83121A) += panel-himax-hx83121a.o
->  obj-$(CONFIG_DRM_PANEL_HIMAX_HX8394) += panel-himax-hx8394.o
->  obj-$(CONFIG_DRM_PANEL_HYDIS_HV101HD1) += panel-hydis-hv101hd1.o
-> +obj-$(CONFIG_DRM_PANEL_ILITEK_ILI7807S) += panel-ilitek-ili7807s.o
->  obj-$(CONFIG_DRM_PANEL_ILITEK_IL9322) += panel-ilitek-ili9322.o
->  obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9341) += panel-ilitek-ili9341.o
->  obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9805) += panel-ilitek-ili9805.o
-> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c b/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c
-> new file mode 100644
-> index 000000000000..8ddfab2693ec
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c
-> @@ -0,0 +1,293 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include <linux/backlight.h>
-> +#include <linux/delay.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/regulator/consumer.h>
-> +
-> +#include <drm/drm_mipi_dsi.h>
-> +#include <drm/drm_modes.h>
-> +#include <drm/drm_panel.h>
-> +#include <drm/drm_probe_helper.h>
-> +
-> +struct panel_desc {
-> +	const struct drm_display_mode *mode;
-> +	unsigned int lanes;
-> +	enum mipi_dsi_pixel_format format;
-> +	unsigned long mode_flags;
-> +	void (*init)(struct mipi_dsi_multi_context *dsi_ctx);
-> +};
-> +
-> +struct ili7807s {
-> +	struct drm_panel panel;
-> +	struct mipi_dsi_device *dsi;
-> +	const struct panel_desc *desc;
-> +
-> +	struct regulator_bulk_data *supplies;
-> +	struct gpio_desc *reset_gpio;
-> +};
-> +
-> +static const struct regulator_bulk_data ili7807s_supplies[] = {
-> +	{ .supply = "vddi" },
-> +	{ .supply = "avdd" },
-> +	{ .supply = "avee" },
-> +};
-> +
-> +static inline struct ili7807s *to_ili7807s(struct drm_panel *panel)
-> +{
-> +	return container_of(panel, struct ili7807s, panel);
-> +}
-> +
-> +static void ili7807s_reset(struct ili7807s *ctx)
-> +{
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +	usleep_range(10000, 11000);
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +	usleep_range(10000, 11000);
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +	usleep_range(10000, 11000);
+Hi Linus,
 
-This looks like the reset being active-low. Please define it as is in
-the DT and use normal (hold = 1, drop = 0) semantics in the driver.
+This is the merge window fixes from our next tree, i915/xe and amdgpu
+make up all of it, I've got a separate fixes pull from our fixes
+branch arriving after this. It looks around the usual amount of
+pre-rc1 fixing.
 
-> +}
-> +
-> +static void dlc0697_init_sequence(struct mipi_dsi_multi_context *dsi_ctx)
-> +{
-> +	mipi_dsi_dcs_soft_reset_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 120);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x78, 0x07, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x35, 0x00);
+Regards,
+Dave.
 
-mipi_dsi_dcs_set_tear_on_multi()
 
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x5e, 0x09, 0x99);
+drm-next-2026-06-27:
+drm next fixes for 7.2-rc1
 
-MIPI_DCS_SET_CABC_MIN_BRIGHTNESS
+i915:
+- Fix corrupted display output on GLK, #16209
+- Add missing Spectre mitigation for parallel submit IOCTL
+- MTL+ fix for DP resume
+- clear CRTC blobs after dropping refs
+- fix sharpness filter on DP MST
 
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x24);
+xe:
+- Set TTM beneficial order to 9 in Xe
+- Several error path cleanups
+- Fix TDR for unstarted jobs on kernel queues
+- Several TLB invalidation fixes related to suspending LR queues
+- Some small RAS fixes
+- Multi-queue suspend fix for LR queues
+- Revert inclusion of NVL_S firmware
 
-MIPI_DCS_WRITE_CONTROL_DISPLAY
+amdgpu:
+- devcoredump fixes
+- SMU15 fix
+- Various irq put/get imbalance cleanup fixes
+- 8K panel fix
+- DCN3.5 fix
+- lockdep fix
+- Cleaner shader sysfs IB overflow fix
+- Async flip fixes
+- GET_MAPPING_INFO fix
+- CP_GFX_SHADOW fix
+- Ctx pstate handling fix
+- GTT bo move handling fixes
+- Old UVD BO placement fixes
+- GC9 mode2 reset fix
+- IH6.1 version fix
+- Soft IH ring fix
 
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0x01);
+amdkfd:
+- Fix doorbell/mmio double unpin on free
+- CRIU fixes
+- SMI event fixes
+- Sysfs teardown fix
+- Various boundary checking fixes
+- Various error checking fixes
+- SVM fix
+The following changes since commit 52d4ab1ca790a668cc8f2c27017138b1c467168c=
+:
 
-MIPI_DCS_WRITE_POWER_SAVE
+  Merge tag 'drm-misc-next-fixes-2026-06-11' of
+https://gitlab.freedesktop.org/drm/misc/kernel into drm-next
+(2026-06-13 08:10:38 +1000)
 
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0x3f, 0xff);
+are available in the Git repository at:
 
-mipi_dsi_dcs_set_display_brightness_large_multi(). Also please use
-0x1fff instead of the full brightness.
+  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-next-2026-06-27
 
-> +
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 120);
-> +
-> +	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 20);
-> +}
-> +
-> +static int ili7807s_on(struct ili7807s *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-> +
-> +	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+for you to fetch changes up to b41df707b6d7b7ae6188c6fc37ba81859293cb94:
 
-Drop, set it in probe()
+  Merge tag 'drm-intel-next-fixes-2026-06-25-1' of
+https://gitlab.freedesktop.org/drm/i915/kernel into drm-next
+(2026-06-26 07:14:08 +1000)
 
-> +
-> +	ctx->desc->init(&dsi_ctx);
-> +
-> +	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+----------------------------------------------------------------
+drm next fixes for 7.2-rc1
 
-Drop
+i915:
+- Fix corrupted display output on GLK, #16209
+- Add missing Spectre mitigation for parallel submit IOCTL
+- MTL+ fix for DP resume
+- clear CRTC blobs after dropping refs
+- fix sharpness filter on DP MST
 
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-> +
-> +static int ili7807s_off(struct ili7807s *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-> +
-> +	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+xe:
+- Set TTM beneficial order to 9 in Xe
+- Several error path cleanups
+- Fix TDR for unstarted jobs on kernel queues
+- Several TLB invalidation fixes related to suspending LR queues
+- Some small RAS fixes
+- Multi-queue suspend fix for LR queues
+- Revert inclusion of NVL_S firmware
 
-Drop
+amdgpu:
+- devcoredump fixes
+- SMU15 fix
+- Various irq put/get imbalance cleanup fixes
+- 8K panel fix
+- DCN3.5 fix
+- lockdep fix
+- Cleaner shader sysfs IB overflow fix
+- Async flip fixes
+- GET_MAPPING_INFO fix
+- CP_GFX_SHADOW fix
+- Ctx pstate handling fix
+- GTT bo move handling fixes
+- Old UVD BO placement fixes
+- GC9 mode2 reset fix
+- IH6.1 version fix
+- Soft IH ring fix
 
-> +
-> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 20);
-> +
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +
-> +	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+amdkfd:
+- Fix doorbell/mmio double unpin on free
+- CRIU fixes
+- SMI event fixes
+- Sysfs teardown fix
+- Various boundary checking fixes
+- Various error checking fixes
+- SVM fix
 
-Drop
+----------------------------------------------------------------
+Andrew Martin (1):
+      drm/amdkfd: Fix SMI event PID reporting for containers
 
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-> +
-> +static int ili7807s_prepare(struct drm_panel *panel)
-> +{
-> +	struct ili7807s *ctx = to_ili7807s(panel);
-> +	int ret;
-> +
-> +	ret = regulator_bulk_enable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
-> +	if (ret < 0) {
-> +		dev_err(ctx->panel.dev, "failed to enable regulators: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	msleep(20);
-> +
-> +	ili7807s_reset(ctx);
-> +
-> +	ret = ili7807s_on(ctx);
-> +	if (ret < 0) {
-> +		dev_err(ctx->panel.dev, "failed to initialise panel: %d\n", ret);
-> +		goto err;
-> +	}
-> +
-> +	return 0;
-> +
-> +err:
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +
-> +	regulator_bulk_disable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
-> +	return ret;
-> +}
-> +
-> +static int ili7807s_unprepare(struct drm_panel *panel)
-> +{
-> +	struct ili7807s *ctx = to_ili7807s(panel);
-> +	int ret;
-> +
-> +	ret = ili7807s_off(ctx);
-> +	if (ret < 0)
-> +		dev_err(ctx->panel.dev, "failed to disable panel: %d\n", ret);
-> +
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +
-> +	regulator_bulk_disable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
-> +
-> +	return 0;
-> +}
-> +
-> +static int ili7807s_get_modes(struct drm_panel *panel,
-> +			      struct drm_connector *connector)
-> +{
-> +	struct ili7807s *ctx = to_ili7807s(panel);
-> +
-> +	return drm_connector_helper_get_modes_fixed(connector, ctx->desc->mode);
-> +}
-> +
-> +static const struct drm_panel_funcs ili7807s_panel_funcs = {
-> +	.prepare = ili7807s_prepare,
-> +	.unprepare = ili7807s_unprepare,
-> +	.get_modes = ili7807s_get_modes,
-> +};
-> +
-> +static int ili7807s_bl_update_status(struct backlight_device *bl)
-> +{
-> +	struct mipi_dsi_device *dsi = bl_get_data(bl);
-> +	u16 brightness = backlight_get_brightness(bl);
-> +	int ret;
-> +
-> +	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-> +
-> +	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-> +
-> +	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-> +
-> +	return ret;
-> +}
-> +
-> +static const struct backlight_ops ili7807s_bl_ops = {
-> +	.update_status = ili7807s_bl_update_status,
-> +};
-> +
-> +static struct backlight_device *ili7807s_create_backlight(struct mipi_dsi_device *dsi)
-> +{
-> +	struct device *dev = &dsi->dev;
-> +	const struct backlight_properties props = {
-> +		.type           = BACKLIGHT_RAW,
-> +		.brightness     = 0x3fff,
-> +		.max_brightness = 0x3fff,
-> +	};
-> +
-> +	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
-> +					      &ili7807s_bl_ops, &props);
-> +}
-> +
-> +static const struct drm_display_mode dlc0697_mode = {
-> +	.clock = 131911,
+Asad Kamal (1):
+      drm/amdgpu/gfx: fix cleaner shader IB buffer overflow
 
-= (1080 + 18 + 2 + 16) * (1920 + 26 + 4 + 20) * 60 / 1000
+Brian Nguyen (1):
+      drm/xe: Add compact-PT and addr mask handling for page reclaim
 
-> +
-> +	.hdisplay    = 1080,
-> +	.hsync_start = 1080 + 18,
-> +	.hsync_end   = 1080 + 18 + 2,
-> +	.htotal      = 1080 + 18 + 2 + 16,
-> +
-> +	.vdisplay    = 1920,
-> +	.vsync_start = 1920 + 26,
-> +	.vsync_end   = 1920 + 26 + 4,
-> +	.vtotal      = 1920 + 26 + 4 + 20,
-> +
-> +	.width_mm  = 0,
-> +	.height_mm = 0,
+Daniele Ceraolo Spurio (1):
+      Revert "drm/xe/nvls: Define GuC firmware for NVL-S"
 
-Do you really don't know the dimensions of the panel you are
-contributing?
+Dave Airlie (4):
+      Merge tag 'drm-intel-next-fixes-2026-06-17' of
+https://gitlab.freedesktop.org/drm/i915/kernel into drm-next
+      Merge tag 'drm-xe-next-fixes-2026-06-17' of
+https://gitlab.freedesktop.org/drm/xe/kernel into drm-next
+      Merge tag 'amd-drm-fixes-7.2-2026-06-19' of
+https://gitlab.freedesktop.org/agd5f/linux into drm-next
+      Merge tag 'drm-intel-next-fixes-2026-06-25-1' of
+https://gitlab.freedesktop.org/drm/i915/kernel into drm-next
 
-> +	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-> +};
-> +
+David Francis (1):
+      drm/amdkfd: Properly acquire queue buffers in CRIU restore
 
--- 
-With best wishes
-Dmitry
+Geoffrey McRae (1):
+      drm/amdkfd: Fix NULL deref during sysfs teardown
+
+Gerhard Schwanzer (1):
+      drm/amdkfd: Use exclusive bounds for SVM split alignment checks
+
+Guangshuo Li (1):
+      drm/i915: clear CRTC color blob pointers after dropping refs
+
+Imre Deak (1):
+      drm/i915/mtl+: Enable PPS before PLL
+
+Ivan Lipski (1):
+      drm/amd/display: Restore periodic detection for DCN35
+
+James Lin (1):
+      drm/amd/display: Add IN_FORMATS_ASYNC support for planes
+
+Jiqian Chen (1):
+      drm/amdgpu/gfx9: Fix Ring and IB test fail after mode2
+
+Joonas Lahtinen (1):
+      drm/i915/gem: Add missing nospec on parallel submit slot
+
+Mario Limonciello (3):
+      drm/amdkfd: fix list_del corruption in kfd_criu_resume_svm
+      drm/amdgpu: check amdgpu_vm_bo_find() result in GET_MAPPING_INFO
+      drm/amdgpu: validate CP_GFX_SHADOW chunk size in CS pass1
+
+Matthew Brost (1):
+      drm/xe: Set TTM device beneficial_order to 9 (2M)
+
+Matthew Schwartz (1):
+      drm/amd/display: Fix mem_type change detection for async flips
+
+Mikhail Gavrilov (2):
+      drm/amdgpu: convert amdgpu_vm_lock_by_pasid() to drm_exec
+      drm/amdgpu: fix recursive ww_mutex acquire in amdgpu_devcoredump_form=
+at
+
+Niranjana Vishwanathapura (1):
+      drm/xe/multi_queue: skip submit when primary queue is suspended
+
+Pavel Ondra=C4=8Dka (1):
+      drm/radeon: fix r100_copy_blit for large BOs
+
+Prike Liang (1):
+      drm/amdgpu: allocate lockdep mutex on the heap to fix stack overflow
+
+Qiang Yu (1):
+      drm/amdgpu: initialize iter.start in amdgpu_devcoredump_format
+
+Raag Jadav (3):
+      drm/xe/drm_ras: Make counter allocation drm managed
+      drm/xe/drm_ras: Add per node cleanup action
+      drm/xe/hw_error: Use HW_ERR prefix in log
+
+Rodrigo Vivi (1):
+      drm/xe: fix job timeout recovery for unstarted jobs and kernel queues
+
+Roman Li (1):
+      drm/amd/display: Skip PHY SSC reduction on some 8K panels
+
+Shubhankar Milind Sardeshpande (1):
+      drm/amd/pm: re-enable MC access after PrepareMp1ForUnload on SMU V15 =
+APUs
+
+Tangudu Tilak Tirumalesh (3):
+      Revert "drm/xe: Skip exec queue schedule toggle if queue is idle
+during suspend"
+      drm/xe: Clear pending_disable before signaling suspend fence
+      drm/xe: include all registered queues in TLB invalidation
+
+Tejas Upadhyay (1):
+      drm/xe/guc: Fix buffer overflow in steered register list allocation
+
+Thadeu Lima de Souza Cascardo (1):
+      drm/amdgpu: initialize irq.lock spinlock earlier
+
+Thomas Hellstr=C3=B6m (1):
+      drm/xe: Fix wa_oob codegen recipe for external module builds
+
+Timur Krist=C3=B3f (6):
+      drm/amdgpu: Respect placement requirements in amdgpu_gtt_mgr function=
+s
+      drm/amdgpu: Fix amdgpu_bo_move() when old_mem and new_mem are both GT=
+T
+      drm/amdgpu/uvd: Place VCPU BO only in VRAM for UVD 4.x and older
+      drm/amdgpu/uvd: Fix forcing MSG, FB BOs into VCPU segment when
+it isn't at 0 (v2)
+      amdgpu/ih6.1: Fix minor version
+      drm/amdgpu: Use system unbound workqueue for soft IH ring
+
+Tvrtko Ursulin (1):
+      drm/amdgpu: Fix context pstate override handling
+
+Uwe Kleine-K=C3=B6nig (The Capable Hub) (1):
+      drm/amdgpu: Don't use UTS_RELEASE directly
+
+Ville Syrj=C3=A4l=C3=A4 (2):
+      drm/i915/mst: Call intel_pfit_compute_config() for sharpness filter
+      drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enabl=
+e
+
+Wentao Liang (1):
+      drm/xe: fix refcount leak in xe_range_fence_insert()
+
+Xiaogang Chen (3):
+      drm/amdkfd: Let driver decide buffer size at
+AMDKFD_IOC_GET_DMABUF_INFO ioctl
+      drm/amdkfd: check find_first_zero_bit before __set_bit on
+kfd->doorbell_bitmap
+      drm/amdkfd: Use memdup_array_user to copy data from/to user
+space at kfd ioctls
+
+Yunxiang Li (2):
+      drm/amdkfd: Avoid double-unpin of DOORBELL/MMIO BOs on free
+      drm/amdgpu: skip already suspended IP blocks in ip_suspend_phase2
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         |  23 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h         |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |  16 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c            |  73 ++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c   | 220 ++++++++++++-----=
+----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            |   5 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |  10 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c        |  30 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c            |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c        | 103 +++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |  18 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c            |  50 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  91 +++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |  39 ++++
+ drivers/gpu/drm/amd/amdgpu/ih_v6_1.c               |   2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |  56 ++----
+ drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c          |   8 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c           |   8 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c           |  46 +++--
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |  12 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c        |  99 ++++++----
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h        |  14 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |  15 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  10 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  13 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    |   1 +
+ .../amd/display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c   |   2 -
+ .../amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c |   2 -
+ .../amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c   |   2 +
+ .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c   |   7 +-
+ drivers/gpu/drm/i915/display/intel_atomic.c        |   6 +
+ drivers/gpu/drm/i915/display/intel_cdclk.c         |  41 +++-
+ drivers/gpu/drm/i915/display/intel_ddi.c           |  11 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c        |   4 +
+ drivers/gpu/drm/i915/gem/i915_gem_context.c        |   1 +
+ drivers/gpu/drm/radeon/r100.c                      |  13 +-
+ drivers/gpu/drm/xe/Makefile                        |   4 +-
+ drivers/gpu/drm/xe/regs/xe_gtt_defs.h              |   6 +-
+ drivers/gpu/drm/xe/xe_device.c                     |   3 +-
+ drivers/gpu/drm/xe/xe_drm_ras.c                    |  61 +++---
+ drivers/gpu/drm/xe/xe_exec_queue.h                 |  17 --
+ drivers/gpu/drm/xe/xe_guc_capture.c                |  10 +-
+ drivers/gpu/drm/xe/xe_guc_submit.c                 | 111 ++++-------
+ drivers/gpu/drm/xe/xe_guc_tlb_inval.c              |   7 +-
+ drivers/gpu/drm/xe/xe_hw_engine_group.c            |  10 +-
+ drivers/gpu/drm/xe/xe_hw_error.c                   |  12 +-
+ drivers/gpu/drm/xe/xe_pt.c                         | 131 +++++++-----
+ drivers/gpu/drm/xe/xe_range_fence.c                |   2 +
+ drivers/gpu/drm/xe/xe_uc_fw.c                      |   1 -
+ 52 files changed, 846 insertions(+), 598 deletions(-)
