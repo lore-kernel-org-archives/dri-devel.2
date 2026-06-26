@@ -4,46 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EDCAC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 15:06:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E01F4C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 15:10:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87EA610F6A5;
-	Fri, 26 Jun 2026 15:06:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4791610E302;
+	Fri, 26 Jun 2026 15:10:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BDWpRwcS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WwT0RstN";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A58AE10F67C
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 15:06:28 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9ABC810E302
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 15:10:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 28AF1600C8;
- Fri, 26 Jun 2026 15:06:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A111F00A3A;
- Fri, 26 Jun 2026 15:06:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5DA7442E56;
+ Fri, 26 Jun 2026 15:10:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C7BD1F000E9;
+ Fri, 26 Jun 2026 15:10:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782486387;
- bh=nWdhka9vlxHskt8+WKq6JmVRC3RuOXuW2e3AQwKJTbU=;
+ s=k20260515; t=1782486658;
+ bh=jVcR1pkxoxSKmAHB2mhltyvCJy6OuCMldqt9yVmC6/k=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BDWpRwcSSsnPL1I9mSjsGmZUrxnyEcNzjTiaJJR/QJz8kswphtz9J4FRolfT+tdIl
- 6oIMcv2x3DQIk0u8nW4LS+dH8lkZl/F319BQ2PigSyHuFnqFbS1Vg8tENU9f2Jsjre
- LR/t7ENiZTYqAPcfWYjL9cvspKvgDN4pcWWNzWbmXQVU8dsLZadBz8shw+4GXDeR6A
- HnK+aoHaqANJgzFFifSKFhZ/QSP8hyaliwe5OoM5W1WZJh/oYjovCikX1Uz4H5JkI2
- QUAYGUMU/7uvYvvFgRMRd+FMSgzxHIhsJaJQTRNm4tQ14Wzt6KQ7nXq/4Lc4nE5Yvl
- 0SxWwJs+dAGkg==
+ b=WwT0RstNq4mQOAiaAEbMOzm4vA0s/11khYWcFHt9e6tdaNnnVegOoGHUtGzweH02M
+ Oeg/QoDI4d7+RXv/G9GUfLP+l3qmQhaQAnEHDOtElCs1sKvo6iVb5s05F4o7+sO9F3
+ rn3DxUDS2SmyHUgVTu5XAadX9cA0EF1HX57XczM0yhRb3Ba7IqfP8/zEz/5hmNp7We
+ Kq2jfTGxTMg0PMEmeqa1RRKoSxUoxhD8EZHbDaW2qRO/qukdoMgTx/HMqySssZdgXC
+ XOuClGb7+Wu4POH3PjhHXh6aQyrbf3uCFSHAObMjz5+bNFdD4BufDTluKs4wV8aX4P
+ VRBZqjQ85aIqA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 17/20] gpu: nova-core: use I/O projection for cleaner
- encapsulation
-To: "Gary Guo" <gary@garyguo.net>
-Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
- Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org,
- linux-pci@vger.kernel.org
-In-Reply-To: <20260626-io_projection-v5-17-d0961471ae50@garyguo.net>
-References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
- <20260626-io_projection-v5-17-d0961471ae50@garyguo.net>
+Subject: Re: [PATCH] fix: drm/nouveau: nvkm_ucgrp_new: nvkm_cgrp_new failure
+ leaks ucgrp   object and engine reference
+To: "WenTao Liang" <vulab@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260626144717.49109-1-vulab@iscas.ac.cn>
+References: <20260626144717.49109-1-vulab@iscas.ac.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 15:06:26 +0000
-Message-Id: <20260626150627.30A111F00A3A@smtp.kernel.org>
+Date: Fri, 26 Jun 2026 15:10:57 +0000
+Message-Id: <20260626151058.2C7BD1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,60 +59,59 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Data corruption in GSP command queue due to missing memory barrier=
- before updating the ring buffer write pointer.
+- [Low] The patch adds redundant cleanup code based on a false premise, vio=
+lating the Nouveau object lifecycle design.
 --
 
-commit abd2f0cd14180222d86d47f37c313be60a30d773
-Author: Gary Guo <gary@garyguo.net>
+commit bc4fa3965bb025027291bc92ec2fa2ec144efd31
+Author: WenTao Liang <vulab@iscas.ac.cn>
 
-gpu: nova-core: use I/O projection for cleaner encapsulation
+fix: drm/nouveau: nvkm_ucgrp_new: nvkm_cgrp_new failure leaks ucgrp object =
+and engine reference
 
-This commit refactors the nova-core GSP driver to use the io_project!,
-io_read!, and io_write! macros for memory-mapped I/O access. It replaces
-the previous dma_read! and dma_write! usage to enforce better encapsulation
-for PTE arrays and message queues.
+This commit attempts to fix a purported resource leak in nvkm_ucgrp_new()
+by adding an explicit call to nvkm_object_del() when nvkm_cgrp_new() fails.
 
-> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
-p/cmdq.rs
-> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
-> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+>     The caller ignores *pobject on error, so the ucgrp object and its eng=
+ine
+>     reference are permanently leaked.
 
-[ ... ]
+Is this description of the caller's behavior accurate?
 
-> @@ -438,12 +441,17 @@
->      // Informs the GSP that it can process `elem_count` new pages from t=
-he command queue.
->      fn advance_cpu_write_ptr(&mut self, elem_count: u32) {
-> -        super::fw::gsp_mem::advance_cpu_write_ptr(&self.0, elem_count)
-> +        let tx =3D io_project!(self.0, .cpuq.tx);
-> +        let wptr =3D MsgqTxHeader::write_ptr(tx).wrapping_add(elem_count=
-) % MSGQ_NUM_PAGES;
-> +        MsgqTxHeader::set_write_ptr(tx, wptr);
-> +
-> +        // Ensure all command data is visible before triggering the GSP =
-read.
-> +        fence(Ordering::SeqCst);
+The core framework caller, nvkm_ioctl_new(), appears to correctly capture
+the object pointer and invoke nvkm_object_del() when the constructor
+returns an error code. Since *pobject is assigned before the failure in
+nvkm_ucgrp_new(), does a leak actually occur here?
 
-[Severity: High]
-This is a pre-existing issue, but is it possible that the memory barrier is
-placed too late in this function?
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c b/drivers/g=
+pu/drm/nouveau/nvkm/engine/fifo/ucgrp.c
+> index dfa3c7dbdf348..7d11b92f946ba 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c
+> @@ -113,8 +113,10 @@ nvkm_ucgrp_new(struct nvkm_fifo *fifo, const struct =
+nvkm_oclass *oclass, void *a
+>  	*pobject =3D &ucgrp->object;
+> =20
+>  	ret =3D nvkm_cgrp_new(runl, args->v0.name, vmm, true, &ucgrp->cgrp);
+> -	if (ret)
+> +	if (ret) {
+> +		nvkm_object_del(pobject);
 
-In advance_cpu_write_ptr(), the fence(Ordering::SeqCst) is placed after
-updating the ring buffer's write pointer via set_write_ptr(). Since the
-payload is written to coherent memory using normal memory stores while the
-write pointer uses a volatile store, weakly-ordered CPUs might reorder the
-operations.
+[Severity: Low]
+Does adding this explicit cleanup conflict with the subsystem's centralized=
+=20
+object lifecycle design?
 
-If the GSP firmware polls the write pointer before the payload writes are
-globally visible, could it read uninitialized or stale data? Should the
-fence be placed before the set_write_ptr() call to prevent this race?
+Because the framework caller handles the cleanup of partially constructed=20
+objects when an error is returned, is this manual call to nvkm_object_del()
+redundant?
 
->      }
->  }
+>  		goto done;
+> +	}
+> =20
+>  	/* Return channel group info to caller. */
+>  	args->v0.cgid =3D ucgrp->cgrp->id;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626-io_project=
-ion-v5-0-d0961471ae50@garyguo.net?part=3D17
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626144717.4910=
+9-1-vulab@iscas.ac.cn?part=3D1
