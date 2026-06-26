@@ -4,148 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B257C43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 14:46:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B41ECC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 14:47:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E331510F676;
-	Fri, 26 Jun 2026 14:46:38 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="yEVvVJ4l";
-	dkim-atps=neutral
-Received: from LO0P265CU003.outbound.protection.outlook.com
- (mail-uksouthazon11022098.outbound.protection.outlook.com [52.101.96.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CED1810F64B
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 14:45:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HAN6NySduNcch5n9IQFv8ac9jQJG3t4gSnLCVJP3jI0fInITBXbUMtZjlMkNoYx+tHmhjMISy5YtzXQdr4qlDNvf5EDpWS7o7jeG15Dz1ynl7R5dvhj9mCy3uLkk/rNLx/LNvbQMz3j3PzTmmMrN7hDRVOnLy4WfkLmMSxsanMJTG0n7r2jn3U/kviKgcXXYkJsV4u/03rtMzC3bflvCrY6JazckFHf05Kn4Unv4byCIU1O/llxhVEtUGifTfEVswbNhAF66XlTpaOFs2IzSeJHlA0bO9Plm4Ge3FYo9ywqSq6ADWr0vL+zh/kgb9z0rnio3ZHavca8GgcrHfWvlhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/rjHkhkXNJi4IPwpx92VjlfyP30YcMvmNyPMmOOkpD8=;
- b=P73V4sr9GrsjmFPj8syOhOu6AjWONC0TePCmWNmuQrIcfDaQ7uBkKaAmSiEfhzJN2Mb27YbOk9NvxevBq/56yDEPGHv83wFsEXoLqEqDEb6En7FgPZM6iDvwlBV5hHRDW9DKvdUMB7+0imsVUL//TBPZyODDXQA9lSFpKKhFTKyn/nyulE5ZsjYyBMRnkJzIZ6Wz3PxqnBwOPiSqDWqQEacBo2c9L37fv7pBjvzrJzZ4FikCZ5WSwDy/Aa00j5hPLm0o+XoH9XssmghZG0g8Qeva5aXV33i3D36cvBTGK7YLG6K3EfPrFoP8DRUlWVH8SbpQRWjOJH1qD3zJIX0m6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/rjHkhkXNJi4IPwpx92VjlfyP30YcMvmNyPMmOOkpD8=;
- b=yEVvVJ4l/cP56nhq/3TnRue45cLA3mTWAdfsxv/OBJvXxFmkVSSFPU6ObzqFcLiB9T8wo/Rmax+w/zWPB+mw2E893DEsvAsjQx8o9BgTs8T4QTtdr5DVHoqR91o840WgK61wDJUqe0eVlmd7RUNklPb5aXi+7/849lQnDn18v0k=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CWXP265MB2694.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:ab::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Fri, 26 Jun
- 2026 14:45:25 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
- 14:45:25 +0000
-From: Gary Guo <gary@garyguo.net>
-Date: Fri, 26 Jun 2026 15:45:20 +0100
-Subject: [PATCH v5 16/20] rust: io: add `read_val` and `write_val`
- functions on `Io`
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260626-io_projection-v5-16-d0961471ae50@garyguo.net>
-References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
-In-Reply-To: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
-To: Alice Ryhl <aliceryhl@google.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Abdiel Janulgue <abdiel.janulgue@gmail.com>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Michal Wilczynski <m.wilczynski@samsung.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Cc: Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-pci@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782485116; l=4952;
- i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=TRVxPZ8iNx0tOJX72PKwskiRkYFtvIOxgwtHZ046qs8=;
- b=xOVX+8u89/V5v9t5fKrB+iN/pOlEqTS3MrPqb8OnUyIHkI82cn/Ojhn4uUMGWe58qh8iCbAmr
- 78gFtwTIKLiCs1pKg2JyyeRBzgYUOffVOtw4LqAOElsiLAnwIrj9mNR
-X-Developer-Key: i=gary@garyguo.net; a=ed25519;
- pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
-X-ClientProxiedBy: LO6P265CA0010.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:339::7) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EFF710F677;
+	Fri, 26 Jun 2026 14:47:27 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BBD210F677;
+ Fri, 26 Jun 2026 14:47:25 +0000 (UTC)
+Received: from localhost.localdomain (unknown [117.182.75.66])
+ by APP-01 (Coremail) with SMTP id qwCowACXO9T1kD5qibBqAw--.4140S2;
+ Fri, 26 Jun 2026 22:47:20 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Ben Skeggs <bskeggs@redhat.com>,
+ nouveau@lists.freedesktop.org, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>
+Subject: [PATCH] fix: drm/nouveau: nvkm_ucgrp_new: nvkm_cgrp_new failure leaks
+ ucgrp object and engine reference
+Date: Fri, 26 Jun 2026 22:47:17 +0800
+Message-Id: <20260626144717.49109-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWXP265MB2694:EE_
-X-MS-Office365-Filtering-Correlation-Id: ce99e214-a377-420a-ca56-08ded3918eb0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|23010399003|1800799024|366016|10070799003|921020|3023799007|18002099003|5023799004|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info: kL1UqCTu1mb3ZGYnCiNyrzqpHyhdbk1J3Xenjh2GpmVPay8cXO841Sv3OTGyn4SXbBnOjBnDmNtO56ZvrXc0sIO/gYuX0jZSt2Uk8JvL+d9YKaZsIzHHmBdep6r/cVp0Xg9DhxsJLxqqMpREFgWNhvP3eX4+coZE4BFmtUticDHCJpdbhuELB03IaC5iZwwAZAAh1jRQFLyJMsArjKtSHDPjHwNYzR6pqp0rlYl3sKUZtkJzIypYksaPZf6e3Pf4/ZI6HrZxhw3kJKtNIByF7b6sqq5+cNAblrCFuAw9+AEZLXuI6poj5Il0kIaVU4gMQxjrqEfZ4GBjsLY1L7mFp6qcbB73SGxAKHS91ikJH7Khil/JyfeLZ6d9n3xh+bt6yqL3terAXDkYXkPnRLuxRhUrPlq9LjmENWHpQGepMhNifzqSYjN9Uxl2euV3+KJ6DydJ1qZgoEiJDy5vW56eWEGr9v9/d/tjMldn2nLq9s0746z8n4vVqEqaVSO2BiY604wVGbVDbEzLg0eHMEXTnAd0hbNPM0uZ5P/4zNPm3s4CrbQ4I8HBxXjwU6GAcDtNRPOWtbhkgtR/LEsUkKFmrzK/+z0woAfYiaQZuhZFqIKzkZWRDJ/CSmWUAPJYt4c+Dw2TuuOVJg1Xhmsf5JgZq8OsCIG3DC4a+2sLQRChaTCLc3pNMWH7or/NSs2f/91dxsCJpuBLAMpstLL2fjip4g==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(10070799003)(921020)(3023799007)(18002099003)(5023799004)(22082099003)(56012099006);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K0hFMGQ3U01qYWxNeHkxczlQT2g2RFEydW9lSkJObStNd3RiQ25jdkVITmNY?=
- =?utf-8?B?UTRCck8xR2V3T3ZZaWh1cTlpRE5kaDBGN0VEVzVLbTBWbndZVlM5RjYvczAx?=
- =?utf-8?B?OHAyUkxENERkWkxmdkZhRXJydWsvWmVRQUpnQUppN0hySGVqVXRiaXJNdmtF?=
- =?utf-8?B?TVVPWjBqZDJJNVRyYXlWeHFvcEVuUTdHZU1oRTNxcVI2VnJESkt1aXdTajJ3?=
- =?utf-8?B?M2tkZnB1bmYvUHJhYnkrUFBJakpCaHFaRWZPVVljM2dUYVI2L01VWkhEaVhE?=
- =?utf-8?B?TmZCZXlkby9GMEM4eHFYUmJkMUlDdmh4NC9ybWFEc2Vnem5xektDUGVuRFQy?=
- =?utf-8?B?RTNMSFRwMURPSEx6aGxXaGVxbmdnTGFVaC9zTXNZQ014QndZSUpvSDE1cEFm?=
- =?utf-8?B?WGxKT3gwSlZkOTZnT1BmQUtwcHZFN0h3d3hkZ1JzTVlBN3dUVU5qQTRxTXpL?=
- =?utf-8?B?bVd2dWFlcjByUzVaaHNwWElNbEkwK0lEbDAvUUhIaVgwOVc0UnQvL0hjWDhR?=
- =?utf-8?B?NlpNM21ndktCZ3lkZ20xcVBIRTQrNWt2TUxkaU55Ylk0anNKSUdGUThnMk90?=
- =?utf-8?B?STRocWoxcDFBOWRCK0hWcjEzbFl6SStxNzZZdDRGeTVEU2NFa3RpdG1QcVFh?=
- =?utf-8?B?VnE0N0pKd1duOU9nV3BnVVVteGdCYWMzS2hlYzF6QnQ3ODZXSkRRUThhc2JF?=
- =?utf-8?B?bGE5UFFZdnEzYWFoRFpvZ1RFanpPZVlZVDRBZWIzWkM3aUkwNXg1dVIxY1gx?=
- =?utf-8?B?S01TYjFTZDhSWTJZWHpzVDllaE9mbkw1eVlPYVNUYjNlcjBlZ2hJcVoxcXNU?=
- =?utf-8?B?WGp4VEpsT0hnajd3NXgwOTA4Sk1hV2hkVWJJR0RINlNOU0NXb2toUlQ5THlR?=
- =?utf-8?B?ZllzYUpBa0dUdzFadEFqU1loU2cyWUtVTUVyNnBCS3dQTHloYkNBREVtZTlB?=
- =?utf-8?B?UC9XT29ETDcyRFV2V2tUREttNFVrK2VTblZDSHRtTFF1Rk16QzNiNlNnNjV5?=
- =?utf-8?B?c05wM21EaXlEKzRXMlp5azI0UDBCdWF6MWJzK2lMemJycE5ldDBES1NaMllx?=
- =?utf-8?B?WkY5R1ZGUDNSaDk3VWt0VnRNNVM2eVhiYUdLTWZNYzk2OTRiZTVPWHluMjQ4?=
- =?utf-8?B?Rkx2Nk9RSlNvUFZNM0NzSGtSWWVyMWdBZGNUcVU3aEIzV0xkZmswS1UreXdk?=
- =?utf-8?B?cTd6UTZ3cXA5SVIrY2VXL2VBYjhKaHZGeXJDcEVuS3Vvb2tlcmF0c0JhOXpa?=
- =?utf-8?B?cjRJRFlhdEMycjZxRUplWkRXMDF6U000UjFyUTN5Wlo3UnBMY2JkMm1sVFk5?=
- =?utf-8?B?QmlMUU41a09TZmRaRUwyUStKdTM1b0UyanZhUVo0YjR2REpBeFA4RE96Q0xr?=
- =?utf-8?B?SEhxVjFVbE5WVlhQVTcvUWFuc0YvRFlLUEQzN0FSaURwM2duZFAydWo3eGh4?=
- =?utf-8?B?cE5JckNSMWh5S3kwVVd2c0RnS0lvdXBMYUI4Zks3NVV2di91a3cwbTYyZFUw?=
- =?utf-8?B?R1BaT1lyYjNPbnhEbk5RQUJtdmZ0cnBIR1hSdmxhMys3RzBqRlUyeW9BNUg1?=
- =?utf-8?B?WWY2N1drUUxuNXJlY3YwUW5lckdyODlvYU0rSExYaUVDYXFmdXdlcXpYTmRH?=
- =?utf-8?B?ajFTK3F5RFl4Yk5Mb0F0VGYxVW1ORmZzMnpVcGFxdHVrcTRXd0czZG9Ia2t0?=
- =?utf-8?B?WkEvL1BqNjBrcjZ2Z0ZiNmJYekQ2VXN4Y3RRczBtUTFyM2N5emhzclB5d3BG?=
- =?utf-8?B?WG5GNkwrdXJ5N09Sc1BraEZEaGRTMnN4dmJYZU1SeHU5SnVUbHRlWDVnblEy?=
- =?utf-8?B?Q1B4bSt0Wko4WTk1VmtXWmhQRnowTXlwRGYrZmhPVkdOU2trWURzUk5TZWh6?=
- =?utf-8?B?MFZFeXNiV3dLajN3Q3dsblZPd1czL25xUlBaWkFySmNaNmtzZEZFa21iRy9x?=
- =?utf-8?B?czJFVm5zNmJyRmF3ME9rU0V5NWxqazlBTk1UYkw2YUgzNDArMGtjTHZFc3Yx?=
- =?utf-8?B?aGp1ZHNjbzNYb0p0VUlvWkhXTDAxYzFxUTZXWW5NL3dLNGttdDYvak9NRDVw?=
- =?utf-8?B?N0NmZUVDYk5sbW5FTzd0R2VDeXUyQi9uSFF5YkhnbHhqNTdubUIwOTlTdkVU?=
- =?utf-8?B?TzZrSXlTVFY1ZndhZVJudTRNOWlHUmpYd1BpdGR2dEZpN3NYVXJTODVtSWxr?=
- =?utf-8?B?U0RFTEFGUUxhVE9LSjZScGNhZGFuM0h0dm9xTmpqbmV3MXpYS1FSaVJGQlMv?=
- =?utf-8?B?U2lFTUlIM2xPZFhMQkNwMEZXak1zaHVVNXkrdFkwdDgrMDU5R1RhTGdsb3E3?=
- =?utf-8?B?YkhWdUZHbURoR0hrYjFhaXhaTEdkVlhwZXB6QmlBQUVYeWJqSURVQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce99e214-a377-420a-ca56-08ded3918eb0
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 14:45:25.1951 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SJQKw+tsjmv+FriF9+GtFACzLA61FQDTRzLM4A1/KraR9wqwDT7zJaRcIDwsHL8QS4uHQhCBk/PMiriWfMGtyw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2694
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qwCowACXO9T1kD5qibBqAw--.4140S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KrW5Gw45WF15trWkKr45KFg_yoW8JFW8pr
+ s3Jw1avrW5JF4rtF48A3W8uFyfZan0qFyFkas0y343Zrn8ZrW8Cr4Fy34qqFyrZr47Ga1Y
+ yFn2yrZYqF1YyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+ n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+ kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+ 67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+ CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+ MIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
+ nIWIevJa73UjIFyTuYvjfUOlkVUUUUU
+X-Originating-IP: [117.182.75.66]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgcKA2o+h0EXvAABsw
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,149 +65,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Provide `read_val` and `write_val` that allow I/O views to be accessed when
-they're narrowed down to just views of primitives.
+nvkm_object_ctor initializes ucgrp with an embedded kref and increments
+  the engine's reference count. When nvkm_cgrp_new subsequently fails, the
+  function jumps to done without calling nvkm_object_del to release ucgrp.
+  The caller ignores *pobject on error, so the ucgrp object and its engine
+  reference are permanently leaked.
 
-This is used to provide `io_read!` and `io_write!` macros, which are
-generalized version of current `dma_read!` and `dma_write!` macro that work
-for all types that implement `Io`.
-
-Note though `io_read!` and `io_write!` only works if backend implements
-`IoCapable` for the type; which is typically only implemented for
-atomically accessible primitives. `dma_read!` and `dma_write!` currently
-supports them via `read_volatile` and `write_volatile`; this can be
-undesirable for aggregates as LLVM may turn them to multiple instructions
-to access parts and re-assemble, even if they could be combined to a single
-instruction. Thus, `io_read!()` and `io_write!()` does not fully replace
-`dma_read!()` and `dma_write!()` in this scenario. The ability to
-read/write aggregates (when atomicity is of no concern) is better served
-with copying primitives (e.g. memcpy_{from,to}io).
-
-Signed-off-by: Gary Guo <gary@garyguo.net>
+Cc: stable@vger.kernel.org
+Fixes: 06db7fded6de ("drm/nouveau/fifo: add new channel classes")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 ---
- rust/kernel/io.rs | 104 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 104 insertions(+)
+ drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-index 5c06785facea..aa82736253ac 100644
---- a/rust/kernel/io.rs
-+++ b/rust/kernel/io.rs
-@@ -393,6 +393,50 @@ fn try_cast<U>(self) -> Result<<Self::Backend as IoBackend>::View<'a, U>>
-         Ok(unsafe { Self::Backend::project_view(view, ptr.cast()) })
-     }
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c
+index dfa3c7dbdf34..7d11b92f946b 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c
+@@ -113,8 +113,10 @@ nvkm_ucgrp_new(struct nvkm_fifo *fifo, const struct nvkm_oclass *oclass, void *a
+ 	*pobject = &ucgrp->object;
  
-+    /// Read a value from I/O.
-+    ///
-+    /// This only works for primitives supported by the I/O backend.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```no_run
-+    /// # use kernel::io::*;
-+    /// # fn test_read_val(mmio: Mmio<'_, u32>) {
-+    /// // let mmio: Mmio<'_, u32>;
-+    /// let val: u32 = mmio.read_val();
-+    /// # }
-+    /// ```
-+    #[inline]
-+    fn read_val(self) -> Self::Target
-+    where
-+        Self::Backend: IoCapable<Self::Target>,
-+        Self::Target: Sized,
-+    {
-+        Self::Backend::io_read(self.as_view())
-+    }
-+
-+    /// Write a value to I/O.
-+    ///
-+    /// This only works for primitives supported by the I/O backend.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```no_run
-+    /// # use kernel::io::*;
-+    /// # fn test_write_val(mmio: Mmio<'_, u32>) {
-+    /// // let mmio: Mmio<'_, u32>;
-+    /// mmio.write_val(1u32);
-+    /// # }
-+    /// ```
-+    #[inline]
-+    fn write_val(self, value: Self::Target)
-+    where
-+        Self::Backend: IoCapable<Self::Target>,
-+        Self::Target: Sized,
-+    {
-+        Self::Backend::io_write(self.as_view(), value)
-+    }
-+
-     /// Fallible 8-bit read with runtime bounds check.
-     #[inline(always)]
-     fn try_read8(self, offset: usize) -> Result<u8>
-@@ -1225,3 +1269,63 @@ macro_rules! io_project {
- }
- #[doc(inline)]
- pub use crate::io_project;
-+
-+/// Read from I/O memory.
-+///
-+/// The syntax is of form `io_read!(io, proj)` where `io` is an expression to a type that
-+/// implements [`Io`] and `proj` is a [projection specification](kernel::ptr::project!).
-+///
-+/// # Examples
-+///
-+/// ```
-+/// struct MyStruct { field: u32, }
-+///
-+/// # fn test(mmio: kernel::io::Mmio<'_, [MyStruct]>) -> Result {
-+/// // let mmio: Mmio<'_, [MyStruct]>;
-+/// let field: u32 = kernel::io::io_read!(mmio, [try: 2].field);
-+/// # Ok::<(), Error>(()) }
-+/// ```
-+#[macro_export]
-+#[doc(hidden)]
-+macro_rules! io_read {
-+    ($io:expr, $($proj:tt)*) => {
-+        $crate::io::Io::read_val($crate::io_project!($io, $($proj)*))
-+    };
-+}
-+#[doc(inline)]
-+pub use crate::io_read;
-+
-+/// Writes to I/O memory.
-+///
-+/// The syntax is of form `io_write!(io, proj, val)` where `io` is an expression to a type that
-+/// implements [`Io`] and `proj` is a [projection specification](kernel::ptr::project!),
-+/// and `val` is the value to be written to the projected location.
-+///
-+/// # Examples
-+///
-+/// ```
-+/// struct MyStruct { field: u32, }
-+///
-+/// # fn test(mmio: kernel::io::Mmio<'_, [MyStruct]>) -> Result {
-+/// // let mmio: Mmio<'_, [MyStruct]>;
-+/// kernel::io::io_write!(mmio, [try: 2].field, 10);
-+/// # Ok::<(), Error>(()) }
-+/// ```
-+#[macro_export]
-+#[doc(hidden)]
-+macro_rules! io_write {
-+    (@parse [$io:expr] [$($proj:tt)*] [, $val:expr]) => {
-+        $crate::io::Io::write_val($crate::io_project!($io, $($proj)*), $val)
-+    };
-+    (@parse [$io:expr] [$($proj:tt)*] [.$field:tt $($rest:tt)*]) => {
-+        $crate::io_write!(@parse [$io] [$($proj)* .$field] [$($rest)*])
-+    };
-+    (@parse [$io:expr] [$($proj:tt)*] [[$flavor:ident: $index:expr] $($rest:tt)*]) => {
-+        $crate::io_write!(@parse [$io] [$($proj)* [$flavor: $index]] [$($rest)*])
-+    };
-+    ($io:expr, $($rest:tt)*) => {
-+        $crate::io_write!(@parse [$io] [] [$($rest)*])
-+    };
-+}
-+#[doc(inline)]
-+pub use crate::io_write;
-
+ 	ret = nvkm_cgrp_new(runl, args->v0.name, vmm, true, &ucgrp->cgrp);
+-	if (ret)
++	if (ret) {
++		nvkm_object_del(pobject);
+ 		goto done;
++	}
+ 
+ 	/* Return channel group info to caller. */
+ 	args->v0.cgid = ucgrp->cgrp->id;
 -- 
-2.54.0
+2.39.5 (Apple Git-154)
 
