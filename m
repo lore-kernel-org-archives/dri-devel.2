@@ -4,50 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 723FFCA9ED3
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:51:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E2CCC43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 12:53:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8B3D10E5A5;
-	Fri, 26 Jun 2026 12:51:30 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2A2A10E5A5
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:51:29 +0000 (UTC)
-Received: from localhost.localdomain (unknown [117.182.75.66])
- by APP-05 (Coremail) with SMTP id zQCowABHntHHdT5qTwJpFQ--.42803S2;
- Fri, 26 Jun 2026 20:51:20 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch
-Cc: dmitry.baryshkov@oss.qualcomm.com, kees@kernel.org, liviu.dudau@arm.com,
- vulab@iscas.ac.cn, suraj.kandpal@intel.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: [PATCH] fix: drm/display: drm_dp_mst_topology_mgr_set_mst: error path
- after DPCD write failure leaks MST branch device reference
-Date: Fri, 26 Jun 2026 20:51:17 +0800
-Message-Id: <20260626125117.37153-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AE6B10E617;
+	Fri, 26 Jun 2026 12:53:24 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jA+1blRY";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1558210E617
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:53:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C6D2644187;
+ Fri, 26 Jun 2026 12:53:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12BC71F000E9;
+ Fri, 26 Jun 2026 12:53:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782478402;
+ bh=4vW/ykol/caEyEWxjwNOEBg0s6JIz+ZkHwDVW8nFj8o=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=jA+1blRY/22zkn1IuV2vFG0t4ZR472agS+Rcx+5z16VdxoF71huJ1Hl8bsMp3pwie
+ s3HtkJ3Tl3y1I0/1g6RacpyGU35B53xSHrcaW2t/QElscs05clIdKsmtyr19KKKovm
+ j2vyJcgBgpzWNrcDG19JsgBHlP34lXUQWsnc+h2WSFpQYvkLvk59Qjivmjj2UMHGU9
+ 2DAUYqmMHyTPI+NuAt0myou2eD4nJXGhda3uP6TH4lDTBl4kKy1F3g2geT40+z506u
+ Vnogil5g4ai7oWWmwQeBbyrByU0zgFU0TRYPzYi5U+cc1hPuhhDyMuLKxFHdF8pOoa
+ rE4v4BY+yF7Ng==
+Date: Fri, 26 Jun 2026 14:53:20 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Albert Esteve <aesteve@redhat.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Inki Dae <inki.dae@samsung.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, 
+ Paul Cercueil <paul@crapouillou.net>, Linus Walleij <linusw@kernel.org>,
+ Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Biju Das <biju.das.jz@bp.renesas.com>, Sandy Huang <hjc@rock-chips.com>, 
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, Jyri Sarha <jyri.sarha@iki.fi>, 
+ Jingoo Han <jingoohan1@gmail.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Alison Wang <alison.wang@nxp.com>, Paul Kocialkowski <paulk@sys-base.io>, 
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, 
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-mips@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
+ linux-samsung-soc@vger.kernel.org, linux-tegra@vger.kernel.org
+Subject: Re: [PATCH 4/5] drm/bridge: release panel reference on all lookup
+ exit paths
+Message-ID: <20260626-manipulative-rainbow-rhino-d73b65@houat>
+References: <20260626-drm_refcount_wiring-v1-0-cca1a7b3bdef@redhat.com>
+ <20260626-drm_refcount_wiring-v1-4-cca1a7b3bdef@redhat.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowABHntHHdT5qTwJpFQ--.42803S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7urWrXw43AFWkWFyfWw4DArb_yoW8JFy3pr
- 42kry2yryvyanFyr4UZF18WFWDGa97Aa4fGF4UWw43Ww1UAr10ga48KFyagF17ArWjkF1f
- t39rCFy8CFyqk3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
- 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
- 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
- n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
- kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
- 67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
- CI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
- CwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcS
- sGvfC2KfnxnUUI43ZEXa7VUbzpBDUUUUU==
-X-Originating-IP: [117.182.75.66]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCQ4KA2o+TZN13gABsu
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="dvioag5mayzeljeh"
+Content-Disposition: inline
+In-Reply-To: <20260626-drm_refcount_wiring-v1-4-cca1a7b3bdef@redhat.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,36 +106,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_dp_add_mst_branch_device initializes mstb with refcount 1, and
-  drm_dp_mst_topology_get_mstb increments it to 2. When
-  drm_dp_dpcd_write_byte fails, out_unlock performs only one
-  drm_dp_mst_topology_put_mstb, leaving the other reference stored in
-  mgr->mst_primary. Since MST was not successfully enabled, no disable path
-  will clean it up.
 
-Cc: stable@vger.kernel.org
-Fixes: 7a3cbf590e63 ("drm/mst: Some style improvements in drm_dp_mst_topology_mgr_set_mst()")
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+--dvioag5mayzeljeh
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 4/5] drm/bridge: release panel reference on all lookup
+ exit paths
+MIME-Version: 1.0
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 8757972e8e24..db9441c80cd5 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -3679,8 +3679,10 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
- 					     DP_MST_EN |
- 					     DP_UP_REQ_EN |
- 					     DP_UPSTREAM_IS_SRC);
--		if (ret < 0)
-+		if (ret < 0) {
-+			mgr->mst_primary = NULL;
- 			goto out_unlock;
-+		}
- 
- 		/* Write reset payload */
- 		drm_dp_dpcd_clear_payload(mgr->aux);
--- 
-2.39.5 (Apple Git-154)
+On Fri, Jun 26, 2026 at 02:03:26PM +0200, Albert Esteve wrote:
+> of_drm_find_panel() and drm_of_find_panel_or_bridge() now return a
+> counted reference that the caller must release with drm_panel_put().
+>=20
+> For bridge drivers that immediately wrap the panel in a panel_bridge
+> (which acquires its own reference), release the lookup reference right
+> after the bridge creation call.
+>=20
+> For analogix-anx6345, which stores the panel for direct use, release
+> the reference in the i2c remove path.
+>=20
+> For platform drivers using analogix_dp_core with a component lifecycle
+> (exynos_dp, rockchip analogix_dp), release the lookup reference in the
+> platform remove() function. The panel_bridge created during bind() holds
+> a separate reference that devm cleanup releases after remove() returns.
+>=20
+> Also fix devm_drm_of_get_bridge() and drmm_of_get_bridge() in
+> bridge/panel.c itself: both call drm_of_find_panel_or_bridge() and
+> then pass the panel to devm/drmm_panel_bridge_add(), which acquires
+> its own reference via drm_panel_bridge_add_typed(). The lookup
+> reference was never released; add drm_panel_put() after each bridge
+> creation call.
+>=20
+> Assisted-by: Claude:claude-opus-4-6
+> Signed-off-by: Albert Esteve <aesteve@redhat.com>
 
+I think this one should be either split into one patch per driver, or
+merged with the of_drm_find_panel patch. I'm still not quite sure which
+would be the best, maybe the latter?
+
+Maxime
+
+--dvioag5mayzeljeh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaj52PwAKCRAnX84Zoj2+
+dqkkAX416HMzwlmhKIK9kObtiXs7aRAKA/jKzZZr7wPHQO6/uyzY73TP2QyyShFE
+RjZRFDwBgJ2jRvQKam/G1wYDKDB/X9IryTeMbNEHvQrSIgH4XGYNKJ2sIqCmRRJm
+MAR2IQBH8A==
+=+EN8
+-----END PGP SIGNATURE-----
+
+--dvioag5mayzeljeh--
