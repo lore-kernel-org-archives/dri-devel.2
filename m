@@ -4,56 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF03ECD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 10:26:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E26BCDE008
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 10:45:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1559A10E33D;
-	Fri, 26 Jun 2026 10:26:09 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H9wvkJY/";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4296210E33D
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 10:26:08 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 823CB60098;
- Fri, 26 Jun 2026 10:26:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B56A1F000E9;
- Fri, 26 Jun 2026 10:26:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782469567;
- bh=zNvNIOP+lA+Tu8EL824I1I9M5mhvmoXbh5ASrZCn7mo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=H9wvkJY/3byFOViyxOid8+vl+SuEU6XbFgMfE5Kx+E2wHQYTE7zIofEN7S8tq2ZK8
- kIGhIrlDySw50wA6u2Aif5FbF9GXefslwlrwqRsIts8SmM9XrCRQ+bGDtXl9yzXCDL
- YDX0C8rv3pbJEI6+Gk0E4GyVofRmEVP+Srb4+CZgzKwm+8HqYRgZ7EF00/xU+1G1jU
- 04EETzd3wRIJ5rr3D34NTBtf1tUc6I1W47JroPm/WMa4YjlJTxwdpPJ3Pjkwtk0vHO
- YLSIWkmJiCCiO/ulSCrwNXFwC0jjK2rldL5IPuwxNgkomYNZ/gKa1Dfm24gIi6MQxw
- K46CS12YOskUA==
-Date: Fri, 26 Jun 2026 12:26:03 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-tegra@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] dt-bindings: display: tegra: Add channel/syncpoint
- range properties
-Message-ID: <20260626-sceptical-aardvark-from-mars-cedf81@quoll>
-References: <20260622-host1x-nohv-v1-0-65bc682a617f@nvidia.com>
- <20260622-host1x-nohv-v1-2-65bc682a617f@nvidia.com>
- <20260625-poetic-heavy-vulture-7baabb@quoll>
- <Np88My8kTE-rRphOw0a-Ew@nvidia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A36FD10E37E;
+	Fri, 26 Jun 2026 10:45:02 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7658210E353
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 10:45:00 +0000 (UTC)
+Received: from localhost.localdomain (unknown [117.182.75.66])
+ by APP-03 (Coremail) with SMTP id rQCowACni+InWD5qhTzsFQ--.357S2;
+ Fri, 26 Jun 2026 18:44:57 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: koby.elbaz@intel.com,
+	konstantin.sinyuk@intel.com,
+	ogabbay@kernel.org
+Cc: vulab@iscas.ac.cn, kees@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] fix: accel/habanalabs: hl_cs_signal_sob_wraparound_handler:
+ missing hw_sob_get when need_reset is true and encaps_sig is false
+Date: Fri, 26 Jun 2026 18:44:53 +0800
+Message-Id: <20260626104453.32301-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <Np88My8kTE-rRphOw0a-Ew@nvidia.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: rQCowACni+InWD5qhTzsFQ--.357S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr17Zr1DWw4fZr1DXw1kXwb_yoW8GFWkpa
+ s8GF4rJF9Fqr9rAFnrCw45ZFyrXa9xKr9F9a1xG395urn8Ga4xJryYkayF9rWj9rs3Xa18
+ XF9Fq3yUC3WrAa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+ 6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+ 0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
+ 0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+ WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
+ IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbSfO7UUUU
+ U==
+X-Originating-IP: [117.182.75.66]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAYKA2o+ThINvAABs7
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,45 +62,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jun 25, 2026 at 06:26:43PM +0900, Mikko Perttunen wrote:
-> On Thursday, June 25, 2026 5:36=E2=80=AFPM Krzysztof Kozlowski wrote:
-> > On Mon, Jun 22, 2026 at 05:22:51PM +0900, Mikko Perttunen wrote:
-> > > Channels and syncpoints available may be limited when other system
-> >=20
-> > What are channels and syncpoints?
->=20
-> Very host1x-specific hardware resources. Somewhat close to GPU channels
-> and semaphores / fences if you're familiar with those.
->=20
-> >=20
-> > > components are using them. Add properties nvidia,channels and
-> > > nvidia,syncpoints to limit the range of usable channels and/or
-> > > syncpoints.
-> >=20
-> > Why isn't this deducible from the compatible?
->=20
-> When Host1x is partitioned, the hypervisor (or other software entity
-> with access to the non-vm host1x register regions) can configure which
-> channels and syncpoints are available to each partition arbitrarily.
+When other_sob->need_reset is true and encaps_sig is false,
+  hw_sob_put(other_sob) decrements the kref to 0, but the matching
+  hw_sob_get(other_sob) is skipped because it is inside the encaps_sig
+  block. The function returns other_sob with kref=0, causing a subsequent
+  kref_put to underflow. Fix by adding hw_sob_get(other_sob) in the else
+  branch.
 
-So you will have different boards for the same SoC with different
-values?
+Cc: stable@vger.kernel.org
+Fixes: dadf17abb724 ("habanalabs: add support for encapsulated signals reservation")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+ drivers/accel/habanalabs/common/command_submission.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
->=20
-> How that partitioning was done is not discoverable through hardware
-> directly, so we need to pass that information through device tree.
->=20
-> >=20
-> > Also, nvidia,channels is too broad/generic. This is not ADC, right? And
-> > channels is a common term in IIO. And in few other cases.
->=20
-> It's not ADC. Yes, it's a common term in a lot of contexts. I can call
-> it nvidia,host1x-channels if you prefer but that seems a bit redundant
-> given the context.
-
-host1x is indeed poor, but maybe there is some way to be a bit more
-descriptive? message-channels?
-
-Best regards,
-Krzysztof
+diff --git a/drivers/accel/habanalabs/common/command_submission.c b/drivers/accel/habanalabs/common/command_submission.c
+index ba4257bda77b..675301dfc0ef 100644
+--- a/drivers/accel/habanalabs/common/command_submission.c
++++ b/drivers/accel/habanalabs/common/command_submission.c
+@@ -1860,11 +1860,10 @@ int hl_cs_signal_sob_wraparound_handler(struct hl_device *hdev, u32 q_idx,
+ 		if (other_sob->need_reset)
+ 			hw_sob_put(other_sob);
+ 
+-		if (encaps_sig) {
++		if (encaps_sig)
+ 			/* set reset indication for the sob */
+ 			sob->need_reset = true;
+-			hw_sob_get(other_sob);
+-		}
++		hw_sob_get(other_sob);
+ 
+ 		dev_dbg(hdev->dev, "switched to SOB %d, q_idx: %d\n",
+ 				prop->curr_sob_offset, q_idx);
+-- 
+2.39.5 (Apple Git-154)
 
