@@ -4,53 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74FBBC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:30:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD8B7C43458
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 13:30:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D288E10E030;
-	Fri, 26 Jun 2026 13:30:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2822810E3B2;
+	Fri, 26 Jun 2026 13:30:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Myt0t36k";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Nj4Md8cF";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABE2010E030
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:30:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A190D10E3B2
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 13:30:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7A68D411AE;
- Fri, 26 Jun 2026 13:30:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D95341F000E9;
- Fri, 26 Jun 2026 13:30:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8AAB541290;
+ Fri, 26 Jun 2026 13:30:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DE381F000E9;
+ Fri, 26 Jun 2026 13:30:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782480605;
- bh=OJjUHAkdEe8N19JTuNyB6kPUYFo46bJCGP/sbky4+QA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Myt0t36kBx9THArqbWjrPX94ioWae/lGSdLYouZdRg+7FoJeWlA9GupN3U3VRzm+E
- MTd0eYSc+68TfL3Si2vYdqRs28XeystLlHYznq2gvTpC29mC17Ex4SKVGOThiorci8
- 0bDCnOOZ/sFC2hEiGR+h8FMTKqSmX8LcknT0JuQjWoahQwRnFUIMNnvX6E0wkEkHiK
- V/9nVKSaPNamOn2hDhZ2vATODPGpvPWjEHCIsHFZ81WBJxVgO8fgruBDXsG3OdpK34
- qr4yR6V1/tieO2coVu7Qy1K8sfffvs58IxDshRF5sRy4n3Jdpb6pd5B3kBCDjlOQ/K
- 9JyWGS1V90f0Q==
-Date: Fri, 26 Jun 2026 15:30:02 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 02/37] drm/bridge: analogix-anx6345: Switch to atomic
- bridge callbacks
-Message-ID: <20260626-berserk-ochre-barnacle-8de921@houat>
-References: <20260617-drm-all-atomic-bridges-v1-0-b63e6316166b@kernel.org>
- <20260617-drm-all-atomic-bridges-v1-2-b63e6316166b@kernel.org>
- <99c89977-85f8-41d4-afbd-ef39e2355c6e@suse.de>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="kk4cs5qqpksw37n2"
-Content-Disposition: inline
-In-Reply-To: <99c89977-85f8-41d4-afbd-ef39e2355c6e@suse.de>
+ s=k20260515; t=1782480642;
+ bh=627TXZ/RfDMpHMcDEz6LUQrcpKNszf2lRFP4r9g+TAE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Nj4Md8cFRJq/0ONM9KVR6pVD80oqS8IWzveNj2uQwsdBkHgGlsa9ZW8HKSVDoPvJp
+ XgxyQaplreuO1sLUAsEGEE5QSorFg00asF6+47dXoDjj02XD24O4LTLMfe+QAjqBJb
+ mZw6/ArSdgVaYxq2vscO+TjoS16I31H6Y6Gj/HR0IwfYUgRg00Jx2zTwOOdIwYYNgq
+ 8KpVrNoZaPwYwbmXFSXtvqF/ZHlqQrfv2CZCff4Af8znLpQcb6ieLdoz81hMTXX5l7
+ cJzHYgotLb1amVKTZOUOO6w1nCYhmikgyu3u0TgZfY+0X5M8fya5QlaQH1NHQSOlnO
+ pfda2d0wHC2tQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] fix: drm/hisilicon: kirin_drm_crtc_init: premature
+ of_node_put leaves   crtc->port as dangling pointer
+To: "WenTao Liang" <vulab@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260626131942.38072-1-vulab@iscas.ac.cn>
+References: <20260626131942.38072-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 13:30:41 +0000
+Message-Id: <20260626133042.3DE381F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,226 +53,83 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
---kk4cs5qqpksw37n2
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 02/37] drm/bridge: analogix-anx6345: Switch to atomic
- bridge callbacks
-MIME-Version: 1.0
+New issues:
+- [Medium] Ineffective fix and misunderstanding of C pointer lifetime in `k=
+irin_drm_crtc_init`.
 
-On Thu, Jun 25, 2026 at 10:08:21AM +0200, Thomas Zimmermann wrote:
-> Hi
->=20
-> Am 17.06.26 um 12:14 schrieb Maxime Ripard:
-> > The analogix-anx6345 bridge still uses the deprecated non-atomic bridge
-> > callbacks.
-> >=20
-> > Switch to their atomic counterparts, adding the bridge state
-> > handlers if not already present.
-> >=20
-> > Generated by the following Coccinelle script:
-> >=20
-> > @ is_bridge @
-> > identifier funcs;
-> > @@
-> >=20
-> >   struct drm_bridge_funcs funcs =3D {
-> > 	...,
-> >   };
-> >=20
-> > @ has_create_state depends on is_bridge @
-> > identifier funcs, f;
-> > @@
-> >=20
-> > struct drm_bridge_funcs funcs =3D {
-> >    ...,
-> >    .atomic_create_state =3D f,
-> >    ...,
-> > };
-> >=20
-> > @ update_struct depends on (is_bridge && !has_create_state) @
-> > identifier is_bridge.funcs;
-> > identifier f;
-> > @@
-> >=20
-> >   struct drm_bridge_funcs funcs =3D {
-> > +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
-> > +	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
-> > +	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
-> >   	...,
-> >   };
-> >=20
-> > @ update_pre_enable_struct depends on (is_bridge && !has_create_state) @
-> > identifier is_bridge.funcs;
-> > identifier f;
-> > @@
-> >=20
-> >   struct drm_bridge_funcs funcs =3D {
-> >   	...,
-> > -	.pre_enable =3D f,
-> > +	.atomic_pre_enable =3D f,
-> >   	...,
-> >   };
-> >=20
-> > @ update_pre_enable_impl depends on update_pre_enable_struct @
-> > identifier update_pre_enable_struct.f;
-> > identifier b;
-> > @@
-> >=20
-> > -void f(struct drm_bridge *b)
-> > +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
-> >   {
-> > 	...
-> >   }
-> >=20
-> > @ update_enable_struct depends on (is_bridge && !has_create_state) @
-> > identifier is_bridge.funcs;
-> > identifier f;
-> > @@
-> >=20
-> >   struct drm_bridge_funcs funcs =3D {
-> >   	...,
-> > -	.enable =3D f,
-> > +	.atomic_enable =3D f,
-> >   	...,
-> >   };
-> >=20
-> > @ update_enable_impl depends on update_enable_struct @
-> > identifier update_enable_struct.f;
-> > identifier b;
-> > @@
-> >=20
-> > -void f(struct drm_bridge *b)
-> > +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
-> >   {
-> > 	...
-> >   }
-> >=20
-> > @ update_disable_struct depends on (is_bridge && !has_create_state) @
-> > identifier is_bridge.funcs;
-> > identifier f;
-> > @@
-> >=20
-> >   struct drm_bridge_funcs funcs =3D {
-> >   	...,
-> > -	.disable =3D f,
-> > +	.atomic_disable =3D f,
-> >   	...,
-> >   };
-> >=20
-> > @ update_disable_impl depends on update_disable_struct @
-> > identifier update_disable_struct.f;
-> > identifier b;
-> > @@
-> >=20
-> > -void f(struct drm_bridge *b)
-> > +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
-> >   {
-> > 	...
-> >   }
-> >=20
-> > @ update_post_disable_struct depends on (is_bridge && !has_create_state=
-) @
-> > identifier is_bridge.funcs;
-> > identifier f;
-> > @@
-> >=20
-> >   struct drm_bridge_funcs funcs =3D {
-> >   	...,
-> > -	.post_disable =3D f,
-> > +	.atomic_post_disable =3D f,
-> >   	...,
-> >   };
-> >=20
-> > @ update_post_disable_impl depends on update_post_disable_struct @
-> > identifier update_post_disable_struct.f;
-> > identifier b;
-> > @@
-> >=20
-> > -void f(struct drm_bridge *b)
-> > +void f(struct drm_bridge *b, struct drm_atomic_commit *commit)
-> >   {
-> > 	...
-> >   }
-> >=20
-> > Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> > ---
-> >   drivers/gpu/drm/bridge/analogix/analogix-anx6345.c | 13 +++++++++----
-> >   1 file changed, 9 insertions(+), 4 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c b/drive=
-rs/gpu/drm/bridge/analogix/analogix-anx6345.c
-> > index f3fe47b12edc..eba5c6dcb5ad 100644
-> > --- a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
-> > +++ b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
-> > @@ -564,11 +564,12 @@ anx6345_bridge_mode_valid(struct drm_bridge *brid=
-ge,
-> >   		return MODE_CLOCK_HIGH;
-> >   	return MODE_OK;
-> >   }
-> > -static void anx6345_bridge_disable(struct drm_bridge *bridge)
-> > +static void anx6345_bridge_disable(struct drm_bridge *bridge,
-> > +				   struct drm_atomic_commit *commit)
-> >   {
-> >   	struct anx6345 *anx6345 =3D bridge_to_anx6345(bridge);
-> >   	/* Power off all modules except configuration registers access */
-> >   	anx6345_set_bits(anx6345->map[I2C_IDX_TXCOM], SP_POWERDOWN_CTRL_REG,
-> > @@ -578,11 +579,12 @@ static void anx6345_bridge_disable(struct drm_bri=
-dge *bridge)
-> >   	if (anx6345->powered)
-> >   		anx6345_poweroff(anx6345);
-> >   }
-> > -static void anx6345_bridge_enable(struct drm_bridge *bridge)
-> > +static void anx6345_bridge_enable(struct drm_bridge *bridge,
-> > +				  struct drm_atomic_commit *commit)
-> >   {
-> >   	struct anx6345 *anx6345 =3D bridge_to_anx6345(bridge);
-> >   	int err;
-> >   	if (anx6345->panel)
-> > @@ -598,15 +600,18 @@ static void anx6345_bridge_enable(struct drm_brid=
-ge *bridge)
-> >   	if (err)
-> >   		DRM_ERROR("Failed to enable DP output: %d\n", err);
-> >   }
-> >   static const struct drm_bridge_funcs anx6345_bridge_funcs =3D {
-> > +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
-> > +	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
-> > +	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
-> >   	.attach =3D anx6345_bridge_attach,
-> >   	.detach =3D anx6345_bridge_detach,
-> >   	.mode_valid =3D anx6345_bridge_mode_valid,
-> > -	.disable =3D anx6345_bridge_disable,
-> > -	.enable =3D anx6345_bridge_enable,
-> > +	.atomic_disable =3D anx6345_bridge_disable,
-> > +	.atomic_enable =3D anx6345_bridge_enable,
->=20
-> More of a style issue:=A0 since these enable/disable helpers now implemen=
-t the
-> atomic callbacks, could they be renamed to _atomic_enable and
-> _atomic_disable ?=A0 IIRC I've seen other cases with _pre_enable and
-> _post_disable that might be renamed as well.
+Pre-existing issues:
+- [High] NULL pointer dereference when shared IRQ triggers before CRTC init=
+ialization completes.
+- [High] Resource leaks and permanent driver breakage due to `devm_*` misus=
+e in component `bind`.
+--
 
-I'd really prefer not to :)
+commit 5e60641f8f98c64d6ba73a1036397dc68df8729a
+Author: WenTao Liang <vulab@iscas.ac.cn>
+fix: drm/hisilicon: kirin_drm_crtc_init: premature of_node_put leaves crtc-=
+>port as dangling pointer
 
-It's going to be a pain to do automatically, and even more painful by hand.
+This commit attempts to fix a dangling pointer by moving the of_node_put()
+call after the crtc->port assignment in kirin_drm_crtc_init().
 
-Maxime
+> diff --git a/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c b/drivers/gp=
+u/drm/hisilicon/kirin/kirin_drm_drv.c
+> index 8a11c2df5b886..cc453b29b22c3 100644
+> --- a/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c
+> +++ b/drivers/gpu/drm/hisilicon/kirin/kirin_drm_drv.c
+> @@ -53,8 +53,8 @@ static int kirin_drm_crtc_init(struct drm_device *dev, =
+struct drm_crtc *crtc,
+>  		DRM_ERROR("no port node found in %pOF\n", dev->dev->of_node);
+>  		return -EINVAL;
+>  	}
+> -	of_node_put(port);
+>  	crtc->port =3D port;
+> +	of_node_put(port);
 
---kk4cs5qqpksw37n2
-Content-Type: application/pgp-signature; name="signature.asc"
+[Severity: Medium]
+Does moving this of_node_put() actually change the pointer lifetime? Since
+assigning crtc->port =3D port only copies the address without incrementing =
+the
+reference count, it seems the pointer is just as dangling as it was before.
 
------BEGIN PGP SIGNATURE-----
+> =20
+>  	ret =3D drm_crtc_init_with_planes(dev, crtc, plane, NULL,
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaj5+2gAKCRAnX84Zoj2+
-djNSAX9xcxRCn/oQHSnx0C+VKGSJ5yPoH+4gu/Vo5AQ5RGmsajRU30qPdtr1+tfv
-H4XIqysBfieOq0vsIkYtQMV4F5sM1zERlJEtDSr4MIlOvgUWMSQ9Lf55AqgMLkqB
-9rBYRpQZdw==
-=4yXb
------END PGP SIGNATURE-----
+[Severity: High]
+This is a pre-existing issue, but can ade_irq_handler() trigger a NULL
+pointer dereference if a shared interrupt fires early?
 
---kk4cs5qqpksw37n2--
+In drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c:ade_hw_ctx_alloc(),
+the IRQ is registered with IRQF_SHARED before the CRTC is initialized:
+
+	ret =3D devm_request_irq(dev, ctx->irq, ade_irq_handler,
+			       IRQF_SHARED, dev->driver->name, ctx);
+
+At this point, crtc->dev is still NULL until drm_crtc_init_with_planes() is
+called later. If a shared interrupt fires or is left asserted by the
+bootloader, ade_irq_handler() calls drm_crtc_handle_vblank(crtc), which
+dereferences crtc->dev.
+
+[Severity: High]
+This is also a pre-existing issue, but does using dev-managed allocators
+inside a component bind callback cause resource leaks on unbind?
+
+In drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c:ade_hw_ctx_alloc(),
+which is called from the component bind path (kirin_drm_bind), resources
+are allocated using devm_platform_ioremap_resource() and other devm_* APIs.
+
+When the component is unbound, the master device is not removed, so devm
+does not release these resources. Rebinding will execute ade_hw_ctx_alloc()
+again, leaking memory, duplicating the IRQ handler, and causing ioremap to
+fail with -EBUSY.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626131942.3807=
+2-1-vulab@iscas.ac.cn?part=3D1
