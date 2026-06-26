@@ -4,64 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83DE6CD4F26
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:56:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C491CDE012
+	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 07:56:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C442D10F4BE;
-	Fri, 26 Jun 2026 07:56:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABF4710F4C3;
+	Fri, 26 Jun 2026 07:56:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="key not found in DNS" (0-bit key; unprotected) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="tOBLxWgM";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="dLNPlVo4";
 	dkim-atps=neutral
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net
- (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6978710E208
- for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 16:03:21 +0000 (UTC)
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com
+ [74.125.82.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 709E510E2A1
+ for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 02:51:28 +0000 (UTC)
+Received: by mail-dy1-f181.google.com with SMTP id
+ 5a478bee46e88-30c8b23420bso848296eec.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 25 Jun 2026 19:51:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
- Message-Id:MIME-Version:Content-Transfer-Encoding; bh=T8/WLYardC
- tv6AXvQJyez5N5S5F59yReGTMgkUtb4vY=; b=tOBLxWgMYVfYBLB/OWvGtfHPl8
- xK5FUWZGNTZvsHlJ3brp1x8d+BZpUfzWlP0zeuBMzLZARAWPjzcYRB2cyDcbwfXW
- khjBglHXGXJFqOTsLLVVJ4CaJPJTv8Xet8PBBEUiROGWD92IdgxdbJMvx9MLPZ4n
- Cz529xigziL3TIpUk=
-Received: from wmy.localdomain (unknown [113.200.174.100])
- by hzbj-edu-front-4.icoremail.net (Coremail) with SMTP id
- BrQMCkAmTxVAUT1q3zwBAA--.5710S2; 
- Fri, 26 Jun 2026 00:03:15 +0800 (CST)
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-To: deller@gmx.de,
-	tzimmermann@suse.de,
-	simona@ffwll.ch
-Cc: syoshida@redhat.com, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- w15303746062@163.com, Mingyu Wang <25181214217@stu.xidian.edu.cn>,
- stable@vger.kernel.org
-Subject: [PATCH v2] fbdev: fbcon: fix out-of-bounds read in err_out of
- fbcon_do_set_font()
-Date: Fri, 26 Jun 2026 00:03:06 +0800
-Message-Id: <20260625160306.438847-1-25181214217@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+ d=usp.br; s=usp-google; t=1782442288; x=1783047088; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JtS/kmZ/uTxQKqZxPH1/+2V/jDxVEHNoVXNcZX4R18E=;
+ b=dLNPlVo4zZTTbMISZiCax6utHH3x98j6a9NExigEtydem6RYEfj2aO3V6CaCx49lOT
+ ke7wU6U+IXyJ1c0C7ylzOg82/2ZkgTI+qxjZ40QDURM9Qq5XMvelGReO3NicA5Gqlwwk
+ tcFjry2T9DojLVXku6zvmFJ/bpxdnxLlLIgQkg5AFtsdMvCVWe6tEiIk+dgU/4loISrS
+ kpqoTYt5yCNdP/CaJ+3ul0riFTho15jv46p5NQMnyk5HRjhuZJJFUBqzgqgk+mINR5DN
+ 40Jo1CxHxEwfumcptSu4fY0Hy/lX8iLVeVT5TGQwUKhgBpchb9bHjErnmVGjNYNQY4Uv
+ 7jrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782442288; x=1783047088;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=JtS/kmZ/uTxQKqZxPH1/+2V/jDxVEHNoVXNcZX4R18E=;
+ b=ju/PKiAj/Zv4S5pNP2tHmgCNMV3m6Y2fKWF0kVTxX9sgvBNSqXNYvHfLhFvSSn5kv5
+ azrHy3PvgmKlk82/24v5LF1VG2cX8y9/3Kf2WAzvpFDfY3TKvCbzz0Rp7e1viIo2aS0f
+ n1eGxlx4eNjSuZDcKd3w1H/ACfLX6CduvI2+Pv4l5tAkdQAjgeg2/8g2kO4QuvIN5MiM
+ WTHpGBaMk3a0j+RcE+h2BkOflMRPw/MQ88SK+0x78jow09e6n68Ofh4hWXgRmvvM459i
+ TqFvAS4OzXjB9x/PE9ef1kjG/HdohttM7ZsxFN3yp/UC+Txtx9/WtchqBvU5KgNprs12
+ yBnA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqbBYdNAwyWYxe//Db1k4o9jDqjKAYvm3ViUm3GlUhA0yZaA916kHYMbUqBNtm5gfZLTIzVS2QZZ3Q=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YybfIa0vWYQ0ZZ8axk740e5y9oPdepvR1kCY1ZF8G9Kk1RUDb7q
+ SU+tKROwA1TKJ42PT0QB4OzC8R+uKOPujXFgwDci4NJAdmGpY7Vf65iDdnVDcWsZ6rVujC+37HV
+ nuOTBWKWQSA==
+X-Gm-Gg: AfdE7cnI5DZwN/aCjkAoOIrULiNmUfDwLC+xEl181RFb8tTOAufgh6iYyZR3OyGp+GZ
+ he9QMRA4kNWwXi9QpXMeULiSn7oZ8BfNLI8Yjf1RYWNytUH4HQQjwQqU+SA5kXdYI9IrMU1S4Aq
+ HE454vmNbSzN7Fkg/bQTz1Sn+RrvmLa7Mr9XfzmKpDu2rOUwSs5YCFjwLA1BpOrMqhIad7M3T2m
+ 14v/BdrhRnTB8dPW0B9vE6aq36ovc7FrHuF/lBgd/+21giHRhsCoYZvyY/sldITfg+nLplUL8Qw
+ T4Gocfy63JOZDVDD8lNd5CR/7v12ND4sCaGHsV0wk9awUlP3/NmLvyFSESjwEKS9SUV6iMbxah8
+ yoUkdZ1KHtplb8UorsmODBjbcfGqRC4TRG+2QD9icgXNDugmOFkRh5btvduR8Sy1INYfrZpZUJj
+ xG4Y4CcOR+wpqjC/6fHyrrPfUTKiGihumcPvfTmNz1A6m2yBQcptHjowldv4u6Z7VfFWU5mg==
+X-Received: by 2002:a05:693c:88c8:20b0:30c:9cea:563a with SMTP id
+ 5a478bee46e88-30c9cea5670mr469061eec.24.1782442287594; 
+ Thu, 25 Jun 2026 19:51:27 -0700 (PDT)
+Received: from voyager.. ([179.119.40.186]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-30c7ca438ddsm12905797eec.23.2026.06.25.19.51.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jun 2026 19:51:27 -0700 (PDT)
+From: Tiago Dourado <tiagodourado@usp.br>
+To: amd-gfx@lists.freedesktop.org, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, simona@ffwll.ch
+Cc: luiz.f.f.fernandes@usp.br, Tiago Dourado <tiagodourado@usp.br>,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v2 2/2] drm/amdgpu/jpeg: deduplicate jpeg_v5_3_0
+ process_interrupt
+Date: Thu, 25 Jun 2026 23:47:24 -0300
+Message-ID: <20260626024948.19131-3-tiagodourado@usp.br>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260626024948.19131-1-tiagodourado@usp.br>
+References: <20260626024948.19131-1-tiagodourado@usp.br>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: BrQMCkAmTxVAUT1q3zwBAA--.5710S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGFW7Ww13WFWxCr1DJr1rtFb_yoW5Jw4xp3
- y3Kw13Kr1ktr1rGa10gw4kCF15Wan7A34jqayxK345Kw15Gr4UXFW0yFyYvF98C3srXF10
- qw1vg3s29FyDC3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUBK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
- 4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
- rcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14
- v_JwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v2
- 6r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2
- Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
- Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMI
- IF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUUsXo7UUUUU=
- =
-X-CM-SenderInfo: qsvrmiqsrujiux6v33wo0lvxldqovvfxof0/1tbiAgUPEWo9RfMFSgABs2
-X-Mailman-Approved-At: Fri, 26 Jun 2026 07:53:41 +0000
+X-Mailman-Approved-At: Fri, 26 Jun 2026 07:53:42 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,62 +92,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When fbcon_do_set_font() fails (e.g., due to a memory allocation failure
-inside vc_resize() under heavy memory pressure), it jumps to the `err_out`
-label to roll back the console state. However, the current rollback logic
-forgets to restore the `hi_font` state, leading to a severe state machine
-corruption.
+The jpeg_v5_3_0_process_interrupt function is identical to
+jpeg_v5_0_0_process_interrupt. Remove the duplicate implementation
+in jpeg_v5_3_0 and assign the jpeg_v5_0_0 version directly to the irq_funcs struct.
+Export jpeg_v5_0_0_process_interrupt through jpeg_v5_0_0.h to allow
+cross-version reuse.
 
-Earlier in the function, `set_vc_hi_font()` might be called to change
-`vc->vc_hi_font_mask` and mutate the screen buffer. If `vc_resize()`
-subsequently fails, the `err_out` path restores `vc_font.charcount`
-but entirely skips rolling back the `vc_hi_font_mask` and the screen
-buffer.
-
-This mismatch leaves the terminal in a desynchronized state. Because
-`vc_hi_font_mask` remains set, the VT subsystem will still accept
-character indices greater than 255 from userspace and write them to the
-screen buffer. Subsequent rendering calls (e.g., `fbcon_putcs()`) will
-then use these inflated indices to access the reverted, 256-character
-font array, leading to a deterministic out-of-bounds read and potential
-kernel memory disclosure.
-
-Fix this by adding the missing rollback logic for the `hi_font` mask
-and screen buffer in the error path.
-
-Fixes: a5a923038d70 ("fbdev: fbcon: Properly revert changes when vc_resize() failed")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Tiago Dourado <tiagodourado@usp.br>
+Co-developed-by: Luiz Fernandes <luiz.f.f.fernandes@usp.br>
+Signed-off-by: Luiz Fernandes <luiz.f.f.fernandes@usp.br>
 ---
- drivers/video/fbdev/core/fbcon.c | 7 +++++++
- 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 9077d3b99357..37beb93045af 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -2405,6 +2405,7 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	int resize, ret, old_width, old_height, old_charcount;
- 	font_data_t *old_fontdata = p->fontdata;
- 	const u8 *old_data = vc->vc_font.data;
-+	unsigned short old_hi_font_mask = vc->vc_hi_font_mask;
+v2:
+- Assigned function directly to irq_funcs instead of using a macro.
+
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c | 22 ++--------------------
+ 3 files changed, 7 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+index 46bf15dce..4575d1f9d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+@@ -625,7 +625,7 @@ static int jpeg_v5_0_0_set_interrupt_state(struct amdgpu_device *adev,
+ 	return 0;
+ }
  
- 	font_data_get(data);
+-static int jpeg_v5_0_0_process_interrupt(struct amdgpu_device *adev,
++int jpeg_v5_0_0_process_interrupt(struct amdgpu_device *adev,
+ 				      struct amdgpu_irq_src *source,
+ 				      struct amdgpu_iv_entry *entry)
+ {
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h
+index 5abb96159..4eeb0c147 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.h
+@@ -32,4 +32,8 @@
  
-@@ -2451,6 +2452,12 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	vc->vc_font.height = old_height;
- 	vc->vc_font.charcount = old_charcount;
+ extern const struct amdgpu_ip_block_version jpeg_v5_0_0_ip_block;
  
-+	/* Restore the hi_font state and screen buffer */
-+	if (old_hi_font_mask && !vc->vc_hi_font_mask)
-+		set_vc_hi_font(vc, true);
-+	else if (!old_hi_font_mask && vc->vc_hi_font_mask)
-+		set_vc_hi_font(vc, false);
++int jpeg_v5_0_0_process_interrupt(struct amdgpu_device *adev,
++				  struct amdgpu_irq_src *source,
++				  struct amdgpu_iv_entry *entry);
 +
- 	font_data_put(data);
+ #endif /* __JPEG_V5_0_0_H__ */
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
+index 1821dced9..a67c6e916 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
+@@ -32,6 +32,7 @@
+ #include "vcn/vcn_5_3_0_offset.h"
+ #include "vcn/vcn_5_3_0_sh_mask.h"
+ #include "ivsrcid/vcn/irqsrcs_vcn_5_0.h"
++#include "jpeg_v5_0_0.h"
+ #include "jpeg_v5_3_0.h"
  
- 	return ret;
+ static void jpeg_v5_3_0_set_dec_ring_funcs(struct amdgpu_device *adev);
+@@ -608,25 +609,6 @@ static int jpeg_v5_3_0_set_interrupt_state(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
+-static int jpeg_v5_3_0_process_interrupt(struct amdgpu_device *adev,
+-				      struct amdgpu_irq_src *source,
+-				      struct amdgpu_iv_entry *entry)
+-{
+-	DRM_DEBUG("IH: JPEG TRAP\n");
+-
+-	switch (entry->src_id) {
+-	case VCN_5_0__SRCID__JPEG_DECODE:
+-		amdgpu_fence_process(adev->jpeg.inst->ring_dec);
+-		break;
+-	default:
+-		DRM_DEV_ERROR(adev->dev, "Unhandled interrupt: %d %d\n",
+-			  entry->src_id, entry->src_data[0]);
+-		break;
+-	}
+-
+-	return 0;
+-}
+-
+ static int jpeg_v5_3_0_ring_reset(struct amdgpu_ring *ring,
+ 				  unsigned int vmid,
+ 				  struct amdgpu_fence *timedout_fence)
+@@ -696,7 +678,7 @@ static void jpeg_v5_3_0_set_dec_ring_funcs(struct amdgpu_device *adev)
+ 
+ static const struct amdgpu_irq_src_funcs jpeg_v5_3_0_irq_funcs = {
+ 	.set = jpeg_v5_3_0_set_interrupt_state,
+-	.process = jpeg_v5_3_0_process_interrupt,
++	.process = jpeg_v5_0_0_process_interrupt,
+ };
+ 
+ static void jpeg_v5_3_0_set_irq_funcs(struct amdgpu_device *adev)
 -- 
-2.34.1
+2.43.0
 
