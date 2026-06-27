@@ -4,124 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B6EDC43602
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 20:44:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 950E5C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 20:54:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81FA710E51C;
-	Sat, 27 Jun 2026 20:44:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9D1410E308;
+	Sat, 27 Jun 2026 20:54:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PTiLTP86";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hGA2IQiM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IeTPp4+a";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3199910E519
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 20:44:12 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65RHnK6f1732805
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 20:44:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=S6xxxfMDXAN
- erFbo1uReydPIpgfTLhmvDaY3AGwCAeU=; b=PTiLTP86qMBE4tCJ36jYlrb/bMe
- n3IosNhRLixuLEsSvTMR4b+kq3DPcfOSjeNqstHZvPRAy/jYSI7WYnf8vxNm8blh
- VIXEmzqcQ7lknqopUhq72ZfzcZr0WJBv8ZJB85xSbxNI1cgJSa06ckaJbAGjmlJw
- x7rXTHJDeKNitt5NpMI9UjKSXOlzNTEpBVHKyz+l28MXIr7H7yVhDgAs9FBjfMei
- WpdPq6KnLqvpkF1VsHUj+h3RhzHf6Pt6Z2BJQn7UenHSCIEkps+TNEIBJqr7viM6
- 4uT5/XuYbzY+H0MzvOya0WmSEwiI+bhorqUnuwTgJr2nAnr1GESWBOCPxaA==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
- [74.125.82.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f26tuhnyk-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 20:44:11 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id
- 5a478bee46e88-30cb2bcbf7cso1289432eec.1
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:44:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1782593051; x=1783197851;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=S6xxxfMDXANerFbo1uReydPIpgfTLhmvDaY3AGwCAeU=;
- b=hGA2IQiMh6Dnp7xfFmzKUaICFOg2Lbp4gPsBWfn05oWBZ/o0eFe19LPwyp+SQxO7nJ
- 34i3i/bgeo8f/HOGBX6P/Ff6bhXVu1LQB2hgAsE7SfCx7gD7nWBw3rBAh4gOkPokUqm/
- pP5prz24u1UgxjbHZn/as3IyPiOto6fEyns/DUDSGHel+394T0tPoDZl1V1Q/EJgx5iw
- whInqmbOd3jKmd9aJJHjPH7Mz8ViKxYFI+zTxzghyCaCdgqKbxHmYNEOdKYPva8Ojiw3
- wDab4b1bVU6ioEP7fkSZr9jloYJ/udlOt0Vqnq0UaedmxEz0R6jMA11ybL5iDG3qmH/O
- /4+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782593051; x=1783197851;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=S6xxxfMDXANerFbo1uReydPIpgfTLhmvDaY3AGwCAeU=;
- b=oIwm8hep39ihZEmWk4rkPLQDdFhKH84E7nL+yCta/ZNi+C9/9e0RQxMpH9j4gL1BA0
- UmyhLLFO4DO2O/Xh9vMsV9CkxpnXwheYt5ut0yQenuwxs7efN8FrlD9XpGiHLhukQbu4
- RZoie+TuRQQCLoMKFdbgLKv8fy+wvlKhDF5BzuEge5lUOFAiGzHmWu7IBciIebM6yygk
- ZxkRmWzl5mp7T/GOt6N50sdtekTdnRFHY1rK+Pnd7y3mcS0IEl2nRr5MMauy9ECkaGZP
- sfkcabPcezssr89tYUFES3E9ZZAmiQvmRhQHAqGNXxmjH0dPKMQIu8WDyBNwqnpdiWvR
- d8Ig==
-X-Gm-Message-State: AOJu0Yyfw72gzHgYu+UgTl1r+LZGvLHQo1/f97xyH3lQAdj6jTDDeun0
- PouUzI0a5oXxdaiIQFgnSWMD65g7AX5FuvUrnJAsRrpC6U3w9Jja6vHbFxeqdjpBy4a+ayf59dp
- 1EsyPkOUaDh4a1XcglDC7m4lRkRE0KEHsPFu+Lb4L70/RQ+xd0STsZHXNFZs4MQWVlNEsgrgplg
- fXh7M=
-X-Gm-Gg: AfdE7cnbQC/PYKTaGCPJh2ee+Co2w0ljhatXaqD7uiPqNBYP1VaszQBpFM78NQBKpwW
- 12tQP0bRI+xoXToMrWKTjKrzroGdCW1U1ns4ARYhS5g11O6dtVQwMVKb9e6tgml8YAPsxLfGvC4
- LdBhdK7vAxt7pBqPuDiCHSTZpPmZNnYiRMJe8qldb58ftpPi/WS7ZadRBmzazYlyIIFWehvaCIs
- Z5kELNFu1u5tzMxC7I7bPs3YlAXpfDW06fvUHKrNdikA8YNevwHdWki46DcVaLrt9ov1ekxvSpO
- gbMMmC4jl8F8ueVU6PlL0QU+G2xpBrrRedUQ/tHcVwbOrSXvfR5wYH6G3WUHUa1NFp9Nc27mHS3
- mlKuF+xiGke3DT7S2y2RdgQq/fCHMTSDtQKbV
-X-Received: by 2002:a05:7301:37c4:b0:304:de43:130 with SMTP id
- 5a478bee46e88-30c84b2d00cmr11262297eec.2.1782593051056; 
- Sat, 27 Jun 2026 13:44:11 -0700 (PDT)
-X-Received: by 2002:a05:7301:37c4:b0:304:de43:130 with SMTP id
- 5a478bee46e88-30c84b2d00cmr11262269eec.2.1782593050357; 
- Sat, 27 Jun 2026 13:44:10 -0700 (PDT)
-Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-30ca5f14f8asm16882963eec.6.2026.06.27.13.44.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 27 Jun 2026 13:44:10 -0700 (PDT)
-From: mohit.dsor@oss.qualcomm.com
-To: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, boss@oss.qualcomm.com,
- qc-display-maintainer@oss.qualcomm.com
-Subject: [PATCH 4/5] drm/bridge: lt9611c: fix chip type initialization
-Date: Sun, 28 Jun 2026 02:13:56 +0530
-Message-Id: <20260627204357.3336040-5-mohit.dsor@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260627204357.3336040-1-mohit.dsor@oss.qualcomm.com>
-References: <20260627204357.3336040-1-mohit.dsor@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: dfg15sSKMSqREPu3ZKXtadbe1dKbynA9
-X-Authority-Analysis: v=2.4 cv=A8Rc+aWG c=1 sm=1 tr=0 ts=6a40361b cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=lwkqCOk8tsuKzwstaJgA:9 a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-ORIG-GUID: dfg15sSKMSqREPu3ZKXtadbe1dKbynA9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI3MDE4MyBTYWx0ZWRfX9hZpYCikB0Vt
- TlU7LO/4sKFozCPcpU3ASI7GXo7WFBJPhP9fM/948b3TmCdLWLUVRYnqmyObrhTuTFMBLFtomcK
- 9vzqUtxbsYHmwlrvnXPkFHc6JChyBExj0OLyA4JaD3UJMFetIFeq+4QV8m+wKLZC3oj68dX8iS7
- EWrica6VD6slNah5kr4fyJZ/lEZRh9rNk13ZXOZINE9ZoGnWGjtJjP76k491KBtP1YLTZI+Ytlj
- sayTa72tZWarWJ5QdiBNCQWbcFTDD2OCweikIqJAJqnZSKGg8pLlPqvYKn/VE7LjcH9fqk0sTsc
- UOiyz/8h/RLrki74Sn+4Wz0ZALIwWgxQn+Lpmh3BMdJPVoVpbfvzJeu/jWrrcx/us4qtUu6MTSz
- FUw5GTCt0RG9s1xpslosPpUem462Z8HMgYPQPT1Fp7Dz6hYOiRqkmcc5cWuX+gP3FvwR5mtVXVN
- zrwBTbkkIp226IIaZ5A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI3MDE4MyBTYWx0ZWRfX9viYVbImA94z
- BDUAZv1HAhYHliGGgzAMZ0bqEwtgpms21OquvcKc3KL2OhVef6e39BTRN2i5FSxC2mYad3Iu+yw
- QvwTKh9QO9gjH4JhL1+K+ifHxgH+vzs=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-27_03,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
- suspectscore=0 malwarescore=0 phishscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606270183
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95FFF10E308
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 20:54:43 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3EC1C43A66;
+ Sat, 27 Jun 2026 20:54:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFEDC1F000E9;
+ Sat, 27 Jun 2026 20:54:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782593683;
+ bh=Y8auQex1QydmfoQJ1L6kFVe4F0h9A8KnXtX//iH/J3I=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=IeTPp4+ag3oQVAf7dZzzLl930pk26toV2FiPg22rJgxRw/YvLMS1By6HModS0/Vbd
+ i2ombo7EtsK2W/9axHKrhDUUitTIbdCgICxsMIfSIcTiNkqAbV5QFBQPqzSGfbi5dC
+ bqJJJeE/rDnt++Kk8Gu3OQ2PIFKIu/H7+hIHdED3c/Zte8+IE/zoMZJzCouVvBpqOA
+ WPvijBItjQ0F2i7x8UrQz0gxBAZztMICztVEEua5aC1rSp+JEHZqL+yX1FuxXjGy3K
+ VUAM/tBTLh0YZ+40Ngg3jQpC4Yd6Fcpx0P+DHgDrsTxD7CPgITGSlpQ1+5tH41kBh/
+ dMSIFDxetdBRw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm: bridge: add support for lontium LT9611UXD bridge
+To: mohit.dsor@oss.qualcomm.com
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260627204125.3334834-2-mohit.dsor@oss.qualcomm.com>
+References: <20260627204125.3334834-1-mohit.dsor@oss.qualcomm.com>
+ <20260627204125.3334834-2-mohit.dsor@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 27 Jun 2026 20:54:42 +0000
+Message-Id: <20260627205442.EFEDC1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,31 +53,226 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 10 potential issue=
+(s) to consider:
+- [Critical] Missing error checks for `regmap_bulk_read()` cause the driver=
+ to leak uninitialized kernel stack memory to userspace.
+- [High] Requesting the threaded IRQ before `drm_bridge_add()` creates a ra=
+ce condition where the IRQ handler triggers a hotplug notification on an un=
+initialized mutex.
+- [High] The driver blocks the probe thread with an arbitrary 3-second slee=
+p and synchronous firmware request.
+- [High] Missing MCU pause sequence and inconsistent locking during multi-r=
+egister I2C flows causes hardware protocol violations.
+- [High] The hardware reset sequence incorrectly assumes `gpiod_set_value_c=
+ansleep(..., 1)` implies physical high, permanently holding the chip in res=
+et if configured as active-low.
+- [High] Concurrent sysfs writes to the firmware store can cause a race con=
+dition leading to a Use-After-Free of the `firmware` object.
+- [High] The sysfs interface allows access to a destroyed mutex and powered=
+-down device during driver removal.
+- [Medium] The driver leaks the loaded `struct firmware` object when firmwa=
+re size validation fails.
+- [Medium] Device tree node references for primary and secondary DSI interf=
+aces are leaked on error paths during probe.
+- [Medium] The `edid_read` boolean flag is never cleared, causing hotplug e=
+vents to skip waiting for the new EDID.
+--
 
-Remove redundant assignment of chip_type from I2C match as it
-is derived from DT data when available.
+commit 437e6d5b427406deebe87f22d20ccf090df265b9
+Author: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 
-Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
----
- drivers/gpu/drm/bridge/lontium-lt9611c.c | 1 -
- 1 file changed, 1 deletion(-)
+drm: bridge: add support for lontium LT9611UXD bridge
 
-diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-index 4c8a3829a4be..d35a246e2d01 100644
---- a/drivers/gpu/drm/bridge/lontium-lt9611c.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-@@ -1105,7 +1105,6 @@ static int lt9611c_probe(struct i2c_client *client)
- 
- 	lt9611c->dev = dev;
- 	lt9611c->client = client;
--	lt9611c->chip_type = id->driver_data;
- 
- 	if (dev->of_node) {
- 		lt9611c->chip_type = (uintptr_t)of_device_get_match_data(dev);
--- 
-2.34.1
+This commit introduces the driver for the Lontium LT9611UXD HDMI bridge.
+It supports DSI and I2S ports as input and an HDMI port as output.
 
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611uxd.c b/drivers/gpu/drm=
+/bridge/lontium-lt9611uxd.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/lontium-lt9611uxd.c
+[ ... ]
+> +static int lt9611uxd_i2c_read_write_flow(struct lt9611uxd *lt9611uxd, u8=
+ *params,
+[ ... ]
+> +	regmap_bulk_read(lt9611uxd->regmap, 0xe085, return_buffer, return_count=
+);
+> +
+> +	return 0;
+> +}
+
+[Severity: Critical]
+Does this code leak uninitialized stack memory to userspace? The return val=
+ue
+of regmap_bulk_read() is discarded and 0 is unconditionally returned. If the
+I2C read fails, the uninitialized memory in return_buffer (such as the pack=
+et
+array in lt9611uxd_get_edid_block()) could be copied to the EDID buffer.
+
+[ ... ]
+> +static int lt9611uxd_prepare_firmware_data(struct lt9611uxd *lt9611uxd)
+> +{
+[ ... ]
+> +	/* ensure filesystem ready */
+> +	msleep(3000);
+> +	ret =3D request_firmware(&lt9611uxd->fw, FW_FILE, dev);
+
+[Severity: High]
+Does this synchronous sleep and firmware request block the probe thread?
+Delaying the probe by 3 seconds could significantly slow down boot, or cause
+a deadlock if the filesystem containing the firmware is not mounted yet.
+
+[ ... ]
+> +	if (lt9611uxd->fw->size > FW_SIZE - 1) {
+> +		dev_err(dev, "firmware too large (%zu > %d)\n", lt9611uxd->fw->size, F=
+W_SIZE - 1);
+> +		lt9611uxd->fw =3D NULL;
+> +		return -EINVAL;
+> +	}
+
+[Severity: Medium]
+Does this code leak the struct firmware object? The pointer is nullified
+before a call to release_firmware() can occur.
+
+[ ... ]
+> +static int lt9611uxd_wait_for_edid(struct lt9611uxd *lt9611uxd)
+> +{
+> +	return wait_event_interruptible_timeout(lt9611uxd->wq, lt9611uxd->edid_=
+read,
+> +			msecs_to_jiffies(500));
+> +}
+[ ... ]
+> +static irqreturn_t lt9611uxd_irq_thread_handler(int irq, void *dev_id)
+> +{
+[ ... ]
+> +	/* Check for EDID ready */
+> +	if (irq_status & BIT(0)) {
+> +		lt9611uxd->edid_read =3D true;
+> +		wake_up_all(&lt9611uxd->wq);
+> +	}
+
+[Severity: Medium]
+Is the edid_read flag ever cleared back to false? If a monitor is unplugged
+and replugged, this flag might remain true, causing lt9611uxd_wait_for_edid=
+()
+to skip waiting for the new EDID.
+
+[ ... ]
+> +static void lt9611uxd_hpd_work(struct work_struct *work)
+> +{
+[ ... ]
+> +	drm_bridge_hpd_notify(&lt9611uxd->bridge, connected ?
+> +			      connector_status_connected :
+> +			      connector_status_disconnected);
+> +}
+
+[Severity: High]
+Can this notify the DRM core before the bridge is fully initialized? The
+threaded IRQ is requested early in probe, potentially triggering this work
+before drm_bridge_add() initializes the bridge mutex.
+
+[ ... ]
+> +static void lt9611uxd_reset(struct lt9611uxd *lt9611uxd)
+> +{
+> +	gpiod_set_value_cansleep(lt9611uxd->reset_gpio, 1);
+> +	msleep(20);
+> +	gpiod_set_value_cansleep(lt9611uxd->reset_gpio, 0);
+> +	msleep(20);
+> +	gpiod_set_value_cansleep(lt9611uxd->reset_gpio, 1);
+> +	msleep(400);
+> +}
+
+[Severity: High]
+Does this sequence incorrectly assume that 1 implies a physical high signal?
+If the GPIO is configured as active-low, leaving it at 1 will permanently
+assert the reset line.
+
+[ ... ]
+> +static int lt9611uxd_get_edid_block(void *data, u8 *buf,
+> +				  unsigned int block, size_t len)
+> +{
+[ ... ]
+> +	for (i =3D 0; i < 4; i++) {
+> +		cmd[4] =3D block * 4 + i;
+> +		ret =3D lt9611uxd_i2c_read_write_flow(lt9611uxd, cmd, sizeof(cmd),
+> +						    packet, sizeof(packet));
+
+[Severity: High]
+Should this call to lt9611uxd_i2c_read_write_flow() be protected by
+mutex_lock(&lt9611uxd->ocm_lock)? Other callers hold this lock to pause
+the MCU and prevent concurrent access violations.
+
+[ ... ]
+> +static int lt9611uxd_parse_dt(struct device *dev,
+> +			    struct lt9611uxd *lt9611uxd)
+> +{
+[ ... ]
+> +	return drm_of_find_panel_or_bridge(dev->of_node, 2, -1, NULL, &lt9611ux=
+d->next_bridge);
+> +}
+
+[Severity: Medium]
+Does this code leak the device tree node references acquired earlier by
+of_graph_get_remote_node()?
+
+[ ... ]
+> +static ssize_t lt9611uxd_firmware_store(struct device *dev, struct devic=
+e_attribute *attr,
+[ ... ]
+> +out:
+> +	lt9611uxd_unlock(lt9611uxd);
+> +	lt9611uxd_reset(lt9611uxd);
+> +	if (lt9611uxd->fw) {
+> +		release_firmware(lt9611uxd->fw);
+> +		lt9611uxd->fw =3D NULL;
+> +	}
+> +
+> +	return ret < 0 ? ret : len;
+> +}
+
+[Severity: High]
+Can a concurrent write to this sysfs attribute cause a Use-After-Free?
+The firmware pointer is evaluated and released outside the protection of
+lt9611uxd->ocm_lock, meaning another thread could be using it.
+
+[ ... ]
+> +static int lt9611uxd_probe(struct i2c_client *client)
+> +{
+[ ... ]
+> +	ret =3D lt9611uxd_parse_dt(dev, lt9611uxd);
+> +	if (ret) {
+> +		dev_err(dev, "failed to parse device tree\n");
+> +		return ret;
+> +	}
+
+[Severity: Medium]
+Does this early return bypass the cleanup path that releases the DT nodes?
+
+[ ... ]
+> +static void lt9611uxd_remove(struct i2c_client *client)
+> +{
+> +	struct lt9611uxd *lt9611uxd =3D i2c_get_clientdata(client);
+> +
+> +	free_irq(client->irq, lt9611uxd);
+> +	cancel_work_sync(&lt9611uxd->work);
+> +	drm_bridge_remove(&lt9611uxd->bridge);
+> +	mutex_destroy(&lt9611uxd->ocm_lock);
+> +	regulator_bulk_disable(ARRAY_SIZE(lt9611uxd->supplies), lt9611uxd->supp=
+lies);
+> +	of_node_put(lt9611uxd->dsi1_node);
+> +	of_node_put(lt9611uxd->dsi0_node);
+> +}
+
+[Severity: High]
+Is it safe to destroy the mutex and disable regulators here while sysfs
+attributes are still active? Because the sysfs attributes are registered via
+dev_groups, they are not removed until after lt9611uxd_remove() completes.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260627204125.3334=
+834-2-mohit.dsor@oss.qualcomm.com?part=3D1
