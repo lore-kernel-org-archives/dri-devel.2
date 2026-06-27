@@ -4,57 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B415C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 11:54:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DBFFC43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 12:18:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A504310E4B8;
-	Sat, 27 Jun 2026 11:54:56 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A71710E4B8;
- Sat, 27 Jun 2026 11:54:54 +0000 (UTC)
-Received: from smtpclient.apple (unknown [117.182.75.66])
- by APP-03 (Coremail) with SMTP id rQCowADHq+IEuj9qIkkMFg--.11853S2;
- Sat, 27 Jun 2026 19:54:46 +0800 (CST)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [PATCH] fix: drm/amd/display: dm_update_crtc_state: skip_modeset
- path leaves new_stream dangling, causing double release
-From: WenTao Liang <vulab@iscas.ac.cn>
-In-Reply-To: <35dee3d1-f114-4eda-8185-244bc429c021@amd.com>
-Date: Sat, 27 Jun 2026 19:54:34 +0800
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- siqueira@igalia.com, alex.hung@amd.com, superm1@kernel.org,
- timur.kristof@gmail.com, ivan.lipski@amd.com, aurabindo.pillai@amd.com,
- chen-yu.chen@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <785A9F48-8192-4C1A-B61F-FFBAC9E92D41@iscas.ac.cn>
-References: <20260626124128.36625-1-vulab@iscas.ac.cn>
- <35dee3d1-f114-4eda-8185-244bc429c021@amd.com>
-To: Mario Limonciello <mario.limonciello@amd.com>
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
-X-CM-TRANSID: rQCowADHq+IEuj9qIkkMFg--.11853S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr43uFW5Jw45JrWDZrWxCrg_yoW8CF48pr
- 4fJw1Yvr9rZ3WIqa47C3WY9Fyjk34fX340kr4UAw1Sv345Ar15Ja4rXr1kWrZ7uFW2vw4a
- qFyDG39rXF1qv3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvCb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8JVWxJw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkI
- wI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr
- 0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY
- 17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
- C0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
- 6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2Kf
- nxnUUI43ZEXa7IUnTq2tUUUUU==
-X-Originating-IP: [117.182.75.66]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQLA2o-mA9ApAAAsm
+	by gabe.freedesktop.org (Postfix) with ESMTP id B737A10E2BA;
+	Sat, 27 Jun 2026 12:18:50 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VAhpU2Ey";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70AA510E2BA;
+ Sat, 27 Jun 2026 12:18:49 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 64C7B600AB;
+ Sat, 27 Jun 2026 12:18:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0375EC2BCB3;
+ Sat, 27 Jun 2026 12:18:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1782562728;
+ bh=eivawmkvEg3QOzOWv3jCpgD4FqmH/lPvupBZyhy3T98=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=VAhpU2EyEL2zGGmgO60SjJbLfc4ka1tLn5BfvUAOnmI62ieB4UNM1bHJZPy+ElNbW
+ YF77HbFRdHvoPQRs5BUG2QnkHLhD+RA5byMIEEfkmLp6JEwAJGXMc+jzQ94ti5nSdx
+ qdx/daGmodFXM5vE9gu/R/3Nx4xSHkJgWtDHge4bUMkTvOlVC9XcqU2BVppPCoNJvg
+ 4YCqJ1YQ0wzVlboBgBVjNiPoCvRy+S6jMZINwmMbba4GtALxrWtOcr6KUQHu1uaoFa
+ qv2lh9rexxBtAgS03GHDM67ebuqCSJUqUfkJjlHyao/58t5CUd7NgM7HXIhLkaPB9a
+ rO0xnkubU28Tg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id ECA16C43458;
+ Sat, 27 Jun 2026 12:18:47 +0000 (UTC)
+From: Sam Day via B4 Relay <devnull+me.samcday.com@kernel.org>
+Date: Sat, 27 Jun 2026 22:18:45 +1000
+Subject: [PATCH RFC] drm/msm/mdss: keep mdp1-mem interconnect alive during
+ suspend on SDM845
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260627-rfc-sdm845-interconnect-collapse-workaround-v1-1-608a38de3715@samcday.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NPQ7CMAxA4atUnrHUlhIqVqQegBUxBMcBi+JUT
+ vmRqt6diPFb3lsgswlnOFQLGL8lS9KCZlMB3b3eGCUUQ1u3rnbtHi0S5vDsux2KzmyUVJlmpDS
+ OfsqMn2QPb+mlAa++odh3jvw2QilOxlG+/9sZTsMRLuv6A65c+oGCAAAA
+X-Change-ID: 20260627-rfc-sdm845-interconnect-collapse-workaround-ba1cf846ca3f
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Sam Day <me@samcday.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782562727; l=3411;
+ i=me@samcday.com; s=20240502; h=from:subject:message-id;
+ bh=BMiudGPsxROy8BnSvYjoc4O7qJ+BrrRqh/a8bYRWcC0=;
+ b=PsiWZuMwX4x8LrKzl/Bcpfpzq6k3TOSP+hKPP+Lr33iH54+T1jbS5Lx9oIUOWAal8GqgdqqRe
+ 4sGzPTD4htnBmYL4x356+P81ZtZfsL07HxZUmvi3bp68XLqVc1LCe6q
+X-Developer-Key: i=me@samcday.com; a=ed25519;
+ pk=bzyS0akxWMqr9+AXzgBRIp28KKpEOs+GjYMc2yf+aeU=
+X-Endpoint-Received: by B4 Relay for me@samcday.com/20240502 with auth_id=595
+X-Original-From: Sam Day <me@samcday.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,70 +77,95 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: me@samcday.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Sam Day <me@samcday.com>
 
+If the peak vote for mdp1-mem is allowed to drop to zero, it seems to
+cause the fabric to collapse that path entirely, which causes the device
+to bus stall and fatally reset.
 
-> 2026=E5=B9=B46=E6=9C=8827=E6=97=A5 00:45=EF=BC=8CMario Limonciello =
-<mario.limonciello@amd.com> =E5=86=99=E9=81=93=EF=BC=9A
->=20
->=20
->=20
-> On 6/26/26 07:41, WenTao Liang wrote:
->> The skip_modeset path calls dc_stream_release(new_stream) but does =
-not
->>   set new_stream to NULL. If a subsequent error (e.g., color =
-management
->>   failure) triggers goto fail, the fail label executes a second
->>   dc_stream_release on the same pointer, causing a use-after-free or =
-excess
->>   put on the stream reference.
->> Cc: stable@vger.kernel.org
->> Fixes: 3ce51649cdf2 ("drm/amdgpu/display: add quirk handling for =
-stutter mode")
->> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
->=20
-> The code change looks good to me, but this Fixes hash doesn't really =
-make sense to me.
->=20
-> Are you sure about that?
->=20
-> I /think/ this is the correct hash:
->=20
-> Fixes: 9b690ef3c7042 ("drm/amd/display: Avoid full modeset when not =
-required")
->=20
->> ---
->>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
->>  1 file changed, 1 insertion(+)
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> index 5fc5d5608506..acf0b01d6f62 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> @@ -11708,6 +11708,7 @@ static int dm_update_crtc_state(struct =
-amdgpu_display_manager *dm,
->>  	/* Release extra reference */
->>  	if (new_stream)
->>  		dc_stream_release(new_stream);
->> +	new_stream =3D NULL;
->>    	/*
->>  	 * We want to do dc stream updates that do not require a
+This issue was identified specifically on sdm845-oneplus-fajita, so this
+workaround is applied narrowly to SDM845's MDSS.
 
+---
+This RFC patch is a spiritual successor to the "Addressing stability
+issues on SDM845 with the -next tree" series sent by David and Petr 6
+months ago.
 
+As Dmitry pointed out, the patch introduces leakages to the runtime PM
+refcounting. In practice, this means that MDSS never actually gets
+suspended, which is why the patch appeared to "fix" the issue.
 
-Thank you for the review and for catching this. You are right =E2=80=94 =
-I used
-the wrong Fixes hash. The correct one is indeed:
+The deeper root cause is that, when msm_mdss_disable() runs and unvotes
+the mdp1-mem interconnect bandwidth, that seems to collapse the fabric
+entirely and causes the bus stall -> hang -> reboot behaviour.
 
-Fixes: 9b690ef3c7042 ("drm/amd/display: Avoid full modeset when not =
-required")
+I've confirmed that a tiny non-zero peak bandwidth vote keeps the fabric
+alive and avoids the issue.
 
-I will update it in the next version.
+Of course, this is still a fairly egregious hack, but it *does* allow
+blanking to suspend and resume DSI + DPU + MDSS properly without the bus
+stall.
 
-Thanks again for your help.
+Here's what I've validated with instrumentation:
+
+ * DSI host disable, IRQ disable, PLL state save, host power-off, link
+   clock disable, regulator disable, SFPB disable, and PHY disable all
+   complete successfully before the fatal reset occurrs.
+ * DPU runtime suspend also completes. The bandwidth accounting was
+   checked and confirmed to reach runtime suspend with 0 refs, with no
+   pending frame state.
+ * The device survives through MDSS clock disabling and mdp0-mem
+   zero voting, it's really just the mdp1-mem zero vote that is isolated
+   as the cause of the stall + reset.
+
+So, I'm not really sure where to go from here. I'm sure that this
+workaround is not suitable for inclusion upstream as it still seems to
+be papering over an underlying issue... But it's unclear to me if this is
+some kind of hardware quirk on SDM845, a problem with the SDM845 DT
+wiring, a driver issue, or something else entirely.
+
+I'd appreciate any advice on how to further diagnose this issue and what
+direction to take from here.
+
+Kind regards,
+-Sam
+
+Link: https://lore.kernel.org/phone-devel/20251213-stability-discussion-v1-0-b25df8453526@ixit.cz/
+Signed-off-by: Sam Day <me@samcday.com>
+---
+ drivers/gpu/drm/msm/msm_mdss.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+index 9087c4b290db..c635380b2ac3 100644
+--- a/drivers/gpu/drm/msm/msm_mdss.c
++++ b/drivers/gpu/drm/msm/msm_mdss.c
+@@ -284,8 +284,12 @@ static int msm_mdss_disable(struct msm_mdss *msm_mdss)
+ 
+ 	clk_bulk_disable_unprepare(msm_mdss->num_clocks, msm_mdss->clocks);
+ 
+-	for (i = 0; i < msm_mdss->num_mdp_paths; i++)
+-		icc_set_bw(msm_mdss->mdp_path[i], 0, 0);
++	for (i = 0; i < msm_mdss->num_mdp_paths; i++) {
++		if (of_device_is_compatible(msm_mdss->dev->of_node, "qcom,sdm845-mdss") && i == 1)
++			icc_set_bw(msm_mdss->mdp_path[i], 0, 1);
++		else
++			icc_set_bw(msm_mdss->mdp_path[i], 0, 0);
++	}
+ 
+ 	if (msm_mdss->reg_bus_path)
+ 		icc_set_bw(msm_mdss->reg_bus_path, 0, 0);
+
+---
+base-commit: 5a66900afbd6b2a063eebad35294038a654de2b0
+change-id: 20260627-rfc-sdm845-interconnect-collapse-workaround-ba1cf846ca3f
 
 Best regards,
-WenTao Liang
+-- 
+Sam Day <me@samcday.com>
+
 
