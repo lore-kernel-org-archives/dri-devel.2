@@ -4,43 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71853C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 12:27:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 589E5C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 12:34:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6E4A10E4CC;
-	Sat, 27 Jun 2026 12:27:33 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SbEiHn3+";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E446810E4CC
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 12:27:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3984C600AB
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 12:27:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B45F41F000E9;
- Sat, 27 Jun 2026 12:27:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782563250;
- bh=z/6oDV2ysdNKE2w3qd+x2yOoWwdHtvBeztL88QPl6sg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SbEiHn3+HB/KJYJRZ1sPrwIvZcAUDTTxn6mR45aOd+R0cA4aNxciCl2ZOygfDSYP5
- +X/XWbHplUiGIvW9T5JAEGM03CCDKpRbQPuLDIHsX0RS3GzHm8kKiuQXTqII3gcHyw
- 9j7xglNEXu6eGtA72G1B2s5LQxl9dvcsqFYPlCwGDrSsHG61izOdEzeGH8jzBrZnCZ
- BZSpKGRX3D3XoXDVyfk1UoGJqL+273FY3l9dac9ZS+1Lp3/55rl3w4icNeviUhSKxY
- pG4FRbSpz4HaiSo0SFjUZt/2HwxnE4DDFH8UBotNDueRisihCdYQR3BQF+B/FcvYXp
- RJfr+k2kYqyRA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC] drm/msm/mdss: keep mdp1-mem interconnect alive
- during suspend on SDM845
-To: "Sam Day via B4 Relay" <devnull+me.samcday.com@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260627-rfc-sdm845-interconnect-collapse-workaround-v1-1-608a38de3715@samcday.com>
-References: <20260627-rfc-sdm845-interconnect-collapse-workaround-v1-1-608a38de3715@samcday.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 27 Jun 2026 12:27:30 +0000
-Message-Id: <20260627122730.B45F41F000E9@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FFE910E4CD;
+	Sat, 27 Jun 2026 12:34:35 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36AE510E4CD
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 12:34:34 +0000 (UTC)
+Received: from smtpclient.apple (unknown [117.182.75.66])
+ by APP-03 (Coremail) with SMTP id rQCowABHK+JXwz9qThsNFg--.5447S2;
+ Sat, 27 Jun 2026 20:34:32 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+Message-Id: <36056DF1-643E-4AAA-B1C6-DBFAEA831DEB@iscas.ac.cn>
+Content-Type: multipart/alternative;
+ boundary="Apple-Mail=_B546F79C-AA21-4722-B312-6497B4DDC2E9"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH] fix: dma-buf: unwrap_merge_complex: dma_fence_get_stub
+ reference leaked on all paths
+Date: Sat, 27 Jun 2026 20:34:21 +0800
+In-Reply-To: <5180c887-c879-440f-a58b-1cad96b7abb1@amd.com>
+Cc: sumit.semwal@linaro.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+To: =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <20260626122836.35856-1-vulab@iscas.ac.cn>
+ <5180c887-c879-440f-a58b-1cad96b7abb1@amd.com>
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
+X-CM-TRANSID: rQCowABHK+JXwz9qThsNFg--.5447S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrCFy3urW5Cr47Zw1xArWfAFb_yoWxWFX_WF
+ WvyrW2qa1rCFsxJa1ayFnaqrZxX3ykXa43Ww10gr45t34ft3yDAFZ8K3Z3urW3ZF4IqryD
+ KFn7G392kryS9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUb28YjsxI4VW3JwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
+ 6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+ 8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0
+ cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z2
+ 80aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487McIj6xIIjxv20xvE
+ 14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2
+ IYc2Ij64vIr41l7480Y4vEI4kI2Ix0rVAqx4xJMxkF7I0En4kS14v26r126r1DMxAIw28I
+ cxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_JrI_JrWlx2
+ IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI
+ 42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42
+ IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280
+ aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07j8gAwUUUUU=
+X-Originating-IP: [117.182.75.66]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwULA2o-mHtVEwAAs6
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,88 +61,85 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
 
-New issues:
-- [Low] Unnecessary device tree string matching on every iteration due to m=
-issing short-circuit evaluation.
+--Apple-Mail=_B546F79C-AA21-4722-B312-6497B4DDC2E9
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
 
-Pre-existing issues:
-- [High] Silent failure on `-EPROBE_DEFER` for `mdp1-mem` prevents the SDM8=
-45 workaround from applying.
---
 
-commit 25610098a6bc164e41324a820ebd766373a58240
-Author: Sam Day <me@samcday.com>
 
-drm/msm/mdss: keep mdp1-mem interconnect alive during suspend on SDM845
+> 2026=E5=B9=B46=E6=9C=8826=E6=97=A5 20:47=EF=BC=8CChristian K=C3=B6nig =
+<christian.koenig@amd.com> =E5=86=99=E9=81=93=EF=BC=9A
+>=20
+> Just drop that, the stub fence is a global dummy and leaking reference =
+to it is harmless.
+>=20
+> But just in case somebody uses this code as blueprint for this own =
+implementation we should probably clean it up.
 
-If the peak vote for mdp1-mem is allowed to drop to zero, it seems to
-cause the fabric to collapse that path entirely, which causes the device
-to bus stall and fatally reset.
 
-> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mds=
-s.c
-> index 9087c4b290dba..c635380b2ac3c 100644
-> --- a/drivers/gpu/drm/msm/msm_mdss.c
-> +++ b/drivers/gpu/drm/msm/msm_mdss.c
-[ ... ]
-> @@ -284,8 +284,12 @@ static int msm_mdss_disable(struct msm_mdss *msm_mds=
-s)
-> =20
->  	clk_bulk_disable_unprepare(msm_mdss->num_clocks, msm_mdss->clocks);
-> =20
-> -	for (i =3D 0; i < msm_mdss->num_mdp_paths; i++)
-> -		icc_set_bw(msm_mdss->mdp_path[i], 0, 0);
-> +	for (i =3D 0; i < msm_mdss->num_mdp_paths; i++) {
-> +		if (of_device_is_compatible(msm_mdss->dev->of_node, "qcom,sdm845-mdss"=
-) && i =3D=3D 1)
+Thanks for the review. I understand that the leak is harmless in
+practice.
 
-[Severity: Low]
-Does this code perform unnecessary device tree string matching on every
-iteration?
+However, I think it's still worth cleaning up to avoid misleading
+other developers who might reference this code as an example. I'd
+prefer to keep this patch for the sake of code quality and
+maintainability.
 
-In C, the logical AND operator evaluates left-to-right. Thus,
-of_device_is_compatible() is called on the first iteration (i =3D=3D 0),
-despite i =3D=3D 1 being false. Swapping the conditions to
-i =3D=3D 1 && of_device_is_compatible(...) would properly short-circuit
-the expensive device tree string matching.
+Please let me know if you have any objections.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does the silent failure on
--EPROBE_DEFER for mdp1-mem prevent this SDM845 workaround from applying?
+Best regards,
+WenTao Liang=
 
-Looking at msm_mdss_parse_data_bus_icc_path():
+--Apple-Mail=_B546F79C-AA21-4722-B312-6497B4DDC2E9
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
 
-drivers/gpu/drm/msm/msm_mdss.c:msm_mdss_parse_data_bus_icc_path() {
-    ...
-	path1 =3D devm_of_icc_get(dev, "mdp1-mem");
-	if (!IS_ERR_OR_NULL(path1)) {
-    ...
-}
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; =
+charset=3Dutf-8"></head><body style=3D"overflow-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;"><br =
+id=3D"lineBreakAtBeginningOfMessage"><div><br><blockquote =
+type=3D"cite"><div>2026=E5=B9=B46=E6=9C=8826=E6=97=A5 20:47=EF=BC=8CChrist=
+ian K=C3=B6nig &lt;christian.koenig@amd.com&gt; =E5=86=99=E9=81=93=EF=BC=9A=
+</div><br class=3D"Apple-interchange-newline"><div><span =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none; float: none; =
+display: inline !important;">Just drop that, the stub fence is a global =
+dummy and leaking reference to it is harmless.</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;"><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;"><span =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none; float: none; =
+display: inline !important;">But just in case somebody uses this code as =
+blueprint for this own implementation we should probably clean it =
+up.</span></div></blockquote></div><br><div><div><br></div><div>Thanks =
+for the review. I understand that the leak is harmless =
+in</div><div>practice.</div><div><br></div><div>However, I think it's =
+still worth cleaning up to avoid misleading</div><div>other developers =
+who might reference this code as an example. I'd</div><div>prefer to =
+keep this patch for the sake of code quality =
+and</div><div>maintainability.</div><div><br></div><div>Please let me =
+know if you have any objections.</div><div><br></div><div>Best =
+regards,</div><div>WenTao Liang</div></div></body></html>=
 
-During device probe, if the interconnect provider for mdp1-mem is not yet
-ready, devm_of_icc_get() returns ERR_PTR(-EPROBE_DEFER). The condition
-!IS_ERR_OR_NULL(path1) handles this by silently skipping mdp1-mem rather
-than returning -EPROBE_DEFER to defer the probe.
+--Apple-Mail=_B546F79C-AA21-4722-B312-6497B4DDC2E9--
 
-If this happens on SDM845, num_mdp_paths remains 1, meaning the newly added
-workaround loop here in msm_mdss_disable() never reaches i =3D=3D 1.
-
-Consequently, the vote for mdp1-mem drops to zero when the interconnect core
-syncs state, which triggers the bus stall and fatal reset that this patch is
-explicitly trying to fix.
-
-> +			icc_set_bw(msm_mdss->mdp_path[i], 0, 1);
-> +		else
-> +			icc_set_bw(msm_mdss->mdp_path[i], 0, 0);
-> +	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260627-rfc-sdm845=
--interconnect-collapse-workaround-v1-1-608a38de3715@samcday.com?part=3D1
