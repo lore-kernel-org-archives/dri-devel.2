@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 223ADC43327
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:31:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3731C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:31:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE15A10E41F;
-	Sat, 27 Jun 2026 03:31:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5551F10E41B;
+	Sat, 27 Jun 2026 03:31:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="pX3F8thD";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="r9ETZTt7";
 	dkim-atps=neutral
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF59410E41D
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:31:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55B8510E41B
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:31:13 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 836411A0A08;
- Sat, 27 Jun 2026 03:31:00 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 2B7D91A0A15;
+ Sat, 27 Jun 2026 03:31:12 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 4F97A60233;
- Sat, 27 Jun 2026 03:31:00 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id F27D260233;
+ Sat, 27 Jun 2026 03:31:11 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 2981D106F1167; 
- Sat, 27 Jun 2026 05:30:57 +0200 (CEST)
+ with ESMTPSA id A54D8106F1172; 
+ Sat, 27 Jun 2026 05:31:08 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1782531059; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1782531070; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=LkKO+cSK/Ye05XIzMVJHZ3qVH0PlvYUH5JWHtBpBEuI=;
- b=pX3F8thDgWlixVnc0GtX9C887o7ALjgWZe8heGIZ45eh+ox/ibJA0BNbkXDWtBkwlgEl94
- sRDl2s25o5ZIsFwC8fJN1WKt19y0bafYatbIPRfR5FKMfaBH4YYC/UBx1geQ84Qd3N70Zg
- 93Wk9H++T2NcTIEQGdx1FPFcXJAwEq3GKeTLlBY0M/1mSSqVWWjzqSz47Y2gfoTfYI+6iI
- CyBXJTHt73bVP7Yp+lGRMUSqcoCEMBqy1m0U4Ei9xWUx+k6WTgweUVHmr03fb6qI6NzdCF
- BMUswJJo9BcKuBGA/szEUF8qnSztJA01789bkscyGlonV5npddBuCJa3TlofJw==
+ bh=5pP7gDXVS4IrT1SvopOsJfNSDHDebsaZJuiZb3S1cf8=;
+ b=r9ETZTt7SudsrQQVhRgecGfJ7kZObA3GWuDWyPFqgunvL5gmZYW2XDRwPq+8wqrmR4CDB9
+ MOOLQBdYy5/FSGnmgYmAWHLCYhVJzYNXwR+dB1Imq7CmZVNr/KzjzfhODpMPETyCl6SVgd
+ OV9QxGCtL1skD2x3tGD2zIJ5jSGigEBhAP1g56wOdEsrLX2Rjt04JWRCT2KeYLI+MWJqUM
+ ptWwjAEdk9iHDNOnBcgee5rnnNvgNZSHW+alt/U2PLTMDrIYkNZmcrsRJeszwc9gqNWkqU
+ 1+gNB+6PpGaXwmpZ4NjyvY3dWjszxMg+CQRiWmgvapy9q/Zvy5HJw2KAXILJtQ==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Sat, 27 Jun 2026 05:30:21 +0200
-Subject: [PATCH v5 04/38] drm/drm_color_mgmt: Expose drm_get_color_range_name
+Date: Sat, 27 Jun 2026 05:30:26 +0200
+Subject: [PATCH v5 09/38] drm/vkms: Simplify plane_release code
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260627-vkms-all-config-v5-4-854aa0840926@bootlin.com>
+Message-Id: <20260627-vkms-all-config-v5-9-854aa0840926@bootlin.com>
 References: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
 In-Reply-To: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -58,21 +58,21 @@ Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  Louis Chauvet <louis.chauvet@bootlin.com>, llvm@lists.linux.dev
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2211;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1014;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=VvRVYwMiTJsuiQCHjBp397SgToWhiUwd1PayCIWe6sM=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBqP0PdujJqeEY3EqPRbTz7xSCUiTYnxeklYJmQ1
- L20YyC2ydGJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCaj9D3RsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOLw0g/+JlcimzuVri+AhRx4HDkljurIN6TtZ1q
- jfuOu1Jfb53vagQQBoxIz3e0JMF7xKVdqt7nuxhJ5qppL/jZDyJ0iuRg2qv6vTyQ4IrUjn/yVg+
- u7ESkRKNKRNhqYvi/QZVBxB7w8+ITLQOkIpu4wpMBWXQ0XTcOUH1Smkjf4DyVXCJmJIvRdGqO5R
- ABYZZivS2hRCNHQuvJsaxJi3782McmH2oJeINFYcx5ePQXfLGIyQx6LIPzEBcHBoCUlVU8mhYAw
- qXGhWQUxsRh94KBRPVQHE3cgLHVdfuqj5QpfqNtCMAkOvBQP62/t9SYe24Veq4oIvWouiGQG5Zj
- U6lT1/JuUEOZr9SIi8KeZ4pNFIW8qc6oIH9pFFt5417c4w5J1A46e594L4G03XHSXeSPNof+ixS
- evZD2uTFcAVLEFe7V6nmKrHUMMMjditfqxlubc3yjyqy3cxt5IYiGobZcXe1Soewq7IDVLsPJtu
- 5JjDKZZJ2TIScNLDFEkDGU3sAlLlFzqKtI1lDLrbkgnIRMmC9a55oQFUF253Ja84nVO3LQsYXVl
- Q61lcSppsKAnW+saLjPEQiiWPBFbe/rxVEBfHHlPenAlatoCPs4ZU+MA71TOT6MEdsmjGE8atTS
- DVnfVkYUV/AF8xmbfa0UT2I0DxZnkHnkgcM3mZtaxCJBojHnq0rY=
+ bh=PCNURSQ9M9oEzGIIEaJ/g5ssiOcHUDqMsXA3szlQsCQ=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBqP0PdflV2+zO2tLPFL1+kWYMXXpx4JVWS2ITMT
+ CC5S0J/j3qJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCaj9D3RsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOKYdhAAhiMSzJqKUAr/maJwuuGBbh2aQDKXiR4
+ 86PS/C9R2360gzD8tp2xjapD6qPprh7Fz4f3gOUvtSuU8iYbyvN0iqAd3qjaI1JJY/tu3o5Oqlt
+ 7bDJNWeemLX1Jvjr9pH0vEx7xHBw3aEGQg0MZTuabT/c4jGQnPFgqYxdWCoYp1bwvOJyHIiIZde
+ CNqh4cn/E4m4JlHPw1rffcX/CPvHSauqJ4VyUl29Hp3EtjwSISmIZ5ZliLeEH7mZC/Kpv1vB9wP
+ ebdWWE0MbDuZAnHy3PgcQ/x4GXpPeLDcUqiR6PE3Z0RjU/xYZ3oy+/o9aFSiWMJf+fElV4ibvdN
+ lJ5ughbF9zV+/OXAQQSfZ17uAYxtLRyZKXr3fFr6wME70kyl/rtPaWFw2Mur7pOA1zZOd/gFl6w
+ 5K7ebrwAK+/5H7d4hJFTxo/L9NpSVukEK2FZL8QsB8v89fOH/lPEtZcH+Sn+fdcbVyDQ6rhgmhv
+ FKZsAHwYeGofUUTATI5DMnPj2469ryZThpbbg0KMY70rNkqXzeJVOID9qVb8ZF68sZwUlT/YLbh
+ 2iTXGkdvVg1Fxvf4UMv6u/cTql/+ZgdPNB0udITV5cxUiLvEGoj1p3l8peEUoxcOWsvfNnphW7+
+ OerIjkBJzgnNeTIL9wXBiAtxXxC7a2hmRM2SDQX7zB3tIU/wrhE0=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -91,64 +91,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_get_color_range_name can be useful to print debugging information.
-Export it so it could be used from VKMS.
+plane_release  code used multiple intermediate variable, remove those in
+favor of direct access.
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/drm_color_mgmt.c    | 2 +-
- drivers/gpu/drm/drm_crtc_internal.h | 4 ----
- include/drm/drm_color_mgmt.h        | 1 +
- 3 files changed, 2 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/vkms/vkms_configfs.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
-index b5635862dc91..8ec87d1c7433 100644
---- a/drivers/gpu/drm/drm_color_mgmt.c
-+++ b/drivers/gpu/drm/drm_color_mgmt.c
-@@ -512,7 +512,7 @@ const char *drm_get_color_range_name(enum drm_color_range range)
+diff --git a/drivers/gpu/drm/vkms/vkms_configfs.c b/drivers/gpu/drm/vkms/vkms_configfs.c
+index 7551b8c7766d..97f87a53d202 100644
+--- a/drivers/gpu/drm/vkms/vkms_configfs.c
++++ b/drivers/gpu/drm/vkms/vkms_configfs.c
+@@ -333,13 +333,9 @@ static struct configfs_attribute *plane_item_attrs[] = {
  
- 	return color_range_name[range];
- }
--EXPORT_SYMBOL_IF_KUNIT(drm_get_color_range_name);
-+EXPORT_SYMBOL(drm_get_color_range_name);
- 
- /**
-  * drm_plane_create_color_properties - color encoding related plane properties
-diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
-index bcd23eb0e531..4bf6bc0bcb5a 100644
---- a/drivers/gpu/drm/drm_crtc_internal.h
-+++ b/drivers/gpu/drm/drm_crtc_internal.h
-@@ -38,7 +38,6 @@
- #include <linux/err.h>
- #include <linux/types.h>
- 
--enum drm_color_range;
- enum drm_connector_force;
- enum drm_mode_status;
- 
-@@ -119,9 +118,6 @@ int drm_mode_mmap_dumb_ioctl(struct drm_device *dev,
- int drm_mode_destroy_dumb_ioctl(struct drm_device *dev,
- 				void *data, struct drm_file *file_priv);
- 
--/* drm_color_mgmt.c */
--const char *drm_get_color_range_name(enum drm_color_range range);
+ static void plane_release(struct config_item *item)
+ {
+-	struct vkms_configfs_plane *plane;
+-	struct mutex *lock;
 -
- /* IOCTLs */
- int drm_mode_gamma_get_ioctl(struct drm_device *dev,
- 			     void *data, struct drm_file *file_priv);
-diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
-index 133ca77d91c7..e91f494e5a63 100644
---- a/include/drm/drm_color_mgmt.h
-+++ b/include/drm/drm_color_mgmt.h
-@@ -114,6 +114,7 @@ enum drm_color_range {
- };
+-	plane = plane_item_to_vkms_configfs_plane(item);
+-	lock = &plane->dev->lock;
++	struct vkms_configfs_plane *plane = plane_item_to_vkms_configfs_plane(item);
  
- const char *drm_get_color_encoding_name(enum drm_color_encoding encoding);
-+const char *drm_get_color_range_name(enum drm_color_range range);
- 
- int drm_plane_create_color_properties(struct drm_plane *plane,
- 				      u32 supported_encodings,
+-	scoped_guard(mutex, lock) {
++	scoped_guard(mutex, &plane->dev->lock) {
+ 		vkms_config_destroy_plane(plane->config);
+ 		kfree(plane);
+ 	}
 
 -- 
 2.54.0
