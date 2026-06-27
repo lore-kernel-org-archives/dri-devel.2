@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1AEBC43327
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 09:29:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33218C43211
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 09:29:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0399B10E47E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8017C10E485;
 	Sat, 27 Jun 2026 09:29:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="oyK6kx41";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="iCXPKgPg";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF51E10E2CC
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 09:28:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8185B10E47E
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 09:28:51 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7705143F22;
+ by sea.source.kernel.org (Postfix) with ESMTP id 9AB7B43D2C;
  Sat, 27 Jun 2026 09:28:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4F8F5C2BCB8;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 76D80C2BCFD;
  Sat, 27 Jun 2026 09:28:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1782552528; bh=0iEJ9CoHu7M3V0ejPEkK0764ck94VjFLyF6WPTDVWGc=;
+ t=1782552528; bh=5rcnLftEgCOp4lCy02ddo3ou6gJMaO0JvPUiLpW7d+w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=oyK6kx41iE52q9VYYHo3SqSNyqYaaYvmrX150meBkFLJaRsUOAqIH12lOP11ITdn9
- +L3Xiy9OEYNGKA0R3/nB2kUSGVjUQgGQGGDWaxD6yu28368YRk3l5S/Slatnj84FAE
- WeLs2trD3xJcCi2IQbgq74cG/mPct+mU8hhB5PjI=
+ b=iCXPKgPglGYTynSaDlFF4Tbm1FimKCzpNercjH+DlfCssyoro78bO25krZpG+lnop
+ AYXphDrABeyN/wxs6GSNBFG9fdPuwrioNBd4AQDvpJEYwgkslUxJklPZ1zERxqf7eD
+ z/pG40+4mFr0hmA2GC/IFxYF5seGhpwZQMbY5btk=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 45816C43602;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 67D93C43327;
  Sat, 27 Jun 2026 09:28:48 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Sat, 27 Jun 2026 17:28:46 +0800
-Subject: [PATCH v7 08/10] rust: binder: use `LocalModule` for `THIS_MODULE`
+Date: Sat, 27 Jun 2026 17:28:48 +0800
+Subject: [PATCH v7 10/10] rust: module: update MAINTAINERS to cover module.rs
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260627-fix-fops-owner-v7-8-33cd3990edf0@linux.dev>
+Message-Id: <20260627-fix-fops-owner-v7-10-33cd3990edf0@linux.dev>
 References: <20260627-fix-fops-owner-v7-0-33cd3990edf0@linux.dev>
 In-Reply-To: <20260627-fix-fops-owner-v7-0-33cd3990edf0@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -69,11 +69,11 @@ Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
  linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782552525; l=1377;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782552525; l=868;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=0iEJ9CoHu7M3V0ejPEkK0764ck94VjFLyF6WPTDVWGc=;
- b=gTuuCEJ8gtKcWIw1RgMbCrqPSvbbZMlfGmsTgC5PqBaXZyQg6v5HFiSdjglsWN3rHyH1dNDYO
- S3BW7zvQVxfDbBQ63MNSYEmzsZqvsEUbRl9gQgnrsoB+PBwrR+AYbu6
+ bh=5rcnLftEgCOp4lCy02ddo3ou6gJMaO0JvPUiLpW7d+w=;
+ b=GGNIoCoYKfEUBYQat5VFTOG6tmxmDNHqJv1L0W2i00rjBItd3TScnk0TLiteVX+ggLeT2cd/P
+ +38gDUUtnNlAiDeHW685dFjc01zG0tBw7bcGavBN93GP3Z9NmybYFhA
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -93,39 +93,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace the `THIS_MODULE` static reference in the binder fops with
-`this_module::<LocalModule>()`, consistent with the move of
-`THIS_MODULE` into the `ModuleMetadata` trait.
+Module types now live in `rust/kernel/module.rs` alongside
+`rust/kernel/module_param.rs`. Update the MODULE SUPPORT file pattern
+from `rust/kernel/module_param.rs` to `rust/kernel/module*.rs` so both
+files are covered.
 
 Assisted-by: opencode:glm-5.2
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Acked-by: Danilo Krummrich <dakr@kernel.org>
+Link: https://lore.kernel.org/rust-for-linux/8ea21b29-9baf-4926-a16f-7d21c5a1a1b8@suse.com
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- drivers/android/binder/rust_binder_main.rs | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/android/binder/rust_binder_main.rs b/drivers/android/binder/rust_binder_main.rs
-index dc1941cd2407b..d6ceebbd5f94e 100644
---- a/drivers/android/binder/rust_binder_main.rs
-+++ b/drivers/android/binder/rust_binder_main.rs
-@@ -17,6 +17,7 @@
-     bindings::{self, seq_file},
-     fs::File,
-     list::{ListArc, ListArcSafe, ListLinksSelfPtr, TryNewListArc},
-+    module::this_module,
-     prelude::*,
-     seq_file::SeqFile,
-     seq_print,
-@@ -318,7 +319,7 @@ unsafe impl<T> Sync for AssertSync<T> {}
-     let zeroed_ops = unsafe { core::mem::MaybeUninit::zeroed().assume_init() };
- 
-     let ops = kernel::bindings::file_operations {
--        owner: THIS_MODULE.as_ptr(),
-+        owner: this_module::<LocalModule>().as_ptr(),
-         poll: Some(rust_binder_poll),
-         unlocked_ioctl: Some(rust_binder_ioctl),
-         compat_ioctl: bindings::compat_ptr_ioctl,
+diff --git a/MAINTAINERS b/MAINTAINERS
+index e035a3be797c4..74733de3e41ee 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17984,7 +17984,7 @@ F:	include/linux/module*.h
+ F:	kernel/module/
+ F:	lib/test_kmod.c
+ F:	lib/tests/module/
+-F:	rust/kernel/module_param.rs
++F:	rust/kernel/module*.rs
+ F:	rust/macros/module.rs
+ F:	scripts/module*
+ F:	tools/testing/selftests/kmod/
 
 -- 
 2.43.0
