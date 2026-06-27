@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 090F0C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:57:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 628B8C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:58:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54E7410F792;
-	Sat, 27 Jun 2026 03:57:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC89010F791;
+	Sat, 27 Jun 2026 03:58:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AlEaijR8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kB9ZCEwO";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7E3010F7A3
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:57:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A81E10F791
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:58:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 31259600AA;
- Sat, 27 Jun 2026 03:57:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6C171F000E9;
- Sat, 27 Jun 2026 03:57:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5EA16600AA;
+ Sat, 27 Jun 2026 03:58:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA1051F000E9;
+ Sat, 27 Jun 2026 03:58:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782532625;
- bh=G4ZAxIAw+CtFyqMHrLFMTZU5oiBhGBV8vBQBZZFTQ0M=;
+ s=k20260515; t=1782532708;
+ bh=mJTHJqTRLHvBlP837qf2Eql19F6S3+rMcsD71Kd23Fs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=AlEaijR8RJczoK2B822SqfbOXfpy84mYLcxmpqxF+CGHb/DPv4rJiHDMh67bPnI0m
- M8mzjp8sDCs+FpPDj8+oVTFYq3Rv1eNwqNZSRFQOTU+03TvsflJWgS97xtHe7sqg/t
- S5ZZ2w9z85BXHOuBBXZTYejYOhOBy7Luaxm3dRzFHs5Le1BPZh1r1h6Z0joBklAOME
- FhiZTc1ta1Tw9jZ1IUgUNsf/qt2V2pO0U3EDD7CAjCMlBLX36ry88LRHxn0AarBHjZ
- Z66RtopP24oXSM0QQayE/EDAzIde+3Yx1p3HHXNhWS8LHl6tDZAOF8G0+xpCVmVCva
- BLHxTj6OXh7Mw==
+ b=kB9ZCEwOky/AWbk7FakHGmN8a5WmIFHZBaOrLyyupHo5FfMrtOnjU4IIB76ilAfmC
+ T2LQSU8g2VkoYLAYIRRfQKYC9rQMDrETu8XfhOKaT/ajrzBi8QCUuN2GeoNPZK94k5
+ vIlU9pBi54r0UNxspLoEw2w2V8b5dM8AaC0hpBylrJGPjBsWktTnsaMyxlwUthQXQi
+ ms/FZayg0xJofiGIGFAQu4qb6tOARUSMTtnjPM547xvzh9L9Xv3erHcl9UA0rpkC8o
+ VLYhBcddMHtE1smoXX4EVt5kaCw4XaPfo2phYNmROSQymTJZxxSw+v+crADJcqDqUd
+ QH/SYAoHVAiaw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 37/38] drm/vkms: Add connector parent configuration
- in vkms_config
+Subject: Re: [PATCH v5 30/38] drm/vkms: Introduce config for connector
+ supported colorspace
 To: "Louis Chauvet" <louis.chauvet@bootlin.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260627-vkms-all-config-v5-37-854aa0840926@bootlin.com>
+In-Reply-To: <20260627-vkms-all-config-v5-30-854aa0840926@bootlin.com>
 References: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
- <20260627-vkms-all-config-v5-37-854aa0840926@bootlin.com>
+ <20260627-vkms-all-config-v5-30-854aa0840926@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 27 Jun 2026 03:57:04 +0000
-Message-Id: <20260627035705.B6C171F000E9@smtp.kernel.org>
+Date: Sat, 27 Jun 2026 03:58:27 +0000
+Message-Id: <20260627035827.DA1051F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,126 +58,101 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Error paths in `vkms_connector_hot_add()` free the connector via `=
-__free(kfree)` without tearing down the DRM connector, causing a Use-After-=
-Free and IDA leak.
-- [Medium] The MST PATH property generation creates a malformed string and =
-silently drops a valid port ID when the connector hierarchy depth exceeds 1=
-6.
-- [Medium] Dynamic configuration of connector parent relationships results =
-in inconsistent or stale DRM PATH properties.
+
+New issues:
+- [Medium] Missing support for DRM_MODE_CONNECTOR_HDMIB in VKMS connector i=
+nitialization.
+
+Pre-existing issues:
+- [High] Lockless iteration over configuration lists in debugfs allows conc=
+urrent Use-After-Free if configfs items are removed.
 --
 
-commit 3d7cb6751094b4d573bbf296f74ba57a8170fe00
+commit adab925d90477ebe9d202328861dc983f52ebccf
 Author: Louis Chauvet <louis.chauvet@bootlin.com>
 
-drm/vkms: Add connector parent configuration in vkms_config
-   =20
-This patch adds support for configuring the parent connector and port_id
-in vkms_config to emulate MST connectors. It updates the PATH property
-strings for nested MST configurations and manages dynamic connector
-lifecycles.
+drm/vkms: Introduce config for connector supported colorspace
+
+This commit introduces the ability to configure supported colorspaces
+for HDMI, eDP, and DP connectors in VKMS to emulate HDR features.
 
 > diff --git a/drivers/gpu/drm/vkms/vkms_config.c b/drivers/gpu/drm/vkms/vk=
 ms_config.c
+> index c407aea0bc6a9..ea9bc5d06be67 100644
 > --- a/drivers/gpu/drm/vkms/vkms_config.c
 > +++ b/drivers/gpu/drm/vkms/vkms_config.c
-> @@ -996,8 +996,16 @@ struct vkms_config_connector *vkms_config_create_con=
-nector(struct vkms_config *c
->  }
->  EXPORT_SYMBOL_IF_KUNIT(vkms_config_create_connector);
+
+[ ... ]
+
+> @@ -600,6 +600,10 @@ static int vkms_config_show(struct seq_file *m, void=
+ *data)
+>  			   drm_get_connector_status_name(vkms_config_connector_get_status(con=
+nector_cfg)));
+>  		seq_printf(m, "\ttype=3D%s\n",
+>  			   drm_get_connector_type_name(vkms_config_connector_get_type(connect=
+or_cfg)));
+> +		seq_puts(m, "\tsupported colorspaces=3D");
+> +		show_bitfield(m, vkms_config_connector_get_supported_colorspaces(conne=
+ctor_cfg),
+> +			      drm_get_colorspace_name);
+
+[Severity: High]
+This is a pre-existing issue, but does this lockless iteration over the
+connectors list in vkms_config_show() expose us to a use-after-free?
+
+If userspace removes a connector via configfs concurrently,
+vkms_config_destroy_connector() will free the connector_cfg without any loc=
+ks
+synchronizing with this debugfs read path. This patch adds additional reads
+of the connector_cfg during this iteration.
+
+> +		seq_puts(m, "\n");
+>  	}
 > =20
-> -void vkms_config_destroy_connector(struct vkms_config_connector *connect=
-or_cfg)
-> +void vkms_config_destroy_connector(struct vkms_config *config,
-> +				   struct vkms_config_connector *connector_cfg)
->  {
-> +	struct vkms_config_connector *connector_cfg_tmp;
-> +
-> +	vkms_config_for_each_connector(config, connector_cfg_tmp) {
-> +		if (connector_cfg_tmp->parent =3D=3D connector_cfg)
-> +			connector_cfg_tmp->parent =3D NULL;
-> +	}
-> +
-
-[Severity: Medium]
-When dynamically destroying a parent connector, this unlinks it from the
-child connectors, but doesn't it leave the active children with stale
-DRM PATH properties pointing to destroyed DRM object IDs?
-
-Also, if a child is dynamically added before its parent, the child's PATH
-property is silently skipped in vkms_connector_build_path_property() due to
-the missing root, and it appears it is never retroactively updated.
+>  	return 0;
 
 [ ... ]
 
 > diff --git a/drivers/gpu/drm/vkms/vkms_connector.c b/drivers/gpu/drm/vkms=
 /vkms_connector.c
+> index 5b29dcade7e19..a1f08167def1d 100644
 > --- a/drivers/gpu/drm/vkms/vkms_connector.c
 > +++ b/drivers/gpu/drm/vkms/vkms_connector.c
-> @@ -8,6 +8,76 @@
->  #include "vkms_config.h"
->  #include "vkms_connector.h"
-> =20
-> +/**
-> + * vkms_connector_build_path_property() - Build the PATH property string=
- for MST connectors
+
 [ ... ]
-> +	if (!root_cfg || !root_cfg->connector)
-> +		return;
+
+> +static int __must_check vkms_connector_init(struct vkms_connector *conne=
+ctor,
+> +					    struct vkms_config_connector *connector_cfg)
+> +{
+> +	int ret =3D 0;
 > +
-> +	root_connector =3D root_cfg->connector;
-> +
-> +	len =3D snprintf(path, sizeof(path), "mst:%d", root_connector->base.bas=
-e.id);
-> +
-> +	for (i =3D port_count - 2; i >=3D 0; i--) {
+> +	if (vkms_config_connector_get_supported_colorspaces(connector_cfg)) {
+> +		if (connector_cfg->type =3D=3D DRM_MODE_CONNECTOR_HDMIA) {
+> +			ret =3D drm_mode_create_hdmi_colorspace_property(&connector->base,
+> +								       vkms_config_connector_get_supported_colorspaces(connector=
+_cfg));
 
 [Severity: Medium]
-If the connector hierarchy exceeds 16 nodes, port_count will hit the
-ARRAY_SIZE(port_ids) limit of 16. Does starting the loop at port_count - 2
-(which evaluates to 14) accidentally skip the last recorded array element at
-port_ids[15]?
+Does this logic inadvertently omit DRM_MODE_CONNECTOR_HDMIB?=20
 
-Since the root node is not stored in the array when truncation occurs, it
-seems this drops a valid intermediate node from the PATH property string.
+If a user configures a connector as HDMIB with supported colorspaces via
+configfs, it looks like the colorspace property will not be created or
+attached since only HDMIA is checked during this initialization.
 
-> +		int added =3D snprintf(path + len, sizeof(path) - len,
-> +				     "-%u", port_ids[i]);
-> +		if (added < 0 || len + added >=3D sizeof(path))
-> +			return;
-> +		len +=3D added;
-> +	}
-> +
-> +	drm_connector_set_path_property(&connector->base, path);
-> +}
-
-[ ... ]
-
-> @@ -240,6 +312,8 @@ struct vkms_connector *vkms_connector_hot_add(struct =
-vkms_device *vkmsdev,
->  	if (ret)
->  		return ERR_PTR(ret);
-
-[Severity: High]
-Can this error path lead to a Use-After-Free and IDA leak?
-
-The connector struct is allocated with __free(kfree). Earlier in this
-function, drm_connector_dynamic_init() registers the connector base object
-into the DRM mode object IDR and allocates IDAs.
-
-If a subsequent step fails and we return ERR_PTR(ret) here, the __free(kfre=
-e)
-attribute will directly free the connector memory without calling
-drm_connector_cleanup(), leaving dangling pointers in the DRM IDR.
-
-> =20
-> +	vkms_connector_build_path_property(connector, connector_cfg);
-> +
->  	ret =3D drm_connector_dynamic_register(&connector->base);
+> +			if (ret)
+> +				return ret;
+> +		} else if (connector_cfg->type =3D=3D DRM_MODE_CONNECTOR_DisplayPort ||
+> +			   connector_cfg->type =3D=3D DRM_MODE_CONNECTOR_eDP) {
+> +			ret =3D drm_mode_create_dp_colorspace_property(&connector->base,
+> +								     vkms_config_connector_get_supported_colorspaces(connector_c=
+fg));
+> +			if (ret)
+> +				return ret;
+> +		}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260627-vkms-all-c=
-onfig-v5-0-854aa0840926@bootlin.com?part=3D37
+onfig-v5-0-854aa0840926@bootlin.com?part=3D30
