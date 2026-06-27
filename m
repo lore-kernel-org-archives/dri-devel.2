@@ -4,122 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0676C43602
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 20:44:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B661C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 20:44:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9DFB10E515;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF57010E518;
 	Sat, 27 Jun 2026 20:44:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="oZO6WARh";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F/Z3Igb+";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hDF/Rkte";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Cf0eEJ1p";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4E9510E512
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 20:44:07 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA7EA10E512
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 20:44:09 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65RJXibj1947116
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 20:44:07 GMT
+ 65RHnaFX1726430
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 20:44:09 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=SQRuQ81Slpu
- 6S/J14DvxvRlWrELKuYfDpyAlzE8xCAk=; b=oZO6WARhuG9xUw1P6qmtseIvpRj
- 9fyyK01rKmEaE9jxoJ9EbmtsTjmWsa0lvSRqVL0iFw/Hj3UZeAPrJzOquExaJzjG
- wFWQ2lsU/PL4awyFZfNbMj+dg7XmbwyFSVsFOZqOE1YKlY+OXed2wH/HBVxSOj7s
- IVnD6X1KIDwwCSfHj+efYM1TTaC755qJutemCQrgyokhAAYsWIZ0ZWrDQEdEw0eX
- Rqe2Dky+bQvcC1R3rumG6RlpC3KNq9FMSDxkViBLEakf2lFeElVx+nZS1JIIdo2M
- pFrYdr5hVT4wJaJTy1tYbjRzcHoqkX7umg/KLCvDcMQQRoZcHuxtP+YdqCA==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
- [74.125.82.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f26tuhnyc-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=BrwzP5kaMTZ
+ SpvTPdQ8PZsDiaXHhhpAob/6J5qUSorM=; b=hDF/Rktez0dbkLTP9LYiggG5WdP
+ PltllndGjNKwe6fDBNHDFOzlBpGytHeSHNebzlwc1Pf+y5W/6+9KlYbI3SLR3ctt
+ B1JkGMpPiRTcbGWJzWltNMqY0APoRGjSsm5rIbmFSWZKclTtb5IZpz52YO9kGiVa
+ T4pKzgF+Q4Q7Js6UDY/kvU05JYYRLkbBqMRbFyVJaYyGN9zssZRawzooMoHEIVNl
+ E61oHX5l/EjuqTc349mWz18dHyepjbYxDWa75WXx/GxKTQ4XSCCKmRGS6HcVnKyZ
+ Kpt8D0LBY4Elv5LRX/XgyVyqNbmZPw9RmZxRC/6/Bj86C18XesIPZT/QqBw==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
+ [74.125.82.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f27t7sjfj-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 20:44:07 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id
- 5a478bee46e88-30cb2bcbf7cso1289399eec.1
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:44:07 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 20:44:09 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id
+ 5a478bee46e88-30bccca5620so3026370eec.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:44:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1782593046; x=1783197846;
+ d=oss.qualcomm.com; s=google; t=1782593049; x=1783197849;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SQRuQ81Slpu6S/J14DvxvRlWrELKuYfDpyAlzE8xCAk=;
- b=F/Z3Igb+eQKooJ+l3gug181ZjutoHSK1bEFb5nyXnTG7dlxq9GiQEdOr7lSmOB//1U
- i8m6I+T8TSqkzrUnDFaeQv6itdcG8hsHOF/l62NL7wGeH4qGbYibb+U/eRAPOxj13BEz
- MuPBoxVXfpNX2lajF6hM47s6OF4BWa8KYshWoImKE3+nLTAPQtKY9W/yd3AV1rAr4mP1
- 4oBE/so/afi5wwwjxIi16P2cwt/TcuU4R2QFuRmltDopEqdNCAQhn39gvlDuxpW+5VAw
- JmhFpYvNmyhKIvaKc22FllOVdpl5BAB4bRat3vDlfwCmIHAyeU3XHljs7wT+bQdThSbZ
- lnjw==
+ bh=BrwzP5kaMTZSpvTPdQ8PZsDiaXHhhpAob/6J5qUSorM=;
+ b=Cf0eEJ1p4EIb1U1d6HWIvsf6gDut1ndISdtD+hAlcZbcfPHcmzyClzrXTg8MQdE8E4
+ xZ6SfqBz6OjTKF0jLNITZwjYiuP33QlZ+SoVgC+BqdU6iZlLvQVxWROL0uc9fJIZWj5A
+ rpvzBOGf5Q6VNUVeT4nzuZh3WoKBtg3H8KnPuzscxSwdCXPVBi4qtnOJ9Mrg15wQkUFE
+ 4kJpMKMxzGVmyicOkaADfx7t4kI8fCQi2JhtIGIFW1L1fOB74Q3RV9nIwY8ksAIx9jXe
+ AE4eBmQdyIjFcw4nMPXrqmIDa+Dd4wKL1v1eAGE5nUbFN8baoeqoOWVnCT7xTZEGjDTm
+ MNAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782593046; x=1783197846;
+ d=1e100.net; s=20251104; t=1782593049; x=1783197849;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=SQRuQ81Slpu6S/J14DvxvRlWrELKuYfDpyAlzE8xCAk=;
- b=shPZpv1jbJXAQyf9hFEvKfzsLP/jHyQzRe6+Ga0bWEtrrxiKT8tW16bCMKuc9j/Y8O
- 0Jsgn2dsu1dX/30sOz31bL/hkfxzOlKCcmv0SU0hgmumrkNjeBcSXH+mwOmMDFusZpdA
- IWVZwP//BSk4e4AZUX/iR4hosKOF1RVS/2Vx0UBrcbyjeWw917S9b23avrs/hLba/O/a
- 54Uj3DBU6yt6n1Gs17YCAjT8R6NhFQ8n5iA0q2T1/6XZD5zd50YJCmJ8Gd/UR34YFPqP
- 0X9amcTQ0NYgVtTnFoTu1HLxwNFtUrGyTN0/NqHP/D0MYIQaC/Nh0o+vaAFETDLE1GYk
- d4tw==
-X-Gm-Message-State: AOJu0YyvtWtfLQgql8f9zsn4SvdFae70odrWBqBUjiLzFwXPyZYPopJ6
- 0yc1YHE6oc0V96j34av4RUlvNz1mep3fpddeiczuU1Uks1+ocIyCfp6oUCLNQo3LEaJIleLc0A5
- LR/2OhCgBMT1u9QD5dGXafjRUdgmaV+l+8sP7Nvhv7MB1Ibg+iz6qszDAai6oxPxtVXeZHcFp10
- 7b6sE=
-X-Gm-Gg: AfdE7cmVV0HUrtPZAUtkEzmc++1ygYZoGw7sRAsY+SheUK3/5BvXmJCo9a8amqn17h8
- vUiHQGkbwmXUT56uaPSZkebH+I+aId2gOWNq7DKCenCj5R3WsYjjZRb8LUZYb5SYnnLRtbhNGJa
- wxN8877Npyzy42fE/FI4LbajwZMv3KB7EyhJG1UWpUGUO/K7c/b8SX4mpeIiNZqqoic/JB9bfll
- z6MiSAb+6jdsOhO2y510wE0O413cC82e+7rONV6m0PVtvzHWmwaMuKQS1ZfoLly9pyZRf4qTkcf
- 22ZzfPts0ifNQlbAaRNBfFROxY26LUxuCxu3XbOPYetCRupppqQf1Nv5cnAyYXKhInoOv9/TPZc
- kE8fRl97GmsScZ9wPMAf1ABcgdMpXUre1VT88
-X-Received: by 2002:a05:7301:fa04:b0:2e2:4979:ec7 with SMTP id
- 5a478bee46e88-30c84b64e8cmr11092474eec.10.1782593046466; 
- Sat, 27 Jun 2026 13:44:06 -0700 (PDT)
-X-Received: by 2002:a05:7301:fa04:b0:2e2:4979:ec7 with SMTP id
- 5a478bee46e88-30c84b64e8cmr11092457eec.10.1782593045942; 
- Sat, 27 Jun 2026 13:44:05 -0700 (PDT)
+ bh=BrwzP5kaMTZSpvTPdQ8PZsDiaXHhhpAob/6J5qUSorM=;
+ b=g/F4K1aEfye3xua6TfjmlHXHERi1a9raNgLEvE32o1wKfCR/bOsvd6ilt7lt+3aBIA
+ fXUqzgTCYQh2Hm8qkVHDY8OzuF7B2AOcY3a9d/9wsv7iZjcscb9vbzKZhYcl4+S8Fz+s
+ BbszWJias+tPvZGjas5i5uxPk2k/O9i/yRNrvfNd4e3YiJ/GpFnbNDI3uDGzdoon3esn
+ 8WZAM2ghiC3WYdbRH9ylKihIh9wZZNWKJydvi+VYEGuoQ8DC562jyZrDXyedrtVNYtlf
+ VWkHVxDbPbsyG/OsHypyJHMQHqnAZcWBO+JOLt+pt/G2OQUVVxVpZrINQG3DgGWMXmQn
+ R2AQ==
+X-Gm-Message-State: AOJu0Yy13/6eg0KVciLY0D64sAquY3aGKTJFzmzXLKIpxU+QGSWsoDuY
+ 91Ep+cwVxjVpVS7T8c2gS89DcwHE/bdgDzCThUzKG1CUDsTKObe93YMVxKnQ4NC5x84Bcxxx11I
+ eyTTkrhKbbX6TxO37rUQQzvMWegifjS7lGRavoJCug7m3UIB9cn5h90ri6JnKM9KUTB0FfhiUec
+ czXBI=
+X-Gm-Gg: AfdE7cm/GyKjFAohAIRRxtCADyhDAlkv4Eg5zMHlbf02i520doHxuqOeV4/83e2mwOK
+ HxQrme1dK0fPK6bp4Bb06pKqSa4e8aQSYQjzR3QHLN+y4/Mbxv8Hs83oNH0r0s+wbI+xo9I1ti3
+ uRW1gWysLdGsYWwlFIYOE2O4AJvIEXnkvtaF5pIgjAP7sKXqqI9/kdKAGuWAP0YHmsAPepAzcEu
+ SAlHwa/reRq2cwugeXjbYDBDIyjZZBdyeKU8vgIhon1ojTVuFIXgay1Htdxml+v8cWdzJBS9snJ
+ l+rD45MXipqv7ouoE/5Ifxlwg28/WjdPigBISFAi19u7JyEpxxG6V9SHrgIWCFxrTv2SqSucCJ3
+ YnUgk275TsF0x9TRrhdJIEVZDfcYhw5nrMIZm
+X-Received: by 2002:a05:7300:3084:b0:30c:ab4d:382a with SMTP id
+ 5a478bee46e88-30cab4d3cc0mr5053322eec.44.1782593048637; 
+ Sat, 27 Jun 2026 13:44:08 -0700 (PDT)
+X-Received: by 2002:a05:7300:3084:b0:30c:ab4d:382a with SMTP id
+ 5a478bee46e88-30cab4d3cc0mr5053305eec.44.1782593048185; 
+ Sat, 27 Jun 2026 13:44:08 -0700 (PDT)
 Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-30ca5f14f8asm16882963eec.6.2026.06.27.13.44.04
+ 5a478bee46e88-30ca5f14f8asm16882963eec.6.2026.06.27.13.44.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 27 Jun 2026 13:44:05 -0700 (PDT)
+ Sat, 27 Jun 2026 13:44:07 -0700 (PDT)
 From: mohit.dsor@oss.qualcomm.com
 To: dri-devel@lists.freedesktop.org
 Cc: linux-kernel@vger.kernel.org, boss@oss.qualcomm.com,
  qc-display-maintainer@oss.qualcomm.com
-Subject: [PATCH 2/5] drm/bridge: lt9611c: implement hpd_enable callback
-Date: Sun, 28 Jun 2026 02:13:54 +0530
-Message-Id: <20260627204357.3336040-3-mohit.dsor@oss.qualcomm.com>
+Subject: [PATCH 3/5] drm/bridge: lt9611c: fix DT parsing and bridge refcount
+Date: Sun, 28 Jun 2026 02:13:55 +0530
+Message-Id: <20260627204357.3336040-4-mohit.dsor@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260627204357.3336040-1-mohit.dsor@oss.qualcomm.com>
 References: <20260627204357.3336040-1-mohit.dsor@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 9A6ZeC2tZnRYz7SY13zLk3p0VkQpLgeq
-X-Authority-Analysis: v=2.4 cv=A8Rc+aWG c=1 sm=1 tr=0 ts=6a403617 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI3MDE4MyBTYWx0ZWRfX+zH1U794GEtr
+ 0N6nnHQSr6y4x0/tNn3qWcbRkRf2rO0Yu3k50rOj7xcMpRKZdj4vVgFCcL95s+rv/iBYFxKO9fL
+ Etox9FNSWPs9X8mWfhfsHjCLSNnzuiz3ct1WmYW2FZkxKvpDQF/QYJydrhVDPiSMnrHSyDk96Kf
+ iGXMl1DIsvzzbA46nNWmEUcDa3dQzgVt9D0VzWkJJ9vB3A6+O8XPtebcxCn4zjMZ1Q9ttjlHnYu
+ 7rxhDRD0CuoJmvUaKH8Hj7HqzzVs89bjBD/VgTpm/LQh6HOcsveLkNYTRKjBN75YFGTW4zk8xB4
+ vK2ifj9t7POuMGq+7uUnTpZ+rJjXzLOPDq5YmAV1rXJOW/CVs5xKKKNRwntwf+g5PA9jVPnxhgd
+ QzFyn8IrlfpnsPO87bgewCaBRZJPa/8kChfA7VWENDDYD8swhF3ify0CMRsuXQ6ZTb7ZiOoHLNV
+ 8kddRSuEa4JJ1g59Wtg==
+X-Proofpoint-GUID: 4T1SNGmAv-H39zhJoU2n2OvZMZgkdv4v
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI3MDE4MyBTYWx0ZWRfX5y+TavVlzZRC
+ RS6FjefzwPAKJ7xSVedVvvudB1JdnH9JSQVbxw8S3MDUYKK3o3a3YBcu7KKuWQ/6Z4gP6U1k7Pn
+ 0sg+KlWHXHSDomMafy5qtDtTKYPUyQo=
+X-Proofpoint-ORIG-GUID: 4T1SNGmAv-H39zhJoU2n2OvZMZgkdv4v
+X-Authority-Analysis: v=2.4 cv=BdnoFLt2 c=1 sm=1 tr=0 ts=6a403619 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=_oZU6dHFf52f7Ag4h94A:9 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-ORIG-GUID: 9A6ZeC2tZnRYz7SY13zLk3p0VkQpLgeq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI3MDE4MyBTYWx0ZWRfX5eKFksz81yfy
- N44tuFt9nrNNZAJSUedpCMbhh6e5OxMl8s4R/rkPVw7dwLYdElsVtZXwXE+0oVDYBEl00Bv5gUs
- 13/AjhPyQaJ3TrPA07HTyPeip11GNszO9tUE9+yguP4dlfvMaHH6PZkIMIvldVlIzsWAXLqwI4C
- MJ9/kaZpqmKfYH/eas+G9GsiDqogRh2ePoIhqbWZ0ujxDxQFqY6SnZ4dn9NrMh3rv87ZP6pgERp
- vJGxVIZn+U8CTG6mmYDJTHbIzI/HO56KroM+tUOqLMS85n2ImYhQj0A+mqvaXjMj2b/pch8ADdu
- B9uwn7buS1wLdmlsAj6gLWIDKdKAOBfOCpXSLzfFyjd6MMQSp2YHxXJER1SDo/tYJFhVHzFOoAT
- Lmm+BPaDkQK4ZZ9LNXRZ3ZcQaRuU7NyMxokLlsR6VC6cH7U06d/CmWcQt2J43dx7X0u2v7Uyat9
- Pt67O5wD0z1/ifONy7Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI3MDE4MyBTYWx0ZWRfXy79M50Pfw7HA
- G5QxcYvAiX5psFafploKGnZ2iGpfdgc2gHK4gT+0lvR6Ep/UUiRcTjSUjCEjYE4mzcPHmy6eBaT
- seMUhfx6PsgtXjUzxwzQ6cRzFS8b800=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=wKAF-K-d-Ge9zTf_WYcA:9 a=scEy_gLbYbu1JhEsrz4S:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-27_03,2026-06-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
- suspectscore=0 malwarescore=0 phishscore=0 spamscore=0 lowpriorityscore=0
+ priorityscore=1501 phishscore=0 clxscore=1015 suspectscore=0 bulkscore=0
+ impostorscore=0 spamscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606270183
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -139,50 +139,43 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 
-Implement the .hpd_enable callback to trigger HPD status update
-and schedule event propagation.
+Ensure DT nodes are properly released on error and acquire a
+reference to next_bridge
 
 Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 ---
- drivers/gpu/drm/bridge/lontium-lt9611c.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/gpu/drm/bridge/lontium-lt9611c.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-index 81ca9d62eae3..30a07e97626a 100644
+index 30a07e97626a..4c8a3829a4be 100644
 --- a/drivers/gpu/drm/bridge/lontium-lt9611c.c
 +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-@@ -923,6 +923,23 @@ static void lt9611c_hdmi_audio_shutdown(struct drm_bridge *bridge,
- 	drm_atomic_helper_connector_hdmi_clear_audio_infoframe(connector);
- }
- 
-+static void lt9611c_bridge_hpd_enable(struct drm_bridge *bridge)
-+{
-+	struct lt9611c *lt9611c = bridge_to_lt9611c(bridge);
-+	u8 cmd[5] = {0x52, 0x48, 0x31, 0x3a, 0x00};
-+	u8 data[5];
+@@ -974,6 +974,8 @@ static const struct drm_bridge_funcs lt9611c_bridge_funcs = {
+ static int lt9611c_parse_dt(struct device *dev,
+ 			    struct lt9611c *lt9611c)
+ {
 +	int ret;
 +
-+	mutex_lock(&lt9611c->ocm_lock);
-+	ret = lt9611c_read_write_flow(lt9611c, cmd, ARRAY_SIZE(cmd),
-+				      data, ARRAY_SIZE(data));
-+	if (!ret)
-+		lt9611c->hdmi_connected = (data[4] == 0x02);
-+	mutex_unlock(&lt9611c->ocm_lock);
-+
-+	schedule_work(&lt9611c->work);
-+}
-+
- static int lt9611c_hdmi_audio_startup(struct drm_bridge *bridge,
- 				      struct drm_connector *connector)
- {
-@@ -939,6 +956,7 @@ static const struct drm_bridge_funcs lt9611c_bridge_funcs = {
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_reset = drm_atomic_helper_bridge_reset,
-+	.hpd_enable = lt9611c_bridge_hpd_enable,
+ 	lt9611c->dsi0_node = of_graph_get_remote_node(dev->of_node, 0, -1);
+ 	if (!lt9611c->dsi0_node)
+ 		return dev_err_probe(dev, -ENODEV, "failed to get remote node for primary dsi\n");
+@@ -984,7 +986,14 @@ static int lt9611c_parse_dt(struct device *dev,
+ 				 &lt9611c->selected_port))
+ 		lt9611c->selected_port = 0;
  
- 	.hdmi_tmds_char_rate_valid = lt9611c_hdmi_tmds_char_rate_valid,
- 	.hdmi_write_avi_infoframe = lt9611c_hdmi_write_avi_infoframe,
+-	return drm_of_find_panel_or_bridge(dev->of_node, 2, -1, NULL, &lt9611c->bridge.next_bridge);
++	ret = drm_of_find_panel_or_bridge(dev->of_node, 2, -1, NULL, &lt9611c->bridge.next_bridge);
++	if (ret) {
++		of_node_put(lt9611c->dsi1_node);
++		of_node_put(lt9611c->dsi0_node);
++		return ret;
++	}
++	drm_bridge_get(lt9611c->bridge.next_bridge);
++	return 0;
+ }
+ 
+ static int lt9611c_gpio_init(struct lt9611c *lt9611c)
 -- 
 2.34.1
 
