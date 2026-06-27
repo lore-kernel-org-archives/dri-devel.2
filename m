@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 908A6C43638
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:32:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 166CCC43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:32:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7B7310E441;
-	Sat, 27 Jun 2026 03:32:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C04F10E443;
+	Sat, 27 Jun 2026 03:32:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="WaUmPBnw";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="c0w22a3n";
 	dkim-atps=neutral
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85B3610E435
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:31:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42D5E10E429
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:32:00 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 2E93BC5CD7E;
- Sat, 27 Jun 2026 03:31:50 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id E1A81C5CD7E;
+ Sat, 27 Jun 2026 03:32:07 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 1F8A760233;
- Sat, 27 Jun 2026 03:31:41 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id D240660233;
+ Sat, 27 Jun 2026 03:31:58 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 9CA79106F1178; 
- Sat, 27 Jun 2026 05:31:37 +0200 (CEST)
+ with ESMTPSA id 45799106F1179; 
+ Sat, 27 Jun 2026 05:31:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1782531099; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1782531117; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=Z7/GhxWuPHfZ+W2ec4f1aPqowYz5dofm49yRd+HfCf0=;
- b=WaUmPBnwgTPft8YtPvU7pMlzDWrbaovCoXOq0S24r0w5d/+U2ZjdoojzdCDUJjC2uVKfPX
- XEEf76VIjbTwg++VpBEkKft7Fv7GSw5CTsV1qz5GBxoFZ4djOiCNHrFrrij3x7FAdyIj8x
- 54CdEDOEWzGRDjC2gGZUnOcH+O94Ym5OVF9SSXho/dqs3iOsdNKAyVgBBrg20jLu9zPaC5
- LYEMqUXymQpcivbeU5k5qPcPuNEWcWk1xnxSLQZQcQoEO6hcAm48YsjjSc2fLtwiKkCnmE
- DqggQqC8t+q603X7YqKjZiNxN41IuZdq+HbQMWBRK+ClCkQVYTWWb7Ro3OJuPw==
+ bh=GkxkbljcYLRIXXs5VDtu2PEu7V6pmMfgDmaKHnKfnO8=;
+ b=c0w22a3n8MHl4gyq3waM2HZfGT/Dk2N6893TIgDjM70OVf1/5QQGprZfao5L0a2l2+rOCv
+ 0tsNRx/YU7wz29lRADhkGXcgu3gfcrp1i/8ra8qNWRDR6kUdIWaws9v0+DNNOeOpoDsEsa
+ lxSAnr0nVRfURvoFJRgEN8sfOCZlgJ9sVnIPpmWaOMANFyyglgmw2ZhH/d0CGXyVGJoQmd
+ qvOrRb7PvH3ZlMC/jvhZzVvV9Ol6Cj02osump8cCgKfL+OxS5irKBrQl1bBalCvrfMvTtY
+ O7Alyk5swsAvdpCcKq9Jn+mBvMPJNwIyax86k3DXqiv/vk/zArZCGDSUvmUu+w==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Sat, 27 Jun 2026 05:30:38 +0200
-Subject: [PATCH v5 21/38] drm/vkms: Introduce configfs for plane color
- range
+Date: Sat, 27 Jun 2026 05:30:45 +0200
+Subject: [PATCH v5 28/38] drm/vkms: Introduce configfs for connector type
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260627-vkms-all-config-v5-21-854aa0840926@bootlin.com>
+Message-Id: <20260627-vkms-all-config-v5-28-854aa0840926@bootlin.com>
 References: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
 In-Reply-To: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -59,21 +58,21 @@ Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  Louis Chauvet <louis.chauvet@bootlin.com>, llvm@lists.linux.dev
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7267;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4162;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=zagsHqlP7cu1CD1HZJ/8w6YqkI/47gVjz6qtccSZpsk=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBqP0PfIFq9zFBdsiHlT1idpm6Kz/dsXYIm3at9I
- TfkxCTNWyaJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCaj9D3xsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOIlog//cQMKjveaaw2Knn4NNLDSkPz5LsKmkd5
- lZTaRXRKkRxXww9nwYbBdGdxk2Cf49P7MOIoN2ZryP9ykAzuP6VMUzf4Gt8UkbVKr+xjLnFbQzi
- UFA+NxuXpTiCQIw/gVmRqgcXggyFUIHLdKJK5iiWAUek5kYHcrn4MtxCav9eBwqHpnxNCU8181h
- bStBtR4axc2CY8af2TR8reS4GaDMB+BRbvwMYVWqtnJtLc/7vAwTgRQ9gA8cT6RS0enkjvNknhQ
- B7dIcPms+ZCK43XW/T4Wd2EVFFbqkH9Xf8GOMsPFPDWorkK49Tpu8RwHly2Xwt+qMxiKSAs1Cr7
- fZNlawwWjwu0aRU1QVtdn3HmoxRBwXoRv5toks8PAEAuu+ODIe+zqbKCYmo6f/1pN+39JoUHGF5
- qjIYemQg+JqtCaSFlpWgduOUERz8IR3OdEp1YyBRqzxtJS5yrUopJCDCvVdDB4EnxfKUwrCdOzd
- xC27HHRUArHmIIUEUpeC1QG7ivbhbWYgtpj9VoHlNIHjZzhKQrigxvHIhsusE5kq2wo5rXqdam6
- LezAWlrC+m8rwf66k0ZdSXQzzNdDIlCladsW/LurnLc/5UpL0ehqnNhES0zzHL8t6HmhhfC4Bf8
- d/PlCxjGQL5xciSKxAO2FH9xyLeqkgJD7lYZuMRurQT1VBsM3T4g=
+ bh=vbenv+pQSiNZcDfZE0Pylq/m0+ak/8m5W1XYtB05JGU=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBqP0PgIgHVSGT5N4uYOsuyVnMJfSZLU964R/iPa
+ RPQje0PZcWJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCaj9D4BsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOIOaBAAr2K0xlUwqfX921dLw5NJEtdFxU7j8k6
+ ohj1Bx5cUGP9bh8Il5GOxz/P7DdpY7FkQT+aGJ2j4mM+wN/J9YJB6xSlnkfZ030FcnhaP4mt8k4
+ aJ59nNvsFCZ3Y8TQG9X0XN9Q66B4f9+g6E0m7ZJc3pgz20kgE5N0zKLh6om2XWkvv7YvcqyPor6
+ 9cM51k3koheIpFawxrI9mN/cy8MFHp2RiPo3CuqKA8zTGPn62X2IJWH/GS3MxwRkrzkplJvJTrd
+ izTRrzMadKxUjFpqFe35SPV0oODqYigpzTI98AWParpChF5eNtcsIU7yIsbLXv6sPReePsKtob/
+ yTuNPc1necs+Y1YUPJb/9uzn7U06HOaUe8rU+o/nwxwuwQzeS7BySZyK16WMLtdSdu9sJpw3Jga
+ LiUzkwnpxJA6QPPdfK2nG+vnw1kMfB5YHzxXKsTQZPUke585NSF9kIocAxJgwUOqQQ7lWjrji8L
+ YWOSbdlakbR9RxskwjPm+r0xGAVVR0YmoIyg0+IzD4oobaK9xskDVaR+MkHFuCeTfeMzlOBY/hH
+ ZYaGXAX0a13oXEUXcBXtyYVM+ny4v6I3CgT44WmTe2v+a/XiyAh97OQC9Aa1B+NiukNzY1BbVv2
+ B3NmWdxwRbL1hD6H0YGIhS05TS0UzIPavTt9VE8gj0AxNuSwzSDc=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -92,201 +91,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-To allows the userspace to test many hardware configuration, introduce a
-new interface to configure the available color ranges per planes. VKMS
-supports multiple color ranges, so the userspace can choose any
-combination.
+Add a new attribute to connector to change its type. This is mostly
+cosmetic and don't have direct effect in VKMS behavior.
 
-The supported color ranges are configured by writing a color range bitmask
-to the file `supported_color_ranges` and the default color range is
-chosen by writing a color encoding bitmask to `default_color_range`.
-
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- Documentation/ABI/testing/configfs-vkms | 15 ++++++
- Documentation/gpu/vkms.rst              | 10 +++-
- drivers/gpu/drm/vkms/vkms_configfs.c    | 90 +++++++++++++++++++++++++++++++++
- 3 files changed, 113 insertions(+), 2 deletions(-)
+ Documentation/ABI/testing/configfs-vkms |  7 ++++
+ Documentation/gpu/vkms.rst              |  3 +-
+ drivers/gpu/drm/vkms/vkms_configfs.c    | 65 +++++++++++++++++++++++++++++++++
+ 3 files changed, 74 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/ABI/testing/configfs-vkms b/Documentation/ABI/testing/configfs-vkms
-index a9ee05fe0c66..ef0c3da6b3ca 100644
+index 9bc51b1e682a..0e588a1145ff 100644
 --- a/Documentation/ABI/testing/configfs-vkms
 +++ b/Documentation/ABI/testing/configfs-vkms
-@@ -132,6 +132,21 @@ Description:
- 	Default color encoding presented to userspace, same
- 	values as supported_color_encoding.
+@@ -33,6 +33,13 @@ Description:
+ 	Connection status of the connector. Possible values:
+ 	1 - connected, 2 - disconnected, 3 - unknown.
  
-+What:		/sys/kernel/config/vkms/<device>/planes/<plane>/supported_color_ranges
++What:		/sys/kernel/config/vkms/<device>/connectors/<connector>/type
 +Date:		Nov 2025
 +Contact:	dri-devel@lists.freedesktop.org
 +Description:
-+	Available color ranges for the plane, as a bitmask:
-+	0x1 - DRM_COLOR_YCBCR_LIMITED_RANGE,
-+	0x2 - DRM_COLOR_YCBCR_FULL_RANGE.
++	Type of the connector. Possible values match those
++	exposed by the "type" field in drm_connector.
 +
-+What:		/sys/kernel/config/vkms/<device>/planes/<plane>/default_color_range
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	Default color range presented to userspace, same
-+	values as supported_color_ranges.
-+
- What:		/sys/kernel/config/vkms/<device>/planes/<plane>/possible_crtcs
+ What:		/sys/kernel/config/vkms/<device>/connectors/<connector>/possible_encoders
  Date:		Nov 2025
  Contact:	dri-devel@lists.freedesktop.org
 diff --git a/Documentation/gpu/vkms.rst b/Documentation/gpu/vkms.rst
-index 7206cd2b231a..7e8f4fe3b392 100644
+index b58e96a3c273..f2622b3fd8af 100644
 --- a/Documentation/gpu/vkms.rst
 +++ b/Documentation/gpu/vkms.rst
-@@ -87,7 +87,7 @@ Start by creating one or more planes::
+@@ -137,10 +137,11 @@ Last but not least, create one or more connectors::
  
-   sudo mkdir /config/vkms/my-vkms/planes/plane0
+   sudo mkdir /config/vkms/my-vkms/connectors/connector0
  
--Planes have 5 configurable attributes:
-+Planes have 7 configurable attributes:
+-Connectors have 1 configurable attribute:
++Connectors have 2 configurable attribute:
  
- - type: Plane type: 0 overlay, 1 primary, 2 cursor (same values as those
-   exposed by the "type" property of a plane)
-@@ -98,10 +98,16 @@ Planes have 5 configurable attributes:
-   supported_rotations.
- - supported_color_encodings: Available encodings for a plane, as a bitmask:
-   0x01 YCBCR_BT601, 0x02 YCBCR_BT709, 0x04 YCBCR_BT2020 (same values as those exposed
--  by the COLOR_ENCODING property of a plane). If set, supported_color_range
-+  by the COLOR_ENCODING property of a plane). If set, supported_color_ranges
-   must be set too.
- - default_color_encoding: Default color encoding presented to the userspace, same
-   values as supported_color_encodings
-+- supported_color_ranges: Available color range for a plane, as a bitmask:
-+  0x1 DRM_COLOR_YCBCR_LIMITED_RANGE, 0x2 DRM_COLOR_YCBCR_FULL_RANGE (same values as
-+  those exposed by the COLOR_RANGE property of a plane). If set, supported_color_encoding
-+  must be set too.
-+- default_color_range: Default color range presented to the userspace, same
-+  values as supported_color_ranges
+ - status: Connection status: 1 connected, 2 disconnected, 3 unknown (same values
+   as those exposed by the "status" property of a connector)
++- type: Type of connector. Same values as exposed by the "type" field in drm_connector.
  
- Continue by creating one or more CRTCs::
+ To finish the configuration, link the different pipeline items::
  
 diff --git a/drivers/gpu/drm/vkms/vkms_configfs.c b/drivers/gpu/drm/vkms/vkms_configfs.c
-index c1d1841b2c5a..56a0c542a143 100644
+index 95f4594fb683..8b414f1950e8 100644
 --- a/drivers/gpu/drm/vkms/vkms_configfs.c
 +++ b/drivers/gpu/drm/vkms/vkms_configfs.c
-@@ -17,6 +17,13 @@
- 	BIT(DRM_COLOR_YCBCR_BT709) |		\
- 	BIT(DRM_COLOR_YCBCR_BT2020))
- 
-+/**
-+ * VKMS_SUPPORTED_COLOR_RANGES - Bitmask of all supported color ranges in VKMS
-+ */
-+#define VKMS_SUPPORTED_COLOR_RANGES (		\
-+	BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |	\
-+	BIT(DRM_COLOR_YCBCR_FULL_RANGE))
-+
- /* To avoid registering configfs more than once or unregistering on error */
- static bool is_configfs_registered;
- 
-@@ -410,6 +417,85 @@ static ssize_t plane_default_rotation_store(struct config_item *item,
- 	return count;
+@@ -1117,10 +1117,75 @@ static ssize_t connector_status_store(struct config_item *item,
+ 	return (ssize_t)count;
  }
  
-+static ssize_t plane_supported_color_ranges_show(struct config_item *item, char *page)
++static ssize_t connector_type_show(struct config_item *item, char *page)
 +{
-+	struct vkms_configfs_plane *plane = plane_item_to_vkms_configfs_plane(item);
-+	unsigned int supported_color_ranges;
++	struct vkms_configfs_connector *connector;
++	int type;
 +
-+	scoped_guard(mutex, &plane->dev->lock)
-+		supported_color_ranges = vkms_config_plane_get_supported_color_ranges(plane->config);
++	connector = connector_item_to_vkms_configfs_connector(item);
 +
-+	return sprintf(page, "%u", supported_color_ranges);
++	scoped_guard(mutex, &connector->dev->lock) {
++		type = vkms_config_connector_get_type(connector->config);
++	}
++
++	return sprintf(page, "%u", type);
 +}
 +
-+static ssize_t plane_supported_color_ranges_store(struct config_item *item,
-+						  const char *page, size_t count)
++static ssize_t connector_type_store(struct config_item *item,
++				    const char *page, size_t count)
 +{
-+	struct vkms_configfs_plane *plane = plane_item_to_vkms_configfs_plane(item);
-+	int ret, val = 0;
++	struct vkms_configfs_connector *connector;
++	int val, ret;
++
++	connector = connector_item_to_vkms_configfs_connector(item);
 +
 +	ret = kstrtouint(page, 10, &val);
++
 +	if (ret)
 +		return ret;
 +
-+	/* Should be a supported value */
-+	if (val & ~VKMS_SUPPORTED_COLOR_RANGES)
++	switch (val) {
++	case DRM_MODE_CONNECTOR_Unknown:
++	case DRM_MODE_CONNECTOR_VGA:
++	case DRM_MODE_CONNECTOR_DVII:
++	case DRM_MODE_CONNECTOR_DVID:
++	case DRM_MODE_CONNECTOR_DVIA:
++	case DRM_MODE_CONNECTOR_Composite:
++	case DRM_MODE_CONNECTOR_SVIDEO:
++	case DRM_MODE_CONNECTOR_LVDS:
++	case DRM_MODE_CONNECTOR_Component:
++	case DRM_MODE_CONNECTOR_9PinDIN:
++	case DRM_MODE_CONNECTOR_DisplayPort:
++	case DRM_MODE_CONNECTOR_HDMIA:
++	case DRM_MODE_CONNECTOR_HDMIB:
++	case DRM_MODE_CONNECTOR_TV:
++	case DRM_MODE_CONNECTOR_eDP:
++	case DRM_MODE_CONNECTOR_VIRTUAL:
++	case DRM_MODE_CONNECTOR_DSI:
++	case DRM_MODE_CONNECTOR_DPI:
++	case DRM_MODE_CONNECTOR_SPI:
++	case DRM_MODE_CONNECTOR_USB:
++		break;
++	default:
 +		return -EINVAL;
-+	/* Should at least provide one color range */
-+	if ((val & VKMS_SUPPORTED_COLOR_RANGES) == 0)
-+		return -EINVAL;
++	}
 +
-+	scoped_guard(mutex, &plane->dev->lock) {
-+		if (plane->dev->enabled)
++	scoped_guard(mutex, &connector->dev->lock) {
++		if (connector->dev->enabled)
 +			return -EBUSY;
 +
-+		vkms_config_plane_set_supported_color_ranges(plane->config, val);
++		vkms_config_connector_set_type(connector->config, val);
 +	}
 +
 +	return count;
 +}
 +
-+static ssize_t plane_default_color_range_show(struct config_item *item, char *page)
-+{
-+	struct vkms_configfs_plane *plane = plane_item_to_vkms_configfs_plane(item);
-+	unsigned int default_color_range;
-+
-+	scoped_guard(mutex, &plane->dev->lock)
-+		default_color_range = vkms_config_plane_get_default_color_range(plane->config);
-+
-+	return sprintf(page, "%lu", BIT(default_color_range));
-+}
-+
-+static ssize_t plane_default_color_range_store(struct config_item *item,
-+					       const char *page, size_t count)
-+{
-+	struct vkms_configfs_plane *plane = plane_item_to_vkms_configfs_plane(item);
-+	int ret, val = 0;
-+
-+	ret = kstrtouint(page, 10, &val);
-+	if (ret)
-+		return ret;
-+
-+	/* Should be a supported value */
-+	if (val & ~VKMS_SUPPORTED_COLOR_RANGES)
-+		return -EINVAL;
-+
-+	if (!is_power_of_2(val))
-+		return -EINVAL;
-+
-+	/* Convert bit position to the proper enum value */
-+	val = ffs(val) + DRM_COLOR_YCBCR_LIMITED_RANGE - 1;
-+
-+	scoped_guard(mutex, &plane->dev->lock) {
-+		if (plane->dev->enabled)
-+			return -EBUSY;
-+
-+		vkms_config_plane_set_default_color_range(plane->config, val);
-+	}
-+
-+	return count;
-+}
-+
- static ssize_t plane_supported_color_encodings_show(struct config_item *item, char *page)
- {
- 	struct vkms_configfs_plane *plane = plane_item_to_vkms_configfs_plane(item);
-@@ -493,6 +579,8 @@ static ssize_t plane_default_color_encoding_store(struct config_item *item,
- CONFIGFS_ATTR(plane_, type);
- CONFIGFS_ATTR(plane_, supported_rotations);
- CONFIGFS_ATTR(plane_, default_rotation);
-+CONFIGFS_ATTR(plane_, supported_color_ranges);
-+CONFIGFS_ATTR(plane_, default_color_range);
- CONFIGFS_ATTR(plane_, supported_color_encodings);
- CONFIGFS_ATTR(plane_, default_color_encoding);
+ CONFIGFS_ATTR(connector_, status);
++CONFIGFS_ATTR(connector_, type);
  
-@@ -500,6 +588,8 @@ static struct configfs_attribute *plane_item_attrs[] = {
- 	&plane_attr_type,
- 	&plane_attr_supported_rotations,
- 	&plane_attr_default_rotation,
-+	&plane_attr_supported_color_ranges,
-+	&plane_attr_default_color_range,
- 	&plane_attr_supported_color_encodings,
- 	&plane_attr_default_color_encoding,
+ static struct configfs_attribute *connector_item_attrs[] = {
+ 	&connector_attr_status,
++	&connector_attr_type,
  	NULL,
+ };
+ 
 
 -- 
 2.54.0
