@@ -4,42 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FC5FC43458
-	for <dri-devel@archiver.kernel.org>; Fri, 26 Jun 2026 21:55:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5B39C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 02:00:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E8D010F721;
-	Fri, 26 Jun 2026 21:55:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D946A10E406;
+	Sat, 27 Jun 2026 02:00:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KcRUmGoz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KTfuU+E4";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E93D10F721
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 21:55:35 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D77710E406
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 02:00:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 49AE541385;
- Fri, 26 Jun 2026 21:55:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05BE11F000E9;
- Fri, 26 Jun 2026 21:55:34 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B3C7F600AB;
+ Sat, 27 Jun 2026 02:00:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BDE91F00A3D;
+ Sat, 27 Jun 2026 02:00:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782510935;
- bh=uByLBAt7nuYNgTf94ZDcO0pD8wkSdi3uQnxpIe/Mg4Q=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KcRUmGoz3A7jcXzmzc1LZCV8UHFjZ5L0CnbjcnsV5s0NqJGVh8cROckDeXJWArPEg
- P0Rr0YQu/t3RSaMuxF+OCEDqB18JDp7T3o68Zq61UErTn5O/vD23z3ryRsBSkPD5El
- +8ffSpFCSYcquxTP382qaoqOdCmrLKl09o6LLYAhFFZxDGY7PX3nPJvhHdNkTs27yy
- csaXw9pXyY5tXGSAo4LxQX2KWRr42yNkqpA1Rmq6pouAVYXuuxfq4XWIyidZLqXh0D
- xEkdTe1Oo+GdFcsEA/KL4AnPns6bwD4io3n+r/TKGGaHoMMyUVqQhAyQiDJ2avR31g
- kOmyw0ALWFhmQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/i915/gt: Return bool values from a boolean helper
-To: "Andi Shyti" <andi.shyti@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260626215232.861416-1-andi.shyti@linux.intel.com>
-References: <20260626215232.861416-1-andi.shyti@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 21:55:34 +0000
-Message-Id: <20260626215535.05BE11F000E9@smtp.kernel.org>
+ s=k20260515; t=1782525635;
+ bh=UzMEt/7O4PD9G5kfBZG3O4N2CuKn5infao9iZoRs6BA=;
+ h=Subject:From:In-Reply-To:References:Date:To:Cc;
+ b=KTfuU+E487x3mwUENxZpwIisEArhrybLHvEVtJoWFXjXl2GaZDVfofAwymLbmKL3Q
+ heAN+MNw7ZE4GR4mJq0eImJ+SFMmxrn9ENxObW+IFX/ua31zNMowmvEIE4piujW0yP
+ VB/eFgx4WtnNM+ftENu8WO0nzqXAcLvcTZ5URMrlwN2dNKIkzAZCo2aZo0oynyT5Wk
+ LuU+Gn0PsGR4FJWXkhG4O7b8JoPiWdjGyM67K/Rody/rWEgx9b7UL+nrwaF3MI9N4r
+ +OhC3tuLZOXCk9cZDwvN6H/xZtbyE12MQI9aRP6uqjOlyMh5kewHxGlUgAbZI3yYQS
+ 68FICZg3kQ8ig==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 19EA53938C76; Sat, 27 Jun 2026 02:00:23 +0000 (UTC)
+Subject: Re: [git pull] drm-next-fixes for 7.2-rc1
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <CAPM=9tys2rN-EwfmUowvdozkZXqJENMz4GsCYHG6eOwyo_-R1g@mail.gmail.com>
+References: <CAPM=9tys2rN-EwfmUowvdozkZXqJENMz4GsCYHG6eOwyo_-R1g@mail.gmail.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <CAPM=9tys2rN-EwfmUowvdozkZXqJENMz4GsCYHG6eOwyo_-R1g@mail.gmail.com>
+X-PR-Tracked-Remote: https://gitlab.freedesktop.org/drm/kernel.git
+ tags/drm-next-2026-06-27
+X-PR-Tracked-Commit-Id: b41df707b6d7b7ae6188c6fc37ba81859293cb94
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: fa6fe449343c3d97ed93fd01b020860c663f8807
+Message-Id: <178252562158.1167646.2593473629414958552.pr-tracker-bot@kernel.org>
+Date: Sat, 27 Jun 2026 02:00:21 +0000
+To: Dave Airlie <airlied@gmail.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,60 +63,18 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The patch fails to fully implement the explicit boolean returns =
-claimed in the commit message.
---
+The pull request you sent on Sat, 27 Jun 2026 07:12:25 +1000:
 
-commit 0d74cf5750ffd2182532ac4105376be52c64bca2
-Author: Andi Shyti <andi.shyti@linux.intel.com>
+> https://gitlab.freedesktop.org/drm/kernel.git tags/drm-next-2026-06-27
 
-drm/i915/gt: Return bool values from a boolean helper
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/fa6fe449343c3d97ed93fd01b020860c663f8807
 
-This commit updates intel_has_gpu_reset() to return false instead of NULL
-when GPU reset is disabled via parameters. The stated goal is to have the
-boolean helper return explicit true or false values.
+Thank you!
 
-Link: https://lore.kernel.org/r/20260625114442.2912230-1-andi.shyti@linux.i=
-ntel.com
-
-> diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915=
-/gt/intel_reset.c
-> index b2cf672564dd9..6053f3e8aa27c 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_reset.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-> @@ -797,7 +797,7 @@ static int __intel_gt_reset(struct intel_gt *gt, inte=
-l_engine_mask_t engine_mask
->  bool intel_has_gpu_reset(const struct intel_gt *gt)
->  {
->  	if (!gt->i915->params.reset)
-> -		return NULL;
-> +		return false;
-> =20
->  	return intel_get_gpu_reset(gt);
-
-[Severity: Medium]
-Does this fully achieve the goal stated in the commit message?
-
-Looking at intel_has_gpu_reset() in drivers/gpu/drm/i915/gt/intel_reset.c,
-intel_get_gpu_reset() returns a function pointer (reset_func).
-
-By returning intel_get_gpu_reset(gt) directly, the code still relies on the=
- C
-compiler's implicit pointer-to-bool conversion.
-
-Would it be better to return an explicit boolean value here as well, such as
-!!intel_get_gpu_reset(gt) or intel_get_gpu_reset(gt) !=3D NULL, to fully al=
-ign
-with the commit message's intent?
-
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626215232.8614=
-16-1-andi.shyti@linux.intel.com?part=3D1
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
