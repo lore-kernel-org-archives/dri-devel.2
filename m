@@ -4,51 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91F45C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 10:58:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03D0AC43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 10:59:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2D0210E49F;
-	Sat, 27 Jun 2026 10:58:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B1E710E4A8;
+	Sat, 27 Jun 2026 10:59:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="cU8OprZX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aDQiy8av";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04CEB10E4A8
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 10:58:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782557891; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=TPAszodKOjsHUQXUH/Gxt1QipDH1lvWmdbKozRWi5dy/teU0upLxEInQumEdQfhSBqJLAwvsaobWNQH0URNI3lAtBCHYGiWMp1pblJvk+fyJDFY7q5jiu7GBz2QCEtc+dT574te1z/bfRcgKNOzc1VElb2Clp0fEHVn3j3uDE8w=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1782557891;
- h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=r+ECMRwUoj1qfDDF4fDzCAVRuUEA0RstFvYJct8WxzA=; 
- b=PK1/UPu/M6RTUAKbVCj83VqjDbOGQjkuuLElGFakYK+i/706TJsoQ+rEiYsmzEZI4gT8PhO6TURfczO1MEY/52+GEx2mQW2yQ0fNogx20T1z+/Eg4i/U+Ep8rWpHrXbcxIhhrWn/Q0DTyGzud2s0JuCTq+56SAk7qfGnUu1MCUo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782557891; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=r+ECMRwUoj1qfDDF4fDzCAVRuUEA0RstFvYJct8WxzA=;
- b=cU8OprZXYkA4b725w/61H0jdD87dKL0542c6VnfpjBYdZZCU7nWp0zqYGjTyMX+5
- 3UxVYdaADSPAmtwTUN+AMUMQuYJujapf+SPjmBoQtv/jbBWFIa7U1t+QhD9jmE8qXfR
- glrUulBRE0jqahNIBQEKiZYYjjQ8ZjggRSFM6dE0=
-Received: by mx.zohomail.com with SMTPS id 1782557889082692.4068701852244;
- Sat, 27 Jun 2026 03:58:09 -0700 (PDT)
-From: Robert Mader <robert.mader@collabora.com>
-To: mikhail.v.gavrilov@gmail.com,
-	vivek.kasireddy@intel.com
-Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, Robert Mader <robert.mader@collabora.com>
-Subject: [PATCH v1] udmabuf: Ensure to perform cache synchronisation in
- begin_cpu_udmabuf()
-Date: Sat, 27 Jun 2026 12:57:25 +0200
-Message-ID: <20260627105725.9083-1-robert.mader@collabora.com>
-X-Mailer: git-send-email 2.54.0
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
+ [74.125.82.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5169D10E4A8
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 10:59:43 +0000 (UTC)
+Received: by mail-dy1-f180.google.com with SMTP id
+ 5a478bee46e88-30bc5fa5a2aso117469eec.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:59:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782557982; cv=none;
+ d=google.com; s=arc-20260327;
+ b=p62lBqwf7S5tXIj+H5mgJBCKPzGOhgmmAMXfL7DdYF4TgP01+GT0drYT+aDBuXfeQC
+ a8pBYcl3VtduGgOts0fj56Lm/fnQDCRnikZY5gimqYdADIXKGtq7MBWsOq3T4VilqlVM
+ DrM8UDUFIFDqssmUtVnvPVKdZLLp6EpnQ3Gpe8jlB89SLXfTpaqU9EYs+Hgh1fM+337X
+ b+eOQg9cet4vSDVuhKSe1xsdMat9x7f0rHf3cYSzlRBXwNQOrEXerKxP2HoaO2W8QZoO
+ logzv3lKwVi+Nwih8K1exmrrFNjfoXnRF+b8WX688sfqMkdR76kH2GKZ39MgLj1I3Wra
+ izYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=n+nDLLPZ6wEr/4dq0uqyhXXPZoefpLj+VqCWxHyZNrQ=;
+ fh=0bN92Dmt08Bu11fHXC1tNaYUTsfeH8BPgS0tpyYUe+A=;
+ b=VEg/0eFYwM0WD0R9fwF8rDOFMBvIAYBUbggE3CkeMYVV+idtCasYeTFbDm6nKFuF7w
+ lWCDO9hl2Uslyqc5yXLz7o3MtFPTQRZkshZ4bZOCHSG9znRFjFVhhwkDECDJjQYWEEO6
+ b55unQ9vCCwIpPCqqG0ycZHb1THy+3kd4JVmQsXYH6GeFs5J176pv8pcDSpwG+hgib9q
+ jvDwUR18dhw94DhM3REiXVxJLU6j5OrVMti9+tom06Mjp+PF8TV8EsPANFRrzbG5WkNV
+ lOzjkuoOA7hUi+K562MMZYe17RLT6FYefC11c/bYyxLtp0zbs85DY503fPVeb6j1rnvi
+ 7UOw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782557982; x=1783162782; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=n+nDLLPZ6wEr/4dq0uqyhXXPZoefpLj+VqCWxHyZNrQ=;
+ b=aDQiy8avO64YDquudAxQYC+jm6eIBKUjP9XjD3PRxnDChgHcE4ePz/rRK5q5N+/Zv1
+ l5ltQbjwdN2/QqyJ3t7pM1OvM9ziZm/2FNlHZ0A16137Jm38dPAigosB76Nl9a+VzQI7
+ y4nVTrmmhxaAgL/zaHzS9dT4m9LZQpcgXPrf+WTwD/dekdsd6mMWIKxjistfiyaUvRSI
+ yj3eCFNUEkEuxhlzeAsLgkat/yMfpm6cWc0DK3g/vdONPrvdjdOmBr7R73h6/QHLG4C6
+ gL0DglLeDaROIw6NCYWHl0PBUFH0dfsVl7G+rTNULdzBAhIn0wACuAMM6J0+l0f1pn6F
+ JyqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782557982; x=1783162782;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=n+nDLLPZ6wEr/4dq0uqyhXXPZoefpLj+VqCWxHyZNrQ=;
+ b=Akeym/Jiqc1EenXN0ov3wfwphBVmGe0B3t1k+4uoUBcr5EHFNU3D0fV3HgFNrO4s+V
+ vUsxyeTO+eXofsOvY4tRkztEm1EZ4w0H2gyyLydP/eiQWXULiZNt4h1lIFv4keSF7ays
+ 9zRDWgNj0bElLBWeKnaBTKRtpV5XYZXoGg1IU2Xj08W8uCC/yE+4E/VqKLt0UmwLUPnp
+ 8khUfO7DmnGLZdJN5jq8tyzV37nkM85oWHQgUMlEqIf4tuQPVIb+U+KbS+MGO0YAZDIW
+ zAkRY+C+TBijsyChLM0YuXZPB75LYbg/JgKutLtnaXR8/e+KMmNOTx92gU4GO72j20qW
+ qRHQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RppkjIYsY5D7rJ3ATvDn0s28VYzaF8VInJFCtcAgrNb6pj9EKxBmBewdDFE/X4rbq3dbOujUFLBjww=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx3DDdMZP++IwFAR966GuyCncRrUbQj4WOwqpNHW13ly4VV490M
+ XQhA2gJq/QTxj2Z1iEhHdN1p9slEl6qjraVdWkKwSWr5VamJ4hsTDym/M7ZC1Y+D40DTKc+VAid
+ kmspeYplWSQIccDIYQEWlUDfBbaqyl18=
+X-Gm-Gg: AfdE7cnugEvGkT440Zq9EA0Rzq0yWbdZ7Mf4djICkMp2KswTHrheQRKjzm//YA3kzBj
+ Nkgale8ZDs5JJO/HKggngw+plHXg4ITmoA16ekM3KumwSjPo1+JnL1M0BIJvH8PfpVA2+jtH4zC
+ Tc7AS6xc9duPC39UTLy2yN+BhRmakMY4736BvJ/UsbljIpJFXNTF7XCuVdTmULQOK5X7cU1yL/e
+ eT1FSBBZrjx+emR5zwJqS+CGQsPHFcrLQimXFsl5eno5WqU4n+TMi+h5uVtBFXrxmUCHUCg8H3n
+ U8elxZIgZn0nx9HYaWzUbFy/uMuqvh1+XxHs4z8uJ3YEtG2rE9urQHaC57ep1HAFZ8afR8YkY2I
+ 4RD6Uguepl9/I
+X-Received: by 2002:a05:7300:6144:b0:30b:c021:5045 with SMTP id
+ 5a478bee46e88-30c84ce60f7mr4014070eec.5.1782557982397; Sat, 27 Jun 2026
+ 03:59:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260626183630.2585057-1-dakr@kernel.org>
+ <20260626183630.2585057-2-dakr@kernel.org>
+In-Reply-To: <20260626183630.2585057-2-dakr@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sat, 27 Jun 2026 12:59:30 +0200
+X-Gm-Features: AVVi8Ce3MkIh0ONlyKuy1KTbQ-yG1BEWeg6mkrKBipEfxJFXZQzFaNA4SZvKL0c
+Message-ID: <CANiq72mT0sAUX0Ob0RHzqS3QOzRxkc9=UoOuPTTyH=nAa8D40w@mail.gmail.com>
+Subject: Re: [PATCH v4 1/7] rust: types: rename ForLt to CovariantForLt
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: gregkh@linuxfoundation.org, rafael@kernel.org, ojeda@kernel.org, 
+ boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com, 
+ lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com, 
+ tmgross@umich.edu, acourbot@nvidia.com, ecourtney@nvidia.com, 
+ m.wilczynski@samsung.com, david.m.ertman@intel.com, ira.weiny@intel.com, 
+ leon@kernel.org, daniel.almeida@collabora.com, bhelgaas@google.com, 
+ kwilczynski@kernel.org, driver-core@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,57 +116,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The message of commit 504e2b4ab97a ("dma-buf/udmabuf: skip redundant cpu sync to
-fix cacheline EEXIST warning") says:
+On Fri, Jun 26, 2026 at 8:36=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> =
+wrote:
+>
+> Rename ForLt to CovariantForLt to prepare for the introduction of a new
+> ForLt base trait that does not require covariance.
+>
+> The existing ForLt trait requires covariance, which enables the safe
+> cast_ref() method. This rename preserves the same semantics under a more
+> precise name, making room for a weaker ForLt trait in a subsequent
+> commit.
+>
+> No functional change.
+>
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Reviewed-by: Gary Guo <gary@garyguo.net>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-> The CPU sync at map/unmap time is also redundant for udmabuf:
-> begin_cpu_udmabuf() and end_cpu_udmabuf() already perform explicit
-> cache synchronization via dma_sync_sgtable_for_cpu/device() when CPU
-> access is requested through the dma-buf interface.
+I don't see anyone else in linux-next using it, so this is likely fine
+-- if we expect others this cycle, they may need a merge.
 
-This, however, does not apply to the first time begin_cpu_udmabuf() is
-called on an udmabuf, in which case the implementation previously relied on
-get_sg_table() to perform the cache synchronisation.
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
 
-Ensure to call dma_sync_sgtable_for_cpu() in that case as well.
-
-Fixes: 504e2b4ab97a ("dma-buf/udmabuf: skip redundant cpu sync to fix cacheline EEXIST warning")
-Signed-off-by: Robert Mader <robert.mader@collabora.com>
----
- drivers/dma-buf/udmabuf.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index bced421c0d65..08f57bc1294d 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -224,21 +224,22 @@ static int begin_cpu_udmabuf(struct dma_buf *buf,
- {
- 	struct udmabuf *ubuf = buf->priv;
- 	struct device *dev = ubuf->device->this_device;
--	int ret = 0;
- 
- 	if (!ubuf->sg) {
- 		ubuf->sg = get_sg_table(dev, buf, direction);
- 		if (IS_ERR(ubuf->sg)) {
-+			int ret;
-+
- 			ret = PTR_ERR(ubuf->sg);
- 			ubuf->sg = NULL;
-+			return ret;
- 		} else {
- 			ubuf->sg_dir = direction;
- 		}
--	} else {
--		dma_sync_sgtable_for_cpu(dev, ubuf->sg, direction);
- 	}
- 
--	return ret;
-+	dma_sync_sgtable_for_cpu(dev, ubuf->sg, direction);
-+	return 0;
- }
- 
- static int end_cpu_udmabuf(struct dma_buf *buf,
--- 
-2.54.0
-
+Cheers,
+Miguel
