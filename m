@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D840C43211
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:33:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31B4CC43327
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:33:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7889010F739;
-	Sat, 27 Jun 2026 03:33:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06F5B10F74D;
+	Sat, 27 Jun 2026 03:33:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="VvqaBcjm";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="GMn7YBPa";
 	dkim-atps=neutral
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ECEC10E429
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:31:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24FF610E429
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:32:07 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 0C3494E40A00;
- Sat, 27 Jun 2026 03:31:54 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id E6AAA4E40A01;
+ Sat, 27 Jun 2026 03:32:05 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id CE67560233;
- Sat, 27 Jun 2026 03:31:53 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id BAEA060233;
+ Sat, 27 Jun 2026 03:32:05 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 63E6D106F1174; 
- Sat, 27 Jun 2026 05:31:50 +0200 (CEST)
+ with ESMTPSA id 5CBBC106F116D; 
+ Sat, 27 Jun 2026 05:32:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1782531112; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1782531124; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=WtHp2KsQUZkrfh1pFrvPDVyIIkElV2EFOCiE1HWjTiQ=;
- b=VvqaBcjm+uRjLaFfkJhhbv/52nsERToLExanOVY2D48+2mbqKXi0+bfs1v+BkuMyMd5+/d
- 0QpMqUGASefrFUmPWHZJB2fCgmwrwOAay3295KW839UtP6VBzi43p48lDIqb9KfBdRvkI5
- 2cO/q/RhJLAJqg8c1NXiJCChTV4l+hRwuErKDeQf8iOqQRZQt+nkyextIoK6ueUFQ505L2
- 3kcHfJnMa4fIlMP9hTASRCt9xSK6Sa/J7XQx7pGCinHgkTVAudkKcxr6ngHn1W9Sjh38yH
- US3Sjt+6UW21jJWMsLNr9b0Xg11BtVefRqX7bEudcW6DDy4xC1iJeiW1e0tpKA==
+ bh=u++HXNyFChQpUGESKUXwZFPSKeCBVxotGGVn26TBxU4=;
+ b=GMn7YBPae2B7/vEB+n958+SmEA5T3CP2q1ushfjIDMXHCzM0gDuT3Lu6KrwI0gt/cCu16o
+ viczLNMZfFuamiLwpRj1cfFdRvU04rlFYGqYQkWLQ391yzHGXpp4Jhq0rxznLLUDlmR3Fz
+ a6xRN93iRBtQJ/DmRsVqXa29AuV9RzNxQHqPF9nbWRkgP18YMZKKVWpUBQzE136hFE7OCU
+ 6b9lZV1sXAWRN+RUmhuy83Rmv+rMzK8uicf5aqEZ15vNaP0yiKgUdqUN/WcxwY0Qc6hsb2
+ 7DjMU8GDwo9JdLK3j30Q4OyLP5m2bJuxfajNKGIkGKKLdW1glq8gkcoZ1hyDBQ==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Sat, 27 Jun 2026 05:30:43 +0200
-Subject: [PATCH v5 26/38] drm/vkms: Introduce configfs for plane zpos property
+Date: Sat, 27 Jun 2026 05:30:48 +0200
+Subject: [PATCH v5 31/38] drm/vkms: Introduce configfs for connector
+ supported colorspace
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260627-vkms-all-config-v5-26-854aa0840926@bootlin.com>
+Message-Id: <20260627-vkms-all-config-v5-31-854aa0840926@bootlin.com>
 References: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
 In-Reply-To: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -58,21 +59,21 @@ Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  Louis Chauvet <louis.chauvet@bootlin.com>, llvm@lists.linux.dev
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9391;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4119;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=o+3PVM3hs6TqBxe06OZL6hUjzzOIiCuSF3Ef59l4yug=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBqP0PgmPD9wC3R0HTehfxRItfThyD0oRqHAQjuB
- Y9OTV3slbGJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCaj9D4BsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOK2xhAAlNNnaPT0wopor2nuWiaq1PSvTeywB6J
- x/Z195pnrm+e4DGPTrb8Aze3/YMEMC5/qd4NqKwOuutvAYZr/zsHvm+RngsLBVrK075pVizT/Dh
- olRq8v6xcTE4FK62QTjhdVd2uE8bw7+ulXcZwvTFhJl1vK799umlKQYPDN6IE1UdqvINe76f2MV
- vV+9DN5/r1jgIZRqnCXopigjSRmA9uZ/SYznBFerDO0w0duZpLYTuiZQBB1CO2ncUNjukL8LJ1l
- CUNlPjmV4qeIPMU6XLQEoZlC7UnLZr+avwXlfzPUvol6+7c282N0DBJYPFH1yBiLl/NBCgXPFEv
- dN425G/zk5XUf1N2972H2B4CvPxjzNYbIpvrjPmWjsO4QzyvqCVeGZyj6LpeQNQz2kqJC206ICu
- Wcq206seEM9m/SgQBXX+CDK5jmA1/LvWlPy7wn20AG12ftxmplDeDSnzm8nBUBcsrV3ltakKDjh
- QcaIA7G2Ma0vdgepCL3RjPwTY4byuse3vgEkdRQtBVWX9FekHrpzFLyxuX3DcdKHmVRif0k2Twi
- 37sHmhdvN8g6rrLuvQMZHID8ufAjzFrZRyl1XSvbB9Wcez4rB/DV39AHIaXTaV0HhFVLyqsISjv
- +8Jx9Fa+Y4Len/tARWIXDTfml4W2uUMZLTqZquTr88Mq3n9aMgXQ=
+ bh=4H1fytMYKlfKM5s/cdqJHSkWSFludjgedqgHfpUgeh4=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBqP0Phg+/2iMU6vUr5Ix+pfmVu+W2FW69eWzhR9
+ 1894U71CXeJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCaj9D4RsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOLEqQ//YIALEHi6J13XnFUiMoSNDEI6yWanMd0
+ BsYQk6TZ8uSdKA9xEUUtMbZyhujKNlRlV5yK3Y/oih4++hLZpW+yxNgaSg5Qe492kKmtrHIVv+Z
+ zYTJAaEQoLTFURxpmCqjQp6y+ah58ZnnjEhQUBiGBOiunuS0cwgDGpa1BH0Hg6FZbOxgjzSvd6P
+ vNujRbCIyOBOuswI3cx+ksnRbS4Gwm8ltAO8uj4Y+gIfoa5KShEGduDsE9cpfkyGbKezkqp/rAH
+ 8Db/1mmTZo49VBC/uXX/X5zpGgJJ0lu/nczR2eoTo7KPouOl0cWJZpB1U9itqaTt3g4sENaqvzH
+ jlRIwGWbmNatFH99tXb6O03MkZNDNY11Bxv5rK6Duoxn1BLkUSQiXCcaflMGEYILW9qi0H+hnsI
+ sOYIFPjuAnN/2hayUra6PGy/tLjKEjAL8gP68k8JR285WOzrvlIifLtbrxG9FrJfyiGsqTmlyAX
+ TNCDjVgSH9WI1Z+Va02XzaLTJ1A2+OYXxLL1ayk4BeCgZfszgJaiMUMaz0Sw/b5Sgtg5UCnMQru
+ BXRbQbvi6SZisXchTfvzIHH+JhSTptspP1QgE4Xbu6hVSya1QzGK79q9VdlXwBerGPGi7YgAv10
+ BhX8ctfPxNohH50wy1bdzyxdDI14KQqal78aa2psM62ldXV6oh60=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -91,304 +92,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Modern compositor rely on zpos management to offload some processing to
-deticated hardware. In order to test multiple configurations, add zpos
-configuration to configFS.
-
-Introduce multiple attributes to configure zpos:
-- zpos_enabled - Create or not the zpos property. If not created, the zpos
-  is undefined.
-- zpos_mutable - If the zpos property is created, allow or not the
-  userspace to modify it
-- zpos_initial - Initial value for zpos property. Must be between zpos_min
-  and zpos_max
-- zpos_min - Minimum zpos value for this plane. Must be <= zpos_max
-- zpos_max - Maximum zpos value for this plane. Must be >= zpos_min
+Add the attribute supported_colorspaces to configure the supported
+colorspace of a connector. It will allows emulating some HDR features of
+displays. This feature is only supported for HDMI, DP and eDP connectors.
 
 Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- Documentation/ABI/testing/configfs-vkms |  36 +++++++
- Documentation/gpu/vkms.rst              |   9 +-
- drivers/gpu/drm/vkms/vkms_configfs.c    | 180 ++++++++++++++++++++++++++++++++
- 3 files changed, 224 insertions(+), 1 deletion(-)
+ Documentation/ABI/testing/configfs-vkms |  8 +++++++
+ Documentation/gpu/vkms.rst              |  7 +++++-
+ drivers/gpu/drm/vkms/vkms_configfs.c    | 40 +++++++++++++++++++++++++++++++++
+ 3 files changed, 54 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/ABI/testing/configfs-vkms b/Documentation/ABI/testing/configfs-vkms
-index de901ce36b2e..9bc51b1e682a 100644
+index 0e588a1145ff..86f5f0beec8d 100644
 --- a/Documentation/ABI/testing/configfs-vkms
 +++ b/Documentation/ABI/testing/configfs-vkms
-@@ -156,6 +156,42 @@ Description:
- 	use '-' prefix. Use '+*' to add all formats, '-*' to
- 	remove all.
+@@ -40,6 +40,14 @@ Description:
+ 	Type of the connector. Possible values match those
+ 	exposed by the "type" field in drm_connector.
  
-+What:		/sys/kernel/config/vkms/<device>/planes/<plane>/zpos_enabled
++What:		/sys/kernel/config/vkms/<device>/connectors/<connector>/supported_colorspaces
 +Date:		Nov 2025
 +Contact:	dri-devel@lists.freedesktop.org
 +Description:
-+	Enable or disable the zpos property. Value: 1 - enabled,
-+	0 - disabled.
++	Supported colorspaces for HDMI, DP, and eDP connectors.
++	Value is a bitfield, where 0x1 = NO_DATA, 0x2 = SMPTE_170M_YCC,
++	etc. See enum drm_colorspace for full list.
 +
-+What:		/sys/kernel/config/vkms/<device>/planes/<plane>/zpos_mutable
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	Create the zpos property as mutable or immutable.
-+	Value: 1 - mutable, 0 - immutable. No effect if
-+	zpos_enabled is not set.
-+
-+What:		/sys/kernel/config/vkms/<device>/planes/<plane>/zpos_initial
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	Set the initial zpos value. Must be between zpos_min
-+	and zpos_max. No effect if zpos_enabled is not set.
-+
-+What:		/sys/kernel/config/vkms/<device>/planes/<plane>/zpos_min
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	Set the minimal zpos value. No effect if zpos_enabled
-+	is not set.
-+
-+What:		/sys/kernel/config/vkms/<device>/planes/<plane>/zpos_max
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	Set the maximal zpos value. No effect if zpos_enabled
-+	is not set.
-+
- What:		/sys/kernel/config/vkms/<device>/planes/<plane>/possible_crtcs
+ What:		/sys/kernel/config/vkms/<device>/connectors/<connector>/possible_encoders
  Date:		Nov 2025
  Contact:	dri-devel@lists.freedesktop.org
 diff --git a/Documentation/gpu/vkms.rst b/Documentation/gpu/vkms.rst
-index e5280a99eee8..b58e96a3c273 100644
+index f2622b3fd8af..11058b6e6250 100644
 --- a/Documentation/gpu/vkms.rst
 +++ b/Documentation/gpu/vkms.rst
-@@ -87,7 +87,7 @@ Start by creating one or more planes::
+@@ -137,11 +137,16 @@ Last but not least, create one or more connectors::
  
-   sudo mkdir /config/vkms/my-vkms/planes/plane0
+   sudo mkdir /config/vkms/my-vkms/connectors/connector0
  
--Planes have 8 configurable attributes:
-+Planes have 13 configurable attributes:
+-Connectors have 2 configurable attribute:
++Connectors have 3 configurable attribute:
  
- - type: Plane type: 0 overlay, 1 primary, 2 cursor (same values as those
-   exposed by the "type" property of a plane)
-@@ -113,6 +113,13 @@ Planes have 8 configurable attributes:
-   To remove a format, use a minus and its fourcc: -XR24
-   To add all formats use +*
-   To remove all formats, use -*
-+- zpos_enabled: Enable or not the zpos property: 1 enable, 0 disable
-+- zpos_mutable: Create the zpos property as a mutable or imutable property: 1 mutable,
-+  0 immutable. No effect if zpos_enabled is not set.
-+- zpos_initial: Set the initial zpos value. Must be between zpos_min and zpos_max. No
-+  effect if zpos_enabled is not set.
-+- zpos_min: Set the minimum zpos value. No effect if zpos_enabled is not set.
-+- zpos_max: Set the maximum zpos value. No effect if zpos_enabled is not set.
+ - status: Connection status: 1 connected, 2 disconnected, 3 unknown (same values
+   as those exposed by the "status" property of a connector)
+ - type: Type of connector. Same values as exposed by the "type" field in drm_connector.
++- supported_colorspaces: Supported colorspaces values for HDMI, DP and eDP connectors.
++  If supported_colorspaces is not 0, the HDR_OUTPUT_METADATA will also be created.
++  Value is a bitfield, 0x1 = NO_DATA, 0x2 = SMPTE_170M_YCC... see enum drm_colorspace
++  for full list.
++
  
- Continue by creating one or more CRTCs::
+ To finish the configuration, link the different pipeline items::
  
 diff --git a/drivers/gpu/drm/vkms/vkms_configfs.c b/drivers/gpu/drm/vkms/vkms_configfs.c
-index e6cb245b8582..95f4594fb683 100644
+index 8b414f1950e8..e1f6e7817f97 100644
 --- a/drivers/gpu/drm/vkms/vkms_configfs.c
 +++ b/drivers/gpu/drm/vkms/vkms_configfs.c
-@@ -687,6 +687,176 @@ static ssize_t plane_supported_formats_store(struct config_item *item,
+@@ -1180,12 +1180,52 @@ static ssize_t connector_type_store(struct config_item *item,
  	return count;
  }
  
-+static ssize_t plane_zpos_enabled_show(struct config_item *item, char *page)
++static ssize_t connector_supported_colorspaces_show(struct config_item *item, char *page)
 +{
-+	struct vkms_configfs_plane *plane;
-+	bool enabled;
++	struct vkms_configfs_connector *connector;
++	int colorspaces;
 +
-+	plane = plane_item_to_vkms_configfs_plane(item);
++	connector = connector_item_to_vkms_configfs_connector(item);
 +
-+	scoped_guard(mutex, &plane->dev->lock)
-+		enabled = vkms_config_plane_get_zpos_enabled(plane->config);
++	scoped_guard(mutex, &connector->dev->lock)
++	colorspaces = vkms_config_connector_get_supported_colorspaces(connector->config);
 +
-+	return sprintf(page, "%d\n", enabled);
++	return sprintf(page, "%u", colorspaces);
 +}
 +
-+static ssize_t plane_zpos_enabled_store(struct config_item *item, const char *page,
-+					size_t count)
++static ssize_t connector_supported_colorspaces_store(struct config_item *item,
++						     const char *page, size_t count)
 +{
-+	struct vkms_configfs_plane *plane;
-+	bool enabled;
++	struct vkms_configfs_connector *connector;
++	int val, ret;
 +
-+	plane = plane_item_to_vkms_configfs_plane(item);
++	connector = connector_item_to_vkms_configfs_connector(item);
 +
-+	if (kstrtobool(page, &enabled))
++	ret = kstrtouint(page, 10, &val);
++	if (ret)
++		return ret;
++
++	if ((val & -BIT(DRM_MODE_COLORIMETRY_COUNT)) != 0)
 +		return -EINVAL;
 +
-+	scoped_guard(mutex, &plane->dev->lock) {
-+		if (plane->dev->enabled)
++	scoped_guard(mutex, &connector->dev->lock) {
++		if (connector->dev->enabled)
 +			return -EBUSY;
 +
-+		vkms_config_plane_set_zpos_enabled(plane->config, enabled);
++		vkms_config_connector_set_supported_colorspaces(connector->config, val);
 +	}
 +
-+	return (ssize_t)count;
++	return count;
 +}
 +
-+static ssize_t plane_zpos_mutable_show(struct config_item *item, char *page)
-+{
-+	struct vkms_configfs_plane *plane;
-+	bool mutable;
-+
-+	plane = plane_item_to_vkms_configfs_plane(item);
-+
-+	scoped_guard(mutex, &plane->dev->lock)
-+		mutable = vkms_config_plane_get_zpos_mutable(plane->config);
-+
-+	return sprintf(page, "%d\n", mutable);
-+}
-+
-+static ssize_t plane_zpos_mutable_store(struct config_item *item, const char *page,
-+					size_t count)
-+{
-+	struct vkms_configfs_plane *plane;
-+	bool mutable;
-+
-+	plane = plane_item_to_vkms_configfs_plane(item);
-+
-+	if (kstrtobool(page, &mutable))
-+		return -EINVAL;
-+
-+	scoped_guard(mutex, &plane->dev->lock) {
-+		if (plane->dev->enabled)
-+			return -EBUSY;
-+
-+		vkms_config_plane_set_zpos_mutable(plane->config, mutable);
-+	}
-+
-+	return (ssize_t)count;
-+}
-+
-+static ssize_t plane_zpos_initial_show(struct config_item *item, char *page)
-+{
-+	struct vkms_configfs_plane *plane;
-+	unsigned int initial;
-+
-+	plane = plane_item_to_vkms_configfs_plane(item);
-+
-+	scoped_guard(mutex, &plane->dev->lock)
-+		initial = vkms_config_plane_get_zpos_initial(plane->config);
-+
-+	return sprintf(page, "%u\n", initial);
-+}
-+
-+static ssize_t plane_zpos_initial_store(struct config_item *item, const char *page,
-+					size_t count)
-+{
-+	struct vkms_configfs_plane *plane;
-+	unsigned int initial;
-+
-+	plane = plane_item_to_vkms_configfs_plane(item);
-+
-+	if (kstrtouint(page, 10, &initial))
-+		return -EINVAL;
-+
-+	scoped_guard(mutex, &plane->dev->lock) {
-+		if (plane->dev->enabled)
-+			return -EBUSY;
-+
-+		vkms_config_plane_set_zpos_initial(plane->config, initial);
-+	}
-+
-+	return (ssize_t)count;
-+}
-+
-+static ssize_t plane_zpos_min_show(struct config_item *item, char *page)
-+{
-+	struct vkms_configfs_plane *plane;
-+	unsigned int min;
-+
-+	plane = plane_item_to_vkms_configfs_plane(item);
-+
-+	scoped_guard(mutex, &plane->dev->lock)
-+		min = vkms_config_plane_get_zpos_min(plane->config);
-+
-+	return sprintf(page, "%u\n", min);
-+}
-+
-+static ssize_t plane_zpos_min_store(struct config_item *item, const char *page,
-+				    size_t count)
-+{
-+	struct vkms_configfs_plane *plane;
-+	unsigned int min;
-+
-+	plane = plane_item_to_vkms_configfs_plane(item);
-+
-+	if (kstrtouint(page, 10, &min))
-+		return -EINVAL;
-+
-+	scoped_guard(mutex, &plane->dev->lock) {
-+		if (plane->dev->enabled)
-+			return -EBUSY;
-+
-+		vkms_config_plane_set_zpos_min(plane->config, min);
-+	}
-+
-+	return (ssize_t)count;
-+}
-+
-+static ssize_t plane_zpos_max_show(struct config_item *item, char *page)
-+{
-+	struct vkms_configfs_plane *plane;
-+	unsigned int max;
-+
-+	plane = plane_item_to_vkms_configfs_plane(item);
-+
-+	scoped_guard(mutex, &plane->dev->lock)
-+		max = vkms_config_plane_get_zpos_max(plane->config);
-+
-+	return sprintf(page, "%u\n", max);
-+}
-+
-+static ssize_t plane_zpos_max_store(struct config_item *item, const char *page,
-+				    size_t count)
-+{
-+	struct vkms_configfs_plane *plane;
-+	unsigned int max;
-+
-+	plane = plane_item_to_vkms_configfs_plane(item);
-+
-+	if (kstrtouint(page, 10, &max))
-+		return -EINVAL;
-+
-+	scoped_guard(mutex, &plane->dev->lock) {
-+		if (plane->dev->enabled)
-+			return -EBUSY;
-+
-+		vkms_config_plane_set_zpos_max(plane->config, max);
-+	}
-+
-+	return (ssize_t)count;
-+}
-+
- CONFIGFS_ATTR(plane_, type);
- CONFIGFS_ATTR(plane_, supported_rotations);
- CONFIGFS_ATTR(plane_, default_rotation);
-@@ -695,6 +865,11 @@ CONFIGFS_ATTR(plane_, default_color_range);
- CONFIGFS_ATTR(plane_, supported_color_encodings);
- CONFIGFS_ATTR(plane_, default_color_encoding);
- CONFIGFS_ATTR(plane_, supported_formats);
-+CONFIGFS_ATTR(plane_, zpos_enabled);
-+CONFIGFS_ATTR(plane_, zpos_mutable);
-+CONFIGFS_ATTR(plane_, zpos_initial);
-+CONFIGFS_ATTR(plane_, zpos_min);
-+CONFIGFS_ATTR(plane_, zpos_max);
+ CONFIGFS_ATTR(connector_, status);
+ CONFIGFS_ATTR(connector_, type);
++CONFIGFS_ATTR(connector_, supported_colorspaces);
  
- static struct configfs_attribute *plane_item_attrs[] = {
- 	&plane_attr_type,
-@@ -705,6 +880,11 @@ static struct configfs_attribute *plane_item_attrs[] = {
- 	&plane_attr_supported_color_encodings,
- 	&plane_attr_default_color_encoding,
- 	&plane_attr_supported_formats,
-+	&plane_attr_zpos_enabled,
-+	&plane_attr_zpos_mutable,
-+	&plane_attr_zpos_initial,
-+	&plane_attr_zpos_min,
-+	&plane_attr_zpos_max,
+ static struct configfs_attribute *connector_item_attrs[] = {
+ 	&connector_attr_status,
+ 	&connector_attr_type,
++	&connector_attr_supported_colorspaces,
  	NULL,
  };
  
