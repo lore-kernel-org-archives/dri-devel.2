@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44F6BC43327
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 13:42:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3869FC43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 13:42:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D43E10E4DF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20DDF10E4E1;
 	Sat, 27 Jun 2026 13:42:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lrBpzjvz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FRJsDjJr";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9B2D10E4DB
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:33 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF39210E4DC
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6DFD460051
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAC9C1F000E9;
- Sat, 27 Jun 2026 13:42:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B29B444078
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66A631F000E9;
+ Sat, 27 Jun 2026 13:42:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782567753;
- bh=rh60Je7YIvQw0mGlqyT/jE4x8/MvVrvMXA6kHD1g3Ho=;
+ s=k20260515; t=1782567748;
+ bh=eKf34vMmv+GKYSnNpZQq7pBjGII5MTvdEfmFaR/JBhA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lrBpzjvzyzQNH6fMN4HIbMOvIL4PZeLPAN0rlkXn5L3Xhux3DVxLSw9a2RgQ07rXq
- DYb4Gza0+jaLYT7Y1F5LMcGNYAWgddMPo+TkSifoA9xw6SAhmPlJDuMN6/OKKzax+u
- HNC2tldRJCWZ9HJ1D+eTqCTkLxQaKY4CZKqo9THXZ8REZFZfr3pT5IRNjadDOvRFMM
- w9vhVS+AYe9qFMWT8O+OmuX7hu/IiLM001EUnw3P15OnpjTcLN8PP5EBIbH+kOZw23
- eGUvrzaSmjRw3Cp0yYlvZ35PXq/sLL69eTmy/MbWnVBEy+p6W6J+JsJ0b8ecCYq7aA
- Vfv1hEUz4w+Iw==
+ b=FRJsDjJrDTTzIgjzk7fYw8fXqGlYy2VLJO8GCuThHiVJzR9iHDXR7djPLDBh1xGOQ
+ iy06vd6pT1ZN3wUL29mPlVqvVYSnPhqYDR9N8emFf0A9Qrao7YY0gG6nOlFcOIy/pb
+ 1qIS35Sh5IZVzcbV5j0Dsl5eFCaUObJiG7L/9IpxGJcAlmUb5l+f8TwoSnTmzcB0Dc
+ AeVQQhxswT+bGSHoG2RpLA1/5eNEGNHRQ0SzcMGRhnK6T1fH+drINBfJBtYDomg3fF
+ 22vgeb0WV8Jqzr2tOGleh1DsiowxiMhkAvO7E8ASbBsg++2Q7INjT0SyWFmKeuXUXn
+ VpNOcCCmdse/A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 04/14] remoteproc: qcom_q6v5_pas: Switch over to
- generic PAS TZ APIs
+Subject: Re: [PATCH v8 05/14] remoteproc: qcom_q6v5_mss: Switch to generic
+ PAS TZ APIs
 To: "Sumit Garg" <sumit.garg@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260626133440.692849-5-sumit.garg@kernel.org>
+In-Reply-To: <20260626133440.692849-6-sumit.garg@kernel.org>
 References: <20260626133440.692849-1-sumit.garg@kernel.org>
- <20260626133440.692849-5-sumit.garg@kernel.org>
+ <20260626133440.692849-6-sumit.garg@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 27 Jun 2026 13:42:32 +0000
-Message-Id: <20260627134232.EAC9C1F000E9@smtp.kernel.org>
+Date: Sat, 27 Jun 2026 13:42:27 +0000
+Message-Id: <20260627134228.66A631F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,149 +62,92 @@ Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Removing the `qcom_scm_is_available()` check in `qcom_pas_probe()`=
- exposes the driver to a NULL pointer dereference in `qcom_scm_assign_mem()=
-`.
+- [High] Replacing `qcom_scm_is_available()` with `qcom_pas_is_available()`=
+ removes the SCM dependency check, leading to a NULL pointer dereference du=
+ring memory protection.
+- [High] The generic PAS API removes the hard module dependency on the back=
+end provider, exposing client drivers to a TOCTOU race condition and Use-Af=
+ter-Free.
 
 Pre-existing issues:
-- [High] `pas->dtb_firmware` is leaked on the success path because `release=
-_firmware()` is never called.
-- [High] If `qcom_pas_start()` fails after authenticating the DTB PAS, it n=
-ever invokes `qcom_pas_shutdown()` for the DTB PAS, leaving it permanently =
-running/authenticated in TrustZone.
+- [High] Missing initialization of `need_pas_mem_setup` makes PAS memory se=
+tup silently skipped.
 --
 
-commit 410365720c51e458aee76cb1ae2177033dc208d2
+commit 286e03507d8f96a33a10d31ad2cb432432734d78
 Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
 
-remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
+This commit switches the qcom_q6v5_mss client driver to use the generic PAS
+TZ APIs. This enables support for multiple TZ implementation backends, such
+as QTEE based SCM PAS service and OP-TEE based PAS service.
 
-This commit switches the qcom_q6v5_pas client driver over to use generic PAS
-TZ APIs. This allows support for multiple TZ implementation backends, and
-updates the MDT loader PAS dependencies to prevent build issues.
-
-> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
-_q6v5_pas.c
-> index 808e9609988d3..9eb1c4f6c2ab4 100644
-> --- a/drivers/remoteproc/qcom_q6v5_pas.c
-> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom=
+_q6v5_mss.c
+> index ae78f5c7c1b69..96888007faa88 100644
+> --- a/drivers/remoteproc/qcom_q6v5_mss.c
+> +++ b/drivers/remoteproc/qcom_q6v5_mss.c
 [ ... ]
-> @@ -225,9 +226,9 @@ static int qcom_pas_load(struct rproc *rproc, const s=
-truct firmware *fw)
->  	pas->firmware =3D fw;
-> =20
->  	if (pas->lite_pas_id)
-> -		qcom_scm_pas_shutdown(pas->lite_pas_id);
-> +		qcom_pas_shutdown(pas->lite_pas_id);
->  	if (pas->lite_dtb_pas_id)
-> -		qcom_scm_pas_shutdown(pas->lite_dtb_pas_id);
-> +		qcom_pas_shutdown(pas->lite_dtb_pas_id);
-> =20
->  	if (pas->dtb_pas_id) {
->  		ret =3D request_firmware(&pas->dtb_firmware, pas->dtb_firmware_name, p=
-as->dev);
-[ ... ]
->  		ret =3D qcom_mdt_pas_load(pas->dtb_pas_ctx, pas->dtb_firmware,
->  					pas->dtb_firmware_name, pas->dtb_mem_region,
->  					&pas->dtb_mem_reloc);
->  		if (ret)
->  			goto release_dtb_metadata;
+> @@ -1480,7 +1481,7 @@ static int q6v5_mpss_load(struct q6v5 *qproc)
 >  	}
 > =20
->  	return 0;
+>  	if (qproc->need_pas_mem_setup) {
 
 [Severity: High]
-This is a pre-existing issue, but does this code leak the DTB firmware buff=
-er
-on the success path?
+This is a pre-existing issue, but I noticed that need_pas_mem_setup is never
+populated from the match descriptor in q6v5_probe(). Since qproc is
+allocated via devm_rproc_alloc() and zero-initialized, this boolean will
+always be false.
 
-If request_firmware() successfully allocates pas->dtb_firmware, it doesn't
-appear to be freed with release_firmware() here before returning 0, nor
-is it released anywhere in the teardown callbacks like qcom_pas_stop() or
-qcom_pas_unprepare().
+Does this prevent qcom_pas_mem_setup() from ever being called even on
+platforms that require it?
 
-Could this lead to memory exhaustion if the remoteproc is repeatedly started
-and stopped via sysfs?
+> -		ret =3D qcom_scm_pas_mem_setup(MPSS_PAS_ID, qproc->mpss_phys, qproc->m=
+pss_size);
+> +		ret =3D qcom_pas_mem_setup(MPSS_PAS_ID, qproc->mpss_phys, qproc->mpss_=
+size);
 
-> =20
->  release_dtb_metadata:
-> -	qcom_scm_pas_metadata_release(pas->dtb_pas_ctx);
-> +	qcom_pas_metadata_release(pas->dtb_pas_ctx);
->  	release_firmware(pas->dtb_firmware);
-> =20
->  	return ret;
-[ ... ]
-> @@ -307,7 +308,7 @@ static int qcom_pas_start(struct rproc *rproc)
->  		if (ret)
->  			goto disable_px_supply;
-> =20
-> -		ret =3D qcom_scm_pas_prepare_and_auth_reset(pas->dtb_pas_ctx);
-> +		ret =3D qcom_pas_prepare_and_auth_reset(pas->dtb_pas_ctx);
+[Severity: High]
+Does this new generic PAS API safely handle backend module unloading?
+
+Previously, calling qcom_scm_pas_mem_setup() created a hard symbol
+dependency, preventing the backend module from being unloaded. The generic
+framework uses a lockless ops_ptr without acquiring module references:
+
+drivers/firmware/qcom/qcom_pas.c:qcom_pas_mem_setup() {
+    if (!ops_ptr)
+        return -ENODEV;
+
+    return ops_ptr->mem_setup(ops_ptr->dev, pas_id, addr, size);
+}
+
+Could the backend module be unloaded after the ops_ptr check but before or
+during the mem_setup() call, leading to a use-after-free or NULL pointer
+dereference?
+
 >  		if (ret) {
->  			dev_err(pas->dev,
->  				"failed to authenticate dtb image and release reset\n");
-> @@ -326,7 +327,7 @@ static int qcom_pas_start(struct rproc *rproc)
->  	if (ret)
->  		goto release_pas_metadata;
+>  			dev_err(qproc->dev,
+>  				"setting up mpss memory failed: %d\n", ret);
 [ ... ]
->  unmap_carveout:
->  	qcom_pas_unmap_carveout(rproc, pas->mem_phys, pas->mem_size);
->  release_pas_metadata:
-> -	qcom_scm_pas_metadata_release(pas->pas_ctx);
-> +	qcom_pas_metadata_release(pas->pas_ctx);
->  	if (pas->dtb_pas_id)
-> -		qcom_scm_pas_metadata_release(pas->dtb_pas_ctx);
-> +		qcom_pas_metadata_release(pas->dtb_pas_ctx);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but if a failure occurs after the
-DTB PAS is successfully authenticated, could this strand the TrustZone stat=
-e?
-
-If qcom_pas_prepare_and_auth_reset(pas->dtb_pas_ctx) succeeds, but a
-subsequent step like qcom_mdt_pas_load() fails, the code jumps to the
-release_pas_metadata label.
-
-The error unwind doesn't seem to invoke qcom_pas_shutdown(pas->dtb_pas_id)
-for the DTB PAS, which might leave the DTB PAS session permanently active in
-TrustZone until the next reboot.
-
-> =20
->  unmap_dtb_carveout:
->  	if (pas->dtb_pas_id)
-[ ... ]
-> @@ -743,7 +744,7 @@ static int qcom_pas_probe(struct platform_device *pde=
-v)
+> @@ -2077,7 +2078,7 @@ static int q6v5_probe(struct platform_device *pdev)
 >  	if (!desc)
 >  		return -EINVAL;
 > =20
-> -	if (!qcom_scm_is_available())
-> +	if (!qcom_pas_is_available())
->  		return -EPROBE_DEFER;
-> =20
->  	fw_name =3D desc->firmware_name;
+> -	if (desc->need_mem_protection && !qcom_scm_is_available())
+> +	if (desc->need_mem_protection && !qcom_pas_is_available())
 
 [Severity: High]
-By changing this dependency check from qcom_scm_is_available() to
-qcom_pas_is_available(), is it possible to encounter a NULL pointer
-dereference later in the probe sequence?
+Is it safe to replace the SCM availability check with the PAS availability
+check here?
 
-If the OP-TEE PAS backend is registered, qcom_pas_is_available() returns tr=
-ue,
-allowing probe to proceed even if the qcom_scm driver is deferred or
-unavailable.
+If need_mem_protection is true, q6v5_mpss_load() will unconditionally call
+q6v5_xfer_mem_ownership(), which eventually relies on qcom_scm_assign_mem()
+and dereferences the internal SCM structures.
 
-Later in the sequence, the code calls:
-
-qcom_pas_probe()
-  qcom_pas_assign_memory_region()
-    qcom_scm_assign_mem()
-
-If qcom_scm_assign_mem() is called unconditionally when region_assign_count=
- > 0,
-it will attempt to use the __scm pointer to allocate TrustZone memory, which
-might be NULL if the SCM driver isn't available.
+If a non-SCM PAS backend is available but SCM is uninitialized, the PAS
+check will succeed here, but the subsequent memory protection operations
+will trigger a NULL pointer dereference.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626133440.6928=
-49-1-sumit.garg@kernel.org?part=3D4
+49-1-sumit.garg@kernel.org?part=3D5
