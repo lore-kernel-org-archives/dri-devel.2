@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24ABEC43458
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:48:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02116C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:49:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78C0410F779;
-	Sat, 27 Jun 2026 03:48:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32B0510F77B;
+	Sat, 27 Jun 2026 03:49:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WY+y1Thz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WNEfTqyA";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D77C910F77B
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:48:40 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0BFF10F77B
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:49:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BFE3C43B9F;
- Sat, 27 Jun 2026 03:48:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73CD11F000E9;
- Sat, 27 Jun 2026 03:48:40 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 34F53600AA;
+ Sat, 27 Jun 2026 03:49:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCE041F000E9;
+ Sat, 27 Jun 2026 03:49:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782532120;
- bh=kSWCnOdpfB1AcXOvBeOQFc21Vxbrd8NpUlPsGGpwSDo=;
+ s=k20260515; t=1782532142;
+ bh=3NDovQkvmxXDpUMdJ8miaPf7LEZiD9dzqzY/VrKfXto=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WY+y1Thzf8fMb6lPvr9fBtFBkcJqdK3ZiH8ZL8fnowxRahMupTGnEc21qcaWhGoXh
- 16X+rJvcvCAngZNYEgn3qTbvRZx1vW8ZKXBBQG30Ny0zF3bQrKXnmz44kQJ+Nkot4d
- KIvHlCVXTG+lucXmbr6gsSCYk866hLmnAzf/v1yz6UAMUpLiDu1mzfXqFhmgqfZd42
- finw/NfeuXcpbyXaWfF6k5vTJFft7gyyZdKc9cXEDC6BOwwhDhkC1W4B5Ka0+ShPDC
- oKfyai2jjWsbaJGBKIwGp45IABo8znvZEUF2C4CiD2BPLfT3OZIpUQ8CaIkZjbRun9
- GfwUsOMbEzb3Q==
+ b=WNEfTqyAjt6CoDCWldeTYyI9nKctcyjj/cVxQgGx6aEAj5UHkkEpfeCmI98eOti+M
+ wrGd6KmGdulERJb/lj6Vx4Hq/ttOa/xozPrWGEeS+I+mSDn3jCreDRsYq4TmYO2HD6
+ j9W1dvN/wUJfqJP76zZBueIkvjEZQ8jnVQHD8CnUttbpvohauLZtK8YGUUzqzPnDCx
+ CJCe2xjqlh2YfyKDrwfI6EaXxl56sMnmCzyeX+V3OhY2BuuIo+YUFqw+CZD/XBpXo9
+ X/6CJS9ZvkATPU1BWYzU7Pj5CCSDwn9qXCr+z5o9L0smtdUhdHm4v5ntVT1rMvO4Ld
+ n+5f6Bi8iU8WA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 31/38] drm/vkms: Introduce configfs for connector
- supported colorspace
+Subject: Re: [PATCH v5 19/38] drm/vkms: Introduce configfs for plane color
+ encoding
 To: "Louis Chauvet" <louis.chauvet@bootlin.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260627-vkms-all-config-v5-31-854aa0840926@bootlin.com>
+In-Reply-To: <20260627-vkms-all-config-v5-19-854aa0840926@bootlin.com>
 References: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
- <20260627-vkms-all-config-v5-31-854aa0840926@bootlin.com>
+ <20260627-vkms-all-config-v5-19-854aa0840926@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 27 Jun 2026 03:48:40 +0000
-Message-Id: <20260627034840.73CD11F000E9@smtp.kernel.org>
+Date: Sat, 27 Jun 2026 03:49:02 +0000
+Message-Id: <20260627034902.CCE041F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,108 +58,138 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] Missing validation for `supported_colorspaces` against connector=
- types, leading to silent configuration failure.
-- [Low] Passing an `int *` to `kstrtouint()` instead of an `unsigned int *`=
-, and mismatched variable types for colorspaces.
+- [Medium] Rejecting a value of 0 prevents testing planes without color enc=
+odings.
+- [Low] Passing an `int *` to a function expecting `unsigned int *` causes =
+an incompatible-pointer-types compiler warning.
+- [Low] Double assignment typo in variable declaration.
 --
 
-commit 2994a2a64dd308b728cfd70f48204aeb77b66762
+commit 14a18de4798714722e237eb41b51bd75e7c7cd56
 Author: Louis Chauvet <louis.chauvet@bootlin.com>
 
-drm/vkms: Introduce configfs for connector supported colorspace
+drm/vkms: Introduce configfs for plane color encoding
    =20
-Add the attribute supported_colorspaces to configure the supported
-colorspace of a connector. It will allows emulating some HDR features of
-displays. This feature is only supported for HDMI, DP and eDP connectors.
+This patch introduces a configfs interface to configure the supported and
+default color encodings for VKMS planes. It allows userspace to test differ=
+ent
+hardware configurations regarding color encoding bitmasks.
 
 > diff --git a/drivers/gpu/drm/vkms/vkms_configfs.c b/drivers/gpu/drm/vkms/=
 vkms_configfs.c
-> index 8b414f1950e8e..e1f6e7817f972 100644
+> index 47b3a4aeee8dd..c1d1841b2c5a5 100644
 > --- a/drivers/gpu/drm/vkms/vkms_configfs.c
 > +++ b/drivers/gpu/drm/vkms/vkms_configfs.c
+
 [ ... ]
-> @@ -1180,12 +1180,52 @@ static ssize_t connector_type_store(struct config=
-_item *item,
+
+> @@ -402,14 +410,98 @@ static ssize_t plane_default_rotation_store(struct =
+config_item *item,
 >  	return count;
 >  }
 > =20
-> +static ssize_t connector_supported_colorspaces_show(struct config_item *=
+> +static ssize_t plane_supported_color_encodings_show(struct config_item *=
 item, char *page)
 > +{
-> +	struct vkms_configfs_connector *connector;
-> +	int colorspaces;
+> +	struct vkms_configfs_plane *plane =3D plane_item_to_vkms_configfs_plane=
+(item);
+> +	unsigned int supported_color_encodings;
 > +
-> +	connector =3D connector_item_to_vkms_configfs_connector(item);
+> +	scoped_guard(mutex, &plane->dev->lock)
+> +		supported_color_encodings =3D vkms_config_plane_get_supported_color_en=
+codings(plane->config);
 > +
-> +	scoped_guard(mutex, &connector->dev->lock)
-> +	colorspaces =3D vkms_config_connector_get_supported_colorspaces(connect=
-or->config);
-
-[Severity: Low]
-Does this code assign a u32 value to a signed int?
-
-vkms_config_connector_get_supported_colorspaces() returns a u32, but
-colorspaces is declared as an int.
-
-> +
-> +	return sprintf(page, "%u", colorspaces);
+> +	return sprintf(page, "%u", supported_color_encodings);
 > +}
 > +
-> +static ssize_t connector_supported_colorspaces_store(struct config_item =
+> +static ssize_t plane_supported_color_encodings_store(struct config_item =
 *item,
 > +						     const char *page, size_t count)
 > +{
-> +	struct vkms_configfs_connector *connector;
-> +	int val, ret;
-> +
-> +	connector =3D connector_item_to_vkms_configfs_connector(item);
+> +	struct vkms_configfs_plane *plane =3D plane_item_to_vkms_configfs_plane=
+(item);
+> +	int ret, val =3D 0;
 > +
 > +	ret =3D kstrtouint(page, 10, &val);
 
 [Severity: Low]
-Does this code pass an int pointer to an API expecting an unsigned int poin=
-ter?
-
-kstrtouint() expects an unsigned int * for its third argument, but val is
-declared as an int.
+Does this pass an int pointer to kstrtouint() instead of an unsigned int
+pointer? This might trigger an incompatible-pointer-types compiler warning.
 
 > +	if (ret)
 > +		return ret;
 > +
-> +	if ((val & -BIT(DRM_MODE_COLORIMETRY_COUNT)) !=3D 0)
+> +	/* Should be a supported value */
+> +	if (val & ~(VKMS_SUPPORTED_COLOR_ENCODINGS))
 > +		return -EINVAL;
-> +
-> +	scoped_guard(mutex, &connector->dev->lock) {
-> +		if (connector->dev->enabled)
-> +			return -EBUSY;
-> +
-> +		vkms_config_connector_set_supported_colorspaces(connector->config, val=
-);
+> +	/* Should at least provide one color encoding */
+> +	if ((val & (VKMS_SUPPORTED_COLOR_ENCODINGS)) =3D=3D 0)
+> +		return -EINVAL;
 
 [Severity: Medium]
-Since this feature is only supported for HDMI, DP, and eDP connectors, is
-there any validation that prevents users from configuring this on unsupport=
-ed
-connector types?
+Does rejecting 0 here prevent userspace from configuring a VKMS plane witho=
+ut
+color encodings?
 
-If users configure this attribute on an unsupported connector (like the def=
-ault
-VIRTUAL type), it appears it will be accepted here but silently ignored lat=
-er
-when the device is initialized.
+It looks like the VKMS configuration API and kunit tests support a value of=
+ 0 to
+emulate an RGB-only plane. Blocking 0 here might unnecessarily limit the ha=
+rdware
+configurations that can be tested.
 
-Would it make sense to reject unsupported configurations in
-vkms_config_is_valid() or similar validation logic to prevent misleading
-userspace?
-
+> +
+> +	scoped_guard(mutex, &plane->dev->lock) {
+> +		if (plane->dev->enabled)
+> +			return -EBUSY;
+> +
+> +		vkms_config_plane_set_supported_color_encodings(plane->config, val);
 > +	}
 > +
 > +	return count;
 > +}
+> +
+> +static ssize_t plane_default_color_encoding_show(struct config_item *ite=
+m, char *page)
+> +{
+> +	struct vkms_configfs_plane *plane =3D plane =3D plane_item_to_vkms_conf=
+igfs_plane(item);
+
+[Severity: Low]
+This isn't a bug, but there is an accidental double assignment to the plane
+variable here.
+
+> +	unsigned int default_color_encoding;
+> +
+> +	scoped_guard(mutex, &plane->dev->lock)
+> +		default_color_encoding =3D BIT(vkms_config_plane_get_default_color_enc=
+oding(plane->config));
+> +
+> +	return sprintf(page, "%u", default_color_encoding);
+> +}
+> +
+> +static ssize_t plane_default_color_encoding_store(struct config_item *it=
+em,
+> +						  const char *page, size_t count)
+> +{
+> +	struct vkms_configfs_plane *plane =3D plane_item_to_vkms_configfs_plane=
+(item);
+> +	int ret, val =3D 0;
+> +
+> +	ret =3D kstrtouint(page, 10, &val);
+
+[Severity: Low]
+Similar to plane_supported_color_encodings_store(), does this pass an int
+pointer to kstrtouint() instead of an unsigned int pointer?
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Should be a supported value */
+> +	if (val & ~VKMS_SUPPORTED_COLOR_ENCODINGS)
+> +		return -EINVAL;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260627-vkms-all-c=
-onfig-v5-0-854aa0840926@bootlin.com?part=3D31
+onfig-v5-0-854aa0840926@bootlin.com?part=3D19
