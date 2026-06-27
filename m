@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90B98C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 04:16:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B63D7C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 04:33:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B83D410E2B8;
-	Sat, 27 Jun 2026 04:16:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C145910E43D;
+	Sat, 27 Jun 2026 04:33:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZMiF/x/q";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nrtH3Oyh";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B624910E2B8
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 04:16:20 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20BFE10E43D
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 04:33:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1CAD4600AA;
- Sat, 27 Jun 2026 04:16:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9890F1F000E9;
- Sat, 27 Jun 2026 04:16:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 743B2402AD;
+ Sat, 27 Jun 2026 04:33:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314C31F000E9;
+ Sat, 27 Jun 2026 04:33:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782533779;
- bh=m/T8AThJNtgCfRZGPs8Yo8zafBV2QM0kK/B5Mw+IgnE=;
+ s=k20260515; t=1782534812;
+ bh=HkZfO6bOScDntQYdt2ALSqEoT4hf3J19ObXytv1D4zQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZMiF/x/qpvhrX8eq1FhMc39wgDBVBTE9SALtZ+P+DAoMNcN78M5CEP8Yw9tCJj75+
- dSMKefzufzx0OAyhodhYhX/dTFBWHnDewDwV9YMUhJRbLhcVmTDimxqhzqcKeohCDd
- 6igQon3tbQ1pFHNh5qsOQAFtkPLyAJnt/VZM2hoG78I9eepz9h2kAvImhHfk90EqPp
- 989cx5mus10zuOoef1nvPtUQ8It/USdx1WArHZZMQ/Iq4L23XKr4w/pL1KQAnpSQl3
- /bFaKwUTZZz9HCCpuP010Z0bzQf6LQzGwsvnFJ+nhgTZSgoZsStrtEX9CMbdoTUz+g
- cDWvXJp95ZkOw==
+ b=nrtH3OyhksEy/0BbpEtz/I57uGbVFl4/NOzDc9BUgKXN+GxzxMd3G0tZ9Z19CzyNU
+ jrggQ4QHc2uYCj3ZIF3Y8mghW4LPxlAY6AIWiuds66sIrJmYrIke/2YrMmhuFg8GcF
+ piB7qajbBGCyqiPVxLdXfNVxL3LthBmxRvqaacvRHzTETMJ2D6yGa8qB75xmoZUGpC
+ MPgjYVasKyhKOzhh/LU3VZ0DhOk+sdz/zDv249FmFR2psKYFfWTuK/RhejF1F2HA31
+ cc1ecxJXzAxVDeWRoMQc/4a3UsJj5dbw77gS656q2fBmTwoz/Q4IYQyXNKamC7QNmM
+ Yx4h0TcSPkgMg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/5] drm/xe: have xe_svm_range embed one
- drm_gpusvm_pages
+Subject: Re: [PATCH v5 4/5] drm/gpusvm: move struct drm_gpusvm_pages out of
+ struct drm_gpusvm_range
 To: "Honglei Huang" <honglei1.huang@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260627035418.3796481-3-honglei1.huang@amd.com>
+In-Reply-To: <20260627035418.3796481-4-honglei1.huang@amd.com>
 References: <20260627035418.3796481-1-honglei1.huang@amd.com>
- <20260627035418.3796481-3-honglei1.huang@amd.com>
+ <20260627035418.3796481-4-honglei1.huang@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 27 Jun 2026 04:16:19 +0000
-Message-Id: <20260627041619.9890F1F000E9@smtp.kernel.org>
+Date: Sat, 27 Jun 2026 04:33:31 +0000
+Message-Id: <20260627043332.314C31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,85 +58,108 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Critical] Deferring IOMMU unmapping to the range free callback creates a=
- window where a range is unlinked from the MMU interval tree but its pages =
-remain mapped, breaking the MMU notifier security guarantees and allowing D=
-MA use-after-free.
+
+Pre-existing issues:
+- [High] Passing uninitialized DMA direction to `dma_iova_destroy()` when m=
+apping fails on the first iteration.
+- [High] Device memory DMA mappings are permanently leaked if `drm_gpusvm_g=
+et_pages()` fails midway through mapping.
 --
 
-commit 178f1e1f04007ff8f673ad61f9e9152f411fac61
+commit f55ce8322095c92c8d36ce88cefb155d04fd7fd7
 Author: Honglei Huang <honghuan@amd.com>
 
-drm/xe: have xe_svm_range embed one drm_gpusvm_pages
+drm/gpusvm: move struct drm_gpusvm_pages out of struct drm_gpusvm_range
 
-This commit modifies the drm_gpusvm framework so that the driver takes
-responsibility for the page lifecycle by embedding drm_gpusvm_pages. As part
-of this, the synchronous unmap in drm_gpusvm_range_remove() was removed, and
-xe now unmaps the pages from its range_free callback instead.
+Since the physical pages and MM VA range have been abstractly separated,
+this commit moves struct drm_gpusvm_pages out of struct drm_gpusvm_range
+to bring flexibility to the drm gpu SVM framework. It updates helpers
+and documentation to operate directly on driver-embedded pages objects.
 
 > diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-> index 155e3c2e703d9..85fbadc9716a4 100644
+> index 85fbadc9716a4..6b79aecb22dbc 100644
 > --- a/drivers/gpu/drm/drm_gpusvm.c
 > +++ b/drivers/gpu/drm/drm_gpusvm.c
 
 [ ... ]
 
-> @@ -1245,8 +1248,6 @@ void drm_gpusvm_range_remove(struct drm_gpusvm *gpu=
-svm,
->  		return;
-> =20
->  	drm_gpusvm_notifier_lock(gpusvm);
-> -	__drm_gpusvm_unmap_pages(gpusvm, &range->pages, npages);
-> -	__drm_gpusvm_free_pages(gpusvm, &range->pages);
->  	__drm_gpusvm_range_remove(notifier, range);
->  	drm_gpusvm_notifier_unlock(gpusvm);
+> @@ -183,7 +232,10 @@
+>   *				goto retry;
+>   *		}
+>   *
+> - *		err =3D drm_gpusvm_range_get_pages(gpusvm, range, &ctx);
+> + *		err =3D drm_gpusvm_get_pages(gpusvm, &drange->pages,
+> + *					   gpusvm->mm, &range->notifier->notifier,
+> + *					   drm_gpusvm_range_start(range),
+> + *					   drm_gpusvm_range_end(range), &ctx);
 
-[Severity: Critical]
-Does this create a window where the pages remain mapped in the IOMMU but the
-range is no longer tracked in the MMU interval tree?
+[Severity: High]
+This is a pre-existing issue, but passing an uninitialized DMA direction
+to dma_iova_destroy() can occur if mapping fails on the first iteration.
 
-If a concurrent CPU munmap() occurs right after this function removes the
-range from the interval tree, the MMU notifier (xe_svm_invalidate) won't
-find the range. It might return early without waiting for the GPU to finish
-unbinding or unmapping the IOMMU, allowing the OS to reallocate physical pa=
-ges
-while the GPU can still access them.
+In drm_gpusvm_get_pages(), the dma_addr array is allocated without
+zeroing. If dma_iova_link() fails on the very first page (i=3D0):
 
-[ ... ]
+drivers/gpu/drm/drm_gpusvm.c:drm_gpusvm_get_pages() {
+        ...
+        if (dma_use_iova(state)) {
+                err =3D dma_iova_link(...);
+                if (err)
+                        goto err_unmap;
+        }
+        ...
+}
 
-> diff --git a/drivers/gpu/drm/xe/xe_svm.c b/drivers/gpu/drm/xe/xe_svm.c
-> index 63da149f3b7fd..77af0a8de63e0 100644
-> --- a/drivers/gpu/drm/xe/xe_svm.c
-> +++ b/drivers/gpu/drm/xe/xe_svm.c
+The code jumps to err_unmap and calls __drm_gpusvm_unmap_pages(), which
+dereferences the uninitialized dir parameter:
 
-[ ... ]
+drivers/gpu/drm/drm_gpusvm.c:__drm_gpusvm_unmap_pages() {
+        ...
+        if (use_iova)
+                dma_iova_destroy(dev, &svm_pages->state,
+                                 svm_pages->state_offset,
+                                 svm_pages->dma_addr[0].dir, 0);
+}
 
-> @@ -122,8 +123,10 @@ xe_svm_range_alloc(struct drm_gpusvm *gpusvm)
-> =20
->  static void xe_svm_range_free(struct drm_gpusvm_range *range)
->  {
-> +	drm_gpusvm_free_pages(range->gpusvm, &(to_xe_range(range)->pages),
-> +			      drm_gpusvm_range_size(range) >> PAGE_SHIFT);
->  	xe_vm_put(range_to_vm(range));
-> -	kfree(range);
-> +	kfree(to_xe_range(range));
->  }
+Could this lead to undefined behavior in the DMA API during IOVA teardown?
 
-[Severity: Critical]
-Could deferring the unmap to the free callback lead to a DMA use-after-free
-regression if callers hold extra references?
 
-For example, in xe_svm_unmap_address_range(), the code takes an extra
-reference via drm_gpusvm_range_get() before triggering the garbage collecto=
-r.
-The garbage collector calls drm_gpusvm_range_remove(), removing the range
-from the interval tree, but this free callback won't run until the extra
-reference is dropped later. This keeps the IOMMU mappings alive while the
-interval tree tracking is gone, opening up the race with munmap() described
-above.
+[Severity: High]
+This isn't a bug introduced by this patch, but it appears device memory DMA
+mappings are permanently leaked if drm_gpusvm_get_pages() fails midway
+through mapping.
+
+In drm_gpusvm_get_pages(), svm_pages->dpagemap is only populated upon
+complete success:
+
+drivers/gpu/drm/drm_gpusvm.c:drm_gpusvm_get_pages() {
+        ...
+        if (pagemap) {
+                flags.has_devmem_pages =3D true;
+                drm_pagemap_get(dpagemap);
+                drm_pagemap_put(svm_pages->dpagemap);
+                svm_pages->dpagemap =3D dpagemap;
+        }
+        ...
+}
+
+If a failure occurs (e.g. DMA mapping error) after successfully mapping one
+or more device pages, the code jumps to err_unmap. Because
+svm_pages->dpagemap remains NULL on this error path, the unmap loop skips
+calling device_unmap():
+
+drivers/gpu/drm/drm_gpusvm.c:__drm_gpusvm_unmap_pages() {
+        struct drm_pagemap *dpagemap =3D svm_pages->dpagemap;
+        ...
+        else if (dpagemap && dpagemap->ops->device_unmap)
+                dpagemap->ops->device_unmap(dpagemap, dev, addr);
+}
+
+Could this exhaust mapping resources over time by permanently leaking
+these mappings?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260627035418.3796=
-481-1-honglei1.huang@amd.com?part=3D3
+481-1-honglei1.huang@amd.com?part=3D4
