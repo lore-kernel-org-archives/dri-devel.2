@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0E64C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 13:42:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 391DFC43211
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 13:42:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A5D010E4DD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77E8D10E4DE;
 	Sat, 27 Jun 2026 13:42:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eYaitmuN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mER2w5Fa";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E255410E4DB
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF62D10E4DB
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 68B0B60051
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E25EA1F000E9;
- Sat, 27 Jun 2026 13:42:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BBB946001A
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41B321F000E9;
+ Sat, 27 Jun 2026 13:42:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782567750;
- bh=vEbmJROMXbC7QIqX++FJk3g0e475pUTlcxL0EVVKlMk=;
+ s=k20260515; t=1782567747;
+ bh=erjGDge6p0mhDGvNF2URJwNrrQsyqC/iXpnSWVBaEsY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eYaitmuNJptdJBJwNTKwnvGZPSV/ETgXVL9GxU8qhiPiLNgmVIIhxwFV76Kj3SUd/
- NXsI14Y47N1MIKIl7ekq9vNWoV5N5Q+ndTmkoKm72jsDaQwaX48y5P04gBel0kJLxX
- 7kbTiNM5SwVtDScKSuw8GleOYyG/2s66uMN8xapOwWk5x+IGTUd5zAZxXTQ1+QthZe
- dJDsQyGwidDSOvptu975OSCnxvNtL/Lvs97wZuO+PGZBgNW9s6peSfzWaY/cl9qUOf
- 7atLctRBD4GjsWasSWzKY8sZIZcCozJN0IY4olCefeq+VPpnXgzd6CXVY5hdOlG+6x
- JIh9QW8is6DMQ==
+ b=mER2w5FaBh9lxIx411q+7GkfNY4hdciXV1dIIxqpPYKLnp/V9G1PQyXFKcvWk68Wx
+ 7ESdELmVZc4j8nTe7BlqKAUqxaMFBEgaHWAjOwXuqmSWMPWNTfB0fr278+rn8zkk1C
+ cwA2U6IkKLuSR0BTDz88CmrRGVffdfW4RuPlyfDlZO/1Cf0MbbswZGqX7mR8oqVcNx
+ 181eiKgfuBDnNWCjeSktGG1mor7EXtRwZsudRoueHA6Ukq/lY2A0LRVTGUzDfSFesP
+ H0M0EJzjUjSQYf3QXpVudTla1A/tUHGkzbWk1txneBZI2ey/PifKFBzV86pg2i6Zh9
+ BN7ymkCjQ/Vcw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 02/14] firmware: qcom_scm: Migrate to generic PAS
- service
+Subject: Re: [PATCH v8 08/14] drm/msm: Switch to generic PAS TZ APIs
 To: "Sumit Garg" <sumit.garg@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260626133440.692849-3-sumit.garg@kernel.org>
+In-Reply-To: <20260626133440.692849-9-sumit.garg@kernel.org>
 References: <20260626133440.692849-1-sumit.garg@kernel.org>
- <20260626133440.692849-3-sumit.garg@kernel.org>
+ <20260626133440.692849-9-sumit.garg@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 27 Jun 2026 13:42:29 +0000
-Message-Id: <20260627134229.E25EA1F000E9@smtp.kernel.org>
+Date: Sat, 27 Jun 2026 13:42:26 +0000
+Message-Id: <20260627134227.41B321F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,73 +57,84 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Removing the `if (!ctx->ptr)` check from the metadata release path=
- causes a kernel crash when called with a `NULL` pointer on error paths or =
-during teardown.
+- [High] Infinite probe deferral on platforms without PAS firmware support.
+- [High] TOCTOU race leading to NULL pointer dereference or UAF due to lock=
+less `ops_ptr` access in the generic PAS wrappers.
 --
 
-commit e2ee3fe2c5f5a59a30d27512b70afb597cba4bec
+commit 58fde983bce7410af49e9cbf67e95a22f4ec47cb
 Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-firmware: qcom_scm: Migrate to generic PAS service
+drm/msm: Switch to generic PAS TZ APIs
 
-With the availability of generic PAS service, this patch adds SCM calls as
-a backend to keep supporting legacy QTEE interfaces. The exported qcom_scm*
-wrappers will get dropped once all the client drivers get migrated as part
-of future patches.
+Switch drm/msm client drivers over to generic PAS TZ APIs. Generic PAS TZ
+service allows to support multiple TZ implementation backends like QTEE
+based SCM PAS service, OP-TEE based PAS service and any further future TZ
+backend service.
 
-> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qco=
-m_scm.c
-> index 6b601a4b89dbf..7933e55803dc2 100644
-> --- a/drivers/firmware/qcom/qcom_scm.c
-> +++ b/drivers/firmware/qcom/qcom_scm.c
-
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
+m/adreno/adreno_gpu.c
+> index c62c45bb0ddbb..c36382b23310a 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
 [ ... ]
-
-> -/**
-> - * qcom_scm_pas_metadata_release() - release metadata context
-> - * @ctx:	pas context
-> - */
-> -void qcom_scm_pas_metadata_release(struct qcom_scm_pas_context *ctx)
-> +static void __qcom_scm_pas_metadata_release(struct device *dev,
-> +					    struct qcom_pas_context *ctx)
->  {
-> -	if (!ctx->ptr)
-> -		return;
-> +	if (ctx->use_tzmem)
-> +		qcom_tzmem_free(ctx->ptr);
->  	else
-> -		dma_free_coherent(__scm->dev, ctx->size, ctx->ptr, ctx->phys);
-> +		dma_free_coherent(dev, ctx->size, ctx->ptr, ctx->phys);
+> @@ -146,10 +147,10 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu,=
+ const char *fwname,
+>  		goto out;
+> =20
+>  	/* Send the image to the secure world */
+> -	ret =3D qcom_scm_pas_auth_and_reset(pasid);
+> +	ret =3D qcom_pas_auth_and_reset(pasid);
 
 [Severity: High]
-Will this cause a kernel crash by passing a NULL pointer to
-dma_free_coherent() on error paths?
+Does this new PAS API wrapper introduce a race condition?
 
-If a client driver calls qcom_scm_pas_init_image() and it fails before
-setting ctx->ptr (for example, if dma_alloc_coherent() fails), the
-client's error handler will then call qcom_scm_pas_metadata_release().
-Since the !ctx->ptr check was removed, this would execute
-dma_free_coherent() with a NULL pointer.
+Looking at qcom_pas_auth_and_reset() in drivers/firmware/qcom/qcom_pas.c, it
+evaluates ops_ptr without try_module_get() or RCU protection:
 
-I note that a later commit in the series (commit 823d5bd22444cb98ee7ba)
-removes these SCM PAS wrappers entirely after clients are migrated.
-However, does removing this safety check here break bisection for
-existing client drivers in the meantime?
+int qcom_pas_auth_and_reset(u32 pas_id)
+{
+	if (!ops_ptr)
+		return -ENODEV;
 
+	return ops_ptr->auth_and_reset(ops_ptr->dev, pas_id);
+}
+
+If the backend module (like qcom-pas-tee) is unloaded concurrently, could
+ops_ptr become NULL after the check but before the dereference, leading to
+a NULL pointer dereference or use-after-free?
+
+[ ... ]
+> @@ -175,9 +176,9 @@ int adreno_zap_shader_load(struct msm_gpu *gpu, u32 p=
+asid)
+>  	if (!zap_available)
+>  		return -ENODEV;
 > =20
->  	ctx->ptr =3D NULL;
->  }
-> +
-> +void qcom_scm_pas_metadata_release(struct qcom_scm_pas_context *ctx)
-> +{
-> +	__qcom_scm_pas_metadata_release(__scm->dev,
-> +					(struct qcom_pas_context *)ctx);
-> +}
->  EXPORT_SYMBOL_GPL(qcom_scm_pas_metadata_release);
+> -	/* We need SCM to be able to load the firmware */
+> -	if (!qcom_scm_is_available()) {
+> -		DRM_DEV_ERROR(&pdev->dev, "SCM is not available\n");
+> +	/* We need PAS to be able to load the firmware */
+> +	if (!qcom_pas_is_available()) {
+> +		DRM_DEV_ERROR(&pdev->dev, "Qcom PAS is not available\n");
+>  		return -EPROBE_DEFER;
+>  	}
+
+[Severity: High]
+Will this cause an infinite probe deferral on platforms without PAS firmware
+support?
+
+If a platform lacks both a zap shader node in the device tree and PAS
+firmware support, qcom_pas_is_available() will return false. This causes
+an immediate -EPROBE_DEFER before we can reach zap_shader_load_mdt(), which
+is where we would normally check the device tree and gracefully return
+-ENODEV.
+
+With the previous qcom_scm implementation, the SCM subsystem would probe
+and be available, allowing this check to pass so the code could proceed to
+the graceful fallback.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626133440.6928=
-49-1-sumit.garg@kernel.org?part=3D2
+49-1-sumit.garg@kernel.org?part=3D8
