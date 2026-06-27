@@ -4,104 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1B1AC43458
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 12:26:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71853C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 12:27:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C71DE10E4C3;
-	Sat, 27 Jun 2026 12:26:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6E4A10E4CC;
+	Sat, 27 Jun 2026 12:27:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dXtifRtR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SbEiHn3+";
 	dkim-atps=neutral
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
- [74.125.82.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C675F10E4C3
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 12:26:54 +0000 (UTC)
-Received: by mail-dy1-f169.google.com with SMTP id
- 5a478bee46e88-30bb87c90deso224661eec.3
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 05:26:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782563214; cv=none;
- d=google.com; s=arc-20260327;
- b=U2ywjQs1v4GeugWrWAHJIfk0IpvtCa2UVur83gFEVkmoVN1JRV+spw76vhyPyqhQQQ
- j4mMtLQTAELBdusUMxQKLHWUqWDr7/1ijrubZlihqf+72JJh25Tsf0wzs3aqXxtwEwJ/
- QofCQKqeXr8e84slSTsjlNbLynB12FEj69kyZo9tUZcFR40B5pcwd/sXtuL+UR0GWU8f
- DZOjVmBPxK9lWXeT2TP+HGdW9gUOJ2+lvGc0bj+VgAjfzQubIflkvh07HjR3D/Bz+cGS
- ULde6UKPZicVXRHEoQKOKTTa+fZLm249djL/vOKqr2Q3wvhHb56w6YSkUrD1tz5l6Eis
- FR+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=FFA3P0ucfKK/nr2i/TjAG0TaOdJ/VCYkxmATJyLWDko=;
- fh=TNG8Oz1L6OWdl/QAfybRf5gR/sduAhe+Yl7r4LLDxh8=;
- b=M809CX3FAGBkW4Be6LI4S2R2oqm0ou2hWbY/EgXjoU11Lp0fJ6M/xWiAoP0/L67/FF
- 34jUs4Igz56K8EXcaUH+fePywmU1/Cij/Z53ewWuhcdXRk9yC5uVlyCTa3wOUVmC9tMs
- PzOVByu4TiQ9G37ZmeACvRrhr0XkW08lQBylH2A8l1GSfXzGiecrYxdt+GJOynoAoloj
- 4oZ3ErOm8R0VaFl1bFJno8E94Lo1QP47/VS/rAgvmlJ0SiODQfqnrjMoVlIkKNshhywt
- xGz/LstmbeHjPiLhDq9wbCWYpcxV+N+7/i0qIigAgmN30bVUu9deoeTgrWwGIFmv64PW
- lV7Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782563214; x=1783168014; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=FFA3P0ucfKK/nr2i/TjAG0TaOdJ/VCYkxmATJyLWDko=;
- b=dXtifRtRtvnsWY15QDDtrEyAodAD4jqPka3wRVQLln55UbJIwdkAJiLL2DMyZ3KoGH
- pEX0DIKc9zshZCS7zWY9H+C4TVVVPjvilWue8c8L3cvgYEyfKNgJ7006BEScXcRjcMwS
- 3AXEV8zulAWpHqu8bGKVjxZs2YEQMZeFIUkdN52RdUB8fLKf/FP3zosAdSKpF9FnSmmj
- WP5fyRKyVDxr87IrMYQZnaIcEuQDETlrinqMAia8Gwu4zlC/8rLHI4TGaMdQHT0YJ/iZ
- XjrOn88FuQEXQYXe2kRO/x/vSX51ZlIqFv1DbFvPtbagMWTjSQUxIU1HxNuuwd6Ojzbe
- OC5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782563214; x=1783168014;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=FFA3P0ucfKK/nr2i/TjAG0TaOdJ/VCYkxmATJyLWDko=;
- b=mlxRFCtKufVaqmcLfmkV+i/jWbKylSwb3grgqUSehY62mgTvzuQphJAJf50NuD8XSl
- 6wvtVvKM60EHtl2v0BbSaXEyaeMDXH0twPyRdVOUwzuSSmjY1ByjyVQgGpQHhrPY+LWQ
- b/j5xAz87XZsD524CqN4SJWU3QBNZPbhtzZgOzHihu13P3Um0d2UZkp/lsJBBUYltLvx
- aziKkYnPyHVx2qShPdWIgskT5eyKJHaTalfGm5Xw1LiQeM4J9M1Rh5uk3JeZWVHwLS4G
- y47XNZt5rsM1iIE1x0MtKStCZLj4PzQKIDb7efbQyRJ7Kh/ViSdTV/4LL+2P3GrlkoKi
- cosw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqrLSBnTmL9FZsK2n/j9J/MMDJzaJaxfJTGOmr2tCtAK6Nxl2Yh/w6TwYUskX+mH6hEnC6bFfQXSP0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwaNOzW5yZdQM/J20PwhpYoBXhs01mRGWNic/tFFLYZhIWKAss5
- V6buAVqHB2byZwTP9RED5WdU2r4QoUzZoumnZYbbSC/Kpd+8DizAGItBka0EQ/tnnXEzIGU/aOS
- mQVyFCxMI2F5wP+R+Sj0J6v/2BP6t4WM=
-X-Gm-Gg: AfdE7cl9Jp6Wvgzb9BmaCsPQsRWnGzasH7O7NH/ayDSeoxv5r8qCP1tetVG9jACYNbO
- ZzmPCHMdYtUNH073pwxQf6tqDOl3m2hK/jWAbafHNMX+m/VyjvkFOsrTSeTeq0uVEcI8guxR8uC
- z/o15130ANajgwXWyOxc1fIUwZnY/cPzuxrWKoQCY7Vhe1EtzvZUbvg6QOSy8HGCSwr9S7/fC/W
- G7xopYREeiTFO0pVnP7nhhIuh4YbB/44Nrl1Shw6XbnExPWBENRECyAnkMxkcnjZmj4wEMJBY89
- SYJGyuBz9fnjB8culY/YfsisLzbwQDDPZjBIXpfg1l8vlGTcbb4TK9/IijT+PXXIpZAnr08+Oc5
- 6Ewyuj5T70EEOoznobZQkBFA=
-X-Received: by 2002:a05:7301:608e:b0:30c:a4bb:71c9 with SMTP id
- 5a478bee46e88-30ca4bb7593mr2120179eec.0.1782563213899; Sat, 27 Jun 2026
- 05:26:53 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260626183630.2585057-1-dakr@kernel.org>
- <20260626183630.2585057-3-dakr@kernel.org>
-In-Reply-To: <20260626183630.2585057-3-dakr@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sat, 27 Jun 2026 14:26:40 +0200
-X-Gm-Features: AVVi8CfTJDNVo1KxD-2qMWkEFrV45PAxG53CiKejEkAqP1d75q9UdnCynZyU0Y4
-Message-ID: <CANiq72=0OOgc6NtbpF0Ysdk3ytRWCGGbWg00u0Le2AzQmKGKxg@mail.gmail.com>
-Subject: Re: [PATCH v4 2/7] rust: types: introduce ForLt base trait for
- CovariantForLt
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: gregkh@linuxfoundation.org, rafael@kernel.org, ojeda@kernel.org, 
- boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com, 
- lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com, 
- tmgross@umich.edu, acourbot@nvidia.com, ecourtney@nvidia.com, 
- m.wilczynski@samsung.com, david.m.ertman@intel.com, ira.weiny@intel.com, 
- leon@kernel.org, daniel.almeida@collabora.com, bhelgaas@google.com, 
- kwilczynski@kernel.org, driver-core@lists.linux.dev, 
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org, 
- rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E446810E4CC
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 12:27:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3984C600AB
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 12:27:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B45F41F000E9;
+ Sat, 27 Jun 2026 12:27:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782563250;
+ bh=z/6oDV2ysdNKE2w3qd+x2yOoWwdHtvBeztL88QPl6sg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=SbEiHn3+HB/KJYJRZ1sPrwIvZcAUDTTxn6mR45aOd+R0cA4aNxciCl2ZOygfDSYP5
+ +X/XWbHplUiGIvW9T5JAEGM03CCDKpRbQPuLDIHsX0RS3GzHm8kKiuQXTqII3gcHyw
+ 9j7xglNEXu6eGtA72G1B2s5LQxl9dvcsqFYPlCwGDrSsHG61izOdEzeGH8jzBrZnCZ
+ BZSpKGRX3D3XoXDVyfk1UoGJqL+273FY3l9dac9ZS+1Lp3/55rl3w4icNeviUhSKxY
+ pG4FRbSpz4HaiSo0SFjUZt/2HwxnE4DDFH8UBotNDueRisihCdYQR3BQF+B/FcvYXp
+ RJfr+k2kYqyRA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC] drm/msm/mdss: keep mdp1-mem interconnect alive
+ during suspend on SDM845
+To: "Sam Day via B4 Relay" <devnull+me.samcday.com@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260627-rfc-sdm845-interconnect-collapse-workaround-v1-1-608a38de3715@samcday.com>
+References: <20260627-rfc-sdm845-interconnect-collapse-workaround-v1-1-608a38de3715@samcday.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Sat, 27 Jun 2026 12:27:30 +0000
+Message-Id: <20260627122730.B45F41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,45 +53,88 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jun 26, 2026 at 8:36=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> =
-wrote:
->
-> Add a new ForLt trait as a base for CovariantForLt:
->
->   - ForLt (non-unsafe): represents a type generic over a lifetime, with
->     no covariance guarantee.
->
->   - CovariantForLt (unsafe): becomes a subtrait of ForLt that
->     additionally proves the type is covariant over its lifetime
->     parameter, providing a safe cast_ref() method.
->
-> This split allows non-covariant types (e.g. types behind a Mutex) to
-> implement ForLt and participate in DevresLt / registration data patterns
-> that use HRTB closures for sound access, without requiring a covariance
-> proof that would fail to compile.
->
-> Both macros share the UnsafeForLtImpl helper type, distinguished by
-> a const generic N: ForLt! emits N =3D 0 (no covariance proof),
-> CovariantForLt! emits N =3D 1 (with compile-time covariance proof).
->
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-If this goes in at the same time as the move (as I assume), then am I
-understanding it right that if someone else was using `ForLt`
-(trait/macro) things would either break at compile-time (which is OK)
-or, in the covariant type case with no `cast_ref()`, it would build,
-but someone could in principle have relied on `ForLt` providing the
-covariance guarantee in unsafe code?
+New issues:
+- [Low] Unnecessary device tree string matching on every iteration due to m=
+issing short-circuit evaluation.
 
-Acked-by: Miguel Ojeda <ojeda@kernel.org>
+Pre-existing issues:
+- [High] Silent failure on `-EPROBE_DEFER` for `mdp1-mem` prevents the SDM8=
+45 workaround from applying.
+--
 
-We could take the chance to add some missing intra-doc links, but I
-can add a good first issue.
+commit 25610098a6bc164e41324a820ebd766373a58240
+Author: Sam Day <me@samcday.com>
 
-Thanks!
+drm/msm/mdss: keep mdp1-mem interconnect alive during suspend on SDM845
 
-Cheers,
-Miguel
+If the peak vote for mdp1-mem is allowed to drop to zero, it seems to
+cause the fabric to collapse that path entirely, which causes the device
+to bus stall and fatally reset.
+
+> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mds=
+s.c
+> index 9087c4b290dba..c635380b2ac3c 100644
+> --- a/drivers/gpu/drm/msm/msm_mdss.c
+> +++ b/drivers/gpu/drm/msm/msm_mdss.c
+[ ... ]
+> @@ -284,8 +284,12 @@ static int msm_mdss_disable(struct msm_mdss *msm_mds=
+s)
+> =20
+>  	clk_bulk_disable_unprepare(msm_mdss->num_clocks, msm_mdss->clocks);
+> =20
+> -	for (i =3D 0; i < msm_mdss->num_mdp_paths; i++)
+> -		icc_set_bw(msm_mdss->mdp_path[i], 0, 0);
+> +	for (i =3D 0; i < msm_mdss->num_mdp_paths; i++) {
+> +		if (of_device_is_compatible(msm_mdss->dev->of_node, "qcom,sdm845-mdss"=
+) && i =3D=3D 1)
+
+[Severity: Low]
+Does this code perform unnecessary device tree string matching on every
+iteration?
+
+In C, the logical AND operator evaluates left-to-right. Thus,
+of_device_is_compatible() is called on the first iteration (i =3D=3D 0),
+despite i =3D=3D 1 being false. Swapping the conditions to
+i =3D=3D 1 && of_device_is_compatible(...) would properly short-circuit
+the expensive device tree string matching.
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the silent failure on
+-EPROBE_DEFER for mdp1-mem prevent this SDM845 workaround from applying?
+
+Looking at msm_mdss_parse_data_bus_icc_path():
+
+drivers/gpu/drm/msm/msm_mdss.c:msm_mdss_parse_data_bus_icc_path() {
+    ...
+	path1 =3D devm_of_icc_get(dev, "mdp1-mem");
+	if (!IS_ERR_OR_NULL(path1)) {
+    ...
+}
+
+During device probe, if the interconnect provider for mdp1-mem is not yet
+ready, devm_of_icc_get() returns ERR_PTR(-EPROBE_DEFER). The condition
+!IS_ERR_OR_NULL(path1) handles this by silently skipping mdp1-mem rather
+than returning -EPROBE_DEFER to defer the probe.
+
+If this happens on SDM845, num_mdp_paths remains 1, meaning the newly added
+workaround loop here in msm_mdss_disable() never reaches i =3D=3D 1.
+
+Consequently, the vote for mdp1-mem drops to zero when the interconnect core
+syncs state, which triggers the bus stall and fatal reset that this patch is
+explicitly trying to fix.
+
+> +			icc_set_bw(msm_mdss->mdp_path[i], 0, 1);
+> +		else
+> +			icc_set_bw(msm_mdss->mdp_path[i], 0, 0);
+> +	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260627-rfc-sdm845=
+-interconnect-collapse-workaround-v1-1-608a38de3715@samcday.com?part=3D1
