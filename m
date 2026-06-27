@@ -4,78 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E348BC43211
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:33:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D22EC43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:33:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2215D10F752;
-	Sat, 27 Jun 2026 03:33:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A95AF10F755;
+	Sat, 27 Jun 2026 03:33:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="NUowejrQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Fb7zSISk";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0C2610E44B
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:32:16 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id BB5FD4E40A08;
- Sat, 27 Jun 2026 03:32:15 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 8A08A60233;
- Sat, 27 Jun 2026 03:32:15 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 064E3106F1170; 
- Sat, 27 Jun 2026 05:32:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1782531134; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=QZVcGvUufNYmeDV6o2kpMdHjPPf3F67u9Lux32iDHyA=;
- b=NUowejrQKlTm31V5ZVQsplnfCkVU8/RbWbZIjXO15DoHERRHayXKKW8btYHm7nHbsjMqx4
- TAwpyggTKOrBMmaNgqo4vsvHYaTeguCCHMhNr/YbmFBzBXJYNHNZ4PK6E4Qh8+WPbq+FIg
- M/VwUijCBehjnpfverI8bqjkJjJnNGsDDoJs4/6x8m8L3daURPZ/swdWG8P16VFcZY8B2G
- myqMyr6s5lW91LLdyyAml8O2RtxMDltNGlaR+IYQNbRMz4T1DoFEnoaQzwW/LuJNiZKMNI
- wWtsuwyWJbcqvYSi/APK7/gCQXTrGtif6ysHQl9mknQCwZd1m3SnNzdB1RQhjg==
-From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Sat, 27 Jun 2026 05:30:52 +0200
-Subject: [PATCH v5 35/38] drm/vkms: Allow to hot-add connectors
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010022.outbound.protection.outlook.com [52.101.85.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D81410F751;
+ Sat, 27 Jun 2026 03:33:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lBhTOvZz+9sM7StEE8jBuCxdQAUuHSRvqAz+1m+fex6RprEi4dOCnHIB/VvaWQO4T0aWPqa+CVfZLX9EKPGcP0G8J9ExreBL+bSHPfNq/DjPXb7j3usCyMmNPgbHRY3DafUx01ybVzFJJ3py/hPQNd+YC5kBe0IKh8nubhlZj2hZXMw38x0R90bxzTBBjAVXbK0doyfDbN/dF0bd9aUUzEPHDEM+89kp50b4bU5kecrsihUS4qOzCF0Q2/EYFUOuEKrEDNlF8yNpBxlummvLmpT/nSSUwjz5NXI2hpWTWbkcv41kt7eK/YFFOM7J3EM9WZyh8HSriNBmiBI+t2ypiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yZvoOaL9PS1Dcg65KRA9qq9b5kVN1mV50oqrVcM2DEY=;
+ b=boET7hHCLW+Y4pgPBfGX70+yYs6f8SjKyv72g1LCwym5odSD0IuRlX6KXmH8eKq0wnxq2+FvX7hotV2h5s9HIhYuxNq2VgRMBLjw7LS7+bonxdGdJamY/zw8JO+dt07WZYVIS7EdolWd16IkUzsd2I1/rhi3ysTN247jt6qynIyWQNeGGPen4/gV7ia0GrrYZYM+EdtcGRnq/rD/3VIHEsFjmQHhw/PotaefpJKynjweLtXm+hsNeCjc8FJfXjAQS6L2rgIZDPbd3qhF/mc7bEeZXjyWbt5J2KkZ9uPuhObww9gQ0JJuVAmHWT3JiNawuF9ASrhn2cwL6Ki+swQUNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yZvoOaL9PS1Dcg65KRA9qq9b5kVN1mV50oqrVcM2DEY=;
+ b=Fb7zSISkQtGvJ+j8zQ8ZpXlzjoGrIm2wtl9Gmc6YeYwOAvBb7KvV5vP0KfH4ysR+mKmIn61BxLWRpza2riAVL4WxhEqaQV/1XS9cjUhq3Q4D9UPEUbrDWYXepWgmUsRXvOJmNwtxxlnFkTn1qRhsNXE6EuhyDQzPNskHTf+VDHQ=
+Received: from IA4P221CA0011.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:559::14)
+ by CH2PR12MB4104.namprd12.prod.outlook.com (2603:10b6:610:a4::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.18; Sat, 27 Jun
+ 2026 03:33:44 +0000
+Received: from BL6PEPF0001AB56.namprd02.prod.outlook.com
+ (2603:10b6:208:559:cafe::62) by IA4P221CA0011.outlook.office365.com
+ (2603:10b6:208:559::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.18 via Frontend Transport; Sat,
+ 27 Jun 2026 03:33:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0001AB56.mail.protection.outlook.com (10.167.241.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Sat, 27 Jun 2026 03:33:44 +0000
+Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 26 Jun
+ 2026 22:33:40 -0500
+From: Honglei Huang <honglei1.huang@amd.com>
+To: <sima@ffwll.ch>, <matthew.brost@intel.com>, <rodrigo.vivi@intel.com>,
+ <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>,
+ <intel-xe@lists.freedesktop.org>
+CC: <Ray.Huang@amd.com>, <dri-devel@lists.freedesktop.org>, <honghuan@amd.com>
+Subject: [PATCH 0/2] drm/gpusvm: fix IOVA unmap path in
+ __drm_gpusvm_unmap_pages()
+Date: Sat, 27 Jun 2026 11:33:23 +0800
+Message-ID: <20260627033325.3795298-1-honglei1.huang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260627-vkms-all-config-v5-35-854aa0840926@bootlin.com>
-References: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
-In-Reply-To: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
-To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Melissa Wen <melissa.srw@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, jose.exposito89@gmail.com, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
-Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Kory Maincent <kory.maincent@bootlin.com>, victoria@system76.com, 
- sebastian.wick@redhat.com, victoria@system76.com, airlied@gmail.com, 
- thomas.petazzoni@bootlin.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- Louis Chauvet <louis.chauvet@bootlin.com>, llvm@lists.linux.dev
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6175;
- i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=xesbCEX8y6GLslcmbN6Z9Yf2aYZOtJdUxJPnVvjTvPE=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBqP0PhfL+Pnt/MD4loCw+Vxk9Tcsq9loKtboJ6K
- CPKYMdZy8GJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCaj9D4RsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOI5bhAAkFS5OYnHyAFXe61Kcdy+SXctiEuNkGP
- P9dxf3BOipPHMAtMnxKtDxhaOM60RNBmpZHhRSze6jF6v+XFx1vARtH572kpaj3638tKw6I+dmd
- 3eWy9QLjRzfJyLv8rkAjRTF+qpvDsdKbyXM+tT9NkYKFE5NV92SoERl9r9Xop3K7SZ5bUBiXrIL
- JaI4o3sKgrqyhJcG2OLtTki+js1Iq9VdlZYXy+yb29NS7mPsjBvNzzpSN/jn0bV9Tw+5FrKYScD
- 2loHmIzL2T0hJ/3GjYPoGe10pH4ejyK8SPciSRQ+FOOLZNr90rTQgoBFNWTW1xfNcHBV5HZYqhS
- 5JJ9P2dqZXgCZamkihqKan+G6NQy9KYriuLZYBW4B9roogAphtDIOy2BK8mkDV2vVVVaoO5EgzQ
- nj4tP0k2/BJ/8vXdcuOOk0dEKwHkZSuInni05kHR7J05Qq4Ehz5vkhrzbQ+v/TK/8KEGdlAgSLz
- YeGQNj7db2FNiCz5Hd8LcsXeKBtVtkjKu1je4/nVxwy3wGt5Y14d4ymGFrjmvD5DuiMx0inRT9K
- fD7Y6I268QTmRKZIGvdfIUZ+yK0j9RfzUUKF+el+vwHvwsPtwXR+leL6TeAAh4y9OlrtNULGB2V
- X2X1ettukcIDzMjfDRuG852ATOZrg5zsCCAO1Eu0XVPcVt0d25Ew=
-X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
- fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB56:EE_|CH2PR12MB4104:EE_
+X-MS-Office365-Filtering-Correlation-Id: 215bf788-2e70-44ff-8e87-08ded3fce3d1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|82310400026|36860700016|376014|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: jiJJLN3RaawwC6xZ8wB18rORAiYYvLscL/0ElzxYMerWtF+3gHexvvDZ+AdQOp8pcVysVaNdLd5dhuUyJpxs0t6VmucOnipa5MlHqxPPZn4XB5jlYamyONWL5f8v0Vu9gMt3fyowAYcZJ0wggrXq64aH3wxF1ooPAsQFEXP/hjiMrMz60TE8waB8tLJxfaFlmt+ixX+ApkcFXiDaFFdCnvtdGNQaNIfR2dNfU/GkgdFoP+7uQKhU11m571mEHCq3QBBf0bQT2tywLFNxfKnlwJmbwLc4x4L7GWqmEgJODVJEt8BMZr69Q/LcrkXjBcvpmF5N3npWfy/ehhdvDVbJP3e7GGj3dT1hY53TzdTMqva0ycu1sM/g1RHlw9mLJV3scqvhC5/pgWLPryC39EaO++iFIgULwR9T2LhLmVvYV8ogISwsA4W+disdKA/1ny7iZ9QaFIliLwr30qnmOlWmdGkmQbQE+JtHP03QDtfBcKUr1BJwmKr5+6tPuQZhR9PlTZAPXQ/YthuphE9p+BH+YHCaa1C8zG3e7z5FHO+PlQNPJ7SL1GZppe2Q567WTPBPRdGDhBUFmcNctfjlyZAKMNX4CjqWXFyCJHNi6EqtdIqt65vkaK6SvRpOb1axRybQYOUQUrbpEOjV0aTQUB69r6lkLNrTCgf4KY10EIbUrrbyXhVUzX/B9w1YNUH4T9eAAYa5tnx1V3pKdxojOQFwpQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(82310400026)(36860700016)(376014)(18002099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: nu8MAt6BPPbWvgCRoD7d2szjts+dK6Z5RkWoEc10gRFfp8/Tbq9pdMTXFprlUFCCRF8AhJvuY4sQBVaQYEvspsSU4Axs3u7j2v3hfbJ/8GfGYSKkw/jW58c1T+jWODRIAr9ld3rfa2GVbopGpOSxPx6HRaOI2ppggz/8gnzhjW8ELke61IHHFVDIbRkOtJpU7NzSGGDrl5RnQG48XZsHscB16mDfMVMyBC5tG3oMEWEB8i4hzU7ybVTs45v38nbaRgAUXk8oBttd8hnJojI6iYRUWVTr55/vw5BAqauZqCZGkvMhWnrguKwY8oLsIbDD4SbMLV7UZKZ8tywa9cRFD+hvKWDEMcknhUEf061sA70DVBb8y9275Xk0f4zhl7xlmxoWjWG7VYgSMk9+ozmk6IZ+wCaDhjICf8uf1BG0uDgVve/ImKnI3HjdZWyHBMsb
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2026 03:33:44.0140 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 215bf788-2e70-44ff-8e87-08ded3fce3d1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB56.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4104
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,186 +111,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In order to allow creating dynamic connector, add the required
-infrastructure in vkms_connector.
+From: Honglei Huang <honghuan@amd.com>
 
-[Louis Chauvet: use drm_atomic_helper_connector_reset instead of
-drm_mode_config_reset because connector is not yet registered]
+Two small fixes for the IOVA unmap path in __drm_gpusvm_unmap_pages(),
+both spotted by AI review:
 
-Co-developed-by: José Expósito <jose.exposito89@gmail.com>
-Signed-off-by: José Expósito <jose.exposito89@gmail.com>
-Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
----
- drivers/gpu/drm/vkms/vkms_connector.c | 89 +++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/vkms/vkms_connector.h | 33 +++++++++++++
- drivers/gpu/drm/vkms/vkms_output.c    |  9 ++++
- 3 files changed, 131 insertions(+)
+  - Avoid reading dma_addr[0].dir when no pages were mapped (the
+    get_pages() error path can reach unmap with npages == 0 and an
+    uninitialised dma_addr array). Use a zeroing allocator and guard the
+    direction argument with npages.
+  - Do not route system pages to the device_unmap() callback on the IOVA
+    path. Branch off addr->proto so system pages only get an explicit
+    dma_unmap_page() in the non IOVA case, and only real device pages
+    reach device_unmap().
 
-diff --git a/drivers/gpu/drm/vkms/vkms_connector.c b/drivers/gpu/drm/vkms/vkms_connector.c
-index f726c7995524..a013b53bd915 100644
---- a/drivers/gpu/drm/vkms/vkms_connector.c
-+++ b/drivers/gpu/drm/vkms/vkms_connector.c
-@@ -181,9 +181,98 @@ struct vkms_connector *vkms_connector_init_static(struct vkms_device *vkmsdev,
- 	return connector;
- }
- 
-+static void vkms_connector_dynamic_destroy(struct drm_connector *connector)
-+{
-+	struct vkms_connector *vkms_connector;
-+
-+	drm_connector_cleanup(connector);
-+
-+	vkms_connector = drm_connector_to_vkms_connector(connector);
-+	kfree(vkms_connector);
-+}
-+
-+static const struct drm_connector_funcs vkms_dynamic_connector_funcs = {
-+	.fill_modes = drm_helper_probe_single_connector_modes,
-+	.reset = drm_atomic_helper_connector_reset,
-+	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-+	.destroy = vkms_connector_dynamic_destroy,
-+	.detect = vkms_connector_detect,
-+};
-+
- void vkms_trigger_connector_hotplug(struct vkms_device *vkmsdev)
- {
- 	struct drm_device *dev = &vkmsdev->drm;
- 
- 	drm_kms_helper_hotplug_event(dev);
- }
-+
-+struct vkms_connector *vkms_connector_hot_add(struct vkms_device *vkmsdev,
-+					      struct vkms_config_connector *connector_cfg)
-+{
-+	struct vkms_config_encoder *encoder_cfg;
-+	struct vkms_connector __free(kfree) * connector = NULL;
-+	int ret;
-+	unsigned long idx = 0;
-+
-+	connector = kzalloc_obj(*connector, GFP_KERNEL);
-+	if (IS_ERR(connector))
-+		return connector;
-+	ret = drm_connector_dynamic_init(&vkmsdev->drm,
-+					 &connector->base,
-+					 &vkms_dynamic_connector_funcs,
-+					 connector_cfg->type,
-+					 NULL);
-+	if (ret)
-+		return ERR_PTR(ret);
-+	drm_connector_helper_add(&connector->base, &vkms_conn_helper_funcs);
-+
-+	vkms_config_connector_for_each_possible_encoder(connector_cfg, idx, encoder_cfg) {
-+		ret = drm_connector_attach_encoder(&connector->base,
-+						   encoder_cfg->encoder);
-+		if (ret)
-+			return ERR_PTR(ret);
-+	}
-+
-+	drm_atomic_helper_connector_reset(&connector->base);
-+
-+	ret = vkms_connector_init(connector, connector_cfg);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	ret = drm_connector_dynamic_register(&connector->base);
-+	if (ret) {
-+		if (connector_cfg->type == DRM_MODE_CONNECTOR_HDMIA ||
-+		    connector_cfg->type == DRM_MODE_CONNECTOR_DisplayPort ||
-+		    connector_cfg->type == DRM_MODE_CONNECTOR_eDP) {
-+			drm_property_destroy(connector->base.dev,
-+					     connector->base.colorspace_property);
-+		}
-+		return ERR_PTR(ret);
-+	}
-+
-+	return_ptr(connector);
-+}
-+
-+void vkms_connector_hot_remove(struct vkms_device *vkmsdev,
-+			       struct vkms_connector *connector)
-+{
-+	drm_connector_unregister(&connector->base);
-+	drm_mode_config_reset(&vkmsdev->drm);
-+	drm_connector_put(&connector->base);
-+}
-+
-+int vkms_connector_hot_attach_encoder(struct vkms_device *vkmsdev,
-+				      struct vkms_connector *connector,
-+				      struct drm_encoder *encoder)
-+{
-+	int ret;
-+
-+	ret = drm_connector_attach_encoder(&connector->base, encoder);
-+	if (ret)
-+		return ret;
-+
-+	drm_mode_config_reset(&vkmsdev->drm);
-+
-+	return ret;
-+}
-diff --git a/drivers/gpu/drm/vkms/vkms_connector.h b/drivers/gpu/drm/vkms/vkms_connector.h
-index 85f9082c710e..a235a518d5a0 100644
---- a/drivers/gpu/drm/vkms/vkms_connector.h
-+++ b/drivers/gpu/drm/vkms/vkms_connector.h
-@@ -34,4 +34,37 @@ struct vkms_connector *vkms_connector_init_static(struct vkms_device *vkmsdev,
-  */
- void vkms_trigger_connector_hotplug(struct vkms_device *vkmsdev);
- 
-+/**
-+ * vkms_connector_hot_add() - Create a connector after the device is created
-+ * @vkmsdev: Device to hot-add the connector to
-+ * @connector_cfg: Connector's configuration
-+ *
-+ * Returns:
-+ * A pointer to the newly created connector or a PTR_ERR on failure.
-+ */
-+struct vkms_connector *vkms_connector_hot_add(struct vkms_device *vkmsdev,
-+					      struct vkms_config_connector *connector_cfg);
-+
-+/**
-+ * vkms_connector_hot_remove() - Remove a connector after a device is created
-+ * @vkmsdev: Device to containing the connector to be removed
-+ * @connector: The connector to hot-remove
-+ */
-+void vkms_connector_hot_remove(struct vkms_device *vkmsdev,
-+			       struct vkms_connector *connector);
-+
-+/**
-+ * vkms_connector_hot_attach_encoder() - Attach a connector to a encoder after
-+ * the device is created.
-+ * @vkmsdev: Device containing the connector and the encoder
-+ * @connector: Connector to attach to @encoder
-+ * @encoder: Target encoder
-+ *
-+ * Returns:
-+ * 0 on success or an error on failure.
-+ */
-+int vkms_connector_hot_attach_encoder(struct vkms_device *vkmsdev,
-+				      struct vkms_connector *connector,
-+				      struct drm_encoder *encoder);
-+
- #endif /* _VKMS_CONNECTOR_H_ */
-diff --git a/drivers/gpu/drm/vkms/vkms_output.c b/drivers/gpu/drm/vkms/vkms_output.c
-index 13c4ca5fd39d..50f7d88dee8b 100644
---- a/drivers/gpu/drm/vkms/vkms_output.c
-+++ b/drivers/gpu/drm/vkms/vkms_output.c
-@@ -117,5 +117,14 @@ int vkms_output_init(struct vkms_device *vkmsdev)
- 
- 	drm_mode_config_reset(dev);
- 
-+	vkms_config_for_each_connector_dynamic(vkmsdev->config, connector_cfg) {
-+		if (connector_cfg->enabled) {
-+			connector_cfg->connector = vkms_connector_hot_add(vkmsdev, connector_cfg);
-+
-+			if (IS_ERR(connector_cfg->connector))
-+				return PTR_ERR(connector_cfg->connector);
-+		}
-+	}
-+
- 	return 0;
- }
+Honglei Huang (2):
+  drm/gpusvm: avoid reading uninitialized dma_addr[0].dir on IOVA unmap
+  drm/gpusvm: do not route system pages to device_unmap() on IOVA unmap
+
+ drivers/gpu/drm/drm_gpusvm.c | 28 ++++++++++++++++++++--------
+ 1 file changed, 20 insertions(+), 8 deletions(-)
 
 -- 
-2.54.0
+2.34.1
 
