@@ -4,44 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6899C43327
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 13:42:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E405C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 13:51:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13C8210E4E9;
-	Sat, 27 Jun 2026 13:42:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC03C10E2DB;
+	Sat, 27 Jun 2026 13:51:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VdC/GR/a";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aEuj47Vk";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC19510E4DB
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2549010E2DB
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:51:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C26E64401F
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 729921F000E9;
- Sat, 27 Jun 2026 13:42:31 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BCAD0406B8;
+ Sat, 27 Jun 2026 13:51:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D076D1F000E9;
+ Sat, 27 Jun 2026 13:51:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782567751;
- bh=RwQW0t+wjP08WlM2W25gfDO8uENvKErpPc9RvElmC1I=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VdC/GR/a79m/WTy3PljOMDuwOyYCnQX+GHEWOjynkX5m6Bh5JFYQCMITm4OlW7YJ/
- o3011KedREtdeIOhiR4+5NmJ1A8W1V3pq9S98sflWju0RKil8ms+X2TfUxnwzw8G0s
- YLqi2Ecg/vSU3hBassJIr2jgrRpg3scTq1d6y6T7EsdoWfGO4FqV1h0OhUtbO3MUru
- j0IJhYITK0TwliJIppbmamKuah7Q4+q6ssBsdGNeAe0apd2huo1a9g8QGfxxuI5wid
- NUZka8KHUhma1nziSEE6vJUr6RAl2OYYkbDTxdaOzjsUbxh/7Q8XKy4+IoaYbxBRI+
- 1Pvxd8ARVowPA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 06/14] remoteproc: qcom_wcnss: Switch to generic PAS
- TZ APIs
-To: "Sumit Garg" <sumit.garg@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260626133440.692849-7-sumit.garg@kernel.org>
-References: <20260626133440.692849-1-sumit.garg@kernel.org>
- <20260626133440.692849-7-sumit.garg@kernel.org>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1782568289;
+ bh=sZ7kMHOM/UusQZj89sqfP5ZckFAGYTvVqUakUPkV1uQ=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=aEuj47VkimWwfxAw2ZHAEfGEMZKtEMZ6WNWLDw+s3570SNvTizAl0ILVOI17i2A7L
+ AYudOp4K9ZVQti0oj3sp0GHOY0v4wg9twuayqUoC0Jz8/xQZJVi+PWbRe1rcVUcme0
+ 23YyTXp4+62dyWzGDNBhKH2kKEDhJpJ9iOPCebxN+YhIKYhKB+vSuhClJuLo0ZnDcP
+ r1yz3J+EducA4gN7IrvtGppM1/3YMfsdh7g816Lb13ia+OwEkpPtg4uviqtif2YGp2
+ jYR49KtLMnGOr/62DXdveI87ZGy85POyH0eHlU74bdr0niz5rL0MFYESyY7yLZ7OX6
+ 2Vh7Ryq7ce8VA==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 27 Jun 2026 13:42:31 +0000
-Message-Id: <20260627134231.729921F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 27 Jun 2026 15:51:23 +0200
+Message-Id: <DJJVPW8H183T.1927SIBS40Z40@kernel.org>
+Subject: Re: [PATCH v4 2/7] rust: types: introduce ForLt base trait for
+ CovariantForLt
+Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>, <ojeda@kernel.org>,
+ <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+ <tmgross@umich.edu>, <acourbot@nvidia.com>, <ecourtney@nvidia.com>,
+ <m.wilczynski@samsung.com>, <david.m.ertman@intel.com>,
+ <ira.weiny@intel.com>, <leon@kernel.org>, <daniel.almeida@collabora.com>,
+ <bhelgaas@google.com>, <kwilczynski@kernel.org>,
+ <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pwm@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260626183630.2585057-1-dakr@kernel.org>
+ <20260626183630.2585057-3-dakr@kernel.org>
+ <CANiq72=0OOgc6NtbpF0Ysdk3ytRWCGGbWg00u0Le2AzQmKGKxg@mail.gmail.com>
+In-Reply-To: <CANiq72=0OOgc6NtbpF0Ysdk3ytRWCGGbWg00u0Le2AzQmKGKxg@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,154 +65,60 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+On Sat Jun 27, 2026 at 2:26 PM CEST, Miguel Ojeda wrote:
+> If this goes in at the same time as the move (as I assume), then am I
+> understanding it right that if someone else was using `ForLt`
+> (trait/macro) things would either break at compile-time (which is OK)
+> or, in the covariant type case with no `cast_ref()`, it would build,
+> but someone could in principle have relied on `ForLt` providing the
+> covariance guarantee in unsafe code?
 
-New issues:
-- [High] The generic PAS API functions in qcom_pas.c suffer from a TOCTOU r=
-ace condition when reading the global ops_ptr, leading to a potential NULL =
-pointer dereference.
+If someone would have unsafely asserted covariance for ForLt it would break=
+ at
+compile-time like this:
 
-Pre-existing issues:
-- [High] Missing cleanup of SMD and Sysmon subdevices on wcnss_probe() erro=
-r paths leads to resource leaks and Use-After-Free vulnerabilities.
-- [High] Removing iris before deleting rproc in wcnss_remove() creates a Us=
-e-After-Free race condition.
-- [High] Missing reinit_completion() causes spurious success on subsequent =
-remoteproc starts or stops.
-- [High] Infinite polling loop in wcnss_configure_iris() can cause kernel h=
-angs.
---
+	error[E0199]: implementing the trait `types::for_lt::ForLt` is not unsafe
+	   --> rust/kernel/pci/io.rs:158:1
+	    |
+	158 | unsafe impl<const SIZE: usize> ForLt for Bar<'static, SIZE> {
+	    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	    |
+	help: remove `unsafe` from this trait implementation
+	    |
+	158 - unsafe impl<const SIZE: usize> ForLt for Bar<'static, SIZE> {
+	158 + impl<const SIZE: usize> ForLt for Bar<'static, SIZE> {
+	    |
+=09
+	error: aborting due to 1 previous error
 
-commit f90353d8289b80221557c481e264c0861b3fde18
-Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
+The only way this could silently break would be to use ForLt!(), but then d=
+on't
+use the explicitly provided safe cast_ref() method, and instead open-code i=
+t
+with an unsafe transmute() assuming covariance from ForLt!().
 
-remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
+Even though very unlikely, I do however have an eye on whether another user=
+ of
+this API appears.
 
-This commit switches the qcom_wcnss client driver to use the generic PAS TZ
-APIs. This allows support for multiple TZ implementations like QTEE or OP-T=
-EE.
+(The whole series also goes into a topic branch based on -rc1 anyway, so I =
+can
+also always provide a signed tag with just patch 1 and 2 based on -rc1 shou=
+ld
+the need arise.)
 
-> diff --git a/drivers/remoteproc/qcom_wcnss.c b/drivers/remoteproc/qcom_wc=
-nss.c
-> index 4add9037dbd5a..0dbdd18ab3dd9 100644
-> --- a/drivers/remoteproc/qcom_wcnss.c
-> +++ b/drivers/remoteproc/qcom_wcnss.c
-> @@ -257,7 +257,7 @@ static int wcnss_start(struct rproc *rproc)
->  	wcnss_indicate_nv_download(wcnss);
->  	wcnss_configure_iris(wcnss);
+> Acked-by: Miguel Ojeda <ojeda@kernel.org>
 
-[Severity: High]
-This is a pre-existing issue, but can the infinite polling loops inside
-wcnss_configure_iris() cause a hard kernel hang if the hardware is wedged?
+Thanks!
 
-Inside wcnss_configure_iris(), we poll hardware registers without a timeout:
+> We could take the chance to add some missing intra-doc links, but I
+> can add a good first issue.
 
-drivers/remoteproc/qcom_wcnss.c:wcnss_configure_iris() {
-    ...
-    while (readl(wcnss->pmu_cfg) & WCNSS_PMU_IRIS_RESET_STS)
-        cpu_relax();
-    ...
-    while (readl(wcnss->pmu_cfg) & WCNSS_PMU_IRIS_XO_CFG_STS)
-        cpu_relax();
-    ...
-}
+I can add them on apply, or we leave them as good first issue, as you prefe=
+r.
 
-Could this lead to a denial of service if the register returns 0xffffffff or
-remains unresponsive?
-
-> =20
-> -	ret =3D qcom_scm_pas_auth_and_reset(WCNSS_PAS_ID);
-> +	ret =3D qcom_pas_auth_and_reset(WCNSS_PAS_ID);
-
-[Severity: High]
-Does this new qcom_pas_auth_and_reset() call introduce a race condition?
-
-Looking at the generic PAS API implementation in qcom_pas.c:
-
-drivers/firmware/qcom/qcom_pas.c:qcom_pas_auth_and_reset() {
-    if (!ops_ptr)
-        return -ENODEV;
-
-    return ops_ptr->auth_and_reset(ops_ptr->dev, pas_id);
-}
-
-Since ops_ptr is checked and then dereferenced without READ_ONCE() or locks,
-could a concurrent backend module unload set ops_ptr to NULL between the ch=
-eck
-and the dereference, causing a kernel panic?
-
-[Severity: High]
-This is a pre-existing issue, but does wcnss_start() risk spurious success
-on subsequent starts if a previous wait timed out?
-
-There is a call to wait_for_completion_timeout(&wcnss->start_done, ...) rig=
-ht
-below this in wcnss_start(). If it times out, but a delayed ready interrupt
-later calls complete(&wcnss->start_done), the next wcnss_start() could
-instantly succeed without actually waiting for the firmware.
-
-Should reinit_completion() be called before initiating the wait in both
-wcnss_start() and wcnss_stop()?
-
->  	if (ret) {
->  		dev_err(wcnss->dev,
->  			"failed to authenticate image and release reset\n");
-
-[ ... ]
-
-> @@ -557,10 +557,10 @@ static int wcnss_probe(struct platform_device *pdev)
-> =20
->  	data =3D of_device_get_match_data(&pdev->dev);
-> =20
-> -	if (!qcom_scm_is_available())
-> +	if (!qcom_pas_is_available())
->  		return -EPROBE_DEFER;
-
-[Severity: High]
-This is a pre-existing issue, but do the error paths in wcnss_probe() leak
-the SMD and Sysmon subdevices?
-
-In wcnss_probe(), qcom_add_sysmon_subdev() allocates memory and registers a
-notifier to a global chain. If a subsequent step like qcom_iris_probe()
-fails, the error path jumps to remove_iris or detach_pds:
-
-drivers/remoteproc/qcom_wcnss.c:wcnss_probe() {
-    ...
-remove_iris:
-    qcom_iris_remove(wcnss->iris);
-detach_pds:
-    wcnss_release_pds(wcnss);
-
-    return ret;
-}
-
-This path fails to call qcom_remove_sysmon_subdev() and
-qcom_remove_smd_subdev(). Could this leave the sysmon object in the global
-notifier chain, leading to a use-after-free when the notifier triggers?
-
-[Severity: High]
-This is a pre-existing issue, but does wcnss_remove() have a use-after-free
-race condition by freeing the iris object before stopping the remoteproc?
-
-drivers/remoteproc/qcom_wcnss.c:wcnss_remove() {
-    ...
-    qcom_iris_remove(wcnss->iris);
-    rproc_del(wcnss->rproc);
-    ...
-}
-
-Because rproc_del() hasn't stopped the remoteproc yet, userspace could
-concurrently trigger wcnss_start(). Since wcnss_start() checks
-if (!wcnss->iris), which passes because the pointer is freed but not nulled,
-it then calls qcom_iris_enable(wcnss->iris) on freed memory.
-
-Should rproc_del() be called before qcom_iris_remove() to prevent this?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626133440.6928=
-49-1-sumit.garg@kernel.org?part=3D6
+Thanks,
+Danilo
