@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1565C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:41:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27F76C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:41:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2111F10F758;
-	Sat, 27 Jun 2026 03:41:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9083B10F759;
+	Sat, 27 Jun 2026 03:41:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V9Be/Y6K";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jf7VEHHA";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD48710F758
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:41:40 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18BF610F759
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:41:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 83266435E7;
- Sat, 27 Jun 2026 03:41:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 513991F000E9;
- Sat, 27 Jun 2026 03:41:40 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7FD39600AA;
+ Sat, 27 Jun 2026 03:41:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 118811F000E9;
+ Sat, 27 Jun 2026 03:41:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782531700;
- bh=sWfaON/BakPWgSJOs7qggtsiZS6vB0PT2FFW1ElEmjs=;
+ s=k20260515; t=1782531706;
+ bh=HaOQbPMk8eHRbcyj0d9yq5Y/ROhzO3epG6TOoy2q0vc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=V9Be/Y6KUfZNvm7y0J1m5XhpnHcIdMFFWHPi/nAzkx4WPvPUHhVK7NJlqbzBjmbGg
- GtZ2y/n7jK18VJ6Zt+e9RZVvcn5S3ViUhoaPHign2EeSSFOmnQYH86D24amWvtxVKP
- HJcF1N0mbBYVY7dFhjDhyDF3aFlLkzSQf5UsSNSaLIm5LpLms5DhA5qGO6M1WIQCbq
- Fv6Di4uh2GUzhijeXO8bwFftnroX0+aLWQ0QmUtekEzJpkyf2Enk13Uh+ndKGlb4dE
- x3B1eKFOLXWl7bHON0pvq6a526IVNK2GOogHcafxAtpD4jmEel0jrLq/uUlLgSL0ks
- wExdvmjADNIOA==
+ b=Jf7VEHHAMzXzLyMMm5XqLg/B9zBFkvQp/HeMhME4UV/uf0j73+LHfXcBdm5GbwRYO
+ hnz1AQ3CWlcrlYeD73uomQUkKE8Dbta39AJHyDJEcvK1fGC02bOC6acIjhGOwj5eul
+ 0n1ZVR0fFCQKMYnR/WWTBJm21aI0/k3hC7H/vhZl/jYUa6NKwnd5juEMDrR5VhbPS+
+ cDB3g7lxHyiZzeA24jUN1j+ZqSLhSH1RNWH8Hi8hY8Sh6vb6bJ8kj05prPZdxLLwmL
+ L/dbM/WbmoQ527qiVASCUYiKtjNyvOSP8qwYTDyYwqOwwz/jRKJwaK8o4PAbebC9M2
+ 6V/gIespjj0kQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 25/38] drm/vkms: Introduce config for plane zpos
- property
+Subject: Re: [PATCH v5 08/38] drm/vkms: Add error handling in plane config
+ creation
 To: "Louis Chauvet" <louis.chauvet@bootlin.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260627-vkms-all-config-v5-25-854aa0840926@bootlin.com>
+In-Reply-To: <20260627-vkms-all-config-v5-8-854aa0840926@bootlin.com>
 References: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
- <20260627-vkms-all-config-v5-25-854aa0840926@bootlin.com>
+ <20260627-vkms-all-config-v5-8-854aa0840926@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 27 Jun 2026 03:41:39 +0000
-Message-Id: <20260627034140.513991F000E9@smtp.kernel.org>
+Date: Sat, 27 Jun 2026 03:41:45 +0000
+Message-Id: <20260627034146.118811F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,121 +58,49 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The return values of `drm_plane_create_zpos_property()` and `drm=
-_plane_create_zpos_immutable_property()` are ignored.
-- [Low] Missing newline character `\n` at the end of the `drm_info` format =
-string.
-- [Low] Using signed format specifiers (`%d`) for unsigned integer variable=
-s in debugfs output.
+- [Low] The `__must_check` attribute was added to the function definition b=
+ut omitted from the function declaration in the header file.
 --
 
-commit 332270a595e6e9b34ad7075f21dc26e1c7579078
+commit b58f544faddd7341ba3d5a39105fac34d6c709cf
 Author: Louis Chauvet <louis.chauvet@bootlin.com>
 
-drm/vkms: Introduce config for plane zpos property
+drm/vkms: Add error handling in plane config creation
 
-VKMS can render plane in any order. Introduce the appropriate
-configuration.
+This commit updates vkms_config_create_plane() to return proper error codes
+using ERR_PTR instead of returning NULL on failure. It also adds the
+__must_check attribute to the function definition.
 
 > diff --git a/drivers/gpu/drm/vkms/vkms_config.c b/drivers/gpu/drm/vkms/vk=
 ms_config.c
-> index c7de3e3073674..5bc8248f99353 100644
+> index 5a654d6dead84..1fd2ed1167c54 100644
 > --- a/drivers/gpu/drm/vkms/vkms_config.c
 > +++ b/drivers/gpu/drm/vkms/vkms_config.c
 [ ... ]
-> @@ -429,6 +462,19 @@ bool vkms_config_is_valid(const struct vkms_config *=
-config)
->  				 "Both supported color encodings and color ranges must be set, or no=
-ne\n");
->  			return false;
->  		}
-> +
-> +		if (!vkms_config_valid_plane_zpos(config, plane_cfg))
-> +			return false;
-> +
-> +		if (vkms_config_plane_get_zpos_enabled(plane_cfg))
-> +			has_zpos_enabled =3D true;
-> +		else
-> +			has_zpos_disabled =3D true;
-> +	}
-> +
-> +	if (has_zpos_enabled && has_zpos_disabled) {
-> +		drm_info(dev, "In the same device, all planes must have zpos enabled o=
-r none of them");
-
-[Severity: Low]
-Is this missing a newline character? Log messages without a trailing \n
-can cause formatting issues by buffering and attaching to the next message.
-
-> +		return false;
->  	}
-> =20
->  	if (!valid_plane_number(config))
-[ ... ]
-> @@ -527,6 +573,16 @@ static int vkms_config_show(struct seq_file *m, void=
- *data)
->  		show_formats(m, vkms_config_plane_get_supported_formats(plane_cfg),
->  			     vkms_config_plane_get_supported_formats_count(plane_cfg));
->  		seq_puts(m, "\n");
-> +		seq_printf(m, "\tzpos_enabled=3D%s\n",
-> +			   str_true_false(vkms_config_plane_get_zpos_enabled(plane_cfg)));
-> +		seq_printf(m, "\tzpos_mutable=3D%s\n",
-> +			   str_true_false(vkms_config_plane_get_zpos_mutable(plane_cfg)));
-> +		seq_printf(m, "\tzpos_min=3D%d\n",
-> +			   vkms_config_plane_get_zpos_min(plane_cfg));
-> +		seq_printf(m, "\tzpos_initial=3D%d\n",
-> +			   vkms_config_plane_get_zpos_initial(plane_cfg));
-> +		seq_printf(m, "\tzpos_max=3D%d\n",
-> +			   vkms_config_plane_get_zpos_max(plane_cfg));
-
-[Severity: Low]
-Should these use the %u format specifier instead of %d? The getter=20
-functions (like vkms_config_plane_get_zpos_min) return unsigned int,=20
-so %d might display large values as negative numbers.
-
->  	}
-> =20
->  	vkms_config_for_each_crtc(vkmsdev->config, crtc_cfg) {
-[ ... ]
-> diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkm=
-s_plane.c
-> index 6e767cdf81942..d600a6167042b 100644
-> --- a/drivers/gpu/drm/vkms/vkms_plane.c
-> +++ b/drivers/gpu/drm/vkms/vkms_plane.c
-[ ... ]
-> @@ -214,6 +214,17 @@ struct vkms_plane *vkms_plane_init(struct vkms_devic=
-e *vkmsdev,
-> =20
->  	if (vkms_config_plane_get_default_pipeline(plane_cfg))
->  		vkms_initialize_colorops(&plane->base);
-> +	if (vkms_config_plane_get_zpos_enabled(plane_cfg)) {
-> +		if (vkms_config_plane_get_zpos_mutable(plane_cfg)) {
-> +			drm_plane_create_zpos_property(&plane->base,
-> +						       vkms_config_plane_get_zpos_initial(plane_cfg),
-> +						       vkms_config_plane_get_zpos_min(plane_cfg),
-> +						       vkms_config_plane_get_zpos_max(plane_cfg));
-> +		} else {
-> +			drm_plane_create_zpos_immutable_property(&plane->base,
-> +								 vkms_config_plane_get_zpos_initial(plane_cfg));
-> +		}
-> +	}
-
-[Severity: Medium]
-Is it safe to ignore the return values of drm_plane_create_zpos_property()
-and drm_plane_create_zpos_immutable_property() here?=20
-
-These functions can return -ENOMEM on allocation failure. If that happens,=
-=20
-the plane is partially initialized without the expected zpos property,=20
-which might confuse userspace applications. Should we propagate the error=20
-up through vkms_plane_init()?
-
-> =20
->  	return plane;
+> @@ -384,13 +384,16 @@ void vkms_config_register_debugfs(struct vkms_devic=
+e *vkms_device)
+>  			      ARRAY_SIZE(vkms_config_debugfs_list));
 >  }
+> =20
+> -struct vkms_config_plane *vkms_config_create_plane(struct vkms_config *c=
+onfig)
+> +struct vkms_config_plane __must_check *vkms_config_create_plane(struct v=
+kms_config *config)
+
+[Severity: Low]
+Does the __must_check attribute also need to be added to the function
+declaration in drivers/gpu/drm/vkms/vkms_config.h?
+
+Since the attribute is only present on the definition here in vkms_config.c,
+callers in other translation units won't see it. The compiler will not emit
+a warning if the return value is ignored by external callers.
+
+>  {
+>  	struct vkms_config_plane *plane_cfg;
+> +	int ret;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260627-vkms-all-c=
-onfig-v5-0-854aa0840926@bootlin.com?part=3D25
+onfig-v5-0-854aa0840926@bootlin.com?part=3D8
