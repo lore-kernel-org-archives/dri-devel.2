@@ -4,78 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3722C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 11:42:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BD2DC43458
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 11:42:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CD0D10E5DA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BF4A10E5D9;
 	Sun, 28 Jun 2026 11:42:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XPmV8Rit";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hgX5Df1F";
 	dkim-atps=neutral
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C448310E3A5
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:55:21 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-691c5776f35so1453610a12.3
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 05:55:21 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6148D10E49F
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 10:56:32 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4924f8db066so8836155e9.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:56:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782478520; x=1783083320; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QsVffdBc7bPXV4cXmRez2xscdfa7HYA+uxVYDAWdk7Q=;
- b=XPmV8Rith1nLwAq1u+oeXP1Ouc87ZFMUobr5R6b2gw2qnuOIkx/GAQLCXSbpM3OjgJ
- YQrFsIm6NF7hqGSJJ6dj1rpjO6cJNq/V4N/HHe71CbHOayIJ7h5VVC+NdW+cQBSe7qjN
- RCgpZBWkex+jshF2nlZOdwoKeWPSQhHpb+Zhv/x+ujwanqQjhbasmEwDMtBmoJeUoIYJ
- nEyCyfPV4nLHW3fcbedo8A2Xp1Q3OMxVPyMVRVREaHEbq8ewtIHdkQPlTPm/wxk65KBl
- N01KXKjZil/hBvs9cO76BTImAgYeGCiAf9IDqvhjggVgSpspCAx5I46Cw+xx5Kj7xY3P
- x9wQ==
+ d=gmail.com; s=20251104; t=1782557791; x=1783162591; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=cCHDQwHO051j6poc/kdUmVrjY2DgXjJsQLd/2FbnuEo=;
+ b=hgX5Df1FlEPttURclTXLL3fh3GuhkNgMj2QD/Vv9vfth+/baXF6quRxMvEArMiTepX
+ OBtCm6k2EDHX8c41xzZNTqNbKneDQ7OF1QEPA1ewB/KtPTtkFZG4WlIzimn7je4lA10K
+ KYdNIZ5JK3Y8b+Id/1DOq8vkRlNEDKTgaq2uRnDQ+T9mzbFvi3Yw5TyjsjR9wd5YKwLJ
+ aBfG5+qfSe4Y035fvIXuUoaA1TOtnhir6UBEvnahlhsyBqerTGghwuEiyVTVaK66F9s5
+ G8S9VgGB70bMnrr6TvYeELez878K7bx84p3cF+NXntT+0i3tRn8Qo+fUJCvSYryAUS0w
+ Q7fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782478520; x=1783083320;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=QsVffdBc7bPXV4cXmRez2xscdfa7HYA+uxVYDAWdk7Q=;
- b=sKBPZJO/OPfVoDMYMCx4Y1hkvVgKcqmdD2w1+CBWQpfQqhruUhgWkja2Hzngk+5G/X
- izaMod6cDiofnE5folV6vbooGuAzF3R/Sgtonl+tblWerzyVcWzmGQms+g8rY1c19z/9
- g4IS1gdvFHym0y3/H2g1MD43PcWgw1UhFeX7NSvyG8J6BqFOO1NuaSBnoZY+Ia1qTKsw
- PyfS3xUWcPQAfjsBHiDkuiGQiKMbw4xdrF5uQNzmx8r46jo2ixqbadErlNOob/UWPJgv
- Oc6jm80Q3aDb0QySmVE6gxE2r4NhQiZRU5aZg6lRPiYN9xmEbGyWUKkqKlXhi7PljIya
- 7ROg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoILYK1D9UMiUwLH4j3XyZx53deBvoqzQkoM5ucmumS3x6nXHqCnozek3DYD+Z4mvGT8KBWlJqlS2g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzmGNArfnbmA8ZWwwDNM5e1+ELJ4P8PdoNEuFZF+G51g7o4Z6WB
- Rm+R+ulMKTTUOLiing0Ai0Plz5IbAIxGFw31qUGFkndT20/Tk8daQHCT
-X-Gm-Gg: AfdE7cm1s3P1SPFA2Im/E2Npp18lIdu9d1t1YUJAVOIQeEFpmXPgNpEPSz/h8/Y1+vy
- toB5OLRGA5072kXwrd7gJH5PhjqmmnVCv+TFNqUDGIL9qf9FKaDbRTsYxeKOLAVnaaniegh5nB3
- 8xE7VLVVcvgXxP1oyzEeD5FtUOAdB3Y28pxarYmvTohE9L6yJDb9bpSgViSJdLP5esGgDL9fJjR
- hq8pnhcaKcS0By53Nm13o/jIVdAEbkzbxJR6pWH9pxaxCVroPASS0u6AKvpSmTKj2V0pGebUI3L
- IZdV1ibn88d4ygKhoZjWL0VXb90SdmqefJNRTKtFIko0f5QpiYMGsohoWKOGnQsq8e5Bn7++bIL
- FuJGTl6RTmhiTG/AQW6M1RzVWW6oh7Jvz4E1yVqGotyOnsQafWlQzvmkEXRyWi5+jT7I+dyx6Yy
- UH8lCvgAat8rA84jCrbgYp6Vm2n0KGWg6+PuvwyjkJmRLnJQqRfFIYxflJWBHPryigr5Ogsx7Iy
- lUpEPP+79k81evJFShb4Jk3FDrshBddxw==
-X-Received: by 2002:a05:6402:3585:b0:697:f686:80c7 with SMTP id
- 4fb4d7f45d1cf-69810b1d4fdmr1909867a12.26.1782478519921; 
- Fri, 26 Jun 2026 05:55:19 -0700 (PDT)
-Received: from fedora ([154.66.167.183]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-697f46e15besm2750532a12.15.2026.06.26.05.55.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Jun 2026 05:55:19 -0700 (PDT)
-From: aquiles <achillezongo07@gmail.com>
-To: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
- rodrigo.vivi@intel.com
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- aquiles <achillezongo07@gmail.com>
-Subject: Re: [PATCH 1/2] drm/xe: count UMA shrinkable BOs as reclaimable
- without swap
-Date: Fri, 26 Jun 2026 12:54:43 +0000
-Message-ID: <20260626125443.2114770-1-achillezongo07@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260626112638.2042298-1-achillezongo07@gmail.com>
-References: <20260626112638.2042298-1-achillezongo07@gmail.com>
+ d=1e100.net; s=20251104; t=1782557791; x=1783162591;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=cCHDQwHO051j6poc/kdUmVrjY2DgXjJsQLd/2FbnuEo=;
+ b=MtR52hc7zDsuQPcbc702J7q3tc+ig84ATN1nHYPDKEDrzqcCih9wKrplQXpRiF9/yQ
+ xjO+bn0deaYEVg/KveR70IOWvd1x9N3E0rkpj1B5XRCg9zPaU1VirNuexfrl2THL/ob5
+ EGc7oZ7HuaCjizBeWcRrIUNE+uYLrdEWor6PotSvTlru8qqWvp4NLPq07BUXZ0z+0n+2
+ bmkpLsen/lAQ3cG/JTXItbUfgIFLNnij6MAxODUiMusMk8gbc6+MRxKZGLupncTifUZ1
+ 0lCDAENf7620n4t5RgELsg98TPXgppAKI7mDf0gyovwDx3stXYc1UA8bUpH+YLXaN4VK
+ GnOA==
+X-Gm-Message-State: AOJu0Yw566QXxEXdHuLreC6ompoH7/hbsbPZAAkZBYAup2Yu4WzawhD8
+ p6WLITI60/5L4KIUhKFllaXXdhnGyRX2Zp9zqyJyuOOe1ofjOEWPcCpJ
+X-Gm-Gg: AfdE7cmFQZPBoyC/r0yHsqsxQ8PBMzvCQ9kCd58JKcC0XjiM+qraSPWpVGUNzMLJeJm
+ Hn80qqyfAVr/PpNYrN7ICutvSTR2RlKic7eWGUCkboSbIuXzEYs6yjpSTTLDTxnDtqYvqYs9t+s
+ Vxp7Inl7GuN/2I165vban8IyKOCassdkKxc8D2dChje0YJ5Dp6vqKjhlb/8ja2VnHl1nPIGGlMR
+ 23+JPGXMa/buOOVXKDP6mRrRWCuS012DpB3PTYQ9AxqvCoVByGNhrEA9O6cRNYW/Q7Hcrcs2ISm
+ lmikZgtgLfmIFuDekJPz+IZT8IbBAfg0LBpOAl/ytgRxDlOMOMUIdHkhrmxZv2VP82r6yXLqENw
+ K2zmPdNRXf1xG+B24MniZ9Y1rIzk0h57pVGCxWR4+IrpMPQYinyh9qZi2ZLvp59Q1z1KhhqBWrH
+ kMkgNQJBDQA2Tcwc3u00xcPjSUIBCl9lcBBG0K/W6BkEuOD7m0/8jiA7xr2EaEVQY=
+X-Received: by 2002:a05:600c:3b1e:b0:490:e190:3b50 with SMTP id
+ 5b1f17b1804b1-4926686b374mr172747975e9.9.1782557790540; 
+ Sat, 27 Jun 2026 03:56:30 -0700 (PDT)
+Received: from ehlo.thunderbird.net (046125148194.public.t-mobile.at.
+ [46.125.148.194]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4926c291489sm102962715e9.2.2026.06.27.03.56.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 27 Jun 2026 03:56:30 -0700 (PDT)
+Date: Sat, 27 Jun 2026 12:56:26 +0200
+From: Diogo <diogompaissilva@gmail.com>
+To: =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>,
+ Chen-Yu Tsai <wens@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Samuel Holland <samuel@sholland.org>
+CC: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/sun4i: Remove dependency on DRM simple helpers
+User-Agent: Thunderbird for Android
+In-Reply-To: <PMdb9FVETQuPUnyh12NM2Q@gmail.com>
+References: <20260623-sun4i_simple-v1-1-fa6696df1fad@gmail.com>
+ <PMdb9FVETQuPUnyh12NM2Q@gmail.com>
+Message-ID: <17D4D2AF-5A7E-48CB-AB0F-1FE34DA75794@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/alternative;
+ boundary=----6FORVBMYDGCKTX9PAYBZ7F84TESZPB
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Sun, 28 Jun 2026 11:42:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,6 +96,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Withdrawing this patch, the approach is wrong.
+------6FORVBMYDGCKTX9PAYBZ7F84TESZPB
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: aquiles <achillezongo07@gmail.com>
+Hey,
+
+I saw the task to open-code the drm_simple_encoder_init in the DRM tasks, =
+and thought that sending individual patches for each platform would be the =
+easiest=2E
+Thomas Zimmermann, is it ok if I do all drivers at once as a patch series?
+
+BR,
+Diogo
+
+On 27 June 2026 08:55:04 CEST, "Jernej =C5=A0krabec" <jernej=2Eskrabec@gma=
+il=2Ecom> wrote:
+>Dne torek, 23=2E junij 2026 ob 22:34:40 Srednjeevropski poletni =C4=8Das =
+je Diogo Silva napisal(a):
+>> Simple KMS helper are deprecated since they only add an intermediate
+>> layer between drivers and the atomic modesetting=2E
+>> This patch removes the dependency on drm simple helpers from sun4i
+>> DRM drivers=2E
+>>=20
+>> Signed-off-by: Diogo Silva <diogompaissilva@gmail=2Ecom>
+>
+>This doesn't look as useful change=2E Is this tree-wide attempt? If so, i=
+t
+>should be done in one go in one patch series, coordinated with DRM
+>maintainers=2E
+>
+>Best regards,
+>Jernej
+>
+>
+
+------6FORVBMYDGCKTX9PAYBZ7F84TESZPB
+Content-Type: text/html;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head></head><body><div dir=3D"auto">Hey,<br><br>I saw the task to op=
+en-code the drm_simple_encoder_init in the DRM tasks, and thought that send=
+ing individual patches for each platform would be the easiest=2E<br>Thomas =
+Zimmermann, is it ok if I do all drivers at once as a patch series?<br><br>=
+BR,<br>Diogo</div><br><br><div class=3D"gmail_quote"><div dir=3D"auto">On 2=
+7 June 2026 08:55:04 CEST, "Jernej =C5=A0krabec" &lt;jernej=2Eskrabec@gmail=
+=2Ecom&gt; wrote:</div><blockquote class=3D"gmail_quote" style=3D"margin: 0=
+pt 0pt 0pt 0=2E8ex; border-left: 1px solid rgb(204, 204, 204); padding-left=
+: 1ex;">
+<pre class=3D"net-thunderbird-android__plain-text-message-pre"><div dir=3D=
+"auto">Dne torek, 23=2E junij 2026 ob 22:34:40 Srednjeevropski poletni =C4=
+=8Das je Diogo Silva napisal(a):<br></div><blockquote class=3D"gmail_quote"=
+ style=3D"margin-bottom: 1ex; --net-thunderbird-android__blockquote-default=
+-border-color: #729fcf;"><div dir=3D"auto">Simple KMS helper are deprecated=
+ since they only add an intermediate<br>layer between drivers and the atomi=
+c modesetting=2E<br>This patch removes the dependency on drm simple helpers=
+ from sun4i<br>DRM drivers=2E<br><br>Signed-off-by: Diogo Silva &lt;diogomp=
+aissilva@gmail=2Ecom&gt;<br></div></blockquote><div dir=3D"auto"><br>This d=
+oesn't look as useful change=2E Is this tree-wide attempt? If so, it<br>sho=
+uld be done in one go in one patch series, coordinated with DRM<br>maintain=
+ers=2E<br><br>Best regards,<br>Jernej<br><br><br></div></pre></blockquote><=
+/div></body></html>
+------6FORVBMYDGCKTX9PAYBZ7F84TESZPB--
