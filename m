@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB57EC43602
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 13:42:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6899C43327
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 13:42:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F53C10E4E5;
-	Sat, 27 Jun 2026 13:42:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13C8210E4E9;
+	Sat, 27 Jun 2026 13:42:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="emmumZBY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VdC/GR/a";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1159110E4DC
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC19510E4DB
  for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F014B43BE1
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B06C61F00ADB;
- Sat, 27 Jun 2026 13:42:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C26E64401F
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 729921F000E9;
+ Sat, 27 Jun 2026 13:42:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782567750;
- bh=bIyOaV36vGLGAzdaaCwad8lEbbKerxhZWEAFhGA7rzs=;
+ s=k20260515; t=1782567751;
+ bh=RwQW0t+wjP08WlM2W25gfDO8uENvKErpPc9RvElmC1I=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=emmumZBYt1eRPNk1DuWRudwffD2qEGwJ2CNcvmkm5J9P95qJPa7DkJVAV2YDjbk+c
- zULybbHWR1R4lF+uMmX6TouZhPoIeaeNDSXuPhAgkfOF0vO6Iu5aLzLnoE8pxiH3jJ
- ov+bfSJ8gghDpeQe+al1IATkT4qdXJZco+MP+hn3uxrOk+2VnoB7d9qBF+uEKKCX5+
- OZSexDAulSzHDd0LlXKMjhrKi4ZiofQ1ImgCAkTlPI7xlZaOiXW7t7w+3Usv+1wCGF
- 9tFL/4LAuDbA6T0kAdl1ch1XeFSG+3ww/UqW0uJlJufcMSICPg/AAzmm6JZLrr/jbM
- XrH1k/dOQRFiQ==
+ b=VdC/GR/a79m/WTy3PljOMDuwOyYCnQX+GHEWOjynkX5m6Bh5JFYQCMITm4OlW7YJ/
+ o3011KedREtdeIOhiR4+5NmJ1A8W1V3pq9S98sflWju0RKil8ms+X2TfUxnwzw8G0s
+ YLqi2Ecg/vSU3hBassJIr2jgrRpg3scTq1d6y6T7EsdoWfGO4FqV1h0OhUtbO3MUru
+ j0IJhYITK0TwliJIppbmamKuah7Q4+q6ssBsdGNeAe0apd2huo1a9g8QGfxxuI5wid
+ NUZka8KHUhma1nziSEE6vJUr6RAl2OYYkbDTxdaOzjsUbxh/7Q8XKy4+IoaYbxBRI+
+ 1Pvxd8ARVowPA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 07/14] remoteproc: qcom: Select QCOM_PAS generic service
+Subject: Re: [PATCH v8 06/14] remoteproc: qcom_wcnss: Switch to generic PAS
+ TZ APIs
 To: "Sumit Garg" <sumit.garg@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260626133440.692849-8-sumit.garg@kernel.org>
+In-Reply-To: <20260626133440.692849-7-sumit.garg@kernel.org>
 References: <20260626133440.692849-1-sumit.garg@kernel.org>
- <20260626133440.692849-8-sumit.garg@kernel.org>
+ <20260626133440.692849-7-sumit.garg@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 27 Jun 2026 13:42:30 +0000
-Message-Id: <20260627134230.B06C61F00ADB@smtp.kernel.org>
+Date: Sat, 27 Jun 2026 13:42:31 +0000
+Message-Id: <20260627134231.729921F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,150 +58,150 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Heap buffer overflow (OOB write) and undefined behavior in qcom_pa=
-s_tee_get_rsc_table due to missing size bounds and NULL validation.
-- [High] Out-of-bounds read in qcom_pas_tee_get_rsc_table during kmemdup.
-- [High] State corruption due to unconditional unregistration of PAS ops.
+
+New issues:
+- [High] The generic PAS API functions in qcom_pas.c suffer from a TOCTOU r=
+ace condition when reading the global ops_ptr, leading to a potential NULL =
+pointer dereference.
+
+Pre-existing issues:
+- [High] Missing cleanup of SMD and Sysmon subdevices on wcnss_probe() erro=
+r paths leads to resource leaks and Use-After-Free vulnerabilities.
+- [High] Removing iris before deleting rproc in wcnss_remove() creates a Us=
+e-After-Free race condition.
+- [High] Missing reinit_completion() causes spurious success on subsequent =
+remoteproc starts or stops.
+- [High] Infinite polling loop in wcnss_configure_iris() can cause kernel h=
+angs.
 --
 
-commit b487f397efddfdc143f4e42a9e7644cc3aeb39da
+commit f90353d8289b80221557c481e264c0861b3fde18
 Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-remoteproc: qcom: Select QCOM_PAS generic service
+remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
 
-Select PAS generic service driver to enable support for multiple PAS
-backends like OP-TEE in addition to SCM.
+This commit switches the qcom_wcnss client driver to use the generic PAS TZ
+APIs. This allows support for multiple TZ implementations like QTEE or OP-T=
+EE.
 
-> diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qco=
-m_pas.c
-> new file mode 100644
-> index 0000000000000..bc6c42f2b3c61
-> --- /dev/null
-> +++ b/drivers/firmware/qcom/qcom_pas.c
+> diff --git a/drivers/remoteproc/qcom_wcnss.c b/drivers/remoteproc/qcom_wc=
+nss.c
+> index 4add9037dbd5a..0dbdd18ab3dd9 100644
+> --- a/drivers/remoteproc/qcom_wcnss.c
+> +++ b/drivers/remoteproc/qcom_wcnss.c
+> @@ -257,7 +257,7 @@ static int wcnss_start(struct rproc *rproc)
+>  	wcnss_indicate_nv_download(wcnss);
+>  	wcnss_configure_iris(wcnss);
+
+[Severity: High]
+This is a pre-existing issue, but can the infinite polling loops inside
+wcnss_configure_iris() cause a hard kernel hang if the hardware is wedged?
+
+Inside wcnss_configure_iris(), we poll hardware registers without a timeout:
+
+drivers/remoteproc/qcom_wcnss.c:wcnss_configure_iris() {
+    ...
+    while (readl(wcnss->pmu_cfg) & WCNSS_PMU_IRIS_RESET_STS)
+        cpu_relax();
+    ...
+    while (readl(wcnss->pmu_cfg) & WCNSS_PMU_IRIS_XO_CFG_STS)
+        cpu_relax();
+    ...
+}
+
+Could this lead to a denial of service if the register returns 0xffffffff or
+remains unresponsive?
+
+> =20
+> -	ret =3D qcom_scm_pas_auth_and_reset(WCNSS_PAS_ID);
+> +	ret =3D qcom_pas_auth_and_reset(WCNSS_PAS_ID);
+
+[Severity: High]
+Does this new qcom_pas_auth_and_reset() call introduce a race condition?
+
+Looking at the generic PAS API implementation in qcom_pas.c:
+
+drivers/firmware/qcom/qcom_pas.c:qcom_pas_auth_and_reset() {
+    if (!ops_ptr)
+        return -ENODEV;
+
+    return ops_ptr->auth_and_reset(ops_ptr->dev, pas_id);
+}
+
+Since ops_ptr is checked and then dereferenced without READ_ONCE() or locks,
+could a concurrent backend module unload set ops_ptr to NULL between the ch=
+eck
+and the dereference, causing a kernel panic?
+
+[Severity: High]
+This is a pre-existing issue, but does wcnss_start() risk spurious success
+on subsequent starts if a previous wait timed out?
+
+There is a call to wait_for_completion_timeout(&wcnss->start_done, ...) rig=
+ht
+below this in wcnss_start(). If it times out, but a delayed ready interrupt
+later calls complete(&wcnss->start_done), the next wcnss_start() could
+instantly succeed without actually waiting for the firmware.
+
+Should reinit_completion() be called before initiating the wait in both
+wcnss_start() and wcnss_stop()?
+
+>  	if (ret) {
+>  		dev_err(wcnss->dev,
+>  			"failed to authenticate image and release reset\n");
 
 [ ... ]
 
-> +void qcom_pas_ops_register(struct qcom_pas_ops *ops)
-> +{
+> @@ -557,10 +557,10 @@ static int wcnss_probe(struct platform_device *pdev)
+> =20
+>  	data =3D of_device_get_match_data(&pdev->dev);
+> =20
+> -	if (!qcom_scm_is_available())
 > +	if (!qcom_pas_is_available())
-> +		/* Paired with smp_load_acquire() in qcom_pas_is_available() */
-> +		smp_store_release(&ops_ptr, ops);
-> +	else
-> +		pr_err("qcom_pas: ops already registered by %s\n",
-> +		       ops_ptr->drv_name);
-> +}
-> +EXPORT_SYMBOL_GPL(qcom_pas_ops_register);
-> +
-> +void qcom_pas_ops_unregister(void)
-> +{
-> +	/* Paired with smp_load_acquire() in qcom_pas_is_available() */
-> +	smp_store_release(&ops_ptr, NULL);
+>  		return -EPROBE_DEFER;
 
 [Severity: High]
-Can this lead to state corruption if a second backend driver fails to regis=
-ter
-but subsequently unregisters?
+This is a pre-existing issue, but do the error paths in wcnss_probe() leak
+the SMD and Sysmon subdevices?
 
-Since qcom_pas_ops_register() returns void instead of an error code, if a
-second PAS backend (e.g., TEE) probes after the first (e.g., SCM) has
-registered, its probe succeeds without owning the registration.
+In wcnss_probe(), qcom_add_sysmon_subdev() allocates memory and registers a
+notifier to a global chain. If a subsequent step like qcom_iris_probe()
+fails, the error path jumps to remove_iris or detach_pds:
 
-If the second backend is later removed, its remove callback will invoke
-qcom_pas_ops_unregister() and unconditionally clear the legitimately regist=
-ered
-ops_ptr. Could this cause a denial of service for remoteproc subsystems
-since subsequent PAS operations would fail with -ENODEV?
+drivers/remoteproc/qcom_wcnss.c:wcnss_probe() {
+    ...
+remove_iris:
+    qcom_iris_remove(wcnss->iris);
+detach_pds:
+    wcnss_release_pds(wcnss);
 
-> +}
-> +EXPORT_SYMBOL_GPL(qcom_pas_ops_unregister);
+    return ret;
+}
 
-[ ... ]
-
-> diff --git a/drivers/firmware/qcom/qcom_pas_tee.c b/drivers/firmware/qcom=
-/qcom_pas_tee.c
-> new file mode 100644
-> index 0000000000000..a2ba3af05a502
-> --- /dev/null
-> +++ b/drivers/firmware/qcom/qcom_pas_tee.c
-
-[ ... ]
-
-> +static void *qcom_pas_tee_get_rsc_table(struct device *dev,
-> +					struct qcom_pas_context *ctx,
-> +					void *input_rt, size_t input_rt_size,
-> +					size_t *output_rt_size)
-> +{
-
-[ ... ]
-
-> +	if (param[1].u.memref.size) {
-> +		struct tee_shm *rt_shm __free(shm_free) =3D
-> +			tee_shm_alloc_kernel_buf(data->ctx,
-> +						 param[1].u.memref.size);
-> +		void *rt_shm_va;
-> +
-> +		if (IS_ERR_OR_NULL(rt_shm)) {
-> +			dev_err(dev, "rt_shm allocation failed\n");
-> +			rt_shm =3D NULL;
-> +			return ERR_PTR(-ENOMEM);
-> +		}
-> +
-> +		rt_shm_va =3D tee_shm_get_va(rt_shm, 0);
-> +		if (IS_ERR(rt_shm_va)) {
-> +			dev_err(dev, "rt_shm get VA failed\n");
-> +			return ERR_CAST(rt_shm_va);
-> +		}
-> +		memcpy(rt_shm_va, input_rt, input_rt_size);
+This path fails to call qcom_remove_sysmon_subdev() and
+qcom_remove_smd_subdev(). Could this leave the sysmon object in the global
+notifier chain, leading to a use-after-free when the notifier triggers?
 
 [Severity: High]
-Is there a missing bounds check and NULL check here?
+This is a pre-existing issue, but does wcnss_remove() have a use-after-free
+race condition by freeing the iris object before stopping the remoteproc?
 
-The TEE Trusted Application returns an expected buffer size in
-param[1].u.memref.size, which is used to allocate the rt_shm buffer. Howeve=
-r,
-this memcpy unconditionally copies input_rt_size bytes.
+drivers/remoteproc/qcom_wcnss.c:wcnss_remove() {
+    ...
+    qcom_iris_remove(wcnss->iris);
+    rproc_del(wcnss->rproc);
+    ...
+}
 
-If a compromised or malfunctioning TA returns a size smaller than
-input_rt_size, could this result in a heap buffer overflow?
+Because rproc_del() hasn't stopped the remoteproc yet, userspace could
+concurrently trigger wcnss_start(). Since wcnss_start() checks
+if (!wcnss->iris), which passes because the pointer is freed but not nulled,
+it then calls qcom_iris_enable(wcnss->iris) on freed memory.
 
-Additionally, if input_rt is NULL and input_rt_size is 0 (which is document=
-ed
-for firmwares without an embedded resource table), wouldn't this result in
-undefined behavior by passing a NULL pointer to memcpy?
-
-> +
-> +		param[1].u.memref.shm =3D rt_shm;
-> +		ret =3D tee_client_invoke_func(data->ctx, &inv_arg, param);
-> +		if (ret < 0 || inv_arg.ret !=3D 0) {
-> +			dev_err(dev, "PAS get RT failed, pas_id: %d, ret: %d, err: 0x%x\n",
-> +				ctx->pas_id, ret, inv_arg.ret);
-> +			return ret ? ERR_PTR(ret) : ERR_PTR(-EINVAL);
-> +		}
-> +
-> +		if (param[1].u.memref.size) {
-> +			*output_rt_size =3D param[1].u.memref.size;
-> +			rt_buf =3D kmemdup(rt_shm_va, *output_rt_size, GFP_KERNEL);
-
-[Severity: High]
-Could this kmemdup read out of bounds?
-
-After the second TEE invocation, the TA can modify param[1].u.memref.size,
-which is blindly assigned to *output_rt_size and used in kmemdup.
-
-If the TA increases the size beyond the initially allocated rt_shm buffer s=
-ize,
-wouldn't kmemdup read past the end of the buffer?
-
-> +			if (!rt_buf)
-> +				return ERR_PTR(-ENOMEM);
-> +		}
-> +	}
-> +
-> +	return rt_buf;
-> +}
+Should rproc_del() be called before qcom_iris_remove() to prevent this?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626133440.6928=
-49-1-sumit.garg@kernel.org?part=3D7
+49-1-sumit.garg@kernel.org?part=3D6
