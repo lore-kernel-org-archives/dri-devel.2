@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABF5AC43211
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:31:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0792FC43602
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:31:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F02410E432;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7130510E436;
 	Sat, 27 Jun 2026 03:31:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="mgWfATN0";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ULXNSJzH";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19ADE10E429
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:31:21 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD75B10E429
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:31:25 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id E17861A0A16;
- Sat, 27 Jun 2026 03:31:19 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id ABA524E409ED;
+ Sat, 27 Jun 2026 03:31:24 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id AE35D60233;
- Sat, 27 Jun 2026 03:31:19 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 7F94360233;
+ Sat, 27 Jun 2026 03:31:24 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id EFDB3106F1174; 
- Sat, 27 Jun 2026 05:31:15 +0200 (CEST)
+ with ESMTPSA id AF6A7106F1170; 
+ Sat, 27 Jun 2026 05:31:20 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1782531078; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1782531083; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=7t4wxccSVE+8YpNtCCYNB6F0KQiLmWtDWy0z8sUDzNs=;
- b=mgWfATN05p3uSCk5D3rXBj6g9bD4yIVBqfuItCRyvbI6KDsvC2fv1WWPSdfDIE9lOuelxk
- 6M5fTRm134YoTK8EI195rhSbrE58n0mFbm6B34X8hm6H63IPLSDiNkVozzs7KKaYeQ8c7Q
- NM6PxmnDoN3KSjZRGp6DO574Acr4cG3x4NunZibheX3PF/7ixFUrbl5xuCt+VU5Z1XEalE
- kVCv1g/zl/Y8RfRpia+81QBgNy/LlupUqQqB3BNoqtPXwiuoicpNT/7ayocTbKjrHaned5
- e/8q+m4aEEBYKd1S3v3IEtFBTc5B6aKp5neatpwGDkvDJAzqbUW7Z3eEP+xb1Q==
+ bh=enjP3ecSS4QzsDh23km0Yhkh9WtnM49/1mdnYB1P4Io=;
+ b=ULXNSJzHOLol9rJxXzejdSV18o4ococAqqOi8hr0ijk8s1vJFavK5KKH3uDHtl9DVX70xY
+ Tls02ebaj06ZXvEqdPjVdPD8hNfZ3dwim4tn/oWjD2SN8QEqKQQAGiZsva6sylDMp+l860
+ A5+JjpHbc+Gsn6ElckCFG1gO+gbzVyr4/y/hIM48GFvC57Z4EqSi+rwLct2oRuhcPo2hM8
+ NqREB7zQ85Ajdv+Mha9qd98w7tMcJPdZsZ9Lpc0Svyy7DYVkFpPXx3qIH7ajdaVEvpcpyl
+ 4jlQDlr6Ez8Ua2gNx4OUJG5v7B/HMrH6OuhZ47fnYNxzhMt30eDHNV+kdmwHpQ==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Sat, 27 Jun 2026 05:30:29 +0200
-Subject: [PATCH v5 12/38] drm/vkms: Explicitly display connector status
+Date: Sat, 27 Jun 2026 05:30:31 +0200
+Subject: [PATCH v5 14/38] drm/vkms: Use plane folder name as plane name
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260627-vkms-all-config-v5-12-854aa0840926@bootlin.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260627-vkms-all-config-v5-14-854aa0840926@bootlin.com>
 References: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
 In-Reply-To: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -56,24 +56,23 @@ Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
  sebastian.wick@redhat.com, victoria@system76.com, airlied@gmail.com, 
  thomas.petazzoni@bootlin.com, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- Louis Chauvet <louis.chauvet@bootlin.com>, llvm@lists.linux.dev, 
- =?utf-8?q?Jos=C3=A9_Exp=C3=B3sito?= <jose.exposito@redhat.com>
+ Louis Chauvet <louis.chauvet@bootlin.com>, llvm@lists.linux.dev
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1240;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1013;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=oxr/CF0EOleBJpYQ0o3XQ1eFlhGpl9bHjVK5vcH/zUw=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBqP0Pe03kOlBSLeLny4z2YzohoyX0ZyfDtpYSnn
- eu936/sl3iJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCaj9D3hsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOKHmg/7BakTXcTMLBqo/YspJqXwtq3VhskmGJx
- cDXjP+hdjJZiCCfZC8exAZqDyk2BOPqq1MyHjCDkNfGR7dVvfAf5HLu6V9G30CvjiKDLmyuBQAh
- 4O3zD+2J4Bm9VIIBsGTQAeQkzFlrUMhU6SksHh7ZjgflyQMwLtrU4rqko0GNkP8JiycImGRB3BZ
- t56vZfAdO7lln+YLwgCZor5DJOKgSkOINUqtvKZUa43bhlWTCG4HWTLPvFMLd2pVKweqaMINb5n
- vs1FYS38teJqemDVRqz5kPd99kopiq3MsqdLRtgJdORRFkSwOKWv8gQxRCkuvZ4unCg2w8+GeMd
- 3Yn/l/bxxAKsYZHuUFSKIcwyAK/Xe1skcMAE76fw60xqIPhiLNGmltfp8cniXF8VQw87xNsFIs2
- uK+eHvKILuQaNngeRTBmy2D5eqb62z/O0RSiz1aHEVqcL7cNpdqev5fA71zrpLPTvQAiDmXkWnU
- rJdQkWXSZSiY4uSfg9PttW4hJ0LTYTTXma3jH0MZoGqQIep+lJ2ZBconXZs+ZYAcMczF6/uq5MP
- +BPmMol12Vgq8fWZks2/1wo8MjyPy2H2E6ahRhYQl1QkMRuYuh1R6KPJcSu2pN6i1Xh1vEDFsQQ
- OmmkkiOEC1tG1tNvtcY4R55Joeb1Mc0TA0PBgL3z7MUc20IQdOcs=
+ bh=XiKwAPRa/+NQm3DU+qGiwJ/34hsXkmvGjxyX2KcisQ4=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBqP0PeBSZa/Q5LZrxCv8vC3cSZ+TH2Lb88ejFEz
+ 9FxZtUMnUCJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCaj9D3hsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOJGLRAAg/uGvBHH9KsgxvsyhNZ8WI2nL1GeuCJ
+ 1m+Qv668EUWQuRK7GWAigdDVfTA5e4z8M65EZ1ZgLta/3RQkcDzzGIm2cLAmkHTLyuDbJz8Sxaz
+ dxXtydRBA1S9aCWr0aiMmfbyanc2n+eiS2Io1QZnf/CCUJJQt7HY2cTYkdhlgoP41kvHhbDh/88
+ hdDCJ7ogtdtlZq63ZqEXBnnMi8HsSrimjJkG3vsXW5iupgG8ife77VkiQJ8sKOYl+ZbDdXPJOwN
+ 5zVGwSH7cGAgwiFA8oC9xgMEW7n9BDXEiL02FwyLCZ+tlAedn2NWWtRFsyKfswuSZml+YPtQ6U8
+ CvEeG3RK/c6c8kKk1ql9xUiaUmHIDAGUDm/htKVALSNw85c8vTZ6n7ho6MNlG5TsltcdsYF2rMJ
+ 6vj2S1JA8h8xK93dO0yjzI4ce4hSvcKuxx5Mcxp1mTpne6cb9+xuvhlOiQhRSk9zYkEf5Nqf2vf
+ ojBYmW7RE54B1KE7vhxEN9hUVs0EI1fxb8fDijZwWjpW6g9O7204kzyqDhyN9U6IkW0MposN/JX
+ kryBJX9RgveTXrtC4NQJwb8t/idyWStkW4Uta6mXzp+E4LZ/uKYj8ODew/zOrCdzUO93wriojiw
+ /pSz7v3G1aF4Ih8oyejo2w/ZiVmKablzHw0l+ka81ZxfwykoSA3g=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -92,39 +91,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Debug information are mainly read by human, so use full name instead
-of raw values for connector status.
+The plane name is now directly derived from the configfs folder
+name. When a plane directory is created under
+/config/vkms/<device>/planes/, the folder name is used as the
+plane name via vkms_config_plane_set_name.
 
-Reviewed-by: José Expósito <jose.exposito@redhat.com>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/vkms/vkms_config.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/vkms/vkms_configfs.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_config.c b/drivers/gpu/drm/vkms/vkms_config.c
-index 4c6f3ead51d7..9071d6864d52 100644
---- a/drivers/gpu/drm/vkms/vkms_config.c
-+++ b/drivers/gpu/drm/vkms/vkms_config.c
-@@ -3,6 +3,7 @@
- #include <linux/slab.h>
- #include <linux/string_choices.h>
+diff --git a/drivers/gpu/drm/vkms/vkms_configfs.c b/drivers/gpu/drm/vkms/vkms_configfs.c
+index 97f87a53d202..0744ac40814d 100644
+--- a/drivers/gpu/drm/vkms/vkms_configfs.c
++++ b/drivers/gpu/drm/vkms/vkms_configfs.c
+@@ -377,6 +377,12 @@ static struct config_group *make_plane_group(struct config_group *group,
+ 			return ERR_PTR(ret);
+ 		}
  
-+#include <drm/drm_connector.h>
- #include <drm/drm_print.h>
- #include <drm/drm_debugfs.h>
- #include <kunit/visibility.h>
-@@ -368,8 +369,8 @@ static int vkms_config_show(struct seq_file *m, void *data)
++		ret = vkms_config_plane_set_name(plane->config, name, strlen(name));
++		if (ret) {
++			kfree(plane);
++			return ERR_PTR(ret);
++		}
++
+ 		config_group_init_type_name(&plane->group, name, &plane_item_type);
  
- 	vkms_config_for_each_connector(vkmsdev->config, connector_cfg) {
- 		seq_puts(m, "connector:\n");
--		seq_printf(m, "\tstatus=%d\n",
--			   vkms_config_connector_get_status(connector_cfg));
-+		seq_printf(m, "\tstatus=%s\n",
-+			   drm_get_connector_status_name(vkms_config_connector_get_status(connector_cfg)));
- 	}
- 
- 	return 0;
+ 		config_group_init_type_name(&plane->possible_crtcs_group,
 
 -- 
 2.54.0
