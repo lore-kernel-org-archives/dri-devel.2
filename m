@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DB2EC44502
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:32:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD38BC43327
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:32:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEC8210E452;
-	Sat, 27 Jun 2026 03:32:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B158F10E439;
+	Sat, 27 Jun 2026 03:32:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="c2/J/rX7";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="kQCFFh6S";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 921A610E429
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:32:14 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B15F10E429
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:31:53 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 6784C1A0A23;
- Sat, 27 Jun 2026 03:32:13 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id ABF2BC5CD7E;
+ Sat, 27 Jun 2026 03:32:00 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 3517C60233;
- Sat, 27 Jun 2026 03:32:13 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 9C73E60233;
+ Sat, 27 Jun 2026 03:31:51 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 966E4106F1171; 
- Sat, 27 Jun 2026 05:32:09 +0200 (CEST)
+ with ESMTPSA id E56AC106F116E; 
+ Sat, 27 Jun 2026 05:31:47 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1782531131; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1782531110; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=bRFe3ro9aROJrNYFTvq6Jfu57vXZs41ebkay/s919N8=;
- b=c2/J/rX7v6iXPI0TEnPMp8EsRqDZsuLNuPxdnGk5Wk//ymIw+Yh/xRzL/9qFBXUdtTzYB/
- pu9eezoPDuPB/XMtWhxDN7GBx4GgouOfse/QzTCFGeL8IxZtdXfkHe7Yha42Sj0PCrz1Qk
- oInAYlmBQsX6HM8JM7C6gVyLmBwvZiEEVD0Jy00LhkIPYL4jrE+RBlGHV2mgWJOYrbv8kt
- fT6yDdy6qp1ot+xh4JORnFgqaUjZuiVkv+97+5DufxwuxXELBMm3YlJgYJyXEO1urt5D/K
- 9BvYD6gvnvesAd0HF34cR1hRjhKDuPNmvd0FtVjS0Gdd8aMczOxY2PcuDZW/nw==
+ bh=UHKkfLn7F6B+2UmWgmVb8YG02lcBtp0rabwOajLTgr0=;
+ b=kQCFFh6S9A6Nvs9TA8S+tSErhytF2F8GsnfRNAJ6qUrh0XcIlgRWUKE837qUkJEtYPiJqc
+ /HY5ZOgfcNM0gxgniYOCJM7FhSDb6fG1saHxpv8Bsnj6LmHm+aeX533gM7ZD8E9j+5Nvrh
+ fTFjgL409z9cbkvMidy/xPuvEYweneH86XrEx8XlT+sBPYVkGyloDlh6w5nH2wqSDQl+yw
+ 9DfNYV5cRVN6t9GPNt6cfoRyx/6612qwcE2+dPlNp1RrJSeUtKy2/xamxSdlLWUo906sYm
+ Y342U0FyVmYfUKRRAnN4XRRTjOp15WX2GPFfMuQTiV8vq2zxq0oOMF08d/0RBA==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Sat, 27 Jun 2026 05:30:51 +0200
-Subject: [PATCH v5 34/38] drm/vkms: Store the enabled/disabled status for
- connector
+Date: Sat, 27 Jun 2026 05:30:42 +0200
+Subject: [PATCH v5 25/38] drm/vkms: Introduce config for plane zpos
+ property
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260627-vkms-all-config-v5-34-854aa0840926@bootlin.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260627-vkms-all-config-v5-25-854aa0840926@bootlin.com>
 References: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
 In-Reply-To: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -59,21 +59,21 @@ Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  Louis Chauvet <louis.chauvet@bootlin.com>, llvm@lists.linux.dev
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7673;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=16102;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=6OtzeaGRUdWJ+rxoK+BJnq25yaBKEu05fnz7+XvgQs0=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBqP0PhO7FDXVAXdCf9/PvuLc+kT3uUnQ2kXJx9X
- VeL4GSdDuuJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCaj9D4RsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOIN4hAA0mThp/EKpzU9nOkB7+yLRcrvMioX0Wv
- WPHM/RCv1FfjfczEovUMgUDxcW+4IwhlbuvKJVZXW3sBlM3vbxZTcaBhDB8lxghe+5OYqsm3C++
- IeKxl/oYXo8z+q8P1h7Zv1W3Qb14rRU+aj/XRrFM+oZWA580T+7XKHTSwCG9FS8YYaRbCrO27PB
- RfyAgP4eTytSqSszBw/dGuDovK1qQm3h1sBQVLhJzSlCWpqajm9KFfLegaGsqPGYYur7AJ+XUbc
- aON1y32ChEB+MVwTknp/YYW/S0jOX0nEMdeBPt7AKld8AFR38b+KLrbx+KC6qXQnrvCh1JJYYqR
- VPDZZiRtWlLSVtI4lNk8m9w9AeySv9/2P/AyBglC9rkXHl26aX3dj2bJQlo/LQjX5i+yW2ijb8S
- GJG24ZZgAuL9t7a3Q/uAirfinBHWElZA3bXItKdY6OH9wihtuE21tGlW4W8IUFvPbEcxvzXddhJ
- GfPGk/jTbAibY+JTzAO5+fptouwmaLUDmKf8wc3cLJnWX3WCf+AuzCXoiQd1VUb+r9LilCyFW9N
- yJOrUeTUGWd3m1jRpz4Ns1dWE2EWp6F/crl0MUp+7R577y1Zz9xWhASj7ftLQbWPGFfTP/AbkDj
- vIBzBwC1LzuGcbMzLOvMhXdkJ6Vv5zd7udaZ3Eim43JEWjY4BurE=
+ bh=R0M7JhyGN0B5deB+PFHZy1j907nVeLWVE0cQc3ZcK6o=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBqP0PgidoZRWRuMaFVjMZFftd3+QWv7EWlpqWHu
+ 8kMLRJFAmmJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCaj9D4BsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOIqMA//cxcLstDRGAYKl3qp7k7p9Q2Lw2+zQkb
+ +rSQFeVfNj6oKBr9tThFOaoq83aF/BZwO/BvWKu+G9KgWd3xUpoIqwhpAIpp4iyOUGvksLPM89V
+ 7t8iYyOKmmRvRddbYV9xab8dZ/OyJQotpqTu2W3QfnZQ1juy7iHS74PGA1jBawLABnIBXDZIQzf
+ fxPFAZWTKrz6iAnbUuhGC9XYBNtB18f1iJ06doi8IgAVRaG8jezea/jPCkpr75OY2EQuHOJsUo5
+ okxP/izPT5d0xHLKetCodq9G1GGXrRHJxFpWk5gl0oUCYqBdONxuhWn9XNC0OpRKzy6yNQL2FaE
+ gP8f35UhyIdn2W9lYxw8ArFcGyRCl0GbaXAkcew5cFsrJPCjfp5PRm630XfjzzbRF9PBrUedFEh
+ xWy6Zh6Ungs47eMeKC3CdtAZS1OE82HglvB60DvGiHUCwTXiZKz2VwqyOd/1PYCquTSteIorcUK
+ Bf5aaD1PXU9Ij6y5lkKg5u52pDxeTuUn9I7WaTLUOpxdqcEvi0BgL1yLgj8P//cWaCYMmXGYN6A
+ IrWKRXg/RSLjyX94zfwHFyTQQAmTRsOOYHuR2MRAaLKDOy0978vJw5Masj0IxEMVxF9pWuJt00k
+ 8JNRtx/Vpl0JNfz7LS9zHrLdxZ/J878sZ4MV52ZXmZhCx71Gj6bg=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -92,193 +92,430 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In order to prepare for dynamic connector configuration, we need to store
-if a connector is dynamic and if it is enabled.
+VKMS can render plane in any order. Introduce the appropriate
+configuration.
 
-The two new vkms_config_connector fields will helps for that.
-
-Co-developed-by: José Expósito <jose.exposito89@gmail.com>
-Signed-off-by: José Expósito <jose.exposito89@gmail.com>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- .clang-format                                 |  2 +
- drivers/gpu/drm/vkms/tests/vkms_config_test.c |  4 ++
- drivers/gpu/drm/vkms/vkms_config.c            |  6 +++
- drivers/gpu/drm/vkms/vkms_config.h            | 66 +++++++++++++++++++++++++++
- drivers/gpu/drm/vkms/vkms_output.c            |  2 +-
- 5 files changed, 79 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/vkms/tests/vkms_config_test.c |  89 ++++++++++++++++
+ drivers/gpu/drm/vkms/vkms_config.c            |  56 ++++++++++
+ drivers/gpu/drm/vkms/vkms_config.h            | 143 ++++++++++++++++++++++++++
+ drivers/gpu/drm/vkms/vkms_plane.c             |  11 ++
+ 4 files changed, 299 insertions(+)
 
-diff --git a/.clang-format b/.clang-format
-index 1cc151e2adcc..0d985d30efb2 100644
---- a/.clang-format
-+++ b/.clang-format
-@@ -724,6 +724,8 @@ ForEachMacros:
-   - 'v4l2_m2m_for_each_src_buf_safe'
-   - 'virtio_device_for_each_vq'
-   - 'vkms_config_for_each_connector'
-+  - 'vkms_config_for_each_connector_static'
-+  - 'vkms_config_for_each_connector_dynamic'
-   - 'vkms_config_for_each_crtc'
-   - 'vkms_config_for_each_encoder'
-   - 'vkms_config_for_each_plane'
 diff --git a/drivers/gpu/drm/vkms/tests/vkms_config_test.c b/drivers/gpu/drm/vkms/tests/vkms_config_test.c
-index 2b49745ee026..fda23f05a0a5 100644
+index a88d8b4a969e..4a5899b8ccfd 100644
 --- a/drivers/gpu/drm/vkms/tests/vkms_config_test.c
 +++ b/drivers/gpu/drm/vkms/tests/vkms_config_test.c
-@@ -220,6 +220,10 @@ static void vkms_config_test_default_config(struct kunit *test)
- 				0);
- 		KUNIT_EXPECT_EQ(test, vkms_config_connector_get_edid_enabled(connector_cfg),
- 				false);
-+		KUNIT_EXPECT_EQ(test, vkms_config_connector_is_enabled(connector_cfg),
-+				true);
-+		KUNIT_EXPECT_EQ(test, vkms_config_connector_is_dynamic(connector_cfg),
-+				false);
+@@ -201,6 +201,9 @@ static void vkms_config_test_default_config(struct kunit *test)
+ 		KUNIT_EXPECT_EQ(test,
+ 				vkms_config_plane_get_default_color_encoding(plane_cfg),
+ 				DRM_COLOR_YCBCR_BT601);
++		KUNIT_EXPECT_EQ(test, vkms_config_plane_get_zpos_enabled(plane_cfg), false);
++		// No need to test the other zpos configurations as they are discarded if
++		// the zpos property is not created.
  	}
  
- 	KUNIT_EXPECT_TRUE(test, vkms_config_is_valid(config));
+ 	/* Encoders */
+@@ -619,6 +622,91 @@ static void vkms_config_test_valid_plane_color_range(struct kunit *test)
+ 	vkms_config_destroy(config);
+ }
+ 
++static void vkms_config_test_valid_plane_zpos(struct kunit *test)
++{
++	struct vkms_config *config;
++	struct vkms_config_plane *plane_cfg;
++
++	config = vkms_config_default_create(false, false, false, false);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
++
++	plane_cfg = get_first_plane(config);
++
++	/* Valid, zpos disabled */
++	vkms_config_plane_set_zpos_enabled(plane_cfg, false);
++	vkms_config_plane_set_zpos_mutable(plane_cfg, false);
++	vkms_config_plane_set_zpos_initial(plane_cfg, 0);
++	vkms_config_plane_set_zpos_min(plane_cfg, 0);
++	vkms_config_plane_set_zpos_max(plane_cfg, 0);
++	KUNIT_EXPECT_TRUE(test, vkms_config_is_valid(config));
++
++	/* Valid, zpos disabled, min/max are ignored */
++	vkms_config_plane_set_zpos_enabled(plane_cfg, false);
++	vkms_config_plane_set_zpos_mutable(plane_cfg, false);
++	vkms_config_plane_set_zpos_initial(plane_cfg, 8);
++	vkms_config_plane_set_zpos_min(plane_cfg, 3);
++	vkms_config_plane_set_zpos_max(plane_cfg, 2);
++	KUNIT_EXPECT_TRUE(test, vkms_config_is_valid(config));
++
++	/* Valid, zpos enabled but mutable disabled */
++	vkms_config_plane_set_zpos_enabled(plane_cfg, true);
++	vkms_config_plane_set_zpos_mutable(plane_cfg, false);
++	vkms_config_plane_set_zpos_initial(plane_cfg, 1);
++	vkms_config_plane_set_zpos_min(plane_cfg, 0);
++	vkms_config_plane_set_zpos_max(plane_cfg, 0);
++	KUNIT_EXPECT_TRUE(test, vkms_config_is_valid(config));
++
++	/* Valid, zpos enabled but mutable disabled */
++	vkms_config_plane_set_zpos_enabled(plane_cfg, true);
++	vkms_config_plane_set_zpos_mutable(plane_cfg, false);
++	vkms_config_plane_set_zpos_initial(plane_cfg, 0);
++	vkms_config_plane_set_zpos_min(plane_cfg, 0);
++	vkms_config_plane_set_zpos_max(plane_cfg, 0);
++	KUNIT_EXPECT_TRUE(test, vkms_config_is_valid(config));
++
++	/* Invalid, zpos enabled with min > max */
++	vkms_config_plane_set_zpos_enabled(plane_cfg, true);
++	vkms_config_plane_set_zpos_mutable(plane_cfg, true);
++	vkms_config_plane_set_zpos_initial(plane_cfg, 0);
++	vkms_config_plane_set_zpos_min(plane_cfg, 1);
++	vkms_config_plane_set_zpos_max(plane_cfg, 0);
++	KUNIT_EXPECT_FALSE(test, vkms_config_is_valid(config));
++
++	/* Valid, zpos enabled with min <= max */
++	vkms_config_plane_set_zpos_enabled(plane_cfg, true);
++	vkms_config_plane_set_zpos_mutable(plane_cfg, true);
++	vkms_config_plane_set_zpos_initial(plane_cfg, 0);
++	vkms_config_plane_set_zpos_min(plane_cfg, 0);
++	vkms_config_plane_set_zpos_max(plane_cfg, 1);
++	KUNIT_EXPECT_TRUE(test, vkms_config_is_valid(config));
++
++	/* Invalid, zpos enabled with initial < min */
++	vkms_config_plane_set_zpos_enabled(plane_cfg, true);
++	vkms_config_plane_set_zpos_mutable(plane_cfg, true);
++	vkms_config_plane_set_zpos_initial(plane_cfg, 0);
++	vkms_config_plane_set_zpos_min(plane_cfg, 1);
++	vkms_config_plane_set_zpos_max(plane_cfg, 2);
++	KUNIT_EXPECT_FALSE(test, vkms_config_is_valid(config));
++
++	/* Invalid, zpos enabled with initial > max */
++	vkms_config_plane_set_zpos_enabled(plane_cfg, true);
++	vkms_config_plane_set_zpos_mutable(plane_cfg, true);
++	vkms_config_plane_set_zpos_initial(plane_cfg, 3);
++	vkms_config_plane_set_zpos_min(plane_cfg, 1);
++	vkms_config_plane_set_zpos_max(plane_cfg, 2);
++	KUNIT_EXPECT_FALSE(test, vkms_config_is_valid(config));
++
++	/* Valid, zpos enabled with initial between min and max */
++	vkms_config_plane_set_zpos_enabled(plane_cfg, true);
++	vkms_config_plane_set_zpos_mutable(plane_cfg, true);
++	vkms_config_plane_set_zpos_initial(plane_cfg, 1);
++	vkms_config_plane_set_zpos_min(plane_cfg, 0);
++	vkms_config_plane_set_zpos_max(plane_cfg, 2);
++	KUNIT_EXPECT_TRUE(test, vkms_config_is_valid(config));
++
++	vkms_config_destroy(config);
++}
++
+ static void vkms_config_test_valid_plane_possible_crtcs(struct kunit *test)
+ {
+ 	struct vkms_config *config;
+@@ -1144,6 +1232,7 @@ static struct kunit_case vkms_config_test_cases[] = {
+ 	KUNIT_CASE(vkms_config_test_valid_plane_rotations),
+ 	KUNIT_CASE(vkms_config_test_valid_plane_color_encoding),
+ 	KUNIT_CASE(vkms_config_test_valid_plane_color_range),
++	KUNIT_CASE(vkms_config_test_valid_plane_zpos),
+ 	KUNIT_CASE(vkms_config_test_valid_plane_possible_crtcs),
+ 	KUNIT_CASE(vkms_config_test_invalid_crtc_number),
+ 	KUNIT_CASE(vkms_config_test_invalid_encoder_number),
 diff --git a/drivers/gpu/drm/vkms/vkms_config.c b/drivers/gpu/drm/vkms/vkms_config.c
-index 1a110b8aa114..98e40c6a2c5b 100644
+index c7de3e307367..5bc8248f9935 100644
 --- a/drivers/gpu/drm/vkms/vkms_config.c
 +++ b/drivers/gpu/drm/vkms/vkms_config.c
-@@ -597,6 +597,8 @@ static int vkms_config_show(struct seq_file *m, void *data)
+@@ -91,6 +91,7 @@ struct vkms_config *vkms_config_default_create(bool enable_cursor,
+ 	if (IS_ERR(plane_cfg))
+ 		goto err_alloc;
+ 	vkms_config_plane_set_type(plane_cfg, DRM_PLANE_TYPE_PRIMARY);
++	vkms_config_plane_set_zpos_enabled(plane_cfg, false);
  
- 	vkms_config_for_each_connector(vkmsdev->config, connector_cfg) {
- 		seq_puts(m, "connector:\n");
-+		seq_printf(m, "\t%s\n",
-+			   str_enabled_disabled(vkms_config_connector_is_enabled(connector_cfg)));
- 		seq_printf(m, "\tstatus=%s\n",
- 			   drm_get_connector_status_name(vkms_config_connector_get_status(connector_cfg)));
- 		seq_printf(m, "\ttype=%s\n",
-@@ -610,6 +612,8 @@ static int vkms_config_show(struct seq_file *m, void *data)
- 			   str_enabled_disabled(vkms_config_connector_get_edid_enabled(connector_cfg)),
- 			   edid_len
- 		);
-+		seq_printf(m, "\tdynamic=%s\n",
-+			   str_true_false(vkms_config_connector_is_dynamic(connector_cfg)));
+ 	crtc_cfg = vkms_config_create_crtc(config);
+ 	if (IS_ERR(crtc_cfg))
+@@ -110,6 +111,7 @@ struct vkms_config *vkms_config_default_create(bool enable_cursor,
+ 			vkms_config_plane_set_type(plane_cfg,
+ 						   DRM_PLANE_TYPE_OVERLAY);
+ 			vkms_config_plane_set_default_pipeline(plane_cfg, enable_plane_pipeline);
++			vkms_config_plane_set_zpos_enabled(plane_cfg, false);
+ 
+ 			if (vkms_config_plane_attach_crtc(plane_cfg, crtc_cfg))
+ 				goto err_alloc;
+@@ -123,6 +125,7 @@ struct vkms_config *vkms_config_default_create(bool enable_cursor,
+ 
+ 		vkms_config_plane_set_type(plane_cfg, DRM_PLANE_TYPE_CURSOR);
+ 		vkms_config_plane_set_default_pipeline(plane_cfg, enable_plane_pipeline);
++		vkms_config_plane_set_zpos_enabled(plane_cfg, false);
+ 
+ 		if (vkms_config_plane_attach_crtc(plane_cfg, crtc_cfg))
+ 			goto err_alloc;
+@@ -253,6 +256,33 @@ bool vkms_config_valid_plane_color_range(const struct vkms_config *config,
+ }
+ EXPORT_SYMBOL_IF_KUNIT(vkms_config_valid_plane_color_range);
+ 
++VISIBLE_IF_KUNIT
++bool vkms_config_valid_plane_zpos(const struct vkms_config *config,
++				  const struct vkms_config_plane *plane_cfg)
++{
++	struct drm_device *dev = config->dev ? &config->dev->drm : NULL;
++
++	if (!vkms_config_plane_get_zpos_enabled(plane_cfg) ||
++	    !vkms_config_plane_get_zpos_mutable(plane_cfg))
++		return true;
++
++	if (vkms_config_plane_get_zpos_initial(plane_cfg) >
++	    vkms_config_plane_get_zpos_max(plane_cfg)) {
++		drm_info(dev, "Configured initial zpos value bigger than zpos max\n");
++		return false;
++	}
++
++	if (vkms_config_plane_get_zpos_max(plane_cfg) <
++	    vkms_config_plane_get_zpos_min(plane_cfg) ||
++	    vkms_config_plane_get_zpos_initial(plane_cfg) <
++	    vkms_config_plane_get_zpos_min(plane_cfg)) {
++		drm_info(dev, "Configured zpos value outside (zpos min; zpos max)\n");
++		return false;
++	}
++
++	return true;
++}
++
+ static bool valid_planes_for_crtc(const struct vkms_config *config,
+ 				  struct vkms_config_crtc *crtc_cfg)
+ {
+@@ -413,6 +443,9 @@ bool vkms_config_is_valid(const struct vkms_config *config)
+ 	struct vkms_config_crtc *crtc_cfg;
+ 	struct vkms_config_plane *plane_cfg;
+ 
++	bool has_zpos_enabled = false;
++	bool has_zpos_disabled = false;
++
+ 	vkms_config_for_each_plane(config, plane_cfg) {
+ 		if (!vkms_config_valid_plane_rotation(config, plane_cfg))
+ 			return false;
+@@ -429,6 +462,19 @@ bool vkms_config_is_valid(const struct vkms_config *config)
+ 				 "Both supported color encodings and color ranges must be set, or none\n");
+ 			return false;
+ 		}
++
++		if (!vkms_config_valid_plane_zpos(config, plane_cfg))
++			return false;
++
++		if (vkms_config_plane_get_zpos_enabled(plane_cfg))
++			has_zpos_enabled = true;
++		else
++			has_zpos_disabled = true;
++	}
++
++	if (has_zpos_enabled && has_zpos_disabled) {
++		drm_info(dev, "In the same device, all planes must have zpos enabled or none of them");
++		return false;
  	}
  
- 	return 0;
-@@ -944,6 +948,8 @@ struct vkms_config_connector *vkms_config_create_connector(struct vkms_config *c
- 	connector_cfg->status = connector_status_connected;
- 	vkms_config_connector_set_type(connector_cfg, DRM_MODE_CONNECTOR_VIRTUAL);
- 	vkms_config_connector_set_supported_colorspaces(connector_cfg, 0);
-+	vkms_config_connector_set_dynamic(connector_cfg, false);
-+	vkms_config_connector_set_enabled(connector_cfg, true);
- 	xa_init_flags(&connector_cfg->possible_encoders, XA_FLAGS_ALLOC);
+ 	if (!valid_plane_number(config))
+@@ -527,6 +573,16 @@ static int vkms_config_show(struct seq_file *m, void *data)
+ 		show_formats(m, vkms_config_plane_get_supported_formats(plane_cfg),
+ 			     vkms_config_plane_get_supported_formats_count(plane_cfg));
+ 		seq_puts(m, "\n");
++		seq_printf(m, "\tzpos_enabled=%s\n",
++			   str_true_false(vkms_config_plane_get_zpos_enabled(plane_cfg)));
++		seq_printf(m, "\tzpos_mutable=%s\n",
++			   str_true_false(vkms_config_plane_get_zpos_mutable(plane_cfg)));
++		seq_printf(m, "\tzpos_min=%d\n",
++			   vkms_config_plane_get_zpos_min(plane_cfg));
++		seq_printf(m, "\tzpos_initial=%d\n",
++			   vkms_config_plane_get_zpos_initial(plane_cfg));
++		seq_printf(m, "\tzpos_max=%d\n",
++			   vkms_config_plane_get_zpos_max(plane_cfg));
+ 	}
  
- 	list_add_tail(&connector_cfg->link, &config->connectors);
+ 	vkms_config_for_each_crtc(vkmsdev->config, crtc_cfg) {
 diff --git a/drivers/gpu/drm/vkms/vkms_config.h b/drivers/gpu/drm/vkms/vkms_config.h
-index 7e361b6e45b0..071887a65380 100644
+index 3de4a92af9c5..7c0c24939a96 100644
 --- a/drivers/gpu/drm/vkms/vkms_config.h
 +++ b/drivers/gpu/drm/vkms/vkms_config.h
-@@ -132,6 +132,8 @@ struct vkms_config_encoder {
-  * @link: Link to the others connector in vkms_config
-  * @type: Store the type of connector using DRM_MODE_CONNECTOR_* values
-  * @config: The vkms_config this connector belongs to
-+ * @dynamic: Store if a connector should be created with drm_connector_dynamic_init
-+ * @enabled: If @dynamic, this means that the connector is currently registered in drm
-  * @status: Status (connected, disconnected...) of the connector
-  * @supported_colorspaces: Bitmask of all the supported colorspaces. Values
-  *                         are the sames as ones accepted by
-@@ -151,6 +153,8 @@ struct vkms_config_connector {
- 	struct vkms_config *config;
+@@ -52,6 +52,11 @@ struct vkms_config {
+  * @supported_color_ranges: Color ranges that this plane will support
+  * @supported_formats: List of supported formats
+  * @supported_formats_count: Length of @supported_formats
++ * @zpos_enabled: Enable or disable the zpos property
++ * @zpos_mutable: Make the zpos property mutable or not (ignored if @zpos_enabled is false)
++ * @zpos_initial: Initial value for zpos property (ignored if @zpos_enabled is false)
++ * @zpos_min: Minimal value for zpos property (ignored if @zpos_enabled is false)
++ * @zpos_max: Maximal value for zpos property (ignored if @zpos_enabled is false)
+  */
+ struct vkms_config_plane {
+ 	struct list_head link;
+@@ -69,6 +74,11 @@ struct vkms_config_plane {
+ 	unsigned int supported_formats_count;
+ 	struct xarray possible_crtcs;
+ 	bool default_pipeline;
++	bool zpos_enabled;
++	bool zpos_mutable;
++	unsigned int zpos_initial;
++	unsigned int zpos_min;
++	unsigned int zpos_max;
  
- 	int type;
-+	bool enabled;
-+	bool dynamic;
- 	enum drm_connector_status status;
- 	u32 supported_colorspaces;
- 	bool edid_enabled;
-@@ -194,6 +198,24 @@ struct vkms_config_connector {
- #define vkms_config_for_each_connector(config, connector_cfg) \
- 	list_for_each_entry((connector_cfg), &(config)->connectors, link)
- 
-+/**
-+ * vkms_config_for_each_connector_static - Iterate over the static vkms_config connectors
-+ * @config: &struct vkms_config pointer
-+ * @connector_cfg: &struct vkms_config_connector pointer used as cursor
-+ */
-+#define vkms_config_for_each_connector_static(config, connector_cfg) \
-+	vkms_config_for_each_connector((config), (connector_cfg)) \
-+		if (!(connector_cfg)->dynamic)
-+
-+/**
-+ * vkms_config_for_each_connector_dynamic - Iterate over the dynamic vkms_config connectors
-+ * @config: &struct vkms_config pointer
-+ * @connector_cfg: &struct vkms_config_connector pointer used as cursor
-+ */
-+#define vkms_config_for_each_connector_dynamic(config, connector_cfg) \
-+	vkms_config_for_each_connector((config), (connector_cfg)) \
-+		if ((connector_cfg)->dynamic)
-+
- /**
-  * vkms_config_plane_for_each_possible_crtc - Iterate over the vkms_config_plane
-  * possible CRTCs
-@@ -472,6 +494,50 @@ vkms_config_connector_set_type(struct vkms_config_connector *connector_cfg,
- 	connector_cfg->type = type;
+ 	/* Internal usage */
+ 	struct vkms_plane *plane;
+@@ -557,6 +567,139 @@ vkms_config_plane_get_name(const struct vkms_config_plane *plane_cfg)
+ 	return plane_cfg->name;
  }
  
 +/**
-+ * vkms_config_connector_set_enabled() - If the connector is part of the device
-+ * @crtc_cfg: Target connector
-+ * @enabled: Add or remove the connector
++ * vkms_config_plane_set_zpos_enabled() - Enable or disable zpos property for a plane
++ * @plane_cfg: Plane configuration to modify
++ * @zpos_enabled: Whether to enable the zpos property
 + */
-+static inline void
-+vkms_config_connector_set_enabled(struct vkms_config_connector *connector_cfg,
-+				  bool enabled)
++static inline
++void vkms_config_plane_set_zpos_enabled(struct vkms_config_plane *plane_cfg,
++					bool zpos_enabled)
 +{
-+	connector_cfg->enabled = enabled;
++	plane_cfg->zpos_enabled = zpos_enabled;
 +}
 +
 +/**
-+ * vkms_config_connector_is_enabled() - If the connector is part of the device
-+ * @connector_cfg: The connector
++ * vkms_config_plane_set_zpos_mutable() - Set whether zpos property is mutable
++ * @plane_cfg: Plane configuration to modify
++ * @zpos_mutable: Whether the zpos property should be mutable
 + */
-+static inline bool
-+vkms_config_connector_is_enabled(const struct vkms_config_connector *connector_cfg)
++static inline
++void vkms_config_plane_set_zpos_mutable(struct vkms_config_plane *plane_cfg,
++					bool zpos_mutable)
 +{
-+	return connector_cfg->enabled;
++	plane_cfg->zpos_mutable = zpos_mutable;
 +}
 +
 +/**
-+ * vkms_config_connector_set_dynamic() - If the connector is dynamic
-+ * @crtc_cfg: Target connector
-+ * @enabled: Enable or disable the dynamic status
++ * vkms_config_plane_set_zpos_initial() - Set the initial zpos value
++ * @plane_cfg: Plane configuration to modify
++ * @zpos_initial: Initial zpos value
 + */
-+static inline void
-+vkms_config_connector_set_dynamic(struct vkms_config_connector *connector_cfg,
-+				  bool dynamic)
++static inline
++void vkms_config_plane_set_zpos_initial(struct vkms_config_plane *plane_cfg,
++					unsigned int zpos_initial)
 +{
-+	connector_cfg->dynamic = dynamic;
++	plane_cfg->zpos_initial = zpos_initial;
 +}
 +
 +/**
-+ * vkms_config_connector_is_enabled() - If the connector is dynamic
-+ * @connector_cfg: The connector
++ * vkms_config_plane_set_zpos_min() - Set the minimum zpos value
++ * @plane_cfg: Plane configuration to modify
++ * @zpos_min: Minimum zpos value
 + */
-+static inline bool
-+vkms_config_connector_is_dynamic(struct vkms_config_connector *connector_cfg)
++static inline
++void vkms_config_plane_set_zpos_min(struct vkms_config_plane *plane_cfg,
++				    unsigned int zpos_min)
 +{
-+	return connector_cfg->dynamic;
++	plane_cfg->zpos_min = zpos_min;
 +}
 +
- /*
-  * vkms_config_plane_get_default_rotation() - Get the default rotation for a plane
-  * @plane_cfg: Plane to get the default rotation from
-diff --git a/drivers/gpu/drm/vkms/vkms_output.c b/drivers/gpu/drm/vkms/vkms_output.c
-index 406a22f1b963..13c4ca5fd39d 100644
---- a/drivers/gpu/drm/vkms/vkms_output.c
-+++ b/drivers/gpu/drm/vkms/vkms_output.c
-@@ -93,7 +93,7 @@ int vkms_output_init(struct vkms_device *vkmsdev)
- 		}
- 	}
++/**
++ * vkms_config_plane_set_zpos_max() - Set the maximum zpos value
++ * @plane_cfg: Plane configuration to modify
++ * @zpos_max: Maximum zpos value
++ */
++static inline
++void vkms_config_plane_set_zpos_max(struct vkms_config_plane *plane_cfg,
++				    unsigned int zpos_max)
++{
++	plane_cfg->zpos_max = zpos_max;
++}
++
++/**
++ * vkms_config_plane_get_zpos_enabled() - Check if zpos property is enabled
++ * @plane_cfg: Plane configuration to check
++ *
++ * Returns:
++ * True if the zpos property is enabled for this plane, false otherwise.
++ */
++static inline
++bool vkms_config_plane_get_zpos_enabled(const struct vkms_config_plane *plane_cfg)
++{
++	return plane_cfg->zpos_enabled;
++}
++
++/**
++ * vkms_config_plane_get_zpos_mutable() - Check if zpos property is mutable
++ * @plane_cfg: Plane configuration to check
++ *
++ * Returns:
++ * True if the zpos property is mutable for this plane, false otherwise.
++ */
++static inline
++bool vkms_config_plane_get_zpos_mutable(const struct vkms_config_plane *plane_cfg)
++{
++	return plane_cfg->zpos_mutable;
++}
++
++/**
++ * vkms_config_plane_get_zpos_initial() - Get the initial zpos value
++ * @plane_cfg: Plane configuration to check
++ *
++ * Returns:
++ * The initial zpos value for this plane. The return value is undefined if
++ * zpos is disabled.
++ */
++static inline
++unsigned int vkms_config_plane_get_zpos_initial(const struct vkms_config_plane *plane_cfg)
++{
++	return plane_cfg->zpos_initial;
++}
++
++/**
++ * vkms_config_plane_get_zpos_min() - Get the minimum zpos value
++ * @plane_cfg: Plane configuration to check
++ *
++ * Returns:
++ * The minimum allowed zpos value for this plane. The return value is undefined
++ * if zpos is disabled.
++ */
++static inline
++unsigned int vkms_config_plane_get_zpos_min(const struct vkms_config_plane *plane_cfg)
++{
++	return plane_cfg->zpos_min;
++}
++
++/**
++ * vkms_config_plane_get_zpos_max() - Get the maximum zpos value
++ * @plane_cfg: Plane configuration to check
++ *
++ * Returns:
++ * The maximum allowed zpos value for this plane. The return value is undefined
++ * if zpos is disabled.
++ */
++static inline
++unsigned int vkms_config_plane_get_zpos_max(const struct vkms_config_plane *plane_cfg)
++{
++	return plane_cfg->zpos_max;
++}
++
++#if IS_ENABLED(CONFIG_KUNIT)
++bool vkms_config_valid_plane_zpos(const struct vkms_config *config,
++				  const struct vkms_config_plane *plane_cfg);
++#endif
++
+ /**
+  * vkms_config_plane_attach_crtc - Attach a plane to a CRTC
+  * @plane_cfg: Plane to attach
+diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
+index 6e767cdf8194..d600a6167042 100644
+--- a/drivers/gpu/drm/vkms/vkms_plane.c
++++ b/drivers/gpu/drm/vkms/vkms_plane.c
+@@ -214,6 +214,17 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
  
--	vkms_config_for_each_connector(vkmsdev->config, connector_cfg) {
-+	vkms_config_for_each_connector_static(vkmsdev->config, connector_cfg) {
- 		struct vkms_config_encoder *possible_encoder;
- 		unsigned long idx = 0;
+ 	if (vkms_config_plane_get_default_pipeline(plane_cfg))
+ 		vkms_initialize_colorops(&plane->base);
++	if (vkms_config_plane_get_zpos_enabled(plane_cfg)) {
++		if (vkms_config_plane_get_zpos_mutable(plane_cfg)) {
++			drm_plane_create_zpos_property(&plane->base,
++						       vkms_config_plane_get_zpos_initial(plane_cfg),
++						       vkms_config_plane_get_zpos_min(plane_cfg),
++						       vkms_config_plane_get_zpos_max(plane_cfg));
++		} else {
++			drm_plane_create_zpos_immutable_property(&plane->base,
++								 vkms_config_plane_get_zpos_initial(plane_cfg));
++		}
++	}
  
+ 	return plane;
+ }
 
 -- 
 2.54.0
