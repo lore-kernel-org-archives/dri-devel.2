@@ -4,43 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E69ACC43327
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:43:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0029FC43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:44:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 343DE10F767;
-	Sat, 27 Jun 2026 03:43:47 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aaRO9boO";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AF8110F764
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:43:42 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 484F040DD9;
- Sat, 27 Jun 2026 03:43:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02C151F000E9;
- Sat, 27 Jun 2026 03:43:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782531822;
- bh=egPXmliUZEnuIPEYXDkI6fQJXWJkokF5wiRYzXPwa8g=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=aaRO9boOYil5dVWn+Z4OP4UYrK21k7ioG274z6z/ha2l6ehxEI4FfpPiFMvlpD7sM
- plLWpnLXDq8mi5CTPlHTtaHOcBF/Esb6ujun/ZZjYjP22+CnG+Z6wxpBQZeDQ2GgnO
- 5NCQynehL4fjlzS0lAy1IB7Z5cfC/tRs9RgM2dnvt+7QP2jUSR/RLErVrNtmP+EwDF
- Siy6NxGYDOfWT9ew+EuoBSja7rEfzadI+gLRVriIe1ecxCUFSJkdgBdNf91jzDOxqM
- epREV/20zUrSegkIhS8qBV8JOkQeZNVs0Vhwj8yHq7OdjdcRAp13FGosqIcqgnD72p
- ABaF/+HnrKSlg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 14/38] drm/vkms: Use plane folder name as plane name
-To: "Louis Chauvet" <louis.chauvet@bootlin.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260627-vkms-all-config-v5-14-854aa0840926@bootlin.com>
-References: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
- <20260627-vkms-all-config-v5-14-854aa0840926@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 27 Jun 2026 03:43:41 +0000
-Message-Id: <20260627034342.02C151F000E9@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63AFE10F766;
+	Sat, 27 Jun 2026 03:44:34 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CC5710F766
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:44:32 +0000 (UTC)
+Received: from localhost.localdomain (unknown [117.182.75.66])
+ by APP-01 (Coremail) with SMTP id qwCowAD3kMkeRz9qYW2BAw--.26715S2;
+ Sat, 27 Jun 2026 11:44:30 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: deller@gmx.de
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH] fix: drivers/video: __screen_info_pci_dev: leaked pci_dev
+ references in pci_get_base_class loop
+Date: Sat, 27 Jun 2026 11:44:28 +0800
+Message-Id: <20260627034428.59479-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qwCowAD3kMkeRz9qYW2BAw--.26715S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7GFyUAFyktryUKw4rJr4Dtwb_yoW8Jr1kpF
+ Z3GFWayF45XFWxGw1DuryDuFyfua15C3yfKFZ2kw15uayfZa4avr1xuryDur1fArW8Jr1S
+ qw4Ut3W8uFy5uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
+ 1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+ 6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr
+ 0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+ 6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+ AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
+ c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+ AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
+ Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjIJmU
+ UUUUU==
+X-Originating-IP: [117.182.75.66]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgLA2o-ErFs-AAAsh
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,106 +58,39 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] User-provided plane name from configfs is used directly as a forma=
-t string in `drmm_universal_plane_alloc()`.
-- [Medium] Missing cleanup of `plane->config` on the `vkms_config_plane_set=
-_name()` error path in `make_plane_group()`.
-- [Medium] `drm_get_rotation_name` incorrectly uses a rotation mask as an a=
-rray index, contrary to its documentation.
---
+In __screen_info_pci_dev(), the loop uses pci_get_base_class() with a
+non-NULL starting device pdev. Each iteration returns a new device
+reference but does not release the previous one. When a non-matching
+device is found, pdev is overwritten and the previous reference leaks.
+When no match is found, all acquired references are leaked.
 
-commit 71fdf3bbf310c477150a383e21a3c104a2d6795c
-Author: Louis Chauvet <louis.chauvet@bootlin.com>
-Subject: drm/vkms: Use plane folder name as plane name
+Add pci_dev_put(pdev) for non-matching devices before continuing the loop.
 
-The plane name is now directly derived from the configfs folder name. When a
-plane directory is created under /config/vkms/<device>/planes/, the folder
-name is used as the plane name via vkms_config_plane_set_name.
+Cc: stable@vger.kernel.org
+Fixes: 036105e3a776 ("video: Provide screen_info_get_pci_dev() to find screen_info's PCI device")
+Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+ drivers/video/screen_info_pci.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-> diff --git a/drivers/gpu/drm/vkms/vkms_configfs.c b/drivers/gpu/drm/vkms/=
-vkms_configfs.c
-> index 97f87a53d202a..0744ac40814d8 100644
-> --- a/drivers/gpu/drm/vkms/vkms_configfs.c
-> +++ b/drivers/gpu/drm/vkms/vkms_configfs.c
-> @@ -377,6 +377,12 @@ static struct config_group *make_plane_group(struct =
-config_group *group,
->  			return ERR_PTR(ret);
->  		}
-> =20
-> +		ret =3D vkms_config_plane_set_name(plane->config, name, strlen(name));
+diff --git a/drivers/video/screen_info_pci.c b/drivers/video/screen_info_pci.c
+index 8f34d8a74f09..c821101e9304 100644
+--- a/drivers/video/screen_info_pci.c
++++ b/drivers/video/screen_info_pci.c
+@@ -123,6 +123,10 @@ static struct pci_dev *__screen_info_pci_dev(struct resource *res)
+ 
+ 	while (!r && (pdev = pci_get_base_class(PCI_BASE_CLASS_DISPLAY, pdev))) {
+ 		r = pci_find_resource(pdev, res);
++		if (!r) {
++			pci_dev_put(pdev);
++			pdev = NULL;
++		}
+ 	}
+ 
+ 	return pdev;
+-- 
+2.39.5 (Apple Git-154)
 
-[Severity: High]
-Could this introduce a format string regression?
-
-Since this user-provided configfs folder name is stored as the plane name,
-it appears it gets passed directly as the format string parameter to
-drmm_universal_plane_alloc() later during initialization:
-
-drivers/gpu/drm/vkms/vkms_plane.c:vkms_plane_init()
-    plane =3D drmm_universal_plane_alloc(dev, struct vkms_plane, base, 0,
-        &vkms_plane_funcs,
-        vkms_config_plane_get_supported_formats(plane_cfg),
-        vkms_config_plane_get_supported_formats_count(plane_cfg),
-        NULL, vkms_config_plane_get_type(plane_cfg),
-        vkms_config_plane_get_name(plane_cfg));
-
-If a user creates a configfs directory with a name containing printf-style
-format specifiers (e.g., "%s%n"), can it lead to a kernel crash or memory
-corruption?
-
-> +		if (ret) {
-> +			kfree(plane);
-
-[Severity: Medium]
-Is there a regression in this error path where it leaves a dangling plane
-configuration?
-
-If vkms_config_plane_set_name() fails (e.g., due to memory allocation
-failure), this calls kfree(plane). However, it seems plane->config was
-already appended to dev->config->planes prior to this, but we don't call
-vkms_config_destroy_plane(plane->config) here.
-
-Can this leave a ghost plane in the device configuration that lacks a
-corresponding configfs directory?
-
-> +			return ERR_PTR(ret);
-> +		}
-> +
->  		config_group_init_type_name(&plane->group, name, &plane_item_type);
-> =20
->  		config_group_init_type_name(&plane->possible_crtcs_group,
-
-[Severity: Medium]
-Will the following logic in drm_get_rotation_name() cause a regression by
-incorrectly using a rotation mask as an array index?
-
-In drivers/gpu/drm/drm_blend.c:drm_get_rotation_name():
-
-    const char *drm_get_rotation_name(unsigned int rotation)
-    {
-        if (rotation < ARRAY_SIZE(rotation_props))
-            return rotation_props[rotation].name;
-
-        return "(unknown)";
-    }
-
-The documentation for this function explicitly states the rotation parameter
-expects a rotation mask (DRM_MODE_ROTATE_* | DRM_MODE_REFLECT_*). However,
-the implementation expects an array index (0-5) and incorrectly uses the
-mask as an index.
-
-For example, passing the mask DRM_MODE_ROTATE_90 (which is 2) returns
-"rotate-180" (the value at index 2).
-
-Can this cause incorrect strings to be returned to new drivers or core code
-using this exported function?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260627-vkms-all-c=
-onfig-v5-0-854aa0840926@bootlin.com?part=3D14
