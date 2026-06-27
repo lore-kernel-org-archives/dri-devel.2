@@ -4,79 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98FEEC43458
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 06:55:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88077C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 09:28:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D836210E08E;
-	Sat, 27 Jun 2026 06:55:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C14E310E2D6;
+	Sat, 27 Jun 2026 09:28:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oZUVgRVb";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="E6KXIxuf";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8304F10E08E
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 06:55:08 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-49263703c6eso15848225e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 23:55:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782543307; x=1783148107; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=a0YInxvP9vIxrkKOfsq0a9A7RdBzE89fDRN/Cs8YIhM=;
- b=oZUVgRVbVKiW0acUKQAUJCC5K8C3dkb277v0IhK03z1s2jNR6RPXs5dJ3b9/dn8nkn
- 3BfT5G8t66B8o88k+jzebhLkLE0uLcoGEHTk5bCAG6cR0OS/ND0/bUPdQYZ45gU09iM2
- pC/JQ5HpNEUHq9aaGf2VUTYwN2srr0w5lPCcR7phha2Km5L56fm4AzyLDlqR3eS3v0wH
- kqUOKB2OhPNDfwnL3sbrAwQjbsgYICt87Z8ZF/oxbDaVBCTTxATntMnB9hMpTM7W6Mv2
- ZDPGYuIakOw4TX4sfF2j4S91PEoHm033d19WeB3N3ecM3FvGYOmgpr825AIdC2NQsyVY
- 1NBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782543307; x=1783148107;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=a0YInxvP9vIxrkKOfsq0a9A7RdBzE89fDRN/Cs8YIhM=;
- b=iY+zbjK2naAO+eBEGa4ZGJrEvq9EdrdxjvviLehSmz9fq9kzo7+B22fUSCixUf9f/h
- E1CQw8spduxP7yGAWdla1gPSshwbApRHKbBGfJcruLkKfd6XdktkpXLLAjCPww3+GrtA
- N1KPoPK/6jr+mBq8Ppp6qZ3GK3jQHFW4CT2R3TJn8MuTRq+bIksK23eghafjcxZnWWO6
- AbXox5J84WK1Cq7AZbw5rhJmXNoRQ7TXTxlHyYFYIjKCdUEQD296Bkcec1IzIGzNF6ao
- CyV4YtKVqW2gGKdlRYDzEcALCeIUOD+KOCzZ0Fz1H534sSjlm2h0ZITDIOTYpQsB8gpF
- ySKQ==
-X-Gm-Message-State: AOJu0YzV2ZdcTGYEoNvwPoCP3GeqqePgl4tONfws1dr/DGrJKECWpgJg
- snHk878NdAxXiGX+caY3NDkByz/QMBW639w5Sysr5qM8SBc9ZkH8T7zt
-X-Gm-Gg: AfdE7cnGL1wwnDBsrJOj1SSvYAeKcq6FerpRfn3CfNl30sdi/Ukgzv0pxS4ALyduQ5p
- 9Ot+2w7dXazlOx55JAIdrECbRd0zI9X3Os9BQ/BGojaSBtowHO7VlnVNzJBoJdzQfm3hONmHbGC
- 6gyQl7r1El3uDPUHHHYBiT9eXpJjdlHkmqruu8I7HmLCFvFDovr0iZ6JFOgt8JOfgNoTn+AxrVe
- RDn8qnxIZjRstd7DuFwDVdo8y1oXGv0Y99yzdb3LITrpWjHF2e+xMuKK6g6TTOEFT0XzY0KN6jN
- zNaNdmSE1SEkqvQq4kNi1P346iYtgN58YRfSlqmKasclRFpdaTiUnUOwPTsr5FHojZqoYw/b/8y
- kk9fBAgX9AJLCTl0Tp5WV1pqJ3cVjomQ5dNUGlEIeURNdTS9YdOBMCLGAVDNQquBXiroTSvANvd
- Eq0TaIi1B3krcQkcdstWoX0nw2U82+IFx9SOe+KFcQCUmALdiH0FXDts+dCPxR2Rv9Tw==
-X-Received: by 2002:a05:600c:4f8f:b0:492:432b:d78b with SMTP id
- 5b1f17b1804b1-492668710e2mr151774915e9.15.1782543306582; 
- Fri, 26 Jun 2026 23:55:06 -0700 (PDT)
-Received: from jernej-laptop.localnet ([188.159.248.16])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4927038578bsm69037185e9.4.2026.06.26.23.55.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Jun 2026 23:55:06 -0700 (PDT)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Samuel Holland <samuel@sholland.org>, Diogo Silva <diogompaissilva@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- Diogo Silva <diogompaissilva@gmail.com>
-Subject: Re: [PATCH] drm/sun4i: Remove dependency on DRM simple helpers
-Date: Sat, 27 Jun 2026 08:55:04 +0200
-Message-ID: <PMdb9FVETQuPUnyh12NM2Q@gmail.com>
-In-Reply-To: <20260623-sun4i_simple-v1-1-fa6696df1fad@gmail.com>
-References: <20260623-sun4i_simple-v1-1-fa6696df1fad@gmail.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56E3810E2D6
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 09:28:49 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 316DC43DE6;
+ Sat, 27 Jun 2026 09:28:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D2A31C2BCFB;
+ Sat, 27 Jun 2026 09:28:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
+ t=1782552528; bh=f19XCtBPrdV1fkgcubKrKRKRYVaBwil44TIB/tWiXTo=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=E6KXIxufvzmDwhJ3B+qiurzKVVe6gkc0mi1RSeDIve4uqyGAhBXlWxMSaP2/tFVEc
+ lZSXf9rE2OLS/2JLFHnZY93ytItEFkZOdg2wM+bD/wvEMgDFwZjBqJhy4FrT9Rv0bG
+ Vu4KHqR3L4CqRw1V1W2VT2uYBjpfNRaVmOaUX7eA=
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id C13D9C43458;
+ Sat, 27 Jun 2026 09:28:47 +0000 (UTC)
+From: Alvin Sun <alvin.sun@linux.dev>
+Date: Sat, 27 Jun 2026 17:28:41 +0800
+Subject: [PATCH v7 03/10] rust: doctest: add LocalModule fallback for
+ #[vtable] ThisModule
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260627-fix-fops-owner-v7-3-33cd3990edf0@linux.dev>
+References: <20260627-fix-fops-owner-v7-0-33cd3990edf0@linux.dev>
+In-Reply-To: <20260627-fix-fops-owner-v7-0-33cd3990edf0@linux.dev>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>, 
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+ Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>, 
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
+ Igor Korotin <igor.korotin@linux.dev>, 
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+ Carlos Llamas <cmllamas@google.com>
+Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org, 
+ kunit-dev@googlegroups.com, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782552525; l=1329;
+ i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
+ bh=f19XCtBPrdV1fkgcubKrKRKRYVaBwil44TIB/tWiXTo=;
+ b=2U+otmBxVn+NwBtMKrH7zr8lFtkmR40aSlcB22On3uei9QlGjxLiHwGSOBAfq3pZuQE9n/nj7
+ E01ggwbXEhzAkaUDs3DyRlmc5kwwz2NyZ9XEH7g72CA8YT/eMIR1sNt
+X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
+ auth_id=684
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,20 +94,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Dne torek, 23. junij 2026 ob 22:34:40 Srednjeevropski poletni =C4=8Das je D=
-iogo Silva napisal(a):
-> Simple KMS helper are deprecated since they only add an intermediate
-> layer between drivers and the atomic modesetting.
-> This patch removes the dependency on drm simple helpers from sun4i
-> DRM drivers.
->=20
-> Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
+Add a `LocalModule` struct with a null-pointer `ModuleMetadata` impl
+in the doctest harness, so that `crate::LocalModule` (auto-inserted
+by `#[vtable]`) resolves correctly when there is no `module!` macro.
 
-This doesn't look as useful change. Is this tree-wide attempt? If so, it
-should be done in one go in one patch series, coordinated with DRM
-maintainers.
+Assisted-by: opencode:glm-5.2
+Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Acked-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+---
+ scripts/rustdoc_test_gen.rs | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-Best regards,
-Jernej
+diff --git a/scripts/rustdoc_test_gen.rs b/scripts/rustdoc_test_gen.rs
+index ee76e96b41eea..198af4e446c8c 100644
+--- a/scripts/rustdoc_test_gen.rs
++++ b/scripts/rustdoc_test_gen.rs
+@@ -239,6 +239,22 @@ macro_rules! assert_eq {{
+ 
+ const __LOG_PREFIX: &[u8] = b"rust_doctests_kernel\0";
+ 
++/// Dummy module type for doctest context.
++struct LocalModule;
++
++use kernel::{{
++    str::CStr,
++    ModuleMetadata,
++    ThisModule, //
++}};
++use core::ptr::null_mut;
++
++impl ModuleMetadata for LocalModule {{
++    const NAME: &'static CStr = c"rust_doctests_kernel";
++    // SAFETY: `try_module_get`/`module_put` handle null module pointers gracefully.
++    const THIS_MODULE: ThisModule = unsafe {{ ThisModule::from_ptr(null_mut()) }};
++}}
++
+ {rust_tests}
+ "#
+     )
+
+-- 
+2.43.0
 
 
