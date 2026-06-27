@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AC0FC43211
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:31:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A91CC43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:31:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4477B10E428;
-	Sat, 27 Jun 2026 03:31:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A4A210E42A;
+	Sat, 27 Jun 2026 03:31:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ppq/X1ip";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="etS9hEFo";
 	dkim-atps=neutral
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EA3010E41B
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:31:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 400C710E429
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:31:30 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 0DB364E409E5;
- Sat, 27 Jun 2026 03:31:10 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 0DEE24E409ED;
+ Sat, 27 Jun 2026 03:31:29 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id D441760233;
- Sat, 27 Jun 2026 03:31:09 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id D536F60233;
+ Sat, 27 Jun 2026 03:31:28 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 3EEAA106F1173; 
- Sat, 27 Jun 2026 05:31:06 +0200 (CEST)
+ with ESMTPSA id 8D491106F1167; 
+ Sat, 27 Jun 2026 05:31:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1782531068; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1782531087; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=GjZ3Li0hgSFG+5Kg7ETwAe+lLOQj73cG0WZcoLSfcXY=;
- b=ppq/X1ipGF3iKp+kGv0c25M1V/c1Sq4H91lMH/v1vcf1LWaFhRDClGReSMeDWuoXsQZ0Es
- ZMVYL+DDVMKy6zjDBU/h5AEJu1EcTszNL/huFGqaakA2w7gAyayJKE+KgB7nNr+DXcVw5J
- 5UI8eviOQhStoDTxg3xdBgqvjhw/vPyzExOX4tGjWkmDnELlRckS6Oe9DfssC0/V7vF5Mj
- YrN/WOdR+jC2t1WULAZWlauNFDnoMtbalWzMMgLOboWuaeHKWkbh9mN8p2TzCqKVqgwpxm
- lWDYj+ebTG00EPW8UqhmX1J9rheqxZirNPhfeBjtImgVsnWB0u2ViZYS9wb2fw==
+ bh=cW7Vp+Ww0BHKeSJTjS4TB9rMtbkv5BfsUgPd2jn2qL4=;
+ b=etS9hEFo8FXg8crsFqFPG5PHd2LHyzwxfAEuX+xDrIJlTwkrtJ42bKNk1OKPHF+bp52j6s
+ SGEHufuYaNrmJVBYM7fk35RrMZD7OU9vyiqqWbTeEDOY4hmsZAB5QJzB3RQ6ZwXVFnCSlf
+ pfz0eC63UDmiv2Ai0/YqJ4EbcGHqRhdp5vpSvh97oXc/3MeJYVhqBIFhcuDB8yLRmQgIO0
+ AG9UUHSq7pNRQurkOVbTSizVqfvcBkNtrzaTFn71mylkK8ndFVrSz4UoLB5br26BGCmS/w
+ BTCZYUgGJgHvA/XkZZgVH9iwX1Qir4nqwo6QA3SPLbiTxHP3pGZ+oHPjD6r68g==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Sat, 27 Jun 2026 05:30:25 +0200
-Subject: [PATCH v5 08/38] drm/vkms: Add error handling in plane config creation
+Date: Sat, 27 Jun 2026 05:30:33 +0200
+Subject: [PATCH v5 16/38] drm/vkms: Use DRM_ROTATION_FMT macros for
+ rotation display
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260627-vkms-all-config-v5-8-854aa0840926@bootlin.com>
+Message-Id: <20260627-vkms-all-config-v5-16-854aa0840926@bootlin.com>
 References: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
 In-Reply-To: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -58,21 +59,21 @@ Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  Louis Chauvet <louis.chauvet@bootlin.com>, llvm@lists.linux.dev
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1362;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1294;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=LLCs59HPPrtC3R4f8VpEHvL6MwP8Mnd84ez61GoVGBU=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBqP0PdDKSWdqTqaUvS8fdk/TcviTi37rTfMk3s/
- WyzHb6bB+iJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCaj9D3RsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOKTdhAAgHCx9KfVwso11uvcNybor36VUrIRrmh
- MEH5sxALaswhF5Qjh6L1bPiajNiK1ljYf9HhKQ+kOoTAwi5ONB169d/yu2dzYOdeC52pUSkhU2V
- z4Hd70Wq9afnJvKflDK61m1CYa+warWiGgwsahNz5XDP0eOa/T7/kJFF7bbQbaqoPaNw7QNEY9s
- XTGaV71GO4oUc4VzYkwf9jZXUsdVoexIN370cxQVvDEh79FEasAy0K9TgwPgit8D2BW8Pd/OKSL
- 4HKcz3EHdTFNpGb5DugX4W/j6HsN/fjo7Q8zc1BM2AxSJySwAwuobPLHwMNNJfZFfjzArdBREaU
- KpUhZfxrkPVn3mq5cn2+mob/SpZTqjhmcVfNiSxnR8TuZC75TJ2Hr63nQYIB3P6NA7HivdVMd7O
- acpCE8B0ArWd2FhLrYXUtT2lf3GFEf0hb65bq04A+NNuuVrV4ygCMEnG53HMDu2FaGpIzkxWUD6
- /dBMXgr3UnEAfqeAHnKp1ldRmUM9cPtOaXHcFGWfECVAX4pCgeAJGuY25AXYH7MWqRhMjdS9ZOB
- 6fLmPgvnfmwxZfBb9PFDP8XR3dloGC+0N6RkdcUtr7vUC8YQ7YtrlSv3OJ8BAUD07X5TlZnSRhp
- 0tWVaAjmc7xEIfJJiMjjmq2PQNjt3u/HDJbhfgxzwuit9Sq0SZU0=
+ bh=mRSqoUGmy2p732uiUceNdBnrTLFMu66qquxwXRZoWz0=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBqP0Pea+CRmukZQmcQ579p36VF8zMX6xh0xQoML
+ vWGaM9sWGuJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCaj9D3hsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOI4jw/8Ccevri0r8ORDusswYP69rhtCM5CPILO
+ N/72cm0g319PruVZOoTj/1NiRlE7c/4nIKqtJLN4mFFB8I3VNvVglR0agy5U4N+77Z0qTbiJchO
+ nNXmQtTGbIC9uAXiEnGshf6DtnimHaZcVyRo5sTMVpt7EioXg+h57nNS3uMG/MMSUFEqkJBW0r1
+ cqZFmm/qCRY25TBdR3D+HHogxA3NKUqt+OAsrXmX8aTsXPOJCwMV88HNJrL92iIwznha4D+T5vZ
+ WAQMfYQecIrmacsPFhBkitUlwJIF+xGLWtrbRE8b8MSn7RL/9FoKqiuUrmME3IJljJVeRDA3jRL
+ QYKw68nyHXzIohljol3xkW0f8SY8sk6vtcVxcniShPB91lvO9/0noiLDAqhPy4FhYB1dzKXBjVw
+ eS8BDEEBeJ+2MZ4ARoZ3aD90qhq9ScevwUdJyEgU9V49sCtxNwWy5l4QOJzTkry06ebr3kC2sAy
+ PxIcYFeWd/M+XSU2jHuF/q0zo88M+vNY9PAnUWkVkukRjH2EWxk6Sx78VfZyqxbn4rjoC/U0pgR
+ RDM6qQEdGrytpla1fEOfearZc8opA5NfQwsfcFtnPM0LNxiVQPQvr0WkSGuI1y3fESuCHCsQLog
+ wn9U8pPQrzxR9hrfvtijY7cJfCxK5izPG2Sqdb+JZCIHhNPjKZYg=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -91,48 +92,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For future patches, it is useful to properly handle errors in
-vkms_config_create_plane.
+Replace show_bitfield calls for rotation/reflection with the new
+DRM_ROTATION_FMT / DRM_ROTATION_FMT_ARGS macros for cleaner code.
 
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/vkms/vkms_config.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/vkms/vkms_config.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/drivers/gpu/drm/vkms/vkms_config.c b/drivers/gpu/drm/vkms/vkms_config.c
-index 5a654d6dead8..1fd2ed1167c5 100644
+index 5c86eb24fedf..ca3ee3aa2c41 100644
 --- a/drivers/gpu/drm/vkms/vkms_config.c
 +++ b/drivers/gpu/drm/vkms/vkms_config.c
-@@ -384,13 +384,16 @@ void vkms_config_register_debugfs(struct vkms_device *vkms_device)
- 			      ARRAY_SIZE(vkms_config_debugfs_list));
- }
+@@ -3,6 +3,7 @@
+ #include <linux/slab.h>
+ #include <linux/string_choices.h>
  
--struct vkms_config_plane *vkms_config_create_plane(struct vkms_config *config)
-+struct vkms_config_plane __must_check *vkms_config_create_plane(struct vkms_config *config)
- {
- 	struct vkms_config_plane *plane_cfg;
-+	int ret;
++#include <drm/drm_blend.h>
+ #include <drm/drm_connector.h>
+ #include <drm/drm_mode.h>
+ #include <drm/drm_print.h>
+@@ -393,6 +394,10 @@ static int vkms_config_show(struct seq_file *m, void *data)
+ 		seq_printf(m, "\tname=%s\n",
+ 			   vkms_config_plane_get_name(plane_cfg) ?
+ 			   vkms_config_plane_get_name(plane_cfg) : "(null)");
++		seq_printf(m, "\tsupported rotations=" DRM_ROTATION_FMT "\n",
++			   DRM_ROTATION_FMT_ARGS(vkms_config_plane_get_supported_rotations(plane_cfg)));
++		seq_printf(m, "\tdefault rotation=" DRM_ROTATION_FMT "\n",
++			   DRM_ROTATION_FMT_ARGS(vkms_config_plane_get_default_rotation(plane_cfg)));
+ 	}
  
- 	plane_cfg = kzalloc_obj(*plane_cfg);
--	if (!plane_cfg)
--		return ERR_PTR(-ENOMEM);
-+	if (!plane_cfg) {
-+		ret = -ENOMEM;
-+		goto fail;
-+	}
- 
- 	plane_cfg->config = config;
- 	plane_cfg->default_pipeline = false;
-@@ -400,6 +403,9 @@ struct vkms_config_plane *vkms_config_create_plane(struct vkms_config *config)
- 	list_add_tail(&plane_cfg->link, &config->planes);
- 
- 	return plane_cfg;
-+
-+fail:
-+	return ERR_PTR(ret);
- }
- EXPORT_SYMBOL_IF_KUNIT(vkms_config_create_plane);
- 
+ 	vkms_config_for_each_crtc(vkmsdev->config, crtc_cfg) {
 
 -- 
 2.54.0
