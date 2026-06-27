@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CE75C43211
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB57EC43602
 	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 13:42:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7663E10E4E2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F53C10E4E5;
 	Sat, 27 Jun 2026 13:42:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VK0EQZxI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="emmumZBY";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67EA110E4DB
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1159110E4DC
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 50C7A44078
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5771F000E9;
- Sat, 27 Jun 2026 13:42:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F014B43BE1
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B06C61F00ADB;
+ Sat, 27 Jun 2026 13:42:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782567754;
- bh=LAGsV7Z2YPkYpZlnTLDUsTWHmQJEajK0cdxBLsA023o=;
+ s=k20260515; t=1782567750;
+ bh=bIyOaV36vGLGAzdaaCwad8lEbbKerxhZWEAFhGA7rzs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VK0EQZxIweyVQ281IXIUzHiFo8rkgbhCDH8sl7lBb6jmqUjo0zMzrnvugq99Q/wqP
- vMR9tar3XsQcISnoIUWTENqykv1DZTXXBrc8qr4x6d6glnYnRMN4iaO4U2HLY3N1X+
- ZzT2tpEoBkybx7NJ0vMuX85n8xXG+V1PRQP4STU17sVCaG9cc1JT+d366s4H2USw5A
- 1tRUix24bbK+LLGBNRtiyy0+CsYmu1s4Hc/wRE/WFQrDhfQV5i1weLPWBh38FMQ7t9
- AQGNOsAinR1S9OVGe7kLD7WVsZGurAHIJRh2Wb4QHV3UwMHgxCiGKwFEm7qeAIpV0n
- k8f4uiPxC9RXg==
+ b=emmumZBYt1eRPNk1DuWRudwffD2qEGwJ2CNcvmkm5J9P95qJPa7DkJVAV2YDjbk+c
+ zULybbHWR1R4lF+uMmX6TouZhPoIeaeNDSXuPhAgkfOF0vO6Iu5aLzLnoE8pxiH3jJ
+ ov+bfSJ8gghDpeQe+al1IATkT4qdXJZco+MP+hn3uxrOk+2VnoB7d9qBF+uEKKCX5+
+ OZSexDAulSzHDd0LlXKMjhrKi4ZiofQ1ImgCAkTlPI7xlZaOiXW7t7w+3Usv+1wCGF
+ 9tFL/4LAuDbA6T0kAdl1ch1XeFSG+3ww/UqW0uJlJufcMSICPg/AAzmm6JZLrr/jbM
+ XrH1k/dOQRFiQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 12/14] wifi: ath12k: Switch to generic PAS TZ APIs
+Subject: Re: [PATCH v8 07/14] remoteproc: qcom: Select QCOM_PAS generic service
 To: "Sumit Garg" <sumit.garg@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260626133440.692849-13-sumit.garg@kernel.org>
+In-Reply-To: <20260626133440.692849-8-sumit.garg@kernel.org>
 References: <20260626133440.692849-1-sumit.garg@kernel.org>
- <20260626133440.692849-13-sumit.garg@kernel.org>
+ <20260626133440.692849-8-sumit.garg@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 27 Jun 2026 13:42:33 +0000
-Message-Id: <20260627134234.0D5771F000E9@smtp.kernel.org>
+Date: Sat, 27 Jun 2026 13:42:30 +0000
+Message-Id: <20260627134230.B06C61F00ADB@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,120 +57,150 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Missing `qcom_pas_shutdown()` on error and timeout paths in `ath12=
-k_ahb_power_up()` and `ath12k_ahb_power_down()`.
-- [High] Missing `reinit_completion()` for UserPD completions before reuse.
+- [High] Heap buffer overflow (OOB write) and undefined behavior in qcom_pa=
+s_tee_get_rsc_table due to missing size bounds and NULL validation.
+- [High] Out-of-bounds read in qcom_pas_tee_get_rsc_table during kmemdup.
+- [High] State corruption due to unconditional unregistration of PAS ops.
 --
 
-commit 64d57b3ec944d7af7a51a4d0a20ee4f202c079f4
+commit b487f397efddfdc143f4e42a9e7644cc3aeb39da
 Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-wifi: ath12k: Switch to generic PAS TZ APIs
+remoteproc: qcom: Select QCOM_PAS generic service
 
-Switch ath12k client driver over to generic PAS TZ APIs. Generic PAS TZ
-service allows to support multiple TZ implementation backends like QTEE
-based SCM PAS service, OP-TEE based PAS service and any further future TZ
-backend service.
+Select PAS generic service driver to enable support for multiple PAS
+backends like OP-TEE in addition to SCM.
 
-> diff --git a/drivers/net/wireless/ath/ath12k/ahb.c b/drivers/net/wireless=
-/ath/ath12k/ahb.c
-> index 30733a244454e..d9717ea999d72 100644
-> --- a/drivers/net/wireless/ath/ath12k/ahb.c
-> +++ b/drivers/net/wireless/ath/ath12k/ahb.c
-> @@ -420,7 +420,7 @@ static int ath12k_ahb_power_up(struct ath12k_base *ab)
-> =20
->  	if (ab_ahb->scm_auth_enabled) {
->  		/* Authenticate FW image using peripheral ID */
-> -		ret =3D qcom_scm_pas_auth_and_reset(pasid);
-> +		ret =3D qcom_pas_auth_and_reset(pasid);
->  		if (ret) {
->  			ath12k_err(ab, "failed to boot the remote processor %d\n", ret);
->  			goto err_fw2;
->  		}
->  	}
->=20
->  	/* Instruct Q6 to spawn userPD thread */
->  	ret =3D qcom_smem_state_update_bits(ab_ahb->spawn_state, BIT(ab_ahb->sp=
-awn_bit),
->  					  BIT(ab_ahb->spawn_bit));
->  	if (ret) {
->  		ath12k_err(ab, "Failed to update spawn state %d\n", ret);
->  		goto err_fw2;
->  	}
->=20
->  	time_left =3D wait_for_completion_timeout(&ab_ahb->userpd_spawned,
->  						ATH12K_USERPD_SPAWN_TIMEOUT);
-
-[Severity: High]
-This is a pre-existing issue, but does this wait_for_completion_timeout()
-need a matching reinit_completion() before it?
-
-If a previous wait timed out but the interrupt fired late, the completion
-might contain a stale done count. Would the next attempt to power up
-incorrectly return immediately, allowing the driver to proceed before the
-firmware is actually ready?
-
->  	if (!time_left) {
->  		ath12k_err(ab, "UserPD spawn wait timed out\n");
->  		ret =3D -ETIMEDOUT;
->  		goto err_fw2;
-
-[Severity: High]
-This is also a pre-existing issue, but if the wait times out, this path
-jumps to err_fw2.
-
-Does jumping to err_fw2 without calling qcom_pas_shutdown() leak the PAS
-resources? If the TrustZone state machine is left in an active state, will
-it permanently reject subsequent authentication attempts until a reboot?
+> diff --git a/drivers/firmware/qcom/qcom_pas.c b/drivers/firmware/qcom/qco=
+m_pas.c
+> new file mode 100644
+> index 0000000000000..bc6c42f2b3c61
+> --- /dev/null
+> +++ b/drivers/firmware/qcom/qcom_pas.c
 
 [ ... ]
 
-> @@ -485,10 +485,10 @@ static void ath12k_ahb_power_down(struct ath12k_bas=
-e *ab, bool is_suspend)
->  	unsigned long time_left;
->  	u32 pasid;
->  	int ret;
->=20
->  	qcom_smem_state_update_bits(ab_ahb->stop_state, BIT(ab_ahb->stop_bit),
->  				    BIT(ab_ahb->stop_bit));
->=20
->  	time_left =3D wait_for_completion_timeout(&ab_ahb->userpd_stopped,
->  						ATH12K_USERPD_STOP_TIMEOUT);
->  	if (!time_left) {
->  		ath12k_err(ab, "UserPD stop wait timed out\n");
->  		return;
+> +void qcom_pas_ops_register(struct qcom_pas_ops *ops)
+> +{
+> +	if (!qcom_pas_is_available())
+> +		/* Paired with smp_load_acquire() in qcom_pas_is_available() */
+> +		smp_store_release(&ops_ptr, ops);
+> +	else
+> +		pr_err("qcom_pas: ops already registered by %s\n",
+> +		       ops_ptr->drv_name);
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_ops_register);
+> +
+> +void qcom_pas_ops_unregister(void)
+> +{
+> +	/* Paired with smp_load_acquire() in qcom_pas_is_available() */
+> +	smp_store_release(&ops_ptr, NULL);
 
 [Severity: High]
-This is a pre-existing issue, but if the stop wait times out, the function
-returns early without clearing the stop smem state bit or calling
-qcom_pas_shutdown().
+Can this lead to state corruption if a second backend driver fails to regis=
+ter
+but subsequently unregisters?
 
-Can this cause the PAS memory and remote processor resources to leak and
-break the TrustZone state machine on subsequent power ups?
+Since qcom_pas_ops_register() returns void instead of an error code, if a
+second PAS backend (e.g., TEE) probes after the first (e.g., SCM) has
+registered, its probe succeeds without owning the registration.
 
->  	}
->=20
->  	qcom_smem_state_update_bits(ab_ahb->stop_state, BIT(ab_ahb->stop_bit), =
-0);
->=20
->  	if (ab_ahb->scm_auth_enabled) {
->  		pasid =3D (u32_encode_bits(ab_ahb->userpd_id, ATH12K_USERPD_ID_MASK)) |
->  			 ATH12K_AHB_UPD_SWID;
->  		/* Release the firmware */
-> -		ret =3D qcom_scm_pas_shutdown(pasid);
-> +		ret =3D qcom_pas_shutdown(pasid);
->  		if (ret)
-> -			ath12k_err(ab, "scm pas shutdown failed for userPD%d\n",
-> -				   ab_ahb->userpd_id);
-> +			ath12k_err(ab, "pas shutdown failed for userPD%d: %d\n",
-> +				   ab_ahb->userpd_id, ret);
->  	}
->  }
+If the second backend is later removed, its remove callback will invoke
+qcom_pas_ops_unregister() and unconditionally clear the legitimately regist=
+ered
+ops_ptr. Could this cause a denial of service for remoteproc subsystems
+since subsequent PAS operations would fail with -ENODEV?
+
+> +}
+> +EXPORT_SYMBOL_GPL(qcom_pas_ops_unregister);
+
+[ ... ]
+
+> diff --git a/drivers/firmware/qcom/qcom_pas_tee.c b/drivers/firmware/qcom=
+/qcom_pas_tee.c
+> new file mode 100644
+> index 0000000000000..a2ba3af05a502
+> --- /dev/null
+> +++ b/drivers/firmware/qcom/qcom_pas_tee.c
+
+[ ... ]
+
+> +static void *qcom_pas_tee_get_rsc_table(struct device *dev,
+> +					struct qcom_pas_context *ctx,
+> +					void *input_rt, size_t input_rt_size,
+> +					size_t *output_rt_size)
+> +{
+
+[ ... ]
+
+> +	if (param[1].u.memref.size) {
+> +		struct tee_shm *rt_shm __free(shm_free) =3D
+> +			tee_shm_alloc_kernel_buf(data->ctx,
+> +						 param[1].u.memref.size);
+> +		void *rt_shm_va;
+> +
+> +		if (IS_ERR_OR_NULL(rt_shm)) {
+> +			dev_err(dev, "rt_shm allocation failed\n");
+> +			rt_shm =3D NULL;
+> +			return ERR_PTR(-ENOMEM);
+> +		}
+> +
+> +		rt_shm_va =3D tee_shm_get_va(rt_shm, 0);
+> +		if (IS_ERR(rt_shm_va)) {
+> +			dev_err(dev, "rt_shm get VA failed\n");
+> +			return ERR_CAST(rt_shm_va);
+> +		}
+> +		memcpy(rt_shm_va, input_rt, input_rt_size);
+
+[Severity: High]
+Is there a missing bounds check and NULL check here?
+
+The TEE Trusted Application returns an expected buffer size in
+param[1].u.memref.size, which is used to allocate the rt_shm buffer. Howeve=
+r,
+this memcpy unconditionally copies input_rt_size bytes.
+
+If a compromised or malfunctioning TA returns a size smaller than
+input_rt_size, could this result in a heap buffer overflow?
+
+Additionally, if input_rt is NULL and input_rt_size is 0 (which is document=
+ed
+for firmwares without an embedded resource table), wouldn't this result in
+undefined behavior by passing a NULL pointer to memcpy?
+
+> +
+> +		param[1].u.memref.shm =3D rt_shm;
+> +		ret =3D tee_client_invoke_func(data->ctx, &inv_arg, param);
+> +		if (ret < 0 || inv_arg.ret !=3D 0) {
+> +			dev_err(dev, "PAS get RT failed, pas_id: %d, ret: %d, err: 0x%x\n",
+> +				ctx->pas_id, ret, inv_arg.ret);
+> +			return ret ? ERR_PTR(ret) : ERR_PTR(-EINVAL);
+> +		}
+> +
+> +		if (param[1].u.memref.size) {
+> +			*output_rt_size =3D param[1].u.memref.size;
+> +			rt_buf =3D kmemdup(rt_shm_va, *output_rt_size, GFP_KERNEL);
+
+[Severity: High]
+Could this kmemdup read out of bounds?
+
+After the second TEE invocation, the TA can modify param[1].u.memref.size,
+which is blindly assigned to *output_rt_size and used in kmemdup.
+
+If the TA increases the size beyond the initially allocated rt_shm buffer s=
+ize,
+wouldn't kmemdup read past the end of the buffer?
+
+> +			if (!rt_buf)
+> +				return ERR_PTR(-ENOMEM);
+> +		}
+> +	}
+> +
+> +	return rt_buf;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626133440.6928=
-49-1-sumit.garg@kernel.org?part=3D12
+49-1-sumit.garg@kernel.org?part=3D7
