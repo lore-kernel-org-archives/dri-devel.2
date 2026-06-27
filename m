@@ -4,74 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29A73C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 13:11:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F334C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 13:42:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18C3310E4D6;
-	Sat, 27 Jun 2026 13:11:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C634B10E17E;
+	Sat, 27 Jun 2026 13:42:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="I88UiKZ+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oiy3gjgr";
 	dkim-atps=neutral
-Received: from out-183.mta0.migadu.com (out-183.mta0.migadu.com
- [91.218.175.183])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 778E910E4D6
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:11:12 +0000 (UTC)
-Message-ID: <b35c76ac-030a-4458-b85b-90ef7bcd3894@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1782565869;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=kTfmCVZgLsQAYxOGmqgi+d9SGTwihp06nkzRCBL0e+M=;
- b=I88UiKZ+5NSVSOCF6J4gIIRkkZToigFcGN3SeLfMhryeUfJLFw4kvfe+NuwObJ0Mm2vtFf
- tpQ1eQi/oIHPtsZgpegcnpq7MyzNRpWpRQ5M3ApzXTndtytC16U3Rb06RVXWdNorU7alQy
- 0BGxL8bMeCgEkMhwf/yUBhSRJmUrCN4=
-Date: Sat, 27 Jun 2026 21:10:43 +0800
-MIME-Version: 1.0
-Subject: Re: [PATCH v6 07/10] rust: configfs: use `LocalModule` for
- `THIS_MODULE`
-To: Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann
- <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>,
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>,
- Igor Korotin <igor.korotin@linux.dev>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- =?UTF-8?Q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>,
- Carlos Llamas <cmllamas@google.com>
-Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
- nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev>
- <20260624-fix-fops-owner-v6-7-5295e333cb3e@linux.dev>
- <DJI7IOXAD84M.2F6VSBY64BO62@garyguo.net>
- <34a009d9-a1f3-4347-9e92-866ec05ddb60@linux.dev>
- <DJJ25JJ3TDO9.1UFOP60U0IPX5@garyguo.net>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Alvin Sun <alvin.sun@linux.dev>
-In-Reply-To: <DJJ25JJ3TDO9.1UFOP60U0IPX5@garyguo.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8C5510E17E
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C2BD843BE1
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:42:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735EF1F000E9;
+ Sat, 27 Jun 2026 13:42:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782567746;
+ bh=kG5rcQLZLV6vNnp+cKsDOLPDFjLzZTxQfFFHYKDHt4o=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=oiy3gjgrvDXAl2Jsj9K4UubQVKSbyYp2AshOGoPWdi7RHVrbj3513XA9LK158bTnp
+ MzrYIyXaJtJZ9kdq06Fbqi0q4aF5JqJobLEn8YNhoLkJ048QC45E1V7jOlXrdNwUea
+ BhdpVMxEn/UFguMS5PTXtD/sUoEW9XncHriptauMJUrx0x02M15tA/899jAR2ujjYS
+ nT4Z6EYl4xDFIYSk5HRarSnBCtztIiuxyaujI0xu0zIHLUhN9WpwMOuFxjO2a2Gl2S
+ GN94Gsp0i+1rQt0URaC5HE+fDAuBxYSfTgPa3b7ZkUAIfR/edVe5VuaDJvPYMdezEt
+ r+rfHQED7EWKw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 11/14] net: ipa: Switch to generic PAS TZ APIs
+To: "Sumit Garg" <sumit.garg@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260626133440.692849-12-sumit.garg@kernel.org>
+References: <20260626133440.692849-1-sumit.garg@kernel.org>
+ <20260626133440.692849-12-sumit.garg@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 27 Jun 2026 13:42:26 +0000
+Message-Id: <20260627134226.735EF1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,103 +53,72 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Switching to the generic PAS API exposes the IPA driver to a Time-=
+of-Check to Time-of-Use (TOCTOU) race condition and Use-After-Free due to l=
+ockless access to the global `ops_ptr`.
+--
 
-On 6/26/26 22:41, Gary Guo wrote:
-> On Fri Jun 26, 2026 at 3:35 AM BST, Alvin Sun wrote:
->> On 6/25/26 22:40, Gary Guo wrote:
->>> On Wed Jun 24, 2026 at 4:00 PM BST, Alvin Sun wrote:
->>>> Replace the `THIS_MODULE` static reference in the `configfs_attrs!`
->>>> macro with `this_module::<LocalModule>()`, and update
->>>> rnull to import `LocalModule` instead of `THIS_MODULE`, consistent
->>>> with the move of `THIS_MODULE` into the `ModuleMetadata` trait.
->>>>
->>>> Assisted-by: opencode:glm-5.2
->>>> Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
->>>> Acked-by: Danilo Krummrich <dakr@kernel.org>
->>>> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
->>>> ---
->>>>    drivers/block/rnull/configfs.rs | 6 ++----
->>>>    rust/kernel/configfs.rs         | 8 +++++---
->>>>    2 files changed, 7 insertions(+), 7 deletions(-)
->>>>
->>>> diff --git a/drivers/block/rnull/configfs.rs b/drivers/block/rnull/configfs.rs
->>>> index c10a55fc58948..b2547ad1e5ddd 100644
->>>> --- a/drivers/block/rnull/configfs.rs
->>>> +++ b/drivers/block/rnull/configfs.rs
->>>> @@ -1,9 +1,7 @@
->>>>    // SPDX-License-Identifier: GPL-2.0
->>>>    
->>>> -use super::{
->>>> -    NullBlkDevice,
->>>> -    THIS_MODULE, //
->>>> -};
->>>> +use super::NullBlkDevice;
->>>> +use crate::LocalModule;
->>>>    use kernel::{
->>>>        block::mq::gen_disk::{
->>>>            GenDisk,
->>>> diff --git a/rust/kernel/configfs.rs b/rust/kernel/configfs.rs
->>>> index 2339c6467325d..c31d7882e216d 100644
->>>> --- a/rust/kernel/configfs.rs
->>>> +++ b/rust/kernel/configfs.rs
->>>> @@ -875,7 +875,7 @@ fn as_ptr(&self) -> *const bindings::config_item_type {
->>>>    ///                 configfs::Subsystem<Configuration>,
->>>>    ///                 Configuration
->>>>    ///                 >::new_with_child_ctor::<N,Child>(
->>>> -///             &THIS_MODULE,
->>>> +///             ::kernel::module::this_module::<crate::LocalModule>(),
->>>>    ///             &CONFIGURATION_ATTRS
->>>>    ///         );
->>>>    ///
->>>> @@ -1021,7 +1021,8 @@ macro_rules! configfs_attrs {
->>>>    
->>>>                        static [< $data:upper _TPE >] : $crate::configfs::ItemType<$container, $data>  =
->>>>                            $crate::configfs::ItemType::<$container, $data>::new::<N>(
->>>> -                            &THIS_MODULE, &[<$ data:upper _ATTRS >]
->>>> +                            $crate::module::this_module::<LocalModule>(),
->>> ^ You only changed one single place. This is still plain `LocalModule`.
->> Initially I wrote it as `crate::LocalModule`, but clippy warned about it. So
->> instead of putting the crate path in the macro body, I added `use
->> crate::LocalModule` in the calling file.
->>
->> ```
->> warning: `crate` references the macro call's crate
->>       --> rust/kernel/configfs.rs:1024:59
->>        |
->> 1024 | ...  $crate::module::this_module::<crate::LocalModule>(),
->>        |                                                     ^^^^^ help:
->> to reference the macro definition's crate, use: `$crate`
->>        |
->>        = help: for further information visit
->> https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#crate_in_macro_def
->>        = note: `-W clippy::crate-in-macro-def` implied by `-W clippy::all`
->>        = help: to override `-W clippy::all` add
->> `#[allow(clippy::crate_in_macro_def)]`
->>
->> warning: 1 warning emitted
->> ```
-> Clippy has a point about `crate::` being usually wrong in macros, but it is what
-> we actually want here, so obviously you should allow the warning.
->
-> It is the exact same case in `vtable` macro, just that Clippy is unable to check
-> proc macros!
+commit dccc0e82eb171fead953bff95c97cce60f8a1717
+Author: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-Thanks for the detailed explanation.
+net: ipa: Switch to generic PAS TZ APIs
 
-I specifically searched for issues related to `crate_in_macro_def`, and 
-this information is very useful to me.
+This commit switches the ipa client driver to use the generic PAS TZ APIs
+instead of the scm-specific implementation. This allows supporting multiple
+TZ implementation backends.
 
-Best regards,
+> diff --git a/drivers/net/ipa/ipa_main.c b/drivers/net/ipa/ipa_main.c
+> index 788dd99af2a4d..3cd9e44680e9f 100644
+> --- a/drivers/net/ipa/ipa_main.c
+> +++ b/drivers/net/ipa/ipa_main.c
+[ ... ]
+> @@ -624,10 +624,13 @@ static int ipa_firmware_load(struct device *dev)
+>  	}
+> =20
+>  	ret =3D qcom_mdt_load(dev, fw, path, IPA_PAS_ID, virt, phys, size, NULL=
+);
+> -	if (ret)
+> +	if (ret) {
+>  		dev_err(dev, "error %d loading \"%s\"\n", ret, path);
+> -	else if ((ret =3D qcom_scm_pas_auth_and_reset(IPA_PAS_ID)))
+> -		dev_err(dev, "error %d authenticating \"%s\"\n", ret, path);
+> +	} else {
+> +		ret =3D qcom_pas_auth_and_reset(IPA_PAS_ID);
 
-Alvin
+[Severity: High]
+Does switching to qcom_pas_auth_and_reset() expose the driver to a race
+condition if the PAS backend is unbound concurrently?
 
->
-> Best,
-> Gary
->
->> Alternatively, `#[allow(clippy::crate_in_macro_def)]` could be added on
->> the macro
->> definition. Would you suggest that approach?
+Looking at the underlying qcom_pas_auth_and_reset() implementation in
+drivers/firmware/qcom/qcom_pas.c, it performs a lockless check:
+
+    if (!ops_ptr)
+        return -ENODEV;
+
+    return ops_ptr->auth_and_reset(ops_ptr->dev, pas_id);
+
+If a privileged user unbinds the PAS backend or unloads its module after
+ops_ptr is checked but before it is dereferenced, ops_ptr could be set to
+NULL or the backend module memory could be freed.
+
+Since qcom_pas.c doesn't appear to use synchronization or module reference
+counting (like try_module_get()) to protect ops_ptr, could this result in
+a NULL pointer dereference or a use-after-free by executing freed module te=
+xt
+when the dereference occurs?
+
+> +		if (ret)
+> +			dev_err(dev, "error %d authenticating \"%s\"\n", ret, path);
+> +	}
+> =20
+>  	memunmap(virt);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626133440.6928=
+49-1-sumit.garg@kernel.org?part=3D11
