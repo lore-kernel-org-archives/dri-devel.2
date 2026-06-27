@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08A70C43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61364C43211
 	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:32:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53F5A10E437;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DAC310E438;
 	Sat, 27 Jun 2026 03:32:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="DVnmPbJM";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ScIxeFuO";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF7DD10E429
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:31:57 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22CD410E437
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:31:45 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 752DFC5CD7E;
- Sat, 27 Jun 2026 03:32:05 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id E31C94E409FC;
+ Sat, 27 Jun 2026 03:31:43 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 6511960233;
- Sat, 27 Jun 2026 03:31:56 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id AF55F60233;
+ Sat, 27 Jun 2026 03:31:43 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id EB11D106F1176; 
- Sat, 27 Jun 2026 05:31:52 +0200 (CEST)
+ with ESMTPSA id E7A35106F1165; 
+ Sat, 27 Jun 2026 05:31:39 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1782531114; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1782531102; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=fm4VTCHvUwbhUTtJjVM717r/jvKYGB7pUrXIdJAJQEc=;
- b=DVnmPbJMl1eqloG5aT0vc38eNPAlPvGSCnJSFuxf+YlOYp1zDvTuIewUgwGo5GmEMJ6P48
- vXCJKcjxXbibVO0qGgFN5OCzTyZozpwkaLfUbMopscJCLRRo46Q0/5io6D5t4VudlOWkF2
- lwmio7UMhDikjFDK9z3jqZmMPTIe9oXGaidjtSd1O7KEnDw9k4G99/bhfdkiYlJu2t4NPL
- xx3hIc8we0k7K1YE0OHkzIResDXtwKiztJcy175YofR57ngdW5YkuSBmN3eVTpHbmyBEY7
- r2SQ2yQgvu73H2aUIXJMgXXjAFadvGBwvaNlEwVQ2z/AJ8u+UDTIA5aYCcGSZQ==
+ bh=ejybZnAJF1y1GC4mxapDyQXQroQbtInYDQ/OXPSfOeU=;
+ b=ScIxeFuOpue0Biit57RIz1EE17sllQDuKYgSiJa1U4f+O0MaI6cPYAgYLwLLqbLvBw8lu/
+ jKTgXZQy4i8g92Pb9CX2lxXylVQuR2AcvQwIhR63XGQnPR5nRh4BS0m57ZT+oLtjLFSXsi
+ 8ZD/eJL5g5X5aimfv5ETCo8N8OwikX1UEp8uJHFOXqqgbGCX9ejJIMk/rRiU+f52M+mUY/
+ MhfNOfeEmYlEHp1/FhcR1Avj523IzRoqxYM+lvWo6FBflZt4ubj49el8kDihebMDsfjvdT
+ Ix8EIeBOd4zIA3OYulk26cDeEoaTDHfH6Q4HxSXasl6eyOQjuCJh5D7oTrzdJg==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Sat, 27 Jun 2026 05:30:44 +0200
-Subject: [PATCH v5 27/38] drm/vkms: Introduce config for connector type
+Date: Sat, 27 Jun 2026 05:30:39 +0200
+Subject: [PATCH v5 22/38] drm/vkms: Introduce config for plane format
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260627-vkms-all-config-v5-27-854aa0840926@bootlin.com>
+Message-Id: <20260627-vkms-all-config-v5-22-854aa0840926@bootlin.com>
 References: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
 In-Reply-To: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -58,21 +58,21 @@ Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  Louis Chauvet <louis.chauvet@bootlin.com>, llvm@lists.linux.dev
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6761;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10560;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=sE+tg/3T+5ynY9NqyyBl+Cr80Nn+61gq/OcDkTQN3Us=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBqP0PgKSp4VuD0cpcj5ypHSKJhgrcRNF3vvEWnd
- i/qcdLukB6JAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCaj9D4BsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOKZzg//YQFELjtKdqpFlWIAgPp4hHXG/cNTXjl
- 7tj4AhBoxndB8+5ecCECuAhKoX6OZnRXz1otyDn5Ow9ZMNQBJyXwOwLubp7FhrZPHiRHu4WvcP8
- j86/GRJ5g9fD69MlkU72TEjKJo2O9cW/kM6i+GmxCSp6pcfAkYtDSUpKnqGF5YpS7Kz/X9tczBS
- iN6pPOvCyCeT5NexWXzDNZBIgIYu3zn39qNXF/LNfF8d3ytEGOttbB4+axhN3aFiXiTfiIQwXUX
- zYOU9PV2FC9FbJsS4LY0A3lRD5GmA8YHyVVRyQdt/eeIRCDN3m4cb536egAXWrWmPF4cw2KKhiM
- fX+K4zgnLGdkx7wB6O0WHhspClDpo28tfdlXjIJkmUmYo9y4JzHtt7BQ84KZVRSJuhD0T8fSSKm
- 1j95Zyhxhmc3gNLa9/MMWPbbum9KhkIdQ6gFfFhLP5JuTSceNV5wJn9dX9YiEPH6hRu8DPkDf/9
- ju+UlZT5l21svxjg9qw3JCAbHpmdlBrPZ512Ka3kTLwmPT76d93s7L0TFEE8Z9gToNQz1rml1ek
- nrGSG7qF81iiwsvSdgSWb8Baaaejc1P0Mo4RfvFD9Dc6iXC4B1PdGswDopWrhmH9NxLQGjw/CsN
- nTb7CTvotF3RLmJ/cIddANRLJI+ejJP5e400jZfRHHJv4yyIFrMI=
+ bh=LKzzhjbixxXm0+lGyv+SESE0W4Ij2TVdWKWB3Vq5+VQ=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBqP0Pf0g+nIGAJFBUTYw80d4Uu8d79b2l6IJ+6t
+ WiTV8c/rLWJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCaj9D3xsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQIK0uxlsQLOKzBhAAtkbPuaz672WEmLVln3u9siQZGWg9OIz
+ JhP0lTxAdnjcLPDiatgF97DjVCKUryFbEA10gFdN4xqYEF38ULS3gzYkBeEQWfIM8pv6JhE++gV
+ EDDBojR81Wesz803yHQqZeZpEtzX8SWBIesMFpdkD3jiQjeMkg5w6B09dq6q626Kq/YRVfzuqXe
+ xheK7KpZU9NDvY7gnvEmN+5sxVQ/mdZGlMI0DJuus0JdNnLZPW1tdwvLo1etnQk5EG+vuMGJ3sh
+ X/86dZ94XFxhnfkR3pkwC2Dnoqyipsg5cYSRN15pBu4XdWrmTqENZu4/Hv5EbCtp+5gytYy+1Go
+ u3VYIAWLK8LKTCJ/3VLSXgnREyX9vfBjsKTG3FWISD+6XGF3ak+rrV4upQNlnnGUFGRxyyH81iH
+ oKsXzRX0kCju/iH9o1e43yOTRI+7Fb4129zAi2MLujBiaDDnp6pH+m+1uC7xfybNv9WglKenif3
+ vyq4OD+XC+X/AclpHUDeVmIikuuWepu2O7v5ZVHjoIWvXPmtapGcqQY2Ee7QkgWkKvs14Jt2OLq
+ G2ZC7gYc27HybnJW0bLkMaCyeXITKluBp6s9erP28DXJqCeni9NzRuy/sBhTH3buYGJT5ckYKL5
+ rQIYGNzgI6xywemqhSZE2Y/jbRwFQoJg8sKBmtHJk3bsfac1frgA=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -91,171 +91,324 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In order to emulate connector-specific behavior, add connector type
-configuration.
+VKMS driver supports all the pixel formats for planes, but for testing it
+can be useful to only advertise few of them. This new configuration
+interface will allow configuring the pixel format per planes.
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/vkms/tests/vkms_config_test.c |  5 +++++
- drivers/gpu/drm/vkms/vkms_config.c            |  3 +++
- drivers/gpu/drm/vkms/vkms_config.h            | 24 ++++++++++++++++++++++++
- drivers/gpu/drm/vkms/vkms_connector.c         |  5 +++--
- drivers/gpu/drm/vkms/vkms_connector.h         |  4 +++-
- drivers/gpu/drm/vkms/vkms_output.c            |  2 +-
- 6 files changed, 39 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/vkms/vkms_config.c | 128 +++++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/vkms/vkms_config.h |  51 +++++++++++++++
+ drivers/gpu/drm/vkms/vkms_plane.c  |  39 +----------
+ 3 files changed, 181 insertions(+), 37 deletions(-)
 
-diff --git a/drivers/gpu/drm/vkms/tests/vkms_config_test.c b/drivers/gpu/drm/vkms/tests/vkms_config_test.c
-index 4a5899b8ccfd..1900cc79db2b 100644
---- a/drivers/gpu/drm/vkms/tests/vkms_config_test.c
-+++ b/drivers/gpu/drm/vkms/tests/vkms_config_test.c
-@@ -137,6 +137,7 @@ static void vkms_config_test_default_config(struct kunit *test)
- 	struct vkms_config *config;
- 	struct vkms_config_plane *plane_cfg;
- 	struct vkms_config_crtc *crtc_cfg;
-+	struct vkms_config_connector *connector_cfg;
- 	int n_primaries = 0;
- 	int n_cursors = 0;
- 	int n_overlays = 0;
-@@ -211,6 +212,10 @@ static void vkms_config_test_default_config(struct kunit *test)
- 
- 	/* Connectors */
- 	KUNIT_EXPECT_EQ(test, vkms_config_get_num_connectors(config), 1);
-+	vkms_config_for_each_connector(config, connector_cfg) {
-+		KUNIT_EXPECT_EQ(test, vkms_config_connector_get_type(connector_cfg),
-+				DRM_MODE_CONNECTOR_VIRTUAL);
-+	}
- 
- 	KUNIT_EXPECT_TRUE(test, vkms_config_is_valid(config));
- 
 diff --git a/drivers/gpu/drm/vkms/vkms_config.c b/drivers/gpu/drm/vkms/vkms_config.c
-index 5bc8248f9935..c407aea0bc6a 100644
+index 553871646761..c7de3e307367 100644
 --- a/drivers/gpu/drm/vkms/vkms_config.c
 +++ b/drivers/gpu/drm/vkms/vkms_config.c
-@@ -598,6 +598,8 @@ static int vkms_config_show(struct seq_file *m, void *data)
- 		seq_puts(m, "connector:\n");
- 		seq_printf(m, "\tstatus=%s\n",
- 			   drm_get_connector_status_name(vkms_config_connector_get_status(connector_cfg)));
-+		seq_printf(m, "\ttype=%s\n",
-+			   drm_get_connector_type_name(vkms_config_connector_get_type(connector_cfg)));
- 	}
+@@ -12,6 +12,42 @@
  
- 	return 0;
-@@ -930,6 +932,7 @@ struct vkms_config_connector *vkms_config_create_connector(struct vkms_config *c
+ #include "vkms_config.h"
  
- 	connector_cfg->config = config;
- 	connector_cfg->status = connector_status_connected;
-+	vkms_config_connector_set_type(connector_cfg, DRM_MODE_CONNECTOR_VIRTUAL);
- 	xa_init_flags(&connector_cfg->possible_encoders, XA_FLAGS_ALLOC);
- 
- 	list_add_tail(&connector_cfg->link, &config->connectors);
-diff --git a/drivers/gpu/drm/vkms/vkms_config.h b/drivers/gpu/drm/vkms/vkms_config.h
-index 7c0c24939a96..d6d185b2ccc0 100644
---- a/drivers/gpu/drm/vkms/vkms_config.h
-+++ b/drivers/gpu/drm/vkms/vkms_config.h
-@@ -130,6 +130,7 @@ struct vkms_config_encoder {
-  * struct vkms_config_connector
-  *
-  * @link: Link to the others connector in vkms_config
-+ * @type: Store the type of connector using DRM_MODE_CONNECTOR_* values
-  * @config: The vkms_config this connector belongs to
-  * @status: Status (connected, disconnected...) of the connector
-  * @possible_encoders: Array of encoders that can be used with this connector
-@@ -142,6 +143,7 @@ struct vkms_config_connector {
- 	struct list_head link;
++static const u32 vkms_supported_plane_formats[] = {
++	DRM_FORMAT_ARGB8888,
++	DRM_FORMAT_ABGR8888,
++	DRM_FORMAT_BGRA8888,
++	DRM_FORMAT_RGBA8888,
++	DRM_FORMAT_XRGB8888,
++	DRM_FORMAT_XBGR8888,
++	DRM_FORMAT_RGB888,
++	DRM_FORMAT_BGR888,
++	DRM_FORMAT_XRGB16161616,
++	DRM_FORMAT_XBGR16161616,
++	DRM_FORMAT_ARGB16161616,
++	DRM_FORMAT_ABGR16161616,
++	DRM_FORMAT_RGB565,
++	DRM_FORMAT_BGR565,
++	DRM_FORMAT_NV12,
++	DRM_FORMAT_NV16,
++	DRM_FORMAT_NV24,
++	DRM_FORMAT_NV21,
++	DRM_FORMAT_NV61,
++	DRM_FORMAT_NV42,
++	DRM_FORMAT_YUV420,
++	DRM_FORMAT_YUV422,
++	DRM_FORMAT_YUV444,
++	DRM_FORMAT_YVU420,
++	DRM_FORMAT_YVU422,
++	DRM_FORMAT_YVU444,
++	DRM_FORMAT_P010,
++	DRM_FORMAT_P012,
++	DRM_FORMAT_P016,
++	DRM_FORMAT_R1,
++	DRM_FORMAT_R2,
++	DRM_FORMAT_R4,
++	DRM_FORMAT_R8,
++};
++
+ struct vkms_config *vkms_config_create(const char *dev_name)
+ {
  	struct vkms_config *config;
- 
-+	int type;
- 	enum drm_connector_status status;
- 	struct xarray possible_encoders;
- 
-@@ -344,6 +346,28 @@ vkms_config_plane_set_default_pipeline(struct vkms_config_plane *plane_cfg,
+@@ -441,6 +477,15 @@ static void show_bitfield(struct seq_file *m, uint32_t value, const char *callba
+ 	}
  }
  
- /**
-+ * vkms_config_connector_get_type() - Return the connector type
-+ * @connector_cfg: Connector to get the type from
-+ */
-+static inline int
-+vkms_config_connector_get_type(const struct vkms_config_connector *connector_cfg)
++static void show_formats(struct seq_file *m, u32 *formats, size_t formats_count)
 +{
-+	return connector_cfg->type;
++	for (int i = 0; i < formats_count; i++) {
++		seq_printf(m, "%p4cc", &formats[i]);
++		if (i != formats_count - 1)
++			seq_puts(m, ", ");
++	}
 +}
++
+ static int vkms_config_show(struct seq_file *m, void *data)
+ {
+ 	struct drm_debugfs_entry *entry = m->private;
+@@ -478,6 +523,10 @@ static int vkms_config_show(struct seq_file *m, void *data)
+ 		seq_puts(m, "\n");
+ 		seq_printf(m, "\tdefault color range=%s\n",
+ 			   drm_get_color_range_name(vkms_config_plane_get_default_color_range(plane_cfg)));
++		seq_puts(m, "\tsupported formats=");
++		show_formats(m, vkms_config_plane_get_supported_formats(plane_cfg),
++			     vkms_config_plane_get_supported_formats_count(plane_cfg));
++		seq_puts(m, "\n");
+ 	}
+ 
+ 	vkms_config_for_each_crtc(vkmsdev->config, crtc_cfg) {
+@@ -527,6 +576,10 @@ struct vkms_config_plane __must_check *vkms_config_create_plane(struct vkms_conf
+ 	if (ret)
+ 		goto cleanup_plane_cfg;
+ 
++	ret = vkms_config_plane_add_all_formats(plane_cfg);
++	if (ret)
++		goto cleanup_plane_cfg;
++
+ 	vkms_config_plane_set_supported_rotations(plane_cfg,
+ 						  DRM_MODE_ROTATE_MASK | DRM_MODE_REFLECT_MASK);
+ 	vkms_config_plane_set_default_rotation(plane_cfg, DRM_MODE_ROTATE_0);
+@@ -554,6 +607,7 @@ EXPORT_SYMBOL_IF_KUNIT(vkms_config_create_plane);
+ void vkms_config_destroy_plane(struct vkms_config_plane *plane_cfg)
+ {
+ 	xa_destroy(&plane_cfg->possible_crtcs);
++	kfree(plane_cfg->supported_formats);
+ 	list_del(&plane_cfg->link);
+ 	kfree(plane_cfg->name);
+ 	kfree(plane_cfg);
+@@ -658,6 +712,80 @@ static struct vkms_config_plane *vkms_config_crtc_get_plane(const struct vkms_co
+ 	return NULL;
+ }
+ 
++int __must_check vkms_config_plane_add_all_formats(struct vkms_config_plane *plane_cfg)
++{
++	u32 *ret = krealloc_array(plane_cfg->supported_formats,
++				  ARRAY_SIZE(vkms_supported_plane_formats),
++				  sizeof(uint32_t), GFP_KERNEL);
++	if (!ret)
++		return -ENOMEM;
++	plane_cfg->supported_formats = ret;
++
++	memcpy(plane_cfg->supported_formats, vkms_supported_plane_formats,
++	       sizeof(vkms_supported_plane_formats));
++	plane_cfg->supported_formats_count = ARRAY_SIZE(vkms_supported_plane_formats);
++	return 0;
++}
++
++static bool is_supported_format(u32 drm_format)
++{
++	for (int i = 0; i < ARRAY_SIZE(vkms_supported_plane_formats); i++) {
++		if (vkms_supported_plane_formats[i] == drm_format)
++			return true;
++	}
++
++	return false;
++}
++
++static bool vkms_config_plane_has_format(struct vkms_config_plane *plane_cfg, u32 drm_format)
++{
++	for (unsigned int i = 0; i < plane_cfg->supported_formats_count; i++) {
++		if (plane_cfg->supported_formats[i] == drm_format)
++			return true;
++	}
++	return false;
++}
++
++int __must_check vkms_config_plane_add_format(struct vkms_config_plane *plane_cfg, u32 drm_format)
++{
++	if (!is_supported_format(drm_format))
++		return -EINVAL;
++
++	if (vkms_config_plane_has_format(plane_cfg, drm_format))
++		return 0;
++
++	u32 *new_ptr = krealloc_array(plane_cfg->supported_formats,
++				      plane_cfg->supported_formats_count + 1,
++				      sizeof(*plane_cfg->supported_formats), GFP_KERNEL);
++	if (!new_ptr)
++		return -ENOMEM;
++
++	plane_cfg->supported_formats = new_ptr;
++	plane_cfg->supported_formats[plane_cfg->supported_formats_count] = drm_format;
++	plane_cfg->supported_formats_count++;
++
++	return 0;
++}
++
++void vkms_config_plane_remove_all_formats(struct vkms_config_plane *plane_cfg)
++{
++	plane_cfg->supported_formats_count = 0;
++	kfree(plane_cfg->supported_formats);
++	plane_cfg->supported_formats = NULL;
++}
++
++void vkms_config_plane_remove_format(struct vkms_config_plane *plane_cfg, u32 drm_format)
++{
++	for (unsigned int i = 0; i < plane_cfg->supported_formats_count; i++) {
++		if (plane_cfg->supported_formats[i] == drm_format) {
++			plane_cfg->supported_formats[i] =
++				plane_cfg->supported_formats[plane_cfg->supported_formats_count -
++					1];
++			plane_cfg->supported_formats_count--;
++		}
++	}
++}
++
+ struct vkms_config_plane *vkms_config_crtc_primary_plane(const struct vkms_config *config,
+ 							 struct vkms_config_crtc *crtc_cfg)
+ {
+diff --git a/drivers/gpu/drm/vkms/vkms_config.h b/drivers/gpu/drm/vkms/vkms_config.h
+index 60cadb7bea5b..3de4a92af9c5 100644
+--- a/drivers/gpu/drm/vkms/vkms_config.h
++++ b/drivers/gpu/drm/vkms/vkms_config.h
+@@ -50,6 +50,8 @@ struct vkms_config {
+  * @supported_color_encodings: Color encodings that this plane will support
+  * @default_color_range: Default color range that should be used by this plane
+  * @supported_color_ranges: Color ranges that this plane will support
++ * @supported_formats: List of supported formats
++ * @supported_formats_count: Length of @supported_formats
+  */
+ struct vkms_config_plane {
+ 	struct list_head link;
+@@ -63,6 +65,8 @@ struct vkms_config_plane {
+ 	unsigned int supported_color_encodings;
+ 	enum drm_color_range default_color_range;
+ 	unsigned int supported_color_ranges;
++	u32 *supported_formats;
++	unsigned int supported_formats_count;
+ 	struct xarray possible_crtcs;
+ 	bool default_pipeline;
+ 
+@@ -475,6 +479,53 @@ bool vkms_config_valid_plane_color_range(const struct vkms_config *config,
+ 					 const struct vkms_config_plane *plane_cfg);
+ #endif
+ 
++static inline u32 *
++vkms_config_plane_get_supported_formats(const struct vkms_config_plane *plane_cfg)
++{
++	return plane_cfg->supported_formats;
++}
++
++static inline unsigned int
++vkms_config_plane_get_supported_formats_count(struct vkms_config_plane *plane_cfg)
++{
++	return plane_cfg->supported_formats_count;
++}
++
++/** vkms_config_plane_add_format - Add a format to the list of supported format of a plane
++ *
++ * The passed drm_format can already be present in the list. This may fail if the allocation of a
++ * bigger array fails.
++ *
++ * @plane_cfg: Plane to add the format to
++ * @drm_format: Format to add to this plane
++ *
++ * Returns: 0 on success, -ENOMEM if array allocation fails, -EINVAL if the format is not supported
++ * by VKMS
++ */
++int __must_check vkms_config_plane_add_format(struct vkms_config_plane *plane_cfg, u32 drm_format);
 +
 +/**
-+ * vkms_config_connector_set_type() - Set the connector type
-+ * @connector_cfg: Connector to set the type to
-+ * @type: New connector type
++ * vkms_config_plane_add_all_formats - Helper to quickly add all the supported formats
++ * @plane_cfg: Plane to add the formats to
++ *
++ * Returns: 0 on success, -ENOMEM if array allocation fails
++ * by VKMS
 + */
-+static inline void
-+vkms_config_connector_set_type(struct vkms_config_connector *connector_cfg,
-+			       int type)
-+{
-+	connector_cfg->type = type;
-+}
++int __must_check vkms_config_plane_add_all_formats(struct vkms_config_plane *plane_cfg);
 +
-+/*
-  * vkms_config_plane_get_default_rotation() - Get the default rotation for a plane
-  * @plane_cfg: Plane to get the default rotation from
-  *
-diff --git a/drivers/gpu/drm/vkms/vkms_connector.c b/drivers/gpu/drm/vkms/vkms_connector.c
-index b0a6b212d3f4..5a87dc2d4c63 100644
---- a/drivers/gpu/drm/vkms/vkms_connector.c
-+++ b/drivers/gpu/drm/vkms/vkms_connector.c
-@@ -68,7 +68,8 @@ static const struct drm_connector_helper_funcs vkms_conn_helper_funcs = {
- 	.best_encoder = vkms_conn_best_encoder,
- };
- 
--struct vkms_connector *vkms_connector_init(struct vkms_device *vkmsdev)
-+struct vkms_connector *vkms_connector_init(struct vkms_device *vkmsdev,
-+					   struct vkms_config_connector *connector_cfg)
- {
- 	struct drm_device *dev = &vkmsdev->drm;
- 	struct vkms_connector *connector;
-@@ -79,7 +80,7 @@ struct vkms_connector *vkms_connector_init(struct vkms_device *vkmsdev)
- 		return ERR_PTR(-ENOMEM);
- 
- 	ret = drmm_connector_init(dev, &connector->base, &vkms_connector_funcs,
--				  DRM_MODE_CONNECTOR_VIRTUAL, NULL);
-+				  vkms_config_connector_get_type(connector_cfg), NULL);
- 	if (ret)
- 		return ERR_PTR(ret);
- 
-diff --git a/drivers/gpu/drm/vkms/vkms_connector.h b/drivers/gpu/drm/vkms/vkms_connector.h
-index ed312f4eff3a..33253d29b1cc 100644
---- a/drivers/gpu/drm/vkms/vkms_connector.h
-+++ b/drivers/gpu/drm/vkms/vkms_connector.h
-@@ -4,6 +4,7 @@
- #define _VKMS_CONNECTOR_H_
- 
- #include "vkms_drv.h"
-+#include "vkms_config.h"
- 
- #define drm_connector_to_vkms_connector(target) \
- 	container_of(target, struct vkms_connector, base)
-@@ -24,7 +25,8 @@ struct vkms_connector {
-  * Returns:
-  * The connector or an error on failure.
-  */
--struct vkms_connector *vkms_connector_init(struct vkms_device *vkmsdev);
-+struct vkms_connector *vkms_connector_init(struct vkms_device *vkmsdev,
-+					   struct vkms_config_connector *connector_cfg);
- 
++/**
++ * vkms_config_plane_remove_format - Remove a specific format from a plane
++ * @plane_cfg: Plane to remove the format from
++ * @drm_format: Format to remove
++ */
++void vkms_config_plane_remove_format(struct vkms_config_plane *plane_cfg, u32 drm_format);
++
++/**
++ * vkms_config_plane_remove_all_formats - Remove all formats from a plane
++ * @plane_cfg: Plane to remove the formats from
++ */
++void vkms_config_plane_remove_all_formats(struct vkms_config_plane *plane_cfg);
++
  /**
-  * vkms_trigger_connector_hotplug() - Update the device's connectors status
-diff --git a/drivers/gpu/drm/vkms/vkms_output.c b/drivers/gpu/drm/vkms/vkms_output.c
-index 86ce07a617f5..1288c8551bc8 100644
---- a/drivers/gpu/drm/vkms/vkms_output.c
-+++ b/drivers/gpu/drm/vkms/vkms_output.c
-@@ -97,7 +97,7 @@ int vkms_output_init(struct vkms_device *vkmsdev)
- 		struct vkms_config_encoder *possible_encoder;
- 		unsigned long idx = 0;
+  * vkms_config_plane_set_name() - Set the plane name
+  * @plane_cfg: Plane to set the name to
+diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
+index d4ccf418198e..6e767cdf8194 100644
+--- a/drivers/gpu/drm/vkms/vkms_plane.c
++++ b/drivers/gpu/drm/vkms/vkms_plane.c
+@@ -15,42 +15,6 @@
+ #include "vkms_drv.h"
+ #include "vkms_formats.h"
  
--		connector_cfg->connector = vkms_connector_init(vkmsdev);
-+		connector_cfg->connector = vkms_connector_init(vkmsdev, connector_cfg);
- 		if (IS_ERR(connector_cfg->connector)) {
- 			DRM_ERROR("Failed to init connector\n");
- 			return PTR_ERR(connector_cfg->connector);
+-static const u32 vkms_formats[] = {
+-	DRM_FORMAT_ARGB8888,
+-	DRM_FORMAT_ABGR8888,
+-	DRM_FORMAT_BGRA8888,
+-	DRM_FORMAT_RGBA8888,
+-	DRM_FORMAT_XRGB8888,
+-	DRM_FORMAT_XBGR8888,
+-	DRM_FORMAT_RGB888,
+-	DRM_FORMAT_BGR888,
+-	DRM_FORMAT_XRGB16161616,
+-	DRM_FORMAT_XBGR16161616,
+-	DRM_FORMAT_ARGB16161616,
+-	DRM_FORMAT_ABGR16161616,
+-	DRM_FORMAT_RGB565,
+-	DRM_FORMAT_BGR565,
+-	DRM_FORMAT_NV12,
+-	DRM_FORMAT_NV16,
+-	DRM_FORMAT_NV24,
+-	DRM_FORMAT_NV21,
+-	DRM_FORMAT_NV61,
+-	DRM_FORMAT_NV42,
+-	DRM_FORMAT_YUV420,
+-	DRM_FORMAT_YUV422,
+-	DRM_FORMAT_YUV444,
+-	DRM_FORMAT_YVU420,
+-	DRM_FORMAT_YVU422,
+-	DRM_FORMAT_YVU444,
+-	DRM_FORMAT_P010,
+-	DRM_FORMAT_P012,
+-	DRM_FORMAT_P016,
+-	DRM_FORMAT_R1,
+-	DRM_FORMAT_R2,
+-	DRM_FORMAT_R4,
+-	DRM_FORMAT_R8,
+-};
+-
+ static struct drm_plane_state *
+ vkms_plane_duplicate_state(struct drm_plane *plane)
+ {
+@@ -227,7 +191,8 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
+ 
+ 	plane = drmm_universal_plane_alloc(dev, struct vkms_plane, base, 0,
+ 					   &vkms_plane_funcs,
+-					   vkms_formats, ARRAY_SIZE(vkms_formats),
++					   vkms_config_plane_get_supported_formats(plane_cfg),
++					   vkms_config_plane_get_supported_formats_count(plane_cfg),
+ 					   NULL, vkms_config_plane_get_type(plane_cfg),
+ 					   vkms_config_plane_get_name(plane_cfg));
+ 	if (IS_ERR(plane))
 
 -- 
 2.54.0
