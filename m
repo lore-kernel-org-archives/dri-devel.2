@@ -4,103 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03D0AC43458
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 10:59:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BD01C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 11:08:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B1E710E4A8;
-	Sat, 27 Jun 2026 10:59:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F4A110E4A9;
+	Sat, 27 Jun 2026 11:08:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aDQiy8av";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MlxxCRj/";
 	dkim-atps=neutral
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5169D10E4A8
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 10:59:43 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-30bc5fa5a2aso117469eec.0
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:59:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782557982; cv=none;
- d=google.com; s=arc-20260327;
- b=p62lBqwf7S5tXIj+H5mgJBCKPzGOhgmmAMXfL7DdYF4TgP01+GT0drYT+aDBuXfeQC
- a8pBYcl3VtduGgOts0fj56Lm/fnQDCRnikZY5gimqYdADIXKGtq7MBWsOq3T4VilqlVM
- DrM8UDUFIFDqssmUtVnvPVKdZLLp6EpnQ3Gpe8jlB89SLXfTpaqU9EYs+Hgh1fM+337X
- b+eOQg9cet4vSDVuhKSe1xsdMat9x7f0rHf3cYSzlRBXwNQOrEXerKxP2HoaO2W8QZoO
- logzv3lKwVi+Nwih8K1exmrrFNjfoXnRF+b8WX688sfqMkdR76kH2GKZ39MgLj1I3Wra
- izYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=n+nDLLPZ6wEr/4dq0uqyhXXPZoefpLj+VqCWxHyZNrQ=;
- fh=0bN92Dmt08Bu11fHXC1tNaYUTsfeH8BPgS0tpyYUe+A=;
- b=VEg/0eFYwM0WD0R9fwF8rDOFMBvIAYBUbggE3CkeMYVV+idtCasYeTFbDm6nKFuF7w
- lWCDO9hl2Uslyqc5yXLz7o3MtFPTQRZkshZ4bZOCHSG9znRFjFVhhwkDECDJjQYWEEO6
- b55unQ9vCCwIpPCqqG0ycZHb1THy+3kd4JVmQsXYH6GeFs5J176pv8pcDSpwG+hgib9q
- jvDwUR18dhw94DhM3REiXVxJLU6j5OrVMti9+tom06Mjp+PF8TV8EsPANFRrzbG5WkNV
- lOzjkuoOA7hUi+K562MMZYe17RLT6FYefC11c/bYyxLtp0zbs85DY503fPVeb6j1rnvi
- 7UOw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782557982; x=1783162782; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=n+nDLLPZ6wEr/4dq0uqyhXXPZoefpLj+VqCWxHyZNrQ=;
- b=aDQiy8avO64YDquudAxQYC+jm6eIBKUjP9XjD3PRxnDChgHcE4ePz/rRK5q5N+/Zv1
- l5ltQbjwdN2/QqyJ3t7pM1OvM9ziZm/2FNlHZ0A16137Jm38dPAigosB76Nl9a+VzQI7
- y4nVTrmmhxaAgL/zaHzS9dT4m9LZQpcgXPrf+WTwD/dekdsd6mMWIKxjistfiyaUvRSI
- yj3eCFNUEkEuxhlzeAsLgkat/yMfpm6cWc0DK3g/vdONPrvdjdOmBr7R73h6/QHLG4C6
- gL0DglLeDaROIw6NCYWHl0PBUFH0dfsVl7G+rTNULdzBAhIn0wACuAMM6J0+l0f1pn6F
- JyqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782557982; x=1783162782;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=n+nDLLPZ6wEr/4dq0uqyhXXPZoefpLj+VqCWxHyZNrQ=;
- b=Akeym/Jiqc1EenXN0ov3wfwphBVmGe0B3t1k+4uoUBcr5EHFNU3D0fV3HgFNrO4s+V
- vUsxyeTO+eXofsOvY4tRkztEm1EZ4w0H2gyyLydP/eiQWXULiZNt4h1lIFv4keSF7ays
- 9zRDWgNj0bElLBWeKnaBTKRtpV5XYZXoGg1IU2Xj08W8uCC/yE+4E/VqKLt0UmwLUPnp
- 8khUfO7DmnGLZdJN5jq8tyzV37nkM85oWHQgUMlEqIf4tuQPVIb+U+KbS+MGO0YAZDIW
- zAkRY+C+TBijsyChLM0YuXZPB75LYbg/JgKutLtnaXR8/e+KMmNOTx92gU4GO72j20qW
- qRHQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RppkjIYsY5D7rJ3ATvDn0s28VYzaF8VInJFCtcAgrNb6pj9EKxBmBewdDFE/X4rbq3dbOujUFLBjww=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx3DDdMZP++IwFAR966GuyCncRrUbQj4WOwqpNHW13ly4VV490M
- XQhA2gJq/QTxj2Z1iEhHdN1p9slEl6qjraVdWkKwSWr5VamJ4hsTDym/M7ZC1Y+D40DTKc+VAid
- kmspeYplWSQIccDIYQEWlUDfBbaqyl18=
-X-Gm-Gg: AfdE7cnugEvGkT440Zq9EA0Rzq0yWbdZ7Mf4djICkMp2KswTHrheQRKjzm//YA3kzBj
- Nkgale8ZDs5JJO/HKggngw+plHXg4ITmoA16ekM3KumwSjPo1+JnL1M0BIJvH8PfpVA2+jtH4zC
- Tc7AS6xc9duPC39UTLy2yN+BhRmakMY4736BvJ/UsbljIpJFXNTF7XCuVdTmULQOK5X7cU1yL/e
- eT1FSBBZrjx+emR5zwJqS+CGQsPHFcrLQimXFsl5eno5WqU4n+TMi+h5uVtBFXrxmUCHUCg8H3n
- U8elxZIgZn0nx9HYaWzUbFy/uMuqvh1+XxHs4z8uJ3YEtG2rE9urQHaC57ep1HAFZ8afR8YkY2I
- 4RD6Uguepl9/I
-X-Received: by 2002:a05:7300:6144:b0:30b:c021:5045 with SMTP id
- 5a478bee46e88-30c84ce60f7mr4014070eec.5.1782557982397; Sat, 27 Jun 2026
- 03:59:42 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260626183630.2585057-1-dakr@kernel.org>
- <20260626183630.2585057-2-dakr@kernel.org>
-In-Reply-To: <20260626183630.2585057-2-dakr@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sat, 27 Jun 2026 12:59:30 +0200
-X-Gm-Features: AVVi8Ce3MkIh0ONlyKuy1KTbQ-yG1BEWeg6mkrKBipEfxJFXZQzFaNA4SZvKL0c
-Message-ID: <CANiq72mT0sAUX0Ob0RHzqS3QOzRxkc9=UoOuPTTyH=nAa8D40w@mail.gmail.com>
-Subject: Re: [PATCH v4 1/7] rust: types: rename ForLt to CovariantForLt
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: gregkh@linuxfoundation.org, rafael@kernel.org, ojeda@kernel.org, 
- boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com, 
- lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com, 
- tmgross@umich.edu, acourbot@nvidia.com, ecourtney@nvidia.com, 
- m.wilczynski@samsung.com, david.m.ertman@intel.com, ira.weiny@intel.com, 
- leon@kernel.org, daniel.almeida@collabora.com, bhelgaas@google.com, 
- kwilczynski@kernel.org, driver-core@lists.linux.dev, 
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, linux-pwm@vger.kernel.org, 
- rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E44510E4A9
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 11:08:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9877B600AB;
+ Sat, 27 Jun 2026 11:08:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F6871F000E9;
+ Sat, 27 Jun 2026 11:08:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782558502;
+ bh=vPjMtFajz1wsaBX7WlNynax4mJ2c6+Iec41FkRSfkR8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=MlxxCRj/qB3YOJGOpDdcogpMY2+v2Xm8Zz+y07k88SGejkxpORcrExBI81BrzpIjc
+ v62mc4mx3bFIKL/p9bmOSKQhzeOHnvKXWicw4ZZSkt9s1mYLZIjyQj5eRYqUJFSUUw
+ 7AklZeeFR/e4fAGe845LxBHdZV3sgPttRAy78NCi+q6uBFEIsz/vHmRNejcpGjVJb8
+ sCjV73lvDxZ5+WO3b3aVbkDPRRGnJk0BSjcemf9oJAVlklYWovrCBpx707rXlCoC0E
+ JiIPoLvvJRgESQTHIgwGs0oeh3mp+cGhN9LHsTSaKrGTlYnvY0hg/XH/MUDrW3s9I2
+ W7e/MOTWxNhvA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1] udmabuf: Ensure to perform cache synchronisation in
+ begin_cpu_udmabuf()
+To: "Robert Mader" <robert.mader@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260627105725.9083-1-robert.mader@collabora.com>
+References: <20260627105725.9083-1-robert.mader@collabora.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Sat, 27 Jun 2026 11:08:20 +0000
+Message-Id: <20260627110821.7F6871F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,30 +53,107 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jun 26, 2026 at 8:36=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> =
-wrote:
->
-> Rename ForLt to CovariantForLt to prepare for the introduction of a new
-> ForLt base trait that does not require covariance.
->
-> The existing ForLt trait requires covariance, which enables the safe
-> cast_ref() method. This rename preserves the same semantics under a more
-> precise name, making room for a weaker ForLt trait in a subsequent
-> commit.
->
-> No functional change.
->
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Reviewed-by: Gary Guo <gary@garyguo.net>
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-I don't see anyone else in linux-next using it, so this is likely fine
--- if we expect others this cycle, they may need a merge.
+Pre-existing issues:
+- [Critical] Unprotected concurrent accesses to `ubuf->sg` allow memory and=
+ DMA mapping leaks, and expose a TOCTOU race condition that can trigger a k=
+ernel panic via an invalid pointer dereference.
+- [High] Mismatch between the initial DMA mapping direction and the cache s=
+ynchronization direction for subsequent CPU accesses violates the DMA API c=
+ontract.
+--
 
-Acked-by: Miguel Ojeda <ojeda@kernel.org>
+commit aa38d7b2c22ba17dc9edaf6a59e4f9a1d76a592b
+Author: Robert Mader <robert.mader@collabora.com>
 
-Cheers,
-Miguel
+udmabuf: Ensure to perform cache synchronisation in begin_cpu_udmabuf()
+
+The message of commit 504e2b4ab97a ("dma-buf/udmabuf: skip redundant cpu sy=
+nc to
+fix cacheline EEXIST warning") says:
+
+> The CPU sync at map/unmap time is also redundant for udmabuf:
+> begin_cpu_udmabuf() and end_cpu_udmabuf() already perform explicit
+> cache synchronization via dma_sync_sgtable_for_cpu/device() when CPU
+> access is requested through the dma-buf interface.
+
+This, however, does not apply to the first time begin_cpu_udmabuf() is
+called on an udmabuf, in which case the implementation previously relied on
+get_sg_table() to perform the cache synchronisation.
+
+Ensure to call dma_sync_sgtable_for_cpu() in that case as well.
+
+> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+> index bced421c0d658..08f57bc1294df 100644
+> --- a/drivers/dma-buf/udmabuf.c
+> +++ b/drivers/dma-buf/udmabuf.c
+> @@ -224,21 +224,22 @@ static int begin_cpu_udmabuf(struct dma_buf *buf,
+>  {
+>  	struct udmabuf *ubuf =3D buf->priv;
+>  	struct device *dev =3D ubuf->device->this_device;
+> -	int ret =3D 0;
+> =20
+>  	if (!ubuf->sg) {
+>  		ubuf->sg =3D get_sg_table(dev, buf, direction);
+>  		if (IS_ERR(ubuf->sg)) {
+> +			int ret;
+> +
+>  			ret =3D PTR_ERR(ubuf->sg);
+>  			ubuf->sg =3D NULL;
+> +			return ret;
+>  		} else {
+>  			ubuf->sg_dir =3D direction;
+>  		}
+> -	} else {
+> -		dma_sync_sgtable_for_cpu(dev, ubuf->sg, direction);
+>  	}
+
+[Severity: Critical]
+This is a pre-existing issue, but does this lack of synchronization allow
+concurrent threads to see a transient error pointer?
+
+If multiple threads invoke the sync ioctl concurrently, they can race
+on the !ubuf->sg check.  If the first thread fails to allocate the
+sg_table, it temporarily assigns an error pointer to ubuf->sg before
+setting it back to null:
+
+Thread 1:
+	if (!ubuf->sg) {
+		ubuf->sg =3D get_sg_table(dev, buf, direction);
+
+Thread 2 could observe ubuf->sg as an error pointer, bypass the null
+check, and pass the error pointer to dma_sync_sgtable_for_cpu() further
+down, triggering a kernel panic when dereferenced.
+
+Alternatively, if both threads see !ubuf->sg as true, they could both
+allocate sg_table structures, leaking one and its dma mapping.
+
+> =20
+> -	return ret;
+> +	dma_sync_sgtable_for_cpu(dev, ubuf->sg, direction);
+
+[Severity: High]
+This is a pre-existing issue, but does this allow syncing with a different
+direction than the original mapping?
+
+If a user issues a sync ioctl with one direction to establish the
+sg_table mapping, and then issues a subsequent sync with a different
+direction, dma_sync_sgtable_for_cpu() and dma_sync_sgtable_for_device()
+will be called using the new direction.
+
+Since the dma mapping rules require sync and map directions to exactly
+match unless the mapping is bidirectional, could this lead to incorrect
+cache maintenance operations?
+
+> +	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260627105725.9083=
+-1-robert.mader@collabora.com?part=3D1
