@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 628B8C43458
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 03:58:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7FB4C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 04:02:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC89010F791;
-	Sat, 27 Jun 2026 03:58:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDED010E445;
+	Sat, 27 Jun 2026 04:02:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kB9ZCEwO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JrLKtsRf";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A81E10F791
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 03:58:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB29610E445
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 04:02:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5EA16600AA;
- Sat, 27 Jun 2026 03:58:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA1051F000E9;
- Sat, 27 Jun 2026 03:58:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 38267600AA;
+ Sat, 27 Jun 2026 04:02:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B19251F000E9;
+ Sat, 27 Jun 2026 04:02:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782532708;
- bh=mJTHJqTRLHvBlP837qf2Eql19F6S3+rMcsD71Kd23Fs=;
+ s=k20260515; t=1782532967;
+ bh=/aSUjdI6rVi85MVhaiEYqSYBezgCG6sfkC3bObGip5g=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kB9ZCEwOky/AWbk7FakHGmN8a5WmIFHZBaOrLyyupHo5FfMrtOnjU4IIB76ilAfmC
- T2LQSU8g2VkoYLAYIRRfQKYC9rQMDrETu8XfhOKaT/ajrzBi8QCUuN2GeoNPZK94k5
- vIlU9pBi54r0UNxspLoEw2w2V8b5dM8AaC0hpBylrJGPjBsWktTnsaMyxlwUthQXQi
- ms/FZayg0xJofiGIGFAQu4qb6tOARUSMTtnjPM547xvzh9L9Xv3erHcl9UA0rpkC8o
- VLYhBcddMHtE1smoXX4EVt5kaCw4XaPfo2phYNmROSQymTJZxxSw+v+crADJcqDqUd
- QH/SYAoHVAiaw==
+ b=JrLKtsRfEhGYbNXTfzvjI3EP6/NKwxYwqL9iJ0QbQcFKL1SUAPwNB4QB3Mfj602E1
+ PpmI/3ILevCpGqaLKJGULjc6FvRjDEc9h3zAzdCdUSsGMKX/mRklgy5MoAXUEszdNy
+ yRxZb+iM4u5aUjGcNIdTYhVTbRmbLmJUcKDnom/d3tA0ezfVqkxdt+hmYRWmU89l0j
+ 4sJhUJLE6TvEw5+b8c4WtB1HAl4/o+dndzhP1WpRkyY2bLLOeAKgksesFr7mc7mBZG
+ FtgsRf6+2RUCaAMD+q8xrhhwzr2+3B9aOX0ET8mHnP7yZr96Yu5WCWhZ4SbLFNL5HC
+ 1P2mnxXYJ6+/g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 30/38] drm/vkms: Introduce config for connector
- supported colorspace
-To: "Louis Chauvet" <louis.chauvet@bootlin.com>
+Subject: Re: [PATCH 2/2] drm/gpusvm: do not route system pages to
+ device_unmap() on IOVA unmap
+To: "Honglei Huang" <honglei1.huang@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260627-vkms-all-config-v5-30-854aa0840926@bootlin.com>
-References: <20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com>
- <20260627-vkms-all-config-v5-30-854aa0840926@bootlin.com>
+In-Reply-To: <20260627033325.3795298-3-honglei1.huang@amd.com>
+References: <20260627033325.3795298-1-honglei1.huang@amd.com>
+ <20260627033325.3795298-3-honglei1.huang@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 27 Jun 2026 03:58:27 +0000
-Message-Id: <20260627035827.DA1051F000E9@smtp.kernel.org>
+Date: Sat, 27 Jun 2026 04:02:47 +0000
+Message-Id: <20260627040247.B19251F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,101 +58,79 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
-New issues:
-- [Medium] Missing support for DRM_MODE_CONNECTOR_HDMIB in VKMS connector i=
-nitialization.
-
 Pre-existing issues:
-- [High] Lockless iteration over configuration lists in debugfs allows conc=
-urrent Use-After-Free if configfs items are removed.
+- [High] IOVA address space is permanently leaked when unmapping mixed rang=
+es because `dma_iova_try_alloc` allocates for the entire range but `dma_iov=
+a_destroy` only frees the linked portion.
 --
 
-commit adab925d90477ebe9d202328861dc983f52ebccf
-Author: Louis Chauvet <louis.chauvet@bootlin.com>
+commit 00ffc2a555c26b1b1afa96a3e7aabeee992b2163
+Author: Honglei Huang <honghuan@amd.com>
 
-drm/vkms: Introduce config for connector supported colorspace
+drm/gpusvm: do not route system pages to device_unmap() on IOVA unmap
 
-This commit introduces the ability to configure supported colorspaces
-for HDMI, eDP, and DP connectors in VKMS to emulate HDR features.
+This commit fixes an issue in mixed ranges where system pages were incorrec=
+tly
+routed to device_unmap() during IOVA unmap by checking the page protocol.
 
-> diff --git a/drivers/gpu/drm/vkms/vkms_config.c b/drivers/gpu/drm/vkms/vk=
-ms_config.c
-> index c407aea0bc6a9..ea9bc5d06be67 100644
-> --- a/drivers/gpu/drm/vkms/vkms_config.c
-> +++ b/drivers/gpu/drm/vkms/vkms_config.c
-
-[ ... ]
-
-> @@ -600,6 +600,10 @@ static int vkms_config_show(struct seq_file *m, void=
- *data)
->  			   drm_get_connector_status_name(vkms_config_connector_get_status(con=
-nector_cfg)));
->  		seq_printf(m, "\ttype=3D%s\n",
->  			   drm_get_connector_type_name(vkms_config_connector_get_type(connect=
-or_cfg)));
-> +		seq_puts(m, "\tsupported colorspaces=3D");
-> +		show_bitfield(m, vkms_config_connector_get_supported_colorspaces(conne=
-ctor_cfg),
-> +			      drm_get_colorspace_name);
+> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+> index 2d74e2aae0a77..80b9a3f4cb919 100644
+> --- a/drivers/gpu/drm/drm_gpusvm.c
+> +++ b/drivers/gpu/drm/drm_gpusvm.c
+> @@ -1161,12 +1161,17 @@ static void __drm_gpusvm_unmap_pages(struct drm_g=
+pusvm *gpusvm,
+>  		for (i =3D 0, j =3D 0; i < npages; j++) {
+>  			struct drm_pagemap_addr *addr =3D &svm_pages->dma_addr[j];
+> =20
+> -			if (!use_iova && addr->proto =3D=3D DRM_INTERCONNECT_SYSTEM)
+> -				dma_unmap_page(dev,
+> -					       addr->addr,
+> -					       PAGE_SIZE << addr->order,
+> -					       addr->dir);
+> -			else if (dpagemap && dpagemap->ops->device_unmap)
+> +			if (addr->proto =3D=3D DRM_INTERCONNECT_SYSTEM) {
+> +				/*
+> +				 * IOVA pages are cleaned by the ma_iova_destroy() above.
 
 [Severity: High]
-This is a pre-existing issue, but does this lockless iteration over the
-connectors list in vkms_config_show() expose us to a use-after-free?
+This isn't a bug introduced by this patch, but looking at how IOVA pages are
+cleaned up here, does this leak IOVA address space for mixed ranges?
 
-If userspace removes a connector via configfs concurrently,
-vkms_config_destroy_connector() will free the connector_cfg without any loc=
-ks
-synchronizing with this debugfs read path. This patch adds additional reads
-of the connector_cfg during this iteration.
+In drm_gpusvm_get_pages(), dma_iova_try_alloc() allocates IOVA space for the
+entire range size:
 
-> +		seq_puts(m, "\n");
->  	}
-> =20
->  	return 0;
+    dma_iova_try_alloc(gpusvm->drm->dev, state, 0, npages * PAGE_SIZE);
 
-[ ... ]
+However, when this range is unmapped in __drm_gpusvm_unmap_pages(),
+dma_iova_destroy() is called with svm_pages->state_offset as the length:
 
-> diff --git a/drivers/gpu/drm/vkms/vkms_connector.c b/drivers/gpu/drm/vkms=
-/vkms_connector.c
-> index 5b29dcade7e19..a1f08167def1d 100644
-> --- a/drivers/gpu/drm/vkms/vkms_connector.c
-> +++ b/drivers/gpu/drm/vkms/vkms_connector.c
+    dma_iova_destroy(dev, &svm_pages->state,
+                     svm_pages->state_offset,
+                     npages ? svm_pages->dma_addr[0].dir :
+                              DMA_BIDIRECTIONAL, 0);
 
-[ ... ]
+If a user-space application allocates a range and migrates part of it to
+device memory (creating a mixed range), state_offset will only be the sum
+of the linked system page sizes.
 
-> +static int __must_check vkms_connector_init(struct vkms_connector *conne=
-ctor,
-> +					    struct vkms_config_connector *connector_cfg)
-> +{
-> +	int ret =3D 0;
-> +
-> +	if (vkms_config_connector_get_supported_colorspaces(connector_cfg)) {
-> +		if (connector_cfg->type =3D=3D DRM_MODE_CONNECTOR_HDMIA) {
-> +			ret =3D drm_mode_create_hdmi_colorspace_property(&connector->base,
-> +								       vkms_config_connector_get_supported_colorspaces(connector=
-_cfg));
+Since dma_iova_destroy() only frees exactly the requested length, it seems
+the unlinked portion of the original IOVA allocation is permanently leaked,
+which could eventually exhaust the IOVA space.
 
-[Severity: Medium]
-Does this logic inadvertently omit DRM_MODE_CONNECTOR_HDMIB?=20
-
-If a user configures a connector as HDMIB with supported colorspaces via
-configfs, it looks like the colorspace property will not be created or
-attached since only HDMIA is checked during this initialization.
-
-> +			if (ret)
-> +				return ret;
-> +		} else if (connector_cfg->type =3D=3D DRM_MODE_CONNECTOR_DisplayPort ||
-> +			   connector_cfg->type =3D=3D DRM_MODE_CONNECTOR_eDP) {
-> +			ret =3D drm_mode_create_dp_colorspace_property(&connector->base,
-> +								     vkms_config_connector_get_supported_colorspaces(connector_c=
-fg));
-> +			if (ret)
-> +				return ret;
-> +		}
+> +				 */
+> +				if (!use_iova)
+> +					dma_unmap_page(dev,
+> +						       addr->addr,
+> +						       PAGE_SIZE << addr->order,
+> +						       addr->dir);
+> +			} else if (dpagemap && dpagemap->ops->device_unmap)
+>  				dpagemap->ops->device_unmap(dpagemap,
+>  							    dev, addr);
+>  			i +=3D 1 << addr->order;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260627-vkms-all-c=
-onfig-v5-0-854aa0840926@bootlin.com?part=3D30
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260627033325.3795=
+298-1-honglei1.huang@amd.com?part=3D2
