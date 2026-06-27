@@ -4,43 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA50BC43458
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 17:50:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 561A7C43458
+	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 20:41:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0DC210E023;
-	Sat, 27 Jun 2026 17:50:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31A9510E44D;
+	Sat, 27 Jun 2026 20:41:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TgKDEKhw";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="m+Jv4JnR";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cjZsunRv";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D80810E023
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 17:50:29 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7D97D6001A;
- Sat, 27 Jun 2026 17:50:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC2991F000E9;
- Sat, 27 Jun 2026 17:50:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782582628;
- bh=TcA5077Fg50GxF9pJDTFxugH2HQC+j8KYXX8dfnXUk8=;
- h=Date:From:To:Subject;
- b=TgKDEKhwZXMypoWehkfq4m2pnu9/J8xbiENBChcSGfSenc1bAfNuGmOd4InvrsUUu
- NEAMC3PTD0pZv0TFRiE7XuiTE2jLQtjVl73aX+F7pNNRxOaSohmF11NOP3HQxl+Mbd
- 8ZnCoflT3TzSe6DM8dKFWypDmtP6f4EYndGpy99C15QOXViQ6N/BMIjIy700K6qX/9
- iRygKczHBzNTSarmpLKhqZ9Xk5jAmRjEtaQ7zfV4+6vCJUqZI6sGCMIQ+oCz9iZ4e3
- VjUFD/VJd41k8uZSD0VNJPkhhHr7Bkqkoi+CO95sBl4n597Hx5uaeZOFsYJFz9WFqD
- /irQDOPbxllCg==
-Date: Sat, 27 Jun 2026 19:50:23 +0200
-From: Helge Deller <deller@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>,
- linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: [GIT PULL] additional fbdev fixes and updates for v7.2-rc1
-Message-ID: <akANXx5Fr4vBRhwg@carbonx1>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 177C410E44D
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 20:41:31 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65RJ0GGd1857719
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 20:41:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=4Ect+Q+S5hithsedm3WC4zkUdX1VhwQDufB
+ wKJu9ttI=; b=m+Jv4JnRf+MKiRVTSdnXpd9FU+6fzoyabWhQnEiqhcqrRpikG53
+ 9u2vvxJISXegRhJN991rrCfvAWO64+C5fBxbkVT1kX4d0D/JzsIwW9qJZRgaF/4f
+ +Nn2L74TfbKWT16fJW/eOUQCJnG+EMMm9JZdaMKe5E+4XmDkG8SO9kAaSlOyX5rq
+ 5VmS+NLt8SR6YNA0k6rLQ0KxwCBsokfhyHlqwgEjuKt7KZ+XMINCMqkDxBBg0w3R
+ Bzzz6SDziR1n7Fcx3LwVa7T/S97f44mp5s33rynUSc/JiNscXFwn5aLWnEh0Kqj0
+ 6Q3w7PkweVEP9S8spNm+k3x3el7+Z8M3vcw==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
+ [74.125.82.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f27pf1jb6-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 20:41:30 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id
+ 5a478bee46e88-30e85f5bc9eso1765645eec.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 13:41:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1782592890; x=1783197690;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=4Ect+Q+S5hithsedm3WC4zkUdX1VhwQDufBwKJu9ttI=;
+ b=cjZsunRv38J4EJdR+srmql8eFy6qkgtdb5x61kfNHXSNIYLegfRqKiKxArGMIDLinS
+ ZcHu+ZPiknwpyOoS5WC3l39Y5JtBI6NfZeSUlCxwONA0yec9be4W+GuShbAX66PXIwEE
+ OVQVwYBlctX2NacyY/HuDnm+Vk6PSc3JsMBi2uKclapMxv+AnSpSSQT3ciqTeoYPdX9b
+ M7pUKuJe0NwgpAp76XIU1yQv+bzmudsFflPcHVKK3wv1K5HHedZRvEapEncxusujeM2y
+ P+bIwW2qS6eCMnX4IWpc13mflGsrYYPMxLi6U0lHJRlD0/+NJ4tJ3txNK0zjYL9HJ4EJ
+ ThXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782592890; x=1783197690;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4Ect+Q+S5hithsedm3WC4zkUdX1VhwQDufBwKJu9ttI=;
+ b=mxJnYem8HuXlP62tw2oA5QIo3FNe3VtMDS4nekPg/yOMei91Y+fEMJa8so+/qqu5wR
+ x+41YZ2kvjdicxgeWEv8jn/gt9ilLpRztEJMXtkwNJgOCK49AJwIIuvbkuV/uCFa7vd/
+ YEaRykhsETjrb+KhE8yVhjhNL4tWAhq2D8qwbHga6aNFsRR21BU2CskyAlX4R3kgJ8Wu
+ JIlw3F/11oonevcaea9GhmJ4SSm4YqEpGhSLESqMGNe33khoNZD6HrqCUmZrik1bRuSc
+ 8wGu39CMYrfUyAWzUsWaYjXiUY6ddqcnb0/vtqpzIK+0YxyaYxdGHSqpHTQuqmDv3+ix
+ SyFA==
+X-Gm-Message-State: AOJu0YxlOj5Dlr9CdnaD7XwhHWfaBHRin+Pw529ZUbRwB4OHYXxxhjPT
+ rWr9zyRPZ4DweKh9luFR1L1CJKe+K7qyb/NePzb/6tJejaGhRYT+f9Dp3oO9Yy2wNcYFdTHmLZp
+ reuvx6G9nIdgstYU2ui10KkqQL50L5zAavdWTgX6qFUm4s4A59/qP6+X1VbQAb8wAJFt/AXKtIu
+ YE3QY=
+X-Gm-Gg: AfdE7cmn52xm4Nuh5S5IUospPUbKUWXPNayNPIUDu8DusnILQWPz4RFay5h0CT6eDf2
+ cSqiLekkccdBTu21/l+Tvj0/4dpJIK+5GvlcEL0GoLYUoptwlKFcyjv6GdXfGJJz+avEw+M76S4
+ /jghTCd5g0TArE4mldR4gg68tfChwt4LkefEpy8AdpM19jMWpmU5w0CamOBy0dnoWN+cgIQxf55
+ CTekPhH8UbAsVCNhIY60fbYIxlD3iWxZdVuz3yv8qaJYyeNjwLjWylAOq//nkV82/MBWarSelmF
+ OzfFBcZk2yewS3lXxnPhU+FNagIeGlu7iN+5skZoLPLxcs4ssJfBFxk7QdUJJZxYFotHUfAbVED
+ F4g1TkPOsoi5igM2hZbC4M+KNTVtLNE9ZpQQ2
+X-Received: by 2002:a05:7022:f68b:b0:138:4fb:f284 with SMTP id
+ a92af1059eb24-139eb163fa6mr4419212c88.15.1782592889645; 
+ Sat, 27 Jun 2026 13:41:29 -0700 (PDT)
+X-Received: by 2002:a05:7022:f68b:b0:138:4fb:f284 with SMTP id
+ a92af1059eb24-139eb163fa6mr4419183c88.15.1782592889122; 
+ Sat, 27 Jun 2026 13:41:29 -0700 (PDT)
+Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-139d8f318f3sm33653900c88.2.2026.06.27.13.41.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 27 Jun 2026 13:41:28 -0700 (PDT)
+From: mohit.dsor@oss.qualcomm.com
+To: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, boss@oss.qualcomm.com,
+ qc-display-maintainer@oss.qualcomm.com
+Subject: [PATCH 0/5] drm/bridge: lt9611c: improve HPD handling and driver
+ robustness
+Date: Sun, 28 Jun 2026 02:11:15 +0530
+Message-Id: <20260627204125.3334834-1-mohit.dsor@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-15
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI3MDE4MyBTYWx0ZWRfXzQjVRxA1QqVS
+ 7hlxy1/2TC5a4/WGVTnwI0eW5IAx4MRnz34Bfx4lFp6cy/3mktexZs3PXkQ6RPmD3ylqPxGUSsU
+ wC4OxgHxYZSZ35Bkk0SEnNSy2TUeSV8=
+X-Proofpoint-GUID: w3GGQmwHwAzMJh8rkp7TZXy269KNsn48
+X-Proofpoint-ORIG-GUID: w3GGQmwHwAzMJh8rkp7TZXy269KNsn48
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI3MDE4MyBTYWx0ZWRfXzK7WB/ZO9ztG
+ 75+Uzm0GstJznju9k9THaL7zUrxOhiNK3GFe5aeGbkHtT++1GKo7jVLyig/XIyCPEDmN95dqTmd
+ suhjQ45wHSXGQ7fk6E9wxM2HEuwjW+XRdl94x8iulXgpwtTimGmEpfuh6qYtF5H2I7wCJxpeyBn
+ rgGVusYgrmqZF4XHhdDc7Dp9ExP59abivmiLmB2WS+5WNlC8lZOvahOBab/LQRb50cPIRYUylCD
+ CdMVii+ntm3aVHUzepd0kNu3rog1+tJHa7o9n1Xo65VGRKQeg6aeUdkKKdchgXjzQnNUKUOlsjE
+ cDpifwSbOx5oZj/uKgmnhVGOVahKzQjwzJCn6tjyoqLntMDgvHQK21Cyu0YuZiUmJvyvSgZe2Kj
+ Scb+0Ht8KAILc01m/TvpIraySCTb2bJGAZn7q4UHF+w1jVfBs+Guv0bIJjTypv/2w/pid1Atlso
+ iRI8ZmchaKfJlex/NYQ==
+X-Authority-Analysis: v=2.4 cv=R7Mz39RX c=1 sm=1 tr=0 ts=6a40357a cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=uxIXVRn-lxS0ewNwCQQA:9 a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-27_03,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
+ malwarescore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606270183
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,77 +135,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Linus,
+From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 
-please pull the second half of fbdev fixes for this merge window:
+This series improves HPD handling and overall robustness of the
+lt9611c bridge driver.
 
-Two patches for generic fbdev & fbcon code which fixes the handling of
-modelists and prevents a potential NULL ptr dereference in the console code.
+The HPD status read from the internal MCU may fail when the device
+is not fully initialized, leading to spurious disconnect events.
+This series mitigates such issues by falling back to a cached HPD
+state and adds support for explicit HPD enable handling.
 
-Five patches fix various missed cleanups in the error path of various fbdev
-drivers.
+Additionally, it fixes DT parsing and bridge refcount handling,
+corrects chip type initialization, and cleans up probe and remove
+paths.
 
-And Uwe Kleine-König contributed one cleanup patch to use named initializers
-in the vga16fb driver.
+Tested on LT9611UXD platforms.
 
-Thanks!
-Helge
+Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 
-----------------------------------------------------------------
+Mohit Dsor (5):
+  drm/bridge: lt9611c: fallback to cached HPD status on read failure
+  drm/bridge: lt9611c: implement hpd_enable callback
+  drm/bridge: lt9611c: fix DT parsing and bridge refcount
+  drm/bridge: lt9611c: fix chip type initialization
+  drm/bridge: lt9611c: clean up probe error and remove paths
 
-The following changes since commit 4708cac0e22cfd217f48f7cec3c35e5922efcccd:
+ drivers/gpu/drm/bridge/lontium-lt9611c.c | 39 +++++++++++++++++++-----
+ 1 file changed, 32 insertions(+), 7 deletions(-)
 
-  Merge tag 'staging-7.2-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging (2026-06-22 12:43:16 -0700)
+-- 
+2.34.1
 
-are available in the Git repository at:
-
-  http://git.kernel.org/pub/scm/linux/kernel/git/deller/linux-fbdev.git tags/fbdev-for-7.2-rc1-2
-
-for you to fetch changes up to 7f08fc10fa3d3366dc3af723970bd03d7d6d10e3:
-
-  fbdev: Fix fb_new_modelist to prevent null-ptr-deref in fb_videomode_to_var (2026-06-26 15:12:45 +0200)
-
-----------------------------------------------------------------
-additional fbdev fixes & cleanups for 7.2-rc1:
-
-Fixes:
-- fbcon: fix NULL pointer dereference for a console without vc_data [Ian Bridges]
-- fbdev: fix fb_new_modelist to prevent null-ptr-deref in fb_videomode_to_var [Ian Bridges]
-
-Fixes in failure paths:
-- pm2fb: unwind write-cache setting on probe failure [Haoxiang Li]
-- goldfishfb: fail pan display on base-update timeout [Pengpeng Hou]
-- viafb: return error on DMA copy time-out [Pengpeng Hou]
-- fbcon: fix out-of-bounds read in error path of fbcon_do_set_font() [Mingyu Wang]
-- fbdev: fix modelist use-after-free in store_modes() [Ian Bridges]
-
-Code cleanup:
-- vga16fb: clean up platform_device_id table [Uwe Kleine-König]
-
-----------------------------------------------------------------
-Haoxiang Li (1):
-      fbdev: pm2fb: unwind WC setup on probe failure
-
-Ian Bridges (3):
-      fbdev: fix use-after-free in store_modes()
-      fbcon: fix NULL pointer dereference for a console without vc_data
-      fbdev: Fix fb_new_modelist to prevent null-ptr-deref in fb_videomode_to_var
-
-Mingyu Wang (1):
-      fbdev: fbcon: fix out-of-bounds read in err_out of fbcon_do_set_font()
-
-Pengpeng Hou (2):
-      fbdev: goldfishfb: fail pan display on base-update timeout
-      fbdev: viafb: return an error when DMA copy times out
-
-Uwe Kleine-König (1):
-      fbdev: vga16fb: Drop unused assignment of platform_device_id driver data
-
- drivers/video/fbdev/core/fbcon.c   | 14 +++++++++++---
- drivers/video/fbdev/core/fbmem.c   | 12 ++++++++++++
- drivers/video/fbdev/core/fbsysfs.c | 10 +++++++++-
- drivers/video/fbdev/goldfishfb.c   | 13 +++++++++----
- drivers/video/fbdev/pm2fb.c        |  1 +
- drivers/video/fbdev/vga16fb.c      |  4 ++--
- drivers/video/fbdev/via/via-core.c |  7 +++++--
- 7 files changed, 49 insertions(+), 12 deletions(-)
