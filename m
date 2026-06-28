@@ -4,146 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9120C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 22:54:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 246E5C43458
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 23:37:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1421C10E67B;
-	Sun, 28 Jun 2026 22:54:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B98010E392;
+	Sun, 28 Jun 2026 23:37:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IVTj4Z6w";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Kr7H1yW5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oO3ino49";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E90E010E67B
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 22:54:05 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65SM9P0o946921
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 22:54:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=qaaIg3gvt+W7J5Dpnsp8EdV5
- SRcVyaxwovZUztMqYmM=; b=IVTj4Z6w48vDnABsrjEnb363TqfizJ+SNkX0KG6E
- XLKlk2hyKGozaj8SZ3OT0/Nenbli2kQMw7PIRzIyG2Wybv3CEC3TpRtig0023lvM
- wvTCfKvokAjF8rIxyx1ULFNUmunw2mDYeZuYqP/hNDXkoEV/LvkpJddGPGzWn5wS
- U+LAqFEgwMks/TqoY/12WvTSGaXSJGUiN8HMyMzqllue4V37eDb4BeHCdasWgyyi
- zxdvWOuW/HN1RbGkOm2maJ83M38RCA+66D7NTZ3NUPrQymz70Ue6BVw/4b3TnYuv
- 9qPGRYUNyXM5WfZT/I0R50loFRbaf6sk6PGWZxxDyGYnTQ==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f27t7ukur-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 22:54:05 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-8ec235c7c66so19403856d6.0
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 15:54:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1782687244; x=1783292044;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=qaaIg3gvt+W7J5Dpnsp8EdV5SRcVyaxwovZUztMqYmM=;
- b=Kr7H1yW5Uv2g80gw5/4gpTL5OSbc1nb5tJRFVrtzeZj3PDmVRDytZcFCx0vLh/708Z
- O6wVWb74HLBvDO3TVJsyCGfDV02a/Mev8hYfyQUoCaNF1RPDRtBvO/ZXOjdqbvHGRyDq
- eVdtWf+wPCedF9vNR2glpjfnP+QFlAwAdVkCSUH2N3iLQPiNtW721oWZ8nGJWJKn3pkw
- vOp8FEFUnzx8iPgjNVaNnXp6QuotUTs6BfFd+OZF6XiWprn64Q1F1qXIfltn5amPRgYQ
- lL//uac1uIVOq46lONjTf3dhrRqDOTe3Eoiv1ajkxcVk1Jgz8zuGyHk//q4f8bal+X9G
- 5f1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782687244; x=1783292044;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=qaaIg3gvt+W7J5Dpnsp8EdV5SRcVyaxwovZUztMqYmM=;
- b=kEzPFmwQAtMzhCUWZ3K85PCtZSFq/KjjRSEziFI1rA9iQ3DX4SjtKv8ko+N+mJ55bI
- 0wM/DP4WRFBjFL0pAZLVmefkCvCkDoGF6S94IZRCn2y8irDxeur2GTdgkRDW7I6qHweY
- Iz0SeCUW2Mdzl1vfiKSmGCwRqMAEqLc6yDpbioudCNqvQAEsGMqBqC8Izb5/25zd7EIT
- paJOKPO80y8PreQRiygzC+Ndp1SGaBq2R21BLo/ulVntKFXTjtpfoBmT1IDbnW9nQKMT
- kl/ZQKApERiqNGObmGpkvIIhB41a4+5d3xpVy10htU+O25lUZljHNby3OpjFf3ZVx/To
- ylwQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8cap/eD3S3QbshGAE0imCF2sDOXhSrWFRfACWYrltRn0YE2VsoN5PFK2cjzYYZ5ArhJc9P22BVSps=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy/00fBg1vle76M3NrQg8QJ8ouGAtKfzyedW1SRLRMvCt4YlKfE
- YPDmWiYtkrIsWzMn1wthaiVjGPXK1aiDY3qLWzBFte2NJ4EF3ZnKpmGSmMWun6KPPoUvsoGbtBe
- TZXhqoCVOskYAwXUKTX+WEzvBo2HdoZmExK0/oYWJjvewzhlLDI/U8AlN57ZOE7D2YnmiGXw=
-X-Gm-Gg: AfdE7cmbaWKtItoxct5zMaY+dt4hKFJwZAnrXzKvFBt8k5bqhZW83X430PTVioEx/d5
- W2dmqmc/9jU2tqOt2tglFanAGKiZIbWHigKhlbQCiXt6zdDhfyAsyqxSCNEgzhiYATQ6BPTJCdD
- M7VJaG1luCrNjTJ79Q+2d/zztMYzzuLmRsZ7XhzaU+LxJ2wZ+r9cJxQBalI6kNhNXL+SpQt4LwS
- 2cOuasEezzyr3/SklQxjaKzbNHA1NcUBQTwNVEpd/HUYOCjH8qRmLm5KcPrEJPZYF5gUF2fgqdi
- B8yP4IBm4fKI7Kh9VwW7k1OBEGC3ioeM8x1ZtnRB2J9k/glt25OE4uf43vujlZwuvJ5Wpuw8Qsd
- yGifXzekxeC/g5qHJ7cG3ESBFBw8foqv+PyFD9Pzx9Oq7n992VUgfF1nWQRBmDDnhWOgtaFec7m
- RH2vxSPttaOb/2sf8U5wiccT5x
-X-Received: by 2002:a05:620a:414c:b0:92e:51ee:7945 with SMTP id
- af79cd13be357-92e51ee8ae6mr177012585a.30.1782687244478; 
- Sun, 28 Jun 2026 15:54:04 -0700 (PDT)
-X-Received: by 2002:a05:620a:414c:b0:92e:51ee:7945 with SMTP id
- af79cd13be357-92e51ee8ae6mr177010785a.30.1782687243961; 
- Sun, 28 Jun 2026 15:54:03 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5ad69585b6bsm5327111e87.80.2026.06.28.15.54.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 28 Jun 2026 15:54:01 -0700 (PDT)
-Date: Mon, 29 Jun 2026 01:53:58 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, Aditya Sherawat <asherawa@qti.qualcomm.com>
-Subject: Re: [PATCH v3 8/8] arm64: dts: qcom: shikra-iqs-evk: Enable A704 GPU
-Message-ID: <kz5fw4hqblmumabhooyupyxqmfwadkas57brxs2qxvnbn37v6r@jjrmk5ckqbc7>
-References: <20260628-shikra-gpu-v3-0-9b28a3b167e1@oss.qualcomm.com>
- <20260628-shikra-gpu-v3-8-9b28a3b167e1@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260628-shikra-gpu-v3-8-9b28a3b167e1@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI4MDIwNyBTYWx0ZWRfX346M9FxA48nO
- pKUvWox9KfOAyULnGqG1/D8LSzy6emvvS9E536+dL8uRzYaCXhNxfmjS+0B27epUlVVfT8EkapO
- 6DAdbWMiB9sTh7tn49eyF3QGVn3PHS+FIMwmYxGd00qSE+o8QIGe3STcJzD9/X0G+KV/jQlHyG1
- s26Yfn6Fyndt6QiVvFbvQbGmO+df6r4rEk0da2KWeG7DXUQ8i/kaMYcIINdczFBOhzM+/MpqJh5
- 8DEXLPAFZJbueX6xcupBYEYQSn3bSvf9BStfmqkCSl+Ud6UFz1AVTi3y3zPQAaYVq5bLtPtPp0u
- 7TG8Llkn3tyWiTM1EMF7gds5/Qd92D8/EzcGAoK8jd6hgTvybjnX8qKbHjiSSmXZJnSIz43fGoC
- H6jk/NaXn5gNIEQtUM2ILtNiow7lo1Rv2vLgYEKgFBr+ufE7X6TY9QIF1RMC/Xw32nT320HC2zp
- HfSzvsjkYqiQ4tTlwCg==
-X-Proofpoint-GUID: 4U-N_BHZydk0mPTmEfYBt66unLzyuEUU
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI4MDIwNyBTYWx0ZWRfXysQ7JG0rPr9G
- bUCoi8st8HZtDsfqpeBWX/dBjMWqbEthj9YFVzZP1XAqIqXVTUTKU7eSOhsn7nT7u6bUQWRHTjK
- aLbTzs9EKOgNWqeSLVJ1Ox1FHH8Crug=
-X-Proofpoint-ORIG-GUID: 4U-N_BHZydk0mPTmEfYBt66unLzyuEUU
-X-Authority-Analysis: v=2.4 cv=BdnoFLt2 c=1 sm=1 tr=0 ts=6a41a60d cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=UQAiW8fk4jwks4S4FoYA:9 a=CjuIK1q_8ugA:10 a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-28_06,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 clxscore=1015 suspectscore=0 bulkscore=0
- impostorscore=0 spamscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606280207
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8F6F10E392
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 23:37:35 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id CA8276001D;
+ Sun, 28 Jun 2026 23:37:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDF541F000E9;
+ Sun, 28 Jun 2026 23:37:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782689854;
+ bh=AsaiapX2vikYIk/w5nfyMPF/cTpFXSz56W7bWM4Pb2M=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=oO3ino49R89n61CsRkBCR9diZ+DKsLiRHMwwMxaYp9HQ173yN75E/utZi7wXI1Zcf
+ Q6bczIwGlyrmxzGJocFWVRoqN7oB17NuaydphaHrEIz+kQ7h97Ju7w3e7jpckDEfhg
+ ktpRG4kICCVC3V0sbHoXH++Dsog9uBdzBqkuzrpAn4Kw913UmAZWd1hwwv83tc0kkz
+ MMTDHUh2jCW9uHlzUzyksf2bAuvZzWfSMSRf58AaaRzD2dtc+qVIPxhR7qgq01N7rJ
+ k96hLOo3hvvJ7p9+lkeC5/B1aO/8vwUEvJRI3Km6w9HQuDe4J8rk5+GF0h6OtoJNEE
+ s5fOAwSZbkgOw==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 29 Jun 2026 01:37:27 +0200
+Message-Id: <DJL2T5XDC53F.3C2QC5L1V2H6@kernel.org>
+Subject: Re: [PATCH v5 00/20] rust: I/O type generalization and projection
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
+ "Robin Murphy" <robin.murphy@arm.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Michal Wilczynski" <m.wilczynski@samsung.com>,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pwm@vger.kernel.org>, "Laura Nao" <laura.nao@collabora.com>
+To: "Gary Guo" <gary@garyguo.net>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
+In-Reply-To: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,22 +73,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jun 28, 2026 at 11:54:01PM +0530, Akhil P Oommen wrote:
-> From: Aditya Sherawat <asherawa@qti.qualcomm.com>
-> 
-> Enable the A704 GPU and configure its zap-shader firmware on the
-> Shikra IQS EVK board.
-> 
-> Signed-off-by: Aditya Sherawat <asherawa@qti.qualcomm.com>
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
+On Fri Jun 26, 2026 at 4:45 PM CEST, Gary Guo wrote:
+> This series presents a major rework of I/O types, as a summary:
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+There are two minor rustdoc warnings:
 
+	warning: unresolved link to `include/linux/iosys-map.h`
+	    --> rust/kernel/io.rs:1456:7
+	     |
+	1456 | /// [`include/linux/iosys-map.h`] in C.
+	     |       ^^^^^^^^^^^^^^^^^^^^^^^^^ no item named `include/linux/iosys-=
+map.h` in scope
+	     |
+	     =3D help: to escape `[` and `]` characters, add '\' before them like =
+`\[` or `\]`
+	     =3D note: `#[warn(rustdoc::broken_intra_doc_links)]` on by default
+=09
+	warning: unresolved link to `View`
+	    --> rust/kernel/io.rs:1620:74
+	     |
+	1620 | /// In addition to projecting from [`Io`], you may also project fro=
+m a [`View`] of an [`Io`].
+	     |                                                                    =
+      ^^^^ no item named `View` in scope
+	     |
+	     =3D help: to escape `[` and `]` characters, add '\' before them like =
+`\[` or `\]`
+=09
+	warning: 2 warnings emitted
 
--- 
-With best wishes
-Dmitry
+> Gary Guo (19):
+>       rust: io: add dynamically-sized `Region` type
+>       rust: io: add missing safety requirement in `IoCapable` methods
+>       rust: io: restrict untyped IO access and `register!` to `Region`
+>       rust: io: implement `Io` on reference types instead
+>       rust: io: generalize `MmioRaw` to pointer to arbitrary type
+>       rust: io: rename `Mmio` to `MmioOwned`
+>       rust: io: implement `Mmio` as view type
+>       rust: pci: io: make `ConfigSpace` a view
+>       rust: io: use view types instead of addresses for `Io`
+>       pwm: th1520: remove unnecessary `deref`
+>       rust: io: remove `MmioOwned`
+>       rust: io: move `Io` methods to extension trait
+>       rust: io: add projection macro and methods
+>       rust: io: implement a view type for `Coherent`
+>       rust: io: add `read_val` and `write_val` functions on `Io`
+>       gpu: nova-core: use I/O projection for cleaner encapsulation
+>       rust: dma: drop `dma_read!` and `dma_write!` API
+>       rust: io: add copying methods
+>       rust: io: implement `IoSysMap`
+>
+> Laura Nao (1):
+>       rust: io: add I/O backend for system memory with volatile access
+
+For sharing with the drm-rust tree:
+
+diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+index 3ee19ef6264e..6868b5d80ab7 100644
+--- a/rust/kernel/drm/gem/shmem.rs
++++ b/rust/kernel/drm/gem/shmem.rs
+@@ -29,9 +29,10 @@
+         to_result, //
+     },
+     io::{
+-        Io,
+-        IoCapable,
+-        IoKnownSize, //
++        IoBase,
++        Region,
++        SysMem,
++        SysMemBackend, //
+     },
+     prelude::*,
+     scatterlist,
+@@ -467,6 +468,28 @@ pub fn owner(&self) -> &Object<D, C> {
+     }
+ }
+
++impl<'a, D, R, C, const SIZE: usize> IoBase<'a> for &'a VMap<D, R, C, SIZE=
+>
++where
++    D: DriverObject,
++    C: DeviceContext,
++    R: Deref<Target =3D Object<D, C>>,
++{
++    type Backend =3D SysMemBackend;
++    type Target =3D Region<SIZE>;
++
++    #[inline]
++    fn as_view(self) -> SysMem<'a, Region<SIZE>> {
++        let ptr =3D Region::ptr_from_raw_parts_mut(self.addr.cast(), self.=
+owner.size());
++
++        // SAFETY: Per type invariants of `VMap`:
++        // - `addr .. addr + owner.size()` is a valid kernel accessible me=
+mory region.
++        // - `addr` is page-aligned, which satisfies `Region`'s 4-byte ali=
+gnment requirement.
++        // - The memory remains valid until this `VMap` is dropped; since =
+`self` is `&'a VMap`,
++        //   the borrow prevents the `VMap` from being dropped for the lif=
+etime `'a`.
++        unsafe { SysMem::new(ptr) }
++    }
++}
++
+ impl<D, R, C, const SIZE: usize> Drop for VMap<D, R, C, SIZE>
+ where
+     D: DriverObject,
+@@ -508,69 +531,6 @@ unsafe impl<D, R, C, const SIZE: usize> Sync for VMap<=
+D, R, C, SIZE>
+ {
+ }
+
+-impl<D, R, C, const SIZE: usize> Io for VMap<D, R, C, SIZE>
+-where
+-    D: DriverObject,
+-    C: DeviceContext,
+-    R: Deref<Target =3D Object<D, C>>,
+-{
+-    #[inline]
+-    fn addr(&self) -> usize {
+-        self.addr as usize
+-    }
+-
+-    #[inline]
+-    fn maxsize(&self) -> usize {
+-        self.owner.size()
+-    }
+-}
+-
+-impl<D, R, C, const SIZE: usize> IoKnownSize for VMap<D, R, C, SIZE>
+-where
+-    D: DriverObject,
+-    C: DeviceContext,
+-    R: Deref<Target =3D Object<D, C>>,
+-{
+-    const MIN_SIZE: usize =3D SIZE;
+-}
+-
+-macro_rules! impl_vmap_io_capable {
+-    ($ty:ty) =3D> {
+-        impl<D, R, C, const SIZE: usize> IoCapable<$ty> for VMap<D, R, C, =
+SIZE>
+-        where
+-            D: DriverObject,
+-            C: DeviceContext,
+-            R: Deref<Target =3D Object<D, C>>,
+-        {
+-            #[inline]
+-            unsafe fn io_read(&self, address: usize) -> $ty {
+-                let ptr =3D address as *mut $ty;
+-
+-                // SAFETY: The safety contract of `io_read` guarantees tha=
+t address is a valid
+-                // address within the bounds of `Self` of at least the siz=
+e of $ty, and is properly
+-                // aligned.
+-                unsafe { ptr::read_volatile(ptr) }
+-            }
+-
+-            #[inline]
+-            unsafe fn io_write(&self, value: $ty, address: usize) {
+-                let ptr =3D address as *mut $ty;
+-
+-                // SAFETY: The safety contract of `io_write` guarantees th=
+at address is a valid
+-                // address within the bounds of `Self` of at least the siz=
+e of $ty, and is properly
+-                // aligned.
+-                unsafe { ptr::write_volatile(ptr, value) }
+-            }
+-        }
+-    };
+-}
+-
+-impl_vmap_io_capable!(u8);
+-impl_vmap_io_capable!(u16);
+-impl_vmap_io_capable!(u32);
+-#[cfg(CONFIG_64BIT)]
+-impl_vmap_io_capable!(u64);
+-
+ /// A reference to a GEM object that is known to have a mapped [`SGTable`]=
+.
+ ///
+ /// This is used by the Rust bindings with [`Devres`] in order to ensure t=
+hat mappings for SGTables
+@@ -638,6 +598,7 @@ mod tests {
+             UnregisteredDevice, //
+         },
+         faux,
++        io::Io,
+         page::PAGE_SIZE, //
+     };
+
+@@ -714,7 +675,7 @@ fn compile_time_vmap_sizes() -> Result {
+         assert!(ptr::eq(vmap.owner(), obj.deref()));
+
+         // Verify the max size matches the actual object size
+-        assert_eq!(vmap.maxsize(), PAGE_SIZE);
++        assert_eq!(vmap.size(), PAGE_SIZE);
+
+         // Make sure creating a vmap that's too large fails
+         assert!(obj.vmap::<{ PAGE_SIZE + 200 }>().is_err());
