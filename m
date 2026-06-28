@@ -4,57 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDA33C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 04:04:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EA29C43458
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 06:18:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1628A10E569;
-	Sun, 28 Jun 2026 04:04:10 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20D9210E569;
- Sun, 28 Jun 2026 04:04:07 +0000 (UTC)
-Received: from smtpclient.apple (unknown [117.182.74.7])
- by APP-01 (Coremail) with SMTP id qwCowAD3j8h4nEBq+V6qAw--.55335S16;
- Sun, 28 Jun 2026 12:04:03 +0800 (CST)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [PATCH] fix: drm/nouveau: nvkm_ucgrp_new: nvkm_cgrp_new failure
- leaks ucgrp   object and engine reference
-From: WenTao Liang <vulab@iscas.ac.cn>
-In-Reply-To: <20260626144717.49109-1-vulab@iscas.ac.cn>
-Date: Sun, 28 Jun 2026 12:03:52 +0800
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Ben Skeggs <bskeggs@redhat.com>,
- nouveau@lists.freedesktop.org, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <F9C8BF2D-C97E-49FE-B652-CDE97A93F615@iscas.ac.cn>
-References: <20260626144717.49109-1-vulab@iscas.ac.cn>
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- dri-devel@lists.freedesktop.org
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
-X-CM-TRANSID: qwCowAD3j8h4nEBq+V6qAw--.55335S16
-X-Coremail-Antispam: 1UD129KBjvJXoW7trWUXFyrWr47ury5Xr4kCrg_yoW8Xw4Dpr
- 4fJw1SyrZ8AF48Ka1xAa18uFySv3s0vFyFkas0y343Zrn8ZrWDArWFv3s0qFyrZrWfGw45
- tr4ktFZaqw1YvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUm2b7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
- 8067AKxVWUAVCq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28C
- jxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI
- 8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2
- z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2
- IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r1j6r4U
- McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACI402YVCY1x02628vn2kIc2
- xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
- JVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67
- kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW5JVW7JwCI42IY
- 6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIx
- AIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVF
- xhVjvjDU0xZFpf9x07j0OJ5UUUUU=
-X-Originating-IP: [117.182.74.7]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAIMA2pAiooeMAAAsF
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F49010E54E;
+	Sun, 28 Jun 2026 06:18:32 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="z7KPaQAZ";
+	dkim-atps=neutral
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012038.outbound.protection.outlook.com
+ [40.107.200.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A64610E54E;
+ Sun, 28 Jun 2026 06:18:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PWo/RHKdF4HHq9MQrBqxqEVNsI21c/WJGo/CEdTzuGTlb8QQC3QwqN4TvO38Va1RSu1X4BoBXpguzfnFq8W9wAsj6WqupV1SHqz/WvrIDoqJ94t8rc8qJwbCIRbYVo401kcrrOlSIyS7Su4ewel57n3dptSydMdr3lRTnJXS2fVGQGfFjFQ5iop2tq41ibdEA2DqMiHv7fUwB/o1EN32HBgXTQLNI8JIUzsOnyMfnUgIdFbeg8zH2JoIG5lJhKyAf6BsLCsnIpy+rJHTPowdplBP3gzix9mLme67+kyM+0ayAdyTDoNB1/8a9rKWl0Kfn4e4oXomDR/+QAYB3X1RfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7kYqXK+ti6dzjaz4KAbqr/v3WdgKSqhc/lNPnZP5m/o=;
+ b=e24eX+YnEodiBiuXYn11IjH5Vfkk+4hxxGYNmCpxy2gJFyQe9SayjQtlEpeXLMndyBxbvlZIrMTaCn3rEWpMtoXciqdNsi9IPD/wfSDBQE+2TNebJeJ9eATe8rHaJbCqrW2Pnn2QYMaHGHqXqFadBfL3ZBgeCZozlxvJuIvjceMWhoOMiQbvLma4aHGZSzPz8pdvxSryC6loluD6E1LQ0l92UcmJlVLBxhzPsmgrkpK/PTEyfeJ767HAykDi850iaoHc7/CBnRWFWJ8QP/cblL7PU+OoDhSvggQrKcaDCSe0avvZAOMeEnYNRbbtNLUSAEa55ddCB8wsMRrtRt5W2A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7kYqXK+ti6dzjaz4KAbqr/v3WdgKSqhc/lNPnZP5m/o=;
+ b=z7KPaQAZwEivMZtJ15L5EhVFDU3Lzedm/UkXLh3rAoWyKdfarbvUfhyf6hY2Dgx2J7QKTchhsnmfaRdhwvtG//lpd8qWorpdybSLQ1FFFTOzfN0IS3e7qJ/TxMk2prIlXVsFJvGcxWMvzVE5K97sL7SGb9OEGm5REOnx2rXJyyQ=
+Received: from DS1PR04CA0016.namprd04.prod.outlook.com (2603:10b6:8:243::8) by
+ MN0PR12MB6319.namprd12.prod.outlook.com (2603:10b6:208:3c0::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.18; Sun, 28 Jun
+ 2026 06:18:24 +0000
+Received: from DS3PEPF0000C37B.namprd04.prod.outlook.com
+ (2603:10b6:8:243:cafe::61) by DS1PR04CA0016.outlook.office365.com
+ (2603:10b6:8:243::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Sun,
+ 28 Jun 2026 06:18:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS3PEPF0000C37B.mail.protection.outlook.com (10.167.23.5) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Sun, 28 Jun 2026 06:18:23 +0000
+Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Sun, 28 Jun
+ 2026 01:18:21 -0500
+From: Honglei Huang <honglei1.huang@amd.com>
+To: <sima@ffwll.ch>, <matthew.brost@intel.com>, <rodrigo.vivi@intel.com>,
+ <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>,
+ <intel-xe@lists.freedesktop.org>
+CC: <Ray.Huang@amd.com>, <dri-devel@lists.freedesktop.org>, <honghuan@amd.com>
+Subject: [PATCH v2 0/3] drm/gpusvm: fix IOVA/DMA unmap leaks in
+ __drm_gpusvm_unmap_pages()
+Date: Sun, 28 Jun 2026 14:17:54 +0800
+Message-ID: <20260628061757.4093701-1-honglei1.huang@amd.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37B:EE_|MN0PR12MB6319:EE_
+X-MS-Office365-Filtering-Correlation-Id: b70f5b99-8bdc-43bd-f1d7-08ded4dd0f10
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|36860700016|1800799024|23010399003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: 25Yg7CuMN0odWlxVZA5CbWUDA762dtco/p6OTxBepM9u7ymAY1EwI8Z7yRLdY7zNsZ+3vCFs5NUpOXO3wMaDutjlnCrPJqRIr5Yfyo7VxOLcVG2guLl3r44EotKNctV0rIIpuVPKKGUtEbSc8PwIUojB9VOJGqbP5ERrZYgGr5rzHMi602tkpWMzhD0r5XqsIrgRgY7Enw3D7sYVGZodk7yZQaS/QxVUJaHYmG49jQ4Zd2HZ+rrsPnl4zzkXqNOT31mtMNJDOKAo66CCvjQUdAwr0iAei03IZepT7oiZ5Zc87k9Lhwes89yA0I8uduXHQwVLGi2cbPK73spnajGckonYnuNAgGnpZEh04MyRJnXmVZM5Yw9PNVure/+5H3krOtJ28kziGNj0ozqWosQ7vjaLKyfIrTekGkth/UJZ9calJqQVnIxixCR6fIGCOjy0q/1W7uC4bnSewIVUJQe2Ws9ythwksA+IuD7VafYMVZthtFf0VmrcmIl0Ag1ssPPqBDWF6j9m7SD2VOEBDcEHBQ25+3Zzl/TQ8OMr9xPiULjVfVSShzz4cE7D/tGgqaTv/LRRfMEOfsLC2fF4QFMvWSUellZ4qhJxT+PcBO+L3ShOPo5E4mwXYJh93SQUG6pF00m35VxxB0BYEapjrucfEAtKjwbmSNGxoTKWVAVPa8HoZu3HIV8C7YnIlPKcdkIDkEOfEO4+6rvGNo3pTrJ/hA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(23010399003)(56012099006)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 07770ZwWn7JEeaMFQL2+AqAXB8km17MPYW4mX5YRC8HZfqzT+3SggtUOKck2ZdPQa9DDL8rJVcCvwWXBM2O2+bSZm6PB3vnSEfky5DK2zPSlypm73vFjMvrGpGAoYPwvZsA6Ulxn4ZtjCkIzFzCMep/Jyxm3bXwUvLgz+rpBZDyoBlx5w2LxyWfLj3n4SHcOmSIBfcuQ+qmkLUMgYhAhxDuQLCnuSrk1K2zE+D0RyJNdK3YFYQZYiz/YivB4aIaJzuJ6dNZZ44DTYjpmJeSyn1PPGGwSm4NObobqmLjSsQfKyNb5+nH1V4tF9zbnZfxl995gnNFWWyotvSEubwImheKiZQxJ3yX5KmpK8N/5usLbIMm84wrMmCOZymF3D9wcSCbKLiAi9Illc56WF30OAeNw8xrDotdhS8lc6cN6MK0Wb/enrdLwuxgAiberG7va
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2026 06:18:23.8340 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b70f5b99-8bdc-43bd-f1d7-08ded4dd0f10
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF0000C37B.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6319
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,55 +112,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Honglei Huang <honghuan@amd.com>
 
+Three small fixes for the IOVA/DMA unmap path in
+__drm_gpusvm_unmap_pages() and the get_pages() error path, all spotted by
+AI review:
 
-> 2026=E5=B9=B46=E6=9C=8826=E6=97=A5 22:47=EF=BC=8CWenTao Liang =
-<vulab@iscas.ac.cn> =E5=86=99=E9=81=93=EF=BC=9A
->=20
-> nvkm_object_ctor initializes ucgrp with an embedded kref and =
-increments
->  the engine's reference count. When nvkm_cgrp_new subsequently fails, =
-the
->  function jumps to done without calling nvkm_object_del to release =
-ucgrp.
->  The caller ignores *pobject on error, so the ucgrp object and its =
-engine
->  reference are permanently leaked.
->=20
-> Cc: stable@vger.kernel.org
-> Fixes: 06db7fded6de ("drm/nouveau/fifo: add new channel classes")
-> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
-> ---
-> drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c | 4 +++-
-> 1 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c =
-b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c
-> index dfa3c7dbdf34..7d11b92f946b 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/ucgrp.c
-> @@ -113,8 +113,10 @@ nvkm_ucgrp_new(struct nvkm_fifo *fifo, const =
-struct nvkm_oclass *oclass, void *a
-> 	*pobject =3D &ucgrp->object;
->=20
-> 	ret =3D nvkm_cgrp_new(runl, args->v0.name, vmm, true, =
-&ucgrp->cgrp);
-> -	if (ret)
-> +	if (ret) {
-> +		nvkm_object_del(pobject);
-> 		goto done;
-> +	}
->=20
-> 	/* Return channel group info to caller. */
-> 	args->v0.cgid =3D ucgrp->cgrp->id;
-> --=20
-> 2.39.5 (Apple Git-154)
+  - Free the whole IOVA reservation on unmap. In a mixed range only the
+    system pages are linked, so freeing just the linked part leaks the
+    IOVA reserved for the device pages. Unlink the linked portion and
+    free the whole reservation. On the get_pages() error path
+    state_offset is 0, so skip the unlink, also avoiding the
+    uninitialised dma_addr[0].dir read, allocate dma_addr with the
+    zeroing kvzalloc_objs().
+  - Do not route system pages to device_unmap() on the IOVA path. Branch
+    off addr->proto so only real device pages reach device_unmap().
+  - Publish dpagemap early to avoid leaking device mappings on the
+    get_pages() error path. It was only stored on success, so a mid-way
+    failure left svm_pages->dpagemap NULL and skipped device_unmap().
+    Assign it when the first device page is mapped.
 
-Please ignore this patch. I will resend a proper version after
-learning the kernel submission process.
+All three issues are preexisting and independent of the gpusvm MM/device
+state split series; they were surfaced by the AI review of that series,
+so this series addresses them separately.
 
-Apologies for the noise.
+V2:
+  - patch 1: extend the uninitialized dma_addr[0].dir fix into freeing
+    the whole IOVA reservation, fixing the IOVA leak for mixed ranges
+    (the earlier version only guarded the direction argument).
+  - add patch 3: publish dpagemap early to fix the device-mapping leak on
+    the get_pages() error path.
 
-Best regards,
-WenTao Liang=
+Honglei Huang (3):
+  drm/gpusvm: free the whole IOVA reservation on unmap
+  drm/gpusvm: do not route system pages to device_unmap() on IOVA unmap
+  drm/gpusvm: publish dpagemap early to avoid device mapping leak on
+    error
+
+ drivers/gpu/drm/drm_gpusvm.c | 53 +++++++++++++++++++++++++-----------
+ 1 file changed, 37 insertions(+), 16 deletions(-)
+
+-- 
+2.34.1
 
