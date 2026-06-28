@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF4D5C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 14:54:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C4B4C43458
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 14:54:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4847510E619;
-	Sun, 28 Jun 2026 14:54:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3F3510E61A;
+	Sun, 28 Jun 2026 14:54:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F+GhwiVC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T5Awz6sZ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 926A310E619
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 14:54:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB33510E61A
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 14:54:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7A4A643EED;
+ by sea.source.kernel.org (Postfix) with ESMTP id C320B43ADF;
+ Sun, 28 Jun 2026 14:54:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C57AC1F00A3A;
  Sun, 28 Jun 2026 14:54:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17491F000E9;
- Sun, 28 Jun 2026 14:54:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782658461;
- bh=oAJ7c0y15eZY17lgo23mp8Sc4dPN0x3EeLmQ4Qlc1nc=;
+ s=k20260515; t=1782658465;
+ bh=SCbMZuGgOBfjbMGFeTZTjFc0XokSoalUCmtTidvSvFY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=F+GhwiVC/izBr+z1K0ZeR9dD3JnzVZWLkmgakzAhCYhZM33uNJjer0KRcxc+ToUg4
- JnTIsZ8ybILNm7xtlxyvhP6euH6igrBjfdnX7X4PbTRNQdGXVEiJC5vlD+UySj2d77
- UKNsWh8zTGBfEZFXb5Tc0tsYu57z4VAY8tWKCi9svD8NyBMQKXMATR1M0BMGYCjT1K
- hmw9p7jlWQWgJlAvfDdI6b/+Gci76hrMtD/1gB0yui27Xnbr/ChyLx7z5ed0/u+seN
- BlG5GguP9Eahykiwej41vQ8Wn/VBnwotRqmBwrU7mWJq74cWXUN/3+uCoXbnD36MwG
- lvwZj+WowXi8Q==
+ b=T5Awz6sZWmxAhsaRZ6foBOuiIAEChkIYx+w/+NOM8FW3pmxhhbIKglG2LchgLWk7H
+ zsMHoxzBofngmcxELZEK8OddkQgqzKM2gIWm/8BEFi21aMMhJucPxoO7WoE3t6pJFR
+ SmQSGh4xKrWqz16pHkZmP64L0rq2FthM2uvDl14z6qqgf0zIG0T/IU0my37oqpFJ04
+ xOiGFFq4E2D0hjAOj+SexhM9UTeQFKK9E/hsUj71DzgMHHJ7+/Y4sLXrI5RBFPg8iX
+ 9LUMKgD934btnb/vaQ374RrTw6dokM+/ZtJkjc384TH8Zvy7xMgpS2LKyAME3HYhjy
+ t0NZWUi00HzfA==
 From: Danilo Krummrich <dakr@kernel.org>
 To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  acourbot@nvidia.com, ecourtney@nvidia.com, ojeda@kernel.org,
@@ -40,14 +40,13 @@ To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
 Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  rust-for-linux@vger.kernel.org
-Subject: [PATCH v5 02/19] rust: drm: rename Uninit DeviceContext to Normal
-Date: Sun, 28 Jun 2026 16:53:22 +0200
-Message-ID: <20260628145406.2107056-3-dakr@kernel.org>
+Subject: [PATCH v5 03/19] rust: faux: add Device type with AsBusDevice support
+Date: Sun, 28 Jun 2026 16:53:23 +0200
+Message-ID: <20260628145406.2107056-4-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260628145406.2107056-1-dakr@kernel.org>
 References: <20260628145406.2107056-1-dakr@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,195 +63,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rename the Uninit DeviceContext to Normal to better reflect its purpose
-as the general-purpose, reference-counted device context. The Uninit
-name was a leftover from when DRM device private data initialization was
-planned to split across UnregisteredDevice::new() and
-Registration::new(); with the subsequent introduction of
-RegistrationData, this distinction is no longer needed.
+Add a faux::Device type that wraps struct faux_device and implements
+AsBusDevice, enabling faux devices to be used as parent devices for
+subsystems that require a bus device, such as DRM.
 
-This also simplifies the DeviceContext documentation, trimming the
-multi-stage initialization description that no longer applies.
-Subsequent patches will refine the semantics of the Registered context
-accordingly.
+Update Registration to return &faux::Device<Bound> via AsRef.
 
-No functional change.
-
-Reviewed-by: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- rust/kernel/drm/device.rs | 92 ++++++++++++---------------------------
- rust/kernel/drm/mod.rs    |  2 +-
- 2 files changed, 28 insertions(+), 66 deletions(-)
+ rust/kernel/drm/gem/shmem.rs     | 11 +++--
+ rust/kernel/faux.rs              | 69 +++++++++++++++++++++++++++-----
+ samples/rust/rust_driver_faux.rs |  3 +-
+ 3 files changed, 68 insertions(+), 15 deletions(-)
 
-diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
-index 477cf771fb10..5e91474e6dbb 100644
---- a/rust/kernel/drm/device.rs
-+++ b/rust/kernel/drm/device.rs
-@@ -74,36 +74,22 @@ macro_rules! drm_legacy_fields {
+diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+index 3ee19ef6264e..52de59b14dad 100644
+--- a/rust/kernel/drm/gem/shmem.rs
++++ b/rust/kernel/drm/gem/shmem.rs
+@@ -692,10 +692,12 @@ impl drm::Driver for KunitDriver {
+     fn create_drm_dev() -> Result<(faux::Registration, UnregisteredDevice<KunitDriver>)> {
+         // Create a faux DRM device so we can test gem object creation.
+         let data = try_pin_init!(KunitData {});
+-        let dev = faux::Registration::new(c"Kunit", None)?;
+-        let drm = UnregisteredDevice::new(dev.as_ref(), data)?;
++        let reg = faux::Registration::new(c"Kunit", None)?;
++        let fdev = reg.as_ref();
++        let dev = fdev.as_ref();
++        let drm = UnregisteredDevice::new(dev, data)?;
  
- /// A trait implemented by all possible contexts a [`Device`] can be used in.
- ///
--/// Setting up a new [`Device`] is a multi-stage process. Each step of the process that a user
--/// interacts with in Rust has a respective [`DeviceContext`] typestate. For example,
--/// `Device<T, Registered>` would be a [`Device`] that reached the [`Registered`] [`DeviceContext`].
-+/// A [`Device`] can be in one of two contexts:
- ///
--/// Each stage of this process is described below:
--///
--/// ```text
--///        1                     2                         3
--/// +--------------+   +------------------+   +-----------------------+
--/// |Device created| → |Device initialized| → |Registered w/ userspace|
--/// +--------------+   +------------------+   +-----------------------+
--///    (Uninit)                                      (Registered)
--/// ```
--///
--/// 1. The [`Device`] is in the [`Uninit`] context and is not guaranteed to be initialized or
--///    registered with userspace. Only a limited subset of DRM core functionality is available.
--/// 2. The [`Device`] is guaranteed to be fully initialized, but is not guaranteed to be registered
--///    with userspace. All DRM core functionality which doesn't interact with userspace is
--///    available. We currently don't have a context for representing this.
--/// 3. The [`Device`] is guaranteed to be fully initialized, and is guaranteed to have been
--///    registered with userspace at some point - thus putting it in the [`Registered`] context.
--///
--/// An important caveat of [`DeviceContext`] which must be kept in mind: when used as a typestate
--/// for a reference type, it can only guarantee that a [`Device`] reached a particular stage in the
--/// initialization process _at the time the reference was taken_. No guarantee is made in regards to
--/// what stage of the process the [`Device`] is currently in. This means for instance that a
--/// `&Device<T, Uninit>` may actually be registered with userspace, it just wasn't known to be
--/// registered at the time the reference was taken.
-+/// - [`Normal`]: The general-purpose, reference-counted context. A [`Device`] in this context may
-+///   or may not be registered with userspace.
-+/// - [`Registered`]: The device has been registered with userspace at some point.
- pub trait DeviceContext: Sealed + Send + Sync {}
+-        Ok((dev, drm))
++        Ok((reg, drm))
+     }
  
-+/// The general-purpose, reference-counted [`DeviceContext`].
+     #[test]
+@@ -755,7 +757,8 @@ fn vmap_io() -> Result {
+     #[test]
+     fn fail_sg_table_on_wrong_dev() -> Result {
+         let (_dev, drm) = create_drm_dev()?;
+-        let wrong_dev = faux::Registration::new(c"EvilKunit", None)?;
++        let reg = faux::Registration::new(c"EvilKunit", None)?;
++        let wrong_dev = reg.as_ref();
+ 
+         let obj = Object::<KunitObject, _>::new(&drm, PAGE_SIZE, ObjectConfig::default(), ())?;
+ 
+diff --git a/rust/kernel/faux.rs b/rust/kernel/faux.rs
+index 36c92ae2943c..cd0724af446b 100644
+--- a/rust/kernel/faux.rs
++++ b/rust/kernel/faux.rs
+@@ -9,15 +9,63 @@
+ use crate::{
+     bindings,
+     device,
+-    prelude::*, //
++    prelude::*,
++    types::Opaque, //
+ };
+-use core::ptr::{
+-    addr_of_mut,
+-    null,
+-    null_mut,
+-    NonNull, //
++use core::{
++    marker::PhantomData,
++    ptr::{
++        null,
++        null_mut,
++        NonNull, //
++    },
+ };
+ 
++/// A faux device.
 +///
-+/// A [`Device`] in this context may or may not be registered with userspace. This context is used
-+/// for reference-counted device handles and during device setup via [`UnregisteredDevice`].
-+pub struct Normal;
++/// A faux device is a virtual device backed by the faux bus, primarily used for scenarios where a
++/// real hardware device is not available or for testing.
++///
++/// # Invariants
++///
++/// The underlying `struct faux_device` is valid and the embedded `struct device` is initialized.
++#[repr(transparent)]
++pub struct Device<Ctx: device::DeviceContext = device::Normal>(
++    Opaque<bindings::faux_device>,
++    PhantomData<Ctx>,
++);
 +
-+impl Sealed for Normal {}
-+impl DeviceContext for Normal {}
++impl<Ctx: device::DeviceContext> Device<Ctx> {
++    #[inline]
++    fn as_raw(&self) -> *mut bindings::faux_device {
++        self.0.get()
++    }
 +
- /// The [`DeviceContext`] of a [`Device`] that was registered with userspace at some point.
++    /// # Safety
++    ///
++    /// `ptr` must be a valid pointer to a `struct faux_device`.
++    #[inline]
++    unsafe fn from_raw<'a>(ptr: *mut bindings::faux_device) -> &'a Self {
++        // SAFETY: `Device` is a transparent wrapper of `Opaque<bindings::faux_device>`.
++        unsafe { &*ptr.cast() }
++    }
++}
++
++impl<Ctx: device::DeviceContext> AsRef<device::Device<Ctx>> for Device<Ctx> {
++    #[inline]
++    fn as_ref(&self) -> &device::Device<Ctx> {
++        // SAFETY: By the type invariant of `Self`, `self.as_raw()` is a pointer to a valid
++        // `struct faux_device`. `dev` points to a valid `struct device`.
++        unsafe { device::Device::from_raw(&raw mut (*self.as_raw()).dev) }
++    }
++}
++
++// SAFETY: `faux::Device` is a transparent wrapper of `struct faux_device`.
++// The offset is guaranteed to point to a valid device field inside `faux::Device`.
++unsafe impl<Ctx: device::DeviceContext> device::AsBusDevice<Ctx> for Device<Ctx> {
++    const OFFSET: usize = core::mem::offset_of!(bindings::faux_device, dev);
++}
++
+ /// The registration of a faux device.
  ///
- /// This represents a [`Device`] which is guaranteed to have been registered with userspace at
-@@ -121,20 +107,6 @@ pub trait DeviceContext: Sealed + Send + Sync {}
- impl Sealed for Registered {}
- impl DeviceContext for Registered {}
+ /// This type represents the registration of a [`struct faux_device`]. When an instance of this type
+@@ -60,10 +108,11 @@ fn as_raw(&self) -> *mut bindings::faux_device {
+     }
+ }
  
--/// The [`DeviceContext`] of a [`Device`] that may be unregistered and partly uninitialized.
--///
--/// A [`Device`] in this context is only guaranteed to be partly initialized, and may or may not
--/// be registered with userspace. Thus operations which depend on the [`Device`] being fully
--/// initialized, or which depend on the [`Device`] being registered with userspace are not
--/// available through this [`DeviceContext`].
--///
--/// A [`Device`] in this context can be used to create a
--/// [`Registration`](drm::driver::Registration).
--pub struct Uninit;
--
--impl Sealed for Uninit {}
--impl DeviceContext for Uninit {}
--
- /// A [`Device`] which is known at compile-time to be unregistered with userspace.
- ///
- /// This type allows performing operations which are only safe to do before userspace registration,
-@@ -147,10 +119,10 @@ impl DeviceContext for Uninit {}
- ///
- /// The device in `self.0` is guaranteed to be a newly created [`Device`] that has not yet been
- /// registered with userspace until this type is dropped.
--pub struct UnregisteredDevice<T: drm::Driver>(ARef<Device<T, Uninit>>, NotThreadSafe);
-+pub struct UnregisteredDevice<T: drm::Driver>(ARef<Device<T, Normal>>, NotThreadSafe);
- 
- impl<T: drm::Driver> Deref for UnregisteredDevice<T> {
--    type Target = Device<T, Uninit>;
-+    type Target = Device<T, Normal>;
- 
-     fn deref(&self) -> &Self::Target {
-         &self.0
-@@ -178,15 +150,13 @@ const fn compute_features() -> u32 {
-         master_drop: None,
-         debugfs_init: None,
- 
--        // Ignore the Uninit DeviceContext below. It is only provided because it is required by the
--        // compiler, and it is not actually used by these functions.
--        gem_create_object: T::Object::<Uninit>::ALLOC_OPS.gem_create_object,
--        prime_handle_to_fd: T::Object::<Uninit>::ALLOC_OPS.prime_handle_to_fd,
--        prime_fd_to_handle: T::Object::<Uninit>::ALLOC_OPS.prime_fd_to_handle,
--        gem_prime_import: T::Object::<Uninit>::ALLOC_OPS.gem_prime_import,
--        gem_prime_import_sg_table: T::Object::<Uninit>::ALLOC_OPS.gem_prime_import_sg_table,
--        dumb_create: T::Object::<Uninit>::ALLOC_OPS.dumb_create,
--        dumb_map_offset: T::Object::<Uninit>::ALLOC_OPS.dumb_map_offset,
-+        gem_create_object: T::Object::<Normal>::ALLOC_OPS.gem_create_object,
-+        prime_handle_to_fd: T::Object::<Normal>::ALLOC_OPS.prime_handle_to_fd,
-+        prime_fd_to_handle: T::Object::<Normal>::ALLOC_OPS.prime_fd_to_handle,
-+        gem_prime_import: T::Object::<Normal>::ALLOC_OPS.gem_prime_import,
-+        gem_prime_import_sg_table: T::Object::<Normal>::ALLOC_OPS.gem_prime_import_sg_table,
-+        dumb_create: T::Object::<Normal>::ALLOC_OPS.dumb_create,
-+        dumb_map_offset: T::Object::<Normal>::ALLOC_OPS.dumb_map_offset,
- 
-         show_fdinfo: None,
-         fbdev_probe: None,
-@@ -211,7 +181,7 @@ const fn compute_features() -> u32 {
-     pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<Self> {
-         // `__drm_dev_alloc` uses `kmalloc()` to allocate memory, hence ensure a `kmalloc()`
-         // compatible `Layout`.
--        let layout = Kmalloc::aligned_layout(Layout::new::<Device<T, Uninit>>());
-+        let layout = Kmalloc::aligned_layout(Layout::new::<Device<T, Normal>>());
- 
-         // Use a temporary vtable without a `release` callback until `data` is initialized, so
-         // init failure can release the DRM device without dropping uninitialized fields.
-@@ -223,12 +193,12 @@ pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<S
+-impl AsRef<device::Device<device::Bound>> for Registration {
+-    fn as_ref(&self) -> &device::Device<device::Bound> {
++impl AsRef<Device<device::Bound>> for Registration {
++    #[inline]
++    fn as_ref(&self) -> &Device<device::Bound> {
          // SAFETY:
-         // - `alloc_vtable` reference remains valid until no longer used,
-         // - `dev` is valid by its type invarants,
--        let raw_drm: *mut Device<T, Uninit> = unsafe {
-+        let raw_drm: *mut Device<T, Normal> = unsafe {
-             bindings::__drm_dev_alloc(
-                 dev.as_raw(),
-                 &alloc_vtable,
-                 layout.size(),
--                mem::offset_of!(Device<T, Uninit>, dev),
-+                mem::offset_of!(Device<T, Normal>, dev),
-             )
-         }
-         .cast();
-@@ -264,16 +234,8 @@ pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<S
+-        // - The underlying `device` in `faux_device` is guaranteed by the C API to be a valid
++        // - The underlying `struct faux_device` is guaranteed by the C API to be a valid
+         //   initialized `device`.
+         // - `faux_match()` always returns 1, and probe runs synchronously
+         //   (PROBE_FORCE_SYNCHRONOUS).
+@@ -71,7 +120,7 @@ fn as_ref(&self) -> &device::Device<device::Bound> {
+         //   sysfs.
+         // - `mem::forget(Registration)` is not a problem; if the `Registration` is leaked, the faux
+         //   device stays bound forever.
+-        unsafe { device::Device::from_raw(addr_of_mut!((*self.as_raw()).dev)) }
++        unsafe { Device::from_raw(self.as_raw()) }
+     }
+ }
  
- /// A typed DRM device with a specific [`drm::Driver`] implementation and [`DeviceContext`].
- ///
--/// Since DRM devices can be used before being fully initialized and registered with userspace, `C`
--/// represents the furthest [`DeviceContext`] we can guarantee that this [`Device`] has reached.
--///
--/// Keep in mind: this means that an unregistered device can still have the registration state
--/// [`Registered`] as long as it was registered with userspace once in the past, and that the
--/// behavior of such a device is still well-defined. Additionally, a device with the registration
--/// state [`Uninit`] simply does not have a guaranteed registration state at compile time, and could
--/// be either registered or unregistered. Since there is no way to guarantee a long-lived reference
--/// to an unregistered device would remain unregistered, we do not provide a [`DeviceContext`] for
--/// this.
-+/// A device in the [`Registered`] context is guaranteed to have been registered with userspace
-+/// at some point. The [`Normal`] context is the general-purpose, reference-counted context.
- ///
- /// # Invariants
- ///
-diff --git a/rust/kernel/drm/mod.rs b/rust/kernel/drm/mod.rs
-index a66e7166f66b..e5bfaf130342 100644
---- a/rust/kernel/drm/mod.rs
-+++ b/rust/kernel/drm/mod.rs
-@@ -11,8 +11,8 @@
+diff --git a/samples/rust/rust_driver_faux.rs b/samples/rust/rust_driver_faux.rs
+index 99876c8e3743..27b6d3e2bb44 100644
+--- a/samples/rust/rust_driver_faux.rs
++++ b/samples/rust/rust_driver_faux.rs
+@@ -25,8 +25,9 @@ fn init(_module: &'static ThisModule) -> Result<Self> {
+         pr_info!("Initialising Rust Faux Device Sample\n");
  
- pub use self::device::Device;
- pub use self::device::DeviceContext;
-+pub use self::device::Normal;
- pub use self::device::Registered;
--pub use self::device::Uninit;
- pub use self::device::UnregisteredDevice;
- pub use self::driver::Driver;
- pub use self::driver::DriverInfo;
+         let reg = faux::Registration::new(c"rust-faux-sample-device", None)?;
++        let fdev = reg.as_ref();
+ 
+-        dev_info!(reg, "Hello from faux device!\n");
++        dev_info!(fdev, "Hello from faux device!\n");
+ 
+         Ok(Self { _reg: reg })
+     }
 -- 
 2.54.0
 
