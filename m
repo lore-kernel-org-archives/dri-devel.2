@@ -4,49 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 827F9C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 15:02:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82676C43458
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 15:03:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A15B410E62D;
-	Sun, 28 Jun 2026 15:02:40 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FF7010E62D
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 15:02:38 +0000 (UTC)
-Received: from localhost.localdomain (unknown [117.182.74.7])
- by APP-05 (Coremail) with SMTP id zQCowADHNemFN0FqF5TJFQ--.35071S2;
- Sun, 28 Jun 2026 23:02:31 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: thierry.reding@kernel.org, mperttunen@nvidia.com, airlied@gmail.com,
- simona@ffwll.ch, jonathanh@nvidia.com
-Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>,
- Greg KH <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Subject: [PATCH v2] drm/tegra: fix host1x_bo_pin leak in tegra_dc_pin error
- path
-Date: Sun, 28 Jun 2026 23:02:28 +0800
-Message-Id: <20260628150228.47948-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowADHNemFN0FqF5TJFQ--.35071S2
-X-Coremail-Antispam: 1UD129KBjvdXoWruFW8trWxuF1UZF1UJr4xWFg_yoWDtFb_u3
- 4kXrykGwnrWFyq9r17ZrWavFyS9a4kuF48X340ka93G3s8XF1UW3y8urnY9w1UGF4rKFn8
- Gwn7Ga10v3ZF9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUb3xFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
- Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s
- 1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0
- cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8Jw
- ACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka
- 0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
- v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
- 1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
- AIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI
- 42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcSsGvf
- C2KfnxnUUI43ZEXa7VUb8hL5UUUUU==
-X-Originating-IP: [117.182.74.7]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMMA2pBLNsO9gABsl
+	by gabe.freedesktop.org (Postfix) with ESMTP id D519B10E631;
+	Sun, 28 Jun 2026 15:03:46 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OtlPB8hZ";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05E5A10E631
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 15:03:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7DCBF6001D;
+ Sun, 28 Jun 2026 15:03:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7C131F000E9;
+ Sun, 28 Jun 2026 15:03:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782659024;
+ bh=KCI45b/0h+Lyko/crCqha+wz1GUlyH81GE7r8E/gGRY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=OtlPB8hZt/bfPfkTACgJYztiAOxa3o/eV4wP8a5ZTAMXQqoj6y8dshq1NJ8NPENND
+ QkyOp8OfGmjzlrN7QaCIPCM5nxzO3mzJRvVSR+GBIGB7WnWMiwrEKqkuYyQyrwZsNh
+ uFIG7G2Wfp5yXTFjBGhQ0xjComXbZBXE61EqjiLoq+xTakSSpkMFSPDtDZnGenMize
+ D9iaCYeoRdeRx1D/mOsBJje9Y0UCmdFTZOdmr+YzbBw8XGW86K34DMb4X4iPDD8RAb
+ EGdwZ4FkF6BSR8dN6deyGZgSYyAaRTLBUy3E7SYxZTtKzwG+sdr+3Kt0t5b31Stu/S
+ Abfo868JotBjg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 01/19] rust: drm: ioctl: fix unbounded lifetimes in
+ ioctl handler arguments
+To: "Danilo Krummrich" <dakr@kernel.org>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org,
+ ojeda@kernel.org
+In-Reply-To: <20260628145406.2107056-2-dakr@kernel.org>
+References: <20260628145406.2107056-1-dakr@kernel.org>
+ <20260628145406.2107056-2-dakr@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 28 Jun 2026 15:03:43 +0000
+Message-Id: <20260628150343.E7C131F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,38 +55,75 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When map->chunks > 1 triggers an error, the function jumps to unpin
-before storing the current map in state->map[i]. The unpin loop only
-cleans up previously pinned planes (indices 0 through i-1), so the
-current mapping returned by host1x_bo_pin is never released via
-host1x_bo_unpin.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Suggested-by: Greg KH <gregkh@linuxfoundation.org>
-Fixes: c6aeaf56f468 ("drm/tegra: Implement correct DMA-BUF semantics")
-Cc: stable@vger.kernel.org
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
-Changes in v2:
-- Fix patch format based on reviewer feedback
----
- drivers/gpu/drm/tegra/plane.c | 1 +
- 1 file changed, 1 insertion(+)
+Pre-existing issues:
+- [High] The `declare_drm_ioctls!` macro is unsound because it allows type =
+inference to dictate the generic `Driver` type for `Device` and `File`, ena=
+bling potential cross-type downcasts (type confusion).
+--
 
-diff --git a/drivers/gpu/drm/tegra/plane.c b/drivers/gpu/drm/tegra/plane.c
-index 0cb30910773f..e61485ee58f6 100644
---- a/drivers/gpu/drm/tegra/plane.c
-+++ b/drivers/gpu/drm/tegra/plane.c
-@@ -161,6 +161,7 @@ static int tegra_dc_pin(struct tegra_dc *dc, struct tegra_plane_state *state)
- 			 */
- 			if (map->chunks > 1) {
- 				err = -EINVAL;
-+				host1x_bo_unpin(map);
- 				goto unpin;
- 			}
- 
--- 
-2.39.5 (Apple Git-154)
+commit 541a4b9cfa288156f9ba5c6b0436d72c3dc130fe
+Author: Danilo Krummrich <dakr@kernel.org>
 
+rust: drm: ioctl: fix unbounded lifetimes in ioctl handler arguments
+
+This commit fixes unbounded lifetimes created by unsafe pointer dereferences
+in the declare_drm_ioctls! macro. It introduces a higher-ranked function
+pointer coercion to ensure that handlers accept universally quantified
+lifetimes, preventing them from improperly demanding static references.
+
+Closes: https://lore.kernel.org/all/20260620011346.A47D01F000E9@smtp.kernel=
+.org/
+
+> diff --git a/rust/kernel/drm/ioctl.rs b/rust/kernel/drm/ioctl.rs
+> index cf328101dde4e..ccf4150d83b69 100644
+> --- a/rust/kernel/drm/ioctl.rs
+> +++ b/rust/kernel/drm/ioctl.rs
+> @@ -135,6 +135,12 @@ macro_rules! declare_drm_ioctls {
+>                              // dev/file match the current driver these i=
+octls are being declared
+>                              // for, and it's not clear how to enforce th=
+is within the type system.
+>                              let dev =3D $crate::drm::device::Device::fro=
+m_raw(raw_dev);
+
+[Severity: High]
+This is a pre-existing issue, but does this instantiation of
+Device::from_raw() leave the generic driver type parameter unbounded?
+
+Since type inference can dictate the generic driver type for the device bas=
+ed
+on the handler's signature, is it possible for a handler expecting
+&Device<DriverB> to be passed for an IOCTL declared in DriverA?
+
+If that happens, type inference might instantiate Device::from_raw<DriverB>.
+The DRM core would later pass a DriverA device, but the safe handler might
+access it assuming DriverB's layout, potentially causing type confusion.
+
+Is there a way to strictly bind the driver type in the macro so we prevent
+potential cross-type downcasts?
+
+> +
+> +                            // Enforce that the handler accepts higher-r=
+anked
+> +                            // lifetimes, preventing it from requiring '=
+static
+> +                            // references that could escape this scope.
+> +                            let _: for<'a> fn(&'a _, &'a mut _, &'a _) -=
+> _ =3D $func;
+> +
+>                              // SAFETY: The ioctl argument has size `_IOC=
+_SIZE(cmd)`, which we
+>                              // asserted above matches the size of this t=
+ype, and all bit patterns of
+>                              // UAPI structs must be valid.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260628145406.2107=
+056-1-dakr@kernel.org?part=3D1
