@@ -4,50 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D89CC43458
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 14:23:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C716C43458
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 14:26:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10F2910E60D;
-	Sun, 28 Jun 2026 14:23:04 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 174DA10E60D
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 14:23:01 +0000 (UTC)
-Received: from localhost.localdomain (unknown [117.182.74.7])
- by APP-05 (Coremail) with SMTP id zQCowAAXnP8_LkFquD7IFQ--.8366S2;
- Sun, 28 Jun 2026 22:22:56 +0800 (CST)
-From: WenTao Liang <vulab@iscas.ac.cn>
-To: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
- simona@ffwll.ch, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- WenTao Liang <vulab@iscas.ac.cn>, Greg KH <gregkh@linuxfoundation.org>,
- stable@vger.kernel.org
-Subject: [PATCH v2] drm/mediatek: fix of_node leak in mtk_drm_probe loop
-Date: Sun, 28 Jun 2026 22:17:51 +0800
-Message-Id: <20260628141751.47090-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowAAXnP8_LkFquD7IFQ--.8366S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7AFy8ur4ktF43Ar4xKw1kuFg_yoW8Wr45pF
- WDKFWYyrW0qr4xKFyvyFyUury3A3WSqayxWr4Yg3WxZwn8tFy7XFyFqay7KFZ7AFyxC3Wa
- q3Z8AFyfury7AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
- 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
- jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
- 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
- n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
- AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
- 17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
- IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
- IxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
- nIWIevJa73UjIFyTuYvjfUOlkVUUUUU
-X-Originating-IP: [117.182.74.7]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgMMA2pBKkEGVwAAsb
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7273910E35D;
+	Sun, 28 Jun 2026 14:26:55 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VkTQklak";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5874610E35D
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 14:26:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3312941AE6;
+ Sun, 28 Jun 2026 14:26:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01D4E1F000E9;
+ Sun, 28 Jun 2026 14:26:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782656814;
+ bh=gCF7YrUVTT5UW7zvWu2vz/3UR9SlUM4Lijd3nbXiIek=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=VkTQklaklfZoOGuDA8hEzrUrgYprCNZaf8YE9OLJj47XnqKmNUU5IYkTbzyMQTWJg
+ eEv+ScRQlTNSHLsl869o2FUWwU0hFMn/6ekVn7seTqR+pENOVyNziODPs31Wjyh9R9
+ 8skYRqnoejypUdn/OyZE2pLM0eV0qnAHhprg9oFHVHL54HqNW3BmNzyXktPoES9lap
+ zjkpHvuZH5WTwttlL8QqjfHbJ+uznehNQU6mCkitEkkJ6mBcpvQDPcQpsRZLUKli20
+ ybGUZQMfgY3cjPrHlzMh3U8U4D4gbeDW8cKQx4/LTuRFuA0hTAw8OooEr3TDnAl1Au
+ c2shh3XHAI11Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] drm/omap: dsi: avoid sending bta sync all the time
+ in writes
+To: "Andreas Kemnade" <andreas@kemnade.info>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260628-vm-upstr-v3-1-9e9add93378b@kemnade.info>
+References: <20260628-vm-upstr-v3-1-9e9add93378b@kemnade.info>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 28 Jun 2026 14:26:53 +0000
+Message-Id: <20260628142654.01D4E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,46 +53,116 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In the for_each_child_of_node loop, private->comp_node[comp_id] and
-private->mutex_node are assigned via of_node_get without first releasing
-any previously stored reference for the same index. When the same comp_id
-or mmsys_id matches multiple nodes, earlier node references are
-overwritten and permanently leaked.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Suggested-by: Greg KH <gregkh@linuxfoundation.org>
-Fixes: 1ef7ed48356c ("drm/mediatek: Modify mediatek-drm for mt8195 multi mmsys support")
-Cc: stable@vger.kernel.org
-Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
----
-Changes in v2:
-- Fix patch format based on reviewer feedback
----
- drivers/gpu/drm/mediatek/mtk_drm_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+New issues:
+- [High] Missing wait/pacing for short packets leads to TX FIFO overflows a=
+nd transmission failures.
+- [High] The wait for a long packet's transmission can be prematurely satis=
+fied by the PACKET_SENT interrupt of a preceding short packet.
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index c86a3f54f35b..58860f7071a9 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -1138,6 +1138,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
- 
- 			id = of_alias_get_id(node, "mutex");
- 			if (id < 0 || id == private->data->mmsys_id) {
-+				of_node_put(private->mutex_node);
- 				private->mutex_node = of_node_get(node);
- 				dev_dbg(dev, "get mutex for mmsys %d", private->data->mmsys_id);
- 			}
-@@ -1154,6 +1155,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
- 		if (!mtk_drm_find_mmsys_comp(private, comp_id))
- 			continue;
- 
-+		of_node_put(private->comp_node[comp_id]);
- 		private->comp_node[comp_id] = of_node_get(node);
- 
- 		/*
--- 
-2.39.5 (Apple Git-154)
+Pre-existing issues:
+- [High] A race condition during timeout handling causes a use-after-free o=
+n a stack-allocated completion object due to lockless IRQ dispatch.
+--
 
+commit 13757a7bc4e8503b706178de5f3a86e797b3589f
+Author: Andreas Kemnade <andreas@kemnade.info>
+
+drm/omap: dsi: avoid sending bta sync all the time in writes
+
+This patch modifies the DSI write logic to avoid sending a BTA sync on
+every write unless acknowledgments are explicitly requested. Instead,
+it waits for the packet transmission to complete to prevent FIFO overflows.
+This change allows configuration of chips like the TC358762 that require
+specific commands before they can send data.
+
+> diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/=
+dss/dsi.c
+> index 27fe7bca9e2cf..f7079a49e824e 100644
+> --- a/drivers/gpu/drm/omapdrm/dss/dsi.c
+> +++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
+> @@ -2194,28 +2194,39 @@ static int dsi_vc_send_null(struct dsi_data *dsi,=
+ int vc, int channel)
+>  static int dsi_vc_write_common(struct omap_dss_device *dssdev, int vc,
+>  			       const struct mipi_dsi_msg *msg)
+>  {
+> +	DECLARE_COMPLETION_ONSTACK(completion);
+>  	struct dsi_data *dsi =3D to_dsi_data(dssdev);
+>  	int r;
+> =20
+>  	if (mipi_dsi_packet_format_is_short(msg->type))
+>  		r =3D dsi_vc_send_short(dsi, vc, msg);
+> -	else
+> +	else {
+
+[Severity: High]
+The commit message states "wait for the packet to be sent to avoid FIFO
+overflows", but does this code omit that wait for short packets?
+
+If a panel driver sends a rapid sequence of short DCS configuration
+commands, it appears dsi_vc_send_short() will push to the FIFO and
+return immediately. Since the unconditional dsi_vc_send_bta_sync() was
+removed, could this lack of pacing cause the TX FIFO to overflow during
+consecutive short writes?
+
+> +		/* wait for IRQ for long packet transmission confirmation */
+> +		r =3D dsi_register_isr_vc(dsi, vc, dsi_completion_handler,
+> +					&completion, DSI_VC_IRQ_PACKET_SENT);
+
+[Severity: High]
+Because short packets return immediately without waiting, what happens if
+a short packet is followed immediately by a long packet?
+
+If the short packet finishes transmitting after the DSI_VC_IRQ_PACKET_SENT
+status is cleared by dsi_register_isr_vc() for the long packet, will the
+short packet's completion interrupt fire and prematurely satisfy the
+wait_for_completion_timeout() for the long packet?
+
+> +		if (r)
+> +			return r;
+> +
+>  		r =3D dsi_vc_send_long(dsi, vc, msg);
+> =20
+> -	if (r < 0)
+> +		if ((!r) && wait_for_completion_timeout(&completion,
+> +					msecs_to_jiffies(500)) =3D=3D 0)
+> +			r =3D -EIO;
+> +
+> +		dsi_unregister_isr_vc(dsi, vc, dsi_completion_handler,
+> +				      &completion, DSI_VC_IRQ_PACKET_SENT);
+
+[Severity: High]
+This is a pre-existing issue, but can this sequence lead to a
+use-after-free on the stack-allocated completion object?
+
+If the 500ms timeout expires, the thread wakes up, unregisters the ISR,
+returns -EIO, and destroys the stack frame. However, omap_dsi_irq_handler()
+makes a copy of the ISR table and executes handlers locklessly:
+
+omap_dsi_irq_handler() {
+    memcpy(&dsi->isr_tables_copy, &dsi->isr_tables, sizeof(dsi->isr_tables)=
+);
+    spin_unlock(&dsi->irq_lock);
+    dsi_handle_isrs(&dsi->isr_tables_copy, ...);
+}
+
+If a delayed hardware interrupt fires concurrently, could the IRQ handler
+invoke dsi_completion_handler() from its local copy and call complete() on
+the now-destroyed stack pointer, since it doesn't synchronize with
+dsi_unregister_isr_vc()?
+
+> +	}
+> +	if (r)
+>  		return r;
+> =20
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260628-vm-upstr-v=
+3-1-9e9add93378b@kemnade.info?part=3D1
