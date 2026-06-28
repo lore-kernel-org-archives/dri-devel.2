@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B923C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 15:13:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3B2EC43458
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 15:14:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD3A610E63D;
-	Sun, 28 Jun 2026 15:13:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43DB710E635;
+	Sun, 28 Jun 2026 15:14:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jWofa/cu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cbg9qAS6";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DA8710E63D
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 15:13:45 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5E7810E635
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 15:14:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2124F6001D;
- Sun, 28 Jun 2026 15:13:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E0F71F000E9;
- Sun, 28 Jun 2026 15:13:44 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B621240384;
+ Sun, 28 Jun 2026 15:14:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60DF81F000E9;
+ Sun, 28 Jun 2026 15:14:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782659624;
- bh=zeHJYyfPAkr0l4Ja8KELX9xSuRiOmdrbjVAjRRmkHjU=;
+ s=k20260515; t=1782659661;
+ bh=g0lnf1ZWGqjRrmlHGm9YTg6de5oaRrbk2j99cVWvYiI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jWofa/cu6LJUyFCWmmKe4OiSUIhGJ7NMGrJ3IHZSSFpIcRbRreLLGalzqHPpieQap
- voYDq/mnjCtOD2vV3zD5VHmaDVvC52iHgoRMgNt9NE01OX/hRAjBYZ/F8rz0XZhK5I
- +0vdEpteU9+1hXj+XD2cgFf8giDxNOv4fHP+gFYpSNAPkIc97UpItfcCNPwdqA45A8
- TQ2hWkTKA7MOXL4ANy+LE7EBHM3fcSIj7WrypnTzpmaxCzBSCE1e1xXygRRLfHYVZR
- bNiTh4DyUTn3DFut5rnpyuI+nK3NrXdGToKI7qR9cZAMKMwtOXT+apu25XeJNrlNjn
- ydLJe3FnMmGuA==
+ b=Cbg9qAS6RSBqnvvM6CHuvq8AGPVkQsH7i6SjJWydY8ASNRdoP/d0YDWMBZ/1L8lcU
+ tyShGVPd8ex/AuJYbdG6EbZPcmUeScJbWHNJAWwzZORsT8ZI67MzgIHHGrkNGDWK6m
+ l8fNb3dke4M410dGQRVgZYVwBEaY9rS9Ho9dOcpad2y1E78RocgyIy3S5JDey3+Mcx
+ hU8wk8jSS5tlkfjqyVrFt6NstFiRnvRH4h233GO9v/5Ko39pmSTV1l3LRsIQyfn3VA
+ QgxiUQPSzh1BkpnrwRPQABrv8cb5RMWj8vbs+IUIuqGR9P8nuFPx5pzfxFxNkAkqSz
+ lcXLv7o6oaauQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 07/19] rust: drm: restrict AlwaysRefCounted to Normal
- GEM Object context
+Subject: Re: [PATCH v5 16/19] drm: fix race between partial
+ drm_dev_register() failure and ioctl
 To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org,
- "Alexandre Courbot" <acourbot@nvidia.com>
-In-Reply-To: <20260628145406.2107056-8-dakr@kernel.org>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, ojeda@kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260628145406.2107056-17-dakr@kernel.org>
 References: <20260628145406.2107056-1-dakr@kernel.org>
- <20260628145406.2107056-8-dakr@kernel.org>
+ <20260628145406.2107056-17-dakr@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 28 Jun 2026 15:13:43 +0000
-Message-Id: <20260628151344.0E0F71F000E9@smtp.kernel.org>
+Date: Sun, 28 Jun 2026 15:14:20 +0000
+Message-Id: <20260628151421.60DF81F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,64 +59,108 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Type confusion leading to out-of-bounds memory access due to C-all=
-ocated GEM objects being unsafely cast to Rust `Object<T>`.
+- [High] drm_dev_register() fails to unmap CPU memory mappings on the error=
+ path, allowing userspace to retain access to physical memory that is subse=
+quently freed.
+- [High] drm_dev_synchronize_unplug() fails to protect against concurrent d=
+rm_open() calls, leaving dev->driver->open() vulnerable to use-after-free.
 --
 
-commit c0b1cc771ed0a5a11fb0a16d94befa79e5c52a6d
+commit e64c045955a50d4e3b92080a95ee364a79c625f5
 Author: Danilo Krummrich <dakr@kernel.org>
 
-rust: drm: restrict AlwaysRefCounted to Normal GEM Object context
+drm: fix race between partial drm_dev_register() failure and ioctl
 
-This commit restricts AlwaysRefCounted for gem::Object and
-gem::shmem::Object to the Normal context. It updates Object::new methods
-to Normal-only blocks and simplifies DeviceContext usage.
+This commit introduces drm_dev_synchronize_unplug() to fix a race
+where userspace could enter a drm_dev_enter() critical section during
+a partial drm_dev_register() failure. It calls the new function on the
+error path to ensure all in-flight critical sections complete before
+cleanup proceeds.
 
-> diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-> index 1023ddccd7857..d56cbe2663e29 100644
-> --- a/rust/kernel/drm/gem/mod.rs
-> +++ b/rust/kernel/drm/gem/mod.rs
+Closes: https://lore.kernel.org/all/20260620190648.2E9F61F000E9@smtp.kernel=
+.org/
+
+> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> --- a/drivers/gpu/drm/drm_drv.c
+> +++ b/drivers/gpu/drm/drm_drv.c
 [ ... ]
-> @@ -198,8 +196,8 @@ fn create_handle<D, F>(&self, file: &drm::File<F>) ->=
- Result<u32>
->      /// Looks up an object by its handle for a given File.
->      fn lookup_handle<D, F>(file: &drm::File<F>, handle: u32) -> Result<A=
-Ref<Self>>
->      where
-> -        Self: AllocImpl<Driver =3D D>,
-> -        D: drm::Driver<Object<Normal> =3D Self, File =3D F>,
-> +        Self: AllocImpl<Driver =3D D> + AlwaysRefCounted,
-> +        D: drm::Driver<Object =3D Self, File =3D F>,
->          F: drm::file::DriverFile<Driver =3D D>,
->      {
->          // SAFETY: The arguments are all valid per the type invariants.
+> @@ -473,6 +473,22 @@ void drm_dev_exit(int idx)
+>  }
+>  EXPORT_SYMBOL(drm_dev_exit);
+> =20
+> +/*
+> + * Mark the device as unplugged and wait for any in-flight drm_dev_enter=
+()
+> + * critical sections to complete.
+> + */
+> +static void drm_dev_synchronize_unplug(struct drm_device *dev)
+> +{
+> +	/*
+> +	 * After synchronizing any critical read section is guaranteed to see
+> +	 * the new value of ->unplugged, and any critical section which might
+> +	 * still have seen the old value of ->unplugged is guaranteed to have
+> +	 * finished.
+> +	 */
+> +	dev->unplugged =3D true;
+> +	synchronize_srcu(&drm_unplug_srcu);
+> +}
 
 [Severity: High]
-This is a pre-existing issue, but can this lead to an out-of-bounds memory
-access during type casting?
+This is a pre-existing issue, but does this function completely protect
+against concurrent drm_open() calls?
 
-In rust/kernel/drm/gem/shmem.rs, ALLOC_OPS leaves gem_create_object as None.
-When userspace creates a dumb buffer or imports a PRIME buffer, the C helpe=
-rs
-drm_gem_shmem_dumb_create() and drm_gem_shmem_prime_import_sg_table() fall=
-=20
-back to allocating a bare C struct drm_gem_shmem_object via kzalloc().
+Looking at drm_open() in drivers/gpu/drm/drm_file.c, it checks the
+unplugged flag via drm_minor_acquire() without entering the SRCU
+critical section:
 
-When the driver later calls lookup_handle() (defined here in=20
-rust/kernel/drm/gem/mod.rs), the underlying code unsafely casts the raw
-C object pointer to the Rust wrapper:
+	minor =3D drm_minor_acquire(&drm_minors_xa, iminor(inode));
+	if (IS_ERR(minor))
+		return PTR_ERR(minor);
 
-    let obj =3D unsafe { Self::from_raw(ptr) };
+Could a thread calling open() read dev->unplugged =3D=3D false just before
+this function sets it to true?
 
-Since the C-allocated object lacks the trailing fields of the Rust Object
-wrapper (such as inner and sgt_lock), would accessing those fields read or
-write out of bounds? Is there a need to provide a gem_create_object callback
-so the full Rust wrapper is always allocated?
+Since drm_open() doesn't hold the SRCU read lock, synchronize_srcu()
+would return immediately, allowing the teardown to proceed while
+dev->driver->open() executes concurrently.
+
+[ ... ]
+> @@ -1118,6 +1127,13 @@ int drm_dev_register(struct drm_device *dev, unsig=
+ned long flags)
+>  	if (dev->driver->unload)
+>  		dev->driver->unload(dev);
+>  err_minors:
+> +	/*
+> +	 * If a minor was registered before the failure, userspace could have
+> +	 * opened it and entered a drm_dev_enter() critical section. Ensure all
+> +	 * such sections complete before we clean up.
+> +	 */
+> +	drm_dev_synchronize_unplug(dev);
+> +
+>  	remove_compat_control_link(dev);
+>  	drm_minor_unregister(dev, DRM_MINOR_ACCEL);
+>  	drm_minor_unregister(dev, DRM_MINOR_PRIMARY);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is there a missing call
+to unmap_mapping_range() on this error path?
+
+If a minor was successfully registered before the failure, userspace
+could have opened it and mapped a GEM object. In drm_dev_unplug(),
+we unmap the CPU mappings:
+
+	drm_dev_synchronize_unplug(dev);
+	drm_dev_unregister(dev);
+	unmap_mapping_range(dev->anon_inode->i_mapping, 0, 0, 1);
+
+Does omitting this in the err_minors path in drm_dev_register() allow
+userspace to retain access to physical memory that devres will subsequently
+free?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260628145406.2107=
-056-1-dakr@kernel.org?part=3D7
+056-1-dakr@kernel.org?part=3D16
