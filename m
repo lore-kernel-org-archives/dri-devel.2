@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53807C43602
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FFFCC43458
 	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 14:55:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CEE410E630;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A02E10E62E;
 	Sun, 28 Jun 2026 14:55:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kJfRY9o5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c47Xqfu+";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7725310E62B
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 14:55:22 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1D8E10E62D
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 14:55:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5FFDA41221;
- Sun, 28 Jun 2026 14:55:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A69D1F00A3A;
- Sun, 28 Jun 2026 14:55:17 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 35139600AB;
+ Sun, 28 Jun 2026 14:55:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C27F1F00A3A;
+ Sun, 28 Jun 2026 14:55:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782658522;
- bh=pK3wmBFyvbIR4po+L1VPow88KO+kJdxcXPWuOXcUG7w=;
+ s=k20260515; t=1782658530;
+ bh=fjg9k12LLTs5vTfgo/GQS8Y+N5IolDssj7B7dIPVRfY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=kJfRY9o5wU2Z6uYCKD+Qn/003m+rkRzr8vIijbk1ooMgkVZovQ/LJ6sztnGUPZsVS
- umRCGXauMKUTc3LghmNRpbGIzuDYw5aX85bEomiW678ZrAAJqABddf9DoWp3WR3Dbn
- B2d9hLbr3TZHX0zFXK5O1/EwBziS65Gw9JJvpZlSArjFUpKTcG7U8T8alHQ4XYYKqB
- u4gJdsuG/w+UC4HBhgKAad18hFyMa0EhoerDDmYb9OWFCnwHUfpucyv2B8LkN2T/wY
- uIMS3Ercu2YEVrPghhVCXwI5xYaDWt3QHtG47VcadZRMKy8lO95Ag1W7xSJXCIpx/z
- iMfwQbOpMK0AQ==
+ b=c47Xqfu+8pcAZDP4Vapm/giHVCC7PvMg3Usiurdjcy3ttnOy9YN3zJHk9oJ2e6Khk
+ jnSYcbG59GSP+LJMbZ1taCpO6JjndaKH0GKfj3As5Nn1Gnush1NoPrJJ4VVROPFYYL
+ E6P1OankMUaSN2udlTznAIS+0sKktnikh+LteTuce3OaCjOD45Oind5qN74sp2sFGP
+ mcgCYRWdUsAcS6NyaJd9Y5qHvRgBA2xkUcpe3wYtZphDpn483yR3ZnW/QjYNBP7bl/
+ +60FmXGAJGHNA4dEsJg9VcDqNfTcVrFRnmpCRXXbKjDf0MWRLVzphhoyAJcABk/w91
+ KKPj5njEbVyWA==
 From: Danilo Krummrich <dakr@kernel.org>
 To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  acourbot@nvidia.com, ecourtney@nvidia.com, ojeda@kernel.org,
@@ -39,12 +39,10 @@ To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  lyude@redhat.com
 Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, stable@vger.kernel.org,
- sashiko-bot@kernel.org
-Subject: [PATCH v5 16/19] drm: fix race between partial drm_dev_register()
- failure and ioctl
-Date: Sun, 28 Jun 2026 16:53:36 +0200
-Message-ID: <20260628145406.2107056-17-dakr@kernel.org>
+ rust-for-linux@vger.kernel.org
+Subject: [PATCH v5 18/19] rust: drm: Pass registration data to ioctl handlers
+Date: Sun, 28 Jun 2026 16:53:38 +0200
+Message-ID: <20260628145406.2107056-19-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260628145406.2107056-1-dakr@kernel.org>
 References: <20260628145406.2107056-1-dakr@kernel.org>
@@ -65,92 +63,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If drm_dev_register() fails after registering a minor (e.g. render minor
-registered, primary minor fails), userspace could have opened the first
-minor and entered a drm_dev_enter() critical section. Since the
-unplugged flag was never set, the ioctl proceeds while the error path
-tears down device resources.
+Pass registration data to ioctl handlers via
+drm::Device<Registered>::registration_data_with(). The closure's HRTB
+ties the lifetime to the closure scope, and the pointer cast shortens it
+from 'static internally. The reference is valid for the duration of the
+drm_dev_enter/exit critical section held by RegistrationGuard.
 
-Fix this by introducing drm_dev_synchronize_unplug(), which sets the
-unplugged flag and waits for the SRCU barrier, ensuring all in-flight
-drm_dev_enter() critical sections complete before cleanup proceeds; call
-it on the error path of drm_dev_register().
-
-Fixes: bee330f3d672 ("drm: Use srcu to protect drm_device.unplugged")
-Cc: stable@vger.kernel.org
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/all/20260620190648.2E9F61F000E9@smtp.kernel.org/
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- drivers/gpu/drm/drm_drv.c | 34 +++++++++++++++++++++++++---------
- 1 file changed, 25 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/nova/file.rs | 3 +++
+ drivers/gpu/drm/tyr/file.rs  | 1 +
+ rust/kernel/drm/ioctl.rs     | 8 ++++++--
+ 3 files changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index 675675480da4..e890052061f3 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -473,6 +473,22 @@ void drm_dev_exit(int idx)
- }
- EXPORT_SYMBOL(drm_dev_exit);
+diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
+index 19fb89b28984..208be4e38188 100644
+--- a/drivers/gpu/drm/nova/file.rs
++++ b/drivers/gpu/drm/nova/file.rs
+@@ -28,6 +28,7 @@ impl File {
+     /// IOCTL: get_param: Query GPU / driver metadata.
+     pub(crate) fn get_param(
+         dev: &NovaDevice<Registered>,
++        _reg_data: &(),
+         getparam: &mut uapi::drm_nova_getparam,
+         _file: &drm::File<File>,
+     ) -> Result<u32> {
+@@ -48,6 +49,7 @@ pub(crate) fn get_param(
+     /// IOCTL: gem_create: Create a new DRM GEM object.
+     pub(crate) fn gem_create(
+         dev: &NovaDevice<Registered>,
++        _reg_data: &(),
+         req: &mut uapi::drm_nova_gem_create,
+         file: &drm::File<File>,
+     ) -> Result<u32> {
+@@ -61,6 +63,7 @@ pub(crate) fn gem_create(
+     /// IOCTL: gem_info: Query GEM metadata.
+     pub(crate) fn gem_info(
+         _dev: &NovaDevice<Registered>,
++        _reg_data: &(),
+         req: &mut uapi::drm_nova_gem_info,
+         file: &drm::File<File>,
+     ) -> Result<u32> {
+diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
+index fb9233eae01c..b686041d5d6b 100644
+--- a/drivers/gpu/drm/tyr/file.rs
++++ b/drivers/gpu/drm/tyr/file.rs
+@@ -32,6 +32,7 @@ fn open(_dev: &drm::Device<Self::Driver>) -> Result<Pin<KBox<Self>>> {
+ impl TyrDrmFileData {
+     pub(crate) fn dev_query(
+         ddev: &TyrDrmDevice<Registered>,
++        _reg_data: &(),
+         devquery: &mut uapi::drm_panthor_dev_query,
+         _file: &TyrDrmFile,
+     ) -> Result<u32> {
+diff --git a/rust/kernel/drm/ioctl.rs b/rust/kernel/drm/ioctl.rs
+index f24cf7b146a8..9b45b741db1b 100644
+--- a/rust/kernel/drm/ioctl.rs
++++ b/rust/kernel/drm/ioctl.rs
+@@ -95,6 +95,7 @@ pub const fn __dev_ctx_cast<T: crate::drm::Driver>(
+ ///
+ /// ```ignore
+ /// fn foo(device: &kernel::drm::Device<Self, kernel::drm::Registered>,
++///        reg_data: &Self::RegistrationData<'_>,
+ ///        data: &mut uapi::argument_type,
+ ///        file: &kernel::drm::File<Self::File>,
+ /// ) -> Result<u32>
+@@ -169,13 +170,14 @@ macro_rules! declare_drm_ioctls {
+                                     unsafe { &*__ptr },
+                                     unreachable!(),
+                                     unreachable!(),
++                                    unreachable!(),
+                                 )
+                             };
  
-+/*
-+ * Mark the device as unplugged and wait for any in-flight drm_dev_enter()
-+ * critical sections to complete.
-+ */
-+static void drm_dev_synchronize_unplug(struct drm_device *dev)
-+{
-+	/*
-+	 * After synchronizing any critical read section is guaranteed to see
-+	 * the new value of ->unplugged, and any critical section which might
-+	 * still have seen the old value of ->unplugged is guaranteed to have
-+	 * finished.
-+	 */
-+	dev->unplugged = true;
-+	synchronize_srcu(&drm_unplug_srcu);
-+}
-+
- /**
-  * drm_dev_unplug - unplug a DRM device
-  * @dev: DRM device
-@@ -485,15 +501,7 @@ EXPORT_SYMBOL(drm_dev_exit);
-  */
- void drm_dev_unplug(struct drm_device *dev)
- {
--	/*
--	 * After synchronizing any critical read section is guaranteed to see
--	 * the new value of ->unplugged, and any critical section which might
--	 * still have seen the old value of ->unplugged is guaranteed to have
--	 * finished.
--	 */
--	dev->unplugged = true;
--	synchronize_srcu(&drm_unplug_srcu);
--
-+	drm_dev_synchronize_unplug(dev);
- 	drm_dev_unregister(dev);
+                             // Enforce that the handler accepts higher-ranked
+                             // lifetimes, preventing it from requiring 'static
+                             // references that could escape this scope.
+-                            let _: for<'a> fn(&'a _, &'a mut _, &'a _) -> _ = $func;
++                            let _: for<'a> fn(&'a _, &'a _, &'a mut _, &'a _) -> _ = $func;
  
- 	/* Clear all CPU mappings pointing to this device */
-@@ -1091,6 +1099,7 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
- 		goto err_minors;
+                             let Some(guard) = dev.registration_guard() else {
+                                 return $crate::error::code::ENODEV.to_errno();
+@@ -193,7 +195,9 @@ macro_rules! declare_drm_ioctls {
+                             // SAFETY: This is just the DRM file structure
+                             let file = unsafe { $crate::drm::File::from_raw(raw_file) };
  
- 	dev->registered = true;
-+	dev->unplugged = false;
- 
- 	if (driver->load) {
- 		ret = driver->load(dev, flags);
-@@ -1118,6 +1127,13 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
- 	if (dev->driver->unload)
- 		dev->driver->unload(dev);
- err_minors:
-+	/*
-+	 * If a minor was registered before the failure, userspace could have
-+	 * opened it and entered a drm_dev_enter() critical section. Ensure all
-+	 * such sections complete before we clean up.
-+	 */
-+	drm_dev_synchronize_unplug(dev);
-+
- 	remove_compat_control_link(dev);
- 	drm_minor_unregister(dev, DRM_MINOR_ACCEL);
- 	drm_minor_unregister(dev, DRM_MINOR_PRIMARY);
+-                            match $func(&*guard, data, file) {
++                            match guard.registration_data_with(|reg_data| {
++                                $func(&*guard, reg_data, data, file)
++                            }) {
+                                 Err(e) => e.to_errno(),
+                                 Ok(i) => i.try_into()
+                                             .unwrap_or($crate::error::code::ERANGE.to_errno()),
 -- 
 2.54.0
 
