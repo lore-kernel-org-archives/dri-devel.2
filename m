@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51120C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 09:37:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA304C43458
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 09:58:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F68D10E5AC;
-	Sun, 28 Jun 2026 09:37:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC6C910E108;
+	Sun, 28 Jun 2026 09:58:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J9MMAlOu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mHWv3cbL";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD3C10E5AC
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 09:37:06 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9098810E108
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 09:58:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4557B4091A;
- Sun, 28 Jun 2026 09:37:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB2BB1F000E9;
- Sun, 28 Jun 2026 09:37:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C4EF2600AA;
+ Sun, 28 Jun 2026 09:58:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D6A31F000E9;
+ Sun, 28 Jun 2026 09:58:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782639426;
- bh=4jMbyawPfP607rzTm8dvsPRWuTuL2WG3lfWHHb0MQBo=;
+ s=k20260515; t=1782640693;
+ bh=fqMJ2EPU/Ez5u8ULLm+sZ7KU78PXEkLQmaq7v9EFlCQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=J9MMAlOuYwCjVAByQEGBv1WS5zsa4joqU/haPA5pB/uhFX439DUBgJ2TtBUYwCEvv
- a0AN6Cy8mUosL15+/gp7I2GQ8ucFKSWhGojWhFo0HGi4RSEOkXpNQnf6cjrO9nVsFe
- un2WSXGujTLLRrAt2PPO3XWkb+gkrFLOZIdsjbqUXhLQR1b82ooZNKabGGKQdyvBvD
- 6lW5JQDVKN+HeXBgfwl06dIR+yfUaouU2qpPYilh44BDcmAORMzdjDF2vH3MixkRtM
- Hbd5qNf/w2voBjPGlB3wM2JGVwqAkgGPBWIX5x1IUF1PXG5poovKWrZRY7rej1l4Mw
- 6AM+/W+TtFBAg==
+ b=mHWv3cbLcPNecs6TcOtIbt20zdFFybsa6STuxGqf8JnFcafmjVLpW6oLfsGwzsfUn
+ ry5JJpZlm0skYEIG4PaE2ilK/FD7gD//poSxACkKpQHn2M4ETc29Qu0c/zY+syr0bX
+ F//ZT1LBmmyDU2EVKujPqcQUQhP9UI1N3cnni+/WJ/+UfgU/qnDnwSfZPpEwwuulCx
+ +PUd10oO91fYDwrWCx6KwRolyWyg2vQK/6R14r7iqhAyr3U2PAkE8xuOrF+TPj3bji
+ C3Ft9qZ4J7JxL0U4LG5/5p5Gu+B+bkXBTIqp9I7VbJ+OEssjNxAHRxe3xSxPIysnLx
+ rRrQ2mqGvBgvA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5] rust: aref: make `AlwaysRefCounted::inc_ref` an
+Subject: Re: [PATCH v6] rust: aref: make `AlwaysRefCounted::inc_ref` an
  associated function
 To: "Trevor Chan" <trev@trevrosa.dev>
-Cc: linux-pci@vger.kernel.org, ojeda@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260628092853.16550-1-trev@trevrosa.dev>
-References: <20260628092853.16550-1-trev@trevrosa.dev>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org,
+ linux-pci@vger.kernel.org
+In-Reply-To: <20260628095132.47753-1-trev@trevrosa.dev>
+References: <20260628095132.47753-1-trev@trevrosa.dev>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 28 Jun 2026 09:37:05 +0000
-Message-Id: <20260628093705.CB2BB1F000E9@smtp.kernel.org>
+Date: Sun, 28 Jun 2026 09:58:12 +0000
+Message-Id: <20260628095813.2D6A31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,72 +58,93 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] Un-updated AlwaysRefCounted trait implementations cause conditional=
- compilation and rustdoc test errors.
+- [Low] The `inc_ref` function body for `Chip<T>` still uses the undefined =
+`self` identifier instead of the new `obj` parameter.
+- [Low] Safety comments in multiple files still reference `self` instead of=
+ the renamed `obj` parameter.
 --
 
-commit 5db284043a909f35f9aed5c1467a5f9cf863972d
+commit 26c2b1b363c343fdcaf27bbc75d1dde6b5b4dbfc
 Author: Trevor Chan <trev@trevrosa.dev>
-rust: aref: make `AlwaysRefCounted::inc_ref` an associated function
 
-This commit changes the AlwaysRefCounted::inc_ref function from a method
-to an associated function to prevent accidental calls. It updates the
-implementors of this trait to reflect this change.
+rust: aref: make AlwaysRefCounted::inc_ref an associated function
+
+This commit changes inc_ref from a method to an associated function to
+prevent accidental calls. All implementors of AlwaysRefCounted are
+updated to reflect this change.
 
 Link: https://github.com/Rust-for-Linux/linux/issues/1177
 
-> diff --git a/rust/kernel/sync/aref.rs b/rust/kernel/sync/aref.rs
-> index b721b2e00b986..2ae2130d5bb1d 100644
-> --- a/rust/kernel/sync/aref.rs
-> +++ b/rust/kernel/sync/aref.rs
-> @@ -44,7 +44,10 @@
->  /// alive.)
->  pub unsafe trait AlwaysRefCounted {
->      /// Increments the reference count on the object.
-> -    fn inc_ref(&self);
-> +    ///
-> +    /// This function should not be called accidentally; a type might de=
-clare their own `inc_ref`
-> +    /// function and it shouldn't be confused with this one.
-> +    fn inc_ref(obj: &Self);
+> diff --git a/rust/kernel/mm.rs b/rust/kernel/mm.rs
+> index 4764d7b68f2a7..c955cbd884b8b 100644
+> --- a/rust/kernel/mm.rs
+> +++ b/rust/kernel/mm.rs
+> @@ -57,9 +57,9 @@ unsafe impl Sync for Mm {}
+>  // SAFETY: By the type invariants, this type is always refcounted.
+>  unsafe impl AlwaysRefCounted for Mm {
+>      #[inline]
+> -    fn inc_ref(&self) {
+> +    fn inc_ref(obj: &Self) {
+>          // SAFETY: The pointer is valid since self is a reference.
+> -        unsafe { bindings::mmgrab(self.as_raw()) };
+> +        unsafe { bindings::mmgrab(obj.as_raw()) };
 
 [Severity: Low]
-Will this change break the build for conditionally compiled modules and
-rustdoc tests that still use the old method signature?
+This isn't a bug, but should the SAFETY comment be updated to say "since
+obj is a reference" instead of "self"?
 
-When compiling with CONFIG_RUST_DRM_GPUVM, CONFIG_PM_OPP, or
-CONFIG_RUST_PWM_ABSTRACTIONS enabled, it appears this will result in
-compiler error E0185 because the following implementations were not updated:
+[ ... ]
 
-rust/kernel/drm/gpuvm/mod.rs:
-unsafe impl<T: DriverGpuVm> AlwaysRefCounted for GpuVm<T> {
-    fn inc_ref(&self) {
+> diff --git a/rust/kernel/pwm.rs b/rust/kernel/pwm.rs
+> index 6c9d667009ef7..c95b442a972e6 100644
+> --- a/rust/kernel/pwm.rs
+> +++ b/rust/kernel/pwm.rs
+> @@ -631,7 +631,7 @@ pub fn new<'a>(
+>  // SAFETY: Implements refcounting for `Chip` using the embedded `struct =
+device`.
+>  unsafe impl<T: PwmOps> AlwaysRefCounted for Chip<T> {
+>      #[inline]
+> -    fn inc_ref(&self) {
+> +    fn inc_ref(obj: &Self) {
+>          // SAFETY: `self.0.get()` points to a valid `pwm_chip` because `=
+self` exists.
+>          // The embedded `dev` is valid. `get_device` increments its refc=
+ount.
+>          unsafe { bindings::get_device(&raw mut (*self.0.get()).dev) };
 
-rust/kernel/drm/gpuvm/vm_bo.rs:
-unsafe impl<T: DriverGpuVm> AlwaysRefCounted for GpuVmBo<T> {
-    fn inc_ref(&self) {
+[Severity: Low]
+Will this cause a compilation error? The function parameter was renamed
+to obj, but the function body still references self in self.0.get().
 
-rust/kernel/opp.rs:
-unsafe impl AlwaysRefCounted for OPP {
-    #[inline]
-    fn inc_ref(&self) {
+This isn't a bug on its own, but should the SAFETY comment also be
+updated to reference obj instead of self?
 
-rust/kernel/pwm.rs:
-unsafe impl<T: PwmOps> AlwaysRefCounted for Chip<T> {
-    #[inline]
-    fn inc_ref(&self) {
+[ ... ]
 
-Additionally, a rustdoc test in rust/kernel/sync/aref.rs for ARef::into_raw
-still implements it using the old signature:
+> diff --git a/rust/kernel/usb.rs b/rust/kernel/usb.rs
+> index 7aff0c82d0afc..c039059c18913 100644
+> --- a/rust/kernel/usb.rs
+> +++ b/rust/kernel/usb.rs
+> @@ -393,11 +393,11 @@ fn as_ref(&self) -> &Device {
+> =20
+>  // SAFETY: Instances of `Interface` are always reference-counted.
+>  unsafe impl AlwaysRefCounted for Interface {
+> -    fn inc_ref(&self) {
+> +    fn inc_ref(obj: &Self) {
+>          // SAFETY: The invariants of `Interface` guarantee that `self.as=
+_raw()`
+>          // returns a valid `struct usb_interface` pointer, for which we =
+will
+>          // acquire a new refcount.
+> -        unsafe { bindings::usb_get_intf(self.as_raw()) };
+> +        unsafe { bindings::usb_get_intf(obj.as_raw()) };
 
-    /// unsafe impl AlwaysRefCounted for Empty {
-    ///     fn inc_ref(&self) {}
-
-Should these implementations be updated to use fn inc_ref(obj: &Self) to
-match the new trait definition?
+[Severity: Low]
+This isn't a bug, but should the SAFETY comment here also be updated to
+reference obj.as_raw() instead of self.as_raw()?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260628092853.1655=
-0-1-trev@trevrosa.dev?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260628095132.4775=
+3-1-trev@trevrosa.dev?part=3D1
