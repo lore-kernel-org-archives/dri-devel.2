@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EA29C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 06:18:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8B6CC43458
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 06:18:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F49010E54E;
-	Sun, 28 Jun 2026 06:18:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 087A810E581;
+	Sun, 28 Jun 2026 06:18:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="z7KPaQAZ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oQxyHuXH";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012038.outbound.protection.outlook.com
- [40.107.200.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A64610E54E;
- Sun, 28 Jun 2026 06:18:31 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012052.outbound.protection.outlook.com [52.101.53.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D595810E581;
+ Sun, 28 Jun 2026 06:18:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PWo/RHKdF4HHq9MQrBqxqEVNsI21c/WJGo/CEdTzuGTlb8QQC3QwqN4TvO38Va1RSu1X4BoBXpguzfnFq8W9wAsj6WqupV1SHqz/WvrIDoqJ94t8rc8qJwbCIRbYVo401kcrrOlSIyS7Su4ewel57n3dptSydMdr3lRTnJXS2fVGQGfFjFQ5iop2tq41ibdEA2DqMiHv7fUwB/o1EN32HBgXTQLNI8JIUzsOnyMfnUgIdFbeg8zH2JoIG5lJhKyAf6BsLCsnIpy+rJHTPowdplBP3gzix9mLme67+kyM+0ayAdyTDoNB1/8a9rKWl0Kfn4e4oXomDR/+QAYB3X1RfQ==
+ b=XouYlvnP2SlzB5KTYxWBCd+OBNgItlK9nQIOKJQ8APct6RKIriuqyDr6evI986eeYgpMHUaZ7LNjPaRfNpitYlJiBajcJJx/snGMlrAiO/JraFe3Uhl5blc5KX8SlX1NZr16pnK6XRrhdIYasCfwJL7Pqzha+fFJLv8DhghGNSKjYOMbRCfIFSeTjCiMhY/hArOBq65BhCyXhxvtwiw13JPum1d2H+vfBjHxGjzimdL06SIZudJogOuWhFAzDroFIxPv/7A3NcuZxL0VBBd5mo/sYTbeDZJLCSEZJ158FUdgjonk35yEY32nY3ZQ2MUWWN0WReDm61AXQZtUGGos8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7kYqXK+ti6dzjaz4KAbqr/v3WdgKSqhc/lNPnZP5m/o=;
- b=e24eX+YnEodiBiuXYn11IjH5Vfkk+4hxxGYNmCpxy2gJFyQe9SayjQtlEpeXLMndyBxbvlZIrMTaCn3rEWpMtoXciqdNsi9IPD/wfSDBQE+2TNebJeJ9eATe8rHaJbCqrW2Pnn2QYMaHGHqXqFadBfL3ZBgeCZozlxvJuIvjceMWhoOMiQbvLma4aHGZSzPz8pdvxSryC6loluD6E1LQ0l92UcmJlVLBxhzPsmgrkpK/PTEyfeJ767HAykDi850iaoHc7/CBnRWFWJ8QP/cblL7PU+OoDhSvggQrKcaDCSe0avvZAOMeEnYNRbbtNLUSAEa55ddCB8wsMRrtRt5W2A==
+ bh=P04+h1N1wzbQ3ZNbEGnOLxeV8YXU+e+b+Fjur+xV1EA=;
+ b=ovuR4+B1RmOW5lw8nnQVitRZ0ToTx/n3Yo/B7IYVyQKOrw88GtFkTNewwtyK1na1/xzFmEa9uNwVmEtew2EBJHctLfNsextPn6IArYpQEtCaRBtA0EticfmlxeDnHvszhMi7kGLfH1m8dbryEbQVVqxuCWT8J7HaixuX9nAPbE9zGf6itrDVLPLKYugDiGab1d4Qb9SO8nOfR/ASTcekF/g84rKmmhl1HJcxLDxYOvJB/D+g/mUwToaqAzN4YVpJ6w/dL0Idi0U7kgoyaFrkHxrvRmq+30z7fX4vuPW7sqGlqayi19Hbh49GYjq9R33IGbVt6kzB695dkmAUPYxu/g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7kYqXK+ti6dzjaz4KAbqr/v3WdgKSqhc/lNPnZP5m/o=;
- b=z7KPaQAZwEivMZtJ15L5EhVFDU3Lzedm/UkXLh3rAoWyKdfarbvUfhyf6hY2Dgx2J7QKTchhsnmfaRdhwvtG//lpd8qWorpdybSLQ1FFFTOzfN0IS3e7qJ/TxMk2prIlXVsFJvGcxWMvzVE5K97sL7SGb9OEGm5REOnx2rXJyyQ=
-Received: from DS1PR04CA0016.namprd04.prod.outlook.com (2603:10b6:8:243::8) by
- MN0PR12MB6319.namprd12.prod.outlook.com (2603:10b6:208:3c0::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.18; Sun, 28 Jun
- 2026 06:18:24 +0000
+ bh=P04+h1N1wzbQ3ZNbEGnOLxeV8YXU+e+b+Fjur+xV1EA=;
+ b=oQxyHuXH9mR5d3ETQDSDPLt6thP02BhL7d8D6pjQNH66nraLmj+I8YVe6ga3A5F5vSvm879hLH8MvsdDD4Lo6bVMNSoomtRrNicG/dhpxw4CBRp2n+/qN5s4e/JZ9rWsDJCHVSmjLwCrqTvnx6vTfPdpPcdmx47Y+kKLPTQNfMw=
+Received: from DS1PR04CA0027.namprd04.prod.outlook.com (2603:10b6:8:243::7) by
+ PH8PR12MB6772.namprd12.prod.outlook.com (2603:10b6:510:1c7::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.159.14; Sun, 28 Jun 2026 06:18:31 +0000
 Received: from DS3PEPF0000C37B.namprd04.prod.outlook.com
- (2603:10b6:8:243:cafe::61) by DS1PR04CA0016.outlook.office365.com
- (2603:10b6:8:243::8) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:8:243:cafe::71) by DS1PR04CA0027.outlook.office365.com
+ (2603:10b6:8:243::7) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Sun,
- 28 Jun 2026 06:18:24 +0000
+ 28 Jun 2026 06:18:31 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,21 +50,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  DS3PEPF0000C37B.mail.protection.outlook.com (10.167.23.5) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Sun, 28 Jun 2026 06:18:23 +0000
+ 15.21.181.6 via Frontend Transport; Sun, 28 Jun 2026 06:18:31 +0000
 Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Sun, 28 Jun
- 2026 01:18:21 -0500
+ 2026 01:18:28 -0500
 From: Honglei Huang <honglei1.huang@amd.com>
 To: <sima@ffwll.ch>, <matthew.brost@intel.com>, <rodrigo.vivi@intel.com>,
  <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>,
  <intel-xe@lists.freedesktop.org>
 CC: <Ray.Huang@amd.com>, <dri-devel@lists.freedesktop.org>, <honghuan@amd.com>
-Subject: [PATCH v2 0/3] drm/gpusvm: fix IOVA/DMA unmap leaks in
- __drm_gpusvm_unmap_pages()
-Date: Sun, 28 Jun 2026 14:17:54 +0800
-Message-ID: <20260628061757.4093701-1-honglei1.huang@amd.com>
+Subject: [PATCH v2 3/3] drm/gpusvm: publish dpagemap early to avoid device
+ mapping leak on error
+Date: Sun, 28 Jun 2026 14:17:57 +0800
+Message-ID: <20260628061757.4093701-4-honglei1.huang@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260628061757.4093701-1-honglei1.huang@amd.com>
+References: <20260628061757.4093701-1-honglei1.huang@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -74,29 +75,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37B:EE_|MN0PR12MB6319:EE_
-X-MS-Office365-Filtering-Correlation-Id: b70f5b99-8bdc-43bd-f1d7-08ded4dd0f10
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37B:EE_|PH8PR12MB6772:EE_
+X-MS-Office365-Filtering-Correlation-Id: b1ad19b4-6bc4-406b-cf37-08ded4dd1363
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700016|1800799024|23010399003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: 25Yg7CuMN0odWlxVZA5CbWUDA762dtco/p6OTxBepM9u7ymAY1EwI8Z7yRLdY7zNsZ+3vCFs5NUpOXO3wMaDutjlnCrPJqRIr5Yfyo7VxOLcVG2guLl3r44EotKNctV0rIIpuVPKKGUtEbSc8PwIUojB9VOJGqbP5ERrZYgGr5rzHMi602tkpWMzhD0r5XqsIrgRgY7Enw3D7sYVGZodk7yZQaS/QxVUJaHYmG49jQ4Zd2HZ+rrsPnl4zzkXqNOT31mtMNJDOKAo66CCvjQUdAwr0iAei03IZepT7oiZ5Zc87k9Lhwes89yA0I8uduXHQwVLGi2cbPK73spnajGckonYnuNAgGnpZEh04MyRJnXmVZM5Yw9PNVure/+5H3krOtJ28kziGNj0ozqWosQ7vjaLKyfIrTekGkth/UJZ9calJqQVnIxixCR6fIGCOjy0q/1W7uC4bnSewIVUJQe2Ws9ythwksA+IuD7VafYMVZthtFf0VmrcmIl0Ag1ssPPqBDWF6j9m7SD2VOEBDcEHBQ25+3Zzl/TQ8OMr9xPiULjVfVSShzz4cE7D/tGgqaTv/LRRfMEOfsLC2fF4QFMvWSUellZ4qhJxT+PcBO+L3ShOPo5E4mwXYJh93SQUG6pF00m35VxxB0BYEapjrucfEAtKjwbmSNGxoTKWVAVPa8HoZu3HIV8C7YnIlPKcdkIDkEOfEO4+6rvGNo3pTrJ/hA==
+ ARA:13230040|23010399003|376014|36860700016|1800799024|82310400026|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: 9Cl/dKca0KLbVTN8go6l3ug1OJ/iQj4b4jO7igKdyj0/yTKzn7FeCs8H/4CGinZMUB1VzNst+BWaMHy0qM30FPjJRxtRSeZRXYL/vSy3f7KC2SiFSHPxnDl6t9bHVfIbg9bblftZkrfnQdCMDC44c0+3ZvUll1eyxFBhqgeRjmo9tpKmQdRrMmezTRVcDJb+yagjO561Wh7z2SC7HwYfOVFi5q7Aijs8JObmJfu18UWOCELrCLjDmDdXMoJRQh91kgKlKgj+JkLT6yBFJntIJED8J4nW24yEO32nyhu34CVUvoKZ6PZf+SrXap5Qkt8f9143scYx/2u0KuqRq0XtiVig0REnCHpKMXpgeJeg/CVmxn42uWTgDV265i0gMuR2nAlQoYj7nXcrsY49RJbg2grRR+tgxLpDCfwGRLkYB2Y4GREKiKjG/QO0KoaZNYHgvSd2r5cLaE7craw5CoilFCLSaSWIDLSsRfnSXAYXdjcNyvwWjf7pZb+bVXO//d410DnRXvRmhPLvHhaYzP3SNfW5YVYuhBsz0K67rwndZgwLaEextWvlHV/29l3lLjkRVRtlUpNrpC9YXuYzv9v5OIQXi7JMhnLo6fST+hLfCfugNhjsI1kTt2rrLe27Cbnb7v5mbQ8KxRlKsCdwxIwlj6o2lm6ejMTCI5hoXr5B4C+bgyJ0i3FiwLoslr7Mqfuy
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(23010399003)(56012099006)(11063799006)(18002099003);
+ SFS:(13230040)(23010399003)(376014)(36860700016)(1800799024)(82310400026)(22082099003)(18002099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 07770ZwWn7JEeaMFQL2+AqAXB8km17MPYW4mX5YRC8HZfqzT+3SggtUOKck2ZdPQa9DDL8rJVcCvwWXBM2O2+bSZm6PB3vnSEfky5DK2zPSlypm73vFjMvrGpGAoYPwvZsA6Ulxn4ZtjCkIzFzCMep/Jyxm3bXwUvLgz+rpBZDyoBlx5w2LxyWfLj3n4SHcOmSIBfcuQ+qmkLUMgYhAhxDuQLCnuSrk1K2zE+D0RyJNdK3YFYQZYiz/YivB4aIaJzuJ6dNZZ44DTYjpmJeSyn1PPGGwSm4NObobqmLjSsQfKyNb5+nH1V4tF9zbnZfxl995gnNFWWyotvSEubwImheKiZQxJ3yX5KmpK8N/5usLbIMm84wrMmCOZymF3D9wcSCbKLiAi9Illc56WF30OAeNw8xrDotdhS8lc6cN6MK0Wb/enrdLwuxgAiberG7va
+X-MS-Exchange-AntiSpam-MessageData-0: mJ9wFTEFJYrZr9DCdE07MTx9HLic1DFasEWfPMwXpuiuQLqpPzFvNnEPSV2LPcyo2ZtFEFatDTq1ExJwEcTVevKbSaJ7Zi8vrmXtnwKMNsG/Vd7LdwZu7xci3gLl77nsrl3k3qsgqRwbvmuzaUuQ2mPpYiX81cKnPNm8ZfqpWVTj4+NxDAzRbMeubnK/jiS12FZhLpZa/1K+CUR/Ca91mRMuzZy9kiwlphFC8GGKzjbZm3OhGGLf42dpG8KR1gtNgNn+4pP2ng9TKHn8GOwIZaeVf4xBKmcqME6SDga5Ek/uM/zyrORZ/6skvx8uE4T9K8F+3ioTzY3Lz6QkdUJWteKZnVGCWQtE8/A3GUgMJ/12Le62dTvsp5NtlSq98wSGcr/QIe8IzDsweW8LtXIZf38vNKLwSSWD6veKUFa2C8vBwS9SNDfukwuwMxGYh3cq
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2026 06:18:23.8340 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b70f5b99-8bdc-43bd-f1d7-08ded4dd0f10
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2026 06:18:31.0874 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1ad19b4-6bc4-406b-cf37-08ded4dd1363
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF0000C37B.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6319
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6772
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,44 +115,56 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Honglei Huang <honghuan@amd.com>
 
-Three small fixes for the IOVA/DMA unmap path in
-__drm_gpusvm_unmap_pages() and the get_pages() error path, all spotted by
-AI review:
+drm_gpusvm_get_pages() only stored the local dpagemap into
+svm_pages->dpagemap on the success path. If a later page failed (e.g.
+-EOPNOTSUPP when ctx->allow_mixed is false) and jumped to err_unmap,
+svm_pages->dpagemap was still NULL, so __drm_gpusvm_unmap_pages() skipped
+device_unmap() and leaked the device mappings already created.
 
-  - Free the whole IOVA reservation on unmap. In a mixed range only the
-    system pages are linked, so freeing just the linked part leaks the
-    IOVA reserved for the device pages. Unlink the linked portion and
-    free the whole reservation. On the get_pages() error path
-    state_offset is 0, so skip the unlink, also avoiding the
-    uninitialised dma_addr[0].dir read, allocate dma_addr with the
-    zeroing kvzalloc_objs().
-  - Do not route system pages to device_unmap() on the IOVA path. Branch
-    off addr->proto so only real device pages reach device_unmap().
-  - Publish dpagemap early to avoid leaking device mappings on the
-    get_pages() error path. It was only stored on success, so a mid-way
-    failure left svm_pages->dpagemap NULL and skipped device_unmap().
-    Assign it when the first device page is mapped.
+Assign svm_pages->dpagemap when the first device page is mapped so the
+err_unmap path can device_unmap() those mappings.
 
-All three issues are preexisting and independent of the gpusvm MM/device
-state split series; they were surfaced by the AI review of that series,
-so this series addresses them separately.
+Reported-by: Sashiko AI review
+Signed-off-by: Honglei Huang <honghuan@amd.com>
+---
+ drivers/gpu/drm/drm_gpusvm.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
-V2:
-  - patch 1: extend the uninitialized dma_addr[0].dir fix into freeing
-    the whole IOVA reservation, fixing the IOVA leak for mixed ranges
-    (the earlier version only guarded the direction argument).
-  - add patch 3: publish dpagemap early to fix the device-mapping leak on
-    the get_pages() error path.
-
-Honglei Huang (3):
-  drm/gpusvm: free the whole IOVA reservation on unmap
-  drm/gpusvm: do not route system pages to device_unmap() on IOVA unmap
-  drm/gpusvm: publish dpagemap early to avoid device mapping leak on
-    error
-
- drivers/gpu/drm/drm_gpusvm.c | 53 +++++++++++++++++++++++++-----------
- 1 file changed, 37 insertions(+), 16 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+index 44bb19658dd..9a06ff7d260 100644
+--- a/drivers/gpu/drm/drm_gpusvm.c
++++ b/drivers/gpu/drm/drm_gpusvm.c
+@@ -1544,6 +1544,16 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+ 					err = -EAGAIN;
+ 					goto err_unmap;
+ 				}
++
++				/*
++				 * Set the dpagemap as soon as the first
++				 * device page is mapped so the err_unmap path
++				 * can device_unmap() the device mappings that
++				 * have already been created.
++				 */
++				drm_pagemap_get(dpagemap);
++				drm_pagemap_put(svm_pages->dpagemap);
++				svm_pages->dpagemap = dpagemap;
+ 			}
+ 			svm_pages->dma_addr[j] =
+ 				dpagemap->ops->device_map(dpagemap,
+@@ -1611,12 +1621,8 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+ 			goto err_unmap;
+ 	}
+ 
+-	if (pagemap) {
++	if (pagemap)
+ 		flags.has_devmem_pages = true;
+-		drm_pagemap_get(dpagemap);
+-		drm_pagemap_put(svm_pages->dpagemap);
+-		svm_pages->dpagemap = dpagemap;
+-	}
+ 
+ 	/* WRITE_ONCE pairs with READ_ONCE for opportunistic checks */
+ 	WRITE_ONCE(svm_pages->flags.__flags, flags.__flags);
 -- 
 2.34.1
 
