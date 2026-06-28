@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C4D3C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 15:06:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A164DC43458
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 15:06:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA52210E633;
-	Sun, 28 Jun 2026 15:06:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 014BF10E634;
+	Sun, 28 Jun 2026 15:06:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V+40IqCo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O769KZl7";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFE7C10E633
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 15:05:59 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29E7D10E634
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 15:06:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 635B56001D;
- Sun, 28 Jun 2026 15:05:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE42E1F000E9;
- Sun, 28 Jun 2026 15:05:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 05854413BF;
+ Sun, 28 Jun 2026 15:06:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7AA1F000E9;
+ Sun, 28 Jun 2026 15:06:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782659159;
- bh=xjnrmfjkUez73BWeJY8QWCuxAzi5YIAt05GmjH0SprA=;
+ s=k20260515; t=1782659164;
+ bh=qo/aONWqLvUYlEo7RGI87OV/hRwIyXf1kGgpP/MmlJ4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=V+40IqCo3L+rwxUjl7iOnQCt4js3j9qb1Dvg4Ukp+Zq76JR2kPlpivBTZRkA2lAeA
- nZeUKIj/GjQl/XvRgsDMJC3fEcq4R/RNSiRKApQma/XsVOJ0QJi+H02sXrrYzWx13Q
- aVBRLYjvqYvgP/Gep4gLWTE2+tNOPJ0oW2AGIA8BY+1QGFVmxCtRJ8c/8wGK3aftW8
- o+0tDUI4Ahj4PdCGOPaNaQUZBoOlIx8e/EklO2Q+KRJvO9oPvU69KqvV1h5PFDP7Vc
- Mrf8o5F/wBesKvHfQiFO/Dv9Dxe3F4aHX2qeKsABqr9tGu0TFm1yQHn7G2EWgtlee7
- wTlu5qNCGLR0Q==
+ b=O769KZl79t4yZPg9nwt3pbk67wEzBJikojj3XWRnGEsEmvv7pxkw3lem85PWmghwR
+ L2IbMHnjvaJw2orlKOdWw1Xp9IlX6EUA3sRZbovplChJ88Zbo9YSrqDHStoMgXLbZA
+ FszJcwVy/ZOFZrdYZJXqyUgiqXltkqA0PZQkcHdKXHWyUOM+/zm3INk/P+86TSL3C4
+ EbXyaG5dM9fQSS94ttzPmDgutQfIhVwuEiIfoq4lbj7f+cfHNiieSheTi+qD8YWZdz
+ /+wv4iy6+0ZNlZPrgkjwu64mjNUZYAW8nMa6+4qeKme4fqUY2NxEaHqEUmr4nkfdnu
+ jgUirupvICzcQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 10/19] rust: drm: pin ioctl Device reference to
- Normal context
+Subject: Re: [PATCH v5 12/19] rust: drm: Add RegistrationGuard for
+ drm_dev_enter/exit critical sections
 To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: ojeda@kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260628145406.2107056-11-dakr@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org,
+ "Alexandre Courbot" <acourbot@nvidia.com>
+In-Reply-To: <20260628145406.2107056-13-dakr@kernel.org>
 References: <20260628145406.2107056-1-dakr@kernel.org>
- <20260628145406.2107056-11-dakr@kernel.org>
+ <20260628145406.2107056-13-dakr@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 28 Jun 2026 15:05:58 +0000
-Message-Id: <20260628150558.CE42E1F000E9@smtp.kernel.org>
+Date: Sun, 28 Jun 2026 15:06:04 +0000
+Message-Id: <20260628150604.9B7AA1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,81 +61,72 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Potential unaligned reference creation from `raw_data` when pointi=
-ng to `stack_kdata`.
+- [High] Using `drm_dev_unplug()` instead of `drm_dev_unregister()` breaks =
+normal hardware shutdown for display drivers on module unload.
 --
 
-commit 8f60afaa1c169bb0b033e33cedd40ffff2147401
+commit f4a9e1c28c30b5e7af0c36efbe74ccb2e5047e20
 Author: Danilo Krummrich <dakr@kernel.org>
+rust: drm: Add RegistrationGuard for drm_dev_enter/exit critical sections
 
-rust: drm: pin ioctl Device reference to Normal context
+This commit adds a RegistrationGuard to represent a drm_dev_enter/exit SRCU
+protection area. It also changes Registration::drop to use drm_dev_unplug()
+instead of drm_dev_unregister() to provide an SRCU barrier.
 
-Explicitly annotate the Device reference produced by from_raw() in the ioctl
-dispatch macro as Device<_, Normal>. This prevents the context from being
-inferred from the handler's first parameter type, ensuring a handler cannot
-obtain a Registered reference without runtime proof.
-
-> diff --git a/rust/kernel/drm/ioctl.rs b/rust/kernel/drm/ioctl.rs
-> index ccf4150d83b69..6f5a9877bdae0 100644
-> --- a/rust/kernel/drm/ioctl.rs
-> +++ b/rust/kernel/drm/ioctl.rs
-> @@ -134,7 +134,8 @@ macro_rules! declare_drm_ioctls {
->                              // FIXME: Currently there is nothing enforci=
-ng that the types of the
->                              // dev/file match the current driver these i=
-octls are being declared
->                              // for, and it's not clear how to enforce th=
-is within the type system.
-> -                            let dev =3D $crate::drm::device::Device::fro=
-m_raw(raw_dev);
-> +                            let dev: &$crate::drm::device::Device<_, $cr=
-ate::drm::Normal> =3D
-> +                                $crate::drm::device::Device::from_raw(ra=
-w_dev);
-> =20
->                              // Enforce that the handler accepts higher-r=
-anked
->                              // lifetimes, preventing it from requiring '=
-static
+> diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
+> index 5152a18a8312b..3cda8dceb498d 100644
+> --- a/rust/kernel/drm/driver.rs
+> +++ b/rust/kernel/drm/driver.rs
 [ ... ]
->                              // The `ioctl` argument is exclusively owned=
- by the handler
->                              // and guaranteed by the C implementation (`=
-drm_ioctl()`) to remain
->                              // valid for the entire lifetime of the refe=
-rence taken here.
->                              // There is no concurrent access or aliasing=
-; no other references
->                              // to this object exist during this call.
->                              let data =3D unsafe { &mut *(raw_data.cast::=
-<$crate::uapi::$struct>()) };
+> @@ -199,8 +199,14 @@ unsafe impl<T: Driver> Send for Registration<T> {}
+> =20
+>  impl<T: Driver> Drop for Registration<T> {
+>      fn drop(&mut self) {
+> +        // Use `drm_dev_unplug` rather than `drm_dev_unregister` to ensu=
+re that existing
+> +        // `drm_dev_enter()` critical sections complete before unregistr=
+ation proceeds. This
+> +        // is required for the safety of `RegistrationGuard`, which reli=
+es on the SRCU barrier in
+> +        // `drm_dev_unplug()` to guarantee that the parent device is sti=
+ll bound within the
+> +        // critical section.
+> +        //
+>          // SAFETY: Safe by the invariant of `ARef<drm::Device<T>>`. The =
+existence of this
+> -        // `Registration` also guarantees the this `drm::Device` is actu=
+ally registered.
+> -        unsafe { bindings::drm_dev_unregister(self.0.as_raw()) };
+> +        // `Registration` also guarantees that this `drm::Device` is act=
+ually registered.
+> +        unsafe { bindings::drm_dev_unplug(self.0.as_raw()) };
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this create an unaligned
-reference?
+Will replacing drm_dev_unregister() with drm_dev_unplug() here break normal
+hardware shutdown for display drivers on module unload?
 
-The C function drm_ioctl() allocates char stack_kdata[128]; on the stack for
-ioctl payloads <=3D 128 bytes, which only guarantees 1-byte alignment.
+When drm_dev_unplug() is called, it sets dev->unplugged =3D true, which cau=
+ses
+any subsequent calls to drm_dev_enter() to return false.=20
 
-When declare_drm_ioctls!() receives this pointer as raw_data and
-unconditionally casts it to create a mutable reference:
+The standard pattern for DRM driver removal is to unregister the device, wh=
+ich
+now calls drm_dev_unplug() through this Drop implementation. The driver then
+typically calls drm_atomic_helper_shutdown() to gracefully disable the
+hardware.
 
-    let data =3D unsafe { &mut *(raw_data.cast::<$crate::uapi::$struct>()) =
-};
+Since dev->unplugged is now true, the KMS disable code paths (which rely on
+drm_dev_enter() to prevent accessing hot-unplugged hardware) will immediate=
+ly
+abort.
 
-it violates Rust's strict alignment rules for references.
+Does this cause the shutdown sequence to silently fail and leave the display
+hardware enabled, potentially continuing to scan out from freed memory or
+trigger IOMMU faults?
 
-Creating a reference to under-aligned memory is immediate undefined behavior
-in Rust, regardless of whether the target architecture supports unaligned
-accesses.
-
-Because this path is reachable by any unprivileged userspace program calling
-DRM ioctls, could this lead to a denial of service if LLVM emits instructio=
-ns
-that trap (such as vectorized operations)?
+>      }
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260628145406.2107=
-056-1-dakr@kernel.org?part=3D10
+056-1-dakr@kernel.org?part=3D12
