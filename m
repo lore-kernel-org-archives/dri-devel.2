@@ -4,90 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4682C43327
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A1FBC43458
 	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 11:43:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC81D10E5E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB58910E5E7;
 	Sun, 28 Jun 2026 11:43:37 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tLRIJyJq";
-	dkim-atps=neutral
-Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com
- [209.85.222.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0B4210E387
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 12:14:25 +0000 (UTC)
-Received: by mail-ua1-f49.google.com with SMTP id
- a1e0cc1a2514c-966c8dcceedso366341241.2
- for <dri-devel@lists.freedesktop.org>; Fri, 26 Jun 2026 05:14:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782476064; cv=none;
- d=google.com; s=arc-20260327;
- b=ZsxWbIijiwdOev8dttkAwLsBHNqzXSv4+MqODvIMYarix993FzX7YSP9wxIFCxol3U
- 33FGTp2IuicGa+voHRW8rl8iytY82AEHBAxvJBCONt3+7JUyf9rjTEPeDlsqh61FziB2
- ZOcJw8R+lV/t+6s7xyRtL0WaFWMvxBmbCUzRId/dNwWu2u1LeUW3P9l71PJ752WSGIGN
- Enw2V5ixQHA6pPxOmbe/UwYMOzao7HicJB8wnepOx+T/w/70G41oZGeyL5Tk8b1DrWF6
- ocQa7gQZC6U3NxkWDT3UU3KaVc49aHghHdC2AI4tZe4P7XCSqtlMEQO/oDRCTaPghj13
- iPUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=osdSAQ+mms85Dqm0GLNP4GMom5P8y3+fofwcrD76FIA=;
- fh=bN3WHTlzXcVIr2RkgMpk3NXK/DwXOefqRaFpMbeYf7s=;
- b=ma66tl8EJTuQimltKzSjrQOuxzXaIzE4/1DQa3PUpKzfK1vzDoTIOuVeXbyye+MufW
- jrrjKA1YglLTrhANoqZnttO5qsFY0U89g/A1RWvjmXewrG0sMWjjVIMvV8rpVmAWZXEk
- WvBhbM2gLWrDwxzM1xc4PEL1p3ADeXMDU32oX9B6TxSfq/KnRAsrE1HwS7hvfxDz77wi
- wB4eJcnHc4fpMwCBeyDPWSz5e/f014C23Q9puo9+FAc+IxLPJh8AyiWSLvcD4VQynz2a
- w/2ZdLj36CwirfMahw68PX2UUWhxvWcYK1rFIiPD77fAaarF1xCkhUW7Dou1D1vvbr/H
- gl0Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782476064; x=1783080864; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=osdSAQ+mms85Dqm0GLNP4GMom5P8y3+fofwcrD76FIA=;
- b=tLRIJyJqaf8lenFckWb3YFsBFhoPWUMI8agWH4/af3xiH776T/7MBmPpBpHEpOL69M
- WhwOhWb/v+fM2Yoj5K5ERtH3eackUfVWosa4PAaBT6tVwugMOVm+lQ0e1DUQE9h0wHdS
- RzkOVVq7R6keXeAen81fdSII2S4xPxOtEUOep83cnqykpYNcM2N9cDs+1V1X4rDb604c
- hz3hn+oxP3PUTuZnFS+8+MKE+SRll6XsbJf2f2+C/KtRkcsD4pzyIpy9EhEjdhIkkTya
- FUlrcXG5hy88kxQzdKUrZW9SmjQSDT32Miwaox4FYBHQS4LS69wmXdYiCCw+yfTRXG7i
- juQQ==
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91DF410E5AC
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 09:29:19 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-2c9d87b1f9eso2121845ad.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 02:29:19 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782476064; x=1783080864;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1782638959; x=1783243759;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=osdSAQ+mms85Dqm0GLNP4GMom5P8y3+fofwcrD76FIA=;
- b=pVBLk+h0qtLbS4+W1Hpf09MqbMCB/dOwB0NfsnYhtI5kefRc+/EkXAf8PAqHlgRI6s
- lzcLqiiU2ZOtzFpFFcrXoquqpnENTVT7vzNo81oYBdRXTAOaNYyfyoo3/McZtmotJ+AY
- Wsan8VMpp8U55sYEB186T3GeoHI0FH1wLYQwacVY0MKkg257MTVAtMS6Uh3iJYaZqi70
- C4ls/3Bww7NWh5Y8nZzjopW81fJkYzCRqDae1VuqJkOjcM4JbMuuHBjQX4i6/Hxg4jE1
- Ng45dzOADJDDTdg5OvqhJSn5lq3Hacu+NpN6zPSNqlFk8StwmTnNBNHXdQw8EQ72mFQj
- DIEA==
-X-Gm-Message-State: AOJu0Yy+WoYTIawtlfDOyFB/UQ/9rkwfj7ZaTQeHXA1RFGMOmRVPfIbk
- ENAwHbB/yvttT1s1AnkDcPjS4dQOqhY1T69/zP+c/iBxhEIquDYloxjcDmIubLi/pKae1l3jlEn
- mb7uX2F8pFIjdoDkxlR6BUdHuBzG88ME=
-X-Gm-Gg: AfdE7cnDuvIHdt1zO93UYGV7GxwMFJ1AR8Vu2kjnNXTdfukEz1CR88bB2zTy0yh22zf
- kmc3+Uydr+W31witjGhvbULl+aex/N17jrUyXPRzCSjCmVTC3fwWh4FhYuRYKDLjjNq5+YGlPOz
- o2v7B7ZqzUEOWraHSMc0tmDZdUVuzpNFEgofF5aAk57v76fuy9gYgr7kFoqfpcUYtt29ph2CLb/
- u4KrV6f+v2ahgvI7AUGVySaG89ccSaf0a4jjlJQathmluXiL45uofJzIDa8mrRKCrLM5XMV3zhf
- SF3LRYPg1KMnOyXeof0JN/TbGigYOnGga/88N5vn7B7YlshcQTnOVK7BC9FvkUZq0g8+ETQeDq1
- xaQ+KpnkkBJvJrPI=
-X-Received: by 2002:a05:6102:2c0c:b0:631:37cb:1e64 with SMTP id
- ada2fe7eead31-73433e3a95cmr3670354137.4.1782476064424; Fri, 26 Jun 2026
- 05:14:24 -0700 (PDT)
+ bh=msiQeoD9bE2+9m/GBRmkavuhnEjua8HjkhejH4gaLD4=;
+ b=cR5494CKYH/CWztuP1hWX1P7i0zENrD10pcVBAQo0Kj64fau6Rwa2ITZYMsj1U1vvu
+ ALjyp3cLkkW4q/LplLTDIIkgQkO01TYzt3dxLLfEEnvQLEKRzxE9rdyR7cmCIUrCPcbQ
+ yaBtzTO4yhCnjCVGijA0yvKgQhDhO4TVA2/8SVHY8uV5kEDQnbYnd0jzlptuQbnRa4iD
+ UaXwcNP2iYHnrKgfOYOQdGmPBs1HaheDU0gqEr8DhglP2MQhNSLoGmL+DIKGzKqCMYl/
+ atvCMs+lOVpjZ7Qqdn0CMLA19JbTIov1p+Va9jBJJGqJP67b+C/ySCS2TSLnrmvPdSKa
+ 9Esw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrzAZo9KnV8/qQMjjSXpnR0lhcvt2pLYqo4RtNzS65k0sfUff7i2xk58VT+aBYxyLEvYTqjvwGndqE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyh7FkHevquSSXknqDDYXCG6Odw0cdnIEUzihq5myE22D+F7a5o
+ sJFaKB1wQYx9m2i3UYjskPhtnN0yZccNIXv4qvTNLFEu+7YwCxJBs6rd
+X-Gm-Gg: AfdE7ckSh/FkJzlUntVahOaoMFVUC+3+2SaZMHzE5VPNeXjHG6vKjLPGK7kzzMK4PmA
+ x3xVKygpSFC0MIHQ111pHsQXiLx6ZufJSmCAgCia4zh26YhH3y7mAiW+B4xICl47TIJTIHABE6u
+ d0dOI0OGjtGK6FAfApasOhihrN0x9UqYeZjpQrnokAeaAOzY1C1IZFbsXBJIFP+Jj0IMh19TZp6
+ abWCtJxCSEVugm0bisLlXpym8AkkfkMoYPBtcaG0bpnzNz9tSxPxdYHp9Gwwq0K7CmrCkF9AgPH
+ B4CkG+zje3Ne0qlEiyy9/bKz0mEMlm2sYMfFBMLDKDjeZcqrHNTdQmbXHhSk90lOsgRh6BZk58U
+ mXgPizd1QeNZjMpbesPxNoJ5AP8B+usjbxnpHmMyI/0Z+Gy1Y7Y2dGeChAwGUTbpqeSNy9purvP
+ 3CA2YO6s70KD1iwbsissau1FLPKvhU4kUxthLMn5yh4MCtJDHibg==
+X-Received: by 2002:a17:903:1ac3:b0:2c9:97a7:3288 with SMTP id
+ d9443c01a7336-2c997a733f5mr55740665ad.42.1782638958963; 
+ Sun, 28 Jun 2026 02:29:18 -0700 (PDT)
+Received: from trevor.localdomain (n119236170163.netvigator.com.
+ [119.236.170.163]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2c9b43aeb3bsm23041205ad.54.2026.06.28.02.29.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 28 Jun 2026 02:29:18 -0700 (PDT)
+From: Trevor Chan <trev@trevrosa.dev>
+To: gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
+ ojeda@kernel.org, a.hindborg@kernel.org, paul@paul-moore.com,
+ airlied@gmail.com, simona@ffwll.ch, aliceryhl@google.com,
+ viro@zeniv.linux.org.uk, brauner@kernel.org, igor.korotin@linux.dev,
+ boqun@kernel.org, gary@garyguo.net, axboe@kernel.dk,
+ daniel.almeida@collabora.com, shankari.ak0208@gmail.com, lyude@redhat.com,
+ j@jananu.net, akpm@linux-foundation.org, acourbot@nvidia.com
+Cc: david.m.ertman@intel.com, iweiny@kernel.org, leon@kernel.org,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, tmgross@umich.edu,
+ tamird@kernel.org, work@onurozkan.dev, sergeh@kernel.org, jack@suse.cz,
+ ljs@kernel.org, liam@infradead.org, bhelgaas@google.com,
+ kwilczynski@kernel.org, ptikhomirov@virtuozzo.com,
+ elle@weathered-steel.dev, rust-for-linux@vger.kernel.org,
+ driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-security-module@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
+ linux-mm@kvack.org, linux-pci@vger.kernel.org
+Subject: [PATCH v5] rust: aref: make `AlwaysRefCounted::inc_ref` an associated
+ function
+Date: Sun, 28 Jun 2026 17:28:53 +0800
+Message-ID: <20260628092853.16550-1-trev@trevrosa.dev>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-References: <20260626112638.2042298-1-achillezongo07@gmail.com>
- <20260626114043.8F9D21F00A3E@smtp.kernel.org>
-In-Reply-To: <20260626114043.8F9D21F00A3E@smtp.kernel.org>
-From: achille zongo <achillezongo07@gmail.com>
-Date: Fri, 26 Jun 2026 12:14:13 +0000
-X-Gm-Features: AVVi8Cf1JuXaaddv6RWGBKgIFK_44IEg46UO5vzRKUuMOgYHHRqW2mj52MjNUsE
-Message-ID: <CAA07Ah1uOyrMfC0SMsApO68ZScWBZbXqZ4O8SN+fjoo3aJ-T=A@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/xe: count UMA shrinkable BOs as reclaimable
- without swap
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000a4065a0655270cc6"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 28 Jun 2026 11:42:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,255 +88,389 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000a4065a0655270cc6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+`AlwaysRefCounted::inc_ref` is a function that shouldn't be called lightly.
 
-Subject: Re: [PATCH 1/2] drm/xe: count UMA shrinkable BOs as reclaimable
-without swap
-I'm withdrawing this patch , approach is wrong
-Signed-off-by: aquiles <achillezongo07@gmail.com>
+To prevent accidentally calling it, change `inc_ref` to be an associated function.
 
+Modify all `AlwaysRefCounted` implementors to work with this change.
 
-On Fri, Jun 26, 2026 at 11:40=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+Suggested-by: Benno Lossin <lossin@kernel.org>
+Link: https://github.com/Rust-for-Linux/linux/issues/1177
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Signed-off-by: Trevor Chan <trev@trevrosa.dev>
+---
+Changes in v2:
+ - Don't word wrap the patch
+Changes in v3:
+ - Make argument name of `Empty::inc_ref` consistent with `Empty::dec_ref` 
+Changes in v4:
+ - Rebase to new rust-next, change new implementors
+ - Reword explanation for change in `AlwaysRefCounted::inc_ref` doc comment
+Changes in v5:
+ - Change commit message to be imperative
+---
+ rust/kernel/auxiliary.rs        | 4 ++--
+ rust/kernel/block/mq/request.rs | 4 ++--
+ rust/kernel/cred.rs             | 4 ++--
+ rust/kernel/device.rs           | 4 ++--
+ rust/kernel/device/property.rs  | 4 ++--
+ rust/kernel/drm/device.rs       | 4 ++--
+ rust/kernel/drm/gem/mod.rs      | 4 ++--
+ rust/kernel/fs/file.rs          | 8 ++++----
+ rust/kernel/i2c.rs              | 8 ++++----
+ rust/kernel/mm.rs               | 8 ++++----
+ rust/kernel/mm/mmput_async.rs   | 4 ++--
+ rust/kernel/pci.rs              | 4 ++--
+ rust/kernel/pid_namespace.rs    | 4 ++--
+ rust/kernel/platform.rs         | 4 ++--
+ rust/kernel/sync/aref.rs        | 9 ++++++---
+ rust/kernel/task.rs             | 4 ++--
+ rust/kernel/usb.rs              | 8 ++++----
+ 17 files changed, 46 insertions(+), 43 deletions(-)
 
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider:
-> - [High] xe_shrinker_count() reports shrinkable UMA BOs regardless of
-> __GFP_FS, but xe_shrinker_scan() bails out without scanning them when
-> __GFP_FS is missing.
-> - [High] Bypassing ttm_backup_bytes_avail() for UMA shrinkable BOs falsel=
-y
-> assumes they can be freed without swap space, causing useless CPU overhea=
-d
-> yielding zero net memory reclamation.
-> --
->
-> commit eb93ae097c20ae5f357e41557ba0c3d785cb142c
-> Author: aquiles <achillezongo07@gmail.com>
->
-> drm/xe: count UMA shrinkable BOs as reclaimable without swap
->
-> This commit modifies the xe shrinker count logic to unconditionally repor=
-t
-> UMA shrinkable buffer objects as reclaimable, even without swap space. It
-> subtracts UMA shrinkable pages from the ttm backup limit check and adds
-> them back unconditionally.
->
-> > diff --git a/drivers/gpu/drm/xe/xe_shrinker.c
-> b/drivers/gpu/drm/xe/xe_shrinker.c
-> > index 83374cd576608..3ca2de342dcd6 100644
-> > --- a/drivers/gpu/drm/xe/xe_shrinker.c
-> > +++ b/drivers/gpu/drm/xe/xe_shrinker.c
-> [ ... ]
-> > @@ -140,16 +140,22 @@ xe_shrinker_count(struct shrinker *shrink, struct
-> shrink_control *sc)
-> >  {
-> >       struct xe_shrinker *shrinker =3D to_xe_shrinker(shrink);
-> >       unsigned long num_pages;
-> > +     long uma_reclaimable_pages;
-> >       bool can_backup =3D !!(sc->gfp_mask & __GFP_FS);
-> > +     bool is_uma =3D !IS_DGFX(shrinker->xe);
-> >
-> >       num_pages =3D ttm_backup_bytes_avail() >> PAGE_SHIFT;
-> >       read_lock(&shrinker->lock);
-> >
-> > +     uma_reclaimable_pages =3D is_uma ? shrinker->shrinkable_pages : 0=
-;
-> > +
-> >       if (can_backup)
-> > -             num_pages =3D min_t(unsigned long, num_pages,
-> shrinker->shrinkable_pages);
-> > +             num_pages =3D min_t(unsigned long, num_pages,
-> > +                               shrinker->shrinkable_pages -
-> uma_reclaimable_pages);
->
-> [Severity: High]
-> Does bypassing the ttm_backup_bytes_avail() limit for UMA shrinkable BOs
-> result in zero net memory reclamation without swap?
->
-> On UMA systems without swap, the shrinker uses ttm_bo_shrink() which
-> backs up the BO by copying its pages to a shmem file. Because no swap spa=
-ce
-> is available, the newly allocated shmem backup pages cannot be swapped to
-> disk and remain permanently pinned in physical memory.
->
-> This deceives the core MM into trying to reclaim these pages, burning CPU
-> cycles on copying memory that yields zero net free physical memory.
->
-> >       else
-> >               num_pages =3D 0;
-> >
-> > +     num_pages +=3D uma_reclaimable_pages;
->
-> [Severity: High]
-> Can unconditionally returning uma_reclaimable_pages cause an infinite
-> reclaim retry loop when __GFP_FS is missing?
->
-> When the shrinker is invoked with __GFP_FS missing (e.g., direct reclaim =
-in
-> the filesystem or block layer), can_backup is false, but this code adds
-> uma_reclaimable_pages to the returned count anyway.
->
-> Looking at xe_shrinker_scan() in the same file, the scan loop explicitly
-> bails out if !can_backup before it ever attempts to scan non-purgeable
-> (shrinkable) pages:
->
->         if (nr_scanned >=3D nr_to_scan || !can_backup)
->                 goto out;
->
->         /* ... */
->         shrink_flags.purge =3D false;
->
-> The shrinker API strictly requires the count to accurately reflect only t=
-he
-> objects that the scan function will attempt to free under the given
-> gfp_mask.
-> Returning a falsely high count for objects that the scan function
-> explicitly
-> skips breaks the VM reclaim feedback loop, causing infinite reclaim loops=
-.
->
-> >       num_pages +=3D shrinker->purgeable_pages;
-> >       read_unlock(&shrinker->lock);
-> >
->
-> --
-> Sashiko AI review =C2=B7
-> https://sashiko.dev/#/patchset/20260626112638.2042298-1-achillezongo07@gm=
-ail.com?part=3D1
->
+diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
+index c42928d5a239..75a61b51cf79 100644
+--- a/rust/kernel/auxiliary.rs
++++ b/rust/kernel/auxiliary.rs
+@@ -345,9 +345,9 @@ unsafe impl<Ctx: device::DeviceContext> device::AsBusDevice<Ctx> for Device<Ctx>
+ 
+ // SAFETY: Instances of `Device` are always reference-counted.
+ unsafe impl crate::sync::aref::AlwaysRefCounted for Device {
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The existence of a shared reference guarantees that the refcount is non-zero.
+-        unsafe { bindings::get_device(self.as_ref().as_raw()) };
++        unsafe { bindings::get_device(obj.as_ref().as_raw()) };
+     }
+ 
+     unsafe fn dec_ref(obj: NonNull<Self>) {
+diff --git a/rust/kernel/block/mq/request.rs b/rust/kernel/block/mq/request.rs
+index ce3e30c81cb5..f41d01ea4595 100644
+--- a/rust/kernel/block/mq/request.rs
++++ b/rust/kernel/block/mq/request.rs
+@@ -234,8 +234,8 @@ unsafe impl<T: Operations> Sync for Request<T> {}
+ // keeps the object alive in memory at least until a matching reference count
+ // decrement is executed.
+ unsafe impl<T: Operations> AlwaysRefCounted for Request<T> {
+-    fn inc_ref(&self) {
+-        self.wrapper_ref().refcount().inc();
++    fn inc_ref(obj: &Self) {
++        obj.wrapper_ref().refcount().inc();
+     }
+ 
+     unsafe fn dec_ref(obj: core::ptr::NonNull<Self>) {
+diff --git a/rust/kernel/cred.rs b/rust/kernel/cred.rs
+index ffa156b9df37..d53cbc792fa3 100644
+--- a/rust/kernel/cred.rs
++++ b/rust/kernel/cred.rs
+@@ -78,9 +78,9 @@ pub fn euid(&self) -> Kuid {
+ // SAFETY: The type invariants guarantee that `Credential` is always ref-counted.
+ unsafe impl AlwaysRefCounted for Credential {
+     #[inline]
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The existence of a shared reference means that the refcount is nonzero.
+-        unsafe { bindings::get_cred(self.0.get()) };
++        unsafe { bindings::get_cred(obj.0.get()) };
+     }
+ 
+     #[inline]
+diff --git a/rust/kernel/device.rs b/rust/kernel/device.rs
+index 645afc49a27d..ec44dcc405d5 100644
+--- a/rust/kernel/device.rs
++++ b/rust/kernel/device.rs
+@@ -449,9 +449,9 @@ pub fn name(&self) -> &CStr {
+ 
+ // SAFETY: Instances of `Device` are always reference-counted.
+ unsafe impl crate::sync::aref::AlwaysRefCounted for Device {
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The existence of a shared reference guarantees that the refcount is non-zero.
+-        unsafe { bindings::get_device(self.as_raw()) };
++        unsafe { bindings::get_device(obj.as_raw()) };
+     }
+ 
+     unsafe fn dec_ref(obj: ptr::NonNull<Self>) {
+diff --git a/rust/kernel/device/property.rs b/rust/kernel/device/property.rs
+index 5aead835fbbc..c39ccc1458b9 100644
+--- a/rust/kernel/device/property.rs
++++ b/rust/kernel/device/property.rs
+@@ -361,10 +361,10 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+ 
+ // SAFETY: Instances of `FwNode` are always reference-counted.
+ unsafe impl crate::sync::aref::AlwaysRefCounted for FwNode {
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The existence of a shared reference guarantees that the
+         // refcount is non-zero.
+-        unsafe { bindings::fwnode_handle_get(self.as_raw()) };
++        unsafe { bindings::fwnode_handle_get(obj.as_raw()) };
+     }
+ 
+     unsafe fn dec_ref(obj: ptr::NonNull<Self>) {
+diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+index 477cf771fb10..0c70ec010bd9 100644
+--- a/rust/kernel/drm/device.rs
++++ b/rust/kernel/drm/device.rs
+@@ -363,9 +363,9 @@ fn deref(&self) -> &Self::Target {
+ // SAFETY: DRM device objects are always reference counted and the get/put functions
+ // satisfy the requirements.
+ unsafe impl<T: drm::Driver, C: DeviceContext> AlwaysRefCounted for Device<T, C> {
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The existence of a shared reference guarantees that the refcount is non-zero.
+-        unsafe { bindings::drm_dev_get(self.as_raw()) };
++        unsafe { bindings::drm_dev_get(obj.as_raw()) };
+     }
+ 
+     unsafe fn dec_ref(obj: NonNull<Self>) {
+diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
+index c8b66d816871..ee9e412066ab 100644
+--- a/rust/kernel/drm/gem/mod.rs
++++ b/rust/kernel/drm/gem/mod.rs
+@@ -52,10 +52,10 @@ unsafe impl $( <$( $tparam_id ),+> )? $crate::sync::aref::AlwaysRefCounted for $
+             Self: IntoGEMObject,
+             $( $( $bind_param : $bind_trait ),+ )?
+         {
+-            fn inc_ref(&self) {
++            fn inc_ref(obj: &Self) {
+                 // SAFETY: The existence of a shared reference guarantees that the refcount is
+                 // non-zero.
+-                unsafe { bindings::drm_gem_object_get(self.as_raw()) };
++                unsafe { bindings::drm_gem_object_get(obj.as_raw()) };
+             }
+ 
+             unsafe fn dec_ref(obj: core::ptr::NonNull<Self>) {
+diff --git a/rust/kernel/fs/file.rs b/rust/kernel/fs/file.rs
+index 23ee689bd240..8e5967afcd11 100644
+--- a/rust/kernel/fs/file.rs
++++ b/rust/kernel/fs/file.rs
+@@ -199,9 +199,9 @@ unsafe impl Sync for File {}
+ // makes `ARef<File>` own a normal refcount.
+ unsafe impl AlwaysRefCounted for File {
+     #[inline]
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The existence of a shared reference means that the refcount is nonzero.
+-        unsafe { bindings::get_file(self.as_ptr()) };
++        unsafe { bindings::get_file(obj.as_ptr()) };
+     }
+ 
+     #[inline]
+@@ -235,9 +235,9 @@ pub struct LocalFile {
+ // makes `ARef<LocalFile>` own a normal refcount.
+ unsafe impl AlwaysRefCounted for LocalFile {
+     #[inline]
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The existence of a shared reference means that the refcount is nonzero.
+-        unsafe { bindings::get_file(self.as_ptr()) };
++        unsafe { bindings::get_file(obj.as_ptr()) };
+     }
+ 
+     #[inline]
+diff --git a/rust/kernel/i2c.rs b/rust/kernel/i2c.rs
+index 624b971ca8b0..1a9882a64c4b 100644
+--- a/rust/kernel/i2c.rs
++++ b/rust/kernel/i2c.rs
+@@ -425,9 +425,9 @@ pub fn get(index: i32) -> Result<ARef<Self>> {
+ 
+ // SAFETY: Instances of `I2cAdapter` are always reference-counted.
+ unsafe impl AlwaysRefCounted for I2cAdapter {
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The existence of a shared reference guarantees that the refcount is non-zero.
+-        unsafe { bindings::i2c_get_adapter(self.index()) };
++        unsafe { bindings::i2c_get_adapter(obj.index()) };
+     }
+ 
+     unsafe fn dec_ref(obj: NonNull<Self>) {
+@@ -501,9 +501,9 @@ unsafe impl<Ctx: device::DeviceContext> device::AsBusDevice<Ctx> for I2cClient<C
+ 
+ // SAFETY: Instances of `I2cClient` are always reference-counted.
+ unsafe impl AlwaysRefCounted for I2cClient {
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The existence of a shared reference guarantees that the refcount is non-zero.
+-        unsafe { bindings::get_device(self.as_ref().as_raw()) };
++        unsafe { bindings::get_device(obj.as_ref().as_raw()) };
+     }
+ 
+     unsafe fn dec_ref(obj: NonNull<Self>) {
+diff --git a/rust/kernel/mm.rs b/rust/kernel/mm.rs
+index 4764d7b68f2a..c955cbd884b8 100644
+--- a/rust/kernel/mm.rs
++++ b/rust/kernel/mm.rs
+@@ -57,9 +57,9 @@ unsafe impl Sync for Mm {}
+ // SAFETY: By the type invariants, this type is always refcounted.
+ unsafe impl AlwaysRefCounted for Mm {
+     #[inline]
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The pointer is valid since self is a reference.
+-        unsafe { bindings::mmgrab(self.as_raw()) };
++        unsafe { bindings::mmgrab(obj.as_raw()) };
+     }
+ 
+     #[inline]
+@@ -93,9 +93,9 @@ unsafe impl Sync for MmWithUser {}
+ // SAFETY: By the type invariants, this type is always refcounted.
+ unsafe impl AlwaysRefCounted for MmWithUser {
+     #[inline]
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The pointer is valid since self is a reference.
+-        unsafe { bindings::mmget(self.as_raw()) };
++        unsafe { bindings::mmget(obj.as_raw()) };
+     }
+ 
+     #[inline]
+diff --git a/rust/kernel/mm/mmput_async.rs b/rust/kernel/mm/mmput_async.rs
+index b8d2f051225c..7df40777654c 100644
+--- a/rust/kernel/mm/mmput_async.rs
++++ b/rust/kernel/mm/mmput_async.rs
+@@ -36,9 +36,9 @@ unsafe impl Sync for MmWithUserAsync {}
+ // SAFETY: By the type invariants, this type is always refcounted.
+ unsafe impl AlwaysRefCounted for MmWithUserAsync {
+     #[inline]
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The pointer is valid since self is a reference.
+-        unsafe { bindings::mmget(self.as_raw()) };
++        unsafe { bindings::mmget(obj.as_raw()) };
+     }
+ 
+     #[inline]
+diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+index 5071cae6543f..0f16cf0da3d7 100644
+--- a/rust/kernel/pci.rs
++++ b/rust/kernel/pci.rs
+@@ -482,9 +482,9 @@ impl<'a> crate::dma::Device<'a> for Device<device::Core<'a>> {}
+ 
+ // SAFETY: Instances of `Device` are always reference-counted.
+ unsafe impl crate::sync::aref::AlwaysRefCounted for Device {
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The existence of a shared reference guarantees that the refcount is non-zero.
+-        unsafe { bindings::pci_dev_get(self.as_raw()) };
++        unsafe { bindings::pci_dev_get(obj.as_raw()) };
+     }
+ 
+     unsafe fn dec_ref(obj: NonNull<Self>) {
+diff --git a/rust/kernel/pid_namespace.rs b/rust/kernel/pid_namespace.rs
+index 979a9718f153..381c9f980b1f 100644
+--- a/rust/kernel/pid_namespace.rs
++++ b/rust/kernel/pid_namespace.rs
+@@ -43,9 +43,9 @@ pub unsafe fn from_ptr<'a>(ptr: *const bindings::pid_namespace) -> &'a Self {
+ // SAFETY: Instances of `PidNamespace` are always reference-counted.
+ unsafe impl AlwaysRefCounted for PidNamespace {
+     #[inline]
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The existence of a shared reference means that the refcount is nonzero.
+-        unsafe { bindings::get_pid_ns(self.as_ptr()) };
++        unsafe { bindings::get_pid_ns(obj.as_ptr()) };
+     }
+ 
+     #[inline]
+diff --git a/rust/kernel/platform.rs b/rust/kernel/platform.rs
+index 9b362e0495d3..85068ae5a405 100644
+--- a/rust/kernel/platform.rs
++++ b/rust/kernel/platform.rs
+@@ -519,9 +519,9 @@ impl<'a> crate::dma::Device<'a> for Device<device::Core<'a>> {}
+ 
+ // SAFETY: Instances of `Device` are always reference-counted.
+ unsafe impl crate::sync::aref::AlwaysRefCounted for Device {
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The existence of a shared reference guarantees that the refcount is non-zero.
+-        unsafe { bindings::get_device(self.as_ref().as_raw()) };
++        unsafe { bindings::get_device(obj.as_ref().as_raw()) };
+     }
+ 
+     unsafe fn dec_ref(obj: NonNull<Self>) {
+diff --git a/rust/kernel/sync/aref.rs b/rust/kernel/sync/aref.rs
+index b721b2e00b98..2ae2130d5bb1 100644
+--- a/rust/kernel/sync/aref.rs
++++ b/rust/kernel/sync/aref.rs
+@@ -44,7 +44,10 @@
+ /// alive.)
+ pub unsafe trait AlwaysRefCounted {
+     /// Increments the reference count on the object.
+-    fn inc_ref(&self);
++    ///
++    /// This function should not be called accidentally; a type might declare their own `inc_ref`
++    /// function and it shouldn't be confused with this one.
++    fn inc_ref(obj: &Self);
+ 
+     /// Decrements the reference count on the object.
+     ///
+@@ -145,7 +148,7 @@ pub fn into_raw(me: Self) -> NonNull<T> {
+ 
+ impl<T: AlwaysRefCounted> Clone for ARef<T> {
+     fn clone(&self) -> Self {
+-        self.inc_ref();
++        T::inc_ref(self);
+         // SAFETY: We just incremented the refcount above.
+         unsafe { Self::from_raw(self.ptr) }
+     }
+@@ -162,7 +165,7 @@ fn deref(&self) -> &Self::Target {
+ 
+ impl<T: AlwaysRefCounted> From<&T> for ARef<T> {
+     fn from(b: &T) -> Self {
+-        b.inc_ref();
++        T::inc_ref(b);
+         // SAFETY: We just incremented the refcount above.
+         unsafe { Self::from_raw(NonNull::from(b)) }
+     }
+diff --git a/rust/kernel/task.rs b/rust/kernel/task.rs
+index 38273f4eedb5..a7711e1558c2 100644
+--- a/rust/kernel/task.rs
++++ b/rust/kernel/task.rs
+@@ -349,9 +349,9 @@ pub fn group_leader(&self) -> &Task {
+ // SAFETY: The type invariants guarantee that `Task` is always refcounted.
+ unsafe impl crate::sync::aref::AlwaysRefCounted for Task {
+     #[inline]
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The existence of a shared reference means that the refcount is nonzero.
+-        unsafe { bindings::get_task_struct(self.as_ptr()) };
++        unsafe { bindings::get_task_struct(obj.as_ptr()) };
+     }
+ 
+     #[inline]
+diff --git a/rust/kernel/usb.rs b/rust/kernel/usb.rs
+index 7aff0c82d0af..c039059c1891 100644
+--- a/rust/kernel/usb.rs
++++ b/rust/kernel/usb.rs
+@@ -393,11 +393,11 @@ fn as_ref(&self) -> &Device {
+ 
+ // SAFETY: Instances of `Interface` are always reference-counted.
+ unsafe impl AlwaysRefCounted for Interface {
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The invariants of `Interface` guarantee that `self.as_raw()`
+         // returns a valid `struct usb_interface` pointer, for which we will
+         // acquire a new refcount.
+-        unsafe { bindings::usb_get_intf(self.as_raw()) };
++        unsafe { bindings::usb_get_intf(obj.as_raw()) };
+     }
+ 
+     unsafe fn dec_ref(obj: NonNull<Self>) {
+@@ -444,11 +444,11 @@ fn as_raw(&self) -> *mut bindings::usb_device {
+ 
+ // SAFETY: Instances of `Device` are always reference-counted.
+ unsafe impl AlwaysRefCounted for Device {
+-    fn inc_ref(&self) {
++    fn inc_ref(obj: &Self) {
+         // SAFETY: The invariants of `Device` guarantee that `self.as_raw()`
+         // returns a valid `struct usb_device` pointer, for which we will
+         // acquire a new refcount.
+-        unsafe { bindings::usb_get_dev(self.as_raw()) };
++        unsafe { bindings::usb_get_dev(obj.as_raw()) };
+     }
+ 
+     unsafe fn dec_ref(obj: NonNull<Self>) {
+-- 
+2.47.3
 
---000000000000a4065a0655270cc6
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Subject: Re: [PATCH 1/2] drm/xe: count UMA shrinkable BOs =
-as reclaimable without swap<br>I&#39;m withdrawing this patch , approach is=
- wrong<br>Signed-off-by: aquiles &lt;<a href=3D"mailto:achillezongo07@gmail=
-.com">achillezongo07@gmail.com</a>&gt;<br><br></div><br><div class=3D"gmail=
-_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Fri,=
- Jun 26, 2026 at 11:40=E2=80=AFAM &lt;<a href=3D"mailto:sashiko-bot@kernel.=
-org">sashiko-bot@kernel.org</a>&gt; wrote:<br></div><blockquote class=3D"gm=
-ail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,=
-204,204);padding-left:1ex">Thank you for your contribution! Sashiko AI revi=
-ew found 2 potential issue(s) to consider:<br>
-- [High] xe_shrinker_count() reports shrinkable UMA BOs regardless of __GFP=
-_FS, but xe_shrinker_scan() bails out without scanning them when __GFP_FS i=
-s missing.<br>
-- [High] Bypassing ttm_backup_bytes_avail() for UMA shrinkable BOs falsely =
-assumes they can be freed without swap space, causing useless CPU overhead =
-yielding zero net memory reclamation.<br>
---<br>
-<br>
-commit eb93ae097c20ae5f357e41557ba0c3d785cb142c<br>
-Author: aquiles &lt;<a href=3D"mailto:achillezongo07@gmail.com" target=3D"_=
-blank">achillezongo07@gmail.com</a>&gt;<br>
-<br>
-drm/xe: count UMA shrinkable BOs as reclaimable without swap<br>
-<br>
-This commit modifies the xe shrinker count logic to unconditionally report<=
-br>
-UMA shrinkable buffer objects as reclaimable, even without swap space. It<b=
-r>
-subtracts UMA shrinkable pages from the ttm backup limit check and adds<br>
-them back unconditionally.<br>
-<br>
-&gt; diff --git a/drivers/gpu/drm/xe/xe_shrinker.c b/drivers/gpu/drm/xe/xe_=
-shrinker.c<br>
-&gt; index 83374cd576608..3ca2de342dcd6 100644<br>
-&gt; --- a/drivers/gpu/drm/xe/xe_shrinker.c<br>
-&gt; +++ b/drivers/gpu/drm/xe/xe_shrinker.c<br>
-[ ... ]<br>
-&gt; @@ -140,16 +140,22 @@ xe_shrinker_count(struct shrinker *shrink, struc=
-t shrink_control *sc)<br>
-&gt;=C2=A0 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct xe_shrinker *shrinker =3D to_xe_shrin=
-ker(shrink);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned long num_pages;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0long uma_reclaimable_pages;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0bool can_backup =3D !!(sc-&gt;gfp_mask &amp;=
- __GFP_FS);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0bool is_uma =3D !IS_DGFX(shrinker-&gt;xe);<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0num_pages =3D ttm_backup_bytes_avail() &gt;&=
-gt; PAGE_SHIFT;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0read_lock(&amp;shrinker-&gt;lock);<br>
-&gt;=C2=A0 <br>
-&gt; +=C2=A0 =C2=A0 =C2=A0uma_reclaimable_pages =3D is_uma ? shrinker-&gt;s=
-hrinkable_pages : 0;<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (can_backup)<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0num_pages =3D min_t(u=
-nsigned long, num_pages, shrinker-&gt;shrinkable_pages);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0num_pages =3D min_t(u=
-nsigned long, num_pages,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0shrinker-&gt;shrinkable_pages - u=
-ma_reclaimable_pages);<br>
-<br>
-[Severity: High]<br>
-Does bypassing the ttm_backup_bytes_avail() limit for UMA shrinkable BOs<br=
->
-result in zero net memory reclamation without swap?<br>
-<br>
-On UMA systems without swap, the shrinker uses ttm_bo_shrink() which<br>
-backs up the BO by copying its pages to a shmem file. Because no swap space=
-<br>
-is available, the newly allocated shmem backup pages cannot be swapped to<b=
-r>
-disk and remain permanently pinned in physical memory.<br>
-<br>
-This deceives the core MM into trying to reclaim these pages, burning CPU<b=
-r>
-cycles on copying memory that yields zero net free physical memory.<br>
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0num_pages =3D 0;=
-<br>
-&gt;=C2=A0 <br>
-&gt; +=C2=A0 =C2=A0 =C2=A0num_pages +=3D uma_reclaimable_pages;<br>
-<br>
-[Severity: High]<br>
-Can unconditionally returning uma_reclaimable_pages cause an infinite<br>
-reclaim retry loop when __GFP_FS is missing?<br>
-<br>
-When the shrinker is invoked with __GFP_FS missing (e.g., direct reclaim in=
-<br>
-the filesystem or block layer), can_backup is false, but this code adds<br>
-uma_reclaimable_pages to the returned count anyway.<br>
-<br>
-Looking at xe_shrinker_scan() in the same file, the scan loop explicitly<br=
->
-bails out if !can_backup before it ever attempts to scan non-purgeable<br>
-(shrinkable) pages:<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (nr_scanned &gt;=3D nr_to_scan || !can_backu=
-p)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto out;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* ... */<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 shrink_flags.purge =3D false;<br>
-<br>
-The shrinker API strictly requires the count to accurately reflect only the=
-<br>
-objects that the scan function will attempt to free under the given gfp_mas=
-k.<br>
-Returning a falsely high count for objects that the scan function explicitl=
-y<br>
-skips breaks the VM reclaim feedback loop, causing infinite reclaim loops.<=
-br>
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0num_pages +=3D shrinker-&gt;purgeable_pages;=
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0read_unlock(&amp;shrinker-&gt;lock);<br>
-&gt;<br>
-<br>
--- <br>
-Sashiko AI review =C2=B7 <a href=3D"https://sashiko.dev/#/patchset/20260626=
-112638.2042298-1-achillezongo07@gmail.com?part=3D1" rel=3D"noreferrer" targ=
-et=3D"_blank">https://sashiko.dev/#/patchset/20260626112638.2042298-1-achil=
-lezongo07@gmail.com?part=3D1</a><br>
-</blockquote></div>
-
---000000000000a4065a0655270cc6--
