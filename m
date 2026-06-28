@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ACFDC43458
-	for <dri-devel@archiver.kernel.org>; Sat, 27 Jun 2026 21:13:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B63EFC43458
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 03:52:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC19810E52A;
-	Sat, 27 Jun 2026 21:13:24 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m8TT+rG3";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B41FA10E52A
- for <dri-devel@lists.freedesktop.org>; Sat, 27 Jun 2026 21:13:23 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CBF73600E2;
- Sat, 27 Jun 2026 21:13:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 828431F000E9;
- Sat, 27 Jun 2026 21:13:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782594802;
- bh=7IIarUe+baKuHHQbpyHLNcw1qaxN6lQqvLcXWyFWHNg=;
- h=Subject:From:In-Reply-To:References:Date:To:Cc;
- b=m8TT+rG3IZWdMjJVbbCAX1lNwl/HNbxDubbGoG2cwBROFV+X9uHbT3ktfM6AdBNeC
- qWbY6iAOkhxGkMkqEOKtzFuO+hNAWMT+CfaPS/JtEm+vdZ9nbfF3Px8kqPEZreGEqC
- j3rUuE03cthvUJhUN3mbyI5BVTEBknk8Zo/9m1nxxn6fvvkr+QrTCjdkn0pCjUxj2A
- 582sVT8UwtLquwteFc0AKr8YfEb5Mit/KuNp/6MQFrc3LXujOnn9VPlu86y6j4M3v4
- BQ4lbB4/1UzGCgekTJ1OF5sbErACEQdkbwwlRiq1H86nmUBPRhVI2fwpr5M+u6Dbp/
- BehIEOLbYn8MQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 93A9F3938452; Sat, 27 Jun 2026 21:13:09 +0000 (UTC)
-Subject: Re: [GIT PULL] additional fbdev fixes and updates for v7.2-rc1
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <akANXx5Fr4vBRhwg@carbonx1>
-References: <akANXx5Fr4vBRhwg@carbonx1>
-X-PR-Tracked-List-Id: Direct Rendering Infrastructure - Development
- <dri-devel.lists.freedesktop.org>
-X-PR-Tracked-Message-Id: <akANXx5Fr4vBRhwg@carbonx1>
-X-PR-Tracked-Remote: http://git.kernel.org/pub/scm/linux/kernel/git/deller/linux-fbdev.git
- tags/fbdev-for-7.2-rc1-2
-X-PR-Tracked-Commit-Id: 7f08fc10fa3d3366dc3af723970bd03d7d6d10e3
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: f21df873208d41ef816b15024d6447813b97ab5e
-Message-Id: <178259478823.1431938.3522644980455972478.pr-tracker-bot@kernel.org>
-Date: Sat, 27 Jun 2026 21:13:08 +0000
-To: Helge Deller <deller@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54BEA10E551;
+	Sun, 28 Jun 2026 03:52:21 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDB8110E551
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 03:52:19 +0000 (UTC)
+Received: from smtpclient.apple (unknown [117.182.74.7])
+ by APP-01 (Coremail) with SMTP id qwCowAA33NRbmkBqExKqAw--.34181S3;
+ Sun, 28 Jun 2026 11:52:16 +0800 (CST)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH] fix: accel/habanalabs:
+ hl_cs_signal_sob_wraparound_handler: missing   hw_sob_get when need_reset is
+ true and encaps_sig is false
+From: WenTao Liang <vulab@iscas.ac.cn>
+In-Reply-To: <20260626104453.32301-1-vulab@iscas.ac.cn>
+Date: Sun, 28 Jun 2026 11:52:05 +0800
+Cc: kees@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <20710ACB-AEAB-473B-A9E5-EE3116A46ACB@iscas.ac.cn>
+References: <20260626104453.32301-1-vulab@iscas.ac.cn>
+To: koby.elbaz@intel.com,
+ konstantin.sinyuk@intel.com,
+ ogabbay@kernel.org
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
+X-CM-TRANSID: qwCowAA33NRbmkBqExKqAw--.34181S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZF4UZrWUCFWkArWxKr18AFb_yoW8Ar1kpa
+ s8GF4rJF9xXF9rAF12kw45ZFyrW398KryDua1xG395urn8Ga4xJ34Y9anY9rWUurs3WF48
+ XF9FqayDC3Z0ya7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUBqb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+ 8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
+ 64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
+ CY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv
+ 6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzV
+ Aqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S
+ 6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1DMxAIw2
+ 8IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4l
+ x2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrw
+ CI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI
+ 42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z2
+ 80aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU07rc3UUUUU==
+X-Originating-IP: [117.182.74.7]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwcMA2pAixEZHQAAs7
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,15 +67,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The pull request you sent on Sat, 27 Jun 2026 19:50:23 +0200:
 
-> http://git.kernel.org/pub/scm/linux/kernel/git/deller/linux-fbdev.git tags/fbdev-for-7.2-rc1-2
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/f21df873208d41ef816b15024d6447813b97ab5e
+> 2026=E5=B9=B46=E6=9C=8826=E6=97=A5 18:44=EF=BC=8CWenTao Liang =
+<vulab@iscas.ac.cn> =E5=86=99=E9=81=93=EF=BC=9A
+>=20
+> When other_sob->need_reset is true and encaps_sig is false,
+>  hw_sob_put(other_sob) decrements the kref to 0, but the matching
+>  hw_sob_get(other_sob) is skipped because it is inside the encaps_sig
+>  block. The function returns other_sob with kref=3D0, causing a =
+subsequent
+>  kref_put to underflow. Fix by adding hw_sob_get(other_sob) in the =
+else
+>  branch.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: dadf17abb724 ("habanalabs: add support for encapsulated signals =
+reservation")
+> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+> ---
+> drivers/accel/habanalabs/common/command_submission.c | 5 ++---
+> 1 file changed, 2 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/accel/habanalabs/common/command_submission.c =
+b/drivers/accel/habanalabs/common/command_submission.c
+> index ba4257bda77b..675301dfc0ef 100644
+> --- a/drivers/accel/habanalabs/common/command_submission.c
+> +++ b/drivers/accel/habanalabs/common/command_submission.c
+> @@ -1860,11 +1860,10 @@ int hl_cs_signal_sob_wraparound_handler(struct =
+hl_device *hdev, u32 q_idx,
+> 		if (other_sob->need_reset)
+> 			hw_sob_put(other_sob);
+>=20
+> -		if (encaps_sig) {
+> +		if (encaps_sig)
+> 			/* set reset indication for the sob */
+> 			sob->need_reset =3D true;
+> -			hw_sob_get(other_sob);
+> -		}
+> +		hw_sob_get(other_sob);
+>=20
+> 		dev_dbg(hdev->dev, "switched to SOB %d, q_idx: %d\n",
+> 				prop->curr_sob_offset, q_idx);
+> --=20
+> 2.39.5 (Apple Git-154)
 
-Thank you!
+Please ignore this patch. I will resend a proper version after
+learning the kernel submission process.
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Apologies for the noise.
+
+Best regards,
+WenTao Liang=
+
