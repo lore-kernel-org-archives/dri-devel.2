@@ -4,43 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68500C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 11:48:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72FABC43458
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 11:51:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 995B010E5EC;
-	Sun, 28 Jun 2026 11:48:47 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lowGEg3Q";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32A1E10E5EC
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 11:48:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7DD336001D;
- Sun, 28 Jun 2026 11:48:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AB481F000E9;
- Sun, 28 Jun 2026 11:48:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782647325;
- bh=D6S969FdKxRxzsXfeij/hOBRf8OLN/sJF/5cgzUHH3g=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lowGEg3Q3yYdmiOH8fBYyNQK+tP5O54N7D/w+EyyPpCIwmFTbP8r7KTg51XZVucNu
- wNQLz055A1o7fvHY9uNtL8kUNOdQK9Nbmr2OP4F4SaMtiAVf7OdREJYyL73YpkguGI
- 67BxqaeWTgN50T06t5yZYKPE1SXNwjSKLira4wRn4tC4P9ro+BYC2N4G4L8I1oy4NK
- hCFo19WyZ6NCd48f0tyOteGU3cWygqmB20f9E2ULAenbkgz2lJldxJceSGragBugWj
- 1lO1QShys+vtSLBYFgSkIFqY5po0uLqDiM76XEsKA4famtaT02TjM2kfP3+zs0zBUf
- /m+U5Dxywe0aQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] accel/habanalabs: fix kref underflow in
- hl_cs_signal_sob_wraparound_handler
-To: "WenTao Liang" <vulab@iscas.ac.cn>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260628113020.43942-1-vulab@iscas.ac.cn>
-References: <20260628113020.43942-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 28 Jun 2026 11:48:44 +0000
-Message-Id: <20260628114845.0AB481F000E9@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EA3D10E5F2;
+	Sun, 28 Jun 2026 11:51:27 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8746210E5F2
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 11:51:25 +0000 (UTC)
+Received: from localhost.localdomain (unknown [117.182.74.7])
+ by APP-05 (Coremail) with SMTP id zQCowABXo8a5CkFq5yHDFQ--.53914S2;
+ Sun, 28 Jun 2026 19:51:23 +0800 (CST)
+From: WenTao Liang <vulab@iscas.ac.cn>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, jeff.hugo@oss.qualcomm.com,
+ carl.vanderlip@oss.qualcomm.com, ogabbay@kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ WenTao Liang <vulab@iscas.ac.cn>, Greg KH <gregkh@linuxfoundation.org>
+Subject: [PATCH v2] accel/qaic: fix GEM object refcount leak in
+ qaic_attach_slice_bo_ioctl
+Date: Sun, 28 Jun 2026 19:51:19 +0800
+Message-Id: <20260628115119.44215-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowABXo8a5CkFq5yHDFQ--.53914S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WryrAF47JFy3Xw1fZryrZwb_yoW8Jrykpr
+ ZI9FZFqrW5Zr4UKrWjvFyDuF1jk3WY9ry7Kay5G34aqFn5XFyxZa45KFZ8GFnxtr17CFZI
+ vr12vw1kWw12ya7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkG14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q
+ 6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+ 0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
+ 0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+ WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1l
+ IxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUqeHgUUU
+ UU=
+X-Originating-IP: [117.182.74.7]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUMA2pAiNnYPwAAsP
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,128 +59,38 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-
-New issues:
-- [High] Unconditionally incrementing the reference count of the new SOB du=
-ring a wraparound causes a permanent reference leak when `encaps_sig` is fa=
-lse, eventually causing a denial of service.
-
-Pre-existing issues:
-- [High] Pre-existing reference underflow on the old SOB during a wraparoun=
-d in `init_signal_cs()`.
-- [High] Pre-existing mismatch between the hardware signal generation and t=
-he SOB address returned to userspace, leading to an indefinite userspace ha=
-ng.
---
-
-commit c04dffdbf27c2cf3b267257e4a97f77648c44492
-Author: WenTao Liang <vulab@iscas.ac.cn>
-
-accel/habanalabs: fix kref underflow in hl_cs_signal_sob_wraparound_handler
-
-When other_sob->need_reset is true and encaps_sig is false,
-hw_sob_put(other_sob) decrements the kref to 0, but the matching
-hw_sob_get(other_sob) is skipped because it is inside the encaps_sig
-block. The function returns other_sob with kref=3D0, causing a subsequent
-kref_put to underflow. Fix by adding hw_sob_get(other_sob) in the else
-branch.
+drm_gem_object_lookup() acquires a GEM object reference on success. All
+error paths correctly release it via put_bo, but the success path returns
+without calling drm_gem_object_put(obj). Since list_add_tail does not
+transfer ownership, the GEM object reference is permanently leaked on
+each successful call.
 
 Suggested-by: Greg KH <gregkh@linuxfoundation.org>
-Fixes: dadf17abb724 ("habanalabs: add support for encapsulated signals rese=
-rvation")
+Fixes: 75af0a585af9 ("accel/qaic: Grab ch_lock during QAIC_ATTACH_SLICE_BO")
 Cc: stable@vger.kernel.org
 Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+---
+Changes in v2:
+- Fix patch format based on reviewer feedback
+---
+ drivers/accel/qaic/qaic_data.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> diff --git a/drivers/accel/habanalabs/common/command_submission.c b/drive=
-rs/accel/habanalabs/common/command_submission.c
-> index d51b4cf332b2a..ffcdf29b7e070 100644
-> --- a/drivers/accel/habanalabs/common/command_submission.c
-> +++ b/drivers/accel/habanalabs/common/command_submission.c
+diff --git a/drivers/accel/qaic/qaic_data.c b/drivers/accel/qaic/qaic_data.c
+index 1e4c579d2725..b17df7bf565d 100644
+--- a/drivers/accel/qaic/qaic_data.c
++++ b/drivers/accel/qaic/qaic_data.c
+@@ -1084,6 +1084,7 @@ int qaic_attach_slice_bo_ioctl(struct drm_device *dev, void *data, struct drm_fi
+ 
+ 	bo->sliced = true;
+ 	list_add_tail(&bo->bo_list, &bo->dbc->bo_lists);
++	drm_gem_object_put(obj);
+ 	srcu_read_unlock(&dbc->ch_lock, rcu_id);
+ 	mutex_unlock(&bo->lock);
+ 	kfree(slice_ent);
+-- 
+2.39.5 (Apple Git-154)
 
-[ ... ]
-
-> @@ -1869,11 +1869,10 @@ int hl_cs_signal_sob_wraparound_handler(struct hl=
-_device *hdev, u32 q_idx,
->  		if (other_sob->need_reset)
->  			hw_sob_put(other_sob);
-> =20
-> -		if (encaps_sig) {
-> +		if (encaps_sig)
->  			/* set reset indication for the sob */
->  			sob->need_reset =3D true;
-> -			hw_sob_get(other_sob);
-> -		}
-> +		hw_sob_get(other_sob);
-
-[Severity: High]
-Does this unconditional get leak the reference count when encaps_sig is fal=
-se?
-
-If encaps_sig is false, init_signal_cs() retains the old SOB in
-cs_cmpl->hw_sob and ignores the new SOB returned by this wraparound handler.
-
-Since no object takes ownership of this newly acquired reference, does it
-permanently leak the other_sob reference?
-
-Could this inflated refcount cause the kref_read(&other_sob->kref) !=3D 1
-check to fail during future wraparounds, leading to a denial of service?
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but can init_signal_cs() cause a reference
-underflow on the old SOB during a wraparound?
-
-In drivers/accel/habanalabs/common/hw_queue.c:init_signal_cs(), the
-completion object retains a pointer to the old SOB before calling the
-wraparound handler:
-
-    cs_cmpl->hw_sob =3D hw_sob;
-    ...
-    rc =3D hl_cs_signal_sob_wraparound_handler(hdev, q_idx, &hw_sob, 1,
-                                             false);
-
-If a wraparound occurs, the handler calls hw_sob_put_err(sob) on the old
-SOB. Later, when the job completes, cs_do_release() calls
-cs_release_sob_reset_handler() which unconditionally calls
-hw_sob_put(hl_cs_cmpl->hw_sob).
-
-Since the completion object still points to the old SOB, does this decrement
-the old SOB's refcount without a corresponding increment, leading to premat=
-ure
-release?
-
-[Severity: High]
-This is a pre-existing issue, but is there a mismatch between the
-hardware signal generation and the SOB address returned to userspace?
-
-In drivers/accel/habanalabs/common/hw_queue.c:init_signal_cs(), the hardware
-command is generated using the old SOB's ID:
-
-    hdev->asic_funcs->gen_signal_cb(hdev, job->patched_cb,
-                                    cs_cmpl->hw_sob->sob_id, 0, true);
-
-Immediately after, the wraparound handler executes and updates the local hw=
-_sob
-pointer to the new SOB:
-
-    rc =3D hl_cs_signal_sob_wraparound_handler(hdev, q_idx, &hw_sob, 1,
-                                             false);
-
-The function then assigns the new SOB's address to the job:
-
-    job->cs->sob_addr_offset =3D hw_sob->sob_addr;
-
-If userspace waits on this exported offset, it waits on the new SOB, but
-the hardware was programmed to signal the old SOB. Can this cause an
-indefinite userspace hang?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260628113020.4394=
-2-1-vulab@iscas.ac.cn?part=3D1
