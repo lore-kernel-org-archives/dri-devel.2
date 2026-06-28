@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AE15C43602
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 14:55:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99968C43458
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 14:55:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7B5A10E627;
-	Sun, 28 Jun 2026 14:55:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0446B10E629;
+	Sun, 28 Jun 2026 14:55:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZSJX+Dxw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Y2HMf0PL";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD64610E625
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 14:55:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7476910E62A
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 14:55:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B1350401BF;
- Sun, 28 Jun 2026 14:55:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B324E1F00A3A;
- Sun, 28 Jun 2026 14:55:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5C64741703;
+ Sun, 28 Jun 2026 14:55:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E0701F00A3A;
+ Sun, 28 Jun 2026 14:55:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782658504;
- bh=x8Z+En08jS5dDwWeT6XTkMeaujP+D7cO4CR0aV9JJyg=;
+ s=k20260515; t=1782658513;
+ bh=nPOVaIzSWIynmaD8HD/iLpR5ySkY49Gf5DJPa2hASVw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ZSJX+DxwKFzmSIqNF55jbTZo7sNa7YhSeti2bD+GX/DfHebIs2EnZElNz4nAjmdoR
- h0ekpztTeB5QUyg939RU8jAKgLOsxJupHBrxsXF2UFuf2BmyaBYqrqZF1oId6ZZiqF
- vygbnJekO2Imp0aMfzQSr9s1Qx6qEDq4rNnbukO2WM903Vu7unPLwNoDdp01lk7Hor
- Ok2P4hZfm1YRjpBs0pFDxNNpW/qgXrx1IAmI+NTjMnlLYM/2VSn0GiOHSdubScx40c
- V6P5NG0qSBhoRyzJPuv9ZfEE+yt7LdDVKIUeRxmuHOhRWbCxStmj5daGvEeQ8HmKUg
- qfnYkcNBYx1jg==
+ b=Y2HMf0PLXig4iiA/36LTKI8tAhORf1IBx4npErpxwEvZ2O4yz8EdgS2lffCc9mggb
+ IKnCxbf0zoPEz3Fv4uFLvk6HRocTZDj5GlbeXc9Imi2LvPcAgcce7aZqR1rdDwNcLg
+ sQKG+g0HxtFPjCr/bs7Quyumdcoa7DC2aXuPVLEF4nnL1TwsnfWqyZv8nvcQcxdSB2
+ 0FY02Wx3vnkM9nIO/WLeBkXHiGPrfKziN/fw4bQbIaYMokpAWF4WNkYwCnQru7DsOH
+ s+ZVFy3BSGuJ35TyeBZF91G/syXNQOZ0oJj4CNFyUFVYPe9rRJ4bIelcxzdUfBYG/4
+ uTlCYTfZCoK8g==
 From: Danilo Krummrich <dakr@kernel.org>
 To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  acourbot@nvidia.com, ecourtney@nvidia.com, ojeda@kernel.org,
@@ -40,10 +40,9 @@ To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
 Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  rust-for-linux@vger.kernel.org
-Subject: [PATCH v5 12/19] rust: drm: Add RegistrationGuard for
- drm_dev_enter/exit critical sections
-Date: Sun, 28 Jun 2026 16:53:32 +0200
-Message-ID: <20260628145406.2107056-13-dakr@kernel.org>
+Subject: [PATCH v5 14/19] rust: drm: return ParentDevice from Device AsRef
+Date: Sun, 28 Jun 2026 16:53:34 +0200
+Message-ID: <20260628145406.2107056-15-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260628145406.2107056-1-dakr@kernel.org>
 References: <20260628145406.2107056-1-dakr@kernel.org>
@@ -64,182 +63,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-DRM ioctls do not guarantee that the parent bus device is still bound.
-However, since DRM device registration is managed through Devres, using
-drm_dev_unplug() on unregistration ensures that between drm_dev_enter()
-and drm_dev_exit() the parent device must be bound.
+Change AsRef for drm::Device to return &T::ParentDevice<device::Normal>
+instead of &device::Device, and restrict it to the Normal context.
+Device<T, Registered> still gets this through Deref coercion.
 
-Add RegistrationGuard, a guard object representing a drm_dev_enter/exit
-SRCU critical section that dereferences to &Device<T, Registered>. The
-guard is obtained from Device<T, Ioctl> and proves at runtime that the
-device is still registered.
-
-Switch Registration::drop from drm_dev_unregister() to drm_dev_unplug()
-to provide the SRCU barrier that RegistrationGuard's safety argument
-relies on.
+This provides access to the typed parent bus device rather than the raw
+base device.
 
 Reviewed-by: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- rust/kernel/drm/device.rs | 85 ++++++++++++++++++++++++++++++++++-----
- rust/kernel/drm/driver.rs | 10 ++++-
- rust/kernel/drm/mod.rs    |  1 +
- 3 files changed, 83 insertions(+), 13 deletions(-)
+ rust/kernel/drm/device.rs    | 10 +++++++---
+ rust/kernel/drm/driver.rs    |  3 ++-
+ rust/kernel/drm/gem/shmem.rs |  3 ++-
+ 3 files changed, 11 insertions(+), 5 deletions(-)
 
 diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
-index d429b4655449..c32cc0f0eba0 100644
+index c32cc0f0eba0..187c57cab736 100644
 --- a/rust/kernel/drm/device.rs
 +++ b/rust/kernel/drm/device.rs
-@@ -80,7 +80,8 @@ macro_rules! drm_legacy_fields {
- ///   or may not be registered with userspace.
- /// - [`Ioctl`]: The device has been registered with userspace at some point; used in ioctl
- ///   dispatch context.
--/// - [`Registered`]: The device has been registered with userspace at some point.
-+/// - [`Registered`]: The device is currently registered with userspace and the parent bus device
-+///   is bound.
- ///
- /// Both `Device<T, Ioctl>` and `Device<T, Registered>` dereference to `Device<T>` ([`Normal`]),
- /// so any method available on a [`Normal`] device is also available in the other contexts.
-@@ -98,18 +99,15 @@ pub trait DeviceContext: Sealed + Send + Sync {}
- impl Sealed for Normal {}
- impl DeviceContext for Normal {}
- 
--/// The [`DeviceContext`] of a [`Device`] that was registered with userspace at some point.
-+/// The [`DeviceContext`] of a [`Device`] that is currently registered with userspace.
- ///
--/// This represents a [`Device`] which is guaranteed to have been registered with userspace at
--/// some point in time. Such a DRM device is guaranteed to have been fully-initialized.
--///
--/// Note: A device in this context is not guaranteed to remain registered with userspace for its
--/// entire lifetime, as this is impossible to guarantee at compile-time.
-+/// A [`Device`] in this context is guaranteed to be registered and its parent bus device is
-+/// guaranteed to be bound. This is enforced at runtime by [`RegistrationGuard`], which holds a
-+/// `drm_dev_enter()` / `drm_dev_exit()` SRCU critical section.
- ///
- /// # Invariants
- ///
--/// A [`Device`] in this [`DeviceContext`] is guaranteed to have been registered with userspace
--/// at some point in time.
-+/// The parent bus device is bound for the duration of any reference to a `Device<T, Registered>`.
- pub struct Registered;
- 
- impl Sealed for Registered {}
-@@ -260,8 +258,8 @@ pub fn new(
- 
- /// A typed DRM device with a specific [`drm::Driver`] implementation and [`DeviceContext`].
- ///
--/// A device in the [`Registered`] context is guaranteed to have been registered with userspace
--/// at some point. The [`Normal`] context is the general-purpose, reference-counted context.
-+/// A device in the [`Registered`] context is currently registered with userspace and its parent
-+/// bus device is bound. The [`Normal`] context is the general-purpose, reference-counted context.
- ///
- /// # Invariants
- ///
-@@ -340,6 +338,71 @@ pub(crate) unsafe fn assume_ctx<NewCtx: DeviceContext>(&self) -> &Device<T, NewC
+@@ -450,11 +450,15 @@ unsafe fn dec_ref(obj: NonNull<Self>) {
      }
  }
  
-+impl<T: drm::Driver> Device<T, Ioctl> {
-+    /// Guard against the parent bus device being unbound.
-+    ///
-+    /// Returns a [`RegistrationGuard`] if the device has not been unplugged, [`None`] otherwise.
-+    ///
-+    /// While [`RegistrationGuard`] is held the parent device is guaranteed to be bound.
-+    #[must_use]
-+    pub fn registration_guard(&self) -> Option<RegistrationGuard<'_, T>> {
-+        let mut idx: i32 = 0;
-+        // SAFETY: `self.as_raw()` is a valid pointer to a `struct drm_device`.
-+        if unsafe { bindings::drm_dev_enter(self.as_raw(), &mut idx) } {
-+            // INVARIANT:
-+            // - `idx` is the SRCU index from the successful `drm_dev_enter()` above.
-+            // - The parent bus device is bound: `drm_dev_enter()` succeeded, meaning
-+            //   `drm_dev_unplug()` has not completed; since it is only called from
-+            //   `Registration::drop()` during parent unbind, the parent is still bound.
-+            Some(RegistrationGuard {
-+                // SAFETY: See INVARIANT above; the `Registered` context invariant holds.
-+                dev: unsafe { self.assume_ctx() },
-+                idx,
-+                _not_send: NotThreadSafe,
-+            })
-+        } else {
-+            None
-+        }
-+    }
-+}
+-impl<T: drm::Driver, C: DeviceContext> AsRef<device::Device> for Device<T, C> {
+-    fn as_ref(&self) -> &device::Device {
++impl<T: drm::Driver> AsRef<T::ParentDevice<device::Normal>> for Device<T> {
++    fn as_ref(&self) -> &T::ParentDevice<device::Normal> {
+         // SAFETY: `bindings::drm_device::dev` is valid as long as the DRM device itself is valid,
+         // which is guaranteed by the type invariant.
+-        unsafe { device::Device::from_raw((*self.as_raw()).dev) }
++        let dev = unsafe { device::Device::from_raw((*self.as_raw()).dev) };
 +
-+/// A guard proving the DRM device is registered and the parent bus device is bound.
-+///
-+/// The guard dereferences to [`Device<T, Registered>`], providing access to the DRM device with
-+/// the guarantee that the parent bus device is bound for the entire duration of the critical
-+/// section.
-+///
-+/// Internally this is backed by a `drm_dev_enter()` / `drm_dev_exit()` SRCU critical section.
-+///
-+/// # Invariants
-+///
-+/// - `idx` is the SRCU read lock index returned by a successful `drm_dev_enter()` call.
-+/// - The parent bus device of `dev` is bound for the lifetime of this guard.
-+#[must_use]
-+pub struct RegistrationGuard<'a, T: drm::Driver> {
-+    dev: &'a Device<T, Registered>,
-+    idx: i32,
-+    _not_send: NotThreadSafe,
-+}
-+
-+impl<T: drm::Driver> Deref for RegistrationGuard<'_, T> {
-+    type Target = Device<T, Registered>;
-+
-+    #[inline]
-+    fn deref(&self) -> &Self::Target {
-+        self.dev
-+    }
-+}
-+
-+impl<T: drm::Driver> Drop for RegistrationGuard<'_, T> {
-+    #[inline]
-+    fn drop(&mut self) {
-+        // SAFETY: `self.idx` was returned by a successful `drm_dev_enter()` call, as guaranteed
-+        // by the type invariants of `RegistrationGuard`.
-+        unsafe { bindings::drm_dev_exit(self.idx) };
-+    }
-+}
-+
- impl<T: drm::Driver> Deref for Device<T> {
-     type Target = T::Data;
++        // SAFETY: The DRM device was constructed in `UnregisteredDevice::new()` with a parent
++        // device of type `T::ParentDevice`, hence `dev` is contained in a `T::ParentDevice`.
++        unsafe { device::AsBusDevice::from_device(dev) }
+     }
+ }
  
 diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
-index 5152a18a8312..3cda8dceb498 100644
+index 3cda8dceb498..9ba2eba84191 100644
 --- a/rust/kernel/drm/driver.rs
 +++ b/rust/kernel/drm/driver.rs
-@@ -199,8 +199,14 @@ unsafe impl<T: Driver> Send for Registration<T> {}
+@@ -170,7 +170,8 @@ pub fn new_foreign_owned<'a>(
+     where
+         T: 'static,
+     {
+-        if drm.as_ref().as_raw() != dev.as_raw() {
++        let parent = drm.as_ref();
++        if parent.as_ref().as_raw() != dev.as_raw() {
+             return Err(EINVAL);
+         }
  
- impl<T: Driver> Drop for Registration<T> {
-     fn drop(&mut self) {
-+        // Use `drm_dev_unplug` rather than `drm_dev_unregister` to ensure that existing
-+        // `drm_dev_enter()` critical sections complete before unregistration proceeds. This
-+        // is required for the safety of `RegistrationGuard`, which relies on the SRCU barrier in
-+        // `drm_dev_unplug()` to guarantee that the parent device is still bound within the
-+        // critical section.
-+        //
-         // SAFETY: Safe by the invariant of `ARef<drm::Device<T>>`. The existence of this
--        // `Registration` also guarantees the this `drm::Device` is actually registered.
--        unsafe { bindings::drm_dev_unregister(self.0.as_raw()) };
-+        // `Registration` also guarantees that this `drm::Device` is actually registered.
-+        unsafe { bindings::drm_dev_unplug(self.0.as_raw()) };
-     }
- }
-diff --git a/rust/kernel/drm/mod.rs b/rust/kernel/drm/mod.rs
-index a6693d2b84b8..fd6ed35bc35a 100644
---- a/rust/kernel/drm/mod.rs
-+++ b/rust/kernel/drm/mod.rs
-@@ -14,6 +14,7 @@
- pub use self::device::Ioctl;
- pub use self::device::Normal;
- pub use self::device::Registered;
-+pub use self::device::RegistrationGuard;
- pub use self::device::UnregisteredDevice;
- pub use self::driver::Driver;
- pub use self::driver::DriverInfo;
+diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+index e0ef47352e88..c1d82a04878b 100644
+--- a/rust/kernel/drm/gem/shmem.rs
++++ b/rust/kernel/drm/gem/shmem.rs
+@@ -264,7 +264,8 @@ pub fn sg_table<'a>(
+         &'a self,
+         dev: &'a device::Device<Bound>,
+     ) -> Result<&'a scatterlist::SGTable> {
+-        if dev.as_raw() != self.dev().as_ref().as_raw() {
++        let parent = self.dev().as_ref();
++        if dev.as_raw() != parent.as_ref().as_raw() {
+             return Err(EINVAL);
+         }
+ 
 -- 
 2.54.0
 
