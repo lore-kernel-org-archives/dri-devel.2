@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BE1DC43458
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 15:05:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C4D3C43458
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 15:06:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4A5710E632;
-	Sun, 28 Jun 2026 15:05:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA52210E633;
+	Sun, 28 Jun 2026 15:06:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Dzs47Aa6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V+40IqCo";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C25910E632
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 15:05:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFE7C10E633
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 15:05:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 74E286001D;
- Sun, 28 Jun 2026 15:05:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E95701F000E9;
- Sun, 28 Jun 2026 15:05:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 635B56001D;
+ Sun, 28 Jun 2026 15:05:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE42E1F000E9;
+ Sun, 28 Jun 2026 15:05:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782659142;
- bh=jFk3MRgbXpEyygOUtJ07x58OP9ay5zLOBg04Vbvat6o=;
+ s=k20260515; t=1782659159;
+ bh=xjnrmfjkUez73BWeJY8QWCuxAzi5YIAt05GmjH0SprA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Dzs47Aa6R5D2pUKn5ptuN0zKYErpki7F3GThbiMRT35mfiW95GEgQbE/KeGYP8ESx
- evGtl2DrnMRUYICJuVViUMILBZPBuBo9pE+AX31AHkq08tbXoHyOd+ipCf/fc02L2G
- BidoNzsJzZ5v0Aqd61WhI1Ifc3wRFKENyXrbHen3tHyRRZHm994HFRNcT40ms6pf6A
- UgiHpAlNK2qECNOyNTZ7XekXsC5c8e07h7fnQV+UZueqNnR0XuPdZ+uElZEvgk00JR
- JAfIIpPL5Jlexk+eJrR2DpZBMwrEYjR31nZWmhh2z05UUVLa+53Ce6DBo1wUQnYEvu
- LWD9arSw6FRJg==
+ b=V+40IqCo3L+rwxUjl7iOnQCt4js3j9qb1Dvg4Ukp+Zq76JR2kPlpivBTZRkA2lAeA
+ nZeUKIj/GjQl/XvRgsDMJC3fEcq4R/RNSiRKApQma/XsVOJ0QJi+H02sXrrYzWx13Q
+ aVBRLYjvqYvgP/Gep4gLWTE2+tNOPJ0oW2AGIA8BY+1QGFVmxCtRJ8c/8wGK3aftW8
+ o+0tDUI4Ahj4PdCGOPaNaQUZBoOlIx8e/EklO2Q+KRJvO9oPvU69KqvV1h5PFDP7Vc
+ Mrf8o5F/wBesKvHfQiFO/Dv9Dxe3F4aHX2qeKsABqr9tGu0TFm1yQHn7G2EWgtlee7
+ wTlu5qNCGLR0Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 03/19] rust: faux: add Device type with AsBusDevice
- support
+Subject: Re: [PATCH v5 10/19] rust: drm: pin ioctl Device reference to
+ Normal context
 To: "Danilo Krummrich" <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org,
- "Alexandre Courbot" <acourbot@nvidia.com>
-In-Reply-To: <20260628145406.2107056-4-dakr@kernel.org>
+Cc: ojeda@kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260628145406.2107056-11-dakr@kernel.org>
 References: <20260628145406.2107056-1-dakr@kernel.org>
- <20260628145406.2107056-4-dakr@kernel.org>
+ <20260628145406.2107056-11-dakr@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 28 Jun 2026 15:05:41 +0000
-Message-Id: <20260628150541.E95701F000E9@smtp.kernel.org>
+Date: Sun, 28 Jun 2026 15:05:58 +0000
+Message-Id: <20260628150558.CE42E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,56 +61,81 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Missing standard bus device infrastructure for `faux::Device` (`Alw=
-aysRefCounted`, `Send`, `Sync`, `impl_device_context_deref!`, `impl_device_=
-context_into_aref!`).
+
+Pre-existing issues:
+- [High] Potential unaligned reference creation from `raw_data` when pointi=
+ng to `stack_kdata`.
 --
 
-commit e85bef2071c929034918bb94467777aee21de70f
+commit 8f60afaa1c169bb0b033e33cedd40ffff2147401
 Author: Danilo Krummrich <dakr@kernel.org>
 
-rust: faux: add Device type with AsBusDevice support
+rust: drm: pin ioctl Device reference to Normal context
 
-This commit introduces a faux::Device type wrapping struct faux_device and
-implements AsBusDevice for it. This allows faux devices to be used as parent
-devices for subsystems that require a bus device like DRM.
+Explicitly annotate the Device reference produced by from_raw() in the ioctl
+dispatch macro as Device<_, Normal>. This prevents the context from being
+inferred from the handler's first parameter type, ensuring a handler cannot
+obtain a Registered reference without runtime proof.
 
-> diff --git a/rust/kernel/faux.rs b/rust/kernel/faux.rs
-> index 36c92ae2943c0..cd0724af446be 100644
-> --- a/rust/kernel/faux.rs
-> +++ b/rust/kernel/faux.rs
-
+> diff --git a/rust/kernel/drm/ioctl.rs b/rust/kernel/drm/ioctl.rs
+> index ccf4150d83b69..6f5a9877bdae0 100644
+> --- a/rust/kernel/drm/ioctl.rs
+> +++ b/rust/kernel/drm/ioctl.rs
+> @@ -134,7 +134,8 @@ macro_rules! declare_drm_ioctls {
+>                              // FIXME: Currently there is nothing enforci=
+ng that the types of the
+>                              // dev/file match the current driver these i=
+octls are being declared
+>                              // for, and it's not clear how to enforce th=
+is within the type system.
+> -                            let dev =3D $crate::drm::device::Device::fro=
+m_raw(raw_dev);
+> +                            let dev: &$crate::drm::device::Device<_, $cr=
+ate::drm::Normal> =3D
+> +                                $crate::drm::device::Device::from_raw(ra=
+w_dev);
+> =20
+>                              // Enforce that the handler accepts higher-r=
+anked
+>                              // lifetimes, preventing it from requiring '=
+static
 [ ... ]
+>                              // The `ioctl` argument is exclusively owned=
+ by the handler
+>                              // and guaranteed by the C implementation (`=
+drm_ioctl()`) to remain
+>                              // valid for the entire lifetime of the refe=
+rence taken here.
+>                              // There is no concurrent access or aliasing=
+; no other references
+>                              // to this object exist during this call.
+>                              let data =3D unsafe { &mut *(raw_data.cast::=
+<$crate::uapi::$struct>()) };
 
-> +/// A faux device.
-> +///
-> +/// A faux device is a virtual device backed by the faux bus, primarily =
-used for scenarios where a
-> +/// real hardware device is not available or for testing.
-> +///
-> +/// # Invariants
-> +///
-> +/// The underlying `struct faux_device` is valid and the embedded `struc=
-t device` is initialized.
-> +#[repr(transparent)]
-> +pub struct Device<Ctx: device::DeviceContext =3D device::Normal>(
-> +    Opaque<bindings::faux_device>,
-> +    PhantomData<Ctx>,
-> +);
+[Severity: High]
+This isn't a bug introduced by this patch, but does this create an unaligned
+reference?
 
-[Severity: Low]
-Is faux::Device missing the standard bus device infrastructure here?
+The C function drm_ioctl() allocates char stack_kdata[128]; on the stack for
+ioctl payloads <=3D 128 bytes, which only guarantees 1-byte alignment.
 
-Since it wraps Opaque (which is neither Send nor Sync by default), should
-this type explicitly implement Send and Sync so that it can be safely shared
-across threads?
+When declare_drm_ioctls!() receives this pointer as raw_data and
+unconditionally casts it to create a mutable reference:
 
-Additionally, to fully participate in the standard device context and
-reference counting hierarchy, should this also implement AlwaysRefCounted a=
-nd
-use the standard device macros (impl_device_context_deref! and
-impl_device_context_into_aref!)?
+    let data =3D unsafe { &mut *(raw_data.cast::<$crate::uapi::$struct>()) =
+};
+
+it violates Rust's strict alignment rules for references.
+
+Creating a reference to under-aligned memory is immediate undefined behavior
+in Rust, regardless of whether the target architecture supports unaligned
+accesses.
+
+Because this path is reachable by any unprivileged userspace program calling
+DRM ioctls, could this lead to a denial of service if LLVM emits instructio=
+ns
+that trap (such as vectorized operations)?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260628145406.2107=
-056-1-dakr@kernel.org?part=3D3
+056-1-dakr@kernel.org?part=3D10
