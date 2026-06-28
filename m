@@ -4,75 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E30FEC43602
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 07:08:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A268C43327
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 07:08:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B076610E702;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBA6F10E705;
 	Mon, 29 Jun 2026 07:08:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gurudas.dev header.i=@gurudas.dev header.b="jLuXfRzF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cceeQkEg";
 	dkim-atps=neutral
-Received: from out-13.smtp.spacemail.com (out-13.smtp.spacemail.com
- [63.250.43.96])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C55B810E002
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 03:45:02 +0000 (UTC)
-Received: from [192.168.1.96] (107-194-158-19.lightspeed.sntcca.sbcglobal.net
- [107.194.158.19])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mail.spacemail.com (Postfix) with ESMTPSA id 4gpX7C0rnKz8sb8;
- Mon, 29 Jun 2026 03:38:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gurudas.dev;
- s=spacemail; t=1782704313;
- bh=12kJt+AIgxakapjwIcyF/iXkCRfLwOpvhuLILXfF+08=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=jLuXfRzFg0qttahpIa6foL6H00Gl811uWp5MQXz4hhf4ExCOOLebSIOqCdH25gaVw
- w+7wULiJuPP0pOJbMoG87Qr12+sPu2YQhik5HhMucF6ADHFqIgiF/AMyDFIw68+VFc
- CA1Egal6jqOERY4nl6ozzQKji4gWbczzEdkSlT12vW8pJMzUjxy1lnzG3x1X/G40vm
- SNgmdhqb1Dp5bANhBGtKi/YQEAQ5KAE5+ukV8d4SRdEUwLriy54prAIUrMjadV7HCG
- vIFjEdOZpphWzC2dSb3y3Ar7MyN+3fV/bMoREtSa0C0D8aCwCRt+jzHq2XMxS0UVnQ
- ZGMCXTwwI9+pA==
-From: Guru Das Srinagesh <linux@gurudas.dev>
-Date: Sun, 28 Jun 2026 20:38:17 -0700
-Subject: [PATCH 3/7] cpufreq: rcpufreq_dt: use vertical import style
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92C8610E32A
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 15:41:11 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4926046fbc5so28671625e9.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 08:41:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782661270; x=1783266070; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=bdP/kJNcUoKP2dTQekglHV9xkq62178db/T4WFfvdsg=;
+ b=cceeQkEgkyvctU6VRCFHJrRcUluGn+3ZXVgj4KlB8up7U434UyZ9GaTxjn1qO+oudU
+ fA6Iq+5Hc4NsL5EEK7HNAv4KeLKYSIbRccLWhliJ6OBDxycj0Z4qIt8e+XaO4ZhgaOW4
+ I76k0Zw1bUNRbnhCiMpRMqEe0RQDDOzsTWgscr7SZnxZNZIqV8T+ksOwO5I3AkY9i07Q
+ UcS3H8u/C4q2e9mJGffUMyVUGiPMnjBAHNBtA5e64bZiijovVOk29og+gucGmOcH07DG
+ WkGMQvLiGpdwGeZDIHBcdkCB/QRM7ZUzBVM+yxCeTuPLeq02ZO41bpr6yIZbtwvtGK8z
+ qnxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782661270; x=1783266070;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bdP/kJNcUoKP2dTQekglHV9xkq62178db/T4WFfvdsg=;
+ b=cgRhlj7IDskV8kWmkGv4JATR4XJECIQNAsRonlBfIueTqgpjBm7Di9Qg4bIHgo+2lR
+ s7DIz/qWkjLkeopKKJuQnhWEZK5f4lr/WyrYSbkq/LzTaa9U+xY2OZbMfS8oDhfS1Gzf
+ BuBjKBzGykaF7vWCQURWVRb/LlzaeEnmkTawn7KJ7PGsQnwvIoR87MiJUCU/yKRBZSsR
+ Ck65f/GMM+rI44PqD55a2adTcC6/RbSnz+RX0C2uISiomPR7zaY32EXXN03cCgM/dHJh
+ XDd/Mxt+Fcxuxk/9BcHREuW7slvFlekDEY3XyIPTOQ4kPT0jO97qLIIpGnerimlfQj6J
+ SjaA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+xYyRgTo9siihL9bSyvU0xK1T3RWuJdFive/nvDzR+5fDtBqeCDEjO0pQXIX8azPjcWoSqdGnb/UI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzeFf1QKu1u67eBjxAzRaThSnaD57HqkbsZaLs2LAsUUlauVQnS
+ ZFSxal2id3QC45DZmtii4ShwxvKHOE1y4PubiN0Kh4orpZE/xDJdiYH5
+X-Gm-Gg: AfdE7clyCd1TGjuhKkjwpHVhaR7D2Guv5B/yhYzcRVTtO90TMolniJTy3qeDdLYcTC5
+ tiE63/CH8WREjTf5mmmubtBqAYw6gzkhMyOM80bSw5lm+1CTgtpfpAficTdcq6SBkXXKHNiBvuX
+ YCsD+hZEOWx3Z4cxOTzgn0csPp3GWPmGiaCK4PFyXLRsNNIXyuPT3/rBkw1usP8VTg6rVQNMvV7
+ FU3w1r0iVHjY/pYwVsHTlDr7N9p/3d9ozjcvJoL05dn9+s38hW8GMD/0pvvDRNKH4nB3Pp0+Btg
+ IOyeHbtjtbfr48Vw/xVPnz6tE0wPT2iEKFpNdgWnVYk3fveA9uXs27/mQNvNBnvsQzFpzvH4zsD
+ LQ2RY4MOXFS4CuPHQlp2lxRQoMRT6XPmU4VWL0u8M1LK5qBP6jHt2tc+6Z43xEcE4JlhexGYUna
+ SbWz5kUQ304vx39/4e+lk4oMVF1m0xG1+iuvODLUw+j6HKopBzGvPqjOJMMU5nDBpPIClvuktkA
+ UKM
+X-Received: by 2002:a05:600c:3b89:b0:492:37a3:acda with SMTP id
+ 5b1f17b1804b1-4925a0444c4mr347631285e9.0.1782661269651; 
+ Sun, 28 Jun 2026 08:41:09 -0700 (PDT)
+Received: from torre-GIGABYTE-B550-AORUS-ELITE-V2
+ (212.pool95-21-2.static.orange.es. [95.21.2.212])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4721c88bfcasm12707909f8f.10.2026.06.28.08.41.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 28 Jun 2026 08:41:07 -0700 (PDT)
+From: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>
+To: Christian Koenig <christian.koenig@amd.com>
+Cc: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>, 
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel-mentees@lists.linux.dev
+Subject: [PATCH v2] Memory leak error in qxl unbind
+Date: Sun, 28 Jun 2026 17:40:43 +0200
+Message-ID: <20260628154051.232214-1-megia.oscar@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260628-b4-rust-vertical-imports-v1-3-98bc71d4810b@gurudas.dev>
-References: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev>
-In-Reply-To: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev>
-To: Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Cc: Danilo Krummrich <dakr@kernel.org>, 
- Abdiel Janulgue <abdiel.janulgue@gmail.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, 
- Fu Wei <wefu@redhat.com>, Michal Wilczynski <m.wilczynski@samsung.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Jens Axboe <axboe@kernel.dk>, 
- FUJITA Tomonori <fujita.tomonori@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
- Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- driver-core@lists.linux.dev, linux-riscv@lists.infradead.org, 
- linux-pwm@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-block@vger.kernel.org, netdev@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Guru Das Srinagesh <linux@gurudas.dev>
-X-Mailer: b4 0.15.2
-X-Envelope-From: linux@gurudas.dev
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 29 Jun 2026 07:07:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,31 +92,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert `use` imports to vertical layout for better readability and
-maintainability.
+I discovered OOM after run script below around two hours in my computer:
 
-Signed-off-by: Guru Das Srinagesh <linux@gurudas.dev>
+while :; do
+    echo [pci qxl id] > /sys/bus/pci/drivers/qxl/unbind
+    echo [pci qxl id] > /sys/bus/pci/drivers/qxl/bind
+done
+
+If you run 10000 times above script kmemleak does not report any
+memory leak, but if you run above script about two hours several
+OOM ocurs and at the end kernel panic.
+
+The OOM isn't just a simple leak; it's a refcount corruption that renders
+the list_lru fix dead code after the first mid-init failure.
+
+Here's the chain:
+
+Bug 1: ttm_global_init ignores ttm_pool_mgr_init() return
+If shrinker_alloc() fails under memory pressure, ttm_pool_mgr_init
+returns -ENOMEM with pool types already initialized (64 list_lru_init
+calls done). ttm_global_init ignored this and returned 0, leaving orphaned
+pool types with a NULL mm_shrinker.
+
+Fix: Check ret from ttm_pool_mgr_init; if non-zero, goto out cleans up
+refcount + debugfs.
+
+Bug 2: ttm_pool_mgr_init leaks pool types on shrinker_alloc failure
+If shrinker_alloc fails after all 64 pool types were list_lru_init'd,
+the function returned -ENOMEM without undoing them. With Bug 1 now
+triggering proper error handling, this undo is necessary.
+
+Fix: err_shrinker: label that finalizes + destroys all 64 pool types
+before returning.
+
+You must apply the patch from the link "[PATCH v2] drm/qxl: fix
+use-after-free to qxl_irq_handler in PCI mode" before testing.
+If you don't apply this patch, you will get a UAF error when running
+the script above.
+
+Assisted-by: OpenCode:1.17.8-Big Pickle
+Link: https://lore.kernel.org/virtualization/20260627105445.89827-2-megia.oscar@gmail.com/T/#u
+Signed-off-by: Óscar Megía López <megia.oscar@gmail.com>
 ---
- drivers/cpufreq/rcpufreq_dt.rs | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/ttm/ttm_device.c |  5 ++++-
+ drivers/gpu/drm/ttm/ttm_pool.c   | 37 ++++++++++++++++++++++++++------
+ include/drm/ttm/ttm_pool.h       |  2 ++
+ 3 files changed, 37 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/cpufreq/rcpufreq_dt.rs b/drivers/cpufreq/rcpufreq_dt.rs
-index 10106fa13095..6f83cf8955a6 100644
---- a/drivers/cpufreq/rcpufreq_dt.rs
-+++ b/drivers/cpufreq/rcpufreq_dt.rs
-@@ -6,7 +6,10 @@
-     clk::Clk,
-     cpu, cpufreq,
-     cpumask::CpumaskVar,
--    device::{Core, Device},
-+    device::{
-+        Core,
-+        Device, //
-+    },
-     error::code::*,
-     macros::vtable,
-     module_platform_driver, of, opp, platform,
-
+diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
+index d3bfb9a696a7..c880a0430363 100644
+--- a/drivers/gpu/drm/ttm/ttm_device.c
++++ b/drivers/gpu/drm/ttm/ttm_device.c
+@@ -96,7 +96,10 @@ static int ttm_global_init(void)
+ 		>> PAGE_SHIFT;
+ 	num_dma32 = min(num_dma32, 2UL << (30 - PAGE_SHIFT));
+ 
+-	ttm_pool_mgr_init(num_pages);
++	ret = ttm_pool_mgr_init(num_pages);
++	if (ret)
++		goto out;
++
+ 	ttm_tt_mgr_init(num_pages, num_dma32);
+ 
+ 	glob->dummy_read_page = alloc_page(__GFP_ZERO | GFP_DMA32 |
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index 278bbe7a11ad..e0c82804a07d 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -1198,6 +1198,17 @@ void ttm_pool_fini(struct ttm_pool *pool)
+ 	 * that no shrinker is concurrently freeing pages from the pool.
+ 	 */
+ 	ttm_pool_synchronize_shrinkers();
++
++	for (i = 0; i < TTM_NUM_CACHING_TYPES; ++i) {
++		for (j = 0; j < NR_PAGE_ORDERS; ++j) {
++			struct ttm_pool_type *pt;
++
++			pt = ttm_pool_select_type(pool, i, j);
++			if (pt != &pool->caching[i].orders[j])
++				continue;
++			list_lru_destroy(&pt->pages);
++		}
++	}
+ }
+ EXPORT_SYMBOL(ttm_pool_fini);
+ 
+@@ -1386,6 +1397,7 @@ static inline u64 ttm_get_node_memory_size(int nid)
+ int ttm_pool_mgr_init(unsigned long num_pages)
+ {
+ 	unsigned int i;
++	int ret = 0;
+ 
+ 	int nid;
+ 	for_each_node(nid) {
+@@ -1423,8 +1435,10 @@ int ttm_pool_mgr_init(unsigned long num_pages)
+ #endif
+ 
+ 	mm_shrinker = shrinker_alloc(SHRINKER_NUMA_AWARE, "drm-ttm_pool");
+-	if (!mm_shrinker)
+-		return -ENOMEM;
++	if (!mm_shrinker) {
++		ret = -ENOMEM;
++		goto err_shrinker;
++	}
+ 
+ 	mm_shrinker->count_objects = ttm_pool_shrinker_count;
+ 	mm_shrinker->scan_objects = ttm_pool_shrinker_scan;
+@@ -1434,6 +1448,10 @@ int ttm_pool_mgr_init(unsigned long num_pages)
+ 	shrinker_register(mm_shrinker);
+ 
+ 	return 0;
++
++err_shrinker:
++	ttm_pool_type_fini_and_list_lru_destroy();
++	return ret;
+ }
+ 
+ /**
+@@ -1442,17 +1460,24 @@ int ttm_pool_mgr_init(unsigned long num_pages)
+  * Cleanup the global pools and unregister the MM shrinker.
+  */
+ void ttm_pool_mgr_fini(void)
++{
++	shrinker_free(mm_shrinker);
++	ttm_pool_type_fini_and_list_lru_destroy();
++	WARN_ON(!list_empty(&shrinker_list));
++}
++
++void ttm_pool_type_fini_and_list_lru_destroy(void)
+ {
+ 	unsigned int i;
+ 
+ 	for (i = 0; i < NR_PAGE_ORDERS; ++i) {
+ 		ttm_pool_type_fini(&global_write_combined[i]);
++		list_lru_destroy(&global_write_combined[i].pages);
+ 		ttm_pool_type_fini(&global_uncached[i]);
+-
++		list_lru_destroy(&global_uncached[i].pages);
+ 		ttm_pool_type_fini(&global_dma32_write_combined[i]);
++		list_lru_destroy(&global_dma32_write_combined[i].pages);
+ 		ttm_pool_type_fini(&global_dma32_uncached[i]);
++		list_lru_destroy(&global_dma32_uncached[i].pages);
+ 	}
+-
+-	shrinker_free(mm_shrinker);
+-	WARN_ON(!list_empty(&shrinker_list));
+ }
+diff --git a/include/drm/ttm/ttm_pool.h b/include/drm/ttm/ttm_pool.h
+index 26ee592e1994..bda8e816a206 100644
+--- a/include/drm/ttm/ttm_pool.h
++++ b/include/drm/ttm/ttm_pool.h
+@@ -97,4 +97,6 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+ int ttm_pool_mgr_init(unsigned long num_pages);
+ void ttm_pool_mgr_fini(void);
+ 
++void ttm_pool_type_fini_and_list_lru_destroy(void);
++
+ #endif
 -- 
 2.54.0
 
