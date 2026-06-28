@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FFFCC43458
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 14:55:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F1F5C43458
+	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 14:55:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A02E10E62E;
-	Sun, 28 Jun 2026 14:55:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03EB410E62C;
+	Sun, 28 Jun 2026 14:55:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c47Xqfu+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DdLIaW2D";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1D8E10E62D
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 14:55:31 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7357610E62C
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 14:55:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 35139600AB;
+ by sea.source.kernel.org (Postfix) with ESMTP id 5A1C043836;
+ Sun, 28 Jun 2026 14:55:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B9281F000E9;
  Sun, 28 Jun 2026 14:55:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C27F1F00A3A;
- Sun, 28 Jun 2026 14:55:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782658530;
- bh=fjg9k12LLTs5vTfgo/GQS8Y+N5IolDssj7B7dIPVRfY=;
+ s=k20260515; t=1782658535;
+ bh=uMm8F5rJDzXasV8CQirEBISfvAruKBnGmjcz8vuPhB0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=c47Xqfu+8pcAZDP4Vapm/giHVCC7PvMg3Usiurdjcy3ttnOy9YN3zJHk9oJ2e6Khk
- jnSYcbG59GSP+LJMbZ1taCpO6JjndaKH0GKfj3As5Nn1Gnush1NoPrJJ4VVROPFYYL
- E6P1OankMUaSN2udlTznAIS+0sKktnikh+LteTuce3OaCjOD45Oind5qN74sp2sFGP
- mcgCYRWdUsAcS6NyaJd9Y5qHvRgBA2xkUcpe3wYtZphDpn483yR3ZnW/QjYNBP7bl/
- +60FmXGAJGHNA4dEsJg9VcDqNfTcVrFRnmpCRXXbKjDf0MWRLVzphhoyAJcABk/w91
- KKPj5njEbVyWA==
+ b=DdLIaW2DBwwK/hwCyyoKvAo0ywFilQd3eNKVoTcPQSwMp1D7KBv212sLVupWFZTed
+ 6IwTw7RtCdPXKqjEelGI06UZHEYN3kISMgbHGcVNdmx6gQlZ0PX2TJDoLIEi2Z+low
+ 9erXrwfQhPt88m+vrKqb7hlHKM3JDVGWWDiSh8YqJ7Jy92kwc6KuuCBGk8+GbWRea+
+ efjRF+ddTX5++/vSkAEDrg/bcxkdKsTP9pbGy4x1BqjJb5XVYLNeyk5Tlc8ar1btXq
+ zC/voNolnAHeOfGpvalpedcaPnfoOkTqSWC4gCcNDtisAHiXRVmlAlBqAJhM3vG3Xe
+ XDoj30D0Ea4EA==
 From: Danilo Krummrich <dakr@kernel.org>
 To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
  acourbot@nvidia.com, ecourtney@nvidia.com, ojeda@kernel.org,
@@ -40,9 +40,10 @@ To: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
 Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  rust-for-linux@vger.kernel.org
-Subject: [PATCH v5 18/19] rust: drm: Pass registration data to ioctl handlers
-Date: Sun, 28 Jun 2026 16:53:38 +0200
-Message-ID: <20260628145406.2107056-19-dakr@kernel.org>
+Subject: [PATCH v5 19/19] drm: nova: Use drm::Device<Registered> to access the
+ parent bus device
+Date: Sun, 28 Jun 2026 16:53:39 +0200
+Message-ID: <20260628145406.2107056-20-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260628145406.2107056-1-dakr@kernel.org>
 References: <20260628145406.2107056-1-dakr@kernel.org>
@@ -63,99 +64,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Pass registration data to ioctl handlers via
-drm::Device<Registered>::registration_data_with(). The closure's HRTB
-ties the lifetime to the closure scope, and the pointer cast shortens it
-from 'static internally. The reference is valid for the duration of the
-drm_dev_enter/exit critical section held by RegistrationGuard.
+The get_param ioctl needs access to the parent auxiliary device. Since
+ioctl handlers run inside a RegistrationGuard, accept
+&NovaDevice<Registered> to obtain &auxiliary::Device<Bound> via as_ref()
+directly. This removes the need for drm::Device data, hence set it to
+().
 
 Reviewed-by: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- drivers/gpu/drm/nova/file.rs | 3 +++
- drivers/gpu/drm/tyr/file.rs  | 1 +
- rust/kernel/drm/ioctl.rs     | 8 ++++++--
- 3 files changed, 10 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/nova/driver.rs | 11 ++---------
+ drivers/gpu/drm/nova/file.rs   |  7 ++++---
+ 2 files changed, 6 insertions(+), 12 deletions(-)
 
+diff --git a/drivers/gpu/drm/nova/driver.rs b/drivers/gpu/drm/nova/driver.rs
+index bd2a55405db8..739690bc2db5 100644
+--- a/drivers/gpu/drm/nova/driver.rs
++++ b/drivers/gpu/drm/nova/driver.rs
+@@ -29,11 +29,6 @@ pub(crate) struct Nova<'bound> {
+ /// Convienence type alias for the DRM device type for this driver
+ pub(crate) type NovaDevice<Ctx = drm::Normal> = drm::Device<NovaDriver, Ctx>;
+ 
+-#[pin_data]
+-pub(crate) struct NovaData {
+-    pub(crate) adev: ARef<auxiliary::Device>,
+-}
+-
+ const INFO: drm::DriverInfo = drm::DriverInfo {
+     major: 0,
+     minor: 0,
+@@ -64,9 +59,7 @@ fn probe<'bound>(
+         adev: &'bound auxiliary::Device<Core<'_>>,
+         _info: &'bound Self::IdInfo,
+     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+-        let data = try_pin_init!(NovaData { adev: adev.into() });
+-
+-        let drm = drm::UnregisteredDevice::<Self>::new(adev, data)?;
++        let drm = drm::UnregisteredDevice::<Self>::new(adev, Ok(()))?;
+         // SAFETY: `reg` is stored in `Nova` and dropped when the driver is unbound; it is
+         // never forgotten.
+         let reg = unsafe { drm::Registration::new(adev.as_ref(), drm, (), 0)? };
+@@ -80,7 +73,7 @@ fn probe<'bound>(
+ 
+ #[vtable]
+ impl drm::Driver for NovaDriver {
+-    type Data = NovaData;
++    type Data = ();
+     type RegistrationData<'a> = ();
+     type File = File;
+     type Object = gem::Object<NovaObject>;
 diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
-index 19fb89b28984..208be4e38188 100644
+index 208be4e38188..298c02bacb4b 100644
 --- a/drivers/gpu/drm/nova/file.rs
 +++ b/drivers/gpu/drm/nova/file.rs
-@@ -28,6 +28,7 @@ impl File {
-     /// IOCTL: get_param: Query GPU / driver metadata.
-     pub(crate) fn get_param(
-         dev: &NovaDevice<Registered>,
-+        _reg_data: &(),
+@@ -4,6 +4,8 @@
+ use crate::gem::NovaObject;
+ use kernel::{
+     alloc::flags::*,
++    auxiliary,
++    device::Bound,
+     drm::{
+         self,
+         gem::BaseObject,
+@@ -32,9 +34,8 @@ pub(crate) fn get_param(
          getparam: &mut uapi::drm_nova_getparam,
          _file: &drm::File<File>,
      ) -> Result<u32> {
-@@ -48,6 +49,7 @@ pub(crate) fn get_param(
-     /// IOCTL: gem_create: Create a new DRM GEM object.
-     pub(crate) fn gem_create(
-         dev: &NovaDevice<Registered>,
-+        _reg_data: &(),
-         req: &mut uapi::drm_nova_gem_create,
-         file: &drm::File<File>,
-     ) -> Result<u32> {
-@@ -61,6 +63,7 @@ pub(crate) fn gem_create(
-     /// IOCTL: gem_info: Query GEM metadata.
-     pub(crate) fn gem_info(
-         _dev: &NovaDevice<Registered>,
-+        _reg_data: &(),
-         req: &mut uapi::drm_nova_gem_info,
-         file: &drm::File<File>,
-     ) -> Result<u32> {
-diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
-index fb9233eae01c..b686041d5d6b 100644
---- a/drivers/gpu/drm/tyr/file.rs
-+++ b/drivers/gpu/drm/tyr/file.rs
-@@ -32,6 +32,7 @@ fn open(_dev: &drm::Device<Self::Driver>) -> Result<Pin<KBox<Self>>> {
- impl TyrDrmFileData {
-     pub(crate) fn dev_query(
-         ddev: &TyrDrmDevice<Registered>,
-+        _reg_data: &(),
-         devquery: &mut uapi::drm_panthor_dev_query,
-         _file: &TyrDrmFile,
-     ) -> Result<u32> {
-diff --git a/rust/kernel/drm/ioctl.rs b/rust/kernel/drm/ioctl.rs
-index f24cf7b146a8..9b45b741db1b 100644
---- a/rust/kernel/drm/ioctl.rs
-+++ b/rust/kernel/drm/ioctl.rs
-@@ -95,6 +95,7 @@ pub const fn __dev_ctx_cast<T: crate::drm::Driver>(
- ///
- /// ```ignore
- /// fn foo(device: &kernel::drm::Device<Self, kernel::drm::Registered>,
-+///        reg_data: &Self::RegistrationData<'_>,
- ///        data: &mut uapi::argument_type,
- ///        file: &kernel::drm::File<Self::File>,
- /// ) -> Result<u32>
-@@ -169,13 +170,14 @@ macro_rules! declare_drm_ioctls {
-                                     unsafe { &*__ptr },
-                                     unreachable!(),
-                                     unreachable!(),
-+                                    unreachable!(),
-                                 )
-                             };
+-        let adev = &dev.adev;
+-        let parent = adev.parent();
+-        let pdev: &pci::Device = parent.try_into()?;
++        let adev: &auxiliary::Device<Bound> = dev.as_ref();
++        let pdev: &pci::Device<Bound> = adev.parent().try_into()?;
  
-                             // Enforce that the handler accepts higher-ranked
-                             // lifetimes, preventing it from requiring 'static
-                             // references that could escape this scope.
--                            let _: for<'a> fn(&'a _, &'a mut _, &'a _) -> _ = $func;
-+                            let _: for<'a> fn(&'a _, &'a _, &'a mut _, &'a _) -> _ = $func;
- 
-                             let Some(guard) = dev.registration_guard() else {
-                                 return $crate::error::code::ENODEV.to_errno();
-@@ -193,7 +195,9 @@ macro_rules! declare_drm_ioctls {
-                             // SAFETY: This is just the DRM file structure
-                             let file = unsafe { $crate::drm::File::from_raw(raw_file) };
- 
--                            match $func(&*guard, data, file) {
-+                            match guard.registration_data_with(|reg_data| {
-+                                $func(&*guard, reg_data, data, file)
-+                            }) {
-                                 Err(e) => e.to_errno(),
-                                 Ok(i) => i.try_into()
-                                             .unwrap_or($crate::error::code::ERANGE.to_errno()),
+         let value = match getparam.param as u32 {
+             uapi::NOVA_GETPARAM_VRAM_BAR_SIZE => pdev.resource_len(1)?,
 -- 
 2.54.0
 
