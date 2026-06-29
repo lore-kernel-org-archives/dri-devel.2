@@ -4,57 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B262BC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:57:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91771C43327
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 09:06:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2047210E785;
-	Mon, 29 Jun 2026 08:57:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0540A10E794;
+	Mon, 29 Jun 2026 09:06:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IxGN01TN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W9y4sWfb";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E741B10E785
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:57:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4118510E794
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 09:06:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AC5C7409C8;
- Mon, 29 Jun 2026 08:57:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A64781F000E9;
- Mon, 29 Jun 2026 08:57:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0227E43ED5
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 09:06:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD1A31F00A3D
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 09:06:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782723459;
- bh=QTibYdJqVWSTGzvV/onMSu755yQ9D+ntsE5qpG8XJu0=;
- h=Date:From:Subject:Cc:To:References:In-Reply-To;
- b=IxGN01TNcsg1xJOrtvaKfEkVrKhRCnfkwmM6SfAxXxVEyK/8k/fEQs+tWKZqV4xlN
- l39SwKbo1C+4lKQUZl2bxevVn4ymAR7SDJ5mglfQPPrePMshdMS+OaCV5E+6yrL39x
- co7U1EQKHKJXByQlL9GvJil+DVdy1CEW3BgPHqrxvt62jAGXLC9w+fXCDL4rMc2qi0
- DV3wAYZOhmHRj/RwNnEXYcimAnbyPjDhIjxEsZsSvdH5Rz3lmOuEgx6/aFghSJcQWb
- T2gL0BLJYGgKrrF+ul/Bb1IpBkZ5p0a9BW1zqbqSnihvm6zRu3QdLCrqXQkPfjjaiN
- ACRM5ovHObfhw==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 29 Jun 2026 10:57:34 +0200
-Message-Id: <DJLEQ0UIBOQ4.2AQ93XKMH49X0@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH RFC 0/4] rust: dma: bridge zerocopy-derived types into
- the transmute byte-safety bound
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "SeungJong Ha via B4 Relay"
- <devnull+engineer.jjhama.gmail.com@kernel.org>,
- <engineer.jjhama@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-To: "Alistair Popple" <apopple@nvidia.com>
-References: <20260628-dma-zerocopy-bridge-v1-0-9a2895ebe30d@gmail.com>
- <DJLCLH7GDSBW.28J4PZW0FD60B@nvidia.com>
- <akIpejFWuKZ61n_v@nvdebian.thelocal>
-In-Reply-To: <akIpejFWuKZ61n_v@nvdebian.thelocal>
+ s=k20260515; t=1782723970;
+ bh=qB4tJg2aYLg8hehpYin2dptPRoadEzGzbBpoppNMyKk=;
+ h=From:In-Reply-To:References:Date:Subject:To:Cc;
+ b=W9y4sWfbopngosFq17on/GGHNIJYD36rZ/vsq+rpBX9di44uMCcaSwaXapJeYmJJ0
+ hpjxZkCIIBTqzNqE/6Z06DjCrHPTHtHYBGijzFYrvOXxpDVDJ/gC8FuiPjNin3WSP1
+ goaVHc1yDi2KjablGU6uoNZt67ISmy/K72NzFIqvLYVqSfoQ4IM0TkcKtMxNzwYR9L
+ A3abQM6PJVE6oY5bWLE4rzLTrjN0QjUTITJe7EfwW+PjAqy0EXDsiGuqHw9oP0L0Ns
+ EkmKvqP1VVeWsA17Xu+jtLM9JE41Osm1VsBYUjzJCJKeQC2kLRMvDKnTV3XFZPpR++
+ 6yXVZ+Pcxl7uQ==
+Received: by mail-lj1-f179.google.com with SMTP id
+ 38308e7fff4ca-39b03d41976so9720811fa.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 02:06:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq7Hf67WByIcirPvCDJublT2c55cy8VTpHKkzrwDMWQgvQJ10lazxrNB+Bl4OuJZAJT6DF2TqkCgS8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxHyqWiyvu2sydgNBYPQTmmIB5PKjLP3dwNkeAEbZewD/ZQ4zod
+ GQhrptB/5l2eoK40xem8AjyqH42mJK7/BTMU2etd00w1Mk3iBwh3A2zEPi1nYAywppdEUOG2Mj3
+ OCt06NXXWJCrsjXStr+OPOmF2vkG2xDkXLsI169TImw==
+X-Received: by 2002:a05:651c:1587:b0:39a:e3c7:6644 with SMTP id
+ 38308e7fff4ca-39ae3c76ecdmr17150311fa.12.1782723969253; Mon, 29 Jun 2026
+ 02:06:09 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 29 Jun 2026 09:06:07 +0000
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 29 Jun 2026 09:06:07 +0000
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <ah9QPgco9BxEix7T@ashevche-desk.local>
+MIME-Version: 1.0
+References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
+ <20260521-pdev-fwnode-ref-v1-21-88c324a1b8d2@oss.qualcomm.com>
+ <ah9QPgco9BxEix7T@ashevche-desk.local>
+Date: Mon, 29 Jun 2026 09:06:07 +0000
+X-Gmail-Original-Message-ID: <CAMRc=McSDNdBMc_MAbBiOgeWusQXPEvivxniX5dJq+X6rp3UZw@mail.gmail.com>
+X-Gm-Features: AVVi8Cem7nS_T_r8P1YOw4p48wRJJJKggepy3MNLXmsKDTbaRpH5jyNSSJ0YwZw
+Message-ID: <CAMRc=McSDNdBMc_MAbBiOgeWusQXPEvivxniX5dJq+X6rp3UZw@mail.gmail.com>
+Subject: Re: [PATCH 21/23] usb: musb: use
+ platform_device_set_of_node_from_dev()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Lee Jones <lee@kernel.org>,
+ Mark Brown <broonie@opensource.wolfsonmicro.com>, 
+ Thierry Reding <thierry.reding@avionic-design.de>, 
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Srinivas Kandagatla <srini@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, 
+ Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Andi Shyti <andi.shyti@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Doug Berger <opendmb@gmail.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Ulf Hansson <ulfh@kernel.org>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Peter Chen <peter.chen@kernel.org>, 
+ Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maximilian Luz <luzmaximilian@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
+ driver-core@lists.linux.dev, devicetree@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org, 
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org, 
+ linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,25 +119,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jun 29, 2026 at 10:20 AM CEST, Alistair Popple wrote:
-> I think the context is in the description for patch 1. It's not directly =
-related
-> to the bindings generator. Basically the problem is that these bindings a=
-re a
-> little bit unique in that we access them using the dma_write/read macros.=
- In
-> other words we use these with Dma::Coherent which still requires the tran=
-smute
-> rather than zerocopy trait bounds to be implemented.
+On Tue, 2 Jun 2026 23:50:54 +0200, Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> said:
+> On Thu, May 21, 2026 at 10:36:44AM +0200, Bartosz Golaszewski wrote:
+>> Ahead of reworking the reference counting logic for platform devices,
+>> encapsulate the assignment of the OF node from another device for
+>> dynamically allocated platform devices with the provided helper.
 >
-> That said I think the correct long-term fix here would be to fix Dma::Coh=
-erent
-> to make it work with the zerocopy traits. Not sure if anyone is looking a=
-t that
-> or not.
+> Same Q as per chipidea. Do they provide a pin control facility at the same time?
+>
+> Otherwise simple device_set_node() or whatever platform analogue should suffice.
+>
 
-I think it can just be done short term, please also see [1]. We can just co=
-nvert
-the DMA code right away, no need for the proposed indirection.
+Hi!
 
-[1] https://lore.kernel.org/all/DJLEHDNJCUD0.38PFZ5773D6BX@kernel.org/
+I don't know and I can't test it so let me respin the series as is. This can
+always be amended separately later.
+
+Bart
