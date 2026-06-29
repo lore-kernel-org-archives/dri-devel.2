@@ -4,94 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16649C43327
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA7A9C43638
 	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 07:19:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EC5510EB4E;
-	Tue, 30 Jun 2026 07:19:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07B9E10EB4C;
+	Tue, 30 Jun 2026 07:19:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QrPl1+xD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EmUNDOPm";
 	dkim-atps=neutral
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
- [209.85.216.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCE1910EAD9
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 07:08:13 +0000 (UTC)
-Received: by mail-pj1-f54.google.com with SMTP id
- 98e67ed59e1d1-37fc01881f2so2520928a91.1
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 00:08:13 -0700 (PDT)
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00C4110E0C5
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:07:17 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-30c591fb1cbso5387073eec.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:07:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782803293; x=1783408093; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=tyLQLQryK7/S92ya5PLfuOu/W+JvCTVmwNrWVc0CbCI=;
- b=QrPl1+xDFwb8f9WqE9x8fkCPfdT88kT71vpDf2u/UbXDtkdbufyuWfOy5/V4XLYSA6
- oMYqv+0Z20tQuSxcK3ncgyhkjCTXD1Y1U3uMQxhMLMhH9VfarVbl9sUz18q9WlNb/h4h
- MReN9tm6QjFEDRBRzb1HBSMV8g9YqtUlC6w2eIKB9OKcvuSl+Cq2zaQrb6M0DETJ0Z+S
- DhlwZau2jim8DmEGt0Sh0cQzMII1WY54YDztADJZhBemTzqiERo/260BxDhyGpaZYrEN
- 5mLhfbpf2cmS1w6LCLUrI6hsKocoBRAYAKCdXMMda/MIIC7X+4KdPRPlaQUVQrZcWE4t
- N4kA==
+ d=gmail.com; s=20251104; t=1782745637; x=1783350437; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=nBucK9BctEyorzwpXgdpAjl0JFGTNYaAkDM1NigzWIU=;
+ b=EmUNDOPmmAAOf/FvO2J5ouTtp09o+3NhN51xu30je2k/ufTIpuQRl+6K6zn0VSXlqa
+ na5/M7CKE6ew2b5x2ZT6fDD1h8e+AY80uI/zb6kf+q9IxhNO0U1ioH3+uKpEZtWJHF9h
+ nPyKq7guEpnOsPwPyORiE+2ux/B/0D62xVl07Yt1FBVmo1ASH4BcFGL50heDnJiHHZ+D
+ R4p0bPvwIyKnHaEN3tfyVsMRNhwm23cRVmpDGrJ533l9wGs8EcyOjprYKsEMzswhZcXI
+ rDGtUlx4ZaDiqtUJsl2dvy4W9RmoZJlM5/3kMZFa8UYCZyjGOLwi3Qll+x/sQXT/peT0
+ GJfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782803293; x=1783408093;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=tyLQLQryK7/S92ya5PLfuOu/W+JvCTVmwNrWVc0CbCI=;
- b=HMQ2SwYgfDKoW23t1EDe5LJvpwbj/VkcG9m2J+mzdxFfuFN46HaDB7OqITxEt6yfLL
- 3R4FHhrU6eUuS9u21eab0eh1lDRhTZWsaJxtFMwNgIZiejE3ANCwDY8plYAoxaOWOXHS
- TgbtC+g/+kNOu1k/bkx0S0RPkuzKCJHVY4t5Hp9VCroHcoDwXNDz87OQh9CQINLyDbhf
- vIE7YBcvXPEMZsBWaVLtKOVia5+ilwTxJOKmYziAnrxQbeeeri1fsPsVaV4+AJ9dgFp2
- V6pzDenFSQiVuK9sx35PpwzEaFH1VTG9ZvgCQowTthByBuu0BhzndcCwXvPD9IEGFilW
- 5EOA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8ywhMUbm6lVJK9+2XE5GIddaCNsJIwiW4wx+XGk3IJhnGseUH21FEf/UFMe8tH8pdwoOrjROT9y90=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz+wBhyLrgz/th3h7sz3C1T+/xePGnSsGvuOPRFwAGuxEWYj2h9
- FLQgwoYwgVWMujbGtrI6IWL7diXTL0aggqJu7FJITwOao8U/bDHytv5F
-X-Gm-Gg: AfdE7cm9FFXJq/d1GTVZJ+qvVdheIofZD8Akkq6PGwWmOAtA4ogIhobr6iGu3wYS2jS
- GRzfiXyhtCHIFuc/gOzSC1TvwmAivsILQog2YomXPCtrSou1PnZL5l3NBtbtDPVcu0RsFCqy1mL
- c2UoQgcPrLdJEQcen0VfCwgq4wETA46tzYZNq347zKMZUFEuaRavD/Hnwow1nqgw3rn2v5+3Swk
- V7DZLAdbR3Ve0wntQz4n6hqTMtAba90+YGOWQXSoyxjchLxUn6peOQho8zUezir80Wy/oNmSVA2
- 0Ig3QkFUc3fdFnPw07euneHwGMM2dcdli8Tov5YuwCK/XMuwMzYy6t6PNbuip5rInnKME6jARaT
- hnfFCt2e0LGnfbiJcOAh65HjufqpOPs+YjAOpwxEFIgVX4bbMrI6PmKqZqgajgk/ym/2HqxU7td
- r9VUI7/swLL0v9iQ+q/rp7FCU3iM6hHVx+s7cIKNPVvBmcKATC+JzKj0ZxHiNDXRDVpA==
-X-Received: by 2002:a05:6a20:4393:b0:3bf:c28f:8afd with SMTP id
- adf61e73a8af0-3bfc5275c9cmr2386643637.31.1782803293270; 
- Tue, 30 Jun 2026 00:08:13 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c9bb9fdbe64sm996296a12.0.2026.06.30.00.08.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jun 2026 00:08:12 -0700 (PDT)
-Message-ID: <54fd4b86-d978-4f21-8634-292ecbe484ed@gmail.com>
-Date: Tue, 30 Jun 2026 15:08:06 +0800
+ d=1e100.net; s=20251104; t=1782745637; x=1783350437;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=nBucK9BctEyorzwpXgdpAjl0JFGTNYaAkDM1NigzWIU=;
+ b=LXrL+q+sMi9Tg9faxXMm5cESlMZAGKl5MlVf/6D11QnT/vnTEYz6cQpJzoBXHv6DS0
+ Bau/CmnpI5I0MTxxOeOJPILz34yPXth625EwE2g8uzAkKkmffXh2R26Q1JIPLsOK2Aa1
+ 18IDYJJh2otZaZFbXt5ugWU8rh1sZ7T4+d+EJ30+1RWt7uEQ3iCp8hBP8Pv2ENDN8EZl
+ PFryxTEB4TJWBjybdonzyWPjymihuKa7Y0/ZXvfUCMYDxUZVaCtKc4xEqsW1iGQWVbrd
+ 7HAX+tBjIggJTNUnbsVR5sH8wigcoUPBB6vcTWSjlLNut4OMt/FXBMSm+Z6oIrCGr3R8
+ SNtg==
+X-Gm-Message-State: AOJu0Yw/BGoSYCHL6mTnv2QeH4CTwjHiDhluWh8T1/UX8A/p7B2yo77m
+ hwAqYERVTdJpRDTaAU9qEs5HKgfxDpuen1L9Dq1bLxKJLsvBOatFhQ+r
+X-Gm-Gg: AfdE7cmqUzZmodFw0SIRTx5oWj5Sps4sjyUn1ZFQ6UlqmmdhFvyCxN3/TsXVh8P7qnH
+ tSw2eVO7DSSGzuW5c7ptRnewYdqoQCsU0NALbZihFqSeecoFPbPkeLpp4MgpoHjjBkQW77jnVE2
+ uQl7Zs/eefujB4Q4mruYoRE04mVZ2cggntkAM1cUGd8ZtINpIPk44iTen0RF8PlbGIQ6jKTv6Di
+ TsRJUByZE1zfUcWYgwHIhyGEkJd/eRq+ODsU+V3RjLFT7kxVKqY660Z8LYLzVmhGMzB3El/wm9e
+ MKpOyBR7vWEzrNzckKD2nZRWmhwXMyPAcEvFc8bw5SeAaCx8ueL0BpQJTVfWTci0sEG0vKD8QhW
+ RVSflUaIk36Tew6Wovyg0/zsAb0+2VIZDlvKrU5PLiTQCouX70etawLfUYpO00+ccyjp4Qdju2r
+ 9W+zeZlXHCQTUbSEh5LzO5mheZwRA=
+X-Received: by 2002:a05:7301:3807:b0:30b:ed93:5cdc with SMTP id
+ 5a478bee46e88-30c84df4aa2mr14269685eec.31.1782745636954; 
+ Mon, 29 Jun 2026 08:07:16 -0700 (PDT)
+Received: from evo.www.tendawifi.com ([103.98.7.180])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-30ec79d4746sm14838131eec.13.2026.06.29.08.07.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Jun 2026 08:07:16 -0700 (PDT)
+From: Archit More <architmore303@gmail.com>
+To: lizhi.hou@amd.com,
+	mamin506@gmail.com,
+	ogabbay@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Archit More <architmore303@gmail.com>
+Subject: [RFC PATCH] accel/amdxdna: Replace sprintf() with sysfs_emit() in
+ sysfs show functions
+Date: Mon, 29 Jun 2026 20:37:03 +0530
+Message-Id: <20260629150703.71734-1-architmore303@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/7] dt-bindings: display: verisilicon,dc: generalize
- for single-output variants
-To: Conor Dooley <conor@kernel.org>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Conor Dooley <conor.dooley@microchip.com>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, ychuang3@nuvoton.com, schung@nuvoton.com,
- yclu4@nuvoton.com, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260625094449.708386-1-a0987203069@gmail.com>
- <20260625094449.708386-2-a0987203069@gmail.com>
- <20260625-bobbing-annotate-d1c4d6874ee2@spud>
- <e3fe23ddbc504879bd797bbaa595d3653fa139ff.camel@iscas.ac.cn>
- <20260626-astrology-mural-853d3860e048@wendy>
- <c0731801729713d35f97bec40ebc21cef31b72b5.camel@iscas.ac.cn>
- <20260626-everybody-epilogue-8fb298a54981@wendy>
- <9456bde5059bea3aac1ed64355e3f017dd9bd3e5.camel@iscas.ac.cn>
- <b3b7a0f8-93a8-4965-a2f3-3ca1552a25d6@gmail.com>
- <80ae28925a67b7bee3b8873db3c113111437e717.camel@iscas.ac.cn>
- <20260629-chevron-awhile-7cf456a768a0@spud>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <20260629-chevron-awhile-7cf456a768a0@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 30 Jun 2026 07:19:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -109,99 +88,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Documentation/filesystems/sysfs.rst recommends using sysfs_emit()
+instead of sprintf() in sysfs show() callbacks.
 
-On 6/29/2026 11:02 PM, Conor Dooley wrote:
-> On Mon, Jun 29, 2026 at 01:31:46PM +0800, Icenowy Zheng wrote:
->>>>>>>>>> +
->>>>>>>>>> +        resets:
->>>>>>>>>> +          minItems: 1
->>>>>>>>>> +          maxItems: 1
->>>>>>>>>> +
->>>>>>>>>> +        reset-names:
->>>>>>>>>> +          items:
->>>>>>>>>> +            - const: core
->>>>>>>>> This is just maxItems: 1.
->>>>>>>> Well the implicit rules of DT binding schemas are quite
->>>>>>>> weird...
->>>>>>> I don't think it is that strange, as the binding has
->>>>>>>     reset-names:
->>>>>>>       items:
->>>>>>>         - const: core
->>>>>>>         - const: axi
->>>>>>>         - const: ahb
->>>>>> Ah does the list constraint the order of items? If it
->>>>>> constrains
->>>>>> the
->>>>> It does, yes.
->>>>> Alternatively, using an enum permits free ordering.
->>>> Ah in this case this should be converted to an enum, I think.
->>>>
->>>> Should I send a patch for converting it?
->>>>
->>>> Thanks,
->>>> Icenowy
->>> Thank you all for the detailed review and discussion, it really
->>> helped
->>> clarify the right approach.
->>>
->>> Since I will supply all four clocks with the same phandle for
->>> core/axi/ahb,
->>> and only one reset "core" for MA35D1, the ordering constraint in the
->>> `items` list is not a problem, "core" is already the first entry.
->>> There
->>> is no need to convert to an enum.
->>>
->>> Regarding the clock situation for the MA35D1: I agree with supplying
->>> all
->>> four clocks (core, axi, ahb, pix0) in the devicetree, even though the
->>> MA35D1 clock controller gates core/axi/ahb with a single bit. The DT
->>> will
->>> use the same clock phandle for core, axi, and ahb:
->>>
->>>     clocks = <&clk X>, <&clk X>, <&clk X>, <&pix_clk Y>;
->>>     clock-names = "core", "axi", "ahb", "pix0";
->>>
->>> This correctly models the hardware topology. Since all three names
->> No, this doesn't correctly model the hardware topology -- this will
->> lead to clk_get_rate() return the rate of DC core clock when checking
->> the AXI clock rate, which is problematic because both clocks are
->> limiting the performance of the DC.
-You are right. The current MA35D1 clock driver does not correctly reflect
-the real AXI/AHB clock rates, and I think it needs a more comprehensive
-review and rework. I will address this in a separate clock driver patch
-series in the future.
+Replace the remaining sprintf() calls in amdxdna_sysfs.c with
+sysfs_emit(). There is no functional change.
 
-For this DRM patch series, the AXI and AHB clocks are shared system bus
-clocks fixed by the SoC clock tree and are not managed by the display
-driver. The driver does not query their frequencies for mode validation
-or bandwidth decisions. Therefore, driver correctness is independent of
-the reported AXI/AHB clock rates, meaning it will remain unaffected when
-the clock driver is later reworked.
->>> resolve
->>> to the same underlying clock node, the CCF's standard enable
->>> refcounting
->>> handles the shared gate correctly without any custom implementation
->>> needed.
->>> I will also revert the change in patch 4/7 that made axi and ahb
->>> clocks
->>> optional, since they will now always be provided in the devicetree.
->>>
->>> Regarding moving `resets` and `reset-names` to the top-level
->>> `required:`,
->>> I will wait for Icenowy's patch to land before sending v6 to avoid
->>> duplicating the work.
->> The patch is sent.
-Got it.
->>> In v6 I will update patch 1/7 with:
->>> - Update the subject to "dt-bindings: display: verisilicon,dc: add
->>>     support for nuvoton,ma35d1-dcu"
->>> - Lower `clocks`/`clock-names` `minItems` to 4 at the top level
->>> - Remove the `thead,th1520-dc8200` conditional block entirely
->> I think this conditional block will still be needed, because it will
->> need to constrain the minItems to ensure all clocks / resets are
->> populated.
-> Correct. When the outer constraints are relaxed to deal with the new
-> device the conditional block for the th1520 becomes required. Or having
-> an else, but if all devices are likely to be different in terms of
-> configuration specific conditional blocks is better.
-Understood. I will keep the `thead,th1520-dc8200` conditional block.
+Signed-off-by: Archit More <architmore303@gmail.com>
+---
+ drivers/accel/amdxdna/amdxdna_sysfs.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/accel/amdxdna/amdxdna_sysfs.c b/drivers/accel/amdxdna/amdxdna_sysfs.c
+index d9e359ee8182..8b4749e6c380 100644
+--- a/drivers/accel/amdxdna/amdxdna_sysfs.c
++++ b/drivers/accel/amdxdna/amdxdna_sysfs.c
+@@ -18,9 +18,9 @@ static ssize_t vbnv_show(struct device *dev, struct device_attribute *attr, char
+ 	struct amdxdna_dev *xdna = dev_get_drvdata(dev);
+ 
+ 	if (!xdna->vbnv)
+-		return sprintf(buf, "\n");
++		return sysfs_emit(buf, "\n");
+ 
+-	return sprintf(buf, "%s\n", xdna->vbnv);
++	return sysfs_emit(buf, "%s\n", xdna->vbnv);
+ }
+ static DEVICE_ATTR_RO(vbnv);
+ 
+@@ -28,7 +28,7 @@ static ssize_t device_type_show(struct device *dev, struct device_attribute *att
+ {
+ 	struct amdxdna_dev *xdna = dev_get_drvdata(dev);
+ 
+-	return sprintf(buf, "%d\n", xdna->dev_info->device_type);
++	return sysfs_emit(buf, "%d\n", xdna->dev_info->device_type);
+ }
+ static DEVICE_ATTR_RO(device_type);
+ 
+@@ -36,7 +36,7 @@ static ssize_t fw_version_show(struct device *dev, struct device_attribute *attr
+ {
+ 	struct amdxdna_dev *xdna = dev_get_drvdata(dev);
+ 
+-	return sprintf(buf, "%d.%d.%d.%d\n", xdna->fw_ver.major,
++	return sysfs_emit(buf, "%d.%d.%d.%d\n", xdna->fw_ver.major,
+ 		       xdna->fw_ver.minor, xdna->fw_ver.sub,
+ 		       xdna->fw_ver.build);
+ }
+-- 
+2.34.1
+
