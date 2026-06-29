@@ -4,52 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 449F5C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 15:28:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01935C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 15:37:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F70010E6C0;
-	Mon, 29 Jun 2026 15:28:53 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MrzwwQQ+";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2064B10E6C0
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:28:52 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3124D60008;
- Mon, 29 Jun 2026 15:28:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F9C91F000E9;
- Mon, 29 Jun 2026 15:28:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782746930;
- bh=qW27OTDiz3DnpChfO6yEsCFBE3/CSllV4f+mYUyrrzM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=MrzwwQQ+Miauk7utZ4kljxfZJFbhTAQZyGoAkI47GVl9reTjgp8yJMmk51BdZWXRe
- n+wWCUXUH6ReblJ5pbswvrR0ZsDb/Tiw3Y5rXyIahI4bp3buMCtuwcx4aAwKOFQKDF
- SXZ9c2ca5hpBT/tf3YltS6wCF+nLbDDDgvLQlzWifb1vzj8qmSWUjehgOt3RCN6Kxo
- 3Z7WZoafZ2AevenCY4lfvdmAyxhjjB7ReKExL8iupTWOwcoAy+loZuSd/f2wJ/WaI4
- LXZj4ylzcfK4dOp1NEKcMlA/77mfnWHHGYj4j/49boDwmFK/krMChNqVIwk2cYLi5h
- 6xEl1OAptfnHw==
-Date: Mon, 29 Jun 2026 16:28:46 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Joey Lu <a0987203069@gmail.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: display: verisilicon,dc: make resets
- non-optional
-Message-ID: <20260629-dandy-tamale-4d61723288f3@spud>
-References: <20260629053017.4050868-1-zhengxingda@iscas.ac.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CCE010E974;
+	Mon, 29 Jun 2026 15:37:43 +0000 (UTC)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E22D610E9A2
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:37:42 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id
+ 4fb4d7f45d1cf-697cee2eb6dso3307522a12.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:37:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782747461; x=1783352261;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3PSkrSvBcOj2Vfr1tOG9HdESUGrp+uU5X3MHl1xNqsM=;
+ b=KjzN/I8jFiH+BPd3HeJJ+CN6r6FWke+8CSer8R2Mz8XqRXIrTqdLk1w0e0PViwaTEW
+ ZQ7yYZl76bEIN+ltcBnrM5YX4DeUglNpaiHEemZW80UBUsjKCnq20tFHJWh7Rq/66dLt
+ ihMWa44ByS6TWB4Z8av8QWllczfORq/0PdD7OHYsbKvJImaJou2Is7rIb8W+p8s18awz
+ 4lPVf0Hii0kn4ZsTQlGL7qJnld2VjPQNYgfRfzJRfsSjca8Q2Zr53FyBSYdJF7NPvOx4
+ qjW9vgaxU/QOeLOTLgGrDTLMQDziGECnZjPhcu36VpOCL22GqsCsNTp7nDvfo63t6YKC
+ 1ckw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rpffy2UXKYpM4g4Q69gcx1V26j2P4rUrKuU/e2H9NCTKEgEajdnk5vcV8avgQoKM35nHeI04ubx570=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw8UNI73MzcVHQw3cVC7ZCLWtFUMZS7ZnQZgzNHXrzNys3/vxEL
+ +XVy8O9/ed/FciaAhAB6WUvb/VIIJhtVMlKj9NOSHhkh3NyGaVKzrXrySN/AyNVx34M=
+X-Gm-Gg: AfdE7ck4s7XxrzqRl9QKE//Sh+pY8R7jKyn9lDj1dgbw4KGzx6fqIgLYaRhmxRpxGxp
+ aJdiZwlBD/nvtZ0KkpAKXMo452PWtyNN/Kuw5FjJJAGxxi4gKSDN2CQTpr7W8PGg2UvFy44ZZKl
+ X5neeCfxqSMcZBWQIdBjgQWDmcxgLRjJOrfyDdfWOiLijt6R4MmuEXhuRF0tJYYJh4eG5SzGTw2
+ bbQ3/2pQSIKaznqzJz2nQVbUxe64RYhaMWppn/2hLZwtxqHd2bupcZg0lwmgrrtBJyvdy8u//Hq
+ mnQJtTIKNUdM6EM9h45npdCyJrGXJdZnfOF1rNZ1p3M1Noy+YcfgxpgQSUTpi9KobRWj8tsyL10
+ Y1fNtFrocPHWnu1HAIV+9muw7AzmrsKfjsVO7tnjb8BDvAYV5EU1KsxBIPmQ+z96x+oozsUmh/n
+ tP5qxwewTJapwXQxaD6ZevDftrZqWVESHL8cSQL0fhcWe4M8fBiw==
+X-Received: by 2002:a05:6402:2744:b0:698:6746:23d3 with SMTP id
+ 4fb4d7f45d1cf-69867462551mr1925152a12.20.1782747461024; 
+ Mon, 29 Jun 2026 08:37:41 -0700 (PDT)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com.
+ [209.85.221.45]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-697f3aece6dsm7241680a12.12.2026.06.29.08.37.40
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 29 Jun 2026 08:37:40 -0700 (PDT)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-46ee68c3b7aso2973688f8f.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:37:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp73qQjOC5Cr+dyV7XwXiCAsG8/Bo4IrgfbE5lsaYakjTnwAj66bow7CY0pnPmCZ1m9Hj8nqy28brU=@lists.freedesktop.org
+X-Received: by 2002:a17:907:3c8b:b0:c12:f84:85d4 with SMTP id
+ a640c23a62f3a-c120f8487bamr796791266b.24.1782746977928; Mon, 29 Jun 2026
+ 08:29:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="fsQd5dWNHR5ydpXb"
-Content-Disposition: inline
-In-Reply-To: <20260629053017.4050868-1-zhengxingda@iscas.ac.cn>
+References: <20260629135917.1308621-1-arnd@kernel.org>
+In-Reply-To: <20260629135917.1308621-1-arnd@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 29 Jun 2026 17:29:24 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXhsM4JzArRuB=A46N-Ogbn2Fans+PVJVA-hEytFq=DeQ@mail.gmail.com>
+X-Gm-Features: AVVi8CfSSg4DcoB7CGCYddSfqoWpUaOwYUjpkorP-3LR7U8E7vJ9ucbePhiZLD8
+Message-ID: <CAMuHMdXhsM4JzArRuB=A46N-Ogbn2Fans+PVJVA-hEytFq=DeQ@mail.gmail.com>
+Subject: Re: [PATCH] [RFC] gpiolib: introduce gpio_name() helper
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, 
+ Marcel Holtmann <marcel@holtmann.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Andy Shevchenko <andy@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Ulf Hansson <ulfh@kernel.org>, linux-bluetooth@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org, 
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
+ linux-mmc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-pm@vger.kernel.org, linux-usb@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,60 +94,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---fsQd5dWNHR5ydpXb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Arnd,
 
-On Mon, Jun 29, 2026 at 01:30:17PM +0800, Icenowy Zheng wrote:
-> The only variant supported by the binding now, the DC8200 controller on
-> T-Head TH1520, requires two reset lines.
->=20
-> Add the reset properties to the required list to clarify this. The
-> in-tree th1520.dtsi file isn't affected by this change because the reset
-> lines are already populated there.
->=20
-> The driver still considers the resets optional, so if another variant
-> with no reset line appears, only the binding needs tweaking.
->=20
+On Mon, 29 Jun 2026 at 15:59, Arnd Bergmann <arnd@kernel.org> wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> Most remaining users of desc_to_gpio() only call it for printing debug
+> information.
+>
+> Replace this with a new gpiod_name() helper that returns the
+> gpio_desc->name string after checking the gpio_desc pointer.
+>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+Thanks for your patch!
 
-pw-bot: changes-requested
-(cos of sashiko)
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ---
->  Documentation/devicetree/bindings/display/verisilicon,dc.yaml | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yam=
-l b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> index 9dc35ab973f20..919a900122012 100644
-> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> @@ -75,6 +75,8 @@ required:
->    - interrupts
->    - clocks
->    - clock-names
-> +  - resets
-> +  - reset-names
->    - ports
-> =20
->  additionalProperties: false
-> --=20
-> 2.52.0
->=20
->=20
+> Not sure if this the way we want to take this, or if the gpio name is
+> an appropriate replacement in debug printk.
+>
+> Since most of the callers of desc_to_gpio() and gpio_to_desc() are
+> otherwise in drivers that already depend on CONFIG_GPIOLIB_LEGACY and
+> include linux/gpio/legacy.h, only a handful of instances remain that
+> are otherwise in files that otherwise only use the descriptor interfaces:
 
---fsQd5dWNHR5ydpXb
-Content-Type: application/pgp-signature; name=signature.asc
+> --- a/drivers/gpio/gpio-aggregator.c
+> +++ b/drivers/gpio/gpio-aggregator.c
+> @@ -758,8 +758,8 @@ int gpiochip_fwd_desc_add(struct gpiochip_fwd *fwd, struct gpio_desc *desc,
+>
+>         fwd->descs[offset] = desc;
+>
+> -       dev_dbg(chip->parent, "%u => gpio %d irq %d\n", offset,
+> -               desc_to_gpio(desc), gpiod_to_irq(desc));
+> +       dev_dbg(chip->parent, "%u => gpio %s irq %d\n", offset,
+> +               gpiod_name(desc), gpiod_to_irq(desc));
+>
+>         return 0;
+>  }
 
------BEGIN PGP SIGNATURE-----
+Before, this printed:
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCakKPLgAKCRB4tDGHoIJi
-0lGCAPwKrjkmGAYxO3JfnyREv1sUprkyzcktPSPR3AR4t97QZAD/cUjS/HTujbre
-Zi4tcctcaS7mOvmJcrj2VxPFBxDvfAs=
-=S07T
------END PGP SIGNATURE-----
+    gpio-aggregator gpio-aggregator.1: 0 => gpio 589 irq 188
+    gpio-aggregator gpio-aggregator.1: 1 => gpio 590 irq 189
 
---fsQd5dWNHR5ydpXb--
+After, this prints:
+
+    gpio-aggregator gpio-aggregator.1: 0 => gpio (null) irq 188
+    gpio-aggregator gpio-aggregator.1: 1 => gpio (null) irq 189
+
+Same results for instantiation using sysfs or configfs[1], although
+the latter does have optional support for specifying the name.
+
+[1] Documentation/admin-guide/gpio/gpio-aggregator.rst
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
