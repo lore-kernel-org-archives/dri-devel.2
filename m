@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A7EFC43327
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 14:19:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D51AC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 14:20:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0E4810E080;
-	Mon, 29 Jun 2026 14:19:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E09310E089;
+	Mon, 29 Jun 2026 14:20:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jpJOfaby";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AF8fDWde";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88EE610E080
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 14:19:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A669810E089
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 14:20:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EDB6A60008;
- Mon, 29 Jun 2026 14:19:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BF431F000E9;
- Mon, 29 Jun 2026 14:19:28 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 25E0F600AA;
+ Mon, 29 Jun 2026 14:20:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E3E71F000E9;
+ Mon, 29 Jun 2026 14:20:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782742768;
- bh=3M1ZOtpb3KUNau1xP5eMih5R7bWacZfvXOVdY3mlcoI=;
+ s=k20260515; t=1782742807;
+ bh=6oRCQ8EZXiYOXZpbLQCcrzslZScqqUfiSaO9pzyrSHk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jpJOfabyYvnNKkrPWgdM4EAa48ctArGqlWNy4NdpPpglonZE9zB9trc981hBQPF57
- OzUB/E9PEJ0vTJDm6Qz/NfkM04t98RFFXKuMXcJWsc00+4/cFK6iPrw1TF+wSlFyeW
- 6dxgJXYZZICuX8g1rWgTV76Qo64wQrbW8VqoIu88r9Q0aPYfh0NQVEIi97qY92GlFd
- rGlbFOH/y53R4BsS2WuZHjBnjBg2/C6RkOuaO0wz9xjA9vRm15ZXKgjLTmToRf8vPB
- TwtDmaoq26lj6w2sHm3F5L6WC4vEV+Uhl0PrxCDV40QoCpFBkQ9RBj8niPX1kJ0qqF
- DOe+3gGzppr3A==
+ b=AF8fDWdet9GSF8wld/LXdTKo9TCUiPfEw0DmvcoImXIq3FW90XBgVokLBoIHACXIO
+ mXPrkuHu4T6ktg4bcnPLc0Oi8ixyoyg1bnbJ0mJyrFFGA1zcjdszlWiA+FmYtnIAK1
+ DLgMh51WIgudndGYXCwQuAA+jPgFzknucLCjBRR9by4DvwbMUmTuZiwERKG2WAc717
+ fKREUlLUciUzDSN7nkOOed4xkecsYAU4MO178PtzfGd6NK/tGzD3MprS/mVTuzrGPb
+ iszhITiBZy/kh0dU51jXqtvJ70JrpI/U0cTE9hq/5HAJYOJ9rWGurTX/AMr9xQJvRr
+ q2YOVXORFBorg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 02/13] gpu: nova-core: gsp: sequencer: do not store
- sequence into GspSequencer
+Subject: Re: [PATCH v4 05/13] gpu: nova-core: gsp: centralize missing unload
+ bundle warnings
 To: "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, "Danilo Krummrich" <dakr@kernel.org>,
- ojeda@kernel.org
-In-Reply-To: <20260629-nova-bootcontext-v4-2-5539d8469590@nvidia.com>
+Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org,
+ "Danilo Krummrich" <dakr@kernel.org>
+In-Reply-To: <20260629-nova-bootcontext-v4-5-5539d8469590@nvidia.com>
 References: <20260629-nova-bootcontext-v4-0-5539d8469590@nvidia.com>
- <20260629-nova-bootcontext-v4-2-5539d8469590@nvidia.com>
+ <20260629-nova-bootcontext-v4-5-5539d8469590@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 14:19:27 +0000
-Message-Id: <20260629141928.6BF431F000E9@smtp.kernel.org>
+Date: Mon, 29 Jun 2026 14:20:06 +0000
+Message-Id: <20260629142007.8E3E71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,145 +59,62 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The sequencer iterator silently terminates upon encountering a com=
-mand parsing error, causing the boot sequence to falsely report success.
-- [High] Truncated commands at the end of the sequence buffer are silently =
-executed with zero-padded payloads instead of failing.
+- [Medium] Moving the unload bundle warning to `Gsp::boot` using `hal.boot(=
+...)?.or_else(...)` drops the warning on error paths and is dead code for `=
+Gh100`.
 --
 
-commit ffd1618690514804f608d22ee8574e39be09904e
+commit 6422f17d0c05bd4c3b60d0655dea96518aadd1a5
 Author: Alexandre Courbot <acourbot@nvidia.com>
 
-gpu: nova-core: gsp: sequencer: do not store sequence into GspSequencer
+gpu: nova-core: gsp: centralize missing unload bundle warnings
 
-The sequence is currently stored in the `GspSequencer` even though its
-lifetime is limited to `GspSequencer::run`. This object-oriented design
-does not play well with the borrow-checker, as `GspSequencer::iter`
-borrows a reference to the `GspSequencer`, which makes it difficult to
-introduce mutable references in `GspBootContext`, as we want to do in
-order to make the `Falcon` references mutable.
+This commit moves the warning emitted when the unload bundle cannot be
+constructed from the Tu102-specific boot code to the generic Gsp::boot
+method so it applies to all boot methods.
 
-Thus, store the sequence locally in `GspSequencer::run`, and move
-iterator creation to `GspSeqIter::new` so it no longer needs to borrow
-the whole `GspSequencer`.
-
-> diff --git a/drivers/gpu/nova-core/gsp/sequencer.rs b/drivers/gpu/nova-co=
-re/gsp/sequencer.rs
-> index f55205bd61f35..ddce32cc4e308 100644
-> --- a/drivers/gpu/nova-core/gsp/sequencer.rs
-> +++ b/drivers/gpu/nova-core/gsp/sequencer.rs
-
-[ ... ]
-
-> @@ -281,6 +279,18 @@ pub(crate) struct GspSeqIter<'a> {
->      dev: &'a device::Device,
->  }
+> diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gs=
+p/boot.rs
+> index 75054424a9516..430ffc57b1366 100644
+> --- a/drivers/gpu/nova-core/gsp/boot.rs
+> +++ b/drivers/gpu/nova-core/gsp/boot.rs
+> @@ -56,7 +56,15 @@ pub(crate) fn boot(
+>          let wpr_meta =3D Coherent::init(dev, GFP_KERNEL, GspFwWprMeta::n=
+ew(&gsp_fw, &fb_layout))?;
 > =20
-> +impl<'a> GspSeqIter<'a> {
-> +    fn new(seq: &'a GspSequence, dev: &'a device::Device) -> Self {
-> +        Self {
-> +            cmd_data: &seq.cmd_data,
-> +            current_offset: 0,
-> +            total_cmds: seq.cmd_index,
-> +            cmds_processed: 0,
-> +            dev,
-> +        }
-> +    }
-> +}
+>          // Perform the chipset-specific boot sequence, and retrieve the =
+unload bundle.
+> -        let unload_bundle =3D hal.boot(&self, &ctx, &fb_layout, &wpr_met=
+a)?;
+> +        let unload_bundle =3D hal.boot(&self, &ctx, &fb_layout, &wpr_met=
+a)?.or_else(|| {
+
+[Severity: Medium]
+Will this `.or_else()` block be skipped if `hal.boot()` returns an error
+due to the `?` operator?
+
+For example, if `Gh100::boot()` returns an `Err` directly when it fails to
+build its bundle (e.g., KBox::new failure) rather than returning `Ok(None)`,
+it seems this block would be completely unreachable, contrary to the commit
+message's goal of applying it to all boot methods.
+
+Likewise for `Tu102`, if `Sec2UnloadBundle::build()` fails and results in
+`None`, but a subsequent step in `Tu102::boot()` fails and returns an `Err`,
+the immediate error propagation would swallow these warnings.
+
+> +            dev_warn!(dev, "The GSP won't be able to unload properly on =
+unbind.\n");
+> +            dev_warn!(
+> +                dev,
+> +                "The GPU will need to be reset before the driver can bin=
+d again.\n"
+> +            );
 > +
->  impl<'a> Iterator for GspSeqIter<'a> {
->      type Item =3D Result<GspSeqCmd>;
-> =20
-> @@ -322,20 +332,6 @@ fn next(&mut self) -> Option<Self::Item> {
->      }
->  }
-> =20
-> -impl<'a> GspSequencer<'a> {
-> -    fn iter(&self) -> GspSeqIter<'_> {
-> -        let cmd_data =3D &self.seq_info.cmd_data[..];
-> -
-> -        GspSeqIter {
-> -            cmd_data,
-> -            current_offset: 0,
-> -            total_cmds: self.seq_info.cmd_index,
-> -            cmds_processed: 0,
-> -            dev: self.dev,
-> -        }
-> -    }
-> -}
-> -
-
-[Severity: High]
-This isn't a bug introduced by this patch, but while looking at
-GspSeqIter::next() I noticed that it silently terminates on parsing errors:
-
-drivers/gpu/nova-core/gsp/sequencer.rs:GspSeqIter::next() {
-    ...
-    let cmd_result =3D GspSeqCmd::new(&buffer, self.dev);
-
-    cmd_result.map_or_else(
-        |_err| {
-            dev_err!(self.dev, "Error parsing command at offset {}\n", offs=
-et);
-            None
-        },
-    ...
-}
-
-If firmware sends invalid data and GspSeqCmd::new() returns an error, the
-iterator returns None instead of propagating the error. This silently stops
-the iterator loop, causing the remaining hardware initialization commands
-to be skipped while GspSequencer::run() falsely reports success.
-
-Can this leave the GPU in an uninitialized state and cause system hangs or
-memory corruption?
-
-[Severity: High]
-This is a pre-existing issue, but I also noticed a potential bounds checking
-bypass when GspSeqIter::next() processes truncated commands at the end of t=
-he
-sequence buffer:
-
-drivers/gpu/nova-core/gsp/sequencer.rs:GspSeqIter::next() {
-    ...
-    let mut buffer =3D [0u8; CMD_SIZE];
-    let copy_len =3D if offset + CMD_SIZE <=3D self.cmd_data.len() {
-        CMD_SIZE
-    } else {
-        self.cmd_data.len() - offset
-    };
-    buffer[..copy_len].copy_from_slice(&self.cmd_data[offset..offset + copy=
-_len]);
-    let cmd_result =3D GspSeqCmd::new(&buffer, self.dev);
-    ...
-}
-
-When copy_len is less than CMD_SIZE, the data is copied into the zero-padded
-buffer and passed to GspSeqCmd::new() as a full CMD_SIZE slice.
-
-Inside GspSeqCmd::new():
-
-drivers/gpu/nova-core/gsp/sequencer.rs:GspSeqCmd::new() {
-    ...
-    if data.len() < size {
-        dev_err!(dev, "Data is not enough for command\n");
-        return Err(EINVAL);
-    }
-    ...
-}
-
-Since data.len() is always evaluated as the full buffer length (CMD_SIZE),
-this check always passes, neutralizing the intended length validation.
-
-Does this execute truncated firmware commands with zeroed payloads instead =
-of
-failing, potentially causing unintended hardware actions or state corruptio=
-n?
+> +            None
+> +        });
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-nova-bootc=
-ontext-v4-0-5539d8469590@nvidia.com?part=3D2
+ontext-v4-0-5539d8469590@nvidia.com?part=3D5
