@@ -4,56 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E097C43602
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:39:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35C81C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:39:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0307410E08D;
-	Mon, 29 Jun 2026 12:39:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EEA210E069;
+	Mon, 29 Jun 2026 12:39:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="LjcnPC7Y";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="yyz/PU4l";
 	dkim-atps=neutral
-Received: from LO3P265CU004.outbound.protection.outlook.com
- (mail-uksouthazon11020090.outbound.protection.outlook.com [52.101.196.90])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB83010E069
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 12:39:43 +0000 (UTC)
+Received: from CWXP265CU008.outbound.protection.outlook.com
+ (mail-ukwestazon11020125.outbound.protection.outlook.com [52.101.195.125])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE9E610E855
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 12:39:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bBUZwaKSzH/h6ArY9BxH96tSVl2VvEI97tqFbLxhfI3YZJ8dNOIe9AC74ds8v21WRLoZU8HXJfBosWOwnxscd9n8f+Ou64z5JXrvUX9Ip+TbqdMbH5hlM644Z2zjeSvHdgYrtCCj1sd6S/omRBdFi+W+ri2jDgLGMUv1dwAL6gNdGc6G8LV2yF4OMNFPG61/3X2d6PkEP0t7WJlf7nGBTp2Vht5NmPbU0l07/YyZcVbwHan4VbzbBy6xJM//3MetwMX36vt7Hzu5ocDW0Ss4FrOmiQ7qxDvGmRQJmaMOCSGLzs1pBZi8q8Q/iug8/A1vhy6LKiaX/gyTOEwjYfPm5g==
+ b=OHFGqI2GcaKmisrjl7vGZwvqacw91XyGPBBufLhbsWkJ04UCPtTVh17BNTmKY9EiNQ+DW7l1pWpNLDT/xAeaasS4abRt/9RVQSfpwKkjKKrTIDyyX0uHGCBA3X94VSW9LKdOirr1RrtFRjoNTxkYOubl+M1+Z8MbRd3FEdGMqDcZgHQolVUS5FV+mdzKlL1kzY5/br1LKO22zjc8g3cUyJ7EYQ2fwa5ZntcFLJvWxDDpK6UP3ycJrYgi2OoteHtDmxhVSW8VupT2CtBpuFfVg6NS11WMpK9XCIKnSu6mJzHO1B53ZB3THpaqCcR39nyn5l1ncT0ctyaf3NBpCsQ+JQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BZJPR0X8Oh7afedG+FegOPcTYy8bz73oRSsBJQv01kM=;
- b=ohqE0ukbV7wDkOppM21OtrYvamZtDfFuGk2OvCoKf0ORbVa2x7dgpieVKoTlD0TFlTi9GgESkwVaGmS4BzvW/v+vkLqkQyhjS8KemgqqJuiULXzWK1mqOgqM4s4vZjaM20Fqez0h4csPSI1WGBpO9vqvPU8hjq+RBr2x+SqJ+olawUXbnwDLUPtNN1qUU4ZgTK+ir0S0/VAGVPVA5bBNYAp7dwlTR5aGvlVpkjcHeXqzwUu9BoTfzSt1lERwAcvDTwh6A6FxArVex+/FmSCoEk+w/ax2bBTggWfZSJOd6TuIev3V22TKiCqvuXNdbz76VpECSNsdbKmVxi5bTgmz9Q==
+ bh=6L0D4MRDsHLl3Ar1NZKYzJ4fW37yj3gVztpQIVKWOJk=;
+ b=aqTgzsTpIs31zNyhGmBA0VP0w6KqhUpoxU0F81qYWH1/RIWmhS1MkPVoo2vGahFTG1Oc0fkuR27IN1PEVIe8Po3iuR8J/P/OcKFXGZmvieI11ODePGlJeteF1JIW3H/o7KVb/WbDLH1qcsSZNFlx3ryt2+vKNPom/vEFDVlhqPCubizATgAP8JKlxt2Er2WBvNrbg3D4regGQf+aO33AOJPJcdf1DLco1mzAIMiq+gx7rIAHvOxbg4eQ4fQBvsvm7FxltruOPexnbsRZVOBu9tVu4LMqlKLHByj7hCv5he7u/vTWD4TsXi9mTrBaBDZDPrAoGl3PznvGfMKAhrjCtw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BZJPR0X8Oh7afedG+FegOPcTYy8bz73oRSsBJQv01kM=;
- b=LjcnPC7YnLlt29yOGdjTQXxsbWrGEm6zj49UvEZTt5QaBL5mE3GFAvGbl/ycJJrTq7o+/9Qp5Yaxj/F0BdIbz/Cvd5ImKEgsL6JkcIloyzj9GiMCpb/MQdDTkTk+E0WqBDct1/HdGb0iFQoPd1gnP2+KqVJiEwnWJtgw7zv5z6Y=
+ bh=6L0D4MRDsHLl3Ar1NZKYzJ4fW37yj3gVztpQIVKWOJk=;
+ b=yyz/PU4lFNSN9uJgsiAF/wzHOG+BZjcG9UUuRARAAo4SV9KwFhb2XV3Nkb2x41c7SlGVR1wKaAI692kQ4s/BdOHWfZsgsAQRKAceEQh+G/JwVs88dKnkJvhMK1SJCEgaLp8f0R0KTfBBtPtmjfxy9JV4O0F3QQfhdkiEzel4EPg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO0P265MB3081.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:174::7) with
+ by LO8P265MB7414.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3b1::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 12:39:39 +0000
+ 2026 12:39:43 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 12:39:39 +0000
+ 12:39:43 +0000
 From: Gary Guo <gary@garyguo.net>
-Subject: [PATCH v2 00/11] rust: driver: use pointers instead of indices for
- ID info
-Date: Mon, 29 Jun 2026 13:39:34 +0100
-Message-Id: <20260629-id_info-v2-0-56fccbe9c5ef@garyguo.net>
+Date: Mon, 29 Jun 2026 13:39:39 +0100
+Subject: [PATCH v2 05/11] rust: net/phy: remove expansion from doc
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAIZnQmoC/z2NwQ6CMBAFf4Xs2RpapYIn/8MQU8sW1kNL2kIkp
- P9uwehxknnzVgjoCQNcixU8zhTI2QziUIAelO2RUZcZRClkKbnI+CBrHBMn1Op8EVp3NWR79Gj
- ovZfu7ZfD9Hyhjtt8MwYK0fllv5r55v2q9b86c1ayRirDsaoaNM2tV37pJ3e0GKFNKX0ANymuF
- bIAAAA=
-X-Change-ID: 20260612-id_info-23eca472ccd8
+Message-Id: <20260629-id_info-v2-5-56fccbe9c5ef@garyguo.net>
+References: <20260629-id_info-v2-0-56fccbe9c5ef@garyguo.net>
+In-Reply-To: <20260629-id_info-v2-0-56fccbe9c5ef@garyguo.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
  Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -86,11 +82,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782736778; l=3088;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782736778; l=2400;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=csqRjzu0fisUcez4bMhkdTyUrxkyBl0ASwwL+pKs1V8=;
- b=lH0wOrN97+o6ohcQmrsaLmMOvA/2OyKDg8KV/Ps7VAgSv49Q87BeIJwJS98NPp0BJi9IWx0xR
- FaJ3WR684abA6wVnrWjvEUMqTnC+WsOLl0l5/F12GCzSDdQ1pNEkDWX
+ bh=94x1O4HxKsoPKOLm7uWBT+HZHDbp/uUOwGwZO67jScE=;
+ b=S11xqjgnid/jjOg0ag4hMIqK/lMtiNoWM0+S0FW0vOxlsmbRX8M/qafkSluJAiSdcluGpxd/s
+ gRYBU5kDHnyAmTnevxk4V21HBAJNVbzsv7FR+ylUiur+Ll12HGQZGL2
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P265CA0091.GBRP265.PROD.OUTLOOK.COM
@@ -98,67 +94,67 @@ X-ClientProxiedBy: LO4P265CA0091.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:488::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO0P265MB3081:EE_
-X-MS-Office365-Filtering-Correlation-Id: 76e7d9fb-abec-4e8b-c0f9-08ded5db7c57
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO8P265MB7414:EE_
+X-MS-Office365-Filtering-Correlation-Id: aab86369-19ee-47bc-0a89-08ded5db7e95
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|10070799003|1800799024|366016|23010399003|3023799007|6133799003|18002099003|56012099006|921020;
-X-Microsoft-Antispam-Message-Info: OnfIC3tGtuh8Jn1QBacHMGanmaKXzOZ2xVH7bQxzgawB1teSZuMF9xBs+yWs6eG41v2/pj0v9lJl6uvfUIBSUrlJl3o8Y+wSwB/zmz0X4wQO1f7vEeIGKez/HHlamSkadl8xTViywaONqwCGAKU6RylIuSy1Qf8DJcO1aAtCV+v489dR3q0mWZBftrUNK0wLFMYX8pliFTG0tPt9M+OxsDKSsdTV1qsQnKwWG4WKDXSV4+0a3levD41HFDbsxAxFhKgU6R9TQZQDbCgHHFACSGAwPU7Vq5/OKAlmaYjvEenoY6165sYXGAzjzDZMJpgprIqI9HqmHQZGbfKK+PVB8nK1Ci7tBGzmQJDP6PO4HEUxE+EkdrDGksHPOdhcSXhZcivhbGuK0eBn2wGt4XXC8jfo4BebAZaG1DSWZGyGgQON7cwGcyrp85MHrPxJy7lsKM9Mvysv1rq7gQLi1R0nksUqtv8VMbZ4K584GrRCEPdJXeABkXheYoL8mESHWZPdSRJVWD0Vfprd5y0JMGP9rrz7o1UyQ8POjWZn16Kin8gBhHccg0ikqWom32KFBBJuARJOLAwhJZua+bdEXhM7uoBxa902/eljZPqvFTdNtvpMmW8JwCMU7kiooDeDa1Czk/i5OAQFH0zqDpA8/SUfCx/pgC3L0wgbBqfiRVaPPHA=
+ ARA:13230040|1800799024|366016|376014|23010399003|7416014|10070799003|921020|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: jr63mDeULJP9A2y1iA9xjy5HPeb9JExtl6zfFjqDOUQ/VhG9qKmItOmIXRQTbAKST6rwLbAY9GMVBKKWK8wup3DilG+PX0VyIGKjCMyu+BQbM30RQqujXbbGEdJPDqVdSn6WEiDOGrmY5tqsSqAWXZwUXpCSBs0+EAba5U1VMnPBOsQ24C1K3z2l1ceTk6yeE/NC1kJO0+1puXfFU7IjHiTZe2MCBoH00msdi7Ln/cdVDPbKgk9i8iHFr5zY8Yo94DOx86hk6JseaBz9kvIRnqMYJbUTOljT55SMR8yoj/sfphSPyjWSuGOP4E2Co+DMVYOfFGmcyBwisjVq1tgx+neiNydt088P1Kn/1wkloycDYTaRFqWfe/zEXIFYCnJKcIRvqiF/4mJNKiNB53OcjP45XHm4+fZwz3AiAGk4CB323LCD1MAqV3ndGNrX0Feh5x89YN33mBl8yBOTY/oI1PPofzoA2/pwfj3AXyVqqghiiZQwKuIRYqCsMNeqIBXuOBPGsRiwgy2d718QQLUoxhVn5nAZGkENSlSC0QvnbLVatxPCsyhm+ah3QGXMDHrC2P6dRzM/ZWo2YjVtXskK5kLJmdU+XlHinBLvUQmC9VbepW/q24gFwSsSkF4HoCzef93si0EyEamdyVqEcqRWlxWPBnXUSfp/OIAqh61a5UG7seZqhYBKlP8R4HP6rX1vagMz8GZFAN75trZZgdU8Tw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(10070799003)(1800799024)(366016)(23010399003)(3023799007)(6133799003)(18002099003)(56012099006)(921020);
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(7416014)(10070799003)(921020)(22082099003)(18002099003)(56012099006);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TDFwMkk2akJQdjRrQmtyUGFUSzJ6TnR0Y045b2JCTVg5RSs3bzF5SVZPVlpS?=
- =?utf-8?B?YSszU21ZeTB0bEhnZE1MV2t4M0hITVJMN0R5aHRFTDAzL204RkRrY3hzd3kv?=
- =?utf-8?B?Zk5IUGp3RnRoQm05VGZPVjdMU1VWd2lMdm5NenVCbmVGRE5KbGp0Z2ZHV1hO?=
- =?utf-8?B?elZwUG0rdlNvZVJVbk5GdUo5VHlxaUllbTZ6NUs3cTl4SUh2VXV0MkxGYW9K?=
- =?utf-8?B?Y1FabW9lUTFBL1NybDJmTVhib0txenprNWMwTE1YM3paa2tmM1o5NHFVYWFz?=
- =?utf-8?B?bVRGWkFKWkF5c2pRckhMS3o5cGtCdUljVm9jMXpXOW1TTk5vZHJqNlVMS0tU?=
- =?utf-8?B?Q1NYdUk5SVNrQno5K2ZCSDk2U0RYUGVzMTAwdlFIRzlCa0x3cWRyV00wNDA5?=
- =?utf-8?B?d0lMRHYyM2NKRnNBY1lxQW9OMktkQjRNVDJIZlhLMTJyb212ZS9xd2x1aW5W?=
- =?utf-8?B?U1dNTFRuSElrUWU4dW5CQjVVenhJMkNVK3VqSVMxOWMya0U2ZVV6TEZ5amxa?=
- =?utf-8?B?QldEU0F6ZGJqM0hyMVh5M1JzOXhWbWNaOU5qK3N6N2lnQjl4ZXZ1bUptMXVm?=
- =?utf-8?B?bjVlQUZLbXhmQldDVTZONzR0N1pEZllPYXhiV2xGZmNyTXgxQVIzajRhNHJU?=
- =?utf-8?B?RCtEVlptd1RtWUJlaG0zY3VBWitFeW8yQ2tzVGQ2TzMzcWpCK3RyRGZMczNn?=
- =?utf-8?B?a1hMZzJVcFBJN2t0RGVvL3dKMVZGMFBnaUpJNFdiNTlLckhhZFNOYVpGZ05s?=
- =?utf-8?B?c3o1UDcwL09Cbk1kaGZOVTh5eEZsWVIxeFhwTlZlRzM2RFFjdXFDZkQ3L0hC?=
- =?utf-8?B?aE1sNHA5cGZ2OWlETTFWWXdJRXMrQy9xYXZaUHJxZzUwcmptNnlwaG9jQ2hQ?=
- =?utf-8?B?MWdraHcxRGtSOEVSbjVsRDlZbnBHOTdOZWpzNW1ES0prVTg5elNHb0xRQUs1?=
- =?utf-8?B?bTVyYWZlVGEyTEhMSzdrOXpWOHNYblJydWtpZVc5RHhZdFhoZTd5L21pY0M0?=
- =?utf-8?B?OXZDcC9tNzRvRU1McUFrN2wzckZPTS9iU2taMFlzekZrTTA0a2prWUxhYUg2?=
- =?utf-8?B?Vk5mdW5pWDRPbFhPTVFsQXBpdDV1K0xqNUhLNGRaVVFNMnNjZzAwNXQ2ME4w?=
- =?utf-8?B?NXpwZytzNjZhY2toR0RSdU9FQy9YckIwWlh5ZTlhZEMreEUySFBqeVNIdkx3?=
- =?utf-8?B?S1E5cDRvaHZGOHB3bDlCSVVEbHJoWEpaeFZ2MlZBTTdRMDBvTVRpeFdJbzRC?=
- =?utf-8?B?dG04bXl5Y0o1Ynphb2ErRnFjc2xFUTUxNmFleHVqNSt3RVdvdkJhcyswRXQ5?=
- =?utf-8?B?T0xYWDk4UUdTOFoxeUdJT0RpOFowa0g4SVg3UWJ2bzM3ZVRuMjBVSFVUai85?=
- =?utf-8?B?ZWdvVWI0Z2xZcndIV3oxcC9HRlFQNUhiZEFJcmNnWE5jdTh6UGd4emVyTU1w?=
- =?utf-8?B?WXNOaTlWdTRYODhBQnFacG03YmRRZHRRZklNZUFiOExkd1ZiWUdHRE4xZ3N5?=
- =?utf-8?B?U0IrNEszdERRR3BIUllrbHY2ZEk0ZUxHVklCclVnZWVKOSt3WEF5RnBleGx3?=
- =?utf-8?B?ZEQyT0xzOFhqNWZPalhsQWlFK1pRWUJzUC9KYmJQWFErbjZFWGY5UndjZTg5?=
- =?utf-8?B?T1VySHpLZ29XK1d3Mm10bzNlYXBSNTNOTHBtYm9pZGlxanI5dGtaTnJaejVl?=
- =?utf-8?B?cWtqSkZMVE01dk43WkExZjh6clNmSUUvZEVoUFY4T2JwMEdJbUJoblhmY3dk?=
- =?utf-8?B?azRMeG05aENncGpvNkZYcThPbXFPRG9CR0dPdWVzTVFOcEdlRGpidmR2NEFw?=
- =?utf-8?B?UzhTSWRUdVJFeXVCeTZmRVdKakQwc3lyU3F2c1hFLzNKY05RdC85U2xEdEQv?=
- =?utf-8?B?UEo5ZUh0TnhTdU1sckVIbEZmd0doZDU5d3pkWmlRTU1jNDh3K1JHZGprUU5T?=
- =?utf-8?B?ZlN4VHpUSWg1UkNNZDlDRWEvTGFpeGh0Mm41akp5T0Vrc3R6VHN2SDRySWpm?=
- =?utf-8?B?Q1JhcFdjcE9BMVVUeHU1Q0trVWc1ZUx3WmRoNFE2WE0rNXZhbXNmREJ2UW80?=
- =?utf-8?B?ZWJOMENac2JzZDRtQ0RGdWpBTUQzdWVaM2V4TTVnelV2MmhDK1M4RUszOFFK?=
- =?utf-8?B?dThUUGFVZHlFMCtwWmVTQ0F0M2g5L1p0dkdUb2t3ZU9XUW5WdlhMYnFpaUdv?=
- =?utf-8?B?eFNEREx6NmlMOHZBbmJBaXRLbmhnSkc1eFplUUZaYm42Y3pWR0hJenZrR3N6?=
- =?utf-8?B?M3gzUUlKS0JobDlTa1lTdDd2MVFyWk83UjNRbVpXbUFXVXlpSkJueXcrNlUy?=
- =?utf-8?B?dnZCbFN4TER6a3dCWS9KeFI5ZHVUeGgyT3BwUm5jSEVLUWoxNUFpdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UUZEcE85NndEU2JCWmZYNmxiUG55Y2R1NUVMS1M0K0FPNng0Z2x5Q1phdTB6?=
+ =?utf-8?B?c2pxOEFBRGQ4T3Rsa0duRTBseGxaRlUzSWRiaHlUdlBDb2loR25VWXNrcGs3?=
+ =?utf-8?B?MG5ybVJtK1hKRG9PQlhrQzBaY1RsUDZ6QnViUkRYZWhiQU9aRXR4ODFjTjBZ?=
+ =?utf-8?B?dURGSDQ4VUZZRjV2dUlQT2ZtTElEb2dyYlZBcThoTU4xZVM0cGxaTDIrYlRI?=
+ =?utf-8?B?WEIxbEp0S25oOVNCNm5GWlhBY0dUazgxVmdiYU91MWVrZ3JJS2p5T1JxN0w4?=
+ =?utf-8?B?Vk1ySGRJYWxIRkFaUVhkVjZVOUw2VG9ha2VaaU5kVG5YQW1qVlVKMnpZdWJi?=
+ =?utf-8?B?cG1vQjNGVjN4T3BsOEpkU0pKNmNlemp5ZGpCcnhEbXdNVERQVm1WTUhjNEZL?=
+ =?utf-8?B?WFdQODFxdmlKMTAvQUd4VlB5SzlveEhrQklJV3lQL1o0RXVRUEVPWGIweFZF?=
+ =?utf-8?B?djlGYjlYa3daSTYxWGRiNllHUTZzYVZPa1dPTFBiSlJ1SldpSkpoVDdHUlRM?=
+ =?utf-8?B?eWRsS3poamZlTEtEemR4SGlqQjJuRFpFaHEzMnp6NEYybFI1MmFjS1FiTE81?=
+ =?utf-8?B?OGlZVndWRUdyNHdBS1liTG5BN1JJWGpHMmxBeUR4YUN0UklhOFVieSt4b2p2?=
+ =?utf-8?B?Ulp2SjEwV0pUVFpQbWx3a0hQTDU0SExhUW9UQlJXU0lwZUE2dklOZ2xvMkFp?=
+ =?utf-8?B?dmdKSnBnMHdoSE0wd0hGZjlpMjVaZWRVWjE2M2ZxOXFUSms1cjk2Qit0Y0Uw?=
+ =?utf-8?B?bnRrTi9hVDlVcHZCd1pQNElyQ0JUWVNzRkJiMGR0Znl2WmN0WFl3UGFRK0pX?=
+ =?utf-8?B?bnBuT09XNXZlNzh6ZmVmMmI0aTRtdFNmcXMvdjkxejRZbzVvZ1RsckNxWG5p?=
+ =?utf-8?B?ekxlUnBuY0xncENyOWdzQm9MTFJsQzdQK1ltVmNvUk1rU1EwWitnOXBmMTQx?=
+ =?utf-8?B?bHJPaGgrK2RxTnNzTThXS1lqMFNaMzU1Nzh2dHg0bHlBdkh5TUJERTFGaTF1?=
+ =?utf-8?B?QkxhVDhJQ0IzRnJEQVk3WWkwMVFhemwvTnJua3hENlBURUI5blV3OC8xZ2JE?=
+ =?utf-8?B?VjVwZDBZRDc1TDA1R2NsV2RsekRzU1VrYlYyYTNOekRvSjJHaUpITGNPVDI4?=
+ =?utf-8?B?STQ5SG5tdDFlY0MzSmFSOCs0TUJTVFVJeW9XRnBjN1dBWjdGaXdqVTVRSXRI?=
+ =?utf-8?B?MnZCMVN5QUhBWXJaNVl3Vkc1VnR6eTY0OTAwaFN6WG9IYTRSVTIrVm5FWnMw?=
+ =?utf-8?B?ZDRtOUYyVWZGYjEyME9SWXU0TUtFUFN5ajVZZUFHZkpMc1l0QWt3Nis3dHNI?=
+ =?utf-8?B?bHVuN0ptWDh1MVU5RVBrMHlvSlZ1T2Zxa0xIcUVvb2phMWVxNDA3WTN3U3Np?=
+ =?utf-8?B?Z08zQ3VtTnAvRy9rUUZPWUNwQ3JJQ1F2Z3Rab0hmdEhRSmpKdkt3R2NUdVdC?=
+ =?utf-8?B?dWE2dExpWUJnTDc5dllBN21QbTVPQzd3WkQveFVCQjFMbXYvdU84STdvUVdR?=
+ =?utf-8?B?ZGEwYzFzdU5teU5aN2F2Rk9FWmozMXI2SS83YTJyQUtQVTNYdGdKbEVTWnBr?=
+ =?utf-8?B?a0lOU1gwbmlqd1l2d2lXQ0JBdFJBZE9vZDRqanpVOEZXUEhRN3cxN3FiUnlG?=
+ =?utf-8?B?cnQybm9tQUNCbWlxb3huMGdKN1MrdmNPNVVxRkEwVjlvNUtHd3YyT2VoY0Vz?=
+ =?utf-8?B?Y3ZoemUrUlVUcTJlLy9ZaFp6Vjh3L29YMVErRERMQUlSWDFtWVRVWlUxaFRl?=
+ =?utf-8?B?TUhNWDVtM3FsMUhHdjRCZ0lFOTR5OEJNbCtQdGIwcDdIZTR3TUcyMDBRdldI?=
+ =?utf-8?B?cDdqUXBCQVBvSk9VbkpFMVNBcWxnZHRvbUJDLzhWbzgrUlNWREp0bHRaUWpP?=
+ =?utf-8?B?bElHam1Ka0lSVEVVZmNKV1YxQ2l3V1A5T2IxYjFwdlplY2ZWUFdJYXVIT2RV?=
+ =?utf-8?B?ZDJWNk55dWt0bE0yd21LK1F5VnFsZW5CYUE5dE9PSll1Yy9vZVV1OXhqcW1L?=
+ =?utf-8?B?VHJBL0o0Z1dabktsUzdKMkxrbnBRbU5YZlBkUm9qRWdrOUNGU0tDUzBsRSsv?=
+ =?utf-8?B?WHQrY1N1dEZnSUxVWkVZZkNKb2tNb0pVTVZqOU9rd0I2SzZaWmxBTXRDK1pF?=
+ =?utf-8?B?Y29vL1l0eS9qc1hwMG1Nc2pvS1owUExaS1o3RW91bkx0eG5ZYnJZUzJ3eUZW?=
+ =?utf-8?B?RmtmK1poRlJUbm40Q0RjbmJTZlJJQnd5dGRXQnRpbjYzcFpHVEI4OEt2VjVJ?=
+ =?utf-8?B?ejBNVnpGdlZONGJwcVFEY2RVM0V4d2JBSnRmUDdBZHNEQzF1c2c1enpEbWNJ?=
+ =?utf-8?B?YjlWb1h3eHc5ZzE4SFVhbWxVcTI0MjkxRFBEaHdhdUNYc0pnSzhCQT09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76e7d9fb-abec-4e8b-c0f9-08ded5db7c57
+X-MS-Exchange-CrossTenant-Network-Message-Id: aab86369-19ee-47bc-0a89-08ded5db7e95
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 12:39:39.4514 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 12:39:43.2145 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lG5bqFnOzZl0IkHgRrYamyOiuLK6mRtEU09FM1e4JOUqJsVJiUELpnSD4LH4nriovxkcRxAxn91M7g/Cfj2AzQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB3081
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6WEeD9ObUG3ZkofvTdNm3I2L++O1Dud6ts5xqqLS5MbwsVfNvdTvrYALePbUe4zN8sCnQy0b5WL+zoFZKyDWzA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7414
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,73 +170,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Most C drivers use a pointer (and cast to kernel_ulong_t) for driver_data
-fields in device_id. Rust code currently does not do this, but rather use
-indices. These indices then needs to be translated to `&IdInfo` separately
-and this is by a side table.
-
-This leads to open-coded ACPI/OF handling in driver.rs, which is not
-desirable. Convert the code to use pointers (or rather, static references)
-instead.
+The expansion serves little purpose and it can easily diverge.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
-Changes in v2:
-- Change USB to take `Option<&IdInfo>` in addition to PCI due to ability to
-  dynamically add IDs.
-- Mention dyn IDs and driver_override in safety comments and justify why
-  they're correct.
-- Link to v1: https://patch.msgid.link/20260618-id_info-v1-0-96af1e559ef9@garyguo.net
+ rust/kernel/net/phy.rs | 56 --------------------------------------------------
+ 1 file changed, 56 deletions(-)
 
----
-Gary Guo (11):
-      rust: driver: remove `IdTable::id`
-      rust: driver: simplify `IdArray::new_without_index`
-      rust: pci: use `Option<&IdInfo>` for device ID info
-      rust: usb: use `Option<&IdInfo>` for device ID info
-      rust: net/phy: remove expansion from doc
-      rust: driver: centralize device ID handling
-      rust: driver: remove `$module_table_name` from `module_device_table`
-      rust: driver: store pointers in `DeviceId`
-      rust: driver: remove open-coded matching logic
-      rust: driver: remove duplicate ID table
-      RFC: rust: driver: support map-like syntax for ID table
+diff --git a/rust/kernel/net/phy.rs b/rust/kernel/net/phy.rs
+index 2868e3a9e02c..965ecca7d55f 100644
+--- a/rust/kernel/net/phy.rs
++++ b/rust/kernel/net/phy.rs
+@@ -800,62 +800,6 @@ const fn as_int(&self) -> u32 {
+ /// }
+ /// # }
+ /// ```
+-///
+-/// This expands to the following code:
+-///
+-/// ```ignore
+-/// use kernel::net::phy::{self, DeviceId};
+-/// use kernel::prelude::*;
+-///
+-/// struct Module {
+-///     _reg: ::kernel::net::phy::Registration,
+-/// }
+-///
+-/// module! {
+-///     type: Module,
+-///     name: "rust_sample_phy",
+-///     authors: ["Rust for Linux Contributors"],
+-///     description: "Rust sample PHYs driver",
+-///     license: "GPL",
+-/// }
+-///
+-/// struct PhySample;
+-///
+-/// #[vtable]
+-/// impl phy::Driver for PhySample {
+-///     const NAME: &'static CStr = c"PhySample";
+-///     const PHY_DEVICE_ID: phy::DeviceId = phy::DeviceId::new_with_exact_mask(0x00000001);
+-/// }
+-///
+-/// const _: () = {
+-///     static mut DRIVERS: [::kernel::net::phy::DriverVTable; 1] =
+-///         [::kernel::net::phy::create_phy_driver::<PhySample>()];
+-///
+-///     impl ::kernel::Module for Module {
+-///         fn init(module: &'static ::kernel::ThisModule) -> Result<Self> {
+-///             let drivers = unsafe { &mut DRIVERS };
+-///             let mut reg = ::kernel::net::phy::Registration::register(
+-///                 module,
+-///                 ::core::pin::Pin::static_mut(drivers),
+-///             )?;
+-///             Ok(Module { _reg: reg })
+-///         }
+-///     }
+-/// };
+-///
+-/// const N: usize = 1;
+-///
+-/// const TABLE: ::kernel::device_id::IdArray<::kernel::net::phy::DeviceId, (), N> =
+-///     ::kernel::device_id::IdArray::new_without_index([
+-///         ::kernel::net::phy::DeviceId(
+-///             ::kernel::bindings::mdio_device_id {
+-///                 phy_id: 0x00000001,
+-///                 phy_id_mask: 0xffffffff,
+-///             }),
+-///     ]);
+-///
+-/// ::kernel::module_device_table!("mdio", phydev, TABLE);
+-/// ```
+ #[macro_export]
+ macro_rules! module_phy_driver {
+     (@replace_expr $_t:tt $sub:expr) => {$sub};
 
- MAINTAINERS                           |   1 -
- drivers/acpi/bus.c                    |   6 +-
- drivers/cpufreq/rcpufreq_dt.rs        |   1 -
- drivers/gpu/drm/nova/driver.rs        |   1 -
- drivers/gpu/drm/tyr/driver.rs         |   1 -
- drivers/gpu/nova-core/driver.rs       |   3 +-
- drivers/pwm/pwm_th1520.rs             |   1 -
- include/acpi/acpi_bus.h               |  11 --
- rust/helpers/acpi.c                   |  16 ---
- rust/helpers/helpers.c                |   1 -
- rust/kernel/acpi.rs                   |  14 +--
- rust/kernel/auxiliary.rs              |  18 +--
- rust/kernel/device_id.rs              | 207 +++++++++++++++++++---------------
- rust/kernel/driver.rs                 | 137 ++--------------------
- rust/kernel/i2c.rs                    |  26 ++---
- rust/kernel/net/phy.rs                |  66 +----------
- rust/kernel/of.rs                     |  14 +--
- rust/kernel/pci.rs                    |  25 ++--
- rust/kernel/platform.rs               |   5 +-
- rust/kernel/usb.rs                    |  24 ++--
- samples/rust/rust_debugfs.rs          |   1 -
- samples/rust/rust_dma.rs              |   3 +-
- samples/rust/rust_driver_auxiliary.rs |   4 +-
- samples/rust/rust_driver_i2c.rs       |   3 -
- samples/rust/rust_driver_pci.rs       |  11 +-
- samples/rust/rust_driver_platform.rs  |   2 -
- samples/rust/rust_driver_usb.rs       |   3 +-
- samples/rust/rust_i2c_client.rs       |   2 -
- samples/rust/rust_soc.rs              |   2 -
- 29 files changed, 178 insertions(+), 431 deletions(-)
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260612-id_info-23eca472ccd8
-
-Best regards,
---  
-Gary Guo <gary@garyguo.net>
+-- 
+2.54.0
 
