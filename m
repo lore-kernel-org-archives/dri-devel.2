@@ -4,56 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24252C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:41:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7DEEC43327
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:44:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E99D10E776;
-	Mon, 29 Jun 2026 08:41:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D64A010E04A;
+	Mon, 29 Jun 2026 08:44:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Wja8IEen";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iLlT5YQe";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADF2F10E04A
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:41:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782722476;
- bh=tmVYMQLt6w66eKgeMnRYtDFyZlz9JTeXyaU4pBlZwO4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Wja8IEenS+49sHofjDn58Z2mmMXgQ0UGP4Xy+VAT6HtfYogNC3vjzjVSW6w+ubSFD
- X/FOKiHUU8JM5qyFEA8ylxQANgiPQJdBGVld6lxNz652ueAMTtUhexR5HT7HbR9cu0
- LeBAAXsXcUC5tAETWzVc6ygHBav2izO7OmwlXYn4DFP2c+xhoMPqttDv2yim2uQOtk
- vezEbp6jWQOx4C8aZXuCJxxHWZDaLYT0s/vl9EPzv9AGhffYYo53fyvp4h4a3Y/2L7
- B0TKpWTdG/Xh5T5HE4pTbDdod3muymIr1S7Ae/i9QqLOKZYCksQ1RMDLWF6JA6MYvA
- a/zHXOWnc8PJQ==
-Received: from fedora-2.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B45E217E0246;
- Mon, 29 Jun 2026 10:41:15 +0200 (CEST)
-Date: Mon, 29 Jun 2026 10:41:12 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Philipp Stanner <phasta@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?B?QW5kcsOp?= Draszik <andre.draszik@linaro.org>, Danilo Krummrich
- <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, "Paul E . McKenney"
- <paulmck@kernel.org>, Boqun Feng <boqun@kernel.org>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] dma-buf: dma-fence: Fix potential NULL pointer
- dereference
-Message-ID: <20260629104112.72d58bf5@fedora-2.home>
-In-Reply-To: <20260629075636.2513214-2-phasta@kernel.org>
-References: <20260629075636.2513214-2-phasta@kernel.org>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3430F10E04A
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:44:03 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-4704d652e9cso1083301f8f.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 01:44:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782722641; x=1783327441; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PGm9QONZukO2Q5rdaZt121dw8G3tFHNBSookGlxPwSY=;
+ b=iLlT5YQeBdHRBfz6g1dXeNBYt0BQU6nSPmugp+JVKazVYv8cHpokYTD9HEvJXoPlTB
+ R36tMkQ+EH+RCczxBROtHGD7ivsJWJBLMXurrntXsMLBUx6b1V68idKWQG42IdDX63Yq
+ 5Pu4FPECLNaL8xSzEWF92Q6WcqtcUB+Ahw08wtYmfMar3lx6i9sOLiud7AjKNGvApeVn
+ vjTMtkIuQc1JqsgDAlrTqpk666hr+hdr9d2khf+h9QeyG+31zLy5u8EZKiyQloTf6r+J
+ 8n9Q8n5W9QnPymoEg9GwPfU7pnucxusLw/DEw/nQSp71maPKuPOrgGrhdVL4Nt5P9qvr
+ TgQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782722641; x=1783327441;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=PGm9QONZukO2Q5rdaZt121dw8G3tFHNBSookGlxPwSY=;
+ b=S8C97Vhq3Te5k3FGdQJjCZxoJ30yw7N9FLmBq46vgarupMEagc0cVxFATRtdLj1yuZ
+ 0lQ5dUIJRH4nuCqHmogPpU2BS0TfxBajk7u62ZjUJzBBR30vDHVweRWMoErgUVxFlsm4
+ tVGQ6egdNA4cyaiq7fFtpp/YL9cw3yeoFPCcbOkhG0dn35OnAB5MMdAx6Cmh9z23Z8Yy
+ aGSTM5NL2W7CDbjKQ3/dafiD1pg60TFP+UHQz0b3mnk02rzO1b1ZhNVMJtv6WJfzA/Ql
+ 8E+pUPUvcBb2vtPfYca9+8UKHe14aQk+EMIdbEBDXg40uMj2XpKOrywfT0B3jrRwE2Q+
+ XgvA==
+X-Gm-Message-State: AOJu0Yx4x0HFuZgD3wGHgZ9BrCQgvsho04lnMOxjr4L/gbtDggvY41NS
+ 6KrU8GYuwRn/1+lhXtySXaWdsJAUN7gGid2z3Zeu9NHlDyZyI3uF7ASX
+X-Gm-Gg: AfdE7ckbx9iycujiHilpeEMaT+EKER+5b8JqKNNkKM/MDF/HjqXPuKbY5jMUZGM84ui
+ c/lIdzDC5WWbSUfzk/poNhlDpYtfuRMPlmNkL1iVBi8T2Gyc1sVDHSRxgaWc9hlU03LTRi6aiuX
+ m6MQaBfVabivC+lN7yJ6BhBjCyzbw+CGpWbri0+52KI9Sc0pl3wrQM3emBedJTUf0AtW7oFvxjs
+ /sbG/LQv2DSbvtnhhz8YIcH0NEZmJQ2eVy4d2nwnlDKfLIatOyGv46jhlQXPPq5lEYa2WE1YnSs
+ YyVJNQPjHQfu0vta3Cn7NddAH+Svj67RkqvPxrjw2a6oSj6ylE1Diur1Vuo2OxYdFiqrH/uYgtv
+ Tf5vE7PvePoBNAyePHvOVwbGpz6ld25CYyQAAQSUJaeeeUDw91Ea25JODMdDVS0KwMYSl+8F4hP
+ kOZpg4C0rMRAG0fHO6AQAbEe9WQcQ=
+X-Received: by 2002:a05:6000:4210:b0:470:4d27:97a3 with SMTP id
+ ffacd0b85a97d-4704d2799d5mr12518285f8f.1.1782722641174; 
+ Mon, 29 Jun 2026 01:44:01 -0700 (PDT)
+Received: from anthony.local ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-46f8d6f10absm41208583f8f.5.2026.06.29.01.43.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Jun 2026 01:44:00 -0700 (PDT)
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+To: Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org,
+	sashiko-reviews@lists.linux.dev
+Subject: Re: [PATCH 1/3] drm/ssd130x: fix column and row end address in
+ partial updates for ssd132x
+Date: Mon, 29 Jun 2026 11:43:16 +0300
+Message-ID: <20260629084317.10265-1-amit.barzilai22@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260622123631.8B4A31F000E9@smtp.kernel.org>
+References: 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,71 +92,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 29 Jun 2026 09:56:37 +0200
-Philipp Stanner <phasta@kernel.org> wrote:
+On Mon, Jun 22, 2026 at 12:36:30PM +0000, sashiko-bot@kernel.org wrote:
+> Pre-existing issues:
+> - [High] Potential 1-byte out-of-bounds read past the heap buffer in
+>   `ssd132x_update_rect` when device width is configured to an odd value.
 
-> The commit mentioned in the fixes tag below introduced a mechanism
-> through which fence producers can fully decouple from fence consumers.
-> This, desirable, mechanism is based on the fence's signaled-bit as the
-> "decoupling point".
-> 
-> A sophisticated interaction between RCU and atomic instructions attempts
-> to ensure that fence consumers can still interact with fence producers
-> through the dma_fence_ops (callback pointers into the producer).
-> 
-> This is the desired behavior: to check for decoupling, the signaled-bit
-> is first checked. If it's not yet signaled, RCU ensures that the ops
-> pointer cannot yet be NULL.
-> 
-> Hereby, dma_fence_signal_timestamp_locked() first sets the signaled-bit,
-> and then sets the ops pointer to NULL. Readers first load the ops
-> pointer, and then check through the signaled-bit whether the pointer can
-> legally be accessed.
-> 
-> These set and load operations could occur out of order on weakly ordered
-> platforms. This problem can be solved very elegantly by using the ops
-> pointer itself as the synchronization point. The pointer is either NULL,
-> or cannot become NULL while it is being used thanks to RCU.
-> 
-> Replace the signaled-bit check in dma_fence_timeline_name() and
-> dma_fence_driver_name().
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: f4cc3ab824d6 ("dma-buf: protected fence ops by RCU v8")
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+As stated in the review, this is a pre-existing issue and is not touched by
+this series, which only corrects the SET_COL_RANGE/SET_ROW_RANGE end
+addresses sent to the controller.
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Gentle ping on the series -- it's been about a week with no comments. Is
+there anything you'd like changed for it to be picked up? Happy to spin a
+v2 if needed.
 
-> ---
-> Changes since v1:
->   - Use ops pointer instead of memory barriers. (Christian)
->   - Rephrase commit message.
-> ---
->  drivers/dma-buf/dma-fence.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index c7ea1e75d38a..0a025dfdf131 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -1170,7 +1170,7 @@ const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
->  
->  	/* RCU protection is required for safe access to returned string */
->  	ops = rcu_dereference(fence->ops);
-> -	if (!dma_fence_test_signaled_flag(fence))
-> +	if (ops)
->  		return (const char __rcu *)ops->get_driver_name(fence);
->  	else
->  		return (const char __rcu *)"detached-driver";
-> @@ -1203,7 +1203,7 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
->  
->  	/* RCU protection is required for safe access to returned string */
->  	ops = rcu_dereference(fence->ops);
-> -	if (!dma_fence_test_signaled_flag(fence))
-> +	if (ops)
->  		return (const char __rcu *)ops->get_driver_name(fence);
->  	else
->  		return (const char __rcu *)"signaled-timeline";
-> 
-> base-commit: cdeb2ccd993ed8647adbbda2c3b103aa717fd6f7
-
+-- 
+Thanks,
+Amit
