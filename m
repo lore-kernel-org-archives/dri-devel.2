@@ -4,130 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E43CC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:49:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72100C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:52:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1467E10E6E3;
-	Mon, 29 Jun 2026 08:49:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7D3910E77E;
+	Mon, 29 Jun 2026 08:52:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bv85y6To";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Iv+s7fJv";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012054.outbound.protection.outlook.com [52.101.53.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 323F910E6E3
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:49:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zm+slauHIYbplgJE0cccx1JnSWqbuMGSwYXNOctIRZH82XsNoVKiNnAbOB2b18dovp2niwSl7wQcN15X+/1qHroSAP0GB6iy32e6rXTXKv9LN9j5MG7if+p0lMsPm3QBuNMiEBtnaH/BXrcfSkBIukqZQFS9bnEpV1Aa8h+Ug39gzHmMIni/Xiy3NI2l1P/Ri5P+X1XGiLd09WU72W86AqaGQwei599gE1QzU4LXPRfmQAD7x3q0dUeNIWMxfKk3FVO+MmcKtMJ0iB14SmE9GAZwMVUQbIb1lJW76xsRbdQdbaVOJO9L72kzAsu04j2r9CKLli1g7z5HHrwf37aDLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z44lhA18GGakRfAZgS2pIKDizL/E0yBvjsmTDx1Xrfo=;
- b=rXiqtOb7I62bECRw8tlSsDVWTtfPN6N9Ke0mrPK6rUU9XTkmQtYa1cepEu5E6wy8h02VeJRlymIGbLddaAKrv7T6D5xIoldRud+EkUQOl1+YIgBF7njRKH7n/SmtR8TYa+zz6l8Ko+wAa0/lm7do7II9fMUZxJxmUdg5jjZcEbttlEdNH0+aSN0V8JlDfJDyI9xB214tG/7otWwuJofNbzW36GSSiip9aqTjneYLtIK/qYFiykvUAxai0wDwzpE4yXazJQxezJN0XP/Ylnwx42xXawEPBLO9m8U067MGYBkmM6hNdyeVn2CxThywq1rlwCsKE0lZditI33DYXWBaEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z44lhA18GGakRfAZgS2pIKDizL/E0yBvjsmTDx1Xrfo=;
- b=bv85y6ToTNUEwyOBY3gBHYBAFoIG2bwBk7+ICGTq1wFGFu+j9u12bidFWV5tFbYUfYJm96g2W9Ate0u71MZ9VKaRixfwQMr4LCaUiy5/3K5uNp41iwxFWgCaESK+dWE7bAF3kBzb3DDdCI+5IrvUVG1QIJJimDP3bvCzNhTD+9c=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB7643.namprd12.prod.outlook.com (2603:10b6:610:152::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 08:49:19 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 08:49:19 +0000
-Message-ID: <688077c3-903d-4cf5-837f-40621175cb30@amd.com>
-Date: Mon, 29 Jun 2026 10:49:14 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dma-buf: dma-fence: Fix potential NULL pointer
- dereference
-To: Philipp Stanner <phasta@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>,
- "Paul E . McKenney" <paulmck@kernel.org>, Boqun Feng <boqun@kernel.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260629075636.2513214-2-phasta@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260629075636.2513214-2-phasta@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN0P222CA0022.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:208:531::29) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
+ [209.85.128.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A85B10E77E
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:52:11 +0000 (UTC)
+Received: by mail-yw1-f180.google.com with SMTP id
+ 00721157ae682-80e24970f1dso8871177b3.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 01:52:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782723130; cv=none;
+ d=google.com; s=arc-20260327;
+ b=MEgONb2AHfmt5yNhI6uqOEUYcYo/AMBYhI5PZHcujXDjqUKJl8GsYQkb5ugJoKc1fR
+ 9MBcK2y688V1IiuuENQ2Ka+RgkHPM2BqggUuvJbgrwe7uMifdICEdWHuADt69yVNyCTW
+ +fOo4v8iCyv61Zu7oTldSb41Wrlk+2+Xs/RULOSnD5hTRcqgTU2EfFcNdWQBYaSI05qQ
+ JmErBQFJ5DJlLIFyNFDWdZZ+DL0ZM1Y7H395Dp/irYkPz3fhADni9+UhpSvSqWvS4H0z
+ go5xde9O/lq1r8imUzUxUVQIHoJKwZygTpgiWz5trW7I5moMXmfzDfv3n7+OmkXiN+7P
+ 3Bqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:dkim-signature;
+ bh=Q24aG9NkOoTB6HWBhLb/xRPsEmPyRkg3AgUHCrzNw7g=;
+ fh=MQE9i51YDFHYDWJdmI0nKXJGZjFWyl+0LaRTweOyFAg=;
+ b=GB5JkfHqbxiRChSt9RePK3srlX05IirSVBYu7KtyaNEsQOAT68aOYcGTI3l9/y6wKd
+ 9ADm3RVlYslpiXsvkFjLPlR96Va1yyVs5KqsygBg2S/E3jvTTJ5SaRrWf1LRDqfAGYYn
+ XIhSb+x+znIQtr66uMIvFY0YAEhIeJ69NsQsaWkNxnx7Y6UnNJ1ZiZqTcS5ejHEEO2B6
+ t0G2zdSMNJur2/x+WXAIlDxYVje/0rmBe0u9xBirJJXaeaknWGhxU9W5FeiVFCO6CiBB
+ QsbaVzfucw9TIToTrWyqtS/+F9futRENjhEpU7ijarSHoAl06i5FJV4k06VAJoL9py3t
+ 1QyQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782723130; x=1783327930; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=Q24aG9NkOoTB6HWBhLb/xRPsEmPyRkg3AgUHCrzNw7g=;
+ b=Iv+s7fJvKOSQ9k/QW2h1SVyFHjMy387J6YzlebRk7+CRkIgg4yXiU0yyAV5XqqF6D1
+ tpfP7Xd/AAgNTkwxi+E+OiGdYCS7eljJSFmlXul1B2i75Scwwv9eoJ/kVLQAvPJ0OPmL
+ SgYe121hfTneU7oPVtWAvXRbQ69cCwA9RYBgUI1B3LzMRAUiG3o35k5r/i8WvguUpFAo
+ iOBh8PmW7arPBSlGS5zJ/ULrVDwUEqmg/lY5uwwyCXTZOlL/mofkj7UB+54qriLul6Qk
+ G9L/ytx9dyGUWDSS/+k0rge2jJ6ALS/Yj2ZDMKft3rrrTbR/yfsvjCY20BaW4XKpKkNj
+ rVsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782723130; x=1783327930;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Q24aG9NkOoTB6HWBhLb/xRPsEmPyRkg3AgUHCrzNw7g=;
+ b=fuGlIyLv/PXBAtLEQf75ejXhUglfWuBdBiW3psPxuRTbOyj4DVIZyvdoAFNYmbCKkc
+ ix081auwukbxsChfruSM0oPIyx9EaaXEvPgPb7y0II7brUVX+8oZtyB9Sq1sr5YBJwM+
+ heDvJV1mRKCN7DFD4yWdRe1NfLUBcKiaf+3Nho3O8rJSrXRgrc8ZaJeRiikwqLrSoi6Y
+ AUfEoStZAj8Gkbnr/oevOt43Z3ObzytRmu1fmrpnYyNvuMlkIDJPMbXZApIc7I5K4QZW
+ +NWgj89qBIQiX7rkk7n+OFkT2b1VxZXcqK+x6kaPB+l8ziLM8I6BB4Jsm6f5wUgE2rc9
+ Dmtg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RomGLNyNq9h+9uY6FKM2hvgO9oYc98zkqGtF0RD48goxSJNiTG2xH56yVDMNZnHDZYtEiET78IaAw4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzsq6ztrmQwWJ9dV4AJRMTMT7YCd+c2gMKWmKcF3YZQbqUGwavE
+ ubrbVoLr79baNVzHcB+oQjVllwwJYiapBn+ARbwLvg0il4wYBjItxe6TneU1nHu8kd1nuQIr+Am
+ OxFXgFmipE6o+KTu3mnSqSwJQBAY9pSo=
+X-Gm-Gg: AfdE7cnTLwkyigQqHv/oP0YcSAFLmji1u7Pg3n8/FfJOhCk+qWmMxTDvm6J/Aug9DOH
+ 3A1IdEY/ezhR428dd2fv4xURNR+tBwo8ZCgf9B4G6CBdCIILvTypIJHZx/WyqqxMgybpj+uiWeN
+ k5XXF9Fmep+eZbYG0mQXCl8tU13eZTJ8FtVCijvFLZYW2/rAvZqzlwke0esf6Q3NvTn6al0ndQm
+ M2JMMvNwNXUiE6VZM9JelyrO39xQePL1mo7pXK8DLO3XMqQ9LVXQnKM4W621t4M6ZLKQBbewZOk
+ 0g8rWMaUMq0US/SNky/4+/o9+0mb
+X-Received: by 2002:a05:690c:4d46:b0:80c:85e5:873f with SMTP id
+ 00721157ae682-80c85e58a3cmr91884837b3.61.1782723129982; Mon, 29 Jun 2026
+ 01:52:09 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB7643:EE_
-X-MS-Office365-Filtering-Correlation-Id: ae42ac82-e3ab-4486-e357-08ded5bb4f0f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|7416014|23010399003|1800799024|18002099003|22082099003|11063799006|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info: rdlJj2/kpvHesxtXcDdZ+Orh2hiYk6X3fwG8kHuzhKtz+nSIC5xzBZq1WOaOOxxIRgZT7JgOR+u8/nEF37PBgSxfD4mr3uQiS/D5Us6pCy65+o0gUAVEgsoDTgGAsfUj3NC175uKKBQfHd2zWwUOXjRxx9xzjcvWYx03pix5AkSJIIq8XPYeXIHPs4PjQaT4xLZlM4IRAz/K98ZIs0gH+6Ozt5Gl9wtJOwT+UuN8pmu53kkCZB+N2pn3p9QMAI+XeAnYulAh8OOifU/arrcFe6lAXFb5lH6vDRx7M1UZEd0jwsafjcsf23AfMeTUzg8MBTAyb2mkuPNgL1ENzcWy+u36gFgl7T26jlCQTENg89rwiNWkIfHEwT0cTlYrULZtSEXRRZf6Tv/yQMyJ81rqSFaUiZ4t2z9c62+ieJ3f0pTclLhOhprbXfB9ZXaComLxQNdtSVqYY8tIrdm13zjXKVODN/bzW5z1bci9jGrwc7QQ6y8tzDNY+VS9W/sIIvZUVpkIOB6pqsoDBmjTToCuOJyKxyQA2vRuCcGNe21Nkfuq31HFNs/q5X/TLkjbEK0MBn5LwkvXHqHmAJrwJbdsjs65+cq/usgo364/c0zzSCdTTRkQcEMGuPZyWlHflddqxWXNFpFfYq14rWOVGt7mpHi4p1AOPEX2cAYEOG1UTFg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(7416014)(23010399003)(1800799024)(18002099003)(22082099003)(11063799006)(56012099006)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHplTUhkNWhIY3RMQUZBRldQUjRwWTE5YjY4enpjVFlocjJXZDBhU1J3VzM0?=
- =?utf-8?B?ZEN6YzhkMnU4U2hUcjJhakx5L0F5dWprcVo5bFZJZkJDUlU1aHp2SU9PLytH?=
- =?utf-8?B?VUxDSEFxejlrZmVSajZHWlJFVDhpaEJnSUNpY2EvNDE2Nlh4Wk9ZazRCeCtt?=
- =?utf-8?B?bXRUK1hPaXNqUzlHeWVQOFRubGxhNVdHWDhaUWVRMlJYc0lRZnlpNmZMemll?=
- =?utf-8?B?WkJsVld5THRlYkwza0ROVUxxU2dGQkdCaW9GVU82UldkMWFGNDM3aFRVaHdP?=
- =?utf-8?B?RG03bXBVeUIxM2xOYzNIT3A1Sm5FUWVjYTlKRUY2SDNqOFhBV3FkMGFZY04y?=
- =?utf-8?B?QmIwbGZnUUNWMVBVYnEzdUpQRjRyNUYyMU56d1gxWHIzOG51TnBDWlRENG52?=
- =?utf-8?B?TVZPVVhBWFdDb2FJR09YT29ubFVoaDF0QTFIQlFIYzJEMURodHFWZHNyTmt0?=
- =?utf-8?B?TDZoNUxlWGM4UDVzcHJvOFJ0MTJDcy80RXhVc0RER0Z6dmJxMlhRT2x5cG1P?=
- =?utf-8?B?ZjhnTDZKRzdIc1dvYzBSUGxlSzdNMVdJRndyL1lxZkZsZ1U4QmhyR2NUOWJH?=
- =?utf-8?B?UUo2OEdhbE8vaWRWcFdndDRiSHlaZkRSUXptdzRRMlBHV1dGTUhBTCs1OXFE?=
- =?utf-8?B?eC94V3NRTzRsellyQXpvczI3dkhqbllhc0NPeGRIeU1tRmo2RWVSUXlIdjk0?=
- =?utf-8?B?OGZwWmx3bDlmbHBabjhpemM2bU1MYlh5cHhHQTd4ZjVIMHU5UHo2S0UwZ0dD?=
- =?utf-8?B?NDBnaW9HcGowbEoyM08zOEtoYnlKd1ZzUWIzMU84Vy92cmV1cUZhcDhkdXd1?=
- =?utf-8?B?VEtoMGZScFJSK2wrMHlGaHFDc2p4WXFxN3NoMjdFditacVVHU3IxZ1hiZm5a?=
- =?utf-8?B?RnlvWkxNQlYxZHg4UlpUZmJrNTVYR3FMMitiU2NZVlpSc2kxUEl2RzVEekJl?=
- =?utf-8?B?SG8zakh2eENEMjFwa3VhV2NmUTFIeWNFTjBiZkVlRjk3ZWZXb1o0WGl0Z1lZ?=
- =?utf-8?B?L3JOV3I3amlpWDgxMHR0SVRDRm9zTTFrTDI2dmVKOGtWOVF4c3BPR2NaeWdN?=
- =?utf-8?B?OXlMVTlsb0oxczhzUmhYcnhPSlZSamNPWThSMU1rN0pMR2wyemVQdEttK3l2?=
- =?utf-8?B?bzBMQnRVQkN1aU8xNUVJQzJiUTdienBBcmsyQTlyZWNhb21hN1FDKzNXajRo?=
- =?utf-8?B?UWt4NncweEtPa1h0aVRHWnh1QTNSZlFIdlVnTk1wc2NMTUd4cTdpR3d4K2Vz?=
- =?utf-8?B?QVlZT2ZUZFd0eWFGREtsZWJIOHhYYTRCWGIzNWlPSU1yNjV4OHlRUVgyOStJ?=
- =?utf-8?B?c0RvVVgzcWpHMld1RTU0dEE1a3NaWmpESHlZbkF0eEJneVlrQjNNcFBNQk1t?=
- =?utf-8?B?ZXJzSkJ1Vko4c1h5eFNIN1RKajJPaGdEd1ZyLzJDLzdjSzlvQVVaemdBSmE0?=
- =?utf-8?B?amRtV2l4dzVDWXMyWXg2VVAveXk2cGxVZ1JZRlVYRXVLTU5PSWZ5WFljNHNM?=
- =?utf-8?B?T3RJYk9ucFN4VVhObXg4Tlh0TUdsRnZwVDZ3VzFWSHYxS2xJZGRlY2x5NWtJ?=
- =?utf-8?B?TDBOMW4yT2JDTmtZMXhTclhQR0JTbEhJeG05bjhhMmxVcGlNampNTkRSWkxw?=
- =?utf-8?B?eXZkY2VkNjhTeHozRHJVc0UvcU0rZ3A1TldlbStCR1hpcVgrQStXQkhjZm5V?=
- =?utf-8?B?czVxelZvSitCWitscWZBVUc3bEMzdktyZVgwZjhHdWVTYnQxNEdFMVI1S0oz?=
- =?utf-8?B?cHpsVjBVWk1TdTlER3RkYm1MUDREcDJhN28vZkVVTEIzK1h4NlJTMlY1NjJj?=
- =?utf-8?B?K3N4WERrdTZ0RlRKUXh3Y3dRaERDaG9EUVoyZGtvOCtnWGgyWnk4TTFobkhi?=
- =?utf-8?B?bzNIUVg2MFpKVjF1YjZNTHlqTnQ3bGpxczdkVXh6QnFEeGVHNFJlcHpqQlJK?=
- =?utf-8?B?NEtQSVFoWlhzRUJPQjl5bHNyNVZrTlhMYTRrVG52Q0pVVUN3YzdxRG5GRTNn?=
- =?utf-8?B?UlhVa0ZGSENwMERuMkVBVE9FQ2ZWcFF0Q1JsZmx2OFAxTEZRSHl1clFVUkFO?=
- =?utf-8?B?ajIxTjV6b3B1aUtIUUtpZ2tBaDBwZnRFMkFWZG5XNVlqRDFVUEFyb09yZXNH?=
- =?utf-8?B?UFR1aCt2VUF2M1RCNWNZS2ZKcEpWSDRUb0hRRWtaVjVKWXhPZVJMRENhQkt5?=
- =?utf-8?B?SUxhNWZrT1hQK0QwVE53bmdPSk9wN3JCZ1hHVE1xKzBwMXJvUW1nSFZScERI?=
- =?utf-8?B?bUVLbWl2WVIwMFpGRkJnYWFqaytMUWN6dXhoNUJoc0ZrK1ZRRm9XTFNSaThS?=
- =?utf-8?Q?tPWXkMNtxurq/xLTKZ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae42ac82-e3ab-4486-e357-08ded5bb4f0f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 08:49:19.6697 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5QaG61w76Haeki+EFkYCM1nbJZ3A4oGeBYhQHC1ZW7BMIciLBnM/kNKlq5RGfJQQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7643
+References: <aj5neetgYdu0QpcK@GRAPHRT> <20260629094419.6bb56d99@fedora-2.home>
+ <CABPQNSa0-wqQTm0CzLFojWZLVY5OqQxWTXrpO=O4p8go52808Q@mail.gmail.com>
+In-Reply-To: <CABPQNSa0-wqQTm0CzLFojWZLVY5OqQxWTXrpO=O4p8go52808Q@mail.gmail.com>
+From: Erik Faye-Lund <kusmabite@gmail.com>
+Date: Mon, 29 Jun 2026 10:51:32 +0200
+X-Gm-Features: AVVi8Cf5m_RZPXcC8e-k50YPGdbuE1-CSqK1ujQU-qXEgiBfhg_pV5oHfBEqMOA
+Message-ID: <CABPQNSbwC=VtjjQiDd6B9ExT4GhgJOGUu-_tTeZ8TvgqDDbqKQ@mail.gmail.com>
+Subject: Re: [BUG] drm/panthor: intermittent freezes in Xorg xserver
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Marius Dinu <m95d+git@psihoexpert.ro>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, Steven Price <steven.price@arm.com>, 
+ Liviu Dudau <liviu.dudau@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,72 +104,96 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: kusmabite@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/29/26 09:56, Philipp Stanner wrote:
-> The commit mentioned in the fixes tag below introduced a mechanism
-> through which fence producers can fully decouple from fence consumers.
-> This, desirable, mechanism is based on the fence's signaled-bit as the
-> "decoupling point".
-> 
-> A sophisticated interaction between RCU and atomic instructions attempts
-> to ensure that fence consumers can still interact with fence producers
-> through the dma_fence_ops (callback pointers into the producer).
-> 
-> This is the desired behavior: to check for decoupling, the signaled-bit
-> is first checked. If it's not yet signaled, RCU ensures that the ops
-> pointer cannot yet be NULL.
-> 
-> Hereby, dma_fence_signal_timestamp_locked() first sets the signaled-bit,
-> and then sets the ops pointer to NULL. Readers first load the ops
-> pointer, and then check through the signaled-bit whether the pointer can
-> legally be accessed.
-> 
-> These set and load operations could occur out of order on weakly ordered
-> platforms. This problem can be solved very elegantly by using the ops
-> pointer itself as the synchronization point. The pointer is either NULL,
-> or cannot become NULL while it is being used thanks to RCU.
-> 
-> Replace the signaled-bit check in dma_fence_timeline_name() and
-> dma_fence_driver_name().
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: f4cc3ab824d6 ("dma-buf: protected fence ops by RCU v8")
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+Silly me, I forgot to disable HTML email, so this one bounced for
+some, resending. Sorry about the duplicate.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+I wonder if you're experiencing the same issue as this?
 
-> ---
-> Changes since v1:
->   - Use ops pointer instead of memory barriers. (Christian)
->   - Rephrase commit message.
-> ---
->  drivers/dma-buf/dma-fence.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index c7ea1e75d38a..0a025dfdf131 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -1170,7 +1170,7 @@ const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
->  
->  	/* RCU protection is required for safe access to returned string */
->  	ops = rcu_dereference(fence->ops);
-> -	if (!dma_fence_test_signaled_flag(fence))
-> +	if (ops)
->  		return (const char __rcu *)ops->get_driver_name(fence);
->  	else
->  		return (const char __rcu *)"detached-driver";
-> @@ -1203,7 +1203,7 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
->  
->  	/* RCU protection is required for safe access to returned string */
->  	ops = rcu_dereference(fence->ops);
-> -	if (!dma_fence_test_signaled_flag(fence))
-> +	if (ops)
->  		return (const char __rcu *)ops->get_driver_name(fence);
->  	else
->  		return (const char __rcu *)"signaled-timeline";
-> 
-> base-commit: cdeb2ccd993ed8647adbbda2c3b103aa717fd6f7
+https://gitlab.freedesktop.org/mesa/mesa/-/work_items/15116
 
+
+On Mon, Jun 29, 2026 at 10:31=E2=80=AFAM Erik Faye-Lund <kusmabite@gmail.co=
+m> wrote:
+>
+> I wonder if you're experiencing the same issue as this?
+>
+> https://gitlab.freedesktop.org/mesa/mesa/-/work_items/15116
+>
+> On Mon, Jun 29, 2026 at 10:24=E2=80=AFAM Boris Brezillon <boris.brezillon=
+@collabora.com> wrote:
+>>
+>> On Fri, 26 Jun 2026 14:50:17 +0300
+>> Marius Dinu <m95d+git@psihoexpert.ro> wrote:
+>>
+>> > Hi.
+>> >
+>> > The system is Radxa Rock 5 ITX, RK3588, 32GB RAM,
+>> > mainline kernel v7.1.0 with panthor driver, mesa 26.0.7 with panfrost =
+driver,
+>> > xorg-server v21.1.22 accelerated by modesetting driver, x11perf v1.7.0=
+.
+>>
+>> Are we sure that's a panthor issue? Also, is this a regression
+>> introduced by the latest kernel version, or has it been like that from
+>> the start?
+>>
+>> Also, would you mind opening an issue on [1]?
+>>
+>> >
+>> > The most clean way to reproduce this bug:
+>> > Form a console or ssh session, start Xorg in background, without a win=
+dow
+>> > manager, and then run x11perf on that display.
+>> >
+>> > Xorg :0 &
+>> > x11perf -all -display :0
+>> >
+>> > The bug: weird intermittent performance issues in some of the tests.
+>> > Examples:
+>> >
+>> >     1000 reps @  18.0799 msec (    55.3/sec): 10x10 rectangle outline
+>> >     1000 reps @  18.0791 msec (    55.3/sec): 10x10 rectangle outline
+>> >     1000 reps @  18.0790 msec (    55.3/sec): 10x10 rectangle outline
+>> >     1000 reps @  18.0789 msec (    55.3/sec): 10x10 rectangle outline
+>> >     1000 reps @   0.0287 msec ( 34800.0/sec): 10x10 rectangle outline
+>> >     5000 trep @  14.4691 msec (    69.1/sec): 10x10 rectangle outline
+>> >
+>> >  5000000 reps @   0.0029 msec (345000.0/sec): 1-pixel solid circle
+>> >  5000000 reps @   0.0009 msec (1100000.0/sec): 1-pixel solid circle
+>> >  5000000 reps @   0.0012 msec (818000.0/sec): 1-pixel solid circle
+>> >  5000000 reps @   0.0000 msec (20900000.0/sec): 1-pixel solid circle
+>> >  5000000 reps @   0.0000 msec (32300000.0/sec): 1-pixel solid circle
+>> > 25000000 trep @   0.0010 msec (979000.0/sec): 1-pixel solid circle
+>> >
+>> >     1000 reps @  31.6607 msec (    31.6/sec): Fill 10x10 trapezoid
+>> >     1000 reps @  16.9012 msec (    59.2/sec): Fill 10x10 trapezoid
+>> >     1000 reps @   0.0234 msec ( 42700.0/sec): Fill 10x10 trapezoid
+>> >     1000 reps @   0.0272 msec ( 36700.0/sec): Fill 10x10 trapezoid
+>> >     1000 reps @  32.1268 msec (    31.1/sec): Fill 10x10 trapezoid
+>> >     5000 trep @  16.1479 msec (    61.9/sec): Fill 10x10 trapezoid
+>> >
+>> > There are no messages in kernel log or Xorg log.
+>> >
+>> > Visually, most of the tests runs fast as expected, but in some of the =
+tests
+>> > it gets "stuck" randomly. The test suddenly freezes while drawing the =
+pattern.
+>> > Then, after a while (a few seconds up to a couple of minutes), it gets
+>> > unstuck by itself, draws a few more patterns extremely fast for less t=
+han a
+>> > second, and then it gets stuck again.
+>>
+>> It smells like a signalling issue. Can you check the CPU activity and
+>> report any outstanding process? Can you maybe connect a gdb to the
+>> x11perf to see where it's blocked, and post the backtrace here (or in
+>> the gitlab issue)?
+>>
+>> Regards,
+>>
+>> Boris
+>>
+>> [1]https://gitlab.freedesktop.org/mesa/mesa
