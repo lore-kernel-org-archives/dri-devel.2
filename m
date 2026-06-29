@@ -4,43 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41BEEC43602
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 07:08:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D733C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 07:08:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6B4D10E70F;
-	Mon, 29 Jun 2026 07:08:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2545710E712;
+	Mon, 29 Jun 2026 07:08:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ptr1337.dev header.i=@ptr1337.dev header.b="gdIhKDZs";
+	dkim=pass (2048-bit key; secure) header.d=gurudas.dev header.i=@gurudas.dev header.b="Wn/fpinj";
 	dkim-atps=neutral
-X-Greylist: delayed 311 seconds by postgrey-1.36 at gabe;
- Sun, 28 Jun 2026 14:07:59 UTC
-Received: from mail.ptr1337.dev (mail.ptr1337.dev [202.61.224.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44B5410E60E;
- Sun, 28 Jun 2026 14:07:59 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 32997281B77; Sun, 28 Jun 2026 16:02:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ptr1337.dev; s=dkim;
- t=1782655366; h=from:subject:date:message-id:to:cc:mime-version:
- content-transfer-encoding; bh=tWKGlT6wB5yIkBQ1IVMQpAlFUJImHkHUwhQrv3J4WdM=;
- b=gdIhKDZsokGzQkXsqhoOcrahLCQaF3QbF8tpBbelw8P5FOt/hes0a87S6KLSwviGHPLj1G
- +8BRuRJQmVZXgMWng2yLjG1MxVryJQw+37fXXMp4SVXTQn7z/0zpXH5qohA4q3yLlKI91B
- 0IU1RgqFm5sJanWGzg5LB8bP2LzMJpy893ZBURrktuD6UCUu+UsVjghDfgr+0J9bi+R2hR
- oLY5MeMKundDWbc/BG4+jH8VTV6U5anTPj9Dv0UsAlYa+cr2I3dsoXYeaQixcQGPEWhjY7
- 3OyyofglmMSXpFqF6CSZlzryZz9zDqVIAKqcWA3luo9C8JioZEgjG+en6wDMWg==
-From: Peter Jung <admin@ptr1337.dev>
-To: stable@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- alexander.deucher@amd.com, ray.wu@amd.com, superm1@kernel.org,
- "Sun peng (Leo) Li" <sunpeng.li@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
- Peter Jung <admin@ptr1337.dev>
-Subject: [PATCH 7.1.y] drm/amd/display: Fix ISM dc_lock deadlock during suspend
-Date: Sun, 28 Jun 2026 16:01:48 +0200
-Message-ID: <20260628140148.59923-1-admin@ptr1337.dev>
-X-Mailer: git-send-email 2.54.0
+X-Greylist: delayed 390 seconds by postgrey-1.36 at gabe;
+ Mon, 29 Jun 2026 03:45:03 UTC
+Received: from out-21.smtp.spacemail.com (out-21.smtp.spacemail.com
+ [66.29.159.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0787510E002
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 03:45:03 +0000 (UTC)
+Received: from [192.168.1.96] (107-194-158-19.lightspeed.sntcca.sbcglobal.net
+ [107.194.158.19])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mail.spacemail.com (Postfix) with ESMTPSA id 4gpX7F3RH8z8sbD;
+ Mon, 29 Jun 2026 03:38:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gurudas.dev;
+ s=spacemail; t=1782704315;
+ bh=+xTdES5iivUlujAb8S85lcbvOQK1iknw8m7NM0ttyH8=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=Wn/fpinj+vbdRtvql+K6l/cdD/IQuxl+e8wa5bMUwtZjuwKBolSQ7MPAy/E7r34Vm
+ JlNz056v097vPX0LzLgdqw2ChkZM2e+fJk8P/tSAAd2maOeMGg8lIAZF85c2zvHBDu
+ VvjXDXzHnPpQjWCS+ByzEU1aJQsXP4SMkbdEEHVqG1BkAeoV2x9WC0P0K0Z+MjYOjS
+ au8gLtLRrapdakIsP6VjyV1XxDwH+fWg+f5WXQGK+fiJCCeuiHfvVAww/GogX62e5/
+ gE9EB44qcxIf7szuf9P8Mfi3D550P367GBwwZjyXTtADMoUywMT2GZh/cupjmsZoPi
+ 3qRa8ft7LLoJA==
+From: Guru Das Srinagesh <linux@gurudas.dev>
+Date: Sun, 28 Jun 2026 20:38:18 -0700
+Subject: [PATCH 4/7] block: rnull: use vertical import style
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260628-b4-rust-vertical-imports-v1-4-98bc71d4810b@gurudas.dev>
+References: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev>
+In-Reply-To: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev>
+To: Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Cc: Danilo Krummrich <dakr@kernel.org>, 
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, 
+ Fu Wei <wefu@redhat.com>, Michal Wilczynski <m.wilczynski@samsung.com>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>, Jens Axboe <axboe@kernel.dk>, 
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ driver-core@lists.linux.dev, linux-riscv@lists.infradead.org, 
+ linux-pwm@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-block@vger.kernel.org, netdev@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ Guru Das Srinagesh <linux@gurudas.dev>
+X-Mailer: b4 0.15.2
+X-Envelope-From: linux@gurudas.dev
 X-Mailman-Approved-At: Mon, 29 Jun 2026 07:07:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,199 +91,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Ray Wu <ray.wu@amd.com>
+Convert `use` imports to vertical layout for better readability and
+maintainability.
 
-[ Upstream commit 3714fe242592e3699ac5e2c19d68b275a210be7d ]
-
-CachyOS users reported a regression in shutdown/reboot behavior on 7.1
-kernels: the display turns off, but the machine does not power down.
-Reverting ISM fixes the regression, and this upstream fix addresses the
-same ISM dc_lock/workqueue deadlock in the suspend/shutdown paths.
-
-[Why]
-System hang observed during suspend/resume while video is playing.
-amdgpu_dm_ism_disable() is called under dc_lock and waits for ISM
-delayed work via disable_delayed_work_sync(). The work handlers
-themselves take dc_lock, producing an ABBA deadlock when a worker is
-in flight at suspend time.
-
-[How]
-Split the disable path into two phases with opposite locking
-contracts:
-  1. amdgpu_dm_ism_disable() -- quiesces workers, must NOT hold
-     dc_lock.
-  2. amdgpu_dm_ism_force_full_power() (new) -- drives the ISM FSM
-     back to FULL_POWER_RUNNING, must hold dc_lock.
-
-Fixes: 754003486c3c ("drm/amd/display: Add Idle state manager(ISM)")
-Link: https://github.com/CachyOS/linux-cachyos/issues/900
-Cc: stable@vger.kernel.org # 7.1.y
-Reviewed-by: Sun peng (Leo) Li <sunpeng.li@amd.com>
-Signed-off-by: Ray Wu <ray.wu@amd.com>
-Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Peter Jung <admin@ptr1337.dev>
+Signed-off-by: Guru Das Srinagesh <linux@gurudas.dev>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 25 +++++++--
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c | 56 ++++++++++++++++---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h |  1 +
- 3 files changed, 70 insertions(+), 12 deletions(-)
+ drivers/block/rnull/configfs.rs | 20 ++++++++++++++++----
+ drivers/block/rnull/rnull.rs    | 13 ++++++++++---
+ 2 files changed, 26 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f8c13bad4ac2..560ab3298911 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2260,9 +2260,16 @@ static void amdgpu_dm_fini(struct amdgpu_device *adev)
- 		adev->dm.idle_workqueue = NULL;
- 	}
+diff --git a/drivers/block/rnull/configfs.rs b/drivers/block/rnull/configfs.rs
+index 7c2eb5c0b722..07ce21a44081 100644
+--- a/drivers/block/rnull/configfs.rs
++++ b/drivers/block/rnull/configfs.rs
+@@ -2,14 +2,26 @@
  
--	/* Disable ISM before dc_destroy() invalidates dm->dc */
-+	/*
-+	 * Disable ISM before dc_destroy() invalidates dm->dc.
-+	 *
-+	 * Quiesce workers first without dc_lock (they take dc_lock
-+	 * themselves, so syncing under it would deadlock), then drive the
-+	 * FSM back to FULL_POWER_RUNNING under dc_lock.
-+	 */
-+	amdgpu_dm_ism_disable(&adev->dm);
- 	scoped_guard(mutex, &adev->dm.dc_lock)
--		amdgpu_dm_ism_disable(&adev->dm);
-+		amdgpu_dm_ism_force_full_power(&adev->dm);
+ use super::{NullBlkDevice, THIS_MODULE};
+ use kernel::{
+-    block::mq::gen_disk::{GenDisk, GenDiskBuilder},
+-    configfs::{self, AttributeOperations},
++    block::mq::gen_disk::{
++        GenDisk,
++        GenDiskBuilder, //
++    },
++    configfs::{
++        self,
++        AttributeOperations, //
++    },
+     configfs_attrs,
+-    fmt::{self, Write as _},
++    fmt::{
++        self,
++        Write as _, //
++    },
+     new_mutex,
+     page::PAGE_SIZE,
+     prelude::*,
+-    str::{kstrtobool_bytes, CString},
++    str::{
++        kstrtobool_bytes,
++        CString, //
++    },
+     sync::Mutex,
+ };
  
- 	amdgpu_dm_destroy_drm_device(&adev->dm);
+diff --git a/drivers/block/rnull/rnull.rs b/drivers/block/rnull/rnull.rs
+index 0ca8715febe8..d58d2c4c5f63 100644
+--- a/drivers/block/rnull/rnull.rs
++++ b/drivers/block/rnull/rnull.rs
+@@ -10,12 +10,19 @@
+         self,
+         mq::{
+             self,
+-            gen_disk::{self, GenDisk},
+-            Operations, TagSet,
++            gen_disk::{
++                self,
++                GenDisk, //
++            },
++            Operations,
++            TagSet, //
+         },
+     },
+     prelude::*,
+-    sync::{aref::ARef, Arc},
++    sync::{
++        aref::ARef,
++        Arc, //
++    },
+ };
  
-@@ -3290,9 +3297,14 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
- 	if (amdgpu_in_reset(adev)) {
- 		enum dc_status res;
- 
-+		/* Quiesce ISM workers before taking dc_lock (workers take
-+		 * dc_lock themselves; syncing under it would deadlock).
-+		 */
-+		amdgpu_dm_ism_disable(dm);
-+
- 		mutex_lock(&dm->dc_lock);
- 
--		amdgpu_dm_ism_disable(dm);
-+		amdgpu_dm_ism_force_full_power(dm);
- 		dc_allow_idle_optimizations(adev->dm.dc, false);
- 
- 		dm->cached_dc_state = dc_state_create_copy(dm->dc->current_state);
-@@ -3326,8 +3338,13 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
- 
- 	amdgpu_dm_irq_suspend(adev);
- 
-+	/*
-+	 * Quiesce ISM workers before taking dc_lock (workers take dc_lock
-+	 * themselves; syncing under it would deadlock).
-+	 */
-+	amdgpu_dm_ism_disable(dm);
- 	scoped_guard(mutex, &dm->dc_lock)
--		amdgpu_dm_ism_disable(dm);
-+		amdgpu_dm_ism_force_full_power(dm);
- 
- 	hpd_rx_irq_work_suspend(dm);
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-index a64e95860e99..b32c8d3ac152 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c
-@@ -524,13 +524,20 @@ static void dm_ism_sso_delayed_work_func(struct work_struct *work)
- }
- 
- /**
-- * amdgpu_dm_ism_disable - Disable the ISM
-+ * amdgpu_dm_ism_disable - Quiesce ISM workers
-  *
-  * @dm: The amdgpu display manager
-  *
-- * Disable the idle state manager by disabling any ISM work, canceling pending
-- * work, and waiting for in-progress work to finish. After disabling, the system
-- * is left in DM_ISM_STATE_FULL_POWER_RUNNING state.
-+ * Cancels and disables any pending or in-flight ISM delayed work and waits
-+ * for in-progress work to finish. After this returns, no ISM worker can run
-+ * and subsequent mod_delayed_work() calls become no-ops via
-+ * clear_pending_if_disabled().
-+ *
-+ * Must NOT be called with dc_lock held: the workers themselves take dc_lock,
-+ * so a synchronous wait under dc_lock would deadlock.
-+ *
-+ * The caller is responsible for driving the FSM back to FULL_POWER_RUNNING
-+ * (under dc_lock) by calling amdgpu_dm_ism_force_full_power().
-  */
- void amdgpu_dm_ism_disable(struct amdgpu_display_manager *dm)
- {
-@@ -538,21 +545,54 @@ void amdgpu_dm_ism_disable(struct amdgpu_display_manager *dm)
- 	struct amdgpu_crtc *acrtc;
- 	struct amdgpu_dm_ism *ism;
- 
--	ASSERT(mutex_is_locked(&dm->dc_lock));
-+	/*
-+	 * Caller must NOT hold dc_lock: the ISM delayed work handlers
-+	 * acquire dc_lock themselves, so waiting for them via
-+	 * disable_delayed_work_sync() while holding dc_lock would
-+	 * self-deadlock against an in-flight worker.
-+	 */
-+	lockdep_assert_not_held(&dm->dc_lock);
- 
- 	drm_for_each_crtc(crtc, dm->ddev) {
- 		acrtc = to_amdgpu_crtc(crtc);
- 		ism = &acrtc->ism;
- 
--		/* Cancel and disable any pending work */
- 		disable_delayed_work_sync(&ism->delayed_work);
- 		disable_delayed_work_sync(&ism->sso_delayed_work);
-+	}
-+}
-+
-+/**
-+ * amdgpu_dm_ism_force_full_power - Force every CRTC's ISM FSM to FULL_POWER
-+ *
-+ * @dm: The amdgpu display manager
-+ *
-+ * Sends DM_ISM_EVENT_EXIT_IDLE_REQUESTED to every CRTC's ISM, leaving each
-+ * FSM in FULL_POWER_RUNNING. Intended to be paired with
-+ * amdgpu_dm_ism_disable(): callers should first quiesce workers (without
-+ * dc_lock), then take dc_lock and call this helper.
-+ *
-+ * Must be called with dc_lock held.
-+ */
-+void amdgpu_dm_ism_force_full_power(struct amdgpu_display_manager *dm)
-+{
-+	struct drm_crtc *crtc;
-+	struct amdgpu_crtc *acrtc;
-+
-+	/*
-+	 * Caller must hold dc_lock: commit_event() drives the FSM and
-+	 * may touch dc state via dc_allow_idle_optimizations() etc.
-+	 */
-+	lockdep_assert_held(&dm->dc_lock);
-+
-+	drm_for_each_crtc(crtc, dm->ddev) {
-+		acrtc = to_amdgpu_crtc(crtc);
- 
- 		/*
- 		 * When disabled, leave in FULL_POWER_RUNNING state.
--		 * EXIT_IDLE will not queue any work
-+		 * EXIT_IDLE will not queue any work.
- 		 */
--		amdgpu_dm_ism_commit_event(ism,
-+		amdgpu_dm_ism_commit_event(&acrtc->ism,
- 					   DM_ISM_EVENT_EXIT_IDLE_REQUESTED);
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h
-index fde0ddc8d4e4..964408cd9a83 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.h
-@@ -146,6 +146,7 @@ void amdgpu_dm_ism_fini(struct amdgpu_dm_ism *ism);
- void amdgpu_dm_ism_commit_event(struct amdgpu_dm_ism *ism,
- 				enum amdgpu_dm_ism_event event);
- void amdgpu_dm_ism_disable(struct amdgpu_display_manager *dm);
-+void amdgpu_dm_ism_force_full_power(struct amdgpu_display_manager *dm);
- void amdgpu_dm_ism_enable(struct amdgpu_display_manager *dm);
- 
- #endif
+ module! {
+
 -- 
 2.54.0
 
