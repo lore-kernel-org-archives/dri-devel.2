@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FD38C44501
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:25:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C8ABC43327
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:25:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AD3510E882;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 496E110E87F;
 	Mon, 29 Jun 2026 12:25:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bnntvhK1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LC8VtPYz";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7081110E87A;
- Mon, 29 Jun 2026 12:25:07 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 168DF10E883;
+ Mon, 29 Jun 2026 12:24:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4B2C94369E;
- Mon, 29 Jun 2026 12:25:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57F341F000E9;
- Mon, 29 Jun 2026 12:25:06 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8B6886001D;
+ Mon, 29 Jun 2026 12:24:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74A521F000E9;
+ Mon, 29 Jun 2026 12:24:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782735907;
- bh=0CjsnJnmQmj9IcNR2M+P2PS6Ynd1JhNZAhWBlobX7To=;
+ s=k20260515; t=1782735898;
+ bh=n6T1iWSEXJtO4Ol/BA3gpFHV+/0gKCk1DbIlaaeu8VM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=bnntvhK1Es0+AkZqUSlbageegNulQJjLp/pioGFK3HrXqebdDfvRyS5gYUI5JNuMu
- CzpOMeomCvL20HZs4AB8qKq9Rkd8Xnw/UkVsvEcYerjCdZ10IbfN+amr4Btx1F3uxF
- vb3+OJz87qYyu/mgNdIgl9NXt/f6YQ0fr4F6F03VSjSNdr/ehZtAgsdXjHPRiBJrhL
- qmOSdwVCpukHHewqOVzri4bkytdwJM4r963lR9F29kjWSZZ0bbUkBZ6ZsaQLOHSeat
- mny8L2AgBdSeOjUAetGhVhd8VyhCyF4qpd4m+IakZlvSeQnjjZmUJjHLkSlwZ0+C2I
- OZbTP3l9yLkQw==
+ b=LC8VtPYzfBDn0IT72dDOkbWV0WRSLf9IMTrBsPoKyWemI+ySsQR91N3T+gF5VUjPk
+ vJ/A02mPxatWNByRseH/44QDY6V7GxURExlUMgpWc6Ak0sIqOgqIB89+Dhtiz3DdaG
+ 0qDDEK3Kw5b+lPx1blaG9h4PjSQv6pYATJEXJn1gVoSDSzHVV2QcCkISf49YvzLmOs
+ bWKRZVJOCgN/LnWSTThp3BqEnLf6yht4HhcexHl5j948YFGHeGgOFuaos8+m9BA1RV
+ HjcHH1HvULwL911lM1Mca9m5XW5H0chyhZ42L4YjclZADCKQaoLUCEzOrF3dzZjn7A
+ Ytzbnh24BtJ6Q==
 From: Lorenzo Stoakes <ljs@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
@@ -80,10 +80,9 @@ Cc: Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
  damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
  Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
  Jann Horn <jannh@google.com>
-Subject: [PATCH 24/30] mm/vma: update vma_shrink() to not pass unnecessary
- pgoff parameter
-Date: Mon, 29 Jun 2026 13:23:35 +0100
-Message-ID: <6dd744d57d778f94d2fef8fd623d7c4ed8010d93.1782735110.git.ljs@kernel.org>
+Subject: [PATCH 21/30] mm/vma: add and use vma_[add/sub]_pgoff()
+Date: Mon, 29 Jun 2026 13:23:32 +0100
+Message-ID: <794044881e454fd8ac13e59d5ff5fc86fca08b03.1782735110.git.ljs@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1782735110.git.ljs@kernel.org>
 References: <cover.1782735110.git.ljs@kernel.org>
@@ -104,105 +103,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vma_shrink() does not need to adjust vma->vm_pgoff, we were passing this
-parameter solely to satisfy vma_set_range()'s requirement for pgoff being
-specified.
+Add helpers for adding or subtracting to a VMA's page offset, exposed
+internally for VMA users within mm in mm/vma.h.
 
-Since vma_set_range() is now isolated to vma.c, we can simply introduce
-__vma_set_range() which sets only vma->vm_[start, end], and invoke this
-instead, removing pgoff from vma_shrink() altogether.
+This is to lay the foundations for tracking anonymous page offset for
+MAP_PRIVATE file-backed mappings, where adding and subtracting from this
+value must be reflected in both the file and anonymous offsets.
+
+These are used on VMA split and downward stack expansion.
 
 No functional change intended.
 
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- mm/vma.c                        | 14 ++++++++++----
- mm/vma.h                        |  2 +-
- mm/vma_exec.c                   |  2 +-
- tools/testing/vma/tests/merge.c |  2 +-
- 4 files changed, 13 insertions(+), 7 deletions(-)
+ mm/nommu.c                      |  6 ++++--
+ mm/vma.c                        |  6 +++---
+ mm/vma.h                        | 12 ++++++++++++
+ tools/testing/vma/include/dup.h | 13 ++++++++++++-
+ 4 files changed, 31 insertions(+), 6 deletions(-)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index b16c5b20862f..e3355eab11f2 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -70,11 +70,17 @@ struct mmap_state {
- 		.state = VMA_MERGE_START,				\
+diff --git a/mm/nommu.c b/mm/nommu.c
+index 7333d855e974..c7fafcd87c14 100644
+--- a/mm/nommu.c
++++ b/mm/nommu.c
+@@ -41,6 +41,7 @@
+ #include <asm/tlbflush.h>
+ #include <asm/mmu_context.h>
+ #include "internal.h"
++#include "vma.h"
+ 
+ unsigned long highest_memmap_pfn;
+ int heap_stack_gap = 0;
+@@ -1338,7 +1339,8 @@ static int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
+ 		region->vm_top = region->vm_end = new->vm_end = addr;
+ 	} else {
+ 		region->vm_start = new->vm_start = addr;
+-		region->vm_pgoff = new->vm_pgoff += npages;
++		vma_add_pgoff(new, npages);
++		region->vm_pgoff = vma_start_pgoff(new);
  	}
  
--static void vma_set_range(struct vm_area_struct *vma, unsigned long start,
--			  unsigned long end, pgoff_t pgoff)
-+static void __vma_set_range(struct vm_area_struct *vma, unsigned long start,
-+			    unsigned long end)
- {
- 	vma->vm_start = start;
- 	vma->vm_end = end;
-+}
-+
-+static void vma_set_range(struct vm_area_struct *vma, unsigned long start,
-+			  unsigned long end, pgoff_t pgoff)
-+{
-+	__vma_set_range(vma, start, end);
- 	vma->vm_pgoff = pgoff;
- }
+ 	vma_iter_config(vmi, new->vm_start, new->vm_end);
+@@ -1355,7 +1357,7 @@ static int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
+ 	delete_nommu_region(vma->vm_region);
+ 	if (new_below) {
+ 		vma->vm_region->vm_start = vma->vm_start = addr;
+-		vma->vm_pgoff += npages;
++		vma_add_pgoff(vma, npages);
+ 		vma->vm_region->vm_pgoff = vma_start_pgoff(vma);
+ 	} else {
+ 		vma->vm_region->vm_end = vma->vm_end = addr;
+diff --git a/mm/vma.c b/mm/vma.c
+index 185d07397ca6..cb7222e20c93 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -517,7 +517,7 @@ __split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
+ 		new->vm_end = addr;
+ 	} else {
+ 		new->vm_start = addr;
+-		new->vm_pgoff += linear_page_delta(vma, addr);
++		vma_add_pgoff(new, linear_page_delta(vma, addr));
+ 	}
  
-@@ -1289,7 +1295,7 @@ int vma_expand(struct vma_merge_struct *vmg)
-  * Returns: 0 on success, -ENOMEM otherwise
-  */
- int vma_shrink(struct vma_iterator *vmi, struct vm_area_struct *vma,
--	       unsigned long start, unsigned long end, pgoff_t pgoff)
-+	       unsigned long start, unsigned long end)
- {
- 	struct vma_prepare vp;
+ 	err = -ENOMEM;
+@@ -556,7 +556,7 @@ __split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
  
-@@ -1310,7 +1316,7 @@ int vma_shrink(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 	vma_adjust_trans_huge(vma, start, end, NULL);
- 
- 	vma_iter_clear(vmi);
--	vma_set_range(vma, start, end, pgoff);
-+	__vma_set_range(vma, start, end);
- 	vma_complete(&vp, vmi, vma->vm_mm);
- 	validate_mm(vma->vm_mm);
- 	return 0;
+ 	if (new_below) {
+ 		vma->vm_start = addr;
+-		vma->vm_pgoff += (addr - new->vm_start) >> PAGE_SHIFT;
++		vma_add_pgoff(vma, (addr - new->vm_start) >> PAGE_SHIFT);
+ 	} else {
+ 		vma->vm_end = addr;
+ 	}
+@@ -3305,7 +3305,7 @@ int expand_downwards(struct vm_area_struct *vma, unsigned long address)
+ 				vm_stat_account(mm, vma->vm_flags, grow);
+ 				anon_vma_interval_tree_pre_update_vma(vma);
+ 				vma->vm_start = address;
+-				vma->vm_pgoff -= grow;
++				vma_sub_pgoff(vma, grow);
+ 				/* Overwrite old entry in mtree. */
+ 				vma_iter_store_overwrite(&vmi, vma);
+ 				anon_vma_interval_tree_post_update_vma(vma);
 diff --git a/mm/vma.h b/mm/vma.h
-index 14f026bf3be4..9658e0c678ad 100644
+index 2342516ce00e..47fe35e5307e 100644
 --- a/mm/vma.h
 +++ b/mm/vma.h
-@@ -298,7 +298,7 @@ void validate_mm(struct mm_struct *mm);
- __must_check int vma_expand(struct vma_merge_struct *vmg);
- __must_check int vma_shrink(struct vma_iterator *vmi,
- 		struct vm_area_struct *vma,
--		unsigned long start, unsigned long end, pgoff_t pgoff);
-+		unsigned long start, unsigned long end);
- 
- static inline int vma_iter_store_gfp(struct vma_iterator *vmi,
- 			struct vm_area_struct *vma, gfp_t gfp)
-diff --git a/mm/vma_exec.c b/mm/vma_exec.c
-index e3644a3042e2..0107a6e3918c 100644
---- a/mm/vma_exec.c
-+++ b/mm/vma_exec.c
-@@ -89,7 +89,7 @@ int relocate_vma_down(struct vm_area_struct *vma, unsigned long shift)
- 
- 	vma_prev(&vmi);
- 	/* Shrink the vma to just the new range */
--	return vma_shrink(&vmi, vma, new_start, new_end, vma_start_pgoff(vma));
-+	return vma_shrink(&vmi, vma, new_start, new_end);
+@@ -247,6 +247,18 @@ static inline pgoff_t vmg_end_pgoff(const struct vma_merge_struct *vmg)
+ 	return vmg_start_pgoff(vmg) + vmg_pages(vmg);
  }
  
++static inline void vma_add_pgoff(struct vm_area_struct *vma, pgoff_t delta)
++{
++	vma_assert_can_modify(vma);
++	vma->vm_pgoff += delta;
++}
++
++static inline void vma_sub_pgoff(struct vm_area_struct *vma, pgoff_t delta)
++{
++	vma_assert_can_modify(vma);
++	vma->vm_pgoff -= delta;
++}
++
+ #define VMG_STATE(name, mm_, vmi_, start_, end_, vma_flags_, pgoff_)	\
+ 	struct vma_merge_struct name = {				\
+ 		.mm = mm_,						\
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 7ed165c8d9bc..41fea90a344d 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1163,6 +1163,11 @@ static inline struct vm_area_struct *vma_next(struct vma_iterator *vmi)
+ 	return mas_find(&vmi->mas, ULONG_MAX);
+ }
+ 
++static inline bool vma_is_attached(struct vm_area_struct *vma)
++{
++	return refcount_read(&vma->vm_refcnt);
++}
++
  /*
-diff --git a/tools/testing/vma/tests/merge.c b/tools/testing/vma/tests/merge.c
-index f8666a755749..04704d6eb426 100644
---- a/tools/testing/vma/tests/merge.c
-+++ b/tools/testing/vma/tests/merge.c
-@@ -227,7 +227,7 @@ static bool test_simple_shrink(void)
+  * WARNING: to avoid racing with vma_mark_attached()/vma_mark_detached(), these
+  * assertions should be made either under mmap_write_lock or when the object
+@@ -1170,7 +1175,13 @@ static inline struct vm_area_struct *vma_next(struct vma_iterator *vmi)
+  */
+ static inline void vma_assert_attached(struct vm_area_struct *vma)
+ {
+-	WARN_ON_ONCE(!refcount_read(&vma->vm_refcnt));
++	WARN_ON_ONCE(!vma_is_attached(vma));
++}
++
++static inline void vma_assert_can_modify(struct vm_area_struct *vma)
++{
++	if (vma_is_attached(vma))
++		vma_assert_write_locked(vma);
+ }
  
- 	ASSERT_FALSE(attach_vma(&mm, vma));
- 
--	ASSERT_FALSE(vma_shrink(&vmi, vma, 0, 0x1000, 0));
-+	ASSERT_FALSE(vma_shrink(&vmi, vma, 0, 0x1000));
- 
- 	ASSERT_EQ(vma->vm_start, 0);
- 	ASSERT_EQ(vma->vm_end, 0x1000);
+ static inline void vma_assert_detached(struct vm_area_struct *vma)
 -- 
 2.54.0
 
