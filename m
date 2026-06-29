@@ -4,79 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7DEEC43327
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:44:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA660C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:45:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D64A010E04A;
-	Mon, 29 Jun 2026 08:44:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5105E10E06C;
+	Mon, 29 Jun 2026 08:45:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iLlT5YQe";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Bal8FNjL";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3430F10E04A
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:44:03 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-4704d652e9cso1083301f8f.3
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 01:44:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782722641; x=1783327441; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PGm9QONZukO2Q5rdaZt121dw8G3tFHNBSookGlxPwSY=;
- b=iLlT5YQeBdHRBfz6g1dXeNBYt0BQU6nSPmugp+JVKazVYv8cHpokYTD9HEvJXoPlTB
- R36tMkQ+EH+RCczxBROtHGD7ivsJWJBLMXurrntXsMLBUx6b1V68idKWQG42IdDX63Yq
- 5Pu4FPECLNaL8xSzEWF92Q6WcqtcUB+Ahw08wtYmfMar3lx6i9sOLiud7AjKNGvApeVn
- vjTMtkIuQc1JqsgDAlrTqpk666hr+hdr9d2khf+h9QeyG+31zLy5u8EZKiyQloTf6r+J
- 8n9Q8n5W9QnPymoEg9GwPfU7pnucxusLw/DEw/nQSp71maPKuPOrgGrhdVL4Nt5P9qvr
- TgQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782722641; x=1783327441;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=PGm9QONZukO2Q5rdaZt121dw8G3tFHNBSookGlxPwSY=;
- b=S8C97Vhq3Te5k3FGdQJjCZxoJ30yw7N9FLmBq46vgarupMEagc0cVxFATRtdLj1yuZ
- 0lQ5dUIJRH4nuCqHmogPpU2BS0TfxBajk7u62ZjUJzBBR30vDHVweRWMoErgUVxFlsm4
- tVGQ6egdNA4cyaiq7fFtpp/YL9cw3yeoFPCcbOkhG0dn35OnAB5MMdAx6Cmh9z23Z8Yy
- aGSTM5NL2W7CDbjKQ3/dafiD1pg60TFP+UHQz0b3mnk02rzO1b1ZhNVMJtv6WJfzA/Ql
- 8E+pUPUvcBb2vtPfYca9+8UKHe14aQk+EMIdbEBDXg40uMj2XpKOrywfT0B3jrRwE2Q+
- XgvA==
-X-Gm-Message-State: AOJu0Yx4x0HFuZgD3wGHgZ9BrCQgvsho04lnMOxjr4L/gbtDggvY41NS
- 6KrU8GYuwRn/1+lhXtySXaWdsJAUN7gGid2z3Zeu9NHlDyZyI3uF7ASX
-X-Gm-Gg: AfdE7ckbx9iycujiHilpeEMaT+EKER+5b8JqKNNkKM/MDF/HjqXPuKbY5jMUZGM84ui
- c/lIdzDC5WWbSUfzk/poNhlDpYtfuRMPlmNkL1iVBi8T2Gyc1sVDHSRxgaWc9hlU03LTRi6aiuX
- m6MQaBfVabivC+lN7yJ6BhBjCyzbw+CGpWbri0+52KI9Sc0pl3wrQM3emBedJTUf0AtW7oFvxjs
- /sbG/LQv2DSbvtnhhz8YIcH0NEZmJQ2eVy4d2nwnlDKfLIatOyGv46jhlQXPPq5lEYa2WE1YnSs
- YyVJNQPjHQfu0vta3Cn7NddAH+Svj67RkqvPxrjw2a6oSj6ylE1Diur1Vuo2OxYdFiqrH/uYgtv
- Tf5vE7PvePoBNAyePHvOVwbGpz6ld25CYyQAAQSUJaeeeUDw91Ea25JODMdDVS0KwMYSl+8F4hP
- kOZpg4C0rMRAG0fHO6AQAbEe9WQcQ=
-X-Received: by 2002:a05:6000:4210:b0:470:4d27:97a3 with SMTP id
- ffacd0b85a97d-4704d2799d5mr12518285f8f.1.1782722641174; 
- Mon, 29 Jun 2026 01:44:01 -0700 (PDT)
-Received: from anthony.local ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-46f8d6f10absm41208583f8f.5.2026.06.29.01.43.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jun 2026 01:44:00 -0700 (PDT)
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-To: Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org,
-	sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH 1/3] drm/ssd130x: fix column and row end address in
- partial updates for ssd132x
-Date: Mon, 29 Jun 2026 11:43:16 +0300
-Message-ID: <20260629084317.10265-1-amit.barzilai22@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260622123631.8B4A31F000E9@smtp.kernel.org>
-References: 
-MIME-Version: 1.0
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012013.outbound.protection.outlook.com [52.101.43.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A1C310E06C
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:45:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=G3iPGhjzgHzR/i8+JLN+tvpHR5Wir3e1ZEnQciwL5CNR7i8enkA5vQcDifooDw3lYkI93ATyUDPTjB/KsYjunMveUVq0lmGuKKnKBY+l3LSyX7KHu7MfHn1GUtUyWuL87ilkU0nG2JEaqYffyMDxdDv439XD1jvd0Hs0FQ9jY9CP4CzHDTWk1x0oZbJ7ueOeF7d8QP98AEooaKb0gphA5Jvdkum9MawYYzJJcMMY5GsEW9Fohzi9bjlon3KUCsrrp6X0R7J7BaCk1R9KDcfXE1vk2XAyUEoM8awwSm8jsN0WR71nSauVC+Nb9nL40nj1C4HVOjeBlPpihvS6ww8NVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FyFi4cWhfmG6yEHKDlBzlSjelEj8KABaqY+V2GEuBAA=;
+ b=HOrxNVBGKb7vjTdcxLLhjy4fXXJe39dmB3KIgy7OpKgX7U4+Rob6uWKEshllIwAL8mGzxMUdA5750AhuQrp9iI/JLPNJUWhsqttwzej8YFu4XZbWyHY28YclWOKLdRggjDkxqzpI5RJhh/jCcuo3Ni/WCCcLoyyiVn+32HxGWlUvP9QaHPWdPtAxJBCuTqzmovUXwSZNzcE4/4WkTvZK2THweribIgspzofd4mW/rnbL4DPj9qvXioxrEeSMmFO/kewa7k8/9B5y4m/qcl/xfsj3AzCBUyJDk1b9Mu2M6tSQlwJVdTJgKcRWzMqTXEm08ohmr0XpS+xUN3jEwFFjiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FyFi4cWhfmG6yEHKDlBzlSjelEj8KABaqY+V2GEuBAA=;
+ b=Bal8FNjLBv1jOkp5IPFlTxHf+JoE91Y3o76PKdtEUIXz1LB5tVVdE1fJTLbVH+uUXDhhG+jlsSvwca1Ge4L7XCVcGdWnblzMRwcU7HClWap4oUPdN13dPqATEavI+do4M7moAw8mikqI5VcOw9c4oKwUf5u/ks6kYMFKA9tuqEc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH3PR12MB7643.namprd12.prod.outlook.com (2603:10b6:610:152::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 08:45:28 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 08:45:27 +0000
+Message-ID: <becd29b5-9e40-4104-b6c9-3d91e2ddddff@amd.com>
+Date: Mon, 29 Jun 2026 10:45:23 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-fence: Make dma_fence_dedup_array() robust against
+ 0-count input
+To: Baineng Shou <shoubaineng@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>, Philipp Stanner
+ <phasta@kernel.org>, Akash Goel <akash.goel@arm.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260629031346.3875683-1-shoubaineng@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260629031346.3875683-1-shoubaineng@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BN1PR14CA0009.namprd14.prod.outlook.com
+ (2603:10b6:408:e3::14) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB7643:EE_
+X-MS-Office365-Filtering-Correlation-Id: 383a54a2-bdc5-4241-0323-08ded5bac4de
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|7416014|23010399003|1800799024|18002099003|22082099003|11063799006|56012099006|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: Ld3jOEIOUE+6zjqgiFOdDIthMie+Nl3Wpi9+fv7m8abCUyMVUP/DjesKPQT+l0D+a05cWjIZGQLyJr8i0eMIrImxjiAQ4JWtsUZbWu1IN0YV2UBtGLDgqmvOjiQtvQazUfnHaRErWPIJJPSuSYTe3Ui3xEEWQvZUUEuyWAmledYCPxze3pf9V9cd8ZYT/lovZRgdQ9w21xAHnkuUh2GfIgSfmRFWMrFvxCkgaT5fnRbmecBvCXRntDftejiZAkGW6Vgo9aERJzcUgjvkQZ8PpY8BQqswr0xgcWHkKb0/DQbLZuOXZxSJTXGuAAyJ+hi34EmE68uDKiTDLh+c6JgvfZY0oY2s+/cN2/lKTjmlPwBUHxThcDWBH+np+jwGaGlfYQ0CoKjsZNwX7lD+SAsDbFPhLggwRxYxTbOzkIUile0MLjTTMVBi9FdE8vfHeXc+a+xAibZ9/2RMvK61aTQcLsNsfzmQUc/gnSor8zjjtfWuoqH/9mBIVlh+mGV4NGM/kA2IWRC/rcUeaBJCAZRkQfYLe5jTaFiERjLhXDLKtiXYs0BoNdY5+Uly9BCRdIwXGNaiZzKyzKBDcpoK1/G7u9qG5XIPaM4Bt2/WESOLLt08Kj8cbCkjxLtCJi1ns2pjZ585/CPGqfUCm8tgU2jwMNxfLoazrMxjTlXLMOsMt6c=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(7416014)(23010399003)(1800799024)(18002099003)(22082099003)(11063799006)(56012099006)(6133799003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ckUxYW05ck9Zc0V1U20yMGxPYm9KdE43UWJ5UW1LMEFYUC9vREZTbnJqSE55?=
+ =?utf-8?B?VUw5Y1U0WHlYS3IrUkZmZUdldEF5YjhvS2kvZmxPdjc0YW1VUjBvbk0rTXhv?=
+ =?utf-8?B?THAzbmtiK1FuQWQzTVRlcXR3SWNadWt0YjFhczF2YnpJdi9TSVJubFRaNEZN?=
+ =?utf-8?B?aTRTM2xkQ3RDNjllVEFlWHpmS0ZGOG5JQlRCRUd5N3VBVjdwR2FnYk8yRG1C?=
+ =?utf-8?B?Ym1PcHlaTVorNHUxRzc0SzRuSjBCM25Lbi9IR0grK3ZRZC9Vd1ZGdTBMdFp1?=
+ =?utf-8?B?alJqTW5aWlV6Ry9FRHV6WEVhcDVGV0hNTWd5V2JpbkRrRmQ1aEp4ZS9qVFpt?=
+ =?utf-8?B?WnRNUzBGV1M3bjJlWldxRmxsSlhEaDVBRHBYL1ZzUytJZjQ1UzIrMlpzNDlu?=
+ =?utf-8?B?WFYwZnRDZ2xOMHQwSUhvVUR3ajJTS3N6dDhpbWM2TVd5SnkxdWtWQk1SQWVt?=
+ =?utf-8?B?bUZqL28xalJrYmMxa0RZMWRTYU42YUpaZWVoemw0VGxpOEJ5bzFUd3EwVHdh?=
+ =?utf-8?B?SEFOaEFHTHoreHh6T0kxK1dIUGFqbW5KUmp5UWxDUCtIeXpDK2N6VXRiRnMy?=
+ =?utf-8?B?ZmFjVjg5djFTM1VjUEVlc1BKcFFyeXhVTFhrVUhUdytjc3gwVnRpdjhzWW9s?=
+ =?utf-8?B?UWhzVVFvb3EvanNsOUwxL3puTUNKbU00NWxwSHZMKy9qcUcyMC9PWXZDSzlu?=
+ =?utf-8?B?aGswZzRLWmRZQUpsRjYvQU1nRC9VVkovU3ZlZXg3MjRMOVNQbWxzNXlwMFI0?=
+ =?utf-8?B?YWF6U3B4QWsvVDBjWDlPMWZ4cDBXZ1NxTjFtTitmYXFwL0hCb09LZG8wVUxH?=
+ =?utf-8?B?TlFFS0xPQjJSNmIvU2ZNWEd4dUp5KzRmQ0VobklSa1RkRitDWnhOZ2FIUFZH?=
+ =?utf-8?B?YWk4QVZsaExLNXZCRFFxQUQ0MzNSTDZoaWxjVi9GZjRIaXFXdmtTYnJDZnRC?=
+ =?utf-8?B?TUJGd2lmb3pSbFV1Tm9qa0svMnhFcFBxcVJSdDMwMys3N0FNM0ZlLzFtdDE4?=
+ =?utf-8?B?cW0wWGRNNzkvdmFNZ0ExU05MYlhhWDFUaHpIUEhQMVQ3ZVBYa3d6N1VxMmI3?=
+ =?utf-8?B?TnkxQUVRYTFLSlhybytScGZ5R2xHZnByVVNNWEZkcmVwaUJrN2FsSGtYcVho?=
+ =?utf-8?B?VjU4ek9oY2VCanZ2ZnZnTEFyamJTSjl5U3V3UUN1T3VLSFlxNlRQOERxUGVy?=
+ =?utf-8?B?WFlxdWVvVENSWXMzOVBYQllMeUlZdHM3b2dzRVQ0WGFPU3BoandNcElJanZL?=
+ =?utf-8?B?bVZTaWtITjUwVWsxUEpKVldZR2lJM0tZSDBHVDlVQXZNMnFKQ2JkWDZ5UzR1?=
+ =?utf-8?B?TEhsckJwdXV3OTRqZjhKbXQwVi9uTXI4U3pQd3RINHpuSk5tMDBsbjcyekFV?=
+ =?utf-8?B?NXRBMGxjT0xqeXJoVGhFdEpaWHBndjBpVncvUzM4Y05aMDdmbGtpV1h3bXVi?=
+ =?utf-8?B?N0FXL0VQbEppTVI5L0hQYk9mUkdpWTJUc0luMi9BOU5MY1Z0Z3ZGQWllL2x0?=
+ =?utf-8?B?OVZzZE1FTHNjZ0NnV0FweXk3QlVCSVFmS05naEE1RGpjNkIzaUhnczUzWmpr?=
+ =?utf-8?B?MEJUbVBTNWpsOHQyamtrbEVKMFpLeEdxNkhaTER0dDVFLzhPM3lXOFdPcUw5?=
+ =?utf-8?B?bEZxMllUbGxjUyt6Zmt1QlhkU2xqWDVyTFZQUUdFS2xkdXpUV3YrdlltTUpy?=
+ =?utf-8?B?VklwYkNnWnhnWnE2YUpMWFNiVUZGSm0xVVE5QXgzbHF0cHM4MEZob2hVSHFF?=
+ =?utf-8?B?M2xkVDQ4aFE2OXhzamlUNE1USitBTG9qUVdFNit3SzVWWjM4K2dpVlJlTTlv?=
+ =?utf-8?B?RkREdGV5WlRFdW14Tk14UUJLOVk1ZDI4U3FacjJSNDJmSmNKUVJWOTdzNmVs?=
+ =?utf-8?B?TjdHZGRJNWRocTJqbEV1Sm0rcTd4L21xMTF6RWwvZzVvLzVxbW0zajMyNFFm?=
+ =?utf-8?B?Q29GdTJyeWhLS0YxVWlVcGJMdTJueVYyZDhEWnlNN0JtS0pmYk9tWkxtMGZJ?=
+ =?utf-8?B?eHhWd255OWZBMmowR2lwZ1hBemRQbGFkdUFrNXVXSWM3SWZXcXJ6RitmZWMx?=
+ =?utf-8?B?M3FtVDd3OHZWeGN2WFc4QzNDd0F5bVdpK1hmVUUrZE1aQkpwVHlUdjhrRmxV?=
+ =?utf-8?B?K0NxL1N6MUEzc2UwNnBpemdFenYyU1V2VXg3bjdLamF4aTkxU0xaVmlPS2gz?=
+ =?utf-8?B?bnlDN1RWTHBhQUpSYm5Fb2ZJaVZsUllEZExJekVrdVczekttWXN4RkZuLzQ2?=
+ =?utf-8?B?QldlZjJZSDA1M3U4T0Nxa3hPNVpKb1ZhNVdJbkV4VitTNmNvNDN3N3pOSU1r?=
+ =?utf-8?Q?QZ7pKGJ8p1SNvX1RSc?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 383a54a2-bdc5-4241-0323-08ded5bac4de
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 08:45:27.8193 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rGv8LXfdfTH//CRHOR7UUtLuxh077pJqaKm6PAq3SfNlisPKnFwfTUYRc7CYzPkT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7643
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,19 +140,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 22, 2026 at 12:36:30PM +0000, sashiko-bot@kernel.org wrote:
-> Pre-existing issues:
-> - [High] Potential 1-byte out-of-bounds read past the heap buffer in
->   `ssd132x_update_rect` when device width is configured to an odd value.
+On 6/29/26 05:13, Baineng Shou wrote:
+> dma_fence_dedup_array() returns 1 when called with num_fences == 0:
+> the for-loop body never executes, j stays at 0, and the final
+> `return ++j` yields 1. This contradicts both the kernel-doc ("Return:
+> Number of unique fences remaining in the array") and the natural
+> expectation that 0 input gives 0 output.
 
-As stated in the review, this is a pre-existing issue and is not touched by
-this series, which only corrects the SET_COL_RANGE/SET_ROW_RANGE end
-addresses sent to the controller.
+Good catch.
 
-Gentle ping on the series -- it's been about a week with no comments. Is
-there anything you'd like changed for it to be picked up? Happy to spin a
-v2 if needed.
+> 
+> All in-tree callers currently filter num_fences == 0 before invoking
+> this helper (__dma_fence_unwrap_merge() bails out via the
+> `if (count == 0 || count == 1)` fast path; amdgpu_userq_wait_*()
+> cannot reach the dedup call with a zero local count because the
+> amdgpu_userq_wait_add_fence() helper guarantees num_fences stays in
+> [0, wait_info->num_fences], and wait_info->num_fences > 0 is enforced
+> at the ioctl entry).
 
--- 
+That's not correct, wait_info->num_fences is just the maximum amount of fences we return.
+
+It is perfectly possible that amdgpu never finds any fences to add to the array.
+
+> 
+> However, dma_fence_dedup_array() is EXPORT_SYMBOL_GPL, so any future
+> caller that forgets to pre-filter the zero case will get a misleading
+> return value of 1. Depending on how that caller uses the result, it
+> could dereference an uninitialized fence slot in the array, since the
+> caller's array may have been allocated but not yet populated.
+> 
+> Make the contract match the documentation by returning 0 early. This
+> also skips an unnecessary sort() call on an empty array.
+> 
+> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
+I will add a CC stable before pushing to drm-misc-fixes.
+
 Thanks,
-Amit
+Christian.
+
+
+> ---
+>  drivers/dma-buf/dma-fence-unwrap.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/dma-buf/dma-fence-unwrap.c b/drivers/dma-buf/dma-fence-unwrap.c
+> index 53bb40e70b27..364cbf79ad73 100644
+> --- a/drivers/dma-buf/dma-fence-unwrap.c
+> +++ b/drivers/dma-buf/dma-fence-unwrap.c
+> @@ -97,6 +97,9 @@ int dma_fence_dedup_array(struct dma_fence **fences, int num_fences)
+>  {
+>         int i, j;
+> 
+> +       if (!num_fences)
+> +               return 0;
+> +
+>         sort(fences, num_fences, sizeof(*fences), fence_cmp, NULL);
+> 
+>         /*
+> --
+> 2.34.1
+> 
+
