@@ -4,55 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45EE3C43602
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 07:19:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DBCDC43638
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 07:19:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B5D210EB41;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDBC810EB45;
 	Tue, 30 Jun 2026 07:19:51 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B94A10E178
- for <dri-devel@lists.freedesktop.org>; Tue, 30 Jun 2026 06:59:36 +0000 (UTC)
-Received: from 0046-drm-bridge-sii902x-validate-I2S-data-lane-values.eml
- (unknown [111.196.245.140])
- by APP-05 (Coremail) with SMTP id zQCowABX7RBJaUNqnWMjFg--.11537S2;
- Tue, 30 Jun 2026 14:59:21 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Pengpeng Hou <pengpeng@iscas.ac.cn>
-Subject: [PATCH] drm/bridge: sii902x: validate I2S data lane values
-Date: Tue, 30 Jun 2026 14:58:34 +0800
-Message-ID: <2026063007056160.5-ccfa108-0046-drm-bridge-sii902x-validate-pengpeng@iscas.ac.cn>
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bReqqF0/";
+	dkim-atps=neutral
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DAC210E8E3
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:28:49 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-493a548fc99so7178415e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:28:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782746928; x=1783351728; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=HFhwRQO/XnDqnsNCNRMiUIQQuhF/q4kw4HCjqPfc1vw=;
+ b=bReqqF0/CtTYtcKbjZyeVugl+OjTwLWqr+CVLT0pT2XsoQSXXXmPF5eKKYfF+/7xNZ
+ 4I0knfqB2hk4o1bVaPGs0HLe8GgflvhqkeR0P8qOKwpYdYIVY51m9h4lyCT093xhULj0
+ h97TDH/yc97CtrwbbrGIN392jJS6cr/tK3Xx9qm3c8juJDQkw9n9VEcg2+q3Md8wvf78
+ ADS7G5/i5OpriPPXZYqSFE4CJ7XT8G7cVbyvb1e6GT7N89C8EecgqzMGtVHqLmY70vVF
+ metLevno1pQMO7Gt+5Up+8Jnmj5rlonCQTbGGsKJoO4KTGDe86cS6D11l5cdzAHFtlSr
+ 1hQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782746928; x=1783351728;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HFhwRQO/XnDqnsNCNRMiUIQQuhF/q4kw4HCjqPfc1vw=;
+ b=stqlOof8WgBPdcFqCWBlzRlVowfh1U2ksb0TeZ8Y0OlN+Ll3Leq4lvYOD7oVRNTl9o
+ YTuP4ld97JuN38osp3ftvZWURYPxobrdjI02Z2p4Ua0jBKzNUDq2C7KmT0/jMQvwrIQp
+ tyr+BlwJZsyZwkYZEFA1gCxTxrNGdxvGWJNi8Zo3KjXLXRCPSv9BgVaopzUzBeFyVy2y
+ CBwg4FdEXAmLevwSKH//TpMEkv5k5ub9CdipVHk9n+jlzd26S9O4YhWDiStUNf2boD1F
+ yY392f0y2jWKuo8r3zbMNAHO7rCcWlO9Nub5wCNQuXQgwLkPMXG0+qlq1+oEdJ1wUrio
+ /CGQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+SCVm7Mf6M4TwYYMBQ1eE8w6qnZkjWZlf0881/bF8plUigxx1G9ULjxDW5uiV323CVtLkJFtifZcQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxE5njWkwar5gU16gXr+L5B8LZzC22j/NNBhmv0O2M4SyjrjS0K
+ hS6d7Q0XyvaKQO4P23AHxrSN8VnloJzY75tZSQylCxCo569cP7y4ARtR
+X-Gm-Gg: AfdE7cljmGviiJYjymBJfuugSB+linrUcXXwAeNZ4yMduyUT2PNfw0F+PR5NpZmVRNw
+ s95Ad0UnTWOFc9EKxhOmYAUhzlqEHP2bzFEv6D6hWcIhWaZvGcquyYJ2+0f/NRomEBK48xG1iD1
+ iuHBJtyRRU2J1h5Uczeb2Dc+AKv9DHsBKN9PLXWME8g+PenJw66ERx4eQ1DnTZYnajYRI//nlbN
+ TmzV0f9ZLCgFMFhoRWcKwo1B2PKqNwcdTGfsZDoJa+lFP4b1MhONO6MsPalP6G88TKWG4XdicN5
+ AgZb0Y31FIe6FB8RpPWFpSzf1tnTCo0PY9j+TfjY7lWPaguvmwL571RXp1bEgCNdc/97w9xeC74
+ SDndyyT1y7dlT9bFq+3x3rL3s3WHYSmPqCZG/PSSjqWoLNOllntxFZujT/VAlktJfyFHMOEGxSr
+ +3QyusEgi/OKOBMI/0K2o3oF6LMg==
+X-Received: by 2002:a7b:cd96:0:b0:490:6237:5200 with SMTP id
+ 5b1f17b1804b1-493b828c480mr1572865e9.10.1782746927577; 
+ Mon, 29 Jun 2026 08:28:47 -0700 (PDT)
+Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49268f700c0sm371321555e9.0.2026.06.29.08.28.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Jun 2026 08:28:46 -0700 (PDT)
+From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Yousef Alhouseen <alhouseenyousef@gmail.com>
+Subject: [PATCH v3] drm/amdgpu: reject mapping info when BO VA is gone
+Date: Mon, 29 Jun 2026 17:28:07 +0200
+Message-ID: <20260629152807.13492-1-alhouseenyousef@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zQCowABX7RBJaUNqnWMjFg--.11537S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrtrWUWFy7Zw4fJw1DKw1xZrb_yoWkAFb_uF
- s8Cr1DZr1YkFZrXF42yw4SvrWIya1UuF4xWa4jq39xt3W7ZF4Iq3yDXFyrZa13GFsrJF4D
- AF40y3W8Jwn3GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbVkFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
- Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
- 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
- jxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
- 1lF7xvr2IY64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY
- 04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r
- 1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CE
- b7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0x
- vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAI
- cVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2Kf
- nxnUUI43ZEXa7VUbtxhJUUUUU==
-X-Originating-IP: [111.196.245.140]
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 X-Mailman-Approved-At: Tue, 30 Jun 2026 07:19:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,37 +90,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The sil,i2s-data-lanes property count is bounded, but each lane value
-indexes a four-entry lane table.
+AMDGPU_GEM_OP_GET_MAPPING_INFO looks up the GEM object before taking
+the object and VM locks. The object reference keeps the BO alive, but a
+concurrent handle close can remove the per-file BO VA before
+amdgpu_vm_bo_find() runs.
 
-Reject lane values outside the supported table before building the FIFO
-sequence.
+The mapping-list walks then dereference the NULL BO VA. Return -EINVAL
+when the BO is no longer associated with the VM.
 
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
 ---
- drivers/gpu/drm/bridge/sii902x.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Changes in v3:
+- Generate a clean patch against drm-misc-next instead of stacking on v1.
+- Keep only the intended !bo_va guard for the handle-close race.
+- Clarify the v2 withdrawal confusion in thread replies.
 
-diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
-index ea543be..d68f0a5 100644
---- a/drivers/gpu/drm/bridge/sii902x.c
-+++ b/drivers/gpu/drm/bridge/sii902x.c
-@@ -890,9 +890,16 @@ static int sii902x_audio_codec_init(struct sii902x *sii902x,
- 	}
- 	codec_data.max_i2s_channels = 2 * num_lanes;
- 
--	for (i = 0; i < num_lanes; i++)
-+	for (i = 0; i < num_lanes; i++) {
-+		if (lanes[i] >= ARRAY_SIZE(i2s_lane_id)) {
-+			dev_err(dev, "%s: invalid i2s data lane %u\n",
-+				__func__, lanes[i]);
-+			return -EINVAL;
+Changes in v2:
+- Describe the handle-close race instead of an initially unmapped BO.
+- Return -EINVAL instead of -ENOENT.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 27be5083f2af..83ec994ad36b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -1087,6 +1087,12 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
+ 		struct drm_amdgpu_gem_vm_entry *vm_entries;
+ 		struct amdgpu_bo_va_mapping *mapping;
+ 		int num_mappings = 0;
++
++		if (!bo_va) {
++			r = -EINVAL;
++			goto out_exec;
 +		}
 +
- 		sii902x->audio.i2s_fifo_sequence[i] |= audio_fifo_id[i] |
- 			i2s_lane_id[lanes[i]] |	SII902X_TPI_I2S_FIFO_ENABLE;
-+	}
- 
- 	sii902x->audio.mclk = devm_clk_get_optional(dev, "mclk");
- 	if (IS_ERR(sii902x->audio.mclk)) {
-
+ 		/*
+ 		 * num_entries is set as an input to the size of the user-allocated array of
+ 		 * drm_amdgpu_gem_vm_entry stored at args->value.
+-- 
+2.54.0
