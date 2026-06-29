@@ -4,127 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 547A3C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:20:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30C62C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:32:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFC0C10E76A;
-	Mon, 29 Jun 2026 08:20:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8029010E03F;
+	Mon, 29 Jun 2026 08:32:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="nlOLv6xY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TgW9Zjrc";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012049.outbound.protection.outlook.com
- [40.93.195.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A33D10E76A
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:20:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j676VRpvNPOZPHbUi/LngoQJ5lkYirZShixA2uslOfTSYgblHi0OThP6+0U1NsPUQL9lEajejkW6M4IhH6kUaaLgI3CyQ9KQIZPT9tQzBNvv0jbCeKdxeH0KcTFEAedd2CUqjJevZFv+9/9+CSkA8m4BW75im6y1Teojche+Fvz/eda44Lofe2Ig0utcn555Lwlb6wekchzcpIQBzF6aN21+fhJHwHsFHQSjXOsGRE0yFGMGgkAqN0ppy2+MMekhMEi+skR0GfdaR6kFjR4wZOflO2IDyi0Y0DxIDBhbgiK7Sdt5MA75xq+vlMd7JFp+k945YhF4zUnyjHKSfnmfgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wE9BPr18iekWpfpDI8LXOVBLcXwz+8wEKmyo4IS1Lh4=;
- b=TtM1/NltBUeiFQa9E54aCJlDtfNHsEYr+q7+k+qf0NmxkHsyh7gHzSiU+9Ri9viEBd+Oy7XJTs7F9wDdwQoKmX/yK+biYo6RS3jH+3FvJWbnxqnGraAOc0HiiOuDSASWvAB0k759ebwJbBAssOBbG7X3P25QlpinxwEtMv4hAUNPyi47dMOUtfr00c2rBluL9f/bCg5Ie1y+xg5FGh+KeDQ4d+3a6w8Qb2n6bgRB365NgmL9ETuyuCwwMgaWWoMUm5R4A/wZPB5RALKafI9ko2bt3x1c9gwM98lljSlysEklCGXG7pzZwq+NcGML169zaT9GWBpotVSZFmuu+4PLxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wE9BPr18iekWpfpDI8LXOVBLcXwz+8wEKmyo4IS1Lh4=;
- b=nlOLv6xYZU8cFneB75l2s5Ly+OB7636Ji5VLr4UonQYZdPB9h/lnYXdxb/+Ph2rzoE/x7ilEcwp8OebQwZZvCU3hy/aYV0xD7H2L0TG+y3Zaf0uSTrMPLTzlMs22WJFJDVjcWU26HpulcfwNX84G1TCZI36jflRC4wIqx6i/d2uzg5MC1CJ60K3s3St1GF5zzugL9gD47rxRrHbIEGBSym3xAF/FhQIsGL/yIIkUvSNIoEfBEK/6REIL5X4Fw8DZFTKC/xB+5ZP6+/W3rco49BvNcYB6oyczhz20ihfdpNLYWFN6Qa67rUp7g/TIoWVtphMwx0qXNHik4tpCC3oPkw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
- LV3PR12MB9167.namprd12.prod.outlook.com (2603:10b6:408:196::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 08:20:47 +0000
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 08:20:44 +0000
-Date: Mon, 29 Jun 2026 18:20:38 +1000
-From: Alistair Popple <apopple@nvidia.com>
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: SeungJong Ha via B4 Relay <devnull+engineer.jjhama.gmail.com@kernel.org>, 
- engineer.jjhama@gmail.com, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>,
- Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH RFC 0/4] rust: dma: bridge zerocopy-derived types into
- the transmute byte-safety bound
-Message-ID: <akIpejFWuKZ61n_v@nvdebian.thelocal>
-References: <20260628-dma-zerocopy-bridge-v1-0-9a2895ebe30d@gmail.com>
- <DJLCLH7GDSBW.28J4PZW0FD60B@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DJLCLH7GDSBW.28J4PZW0FD60B@nvidia.com>
-X-ClientProxiedBy: SY4P282CA0018.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:a0::28) To DS0PR12MB7726.namprd12.prod.outlook.com
- (2603:10b6:8:130::6)
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com
+ [74.125.224.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0858F10E03F
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:32:29 +0000 (UTC)
+Received: by mail-yx1-f48.google.com with SMTP id
+ 956f58d0204a3-662ebb1329aso1771178d50.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 01:32:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782721949; cv=none;
+ d=google.com; s=arc-20260327;
+ b=S21R8+cOV4tBotxveYaaKnZRMQZhOSgNEgjFhYP7M9G4uibGP0ed7T4sBGChkiognU
+ EzOmH0ojoSqJNU0YwUlw59T2cfMFWyeLwA4f+gHHo2r3oOO94pNRXzJrGsdelBvvSFTp
+ 7eiP44NTy3v3Hkc+QWYNkI6BdrjMp4WGq1KC4GH294QXrS4eJm/exQNtX5rAEPzn4XE6
+ +l90mMZoLwCo9h1UP3Qeh012xvklEs0At+WxyPTBZXDHfjQs+9S2Y0qvb3vWhRWzxgRu
+ te43fWgyNM4jWiH/meT1pmpL5Nrf/kywotg8hz/hNR/Ash/jNYweQXT4gD2df+jytdc5
+ +NYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:reply-to:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=0OGxAqovijs+7cXCtbhWhwlyJk66go2fepY9edT2JPs=;
+ fh=9gflIqG1zWat/s2d7i3BXFKnZZ4uE5Gk3yDFGboiub4=;
+ b=f1LsUldAvMbAFCwM2uwT2gmPYfrBSHgPmTnA5pvCmJY9FPvTfDdBH+frtpA+GA/77P
+ jHXE1/aqmMJFHuwpooJF5IBDbevGWjZg5LqmL0ZSHsTdPNGpuWxEkNp0cliUMoTiLt5r
+ QbE/xpd8eB3AbnIsDVvVMOUJ1Fh9dxzu0EHVXX0IPnSKGmScBwVzP7zYCnnq5BVcjjDg
+ l74xr6gSrr0OO/IaiYA2KwcTH7bMkHTch/7LwE/O9c2zqD44CStAvdeUBsm3sEM52kHt
+ b/9LJ8bTCGK4t4k72WRg9wEfsbMsQytn48Uz3nPwnyflToU63ipHwUcRs+jD2mhch/xK
+ ou8w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782721949; x=1783326749; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:reply-to:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=0OGxAqovijs+7cXCtbhWhwlyJk66go2fepY9edT2JPs=;
+ b=TgW9Zjrc1kqfcWNqBLnNv3UhAf+a2k++7ppF52YCB4DRDh4DRvhA1znGXeEtSDZZRz
+ YHNpQKokNoPjL9t5sR9DGjM2v0D7Lid8dAS25CS8wLDy5xLasBUblnWjMB1MpS25ekmO
+ j1SVO+x8tl0mBb89nizNNi9RmdYChAs3JgiutgCuegwr2e5zMFAQSybdETT/cMA5BgpS
+ 6V1Y0PvEoKNw7MRGk0+NLpvlxlfgfS5oBQUNkXmIs43qfMn2GKoUjqF65yhv/oFCyuKV
+ x2PXjznh+UVfEu+954UCPGQp5rD1phi3OjE4NE5/smYEsjdOIfBfN+VOdWJhu40Q5VtW
+ vARA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782721949; x=1783326749;
+ h=cc:to:subject:message-id:date:from:reply-to:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0OGxAqovijs+7cXCtbhWhwlyJk66go2fepY9edT2JPs=;
+ b=ILcJeHYirJmwYMb+arHoUporzaKy6FQBvgHr7NahLlHSDFuwT0fKsZwvfwwQyPMqZz
+ Z+jehIwLIhm9PzEHNZTfc6Or/Lp3wjjMJi63PxpRBDjrLiITgROnkO5fH0YCZ5tjpjYM
+ HDopawhBmsDd/jsbhjSjpGipZelj/o6N/NrPGX4yHZaTVCkV2lCvvfO67UbBedWDxpLU
+ /6dQliw514fz1WwEyZql10+U0r2C9OMz4vE/OegQIQA8M1DPONujqn+OToEU3KQc/2I7
+ ZAZ1D5uE1hzRHkThQ9haM5ppIETxxcLawoRg9hLc150/Lb0EXC3Ui9T+UYpMKTDr/959
+ GSEw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro3WAgO/28zzMRfo/iEsf4A0z8+GY/Y36B1P3GHrqdg82rBJnhT642KfmczRefOTb4or10l6RYnouM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy2k6YkREpLcrdTXAREyDpjQh8bKPOiPkYiKPYV3jWPtu15GkyD
+ i/kMo0QpWa5AWpQvzFtc7g/VwwzIfqHJgSFloyGr8B6PWsjR2urOmc+Td3qJmnMiuDzEeLkiN/L
+ ebraF/+FpW40L8SgaBow1ZqPqMmZhwUg=
+X-Gm-Gg: AfdE7cmpmROjBwUCG/WDhPO5+jVhQ+wJl0Ke+faYxU8QIIQoyugkJbaDg06VNNSdgu0
+ MC2SkmC7BowjWppJEMHZd0PnJIn09e3xtE6KVQOdZm0lKCmu3gM3QECtzrcVBDUCQW4Dtu7s9Gc
+ JGdMuMvAO7nJZsYlhDjPQdRTMmxBBc2Bz+7eFezD1jtbRvgqtZZez2mxet9okrkKdr6xSL2BfcN
+ ESD13xyEMBoqbiwNfbkwFYIIfegPPQJWuKp9j1rXfbC2tkxZkwp8NoNKbFhfH8MPyhpK3XMScfU
+ YCqWXZ4HZ082mkxxm3T7hlpTwEE0Z143shTb5fc=
+X-Received: by 2002:a05:690c:3706:b0:80d:c2cc:f67a with SMTP id
+ 00721157ae682-80dc2cd05a3mr49197357b3.38.1782721948672; Mon, 29 Jun 2026
+ 01:32:28 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|LV3PR12MB9167:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6e5c3d4-ba81-4591-cc9c-08ded5b75064
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|366016|23010399003|4143699003|56012099006|6133799003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: K5cvsCvRbpOBSj7tS2a6o+6iGerXKoWjbhgU4BD4HMnWC/UC9D9Zr3x03o4LisNQsG8ezrEJ2Xx2/p+9S4jXDsFEw4mfS012/LRBF2UqJEz+NDwx1V/7I0YQboTQlgPMNre+hi+Znij6pSBd5A4RQ3tJta+t5lq+5TyPLikTsX/U0f1WKDHuCKpzbhB8Us9GNUufsBqNPYXxeXwyZrP0Rtv0MyCcoVOwmUirvGgp/PfRS1pVhkUzOsCEOAKi1gjsyEOrs3XTmB7lHTsmXnRlKxr9dm3CLxYRpFbdG7ORyQAeRHvcC3div/0+Lofh6OC5jZ7YM+KyoI9ouws2foMyT21rIH46cW/C2PCZHPJIVIxu5jixyx39B0d+Wj5gKjB5O2ma8CfbOt+SLDpA+qIbxkzzfRZfwnLoYkUWCtyC0Dednz7hFlyaChFjmS1VJ7N1oQ3I8+DSNBPSgwxXcYeHsQ3FIv4IswqNsXCtAv+P7MECYLB2/RnmLrdOyqLcqrwWsftVeJmGqZE7haylAJRxugafyy1jPIs+9WvAqy0jK/37lF8HAFyhk9OM+51Q1y1oNcqC651gRp9spC5TRIWpGJzUVbc63AJu3dlwPSaF9bDQOXGrIeL/8/RnS4yC1aBbA6E93pAnWjoLqkQk/s3oNjR5rBQmtZII0bfr4CeptWY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(4143699003)(56012099006)(6133799003)(11063799006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?FibKasfyZEsA4n0O5TRQFHprf9lnV3OIzNqjX2Yvfeow+CuDjRuohXzwU1Lb?=
- =?us-ascii?Q?URBtLvPtlojLYuMQdJhdj5aO83AA4NXsvTk2mPd5X9s4mTuQ3/WBsU1IQtYj?=
- =?us-ascii?Q?5NCrT1xcuxcwVCPXOuWfpDIP5WekI6eCw6i8sZpDN1n+eES6YPBu3TxU/jIb?=
- =?us-ascii?Q?SlBESyV4i5LIj8vhAhDJ5UiPkTL18PV3We1e0A9I8ojFn5N9/ZzTYYtEAMEy?=
- =?us-ascii?Q?JPjaCbJZPQsnBf1RKhX0rULm+cQIdVRsYi3lWHXvt/PHlLwGJA2n1nlfNKRz?=
- =?us-ascii?Q?TcNufHcsFrxUR/xCtzAZIuwCt84vRDaQIvpN5V8QhMjAIEDyI6VYPk++aiE8?=
- =?us-ascii?Q?8/PbagKZFrtLW70SKI2MBaF7ZVx6Dj7PoT3hLdhHji/V8+DzjhonSjm7vBYY?=
- =?us-ascii?Q?v6BwXw/m7ahuuqaG+uJNonc/Qa5s7KnStz+7cEhcDu8I1TnpzkaS3OkubJP8?=
- =?us-ascii?Q?awiiJXbB5ZaAYF9vqjHbg2TJiHE31EOMRlex+Id4Ca/FnB4I+zAJwPJn1Hid?=
- =?us-ascii?Q?K2o+1piJBlaSOlHLBJj/kqyJahHXTvbRNh3Qq10JqyYEVH2KtHqqQ4H6yB+C?=
- =?us-ascii?Q?jZhwnibPgDTkJR58snlS4k9PZSai4DxVoAia7wH827vrvdKFRsXEJn5W9A8h?=
- =?us-ascii?Q?A7Q0oaMzIscr2gC5tZFZs0W7JoFAEyfiLZQ1JO/tEcPf6GX84yJ0KczEH6e3?=
- =?us-ascii?Q?A9oPHKnx7mx/s+CZu2JQFraEtYRRuqcEYQtRpowDIPpkm/urYGnBj/aCD44C?=
- =?us-ascii?Q?VBBURz3fAAMipZsa+acCxXQrSSpN5PlQaujUZXFuDwRcPjxOAeV0y9kLy0Cq?=
- =?us-ascii?Q?iiy60883x5tmN7+/IfKxq0tHq9kEBbVRAYqkxuWCgbgi7VMjxXvAPjfp/5GX?=
- =?us-ascii?Q?n8X9M0hbrkiCHfg0r1jUe64AEfU9R03PkTxFQF+W3vvQOqsfuzpID/oxrIoo?=
- =?us-ascii?Q?pDyrzGUgYQCvOEW7nrLc3zuYwzZqy4+BQxMZzLAzHPECt9fo6sRQJu5nxlXM?=
- =?us-ascii?Q?tuPjQn8qpq0TLRO4uEulLHPTXiELQszffx93sysfGlS7t5khL/LMN4x8DbNO?=
- =?us-ascii?Q?EW7oWbpzW3y/NOcpG+Q4qFvCCMPzCT8W5LMFe5UBEXzDtheab50FH+15R6SU?=
- =?us-ascii?Q?BvwwfmrAb6/sl5W9bh+mIR6JLvaLiffK+f0ItRpl2R3OUPVCQ8U/xrXe77jE?=
- =?us-ascii?Q?w3MUvyOOwIksTEHc4F8WLSVe3V2UI+WlqnkrxikTPggMp5hu5EeWZcpJJRmA?=
- =?us-ascii?Q?kA1vHxZImWq9PTDwS6t5WoldzrDBTeDLqfT+ofr5J7BGB8GcwayGm+OMIbxk?=
- =?us-ascii?Q?BvkKHQzY3xtihcsQH0s6cJIQPdQtnls6gwuYImWCssovFx4Ao2Gm7HuEOQfo?=
- =?us-ascii?Q?A6ZJypmI2i6IeQNGSjxyMTVIEmamyYQtDqSf0nCtOpK24zrTs9y6aRrBbxCG?=
- =?us-ascii?Q?Op4G3MlGH/cl8csdf0K61aByuc1PX6XQlV18YW3xlJ+3sqchiSOJuZYRmdI5?=
- =?us-ascii?Q?6acAs1r5aF/m3IZpsLfmBxcy0tH54EJaS4KW2EHicn6ytlD6NbwvQpIbg+Cq?=
- =?us-ascii?Q?F7DXFWHXAlEHxKmm9Ax6laE4V2Zh/Dxr+etzwnEygFsXX7LVPSeQkqvi4gwW?=
- =?us-ascii?Q?Rx1oGDxKo4DttOjnatVE5+ipLkrgUTq7TNSg9iB7F9sgZtP6kB1PRVcmv6Zq?=
- =?us-ascii?Q?FYlISLLui3hF+Bl8jg0KukzLLoVDmWEYwedbpi4PTrP/R6ptaxmi3hw9YlVi?=
- =?us-ascii?Q?GGQyDRCiNw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6e5c3d4-ba81-4591-cc9c-08ded5b75064
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 08:20:43.9379 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8Wk4pdhLcJTbLix7X3Sx5prp1fBzSHJWBwHNq9o0k/ddm9tvLwZDmUYJ600HeqqP0wisflzTz9Er/VYMFJBrcQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9167
+References: <aj5neetgYdu0QpcK@GRAPHRT> <20260629094419.6bb56d99@fedora-2.home>
+In-Reply-To: <20260629094419.6bb56d99@fedora-2.home>
+From: Erik Faye-Lund <kusmabite@gmail.com>
+Date: Mon, 29 Jun 2026 10:31:50 +0200
+X-Gm-Features: AVVi8CfyDy7wdmQRBtdUUoaeCB5v9_-wvxYFDwHeoEjB60cKt2Gpgm5W5qq3jm4
+Message-ID: <CABPQNSa0-wqQTm0CzLFojWZLVY5OqQxWTXrpO=O4p8go52808Q@mail.gmail.com>
+Subject: Re: [BUG] drm/panthor: intermittent freezes in Xorg xserver
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Marius Dinu <m95d+git@psihoexpert.ro>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, Steven Price <steven.price@arm.com>, 
+ Liviu Dudau <liviu.dudau@arm.com>
+Content-Type: multipart/alternative; boundary="0000000000007be7c70655604c9c"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,48 +101,199 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: kusmabite@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-06-29 at 17:17 +1000, Alexandre Courbot <acourbot@nvidia.com> wrote...
-> On Mon Jun 29, 2026 at 2:10 AM JST, SeungJong Ha via B4 Relay wrote:
-> > DMA-coherent allocations (CoherentAllocation/Coherent/dma::Pool) bound
-> > their element type on kernel::transmute::{AsBytes, FromBytes}. This RFC
-> > lets a type satisfy that bound by deriving zerocopy's byte-safety traits
-> > instead of a hand-written unsafe impl.
+--0000000000007be7c70655604c9c
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+I wonder if you're experiencing the same issue as this?
+
+https://gitlab.freedesktop.org/mesa/mesa/-/work_items/15116
+
+On Mon, Jun 29, 2026 at 10:24=E2=80=AFAM Boris Brezillon <
+boris.brezillon@collabora.com> wrote:
+
+> On Fri, 26 Jun 2026 14:50:17 +0300
+> Marius Dinu <m95d+git@psihoexpert.ro> wrote:
+>
+> > Hi.
 > >
-> > The bound cannot be switched to zerocopy wholesale (some DMA structs are
-> > unions that IntoBytes cannot derive), and a blanket bridge impl is
-> > rejected by coherence. So the series bridges the two per type:
+> > The system is Radxa Rock 5 ITX, RK3588, 32GB RAM,
+> > mainline kernel v7.1.0 with panthor driver, mesa 26.0.7 with panfrost
+> driver,
+> > xorg-server v21.1.22 accelerated by modesetting driver, x11perf v1.7.0.
+>
+> Are we sure that's a panthor issue? Also, is this a regression
+> introduced by the latest kernel version, or has it been like that from
+> the start?
+>
+> Also, would you mind opening an issue on [1]?
+>
 > >
-> >   1. add the bridge macro impl_transmute_via_zerocopy!, which emits the
-> >      transmute impls only for a zerocopy-derived type.
-> >   2. re-export zerocopy::Immutable from the prelude.
-> >   3-4. worked example: convert nova-core's GspMem and msgq POD types.
-> 
-> Can you give more details about what the macro is for? My understanding
-> is that it is a temporary fix for the generated bindings; if so, I'd
-> prefer to apply a definitive solution (like using
-> `#[derive(zerocopy_derive::most_traits)]`, or updating the bindings
-> generator tool) rather than something that will be removed later.
+> > The most clean way to reproduce this bug:
+> > Form a console or ssh session, start Xorg in background, without a wind=
+ow
+> > manager, and then run x11perf on that display.
+> >
+> > Xorg :0 &
+> > x11perf -all -display :0
+> >
+> > The bug: weird intermittent performance issues in some of the tests.
+> > Examples:
+> >
+> >     1000 reps @  18.0799 msec (    55.3/sec): 10x10 rectangle outline
+> >     1000 reps @  18.0791 msec (    55.3/sec): 10x10 rectangle outline
+> >     1000 reps @  18.0790 msec (    55.3/sec): 10x10 rectangle outline
+> >     1000 reps @  18.0789 msec (    55.3/sec): 10x10 rectangle outline
+> >     1000 reps @   0.0287 msec ( 34800.0/sec): 10x10 rectangle outline
+> >     5000 trep @  14.4691 msec (    69.1/sec): 10x10 rectangle outline
+> >
+> >  5000000 reps @   0.0029 msec (345000.0/sec): 1-pixel solid circle
+> >  5000000 reps @   0.0009 msec (1100000.0/sec): 1-pixel solid circle
+> >  5000000 reps @   0.0012 msec (818000.0/sec): 1-pixel solid circle
+> >  5000000 reps @   0.0000 msec (20900000.0/sec): 1-pixel solid circle
+> >  5000000 reps @   0.0000 msec (32300000.0/sec): 1-pixel solid circle
+> > 25000000 trep @   0.0010 msec (979000.0/sec): 1-pixel solid circle
+> >
+> >     1000 reps @  31.6607 msec (    31.6/sec): Fill 10x10 trapezoid
+> >     1000 reps @  16.9012 msec (    59.2/sec): Fill 10x10 trapezoid
+> >     1000 reps @   0.0234 msec ( 42700.0/sec): Fill 10x10 trapezoid
+> >     1000 reps @   0.0272 msec ( 36700.0/sec): Fill 10x10 trapezoid
+> >     1000 reps @  32.1268 msec (    31.1/sec): Fill 10x10 trapezoid
+> >     5000 trep @  16.1479 msec (    61.9/sec): Fill 10x10 trapezoid
+> >
+> > There are no messages in kernel log or Xorg log.
+> >
+> > Visually, most of the tests runs fast as expected, but in some of the
+> tests
+> > it gets "stuck" randomly. The test suddenly freezes while drawing the
+> pattern.
+> > Then, after a while (a few seconds up to a couple of minutes), it gets
+> > unstuck by itself, draws a few more patterns extremely fast for less
+> than a
+> > second, and then it gets stuck again.
+>
+> It smells like a signalling issue. Can you check the CPU activity and
+> report any outstanding process? Can you maybe connect a gdb to the
+> x11perf to see where it's blocked, and post the backtrace here (or in
+> the gitlab issue)?
+>
+> Regards,
+>
+> Boris
+>
+> [1]https://gitlab.freedesktop.org/mesa/mesa
+>
 
-I think the context is in the description for patch 1. It's not directly related
-to the bindings generator. Basically the problem is that these bindings are a
-little bit unique in that we access them using the dma_write/read macros. In
-other words we use these with Dma::Coherent which still requires the transmute
-rather than zerocopy trait bounds to be implemented.
+--0000000000007be7c70655604c9c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-That said I think the correct long-term fix here would be to fix Dma::Coherent
-to make it work with the zerocopy traits. Not sure if anyone is looking at that
-or not.
+<div dir=3D"ltr"><div>I wonder if you&#39;re experiencing the same issue as=
+ this?</div><div><br></div><div><a href=3D"https://gitlab.freedesktop.org/m=
+esa/mesa/-/work_items/15116">https://gitlab.freedesktop.org/mesa/mesa/-/wor=
+k_items/15116</a></div></div><br><div class=3D"gmail_quote gmail_quote_cont=
+ainer"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Jun 29, 2026 at 10:24=
+=E2=80=AFAM Boris Brezillon &lt;<a href=3D"mailto:boris.brezillon@collabora=
+.com">boris.brezillon@collabora.com</a>&gt; wrote:<br></div><blockquote cla=
+ss=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid =
+rgb(204,204,204);padding-left:1ex">On Fri, 26 Jun 2026 14:50:17 +0300<br>
+Marius Dinu &lt;<a href=3D"mailto:m95d%2Bgit@psihoexpert.ro" target=3D"_bla=
+nk">m95d+git@psihoexpert.ro</a>&gt; wrote:<br>
+<br>
+&gt; Hi.<br>
+&gt; <br>
+&gt; The system is Radxa Rock 5 ITX, RK3588, 32GB RAM,<br>
+&gt; mainline kernel v7.1.0 with panthor driver, mesa 26.0.7 with panfrost =
+driver,<br>
+&gt; xorg-server v21.1.22 accelerated by modesetting driver, x11perf v1.7.0=
+.<br>
+<br>
+Are we sure that&#39;s a panthor issue? Also, is this a regression<br>
+introduced by the latest kernel version, or has it been like that from<br>
+the start?<br>
+<br>
+Also, would you mind opening an issue on [1]?<br>
+<br>
+&gt; <br>
+&gt; The most clean way to reproduce this bug:<br>
+&gt; Form a console or ssh session, start Xorg in background, without a win=
+dow<br>
+&gt; manager, and then run x11perf on that display.<br>
+&gt; <br>
+&gt; Xorg :0 &amp;<br>
+&gt; x11perf -all -display :0<br>
+&gt; <br>
+&gt; The bug: weird intermittent performance issues in some of the tests.<b=
+r>
+&gt; Examples:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A01000 reps @=C2=A0 18.0799 msec (=C2=A0 =C2=A0 55.3/=
+sec): 10x10 rectangle outline<br>
+&gt;=C2=A0 =C2=A0 =C2=A01000 reps @=C2=A0 18.0791 msec (=C2=A0 =C2=A0 55.3/=
+sec): 10x10 rectangle outline<br>
+&gt;=C2=A0 =C2=A0 =C2=A01000 reps @=C2=A0 18.0790 msec (=C2=A0 =C2=A0 55.3/=
+sec): 10x10 rectangle outline<br>
+&gt;=C2=A0 =C2=A0 =C2=A01000 reps @=C2=A0 18.0789 msec (=C2=A0 =C2=A0 55.3/=
+sec): 10x10 rectangle outline<br>
+&gt;=C2=A0 =C2=A0 =C2=A01000 reps @=C2=A0 =C2=A00.0287 msec ( 34800.0/sec):=
+ 10x10 rectangle outline<br>
+&gt;=C2=A0 =C2=A0 =C2=A05000 trep @=C2=A0 14.4691 msec (=C2=A0 =C2=A0 69.1/=
+sec): 10x10 rectangle outline<br>
+&gt; <br>
+&gt;=C2=A0 5000000 reps @=C2=A0 =C2=A00.0029 msec (345000.0/sec): 1-pixel s=
+olid circle<br>
+&gt;=C2=A0 5000000 reps @=C2=A0 =C2=A00.0009 msec (1100000.0/sec): 1-pixel =
+solid circle<br>
+&gt;=C2=A0 5000000 reps @=C2=A0 =C2=A00.0012 msec (818000.0/sec): 1-pixel s=
+olid circle<br>
+&gt;=C2=A0 5000000 reps @=C2=A0 =C2=A00.0000 msec (20900000.0/sec): 1-pixel=
+ solid circle<br>
+&gt;=C2=A0 5000000 reps @=C2=A0 =C2=A00.0000 msec (32300000.0/sec): 1-pixel=
+ solid circle<br>
+&gt; 25000000 trep @=C2=A0 =C2=A00.0010 msec (979000.0/sec): 1-pixel solid =
+circle<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A01000 reps @=C2=A0 31.6607 msec (=C2=A0 =C2=A0 31.6/=
+sec): Fill 10x10 trapezoid<br>
+&gt;=C2=A0 =C2=A0 =C2=A01000 reps @=C2=A0 16.9012 msec (=C2=A0 =C2=A0 59.2/=
+sec): Fill 10x10 trapezoid<br>
+&gt;=C2=A0 =C2=A0 =C2=A01000 reps @=C2=A0 =C2=A00.0234 msec ( 42700.0/sec):=
+ Fill 10x10 trapezoid<br>
+&gt;=C2=A0 =C2=A0 =C2=A01000 reps @=C2=A0 =C2=A00.0272 msec ( 36700.0/sec):=
+ Fill 10x10 trapezoid<br>
+&gt;=C2=A0 =C2=A0 =C2=A01000 reps @=C2=A0 32.1268 msec (=C2=A0 =C2=A0 31.1/=
+sec): Fill 10x10 trapezoid<br>
+&gt;=C2=A0 =C2=A0 =C2=A05000 trep @=C2=A0 16.1479 msec (=C2=A0 =C2=A0 61.9/=
+sec): Fill 10x10 trapezoid<br>
+&gt; <br>
+&gt; There are no messages in kernel log or Xorg log.<br>
+&gt; <br>
+&gt; Visually, most of the tests runs fast as expected, but in some of the =
+tests<br>
+&gt; it gets &quot;stuck&quot; randomly. The test suddenly freezes while dr=
+awing the pattern.<br>
+&gt; Then, after a while (a few seconds up to a couple of minutes), it gets=
+<br>
+&gt; unstuck by itself, draws a few more patterns extremely fast for less t=
+han a<br>
+&gt; second, and then it gets stuck again.<br>
+<br>
+It smells like a signalling issue. Can you check the CPU activity and<br>
+report any outstanding process? Can you maybe connect a gdb to the<br>
+x11perf to see where it&#39;s blocked, and post the backtrace here (or in<b=
+r>
+the gitlab issue)?<br>
+<br>
+Regards,<br>
+<br>
+Boris<br>
+<br>
+[1]<a href=3D"https://gitlab.freedesktop.org/mesa/mesa" rel=3D"noreferrer" =
+target=3D"_blank">https://gitlab.freedesktop.org/mesa/mesa</a><br>
+</blockquote></div>
 
- - Alistair
-
-> I also notice that the macro is in the Rust `transmute` module, but the
-> only user is Nova; so it should have been either be Nova-local, or used
-> by other Rust modules.
-> 
-> But intuitively I'd say that we can (and should) probably do without
-> this intermediate step. But please let me know if there is something I
-> missed.
-> 
+--0000000000007be7c70655604c9c--
