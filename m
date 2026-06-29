@@ -4,42 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 626DEC43327
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 15:39:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6586C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 15:40:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B141310E0A2;
-	Mon, 29 Jun 2026 15:39:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C0E310E970;
+	Mon, 29 Jun 2026 15:40:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Er6pzspM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Rk5K7dhb";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C3FB10E0A2
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:39:34 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0514641815;
- Mon, 29 Jun 2026 15:39:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B23B71F000E9;
- Mon, 29 Jun 2026 15:39:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782747573;
- bh=U92dAhczgFyZqZyit73xhgQwSTt7GejI92AqH/D4lko=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Er6pzspMXLQUh0MRLlURVVF3q/VcDIYT6wnwmm5Yjv2RHHvfF8/wzQl8Tyz5LtHRc
- jvss/4PlaTEi8/MjJeBELy2HHrzk56/PYfpq5+lEFvtDfysTe0qZAgLJTSlFZighrg
- +U3JEJ/Zh/qX3KJsjXg8yBYjXC32hCERDu31nKtQcSPnb6k3eH7dRq+KI7Vo8fytYQ
- SIA9gebrfqd6JBn8Lz2piUh9nV/yiR85RPtHCVLil7Xnha+OmTiF7e7QD+ajTyy5Lo
- /P1gsl7cTdiXZDdOpbI4cAQEshTbZx/Zw6tYgYe+Rt8gnSzcXni6UZD/zdHFFBGHhH
- sfm436wWyBkqA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] drm/amdgpu: reject mapping info when BO VA is gone
-To: "Yousef Alhouseen" <alhouseenyousef@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260629152807.13492-1-alhouseenyousef@gmail.com>
-References: <20260629152807.13492-1-alhouseenyousef@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 15:39:33 +0000
-Message-Id: <20260629153933.B23B71F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8767410E970
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:40:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782747612; x=1814283612;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=mNEmfpypvUNZ+gR4xPR0xDDTBTDrRcJEbt3dRM+/o1M=;
+ b=Rk5K7dhb77u55s6MUkk/MYszdBbNQ5wrILqdidyuV1tMhzNxvmwuSZoi
+ UnHwkUZ9HvCzLqlAhOBg/QfB9usgBPvXzumy7Ade6nZXz/a7tGxrM72ey
+ FYmCm1zuAhbaeV3HjSii0RYoHpQ193b2bmdCKHZNomfW7dVbE7c6yhv7R
+ LvpFTLiwG0yQFiWK0cNpQ/MczKjO+AQf/7xPc3IiGr1sF9asOEH87q4qv
+ YFetEL4AB8gN1hGiQ1bbBQsTQCsFsmAKUrDo225zv8lZXtW+ud4zM+w2Q
+ Mib5VpIqOBaevKZkiozEV9iiYHvizi+Y0sMuUCqiH64aT5o4Aa9lKVPBr g==;
+X-CSE-ConnectionGUID: eGpcweMJRfmXhO5HJKNGBA==
+X-CSE-MsgGUID: 9QFfuwYlQg6aoLgviaeFBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="108986420"
+X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; d="scan'208";a="108986420"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2026 08:40:11 -0700
+X-CSE-ConnectionGUID: dSYOS7uKT4WN/nRMbsXWyQ==
+X-CSE-MsgGUID: ZeBTgg84Q1Wb/e1V1Tutvw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; d="scan'208";a="256909319"
+Received: from tassilo.jf.intel.com (HELO tassilo) ([10.54.38.190])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2026 08:40:11 -0700
+Date: Mon, 29 Jun 2026 08:40:09 -0700
+From: Andi Kleen <ak@linux.intel.com>
+To: Alexander Martyniuk <alexevgmart@gmail.com>
+Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ David Airlie <airlied@redhat.com>, Sasha Levin <sashal@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Mingyu Wang <25181214217@stu.xidian.edu.cn>, Lukas Wunner <lukas@wunner.de>
+Subject: Re: [PATCH 5.10/5.15/6.1/6.6/6.12] agp/amd64: Fix broken error
+ propagation in agp_amd64_probe()
+Message-ID: <akKR2bNYFokN43Sk@tassilo>
+References: <20260629102124.252403-1-alexevgmart@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260629102124.252403-1-alexevgmart@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,92 +68,25 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Mon, Jun 29, 2026 at 01:21:23PM +0300, Alexander Martyniuk wrote:
+> From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+> 
+> commit b08472db93b1ccff84a7adec5779d47f0e9d3a30 upstream.
+> 
+> A NULL pointer dereference was observed in the AMD64 AGP driver when
+> running in a virtualized environment (e.g. qemu/kvm) without a physical
+> AMD northbridge. The crash occurs in amd64_fetch_size() when attempting
+> to dereference the pointer returned by node_to_amd_nb(0).
 
-New issues:
-- [Critical] The patch adds a duplicate check for a missing BO VA, which ch=
-anges the API return code and renders the existing check as unreachable dea=
-d code.
+What is special about this virtual environment? Nobody else 
+seems to have seen that in 20+ years.
 
-Pre-existing issues:
-- [High] Potential deadlock due to allocating memory with `GFP_KERNEL` whil=
-e holding `dma_resv` locks.
---
+Or maybe the Fixes tag is not quite correct and something else more
+recent has caused it.
 
-commit 6d1719ca92ca060fce9b1b2b5a70616a3a67fa1c
-Author: Yousef Alhouseen <alhouseenyousef@gmail.com>
 
-drm/amdgpu: reject mapping info when BO VA is gone
+-Andi
 
-This commit adds a check in amdgpu_gem_op_ioctl() to reject the
-AMDGPU_GEM_OP_GET_MAPPING_INFO operation if the BO VA is missing.
-The intention is to prevent a NULL pointer dereference when a concurrent
-handle close removes the per-file BO VA before the mapping list is walked.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gem.c
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -1087,6 +1087,12 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, vo=
-id *data,
-[ ... ]
->  		int num_mappings =3D 0;
-> +
-> +		if (!bo_va) {
-> +			r =3D -EINVAL;
-> +			goto out_exec;
-> +		}
-> +
-
-[Severity: Critical]
-Does adding this check break userspace ABI by changing the error code?
-
-There is a pre-existing check for a NULL bo_va slightly lower in this
-function that correctly returns -ENOENT. By returning -EINVAL here,
-applications expecting the standard -ENOENT for a missing BO VA might
-fail unexpectedly.
-
-[ ... ]
->  		/*
->  		 * num_entries is set as an input to the size of the user-allocated ar=
-ray of
-[ ... ]
->  		 * be retried.
->  		 */
->  		if (!bo_va) {
->  			r =3D -ENOENT;
->  			goto out_exec;
->  		}
-
-The newly added check above also makes this original check unreachable dead
-code.=20
-
-[ ... ]
->  		if (args->num_entries > INT_MAX / sizeof(*vm_entries)) {
->  			r =3D -EINVAL;
->  			goto out_exec;
->  		}
-> =20
->  		vm_entries =3D kvcalloc(args->num_entries, sizeof(*vm_entries), GFP_KE=
-RNEL);
-
-[Severity: High]
-This is a pre-existing issue, but can allocating memory with GFP_KERNEL here
-cause a deadlock?
-
-This allocation occurs while sleepable dma_resv locks are held (acquired via
-drm_exec_lock_obj() and amdgpu_vm_lock_pd() earlier in the function).
-
-Using GFP_KERNEL allows direct memory reclaim. If system memory pressure
-forces the kernel to invoke GPU shrinkers while this thread holds dma_resv
-locks, the shrinker may attempt to lock the same BO or VM root PD, leading
-to a deadlock.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629152807.1349=
-2-1-alhouseenyousef@gmail.com?part=3D1
