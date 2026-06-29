@@ -4,99 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE333C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 15:56:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8EACC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 16:04:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01D2010E98A;
-	Mon, 29 Jun 2026 15:56:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5320D10E0A4;
+	Mon, 29 Jun 2026 16:04:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="otExSv6C";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="ZP+OSo5y";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Zf64RDSn";
 	dkim-atps=neutral
-Received: from flow-b5-smtp.messagingengine.com
- (flow-b5-smtp.messagingengine.com [202.12.124.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18F2810E994
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:56:04 +0000 (UTC)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailflow.stl.internal (Postfix) with ESMTP id 7F8A013001E3;
- Mon, 29 Jun 2026 11:48:31 -0400 (EDT)
-Received: from phl-imap-05 ([10.202.2.95])
- by phl-compute-04.internal (MEProxy); Mon, 29 Jun 2026 11:48:32 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1782748111;
- x=1782755311; bh=OQSYL+rcbbMvXGkfQit/IeSyVBDzp7a1uiLZytls49o=; b=
- otExSv6CCfwgU+53OmRzfq2B2DYzwG97/7OG2yFVL9SLp2zuXWfhdL/w+7nIA4id
- pS7hJpE+p/zM36qUEbCM1LqXAUyUGB34hT8s1CLctdvUhUl0w1ZhqpR2HIS3PV7o
- bsnIFZBboF30NjRkOQ9UT+Q8NXhm9E13I7offTJ2aRcuG8r2Lm82KoHQohaMMwV5
- 1pog70vnywIoIEN8MJJPZBLCU4XXKtem9FHI/gOfgvqsBOGTC7GkxZFe5P2Lw2ga
- yjsSm7K9GLJMBOqJ4k1/I3YVG3A8X1aWU9NyZdVYzw3BMgCE/ro9EeoLtAyGzeFK
- Pl4J0bO7j6edaTVNsgNFEA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1782748111; x=
- 1782755311; bh=OQSYL+rcbbMvXGkfQit/IeSyVBDzp7a1uiLZytls49o=; b=Z
- P+OSo5yef9/cf64i9oZY96JMQWrkgDB3///chYutdOeJnhuCLMIQBthaTPJcoReA
- A42wB43XIfLOAHZlUSZRrEWmaIkkJVPyR9ZrNj0Zg79fjHX5GNwFKh44vBnstNjs
- +gKwPg044HSnH3p4e5kEU8/gJdXnd5J9rcJgbSl1CjuvG8G/lzCfuRrzQSuK0yFG
- nAQ3o6X2C2t4pALrCSMONEpg+Bh0sXEMP7jMgbrh5fxsQE9kGxPzz2YGv3rx56Gv
- vpRCb8LQ5USUCARnUKXaPOljl/bpYRFLx50FMB3vSHHH4V2/reUKPVgJULvxVire
- Mkj0fQjdTFT7fm+9wEFeQ==
-X-ME-Sender: <xms:z5NCakeBygjeAHHHThz3dUsTnvB6AK_UVMjKz-WZKZVRr2lluk78FQ>
- <xme:z5NCahCpYUk2lb8a1RbHVmyXeGBSy5l5DdSrmUr_uS7YYPkiTX-Ewa_wUd6Pe47oi
- fqqLUBT-9g8HmIrQlngZpk17TUMnckWDzEtut6NIZEoxunmVuyUuWA>
-X-ME-Proxy-Cause: dmFkZTGx/zQGI8s/7q5psZd2hog4QvvLF8VyS3SEh6yndDN0NLF+SUROST5TuJaRfbYzsR
- kRNLz+nZnLIWxTAnVDEiVI3LWMoT76m1NPebPhT28iJCWPXc0GO7oFLEPDfrdg9tfzroWb
- HnrfV5e1jPmjz36LnDV+54JGw32aQMY40K1t7WiGcRFvXEmQH6xS4redW3l3jMN7eHVHXH
- OMUBqc4hdT1AWM82wO5kRpwsYMYMv8K7MRSSgj1UrGhr0ZavzP88ve8YyHNE7ly6hSja/5
- QiP/FqZsNFQZ34zbxnGfKyKytbn/wMNNFVGFjw0DXOPPa8n6XjB/fzcu7YZiP8PrvEJSOd
- l8wa/9o9YFghE4nmtzEFNP5GHS4DgMKC4w2rG1ksKG4K1tNod94D3VEihl/RxyL9ohAzRZ
- DV3gAxtenHg9Z5cQJzoBipUKZ9pqhmJudtox/jlSGg2Nc/v34rLMtOwqFKQfA1uoQshteX
- Fj+AMNKhMnJ4QbvjVI2RQG1hwfF0E+t7vkI/rh/pkR03lll3huezz0P+7sfFgS0BBFEc4I
- tgwdiyeO6AWLRMbzNKqGc2BGlgFQrUK3BgCvUK9m1iH9OEbmB8sUgFESS3o9AeJDZgiza+
- QtMgrmbDhds3U+BZzmooK8ccK4+ZTU4CwBh9Kr050guMXdKmxiwbffVRqy2w
-X-ME-Proxy: <xmx:z5NCaqnslMw1U4x946I_QUjw_ET8HBcAAsdnOpVQMvFlVCBGjb5OEQ>
- <xmx:z5NCatSrHaFps5ZyxX5SqaW3oWWvqcDK6TzS14FaET5Pf4npQ179sg>
- <xmx:z5NCanXHY9GeHNVa3tjFzINJQ_mrCW-T7sCwo55oVGN2tZsh_Krxbw>
- <xmx:z5NCars5LXs8k9icxryzzfrpvBcoTsGtWAAjyBjSc4vWQn2-iQYc8Q>
- <xmx:z5NCarutsUgfjq0e6Ud1ZnN0qPM1Eju682i8umHuTCrQdRzm5WnqOIk6>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
- id 215901820082; Mon, 29 Jun 2026 11:48:31 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-MIME-Version: 1.0
-X-ThreadId: A045QOfflcQ7
-Date: Mon, 29 Jun 2026 17:48:04 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Geert Uytterhoeven" <geert@linux-m68k.org>,
- "Arnd Bergmann" <arnd@kernel.org>
-Cc: "Linus Walleij" <linusw@kernel.org>,
- "Bartosz Golaszewski" <brgl@kernel.org>,
- "Marcel Holtmann" <marcel@holtmann.org>,
- "MyungJoo Ham" <myungjoo.ham@samsung.com>,
- "Chanwoo Choi" <cw00.choi@samsung.com>,
- "Geert Uytterhoeven" <geert+renesas@glider.be>,
- "Andy Shevchenko" <andy@kernel.org>,
- "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
- "Ulf Hansson" <ulfh@kernel.org>, linux-bluetooth@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
- "linux-mmc @ vger . kernel . org" <linux-mmc@vger.kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
- linux-usb@vger.kernel.org
-Message-Id: <ff4d7043-1929-4fa1-ba5e-f28403ad6fcc@app.fastmail.com>
-In-Reply-To: <CAMuHMdXhsM4JzArRuB=A46N-Ogbn2Fans+PVJVA-hEytFq=DeQ@mail.gmail.com>
-References: <20260629135917.1308621-1-arnd@kernel.org>
- <CAMuHMdXhsM4JzArRuB=A46N-Ogbn2Fans+PVJVA-hEytFq=DeQ@mail.gmail.com>
-Subject: Re: [PATCH] [RFC] gpiolib: introduce gpio_name() helper
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCCDF10E0A4
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 16:04:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5127E43C87;
+ Mon, 29 Jun 2026 16:04:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13D001F000E9;
+ Mon, 29 Jun 2026 16:04:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782749088;
+ bh=y6/YenokjEaYKNREzsk6N2P1Nh+FZAUuHeS/tQjfJRM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Zf64RDSnQ78UgsSCnQM5atQbKtYi9nw0liUKWGkj1wOra4gmrYv7lL6MYLHtmKl1X
+ q2sly9CJCOWYz8pztwDZ4R2HbeTG0WpSrrMwXDJfGndLDgcfER32C2Ji4yMBYNHGK7
+ VEUv4buMbfVAzvx700cwGliPEweGJ2rYBmiT+9JL5KCz23LeGa9MDnBhiexU7esUrj
+ OgD/YHqZKBR7QVMyzsAiTVj9Z8EWj/vvMYORmiXHdRYRNvuq1Ll6AZlpBTTOEXuIhI
+ Hvwalc1289zY4xt6JtEf314sOiUZNpnRaQIcIXFaKspkkQZClMhtAl/3UIYmNR9fJ2
+ pf9wRsyhamEKw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] drm/omap: dsi: avoid sending bta sync all the time
+ in writes
+To: "Andreas Kemnade" <andreas@kemnade.info>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260629-vm-upstr-v4-1-9f0c62d8808e@kemnade.info>
+References: <20260629-vm-upstr-v4-1-9f0c62d8808e@kemnade.info>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 16:04:47 +0000
+Message-Id: <20260629160448.13D001F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,54 +53,120 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026, at 17:29, Geert Uytterhoeven wrote:
-> On Mon, 29 Jun 2026 at 15:59, Arnd Bergmann <arnd@kernel.org> wrote:
->> From: Arnd Bergmann <arnd@arndb.de>
->>
->> Most remaining users of desc_to_gpio() only call it for printing debug
->> information.
->>
->> Replace this with a new gpiod_name() helper that returns the
->> gpio_desc->name string after checking the gpio_desc pointer.
->>
->> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
->
-> Thanks for your patch!
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Stack Use-After-Free due to race between IRQ handler and unregiste=
+ring on-stack completion
+- [Medium] Regression for command-mode panels due to missing DCS NOP and in=
+correct channel for BTA
+- [Medium] Missing Error IRQ registration causes a 500ms stall on hardware =
+transmission errors
+--
 
-Thanks for testing!
+commit 30f75c50c586dd648e75b97e7fe46e6f3d854488
+Author: Andreas Kemnade <andreas@kemnade.info>
+Subject: drm/omap: dsi: avoid sending bta sync all the time in writes
 
->> --- a/drivers/gpio/gpio-aggregator.c
->> +++ b/drivers/gpio/gpio-aggregator.c
->> @@ -758,8 +758,8 @@ int gpiochip_fwd_desc_add(struct gpiochip_fwd *fwd, struct gpio_desc *desc,
->>
->>         fwd->descs[offset] = desc;
->>
->> -       dev_dbg(chip->parent, "%u => gpio %d irq %d\n", offset,
->> -               desc_to_gpio(desc), gpiod_to_irq(desc));
->> +       dev_dbg(chip->parent, "%u => gpio %s irq %d\n", offset,
->> +               gpiod_name(desc), gpiod_to_irq(desc));
->>
->>         return 0;
->>  }
->
-> Before, this printed:
->
->     gpio-aggregator gpio-aggregator.1: 0 => gpio 589 irq 188
->     gpio-aggregator gpio-aggregator.1: 1 => gpio 590 irq 189
->
-> After, this prints:
->
->     gpio-aggregator gpio-aggregator.1: 0 => gpio (null) irq 188
->     gpio-aggregator gpio-aggregator.1: 1 => gpio (null) irq 189
->
-> Same results for instantiation using sysfs or configfs[1], although
-> the latter does have optional support for specifying the name.
+This patch avoids sending a BTA sync during writes if no ACKs are requested,
+instead waiting for the packet to be sent to prevent FIFO overflows. It also
+replaces the NOP sent between frames with a BTA sync during channel updates.
 
-I wonder how many of the other instances have the same problem
-then. Would it be appropriate for gpiochip_fwd_desc_add() to set
-a name itself to address this one?
+> diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/=
+dss/dsi.c
+> index 27fe7bca9e2cf..3f22929c36e2a 100644
+> --- a/drivers/gpu/drm/omapdrm/dss/dsi.c
+> +++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
+> @@ -2194,28 +2194,38 @@ static int dsi_vc_send_null(struct dsi_data *dsi,=
+ int vc, int channel)
+>  static int dsi_vc_write_common(struct omap_dss_device *dssdev, int vc,
+>  			       const struct mipi_dsi_msg *msg)
+>  {
+> +	DECLARE_COMPLETION_ONSTACK(completion);
+>  	struct dsi_data *dsi =3D to_dsi_data(dssdev);
+>  	int r;
+> =20
+> +	/* wait for IRQ for packet transmission confirmation */
+> +	r =3D dsi_register_isr_vc(dsi, vc, dsi_completion_handler,
+> +				&completion, DSI_VC_IRQ_PACKET_SENT);
 
-       Arnd
+[Severity: Medium]
+Will this stall for the full 500ms timeout if a hardware transmission error
+occurs?
+
+Since this is only registered for DSI_VC_IRQ_PACKET_SENT, an error interrupt
+(like DSI_IRQ_HS_TX_TIMEOUT) wouldn't wake up the completion. Other functio=
+ns
+like dsi_vc_send_bta_sync() also register for DSI_IRQ_ERROR_MASK to handle
+this case.
+
+> +	if (r)
+> +		return r;
+> +
+>  	if (mipi_dsi_packet_format_is_short(msg->type))
+>  		r =3D dsi_vc_send_short(dsi, vc, msg);
+>  	else
+>  		r =3D dsi_vc_send_long(dsi, vc, msg);
+> =20
+> -	if (r < 0)
+> +	if ((!r) && wait_for_completion_timeout(&completion,
+> +				msecs_to_jiffies(500)) =3D=3D 0)
+> +		r =3D -EIO;
+> +
+> +	dsi_unregister_isr_vc(dsi, vc, dsi_completion_handler,
+> +			      &completion, DSI_VC_IRQ_PACKET_SENT);
+> +	if (r)
+>  		return r;
+
+[Severity: High]
+Could this lead to a stack use-after-free if the timeout is reached?
+
+The wait_for_completion_timeout() can return 0 (timeout), after which
+dsi_unregister_isr_vc() unregisters the ISR and the function returns,
+destroying the on-stack completion.=20
+
+However, dsi_unregister_isr_vc() doesn't appear to synchronize with the IRQ
+handler. If the hardware IRQ fires right after the timeout and the handler
+executes from its lockless copy of the ISR table, could it call
+dsi_completion_handler() with a dangling pointer to the destroyed stack
+frame?
+
+[ ... ]
+
+> @@ -3268,13 +3263,13 @@ static int dsi_update_channel(struct omap_dss_dev=
+ice *dssdev, int vc)
+>  	DSSDBG("dsi_update_channel: %d", vc);
+> =20
+>  	/*
+> -	 * Send NOP between the frames. If we don't send something here, the
+> +	 * Transition to LP here. If we don't send something here, the
+>  	 * updates stop working. This is probably related to DSI spec stating
+>  	 * that the DSI host should transition to LP at least once per frame.
+>  	 */
+> -	r =3D _dsi_send_nop(dsi, VC_CMD, dsi->dsidev->channel);
+> +	r =3D dsi_vc_send_bta_sync(dssdev, vc);
+
+[Severity: Medium]
+Will this break command-mode panels?
+
+The original code explicitly sent a DCS NOP on VC_CMD (which is typically
+configured for Low Power/CPU). This replaces it with a BTA sync on the vc
+passed to the function, which is usually VC_VIDEO (configured as High
+Speed/Video Port).
+
+Is a BTA sync on a Video Port channel valid hardware behavior here? Also,
+will panels that depend on receiving the DCS NOP payload to transition to
+LP mode stop updating?
+
+>  	if (r < 0) {
+> -		DSSWARN("failed to send nop between frames: %d\n", r);
+> +		DSSWARN("failed to send bta sync between frames: %d\n", r);
+>  		goto err;
+>  	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-vm-upstr-v=
+4-1-9f0c62d8808e@kemnade.info?part=3D1
