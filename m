@@ -4,75 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACFF6C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 07:08:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90ED1C43638
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 07:08:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF42410E706;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE08C10E708;
 	Mon, 29 Jun 2026 07:08:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gurudas.dev header.i=@gurudas.dev header.b="kv2IuH9q";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dtAsjfKh";
 	dkim-atps=neutral
-Received: from out-13.smtp.spacemail.com (out-13.smtp.spacemail.com
- [63.250.43.96])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC07B10E002
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 03:45:01 +0000 (UTC)
-Received: from [192.168.1.96] (107-194-158-19.lightspeed.sntcca.sbcglobal.net
- [107.194.158.19])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mail.spacemail.com (Postfix) with ESMTPSA id 4gpX762Nf6z8sbG;
- Mon, 29 Jun 2026 03:38:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gurudas.dev;
- s=spacemail; t=1782704308;
- bh=rsu/r/WBwNXuJN8+t83R5Jph4X6WrLULsoFBk7AwSRc=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=kv2IuH9qfjU5qN/fw93o9W9+0qz6xE604v+ZgxAzE0ov+Uk2R8ms9TEB6TNmOF7lO
- xK9WLHj5MKV8YYCguPZvH3cFTfqkZMzJzs4RBhOGSSEvTMEKRulKik8j9+oFGY2N8g
- Hk+HbNVOn77oYvxczTNJlHDU1zl3tynxSouRbfJjAh44W2BgEeVQ2mMSWnSAIB3Nce
- OajHwrVSsBaICMGfcsAtzygyi7EVWId4EctQHov4lOm+gBB9qnkKeT4OYNa7VQ0iLB
- Z6TUUmbEcmBrnm42OQe7+XjvXD7ba3HYxpQyz4Z8y9xNIOgGl5JKKhS7lsqcw3eqfa
- a+H7FTHt/d9Sw==
-From: Guru Das Srinagesh <linux@gurudas.dev>
-Date: Sun, 28 Jun 2026 20:38:15 -0700
-Subject: [PATCH 1/7] samples: rust_dma: use vertical import style
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
+ [209.85.210.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3762A10E002
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 03:48:54 +0000 (UTC)
+Received: by mail-pf1-f175.google.com with SMTP id
+ d2e1a72fcca58-8478cc93299so90990b3a.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 20:48:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782704934; x=1783309734; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=zYaJLO7rVJIlOh5//OZ2QMbg6ndszMv9dZxRzh/XAcg=;
+ b=dtAsjfKhB2B5wPPmETzN01VbPuly8DK2uHCTkUJ2t2W2BoICmMdKlo35RS+imNmIuj
+ QfFm/HyOCFrH4d87Iush160lP3f+2kO1yOmDWM31fd44EOdjUZUYivkbDBbJzuvOBYcm
+ EEpq/lqxU1eiItSIPMILyNUOnpK+mp58xGy6HmzOwiL3KjBIGH0qDBX+mZaKZ0XwzPkd
+ 9k1065rZF9oJm0lA8/poTPYh8vTHSPXsX5wO5WtZn+vCkITDdEuzvaf9KDcNI3XeUlAn
+ g3ySbC99LVkWra4lC3fOgLblb7tl6u+fhuxPBEeIF0Iy808sRb6xVlYVr8CLztKd54EX
+ 7bnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782704934; x=1783309734;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=zYaJLO7rVJIlOh5//OZ2QMbg6ndszMv9dZxRzh/XAcg=;
+ b=AdS5b966bKS1Ba/bpgl2tY786AUbwGFHwaJvjGGKqL2V3EMeYqu3CPHVcJWjfq3Yd6
+ wuUuZRP/9UWdMBfbsFox9i66ubS5EBqo9QzIuYJ5kSdej7P1ECVAgmIDJBHwK9CJ6fY/
+ a1ChYpgzBss9qNMkPzo0r5AdcWv+el+55pP439k0IAHsMwMu4D5n3EyOFV+FSkmL7hUo
+ RUE0zlu+qjQ9ns1787QKhEBU4j901nKseiX8csaYaJ0TN5clkirvbPhRdblIEQC7NBZu
+ RGyVhSg/31LTDG3lGKBtCLgNcd4QdADteoOMxhXCWtcMleMj8iJPJZnrOwVnlOgegP4f
+ hl1w==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoyAQaSbtpsaarhfGw/mqGiQ7ebJ70rtRRP9+DR7YXRCI4fwBLmzgNVcoo0xQ3r6Zv/aI2X3rAXW2U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwodfMBSrz/gdzN2MgjGBLUmYnjT6Z918lsmKxiRFmD1bYjUaFk
+ cDbqVh5glX8HGFxYQIloybOssVQ84/69pMsBkg14Ifw7rEgovFNj3Oem
+X-Gm-Gg: AfdE7cnykeUGF3b+GaKY3RFXqTmoSCgKEy15QbHqquGfGmGNSh+a06Xf8Lj1K53KqIW
+ 4l3VR6jPL93T2tVUe5poewnq37aHSZtEKMH9b1+wIMtnKDW1gtMr6HgPbk5C+jmUduyuAZF2tJ7
+ vlrIXT7ZuQph1nMd1nELhfy0FiqWk23LxBq3pd83UYTXICXMrOBRxYGtIeDYO+CI8UjpqElAVwo
+ cEVehsbjHy6ZWCD9+FASbiyvLlHsDPNWNP9Ss83fx0qB0XV51nWWAAKgo1ysIzhrLAV8TMPzlBU
+ lHLQpGu/45jy0s0BsUdTwswufmGOrViJJw1WynD/XDpK+UYinty2QujbJpV+11pPZLmdQGwI5//
+ dmE4OTwkmbaQuVbclN7AeAMWye6C10J5ePwngjPUMNy2uYQtBcB/+wCIdxuw/GIz1PQFpDxdGGx
+ xdIT5GOpOEeal6fxyfnoMFtSDo8vKz/saBwUR4PaJvEXBSVoVsqLCIGFVOH/LT3pkVUDLBnPcH8
+ YTh
+X-Received: by 2002:a05:6a00:238b:b0:845:e19a:1188 with SMTP id
+ d2e1a72fcca58-845e19a1487mr4616768b3a.52.1782704933611; 
+ Sun, 28 Jun 2026 20:48:53 -0700 (PDT)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net.
+ [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-845a3fedaefsm11603061b3a.23.2026.06.28.20.48.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 28 Jun 2026 20:48:53 -0700 (PDT)
+Message-ID: <e44b9d64-95dd-4b1e-bcd3-05bd5a9963eb@gmail.com>
+Date: Mon, 29 Jun 2026 11:48:49 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260628-b4-rust-vertical-imports-v1-1-98bc71d4810b@gurudas.dev>
-References: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev>
-In-Reply-To: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev>
-To: Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Cc: Danilo Krummrich <dakr@kernel.org>, 
- Abdiel Janulgue <abdiel.janulgue@gmail.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, 
- Fu Wei <wefu@redhat.com>, Michal Wilczynski <m.wilczynski@samsung.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Jens Axboe <axboe@kernel.dk>, 
- FUJITA Tomonori <fujita.tomonori@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
- Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- driver-core@lists.linux.dev, linux-riscv@lists.infradead.org, 
- linux-pwm@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-block@vger.kernel.org, netdev@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Guru Das Srinagesh <linux@gurudas.dev>
-X-Mailer: b4 0.15.2
-X-Envelope-From: linux@gurudas.dev
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 4/7] drm/verisilicon: make axi and ahb clocks optional
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260625094449.708386-1-a0987203069@gmail.com>
+ <20260625094449.708386-5-a0987203069@gmail.com>
+ <cf9af38dfe52548649b9010f298341d4064aaa21.camel@iscas.ac.cn>
+Content-Language: en-US
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <cf9af38dfe52548649b9010f298341d4064aaa21.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 29 Jun 2026 07:07:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,31 +100,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert `use` imports to vertical layout for better readability and
-maintainability.
 
-Signed-off-by: Guru Das Srinagesh <linux@gurudas.dev>
----
- samples/rust/rust_dma.rs | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/samples/rust/rust_dma.rs b/samples/rust/rust_dma.rs
-index 5046b4628d0e..7d14574e8875 100644
---- a/samples/rust/rust_dma.rs
-+++ b/samples/rust/rust_dma.rs
-@@ -14,7 +14,10 @@
-     },
-     page, pci,
-     prelude::*,
--    scatterlist::{Owned, SGTable},
-+    scatterlist::{
-+        Owned,
-+        SGTable, //
-+    },
-     sync::aref::ARef,
- };
- 
-
--- 
-2.54.0
-
+On 6/26/2026 4:03 PM, Icenowy Zheng wrote:
+> 在 2026-06-25四的 17:44 +0800，Joey Lu写道：
+>> The Nuvoton MA35D1 SoC integrates a DCUltraLite display controller
+>> whose
+>> AXI and AHB bus clocks share a single gate enable bit with the
+>> display
+>> core clock, so the clock driver does not expose them separately. This
+>> patch makes the axi and ahb clocks optional in the probe.
+>>
+>> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+> ```
+> Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> ```
+>
+> Thanks,
+> Icenowy
+Thank you for the review. I will revert this patch entirely. As discussed
+in the binding review, axi and ahb clocks will now always be supplied in
+the devicetree using the same phandle as the core clock gate, so making
+them optional in the driver is no longer needed.
+>> ---
+>>   drivers/gpu/drm/verisilicon/vs_dc.c | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c
+>> b/drivers/gpu/drm/verisilicon/vs_dc.c
+>> index 9729b693d360..fd1f5fe67a68 100644
+>> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
+>> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
+>> @@ -90,13 +90,13 @@ static int vs_dc_probe(struct platform_device
+>> *pdev)
+>>   		return PTR_ERR(dc->core_clk);
+>>   	}
+>>   
+>> -	dc->axi_clk = devm_clk_get_enabled(dev, "axi");
+>> +	dc->axi_clk = devm_clk_get_optional_enabled(dev, "axi");
+>>   	if (IS_ERR(dc->axi_clk)) {
+>>   		dev_err(dev, "can't get axi clock\n");
+>>   		return PTR_ERR(dc->axi_clk);
+>>   	}
+>>   
+>> -	dc->ahb_clk = devm_clk_get_enabled(dev, "ahb");
+>> +	dc->ahb_clk = devm_clk_get_optional_enabled(dev, "ahb");
+>>   	if (IS_ERR(dc->ahb_clk)) {
+>>   		dev_err(dev, "can't get ahb clock\n");
+>>   		return PTR_ERR(dc->ahb_clk);
