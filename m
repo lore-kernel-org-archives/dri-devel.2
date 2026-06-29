@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1043AC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:17:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E021C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:17:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58B4A10E753;
-	Mon, 29 Jun 2026 08:17:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70BE710E757;
+	Mon, 29 Jun 2026 08:17:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kNTAFZRn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Elbsybow";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D12710E738
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:17:28 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 607BF10E757
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:17:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C4F4A600AB;
- Mon, 29 Jun 2026 08:17:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0762A1F000E9;
- Mon, 29 Jun 2026 08:17:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4788A40121;
+ Mon, 29 Jun 2026 08:17:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1C541F000E9;
+ Mon, 29 Jun 2026 08:17:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782721047;
- bh=jTEg1i9C6k/FQCRgSdTfcQAlG89OP2wgDOTmFHi/i10=;
+ s=k20260515; t=1782721057;
+ bh=j99cdnVISgJsHxpnr1RivSWJmnHt/Q5ccfIOzoVqcbo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=kNTAFZRnB8ky2ScKPgU8C/j9AxePPYKJio2e97+V1R4G6WDMGGV0ch+Z0Ma3jsZoL
- 9O6r7RP2rfgiDj64en5MCmGzu6NsGaHali1vNF0VJ/o9cCcrFzJ+WkGwv2jkqX0ggQ
- OQxNL+5nM0G03QMuTk+qUc5UhFovfhbJvaZhWIwyVOovZY00qoe+TM82VZchM9FcDo
- VDS6QRFEobJlY/mS62UkMNXFuBy3C5du0W19UVkqbRLXXQjNc0sa9G+1xAVAOhV0dO
- foArRH6UujQKVz+WAnwk65m5+LrFLj8rkAVrof8owMXPslwrm++jfyw8m8b4/vE1h7
- uzWVunUiqN7CQ==
+ b=ElbsybowX1HWf/y6WropzBmMKcN26Q4WvPfvW4FmvPNfpbWlLApedv4w7XfxuGxhz
+ Y2U52AAg2OiTvBpzwZV6r5TjuYIL2JIyrx9H+54gfHwt/7aYxwimIlWm+Y1zF1RE+4
+ xI/kB9aTGRXAAN+HAMNbOjx7YMA5bZIrHeG1FcS7ZLkKu+f0DyfnC/CV613C5jqaKa
+ R+DVhmNBozEu0D/oWHOnxV1XvojWQYeTVeXf7wu+7NuvaQyBPc7RGSfRRBWqNOVZ6m
+ hKRyx1SEDlEDjXzI/AK23Xq6rhGsibkPSmfzXzoTqMVYIP7pGtpZecZosD52tnglPA
+ tlgGRBM5eT6Uw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 29 Jun 2026 10:17:01 +0200
-Subject: [PATCH v4 03/30] drm/atomic-state-helper: Remove memset in
- __drm_atomic_helper_bridge_reset()
+Date: Mon, 29 Jun 2026 10:17:05 +0200
+Subject: [PATCH v4 07/30] drm/bridge: Implement atomic_print_state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-drm-state-readout-v4-3-5966657980ed@kernel.org>
+Message-Id: <20260629-drm-state-readout-v4-7-5966657980ed@kernel.org>
 References: <20260629-drm-state-readout-v4-0-5966657980ed@kernel.org>
 In-Reply-To: <20260629-drm-state-readout-v4-0-5966657980ed@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -50,14 +49,15 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  lidrm_printf_indentnux-kernel@vger.kernel.org, 
- Maxime Ripard <mripard@kernel.org>
+ Maxime Ripard <mripard@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1659; i=mripard@kernel.org;
- h=from:subject:message-id; bh=c5JbIUPj1AZJsevwerl2q2VRj8L0q2qHLlUJssw727s=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlOWoyScRsW+DCdOs8nPzXys4tzQlLR9bjQU9tCjmXKC
- niWzEromMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABP5s4CxPuJKg36Wu3eKpk+N
- UfC36Xm7LkxWWzpPwGRTWcOnudPf33xyaHYN44aFyQYafouyknKtGRsep7jpfXqSvfT5/zRXfdu
- I9/nVIirP1Y/yKXl9s/NObQy+6vJam2/L+yvaCX4ls5SthQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2017; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=D4A2g2LA6oJb1p7XMJW9QwCJcKV5GOXFM9h5rqQ9a0g=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlOWszLFF/zuhi8dc77WZBptUh/29dbPR3buhZ43bn5R
+ TSv0iCuYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEwkMJqx4b3wtbhN8kaMVx/e
+ 3zJnE3fTkpoTR5cbqG/2PH/h31qzXb+flu51n7V1/4d5NawbFBZFzmesj3l1PF74W+T6R0WMh/6
+ 2Tm9y9LBJK608bMimedK9zdF0WWFysq3qDrX969ouL/njfE4YAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,46 +75,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The general consensus is that reset helpers shouldn't call memset
-directly because the object it initializes is supposed to have been
-zeroed out.
+Bridges have some fields in their state worth printing, but we don't
+provide an atomic_print_state implementation to show those fields.
 
-Remove the memset call from
-__drm_atomic_helper_bridge_reset() and document the expectation.
+Provide one.
 
-It should not have any impact on the current code base since there's
-only two callers: drm_atomic_helper_bridge_reset() and
-cdns-mhdp8546-core's cdns_mhdp_bridge_atomic_reset(), both allocating
-the object using kzalloc_obj().
-
-Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic_state_helper.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_bridge.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-index 07686e94aae0..71a02ba78f2f 100644
---- a/drivers/gpu/drm/drm_atomic_state_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-@@ -892,15 +892,16 @@ EXPORT_SYMBOL(drm_atomic_helper_bridge_destroy_state);
-  * @state: bridge state to initialize
-  *
-  * Initializes the bridge state to default values. This is meant to be called
-  * by the bridge &drm_bridge_funcs.atomic_reset hook for bridges that subclass
-  * the bridge state.
-+ *
-+ * The object @state points to is assumed to have been initialized to zero.
-  */
- void __drm_atomic_helper_bridge_reset(struct drm_bridge *bridge,
- 				      struct drm_bridge_state *state)
- {
--	memset(state, 0, sizeof(*state));
- 	__drm_atomic_helper_private_obj_create_state(&bridge->base, &state->base);
- 	state->bridge = bridge;
- }
- EXPORT_SYMBOL(__drm_atomic_helper_bridge_reset);
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index b7b0ec7c2d4b..e6f1174be62a 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -548,14 +548,35 @@ drm_bridge_atomic_create_priv_state(struct drm_private_obj *obj)
+ 		return ERR_CAST(state);
  
+ 	return &state->base;
+ }
+ 
++static void
++drm_bridge_atomic_print_priv_state(struct drm_printer *p,
++				   const struct drm_private_state *s)
++{
++	const struct drm_bridge_state *state = drm_priv_to_bridge_state(s);
++	struct drm_bridge *bridge = drm_priv_to_bridge(s->obj);
++
++	if (bridge->of_node)
++		drm_printf(p, "bridge: %ps (%pOFfc)\n", bridge->funcs, bridge->of_node);
++	else
++		drm_printf(p, "bridge: %ps\n", bridge->funcs);
++
++	drm_printf_indent(p, 1, "input bus configuration:");
++	drm_printf_indent(p, 2, "code: %04x", state->input_bus_cfg.format);
++	drm_printf_indent(p, 2, "flags: %08x", state->input_bus_cfg.flags);
++	drm_printf_indent(p, 1, "output bus configuration:");
++	drm_printf_indent(p, 2, "code: %04x", state->output_bus_cfg.format);
++	drm_printf_indent(p, 2, "flags: %08x", state->output_bus_cfg.flags);
++}
++
+ static const struct drm_private_state_funcs drm_bridge_priv_state_funcs = {
+ 	.atomic_create_state = drm_bridge_atomic_create_priv_state,
+ 	.atomic_duplicate_state = drm_bridge_atomic_duplicate_priv_state,
+ 	.atomic_destroy_state = drm_bridge_atomic_destroy_priv_state,
++	.atomic_print_state = drm_bridge_atomic_print_priv_state,
+ };
+ 
+ /**
+  * drm_private_obj_is_bridge - check if a private object backs a bridge
+  * @obj: private object to check
 
 -- 
 2.54.0
