@@ -4,44 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E78DC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 14:27:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF60AC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 14:37:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7019710E058;
-	Mon, 29 Jun 2026 14:27:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0422010E922;
+	Mon, 29 Jun 2026 14:37:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K7M/1GXt";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="tqbBWUdj";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8812510E058
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 14:27:38 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 582ED42D5F;
- Mon, 29 Jun 2026 14:27:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED6141F000E9;
- Mon, 29 Jun 2026 14:27:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782743258;
- bh=xx/5YjsXIruUGQj/mKNwO8Lzlpv2QSmLswkJrGNTINI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=K7M/1GXtdpbpY6OFCXSfrcguynVfVaxTp3BexnqGdGfNsefAXnwpPgMKeh82LRKKV
- cqWnAcbrf9wJT+HreaiYcZB9kfXcv3u7NcDIUMjP9n2Q+ynylG/qvWnrI9LNtQzveW
- 1GS0Hw81uIw8lH1GwTUkd7/Tssris4d9c60LU0I05+pI1IXfVzDlpQGoqSz6eCLF3N
- czjIXSS1RJbk9EbXOtq/3tO340xEOUTYDOkqDNzUuEgyPG0e9Vo9YmBHCU88sbcVWR
- emctrYRE+MkgUAQw/rCuh1aTugSlddOdDtXcmZnT8f1/GZWOotCWND32T8aaAz6Gzy
- kjcasfUKpggQQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 13/13] gpu: nova-core: store Fsp instance in Gpu
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260629-nova-bootcontext-v4-13-5539d8469590@nvidia.com>
-References: <20260629-nova-bootcontext-v4-0-5539d8469590@nvidia.com>
- <20260629-nova-bootcontext-v4-13-5539d8469590@nvidia.com>
-Content-Type: text/plain; charset=utf-8
+Received: from LO0P265CU003.outbound.protection.outlook.com
+ (mail-uksouthazon11022123.outbound.protection.outlook.com [52.101.96.123])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B63810E922
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 14:37:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OfpQLrjnCsss0Y49a4PJzrP6ngLQ3DEKp2TZi36gKAZTgCci0X1BEoVhHpNEudcLq63gAUGYDz3ohVmF528LKQKArvLP1jujYx7TbV2Q4SFmqbifS6ojC1Dlj/lyK9MwU3ZG8/Zv3v4imn6mLusm2m8dMDqMXWUtB1uiQ+2bogvco1JtsfiN+P1Xldpu8RJontSXXcP/2D/FXjQkSThJ9mG561f4erE4PrWpcFAErWeqDpAL1lr2aOyH2nY+s5H0p4hQztfuwESJCUH4M1dLyZZpxJT8te781Pjcs+bIJxf3KHlLcCq8YAjdMyQSf2MZNxQNzxh5ChQ/HUKir5Gq9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YV7oZKbABRxxMwpZXqVthvBESnI21SFwDJM/ql3zJvw=;
+ b=pXL7ZDq0NxmeJqEBQnmqiGAjp/tSFpdj8Jx6NeKlwLwc7/RjnVlMTkoF1mECxg3flT0UXamDYJVgpStEtqUcyzA9yG/7G5G97uQIt9H273zJp4O/s9s5YAj3YIdY/+T7tdnCq+UHCl7hO11EWlXP6bcaE+UveWQIyxqeboasxzOuWcoQrJXByB+McpPS1utIxee8eY+bhArQDozV+gWX5iFSlIl/h9x+ttKazfSAVNFzeOpKc3697rYMGUULPoxdpV8Me5CPIFZBuA2eJUwX8Pryo32ep4gJ5/Dr7uoO8iNuZGqrZSxDZko3Kq07kddkkuPmpMsadC5biNCElcug0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YV7oZKbABRxxMwpZXqVthvBESnI21SFwDJM/ql3zJvw=;
+ b=tqbBWUdj5vka7a9zE3S8aiXnqyDJe+nELzeW5EaC9/FgWMUY0Fmve+FBc5/DPRMFUGtuFCvpdxjAJ9jplETJLMRo/YK745zKQ7UNFHQXqOcrFLm+8gKTVwEk8U72pduH53w1kFaGsIqeGc0VhPYfM4hPJdFCuuEYUhMt3sv5/TE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CWXP265MB2662.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:aa::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Mon, 29 Jun
+ 2026 14:37:35 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 14:37:35 +0000
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 14:27:37 +0000
-Message-Id: <20260629142737.ED6141F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 29 Jun 2026 15:37:34 +0100
+Message-Id: <DJLLYCLQEBV0.2L6F55OJ8A6B@garyguo.net>
+Cc: <david.m.ertman@intel.com>, <iweiny@kernel.org>, <leon@kernel.org>,
+ <bjorn3_gh@protonmail.com>, <tmgross@umich.edu>, <tamird@kernel.org>,
+ <work@onurozkan.dev>, <sergeh@kernel.org>, <matthew.brost@intel.com>,
+ <thomas.hellstrom@linux.intel.com>, <jack@suse.cz>, <ljs@kernel.org>,
+ <liam@infradead.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
+ <ptikhomirov@virtuozzo.com>
+Subject: Re: [PATCH v6] rust: aref: make `AlwaysRefCounted::inc_ref` an
+ associated function
+From: "Gary Guo" <gary@garyguo.net>
+To: "Trevor Chan" <trev@trevrosa.dev>, <gregkh@linuxfoundation.org>,
+ <rafael@kernel.org>, <dakr@kernel.org>, <ojeda@kernel.org>,
+ <a.hindborg@kernel.org>, <paul@paul-moore.com>, <aliceryhl@google.com>,
+ <airlied@gmail.com>, <simona@ffwll.ch>, <viro@zeniv.linux.org.uk>,
+ <brauner@kernel.org>, <igor.korotin@linux.dev>, <vireshk@kernel.org>,
+ <nm@ti.com>, <sboyd@kernel.org>, <m.wilczynski@samsung.com>,
+ <boqun@kernel.org>, <gary@garyguo.net>, <axboe@kernel.dk>,
+ <daniel.almeida@collabora.com>, <shankari.ak0208@gmail.com>,
+ <lyude@redhat.com>, <j@jananu.net>, <lossin@kernel.org>,
+ <acourbot@nvidia.com>, <markus.probst@posteo.de>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-block@vger.kernel.org>,
+ <linux-security-module@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>,
+ <linux-pm@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <linux-pwm@vger.kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20260628095132.47753-1-trev@trevrosa.dev>
+In-Reply-To: <20260628095132.47753-1-trev@trevrosa.dev>
+X-ClientProxiedBy: LO4P265CA0123.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c6::10) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWXP265MB2662:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3c89eaf7-5e09-4c01-cf62-08ded5ebf5fe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|10070799003|23010399003|22082099003|18002099003|56012099006|921020;
+X-Microsoft-Antispam-Message-Info: lfW4LtejC5NkcjQrS2K1vSbpS1pcuHsaPqK5i1eH9LtK2wbCFOGhVTxv7q9bE6LOk9j655n8ggoEoITwmAnao0fxye7284u1HQWHOYMpa8CCnomhFe5ptU0pbIox2yiOXylK8AXRNoSrfv7/7yF/A1B5bbnvmRyRdv6R36hMrBxqrr0I82vHKxgvYkgddXkx6GzDglVHvNghpfOhapPIdjoWyrtbraszhhWkM0Ft895aV6+/Z5z45HTpbRdR6aj9IyborTscsCvavF93tonKUfqe9tSbHMPGFYLBK/9PaTAwnu6/ggVGdjKmJokKmziQs7KfuG22bUKYoWphXoZfTerRhpaKg2c5ZeITyG8EqERBfVrcLxKs66V2k6k1lELdidkovWPVLai/Qhffcibunylfz5o49Aud+BE+vTIgERV5SQ+Xa1zCKUu8pGG7f5FmCXcluaFuXIbk+abpa0uGwYMSZSjqaEiE+HcEzEfOvU1x4Pb0VH67KMwa6kLbtW/zDesvnnuvJ20TjDfCMzZJjHNes3zBBc4Q/PJnlWPXOrBoB02J/vUKja818VzoDwKI10WrLQ4sfB1z/pevlyJw+wiHgd0dha+SAJZXrN5h/V0HPngzZxWkCWVf7XudU9d+V/0sQ/dSUqHehB4r/jOtNe+bdifAoWyj+Cib0YBMaC+qqnF1eXxODXBoKyhc2+wTDH123y93izlTXqRK8xqNrw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(10070799003)(23010399003)(22082099003)(18002099003)(56012099006)(921020);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VVRZbGNLTXl0clh5b0ovUTZJREpsTXJLeFRheTBIV2lpZ2t6ZmF2OVY5L1Q0?=
+ =?utf-8?B?TjJ6OXRSWVVNMzhpTHlMSWxaY3BFb2tWNzJUMXVuWlgwMWlYM2pzdTNMbkY3?=
+ =?utf-8?B?akRZRFdQMEFnQys5Z21HRXkvdS8zUGxTWC9Ody9yeExNZlJ0eCtIdVJLWW9L?=
+ =?utf-8?B?c1ZCV2IveHhudk4zSERabjFQdXIzdGhtY1czMC9FTWpBbnhPeXcrem1HN3ZI?=
+ =?utf-8?B?Q2F6WStDTmJEMk1YNjBnWXUxaUp0NVRmVU8vSCszYjNPd1phVDhkUjdtcnpw?=
+ =?utf-8?B?UmZERmRicTRwWWlyRU9Va1J0bVdnT3IxZmE0NVd4VytSbHZGSWI1Y2RmQTlL?=
+ =?utf-8?B?UnFlR2J0ZkhneXc5Uzl0Y2l0ZW5hdVZQcnRrWWw4UWpsOTJ4U3B1cFZNcnlR?=
+ =?utf-8?B?dzI5Ky9jTFpWazlUbkQ3bC9yY0FRR2N2aTBtWXBMVHdRbXVLTkcwbU9WWmlo?=
+ =?utf-8?B?TkdkOUx0ZTVjbEpYdFVMUm9Da3poQTFud3dvTnV3TVpWZW1YdDdCSzNXa2tO?=
+ =?utf-8?B?LzBwcG9DUXNtZ1NkeXdqVExycWZLZkkyaGJ4L3ZSTWV1V3FoT1o2ZGd5UzBw?=
+ =?utf-8?B?VFp6eE1NVEhOek1CZ0t0MlR4Z292a2ZtWjN6Rm5KU2ZqSnVDUmZOR3JFNEVI?=
+ =?utf-8?B?eXJpWGw2TUx0RENmaUNLbTFESnduQlRlOHlUMSt6b29uTTBmQ1NFa0lnNE02?=
+ =?utf-8?B?cFNDOWRJRjdaVnVrcmFQYzJ2YTk4Qk5ZVmczS29yU3ZBNkkxNk5BcXhFZW5k?=
+ =?utf-8?B?SzNqSGNiN1QwRDcwOUlwQlBwQ0hpSlB3MU52azBBSHRYTEdNUjBUYVlKWEph?=
+ =?utf-8?B?SnJGRXZOZUlOdFFrL3M3Qnl4Vis3Nld3N2hFYndTOFptaEhxZUNweVFaS21u?=
+ =?utf-8?B?Y3NDTzNtb0hEaE5TWkVyUDJNdE41Vi9TNzYrdkdqU2x4M0g0UDIzTTVwK3F0?=
+ =?utf-8?B?OVlOaTY0dVA1OHkyWVYzUjNmNXcrNTJzSXh4NEZFbWxLK3FxRlI1Q2xoMkkv?=
+ =?utf-8?B?eUdlbld6Q2FQdHRjMGF1UzNKajdrdkRJR25yNS8rVkI0djZpTzdNVVdiU2VG?=
+ =?utf-8?B?UjVsRHl2OWp5bTk5N3htQkJNUk16NnRDWWdmRHNIWXErbE85aUFUR2RjTU5i?=
+ =?utf-8?B?SDNSNWNVK2NrRmtVZEV5ZUtlbUJIbko1WXBsVkNuWUFTN0xPSyt3dzRLdWFK?=
+ =?utf-8?B?c3VJOHF4SHRhUXhLYWJyNTFsZ0FwVkVGanVPNVNCeDBXTG5OL2xWUkhuYTZ3?=
+ =?utf-8?B?L1VNY1o2Slo0MFRYeC9YVHRKU0RYbkQ2QndEVnZqYjVWc0p5eDMwQTV2Mm9J?=
+ =?utf-8?B?L0xPMmxOZklYQWExUjN3QzdRYU5kMmhvWW5WeXQ5aStlLytmUlBPYk1wQ2hm?=
+ =?utf-8?B?TUxHdmU2TFdOODQra3lJTmVpb2ZEcVFUcGlsQ3poTTFMWHBiR1d1NnpldzJ5?=
+ =?utf-8?B?Z3JPbUh5TC9BRlZwdm5OUG5xRmpkWWNzd21DL3ZWaEViTnh3TDIzVGY1Qzd4?=
+ =?utf-8?B?Y0pkZUZwWjlJb2RCekROd2RRR0kyK3NkUkkwZnVFdFp6MFhhUnoxWFRGUnhz?=
+ =?utf-8?B?empwWldNVWhZYTVSWjEvU1NoQnRmQjQvRzErMU1mWXdLUVZaaW1seEFpcmY0?=
+ =?utf-8?B?aUFPd21TM0xjcFlHVnRjcE9XMnBKa2JlRzFPazBhb1RxWE80V25PTkN4YXFH?=
+ =?utf-8?B?R1pLRFpSeUNEbkVzMnlHV2J4QUdYSHpDQmZoRnpGc0F6cUJTMDAyTkJtU0lQ?=
+ =?utf-8?B?dWhianA5NTl6WnV1ajZWakpJUEw5VHNCRzdodlhiZU1sSCtPVzU1UjR4RGVT?=
+ =?utf-8?B?eVFsUHg4SEMxUWlqd01WZzZJYjdFS1NGV05jZEJzN0ppWUFZaEJHYVBCREFk?=
+ =?utf-8?B?U04vTkZBem8yVkcyWmxDWTZ2TFJoOFNrMEN4WFhldEt4aGFWQ0pEeDNNUnRz?=
+ =?utf-8?B?UVNLVVdIV3dVRUxmNVlNcklCcWMzemNIWkpHWmlweVlFZWdjYTJONk5INmNW?=
+ =?utf-8?B?RUFLWkFIakVrN1JnaEVYcTF2c0t5TGRUSXB5SGFJTURLaFVRdW96THViMm5U?=
+ =?utf-8?B?VjNQdUhFSHhlT3lBSUtLcTdVbWQ1eFR4MW54ekR6V0RISTR2YUNkVkU5RWs4?=
+ =?utf-8?B?bUF4SVFoNFM1NVVueGVCNnNXR1AyQ2plUXJQNVVWbnBlYTEzTU1iTzdCTys5?=
+ =?utf-8?B?S2lQV3JMaDQyZTlvUURmVVhBb3RRdGRpK2ZVb2VTc01TcE5HcFVNV0JFSVJq?=
+ =?utf-8?B?Q1hEcTlpaVhwQU9nUkxGaFo3YjNTKzZDVzVEMGlkcFc4ajljYSt0bXZCQmYz?=
+ =?utf-8?B?YjZzd2VhRm5DSWlab1ZoSVFhM3pkdUxGbGVMdEVVbFRzOTdzQUM1dz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c89eaf7-5e09-4c01-cf62-08ded5ebf5fe
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 14:37:35.5162 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FvHVrIKuuKEsO9lOZwHVhmz87YIOzMTcCr0HOXMSvWCP0EpcNCwWzsmCYhrSA7sxBt/kbrQGtt7mcGJ1ttb1sA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2662
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,87 +152,60 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Sun Jun 28, 2026 at 10:51 AM BST, Trevor Chan wrote:
+> `AlwaysRefCounted::inc_ref` is a function that shouldn't be called lightl=
+y.
+>=20
+> To prevent accidentally calling it, change `inc_ref` to be an associated =
+function.
+>=20
+> Modify all `AlwaysRefCounted` implementors to work with this change.
+>=20
+> Suggested-by: Benno Lossin <lossin@kernel.org>
+> Link: https://github.com/Rust-for-Linux/linux/issues/1177
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> Signed-off-by: Trevor Chan <trev@trevrosa.dev>
 
-Pre-existing issues:
-- [Critical] DMA Use-After-Free due to freeing buffers while GSP is still a=
-ctive on timeout
---
+Reviewed-by: Gary Guo <gary@garyguo.net>
 
-commit ad8609a0c320b89583cef07a17ca5ce5c85167ea
-Author: Alexandre Courbot <acourbot@nvidia.com>
+> ---
+> Changes in v2:
+>  - Don't word wrap the patch
+> Changes in v3:
+>  - Make argument name of `Empty::inc_ref` consistent with `Empty::dec_ref=
+`
+> Changes in v4:
+>  - Rebase to new rust-next, change new implementors
+>  - Reword explanation for change in `AlwaysRefCounted::inc_ref` doc comme=
+nt
+> Changes in v5:
+>  - Change commit message to be imperative
+> Changes in v6:
+>  - Change all the implementors
+> ---
+>  rust/kernel/auxiliary.rs        |  4 ++--
+>  rust/kernel/block/mq/request.rs |  4 ++--
+>  rust/kernel/cred.rs             |  4 ++--
+>  rust/kernel/device.rs           |  4 ++--
+>  rust/kernel/device/property.rs  |  4 ++--
+>  rust/kernel/drm/device.rs       |  4 ++--
+>  rust/kernel/drm/gem/mod.rs      |  4 ++--
+>  rust/kernel/drm/gpuvm/mod.rs    |  4 ++--
+>  rust/kernel/drm/gpuvm/vm_bo.rs  |  4 ++--
+>  rust/kernel/fs/file.rs          |  8 ++++----
+>  rust/kernel/i2c.rs              |  8 ++++----
+>  rust/kernel/mm.rs               |  8 ++++----
+>  rust/kernel/mm/mmput_async.rs   |  4 ++--
+>  rust/kernel/opp.rs              |  4 ++--
+>  rust/kernel/pci.rs              |  4 ++--
+>  rust/kernel/pid_namespace.rs    |  4 ++--
+>  rust/kernel/platform.rs         |  4 ++--
+>  rust/kernel/pwm.rs              |  2 +-
+>  rust/kernel/sync/aref.rs        | 11 +++++++----
+>  rust/kernel/task.rs             |  4 ++--
+>  rust/kernel/usb.rs              |  8 ++++----
+>  21 files changed, 54 insertions(+), 51 deletions(-)
 
-gpu: nova-core: store Fsp instance in Gpu
-
-The Fsp instance was only used in the Hopper+ boot path, and
-consequently built locally (and immediately dropped) in it.
-
-This worked well as a temporary measure, but the FSP is a GPU
-sub-device, so its lifetime should match the GPU rather than a single
-boot invocation.
-
-> diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova-co=
-re/gsp/hal/gh100.rs
-> index 2805a35abb798..de786871c8ec4 100644
-> --- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
-> +++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
-[ ... ]
-> @@ -150,7 +146,7 @@ fn boot(
->              KBox::new(FspUnloadBundle, GFP_KERNEL)? as KBox<dyn UnloadBu=
-ndle>
->          );
-> =20
-> -        let mut fsp =3D Fsp::wait_secure_boot(dev, bar, chipset)?;
-> +        let fsp =3D ctx.fsp.as_mut().ok_or(ENODEV)?;
-> =20
->          let args =3D FmcBootArgs::new(
->              dev,
-
-[Severity: Critical]
-This is a pre-existing issue, but I wanted to ask about the error handling
-in this function and how it affects DMA buffers.
-
-If wait_for_gsp_lockdown_release() times out later in Gh100::boot(), the ?
-operator causes an early return:
-
-        let res =3D fsp.boot_fmc(dev, fb_layout, &args);
-
-        wait_for_gsp_lockdown_release(dev, gsp_falcon, args.boot_params_dma=
-_handle())?;
-
-When this happens, args is dropped, and the error propagates back to
-Gsp::boot(), which bypasses the unload_guard creation and immediately
-drops wpr_meta:
-
-        let unload_bundle =3D hal
-            .boot(&self, &mut ctx, &fb_layout, &wpr_meta)?
-
-Dropping these structures frees their underlying DMA memory. However, since
-the timeout occurred, the GSP hardware is not forcefully halted.
-
-A similar issue appears during the unload path in FspUnloadBundle::run().
-If a timeout occurs while waiting for RISC-V to halt, the code explicitly
-detects that the engine is still active but returns an error without
-forcefully halting it:
-
-        read_poll_timeout(
-            || Ok(ctx.gsp_falcon.is_riscv_active()),
-            |&active| !active,
-            Delta::from_millis(10),
-            Delta::from_secs(5),
-        )
-        .map(|_| ())
-        .inspect_err(|_| dev_err!(ctx.dev(), "GSP falcon failed to halt\n"))
-
-Since the error propagates and allows the DMA memory to be freed while the
-engine continues executing, could the active GSP hardware write to the freed
-host memory and cause memory corruption?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-nova-bootc=
-ontext-v4-0-5539d8469590@nvidia.com?part=3D13
