@@ -4,96 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44BA2C43602
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 13:18:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08398C43327
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 13:18:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70E0610E8CE;
-	Mon, 29 Jun 2026 13:18:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F3AE10E8D1;
+	Mon, 29 Jun 2026 13:18:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kiNKbYht";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W5JkMJLE";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EfDN4d4p";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e05gtBE6";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DF3310E8C3
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 13:18:17 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E7A310E8D2
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 13:18:25 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65TAT3422604343
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 13:18:17 GMT
+ 65TATSij2592843
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 13:18:24 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- q9GXCpGI2FZ2U+GAfjzoSbly46KsmEpGgfcu9nwsblA=; b=kiNKbYhtGhxBSb+a
- LyAK0D8gjvIY1E9oEIWWvLrib9LyR25oRZbjc75VGbGOQ4UnYmz7rc0H4BYgKbhg
- zKN0bnwA1Jy2rSzU6e9rneYE4c+INsZ9NrYsVJC+7NjqHhztO0xPKsjled6Wu/7Z
- fMNOrs+gz1C7Chcg3bW/QvoiGlHtkx9DYnOR87M3zcDL4s9hWAprP1dV0VnZeZWL
- sNeciUvmrrR2Vk8bPpbrI58Kkqbggc+6l/igOhZrK2icS0OLPWxYDLZM5D689tXm
- X2UocKFjVIt8w4HtZU2yLQstFXx38tMSDbPyAKqfWkz56tgxylXQBvRYOZGzXB1F
- M3Fo9g==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3nq88y4m-1
+ s3VwBumwCqEjd1GYUzP46GInRqb8UClCfWsUQZYOShE=; b=EfDN4d4pjXGiApYi
+ nFnUPTb4WtSWyLwOOWqUq79kRJSR3cwtC4646d6UjN2folbe3f5qAL74/WfoDZ+r
+ 96CCYcv8pYWwPsV7L3RkiDa7a8+nnau8q3euZ6EKW8sRsrcfQWG5xuJYRUFXs1ic
+ p3NwW+4+Gx7QFFdqkWEn9NNzmP7mxsS8PKiKgYdXl6JHFOYIAmO04DI+VGqGh3br
+ 0tsNPbLOjCeLZSXuXfRIiJpYebzzJSOnTpBa53c3C7RQyxOUjB+VjKDfbDPP/PYi
+ QB68rQWBOfxrEFobyclM7wTCrEp0zxM6jaTwPWZKWS8FwAq0v70FrDOP4SmSBIes
+ AY1ypQ==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3k7vhtdn-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 13:18:16 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-8ea75996387so52448436d6.1
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 06:18:16 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 13:18:24 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-8f05dd0dda9so36427796d6.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 06:18:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1782739096; x=1783343896;
+ d=oss.qualcomm.com; s=google; t=1782739104; x=1783343904;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=q9GXCpGI2FZ2U+GAfjzoSbly46KsmEpGgfcu9nwsblA=;
- b=W5JkMJLEEbjaQQZcKs6PlePvBedeJycoa4TjLY5Zcpa7DkPReOELvZqTw83UQuCKFn
- GgNrzGQMvcR+FB7N1Q49oo3WrBlmIfd6Fkt4aHEX0AgSiL/ts7u2H47woBsuEDC5f7ry
- vIfB0xIPWTsGXq24r0SkV2rNQ4y37NIymuqqiA70/fAMkqn9x44ZQwN6pQul9T0Hs49P
- RU9/M1sq85K9Aj9Anq7tY4jBSEQiiLwXd1aeVpgT5bjTx4BTor1/VumPlCQYOeNVjfl7
- Y/h4/Rvl6IplPofe4vK+57BVWkrZQVwwRJIwBuVU2SO5IXcqQJg+6GCI8FsFcE4RMVtx
- VkwA==
+ :reply-to; bh=s3VwBumwCqEjd1GYUzP46GInRqb8UClCfWsUQZYOShE=;
+ b=e05gtBE6iis7hDLG+aQlduMtNVrlUNkRHM/YEkuPTYixzr5Ey4VZVCmtQddJqQXeOx
+ C1TqjVTknTtuHxgvpOb8SaGUjKvrei0yOO6yvCUgxq9qzzc2TUIfV1l43ozKj9RJnl8b
+ SAfCuHbektyrcQk5J4fYSKgIf3O73PAv8UaVw/vzlHiZDiVRgYaeu51+SlUJubncSe9w
+ zJi0clB/oC7WVphXul2qHBftGNCGTi8r5x8KCwN3Dhond+VU0p1mB02DIjMwBrFgZOej
+ YJBvP+QuN8SOFQPjXmQ90by/iOAVCAe0St7ByTJcSD7jDbMkMQp1z5gJuzfXQRfjR4XN
+ Quwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782739096; x=1783343896;
+ d=1e100.net; s=20251104; t=1782739104; x=1783343904;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=q9GXCpGI2FZ2U+GAfjzoSbly46KsmEpGgfcu9nwsblA=;
- b=bnxqxr3iAgI1McxLLw0rTfvG9omyDTHlzzrJLAno249KjA0CIorZFCqAtmXPaviZ9t
- L2cJhCS12JkwJdgXC2/Jwg8BGwvh8QicgXQQd+uY5zG9OohGwVyoJ3EIM5R7nl0zC4dE
- ZbCecBZKOrMb93LTeWUsu7xGcHTVLJc+eXsineZqiXmR9ERhrXVrTDBxDQJz2vtE1WNo
- 9KKRhyZMzhwiS5qfQ1lnasYmfc9WzP2XRW3R7NB4XKCtXgrbgnmuv557W6WKyk0KyhIZ
- 6Nb2elfj/E3qvATc0Z4BFf3wP3XO76Uld1zEdp3kTMHWgU1rwBQhUAUQJxGjuaykxC91
- sswg==
+ bh=s3VwBumwCqEjd1GYUzP46GInRqb8UClCfWsUQZYOShE=;
+ b=iJFA8DHC9walCyxtHEuh18GMcDrPnoIs7z2v1jNX1Gj7KurKh7IZNUp8zE4rbK143R
+ 1kRKvRBchjDtE/emdnT+GOR70VpUqJXgo5baV6I9Iih9vVizstZbwSOQWHtzm1QQQU9X
+ aeU+e1z76g743YVfx0hl2d9mIM1J1V4yYDXkCAWDnf8MmuJQU8TZvYOHEkdbfOiIgbz1
+ 1xzl3NMt2DoiKi/tyr+dEkVgqmjAKnEP2L2NdH+5d48m1MQi+hoivJZifK+UVZRWwtyv
+ lwVg66yN1d+nadCybbEgu/zgBL/OalM8t5jPzph0vNCtiXGCYcgIOuVkGD7GwF5YQ0OP
+ VYlA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rp/QS0F0tFefgRScYc0V5DOt3AVFgXFY50dVgecOCBlkc40gfH5aGI5cbnTaHY0Wo3UF2OtmIj6NH4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzxTiiZYGrgP36LKi9APJ4ZCPjQT74yHeR7nSUf1sVYpBi42x4P
- 857ws86l2W4pTphKYgQFznmGB7t6+6qWc/P0g9ir8idPAqLEZqcMUnKhozlGcqjWW3WMlSpINFb
- JfhbLQRKzb+DCZcgJ+5wgp91rdUJDyJ8tGMPYzrZP/hQr3CUUgr8KNi768rq5uhYmQJTYZEM=
-X-Gm-Gg: AfdE7ck3IV3onR1DzgLPdc/o6Jr2kjB3MkScxlFaHZJZl9Q5sOsGjLXEYaNX6DyFEc2
- sgNyp992mvq/ZMKqyWwDMJ3sCm0H1Lu1e8kfKCbpyKNUKMjOVWMrvYzY51MDlOmNueqClS83xp2
- dPfCt97S+ZrPfyuE5F6DMhG+EmWadZqToGh2Xf6oZhAr5si4IaSO1031eYao2GEhnBtM2/nzPAh
- 9Vjkv3hSc3RDzFFuBDs2Cq7Ie7XVaB45nyb5Gm180vBsIdw1SAm6iUHjpsUfG6OHRAXtTxF2U5L
- CyeOOtmIMqfJZNWtZSla7XK2HAB9js48zVTXlrTAv9wn37KJVzJrXID+dMTVW6MgzEt/5+8B1Mw
- 5IQWiP3UMeBE11iJEmGw0F8lieevzJjP2n6MDSv+bcnoPghvdkRtjHfsFWN0u3Ar6tC22uhWZ9Q
+ AHgh+RrZfoqnkkpUIBTyIv5I3Bar/ST59g2+UFJe2y10BaS+Ogxf6neEezUmEzUc1aq5WzHwZg8OxXjklDY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yys8990g6UWuGtDbo5cCsaAU8WZxWXTvUwreS3y6vorjpHNnACB
+ V0MUNaaVbA2Sl+gXfTqRSSfVutOcfAN1eCuxtIjOoh+VWihgKOLGs9K6EXShAL+gZ31fiOkcklu
+ 8VGij7ilR11TF5B8XkwktP3KP7M+6uB/utBvlYqUxMhizwcgBTne6OCder+Dwl+Lbg0MLaYg=
+X-Gm-Gg: AfdE7cl9X0ZqYiyZjkCPNJ2RJbj2lW2NCJlx1uWK3b5QxqvJXGvsNp+XJ7jwqrWU8Ds
+ 0BFTuFLOZMUafZD+s5qmPv5425fErEyLnM075/DeS3rbChTvn0wEcLsW+6K0lugNu3654YYx8/v
+ F62xG3h88tca3RoyS+7S+4T4Xp4tkmnrtTfkebDZLm1HQbbjsFhuwLlzbms7ueexbD3W+DljOpG
+ Dgz2F4HKyj9o/YlI4wNbUMtRRAU7OnRS9lr8Wp6Jn5WFBmy2FrGKmszSHaiF7vWccoTxpa9mRb2
+ xTGS88MPs+hpbW7mPdbKq8qGzKBbRbc17DGQqRCdBKqKwwPjzxIGbg+gYsDFIZzxFMzI0uag5xu
+ iMwcptucRpc3pQ56dqXGHEBbfGB1lHkM9U3VE42YVORPmgIN+nko8UIYReSYS2FBP62UL5/6KFQ
  ==
-X-Received: by 2002:a05:6214:5785:b0:8f0:2c80:caa5 with SMTP id
- 6a1803df08f44-8f02c80ccb3mr56994186d6.23.1782739095977; 
- Mon, 29 Jun 2026 06:18:15 -0700 (PDT)
-X-Received: by 2002:a05:6214:5785:b0:8f0:2c80:caa5 with SMTP id
- 6a1803df08f44-8f02c80ccb3mr56993276d6.23.1782739095378; 
- Mon, 29 Jun 2026 06:18:15 -0700 (PDT)
+X-Received: by 2002:a05:6214:2a8b:b0:8ef:e7db:1a91 with SMTP id
+ 6a1803df08f44-8efe7db1c83mr58422656d6.4.1782739102364; 
+ Mon, 29 Jun 2026 06:18:22 -0700 (PDT)
+X-Received: by 2002:a05:6214:2a8b:b0:8ef:e7db:1a91 with SMTP id
+ 6a1803df08f44-8efe7db1c83mr58420756d6.4.1782739100211; 
+ Mon, 29 Jun 2026 06:18:20 -0700 (PDT)
 Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
  [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8ef0f2b9df0sm56744616d6.13.2026.06.29.06.18.11
+ 6a1803df08f44-8ef0f2b9df0sm56744616d6.13.2026.06.29.06.18.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jun 2026 06:18:15 -0700 (PDT)
+ Mon, 29 Jun 2026 06:18:19 -0700 (PDT)
 From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Date: Mon, 29 Jun 2026 21:16:39 +0800
-Subject: [PATCH v5 21/25] drm/msm/dpu: use msm_dp_get_mst_intf_id() to get
- the intf id
+Date: Mon, 29 Jun 2026 21:16:40 +0800
+Subject: [PATCH v5 22/25] drm/msm/dp: wire MST helpers into atomic check
+ and commit paths
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-msm-dp-mst-v5-21-1d882d9012f4@oss.qualcomm.com>
+Message-Id: <20260629-msm-dp-mst-v5-22-1d882d9012f4@oss.qualcomm.com>
 References: <20260629-msm-dp-mst-v5-0-1d882d9012f4@oss.qualcomm.com>
 In-Reply-To: <20260629-msm-dp-mst-v5-0-1d882d9012f4@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -105,43 +105,43 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782738985; l=4713;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782738985; l=3337;
  i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
- bh=Nu7YW4TXEkufL2/VUa/aa1d9ExabRLDcY0ZzM8BCDDg=;
- b=ohb3WtX07SqjYmO20l2UfR1xpcCRG0WO+ep7uEdGa4OsS3EK1uZpJZEbExSPOXNC4QLvR5bVf
- QNiRP7IYn6PASfe2bJwNAhfwRmRX+nld/WsdOPCaT69gM62o66KpnCx
+ bh=b2i238VUI/AdKzoSuCKAbFa1dbTjNQRwjyN6xCNz0mo=;
+ b=9cT3aQekbGmcWb8Knq3maYHywYSVMhy9Dvz2ZE/x0ybyzlMp6YTz3bw9ad4bbocaX+Qq+ZnPR
+ W2dD0oUOgJ7Amc4a8Tgn5zU5WBCoNWwC3VL8+Q1/hVZxobHPiEza9m/
 X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
  pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
-X-Proofpoint-GUID: DjKq-4IA63_5N1QpaHXDFGPytdGPXwUj
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDExMCBTYWx0ZWRfX/15wbz9TgBe9
- t6Zmj0qxkaxPBwmLljK8ViiKx3K2W99xcMxZFeDttZxGLf0SNmIyHzw4CAWtanL9zhY0wDOCdlm
- WHMxUxb4feg1dnTpuzmTXeFVa/3CMwo=
-X-Proofpoint-ORIG-GUID: DjKq-4IA63_5N1QpaHXDFGPytdGPXwUj
-X-Authority-Analysis: v=2.4 cv=PqSjqQM3 c=1 sm=1 tr=0 ts=6a427098 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+X-Proofpoint-GUID: SMGSrsYO7OYU65yi-VRogtoNuXB9nZ5H
+X-Authority-Analysis: v=2.4 cv=CqCPtH4D c=1 sm=1 tr=0 ts=6a4270a0 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=xL80pz1hMqKSlDDrj7YA:9 a=QEXdDO2ut3YA:10
- a=1HOtulTD9v-eNWfpl4qZ:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDExMCBTYWx0ZWRfX9tMj4/R30J1j
- 9ZoAq1r+imdrTHNnYjW3bjtpRd9CjC2jbq45KvSi2081t4lkfW6rOzGdvvQfEJv3ul74EBU4D3e
- kdAQLdwOg1occ5z08EkbZS62O4QZrpztowHojDDwOQjP0782xfz/qOLghAAOaS/JhZl1Vxpzi3n
- AzC6H46ulZW4isLH6Oi1R4oE0CY45JMfKmHD4uf9KC4r5FzHvyRQx2kAhRQxNz2QtAjoI9r3TP1
- jo0uyGbR4hJHwaEvcYft9K6TEC6XP4R7QgrI5QptNR1unLcugML7lpYow3aJ3/KtD9f/zkmM2IX
- egdMzI12VZNYgv8cGBd9dnkoz+jHmX4Kbsz6TN3VPvN9CkdcIQLXKEhvSvvXZgGzKGKdH5+kRpN
- znzydX7fuYAdUCh2H5NnPFcnIP/uFJO+TSgoTp4SkLOiaQusfLPH1c/Bj9VaXzTLajA0yRaVtE0
- S2+RWVsBEWyokfbssNw==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=rXwVWE6-aGP_zC5-gXEA:9
+ a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDEwOSBTYWx0ZWRfX6H612DHON8qE
+ 4REqNXB//o4aZku5QQMle8As3QFR1yZF1nmYYt1u3+1B17Hk+3fppU+P6Gg4xu8j4BrjLVSkM71
+ Hzgy2wZlsnnBgJ0Xhvxjgv6w3gMjamQ=
+X-Proofpoint-ORIG-GUID: SMGSrsYO7OYU65yi-VRogtoNuXB9nZ5H
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDEwOSBTYWx0ZWRfX6yJDqmmJaJS4
+ +x/E80I1ea32cS7kgaygK48lBeF9EDUYysviqZWityG+2Sj2Zm7S+xj92siSkFV8fmlS+o1hmP8
+ VgH6ZKfrDsl10GbS24EclrddRX0oMclD9HNb/YqxuikUMHCvRDmNVl8mDq9wWopcAytYrEUaQ9v
+ yKElYKbJaAD2WxPbILi2j8RiI6pK4JP+EFW0U+fFr3zj/WpWXJFIv7qKBcKcZGzxMmk9JgiqYNO
+ LlSqVAxD86UEfh0D62QHxpQL8RuIM/xAL4Xp12bdmCqmtJnPV2g7iUWLx9gkohFFpO+W4XosjxZ
+ wKO+/Q9sGsu/5Hb0ydFMvHNA/OwomKLaU+sA5qMiq8ArF0P+rDrFDvvOg3prw4Ho8I8fGdmMlMQ
+ E0WD9p/id0JxUU7t/dGXiNToUByHQfGyM2IxxpfU1mn+xh3tscA6RaSuUmeJtnqK5adpn8NmZY6
+ REUswqo5/nSyGjg44Ww==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-29_03,2026-06-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 adultscore=0 clxscore=1015
- lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0 suspectscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606290110
+ phishscore=0 bulkscore=0 clxscore=1015 impostorscore=0 malwarescore=0
+ priorityscore=1501 spamscore=0 adultscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290109
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,120 +157,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use msm_dp_get_mst_intf_id() to get the interface ID for the DP MST
-controller as the intf_id is unique for each MST stream of each DP
-controller.
+Call drm_dp_mst_atomic_check() from msm_atomic_check() so MST-specific
+state, such as connector and topology changes, is validated as part of
+the atomic check.
 
-For DSI/eDP/DP SST, the stream_id is always 0, so existing behavior
-remains unchanged.
+Hook the MST helpers into atomic_commit_setup() and
+atomic_commit_tail() to support non-blocking atomic commits for
+DisplayPort MST, and ensure MST commits properly wait for dependencies.
+
+For SST, non-blocking commits are already handled via commit_tail(),
+which waits for dependencies in the DRM core.
 
 Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 20 +++++++++++---------
- drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |  2 ++
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  4 ++++
- 3 files changed, 17 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/msm/msm_atomic.c | 14 +++++++++++++-
+ drivers/gpu/drm/msm/msm_drv.h    |  1 +
+ drivers/gpu/drm/msm/msm_kms.c    |  1 +
+ 3 files changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-index 1c74ff6f0dbd..3adfaeaab71d 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-@@ -1438,18 +1438,21 @@ void dpu_encoder_phys_disable(struct drm_encoder *drm_enc,
- 
- static struct dpu_hw_intf *dpu_encoder_get_intf(const struct dpu_mdss_cfg *catalog,
- 		struct dpu_rm *dpu_rm,
--		enum dpu_intf_type type, u32 controller_id)
-+		struct msm_display_info *disp_info, u32 controller_id)
- {
--	int i = 0;
-+	int i = 0, cnt = 0;
-+	int stream_id = disp_info->stream_id;
- 
--	if (type == INTF_WB)
-+	if (disp_info->intf_type == INTF_WB)
- 		return NULL;
- 
-+	DPU_DEBUG("intf_type 0x%x controller_id %d stream_id %d\n",
-+		  disp_info->intf_type, controller_id, stream_id);
- 	for (i = 0; i < catalog->intf_count; i++) {
--		if (catalog->intf[i].type == type
--		    && catalog->intf[i].controller_id == controller_id) {
--			return dpu_rm_get_intf(dpu_rm, catalog->intf[i].id);
--		}
-+		if (catalog->intf[i].type == disp_info->intf_type &&
-+		    controller_id == catalog->intf[i].controller_id)
-+			if (cnt++ == stream_id)
-+				return dpu_rm_get_intf(dpu_rm, catalog->intf[i].id);
- 	}
- 
- 	return NULL;
-@@ -2675,8 +2678,7 @@ static int dpu_encoder_setup_display(struct dpu_encoder_virt *dpu_enc,
- 				i, controller_id, phys_params.split_role);
- 
- 		phys_params.hw_intf = dpu_encoder_get_intf(dpu_kms->catalog, &dpu_kms->rm,
--							   disp_info->intf_type,
--							   controller_id);
-+							   disp_info, controller_id);
- 
- 		if (disp_info->intf_type == INTF_WB && controller_id < WB_MAX)
- 			phys_params.hw_wb = dpu_rm_get_wb(&dpu_kms->rm, controller_id);
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-index 25ade3dbbeda..861d69afbd76 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h
-@@ -28,6 +28,7 @@
-  * @h_tile_instance:    Controller instance used per tile. Number of elements is
-  *                      based on num_of_h_tiles
-  * @is_cmd_mode		Boolean to indicate if the CMD mode is requested
-+ * @stream_id		stream id for which the interface needs to be acquired
-  * @vsync_source:	Source of the TE signal for DSI CMD devices
+diff --git a/drivers/gpu/drm/msm/msm_atomic.c b/drivers/gpu/drm/msm/msm_atomic.c
+index a8babf1dbe0d..e70e5088cfe5 100644
+--- a/drivers/gpu/drm/msm/msm_atomic.c
++++ b/drivers/gpu/drm/msm/msm_atomic.c
+@@ -4,6 +4,7 @@
+  * Author: Rob Clark <robdclark@gmail.com>
   */
- struct msm_display_info {
-@@ -35,6 +36,7 @@ struct msm_display_info {
- 	uint32_t num_of_h_tiles;
- 	uint32_t h_tile_instance[MAX_H_TILES_PER_DISPLAY];
- 	bool is_cmd_mode;
-+	int stream_id;
- 	enum dpu_vsync_source vsync_source;
+ 
++#include <drm/display/drm_dp_mst_helper.h>
+ #include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_vblank.h>
+ 
+@@ -207,7 +208,11 @@ int msm_atomic_check(struct drm_device *dev, struct drm_atomic_commit *state)
+ 	if (ret)
+ 		return ret;
+ 
+-	return drm_atomic_helper_check(dev, state);
++	ret = drm_atomic_helper_check(dev, state);
++	if (ret)
++		return ret;
++
++	return drm_dp_mst_atomic_check(state);
+ }
+ 
+ void msm_atomic_commit_tail(struct drm_atomic_commit *state)
+@@ -221,6 +226,8 @@ void msm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 
+ 	trace_msm_atomic_commit_tail_start(async, crtc_mask);
+ 
++	drm_dp_mst_atomic_wait_for_dependencies(state);
++
+ 	kms->funcs->enable_commit(kms);
+ 
+ 	/*
+@@ -322,3 +329,8 @@ void msm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 
+ 	trace_msm_atomic_commit_tail_finish(async, crtc_mask);
+ }
++
++int msm_atomic_commit_setup(struct drm_atomic_commit *state)
++{
++	return drm_dp_mst_atomic_setup_commit(state);
++}
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index 963303079220..f71200a790f3 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -213,6 +213,7 @@ int msm_atomic_init_pending_timer(struct msm_pending_timer *timer,
+ 		struct msm_kms *kms, int crtc_idx);
+ void msm_atomic_destroy_pending_timer(struct msm_pending_timer *timer);
+ void msm_atomic_commit_tail(struct drm_atomic_commit *state);
++int msm_atomic_commit_setup(struct drm_atomic_commit *state);
+ int msm_atomic_check(struct drm_device *dev, struct drm_atomic_commit *state);
+ struct drm_atomic_commit *msm_atomic_state_alloc(struct drm_device *dev);
+ 
+diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
+index e5d0ea629448..33ab30300e16 100644
+--- a/drivers/gpu/drm/msm/msm_kms.c
++++ b/drivers/gpu/drm/msm/msm_kms.c
+@@ -29,6 +29,7 @@ static const struct drm_mode_config_funcs mode_config_funcs = {
+ 
+ static const struct drm_mode_config_helper_funcs mode_config_helper_funcs = {
+ 	.atomic_commit_tail = msm_atomic_commit_tail,
++	.atomic_commit_setup = msm_atomic_commit_setup,
  };
  
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-index 91d33b432427..b32ecd5b0777 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-@@ -614,6 +614,7 @@ static int _dpu_kms_initialize_dsi(struct drm_device *dev,
- 			info.h_tile_instance[info.num_of_h_tiles++] = other;
- 
- 		info.is_cmd_mode = msm_dsi_is_cmd_mode(priv->kms->dsi[i]);
-+		info.stream_id = 0;
- 
- 		rc = dpu_kms_dsi_set_te_source(&info, priv->kms->dsi[i]);
- 		if (rc) {
-@@ -689,6 +690,7 @@ static int _dpu_kms_initialize_displayport(struct drm_device *dev,
- 			}
- 
- 			for (stream_id = 0; stream_id < stream_cnt; stream_id++) {
-+				info.stream_id = stream_id;
- 				encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_DPMST, &info);
- 				if (IS_ERR(encoder)) {
- 					DPU_ERROR("encoder init failed for dp mst display\n");
-@@ -716,6 +718,7 @@ static int _dpu_kms_initialize_hdmi(struct drm_device *dev,
- 	info.num_of_h_tiles = 1;
- 	info.h_tile_instance[0] = 0;
- 	info.intf_type = INTF_HDMI;
-+	info.stream_id = 0;
- 
- 	encoder = dpu_encoder_init(dev, DRM_MODE_ENCODER_TMDS, &info);
- 	if (IS_ERR(encoder)) {
-@@ -748,6 +751,7 @@ static int _dpu_kms_initialize_writeback(struct drm_device *dev,
- 	/* use only WB idx 2 instance for DPU */
- 	info.h_tile_instance[0] = wb_idx;
- 	info.intf_type = INTF_WB;
-+	info.stream_id = 0;
- 
- 	maxlinewidth = dpu_rm_get_wb(&dpu_kms->rm, info.h_tile_instance[0])->caps->maxlinewidth;
- 
+ static irqreturn_t msm_irq(int irq, void *arg)
 
 -- 
 2.43.0
