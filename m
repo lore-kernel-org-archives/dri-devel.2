@@ -4,103 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A37E1C43602
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 16:23:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A39DAC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 16:32:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0568F10E988;
-	Mon, 29 Jun 2026 16:23:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDDF410E990;
+	Mon, 29 Jun 2026 16:32:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OZidQczZ";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="qh88UNuk";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8883D10E2C8;
- Mon, 29 Jun 2026 16:23:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782750196; x=1814286196;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=60Kkhn1S4xFp8KF1ZAF46WPmvC0pF6KOvaZqQh2Mlf4=;
- b=OZidQczZx8P1Vo1Xs+EgC9oVEH+HS3OI/1r8KI2aLZljAIhr5r29CPvP
- fPyhEGqQK5Ck1cue2yJKQWs8l65/IKe50DwaNTk6PQW5pJWD4PwPVo5Bi
- jG+btG192ssMAKVka6mPYAOi39hdkIUnsP9S1Hlf0k4pDsCu1deH7Ug9s
- yO1WkR8C/B4uvOgGQZA1jxgagRDY+4fQDdnq0Hlp+6Yu/OzoscAakHEeF
- GtxTyIlFaaQKufCiyypLxbn4ZGc4R3IBxu5OR14sZYLvFykWqxfBSz5Kq
- +YoLxQFsQVEdHshYRR8QyDI6IwIxkY7Grrxkm7aC3dhkhu1WFWLyCROcm w==;
-X-CSE-ConnectionGUID: Wf/Z+a6bRziUGyTcRQSnRA==
-X-CSE-MsgGUID: ul1f/wOcQleTeWvokiJf8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="83476035"
-X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; d="scan'208";a="83476035"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2026 09:23:15 -0700
-X-CSE-ConnectionGUID: tfo8W8J/QcSmRxl6mSfrug==
-X-CSE-MsgGUID: qa+c086/QemtMiZKLSzfAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,232,1774335600"; d="scan'208";a="256920930"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.207])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2026 09:23:02 -0700
-Date: Mon, 29 Jun 2026 19:23:00 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Lee Jones <lee@kernel.org>,
- Mark Brown <broonie@opensource.wolfsonmicro.com>,
- Thierry Reding <thierry.reding@avionic-design.de>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Doug Berger <opendmb@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Peter Chen <peter.chen@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
- Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- driver-core@lists.linux.dev, devicetree@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, stable@vger.kernel.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>
-Subject: Re: [PATCH v2 00/19] driver core: count references of the platform
- device's fwnode, not OF node
-Message-ID: <akKb5LPBIMenF9yD@ashevche-desk.local>
-References: <20260629-pdev-fwnode-ref-v2-0-8abe2513f96e@oss.qualcomm.com>
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3F0B10E98F
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 16:32:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1782750749;
+ bh=lEyeCapBsVXYSpplIUA0PN6OvGWLHmv5pdfFL1Phu/8=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=qh88UNukwFc6dT9j/eKGL1AmHTkKB4THBoN2h8ulr24M43yQI7H2a3DniuYI4YQU/
+ y+sEySwE1m/Yf7Z4VFExs88su0MVH5q9LvDDgm3FgbSwSerHA0qE+99HtFGQuSq59g
+ FxbGAdDGAJa0us+28P1h8SwZbStEfY16odXIDBqOwMFsZRmzUmX3G24DLlJPC9HqMt
+ AlrhiIGH2v4UHN+lsmYX4xgJg8hyB5WUMln6lluFMWJe2rYqxANowUQAhfaoHNwZ4s
+ g1DEDbhTRfl1prBKA0d/k+37/uM3L3gfGP5wgLmM81glk8mKfiDysdxeSh8Nd0lNCJ
+ lz5QMzOgdFabA==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4gpsJ43jdmz4x1q;
+ Tue, 30 Jun 2026 02:32:20 +1000 (AEST)
+Message-ID: <57055684-2008-4ba3-bfa8-674317be1a71@ozlabs.org>
+Date: Mon, 29 Jun 2026 17:32:14 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260629-pdev-fwnode-ref-v2-0-8abe2513f96e@oss.qualcomm.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 8/9] vfio/pci: Permanently revoke a DMABUF on request
+Content-Language: en-GB
+From: Matt Evans <matt@ozlabs.org>
+To: "Tian, Kevin" <kevin.tian@intel.com>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Pranjal Shrivastava <praan@google.com>, Alistair Popple
+ <apopple@nvidia.com>, "Kasireddy, Vivek" <vivek.kasireddy@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
+References: <20260610154327.37758-1-matt@ozlabs.org>
+ <20260610154327.37758-9-matt@ozlabs.org>
+ <DM6PR11MB3690886693898AD755FB246F8CE52@DM6PR11MB3690.namprd11.prod.outlook.com>
+ <31d1265b-e264-4dc6-a8c3-1b64dc9867a1@ozlabs.org>
+In-Reply-To: <31d1265b-e264-4dc6-a8c3-1b64dc9867a1@ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,46 +76,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 11:12:23AM +0200, Bartosz Golaszewski wrote:
-> Platform device core provides helper interfaces for dealing with
-> dynamically created platform devices. Most users should use
-> platform_device_register_full() which encapsulates most of the
-> operations but some modules will want to use the split approach of
-> calling platform_device_alloc() + platform_device_add() separately for
-> various reasons.
-> 
-> With many platform devices now using dynamic software nodes as their
-> primary firmware nodes and with the platform device interface being
-> extended to also better cover the use-cases of secondary software nodes,
-> I believe it makes sense to switch to counting the references of all
-> kinds of firmware nodes.
-> 
-> To that end, I identified all users of platform_device_alloc() that also
-> assign dev.of_node or dev.fwnode manually. I noticed five cases where
-> the references are not increased as they should (patches 1-5 fix these
-> users) and provided three new functions in platform_device.h that now
-> become the preferred interfaces for assigning firmware nodes to dynamic
-> platform devices (in line with platform_device_add_data(),
-> platform_device_add_resources(), etc.). The bulk of the patches in this
-> series are small driver conversions to port all users to going through
-> the new functions that now encapsulate the refcount logic. With that
-> done, the final patch seamlessly switches to counting the references of
-> all firmware node types.
-> 
-> This effort is prerequisite of removing platform_device_release_full()
-> and unifying the release path for dynamic platform devices using
-> unmanaged software nodes.
-> 
-> Merging strategy: The entire series should go through the driver core
-> tree, possibly with an immutable branch provided to solve any potential
-> conflicts though these are rather unlikely.
+Hi Kevin,
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-for patches 2-4 assuming they will be accompanied with patch 19 at the same
-time.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Digging this one up again,
 
+On 17/06/2026 17:08, Matt Evans wrote:
+> Hi Kevin,
+> 
+> On 16/06/2026 10:26, Tian, Kevin wrote:
+>>> From: Matt Evans <matt@ozlabs.org>
+>>> Sent: Wednesday, June 10, 2026 11:43 PM
+>>>
+>>> Expand the VFIO DMABUF revocation state to three states:
+>>> Not revoked, temporarily revoked, and permanently revoked.
+>>>
+>>> The first two are for existing transient revocation, e.g. across a
+>>> function reset, and the DMABUF is put into the last in response to a
+>>> new VFIO feature VFIO_DEVICE_FEATURE_DMA_BUF.
+>>
+>> VFIO_DEVICE_FEATURE_DMA_BUF_REVOKE
+>>
+>>>
+>>> VFIO_DEVICE_FEATURE_DMA_BUF passes a DMABUF by fd and requests that
+>>> the DMABUF is permanently revoked.  On success, it's guaranteed that
+>>
+>> ditto
+> 
+> Argh, thanks for catching these.  Fixed.
+> 
+>>> the buffer can never be imported/attached/mmap()ed in future, that
+>>> dynamic imports have been cleanly detached, and that all mappings have
+>>> been made inaccessible/PTEs zapped.
+>>>
+>>> This is useful for lifecycle management, to reclaim VFIO PCI BAR
+>>> ranges previously delegated to a subordinate client process: The
+>>> driver process can ensure that the loaned resources are revoked when
+>>> the client is deemed "done", and exported ranges can be safely re-used
+>>> elsewhere.
+>>
+>> probably clarify that re-use by creating a new dmabuf fd as the original
+>> one is essentially zombie now.
+> 
+> Reworded this, plus added a note re the change below.
+> 
+>>>
+>>> +/* Set the DMABUF's revocation status (OK or temporarily/permanently
+>>> revoked) */
+>>> +static void vfio_pci_dma_buf_set_status(struct vfio_pci_dma_buf *priv,
+>>> +					enum vfio_pci_dma_buf_status
+>>> new_status)
+>>> +{
+>>> +	bool was_revoked;
+>>> +
+>>> +	lockdep_assert_held_write(&priv->vdev->memory_lock);
+>>> +
+>>> +	if (priv->status == VFIO_PCI_DMABUF_PERM_REVOKED ||
+>>> +	    priv->status == new_status) {
+>>> +		return;
+>>> +	}
+>>
+>> the only interface to request PERM_REVOKED is via the new ioctl.
+>>
+>> vfio_pci_core_feature_dma_buf_revoke() returns -EBADFD if
+>> it's already in PERM_REVOKED.
+>>
+>> so this check shouldn't be reached, suggesting a warning.
+> 
+> Good point, both any change to PERM_REVOKED or a double-set of the same
+> state indicate some caller has gone wrong.  Added a warning.
+
+Well, after the D0/D3 reset thread, I noticed while testing that a
+double-revoke will naturally happen when cleaning up a buffer that was
+already revoked by a device having previously transitioned to D3.
+
+Similarly, cleaning up a buffer that was explicitly (permanently)
+revoked leads to an attempt to set TEMP whilst PERM, and this is OK too.
+
+So the only "surprising" case is a buffer already in the PERM_REVOKED
+state getting a second PERM_REVOKED (which is weeded out in the caller
+as you point out).  Any new caller asking for PERM_REVOKED repeatedly is
+odd, but still gets what it wants.  I really don't think a warning is
+warranted just for that (it's safe either way).  Sending this
+explanation separately, so you are not too disappointed if v4 reverts to
+this existing condition above...  :)
+
+
+Thanks,
+
+
+Matt
+
+
+> 
+>>> +
+>>> +	dma_buf_invalidate_mappings(priv->dmabuf);
+>>> +	dma_resv_wait_timeout(priv->dmabuf->resv,
+>>> +			      DMA_RESV_USAGE_BOOKKEEP, false,
+>>> +			      MAX_SCHEDULE_TIMEOUT);
+>>> +	dma_resv_unlock(priv->dmabuf->resv);
+>>
+>> It's existing code but while at it let's make above conditional to
+>> the actual revoke path. for unrevoked it's not required given the
+>> previous revoke already cleans up everything.
+> 
+> I noticed this too though I was consciously trying to keep the diff as
+> small as possible.  But with this feedback from both you and Praan, I'll
+> move this.  It's still pretty readable before/after.
+> 
+>> otherwise,
+>>
+>> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+> 
+> 
+> Thank you.
+> 
+> 
+> Matt
+> 
 
