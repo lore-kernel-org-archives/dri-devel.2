@@ -4,84 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 274EBC43602
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:56:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E952C43327
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:57:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B0F110E775;
-	Mon, 29 Jun 2026 08:56:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1B8410E791;
+	Mon, 29 Jun 2026 08:57:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Usy8cPf5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HSPKGcnr";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B614C10E775
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:56:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1782723371;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=oovJIoNGk4eGagKRDaw9pqXMujhus9ut370XvRbtgL4=;
- b=Usy8cPf5mnughhfCezGqQY3Dq9LzsWfMjzdhKlSqyZspYbFYbM4ZZeH7dJLqUY2857WSUo
- vHhuENyJPCPHsLZCSS3XTmcLfhzciMzgZNWxR715VRNUJ4tUw3Pz8WrrBRshklUMi0ljRY
- BRdrtRfokEJXM4yjOH/r0/LoNoaHFME=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-654-4epiRB7yM3Gk1_Alzawblw-1; Mon, 29 Jun 2026 04:56:09 -0400
-X-MC-Unique: 4epiRB7yM3Gk1_Alzawblw-1
-X-Mimecast-MFC-AGG-ID: 4epiRB7yM3Gk1_Alzawblw_1782723368
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-45f3d008865so2360512f8f.0
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 01:56:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782723368; x=1783328168;
- h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=oovJIoNGk4eGagKRDaw9pqXMujhus9ut370XvRbtgL4=;
- b=m7MQWVjwbkfJ4pMlf4bH7d08RLrAV64SrQU2Da/bKqwpTNfeEEMPKP/jpGR4rCRjQs
- NCznr5PlU8Z6ix/FdpjSQJrn7uYD96cbHxttAsZVUzbMaASoFp+v7/Ys5Y+wouFOeLIb
- Kaib7+tZXmch+Mtjcg/pQ7QoUG7duO/2jYnLZYF6RPtU8IcvSgLwE/MOtCFJYcx2zSXb
- d3rLsHdjc/rY+COHKvg+911v8NTfQHtT6bUrN3wKwYeMYGnYutqHfgGVVHlFo7qvvIiA
- x8jDKkxtZDrQfqPLMD29Y/Vtc6FG3vjY9cApAdEll0rZ87Sdp2/FnOPBeiQPynhqcHqY
- tWkA==
-X-Gm-Message-State: AOJu0YwUr728X57BnC8J+ZlOAKQVWOwXj8KoigtJojtyPSwHJUsAHq8G
- 2I3YZH0M5c3cZcgeRZ2Ddy/E7kA8LuGl7REXfgAxSGttUyZKcC68kRcc8zr4sdh9CNhNjFe+TdU
- 2iGMwlMQRbuKSWIna4ldQFTm9aQk9l+nd5EujdKcV1Lnp101nqFlb4+TRYfRFFLXWnG059g==
-X-Gm-Gg: AfdE7cnzoFyRFjDouWoLpYmNGRjQTdVDiHUSwZA8cSyMuGTdhSh1A2JvRlWidNcWJdh
- Zr0y4vpZryi2MaJR2nb+hD+5yvNU3JumtJWWzudKHJ0GTz8iO+3DgZg4tID1XZh+iON8Fe60nav
- ZjjikA8z+8Cbc4lybAV+TNw7VsfpAKU165etPzkSPUib2NxO0n0q9IIsj/nTlzDhMESprIvm2B0
- 4B906ybRPnErm3csBSQR3LzuKaoyTQI4kjcGmdXvO/4khg4y+pb24ZgcKGFeKgzVnlCW5949rP+
- 9RFhZN6lt2x1DO/f9/7XWiB3MMt8BFaPA4oftyR+bP0BypX3qNoHFFNo3e+CJDkPw8A5Tias8cf
- m7WFCQiez4hCXXpccL/JGAA7LSLv8gCg9GLf1UQ0LSPiAWI5n1rMjB1AWcUQ5lmTG7F2hfA==
-X-Received: by 2002:a05:6000:46c8:b0:45e:dd32:92fa with SMTP id
- ffacd0b85a97d-46a7efb7522mr27270412f8f.12.1782723368319; 
- Mon, 29 Jun 2026 01:56:08 -0700 (PDT)
-X-Received: by 2002:a05:6000:46c8:b0:45e:dd32:92fa with SMTP id
- ffacd0b85a97d-46a7efb7522mr27270397f8f.12.1782723367842; 
- Mon, 29 Jun 2026 01:56:07 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4726b76e6f8sm17377098f8f.13.2026.06.29.01.56.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jun 2026 01:56:07 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Amit Barzilai <amit.barzilai22@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH 1/3] drm/ssd130x: fix column and row end address in
- partial updates for ssd132x
-In-Reply-To: <20260629084317.10265-1-amit.barzilai22@gmail.com>
-References: <20260629084317.10265-1-amit.barzilai22@gmail.com>
-Date: Mon, 29 Jun 2026 10:56:06 +0200
-Message-ID: <87mrwdd8t5.fsf@ocarina.mail-host-address-is-not-set>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6DF210E785;
+ Mon, 29 Jun 2026 08:57:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782723423; x=1814259423;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=wtzhexgYu/GiWMolnu8lXfeDieCTDoNiL+kBDBrK4ig=;
+ b=HSPKGcnrrcbYdHdhD/d+5KFXumgVF2n1QuDNlwVzB7LfTzkNdrJD1x/d
+ RVFpRHzzP1q1bjAq/8FKjspHBjH5iP7nbRqtE87RAeCeLqv/mLL/b2ZNe
+ lc4aJ12qZpyWfD+4mw5AJ3c7lynY46em0qqWfsAvqKbiu8nAF6cGopRm9
+ EYj450nfL1LPkk0WwL8AcCz47GFWkXoiQ2ZldIz1EwTieSQKzE1he0zV5
+ VBTm2jYkrR1tcuQH0qKDHBJ/V5hR0vE7H/tGjr8X88PwwQLmDEPDhL33f
+ nFkhal2J9hK0BTag6rArTixVDTA/wwVXxTGURI93pf2AT+uL5oO8aqF+W A==;
+X-CSE-ConnectionGUID: 7Ab0iPy5SFqh3YqPl1NnlA==
+X-CSE-MsgGUID: eBnVXZceRBq1l8QYpVBRnQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11831"; a="83605584"
+X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; d="scan'208";a="83605584"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2026 01:57:03 -0700
+X-CSE-ConnectionGUID: b23/RaZMRS26psfuHBE/LA==
+X-CSE-MsgGUID: flC0TqmrQD+p/7xG0cI3cg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; d="scan'208";a="251514805"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.253])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2026 01:57:00 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>, Alexander Kaplan
+ <alexander.kaplan@sms-medipool.de>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Imre
+ Deak <imre.deak@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Subject: Re: [PATCH v2] drm/dp: Read the PCON max FRL bandwidth only for
+ HDMI DFPs
+In-Reply-To: <2a22b3bf-5dcd-4163-aab9-a3471da24b50@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260610193825.2933-1-alexander.kaplan@sms-medipool.de>
+ <2a22b3bf-5dcd-4163-aab9-a3471da24b50@intel.com>
+Date: Mon, 29 Jun 2026 11:56:36 +0300
+Message-ID: <6cf1f0d9b46070901b96a96ba10a11a3be108f68@intel.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: eAE_3Y1YQXAlAS1vPBAcaBf2WRbn2IInYkO9A5Kf-rA_1782723368
-X-Mimecast-Originator: redhat.com
 Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,40 +75,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Amit Barzilai <amit.barzilai22@gmail.com> writes:
-
-Hello Amit,
-
-Thank for your patches.
-
-> On Mon, Jun 22, 2026 at 12:36:30PM +0000, sashiko-bot@kernel.org wrote:
->> Pre-existing issues:
->> - [High] Potential 1-byte out-of-bounds read past the heap buffer in
->>   `ssd132x_update_rect` when device width is configured to an odd value.
+On Mon, 29 Jun 2026, "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com> wrote:
+> On 6/11/2026 1:08 AM, Alexander Kaplan wrote:
+>> The PCON max FRL bandwidth field lives in byte 2 of the DFP Detailed
+>> Capability Info (DPCD 0x82 for the first DFP).
+>> The DP standard defines the meaning of descriptor bytes 1-3 strictly
+>> per DFP type, and for a DisplayPort type DFP all of them are
+>> reserved, with "read all 0s" semantics (DP v2.0, section 2.12.3,
+>> Table 2-183).
+>> The FRL bandwidth field is an HDMI DFP extension added by the VESA
+>> DP-to-HDMI PCON specification.
+>> drm_dp_get_pcon_max_frl_bw() however parses the byte without checking
+>> the DFP type, the branch presence or DETAILED_CAP_INFO_AVAILABLE.
+>> Without the latter the port descriptors are one byte wide and
+>> port_cap[2] is not even the right register.
+>>
+>> All neighbouring helpers parsing the same descriptor are scoped by
+>> the DFP type already, see for instance drm_dp_downstream_max_bpc()
+>> reading the same byte and returning 0 for a DP type DFP.
+>> amdgpu's DC parses the field only for HDMI(/DP++) detailed types as
+>> well.
+>>
+>> This is not theoretical.
+>> A Synaptics VMM7100 based USB-C to HDMI adapter with a macOS targeted
+>> firmware advertises a DisplayPort type DFP with the type byte
+>> replicated across the whole descriptor (08 08 08 08).
+>> i915 decodes that as "PCON limited to 18 Gbps FRL" and prunes every
+>> mode above ~750 MHz dotclock, including all the 4k@100/120 modes the
+>> sink EDID offers, while macOS drives 4k@120 through the same adapter
+>> just fine via DP DSC (and amdgpu's type-scoped parser would ignore
+>> the bogus field as well).
+>>
+>> Only parse the field for an HDMI DFP behind a DPCD 1.1+ branch
+>> device that reports detailed cap info, matching the type-scoped
+>> field layout of the spec and the rest of the helpers.
+>>
+>> Fixes: ce32a6239de6 ("drm/dp_helper: Add Helpers for FRL Link Training support for DP-HDMI2.1 PCON")
+>> Signed-off-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
+>> ---
+>> v2: add an explicit DPCD_REV check like the neighbouring helpers
+>>      have (Ville)
+>> v1: https://lore.kernel.org/r/20260610174819.6258-1-alexander.kaplan@sms-medipool.de
+>>
+>> This patch is part of a set of independent fixes for the USB-C to DP
+>> to HDMI 2.1 protocol converter (PCON) path, found and verified on an
+>> ASUS NUC 16 Pro (Panther Lake, xe) with Synaptics VMM7100 based
+>> adapters.
+>> Each part stands on its own and can be merged independently.
+>> The other parts:
+>> [1] https://lore.kernel.org/r/20260610174413.5881-1-alexander.kaplan@sms-medipool.de
+>> [2] https://lore.kernel.org/r/20260610174807.6231-1-alexander.kaplan@sms-medipool.de
+>>   drivers/gpu/drm/display/drm_dp_helper.c | 12 ++++++++++++
+>>   1 file changed, 12 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+>> index 9c31e14cc413..e623ccb4c1d8 100644
+>> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+>> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+>> @@ -3686,6 +3686,18 @@ int drm_dp_get_pcon_max_frl_bw(const u8 dpcd[DP_RECEIVER_CAP_SIZE],
+>>   	int bw;
+>>   	u8 buf;
+>>   
+>> +	if (!drm_dp_is_branch(dpcd))
+>> +		return 0;
+>> +
+>> +	if (dpcd[DP_DPCD_REV] < 0x11)
+>> +		return 0;
+>> +
+>> +	if ((dpcd[DP_DOWNSTREAMPORT_PRESENT] & DP_DETAILED_CAP_INFO_AVAILABLE) == 0)
+>> +		return 0;
+>> +
+>> +	if ((port_cap[0] & DP_DS_PORT_TYPE_MASK) != DP_DS_PORT_TYPE_HDMI)
+>> +		return 0;
+>> +
 >
-> As stated in the review, this is a pre-existing issue and is not touched by
-> this series, which only corrects the SET_COL_RANGE/SET_ROW_RANGE end
-> addresses sent to the controller.
+> This is the right thing to do. These come under Additional HDMI Link 
+> Capability in the spec, so this needs a check for HDMI DFP.
 >
-> Gentle ping on the series -- it's been about a week with no comments. Is
-> there anything you'd like changed for it to be picked up? Happy to spin a
-> v2 if needed.
+> Thanks for the fix.
 >
+> Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-Sorry, I was on PTO and couldn't take a look to your series. I plan to do
-it this week.
+I kicked CI to let this through. Please wait for the results before
+merging. Thanks.
 
-One question, though. How did you find these issues and came up with the
-fixes ?
-
-It was just reading the code and the datasheets or were the issues (and
-fixes?) identified by an LLM? If the latter, then you need to add an
-Assisted-by tag to your pa+tches.
+>
+>
+>
+>>   	buf = port_cap[2];
+>>   	bw = buf & DP_PCON_MAX_FRL_BW;
+>>   
 
 -- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+Jani Nikula, Intel
