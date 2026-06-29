@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28DF5C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 14:22:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E78DC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 14:27:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7625D10E93E;
-	Mon, 29 Jun 2026 14:22:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7019710E058;
+	Mon, 29 Jun 2026 14:27:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YWh0cIpf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K7M/1GXt";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E04F10E93E
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 14:22:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8812510E058
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 14:27:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1457643AE4;
- Mon, 29 Jun 2026 14:22:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B368F1F00A3A;
- Mon, 29 Jun 2026 14:22:48 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 582ED42D5F;
+ Mon, 29 Jun 2026 14:27:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED6141F000E9;
+ Mon, 29 Jun 2026 14:27:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782742969;
- bh=7HP7n/cd4lQpLhqSxGcOiQrxoMWKgp3W7yFlnpavk+M=;
+ s=k20260515; t=1782743258;
+ bh=xx/5YjsXIruUGQj/mKNwO8Lzlpv2QSmLswkJrGNTINI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=YWh0cIpfegryCfOU+BriOYgAS1hdIZi36WeRbDI5RToQPLcTOYvp2KuyO7CphXMR1
- I3ZGQ4MTo1Im/9Wbi16Uu/ckpodprHh1ixV9Pt0ahgOGW/G89vL3tvOLMbZbGRMPpb
- g7KnE23Zg0h6e/AMWw6wPzFiCBwavrxbrU+uyaxuVGzY52Q/f4jj9AT/7m91Sm6B94
- tP9Q0WhPHliWR3Ml7O1oP1bFhhCfxAYbQEWXI8+vAV0nNTdk9YPpXs7B7I8U3PQ8S+
- BXTdPXrSSYkX/rsi/DEhEGsgG4Qp8oEEEMfJTL7OaTQ1txoFhd29t9Be7sbIN3cx1X
- Nsbj+IChMdThQ==
+ b=K7M/1GXtdpbpY6OFCXSfrcguynVfVaxTp3BexnqGdGfNsefAXnwpPgMKeh82LRKKV
+ cqWnAcbrf9wJT+HreaiYcZB9kfXcv3u7NcDIUMjP9n2Q+ynylG/qvWnrI9LNtQzveW
+ 1GS0Hw81uIw8lH1GwTUkd7/Tssris4d9c60LU0I05+pI1IXfVzDlpQGoqSz6eCLF3N
+ czjIXSS1RJbk9EbXOtq/3tO340xEOUTYDOkqDNzUuEgyPG0e9Vo9YmBHCU88sbcVWR
+ emctrYRE+MkgUAQw/rCuh1aTugSlddOdDtXcmZnT8f1/GZWOotCWND32T8aaAz6Gzy
+ kjcasfUKpggQQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 01/13] gpu: nova-core: gsp: sequencer: use
- GspBootContext
+Subject: Re: [PATCH v4 13/13] gpu: nova-core: store Fsp instance in Gpu
 To: "Alexandre Courbot" <acourbot@nvidia.com>
-Cc: ojeda@kernel.org, dri-devel@lists.freedesktop.org,
- "Danilo Krummrich" <dakr@kernel.org>
-In-Reply-To: <20260629-nova-bootcontext-v4-1-5539d8469590@nvidia.com>
+Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260629-nova-bootcontext-v4-13-5539d8469590@nvidia.com>
 References: <20260629-nova-bootcontext-v4-0-5539d8469590@nvidia.com>
- <20260629-nova-bootcontext-v4-1-5539d8469590@nvidia.com>
+ <20260629-nova-bootcontext-v4-13-5539d8469590@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 14:22:48 +0000
-Message-Id: <20260629142248.B368F1F00A3A@smtp.kernel.org>
+Date: Mon, 29 Jun 2026 14:27:37 +0000
+Message-Id: <20260629142737.ED6141F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,115 +58,83 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Incorrect loop bounds check causes RPC message padding bytes to be=
- executed as hardware sequencer commands (e.g., unintended RegWrite to addr=
-ess 0).
-- [High] Fixed-size zero-padded buffer bypasses length checks for truncated=
- commands, leading to execution of zeroed out-of-bounds payloads.
-- [High] Unaligned stack array passed to `FromBytes::from_bytes` may cause =
-spurious parsing failures and abort the GSP boot process depending on compi=
-ler stack layout.
+- [Critical] DMA Use-After-Free due to freeing buffers while GSP is still a=
+ctive on timeout
 --
 
-commit c264aea160f8cb747324a1d5a568d1e3a869623a
+commit ad8609a0c320b89583cef07a17ca5ce5c85167ea
 Author: Alexandre Courbot <acourbot@nvidia.com>
 
-gpu: nova-core: gsp: sequencer: use GspBootContext
+gpu: nova-core: store Fsp instance in Gpu
 
-`GspBootContext` contains all the resources currently carried by
-`GspSequencerParams`, so replace the latter with the former for better
-integration with the boot process and less code.
+The Fsp instance was only used in the Hopper+ boot path, and
+consequently built locally (and immediately dropped) in it.
 
-> diff --git a/drivers/gpu/nova-core/gsp/sequencer.rs b/drivers/gpu/nova-co=
-re/gsp/sequencer.rs
-> index 13983d42b12bc..f55205bd61f35 100644
-> --- a/drivers/gpu/nova-core/gsp/sequencer.rs
-> +++ b/drivers/gpu/nova-core/gsp/sequencer.rs
+This worked well as a temporary measure, but the FSP is a GPU
+sub-device, so its lifetime should match the GPU rather than a single
+boot invocation.
 
+> diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova-co=
+re/gsp/hal/gh100.rs
+> index 2805a35abb798..de786871c8ec4 100644
+> --- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
+> +++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
 [ ... ]
+> @@ -150,7 +146,7 @@ fn boot(
+>              KBox::new(FspUnloadBundle, GFP_KERNEL)? as KBox<dyn UnloadBu=
+ndle>
+>          );
+> =20
+> -        let mut fsp =3D Fsp::wait_secure_boot(dev, bar, chipset)?;
+> +        let fsp =3D ctx.fsp.as_mut().ok_or(ENODEV)?;
+> =20
+>          let args =3D FmcBootArgs::new(
+>              dev,
 
-> @@ -335,24 +336,13 @@ fn iter(&self) -> GspSeqIter<'_> {
->      }
->  }
+[Severity: Critical]
+This is a pre-existing issue, but I wanted to ask about the error handling
+in this function and how it affects DMA buffers.
 
-[Severity: High]
-This is a pre-existing issue, but does this bounds check in GspSeqIter::nex=
-t()
-fail to prevent processing alignment padding bytes?
+If wait_for_gsp_lockdown_release() times out later in Gh100::boot(), the ?
+operator causes an early return:
 
-In drivers/gpu/nova-core/gsp/sequencer.rs:GspSeqIter::new(), total_cmds is
-initialized using the length in DWORDs rather than the command count:
+        let res =3D fsp.boot_fmc(dev, fb_layout, &args);
 
-    GspSeqIter {
-        ...
-        total_cmds: self.seq_info.cmd_index,
-        ...
-    }
+        wait_for_gsp_lockdown_release(dev, gsp_falcon, args.boot_params_dma=
+_handle())?;
 
-Then in GspSeqIter::next(), the loop bounds check compares commands process=
-ed
-against this DWORD count:
+When this happens, args is dropped, and the error propagates back to
+Gsp::boot(), which bypasses the unload_guard creation and immediately
+drops wpr_meta:
 
-    if self.cmds_processed >=3D self.total_cmds ||
-       self.current_offset >=3D self.cmd_data.len() {
-        return None;
-    }
+        let unload_bundle =3D hal
+            .boot(&self, &mut ctx, &fb_layout, &wpr_meta)?
 
-If the message buffer contains RPC alignment padding (e.g., trailing zeros),
-could cmds_processed fail to reach total_cmds, causing these zeros to be
-incorrectly parsed as hardware sequencer commands (where opcode 0 is RegWri=
-te
-to address 0)?
+Dropping these structures frees their underlying DMA memory. However, since
+the timeout occurred, the GSP hardware is not forcefully halted.
 
-[Severity: High]
-This is a pre-existing issue, but does passing a zero-padded buffer bypass
-the length check for truncated commands?
+A similar issue appears during the unload path in FspUnloadBundle::run().
+If a timeout occurs while waiting for RISC-V to halt, the code explicitly
+detects that the engine is still active but returns an error without
+forcefully halting it:
 
-In drivers/gpu/nova-core/gsp/sequencer.rs:GspSeqIter::next(), a truncated
-command is copied into a fixed 24-byte zero-initialized array, and a slice
-covering the entire array is passed to GspSeqCmd::new():
+        read_poll_timeout(
+            || Ok(ctx.gsp_falcon.is_riscv_active()),
+            |&active| !active,
+            Delta::from_millis(10),
+            Delta::from_secs(5),
+        )
+        .map(|_| ())
+        .inspect_err(|_| dev_err!(ctx.dev(), "GSP falcon failed to halt\n"))
 
-    let mut buffer =3D [0u8; CMD_SIZE];
-    ...
-    buffer[..copy_len].copy_from_slice(
-        &self.cmd_data[offset..offset + copy_len]
-    );
-    let cmd_result =3D GspSeqCmd::new(&buffer, self.dev);
-
-Inside GspSeqCmd::new(), the length check evaluates data.len(), which will
-always be 24 regardless of copy_len:
-
-    if data.len() < size {
-        dev_err!(dev, "Data is not enough for command\n");
-        return Err(EINVAL);
-    }
-
-Could this allow execution of malformed, zero-padded hardware commands?
-
-[Severity: High]
-This is a pre-existing issue, but can the unaligned stack array passed to
-FromBytes::from_bytes() cause spurious parsing failures?
-
-In drivers/gpu/nova-core/gsp/sequencer.rs:GspSeqIter::next(), buffer is bac=
-ked
-by a u8 array which only guarantees 1-byte alignment:
-
-    let mut buffer =3D [0u8; CMD_SIZE];
-
-When this buffer is passed to GspSeqCmd::new() and then to
-SequencerBufferCmd::from_bytes():
-
-    let fw_cmd =3D fw::SequencerBufferCmd::from_bytes(data).ok_or(EINVAL)?;
-
-If the compiler places the array at a misaligned address on the stack, could
-from_bytes() (which expects 4-byte alignment for u32 fields) fail silently =
-and
-abort the GSP boot process?
+Since the error propagates and allows the DMA memory to be freed while the
+engine continues executing, could the active GSP hardware write to the freed
+host memory and cause memory corruption?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-nova-bootc=
-ontext-v4-0-5539d8469590@nvidia.com?part=3D1
+ontext-v4-0-5539d8469590@nvidia.com?part=3D13
