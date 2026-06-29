@@ -4,81 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01935C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 15:37:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 626DEC43327
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 15:39:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CCE010E974;
-	Mon, 29 Jun 2026 15:37:43 +0000 (UTC)
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
- [209.85.208.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E22D610E9A2
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:37:42 +0000 (UTC)
-Received: by mail-ed1-f48.google.com with SMTP id
- 4fb4d7f45d1cf-697cee2eb6dso3307522a12.0
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:37:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782747461; x=1783352261;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3PSkrSvBcOj2Vfr1tOG9HdESUGrp+uU5X3MHl1xNqsM=;
- b=KjzN/I8jFiH+BPd3HeJJ+CN6r6FWke+8CSer8R2Mz8XqRXIrTqdLk1w0e0PViwaTEW
- ZQ7yYZl76bEIN+ltcBnrM5YX4DeUglNpaiHEemZW80UBUsjKCnq20tFHJWh7Rq/66dLt
- ihMWa44ByS6TWB4Z8av8QWllczfORq/0PdD7OHYsbKvJImaJou2Is7rIb8W+p8s18awz
- 4lPVf0Hii0kn4ZsTQlGL7qJnld2VjPQNYgfRfzJRfsSjca8Q2Zr53FyBSYdJF7NPvOx4
- qjW9vgaxU/QOeLOTLgGrDTLMQDziGECnZjPhcu36VpOCL22GqsCsNTp7nDvfo63t6YKC
- 1ckw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rpffy2UXKYpM4g4Q69gcx1V26j2P4rUrKuU/e2H9NCTKEgEajdnk5vcV8avgQoKM35nHeI04ubx570=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw8UNI73MzcVHQw3cVC7ZCLWtFUMZS7ZnQZgzNHXrzNys3/vxEL
- +XVy8O9/ed/FciaAhAB6WUvb/VIIJhtVMlKj9NOSHhkh3NyGaVKzrXrySN/AyNVx34M=
-X-Gm-Gg: AfdE7ck4s7XxrzqRl9QKE//Sh+pY8R7jKyn9lDj1dgbw4KGzx6fqIgLYaRhmxRpxGxp
- aJdiZwlBD/nvtZ0KkpAKXMo452PWtyNN/Kuw5FjJJAGxxi4gKSDN2CQTpr7W8PGg2UvFy44ZZKl
- X5neeCfxqSMcZBWQIdBjgQWDmcxgLRjJOrfyDdfWOiLijt6R4MmuEXhuRF0tJYYJh4eG5SzGTw2
- bbQ3/2pQSIKaznqzJz2nQVbUxe64RYhaMWppn/2hLZwtxqHd2bupcZg0lwmgrrtBJyvdy8u//Hq
- mnQJtTIKNUdM6EM9h45npdCyJrGXJdZnfOF1rNZ1p3M1Noy+YcfgxpgQSUTpi9KobRWj8tsyL10
- Y1fNtFrocPHWnu1HAIV+9muw7AzmrsKfjsVO7tnjb8BDvAYV5EU1KsxBIPmQ+z96x+oozsUmh/n
- tP5qxwewTJapwXQxaD6ZevDftrZqWVESHL8cSQL0fhcWe4M8fBiw==
-X-Received: by 2002:a05:6402:2744:b0:698:6746:23d3 with SMTP id
- 4fb4d7f45d1cf-69867462551mr1925152a12.20.1782747461024; 
- Mon, 29 Jun 2026 08:37:41 -0700 (PDT)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com.
- [209.85.221.45]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-697f3aece6dsm7241680a12.12.2026.06.29.08.37.40
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jun 2026 08:37:40 -0700 (PDT)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-46ee68c3b7aso2973688f8f.3
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:37:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp73qQjOC5Cr+dyV7XwXiCAsG8/Bo4IrgfbE5lsaYakjTnwAj66bow7CY0pnPmCZ1m9Hj8nqy28brU=@lists.freedesktop.org
-X-Received: by 2002:a17:907:3c8b:b0:c12:f84:85d4 with SMTP id
- a640c23a62f3a-c120f8487bamr796791266b.24.1782746977928; Mon, 29 Jun 2026
- 08:29:37 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260629135917.1308621-1-arnd@kernel.org>
-In-Reply-To: <20260629135917.1308621-1-arnd@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 29 Jun 2026 17:29:24 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXhsM4JzArRuB=A46N-Ogbn2Fans+PVJVA-hEytFq=DeQ@mail.gmail.com>
-X-Gm-Features: AVVi8CfSSg4DcoB7CGCYddSfqoWpUaOwYUjpkorP-3LR7U8E7vJ9ucbePhiZLD8
-Message-ID: <CAMuHMdXhsM4JzArRuB=A46N-Ogbn2Fans+PVJVA-hEytFq=DeQ@mail.gmail.com>
-Subject: Re: [PATCH] [RFC] gpiolib: introduce gpio_name() helper
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, 
- Marcel Holtmann <marcel@holtmann.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Andy Shevchenko <andy@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Ulf Hansson <ulfh@kernel.org>, linux-bluetooth@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org, 
- linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
- linux-mmc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-pm@vger.kernel.org, linux-usb@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id B141310E0A2;
+	Mon, 29 Jun 2026 15:39:34 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Er6pzspM";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C3FB10E0A2
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:39:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0514641815;
+ Mon, 29 Jun 2026 15:39:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B23B71F000E9;
+ Mon, 29 Jun 2026 15:39:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782747573;
+ bh=U92dAhczgFyZqZyit73xhgQwSTt7GejI92AqH/D4lko=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Er6pzspMXLQUh0MRLlURVVF3q/VcDIYT6wnwmm5Yjv2RHHvfF8/wzQl8Tyz5LtHRc
+ jvss/4PlaTEi8/MjJeBELy2HHrzk56/PYfpq5+lEFvtDfysTe0qZAgLJTSlFZighrg
+ +U3JEJ/Zh/qX3KJsjXg8yBYjXC32hCERDu31nKtQcSPnb6k3eH7dRq+KI7Vo8fytYQ
+ SIA9gebrfqd6JBn8Lz2piUh9nV/yiR85RPtHCVLil7Xnha+OmTiF7e7QD+ajTyy5Lo
+ /P1gsl7cTdiXZDdOpbI4cAQEshTbZx/Zw6tYgYe+Rt8gnSzcXni6UZD/zdHFFBGHhH
+ sfm436wWyBkqA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] drm/amdgpu: reject mapping info when BO VA is gone
+To: "Yousef Alhouseen" <alhouseenyousef@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260629152807.13492-1-alhouseenyousef@gmail.com>
+References: <20260629152807.13492-1-alhouseenyousef@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 15:39:33 +0000
+Message-Id: <20260629153933.B23B71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,68 +52,92 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Arnd,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-On Mon, 29 Jun 2026 at 15:59, Arnd Bergmann <arnd@kernel.org> wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> Most remaining users of desc_to_gpio() only call it for printing debug
-> information.
->
-> Replace this with a new gpiod_name() helper that returns the
-> gpio_desc->name string after checking the gpio_desc pointer.
->
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+New issues:
+- [Critical] The patch adds a duplicate check for a missing BO VA, which ch=
+anges the API return code and renders the existing check as unreachable dea=
+d code.
 
-Thanks for your patch!
+Pre-existing issues:
+- [High] Potential deadlock due to allocating memory with `GFP_KERNEL` whil=
+e holding `dma_resv` locks.
+--
 
-> Not sure if this the way we want to take this, or if the gpio name is
-> an appropriate replacement in debug printk.
->
-> Since most of the callers of desc_to_gpio() and gpio_to_desc() are
-> otherwise in drivers that already depend on CONFIG_GPIOLIB_LEGACY and
-> include linux/gpio/legacy.h, only a handful of instances remain that
-> are otherwise in files that otherwise only use the descriptor interfaces:
+commit 6d1719ca92ca060fce9b1b2b5a70616a3a67fa1c
+Author: Yousef Alhouseen <alhouseenyousef@gmail.com>
 
-> --- a/drivers/gpio/gpio-aggregator.c
-> +++ b/drivers/gpio/gpio-aggregator.c
-> @@ -758,8 +758,8 @@ int gpiochip_fwd_desc_add(struct gpiochip_fwd *fwd, struct gpio_desc *desc,
->
->         fwd->descs[offset] = desc;
->
-> -       dev_dbg(chip->parent, "%u => gpio %d irq %d\n", offset,
-> -               desc_to_gpio(desc), gpiod_to_irq(desc));
-> +       dev_dbg(chip->parent, "%u => gpio %s irq %d\n", offset,
-> +               gpiod_name(desc), gpiod_to_irq(desc));
->
->         return 0;
->  }
+drm/amdgpu: reject mapping info when BO VA is gone
 
-Before, this printed:
+This commit adds a check in amdgpu_gem_op_ioctl() to reject the
+AMDGPU_GEM_OP_GET_MAPPING_INFO operation if the BO VA is missing.
+The intention is to prevent a NULL pointer dereference when a concurrent
+handle close removes the per-file BO VA before the mapping list is walked.
 
-    gpio-aggregator gpio-aggregator.1: 0 => gpio 589 irq 188
-    gpio-aggregator gpio-aggregator.1: 1 => gpio 590 irq 189
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gem.c
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -1087,6 +1087,12 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, vo=
+id *data,
+[ ... ]
+>  		int num_mappings =3D 0;
+> +
+> +		if (!bo_va) {
+> +			r =3D -EINVAL;
+> +			goto out_exec;
+> +		}
+> +
 
-After, this prints:
+[Severity: Critical]
+Does adding this check break userspace ABI by changing the error code?
 
-    gpio-aggregator gpio-aggregator.1: 0 => gpio (null) irq 188
-    gpio-aggregator gpio-aggregator.1: 1 => gpio (null) irq 189
+There is a pre-existing check for a NULL bo_va slightly lower in this
+function that correctly returns -ENOENT. By returning -EINVAL here,
+applications expecting the standard -ENOENT for a missing BO VA might
+fail unexpectedly.
 
-Same results for instantiation using sysfs or configfs[1], although
-the latter does have optional support for specifying the name.
+[ ... ]
+>  		/*
+>  		 * num_entries is set as an input to the size of the user-allocated ar=
+ray of
+[ ... ]
+>  		 * be retried.
+>  		 */
+>  		if (!bo_va) {
+>  			r =3D -ENOENT;
+>  			goto out_exec;
+>  		}
 
-[1] Documentation/admin-guide/gpio/gpio-aggregator.rst
+The newly added check above also makes this original check unreachable dead
+code.=20
 
-Gr{oetje,eeting}s,
+[ ... ]
+>  		if (args->num_entries > INT_MAX / sizeof(*vm_entries)) {
+>  			r =3D -EINVAL;
+>  			goto out_exec;
+>  		}
+> =20
+>  		vm_entries =3D kvcalloc(args->num_entries, sizeof(*vm_entries), GFP_KE=
+RNEL);
 
-                        Geert
+[Severity: High]
+This is a pre-existing issue, but can allocating memory with GFP_KERNEL here
+cause a deadlock?
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+This allocation occurs while sleepable dma_resv locks are held (acquired via
+drm_exec_lock_obj() and amdgpu_vm_lock_pd() earlier in the function).
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Using GFP_KERNEL allows direct memory reclaim. If system memory pressure
+forces the kernel to invoke GPU shrinkers while this thread holds dma_resv
+locks, the shrinker may attempt to lock the same BO or VM root PD, leading
+to a deadlock.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629152807.1349=
+2-1-alhouseenyousef@gmail.com?part=3D1
