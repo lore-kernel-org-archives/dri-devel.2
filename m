@@ -4,111 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66432C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 11:20:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDD50C43327
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 11:23:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3E5B10E062;
-	Mon, 29 Jun 2026 11:20:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48BE410E078;
+	Mon, 29 Jun 2026 11:23:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="isRnHms0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UQi6DwbA";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB76A10E062
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 11:20:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CA44F60008;
- Mon, 29 Jun 2026 11:20:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 785D81F00A3E;
- Mon, 29 Jun 2026 11:19:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782732005;
- bh=B6cSgDNUNCaJrq5YwzbaI3oA+4ARO04BNnR9PnfFHCo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=isRnHms082rD0YpFSEFNAirC9nvfh4Nn4Wukfgndq3I2Za6wZ3cZIX3OAtKqyJ7Jk
- QbxmpIhxp4Zme+ZJuosxaLE4+d9zsfz/skW1tPR2ZZfSPRqJmpRppDTWUgZyVS1CHB
- 5QsW3n3TKw6RWILA0r+sB1OCe6Mi/a2ArdZ+CsZawVZxFaC5s8Q66AfZ53Z96KwYuW
- uZGsBXS1+y0VFETJSXBfuVdng+45W1oD9ZySufSdDejxCtS40h2780fAI1q4GM1Tvr
- c3+dPOqi24Z4+uI+6dYF9faK4Re6IYH+Fd0D81x/uqCCnIeztFgIByQ88ta8CCLLl0
- zIbUQJ18s/EdQ==
-Date: Mon, 29 Jun 2026 13:19:43 +0200
-From: Ingo Molnar <mingo@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org,
- "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
- x86@kernel.org, linux-acpi@vger.kernel.org, kvm@vger.kernel.org,
- linux-coco@lists.linux.dev, linux-pci@vger.kernel.org,
- virtualization@lists.linux.dev, linux-ide@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-crypto@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-hyperv@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-mtd@lists.infradead.org,
- platform-driver-x86@vger.kernel.org,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>,
- "lukasz.luba@arm.com" <lukasz.luba@arm.com>,
- Jason Baron <jbaron@akamai.com>, Borislav Petkov <bp@alien8.de>,
- Tony Luck <tony.luck@intel.com>,
- Yazen Ghannam <yazen.ghannam@amd.com>, Len Brown <lenb@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, "Kirill A. Shutemov" <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Pu Wen <puwen@hygon.cn>, Bjorn Helgaas <bhelgaas@google.com>,
- Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Viresh Kumar <viresh.kumar@linaro.org>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Dave Martin <Dave.Martin@arm.com>,
- James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>,
- Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>,
- Damien Le Moal <dlemoal@kernel.org>,
- Niklas Cassel <cassel@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Helge Deller <deller@gmx.de>, linux-geode@lists.infradead.org,
- Olivia Mackall <olivia@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
- Long Li <longli@microsoft.com>, Guenter Roeck <linux@roeck-us.net>,
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- James Clark <james.clark@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Huang Rui <ray.huang@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Perry Yuan <perry.yuan@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>,
- "srinivas.pandruvada@linux.intel.com" <srinivas.pandruvada@linux.intel.com>,
- Artem Bityutskiy <artem.bityutskiy@linux.intel.com>,
- Artem Bityutskiy <dedekind1@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>,
- Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- David E Box <david.e.box@intel.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 00/32] x86/msr: Drop 32-bit MSR interfaces
-Message-ID: <akJUz0kYkEBdLSZ3@gmail.com>
-References: <20260629060526.3638272-1-jgross@suse.com>
- <d7c1db52-529a-43cc-ac7d-38b52627e8bc@app.fastmail.com>
- <c1608c48-13c2-4290-826b-28b5ca51eaf7@suse.com>
- <7332feff-2649-496c-8e49-b0a19eb54a32@app.fastmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7332feff-2649-496c-8e49-b0a19eb54a32@app.fastmail.com>
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0949D10E078
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 11:17:03 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-37cab825ec9so2595591a91.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 04:17:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782731822; x=1783336622; darn=lists.freedesktop.org;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-transfer-encoding:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=sf9modGDEu51qoKMDfa6F2dR4atoz1mf0fTmi7rEwIc=;
+ b=UQi6DwbAbQDajC2MdJApauWHT9Tv6ypfSESxAzl7rZdghtGhvZnMg9h6iuAPo+OQ7q
+ 8KWiUqm5woVDNsd1/yRCr1DTvJgLoLUrOlxfWx8RqrGuX/063vaWFlNQlqJWkenWqbG9
+ Ut4248Kq1pWQTKv9mBbLLHDTbR5lDuTaDsks1IIjHwfFILf/GFyh6i5emeXhGfMV1NU0
+ Os7JI93hJdCRxjxQ6D+WNLS4zerwQC6fdY58Ov3D5x5S+mZ1NUamMbibByWeRhZH2Pln
+ C8xE73EEqNWJCdMb4PqJhg8eQ6PTiXzhu10NtSGo2UhdhvCJ7/wOdjhWOVsx5GheQuyT
+ D4ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782731822; x=1783336622;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=sf9modGDEu51qoKMDfa6F2dR4atoz1mf0fTmi7rEwIc=;
+ b=bRDPNDVsucF2fXuDsEd+v+H6VT6KTtVZpGmBlzK9eATQPjTFXQfL8tAlNB472uCifb
+ Fa74SaU2TsvXs9fFcMiT2bYdzUcvIjLaGT4aSm/ZutoJkTcd5Fiu9z4bRLoiyJ9rTRUF
+ n8dLfy1rNqbUWlSgtfl+I7OBiXaiCUyeTk8FBsoW8A9BVKF8c12Cmf6tlGWm4pF4higU
+ iUG0Sjate1cMVeqgabSZmWaEo2zpHBPu5ZqmjiCQjdQdxn63PS14SB+SwANPQA0HbTc8
+ tDtj/IZXWQC10p7ejsFaeTly44zKt9bJuNAUXL1spa+4MYgiCB4t9iQBI+QlLadV9BUs
+ sLgw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpwbcR+/VzX7CKMvWRbBv24W++BIDHr4eY14d1ywwJUe6UFVyHG3IvOypDFr8E5y9013HAt+N4tBEs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzVbHNySSjCdjtaefR5zUhqQkPbx64bT2vvZeeda/ZtX0KRuOV3
+ N6J+XprAbnrnSfZWFK4/h6lZf/UV3PhF45JkzAm8O+gxHKYnI8Ztd7tX
+X-Gm-Gg: AfdE7ck8gKPEIQ7FVADSYYZgdny20zw0ccVE1X2h1sFSBJPJXnzj5x6zspDp67gY8Jk
+ WzjpnjI4wmB5Fva4MqlQmP45snlfpn2QwsMHU/pXSUUqlMIrnSyouk0AnAtja3cGgMPuM0ltBXn
+ EfFz0IAGaV/jNMlS/cXrKfMGoQnoEdQOM6IPmfQc8+ME1yWt+/8uobQjN3H49RnbxjmLmH/DvEO
+ t+dQHMIQnl7NAzaw1nYEQ+M0yvMqDf1SHA5qBESB01+AWANH7tPeuEV5W22tsflUd73Ck7rX4XD
+ PQd6KaGwcHBxeH9cbndr2L5p2s+2OO1T62BgQ85STWUHivFQYHiiv0cqWWOyLQv6NjcF3EC84IX
+ 72aFwp9bu6OCGtOF7kqBiogFAySilq/1AglUMH4x8dr2F5Enqhu4Hdsr8MdcTujXKc5IxjNnnUT
+ 0JcEw3+ZjUJk9p2moptDVI9V7kSmM/vgNTt0DQmUNyQ6L+4engdan6H+k2s53+nipyLXmEED64z
+ fOYtqQjHIVCyEVbX4BK3M76QgpdqztmXpVlDX/R
+X-Received: by 2002:a17:90b:5830:b0:380:38d2:80bb with SMTP id
+ 98e67ed59e1d1-38038d2824cmr453534a91.8.1782731822431; 
+ Mon, 29 Jun 2026 04:17:02 -0700 (PDT)
+Received: from localhost ([143.248.188.236]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2c7f5ac7c9asm91594835ad.4.2026.06.29.04.16.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 29 Jun 2026 04:17:02 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 29 Jun 2026 11:16:56 +0000
+Message-Id: <DJLHOQA5UAP4.340P2TKXGMME5@gmail.com>
+Cc: <engineer.jjhama@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH RFC 0/4] rust: dma: bridge zerocopy-derived types into
+ the transmute byte-safety bound
+From: "SeungJong Ha" <engineer.jjhama@gmail.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "SeungJong Ha via B4 Relay"
+ <devnull+engineer.jjhama.gmail.com@kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20260628-dma-zerocopy-bridge-v1-0-9a2895ebe30d@gmail.com>
+ <DJLCLH7GDSBW.28J4PZW0FD60B@nvidia.com>
+In-Reply-To: <DJLCLH7GDSBW.28J4PZW0FD60B@nvidia.com>
+X-Mailman-Approved-At: Mon, 29 Jun 2026 11:23:45 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,35 +103,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-* Arnd Bergmann <arnd@arndb.de> wrote:
+On Mon Jun 29, 2026 at 7:17 AM UTC, Alexandre Courbot wrote:
+> On Mon Jun 29, 2026 at 2:10 AM JST, SeungJong Ha via B4 Relay wrote:
+>> DMA-coherent allocations (CoherentAllocation/Coherent/dma::Pool) bound
+>> their element type on kernel::transmute::{AsBytes, FromBytes}. This RFC
+>> lets a type satisfy that bound by deriving zerocopy's byte-safety traits
+>> instead of a hand-written unsafe impl.
+>>
+>> The bound cannot be switched to zerocopy wholesale (some DMA structs are
+>> unions that IntoBytes cannot derive), and a blanket bridge impl is
+>> rejected by coherence. So the series bridges the two per type:
+>>
+>>   1. add the bridge macro impl_transmute_via_zerocopy!, which emits the
+>>      transmute impls only for a zerocopy-derived type.
+>>   2. re-export zerocopy::Immutable from the prelude.
+>>   3-4. worked example: convert nova-core's GspMem and msgq POD types.
+>
+> Can you give more details about what the macro is for? My understanding
+> is that it is a temporary fix for the generated bindings; if so, I'd
+> prefer to apply a definitive solution (like using
+> `#[derive(zerocopy_derive::most_traits)]`, or updating the bindings
+> generator tool) rather than something that will be removed later.
 
-> >>> Note that most patches of this series are independent from each other.
-> >>> Only the patches removing a specific interface (patches 7, 15, 26 and
-> >>> 30) and the last two patches of the series depend on all previous
-> >>> patches.
-> >> 
-> >> It looks like you are touching most files twice or more here, to
-> >> first convert from rdmsr to rdmsrq and then to change the
-> >> two-argument rdmsrq() macro to a single-argument inline. If you
-> >> introduce the inline version of rdmsrq() first, you should be
-> >> able to skip the second step (patch 31) as they could be able
-> >> to coexist.
-> >
-> > I've discussed how to structure the series with Ingo Molnar before [1]. The
-> > current approach was his preference.
-> 
-> Ok.
+This macro is giving safe manual derive from zercopy traits to
+transmute. However, it is not necessary if the transmute is going to
+be fully replaced with zerocopy. I found it seems to be true [1].
 
-Note that the individual patches are IMO significantly easier to review
-through the actual 32-bit => 64-bit variable assignment changes done
-in isolation (which sometimes include minor cleanups), while
-the Coccinelle semantic patch:
+> But intuitively I'd say that we can (and should) probably do without
+> this intermediate step. But please let me know if there is something I
+> missed.
 
-   { a(b,c) => c = a(b) }
+I agree. The only useful parts remain in this RFC patch is explicit
+padding in GspMem. AFAIK it is still necessary after the auto
+derivaiton of `most_traits`.
 
-which changes both the function signature and the order of terms as
-well, is just a single add-on treewide patch.
+Best Regards
 
-Thanks,
+SeungJong
 
-	Ingo
+[1] https://lore.kernel.org/all/DJLEHDNJCUD0.38PFZ5773D6BX@kernel.org/
+
