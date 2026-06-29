@@ -4,88 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DEA7C43327
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 14:15:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6838C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 14:15:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 687A810E914;
-	Mon, 29 Jun 2026 14:15:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02BB910E913;
+	Mon, 29 Jun 2026 14:15:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gK/zcrGh";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D954Gsyg";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="L3WrEAWX";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TV12PJnn";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C07F210E914
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 14:15:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A66210E914
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 14:15:28 +0000 (UTC)
 Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65TATBxL2647640
+ 65TATBVF2647641
  for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 14:15:27 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- a5dTcTvvgFtuYY8IdP0e2ZZdOifQtCiwUe5JOKtT+Rc=; b=gK/zcrGhI6jOF5de
- JHQEWGBuiIlpFeGaJIqpAE8VlEH90Y/h88KBhUINCaTQwpD5BBTBTtIwpdiA2vG9
- 2WdnMVeBj1m3/IkNVREFopv/1/bM9W2IckhvtOaV3xAUekZhG098jsY4hk7gKuWp
- IAek45Wb+G19MtOCgvnhLM35yrbb3wcQxw3+EEOCcot3cYe9RT16o7DVjm9Xkd0K
- ZDicFWYdabtMeNBJdW+CE8/GPNOw+pyUEuEw28uwmgdcBCVzzvH9eVf20PIAbqlX
- hLsIus11EWjjkwbcFjQIDQIajH4G3xmyidetc6CIkadz/Cc6DiravPtU3vy9+D4h
- VQHT0Q==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3kyjhnvw-1
+ XunwKltBuQx7NM9Pkse8vSkVfTxH7eu3yB8C93aFJzA=; b=L3WrEAWXmaFTvwRy
+ tw9eEkmZ9vdGQU2vm8qgqbVVB7HCdzzGqAzE4M7Wu1N6c+/YHCn9P1PDKNHJMt93
+ TKkMapUNp+aSUbobzeEOCqCBXIn33XuNjTlcEIZblwysPuOCGrLPgT7dqgZrDxmN
+ Q3UZTVuo81Jai83ddLutY7N2gF6DJuWFJfKefXsmnE9HgMxxV6oVZp+TQQct8aok
+ 1mTZ1Izj8k07ukvQkbwfmIZNd+iZY5XuVhykLASOJ0yebGKhViRyHsDYlpsOREiy
+ 3t4fk+afTkcDH3Yz89bnrCZGNkiRDNL3KLlfNGePGw5UuUMg/J48IvhrpUp6vsrj
+ sq+3Nw==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3kyjhnvx-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 14:15:26 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-92d1cae5939so365681085a.0
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 07:15:26 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 14:15:27 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-92e5fc4c7e9so47318785a.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 07:15:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1782742526; x=1783347326;
+ d=oss.qualcomm.com; s=google; t=1782742527; x=1783347327;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=a5dTcTvvgFtuYY8IdP0e2ZZdOifQtCiwUe5JOKtT+Rc=;
- b=D954Gsyg3FbqrWX/aXeKrs2qPQKN/ZZcbXvniVExlwJr4NbHVrUQXO4Y13itsxpzSA
- G3IxwMseHDLwo05YOBTHPa9cdMpUuXYVmuq8Gukb84zw2rsTABS84FwT+hkGTcXDJVoH
- QJQcC8/cGV9crYiDB4dsrVbHFWX3DJY4pzX3YOYzUGH5y5MaV3RUgB1rvsYsxcTmRBjI
- NwZfEy7uE6zitwg3EQgoDr2s+6NEO7KA30D9fRc5YBUnjSjEbCjOvli9DbU9+9rOucDY
- jz/cbubH3NrRWrhnrdTZGzJofmRBPj6uL5o57ogf/p6CcKzEu1sFCd9KjweESWgiF27C
- 2jdg==
+ bh=XunwKltBuQx7NM9Pkse8vSkVfTxH7eu3yB8C93aFJzA=;
+ b=TV12PJnnG5HoGRmT1dB5mEhJ9crAcMkWzT4f/jMz8A7xm1a9VB44UR2q01Rb2A7kOi
+ VEdMg3XgB7P8v08P3hAZGG6UOaYfbDYzMFiEDYDOmQgX2b8J0gbkVECJpszmCvXtGet2
+ 7NxTwWVulddNO2A4YimfHV+ZGS9+B3VWKOqS6GE5egmnq47pLsLzHOI3HPEH1EIEI/MW
+ 2IEYQmuMRsLSDbaZex/S8K0NxRxJ8JST3bke0qgtV+Hg0nLw1ZIChyfNoNQVfJreZtPh
+ a4VIqIv9SXeTvLOiBVnisvvm5LBEUMfwWB9bGuiC+RXt/ZXrJny+4fj8nWdkfNQceEBj
+ 5RfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782742526; x=1783347326;
+ d=1e100.net; s=20251104; t=1782742527; x=1783347327;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=a5dTcTvvgFtuYY8IdP0e2ZZdOifQtCiwUe5JOKtT+Rc=;
- b=o06rqlbZX9gxi9Fln82cyyfsQ3cE3dDtW4HBcF3GnMV5f1oqWSzTSiATTzN7K0Nu7i
- ucMM043OaRyjemWWVqD5JVEoHzzodivom/C8dcvl+6kk5Lzck5fwZxHXIrKwv2F7Bxyf
- klKdolRlLjiuwqBkIxX0/wbeZe68Za0baF7AdLQaKC8c8iGRUSMnq8hIKhxGtChI7+l1
- RstYwYxHsHcDKuUu7SvYWRBCCJ7pDPM5B1VzDdvzm8tOQ3IQHbJ7mcHMClqDmmkQwVYu
- hccF8tlPd3fRQ6Izh0j2y9prMP4tmKB58P/irrR41Tz8bR7w9+XYVnWkUFQGdTHE08yl
- Sv3w==
+ bh=XunwKltBuQx7NM9Pkse8vSkVfTxH7eu3yB8C93aFJzA=;
+ b=ZBNgWNZDKaZ40LYTRkpba3O0dECHai9e+6fupH3l4X7jwqDKq/fRnKROVp094EKGEL
+ TAq0OWvvFDsSq7V2QnOogkeWlmvFP31045w0q1VqSYx2JyC5qsTb9HZqQ6dRX9Qflohy
+ XJZtWHdrQA/LqhPd6SawccBP6NXcyKsyNk7Z9xwBSYx5omJsDqOtQHWGlOLynhFC/RkE
+ xUe3L6rT7H8vRXvNbvVui3qyn0RXbnP+Z/16bh1MvxLsjyfpN4GHSDPj+8c/WXUIFZxc
+ PmmH2tNKcJ8K6PL84lthMbmn1kE8kdvNnicCXHVQtsaoyAVwMUTdKjhetDG5f1uNFWGk
+ wI7A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9OgMBuSCZOUT1IGZl5wR3tIWKsVEg6P+uNeD/l/PvvNAtkDmoxdWk4bRWUZZQAk4FNT9NTyEY+ES0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyrHvvxlODH6iOjMHtTonK+9THplnlzgBeXPvp78vcM9/7cuKta
- QsXflsDwEmh3UZxJcHcv5tDiNU5ExodqX5XfmBHw1NT2RcN1Xm4yxyz9t+kK3gsy82YiuTFwR7K
- KIKeUvZ+mskzik4qbyOv5dHiJDM7RtvDLmxNtLK5q3MxVmTfNst2pf0W6lce+f2cejThd+30=
-X-Gm-Gg: AfdE7cmVoqENnQMKXBaM/H7gshGO8UE/KVwCQRVWJeb6VC1j7Ks+O4JdkhRM9qNZu1x
- Fo7EpWeyN/lOyf+jiy07xRRG59ENGQYCpHN+ajuPaiN3MVn0HUIjw5Zni2GlwMSKEPWgwWB4em6
- lQ6+QOXLIfDj5kWm5fK8aA5lXncMdHz9JGOYxHHaSLoeUMppbnEbfuVlfWlE4f3RoBtcFaRPKnm
- LnEVcgLYysQdB6+mG39PlWFjtE5opSEwdkTZ7kMbMegC+w33rOdJB7hEWIEw2UwXrP6K2tVE6K8
- T41XTgxRSgjdBtEDygUtdqLrnxoLd7hummZzkHwdVu29I9IulAeYYPk4zQ6yuxCDruSNahpkPQm
- n0KP+tAnojZ01uaa2I2UbPjrYBpZq/7T8kt6eZG6vE3+hu2CUDDCjgIquWYuFEdqAFfs00g==
-X-Received: by 2002:a05:620a:170e:b0:915:c4de:7ac2 with SMTP id
- af79cd13be357-92e5f18b310mr138667285a.30.1782742517695; 
- Mon, 29 Jun 2026 07:15:17 -0700 (PDT)
-X-Received: by 2002:a05:620a:170e:b0:915:c4de:7ac2 with SMTP id
- af79cd13be357-92e5f18b310mr138632885a.30.1782742515597; 
- Mon, 29 Jun 2026 07:15:15 -0700 (PDT)
+ AFNElJ8RiXuj8cMU3FfJFyCnIp1TbwVDNzJzqtZQ+KiWB/lCw/MWQqOBCYDQpstx0pk95E3x3yo470Krx/Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyKAH78w73HjuPQYNaLSwhu361mDfD1DcFOiL8ewvSyqv39pNx1
+ KA5IOjdb1FhGWnrzjyObuNsi5NMU4d9q0FxnutNTSPE+lbnLBRxGItFjks9jIJmsdgjblASaJmC
+ 1P47AW5LnTqNkIDB8v2xNFHK0ZoAV6q0unIZ2F2+SXhjCTN6E3X93gPpQSfU5adyo10I8G0E=
+X-Gm-Gg: AfdE7cm8UwmF5pnIzT+boQueeAySX6Ei7C4+3YoGp59Ry88ZZkMYKRESm6b4pxWgE9o
+ lGJLuR01MLhjk2sCEWUU5t7lJ7Y4+rNXPTsVUvkzBIFZAlodqvWzOYND3nhFBq1GLkjdb3rFbFy
+ SZSP+xtw52jCl7rjP08jrvY8zwwcyuQ41ivDco0YPUdmefdyb3EKEoBhARutKEysC3qDuY39hBl
+ 6mCns6eeYmucWdwEwD01p9dcZ0q2Q5CpGrm4Ndz0HnY/x5h7+ju+l6GhmUs8dcko+vNqlOmOxiZ
+ ADojWKMGxRCp7uuRTDSUUBPqZA3ek0J5EULza51Iq8aYEL5kNp2legPDUiiuvw0psxtIxJpUH5+
+ CKaS5sKu3fgTeiGrgtdCLd3rY+nhexPaIdyXc+kp3mJ3el8uuc6h7btKpTc3A8Puo0qAiRg==
+X-Received: by 2002:a05:620a:199d:b0:92b:67e6:8ac1 with SMTP id
+ af79cd13be357-92b67e68c82mr1352649585a.59.1782742524635; 
+ Mon, 29 Jun 2026 07:15:24 -0700 (PDT)
+X-Received: by 2002:a05:620a:199d:b0:92b:67e6:8ac1 with SMTP id
+ af79cd13be357-92b67e68c82mr1352595385a.59.1782742520894; 
+ Mon, 29 Jun 2026 07:15:20 -0700 (PDT)
 Received: from yongmou2.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
  [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9260079070bsm2143165885a.40.2026.06.29.07.15.05
+ af79cd13be357-9260079070bsm2143165885a.40.2026.06.29.07.15.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jun 2026 07:15:14 -0700 (PDT)
+ Mon, 29 Jun 2026 07:15:20 -0700 (PDT)
 From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
@@ -96,43 +96,43 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
-Subject: [PATCH RESEND v5 03/25] drm/msm/dp: Add support for programming
- p1/p2/p3 register blocks
-Date: Mon, 29 Jun 2026 22:14:24 +0800
-Message-ID: <20260629-msm-dp-mst-v5-3-2ed6aee1867a@oss.qualcomm.com>
+Subject: [PATCH RESEND v5 04/25] drm/msm/dp: use stream_id to change offsets
+ in dp_catalog
+Date: Mon, 29 Jun 2026 22:14:25 +0800
+Message-ID: <20260629-msm-dp-mst-v5-4-2ed6aee1867a@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260629-msm-dp-mst-v5-0-2ed6aee1867a@oss.qualcomm.com>
 References: <20260629-msm-dp-mst-v5-0-2ed6aee1867a@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782742144; l=12081;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782742144; l=18640;
  i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
- bh=7IzLV7p7fRpuHOYKSsckuJf6muYlm+ZMBp5oLG6WV9M=;
- b=ObmGnEi+xCqhRKTUk66sWo9Nwd3S6pKEFU4jey0D0LbmOveYuDEVZlv+KB359H5ccPjcoN6kT
- /Vx2fNKt2P6B6LYbsflEnF4tE7CbUdYSV0AcMgrw0X+IK23ua8+uE/Y
+ bh=PnE99oAhCBIy4iAcBDIR6OXrNQicBoxIsBkQyHP2lJE=;
+ b=EZU+GegxgpLzlxs9sZkuhTF04i0URZGPTJ8F9ylJ9LYXCFUcuUNzSI2xQiyUS12XmH2SRYbQd
+ C+f1YaDUyGzCutTp4kKM/w71UqipgDaxDoCBGvBqUibzWACS5VhsJdz
 X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
  pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: bhd-SR-L_LOug9hWsMn29ZpzufzWkhJp
-X-Proofpoint-ORIG-GUID: bhd-SR-L_LOug9hWsMn29ZpzufzWkhJp
-X-Authority-Analysis: v=2.4 cv=Ftk1OWrq c=1 sm=1 tr=0 ts=6a427dfe cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+X-Proofpoint-GUID: 5t7sPLEEJSxgT8ba6R_s6idWorDDmEsx
+X-Proofpoint-ORIG-GUID: 5t7sPLEEJSxgT8ba6R_s6idWorDDmEsx
+X-Authority-Analysis: v=2.4 cv=Ftk1OWrq c=1 sm=1 tr=0 ts=6a427dff cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=4aQLaHZKxtSMBsMh2sMA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDExOCBTYWx0ZWRfX8Fai9Ek8Sf7Q
- f8degZvuelSQj0zIUmN9sBINaHnOsx+xiP+5415yiFGGvha3Cl98o2jct8NqJmDY4/uVilAoLB0
- qxBlIJFBh796gGi8QGlnRVejb4zo008=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDExOCBTYWx0ZWRfXzT04aG6LlJg0
- lOCOz5Q3gFKmazia5tIptyAhuoyRv7dm43B0/0PAl4JqaZFY9kBnvnj/cAT/Nyme1jOIk//+H2k
- Q+7+uQMrN3Fcw7KDOdBfrU8/IgTO0cUIZ7pYVZRn+r03E+LJW8pwLbwIg3Cv+HJ/zc2XBlJwP+g
- qKzmz16cM6M/mw1ib9HCMpQ47dU6x3+vqQHgLrR6YiR6wMr/9aPerYGEA2CXzAFCSCxlfjJqP0N
- k6aFisaiV4D4Vsr7TybLXlTv4i1oQiqS1oJQTnIpiKHYzEtxJKfE2KJx1W53cPDVlJtdFuBWA3r
- YoYaj2RXdv3a7P2ZpJbETEXxvXyUSkS1HHMpFpU1WPtDvlyN+v+SNEqNxMt3f/FLpOUT4uSniMT
- VpJylHgwQ6ymXwY6asWL9ojBwsl9mA7HLTxjA8RwuGqifhFweScxKd9U0Fi2BaIerX4icPwApQv
- 4jUBTx4uY5Mo6pJveXg==
+ a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=haGoBri_-Elbrn-HMXcA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDExOCBTYWx0ZWRfX26imV6zF0NUf
+ 9Jb1MjUKgnVFWBOHo1GB9ZOH2BXhco+IP1zQ8Tu5k/93eof8HBk8U8sqxGDvhiqKFlxwtP5B6ep
+ fq195G9j4HRe++lWvdQHR8ZMHMD7M8w=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDExOCBTYWx0ZWRfX8IOWRd4T+3YA
+ ybsIMBwnyg3OrAU/CWrPFuPKGVnA8zxdJFVXaOw6/WybQKj1Fbhcu0XaIEz8vg0janu7s3iU19W
+ FbNN9Ew549PdotHREO12lPsdur7kdcGCd98A9ztwcgPO/tpwLoMxgOqoRYS0E4DolXd0BO3huTr
+ 0jkZ7ZJzMQCr5MXxfDDWx7NNR7kBaCOea+2P7D9dSOFhyBkCSuRuz6fEinU9wHy2x5nUBoKOC4M
+ F8RtNFgQ9eKpznTKqZzVjrm1HkJjokDRQBmjmkTAYvsDMVO/6pUFFbR4mSherncnhDPrk2dEgqi
+ 2K1Eyn505uHZkLhMNzrxZ9+GjMDxFAlEEOoVOkcviqqsEmVL4cQKopNdytcVsC1ZRIqYz6p/DbR
+ dAh03cUglFSdz/NhPWzzsJmk4GGO3o13G1jMCJ7TJHSzhixeaOQeJWIMksVJwUXMtvIRkH4e15X
+ BZ0xzuLW720AepIkCSQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-29_03,2026-06-26_01,2025-10-01_01
@@ -158,279 +158,478 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-Add support for additional pixel register blocks (p1, p2, p3) to enable
-4‑stream MST pixel clocks. Introduce the helper functions msm_dp_read_pn
-and msm_dp_write_pn for pixel register programming. All pixel clocks
-share the same register layout but use different base addresses.
+In the DP MST architecture, stream 1 shares the same link clock as
+stream 0 but uses different register offsets within the same link
+register space. Use the dp_panel's stream_id to select the correct
+register offsets for stream 1 in dp_catalog. Also add stream 1
+register defines.
+
+Streams 2 and 3 are not covered here, as they use separate link clocks
+and require separate handling.
 
 Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c | 40 +++++++++++++-----
- drivers/gpu/drm/msm/dp/dp_panel.c   | 82 ++++++++++++++++++-------------------
- drivers/gpu/drm/msm/dp/dp_panel.h   |  2 +-
- 3 files changed, 71 insertions(+), 53 deletions(-)
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 78 ++++++++++++++++++++++++------
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |  4 +-
+ drivers/gpu/drm/msm/dp/dp_display.c | 24 +++++++++-
+ drivers/gpu/drm/msm/dp/dp_panel.c   | 94 ++++++++++++++++++++++++++++++++++++-
+ drivers/gpu/drm/msm/dp/dp_panel.h   |  4 ++
+ drivers/gpu/drm/msm/dp/dp_reg.h     | 44 +++++++++++++++++
+ 6 files changed, 229 insertions(+), 19 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+index 68fb4facb056..5c491a925b4b 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+@@ -117,6 +117,8 @@ struct msm_dp_ctrl_private {
+ 	struct msm_dp_link *link;
+ 	void __iomem *ahb_base;
+ 	void __iomem *link_base;
++	void __iomem *mst2link_base;
++	void __iomem *mst3link_base;
+ 
+ 	struct phy *phy;
+ 
+@@ -172,6 +174,49 @@ static inline void msm_dp_write_link(struct msm_dp_ctrl_private *ctrl,
+ 	writel(data, ctrl->link_base + offset);
+ }
+ 
++static inline u32 msm_dp_read_stream_link(struct msm_dp_ctrl_private *ctrl,
++					   enum msm_dp_stream_id stream_id, u32 offset)
++{
++	offset = msm_dp_stream_reg(stream_id, offset);
++	switch (stream_id) {
++	case DP_STREAM_0:
++	case DP_STREAM_1:
++		return readl_relaxed(ctrl->link_base + offset);
++	case DP_STREAM_2:
++		return readl_relaxed(ctrl->mst2link_base + offset);
++	case DP_STREAM_3:
++		return readl_relaxed(ctrl->mst3link_base + offset);
++	default:
++		DRM_ERROR("error stream_id\n");
++		return 0;
++	}
++}
++
++static inline void msm_dp_write_stream_link(struct msm_dp_ctrl_private *ctrl,
++					     enum msm_dp_stream_id stream_id, u32 offset, u32 data)
++{
++	/*
++	 * To make sure link reg writes happens before any other operation,
++	 * this function uses writel() instread of writel_relaxed()
++	 */
++	offset = msm_dp_stream_reg(stream_id, offset);
++	switch (stream_id) {
++	case DP_STREAM_0:
++	case DP_STREAM_1:
++		writel(data, ctrl->link_base + offset);
++		break;
++	case DP_STREAM_2:
++		writel(data, ctrl->mst2link_base + offset);
++		break;
++	case DP_STREAM_3:
++		writel(data, ctrl->mst3link_base + offset);
++		break;
++	default:
++		DRM_ERROR("error stream_id\n");
++		break;
++	}
++}
++
+ static int msm_dp_aux_link_configure(struct drm_dp_aux *aux,
+ 					struct msm_dp_link_info *link)
+ {
+@@ -397,7 +442,8 @@ static void msm_dp_ctrl_config_ctrl_streams(struct msm_dp_ctrl_private *ctrl,
+ 	/*
+ 	 * RMW: Called from atomic_enable(). Serialized by the DRM atomic framework.
+ 	 */
+-	config = msm_dp_read_link(ctrl, REG_DP_CONFIGURATION_CTRL);
++	if (msm_dp_panel->stream_id == DP_STREAM_0)
++		config = msm_dp_read_link(ctrl, REG_DP_CONFIGURATION_CTRL);
+ 
+ 	if (msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420)
+ 		config |= DP_CONFIGURATION_CTRL_RGB_YUV; /* YUV420 */
+@@ -412,7 +458,7 @@ static void msm_dp_ctrl_config_ctrl_streams(struct msm_dp_ctrl_private *ctrl,
+ 
+ 	drm_dbg_dp(ctrl->drm_dev, "stream DP_CONFIGURATION_CTRL=0x%x\n", config);
+ 
+-	msm_dp_write_link(ctrl, REG_DP_CONFIGURATION_CTRL, config);
++	msm_dp_write_stream_link(ctrl, msm_dp_panel->stream_id, REG_DP_CONFIGURATION_CTRL, config);
+ }
+ 
+ static void msm_dp_ctrl_config_ctrl_link(struct msm_dp_ctrl_private *ctrl,
+@@ -469,7 +515,7 @@ static void msm_dp_ctrl_config_misc1_misc0(struct msm_dp_ctrl_private *ctrl,
+ 							  msm_dp_panel->msm_dp_mode.bpp);
+ 	colorimetry_cfg = msm_dp_link_get_colorimetry_config(ctrl->link);
+ 
+-	misc_val = msm_dp_read_link(ctrl, REG_DP_MISC1_MISC0);
++	misc_val = msm_dp_read_stream_link(ctrl, msm_dp_panel->stream_id, REG_DP_MISC1_MISC0);
+ 
+ 	/* clear bpp bits */
+ 	misc_val &= ~(0x07 << DP_MISC0_TEST_BITS_DEPTH_SHIFT);
+@@ -479,7 +525,7 @@ static void msm_dp_ctrl_config_misc1_misc0(struct msm_dp_ctrl_private *ctrl,
+ 	misc_val |= DP_MISC0_SYNCHRONOUS_CLK;
+ 
+ 	drm_dbg_dp(ctrl->drm_dev, "misc settings = 0x%x\n", misc_val);
+-	msm_dp_write_link(ctrl, REG_DP_MISC1_MISC0, misc_val);
++	msm_dp_write_stream_link(ctrl, msm_dp_panel->stream_id, REG_DP_MISC1_MISC0, misc_val);
+ }
+ 
+ static void msm_dp_ctrl_configure_source_params(struct msm_dp_ctrl_private *ctrl,
+@@ -2461,8 +2507,8 @@ static int msm_dp_ctrl_link_retrain(struct msm_dp_ctrl_private *ctrl,
+ }
+ 
+ static void msm_dp_ctrl_config_msa(struct msm_dp_ctrl_private *ctrl,
+-			       u32 rate, u32 stream_rate_khz,
+-			       bool is_ycbcr_420)
++			       struct msm_dp_panel *panel,
++			       u32 rate, u32 stream_rate_khz)
+ {
+ 	u32 pixel_m, pixel_n;
+ 	u32 mvid, nvid, pixel_div, dispcc_input_rate;
+@@ -2514,7 +2560,7 @@ static void msm_dp_ctrl_config_msa(struct msm_dp_ctrl_private *ctrl,
+ 		nvid = temp;
+ 	}
+ 
+-	if (is_ycbcr_420)
++	if (panel->msm_dp_mode.out_fmt_is_yuv_420)
+ 		mvid /= 2;
+ 
+ 	if (link_rate_hbr2 == rate)
+@@ -2524,8 +2570,8 @@ static void msm_dp_ctrl_config_msa(struct msm_dp_ctrl_private *ctrl,
+ 		nvid *= 3;
+ 
+ 	drm_dbg_dp(ctrl->drm_dev, "mvid=0x%x, nvid=0x%x\n", mvid, nvid);
+-	msm_dp_write_link(ctrl, REG_DP_SOFTWARE_MVID, mvid);
+-	msm_dp_write_link(ctrl, REG_DP_SOFTWARE_NVID, nvid);
++	msm_dp_write_stream_link(ctrl, panel->stream_id, REG_DP_SOFTWARE_MVID, mvid);
++	msm_dp_write_stream_link(ctrl, panel->stream_id, REG_DP_SOFTWARE_NVID, nvid);
+ }
+ 
+ int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl,
+@@ -2597,14 +2643,14 @@ int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, struct msm_dp_panel *
+ 
+ 	msm_dp_ctrl_lane_mapping(ctrl);
+ 	msm_dp_setup_peripheral_flush(ctrl);
+-	msm_dp_ctrl_config_ctrl_link(ctrl, panel);
++	if (panel->stream_id == DP_STREAM_0)
++		msm_dp_ctrl_config_ctrl_link(ctrl, panel);
+ 
+ 	msm_dp_ctrl_configure_source_params(ctrl, panel);
+ 
+ 	msm_dp_ctrl_config_msa(ctrl,
+-		ctrl->link->link_params.rate,
+-		pixel_rate_orig,
+-		panel->msm_dp_mode.out_fmt_is_yuv_420);
++		panel, ctrl->link->link_params.rate,
++		pixel_rate_orig);
+ 
+ 	msm_dp_panel_clear_dsc_dto(panel);
+ 
+@@ -2788,7 +2834,9 @@ struct msm_dp_ctrl *msm_dp_ctrl_get(struct device *dev, struct msm_dp_link *link
+ 			struct drm_dp_aux *aux,
+ 			struct phy *phy,
+ 			void __iomem *ahb_base,
+-			void __iomem *link_base)
++			void __iomem *link_base,
++			void __iomem *mst2link_base,
++			void __iomem *mst3link_base)
+ {
+ 	struct msm_dp_ctrl_private *ctrl;
+ 	int ret;
+@@ -2827,6 +2875,8 @@ struct msm_dp_ctrl *msm_dp_ctrl_get(struct device *dev, struct msm_dp_link *link
+ 	ctrl->phy      = phy;
+ 	ctrl->ahb_base = ahb_base;
+ 	ctrl->link_base = link_base;
++	ctrl->mst2link_base = mst2link_base;
++	ctrl->mst3link_base = mst3link_base;
+ 
+ 	ret = msm_dp_ctrl_clk_init(&ctrl->msm_dp_ctrl);
+ 	if (ret) {
+diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.h b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+index 305add3dcd93..49d16911ae8b 100644
+--- a/drivers/gpu/drm/msm/dp/dp_ctrl.h
++++ b/drivers/gpu/drm/msm/dp/dp_ctrl.h
+@@ -35,7 +35,9 @@ struct msm_dp_ctrl *msm_dp_ctrl_get(struct device *dev,
+ 				    struct drm_dp_aux *aux,
+ 				    struct phy *phy,
+ 				    void __iomem *ahb_base,
+-				    void __iomem *link_base);
++				    void __iomem *link_base,
++				    void __iomem *mst2link_base,
++				    void __iomem *mst3link_base);
+ 
+ void msm_dp_ctrl_reset(struct msm_dp_ctrl *msm_dp_ctrl,
+ 		       struct msm_dp_panel *panel);
 diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 9cd243411e44..74f481a18164 100644
+index 74f481a18164..c58896b351b3 100644
 --- a/drivers/gpu/drm/msm/dp/dp_display.c
 +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -85,8 +85,8 @@ struct msm_dp_display_private {
+@@ -85,6 +85,12 @@ struct msm_dp_display_private {
  	void __iomem *link_base;
  	size_t link_len;
  
--	void __iomem *p0_base;
--	size_t p0_len;
-+	void __iomem *pixel_base[DP_STREAM_MAX];
-+	size_t pixel_len;
++	void __iomem *mst2link_base;
++	size_t mst2link_len;
++
++	void __iomem *mst3link_base;
++	size_t mst3link_len;
++
+ 	void __iomem *pixel_base[DP_STREAM_MAX];
+ 	size_t pixel_len;
  
- 	int max_stream;
- };
-@@ -564,7 +564,7 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
+@@ -564,7 +570,8 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
  		goto error_link;
  	}
  
--	dp->panel = msm_dp_panel_get(dev, dp->aux, dp->link, dp->link_base, dp->p0_base);
-+	dp->panel = msm_dp_panel_get(dev, dp->aux, dp->link, dp->link_base, dp->pixel_base[0]);
+-	dp->panel = msm_dp_panel_get(dev, dp->aux, dp->link, dp->link_base, dp->pixel_base[0]);
++	dp->panel = msm_dp_panel_get(dev, dp->aux, dp->link, dp->link_base,
++				     dp->mst2link_base, dp->mst3link_base, dp->pixel_base[0]);
  	if (IS_ERR(dp->panel)) {
  		rc = PTR_ERR(dp->panel);
  		DRM_ERROR("failed to initialize panel, rc = %d\n", rc);
-@@ -850,8 +850,14 @@ void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp)
+@@ -573,7 +580,8 @@ static int msm_dp_init_sub_modules(struct msm_dp_display_private *dp)
+ 	}
+ 
+ 	dp->ctrl = msm_dp_ctrl_get(dev, dp->link, dp->aux,
+-			       phy, dp->ahb_base, dp->link_base);
++			       phy, dp->ahb_base, dp->link_base,
++			       dp->mst2link_base, dp->mst3link_base);
+ 	if (IS_ERR(dp->ctrl)) {
+ 		rc = PTR_ERR(dp->ctrl);
+ 		DRM_ERROR("failed to initialize ctrl, rc = %d\n", rc);
+@@ -850,6 +858,10 @@ void msm_dp_snapshot(struct msm_disp_state *disp_state, struct msm_dp *dp)
  				    msm_dp_display->aux_base, "dp_aux");
  	msm_disp_snapshot_add_block(disp_state, msm_dp_display->link_len,
  				    msm_dp_display->link_base, "dp_link");
--	msm_disp_snapshot_add_block(disp_state, msm_dp_display->p0_len,
--				    msm_dp_display->p0_base, "dp_p0");
-+	msm_disp_snapshot_add_block(disp_state, msm_dp_display->pixel_len,
-+				    msm_dp_display->pixel_base[0], "dp_p0");
-+	msm_disp_snapshot_add_block(disp_state, msm_dp_display->pixel_len,
-+				    msm_dp_display->pixel_base[1], "dp_p1");
-+	msm_disp_snapshot_add_block(disp_state, msm_dp_display->pixel_len,
-+				    msm_dp_display->pixel_base[2], "dp_p2");
-+	msm_disp_snapshot_add_block(disp_state, msm_dp_display->pixel_len,
-+				    msm_dp_display->pixel_base[3], "dp_p3");
++	msm_disp_snapshot_add_block(disp_state, msm_dp_display->mst2link_len,
++				    msm_dp_display->mst2link_base, "dp_mst2link");
++	msm_disp_snapshot_add_block(disp_state, msm_dp_display->mst3link_len,
++				    msm_dp_display->mst3link_base, "dp_mst3link");
+ 	msm_disp_snapshot_add_block(disp_state, msm_dp_display->pixel_len,
+ 				    msm_dp_display->pixel_base[0], "dp_p0");
+ 	msm_disp_snapshot_add_block(disp_state, msm_dp_display->pixel_len,
+@@ -1196,6 +1208,14 @@ static int msm_dp_display_get_io(struct msm_dp_display_private *display)
+ 		}
+ 	}
+ 
++	display->mst2link_base = msm_dp_ioremap(pdev, 7, &display->mst2link_len);
++	if (IS_ERR(display->mst2link_base))
++		DRM_DEBUG_DP("unable to remap link region: %pe\n", display->mst2link_base);
++
++	display->mst3link_base = msm_dp_ioremap(pdev, 8, &display->mst3link_len);
++	if (IS_ERR(display->mst3link_base))
++		DRM_DEBUG_DP("unable to remap link region: %pe\n", display->mst3link_base);
++
+ 	return 0;
  }
  
- void msm_dp_display_set_psr(struct msm_dp *msm_dp_display, bool enter)
-@@ -1131,6 +1137,7 @@ static void __iomem *msm_dp_ioremap(struct platform_device *pdev, int idx, size_
- static int msm_dp_display_get_io(struct msm_dp_display_private *display)
- {
- 	struct platform_device *pdev = display->msm_dp_display.pdev;
-+	int i;
- 
- 	display->ahb_base = msm_dp_ioremap(pdev, 0, &display->ahb_len);
- 	if (IS_ERR(display->ahb_base))
-@@ -1160,8 +1167,8 @@ static int msm_dp_display_get_io(struct msm_dp_display_private *display)
- 		display->aux_len = DP_DEFAULT_AUX_SIZE;
- 		display->link_base = display->ahb_base + DP_DEFAULT_LINK_OFFSET;
- 		display->link_len = DP_DEFAULT_LINK_SIZE;
--		display->p0_base = display->ahb_base + DP_DEFAULT_P0_OFFSET;
--		display->p0_len = DP_DEFAULT_P0_SIZE;
-+		display->pixel_base[0] = display->ahb_base + DP_DEFAULT_P0_OFFSET;
-+		display->pixel_len = DP_DEFAULT_P0_SIZE;
- 
- 		return 0;
- 	}
-@@ -1172,10 +1179,21 @@ static int msm_dp_display_get_io(struct msm_dp_display_private *display)
- 		return PTR_ERR(display->link_base);
- 	}
- 
--	display->p0_base = msm_dp_ioremap(pdev, 3, &display->p0_len);
--	if (IS_ERR(display->p0_base)) {
--		DRM_ERROR("unable to remap p0 region: %pe\n", display->p0_base);
--		return PTR_ERR(display->p0_base);
-+	display->pixel_base[0] = msm_dp_ioremap(pdev, 3, &display->pixel_len);
-+	if (IS_ERR(display->pixel_base[0])) {
-+		DRM_ERROR("unable to remap p0 region: %pe\n", display->pixel_base[0]);
-+		return PTR_ERR(display->pixel_base[0]);
-+	}
-+
-+	for (i = DP_STREAM_1; i < DP_STREAM_MAX; i++) {
-+		/* pixels clk reg index start from 3*/
-+		display->pixel_base[i] = msm_dp_ioremap(pdev, i + 3, &display->pixel_len);
-+		if (IS_ERR(display->pixel_base[i])) {
-+			DRM_DEBUG_DP("unable to remap p%d region: %pe\n", i,
-+				     display->pixel_base[i]);
-+			display->pixel_base[i] = NULL;
-+			break;
-+		}
- 	}
- 
- 	return 0;
 diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index 745ee6976897..238920c45261 100644
+index 238920c45261..e0c0e8c9178c 100644
 --- a/drivers/gpu/drm/msm/dp/dp_panel.c
 +++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -25,7 +25,7 @@ struct msm_dp_panel_private {
+@@ -25,13 +25,84 @@ struct msm_dp_panel_private {
  	struct drm_dp_aux *aux;
  	struct msm_dp_link *link;
  	void __iomem *link_base;
--	void __iomem *p0_base;
-+	void __iomem *pixel_base;
++	void __iomem *mst2link_base;
++	void __iomem *mst3link_base;
+ 	void __iomem *pixel_base;
  	bool panel_on;
  };
  
-@@ -44,24 +44,24 @@ static inline void msm_dp_write_link(struct msm_dp_panel_private *panel,
- 	writel(data, panel->link_base + offset);
- }
- 
--static inline void msm_dp_write_p0(struct msm_dp_panel_private *panel,
--			       u32 offset, u32 data)
-+static inline void msm_dp_write_pn(struct msm_dp_panel_private *panel,
-+				   u32 offset, u32 data)
- {
- 	/*
- 	 * To make sure interface reg writes happens before any other operation,
- 	 * this function uses writel() instread of writel_relaxed()
- 	 */
--	writel(data, panel->p0_base + offset);
-+	writel(data, panel->pixel_base + offset);
- }
- 
--static inline u32 msm_dp_read_p0(struct msm_dp_panel_private *panel,
--			       u32 offset)
-+static inline u32 msm_dp_read_pn(struct msm_dp_panel_private *panel,
-+				 u32 offset)
- {
- 	/*
- 	 * To make sure interface reg writes happens before any other operation,
- 	 * this function uses writel() instread of writel_relaxed()
- 	 */
--	return readl_relaxed(panel->p0_base + offset);
-+	return readl_relaxed(panel->pixel_base + offset);
- }
- 
- static void msm_dp_panel_read_psr_cap(struct msm_dp_panel_private *panel)
-@@ -367,34 +367,34 @@ static void msm_dp_panel_tpg_enable(struct msm_dp_panel *msm_dp_panel,
- 	display_hctl = (hsync_end_x << 16) | hsync_start_x;
- 
- 
--	msm_dp_write_p0(panel, MMSS_DP_INTF_HSYNC_CTL, hsync_ctl);
--	msm_dp_write_p0(panel, MMSS_DP_INTF_VSYNC_PERIOD_F0, vsync_period *
-+	msm_dp_write_pn(panel, MMSS_DP_INTF_HSYNC_CTL, hsync_ctl);
-+	msm_dp_write_pn(panel, MMSS_DP_INTF_VSYNC_PERIOD_F0, vsync_period *
- 			hsync_period);
--	msm_dp_write_p0(panel, MMSS_DP_INTF_VSYNC_PULSE_WIDTH_F0, v_sync_width *
-+	msm_dp_write_pn(panel, MMSS_DP_INTF_VSYNC_PULSE_WIDTH_F0, v_sync_width *
- 			hsync_period);
--	msm_dp_write_p0(panel, MMSS_DP_INTF_VSYNC_PERIOD_F1, 0);
--	msm_dp_write_p0(panel, MMSS_DP_INTF_VSYNC_PULSE_WIDTH_F1, 0);
--	msm_dp_write_p0(panel, MMSS_DP_INTF_DISPLAY_HCTL, display_hctl);
--	msm_dp_write_p0(panel, MMSS_DP_INTF_ACTIVE_HCTL, 0);
--	msm_dp_write_p0(panel, MMSS_INTF_DISPLAY_V_START_F0, display_v_start);
--	msm_dp_write_p0(panel, MMSS_DP_INTF_DISPLAY_V_END_F0, display_v_end);
--	msm_dp_write_p0(panel, MMSS_INTF_DISPLAY_V_START_F1, 0);
--	msm_dp_write_p0(panel, MMSS_DP_INTF_DISPLAY_V_END_F1, 0);
--	msm_dp_write_p0(panel, MMSS_DP_INTF_ACTIVE_V_START_F0, 0);
--	msm_dp_write_p0(panel, MMSS_DP_INTF_ACTIVE_V_END_F0, 0);
--	msm_dp_write_p0(panel, MMSS_DP_INTF_ACTIVE_V_START_F1, 0);
--	msm_dp_write_p0(panel, MMSS_DP_INTF_ACTIVE_V_END_F1, 0);
--	msm_dp_write_p0(panel, MMSS_DP_INTF_POLARITY_CTL, 0);
--
--	msm_dp_write_p0(panel, MMSS_DP_TPG_MAIN_CONTROL,
--				DP_TPG_CHECKERED_RECT_PATTERN);
--	msm_dp_write_p0(panel, MMSS_DP_TPG_VIDEO_CONFIG,
--				DP_TPG_VIDEO_CONFIG_BPP_8BIT |
--				DP_TPG_VIDEO_CONFIG_RGB);
--	msm_dp_write_p0(panel, MMSS_DP_BIST_ENABLE,
--				DP_BIST_ENABLE_DPBIST_EN);
--	msm_dp_write_p0(panel, MMSS_DP_TIMING_ENGINE_EN,
--				DP_TIMING_ENGINE_EN_EN);
-+	msm_dp_write_pn(panel, MMSS_DP_INTF_VSYNC_PERIOD_F1, 0);
-+	msm_dp_write_pn(panel, MMSS_DP_INTF_VSYNC_PULSE_WIDTH_F1, 0);
-+	msm_dp_write_pn(panel, MMSS_DP_INTF_DISPLAY_HCTL, display_hctl);
-+	msm_dp_write_pn(panel, MMSS_DP_INTF_ACTIVE_HCTL, 0);
-+	msm_dp_write_pn(panel, MMSS_INTF_DISPLAY_V_START_F0, display_v_start);
-+	msm_dp_write_pn(panel, MMSS_DP_INTF_DISPLAY_V_END_F0, display_v_end);
-+	msm_dp_write_pn(panel, MMSS_INTF_DISPLAY_V_START_F1, 0);
-+	msm_dp_write_pn(panel, MMSS_DP_INTF_DISPLAY_V_END_F1, 0);
-+	msm_dp_write_pn(panel, MMSS_DP_INTF_ACTIVE_V_START_F0, 0);
-+	msm_dp_write_pn(panel, MMSS_DP_INTF_ACTIVE_V_END_F0, 0);
-+	msm_dp_write_pn(panel, MMSS_DP_INTF_ACTIVE_V_START_F1, 0);
-+	msm_dp_write_pn(panel, MMSS_DP_INTF_ACTIVE_V_END_F1, 0);
-+	msm_dp_write_pn(panel, MMSS_DP_INTF_POLARITY_CTL, 0);
++u32 msm_dp_stream_reg(enum msm_dp_stream_id id, u32 reg)
++{
++	bool is_s1 = (id == DP_STREAM_1);
 +
-+	msm_dp_write_pn(panel, MMSS_DP_TPG_MAIN_CONTROL,
-+			DP_TPG_CHECKERED_RECT_PATTERN);
-+	msm_dp_write_pn(panel, MMSS_DP_TPG_VIDEO_CONFIG,
-+			DP_TPG_VIDEO_CONFIG_BPP_8BIT |
-+			DP_TPG_VIDEO_CONFIG_RGB);
-+	msm_dp_write_pn(panel, MMSS_DP_BIST_ENABLE,
-+			DP_BIST_ENABLE_DPBIST_EN);
-+	msm_dp_write_pn(panel, MMSS_DP_TIMING_ENGINE_EN,
-+			DP_TIMING_ENGINE_EN_EN);
- 	drm_dbg_dp(panel->drm_dev, "%s: enabled tpg\n", __func__);
++	if (id == DP_STREAM_0)
++		return reg;
++
++	switch (reg) {
++	case REG_DP_CONFIGURATION_CTRL:
++		return is_s1 ? REG_DP1_CONFIGURATION_CTRL : REG_DP_MSTLINK_CONFIGURATION_CTRL;
++	case REG_DP_SOFTWARE_MVID:
++		return is_s1 ? REG_DP1_SOFTWARE_MVID : REG_MSTLINK_SOFTWARE_MVID;
++	case REG_DP_SOFTWARE_NVID:
++		return is_s1 ? REG_DP1_SOFTWARE_NVID : REG_MSTLINK_SOFTWARE_NVID;
++	case REG_DP_TOTAL_HOR_VER:
++		return is_s1 ? REG_DP1_TOTAL_HOR_VER : REG_DP_MSTLINK_TOTAL_HOR_VER;
++	case REG_DP_START_HOR_VER_FROM_SYNC:
++		return is_s1 ? REG_DP1_START_HOR_VER_FROM_SYNC
++			     : REG_DP_MSTLINK_START_HOR_VER_FROM_SYNC;
++	case REG_DP_HSYNC_VSYNC_WIDTH_POLARITY:
++		return is_s1 ? REG_DP1_HSYNC_VSYNC_WIDTH_POLARITY
++			     : REG_DP_MSTLINK_HSYNC_VSYNC_WIDTH_POLARITY;
++	case REG_DP_ACTIVE_HOR_VER:
++		return is_s1 ? REG_DP1_ACTIVE_HOR_VER : REG_DP_MSTLINK_ACTIVE_HOR_VER;
++	case REG_DP_MISC1_MISC0:
++		return is_s1 ? REG_DP1_MISC1_MISC0 : REG_DP_MSTLINK_MISC1_MISC0;
++	case MMSS_DP_SDP_CFG:
++		return is_s1 ? MMSS_DP1_SDP_CFG : MMSS_DP_MSTLINK_SDP_CFG;
++	case MMSS_DP_SDP_CFG2:
++		return is_s1 ? MMSS_DP1_SDP_CFG2 : MMSS_DP_MSTLINK_SDP_CFG2;
++	case MMSS_DP_SDP_CFG3:
++		return is_s1 ? MMSS_DP1_SDP_CFG3 : MMSS_DP_MSTLINK_SDP_CFG3;
++	case MMSS_DP_GENERIC0_0:
++		return is_s1 ? MMSS_DP1_GENERIC0_0 : MMSS_DP_MSTLINK_GENERIC0_0;
++	case MMSS_DP_GENERIC0_1:
++		return is_s1 ? MMSS_DP1_GENERIC0_1 : MMSS_DP_MSTLINK_GENERIC0_1;
++	case MMSS_DP_GENERIC0_2:
++		return is_s1 ? MMSS_DP1_GENERIC0_2 : MMSS_DP_MSTLINK_GENERIC0_2;
++	case MMSS_DP_GENERIC0_3:
++		return is_s1 ? MMSS_DP1_GENERIC0_3 : MMSS_DP_MSTLINK_GENERIC0_3;
++	case MMSS_DP_GENERIC0_4:
++		return is_s1 ? MMSS_DP1_GENERIC0_4 : MMSS_DP_MSTLINK_GENERIC0_4;
++	case MMSS_DP_GENERIC0_5:
++		return is_s1 ? MMSS_DP1_GENERIC0_5 : MMSS_DP_MSTLINK_GENERIC0_5;
++	case MMSS_DP_GENERIC0_6:
++		return is_s1 ? MMSS_DP1_GENERIC0_6 : MMSS_DP_MSTLINK_GENERIC0_6;
++	case MMSS_DP_GENERIC0_7:
++		return is_s1 ? MMSS_DP1_GENERIC0_7 : MMSS_DP_MSTLINK_GENERIC0_7;
++	case MMSS_DP_GENERIC0_8:
++		return is_s1 ? MMSS_DP1_GENERIC0_8 : MMSS_DP_MSTLINK_GENERIC0_8;
++	case MMSS_DP_GENERIC0_9:
++		return is_s1 ? MMSS_DP1_GENERIC0_9 : MMSS_DP_MSTLINK_GENERIC0_9;
++	default:
++		return reg;
++	}
++}
++
+ static inline u32 msm_dp_read_link(struct msm_dp_panel_private *panel, u32 offset)
+ {
+-	return readl_relaxed(panel->link_base + offset);
++	offset = msm_dp_stream_reg(panel->msm_dp_panel.stream_id, offset);
++	switch (panel->msm_dp_panel.stream_id) {
++	case DP_STREAM_0:
++	case DP_STREAM_1:
++		return readl_relaxed(panel->link_base + offset);
++	case DP_STREAM_2:
++		return readl_relaxed(panel->mst2link_base + offset);
++	case DP_STREAM_3:
++		return readl_relaxed(panel->mst3link_base + offset);
++	default:
++		DRM_ERROR("error stream_id\n");
++		return 0;
++	}
  }
  
-@@ -403,9 +403,9 @@ static void msm_dp_panel_tpg_disable(struct msm_dp_panel *msm_dp_panel)
- 	struct msm_dp_panel_private *panel =
- 		container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
- 
--	msm_dp_write_p0(panel, MMSS_DP_TPG_MAIN_CONTROL, 0x0);
--	msm_dp_write_p0(panel, MMSS_DP_BIST_ENABLE, 0x0);
--	msm_dp_write_p0(panel, MMSS_DP_TIMING_ENGINE_EN, 0x0);
-+	msm_dp_write_pn(panel, MMSS_DP_TPG_MAIN_CONTROL, 0x0);
-+	msm_dp_write_pn(panel, MMSS_DP_BIST_ENABLE, 0x0);
-+	msm_dp_write_pn(panel, MMSS_DP_TIMING_ENGINE_EN, 0x0);
+ static inline void msm_dp_write_link(struct msm_dp_panel_private *panel,
+@@ -41,7 +112,22 @@ static inline void msm_dp_write_link(struct msm_dp_panel_private *panel,
+ 	 * To make sure link reg writes happens before any other operation,
+ 	 * this function uses writel() instread of writel_relaxed()
+ 	 */
+-	writel(data, panel->link_base + offset);
++	offset = msm_dp_stream_reg(panel->msm_dp_panel.stream_id, offset);
++	switch (panel->msm_dp_panel.stream_id) {
++	case DP_STREAM_0:
++	case DP_STREAM_1:
++		writel(data, panel->link_base + offset);
++		break;
++	case DP_STREAM_2:
++		writel(data, panel->mst2link_base + offset);
++		break;
++	case DP_STREAM_3:
++		writel(data, panel->mst3link_base + offset);
++		break;
++	default:
++		DRM_ERROR("error stream_id\n");
++		break;
++	}
  }
  
- void msm_dp_panel_tpg_config(struct msm_dp_panel *msm_dp_panel, bool enable)
-@@ -439,7 +439,7 @@ void msm_dp_panel_clear_dsc_dto(struct msm_dp_panel *msm_dp_panel)
- 	struct msm_dp_panel_private *panel =
- 		container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
- 
--	msm_dp_write_p0(panel, MMSS_DP_DSC_DTO, 0x0);
-+	msm_dp_write_pn(panel, MMSS_DP_DSC_DTO, 0x0);
- }
- 
- static void msm_dp_panel_send_vsc_sdp(struct msm_dp_panel_private *panel, struct dp_sdp *vsc_sdp)
-@@ -629,7 +629,7 @@ int msm_dp_panel_timing_cfg(struct msm_dp_panel *msm_dp_panel, bool wide_bus_en)
- 	msm_dp_write_link(panel, REG_DP_HSYNC_VSYNC_WIDTH_POLARITY, width_blanking);
- 	msm_dp_write_link(panel, REG_DP_ACTIVE_HOR_VER, msm_dp_active);
- 
--	reg = msm_dp_read_p0(panel, MMSS_DP_INTF_CONFIG);
-+	reg = msm_dp_read_pn(panel, MMSS_DP_INTF_CONFIG);
- 	if (wide_bus_en)
- 		reg |= DP_INTF_CONFIG_DATABUS_WIDEN;
- 	else
-@@ -637,7 +637,7 @@ int msm_dp_panel_timing_cfg(struct msm_dp_panel *msm_dp_panel, bool wide_bus_en)
- 
- 	drm_dbg_dp(panel->drm_dev, "wide_bus_en=%d reg=%#x\n", wide_bus_en, reg);
- 
--	msm_dp_write_p0(panel, MMSS_DP_INTF_CONFIG, reg);
-+	msm_dp_write_pn(panel, MMSS_DP_INTF_CONFIG, reg);
- 
- 	if (msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420)
- 		msm_dp_panel_setup_vsc_sdp_yuv_420(msm_dp_panel);
-@@ -701,7 +701,7 @@ int msm_dp_panel_init_panel_info(struct msm_dp_panel *msm_dp_panel,
+ static inline void msm_dp_write_pn(struct msm_dp_panel_private *panel,
+@@ -701,6 +787,8 @@ int msm_dp_panel_init_panel_info(struct msm_dp_panel *msm_dp_panel,
  struct msm_dp_panel *msm_dp_panel_get(struct device *dev, struct drm_dp_aux *aux,
  			      struct msm_dp_link *link,
  			      void __iomem *link_base,
--			      void __iomem *p0_base)
-+			      void __iomem *pixel_base)
++			      void __iomem *mst2link_base,
++			      void __iomem *mst3link_base,
+ 			      void __iomem *pixel_base)
  {
  	struct msm_dp_panel_private *panel;
- 	struct msm_dp_panel *msm_dp_panel;
-@@ -719,7 +719,7 @@ struct msm_dp_panel *msm_dp_panel_get(struct device *dev, struct drm_dp_aux *aux
- 	panel->aux = aux;
+@@ -720,6 +808,8 @@ struct msm_dp_panel *msm_dp_panel_get(struct device *dev, struct drm_dp_aux *aux
  	panel->link = link;
  	panel->link_base = link_base;
--	panel->p0_base = p0_base;
-+	panel->pixel_base = pixel_base;
+ 	panel->pixel_base = pixel_base;
++	panel->mst2link_base = mst2link_base;
++	panel->mst3link_base = mst3link_base;
  
  	msm_dp_panel = &panel->msm_dp_panel;
  	msm_dp_panel->max_bw_code = DP_LINK_BW_8_1;
 diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
-index 50a721401751..218a09a2fa65 100644
+index 218a09a2fa65..dc046fec24fc 100644
 --- a/drivers/gpu/drm/msm/dp/dp_panel.h
 +++ b/drivers/gpu/drm/msm/dp/dp_panel.h
-@@ -102,5 +102,5 @@ static inline bool is_lane_count_valid(u32 lane_count)
+@@ -99,8 +99,12 @@ static inline bool is_lane_count_valid(u32 lane_count)
+ 		lane_count == 4);
+ }
+ 
++u32 msm_dp_stream_reg(enum msm_dp_stream_id id, u32 reg);
++
  struct msm_dp_panel *msm_dp_panel_get(struct device *dev, struct drm_dp_aux *aux,
  			      struct msm_dp_link *link,
  			      void __iomem *link_base,
--			      void __iomem *p0_base);
-+			      void __iomem *pixel_base);
++			      void __iomem *mst2link_base,
++			      void __iomem *mst3link_base,
+ 			      void __iomem *pixel_base);
  #endif /* _DP_PANEL_H_ */
+diff --git a/drivers/gpu/drm/msm/dp/dp_reg.h b/drivers/gpu/drm/msm/dp/dp_reg.h
+index 3689642b7fc0..310e5a1cc934 100644
+--- a/drivers/gpu/drm/msm/dp/dp_reg.h
++++ b/drivers/gpu/drm/msm/dp/dp_reg.h
+@@ -332,6 +332,50 @@
+ #define DP_TPG_VIDEO_CONFIG_BPP_8BIT		(0x00000001)
+ #define DP_TPG_VIDEO_CONFIG_RGB			(0x00000004)
+ 
++#define REG_DP1_CONFIGURATION_CTRL		(0x00000400)
++#define REG_DP1_SOFTWARE_MVID			(0x00000414)
++#define REG_DP1_SOFTWARE_NVID			(0x00000418)
++#define REG_DP1_TOTAL_HOR_VER			(0x0000041C)
++#define REG_DP1_START_HOR_VER_FROM_SYNC		(0x00000420)
++#define REG_DP1_HSYNC_VSYNC_WIDTH_POLARITY	(0x00000424)
++#define REG_DP1_ACTIVE_HOR_VER			(0x00000428)
++#define REG_DP1_MISC1_MISC0			(0x0000042C)
++#define MMSS_DP1_GENERIC0_0			(0x00000490)
++#define MMSS_DP1_GENERIC0_1			(0x00000494)
++#define MMSS_DP1_GENERIC0_2			(0x00000498)
++#define MMSS_DP1_GENERIC0_3			(0x0000049C)
++#define MMSS_DP1_GENERIC0_4			(0x000004A0)
++#define MMSS_DP1_GENERIC0_5			(0x000004A4)
++#define MMSS_DP1_GENERIC0_6			(0x000004A8)
++#define MMSS_DP1_GENERIC0_7			(0x000004AC)
++#define MMSS_DP1_GENERIC0_8			(0x000004B0)
++#define MMSS_DP1_GENERIC0_9			(0x000004B4)
++#define MMSS_DP1_SDP_CFG			(0x000004E0)
++#define MMSS_DP1_SDP_CFG2			(0x000004E4)
++#define MMSS_DP1_SDP_CFG3			(0x000004E8)
++
++#define REG_DP_MSTLINK_CONFIGURATION_CTRL	(0x00000034)
++#define REG_MSTLINK_SOFTWARE_MVID		(0x00000040)
++#define REG_MSTLINK_SOFTWARE_NVID		(0x00000044)
++#define REG_DP_MSTLINK_TOTAL_HOR_VER		(0x00000048)
++#define REG_DP_MSTLINK_START_HOR_VER_FROM_SYNC	(0x0000004C)
++#define REG_DP_MSTLINK_HSYNC_VSYNC_WIDTH_POLARITY	(0x00000050)
++#define REG_DP_MSTLINK_ACTIVE_HOR_VER		(0x00000054)
++#define REG_DP_MSTLINK_MISC1_MISC0		(0x00000058)
++#define MMSS_DP_MSTLINK_GENERIC0_0		(0x000000BC)
++#define MMSS_DP_MSTLINK_GENERIC0_1		(0x000000C0)
++#define MMSS_DP_MSTLINK_GENERIC0_2		(0x000000C4)
++#define MMSS_DP_MSTLINK_GENERIC0_3		(0x000000C8)
++#define MMSS_DP_MSTLINK_GENERIC0_4		(0x000000CC)
++#define MMSS_DP_MSTLINK_GENERIC0_5		(0x000000D0)
++#define MMSS_DP_MSTLINK_GENERIC0_6		(0x000000D4)
++#define MMSS_DP_MSTLINK_GENERIC0_7		(0x000000D8)
++#define MMSS_DP_MSTLINK_GENERIC0_8		(0x000000DC)
++#define MMSS_DP_MSTLINK_GENERIC0_9		(0x000000E0)
++#define MMSS_DP_MSTLINK_SDP_CFG			(0x0000010c)
++#define MMSS_DP_MSTLINK_SDP_CFG2		(0x0000011c)
++#define MMSS_DP_MSTLINK_SDP_CFG3		(0x00000114)
++
+ #define MMSS_DP_ASYNC_FIFO_CONFIG		(0x00000088)
+ 
+ #define REG_DP_PHY_AUX_INTERRUPT_CLEAR          (0x0000004C)
 
 -- 
 2.43.0
