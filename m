@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E5C6C43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE44AC43602
 	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:32:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68FBF10E89D;
-	Mon, 29 Jun 2026 12:32:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0654110E89E;
+	Mon, 29 Jun 2026 12:32:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="k8kEX2MH";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Abtegkvs";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012007.outbound.protection.outlook.com [52.101.53.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFE2C10E899
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 12:32:30 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010016.outbound.protection.outlook.com
+ [52.101.193.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCEEF10E89C
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 12:32:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yROzYFDrhFbp250b1KAwxL510xFEUTsgvsjBuS2IpB+mT4W7tvw+SUs2tAH2C9RH+75UHJ1Wfb/1Ls0GLO2hE9sQRXKv55SuPHv78iB6pCNS2rfKrnJzSZF/6+MZxozPYJnfAKH+feGXjHGnDsrLTvv8mOfzQPnehOcBscIKtOuH6mbhTpqcraDimUmqqRhWTegvjDadt6p/qMFp4/6ZWBn/2Rr8Ys++uCHErWhgLwyR/Esthvf/wP5stPa90+Cw5x9OuJLXhTT1aH98BgZ0zqucz/Dt6lsvMQGQ1vViFGMx79Rannj+O/JNGOba6to5KzU7Z5HB68RoP22c6/sYyA==
+ b=BBljfVxmZPxgZrkwDp4w8ew4vXHHAn9HVWj8aRj+1VlIlxI11bdvd5MHjMj5EJDFspzxp0r+I8rYkt3mGAIJunsiaGaUeN2ovZClg5TBiX/dacXDdn3l0CgNxOTGF6Laz1aVdQkjLKAv326v4lmI8UoMyl2vcYgwuznyW8o7hTw7jAF+mr5tg2iG7vLIg+OfVgipGh1YCbcfVLZPOb5EqlgXE6hL0ubVPOZckT3einuAcrTpCsKKxH6Nq1dzWjAnA1fxSMcKdSq2LfJ6wevXK/qc72UoRM7tNYjIfG+ic/fczqfUWJiM+Cf4E5AlnMDrMDIZOm8M/aAUftB10WlwtA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w/TmY/8KXfWx9M/RWK49wRIuAhLqzkh4XKmvDMEJrxE=;
- b=EjEyeTA3RWGIG0oKDwb0hl/maKRfcKRh1rxi4txC/xnl0zA7VhL+iophqrlE8U23l84HECq71qG471cZ2nySBWpk/adgxuCg76Bp6X0/+/0OD76ig2YO92rNIadsiDpul/b0XC0kTg++X2NJnJMrUIaCKtE/e2klyLOXeLbQS8/2jWkyIkN6IiOlkbJFJnYZ3geDfdIKVrdaQ7eKnQ23E+E4RX0j0d68snfgqQJpVtcgtVPVsdCHO8upr3JrOEVZKuzWqJKFJpu3E9xEXF7dZdXlf3Lm8ss9/IglJ5vFwDeRli/nvoWRYBILjhyQOy9FycBPSm8jhofrVsCIngvxjw==
+ bh=if8O/WtNgxPPaNrkP93XG8Q50dNH+/1a6I60AvG96HQ=;
+ b=B2g2PL6d1f1aaqwgse2ww+BWDFFBq1WbbCqJrP2/Xpdm6ouZusblXAMacI4DD5axcLr7kKy0hHyu20qr7O2YiceRrPbIBz/0CUZyW5oE5s0QRY6M4gFca89YAJyPV2PeFGLjLzpghCAd1YdI2JrskyGjDwCxeQkY2E19KZPdL0xjbYQWxkBZtqb8HI2+KIS6T+5c4+BoZxjLCRbR1zbcyhpoueVE8y2RvGzdrg5sSb2tGKFV33FtrbXAlWaER7kRd7ieZ1hzeLliv+bEPYzm+FlYnVU/fUrEZ/1htMYbo3seIbigmG8nJktIScEUYvPyrGLOTXtRDx51hPZPBILfNw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w/TmY/8KXfWx9M/RWK49wRIuAhLqzkh4XKmvDMEJrxE=;
- b=k8kEX2MHEnbdM7OiY2/dNJpw09fwJFUztmWprHxs/8+JHNqVAc1ygDmvHnj2lWQd417ZYMCRKMx98nA5D0PyPY9prNjHpTOgdqsHUf6oT92jx8W4zCkjYrvV6CKNALWyNXg2X0ZAZqLextPn1AIpYINqL+PLBnjh1kNG3qN1B260cv7HPr9ovC5LGllUDnTVFMQiICrHxBlXKJ6OCs/bRCvCKtQbyTBE5+hRtBN35aALvBOM3NbAWBesZCKlfYt2btW8oSIR5MQi3CD2hvzp/3mtxg0AaRzD0F4P3ObXRSuY66xE2+E8PcBmgonmB+ctCZeHUHN7G0cxW74RNy22ZQ==
+ bh=if8O/WtNgxPPaNrkP93XG8Q50dNH+/1a6I60AvG96HQ=;
+ b=AbtegkvsuCYlIysUdMZF1i/Jnv8w8enHHF+zxxQ+BE/nRiDhAKNWwst+gs1xfy/9pMUERvRt/wvILwXd1fNbXIACIvabpnw3+qb/cG42e2Dsud1rMIrMgVhbMbL9iOQqT+xQuAbAVt67Z0kjMwqOk1BTUAbx+H3HbK4qTBTh8A/tPnPyKRuAMqWzgfaKFMHaNxW+ew6h2ld4MpoX/DOXtpXaBC0mlADWb8OOGi3hugUk/n2sK032EyJ1oSOjVC8J4mhLE7VAIRrizOUvmb/RlFW5pKYQczOgPa+mXELcpW1B/VWe66EKsS4k4ysa01gLF19Hgjk7zd/zIe835Tde2A==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
  by PH7PR12MB8122.namprd12.prod.outlook.com (2603:10b6:510:2b7::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.12; Mon, 29 Jun
- 2026 12:32:22 +0000
+ 2026 12:32:38 +0000
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 12:32:22 +0000
+ 12:32:38 +0000
 From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Mon, 29 Jun 2026 21:31:50 +0900
-Subject: [PATCH v3 07/12] gpu: nova-core: gsp: turn FWSEC execution into
- HAL method
+Date: Mon, 29 Jun 2026 21:31:54 +0900
+Subject: [PATCH v3 11/12] gpu: nova-core: gsp: pass GspBootContext mutably
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-nova-bootcontext-v3-7-26cb29ee8dee@nvidia.com>
+Message-Id: <20260629-nova-bootcontext-v3-11-26cb29ee8dee@nvidia.com>
 References: <20260629-nova-bootcontext-v3-0-26cb29ee8dee@nvidia.com>
 In-Reply-To: <20260629-nova-bootcontext-v3-0-26cb29ee8dee@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -60,73 +60,73 @@ Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
  Alexandre Courbot <acourbot@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCP286CA0317.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3b7::7) To CH2PR12MB3990.namprd12.prod.outlook.com
+X-ClientProxiedBy: TYCP286CA0003.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:26c::10) To CH2PR12MB3990.namprd12.prod.outlook.com
  (2603:10b6:610:28::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|PH7PR12MB8122:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38861b0f-75a1-4151-9456-08ded5da77c4
+X-MS-Office365-Filtering-Correlation-Id: 7054ea1f-ac62-48f2-c555-08ded5da817b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|10070799003|23010399003|366016|1800799024|22082099003|11063799006|56012099006|18002099003|6133799003|921020;
-X-Microsoft-Antispam-Message-Info: yghKpO7jP1zJbThWrQvIa+U9TtNucGI+Q0P5Y/Ly+Eus/MDU8j2dri42LXIV7Bv5v6cGmMg9yWDNtfmp+dcHbj0FspoA8DtXGr8OYNiHqIS+qrSpLA9Ridoku+3cWbjlkzed5QisIMs025E494Wr+TUbNlHMPukAkxGCrNy2IrclJjcDRVxoPAoXu3NVui1X+LOKiYeyy0KfsUhXLVVujsysCoI3VqxlmoxiBYJT3FaQzSGyvnPiNH3k2JV2gMME0ufpZjVI478QILnFuwFOi7wcDTNYdExRnZo6RwURdvmox6Ywg3SHNSTlhz3fwtMSjs8j7flRZ6bLctFhF8Aqa4wOfyLxXbMDJGgH8LzEPjQI48pNoOfeD9BK2Xg2JtrYS9HOMDUffC6EYCpKABuInITW09Sr7QT7I9iXfwER8xNvbsAfUk797tg/LhAOobeQNbPnf7AKKmvOhDpWVyk9B1SxfhHngXLRB/AbY4rBelSpmCnXvxYfRZjxvuH/uccOYytGhj6q4Wh6utJuvDrApLS6LkKbn3hlaUM2x/4eWBS4fouHJQodIM7mJYSP/7jEhQDvGoJodbusrYpF3T7lo1p/b+94z7ScBrdmnqvHJ32/FjNKfB//xN0WMrvNuDyZ+cNOuVuGyMPea0HO86Ph8udb43+1XxO9agU4DmYLMI81zDcFiCRTWXfmAsH3EuxXWI7yXqMhhYxOg9l2s7DyWA==
+ ARA:13230040|376014|10070799003|23010399003|366016|1800799024|3023799007|22082099003|11063799006|56012099006|18002099003|6133799003|921020;
+X-Microsoft-Antispam-Message-Info: N5KVafw5O98otdISzbMJ+EZrJp6SW/cR9qJxBWPzoxHan+TlvYrMUALHSQiYfLvSRJybiz7PaJDVoecqj9X4KX+dbpx6duM3uGvfGFeVh6WhY7aDir56Qh2XQkrz2n4Kmz9f+U1ybz9APY30EegvMdFquOICKHqDR0COuFeHnt/wy7GwOIV6xJO5WZ1p4sy+8/W/7XEzvJ0L3jzOCXmVppjILXh5hK+wwAq9RnhLhJ3DTRLP/EPppjvQBNhtdwIfKBErL8A0HyxbBIcniL//4DM8Yv0L1LrdzEtCitccHnl7jj6AG9azASjCUq47pwnvcw5AkFwhCnLczeqveiA2t+XK8Cg169I8kcyQJ9yn1tR6VURjISOwifn5aQ3pb/4fRak9wuuO50keA/hRBzwqdnak3lUw+H7TbgxXnEDVIJWZimmRiQ1iqhHGAI5CWvGp9z9HV31w3alYfsQF/UmMSkh9Q6PQIkrTGqygsDQ+ji9nVEhASZzRYus++oPhh2Zr9fySJwZCkd4ML1HNGXcQmDbrQwbPUhC0Hp0Wvv7TIAENProQ9FJ4ZxSQ8dJKqaLl8THQYvMw2gnvskD5Xbdf0r7VfRC1gKg8QlZXCez5OaTAOL+Hi9NuLAsd3hVFzLnEtXeyN4LjEzcEf8d5jxzvxWqio3rBrazayXYNoIggZRif3xI1EfZGehtPpSHLTozEdyg2D6eTCk6FhyKACYIOJg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(10070799003)(23010399003)(366016)(1800799024)(22082099003)(11063799006)(56012099006)(18002099003)(6133799003)(921020);
+ SFS:(13230040)(376014)(10070799003)(23010399003)(366016)(1800799024)(3023799007)(22082099003)(11063799006)(56012099006)(18002099003)(6133799003)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cFoyNFBid2FXTFc3ZlJmM3BBbFJlWmpIVlg2cUhBV2NDdWpqeldrNzJFTUtC?=
- =?utf-8?B?ckRsbm5ma1JBeGJzWWFzcFRheFpDNThFRk9USURCTEtpeFVWbDRCd1hoQ3Qv?=
- =?utf-8?B?bnVWWU10TUFxOUZZLzVraVdvWERySnNNMm84NnJQRXJLcVVUbENRZW1GTFNy?=
- =?utf-8?B?L25MdjRhNThSYStlZUZoTHk3SEw3YlNUWS9QbnpXc0VzeWprZGxESGxELzBQ?=
- =?utf-8?B?UXVwUncxZFhxbGlKTm9IYU9hVFhCa1hiV0NMZDUzNzZZMWdUTGJ2b0hYNDc4?=
- =?utf-8?B?d25vTUhOZlBFRHoralBudGI3ajM0RU9zZlF1NERaNkViWXBjV3Ruc1RRNEo1?=
- =?utf-8?B?VFVUL1Jlc1VtZWlkb0VURU1YU0ZhRXVNcngzU0R0Z0N1ZEV1a0xwVTFpZWVP?=
- =?utf-8?B?TS9saEw4VTNWOHJqZTRZMFZmMmJydEVUWUNWRGcyZ3JPdFBYYmdOOUtmdEpz?=
- =?utf-8?B?YzVEeThFV0haQmFUbWFFYjV3L1lNNlF4VnlaUUpBMjgvV0J5SnJ3VCtHUTVZ?=
- =?utf-8?B?NGQxNEJOeXJEMjZUOStESDNjVWVMZFRpTCtSejIrdGRzSnVtcElWME5XYUZJ?=
- =?utf-8?B?OVRBZEdhbUgyQ25udjlOVHJKeEE1NkZTcm1uVEszSGJDTldONjdMSDIrc2wv?=
- =?utf-8?B?NHlXWnRiYiszTGpwUk1JVERWa0V6TjRIWnlVa0hEM1h4cldxYUkzUkhMTkQ0?=
- =?utf-8?B?VXd6cVh6YmZPS3ZjbFpFSWpBWEJyQ3BFOUdPbVZ3bVZBU0pvdTY5OXYxYjNY?=
- =?utf-8?B?c2RubUd2Y0w0cG8reUVSbXgrLzE1a1dNQWZFRUR6eXFFMFQ2Y3I1Skx4ZkQx?=
- =?utf-8?B?NlhDYVRVWHlWVTJ4NnZBNFRUOXFWdDZ6WVhldDRySkR2azF3bmlnSEJNbEtN?=
- =?utf-8?B?dGlQQUx4MTJuRWhRRlU4SWRjbElhQWtyZlZxV0lMWVlTMGFSM1paQjJJL1F4?=
- =?utf-8?B?b1FUeTdBSkJCeWNMeHR1V001WEdjNGwzQWZDRXFyd1hmK24xZzY2dGdXUGgv?=
- =?utf-8?B?MGdGZjJMMTVOc0ExZ2lnL2x3elE0UzhXaGVzMUhqQlo1Yk9kU3Y1SzhkV0tS?=
- =?utf-8?B?YW44QlkvTTJmMlo3cEttTzJyZGNDYXNrc1ZTUzM2QmZlTDZHYk8zRVFhc05T?=
- =?utf-8?B?b1I2WFNBNWgvMW5hYkYybmVIZmlyMmE4Q0UxZ3lQeG5ic3I2Z3o3ZENad0Z0?=
- =?utf-8?B?OWwwNEQ3TmdpQmxJMmdseUtNUW5xV0VIVXczZmQwNGx6Y0RJcTNTb2puSDdP?=
- =?utf-8?B?TmtrNE5QQURZSmNPdW4rRXQyd2lhK0NGYzJDb1lNUWk1UGduSGpsNEVwS2tp?=
- =?utf-8?B?cU5xd3ZSZCtWY2k5K2hGUVZnVlVQcnRrVVI2Q253WGtqcjZ2L2xkWktEemJE?=
- =?utf-8?B?SHZrWVNqTDltUHZNSnJiSFgva0M2MDNRTGNlZEM5RHQwVy9NaTFLbmtjcmp2?=
- =?utf-8?B?U0ZqdTNLZE1LVXY1OWhjdEtUeTNRQUNEZTd6TzdNdUlxUk9WaEs4MGlDN1pD?=
- =?utf-8?B?Q1dkekk4dFpOUXJnaFQxRlg5Q1grYTdaT0cwSmpVWTVuTW1ZZXVnbHdpMkk4?=
- =?utf-8?B?cDd1RHNXakk2ckdkY3I5bUNkeElydktUbStPQnh1c1d2bWJUM0tFOGV5WjZI?=
- =?utf-8?B?Mm5tWWhGVUdjcEFrUXRERWdmY21VeFo5NGE3Q09NSXBOOVFBNkNsZGxLeGtR?=
- =?utf-8?B?RG9uaTBQZ0o4S1g4OW1ZRUlTWDU3cENJUzBOZWl6T2ZMcTA4YkVucjdVZ2Qx?=
- =?utf-8?B?d21Hb1pYMngwZmVnQlpQQzhLMC9WUkpuclJ3U1BBUkNVelJsVWNhNkgwRThJ?=
- =?utf-8?B?OU5GajMxbE5UdUZpZ0VqeGU0bCsvdDRjK05xdUt2eWJ1NXBnQUw2QjYxTXN0?=
- =?utf-8?B?TTFuL0pkRitXaGFTUU1TZ0lmTWFrVUJiTzM4eEcxei9mak81TzRaWmRmbG1R?=
- =?utf-8?B?d0JVVkdHZytXY1Vwb0V5eVE1NERKdlAzMUZQQ0RjRGlSL2V6VThGb0Zha2Jl?=
- =?utf-8?B?QjgrdnE4ajd4UXE1ejdwODJYaktKekFVbHp5L0VUQ2hBeHVISVN0bVN1VC9B?=
- =?utf-8?B?cE9SWDdVcTBjWW01cXRNM05BcU1EZzJKQ2tSVjRQSFNUOEJKcEJaR1BteFQz?=
- =?utf-8?B?Nmk0b0xiYms1SURtaFdZVktwcmQxMFMyYlBsTElrSUlja3o0TEc0UHpJbm9E?=
- =?utf-8?B?SnFubm1NeC9oWnRFeW54QkN6eXZkd1VMVEF2S0hUZWNPSkxIYjNGYzhEbkt2?=
- =?utf-8?B?NWNjdHFiTlZsTVJtL21MN3dlTTNielV1SVNGdmZQVTJUT1IxTTRlQndiVzM2?=
- =?utf-8?B?RlV6T3VuaVdSSkZjWXVwWmpGallQNUJXYUF3ODNDbnNMR2FtTjRTV1BrVUxa?=
- =?utf-8?Q?OKi7vHPsjWmc6nseaT8jtrT2HqIeor7CYwek5HvuY2BTL?=
-X-MS-Exchange-AntiSpam-MessageData-1: mXzz3ktCLN2opA==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VVNESTFVMk1ZejVEaU92UTkwTFdUY2tKNDRXV1NPbjd4VENxcU5ieUhabHNN?=
+ =?utf-8?B?T3ppZGVlK0IrS1FJZ2lsb1lPYWhQRndGd0xBOFVtYnBkUzZtMjJqS0dYb1hI?=
+ =?utf-8?B?UlQxVVI2eFBuYmJHZEFFRlhWK2NJY2FJMk5jZFlzeDZZcHpyRVFEOTl0djgw?=
+ =?utf-8?B?RXZvbUJVVEcyaHV0dWtXQys0dUFYWkhFc1RaMlZ0TExSM2xtYk5wdWsrNDlV?=
+ =?utf-8?B?b1FxNEwzSUoyelRudU0rc2VrUzhTN1BhS21KWnNRT2ptTFZwVllLQnVSeXlO?=
+ =?utf-8?B?YUJwb1UvTUhMczg3czZHK3FQV2VRTGZ1TW5BbkYrenY2SE1CRVdKYkgzWFNR?=
+ =?utf-8?B?dzkxdVVlTjM1dHM3UXRsTEM2ZWNLVVRGdEhJZG1PMmdKaEhUaEszY0hOSE5C?=
+ =?utf-8?B?YVIzdnZmWE9xSEdpSWZOdmI0TnVZM2JjdE1tSVd5RE9UcVJ5T1BubUs0S1Bq?=
+ =?utf-8?B?ZTdzeFpHUVJzYmROOHQ0bS8zTUZlZ1k5ZE5FZE44V2JPMzNxQTBGWVlhUlNT?=
+ =?utf-8?B?eEtkSTRaT1hyV1BiYmppb2pYbTFSK1AxQk1nbnFIRTJIc0daR1VtRy8weCtW?=
+ =?utf-8?B?WDVkYnA1aEFWM2tJZWJBYXdySVRMSlJwbTZOVTZERi8wK201QnFNcHhibG1H?=
+ =?utf-8?B?UWpucXFKSHUyaFVobXc5cWUvbmdpZVJveStGQ29VQ2dCald4SlQxaXRERVk1?=
+ =?utf-8?B?WGtnSmhlZEJQOWtkbUdnNE94MkV6ZTE0SWtxSUdLQm1sN01uZDdlSmlCT25m?=
+ =?utf-8?B?OWdMaytuWm03bjU1RnNBNGRnSUF1M1ZPaFpNVlVWV1BJeGZLVExRcjZRRzhH?=
+ =?utf-8?B?enR4WnBuQWYwVkp6Q00vTWZtWXd5Ulc1bndzNlZtUXh4Y0NKWUo0WVlUZnQz?=
+ =?utf-8?B?S0F2dWFHYXQyempoWHFUditpd2hMdm5HTkg1SWNhZ1k2WHlBR3JYZGNrYVR2?=
+ =?utf-8?B?NjhJY1Vaa0JmaDNITExsL0JWVjFMZThONzdwK3BlWnl5MUtLYzQzUHMzQmJ2?=
+ =?utf-8?B?Q3JDWEkzak54dWhFQ2ZsQnVxa2xEZTlJL29qbllnZVlrRlRkL3BSak80RWVw?=
+ =?utf-8?B?NGQySWdFaUdpeTB2RW9jWCttSFZXeVF0L01URGFlVEpYbS8ycDluUmlud2xr?=
+ =?utf-8?B?SHVWRlFrZDd1UzF4KzVlUkIwb2twR3M3VlFxQlpkZ2dQRnJYZkZTT1BwbEw1?=
+ =?utf-8?B?clZDM0JkMnp1MXFZVGkxQkVNczlrS0VubkpERWJOM05jdW0rclhyQlZRUFZO?=
+ =?utf-8?B?VTN6eEQwRHFyZVRjTU9zZmxjUE1aTWk1WXZ2MFlOTDVrMEc0QnZ2MGIyUkd4?=
+ =?utf-8?B?WnZocWd5bEJzdFRPZUYxMEJYa21tRnQ4QlN5L3NTZ2dIZ1ViaElHNi8xczVO?=
+ =?utf-8?B?aHRROXhOWTQwNDIza3VBcFBua204a1hVTitaMWlFTldZRDhMMDRDdHVOc3RL?=
+ =?utf-8?B?RzkyYVE4V09na3RkTzhpSUJrUVRoMnVDTUVqVzArckNCcmE5ekNFRW14aWQ3?=
+ =?utf-8?B?Ukh0WUZRMElRMzZ0bGxaSTFvMHp0L2x2Vjg4MHVXZ2c0SWVRRGVLendOMGxU?=
+ =?utf-8?B?VWVleks3Ylk3WUVKZ0gwMC9OUnZub1lZdnBpSTlKclZjcFlPYUVJNURicEI2?=
+ =?utf-8?B?YlJNWnl1eW14aWlxUHp0SzFvaHdTc2gvWmtscU04R0x0bTJMQy9MN3Z6Z1Yr?=
+ =?utf-8?B?RFgzNzhobnVOK0k3VEM1QXBqR21OZkk3ZXpEaCsvdFhaU1VSMlNzY2pLK0ZN?=
+ =?utf-8?B?ankvYS94SDdTMWtIdTlDdktMWmdwRjgyVjYzT0lJcmk0VVZUL0VWblI2UVQz?=
+ =?utf-8?B?Z255MXQxK0hrdTB2dmZLWElTamZnSi9RYXhVZVNYbDg4QVpDS0s4Ty9PQ2VT?=
+ =?utf-8?B?V1JtemZDb3JkcE5qQitYL2h1NTdmQ1Y3M0JwR0d0M0Ywelo0ZUxhYVBCRWlF?=
+ =?utf-8?B?Q1lSWTNhN2dCNnpYWWdyV0FEemxaMThmbHIzVzJUdjBvM3g3Nmpxak9IYmsy?=
+ =?utf-8?B?UWNycWwvUlRoV01tWDNsV2tnR1NaUW5qZHBYVXlXN3NjWkpqWEludEI2UVBt?=
+ =?utf-8?B?MTl6MldldFdrYjBSWGczR05iSmtlTEtCSlFQb1JUZlMvMERPbm5McFBIUkZJ?=
+ =?utf-8?B?bnRuUGJaTTAyVUxhRGtNb0srdHlNdlF3THhzdDg2WTF0cG9neFYzbUlYSjg3?=
+ =?utf-8?B?a3ZCNHFUU2NTVnJ4bFJ5MVZ0ODZnUDBqOStNN2ZBcC83WitIWHpub3NmL2Jj?=
+ =?utf-8?B?dWxHRjZuVnlqR3BUZlhaYWRiN2xjQ0xPeG9jUCtSZG5rSjNkaEhmSGtacjBm?=
+ =?utf-8?B?WlZOcWJXakpqUUlqNGt5OXBubVZKcVZmZ21pWlZMckQ2Uy91cnNyOUxwUU9L?=
+ =?utf-8?Q?HwHIxMu24PhiU/MfIgAVAtr98+K0CdSBkqNg1XmGG5ddt?=
+X-MS-Exchange-AntiSpam-MessageData-1: MNKe3aIlmKSFDw==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38861b0f-75a1-4151-9456-08ded5da77c4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7054ea1f-ac62-48f2-c555-08ded5da817b
 X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 12:32:22.4010 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 12:32:38.6686 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1ZzHZQcZah690VSig/DE9iavC5ErLZyoOl1mLxBJzH28Ko0aXb/AnyoBb39mVNG3gmQdVBBufiL+sR4Uzt8X7g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: xOqlL8xddFZbHD/PNw0RYrIlzPen43ycq4nJwJownZ3gy5yREU+Nln6Xx5KYknfY4muzZhUtiyL2ql6CV59VRw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8122
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,212 +143,179 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Turn the `run_fwsec_frts` function into a method of `Tu102`. A following
-patch will turn the "use FWSEC bootloader" property into a flag of the
-TU102 HAL itself, and making this a method will allow the code to access
-it instead of querying `Chipset`.
+We want to move the `Fsp` instance into `Gpu`, which will require
+passing it as a mutable reference in `GspBootContext`, since
+`Fsp::boot_fmc` is a mutable method. In order to use the mutable
+references it contains, `GspBootContext` must also be mutable.
+
+We will also follow up by making some methods of the `Falcon`s mutable,
+which also requires passing them as mutable references.
+
+Thus, make the `GspBootContext` passed to `Gsp::boot` and `Gsp::unload`
+mutable, and pass mutable references to it to the GSP boot HAL methods.
 
 Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/hal/tu102.rs | 175 +++++++++++++++++----------------
- 1 file changed, 88 insertions(+), 87 deletions(-)
+ drivers/gpu/nova-core/gsp/boot.rs      | 28 +++++++++++++++-------------
+ drivers/gpu/nova-core/gsp/hal.rs       | 11 ++++++++---
+ drivers/gpu/nova-core/gsp/hal/gh100.rs |  4 ++--
+ drivers/gpu/nova-core/gsp/hal/tu102.rs |  6 +++---
+ 4 files changed, 28 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/gsp/hal/tu102.rs b/drivers/gpu/nova-core/gsp/hal/tu102.rs
-index 22b4927cbaa6..98b8756043f6 100644
---- a/drivers/gpu/nova-core/gsp/hal/tu102.rs
-+++ b/drivers/gpu/nova-core/gsp/hal/tu102.rs
-@@ -127,95 +127,96 @@ fn run(&self, ctx: &GspBootContext<'_>) -> Result {
-     }
+diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
+index 5f11c8e10a0a..dce07878449e 100644
+--- a/drivers/gpu/nova-core/gsp/boot.rs
++++ b/drivers/gpu/nova-core/gsp/boot.rs
+@@ -39,7 +39,7 @@ impl super::Gsp {
+     /// [`Self::unload`]) returned.
+     pub(crate) fn boot(
+         self: Pin<&mut Self>,
+-        ctx: super::GspBootContext<'_>,
++        mut ctx: super::GspBootContext<'_>,
+     ) -> Result<Option<super::UnloadBundle>> {
+         let pdev = ctx.pdev;
+         let bar = ctx.bar;
+@@ -56,21 +56,23 @@ pub(crate) fn boot(
+         let wpr_meta = Coherent::init(dev, GFP_KERNEL, GspFwWprMeta::new(&gsp_fw, &fb_layout))?;
+ 
+         // Perform the chipset-specific boot sequence, and retrieve the unload bundle.
+-        let unload_bundle = hal.boot(&self, &ctx, &fb_layout, &wpr_meta)?.or_else(|| {
+-            dev_warn!(dev, "The GSP won't be able to unload properly on unbind.\n");
+-            dev_warn!(
+-                dev,
+-                "The GPU will need to be reset before the driver can bind again.\n"
+-            );
++        let unload_bundle = hal
++            .boot(&self, &mut ctx, &fb_layout, &wpr_meta)?
++            .or_else(|| {
++                dev_warn!(dev, "The GSP won't be able to unload properly on unbind.\n");
++                dev_warn!(
++                    dev,
++                    "The GPU will need to be reset before the driver can bind again.\n"
++                );
+ 
+-            None
+-        });
++                None
++            });
+ 
+-        let unload_guard =
++        let mut unload_guard =
+             ScopeGuard::new_with_data((ctx, unload_bundle), |(ctx, unload_bundle)| {
+                 let _ = self.unload(ctx, unload_bundle);
+             });
+-        let ctx = &unload_guard.0;
++        let ctx = &mut unload_guard.0;
+ 
+         gsp_falcon.write_os_version(bar, gsp_fw.bootloader.app_version);
+ 
+@@ -123,7 +125,7 @@ fn shutdown_gsp(
+     /// This stops all activity on the GSP.
+     pub(crate) fn unload(
+         &self,
+-        ctx: super::GspBootContext<'_>,
++        mut ctx: super::GspBootContext<'_>,
+         unload_bundle: Option<super::UnloadBundle>,
+     ) -> Result {
+         let dev = ctx.dev();
+@@ -142,7 +144,7 @@ pub(crate) fn unload(
+             res = res.and(
+                 unload_bundle
+                     .0
+-                    .run(&ctx)
++                    .run(&mut ctx)
+                     .inspect_err(|e| dev_err!(dev, "Unload bundle failed: {:?}\n", e)),
+             );
+         } else {
+diff --git a/drivers/gpu/nova-core/gsp/hal.rs b/drivers/gpu/nova-core/gsp/hal.rs
+index 90f076f640e0..a5d0da05ef5f 100644
+--- a/drivers/gpu/nova-core/gsp/hal.rs
++++ b/drivers/gpu/nova-core/gsp/hal.rs
+@@ -29,7 +29,7 @@
+ /// required for unloading is prepared at load time, and stored here until it needs to be run.
+ pub(super) trait UnloadBundle: Send {
+     /// Performs the steps required to properly reset the GSP after it has been stopped.
+-    fn run(&self, ctx: &GspBootContext<'_>) -> Result;
++    fn run(&self, ctx: &mut GspBootContext<'_>) -> Result;
  }
  
--/// Helper function to load and run the FWSEC-FRTS firmware and confirm that it has properly
--/// created the WPR2 region.
--fn run_fwsec_frts(
--    dev: &device::Device<device::Bound>,
--    chipset: Chipset,
--    falcon: &Falcon<GspEngine>,
--    bar: Bar0<'_>,
--    bios: &Vbios,
--    fb_layout: &FbLayout,
--) -> Result {
--    // Check that the WPR2 region does not already exist - if it does, we cannot run
--    // FWSEC-FRTS until the GPU is reset.
--    if bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI).higher_bound() != 0 {
--        dev_err!(
--            dev,
--            "WPR2 region already exists - GPU needs to be reset to proceed\n"
--        );
--        return Err(EBUSY);
--    }
--
--    // FWSEC-FRTS will create the WPR2 region.
--    let fwsec_frts = FwsecFirmware::new(
--        dev,
--        falcon,
--        bar,
--        bios,
--        FwsecCommand::Frts {
--            frts_addr: fb_layout.frts.start,
--            frts_size: fb_layout.frts.len(),
--        },
--    )?;
--
--    if chipset.needs_fwsec_bootloader() {
--        let fwsec_frts_bl = FwsecFirmwareWithBl::new(fwsec_frts, dev, chipset)?;
--        // Load and run the bootloader, which will load FWSEC-FRTS and run it.
--        fwsec_frts_bl.run(dev, falcon, bar)?;
--    } else {
--        // Load and run FWSEC-FRTS directly.
--        fwsec_frts.run(dev, falcon, bar)?;
--    }
--
--    // SCRATCH_E contains the error code for FWSEC-FRTS.
--    let frts_status = bar
--        .read(regs::NV_PBUS_SW_SCRATCH_0E_FRTS_ERR)
--        .frts_err_code();
--    if frts_status != 0 {
--        dev_err!(
--            dev,
--            "FWSEC-FRTS returned with error code {:#x}\n",
--            frts_status
--        );
--
--        return Err(EIO);
--    }
--
--    // Check that the WPR2 region has been created as we requested.
--    let (wpr2_lo, wpr2_hi) = (
--        bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_LO).lower_bound(),
--        bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI).higher_bound(),
--    );
--
--    match (wpr2_lo, wpr2_hi) {
--        (_, 0) => {
--            dev_err!(dev, "WPR2 region not created after running FWSEC-FRTS\n");
--
--            Err(EIO)
--        }
--        (wpr2_lo, _) if wpr2_lo != fb_layout.frts.start => {
--            dev_err!(
--                dev,
--                "WPR2 region created at unexpected address {:#x}; expected {:#x}\n",
--                wpr2_lo,
--                fb_layout.frts.start,
--            );
--
--            Err(EIO)
--        }
--        (wpr2_lo, wpr2_hi) => {
--            dev_dbg!(dev, "WPR2: {:#x}-{:#x}\n", wpr2_lo, wpr2_hi);
--            dev_dbg!(dev, "GPU instance built\n");
--
--            Ok(())
--        }
--    }
--}
--
- struct Tu102;
- 
- impl Tu102 {
-+    /// Helper method to load and run the FWSEC-FRTS firmware and confirm that it has properly
-+    /// created the WPR2 region.
-+    fn run_fwsec_frts(
-+        &self,
-+        dev: &device::Device<device::Bound>,
-+        chipset: Chipset,
-+        falcon: &Falcon<GspEngine>,
-+        bar: Bar0<'_>,
-+        bios: &Vbios,
-+        fb_layout: &FbLayout,
-+    ) -> Result {
-+        // Check that the WPR2 region does not already exist - if it does, we cannot run
-+        // FWSEC-FRTS until the GPU is reset.
-+        if bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI).higher_bound() != 0 {
-+            dev_err!(
-+                dev,
-+                "WPR2 region already exists - GPU needs to be reset to proceed\n"
-+            );
-+            return Err(EBUSY);
-+        }
-+
-+        // FWSEC-FRTS will create the WPR2 region.
-+        let fwsec_frts = FwsecFirmware::new(
-+            dev,
-+            falcon,
-+            bar,
-+            bios,
-+            FwsecCommand::Frts {
-+                frts_addr: fb_layout.frts.start,
-+                frts_size: fb_layout.frts.len(),
-+            },
-+        )?;
-+
-+        if chipset.needs_fwsec_bootloader() {
-+            let fwsec_frts_bl = FwsecFirmwareWithBl::new(fwsec_frts, dev, chipset)?;
-+            // Load and run the bootloader, which will load FWSEC-FRTS and run it.
-+            fwsec_frts_bl.run(dev, falcon, bar)?;
-+        } else {
-+            // Load and run FWSEC-FRTS directly.
-+            fwsec_frts.run(dev, falcon, bar)?;
-+        }
-+
-+        // SCRATCH_E contains the error code for FWSEC-FRTS.
-+        let frts_status = bar
-+            .read(regs::NV_PBUS_SW_SCRATCH_0E_FRTS_ERR)
-+            .frts_err_code();
-+        if frts_status != 0 {
-+            dev_err!(
-+                dev,
-+                "FWSEC-FRTS returned with error code {:#x}\n",
-+                frts_status
-+            );
-+
-+            return Err(EIO);
-+        }
-+
-+        // Check that the WPR2 region has been created as we requested.
-+        let (wpr2_lo, wpr2_hi) = (
-+            bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_LO).lower_bound(),
-+            bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI).higher_bound(),
-+        );
-+
-+        match (wpr2_lo, wpr2_hi) {
-+            (_, 0) => {
-+                dev_err!(dev, "WPR2 region not created after running FWSEC-FRTS\n");
-+
-+                Err(EIO)
-+            }
-+            (wpr2_lo, _) if wpr2_lo != fb_layout.frts.start => {
-+                dev_err!(
-+                    dev,
-+                    "WPR2 region created at unexpected address {:#x}; expected {:#x}\n",
-+                    wpr2_lo,
-+                    fb_layout.frts.start,
-+                );
-+
-+                Err(EIO)
-+            }
-+            (wpr2_lo, wpr2_hi) => {
-+                dev_dbg!(dev, "WPR2: {:#x}-{:#x}\n", wpr2_lo, wpr2_hi);
-+                dev_dbg!(dev, "GPU instance built\n");
-+
-+                Ok(())
-+            }
-+        }
-+    }
-+
-     /// Load and prepare the resources required to properly reset the GSP after it has been stopped.
-     fn build_unload_bundle(
+ /// Trait implemented by GSP HALs.
+@@ -41,7 +41,7 @@ pub(super) trait GspHal: Send {
+     fn boot(
          &self,
-@@ -290,7 +291,7 @@ fn boot(
+         gsp: &Gsp,
+-        ctx: &GspBootContext<'_>,
++        ctx: &mut GspBootContext<'_>,
+         fb_layout: &FbLayout,
+         wpr_meta: &Coherent<GspFwWprMeta>,
+     ) -> Result<Option<crate::gsp::UnloadBundle>>;
+@@ -50,7 +50,12 @@ fn boot(
+     ///
+     /// This method is called by the GSP boot code after the GSP is confirmed to be running, and
+     /// after the initialization commands have been pushed onto its queue.
+-    fn post_boot(&self, _gsp: &Gsp, _ctx: &GspBootContext<'_>, _gsp_fw: &GspFirmware) -> Result {
++    fn post_boot(
++        &self,
++        _gsp: &Gsp,
++        _ctx: &mut GspBootContext<'_>,
++        _gsp_fw: &GspFirmware,
++    ) -> Result {
+         Ok(())
+     }
+ }
+diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova-core/gsp/hal/gh100.rs
+index 8dfbc402c13b..a617b8f5974f 100644
+--- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
++++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
+@@ -117,7 +117,7 @@ fn wait_for_gsp_lockdown_release(
+ struct FspUnloadBundle;
  
-         // FWSEC-FRTS is not executed on chips where the FRTS region size is 0 (e.g. GA100).
-         if !fb_layout.frts.is_empty() {
--            run_fwsec_frts(dev, chipset, gsp_falcon, bar, &bios, fb_layout)?;
-+            self.run_fwsec_frts(dev, chipset, gsp_falcon, bar, &bios, fb_layout)?;
-         }
+ impl UnloadBundle for FspUnloadBundle {
+-    fn run(&self, ctx: &GspBootContext<'_>) -> Result {
++    fn run(&self, ctx: &mut GspBootContext<'_>) -> Result {
+         // GSP falcon does most of the work of resetting, so just wait for it to finish.
+         read_poll_timeout(
+             || Ok(ctx.gsp_falcon.is_riscv_active(ctx.bar)),
+@@ -140,7 +140,7 @@ impl GspHal for Gh100 {
+     fn boot(
+         &self,
+         gsp: &Gsp,
+-        ctx: &GspBootContext<'_>,
++        ctx: &mut GspBootContext<'_>,
+         fb_layout: &FbLayout,
+         wpr_meta: &Coherent<GspFwWprMeta>,
+     ) -> Result<Option<crate::gsp::UnloadBundle>> {
+diff --git a/drivers/gpu/nova-core/gsp/hal/tu102.rs b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+index 6a114f696c22..305515ef2700 100644
+--- a/drivers/gpu/nova-core/gsp/hal/tu102.rs
++++ b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+@@ -78,7 +78,7 @@ struct Sec2UnloadBundle {
+ }
  
-         gsp_falcon.reset(bar)?;
+ impl UnloadBundle for Sec2UnloadBundle {
+-    fn run(&self, ctx: &GspBootContext<'_>) -> Result {
++    fn run(&self, ctx: &mut GspBootContext<'_>) -> Result {
+         let dev = ctx.dev();
+         let bar = ctx.bar;
+ 
+@@ -264,7 +264,7 @@ impl GspHal for Tu102 {
+     fn boot(
+         &self,
+         gsp: &Gsp,
+-        ctx: &GspBootContext<'_>,
++        ctx: &mut GspBootContext<'_>,
+         fb_layout: &FbLayout,
+         wpr_meta: &Coherent<GspFwWprMeta>,
+     ) -> Result<Option<crate::gsp::UnloadBundle>> {
+@@ -324,7 +324,7 @@ fn boot(
+         Ok(unload_guard.dismiss())
+     }
+ 
+-    fn post_boot(&self, gsp: &Gsp, ctx: &GspBootContext<'_>, gsp_fw: &GspFirmware) -> Result {
++    fn post_boot(&self, gsp: &Gsp, ctx: &mut GspBootContext<'_>, gsp_fw: &GspFirmware) -> Result {
+         GspSequencer::run(
+             &gsp.cmdq,
+             ctx,
 
 -- 
 2.54.0
