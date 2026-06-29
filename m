@@ -4,73 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC921C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 07:19:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80854C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 07:19:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ED7610EB22;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81D8F10EB12;
 	Tue, 30 Jun 2026 07:19:14 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EZpKhwh8";
-	dkim-atps=neutral
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
- [209.85.208.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70A5810E0C8
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 17:39:28 +0000 (UTC)
-Received: by mail-ed1-f44.google.com with SMTP id
- 4fb4d7f45d1cf-695f6438518so5121517a12.0
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 10:39:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782754767; x=1783359567; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=lieoZSrETeNqfqjggjcg7YjI6XZdYix99GC+0aKI1SE=;
- b=EZpKhwh8b9ZsPIndf5Ue9ITWCW6qHmjmtDcISs8+V6zGLAQHb2TDCCfO6wD7/4f+K2
- D8q1V3x5krZ3nwd0ZXQouL8BAEOgM4jcMbwt8YPNHvtikBH7sDB2diMgFGSv5Dv6Py4d
- 7AlrjSOoZoyA5mhQFswGqMztJml9/Y/k4j1WINXez9YRe3NhmzmXAShZXr7TO4O/oRp3
- reZ7M0VtjyMNTusm4rc8itVibjdKyvpGEUfY7gOggn15B7+eKvaugE4GHnSpbEwGSZxe
- ek4/w7djnZNSoLgE23MbhNPMQjaGb6AKkGf63g+5ki0IIlB6C7/AZb97cXLNe9s9KHEV
- m7GQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782754767; x=1783359567;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lieoZSrETeNqfqjggjcg7YjI6XZdYix99GC+0aKI1SE=;
- b=Rk2a8yl8jujfwSzEOuVf4hQ2E/HqvYWlvas+Sbx+WBCj+U394AWKJ2HfCjAAL14HLa
- Cpdax6pfOcpugmRcRCmKBUznnyq7ho7sBup9jarcwiNwDGTXMlE/dGMKU0GZT99asl7p
- 2wRODFbBfXmG+lKoMUrjEkBK/5beZvih4e/+jphA0tk0y6C5IURbR99cNyfjcX2E+w+Z
- COhvzTqIS9AMa8Vo34y0VuglA+DfPpvlcVeGQUS6amPNOtuItrzL6MRq5ctyYoYIcyC0
- ZYk83MsXXO6OdS+SeDYX9gyAe/oIPGkgzGnQVDvDBbu40cCttFu3FuDWJRYvwO16gUzP
- 5CQw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RomwMRWiqJEBocf5GHmS7Qkpiy8qVjX1Tzh8xPf4GnJggfhh5kc386D1cUiEwP+V5knRIgZ3DVwQA4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzL6JeuY1jGM8Lu1z6ZqstkAuhTS1EhB/2AXiWFbem8pt80cW1o
- H8sr7m612PyH27YXpIIlYBnjn6uN0YSmmWgEhP+pvE9j3G44Eaq3dcA/pWx5mboHJr4=
-X-Gm-Gg: AfdE7ckY8QWKuZfVFfBRxcSjQkg6+8q5wJMXKAmdIgK96AN/LC2CEvY1feEseDnyaGz
- XfyHnvLWXgaob2ur8HgBV6YmhEeNJfo3QXcVJhNwLQGMjoWdLaflF9ftggmKrUKeB/H2bcUoX4B
- 7FKPKuzU8x1l+Vi1Xm/dxtr29AfUKLK3Yq2HiRo5tYf7ijDjhVWdw5Q9fNR1vk+sLc8n7XkqEKE
- a5UFaqmH23Ms4e1+BWnqXN/KD3vOpUZHAKuO9i9lNEEgJ1Oj4ss2o7ggwIpwb2nmOfGj4P/3KWF
- 21cYo3wunql9JckW20HaBVGuQvQz3l96VyTMnuq8xsy5wYm2ZGN8ZrWgy2jvvC40YRrzS37i2FF
- ApHBrxH6p9++hT7Kg8azSBQ5XJUGjAt++tykqSXGRq1medR1GL8PwkJsnd0vLvTo7CNFR3Q26xr
- h91kOEiVkpXsVzSKyHhmE52NjsnlbDbFc5BQxuy3exV4RAzQ==
-X-Received: by 2002:a05:6402:3908:b0:693:2a2:9e41 with SMTP id
- 4fb4d7f45d1cf-69879e26a3amr74630a12.19.1782754766463; 
- Mon, 29 Jun 2026 10:39:26 -0700 (PDT)
-Received: from liam.home (233-51-98-95.ftth.glasoperator.nl. [95.98.51.233])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-69858838d6bsm2943446a12.7.2026.06.29.10.39.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jun 2026 10:39:26 -0700 (PDT)
-From: Liam Zuiderhoek <zuiderhoekl@gmail.com>
-To: mripard@kernel.org
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Liam Zuiderhoek <zuiderhoekl@gmail.com>
-Subject: [PATCH] GPU: drm: meson: inline call to drm_simple_encoder_init()
-Date: Mon, 29 Jun 2026 19:39:02 +0200
-Message-ID: <20260629173902.29415-1-zuiderhoekl@gmail.com>
-X-Mailer: git-send-email 2.43.0
+X-Greylist: delayed 384 seconds by postgrey-1.36 at gabe;
+ Mon, 29 Jun 2026 13:15:36 UTC
+Received: from mail.ksb-soft.ru (mail.ksb-soft.ru [5.167.76.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B48910E8B0;
+ Mon, 29 Jun 2026 13:15:36 +0000 (UTC)
+Received: from ksb-289.ksb.ksb-soft.ru (unknown [10.38.22.14])
+ by mail.ksb-soft.ru (Postfix) with ESMTPA id 4gpmnc6Z7Rz4LK3c;
+ Mon, 29 Jun 2026 16:09:08 +0300 (MSK)
+From: Markov Gleb <markov.gi@npc-ksb.ru>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Gleb Markov <markov.gi@npc-ksb.ru>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
+Subject: [PATCH] drm/amd/display: Remove unused-but-set variable hubp from
+Date: Mon, 29 Jun 2026 16:09:06 +0300
+Message-ID: <20260629130907.124-1-markov.gi@npc-ksb.ru>
+X-Mailer: git-send-email 2.52.0.windows.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-KLMS-Rule-ID: 1
+X-KLMS-Message-Action: clean
+X-KLMS-AntiSpam-Lua-Profiles: 197590 [Oct 29 2025]
+X-KLMS-AntiSpam-Version: 6.1.1.11
+X-KLMS-AntiSpam-Envelope-From: markov.gi@npc-ksb.ru
+X-KLMS-AntiSpam-Rate: 0
+X-KLMS-AntiSpam-Status: not_detected
+X-KLMS-AntiSpam-Method: none
+X-KLMS-AntiSpam-Auth: dkim=none
+X-KLMS-AntiSpam-Info: LuaCore: 72 0.3.72
+ 80ff96170b649fb7ebd1aa4cb544c36c109810bd, {Tracking_uf_ne_domains},
+ {Tracking_from_domain_doesnt_match_to}, FromAlignment: s
+X-MS-Exchange-Organization-SCL: -1
+X-KLMS-AntiSpam-Interceptor-Info: scan successful
+X-KLMS-AntiPhishing: Clean
+X-KLMS-LinksScanning: Clean
+X-KLMS-AntiVirus: Kaspersky Security for Linux Mail Server, version 10.0.0.7427,
+ bases: 2025/10/29 20:57:00 #27800623
+X-KLMS-AntiVirus-Status: Clean, skipped
 X-Mailman-Approved-At: Tue, 30 Jun 2026 07:19:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,42 +67,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This commit inlines the function drm_simple_encoder_init for the meson
-driver. It replaces the simple encoder init call with drm_encoder_init
-and a custom cleanup struct.
+From: Gleb Markov <markov.gi@npc-ksb.ru>
 
-Signed-off-by: Liam Zuiderhoek <zuiderhoekl@gmail.com>
+The final check of hubp for NULL covers all remaining lines of code, since
+the value of hubp does not change until the end of the method.
+
+This check is redundant because hubp1 is already dereferenced within the
+macro.
+If it were NULL, the program would have already failed to proceed.
+
+Remove the left part of the expression with the logical "&&".
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: be1fb44389ca ("drm/amd/display: Check null pointers before used").
+Signed-off-by: Gleb Markov <markov.gi@npc-ksb.ru>
 ---
- drivers/gpu/drm/meson/meson_encoder_hdmi.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-index 55c0601df3c6..0dd3a76ad959 100644
---- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-+++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-@@ -44,6 +44,10 @@ struct meson_encoder_hdmi {
- 	struct cec_notifier *cec_notifier;
- };
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c
+index 7c97a774141f..d8eb5996b577 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c
+@@ -772,8 +772,7 @@ bool hubp1_is_flip_pending(struct hubp *hubp)
+ 	if (flip_pending)
+ 		return true;
  
-+static const struct drm_encoder_funcs drm_simple_encoder_funcs_cleanup = {
-+	.destroy = drm_encoder_cleanup,
-+};
-+
- #define bridge_to_meson_encoder_hdmi(x) \
- 	container_of(x, struct meson_encoder_hdmi, bridge)
+-	if (hubp &&
+-	    earliest_inuse_address.grph.addr.quad_part != hubp->request_address.grph.addr.quad_part)
++	if (earliest_inuse_address.grph.addr.quad_part != hubp->request_address.grph.addr.quad_part)
+ 		return true;
  
-@@ -407,8 +411,9 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
- 	meson_encoder_hdmi->priv = priv;
- 
- 	/* Encoder */
--	ret = drm_simple_encoder_init(priv->drm, &meson_encoder_hdmi->encoder,
--				      DRM_MODE_ENCODER_TMDS);
-+	ret = drm_encoder_init(priv->drm, &meson_encoder_hdmi->encoder,
-+			       &drm_simple_encoder_funcs_cleanup,
-+			       DRM_MODE_ENCODER_TMDS, NULL);
- 	if (ret) {
- 		dev_err_probe(priv->dev, ret, "Failed to init HDMI encoder\n");
- 		goto err_put_node;
+ 	return false;
 -- 
 2.43.0
 
