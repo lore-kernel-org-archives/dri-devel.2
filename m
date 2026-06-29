@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A693C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:18:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C34D4C43327
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:18:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C50710E76F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C35B210E770;
 	Mon, 29 Jun 2026 08:18:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R+j0ypsj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c+PHMFFn";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34B1410E74E
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:17:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CC1910E764
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:18:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AB749600D8;
- Mon, 29 Jun 2026 08:17:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E19811F00A3A;
- Mon, 29 Jun 2026 08:17:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id DCC34600E2;
+ Mon, 29 Jun 2026 08:18:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CFC61F000E9;
+ Mon, 29 Jun 2026 08:18:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782721078;
- bh=GkjXTU+izgKnZyY0axYfKS98wB3rWbL4LvYZqlCTGoM=;
+ s=k20260515; t=1782721085;
+ bh=x1GbfYc0BiNyZbTihXVIo5XZGJoeZoZ9viKkf0/lShw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=R+j0ypsj97RSUVisSaW2vm31JqksmcoBp1pQjPgP7mJii65IlNYipun98d+Nk58pS
- K8WAir8rGBM/pjhnwnnV/vlt04XLSwHlQqp1gFZW0PXBKDZ3uFNdPX0uLjUV9uxuet
- 94/3v4b3olOSvhHFYnG8x0W+a+Mm9bjaK3aO9ov0M+6xeMdpbqWCEqJktR8S+ck0d6
- w3tqxGvPA5GlgcZJIBKMNWTIUCz+f9T+MOdtuFRpf5JBkMODU0FlEYRIbToS61bz5d
- bEzgO15AVGofd7vpA3DSxYBBH90nFizaJtg18zrY8XDdgUAr3nalPj04eJ1rdN1rI4
- Pt+t2zA6vt8Uw==
+ b=c+PHMFFn9IYOvrdbRD362Dp0VJXORn96xP1FXWz6+xur2Vn1qz/dNow3CI12XFrgp
+ Xoute1m9zxLlPUwFYeuPbPZ90HyJrtpDHV62HbtuD3zpqHbYIOHBNcyGcZvlbCC2i/
+ E0anT1Kh0N8Cx9b6RbYc5F7X9hCD2A7jojSNNLUqwJTxeQsRM7NKtldrqn9SWQKNJC
+ 8azjHaaVoIebub7IBB+OLgYVBjO5bNzsVSCWWmKoOR2FgPb4B6ruZyHOWcNjERbnnz
+ Nqaba/MdmsDa9r5aW//73Bu4DZ6aH0Db7BemYInJkQARUm6dnr1UST6UMxQ5MNI04y
+ X3280qFun8UUw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 29 Jun 2026 10:17:14 +0200
-Subject: [PATCH v4 16/30] drm/mode-config: Read out hardware state in
- drm_mode_config_create_state
+Date: Mon, 29 Jun 2026 10:17:17 +0200
+Subject: [PATCH v4 19/30] drm/atomic_helper: Pass nonblock to commit_tail
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-drm-state-readout-v4-16-5966657980ed@kernel.org>
+Message-Id: <20260629-drm-state-readout-v4-19-5966657980ed@kernel.org>
 References: <20260629-drm-state-readout-v4-0-5966657980ed@kernel.org>
 In-Reply-To: <20260629-drm-state-readout-v4-0-5966657980ed@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -52,12 +51,12 @@ Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org,
  lidrm_printf_indentnux-kernel@vger.kernel.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3356; i=mripard@kernel.org;
- h=from:subject:message-id; bh=clg80pj6MHzkUOoGArZm2MlTP2cyzYrv7zdXG+oslPo=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlOWuwPV864zKy29nNtbKZ62vTg+ZGJDfW8N+QKV016t
- OxNjej7jqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRRn3G+tJpX2yKDX7q1TLd
- v2/36En/tF2xtTbph/Un7XSW1c4JDs98qPPjqpid+gGlx8o/3zWrMDbcbp769OmiM5UGRpwloYV
- fOXjEBXkftXHxfijrzpaVnlj6696ElZfSdx7advnOg3v1XksB
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1848; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=crSyq+lP6V5+ZBzZOQ8ztyZYB55iw5QIobUIMwCcyCU=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlOWhxFzgqbjxR8W7+N2S7t1I1XT5+JlPYHP++r/s85Q
+ 1N//3qzjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjARbkbGhmu96RPyRTK7hblz
+ 3q/QexG1c4oPR+164T8JhbfcD/tH3XZZc1U/paqB1+V99GzXiX1TGBt+T/dhUVr0rqu1KnaX4bx
+ Xhjb//54VW3VKTrtBtMC/4bqI6u7pb67VzOR/flPxVue1S6EA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,102 +74,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_mode_config_create_state() creates the initial state for all
-KMS objects at driver registration time.
+The state comparison infrastructure will need to know if a
+commit is blocking or non-blocking in commit_tail. Pass the nonblock
+flag along.
 
-Call the drm_mode_config_funcs.atomic_sro_readout_state hook from it
-so that the initial state is populated from the hardware rather than
-being left as a pristine default.
-
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_mode_config.c | 47 ++++++++++++++++++++++++++-------------
- 1 file changed, 32 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/drm_atomic_helper.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-index f432f485a914..7c351c6f34a4 100644
---- a/drivers/gpu/drm/drm_mode_config.c
-+++ b/drivers/gpu/drm/drm_mode_config.c
-@@ -22,10 +22,11 @@
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index 285aac3554df..6405afc5037d 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -2035,11 +2035,11 @@ void drm_atomic_helper_commit_tail_rpm(struct drm_atomic_commit *state)
  
- #include <linux/export.h>
- #include <linux/uaccess.h>
- 
- #include <drm/drm_atomic.h>
-+#include <drm/drm_atomic_sro.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_encoder.h>
- #include <drm/drm_file.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_managed.h>
-@@ -315,25 +316,11 @@ void drm_mode_config_reset(struct drm_device *dev)
- 	}
- 	drm_connector_list_iter_end(&conn_iter);
+ 	drm_atomic_helper_cleanup_planes(dev, state);
  }
- EXPORT_SYMBOL(drm_mode_config_reset);
+ EXPORT_SYMBOL(drm_atomic_helper_commit_tail_rpm);
  
--/**
-- * drm_mode_config_create_initial_state - Allocates the initial state
-- * @dev: drm device
-- *
-- * This functions creates the initial state for all the objects. Drivers
-- * can use this in e.g. probe to initialize their software state.
-- *
-- * It has two main differences with drm_mode_config_reset(): the reset()
-- * hooks aren't called and thus the hardware will be left untouched, but
-- * also the &drm_private_obj structures will be initialized as opposed
-- * to drm_mode_config_reset() that skips them.
-- *
-- * Returns: 0 on success, negative error value on failure.
-- */
--int drm_mode_config_create_initial_state(struct drm_device *dev)
-+static int drm_mode_config_create_state(struct drm_device *dev)
+-static void commit_tail(struct drm_atomic_commit *state)
++static void commit_tail(struct drm_atomic_commit *state, bool nonblock)
  {
+ 	struct drm_device *dev = state->dev;
+ 	const struct drm_mode_config_helper_funcs *funcs;
+ 	struct drm_crtc_state *new_crtc_state;
  	struct drm_crtc *crtc;
- 	struct drm_colorop *colorop;
- 	struct drm_plane *plane;
- 	struct drm_connector *connector;
-@@ -401,10 +388,40 @@ int drm_mode_config_create_initial_state(struct drm_device *dev)
- 	}
- 	drm_connector_list_iter_end(&conn_iter);
+@@ -2093,11 +2093,11 @@ static void commit_tail(struct drm_atomic_commit *state)
+ static void commit_work(struct work_struct *work)
+ {
+ 	struct drm_atomic_commit *state = container_of(work,
+ 						      struct drm_atomic_commit,
+ 						      commit_work);
+-	commit_tail(state);
++	commit_tail(state, true);
+ }
+ 
+ /**
+  * drm_atomic_helper_async_check - check if state can be committed asynchronously
+  * @dev: DRM device
+@@ -2313,11 +2313,11 @@ int drm_atomic_helper_commit(struct drm_device *dev,
+ 
+ 	drm_atomic_commit_get(state);
+ 	if (nonblock)
+ 		queue_work(system_dfl_wq, &state->commit_work);
+ 	else
+-		commit_tail(state);
++		commit_tail(state, false);
  
  	return 0;
- }
-+
-+/**
-+ * drm_mode_config_create_initial_state - Allocates the initial state
-+ * @dev: drm device
-+ *
-+ * This functions creates the initial state for all the objects. Drivers
-+ * can use this in e.g. probe to initialize their state.
-+ *
-+ * It creates the initial state in several steps. It first tries to
-+ * read-out the initial state from the hardware for all objects if state
-+ * read-out is enabled and the driver supports it. Then, if state
-+ * read-out isn't supported or fails, it creates a new, pristine state
-+ * using the objects atomic_create_state callback.
-+ *
-+ * For historical reasons, drm_mode_config_reset() is similar, but
-+ * doesn't support state read-out, and will always reset the hardware.
-+ * It will also ignore all &drm_private_obj.
-+ *
-+ * Returns: 0 on success, negative error value on failure.
-+ */
-+int drm_mode_config_create_initial_state(struct drm_device *dev)
-+{
-+	int ret;
-+
-+	ret = dev->mode_config.funcs->atomic_sro_readout_state(dev);
-+	if (!ret)
-+		return 0;
-+
-+	return drm_mode_config_create_state(dev);
-+}
- EXPORT_SYMBOL(drm_mode_config_create_initial_state);
  
- /*
-  * Global properties
-  */
+ err:
+ 	drm_atomic_helper_unprepare_planes(dev, state);
 
 -- 
 2.54.0
