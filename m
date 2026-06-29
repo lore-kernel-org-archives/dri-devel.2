@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34A36C43327
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA862C44500
 	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:24:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85C5710E873;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5CA510E875;
 	Mon, 29 Jun 2026 12:24:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CVHl/Wne";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Svf0cwGP";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EAAA10E871;
- Mon, 29 Jun 2026 12:24:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61C1810E86E;
+ Mon, 29 Jun 2026 12:24:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B261C60008;
- Mon, 29 Jun 2026 12:24:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89D1A1F00A3A;
- Mon, 29 Jun 2026 12:24:36 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D7DAF600AF;
+ Mon, 29 Jun 2026 12:24:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFABF1F00A3D;
+ Mon, 29 Jun 2026 12:24:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782735877;
- bh=vpmpjU/D3Xgzh9vSCEEeHJeDXtgwlGe/yxbKQJIRHsw=;
+ s=k20260515; t=1782735865;
+ bh=1Ei3EUSCqZWfZOYLGcxa+N0JWy/qIc/OuIHRwuSzZmg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=CVHl/WneK15kXj08rtynXrVAL0HLjDePd2qB6E1hU1olGNlTQQjDyx8DLWpzdyYGg
- 3NK9UE4mvE2nPikzteRHK+Vz+xGCID1qTnWSb5IZfULG44HYN6ZgZsPPHRxDWnqLut
- nlo1LWqmYeELhvvdICEFWIIPcwwNRUbtjucbe8lQ3oW4BLhZIxfcTdBTo3ItOYnpC+
- lhYOWVWyKj/1WkUeKoBmVqkjhysaqzl/z77+xi0n//OsVrq5yBHDIuMw2A77x2ZEFj
- D4/NU0V+3ldg7TSjkUwamocBuwizGWYqRmv639fwN+YwIKew36R/XprwKJNhSCT1Qj
- 3CXUt5U/3vg+w==
+ b=Svf0cwGPe+0Yya4VFcXOl8r/WHS0AmORu3Nq1KprgekWtOOrGnU3DurFUXvd8IRlR
+ dX0Bn8XzAizI70EqxiKxIeoI4LasSRwbnP7z/Hctsa8TQZF0oo5a1lyhJPtL8WHi1L
+ wpDz1RHJ0qo8mL4vTWB6X9O36nhtZB3DddaCZDkdg9q2cZckkM82bWAiQIwDZ/3DaD
+ 6tRDjLnl51gBPYa1nljEuWwTcL5QSBfBSTaHkzkPTAtoUWK99YNakvcmghRksQyIOs
+ 5CRIMfr7kAvZMePisvMtTHxsHYccnqsfyNQSAq7/wQ+MHUqWFowzrecsjartpYIfXE
+ Wluj6yp1fiBpg==
 From: Lorenzo Stoakes <ljs@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
@@ -80,9 +80,9 @@ Cc: Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
  damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
  Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
  Jann Horn <jannh@google.com>
-Subject: [PATCH 14/30] mm/vma: minor cleanup of expand_[upwards, downwards]()
-Date: Mon, 29 Jun 2026 13:23:25 +0100
-Message-ID: <b24f70b72f0a9e2a37b904e5b59d80b88bd42e4a.1782735110.git.ljs@kernel.org>
+Subject: [PATCH 10/30] MAINTAINERS: Move mm/interval_tree.c to rmap section
+Date: Mon, 29 Jun 2026 13:23:21 +0100
+Message-ID: <91dde21e9084bd04b626a1f073c3b9b3a23cb663.1782735110.git.ljs@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1782735110.git.ljs@kernel.org>
 References: <cover.1782735110.git.ljs@kernel.org>
@@ -103,61 +103,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Adjust the stack expansion functions expand_upwards() and
-expand_downwards() such that they are expressed in terms of named constant
-values, and make use of vma_start_pgoff().
-
-This clearly documents that we are referencing the page offset of the start
-of the VMA.
-
-Additionally this cleans up the overflow check in expand_upwards().
-
-No functional change intended.
+This file implements code for the interval trees used by the file and anon
+rmap implementation, so belongs in the rmap section.
 
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- mm/vma.c | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index 1e99fe8aa6ef..dc4c2c1077f4 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -3216,13 +3216,12 @@ int expand_upwards(struct vm_area_struct *vma, unsigned long address)
- 
- 	/* Somebody else might have raced and expanded it already */
- 	if (address > vma->vm_end) {
--		unsigned long size, grow;
--
--		size = address - vma->vm_start;
--		grow = (address - vma->vm_end) >> PAGE_SHIFT;
-+		const unsigned long size = address - vma->vm_start;
-+		const unsigned long grow = (address - vma->vm_end) >> PAGE_SHIFT;
-+		const pgoff_t pgoff = vma_start_pgoff(vma);
- 
- 		error = -ENOMEM;
--		if (vma->vm_pgoff + (size >> PAGE_SHIFT) >= vma->vm_pgoff) {
-+		if (pgoff + (size >> PAGE_SHIFT) >= pgoff) {
- 			error = acct_stack_growth(vma, size, grow);
- 			if (!error) {
- 				if (vma_test(vma, VMA_LOCKED_BIT))
-@@ -3295,13 +3294,11 @@ int expand_downwards(struct vm_area_struct *vma, unsigned long address)
- 
- 	/* Somebody else might have raced and expanded it already */
- 	if (address < vma->vm_start) {
--		unsigned long size, grow;
--
--		size = vma->vm_end - address;
--		grow = (vma->vm_start - address) >> PAGE_SHIFT;
-+		const unsigned long size = vma->vm_end - address;
-+		const unsigned long grow = (vma->vm_start - address) >> PAGE_SHIFT;
- 
- 		error = -ENOMEM;
--		if (grow <= vma->vm_pgoff) {
-+		if (grow <= vma_start_pgoff(vma)) {
- 			error = acct_stack_growth(vma, size, grow);
- 			if (!error) {
- 				if (vma_test(vma, VMA_LOCKED_BIT))
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 15011f5752a9..c46fee04a516 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17208,6 +17208,7 @@ R:	Jann Horn <jannh@google.com>
+ L:	linux-mm@kvack.org
+ S:	Maintained
+ F:	include/linux/rmap.h
++F:	mm/interval_tree.c
+ F:	mm/page_vma_mapped.c
+ F:	mm/rmap.c
+ F:	tools/testing/selftests/mm/rmap.c
+@@ -17313,7 +17314,6 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+ F:	include/trace/events/mmap.h
+ F:	fs/proc/task_mmu.c
+ F:	fs/proc/task_nommu.c
+-F:	mm/interval_tree.c
+ F:	mm/mincore.c
+ F:	mm/mlock.c
+ F:	mm/mmap.c
 -- 
 2.54.0
 
