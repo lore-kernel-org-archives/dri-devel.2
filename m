@@ -4,146 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0938EC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:19:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A484DC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:23:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B46FD10E84A;
-	Mon, 29 Jun 2026 12:19:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCCD610E098;
+	Mon, 29 Jun 2026 12:23:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="WgJ1IeEz";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WgJ1IeEz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VXIgWtDv";
 	dkim-atps=neutral
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazon11011047.outbound.protection.outlook.com [52.101.65.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFC7A10E84A
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 12:19:10 +0000 (UTC)
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=yT9tLFYPir7m5aY4jchMN3yFsjeY7LeBeQROJCCEdKTw2jsEZ0ZyWbWc7NUThjPT5qSsDLoSXo8eIaZ4woL/ygUsK9lDmWirPy4MgaKyjUDX1QgkBEwR3wj8K7HMdbZXc3ne4+Gp6f7E/uYN+7nCXxGkb0RCZsy7hwn4A82XUXfHoABGKKCQhB8dnPEaoDJvsnX9ZrXS5zCyWrAeMFvXm/z6NdbuOundkwqkiTeox3LN6Hr2SXWJsRjqKYrLt1IkMyB3dwRHOmOl8Y2hJLeGmIRx3LC5TJqrsRlEBJQSb4mlDRSE+2vI+Obf2cZd+fpJfYBVPpcdtDSAsRcfNtuGQA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m3/V9T9jftNw0WdxR5VHBKUaeAMj5XvmLjvsOuKocL8=;
- b=TwTlVlQGo5cyAlD/qiNlhK5RRG9i+96v1s0oNlxuuj6KNxbDW3hSzxFgkLKQClHjW7JEHiHlzXF+q86swuCc9c488C8gYkZUggTZywb/yiEFPVbE1ExEXq4RgjV1tTsgLrr5vLBMm1n7wt94fcTVc27mjH9qb6RNdWz+cSq6JiHoY3SzXOS1oUapZuZHRBqgrq/anOZUsG56xphNTR/9RPOAfRnFMqRX7iHGr7jxgzF7FPRQUeOkYEg9xeJeqXNXNzspP12ISKcb9lvTfqww/e1uIlZOfSrWzCLOxj10GMOwxqxfM9lOdvhcMP6kfadKDmXnMIbDT4gdLnHRdlZraQ==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=collabora.com smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m3/V9T9jftNw0WdxR5VHBKUaeAMj5XvmLjvsOuKocL8=;
- b=WgJ1IeEzGQrBDvoKIjvjHZ1QYTuynwQAX3YskAK7+gH/qvJToc2J80BK1uBPkH2ubHUGC6H8Mc0YbXTR5Pcw42e/EDQgy+f/SFwO0jfg7Ny01Nr/hN7yEKd7ACGQDJtqIDdsGI2QDKFeNOGFlOvektFDU2pwTHkP+OHkFo2dDWo=
-Received: from AM8P191CA0030.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:21a::35)
- by DU0PR08MB8018.eurprd08.prod.outlook.com (2603:10a6:10:3e5::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 12:19:04 +0000
-Received: from AMS0EPF000001A4.eurprd05.prod.outlook.com
- (2603:10a6:20b:21a:cafe::69) by AM8P191CA0030.outlook.office365.com
- (2603:10a6:20b:21a::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Mon,
- 29 Jun 2026 12:19:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AMS0EPF000001A4.mail.protection.outlook.com (10.167.16.229) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.6
- via Frontend Transport; Mon, 29 Jun 2026 12:19:02 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EoX/7tyQJetv3hqO/xhoXFe6bZjTXVwrg3lEmCyWO/TsaWEAphe/z9cYSJs4Vtmy6afCSRyyVlFOKadzinrz6bcUE8bUofZoyRq9QjeVJxMH+TP+mVTXmLZ/zPc92OqDHbyCFBF8QkBPZ41TcAWoUh7CfPR5ZjQ6jpKsqxvbW9i8gqRk4baDBfvGvQjnYQdQ8JJ1aujsyqHhRPnhu8ZKETrkEyW80bo3ZJxNRBARJ2Q9IAZ644Aryc8WnXT/uzVn+Xca7nYK/3Te7VS0UZgeWQz3MJ9Pi49Zy8BsBXPmIPLCcEtFuIktP4p3Fyv7PoLw1/6/Ig5ALTjy7gsFgk4mWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m3/V9T9jftNw0WdxR5VHBKUaeAMj5XvmLjvsOuKocL8=;
- b=ssWRLiEUDzuOoYpLGrzOfdVrvocV3UBvdzFsd5xKCsxkgz0HMvJNq9MVrDvI7BtxsKAI19FvviGPVkPGc4X/7tmz/VMIBalDPojLCux/uHCymsbdksMHRON/bIjRXVhXWbJWvHgsCBK6ljcddsKrBeuhuA9A2rYG1a7LXTp62UY/zSahCArHfeTmpLS2UzEvktowsm/U4bDIGXQcx7oviuAxJCwYFnJ5JUbplFAwrlGiqnLIJVzmauvt5v72oM6FNaUT6Rf7KVx3f80zOUTHwXkFksCdI1RC/1X0twhSp8WJwHgT4ThiA1jipXuFHGvtu7AqQ4kKJhdTdQUJ2hfQgA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m3/V9T9jftNw0WdxR5VHBKUaeAMj5XvmLjvsOuKocL8=;
- b=WgJ1IeEzGQrBDvoKIjvjHZ1QYTuynwQAX3YskAK7+gH/qvJToc2J80BK1uBPkH2ubHUGC6H8Mc0YbXTR5Pcw42e/EDQgy+f/SFwO0jfg7Ny01Nr/hN7yEKd7ACGQDJtqIDdsGI2QDKFeNOGFlOvektFDU2pwTHkP+OHkFo2dDWo=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from VI0PR08MB11200.eurprd08.prod.outlook.com
- (2603:10a6:800:257::18) by AM8PR08MB5729.eurprd08.prod.outlook.com
- (2603:10a6:20b:1de::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 12:17:58 +0000
-Received: from VI0PR08MB11200.eurprd08.prod.outlook.com
- ([fe80::27c:ea0c:e75a:d41d]) by VI0PR08MB11200.eurprd08.prod.outlook.com
- ([fe80::27c:ea0c:e75a:d41d%5]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 12:17:58 +0000
-Message-ID: <f4aaf9bb-639d-4383-86e0-1cf5784fcd58@arm.com>
-Date: Mon, 29 Jun 2026 13:17:56 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/11] drm/panthor: Keep interrupts masked until they are
- needed
-Content-Language: en-GB
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Chia-I Wu <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Shashiko <sashiko-bot@kernel.org>
-References: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
- <20260625-panthor-misc-fixes-v1-11-b67ed973fea6@collabora.com>
-In-Reply-To: <20260625-panthor-misc-fixes-v1-11-b67ed973fea6@collabora.com>
-From: Karunika Choo <karunika.choo@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P265CA0280.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:37a::17) To VI0PR08MB11200.eurprd08.prod.outlook.com
- (2603:10a6:800:257::18)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09B5610E098;
+ Mon, 29 Jun 2026 12:23:56 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C2C174172B;
+ Mon, 29 Jun 2026 12:23:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5D2D1F000E9;
+ Mon, 29 Jun 2026 12:23:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782735835;
+ bh=KhbirzDiqdXz8L9jjlZYmqe2i6OHEV90p3aTdG2piLY=;
+ h=From:To:Cc:Subject:Date;
+ b=VXIgWtDvSyFcIJVJpcYBkbjDgAVyydc/iME59+R6XRw8bXvm1BkNScIESWGDKzwG8
+ AhB5OWOUACxuGpUzXK9CREXTc7QbzenbF+f/m6fiWZ0ZOCz579Z+6psilDULlUv4KS
+ t1hK4vxpshyeCdzB6jjoAR0ouWSDv6aa2AfmFzAVxeVUQ8libN4amrv2h5IP6iXnkJ
+ vw5hlBz64z8tNrLEbQWPi3qxat89f66kKwijiuXDogs+GZh0c9W1lQTLDBkLRzgknf
+ wM2jN6figSLSgDjYHDAuCpQ6/CJax3wvd/hhdrpFl4QAONOJEwet916X7QRVjLhdGy
+ V41g50mCmMcMA==
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
+ Simon Schuster <schuster.simon@siemens-energy.com>,
+ "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, Ian Abbott <abbotti@mev.co.uk>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Dan Williams <djbw@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ "Liam R . Howlett" <liam@infradead.org>,
+ Matthew Wilcox <willy@infradead.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, Steven Rostedt <rostedt@goodmis.org>,
+ SeongJae Park <sj@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+ Hugh Dickins <hughd@google.com>, Mike Rapoport <rppt@kernel.org>,
+ Kees Cook <kees@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-parisc@vger.kernel.org, linux-sgx@vger.kernel.org,
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, kvm@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org,
+ iommu@lists.linux.dev, linux-perf-users@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>
+Subject: [PATCH 00/30] mm: make VMA page offset handling more consistent
+Date: Mon, 29 Jun 2026 13:23:11 +0100
+Message-ID: <cover.1782735110.git.ljs@kernel.org>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: VI0PR08MB11200:EE_|AM8PR08MB5729:EE_|AMS0EPF000001A4:EE_|DU0PR08MB8018:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07751013-808f-4f30-dd6d-08ded5d89af1
-X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|7416014|376014|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info-Original: wzMaDtmqx2Bwoef1Yih/vblOcoKFK68u0ECFkFrnsJu8H1ayen3IqBMhMl8/H8ESWcgOPM6HruKFWebNbCOYxdw4GxTsnzxJsDeZm3Ye94DVE6P+WgsP5v3me9MhQhg9ufSP7TnwfFho/15K8zMaHM0ILAIQwa/0W6nY0mtfjuuV5VgTEOJXxqSQUlzeM8CcnW1XinWgKP68lTZC7xyOSLxj1MxnLG2U5GTlSTIvYEoI52M5s6epLobVbeVbnzCggTAhHmAjjYQEyOasZp+5Mya0KxqT6DQWZwvi9eAR79/CX6N1QEQksxneqNN+8n6z8aM+n1fc/z4p5uXDPdDxgN622w1hQwi/k2ibHhgmmrCylGJpnttaEa0r3O4YW2NKhAk/1iK9XMicatZyw82xupWQWPq1qWb6u9kCP48OdDtspO9at1NVPHAAPEWMYySj2OrxSDZCKZaUTd+3Phff/lmx9OgeStnEaOvBRFHcHFaxWCKZRQWTgAAGcSBwxOu0UBZgPpDUjBOwXzGClegT3zEE7Zz7suJjTuKNq2KXA7CWHS4ueS3Qm7DMPcZIh+vgNyFseq6BQeQQelrTvkNo8aLwsmKT1gxjE01z/bWKAuo=
-X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
- SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:VI0PR08MB11200.eurprd08.prod.outlook.com;
- PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-Exchange-RoutingPolicyChecked: QDg0vqn7fKEYd9+ub1XWlP8/oUYSxpb20X0rmkPUh1/RSnH1GwYqr+L7Tw2vnAc9JkJ/sH3X7VnThRzIKARpwqlWsKe5qTZDvWGZA/OjXmMZo2wns+PVRAJtkJqXyzZvt47YYbdm9vC7K+N4kEVgm6aPi6Lh2pPK5r821DGRJFFQ0EJ6XV5UXrqWpGRb/+GmRZ7elHtee1mt4yBJen6It9e3MaR17LcZy+XUsrdSaXWug0MKYJojg4+/EpxYq5zQ/c7bTu9XTxK0bWbeTv39AHMdQm717nAARb1D8s02uD3t52VWHahTPcbAqSVoL51QB2JTYdsa4dp+RYRZ9k+wCA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB5729
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: AMS0EPF000001A4.eurprd05.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 6defbf0e-2acb-41e6-6712-08ded5d87484
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|14060799003|82310400026|36860700016|35042699022|376014|23010399003|7416014|13003099007|22082099003|18002099003|56012099006|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: 4NCR8OUmufKGMnbAyUZgcW1l7Ctr4HCnGloLauwOI3rD50bFfI5uhQyuqWPuDnvDoYuYJaXJxJdCDnS6VDlVb+/nOf2P+CCFOPMeMCPsGDIlQY41/AvAkaYiNyFh2kDJv6ro3kMTMNcQ7ZxAZBxYeMQ3u+5AAHU3QKI5uN7eobywX5tkiACGPFXVm+DY6dkjzQGw6rfSZ1KjXatoaBLv2Kk+hUM8ZalkRtpMJBYAqk7Qmr91RbuuTQ0K+xWVoIGJciqfnVmHvEtICmCi3/Yk/pydUqrJxsfUmDMsXSl7Z5SgsBTlSk3sbqwUCx1CgkEUV1XbO0gmLMKQN3GTXidRV0g/21ttVAtCSqgA63Qs8rIwO2qxI308jW1iR9EJ8KnY5qEgCjrPxAzlasvhVYXwx+CSW2YapiNOtNE31u+BcrmWFHxRC+49YYqeyO9EYQkQ6RwOzCDXixxYIv3AtBYse5pCuxKvllFELENyo7ZOKd9j/qnUfNGdE1KE19Zsx4bmazsaZSokkQRYGwYifLFWFNhIvIZLlC2S6yJA1Fac7mTCnmWVG8KYXc9qL7ZC5zW8XPzNpBiJ+doSTQHYlWVA0DLfVnkre/wwdQD7bi17GXAg8QNyIvR17D4vlWQbcq4SBXWjnF/IMAtmd2hOak+Vbg==
-X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
- PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(14060799003)(82310400026)(36860700016)(35042699022)(376014)(23010399003)(7416014)(13003099007)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: INeg3qDtnjTYic1HdEz7uWGc40cQPkwEjQUJR3y+d//wltQB0ma+3qS+qWO/0S/yzhnmaHmbpCFJGJk4X3eVbPqxNxKwXe2EFpog0r6VUj1Vnb+Kk0W7e0ladSY0ghNl2ji4MpcVt9TKfXDoGfxii5h8RsA93E/awV7ph6HzHcryPQWnWY/aVcxrg9VwOdx35PNK6QqFNZq0qn87530iTnnsYTItIsWRX6hO9tmdm0XGhQiRwB8zg8si2Y29tcqx7YOMc2PC4HD5DtGZLQpBRxbV+HdrdKAx6Zea/i2WeCgs7ZQuynv9Z7x1Jw8kDYDJ7XY7EJWoOpAAMH64eT2SviPZ9Usrmd/JRhASKIaFFkr45wSfXZ7syFhof9AhgTGTd5f0//LtEoSCTxWKzk0lbDIibirWQdqZKA5LoFSX5gFyKjutMHbtIukBiZPehUqQ
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 12:19:02.1455 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07751013-808f-4f30-dd6d-08ded5d89af1
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
- Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource: AMS0EPF000001A4.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8018
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,136 +101,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 25/06/2026 13:40, Boris Brezillon wrote:
-> The autogenerated panthor_request_xx_irq() helpers unmask Mali
-> interrupts before we're sure we'll have a handler registered. For
-> non-shared IRQ lines, that's fine, but for shared ones, it might cause
-> an interrupt flood if the HW block raises an interrupt for any reason.
-> 
-> We could reworking the calls in panthor_request_xx_irq(), but it's just
-> simpler to let the caller decide when they are ready to handle interrupts
-> and call panthor_pwr_irq_resume() themselves. While at it, rework the
-> prototype to let users call panthor_pwr_irq_enable_events() explicitly
-> instead of passing an initial mask to panthor_request_pwr_irq().
-> 
-> Fixes: 5fe909cae118 ("drm/panthor: Add the device logical block")
-> Reported-by: Shashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260623-panthor-signal-from-irq-v3-0-2ece396f8ee0@collabora.com?part=3
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_device.h | 7 ++++---
->  drivers/gpu/drm/panthor/panthor_fw.c     | 2 +-
->  drivers/gpu/drm/panthor/panthor_gpu.c    | 3 ++-
->  drivers/gpu/drm/panthor/panthor_mmu.c    | 9 +++++++--
->  drivers/gpu/drm/panthor/panthor_pwr.c    | 7 ++++---
->  5 files changed, 18 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index a39386bd6382..0fda64fbe5f2 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -588,14 +588,15 @@ static inline void panthor_ ## __name ## _irq_resume(struct panthor_irq *pirq)
->  												\
->  static int panthor_request_ ## __name ## _irq(struct panthor_device *ptdev,			\
->  					      struct panthor_irq *pirq,				\
-> -					      int irq, u32 mask, void __iomem *iomem)		\
-> +					      int irq, void __iomem *iomem)			\
->  {												\
->  	pirq->ptdev = ptdev;									\
->  	pirq->irq = irq;									\
-> -	pirq->mask = mask;									\
-> +	pirq->mask = 0;										\
->  	pirq->iomem = iomem;									\
->  	spin_lock_init(&pirq->mask_lock);							\
-> -	panthor_ ## __name ## _irq_resume(pirq);						\
-> +	atomic_set(&pirq->state, PANTHOR_IRQ_STATE_SUSPENDED);					\
-> +	gpu_write(pirq->iomem, INT_MASK, 0);							\
->  												\
->  	return devm_request_threaded_irq(ptdev->base.dev, irq,					\
->  					 panthor_ ## __name ## _irq_raw_handler,		\
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index 4fbddb9e18c8..de8e6689a869 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -1474,7 +1474,7 @@ int panthor_fw_init(struct panthor_device *ptdev)
->  	if (irq <= 0)
->  		return -ENODEV;
->  
-> -	ret = panthor_request_job_irq(ptdev, &fw->irq, irq, 0,
-> +	ret = panthor_request_job_irq(ptdev, &fw->irq, irq,
->  				      ptdev->iomem + JOB_INT_BASE);
->  	if (ret) {
->  		drm_err(&ptdev->base, "failed to request job irq");
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index e52c5675981f..c013d6bf9a59 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -170,11 +170,12 @@ int panthor_gpu_init(struct panthor_device *ptdev)
->  		return irq;
->  
->  	ret = panthor_request_gpu_irq(ptdev, &ptdev->gpu->irq, irq,
-> -				      GPU_INTERRUPTS_MASK,
->  				      ptdev->iomem + GPU_INT_BASE);
->  	if (ret)
->  		return ret;
->  
-> +	panthor_gpu_irq_enable_events(&ptdev->gpu->irq, GPU_INTERRUPTS_MASK);
-> +	panthor_gpu_irq_resume(&ptdev->gpu->irq);
->  	return 0;
->  }
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 31cc57029c12..1fef3c5c1b50 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -3406,7 +3406,6 @@ int panthor_mmu_init(struct panthor_device *ptdev)
->  		return -ENODEV;
->  
->  	ret = panthor_request_mmu_irq(ptdev, &mmu->irq, irq,
-> -				      panthor_mmu_fault_mask(ptdev, ~0),
->  				      ptdev->iomem + MMU_INT_BASE);
->  	if (ret)
->  		return ret;
-> @@ -3424,7 +3423,13 @@ int panthor_mmu_init(struct panthor_device *ptdev)
->  		ptdev->gpu_info.mmu_features |= BITS_PER_LONG;
->  	}
->  
-> -	return drmm_add_action_or_reset(&ptdev->base, panthor_mmu_release_wq, mmu->vm.wq);
-> +	ret = drmm_add_action_or_reset(&ptdev->base, panthor_mmu_release_wq, mmu->vm.wq);
-> +	if (ret)
-> +		return ret;
-> +
-> +	panthor_mmu_irq_enable_events(&mmu->irq, panthor_mmu_fault_mask(ptdev, ~0));
-> +	panthor_mmu_irq_resume(&mmu->irq);
-> +	return 0;
->  }
->  
->  #ifdef CONFIG_DEBUG_FS
-> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
-> index 090362bd700b..f2c2c3000590 100644
-> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
-> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
-> @@ -484,12 +484,13 @@ int panthor_pwr_init(struct panthor_device *ptdev)
->  	if (irq < 0)
->  		return irq;
->  
-> -	err = panthor_request_pwr_irq(
-> -		ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK,
-> -		pwr->iomem + PWR_INT_BASE);
-> +	err = panthor_request_pwr_irq(ptdev, &pwr->irq, irq,
-> +				      pwr->iomem + PWR_INT_BASE);
->  	if (err)
->  		return err;
->  
-> +	panthor_pwr_irq_enable_events(&pwr->irq, PWR_INTERRUPTS_MASK);
-> +	panthor_pwr_irq_resume(&pwr->irq);
->  	return 0;
->  }
->  
-> 
+This series performs a series of cleanups and improvements around how the
+vma->vm_pgoff field is used.
 
-Reviewed-by: Karunika Choo <karunika.choo@arm.com>
+Folios belonging to file-backed mappings are simply indexed by the page
+offset within the file they map.
 
-Kind regards,
-Karunika
+However, anonymous folios belonging to pure anonymous mappings are indexed
+by their "virtual" page offset, which is equal to addr >> PAGE_SHIFT at the
+time at which the VMA was first faulted in.
 
+The page offset of a VMA is stored in vma->vm_pgoff and indicates the page
+offset of the start of the VMA range, whether it be file-backed or
+anonymous.
+
+The work here both cleans up how we reference this field, as well as laying
+the foundations for a future series which addresses the inconsistency of
+CoW'd folios in MAP_PRIVATE-file backed mappings, which are indexed as if
+they were file-backed but behave as if they were anonymous.
+
+This future series will make it such that all anonymous folios are indexed
+by virtual page offset whether belonging to VMAs who satisfy
+vma_is_anonymous() or MAP_PRIVATE-mapped file-backed mappings.
+
+This series:
+
+* Exposes vma_start_pgoff() and updates the kernel to use it consistently.
+* Adds and uses the useful vma_end_pgoff() helper.
+* Parameterises the file-backed mapping helpers vma_interval_tree_*()
+  by adress_space rather than rb_root_cached.
+* Renames the misleadingly-named vma_interval_tree_*() helpers to
+  mapping_interval_tree_*() to be consistent with
+  anon_vma_interval_tree_*().
+* Parameterises anon_vma_interval_tree_*() by anon_vma.
+* Moves mm/interval_tree.c to the rmap section.
+* Adds vmg_*() helpers for page offset.
+* Clarifies the confusing vmg_adjust_set_range() function.
+* Introduces linear_page_delta() to provide relative pgoff within a VMA.
+* Replaces open-coded versions of linear_page_delta() and
+  linear_page_index() with invocations of these functions.
+* Introduces and uses vma_assert_can_modify() to account for whether a VMA
+  can be modified (detached or write locked).
+* Adds and uses vma_[add,sub]_pgoff() to adjust VMA page offset.
+* Moves __install_special_mapping() to vma.c.
+* Makes vma_set_range() static and internal to vma.c.
+* Introduces and makes use of vma_set_pgoff().
+* Fixes incorrect vma.h header inclusion.
+* Defaults VMA userland tests to 64-bit vma flags size.
+* Updates VMA userland tests to give better output on failure.
+* Various smaller cleanups.
+
+Lorenzo Stoakes (30):
+  mm: move vma_start_pgoff() into mm.h and clean up
+  mm: add kdoc comments for vma_start/last_pgoff()
+  tools/testing/vma: use vma_start_pgoff() in merge tests
+  mm: introduce and use vma_end_pgoff()
+  mm/rmap: update mm/interval_tree.c comments
+  mm/rmap: parameterise vma_interval_tree_*() by address_space
+  mm/rmap: elide unnecessary static inline's in interval_tree.c
+  mm/rmap: rename vma_interval_tree_*() to mapping_interval_tree_*()
+  mm/rmap: parameterise anon_vma_interval_tree_*() by anon_vma
+  MAINTAINERS: Move mm/interval_tree.c to rmap section
+  mm/vma: introduce and use vmg_pages(), vmg_[start, end]_pgoff()
+  mm/vma: clean up anon_vma_compatible()
+  mm/vma: refactor vmg_adjust_set_range() for clarity
+  mm/vma: minor cleanup of expand_[upwards, downwards]()
+  mm: introduce and use linear_page_delta()
+  mm/vma: use vma_start_pgoff(), linear_page_index() in mm code
+  mm: prefer vma_[start,end]_pgoff() to vma->vm_pgoff in kernel/
+  mm/vma: remove duplicative vma_pgoff_offset() helper
+  mm: use linear_page_[index, delta]() consistently
+  mm/vma: introduce vma_assert_can_modify()
+  mm/vma: add and use vma_[add/sub]_pgoff()
+  mm/vma: move __install_special_mapping() to vma.c
+  mm/vma: make vma_set_range() static, drop insert_vm_struct() decl
+  mm/vma: update vma_shrink() to not pass unnecessary pgoff parameter
+  mm/vma: update vmg_adjust_set_range() to offset pgoff instead
+  mm/vma: introduce and use vma_set_pgoff()
+  mm/vma: correct incorrect vma.h inclusion
+  mm/vma: use guard clauses in can_vma_merge_[before, after]()
+  tools/testing/vma: default VMA flag bits to 64-bit
+  tools/testing/vma: output compared expression on ASSERT_[EQ, NE]()
+
+ MAINTAINERS                           |   2 +-
+ arch/arm/mm/fault-armv.c              |   4 +-
+ arch/arm/mm/flush.c                   |   2 +-
+ arch/nios2/mm/cacheflush.c            |   2 +-
+ arch/parisc/kernel/cache.c            |   2 +-
+ arch/x86/kernel/cpu/sgx/virt.c        |   3 +-
+ drivers/comedi/comedi_fops.c          |   3 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gem.c |   3 +-
+ drivers/gpu/drm/gma500/gem.c          |   2 +-
+ drivers/gpu/drm/msm/msm_gem.c         |   3 +-
+ drivers/gpu/drm/omapdrm/omap_gem.c    |   5 +-
+ drivers/gpu/drm/tegra/gem.c           |   3 +-
+ drivers/gpu/drm/ttm/ttm_bo_vm.c       |   7 +-
+ drivers/vfio/pci/nvgrace-gpu/main.c   |   3 +-
+ drivers/vfio/pci/vfio_pci_core.c      |   3 +-
+ fs/dax.c                              |   2 +-
+ fs/hugetlbfs/inode.c                  |  15 +-
+ include/linux/huge_mm.h               |   1 +
+ include/linux/hugetlb.h               |   3 +-
+ include/linux/mm.h                    | 118 +++++++++----
+ include/linux/mmap_lock.h             |   8 +
+ include/linux/pagemap.h               |  39 ++++-
+ kernel/dma/coherent.c                 |   7 +-
+ kernel/dma/direct.c                   |   6 +-
+ kernel/dma/mapping.c                  |   8 +-
+ kernel/dma/ops_helpers.c              |   4 +-
+ kernel/events/core.c                  |  20 ++-
+ kernel/events/uprobes.c               |  13 +-
+ kernel/kcov.c                         |   2 +-
+ kernel/trace/ring_buffer.c            |   3 +-
+ mm/damon/vaddr.c                      |   5 +-
+ mm/debug.c                            |   2 +-
+ mm/filemap.c                          |   7 +-
+ mm/huge_memory.c                      |   2 +-
+ mm/hugetlb.c                          |  15 +-
+ mm/internal.h                         |  33 ++--
+ mm/interval_tree.c                    | 113 +++++++-----
+ mm/khugepaged.c                       |   7 +-
+ mm/ksm.c                              |   7 +-
+ mm/madvise.c                          |   6 +-
+ mm/mapping_dirty_helpers.c            |   2 +-
+ mm/memory-failure.c                   |  10 +-
+ mm/memory.c                           |  33 ++--
+ mm/mempolicy.c                        |  13 +-
+ mm/mmap.c                             |  41 +----
+ mm/mmu_notifier.c                     |   2 +-
+ mm/mremap.c                           |  12 +-
+ mm/msync.c                            |   4 +-
+ mm/nommu.c                            |  22 +--
+ mm/pagewalk.c                         |   6 +-
+ mm/rmap.c                             |  14 +-
+ mm/shmem.c                            |   9 +-
+ mm/userfaultfd.c                      |   4 +-
+ mm/util.c                             |   4 +-
+ mm/vma.c                              | 239 ++++++++++++++++++--------
+ mm/vma.h                              |  59 ++++++-
+ mm/vma_exec.c                         |  12 +-
+ mm/vma_init.c                         |   6 +-
+ mm/vma_internal.h                     |   4 +-
+ tools/testing/vma/Makefile            |   2 +-
+ tools/testing/vma/include/dup.h       |  41 ++++-
+ tools/testing/vma/include/stubs.h     |  12 +-
+ tools/testing/vma/shared.c            |   9 -
+ tools/testing/vma/shared.h            |  36 ++--
+ tools/testing/vma/tests/merge.c       |  40 ++---
+ virt/kvm/guest_memfd.c                |   2 +-
+ 66 files changed, 699 insertions(+), 432 deletions(-)
+
+--
+2.54.0
