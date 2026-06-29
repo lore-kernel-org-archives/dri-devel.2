@@ -4,128 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51EC0C43458
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 07:19:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 840CDC43602
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 07:19:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8448210EB3B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFA2510EB47;
 	Tue, 30 Jun 2026 07:19:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="VBjTY6hr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S64bhzJE";
 	dkim-atps=neutral
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com
- [74.125.224.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB98210E977
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 16:01:09 +0000 (UTC)
-Received: by mail-yx1-f53.google.com with SMTP id
- 956f58d0204a3-664d7863920so1141085d50.0
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 09:01:09 -0700 (PDT)
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com
+ [74.125.224.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5C6010E0A0
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 16:11:26 +0000 (UTC)
+Received: by mail-yx1-f46.google.com with SMTP id
+ 956f58d0204a3-662ebb1329aso2160060d50.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 09:11:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782749486; cv=none;
+ d=google.com; s=arc-20260327;
+ b=bco/nGSB1hA4pS1JvBZYnmUdK1kDzkUrF34K1aK0uNHxasQVnYgKx6moyouMnSNJpA
+ TXAPyFR+PmStJB0ttZnMubXEfUJdbg6F+Ti8uCPdTlfO2WhyjWcVTTLN4Q1zYi1N0wwj
+ D9RXPhLO98QaCQZXPrGmr7xjL0uZ8T/6lJgWU+HtNd8mV1psVfTEg6IFBsOc6YZCQIfP
+ 3aTmbqZBlf98UTzrerE3oNNojDxvezRFiIHEmySHRYO7iwfHdABtAJ7n8ylQzB+xfcUm
+ /psx4Mb5pYaeC3c5ez5bW+dZJP+Bx/LX3+4aUbYHG7XNfHgFStbyjaVf4PR9JJqbTw8u
+ nNaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:references:in-reply-to:dkim-signature;
+ bh=HkyoBnzoIQerSE+/V0M26u2wrPFOgYsVxxOErmVrYLE=;
+ fh=tB74kGpA1WUEitVikBxgIBZIncp5Ejab+YiZ9AdJyx4=;
+ b=HxfjJtvFemz9rHt4ODhyUNcRtFNxH0P0CRar+N9T2PlG5Ws1BcOnVsJHRMvjxfH4TI
+ nVVNDdy1GUv9kDIFP/wbVnEXwLcFSZ9Q2bRZN0G1BSs1yFqHHQv9UvSaspKFEwXX4j5Y
+ wjV+5ssuh58fZkNBGJ0g5JLOH6SW56ZJTuuYorv5NLWhXyYepSRxp+FthV5PD305dKCz
+ 3JBlf5J/KHgAfSuQ8e1UhrNqY+IQYiuVHbMy6/VzDCFeVboTAupfXuD4kSfp5XAwv8Bi
+ OdD+2v0nhfDe2wfOvkUs8ETMvGbB5EwJYQ+RTAzH+ppsz6UjNCb4ABWwcr32OAMYW1X3
+ XzuA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gourry.net; s=google; t=1782748868; x=1783353668; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=4iCXvcvVpnsYDr5kbvWXbUhbyvnE3mHOMHboZJmxShw=;
- b=VBjTY6hrz22fvmKyWf1z8iNkgJU+JWi8ef5kzzRE2zYq1tfJsUeVWo3xG14R3SnD7x
- 17D/LOHPNHzHzzrtjjJM0IvO5wpToxK4xt1OAzzd71JAZG5Gi2lK0abtKbkdnMyAVhy4
- zUbfncnVZLTbze+Ur73ceQiy/oBbgPILQ7FIJ1blSRjNydLr/icQruluoGOBrcaM2kun
- On3pvpd+0iEbefkg3NDHWAKnDuqF+drQreP2va8yH298wGGn+tiMTAl9T9yzt+Xur7IF
- //5gghfmo0r6L/GsWHdMZqdIGANFc56xRPlmPFeIeKKg6OjSj1iR4eF/jPFiGdHD6PSG
- FI+g==
+ d=gmail.com; s=20251104; t=1782749486; x=1783354286; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:references:in-reply-to:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HkyoBnzoIQerSE+/V0M26u2wrPFOgYsVxxOErmVrYLE=;
+ b=S64bhzJEWiypbXInEkOvudDhTB0kIhPy4Nx6RCKhQDcyIU9EwlIpUe0c1Ofre6zmhS
+ tqRI0VspWwKOorUwxyBNcu/C+DThmfmycFy/py4sn1jYuL6b5k2+Fc33KS1G1uN5x/mj
+ ZAg0/SDiX8qN8WO2KjP/5pweFgWC74m0xOaJRU08/tgod6ZYTAzMuAMTuhtBzCr86tLX
+ YbIC0tFuo9GyFFbi0KIRe0rFd1S6ZJLSMrdqVOu0XI1InTBKneHAuRixJkcSTk1ZaoXV
+ T1dgqAzaYhk/5uS6nYCxHBFjCPNTgkwWrh0qQ3aIW70GwR2O/eKizYlEvKZV3BPWblsK
+ AXDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782748868; x=1783353668;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=4iCXvcvVpnsYDr5kbvWXbUhbyvnE3mHOMHboZJmxShw=;
- b=kK6byV3+QWBcp8+6DwK68cx3jbn44I11iJH/AVO9hAyb5csIjPoKo4wNGUDqR0G54p
- 8nBvWJ0uMts9yhkRrML8XC7AyO01adM/m0xEQpc35jHC2r7kKVe2osQWsCRJUTICEf12
- MPyF3TCy1EeM/2rnZMhchBLkqgw1DC6H1V43MPcKqeL8C7dJzapdYC20T3XLOsWiBckT
- nT4g73jqOSmyQm3ZhoBf6pvQlvcUhZ/GDJrcIvhFe2k2EIHvQZPEqGImOl+5YxosYtPP
- Z9/icqbw+d657pBaAwKzVUSB+sAnWWEhTK0ucWnp2IbInTLgH0o4aa2GPQSaa2o+i80z
- 91bA==
+ d=1e100.net; s=20251104; t=1782749486; x=1783354286;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:references:in-reply-to:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=HkyoBnzoIQerSE+/V0M26u2wrPFOgYsVxxOErmVrYLE=;
+ b=MLlJAdbuB5b7Am6Bub8gnyGYH7ESq3U8UC9IWkt6NPGW4QGXLcAu3ibAwcek/ajhh2
+ X+PDvZa5R8udjIrzGMZdZxmaHcSCbYngCrBoi1e2oClSxQJeCwXzMcEq9JsOAi+yiFGU
+ c1F68bShaSRVi/KKMnNQVzTxmQG+mbjRLkBJQ3MY/cVWQKFxbFGmjpeBFyxQAIlVyv0+
+ JR7NFsr3Jq4940tpBdOgBacRQXbEhAQHr0zHv6LQ8yN593R2+sw5OnB9LZ7V4T5pJfZh
+ YLeEf8TDGQIfUD3Vs3D4nDGp6IGdf9NHBI0qo0UZAVwkzdq9Y9sbh23uVIywi3xec8/e
+ NzsA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqKDJCQlT5PkSluxWD9SVnqGf9jKYtHFSdunagRfqjSek+jLjSO5Pxo0G5N9HiXHwn8vmnfUQtZmeI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxhFQp/8b36+0oBU9vjm17BOp4uoMwXYEQ/cTixy4ApdP4eFuwR
- KiscadSuSjuKgtjCN2LVHuD897mlB2T2vp7MPtVmVXDS75kJv99sGhAmOrZvBAQxNKM=
-X-Gm-Gg: AfdE7ck0TMWMaV3O1RPT/JR3+sHxW05dGCPG2/d5xYzwmcPcteb9Ak2lv0IvY+oVmfz
- CHFai0i8XLa/EuY4n8OALwPTjw7GodvuxdlcnB/bzSvU0WbGnt3OYBJiyAlHnFrXUjehWQsgeum
- zKDOksIb/pdaqgkXIr67QU9p8V16lXj3j3Za5sasrBuEHljHrAiAjxWLs2KgAZPpecngjRERowm
- vMMqqs7JOM2g+f2CmZviEgkXYq2GA10S+d2647il0fZnsIwFiX5IaBczZD9CprijNplRTuGKWIO
- sXjTbcAZY64ZdhaM8Ypl37TRh2KboLxCq9BdnElWTVMvMQ2oNXFSVne6fyIpC2ggmAMUAZ19d9w
- GtOq5EetoiplHaY9oE8hXpFxlMDWGx5fZGNxSFyG9/whUehZVKv9eTm8q3J39hw+YVZXovF91VZ
- TF7Tr4bspvfn4acd5Lt8Bb2QH2APEDRH9uxgBfDBFxNyCR2VwiEzmhhjJWcQIj3XanPHzsSApy8
- sWSfn4=
-X-Received: by 2002:a05:690e:d8c:b0:664:e66e:f965 with SMTP id
- 956f58d0204a3-664f974638cmr245066d50.7.1782748868214; 
- Mon, 29 Jun 2026 09:01:08 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F
- (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8f1a717edc7sm1112836d6.36.2026.06.29.09.01.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jun 2026 09:01:07 -0700 (PDT)
-Date: Mon, 29 Jun 2026 12:01:02 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
- Simon Schuster <schuster.simon@siemens-energy.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Ian Abbott <abbotti@mev.co.uk>,
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
- Alex Williamson <alex@shazbot.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Dan Williams <djbw@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Matthew Wilcox <willy@infradead.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>,
- Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Hugh Dickins <hughd@google.com>,
- Mike Rapoport <rppt@kernel.org>, Kees Cook <kees@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
- linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- kvm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-mm@kvack.org, iommu@lists.linux.dev,
- linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
- damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 05/30] mm/rmap: update mm/interval_tree.c comments
-Message-ID: <akKWvnU2Ua-8ceSb@gourry-fedora-PF4VCD3F>
-References: <cover.1782735110.git.ljs@kernel.org>
- <80d482a927b2e9862487b812e0ab48ebc1289a70.1782735110.git.ljs@kernel.org>
+ AHgh+RrdJwQbVFHKfcJ+H28ZrdUbN5oX+vMMrYdEFMji2jbpVeurHpdp05MTIJXtmwFMW7ipdq1ZYobjS5E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwG5kNB67fP+R/ckpuEpC1ri7/1OXCdrsGYny/LTmCAi78ppJMP
+ CyLEkM4qwvyX0uJq3fhlY7KXsCf5/D8QMO/gc26BPik24FNTaXEfGW8PfcR+gARwjz1EpeJh8dS
+ buSM8hBbPwxASrZvlbdw+fhiBrmmM8AY=
+X-Gm-Gg: AfdE7clEXa77JdJfpPiqnTLWhOlONsPPqsjNrn0ck6H+ezzVqbjEaYImAvYstt4M3l3
+ wxrOjDYI20cWTkSdaild4sTEwEK7SSAci0YTqBxN1/4SHD7sSI7eJUPb98CPu844tltR5yuTS49
+ Gr6m40IgBcBu1JvuISTPCCiXhbgoWx+RQ1Ftfaiu30705a/UMXaccxgD7R6kRz2FnE7OYNwXTY+
+ TzC1gVAHjYEkRqFAtct8CFqF198quckEKE1+5ruMWVCYJzTBUrGgl8HIjN4SnD8jhV976d6
+X-Received: by 2002:a05:690c:6c03:b0:7fd:e030:23db with SMTP id
+ 00721157ae682-810d8edb122mr1823157b3.31.1782749485666; Mon, 29 Jun 2026
+ 09:11:25 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
+ Mon, 29 Jun 2026 11:11:24 -0500
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
+ Mon, 29 Jun 2026 11:11:24 -0500
+In-Reply-To: <20260629152807.13492-1-alhouseenyousef@gmail.com>
+References: <20260629152807.13492-1-alhouseenyousef@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <80d482a927b2e9862487b812e0ab48ebc1289a70.1782735110.git.ljs@kernel.org>
+From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Date: Mon, 29 Jun 2026 11:11:24 -0500
+X-Gm-Features: AVVi8CewJuorlk7vVm2WjIOaBKBFN1AO6yCKlkqQYzjQNGpeFQjuVHfzv5rEKHQ
+Message-ID: <CAMuQ4bXQQYJb1nAYKJUtbz7WLi_oMtVyCSpLPVKmd-XMdG0wyg@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/amdgpu: reject mapping info when BO VA is gone
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 30 Jun 2026 07:19:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,21 +111,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 01:23:16PM +0100, Lorenzo Stoakes wrote:
-> Update the file comment to clarify that both file-backed and anonymous
-> interval trees are provided, referencing the relevant data types for
-> clarity.
+Please drop this v3 as well.
+
+I rechecked current origin/master and this fix is already present as
+commit 93475c341119 ("drm/amdgpu: check amdgpu_vm_bo_find() result in
+GET_MAPPING_INFO"), cherry-picked from 528b19377aff. It uses the
+existing -ENOENT behavior for a missing BO VA, so this v3 is obsolete.
+
+Sorry for the noise.
+
+On Mon, 29 Jun 2026 17:28:07 +0200, Yousef Alhouseen
+<alhouseenyousef@gmail.com> wrote:
+> AMDGPU_GEM_OP_GET_MAPPING_INFO looks up the GEM object before taking
+> the object and VM locks. The object reference keeps the BO alive, but a
+> concurrent handle close can remove the per-file BO VA before
+> amdgpu_vm_bo_find() runs.
 >
-
-Isn't this self-evident by nature of the function definitions?
-(one takes a vm_area_struct, the other takes an anon_vma_chain)
-
-> -	VM_BUG_ON_VMA(vma_start_pgoff(node) != vma_start_pgoff(prev), node);
-> +	VM_WARN_ON_ONCE_VMA(vma_start_pgoff(node) != vma_start_pgoff(prev), node);
->  
-
-For my own edification - I know not to add new BUG(), should I be
-converting BUG->WARN/something when i find them in areas i happen to be
-working in?
-
-~Gregory
+> The mapping-list walks then dereference the NULL BO VA. Return -EINVAL
+> when the BO is no longer associated with the VM.
+>
+> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+> ---
+> Changes in v3:
+> - Generate a clean patch against drm-misc-next instead of stacking on v1.
+> - Keep only the intended !bo_va guard for the handle-close race.
+> - Clarify the v2 withdrawal confusion in thread replies.
+>
+> Changes in v2:
+> - Describe the handle-close race instead of an initially unmapped BO.
+> - Return -EINVAL instead of -ENOENT.
+>
+> drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++++
+> 1 file changed, 6 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gem.c
+> index 27be5083f2af..83ec994ad36b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -1087,6 +1087,12 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, vo=
+id *data,
+> struct drm_amdgpu_gem_vm_entry *vm_entries;
+> struct amdgpu_bo_va_mapping *mapping;
+> int num_mappings =3D 0;
+> +
+> + if (!bo_va) {
+> + r =3D -EINVAL;
+> + goto out_exec;
+> + }
+> +
+> /*
+> * num_entries is set as an input to the size of the user-allocated array =
+of
+> * drm_amdgpu_gem_vm_entry stored at args->value.
+> --
+> 2.54.0
