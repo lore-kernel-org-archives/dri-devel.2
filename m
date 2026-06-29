@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68E4BC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:18:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF928C44500
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:18:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79EF610E738;
-	Mon, 29 Jun 2026 08:18:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2354310E766;
+	Mon, 29 Jun 2026 08:18:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e/iYegOv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PP8vVViM";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 223EF10E74E
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:18:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC68010E760
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:17:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8C1D0600DA;
- Mon, 29 Jun 2026 08:18:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B999F1F000E9;
- Mon, 29 Jun 2026 08:18:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3C2B360008;
+ Mon, 29 Jun 2026 08:17:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 723FD1F00A3A;
+ Mon, 29 Jun 2026 08:17:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782721083;
- bh=G7fGmpxnIqbCEG+ehECXniMD8RItpMC5ZXv6d3lOwe0=;
+ s=k20260515; t=1782721061;
+ bh=vmHOtXIPi6T8bC/fuazWCmvGNZ+r2Sa+CyXVtmNQV5w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=e/iYegOvr0z5GrjQhpWeD5PUbj+M4R+9g+azyqLiJTx9RGN+TgZwD1uhjHX4AaNQx
- lkF2T26CHkUlV3wvL1lpJt72pY1TCG7eS1iM3roYXbmGNAN5OSywknAOt4g76CInIe
- Ti4bBgrA7GDMlUTpJI7GHtZk0O1RNhENH2oAx79q6HZAnwUwjfj4FAW7ClLknqVJkO
- x7GDCSZ5CLrmAB/zxac1N04TmtYpl9hUq55/GWD0g2ZYQ4vMdwxSTsaN2XuuNWDPSf
- 7yiPIIdmMfFc8rFfJZQ3jud9vvn0urvBxuA+0U9QfxmBVELy1aLE/4PiK1W68PVCjn
- 0bZjm3y1OtQjA==
+ b=PP8vVViMZMDRXLNBu7VwpiflzPeZyoWdt1oll24QFZJrLPZP6u84cxJZOZ3Bc8QDE
+ kdxnpmPqgf8GmGdELLLVeIfSnoBGkAL1gND5sJ2MsVusrHpUK88S+zA4ldPOIJpmvC
+ u2H8ylAT2CVQePEXQve27+2DP14BKLwBtaerSy6aj4enqBtpFQkmi+wPxxzPVZeYKA
+ n54i+vkL/Sn3P30LEdxq7+HPgZKfL8Mb73Uq1N4XQefCsnJuhrq5XQrfMzfJawnR4o
+ MxmZH8WA3AIWgf9mj1gXTPgHRxnRtreD60LO109VFLe66WcHmxuKWWiDpJjdAuvyWW
+ A1EbfeeEJBsWg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 29 Jun 2026 10:17:16 +0200
-Subject: [PATCH v4 18/30] drm/atomic_sro: Provide helpers to implement
- hardware state readout
+Date: Mon, 29 Jun 2026 10:17:07 +0200
+Subject: [PATCH v4 09/30] drm/atomic: Only call atomic_destroy_state on a
+ !NULL pointer
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-drm-state-readout-v4-18-5966657980ed@kernel.org>
+Message-Id: <20260629-drm-state-readout-v4-9-5966657980ed@kernel.org>
 References: <20260629-drm-state-readout-v4-0-5966657980ed@kernel.org>
 In-Reply-To: <20260629-drm-state-readout-v4-0-5966657980ed@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -50,14 +50,15 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  lidrm_printf_indentnux-kernel@vger.kernel.org, 
- Maxime Ripard <mripard@kernel.org>
+ Maxime Ripard <mripard@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14956; i=mripard@kernel.org;
- h=from:subject:message-id; bh=BDyGwUZ6RO/3wQT29oz8lq4f2XgMKsgv0zcBif8xUGY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlOWhxahk8S9wg3u5ref/dFk7/J8sH9hDftpo494eIfY
- i2v1x/omMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABP5f4Wxoacjut1uxTvmmXv7
- WuZtcHM2fLnlUaC2btf8ljspzhOn6cy9rOy024t751Z5ldRpRannGWu4D7xsODljR8xezoyciRG
- Kyfb2Sf/X1gU+P/u0Jiwv8MlMR7umnxufNssdLTDcvmPPnFgA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3804; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=IEju5m12o3e2ISvuQrkRaWIUzfb3UiWjNXTMdzzX+H4=;
+ b=kA0DAAkTJ1/OGaI9vnYByyZiAGpCKgSjnGkj3ekYWB/4AOHtbjVfxAcTXDWx7uTtz7C0CKNt6
+ YiVBAATCQAdFiEE5BxWy6eHo3pAP6n4J1/OGaI9vnYFAmpCKgQACgkQJ1/OGaI9vnaSAgF/aJMp
+ 2NcPVTjBOduaRuRfW0+EtMms3iogPxBHxSFctrbIk5hCyoNCOaeJMYSOUOhtAX4wxdkBtILzd00
+ CJmv0DwjWE/YMVimwfxQAYut1tSUAU5XpJDtCxJmVgKAGVLJH1mw=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,491 +76,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Drivers implementing SRO need to iterate over their KMS objects,
-allocate a pristine state for each, call the readout hook, and store
-the result in the SRO state container.
+The drm_atomic_commit structure is freed through the
+drm_atomic_commit_put() function, that eventually calls
+drm_atomic_commit_default_clear() by default when there's no active
+users of that state.
 
-Provide helpers for each object type
-(drm_atomic_helper_sro_readout_planes_state(),
-drm_atomic_helper_sro_readout_crtcs_state(), etc.) and a top-level
-drm_atomic_helper_sro_build_state() that calls them in sequence.
+It then iterates over all objects with a state, and will call the
+atomic_destroy_state callback on the state pointer. The state pointer is
+mostly used these days to point to which of the old or new state needs
+to be freed, depending on whether the state was committed or not.
 
-Also provide default implementations for the atomic_sro_compare_state
-hooks: drm_atomic_helper_plane_compare_state(),
-drm_atomic_helper_crtc_compare_state(),
-drm_atomic_helper_connector_compare_state(), and
-drm_atomic_helper_bridge_compare_state(). These compare the base
-state fields and report mismatches through a drm_printer.
+So it all makes sense.
 
+However, with the hardware state readout support approaching, we might
+have a state, with multiple objects in it, but no state to free because
+we want them to persist. In such a case, the state pointer is going to
+be NULL, and thus we'll end up with NULL pointer dereference.
+
+Test if the state pointer is non-NULL before calling
+atomic_destroy_state on it.
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/Makefile                |   1 +
- drivers/gpu/drm/drm_atomic_sro_helper.c | 406 ++++++++++++++++++++++++++++++++
- include/drm/drm_atomic_sro_helper.h     |  28 +++
- 3 files changed, 435 insertions(+)
+ drivers/gpu/drm/drm_atomic.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 64705ac96bd1..082721f1453c 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -140,10 +140,11 @@ obj-$(CONFIG_DRM_TTM_HELPER) += drm_ttm_helper.o
- # Modesetting helpers
- #
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 6bae998dd36a..d43ea69c2c9c 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -291,12 +291,14 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
+ 		struct drm_connector *connector = state->connectors[i].ptr;
  
- drm_kms_helper-y := \
- 	drm_atomic_helper.o \
-+	drm_atomic_sro_helper.o \
- 	drm_atomic_state_helper.o \
- 	drm_bridge_helper.o \
- 	drm_crtc_helper.o \
- 	drm_damage_helper.o \
- 	drm_flip_work.o \
-diff --git a/drivers/gpu/drm/drm_atomic_sro_helper.c b/drivers/gpu/drm/drm_atomic_sro_helper.c
-new file mode 100644
-index 000000000000..d492aebda119
---- /dev/null
-+++ b/drivers/gpu/drm/drm_atomic_sro_helper.c
-@@ -0,0 +1,406 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_atomic_sro.h>
-+#include <drm/drm_atomic_sro_helper.h>
-+#include <drm/drm_bridge.h>
-+#include <drm/drm_connector.h>
-+#include <drm/drm_crtc.h>
-+#include <drm/drm_encoder.h>
-+#include <drm/drm_modeset_helper_vtables.h>
-+#include <drm/drm_plane.h>
-+#include <drm/drm_print.h>
-+
-+#include <linux/gfp.h>
-+#include <linux/sched/mm.h>
-+
-+/**
-+ * drm_atomic_helper_sro_readout_planes_state - read out all plane states from hardware
-+ * @dev: DRM device
-+ * @state: SRO state container to fill
-+ *
-+ * Iterates over all planes, allocates a state for each via
-+ * atomic_create_state, and calls the plane's
-+ * atomic_sro_readout_state hook to fill it from hardware.
-+ *
-+ * RETURNS:
-+ *
-+ * 0 on success, a negative error code otherwise.
-+ */
-+int
-+drm_atomic_helper_sro_readout_planes_state(struct drm_device *dev,
-+					   struct drm_atomic_sro_state *state)
-+{
-+	struct drm_plane *plane;
-+
-+	might_alloc(GFP_KERNEL);
-+
-+	drm_for_each_plane(plane, dev) {
-+		const struct drm_plane_funcs *plane_funcs = plane->funcs;
-+		struct drm_plane_state *plane_state;
-+		int ret;
-+
-+		if (!plane_funcs->atomic_sro_readout_state) {
-+			drm_warn(dev, "No plane readout implementation.");
-+			continue;
-+		}
-+
-+		drm_dbg_kms(dev, "Initializing Plane %s state.\n", plane->name);
-+
-+		plane_state = plane_funcs->atomic_create_state(plane);
-+		if (drm_WARN_ON(dev, IS_ERR(plane_state)))
-+			return 0;
-+
-+		ret = plane_funcs->atomic_sro_readout_state(plane, state,
-+							    plane_state);
-+		if (drm_WARN_ON(dev, ret)) {
-+			plane_funcs->atomic_destroy_state(plane, plane_state);
-+			return ret;
-+		}
-+
-+		drm_atomic_sro_set_plane_state(state, plane, plane_state);
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * drm_atomic_helper_sro_readout_crtcs_state - read out all CRTC states from hardware
-+ * @dev: DRM device
-+ * @state: SRO state container to fill
-+ *
-+ * Iterates over all CRTCs, allocates a state for each via
-+ * atomic_create_state, and calls the CRTC's
-+ * atomic_sro_readout_state hook to fill it from hardware.
-+ *
-+ * RETURNS:
-+ *
-+ * 0 on success, a negative error code otherwise.
-+ */
-+int
-+drm_atomic_helper_sro_readout_crtcs_state(struct drm_device *dev,
-+					  struct drm_atomic_sro_state *state)
-+{
-+	struct drm_crtc *crtc;
-+
-+	might_alloc(GFP_KERNEL);
-+
-+	drm_for_each_crtc(crtc, dev) {
-+		const struct drm_crtc_funcs *crtc_funcs = crtc->funcs;
-+		struct drm_crtc_state *crtc_state;
-+		int ret;
-+
-+		if (!crtc_funcs->atomic_sro_readout_state) {
-+			drm_warn(dev, "No CRTC readout implementation.");
-+			continue;
-+		}
-+
-+		drm_dbg_kms(dev, "Initializing CRTC %s state.\n", crtc->name);
-+
-+		crtc_state = crtc_funcs->atomic_create_state(crtc);
-+		if (drm_WARN_ON(dev, IS_ERR(crtc_state)))
-+			return PTR_ERR(crtc_state);
-+
-+		ret = crtc_funcs->atomic_sro_readout_state(crtc, state,
-+							   crtc_state);
-+		if (drm_WARN_ON(dev, ret)) {
-+			crtc_funcs->atomic_destroy_state(crtc, crtc_state);
-+			return ret;
-+		}
-+
-+		drm_atomic_sro_set_crtc_state(state, crtc, crtc_state);
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * drm_atomic_helper_sro_readout_connectors_state - read out all connector states from hardware
-+ * @dev: DRM device
-+ * @state: SRO state container to fill
-+ *
-+ * Iterates over all connectors, allocates a state for each via
-+ * atomic_create_state, and calls the connector's
-+ * atomic_sro_readout_state hook to fill it from hardware.
-+ *
-+ * RETURNS:
-+ *
-+ * 0 on success, a negative error code otherwise.
-+ */
-+int
-+drm_atomic_helper_sro_readout_connectors_state(struct drm_device *dev,
-+					       struct drm_atomic_sro_state *state)
-+{
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_connector *connector;
-+
-+	might_alloc(GFP_KERNEL);
-+
-+	drm_connector_list_iter_begin(dev, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		const struct drm_connector_funcs *conn_funcs = connector->funcs;
-+		struct drm_connector_state *conn_state;
-+		int ret;
-+
-+		if (!conn_funcs->atomic_sro_readout_state) {
-+			drm_warn(dev, "No Connector readout implementation.");
-+			continue;
-+		}
-+
-+		drm_dbg_kms(dev, "Initializing Connector %s state.\n", connector->name);
-+
-+		conn_state = conn_funcs->atomic_create_state(connector);
-+		if (drm_WARN_ON(dev, IS_ERR(conn_state)))
-+			return PTR_ERR(conn_state);
-+
-+		ret = conn_funcs->atomic_sro_readout_state(connector, state,
-+							   conn_state);
-+		if (drm_WARN_ON(dev, ret)) {
-+			conn_funcs->atomic_destroy_state(connector, conn_state);
-+			return ret;
-+		}
-+
-+		drm_atomic_sro_set_connector_state(state, connector, conn_state);
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+
-+	return 0;
-+}
-+
-+/**
-+ * drm_atomic_helper_sro_readout_bridges_state - read out all bridge states from hardware
-+ * @dev: DRM device
-+ * @state: SRO state container to fill
-+ *
-+ * Iterates over all encoders and their bridge chains, allocates a state
-+ * for each bridge via atomic_create_state, and calls the bridge's
-+ * atomic_sro_readout_state hook to fill it from hardware.
-+ *
-+ * Bridges are handled separately from other private objects because
-+ * bridge registration does not guarantee ordering. Traversing the
-+ * encoder bridge chains ensures each bridge can query the state of
-+ * preceding bridges in its chain.
-+ *
-+ * RETURNS:
-+ *
-+ * 0 on success, a negative error code otherwise.
-+ */
-+int
-+drm_atomic_helper_sro_readout_bridges_state(struct drm_device *dev,
-+					    struct drm_atomic_sro_state *state)
-+{
-+	struct drm_encoder *encoder;
-+
-+	might_alloc(GFP_KERNEL);
-+
-+	/*
-+	 * It works a bit differently for bridges. Indeed they rely on a
-+	 * drm_private_obj and drm_private_state, but bridge
-+	 * registration doesn't guarantee ordering.
-+	 *
-+	 * In order for each bridge callback to be able to query the
-+	 * previous bridge state, we thus need to read out the bridge
-+	 * state by looking at each encoder and then traversing its
-+	 * bridge list.
-+	 *
-+	 * And we'll then readout all the non-bridge drm_private_obj
-+	 * later.
-+	 */
-+	drm_for_each_encoder(encoder, dev) {
-+		struct drm_bridge *bridge;
-+		int ret;
-+
-+		list_for_each_entry(bridge, &encoder->bridge_chain, chain_node) {
-+			struct drm_private_obj *bridge_obj = &bridge->base;
-+			const struct drm_private_state_funcs *bridge_obj_funcs =
-+				bridge_obj->funcs;
-+			struct drm_private_state *bridge_obj_state;
-+
-+			if (!bridge_obj_funcs->atomic_sro_readout_state) {
-+				drm_warn(dev,
-+					 "No bridge %s readout implementation.",
-+					 bridge->name);
-+				continue;
-+			}
-+
-+			drm_dbg_kms(dev, "Initializing Bridge %s", bridge->name);
-+
-+			bridge_obj_state =
-+				bridge_obj_funcs->atomic_create_state(
-+					bridge_obj);
-+			if (drm_WARN_ON(dev, IS_ERR(bridge_obj_state)))
-+				return ret;
-+
-+			ret = bridge_obj_funcs->atomic_sro_readout_state(
-+				bridge_obj, state, bridge_obj_state);
-+			if (drm_WARN_ON(dev, ret)) {
-+				bridge_obj_funcs->atomic_destroy_state(
-+					bridge_obj, bridge_obj_state);
-+				return ret;
-+			}
-+
-+			drm_atomic_sro_set_private_obj_state(state, bridge_obj,
-+							     bridge_obj_state);
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * drm_atomic_helper_sro_readout_private_objs_state - read out non-bridge private object states
-+ * @dev: DRM device
-+ * @state: SRO state container to fill
-+ *
-+ * Iterates over all private objects that are not bridges (bridges are
-+ * handled by drm_atomic_helper_sro_readout_bridges_state()), allocates
-+ * a state for each via atomic_create_state, and calls the object's
-+ * atomic_sro_readout_state hook to fill it from hardware.
-+ *
-+ * RETURNS:
-+ *
-+ * 0 on success, a negative error code otherwise.
-+ */
-+int
-+drm_atomic_helper_sro_readout_private_objs_state(struct drm_device *dev,
-+						 struct drm_atomic_sro_state *state)
-+{
-+	struct drm_private_obj *privobj;
-+
-+	might_alloc(GFP_KERNEL);
-+
-+	drm_for_each_privobj(privobj, dev) {
-+		const struct drm_private_state_funcs *priv_funcs =
-+			privobj->funcs;
-+		struct drm_private_state *priv_state;
-+		int ret;
-+
-+		/*
-+		 * We already accounted readout the bridge state earlier, we only
-+		 * have to deal with !bridges drm_private_obj now.
-+		 */
-+		if (drm_private_obj_is_bridge(privobj))
-+			continue;
-+
-+		if (!priv_funcs->atomic_sro_readout_state) {
-+			drm_warn(dev,
-+				 "No private object %s readout implementation.",
-+				 privobj->name);
-+			continue;
-+		}
-+
-+		drm_dbg_kms(dev, "Initializing Private Object %s",
-+			    privobj->name);
-+
-+		priv_state = priv_funcs->atomic_create_state(privobj);
-+		if (drm_WARN_ON(dev, IS_ERR(priv_state)))
-+			return PTR_ERR(priv_state);
-+
-+		ret = priv_funcs->atomic_sro_readout_state(privobj, state,
-+							   priv_state);
-+		if (drm_WARN_ON(dev, ret)) {
-+			priv_funcs->atomic_destroy_state(privobj, priv_state);
-+			return ret;
-+		}
-+
-+		drm_atomic_sro_set_private_obj_state(state, privobj,
-+						     priv_state);
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * drm_atomic_helper_sro_build_state - build an SRO state from hardware
-+ * @dev: DRM device to build the state for
-+ *
-+ * Allocates a &struct drm_atomic_sro_state and calls the readout hooks
-+ * for CRTCs, planes, connectors, bridges, and private objects in
-+ * sequence to fill it from the current hardware state.
-+ *
-+ * This is the default implementation for
-+ * &drm_mode_config_helper_funcs.atomic_sro_build_state.
-+ *
-+ * RETURNS:
-+ *
-+ * A &struct drm_atomic_sro_state on success, an error pointer otherwise.
-+ */
-+struct drm_atomic_sro_state *
-+drm_atomic_helper_sro_build_state(struct drm_device *dev)
-+{
-+	struct drm_atomic_sro_state *state;
-+	struct drm_printer p = drm_dbg_printer(dev, DRM_UT_ATOMIC, NULL);
-+	int ret;
-+
-+	drm_dbg_kms(dev, "Starting to build atomic state from hardware state.\n");
-+
-+	state = drm_atomic_sro_state_alloc(dev);
-+	if (drm_WARN_ON(dev, !state))
-+		return ERR_PTR(-ENOMEM);
-+
-+	ret = drm_atomic_helper_sro_readout_crtcs_state(dev, state);
-+	if (ret)
-+		goto err_state_free;
-+
-+	ret = drm_atomic_helper_sro_readout_planes_state(dev, state);
-+	if (ret)
-+		goto err_state_free;
-+
-+	ret = drm_atomic_helper_sro_readout_connectors_state(dev, state);
-+	if (ret)
-+		goto err_state_free;
-+
-+	ret = drm_atomic_helper_sro_readout_bridges_state(dev, state);
-+	if (ret)
-+		goto err_state_free;
-+
-+	ret = drm_atomic_helper_sro_readout_private_objs_state(dev, state);
-+	if (ret)
-+		goto err_state_free;
-+
-+	drm_atomic_sro_state_print(state, &p);
-+
-+	return state;
-+
-+err_state_free:
-+	drm_atomic_sro_state_free(state);
-+	return ERR_PTR(ret);
-+}
-+EXPORT_SYMBOL(drm_atomic_helper_sro_build_state);
-+
-+/**
-+ * drm_atomic_helper_sro_readout_state - default &drm_mode_config_funcs.atomic_sro_readout_state implementation
-+ * @dev: DRM device to read out state for
-+ *
-+ * Checks if the device supports hardware state readout, builds the SRO
-+ * state via &drm_mode_config_helper_funcs.atomic_sro_build_state,
-+ * installs it as the current state of all DRM objects, and frees the
-+ * SRO container.
-+ *
-+ * RETURNS:
-+ *
-+ * 0 on success, -ENOTSUPP if the device does not support readout, a
-+ * negative error code otherwise.
-+ */
-+int drm_atomic_helper_sro_readout_state(struct drm_device *dev)
-+{
-+	const struct drm_mode_config_helper_funcs *funcs =
-+		dev->mode_config.helper_private;
-+	struct drm_atomic_sro_state *state;
-+
-+	if (!drm_atomic_sro_device_can_readout(dev)) {
-+		drm_info(dev, "Device doesn't support hardware state readout.");
-+		return -ENOTSUPP;
-+	}
-+
-+	state = funcs->atomic_sro_build_state(dev);
-+	if (IS_ERR(state))
-+		return PTR_ERR(state);
-+
-+	drm_atomic_sro_install_state(state);
-+	drm_atomic_sro_state_free(state);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_atomic_helper_sro_readout_state);
-diff --git a/include/drm/drm_atomic_sro_helper.h b/include/drm/drm_atomic_sro_helper.h
-new file mode 100644
-index 000000000000..a42ed8136a49
---- /dev/null
-+++ b/include/drm/drm_atomic_sro_helper.h
-@@ -0,0 +1,28 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+
-+#ifndef DRM_ATOMIC_SRO_HELPER_H_
-+#define DRM_ATOMIC_SRO_HELPER_H_
-+
-+struct drm_atomic_sro_state;
-+struct drm_device;
-+
-+int
-+drm_atomic_helper_sro_readout_planes_state(struct drm_device *dev,
-+					   struct drm_atomic_sro_state *state);
-+int
-+drm_atomic_helper_sro_readout_crtcs_state(struct drm_device *dev,
-+					  struct drm_atomic_sro_state *state);
-+int
-+drm_atomic_helper_sro_readout_connectors_state(struct drm_device *dev,
-+					       struct drm_atomic_sro_state *state);
-+int
-+drm_atomic_helper_sro_readout_bridges_state(struct drm_device *dev,
-+					    struct drm_atomic_sro_state *state);
-+int
-+drm_atomic_helper_sro_readout_private_objs_state(struct drm_device *dev,
-+						 struct drm_atomic_sro_state *state);
-+struct drm_atomic_sro_state *
-+drm_atomic_helper_sro_build_state(struct drm_device *dev);
-+int drm_atomic_helper_sro_readout_state(struct drm_device *dev);
-+
-+#endif /* DRM_ATOMIC_SRO_HELPER_H_ */
+ 		if (!connector)
+ 			continue;
+ 
+-		connector->funcs->atomic_destroy_state(connector,
+-						       state->connectors[i].state_to_destroy);
++		if (state->connectors[i].state_to_destroy)
++			connector->funcs->atomic_destroy_state(connector,
++							       state->connectors[i].state_to_destroy);
++
+ 		state->connectors[i].ptr = NULL;
+ 		state->connectors[i].state_to_destroy = NULL;
+ 		state->connectors[i].old_state = NULL;
+ 		state->connectors[i].new_state = NULL;
+ 		drm_connector_put(connector);
+@@ -306,12 +308,13 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
+ 		struct drm_crtc *crtc = state->crtcs[i].ptr;
+ 
+ 		if (!crtc)
+ 			continue;
+ 
+-		crtc->funcs->atomic_destroy_state(crtc,
+-						  state->crtcs[i].state_to_destroy);
++		if (state->crtcs[i].state_to_destroy)
++			crtc->funcs->atomic_destroy_state(crtc,
++							  state->crtcs[i].state_to_destroy);
+ 
+ 		state->crtcs[i].ptr = NULL;
+ 		state->crtcs[i].state_to_destroy = NULL;
+ 		state->crtcs[i].old_state = NULL;
+ 		state->crtcs[i].new_state = NULL;
+@@ -326,12 +329,14 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
+ 		struct drm_plane *plane = state->planes[i].ptr;
+ 
+ 		if (!plane)
+ 			continue;
+ 
+-		plane->funcs->atomic_destroy_state(plane,
+-						   state->planes[i].state_to_destroy);
++		if (state->planes[i].state_to_destroy)
++			plane->funcs->atomic_destroy_state(plane,
++							   state->planes[i].state_to_destroy);
++
+ 		state->planes[i].ptr = NULL;
+ 		state->planes[i].state_to_destroy = NULL;
+ 		state->planes[i].old_state = NULL;
+ 		state->planes[i].new_state = NULL;
+ 	}
+@@ -354,12 +359,14 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
+ 		struct drm_private_obj *obj = state->private_objs[i].ptr;
+ 
+ 		if (!obj)
+ 			continue;
+ 
+-		obj->funcs->atomic_destroy_state(obj,
+-						 state->private_objs[i].state_to_destroy);
++		if (state->private_objs[i].state_to_destroy)
++			obj->funcs->atomic_destroy_state(obj,
++							 state->private_objs[i].state_to_destroy);
++
+ 		state->private_objs[i].ptr = NULL;
+ 		state->private_objs[i].state_to_destroy = NULL;
+ 		state->private_objs[i].old_state = NULL;
+ 		state->private_objs[i].new_state = NULL;
+ 	}
 
 -- 
 2.54.0
