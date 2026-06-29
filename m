@@ -4,101 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 655FEC43638
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 07:19:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57BAFC43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 07:19:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF93A10EB46;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC94F10EB49;
 	Tue, 30 Jun 2026 07:19:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ifaenfxb";
+	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="gE6AmtIv";
 	dkim-atps=neutral
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
- [209.85.128.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64B2A10E8E0
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 13:57:01 +0000 (UTC)
-Received: by mail-yw1-f179.google.com with SMTP id
- 00721157ae682-80bb8287d99so30670457b3.1
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 06:57:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782741420; cv=none;
- d=google.com; s=arc-20260327;
- b=fdAWbJhqMi2kuLsPbeLGxMTUlrfPJRvbjE+yWrw070AgIvgtOF/6QlftI7Ru8V8cRT
- vylOscAX/raZkSgKHgO/PtmLWkDVyT2DpHZqAgkEaN+JK68+zcrpK9xkr4xUHoSz76eT
- vQcX/YC9oLmsdoWVb+V+tPXAM7YmNNuL/JcJgolLao5piJrWqY0t6+uBBY6p51f3ePKk
- r9XoFSLlzZw6sd9vkC8b+7EJXWBSoJExpKMZiJgNH1mIgV0QR1lC0NrDZHFRKEryRVXp
- FX1i20Ds5EEwjVg+BkLm1oNxOQhZEpXFPQLoYkDwh4yuRZAdWso7H7DBu1NyjyA8AtSc
- 1JMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:references:in-reply-to:dkim-signature;
- bh=GgwHmQNiGftfM4Rvb8+WbihD7Vl9XT13f1KvcgOYD/4=;
- fh=55xtU6GSLmwfcXray4dqq4CHGxCshzp9myPcgPVRle8=;
- b=Nb2qqLIaPMzDX7IyBWLEwUUWr4DvwswfPo36fl5NnQhwmXzdcMO9AtPXq23SuwomLx
- cd63S3rBJ4+Gyc5e5lMzrWAp+r5buYTS3N6bn0Z9h83Ade5pFv6AemjZRATOwT6kopOT
- ekldC+BUbUBaI0USvXWVwrNGjkdwgPp2Ab1h0yirBk5iICEzs6+3nGW8Y+4CAgCMsO3R
- Vzo1Qv5zC5mmixBaZHmFp7Mxx35u9ZmJekYHHz1JnaqrKAEap6OTI3m0/Pq4DBMF29Tg
- aiEOrGMPLDUBteoqycE3gvxSMLXdZSxmF27R0s9b1P32dBpCfRLRo9mLQEA/kHWveE4G
- KA1A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com
+ [209.85.219.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C42810E8F2
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:54:54 +0000 (UTC)
+Received: by mail-qv1-f52.google.com with SMTP id
+ 6a1803df08f44-8de412e58edso34595716d6.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:54:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782741420; x=1783346220; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:references:in-reply-to:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GgwHmQNiGftfM4Rvb8+WbihD7Vl9XT13f1KvcgOYD/4=;
- b=ifaenfxbuypCxdYbmNMAyRH3xUSRGtpiiDcsZaa3DoEb2PM9Y7FTCexWFiVVkaK4di
- IRWl9Bv+YQNikIgGXVr7jOaql0d9DkZBTr1GD+E+QxcjobWAyYKd1WtfKZUDSD7f6YtY
- 9zqw+9HASwaifyUl4YU789kar4tGa73QLtgaDDWH6hF1tVc1GO87QNPSnVbCJQVs0EYn
- BtFhZf1aRY1TNQ2YAf/+KYOHQ2/QkM1FyIPf7KvADWGIOSGs/0e6/CwotSSL7S/FB/jm
- E4EwZbtSpU7jB7GeDtKM1VhsntNnefDFyICpAgKIsc2kf8KpbSEsHOQxkP93GmhXfVEo
- puYQ==
+ d=gourry.net; s=google; t=1782748493; x=1783353293; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=4r3nyg8MsZ+G0ckW9OOGJtlL6QAvCNLsDtm+wiwuKtE=;
+ b=gE6AmtIvcAnrlmZuI2aTmjZSxErSrnEYPlEPX9q2ha1PmxVGlbdO2UIOg+5NJq4eax
+ Mn7FbKdlb8O+cvz4GVvMM/bspGiAf/Miba15t3xlQMZYME/epZqPMNGmRuXk5142454K
+ dUzGvP+Me4truIYF3NCN1vqelXgLelf6Cl72xzhknyB7YLLuoXwpMamTCJvaHxSdm9AH
+ yo9s/Jd2DwRMrIGpcamamto6hfkRfSr8/WQouAkSQUC13NPYKJSU8G7NO82yT7hGB5Rx
+ bVYU74BJBL98NiGPh/5c8ClH8tnMQFMbeGdbbS927Kk7mtwGl0L6zz2dTB8PSKncSAwg
+ CwHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782741420; x=1783346220;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:references:in-reply-to:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=GgwHmQNiGftfM4Rvb8+WbihD7Vl9XT13f1KvcgOYD/4=;
- b=QCaroNxzHqox8Xrc/HXWTZHAJ3GAyyf18dCfBbnV+KVFL8c35RjAKQ8ntIK9X0du/W
- eY22m3YwJ6sJ3QTLUKh315p9YbZMxJdJ4s4fWq1XJ7iF8/i89f/HbHZGaByCSN859bwz
- HO3KSyogJneV4ttT1bKu/yBd3qc1f1VlMBdzfjuxPw0WCmV5owG1mbkrCz0nP8mXqKhM
- /Q925t0N5+hkNtu4Bt1p6/SOUzVF+Mv/S4RqEWmCU1sLlxSnQMoa+KGfbL5NPEDLXeAy
- RFdXWFgIQfvIZoGpEAYE2KrdD4yeGWWWPrc9nu9c9JADSTweMaBm6osfof2ctm9M21Lb
- uTaw==
+ d=1e100.net; s=20251104; t=1782748493; x=1783353293;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=4r3nyg8MsZ+G0ckW9OOGJtlL6QAvCNLsDtm+wiwuKtE=;
+ b=Afacwgxs/eyv7MxOAu2lVhE6FqhXUWS7+9EFNePggzK1kC34Jf7tM3+zrwiTQf07WD
+ cc0L8y/Lz/4SLAfXr0HljrxWQowi5r35BAg8MkuCgPhcL5IB9EoiTl/HzBtXAtHaQ9A2
+ q+Oppiz4Y7vVfvskGIrfIubRF2vP7cnfsnLjqKUWWq5xrkNJYA9V1dsGbk2cQ1g6oTqh
+ qZzURVSquxDRwY8KULQEHyePqXE5vqh220dz9RHS3M7gycIxNIMz7EcbknEN1q7AN9nD
+ 9ULTVALjc5S+GVkCmD4L548L3wGqmEaQy9itAPxQ/83O7OKG7k7e8BZgdfzXDbMUthuF
+ LA5Q==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rr6Hofy/BTPJ7v0q0ipPFw/xyshzTnDR22Ta770tyfs/AIvEFbiNecLGz0VIXNdLmdT4GeKNo2oWew=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywf4NaYc48zI7qgspbGvlaz73Ybj4d8puD5nWpCtcM3GMhHxkAu
- QmWkfCm57MKJK+B+dwbnf2PMYQh2/2JwgYse34ZbwEkkXpkSEYBc+1znlP8T4bKCbpJVtnDE0Gu
- kjtbLno7KxU5uTbXfmbVqT931XV/gPds=
-X-Gm-Gg: AfdE7ckAL4iMR8wwoKe16q3CPnn76MQom3mx2L8swTbTe98kZIy3pLyqcpg4YN0sxJX
- tffx+3CBmrod8RJyPxMYOW3eatOMD+1u/24NUI2l/K5EX/40KKqHRXsJa0a10QANURKbQ+XiACs
- 8z9g1k20K36DoPI++IkH2GYGIdg94gLAEsOXYR0IMCMtIwJ31eGroPg66xPu+4Sycj1VwiTI+LI
- XZVxnxVoOTXFNXEXQXenV0PIeHXfiNnEpSBCgpdxWYo6i6C50W33EGLfGtGFnOOPXEvWcuBaoME
- Nm8u26E=
-X-Received: by 2002:a05:690c:6386:b0:80c:85b6:75be with SMTP id
- 00721157ae682-8109186d88emr5241967b3.71.1782741419655; Mon, 29 Jun 2026
- 06:56:59 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Mon, 29 Jun 2026 08:56:57 -0500
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST; 
- Mon, 29 Jun 2026 08:56:57 -0500
-In-Reply-To: <63537951-2c16-4ce0-ab8a-067315833bac@amd.com>
-References: <20260624172029.2508-1-alhouseenyousef@gmail.com>
- <20260625135341.1159-1-alhouseenyousef@gmail.com>
- <CAMuQ4bWVb-vxCWMxF_JpJmBnKD=rVH2KZWf36jnzPbC35CdrmA@mail.gmail.com>
- <63537951-2c16-4ce0-ab8a-067315833bac@amd.com>
+ AHgh+RqTpE07hchAwskFA6F8UD8+sothVGlDyBv2nTY7Cdvig5XNDIcd24lJ/tkydceblUYEvAJDVP+vs1w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzuwBCfdHFwRHfyO92MpcOHGx6I2YDUsdYts9A2zIhp/KfPjiZ2
+ 4dDGnGFfLCYKL4Kvh1GT8FmlRpaqw7nGAmEPpokeRxD7J7DJn9gQ9iogOwIbPYQuxLg=
+X-Gm-Gg: AfdE7cmPsa77XiI7+QDWUfLpWXFqXOPoychh2fn4s/xA6xCCQRmQYbCwQIUvew8HILP
+ VNeOfJ21WcJre/QdXol4jGATKmLDfv6u6bPPhzllbsLs6shFG9EFR9+ay45JopEQjo1HBHnrnkN
+ PLkk4Nfi3jh0LU/TpvbdyKB02O/0gGKCAV8zQ4sMlYPfyaelS3BZY8J3SAfeiVlaquiW1LjUT/0
+ Ca7aRe9mO7LAYPqipkrEVSwulr0jI/HtcAICvjlYb51Zskno1/3tJfReCeHwhiNfxQTzQibHbnB
+ JfTuctOzQ4rkVQKvLcUtsrPydsdc70dWR/swKH7g3JVkJZDtwMK9w1MsOFV2P9rMNZ7aNDlAn4S
+ MgnN2/pfOgQhxfTcqF8bR6uYGiiQhbhVFNIZOryoyVCW3yG+2VGdGa/BvqAES8T24h0mXhOZtWc
+ 1lQVUB7J1lwnZclSPOXpH8h32f4zX+uPxFBueU/4YwBDlb19q5rUjoERpUhwFhEEUn8IJbCuCjX
+ mxempo=
+X-Received: by 2002:a05:6214:c65:b0:8f0:5b55:1f6c with SMTP id
+ 6a1803df08f44-8f05b552223mr58558406d6.43.1782748492988; 
+ Mon, 29 Jun 2026 08:54:52 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F
+ (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8f1a26f1b34sm1726396d6.3.2026.06.29.08.54.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Jun 2026 08:54:52 -0700 (PDT)
+Date: Mon, 29 Jun 2026 11:54:47 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
+ Simon Schuster <schuster.simon@siemens-energy.com>,
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Ian Abbott <abbotti@mev.co.uk>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Alex Williamson <alex@shazbot.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Dan Williams <djbw@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ "Liam R . Howlett" <liam@infradead.org>,
+ Matthew Wilcox <willy@infradead.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>,
+ Steven Rostedt <rostedt@goodmis.org>, SeongJae Park <sj@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Hugh Dickins <hughd@google.com>,
+ Mike Rapoport <rppt@kernel.org>, Kees Cook <kees@kernel.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org,
+ linux-sgx@vger.kernel.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ kvm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, linux-mm@kvack.org, iommu@lists.linux.dev,
+ linux-perf-users@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Jann Horn <jannh@google.com>
+Subject: Re: [PATCH 04/30] mm: introduce and use vma_end_pgoff()
+Message-ID: <akKVR2wNSjbLDt1-@gourry-fedora-PF4VCD3F>
+References: <cover.1782735110.git.ljs@kernel.org>
+ <e379a1cb6a897126ad96e3a263fdb91d6c11f6cb.1782735110.git.ljs@kernel.org>
 MIME-Version: 1.0
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
-Date: Mon, 29 Jun 2026 08:56:57 -0500
-X-Gm-Features: AVVi8Ce95FJU1tUzW1L8s63UJlluxab-3LuvsLRAn19TFAa3RcTbRjB_TqHo-4k
-Message-ID: <CAMuQ4bUio-XcOTDMY6r+Momg24uy7j0UXT=Bsk85jTbvjiCN7g@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: reject mapping info when BO VA is gone
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e379a1cb6a897126ad96e3a263fdb91d6c11f6cb.1782735110.git.ljs@kernel.org>
 X-Mailman-Approved-At: Tue, 30 Jun 2026 07:19:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,89 +142,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-No, you are not blind. I generated v2 from a local branch that still
-contained v1, so the v2 diff added a second check on top of the
-intended one. I then mistook that local state for the target tree when
-withdrawing it.
+On Mon, Jun 29, 2026 at 01:23:15PM +0100, Lorenzo Stoakes wrote:
+> We already have vma_last_pgoff() which retrieves the last page offset
+> within a VMA.
+> 
+> However, code often wishes to span a page offset range, which requires the
+> exclusive end of this range.
+> 
+> So provide this in vma_end_pgoff() and update vma_last_pgoff() to use this
+> function.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-The close-handle race you identified still calls for the single check,
-but neither of my postings is suitable as sent. I will prepare a clean
-v3 against the target branch.
+Reviewed-by: Gregory Price <gourry@gourry.net>
 
-Sorry for the confusion.
-
-Thanks,
-Yousef
-
-On Mon, 29 Jun 2026 14:33:37 +0200, "Christian K=C3=B6nig"
-<christian.koenig@amd.com> wrote:
-> On 6/25/26 16:26, Yousef Alhouseen wrote:
-> > Hi Alex, Christian,
-> >
-> > Please drop this v2 as well.
-> >
-> > I rechecked the target tree and missed the existing !bo_va check in
-> > AMDGPU_GEM_OP_GET_MAPPING_INFO.
->
-> Am I blind? As far as I can see at least the code in drm-misc-next doesn'=
-t have such a check.
->
-> Regards,
-> Christian.
->
-> > The close-race case is already handled
-> > before the mapping list walks, so this patch only makes the later check
-> > unreachable and changes the errno.
-> >
-> > Sorry for the churn.
-> >
-> > Thanks,
-> > Yousef
-> >
-> > On Thu, 25 Jun 2026 15:53:41 +0200, Yousef Alhouseen
-> > <alhouseenyousef@gmail.com> wrote:
-> >> AMDGPU_GEM_OP_GET_MAPPING_INFO looks up the GEM object from the file
-> >> handle and then locks the object and VM before resolving the BO-VA. Th=
-e
-> >> GEM object reference keeps the BO alive, but it does not keep the
-> >> per-file handle open.
-> >>
-> >> If a racing close drops the last handle reference in that window,
-> >> amdgpu_gem_object_close() can remove the BO-VA before
-> >> amdgpu_vm_bo_find() runs. The ioctl then walks the BO-VA mapping lists
-> >> unconditionally.
-> >>
-> >> Return -EINVAL if the BO is no longer associated with this VM.
-> >>
-> >> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> >> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
-> >> ---
-> >> Changes in v2:
-> >> - Describe the handle-close race instead of an initially unmapped BO.
-> >> - Return -EINVAL instead of -ENOENT.
-> >>
-> >> drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++++
-> >> 1 file changed, 6 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_gem.c
-> >> index 212c14d99..6f5b6f4c2 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> >> @@ -1087,6 +1087,12 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev,=
- void *data,
-> >> struct drm_amdgpu_gem_vm_entry *vm_entries;
-> >> struct amdgpu_bo_va_mapping *mapping;
-> >> int num_mappings =3D 0;
-> >> +
-> >> + if (!bo_va) {
-> >> + r =3D -EINVAL;
-> >> + goto out_exec;
-> >> + }
-> >> +
-> >> /*
-> >> * num_entries is set as an input to the size of the user-allocated arr=
-ay of
-> >> * drm_amdgpu_gem_vm_entry stored at args->value.
-> >> --
-> >> 2.54.0
