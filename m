@@ -4,129 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80BAFC43602
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 07:11:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3B8DC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 07:12:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBB4510E71C;
-	Mon, 29 Jun 2026 07:11:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 435C210E71D;
+	Mon, 29 Jun 2026 07:12:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Dv3LYKJx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LG6R9fjX";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013005.outbound.protection.outlook.com
- [40.107.201.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 040F110E71C
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 07:11:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c1r75b1QksrsTW0XAjGbHZo5GhVql/sTTLCkLje85wuL3oTct0/5D/RSHN8GKY/EW6EIrjZ36PYQoem9N6nf9XYX0Fu4SouqGhfJCLyB/74Fv3bs8NLNIpbb9CjPnjrJ51H0WxX/h/sOI63ALSsTQuj4RB7bK17rFo1HvE9yHni/EZsXks+n1zrPdT2nD8iiyErIflDMPn2aqZQYZHGsUgdUl0uRG/bwZAxhc+/trJu1MzC/6RBSBJiFf2CkT1aZmyg/lwLYfWRZyjUc80XjDBN7nWS6OL1JQx9ZW9DnwEE54mZa1VSr0hynpfk4CldSpjZ0CurJGoZi057r0GCBLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m/0/NgjkaMia3QTW+qkNK5ke4L7au4ARbOZ9HYaM0iM=;
- b=MaLuylYm4WOvkGIBCXjCkf777pqO8Vo/YYVIjW0cM9pCcUy7rejawVpYib1xt//r/RhvgcV2eVISVC4wVcai5/Jeo/5FkABlWyQx4StXu7GiQcKIJ87C2lAGeaedhrxJYSp/CxmdssyWU3eRfg77a7f5qgAkI/4/DNnnPXzUwmBondFVrnBeH2SXKurjNOnBEzd41JmM1D64XYniWamMvoGbEdzTsik3STkQZb9mnGiwlm4GapQCyafH4B2vAUwWVyJp8Eiq7uyAtMp+CBINW3HhHvIi7eMZFxosTBm56nE4bOHg05z3HJtAvvqIdQt2+NIBF9hOEdneeKzt9LEDsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m/0/NgjkaMia3QTW+qkNK5ke4L7au4ARbOZ9HYaM0iM=;
- b=Dv3LYKJxSWHmQdKPOlzSC0nBNSp0DnIiVc8hVzYwdqL552RAtkNOMIiEfDppAGzaXWZwFeWKyCyO4OUfnHD2hvjSZmgvEMN29T8UypnzeLjuwolJs/lMWRJoczUx1chpO61iOmtbX7igus4iRPKbD0aUkhzFDo+US6+/my7mfVA48K7BHAEycSAP1xNOrEIsQs8mj2WfZbb+pvkdjKUlPjCpi8ZScxK1WI02WC/6ovR9Gp9U2CXwIM5bsqHSTqaWYDAVd4Ak5T1Sn6udNN7bR0aAzD9Pca93ELY30J245gmaRQXd6Csu/sfnwQjXj4M8ZwN0/0oIFf0j5FZUJKzY9Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CY3PR12MB9702.namprd12.prod.outlook.com (2603:10b6:930:103::10)
- by PH7PR12MB5877.namprd12.prod.outlook.com (2603:10b6:510:1d5::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 07:11:22 +0000
-Received: from CY3PR12MB9702.namprd12.prod.outlook.com
- ([fe80::6998:f12b:ebf5:492d]) by CY3PR12MB9702.namprd12.prod.outlook.com
- ([fe80::6998:f12b:ebf5:492d%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 07:11:22 +0000
-Message-ID: <b4c98f5a-b3a4-4dff-96ea-be2aa33cd1e8@nvidia.com>
-Date: Mon, 29 Jun 2026 10:11:16 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 4/4] RDMA/mlx5: get tph for p2p access when registering
- dma-buf mr
-To: Zhiping Zhang <zhipingz@meta.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian Konig <christian.koenig@amd.com>,
- Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: kvm@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20260622184211.2229399-1-zhipingz@meta.com>
- <20260622184211.2229399-5-zhipingz@meta.com>
-Content-Language: en-US
-From: Michael Gur <michaelgur@nvidia.com>
-In-Reply-To: <20260622184211.2229399-5-zhipingz@meta.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0387.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f7::12) To LV8PR12MB9715.namprd12.prod.outlook.com
- (2603:10b6:408:2a0::7)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9133D10E71D
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 07:12:01 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-4720f3bf164so635268f8f.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 00:12:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782717120; x=1783321920; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=14U3oSmp6/cxdfs7VbabXG2V4XXAB0Fo6JU3//lbVyA=;
+ b=LG6R9fjXAcFMlymy3IC/jwEtU5xNySjQYXHJlixEq6yYIcrIbr30ZHZhAEPRbpoQe+
+ 6wAjerwPTt6KwWWUUfH6zSXilYZqE9fY45ztTJCmLej8UwuzSQbOt1noaBI0wqUNGbST
+ pwvbXyJzSrluOxRfak8BWG2sASKwwsJjMJFGXxGC6+u29gxJXlX8j0ZZX+AoXnSbcoj/
+ 7MDHq+H4+WWvxtcFtkomSdyl04M77i2VCxA6zc411jgVLTa+x43GYh3V7g8jDM5U+JZy
+ z8/spIQTQEu0/3dJpKe+vB3J5deMdyY05rbF1a6G53SQzhuDscazT6lRJLnZsof8KcLJ
+ O/aA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782717120; x=1783321920;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=14U3oSmp6/cxdfs7VbabXG2V4XXAB0Fo6JU3//lbVyA=;
+ b=SCzhaFXjgdaFVR+1lPxqZia5mSvI42JxOLRnQ1AgTd4NdUcRxDnn0JrFy01w9D1Ebs
+ +angLzRPfu7AfxSp0cS98eU8EP3S0xhR9gzZ8lnAXtSWicEuA9zpnkievt0/kY3L8T8Z
+ WgyaqeVoPOWOi1prhG2L8Z9l7C3Ye4MFtDcWJfsn2glpAx4hexItayYbJq5jB97m6mxh
+ c7Pxav0WGpoffKziJPfTTB/NJV/pSCVajItTjMU47/dQ/sClbKPYzl9tAfslmJFxNc4Y
+ TGbG7l3onxWqV0mkK8EjS0L4cul7PH3IAHIDWexnALNVh50RUCgNw3DLMoAXzId3VX+v
+ 34YA==
+X-Gm-Message-State: AOJu0Yy7Gcl3mgV4rcRBZgR4fXLZ3ebGsnjwRpBUvbr4xbdjC/fQ1JPP
+ 0q7PXLKTXldd0PWOXi+2/+N4eYg5DzZS5IrhvfxkRQGETnF1aLtJ7lWh
+X-Gm-Gg: AfdE7ckBj91T1N5vQeg2UUGVsECX7zPiNcUMjXnf8/NgV+3HwSbxloLf1MlGvL0YV7L
+ kqsWYmx86bhzl7ZjJ7tekmNVCWNUBtLeN46B4KeVwRmw/MQxmezr/Xc6EjPP5yGNhp5egWQfkPa
+ cHyiPSX5D/IuCm1Cx9X8pr8rUJZTD7JAJ4oRK3O1qS+IZ7qJSi7NReV89caMyQ+vbdyPIuIJ4Si
+ iTcSpAd8uJVFsOEgk+ENbNuOTFJWOWk8jpfz1YgRvbLG6K0GhCm7JQWCHwTHkFrHnmwBdrR8+CG
+ kvV7wFylL7Oc2MeUdSBO2sWS5/vQzJlPVOYmOtDIerIUdCFH1A+9icZAILwnzS8Q3r3H+8c+UIE
+ 631yoo+GOFvyxR3G8k80/kgUdr/LiBGbTZNQn/ahbeTWG/4QA3JugW9/xsxvvaz8zRc9xOl7Z1K
+ cpHA32oUcnbA==
+X-Received: by 2002:a5d:5888:0:b0:460:6b12:1783 with SMTP id
+ ffacd0b85a97d-46da706dbd9mr24010558f8f.4.1782717119929; 
+ Mon, 29 Jun 2026 00:11:59 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:9cf4:43df:e612:817b])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-470f55acda0sm19216148f8f.23.2026.06.29.00.11.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Jun 2026 00:11:59 -0700 (PDT)
+Date: Mon, 29 Jun 2026 10:11:55 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] drm/vmwgfx: Fix NULL vs error pointer bug in
+ vmw_prime_import_sg_table()
+Message-ID: <akIauwCZJNQwGrI_@stanley.mountain>
+References: <akIR3WlKLCiCTb5T@stanley.mountain>
+ <20260629064342.7FB8B1F00A3A@smtp.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY3PR12MB9702:EE_|PH7PR12MB5877:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc3c3426-ce0e-4c3f-93e9-08ded5ad9f6b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|23010399003|4143699003|6133799003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 8wHIJuhyXC5WlScyZcv44USo3R2Ilvj4J7v8xrSGHecGhdrLHClY6lT9cXEQyxOAx12yKif4mr3ZZ1V8Yqv7zObrl2JF2xCxsBjJTngF5pmIvjA+Hgj79RmWW0IjyBztbo0fDf9diScCRlJUsIoF66jq+OC2frjvSaOBUH3LW4ClAmAcZHvCjPjZDuZRtdCMnwU3P926jv6yqJnw0K82ZJCxKYQOeD09yX//bBUrdprjCi7401iHXT8fx5EUCnki+GD5P58VtTKoxtJj4QEsG+SU83Uvc7yToTEDE4Nc0AzWtuOprFXOPkz7N88O7AJ4TPm4M28utHxMdh5LPvs+OmjYWm6avUHKvz6qwaLA4ulZ/Pgta0ETtQ9sc+DRi32BXta4hZqOLYcAqKLn79SBgfBgiThyfrkiBW5LQbFncZh19L/xtKjwq5ycHVNCXRzewdkXxUM1hGFRGpnaMDJlb6M1GtsyfmQHQ5ZcDHXrHcHWhDhmEuH3FJbsGuSuT2prfH6qgK5hWQPW3CwnrOZj1JR2+sWla/eRZiYEvR6T52OsBvdAEHRb4/1/oGz4lUJf83ReyQjNnul2bgvlDt63rEcqAHRY225K2lSYlG75ZTkagTMrlQ103k9n1YqDMYE6ID3duK4qWgrZxTqSRHSUkeB/Aty9PY5sczGQag5INR0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY3PR12MB9702.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(4143699003)(6133799003)(56012099006)(11063799006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MlIxaEpUakZOV3BDa3JnMlJ1UlZlOUw3VGRaZnpIWG9lNVVJY0hUWjhtM3hQ?=
- =?utf-8?B?amZtWEpkM1hwSUhqRmdLd1RRdHRraHFGTUNEVmZBdlRUTWZuOUJPdEZKcVU3?=
- =?utf-8?B?MWR6NndzOFpNRmp3bEdLQ2x3aUlOOHhwM295VGdlN2JHYmdqYWk3QWtZSmM4?=
- =?utf-8?B?VFZvOFBMdXpBeGx2ZlVlV3ZSMDBKVk1Ya0lWYS9VazNtanNPVHdGbUI4bUhE?=
- =?utf-8?B?enFGQUVEcFN4QmlUN2grdUg1U1dlbDVrQUZKa2E1MzdhY1ZmZlA4S3JYSFd3?=
- =?utf-8?B?L1FHSWV5eS9uMlNRdnlaQTE0T2w2YUpla1JPZjBBOUhLd282eG9hemY5ank2?=
- =?utf-8?B?V1FWVGlFSWNCVy8wTE5jWURDbUNHdlNZQ2lXTk51NzE0R21RZDhHUzhJRW1s?=
- =?utf-8?B?OERGdjcvWHVMNGR2c0xwdmZmVVcyZEVpdXZuQitwUFVWT2NsN0JDOXFPZjBw?=
- =?utf-8?B?VldMTk55Qk43bm9lNThVZXZCKzZyYUZvOVpUQUJ0VHNwNDQyU0VtRnBJU2M5?=
- =?utf-8?B?Sng3eVF4NStsVGROTkwwcUhOTG5CUHRIRnhVZisvNjFjeUE1V0RVU0tQY3I3?=
- =?utf-8?B?VkxRZzU2Q21GaWVGQkdlR29la3Z1T1MvWWliZ21vN1VwcWNSV2tlRjRqUjBN?=
- =?utf-8?B?ampsQVN2NStCSGg4cjNNUGVmUmh6YmRVdUZNR0M4a241eXFZQkppRzBSQnc4?=
- =?utf-8?B?UE1pSWRzUnhJWXBxcG9ialFvSDVWd2ozUm5na2JDS0p2NFg5bXJDZmhKVFNw?=
- =?utf-8?B?NjRzSHdBbHFJRzM3VUtZZEM0SXdLaTBTK0dZRUlRYlVENEE2UnF4Qlh2amdn?=
- =?utf-8?B?aU1QZ2JHSXp4eVhhbE54ZHFnUXlGckRFVjRFNjluWFJ0QTA0eW5sSmgyOU1r?=
- =?utf-8?B?NEVTNk1EaWtKTnhJRWZ5UkhZWTRqcmN2M1o3eFNmSmlwcTdycDlZbDhDN0l3?=
- =?utf-8?B?d1JyclJCUnpVNk1zRlZRK1MzTzQzUkVCbHdCZGVscUdMRlFtNmV2SGhDTlNl?=
- =?utf-8?B?ZVJ5c2tXQU5weE9PTXEvNythZGRuK1VDVXFrUENBWExmNm94S2wrcW9lYy9k?=
- =?utf-8?B?cXpHQXByZ3FVUVpZK0toa1VUcVVaZ3pibDduODJPZ0xDQ2c2WVBzSFBXMHBn?=
- =?utf-8?B?cEcwdjExZHVVcXJoTnpzaDNYVFJOZm1RLzgwcmo3dyt1ZHpxVjZMU0o3dkxh?=
- =?utf-8?B?ZEZONmdsWitFV2IwYjMrbERNNFl4dUJpV1Rqb0hFT01lVXNQeHpwM0V3RU8v?=
- =?utf-8?B?djVlZzc2RGYvODQvL1FzSjFqNVZEbldNZ2g1NXI0alhYNnF0V0k3OTlmRE5Z?=
- =?utf-8?B?TXhBNGlEakMxUDZjY2s3TjdVa1hPNmgxOVN5bFY3aDhWZFpXclhkMUJiL1FO?=
- =?utf-8?B?Y1h1UnRTTlE5cUVoUU5UU0VoSnlWKzZqN2xkMDNtRlh3RXZTV0hEbm1GVkZT?=
- =?utf-8?B?c2dUdjkzaFVaWVFIWEp6RWVnUmNjZzR5MVd1R2NxTk1WbXF3ZWxjT0ZFSHFm?=
- =?utf-8?B?U0QvSlk2SnVJQWNVbFY2OHlJRVIySFNQWStjVFRvalhZVGRMSnZGZWlWS25B?=
- =?utf-8?B?MWxZa2RNdTczTlNmNjdIUWZKY3o5SGkvYWlMRm9iYXRxekNmUUlSYjBnTVJJ?=
- =?utf-8?B?UlFPZmE2SVdoc1ZLODlKYmR6bmYvTi8rMXliTDVEeitvdEVVMDQ2ZXNKc2E1?=
- =?utf-8?B?Q2libVNCWDVMMVdBSnB3TDNaYlp1aERoNDZwalpzZFBoTEg5aDFOYWxNV090?=
- =?utf-8?B?akZMaVZwd0oyUzRWeGFaZUtwM1RiZml3ZkJIODhZcFgwVHMrM0xGRFhoaFVh?=
- =?utf-8?B?bVNHQzArb1U0V3BQQ1ZxMVMwN1N1VnVlWnIrSlhtR3B0SFA5UjRTSlFRYzJz?=
- =?utf-8?B?YXpzTWdVL1lKczdvbWFiTkRZU3B1ZGh3WVR2MGRhd3I3M3pZL2lwVmRIRXEw?=
- =?utf-8?B?U2xGSnphcmczcjR6K1YreUx3MHVYQ0swa0cxNC9hY2VIMHl6Q1hlZ0Y2amNR?=
- =?utf-8?B?SUlPSTVuQW51Nyt4NDlFYWhESitVSHhYU1loWWRGV21VNzUvNHdLL09DUlIw?=
- =?utf-8?B?SldtR1RZSll5aEF5cnJXdUNrTXdramVicFJhUzZ3dTRmTmRxWmlsVUgwSkov?=
- =?utf-8?B?NXF6c3RvWmJYd2hxbHArc1VxaWtkd1RKYjNNVnI4Mjdmdm1pZVFNUDVxZnkx?=
- =?utf-8?B?ZTlkRmVWYk85TjZjRG9MZG9kODBuQnFsN2JTOWlqb2gzU1FKbEVGN3NVakZx?=
- =?utf-8?B?K1RpNHFjbTJRa0dTNmJoSHl1TVJxbnl0SmlBZEZxckRyanRQa3o4L2ZJNnZm?=
- =?utf-8?B?NkVINmZ2Skg5UEJhMVdob2M3STZZbDVTVGYzYVo5QmdKa2ZUd3lTQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc3c3426-ce0e-4c3f-93e9-08ded5ad9f6b
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9715.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 07:11:22.5060 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /cNMLVqpOzblMyKu05JbDrRDkSUaAJCaV+BATtV6LOx17BXfLKcmYfj0UzLMRFMhi7XHgIRRrAHM5R+4gf2sqg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5877
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260629064342.7FB8B1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,123 +87,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon, Jun 29, 2026 at 06:43:12AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> 
+> Pre-existing issues:
+> - [High] The error path unconditionally returns ERR_PTR(-ENOMEM), masking the actual error code from vmw_bo_create().
+> --
 
-On 6/22/2026 9:41 PM, Zhiping Zhang wrote:
-> External email: Use caution opening links or attachments
->
->
-> Peer-to-peer DMA between a mlx5 NIC and a foreign PCIe endpoint
-> (typically a GPU or a vfio-pci passthrough device) traverses the host
-> PCIe fabric. The endpoint exporting the dma-buf knows which PCIe TLP
-> Processing Hint (TPH) Steering Tag yields the best placement for the
-> traffic it will sink: per-endpoint hint selection lets the root complex
-> or switch direct DMA to a specific cache slice / NUMA node, cutting
-> cross-socket snoop traffic and DRAM pressure under sustained p2p
-> workloads.
->
-> Until now the mlx5 importer had no way to learn the exporter's chosen
-> ST tag, so dma-buf MRs were registered without TPH and ran with the
-> default (no-hint) routing. With dma_buf_get_pci_tph() in place this
-> patch wires up mlx5_ib to query that metadata at MR registration time
-> for p2p access and use it to program requester-side TPH on the outbound
-> mkey. If the exporter has no metadata, fall back to the existing
-> no-TPH path so behavior for non-TPH-aware exporters is unchanged.
->
-> Use mlx5_st_alloc_index_by_tag() to translate exporter-provided
-> steering tags into local ST entries when table mode is active, and add
-> mlx5_st_get_index() for DMAH-backed flows that already carry an ST
-> index.
->
-> For TPH-backed FRMRs, keep the extra ST-table reference tied to MR
-> lifetime rather than pooled mkey lifetime. Acquire the ref before MR
-> creation and release it again when the MR is returned to the pool or
-> the backing mkey is destroyed, while leaving the generic FRMR pool
-> core unchanged.
->
-> Import the DMA_BUF namespace for the new dma_buf_get_pci_tph() call so
-> modular mlx5_ib builds link cleanly.
->
-> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
-> ---
->   drivers/infiniband/hw/mlx5/main.c             |   1 +
->   drivers/infiniband/hw/mlx5/mr.c               | 103 +++++++++++++++++-
->   .../net/ethernet/mellanox/mlx5/core/lib/st.c  |  49 +++++++--
->   include/linux/mlx5/driver.h                   |  13 ++
->   4 files changed, 157 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/infiniband/hw/mlx5/main.c b/drivers/infiniband/hw/mlx5/main.c
-> index 02809114fc79..a2b497f6b16b 100644
-> --- a/drivers/infiniband/hw/mlx5/main.c
-> +++ b/drivers/infiniband/hw/mlx5/main.c
-> @@ -60,6 +60,7 @@
->   MODULE_AUTHOR("Eli Cohen <eli@mellanox.com>");
->   MODULE_DESCRIPTION("Mellanox 5th generation network adapters (ConnectX series) IB driver");
->   MODULE_LICENSE("Dual BSD/GPL");
-> +MODULE_IMPORT_NS("DMA_BUF");
->
->   struct mlx5_ib_event_work {
->          struct work_struct      work;
-> diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5/mr.c
-> index e6b74955d95d..7aced3f55456 100644
-> --- a/drivers/infiniband/hw/mlx5/mr.c
-> +++ b/drivers/infiniband/hw/mlx5/mr.c
-> @@ -39,6 +39,7 @@
->   #include <linux/delay.h>
->   #include <linux/dma-buf.h>
->   #include <linux/dma-resv.h>
-> +#include <linux/pci-tph.h>
->   #include <rdma/frmr_pools.h>
->   #include <rdma/ib_umem_odp.h>
->   #include "dm.h"
-> @@ -167,6 +168,32 @@ static int get_unchangeable_access_flags(struct mlx5_ib_dev *dev,
->   #define MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK GENMASK_ULL(23, 16)
->   #define MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK GENMASK_ULL(15, 0)
->
-> +static int mlx5_ib_get_frmr_st_handle_ref(struct mlx5_ib_dev *dev,
-> +                                         u16 st_index)
-> +{
-> +       if (st_index == MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX)
-> +               return 0;
-> +
-> +       return mlx5_st_get_index(dev->mdev, st_index);
-> +}
-> +
-> +static void mlx5_ib_put_st_index_ref(struct mlx5_ib_dev *dev, u16 st_index)
-> +{
-> +       if (st_index == MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX)
-> +               return;
-> +
-> +       mlx5_st_dealloc_index(dev->mdev, st_index);
-> +}
-> +
-> +static void mlx5_ib_put_frmr_st_handle_ref(struct mlx5_ib_dev *dev,
-> +                                          u64 kernel_vendor_key)
-> +{
-> +       u16 st_index = FIELD_GET(MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK,
-> +                                kernel_vendor_key);
-> +
-> +       mlx5_ib_put_st_index_ref(dev, st_index);
-> +}
-> +
+Fair enough.  It's better to propagate the error code.
 
-Please remove the _frmr_ from the functions naming.
-This is now unrelated to the frmr and is strictly tight to MRs.
-
-....
-
-> @@ -335,6 +364,7 @@ static int mlx5r_build_frmr_key(struct ib_device *device,
->                  get_unchangeable_access_flags(dev, in->access_flags);
->          out->vendor_key = in->vendor_key;
->          out->num_dma_blocks = in->num_dma_blocks;
-> +       out->kernel_vendor_key = in->kernel_vendor_key;
-
-This path is used to translate an frmr key passed from user-space to the 
-right values, enforced and masked by the drivers.
-kernel_vendor_key is not allowed in this path as user-space is not 
-allowed to control those.
-Please drop this line.
-
-Thanks,
-Michael
-
+regards,
+dan carpenter
 
