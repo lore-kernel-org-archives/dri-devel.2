@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA862C44500
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DF70C43638
 	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:24:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5CA510E875;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5B2E10E86C;
 	Mon, 29 Jun 2026 12:24:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Svf0cwGP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h2YtNTBC";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61C1810E86E;
- Mon, 29 Jun 2026 12:24:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B6EA10E874;
+ Mon, 29 Jun 2026 12:24:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D7DAF600AF;
- Mon, 29 Jun 2026 12:24:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFABF1F00A3D;
- Mon, 29 Jun 2026 12:24:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AD0A9600D8;
+ Mon, 29 Jun 2026 12:24:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B4A81F000E9;
+ Mon, 29 Jun 2026 12:24:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782735865;
- bh=1Ei3EUSCqZWfZOYLGcxa+N0JWy/qIc/OuIHRwuSzZmg=;
+ s=k20260515; t=1782735880;
+ bh=+of2eJHuR5dNuNJiS3cZuvLehUoHg8ljbLqq9Ah0AQ4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Svf0cwGPe+0Yya4VFcXOl8r/WHS0AmORu3Nq1KprgekWtOOrGnU3DurFUXvd8IRlR
- dX0Bn8XzAizI70EqxiKxIeoI4LasSRwbnP7z/Hctsa8TQZF0oo5a1lyhJPtL8WHi1L
- wpDz1RHJ0qo8mL4vTWB6X9O36nhtZB3DddaCZDkdg9q2cZckkM82bWAiQIwDZ/3DaD
- 6tRDjLnl51gBPYa1nljEuWwTcL5QSBfBSTaHkzkPTAtoUWK99YNakvcmghRksQyIOs
- 5CRIMfr7kAvZMePisvMtTHxsHYccnqsfyNQSAq7/wQ+MHUqWFowzrecsjartpYIfXE
- Wluj6yp1fiBpg==
+ b=h2YtNTBCsJFLeuggkXoygsgvXPGBhgysE1dL0jJxSBgEibKwxrxBKBVkCF7H7B5B9
+ CMBhr61zOts8FtzvxLocHIiLkQyF7/jaK21luzc0jjR0RUO8+CMng45Jp6ysrpb9aM
+ uY84Roia6rA0mFTBZlwUW/I/+znMt4CVrXrjXH2ChKSWcrSjCWtYc2HfuwM1FyISP8
+ vbmjmSzlxQ8mXIczOsJ5mRC89LLsZAg8F2I6xVLDYMZyT40OqQHfzXKe2Yb0HZTEpY
+ wC9fvuVgpJy/8Haqy9b9YseUpf27o/EwJ556JfcxFLzbHK5HwMwqJpR9v6i99Gr9TJ
+ w7K5/x0UhwFYQ==
 From: Lorenzo Stoakes <ljs@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
@@ -80,9 +80,9 @@ Cc: Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
  damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
  Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
  Jann Horn <jannh@google.com>
-Subject: [PATCH 10/30] MAINTAINERS: Move mm/interval_tree.c to rmap section
-Date: Mon, 29 Jun 2026 13:23:21 +0100
-Message-ID: <91dde21e9084bd04b626a1f073c3b9b3a23cb663.1782735110.git.ljs@kernel.org>
+Subject: [PATCH 15/30] mm: introduce and use linear_page_delta()
+Date: Mon, 29 Jun 2026 13:23:26 +0100
+Message-ID: <eedf589778aaab33e6df2ad6556dcde536e13460.1782735110.git.ljs@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1782735110.git.ljs@kernel.org>
 References: <cover.1782735110.git.ljs@kernel.org>
@@ -103,34 +103,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This file implements code for the interval trees used by the file and anon
-rmap implementation, so belongs in the rmap section.
+It's often useful to obtain the number of pages a given address lies at
+within a VMA.
+
+Add linear_page_delta() to determine this and update linear_page_index() to
+make use of it.
+
+Add comments to describe both linear_page_delta() and linear_page_index().
+
+No functional change intended.
 
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/pagemap.h | 37 +++++++++++++++++++++++++++++++++++--
+ 1 file changed, 35 insertions(+), 2 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 15011f5752a9..c46fee04a516 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17208,6 +17208,7 @@ R:	Jann Horn <jannh@google.com>
- L:	linux-mm@kvack.org
- S:	Maintained
- F:	include/linux/rmap.h
-+F:	mm/interval_tree.c
- F:	mm/page_vma_mapped.c
- F:	mm/rmap.c
- F:	tools/testing/selftests/mm/rmap.c
-@@ -17313,7 +17314,6 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
- F:	include/trace/events/mmap.h
- F:	fs/proc/task_mmu.c
- F:	fs/proc/task_nommu.c
--F:	mm/interval_tree.c
- F:	mm/mincore.c
- F:	mm/mlock.c
- F:	mm/mmap.c
+diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
+index 2c3718d592d6..644c0f25ae73 100644
+--- a/include/linux/pagemap.h
++++ b/include/linux/pagemap.h
+@@ -1063,11 +1063,44 @@ static inline pgoff_t folio_pgoff(const struct folio *folio)
+ 	return folio->index;
+ }
+ 
++/**
++ * linear_page_delta() - Determine the relative page offset of @address within
++ * @vma.
++ * @vma: The VMA in which @address resides.
++ * @address: The address whose relative page offset is required.
++ *
++ * The result is identical for both file-backed and anonymous mappings and
++ * simply determines how many pages @address lies from @vma->vm_start.
++ *
++ * Returns: The number of pages @address is offset by within @vma.
++ */
++static inline pgoff_t linear_page_delta(const struct vm_area_struct *vma,
++					const unsigned long address)
++{
++	return (address - vma->vm_start) >> PAGE_SHIFT;
++}
++
++/**
++ * linear_page_index() - Determine the absolute page offset of @address within
++ * @vma.
++ * @vma: The VMA in which @address resides.
++ * @address: The address whose absolute page offset is required.
++ *
++ * For file-backed mappings, this returns the page offset of @address within the
++ * file.
++ *
++ * For anonymous mappings, this returns the virtual page offset of @address,
++ * which is the page offset the address possessed at the time the VMA was first
++ * faulted.
++ *
++ * Returns: The absolute page offset of @address within @vma.
++ */
+ static inline pgoff_t linear_page_index(const struct vm_area_struct *vma,
+ 					const unsigned long address)
+ {
+ 	pgoff_t pgoff;
+-	pgoff = (address - vma->vm_start) >> PAGE_SHIFT;
++
++	pgoff = linear_page_delta(vma, address);
+ 	pgoff += vma->vm_pgoff;
+ 	return pgoff;
+ }
+@@ -1219,7 +1252,7 @@ static inline vm_fault_t folio_lock_or_retry(struct folio *folio,
+ void folio_wait_bit(struct folio *folio, int bit_nr);
+ int folio_wait_bit_killable(struct folio *folio, int bit_nr);
+ 
+-/* 
++/*
+  * Wait for a folio to be unlocked.
+  *
+  * This must be called with the caller "holding" the folio,
 -- 
 2.54.0
 
