@@ -4,77 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CE40C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 01:22:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA7C0C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 01:27:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE33310E0D2;
-	Mon, 29 Jun 2026 01:22:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 102CB10E68C;
+	Mon, 29 Jun 2026 01:27:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=huaqin-corp-partner-google-com.20251104.gappssmtp.com header.i=@huaqin-corp-partner-google-com.20251104.gappssmtp.com header.b="SafkKM4I";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AimSEG7I";
 	dkim-atps=neutral
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 200DA10E0D2
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 01:22:24 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-37fa53bc22dso1689420a91.3
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 18:22:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=huaqin-corp-partner-google-com.20251104.gappssmtp.com; s=20251104;
- t=1782696143; x=1783300943; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=JINw6mrv6sr3RfSan4QTPDxq2EMWJH8i5FW6cBbjHF8=;
- b=SafkKM4I/0A7ZAWtRcisv9g2QPPVLe4B9VHHn2ynYdCvWbeqw/bkAGk2ZZQr2uYfL8
- HbAtvn6ZLqX+U1AbKBLJxagd2iXxudvWqF31TbFCx9HaVQZfbR1XChShxdm5PCAUWKQ4
- C1BHclDe/lfP5wbjXD+oUCq/b0pJZyFEQUfFyLNhwufw64zhUJHbp1UMTzn9pJgzPDU5
- hb7g0jyNRbDqeQxjETjPz/AUkHbLv7c8ZTK220JlkUBbMXPjo6spKwMSgD4HP5DpZcRo
- 6fSPjcruQ1Mmg43XsVnivVDr64qv1PnGpmkl9ahdOZktfVzcgdoHCoXhXM6CwFOzZN81
- y5MA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782696143; x=1783300943;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JINw6mrv6sr3RfSan4QTPDxq2EMWJH8i5FW6cBbjHF8=;
- b=JnkWwPO8jqw25UyGFh8GFRF/0YcSFRbh28OW88KAQodvLJEQZ1xEob7gUNudzyO1Wj
- 6YeFPim4HAjw0FYKGwxNxZ1a5u+g/iqAZQJP37GsblFQnQzAaQH7GnsxzIyy4vr1fAS6
- qfeqFRv7UkuFEvpWbEI2zBFRhC1r/FNUkukjPljNHCw2Zd/ZDgJxDuJOepyAaWfSboMO
- A7EhwWTFvtZeaCwyorL1NV0b6bYahAMKr3yP7kDZ1pC9Eo/apilRec39mNKSPSieM1qY
- lpRMOsTI2FnfJcNZZa5BI+HguJmQwtOwRX6ZqSo30MsheBFTJfcGAwGlmrJZXtxIcdLx
- Co+g==
-X-Gm-Message-State: AOJu0Yy7EWP4qSHrqTU4CSALYkolgVxGSRLCuN7CngsKP/awVuf79bpV
- I/ENKAd0pHvKrx4eS2fdM6VmciIOvqMa7mL8w11BznidhaqghTiQETjx/zuASiZe+3Awt1QPXvl
- u33uN/UA=
-X-Gm-Gg: AfdE7cnUL5a0H74rjwGg9rjpTHuLAV3Znarlep0p4NCjYFOzFW42vvG0eotXw8NMV/6
- ELNWBUJAOmtQ0+1AHPp8qpOGtOJgTdmsvRXqT2dIS9BrYWhEWHsTtKTX7cDOS1x+CjTrlTiKWxT
- bnYrZrhRyIuIVUTATKbBPFWKGNZDRHJW4tzmbKg7pZ51wPjMQzmdkhVq+Sfy6Hv1wHIQLFTzBX9
- feXzkjnqvVnSr+lycMLSA9NaGWYmfX/nIhJC5NRyhqej42J1718VVPuLUifxltKt0ZQpAEgFIk3
- 6jfY+IvSvVg5pHXeZoaOLV8wNVf7AFq1eh9JpwzoQcI8OKs4laGBXitkl+Y9Uc0hRv2C+l+TwDg
- sg4/MnIxg9VJE8KDpSTxkjjZK49a10oWiDLi01md0iM+OpP9D7A+toEu0PFSkcMNh3mjDm9nzAl
- etbxh97V6QT+yDh+YEw9j2mkd5I6uU2rZewAnWz3DT70f5vkeQPHux7uOtVb2ClpIoL9Vq03wvP
- w==
-X-Received: by 2002:a17:902:cf4b:b0:2c9:c16f:eda6 with SMTP id
- d9443c01a7336-2c9c16ff3eemr50005275ad.39.1782696143609; 
- Sun, 28 Jun 2026 18:22:23 -0700 (PDT)
-Received: from zhk-CBG100025892.huaqin.com ([103.117.77.121])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c7f63d09f0sm82534685ad.56.2026.06.28.18.22.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 28 Jun 2026 18:22:23 -0700 (PDT)
-From: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
-To: dianders@chromium.org,
-	neil.armstrong@linaro.org,
-	sam@ravnborg.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- daniel@ffwll.ch, airlied@gmail.com,
- Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
-Subject: [PATCH] drm/panel-edp: Support MB116AS01-3 edp panel
-Date: Mon, 29 Jun 2026 09:22:00 +0800
-Message-Id: <20260629012200.248066-1-zhouhaikun5@huaqin.corp-partner.google.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EF3B10E68C
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 01:27:56 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D1FA860052;
+ Mon, 29 Jun 2026 01:27:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 613EC1F000E9;
+ Mon, 29 Jun 2026 01:27:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782696475;
+ bh=TUk2fg0P95yeALXI3wB2Iam5/Gl75lmhtXJf94dnAD4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=AimSEG7IcWzTe918dB4e7zpjZmjd3m552z+Lr14a/Ueva7I11G/8X/ZfsqeLruH0G
+ zfHZ3FngkTiumViLs0W/bBp3q0msRA7filqP6yVs/YkLPYPkKCp0l2STE8a32v8fOv
+ qDnw24ElWajhdXoUZVBEmP6KIfeQRuBHaqSmdB9HsiRcU4nDn1wjsOncfkjkRziiil
+ 3VY/KqjFJ3a4n1ApTcnaps2lwacGnx0vg037p3/TgaMkr0jPAPfUzNB4hd8vuxPp0S
+ FE+nd5FvGI/6EOB6qE9iYP9lGqH/Oz8/9TCYOKqMhCL9yNVtRA8aiPLaIpsyQIKF3r
+ X0DHjkSARZYHg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/panel-edp: Support MB116AS01-3 edp panel
+To: "Haikun Zhou" <zhouhaikun5@huaqin.corp-partner.google.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260629012200.248066-1-zhouhaikun5@huaqin.corp-partner.google.com>
+References: <20260629012200.248066-1-zhouhaikun5@huaqin.corp-partner.google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 29 Jun 2026 01:27:54 +0000
+Message-Id: <20260629012755.613EC1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,45 +52,59 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-MB116AS01-3 raw edid:
-00 ff ff ff ff ff ff 00 21 63 03 12 00 00 00 00
-00 23 01 04 95 1a 0e 78 23 e7 05 9c 5b 56 93 27
-21 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 36 1c 56 92 50 00 1c 30 60 18
-a8 00 00 90 10 00 00 18 00 00 00 fd 00 28 3c 30
-30 07 01 0a 20 20 20 20 20 20 00 00 00 fe 00 48
-4b 43 20 4d 59 20 20 20 20 0a 20 20 00 00 00 fe
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The panel name string in `EDP_PANEL_ENTRY` does not match the ac=
+tual hardware EDID, breaking the primary identity match.
+--
+
+commit 0f4c5c953c19a29919cb343c3bc25a2803059da7
+Author: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
+drm/panel-edp: Support MB116AS01-3 edp panel
+
+This commit adds support for the HKC MB116AS01-3 eDP panel to the generic
+panel-edp driver. It introduces the necessary delay configuration and EDID
+identifiers for this display.
+
+> diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/pa=
+nel-edp.c
+> --- a/drivers/gpu/drm/panel/panel-edp.c
+> +++ b/drivers/gpu/drm/panel/panel-edp.c
+> @@ -2099,6 +2099,7 @@ static const struct edp_panel_entry edp_panels[] =
+=3D {
+> =20
+>  	EDP_PANEL_ENTRY('E', 'T', 'C', 0x0000, &delay_50_500_e200_d200_po2e335,=
+ "LP079QX1-SP0V"),
+> =20
+> +	EDP_PANEL_ENTRY('H', 'K', 'C', 0x1203, &delay_200_500_e80, "MB116AS01-3=
+"),
+
+[Severity: Medium]
+Does the panel name string in this entry match the actual hardware EDID?
+
+Looking at the raw EDID payload provided in the commit message:
 00 4d 42 31 31 36 41 53 30 31 27 33 20 20 01 cb
 
-70 20 79 02 00 22 00 14 1c 1a 01 84 55 05 91 00
-5f 00 17 00 ff 02 1b 00 09 00 07 00 2b 00 06 27
-00 28 3b 00 00 81 00 13 72 1a 00 00 03 01 28 3c
-00 00 00 00 00 00 3c 00 00 00 00 25 01 09 1c 1a
-01 1c 1a 01 28 3c 80 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 e7 90
+The byte 0x27 translates to an apostrophe ('), which makes the hardware name
+"MB116AS01'3" rather than "MB116AS01-3" (which would use a hyphen, 0x2d).
 
-Signed-off-by: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
----
- drivers/gpu/drm/panel/panel-edp.c | 1 +
- 1 file changed, 1 insertion(+)
+Because drm_edid_match() strictly compares this string against the EDID
+payload using strncmp(), this character mismatch will cause the primary
+identity match to fail during panel probe. While the code will currently fa=
+ll
+back to a secondary panel ID match, this completely bypasses the primary na=
+me
+matching mechanism designed to distinguish panels when vendors incorrectly
+reuse panel IDs.
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index e70d2615b3722..b51bc2f7bcd13 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -2215,6 +2215,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 
- 	EDP_PANEL_ENTRY('E', 'T', 'C', 0x0000, &delay_50_500_e200_d200_po2e335, "LP079QX1-SP0V"),
- 
-+	EDP_PANEL_ENTRY('H', 'K', 'C', 0x1203, &delay_200_500_e80, "MB116AS01-3"),
- 	EDP_PANEL_ENTRY('H', 'K', 'C', 0x2d51, &delay_200_500_e200, "Unknown"),
- 	EDP_PANEL_ENTRY('H', 'K', 'C', 0x2d5b, &delay_200_500_e200, "MB116AN01"),
- 	EDP_PANEL_ENTRY('H', 'K', 'C', 0x2d5c, &delay_200_500_e200, "MB116AN01-2"),
--- 
-2.34.1
+>  	EDP_PANEL_ENTRY('H', 'K', 'C', 0x2d51, &delay_200_500_e200, "Unknown"),
+>  	EDP_PANEL_ENTRY('H', 'K', 'C', 0x2d5b, &delay_200_500_e200, "MB116AN01"=
+),
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629012200.2480=
+66-1-zhouhaikun5@huaqin.corp-partner.google.com?part=3D1
