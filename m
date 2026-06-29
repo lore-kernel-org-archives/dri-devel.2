@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8DEAC44500
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:40:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B756CC43327
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:40:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19F7C10E876;
-	Mon, 29 Jun 2026 12:40:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22E2B10E88D;
+	Mon, 29 Jun 2026 12:40:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="vzBgK7Z3";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="iEqpYhwL";
 	dkim-atps=neutral
-Received: from LO3P265CU004.outbound.protection.outlook.com
- (mail-uksouthazon11020121.outbound.protection.outlook.com [52.101.196.121])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39BD310E85B
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 12:39:49 +0000 (UTC)
+Received: from CWXP265CU008.outbound.protection.outlook.com
+ (mail-ukwestazon11020125.outbound.protection.outlook.com [52.101.195.125])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 745AA10E855
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 12:39:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=olDXg+b4CjhmuWT7+7bbO/sK+FZgVcKAyS9pNQqWPBpkzQPeU/z7MH0SMLrqTF/MUU6ryNd1q+QYOKuk7zVycAK7XragsiNzH+BerwX/S7cL6QlykJ15341WqF7JfOgZUQcBa4cxMlLpoFDVkzM88gIaD0I3CKuXf63y0KfHLvzxwYDs+lRMp0pNAwlECAHU976754/6DKWQ+vBcbCPzJuTOYFGOxaMm3L2eI2wHJK647U40l93l+wTqIMJo40M/V+wn+HzBfYHxH5D9a/f4528pU+JuEs0trcpl+2bAmLizutiPql4J1FAbp316/HP7Rr+gqaJF5sapt8DZrSTwoQ==
+ b=Jj6fuMeF/0ul/OULnokpEMrS1ZXibxvfN3J+94bFbAT0lTYlCBco2j/LOaJo23rQAwsLI2HPapdUHCJZ3/EPXhde0667LfPDS2OGjNYUzd93lo4qt9zLOBLppB6WEFzMPWFei7AmylkrrvFW5SwE62OTvtR+Uy+tzDAVo618CDbHMNAg1khW7wL3tf6P6y5g/nAw1pmT0Z94bEhrCTlxph9eiEBI7lhZXdThDWm7h+LmaSD6fXy4UQKkdsCna0NrMz4ZAxHArRsxRMIBv/DJo//9IvYLMolA48BCOWX9rCMu51hwVqg24w9AOv+bXEzsJKKsy6O+uKx1CojC1cZ3kQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bS/s+IK7K9sYBskJe3XcOxKDPPnYRnuHvWiCtpWp2Us=;
- b=AbMxPOomLtEmur97E7TPr5fbTfLNtHNJ25Y5qybboGZCmxga0se2IVrepq3yBByaJFDY7/+O/8bG6OgHaLLxovb/lngDdhb8jCCL20sBtUTGY6XsS4pl20vjZa2oAbJfcVJPApXflgZ2lpFtW5zhyuAMk0wYb9Eiksj/sj+wsQzeXysvahESnwKq9aIKj0jGOwD0U8uHkqF9Q6TXp5tLVJaAaCNxHmXYwla55nCDQMohDVdUiR9pCTKhN3EC/YGGTmg9ICzX+z4uc8djNM4R9WFp/yWOSKr3UmTy6GvcUJSOaOy85oOnXeoxSfIxGaCMH0o3xkO2JUN5t6XHiiH5eA==
+ bh=2/zVxBWtCknBlZRaTTNkYFsiBZhtA2stuzb7apCX1Jc=;
+ b=DvgH42Zt0wP6AWIj1EFjnc9llPDQRv5lvvFWomq81+qKDCDSE+8XwCLePC7dkFIGL8O9zV6stWN20U1oJj2vXxcZ1/L1rnEx5WKF48HCXZM3IfxuEUNXRLnABjTM4g1iYhzpx5giweV8C6/IAKKko6rtpZKjlKXa2Zrm3GvYNJ9H6+QuHhYHFm5QGc3DA3IokF45LLcMuW+yhn8j/knzTwyOJmFcHekHiNCdQZnurx8Q2G2P5GD9z3HrP/GwPuuQK3Utdvv2x/7enKmaE0HdirBNCKM10qFyfA7KeY9W+PShZQZu/XTg/Swmp9WNSsYZ/Jhbp/Y9CghF0mCHlwFnug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bS/s+IK7K9sYBskJe3XcOxKDPPnYRnuHvWiCtpWp2Us=;
- b=vzBgK7Z3GaIrdiSkb6TwLBOMIsQQ9hsbUgIbxAQmqTaGA2lscQECxGScaE/2vRMFDbGQwyXmhQRE6U4Cx+lfD7RFg6uaLE5r8dQixWB3JZ2pavTcoea/0RUlmMPrYZx+YXL96F3CbKSXVnNfAvFoXmU/iVZQ636y9dnqYTitw+c=
+ bh=2/zVxBWtCknBlZRaTTNkYFsiBZhtA2stuzb7apCX1Jc=;
+ b=iEqpYhwLtf5f+siAGieSH+gJRwClG+uAw8bpy+N8dx+GbFgRPrdKZh1mV1/6O3uE3hsVRuR4g01SYcOWCLgONyxYe6lfxSjVcaP4UusHZ5ax0hhBC+g8sUPJwkd6ffCsUr7bW6sxP8iX0ESNVa5W1xJbnUK8xfP8d/QK3f3tlxw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO2P265MB2670.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:145::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Mon, 29 Jun
- 2026 12:39:45 +0000
+ by LO8P265MB7414.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3b1::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 12:39:42 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 12:39:45 +0000
+ 12:39:42 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Mon, 29 Jun 2026 13:39:42 +0100
-Subject: [PATCH v2 08/11] rust: driver: store pointers in `DeviceId`
+Date: Mon, 29 Jun 2026 13:39:38 +0100
+Subject: [PATCH v2 04/11] rust: usb: use `Option<&IdInfo>` for device ID info
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-id_info-v2-8-56fccbe9c5ef@garyguo.net>
+Message-Id: <20260629-id_info-v2-4-56fccbe9c5ef@garyguo.net>
 References: <20260629-id_info-v2-0-56fccbe9c5ef@garyguo.net>
 In-Reply-To: <20260629-id_info-v2-0-56fccbe9c5ef@garyguo.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -82,11 +82,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782736778; l=17170;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782736778; l=2545;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=sHG3lY8Q6JvwbSwk4FmX8jEDsL3Z1APSIPWU1i5Sd74=;
- b=HuM/f1+UDGluqyTIBdcclgg8XwKHXEvHBB4Mw/FO2tx6lZH0EPVtd4dVNR9L2fXf9F0ROPQNq
- aQiJ8P3LDK+Dv3cbQhtEfkjdG4DBAkUyga2Eky+y3Gn/dFC8IDKQfQJ
+ bh=EaiIK7mJUxsKKAaPSJP5dSMBvLBsngcCBY7JKZZlemw=;
+ b=NYq+Hy8DAqTYaN19le6JV4pYNc+T1whjdViasW5wkNsC/C5zPDMKKKCL7u0oGTB96a0i7a8gs
+ nZUXzIK6SseC1Xd1uj3TC5xU+G8sYcg6ZW+zbCIXeGggl/9MZSwMS1G
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P265CA0091.GBRP265.PROD.OUTLOOK.COM
@@ -94,67 +94,67 @@ X-ClientProxiedBy: LO4P265CA0091.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:488::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO2P265MB2670:EE_
-X-MS-Office365-Filtering-Correlation-Id: b037d739-4713-4976-7ae7-08ded5db800d
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO8P265MB7414:EE_
+X-MS-Office365-Filtering-Correlation-Id: 52838ce3-7a14-4778-f29d-08ded5db7e21
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|366016|7416014|376014|10070799003|22082099003|18002099003|921020|6133799003|56012099006;
-X-Microsoft-Antispam-Message-Info: SQBn/zF8sVKl8pr8CRwELLAX+DDwlent1lPHIKkLjjouh6OgqtNTRd0vBhZ/Ek3QpPh2DXnXxNT3ialM7b50EqejCbl9wAVPkH4Ts0t7J+5pJt0G8YNx0TwNHX2oh4QvtZmQsP0N5tmR7106nEcmmjCUSl1jxDKBy4SHQCIrwNuEQhivz2295rvbF5ndFY6tc10wp89/CDx0HsmH+5sJ9Z6TxlppP/Bh9gDSxhzSH2jX0CkqtdahfEw0GYUCO1WbQtCA4b42nLWRFsYGf8hCWRRZH81VhfIfZdwTj5h9IhPloMf8iXHaz/w1SQQ7oQ/AC4gXelh8kIVXjcDZ/dQSzjVUREwOO5digukfhsVMv+txHFdgejePNwWapx6szf1HTcattS5hq4KaXfosy/Q71VvmCHsNymkBjd7WizqiFsO6mD/m9VyzC/7kVuZg0igEjCVhUbjjzUuJpv6JerMQqSMfs/xFmvi5XsXn9A6PsuOLObZKluM9IZ3xeRHfqHzXT3cbKbILaAD+NoOnIV1WTorbxHw/n5qtn4DlCDQqXHUKmp285eAsZNQltdeZnz/0aSYYMomvpwtPnNJpd7ArUMOr2gM1KR2N/2d0iPk6j7WMiJIQQqr8lZjZsP+YeMIdv5yFeQFqiFR+SrmmcoYdSA6T5qnsJdlMSibNyVN+WhlIVdiDc1Ag+33gjMzR/CaUmh0VqSynXeIkyUmoulShGw==
+ ARA:13230040|1800799024|366016|376014|23010399003|7416014|10070799003|6133799003|921020|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: 31Exp6v2FJGMW13CG5uwXnIb+vKLO011pWspCzkeWtMqWtmT9owdxJQ9dyjcLpNr+BB13FUpjGMWWkyQCAq/KRug8A2NZet7Ze0+0835vKNN6OVGVCoizh7Zgk6JxE55BygD0ysQbLBfQE7lTIpC3afdD5aPkPKwIdZ0LTDONZrdtO5dHB7t2j4+ErNd+rZX1jhbFcu9JNep/nB3lidnRd4+QlPca1YCmnXCv84ZM5SG65HDYmQ7dMY0eJNXmMhYuZVxgJsoTLHPBgYNYAT675kmHj85pYWA1V0nkF9vDsv0W0fGhJxjCprw87IHBjP654C+jot4BCMWTXZ2V308lTFOOUrhp3KO8qTkCt8/h48pi5h5j9Teuuersdl8e6FFSjKw2rrmrpd51j1B1x77eKTnckHoUdROZ6xdMCZ68i2pjix8FSUwTw7u7uFCriBnkCVlZkHOndQBkEugJ8K7SEFdbmzh+GxERSCrw9NFSDrjbGWjo/Q0HmIvMtMyUy6TBjNZglVgotMK2N6fjIFp0spsJC8CJGVEQkYuDPuHmb+4a+dN8aaPnaSm1NePF2qYtgLCSUkC8bmePGK8OJej6DfkX2kBRRcvi1yXYTIL6X6TZk2BAjw0Abz6xfb0ANiaX6ZPI0XMBB2WpO7ZGaqbxLisUOHoBTPgqPhkxlOAw2GuOz3ADY4jJOHrLLv3xwbhefDM9WccdyyD8PCNiEQSUw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(10070799003)(22082099003)(18002099003)(921020)(6133799003)(56012099006);
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(7416014)(10070799003)(6133799003)(921020)(22082099003)(18002099003)(56012099006);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U2poNEVFeWlDRUMxR25OTnV4WWlHd1NndXY5LzV4QjlpRSs3Qms4d1pFenRt?=
- =?utf-8?B?c1RWeWFFN09yMVZhQVBFcFVLS0p6L3FxakZra3MyS3UzeE13SlpsVnVLNWdk?=
- =?utf-8?B?NTk2R1FWNFpjU0NndW9uWElKY0tyR0hhakJCcVdBalE0Q010clhGRmRUV3J4?=
- =?utf-8?B?cEYxQ1Nsd003RG1oNXB3dTdCbXhia1RCaVVrdzVNbSs2T3R6dHgwSmU1MDMz?=
- =?utf-8?B?c1JoTzRTWDd4WUFGWStZdEdndmFnSFcxYUtGVjhyeXFBWTRLNnhHZTNCVU51?=
- =?utf-8?B?V01IK2pBZ0UwOHMwTkFsQmJHK1I1WFZFSllZOEs3d1E0cndJb2ZoMU85OTdv?=
- =?utf-8?B?WktYUFZwNnJpWlRYQlNoQVJTVGNzMHg3eno5MURMQkJPR0tTa0hIY1FCUkd1?=
- =?utf-8?B?ZTA0TEJFQVdxbUFWemI0eEdjOGJZditranQrTW1BTno1U20xRlNXNnZ1aFBB?=
- =?utf-8?B?N2k2SmpwQXd6RjgxY3NsWFNDMk85MzNIR2VCZjRTNk5ON0pVUXdlVzhTQ3B1?=
- =?utf-8?B?TFRDT2NzeUtXTENtWXJpQ01NR2lmb2s3VjdvbS82TFprbFVPTE9ia2JaTmM4?=
- =?utf-8?B?MEpjbDluUWlYVThiYXVwTUNEYmRuZ2RseVhFRWpKc1RleU5GR0tldnZWd3FK?=
- =?utf-8?B?RGdHSW9hVWNjNWR4NXkzdUdVR1RNNG1BRWdtVHZuWWpnYVBmVDVhaStMS2U0?=
- =?utf-8?B?Q1UvY3VXY0oxYStVakRQYkRDdWdZMlh2MDJBeExJMmFpUVB4eHFNUTMvQWNM?=
- =?utf-8?B?VTlwa3orUmg4RWcxeW5DMEgvUTU5OVc5ZGNPNDkwc2VYZ21sckpYdDBLN0FB?=
- =?utf-8?B?Q2V4SWtWcVYwWjhHV3c5L241V2FTTk10bkxMMllSeFJxdlk2NTNXdngzY1Yv?=
- =?utf-8?B?cUltdGlhbHlQT3dRWlZ6QU8waGVNajhtcUVhdVNIMmFOeVRUWk1kSkxuV0lN?=
- =?utf-8?B?QSszVUEwMTJHb2xDZ29ERkFFRDVGbEI0MjRSVXcwTzNJRWxqSFdmT0FoRjZh?=
- =?utf-8?B?dzQ2T3NZM0xVbkRNNzRiVmwxZXlLNlZpSzMwZDE4VTFGTFhQRU84S0toV0FV?=
- =?utf-8?B?Y0VkWnQxTjZJa2U2Sll0NmpOSjhIdktMeFBYRjFEQlZWRzRRYUdvU3ZSRHNu?=
- =?utf-8?B?S2JLZnpjNjdtcVhIUWdIdUx1M3M1YUpOV3BJVlhhSkE3TkNGZStNL2twZzRG?=
- =?utf-8?B?SVJVdjBvY0ZsWDVES21la1RWV2VEbjZVQnk1YUd2OWxrRU96SHdLOVNNQXBP?=
- =?utf-8?B?SkhNb1dQdCt5b1h6WDV6OFFVK0NTTzVLQnVCVUpWbUEvSDhOcG1ubUxzK2kx?=
- =?utf-8?B?QW9mVFdBWlkwNXg4ZEtXRm42TzdmWEx5WkM2aDNoQVFHcW56MFZiKy9wR3RO?=
- =?utf-8?B?SnRmUVRMYmNzRzJjSVVmUUdaeHBiYVd5a3VvcW9KVDZHRHBpNFowbWxLRXNE?=
- =?utf-8?B?REFhQUtJRTU1cHErbWNXeTZOMnhNV2RNUzhzdlhhOEJyeTRIekVyU3EyNkta?=
- =?utf-8?B?cUl1ZGZjaGhUZC9KY0pHVW9pZEVmKytueWZJR3hsb2kyN3pMWTVtUy80dU1p?=
- =?utf-8?B?d0JpTlFZeDRoOXVBdytCTXp6M0ZCTG5MMW54SFREZUN5cW8vbHl5Tk1FeG9E?=
- =?utf-8?B?ZWphUXk3aWVzbXM1bGExSjhBOFRaL2gvdy83cXF3Ym5IallYSzJvMmFRU2JX?=
- =?utf-8?B?cStxaHFuSGFTY0N4OG8rSGViR1J6bzZZaU1RN2VVRmRrU1BZSzhjaUZLa1Fv?=
- =?utf-8?B?ZVZicmRHc21UanpmWC9uYjNtSXNuaG5pa2tJa2k0aFVIMTlONUtvemxlMGEw?=
- =?utf-8?B?Z3d0clRVcW9UN2xYSGFsbDd6UndYNE1ZTVltUFVGWSs5VlJtV0tyVUthVW9t?=
- =?utf-8?B?QVpLZnJpRmFLZWI3VC8rRDJ0ZmpCdGRvQnlvcFdYazJ2VzMvOXdyUFBLVlc4?=
- =?utf-8?B?OGdSd2VwUGk4b1VMdmZsdVd2cER6dCtHdERObktVMG5jQk9mQ0s4SURkUGtR?=
- =?utf-8?B?ckJSOXRWL0M1U3RtSExIWWNWbWliYWtHYUhpUDNKcXc0N2JubnQ5cVozTEw0?=
- =?utf-8?B?ZXp1Y2x4djF6SjJEbTJicGlyZjM0aHZtSFE3OTJEdUhyRUcvTjY1L2pTMXNy?=
- =?utf-8?B?Vit2emZOd2g2OTVOMk5LcGpkVFZFY1hPZWRZUitLUEZ5ZnZtbkM4U0N1MFQ0?=
- =?utf-8?B?dGcwQlNWMU9pWWM4Wm9mODBhaG05aGFic29hU2ovalc4eWFEd25sME1VV3k1?=
- =?utf-8?B?bndmZVF6dnk0Y2V5S1NiWSs1M0VtYldqdlp0RGZEaFZHSzh1eWlzN2JLY0My?=
- =?utf-8?B?ZmV0eHZRZjh4ODNtUkI4cW9oTzIzTG9ZU0RyMG1XRGI4MWhwQTU3dz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UVROQmlBdnFoNldRc2FzSSs5WkFkVWdKTnRkK2EzbEIxYldGVG5DL3RUYVZl?=
+ =?utf-8?B?bE9ycFdlVXo3aWlMcG0vaUNNbzc1VC9BTWNNMUxmYUQ5ZzRSNURaNFFQTXJt?=
+ =?utf-8?B?dlZpRGtZWFNyelRwV1d0U2wyMzZmdUpuN0lnbmh0SkJvWEJjdGd3MlZ2bncr?=
+ =?utf-8?B?V2xzQ1NLOXViQmk2SDhXbFJuWlpoQ2dmc0JyV3Y4am9hSGJLeElBRFpUSDIx?=
+ =?utf-8?B?MWplVFM4SnJoeUdxZWtReGtsQnR3Q0t5ZHdrSjJieDFtU295Ly9PSERMYUZM?=
+ =?utf-8?B?c1dkVU81WEVwMGxtU21pU3pZUzhTRk0wVGdRRG5jRThzVlBINEFDcE52UWpC?=
+ =?utf-8?B?aUFpbzRObit5bThobXRaQ3BocHdQaDFkUjhEKysvUy9mdlVqVlo0ZVFjV1JV?=
+ =?utf-8?B?RWJxaXAxb2kwQzZXdHZFM2s2RHkxRmJlNzRJKzhuSzJ0MEM0ZEROK2hOWHQ0?=
+ =?utf-8?B?Qm1PVGJvd01tRXlPVWdTbUdyKzFEWG5uMjljaHZ0eU5rL1B3Z1h3ZG1qcEtI?=
+ =?utf-8?B?ek56eVdaYlFEbmNUTHg1MU0yaVpBeXZwOXdERlhDRmJxUzU0OWlGR2o5dEpE?=
+ =?utf-8?B?aWxuWmwvRFVPeXhITDhLYWxvdXpaSjRybVZXT3lubkNNdkxMMmJtUmk3OGd4?=
+ =?utf-8?B?a2xsWWlaR1pqMEFrRGVEdXNOaHRreHVta2grVTQ0M3ZOTW5uUWJBekxTbi9X?=
+ =?utf-8?B?NkI5Skx0eXhyalFBdFFlYklrV29UeHQ4UjJBcHZFR0lnMUxybFBOY0FneTJk?=
+ =?utf-8?B?Q01tN1F2WkhYaTFBNklZYlh2TGliWW5teGlmZkpSOGQ2bk43ZHhhSEo1cHdR?=
+ =?utf-8?B?dVN1WjFJRy9aMmtFRGZrK3NLanBhRmVvbFlrY01DcnVqajRtZk5JdUQ4Q3Rp?=
+ =?utf-8?B?R2JHT0tvYjlkTEhrMTNZaEtWOHBCek9ady9VMkNVNFVxMUxNMHFrUTBjak45?=
+ =?utf-8?B?TUU3RTM0bGVGNHR5cWYxaGVVN1d0U09lci92WWZHNy9FRE82UXRXQlhhTnR3?=
+ =?utf-8?B?YXhoLzd1eFV6SWFnaUQzeHVOdlFLeVp2cmNuejZQQXBHM0M5dGRVNVFqYmxM?=
+ =?utf-8?B?Z3A3MnN1V1kzdmo4cjhTa1B3YThkcEdwNDFqNkx0OVFmVndZaU1OSHR2aDkv?=
+ =?utf-8?B?TEVwc3VLQmxPR0JiTURGS1hKRDFNZ2lFVDRqOEwwcm5KWnBLa2F4MEFXK2Yw?=
+ =?utf-8?B?ZExoemxLQ21VWnpnMDQ2ZEl3Snd4SWZHa0xjRm9oSVFjc1EvUHJCdG5jRHhK?=
+ =?utf-8?B?YldEZnBOTm91SlUrMU82UlYzK2UvaWdSYkhDc1g5VU9CcWw3WW1TQkMzN3k3?=
+ =?utf-8?B?aWEzbE5UUVUwUWwxOXVUQXpkMGhaL1ZoOHlhTXZ2R2ZwYnFKTHVnNmJwdWhD?=
+ =?utf-8?B?Uy9Oc0taSm5LY3Vjby9oQVhuS05rS0hWeEx6U25qcTBzRzRZSmhXdzRod1Ir?=
+ =?utf-8?B?UE5ZNzNaMk1IN2ZjV2lFbUdJOEpHK1JPMXlzSjRuUTBIa0FNeTRjbHhuRm5O?=
+ =?utf-8?B?MnlBLytzWkdraXlibFRxT01LSmdGZzl5SWNMUlVnazNheUJJdDFhUStTc2VK?=
+ =?utf-8?B?eHdlT3BwQkJUeXFCckcvcUM4eHh1OWpZSzZyVkVFblF2ek9CamwxL2RtNVlN?=
+ =?utf-8?B?Y1ZXRFpxRVBSMEppaGhIdzlwMy9JVE5xSndycER3WXVPNmI2Q1pvZDVDc0tJ?=
+ =?utf-8?B?U0x1K0xGUE1aU0xYWjAvNlJlVWhYYk5xOXdPYXByODNsNndBeG9XVUZ2ZWRw?=
+ =?utf-8?B?MnF4S2p4ZzJCd3h6VkVlcW1rckN3S2Y1R1c3M1pSL3lvUUJ0VlhGdlp4K0Nq?=
+ =?utf-8?B?MzBRVFpvbyt4TDNET2Q2Rkd3SHRXVnZBd25GWUEzMWx3ZG55WExOZVBQbFU5?=
+ =?utf-8?B?Qk5IaEJialIyQnFwOHo0eGMwWXNRK2ozZ21LM0JDeUlsMHQvMUNQcHZWQU9i?=
+ =?utf-8?B?ajJYaW5UTkVoUW9FRzBGWkRSV3NLS3J5TE95cmRtVnc4OWdySDJveHpPdnRR?=
+ =?utf-8?B?SFJJbmlNaEpHSGkxVXBEV2U4MkJkSStGUWU4R3RzWjQ1OFBVTG50czJYSUVr?=
+ =?utf-8?B?c1cvSDhoT0tuQ25EUU9EN0xncm0vaTM4RVRsb0hMK3Z6QTFadkdBMFpodlRQ?=
+ =?utf-8?B?RnNNVS9KbTZaMFZ0Z0xNZjErMVFyTSt4ZzJiUDY0Zm43S3ZzaVlWMmRrNVZv?=
+ =?utf-8?B?cDJZZzFrU1FjcVlxRXl5N3Fod1pSLytCeGY0REFMQ2t3UFh3dENQVjgwY094?=
+ =?utf-8?B?VnZ4WG5mckZRdThCeUtHOWtPZHZuWUwwL0hvRFowZjJHanlxMGtVL0pDQjFl?=
+ =?utf-8?B?S2JpcVNaUWhuNENYRVlPWmcvUDdpRklzNFFxeDFZbVVHQTBtVmxDUT09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: b037d739-4713-4976-7ae7-08ded5db800d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52838ce3-7a14-4778-f29d-08ded5db7e21
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 12:39:45.7068 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 12:39:42.4654 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VIThNwA015iWjFmzNIIRCH2V0uJxiDC0toQ3N7thNS+vaaaBcXFeU3lobBBieJ4B75iwj6okvlNIGtmYcstIAg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB2670
+X-MS-Exchange-CrossTenant-UserPrincipalName: ftkeTZWtieU789burGU2WFredB4mejJIp0tm6NmkvcqKyVNuQYjC2U/UczoVm52Tgn1E0YrFaqS2oRYmdAFBAA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7414
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,410 +170,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The common practice in C drivers is to store pointers into `driver_data`
-field of device IDs. The Rust code is however currently storing indices
-into the fields and then carry a side table that maps the index to
-pointers.
+It is possible that ID without driver_data will be passed to the driver,
+e.g. `new_id` is used to dynamically create a new ID without data.
+Therefore, the driver must be able to handle the case where `driver_data`
+is 0. Thus, update the `probe` functions to get `Option`.
 
-It is much simpler to just have `DeviceId` carry the pointer like C code
-does. However, just doing so naively would cause a "pointers cannot be cast
-to integers during const eval" error, as kernel_ulong_t does not have
-provenance while pointers do, and Rust forbids `expose_provenance` during
-consteval.
-
-Work around this limitation by wrapping raw IDs in `MaybeUninit`.
-`MaybeUninit` is allowed to host arbitrary bytes with or without
-provenance, so we can just then use `unsafe` to store a pointer with
-provenance there. This has the same effect as changing the C-side
-definition to use `void*` instead of `kernel_ulong_t`, but without actually
-changing the C side.
+The current code cannot tell if the info does not exist or is the first
+entry; however this will be achievable once the code is updated to use a
+`&'static IdInfo` pointer instead of indices.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/acpi.rs      |  4 ---
- rust/kernel/auxiliary.rs |  8 ++---
- rust/kernel/device_id.rs | 88 +++++++++++++++++++++++++++++-------------------
- rust/kernel/driver.rs    | 14 ++++----
- rust/kernel/i2c.rs       |  7 ++--
- rust/kernel/of.rs        |  4 ---
- rust/kernel/pci.rs       | 12 +++----
- rust/kernel/usb.rs       | 11 +++---
- 8 files changed, 77 insertions(+), 71 deletions(-)
+ rust/kernel/usb.rs              | 6 +++---
+ samples/rust/rust_driver_usb.rs | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/rust/kernel/acpi.rs b/rust/kernel/acpi.rs
-index 315f2f2af446..ea2ce61ee393 100644
---- a/rust/kernel/acpi.rs
-+++ b/rust/kernel/acpi.rs
-@@ -25,10 +25,6 @@ unsafe impl RawDeviceId for DeviceId {
- // SAFETY: `DRIVER_DATA_OFFSET` is the offset to the `driver_data` field.
- unsafe impl RawDeviceIdIndex for DeviceId {
-     const DRIVER_DATA_OFFSET: usize = core::mem::offset_of!(bindings::acpi_device_id, driver_data);
--
--    fn index(&self) -> usize {
--        self.0.driver_data
--    }
- }
- 
- impl DeviceId {
-diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
-index 59787c9bff26..aa13d8866a19 100644
---- a/rust/kernel/auxiliary.rs
-+++ b/rust/kernel/auxiliary.rs
-@@ -93,7 +93,9 @@ extern "C" fn probe_callback(
-         // SAFETY: `DeviceId` is a `#[repr(transparent)`] wrapper of `struct auxiliary_device_id`
-         // and does not add additional invariants, so it's safe to transmute.
-         let id = unsafe { &*id.cast::<DeviceId>() };
--        let info = T::ID_TABLE.info(id.index());
-+
-+        // SAFETY: `id` comes from `T::ID_TABLE` which is of type `IdArray<_, T::IdInfo>`.
-+        let info = unsafe { id.info_unchecked::<T::IdInfo>() };
- 
-         from_result(|| {
-             let data = T::probe(adev, info);
-@@ -169,10 +171,6 @@ unsafe impl RawDeviceId for DeviceId {
- unsafe impl RawDeviceIdIndex for DeviceId {
-     const DRIVER_DATA_OFFSET: usize =
-         core::mem::offset_of!(bindings::auxiliary_device_id, driver_data);
--
--    fn index(&self) -> usize {
--        self.0.driver_data
--    }
- }
- 
- /// IdTable type for auxiliary drivers.
-diff --git a/rust/kernel/device_id.rs b/rust/kernel/device_id.rs
-index 022f0101871f..50d82bfca9b8 100644
---- a/rust/kernel/device_id.rs
-+++ b/rust/kernel/device_id.rs
-@@ -5,7 +5,10 @@
- //! Each bus / subsystem that matches device and driver through a bus / subsystem specific ID is
- //! expected to implement [`RawDeviceId`].
- 
--use core::mem::MaybeUninit;
-+use core::{
-+    marker::PhantomData,
-+    mem::MaybeUninit, //
-+};
- 
- /// Marker trait to indicate a Rust device ID type represents a corresponding C device ID type.
- ///
-@@ -47,15 +50,48 @@ pub unsafe trait RawDeviceIdIndex: RawDeviceId {
-     /// The offset (in bytes) to the context/data field in the raw device ID.
-     const DRIVER_DATA_OFFSET: usize;
- 
--    /// The index stored at `DRIVER_DATA_OFFSET` of the implementor of the [`RawDeviceIdIndex`]
--    /// trait.
--    fn index(&self) -> usize;
-+    /// Obtain the data pointer stored inside the device ID.
-+    ///
-+    /// # Safety
-+    ///
-+    /// `&Self` must be stored inside a `IdArray<Self, U>`.
-+    unsafe fn info_unchecked<U>(&self) -> &'static U {
-+        // SAFETY: By safety requirement of the trait, this is `self.driver_data as *const U` and by
-+        // the safety requirement of the function, this is stored in `IdArray<Self, U>` so is
-+        // convertible to `&'static U`.
-+        unsafe {
-+            core::ptr::from_ref(self)
-+                .byte_add(Self::DRIVER_DATA_OFFSET)
-+                .cast::<&U>()
-+                .read()
-+        }
-+    }
-+
-+    /// Obtain the data pointer stored inside the device ID.
-+    ///
-+    /// # Safety
-+    ///
-+    /// `&Self` must be stored inside a `IdArray<Self, U>`, or has NULL (or 0) as driver data.
-+    unsafe fn info_unchecked_opt<U>(&self) -> Option<&'static U> {
-+        // SAFETY: By safety requirement of the trait, this is `self.driver_data as *const U` and by
-+        // the safety requirement of the function, if this is stored in `IdArray<Self, U>`, this is
-+        // convertible to `Option<&'static U>`. Otherwise it is NULL which is `None` as
-+        // `Option<&U>`.
-+        unsafe {
-+            core::ptr::from_ref(self)
-+                .byte_add(Self::DRIVER_DATA_OFFSET)
-+                .cast::<Option<&U>>()
-+                .read()
-+        }
-+    }
- }
- 
- /// A zero-terminated device id array.
- #[repr(C)]
- pub struct RawIdArray<T: RawDeviceId, const N: usize> {
--    ids: [T::RawType; N],
-+    // This is `MaybeUninit<T::RawType>` so any bytes inside it can carry provenance in CTFE.
-+    // If this were `T::RawType`, integer fields would not be able to contain pointers.
-+    ids: [MaybeUninit<T::RawType>; N],
-     sentinel: MaybeUninit<T::RawType>,
- }
- 
-@@ -68,18 +104,17 @@ pub const fn size(&self) -> usize {
- 
- /// A zero-terminated device id array, followed by context data.
- #[repr(C)]
--pub struct IdArray<T: RawDeviceId, U, const N: usize> {
-+pub struct IdArray<T: RawDeviceId, U: 'static, const N: usize> {
-     raw_ids: RawIdArray<T, N>,
--    id_infos: [U; N],
-+    phantom: PhantomData<&'static U>,
- }
- 
--impl<T: RawDeviceId + RawDeviceIdIndex, U, const N: usize> IdArray<T, U, N> {
-+impl<T: RawDeviceId + RawDeviceIdIndex, U: 'static, const N: usize> IdArray<T, U, N> {
-     /// Creates a new instance of the array.
-     ///
-     /// The contents are derived from the given identifiers and context information.
--    pub const fn new(ids: [(T, U); N]) -> Self {
-+    pub const fn new(ids: [(T, &'static U); N]) -> Self {
-         let mut raw_ids = [const { MaybeUninit::<T::RawType>::uninit() }; N];
--        let mut infos = [const { MaybeUninit::uninit() }; N];
- 
-         let mut i = 0usize;
-         while i < N {
-@@ -87,18 +122,15 @@ impl<T: RawDeviceId + RawDeviceIdIndex, U, const N: usize> IdArray<T, U, N> {
-             // layout-wise compatible with `RawType`.
-             raw_ids[i] = unsafe { core::mem::transmute_copy(&ids[i].0) };
-             // SAFETY: by the safety requirement of `RawDeviceIdIndex`, this would be effectively
--            // `raw_ids[i].driver_data = i;`.
-+            // `raw_ids[i].driver_data = ids[i].1;`.
-             unsafe {
-                 raw_ids[i]
-                     .as_mut_ptr()
-                     .byte_add(T::DRIVER_DATA_OFFSET)
--                    .cast::<usize>()
--                    .write(i);
-+                    .cast::<&U>()
-+                    .write(ids[i].1);
-             }
- 
--            // SAFETY: this is effectively a move: `infos[i] = ids[i].1`. We make a copy here but
--            // later forget `ids`.
--            infos[i] = MaybeUninit::new(unsafe { core::ptr::read(&ids[i].1) });
-             i += 1;
-         }
- 
-@@ -106,20 +138,15 @@ impl<T: RawDeviceId + RawDeviceIdIndex, U, const N: usize> IdArray<T, U, N> {
- 
-         Self {
-             raw_ids: RawIdArray {
--                // SAFETY: this is effectively `array_assume_init`, which is unstable, so we use
--                // `transmute_copy` instead. We have initialized all elements of `raw_ids` so this
--                // `array_assume_init` is safe.
--                ids: unsafe { core::mem::transmute_copy(&raw_ids) },
-+                ids: raw_ids,
-                 sentinel: MaybeUninit::zeroed(),
-             },
--            // SAFETY: We have initialized all elements of `infos` so this `array_assume_init` is
--            // safe.
--            id_infos: unsafe { core::mem::transmute_copy(&infos) },
-+            phantom: PhantomData,
-         }
-     }
- }
- 
--impl<T: RawDeviceId, U, const N: usize> IdArray<T, U, N> {
-+impl<T: RawDeviceId, U: 'static, const N: usize> IdArray<T, U, N> {
-     /// Reference to the contained [`RawIdArray`].
-     pub const fn raw_ids(&self) -> &RawIdArray<T, N> {
-         &self.raw_ids
-@@ -133,7 +160,7 @@ impl<T: RawDeviceId, const N: usize> IdArray<T, (), N> {
-     /// If the device implements [`RawDeviceIdIndex`], consider using [`IdArray::new`] instead.
-     pub const fn new_without_index(ids: [T; N]) -> Self {
-         // SAFETY: `T` is layout-wise compatible with `T::RawType`, so is the array of them.
--        let raw_ids: [T::RawType; N] = unsafe { core::mem::transmute_copy(&ids) };
-+        let raw_ids: [MaybeUninit<T::RawType>; N] = unsafe { core::mem::transmute_copy(&ids) };
-         core::mem::forget(ids);
- 
-         Self {
-@@ -141,7 +168,7 @@ impl<T: RawDeviceId, const N: usize> IdArray<T, (), N> {
-                 ids: raw_ids,
-                 sentinel: MaybeUninit::zeroed(),
-             },
--            id_infos: [(); N],
-+            phantom: PhantomData,
-         }
-     }
- }
-@@ -155,9 +182,6 @@ impl<T: RawDeviceId, const N: usize> IdArray<T, (), N> {
- pub trait IdTable<T: RawDeviceId, U> {
-     /// Obtain the pointer to the ID table.
-     fn as_ptr(&self) -> *const T::RawType;
--
--    /// Obtain the pointer to the driver-specific information from an index.
--    fn info(&self, index: usize) -> &U;
- }
- 
- impl<T: RawDeviceId, U, const N: usize> IdTable<T, U> for IdArray<T, U, N> {
-@@ -166,10 +190,6 @@ fn as_ptr(&self) -> *const T::RawType {
-         // to access the sentinel.
-         core::ptr::from_ref(self).cast()
-     }
--
--    fn info(&self, index: usize) -> &U {
--        &self.id_infos[index]
--    }
- }
- 
- /// Create device table alias for modpost.
-@@ -184,7 +204,7 @@ macro_rules! module_device_table {
-             $device_id_ty,
-             $id_info_type,
-             { <[$device_id_ty]>::len(&[$($id,)*]) },
--        > = $crate::device_id::IdArray::new([$(($id, $info),)*]);
-+        > = $crate::device_id::IdArray::new([$(($id, &$info),)*]);
- 
-         $crate::module_device_table!($table_type, $table_name);
-     };
-diff --git a/rust/kernel/driver.rs b/rust/kernel/driver.rs
-index bf5ba0d27553..824899d76fed 100644
---- a/rust/kernel/driver.rs
-+++ b/rust/kernel/driver.rs
-@@ -107,6 +107,7 @@
- use crate::{
-     acpi,
-     device,
-+    device_id::RawDeviceIdIndex,
-     of,
-     prelude::*,
-     types::Opaque,
-@@ -350,7 +351,8 @@ fn acpi_id_info(dev: &device::Device) -> Option<&'static Self::IdInfo> {
-                 // and does not add additional invariants, so it's safe to transmute.
-                 let id = unsafe { &*raw_id.cast::<acpi::DeviceId>() };
- 
--                Some(table.info(<acpi::DeviceId as crate::device_id::RawDeviceIdIndex>::index(id)))
-+                // SAFETY: `id` comes from `table` which is of type `IdArray<_, Self::IdInfo>`.
-+                Some(unsafe { id.info_unchecked::<Self::IdInfo>() })
-             }
-         }
-     }
-@@ -381,9 +383,8 @@ fn of_id_info(dev: &device::Device) -> Option<&'static Self::IdInfo> {
-                 // and does not add additional invariants, so it's safe to transmute.
-                 let id = unsafe { &*raw_id.cast::<of::DeviceId>() };
- 
--                return Some(table.info(
--                    <of::DeviceId as crate::device_id::RawDeviceIdIndex>::index(id),
--                ));
-+                // SAFETY: `id` comes from `table` which is of type `IdArray<_, Self::IdInfo>`.
-+                return Some(unsafe { id.info_unchecked::<Self::IdInfo>() });
-             }
-         }
- 
-@@ -412,9 +413,8 @@ fn of_id_info(dev: &device::Device) -> Option<&'static Self::IdInfo> {
-                 //   and does not add additional invariants, so it's safe to transmute.
-                 let id = unsafe { &*raw_id.cast::<of::DeviceId>() };
- 
--                return Some(table.info(
--                    <of::DeviceId as crate::device_id::RawDeviceIdIndex>::index(id),
--                ));
-+                // SAFETY: `id` comes from `table` which is of type `IdArray<_, Self::IdInfo>`.
-+                return Some(unsafe { id.info_unchecked::<Self::IdInfo>() });
-             }
-         }
- 
-diff --git a/rust/kernel/i2c.rs b/rust/kernel/i2c.rs
-index 6f2dcd467e72..31f2cfe6be31 100644
---- a/rust/kernel/i2c.rs
-+++ b/rust/kernel/i2c.rs
-@@ -65,10 +65,6 @@ unsafe impl RawDeviceId for DeviceId {
- // SAFETY: `DRIVER_DATA_OFFSET` is the offset to the `driver_data` field.
- unsafe impl RawDeviceIdIndex for DeviceId {
-     const DRIVER_DATA_OFFSET: usize = core::mem::offset_of!(bindings::i2c_device_id, driver_data);
--
--    fn index(&self) -> usize {
--        self.0.driver_data
--    }
- }
- 
- /// IdTable type for I2C
-@@ -212,7 +208,8 @@ fn i2c_id_info(dev: &I2cClient) -> Option<&'static <Self as driver::Adapter>::Id
-         // does not add additional invariants, so it's safe to transmute.
-         let id = unsafe { &*raw_id.cast::<DeviceId>() };
- 
--        Some(table.info(<DeviceId as RawDeviceIdIndex>::index(id)))
-+        // SAFETY: `id` comes from `table` which is of type `IdArray<_, Self::IdInfo>`.
-+        Some(unsafe { id.info_unchecked::<T::IdInfo>() })
-     }
- }
- 
-diff --git a/rust/kernel/of.rs b/rust/kernel/of.rs
-index 35aa6d36d309..d0318f62afd7 100644
---- a/rust/kernel/of.rs
-+++ b/rust/kernel/of.rs
-@@ -25,10 +25,6 @@ unsafe impl RawDeviceId for DeviceId {
- // SAFETY: `DRIVER_DATA_OFFSET` is the offset to the `data` field.
- unsafe impl RawDeviceIdIndex for DeviceId {
-     const DRIVER_DATA_OFFSET: usize = core::mem::offset_of!(bindings::of_device_id, data);
--
--    fn index(&self) -> usize {
--        self.0.data as usize
--    }
- }
- 
- impl DeviceId {
-diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-index a3dd48f76353..925cf280dae2 100644
---- a/rust/kernel/pci.rs
-+++ b/rust/kernel/pci.rs
-@@ -110,10 +110,14 @@ extern "C" fn probe_callback(
-         // SAFETY: `DeviceId` is a `#[repr(transparent)]` wrapper of `struct pci_device_id` and
-         // does not add additional invariants, so it's safe to transmute.
-         let id = unsafe { &*id.cast::<DeviceId>() };
--        let info = T::ID_TABLE.info(id.index());
-+
-+        // SAFETY: `id` comes from `T::ID_TABLE` which is of type `IdArray<_, T::IdInfo>` or
-+        // `pci_device_id_any` which has 0 as driver_data. It can also come from dynamic IDs, which
-+        // will ensure that `driver_data` exists in `T::ID_TABLE`.
-+        let info = unsafe { id.info_unchecked_opt::<T::IdInfo>() };
- 
-         from_result(|| {
--            let data = T::probe(pdev, Some(info));
-+            let data = T::probe(pdev, info);
- 
-             pdev.as_ref().set_drvdata(data)?;
-             Ok(0)
-@@ -233,10 +237,6 @@ unsafe impl RawDeviceId for DeviceId {
- // SAFETY: `DRIVER_DATA_OFFSET` is the offset to the `driver_data` field.
- unsafe impl RawDeviceIdIndex for DeviceId {
-     const DRIVER_DATA_OFFSET: usize = core::mem::offset_of!(bindings::pci_device_id, driver_data);
--
--    fn index(&self) -> usize {
--        self.0.driver_data
--    }
- }
- 
- /// `IdTable` type for PCI.
 diff --git a/rust/kernel/usb.rs b/rust/kernel/usb.rs
-index d8cffbe594ff..aec7dce04955 100644
+index 7aff0c82d0af..6750a49e466b 100644
 --- a/rust/kernel/usb.rs
 +++ b/rust/kernel/usb.rs
-@@ -89,8 +89,11 @@ extern "C" fn probe_callback(
-             // does not add additional invariants, so it's safe to transmute.
+@@ -90,7 +90,7 @@ extern "C" fn probe_callback(
              let id = unsafe { &*id.cast::<DeviceId>() };
  
--            let info = T::ID_TABLE.info(id.index());
--            let data = T::probe(intf, id, Some(info));
-+            // SAFETY: `id` comes from `T::ID_TABLE` which is of type `IdArray<_, T::IdInfo>`. It
-+            // can also come from dynamic IDs, which will ensure that `driver_data` exists in
-+            // `T::ID_TABLE` or is 0.
-+            let info = unsafe { id.info_unchecked_opt::<T::IdInfo>() };
-+            let data = T::probe(intf, id, info);
+             let info = T::ID_TABLE.info(id.index());
+-            let data = T::probe(intf, id, info);
++            let data = T::probe(intf, id, Some(info));
  
              let dev: &device::Device<device::CoreInternal<'_>> = intf.as_ref();
              dev.set_drvdata(data)?;
-@@ -242,10 +245,6 @@ unsafe impl RawDeviceId for DeviceId {
- // SAFETY: `DRIVER_DATA_OFFSET` is the offset to the `driver_info` field.
- unsafe impl RawDeviceIdIndex for DeviceId {
-     const DRIVER_DATA_OFFSET: usize = core::mem::offset_of!(bindings::usb_device_id, driver_info);
--
--    fn index(&self) -> usize {
--        self.0.driver_info
--    }
- }
+@@ -293,7 +293,7 @@ macro_rules! usb_device_table {
+ ///     fn probe<'bound>(
+ ///         _interface: &'bound usb::Interface<Core<'_>>,
+ ///         _id: &usb::DeviceId,
+-///         _info: &'bound Self::IdInfo,
++///         _info: Option<&'bound Self::IdInfo>,
+ ///     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+ ///         Err(ENODEV)
+ ///     }
+@@ -322,7 +322,7 @@ pub trait Driver {
+     fn probe<'bound>(
+         interface: &'bound Interface<device::Core<'_>>,
+         id: &DeviceId,
+-        id_info: &'bound Self::IdInfo,
++        id_info: Option<&'bound Self::IdInfo>,
+     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound;
  
- /// [`IdTable`](kernel::device_id::IdTable) type for USB.
+     /// USB driver disconnect.
+diff --git a/samples/rust/rust_driver_usb.rs b/samples/rust/rust_driver_usb.rs
+index 02bd5085f9bc..176ef625ed75 100644
+--- a/samples/rust/rust_driver_usb.rs
++++ b/samples/rust/rust_driver_usb.rs
+@@ -32,7 +32,7 @@ impl usb::Driver for SampleDriver {
+     fn probe<'bound>(
+         intf: &'bound usb::Interface<Core<'_>>,
+         _id: &usb::DeviceId,
+-        _info: &'bound Self::IdInfo,
++        _info: Option<&'bound Self::IdInfo>,
+     ) -> impl PinInit<Self, Error> + 'bound {
+         let dev: &device::Device<Core<'_>> = intf.as_ref();
+         dev_info!(dev, "Rust USB driver sample probed\n");
 
 -- 
 2.54.0
