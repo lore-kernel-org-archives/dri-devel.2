@@ -4,52 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CE6EC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 21:23:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B542C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 21:32:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55E5510E0F4;
-	Mon, 29 Jun 2026 21:23:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 489C410E137;
+	Mon, 29 Jun 2026 21:32:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SFrAqTJ7";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="blLZGisB";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06D8910E0F4
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 21:23:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=izJizNDApY+23qEKEsJqU5rP1tPC0fkmJ33zLpRJmnQ=; b=SFrAqTJ7BMFqGLN0W6511uUc3O
- dGUp0SuxPckwiPx54jXtsK60AUfIkMakANrx7sTOmVqiDTu2tQocDaZEXQq83gECAW7S2xl24krhG
- OHCdwMeRL0ConKLGKEbv+/M3wOVLoHz45rrIJu9i53iiPC/x77H7yRmznCPUMAwMNtR3F37wLi0JS
- N963gj2vebAF63jF5e3CaCl3JRepUt0gpfvhYrLXnDREuvqnmSx3WxZsxFtFpIFZpJ2FDruf4GiMR
- 4/kjRF2nyViu342xIdfndoQc3vM0Mk+J/nPWMr4VTcMxk27rZS4dPebYVI5Vr0Eq53VllxL4xGSnn
- SMcwqUwA==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
- helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1weJRY-006nmn-1q; Mon, 29 Jun 2026 23:23:04 +0200
-Message-ID: <a27c27aa-8323-4730-bfa6-26b1ae38f784@Igalia.com>
-Date: Mon, 29 Jun 2026 14:22:58 -0700
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46F0310E137
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 21:32:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1782768754;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=6XB7pqHpgq/nQnB1tGmENNG6g651KvMQ7dydjVpfr+Y=;
+ b=blLZGisB/IxYi+yCROb5D7vd5+fHkTLNOwO7XTf1tCup8p0nNvuiVqQ5LE+2gK93t4/M8f
+ P7hH8cLFiRcY5NDK54P+TiBHDF5fwUiPaOemp2uL0NARg48l9zBLJgd4UzMmqaBuYElm4+
+ dS3MSz7PU9cBXK+shwnwCOXUl7K3zP8=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-678-a2mF6hasOaKOHUN1ydqbZQ-1; Mon, 29 Jun 2026 17:32:32 -0400
+X-MC-Unique: a2mF6hasOaKOHUN1ydqbZQ-1
+X-Mimecast-MFC-AGG-ID: a2mF6hasOaKOHUN1ydqbZQ_1782768752
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-8ee593a5a2fso58842066d6.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 14:32:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782768752; x=1783373552;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=CSRk1nqmk8ToNWejBPUj18Gym2Ng80mr6qO9hwj2XTo=;
+ b=TAVffbkdNKj0trbx5DkAAYlBDOU1j99BgIPkxUxAQfatcwlpEGKAlJhwVEFS8hptG7
+ ZQXbE7y50Wpu6e4xfA+yAqsGaa8I2LmRa9iz0za72lR3i7ScnQVzZDhEkzdxCrtGVmnV
+ Ti8VLI8MBhu5i1BfDqf9/YS4EisqygwqlgjlNme4lxzHbRgP+D4qxS7jqam4JAf9+EwJ
+ RlkI80ku3cRBv1ZjtUvJoTyXbFcNr+gtBZol8XnVT7eo172x7jRRZq9XXu75cSGy6XRT
+ 777BQWtl7WyXmNrTrSh9XUw4gBuVJrZn93Cy/0Dj+23mN/eIK7bQReu9SAoEakM3oHGO
+ L6Aw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpIT0OxdHwRg0tmMxBAnzp4t/hAGwqcszzNDSa/KAMDEFhbV22bdHwcrqlXJxzUSFgIgHxWpNld5CQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwlhDG0qQIm3dglVBX0hPGgdSNz3nCcNDFFHznlkMdf4qIFuoe0
+ DXWsw1K2PNz2T/wWxkAhTKcapSZ2VnrFa+vii5Pv1GtjlVcsg6PYJx+VukBNNmv9IrH7XkqF3DI
+ ZsF+rc1+T0J6q6ph9bjlecQD8mqd6q5RmTqAP/GUSLXujTvVKbAdx3seyzGuyimBOk1+sMw==
+X-Gm-Gg: AfdE7cl4Wow/rr/AAzAikMV+kh4aWDqvHugsqygNH4Tiq8qzwZefACOVbl/MBDda7q0
+ 9vnHoH3Fj/7XYrgZoWwRZL6SqA9uxT99CXleMFm9xjL8rMdlJzjrXP6Z9KVtW3s0B3islrWcDpQ
+ AxrC9RjSmFmKPUC1MUswxqR6M2/G0Wq0gL/7z40YzpbKKRy0YdFxeP8bBhhX3UUwqCQ5nyMyh67
+ x6LBgHSAMfBHJ0y6CqWPpQOoex6ZS6vWnCDIaREhrNKIhiufU/CwIVur8dwacxM7Rrma0nv1rAx
+ oz4fNiErKvRSrXhB85uZ8xAKmsWmZalY9rkfuGE3enZvjBJ7oQF1fOpLLtfp5P4Lo9Zqc6tggpf
+ wpZER1Io=
+X-Received: by 2002:ad4:4eab:0:b0:8ee:d9b8:8538 with SMTP id
+ 6a1803df08f44-8f1bc95fc6emr16241626d6.9.1782768751854; 
+ Mon, 29 Jun 2026 14:32:31 -0700 (PDT)
+X-Received: by 2002:ad4:4eab:0:b0:8ee:d9b8:8538 with SMTP id
+ 6a1803df08f44-8f1bc95fc6emr16241016d6.9.1782768751191; 
+ Mon, 29 Jun 2026 14:32:31 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8f1a7b2699dsm7151196d6.46.2026.06.29.14.32.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Jun 2026 14:32:30 -0700 (PDT)
+Message-ID: <24195bd1807ba2b47b80a30050d12ec010ba4f1f.camel@redhat.com>
+Subject: Re: [PATCH v5 01/19] rust: drm: ioctl: fix unbounded lifetimes in
+ ioctl handler arguments
+From: lyude@redhat.com
+To: Danilo Krummrich <dakr@kernel.org>, aliceryhl@google.com, 
+ daniel.almeida@collabora.com, acourbot@nvidia.com, ecourtney@nvidia.com, 
+ ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, 	lossin@kernel.org, a.hindborg@kernel.org,
+ tmgross@umich.edu, 	deborah.brouwer@collabora.com,
+ boris.brezillon@collabora.com
+Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, stable@vger.kernel.org,
+ sashiko-bot@kernel.org
+Date: Mon, 29 Jun 2026 17:32:29 -0400
+In-Reply-To: <20260628145406.2107056-2-dakr@kernel.org>
+References: <20260628145406.2107056-1-dakr@kernel.org>
+ <20260628145406.2107056-2-dakr@kernel.org>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/9] drm/amd/display: use
- drmm_writeback_connector_init()
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: sashiko-reviews@lists.linux.dev, dri-devel@lists.freedesktop.org,
- wsa+renesas@sang-engineering.com
-References: <20260612-wb-drop-encoder-v6-3-9f3a54f81310@oss.qualcomm.com>
- <20260612185828.C0D241F00A3E@smtp.kernel.org>
- <e98e6632-20a1-4e76-a6e5-916066c7438a@Igalia.com>
- <eieq74qmqkkrgovktpon6umq2an3l6xmih2gqxjqtawmtvnesl@zpxepcxb3hm6>
-Content-Language: en-GB
-From: John Harrison <John.Harrison@Igalia.com>
-In-Reply-To: <eieq74qmqkkrgovktpon6umq2an3l6xmih2gqxjqtawmtvnesl@zpxepcxb3hm6>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: zK2_nurPZ2vV6WtbFPCp1bmPfR314_uztf54HbsN_OY_1782768752
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,127 +108,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/16/26 00:42, Dmitry Baryshkov wrote:
-> On Mon, Jun 15, 2026 at 11:27:12AM -0700, John Harrison wrote:
->> On 6/12/26 11:58, sashiko-bot@kernel.org wrote:
->>> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
->>>
->>> New issues:
->>> - [High] Dangling drmm cleanup action on writeback connector initialization error path leads to Use-After-Free, and possible build failure with drmm_kfree.
->>>
->>> Pre-existing issues:
->>> - [High] Pre-existing memory leak of `wb_info` and sleeping in atomic context in `dm_set_writeback()`.
->>> --
->>>
->>> commit 946e1af8401710237d25526b5d87b4357eceb542
->>> Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>>
->>> drm/amd/display: use drmm_writeback_connector_init()
->>>
->>> The patch converts the driver to use drmm_writeback_connector_init() and
->>> drmm_plain_encoder_alloc() to ensure proper cleanup of the writeback
->>> connector instance and its job queue.
->>>
->>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>> [ ... ]
->>>> @@ -11086,7 +11086,7 @@ static void dm_set_writeback(struct amdgpu_display_manager *dm,
->>>>    		return;
->>>>    	}
->>>> -	acrtc = to_amdgpu_crtc(wb_conn->encoder.crtc);
->>>> +	acrtc = to_amdgpu_crtc(crtc_state->base.crtc);
->>> [Severity: High]
->>> This is a pre-existing issue, but does dm_set_writeback() allocate memory
->>> using GFP_KERNEL in an atomic context?
->>>
->>> It appears that wb_info is allocated using kzalloc_obj() earlier in this
->>> function, which implicitly uses GFP_KERNEL. However, this function is called
->>> from amdgpu_dm_atomic_commit_tail(), which is an atomic context where sleeping
->>> functions are forbidden.
->>>
->>> Additionally, dc_stream_add_writeback() copies the contents of wb_info by
->>> value, but the originally allocated pointer seems to never be freed before
->>> dm_set_writeback() returns. Does this introduce a memory leak every time a
->>> writeback job is queued?
->>>
->>>>    	if (!acrtc) {
->>>>    		drm_err(adev_to_drm(adev), "no amdgpu_crtc found\n");
->>>>    		kfree(wb_info);
->>> [ ... ]
->>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
->>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
->>> [ ... ]
->>>> @@ -188,17 +187,26 @@ int amdgpu_dm_wb_connector_init(struct amdgpu_display_manager *dm,
->>>>    	struct dc *dc = dm->dc;
->>>>    	struct dc_link *link = dc_get_link_at_index(dc, link_index);
->>>>    	int res = 0;
->>>> +	struct drm_encoder *encoder;
->>>> +
->>>> +	encoder = drmm_plain_encoder_alloc(&dm->adev->ddev, NULL,
->>>> +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
->>>> +	if (IS_ERR(encoder))
->>>> +		return PTR_ERR(encoder);
->>>> +
->>>> +	drm_encoder_helper_add(encoder, &amdgpu_dm_wb_encoder_helper_funcs);
->>>> +
->>>> +	encoder->possible_crtcs = amdgpu_dm_get_encoder_crtc_mask(dm->adev);
->>>>    	wbcon->link = link;
->>>>    	drm_connector_helper_add(&wbcon->base.base, &amdgpu_dm_wb_conn_helper_funcs);
->>>> -	res = drm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
->>>> +	res = drmm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
->>>>    					    &amdgpu_dm_wb_connector_funcs,
->>>> -					    &amdgpu_dm_wb_encoder_helper_funcs,
->>>> +					    encoder,
->>>>    					    amdgpu_dm_wb_formats,
->>>> -					    ARRAY_SIZE(amdgpu_dm_wb_formats),
->>>> -					    amdgpu_dm_get_encoder_crtc_mask(dm->adev));
->>>> +					    ARRAY_SIZE(amdgpu_dm_wb_formats));
->>> [Severity: High]
->>> If drmm_writeback_connector_init() fails internally after successfully calling
->>> drmm_connector_init(), will it leave the drmm_connector_cleanup_action
->>> registered?
->> I'm not following this one. everything that drmm_writeback_connector_init()
->> does has a check on the return code and only if everything works does it
->> register the cleanup function as the last action. So how do you get a
->> dangling anything?
->>
->>> The caller, amdgpu_dm_initialize_drm_device(), appears to handle this failure
->>> by attempting to free the connector using drmm_kfree(). Since drmm_kfree()
->>> requires a dev argument, will this missing argument result in a build failure?
->> Bizarre that it is complaining about something in a totally different patch.
->>
->>> More importantly, since drmm_kfree() frees the memory but does not unregister
->>> actions, will the managed resource list later execute
->>> drmm_connector_cleanup_action on the already-freed pointer, resulting in a
->>> use-after-free when the DRM device is torn down?
->> Isn't this just lying? The whole point of drmm_kfree() is surely that it
->> does unregister the cleanup of the allocation?
-> The question is not about freeint the memory, but about unrolling the
-> connector registration. I'll take a look later whether Sashiko is
-> hallucinating or not
-Any updates on this patch set?
-
-I think sashiko is hallucinating at least some of the above. The comment 
-about drmm_kfree not unregistering is definitely bogus - because 
-drmm_kfree certainly should unregister the cleanup action for the 
-allocation being freed. Or maybe it is simply confused and is actually 
-meaning the unregister action for wbconn->base rather than for wbconn 
-itself. In which case, obviously it is not going to unregister the 
-cleanup action for a different object entirely.
-
-And presumably it is meaning "drm_writeback_connector_cleanup" when it 
-says "drmm_connector_cleanup_action", given that the latter does not 
-exist! But as already noted, that cleanup action is registered as the 
-very last operation in the init sequence. So if the action has been 
-registered then there will be no cleanup or roll back required because 
-everything has succeeded. And at unload time, actions are run in reverse 
-order of registration so the connector cleanup action will be run before 
-the wbconn memory is freed.
-
-John.
-
-
->
->>>>    	if (res)
->>>>    		return res;
+dGhpcyBtYWNybyBpcyB3aWxkLgoKUmV2aWV3ZWQtYnk6IEx5dWRlIFBhdWwgPGx5dWRlQHJlZGhh
+dC5jb20+CgpPbiBTdW4sIDIwMjYtMDYtMjggYXQgMTY6NTMgKzAyMDAsIERhbmlsbyBLcnVtbXJp
+Y2ggd3JvdGU6Cj4gUmVmZXJlbmNlcyB0byBkZXYsIGRhdGEsIGFuZCBmaWxlIGluIHRoZSBkZWNs
+YXJlX2RybV9pb2N0bHMhIG1hY3JvCj4gYXJlCj4gY3JlYXRlZCB2aWEgdW5zYWZlIHBvaW50ZXIg
+ZGVyZWZlcmVuY2VzLCBwcm9kdWNpbmcgdW5ib3VuZGVkCj4gbGlmZXRpbWVzLgo+IElmIGFuIGlv
+Y3RsIGhhbmRsZXIgZXhwbGljaXRseSBhbm5vdGF0ZXMgaXRzIHBhcmFtZXRlcnMgd2l0aCAnc3Rh
+dGljLAo+IHRoZSBjb21waWxlciBhY2NlcHRzIHRoaXMsIGFsbG93aW5nIHRoZSBoYW5kbGVyIHRv
+IHN0YXNoIHJlZmVyZW5jZXMKPiB0aGF0Cj4gb3V0bGl2ZSB0aGUgaW9jdGwgY2FsbC4KPiAKPiBG
+aXggdGhpcyBieSBhZGRpbmcgYSBoaWdoZXItcmFua2VkIGZ1bmN0aW9uIHBvaW50ZXIgY29lcmNp
+b24gdGhhdAo+IGVuZm9yY2VzIHRoZSBoYW5kbGVyIGFjY2VwdHMgdW5pdmVyc2FsbHkgcXVhbnRp
+ZmllZCBsaWZldGltZXM6Cj4gCj4gwqAgbGV0IF86IGZvcjwnYT4gZm4oJidhIF8sICYnYSBtdXQg
+XywgJidhIF8pIC0+IF8gPSAkZnVuYzsKPiAKPiBTaW5jZSB0aGUgaGFuZGxlciBtdXN0IGJlIGNv
+ZXJjaWJsZSB0byBhIGZ1bmN0aW9uIHBvaW50ZXIgYWNjZXB0aW5nCj4gYW55Cj4gbGlmZXRpbWUg
+J2EsIGl0IGNhbiBubyBsb25nZXIgZGVtYW5kICdzdGF0aWMgb24gYW55IHBhcmFtZXRlci4KPiAK
+PiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwo+IEZpeGVzOiA5YTY5NTcwNjgyYjEgKCJydXN0
+OiBkcm06IGlvY3RsOiBBZGQgRFJNIGlvY3RsIGFic3RyYWN0aW9uIikKPiBSZXBvcnRlZC1ieTog
+c2FzaGlrby1ib3RAa2VybmVsLm9yZwo+IENsb3NlczoKPiBodHRwczovL2xvcmUua2VybmVsLm9y
+Zy9hbGwvMjAyNjA2MjAwMTEzNDYuQTQ3RDAxRjAwMEU5QHNtdHAua2VybmVsLm9yZy8KPiBTdWdn
+ZXN0ZWQtYnk6IEdhcnkgR3VvIDxnYXJ5QGdhcnlndW8ubmV0Pgo+IFNpZ25lZC1vZmYtYnk6IERh
+bmlsbyBLcnVtbXJpY2ggPGRha3JAa2VybmVsLm9yZz4KPiAtLS0KPiDCoHJ1c3Qva2VybmVsL2Ry
+bS9pb2N0bC5ycyB8IDYgKysrKysrCj4gwqAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCsp
+Cj4gCj4gZGlmZiAtLWdpdCBhL3J1c3Qva2VybmVsL2RybS9pb2N0bC5ycyBiL3J1c3Qva2VybmVs
+L2RybS9pb2N0bC5ycwo+IGluZGV4IGNmMzI4MTAxZGRlNC4uY2NmNDE1MGQ4M2I2IDEwMDY0NAo+
+IC0tLSBhL3J1c3Qva2VybmVsL2RybS9pb2N0bC5ycwo+ICsrKyBiL3J1c3Qva2VybmVsL2RybS9p
+b2N0bC5ycwo+IEBAIC0xMzUsNiArMTM1LDEyIEBAIG1hY3JvX3J1bGVzISBkZWNsYXJlX2RybV9p
+b2N0bHMgewo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIC8vIGRldi9maWxlIG1hdGNoIHRoZSBjdXJyZW50IGRyaXZlcgo+IHRoZXNlIGlv
+Y3RscyBhcmUgYmVpbmcgZGVjbGFyZWQKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvLyBmb3IsIGFuZCBpdCdzIG5vdCBjbGVhciBob3cg
+dG8KPiBlbmZvcmNlIHRoaXMgd2l0aGluIHRoZSB0eXBlIHN5c3RlbS4KPiDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBsZXQgZGV2ID0KPiAk
+Y3JhdGU6OmRybTo6ZGV2aWNlOjpEZXZpY2U6OmZyb21fcmF3KHJhd19kZXYpOwo+ICsKPiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8vIEVu
+Zm9yY2UgdGhhdCB0aGUgaGFuZGxlciBhY2NlcHRzCj4gaGlnaGVyLXJhbmtlZAo+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLy8gbGlmZXRp
+bWVzLCBwcmV2ZW50aW5nIGl0IGZyb20KPiByZXF1aXJpbmcgJ3N0YXRpYwo+ICvCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLy8gcmVmZXJlbmNl
+cyB0aGF0IGNvdWxkIGVzY2FwZSB0aGlzCj4gc2NvcGUuCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBsZXQgXzogZm9yPCdhPiBmbigmJ2Eg
+XywgJidhIG11dCBfLCAmJ2EKPiBfKSAtPiBfID0gJGZ1bmM7Cj4gKwo+IMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8vIFNBRkVUWTogVGhl
+IGlvY3RsIGFyZ3VtZW50IGhhcyBzaXplCj4gYF9JT0NfU0laRShjbWQpYCwgd2hpY2ggd2UKPiDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAv
+LyBhc3NlcnRlZCBhYm92ZSBtYXRjaGVzIHRoZSBzaXplIG9mCj4gdGhpcyB0eXBlLCBhbmQgYWxs
+IGJpdCBwYXR0ZXJucyBvZgo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIC8vIFVBUEkgc3RydWN0cyBtdXN0IGJlIHZhbGlkLgoNCg==
 
