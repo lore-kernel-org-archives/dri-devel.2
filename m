@@ -4,44 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 780C7C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 20:34:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9903DC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 20:41:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D82F210EA6A;
-	Mon, 29 Jun 2026 20:34:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B14D210EA48;
+	Mon, 29 Jun 2026 20:41:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IzF69g/u";
+	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="dIzvNFaX";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC7F510EA4E
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 20:34:32 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0E1F560008;
- Mon, 29 Jun 2026 20:34:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A70B1F000E9;
- Mon, 29 Jun 2026 20:34:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782765271;
- bh=TCZUoHwQirLwA3PRhajBnH0XhqB634TiaM/cAPgwukY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IzF69g/udCGCw/2vaB4+XuRSh34Rbn2zJrGcy3F3GEfyMRyXLtHK9qayh9kmZ14N4
- r68CkIPU00fnJgRffOP2VpQgpv3D55ou0uUdzkfndxWznLimwCbWnLrYH6mhPWtGe3
- NoY5OVEml7AvyoVL+BjuS5e8ETXaFl4sdxbmzgn72KDndn6IF8CNNOGrMm165cPFok
- 5GF0zkWOCGoANY+6otb7x3yNJc9Zg2WbbSWn06oDbNv+rlmQSIPKn/vGAtopxt/d14
- bZmNxsPPzN1rYRuR0n9ex/XJVIJ5Ev+uo4phmTVdWyhaJrKzlexDrllOJuIeGXZJVb
- NF/xBkmXwPEyg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/4] drm/panthor: Add vm_bind region with kbo range
- overlap check
-To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260629-vm_bind_checks-v3-1-85e6740f6c2e@collabora.com>
-References: <20260629-vm_bind_checks-v3-0-85e6740f6c2e@collabora.com>
- <20260629-vm_bind_checks-v3-1-85e6740f6c2e@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 20:34:31 +0000
-Message-Id: <20260629203431.8A70B1F000E9@smtp.kernel.org>
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89DC410EA4F
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 20:41:50 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ 98e67ed59e1d1-36b9d265355so1807865a91.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 13:41:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782765710; cv=none;
+ d=google.com; s=arc-20260327;
+ b=XE0WnmEPrfaxsddNsIdUC2nZVxwacyXqqX5eEExLxK7UVDltDQ35ycEl9Mi9RD/RJ1
+ 7CJWG+idg01PzWBe/LHoUZ6c19X+BvU12kGqVEclZroaEDGx1dbIS03BwT85AP0IJKB+
+ WDSbM7dwS537SGdIVsXWO586i8SQu0juD2ANr2ZYtIXM7d37bM6qiiuGkn1Rf5N1fsUo
+ rjJuZ/WshvyEUjE5s9Fj1N1NePV05iMdGwOZEdSM0PVMlGFm5905ag5ydqjhP1uNgbW9
+ 4QDAtyQwY7z1EopL1h/CyNCV7ADZtWTp7IZM9LsbI8d0+Lf8J6DxkI7K9Hq90Bb33wp2
+ kcCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=7GVQjDd7YJmxSLwubbfLzA52YfUMIS8+9D2tWPQ7ZXA=;
+ fh=r4dbGM0NNaIKYBI4Uina3Riihab+HlueguJndXx31vQ=;
+ b=djYC/aM8bvQwhZ1eLsNrvCNPasuU5/omTv5rRHMGmrA0U0+IBCP8vTbEFGdF9B5Lq7
+ jwT9INqEth2AmqVyMkSetxjd+lxmEtlcKsI2Bpg5q35ZYUxvHatXBJP2jvNC+Xq33W30
+ F7qNq3/BkZVp3f9xyTktG3YNFsiTWgIDub1yPtLXX5B1GC1OsVK+thtW/TbBuQLKCVMe
+ CID2bFLbGh8laF8xdUIEcDMZfsZ925nrQ4ZJ/XNE2cyk5RS2ZOnp4nOdONHKIweScsTX
+ YuM/MZl16sU2YF7PPJUqhZ26m+HDzZ2yEFY0DFmTWdyL2+cJ4OGbKcIZ6gZwtiBROYE8
+ hbBA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fooishbar.org; s=google; t=1782765710; x=1783370510;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=7GVQjDd7YJmxSLwubbfLzA52YfUMIS8+9D2tWPQ7ZXA=;
+ b=dIzvNFaXYNcuP1H66j3SE5M8i4yvngZUAJ/XQiaNya3s86Eg15RJcg1/bLxt1Zz1T5
+ S6Trdr2jCvTw6ECTdIwK+hrVHamUiGGqJVCRYaB1IUt3nIrvpXVPb6/RxifYzQ/5Nn1w
+ tPxRdHGG42WZVS/XJHmbE3+LDeQRfMxY+wtn3S+yrJsWsIGQXB6HMQGgTmecPrm96DYc
+ MolF0hjnTEKUApXyuQLR0Ll3vgbB/IIK7XeDzTbpY0KlJ+7HD/Hw6Mtf50WsLsojT2jm
+ k30X9bUFnuP2LzKrSGVWejaJ39bVh0xSz7rBCNkSHNw1wEgV3CoNsQTtg1Gevcy/Uf+E
+ 1+oQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782765710; x=1783370510;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=7GVQjDd7YJmxSLwubbfLzA52YfUMIS8+9D2tWPQ7ZXA=;
+ b=bJuFwoxLUnGZAYMxAYsqAyL6jFTnf++mNH86Uzpsggb0/5QhtiIo4908gNn0VOj10K
+ k/mZVrDnJWWEJ9OGc+ldsvvbemObuWr7qUMI+aE+cq14GwT+TDtuI1sVtUNvFst1ecAr
+ Ruww3kDSh4LNFOyRo+C3sNIcfQn0TD3xjL288Hi5LNKteDgchFtfxw3k16GNK8MV5Bmh
+ ad9EGBQUMHC7jk5du+ZlblQv4pxfnsaxk4ksRU1kXUn2Tgqer046X8rD43W5T2XX2XcY
+ 2SinuqxEz4uTpDRtcoKqoRz+fDmyhsmJ1GXt7zsJCINVTtVeQIE5PJ2i1d5LwX7uaMch
+ KaAg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro8k9Sr2kX6JP/neUfirD+QsKiGOHPHITmCMzHKGwj9W0BDRKMj+oquTuqKOzXGVmPR3juKzXNYMSQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx7YuVgxis/I+s1wM62dYnVkiC6zeALuqemjeC8DrH1hIN0U6ia
+ DxE5T8Kq6tG2Cg78HQNMH75kpCk13A2HtyrZLdKNyx6jwVlLBdjdk1+nDWCnF65LbuKs592W8NJ
+ a/lOFb+JhD4NMH10geCAQpiQnAoP6WL4T/POlfBAXSQ==
+X-Gm-Gg: AfdE7cm6it2tKVLLB8w1amSa/oIXta86PdvTR7YtmEIFf1vbqO91KFaDHvmig4jzFCW
+ Zo2vvy8HdZ6/qioOPeRwFFBUBwvd6aEFayND9fmo0yalO6yKc1kMJONj60HR3vNLmecwfQhTJcs
+ OTbweTWCkap9GZQaFeG3f0pvrA8MkIP5PKI4sYKLr1bZvt21RRaeePHKvX4GMfsI0MNS+Rgf/U1
+ 2p9bgeJKAO9N43hPF1YYIzrU6Nb8wUB4S/N6Irnfe3MaWD7dRmOQzv++xct62u/uyCo4UsD
+X-Received: by 2002:a17:90b:5185:b0:36b:79aa:cda4 with SMTP id
+ 98e67ed59e1d1-38052538afbmr565926a91.8.1782765710037; Mon, 29 Jun 2026
+ 13:41:50 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260526-hot-plug-passup-v10-0-f62351a9ea3e@collabora.com>
+In-Reply-To: <20260526-hot-plug-passup-v10-0-f62351a9ea3e@collabora.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Mon, 29 Jun 2026 21:41:39 +0100
+X-Gm-Features: AVVi8Cc9yvqQrV56HBtjBRrEeKxj0HDoGTRX-_O4gvPndP8JvzUoQ7BrOqS-z68
+Message-ID: <CAPj87rN=M6TYd89h6VdPo=3-ksmmVLZ879jMBUzDYfUyOXunxw@mail.gmail.com>
+Subject: Re: [PATCH v10 0/2] Pass down hot-plug CONNECTOR ID to user-space
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>, Daniel Stone <daniels@collabora.com>, 
+ Ian Forbes <ian.forbes@broadcom.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, kernel@collabora.com, 
+ wayland-devel@lists.freedesktop.org, Marius Vlad <marius.vlad@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,93 +111,51 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Hi Nicolas,
 
-Pre-existing issues:
-- [High] Page table bulk allocations for VM bindings are not accounted to t=
-he requesting process's memcg, allowing an unprivileged user to easily exha=
-ust system memory and trigger an Out-Of-Memory (OOM) panic via huge sparse =
-mappings.
---
+On Tue, 26 May 2026 at 13:39, Nicolas Frattaroli
+<nicolas.frattaroli@collabora.com> wrote:
+> This series addresses a shortcoming whereby a hot plug event is sent
+> without it being passed the actual connector that caused it. This takes
+> into consideration both the polling path and the HPD (Hot Plug Detect)
+> path.
+>
+> The motivation is that user-space applications such as Weston would
+> previously receive non-connector-specific hotplug events, and then have
+> to figure out themselves which connector needs to have a modeset
+> executed on. This notably did not work when the hotplug events came in
+> too fast, resulting in Weston missing an on-off-on transition of a
+> connector, seeing that its state was unchanged from "on" so can't be the
+> one that was hotplugged, and skipping reinitialising it as it looks
+> through the other connectors that could've caused it.
+>
+> The real world implication is that on setups with slightly sketchy HDMI
+> connections, a brief flicker in the HPD signal could result in video
+> output bidding farewell entirely until a manual proper re-plug was
+> performed.
+>
+> By sending connector specific hotplug events, this ambiguity is resolved
+> without any change to the user-space API. Future work should however
+> make the kernel explicitly request a modeset from userspace through a
+> more robust path, either by using link-status (nb. the userspace side
+> may not handle it properly at present) or by exposing the epoch counter
+> through the uAPI such that fragile state comparison code is no longer
+> needed.
+>
+> This change results in potentially more hotplug events being sent than
+> previously, as n changed connectors at a time result in n hotplug
+> events, rather than just a single one.
 
-commit 4e78b0100b6b8317cc7157628ece362a9c968f70
-Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+Series is:
+Reviewed-by: Daniel Stone <daniels@collabora.com>
 
-drm/panthor: Add vm_bind region with kbo range overlap check
+I'm not sure if Ville is still planning to look at it or not, but I'm
+happy to push it if it's all good.
 
-When a VM is created, caller has to specify the range of the address space
-carve-out set aside for mapping kernel BO's. This patch ensures that vm_bind
-mappings of UM-exposed BO's do not intersect with that region. It stores the
-end of the user VA range at VM creation time and performs a quick check in
-the vm_bind ioctl path.
+Thanks a lot for working on this!
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/pant=
-hor/panthor_mmu.c
-> index 31cc57029c12c..94789777aac48 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-
-[ ... ]
-
-> @@ -2981,6 +2986,10 @@ panthor_vm_bind_prepare_op_ctx(struct drm_file *fi=
-le,
->  	if (!IS_ALIGNED(op->va | op->size | op->bo_offset, vm_pgsz))
->  		return -EINVAL;
-> =20
-> +	/* We don't allow mappings that overlap with kbo's reserved range */
-> +	if (op->va + op->size > vm->user_va_range)
-> +		return -EINVAL;
-> +
->  	switch (op->flags & DRM_PANTHOR_VM_BIND_OP_TYPE_MASK) {
->  	case DRM_PANTHOR_VM_BIND_OP_TYPE_MAP:
->  		if (!(op->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE)) {
-
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential memory exhaustion i=
-ssue
-with sparse mappings here.
-
-When an unprivileged user submits a DRM_IOCTL_PANTHOR_VM_BIND ioctl with the
-DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE flag and an extremely large op->size (e.g=
-.,
-1TB), it appears it can exhaust system memory.
-
-In panthor_vm_op_ctx_prealloc_pts(), a massive pt_count is derived from this
-size and allocations are made using GFP_KERNEL:
-
-panthor_mmu.c:panthor_vm_op_ctx_prealloc_pts() {
-    ...
-	op_ctx->rsvd_page_tables.pages =3D kzalloc_objs(*op_ctx->rsvd_page_tables.=
-pages,
-						      pt_count);
-	if (!op_ctx->rsvd_page_tables.pages)
-		return -ENOMEM;
-
-	ret =3D kmem_cache_alloc_bulk(pt_cache, GFP_KERNEL, pt_count,
-				    op_ctx->rsvd_page_tables.pages);
-    ...
-}
-
-Since pt_cache was created in panthor_mmu_pt_cache_init() without the
-SLAB_ACCOUNT flag:
-
-panthor_mmu.c:panthor_mmu_pt_cache_init() {
-    ...
-	pt_cache =3D kmem_cache_create("panthor-mmu-pt", SZ_4K, SZ_4K, 0, NULL);
-    ...
-}
-
-Should pt_cache be created with SLAB_ACCOUNT to ensure these massive alloca=
-tions
-are charged to the requesting process's memory control group (memcg) and pr=
-event
-Out-Of-Memory panics?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629-vm_bind_ch=
-ecks-v3-0-85e6740f6c2e@collabora.com?part=3D1
+Cheers,
+Daniel
