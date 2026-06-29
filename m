@@ -4,94 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72100C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:52:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1114FC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:53:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7D3910E77E;
-	Mon, 29 Jun 2026 08:52:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72EE510E77F;
+	Mon, 29 Jun 2026 08:52:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Iv+s7fJv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Q986DCiu";
 	dkim-atps=neutral
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
- [209.85.128.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A85B10E77E
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:52:11 +0000 (UTC)
-Received: by mail-yw1-f180.google.com with SMTP id
- 00721157ae682-80e24970f1dso8871177b3.0
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 01:52:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782723130; cv=none;
- d=google.com; s=arc-20260327;
- b=MEgONb2AHfmt5yNhI6uqOEUYcYo/AMBYhI5PZHcujXDjqUKJl8GsYQkb5ugJoKc1fR
- 9MBcK2y688V1IiuuENQ2Ka+RgkHPM2BqggUuvJbgrwe7uMifdICEdWHuADt69yVNyCTW
- +fOo4v8iCyv61Zu7oTldSb41Wrlk+2+Xs/RULOSnD5hTRcqgTU2EfFcNdWQBYaSI05qQ
- JmErBQFJ5DJlLIFyNFDWdZZ+DL0ZM1Y7H395Dp/irYkPz3fhADni9+UhpSvSqWvS4H0z
- go5xde9O/lq1r8imUzUxUVQIHoJKwZygTpgiWz5trW7I5moMXmfzDfv3n7+OmkXiN+7P
- 3Bqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:dkim-signature;
- bh=Q24aG9NkOoTB6HWBhLb/xRPsEmPyRkg3AgUHCrzNw7g=;
- fh=MQE9i51YDFHYDWJdmI0nKXJGZjFWyl+0LaRTweOyFAg=;
- b=GB5JkfHqbxiRChSt9RePK3srlX05IirSVBYu7KtyaNEsQOAT68aOYcGTI3l9/y6wKd
- 9ADm3RVlYslpiXsvkFjLPlR96Va1yyVs5KqsygBg2S/E3jvTTJ5SaRrWf1LRDqfAGYYn
- XIhSb+x+znIQtr66uMIvFY0YAEhIeJ69NsQsaWkNxnx7Y6UnNJ1ZiZqTcS5ejHEEO2B6
- t0G2zdSMNJur2/x+WXAIlDxYVje/0rmBe0u9xBirJJXaeaknWGhxU9W5FeiVFCO6CiBB
- QsbaVzfucw9TIToTrWyqtS/+F9futRENjhEpU7ijarSHoAl06i5FJV4k06VAJoL9py3t
- 1QyQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782723130; x=1783327930; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=Q24aG9NkOoTB6HWBhLb/xRPsEmPyRkg3AgUHCrzNw7g=;
- b=Iv+s7fJvKOSQ9k/QW2h1SVyFHjMy387J6YzlebRk7+CRkIgg4yXiU0yyAV5XqqF6D1
- tpfP7Xd/AAgNTkwxi+E+OiGdYCS7eljJSFmlXul1B2i75Scwwv9eoJ/kVLQAvPJ0OPmL
- SgYe121hfTneU7oPVtWAvXRbQ69cCwA9RYBgUI1B3LzMRAUiG3o35k5r/i8WvguUpFAo
- iOBh8PmW7arPBSlGS5zJ/ULrVDwUEqmg/lY5uwwyCXTZOlL/mofkj7UB+54qriLul6Qk
- G9L/ytx9dyGUWDSS/+k0rge2jJ6ALS/Yj2ZDMKft3rrrTbR/yfsvjCY20BaW4XKpKkNj
- rVsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782723130; x=1783327930;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Q24aG9NkOoTB6HWBhLb/xRPsEmPyRkg3AgUHCrzNw7g=;
- b=fuGlIyLv/PXBAtLEQf75ejXhUglfWuBdBiW3psPxuRTbOyj4DVIZyvdoAFNYmbCKkc
- ix081auwukbxsChfruSM0oPIyx9EaaXEvPgPb7y0II7brUVX+8oZtyB9Sq1sr5YBJwM+
- heDvJV1mRKCN7DFD4yWdRe1NfLUBcKiaf+3Nho3O8rJSrXRgrc8ZaJeRiikwqLrSoi6Y
- AUfEoStZAj8Gkbnr/oevOt43Z3ObzytRmu1fmrpnYyNvuMlkIDJPMbXZApIc7I5K4QZW
- +NWgj89qBIQiX7rkk7n+OFkT2b1VxZXcqK+x6kaPB+l8ziLM8I6BB4Jsm6f5wUgE2rc9
- Dmtg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RomGLNyNq9h+9uY6FKM2hvgO9oYc98zkqGtF0RD48goxSJNiTG2xH56yVDMNZnHDZYtEiET78IaAw4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzsq6ztrmQwWJ9dV4AJRMTMT7YCd+c2gMKWmKcF3YZQbqUGwavE
- ubrbVoLr79baNVzHcB+oQjVllwwJYiapBn+ARbwLvg0il4wYBjItxe6TneU1nHu8kd1nuQIr+Am
- OxFXgFmipE6o+KTu3mnSqSwJQBAY9pSo=
-X-Gm-Gg: AfdE7cnTLwkyigQqHv/oP0YcSAFLmji1u7Pg3n8/FfJOhCk+qWmMxTDvm6J/Aug9DOH
- 3A1IdEY/ezhR428dd2fv4xURNR+tBwo8ZCgf9B4G6CBdCIILvTypIJHZx/WyqqxMgybpj+uiWeN
- k5XXF9Fmep+eZbYG0mQXCl8tU13eZTJ8FtVCijvFLZYW2/rAvZqzlwke0esf6Q3NvTn6al0ndQm
- M2JMMvNwNXUiE6VZM9JelyrO39xQePL1mo7pXK8DLO3XMqQ9LVXQnKM4W621t4M6ZLKQBbewZOk
- 0g8rWMaUMq0US/SNky/4+/o9+0mb
-X-Received: by 2002:a05:690c:4d46:b0:80c:85e5:873f with SMTP id
- 00721157ae682-80c85e58a3cmr91884837b3.61.1782723129982; Mon, 29 Jun 2026
- 01:52:09 -0700 (PDT)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010006.outbound.protection.outlook.com [52.101.201.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC1FE10E77F
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:52:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PjWlq+No56JGLXdo+Dj8AJu5wH+FIBnE5j0XO3gTe01l4962J7vMYJYfRtcDtje3IzbGoRj/Qg1MNihaFxZf17b/iJXBGXcpzM4iR2TDUTkC9MveJRW0RkrQY5g7jJn2CZEFVmuqIIdDEmoSqWFukO5ZazmV9eDtA7fT1MgGVezq3V9qNUiKTkfqT+WaVJ7yC3iH+gcWUXPw45TSFUu2Iq7WLnMPYYaCyG3pa55Me6RWd0lK7CKyZPqg3PfIZGaYPf4ow7Tb9f0Gt7G0sxy9i/gm8cWGuUvTFevO5DRJqikN62MV4Sa2kyxQcUwkf81UbRx2D/MtAI7NWNYmt2ev4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UsOE0Jid2xVVKv1FP3ap2jWQIZIli/rD1TuUM2XSHt8=;
+ b=L+jUbSVaj6guo9WASfVAHJxzompNKlf/4mYGGAwP7oN0B0blTujDp7Jwmt+mPJ8jDNYqseKzNUwiBWE/YBqaR6WKpdMeeYR7n8k5tgE0vtHRhiIWx68A5RZZ289KeGKa6J10k9wBd08U7aDPOSnLbgNZqlW1sK3brU2R5ztUaejnzN7XcXnOHDQdVRbuU/DeHDIlzVGHwCJQ5cPb4Is8NCtvSGL26Dzyq9+XE+S4WdKnBzQOryuVph/fvCg51s1kimdJ4e3aayYTVWd6RNEoy3d0dA4OLrQPTaTJuMo2s/+KNSt6ZP9o8yMS/kK090JPesMaFeXNyIjjDaZEf06zVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UsOE0Jid2xVVKv1FP3ap2jWQIZIli/rD1TuUM2XSHt8=;
+ b=Q986DCiun9t6zONn5NXa4YfK8kiAEhzKkajPrQFiSK7wybpiQnlFUn6EP3GlDaSeMvOlzjBeZyknbqJQZ2NXdjm7JUr9guHMKovm6QEDBeyee+m4rX+LHrrAt9UlBcDUE4dMGa887AynnqCIpxHmu+Z7n5WbpBxcjbPMp6JplGo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH3PR12MB7643.namprd12.prod.outlook.com (2603:10b6:610:152::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 08:52:55 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 08:52:55 +0000
+Message-ID: <66344c20-ea97-4dfa-ac42-c9d6e061eb95@amd.com>
+Date: Mon, 29 Jun 2026 10:52:50 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-fence: Make dma_fence_dedup_array() robust against
+ 0-count input
+To: phasta@kernel.org, Baineng Shou <shoubaineng@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>, Akash Goel <akash.goel@arm.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260629031346.3875683-1-shoubaineng@gmail.com>
+ <becd29b5-9e40-4104-b6c9-3d91e2ddddff@amd.com>
+ <058f4bb261e408cf17deca9ff7354460675eacbf.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <058f4bb261e408cf17deca9ff7354460675eacbf.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0136.namprd13.prod.outlook.com
+ (2603:10b6:208:2bb::21) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-References: <aj5neetgYdu0QpcK@GRAPHRT> <20260629094419.6bb56d99@fedora-2.home>
- <CABPQNSa0-wqQTm0CzLFojWZLVY5OqQxWTXrpO=O4p8go52808Q@mail.gmail.com>
-In-Reply-To: <CABPQNSa0-wqQTm0CzLFojWZLVY5OqQxWTXrpO=O4p8go52808Q@mail.gmail.com>
-From: Erik Faye-Lund <kusmabite@gmail.com>
-Date: Mon, 29 Jun 2026 10:51:32 +0200
-X-Gm-Features: AVVi8Cf5m_RZPXcC8e-k50YPGdbuE1-CSqK1ujQU-qXEgiBfhg_pV5oHfBEqMOA
-Message-ID: <CABPQNSbwC=VtjjQiDd6B9ExT4GhgJOGUu-_tTeZ8TvgqDDbqKQ@mail.gmail.com>
-Subject: Re: [BUG] drm/panthor: intermittent freezes in Xorg xserver
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Marius Dinu <m95d+git@psihoexpert.ro>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, Steven Price <steven.price@arm.com>, 
- Liviu Dudau <liviu.dudau@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB7643:EE_
+X-MS-Office365-Filtering-Correlation-Id: c33b3c85-a4ed-4642-3e6f-08ded5bbcf71
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|23010399003|7416014|6133799003|3023799007|22082099003|18002099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: 3vBAu1JrT5D+9xMyUcsQB550w6GpZv79uqXBNiRW5sNAiRXpYaELyfSR0v3xwvh3LlfpCgJCwYpN89IG09XwpiSil4paLT5tE4LR2r3sskn0B39LuwUWl6yjIvrTMce6UEr+gdJX02NYPNJN380xcR9yhK8iIgqVyD4szRidaXO5fsZQ9LMHo7xs0OKIXb4SfWnFBkUuMZQQ+LNgy4kclbSUkFwKF/Oj54hsFiXyeQ4YaxVZtZTbnNpI2Njmr5t+VBJbC3pQeS97YkdkBoOCRbljaxqg2g8414aoFHpGl0rb24xADzTMR1r+LMAKEPSMrl7pdMdkR7Q1D4vBysPrKJLIjtiTdpAoQ6+XZ8Q2JXdaOJSkn0GKAbU9sOjxObImXC/ZSthIJR83MOKn/6Gwd68hesyzcx6i1wYAWR4hHYg8BjYM8eXsIQCb5KLmmCkWlVueYOmIqbH0Gzq+zmWI6oZLk6gN/J8hrkS7IVtO6xajNaW9pkLBTG+/cTEoe2bhFLgl+tScBHLFHAhGsuUJlx1JV4BAqlqdIJmmwRAECLnQvhJ+uIPBP2zb0+PBIbO/M+NBP5QKEAwrgwierkxM+Bg69W/MVzF16frkDFVQ14UUCFErvh+bg2anAhg8jXlzZyBeN5PkqC/c/rGMLn4PxhKxJN1QY7RBc9hmiyyhxTA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(7416014)(6133799003)(3023799007)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b1o3NFk1Slg1WUs2VGJMUGFpRHd3Yys2L1NHVnlWN2ZSZ1BBOVZmTGRYKzBa?=
+ =?utf-8?B?S0NIS20rSHcrY3lkeEV0eWVuRmo1bTdTWFNnSHRoWUxKQUhrd3NHZGVhaTRV?=
+ =?utf-8?B?WmNpWDUwajNhU0ZIYjd2QVM2bU05YmxLYW1xc1BXTXRsdjNLNjU2RDB5VEho?=
+ =?utf-8?B?VGpvQThVSWtpZzNOMnNRWThydDFzS2NFNC9nem9XMkhjNXlkWXUza3puS0wy?=
+ =?utf-8?B?VWRnTEIvcVRIc1gwZmZySW9qQUQ0a2UrT2hOVThQWnJqNmtzNVRvYkc2NDBl?=
+ =?utf-8?B?VXNuMlpjMG8rOXNsNEswUXZvL0IwbWRFdGRnM0FmeTBNWFkyV0NnN3ZmTURl?=
+ =?utf-8?B?Vi9jcUsyUFBidFFyNlZIUDZSZktYZVVRcnFZTEFjdXgxKy9kcVVGQ1UrNTB1?=
+ =?utf-8?B?ZTRjc2R4Z0VZMUt5Ymoza2Y5MEdJTDNGd25wM3hnTXpRcXBKeFpvQS9IS1Ar?=
+ =?utf-8?B?UFJ2aVR0Zy8vWG9xOVJZOW1wS051QkdWWEIzWlhOMU14aytNOEYyc3hCUjU4?=
+ =?utf-8?B?aXlyRVhRV1RoNnpSNFhBL0RCKzIyMmZOVjBaVHdEbHp1L1JOZy85UzQweTJp?=
+ =?utf-8?B?bmhZRjYwdm4rYmdOc0lYWXpiNXJYdERtWS9TeFRzMG40WDNoNmJUSjZoQmxX?=
+ =?utf-8?B?enJhZldKZlZLaHdEVlF4ZGR1RGVlTVlwTEw0UW1tMXNpTTI2clNnTGFkemRi?=
+ =?utf-8?B?NTl0Ylk2bW5taTFudFJNbHN2aEQ3R2M5UzFVd016R3hJcTc1bEFDblk1QVBS?=
+ =?utf-8?B?d09CeVczbDJKdmNhR0t0cVdjd093WkxMVXRhTVpVbnpxTC9hTkhBYjdBQ2pa?=
+ =?utf-8?B?dDU4MGc3NDhNckp3VG9uSmpoRDNBOU9TdXk4U2x4dzMvb3A0cjZSVVFOUHpm?=
+ =?utf-8?B?YmRkSkc0TE5ZUzZPaThYWDJnaS9mSkdaYmczd2lHM21McU9Fd0c1Y1NBQUYv?=
+ =?utf-8?B?dXcwSHVzNmhpVlZzdXJtakYxNzdvNzJHMzNRU29YaFc1V3FrZFJFeUxJanBQ?=
+ =?utf-8?B?dDU5YVlwT3lEZFB1SEd1YjltRjQvWFFNTndSY3A5Y0t4OCt5aWtpa3VRZFg3?=
+ =?utf-8?B?SERNa1daQmJ0aVBWYkUrR05oUURKTFgrYTJybGZyZUd1UUFjbU5rSmdEUDRm?=
+ =?utf-8?B?NGxCNnVwdVAwMFRVb1JQbksyZG5jZmFiSmhXdmFma0w1ekVWUWZJMUNQaTRR?=
+ =?utf-8?B?NVFwZzRCRzF0bDJzTFp0Y0pjSEVPSUtLOUoxUW1CTlRleWxvRzhCaUxyb2U2?=
+ =?utf-8?B?eHdQdDVSWmZHNFE3WVVDMzQzbm9iMzJIZUZ6dWJDWjg4b3JjaUNRcldnYzNr?=
+ =?utf-8?B?VG1rUlZ4NlFTdUY5a1ZmcmQzYTdLOGNuWEdGVlIxZWdBYUkvMnhuR01BRHhP?=
+ =?utf-8?B?aytlYzNOTWprZTVIanBRSG4yMnVrVy9wVFluQll3Vms5bnFTWk1sM3dIVy9T?=
+ =?utf-8?B?RkNoK2RBMkErVENIWGpYU3VqN0MzZW9hUkphbS94b2FtRC9oYjZiRUVHMTlp?=
+ =?utf-8?B?YkFWWENTcmhXTkJ0eWVseitWKzdGLzVxT3hsdEU4cWJpOWdtREpZa3MrZldo?=
+ =?utf-8?B?NGdpSWJxbUdHWGRCRHNLeE1rSzNzWHllMnRRYXhUTko4NGJPYThrOEsxaGkw?=
+ =?utf-8?B?emd4dDBmSEkvYTZmelI2TEpGMGVMZjJRSldORGtVb1VETTRVU0JSYTJYV0Mv?=
+ =?utf-8?B?aVRtTmcrRWk1UVlRYlFsNWtBbHg1bElLTWF5Zk1OUllBZjAwd3RiZlBoV1Y2?=
+ =?utf-8?B?bWlzZXVLYUh5TW5GN0tFMER4djdLRzBGNkFQcnovMEE2VkV2TXVCbDI0SW5r?=
+ =?utf-8?B?bkhoUE83UStLT0RwR1VYSnp0TjN5akkzVHd2NlF4U2VZWWtEOVd6ei9lZWIr?=
+ =?utf-8?B?OUc5Vi8xMUdvL1oxV2F5aEMrNkNGV2ZYaDZBald4bGk5cVZZMm44ZUEwMk15?=
+ =?utf-8?B?a1dhMVZUSFUyY2V4ekI1SzVCN0xCZW9qQm9QdmppbGsrNmZWYXdZaG1ySDJZ?=
+ =?utf-8?B?VnhSU1cwMWZ5VkN0VEhZbDZyeWpIMHgyQ2lBNHVUd3dGQkFnS1lNMitaaDc0?=
+ =?utf-8?B?Wm4zODUvMjNCNGIxSmpXL1ppQWFPUVpEL3Q0bnIrSHFWbUlEakhKL01ONzlP?=
+ =?utf-8?B?SDBEaHB2d3JHanBiOVQrQXRjWHFVbk5TQ3ZLc25xVlF5b2dwNXpCTzFVWnc4?=
+ =?utf-8?B?cDEyTEIwNzIzM3QxV2pubGRWYzhHMTlnR0FrL2VJa1YveFpJSm1yd3RXSXNa?=
+ =?utf-8?B?WHppSkVYRVl2cmhLOXRnaHpsTys4QWhDdDl6alZyckJiYXVsSzZlUTZKNFU3?=
+ =?utf-8?Q?EioKJmLY2JiN1q597J?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c33b3c85-a4ed-4642-3e6f-08ded5bbcf71
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 08:52:55.0971 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: j1dwGA0DMu5rFL1gVvtr4MKz1qKjJUcmKaqNoVd/vcPpS2+E2igj55yWcsw3005B
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7643
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,96 +138,67 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: kusmabite@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Silly me, I forgot to disable HTML email, so this one bounced for
-some, resending. Sorry about the duplicate.
+On 6/29/26 10:49, Philipp Stanner wrote:
+> On Mon, 2026-06-29 at 10:45 +0200, Christian König wrote:
+>> On 6/29/26 05:13, Baineng Shou wrote:
+>>> dma_fence_dedup_array() returns 1 when called with num_fences == 0:
+>>> the for-loop body never executes, j stays at 0, and the final
+>>> `return ++j` yields 1. This contradicts both the kernel-doc ("Return:
+>>> Number of unique fences remaining in the array") and the natural
+>>> expectation that 0 input gives 0 output.
+>>
+>> Good catch.
+>>
+>>>
+>>> All in-tree callers currently filter num_fences == 0 before invoking
+>>> this helper (__dma_fence_unwrap_merge() bails out via the
+>>> `if (count == 0 || count == 1)` fast path; amdgpu_userq_wait_*()
+>>> cannot reach the dedup call with a zero local count because the
+>>> amdgpu_userq_wait_add_fence() helper guarantees num_fences stays in
+>>> [0, wait_info->num_fences], and wait_info->num_fences > 0 is enforced
+>>> at the ioctl entry).
+>>
+>> That's not correct, wait_info->num_fences is just the maximum amount of fences we return.
+>>
+>> It is perfectly possible that amdgpu never finds any fences to add to the array.
+>>
+>>>
+>>> However, dma_fence_dedup_array() is EXPORT_SYMBOL_GPL, so any future
+>>> caller that forgets to pre-filter the zero case will get a misleading
+>>> return value of 1. Depending on how that caller uses the result, it
+>>> could dereference an uninitialized fence slot in the array, since the
+>>> caller's array may have been allocated but not yet populated.
+>>>
+>>> Make the contract match the documentation by returning 0 early. This
+>>> also skips an unnecessary sort() call on an empty array.
+>>>
+>>> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+>>
+>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>>
+>> I will add a CC stable before pushing to drm-misc-fixes.
+> 
+> No offense intended or taken, but don't the DRM rules say that things
+> do not get merged while there are outstanding concerns or significant
+> points in review feedback?
 
-I wonder if you're experiencing the same issue as this?
+I haven't seen that before writing the response.
 
-https://gitlab.freedesktop.org/mesa/mesa/-/work_items/15116
+I usually go over my mails till the end and wait a couple of hours before pushing anything.
 
+> What about my comments?
 
-On Mon, Jun 29, 2026 at 10:31=E2=80=AFAM Erik Faye-Lund <kusmabite@gmail.co=
-m> wrote:
->
-> I wonder if you're experiencing the same issue as this?
->
-> https://gitlab.freedesktop.org/mesa/mesa/-/work_items/15116
->
-> On Mon, Jun 29, 2026 at 10:24=E2=80=AFAM Boris Brezillon <boris.brezillon=
-@collabora.com> wrote:
->>
->> On Fri, 26 Jun 2026 14:50:17 +0300
->> Marius Dinu <m95d+git@psihoexpert.ro> wrote:
->>
->> > Hi.
->> >
->> > The system is Radxa Rock 5 ITX, RK3588, 32GB RAM,
->> > mainline kernel v7.1.0 with panthor driver, mesa 26.0.7 with panfrost =
-driver,
->> > xorg-server v21.1.22 accelerated by modesetting driver, x11perf v1.7.0=
-.
->>
->> Are we sure that's a panthor issue? Also, is this a regression
->> introduced by the latest kernel version, or has it been like that from
->> the start?
->>
->> Also, would you mind opening an issue on [1]?
->>
->> >
->> > The most clean way to reproduce this bug:
->> > Form a console or ssh session, start Xorg in background, without a win=
-dow
->> > manager, and then run x11perf on that display.
->> >
->> > Xorg :0 &
->> > x11perf -all -display :0
->> >
->> > The bug: weird intermittent performance issues in some of the tests.
->> > Examples:
->> >
->> >     1000 reps @  18.0799 msec (    55.3/sec): 10x10 rectangle outline
->> >     1000 reps @  18.0791 msec (    55.3/sec): 10x10 rectangle outline
->> >     1000 reps @  18.0790 msec (    55.3/sec): 10x10 rectangle outline
->> >     1000 reps @  18.0789 msec (    55.3/sec): 10x10 rectangle outline
->> >     1000 reps @   0.0287 msec ( 34800.0/sec): 10x10 rectangle outline
->> >     5000 trep @  14.4691 msec (    69.1/sec): 10x10 rectangle outline
->> >
->> >  5000000 reps @   0.0029 msec (345000.0/sec): 1-pixel solid circle
->> >  5000000 reps @   0.0009 msec (1100000.0/sec): 1-pixel solid circle
->> >  5000000 reps @   0.0012 msec (818000.0/sec): 1-pixel solid circle
->> >  5000000 reps @   0.0000 msec (20900000.0/sec): 1-pixel solid circle
->> >  5000000 reps @   0.0000 msec (32300000.0/sec): 1-pixel solid circle
->> > 25000000 trep @   0.0010 msec (979000.0/sec): 1-pixel solid circle
->> >
->> >     1000 reps @  31.6607 msec (    31.6/sec): Fill 10x10 trapezoid
->> >     1000 reps @  16.9012 msec (    59.2/sec): Fill 10x10 trapezoid
->> >     1000 reps @   0.0234 msec ( 42700.0/sec): Fill 10x10 trapezoid
->> >     1000 reps @   0.0272 msec ( 36700.0/sec): Fill 10x10 trapezoid
->> >     1000 reps @  32.1268 msec (    31.1/sec): Fill 10x10 trapezoid
->> >     5000 trep @  16.1479 msec (    61.9/sec): Fill 10x10 trapezoid
->> >
->> > There are no messages in kernel log or Xorg log.
->> >
->> > Visually, most of the tests runs fast as expected, but in some of the =
-tests
->> > it gets "stuck" randomly. The test suddenly freezes while drawing the =
-pattern.
->> > Then, after a while (a few seconds up to a couple of minutes), it gets
->> > unstuck by itself, draws a few more patterns extremely fast for less t=
-han a
->> > second, and then it gets stuck again.
->>
->> It smells like a signalling issue. Can you check the CPU activity and
->> report any outstanding process? Can you maybe connect a gdb to the
->> x11perf to see where it's blocked, and post the backtrace here (or in
->> the gitlab issue)?
->>
->> Regards,
->>
->> Boris
->>
->> [1]https://gitlab.freedesktop.org/mesa/mesa
+Looks valid to me as well, but I think that is a separate issue.
+
+If I'm not completely mistaken we should use size_t instead of int for array sizes all around the place in those functions.
+
+Regards,
+Christian.
+
+> 
+> 
+> P.
+
