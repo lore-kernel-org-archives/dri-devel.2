@@ -4,165 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93777C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:15:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18BC4C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:17:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04B0E10E735;
-	Mon, 29 Jun 2026 08:15:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EE9E10E564;
+	Mon, 29 Jun 2026 08:17:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="OoNgyYX6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DN1ejHe+";
 	dkim-atps=neutral
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A46DD10E564
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:15:21 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id
- 4fb4d7f45d1cf-697de23bd7dso4319035a12.1
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 01:15:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1782720920; x=1783325720; darn=lists.freedesktop.org; 
- h=in-reply-to:autocrypt:from:content-language:references:cc:to
- :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=EFcqad+RHfpPRW5uGsg3GbffnIneF9Hua+4hjYZxpLk=;
- b=OoNgyYX60rZ7a4pQ7UJSiNLYEvgfsTquONT7iz2uA42Fe5Kz3e1auRhMnL/+zda0FJ
- w8iCjiT+PoLsCNEmuXvFsbh5ypT36tYbikVetXAV4wcI7oNFMDhI6QEdAEgDpOwwqYBs
- mZTYLP4WUyWWUuszQah+6vNfOms/as53Jvj189nA27tLT6EJ0TZvM5dwvN2P0ggsACQh
- XFIRlVTkOZEIE+GH1B8qupKAsScLv6nKvK4mm2iBNskKH/OCD39bax3K8alZBRngAtmt
- rOEwQOgLdcj51WfOb1F+hHpuh/pb+9cchrk8XxBJ90mB+yarfVSwRrTKN9WDPVEQNu7w
- OFgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782720920; x=1783325720;
- h=in-reply-to:autocrypt:from:content-language:references:cc:to
- :subject:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=EFcqad+RHfpPRW5uGsg3GbffnIneF9Hua+4hjYZxpLk=;
- b=qzM9BYkgfcZd2BANjkC8o1XLXKvdpIXmiHt/mUNffSqviNj+U0VN1unIm/rYp9eoJ3
- Xt5F7vbgT37Hrt0Sy6ivee+unw6Mb1YseZY5Vtc/iQGXT2tw9oPpP7IjMza9OVlwxSQo
- kXdUClXlvKK3sbjmpDIFKJipLZiPYs5oLnf7GogTQGL6yiS1vkeBGD2jXYJlzacxtq5y
- 7g4t8hZukpL1CNHSYzsYDmk+qZi6a34umEHADF5s9Fye7NvtNNl470QiexA7euUu2vd+
- MgHPej2ixqAd0saNvLTW4QElbTalozMdAdc9HK2O8bnArERlzyaGl/UL9G53Fv89eopl
- 8E4g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpZTDF7075NFVXxX2WZFmzVq0W3pMuvrS/mupHh0NoNsayQigYkRnnj+INWkW3fpgz5PIqIw4srIns=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzRqfjEeNmiaBSlcZ+CiWlWmarezRqg3J4KOOypF4ehjH9wn2q8
- jUHQsX3aTXPzVWNrON8kNu2WaGTk1p4C+hXZW6Ic7ZoqePh6T/Auk73e+Xmxl5V1VII=
-X-Gm-Gg: AfdE7ck2pcr6Am6xH1HOzxlC9hq33RTB9pB62esHGwtbe1Wn2a12hfUDQP9Qy24nwVX
- 2KylCxmgwnEneLZ5/oAGI9f1ur6QZFqES+q7ePEauiZODfkThf6ESIi4vEaO6VBt54HNrc6qi7g
- OWpOdq4FYnHvOpkt++MyPIQjGeDqNmCcjwhZpc4GcivCna+6jyQtiXM+uobvJ3rcM3FfnUHPsEX
- iUoVOO4efhZ8LmF8iJ2qKYQPsuYUxee9cDndLowoeP3ZaN9VANOaxZEolGPkQ9lbNSUzaW7TVGq
- 4FrFKlvwm6D7RTpak+zpWcZ9wsb+kwdPSCx2Z+XgT+y4TENuteB1FXUZpSSZr8lx/wde4YCSHR5
- YB00l4PnebnbUSYgR3p5HdLSp/68pJG5FSRS9zPuVd2LNbVqtYD8vaGTlI1AOMKUiMhNhzJIoXR
- Yo47VxHi/B9Gtp5q44WlCPr4DMNXpYza1jcdaBGt/saJwLy3ajGwLyH+mKQEyJtSHIbvgBkGJRa
- AvfcPr9ThxOeRFlooYY1Cm7sdVQzucT7NlVtx0FEfs=
-X-Received: by 2002:a05:6402:210b:b0:698:50ea:2d97 with SMTP id
- 4fb4d7f45d1cf-69850ea2f88mr1862351a12.20.1782720919821; 
- Mon, 29 Jun 2026 01:15:19 -0700 (PDT)
-Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112?
- (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de.
- [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-69866085dfesm1213239a12.22.2026.06.29.01.15.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jun 2026 01:15:19 -0700 (PDT)
-Message-ID: <9acced19-573d-4923-9329-8be408d2e555@suse.com>
-Date: Mon, 29 Jun 2026 10:15:17 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8900010E564
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:17:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id B5AF9600AA;
+ Mon, 29 Jun 2026 08:17:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA4711F00A3A;
+ Mon, 29 Jun 2026 08:17:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782721040;
+ bh=XkTCAMlmvHPsjpe2o0ORBFNWQMaOAFCrtD0TuVKsirc=;
+ h=From:Subject:Date:To:Cc;
+ b=DN1ejHe+g/CjDLJ9QiSQJPg7yULrBxuRO12isTiOg6L0ONhUzo0Tx+fpGBRWASAKs
+ R8ZMrExSKQNp9XxIQeDJ+KIza2m3vrvh+dB8RDy0fcwSZPX7nkyfMWjzTMo1chz0jk
+ ge5F214pXkIAR5fK/Hy1kHaT9Zxv6YoqdtTt6d1vWT3ZJmsTBhYLJObf7Y9/3YDFZW
+ 5GeU6ppOMO1GvQt+x8y3QeURPsQNa0ZRQ0QQQ8hlEibZ9IJW1Dc4Z63Bi0O72hSwYT
+ d3FkBL0mNZUopetj8QLAEJWbC1IbgV93FLklZjaqt3yX8G/pYJ/tU+MslBgIsqrkYa
+ 4LrjgmsfhYcmA==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v4 00/30] drm: Implement state readout support
+Date: Mon, 29 Jun 2026 10:16:58 +0200
+Message-Id: <20260629-drm-state-readout-v4-0-5966657980ed@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/32] x86/msr: Drop 32-bit MSR interfaces
-To: Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org,
- "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>, x86@kernel.org,
- linux-acpi@vger.kernel.org, kvm@vger.kernel.org, linux-coco@lists.linux.dev,
- linux-pci@vger.kernel.org, virtualization@lists.linux.dev,
- linux-ide@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-crypto@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-hyperv@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-mtd@lists.infradead.org,
- platform-driver-x86@vger.kernel.org
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- "lukasz.luba@arm.com" <lukasz.luba@arm.com>, Jason Baron
- <jbaron@akamai.com>, Borislav Petkov <bp@alien8.de>,
- Tony Luck <tony.luck@intel.com>, Yazen Ghannam <yazen.ghannam@amd.com>,
- Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>, "Kirill A. Shutemov" <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>, Pu Wen <puwen@hygon.cn>,
- Bjorn Helgaas <bhelgaas@google.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Dave Martin <Dave.Martin@arm.com>, James Morse <james.morse@arm.com>,
- Babu Moger <babu.moger@amd.com>, Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>,
- Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Dave Airlie <airlied@redhat.com>, Helge Deller <deller@gmx.de>,
- linux-geode@lists.infradead.org, Olivia Mackall <olivia@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Guenter Roeck <linux@roeck-us.net>, Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Huang Rui <ray.huang@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Perry Yuan <perry.yuan@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>,
- "srinivas.pandruvada@linux.intel.com" <srinivas.pandruvada@linux.intel.com>,
- Artem Bityutskiy <artem.bityutskiy@linux.intel.com>,
- Artem Bityutskiy <dedekind1@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- David E Box <david.e.box@intel.com>, xen-devel@lists.xenproject.org
-References: <20260629060526.3638272-1-jgross@suse.com>
- <d7c1db52-529a-43cc-ac7d-38b52627e8bc@app.fastmail.com>
- <c1608c48-13c2-4290-826b-28b5ca51eaf7@suse.com>
- <7332feff-2649-496c-8e49-b0a19eb54a32@app.fastmail.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <7332feff-2649-496c-8e49-b0a19eb54a32@app.fastmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------ig3MhbNxJxQUxVNBJlyucMor"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23OQW7DIBAF0KtYrDvVAMaGrHqPKAsC4wS1NikQK
+ 1Xku5c4qqqqXv6R/pt/Z5lSoMx2zZ0lmkMOcaqhfWmYO9vpRBB8zUygUNhLBJ9GyMUWgkTWx2s
+ BjnpAbRx3ElntXRIN4baa+8MzJ/q8Vro8j+xoM4GL4xjKrnmAY8gOJroVqH86wA64YY/uOeQS0
+ 9c6b+ZreV1iUGwsmTkg8NZ6JbnyVg5v75Qm+niN6bRys/ghOmyF3CJEJbRqzaB7dzS9/kfIX6K
+ rWzcIWQmvtFAkhTH2L7EsyzeBUSK3dQEAAA==
+X-Change-ID: 20250730-drm-state-readout-108f089c1c30
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
+ lidrm_printf_indentnux-kernel@vger.kernel.org, 
+ Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7948; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=c/enL7bHuHFb8fiykM+HSBgXPBaYpsvIFaqoqaPs44c=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlOWgytU7g+z+rPY9Mym5cgIZcxOUAubKbpZH9vnTcB/
+ BztOWodU1kYhDkZZMUUWZ7IhJ1e3r64ysF+5Q+YOaxMIEMYuDgFYCJdCxgb7hw9d0pap0rGe5Ld
+ /6BDX71ad4pPE9jeu/jf8xNOt4pOCzW8FDrO7OBnEFU+sfnGy0s2jPXFpelvcjfr3n37JF6u+Ha
+ K2W+/9dxzAxq3xzXvWuVqff2ogkFR8z+/vSx/HtR+W9LevQgA
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -178,190 +79,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------ig3MhbNxJxQUxVNBJlyucMor
-Content-Type: multipart/mixed; boundary="------------V5dYQbMhs1ofcoBHIcwfa0ou";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org,
- "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>, x86@kernel.org,
- linux-acpi@vger.kernel.org, kvm@vger.kernel.org, linux-coco@lists.linux.dev,
- linux-pci@vger.kernel.org, virtualization@lists.linux.dev,
- linux-ide@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-crypto@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-hyperv@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-mtd@lists.infradead.org,
- platform-driver-x86@vger.kernel.org
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- "lukasz.luba@arm.com" <lukasz.luba@arm.com>, Jason Baron
- <jbaron@akamai.com>, Borislav Petkov <bp@alien8.de>,
- Tony Luck <tony.luck@intel.com>, Yazen Ghannam <yazen.ghannam@amd.com>,
- Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>, "Kirill A. Shutemov" <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>, Pu Wen <puwen@hygon.cn>,
- Bjorn Helgaas <bhelgaas@google.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Dave Martin <Dave.Martin@arm.com>, James Morse <james.morse@arm.com>,
- Babu Moger <babu.moger@amd.com>, Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>,
- Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Dave Airlie <airlied@redhat.com>, Helge Deller <deller@gmx.de>,
- linux-geode@lists.infradead.org, Olivia Mackall <olivia@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Guenter Roeck <linux@roeck-us.net>, Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Huang Rui <ray.huang@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Perry Yuan <perry.yuan@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>,
- "srinivas.pandruvada@linux.intel.com" <srinivas.pandruvada@linux.intel.com>,
- Artem Bityutskiy <artem.bityutskiy@linux.intel.com>,
- Artem Bityutskiy <dedekind1@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- David E Box <david.e.box@intel.com>, xen-devel@lists.xenproject.org
-Message-ID: <9acced19-573d-4923-9329-8be408d2e555@suse.com>
-Subject: Re: [PATCH 00/32] x86/msr: Drop 32-bit MSR interfaces
-References: <20260629060526.3638272-1-jgross@suse.com>
- <d7c1db52-529a-43cc-ac7d-38b52627e8bc@app.fastmail.com>
- <c1608c48-13c2-4290-826b-28b5ca51eaf7@suse.com>
- <7332feff-2649-496c-8e49-b0a19eb54a32@app.fastmail.com>
-In-Reply-To: <7332feff-2649-496c-8e49-b0a19eb54a32@app.fastmail.com>
+Hi,
 
---------------V5dYQbMhs1ofcoBHIcwfa0ou
-Content-Type: multipart/mixed; boundary="------------v0Z2BN0RWOfGstVcmbBBEzK1"
+Here's a series that implement what i915 calls "fastboot", ie,
+initializing the initial KMS state from the hardware state at boot, to
+skip the first modeset if the firmware already set up the display.
 
---------------v0Z2BN0RWOfGstVcmbBBEzK1
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+This series creates the infrastructure in KMS to create that state by
+relying on driver specific hooks. It also implements some infrastructure
+to check during non-blocking commits that the readout helpers work
+properly by reading out the state that was just committed and comparing
+it to what was supposed to be committed.
 
-T24gMjkuMDYuMjYgMTA6MDYsIEFybmQgQmVyZ21hbm4gd3JvdGU6DQo+IE9uIE1vbiwgSnVu
-IDI5LCAyMDI2LCBhdCAwOTowMSwgSsO8cmdlbiBHcm/DnyB3cm90ZToNCj4+IE9uIDI5LjA2
-LjI2IDA4OjUyLCBBcm5kIEJlcmdtYW5uIHdyb3RlOg0KPj4+IE9uIE1vbiwgSnVuIDI5LCAy
-MDI2LCBhdCAwODowNCwgSnVlcmdlbiBHcm9zcyB3cm90ZToNCj4+Pg0KPj4+IEkgYXNzdW1l
-IHRoaXMgaXMgZmluZSwgYnV0IHNpbmNlIHlvdSBkb24ndCBtZW50aW9uIGl0IGV4cGxpY2l0
-bHkgaGVyZSwNCj4+PiBwbGVhc2UgY2xhcmlmeSB3aGF0IHRoaXMgbWVhbnMgZm9yIDMyLWJp
-dCBDUFVzIHdpdGhvdXQgdGhlIHJkbXNycQ0KPj4+IGluc3RydWN0aW9uLiBUaG9zZSB3aWxs
-IGNvbnRpbnVlIHVzaW5nIHRoZSBzYW1lIGluc3RydWN0aW9ucyBhcyBiZWZvcmUNCj4+PiBh
-bmQganVzdCBjaGFuZ2UgdGhlIGNhbGxpbmcgY29udmVudGlvbnMsIHJpZ2h0Pw0KPj4NCj4+
-IFllcy4gSSB0aG91Z2h0IHRoaXMgd291bGQgYmUgY2xlYXIgZnJvbSB0aGUgZm9sbG93aW5n
-Og0KPj4NCj4+ICAgICAtIFRoZXkgYXJlIGJhc2VkIG9uIHByaW1pdGl2ZXMgdXNpbmcgNjQt
-Yml0IHNpemVkIHZhbHVlcyBhbnl3YXkuDQo+IA0KPiBSaWdodCwgdGhhdCB3YXMgbXkgcmVh
-ZGluZyBvZiBpdCBhcyB3ZWxsLCBidXQgaXQncyBub3QgZW50aXJlbHkNCj4gY2xlYXIgd2hl
-biB0aGUgZnVuY3Rpb24gbmFtZSBpcyB0aGUgc2FtZSBhcyB0aGUgbW5lbW9uaWMgb2YgYW4N
-Cj4gaW5zdHJ1Y3Rpb24gdGhhdCBvbmx5IGV4aXN0cyBvbiBuZXdlciBDUFVzIGFuZCB0aGUg
-bGF0ZXIgcGF0Y2gNCg0KVGhlcmUgaXMgbm8gUkRNU1JRIGluc3RydWN0aW9uIG9uIGFueSB4
-ODYgQ1BVLiBBcmUgeW91IG1peGluZyB0aGlzIHVwIHdpdGgNCldSTVNSTlMvUkRNU1IgdXNp
-bmcgYW4gaW1tZWRpYXRlIGZvciBhZGRyZXNzaW5nIHRoZSBNU1I/DQoNCg0KSnVlcmdlbg0K
+This relies on another set of driver hooks to compare the entities
+states, with helpers providing the default implementation.
 
---------------v0Z2BN0RWOfGstVcmbBBEzK1
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+It then implements the readout support in the TIDSS driver, and was
+tested with the SK-AM62 board. This board in particular is pretty
+interesting, since it relies on an DPI to HDMI bridge, and uses the
+drm_bridge_connector infrastructure.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+So the readout works with the current state of the art on embedded-ish
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
-oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
-kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
-1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
-BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
-N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
-PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
-FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
-UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
-vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
-+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
-qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
-tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
-CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
-RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
-8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
-BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
-SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
-nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
-AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
-Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
-hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
-w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
-VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
-OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
-/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
-c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
-F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
-k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
-wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
-5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
-TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
-N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
-AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
-0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
-Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
-we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
-v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
-Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
-534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
-b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
-yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
-suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
-jR/i1DG86lem3iBDXzXsZDn8R3/CwO0EGAEIACAWIQSFEmdy6PYElKXQl/ew3p3W
-KL8TLwUCWt3w0AIbAgCBCRCw3p3WKL8TL3YgBBkWCAAdFiEEUy2wekH2OPMeOLge
-gFxhu0/YY74FAlrd8NAACgkQgFxhu0/YY75NiwD/fQf/RXpyv9ZX4n8UJrKDq422
-bcwkujisT6jix2mOOwYBAKiip9+mAD6W5NPXdhk1XraECcIspcf2ff5kCAlG0DIN
-aTUH/RIwNWzXDG58yQoLdD/UPcFgi8GWtNUp0Fhc/GeBxGipXYnvuWxwS+Qs1Qay
-7/Nbal/v4/eZZaWs8wl2VtrHTS96/IF6q2o0qMey0dq2AxnZbQIULiEndgR625EF
-RFg+IbO4ldSkB3trsF2ypYLij4ZObm2casLIP7iB8NKmQ5PndL8Y07TtiQ+Sb/wn
-g4GgV+BJoKdDWLPCAlCMilwbZ88Ijb+HF/aipc9hsqvW/hnXC2GajJSAY3Qs9Mib
-4Hm91jzbAjmp7243pQ4bJMfYHemFFBRaoLC7ayqQjcsttN2ufINlqLFPZPR/i3IX
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+It's now in a much better state than the v1 was, but there's still some
+notable things broken:
 
---------------v0Z2BN0RWOfGstVcmbBBEzK1--
+  - Bridges do not read their input and output bus formats and flags
 
---------------V5dYQbMhs1ofcoBHIcwfa0ou--
+  - The tidss_crtc_state fields are not read properly at the moment
+    either.
 
---------------ig3MhbNxJxQUxVNBJlyucMor
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+  - It looks like, when left unattended, we get some atomic_flush
+    WARN eventually, maybe because of something broken around
+    hotplugging and the monitor shutting itself down?
 
------BEGIN PGP SIGNATURE-----
+  - If readout is disabled for any reason, the hardware isn't reset
+    anymore.
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmpCKZUFAwAAAAAACgkQsN6d1ii/Ey8v
-qwf/Y5mYk+cmsPDvlvvZ/oB0cOnaAjPaW0p0ZcuwURch/BiJvRVqrhFbXcKEzd5rwklAqsg7OjsE
-T4O6fRqL3CFwHhTWMzl6IvT6qLTomLzCHQVTF/d0OQP7bR6I5RVlwhf4lBD5v3Rp2+62+mof52kF
-+fYKWGuBEOZXqfcrMWn1xGHk38Uxya2nQf8kx7TDUegD6lTPVaprSHBZnmuh1g2uCqqR6JPK6l9F
-vt1HtC9t+gMwazkGqXm8PXcNJkZbO9b69HhI7TsGCkJ0wZSK8Bt+Ws7bdIt3kXoKQKy4080hK+i4
-9JQl9gaRvVSxlvBt4R+piXEEyJptBwGq9CHBel1PVQ==
-=EBKG
------END PGP SIGNATURE-----
+The main thing works though: the state is picked up properly, doesn't
+trigger a modeset if what was programmed is the one the first modeset
+tries to pick as well, will switch properly if it isn't, etc.
 
---------------ig3MhbNxJxQUxVNBJlyucMor--
+Let me know what you think,
+Maxime
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v4:
+- Dropped the HACK patch that went into the v3 resend
+- Hopefully the kernel.org smtp works this time
+- Link to v3: https://lore.kernel.org/r/20260626-drm-state-readout-v3-0-d5825e3299a8@kernel.org
+
+Changes in v3:
+- Rebase on top of the current drm-misc-next, with rename of
+  drm_atomic_state and the various preliminary series merged.
+- Use drm_printf_indent when possible
+- Change the access mode for the atomic_readout parameter from 000 to
+  400
+- Use drm_drv_uses_atomic_modeset() instead of drm_core_check_feature()
+- Introduce a hw_reset hook to deal with device hardware reset when
+  needed (ie, SRO fails or is disabled)
+- Improve mode flags readout
+- Fix plane alpha readout
+- Add sii902x state readout
+
+- Link to v2: https://lore.kernel.org/r/20260423-drm-state-readout-v2-0-8549f87cb978@kernel.org
+
+Changes in v2:
+- Get rid of patches already applied
+- Rebase on top of the current atomic_create_state work
+- Use the SRO prefix everywhere
+- Create our own states container structure instead of trying to plumb
+  it into a drm_atomic_state
+- Make a lot more use of helpers
+- Add a hook to enable the hardware resources when the readout state
+  becomes active
+- Move all the tidss readout code into tidss_dispc.c
+- Write documentation
+- Add drm_private_obj and drm_bridge name for easier debugging
+- Add drm_private_obj_is_bridge()
+- Link to v1: https://lore.kernel.org/r/20250902-drm-state-readout-v1-0-14ad5315da3f@kernel.org
+
+---
+Maxime Ripard (30):
+      drm/atomic: Fix unused but set warning in state iterator macros
+      drm/atomic_helper: Skip over NULL private_obj pointers
+      drm/atomic-state-helper: Remove memset in __drm_atomic_helper_bridge_reset()
+      drm/atomic: Convert drm_priv_to_bridge_state to container_of_const
+      drm/atomic: Add drm_private_obj name
+      drm/bridge: Add drm_private_obj_is_bridge()
+      drm/bridge: Implement atomic_print_state
+      drm/atomic: Export drm_atomic_*_print_state
+      drm/atomic: Only call atomic_destroy_state on a !NULL pointer
+      drm/atomic_sro: Create drm_atomic_sro_state container
+      drm/atomic_sro: Create kernel parameter to force or disable readout
+      drm/atomic_sro: Add atomic state readout infrastructure
+      drm/atomic_sro: Add function to install state into drm objects
+      drm/atomic_sro: Create documentation
+      drm/bridge: Handle bridges with hardware state readout
+      drm/mode-config: Read out hardware state in drm_mode_config_create_state
+      drm/mode-config: Introduce hw_reset hook
+      drm/atomic_sro: Provide helpers to implement hardware state readout
+      drm/atomic_helper: Pass nonblock to commit_tail
+      drm/atomic_helper: Compare actual and readout states once the commit is done
+      drm/atomic-state-helper: Provide comparison macros
+      drm/atomic-state-helper: Provide atomic_compare_state helpers
+      drm/encoder: Create atomic_sro_get_current_crtc hook
+      drm/bridge: display-connector: Implement readout support
+      drm/bridge_connector: Implement hw readout for connector
+      drm/tidss: dispc: Improve mode checking logs
+      drm/tidss: Switch to drm_mode_config_create_initial_state()
+      drm/tidss: Implement readout support
+      drm/tidss: encoder: Implement atomic_sro_get_current_crtc
+      drm/bridge: sii902x: Implement hw state readout
+
+ drivers/gpu/drm/Makefile                           |   2 +
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   1 +
+ .../drm/arm/display/komeda/komeda_private_obj.c    |   8 +
+ drivers/gpu/drm/bridge/display-connector.c         |  15 +
+ drivers/gpu/drm/bridge/sii902x.c                   |  72 +-
+ drivers/gpu/drm/display/drm_bridge_connector.c     |  31 +
+ drivers/gpu/drm/display/drm_dp_mst_topology.c      |   2 +-
+ drivers/gpu/drm/display/drm_dp_tunnel.c            |   1 +
+ drivers/gpu/drm/drm_atomic.c                       |  46 +-
+ drivers/gpu/drm/drm_atomic_helper.c                |  46 +-
+ drivers/gpu/drm/drm_atomic_sro.c                   | 854 +++++++++++++++++++++
+ drivers/gpu/drm/drm_atomic_sro_helper.c            | 676 ++++++++++++++++
+ drivers/gpu/drm/drm_atomic_state_helper.c          |   3 +-
+ drivers/gpu/drm/drm_bridge.c                       | 133 +++-
+ drivers/gpu/drm/drm_internal.h                     |  12 +
+ drivers/gpu/drm/drm_mode_config.c                  |  51 +-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |   1 +
+ drivers/gpu/drm/ingenic/ingenic-ipu.c              |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |   1 +
+ drivers/gpu/drm/omapdrm/omap_drv.c                 |   1 +
+ drivers/gpu/drm/tegra/hub.c                        |   1 +
+ drivers/gpu/drm/tidss/tidss_crtc.c                 |  93 +++
+ drivers/gpu/drm/tidss/tidss_dispc.c                | 296 ++++++-
+ drivers/gpu/drm/tidss/tidss_dispc.h                |  15 +
+ drivers/gpu/drm/tidss/tidss_drv.c                  |   6 +-
+ drivers/gpu/drm/tidss/tidss_encoder.c              |  37 +-
+ drivers/gpu/drm/tidss/tidss_kms.c                  |  14 +-
+ drivers/gpu/drm/tidss/tidss_plane.c                | 154 ++++
+ drivers/gpu/drm/vc4/vc4_kms.c                      |   3 +
+ include/drm/drm_atomic.h                           | 144 +++-
+ include/drm/drm_atomic_sro.h                       |  59 ++
+ include/drm/drm_atomic_sro_helper.h                | 275 +++++++
+ include/drm/drm_bridge.h                           |  87 +++
+ include/drm/drm_connector.h                        |  69 ++
+ include/drm/drm_crtc.h                             |  69 ++
+ include/drm/drm_encoder.h                          |  18 +
+ include/drm/drm_mode_config.h                      |  50 ++
+ include/drm/drm_modeset_helper_vtables.h           |  23 +
+ include/drm/drm_plane.h                            |  69 ++
+ 40 files changed, 3354 insertions(+), 86 deletions(-)
+---
+base-commit: 4c85094a73431c26d5774aa74e422fc6bb94a7d5
+change-id: 20250730-drm-state-readout-108f089c1c30
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
+
