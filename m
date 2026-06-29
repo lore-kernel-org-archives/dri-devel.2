@@ -4,57 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B056C43327
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 11:58:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6FA7C43327
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:01:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81E7610E839;
-	Mon, 29 Jun 2026 11:58:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 131E510E081;
+	Mon, 29 Jun 2026 12:01:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="Sw94lzUy";
+	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="cNt3EdhW";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D293810E839
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 11:58:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782734288; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=VFYq+wU4bkeByeOlKmO20qgDA8Rbri7AemD3CctH6euN9MXNZiRmawZfmg2SydnACgkYQp1kVc6UiCaEn4NcXAFbTyy7Tx0oU+8s0cXyCsU7extPpX3wa0zVNebJYmtIehg7nwg5UYF9bQOp2crp1v+h7SbvALG3Zvnc+ppeF6w=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1782734288;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=iUAj9nhCCaaOFb7421g6sg9FUGL5L6QYCWEFIc2pzo4=; 
- b=KJlrgT8JU/7RVPMvq/Vy1W1WiN0IaQkmfg/uCFCheVNQ9wQtG0l0CFBFtD5UY5T0QPMP7qxzs/jvaP+2RM0qC2Oo/6zcihLyjCsF6vAHstMdhAKe0TI5xJa07Jh1i6pgL5o+9KRg8KQOLEHV9Xvm8vQPxbf+6o2Z8PANYpsm+B0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782734288; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=iUAj9nhCCaaOFb7421g6sg9FUGL5L6QYCWEFIc2pzo4=;
- b=Sw94lzUyb0Q37iEbY7XILIy3JhBG+NdbiEAJqPpW4lejUwuHggM2I+9HAzVsUJQD
- hXMolxZ15GODHj8YJGEO/0woLKzRMmBP+XHRKH3332CzcVP/uHQCCJOa7S1AU8vvuPi
- +H+9yhs+0ekVmUgm7fiBxocevL8yba/H/WY79ZP0=
-Received: by mx.zohomail.com with SMTPS id 1782734286080377.50934110595267;
- Mon, 29 Jun 2026 04:58:06 -0700 (PDT)
-Message-ID: <0a444d8c-6107-4577-bed3-0039333a5244@collabora.com>
-Date: Mon, 29 Jun 2026 13:58:02 +0200
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58F0F10E840
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 12:00:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+ Reply-To:Content-ID:Content-Description;
+ bh=TNQlr+faI3TO4fVi/XZUbvkD64iV2T4NOc8w24a6S/Q=; t=1782734458; x=1783944058; 
+ b=cNt3EdhWeEEx5EsExqCFVinhnc/oKh/4jw71B9RQJLJhdfzXrfCuBFWIf6EIwSGsw1ujLtmsRbB
+ bDJoIogI670UmOled8H0remR18IKoeiRsnL7MC6lsMRbQnXd3+8q4EN0ljROSYqbiv0/4jWSB1qyQ
+ TgCifGqKQ6Lg2VS2RfcPT+9F5/fzeJ8gA6PJSje4GOGpmb/ibWjwFCwYi0mpRbkPFS9cfP8h+KnnI
+ PFD3YzprFkc+E4ZwY5eju8i0q3haYODklwys0UEg8RsjA/CLGwrNfE89QzEMwJ7ZV+DUHGK3KNdCZ
+ bAvkpbCFza79TW2T1IhL8DEhbNC7tdVicqUg==;
+Date: Mon, 29 Jun 2026 14:00:52 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: sashiko-bot@kernel.org
+Cc: sashiko-reviews@lists.linux.dev, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v3] drm/omap: dsi: avoid sending bta sync all the time
+ in writes
+Message-ID: <20260629140052.37b7096e@kemnade.info>
+In-Reply-To: <20260628142654.01D4E1F000E9@smtp.kernel.org>
+References: <20260628-vm-upstr-v3-1-9e9add93378b@kemnade.info>
+ <20260628142654.01D4E1F000E9@smtp.kernel.org>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] udmabuf: Ensure to perform cache synchronisation in
- begin_cpu_udmabuf()
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- "Kasireddy, Vivek" <vivek.kasireddy@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-References: <20260627105725.9083-1-robert.mader@collabora.com>
- <CABXGCsPHdi3=Tpg2uZhZMuLNmg8r9Bg=OgD39eyMc=pv8gc_TQ@mail.gmail.com>
- <bc41095d-8956-4c3e-8f99-f4bda41f81e7@collabora.com>
- <CABXGCsNYEhkprpTh9Pd8Y46520fwNJngS_Bg_QJCQPCf3_qv0g@mail.gmail.com>
-Content-Language: en-US, de-DE
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <CABXGCsNYEhkprpTh9Pd8Y46520fwNJngS_Bg_QJCQPCf3_qv0g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,40 +53,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 29.06.26 13:48, Mikhail Gavrilov wrote:
-> On Mon, Jun 29, 2026 at 3:57 PM Robert Mader <robert.mader@collabora.com> wrote:
->> Hi Mikhail,
->>
->> thanks for the quick review! And no worries, I was very happy about your
->> patch, which is why I looked deeper into it in the first place.
->>
->> Given the patch fixes a newly introduced regression (and is very
->> simple), do you think there's a chance to still get it into 7.1 - or
->> would it need to go via the usual 7.2/7.3 release schedule + backport?
-> Hi Robert,
->
-> The timing depends on Vivek and the drm-misc maintainers, not me,
-> but here's the situation as I understand it:
->
-> The original commit 504e2b4ab97a only landed in 7.2 (it went into
-> drm-misc-next, not drm-misc-fixes). So 7.1 was never affected by
-> the regression -- there's nothing to fix there.
->
-> For 7.2: since your patch fixes a regression introduced in the same
-> cycle, it would ideally go through drm-misc-fixes to land in 7.2
-> before release, avoiding a broken commit in the final tree. That's
-> the cleanest outcome.
->
-> Adding Vivek -- he pushed the original patch and would know whether
-> drm-misc-fixes is the right route at this point in the cycle.
-Hi Mikhail, I of course meant 7.2, not 7.1, sorry! And agreed, that 
-would be ideal / perfect.
+On Sun, 28 Jun 2026 14:26:53 +0000
+sashiko-bot@kernel.org wrote:
 
--- 
-Robert Mader
-Consultant Software Developer
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> 
+> New issues:
+> - [High] Missing wait/pacing for short packets leads to TX FIFO overflows and transmission failures.
+> - [High] The wait for a long packet's transmission can be prematurely satisfied by the PACKET_SENT interrupt of a preceding short packet.
+> 
+> Pre-existing issues:
+> - [High] A race condition during timeout handling causes a use-after-free on a stack-allocated completion object due to lockless IRQ dispatch.
+> --
+> 
+> commit 13757a7bc4e8503b706178de5f3a86e797b3589f
+> Author: Andreas Kemnade <andreas@kemnade.info>
+> 
+> drm/omap: dsi: avoid sending bta sync all the time in writes
+> 
+> This patch modifies the DSI write logic to avoid sending a BTA sync on
+> every write unless acknowledgments are explicitly requested. Instead,
+> it waits for the packet transmission to complete to prevent FIFO overflows.
+> This change allows configuration of chips like the TC358762 that require
+> specific commands before they can send data.
+> 
+> > diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/dss/dsi.c
+> > index 27fe7bca9e2cf..f7079a49e824e 100644
+> > --- a/drivers/gpu/drm/omapdrm/dss/dsi.c
+> > +++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
+> > @@ -2194,28 +2194,39 @@ static int dsi_vc_send_null(struct dsi_data *dsi, int vc, int channel)
+> >  static int dsi_vc_write_common(struct omap_dss_device *dssdev, int vc,
+> >  			       const struct mipi_dsi_msg *msg)
+> >  {
+> > +	DECLARE_COMPLETION_ONSTACK(completion);
+> >  	struct dsi_data *dsi = to_dsi_data(dssdev);
+> >  	int r;
+> >  
+> >  	if (mipi_dsi_packet_format_is_short(msg->type))
+> >  		r = dsi_vc_send_short(dsi, vc, msg);
+> > -	else
+> > +	else {  
+> 
+> [Severity: High]
+> The commit message states "wait for the packet to be sent to avoid FIFO
+> overflows", but does this code omit that wait for short packets?
+> 
+I would switch back to also wait there and have that confirmed by Ivo.
+My testing was also done with short packets, so apparently the interrupt
+comes there, too, so I can probably go back to the v1 way of doing things.
 
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
+> If a panel driver sends a rapid sequence of short DCS configuration
+> commands, it appears dsi_vc_send_short() will push to the FIFO and
+> return immediately. Since the unconditional dsi_vc_send_bta_sync() was
+> removed, could this lack of pacing cause the TX FIFO to overflow during
+> consecutive short writes?
+> 
+as said, I can turn back.
 
+> > +		/* wait for IRQ for long packet transmission confirmation */
+> > +		r = dsi_register_isr_vc(dsi, vc, dsi_completion_handler,
+> > +					&completion, DSI_VC_IRQ_PACKET_SENT);  
+> 
+> [Severity: High]
+> Because short packets return immediately without waiting, what happens if
+> a short packet is followed immediately by a long packet?
+> 
+which would also avoid this problem. 
+
+> If the short packet finishes transmitting after the DSI_VC_IRQ_PACKET_SENT
+> status is cleared by dsi_register_isr_vc() for the long packet, will the
+> short packet's completion interrupt fire and prematurely satisfy the
+> wait_for_completion_timeout() for the long packet?
+> 
+> > +		if (r)
+> > +			return r;
+> > +
+> >  		r = dsi_vc_send_long(dsi, vc, msg);
+> >  
+> > -	if (r < 0)
+> > +		if ((!r) && wait_for_completion_timeout(&completion,
+> > +					msecs_to_jiffies(500)) == 0)
+> > +			r = -EIO;
+> > +
+> > +		dsi_unregister_isr_vc(dsi, vc, dsi_completion_handler,
+> > +				      &completion, DSI_VC_IRQ_PACKET_SENT);  
+> 
+> [Severity: High]
+> This is a pre-existing issue, but can this sequence lead to a
+> use-after-free on the stack-allocated completion object?
+> 
+> If the 500ms timeout expires, the thread wakes up, unregisters the ISR,
+> returns -EIO, and destroys the stack frame. However, omap_dsi_irq_handler()
+> makes a copy of the ISR table and executes handlers locklessly:
+> 
+> omap_dsi_irq_handler() {
+>     memcpy(&dsi->isr_tables_copy, &dsi->isr_tables, sizeof(dsi->isr_tables));
+>     spin_unlock(&dsi->irq_lock);
+>     dsi_handle_isrs(&dsi->isr_tables_copy, ...);
+> }
+> 
+> If a delayed hardware interrupt fires concurrently, could the IRQ handler
+> invoke dsi_completion_handler() from its local copy and call complete() on
+> the now-destroyed stack pointer, since it doesn't synchronize with
+> dsi_unregister_isr_vc()?
+> 
+I looked around, the idea beding this copy seems to be invalid:
+ /* make a copy and unlock, so that isrs can unregister
+         * themselves */
+
+nobody seems to do that. I will send a separate patch to remove that copy.
+
+Regards,
+Andreas
