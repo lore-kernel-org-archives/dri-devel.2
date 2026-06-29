@@ -4,125 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDBD6C43602
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 17:53:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9210AC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 18:01:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF91710E0D4;
-	Mon, 29 Jun 2026 17:53:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1FAB10E0CE;
+	Mon, 29 Jun 2026 18:01:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UdufgN4e";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Hx+otyOh";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010024.outbound.protection.outlook.com
- [52.101.193.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E74C10E0D0;
- Mon, 29 Jun 2026 17:53:33 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012048.outbound.protection.outlook.com [40.107.209.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F7BA10E0CE
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 18:01:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oTi2H21UJDX/8DJrYy7XjumvmxyaxWnOwIzA+Q71kG7pJxzTTnpao2EFIXVISZUAUmrSwnZpWyZAKb7NyMEWfVq/mYgL8pTAcdpkJJ5MMMBklA8gbcnpH/ZthsfYnyWtJskXO9A1IoowjJZjHXv71kjtdr5mLp1UNxJVAOu2q4qaFUUGYR72Np8Su0VN36i6/ZB/iKN2O110xV055B65ATnKpTHcQn5ugV8eC5TWFj9HNOwGFS+5uG+0bL0qST16IeZH0EIig/ykJ9iPl7wA1YXkoTjuoGpZdMF4pq+8iEPDG4/SKo2KUGZnytFUzFWF3R8iRLiPh3iHsAiLdkd+YA==
+ b=lGE8yHL93jsVbEENkYOrICO0PNboTeHY6dqYsCq+KWiW1Q86iSS9p0ym2pZKFjtQ2SGdokR5SNSi5z3+0r0QVgwzRimMaBlGkK/XSCnlYzT/1XJo3OadJsPGeVvBJvTK+bN/9LGEwj04PE4f8tj5EOXV1D32ic0QnyRXscsH8OorLr5hpgYt6sy1PzPuLaJ8CsSx1wHvOlKJC/ksQcv0fzxbSwhx/p3/xQKwLYR8hdoeOxXQGJQ+Yc790tUwx7A6k+9JLvmaPfybT+IQaSvgM3Xj+j+UvEOO7W8M3j+TN6t5Q/rIvQGdxsmzmbIY5YaBGF/koKhn+If2jZ52efIbWg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zELtQfPCvvCpHpa3LRpuDAcJ1DPJue0moAJ2C93+D/w=;
- b=wObVbRNtSpAwJYPh9sbq3t1Wou8HVrR4MSAV4bxrTUN5GIg66kOOku7zuX2XXVjkZspkjgYLrG5PujlmfR0cjRBqpiMQussDMt+Fzb81W9AExCbNJhjA2EK+F7yidltOHBw3loWida0sBtmrV7QK4ILt9Ey5q6wIHBoLns9AoFAkDrz567ku3cJf1NgbNGMWzjfaVku4Y7gE6dxcxFzfrXGSQB/pIM4LjQtP2XvFvDMd2Rgiz0ubSxRuANKx3wZ5p5znC53pOD2xk7rCFvMKAXMAjPUlQrpmlWMkHZGu6OU0RKlRn4KDvmxyuk6NOQ4L2PmggPwXmOHC/EH7E/R6jw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=KMM2ACmyCrbfsJASBPS7qW53vRrDmtfkpaf3bbG6ZT8=;
+ b=yf/7IZdG2lKv8Mp6A+zhvf8DNRwcsasrvicxgkJ1/NTV+MnKdwTrSpbHgiizZYPaUGvfdMA7skp1y9VisIagXnDN3iO2tm2H14nnLxWt6SYxAs6ieEtjP3umHg83pk3F8El7s7lImjXjzYYcQfx7n2i1KetpLB4hQ00nNrOkI+rytBIDHG+KlX8nvkJX8S8UW+kIyuKceoJMhKmT1Bx+eSrhJR2F/ardyxglrqpljUdCvHqyOg56Q0bgW7uJMYOBvoiPDgUZHmhJCbHpaUGVco+v1sPEdpCTMjpRMLbmUZyutD96zzMTf7SXmAsfGG95jChhrtKmfoAq36plGsqrrA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zELtQfPCvvCpHpa3LRpuDAcJ1DPJue0moAJ2C93+D/w=;
- b=UdufgN4e5I2R8sSwUqOv+OP6+zH2kbjN1tqbwsp4JAinI1L4KOieEcw+PCMaJu+yoLM+gyaJOdZZ+0tbNYNqU1E7LlfgljW75bqCb3M78PyOhI5rQZcU2nTp9Ec4Qfe3TTSKe9EGwmftJ7gViUEXXFZZa3203qWIaKAcRTe/IUw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB8786.namprd12.prod.outlook.com (2603:10b6:8:149::17) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=KMM2ACmyCrbfsJASBPS7qW53vRrDmtfkpaf3bbG6ZT8=;
+ b=Hx+otyOhFpUdFAmS+a29uwF+SxHltuJgrJO7M14lQLTYs3QCSX4YlIZ+NSz0MWPvBv4pu8tAIvSmoM3bI09BFRojZ8/zLOLUa90bJiu0PcKGnl4e5F72cXQZhpDMujAv2Zbw/1hfSoVxGt6TO1NVWiRXdWWf26xQUyLhxKmcIQg=
+Received: from MN2PR15CA0062.namprd15.prod.outlook.com (2603:10b6:208:237::31)
+ by IA0PPF04DCE520E.namprd12.prod.outlook.com
+ (2603:10b6:20f:fc04::bc5) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 17:53:30 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 17:53:29 +0000
-Message-ID: <9935b6d9-d534-4275-8a7d-414ce555779a@amd.com>
-Date: Mon, 29 Jun 2026 19:53:23 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amdgpu: reject mapping info when BO VA is gone
-To: Yousef Alhouseen <alhouseenyousef@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260629152807.13492-1-alhouseenyousef@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260629152807.13492-1-alhouseenyousef@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4P288CA0009.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d4::14) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ 2026 18:01:50 +0000
+Received: from BN2PEPF000055DB.namprd21.prod.outlook.com
+ (2603:10b6:208:237:cafe::8c) by MN2PR15CA0062.outlook.office365.com
+ (2603:10b6:208:237::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Mon,
+ 29 Jun 2026 18:01:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF000055DB.mail.protection.outlook.com (10.167.245.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.202.0 via Frontend Transport; Mon, 29 Jun 2026 18:01:50 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 29 Jun
+ 2026 13:01:35 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 29 Jun
+ 2026 11:01:02 -0700
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Mon, 29 Jun 2026 13:01:01 -0500
+Message-ID: <29b8e37c-2986-3354-9344-ddd065d41a86@amd.com>
+Date: Mon, 29 Jun 2026 11:00:56 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V3 1/3] accel/amdxdna: Fix amdxdna_client lifetime race
+ during device removal
+Content-Language: en-US
+To: Mario Limonciello <superm1@kernel.org>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+ <karol.wachowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <max.zhen@amd.com>, <sonal.santan@amd.com>
+References: <20260611055150.3070216-1-lizhi.hou@amd.com>
+ <7a9d6acd-90db-4dfe-9fe5-55ba8adab577@kernel.org>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <7a9d6acd-90db-4dfe-9fe5-55ba8adab577@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB8786:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc2a5159-1fef-4255-37d0-08ded60753a3
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DB:EE_|IA0PPF04DCE520E:EE_
+X-MS-Office365-Filtering-Correlation-Id: a4752071-1743-4eda-dca7-08ded6087e73
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 5k6qbtUNlQwcaMQKkYsrYIZ3xSZi01Gdlcawxxe5Dkyyb/ZphB6LSCjIIdcQC/HvLppDWr5Ot8sP7Pu12EA7FyNSm9nDZHHm4K/JVETUr6MTqm+wf8kuMZzEhnvErau0NoA8kpvx0EGWvkC8kZkJSJJINYb6W93EJQz/dYAIgsuiOrSIdRaX8HqofU7b+p+2X6YMm9sA8GAqR7ek2GsqKo8wP5hUZrrSEg6n1qkMoNQUq/w9WplGLHUV04xoE12GLa5LpqhG3Mbn6nbha6Geqmvei7HbLZWFE1tRw7XxY5j/ajwhh7D2Og1z5TlaYlTS63XqSld32Jl+v5W0z+d0Hqhzd0uAt5MZlR/Cm/T+WXpZxMk7qxyCoufWyUfoS7IMNcWfXqV0wFdKlfWewDReAok2KzwYatvDsd27Wv1lo+VG7Fj59dsy++/WPZjEzHz/Jbp8grhC3sN2Ohobiid4o4HrL7Wi1qJfFEMdSolLloExSDY7qksHNXISvVjbl2jnz9gFq3DkJxLLHg2b8RIebuUkkdJU7CYmrZoPnkXsTAKHJ5Zl9eZpEZM/CTZ868TBtmYPPZs8BGgz6SWsVyxUkUyVLTxhv8t+/tsPk5tYfYteXPOwYm0zAK8VyH9fXFOfqxTTzWZnL2iSVZ5fKneB0lwX72wx2npefAsUN+RB6jI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(56012099006)(11063799006)(22082099003)(18002099003);
+ ARA:13230040|23010399003|1800799024|376014|82310400026|36860700016|18002099003|22082099003|4143699003|11063799006|3023799007|56012099006;
+X-Microsoft-Antispam-Message-Info: DfzcZ/eYMsCDTCH2VLIhuEupxxyK/cqo4K5aPUECeUNvVOVDrfEdM910hU3+tvtpU1WfJ6ZaRtXNLvwoJUtk5sguRsrjiJhTNquUnNN9IpcFLsdRsSsQpXERAd+6xMVNcZgWM2wsQdvVcjKhehulMyep7b7muGLVbpyojDrkzZxnkCkGD0KsUSPBu8Qv2UB6eTbbj1VSchPE6jb7QNNkLmlfPdqcdmkyQ06kpedE99TntjGb7s9vOJNrNZlZfFNqMyBLTYYDavwKN5jB7ifFJdepSQnS2CgvY8pXgYgGPz/lSpFTc+u41YMP9pscWAInefvJbPH1Lx459e/SLBg+WfJ/dkSZL0vmIftCrXeM6R050hmjrS5fN4MtYx/dP0fUtDlcWfDZT1CFHuhxGSa+ryGnipqFD9v3MbFUhOGP+VDSno+2kOBZfu//pG0OONoTKsl02uX61MDsN14pJKc77i32aaDjwMtkF52gRD/ThuLL0sen91hzOgGiNLAZSrTJ/P9eRNu5w8zoM7uK08h+eB7cGKkoeC1dnnGgNKEMg6xEiuRojeKD8xdVkCnCsHwhvsTU9x8sjTwiThgR7nIqJbaUT/IQTYyJ5ZywvMExi5MAqZohK8TTfqciN6pElEe0V3KU/c7gLIzzY4MRg1JPMHWmoRPV//2lcmJvb5zGGld6BMS3n6XTDtOnsqe50RShXuUh+4auqKVEfjOrrK2Vfw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(376014)(82310400026)(36860700016)(18002099003)(22082099003)(4143699003)(11063799006)(3023799007)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ejJCY0kvS2pmRVRBaGdsU3ZDWDdTbmhaVGZHWnNNdUNBTndudXVSeFZIMXNE?=
- =?utf-8?B?UUJYV0lnbEwza3dSckVzR0VJS0cvZjRUV3EvSzBaaCtIYWtwaXh3elBBZTlp?=
- =?utf-8?B?MFpYTlJmd3N5bE40WUdGVkdXSTBUSnc0SElSTXUycUwwZHQ0TCtrMC9NSTYr?=
- =?utf-8?B?T0lLS0xwaVdiUUpMNkdiOWd3NjdRRTltMDlMcnNyaU85b0hUR3JWbjZvQ05Q?=
- =?utf-8?B?bmRJVC8wVlIzZGlmUWUxWnZ3ZUx5UUVkWkt2T1l3SGJDVEU1RU50WUtOVkx2?=
- =?utf-8?B?Sml2ckczMjMwa1A1aXlLL0RERDFwUHJhM0JoTFYxREdIRlFoUzRMV3ZocVV2?=
- =?utf-8?B?WDg3RmpOcmVpRnVJMnJnYXJjS1dmWlVuNnJSOVdxeFZuYndZVzRydUROb2dB?=
- =?utf-8?B?QTViZDNhRDMwVFRHWVFudnRjSVFnaitMTTg1YTRZOEtTSHorbjFHT01hejhs?=
- =?utf-8?B?QXF6c2dPY0JLUlFuQWgvK3RPSlhMd3VKRnVYRjhvMEZNNkU1UXloWG9FUEQx?=
- =?utf-8?B?MHl2RVBiL2xydWdZSVFxcDByVkdvaDJEZm9kbWVkMlg0Y2YvYW9uSytGOW1S?=
- =?utf-8?B?NHRpR3ZPVGVZZmp3SFZJYlk3RENnRncraTcxUzVFRVhxZUZMUkNFVmRQZzh1?=
- =?utf-8?B?Y0pzSVJYa09ON3QyT3BYZ0YrYi9DeEtiNTRMWk9WU0hNNFh0YzVIUlpJVUJI?=
- =?utf-8?B?TW53dVN6cEVUSzVhOEFmaFhMNkFETnluKytlUUM5b0tWSXNSdFpsdEFQNVpB?=
- =?utf-8?B?YkFGdTFpejVUSUhIUlFHMzFxalNST2szSUc4Yy9KNDNiZVhPSnp2Q01DN0pD?=
- =?utf-8?B?bXMzaDlXZENHcEVmL29mSU1IWlpIalk0M1QxRVJ6ZmQzcUdqeVZ0bFA4ZGM1?=
- =?utf-8?B?R1U4bksrbmFPZEVraEsybkZvVTdCcE1YaHhWRElyRzVIR3N4VHRZUDJCZTR5?=
- =?utf-8?B?bUxSVytWQkQ2TWVtY2ZrU3lmQnEyL2xOcDcvbVZxTk4ySEF1eGpZVFVOaDcx?=
- =?utf-8?B?Y2t5UnpBV2lhVnBRek1JdVhYS3BRU2RnQTcraVp0a3E3ZDU2MUNTTXVhSnFn?=
- =?utf-8?B?TVhBYVdqQTRULzJPK1Zlc2hFQ0JLMmtoNmc2dEtqMU4zb1RtdmxHNkVSbnRi?=
- =?utf-8?B?U2RlejUzNjJVYTRPZ1dvdmxvNGhndEJlVnFPRFExOTNhVXBTalFUamN1eHBC?=
- =?utf-8?B?eDlxTVNadytuYmZKNkl0b2Jka3B4N2gwYmNDQlVHZVVrY0g3NzhORDZuem1u?=
- =?utf-8?B?c25YbWlLODhnbDl0WGVjZXVqUVpibFdiQUtkSTRaSEN4eGxaM1V5S0F0NEkv?=
- =?utf-8?B?T21KMDFsUllnZ3YrU29SY2MxaWNKM2luaitDOW9VZ3FPRWhObDlYK0FYcHdX?=
- =?utf-8?B?M01VK3V4UTRnQVFnN1BLeHZDbEppbnBBZTNrL0t5ZWs2dStBSlpaa29lTmZW?=
- =?utf-8?B?dUc2QW53OWlvcWdkb0RWOG1lbEVQN1lWZHl3Rm5YVDJDTTRjanpNMCs0NnJm?=
- =?utf-8?B?OTFDeHVISFJnS2NJVkJGQytHT2ZoalgvVUJjV3hLb3RlUWdpQmlIbm1ZRVZo?=
- =?utf-8?B?bk1VUnl1NVYyaGxrTEFvRlM5ZGovWlY0WFdDY1lRZHRJd0FQM2VXbStKbW9v?=
- =?utf-8?B?SGg5ZFk2VjNYV1hFcUwwQmpISThZWFNIZjkxZysvZTh1ZGVoZ3IxWG5acTFw?=
- =?utf-8?B?RDd1TEtnVDVzYjFmK0ZWNFpoKzdPOEZWZzRGY2JCcnVRbmNZc08zbFZaZlJh?=
- =?utf-8?B?Q2s3TXA0K2NkdHRNUTNuVDNJSzFhUGttd3E4Vk5tdGx2UWtXaHllaXd6MFR0?=
- =?utf-8?B?cDM0MWRPYkhrdjdXaG5DQXY1dHpIZlQyeEwyWTRYQThRczY5aFA2U0ZQTkVZ?=
- =?utf-8?B?Z2N5UUxJTmJ2aVBVRG80cGZIams2VTZBdHFhM0Jpc3U2ZTJQNzZ2OVpHa1or?=
- =?utf-8?B?bU9nMkZET1BJb1dxRHVxRytvdXlzeG5SOURFRjd1amtRcVE0Y0JRZzRvdU9Z?=
- =?utf-8?B?dlk5dG9lVzBUU2dMeDhGdnBsUFM2cmFEMlMyeEN4VXpVdUp2MExMYzlITmhL?=
- =?utf-8?B?WjNDN0wwWXVHc1BRb1BCU3hQaFFZd012RW9PQ3M2a3A4Z29NYXVZZlJ3eitY?=
- =?utf-8?B?MnhoS2VvNEZxYjZVeGllRjVtQnBsdnN5M2lOalB6Z0xpSUZubExjRkZGcG9D?=
- =?utf-8?B?U21UU2hqTGN0bGxWcWJxYS9vRWE3elhVemhFaDZxT1FQRDFHTTc2V3hNZ08r?=
- =?utf-8?B?Q3RDWHJHUUpZZVF3NmVLTHJkc3l5Y2lrd2E3WDlWNDVQN2hKU2R6TXp2cTIr?=
- =?utf-8?B?bCtkbW9nMi9NMGNFNXdWdW5TTlpyWjhkSHRwSUZORDF4a2x4Nk1adz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: GZHik4f21uvC5jFmsugqI0APC/+Zb6YhYPcO9fma45v44nSn0NDBdTjcW5xMXWvMgZSxRiJyUZlOblQynmJZCoMH6ioII6kMqW7agmtgaMjRqejO/OaSTXpNBi3XEsVIAm2BmGTEU21j536oTLejQg708MoWJ60ku/qHDjCyC8gfWqXRM3rZ9rbTpXxyKjW8IVmRdDvfZ3/1yyTxd8/GJE4QwC9Pk3XfCzj85wcCY3MRmKfb7HpnRDYokZkbw5T9CYME4TwOIljPmyQd0ArSBY3H7SCnQDsAbD9YBVm0kl7oT+zOJLCNEYVk9KfT0X0Cz74lyGm+ZTz5hb9nJZ/5/4XhQRc6vGrYkmH8Xu9izoodHnYkcn4UP/sS6BMKrYopjXflA+tJ5o5U68/A2aTBpUJMDL6ds9qlxWq2XOjWcHS9pymrnOwE5vupsG2BmhQj
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc2a5159-1fef-4255-37d0-08ded60753a3
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 17:53:29.1697 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 18:01:50.2366 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4752071-1743-4eda-dca7-08ded6087e73
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ernnxyrTcVBA5wNLcQJ7PaKzzydqiOQ8C2+sBTZPtf7E58UAkueFer0Xh+gmt4zn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8786
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055DB.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF04DCE520E
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,48 +120,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 6/29/26 17:28, Yousef Alhouseen wrote:
-> AMDGPU_GEM_OP_GET_MAPPING_INFO looks up the GEM object before taking
-> the object and VM locks. The object reference keeps the BO alive, but a
-> concurrent handle close can remove the per-file BO VA before
-> amdgpu_vm_bo_find() runs.
-> 
-> The mapping-list walks then dereference the NULL BO VA. Return -EINVAL
-> when the BO is no longer associated with the VM.
-> 
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Applied the patches to drm-misc-fixes.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
-> ---
-> Changes in v3:
-> - Generate a clean patch against drm-misc-next instead of stacking on v1.
-> - Keep only the intended !bo_va guard for the handle-close race.
-> - Clarify the v2 withdrawal confusion in thread replies.
-> 
-> Changes in v2:
-> - Describe the handle-close race instead of an initially unmapped BO.
-> - Return -EINVAL instead of -ENOENT.
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index 27be5083f2af..83ec994ad36b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -1087,6 +1087,12 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
->  		struct drm_amdgpu_gem_vm_entry *vm_entries;
->  		struct amdgpu_bo_va_mapping *mapping;
->  		int num_mappings = 0;
-> +
-> +		if (!bo_va) {
-> +			r = -EINVAL;
-> +			goto out_exec;
-> +		}
-> +
->  		/*
->  		 * num_entries is set as an input to the size of the user-allocated array of
->  		 * drm_amdgpu_gem_vm_entry stored at args->value.
-
+On 6/12/26 11:25, Mario Limonciello wrote:
+>
+>
+> On 6/11/26 00:51, Lizhi Hou wrote:
+>> In amdxdna_remove(), all amdxdna_client structures are freed after
+>> calling drm_dev_unplug(). However, drm_dev_unplug() does not force
+>> existing file descriptors to be closed, so amdxdna_drm_close() may be
+>> called after amdxdna_remove() has completed.
+>>
+>> As a result, accessing client->pid for debug output in
+>> amdxdna_drm_close() can lead to a use-after-free, since the access is
+>> not protected by drm_dev_enter().
+>>
+>> Fix this by decoupling hardware teardown from client cleanup.
+>> amdxdna_remove() only performs hardware-related cleanup, while
+>> per-client resources are released from amdxdna_drm_close() when the
+>> corresponding file is closed.
+>>
+>> Fixes: be462c97b7df ("accel/amdxdna: Add hardware context")
+>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+>> ---
+>>   drivers/accel/amdxdna/amdxdna_pci_drv.c | 23 ++++++++++-------------
+>>   drivers/accel/amdxdna/amdxdna_pci_drv.h |  1 +
+>>   2 files changed, 11 insertions(+), 13 deletions(-)
+>>
+>> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c 
+>> b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+>> index 65489bb3f2b0..470bf4fc744b 100644
+>> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
+>> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+>> @@ -138,9 +138,11 @@ static int amdxdna_drm_open(struct drm_device 
+>> *ddev, struct drm_file *filp)
+>>               xdna->dev_info->dev_heap_max_size);
+>>       mutex_init(&client->mm_lock);
+>>   +    mutex_lock(&xdna->client_lock);
+>>       mutex_lock(&xdna->dev_lock);
+>>       list_add_tail(&client->node, &xdna->client_list);
+>>       mutex_unlock(&xdna->dev_lock);
+>> +    mutex_unlock(&xdna->client_lock);
+>>         filp->driver_priv = client;
+>>       client->filp = filp;
+>> @@ -174,18 +176,14 @@ static void amdxdna_drm_close(struct drm_device 
+>> *ddev, struct drm_file *filp)
+>>   {
+>>       struct amdxdna_client *client = filp->driver_priv;
+>>       struct amdxdna_dev *xdna = to_xdna_dev(ddev);
+>> -    int idx;
+>>         XDNA_DBG(xdna, "closing pid %d", client->pid);
+>>   -    if (!drm_dev_enter(&xdna->ddev, &idx))
+>> -        return;
+>> -
+>> +    mutex_lock(&xdna->client_lock);
+>>       mutex_lock(&xdna->dev_lock);
+>>       amdxdna_client_cleanup(client);
+>>       mutex_unlock(&xdna->dev_lock);
+>> -
+>> -    drm_dev_exit(idx);
+>> +    mutex_unlock(&xdna->client_lock);
+>>   }
+>>     static int amdxdna_drm_get_info_ioctl(struct drm_device *dev, 
+>> void *data, struct drm_file *filp)
+>> @@ -372,6 +370,7 @@ static int amdxdna_probe(struct pci_dev *pdev, 
+>> const struct pci_device_id *id)
+>>           return -ENODEV;
+>>         drmm_mutex_init(ddev, &xdna->dev_lock);
+>> +    drmm_mutex_init(ddev, &xdna->client_lock);
+>>       init_rwsem(&xdna->notifier_lock);
+>>       INIT_LIST_HEAD(&xdna->client_list);
+>>       pci_set_drvdata(pdev, xdna);
+>> @@ -442,18 +441,16 @@ static void amdxdna_remove(struct pci_dev *pdev)
+>>       drm_dev_unplug(&xdna->ddev);
+>>       amdxdna_sysfs_fini(xdna);
+>>   +    mutex_lock(&xdna->client_lock);
+>>       mutex_lock(&xdna->dev_lock);
+>> -    client = list_first_entry_or_null(&xdna->client_list,
+>> -                      struct amdxdna_client, node);
+>> -    while (client) {
+>> -        amdxdna_client_cleanup(client);
+>> -
+>> -        client = list_first_entry_or_null(&xdna->client_list,
+>> -                          struct amdxdna_client, node);
+>> +    list_for_each_entry(client, &xdna->client_list, node) {
+>> +        amdxdna_hwctx_remove_all(client);
+>> +        amdxdna_sva_fini(client);
+>>       }
+>>         xdna->dev_info->ops->fini(xdna);
+>>       mutex_unlock(&xdna->dev_lock);
+>> +    mutex_unlock(&xdna->client_lock);
+>>         amdxdna_iommu_fini(xdna);
+>>   }
+>> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h 
+>> b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+>> index 34271c14d359..a997d27a504d 100644
+>> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
+>> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+>> @@ -120,6 +120,7 @@ struct amdxdna_dev {
+>>         struct mutex            dev_lock; /* per device lock */
+>>       struct list_head        client_list;
+>> +    struct mutex            client_lock; /* client_list */
+>>       struct amdxdna_fw_ver        fw_ver;
+>>       struct rw_semaphore        notifier_lock; /* for mmu notifier*/
+>>       struct workqueue_struct        *notifier_wq;
+>
