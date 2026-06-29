@@ -4,58 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36333C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 01:53:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CFBEC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 02:52:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5294510E69F;
-	Mon, 29 Jun 2026 01:53:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6E8710E009;
+	Mon, 29 Jun 2026 02:52:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="Jy7T/u28";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="EIaQVX1I";
 	dkim-atps=neutral
-Received: from mail-m822136198.xmail.ntesmail.com
- (mail-m822136198.xmail.ntesmail.com [8.221.36.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 368F110E69F
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 01:53:07 +0000 (UTC)
-Received: from [172.16.12.74] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4414d26eb;
- Mon, 29 Jun 2026 09:53:02 +0800 (GMT+08:00)
-Message-ID: <cb533b04-e550-4eb4-8a8f-6d17c3d43a48@rock-chips.com>
-Date: Mon, 29 Jun 2026 09:53:02 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/4] drm/bridge: analogix_dp: Add validation for
- samsung,lane-count property
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, dianders@chromium.org,
- m.szyprowski@samsung.com, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260604085220.2862986-1-damon.ding@rock-chips.com>
- <20260604085220.2862986-4-damon.ding@rock-chips.com>
- <178249136513.1374898.11400378046460567437.b4-review@b4>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <178249136513.1374898.11400378046460567437.b4-review@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013061.outbound.protection.outlook.com
+ [40.93.201.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F98F10E009
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 02:52:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DJVhswnGr3uYLj9zG7tvQv8oWr/4rbN4evBhBPRmWy+vRaO9tMqLSM6sBXnYtC+HU+wPhdzY4JjNAqyNCqQQotRBfI2c7Wn3wS2VZdABLbHcC4u6OyWxtNO7/pSZQaTUlqpG7w0Z2EMCs7mXkvL84VUmClMV1NpxBYrcAKb/OEqsWs7hH9uD2QwG6/9RCNet2fKauEZwksiACNT6o3AFyb+Ds9DLGqIRPlQSQAP6TYGawG0zJ0MnxJoo/V0Xfp5vbKip9oP5a5y8lkgpxvqNho2fKzj+rUIpMnPE7zJ8QHzCC1YxMm484xZ5751hV2WBquwZZDWOyK+d8U9Xt5DEhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sUs9ajevj7324qSJ3QjeDbQ6Pk1xYozMBy79lzEP1p4=;
+ b=GT7VB2WT8Iz4Mc+9rXbp4EwZNgaPCUK3P+tFff5UsliVdrP/n9xrqoogIn06fktaQluKiZKfm6prelPhFYydeN+56TStAzKfCBB+vzns2SufF+rQfN8tqbj7P82FuY6nAT+NwKOCVC8qglXezNlaocQ8LDs8Ebdv1zlt8c2V7xhkuqHGH2eCrNYUKw85m35tAcOmulV1miaVBxzo7zPRrqvelow0eStdC391dWqan2h3092QIfoyuB/G8Bv3O2l80ZsU6ORKq65QYCIyauR95WM45rnRpoMgsvLCpl8ySmYLvQoKEoQdqcCMw/fNcn1qQZwq/BL5HZizXgX7TRsiTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sUs9ajevj7324qSJ3QjeDbQ6Pk1xYozMBy79lzEP1p4=;
+ b=EIaQVX1ImfeRLZkWayRyXWqyS92bQBFBvPer6nwBwrYsCODHpCFB3Af3ADnJjH/7dzSkBdNzn6EEpLIFjGAZ1VTMmU9vFPRo0ygVIM3vPuBO5pyBr7i2zb3d++Z7GuDxKj2DTcfxZG9G3iecp4XE0l05IxXMRjkayzp+9VmUj02830z0brSvC+/ZLgqQxmqgASJyvczXUKykuqpZ7RdHUWAyNqdbF/tDjWTQYNux2TOgoQROTmufz/CEmllk3Wg1KE9kYj2p/trAHLxQVy0B++Yc+0cIiXzW9Ip7l+4gsL0ni+Awz7vU81Z4EIBfuVbdKEgIbqwX1vnFMdv1+ijd0g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
+ SN7PR12MB7954.namprd12.prod.outlook.com (2603:10b6:806:344::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.159.19; Mon, 29 Jun 2026 02:52:30 +0000
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 02:52:30 +0000
+From: Alistair Popple <apopple@nvidia.com>
+To: acourbot@nvidia.com
+Cc: Alistair Popple <apopple@nvidia.com>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
+ "David Airlie" <airlied@gmail.com>,
+ "Shuah Khan" <skhan@linuxfoundation.org>,
+ "Simona Vetter" <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+ "Tamir Duberstein" <tamird@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ Pedro Yudi Honda <niyudi.honda@usp.br>,
+ SeungJong Ha <engineer.jjhama@gmail.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ nova-gpu@lists.linux.de
+Subject: [PATCH 0/1] nova-core: Convert bindings to use zerocopy
+Date: Mon, 29 Jun 2026 12:52:18 +1000
+Message-ID: <20260629025220.1935622-1-apopple@nvidia.com>
+X-Mailer: git-send-email 2.54.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f11147a4003a8kunm26f77d9422c470
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGExMVh5DSUkaHRpOSUtLT1YVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
- pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=Jy7T/u28jP/+4T2VA2B9kxcFXAX9Dsq0ShxLHsURI3PTBcA0yO9T5KXoRBqEUSEuSuuttXE1GmOzP+PWv7OtI23helQrMLrSBkS5sop9hRxcLvUyMJF8AERH+JkKsMXw9cy7+oLAcg8pQYGhVPkRyg/D5ZPafYOGQAK8JHC5ptI=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=W782AbfO1D1R5eEJlgStJCNw/OtsvmDShB2b7uB9ZM8=;
- h=date:mime-version:subject:message-id:from;
+X-ClientProxiedBy: SYYP282CA0008.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:b4::18) To DS0PR12MB7726.namprd12.prod.outlook.com
+ (2603:10b6:8:130::6)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|SN7PR12MB7954:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ae13d94-4e05-44ba-3fc5-08ded58975c7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|7416014|376014|23010399003|1800799024|18002099003|11063799006|56012099006|3023799007;
+X-Microsoft-Antispam-Message-Info: QhiHKsbWDfyL0vsUuLAWoVXT65nuLyKmxpBayeh2LTpJj9kSVihfGIZMGPYt20NqkfNW7AMR9TEUtQIqLZEDCBC3PygFC97g4eTHsQoJALpFrT020KFnR7PJ+TvVscbTb8EB+66edOvswdlB3c1fDzTSYVrk1tgEHmwBOZvlM3dhZPPmMRMDKqrjgn5xn+HYQ/p4/6FhsqilxPvddrugE7/EbdzUbu/0XdD8JGZSuYlKxveJmm0KLSOQrOGBjN0HVFGtqQejssGG0gfPLgGrEhZhiGSSxjIsPzqfDwo5SEqFFCm+/Sf0Iu/nDBkIdhRE57T4IjPVGYAi6eZELNr1fxeM+OqzW05YhvZInUU22MCpwRJaTLdr2Q6LOGwvk6noQjVc0YPKfKj63ghVRMKDFXuZL9MpYQSpGTLkVCT03GMcApALMzF6AkzNKchT1w3brNOOJRfpNQRj9FdFFtHN3e3YK2OWwFsOtdr+uqWwlZksCQgkekQqMLtZSE1Yg1Jme4hKI9qkUzJ6sYRxfN8VSsulrnzKl9RcinS8hK2MznUNb19B/v960WZvvunbLELDneygbk4kGWhOIU2cem13afJFpieRSKFrKSBgY5ksy7bf9whFGEM7QmkZYAtwLt9GplSb0LlS9TgqXd90k+rxhTKoPHM/hjJrnuJWVjQS//Y=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(18002099003)(11063799006)(56012099006)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TjdmOU03dWw3d2o4TXRTUnB6WmswQ1lzZlpKTS9WUkx3cm9kQmY4VzQvamQ3?=
+ =?utf-8?B?c0piUUpnaTN2T3Y2MURTWmZYdi96NVZUeTZJeW1GM293eXRVQmFYNWFFZjRn?=
+ =?utf-8?B?Q1ZLZ0tEVXNlb21ramFVRzYzQjRtcC9MVFNPZUZWS3dUY29RVmFyenkvYVVF?=
+ =?utf-8?B?RnZqZmRRMXlyYWhHeXlKaFIxc05xYUdBMVZEaFZwMFFxUlM1QmdOSjNpbGw0?=
+ =?utf-8?B?aUgyZzRDRFFtb3pzWHZXa09RV0RJUFZrTkNBSkZOckdISkRvdUxacFpJOW1P?=
+ =?utf-8?B?VERmVmI3MXJxRFBNdis1UVBBYThXN3FQejRTY1J6TGxPWU9OaFp4VjFYT1d0?=
+ =?utf-8?B?TS9LdG5pa0x2bUQzQW5yRXcyRXVBV1d4RVlIY1UzUTlXZkFaOENmZWNJZHBy?=
+ =?utf-8?B?ZnV5WVZuR3VjUVh5MERkZjVTNmJnU3VHeXFUdFJmbWVMWGtiS2dpMDI4bEJN?=
+ =?utf-8?B?VkUxdFVxU3RQZUdWYU5aK1lyWC9kSXc2ODJuS1ZRcWdSWHdXQURjQTZ0R09G?=
+ =?utf-8?B?cGdUV0dZMkttK25sTmZuWVMxL001WHgxQSs4TXRoVExuV29UalBKZEo4d0pP?=
+ =?utf-8?B?Qm51dFVJSjFRV00xc0VqTUhQNnhSQmFVZDVNa3FPSUV5d0ptSEdTYW1qOU1C?=
+ =?utf-8?B?aDVlSGR6ODRHdkgxVmlzRHoxRXBhNk9TdDdGUVNnelhpVGdDTTZ6cTNYaTNL?=
+ =?utf-8?B?NUo2SVgyeFh6S3RRYTRLazhUV2V6ZzIrdzJaNFRqa3pFdCt0UXRnZnVvL01H?=
+ =?utf-8?B?bXJsQitzMUZVWk82a2J0bXhmRXFRTklWKzBBQ1RoWkx5dFdLNlhEQXpHeVZU?=
+ =?utf-8?B?VDZiOXZScE9sR3pHTWo1dmlkbFlRZkZ4U1BtNTErY3BVRjhweFpYZnQ0M0NX?=
+ =?utf-8?B?bC9PeVljNDM4RFFOWEZKc2Z0cUFacUVabTlPdXk3dTlpaDVqNEJ3TzIvZTNG?=
+ =?utf-8?B?Zm5Eck40QzQ4Q2NiRStzUVBSZHJ5L2wvMTJBZEovKzdpZjNLL2krazZYc0t2?=
+ =?utf-8?B?SXB3MHNjejQxcDBUeDdmRGpwT1VEZUZXWU1zSVBXSTluY005ZU92b3Fwc0RR?=
+ =?utf-8?B?Uy9VbzVrYlZOeU9hUlNJbXZsU2lJb2JEaktqWlVvMktsOVpSRVg3WmhFdjU1?=
+ =?utf-8?B?bDEzbnlLOURrZmhiNXIzQ2Y4QUlvTFROME9rKzNoWHZKK2YyYWJHV0IvMHpP?=
+ =?utf-8?B?bkhhLzh6d2lzek5vMXhoakVLdTZ1UHl0ZjQzWnJ4Y1o4WTRaTjRJc1AyM0Jw?=
+ =?utf-8?B?ZlptYmxlYnlOV0pIelVXY2NFU00vYnhtd3JQYVVCVjlZZjhycTIrL0ppWldO?=
+ =?utf-8?B?RVAwT0tHVTlJSElIcUExU3VNUjJmd3hoQmpVSEkvbEg5S3V3ekZxYWswVlE0?=
+ =?utf-8?B?bXJCNlpMUmplc2dzNWxUYnZVOHNnZlpIRlZtZ2lXM25kbkZTZFI4aHIrMyt4?=
+ =?utf-8?B?UU9SdlJxS0Z6K3BDYVFpN3VxOVBJQ3R3dktqRkswelZzYlIxTFlkc0tGMW8w?=
+ =?utf-8?B?YVlQY2hQaVJQZnYrZmlKcklLbS9iTUNMeGNGZWdiQmlNcFlXcyszQnRrcVdH?=
+ =?utf-8?B?SXNzTWxNZDg1ZWZwYXRuNW1uUjFRVWVBRHFSb2xVS2h0bjN2RUxTSjlUN29E?=
+ =?utf-8?B?cVFHcDR3dmk3bWtHVDgwbWRkUTBlSjE1bVBqbjlkZ1FQUEI1UTNON0R2ODcr?=
+ =?utf-8?B?UllPOTc1UE1Fek4ycWhVYkZ0UHhzUXp2cFFHWVRqVTNQY2g2Q1JOVUVDb2Fl?=
+ =?utf-8?B?K3RoWWt2d29WM3Z4bXhJMllRZExxMDBHQ2p3WVVwN1FWZFgvRUEvejdKLzJk?=
+ =?utf-8?B?NXlmVENCSk1RNm0rVVdoUkdDTnNIcUFubUlCOWJsZC90Mmk2ZWFqbFFIUnRV?=
+ =?utf-8?B?YTMvc1d0dW1HL1h6amIwWS9lM3VPTmtvMklvVUQ2WnZRNExyV3VZcm1ieVVJ?=
+ =?utf-8?B?VWxqT1B2a0VndFI0aGxkTjh3Qk9PaFM0R2cxeWREYjIwWmJEcjZHU1MxcDVM?=
+ =?utf-8?B?VlVTeVplbno5UG5DZnFTUHFwUVFpWFdtU1FWZTdxT2w2U3dDWjFUeFFGbFoz?=
+ =?utf-8?B?eUZEMEdhT1hyQlp2TGNJMHNYenI0UDYvZU5UVVdHdmRmbHpLV0NQMlRScHA3?=
+ =?utf-8?B?N3UyaU5xZ0VVYktpNGFpd3VUYUFyNHd1MkRHbUwwcEZ4TDRxeWEzUEcrTDZu?=
+ =?utf-8?B?NHdVdFhRL1BGZE5ZcDNvVWVDTnNFMm8vRi9zN2FrcVFyVkI3UCtQNkY0VkYw?=
+ =?utf-8?B?UFpqRUhMOG5MQk1iempxekRxMEhCL2ZBZTl1bHZ3Tld3Tmdlc3Nnd09IV243?=
+ =?utf-8?B?eDlKOVNIZFEzZDZlWFZqTWZNb29TM3JrQjdsT1ZwRnpORnpZZEJjdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ae13d94-4e05-44ba-3fc5-08ded58975c7
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 02:52:29.8637 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ViBjJwz3Amk8rafTXEqCc3DivBvisJKSpfrtzopc8Dc2STseuKzrjSEJJUDyXatkTljamBbNdH1EKzbM2M/z9Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7954
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,74 +144,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Luca,
+This patch converts all the bindings to use the new zerocopy library. Bindings
+are currently generated using a fairly simple bindgen script[1]. This is a
+temporary solution until the bindings have been stablisied but for now upstream
+should be kept in sync with the resulting output.
 
-On 6/27/2026 12:29 AM, Luca Ceresoli wrote:
-> On Thu, 04 Jun 2026 16:52:19 +0800, Damon Ding <damon.ding@rock-chips.com> wrote:
-> 
-> Hello Damon,
-> 
->>
->> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> index 7a85774aaac1..e120ef3320c1 100644
->> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> @@ -1261,8 +1262,11 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
->>   		 */
->>   		of_property_read_u32(dp_node, "samsung,link-rate",
->>   				     &video_info->max_link_rate);
->> -		of_property_read_u32(dp_node, "samsung,lane-count",
->> -				     &video_info->max_lane_count);
->> +		ret = of_property_read_u32(dp_node, "samsung,lane-count",
->> +					   &video_info->max_lane_count);
->> +		if (ret || !drm_dp_lane_count_is_valid(video_info->max_lane_count))
->> +			return dev_err_probe(dp->dev, ret ? ret : -EINVAL,
->> +					     "failed to parse samsung,lane-count\n");
-> 
-> I think this report by sashiko makes sense:
-> 
->    >  sashiko-bot@kernel.org <sashiko-bot@kernel.org>:
->    >
->    >  [Severity: High]
->    >  Does this make the optional and deprecated samsung,lane-count property a
->    >  strict requirement?
->    >
->    >  If samsung,lane-count is absent from the device tree, of_property_read_u32()
->    >  returns -EINVAL. This causes the condition to evaluate to true, aborting the
->    >  probe with an error.
->    >
->    >  According to the device tree bindings
->    >  (Documentation/devicetree/bindings/display/samsung/samsung,exynos5-dp.yaml),
->    >  this property is marked as deprecated and explicitly optional because the
->    >  lane count can be read from the monitor. Does this patch break compatibility
->    >  with device trees that rightfully omit this deprecated property?
-> 
->   (via: https://patch.msgid.link/20260604090935.7FC051F00898@smtp.kernel.org)
-> 
-> Can you comment on this?
-> 
-> 
+Note that this does not completely remove all users of the transmute
+From/AsBytes traits from nova-core, leaving some ambiguity with when referring
+to FromBytes. However others have recently posted patches[2][3][4] to remove
+the majority of other uses which should allow us to remove transmute::FromBytes
+entirely from nova-core.
 
-I was also confused about this handling at first. From commit 
-0d0abd894ead ("drm: bridge: analogix/dp: add max link rate and lane 
-count limit for RK3288"), its commit message does not explain why 
-samsung,lane-count was changed from a mandatory to optional property.
+Given the inevitable conflicts that will arise from trying to merge several
+different series doing bits of the same thing I'm happy if someone wants to take
+this patch and the others and roll them into a single series. Alternatively I am
+happy to take that on - hopefully Alex can provide some guidance here for what
+would be preferred.
 
-After digging into the code flow, I found that 
-analogix_dp_full_link_train() picks the smaller value between the 
-platform-supported lane count and the lane count retrieved from sink 
-DPCD for link training. If the samsung,lane-count property is 
-missing/invalid here, link training will end up using an unexpected lane 
-count configuration.
+[1] - https://github.com/apopple-nvidia/nova-gsp-binding-generator/tree/zerocopy
+[2] - https://lore.kernel.org/rust-for-linux/20260628-dma-zerocopy-bridge-v1-0-9a2895ebe30d@gmail.com/
+[3] - https://lore.kernel.org/rust-for-linux/20260625205146.5047-1-niyudi.honda@usp.br/
+[4] - https://lore.kernel.org/rust-for-linux/20260621143647.264770-1-nico.antinori.7@gmail.com/
 
-Additionally, I checked Samsung’s upstream device trees that utilize 
-this DP controller, and all of them carry the lane-count property. Based 
-on this observation, I believe restoring the strict mandatory 
-requirement for this property makes sense.
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Alice Ryhl <aliceryhl@google.com>
+Cc: Miguel Ojeda <ojeda@kernel.org
+Cc: "Nicolás Antinori" <nico.antinori.7@gmail.com>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>
+Cc: "David Airlie" <airlied@gmail.com>
+Cc: "Shuah Khan" <skhan@linuxfoundation.org>
+Cc: "Simona Vetter" <simona@ffwll.ch>
+Cc: "Gary Guo" <gary@garyguo.net>
+Cc: "Onur Özkan" <work@onurozkan.dev>
+Cc: "Tamir Duberstein" <tamird@kernel.org>
+Cc: "Trevor Gross" <tmgross@umich.edu>
+Cc: Pedro Yudi Honda <niyudi.honda@usp.br>
+Cc: SeungJong Ha <engineer.jjhama@gmail.com>
+Cc: linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: rust-for-linux@vger.kernel.org
+Cc: nova-gpu@lists.linux.de
 
-Should I create an independent fix patch to revert these two properties 
-to mandatory, instead of bundling the fix in this series?
+Alistair Popple (1):
+  nova-core: Update firmware bindings to use zerocopy traits
 
-Best regards,
-Damon
+ drivers/gpu/nova-core/Makefile                |   4 +
+ drivers/gpu/nova-core/gsp/cmdq.rs             |  21 +-
+ .../gpu/nova-core/gsp/cmdq/continuation.rs    |  16 +-
+ drivers/gpu/nova-core/gsp/commands.rs         |  19 +-
+ drivers/gpu/nova-core/gsp/fw.rs               |  54 +----
+ drivers/gpu/nova-core/gsp/fw/commands.rs      |  50 ++---
+ drivers/gpu/nova-core/gsp/fw/r570_144.rs      |  41 ++++
+ .../gpu/nova-core/gsp/fw/r570_144/bindings.rs | 185 ++++++++++++------
+ drivers/gpu/nova-core/gsp/sequencer.rs        |   5 +-
+ scripts/Makefile.build                        |   4 +-
+ 10 files changed, 223 insertions(+), 176 deletions(-)
+
+-- 
+2.54.0
 
