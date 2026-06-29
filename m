@@ -4,60 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 540D1C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:11:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1FFFC43327
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:11:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAE9410E84C;
-	Mon, 29 Jun 2026 12:11:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E92210E84D;
+	Mon, 29 Jun 2026 12:11:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="Q2y3qWI1";
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="oEC87rEb";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="oEC87rEb";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7974210E84C
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 12:11:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782735071; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Q8UAKg9PlFbWG+gorAVJCBCxwgsvRqM3It1iWAJ+Tc+J2TUTMbi+zNFC0DGpWXeMlF5NAxxuooFJYUmo1PWZleWeCTkEcHf/9tN1qxtUqQOgQaBLslAaR+npp4ZrNbyb9IDj1a4oba9TRulfJvxSQhv5Ds+4zq2FhCU0qJgxas0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1782735071;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=Y7e4bUe5EZmCCqfRKpko/NvHrCnfXUqBCnQky4/FjnE=; 
- b=kdSHQ/iK3G810C/IGRwGgMXhtoYotdwUZXykfR7Q5Z38awKFGZge6pwOTlr2dtC5XAs41Vk3Nvsdrba/MGkSzxSwc8gcbGGBQ1CjKRBa3oRxsApYTmKb7mC00PGD0wTnYYwj6sZbx/34noicKKKt2egZQdvHAlcl5DjbNSJGb6s=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782735071; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=Y7e4bUe5EZmCCqfRKpko/NvHrCnfXUqBCnQky4/FjnE=;
- b=Q2y3qWI1zgmBY7RRYM7o4kxe2Pj54+xUyZuw9sNgS1RefCpo7y+iWEvAZgDE2CIR
- BGbyUQPT+140L1Co73cZ4OBo86ttEVYzWoCUb61WvZYCSPCYvCiM3YUaYjBEbHBtz0c
- zVV8IBrcUTEds/7xfK/vYBCBD/y1P7XdH/9kNQOE=
-Received: by mx.zohomail.com with SMTPS id 1782735068822773.9152080952593;
- Mon, 29 Jun 2026 05:11:08 -0700 (PDT)
-Message-ID: <111d0a7c-60d3-4451-b214-510c98229883@collabora.com>
-Date: Mon, 29 Jun 2026 15:11:04 +0300
-MIME-Version: 1.0
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazon11013047.outbound.protection.outlook.com
+ [52.101.83.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 582BC10E84D
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 12:11:53 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=LQis4qAnWsSvA3KiHPJpsT3ths17jt0Ao7L9mjF25/VRDbVoyso8Or32mHRQEE8ltBR4CqxuMmbTWaTtFs2bcqxW250uSg6vdfYGQGbVgQ0AnH42zVyOyMcKgv2WLFLhBIck2vBxitMNKOKrlkfJO0OuwZMozJXZOw8S6qoIJwXSio4WhS3F3/Q2G2/NZj1mt57jrulgNZbbXt0apZfQtUyVTHU6SMe9Ck1FKy2cvBxpcOCa/thPgXIGm1fU2ANwzhYh2qN4/lPCR0yJzTyPYydmkHnbCpFu1RrdseX3kh9oAzKiHh3gcfXrbyaLUGu+hn53KYJ3uUjye6Z8tWfNWA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M2WYSNk2l92qCX95W+ayFM7mWzxfeQQVs9uuifvfFmY=;
+ b=uvQaxxK4h2VSVyVJ0rbMrFry0Tz04hUABRt4PoAnzY+7IeP0go9OvS5A5lsuiKmTyfzIZBJ4o8AvmEWqz+KD0tjRoUoL+bb8KKD/HAgzKDsWKGi9IU1jBy+fbiOOq3IKevqtYDMke2JRtSkBF8/c+GJyVMT/i/xvO8JFxJYNSB5qnY3sZEC9oij0oEOEwWl3+5jYa/Wdrrgk5zd4LiRLM1+GHEXxEiaqtv/p3TqyuF8R2zffVubYxSvhDs8vjdqnXDuMfpDLzgQU3/57HBiFTqIIfDvLr5qPszgpnkTgVNuGSyrPZaKbKY2a8RAQn78jTInao0s9lcG8uFuKp5c8Ww==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=collabora.com smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M2WYSNk2l92qCX95W+ayFM7mWzxfeQQVs9uuifvfFmY=;
+ b=oEC87rEb4KYKLuCNj/zwInSMBJV1bKXZHYVaqvJLjH887RLFqAjDavFN2TmV0a4pm6dhnLhwC5i2+AFOgZtRBLbDaJWHb10k4OI5ukUuB6FWQd2VJZ/Y+8zJIG00rkkkoprRWaZCKnGEPyltAeite+VFfyerNXqZPEIywDyacWo=
+Received: from AM0P309CA0016.EURP309.PROD.OUTLOOK.COM (2603:10a6:20b:28f::14)
+ by DB4PR08MB9311.eurprd08.prod.outlook.com (2603:10a6:10:3f5::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 12:11:42 +0000
+Received: from AM4PEPF00027A5E.eurprd04.prod.outlook.com
+ (2603:10a6:20b:28f:cafe::97) by AM0P309CA0016.outlook.office365.com
+ (2603:10a6:20b:28f::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.0 via Frontend Transport; Mon, 29
+ Jun 2026 12:11:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AM4PEPF00027A5E.mail.protection.outlook.com (10.167.16.72) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.6
+ via Frontend Transport; Mon, 29 Jun 2026 12:11:41 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DkrnNB9Bfl4wgInSXynAtq0d2o1vvIwBlJVkV0awORQrWRQG/yY6An9m1CdE/+HCIWGE7hJDBzcUSg416oaSZMJQKgif+SEvndaxlu8QY16uTRvVZ8LhsIXyJYh08i+ShUXw0bAyZOt5yiiZaMta8LmIj9zukZgcoWM8Ebk4IRQZOO8BEic4Yj4sypg2ozg4Obzd7F+I0+3zsvwJYG3Uh+EbY8nNdd+mpcX7I8NQLDeR8aDMnDSfhCsV/nf4dd7SjBbd79YAPkAB5x4+MAJUdjoUAAgrowrG+TszfU1Jc0FjgYoh0fAF38mnwp5xQj6+dburwVxYoiXzCwOCu/6qhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M2WYSNk2l92qCX95W+ayFM7mWzxfeQQVs9uuifvfFmY=;
+ b=K2H1xqRECKJVO8FhyU6Be+nhxIpFPgsArI11vKuCuVQBZTUWgD//D3UFxhWN+8WrREHaEIIkNH1Io+3wEb7+d6mnaBByGF/JdT5PMLwUOZ/1mj3oz1yRQ6Ivefi4i1isYR8X2sc8wgVBl7RjWgrsuoG5Om9pyiqlqQpU0oTubUovdDaTbgmuHUHSjAwKyhvTrjFV7tBIpCxtixIYM6zOz3a+NCWWpltOuku3zAjOoLDgN8+Aiu0DVPSkdfiSpyFR2Gj9+uDbFp99J3ygGzz/515kPsbURH/e5SUXGvS7LiZgzLL78utTdjSLL38Ru4COoklrp1/9FhQk7k2m+t828Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M2WYSNk2l92qCX95W+ayFM7mWzxfeQQVs9uuifvfFmY=;
+ b=oEC87rEb4KYKLuCNj/zwInSMBJV1bKXZHYVaqvJLjH887RLFqAjDavFN2TmV0a4pm6dhnLhwC5i2+AFOgZtRBLbDaJWHb10k4OI5ukUuB6FWQd2VJZ/Y+8zJIG00rkkkoprRWaZCKnGEPyltAeite+VFfyerNXqZPEIywDyacWo=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from VI0PR08MB11200.eurprd08.prod.outlook.com
+ (2603:10a6:800:257::18) by AS8PR08MB10272.eurprd08.prod.outlook.com
+ (2603:10a6:20b:62b::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 12:10:39 +0000
+Received: from VI0PR08MB11200.eurprd08.prod.outlook.com
+ ([fe80::27c:ea0c:e75a:d41d]) by VI0PR08MB11200.eurprd08.prod.outlook.com
+ ([fe80::27c:ea0c:e75a:d41d%5]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 12:10:39 +0000
+Message-ID: <3568d803-3e96-42a5-8bcb-67cec9cb0fb2@arm.com>
+Date: Mon, 29 Jun 2026 13:10:37 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: warn when virtqueue has no free space for too
- long
-To: Ryosuke Yasuoka <ryasuoka@redhat.com>, David Airlie <airlied@redhat.com>, 
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Subject: Re: [PATCH 06/11] drm/panthor: Don't overrule pending immediate ticks
+ in sched_resume_tick()
+Content-Language: en-GB
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260618-virtiogpu_add_timeout-v1-1-dc36cef609d9@redhat.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260618-virtiogpu_add_timeout-v1-1-dc36cef609d9@redhat.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Chia-I Wu <olvaffe@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, sashiko-bot@kernel.org
+References: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
+ <20260625-panthor-misc-fixes-v1-6-b67ed973fea6@collabora.com>
+In-Reply-To: <20260625-panthor-misc-fixes-v1-6-b67ed973fea6@collabora.com>
+From: Karunika Choo <karunika.choo@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO6P265CA0023.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ff::9) To VI0PR08MB11200.eurprd08.prod.outlook.com
+ (2603:10a6:800:257::18)
+MIME-Version: 1.0
+X-MS-TrafficTypeDiagnostic: VI0PR08MB11200:EE_|AS8PR08MB10272:EE_|AM4PEPF00027A5E:EE_|DB4PR08MB9311:EE_
+X-MS-Office365-Filtering-Correlation-Id: b25407fc-54b7-4144-6fc4-08ded5d79491
+X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+ ARA:13230040|366016|7416014|23010399003|376014|1800799024|18002099003|22082099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info-Original: 5ZAUXnvrupIYCKwZGk5pCWzn8pYfBg91nHzwHKWfd0wgmawv2v8o5Mts7apuGeuCiIFfpaptj8VECPqkc3z4xUrtWftPgPHEiPPrMRn2i1tL58fEE8b1avFK8BEAtkaDD2l8ACPdJwHw6RfHcIMrVn69NzRX56GSps0twTQHX9RSWiqwqf0dMcnw4UkAQ0+ZT+1CgjIY5Aso1in8/pWq887Od18UP29PVoNEdfsyyKSR3NJC39PTlvb8vANS4LN1G4v0k51OGSTCaHaxwIuQ+U3eL2TGzxVtP4tEix7dyb8A0LahBQc35blkQayB9LP4cgoKzhag76cxl3uAwCOefDmk/bD5asubHq4sMsm+lWMchhaT4w1g8V4TXDygYLwG79/soT6ZJKpxi4vYd3T4kALGrXxeqKANX+dRE5Q9IknvMIQ8GuQlYgmgW2o9GhHiETrgaMxyT75+Pp1yiiEVatj30T8drEFmLgi/thL1wiawOmfHCQpeWuqPJenPaBRtIQq1MXTeH0H4MpB2NZ6oIYqe6SICj9MFOHW6PbiFXc/2uL1HfK8i9Hp/3MHx6mSQIW/4ehv6Isau0evfJZDyZF9X+s+gOcsxCAMMg9pRPfg=
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:VI0PR08MB11200.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(23010399003)(376014)(1800799024)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-Exchange-RoutingPolicyChecked: L2gauDE6u03o0h5pdGLWKOVxjG3D3Z++zSMNcOVOPOlvkNN9GOtFwJlYW4CrloyE+TYQ6+ZsfvG2aWwNFwthOA2ukqugTFlY1RAvWAwSJ5BZ0M2if8H0tk2DHpEKrKzQlpcG//qsDiPxKbU80RmUvjZ7ZKAZdBNkKpp92Y/WZlK7P2AvC0DB2SDMpX31M6wCJfD3JXiuwAi4t1gQjraDJ/EWwjH0xkcCsN0/7HzIXRutpqrkSDCuwv7h2w7TdbL5aMo9L92wL1MfsLbeLne8p6ifwiaQz09xzy6Hgg3AQM0WW+hlUsPUtUstL8hA0xm2zqapvBLJyurZ+OJYHsdKPA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB10272
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: AM4PEPF00027A5E.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: b854a067-2d9c-487c-892b-08ded5d76ef6
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|23010399003|376014|7416014|82310400026|14060799003|1800799024|35042699022|4143699003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: tbmRBE0oOgsa+EMrr79zF5wTDMpWicow8THXBm3EnlHGEm9LdohRiaAapfzaaIbFAG19fkt7JnDSfY1vCdyDfHRdlVJw9I137IUcwvrJrGP0GUCK2MAIu5Z3xxNfRXPUkeHau4/t/PRM1aJ0oj0cZEkdJjSaFxkTqsV9bl7e6j/Yrwl9xMgdGlKP1IoGDMdbsy6Kh0CAfrO8aJhX4cC4G47Bb7ElvkH6+JKpchw/KUHGj85bXfL+qgyWXQDtgopZC8nl9icg2wKZzvTlviMZZUSMNg33z2NLOo+droIubmHGV6GWRPgcyKMhky0gV9eGQb0hvlAXa1JEO14EBlv+BHUPTQy6GZSqTbAJukD6tamdrfvO+bmTQNWbCFb9v+wyc1TWm6aFZYUbdkURUCwGtXbz9847/3dxaO1oeo3zdzpdmrvy+5KzMbJcQtGCKrg3Njr0pt3Uq/A/OpdcAgqp2qnMLJ3YKgO19ynx5fbVCyq0vO0Uh9XLaUDsQvGGG7CfMRCrLS/LVTdGzw9DqQ4qwRcc9eIv9IZPi/P0pdMUqayUf5/ak2KbUUNbUgRqkdZjWrzLw0It8+9wWeVj3p0CEZ655KmcYkE5mXsBXp3ZKJJjcfihq8P29jQrA1uz/cLHdyfBW1Jchc5QqFABu3CXig==
+X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(23010399003)(376014)(7416014)(82310400026)(14060799003)(1800799024)(35042699022)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: XRPwfYQ4/9R8niFHdA/UnKbwL21HJUbTYMaGWZuqlykAFTOEUsLM2wu0a571r88Iax4fpbHJ1NnNaBNUWPj/kEA6ECbiF2rpRQE3b6EJKqOg83VsN1qd2+pxxSF2tC6ADSEuPv2vu+JiJ8W8k3pQY/10hNlo6ZX7SVVpukrCB263Y4Yj7AUB25Q8+2N+I9qKCOHVC0jnFhmYIugNbFE5OczPB3pAsu1hG/uiueARlFqFQczlNiIa+J6cb9BEosuT3wmQ5YE2MEQQJBiSuEtacvKqR6WfMASeMuvF8hGOkq/KJHR8HLGByfhCxwXQT8AzKkiC06m2PXdi0LDrhycFkqXo7Ep9tFzFXxX53DHB2zZTOvXu7bU8CFHa85hoji0230lH9CpVEUCT2Q6pMuNAVM2C7kfZxrfrJAtDt7phZUIuFo457WySVIisjlLzah0z
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 12:11:41.8801 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b25407fc-54b7-4144-6fc4-08ded5d79491
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
+ Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource: AM4PEPF00027A5E.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR08MB9311
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,169 +160,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
-
-On 6/18/26 10:18, Ryosuke Yasuoka wrote:
-> virtio_gpu_queue_ctrl_sgs() and virtio_gpu_queue_cursor() wait for
-> virtqueue space using wait_event() with vqs_released as the only abort
-> condition. This covers the device removal path, where
-> virtio_gpu_release_vqs() sets the flag, but does not help when the host
-> simply stops processing the virtqueue while the device remains present.
+On 25/06/2026 13:40, Boris Brezillon wrote:
+> We schedule immediate ticks when we need to process events on CSGs,
+> but those immediate ticks don't change the resched_target because we
+> want the other groups to stay scheduled for the remaining of the GPU
+> timeslot they were given. Make sure these immediate ticks don't get
+> overruled by a sched_queue_delayed_work() that would delay the tick
+> execution.
 > 
-> In that case, the virtqueue fills up and subsequent command submissions
-> block indefinitely in D state with no diagnostic output, making the root
-> cause difficult to identify.
-> 
-> Replace the bare wait_event() with a wait_event_timeout() loop that
-> prints a warning every 5 seconds while the virtqueue remains full. The
-> wait still blocks indefinitely so driver behavior is unchanged. The
-> warnings help identify an unresponsive host device during
-> troubleshooting.
-> 
-> Signed-off-by: Ryosuke Yasuoka <ryasuoka@redhat.com>
+> Fixes: 99820b4b7e50 ("drm/panthor: Make sure we resume the tick when new jobs are submitted")
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v4-0-3d2908912afa@collabora.com?part=9
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 > ---
-> When the host stops processing the virtio-gpu virtqueue without
-> triggering device removal, the bare wait_event() in
-> virtio_gpu_queue_ctrl_sgs() and virtio_gpu_queue_cursor() blocks
-> indefinitely with no diagnostic output. A DRM atomic commit worker
-> blocks in virtio_gpu_queue_fenced_ctrl_buffer() while holding the
-> modeset lock. During graceful shutdown, systemd (PID 1) needs the same
-> lock — either by writing to the console via fbcon, or by closing a DRM
-> file descriptor that triggers framebuffer cleanup — and blocks as well,
-> making the VM unrecoverable without a forced power-off.
+>  drivers/gpu/drm/panthor/panthor_sched.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
 > 
->   PID: 553    COMMAND: "kworker/u4:3"
->    #0 __schedule
->    #1 schedule
->    #2 virtio_gpu_queue_fenced_ctrl_buffer [virtio_gpu]
->    #3 virtio_gpu_primary_plane_update [virtio_gpu]
->    ...
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 8fd4d97b062e..ab3e13e44a26 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -2667,7 +2667,14 @@ static void sched_resume_tick(struct panthor_device *ptdev)
+>  	else
+>  		delay_jiffies = 0;
+>  
+> -	sched_queue_delayed_work(sched, tick, delay_jiffies);
+> +	/* We schedule immediate ticks when we need to process events on CSGs,
+> +	 * but those don't change the resched_target because we want the other
+> +	 * groups to stay scheduled for the remaining of the GPU timeslot they
+> +	 * were given. Make sure those immediate ticks don't get overruled by
+> +	 * a sched_queue_delayed_work() that would delay the tick execution.
+> +	 */
+> +	if (!delayed_work_pending(&sched->tick_work))
+> +		sched_queue_delayed_work(sched, tick, delay_jiffies);
+>  }
+>  
+>  static void group_schedule_locked(struct panthor_group *group, u32 queue_mask)
 > 
->   PID: 1      COMMAND: "systemd"  (console write path)
->    #0 __schedule
->    #1 schedule
->    #2 schedule_preempt_disabled
->    #3 __ww_mutex_lock
->    #4 drm_modeset_lock [drm]
->    #5 drm_atomic_get_plane_state [drm]
->    #6 drm_client_modeset_commit_atomic [drm]
->    #7 drm_client_modeset_commit_locked [drm]
->    #8 drm_fb_helper_pan_display [drm_kms_helper]
->    #9 fb_pan_display
->   #10 bit_update_start
->   #11 fbcon_switch
->   #12 redraw_screen
->    ...
-> 
-> Reproduction steps:
-> 1. Build QEMU with the fault injection patch [1] that adds an
->    x-ctrl-queue-broken property to virtio-gpu.
-> 2. Boot the VM and trigger the fault injection from the host.
-> 3. Fill the ctrlq (e.g., move the mouse on the guest's display).
->    The process gets stuck in virtio_gpu_queue_fenced_ctrl_buffer()
->    in D state.
-> 4. Run a graceful shutdown command (shutdown now or reboot).
-> 5. The shutdown process hangs.
-> 
-> My earlier patch a46991b334f6 ("drm/virtio: abort virtqueue wait on
-> device removal to avoid hung task") covers the case where the shutdown
-> process reaches the device_shutdown() call path, which sets vqs_released
-> to unblock the wait. However, during graceful shutdown, systemd (PID 1)
-> gets stuck on the modeset lock before ever reaching device_shutdown(),
-> so vqs_released is never set and the wait is never unblocked.
-> 
-> I initially considered adding a module parameter to abort the wait with
-> -ENODEV on timeout:
-> 
->   +static unsigned int virtio_gpu_vq_timeout;
->   +MODULE_PARM_DESC(vq_timeout,
->   +     "Timeout in seconds for virtqueue wait (0 = no timeout, default)");
->   +module_param_named(vq_timeout, virtio_gpu_vq_timeout, uint, 0444);
->   ...
->   +             if (virtio_gpu_vq_timeout) {
->   +                     if (!wait_event_timeout(vgdev->ctrlq.ack_queue,
->   +                                             vq->num_free >= elemcnt ||
->   +                                             vgdev->vqs_released,
->   +                                             secs_to_jiffies(virtio_gpu_vq_timeout))) {
->   +                             if (fence && vbuf->objs)
->   +                                     virtio_gpu_array_unlock_resv(vbuf->objs);
->   +                             free_vbuf(vgdev, vbuf);
->   +                             drm_dev_exit(idx);
->   +                             return -ENODEV;
->   +                     }
->   +             } else {
->   +                     wait_event(vgdev->ctrlq.ack_queue,
->   +                                vq->num_free >= elemcnt ||
->   +                                vgdev->vqs_released);
->   +             }
-> 
-> This approach aborts the wait and allows the graceful shutdown process
-> to eventually proceed, albeit with a delay.
-> 
-> But that approach has drawbacks: it allows users to set arbitrarily
-> short timeouts that could destabilize the driver, and aborting commands
-> mid-flight is a rough recovery path. An unconditional timeout was also
-> discussed previously [2] but is not appropriate without virtio
-> specification support.
-> 
-> This patch takes a safer approach: replace the bare wait_event() with
-> wait_event_timeout() and print a warning every 5 seconds while the
-> virtqueue remains full. The wait still blocks indefinitely and no
-> commands are aborted, so driver behavior is unchanged. The warnings
-> help identify an unresponsive host device during troubleshooting.
-> Once the user notices the warning, they can work around the hang by
-> unbinding the VT from fbcon, removing the device, or forcing a shutdown
-> via SysRq.
-> 
-> [1] https://gist.github.com/YsuOS/fbcd181752594af35f954953a1d260b8
-> [2] https://lore.kernel.org/all/8a986c52-964f-42a5-b063-fbe2b242ca36@collabora.com/
-> ---
->  drivers/gpu/drm/virtio/virtgpu_vq.c | 18 ++++++++++++++----
->  1 file changed, 14 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-> index 68d097ad9d1d..a546130d3b6a 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-> @@ -410,8 +410,13 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
->  	if (vq->num_free < elemcnt) {
->  		spin_unlock(&vgdev->ctrlq.qlock);
->  		virtio_gpu_notify(vgdev);
-> -		wait_event(vgdev->ctrlq.ack_queue,
-> -			   vq->num_free >= elemcnt || vgdev->vqs_released);
-> +		while (!wait_event_timeout(vgdev->ctrlq.ack_queue,
-> +					   vq->num_free >= elemcnt ||
-> +					   vgdev->vqs_released,
-> +					   5 * HZ) && !vgdev->vqs_released)
-> +			DRM_WARN("ctrlq waiting for host: no free space for %d secs\n",
-> +				 5);
-> +
->  		/*
->  		 * Set by virtio_gpu_release_vqs() to unblock
->  		 * synchronize_srcu() wait in drm_dev_unplug().
-> @@ -592,8 +597,13 @@ static void virtio_gpu_queue_cursor(struct virtio_gpu_device *vgdev,
->  	ret = virtqueue_add_sgs(vq, sgs, outcnt, 0, vbuf, GFP_ATOMIC);
->  	if (ret == -ENOSPC) {
->  		spin_unlock(&vgdev->cursorq.qlock);
-> -		wait_event(vgdev->cursorq.ack_queue,
-> -			   vq->num_free >= outcnt || vgdev->vqs_released);
-> +		while (!wait_event_timeout(vgdev->cursorq.ack_queue,
-> +					   vq->num_free >= outcnt ||
-> +					   vgdev->vqs_released,
-> +					   5 * HZ) && !vgdev->vqs_released)
-> +			DRM_WARN("cursorq waiting for host: no free space for %d secs\n",
-> +				 5);
-> +
->  		/* See comment in virtio_gpu_queue_ctrl_sgs(). */
->  		if (vgdev->vqs_released) {
->  			free_vbuf(vgdev, vbuf);
 
-The [1] has a valid point about the hangcheck warning. Is
-wait_event_timeout() worth the change then?
+Reviewed-by: Karunika Choo <karunika.choo@arm.com>
 
-[1]
-https://sashiko.dev/#/patchset/20260618-virtiogpu_add_timeout-v1-1-dc36cef609d9%40redhat.com
-
--- 
-Best regards,
-Dmitry
+Kind regards,
+Karunika Chooo
