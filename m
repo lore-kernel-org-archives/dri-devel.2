@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D12AC43327
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:24:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FD05C43327
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:24:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBA4610E866;
-	Mon, 29 Jun 2026 12:24:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9B2E10E864;
+	Mon, 29 Jun 2026 12:24:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U/U1oudd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lNGV9yN8";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9F4D10E866;
- Mon, 29 Jun 2026 12:24:10 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9564910E864;
+ Mon, 29 Jun 2026 12:24:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AFAB243A39;
- Mon, 29 Jun 2026 12:24:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4C2B1F00A3D;
- Mon, 29 Jun 2026 12:24:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 15178601C1;
+ Mon, 29 Jun 2026 12:24:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2AF71F00A3E;
+ Mon, 29 Jun 2026 12:24:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782735850;
- bh=zVjmXpiPRDEuxz5eG83icMPmdk9wIBZlf3SL8DGVmHo=;
+ s=k20260515; t=1782735856;
+ bh=IfYIi3h97Td9h3DBJgVJcf+P8SXVr5wM/GvJvcwStzM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=U/U1oudd2OHsamjeEZuCvVMXdEMpD/oNczijfmJk++UuSM0tp0M4bDoBkBnaZgEGX
- Rzmf5lgUCLOwf33ifMK/K2bot41pBldLuGDyqh4AHtCcQbq63vAXxJLsQhScbx1wjy
- pAmJsMiKpOZTiLamQJyBK0RuwzcIABdz8kvfm7lfq8NBus/l7rZHyqG7zzwotne8Nc
- GTXNJ+fbsxLNNKwRHR60RMPCFuyleSFo52WnA+wKgJklYu/E8UISfAtIT/7g6bzNml
- Dn0Xje1cMb8CoXoDrIYucp5qfkxy+YeGy+zN6IEHKnft2iA8dzEBICTockHkc/ttHS
- zMtueoMKRjIEA==
+ b=lNGV9yN8kBRD132uXCwgnUfErFd07LVxDdYGkBetq1diSTqEUGTMxPgPBUDMnbOlV
+ 90h0il5nNqOL1Rwqv03Mf7MyJPILKA/ML+jHiOXakYHRAGB0QOi3CcojnRb3/HsP6b
+ 1cfIQidEDYqwdJd8qMvDRR3kfr4dZ6E43KD639b6YBImUkci67dpgoggwfb+fdKz8B
+ oClDM1FA+NiUCX4bnHhmWU6PQwC2QCi9KkZj2cAqyUSXMe6dl1LXYbd15qxry2ghNq
+ hKoqDeMRlFWfzBJr4QkVZghkE9jRZaG/2AAnsf3PEpx66dnpBXR4xuGW73smCOyNUW
+ 5X0mB7ocRS6ZQ==
 From: Lorenzo Stoakes <ljs@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
@@ -80,9 +80,10 @@ Cc: Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
  damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
  Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
  Jann Horn <jannh@google.com>
-Subject: [PATCH 05/30] mm/rmap: update mm/interval_tree.c comments
-Date: Mon, 29 Jun 2026 13:23:16 +0100
-Message-ID: <80d482a927b2e9862487b812e0ab48ebc1289a70.1782735110.git.ljs@kernel.org>
+Subject: [PATCH 07/30] mm/rmap: elide unnecessary static inline's in
+ interval_tree.c
+Date: Mon, 29 Jun 2026 13:23:18 +0100
+Message-ID: <ed5fd5358382217a92f0a6afddcfaa030c933055.1782735110.git.ljs@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1782735110.git.ljs@kernel.org>
 References: <cover.1782735110.git.ljs@kernel.org>
@@ -103,59 +104,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Update the file comment to clarify that both file-backed and anonymous
-interval trees are provided, referencing the relevant data types for
-clarity.
+It's not necessary to declare these functions static inline as they are
+contained within a single compilation unit.
 
-Also add comments to indicate which parts of the file apply to each.
+This makes the anonymous interval tree code consistent with the newly
+updated file-backed interval tree code.
 
-While we're here, convert the VM_BUG_ON_VMA() to VM_WARN_ON_ONCE_VMA().
+No functional change intended.
 
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- mm/interval_tree.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ mm/interval_tree.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/mm/interval_tree.c b/mm/interval_tree.c
-index 344d1f5946c7..2d50bc6228c4 100644
+index ff36fd14ef37..b387d39e0547 100644
 --- a/mm/interval_tree.c
 +++ b/mm/interval_tree.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * mm/interval_tree.c - interval tree for mapping->i_mmap
-+ * mm/interval_tree.c - interval tree for address_space->i_mmap and
-+ * anon_vma->rb_root
-  *
-  * Copyright (C) 2012, Michel Lespinasse <walken@google.com>
-  */
-@@ -10,6 +11,8 @@
- #include <linux/rmap.h>
- #include <linux/interval_tree_generic.h>
+@@ -81,19 +81,19 @@ vma_interval_tree_iter_next(struct vm_area_struct *vma,
  
-+/* File-backed interval tree (address_space->i_mmap) */
-+
- INTERVAL_TREE_DEFINE(struct vm_area_struct, shared.rb,
- 		     unsigned long, shared.rb_subtree_last,
- 		     vma_start_pgoff, vma_last_pgoff, /* empty */, vma_interval_tree)
-@@ -23,7 +26,7 @@ void vma_interval_tree_insert_after(struct vm_area_struct *node,
- 	struct vm_area_struct *parent;
- 	unsigned long last = vma_last_pgoff(node);
+ /* Anonymous interval tree (anon_vma->rb_root) */
  
--	VM_BUG_ON_VMA(vma_start_pgoff(node) != vma_start_pgoff(prev), node);
-+	VM_WARN_ON_ONCE_VMA(vma_start_pgoff(node) != vma_start_pgoff(prev), node);
- 
- 	if (!prev->shared.rb.rb_right) {
- 		parent = prev;
-@@ -48,6 +51,8 @@ void vma_interval_tree_insert_after(struct vm_area_struct *node,
- 			    &vma_interval_tree_augment);
- }
- 
-+/* Anonymous interval tree (anon_vma->rb_root) */
-+
- static inline unsigned long avc_start_pgoff(struct anon_vma_chain *avc)
+-static inline unsigned long avc_start_pgoff(struct anon_vma_chain *avc)
++static unsigned long avc_start_pgoff(struct anon_vma_chain *avc)
  {
  	return vma_start_pgoff(avc->vma);
+ }
+ 
+-static inline unsigned long avc_last_pgoff(struct anon_vma_chain *avc)
++static unsigned long avc_last_pgoff(struct anon_vma_chain *avc)
+ {
+ 	return vma_last_pgoff(avc->vma);
+ }
+ 
+ INTERVAL_TREE_DEFINE(struct anon_vma_chain, rb, unsigned long, rb_subtree_last,
+ 		     avc_start_pgoff, avc_last_pgoff,
+-		     static inline, __anon_vma_interval_tree)
++		     static, __anon_vma_interval_tree)
+ 
+ void anon_vma_interval_tree_insert(struct anon_vma_chain *node,
+ 				   struct rb_root_cached *root)
 -- 
 2.54.0
 
