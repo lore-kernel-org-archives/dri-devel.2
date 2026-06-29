@@ -4,130 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A3ACC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 13:05:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E516BC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 13:16:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D397A10E355;
-	Mon, 29 Jun 2026 13:05:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33BCC10E8A2;
+	Mon, 29 Jun 2026 13:16:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="RNk6MnxV";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="oSoNKlTL";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WxAZeZZM";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012049.outbound.protection.outlook.com [40.107.209.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B1DE10E355
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 13:05:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AS1Dz4Fnph1lrolW1yFZPcGfYsU3JpxcKHpKsWznfI1Z0UtILZ826LKA3SqlJXvu8TXRtAHpQ0NTqV9DouW+XAtpg9WkNYCZHxUC9mi8NdSXhcOS5Rn0pEWylJycIF0fnDce0GmhqOLudCvfk6vk4QyrfvZ6bUM9GlhQ+RNsyx06wIZEjHfgn/1tfhDlUDjj+p2S5AebQvieFw8J8LCZe0fsbX5+tZSHGCmSksQNtuPn3Ygbvcf/IpRNmGWBk+DmL8n3eCG0FVe5iGOZt3pvj3h6U86HudhvsIJfaqXtUQcxSaYcKrUpB/hUQ7ZN3qvPLbPrcNUTleY7tvj0YJAbwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P7RXHxeCaLz9iU4yGojDEMYPycSXWVypRh4323KIFhU=;
- b=Ldd8UN0SXwl42N3ylN8u7dQCGnIZMP2TAPaS54e2M282QLNGPyVlMhZRzAr8ZjFqNh3bLYSz6DmM9WEUifp2PtBqa+YuD4QsZJznpFAsAVl6FES6gybcsOwzayj9+xNJN/7GAB/mfYPH6RqLG/HT/NxCroAWshWiE2g9+kZ/DcdzrTmtdQseb9ugqERm12EeXw3T6n/fzrsjMybbVcMhcY6dV5oFgCUgP6Ytm+u7Sn1MiOt0OLSMiXU1IdiStKHsdxgBr3ANpmM/TRf6kXH9/DTL9q0P1SD1HtbhkosjoF7mNEoNfJqsBUxyR2ArFOzF1r2Qtc2EYd91AtV4E91SvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P7RXHxeCaLz9iU4yGojDEMYPycSXWVypRh4323KIFhU=;
- b=RNk6MnxVbeUwJn+zmcAdGmNLtctofmWrScmptSeHmSxStuWbj8Xhv9xyeaZfK071YO5FoWoNNI9JgIpGuo3TZG0/E3rlTIVb1//MlRm7/MB55LR5ISG9HjuQayaB9yhTsCC5BwzGh7TZu/wClKii0b4P0bpPyeBsQvGGOgNkyebx01NNzhS0GYKy9AdITxOLEjksaXVaTSWcuqtZhGiReSHvRg8ay6nyu7AoFpFT9E+1DlffnYjs5pWAX/gAbBo5nrR+Kk1ydCcvlr1i0YnjpXpJIroO5axOx+yFuMmaUZYnHn7DJmwnS5g/NOOSSJEq7eqSOXhwTId+tLPyVuTYuQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by DS0PR12MB9037.namprd12.prod.outlook.com (2603:10b6:8:f1::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 13:05:10 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 13:05:10 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 29 Jun 2026 22:05:05 +0900
-Message-Id: <DJLJZJN79QEB.2JOTYSZJPTMTW@nvidia.com>
-Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>
-Subject: Re: [PATCH v3 00/12] gpu: nova-core: consolidate and streamline GSP
- boot process
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>
-References: <20260629-nova-bootcontext-v3-0-26cb29ee8dee@nvidia.com>
-In-Reply-To: <20260629-nova-bootcontext-v3-0-26cb29ee8dee@nvidia.com>
-X-ClientProxiedBy: TY6P301CA0012.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:3be::13) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F036B10E759
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 13:16:32 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65TATBFh2647661
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 13:16:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=EzUX6DCnLm9c9ZCkeVOBQO
+ S1YlMMAo176Qhn/POAkko=; b=oSoNKlTLDQtCj8SdyDUvs8df4teO7QJA9j7sr2
+ 0IwyutggBaDLSihMzkBugevmwkSnHM1BFmJYQlYgiPmTH/TKbYYgL+xnNoi3EBRD
+ rIetCQDJ/0hK3pIqdFMagFKZqD4/PuJ5yZ2H7I/fACt0JNDeWVvtzOdcE2elpSAF
+ cNbDElsXUY6bQh5TzXvE+xIAgcAUY06cDHDs5C5GdSnBPiqIHWZ85+CLgueoGCwc
+ +Lnr7ohSJF3NiCw0Zvv6N9luZhtzFjdjr00gJd14mZ4RgOgPB7anaubEsIfz6P9m
+ P34atT4m01FTHBCNUPy1F61QWNvUuK9INDmT+JTwsiglY2Kg==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com
+ [209.85.221.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f3kyjhek4-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 13:16:31 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id
+ 71dfb90a1353d-5bbd3241499so2915944e0c.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 06:16:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1782738991; x=1783343791;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=EzUX6DCnLm9c9ZCkeVOBQOS1YlMMAo176Qhn/POAkko=;
+ b=WxAZeZZMiOW1AFXmrmudmqSZBwPbKKO6Ihpcun/7y6vvj+9QV7pABc4HjWmJqE2cEF
+ 0vNnINRqUQY3vRN2+Zg+wZo4HYbRx2ByQkiWRA2WNXIrv0rFjs16/UuEzk85f9r3LylU
+ UkmeWY8u/XWqUeld7bqCRmZE7xDhdnBUppdDAkk3TRHJN6ONTxEl5I397MNGgwMWEJ4K
+ +cSvq9JNBDsGa5sTMeTYEiDxfBdLpLwUxz7OYbRZYaXsVp/2wHOi7MobiGBPHlQm5Y1M
+ f2rN2ErZj+WJwNkPjH1rRRAAUu6aQ0bzYLuLLnWvk1LPt5H4bhuiS3XbsewpopCs3tFZ
+ wnoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782738991; x=1783343791;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=EzUX6DCnLm9c9ZCkeVOBQOS1YlMMAo176Qhn/POAkko=;
+ b=gJwR2GR1/XmWDK/dZootEkhGqz6hkktexDfyVQ2wGYnOcDrw0ojc0kHEhiq+5M/L8E
+ PL27ztGI00bcQxa3oyqa+6rBN3QmWh8hcaMVTgfEorSTCsO+VJ6PRb48Zlv+5F7wO0JX
+ ASaoHF/y0begyzPoe1UcLInQU3/l8RKWm0eCLBMfjIJDnm2oO3NZs9TVAC8KUyFPwSXH
+ jNfIMM/YMxShVxaXSm3Z9N/A7LoacVgWt1BNLxXN05Bn/Dm4zB0ADhjvJTwqAowDg+lr
+ C+u1eubNRxTLLYY6dpXy1+0K1/Rm19+xEgUA5S8EiluWB7qd5H/zUzNBAA/tnlWrZdTw
+ hrrQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rpnj8EnKg2cB/vIdJLoxoGf35nIvycYAirv0uI87Zc1QfFm2oT4l7GECUIe1JPUm9XW+XxXyoEbl1A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxpN5I6kzA9eOAf4sNRdv4mioQXgUqvsS5qFoU8lsx7mpvsRrSj
+ nC8CpndkV2whzgV9Pyza7RxGLVJbG1DxUPznrcdJPSC/rGEoJtHJKqT5LkyVYbINjCSAB+tlGik
+ rMLCE+rStmiKsCzDK/wSEYBGh6puqIQNiRObL3Is/P+yWsti+KcpzXBREpUztC/brzLo5XTw=
+X-Gm-Gg: AfdE7ckoO5Eif/moyN1ldJiPdnFOvh7DJ36W/MM4UDAL3MYp0+IZwCSueFpJA4YctvS
+ FGiwJk9erkWNDACR86//uhk5MC5lxWbX9aubXD1Bx3m8HtVJNlA3q77l8yCaEZ1FUvzk7Olv5UG
+ hEIIsZi0dGXUh4oLCXOrtdgbxW98tyVsKt+96YA93ETEavKNLDlO00eCK1veGKkj1W7obo19ImT
+ ipM7Cy6nr1Jn3CGkd6lQIgN+8ffvyEncYQhpf4grlWbmWpeDEdfYdNeRHghe7V/u8ZUoLZaar8W
+ Pjibh0bh7DJgdOkQ1/gXnFswgw5p+VRIrTwpuQkyjiaIvao4xWTkcYNDvIPxUo6kLKcn4DkdcNA
+ mzRSv1UqfwyY37+b3LfDguVqSK2/hdl4PW3is2JGoTr3lBcsxWJSH8FwG5kSRTNJ/BCe2PlXxog
+ ==
+X-Received: by 2002:a05:6122:d1e:b0:5bd:89bd:354c with SMTP id
+ 71dfb90a1353d-5bdba9a976emr381274e0c.11.1782738990815; 
+ Mon, 29 Jun 2026 06:16:30 -0700 (PDT)
+X-Received: by 2002:a05:6122:d1e:b0:5bd:89bd:354c with SMTP id
+ 71dfb90a1353d-5bdba9a976emr381211e0c.11.1782738990253; 
+ Mon, 29 Jun 2026 06:16:30 -0700 (PDT)
+Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
+ [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8ef0f2b9df0sm56744616d6.13.2026.06.29.06.16.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Jun 2026 06:16:29 -0700 (PDT)
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Subject: [PATCH v5 00/25] drm/msm/dp: Add MST support for MSM chipsets
+Date: Mon, 29 Jun 2026 21:16:18 +0800
+Message-Id: <20260629-msm-dp-mst-v5-0-1d882d9012f4@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DS0PR12MB9037:EE_
-X-MS-Office365-Filtering-Correlation-Id: f50024f6-b398-48fd-2309-08ded5df0c84
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|10070799003|1800799024|22082099003|18002099003|11063799006|56012099006|921020;
-X-Microsoft-Antispam-Message-Info: 2DZpnqX24ylMBlUACPO6l5UcBbtWsCjtgDAStinp1nr5ct/OrSytB2vTIO5KRBvjHLsAPLmxucfG2Q671I3QZx6CWjq00k9l6JiqnAnUNWWTsH1Y+fwjLb5qMARnel2iLnqS2+No6oVZTJY5na3qrMVlJj5wFbMtvzDj2LDRQcJM+fV8M82E0U8RacSq0oaoeaGiCd+3iOb4Opn+F4XQ9SqoCNNQ4rKtPvajewr/eD8aMev3S+WA8tQFH6ultpOwmI0MpTYKP/X4B/YQcFcKSOUgtzecSrDNk7NoiPV+YyHUdE9hT/oBzFKnqvjAhn9eLKuzzM54yzx4vU2Ky97dSAvF8OpWq+Mjc6WNA4bBrsC2F43i5j1AbO3TzIPuM/QD/7iIxlxD6Eu1GV+9IW2plb9+c25Zasd5aW2XgorRImtMlw3yPo7YuA69A5Z2gD/KInJsrK9nbqvE8TIYkw3b2vfwhE0xhVpeWW1uSeRR/m2Gle0lCHdWcjZr/Qs88w65UXnBT7KFelfZxCWZv8sEQIcvFqp21Seps4EQwjUep4LgxgS27xuq0M/i8Y2wGkNXQX8bGyWMo8g5axdLrx9TkIIS6TFcbC9D3E/yI/K7oa8X3BEwhwa8PWnrusWQ3SUjvABrkqVErjOluCI28YIJ1LdkFXxIwIWELLIYNC6UjNNySeqUFP76w74Pj82Gmu9vC4US3bGD5UbrenC+haY1qw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(10070799003)(1800799024)(22082099003)(18002099003)(11063799006)(56012099006)(921020);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WmNVOUY5d3VkNmRXQlFjLy9jTEdKNElmWHh0anV0aVFjVHFjSC9OSEwreWdw?=
- =?utf-8?B?OTl4alltZ2V4bzgxSDNrd29JOTMxMHhrOE1TVjdkdE9HSEZEcXlEUzFHRU5J?=
- =?utf-8?B?TE9Nb1lYZWp4ak9yMzVyNG9Vc2RkTmhsSXRLQkZacGtKUkVqNFRPZXh4eFU4?=
- =?utf-8?B?aUo2Q3IvZWRsSHQrMHVRcTA0YXpUZmJYU05oUlRkTnh6MXFNVW5IZUpsMUtv?=
- =?utf-8?B?YlpTRVlSblBOKysxaGJFUmg5c1dpeHM1SUhEU0pvYm1Eeks3TjhLUUt4YUZY?=
- =?utf-8?B?UGo1Y1o3VnExeDU1R0tkU2t1dDRoUmZOdEJ1NXhUTGJlTUZ4QllzYWtVZkk5?=
- =?utf-8?B?TjVBNXR6Qy80TG9kMFRPODZpSndlVnY3VDQ2bnNQOU5jUjNITUFVaE5rMFJ1?=
- =?utf-8?B?Qm4xdFhRbzF0V1RPb0crc3I0QzVXeXlBVFlibmhnRWx5TkZMU0NOcCtjanBJ?=
- =?utf-8?B?eHcrbzFjbkFVYnF1WG5DOFdjWGtXd0ROSWlXZUMrMi8xUlhSRFdpa1lGeFZR?=
- =?utf-8?B?dGpVeVFZeVpBWXNEdGoyQkg1azVIYWpubHBwTW9WQ2gzSHVzS2hQaEZjcUw1?=
- =?utf-8?B?eEVpQmJha2M1dVlNZXVBUTdhV3Z5Mmc0eDYvY2xLcmxkeGZxZmxSdzVya1RY?=
- =?utf-8?B?SXJvMm1rOFdnb3RZclRSdjk4V3RNWWNvczRyYTFKNk1oaDYxM20rM2NDaUNs?=
- =?utf-8?B?YjVnY1lZL1g1N2xQcGpHc0xGRVVOZy90ekt0VWNwYjJzSWV2Q2I4dXpqd1pN?=
- =?utf-8?B?djJxVU1paVgyUHBSVWJ2MU1nOVlodHJZOXFmbkZUNlpnZFpjVWY1MDFaendl?=
- =?utf-8?B?b0xkQTJFSTQxN2N6SmpPdGJJRE1QK2tkZzVta2p0OWpveHpDZnM2SERzRHIr?=
- =?utf-8?B?YzFqa3NFQW92WGY0MEQ3WnBvQnVuZTZDVmRENC8wdjJvMmF6c3JiTkxsQ3VD?=
- =?utf-8?B?RlROSzVwb0dOYkdpbnJUUHhRRGg1R2hUSU9VZUljL2ZNZTlESzBrZTlLM05H?=
- =?utf-8?B?OXM3dWJ5UzVxQ3g0REZWdi8wZ0Zib2tBeEM5ODBBVHMreDBEOGg5L1lhUTR4?=
- =?utf-8?B?QStkMnd4ZTB1cWlnN25FdCtjclpNSDBFTUZXNTNkOWl6TzlPR2poRnp6b28w?=
- =?utf-8?B?UzVaaDVmOHlEUERRSjI2eXJHbGtvZ3Y0NXVwSzNHSWRmWFNUZFhBdDlXaXlN?=
- =?utf-8?B?SFpJcXpCNFJud0VIbTZ1disrellYWkxNaXdxSHFvbFBIZXNscDBQQWRlb1pr?=
- =?utf-8?B?R21NRXJQNjJvU21Ybk9XOGZBTVBhSjl2cVNUVmNSTGxIR3FFUlBCOURFOWVT?=
- =?utf-8?B?UUVwMnZ1WW5pYkF2ZHF6QzVEWVE2OVA3aGU3U2hMOTRKa3UzU2N3MTA2ZEdy?=
- =?utf-8?B?TkJMNW1mOXVKQkcyRE1qMU8zZTI2Y3hVem8xNXk5RHpob3RiQmdpbzJwZldx?=
- =?utf-8?B?SFphYmFGVlRzQ2pBRVNFU1JIRlhoTStTQm10Y0NtcmtBdmkyMm40N1B3a3N3?=
- =?utf-8?B?bG90UDQyWjdVQ041SEU3YTFLZFFJOU1SaHcxbVlPMjBkZHZUWHYxOUNLam0r?=
- =?utf-8?B?cWxtL0lpdUhJV2pKOUVkR3RUdTNrdGIxMTQwUW94dzNCZ1lybUo2VDB4RFNB?=
- =?utf-8?B?Vnl1WmNrZWJKMVcvdFRkazdIN1gvN2JOTlhVL0I2RlBQL1FxTG5MdTBCMFp2?=
- =?utf-8?B?L1pybWc3QVd2SU93WHlyc1A3TmJOQWJYRzBaQnZjWmVyVWRzdWZQb1ZsNnFR?=
- =?utf-8?B?Rmk5cXdFRmI2SldwWi8zRkRHUkVENWFkUDBZb2NqeVUyTFNlS2lNZ1paZnpo?=
- =?utf-8?B?ZXdhQ0pRa1B0RUFyS001THZVcFNNbXE1NWdrUXRjWVJPUDNRaU5Yem9wVGMy?=
- =?utf-8?B?NDJFTXcwM21Tak5wRzhpTVc2ZWNhTFkyaEZLamRGc0YrcGIrK1pPSEhyU0N3?=
- =?utf-8?B?eVc4b1h0S2J3YXdUUGIra292eTNvSjNnT0RCcXV1R1l4UlZ3WkI2dFcwdjdn?=
- =?utf-8?B?cG40RXZwTUROTlBsMlpXQ2ptRFd6bWF0d3hKVVREY05NV2ZMMlMxaG5HQkIr?=
- =?utf-8?B?dVg0eHpaTk1GTFNtaDRMT3ZUN0hIUnltT21jQU1obGpoZ1RxdFk3YTJnWStX?=
- =?utf-8?B?TDhJd3RlWDQ4S00velN4SGdtYUZlK3J3cVNydzNSbFlPVEZqaFFsMVF6UFg5?=
- =?utf-8?B?eEFwcXRIb0VIZnlFVDhpQThDeWEwN1RKQ1czdERBZWRVRElVVDVnZTBZMWJJ?=
- =?utf-8?B?ZFVGc1dyeWpneDBmc2ZXbnpva2dPWG42NHlaK1dKd3lkQXNza1d5R0RPaXNV?=
- =?utf-8?B?d3dVVk5sSTF6UTNjV1VkbUVhVGZ0MklSSVpkUlFMei9DQXo5Y1VFbVRFeTh3?=
- =?utf-8?Q?H/1i6WZtaYrghxG3YroCBBTboOvTUal8EgtfiKZK2mi9b?=
-X-MS-Exchange-AntiSpam-MessageData-1: qLyZZnkdH+3Y5g==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f50024f6-b398-48fd-2309-08ded5df0c84
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 13:05:10.0638 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T5Wrg3ReVTLna1f9V6JIEK1U06VSLD6ZpNJ5sRgONc6TcBVWk6/abKuOnZlLdX69jgJH+AJ+PGZGj5iKAEUIWQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9037
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIACJwQmoC/22P3WrDMAyFXyX4ei7+i+2EMfYeowzbUVZDnbR2G
+ lpK3n2Ke7ldSOII9J2jJymQIxTSN0+SYY0lzhOK9q0h4eSmH6BxQE0EE5opzmgqiQ4XHAuVLZf
+ Ma7DeKoIHlwxjvFfY1/GlM1xvyFxeS5KgFFeZffNekZp1iPtGXDiDm+hqKKPg0IpLsELKz7mUw
+ /XmzmFO6YDtY7fyrgDdN3HpGzCDYQy46qQCbUerpbSh1ZyFUTgw2nTWay3JHuoUyzLnR314VTX
+ Vf7+tCnN4wVpuB3BYf3KQ47Ztv2uNRmFAAQAA
+X-Change-ID: 20260410-msm-dp-mst-35130b6e8b84
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <jesszhan0024@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782738985; l=8332;
+ i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
+ bh=5et0EHDEiQXAKizjYlZTNasB+K7WuFtQKxbEXsrIp2k=;
+ b=vSEOkG9G9emv4BP1xpeK4IKC9tFKiK0quEeejWXtHjfL6QkRICMu+RDGKD++/gF7apJle0FNJ
+ 4evCJVTrf9/CGzU7/tt8DN1Acmp3Smf4sas+CgfkIgNdp4vtlTDr83D
+X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
+ pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
+X-Proofpoint-GUID: 6Qre4LKuGSyAWeuAksSzFr5yF0-V3vzF
+X-Proofpoint-ORIG-GUID: 6Qre4LKuGSyAWeuAksSzFr5yF0-V3vzF
+X-Authority-Analysis: v=2.4 cv=Ftk1OWrq c=1 sm=1 tr=0 ts=6a42702f cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8
+ a=uKobFkzxL6-HA6XF2LEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=XD7yVLdPMpWraOa8Un9W:22 a=Vxmtnl_E_bksehYqCbjh:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDEwOSBTYWx0ZWRfX0BXkKGHFzwol
+ DSJ9SKJGjAMwfUqZnTikh//H/MpqCMGS0URrdwclK8l1A4RIYEI7fxmLFQj0sxZLPQIsgHkw3w2
+ zbqYBBYOwSILzuwrf8ojYV37J4ZC+AA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDEwOSBTYWx0ZWRfX7TsSp5SJrsib
+ fH+7sLS1+qmGTOuCSDAk8VzrxFMQkaU0bNu4AiBItzcZlqOQfbg3DzYAHUMazwmMF7ZqzwGE+Ky
+ WPKL4dnZpZvVecAx2Ie6tRZSMa8REU6soDlne/XTuRnMHGzMNAS9YOMHDl1EUX5pW87xs/J+gGM
+ TCEZWie9t0T+DQtKDJxt6mTCXkhSRTiSjbaOFHWoUv2zL5GTW6sn/shNVIw54M8/dvTDBPzhVxH
+ hjSZY/dvuEWDlsm+Xz51VFlRwRcLPZp++rL41GS/HRqJ7DOr668J5DTtbotw7r5uJ+Na0fdO49q
+ S/6beFgmUu/nXhzsM39TICDc0lNcxfMWdlsQkle8CrJ34Kzgy5TP0RWfuMfDfGag1CQ3Ys5zm9h
+ I97qFpCuiA7SVlWBiiCuXcDHbk6h/c84LwmkvWGvYH5S0PbH2egyjAxl3G2dmElbp2wDXEweHg2
+ a6nsVXI45lnmBhp3xHA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-29_03,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 spamscore=0 clxscore=1015 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606290109
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,12 +160,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jun 29, 2026 at 9:31 PM JST, Alexandre Courbot wrote:
-> This series applies on `drm-rust-next`.
+Add support for Multi-stream transport for MSM chipsets that allow
+a single instance of DP controller to send multiple streams.
 
-... is not true anymore now that [1] has been pushed. ^_^;
+This series has been validated on sa8775p ride platform using multiple
+MST dongles and also daisy chain method on both DP0 and DP1 upto 1080P.
 
-I will send a rebase-only v4 shortly, sorry for the noise.
+With 4x4K monitors, due to lack of layer mixers that combination will not
+work but this can be supported as well after some rework on the DPU side.
 
-[1] https://lore.kernel.org/all/20260625-drm-bar-refactor-v2-1-9db6b890d92e=
-@proton.me/
+In addition, SST was re-validated with all these changes to ensure there
+were no regressions.
+
+This patch series was made on top of:
+
+[1] : https://patchwork.freedesktop.org/series/167458/ (preclear up)
+
+Overall, the patch series has been organized in the following way:
+
+1) First set are a couple of fixes made while debugging MST but applicable
+to SST as well so go ahead of everything else
+2) Prepare the DP driver to get ready to handle multiple streams. This is the bulk
+of the work as current DP driver design had to be adjusted to make this happen.
+3) Finally, new files to handle MST related operations
+
+Note:
+Validation for this series has so far been done on the latest linux-next
+on LeMans, covering both FB console and Weston.
+
+Type-C MST support will be submitted shortly after this series.
+
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+Changes in v5(fix comments from V4):
+- Dropped early refactoring patches (v4 01-12); restructured as
+  "move link-level teardown", "factor out _helper variants", etc.
+- Dropped v4 39/39 (platform MST stream list); use DT pixel-clock
+  count instead per Dmitry's request.
+- Patch 02: Remove artificial max-stream limitation check.
+  unify register naming (REG_DP1 vs MMSS_DP1).
+- Patch 05: Calculate ACT wait time dynamically from mode parameters
+  instead of hardcoded 20 ms.
+- Patch 08: Replace start-slot loop with direct math; fix commit message.
+- Patch 09: Add locking annotation "Must be called with
+  msm_dp_mst::mst_lock held" to msm_dp_ctrl_push_vcpf().
+- Patch 17: Rename prepared flag to link_ready.
+- Patch 22: Move drm_dp_mst_atomic_check() call into msm_atomic.c.
+- Patch 23: Replace bridge-based MST DRM model with encoder-based
+  approach; remove redundant bridge layer between encoder and connector.
+- Patch 24: Add drm_edid_free(); add FIXME for bpp negotiation.
+- Patch 25: Use dp->plugged flag instead of link status for MST plug path routing.
+- Link to v4: https://lore.kernel.org/r/20260410-msm-dp-mst-v4-0-b20518dea8de@oss.qualcomm.com
+
+Changes in v4:
+- Fixed most comments from V3.
+- Rebase onto HPD refactor V5.
+- Fixed casing/formatting issues, for example: “mst”.
+- Drop .mode_set() and set_mode in .atomic_enable().
+- Rewrite commit messages that are unclear.
+- Use the same API for MST link and SST link writes.
+- Use the new drm_dp_dpcd_read_byte() / drm_dp_dpcd_write_byte() interfaces.
+- Remove some unnecessary payload fields from the MST bridge.
+- Remove some defensive NULL pointer checks.
+- Reworked the patch order to make the series easier to follow.
+- Add support for more platforms.
+- Link to v3: https://lore.kernel.org/r/20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com
+
+Changes in v3: Fixed review comments from Dmitry
+- Fixed lots of comments from series V1/V2.
+- Rebased onto next-20250808.
+- Rebased onto Jessica's HPD-refactor branch.
+- Fixed formatting issues in commit messages under changes.
+- Removed unnecessary one-line wrappers.
+- Relocated MST-related .atomic_check() calls to their appropriate positions.
+- Removed the logic related to slot checking in .mode_valid().
+- Link to v2: https://lore.kernel.org/r/20250609-msm-dp-mst-v2-0-a54d8902a23d@quicinc.com
+
+Changes in v2: Fixed review comments from Dmitry
+- Rebase on top of next-20250606
+- Add all 4 streams pixel clks support and MST2/MST3 Link clk support
+- Address the formatting issues mentioned in the review comments
+- Drop the cache of msm_dp_panel->drm_edid cached
+- Remove the one-line wrapper funtion and redundant conditional check
+- Fixed the commit messgae descriptions of some patches
+- Reordered the patches and renamed some functions and variables
+- Link to v1: https://lore.kernel.org/all/20241205-dp_mst-v1-0-f
+8618d42a99a@quicinc.com/
+
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+
+---
+Abhinav Kumar (19):
+      drm/msm/dp: introduce stream_id for each DP panel
+      drm/msm/dp: introduce max_streams for DP controller MST support
+      drm/msm/dp: Add support for programming p1/p2/p3 register blocks
+      drm/msm/dp: use stream_id to change offsets in dp_catalog
+      drm/msm/dp: add support to send ACT packets for MST
+      drm/msm/dp: Add support to enable MST in mainlink control
+      drm/msm/dp: no need to update tu calculation for mst
+      drm/msm/dp: Add support for MST channel slot allocation
+      drm/msm/dp: Add support for sending VCPF packets in DP controller
+      drm/msm/dp: Always program MST_FIFO_CONSTANT_FILL for MST use cases
+      drm/msm/dp: move link-level teardown from display_disable to display_unprepare
+      drm/msm/dp: factor out _helper variants of bridge ops accepting a panel
+      drm/msm/dp: replace power_on with active_stream_cnt for dp_display
+      drm/msm/dp: Mark the SST bridge disconnected when mst is active
+      drm/msm/dp: add an API to initialize MST on sink side
+      drm/msm/dp: add msm_dp_display_get_panel() to initialize DP panel
+      drm/msm/dp: initialize dp_mst module for each DP MST controller
+      drm/msm/dp: add connector abstraction for DP MST
+      drm/msm/dp: add HPD callback for dp MST
+
+Yongxing Mou (6):
+      drm/msm/dp: add link_ready to manage link-level operations
+      drm/msm/dpu: initialize encoders per stream for DP MST
+      drm/msm/dpu: expose dpu_encoder ops for DP MST reuse
+      drm/msm/dpu: use msm_dp_get_mst_intf_id() to get the intf id
+      drm/msm/dp: wire MST helpers into atomic check and commit paths
+      drm/msm/dp: add dp_mst_drm to manage DP MST encoder operations
+
+ drivers/gpu/drm/msm/Makefile                |   3 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c |  40 +-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.h |   8 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c     |  30 +-
+ drivers/gpu/drm/msm/dp/dp_audio.c           |   2 +-
+ drivers/gpu/drm/msm/dp/dp_ctrl.c            | 473 ++++++++++++++++++++--
+ drivers/gpu/drm/msm/dp/dp_ctrl.h            |  17 +-
+ drivers/gpu/drm/msm/dp/dp_display.c         | 394 +++++++++++++++----
+ drivers/gpu/drm/msm/dp/dp_display.h         |  25 +-
+ drivers/gpu/drm/msm/dp/dp_mst_drm.c         | 583 ++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/dp/dp_mst_drm.h         |  14 +
+ drivers/gpu/drm/msm/dp/dp_panel.c           | 197 ++++++++--
+ drivers/gpu/drm/msm/dp/dp_panel.h           |  20 +-
+ drivers/gpu/drm/msm/dp/dp_reg.h             |  68 ++++
+ drivers/gpu/drm/msm/msm_atomic.c            |  14 +-
+ drivers/gpu/drm/msm/msm_drv.h               |  19 +
+ drivers/gpu/drm/msm/msm_kms.c               |   1 +
+ 17 files changed, 1718 insertions(+), 190 deletions(-)
+---
+base-commit: e7d700e14934e68f86338c5610cf2ae76798b663
+change-id: 20260410-msm-dp-mst-35130b6e8b84
+prerequisite-message-id: <20260609-dp_mstclean-v7-0-ea04113e8233@oss.qualcomm.com>
+prerequisite-patch-id: 1d440cb9fed2bdd66d8de0e1e20475f0fe166973
+prerequisite-patch-id: be0f4b80697df7224c80362b161b8a9f0a542184
+prerequisite-patch-id: eefa6e6353df301420feae1da704a9db2c2155f2
+prerequisite-patch-id: 9e9095f82dd6c131c9f3c1de4fdb8a62bd65ca24
+prerequisite-patch-id: 3e635f008f9b56823101abd9253905f078fcb3b5
+prerequisite-patch-id: e39e0dc124ed043c7a419610ebe03ad105da27db
+prerequisite-patch-id: 945af39213cd4241e1a5929fada04a9286aeb5db
+prerequisite-patch-id: 898ae7e4582a6b31492c223e7dd167fb9ce78096
+prerequisite-patch-id: 3887553893357c1ffbda99eb010801bc2166cbad
+prerequisite-patch-id: 7ccd961fa3c6f925659dee7d7a5bd167c8e7331b
+prerequisite-patch-id: be2bf918e0e87ec2ea999927f36bd172c498748e
+prerequisite-patch-id: 6aacdabb2dd0536dc04da04f8419ae39e35f8b19
+prerequisite-patch-id: a9f27eff8f643ff445810b17d670891928f5b416
+prerequisite-patch-id: efd300a2b52715153b8c1c7407db696eb331594b
+prerequisite-patch-id: 950abefc4862050ef606404977fd27c5dd2cbb2b
+
+Best regards,
+-- 
+Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+
