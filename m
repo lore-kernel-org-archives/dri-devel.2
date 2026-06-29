@@ -4,142 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF60AC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 14:37:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74DC8C43602
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 14:44:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0422010E922;
-	Mon, 29 Jun 2026 14:37:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA3C610E084;
+	Mon, 29 Jun 2026 14:44:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="tqbBWUdj";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="gokLY0M0";
 	dkim-atps=neutral
-Received: from LO0P265CU003.outbound.protection.outlook.com
- (mail-uksouthazon11022123.outbound.protection.outlook.com [52.101.96.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B63810E922
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 14:37:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OfpQLrjnCsss0Y49a4PJzrP6ngLQ3DEKp2TZi36gKAZTgCci0X1BEoVhHpNEudcLq63gAUGYDz3ohVmF528LKQKArvLP1jujYx7TbV2Q4SFmqbifS6ojC1Dlj/lyK9MwU3ZG8/Zv3v4imn6mLusm2m8dMDqMXWUtB1uiQ+2bogvco1JtsfiN+P1Xldpu8RJontSXXcP/2D/FXjQkSThJ9mG561f4erE4PrWpcFAErWeqDpAL1lr2aOyH2nY+s5H0p4hQztfuwESJCUH4M1dLyZZpxJT8te781Pjcs+bIJxf3KHlLcCq8YAjdMyQSf2MZNxQNzxh5ChQ/HUKir5Gq9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YV7oZKbABRxxMwpZXqVthvBESnI21SFwDJM/ql3zJvw=;
- b=pXL7ZDq0NxmeJqEBQnmqiGAjp/tSFpdj8Jx6NeKlwLwc7/RjnVlMTkoF1mECxg3flT0UXamDYJVgpStEtqUcyzA9yG/7G5G97uQIt9H273zJp4O/s9s5YAj3YIdY/+T7tdnCq+UHCl7hO11EWlXP6bcaE+UveWQIyxqeboasxzOuWcoQrJXByB+McpPS1utIxee8eY+bhArQDozV+gWX5iFSlIl/h9x+ttKazfSAVNFzeOpKc3697rYMGUULPoxdpV8Me5CPIFZBuA2eJUwX8Pryo32ep4gJ5/Dr7uoO8iNuZGqrZSxDZko3Kq07kddkkuPmpMsadC5biNCElcug0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YV7oZKbABRxxMwpZXqVthvBESnI21SFwDJM/ql3zJvw=;
- b=tqbBWUdj5vka7a9zE3S8aiXnqyDJe+nELzeW5EaC9/FgWMUY0Fmve+FBc5/DPRMFUGtuFCvpdxjAJ9jplETJLMRo/YK745zKQ7UNFHQXqOcrFLm+8gKTVwEk8U72pduH53w1kFaGsIqeGc0VhPYfM4hPJdFCuuEYUhMt3sv5/TE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CWXP265MB2662.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:aa::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Mon, 29 Jun
- 2026 14:37:35 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 14:37:35 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 29 Jun 2026 15:37:34 +0100
-Message-Id: <DJLLYCLQEBV0.2L6F55OJ8A6B@garyguo.net>
-Cc: <david.m.ertman@intel.com>, <iweiny@kernel.org>, <leon@kernel.org>,
- <bjorn3_gh@protonmail.com>, <tmgross@umich.edu>, <tamird@kernel.org>,
- <work@onurozkan.dev>, <sergeh@kernel.org>, <matthew.brost@intel.com>,
- <thomas.hellstrom@linux.intel.com>, <jack@suse.cz>, <ljs@kernel.org>,
- <liam@infradead.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
- <ptikhomirov@virtuozzo.com>
-Subject: Re: [PATCH v6] rust: aref: make `AlwaysRefCounted::inc_ref` an
- associated function
-From: "Gary Guo" <gary@garyguo.net>
-To: "Trevor Chan" <trev@trevrosa.dev>, <gregkh@linuxfoundation.org>,
- <rafael@kernel.org>, <dakr@kernel.org>, <ojeda@kernel.org>,
- <a.hindborg@kernel.org>, <paul@paul-moore.com>, <aliceryhl@google.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <viro@zeniv.linux.org.uk>,
- <brauner@kernel.org>, <igor.korotin@linux.dev>, <vireshk@kernel.org>,
- <nm@ti.com>, <sboyd@kernel.org>, <m.wilczynski@samsung.com>,
- <boqun@kernel.org>, <gary@garyguo.net>, <axboe@kernel.dk>,
- <daniel.almeida@collabora.com>, <shankari.ak0208@gmail.com>,
- <lyude@redhat.com>, <j@jananu.net>, <lossin@kernel.org>,
- <acourbot@nvidia.com>, <markus.probst@posteo.de>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-block@vger.kernel.org>,
- <linux-security-module@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>,
- <linux-pm@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <linux-pwm@vger.kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20260628095132.47753-1-trev@trevrosa.dev>
-In-Reply-To: <20260628095132.47753-1-trev@trevrosa.dev>
-X-ClientProxiedBy: LO4P265CA0123.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2c6::10) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7760989E1D
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 14:44:46 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8DBE0E91;
+ Mon, 29 Jun 2026 16:44:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1782744241;
+ bh=rgpIHVCv/jG78fP6tu1dl2Qy9Ys1bGvoYAfVxN1Vrr4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=gokLY0M0tPdapkigMuv4Uqg6nQoeAp9ooLReXpUXVg3B3IlLcUc15FrUa6tHeiqlN
+ XFFu3bImhumtdCJX1OIyNvqmI5cXpP+Vyu/8E7LiH3H7pl79GTXJAoWrYLIka2vje4
+ m2AGTwxSCKAcReaJbpW3lBv0zCLhNN5BQxEZwwZM=
+Date: Mon, 29 Jun 2026 17:44:43 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Inki Dae <inki.dae@samsung.com>,
+ Jagan Teki <jagan@amarulasolutions.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Hui Pu <Hui.Pu@gehealthcare.com>,
+ Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 05/37] drm/display: bridge-connector: split code creating
+ the connector to a subfunction
+Message-ID: <20260629144443.GA3106950@killaraus.ideasonboard.com>
+References: <20260519-drm-bridge-hotplug-v1-0-45e2bdb3dfb4@bootlin.com>
+ <20260519-drm-bridge-hotplug-v1-5-45e2bdb3dfb4@bootlin.com>
+ <20260608-mindful-heavy-frigatebird-be9faf@houat>
+ <DJ735MTNMYD1.3LPNV404V8PIU@bootlin.com>
+ <20260624-proud-unbiased-pony-ecc3c3@houat>
+ <DJHEAWSEZR79.19UFIKS8QJBQ7@bootlin.com>
+ <20260626-polite-hairy-perch-25e1aa@houat>
+ <DJJ1MPCEJGZD.UZM9183V6ZE5@bootlin.com>
+ <20260626-classy-nightingale-of-romance-1cacad@houat>
+ <DJJ4X22CJ3FG.5EYF84LVRNOG@bootlin.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWXP265MB2662:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c89eaf7-5e09-4c01-cf62-08ded5ebf5fe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|10070799003|23010399003|22082099003|18002099003|56012099006|921020;
-X-Microsoft-Antispam-Message-Info: lfW4LtejC5NkcjQrS2K1vSbpS1pcuHsaPqK5i1eH9LtK2wbCFOGhVTxv7q9bE6LOk9j655n8ggoEoITwmAnao0fxye7284u1HQWHOYMpa8CCnomhFe5ptU0pbIox2yiOXylK8AXRNoSrfv7/7yF/A1B5bbnvmRyRdv6R36hMrBxqrr0I82vHKxgvYkgddXkx6GzDglVHvNghpfOhapPIdjoWyrtbraszhhWkM0Ft895aV6+/Z5z45HTpbRdR6aj9IyborTscsCvavF93tonKUfqe9tSbHMPGFYLBK/9PaTAwnu6/ggVGdjKmJokKmziQs7KfuG22bUKYoWphXoZfTerRhpaKg2c5ZeITyG8EqERBfVrcLxKs66V2k6k1lELdidkovWPVLai/Qhffcibunylfz5o49Aud+BE+vTIgERV5SQ+Xa1zCKUu8pGG7f5FmCXcluaFuXIbk+abpa0uGwYMSZSjqaEiE+HcEzEfOvU1x4Pb0VH67KMwa6kLbtW/zDesvnnuvJ20TjDfCMzZJjHNes3zBBc4Q/PJnlWPXOrBoB02J/vUKja818VzoDwKI10WrLQ4sfB1z/pevlyJw+wiHgd0dha+SAJZXrN5h/V0HPngzZxWkCWVf7XudU9d+V/0sQ/dSUqHehB4r/jOtNe+bdifAoWyj+Cib0YBMaC+qqnF1eXxODXBoKyhc2+wTDH123y93izlTXqRK8xqNrw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(10070799003)(23010399003)(22082099003)(18002099003)(56012099006)(921020);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VVRZbGNLTXl0clh5b0ovUTZJREpsTXJLeFRheTBIV2lpZ2t6ZmF2OVY5L1Q0?=
- =?utf-8?B?TjJ6OXRSWVVNMzhpTHlMSWxaY3BFb2tWNzJUMXVuWlgwMWlYM2pzdTNMbkY3?=
- =?utf-8?B?akRZRFdQMEFnQys5Z21HRXkvdS8zUGxTWC9Ody9yeExNZlJ0eCtIdVJLWW9L?=
- =?utf-8?B?c1ZCV2IveHhudk4zSERabjFQdXIzdGhtY1czMC9FTWpBbnhPeXcrem1HN3ZI?=
- =?utf-8?B?Q2F6WStDTmJEMk1YNjBnWXUxaUp0NVRmVU8vSCszYjNPd1phVDhkUjdtcnpw?=
- =?utf-8?B?UmZERmRicTRwWWlyRU9Va1J0bVdnT3IxZmE0NVd4VytSbHZGSWI1Y2RmQTlL?=
- =?utf-8?B?UnFlR2J0ZkhneXc5Uzl0Y2l0ZW5hdVZQcnRrWWw4UWpsOTJ4U3B1cFZNcnlR?=
- =?utf-8?B?dzI5Ky9jTFpWazlUbkQ3bC9yY0FRR2N2aTBtWXBMVHdRbXVLTkcwbU9WWmlo?=
- =?utf-8?B?TkdkOUx0ZTVjbEpYdFVMUm9Da3poQTFud3dvTnV3TVpWZW1YdDdCSzNXa2tO?=
- =?utf-8?B?LzBwcG9DUXNtZ1NkeXdqVExycWZLZkkyaGJ4L3ZSTWV1V3FoT1o2ZGd5UzBw?=
- =?utf-8?B?VFp6eE1NVEhOek1CZ0t0MlR4Z292a2ZtWjN6Rm5KU2ZqSnVDUmZOR3JFNEVI?=
- =?utf-8?B?eXJpWGw2TUx0RENmaUNLbTFESnduQlRlOHlUMSt6b29uTTBmQ1NFa0lnNE02?=
- =?utf-8?B?cFNDOWRJRjdaVnVrcmFQYzJ2YTk4Qk5ZVmczS29yU3ZBNkkxNk5BcXhFZW5k?=
- =?utf-8?B?SzNqSGNiN1QwRDcwOUlwQlBwQ0hpSlB3MU52azBBSHRYTEdNUjBUYVlKWEph?=
- =?utf-8?B?SnJGRXZOZUlOdFFrL3M3Qnl4Vis3Nld3N2hFYndTOFptaEhxZUNweVFaS21u?=
- =?utf-8?B?Y3NDTzNtb0hEaE5TWkVyUDJNdE41Vi9TNzYrdkdqU2x4M0g0UDIzTTVwK3F0?=
- =?utf-8?B?OVlOaTY0dVA1OHkyWVYzUjNmNXcrNTJzSXh4NEZFbWxLK3FxRlI1Q2xoMkkv?=
- =?utf-8?B?eUdlbld6Q2FQdHRjMGF1UzNKajdrdkRJR25yNS8rVkI0djZpTzdNVVdiU2VG?=
- =?utf-8?B?UjVsRHl2OWp5bTk5N3htQkJNUk16NnRDWWdmRHNIWXErbE85aUFUR2RjTU5i?=
- =?utf-8?B?SDNSNWNVK2NrRmtVZEV5ZUtlbUJIbko1WXBsVkNuWUFTN0xPSyt3dzRLdWFK?=
- =?utf-8?B?c3VJOHF4SHRhUXhLYWJyNTFsZ0FwVkVGanVPNVNCeDBXTG5OL2xWUkhuYTZ3?=
- =?utf-8?B?L1VNY1o2Slo0MFRYeC9YVHRKU0RYbkQ2QndEVnZqYjVWc0p5eDMwQTV2Mm9J?=
- =?utf-8?B?L0xPMmxOZklYQWExUjN3QzdRYU5kMmhvWW5WeXQ5aStlLytmUlBPYk1wQ2hm?=
- =?utf-8?B?TUxHdmU2TFdOODQra3lJTmVpb2ZEcVFUcGlsQ3poTTFMWHBiR1d1NnpldzJ5?=
- =?utf-8?B?Z3JPbUh5TC9BRlZwdm5OUG5xRmpkWWNzd21DL3ZWaEViTnh3TDIzVGY1Qzd4?=
- =?utf-8?B?Y0pkZUZwWjlJb2RCekROd2RRR0kyK3NkUkkwZnVFdFp6MFhhUnoxWFRGUnhz?=
- =?utf-8?B?empwWldNVWhZYTVSWjEvU1NoQnRmQjQvRzErMU1mWXdLUVZaaW1seEFpcmY0?=
- =?utf-8?B?aUFPd21TM0xjcFlHVnRjcE9XMnBKa2JlRzFPazBhb1RxWE80V25PTkN4YXFH?=
- =?utf-8?B?R1pLRFpSeUNEbkVzMnlHV2J4QUdYSHpDQmZoRnpGc0F6cUJTMDAyTkJtU0lQ?=
- =?utf-8?B?dWhianA5NTl6WnV1ajZWakpJUEw5VHNCRzdodlhiZU1sSCtPVzU1UjR4RGVT?=
- =?utf-8?B?eVFsUHg4SEMxUWlqd01WZzZJYjdFS1NGV05jZEJzN0ppWUFZaEJHYVBCREFk?=
- =?utf-8?B?U04vTkZBem8yVkcyWmxDWTZ2TFJoOFNrMEN4WFhldEt4aGFWQ0pEeDNNUnRz?=
- =?utf-8?B?UVNLVVdIV3dVRUxmNVlNcklCcWMzemNIWkpHWmlweVlFZWdjYTJONk5INmNW?=
- =?utf-8?B?RUFLWkFIakVrN1JnaEVYcTF2c0t5TGRUSXB5SGFJTURLaFVRdW96THViMm5U?=
- =?utf-8?B?VjNQdUhFSHhlT3lBSUtLcTdVbWQ1eFR4MW54ekR6V0RISTR2YUNkVkU5RWs4?=
- =?utf-8?B?bUF4SVFoNFM1NVVueGVCNnNXR1AyQ2plUXJQNVVWbnBlYTEzTU1iTzdCTys5?=
- =?utf-8?B?S2lQV3JMaDQyZTlvUURmVVhBb3RRdGRpK2ZVb2VTc01TcE5HcFVNV0JFSVJq?=
- =?utf-8?B?Q1hEcTlpaVhwQU9nUkxGaFo3YjNTKzZDVzVEMGlkcFc4ajljYSt0bXZCQmYz?=
- =?utf-8?B?YjZzd2VhRm5DSWlab1ZoSVFhM3pkdUxGbGVMdEVVbFRzOTdzQUM1dz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c89eaf7-5e09-4c01-cf62-08ded5ebf5fe
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 14:37:35.5162 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FvHVrIKuuKEsO9lOZwHVhmz87YIOzMTcCr0HOXMSvWCP0EpcNCwWzsmCYhrSA7sxBt/kbrQGtt7mcGJ1ttb1sA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2662
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <DJJ4X22CJ3FG.5EYF84LVRNOG@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,57 +80,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun Jun 28, 2026 at 10:51 AM BST, Trevor Chan wrote:
-> `AlwaysRefCounted::inc_ref` is a function that shouldn't be called lightl=
-y.
->=20
-> To prevent accidentally calling it, change `inc_ref` to be an associated =
-function.
->=20
-> Modify all `AlwaysRefCounted` implementors to work with this change.
->=20
-> Suggested-by: Benno Lossin <lossin@kernel.org>
-> Link: https://github.com/Rust-for-Linux/linux/issues/1177
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> Signed-off-by: Trevor Chan <trev@trevrosa.dev>
+On Fri, Jun 26, 2026 at 06:51:14PM +0200, Luca Ceresoli wrote:
+> On Fri Jun 26, 2026 at 4:38 PM CEST, Maxime Ripard wrote:
+> > On Fri, Jun 26, 2026 at 04:16:39PM +0200, Luca Ceresoli wrote:
+> >> On Fri Jun 26, 2026 at 12:09 PM CEST, Maxime Ripard wrote:
+> >> > On Wed, Jun 24, 2026 at 05:47:10PM +0200, Luca Ceresoli wrote:
+> >> >> On Wed Jun 24, 2026 at 1:41 PM CEST, Maxime Ripard wrote:
+> >> >> > On Fri, Jun 12, 2026 at 02:56:24PM +0200, Luca Ceresoli wrote:
+> >> >> >> On Mon Jun 8, 2026 at 1:40 PM CEST, Maxime Ripard wrote:
+> >> >> >> > On Tue, May 19, 2026 at 12:37:22PM +0200, Luca Ceresoli wrote:
+> >> >> >> >> In preparation to introduce bridge hotplug, split out from
+> >> >> >> >> drm_bridge_connector_init() the code adding the drm_connector into a
+> >> >> >> >> dedicated function. This will be needed to be able to add (and re-add) the
+> >> >> >> >> connector from different code paths.
+> >> >> >> >
+> >> >> >> > Same story here, explaining what you need later on that calls for that
+> >> >> >> > change would be nice.
+> >> >> >>
+> >> >> >> Here's a more verbose version:
+> >> >> >>
+> >> >> >>     Currently drm_bridge_connector_init() does two things:
+> >> >> >>
+> >> >> >>      * allocate and initialize the drm_bridge_connector
+> >> >> >>        (which embeds a drm_connector)
+> >> >> >>      * initialize and register the embedded drm_connector
+> >> >> >>
+> >> >> >>     For bridge hotplug we need to separate these two actions:
+> >> >> >>
+> >> >> >>      * the drm_connector needs to be added and removed at any time based on
+> >> >> >>        hotplug events
+> >> >> >>      * the drm_bridge_connector is designated to create and remove the
+> >> >> >>        drm_connector, so it must be persistent for the card lifetime
+> >> >> >>
+> >> >> >>     As the lifetimes of drm_bridge_connector and drm_connector become
+> >> >> >>     different, we need to create them in different moments.
+> >> >> >>
+> >> >> >>     In preparation to support that, split out from
+> >> >> >>     drm_bridge_connector_init() the code adding the drm_connector into a
+> >> >> >>     dedicated function. No functional changes, just moving code around for
+> >> >> >>     now. A future commit will make the drm_connector be created based on
+> >> >> >>     hotplug events.
+> >> >> >>
+> >> >> >> Looks good?
+> >> >> >
+> >> >> > The message itself, yes, thanks.
+> >> >> >
+> >> >> > However, I have questions now :)
+> >> >> >
+> >> >> > Do we really expect drm_bridge_connector to stick around when a bridge
+> >> >> > gets unplugged? If so, how does it cope with having, say, an HDMI
+> >> >> > connector, and then swapping out the hotplugged part for an LVDS one?
+> >> >> > Does the HDMI connector sticks around indefinitely?
+> >> >>
+> >> >> In your example, the HDMI drm_connector would be unregistered and put on
+> >> >> hotunplug. Its allocation will stick around until the last put but that's
+> >> >> quite irrelevant. Then, on plugging the LVDS addon, a new LVDS
+> >> >> drm_connector will be created and registered.
+> >> >>
+> >> >> > *Especially* if we're using overlays for this, I'd expect everything
+> >> >> >  after the first hotplugged bridge to be destroyed, no?
+> >> >>
+> >> >> As said, it would be unregistered immediately but might be freed later on
+> >> >> if still refcounted.
+> >> >>
+> >> >> This is visible in patches 36+15, the path to follow is:
+> >> >>
+> >> >>  drm_bridge_connector_handle_event(event = DRM_BRIDGE_DETACHED) [patch 36]
+> >> >>  -> drm_bridge_connector_dynconn_release()                      [patch 15]
+> >> >>
+> >> >> Does this solve your concern?
+> >> >
+> >> > Not really, I'm talking about drm_bridge_connector. The fact that
+> >> > bridges are destroyed make sense to me. The fact that
+> >> > drm_bridge_connector sticks around doesn't. It's supposed to be a
+> >> > connector for bridges. If you don't have bridges because they got
+> >> > destroyed, and connector, drm_bridge_connector doesn't have a reason to
+> >> > exist anymore, unless it's drm_bridge_hotplug in a trench coat :)
+> >>
+> >> It is not a hotplug-bridge in a trench coat, no :) The code is clear about
+> >> this.
+> >>
+> >> I'd say with this series a "drm_bridge_connector" is just becoming
+> >> something more (perhaps something else too). Somewhat as "a drm_bridge is
+> >> either a bridge or something else". :)
+> >>
+> >>
+> >> But let's leave names aside for a moment. If just looking at the current
+> >> code, the drm_bridge_connector is "a handler, owned by the card/encoder and
+> >> having the same lifetime, which takes care of drm_connector
+> >> creation/destruction at card probe/removal".
+> >>
+> >> What we need now is just the same plug " and on hotplug events" appended.
+> >>
+> >> So in both cases there needs to be "a handler persitent with the card".
+> >>
+> >> Do we agree so far?
+> >
+> > Ish. If we go for that, then we need to update the name.
+> 
+> drm_connector_manager?
+> drm_bridge_connector_manager?
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+I'm fine with a rename. When developing drm_bridge_connector I've always
+envisioned it as code that manages the creation of a connector for a
+chain of bridges. In particular, the drm_bridge_connector object is
+*not* and has never been a bridge.
 
-> ---
-> Changes in v2:
->  - Don't word wrap the patch
-> Changes in v3:
->  - Make argument name of `Empty::inc_ref` consistent with `Empty::dec_ref=
-`
-> Changes in v4:
->  - Rebase to new rust-next, change new implementors
->  - Reword explanation for change in `AlwaysRefCounted::inc_ref` doc comme=
-nt
-> Changes in v5:
->  - Change commit message to be imperative
-> Changes in v6:
->  - Change all the implementors
-> ---
->  rust/kernel/auxiliary.rs        |  4 ++--
->  rust/kernel/block/mq/request.rs |  4 ++--
->  rust/kernel/cred.rs             |  4 ++--
->  rust/kernel/device.rs           |  4 ++--
->  rust/kernel/device/property.rs  |  4 ++--
->  rust/kernel/drm/device.rs       |  4 ++--
->  rust/kernel/drm/gem/mod.rs      |  4 ++--
->  rust/kernel/drm/gpuvm/mod.rs    |  4 ++--
->  rust/kernel/drm/gpuvm/vm_bo.rs  |  4 ++--
->  rust/kernel/fs/file.rs          |  8 ++++----
->  rust/kernel/i2c.rs              |  8 ++++----
->  rust/kernel/mm.rs               |  8 ++++----
->  rust/kernel/mm/mmput_async.rs   |  4 ++--
->  rust/kernel/opp.rs              |  4 ++--
->  rust/kernel/pci.rs              |  4 ++--
->  rust/kernel/pid_namespace.rs    |  4 ++--
->  rust/kernel/platform.rs         |  4 ++--
->  rust/kernel/pwm.rs              |  2 +-
->  rust/kernel/sync/aref.rs        | 11 +++++++----
->  rust/kernel/task.rs             |  4 ++--
->  rust/kernel/usb.rs              |  8 ++++----
->  21 files changed, 54 insertions(+), 51 deletions(-)
+Ideally all this should move to the DRM core and be transparent to
+drivers. Drivers could set a flag somewhere to opt-in for connectors
+managed by the DRM core.
 
+> > drm_bridge_connector for something that is neither a bridge or a
+> > connector is not great.
+> >
+> > But even then, I'm not even sure why we need to have that "manager" in
+> > the first place. You want to make bridges be aware if they are the last
+> > in the chain or not.
+
+I don't think bridges should be aware of whether or not they're the last
+one in the chain.
+
+> > Use that property in attach to either create a
+> > drm_bridge_connector instance if you're last, or attach the next bridge
+> > if you aren't.
+> 
+> What? o_O
+> 
+> Several encoder drivers have been painfully converted to create a
+> drm_bridge_connector. Now if the bridges start doing it themselves we
+> should go back to those encoder drivers and ditch all the
+> drm_bridge_connector from there?
+> 
+> I must be missing something. Can you elaborate on this?
+
+-- 
+Regards,
+
+Laurent Pinchart
