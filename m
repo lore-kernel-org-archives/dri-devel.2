@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA758C43602
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:39:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6B85C43327
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:39:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECAC010E855;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFC1110E85B;
 	Mon, 29 Jun 2026 12:39:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="ykDAACgM";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="DNDeV1aM";
 	dkim-atps=neutral
-Received: from LO3P265CU004.outbound.protection.outlook.com
- (mail-uksouthazon11020121.outbound.protection.outlook.com [52.101.196.121])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA98C10E855
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 12:39:49 +0000 (UTC)
+Received: from CWXP265CU008.outbound.protection.outlook.com
+ (mail-ukwestazon11020125.outbound.protection.outlook.com [52.101.195.125])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF50610E855
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 12:39:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KgnriFV+VfWGbdBNap6C/YL7ngh7ofCNX1ItIa5XLcn6311jYNXfalNPekSm+7t9ggZGcR3LM3lhyEXo2FsNu6B06O2KDbR4cttvcbtwBBDaZntmvu448/4ZE1q9qW4b5b6+rGNp7zwEbB2PJdOaAPZTpohMIVZU8c3gPKQuiHbF0iNajIgD3C1q+X7sTLP5mDzDhtNgaxnsBz/bXE4ViRDAXHZme/QZVJRjZpYu6Cahnmn1cjKpzL/SbVU1mQbSezw33q9KvfuTCUv8c+CE59gJ4wO6FRrs590rS9hzkrej2kNFJCQGIF3qX+3VhmvymsiCCVo4HmYcwh3HdfS7kA==
+ b=c4Iq6wZKhRmPiEX4gJfgl524KARbPQM9cz12C2Aa24fZaUoGgGLZUAdqgzRy8GNwXzx4wP930W0n4iD8m2PZH0NOQkFnUrrR7N+Kfyy3OdL8A+rGFvCzLmqn8jQoba9SUWo20MgLaNZ0DjeQd6mC2+Z0bJ22QdBkuHLf2QMm1K/tDAZe2rhzqFwnQuIc0EzP6idmkq5YlWYdd4m3NIvxKOTQ6R7bcYZwJ6egGPhIW5DOcZSYZH/UhZ1WiRpb/GcUAMXuBY027zdoTkXVYUKGBRoeJzxoxMbgZWEhHUZdc8/b/7VULyLYm+1Lqz/tqpUzQXuJQ/7Dtrr2B8jBZritJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j+MC8Elc9pYJmd3bHEzDkHn9/FCLc5NotGB4M6+JW/8=;
- b=wi5BWjRJs3GB1kaHET7YD67k3xTFmjv9RKnINg+/MFuEAEgyLJ2M2itodATCIIxKpOn9zreuOmwBeFij1swNhDBBCofo+Zwkb1fiblKJTQM5VOqZe/1+Po2t2vL4UuDFcWxjtKdxIcWNp8myZW6gyBLGx5zXmAHOWTQKw7AcgFeuayjbsVSAhJlwIM3rWh6N3209TsSorAryI0G5jc2O5aqWK2CJ1BX3P+tGJ/4qw61T1kXshLzW2YDkCD7O2r30ysA1bup2eUui+uKyH4NKZ20pZ2pLCZkIYdWQ9smtHssWclnMnZmrBg6NftOtVVIeguJ5cHzaJt3YDgApgSop/Q==
+ bh=gYhqXbWIhT3rqYCl5LJZ7ER8BbRtoBickjLIbda0PYs=;
+ b=B/WslompsM5lnTYU++cDBwC8DDpUNWyUdH4qHb2+BpEpKt4ixVnT79rb3VWKfufqMUBCe3s/4b7W1QxH8Mw6uATu+u+5HqLH3HW8cFESSTbzRN+yyNcx4aZj4brYqCL/FavlQa7DqmA8CmO2TAwo+9xkBJ1tN181/N26GB7Li309xYWhARrm7m5cv6PMjV3QZbP38REZunJWoSJj6+UcAI6aihaw5yDkvXSp2661cKw3AXIR4NJ9C05Bq73Xyfor2PYkYldYNCtid7Gx87mE3Wp47unnOUs9Vj/+khGfFl43aRxwEm0bHDMmb9H9j4+wsUFv2dQ3NauhT3ZkHLtg8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j+MC8Elc9pYJmd3bHEzDkHn9/FCLc5NotGB4M6+JW/8=;
- b=ykDAACgMLP6s6gz5ucFntN22eqRwZSoJUDQ2eA8RQfx75KQh3VWbiuQjdP1sY1Pt1KhAx/TXtDuuzfQFwA+MLtbpn0hE545smJX/y5QljlEhMNukzwO3JR/IlNdv+hmirl97v2i9XVpQZPAH2z1l2jGoEme4m+JQnJqDHwGu/R8=
+ bh=gYhqXbWIhT3rqYCl5LJZ7ER8BbRtoBickjLIbda0PYs=;
+ b=DNDeV1aM+dqiCm/aK3KACu1R3t0pXVzTb2klFGVvHf5SC1m1QjLzXH4YjLkmwLGqD0Wexb6CUPEECtdw/aNLQamoAG9Rlv+eXAJkQeAigIiQv8aNuVdGJYYilOkF2Dbgm+egH7P+U1rjehJrSkedJOZn+FOAJ5RS0KeiTVaF7KM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO2P265MB2670.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:145::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Mon, 29 Jun
- 2026 12:39:47 +0000
+ by LO8P265MB7414.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3b1::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 12:39:41 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 12:39:47 +0000
+ 12:39:41 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Mon, 29 Jun 2026 13:39:44 +0100
-Subject: [PATCH v2 10/11] rust: driver: remove duplicate ID table
+Date: Mon, 29 Jun 2026 13:39:37 +0100
+Subject: [PATCH v2 03/11] rust: pci: use `Option<&IdInfo>` for device ID info
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-id_info-v2-10-56fccbe9c5ef@garyguo.net>
+Message-Id: <20260629-id_info-v2-3-56fccbe9c5ef@garyguo.net>
 References: <20260629-id_info-v2-0-56fccbe9c5ef@garyguo.net>
 In-Reply-To: <20260629-id_info-v2-0-56fccbe9c5ef@garyguo.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -82,11 +82,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782736778; l=5932;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782736778; l=4445;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=LjeMQ5Etr8IH9xy5/xESBemol5R4J/N4asY9n3QTZpY=;
- b=5ohJLi7apqyB28ioDIkLlI9t8A1lOHY6Vqr/2TGqbFRGzw7CXGWex5BXdvf7bHW555KsN/+pV
- B4zqfeUSNa/BdOuGH6yA3sSBs+nC6OI+3QCf5arQpU2KJ4FyR4PYSmm
+ bh=2dT/k0xdyDAv/VId4TJjbcCnwySmY8Qww6TVUXxc1A8=;
+ b=3vblXVaQHQDIWS8Y6okOSztEaQudKzclVeuGq0eRTJ7RpQTQ8aQPFA6+3fjbfPltnIT83ZJiQ
+ rlzX/Ygy64LBf7evIqSPPBb9UhRK3Walu8Thdp2+x/K2BOMDVqkTkKN
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P265CA0091.GBRP265.PROD.OUTLOOK.COM
@@ -94,67 +94,67 @@ X-ClientProxiedBy: LO4P265CA0091.GBRP265.PROD.OUTLOOK.COM
  (2603:10a6:600:488::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO2P265MB2670:EE_
-X-MS-Office365-Filtering-Correlation-Id: df93827c-2f55-43da-7c0c-08ded5db8108
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO8P265MB7414:EE_
+X-MS-Office365-Filtering-Correlation-Id: d5e5046b-1706-4af8-d292-08ded5db7dae
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|366016|7416014|376014|10070799003|22082099003|18002099003|921020|6133799003|56012099006|5023799004;
-X-Microsoft-Antispam-Message-Info: SEm6SiK6PNF/B5zgPqFjXE0vJ7v/8iE1GY4y4HzwoQS1/kaYs9PvcqHtN6DuzNwKVjmqhT/vQiHua3tYr+Zhdyi3LHrr2w1SDR4n56gQO8FQ4RooT9PIQ1vBXkPt5phVv24gMXbafcVolnV31++uckWuHDBww1oN7+u/F39b7LGBMzAtKkrd+iBb2Sfc3aEXPsPsIM3s2KnmF9faTGqDSA+N7FlZeEBoOUMkaVnP6vxGvweUqqvY46bBdZU8v9u3xdEXM3cAwq895AIUvZMnAVK08yMkcLoBCkVwB4s/m6OWhhATY+yxb8VrGxWg9/d+8SlWyFnhwMUHYpaFAF1bg3Q6/mGe1F6yLu4cEUUxezrgzLXyTUz2wkDM+BDwIwwpVZVzEWk0LEe3qaCQYrvxq8yINMTuQghnEPQO4uPhYrjbMtkmAOTuKYy+hZxL3Xerxs/5Uciu8GGQP8pvfqEdeJXuZWHisWiGUDzq+1Au1xmyNKsZf7tnixJcfut1X1ipldBMazN0CC6XzqFezRx1Z3Lx4/A8pwPw1Fz7CWFlbTxPGofm/SFoEqk6a0bHQPzVMPV172uzyJ0ej10cZys1WbAe8dP5zJvubG+Y2K1yQBJqujKIrsNvuc4W6Kq9ndpZm9xbXWL74GBx/TFkHcnz1uO9EYYnQi960v+e2Ft69cku7m4zA+F0GgwMEPtON62YQzA08aO6gukC5S3Orrx5UQ==
+ ARA:13230040|1800799024|366016|376014|23010399003|7416014|10070799003|6133799003|921020|3023799007|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: 1zS6QrYRMSHOOhL9214ZXpTvEQa/itGTbCiizim8Jw0yYZ4VqzuEULVR39D6KOWBHP/vVIb1xXpNVUoaE9Mb8L4aNoNI/ps/cUusmyGQW4q3pu1r+dzCHilVbu37gsQqXg8YFcQ52qYifRm6CovFSUsU5gCPoO7vwUTWl31RGRWngL5ofVjRrRNrXf2ocIsLxkshQS9UQjgbcxNF0bCeptqyDXKDkvnXYcM5EyyaaOM9OQD57WUiW/Op9hQhhmRUeNeb2Vt7ctu+ycXGC9SDEwWnlZlwmvHq+iU8V0tZcg2kAyTejpKM6ex9zIJ09bwEdy0oXUECvPWm0e/pcPFfCNlwG9SKaVZNzBBsnKMM5Vkl00zTBTC88xd3sEGgRYm2E38hF6Duldnw51Y9N0u5hlu2/nFMAFjGdjuSd2d96lW9g76VP5sasA5774BRrJezOjgBOkNfKONPqpgV7eRN14nJDfNoXMCTvXXWo6vTV42lktSMhBWDK23VZKWo03i8pF4o4STdGyRx51kxF3s9FlZ2GkqBK6ChEu8Z2DJ4vxTLUMVv3ijjY1wCIVpvu6OuYsbTJLe8wT2V0I5zpEgzhONqfa/DmNj7p4Y9HkkwYm6ASVc0rgQIkt/IKJduMjfQEzT5nFSAyarKkchNqApBmU08mEY4eXcigx73WEdh9SzXWqCUj4h2jhrO6aTPJrm+vmtb1zYnG7kTLjerlJy/0g==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(10070799003)(22082099003)(18002099003)(921020)(6133799003)(56012099006)(5023799004);
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(7416014)(10070799003)(6133799003)(921020)(3023799007)(22082099003)(18002099003)(56012099006);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MFcwVTdmRTJFbjkrUnp1dCtra0xwNHZPcENzY0ExT0Naek0wRHpFWTkzbll5?=
- =?utf-8?B?aVVlRy9KZ0dINVNzN0IwM0VxTXlxbks0UVJ2UkZNbkpFK1ZqL1IzL2VsckFv?=
- =?utf-8?B?REhzUHc4eGdNcW9kbjFKTjZSOHFPV1FEdVdjSDhGSTRIUG5UMkdIM2phcnJ4?=
- =?utf-8?B?aWpWd1IxVFhsUWFMTnlqN2JRR0NGSFI2RVROVEo2TEg1czFPTHQwRFM3V1FZ?=
- =?utf-8?B?dHJ6Mmp0U1NOeGlidW4zcXVnZndYaVF1OEFNUTRTMmVMQytaYU55QSt0K2I3?=
- =?utf-8?B?UE1TV3Vyc1ZWOU52K2JzMFNybmlXdTN0c2JxUVcwcXRXcWIwdXNxZmNDL20y?=
- =?utf-8?B?NWtrbmx2QXFFK3BUWUVsU2FvZVIvOWpQa0hpcFM1V2FkdjRKd2RLVEtjSGNP?=
- =?utf-8?B?R280U3FGWDZ6bXF5dWhnNDFEcE5Nb1Z3VVBmL1gzVHc1NXJYTWpwbXFOK0J2?=
- =?utf-8?B?aFVaL3ZhcDQrbWpQdXZid3VyL2ZjM29hWTI3WnU3T2pmT0hQZG9oZ1FINWNo?=
- =?utf-8?B?Z1RhN0Y1ZkMwQklJS0podGkwWUwwMkgzSnFCY1RiZEVib2FiNEV6TW5Kdm0w?=
- =?utf-8?B?NVIvOXpYWGVmYnFkMjVITzJxS2ZpQjB4eW41RjczRjlUNTUyWDdFN2dWTXNM?=
- =?utf-8?B?RDlXOTRHZ0MrZmtITmhUNEw4ZnA1VFA2WDhQa3U5Yjh0dEJkNGlkRXhQcEhW?=
- =?utf-8?B?UkEvNXFWcVM0ci80YWdvRDhHdWMzaUZnNmpucWJYOUNnck9lWGxvdms0RTJq?=
- =?utf-8?B?ZlFGT2xYWFFRTkg1V1FSQXZtSU5nTDJ1RDRUZkFvWGdjUTJScHZhQ1pFQ2RI?=
- =?utf-8?B?UGRIWVZqM090UmNNUk12T1VlQ1hEODhWbkkydTg0bHdmUDdTTE5TZk1RVlNP?=
- =?utf-8?B?Tm40WHFJZnk3U1YrTmZ5NFpkSitTS2N4ZlNpbjJTWkliMnF3VEFsbDZ4c1cr?=
- =?utf-8?B?czVVZTBmNHU0Vk42VFI2c0xFVnhIODFaZUU3L2J6TEZ5QXB3TnNwb2w3ZXlp?=
- =?utf-8?B?V0Q4M3BSTVk4ZDloRG05Z1FodXNDdCtMcHcrVnVVLzdSSzJNSmdqYUU0Tm4w?=
- =?utf-8?B?YWZRcmxFUWJ6RGRSZEZiR0FSN1dxd3dleEhYcE5HbmEyUWJJbWFtYU5id1hV?=
- =?utf-8?B?QnJaQUcxUkpPTzZKSzY2ZkpvRVNjZHEzTEV0clZMbFBmRTlDT0MxblkzaEhR?=
- =?utf-8?B?ZGRNeE5LejZQbm95YW5BakozSEp4UDhzMTJneW14MUlaTHRWNWZ0bkU4MDd4?=
- =?utf-8?B?MTAyMmMxcEsrNlNxcnM2ejR6c0xscWNGNjZod1RlampDY2ljMExzUm94ckI4?=
- =?utf-8?B?elc5bXo4YVUwS0ZnWWd3Zy9wUXlSNTl0MHpBN0RkbXJWOE02U3hDcXk0blBZ?=
- =?utf-8?B?NGJpM29RajJzL0pQa0NVWnY5bXhMU3Z6bTRoMjZjUVJrQ0ZtMzVYVjNXOWVy?=
- =?utf-8?B?Z3cxQ2Z5R0x2N3Z1bTB6M3JLNDcvak00VWdJRUZiNGFHVkNxd1hRZDhaQkFF?=
- =?utf-8?B?NTlhQ0djaDJ6L056L1paNDNDT1VBQzB2dkZCM1ZPem1oR1VndVpkS3ZqNmJ5?=
- =?utf-8?B?V0poaUh3WDRSSWxudEwyRWkxSjBDbHdheFBIUEJXSnlicUtBSndhQ0prRnlr?=
- =?utf-8?B?SXdnVm5VK0pNTkJ0akZrTUlGNmJXanhGTDhNWVpHKzhlRWh6ckwybXkyS3hN?=
- =?utf-8?B?WEZHM25hN2pCaEI2di81eTBTTGNDZkNlQ0hMVE9TUkpJZk0rNU8rSHBxR1JB?=
- =?utf-8?B?VE4rYUVmZDlwVjBJbnBZeG9CUFNYK1o5R1VtM2hEdkxmSFdtelJLb0hCcDNq?=
- =?utf-8?B?QVhIRnR1WXRid3hGcnpEL2ZTYW1BUE55ZlZFSmxYMWRNUVA0ZHpCUWVyRXRu?=
- =?utf-8?B?VTRTWXkybXR0WWowczRPUG9EVnpBMDB2Ymx0WGZyUDZrVE5EdHVGdWl2aWhU?=
- =?utf-8?B?NkpUdTVNSjVPNmI0QysrN0Z6K1NKa0QxaE9lbVdMYXVVOFdGaXorSWMwYU1a?=
- =?utf-8?B?bjBaSTAyVHBCb1NRYXZjclA3Y0J2VHdYZWVJc2xHMmkzQThiK2dRY1dUaEU5?=
- =?utf-8?B?dkQvbGpwN2lHLy9xS09kL01qYTdGc3R6M0RUN01xQjVRTkdOSloyd0FoSk9T?=
- =?utf-8?B?VWo4Q21DNnU3QWU3L3lncTk2b0RId1VUZ3pac1ppVUVaakJDcERVbEJrVjVz?=
- =?utf-8?B?THN2MnNaK1JwcHlhakVqZ0JoS2ExcFplNTNVYVQ0L2t4TTVDZm1SSzNTQ0xB?=
- =?utf-8?B?N3JEV3BoSVNHMUcxWktkVmZaMmorV2tXMVE2YWdVV0dvNjYrbDlEZjNGTzdt?=
- =?utf-8?B?MGRWVkhRaytYeStkYXEyekxjM00yVVhJRk5RMUVBNWJKc01xYjVCQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aWc2TysreHlRTmtwK1FCY0NIdFBOeWVjVENMTy91d2lhMnpFWm9vRmdXVVFz?=
+ =?utf-8?B?aGI0Mk44YWpEdk5jNjNUNm9hWVdWYmllQ3ZnM3MydDVlK3RyQTY1Qk5hYUsz?=
+ =?utf-8?B?eWJyY24rSUhIbTZnSXlPdlpBWXQ4aVErbHIzWlBZVFh3Z2FvU0NtRVBiNUFY?=
+ =?utf-8?B?TDdTbVNOeXVXN1hjaTE0UjJ2RVR1TFpDb3d3dDJpQ0h2LytMV0ZxczlaUnBX?=
+ =?utf-8?B?eERJZkdqOC9FVEN3eDBWVEFZdlloRmNvaE5JS3lOUUN3UzJWUi9aTXpmSFVD?=
+ =?utf-8?B?d0xNOTRWSzQvRlV5UkRQUTl2emYwOHZVWnhUQ3lLNnVNaEtDNmQ3WUQybGJP?=
+ =?utf-8?B?MjJPeGx1WGMrOTFyV3JpVlQ5TnVUN3M4WjF0eHNMZkxnRlhKa0pzRWQ3RmNm?=
+ =?utf-8?B?TEpnTHIyUW5aVGFuVzdJYk1ka2RaanEyMzdWK0g3M3M3Y3N3dkRxeGR0YWNF?=
+ =?utf-8?B?akczUnRicjVPWGRldnE3clM4Ni8zd3g2TG9QQThIcGp1MDg2ZjQ2YXJ4SXEr?=
+ =?utf-8?B?dWkzTnFEZENNcnQzdTRzTUpOM21QazNTTlp0cXFyc2hoRUxTaXhYRXY2dXV5?=
+ =?utf-8?B?NUJqR2lRalZjNDhzVmF4d0tacWR3NlJFL2hXUDlxMHd2blcvZ096UzA5d3lw?=
+ =?utf-8?B?SXNJSE9CbHgwUEt0Ymg5bnhQL2JEK1dWdmxwOUNrMStwOTFLeVNzNUJEUi94?=
+ =?utf-8?B?T1JnL2dJc3djTGZkeE5SbUUvYkZyNDRaSDIzZGd2VVhCMGdBWEFObUhWQVdW?=
+ =?utf-8?B?dVRCZmdZOUswQ1RDY2pwWi81ZjN0Qy9mWGVlWmRYcEpVYlJ1NmEvQUwrRjR5?=
+ =?utf-8?B?L3Npeis2MitKYndmZ25LYkhLYW5BNHY3bzlwUUYwcTZ0bWtYbm1IeVI3YVdJ?=
+ =?utf-8?B?SFBBN1VFRGVPU1JRUDV2dWo3Z2NMZW54anhsbFV4TndqbUZENVA4Uk9wSVhn?=
+ =?utf-8?B?eUQycE8veExMYUkvQWVwRW1OWWprL251NkJvbStnVG9NdVIrVWl1eXA4TVdL?=
+ =?utf-8?B?MzY4enRhZno2RENlOHFJam1UU2V1QmFCZm5xbytwRHJES25oYU9rMVF3MlI5?=
+ =?utf-8?B?cHhTaURWUlhzdVJUd2w1NDdRMTREWnJrbmhmc3ZJRVp5Q2JPa3VTMWs2QzZp?=
+ =?utf-8?B?Qml3ZEFBU29hNWlwZmw5UG02QWhyMCt0N0dnMUdFTVZRZGlxR3dRKzBWbHRi?=
+ =?utf-8?B?Mk03Uk1zakoybW0yZFRta2U4Skl2aTJ6THRqekFrM0VQNVY1NFBveitGN3dR?=
+ =?utf-8?B?QnlYZzJGWWF6MzZ4QXBHRnhVYlJjMW12MDZIaS9rbGE3SUE5V2dnNkFJNGxJ?=
+ =?utf-8?B?NGlFSEg2R1pwME1QcU14TDMyYytNbVpMV2lKUW1HdFZaaVVlUlplTXFmd0Vp?=
+ =?utf-8?B?ZkRkb3B6SkZ5R29UZjhtSTFiME9NVmMzMlB5MTVydXpscitIbENmRng5YjEx?=
+ =?utf-8?B?WjNQR3NnNXFyVE9CWFY0RkttRytuK1FCM2NkOVpxNlp2N0RxVlBvNitIV2tD?=
+ =?utf-8?B?UUorTmRpY1VWWlMzZmgxK2I2cUwyMXJGM2tsTGlCY0psUndES0p2MXVCOW1y?=
+ =?utf-8?B?b0p1Nk5rcWM3WmZVNWVXYkhDUVY1U081MUo2YkVybll2eUtsanByeDJIWlEw?=
+ =?utf-8?B?RDZKZWl1emxWdXFNVlR2aVdpbStVNTd0SkNoTDJrTWJwYjlxR3M3V0dscUlN?=
+ =?utf-8?B?NEdJUFplWTJsQU9rMDJ5Ujc1aWlLbHBucjBramFNbEs1MVVyNDRFVG1rQklJ?=
+ =?utf-8?B?NzF2ODVpbGtUaU1rTUQ5U1NBOXZOTDhwM2lQT0dZMW1wQ2F5VGxqQ0RqSTJQ?=
+ =?utf-8?B?REE1ajZpWjZuVlRudUV4NGhpeXJWbmk0SklZTWRlV3VWd3Z2TFFybjR1QzlX?=
+ =?utf-8?B?aWY2YnN0NVJTRGdGcmFjSVJqUXZudGtHbFpCZXRaWVo2dUpobWRIdzJKRE5L?=
+ =?utf-8?B?aGk4WmkzTC9GRnVCVU1TVXYvL3l4SnFXV1Q1OCtsVmlmSTRJNkl4MnR0YmtP?=
+ =?utf-8?B?eDMzVGR6WTEzWXRyR1B5MDZ1bmJmYmo2MFEyWmdjbHJ6Z0VOMmR3aVJkS2M2?=
+ =?utf-8?B?OXU1U245V3NmRlBTUU82Rzlvb2NOT1RqMUl4azRWQnJ6TklVOHQ2Z3drSXpC?=
+ =?utf-8?B?czJ6NEV6YzcwczFxQ3k2d2dsODZuYm43eThHZzZnU25tSzR6UnZOU1BKT0Vx?=
+ =?utf-8?B?QUZMcytuSUVtMktVVzdLMFFuRnlaRWk2citRTlNVWHdLd0x4c1ZtVXZtR2pW?=
+ =?utf-8?B?NFVvd0wrZW1RS2dMdzZRZnhlQWhMRWtudTJxWUUrOUM2NExoODVuTEtGWE95?=
+ =?utf-8?B?U1l6VSszbks2YklRRnZPQUp1cmM0S0FjaktaaWpoOXNlMGxoVEt5Zz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: df93827c-2f55-43da-7c0c-08ded5db8108
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5e5046b-1706-4af8-d292-08ded5db7dae
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 12:39:47.3403 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 12:39:41.6936 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: U5k2iPLhAKKoTnMZG5XLJq4hSOHyDfqMvNhpDwZyTfbitfv2sZSk9cvCdyDzKdgk+9KxPYoJoTKbD6Zrixw4qQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB2670
+X-MS-Exchange-CrossTenant-UserPrincipalName: OoJV/h21u6XhIHuSYGm75m7SWzTbCFJqLUiy5PQoe8GSf2IaXZQ+GJDBnqXlrb4vRa1lDjdOFktSR4QR0TkaiQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7414
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,158 +170,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Previously, `IdArray` contains both device ID table and info table so we
-keep a separate copy for MODULE_DEVICE_TABLE for hotplug (which needs to be
-just the device ID table). With the info being changed to be carried via
-pointers, `IdArray` is now layout compatible with raw ID table and hence
-there is no longer a need to keep the distinction.
+It is possible that `pci_device_id_any` will be passed to the driver, e.g.
+`driver_override` is used on the device. Therefore, the driver must be able
+to handle the case where `driver_data` is 0. Thus, update the `probe`
+functions to get `Option`.
 
-Deduplicate the code, and remove the redundant copy for hotplug purpose by
-just giving the `IdArray` instance a proper symbol name.
-
-While at it, also update the macro to use `::core::line!()` instead of just
-`line!()`.
+The current code cannot tell if the info does not exist or is the first
+entry; however this will be achievable once the code is updated to use a
+`&'static IdInfo` pointer instead of indices.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/device_id.rs | 76 +++++++++++++++++-------------------------------
- 1 file changed, 27 insertions(+), 49 deletions(-)
+ drivers/gpu/nova-core/driver.rs       | 2 +-
+ rust/kernel/pci.rs                    | 6 +++---
+ samples/rust/rust_dma.rs              | 2 +-
+ samples/rust/rust_driver_auxiliary.rs | 2 +-
+ samples/rust/rust_driver_pci.rs       | 3 ++-
+ 5 files changed, 8 insertions(+), 7 deletions(-)
 
-diff --git a/rust/kernel/device_id.rs b/rust/kernel/device_id.rs
-index 50d82bfca9b8..c81fca5b4986 100644
---- a/rust/kernel/device_id.rs
-+++ b/rust/kernel/device_id.rs
-@@ -86,28 +86,23 @@ unsafe fn info_unchecked_opt<U>(&self) -> Option<&'static U> {
-     }
- }
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index 5738d4ac521b..5a5f0b63e0f3 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -70,7 +70,7 @@ impl pci::Driver for NovaCoreDriver {
  
--/// A zero-terminated device id array.
-+/// A zero-terminated device id array, followed by context data.
- #[repr(C)]
--pub struct RawIdArray<T: RawDeviceId, const N: usize> {
-+pub struct IdArray<T: RawDeviceId, U: 'static, const N: usize> {
-     // This is `MaybeUninit<T::RawType>` so any bytes inside it can carry provenance in CTFE.
-     // If this were `T::RawType`, integer fields would not be able to contain pointers.
-     ids: [MaybeUninit<T::RawType>; N],
-     sentinel: MaybeUninit<T::RawType>,
-+    phantom: PhantomData<&'static U>,
- }
+     fn probe<'bound>(
+         pdev: &'bound pci::Device<Core<'_>>,
+-        _info: &'bound Self::IdInfo,
++        _info: Option<&'bound Self::IdInfo>,
+     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+         pin_init::pin_init_scope(move || {
+             dev_dbg!(pdev, "Probe Nova Core GPU driver.\n");
+diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+index 5071cae6543f..0e055e4df99e 100644
+--- a/rust/kernel/pci.rs
++++ b/rust/kernel/pci.rs
+@@ -113,7 +113,7 @@ extern "C" fn probe_callback(
+         let info = T::ID_TABLE.info(id.index());
  
--impl<T: RawDeviceId, const N: usize> RawIdArray<T, N> {
--    #[doc(hidden)]
--    pub const fn size(&self) -> usize {
--        core::mem::size_of::<Self>()
--    }
--}
-+// SAFETY: device ID is plain data plus a `&'static U` and can thus be sent between threads safely
-+// if `&U` can.
-+unsafe impl<T: RawDeviceId, U: Sync + 'static, const N: usize> Send for IdArray<T, U, N> {}
+         from_result(|| {
+-            let data = T::probe(pdev, info);
++            let data = T::probe(pdev, Some(info));
  
--/// A zero-terminated device id array, followed by context data.
--#[repr(C)]
--pub struct IdArray<T: RawDeviceId, U: 'static, const N: usize> {
--    raw_ids: RawIdArray<T, N>,
--    phantom: PhantomData<&'static U>,
--}
-+// SAFETY: device ID is plain data plus a `&'static U` and can thus be shared between threads safely
-+// if `&U` can.
-+unsafe impl<T: RawDeviceId, U: Sync + 'static, const N: usize> Sync for IdArray<T, U, N> {}
+             pdev.as_ref().set_drvdata(data)?;
+             Ok(0)
+@@ -284,7 +284,7 @@ macro_rules! pci_device_table {
+ ///
+ ///     fn probe<'bound>(
+ ///         _pdev: &'bound pci::Device<Core<'_>>,
+-///         _id_info: &'bound Self::IdInfo,
++///         _id_info: Option<&'bound Self::IdInfo>,
+ ///     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+ ///         Err(ENODEV)
+ ///     }
+@@ -313,7 +313,7 @@ pub trait Driver {
+     /// attempt to initialize the device here.
+     fn probe<'bound>(
+         dev: &'bound Device<device::Core<'_>>,
+-        id_info: &'bound Self::IdInfo,
++        id_info: Option<&'bound Self::IdInfo>,
+     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound;
  
- impl<T: RawDeviceId + RawDeviceIdIndex, U: 'static, const N: usize> IdArray<T, U, N> {
-     /// Creates a new instance of the array.
-@@ -137,22 +132,13 @@ impl<T: RawDeviceId + RawDeviceIdIndex, U: 'static, const N: usize> IdArray<T, U
-         core::mem::forget(ids);
+     /// PCI driver unbind.
+diff --git a/samples/rust/rust_dma.rs b/samples/rust/rust_dma.rs
+index 5046b4628d0e..9beb37275e0d 100644
+--- a/samples/rust/rust_dma.rs
++++ b/samples/rust/rust_dma.rs
+@@ -63,7 +63,7 @@ impl pci::Driver for DmaSampleDriver {
  
-         Self {
--            raw_ids: RawIdArray {
--                ids: raw_ids,
--                sentinel: MaybeUninit::zeroed(),
--            },
-+            ids: raw_ids,
-+            sentinel: MaybeUninit::zeroed(),
-             phantom: PhantomData,
-         }
-     }
- }
+     fn probe<'bound>(
+         pdev: &'bound pci::Device<Core<'_>>,
+-        _info: &'bound Self::IdInfo,
++        _info: Option<&'bound Self::IdInfo>,
+     ) -> impl PinInit<Self, Error> + 'bound {
+         pin_init::pin_init_scope(move || {
+             dev_info!(pdev, "Probe DMA test driver.\n");
+diff --git a/samples/rust/rust_driver_auxiliary.rs b/samples/rust/rust_driver_auxiliary.rs
+index 2c1351040e45..73c63afc046a 100644
+--- a/samples/rust/rust_driver_auxiliary.rs
++++ b/samples/rust/rust_driver_auxiliary.rs
+@@ -79,7 +79,7 @@ impl pci::Driver for ParentDriver {
  
--impl<T: RawDeviceId, U: 'static, const N: usize> IdArray<T, U, N> {
--    /// Reference to the contained [`RawIdArray`].
--    pub const fn raw_ids(&self) -> &RawIdArray<T, N> {
--        &self.raw_ids
--    }
--}
--
- impl<T: RawDeviceId, const N: usize> IdArray<T, (), N> {
-     /// Creates a new instance of the array without writing index values.
-     ///
-@@ -164,10 +150,8 @@ impl<T: RawDeviceId, const N: usize> IdArray<T, (), N> {
-         core::mem::forget(ids);
+     fn probe<'bound>(
+         pdev: &'bound pci::Device<Core<'_>>,
+-        _info: &'bound Self::IdInfo,
++        _info: Option<&'bound Self::IdInfo>,
+     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+         Ok(ParentData {
+             // SAFETY: `ParentData` is the driver's private data, which is dropped when the
+diff --git a/samples/rust/rust_driver_pci.rs b/samples/rust/rust_driver_pci.rs
+index 1aa8197d8698..5547dd704a1b 100644
+--- a/samples/rust/rust_driver_pci.rs
++++ b/samples/rust/rust_driver_pci.rs
+@@ -144,7 +144,7 @@ impl pci::Driver for SampleDriver {
  
-         Self {
--            raw_ids: RawIdArray {
--                ids: raw_ids,
--                sentinel: MaybeUninit::zeroed(),
--            },
-+            ids: raw_ids,
-+            sentinel: MaybeUninit::zeroed(),
-             phantom: PhantomData,
-         }
-     }
-@@ -200,13 +184,17 @@ macro_rules! module_device_table {
-         $table_name: ident, $id_info_type: ty,
-         [$(($id: expr, $info:expr $(,)?)),* $(,)?]
-     ) => {
--        const $table_name: $crate::device_id::IdArray<
-+        #[export_name =
-+            concat!("__mod_device_table__", ::core::line!(),
-+                    "__kmod_", module_path!(),
-+                    "__", $table_type,
-+                    "__", stringify!($table_name))
-+        ]
-+        static $table_name: $crate::device_id::IdArray<
-             $device_id_ty,
-             $id_info_type,
-             { <[$device_id_ty]>::len(&[$($id,)*]) },
-         > = $crate::device_id::IdArray::new([$(($id, &$info),)*]);
--
--        $crate::module_device_table!($table_type, $table_name);
-     };
+     fn probe<'bound>(
+         pdev: &'bound pci::Device<Core<'_>>,
+-        info: &'bound Self::IdInfo,
++        info: Option<&'bound Self::IdInfo>,
+     ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+         let vendor = pdev.vendor_id();
+         dev_dbg!(
+@@ -153,6 +153,7 @@ fn probe<'bound>(
+             vendor,
+             pdev.device_id()
+         );
++        let info = info.ok_or(ENODEV)?;
  
-     // Case for no ID info.
-@@ -215,26 +203,16 @@ macro_rules! module_device_table {
-         $table_name: ident, @none,
-         [$($id: expr),* $(,)?]
-     ) => {
--        const $table_name: $crate::device_id::IdArray<
-+        #[export_name =
-+            concat!("__mod_device_table__", ::core::line!(),
-+                    "__kmod_", module_path!(),
-+                    "__", $table_type,
-+                    "__", stringify!($table_name))
-+        ]
-+        static $table_name: $crate::device_id::IdArray<
-             $device_id_ty,
-             (),
-             { <[$device_id_ty]>::len(&[$($id,)*]) },
-         > = $crate::device_id::IdArray::new_without_index([$($id),*]);
--
--        $crate::module_device_table!($table_type, $table_name);
--    };
--
--    ($table_type: literal, $table_name:ident) => {
--        const _: () = {
--            #[rustfmt::skip]
--            #[export_name =
--                concat!("__mod_device_table__", line!(),
--                        "__kmod_", module_path!(),
--                        "__", $table_type,
--                        "__", stringify!($table_name))
--            ]
--            static MOD_DEVICE_TABLE: [::core::mem::MaybeUninit<u8>; $table_name.raw_ids().size()] =
--                unsafe { ::core::mem::transmute_copy($table_name.raw_ids()) };
--        };
-     };
- }
+         pdev.enable_device_mem()?;
+         pdev.set_master();
 
 -- 
 2.54.0
