@@ -4,56 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D75EAC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 21:39:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3DBBC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 22:44:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F09D10EA63;
-	Mon, 29 Jun 2026 21:39:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4742D10E120;
+	Mon, 29 Jun 2026 22:44:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="imviU+FJ";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="JkL2oi+3";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D26510EA63
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 21:39:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782769140; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=DD/G1CVE2B7GRYG27hevrGTBCBUP1rcQjQvxFbuW/RfJ6BAdLNR38g1SsBl16uXFxv+wYk8FAJ5sVAdwrSSWKDQXQpLFvGRW1vd/NiVnko+G65ObN+CxGz9rZjtfMeJso9u/JeFjiiHGkHhXNLIAwRUEwaRQAlXyxOlm6ppSFzE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1782769140;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=V2dWuEpkhVjMLm2lL6us2OpMnJ/fy5SE2u+UJZd6w+A=; 
- b=RRlCaK/WngedPTBqZDaiRyn9RHPWfXwDvw7G+zK4WRKIxMPqy9dH1u6REDwFeEzMLfWY9bLj/MY7n3zIt0DzlcrqdRLeltMv0rA07APljGu+LWb6cYHLjcYjP9/JcJ8Ug9WlrJJa5UmPA3HNN4wfTnsLJN8ylcXifi+U0RfO/O0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782769140; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=V2dWuEpkhVjMLm2lL6us2OpMnJ/fy5SE2u+UJZd6w+A=;
- b=imviU+FJpvekMZlnS7Pal/ELSKOzwENl6rbn16EmzQk4C/PmZvw3I/+JrF+k+mhr
- Z0F+4ZuT11T/VGsUQxJPh1UKNqXvXzfVfH4q81QhlT3UMejF9gl6KWVidFvfBYwD85e
- 6dvbJiiHSohVPgq1p9vpdtETUIyBsa/5SPzAw1X8=
-Received: by mx.zohomail.com with SMTPS id 1782769138029866.4526666587577;
- Mon, 29 Jun 2026 14:38:58 -0700 (PDT)
-Message-ID: <7202d2dc-b6fe-440e-88b0-aefb26c38b86@collabora.com>
-Date: Tue, 30 Jun 2026 00:38:54 +0300
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A42F10E120
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 22:44:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1782773066;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ev+eZIVZSyaCdYull75busCd4hGRRpJg1XtF6MPERrI=;
+ b=JkL2oi+3HnxE17SltniMKaKxUua/D41RxtfNptcJ/ByJegMaaKubtWc3uRw3CJAIxxd818
+ RYT5DnwY/5kN1wfIcMKo7f862h6RVghfcCbcLoYXcF+FudsTCJp3XlSiZ5pURxdJuvM5gB
+ 4Fm+191OfKMxRjCfQVeLB6SiN03207c=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-591-npEv8sj_NhquFKVgPVF8VQ-1; Mon,
+ 29 Jun 2026 18:44:22 -0400
+X-MC-Unique: npEv8sj_NhquFKVgPVF8VQ-1
+X-Mimecast-MFC-AGG-ID: npEv8sj_NhquFKVgPVF8VQ_1782773060
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id C15B319775F9; Mon, 29 Jun 2026 22:44:19 +0000 (UTC)
+Received: from GoldenWind.lan (unknown [10.22.88.59])
+ by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 53A573691B; Mon, 29 Jun 2026 22:44:17 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: "Timur Tabi" <ttabi@nvidia.com>, "Dave Airlie" <airlied@redhat.com>,
+ "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Ben Skeggs" <bskeggs@nvidia.com>, "Kees Cook" <kees@kernel.org>,
+ "Simona Vetter" <simona@ffwll.ch>, "David Airlie" <airlied@gmail.com>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>,
+ "Maxime Ripard" <mripard@kernel.org>,
+ "Mel Henning" <mhenning@darkrefraction.com>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Lyude Paul" <lyude@redhat.com>
+Subject: [PATCH v2 0/4] drm/nouveau/gsp/r570: Fix runtime PM
+Date: Mon, 29 Jun 2026 18:42:32 -0400
+Message-ID: <20260629224350.2870201-1-lyude@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: Don't detach GEM from a non-created context
-To: Jason Macnak <natsu@google.com>, David Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260625170828.3335431-1-natsu@google.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260625170828.3335431-1-natsu@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+X-Mimecast-MFC-PROC-ID: x2qhSNKiRbxaHRQy2w0AS2S5e4rKmqSxdWWQ4Da-bTg_1782773060
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,60 +78,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Runtime PM has been kind of unreliable with GSP for a while. It works
+well enough to shut the GPU off and turn it back on, but more often then
+not it ends up leaving the GPU in a broken state on resume - which makes
+it impossible to really do anything else with it.
 
-On 6/25/26 20:08, Jason Macnak wrote:
-> Applies the same treatment as commit 7cf6dd467e87 ("drm/virtio:
-> Don't attach GEM to a non-created context in gem_object_open()")
-> to virtio_gpu_gem_object_close() to avoid trying to detach
-> a resource that was never attached due to a context
-> never being created when context_init is supported.
-> 
-> Fixes: 086b9f27f0ab ("drm/virtio: Don't create a context with default param if context_init is supported")
-> Cc: <stable@vger.kernel.org> # v6.14+
-> Signed-off-by: Jason Macnak <natsu@google.com>
-> ---
->  drivers/gpu/drm/virtio/virtgpu_gem.c | 14 ++++++++------
->  1 file changed, 8 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
-> index 435d37d36034..66c3f6f74e9c 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_gem.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
-> @@ -139,13 +139,15 @@ void virtio_gpu_gem_object_close(struct drm_gem_object *obj,
->  	if (!vgdev->has_virgl_3d)
->  		return;
->  
-> -	objs = virtio_gpu_array_alloc(1);
-> -	if (!objs)
-> -		return;
-> -	virtio_gpu_array_add_obj(objs, obj);
-> +	if (vfpriv->context_created) {
-> +		objs = virtio_gpu_array_alloc(1);
-> +		if (!objs)
-> +			return;
-> +		virtio_gpu_array_add_obj(objs, obj);
->  
-> -	virtio_gpu_cmd_context_detach_resource(vgdev, vfpriv->ctx_id,
-> -					       objs);
-> +		virtio_gpu_cmd_context_detach_resource(vgdev, vfpriv->ctx_id,
-> +						       objs);
-> +	}
->  	virtio_gpu_notify(vgdev);
->  }
+Recently however, I discovered that it's been failing much harder on
+some ampere systems. This lead me down a rabbit hole that lead me to
+figure out one of our previous fixes for runtime PM wasn't correct.
+After fixing that and combining it with some fixes we had tried in the
+past without success, I finally managed to get nouveau to handle runtime
+PM with the GSP perfectly. These are those fixes.
 
-The following scenario still will be troubling:
+Tested on a Lenovo P16 G1 (100 runtime PM cycles!), and RTX4000.
 
-1. vgdev->has_context_init = true
-2. virtio_gpu_gem_object_open() invoked, GEM created and not attached to ctx
-3. virtio_gpu_context_init_ioctl() invoked, now vfpriv->context_created
-= true
-4. virtio_gpu_gem_object_close() will detach resource that wasn't attached
+Lyude Paul (4):
+  Revert "nouveau/gsp: fix suspend/resume regression on r570 firmware"
+  drm/nouveau/gsp/r570: Never enter Gcoff state
+  drm/nouveau/gsp/r570: Set oldLevel correctly in GSP resume arguments
+  drm/nouveau/gsp/r570: Add missing state flags to GSP resume arguments
 
-Add obj->ctx_attached member to struct virtio_gpu_object. See
-virtio_gpu_object_attach() that uses obj->attached, do the same for
-virtio_gpu_cmd_context_attach_resource().
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c |  2 +-
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c  |  2 +-
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c |  8 ++++----
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c  |  5 +++--
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h | 10 +++++++++-
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h        |  2 +-
+ 6 files changed, 19 insertions(+), 10 deletions(-)
 
+
+base-commit: 8fca3d8dbebf8d960dad7b10db3cb4a61139454b
 -- 
-Best regards,
-Dmitry
+2.54.0
+
