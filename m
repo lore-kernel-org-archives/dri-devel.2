@@ -4,101 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A7FFC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 15:51:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAAFEC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 15:52:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 557BC10E77C;
-	Mon, 29 Jun 2026 15:51:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BC1D10E7B3;
+	Mon, 29 Jun 2026 15:52:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="NE6t34RD";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="BvW9GpEf";
+	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="EvE1v1f3";
 	dkim-atps=neutral
-X-Greylist: delayed 329 seconds by postgrey-1.36 at gabe;
- Mon, 29 Jun 2026 15:51:03 UTC
-Received: from flow-b5-smtp.messagingengine.com
- (flow-b5-smtp.messagingengine.com [202.12.124.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E7B810E77C
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:51:03 +0000 (UTC)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailflow.stl.internal (Postfix) with ESMTP id B7CF01300119;
- Mon, 29 Jun 2026 11:45:33 -0400 (EDT)
-Received: from phl-imap-05 ([10.202.2.95])
- by phl-compute-04.internal (MEProxy); Mon, 29 Jun 2026 11:45:34 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1782747933;
- x=1782755133; bh=JSWP+oCjDefLm/g9PuV1GqUkziDul2e9yv/ysVQsJLY=; b=
- NE6t34RDiIItJnjdvpPNLzERZEmy1Uokb4joPY1CUGLVDWSQy6O7lM7YR/JH2Vzz
- EKjSBDHgy12XKPTe4T6/vFGszy9/X5bhW/dAEDGMtAFHdRGEckNuxhc9bX3PR0VE
- bfW0MW2BR1AKR58Jk7h1JxjrIx1Kz7REAVnwk0oAlfoj8/mj7rRNlBSR0zA4hhnh
- nrZ5Ql6KmC6VRVCiJ20YjlxB5Hon27fcsCOduVLOhAndchegK3YeVpKE9Pp1EySs
- +Hgew3gjNwCsL97JbgGzSZGffJk0l4s3icmD0kqHlku9NQytJJHrK5zKTtqTrlSN
- nN0K/5MSbp6GsS3AP9v5Xw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1782747933; x=
- 1782755133; bh=JSWP+oCjDefLm/g9PuV1GqUkziDul2e9yv/ysVQsJLY=; b=B
- vW9GpEfQf5KLp9NtJM6GkHv3I5ZqIvw4Ca2lMiHX8SKqsoxlmypG2EMXAsormSFb
- oqLT0a0Bl9FJyA6vd4v32gwdXkqPQVCs0Q1Y9jXp5dOSVQI2tfbQcx1ULcycd2no
- cz4W31l3TBY05Bi2KSWoBV2ZPe6YbfMg4EFP7hw/vkSYA/ePVKRQACV+DCkNrleC
- 7d2U6h7NAcmkprtPUjO4A9XW6JXNK6W9RSqJU2/A289YIaXuaBCd1hJaZ6vsHuTg
- GNxjVNjZ5DH/aXylHFIrfAuE5N81jk6hj/53mTDmJA3sJAwIS6GzLql0EapV+l/2
- td6qNY5irlX8jNYf/UttQ==
-X-ME-Sender: <xms:HJNCaoMrkvvQS7N_eQkd2-7GzY3rf6oAfFR9scbcsRER6z01sw7mzQ>
- <xme:HJNCapwMpwLVp89QaYKeW8Gu_iFO6mtIcDakQdQ1IcDR2awHglttG5XYgUbY-f2KY
- MUHVhVlQ81X_KxAdYNn48ZwudPAYseWVvBXQ00pUVx7Z5102rCPfbsZ>
-X-ME-Proxy-Cause: dmFkZTGfEuV5uhz9iLc4/VqJewkOwZztE2Q/W2L8MWGpthXJSG6cnqB0ybUTZO/gmTStFr
- IiMG3oMMwTOd1GN29iTAZh8ELqDq/pvNTu31HqcDhNTnRV5w+qN8TY5zQgqjhrWyTFnLFv
- a5lC1bd0Nsy33atl2U9pCG8DwHiBT9SAvLqnCXSLgY6ykY2nreWYk0o6gpE7z+zCzbU5QI
- CLqmPEwYE4mll5+cmq6mEdAN12TaRxj619rRYC2M3spZPblqPgudPkyzWrdvTZpBYK3w/u
- jqv7Hdzc+TtswHLZ1V6GZ+c/1ZffJJfwsB5JIPB30uvkpQkKQBrSQtzi9AGb8HNFEb2kgE
- qKkXl9pCm/0B95O8InFrTkKN0fJJdpnCSraeOZvlbYvDYSuDEOsOuD28QLxuf4mNOnHYEc
- 4em35Aufoj/L6MFtoXv8X9guYW3iZk9yMbK8VidKBOe9HIlA6Vy69oYVLWvoeIP/sRtUxM
- xWA7NaPmd/Kd9MV/ItckFUA5jQ19oB0lqDlABCPUJva5FAJO0rNnJiVDlHuYcKo1028G2L
- QCmWZB57sVtG9lZURwNtcccEDwqWzXsVO1FCuadUaHZRSO4zh0UrefsDvNNDkSsAklUL8C
- nDBMgI4yo+tcTzxNjLzthPlRQuu7ftRHxOLDna+Fu5ygZv/F2jkt5rcMUitw
-X-ME-Proxy: <xmx:HJNCaiVR99ITZUIeVHLQIjkAl3W5L7-NY_eXPpexE2ezyiuvPV7Wig>
- <xmx:HJNCaqDcmel0SZvoqXYoLZayz9Q48weXPGpjP4Y1EEA9-teXfq9kNA>
- <xmx:HJNCalHWKybZhCSB_h9ep1tLEkKEMci7ODZ3AjJ9oK0yH0tMhtYVDw>
- <xmx:HJNCamc1hcyXGhjSob0H8QG7OUqPoVNgYLrZzyvRI9sJF6RPK2srWA>
- <xmx:HZNCahf_1C-xXUG9BEQMuJSIEx8k4QdhQtNpq8TMrV7EM8NaHbepNMFj>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
- id BA658182007A; Mon, 29 Jun 2026 11:45:32 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4473510E7B3
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:52:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=kemnade.info; s=20220719; h=Cc:To:Subject:From:Reply-To:Content-ID:
+ Content-Description:In-Reply-To:References;
+ bh=8sQUhO0gEm6SixPxSIu1WpqPG3obYPtKTd58dLgHyVU=; t=1782748331; x=1783957931; 
+ b=EvE1v1f3sq3hSHv218sFMljqwBUceJ3JkreSlrh7Im5OzwIO2qZLFZUyKhoa2+6co8CUJlkMk5F
+ IdkKQjCMp9z2bI/Z9cWrk9t8AMDaf74Z5OLLgdk0U6BiBzojK2e1YqLlJ4E56BN3v7n+afFM4H13Y
+ bi7vtgok7HBfOl87+2JVUJXtkVhotTd05wRR/DukikoO3yJf/8ZdBGFIWrqbU5dWuVMjNU6n5vwnV
+ fYL/5/nkeWVVvrgo7TXEnrLm+YtofeQp2INqG+R9dEHh8AZ37YjTDvmrF3HygGqMmtlSN33ggMbOn
+ vvXG5eIKYwx3Qi0w2OW7Ol4rEsCm22+k1g9Q==;
+From: Andreas Kemnade <andreas@kemnade.info>
+Date: Mon, 29 Jun 2026 17:50:59 +0200
+Subject: [PATCH v4] drm/omap: dsi: avoid sending bta sync all the time in
+ writes
 MIME-Version: 1.0
-X-ThreadId: A045QOfflcQ7
-Date: Mon, 29 Jun 2026 17:45:12 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Andy Shevchenko" <andriy.shevchenko@intel.com>,
- "Arnd Bergmann" <arnd@kernel.org>
-Cc: "Linus Walleij" <linusw@kernel.org>,
- "Bartosz Golaszewski" <brgl@kernel.org>,
- "Marcel Holtmann" <marcel@holtmann.org>,
- "MyungJoo Ham" <myungjoo.ham@samsung.com>,
- "Chanwoo Choi" <cw00.choi@samsung.com>,
- "Geert Uytterhoeven" <geert+renesas@glider.be>,
- "Andy Shevchenko" <andy@kernel.org>,
- "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
- "Ulf Hansson" <ulfh@kernel.org>, linux-bluetooth@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
- "linux-mmc @ vger . kernel . org" <linux-mmc@vger.kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
- linux-usb@vger.kernel.org
-Message-Id: <34d4eddf-bfe5-4103-b2c6-143c63ea37f9@app.fastmail.com>
-In-Reply-To: <akKN59lv55CXS3HU@ashevche-desk.local>
-References: <20260629135917.1308621-1-arnd@kernel.org>
- <akKN59lv55CXS3HU@ashevche-desk.local>
-Subject: Re: [PATCH] [RFC] gpiolib: introduce gpio_name() helper
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260629-vm-upstr-v4-1-9f0c62d8808e@kemnade.info>
+X-B4-Tracking: v=1; b=H4sIAGKUQmoC/23NTQ6DIBRG0a0YxsUIKEhH3UfjwJ+HklYwYEkb4
+ 96LTmrTDr8XzmVBHpwGj87JghwE7bU1ceSnBLVDbXrAuosb0YzyrKAlDiN+TH52uC1BcJZDowq
+ O4vPJgdLPPXWt4h60n6177eVAtuufSCCYYNVIBqpsG8jF5QbOwD21rkdbJdCjlAdJo6R5yzIui
+ CBS/Uj2kfzrTxalBFl3nWRMlE2Uo6k7SLVRFlXrur4BFMj1XxcBAAA=
+X-Change-ID: 20260528-vm-upstr-c8e7634ebf56
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Tony Lindgren <tony@atomide.com>, 
+ Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+Cc: Linux-OMAP <linux-omap@vger.kernel.org>, Marek Vasut <marex@denx.de>, 
+ "H. Nikolaus Schaller" <hns@goldelico.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Tomi Valkeinen <tomi.valkeinen@ti.com>, 
+ Andreas Kemnade <andreas@kemnade.info>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5715; i=andreas@kemnade.info; 
+ h=from:subject:message-id;
+ bh=f6k7CqaDDr7N8lJ9oJAbbzBJB23kzlUVgp3lEF+ne9Y=; 
+ b=owGbwMvMwCUm/rzkS6lq2x3G02pJDFlOU7KmbTq80LN30VOTd9Gmf+7sn73CpPl04tt1B/783
+ nDVOfzY1I5SFgYxLgZZMUWWX9YKbp9UnuUGT42wh5nDygQyhIGLUwAm8vU7wz/9ltOSbJ93Siz+
+ MEG96ezUr0XWq3VsRC91CHau4jT0XnuHkeF1i2cIa8z1qllhb/gnbFf7NbFRSHdxcx+HuNhZXq6
+ 9K3kA
+X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
+ fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,40 +74,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026, at 17:23, Andy Shevchenko wrote:
-> On Mon, Jun 29, 2026 at 03:56:29PM +0200, Arnd Bergmann wrote:
->> +const char *gpiod_name(const struct gpio_desc *desc)
->> +{
->> +	return desc ? desc->name : "(no gpio)";
->
-> Can we get into here with wrong (error pointer descriptor)? Shouldn't you call
-> one of validate_desc() / VALIDATE_DESC()?
+Some chips need configuration commands to be sent first, before they can
+send data. TC358762 for example needs PPI_LPTXTIMECNT configured
+and PPI_STARTPPI set to 1 to be able to transmit anything. To be able to
+configure such chips, do not send bta sync during writes if no acks are
+requested. Instead just wait for the packet to be sent to avoid FIFO
+overflows. There might be more to do about acks, but there seem to be
+virtually no users of that flag.
 
-Since all the callers previously call desc_to_gpio and that does
-not even check desc at all, it would be a preexisting bug if
-any caller passed an error pointer.
+This came to light when fiddling with the Epson Moverio BT-200 display
+which consists of 2 TC358762 bridges with SPI funneled through
+to the unknown display chip. With that patch the bridge can be accessed,
+Reading back registers works, when the above-mentioned registers are set.
 
-I added the NULL pointer check since many callers had that
-part originally, like
+In Command-Mode update, there was a nop sent, apparently the most
+relevant part was the bta sync to actually force low power mode.
 
-      tsdata->wake_gpio ? desc_to_gpio(tsdata->wake_gpio) : -1,
+Video mode panel at OMAP4 (BT-200) and video mode at OMAP5 was tested.
 
-> Also not sure if "(no gpio)" is a good choice. "not requested"? "not provided"?
+Fixes: e70965386353e ("drm/omap: dsi: simplify write function")
+Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+---
+Changes in v4:
+- wait on completition on all packets (was limited to long packets only,
+  because I had the wrong impression that there is no confirmation on
+  these)
+- Link to v3: https://patch.msgid.link/20260628-vm-upstr-v3-1-9e9add93378b@kemnade.info
 
-Any of those seem fine to me, not sure.
+Changes in v3:
 
->> +static inline const char *gpiod_name(const struct gpio_desc *desc)
->> +{
->> +	WARN_ON(desc);
->> +	return "(no gpio)";
->
-> Hmm... This will be a second copy with a slight potential of going apart from
-> the other case. Perhaps a #define? (Yes, yes, I understand that there are pros
-> and cons, in particular readability with define is questionable.)
+- Link to v2: https://patch.msgid.link/20260529-vm-upstr-v2-1-24c30671719f@kernel.org
+- fix things mentioned by claude here:
+  https://lore.gitlab.freedesktop.org/drm-ai-reviews/review-patch1-20260529-vm-upstr-v2-1-24c30671719f@kernel.org/
+  - fix typos
+  - register ISR before sending packet
+  - check for RX_FIFO_NOT_EMPTY also in for short packets
 
-I was mostly trying to optimize for consistency with the other
-stub functions here. Since it should not actually be used at all
-without gpiolib, returning NULL or an empty string here would
-also work.
+Changes in v2:
+- fix commandmode update, need bta sync there
+- do not wait on short packets
+- Link to v1: https://patch.msgid.link/20260528-vm-upstr-v1-1-fb93ef8cbe47@kernel.org
 
-     Arnd
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Tomi Valkeinen <tomi.valkeinen@ti.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/gpu/drm/omapdrm/dss/dsi.c | 53 ++++++++++++++++++---------------------
+ 1 file changed, 24 insertions(+), 29 deletions(-)
+
+diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/dss/dsi.c
+index 27fe7bca9e2c..3f22929c36e2 100644
+--- a/drivers/gpu/drm/omapdrm/dss/dsi.c
++++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
+@@ -2194,28 +2194,38 @@ static int dsi_vc_send_null(struct dsi_data *dsi, int vc, int channel)
+ static int dsi_vc_write_common(struct omap_dss_device *dssdev, int vc,
+ 			       const struct mipi_dsi_msg *msg)
+ {
++	DECLARE_COMPLETION_ONSTACK(completion);
+ 	struct dsi_data *dsi = to_dsi_data(dssdev);
+ 	int r;
+ 
++	/* wait for IRQ for packet transmission confirmation */
++	r = dsi_register_isr_vc(dsi, vc, dsi_completion_handler,
++				&completion, DSI_VC_IRQ_PACKET_SENT);
++	if (r)
++		return r;
++
+ 	if (mipi_dsi_packet_format_is_short(msg->type))
+ 		r = dsi_vc_send_short(dsi, vc, msg);
+ 	else
+ 		r = dsi_vc_send_long(dsi, vc, msg);
+ 
+-	if (r < 0)
++	if ((!r) && wait_for_completion_timeout(&completion,
++				msecs_to_jiffies(500)) == 0)
++		r = -EIO;
++
++	dsi_unregister_isr_vc(dsi, vc, dsi_completion_handler,
++			      &completion, DSI_VC_IRQ_PACKET_SENT);
++	if (r)
+ 		return r;
+ 
+-	/*
+-	 * TODO: we do not always have to do the BTA sync, for example
+-	 * we can improve performance by setting the update window
+-	 * information without sending BTA sync between the commands.
+-	 * In that case we can return early.
+-	 */
++	/* TODO: find out if more needs to be done for MIPI_DSI_MSG_REQ_ACK */
+ 
+-	r = dsi_vc_send_bta_sync(dssdev, vc);
+-	if (r) {
+-		DSSERR("bta sync failed\n");
+-		return r;
++	if (msg->flags & MIPI_DSI_MSG_REQ_ACK) {
++		r = dsi_vc_send_bta_sync(dssdev, vc);
++		if (r) {
++			DSSERR("bta sync failed\n");
++			return r;
++		}
+ 	}
+ 
+ 	/* RX_FIFO_NOT_EMPTY */
+@@ -3233,21 +3243,6 @@ static int _dsi_update(struct dsi_data *dsi)
+ 	return 0;
+ }
+ 
+-static int _dsi_send_nop(struct dsi_data *dsi, int vc, int channel)
+-{
+-	const u8 payload[] = { MIPI_DCS_NOP };
+-	const struct mipi_dsi_msg msg = {
+-		.channel = channel,
+-		.type = MIPI_DSI_DCS_SHORT_WRITE,
+-		.tx_len = 1,
+-		.tx_buf = payload,
+-	};
+-
+-	WARN_ON(!dsi_bus_is_locked(dsi));
+-
+-	return _omap_dsi_host_transfer(dsi, vc, &msg);
+-}
+-
+ static int dsi_update_channel(struct omap_dss_device *dssdev, int vc)
+ {
+ 	struct dsi_data *dsi = to_dsi_data(dssdev);
+@@ -3268,13 +3263,13 @@ static int dsi_update_channel(struct omap_dss_device *dssdev, int vc)
+ 	DSSDBG("dsi_update_channel: %d", vc);
+ 
+ 	/*
+-	 * Send NOP between the frames. If we don't send something here, the
++	 * Transition to LP here. If we don't send something here, the
+ 	 * updates stop working. This is probably related to DSI spec stating
+ 	 * that the DSI host should transition to LP at least once per frame.
+ 	 */
+-	r = _dsi_send_nop(dsi, VC_CMD, dsi->dsidev->channel);
++	r = dsi_vc_send_bta_sync(dssdev, vc);
+ 	if (r < 0) {
+-		DSSWARN("failed to send nop between frames: %d\n", r);
++		DSSWARN("failed to send bta sync between frames: %d\n", r);
+ 		goto err;
+ 	}
+ 
+
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260528-vm-upstr-c8e7634ebf56
+
+Best regards,
+--  
+Andreas Kemnade <andreas@kemnade.info>
+
