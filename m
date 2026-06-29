@@ -4,59 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23C6AC43602
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 10:26:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D5E4C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 10:33:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B91A10E092;
-	Mon, 29 Jun 2026 10:26:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F59210E805;
+	Mon, 29 Jun 2026 10:33:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JRt5q7p7";
+	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="Scp36FMo";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 684E910E092
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 10:26:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782728816; x=1814264816;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=LLnFYXp11vlHjc2JhLXWGsdV2adwnb847wZ90jKFlok=;
- b=JRt5q7p7TGPqRLR9BlhVfFAKmEkGkFVgbLVtNJKfqEc48TihHZueuUy7
- m5X2EFxJ4zFMrE+F/CuLvl0XjUKb6kJZKim+Nx9Gx6LGRkQyM0U3JYzug
- pxNfOjq5RWHv6bHNkrTf5qsjLRriLKkRNVVk+LSDqbD7j51rsEFUctIrU
- o6umijNABTAlZUGgPlc9L7WjMGuHh6TVrdCNnUQKPmtEYTOV16V64W1z/
- pTEW9KsbQ2Y6r59sb67DcYqZrU9kI0gzZ6DIG/zLozUrjlt2MgcDL622u
- +mW6o/XqcQ55Mx8sOwhijwJt744TqQUFlRbYtbZ0e98k1I2Xvxx1lN2E8 w==;
-X-CSE-ConnectionGUID: jprv5jKrTLOaEMHX2DR8iA==
-X-CSE-MsgGUID: D3SNhtyyQCG0cXmcC/p8wg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11831"; a="83502936"
-X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; d="scan'208";a="83502936"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2026 03:26:56 -0700
-X-CSE-ConnectionGUID: kGXHeZoNR2m3ch57AQpCyw==
-X-CSE-MsgGUID: MKx6NBcYQ4WBkHanQSlhCg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; d="scan'208";a="253822147"
-Received: from carterle-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.244.253])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jun 2026 03:26:54 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Helge Deller <deller@gmx.de>, WenTao Liang <vulab@iscas.ac.cn>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] fix: drivers/video: __screen_info_pci_dev: leaked
- pci_dev references in pci_get_base_class loop
-In-Reply-To: <c9c60382-e6eb-4ff8-8756-a48a39924d46@gmx.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260627034428.59479-1-vulab@iscas.ac.cn>
- <c9c60382-e6eb-4ff8-8756-a48a39924d46@gmx.de>
-Date: Mon, 29 Jun 2026 13:26:51 +0300
-Message-ID: <bfeb8e783cd749e4439a4a82546c7bfe63e9a3d8@intel.com>
+Received: from forward103a.mail.yandex.net (forward103a.mail.yandex.net
+ [178.154.239.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 238E310E805;
+ Mon, 29 Jun 2026 10:33:25 +0000 (UTC)
+Received: from mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net
+ (mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net
+ [IPv6:2a02:6b8:c15:340d:0:640:ad51:0])
+ by forward103a.mail.yandex.net (postfix) with ESMTPS id BBC1E806C0;
+ Mon, 29 Jun 2026 13:33:22 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net (smtp)
+ with ESMTPSA id mWaU7PLg7Gk0-zr3sTh1k; 
+ Mon, 29 Jun 2026 13:33:21 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+ t=1782729201; bh=bkbr8BQEH5XYv/QZbwbCjGjbwygqzEt5NhSM1N730sw=;
+ h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
+ b=Scp36FMoYe+GiOzC5BrP3iXWVS3eqZdc2Wp7VLUWWWevEJSEuNth5Rv5kKFNfZoQ8
+ 6LRo0RsiQ/cmMmiG3I28tj3PwK9xXvpLXyctwZ9q80Co+CDvzkMAxouUdMEDZDbnc9
+ 4KKP7F2THNb8a84zDstVDFOZCvYuGQtWDGM/CfFg=
+Authentication-Results: mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net;
+ dkim=pass header.i=@yandex.ru
+From: Evgenii Burenchev <evg28bur@yandex.ru>
+To: sashiko-bot@kernel.org
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, mario.limonciello@amd.com, alex.hung@amd.com,
+ superm1@kernel.org, timur.kristof@gmail.com, ivan.lipski@amd.com,
+ ray.wu@amd.com, aurabindo.pillai@amd.com, chen-yu.chen@amd.com,
+ mripard@kernel.org, Dillon.Varone@amd.com, mwen@igalia.com,
+ chiahsuan.chung@amd.com, kenneth.feng@amd.com,
+ srinivasan.shanmugam@amd.com, tzimmermann@suse.de, Alvin.Lee2@amd.com,
+ dmitry.baryshkov@oss.qualcomm.com, chaitanya.kumar.borah@intel.com,
+ ekurzinger@gmail.com, pierre-eric.pelloux-prayer@amd.com,
+ HaoPing.Liu@amd.com, Tony.Cheng@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ lvc-project@linuxtesting.org, sashiko-reviews@lists.linux.dev,
+ Evgenii Burenchev <evg28bur@yandex.ru>
+Subject: Re: [PATCH v4 1/3] drm/amd/display: Fix dangling pointer in plane
+ reset function
+Date: Mon, 29 Jun 2026 13:32:36 +0300
+Message-ID: <20260629103236.12380-1-evg28bur@yandex.ru>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260629092538.4D19B1F000E9@smtp.kernel.org>
+References: <20260629092538.4D19B1F000E9@smtp.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,47 +73,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, 27 Jun 2026, Helge Deller <deller@gmx.de> wrote:
-> On 6/27/26 05:44, WenTao Liang wrote:
->> In __screen_info_pci_dev(), the loop uses pci_get_base_class() with a
->> non-NULL starting device pdev. Each iteration returns a new device
->> reference but does not release the previous one. When a non-matching
->> device is found, pdev is overwritten and the previous reference leaks.
->> When no match is found, all acquired references are leaked.
->> 
->> Add pci_dev_put(pdev) for non-matching devices before continuing the loop.
->> 
->> Cc: stable@vger.kernel.org
->> Fixes: 036105e3a776 ("video: Provide screen_info_get_pci_dev() to find screen_info's PCI device")
->> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
->> ---
->>   drivers/video/screen_info_pci.c | 4 ++++
->>   1 file changed, 4 insertions(+)
->> 
->> diff --git a/drivers/video/screen_info_pci.c b/drivers/video/screen_info_pci.c
->> index 8f34d8a74f09..c821101e9304 100644
->> --- a/drivers/video/screen_info_pci.c
->> +++ b/drivers/video/screen_info_pci.c
->> @@ -123,6 +123,10 @@ static struct pci_dev *__screen_info_pci_dev(struct resource *res)
->>   
->>   	while (!r && (pdev = pci_get_base_class(PCI_BASE_CLASS_DISPLAY, pdev))) {
->>   		r = pci_find_resource(pdev, res);
->> +		if (!r) {
->> +			pci_dev_put(pdev);
->> +			pdev = NULL;
->> +		}
+On Mon, Jun 29, 2026 at 09:25:37AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
 >
-> Have you tested the code?
-> If pdev gets assigned NULL, doesn't that introduce an endless loop?
-> And, similar code is in amdgpu*  and google's framebuffer-coreboot.c files, so if
-> this is correct, don't they need fixing as well?
+> Pre-existing issues:
+> - [High] Dangling pointer (Use-After-Free) vulnerability in vmwgfx component reset hooks on memory allocation failure.
+> - [High] Missing NULL pointer checks in amdgpu duplicate_state hooks lead to NULL pointer dereference on allocation failure.
 
-More specifically, pci_get_base_class() decrements the passed in "from"
-refcount if it's not NULL.
+Thank you for the review.
 
-BR,
-Jani.
+> [Severity: High]
+> This is a pre-existing issue, but returning here when plane->state is
+> initially NULL means plane->state remains NULL. Later, when the DRM core
+> attempts to duplicate the state, it calls the driver's duplicate hook.
+>
+> In amdgpu_dm_plane_drm_plane_duplicate_state(), there is no check if
+> plane->state is NULL:
+>
+> amdgpu_dm_plane_drm_plane_duplicate_state() {
+>     ...
+>         dm_plane_state = kzalloc_obj(*dm_plane_state);
+>         if (!dm_plane_state)
+>                 return NULL;
+>
+>         __drm_atomic_helper_plane_duplicate_state(plane, &dm_plane_state->base);
+>     ...
+> }
+>
+> Will this cause a NULL pointer dereference in
+> __drm_atomic_helper_plane_duplicate_state() since it will crash when trying
+> to memcpy from a NULL plane->state?
 
+The DRM core guarantees that duplicate_state() is never called on an object
+with a NULL state. The state pointer is always valid when duplication is
+requested, as DRM only calls this hook on objects that are already fully
+initialized and have an active state.
 
--- 
-Jani Nikula, Intel
+Therefore, the scenario described above is not possible in practice.
+This patch does not introduce any new NULL pointer risks.
+
+> The same pattern appears in amdgpu_dm_connector_atomic_duplicate_state(),
+> where to_dm_connector_state(connector->state) will resolve to an invalid
+> pointer offset from NULL, causing kmemdup to panic:
+>
+> Could these duplicate_state hooks be updated to handle a NULL state?
+
+As explained above, DRM core guarantees that duplicate_state is only called
+with a valid state. Adding NULL checks in duplicate_state hooks would be
+redundant and unnecessary.
+
+> [Severity: High]
+> This isn't a bug introduced by this patch, but I noticed the exact same
+> dangling pointer pattern this patch fixes also exists in the vmwgfx driver.
+>
+> In vmw_du_connector_reset(), if kzalloc_obj() fails, it returns without
+> updating the state pointer, leaving a dangling pointer:
+>
+> The identical issue also occurs in vmw_du_crtc_reset() and
+> vmw_du_plane_reset().
+>
+> Since unhandled use-after-free bugs in core DRM state structures can cause
+> severe stability issues, do these vmwgfx component reset hooks need a similar
+> fix to allocate the new state before freeing the old one?
+
+This is a separate pre-existing issue in a different driver (vmwgfx).
+While it does appear to suffer from the same dangling pointer pattern,
+it is unrelated to this patch series and should be addressed in a
+separate patch by the vmwgfx maintainers.
+
+This patch series only addresses the dangling pointer issue in the
+amdgpu_dm reset functions.
+
+Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
