@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14ADCC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 23:15:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B75AC43602
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 23:16:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6126710E134;
-	Mon, 29 Jun 2026 23:15:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8FBA10EA8B;
+	Mon, 29 Jun 2026 23:16:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ot0qqQP/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O2I+yRMp";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4C2D10E112;
- Mon, 29 Jun 2026 23:15:21 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A634110EA8A;
+ Mon, 29 Jun 2026 23:16:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D1A2D40AA3;
- Mon, 29 Jun 2026 23:15:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4810E1F000E9;
- Mon, 29 Jun 2026 23:15:18 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B2AB160008;
+ Mon, 29 Jun 2026 23:16:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF38D1F000E9;
+ Mon, 29 Jun 2026 23:16:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782774920;
- bh=PTDwVtGU6wid+Bgktvqm3ZvyMDN9HQ00NiQBzjMDb5o=;
+ s=k20260515; t=1782774963;
+ bh=MwyQLZ9TpvSzRB+VQf48dLfzIroZXC4gFHoxVqtwU6k=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=ot0qqQP/lCjO5k6zzU+QNvbWLaxMC7H+3qFT92VX2UvZABSNZ6N/MA2JGDbKJUoW1
- 4M3ANFO3DORGIYjuAUU/OKyDgSRndVEow6+eo7gKf5g+h6Nta8gSgEIp649T4tfv2a
- 8Ktiv40iRLVXohmb+zQ3jkItGTS3vZB6ZyGiV6EAadMM+RSY9n/MsJxwkhpr50kHGz
- K31LH0XcB6aN8eoHIi7kAdwqtv4A2jLe1FlUnosYLazPLozsAtx0LBNaD3AJjzlXwS
- /WnVFsJ7hsxiDjHHixfIDpBA9qNUdqfbiOjfquNqtwGGDI5/40gxsVd0QLBzUBZA0k
- MY+MvMrB9YDBw==
-Date: Mon, 29 Jun 2026 16:15:17 -0700
+ b=O2I+yRMpFaBx26CCnGVgioJHFGtzKq+R0bOVsH0oasj+qz1/Qx+P30WSLoVK6Dava
+ udbqHxG3UcgZSodQ902oHVWW3FHjNkOSl1wrmdOavciBShtML5Py6dtOjy7sfIcKEQ
+ uLgGk9yqs87/rYDLks/3jdeEx4Q5q9N8E2v5Vq3pXXZz1MGIRHRWai2IVT01VadyB8
+ 74TzCo2ERx2JNIMZaR15l33btYCEUG5e8NTUA4SwhsxMXSkVa9VurvOUkps/m97X3L
+ C3v8o2x+VPc2rrKoCHUtWhAxUPt0V9P7LZeXtJlkB2nL+6e3EF6iB42OfucbYu1YkN
+ whrO7lQm85p+A==
+Date: Mon, 29 Jun 2026 16:16:00 -0700
 From: Jakub Kicinski <kuba@kernel.org>
 To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Cc: Lee Jones <lee@kernel.org>, Mark Brown
@@ -70,11 +70,11 @@ Cc: Lee Jones <lee@kernel.org>, Mark Brown
  linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org,
  linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH v2 09/19] net: bcmgenet: use platform_device_set_of_node()
-Message-ID: <20260629161517.34754824@kernel.org>
-In-Reply-To: <20260629-pdev-fwnode-ref-v2-9-8abe2513f96e@oss.qualcomm.com>
+Subject: Re: [PATCH v2 13/19] net: mv643xx: use platform_device_set_of_node()
+Message-ID: <20260629161600.185e0eaf@kernel.org>
+In-Reply-To: <20260629-pdev-fwnode-ref-v2-13-8abe2513f96e@oss.qualcomm.com>
 References: <20260629-pdev-fwnode-ref-v2-0-8abe2513f96e@oss.qualcomm.com>
- <20260629-pdev-fwnode-ref-v2-9-8abe2513f96e@oss.qualcomm.com>
+ <20260629-pdev-fwnode-ref-v2-13-8abe2513f96e@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
@@ -93,12 +93,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 29 Jun 2026 11:12:32 +0200 Bartosz Golaszewski wrote:
-> +	if (dn) {
-> +		struct device_node *np __free(device_node) = bcmgenet_mii_of_find_mdio(priv);
-> +
-> +		platform_device_set_of_node(ppdev, np);
-> +	} else {
+On Mon, 29 Jun 2026 11:12:36 +0200 Bartosz Golaszewski wrote:
+> Ahead of reworking the reference counting logic for platform devices,
+> encapsulate the assignment of the OF node for dynamically allocated
+> platform devices with the provided helper.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Please don't blindly use __free() in cases where it's clearly
-unnecessary.
+Acked-by: Jakub Kicinski <kuba@kernel.org>
