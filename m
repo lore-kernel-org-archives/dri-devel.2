@@ -4,125 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB15EC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:05:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2412C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:07:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BC0F892AA;
-	Mon, 29 Jun 2026 08:05:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C966810E03A;
+	Mon, 29 Jun 2026 08:07:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="txfiaKoA";
+	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="TEpYlNln";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="c24Brf1S";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010071.outbound.protection.outlook.com [52.101.85.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6CBA10E03A
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:05:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tBJV7S+RGAyAsl4LhJa6wvXs3xpZaWn3OIfuYgyqskzZ/vdy9ZdwQ6CFyTwZ+O38JyEJMcprGFRlNVmUh38fPNQpPiiWDC3aP8qyhBnUHn2Ajs75/Slsfy6QFLos7whHfELNWHFS85ldmbVqnMhum6Qpoy1kYO/2SqnLRF6Bf1znEgbPLRu2P8tf0m9BFKYIK4twxJKoSmL0n1Mfiwx0yt66OdPTm/HBNQiwOInVXiERjeLK3ScOs1C6cGb7Xr4Vgj0f6yA1HngPfcpyKUaZlsnBz1J7JwxSCKzoJ/2gQaVPuYkhnKglr6qx9y6HAmriFlecu4bla+NT6nEfF/zyQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GcXduUeMpYbP4PreoFVZfyYJXgDuegIE2OO/dqR5hbg=;
- b=EX9FjKG1N+6hldWexjHQlFPlNlgmqL7zdShGfiPvhBBRb+joTsc9MNq1Tk5p1cm/QjhB7rMxH3L3nL7JDvRPnuSBN7KyNRg001uNYsZupyanR4YvZOgsaj9etDT5nZNrMBNIYXMVOg5odFN5CcqCCDcj5wpZmDLq02k8ESizYbc/6FKhh7dyQq7WJkBVMT2N0fMFZNfJz8EbgYvfYoojHZDOsn7jd230qkFmZv/dYh5TgvBEv6So/6IzfhiX8AyFMURIcxwpmZR9kB+TzWZs1NYAkGJV0HthnRgFh5ejlnMCQQ6vHU8+na6v+whPydyma3Il0m9ualzbHBHtc2sQtw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GcXduUeMpYbP4PreoFVZfyYJXgDuegIE2OO/dqR5hbg=;
- b=txfiaKoABHhgLcu3DEHaV4ISwFCD3vTRfLBDft+p967EEAH0+aWN9zLcMnafkLYhAG1WGLuBzQ4JAKTJlAkEcUTzoYA6w8nVHqMP7999rCYRCl8CijzPKwda0xpAuPWbi3X8UWfHqHpCSkZPU9kZay9baFI1wRMzKsMrWckROL97OXVISzD5mNhQ8X6ysrsEgfSgY403pPderMUoECuWGYrS8YM6Vg7f32MrnyT5Rdz8KXThXqOrV+10RUDoVKUObBFHQzVNCrfcSg6es/ZdfIcbgZI9F6fyZTv+rCacwIXJ2LSbNrzylhP+VCqh3HfpL3N6UoS4HhX7xlX88rckJg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
- DM6PR12MB4401.namprd12.prod.outlook.com (2603:10b6:5:2a9::15) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.16; Mon, 29 Jun 2026 08:05:44 +0000
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 08:05:44 +0000
-Date: Mon, 29 Jun 2026 18:05:39 +1000
-From: Alistair Popple <apopple@nvidia.com>
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: SeungJong Ha <engineer.jjhama@gmail.com>, 
- Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- =?utf-8?Q?Nicol=C3=A1s?= Antinori <nico.antinori.7@gmail.com>,
- David Airlie <airlied@gmail.com>, 
- Shuah Khan <skhan@linuxfoundation.org>, Simona Vetter <simona@ffwll.ch>,
- Gary Guo <gary@garyguo.net>, 
- Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
- Tamir Duberstein <tamird@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Pedro Yudi Honda <niyudi.honda@usp.br>, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, nova-gpu@lists.linux.de
-Subject: Re: [PATCH 0/1] nova-core: Convert bindings to use zerocopy
-Message-ID: <akIlXpFeexxttlV_@nvdebian.thelocal>
-References: <20260629025220.1935622-1-apopple@nvidia.com>
- <DJLAUOEDW6HT.39URSU30Z0HT9@gmail.com>
- <DJLCF3LR0KMN.1TMKMZEZWKN8O@nvidia.com>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <DJLCF3LR0KMN.1TMKMZEZWKN8O@nvidia.com>
-X-ClientProxiedBy: SY5P300CA0018.AUSP300.PROD.OUTLOOK.COM
- (2603:10c6:10:1ff::6) To DS0PR12MB7726.namprd12.prod.outlook.com
- (2603:10b6:8:130::6)
+Received: from flow-a2-smtp.messagingengine.com
+ (flow-a2-smtp.messagingengine.com [103.168.172.137])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C7B110E03A
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:07:39 +0000 (UTC)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailflow.phl.internal (Postfix) with ESMTP id 95552138020B;
+ Mon, 29 Jun 2026 04:07:38 -0400 (EDT)
+Received: from phl-imap-05 ([10.202.2.95])
+ by phl-compute-04.internal (MEProxy); Mon, 29 Jun 2026 04:07:38 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1782720458;
+ x=1782727658; bh=/WIe7fhbq6CJNEEuiOwk3r/zWUSncZp6R6QFRwJ6sZY=; b=
+ TEpYlNln6M/GwjHpSnfu7rcdvzFIRDl8PaPZdTR79bfu+93tv92bHNDr8ENAoz0o
+ I+3XOz+pyki2rkkp/RkwXg8QRaJpJiIvR1f0tt8I+SaQuvnEJlOAQI6CC1z6yuZ0
+ cVgd/4iHRc6MLkND4uxVIRG0nvMRx4MGsgfInhPlnKeJM8pUkN12VG8ueW2PsOxW
+ 4MefLznfvAN244lHNATTmj+ua+WwiZat+gfP8BGqjCXRdi0M/+5lN5Uzmi8DBRk9
+ qOZeAPBpKTz28WGmYMtNgUnS3AhyykTIUnN8T+m0kvmDFl4Aj7gFAV/TTmsNx+r6
+ Jtg81SkeOZQVOe1HWz4Juw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1782720458; x=
+ 1782727658; bh=/WIe7fhbq6CJNEEuiOwk3r/zWUSncZp6R6QFRwJ6sZY=; b=c
+ 24Brf1SGc6bjX+gJggjD7fmSOT+iM2lF24wJCuV8s2Amdzt3Twtd0vjLYD7Kbt7Z
+ +kQoptcHz/VtGk8XGv79LNoCZacAq5R7BAxPksArO05cBqn1akZdOx6QMuzHyKsp
+ jZ5aPv2lk/STvMi4lhBu2oUJ3KD+K5F5xqv9MBLZ6CU0PGJ3KI+fRCvE0f+e7q5T
+ uEQZkmuOQpm6EKiGmWuLksFY8y18pLeUcAz299olDRkgTanwR4wU8CSDkLsduURr
+ qyrnHb9qvfpeWKz95/irIS1jl+HSEg0BQDlK7TA+5DM9R3tqbP934xrod3JsNeCN
+ bn6beHziPLZyr1RaQBnnQ==
+X-ME-Sender: <xms:yCdCapri6_Fghw3mlaxsy_gFSSzhIwFXsDsNSMOFs66NbUuvHEYu7g>
+ <xme:yCdCamerjDzu3SkJsJt3qEPErm5Jr5VIrDx-XCtfJMJEoOf5pYL1aPAL4K1m0ol0d
+ u21Y6WhZ3M90bX6VcOFH8qU30t4-5iJBk_D2YIapVkzsHqYJk_o71YS>
+X-ME-Proxy-Cause: dmFkZTGqoTHHYaCI7RURCJhbWHvAkwwtWLTme13LzQ5hLxT15nHz8y1KVwyjgVqWxzHrQs
+ ToUxEitfKDOpnMGHxJtxeXXfPwSpUOYKCbLG3DvDrtRiFisamjIvbRYQ8eHCu3vuqKkFV+
+ oGsvHlqt2QnvGfcOvmRuOO3Rgzas4qMskWtx3Scnrrx20Qj6yj3iPd9+zKy3qioo1rB1kC
+ NbqXUUQhwk7CbH9jPKcbA4qnRTFNBVVyitidRmU/FN7E7sMWO92pJbypgI30pCru3tSGoX
+ 4d3jRIE5+wGTHtOqlpEwsN0x3RyunobmR8KafNHjr3b8znb/Ht8a7MfJTFEzr6ZVtoIPkp
+ YEm/Y5IKpJ7BR9D7SOhiAKZmz+xhjw+Rj3xZl+UuPyzGO/ptf2uS48xftDP82jFSPGfW1i
+ WUFvAhWp7rn6kmw50O2IbqNmMpIJJk3N6j0QnhkZxe9rSsCXY+yz3p4OT2eGCGDnr01Arj
+ 1sqDxkxM7AGOwRp2cqGArUzSLYhPKHqfyQLHeEzDtqWWPt2AfNkUlUPb4ugsBXY3ifDHcm
+ rEin2AiU1hzBEGVpJXGUq8YO8ASTb7YaAQ4Ms9TA2vnH06i8XtAwN9VbW6ypBxduNhUPiP
+ nLczW/MyU9OJ2FdWXbqKiIb/kfE3CMT7L0MTJSderW3WxiiH9wuQPU0UShyg
+X-ME-Proxy: <xmx:yCdCaqfbNNdmOfirtwC33qahd0NFGOxhg_dXK8UoYrkmnnmFjgFULw>
+ <xmx:yCdCakdFbzk9KweAfKAiLwLQgD4racV8i02VE4-Fx5JTJvZq9isCqw>
+ <xmx:yCdCakb8QFZewQ3ezXiHAUYXU4zyjwrQ2jNwpx7JVpowCgaV4w9SdQ>
+ <xmx:yCdCar0ySJMq0u8YC5UhoDauKTq85d7kaWxynrhTGphqhhBu2OB0Rg>
+ <xmx:yidCaoHTNZ_VOhE49MHuA-FguNtgyjgUdDsWkzp50DUo55mdeNXYC66h>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+ id 4D341182007E; Mon, 29 Jun 2026 04:07:36 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|DM6PR12MB4401:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68d480c6-822b-4a30-2c73-08ded5b5381b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|7416014|376014|1800799024|366016|22082099003|11063799006|56012099006|4143699003|18002099003;
-X-Microsoft-Antispam-Message-Info: E8uoJHNCGuKN8VRSPeZ7Haw+X9qK5oDRZq9qEXc+lneyts11L2PudR64dcZJQ+y10U6d9m6fAXnSjVlxM7ty42nGGX4SWRoVfXW64wRwXxtapGB1I2v0BvK19J/tbIHHcKVLGa94jKxHUTKrWD4hsm+i8ZUqnKMI1aT4CNX7cI9B4GMKrBJ9pSIlHhN9lf4sSp0t1JZHCCvzHMmTzQTxBJOXxrLF7vMVHTerHl6fgBRdmheEw4y38nfjC2oo/AwAhBTIjMb5FobMzbWiS0+4iRLvNrUqdaJm8hmNFKW+VMjWtDSGLtTbeq4my6lGGGULpew3d4cqR8m9lT4gwTOrAd/byAh3utiPbPOiwib5VzWYa12zowPT3cSwV8IuzmV0y9qd6mmkLrZQlGFGJkP9xxEKJGcLNGR8oP5AZj1+QYeL7EeC7ef9RzP9qtyttgVpZHhaQvzH1vPnY1pKIFltLqRmvsDfc6mj67+b1lj8uhtLMtykcq0+gcuMhcWf+WkIHTecs/fRFDZZC0wbTUJETvS/isNlEzosYqmATo787qVqH/TdE68m6IRTeaKt1YYGoHdLxxIAfavKbKnwvVUKWdD5tFdJlGDDE3Tk2RzJN44/kCgi5XXlD5qurnVZ/C08CwVU5brNZpk3/R29IntOkSJ8WpEZZPlXNKn4lqEln4Y=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(22082099003)(11063799006)(56012099006)(4143699003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?NYEjQPxafBCaoL1jtvqNI8zZen1lxzxKn+ligYPDehCPRbAzEbKXL55Btj?=
- =?iso-8859-1?Q?1NI1mzWESq+BJ7iV5ladSEwzoyrXrvw9VtsHaqzNBPUtvtM2rCjUSVnPZn?=
- =?iso-8859-1?Q?y2m8bvz9L3i+XpJiHTjOTDzQD5Tbffz8OZ5709ciD4kaohUpQs5RT/utrH?=
- =?iso-8859-1?Q?Obwyp//iIeAj7N5lt2QSTE0qG4Q7UZ2cEmDb5lO+ueb99vWsZWxszJrnVY?=
- =?iso-8859-1?Q?Q7sEXmlhtNZBJWTgbxhUTjJq33JiQDsl5v0RsyQVY/qSMWxgvX4JHvMRza?=
- =?iso-8859-1?Q?kBKai9O5KEP2JO6OPMqsdum5OXwVLyEGxQMoRLByyxxfl3MMphVa4AHxfB?=
- =?iso-8859-1?Q?GE9E4Fxn2ysDNIsMcllG5WnyHyu+AEMFqnulxXt4sAOPF3f5RKsI2pKiCE?=
- =?iso-8859-1?Q?WiQ08qps7n4hE6d+/OTfKRiwFcEaK21m1JK8pyL2NaHJijoEjZZFl4KYFw?=
- =?iso-8859-1?Q?7E2bn1GHqqYZhI7Fwg+8SMEC1ybzlHYyKEkqPL8rNjGpdof/O4a1ZH6UxO?=
- =?iso-8859-1?Q?5n0sdvberQ5wMPxp5GFhNzhRdjRrOkxjgqnjscvUYaES0CIQh7psvgcS1c?=
- =?iso-8859-1?Q?957fcgouwhnDT969ZRP3lHEbaLdoqfz1lPh759Jyf5DL95OZ52siPlg4Yq?=
- =?iso-8859-1?Q?W6K1JcSG4vtl1iYsIJwrDHXsjcFFmbYSu4Relfh/qMmdRSmKMhQcEsnrgf?=
- =?iso-8859-1?Q?rlehT3GcPMk1gxmbTCRNrxCLug91BXPXf7IUQofZremjZsO3u4BPAHKxyp?=
- =?iso-8859-1?Q?OECHdkWWbOai8/ns6CehcQh6WP01CBMNPoSGissUFbs8sdcS+gwlMgKHY/?=
- =?iso-8859-1?Q?easJezvozT0uP5oMtoXpKFImeNvx2lCUbqqwn51ECsXlVxhd0xl/Rg0B6k?=
- =?iso-8859-1?Q?NztVKEjV9FZkTfsvSV0Gb+T27hNUsuQzCoqqtwbx3t/NfZ2F5v5C/7tKej?=
- =?iso-8859-1?Q?9f1nuE4aEy2zd+UTRYkh8CKFIL3rgKRtBcnQ6o/ST5XiP/YL+gxUm6YNLx?=
- =?iso-8859-1?Q?sTJP1JrT/QYRIrWPGJ01Ub0QkqnUC++EU62dAQyh3ch2WnwWkTM5AXEfBS?=
- =?iso-8859-1?Q?fmbPH79LXei6z2+NDPQyksFA2Uc/WRlmchd5s8l2kPljJnD0oCIX4uf01k?=
- =?iso-8859-1?Q?jSxFy9lwH9Sk92OgHACcH2UEed3pDiO1vMhowxTkwJ5imRCvekQSHQXoTW?=
- =?iso-8859-1?Q?YOARg2Bo4ooj9Kjn8ruspUMkq1ChWEObb4pCpB9gjgo3HNvUPgEzhquapI?=
- =?iso-8859-1?Q?5t9jWUDgFcb5j3l9KlGFiCFRR5I/mAsXGJnDKD7tyjkgy9e1F/6iRurN0E?=
- =?iso-8859-1?Q?cjka695bzuNGc1BHcjb7TPNWJrFfMpfrW5nciT9huha+jVUQtD4uCuP4E/?=
- =?iso-8859-1?Q?80eTYAyUcxOXVtnec2pz8wu4+lAAPg3oGu0ryt5G55RXwo4mDA0gbREonx?=
- =?iso-8859-1?Q?PtOGzFpoVDimuUB+D9cgZvO+SLyzHmNrTDkEyQuPBnzjGlBaq82jNrr7jd?=
- =?iso-8859-1?Q?kIGOyGnfDIk9dw3xLCocER0KjlyhpBrFdQcXojT8Ogfa0RyU0Sj5MXElp0?=
- =?iso-8859-1?Q?30p+4PIVxu6ZrrqWZWsp4foWxE8YRU4p+beFfzRzwrSbY9sUUnh8NO3Au0?=
- =?iso-8859-1?Q?axa5IEEoz34eOcQRCODatm4XYocjlFosXiQ8wCRLJAsK4XN4K/EB5esrd3?=
- =?iso-8859-1?Q?DKQLxO7276Z4mNuPTO9oYYpa0lLBjbY1/CS5nELvaqRBCIMeR615kvbxGf?=
- =?iso-8859-1?Q?olnpY3grmi+x5Jzhg8RiRp0k/2w8PALSiYuU6RyQOs+uEDT1eBDnFC339w?=
- =?iso-8859-1?Q?I53fXklr7Q=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68d480c6-822b-4a30-2c73-08ded5b5381b
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 08:05:44.1452 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MhnOiRte4suZMAaBEid/owmDY8omKujT6n9wG2EHlMkyeq/qew0fzlmvGDXbKpCdCNotU+FaeJA/mfP/BUAQGg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4401
+X-ThreadId: ApSqBjiSqQZ-
+Date: Mon, 29 Jun 2026 10:06:54 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Juergen Gross" <jgross@suse.com>, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org,
+ "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>, x86@kernel.org,
+ linux-acpi@vger.kernel.org, kvm@vger.kernel.org, linux-coco@lists.linux.dev,
+ linux-pci@vger.kernel.org, virtualization@lists.linux.dev,
+ linux-ide@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-crypto@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ linux-hyperv@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-mtd@lists.infradead.org,
+ platform-driver-x86@vger.kernel.org
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
+ "Daniel Lezcano" <daniel.lezcano@kernel.org>,
+ "Zhang Rui" <rui.zhang@intel.com>,
+ "lukasz.luba@arm.com" <lukasz.luba@arm.com>,
+ "Jason Baron" <jbaron@akamai.com>, "Borislav Petkov" <bp@alien8.de>,
+ "Tony Luck" <tony.luck@intel.com>,
+ "Yazen Ghannam" <yazen.ghannam@amd.com>, "Len Brown" <lenb@kernel.org>,
+ "Pavel Machek" <pavel@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>,
+ "Ingo Molnar" <mingo@redhat.com>,
+ "Dave Hansen" <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ "Sean Christopherson" <seanjc@google.com>,
+ "Paolo Bonzini" <pbonzini@redhat.com>,
+ "Kirill A. Shutemov" <kas@kernel.org>,
+ "Rick Edgecombe" <rick.p.edgecombe@intel.com>, "Pu Wen" <puwen@hygon.cn>,
+ "Bjorn Helgaas" <bhelgaas@google.com>,
+ "Ajay Kaher" <ajay.kaher@broadcom.com>,
+ "Alexey Makhalov" <alexey.makhalov@broadcom.com>,
+ "Broadcom internal kernel review list"
+ <bcm-kernel-feedback-list@broadcom.com>,
+ "Viresh Kumar" <viresh.kumar@linaro.org>,
+ "Reinette Chatre" <reinette.chatre@intel.com>,
+ "Dave Martin" <Dave.Martin@arm.com>, "James Morse" <james.morse@arm.com>,
+ "Babu Moger" <babu.moger@amd.com>,
+ "Tony W Wang-oc" <TonyWWang-oc@zhaoxin.com>,
+ "Damien Le Moal" <dlemoal@kernel.org>,
+ "Niklas Cassel" <cassel@kernel.org>, "Dave Airlie" <airlied@redhat.com>,
+ "Helge Deller" <deller@gmx.de>, linux-geode@lists.infradead.org,
+ "Olivia Mackall" <olivia@selenic.com>,
+ "Herbert Xu" <herbert@gondor.apana.org.au>,
+ "Linus Walleij" <linusw@kernel.org>,
+ "Bartosz Golaszewski" <brgl@kernel.org>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ "Haiyang Zhang" <haiyangz@microsoft.com>, "Wei Liu" <wei.liu@kernel.org>,
+ "Dexuan Cui" <decui@microsoft.com>, "Long Li" <longli@microsoft.com>,
+ "Guenter Roeck" <linux@roeck-us.net>,
+ "Peter Zijlstra" <peterz@infradead.org>,
+ "Arnaldo Carvalho de Melo" <acme@kernel.org>,
+ "Namhyung Kim" <namhyung@kernel.org>,
+ "Mark Rutland" <mark.rutland@arm.com>,
+ "Alexander Shishkin" <alexander.shishkin@linux.intel.com>,
+ "Jiri Olsa" <jolsa@kernel.org>, "Ian Rogers" <irogers@google.com>,
+ "Adrian Hunter" <adrian.hunter@intel.com>,
+ "James Clark" <james.clark@linaro.org>,
+ "Josh Poimboeuf" <jpoimboe@kernel.org>,
+ "Pawan Gupta" <pawan.kumar.gupta@linux.intel.com>,
+ "Vitaly Kuznetsov" <vkuznets@redhat.com>,
+ "Andy Lutomirski" <luto@kernel.org>,
+ "Boris Ostrovsky" <boris.ostrovsky@oracle.com>,
+ "Huang Rui" <ray.huang@amd.com>,
+ "Mario Limonciello" <mario.limonciello@amd.com>,
+ "Perry Yuan" <perry.yuan@amd.com>,
+ "K Prateek Nayak" <kprateek.nayak@amd.com>,
+ "srinivas.pandruvada@linux.intel.com"
+ <srinivas.pandruvada@linux.intel.com>,
+ "Artem Bityutskiy" <artem.bityutskiy@linux.intel.com>,
+ "Artem Bityutskiy" <dedekind1@gmail.com>,
+ "Miquel Raynal" <miquel.raynal@bootlin.com>,
+ "Richard Weinberger" <richard@nod.at>,
+ "Vignesh Raghavendra" <vigneshr@ti.com>,
+ "Ashok Raj" <ashok.raj.linux@gmail.com>,
+ "Hans de Goede" <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "Rajneesh Bhardwaj" <irenic.rajneesh@gmail.com>,
+ "David E Box" <david.e.box@intel.com>, xen-devel@lists.xenproject.org
+Message-Id: <7332feff-2649-496c-8e49-b0a19eb54a32@app.fastmail.com>
+In-Reply-To: <c1608c48-13c2-4290-826b-28b5ca51eaf7@suse.com>
+References: <20260629060526.3638272-1-jgross@suse.com>
+ <d7c1db52-529a-43cc-ac7d-38b52627e8bc@app.fastmail.com>
+ <c1608c48-13c2-4290-826b-28b5ca51eaf7@suse.com>
+Subject: Re: [PATCH 00/32] x86/msr: Drop 32-bit MSR interfaces
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,57 +172,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-06-29 at 17:09 +1000, Alexandre Courbot <acourbot@nvidia.com> wrote...
-> On Mon Jun 29, 2026 at 2:55 PM JST, SeungJong Ha wrote:
-> > On Mon Jun 29, 2026 at 2:52 AM UTC, Alistair Popple wrote:
-> >> Given the inevitable conflicts that will arise from trying to merge several
-> >> different series doing bits of the same thing I'm happy if someone wants to take
-> >> this patch and the others and roll them into a single series. Alternatively I am
-> >> happy to take that on - hopefully Alex can provide some guidance here for what
-> >> would be preferred.
-> >
-> > Agreed it should be one series. Happy to help or fold in my part --
-> > whatever Alex prefers.
-> 
-> Since there is no particular urgency to switch from transmute to
-> zerocopy, I think it makes sense to merge things in an order that limits
-> churn as much as possible.
-> 
-> This means the conversion should probably be done bottom-to-top,
-> starting with the bindings, then the types that embed them. For the
-> bindings, `#[derive(zerocopy_derive::most_traits)]` should be landing
-> soon [1] and I would like us to understand first whether that is
-> something we want to use with the bindings; if so, let's wait for it to
-> be available (unless there is a good reason to convert quickly) as each
-> change to `bindings.rs` is almost 200 LoCs.
+On Mon, Jun 29, 2026, at 09:01, J=C3=BCrgen Gro=C3=9F wrote:
+> On 29.06.26 08:52, Arnd Bergmann wrote:
+>> On Mon, Jun 29, 2026, at 08:04, Juergen Gross wrote:
+>>=20
+>> I assume this is fine, but since you don't mention it explicitly here,
+>> please clarify what this means for 32-bit CPUs without the rdmsrq
+>> instruction. Those will continue using the same instructions as before
+>> and just change the calling conventions, right?
+>
+> Yes. I thought this would be clear from the following:
+>
+>    - They are based on primitives using 64-bit sized values anyway.
 
-I think it makes sense to wait, if only to avoid churn on the generated
-bindings.
+Right, that was my reading of it as well, but it's not entirely
+clear when the function name is the same as the mnemonic of an
+instruction that only exists on newer CPUs and the later patch
+descriptions (e.g. 25/32 that I was Cc's on) have a much shorter
+explanation.
 
-> Since Alistair maintains the tool generating the bindings [2], I think
-> it would make sense if he takes care of that part (bindings and anything
-> embedding them) as well.
+>>> Note that most patches of this series are independent from each othe=
+r.
+>>> Only the patches removing a specific interface (patches 7, 15, 26 and
+>>> 30) and the last two patches of the series depend on all previous
+>>> patches.
+>>=20
+>> It looks like you are touching most files twice or more here, to
+>> first convert from rdmsr to rdmsrq and then to change the
+>> two-argument rdmsrq() macro to a single-argument inline. If you
+>> introduce the inline version of rdmsrq() first, you should be
+>> able to skip the second step (patch 31) as they could be able
+>> to coexist.
+>
+> I've discussed how to structure the series with Ingo Molnar before [1]=
+. The
+> current approach was his preference.
 
-Agreed.
+Ok.
 
-> There are also types in nova-core that do not depend on bindings at all;
-> for these I think it is fine to take the patches that have been already
-> submitted if they apply cleanly and build, as these are good
-> opportunities for first contributions. Nicolás was first to send
-> something for vbios/firmware [3] so I'd like to consider his v2 first
-> now that `-rc1` is tagged.
-
-Yep - given the interest from other contributors I'm going to leave all the
-non-binding related conversions alone. In other words anything that does not
-require changes to drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs would be
-good for others to look at, and thanks for the contributions!
-
- - Alistair
-
-> For the rest, I'm happy to merge anything that applies - small patches
-> limited to a single module should be easier to process and less likely
-> to conflict.
-> 
-> [1] https://lore.kernel.org/all/20260625231919.692444-1-ojeda@kernel.org/
-> [2] https://github.com/apopple-nvidia/nova-gsp-binding-generator/
-> [3] https://lore.kernel.org/all/20260621143647.264770-1-nico.antinori.7@gmail.com/
+      Arnd
