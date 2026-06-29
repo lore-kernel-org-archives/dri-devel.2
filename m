@@ -4,53 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B678C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 16:57:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2D91C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 16:59:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 952A210E9B3;
-	Mon, 29 Jun 2026 16:56:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E149410E9C2;
+	Mon, 29 Jun 2026 16:59:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="d04Xs5Z6";
+	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="8x49n/wy";
 	dkim-atps=neutral
 Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33C4B10E9B3
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 16:56:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB87A10E9B1
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 16:59:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=kemnade.info; s=20220719; h=Cc:To:Subject:From:Reply-To:Content-ID:
- Content-Description:In-Reply-To:References;
- bh=MrEOJflkWL6bDcp2N6HiTHDNtu9564gyWWQwsDRUxhU=; t=1782752212; x=1783961812; 
- b=d04Xs5Z6fnotNfEnVGAp9ZyQuMtBFiVw4kIW9psns4bJU98S4+PMEIXETQcsv7awDt3xCMD7yzs
- CGHXJ/bkI7iLnX8sDCpGbADtlTZ5sRXabAHf38xLCTUlOhE3KspjdhdaIB5UfIlfk0QPlO14w5G9t
- BalGpOhohey4gp23LP5qHQcX4PvvUe8TBtW8JA6QpRssEkX68HK3TBAVGVsu7E4I7+5cW3aauihPL
- awpqAj9+0+zp3TpyJLYroR/wjhBAMrsML66rcvd59mymBvsEM6KdBBrSpzOvXtggxHil8FGTguwEi
- OCCEHtsqJ+ZU6w+Z+3l0YpXFANm9xNR6yy3Q==;
+ d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+ Reply-To:Content-ID:Content-Description;
+ bh=Wl6VBPyNkT9JR6XDXNkycx4Te2988DvHWTjdeEBLZvA=; t=1782752382; x=1783961982; 
+ b=8x49n/wyagOlwyL0GDDeHGbMFHRBm3QNEA+YfpyXD8YwLq9ZJmwKahsjlHLq8jurWwfSfood/8C
+ ZzBX8VdtxkACDahZxxGR+gnYxDqXGNY2/4g6qXU9ldbclf+afQfNbN6PV5dByinh1Ykuqorv11PED
+ tnbxvKNpuTkj9h1b86imQ3czN1Arox2GYboSkCccMvHnjCigXJSsoZDTqBlhPs5W6u50qlolLBrVr
+ CEQmHOo1eoFWgvKalpu9nYwWKgwuhpY3OZzH2APJNyNHLsp5QHoRLQen6Z8hdZsmkEBDuNfGEl/hj
+ 55C5eXxkgkk/DuxJBm43xYGFsO+e7ZJoUl7A==;
+Date: Mon, 29 Jun 2026 18:59:40 +0200
 From: Andreas Kemnade <andreas@kemnade.info>
-Date: Mon, 29 Jun 2026 18:56:45 +0200
-Subject: [PATCH] drm/omap: dsi: do not copy isr table
+To: sashiko-bot@kernel.org
+Cc: sashiko-reviews@lists.linux.dev, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v4] drm/omap: dsi: avoid sending bta sync all the time
+ in writes
+Message-ID: <20260629185940.283b101d@kemnade.info>
+In-Reply-To: <20260629160448.13D001F000E9@smtp.kernel.org>
+References: <20260629-vm-upstr-v4-1-9f0c62d8808e@kemnade.info>
+ <20260629160448.13D001F000E9@smtp.kernel.org>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-dsi-uaf-v1-1-a5e894f4e4d1@kemnade.info>
-X-B4-Tracking: v=1; b=H4sIAMyjQmoC/yXMQQ5AMBCF4avIrDWhUsJVxKJlhrFAOoikcXfF8
- kv+9wIIekaBJgng8WThdYnI0wT6yS4jKh6iQWe6zEpdq0FYHZZUlTtyVBhTOIJYbx6Jr++p7X7
- L4Wbs93cO9/0AgVMO4msAAAA=
-X-Change-ID: 20260629-dsi-uaf-71bfbf3553bf
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Tomi Valkeinen <tomi.valkeinen@ti.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Andreas Kemnade <andreas@kemnade.info>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1640; i=andreas@kemnade.info; 
- h=from:subject:message-id;
- bh=pCX3jFK6hDmFc8GpIO4jml7VMcLPjwukX3qOvHbSZJo=; 
- b=owGbwMvMwCUm/rzkS6lq2x3G02pJDFlOiy/YWabcqNf4+O7tRtlCHt087tsptoLilz7/q+nMe
- v5F5FtVRykLgxgXg6yYIssvawW3TyrPcoOnRtjDzGFlAhnCwMUpABOJV2b4K3xdxGfCl6CJ2/42
- TihNea7xbu3Wl1bMWZf+Huzk1pjsKMzI8Fp/5c+mVSvWtNZtZjohyyG8VaflgQL35DfCxa5Gelw
- OPAA=
-X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
- fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,48 +53,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-To te able to unregister stuff from isrs, the corresponding table was
-copied.  Nobody seems to unregister stuff that way, so it does not help.
-But there are stack-allocated objects passed to these isrs giving chances
-of UAF of these objects if irqs are unregistered while they are handled,
-so better do not copy that table.
+On Mon, 29 Jun 2026 16:04:47 +0000
+sashiko-bot@kernel.org wrote:
 
-Fixes: 4ae2ddddf44cd ("OMAP: DSS2: DSI: Add ISR support")
-Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
----
-If this gets backported, it should be re-checked that
-no isr unregisters itself in older kernel versions`.
----
- drivers/gpu/drm/omapdrm/dss/dsi.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+> > -	if (r < 0)
+> > +	if ((!r) && wait_for_completion_timeout(&completion,
+> > +				msecs_to_jiffies(500)) == 0)
+> > +		r = -EIO;
+> > +
+> > +	dsi_unregister_isr_vc(dsi, vc, dsi_completion_handler,
+> > +			      &completion, DSI_VC_IRQ_PACKET_SENT);
+> > +	if (r)
+> >  		return r;  
+> 
+> [Severity: High]
+> Could this lead to a stack use-after-free if the timeout is reached?
+> 
+> The wait_for_completion_timeout() can return 0 (timeout), after which
+> dsi_unregister_isr_vc() unregisters the ISR and the function returns,
+> destroying the on-stack completion. 
+> 
+> However, dsi_unregister_isr_vc() doesn't appear to synchronize with the IRQ
+> handler. If the hardware IRQ fires right after the timeout and the handler
+> executes from its lockless copy of the ISR table, could it call
+> dsi_completion_handler() with a dangling pointer to the destroyed stack
+> frame?
 
-diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/dss/dsi.c
-index 27fe7bca9e2c..70cfb779d6ae 100644
---- a/drivers/gpu/drm/omapdrm/dss/dsi.c
-+++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
-@@ -455,15 +455,10 @@ static irqreturn_t omap_dsi_irq_handler(int irq, void *arg)
- 		timer_delete(&dsi->te_timer);
- #endif
- 
--	/* make a copy and unlock, so that isrs can unregister
--	 * themselves */
--	memcpy(&dsi->isr_tables_copy, &dsi->isr_tables,
--		sizeof(dsi->isr_tables));
-+	dsi_handle_isrs(&dsi->isr_tables, irqstatus, vcstatus, ciostatus);
- 
- 	spin_unlock(&dsi->irq_lock);
- 
--	dsi_handle_isrs(&dsi->isr_tables_copy, irqstatus, vcstatus, ciostatus);
--
- 	dsi_handle_irq_errors(dsi, irqstatus, vcstatus, ciostatus);
- 
- 	dsi_collect_irq_stats(dsi, irqstatus, vcstatus, ciostatus);
+There are several places in this file having that problem. So it is not new.
+I have sent a fix here:
 
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260629-dsi-uaf-71bfbf3553bf
+https://lore.kernel.org/lkml/20260629-dsi-uaf-v1-1-a5e894f4e4d1@kemnade.info/T/#u
 
-Best regards,
---  
-Andreas Kemnade <andreas@kemnade.info>
-
+Regards,
+Andreas
