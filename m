@@ -4,60 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 246E5C43458
-	for <dri-devel@archiver.kernel.org>; Sun, 28 Jun 2026 23:37:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E147EC43602
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 00:54:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B98010E392;
-	Sun, 28 Jun 2026 23:37:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3050189F4F;
+	Mon, 29 Jun 2026 00:54:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oO3ino49";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BxhvvnVq";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8F6F10E392
- for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 23:37:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EA8D10E38B;
+ Mon, 29 Jun 2026 00:54:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CA8276001D;
- Sun, 28 Jun 2026 23:37:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDF541F000E9;
- Sun, 28 Jun 2026 23:37:28 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7233E6001D;
+ Mon, 29 Jun 2026 00:54:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DA591F000E9;
+ Mon, 29 Jun 2026 00:54:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782689854;
- bh=AsaiapX2vikYIk/w5nfyMPF/cTpFXSz56W7bWM4Pb2M=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=oO3ino49R89n61CsRkBCR9diZ+DKsLiRHMwwMxaYp9HQ173yN75E/utZi7wXI1Zcf
- Q6bczIwGlyrmxzGJocFWVRoqN7oB17NuaydphaHrEIz+kQ7h97Ju7w3e7jpckDEfhg
- ktpRG4kICCVC3V0sbHoXH++Dsog9uBdzBqkuzrpAn4Kw913UmAZWd1hwwv83tc0kkz
- MMTDHUh2jCW9uHlzUzyksf2bAuvZzWfSMSRf58AaaRzD2dtc+qVIPxhR7qgq01N7rJ
- k96hLOo3hvvJ7p9+lkeC5/B1aO/8vwUEvJRI3Km6w9HQuDe4J8rk5+GF0h6OtoJNEE
- s5fOAwSZbkgOw==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 29 Jun 2026 01:37:27 +0200
-Message-Id: <DJL2T5XDC53F.3C2QC5L1V2H6@kernel.org>
-Subject: Re: [PATCH v5 00/20] rust: I/O type generalization and projection
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
- "Robin Murphy" <robin.murphy@arm.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Michal Wilczynski" <m.wilczynski@samsung.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pwm@vger.kernel.org>, "Laura Nao" <laura.nao@collabora.com>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
-In-Reply-To: <20260626-io_projection-v5-0-d0961471ae50@garyguo.net>
+ s=k20260515; t=1782694447;
+ bh=gVEBQQ3Ih68cKsVxljEnf7h6tlE5psA3qhQaUm1QrxA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=BxhvvnVqnme4Rx9S7hySq+PuqWGIAZ52kArdjcKcUAlIsAkhoSNZnCep8tlw0WVMk
+ 3linyT7Xsazmi0MpVRsd/tHyDM07OMKsMm5yCmDAEyZkdnHUYMe58V/aYtIt+Q50Ar
+ MzFQc3eHFoKB116rqHu4G1KAIqMgix569qBqkrmJu50nQDSLTqkKHp35y7kMD0aDSD
+ scZGiZ82GPKi0JZmsIBryK3vRys8CqzrJjyZXcAr9reD4bzr8ua4unHHJ1Fq3L59re
+ Zardu8b5XCnZKOV/RbS9vO1kQEyakOvvFZDOaeEcrwOALDhjhvlmEksyOMF7y3weVM
+ fFwIFuKmx5dGQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, alexander.deucher@amd.com, ray.wu@amd.com,
+ superm1@kernel.org, "Sun peng (Leo) Li" <sunpeng.li@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
+ Peter Jung <admin@ptr1337.dev>
+Subject: Re: [PATCH 7.1.y] drm/amd/display: Fix ISM dc_lock deadlock during
+ suspend
+Date: Sun, 28 Jun 2026 20:54:03 -0400
+Message-ID: <stable-reply-item001-amd-ism-71-20260628203053@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260628140148.59923-1-admin@ptr1337.dev>
+References: <20260628140148.59923-1-admin@ptr1337.dev>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,206 +61,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jun 26, 2026 at 4:45 PM CEST, Gary Guo wrote:
-> This series presents a major rework of I/O types, as a summary:
-
-There are two minor rustdoc warnings:
-
-	warning: unresolved link to `include/linux/iosys-map.h`
-	    --> rust/kernel/io.rs:1456:7
-	     |
-	1456 | /// [`include/linux/iosys-map.h`] in C.
-	     |       ^^^^^^^^^^^^^^^^^^^^^^^^^ no item named `include/linux/iosys-=
-map.h` in scope
-	     |
-	     =3D help: to escape `[` and `]` characters, add '\' before them like =
-`\[` or `\]`
-	     =3D note: `#[warn(rustdoc::broken_intra_doc_links)]` on by default
-=09
-	warning: unresolved link to `View`
-	    --> rust/kernel/io.rs:1620:74
-	     |
-	1620 | /// In addition to projecting from [`Io`], you may also project fro=
-m a [`View`] of an [`Io`].
-	     |                                                                    =
-      ^^^^ no item named `View` in scope
-	     |
-	     =3D help: to escape `[` and `]` characters, add '\' before them like =
-`\[` or `\]`
-=09
-	warning: 2 warnings emitted
-
-> Gary Guo (19):
->       rust: io: add dynamically-sized `Region` type
->       rust: io: add missing safety requirement in `IoCapable` methods
->       rust: io: restrict untyped IO access and `register!` to `Region`
->       rust: io: implement `Io` on reference types instead
->       rust: io: generalize `MmioRaw` to pointer to arbitrary type
->       rust: io: rename `Mmio` to `MmioOwned`
->       rust: io: implement `Mmio` as view type
->       rust: pci: io: make `ConfigSpace` a view
->       rust: io: use view types instead of addresses for `Io`
->       pwm: th1520: remove unnecessary `deref`
->       rust: io: remove `MmioOwned`
->       rust: io: move `Io` methods to extension trait
->       rust: io: add projection macro and methods
->       rust: io: implement a view type for `Coherent`
->       rust: io: add `read_val` and `write_val` functions on `Io`
->       gpu: nova-core: use I/O projection for cleaner encapsulation
->       rust: dma: drop `dma_read!` and `dma_write!` API
->       rust: io: add copying methods
->       rust: io: implement `IoSysMap`
+> From: Ray Wu <ray.wu@amd.com>
 >
-> Laura Nao (1):
->       rust: io: add I/O backend for system memory with volatile access
-
-For sharing with the drm-rust tree:
-
-diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-index 3ee19ef6264e..6868b5d80ab7 100644
---- a/rust/kernel/drm/gem/shmem.rs
-+++ b/rust/kernel/drm/gem/shmem.rs
-@@ -29,9 +29,10 @@
-         to_result, //
-     },
-     io::{
--        Io,
--        IoCapable,
--        IoKnownSize, //
-+        IoBase,
-+        Region,
-+        SysMem,
-+        SysMemBackend, //
-     },
-     prelude::*,
-     scatterlist,
-@@ -467,6 +468,28 @@ pub fn owner(&self) -> &Object<D, C> {
-     }
- }
-
-+impl<'a, D, R, C, const SIZE: usize> IoBase<'a> for &'a VMap<D, R, C, SIZE=
+> [ Upstream commit 3714fe242592e3699ac5e2c19d68b275a210be7d ]
 >
-+where
-+    D: DriverObject,
-+    C: DeviceContext,
-+    R: Deref<Target =3D Object<D, C>>,
-+{
-+    type Backend =3D SysMemBackend;
-+    type Target =3D Region<SIZE>;
-+
-+    #[inline]
-+    fn as_view(self) -> SysMem<'a, Region<SIZE>> {
-+        let ptr =3D Region::ptr_from_raw_parts_mut(self.addr.cast(), self.=
-owner.size());
-+
-+        // SAFETY: Per type invariants of `VMap`:
-+        // - `addr .. addr + owner.size()` is a valid kernel accessible me=
-mory region.
-+        // - `addr` is page-aligned, which satisfies `Region`'s 4-byte ali=
-gnment requirement.
-+        // - The memory remains valid until this `VMap` is dropped; since =
-`self` is `&'a VMap`,
-+        //   the borrow prevents the `VMap` from being dropped for the lif=
-etime `'a`.
-+        unsafe { SysMem::new(ptr) }
-+    }
-+}
-+
- impl<D, R, C, const SIZE: usize> Drop for VMap<D, R, C, SIZE>
- where
-     D: DriverObject,
-@@ -508,69 +531,6 @@ unsafe impl<D, R, C, const SIZE: usize> Sync for VMap<=
-D, R, C, SIZE>
- {
- }
+> CachyOS users reported a regression in shutdown/reboot behavior on 7.1
+> kernels: the display turns off, but the machine does not power down.
+> Reverting ISM fixes the regression, and this upstream fix addresses the
+> same ISM dc_lock/workqueue deadlock in the suspend/shutdown paths.
 
--impl<D, R, C, const SIZE: usize> Io for VMap<D, R, C, SIZE>
--where
--    D: DriverObject,
--    C: DeviceContext,
--    R: Deref<Target =3D Object<D, C>>,
--{
--    #[inline]
--    fn addr(&self) -> usize {
--        self.addr as usize
--    }
--
--    #[inline]
--    fn maxsize(&self) -> usize {
--        self.owner.size()
--    }
--}
--
--impl<D, R, C, const SIZE: usize> IoKnownSize for VMap<D, R, C, SIZE>
--where
--    D: DriverObject,
--    C: DeviceContext,
--    R: Deref<Target =3D Object<D, C>>,
--{
--    const MIN_SIZE: usize =3D SIZE;
--}
--
--macro_rules! impl_vmap_io_capable {
--    ($ty:ty) =3D> {
--        impl<D, R, C, const SIZE: usize> IoCapable<$ty> for VMap<D, R, C, =
-SIZE>
--        where
--            D: DriverObject,
--            C: DeviceContext,
--            R: Deref<Target =3D Object<D, C>>,
--        {
--            #[inline]
--            unsafe fn io_read(&self, address: usize) -> $ty {
--                let ptr =3D address as *mut $ty;
--
--                // SAFETY: The safety contract of `io_read` guarantees tha=
-t address is a valid
--                // address within the bounds of `Self` of at least the siz=
-e of $ty, and is properly
--                // aligned.
--                unsafe { ptr::read_volatile(ptr) }
--            }
--
--            #[inline]
--            unsafe fn io_write(&self, value: $ty, address: usize) {
--                let ptr =3D address as *mut $ty;
--
--                // SAFETY: The safety contract of `io_write` guarantees th=
-at address is a valid
--                // address within the bounds of `Self` of at least the siz=
-e of $ty, and is properly
--                // aligned.
--                unsafe { ptr::write_volatile(ptr, value) }
--            }
--        }
--    };
--}
--
--impl_vmap_io_capable!(u8);
--impl_vmap_io_capable!(u16);
--impl_vmap_io_capable!(u32);
--#[cfg(CONFIG_64BIT)]
--impl_vmap_io_capable!(u64);
--
- /// A reference to a GEM object that is known to have a mapped [`SGTable`]=
-.
- ///
- /// This is used by the Rust bindings with [`Devres`] in order to ensure t=
-hat mappings for SGTables
-@@ -638,6 +598,7 @@ mod tests {
-             UnregisteredDevice, //
-         },
-         faux,
-+        io::Io,
-         page::PAGE_SIZE, //
-     };
+Queued for 7.1, thanks.
 
-@@ -714,7 +675,7 @@ fn compile_time_vmap_sizes() -> Result {
-         assert!(ptr::eq(vmap.owner(), obj.deref()));
-
-         // Verify the max size matches the actual object size
--        assert_eq!(vmap.maxsize(), PAGE_SIZE);
-+        assert_eq!(vmap.size(), PAGE_SIZE);
-
-         // Make sure creating a vmap that's too large fails
-         assert!(obj.vmap::<{ PAGE_SIZE + 200 }>().is_err());
+-- 
+Thanks,
+Sasha
