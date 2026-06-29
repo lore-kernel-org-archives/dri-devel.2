@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DC56C43602
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:17:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09F44C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 08:18:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D2E010E756;
-	Mon, 29 Jun 2026 08:17:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5002310E74E;
+	Mon, 29 Jun 2026 08:18:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DHznonAk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DIUiXJwT";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 860E610E740
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:17:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA33710E740
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:17:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 093A06001D;
- Mon, 29 Jun 2026 08:17:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C3661F000E9;
- Mon, 29 Jun 2026 08:17:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 14A93600B0;
+ Mon, 29 Jun 2026 08:17:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4730E1F000E9;
+ Mon, 29 Jun 2026 08:17:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782721066;
- bh=xJ9YLAOi6cvhXhZjm2sovtV7w90aXE2ZF+4WAZnfUeU=;
+ s=k20260515; t=1782721073;
+ bh=KwZT9hl/KfB+jYFDcjHcN5f7n7bsXlEq59U5hO7dKJU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=DHznonAky+GZMqkamtbXYgB5CN5rKl4T5L4ezRLGKvQxFDXAwncFerDA4vlRx6B74
- XFjy6UloMBy2dkdU19U23cTauVQsJjFDSAIyRplKH21Y48PG8VQNDEBMEle+5vIARV
- 1jYuCPBQV6Xbw7bdGVtf4bQtLJtn5ieaIeUyHL9LIYk2xxPBEQI3+qibjzv/kLwme7
- W2gAbQes22Zq01k/AwAKcQMHy/gLKjcyA2YwN1VsPDugl1foONbidjKu8ogL0G6VRW
- oyYTKYrs+JjBW2H/Nm6l62shYYJjX5bvw3eb1y+iU7PDefyjN4jBzEQYKFpynoAhgR
- JcIrimLWspJqA==
+ b=DIUiXJwTxBbdT9LXx6fN+8Yo2Od/h0QGlL6+wyFSauISNeQyI7LyYKtROI56xJiu/
+ j1nkuyHv0NlR9VErQ6Wxg+ZcH892I0QlKaAQpVABx9MjTSKJ/GDvXpND0RLqEkY5qL
+ aWIrx5yZZRbLUtwulXwTPXl9D5vb7mgC0tnLogesJ5ecmLPJ7Qk8crresS2K3MroeV
+ 3+EwTxPF6U1bm7PkbxSbta8eHQLCMzfz5ERJ0x8FrKT9Fu2popGjVdYVXVpm732UTA
+ K3n6qEgjMwQG1pKU3hMaGCQBw/YhmpFgrjGAbxQZxEzQqDz1own+7V3qJu7/9sHaWY
+ WTaY7upIGHm4w==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 29 Jun 2026 10:17:09 +0200
-Subject: [PATCH v4 11/30] drm/atomic_sro: Create kernel parameter to force
- or disable readout
+Date: Mon, 29 Jun 2026 10:17:12 +0200
+Subject: [PATCH v4 14/30] drm/atomic_sro: Create documentation
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260629-drm-state-readout-v4-11-5966657980ed@kernel.org>
+Message-Id: <20260629-drm-state-readout-v4-14-5966657980ed@kernel.org>
 References: <20260629-drm-state-readout-v4-0-5966657980ed@kernel.org>
 In-Reply-To: <20260629-drm-state-readout-v4-0-5966657980ed@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -50,14 +49,14 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  lidrm_printf_indentnux-kernel@vger.kernel.org, 
- Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>
+ Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2924; i=mripard@kernel.org;
- h=from:subject:message-id; bh=jIqrg8VEoNDWgJogPGgR92xvAgyoJDE9udAbdeWe5Ko=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlOWqzb+cMnu9Utnr9i6cwLTSfXde095VTy//CCtdsqg
- 3j95V9d75jKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATKYxhbJg6/fEZ34O7Fd7N
- uSivmVW2U8TI8e4duX/XDI4XrbRh3h21YO471/aLBot7Fkt3TNNN0mOsd64uen5QYfuC70WzJ9S
- GaXcen33FdF7sj29MLE3n/X5wzbiwf7OjeO7aKysXvci0YRCcAAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2670; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=04iiJDZg8Y3shr225hJ5LraTfnhSxL0+W1zMmHBJXyo=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlOWmx5XTlh210WOj6MWLRDvcKJf+5Nr7Im5v7J4vLl5
+ tuDPld0TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgIlE1TJWs7bee/jPlH/+/pV9
+ Rb0uBjKJ0zwOmV7f+WX75xCpZSdWFr5e9yP73JqtYUn8YbtctlwVZGzYdPqQZJPIioBuuXC5zYf
+ mfQ3dx3h0Q9hEQe2jokn1/OVOJs3equwmgltX7anYu0f8qgYA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,90 +74,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The hardware state readout is useful, but might need to be disabled
-in case of bugs, or its checks relaxed during development when not
-all hooks are implemented yet.
+The SRO infrastructure has grown to span multiple files and hooks
+but lacks an overview section explaining the overall design and how
+drivers should integrate with it.
 
-Add a module parameter to control the readout behavior: it can be
-disabled entirely, or the checks for missing compare or readout hooks
-can be skipped independently.
+Add a DOC: overview section to drm_atomic_sro.c describing the various
+SRO phases and how drivers wire up the callbacks.
 
-Suggested-by: Simona Vetter <simona@ffwll.ch>
-Reviewed-by: Simona Vetter <simona.vetter@ffwll.ch>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic_sro.c | 36 ++++++++++++++++++++++++++++++++++++
- include/drm/drm_atomic_sro.h     |  2 ++
- 2 files changed, 38 insertions(+)
+ drivers/gpu/drm/drm_atomic_sro.c | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_atomic_sro.c b/drivers/gpu/drm/drm_atomic_sro.c
-index 177b97d451f5..28beba4de0ce 100644
+index 0c63f880002d..1243046dbfb0 100644
 --- a/drivers/gpu/drm/drm_atomic_sro.c
 +++ b/drivers/gpu/drm/drm_atomic_sro.c
-@@ -11,10 +11,46 @@
+@@ -12,10 +12,44 @@
  #include <linux/module.h>
  
  #include "drm_internal.h"
  #include "drm_crtc_internal.h"
  
-+enum drm_atomic_readout_status {
-+	DRM_ATOMIC_READOUT_DISABLED = 0,
-+	DRM_ATOMIC_READOUT_ENABLED,
-+	DRM_ATOMIC_READOUT_SKIP_MISSING_COMPARE,
-+	DRM_ATOMIC_READOUT_SKIP_MISSING_READOUT,
-+};
-+
-+static unsigned int atomic_readout = DRM_ATOMIC_READOUT_ENABLED;
-+module_param_unsafe(atomic_readout, uint, 0400);
-+MODULE_PARM_DESC(atomic_readout,
-+		 "Enable Hardware State Readout (0 = disabled, 1 = enabled, 2 = ignore missing compares, 3 = ignore missing readouts and compares, default = 1)");
-+
 +/**
-+ * drm_atomic_sro_device_can_readout - check if a device supports hardware state readout
-+ * @dev: DRM device to check
++ * DOC: overview
 + *
-+ * Verifies that the device is an atomic driver, that readout is
-+ * enabled, and that all KMS objects implement the relevant hooks.
++ * The atomic State Read-Out (SRO) infrastructure allows drivers to
++ * initialize the KMS atomic state from the hardware state left by the
++ * firmware at boot, rather than programming a new state. This enables
++ * flicker-free boot (also called "fastboot" by i915): if the
++ * firmware already configured the display, the first userspace
++ * modeset can be skipped when the requested mode matches.
 + *
-+ * RETURNS:
++ * The SRO lifecycle has two phases. The first phase is the readout
++ * itself: at driver registration time, each KMS object (CRTCs, planes,
++ * connectors, bridges, private objects) has its
++ * atomic_sro_readout_state hook called to populate a
++ * &struct drm_atomic_sro_state from hardware registers.
 + *
-+ * True if the device supports full hardware state readout, false
-+ * otherwise.
++ * The second phase is the installation. Once all states have been read
++ * out, drm_atomic_sro_install_state() walks through the
++ * &struct drm_atomic_sro_state and assigns each readout state as the
++ * object's current state. Before doing so, it calls the optional
++ * atomic_sro_install_state hook on each object. This gives drivers a
++ * chance to acquire the resources needed to keep the hardware state
++ * active, such as power domains, clocks, or interrupts. This hook
++ * cannot fail.
++ *
++ * Drivers integrate with SRO by implementing the readout and compare
++ * hooks in their object funcs vtables and setting the
++ * &drm_mode_config_funcs.atomic_sro_readout_state and
++ * &drm_mode_config_helper_funcs.atomic_sro_build_state callbacks. The
++ * default helpers drm_atomic_helper_sro_readout_state() and
++ * drm_atomic_helper_sro_build_state() handle the standard readout
++ * sequence.
 + */
-+bool drm_atomic_sro_device_can_readout(struct drm_device *dev)
-+{
-+	if (!drm_drv_uses_atomic_modeset(dev))
-+		return false;
 +
-+	if (atomic_readout == DRM_ATOMIC_READOUT_DISABLED)
-+		return false;
-+
-+	return true;
-+}
-+EXPORT_SYMBOL(drm_atomic_sro_device_can_readout);
-+
- struct __drm_atomic_sro_plane {
- 	struct drm_plane *ptr;
- 	struct drm_plane_state *state;
- };
- 
-diff --git a/include/drm/drm_atomic_sro.h b/include/drm/drm_atomic_sro.h
-index 5a9333a05796..6e5262384c71 100644
---- a/include/drm/drm_atomic_sro.h
-+++ b/include/drm/drm_atomic_sro.h
-@@ -13,10 +13,12 @@ struct drm_plane;
- struct drm_plane_state;
- struct drm_printer;
- struct drm_private_obj;
- struct drm_private_state;
- 
-+bool drm_atomic_sro_device_can_readout(struct drm_device *dev);
-+
- struct drm_atomic_sro_state *drm_atomic_sro_state_alloc(struct drm_device *dev);
- void drm_atomic_sro_state_free(struct drm_atomic_sro_state *state);
- void drm_atomic_sro_state_print(const struct drm_atomic_sro_state *state,
- 				struct drm_printer *p);
- 
+ enum drm_atomic_readout_status {
+ 	DRM_ATOMIC_READOUT_DISABLED = 0,
+ 	DRM_ATOMIC_READOUT_ENABLED,
+ 	DRM_ATOMIC_READOUT_SKIP_MISSING_COMPARE,
+ 	DRM_ATOMIC_READOUT_SKIP_MISSING_READOUT,
 
 -- 
 2.54.0
