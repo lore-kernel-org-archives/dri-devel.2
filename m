@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F401FC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 07:08:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C49C8C43327
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 07:08:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9ED7810E70B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C26F10E70A;
 	Mon, 29 Jun 2026 07:08:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gurudas.dev header.i=@gurudas.dev header.b="g8g5D1EN";
+	dkim=pass (2048-bit key; secure) header.d=gurudas.dev header.i=@gurudas.dev header.b="IK8TBh20";
 	dkim-atps=neutral
-Received: from out-03.smtp.spacemail.com (out-03.smtp.spacemail.com
- [63.250.43.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DEDC10E002
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 03:45:04 +0000 (UTC)
+X-Greylist: delayed 376 seconds by postgrey-1.36 at gabe;
+ Mon, 29 Jun 2026 03:45:02 UTC
+Received: from out-12.smtp.spacemail.com (out-12.smtp.spacemail.com
+ [198.54.127.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 629E810E002
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 03:45:02 +0000 (UTC)
 Received: from [192.168.1.96] (107-194-158-19.lightspeed.sntcca.sbcglobal.net
  [107.194.158.19])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mail.spacemail.com (Postfix) with ESMTPSA id 4gpX745lPmz8sb8;
- Mon, 29 Jun 2026 03:38:24 +0000 (UTC)
+ by mail.spacemail.com (Postfix) with ESMTPSA id 4gpX7P59qNz8sbj;
+ Mon, 29 Jun 2026 03:38:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gurudas.dev;
- s=spacemail; t=1782704306;
- bh=9yoPMHqZhzE3iqqcnolBlcsUAlSSjRhy9gREnWpZKGs=;
- h=From:Subject:Date:To:Cc:From;
- b=g8g5D1ENhx0FQXYOE+JOzorI+irSq/d4W2LRj/WFMzmT6KCIBS7JXZnh9ShOgGvNZ
- aszSMWYS/ub/pIKYTwqrIon+1uEFqma6r0HBSn5ixt8jZHDbtLJAJAgazxD7fgzEvp
- kSXsX2UHXYI+HFz5zqXxa2EzMqpV4UuVs3AI/aGF93KLqj93boQneIElJUHAHncIVI
- 3vVp7mGhu/nm8AfBxKI50mwA+0/XUsg2ZFMlSZvNy7WixAEk1oNp1h4/QwPHWDPPca
- V5Gwm64Bne8LdzuTHGjEOhJy+S3uOPsnvXG4IyE1GsodIRiBDNDOlIa24h9pYwadjK
- CKuYevZSxFVRQ==
+ s=spacemail; t=1782704324;
+ bh=jKx+94n82aR0aGPCo9y8gNwhGoiI7gsWMuBc5ujvVUw=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=IK8TBh20FCaBU8hFE79rDS1IeLvUpmNeCrw1Xd/aj5CmfYaTmvloJz6AXTa8HAIFS
+ kGP9eqO+IXWFu5ldt1V5SUuyTagyiqAl+5AKruDwebOg5E1gf2iFIKx8ojXCS5CmFW
+ ABawlfgtTdXozg5f4yPPc+oF5Qmhhud6oDvUyvRbespTxwCa5/tak5hZlxH+yzoohL
+ 9hfkhZUFjHej2hQNNmjGkzHYxmnWOwEIOmwMi/Vq8rqE30d/SeQmb4dup9V1hVfRQV
+ CQ7AEOZKORM64XTLXgFWxzHQPrXbrC9eNiDqL9u7+D0Lt0ALP0jZN84WzoTbSRzsqb
+ XxS+9tq6GQdRw==
 From: Guru Das Srinagesh <linux@gurudas.dev>
-Subject: [PATCH 0/7] rust: Use kernel style vertical imports in various drivers
-Date: Sun, 28 Jun 2026 20:38:14 -0700
-Message-Id: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev>
+Date: Sun, 28 Jun 2026 20:38:21 -0700
+Subject: [PATCH 7/7] drm/nova: use vertical import style
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QqCQBCF4VeRuW7AFtmsV4kudD3mRKnMrCKI7
- +6alx+H869kUIHRI1tJMYvJ0CdcLxmFrurfYGmSyeXO596VXBesk0WeoVFC9WX5jYNGS4MHfHD
- F7d5Suo+KVpZ/+vk6bVP9QYhHj7ZtB0PCpC58AAAA
-X-Change-ID: 20260628-b4-rust-vertical-imports-b46ee6c2479f
+Message-Id: <20260628-b4-rust-vertical-imports-v1-7-98bc71d4810b@gurudas.dev>
+References: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev>
+In-Reply-To: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org, 
  linux-kernel@vger.kernel.org
 Cc: Danilo Krummrich <dakr@kernel.org>, 
@@ -91,36 +91,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Came across a recent commit bc58905eb07 ("samples: rust_misc_device: use
-vertical import style") and found a few more locations that could
-benefit from this cleanup. No functional changes.
+Convert `use` imports to vertical layout for better readability and
+maintainability.
 
 Signed-off-by: Guru Das Srinagesh <linux@gurudas.dev>
 ---
-Guru Das Srinagesh (7):
-      samples: rust_dma: use vertical import style
-      pwm: th1520: use vertical import style
-      cpufreq: rcpufreq_dt: use vertical import style
-      block: rnull: use vertical import style
-      net: phy: ax88796b: use vertical import style
-      net: phy: qt2025: use vertical import style
-      drm/nova: use vertical import style
+ drivers/gpu/drm/nova/file.rs | 5 ++++-
+ drivers/gpu/drm/nova/gem.rs  | 6 +++++-
+ 2 files changed, 9 insertions(+), 2 deletions(-)
 
- drivers/block/rnull/configfs.rs  | 20 ++++++++++++++++----
- drivers/block/rnull/rnull.rs     | 13 ++++++++++---
- drivers/cpufreq/rcpufreq_dt.rs   |  5 ++++-
- drivers/gpu/drm/nova/file.rs     |  5 ++++-
- drivers/gpu/drm/nova/gem.rs      |  6 +++++-
- drivers/net/phy/ax88796b_rust.rs |  7 ++++++-
- drivers/net/phy/qt2025.rs        | 10 ++++++++--
- drivers/pwm/pwm_th1520.rs        |  6 +++++-
- samples/rust/rust_dma.rs         |  5 ++++-
- 9 files changed, 62 insertions(+), 15 deletions(-)
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260628-b4-rust-vertical-imports-b46ee6c2479f
+diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
+index a3b7bd36792c..9a1404a7a687 100644
+--- a/drivers/gpu/drm/nova/file.rs
++++ b/drivers/gpu/drm/nova/file.rs
+@@ -4,7 +4,10 @@
+ use crate::gem::NovaObject;
+ use kernel::{
+     alloc::flags::*,
+-    drm::{self, gem::BaseObject},
++    drm::{
++        self,
++        gem::BaseObject, //
++    },
+     pci,
+     prelude::*,
+     uapi,
+diff --git a/drivers/gpu/drm/nova/gem.rs b/drivers/gpu/drm/nova/gem.rs
+index 9d8ff7de2c0f..f6bc7fdee732 100644
+--- a/drivers/gpu/drm/nova/gem.rs
++++ b/drivers/gpu/drm/nova/gem.rs
+@@ -2,7 +2,11 @@
+ 
+ use kernel::{
+     drm,
+-    drm::{gem, gem::BaseObject, DeviceContext},
++    drm::{
++        gem,
++        gem::BaseObject,
++        DeviceContext, //
++    },
+     page,
+     prelude::*,
+     sync::aref::ARef,
 
-Best regards,
---  
-Guru Das Srinagesh <linux@gurudas.dev>
+-- 
+2.54.0
 
