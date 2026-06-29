@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4A2AC43638
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:25:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A48CC43602
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:25:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3DFB10E886;
-	Mon, 29 Jun 2026 12:25:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51E3710E887;
+	Mon, 29 Jun 2026 12:25:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jdGf9jH9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fy5hgPIF";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9235110E870;
- Mon, 29 Jun 2026 12:24:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F71810E876;
+ Mon, 29 Jun 2026 12:25:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 76CF743E4E;
- Mon, 29 Jun 2026 12:24:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A3A41F00A3D;
- Mon, 29 Jun 2026 12:24:51 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 29A9E4094E;
+ Mon, 29 Jun 2026 12:25:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DE591F000E9;
+ Mon, 29 Jun 2026 12:25:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782735892;
- bh=+tfecYI3iCL9+dzv6JtnQtpRoRey92E96q+WqEoW8Sw=;
+ s=k20260515; t=1782735916;
+ bh=wZLLn6w5tKaY1nW+KkITtgwyfLONnb8tW4SFWVp8Sgg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=jdGf9jH9adsBJRms93JJP2hO4xGy6V0e5hV2nXk2WS0hZ2yJvg9go1tFLhsAXUrnd
- D1dST5LU5l7l/ozI1VERvCoxX9njVJSdFvvIaWCvBDsDWfzkGyRiq325cmVLrry1Zy
- ws0snYdC7Z709CZvZySt0/MydVXYxo6HK0m+11iIQmh+aUD5W6SCmgucHBfO/XgDSB
- dWPU0haqhNHmmmg7aldX6EIdMkp7hJzh0g+78x/8Knt2+ALN7yHG00bcvR6zhVKvcQ
- rMq/f+Xh9kkJlTpeda7U2Jpw4Ur9pBeReuM1xj9AfSoMAEC/ukDTYL0C2FbWs+cPhH
- PIRri4XkVH9Eg==
+ b=fy5hgPIFV0OpgIW/0nPU7jLTQ8rPiZ8dM8upySZALILoZhYgNzHuFDpmCfg6JWomN
+ G0HPTvmQAFebwcgjThqux4FlQ+/BO6XRgEJbIwamZ24hcP+1wgCRotnYnKflTBCJJR
+ bpGhjvShcYRZylRyaqINKKmzKch04WcHFUPyws35pHkGRTjBHPqVgAeat0g2pBE/j8
+ o1t2l+K+FKK1VISsw0FzfZNZrSQzaWBl/42hcRwpcZICvBxv/Xy4PrKx39z5FkfqVd
+ TvkRJba6GypFsA0LGOL+E2NStUyXgzGuaEDWg150uHCn9m0SJvxjVby4OswnV+cS8a
+ lxabVOtJQBhVA==
 From: Lorenzo Stoakes <ljs@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
@@ -80,9 +80,9 @@ Cc: Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
  damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
  Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
  Jann Horn <jannh@google.com>
-Subject: [PATCH 19/30] mm: use linear_page_[index, delta]() consistently
-Date: Mon, 29 Jun 2026 13:23:30 +0100
-Message-ID: <bf56e2e98b512962a2fb88900d535a0e9e6769d8.1782735110.git.ljs@kernel.org>
+Subject: [PATCH 27/30] mm/vma: correct incorrect vma.h inclusion
+Date: Mon, 29 Jun 2026 13:23:38 +0100
+Message-ID: <22d0f4e3fe11f6fd1312734e242d008267ad142c.1782735110.git.ljs@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1782735110.git.ljs@kernel.org>
 References: <cover.1782735110.git.ljs@kernel.org>
@@ -103,298 +103,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-There are a number of places where we open code what linear_page_index()
-and linear_page_delta() calculate.
+The only files which should be including vma.h are the implementation files
+for the core VMA logic - vma.c, vma_init.c, and vma_exec.c.
 
-Replace this code with the appropriate functions for consistency.
+This is in order to allow for userland testing of core VMA logic. In this
+cases, vma_internal.h and vma.h are included, providing both the
+dependencies upon which the core VMA logic requires and its declarations.
+
+Userland testable VMA logic is achieved by having separate vma_internal.h
+implementations for userland and kernel.
+
+Callers other than the core VMA implementation should include internal.h
+instead. This header does not need to include vma_internal.h as it only
+contains the vma.h declarations, for which the includes already present
+suffice.
+
+Update code to reflect this, update comments to reflect the fact there are
+3 VMA implementation files and document things more clearly.
+
+While we're here, slightly improve the language of the comment describing
+vma_exec.c.
 
 No functional change intended.
 
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- arch/arm/mm/fault-armv.c              | 2 +-
- arch/x86/kernel/cpu/sgx/virt.c        | 3 ++-
- drivers/comedi/comedi_fops.c          | 3 ++-
- drivers/gpu/drm/etnaviv/etnaviv_gem.c | 3 ++-
- drivers/gpu/drm/gma500/gem.c          | 2 +-
- drivers/gpu/drm/msm/msm_gem.c         | 3 ++-
- drivers/gpu/drm/omapdrm/omap_gem.c    | 5 +++--
- drivers/gpu/drm/tegra/gem.c           | 3 ++-
- drivers/gpu/drm/ttm/ttm_bo_vm.c       | 7 ++++---
- drivers/vfio/pci/nvgrace-gpu/main.c   | 3 ++-
- drivers/vfio/pci/vfio_pci_core.c      | 3 ++-
- mm/nommu.c                            | 2 +-
- mm/vma.c                              | 2 +-
- virt/kvm/guest_memfd.c                | 2 +-
- 14 files changed, 26 insertions(+), 17 deletions(-)
+ mm/mmu_notifier.c | 2 +-
+ mm/nommu.c        | 1 -
+ mm/vma.c          | 4 ++++
+ mm/vma.h          | 9 ++++++++-
+ mm/vma_exec.c     | 8 ++++++--
+ mm/vma_init.c     | 4 ++++
+ mm/vma_internal.h | 4 ++--
+ 7 files changed, 25 insertions(+), 7 deletions(-)
 
-diff --git a/arch/arm/mm/fault-armv.c b/arch/arm/mm/fault-armv.c
-index bd1ad4181a53..306cfd7b0765 100644
---- a/arch/arm/mm/fault-armv.c
-+++ b/arch/arm/mm/fault-armv.c
-@@ -132,7 +132,7 @@ make_coherent(struct address_space *mapping, struct vm_area_struct *vma,
- 	pgoff_t pgoff;
- 	int aliases = 0;
- 
--	pgoff = vma->vm_pgoff + ((addr - vma->vm_start) >> PAGE_SHIFT);
-+	pgoff = linear_page_index(vma, addr);
- 
- 	/*
- 	 * If we have any shared mappings that are in the same mm
-diff --git a/arch/x86/kernel/cpu/sgx/virt.c b/arch/x86/kernel/cpu/sgx/virt.c
-index db6806c40483..6a1933ddc6fc 100644
---- a/arch/x86/kernel/cpu/sgx/virt.c
-+++ b/arch/x86/kernel/cpu/sgx/virt.c
-@@ -9,6 +9,7 @@
- #include <linux/miscdevice.h>
- #include <linux/mm.h>
- #include <linux/mman.h>
-+#include <linux/pagemap.h>
+diff --git a/mm/mmu_notifier.c b/mm/mmu_notifier.c
+index 245b74f39f91..df69ba6e797f 100644
+--- a/mm/mmu_notifier.c
++++ b/mm/mmu_notifier.c
+@@ -19,7 +19,7 @@
  #include <linux/sched/mm.h>
- #include <linux/sched/signal.h>
  #include <linux/slab.h>
-@@ -41,7 +42,7 @@ static int __sgx_vepc_fault(struct sgx_vepc *vepc,
- 	WARN_ON(!mutex_is_locked(&vepc->lock));
  
- 	/* Calculate index of EPC page in virtual EPC's page_array */
--	index = vma->vm_pgoff + PFN_DOWN(addr - vma->vm_start);
-+	index = linear_page_index(vma, addr);
+-#include "vma.h"
++#include "internal.h"
  
- 	epc_page = xa_load(&vepc->page_array, index);
- 	if (epc_page)
-diff --git a/drivers/comedi/comedi_fops.c b/drivers/comedi/comedi_fops.c
-index c09bbe04be6c..536c25d8dcee 100644
---- a/drivers/comedi/comedi_fops.c
-+++ b/drivers/comedi/comedi_fops.c
-@@ -25,6 +25,7 @@
- #include <linux/fs.h>
- #include <linux/comedi/comedidev.h>
- #include <linux/cdev.h>
-+#include <linux/pagemap.h>
- 
- #include <linux/io.h>
- #include <linux/uaccess.h>
-@@ -2462,7 +2463,7 @@ static int comedi_vm_access(struct vm_area_struct *vma, unsigned long addr,
- {
- 	struct comedi_buf_map *bm = vma->vm_private_data;
- 	unsigned long offset =
--	    addr - vma->vm_start + (vma->vm_pgoff << PAGE_SHIFT);
-+	    addr - vma->vm_start + (vma_start_pgoff(vma) << PAGE_SHIFT);
- 
- 	if (len < 0)
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-index b0436a1e103f..2e4d6d117ee2 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-@@ -6,6 +6,7 @@
- #include <drm/drm_prime.h>
- #include <drm/drm_print.h>
- #include <linux/dma-mapping.h>
-+#include <linux/pagemap.h>
- #include <linux/shmem_fs.h>
- #include <linux/spinlock.h>
- #include <linux/vmalloc.h>
-@@ -188,7 +189,7 @@ static vm_fault_t etnaviv_gem_fault(struct vm_fault *vmf)
- 	}
- 
- 	/* We don't use vmf->pgoff since that has the fake offset: */
--	pgoff = (vmf->address - vma->vm_start) >> PAGE_SHIFT;
-+	pgoff = linear_page_delta(vma, vmf->address);
- 
- 	pfn = page_to_pfn(pages[pgoff]);
- 
-diff --git a/drivers/gpu/drm/gma500/gem.c b/drivers/gpu/drm/gma500/gem.c
-index 88f1e86c8903..2708e8c68f4c 100644
---- a/drivers/gpu/drm/gma500/gem.c
-+++ b/drivers/gpu/drm/gma500/gem.c
-@@ -288,7 +288,7 @@ static vm_fault_t psb_gem_fault(struct vm_fault *vmf)
- 
- 	/* Page relative to the VMA start - we must calculate this ourselves
- 	   because vmf->pgoff is the fake GEM offset */
--	page_offset = (vmf->address - vma->vm_start) >> PAGE_SHIFT;
-+	page_offset = linear_page_delta(vma, vmf->address);
- 
- 	/* CPU view of the page, don't go via the GART for CPU writes */
- 	if (pobj->stolen)
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index efd3d3c9a449..cbf723a5d86f 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -9,6 +9,7 @@
- #include <linux/spinlock.h>
- #include <linux/shmem_fs.h>
- #include <linux/dma-buf.h>
-+#include <linux/pagemap.h>
- 
- #include <drm/drm_dumb_buffers.h>
- #include <drm/drm_prime.h>
-@@ -360,7 +361,7 @@ static vm_fault_t msm_gem_fault(struct vm_fault *vmf)
- 	}
- 
- 	/* We don't use vmf->pgoff since that has the fake offset: */
--	pgoff = (vmf->address - vma->vm_start) >> PAGE_SHIFT;
-+	pgoff = linear_page_delta(vma, vmf->address);
- 
- 	pfn = page_to_pfn(pages[pgoff]);
- 
-diff --git a/drivers/gpu/drm/omapdrm/omap_gem.c b/drivers/gpu/drm/omapdrm/omap_gem.c
-index 8e013e4f2c6b..00404fb6c29a 100644
---- a/drivers/gpu/drm/omapdrm/omap_gem.c
-+++ b/drivers/gpu/drm/omapdrm/omap_gem.c
-@@ -5,6 +5,7 @@
-  */
- 
- #include <linux/dma-mapping.h>
-+#include <linux/pagemap.h>
- #include <linux/seq_file.h>
- #include <linux/shmem_fs.h>
- #include <linux/spinlock.h>
-@@ -359,7 +360,7 @@ static vm_fault_t omap_gem_fault_1d(struct drm_gem_object *obj,
- 	pgoff_t pgoff;
- 
- 	/* We don't use vmf->pgoff since that has the fake offset: */
--	pgoff = (vmf->address - vma->vm_start) >> PAGE_SHIFT;
-+	pgoff = linear_page_delta(vma, vmf->address);
- 
- 	if (omap_obj->pages) {
- 		omap_gem_cpu_sync_page(obj, pgoff);
-@@ -407,7 +408,7 @@ static vm_fault_t omap_gem_fault_2d(struct drm_gem_object *obj,
- 	const int m = DIV_ROUND_UP(omap_obj->width << fmt, PAGE_SIZE);
- 
- 	/* We don't use vmf->pgoff since that has the fake offset: */
--	pgoff = (vmf->address - vma->vm_start) >> PAGE_SHIFT;
-+	pgoff = linear_page_delta(vma, vmf->address);
- 
- 	/*
- 	 * Actual address we start mapping at is rounded down to previous slot
-diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
-index 436394e04812..1d8d27a5ea89 100644
---- a/drivers/gpu/drm/tegra/gem.c
-+++ b/drivers/gpu/drm/tegra/gem.c
-@@ -13,6 +13,7 @@
- #include <linux/dma-buf.h>
- #include <linux/iommu.h>
- #include <linux/module.h>
-+#include <linux/pagemap.h>
- #include <linux/vmalloc.h>
- 
- #include <drm/drm_drv.h>
-@@ -564,7 +565,7 @@ static vm_fault_t tegra_bo_fault(struct vm_fault *vmf)
- 	if (!bo->pages)
- 		return VM_FAULT_SIGBUS;
- 
--	offset = (vmf->address - vma->vm_start) >> PAGE_SHIFT;
-+	offset = linear_page_delta(vma, vmf->address);
- 	page = bo->pages[offset];
- 
- 	return vmf_insert_page(vma, vmf->address, page);
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-index a80510489c45..88babf435ac2 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-@@ -32,6 +32,7 @@
- #define pr_fmt(fmt) "[TTM] " fmt
- 
- #include <linux/export.h>
-+#include <linux/pagemap.h>
- 
- #include <drm/ttm/ttm_bo.h>
- #include <drm/ttm/ttm_placement.h>
-@@ -208,9 +209,9 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
- 	if (unlikely(err != 0))
- 		return VM_FAULT_SIGBUS;
- 
--	page_offset = ((address - vma->vm_start) >> PAGE_SHIFT) +
--		vma->vm_pgoff - drm_vma_node_start(&bo->base.vma_node);
--	page_last = vma_pages(vma) + vma->vm_pgoff -
-+	page_offset = linear_page_index(vma, address) -
-+		drm_vma_node_start(&bo->base.vma_node);
-+	page_last = vma_end_pgoff(vma) -
- 		drm_vma_node_start(&bo->base.vma_node);
- 
- 	if (unlikely(page_offset >= PFN_UP(bo->base.size)))
-diff --git a/drivers/vfio/pci/nvgrace-gpu/main.c b/drivers/vfio/pci/nvgrace-gpu/main.c
-index d07dcacb76bd..963fd8ded20d 100644
---- a/drivers/vfio/pci/nvgrace-gpu/main.c
-+++ b/drivers/vfio/pci/nvgrace-gpu/main.c
-@@ -11,6 +11,7 @@
- #include <linux/jiffies.h>
- #include <linux/sched.h>
- #include <linux/pci-p2pdma.h>
-+#include <linux/pagemap.h>
- #include <linux/pm_runtime.h>
- #include <linux/memory-failure.h>
- 
-@@ -385,7 +386,7 @@ static unsigned long addr_to_pgoff(struct vm_area_struct *vma,
- 	u64 pgoff = vma->vm_pgoff &
- 		((1U << (VFIO_PCI_OFFSET_SHIFT - PAGE_SHIFT)) - 1);
- 
--	return ((addr - vma->vm_start) >> PAGE_SHIFT) + pgoff;
-+	return linear_page_delta(vma, addr) + pgoff;
- }
- 
- static vm_fault_t nvgrace_gpu_vfio_pci_huge_fault(struct vm_fault *vmf,
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index a28f1e99362c..55d4937d495a 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -19,6 +19,7 @@
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/notifier.h>
-+#include <linux/pagemap.h>
- #include <linux/pci.h>
- #include <linux/pm_runtime.h>
- #include <linux/slab.h>
-@@ -1727,7 +1728,7 @@ static vm_fault_t vfio_pci_mmap_huge_fault(struct vm_fault *vmf,
- 	struct vm_area_struct *vma = vmf->vma;
- 	struct vfio_pci_core_device *vdev = vma->vm_private_data;
- 	unsigned long addr = vmf->address & ~((PAGE_SIZE << order) - 1);
--	unsigned long pgoff = (addr - vma->vm_start) >> PAGE_SHIFT;
-+	unsigned long pgoff = linear_page_delta(vma, addr);
- 	unsigned long pfn = vma_to_pfn(vma) + pgoff;
- 	vm_fault_t ret = VM_FAULT_FALLBACK;
- 
+ /* global SRCU for all MMs */
+ DEFINE_STATIC_SRCU(srcu);
 diff --git a/mm/nommu.c b/mm/nommu.c
-index 60560b2c457e..7333d855e974 100644
+index ba1c923c0942..4fef6fbbd6e9 100644
 --- a/mm/nommu.c
 +++ b/mm/nommu.c
-@@ -1332,7 +1332,7 @@ static int split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 	*region = *vma->vm_region;
- 	new->vm_region = region;
+@@ -41,7 +41,6 @@
+ #include <asm/tlbflush.h>
+ #include <asm/mmu_context.h>
+ #include "internal.h"
+-#include "vma.h"
  
--	npages = (addr - vma->vm_start) >> PAGE_SHIFT;
-+	npages = linear_page_delta(vma, addr);
- 
- 	if (new_below) {
- 		region->vm_top = region->vm_end = new->vm_end = addr;
+ unsigned long highest_memmap_pfn;
+ int heap_stack_gap = 0;
 diff --git a/mm/vma.c b/mm/vma.c
-index ee3a8ca13d07..185d07397ca6 100644
+index d727150e377a..5c3062e0e706 100644
 --- a/mm/vma.c
 +++ b/mm/vma.c
-@@ -517,7 +517,7 @@ __split_vma(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 		new->vm_end = addr;
- 	} else {
- 		new->vm_start = addr;
--		new->vm_pgoff += ((addr - vma->vm_start) >> PAGE_SHIFT);
-+		new->vm_pgoff += linear_page_delta(vma, addr);
- 	}
+@@ -4,6 +4,10 @@
+  * VMA-specific functions.
+  */
  
- 	err = -ENOMEM;
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index db57c5766ab6..f0e5da490866 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -440,7 +440,7 @@ static int kvm_gmem_set_policy(struct vm_area_struct *vma, struct mempolicy *mpo
- static struct mempolicy *kvm_gmem_get_policy(struct vm_area_struct *vma,
- 					     unsigned long addr, pgoff_t *ilx)
- {
--	pgoff_t pgoff = vma->vm_pgoff + ((addr - vma->vm_start) >> PAGE_SHIFT);
-+	pgoff_t pgoff = linear_page_index(vma, addr);
- 	struct inode *inode = file_inode(vma->vm_file);
++/*
++ * To allow for userland testing we place internal dependencies in
++ * vma_internal.h and external VMA API declarations in vma.h.
++ */
+ #include "vma_internal.h"
+ #include "vma.h"
  
- 	*ilx = inode->i_ino;
+diff --git a/mm/vma.h b/mm/vma.h
+index 155eadda47aa..f4f885615a92 100644
+--- a/mm/vma.h
++++ b/mm/vma.h
+@@ -2,7 +2,14 @@
+ /*
+  * vma.h
+  *
+- * Core VMA manipulation API implemented in vma.c.
++ * Core VMA manipulation API implemented in vma.c, vma_init.c and vma_exec.c.
++ *
++ * Note that, in order for VMA logic to be userland testable, this header
++ * intentionally includes no dependencies.
++ *
++ * This is specifically scoped to mm-only. Users of this functionality (other
++ * than the core VMA implementation itself) should not include this header
++ * directly, but rather include internal.h.
+  */
+ #ifndef __MM_VMA_H
+ #define __MM_VMA_H
+diff --git a/mm/vma_exec.c b/mm/vma_exec.c
+index 0107a6e3918c..c0f7ba2cfb27 100644
+--- a/mm/vma_exec.c
++++ b/mm/vma_exec.c
+@@ -1,10 +1,14 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ 
+ /*
+- * Functions explicitly implemented for exec functionality which however are
+- * explicitly VMA-only logic.
++ * Functions provided for exec functionality which however are
++ * specifically VMA-only logic.
+  */
+ 
++/*
++ * To allow for userland testing we place internal dependencies in
++ * vma_internal.h and external VMA API declarations in vma.h.
++ */
+ #include "vma_internal.h"
+ #include "vma.h"
+ 
+diff --git a/mm/vma_init.c b/mm/vma_init.c
+index a459669a1654..715feee283f0 100644
+--- a/mm/vma_init.c
++++ b/mm/vma_init.c
+@@ -5,6 +5,10 @@
+  * between CONFIG_MMU and non-CONFIG_MMU kernel configurations.
+  */
+ 
++/*
++ * To allow for userland testing we place internal dependencies in
++ * vma_internal.h and external VMA API declarations in vma.h.
++ */
+ #include "vma_internal.h"
+ #include "vma.h"
+ 
+diff --git a/mm/vma_internal.h b/mm/vma_internal.h
+index 2da6d224c1a8..4d300e7bbaf4 100644
+--- a/mm/vma_internal.h
++++ b/mm/vma_internal.h
+@@ -2,8 +2,8 @@
+ /*
+  * vma_internal.h
+  *
+- * Headers required by vma.c, which can be substituted accordingly when testing
+- * VMA functionality.
++ * Headers required by vma.c, vma_init.c and vma_exec.c, which can be
++ * substituted accordingly when testing VMA functionality.
+  */
+ 
+ #ifndef __MM_VMA_INTERNAL_H
 -- 
 2.54.0
 
