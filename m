@@ -4,43 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30721C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 03:23:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82B99C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 03:36:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A3E710E004;
-	Mon, 29 Jun 2026 03:23:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EC1610E02B;
+	Mon, 29 Jun 2026 03:36:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ibOhiVmR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OGlHmSAe";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 205AA10E004
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 03:23:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CCA2A40419;
- Mon, 29 Jun 2026 03:23:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EEDD1F000E9;
- Mon, 29 Jun 2026 03:23:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782703423;
- bh=JT/iyyUL++TKCaPcU07oNXisD4zoxLG58GGkh5k6eKE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ibOhiVmR35Q77dqnt+cEX3nkgl1h5xydrSaDOZkHKaqidtv8yQQh+3MBDF+wVnnTt
- nQTrXerW77jqRdCipFTi/9c2TaGFC0FeePye3T0BxqHaI2WZxr5mqQaTVrMLzRgije
- mCqodi68Qa25cKDkehH4LQyLtsTNSYtYySG9v8DaYRl43NWafCMZf3JMyqrVsbZY7Z
- BmiOifJ/M9AMCNzIb5tnSx61Ls5N3vruONrRLs6Py2o9HbruYuP/3e8GMptYjWUp+S
- FrhbuGcDI9APsaPbss0IC++GvmeenRce+zXBQatT45VdZ/yrpA2mRXfRdKLp7hhAO3
- E6ZkMHrJhKtHA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dma-fence: Make dma_fence_dedup_array() robust against
- 0-count input
-To: "Baineng Shou" <shoubaineng@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260629031346.3875683-1-shoubaineng@gmail.com>
-References: <20260629031346.3875683-1-shoubaineng@gmail.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0541510E02B
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 03:36:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782704197; x=1814240197;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=ZXd04ym0d/0d/Y4VyuNGyN03U1qiRaKfrzeuyYArlZk=;
+ b=OGlHmSAeJVq1czrG46OolhX3kfLFm9j7drIRD4CHmPwELGzuP9ntacy1
+ zFPLst8SZpBsG0/tys4dIeiqjvdGhtlI5pIJ1ZTe2d+Qv+dQyUm8mXIWN
+ kj+6uCYoN+waf2S8rfu7yf4Kms5qfxdVoez0xEIdXp8HqYzRx/FFpZPRc
+ K/++cWJh5XcK3HkvMVfp4jIIm9pp3xLWNUR/opJifl7Uvn5GIuKW5O8+L
+ E0M6I/BzHhHdQZ7vTSFqxRpSsssAH/clLUHhJ2t6+VV28OP0qGp16ZGQc
+ aEvF6PQ0sNb5hvkP3dtsgIQkjdoei8elvv39Q8ymu2RgHRsMbR98pADZC w==;
+X-CSE-ConnectionGUID: CK//ScXKQkWF0VK1zh4noQ==
+X-CSE-MsgGUID: nOPpaGvZQxC54Jfj27fjZg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11831"; a="83259034"
+X-IronPort-AV: E=Sophos;i="6.24,231,1774335600"; d="scan'208";a="83259034"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2026 20:36:36 -0700
+X-CSE-ConnectionGUID: qhPtmwHFTXmkjvym2/ui6A==
+X-CSE-MsgGUID: w001dHB7QEyZEsjie1BIyA==
+X-ExtLoop1: 1
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2026 20:36:36 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Sun, 28 Jun 2026 20:36:35 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Sun, 28 Jun 2026 20:36:35 -0700
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.57) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Sun, 28 Jun 2026 20:36:35 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=STNZ37pywkzpdkBVMCGpxJaUUpVnFTGGFW0s8j2SzLaGqMxtOSqH83Pz3vre4iC5fRvF4pNkJ9NrXa3456hMJvWwQVQUUa4VTU1kJzWlXP6UP+qwSrLlA/u3S67BjuL/GW1qZdKEFuLHJjjMrzEg+9tDqR5CWN2hEGSebqtPKcxNZulhniEiKbiTsba5eyfKj3bdmb6om1KMwYmfCqZUn8UV+Z8lc+eqSIDqPJP+zq3FTc8hhegWeMLDbtgOhx2Id2VY+D7pgMTnAHFSBMNVxpjrG2gOgJHmPS1McQHCk/ElwWOlSFLxEkdLEIj0WwQ3igjyjk1TSWqFXvqS2HDL3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5M9ms/0lI2LMJhEkq71nRZcyo6GmOXABCZofXnilZKo=;
+ b=TDd7lG4OotO9Asqmmsy14ARtYNCBPc4y+LZhXzcBMNaxYXJTVcJyD1u6MZIQEeuPvOmkYDboAzFGTpG3XmA2nabWs0Tv+OiRM8slgjH8UJS5WCk4uHfzDfp411Yy6n5jqhjZZa3bmqqEYdIwyaRHp0da6Uz/ylnsRWX7wII1GJY60+fE8J1IMGrLbTwMINRUTAvzAvi0J0ew8/ruHFulQToZssvJkB8SIEKgNTsDBXpJzDklhfDQxEbUoslDrV5LkPA7N51h/VUR1l0c5ErL7D1KKpx8PevyuBTUB7AUwYfsYEc0mVDRKLmwssC1pmUyg0bgE5NiBngWh99f2k7/3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::5b) by MN6PR11MB8172.namprd11.prod.outlook.com
+ (2603:10b6:208:478::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
+ 2026 03:36:28 +0000
+Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
+ ([fe80::6d3c:5451:b5d4:3ea6]) by DS4PPFE901A304F.namprd11.prod.outlook.com
+ ([fe80::6d3c:5451:b5d4:3ea6%6]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 03:36:28 +0000
+From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+To: WenTao Liang <vulab@iscas.ac.cn>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>
+CC: "kees@kernel.org" <kees@kernel.org>, "dmitry.baryshkov@oss.qualcomm.com"
+ <dmitry.baryshkov@oss.qualcomm.com>, "tomi.valkeinen@ideasonboard.com"
+ <tomi.valkeinen@ideasonboard.com>, "mcanal@igalia.com" <mcanal@igalia.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Greg KH
+ <gregkh@linuxfoundation.org>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>
+Subject: RE: [PATCH v2] drm/display: fix MST branch device refcount leak on
+ DPCD write failure
+Thread-Topic: [PATCH v2] drm/display: fix MST branch device refcount leak on
+ DPCD write failure
+Thread-Index: AQHdBwLWGz/v3it1EUWvCBjRieHIM7ZU4oUA
+Date: Mon, 29 Jun 2026 03:36:28 +0000
+Message-ID: <DS4PPFE901A304F1C4552363F42E65646B1E3E82@DS4PPFE901A304F.namprd11.prod.outlook.com>
+References: <20260628133344.46188-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260628133344.46188-1-vulab@iscas.ac.cn>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS4PPFE901A304F:EE_|MN6PR11MB8172:EE_
+x-ms-office365-filtering-correlation-id: 09923b16-c2ff-4a58-bccc-08ded58f9aa1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|23010399003|376014|18002099003|22082099003|38070700021|11063799006|56012099006;
+x-microsoft-antispam-message-info: E8pjoFhHt3W7ENu9BrypYeuQ0WDg/0xzALTxzqI19KVsnyrdwqy0L/1goEOTorNQlKlsXmaIYHjDbHWCn/hYENYxT9UzWXk0LJ1KAD8ChxddwQgYSAqMt63mWaag5uamBevhHIqY6Qm4McOmqAc2b/pIfH8J2JkVUxYiw6eIttE/WY2dtd2Jb1nUDOtqdRZEysiz0qln0Y79h9jC3MAPhb9vCfD1zOMfhXP0UOxMh8JVl9+nn/O+Lj7fiQfro75LRRBF3WYFCgGH4d/l8l1H2AAL1n5luu9yZqlGIlZ41TkyteclZ3cy3rwQqkQ4kKbHpll95Wqbqk/0lk0GZugsr9bp7xiWzwobzQEOlv6GXNWnMJX3PqzKpN3Ljv94K04ZYhUnKM16uHtcsBkItPA8GP46OjrASUacYa/grwHIFuaaXeT03g71kN8fDr5mKvMHnZZfmyLutWukS02ZDuSCZpvMLR70lCHK1tUTYqnZpThU5JTznMB6P3Mp4OwYvw+97PSm7jZdAKZIfnkkl17TZsg86WHjk6zGuMX9d91cvjFIXiRWI5qrgeL4YDI/k491JPiwvZOVm5ptij5KxARSWX1YzLmwqc8yjBUrCdDP8+6brTXk1NbtV6Hnt6FbIQakUZE5VX7uspJCN0AqAMtiN8EV9+U4Zp+GNrqoOcRijIdYxc4dKBWyvfW544UTR/KSBrWemCYfxd90esPuJWLCmDOq2DQawhWNVjDrjfCOxxU=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS4PPFE901A304F.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(23010399003)(376014)(18002099003)(22082099003)(38070700021)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?xUAG+E+SRDZEgCqR6RkTvv2pN+lSZDhaaPCbO/S0y+wh9aBTqIu0GU5jBVko?=
+ =?us-ascii?Q?T4zzkIjHt3xk7H3bo3lOL9qSmQtRV1Y+3VpE4Ntk+dW6iFFiPx3gHGtzYUh/?=
+ =?us-ascii?Q?dxt5P4TYfcJXO0op798DX+DVIcM/1ilSSztMPPgmopxYwz+IRViQCg/xVWQc?=
+ =?us-ascii?Q?3BnuhQM0aTNFPBGXUPKNQfpl2w1oD26itS7oQkHk+TPzPAG953srRMvNnJLw?=
+ =?us-ascii?Q?BMerH7ssW8x0ISh0U8n4Ms2EczXt+WoG+MieXcMFwaGl3JPoFgH8jQ5Yi+YY?=
+ =?us-ascii?Q?0ZrIlrbrjdAyQYy/mJigN6yuESrL2ATpW1kVP/hIxBzT0+2F5yIQeu7fwha0?=
+ =?us-ascii?Q?ClZnLAc4Yzpk5Nj5vL6HZ5ExPTyZhZmwMpXZCAp0ysZqDPN26DKpy4wxiHWa?=
+ =?us-ascii?Q?HmT3gcue1uUuKyqYXBZlaitQrc7Pw4URU1lX6qHQNtp5bTq0gVZDTHqtwtmN?=
+ =?us-ascii?Q?oZEJMCtxcTE3MMXPP1HwszZGwmDOtlFpf07XJfBf34h15BDvbgqihxkNmqjA?=
+ =?us-ascii?Q?0t1MnDolHRPF/H9zhQmKi5W3Efs3UUkUd9oAfx7GIl1KM2PPiRCIzstrs6+V?=
+ =?us-ascii?Q?dmk1jGP8cFY6N0zIJ+8UYE3aIrfMjxM1tsdb1PqJFDTmGzEqJePve11Fgj4e?=
+ =?us-ascii?Q?4YSDp4nLBLfgRqCvKvnDxaTyd+PlPjTQ4hPfrK/KfbrbDxVTpyAKGYTzbu3g?=
+ =?us-ascii?Q?F9CO7h0s9ukS9i+Vi7dLinvWsOy8r61vOtWVvz0UuuDE38bYoTlm6Hc3Er6k?=
+ =?us-ascii?Q?MoYaqgE5q72jf4/7uu/xWjcuLtcvWiANK6KT7wbD0waIiD1ZaW5n+2HoygHH?=
+ =?us-ascii?Q?lY117gGwgZ04Elt7nJbftyCm0Q+2kz+wp2IRvWLBcEGX8ryJmv/aXUJt2RZr?=
+ =?us-ascii?Q?Ouebl1jG/JoCQCF71Q07HonegjQWlH8B7eFWSG+KXll1Fe/AjF435l75fXzE?=
+ =?us-ascii?Q?rdEv/N1xVKQsdMVANIIfM0cU71nUpk9hHXf24MyuocsL+VZS6jY0BAePBtC+?=
+ =?us-ascii?Q?SNCJh5UDJUkJq6LcWjPufrO4kBgRv7ooRhJIEcyvPzh9bU9K+/+VgUNRCCiF?=
+ =?us-ascii?Q?rObn/zJx9ftHBfQuTCBvSVkb6Mnq2MESkSkUWLV1fTea36uzscI0Pq8RQwuT?=
+ =?us-ascii?Q?ratkT5E3YH3Gjpjvj0gWXVKyis7GlxXNpMJuZutGGVe4HLXMGd7j04odrA/m?=
+ =?us-ascii?Q?VYLBT+tJBrjvPo8YDOwD/nD6+tLD28ZDq58wkAHhvyxg6Dd6C6kZe2wuQYyw?=
+ =?us-ascii?Q?F1mmeK3T/3CWapsgh5XOiTGH5BJhv4fOMscjdPMEYludMndH4PGPFIsUeJef?=
+ =?us-ascii?Q?sgDVuBL1pJ76YgGe0QrxmSW2xxVWD0WhzNrSl5g7ERUTyMc1cPlF/6CW9VUv?=
+ =?us-ascii?Q?L1lz7+hDfUusspUSSr5HE6IQNiYVPGuYyOyaAcBBqp7y02VklfLvLZajsLI+?=
+ =?us-ascii?Q?69uEcH+Ma3XLhIV6BOtzKWS14w9LRiBvB7lQlFssG7CBQ0QORSEq79MlWKYa?=
+ =?us-ascii?Q?jAiEOYktoXeQ9JFvFgqQZdbFfjjwUqPuzZQAHCBvjmgD9zEYuMpgs1UZjP4Q?=
+ =?us-ascii?Q?3c1Xx144O6JlYo+Pjdxn39Ri+0Z/Ng8M9XOL+s9K+2R5gWohsUanqVb/EYI0?=
+ =?us-ascii?Q?pMKM2bHHdo7S0l9+UJsO1fXWJ+ew+1uMYuuFbbAZ0/lVDRwflV7u37sJbUIW?=
+ =?us-ascii?Q?eRNfTJzkEo+pu+CaRmzoLK4Exv3ByRRsrTzWUeGaA9L/ID47QIhS4OwsnVvO?=
+ =?us-ascii?Q?kXqBUeTP0Q=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 29 Jun 2026 03:23:42 +0000
-Message-Id: <20260629032343.0EEDD1F000E9@smtp.kernel.org>
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: PySk3v2O0k/4VAFN4JozpfoSMvYevAHWMTrGnjFNNA5VGbPADXxlUWE7VEJRa594ahP3qlaFaoHiho4MyUnFT3V4gmCFbS+bg/9aOYxDmYYp3WYMRjQqcL5IsOv7vZwlS/3Qcx2jwQ605Zp9RHKsdKNLzz452YdV+Tf1VT+3IlgY6MqigpN9BpK9ZHyNYbiW3K+QBv5QkhhhyhQvuqXOCgrEC4IcGetnBKg9+YNnh1KWAnaO/tULNRVgSKCffFJ6Ue4qKmn5BmRoqXdKnoTr0+Al+Z02Ek4/w+Yo7F/g7U2nWqQiVeVif6iJ4z+oD9G/v6texT6jU3MeyHefC0QjOA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPFE901A304F.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09923b16-c2ff-4a58-bccc-08ded58f9aa1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jun 2026 03:36:28.4082 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: CddaovVtvC4vWgFmEa33L5hkTUNnZjas2hKsnZPSqPLa3mne9+GZ3+zowUN6dDwwx4ONIIMBYwDuDraau/NipQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR11MB8172
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,77 +167,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+> Subject: [PATCH v2] drm/display: fix MST branch device refcount leak on D=
+PCD
+> write failure
+>=20
+> drm_dp_add_mst_branch_device initializes mstb with refcount 1, and
+> drm_dp_mst_topology_get_mstb increments it to 2. When
+> drm_dp_dpcd_write_byte fails, out_unlock performs only one
+> drm_dp_mst_topology_put_mstb, leaving the other reference stored in
+> mgr->mst_primary. Since MST was not successfully enabled, no disable
+> mgr->path
+> will clean it up.
+>=20
+> Suggested-by: Greg KH <gregkh@linuxfoundation.org>
+> Fixes: 7a3cbf590e63 ("drm/mst: Some style improvements in
+> drm_dp_mst_topology_mgr_set_mst()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
 
-Pre-existing issues:
-- [Critical] The commit message incorrectly claims that all in-tree callers=
- pre-filter the `num_fences =3D=3D 0` case. In reality, `amdgpu_userq_wait_=
-return_fence_info()` can and does pass 0, meaning this patch actually fixes=
- a critical pre-existing use-of-uninitialized-memory vulnerability.
---
+LGTM,
+Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 
-commit a22db32a014bd90abd28aebf26a5fc39ddb4a3cc
-Author: Baineng Shou <shoubaineng@gmail.com>
+> ---
+> Changes in v2:
+> - Fix patch format based on reviewer feedback
+> ---
+>  drivers/gpu/drm/display/drm_dp_mst_topology.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> index 8757972e8e24..db9441c80cd5 100644
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> @@ -3679,8 +3679,10 @@ int drm_dp_mst_topology_mgr_set_mst(struct
+> drm_dp_mst_topology_mgr *mgr, bool ms
+>  					     DP_MST_EN |
+>  					     DP_UP_REQ_EN |
+>  					     DP_UPSTREAM_IS_SRC);
+> -		if (ret < 0)
+> +		if (ret < 0) {
+> +			mgr->mst_primary =3D NULL;
+>  			goto out_unlock;
+> +		}
+>=20
+>  		/* Write reset payload */
+>  		drm_dp_dpcd_clear_payload(mgr->aux);
+> --
+> 2.39.5 (Apple Git-154)
 
-dma-fence: Make dma_fence_dedup_array() robust against 0-count input
-
-This commit updates dma_fence_dedup_array() to handle an input of 0 fences
-by returning 0 early. It also explains how the previous implementation
-incorrectly returned 1, which could lead to dereferencing uninitialized
-fence slots in arrays.
-
-> All in-tree callers currently filter num_fences =3D=3D 0 before invoking
-> this helper (__dma_fence_unwrap_merge() bails out via the
-> `if (count =3D=3D 0 || count =3D=3D 1)` fast path; amdgpu_userq_wait_*()
-> cannot reach the dedup call with a zero local count because the
-> amdgpu_userq_wait_add_fence() helper guarantees num_fences stays in
-> [0, wait_info->num_fences], and wait_info->num_fences > 0 is enforced
-> at the ioctl entry).
-
-[Severity: Critical]
-This is a pre-existing issue, but the commit message claims that all
-in-tree callers pre-filter the num_fences =3D=3D 0 case. Is this description
-accurate?
-
-Looking at amdgpu_userq_wait_return_fence_info() in
-drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c, if a user calls the ioctl
-with wait_info->num_fences > 0 but with no actual handles, the local
-num_fences variable will remain 0.
-
-Prior to this patch, dma_fence_dedup_array(fences, 0) returned 1:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:amdgpu_userq_wait_return_fe=
-nce_info() {
-    ...
-    num_fences =3D dma_fence_dedup_array(fences, num_fences);
-    ...
-}
-
-This causes the subsequent loop to read fences[0], which contains
-uninitialized kernel heap data from kmalloc_array(), and pass it to
-dma_fence_wait():
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:amdgpu_userq_wait_return_fe=
-nce_info() {
-    ...
-    for (i =3D 0, cnt =3D 0; i < num_fences; i++) {
-        ...
-        r =3D dma_fence_wait(fences[i], true);
-    ...
-}
-
-Does this mean this patch actually fixes a pre-existing
-use-of-uninitialized-memory regression that could lead to arbitrary code
-execution?
-
-If so, should this commit message be updated to reflect it is a security
-fix and include a Cc: stable tag for backporting?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260629031346.3875=
-683-1-shoubaineng@gmail.com?part=3D1
