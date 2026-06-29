@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B07CDC43602
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:25:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8728C43638
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:25:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F319610E87A;
-	Mon, 29 Jun 2026 12:25:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8790B10E881;
+	Mon, 29 Jun 2026 12:25:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZPSzgbYB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NIIvri7+";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 280DA10E87F;
- Mon, 29 Jun 2026 12:25:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C391310E870;
+ Mon, 29 Jun 2026 12:24:49 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8947A60008;
- Mon, 29 Jun 2026 12:25:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 701AB1F00A3A;
- Mon, 29 Jun 2026 12:25:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9D65241905;
+ Mon, 29 Jun 2026 12:24:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B13381F000E9;
+ Mon, 29 Jun 2026 12:24:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782735904;
- bh=jCNlejeASmhB4AgyuEzIBYYbjpZ4n/egy8owgCzIJlY=;
+ s=k20260515; t=1782735889;
+ bh=pNf2vZLs0Ll45B4pKyb976+6a6p0KPUKwIl6t6WJtJE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ZPSzgbYBaZMkgFXpVO4lcjIhSYifNVCkFnCoukwkUexEpxFU1zMgEeJ1WzF0iQe8G
- nflqvEp2qQsUkNArN92n8VHhtGfhHn+6iUhiMxzzJJJ7SZXcRgEr1nCbY+/elRw+Ah
- zSnB7Azkiovus8+WkUKAjckexf8zlkyqxvryRskDyfAIp1bnaSD5ki+zg2uUN1KNn+
- 7TTD7jzbKN7+khnHRVfJs1NOkm+rEq/0bN1OjRt/R8ER/L0u7tEvPT97eyxEJtymI1
- nWpqxrYVQsa8IYABDoMNC/4V+mXkdTfDEZ3SxdJqtpi4OpAP/MPlU26nLVy9Japjwe
- PNuQvpANXUgjw==
+ b=NIIvri7+xMYzLim1PkfG/ho1mN+c9wfJYOoMG5RAAbL4KacfAhSRvbPZdT+r5T04k
+ WAZFffkPoN9trQ/+yCnF2yVOcZikQi67qHMu8Gkfbdgz9aWvYK0MORbqEDNaMw+x56
+ K8lOXoq6WRvCNKB7YFZpD6ffvCVeS36Nh4pQ82MX0sqTXfUyNE7/zj8ANh7D70Jpu4
+ +Mi5eloSuherPvTbQK0z0Z0UtoSMHj1IP+0q/uR2bJt+3EThjagVfw0k0q3Mm9d8M/
+ 6ev1pefTPiYeFjOMFmb+/b0HMnsv1ZDkoYky7cdihOqNla7gdHc5hH2+xVLh2cAdxM
+ K1VekTqZ/PREw==
 From: Lorenzo Stoakes <ljs@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
@@ -80,10 +80,9 @@ Cc: Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
  damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
  Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
  Jann Horn <jannh@google.com>
-Subject: [PATCH 23/30] mm/vma: make vma_set_range() static,
- drop insert_vm_struct() decl
-Date: Mon, 29 Jun 2026 13:23:34 +0100
-Message-ID: <62efd70f9f39570724c9552cc7f2aeb5c322b2ff.1782735110.git.ljs@kernel.org>
+Subject: [PATCH 18/30] mm/vma: remove duplicative vma_pgoff_offset() helper
+Date: Mon, 29 Jun 2026 13:23:29 +0100
+Message-ID: <10671c2fc5d0dd4e3bf497181923e63e46053df1.1782735110.git.ljs@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1782735110.git.ljs@kernel.org>
 References: <cover.1782735110.git.ljs@kernel.org>
@@ -104,108 +103,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-With __install_special_mapping() moved to vma.c, vma_set_range() can be
-made into a static function there and is now completely isolated from the
-rest of mm.
+This is doing what linear_page_index() does, so eliminate it and replace it
+with linear_page_index().
 
-While we're here, we can also remove the insert_vm_struct() declaration
-from mm.h - the function is implemented in vma.c and already declared in
-vma.h, and has no users outside of mm.
-
-Also update the VMA userland tests to reflect this change.
+Update the VMA userland tests to reflect this change.
 
 No functional change intended.
 
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- include/linux/mm.h         | 1 -
- mm/internal.h              | 9 ---------
- mm/vma.c                   | 8 ++++++++
- tools/testing/vma/shared.c | 9 ---------
- tools/testing/vma/shared.h | 5 -----
- 5 files changed, 8 insertions(+), 24 deletions(-)
+ mm/vma.h                        |  9 +--------
+ tools/testing/vma/include/dup.h | 16 ++++++++++++++++
+ 2 files changed, 17 insertions(+), 8 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index cf2d42747064..868b2334bff3 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -4103,7 +4103,6 @@ void anon_vma_interval_tree_verify(struct anon_vma_chain *avc);
+diff --git a/mm/vma.h b/mm/vma.h
+index 527716c8739d..2342516ce00e 100644
+--- a/mm/vma.h
++++ b/mm/vma.h
+@@ -247,13 +247,6 @@ static inline pgoff_t vmg_end_pgoff(const struct vma_merge_struct *vmg)
+ 	return vmg_start_pgoff(vmg) + vmg_pages(vmg);
+ }
  
- /* mmap.c */
- extern int __vm_enough_memory(const struct mm_struct *mm, long pages, int cap_sys_admin);
--extern int insert_vm_struct(struct mm_struct *, struct vm_area_struct *);
- extern void exit_mmap(struct mm_struct *);
- bool mmap_read_lock_maybe_expand(struct mm_struct *mm, struct vm_area_struct *vma,
- 				 unsigned long addr, bool write);
-diff --git a/mm/internal.h b/mm/internal.h
-index 89e5b7efe256..e127dfea9c0f 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1720,15 +1720,6 @@ extern bool mirrored_kernelcore;
- bool memblock_has_mirror(void);
- void memblock_free_all(void);
- 
--static __always_inline void vma_set_range(struct vm_area_struct *vma,
--					  unsigned long start, unsigned long end,
--					  pgoff_t pgoff)
+-/* Assumes addr >= vma->vm_start. */
+-static inline pgoff_t vma_pgoff_offset(struct vm_area_struct *vma,
+-				       unsigned long addr)
 -{
--	vma->vm_start = start;
--	vma->vm_end = end;
--	vma->vm_pgoff = pgoff;
+-	return vma->vm_pgoff + PHYS_PFN(addr - vma->vm_start);
 -}
 -
- static inline bool vma_soft_dirty_enabled(struct vm_area_struct *vma)
- {
- 	/*
-diff --git a/mm/vma.c b/mm/vma.c
-index f4de706a2728..b16c5b20862f 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -70,6 +70,14 @@ struct mmap_state {
- 		.state = VMA_MERGE_START,				\
- 	}
+ #define VMG_STATE(name, mm_, vmi_, start_, end_, vma_flags_, pgoff_)	\
+ 	struct vma_merge_struct name = {				\
+ 		.mm = mm_,						\
+@@ -275,7 +268,7 @@ static inline pgoff_t vma_pgoff_offset(struct vm_area_struct *vma,
+ 		.start = start_,				\
+ 		.end = end_,					\
+ 		.vm_flags = vma_->vm_flags,			\
+-		.pgoff = vma_pgoff_offset(vma_, start_),	\
++		.pgoff = linear_page_index(vma_, start_),	\
+ 		.file = vma_->vm_file,				\
+ 		.anon_vma = vma_->anon_vma,			\
+ 		.policy = vma_policy(vma_),			\
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 535747d7fee4..7ed165c8d9bc 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1548,3 +1548,19 @@ static inline pgprot_t vma_get_page_prot(vma_flags_t vma_flags)
  
-+static void vma_set_range(struct vm_area_struct *vma, unsigned long start,
-+			  unsigned long end, pgoff_t pgoff)
+ 	return vm_get_page_prot(vm_flags);
+ }
++
++static inline pgoff_t linear_page_delta(const struct vm_area_struct *vma,
++					const unsigned long address)
 +{
-+	vma->vm_start = start;
-+	vma->vm_end = end;
-+	vma->vm_pgoff = pgoff;
++	return (address - vma->vm_start) >> PAGE_SHIFT;
 +}
 +
- /* Was this VMA ever forked from a parent, i.e. maybe contains CoW mappings? */
- static bool vma_is_fork_child(struct vm_area_struct *vma)
- {
-diff --git a/tools/testing/vma/shared.c b/tools/testing/vma/shared.c
-index 2565a5aecb80..bea9ea6db02a 100644
---- a/tools/testing/vma/shared.c
-+++ b/tools/testing/vma/shared.c
-@@ -120,12 +120,3 @@ unsigned long rlimit(unsigned int limit)
- {
- 	return (unsigned long)-1;
- }
--
--void vma_set_range(struct vm_area_struct *vma,
--		   unsigned long start, unsigned long end,
--		   pgoff_t pgoff)
--{
--	vma->vm_start = start;
--	vma->vm_end = end;
--	vma->vm_pgoff = pgoff;
--}
-diff --git a/tools/testing/vma/shared.h b/tools/testing/vma/shared.h
-index 8b9e3b11c3cb..ca4f1238f1c7 100644
---- a/tools/testing/vma/shared.h
-+++ b/tools/testing/vma/shared.h
-@@ -125,8 +125,3 @@ void __vma_set_dummy_anon_vma(struct vm_area_struct *vma,
- /* Provide a simple dummy VMA/anon_vma dummy setup for testing. */
- void vma_set_dummy_anon_vma(struct vm_area_struct *vma,
- 			    struct anon_vma_chain *avc);
--
--/* Helper function to specify a VMA's range. */
--void vma_set_range(struct vm_area_struct *vma,
--		   unsigned long start, unsigned long end,
--		   pgoff_t pgoff);
++static inline pgoff_t linear_page_index(const struct vm_area_struct *vma,
++					const unsigned long address)
++{
++	pgoff_t pgoff;
++
++	pgoff = linear_page_delta(vma, address);
++	pgoff += vma_start_pgoff(vma);
++	return pgoff;
++}
 -- 
 2.54.0
 
