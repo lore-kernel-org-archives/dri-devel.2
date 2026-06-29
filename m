@@ -4,87 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8A8FC43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 15:48:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A7FFC43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 15:51:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BD9A10E4FE;
-	Mon, 29 Jun 2026 15:48:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 557BC10E77C;
+	Mon, 29 Jun 2026 15:51:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="RNeNIY8y";
+	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="NE6t34RD";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="BvW9GpEf";
 	dkim-atps=neutral
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 209D110E2C6;
- Mon, 29 Jun 2026 15:48:00 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65TATKNC3000395; Mon, 29 Jun 2026 16:47:59 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=D
- ijOK/LXcfqczJQhyEEnk5RIdPK7dRxz0Uv6YYn+vmI=; b=RNeNIY8yoZj4j+ltA
- 5GaJL0LZRMiU9Udl9A445Mqi2gY1JytjIowJSASUlTLcIaYBuRHKK57NphAG1N21
- A7smo9/f3kmka56QfTwHOQkmaRBCZFGvz2gcLchzimquhOl6glkGSV3KKUuMmWDY
- cajbMJpA2p+DdcmqHZvmUsUDXFcVVSMzfR0pB5zBei408MCuDmDc0L+SL0MUU109
- H5y9OvYl1CQxBqu1ft/wfVFctWKeiqs00CtYfG7B1M2SOIKBUNViuHWOReKZKR0R
- k20DsvURkhH7iOfZONW1VzoAXDHlHyDxCz70ZutXyQ1g6/oQDUf74JrdMs8k3gtE
- A335g==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4f26kuj3rr-3
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 29 Jun 2026 16:47:59 +0100 (BST)
-Received: from [127.0.1.1] (172.25.6.219) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 29 Jun
- 2026 16:47:50 +0100
-From: Matt Coster <matt.coster@imgtec.com>
-Date: Mon, 29 Jun 2026 16:47:30 +0100
-Subject: [PATCH 2/2] dt-bindings: gpu: img,powervr-*: Remove Matt Coster as
- maintainer
+X-Greylist: delayed 329 seconds by postgrey-1.36 at gabe;
+ Mon, 29 Jun 2026 15:51:03 UTC
+Received: from flow-b5-smtp.messagingengine.com
+ (flow-b5-smtp.messagingengine.com [202.12.124.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E7B810E77C
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:51:03 +0000 (UTC)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailflow.stl.internal (Postfix) with ESMTP id B7CF01300119;
+ Mon, 29 Jun 2026 11:45:33 -0400 (EDT)
+Received: from phl-imap-05 ([10.202.2.95])
+ by phl-compute-04.internal (MEProxy); Mon, 29 Jun 2026 11:45:34 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1782747933;
+ x=1782755133; bh=JSWP+oCjDefLm/g9PuV1GqUkziDul2e9yv/ysVQsJLY=; b=
+ NE6t34RDiIItJnjdvpPNLzERZEmy1Uokb4joPY1CUGLVDWSQy6O7lM7YR/JH2Vzz
+ EKjSBDHgy12XKPTe4T6/vFGszy9/X5bhW/dAEDGMtAFHdRGEckNuxhc9bX3PR0VE
+ bfW0MW2BR1AKR58Jk7h1JxjrIx1Kz7REAVnwk0oAlfoj8/mj7rRNlBSR0zA4hhnh
+ nrZ5Ql6KmC6VRVCiJ20YjlxB5Hon27fcsCOduVLOhAndchegK3YeVpKE9Pp1EySs
+ +Hgew3gjNwCsL97JbgGzSZGffJk0l4s3icmD0kqHlku9NQytJJHrK5zKTtqTrlSN
+ nN0K/5MSbp6GsS3AP9v5Xw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1782747933; x=
+ 1782755133; bh=JSWP+oCjDefLm/g9PuV1GqUkziDul2e9yv/ysVQsJLY=; b=B
+ vW9GpEfQf5KLp9NtJM6GkHv3I5ZqIvw4Ca2lMiHX8SKqsoxlmypG2EMXAsormSFb
+ oqLT0a0Bl9FJyA6vd4v32gwdXkqPQVCs0Q1Y9jXp5dOSVQI2tfbQcx1ULcycd2no
+ cz4W31l3TBY05Bi2KSWoBV2ZPe6YbfMg4EFP7hw/vkSYA/ePVKRQACV+DCkNrleC
+ 7d2U6h7NAcmkprtPUjO4A9XW6JXNK6W9RSqJU2/A289YIaXuaBCd1hJaZ6vsHuTg
+ GNxjVNjZ5DH/aXylHFIrfAuE5N81jk6hj/53mTDmJA3sJAwIS6GzLql0EapV+l/2
+ td6qNY5irlX8jNYf/UttQ==
+X-ME-Sender: <xms:HJNCaoMrkvvQS7N_eQkd2-7GzY3rf6oAfFR9scbcsRER6z01sw7mzQ>
+ <xme:HJNCapwMpwLVp89QaYKeW8Gu_iFO6mtIcDakQdQ1IcDR2awHglttG5XYgUbY-f2KY
+ MUHVhVlQ81X_KxAdYNn48ZwudPAYseWVvBXQ00pUVx7Z5102rCPfbsZ>
+X-ME-Proxy-Cause: dmFkZTGfEuV5uhz9iLc4/VqJewkOwZztE2Q/W2L8MWGpthXJSG6cnqB0ybUTZO/gmTStFr
+ IiMG3oMMwTOd1GN29iTAZh8ELqDq/pvNTu31HqcDhNTnRV5w+qN8TY5zQgqjhrWyTFnLFv
+ a5lC1bd0Nsy33atl2U9pCG8DwHiBT9SAvLqnCXSLgY6ykY2nreWYk0o6gpE7z+zCzbU5QI
+ CLqmPEwYE4mll5+cmq6mEdAN12TaRxj619rRYC2M3spZPblqPgudPkyzWrdvTZpBYK3w/u
+ jqv7Hdzc+TtswHLZ1V6GZ+c/1ZffJJfwsB5JIPB30uvkpQkKQBrSQtzi9AGb8HNFEb2kgE
+ qKkXl9pCm/0B95O8InFrTkKN0fJJdpnCSraeOZvlbYvDYSuDEOsOuD28QLxuf4mNOnHYEc
+ 4em35Aufoj/L6MFtoXv8X9guYW3iZk9yMbK8VidKBOe9HIlA6Vy69oYVLWvoeIP/sRtUxM
+ xWA7NaPmd/Kd9MV/ItckFUA5jQ19oB0lqDlABCPUJva5FAJO0rNnJiVDlHuYcKo1028G2L
+ QCmWZB57sVtG9lZURwNtcccEDwqWzXsVO1FCuadUaHZRSO4zh0UrefsDvNNDkSsAklUL8C
+ nDBMgI4yo+tcTzxNjLzthPlRQuu7ftRHxOLDna+Fu5ygZv/F2jkt5rcMUitw
+X-ME-Proxy: <xmx:HJNCaiVR99ITZUIeVHLQIjkAl3W5L7-NY_eXPpexE2ezyiuvPV7Wig>
+ <xmx:HJNCaqDcmel0SZvoqXYoLZayz9Q48weXPGpjP4Y1EEA9-teXfq9kNA>
+ <xmx:HJNCalHWKybZhCSB_h9ep1tLEkKEMci7ODZ3AjJ9oK0yH0tMhtYVDw>
+ <xmx:HJNCamc1hcyXGhjSob0H8QG7OUqPoVNgYLrZzyvRI9sJF6RPK2srWA>
+ <xmx:HZNCahf_1C-xXUG9BEQMuJSIEx8k4QdhQtNpq8TMrV7EM8NaHbepNMFj>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+ id BA658182007A; Mon, 29 Jun 2026 11:45:32 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ThreadId: A045QOfflcQ7
+Date: Mon, 29 Jun 2026 17:45:12 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Andy Shevchenko" <andriy.shevchenko@intel.com>,
+ "Arnd Bergmann" <arnd@kernel.org>
+Cc: "Linus Walleij" <linusw@kernel.org>,
+ "Bartosz Golaszewski" <brgl@kernel.org>,
+ "Marcel Holtmann" <marcel@holtmann.org>,
+ "MyungJoo Ham" <myungjoo.ham@samsung.com>,
+ "Chanwoo Choi" <cw00.choi@samsung.com>,
+ "Geert Uytterhoeven" <geert+renesas@glider.be>,
+ "Andy Shevchenko" <andy@kernel.org>,
+ "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
+ "Ulf Hansson" <ulfh@kernel.org>, linux-bluetooth@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+ "linux-mmc @ vger . kernel . org" <linux-mmc@vger.kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+ linux-usb@vger.kernel.org
+Message-Id: <34d4eddf-bfe5-4103-b2c6-143c63ea37f9@app.fastmail.com>
+In-Reply-To: <akKN59lv55CXS3HU@ashevche-desk.local>
+References: <20260629135917.1308621-1-arnd@kernel.org>
+ <akKN59lv55CXS3HU@ashevche-desk.local>
+Subject: Re: [PATCH] [RFC] gpiolib: introduce gpio_name() helper
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260629-goodbye-v1-2-3bab53a80c53@imgtec.com>
-References: <20260629-goodbye-v1-0-3bab53a80c53@imgtec.com>
-In-Reply-To: <20260629-goodbye-v1-0-3bab53a80c53@imgtec.com>
-To: <imagination@lists.freedesktop.org>
-CC: Matt Coster <opensource@mtcoster.net>, Alessio Belle
- <alessio.belle@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>,
- Frank Binns <frank.binns@imgtec.com>, Brajesh Gupta
- <brajesh.gupta@imgtec.com>, Alexandru Dadu <alexandru.dadu@imgtec.com>,
- <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, Matt Coster <opensource@mtcoster.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1584;
- i=matt.coster@imgtec.com; h=from:subject:message-id;
- bh=6YBVrSMUXze77+Xd/FL5lyc2twQbOub7RcX+7ZKQHSU=;
- b=owGbwMvMwCVWuUfy8817WRsYT6slMWQ5TV768r/3Vk2ZoMo7LTNlV7vPfqMTZdKgl/34wA/ZY
- H61gDP8HaUsDGJcDLJiiiw7VliuUPujpiVx41cxzBxWJpAhDFycAjARp6uMDCtO35xYWNQ6o1xW
- TEFrdq9DF8vZcs4FH2ucpp6oz7m3vp+RoYW1/LlmWeRRn2Xvzt1af9MmPGVOqcGhs0uq81sPOIo
- u4QAA
-X-Developer-Key: i=matt.coster@imgtec.com; a=openpgp;
- fpr=05A40CFCE7269D61D97100A1747F0A9036F90DFA
-X-Originating-IP: [172.25.6.219]
-X-Authority-Analysis: v=2.4 cv=epXvCIpX c=1 sm=1 tr=0 ts=6a4293af cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=UteWFfMXGp8A:10 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=gEfo2CItAAAA:8 a=r_1tXGB3AAAA:8 a=8QhHSuk9faHXqeo9-7sA:9 a=QEXdDO2ut3YA:10
- a=sptkURWiP4Gy88Gu7hUp:22 a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: Q10Qk_iM9ovGIHtbfURw8_mlCk8m8lPG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI5MDEzMSBTYWx0ZWRfX3vGlLiiSVy6P
- 4GpCBHFWe8jQUOxZ5igqi2YEyKwhCHdCauq7vDhmKpwrLNnGYIq0teFEjiqVMxo/1JIizKBJU+6
- J0kqeWYMGhHBOvKhGA1pZeEs8enDlws57CghA+5hxFboviF6Jb4CW7ZnQ4J8jcrBgAkekK4VCKo
- X/kWZY6Msf/5L89CehGTp1Xvb8iiqZ1A6BA2vSv7o6mL7AalNTsSP7bopplnBqEQemCeFjKRNzy
- EeUhlL7iuLvrQSNw6hJJ1L2og1+MxSAiTyBQ9xuuBT2v5jO35yFqPnOZO/+k9bdXpvBXhJxHBlz
- PA3I5EYqyZZm1P3FvxR2HtoA6oaeZxNfUjo3/HJx8xDU/npTAR9Az0ww81wedEFxI2SLYJZQy30
- G3CB3NUioVO4UUB0LTRTy4Bfh/iKbDhNp/x3/tC53TnFhBN0W11q0SBK5lqUzhW6q5MNWQOf6pt
- DivJLr6FNJ3bET880Bg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI5MDEzMSBTYWx0ZWRfX/fyGBTSOF7Sx
- Ta5aREdNzQ7qhJQNxxSZKjpUhPSyFeX9jJ35J9C68bo6vwscNDgF4UbMTT0GV3p2TwyEqhU3gWG
- f3315imdxr4die+GuLWfuzw6wZPZd0o=
-X-Proofpoint-GUID: Q10Qk_iM9ovGIHtbfURw8_mlCk8m8lPG
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,40 +114,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-I'm leaving Imagination; remove myself as a maintainer. A separate patch
-leaves a personal forwarding address in the .mailmap.
+On Mon, Jun 29, 2026, at 17:23, Andy Shevchenko wrote:
+> On Mon, Jun 29, 2026 at 03:56:29PM +0200, Arnd Bergmann wrote:
+>> +const char *gpiod_name(const struct gpio_desc *desc)
+>> +{
+>> +	return desc ? desc->name : "(no gpio)";
+>
+> Can we get into here with wrong (error pointer descriptor)? Shouldn't you call
+> one of validate_desc() / VALIDATE_DESC()?
 
-Signed-off-by: Matt Coster <matt.coster@imgtec.com>
----
- Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml | 1 -
- Documentation/devicetree/bindings/gpu/img,powervr-sgx.yaml   | 1 -
- 2 files changed, 2 deletions(-)
+Since all the callers previously call desc_to_gpio and that does
+not even check desc at all, it would be a preexisting bug if
+any caller passed an error pointer.
 
-diff --git a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-index 91e4ff61b394..a6bccb600a57 100644
---- a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-+++ b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-@@ -8,7 +8,6 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
- title: Imagination Technologies PowerVR and IMG Rogue GPUs
- 
- maintainers:
--  - Matt Coster <matt.coster@imgtec.com>
-   - Alessio Belle <alessio.belle@imgtec.com>
-   - Luigi Santivetti <luigi.santivetti@imgtec.com>
- 
-diff --git a/Documentation/devicetree/bindings/gpu/img,powervr-sgx.yaml b/Documentation/devicetree/bindings/gpu/img,powervr-sgx.yaml
-index 3e7df7344430..58b799b8e96e 100644
---- a/Documentation/devicetree/bindings/gpu/img,powervr-sgx.yaml
-+++ b/Documentation/devicetree/bindings/gpu/img,powervr-sgx.yaml
-@@ -9,7 +9,6 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
- title: Imagination Technologies PowerVR SGX GPUs
- 
- maintainers:
--  - Matt Coster <matt.coster@imgtec.com>
-   - Alessio Belle <alessio.belle@imgtec.com>
-   - Luigi Santivetti <luigi.santivetti@imgtec.com>
- 
+I added the NULL pointer check since many callers had that
+part originally, like
 
--- 
-2.48.1
+      tsdata->wake_gpio ? desc_to_gpio(tsdata->wake_gpio) : -1,
 
+> Also not sure if "(no gpio)" is a good choice. "not requested"? "not provided"?
+
+Any of those seem fine to me, not sure.
+
+>> +static inline const char *gpiod_name(const struct gpio_desc *desc)
+>> +{
+>> +	WARN_ON(desc);
+>> +	return "(no gpio)";
+>
+> Hmm... This will be a second copy with a slight potential of going apart from
+> the other case. Perhaps a #define? (Yes, yes, I understand that there are pros
+> and cons, in particular readability with define is questionable.)
+
+I was mostly trying to optimize for consistency with the other
+stub functions here. Since it should not actually be used at all
+without gpiolib, returning NULL or an empty string here would
+also work.
+
+     Arnd
