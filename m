@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DF70C43638
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:24:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71298C43327
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:25:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5B2E10E86C;
-	Mon, 29 Jun 2026 12:24:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD6BA10E87B;
+	Mon, 29 Jun 2026 12:25:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h2YtNTBC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aMI2EGHq";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B6EA10E874;
- Mon, 29 Jun 2026 12:24:41 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F71310E886;
+ Mon, 29 Jun 2026 12:25:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AD0A9600D8;
- Mon, 29 Jun 2026 12:24:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B4A81F000E9;
- Mon, 29 Jun 2026 12:24:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 783DE40D90;
+ Mon, 29 Jun 2026 12:25:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B8AA1F000E9;
+ Mon, 29 Jun 2026 12:25:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782735880;
- bh=+of2eJHuR5dNuNJiS3cZuvLehUoHg8ljbLqq9Ah0AQ4=;
+ s=k20260515; t=1782735901;
+ bh=asQRdyIkJe4bZA3XNuG6RWmjMVwJLej4ucyvaRrG1LM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=h2YtNTBCsJFLeuggkXoygsgvXPGBhgysE1dL0jJxSBgEibKwxrxBKBVkCF7H7B5B9
- CMBhr61zOts8FtzvxLocHIiLkQyF7/jaK21luzc0jjR0RUO8+CMng45Jp6ysrpb9aM
- uY84Roia6rA0mFTBZlwUW/I/+znMt4CVrXrjXH2ChKSWcrSjCWtYc2HfuwM1FyISP8
- vbmjmSzlxQ8mXIczOsJ5mRC89LLsZAg8F2I6xVLDYMZyT40OqQHfzXKe2Yb0HZTEpY
- wC9fvuVgpJy/8Haqy9b9YseUpf27o/EwJ556JfcxFLzbHK5HwMwqJpR9v6i99Gr9TJ
- w7K5/x0UhwFYQ==
+ b=aMI2EGHqsu61Hk3DdrG2oE/j59vfyqrUCk+WCpAW7cZQC3HRNrsq4bMIRtFfzvpE9
+ 8fnoSABB2kkBYcDq+ipeOraETeJJRjPa/NVEF1214bvzOLHh1ZPNf0F00uunCOx/Xb
+ EYV66LD9bkxw3TihOv0i3XyWZjOGS+D1VauzvrvwWVFAHBVNPZTviKelkvCbHkMtve
+ QSMGA+tQ+t8R72mawPag8VZveHTVhYhVWMG0u03qBCVfQ21qWkkLbPoX3En8pnQk6N
+ Z2f9URfPzOvNfoEeESppHpb6Azn03lFpXyqzwfUDzRvNaF9WVvmAODPtAFDo2XxCi6
+ Ux3VgqH9infsg==
 From: Lorenzo Stoakes <ljs@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
@@ -80,9 +80,9 @@ Cc: Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
  damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
  Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
  Jann Horn <jannh@google.com>
-Subject: [PATCH 15/30] mm: introduce and use linear_page_delta()
-Date: Mon, 29 Jun 2026 13:23:26 +0100
-Message-ID: <eedf589778aaab33e6df2ad6556dcde536e13460.1782735110.git.ljs@kernel.org>
+Subject: [PATCH 22/30] mm/vma: move __install_special_mapping() to vma.c
+Date: Mon, 29 Jun 2026 13:23:33 +0100
+Message-ID: <b3254231831037ca3e9757e3e05c90072e04a6aa.1782735110.git.ljs@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1782735110.git.ljs@kernel.org>
 References: <cover.1782735110.git.ljs@kernel.org>
@@ -103,80 +103,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-It's often useful to obtain the number of pages a given address lies at
-within a VMA.
+This function is operating on VMAs and rightly belongs in vma.c, where it
+can be subject to VMA userland testing and allows us to isolate it from the
+rest of mm.
 
-Add linear_page_delta() to determine this and update linear_page_index() to
-make use of it.
+The _install_special_mapping() function will remain in mmap.c as a wrapper,
+since this is used by architecture-specific code.
 
-Add comments to describe both linear_page_delta() and linear_page_index().
+Doing so allows us to isolate more functions in vma.c for the same reasons.
+
+This forms part of work to allow for tracking MAP_PRIVATE file-backed
+mappings by their anonymous virtual page offset, as doing so allows us to
+isolate and keep code that interacts with this together.
 
 No functional change intended.
 
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- include/linux/pagemap.h | 37 +++++++++++++++++++++++++++++++++++--
- 1 file changed, 35 insertions(+), 2 deletions(-)
+ mm/mmap.c | 38 --------------------------------------
+ mm/vma.c  | 38 ++++++++++++++++++++++++++++++++++++++
+ mm/vma.h  |  5 +++++
+ 3 files changed, 43 insertions(+), 38 deletions(-)
 
-diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
-index 2c3718d592d6..644c0f25ae73 100644
---- a/include/linux/pagemap.h
-+++ b/include/linux/pagemap.h
-@@ -1063,11 +1063,44 @@ static inline pgoff_t folio_pgoff(const struct folio *folio)
- 	return folio->index;
+diff --git a/mm/mmap.c b/mm/mmap.c
+index 2d09a57e3620..46174e706bbe 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -1447,44 +1447,6 @@ static vm_fault_t special_mapping_fault(struct vm_fault *vmf)
+ 	return VM_FAULT_SIGBUS;
  }
  
-+/**
-+ * linear_page_delta() - Determine the relative page offset of @address within
-+ * @vma.
-+ * @vma: The VMA in which @address resides.
-+ * @address: The address whose relative page offset is required.
-+ *
-+ * The result is identical for both file-backed and anonymous mappings and
-+ * simply determines how many pages @address lies from @vma->vm_start.
-+ *
-+ * Returns: The number of pages @address is offset by within @vma.
-+ */
-+static inline pgoff_t linear_page_delta(const struct vm_area_struct *vma,
-+					const unsigned long address)
-+{
-+	return (address - vma->vm_start) >> PAGE_SHIFT;
-+}
-+
-+/**
-+ * linear_page_index() - Determine the absolute page offset of @address within
-+ * @vma.
-+ * @vma: The VMA in which @address resides.
-+ * @address: The address whose absolute page offset is required.
-+ *
-+ * For file-backed mappings, this returns the page offset of @address within the
-+ * file.
-+ *
-+ * For anonymous mappings, this returns the virtual page offset of @address,
-+ * which is the page offset the address possessed at the time the VMA was first
-+ * faulted.
-+ *
-+ * Returns: The absolute page offset of @address within @vma.
-+ */
- static inline pgoff_t linear_page_index(const struct vm_area_struct *vma,
- 					const unsigned long address)
+-static struct vm_area_struct *__install_special_mapping(
+-	struct mm_struct *mm,
+-	unsigned long addr, unsigned long len,
+-	vm_flags_t vm_flags, void *priv,
+-	const struct vm_operations_struct *ops)
+-{
+-	int ret;
+-	struct vm_area_struct *vma;
+-
+-	vma = vm_area_alloc(mm);
+-	if (unlikely(vma == NULL))
+-		return ERR_PTR(-ENOMEM);
+-
+-	vma_set_range(vma, addr, addr + len, 0);
+-	vm_flags |= mm->def_flags | VM_DONTEXPAND;
+-	if (pgtable_supports_soft_dirty())
+-		vm_flags |= VM_SOFTDIRTY;
+-	vm_flags_init(vma, vm_flags & ~VM_LOCKED_MASK);
+-	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
+-
+-	vma->vm_ops = ops;
+-	vma->vm_private_data = priv;
+-
+-	ret = insert_vm_struct(mm, vma);
+-	if (ret)
+-		goto out;
+-
+-	vm_stat_account(mm, vma->vm_flags, len >> PAGE_SHIFT);
+-
+-	perf_event_mmap(vma);
+-
+-	return vma;
+-
+-out:
+-	vm_area_free(vma);
+-	return ERR_PTR(ret);
+-}
+-
+ bool vma_is_special_mapping(const struct vm_area_struct *vma,
+ 	const struct vm_special_mapping *sm)
  {
- 	pgoff_t pgoff;
--	pgoff = (address - vma->vm_start) >> PAGE_SHIFT;
-+
-+	pgoff = linear_page_delta(vma, address);
- 	pgoff += vma->vm_pgoff;
- 	return pgoff;
+diff --git a/mm/vma.c b/mm/vma.c
+index cb7222e20c93..f4de706a2728 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -3399,3 +3399,41 @@ __weak unsigned long vma_mmu_pagesize(struct vm_area_struct *vma)
+ {
+ 	return vma_kernel_pagesize(vma);
  }
-@@ -1219,7 +1252,7 @@ static inline vm_fault_t folio_lock_or_retry(struct folio *folio,
- void folio_wait_bit(struct folio *folio, int bit_nr);
- int folio_wait_bit_killable(struct folio *folio, int bit_nr);
++
++struct vm_area_struct *__install_special_mapping(
++	struct mm_struct *mm,
++	unsigned long addr, unsigned long len,
++	vm_flags_t vm_flags, void *priv,
++	const struct vm_operations_struct *ops)
++{
++	int ret;
++	struct vm_area_struct *vma;
++
++	vma = vm_area_alloc(mm);
++	if (unlikely(vma == NULL))
++		return ERR_PTR(-ENOMEM);
++
++	vma_set_range(vma, addr, addr + len, 0);
++	vm_flags |= mm->def_flags | VM_DONTEXPAND;
++	if (pgtable_supports_soft_dirty())
++		vm_flags |= VM_SOFTDIRTY;
++	vm_flags_init(vma, vm_flags & ~VM_LOCKED_MASK);
++	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
++
++	vma->vm_ops = ops;
++	vma->vm_private_data = priv;
++
++	ret = insert_vm_struct(mm, vma);
++	if (ret)
++		goto out;
++
++	vm_stat_account(mm, vma->vm_flags, len >> PAGE_SHIFT);
++
++	perf_event_mmap(vma);
++
++	return vma;
++
++out:
++	vm_area_free(vma);
++	return ERR_PTR(ret);
++}
+diff --git a/mm/vma.h b/mm/vma.h
+index 47fe35e5307e..14f026bf3be4 100644
+--- a/mm/vma.h
++++ b/mm/vma.h
+@@ -775,4 +775,9 @@ static inline bool map_deny_write_exec(const vma_flags_t *old,
+ }
+ #endif
  
--/* 
-+/*
-  * Wait for a folio to be unlocked.
-  *
-  * This must be called with the caller "holding" the folio,
++struct vm_area_struct *__install_special_mapping(struct mm_struct *mm,
++		unsigned long addr, unsigned long len,
++		vm_flags_t vm_flags, void *priv,
++		const struct vm_operations_struct *ops);
++
+ #endif	/* __MM_VMA_H */
 -- 
 2.54.0
 
