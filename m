@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D323BC43602
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 19:26:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4648BC44503
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 19:26:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFBD110EA3C;
-	Mon, 29 Jun 2026 19:26:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DF4410EA53;
+	Mon, 29 Jun 2026 19:26:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nOPttWfe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IIJQxKhw";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BCA710E9F4;
- Mon, 29 Jun 2026 19:26:23 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B4F810EA4D;
+ Mon, 29 Jun 2026 19:26:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8623360129;
- Mon, 29 Jun 2026 19:26:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E1DD1F00A3A;
- Mon, 29 Jun 2026 19:26:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 23AF440569;
+ Mon, 29 Jun 2026 19:26:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F7DF1F000E9;
+ Mon, 29 Jun 2026 19:26:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782761182;
- bh=Wnm2Xg8fzgzgq2t9tP+R94oZiE2QRSqcJqSUSdbb+xI=;
+ s=k20260515; t=1782761188;
+ bh=rJBKJgm9VGYkLKxlBKZ5aOjhCtASp65CFyjLBQGRzvQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=nOPttWfeqx2WAAk+O86bRHV1xe9XjSiO7vWMcbguW/QG8cwhr9Ho+WujRZfoXIkNB
- GAafXcLTt0A7107oO1/wfsRqbvh2NXnLmJEY5U2oNVlhqSlYA3t7vnfmg9ypcMiIQu
- 8h9CwqzwF/QmgcsSy6FddnicElSxEL4LUhf+meGHiuuHtZIY/zI5z4sASrd3sx6zbv
- h+vKpCS3OgfNT1Vzh95SLJ33rPs0Xs2s5lFkRLuYrK0Dv+UhZIFDZTErNLJ48+783p
- GrekfoEk+r6DJVzhZY0W/8o+WObqmyaivps6ZsvmcWguDnXNLCk/ULQ2n7338Yb/Eb
- NW0mBvRR/aD3g==
+ b=IIJQxKhweg39/BMqoHOH7kb0/Al+cJWTEI1hioVBPZaDB4qhB2Vb6gTAE5EgKd8i+
+ vKfSoPurTO8PIuLjyUs5WNhfD4gqH5sManMjAeS2pFtPAomy2K2tA9iwWFCCLRozBe
+ 80WBl+G+ksIR6HWSGPbvhb/38MdZ9vYyRBKIyMWVOS+AOWbhSlmW8yn0VL2dXg9Cqy
+ yP/BQIl71tGgb5bQL/hpBuwobEq79GN6SA2SmGSur13Y5GsCCLpCQRvCYn4h2DY6RM
+ 2uQTclqrErpsIcrjBfB0b+ymG/UVaPwZEumIFLlrW7N/vGNJmRnvO33VIBdwlXHg/1
+ 9OKljIZr4sLrA==
 From: Lorenzo Stoakes <ljs@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
@@ -87,10 +87,9 @@ Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
  linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
  linux-sound@vger.kernel.org
-Subject: [PATCH 09/13] mm/vma: update create_init_stack_vma() to use
- vma_flags_t
-Date: Mon, 29 Jun 2026 20:25:32 +0100
-Message-ID: <34689784ee6856f100c02ad4eabeaa4db643713a.1782760670.git.ljs@kernel.org>
+Subject: [PATCH 11/13] mm/mlock: convert mlock code to use vma_flags_t
+Date: Mon, 29 Jun 2026 20:25:34 +0100
+Message-ID: <2db16db81538355ca65f778c246d2381c673cad4.1782760670.git.ljs@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1782760670.git.ljs@kernel.org>
 References: <cover.1782760670.git.ljs@kernel.org>
@@ -111,95 +110,285 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace use of the legacy vm_flags_t flags with vma_flags_t values in
-create_init_stack_vma().
+Replace use of the legacy vm_flags_t flags with vma_flags_t values
+throughout the mlock logic.
 
-As part of this change we add VMA_STACK_EARLY and VMA_STACK_INCOMPLETE
-vma_flags_t defines, and slightly rework create_init_stack_vma() for
-clarity.
+Additionally update comments to reflect the changes to be consistent.
 
 No functional change intended.
 
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- include/linux/mm.h |  4 ++++
- mm/vma_exec.c      | 18 +++++++++++-------
- 2 files changed, 15 insertions(+), 7 deletions(-)
+ mm/mlock.c | 86 +++++++++++++++++++++++++++++-------------------------
+ 1 file changed, 46 insertions(+), 40 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index b55790c75038..6e57d41677de 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -440,8 +440,10 @@ enum {
- #define VM_STACK	INIT_VM_FLAG(STACK)
- #ifdef CONFIG_STACK_GROWSUP
- #define VM_STACK_EARLY	INIT_VM_FLAG(STACK_EARLY)
-+#define VMA_STACK_EARLY mk_vma_flags(VMA_STACK_EARLY_BIT)
- #else
- #define VM_STACK_EARLY	VM_NONE
-+#define VMA_STACK_EARLY EMPTY_VMA_FLAGS
- #endif
- #ifdef CONFIG_ARCH_HAS_PKEYS
- #define VM_PKEY_SHIFT ((__force int)VMA_HIGH_ARCH_0_BIT)
-@@ -532,6 +534,8 @@ enum {
- 
- /* Bits set in the VMA until the stack is in its final location */
- #define VM_STACK_INCOMPLETE_SETUP (VM_RAND_READ | VM_SEQ_READ | VM_STACK_EARLY)
-+#define VMA_STACK_INCOMPLETE_SETUP append_vma_flags(		\
-+	VMA_STACK_EARLY, VMA_RAND_READ_BIT, VMA_SEQ_READ_BIT)
- 
- #define TASK_EXEC_BIT ((current->personality & READ_IMPLIES_EXEC) ? \
- 		       VMA_EXEC_BIT : VMA_READ_BIT)
-diff --git a/mm/vma_exec.c b/mm/vma_exec.c
-index b01c4964f2c9..48c783e73cf3 100644
---- a/mm/vma_exec.c
-+++ b/mm/vma_exec.c
-@@ -112,15 +112,17 @@ int relocate_vma_down(struct vm_area_struct *vma, unsigned long shift)
- int create_init_stack_vma(struct mm_struct *mm, struct vm_area_struct **vmap,
- 			  unsigned long *top_mem_p)
- {
--	unsigned long flags = VM_STACK_FLAGS | VM_STACK_INCOMPLETE_SETUP;
-+	vma_flags_t flags = VMA_STACK_INCOMPLETE_SETUP;
-+	struct vm_area_struct *vma;
- 	int err;
--	struct vm_area_struct *vma = vm_area_alloc(mm);
- 
-+	/* VMA_STACK_FLAGS and VMA_STACK_INCOMPLETE_SETUP must not overlap. */
-+	VM_WARN_ON_ONCE(vma_flags_test_any_mask(&flags, VMA_STACK_FLAGS));
-+
-+	vma = vm_area_alloc(mm);
- 	if (!vma)
- 		return -ENOMEM;
- 
--	vma_set_anonymous(vma);
--
- 	if (mmap_write_lock_killable(mm)) {
- 		err = -EINTR;
- 		goto err_free;
-@@ -134,18 +136,20 @@ int create_init_stack_vma(struct mm_struct *mm, struct vm_area_struct **vmap,
- 	if (err)
- 		goto err_ksm;
- 
-+	vma_flags_set_mask(&flags, VMA_STACK_FLAGS);
-+	vma_set_anonymous(vma);
-+
- 	/*
- 	 * Place the stack at the largest stack address the architecture
- 	 * supports. Later, we'll move this to an appropriate place. We don't
- 	 * use STACK_TOP because that can depend on attributes which aren't
- 	 * configured yet.
+diff --git a/mm/mlock.c b/mm/mlock.c
+index 9c87b3ced65f..1634b125a519 100644
+--- a/mm/mlock.c
++++ b/mm/mlock.c
+@@ -329,7 +329,7 @@ static inline bool allow_mlock_munlock(struct folio *folio,
+ 	 * be split. And the pages are not in VM_LOCKed VMA
+ 	 * can be reclaimed.
  	 */
--	VM_WARN_ON_ONCE(VM_STACK_FLAGS & VM_STACK_INCOMPLETE_SETUP);
- 	vma->vm_end = STACK_TOP_MAX;
- 	vma->vm_start = vma->vm_end - PAGE_SIZE;
- 	if (pgtable_supports_soft_dirty())
--		flags |= VM_SOFTDIRTY;
--	vm_flags_init(vma, flags);
-+		vma_flags_set(&flags, VMA_SOFTDIRTY_BIT);
-+	vma->flags = flags;
- 	vma->vm_page_prot = vma_get_page_prot(vma);
+-	if (!(vma->vm_flags & VM_LOCKED))
++	if (!vma_test(vma, VMA_LOCKED_BIT))
+ 		return true;
  
- 	err = insert_vm_struct(mm, vma);
+ 	/* folio_within_range() cannot take KSM, but any small folio is OK */
+@@ -368,7 +368,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
+ 		folio = pmd_folio(*pmd);
+ 		if (folio_is_zone_device(folio))
+ 			goto out;
+-		if (vma->vm_flags & VM_LOCKED)
++		if (vma_test(vma, VMA_LOCKED_BIT))
+ 			mlock_folio(folio);
+ 		else
+ 			munlock_folio(folio);
+@@ -393,7 +393,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
+ 		if (!allow_mlock_munlock(folio, vma, start, end, step))
+ 			goto next_entry;
+ 
+-		if (vma->vm_flags & VM_LOCKED)
++		if (vma_test(vma, VMA_LOCKED_BIT))
+ 			mlock_folio(folio);
+ 		else
+ 			munlock_folio(folio);
+@@ -417,8 +417,8 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
+  * @end - end of range in @vma
+  * @new_vma_flags - the new set of flags for @vma.
+  *
+- * Called for mlock(), mlock2() and mlockall(), to set @vma VM_LOCKED;
+- * called for munlock() and munlockall(), to clear VM_LOCKED from @vma.
++ * Called for mlock(), mlock2() and mlockall(), to set @vma VMA_LOCKED_BIT;
++ * called for munlock() and munlockall(), to clear VMA_LOCKED_BIT from @vma.
+  */
+ static void mlock_vma_pages_range(struct vm_area_struct *vma,
+ 	unsigned long start, unsigned long end,
+@@ -431,14 +431,14 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
+ 
+ 	/*
+ 	 * There is a slight chance that concurrent page migration,
+-	 * or page reclaim finding a page of this now-VM_LOCKED vma,
++	 * or page reclaim finding a page of this now-VMA_LOCKED_BIT vma,
+ 	 * will call mlock_vma_folio() and raise page's mlock_count:
+ 	 * double counting, leaving the page unevictable indefinitely.
+-	 * Communicate this danger to mlock_vma_folio() with VM_IO,
+-	 * which is a VM_SPECIAL flag not allowed on VM_LOCKED vmas.
++	 * Communicate this danger to mlock_vma_folio() with VMA_IO_BIT,
++	 * which is a VMA_SPECIAL_FLAGS flag not allowed on VMA_LOCKED_BIT vmas.
+ 	 * mmap_lock is held in write mode here, so this weird
+ 	 * combination should not be visible to other mmap_lock users;
+-	 * but WRITE_ONCE so rmap walkers must see VM_IO if VM_LOCKED.
++	 * but WRITE_ONCE so rmap walkers must see VMA_IO_BIT if VMA_LOCKED_BIT.
+ 	 */
+ 	if (vma_flags_test(new_vma_flags, VMA_LOCKED_BIT))
+ 		vma_flags_set(new_vma_flags, VMA_IO_BIT);
+@@ -458,7 +458,7 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
+ /*
+  * mlock_fixup  - handle mlock[all]/munlock[all] requests.
+  *
+- * Filters out "special" vmas -- VM_LOCKED never gets set for these, and
++ * Filters out "special" vmas -- VMA_LOCKED_BIT never gets set for these, and
+  * munlock is a no-op.  However, for some special vmas, we go ahead and
+  * populate the ptes.
+  *
+@@ -466,24 +466,23 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
+  */
+ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
+ 	       struct vm_area_struct **prev, unsigned long start,
+-	       unsigned long end, vm_flags_t newflags)
++	       unsigned long end, vma_flags_t *new_vma_flags)
+ {
+-	vma_flags_t new_vma_flags = legacy_to_vma_flags(newflags);
+ 	const vma_flags_t old_vma_flags = vma->flags;
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	int nr_pages;
+ 	int ret = 0;
+ 
+-	if (vma_flags_same_pair(&old_vma_flags, &new_vma_flags) ||
++	if (vma_flags_same_pair(&old_vma_flags, new_vma_flags) ||
+ 	    vma_is_secretmem(vma) || !vma_supports_mlock(vma)) {
+ 		/*
+-		 * Don't set VM_LOCKED or VM_LOCKONFAULT and don't count.
++		 * Don't set VMA_LOCKED_BIT or VM_LOCKONFAULT and don't count.
+ 		 * For secretmem, don't allow the memory to be unlocked.
+ 		 */
+ 		goto out;
+ 	}
+ 
+-	vma = vma_modify_flags(vmi, *prev, vma, start, end, &new_vma_flags);
++	vma = vma_modify_flags(vmi, *prev, vma, start, end, new_vma_flags);
+ 	if (IS_ERR(vma)) {
+ 		ret = PTR_ERR(vma);
+ 		goto out;
+@@ -493,7 +492,7 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
+ 	 * Keep track of amount of locked VM.
+ 	 */
+ 	nr_pages = (end - start) >> PAGE_SHIFT;
+-	if (!vma_flags_test(&new_vma_flags, VMA_LOCKED_BIT))
++	if (!vma_flags_test(new_vma_flags, VMA_LOCKED_BIT))
+ 		nr_pages = -nr_pages;
+ 	else if (vma_flags_test(&old_vma_flags, VMA_LOCKED_BIT))
+ 		nr_pages = 0;
+@@ -502,15 +501,15 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
+ 	/*
+ 	 * vm_flags is protected by the mmap_lock held in write mode.
+ 	 * It's okay if try_to_unmap_one unmaps a page just after we
+-	 * set VM_LOCKED, populate_vma_page_range will bring it back.
++	 * set VMA_LOCKED_BIT, populate_vma_page_range will bring it back.
+ 	 */
+-	if (vma_flags_test(&new_vma_flags, VMA_LOCKED_BIT) &&
++	if (vma_flags_test(new_vma_flags, VMA_LOCKED_BIT) &&
+ 	    vma_flags_test(&old_vma_flags, VMA_LOCKED_BIT)) {
+ 		/* No work to do, and mlocking twice would be wrong */
+ 		vma_start_write(vma);
+-		vma->flags = new_vma_flags;
++		vma->flags = *new_vma_flags;
+ 	} else {
+-		mlock_vma_pages_range(vma, start, end, &new_vma_flags);
++		mlock_vma_pages_range(vma, start, end, new_vma_flags);
+ 	}
+ out:
+ 	*prev = vma;
+@@ -518,7 +517,7 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
+ }
+ 
+ static int apply_vma_lock_flags(unsigned long start, size_t len,
+-				vm_flags_t flags)
++				const vma_flags_t *flags)
+ {
+ 	unsigned long nstart, end, tmp;
+ 	struct vm_area_struct *vma, *prev;
+@@ -543,18 +542,20 @@ static int apply_vma_lock_flags(unsigned long start, size_t len,
+ 	tmp = vma->vm_start;
+ 	for_each_vma_range(vmi, vma, end) {
+ 		int error;
+-		vm_flags_t newflags;
++		vma_flags_t newflags;
+ 
+ 		if (vma->vm_start != tmp)
+ 			return -ENOMEM;
+ 
+-		newflags = vma->vm_flags & ~VM_LOCKED_MASK;
+-		newflags |= flags;
++		newflags = vma->flags;
++		vma_flags_clear_mask(&newflags, VMA_LOCKED_MASK);
++		vma_flags_set_mask(&newflags, *flags);
++
+ 		/* Here we know that  vma->vm_start <= nstart < vma->vm_end. */
+ 		tmp = vma->vm_end;
+ 		if (tmp > end)
+ 			tmp = end;
+-		error = mlock_fixup(&vmi, vma, &prev, nstart, tmp, newflags);
++		error = mlock_fixup(&vmi, vma, &prev, nstart, tmp, &newflags);
+ 		if (error)
+ 			return error;
+ 		tmp = vma_iter_end(&vmi);
+@@ -589,7 +590,7 @@ static unsigned long count_mm_mlocked_page_nr(struct mm_struct *mm,
+ 		end = start + len;
+ 
+ 	for_each_vma_range(vmi, vma, end) {
+-		if (vma->vm_flags & VM_LOCKED) {
++		if (vma_test(vma, VMA_LOCKED_BIT)) {
+ 			if (start > vma->vm_start)
+ 				count -= (start - vma->vm_start);
+ 			if (end < vma->vm_end) {
+@@ -615,7 +616,8 @@ static int __mlock_posix_error_return(long retval)
+ 	return retval;
+ }
+ 
+-static __must_check int do_mlock(unsigned long start, size_t len, vm_flags_t flags)
++static __must_check int do_mlock(unsigned long start, size_t len,
++				 vma_flags_t *flags)
+ {
+ 	unsigned long locked;
+ 	unsigned long lock_limit;
+@@ -664,24 +666,27 @@ static __must_check int do_mlock(unsigned long start, size_t len, vm_flags_t fla
+ 
+ SYSCALL_DEFINE2(mlock, unsigned long, start, size_t, len)
+ {
+-	return do_mlock(start, len, VM_LOCKED);
++	vma_flags_t flags = mk_vma_flags(VMA_LOCKED_BIT);
++
++	return do_mlock(start, len, &flags);
+ }
+ 
+ SYSCALL_DEFINE3(mlock2, unsigned long, start, size_t, len, int, flags)
+ {
+-	vm_flags_t vm_flags = VM_LOCKED;
++	vma_flags_t vma_flags = mk_vma_flags(VMA_LOCKED_BIT);
+ 
+ 	if (flags & ~MLOCK_ONFAULT)
+ 		return -EINVAL;
+ 
+ 	if (flags & MLOCK_ONFAULT)
+-		vm_flags |= VM_LOCKONFAULT;
++		vma_flags_set(&vma_flags, VMA_LOCKONFAULT_BIT);
+ 
+-	return do_mlock(start, len, vm_flags);
++	return do_mlock(start, len, &vma_flags);
+ }
+ 
+ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
+ {
++	vma_flags_t flags = EMPTY_VMA_FLAGS;
+ 	int ret;
+ 
+ 	start = untagged_addr(start);
+@@ -691,7 +696,7 @@ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
+ 
+ 	if (mmap_write_lock_killable(current->mm))
+ 		return -EINTR;
+-	ret = apply_vma_lock_flags(start, len, 0);
++	ret = apply_vma_lock_flags(start, len, &flags);
+ 	mmap_write_unlock(current->mm);
+ 
+ 	return ret;
+@@ -705,14 +710,15 @@ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
+  * There are a couple of subtleties with this.  If mlockall() is called multiple
+  * times with different flags, the values do not necessarily stack.  If mlockall
+  * is called once including the MCL_FUTURE flag and then a second time without
+- * it, VM_LOCKED and VM_LOCKONFAULT will be cleared from mm->def_vma_flags.
++ * it, VMA_LOCKED_BIT and VMA_LOCKONFAULT_BIT will be cleared from
++ * mm->def_vma_flags.
+  */
+ static int apply_mlockall_flags(int flags)
+ {
+ 	VMA_ITERATOR(vmi, current->mm, 0);
+ 	struct mm_struct *mm = current->mm;
+ 	struct vm_area_struct *vma, *prev = NULL;
+-	vm_flags_t to_add = 0;
++	vma_flags_t to_add = EMPTY_VMA_FLAGS;
+ 
+ 	vma_flags_clear_mask(&mm->def_vma_flags, VMA_LOCKED_MASK);
+ 	if (flags & MCL_FUTURE) {
+@@ -726,20 +732,20 @@ static int apply_mlockall_flags(int flags)
+ 	}
+ 
+ 	if (flags & MCL_CURRENT) {
+-		to_add |= VM_LOCKED;
++		vma_flags_set(&to_add, VMA_LOCKED_BIT);
+ 		if (flags & MCL_ONFAULT)
+-			to_add |= VM_LOCKONFAULT;
++			vma_flags_set(&to_add, VMA_LOCKONFAULT_BIT);
+ 	}
+ 
+ 	for_each_vma(vmi, vma) {
+ 		int error;
+-		vm_flags_t newflags;
++		vma_flags_t newflags = vma->flags;
+ 
+-		newflags = vma->vm_flags & ~VM_LOCKED_MASK;
+-		newflags |= to_add;
++		vma_flags_clear_mask(&newflags, VMA_LOCKED_MASK);
++		vma_flags_set_mask(&newflags, to_add);
+ 
+ 		error = mlock_fixup(&vmi, vma, &prev, vma->vm_start, vma->vm_end,
+-				    newflags);
++				    &newflags);
+ 		/* Ignore errors, but prev needs fixing up. */
+ 		if (error)
+ 			prev = vma;
 -- 
 2.54.0
 
