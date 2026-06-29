@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 801E1C43327
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:25:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84DF4C43602
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:25:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEE0C10E884;
-	Mon, 29 Jun 2026 12:25:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F04210E880;
+	Mon, 29 Jun 2026 12:25:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c2fdxPuJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SjKzPFOR";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B1BC10E874;
- Mon, 29 Jun 2026 12:25:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA79410E876;
+ Mon, 29 Jun 2026 12:25:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BF9AC601BE;
- Mon, 29 Jun 2026 12:25:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1F691F00AC4;
- Mon, 29 Jun 2026 12:25:23 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 67AC0600AB;
+ Mon, 29 Jun 2026 12:25:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47EF81F00A3A;
+ Mon, 29 Jun 2026 12:25:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782735924;
- bh=U1jtLkA6UuZsfpQiwXDViZ4TbQirP1iCEgORsJjMVIE=;
+ s=k20260515; t=1782735910;
+ bh=mS4FmeICQJ9Ywkxd+EfahpDdy7CpZ1ZHvCipweuqRKE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=c2fdxPuJZracea4THiWagUGG3qtjKlYQLO8kI5qBAOAmNyUqU+Cz2tE0LZcZK/+x6
- 6Xk6iEoGktAUHyeB9cblz74jdddGkwaBjm0aSRvDSQySW3n0Fr3QzWtICG5O83ECq+
- CpGzQfZJaEmCid2LM+2XsU2ThNJ23kEbysH1NlUtWxqEIESKzs4x6d5f0OSVrFyJfm
- j3TScuQr22512dqslB4Ah+zgS28CuS/F239kYvXoA+o5vDrfUPnKKgS1tQAkh4mNti
- ITFv6t9aZ5OoDpmTegOvjzsXL8lUZRPNTyuRby3AAe3GvKu9tkUXabe/jqKUOVL1Ww
- sDInYPPHhFcHQ==
+ b=SjKzPFORFyyoIvxCVewGH6aMd/sKD/EoO7d5JdR5wogbwAZoUOXibHP65k2LlCA/8
+ BiDr50glG3uwY1H1vA+mRYMF2MDP+QL5rXkWVgySzfCrIQhyGB+8gR4/GVBcPxj4qt
+ DOvEa+0b0ihViJqYaZgKrywdAJzpEMJNG8Eb9Wa7BKWu8xy7A1vgegH8mqEYdTsSyy
+ bT5ire25TKtLfGZBmMyi2ykzbXuONvUTuRmDOh+vr1tbwvuWufGO7Tn9tHB231p/iB
+ 1ssVMlvXkA/VVtOMvemMEKzl/DQy4jsIfz1JJ1pJKCxelkDTcCYThwtdLAEzJUM4u8
+ 0vd3tGQPSCpEw==
 From: Lorenzo Stoakes <ljs@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
@@ -80,10 +80,10 @@ Cc: Russell King <linux@armlinux.org.uk>, Dinh Nguyen <dinguyen@kernel.org>,
  damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
  Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
  Jann Horn <jannh@google.com>
-Subject: [PATCH 30/30] tools/testing/vma: output compared expression on
- ASSERT_[EQ, NE]()
-Date: Mon, 29 Jun 2026 13:23:41 +0100
-Message-ID: <432444fa4c12ae1c4047550e2b205d3e9bab458f.1782735110.git.ljs@kernel.org>
+Subject: [PATCH 25/30] mm/vma: update vmg_adjust_set_range() to offset pgoff
+ instead
+Date: Mon, 29 Jun 2026 13:23:36 +0100
+Message-ID: <910f7b5be78232304dc7ca01cd57c6f5ca8f3d13.1782735110.git.ljs@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1782735110.git.ljs@kernel.org>
 References: <cover.1782735110.git.ljs@kernel.org>
@@ -104,67 +104,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Update the macros to output the compared values at hex for easier debugging
-when test asserts fail.
+We are calculating the pgoff as an offset, since we have vma_add_pgoff()
+and vma_sub_pgoff() available, just offset this value directly and use
+__vma_set_range() for vma->vm_[start, end] values.
 
-Also remove unused IS_SET() macro.
+We take care to update the range before offsetting the page offset, so the
+adjusted VMA's vm_start and vm_pgoff are mutually consistent at the point
+the page offset helpers operate - this matters once vma_set_pgoff() comes
+to assert invariants which relate the two.
+
+Doing so lays the foundation for future work which allows for use of
+virtual page offsets for MAP_PRIVATE-file backed mappings.
+
+No functional change intended.
 
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- tools/testing/vma/shared.h | 31 +++++++++++++++++++------------
- 1 file changed, 19 insertions(+), 12 deletions(-)
+ mm/vma.c | 15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
 
-diff --git a/tools/testing/vma/shared.h b/tools/testing/vma/shared.h
-index ca4f1238f1c7..216be4cda369 100644
---- a/tools/testing/vma/shared.h
-+++ b/tools/testing/vma/shared.h
-@@ -21,19 +21,28 @@
- 		}							\
- 	} while (0)
-
--#define ASSERT_TRUE(_expr)						\
--	do {								\
--		if (!(_expr)) {						\
--			fprintf(stderr,					\
--				"Assert FAILED at %s:%d:%s(): %s is FALSE.\n", \
--				__FILE__, __LINE__, __FUNCTION__, #_expr); \
--			return false;					\
--		}							\
-+#define __ASSERT_TRUE(_expr, _fmt, ...)					   \
-+	do {								   \
-+		if (!(_expr)) {						   \
-+			fprintf(stderr,					   \
-+				"Assert FAILED at %s:%d:%s(): %s is FALSE" \
-+				_fmt ".\n",				   \
-+				__FILE__, __LINE__, __FUNCTION__, #_expr   \
-+				__VA_OPT__(,) __VA_ARGS__);		   \
-+			return false;					   \
-+		}							   \
- 	} while (0)
-
-+#define __TO_SCALAR(x)	((unsigned long long)(uintptr_t)(x))
-+
-+#define ASSERT_TRUE(_expr) __ASSERT_TRUE(_expr, "")
- #define ASSERT_FALSE(_expr) ASSERT_TRUE(!(_expr))
--#define ASSERT_EQ(_val1, _val2) ASSERT_TRUE((_val1) == (_val2))
--#define ASSERT_NE(_val1, _val2) ASSERT_TRUE((_val1) != (_val2))
-+#define ASSERT_EQ(_val1, _val2)						\
-+	__ASSERT_TRUE((_val1) == (_val2), " (0x%llx != 0x%llx)",	\
-+		      __TO_SCALAR(_val1), __TO_SCALAR(_val2))
-+#define ASSERT_NE(_val1, _val2) \
-+	__ASSERT_TRUE((_val1) != (_val2), " (0x%llx == 0x%llx)", \
-+		       __TO_SCALAR(_val1), __TO_SCALAR(_val2))
-
- #define ASSERT_FLAGS_SAME_MASK(_flags, _flags_other) \
- 	ASSERT_TRUE(vma_flags_same_mask((_flags), (_flags_other)))
-@@ -53,8 +62,6 @@
- #define ASSERT_FLAGS_NONEMPTY(_flags) \
- 	ASSERT_FALSE(vma_flags_empty(_flags))
-
--#define IS_SET(_val, _flags) ((_val & _flags) == _flags)
+diff --git a/mm/vma.c b/mm/vma.c
+index e3355eab11f2..0579fc8c9bd5 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -714,9 +714,6 @@ void validate_mm(struct mm_struct *mm)
+  */
+ static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
+ {
+-	struct vm_area_struct *adjust;
+-	pgoff_t pgoff;
 -
- extern bool fail_prealloc;
-
- /* Override vma_iter_prealloc() so we can choose to fail it. */
---
+ 	if (vmg->__adjust_middle_start) {
+ 		/*
+ 		 * vmg->start    vmg->end
+@@ -735,8 +732,8 @@ static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
+ 		struct vm_area_struct *middle = vmg->middle;
+ 		const unsigned long delta = vmg->end - middle->vm_start;
+ 
+-		pgoff = vma_start_pgoff(middle) + (delta >> PAGE_SHIFT);
+-		adjust = middle;
++		__vma_set_range(middle, vmg->end, middle->vm_end);
++		vma_add_pgoff(middle, delta >> PAGE_SHIFT);
+ 	} else if (vmg->__adjust_next_start) {
+ 		/*
+ 		 *                Originally:
+@@ -764,13 +761,9 @@ static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
+ 		struct vm_area_struct *next = vmg->next;
+ 		const unsigned long delta = next->vm_start - vmg->end;
+ 
+-		pgoff = vma_start_pgoff(next) - (delta >> PAGE_SHIFT);
+-		adjust = next;
+-	} else {
+-		return;
++		__vma_set_range(next, vmg->end, next->vm_end);
++		vma_sub_pgoff(next, delta >> PAGE_SHIFT);
+ 	}
+-
+-	vma_set_range(adjust, vmg->end, adjust->vm_end, pgoff);
+ }
+ 
+ /*
+-- 
 2.54.0
+
