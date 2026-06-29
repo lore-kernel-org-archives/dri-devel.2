@@ -4,128 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16DA5C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 12:45:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A7B9C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 13:00:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53D8210E074;
-	Mon, 29 Jun 2026 12:45:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD18D10E050;
+	Mon, 29 Jun 2026 13:00:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="zXLm0XlT";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xqpjUWqw";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Diy9TOiq";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ODsecyd1";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Eq1fZ+Xr";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1304110E074
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 12:45:01 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 75971730A7;
- Mon, 29 Jun 2026 12:44:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782737099; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=yg1MHm8zg4PWxYaWnjlgZJ2LL9g5gaSccr1pJ1ZtzBA=;
- b=zXLm0XlTCWs0LrQu3+Is6aCR4s7zcg/6Lr7MVjFKoAApWsWuxqgZZbSF3T81Z7iuxjUqgH
- K4XyYohfmgy61nMsqCNl2vnRqCn5uCkYEl+AqCzruDfyuLjry0gvQ9CPg4WZqTDOXJa8QR
- /dmHKLTbngEXoQhUnaCRWwfd1QXKs2o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782737099;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=yg1MHm8zg4PWxYaWnjlgZJ2LL9g5gaSccr1pJ1ZtzBA=;
- b=xqpjUWqwsn7TLOoizyfE7Kzg9+xj1Tyv806NiIYhSpUX+vmEJjroSoPQyB0KzhC+DLSkP5
- PomtXmVbYrwKnhCw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782737098; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=yg1MHm8zg4PWxYaWnjlgZJ2LL9g5gaSccr1pJ1ZtzBA=;
- b=Diy9TOiqMy16SoxLlQONpMdAgCcExNrK7PIUkRNNcGFdam+XmmRuQhWK3KsDD0D74oONQR
- T6tcZdXc+g4ZVOYNgl9s/3gvfnqK3SLhTQxsDvflP7v1AWZhA6Hjfci+ZgSFA8EpQHll9o
- alHR9LXO8ZIWrdmX6i2CpJp/EQ7xK80=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782737098;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=yg1MHm8zg4PWxYaWnjlgZJ2LL9g5gaSccr1pJ1ZtzBA=;
- b=ODsecyd1aBVIMTVsWxyroSbRcGbulY6jHcWWfqNY4QlP2pXVx5kKajbJje0IVCLYT7LXk3
- HY7eeoqCa2SzMBDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1A4E7779A8;
- Mon, 29 Jun 2026 12:44:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id vz2uBMpoQmrYJQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 29 Jun 2026 12:44:58 +0000
-Message-ID: <439dcefd-87dd-46b2-9501-486e136c1b7b@suse.de>
-Date: Mon, 29 Jun 2026 14:44:57 +0200
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010056.outbound.protection.outlook.com
+ [52.101.193.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5EBA10E050
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 13:00:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q3qOcA6b70osO/fUDmSvNYDiNU+mo/vG5cw//QcuWeaB1Pi8YLedIW+Xg9cog/6mXPoBAc23wDHZyXLo7k8w4QaqNaLJBAZpvN73wGxxU59cJz2aS4Hrn+QO0GaY2/ScfpKoI9PVxt3pRrwrKRSw55grG6laWrwZPKyhyHqPg09v2aziijomhrd8T9m8PFs3D99NKpr9IPf+oByAE6mwaJ6rzPHl865FRWc7ZSO66kxGHtCkeZ6I02+4PskFoq/xNzUplOLY2fgh/OjKHon6WiJHj6/pduZ/MIAB1Ql2aflJajaa330P9sQk2ltioy97HqWNpS13CJw9xcyWR1RVDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2TQlgV0R06Xbv0dZxV4JGdC2mBpSMoIZ/kuCEsOlKx4=;
+ b=O7Sb4/oSuICZ7EqYZP7cJhsjWSoYGAnSXaSaq++HFKSIfre6Uo2ryvb4lDzJ764bXH9OHhXiNEg9Q1mvjevQX9Q180hsfICyOZRi3MBuBw4Ow6vcle9dZwtA88s7XIxIcxzDVtYpboZIYA6z2Qsw9tjN1/q7n3ZNgO0B4z/ft9xqrGme2w33/qwG4RORqwwxcJgter6yLZXAlyqXmgbbvbCJ+ENrI5MQhejLbdGBAI45CdN1LMz0roin1vTBBqpTyr66Im6yMjZTWulrwblRmp/hheRasD44wldULzccAuE5HxJuEr8zM23qFlTjrh3KfU+h4dSyBNaYOSnJuK0cSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2TQlgV0R06Xbv0dZxV4JGdC2mBpSMoIZ/kuCEsOlKx4=;
+ b=Eq1fZ+Xr3kZB+Dy7W7ja8G1jDv5XlMX+cnIpvqNIyMEKyDSs5QT36A2NplSvQi/PNz3YHuISdJHYSWcLs+LHSedaNi2G4NYxs2d8AS+ck7cZHwRTw8YR3ihPU4uEjVD9Zo65Trb75AZaRohKByJWeue34wh3jQz9dReoN93YzkKtfE1/GJhyVAf4Y9kWn/2I3bD9hbdT2BdM2cbKcLojx2goA3a1dimbKjfIiM5kUKEPbS58il9BjA7/dWh1Wv3NlFdlQunCKzO7FZDvFduQM4oszH6VdRFyasZ1daxHBZ12ZHapgYQcm8Lcripo7wnsedlLzFm1FDZ5v9/KnUdgUg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by DS0PR12MB8271.namprd12.prod.outlook.com (2603:10b6:8:fb::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.159.19; Mon, 29 Jun 2026 13:00:23 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 13:00:23 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 29 Jun 2026 22:00:19 +0900
+Message-Id: <DJLJVW1OUBZ1.2X2T2M2SU8BOI@nvidia.com>
+Cc: "Tim Kovalenko" <tim.kovalenko@proton.me>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt"
+ <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre
+ Ghiti" <alex@ghiti.fr>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2] gpu: nova-core: falcon: store bar and dev in falcon
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260625-drm-bar-refactor-v2-1-9db6b890d92e@proton.me>
+ <DJLIEZJL9ZS6.J2642U4G4CT4@nvidia.com>
+ <a9f1b6a5-ccf5-4bb1-96a8-54a3ed8f3f81@kernel.org>
+In-Reply-To: <a9f1b6a5-ccf5-4bb1-96a8-54a3ed8f3f81@kernel.org>
+X-ClientProxiedBy: OS7PR01CA0157.jpnprd01.prod.outlook.com
+ (2603:1096:604:24d::20) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/7] drm/of: Implement drm_of_get_panel_orientation()
-To: Thierry Reding <treding@nvidia.com>
-Cc: javierm@redhat.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch,
- neil.armstrong@linaro.org, jesszhan0024@gmail.com, rayyan@ansari.sh,
- dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev
-References: <20260625094509.157581-1-tzimmermann@suse.de>
- <20260625094509.157581-7-tzimmermann@suse.de> <akJg5_5UeNJQi8Zn@orome>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <akJg5_5UeNJQi8Zn@orome>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_CC(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,linaro.org,ansari.sh,lists.freedesktop.org,lists.linux.dev];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_SEVEN(0.00)[11];
- MID_RHS_MATCH_FROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:email,
- suse.de:mid, suse.com:url, nvidia.com:email]
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DS0PR12MB8271:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1a770e54-cdf9-47fe-d6c3-08ded5de61ca
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|376014|7416014|23010399003|366016|1800799024|56012099006|4143699003|18002099003|22082099003|11063799006;
+X-Microsoft-Antispam-Message-Info: 6ZgdL0u6oChxHLLAHSbPNmn+c2/S5eXbTiLJpRqAmJH7nqRAAIbgNoQXO3BSr+p5e7GRYMqcZOsmmUhcs1HtpT74glfx7gfRwAfP/UEdObB5D/vMR1DGLcIGNbHcAVjt/DfFQsG/APJr440c4BXEvZuTeGV6MaJv6Ok3O5HjfNQyWENm8RyrT2+EtNfgoAVlXIWpHZ55H9Kw59sKpNbVfYi9lY4Y3y3bHbJEf0mp4AvH4udVTvmUDKeAGLXpfFoAoZtSJv9fRD90/sABlmePAhvYymO5OzHRv3M4VtbraywvW60gWz6IRI094Jmcnumpzye2CFRIWYPo4VpyzY4QCWyYb3RWnvYfu9qiZTrOskCiW9k6Ty8B0ag2+bpmR5fp9ngVLNQp4W1Qd0xsGyPFkil/tbiZXW9goXCJUrbS/V1fTXcxx8fiIys39bjL/7tHMlEm0bAOG3cXpSPINKdZhbrKW+ki1Szm7WkoZE74uC6pDZ25lVKZEAgYYUjb0XN5pBBtAn8W7IEDxQN873rZwBJ0JgM2mt3KoMKwzOqggIZ/wI9tLbgWo8O7kudVshxeKLrtdLytQTE8GX9RA6FJCaJRlK7MCkmEHDic2JaC0n2DhaDH0ZPD9d+yQYF0gvMtpX85WDpAIbE+0EemU/SvM4FyGz5mn74kCX8to383VQs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(376014)(7416014)(23010399003)(366016)(1800799024)(56012099006)(4143699003)(18002099003)(22082099003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WFVHdzFJY1VWcFFsSDJHNUFpV0d6SGxJK0JyVmJNUWVDN1k3MUY2NEN6bXlD?=
+ =?utf-8?B?OWFEbFpwK2NKUklUWU50ZGdmS3pTSksxU2RtK1krVWRIRUppUXFSNGprUGtv?=
+ =?utf-8?B?ejVLd3ZzQzJtQldNclZGajk5eUNzeGcvazlXVlB2bWZENERBeU9mQi9pdVEz?=
+ =?utf-8?B?NDZ4ZGhsZHFDcGQrTGpHQVF5a0IwVlVOUGFnUzlZMUlKU25Gc2J5NlNKK1lS?=
+ =?utf-8?B?bjR4YUdaajlwTU5CdFV1MFByRFJRRm8zTjZpQWJGYXBXbGZDeU5hVlltRElO?=
+ =?utf-8?B?c3pOK2NxSWlTYzdySUF1Q0JKWFJTZ0tQWnM2MUQ2UXJCVWVYMDM3SmJFUHEz?=
+ =?utf-8?B?U2tnREoydDZTMTF0UlhHd2Z0RGx6d0JhV2lzV05aandCdFdydVFuY3JWbHc5?=
+ =?utf-8?B?SXJ5WFJQekU1OVp1Ym9QQTA0UVE1N0dlcG12dTcwZDdjb0lJVjM5SW9nTmMx?=
+ =?utf-8?B?bytTaUYwNm83RzFJMUo4dXJHWkZxRmlwbVUwZkFuampHeDcwK09RRzdDZzNH?=
+ =?utf-8?B?bjB6ZDRJdnBGLy8wS21oemZpdWxUb2lCTWY1aVV2NEVVa3QrMHc3WHdzTzA5?=
+ =?utf-8?B?dlJuMGEzQXpRWFRVTG5NY0FsMVEvcm9pRHNvakxUZkpFR3J6cWJicms3YVRu?=
+ =?utf-8?B?ZHA4bXR4cFY4dkdZQ2c4dGFXWU9WeFZHYk5adnF6QVR5R1M0Y3JBTUNiVFI3?=
+ =?utf-8?B?bUhSZFE1RVY2c3BjWjlOTnVsMXhGQXpOUlRrdm5zVzM0anp4a0RFQis2NDM5?=
+ =?utf-8?B?ZzFiVmlORGR3Um9DUXNLeUJ2YnBIekczWnhYcVMzbW5UUUxpbkswZGZRZDBV?=
+ =?utf-8?B?K2VKNEQraW1ucDdwWWJuOFgxU3phVnRhSUJML3NjTGp4WkZFWU0zV25jcnlQ?=
+ =?utf-8?B?T1pBSlk0MUI3SDFoSlNIUUIvRld6WFN0QWNzUFBhVWo0dkhCMnFMbXU3NmxP?=
+ =?utf-8?B?TnBDM3BaVy9aSVorT2ZSSTNPSWREMGZrZDV0RGQxNWVnTzNwZngwUk9FTTZT?=
+ =?utf-8?B?YWJ5NWtRYWh1QllGdHlJWmRLYUd0WDNnL3NGM1dlemM0clpyaXlmNlVLTkdF?=
+ =?utf-8?B?a3I5WW1qYjltellQNkcvNmNmUkdscTQrb1Iwck1TSkI5UlVTM1A4Y0w0K1pZ?=
+ =?utf-8?B?aWEyZEo1UE15eENrRExXbTNYTjFyQU9oNExjYkNlRzRzalJkdjViNlFETmVG?=
+ =?utf-8?B?S0JzcjNUQ3BVWnRJamdGNGxIb1BuS3AwS2tEYXNNSTAwNHNCN1pCTFN0MHJl?=
+ =?utf-8?B?elJnZ3llMFlkSTdkTzdqbUNCNHJZVU8zakl5bnIxVDV0UU1Jb0xHbHVjdktV?=
+ =?utf-8?B?L0phQnBMRWlKbUVXUkZEN2Zrdm1UYnFiaEJiNEh0cWFCdktoUnFXa05hOER3?=
+ =?utf-8?B?Zm13R3FwSll1UWUwcDdxak5ZeWo3QTJzZitUTHJNZFNQaktvSSt3U0pnRGZ3?=
+ =?utf-8?B?WFAyeUxaM25xcDhDNFgwbUFCVWp0MG01aGlQakh5WGZUQXRtMk1kODFwQ2FW?=
+ =?utf-8?B?K2M0TlE1eU4ybExVRThFNm9xTjI4K2FucEcwWmhQMWFqTlp0N0RNVVJHUUgz?=
+ =?utf-8?B?VHdGMlhXdTd1cmJta3UzWTFLVVVFS2IwZnhJTnBzeEhxR0hoWkpRWVdjN3Rj?=
+ =?utf-8?B?K1dRWGdOVVhCMlp5YU9UMGt6NzRHdUZ5RFZrNEZGZ3JrTGRtbUlJSThzZVJm?=
+ =?utf-8?B?OGNFVldweCtkdTNCSFFiZ1JBdnBnSkt0eWQ1ZDBVVXpVOFlkWGFuRjFXaG95?=
+ =?utf-8?B?U3NBKzFJQkJtNjdnaVB6VE84RS84by9kTnJVdy9IL0hBMVJhQUdsVEdrYmU5?=
+ =?utf-8?B?STNRcUcwUVF3MVRBdDdaMVR4RkZjeERtUXlkSFBTN1Z3N2pyTmhSbEJ1UnpL?=
+ =?utf-8?B?S2JjdWs0N2srcEp3VHRWOS93MmUzWmxuYll5VldUVzhtNFEzeGZRTEFWSWhW?=
+ =?utf-8?B?U1FCTXV3MHlFdUV3VW1DUTlET2hsT2NMNEFTaUJLQnBRdzJKWFFMYXZwL3dM?=
+ =?utf-8?B?MTFjY0FHL1lWemducys3ckpiVlo4bVFHdWJZUm9JekNod1FjRml4RkVXc1dH?=
+ =?utf-8?B?R3BreGlKT3BpTW05bnhNNElkWjBmc3g0TzNCMTlWVXNtaTBBUXZEdStSeXJU?=
+ =?utf-8?B?eXFMM0kvYURSQy81RnVKSXZxcEIzbUhJOWdRengyR0tnemhOeUlyMWZuK1N6?=
+ =?utf-8?B?K2FucTJrTGFwRERJQW1MNU9TSjFyOFQ2VlFNVFIyeEZSeEFpK2NFQ1pnWWMy?=
+ =?utf-8?B?NVQwYUhBeUIvc3htVnFuak9ERkhSMk9rY1hHZnNkZ0RZRm9zSlBBbEZxeGcr?=
+ =?utf-8?B?L21tTk9mblQvNXFoNEVCdkVXamE2bkxrKzhnSkl1SkxFMm9FbHFjOTV5Tzgv?=
+ =?utf-8?Q?hS56s8KeDzIEakfvMzyLSTUOI8iZ5VlMagbXxicjsgB5R?=
+X-MS-Exchange-AntiSpam-MessageData-1: yNDPNS2xS3SSIQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a770e54-cdf9-47fe-d6c3-08ded5de61ca
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 13:00:23.5175 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GOtHQbic9H8S1ebM2Nj6PMDpzerjXO9P7nw0L6Z8Iy863G9baApMIoeZ/FFRDTUTMPfuneXm5s0TnmAyizt6AA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8271
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,382 +148,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 29.06.26 um 14:27 schrieb Thierry Reding:
-> On Thu, Jun 25, 2026 at 11:39:38AM +0200, Thomas Zimmermann wrote:
->> Implement drm_of_get_panel_orientation() to retrieve a panel's
->> rotation property as enum drm_panel_orientation. The code has
->> been taken from of_drm_get_panel_orientation(), so convert that
->> helper over. Callers of the old helper can be converted as well.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->>   drivers/gpu/drm/drm_of.c    | 44 +++++++++++++++++++++++++++++++++++++
->>   drivers/gpu/drm/drm_panel.c | 26 ++--------------------
->>   include/drm/drm_of.h        | 11 ++++++++++
->>   3 files changed, 57 insertions(+), 24 deletions(-)
-> So you're effectively renaming of_drm_get_panel_orientation() to
-> drm_of_get_panel_orientation(), while moving it to drm_of.c,  and then
-> you keep of_drm_get_panel_orientation() as an alias.
+On Mon Jun 29, 2026 at 8:53 PM JST, Danilo Krummrich wrote:
+> On 6/29/26 1:51 PM, Alexandre Courbot wrote:
+>> Danilo, any objection?
 >
-> I don't understand the use of this. Maybe if we really need to move this
-> out of drm_panel.c to make it more widely available, fine. Maybe we also
-> want the drm_of_ prefix instead of of_drm_, also fine, I suppose. But in
-> that case we should just go ahead and update all callers of the old
-> helper and get rid of it while we're at it. No use in keeping around
-> aliases/duplicates.
-
-I'm all for it. i though this would be a different issue.
-
+> Please do,
 >
-> I've attached a patch to do just that. Feel free to integrate it into
-> the series, or we can apply after your series is merged.
-
-Thanks.
-
-Let me split of the  first 5 patches in series and merge them. They are 
-the fixes and hardening patches and seem ready to be merged. I'll 
-prepare a separate series for the panel orientation with your changes 
-and it can go in separately. If we touch all the panel drivers, we 
-should make sure that the panel maintainers get another chance of 
-looking over it.
-
-Best regards
-Thomas
-
+> Acked-by: Danilo Krummrich <dakr@kernel.org>
 >
-> Thierry
->
->  From 2aabb20fd3c8666fd9a8635e28cf6e398de7e717 Mon Sep 17 00:00:00 2001
-> From: Thierry Reding <treding@nvidia.com>
-> Date: Mon, 29 Jun 2026 14:23:27 +0200
-> Subject: [PATCH] drm/panel: Use drm_of_get_panel_orientation()
->
-> The old of_drm_get_panel_orientation() function was replaced by the
-> drm_of_get_panel_orientation() in the core DRM OF helpers. Replace all
-> uses of the old helper and remove it.
->
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
-> ---
->   drivers/gpu/drm/drm_panel.c                   | 20 -------------------
->   .../drm/panel/panel-boe-th101mb31ig002-28a.c  |  2 +-
->   .../gpu/drm/panel/panel-boe-tv101wum-nl6.c    |  2 +-
->   .../gpu/drm/panel/panel-chipwealth-ch13726a.c |  2 +-
->   drivers/gpu/drm/panel/panel-edp.c             |  2 +-
->   drivers/gpu/drm/panel/panel-elida-kd35t133.c  |  2 +-
->   .../gpu/drm/panel/panel-focaltech-ota7290b.c  |  2 +-
->   drivers/gpu/drm/panel/panel-himax-hx83102.c   |  2 +-
->   drivers/gpu/drm/panel/panel-himax-hx8394.c    |  2 +-
->   .../gpu/drm/panel/panel-ilitek-ili9806e-dsi.c |  2 +-
->   drivers/gpu/drm/panel/panel-ilitek-ili9881c.c |  2 +-
->   drivers/gpu/drm/panel/panel-ilitek-ili9882t.c |  2 +-
->   .../gpu/drm/panel/panel-jadard-jd9365da-h3.c  |  2 +-
->   drivers/gpu/drm/panel/panel-lvds.c            |  2 +-
->   drivers/gpu/drm/panel/panel-novatek-nt36523.c |  2 +-
->   drivers/gpu/drm/panel/panel-simple.c          |  2 +-
->   drivers/gpu/drm/panel/panel-sitronix-st7701.c |  2 +-
->   drivers/gpu/drm/panel/panel-sitronix-st7703.c |  2 +-
->   .../gpu/drm/panel/panel-sitronix-st7789v.c    |  2 +-
->   include/drm/drm_panel.h                       |  8 --------
->   20 files changed, 18 insertions(+), 46 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-> index eddd13a34c03..d7c6f4824b2d 100644
-> --- a/drivers/gpu/drm/drm_panel.c
-> +++ b/drivers/gpu/drm/drm_panel.c
-> @@ -492,26 +492,6 @@ struct drm_panel *of_drm_find_panel(const struct device_node *np)
->   	return ERR_PTR(-EPROBE_DEFER);
->   }
->   EXPORT_SYMBOL(of_drm_find_panel);
-> -
-> -/**
-> - * of_drm_get_panel_orientation - look up the orientation of the panel through
-> - * the "rotation" binding from a device tree node
-> - * @np: device tree node of the panel
-> - * @orientation: orientation enum to be filled in
-> - *
-> - * Looks up the rotation of a panel in the device tree. The orientation of the
-> - * panel is expressed as a property name "rotation" in the device tree. The
-> - * rotation in the device tree is counter clockwise.
-> - *
-> - * Return: 0 when a valid rotation value (0, 90, 180, or 270) is read or the
-> - * rotation property doesn't exist. Return a negative error code on failure.
-> - */
-> -int of_drm_get_panel_orientation(const struct device_node *np,
-> -				 enum drm_panel_orientation *orientation)
-> -{
-> -	return drm_of_get_panel_orientation(np, orientation);
-> -}
-> -EXPORT_SYMBOL(of_drm_get_panel_orientation);
->   #endif
->   
->   /* Find panel by fwnode. This should be identical to of_drm_find_panel(). */
-> diff --git a/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c b/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
-> index 01b4458e55ad..6a77c2256fd5 100644
-> --- a/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
-> +++ b/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
-> @@ -380,7 +380,7 @@ static int boe_th101mb31ig002_dsi_probe(struct mipi_dsi_device *dsi)
->   		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->reset),
->   				     "Failed to get reset GPIO\n");
->   
-> -	ret = of_drm_get_panel_orientation(dsi->dev.of_node,
-> +	ret = drm_of_get_panel_orientation(dsi->dev.of_node,
->   					   &ctx->orientation);
->   	if (ret)
->   		return dev_err_probe(&dsi->dev, ret,
-> diff --git a/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c b/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
-> index 658ce64c71eb..8f2de17b8b2b 100644
-> --- a/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
-> +++ b/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
-> @@ -1722,7 +1722,7 @@ static int boe_panel_add(struct boe_panel *boe)
->   
->   	boe->base.prepare_prev_first = true;
->   
-> -	err = of_drm_get_panel_orientation(dev->of_node, &boe->orientation);
-> +	err = drm_of_get_panel_orientation(dev->of_node, &boe->orientation);
->   	if (err < 0) {
->   		dev_err(dev, "%pOF: failed to get orientation %d\n", dev->of_node, err);
->   		return err;
-> diff --git a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
-> index be76bc825c3f..437ee2294a9a 100644
-> --- a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
-> +++ b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
-> @@ -268,7 +268,7 @@ static int ch13726a_probe(struct mipi_dsi_device *dsi)
->   		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
->   				     "Failed to get reset-gpios\n");
->   
-> -	ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
-> +	ret = drm_of_get_panel_orientation(dev->of_node, &ctx->orientation);
->   	if (ret < 0) {
->   		dev_err(dev, "%pOF: failed to get orientation %d\n", dev->of_node, ret);
->   		return ret;
-> diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-> index aa27d6cd932e..9af908811cf7 100644
-> --- a/drivers/gpu/drm/panel/panel-edp.c
-> +++ b/drivers/gpu/drm/panel/panel-edp.c
-> @@ -865,7 +865,7 @@ static int panel_edp_probe(struct device *dev, const struct panel_desc *desc,
->   		return dev_err_probe(dev, PTR_ERR(panel->enable_gpio),
->   				     "failed to request GPIO\n");
->   
-> -	err = of_drm_get_panel_orientation(dev->of_node, &panel->orientation);
-> +	err = drm_of_get_panel_orientation(dev->of_node, &panel->orientation);
->   	if (err) {
->   		dev_err(dev, "%pOF: failed to get orientation %d\n", dev->of_node, err);
->   		return err;
-> diff --git a/drivers/gpu/drm/panel/panel-elida-kd35t133.c b/drivers/gpu/drm/panel/panel-elida-kd35t133.c
-> index 1f177834d629..5565f7a63fd5 100644
-> --- a/drivers/gpu/drm/panel/panel-elida-kd35t133.c
-> +++ b/drivers/gpu/drm/panel/panel-elida-kd35t133.c
-> @@ -233,7 +233,7 @@ static int kd35t133_probe(struct mipi_dsi_device *dsi)
->   		return ret;
->   	}
->   
-> -	ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
-> +	ret = drm_of_get_panel_orientation(dev->of_node, &ctx->orientation);
->   	if (ret < 0) {
->   		dev_err(dev, "%pOF: failed to get orientation %d\n", dev->of_node, ret);
->   		return ret;
-> diff --git a/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c b/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c
-> index ed02a8daf96f..b6c5bf3977ee 100644
-> --- a/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c
-> +++ b/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c
-> @@ -181,7 +181,7 @@ static int ota7290b_probe(struct mipi_dsi_device *dsi)
->   		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->vdd),
->   					"Couldn't get our VDD supply\n");
->   
-> -	ret = of_drm_get_panel_orientation(dsi->dev.of_node, &ctx->orientation);
-> +	ret = drm_of_get_panel_orientation(dsi->dev.of_node, &ctx->orientation);
->   	if (ret) {
->   		dev_err(&dsi->dev, "%pOF: failed to get orientation: %d\n",
->   			dsi->dev.of_node, ret);
-> diff --git a/drivers/gpu/drm/panel/panel-himax-hx83102.c b/drivers/gpu/drm/panel/panel-himax-hx83102.c
-> index d7e5664a5838..d61d68c1a2e7 100644
-> --- a/drivers/gpu/drm/panel/panel-himax-hx83102.c
-> +++ b/drivers/gpu/drm/panel/panel-himax-hx83102.c
-> @@ -1264,7 +1264,7 @@ static int hx83102_panel_add(struct hx83102 *ctx)
->   
->   	ctx->base.prepare_prev_first = true;
->   
-> -	err = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
-> +	err = drm_of_get_panel_orientation(dev->of_node, &ctx->orientation);
->   	if (err < 0)
->   		return dev_err_probe(dev, err, "failed to get orientation\n");
->   
-> diff --git a/drivers/gpu/drm/panel/panel-himax-hx8394.c b/drivers/gpu/drm/panel/panel-himax-hx8394.c
-> index bf80354567df..8c830f929d73 100644
-> --- a/drivers/gpu/drm/panel/panel-himax-hx8394.c
-> +++ b/drivers/gpu/drm/panel/panel-himax-hx8394.c
-> @@ -992,7 +992,7 @@ static int hx8394_probe(struct mipi_dsi_device *dsi)
->   		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
->   				     "Failed to get reset gpio\n");
->   
-> -	ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
-> +	ret = drm_of_get_panel_orientation(dev->of_node, &ctx->orientation);
->   	if (ret < 0) {
->   		dev_err(dev, "%pOF: failed to get orientation %d\n", dev->of_node, ret);
->   		return ret;
-> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9806e-dsi.c b/drivers/gpu/drm/panel/panel-ilitek-ili9806e-dsi.c
-> index ecdbed8d4a3a..c9241796e1a3 100644
-> --- a/drivers/gpu/drm/panel/panel-ilitek-ili9806e-dsi.c
-> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9806e-dsi.c
-> @@ -132,7 +132,7 @@ static int ili9806e_dsi_probe(struct mipi_dsi_device *dsi)
->   	dsi->format = ctx->desc->format;
->   	dsi->lanes = ctx->desc->lanes;
->   
-> -	ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
-> +	ret = drm_of_get_panel_orientation(dev->of_node, &ctx->orientation);
->   	if (ret)
->   		return dev_err_probe(dev, ret, "Failed to get orientation\n");
->   
-> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-> index 0652cdb57d11..a13fe1bb3e46 100644
-> --- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-> @@ -2571,7 +2571,7 @@ static int ili9881c_dsi_probe(struct mipi_dsi_device *dsi)
->   		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->reset),
->   				     "Couldn't get our reset GPIO\n");
->   
-> -	ret = of_drm_get_panel_orientation(dsi->dev.of_node, &ctx->orientation);
-> +	ret = drm_of_get_panel_orientation(dsi->dev.of_node, &ctx->orientation);
->   	if (ret) {
->   		dev_err(&dsi->dev, "%pOF: failed to get orientation: %d\n",
->   			dsi->dev.of_node, ret);
-> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c b/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
-> index 5f4e0d82ee67..613ecd1fbdd6 100644
-> --- a/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
-> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
-> @@ -795,7 +795,7 @@ static int ili9882t_add(struct ili9882t *ili)
->   
->   	gpiod_set_value_cansleep(ili->enable_gpio, 0);
->   
-> -	err = of_drm_get_panel_orientation(dev->of_node, &ili->orientation);
-> +	err = drm_of_get_panel_orientation(dev->of_node, &ili->orientation);
->   	if (err < 0) {
->   		dev_err(dev, "%pOF: failed to get orientation %d\n", dev->of_node, err);
->   		return err;
-> diff --git a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-> index f6b04de1182e..67ef9e0fea03 100644
-> --- a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-> +++ b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-> @@ -2992,7 +2992,7 @@ static int jadard_dsi_probe(struct mipi_dsi_device *dsi)
->   		return dev_err_probe(&dsi->dev, PTR_ERR(jadard->vccio),
->   				"failed to get vccio regulator\n");
->   
-> -	ret = of_drm_get_panel_orientation(dev->of_node, &jadard->orientation);
-> +	ret = drm_of_get_panel_orientation(dev->of_node, &jadard->orientation);
->   	if (ret < 0)
->   		return dev_err_probe(dev, ret, "failed to get orientation\n");
->   
-> diff --git a/drivers/gpu/drm/panel/panel-lvds.c b/drivers/gpu/drm/panel/panel-lvds.c
-> index 46b07f38559f..37f7498449ec 100644
-> --- a/drivers/gpu/drm/panel/panel-lvds.c
-> +++ b/drivers/gpu/drm/panel/panel-lvds.c
-> @@ -126,7 +126,7 @@ static int panel_lvds_parse_dt(struct panel_lvds *lvds)
->   	struct device_node *np = lvds->dev->of_node;
->   	int ret;
->   
-> -	ret = of_drm_get_panel_orientation(np, &lvds->orientation);
-> +	ret = drm_of_get_panel_orientation(np, &lvds->orientation);
->   	if (ret < 0) {
->   		dev_err(lvds->dev, "%pOF: failed to get orientation %d\n", np, ret);
->   		return ret;
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36523.c b/drivers/gpu/drm/panel/panel-novatek-nt36523.c
-> index 226d91daf8c7..100816b04c13 100644
-> --- a/drivers/gpu/drm/panel/panel-novatek-nt36523.c
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36523.c
-> @@ -1206,7 +1206,7 @@ static int nt36523_probe(struct mipi_dsi_device *dsi)
->   	pinfo->dsi[0] = dsi;
->   	mipi_dsi_set_drvdata(dsi, pinfo);
->   
-> -	ret = of_drm_get_panel_orientation(dev->of_node, &pinfo->orientation);
-> +	ret = drm_of_get_panel_orientation(dev->of_node, &pinfo->orientation);
->   	if (ret < 0) {
->   		dev_err(dev, "%pOF: failed to get orientation %d\n", dev->of_node, ret);
->   		return ret;
-> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> index c09bf3db5e78..5c169fdf265c 100644
-> --- a/drivers/gpu/drm/panel/panel-simple.c
-> +++ b/drivers/gpu/drm/panel/panel-simple.c
-> @@ -693,7 +693,7 @@ static struct panel_simple *panel_simple_probe(struct device *dev)
->   		return dev_err_cast_probe(dev, panel->enable_gpio,
->   					  "failed to request GPIO\n");
->   
-> -	err = of_drm_get_panel_orientation(dev->of_node, &panel->orientation);
-> +	err = drm_of_get_panel_orientation(dev->of_node, &panel->orientation);
->   	if (err) {
->   		dev_err(dev, "%pOF: failed to get orientation %d\n", dev->of_node, err);
->   		return ERR_PTR(err);
-> diff --git a/drivers/gpu/drm/panel/panel-sitronix-st7701.c b/drivers/gpu/drm/panel/panel-sitronix-st7701.c
-> index 2f79ec4a2063..11c757752cfb 100644
-> --- a/drivers/gpu/drm/panel/panel-sitronix-st7701.c
-> +++ b/drivers/gpu/drm/panel/panel-sitronix-st7701.c
-> @@ -1296,7 +1296,7 @@ static int st7701_probe(struct device *dev, int connector_type)
->   		return PTR_ERR(st7701->reset);
->   	}
->   
-> -	ret = of_drm_get_panel_orientation(dev->of_node, &st7701->orientation);
-> +	ret = drm_of_get_panel_orientation(dev->of_node, &st7701->orientation);
->   	if (ret < 0)
->   		return dev_err_probe(dev, ret, "Failed to get orientation\n");
->   
-> diff --git a/drivers/gpu/drm/panel/panel-sitronix-st7703.c b/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-> index 6c348fe28955..40df2e5b14b2 100644
-> --- a/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-> +++ b/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-> @@ -874,7 +874,7 @@ static int st7703_probe(struct mipi_dsi_device *dsi)
->   		return dev_err_probe(dev, PTR_ERR(ctx->iovcc),
->   				     "Failed to request iovcc regulator\n");
->   
-> -	ret = of_drm_get_panel_orientation(dsi->dev.of_node, &ctx->orientation);
-> +	ret = drm_of_get_panel_orientation(dsi->dev.of_node, &ctx->orientation);
->   	if (ret < 0)
->   		return dev_err_probe(&dsi->dev, ret, "Failed to get orientation\n");
->   
-> diff --git a/drivers/gpu/drm/panel/panel-sitronix-st7789v.c b/drivers/gpu/drm/panel/panel-sitronix-st7789v.c
-> index d5f821d6b23c..0502df34746b 100644
-> --- a/drivers/gpu/drm/panel/panel-sitronix-st7789v.c
-> +++ b/drivers/gpu/drm/panel/panel-sitronix-st7789v.c
-> @@ -646,7 +646,7 @@ static int st7789v_probe(struct spi_device *spi)
->   	if (ret)
->   		return dev_err_probe(dev, ret, "Failed to get backlight\n");
->   
-> -	ret = of_drm_get_panel_orientation(spi->dev.of_node, &ctx->orientation);
-> +	ret = drm_of_get_panel_orientation(spi->dev.of_node, &ctx->orientation);
->   	if (ret)
->   		return dev_err_probe(&spi->dev, ret, "Failed to get orientation\n");
->   
-> diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
-> index 86b3f9c65c92..b87323443f49 100644
-> --- a/include/drm/drm_panel.h
-> +++ b/include/drm/drm_panel.h
-> @@ -337,19 +337,11 @@ int drm_panel_get_modes(struct drm_panel *panel, struct drm_connector *connector
->   
->   #if defined(CONFIG_OF) && defined(CONFIG_DRM_PANEL)
->   struct drm_panel *of_drm_find_panel(const struct device_node *np);
-> -int of_drm_get_panel_orientation(const struct device_node *np,
-> -				 enum drm_panel_orientation *orientation);
->   #else
->   static inline struct drm_panel *of_drm_find_panel(const struct device_node *np)
->   {
->   	return ERR_PTR(-ENODEV);
->   }
-> -
-> -static inline int of_drm_get_panel_orientation(const struct device_node *np,
-> -					       enum drm_panel_orientation *orientation)
-> -{
-> -	return -ENODEV;
-> -}
->   #endif
->   
->   #if defined(CONFIG_DRM_PANEL)
+> Thanks!
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+Pushed to drm-rust-next! Thanks everyone.
