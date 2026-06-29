@@ -4,158 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9F82C43458
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 14:08:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80E76C43327
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 14:09:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DF3510E490;
-	Mon, 29 Jun 2026 14:08:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0F3C10E7DF;
+	Mon, 29 Jun 2026 14:09:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="e84TYlzk";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="KnCyPGDU";
 	dkim-atps=neutral
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazon11011036.outbound.protection.outlook.com
- [40.107.130.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B936D10E8F7;
- Mon, 29 Jun 2026 14:08:52 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010043.outbound.protection.outlook.com [52.101.56.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E23510E7DF
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 14:09:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HEnBdvWsh0XR+FbiWFsCNDST5EdwRkh/QzPdzpTQpYEq1ZKtcoVHO7Xne9skudoSBOo+QuaPgXwMXM0blISBMaIuoIYXqih1b91OuRVnkJ85e+QYHrRvsLA0jDffMUVjHvPMz13+iFhooWjFc7C3iuUfu7uej0lYIW2Oqh1hAukh+heA7uio8kFTYnpQckO7pcPx5u1U7D0YzoY2UnR+vE7e+MbtKBZjFK+/F1FULcgKUIGJWPLEwT3XIQZM3GdMlSJsOtVVvHmOmoIKriWeYDXn5n1GkQFtn+uN5UZXI6Jp22qvrTw6vaATgw8jSJr3437jt1vUfjx7Aur8Gba5Lg==
+ b=kyiyJFDRQe5rQzjM9j36VndK6ZQ/RDBf2RP92XcEFMmbSqjscrJobMEODjczSf5KHQcEhD+I3fX16SbBHTduz8JgP6ARsXa5HJEsZQ3+dvkHPpAB5RTpUZKj9dHiL8Ke+KSs0LP8CAAo//imHIN8YGkbfQv5cpHe9Jd617y6qOCLeJyrcFsWZvKs9qH55ltoo2NypWfEl2PIu2eqLG6XeEUz7c+hNjnCGGT77bXYgF7pqVZuBJlBzNvi9l++3Fn0/B5+N/33H+tLY3EJuOEyQVOMLTfYvY2Vn1xyKZEJrRBga7Zw2Ext1vhjgX2a263FxHQw3TaNamMz2hFt7CZJpQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oGkHZmi7vUG5yrrKmcJyWTBhTM1/o8UcugETmhubcKw=;
- b=IEPCQc7eBQU/8SRJYnVF3usUBU8ujmvH7dfreyVq1pT2gWzAJkDkQoue4ERSJgcQa3Vb+xmvjZ1UX0wD8RpVHOByKu+6DYBV9hookunNtpJ/ON0uV9h53YFBz/UKaPdniPRf3VOOu+0SX7oGxIlRa2K0nzWmq1R9tLw+l/zoRX1VulzBGfTzR2hXsV2Vefz5+v0V7yOjCS5J65C7B3Cqjj3DXQuHGb1cmHuvdMDJvITKB6A8B8eaubC+hJR5yosrRyu60RfkFlYb41saDcuPvsqZAXuTVR4cJ64rRXtEbpfy0D62j0ahmMgtnH9/l+fjI6inMFp/VFpPIcXMvNFEzg==
+ bh=r0Lg/KAuceY6qLELoVbQFyjAkYUgf7d+Mt4btYdPeDs=;
+ b=GcI0huykdyV1Cdw2vu5hp1TDUo7J4ocyollhZVdKSm7ro/1pA98DsbvIRAxshH3RPtMjQY8dIeWZsuSFtDTbMzNHVdYfh7dOUcD14w1xs+rvYWUdW1D2skKDZGT4xibBxEbGzNHir7h8b20aLOU2xsDagNfMacJg+Byj2fw87Ma6dW+MSjQId4mjrVJU3AZKLvSpIzffbicu44qW9Q1T0uygfctO9Vo/frHa22eQK6zcF784ZBDa9mOV7SFocmU+YKx9pYk+r4OBPYvEefRIWCESce9nRhBdVDEVfhLyR0QXyaP1leO5Kr+aXUgb9wgUqaExBy7dhT6lBOiYmPbOGg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oGkHZmi7vUG5yrrKmcJyWTBhTM1/o8UcugETmhubcKw=;
- b=e84TYlzkgshWjRCyYLNKpCb4DcSsGA13xMCUPcmLRKi1mWBAoJHUuV9WsbAaaPqIY+BbRIqRmMq7svq+QZJNAzsno8SikVkcFd3tgBDSCFr9uAUdmJ5g08UckjYeCbx9KhuAVzRVHOcTlD97o5/dMzqLvKcZBNaGjyFMKLfQ68IAtBu8ggUqZ0cbeHxU7PDNeQ5f2IMaKADs7M7CpuIAdLvOa9EsWEDgAXOE5kNfIIWfpglvSrbsawGbWaAnkckc1RePuFxlbQ+10WxJEwvaZ50vt7u9T2JlZf8HQljgsh7XWOWn6wlZMba7l92opbdpUx/WwBl/3yIW/mj9AzIXjw==
+ bh=r0Lg/KAuceY6qLELoVbQFyjAkYUgf7d+Mt4btYdPeDs=;
+ b=KnCyPGDUB4LnHMkW6FxN9bpZkWulxUVQEI4pT4uncNPhqD6ocKmPLfLdSbhjxYNy0CeakXwo52ee4vHJ7+/EJaZ3flboctO2YV4tT/BmcP4EBt+X6w6EnCA0akJeuRC23XlXr4h1u/0CK/Np0vkh0GyVJa0LnM5z8AvtNqcarpaxFxexdqmH+vC7fZNYreiuSpZmTtiYK3D5Re4OJNl26O85du3RIr0I/suR20mr7+y4Mn6vEzWR4eZkaOdFp6DdpKVtIcQfBXAz5UN5HoTXOgN7VM5HAdDuFhvtJuYMn0xDGadEcsgkWK2GHjHF/ZRDkT6bUch5+vmcTUva7xZUQw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS4PR04MB9265.eurprd04.prod.outlook.com (2603:10a6:20b:4e0::8)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by CYYPR12MB8654.namprd12.prod.outlook.com (2603:10b6:930:c9::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 14:08:46 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Mon, 29 Jun 2026
- 14:08:46 +0000
-Date: Mon, 29 Jun 2026 09:08:24 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Lee Jones <lee@kernel.org>,
- Mark Brown <broonie@opensource.wolfsonmicro.com>,
- Thierry Reding <thierry.reding@avionic-design.de>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Doug Berger <opendmb@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Peter Chen <peter.chen@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>,
- Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- driver-core@lists.linux.dev, devicetree@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
- platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH v2 08/19] iommu/fsl: use platform_device_set_of_node()
-Message-ID: <akJ8WOFadekww2Ye@SMW015318>
-References: <20260629-pdev-fwnode-ref-v2-0-8abe2513f96e@oss.qualcomm.com>
- <20260629-pdev-fwnode-ref-v2-8-8abe2513f96e@oss.qualcomm.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260629-pdev-fwnode-ref-v2-8-8abe2513f96e@oss.qualcomm.com>
-X-ClientProxiedBy: PH8P221CA0035.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:346::28) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ 2026 14:09:43 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 14:09:42 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+Subject: [PATCH v4 00/13] gpu: nova-core: consolidate and streamline GSP
+ boot process
+Date: Mon, 29 Jun 2026 23:09:32 +0900
+Message-Id: <20260629-nova-bootcontext-v4-0-5539d8469590@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33OQQ7CIBAF0KsY1mJg2qJ15T2MCwpTxURQoKSm6
+ d2laqJG4/JPZt78gQT0BgNZzwbiMZlgnM2hnM+IOki7R2p0zgQYCCZ4Ta1LkjbOReVsxD7SknE
+ tOFviqm1IPjt7bE1/J7e7Rw5dc0QVJ+e54fHS5V/xtXYwITp/vRdJfJr++Zk4ZbSseF0ozSRgt
+ bHJaCMXyp3IpCV4EwB+CJAFpjXKVjHRVvpLKN6FXx2KLIBQDdSIK434IYzjeAMWEKB0XAEAAA=
+ =
+X-Change-ID: 20260619-nova-bootcontext-401d6107e8fb
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Gary Guo <gary@garyguo.net>, John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>
+Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ Alexandre Courbot <acourbot@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: OSTPR01CA0027.jpnprd01.prod.outlook.com
+ (2603:1096:604:221::17) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS4PR04MB9265:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a2af774-7afd-492e-d760-08ded5e7eefc
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CYYPR12MB8654:EE_
+X-MS-Office365-Filtering-Correlation-Id: ccaf729f-3f12-4348-a21f-08ded5e80f06
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|19092799006|7416014|376014|1800799024|23010399003|3023799007|18002099003|22082099003|4143699003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: UYy4i62EHwPpsDxL3M03C7pPoR+CUIzJ+QZPNqwbxczlPyOzQO3s+pDcSo5yo4OrGxTyfMrHpsZiu5BGeB+/B3LaTMGdKfFFcDFDHJwwo22cbArwaJcaWUTVGySahS1zUGSLc6M/iIB7US/dqr9YT+/Ub7BBl38oSie7iPkkGYdbMAjiPO+2wcBRgQlmoPIwyvemAfyqGjE+EJ9Q8BwxHCraX12T9rw9GNZ7Dg+L635+MeFrflaWkJF500rTOqJ3dYRgq8zkcC/OqMewfaj52LllyZOF8CUaGMIGJuEea0Acqsp1CVQi3WHci94D5UniHGKbWl+hpjz8dYm0sEqyAK/G9EcEj3t7WZSbNHGMbzB5Z+seRJubGkv/H7TuTmoG2N/H+uE1CtKPeASlJ4IwL5v6UeuDD3Yo2E9UhN/AB/+s+jcEkn+RbjHvCtpyiNuwMfrPuG3vVD4vSrXoQgHhMSPU2NkwnT8O/VLkyVhYz0mB9lWf6tLmR0GR6EdI7yf6XWeHQkjQlk6OaFEnPv0r7qMpKih+eflteG9sCoUWc38wBpnknF9yUTsGv/jMFSJD4ohu17gBtDr0nR4e/E+iGZ5m7O1UzMJj76jYe79s1z11zvro0gE2okoWaGIzWnsIBtiyFoCIMPxaVccM1lyWYekZTCCnH8wfVCPYtTrn48Q=
+ ARA:13230040|366016|376014|10070799003|1800799024|23010399003|56012099006|11063799006|18002099003|921020;
+X-Microsoft-Antispam-Message-Info: NYZwuRcFq0OJANRTGqAb7ZES+bMjyZhel6DIsh8/xLQR6MuvQaSX2DAfio9OiiKw1HJ561+whq2D5BY9VoJ2HUTAq5Dg6M3jZgJ1E5lpzXZUWPvNnTMLPG8vMNPKMclwS5gD7OhOTvJSFuRxoH09CfD9T4Ew3vgCeBcnb77Jq9AxMmYpjDIZucwDMCFTVrOv4o5Z+qwydDxkgyFu60zCO1qDCH60Hui+2DNE8EeU23r8l3YpMsiepDP3qDgEcmS3bq+nYGi98TB3eTUBEoF54ugliHXWvJXxceRgoYBfyLU3DeETwHUHPLzNak99EV9AHfWI4vM52Pe/vNjI+A7hrmv6hTI65U1O1a1O2T5db9AluZFTOFcs/qIgJy3icqvnuqnO/XH7QWZ3b99lwSRUkprBRnfz71Bfy8Sf5iDedWyeRBWSaSya00Ucwd/QvmM7gJPnp9HoyM6Ov4OtE0OvNEYi0UpcpsHF+KR8hWf5966ufC9yvZe6zQ0sS10ecbNCJ5D501PyqLvBkbz9fdg+JtBVS8/6xHDcRxhcXTfSgADP7jvTZ8wxzEv11g7z+CpG/xVeyNMok58Bz+xXtr/IaOgS/GpE6WM8d48fT77mnU+LG25f/DOgPXOSi35OgufqBQx/3SobK618uvYfcF/QwqTYBOhcvlPoX64NIeruHgaC2j4nEhiNW7P8FJD/ip06esXCmy6DXVl3FYaGlxXi1Q==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(19092799006)(7416014)(376014)(1800799024)(23010399003)(3023799007)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006);
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(10070799003)(1800799024)(23010399003)(56012099006)(11063799006)(18002099003)(921020);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?kDTBGJOmwuuu5VuvAWiMwRC1BM/7B24x1Ve0ujInuqGmplnllUqug0qQy+qh?=
- =?us-ascii?Q?NJs9gQ5QsneTyl2KgRz4J4tFSLqSROqxYX3HedM4H5AghUcHaGyIOOwUjIU+?=
- =?us-ascii?Q?yoixwRZu/ogZqybhdJ5KJEnhHOEkp36lII1wvNGAN8DCSqueXBwnFvcX8EuD?=
- =?us-ascii?Q?3gLY+jrmCeFZDH9RvW0FaDJzbjLbJzeKTV9x5shtP5tLN3urxWc4hpLFcXVa?=
- =?us-ascii?Q?3smy6ZRs7mmq9z2Gbv43BL41+4cl5l0oQOJNViasw6RfhLcIvMQOPoSOYKq9?=
- =?us-ascii?Q?W1e39RgRxAb5Ck0ZR7m2xnCfVZ3F835MpCJdSx4Gpk5zcuDgXW4WnJ3UEw29?=
- =?us-ascii?Q?aii7Tlh/Ocm6i0BSpdkwoC//EXC0J3CXDlhP0XyTETyhy4aC3FcY7XqSAFyQ?=
- =?us-ascii?Q?1wemrkhuUpWI86H3fJEG5l/8dZ84R7mVz3QRNwY1lUIpwH0H+rq8RtKAlZ0u?=
- =?us-ascii?Q?GlVEkq1YEJXemTBhV06kMrS/0yVwg6H/9jII92/1ixJxQKOpJHV+yID3p/2o?=
- =?us-ascii?Q?0fSTkHv6uRiE0d3saxtqrdGIYEDJYCyUWHSQsAXCOFiBuisQEvA9v2ODcS8K?=
- =?us-ascii?Q?ezKwC7oZMOEbW037b/5CEYU0JhSnolScmwHExgvV8BfySy102i7kQNc2jh+a?=
- =?us-ascii?Q?r+KR+YH6jH/KiRtVWj2hgIuc1shbAJWaLc9dUeV+8N8js9rl+rK94g8WAhwU?=
- =?us-ascii?Q?JGQ39xUdwYNKmWWQUndgbkXJB3ue6/pZ/qRQQn0Do3ZQV+N+ObzYN5sUs4ED?=
- =?us-ascii?Q?wRM1ZEOSm4yTrH16mOq2Eo9XCawuhXh31ykU+4ICPH9c97riVBVHxTltnDyH?=
- =?us-ascii?Q?HQ86EPwa2LQJSmS1yYkzSTAgQZKBLdDxI17qSuckfj9RlUHMfdoldHJwysQ5?=
- =?us-ascii?Q?0k1gDGver1FcCyPyW3h/h0jXj3hTsmwhBhXiAluhQNbMFt42Oy0KmUsq5Qse?=
- =?us-ascii?Q?QuWaEsjjS3uEYdOLESQJ3vUTuk46PR1m719uzPlWMAiLqWGrdBGHwtTBlh8I?=
- =?us-ascii?Q?XgcJSz4CeJ+nZECC3nrFT5nDRwGFHi90zYDPt/9qTOhepZh88ZpYQo58StNx?=
- =?us-ascii?Q?X/LR9fcm9kHbJYx5JabbQjkgCLHLI24IvVPN+R95sQa/HBdRo67yoIFt0rhf?=
- =?us-ascii?Q?89Fo8eevYQFe/olIzalr4HHyiJLVSbhl68EY90q88d0XOC0qThGIiA35EkVl?=
- =?us-ascii?Q?YUHFQ/FihDTalXUhjODDiNCMj4i8VhKZBpgOzKBQGKWFb7F7fc0LmyR2hLMQ?=
- =?us-ascii?Q?BNyUuLdewKXOqhJo5O/h2uTql+NJMoW9EZU1tUheEUUQPN6Y0VHKlXC9nW8x?=
- =?us-ascii?Q?Uly2brppEBGNJfkdB9hU/eJn6y95sbXy6iUTLpxLlr8Uf4hz+6S0Sk+/kuFt?=
- =?us-ascii?Q?o6rz3UBiKaj9PX697t0mmfHy5Gpm+p3M0YrV4HwXS3AipV8Mhq6QucjJP/3X?=
- =?us-ascii?Q?ux6dBaxAmm6WjeMA/BCHLhhUq3nk6zKX/cLlrfotS2mpamWQJZ7URTfBV0a8?=
- =?us-ascii?Q?Npz+ePbQn1amP+6ybAjNkhGFbCTbL1SFZKfqkreLoZNhPS4Qse9B0XoZlaDw?=
- =?us-ascii?Q?3/ovmE9+ZbehjnLZ3rjkNF/k+TxwnsW6B51Yyd75pdECc04q2Bl4vJjt7DUe?=
- =?us-ascii?Q?/nTqC2o3BwkILtj7lN9MnG8NmRmx8YvdjHgOCI4MfTh3VbuvyhU2cEBkxNI+?=
- =?us-ascii?Q?ritBogCWKAuui/i8Zby0HHPH3/5lYRUKzv01Pzw33wvPR0s12BFC0FOOebAd?=
- =?us-ascii?Q?Z3gJ4CXUJOxTMHzz8AF8Pkjo94w6iQ3tPLBHESzf7nUiZXk7UvU9?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a2af774-7afd-492e-d760-08ded5e7eefc
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MUxDMGJFRisyRkJiSityN3lPeUJGTGRia0F6ckJ0RkpjeFdhZUtWU2N3dzFG?=
+ =?utf-8?B?SG4rc1RGcU1OUzVGZVFWVUU2S1lER0pzbUZ2RUJzRHdPemVsNHJ3a3c0dDJV?=
+ =?utf-8?B?SGRhZjJCVHhucjF0bk90VVpkRnhSSlA4anVONkM5Vm0xM20zeUlrTnpGek9a?=
+ =?utf-8?B?b0hjeTJ0NDhFTkkzNmRPVTNTQ3h3bnlDbFIvVlFwS21NTU5oeVNuT1IrR0hx?=
+ =?utf-8?B?bXNVQ1NDSW9MMXlIODJWVDhNejk0dk0rNzJWV1ZxZC9Ja2xrNlR1NjJuS2ww?=
+ =?utf-8?B?a1REc1c4ZVphMkNpVUYyWG91bGRnTVgyd0NPQyt3d090RXljb2U2UkxwT3NB?=
+ =?utf-8?B?UHdJekh4WkNJZmY2YkJBZmc0R3FZVGFXT3VEc3BmUDBIK1NrK3JKQzVRc2pS?=
+ =?utf-8?B?K2h6ajQ3b0lKRFFVN2JiYWlQM01jek8vZy9nWnBna0UwRlA1dHZvOVZldWxV?=
+ =?utf-8?B?cVJmUUZJbzJ5U2k4dWRZdHhCOXphUzE0RjcyWnkrczJpbm9KWlZrM3NDZjBs?=
+ =?utf-8?B?b1pYM210dUxISTFHdjlPMzlsdURsaHh0ajg5RFVvQzZOSktnQWtEVzhQT3Jy?=
+ =?utf-8?B?bEp4eWZXdmltR1dEUnA1SFNGRFpZUTh1dFJucFlXL0hTQTVzQ0tTTEdDZFdl?=
+ =?utf-8?B?SThqZ2hyS0ZJb0pOWHloSkpKZHhJODJqYmdyUVhBRjNtMkJ4QU9xWkt6N1k3?=
+ =?utf-8?B?ZWczbnQ4SStvZFZ1UFVlM3paMHpoeUxqMG1vd0pKNkJCcWdOd05hbmRjWFB2?=
+ =?utf-8?B?cDM4c25JRVZ1ak5QcFJnSXBRZkNHMXNZUmtad1hmWHQzYU5XSC9SQ052ZGFV?=
+ =?utf-8?B?aklxNWE4bThOclFsSlpUemRNZnUxNDFjZDNQVDNvQ3J2a01TOW5EQzU5TXZ1?=
+ =?utf-8?B?WGtQeUZRZTRPb0NjRGlKQ0tSNjJ1YTE3eDZ0c2x4WEtJcjVUWS9SWjExU3Mx?=
+ =?utf-8?B?WC9LZGFYSERvT3hIbW9oQU1xa0lBalcvOEkxRTRmaTZ4UmpURTJUYkdPM2Iz?=
+ =?utf-8?B?d2FacEtub3J0eGw1ZE8wSFhkQ255cW9tTHNLcU5yTnVBbkFrSDNmT2kxdita?=
+ =?utf-8?B?L2ZUUnFGNnlQS1NEeDZqU29XSEw1WWt0THdjNUxNNmNkS1VuS3dvWEJML3Yv?=
+ =?utf-8?B?MjdhTHdHWDdRNWRvUGNKQVpNdCtwMThZb1hINlgvSzZrNWE2cXVyWE4rNWtN?=
+ =?utf-8?B?dVFHcmlKcHQxaEd0ekxoaFl0bEVTNENJS2MxcGJzWlBRMzdJZk5XRVcwREdh?=
+ =?utf-8?B?cEsvZXRiZmUzcnorT21keUVJQkY0OXlvNjhsRFlzZ1Mvc3o4V01GVENMZnRu?=
+ =?utf-8?B?bXZLcjVDRVN3OVk4Z2lRa215MVJlZWRobjZydVdsUGZpeDExVEgxVVFaN0ZP?=
+ =?utf-8?B?UmtHMFhHL2FaU09XM2VEcFk2emFGSFpUS2VWTlBmcG1OS2xKL1Y0d1Boc1BE?=
+ =?utf-8?B?MFp6MDlRTTJyd1djVjQ3TEZNalVlMlVpaXVsUlZHYWg0SUxndnE0eFJ6Zng0?=
+ =?utf-8?B?cUNDSWZCaEIwZ0FGbzhtazNWaGtYR25qNk1hMm4xSFRPUVdMU2lQb0JFRUZt?=
+ =?utf-8?B?aFd0US9YdzJaZHVFY1BZMm5HQUN1NnQzWi8xY0FFVFJ6UkhQdEdTT21ic1ll?=
+ =?utf-8?B?bDlJbVVwdkVLUGhkb25QeDUxMVVvaEdUT3p3Rk95WWVmKzlMa2ozTFdLVlVP?=
+ =?utf-8?B?ZXhtOHRZY1VzM3RqcXpjYXB4bDMrZCtvSmRHditUWHR6VzBOOXVKRC8xVUJp?=
+ =?utf-8?B?cU1xUlllOFNlZWh2Q0lwdTJSY2FlMTllNkFTbWtFMitHalAvcnhyMm5ZQlJN?=
+ =?utf-8?B?Zk1RUDBVWjlNYzMxUy9DRjEwN0RqbDVLbzdWWDN1aTRFOXlZbEpYMUF3QkQ0?=
+ =?utf-8?B?enh3U0ZtM2djQkNaNTQrRURFOVdZTy9UUm00ZzJBVElzN1kvUjU3TVhPN0g1?=
+ =?utf-8?B?cExoRVNQTFgxMlVpbjhadzd2VEMzcEczQ0g0Q1lXazVCRDdXOWVrbDhHMUgw?=
+ =?utf-8?B?MWFlR0dtMnZaazJsRUlINFI4L3plQzM0L1I3YmNVQ2FnNCtrTEZvKzNVMVdk?=
+ =?utf-8?B?blhKdFBpZGxMU2VMNDVORmxpS0tmS0RwbzdUZi9ZTzlFeWRyUWFPaEtMVDRN?=
+ =?utf-8?B?dGx2UWRBTmF2Wkg0dUhLbVdJMGtGaWVQaGFrQ093SU9GZk5jRjFaM3lybTV1?=
+ =?utf-8?B?Y1J0OXZNYUNRV3I4QUoya3VqMnhKbEtiS1RuLzdONnN1K2VNaGdydTQxWU82?=
+ =?utf-8?B?Z2ZCZUZBQjV5M2tseFEzY2lVRGlCRXoyVVpQRk85Vzk2ajBpaDhYcHIzMUNG?=
+ =?utf-8?B?aDJFaklhbU1UYkpMOEM3REF2NEdKa2ZHdER2Wmc3NTlUdkhTbGxpYlVjd0Zl?=
+ =?utf-8?Q?JkeBP0sw34zIEzcE3HkoxbgaAmT3CiTHd9+lWSdIUnzsq?=
+X-MS-Exchange-AntiSpam-MessageData-1: Z18MvjZbHn3FWA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ccaf729f-3f12-4348-a21f-08ded5e80f06
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 14:08:46.0964 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 14:09:40.7717 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CbEzC5shI94/h5UvHFft/MVfEwJZZsbh+AI6yEocLaBpBPPrKkGnLbMH4mccbXmyyirPzjH/RKwFnr9kTec1LKA8gN+zPU698NL5EzUZh8LWMcHB7e4XtI4rdqpIUD4k
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9265
+X-MS-Exchange-CrossTenant-UserPrincipalName: v5HoUxZfukWWInWa2d08HFJO2LhXbl5LYVskY/e/vFhIPrm/E2slhMubA45PmneMeenY8OONE1IqpFcFmfbaIw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8654
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,57 +147,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 11:12:31AM +0200, Bartosz Golaszewski wrote:
-> [You don't often get email from bartosz.golaszewski@oss.qualcomm.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> Ahead of reworking the reference counting logic for platform devices,
-> encapsulate the assignment of the OF node for dynamically allocated
-> platform devices with the provided helper.
->
-> Acked-by: Robin Murphy <robin.murphy@arm.com>
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
->  drivers/iommu/fsl_pamu.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/iommu/fsl_pamu.c b/drivers/iommu/fsl_pamu.c
-> index 25aa477a95a95cb4fa4e132727cde0a936750ee2..012839fa0d8a27cafc6a441373f4f6da794388c1 100644
-> --- a/drivers/iommu/fsl_pamu.c
-> +++ b/drivers/iommu/fsl_pamu.c
-> @@ -973,7 +973,8 @@ static __init int fsl_pamu_init(void)
->                 ret = -ENOMEM;
->                 goto error_device_alloc;
->         }
-> -       pdev->dev.of_node = of_node_get(np);
-> +
-> +       platform_device_set_of_node(pdev, np);
->
->         ret = pamu_domain_init();
->         if (ret)
-> @@ -985,12 +986,10 @@ static __init int fsl_pamu_init(void)
->                 goto error_device_add;
->         }
->
-> +       of_node_put(np);
+The recently introduced `GspBootContext` is useful in at least two
+other places:
 
-there are other place miss of_node_put() at error pass.
+- As a replacement for the sequencer's `GspSequencerParams`,
+- As the main parameter of `Gsp::unload`, for symmetry with `Gsp::boot`.
 
-Can you use auto cleanup
+This symmetry can be further exploited to make `Gsp::boot` and
+`Gsp::unload` generic over the exact boot context required for the
+current chip. Doing so requires some more preliminary work that goes
+beyond this series, but this groundwork is needed regardless.
 
-struct device_node *np __free(device_node) = of_find_compatible_node().
+Another cleanup that can be performed as a consequence is the removal of
+the `BootUnloadGuard`. This type is cumbersome as it holds extra
+references to the boot context, making it difficult to make some of
+these references mutable (as we want to do with the `Falcon`s that
+should require exclusive access to load and run firmware). Furthermore,
+it is only needed a single time in `Gsp::boot`, and inadequate to handle
+errors occurring in HALs.
 
-Frank
->         return 0;
->
->  error_device_add:
-> -       of_node_put(pdev->dev.of_node);
-> -       pdev->dev.of_node = NULL;
-> -
->         platform_device_put(pdev);
->
->  error_device_alloc:
->
-> --
-> 2.47.3
->
->
+Building on this, the series also introduces a proper type for
+identifying the GSP boot method, and moves the `Fsp` instance to `Gpu`
+to make it available outside of the GSP boot process. This will be
+notably useful for vGPU support [1].
+
+This series applies on the latest `drm-rust-next`.
+
+Since v3, `drm-rust-next` gained a change that makes `Falcon` retain
+references tied to the lifetime of the bound GPU [2]. `GspBootContext`
+thus needs separate lifetimes: one for these references valid as long as
+the GPU is bound, and another for its own shorter borrows of the GPU's
+subdevices.
+
+The distinction becomes necessary because the final patch adds a mutable
+reference to `Fsp`. Mutable references are invariant over their pointee
+type, and so the compiler raises an error unless the two lifetimes are
+separated.
+
+A new patch is introduced to take care of this.
+
+[1] https://lore.kernel.org/all/DJAZRULU1QHZ.2NSTR1ZPOQUSN@nvidia.com/
+[2] https://lore.kernel.org/all/20260625-drm-bar-refactor-v2-1-9db6b890d92e@proton.me/
+
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+---
+Changes in v4:
+- Rebase on top of latest `drm-rust-next`.
+- Add preparatory patch to separate the different lifetimes at play in
+  `GspBootContext`.
+- Link to v3: https://patch.msgid.link/20260629-nova-bootcontext-v3-0-26cb29ee8dee@nvidia.com
+
+Changes in v3:
+- Drop the preparatory closure-only patch.
+- Use ScopeGuard for GSP boot-error cleanup.
+- Keep TU102 boot-error cleanup local to the HAL.
+- Avoid spurious unload-bundle warnings on early failures.
+- Keep GH100 FMC boot arguments alive through lockdown release.
+- Link to v2: https://patch.msgid.link/20260622-nova-bootcontext-v2-0-0ddeafc06f5d@nvidia.com
+
+Changes in v2:
+- Replace nonexistent `ENODATA` with the more appropriate `EAGAIN`.
+- Add patches introducing `GspBootMethod`.
+- Add patches moving `Fsp` to `Gpu`.
+- Link to v1: https://patch.msgid.link/20260619-nova-bootcontext-v1-0-45193cd0a2e5@nvidia.com
+
+---
+Alexandre Courbot (13):
+      gpu: nova-core: gsp: sequencer: use GspBootContext
+      gpu: nova-core: gsp: sequencer: do not store sequence into GspSequencer
+      gpu: nova-core: gsp: replace BootUnloadGuard with local handlers
+      gpu: nova-core: gsp: pass GspBootContext to unload methods
+      gpu: nova-core: gsp: centralize missing unload bundle warnings
+      gpu: nova-core: gsp: fold TU102 unload bundle construction into HAL method
+      gpu: nova-core: gsp: turn FWSEC execution into HAL method
+      gpu: nova-core: gsp: make use of FWSEC bootloader a property of the TU102 HAL
+      gpu: nova-core: introduce GspBootMethod
+      gpu: nova-core: avoid repeated calls to pci::Device::as_ref
+      gpu: nova-core: gsp: pass GspBootContext mutably
+      gpu: nova-core: gsp: separate context and GPU lifetimes in GspBootContext
+      gpu: nova-core: store Fsp instance in Gpu
+
+ drivers/gpu/nova-core/firmware.rs       |  25 ++-
+ drivers/gpu/nova-core/firmware/fwsec.rs |   5 +-
+ drivers/gpu/nova-core/gpu.rs            |  68 ++++---
+ drivers/gpu/nova-core/gsp.rs            |  63 +++++-
+ drivers/gpu/nova-core/gsp/boot.rs       |  99 +++-------
+ drivers/gpu/nova-core/gsp/hal.rs        |  56 +++---
+ drivers/gpu/nova-core/gsp/hal/ga102.rs  |  14 ++
+ drivers/gpu/nova-core/gsp/hal/gh100.rs  |  42 ++--
+ drivers/gpu/nova-core/gsp/hal/tu102.rs  | 332 ++++++++++++++++----------------
+ drivers/gpu/nova-core/gsp/sequencer.rs  |  71 +++----
+ 10 files changed, 383 insertions(+), 392 deletions(-)
+---
+base-commit: 23d66dbab84e8518943563df2ced14aaab28b77a
+change-id: 20260619-nova-bootcontext-401d6107e8fb
+
+Best regards,
+--  
+Alexandre Courbot <acourbot@nvidia.com>
+
