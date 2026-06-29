@@ -4,66 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 756A5C43602
-	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 07:19:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2732C43458
+	for <dri-devel@archiver.kernel.org>; Tue, 30 Jun 2026 07:19:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60AE510EB36;
-	Tue, 30 Jun 2026 07:19:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F259310EB3D;
+	Tue, 30 Jun 2026 07:19:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="bTY/egli";
+	dkim=pass (2048-bit key; unprotected) header.d=gourry.net header.i=@gourry.net header.b="a8voR6Ld";
 	dkim-atps=neutral
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
- [209.85.222.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E68C110E6C0
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:27:33 +0000 (UTC)
-Received: by mail-qk1-f170.google.com with SMTP id
- af79cd13be357-92c7a0a7059so197272385a.0
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:27:33 -0700 (PDT)
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
+ [209.85.160.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA02410E978
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 15:40:20 +0000 (UTC)
+Received: by mail-qt1-f174.google.com with SMTP id
+ d75a77b69052e-519ff1c8b8bso41920471cf.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 08:40:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gourry.net; s=google; t=1782746853; x=1783351653; darn=lists.freedesktop.org;
+ d=gourry.net; s=google; t=1782747619; x=1783352419; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=YVSnUoP7z1l2IjNO7QqWpl688BIslf+DGUxd2Ln6LGs=;
- b=bTY/eglikrstZo4mgRbAcY8W0ky5IARGEPEOcPFJy3gJsj48ZXDCv1SH2uvhO5JhQJ
- 5tRoJSQ+s/54efDjFXCqDhkeSLdFbwYoyC9qLMQ3YYeUxI5R0Cc8Spr8rK1ynZYBBT3+
- t9JQwT7XxHpXggHaijoFV1ai27qZz6p6OcQAHhdGZ2hlmjvcLIXr2tEDjJew6NEdozQ6
- MbyvOwFSQnDwGqnsSRHL6OeY9fNPnMuH+iQufmQcEmUgccZa+zj2YGfThEzCDtXyF3C6
- Wgiu74dRgLOSMpXTg1MXWm/mPzPY3JhaWQ7RHnCMnFpm191mWM7UDFknh+JngWyO4wgu
- 5ACQ==
+ bh=VwgemlAWVZOfyfvrJ+7cyHmQGRLai3JgFnH6EFj5//k=;
+ b=a8voR6LdSKl9hghp/HvVf7dTLlEroxjunEQDf+Pzon8+E29S5WVLN6aaQd6SOFLHJB
+ AdAkm/ig3itONVKBi7Oov3Nx1p/D/dcOG9rhe4HoE39B+fAaMPuFBn/epxZXPHugtGAE
+ u+50V1w6yyyM3UXP2lg50pAkYR/T0n6NnRflmmOVc1dxkMENxjD0EZPgdJGzUmTWEz8I
+ LiKAYaudkgOsLDwCNA3nhyYGrW5G1LC8tjOhMq1xKtO3JnL8zgdQt6u2TjEGt92DKCUn
+ ZKIaCeSmPyOBCy47SVmFILNEAzduY6GH5ZKSFbQ1j6/yYruHfi+ZkNL21Y6fA6DYyK5U
+ WOoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782746853; x=1783351653;
+ d=1e100.net; s=20251104; t=1782747619; x=1783352419;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=YVSnUoP7z1l2IjNO7QqWpl688BIslf+DGUxd2Ln6LGs=;
- b=f2Jisimuisa1iNuYSZ16jbWxINjzNR8uKrH7dfrI7j+4VjqnWKbg5x6I+istTveZOj
- 4F9zMy1zzJYIySISW60ZZ3QKLPh2ocwQfjAzXurG3SVTIs3bUWm7jVvxyt0fvfYM4zz4
- drkahOw72zLT49FYyYmXIm01ps7d6IWzmB8k3ITqeQ3k9IRKuax8PdA9HB6h5mc4A0Je
- PsV67by1HHPm456G796HwWPbZq0/oAX6MBLiqJ1+aS/HPXuu0Q6202vFIzKRRgNiRciW
- ZzhXlCW7ao8P5W3Aptq1myXBVfNcACX8FTu9cJFIdjuDyf3PLDXpi/JO0/20SSzusmQX
- BKBw==
+ bh=VwgemlAWVZOfyfvrJ+7cyHmQGRLai3JgFnH6EFj5//k=;
+ b=J+kG4pKz42/YdJJVz002C9yKCExtx0PCf27l2h3xu/Mg+2RIeSXsBl24wma3Vulg1r
+ IbyJswq28A6gXZ+GHTW1WfwiOc61TFI44vn2O5V6ZPUZ/pNsiTL7BRY9DMagfuWQHOJm
+ KJ5sANRALvDJrZ5eJ+6C6SkouFKKK+EgQfu83WLmckoeoF/bm0LJZc3Tfm/uNfUs8aAu
+ DkLmG6icf1VG8gX8KK6fdSIqDMRUjZ6WH2nf2D3ohMu5XQTLORZ+fkE7nDPPgyed2272
+ 7psSDD4d/n5e1Web5Pjq/3FOTe8rNV6cEk8eNUy1lRS4GBt03OdK7VQ7Pf1rtVb4rWdH
+ Ey7A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+r9u+LmL4ZDpxLzEKivKRO9hamsF7xEJBa3kKSvATXSBC7uy1MS7KLDxGK3ADi2SiIovhXr0VExy0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwqVu0HvhxMKT2TPPNb5yFqBEJJAriA7mRr2MEANzeD1uMstkiZ
- WwSDzLLNoQSENW0mvcAI009c0wElyZTxHO5WiY3Byd3g77WictEMs+CRawzSCdtuqXc=
-X-Gm-Gg: AfdE7cmZ54jWsFcPqnopmSUE3Q92lfeCS5N68v5tHeZQwvEpt7MNTDh+XSLs6RpNuVW
- aoRTlPfO7reOG4QtwepGaRdwOLlDbpnN3vPCKNDmWRnoKRcddACY1Ot51CaoKxbLkj9B/UUAKCD
- gmOhs0VIJawiE/oHjboTZyqGI3zTGt0hy/PJ1QOe3WyNLrm+smkWdcDo234Rw+1rOUCTR8Rey42
- M6QFscrwVVrVs99ZljxxFjeAZ8i+qTu1RrG6NXC9cNNIr4EKjLmUfGNPMAUiALUX7JYKXNExpa0
- I8EWU7/3DviluZNdHGP7Xa5Yo0kBkncBkCCBCLRGyoYkoi3qgaPPVJkx+Ak3HLc2G9vfRK7xyYM
- K1wLWQYJyK5vXrh2Wf3p3lCqPeoF3TDeERJvtfH46C5nXEHinoiNA0FQQ38/DBQOtC/rd8IsrvR
- Cz/XFK1jq1NRHhqpZJ6bcgQJfA1E7sXPyR+itTr8dz3gsbcbWAA2pswgupHNXnTTdwgzVoQYimf
- z+00Fw=
-X-Received: by 2002:a05:620a:7002:b0:921:9df8:d38f with SMTP id
- af79cd13be357-92e62785c63mr1415985a.43.1782746852526; 
- Mon, 29 Jun 2026 08:27:32 -0700 (PDT)
+ AFNElJ9d8nkujOKMgIHpwxs6fHPCOkC7rCODohmhrRDSjosvICSTXRUbyRDsaWLx/JXAZ2E5bR2Awg73SGU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwHDL19PSXJPjIjRd82M6SQiEd1iMgu0/+fs6GvyC4f7Bvfk4Af
+ Q5zGfjYkrQMNDg2hu+4KYPVekbndV9WZD/Tval54DlfTXQqMBK+y5QKk26u1cyo8530=
+X-Gm-Gg: AfdE7cn3DPD105cBUGlp21SK4SoVrxu9YdclEAbhUUSnVLIasXYPwQU0THb7tkxG/5l
+ Ny2/G6miyIaAT5SVBi0wALLj3fiYQkyz9ntsT/QPiMycG39o/rLMz+u6vCauYI0Wb1wEDqigcab
+ e0wpxwju5aKGNpAtPqakC/bS9rugt5HiK3vNMGpTV4hYhsQa7hZmvo+wN2rw+CkAet7Q7gCCr7R
+ N+n92GYwU5r6Z6D/mgaGvu1o6eI0Phe4e5YBA/vg26CdwRfmi/Xmc2YHwQ74ulOUZplth5h9JjX
+ r0EutslsE7o129jM7QZhkSDBSInFb9pLoDjrcinRRJB31xn2GQYAm/tH4nwtV880/XyoX3sZU5U
+ koyq2SkgFP/+qjXetiJU9CVVJAFHeDP8TJreTUjfpxLME9tFlAnmkD6TLy6YkXEDQosgst1rTfD
+ 4pVWM4AXfovwprHDZ2djaJ6Aci9o27xhPfGy3G3TE1vDcSJpTV2OGOKXwvBiA7GHkACp2Y
+X-Received: by 2002:a05:622a:5987:b0:51b:f635:9aa1 with SMTP id
+ d75a77b69052e-51bf6359eadmr68650541cf.48.1782747619393; 
+ Mon, 29 Jun 2026 08:40:19 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F
  (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-92e621943b3sm7429785a.19.2026.06.29.08.27.30
+ d75a77b69052e-51a876c888bsm78114501cf.9.2026.06.29.08.40.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jun 2026 08:27:32 -0700 (PDT)
-Date: Mon, 29 Jun 2026 11:27:26 -0400
+ Mon, 29 Jun 2026 08:40:18 -0700 (PDT)
+Date: Mon, 29 Jun 2026 11:40:13 -0400
 From: Gregory Price <gourry@gourry.net>
 To: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>,
@@ -118,14 +117,15 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  damon@lists.linux.dev, Pedro Falcato <pfalcato@suse.de>,
  Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
  Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 01/30] mm: move vma_start_pgoff() into mm.h and clean up
-Message-ID: <akKO3vnNmWIJAZ7z@gourry-fedora-PF4VCD3F>
+Subject: Re: [PATCH 03/30] tools/testing/vma: use vma_start_pgoff() in merge
+ tests
+Message-ID: <akKR3bFV7393yOUs@gourry-fedora-PF4VCD3F>
 References: <cover.1782735110.git.ljs@kernel.org>
- <b28b698df4c009e85c4728446ca5863d8e633164.1782735110.git.ljs@kernel.org>
+ <b501eca378b9d9734e83838102aadc9276590fba.1782735110.git.ljs@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <b28b698df4c009e85c4728446ca5863d8e633164.1782735110.git.ljs@kernel.org>
+In-Reply-To: <b501eca378b9d9734e83838102aadc9276590fba.1782735110.git.ljs@kernel.org>
 X-Mailman-Approved-At: Tue, 30 Jun 2026 07:19:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,21 +142,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jun 29, 2026 at 01:23:12PM +0100, Lorenzo Stoakes wrote:
-> vma_last_pgoff() already lives there, so it's a bit odd to keep
-> vma_start_pgoff() in mm/interval_tree.c. Move them together.
-> 
-> These each return unsigned long, which pgoff_t is typedef'd to. Make this
-> consistent and have these functions return pgoff_t instead.
-> 
-> Additionally, express vma_last_pgoff() in terms of vma_start_pgoff(), since
-> we wrap the vma->vm_pgoff access, we may as well use it here.
-> 
-> Also while we're here, const-ify the VMA and cleanup a bit.
+On Mon, Jun 29, 2026 at 01:23:14PM +0100, Lorenzo Stoakes wrote:
+> Now we have the vma_start_pgoff() helper, update the merge tests to make
+> use of it for consistency.
 > 
 > No functional change intended.
 > 
 > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
-Reviewed-by: Gregory Price <gourry@gourry.net>
+Question: Should we have primitive tests for vma_*_pgoff() since
+the behavior changes depending on file/anon?
 
+Nice to have the cleanup and clarity. Maybe worth asserting no
+one ever breaks this.
+
+for this patch though
+
+Reviewed-by: Gregory Price <gourry@gourry.net>
