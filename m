@@ -4,77 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D733C43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6F83C43327
 	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 07:08:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2545710E712;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 437A610E70E;
 	Mon, 29 Jun 2026 07:08:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gurudas.dev header.i=@gurudas.dev header.b="Wn/fpinj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f55MKAY/";
 	dkim-atps=neutral
-X-Greylist: delayed 390 seconds by postgrey-1.36 at gabe;
- Mon, 29 Jun 2026 03:45:03 UTC
-Received: from out-21.smtp.spacemail.com (out-21.smtp.spacemail.com
- [66.29.159.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0787510E002
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 03:45:03 +0000 (UTC)
-Received: from [192.168.1.96] (107-194-158-19.lightspeed.sntcca.sbcglobal.net
- [107.194.158.19])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mail.spacemail.com (Postfix) with ESMTPSA id 4gpX7F3RH8z8sbD;
- Mon, 29 Jun 2026 03:38:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gurudas.dev;
- s=spacemail; t=1782704315;
- bh=+xTdES5iivUlujAb8S85lcbvOQK1iknw8m7NM0ttyH8=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Wn/fpinj+vbdRtvql+K6l/cdD/IQuxl+e8wa5bMUwtZjuwKBolSQ7MPAy/E7r34Vm
- JlNz056v097vPX0LzLgdqw2ChkZM2e+fJk8P/tSAAd2maOeMGg8lIAZF85c2zvHBDu
- VvjXDXzHnPpQjWCS+ByzEU1aJQsXP4SMkbdEEHVqG1BkAeoV2x9WC0P0K0Z+MjYOjS
- au8gLtLRrapdakIsP6VjyV1XxDwH+fWg+f5WXQGK+fiJCCeuiHfvVAww/GogX62e5/
- gE9EB44qcxIf7szuf9P8Mfi3D550P367GBwwZjyXTtADMoUywMT2GZh/cupjmsZoPi
- 3qRa8ft7LLoJA==
-From: Guru Das Srinagesh <linux@gurudas.dev>
-Date: Sun, 28 Jun 2026 20:38:18 -0700
-Subject: [PATCH 4/7] block: rnull: use vertical import style
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260628-b4-rust-vertical-imports-v1-4-98bc71d4810b@gurudas.dev>
-References: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev>
-In-Reply-To: <20260628-b4-rust-vertical-imports-v1-0-98bc71d4810b@gurudas.dev>
-To: Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Cc: Danilo Krummrich <dakr@kernel.org>, 
- Abdiel Janulgue <abdiel.janulgue@gmail.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, 
- Fu Wei <wefu@redhat.com>, Michal Wilczynski <m.wilczynski@samsung.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Jens Axboe <axboe@kernel.dk>, 
- FUJITA Tomonori <fujita.tomonori@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
- Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- driver-core@lists.linux.dev, linux-riscv@lists.infradead.org, 
- linux-pwm@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-block@vger.kernel.org, netdev@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Guru Das Srinagesh <linux@gurudas.dev>
-X-Mailer: b4 0.15.2
-X-Envelope-From: linux@gurudas.dev
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D145710E395
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 05:55:41 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-2c9b19bbaefso6917785ad.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 28 Jun 2026 22:55:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782712541; x=1783317341; darn=lists.freedesktop.org;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-transfer-encoding:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RKI4yMlcZvs6J82HVgvwX6K7+f1RH5e3pg8oR5A0QEk=;
+ b=f55MKAY/YK84zfOb4fcPrigWEQ7URvXWD3xiLBhDGmOQrCro1d7Ewa1GI4SptCOoQG
+ CiH98LUqdeaaPMi6VQZN5FGUQRwHaEcJIWhnV2BmET4/F99a1MCy/xmPDeO4GGUcS6Nx
+ UMG2jBBwG3pvHsvb0TDhohpRe7jJdf1pi1NWkyAFnXic/SmnDj2+6wo96wnldvfRzHar
+ s6kf723CqjYM7mulErMuNRuxNdl+bpiRgj3rk7ArRZH5hSLr2VKDFMvrsIbwDHmt4x4k
+ sy4m6+GFwjoXdouAJvVryH3YD4ty0PRtrYLts9/NulsgXYuz6pkhI0LbwyzIAhL/BAlv
+ evGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782712541; x=1783317341;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=RKI4yMlcZvs6J82HVgvwX6K7+f1RH5e3pg8oR5A0QEk=;
+ b=IGm+XlGwDdPY7dc79NVwWj9y+8qkl8s8S0Eel7Z49aPswTEmaswc601e5mVoO0ZO8P
+ iPpQ0kmfrWkFBTmcZ4lYQSaS14cVHrCOf/JvKtc4Wph/IZ/6lk/nkZNJ7P8tNCeG/Jpq
+ pSCLa+3YGwA8fMzyqxMbx4nMLC1cFY4vs7SfZ2bT9FXgJGqNgyCU6zfjJDFAOcJ8gBWz
+ X5kHqwXUpAw1msaVSBwXe1oSNbPYpIkdLlvH2YPewGq/9QUgIfJtCT0O3NPzYPccIEPR
+ I+0WKjwWfNsy8ca6BmyO2dsFLaXmJMWbeF482GgInMUE3+WP9vsPBIFTOqMLuKkgWjDq
+ BAkQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoXZG6d2eqYnUnOU6iRhC4uHyKkXMkYvkMTRPiSdw1lD7NfN+QtOJ2dGY5l7UsQdEJelniahNqKeB4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxzl9DlAprrQIHIsmm4SIhLeQrbx7B5ORwsFhFQG8SCcspurP4u
+ Kh2StuM36jpvnMd7f84fRVTtRtE5Fd4WSXxxXZt68WSm0PMGf7XAE5J9l4Q/CQ==
+X-Gm-Gg: AfdE7cnIVz8VjA8yxPsEUr0NjtFCTrna+XCOXI2SxJ5YByl4kBn9XWB32S1kILVUETc
+ +UQkqnmsAEH8jnNIYOmZKdYTCmC3dIgdw82JZ1UYSjPt4Sw7DN+ChNYLTTb3hbttSgPMZxB9h+V
+ Y7OAJDYgi7iC8m/yT9+5lKGIfsIWbOzOtIR5R+cilnFPSnTfY5qmw540UFpCuOPP1I3kI0ghMeG
+ QXvOjI0Tr1N4/wS2c+T+Q2c1pwlmfElZ8NM2LjNptdAn62iDNOfOwu0qcoFhkRskq2WF8/j1zsK
+ YrVe+8vcYbxp9oXCvuis9DBFXPJzbREdqgIxC8KYD3yIfPxeQ1djVlqpQOnyvJbi1rzVpnVKz+v
+ cijDcj4Na8cWXoH6ecUokRvWXQNfP6nQIdis2XNIig++LmfQpjk9OI0dIG8Tm3bLBjb2WIN8yNS
+ 8QxCdl7hx03RttO6Lp4BJjGY08/u96Qhd2Ko+noXArzeHGidfri9D6u3yJlEZ9cXiVOz0ngDgGl
+ +ekcVaTVYL6JFii9UrYQtqnGg8TXwNz0Zc/r901
+X-Received: by 2002:a17:902:cf03:b0:2c6:9f66:d57e with SMTP id
+ d9443c01a7336-2c7fc8ab2a8mr155882785ad.36.1782712541250; 
+ Sun, 28 Jun 2026 22:55:41 -0700 (PDT)
+Received: from localhost ([143.248.188.236]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2c9d886668esm26211825ad.58.2026.06.28.22.55.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 28 Jun 2026 22:55:40 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 29 Jun 2026 05:55:34 +0000
+Message-Id: <DJLAUOEDW6HT.39URSU30Z0HT9@gmail.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, =?utf-8?q?Nicol=C3=A1s_Antinori?=
+ <nico.antinori.7@gmail.com>, "David Airlie" <airlied@gmail.com>, "Shuah
+ Khan" <skhan@linuxfoundation.org>, "Simona Vetter" <simona@ffwll.ch>, "Gary
+ Guo" <gary@garyguo.net>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "Tamir Duberstein" <tamird@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Pedro Yudi Honda" <niyudi.honda@usp.br>, "SeungJong Ha"
+ <engineer.jjhama@gmail.com>, <linux-kernel@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <nova-gpu@lists.linux.de>
+Subject: Re: [PATCH 0/1] nova-core: Convert bindings to use zerocopy
+From: "SeungJong Ha" <engineer.jjhama@gmail.com>
+To: "Alistair Popple" <apopple@nvidia.com>, <acourbot@nvidia.com>
+X-Mailer: aerc 0.21.0
+References: <20260629025220.1935622-1-apopple@nvidia.com>
+In-Reply-To: <20260629025220.1935622-1-apopple@nvidia.com>
 X-Mailman-Approved-At: Mon, 29 Jun 2026 07:07:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,78 +99,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Convert `use` imports to vertical layout for better readability and
-maintainability.
+On Mon Jun 29, 2026 at 2:52 AM UTC, Alistair Popple wrote:
+> Given the inevitable conflicts that will arise from trying to merge sever=
+al
+> different series doing bits of the same thing I'm happy if someone wants =
+to take
+> this patch and the others and roll them into a single series. Alternative=
+ly I am
+> happy to take that on - hopefully Alex can provide some guidance here for=
+ what
+> would be preferred.
 
-Signed-off-by: Guru Das Srinagesh <linux@gurudas.dev>
----
- drivers/block/rnull/configfs.rs | 20 ++++++++++++++++----
- drivers/block/rnull/rnull.rs    | 13 ++++++++++---
- 2 files changed, 26 insertions(+), 7 deletions(-)
+Agreed it should be one series. Happy to help or fold in my part --
+whatever Alex prefers.
 
-diff --git a/drivers/block/rnull/configfs.rs b/drivers/block/rnull/configfs.rs
-index 7c2eb5c0b722..07ce21a44081 100644
---- a/drivers/block/rnull/configfs.rs
-+++ b/drivers/block/rnull/configfs.rs
-@@ -2,14 +2,26 @@
- 
- use super::{NullBlkDevice, THIS_MODULE};
- use kernel::{
--    block::mq::gen_disk::{GenDisk, GenDiskBuilder},
--    configfs::{self, AttributeOperations},
-+    block::mq::gen_disk::{
-+        GenDisk,
-+        GenDiskBuilder, //
-+    },
-+    configfs::{
-+        self,
-+        AttributeOperations, //
-+    },
-     configfs_attrs,
--    fmt::{self, Write as _},
-+    fmt::{
-+        self,
-+        Write as _, //
-+    },
-     new_mutex,
-     page::PAGE_SIZE,
-     prelude::*,
--    str::{kstrtobool_bytes, CString},
-+    str::{
-+        kstrtobool_bytes,
-+        CString, //
-+    },
-     sync::Mutex,
- };
- 
-diff --git a/drivers/block/rnull/rnull.rs b/drivers/block/rnull/rnull.rs
-index 0ca8715febe8..d58d2c4c5f63 100644
---- a/drivers/block/rnull/rnull.rs
-+++ b/drivers/block/rnull/rnull.rs
-@@ -10,12 +10,19 @@
-         self,
-         mq::{
-             self,
--            gen_disk::{self, GenDisk},
--            Operations, TagSet,
-+            gen_disk::{
-+                self,
-+                GenDisk, //
-+            },
-+            Operations,
-+            TagSet, //
-         },
-     },
-     prelude::*,
--    sync::{aref::ARef, Arc},
-+    sync::{
-+        aref::ARef,
-+        Arc, //
-+    },
- };
- 
- module! {
-
--- 
-2.54.0
+Best regards,
+SeungJong
 
