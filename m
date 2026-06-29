@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83C8CC43327
-	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 10:40:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99A79C43458
+	for <dri-devel@archiver.kernel.org>; Mon, 29 Jun 2026 10:40:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D515810E80B;
-	Mon, 29 Jun 2026 10:40:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A47810E822;
+	Mon, 29 Jun 2026 10:40:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j8k6dQtW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FTRcHEnd";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAE1F10E80B
- for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 10:40:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB16A10E80E
+ for <dri-devel@lists.freedesktop.org>; Mon, 29 Jun 2026 10:40:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1291B4376D;
+ by sea.source.kernel.org (Postfix) with ESMTP id B4FD9432A3;
+ Mon, 29 Jun 2026 10:40:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618191F00A3A;
  Mon, 29 Jun 2026 10:40:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B25471F000E9;
- Mon, 29 Jun 2026 10:40:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782729648;
- bh=e4CJr+Rttc5tORlmqCxSyqpExr+08QeOgr/xICyMK2o=;
- h=From:To:Cc:Subject:Date;
- b=j8k6dQtW9tSFlSk3+dfOauWTBKYOkxlc+Vxt/L3EVerOP1ADLVqgxVmC1hu7LyntJ
- OML74/3SDJvikAsMK8DB4CTQiVJLl4z+YhHWAJE0N4DcwD+orBTBXi/95ISs6+9uEO
- Kk/oxnUp59SQNXnX8DrMp0mvJAuJaRAwLEsRsx8vcVJwZThUhHnHIKczXwrTaEdHcO
- kMoyVMV/WFW51jwPSz41tssW0HxrM2xkYbyKR9+BLm7Zz0J6PzqbbJEjAzwdMwB1MF
- GeZYXSSuQaGG0h+yd43JR8knxCPsUiE22E0wdYn9EktFDxKquPa+n0ZmnwHzp0+wxF
- NbhA3OS5s+YZw==
+ s=k20260515; t=1782729650;
+ bh=BNR91HuruOnHavdjUljqtyXHMBNtoJ01dkm89Xgz4aU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=FTRcHEnduaIJhlg8wxOeuDzRaEMjhvg9wAAkhV7ED98Ed/xv3rAK1ffIgeZMe3zVT
+ lgqX+5leO789VvUF8LlRSU538O9RYCbRA8KvIyUdIlVirqEIMe/xER5J2JpIq0Xuid
+ TlNCQeKQF2jNtekdpPbeP7vcHnsyexjFjZ1kxHX5+9CoQSY6lYskBb/6h5SCJePPn4
+ JOZzMLSJe4oV4X58gkRn/aGuEIBEhagn7B1fWbmwhABEZ3qdB2+Ta66cX6xw6oL+En
+ AJlpldEZBPM7yDMzimvyiPOZs84OPLCppNQDVfeJqhr8NgqmxKWTaGIDdkbFrcjGug
+ hk3vXLPpYx6sQ==
 From: Philipp Stanner <phasta@kernel.org>
 To: Matthew Brost <matthew.brost@intel.com>,
  Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
@@ -40,10 +40,12 @@ To: Matthew Brost <matthew.brost@intel.com>,
  Simona Vetter <simona@ffwll.ch>
 Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] drm/sched: Guard sched->ready with ACCESS_ONCE()
-Date: Mon, 29 Jun 2026 12:40:40 +0200
-Message-ID: <20260629104040.2695163-2-phasta@kernel.org>
+Subject: [PATCH 2/2] drm/sched: Deprecate drm_sched_wqueue_ready()
+Date: Mon, 29 Jun 2026 12:40:41 +0200
+Message-ID: <20260629104040.2695163-3-phasta@kernel.org>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260629104040.2695163-2-phasta@kernel.org>
+References: <20260629104040.2695163-2-phasta@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -61,70 +63,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+drm_sched_wqueue_ready() stems from an old rework, see
+
 commit faf6e1a87e07 ("drm/sched: Add boolean to mark if sched is ready to work v5")
 
-moved tracking of the hardware ring's state from the driver (amdgpu in
-that case) into drm_sched. To do so, it added a 'ready' flag to the
-scheduler.
+That commit moved tracking of the hardware ring's state was moved into
+drm_sched.
 
-This flag is currently being accessed through drm_sched_wqueue_ready()
-and, even worse, directly through the scheduler struct. Since drm_sched
-does not have a consistent locking design, all these accesses are
-potentially undefined behavior as they are subject to compiler
-optimizations.
+This is highly racy and problematic and something that should most
+certainly be covered by the driver.
 
-Make the code base more robust by guarding access to the 'ready' flag
-with ACCESS_ONCE().
+Deprecate drm_sched_wqueue_ready().
 
 Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/scheduler/sched_main.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index d2ca01b31ee4..c4e4ac436a86 100644
+index c4e4ac436a86..35a7892c8dc8 100644
 --- a/drivers/gpu/drm/scheduler/sched_main.c
 +++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -929,7 +929,7 @@ drm_sched_pick_best(struct drm_gpu_scheduler **sched_list,
- 	for (i = 0; i < num_sched_list; ++i) {
- 		sched = sched_list[i];
+@@ -1198,10 +1198,14 @@ void drm_sched_increase_karma(struct drm_sched_job *bad)
+ EXPORT_SYMBOL(drm_sched_increase_karma);
  
--		if (!sched->ready) {
-+		if (!READ_ONCE(sched->ready)) {
- 			DRM_WARN("scheduler %s is not ready, skipping",
- 				 sched->name);
- 			continue;
-@@ -1143,7 +1143,18 @@ void drm_sched_fini(struct drm_gpu_scheduler *sched)
- 
- 	if (sched->own_submit_wq)
- 		destroy_workqueue(sched->submit_wq);
--	sched->ready = false;
-+
-+	/* The 'ready' flag only exists in drm_sched because amdgpu uses it to
-+	 * represent the state of its hardware rings. This problem is related to
-+	 * the fundamental issue of drm_sched not having a solid, consistent
-+	 * locking design.
-+	 *
-+	 * Obviously, it does not make sense at all to set this flag to false
-+	 * here, but since it's unclear whether it can ever be removed from
-+	 * amdgpu's point of view, we guard it here with WRITE_ONCE() to make it
-+	 * slightly less broken.
-+	 */
-+	WRITE_ONCE(sched->ready, false);
- 
- 	if (!list_empty(&sched->pending_list))
- 		dev_warn(sched->dev, "Tearing down scheduler while jobs are pending!\n");
-@@ -1195,7 +1206,7 @@ EXPORT_SYMBOL(drm_sched_increase_karma);
+ /**
+- * drm_sched_wqueue_ready - Is the scheduler ready for submission
++ * drm_sched_wqueue_ready - Is the scheduler ready for submission (DEPRECATED)
+  *
+  * @sched: scheduler instance
+  *
++ * Deprecated, don't use it in new code. This function was added to have the
++ * scheduler represent the hardware ring's state, which must be represented by
++ * the driver's respective data structures.
++ *
+  * Returns true if submission is ready
   */
  bool drm_sched_wqueue_ready(struct drm_gpu_scheduler *sched)
- {
--	return sched->ready;
-+	return READ_ONCE(sched->ready);
- }
- EXPORT_SYMBOL(drm_sched_wqueue_ready);
- 
-
-base-commit: 6648301c5bb2ef23f0fb15bcb01d21ff66f36799
 -- 
 2.54.0
 
